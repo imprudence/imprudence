@@ -389,22 +389,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llv4math.h"
-				>
-			</File>
-			<File
-				RelativePath=".\llv4matrix3.h"
-				>
-			</File>
-			<File
-				RelativePath=".\llv4matrix4.h"
-				>
-			</File>
-			<File
-				RelativePath=".\llv4vector3.h"
-				>
-			</File>
-			<File
 				RelativePath=".\llvolume.h"
 				>
 			</File>

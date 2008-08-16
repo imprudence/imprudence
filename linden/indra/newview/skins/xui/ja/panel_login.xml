@@ -4,36 +4,36 @@
 		http://secondlife.com/app/login/
 	</text>
 	<text name="first_name_text">
-		名:
+		ファーストネーム：
 	</text>
 	<text name="last_name_text">
-		姓:
+		ラストネーム：
 	</text>
 	<text name="password_text">
-		パスワード:
+		パスワード：
 	</text>
 	<text name="start_location_text">
-		開始位置:
+		開始ロケーション：
 	</text>
 	<combo_box name="start_location_combo">
 		<combo_item name="MyHome">
-			私のホーム
+			自宅（ホーム）
 		</combo_item>
 		<combo_item name="MyLastLocation">
-			私の最後の位置
+			最後のロケーション
 		</combo_item>
-		<combo_item name="&lt;Typeregionname&gt;">
-			&lt;Type region name&gt;
+		<combo_item name="Typeregionname">
+			&lt;地域の名前入力&gt;
 		</combo_item>
 	</combo_box>
-	<check_box label="パスワードを記憶する" name="remember_check" />
+	<check_box label="パスワードを記憶" name="remember_check" />
 	<text name="full_screen_text">
-		ビューワーはログインした時にフルスクリーンで表示されます。
+		ログイン時にはフルスクリーン表示になります
 	</text>
-	<button label="新しいアカウント..."
-	     label_selected="新しいアカウント..." name="new_account_btn" />
+	<button label="新規アカウント..." label_selected="新規アカウント..."
+	     name="new_account_btn" />
+	<button label="環境設定..." label_selected="環境設定..." name="preferences_btn" />
 	<button label="接続" label_selected="接続" name="connect_btn" />
-	<button label="好み..." label_selected="好み..." name="preferences_btn" />
 	<button label="終了" label_selected="終了" name="quit_btn" />
 	<text name="version_text">
 		1.23.4 (5)

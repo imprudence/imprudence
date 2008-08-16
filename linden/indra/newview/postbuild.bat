@@ -110,5 +110,10 @@ copy ..\..\libraries\i686-win32\lib_release\xul.dll				.\ReleaseForDownload\ /y
 )
 
 goto end
+:BuildFailed
+echo POSTBUILD FAILED
+exit 1
+:end
+echo POSTBUILD SUCCESSFUL
 
 :end

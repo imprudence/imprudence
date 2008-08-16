@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="メンバーと役割" name="roles_tab">
 	<text name="default_needs_apply_text">
-		現在のサブ･タブにおける未適用の変更があります。
+		現在のサブタブに、未適用の変更があります。
 	</text>
 	<text name="want_apply_text">
 		これらの変更を適用しますか？
 	</text>
 	<text name="cant_delete_role">
-		『全員』と『オーナー』の役割は、特別なため削除することができません。
+		「全員」と「オーナー」は特別な役割なので、削除できません。
 	</text>
 	<button label="?" name="help_button" />
 	<panel name="members_header">
@@ -15,7 +15,8 @@
 			メンバーと役割
 		</text>
 		<text name="static2">
-			グループメンバーは、アビリティとともに役割が割り当てられます。これらの設定は、さらに大きな組織のために柔軟性をもたせ、簡単にカスタマイズすることもできます。
+			グループ・メンバーには、役割と能力が割り当てられます。 この設定は、
+組織の規模に応じて柔軟かつ容易にカスタマイズできます。
 		</text>
 	</panel>
 	<panel name="roles_header">
@@ -23,80 +24,87 @@
 			役割
 		</text>
 		<text name="role_properties_modifiable">
-			下記の役割を選択してください。名前、説明、メンバーのタイトルを修正することができます。
+			下にある役割を選択してください。  役割の名前、説明、メンバー・タイトルを修正することができます。
 		</text>
 		<text name="role_properties_not_modifiable">
-			不動産、メンバー、および許可されたアビリティを見るには、下記の役割を選択してください
+			下にある役割を選択すると、役割のプロパティ、メンバー、および許可された能力を確認できます。
 		</text>
 		<text name="role_actions_modifiable">
-			役割にアビリティを割り当てることもできます。
+			あなたは役割に能力を割り当てることもできます。
 		</text>
 		<text name="role_actions_not_modifiable">
-			割り当てられたアビリティの閲覧は可能ですが、修正はできません。
+			あなたは能力を表示することはできますが、修正したり割り当てることはできません。
 		</text>
 	</panel>
 	<panel name="actions_header">
 		<text name="static">
-			アビリティ
+			能力
 		</text>
 		<text name="static2">
-			アビリティの説明、また、どの役割およびメンバーがそのアビリティを実行できるかを閲覧することができます。
+			能力の説明、どの役割とメンバーがその能力を実行できるかを
+表示できます。
 		</text>
 	</panel>
 	<tab_container name="roles_tab_container">
 		<panel label="メンバー" name="members_sub_tab" tool_tip="Members">
 			<button label="検索" name="search_button" />
-			<button label="全てを表示" name="show_all_button" />
+			<button label="すべてを表示" name="show_all_button" />
 			<name_list name="member_list">
-				<column label="Member Name" name="name" />
+				<column label="メンバー名" name="name" />
 				<column label="Donated Tier" name="donated" />
-				<column label="Last Login" name="online" />
+				<column label="前回のログイン" name="online" />
 			</name_list>
-			<button label="新しい人を招待" name="member_invite" />
+			<button label="新しい人を招待..." name="member_invite" />
 			<button label="グループから追放" name="member_eject" />
 			<text name="help_text">
-				コントロールキーを押したまま名前をクリックすることにより、メンバーに割り当てた役割を追加したり、外したり、または、複数のメンバーを選択することができます。
+				あなたはメンバーに割り当てられた役割を付加、削除できます。 
+				Ctrlキーを押しながらメンバー名をクリックすると
+				複数の人を選択できます。
 			</text>
 		</panel>
 		<panel label="役割" name="roles_sub_tab">
 			<button label="検索" name="search_button" />
-			<button label="全てを表示" name="show_all_button" />
+			<button label="すべてを表示" name="show_all_button" />
 			<scroll_list name="role_list">
-				<column label="Role Name" name="name" />
+				<column label="役割名" name="name" />
 				<column label="Title" name="title" />
-				<column label="Members" name="members" />
+				<column label="メンバー" name="members" />
 			</scroll_list>
-			<button label="新しい役割の作成" name="role_create" />
+			<button label="新しい役割を作成..." name="role_create" />
 			<button label="役割を削除" name="role_delete" />
 			<text name="help_text">
-				役割には、タイトルと行使できるアビリティのリストがあります。メンバーは、一つ以上の役割に属することができます。一つのグループは、『全員』と『オーナー』の役割を含んだ10の役割を持つことができます。
+				役割にはタイトルがあり、メンバーが行使可能な
+能力のリストが定義されます。 メンバーは、
+1つまたは複数の役割に属することができます。 1つのグループに対し、
+「全員」と「オーナー」の役割を含めて最高で10の役割を持たせることができます。
 			</text>
 		</panel>
-		<panel label="アビリティ" name="actions_sub_tab">
+		<panel label="能力" name="actions_sub_tab">
 			<button label="検索" name="search_button" />
-			<button label="全てを表示" name="show_all_button" />
-			<scroll_list name="action_list" tool_tip="Select an Ability to view more details.">
+			<button label="すべてを表示" name="show_all_button" />
+			<scroll_list name="action_list" tool_tip="能力を選択して詳細を表示します。">
 				<column label="" name="icon" />
 				<column label="" name="action" />
 			</scroll_list>
 			<text name="help_text">
-				アビリティは、グループ内で役割のあるメンバーの、特定の操作を可能にします。幅広いバラエティのアビリティが用意されています。
+				このグループ内で役割を与えられているメンバーが実行できる操作は、
+能力によって決まります。 さまざまな能力が用意されています。
 			</text>
 		</panel>
 	</tab_container>
 	<panel name="members_footer">
 		<text name="static">
-			割り当てられた役割
+			割当られた役割
 		</text>
 		<text name="static2">
-			許可されたアビリティ
+			許可された能力
 		</text>
 		<scroll_list name="member_assigned_roles">
 			<column label="" name="checkbox" />
 			<column label="" name="role" />
 		</scroll_list>
 		<scroll_list name="member_allowed_actions"
-		     tool_tip="For Details of each Allowed Ability see the Abilities tab.">
+		     tool_tip="許可された能力の詳細は「能力」タブをご覧ください。">
 			<column label="" name="icon" />
 			<column label="" name="action" />
 		</scroll_list>
@@ -106,13 +114,13 @@
 			名前
 		</text>
 		<text name="static2">
-			説明：
+			説明
 		</text>
 		<line_editor name="role_name">
 			従業員
 		</line_editor>
 		<text name="static3">
-			タイトル
+			肩書き
 		</text>
 		<line_editor name="role_title">
 			（待機中）
@@ -121,16 +129,16 @@
 			（待機中）
 		</text_editor>
 		<text name="static4">
-			任命されたメンバー
+			割当られたメンバー
 		</text>
 		<text name="static5"
-		     tool_tip="現在選択されている役割が遂行する可能なアビリティのリスト">
-			許可されたアビリティ
+		     tool_tip="現在選択されている役割で実行できる能力のリスト">
+			許可された能力
 		</text>
 		<check_box label="メンバーが可視状態" name="role_visible_in_list"
-		     tool_tip="Sets whether members of this role are visible in the General tab   to people outside of the group." />
+		     tool_tip="この役割のメンバーをグループ外の人の一般タブに表示するかどうかを設定します。" />
 		<scroll_list name="role_allowed_actions"
-		     tool_tip="For Details of each Allowed Ability see the Abilities tab.">
+		     tool_tip="許可された能力の詳細は「能力」タブをご覧ください。">
 			<column label="" name="icon" />
 			<column label="" name="checkbox" />
 			<column label="" name="action" />
@@ -138,16 +146,16 @@
 	</panel>
 	<panel name="actions_footer">
 		<text name="static">
-			説明：
+			説明
 		</text>
 		<text_editor name="action_description">
-			これは『グループからメンバーを追放』のアビリティです。オーナーのみ、他のオーナーを追放できます。
+			これは「グループからメンバーを追放する」能力です。 オーナーを追放できるのは、別のオーナーだけです。
 		</text_editor>
 		<text name="static2">
-			アビリティを伴う役割
+			役割と能力
 		</text>
 		<text name="static3">
-			アビリティのあるメンバー
+			能力のあるメンバー
 		</text>
 	</panel>
 </panel>

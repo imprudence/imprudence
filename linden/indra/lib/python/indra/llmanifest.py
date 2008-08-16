@@ -3,7 +3,7 @@
 # @author Ryan Williams
 # @brief Library for specifying operations on a set of files.
 #
-# Copyright (c) 2006-2007, Linden Research, Inc.
+# Copyright (c) 2007-2007, Linden Research, Inc.
 # 
 # Second Life Viewer Source Code
 # The source code in this file ("Source Code") is provided by Linden Lab

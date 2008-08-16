@@ -304,33 +304,12 @@ LLCPUInfo::LLCPUInfo()
 {
 	CProcessor proc;
 	const ProcessorInfo* info = proc.GetCPUInfo();
-	// proc.WriteInfoTextFile("procInfo.txt");
-	mHasSSE = info->_Ext.SSE_StreamingSIMD_Extensions;
-	mHasSSE2 = info->_Ext.SSE2_StreamingSIMD2_Extensions;
-	mHasAltivec = info->_Ext.Altivec_Extensions;
+	mHasSSE = (info->_Ext.SSE_StreamingSIMD_Extensions != 0);
+	mHasSSE2 = (info->_Ext.SSE2_StreamingSIMD2_Extensions != 0);
 	mCPUMhz = (S32)(proc.GetCPUFrequency(50)/1000000.0);
 	mFamily.assign( info->strFamily );
 }
 
-bool LLCPUInfo::hasAltivec() const
-{
-	return mHasAltivec;
-}
-
-bool LLCPUInfo::hasSSE() const
-{
-	return mHasSSE;
-}
-
-bool LLCPUInfo::hasSSE2() const
-{
-	return mHasSSE2;
-}
-
-S32 LLCPUInfo::getMhz() const
-{
-	return mCPUMhz;
-}
 
 std::string LLCPUInfo::getCPUString() const
 {

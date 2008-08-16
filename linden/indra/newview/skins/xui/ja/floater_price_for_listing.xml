@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="price_for_listing" title="案内広告の表示">
+<floater name="price_for_listing" title="クラシファイド広告掲載">
 	<text name="explanation_text">
-		あなたの案内広告はそれが表示された日付
-から一週間乗ります。
+		クラシファイド広告は1週間に
+わたり、掲載されます。 
  
-案内広告リストでのあなたの広告の位置は
-あなたがいくら支払うことを選択したかに関わります。
-最も高く支払われた広告はリストのトップに行き、
-そして検索でもより頻繁に現れます。
+広告の掲載順は、支払う広告料に 
+よります。広告料が最も高い広告が
+最初に掲載され、検索結果でも
+上位に表示されます。
 	</text>
 	<text name="price_text">
-		広告用の価格(L$):
+		広告料金（L$）：
 	</text>
 	<button label="価格を設定" name="set_price_btn" />
-	<button label="取消" name="cancel_btn" />
+	<button label="取り消し" name="cancel_btn" />
 </floater>

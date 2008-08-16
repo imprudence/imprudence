@@ -1,19 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="friends" title="友達">
-	<button label="プロファイル..." name="profile_btn"
-	     tool_tip="写真、グループ、およびその他の情報を表示します。" />
-	<button label="テレポートを提供する..." name="offer_teleport_btn"
-	     tool_tip="このフレンドに、あなたの現在のロケーションまでのテレポートを申し出ます。" />
+<floater name="friends" title="フレンド">
+	<scroll_list name="friend_list"
+	     tool_tip="Shiftキーまたは Control　キーを押しながら複数のフレンドをクリックして選択する">
+		<column label="名前" name="friend_name" />
+	</scroll_list>
+	<panel name="rights_container">
+		<text name="friend_name_label">
+			フレンドを選択して権限を変更...
+		</text>
+		<check_box label="オンライン・ステータスの確認を許可する"
+		     name="online_status_cb"
+		     tool_tip="あなたのオンライン・ステータスをこのフレンドがコーリング・カードまたはフレンド・リストで確認できるようにするかどうかを指定" />
+		<check_box label="自分を地図の上に示す" name="map_status_cb"
+		     tool_tip="あなたのロケーションをこのフレンドが地図上で確認できるようにするかどうかを指定" />
+		<check_box label="オブジェクトの修正を許可する" name="modify_status_cb"
+		     tool_tip="このフレンドにオブジェクトの修正を許可するかどうかを指定" />
+		<text name="process_rights_label">
+			権限の変更処理中...
+		</text>
+	</panel>
+	<button label="IM" name="im_btn"
+	     tool_tip="インスタント・メッセージを開始" />
+	<button label="ﾃﾚﾎﾟｰﾄ" name="offer_teleport_btn"
+	     tool_tip="このフレンドに、あなたの現在のロケーションへのテレポートを贈ります。" />
 	<button label="追加..." name="add_btn"
-	     tool_tip="居住者にフレンドシップを申請します。" />
+	     tool_tip="住人にフレンドシップを贈ります。" />
+	<button label="ﾌﾟﾛﾌｨｰﾙ" name="profile_btn"
+	     tool_tip="写真、グループ、およびその他の情報を表示" />
 	<button label="支払い..." name="pay_btn"
-	     tool_tip="この友人にLindenドル(L$)を与える" />
-	<button label="取り除く..." name="remove_btn"
-	     tool_tip="この人物をフレンドリストから外します。" />
-	<button label="IM..." name="im_btn"
-	     tool_tip="インスタント・メッセージを開始します。" />
-	<button label="Modify Rightsを与える..." name="grant_btn"
-	     tool_tip="あなたのオブジェクトの修正をこのユーザに許可します。" />
-	<button label="修正権を無効にする" name="revoke_btn"
-	     tool_tip="あなたのオブジェクトの修正をこのユーザに許可します。" />
+	     tool_tip="リンデン・ドル（L$）をフレンドに贈る" />
+	<button label="削除..." name="remove_btn"
+	     tool_tip="この人物をフレンド・リストから削除" />
 </floater>

@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Preferences" title="嗜好">
-	<button label="…に関して" label_selected="…に関して" name="About..." />
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Preferences" title="環境設定">
 	<button label="OK" label_selected="OK" name="OK" />
-	<button label="取消" label_selected="取消" name="Cancel" />
+	<button label="取り消し" label_selected="取り消し" name="Cancel" />
 	<button label="適用" label_selected="適用" name="Apply" />
+	<button label="詳細情報" label_selected="詳細情報"
+	     name="About..." />
 </floater>

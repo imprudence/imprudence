@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="Allgemein" name="general_panel">
-	<check_box label="Startposition auf Anmeldungsbildschirm anzeigen"
+	<combo_box name="location_combobox">
+		<combo_item name="MyHome">
+			Mein Zuhause
+		</combo_item>
+		<combo_item name="MyLastLocation">
+			Letzter Aufenthaltsort
+		</combo_item>
+	</combo_box>
+	<check_box label="Startposition auf Anmeldesbildschirm anzeigen"
 	     name="show_location_checkbox" />
 	<check_box label="Meinen Namen auf meinem Bildschirm ausblenden"
 	     name="show_my_name_checkbox" />
 	<check_box label="Meinen Gruppentitel ausblenden" name="show_my_title_checkbox" />
-	<check_box label="Kleine Avatarnamen" name="small_avatar_names_checkbox" />
+	<check_box label="Kleine Schrift für Avatarnamen" name="small_avatar_names_checkbox" />
 	<check_box label="Online-Freundbenachrichtigungen anzeigen"
 	     name="friends_online_notify_checkbox" />
 	<check_box label="Minikarte drehen" name="rotate_mini_map_checkbox" />
-	<check_box label="Benachrichtigen, wenn Linden-Dollar (L$) ausgegeben oder erhalten"
+	<check_box label="Benachrichtigung bei Änderung des Kontostands (L$)"
 	     name="notify_money_change_checkbox" />
-	<check_box label="Grafikhardware beim nächsten Start automatisch erfassen"
-	     name="probe_hardware_checkbox"
-	     tool_tip="Second Life konfiguriert automatisch einige Grafikeinstellungen anhand Ihrer Hardware.  Wenn Sie neue Hardware installieren, sollten Sie sie von Second Life erfassen lassen." />
+	<check_box label="Vorschau für Notizen, Texturen und Landmarken"
+		name="show_new_inventory"
+		tool_tip="Wenn Sie eine Notiz, Textur oder Landmarke erhalten, kann Second Life Ihnen automatisch eine Vorschau dieses Objektes anzeigen. Das kann bei Transfers von vielen Objekten gleichzeitig dazu führen, daß sehr viele Fenster auf dem Bildschirm geöffnet werden. Mit dieser Option können Sie beeinflussen, ob Sie die automatische Vorschau haben wollen, oder nicht." />
 	<check_box label="Standardsystem-Farbauswahl verwenden"
 	     name="use_system_color_picker_checkbox"
 	     tool_tip="Standardsystem-Farbauswahl anstatt der in Second Life integrierten verwenden." />
@@ -24,26 +32,26 @@
 		Namen anzeigen:
 	</text>
 	<text type="string" length="1" name="effects_color_textbox">
-		Farbe für meine Effekte:
+		Meine Effektfarbe:
 	</text>
 	<text type="string" length="1" name="seconds_textbox">
 		Sekunden
 	</text>
 	<text type="string" length="1" name="crash_report_textbox">
-		Crash-Berichte:
+		Absturzberichte:
 	</text>
 	<text type="string" length="1" name="language_textbox">
 		Sprache:
 	</text>
 	<text type="string" length="1" name="language_textbox2">
-		(Erfordert für vollen Effekt Neustart)
+		(Erfordert Programmneustart)
 	</text>
 	<radio_group name="fade_out_radio">
 		<radio_item type="string" length="1" name="Never">
 			Nie
 		</radio_item>
 		<radio_item type="string" length="1" name="Temporarily">
-			Temporär anzeigen
+			Für eine kurze Zeit
 		</radio_item>
 		<radio_item type="string" length="1" name="Always">
 			Immer
@@ -51,7 +59,7 @@
 	</radio_group>
 	<color_swatch label="" name="effect_color_swatch"
 	     tool_tip="Klicken, um Farbauswahl zu öffnen" />
-	<spinner label="Weg-Timeout:" name="afk_timeout_spinner" />
+	<spinner label="Abwesend nach:" name="afk_timeout_spinner" />
 	<text name="region_name_prompt">
 		&lt;Regionsnamen eingeben&gt;
 	</text>
@@ -67,20 +75,32 @@
 		</combo_item>
 	</combo_box>
 	<combo_box name="language_combobox">
+		<combo_item type="string" length="1" name="System Default Language">
+			Systemstandard
+		</combo_item>
 		<combo_item type="string" length="1" name="English">
 			Englisch (English)
 		</combo_item>
+		<combo_item type="string" length="1" name="Chinese">
+			Chinesisch (Chinese)
+		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
-			Deutsch (German)
+  			Deutsch (German)
+		</combo_item>
+		<combo_item type="string" length="1" name="French">
+			Französisch (Français)
 		</combo_item>
 		<combo_item type="string" length="1" name="(Japanese)">
-			日本語 (Japanese)
+			Japanisch (日本語)
 		</combo_item>
 		<combo_item type="string" length="1" name="(Korean)">
-			한국어 (Korean)
+			Koreanisch (한국어)
 		</combo_item>
-		<combo_item type="string" length="1" name="Chinese">
-			Chinesisch
+		<combo_item type="string" length="1" name="Portugese">
+			Portugiesisch (Português)
+		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="Spanish" value="es">
+			Spanisch (Español)
 		</combo_item>
 	</combo_box>
 </panel>

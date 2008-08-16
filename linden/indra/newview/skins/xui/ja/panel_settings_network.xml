@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="network" title="ネットワーク">
 	<text>
-		M最大バンド幅
+		最大帯域幅：
 	</text>
 	<slider label="" name="max_bandwidth" />
 	<text>
-		kbps (毎秒ｋビット)
+		Kbps
 	</text>
 	<text>
-		デスクシャシーサイズ
+		ディスク・キャッシュのサイズ：
 	</text>
 	<radio_group name="disk cache">
 		<radio_item>
-			50 MB
+			50MB
 		</radio_item>
 		<radio_item>
-			200 MB
+			200MB
 		</radio_item>
 		<radio_item>
-			500 MB
+			500MB
 		</radio_item>
 		<radio_item>
-			1000 MB
+			100MB
 		</radio_item>
 	</radio_group>
-	<button label="キャッシュを消す" name="clear_cache" />
+	<button label="クリア" name="clear_cache" />
 	<text>
-		プロキシの構成:
+		プロキシー構成：
 	</text>
 	<check_box label="プロキシを使用" name="proxy_enabled"
-	     tool_tip="プロキシ構成を指定する" />
+	     tool_tip="プロキシーの構成を指定" />
 	<text>
-		プロキシ:
+		プロキシー：
 	</text>
 	<line_editor name="proxy_address"
-	     tool_tip="あなたが使用したいプロキシの名前あるいはIPアドレス" />
+	     tool_tip="使用するプロキシの名前またはIPアドレス" />
 	<text>
-		ポート:
+		ポート：
 	</text>
-	<line_editor name="proxy_port"
-	     tool_tip="あなたが使用したいプロキシのポート番号" />
+	<line_editor name="proxy_port" tool_tip="使用するプロキシのポート番号" />
 	<text>
-		ソックス:
+		靴下：
 	</text>
 	<radio_group name="socks_4_5">
 		<radio_item>
-			Socks v4
+			靴下v4
 		</radio_item>
 		<radio_item>
-			Socks v5
+			靴下v5
 		</radio_item>
 	</radio_group>
 	<text>
-		プロキシなし:
+		プロキシーがありません：
 	</text>
 	<line_editor name="proxy_exclusions"
-	     tool_tip="あなたが使用したいプロキシの名前あるいはIPアドレス" />
+	     tool_tip="プロキシを使用しない名前またはIPアドレス" />
 </panel>

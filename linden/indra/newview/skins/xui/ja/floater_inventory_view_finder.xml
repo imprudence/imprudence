@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Inventory Finder" title="持ち物_最近のアイテム">
+<floater name="Inventory Finder" title="inventory_recent_items">
 	<check_box label="アニメーション" name="check_animation" />
-	<check_box label="名刺" name="check_calling_card" />
-	<check_box label="衣類" name="check_clothing" />
+	<check_box label="コーリング・カード" name="check_calling_card" />
+	<check_box label="服" name="check_clothing" />
 	<check_box label="ジェスチャー" name="check_gesture" />
 	<check_box label="ランドマーク" name="check_landmark" />
 	<check_box label="ノートカード" name="check_notecard" />
@@ -11,14 +11,14 @@
 	<check_box label="サウンド" name="check_sound" />
 	<check_box label="テクスチャー" name="check_texture" />
 	<check_box label="スナップショット" name="check_snapshot" />
-	<button label="全て" label_selected="全て" name="All" />
+	<button label="すべて" label_selected="すべて" name="All" />
 	<button label="なし" label_selected="なし" name="None" />
-	<check_box label="常にフォルダーを表示" name="check_show_empty" />
-	<check_box label="ログオフ以来" name="check_since_logoff" />
+	<check_box label="常にフォルダを表示" name="check_show_empty" />
+	<check_box label="ログオフ以降" name="check_since_logoff" />
 	<text type="string" length="1" name="- OR -">
 		－または－
 	</text>
-	<spinner label="時間前" name="spin_hours_ago" />
-	<spinner label="日前" name="spin_days_ago" />
+	<spinner label="経過時間" name="spin_hours_ago" />
+	<spinner label="経過日数" name="spin_days_ago" />
 	<button label="閉じる" label_selected="閉じる" name="Close" />
 </floater>

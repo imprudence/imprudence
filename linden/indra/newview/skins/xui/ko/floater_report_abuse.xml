@@ -14,7 +14,7 @@
 	<button label="" label_selected="" name="pick_btn"
 	     tool_tip="오브젝트 피커 - 오브젝트를 본 보고서의 주제로 식별함" />
 	<text name="select_object_label">
-		버튼을 클릭한 후 오브젝트를 클릭 하십시오:
+		버튼클릭후 오브젝트 클릭:
 	</text>
 	<text name="object_name_label">
 		이름:
@@ -23,7 +23,7 @@
 		소유자:
 	</text>
 	<combo_box name="category_combo"
-	     tool_tip="Category -- select the category that best describes this report">
+	     tool_tip="카테고리 -- 이 리포트를 가장 잘 설명하는 카테고리 선택함">
 		<combo_item name="Selectcategory">
 			카테고리 선택
 		</combo_item>
@@ -64,10 +64,10 @@
 		요약:
 	</text>
 	<text name="dscr_title">
-		세부사항:
+		세부:
 	</text>
 	<text name="bug_aviso">
-		날짜, 위치, 악용 종류, 관련 채팅/메신저 텍스트 등에 대해 
+		  날짜, 위치, 악용 종류, 관련 채팅/메신저 텍스트 등에 대해 
  자세히 적고 가능하다면 오브젝트를 선택하십시오.
 	</text>
 	<text name="incomplete_title">

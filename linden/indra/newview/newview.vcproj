@@ -55,7 +55,9 @@
 				Description="Executing post-build batch file"
 				CommandLine="postbuild.bat debug"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				Description="Executing pre-build batch file"
+				CommandLine="prebuild.bat debug"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -118,7 +120,9 @@
 				Description="Executing post-build batch file"
 				CommandLine="postbuild.bat release"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				Description="Executing pre-build batch file"
+				CommandLine="prebuild.bat release"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -178,7 +182,9 @@
 				Description="Executing post-build batch file"
 				CommandLine="postbuild.bat releasefordownload"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				Description="Executing pre-build batch file"
+				CommandLine="prebuild.bat releasefordownload"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -238,7 +244,9 @@
 				Description="Executing post-build batch file"
 				CommandLine="postbuild.bat releasenoopt"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				Description="Executing pre-build batch file"
+				CommandLine="prebuild.bat releasenoopt"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -1098,71 +1106,6 @@
 			</File>
 			<File
 				RelativePath=".\llviewerjointmesh.cpp">
-			</File>
-			<File
-				RelativePath=".\llviewerjointmesh_sse.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="1"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="1"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseForDownload|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="1"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseNoOpt|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="1"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\llviewerjointmesh_sse2.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="2"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="2"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseForDownload|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="2"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseNoOpt|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="2"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\llviewerjointmesh_vec.cpp">
 			</File>
 			<File
 				RelativePath=".\llviewerjointshape.cpp">
@@ -2950,6 +2893,41 @@
 		</File>
 		<File
 			RelativePath=".\llviewerprecompiledheaders.h">
+		</File>
+		<File
+			RelativePath="..\..\etc\message.xml">
+			<FileConfiguration
+				Name="Debug|Win32">
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Copying message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml"
+					Outputs="./app_settings/message.xml"/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32">
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Copying message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml"
+					Outputs="./app_settings/message.xml"/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="ReleaseForDownload|Win32">
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Copying message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml"
+					Outputs="./app_settings/message.xml"/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="ReleaseNoOpt|Win32">
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Copying message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml"
+					Outputs="./app_settings/message.xml"/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath="..\..\scripts\messages\message_template.msg">

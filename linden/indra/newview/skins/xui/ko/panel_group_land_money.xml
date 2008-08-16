@@ -17,9 +17,9 @@
 		그룹 소유 토지
 	</text>
 	<scroll_list name="group_parcel_list">
-		<column label="Parcel Name" name="name" />
-		<column label="Region" name="location" />
-		<column label="Area" name="area" />
+		<column label="토지 이름" name="name" />
+		<column label="지역" name="location" />
+		<column label="면적" name="area" />
 		<column label="" name="hidden" />
 	</scroll_list>
 	<button label="지도에 표시" label_selected="지도에 표시" name="map_button" />

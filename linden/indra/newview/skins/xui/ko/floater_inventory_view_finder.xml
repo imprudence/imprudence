@@ -14,7 +14,7 @@
 	<button label="모두" label_selected="모두" name="All" />
 	<button label="없음" label_selected="없음" name="None" />
 	<check_box label="항상 폴더 표시" name="check_show_empty" />
-	<check_box label="로그오프 후 경과 시간" name="check_since_logoff" />
+	<check_box label="로그오프이후" name="check_since_logoff" />
 	<text type="string" length="1" name="- OR -">
 		- 또는 -
 	</text>

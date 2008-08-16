@@ -4,7 +4,7 @@
 		Ihre derzeit aktive Gruppe wird in Fettdruck angezeigt.
 	</text>
 	<text name="groupcount">
-		Sie gehören zu [COUNT] Gruppen (von maximal [MAX.]).
+		Sie gehören zu [COUNT] Gruppen (von maximal [MAX]).
 	</text>
 	<button label="Aktivieren" label_selected="Aktivieren" name="Activate" />
 	<button label="Info" label_selected="Info" name="Info" />

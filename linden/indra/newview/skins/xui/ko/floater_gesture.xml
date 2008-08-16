@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="gestures" title="사용중인 제스처">
 	<text name="help_label">
-		채팅 창에 바로가기 문구를 입력하거나 키를 눌러 애니메이션 및
-사운드를 재생합니다.
+		채팅 창에 문구를 입력/키를 눌러 애니메이션 및 사운드 재생 
+
 	</text>
 	<scroll_list name="gesture_list">
-		<column label="Trigger" name="trigger" />
-		<column label="Key" name="shortcut" />
-		<column label="" name="key" />
-		<column label="Name" name="name" />
+		<column label="트리거" name="trigger" />
+		<column label="키" name="shortcut" />
+		<column label="키" name="key" />
+		<column label="이름" name="name" />
 	</scroll_list>
 	<button label="신규" name="new_gesture_btn" />
 	<button label="인벤토리" name="inventory_btn" />

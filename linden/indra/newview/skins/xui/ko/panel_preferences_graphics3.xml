@@ -41,7 +41,7 @@
 		</radio_item>
 	</radio_group>
 	<spinner label="안개 농도:" name="fog" />
-	<spinner label="최대 파티클 수:" name="particles" />
+	<spinner label="최대 입자수:" name="particles" />
 	<spinner label="복장 구성 제한:" name="comp limit"
 	     tool_tip="디스플레이할 최근 변경 복장의 수" />
 	<text type="string" length="1" name="(lower is faster)">

@@ -64,7 +64,7 @@
 			Original
 		</radio_item>
 		<radio_item name="radio2">
-			Kopieren
+			Kopie
 		</radio_item>
 	</radio_group>
 	<text name="TextPrice">

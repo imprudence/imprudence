@@ -27,10 +27,12 @@ llmessage/llmessagebuilder.cpp
 llmessage/llmessageconfig.cpp
 llmessage/llmessagereader.cpp
 llmessage/llmessagetemplate.cpp
+llmessage/llmessagetemplateparser.cpp
 llmessage/llmessagethrottle.cpp
 llmessage/llmime.cpp
 llmessage/llnamevalue.cpp
 llmessage/llnullcipher.cpp
+llmessage/llpacketack.cpp
 llmessage/llpacketbuffer.cpp
 llmessage/llpacketring.cpp
 llmessage/llpartdata.cpp

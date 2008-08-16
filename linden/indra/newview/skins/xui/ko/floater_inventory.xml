@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="Inventory" title="인벤토리">
 	<tab_container name="inventory filter tabs">
-		<inventory_panel label="All Items" name="All Items" />
-		<inventory_panel label="Recent Items" name="Recent Items" />
+		<inventory_panel label="모든 아이템" name="All Items" />
+		<inventory_panel label="최근 아이템" name="Recent Items" />
 	</tab_container>
 	<menu_bar name="Inventory Menu">
 		<menu label="파일" name="File">
@@ -31,7 +31,7 @@
 			<menu name="New Body Parts">
 				<menu_item_call label="새 모습" name="New Shape" />
 				<menu_item_call label="새 피부" name="New Skin" />
-				<menu_item_call label="새 헤어" name="New Hair" />
+				<menu_item_call label="새 머리카락" name="New Hair" />
 				<menu_item_call label="새 눈" name="New Eyes" />
 			</menu>
 		</menu>

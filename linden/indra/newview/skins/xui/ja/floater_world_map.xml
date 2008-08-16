@@ -2,10 +2,10 @@
 <floater name="worldmap" title="世界地図">
 	<tab_container name="maptab">
 		<panel label="オブジェクト" name="objects_mapview" />
-		<panel label="土地" name="terrain_mapview" />
+		<panel label="地形" name="terrain_mapview" />
 	</tab_container>
 	<text name="land_for_sale_label">
-		土地の売り出し
+		売り出し中の土地
 	</text>
 	<text name="auction_label">
 		オークション
@@ -16,10 +16,10 @@
 	<text name="home_label">
 		ホーム
 	</text>
-	<button label="ホームに移動" label_selected="ホームに移動" name="Go Home"
-	     tool_tip="ホームにテレポート" />
+	<button label="ホームへ" label_selected="ホームへ" name="Go Home"
+	     tool_tip="自分のホームにテレポート" />
 	<text name="classifieds_label">
-		分類
+		クラシファイド広告
 	</text>
 	<check_box label=" " name="class_chk" />
 	<text name="person_label">
@@ -35,11 +35,11 @@
 	</text>
 	<check_box label=" " name="telehubchk" />
 	<text name="popular_label">
-		評判がいい
+		人気
 	</text>
 	<check_box label=" " name="popular_chk" />
 	<text name="land_for_sale_label2">
-		土地の売り出し
+		売り出し中の土地
 	</text>
 	<check_box label=" " name="land_for_sale_chk" />
 	<text name="events_label">
@@ -50,21 +50,21 @@
 		イベント(M)
 	</text>
 	<check_box label=" " name="event_mature_chk" />
-	<combo_box label="私の友達" name="friend combo" tool_tip="Friend to Show on Map">
+	<combo_box label="自分のフレンド" name="friend combo"
+	     tool_tip="Friend to Show on Map">
 		<combo_item name="none_selected">
-			私の友達
+			自分のフレンド
 		</combo_item>
 	</combo_box>
-	<combo_box label="私のランドマーク" name="landmark combo"
+	<combo_box label="自分のランドマーク" name="landmark combo"
 	     tool_tip="Landmark to Show on Map">
 		<combo_item name="none_selected">
-			私のランドマーク
+			自分のランドマーク
 		</combo_item>
 	</combo_box>
-	<line_editor name="location" tool_tip="地域名をタイプします。">
-		地域名で検索
-	</line_editor>
-	<button label="検索" label_selected="&gt;" name="DoSearch" tool_tip="地域検索" />
+	<line_editor label="地域名で検索" name="location"
+	     tool_tip="地域名を入力してください。" />
+	<button label="検索" name="DoSearch" tool_tip="地域検索" />
 	<text name="search_label">
 		検索結果：
 	</text>
@@ -73,20 +73,22 @@
 		<column label="" name="sim_name" />
 	</scroll_list>
 	<text name="location_label">
-		位置:
+		ロケーション：
 	</text>
-	<spinner name="spin x" tool_tip="地図上表示されるロケーションのX軸" />
-	<spinner name="spin y" tool_tip="地図上表示されるロケーションのY軸" />
-	<spinner name="spin z" tool_tip="地図上表示されるロケーションのZ軸" />
+	<spinner name="spin x" tool_tip="地図上に表示される位置のX座標" />
+	<spinner name="spin y" tool_tip="地図上に表示される位置のY座標" />
+	<spinner name="spin z" tool_tip="地図上に表示される位置のZ座標" />
 	<button label="テレポート" label_selected="テレポート" name="Teleport"
-	     tool_tip="選択ロケーションにテレポート" />
-	<button label="宛先を表示" label_selected="宛先を表示"
+	     tool_tip="選択されたロケーションにテレポート" />
+	<button label="目的地を表示" label_selected="目的地を表示"
 	     name="Show Destination"
-	     tool_tip="選択ロケーションを地図の中心にする" />
-	<button label="消す" label_selected="消す" name="Clear"
-	     tool_tip="トラッキングを停止します。" />
-	<button label="自分の位置を表示" label_selected="自分の位置を表示"
+	     tool_tip="選択したロケーションを地図の中心にする" />
+	<button label="クリア" label_selected="クリア" name="Clear"
+	     tool_tip="トラッキングを停止" />
+	<button label="現在地を表示" label_selected="現在地を表示"
 	     name="Show My Location"
 	     tool_tip="あなたのアバターのロケーションを地図の中心にする" />
-	<slider label="拡大" name="zoom slider" />
+	<button label="SLURLをクリップボードにコピー" name="copy_slurl"
+	     tool_tip="現在地をSLURLとしてコピーし、ウェブで使用" />
+	<slider label="ズーム" name="zoom slider" />
 </floater>

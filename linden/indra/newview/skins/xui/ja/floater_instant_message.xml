@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater label="(未知)" name="im_floater" title="(未知)">
-	<button label="プロファイル..." label_selected="プロファイル..."
+<floater label="（不明）" name="im_floater" title="（不明）">
+	<line_editor label="IMを開始するには、ここをクリックします。"
+	     name="chat_editor" />
+	<button label="テレポート" label_selected="テレポート" name="teleport_btn" />
+	<button label="ﾌﾟﾛﾌｨｰﾙ" label_selected="ﾌﾟﾛﾌｨｰﾙ"
 	     name="profile_btn" />
 	<button label="閉じる" label_selected="閉じる" name="close_btn" />
 	<text name="live_help_dialog">
-		***ようこそライブ・ヘルプへ！ ここでは仲間である皆さんに、すばらしいボランティア達がSecond Lifeのサポートをします！*** まず初めにF1を押し、SLヘルプページをチェックしてください。 そこで回答が見つからない場合は質問を入力し、手の空いたヘルパーが応答するまで、数分お持ちください。 終了するまで、ライブ・ヘルプは閉じないでください。返答がない場合は時間をおいて、再度、試みてください。 注意：ライブ・ヘルパーは『Linden』が苗字である場合を除き、Lindenの従業員ではないため、回答は非公式なものとみなします。
+		***ヘルプリクエストへようこそ***
+まずF1キーを押すか、または知識ベース（http://secondlife.com/knowledgebase/）にアクセスしてSLヘルプページを開いてください。
+回答が見つからなければ、質問を入力してヘルパーの手が空くまで、数分程度お待ちください。
+-=-=- 応答時間は一定ではなく、特にピークタイムは大きく変動します。-=-=-
 	</text>
 	<text name="title_string">
-		Instant Message with [NAME]
+		[NAME]とインスタント・メッセージ
 	</text>
 	<text name="typing_start_string">
-		[NAME] is typing...
+		[NAME]は入力中...
+	</text>
+	<text name="session_start_string">
+		[NAME]とのセッションを開始します。お待ちください。
 	</text>
 </floater>

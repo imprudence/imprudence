@@ -15,19 +15,19 @@
 		</radio_item>
 	</radio_group>
 	<text type="string" length="1" name="text_box2">
-		글자 색:
+		채팅색:
 	</text>
 	<color_swatch label="시스템" name="system" />
 	<color_swatch label="사용자" name="users" />
 	<color_swatch label="오브젝트" name="objects" />
-	<color_swatch label="말풍선" name="background" />
+	<color_swatch label="물방울" name="background" />
 	<color_swatch label="URL" name="links" />
 	<text type="string" length="1" name="text_box3">
 		콘솔:
 	</text>
 	<spinner label="채팅창 사라짐" name="fade_chat_time" />
 	<text type="string" length="1" name="text_box4">
-		(초)
+		(초뒤)
 	</text>
 	<text type="string" length="1" name="text_box5">
 		(#행)
@@ -37,14 +37,14 @@
 		옵션:
 	</text>
 	<check_box label="전체화면 사용(재시작 필요)" name="chat_full_width_check" />
-	<check_box label="Enter 키 누른 후 채팅창 닫기" name="close_chat_on_return_check" />
-	<check_box label="화살표 키는 채팅시 아바타를 움직이는데 사용"
+	<check_box label="enter키 누른 후 채팅창 닫기" name="close_chat_on_return_check" />
+	<check_box label="화살표 키는 채팅시 항상 아바타를 움직이는데 사용"
 	     name="arrow_keys_move_avatar_check" />
 	<check_box label="채팅 시간 표시하기" name="show_timestamps_check" />
 	<text type="string" length="1" name="text_box7">
-		말풍선 채팅:
+		물방울 채팅:
 	</text>
-	<check_box label="말풍선 표시하기" name="bubble_text_chat" />
+	<check_box label="채팅 물방울 표시하기" name="bubble_text_chat" />
 	<slider label="투명도" name="bubble_chat_opacity" />
 	<text type="string" length="1" name="text_box8">
 		스크립트 오류:

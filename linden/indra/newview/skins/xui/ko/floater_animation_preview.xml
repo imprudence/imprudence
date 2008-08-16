@@ -40,106 +40,106 @@
 			펼치기
 		</combo_item>
 		<combo_item name="Relaxed">
-			릴렉스
+			힘빼기
 		</combo_item>
 		<combo_item name="PointBoth">
-			점(양쪽)
+			가리키기(양쪽)
 		</combo_item>
 		<combo_item name="Fist">
-			주먹
+			주먹쥐기
 		</combo_item>
 		<combo_item name="RelaxedLeft">
-			릴렉스(좌)
+			힘빼기(좌)
 		</combo_item>
 		<combo_item name="PointLeft">
-			점(좌)
+			가리키기(좌)
 		</combo_item>
 		<combo_item name="FistLeft">
-			왼쪽 주먹
+			주먹쥐기(좌)
 		</combo_item>
 		<combo_item name="RelaxedRight">
-			릴렉스(우)
+			힘빼기(우)
 		</combo_item>
 		<combo_item name="PointRight">
-			점(우)
+			가리키기(우)
 		</combo_item>
 		<combo_item name="FistRight">
-			오른쪽 주먹
+			주먹쥐기(우)
 		</combo_item>
 		<combo_item name="SaluteRight">
-			경의에 관한 권리
+			경례(우)
 		</combo_item>
 		<combo_item name="Typing">
-			입력
+			타이프하기
 		</combo_item>
 		<combo_item name="PeaceRight">
-			평화에 대한 권리
+			승리 사인(우)
 		</combo_item>
 	</combo_box>
 	<text name="emote_label">
-		표현
+		표정
 	</text>
 	<combo_box label="" name="emote_combo"
 	     tool_tip="Controls what face does during animation.">
 		<combo_item name="[None]">
-			[None]
+			[없음]
 		</combo_item>
 		<combo_item name="Aaaaah">
 			아-
 		</combo_item>
 		<combo_item name="Afraid">
-			두려움
+			두려워하기
 		</combo_item>
 		<combo_item name="Angry">
-			화남
+			화내기
 		</combo_item>
 		<combo_item name="BigSmile">
-			활짝 웃음
+			활짝 웃기
 		</combo_item>
 		<combo_item name="Bored">
-			지루함
+			지루해하기
 		</combo_item>
 		<combo_item name="Cry">
 			울기
 		</combo_item>
 		<combo_item name="Disdain">
-			경멸
+			경멸하기
 		</combo_item>
 		<combo_item name="Embarrassed">
-			당황함
+			당황해하기
 		</combo_item>
 		<combo_item name="Frown">
-			표정 찡그림
+			찡그리기
 		</combo_item>
 		<combo_item name="Kiss">
-			키스
+			키스하기
 		</combo_item>
 		<combo_item name="Laugh">
-			웃음
+			웃기
 		</combo_item>
 		<combo_item name="Plllppt">
 			Plllppt
 		</combo_item>
 		<combo_item name="Repulsed">
-			거절됨
+			거부되기
 		</combo_item>
 		<combo_item name="Sad">
-			슬픔
+			슬퍼하기
 		</combo_item>
 		<combo_item name="Shrug">
-			어깨를 으쓱하기
+			어깨 으쓱하기
 		</combo_item>
 		<combo_item name="Smile">
-			미소
+			미소짓기
 		</combo_item>
 		<combo_item name="Surprise">
-			놀람
+			놀라기
 		</combo_item>
 		<combo_item name="Wink">
-			윙크
+			윙크하기
 		</combo_item>
 		<combo_item name="Worry">
-			걱정
+			걱정하기
 		</combo_item>
 	</combo_box>
 	<spinner label="점점 가까이(초)" name="ease_in_time"

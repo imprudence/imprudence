@@ -1,0 +1,399 @@
+<?xml version="1.0"?>
+<llsd>
+    <map>
+		  <key>serverDefaults</key>
+            <!--
+				    a map of server names to default message transport
+				-->
+		  <map>
+				<key>simulator</key>
+				<string>template</string>
+								
+				<key>spaceserver</key>
+				<string>template</string>
+
+				<key>dataserver</key>
+				<string>template</string>
+
+				<key>logDataserver</key>
+				<string>template</string>
+
+				<key>inventoryDataserver</key>
+				<string>template</string>
+
+				<key>rpcserver</key>
+				<string>template</string>
+
+				<key>mapserver</key>
+				<string>template</string>
+
+				<key>viewer</key>
+				<string>template</string>
+
+		  </map>
+		  <key>messages</key>
+            <!--
+				    a map of individual message names that override defaults
+				-->
+		  <map>
+				<!--
+					Circuit related messages
+				-->
+				<key>PacketAck</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>OpenCircuit</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>CloseCircuit</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>StartPingCheck</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>CompletePingCheck</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>AddCircuitCode</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<key>UseCircuitCode</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>CreateTrustedCircuit</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>RequestTrustedCircuit</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<!--
+					Simulator to Launcher
+					until we get a HTTP server in the launcher
+				-->
+				<key>ReportAutosaveCrash</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>SetCPURatio</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<!--
+					Viewer to simulator messages sent before UntrustedSimulatorMessage cap received.
+				-->
+				<key>CompleteAgentMovement</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>EconomyDataRequest</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>ViewerEffect</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>RegionHandshakeReply</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<!--
+					Viewer to simulator messages sent unreliably.
+				-->
+				<key>AgentUpdate</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<!--
+					Messages created by LLThrottleGroup clients
+				-->
+				<key>ImagePacket</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>LayerData</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>ObjectUpdateCached</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>ObjectUpdateCompressed</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>ObjectUpdate</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>ImprovedTerseObjectUpdate</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>AvatarAnimation</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<key>AvatarAppearance</key>
+				<map>
+					<key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>false</boolean>
+				</map>
+
+				<!-- Simulator to simulator unreliable messages -->
+				<key>EdgeDataPacket</key>
+				<map>
+				    <key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<key>CoarseLocationUpdate</key>
+				<map>
+				    <key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<key>SimulatorLoad</key>
+				<map>
+				    <key>flavor</key>
+					<string>template</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<key>EstablishAgentCommunication</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<key>ChatterBoxSessionStartReply</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<key>ChatterBoxSessionEventReply</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<key>ForceCloseChatterBoxSession</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<key>ChatterBoxSessionLeaveReply</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<key>ChatterBoxSessionAgentListUpdates</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<key>ChatterBoxInvitation</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+		  </map>
+  	  	<key>capBans</key>
+    	<map>
+			<key>MapLayer</key>
+			<boolean>false</boolean>
+
+			<key>MapLayerGod</key>
+			<boolean>false</boolean>
+
+			<key>NewFileAgentInventory</key>
+			<boolean>false</boolean>
+
+			<key>UpdateGestureAgentInventory</key>
+			<boolean>false</boolean>
+
+			<key>UpdateNotecardAgentInventory</key>
+			<boolean>false</boolean>
+
+			<key>UpdateScriptAgentInventory</key>
+			<boolean>true</boolean>
+
+			<key>UpdateGestureTaskInventory</key>
+			<boolean>false</boolean>
+
+			<key>UpdateNotecardTaskInventory</key>
+			<boolean>true</boolean>
+
+			<key>UpdateScriptTaskInventory</key>
+			<boolean>true</boolean>
+
+			<key>ViewerStartAuction</key>
+			<boolean>true</boolean>
+
+			<key>ParcelGodReserveForNewbie</key>
+			<boolean>true</boolean>
+
+			<key>SendUserReport</key>
+			<boolean>false</boolean>
+
+			<key>SendUserReportWithScreenshot</key>
+			<boolean>false</boolean>
+
+			<key>RequestTextureDownload</key>
+			<boolean>true</boolean>
+
+			<key>EventQueueGet</key>
+			<boolean>false</boolean>
+
+			<key>UntrustedSimulatorMessage</key>
+			<boolean>false</boolean>
+
+			<key>SendPostcard</key>
+			<boolean>false</boolean>
+
+			<key>SendPostcard2</key>
+			<boolean>true</boolean>
+
+			<key>SendPostcard3</key>
+			<boolean>true</boolean>
+		</map>
+
+		<key>messageBans</key>
+		<map>
+			<key>trusted</key>
+			<map>
+			</map>
+		
+			<key>untrusted</key>
+			<map>
+			</map>
+		</map>
+    </map>
+</llsd>

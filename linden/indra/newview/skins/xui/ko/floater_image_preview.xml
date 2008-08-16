@@ -14,7 +14,7 @@
 			이미지
 		</combo_item>
 		<combo_item name="Hair">
-			헤어
+			머리카락
 		</combo_item>
 		<combo_item name="FemaleHead">
 			여성 머리
@@ -44,7 +44,7 @@
 	<text name="bad_image_text">
 		이미지 파일을 읽을 수 없습니다.
  
-	이미지를 24비트 Targa(.tga)로 저장해보십시오.
+	이미지를 24비트 Targa(.tga)로 저장하십시오.
 	</text>
 	<button label="취소" name="cancel_btn" />
 	<button label="업로드(L$[AMOUNT])" name="ok_btn" />

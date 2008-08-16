@@ -139,8 +139,8 @@
 					<text name="proposal_lbl">
 						제안:
 					</text>
-					<button label="예" label_selected="예" name="btn_yes" />
-					<button label="아니오" label_selected="아니오" name="btn_no" />
+					<button label="예스" label_selected="예스" name="btn_yes" />
+					<button label="노우" label_selected="노우" name="btn_no" />
 					<button label="기권" label_selected="기권" name="btn_abstain" />
 					<button label="목록 보기" label_selected="목록 보기" name="btn_view_list" />
 					<button label="아이템 보기" label_selected="아이템 보기" name="btn_view_item" />

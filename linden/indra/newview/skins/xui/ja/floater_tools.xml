@@ -6,7 +6,7 @@
 	</text>
 	<button label="" label_selected="" name="button move" />
 	<text name="tool label2">
-		移動する
+		移動
 	</text>
 	<button label="" label_selected="" name="button edit" />
 	<text name="tool label3">
@@ -14,32 +14,33 @@
 	</text>
 	<button label="" label_selected="" name="button create" />
 	<text name="tool label4">
-		生成
+		作成
 	</text>
 	<button label="" label_selected="" name="button land" />
 	<text name="tool label5">
 		土地
 	</text>
-	<check_box label="拡大" name="radio zoom" />
+	<check_box label="ズーム" name="radio zoom" />
 	<check_box label="軌跡（Ctrl）" name="radio orbit" />
-	<check_box label="パンする（Ctrl－Shift）" name="radio pan" />
-	<check_box label="移動する" name="radio move" />
+	<check_box label="パン（Ctrl＋Shift）" name="radio pan" />
+	<check_box label="移動" name="radio move" />
 	<check_box label="持ち上げる（Ctrl）" name="radio lift" />
-	<check_box label="スピンする（Ctrl-Shift）" name="radio spin" />
+	<check_box label="スピン（Ctrl＋Shift）" name="radio spin" />
 	<check_box label="位置" name="radio position" />
-	<check_box label="回転する（Ctrl）" name="radio rotate" />
-	<check_box label="引き伸ばす（Ctrl-Shift）" name="radio stretch" />
-	<check_box label="テクスチャを選択" name="radio select face" />
-	<check_box label="リンクされたパートを編集" name="checkbox edit linked parts" />
-	<check_box label="グリッドを使用" name="checkbox snap to grid" />
-	<button label="オプション" label_selected="オプション" name="Options..." />
-	<check_box label="両側から引き伸ばす" name="checkbox uniform" />
-	<check_box label="テクスチャを引き伸ばす" name="checkbox stretch textures" />
+	<check_box label="回転（Ctrl）" name="radio rotate" />
+	<check_box label="引伸ばす（Ctrl＋Shift）" name="radio stretch" />
+	<check_box label="テクスチャーを選択" name="radio select face" />
+	<check_box label="リンク部位を編集" name="checkbox edit linked parts" />
+	<check_box label="ｸﾞﾘｯﾄﾞ使用" name="checkbox snap to grid" />
+	<button label="オプション..." label_selected="オプション..."
+	     name="Options..." />
+	<check_box label="両側を引伸ばす" name="checkbox uniform" />
+	<check_box label="テクスチャーを引伸ばす" name="checkbox stretch textures" />
 	<text name="text ruler mode">
-		ルーラーモード：
+		ルーラー・モード：
 	</text>
 	<text name="text status">
-		ドラッグは移動、シフトドラッグでコピー
+		移動するにはドラッグ、コピーするにはShiftキーを押しながらドラッグ
 	</text>
 	<combo_box name="combobox grid mode">
 		<combo_item name="World">
@@ -62,97 +63,94 @@
 	<button label="" label_selected="" name="ToolHemiCone" />
 	<button label="" label_selected="" name="ToolSphere" />
 	<button label="" label_selected="" name="ToolHemiSphere" />
-	<check_box label="選択をコピー" name="checkbox copy selection" />
+	<check_box label="選択内容をコピー" name="checkbox copy selection" />
 	<button label="" label_selected="" name="ToolTorus" />
 	<button label="" label_selected="" name="ToolTube" />
 	<button label="" label_selected="" name="ToolRing" />
 	<button label="" label_selected="" name="ToolTree" />
 	<button label="" label_selected="" name="ToolGrass" />
 	<check_box label="選択したツールを保持" name="checkbox sticky" />
-	<check_box label="センターコピー" name="checkbox copy centers" />
-	<check_box label="コピーを回転します。" name="checkbox copy rotates" />
+	<check_box label="コピーを中心にする" name="checkbox copy centers" />
+	<check_box label="コピーを回転" name="checkbox copy rotates" />
 	<check_box label="土地を選択" name="radio select land" />
 	<check_box label="土地をならす" name="radio flatten" />
 	<check_box label="土地を隆起させる" name="radio raise" />
 	<check_box label="低地" name="radio lower" />
 	<check_box label="土地を滑らかにする" name="radio smooth" />
 	<check_box label="土地を荒らす" name="radio noise" />
-	<check_box label="土地の状態を戻す" name="radio revert" />
+	<check_box label="土地を元に戻す" name="radio revert" />
 	<combo_box name="combobox brush size">
 		<combo_item name="Small">
 			小
 		</combo_item>
 		<combo_item name="Medium">
-			中間
+			中
 		</combo_item>
 		<combo_item name="Large">
 			大
 		</combo_item>
 	</combo_box>
-	<button label="適用する" label_selected="適用する"
-	     name="button apply to selection"
-	     tool_tip="選択した土地を修正します。" />
-	<check_box label="所有者を表示" name="checkbox show owners" />
-	<button label="全表示＞＞" name="button more"
-	     tool_tip="アドバンス･オプション" />
-	<button label="＜＜簡易" name="button less"
-	     tool_tip="アドバンス･オプション" />
+	<button label="選択対象に適用" label_selected="選択対象に適用"
+	     name="button apply to selection" tool_tip="選択した土地を修正" />
+	<check_box label="オーナーを表示" name="checkbox show owners" />
+	<button label="全表示＞＞" name="button more" tool_tip="高度なオプション" />
+	<button label="＜＜簡易" name="button less" tool_tip="高度なオプション" />
 	<tab_container name="Object Info Tabs">
 		<panel label="一般" name="General">
 			<text name="Name:">
-				名前:
+				名前：
 			</text>
 			<text name="Description:">
-				説明:
+				説明：
 			</text>
 			<text name="Creator:">
-				創作者:
+				クリエーター
 			</text>
 			<text name="Creator Name">
 				Thrax Linden
 			</text>
-			<button label="プロファイル..." label_selected="プロファイル..."
+			<button label="ﾌﾟﾛﾌｨｰﾙ..." label_selected="ﾌﾟﾛﾌｨｰﾙ..."
 			     name="button creator profile" />
 			<text name="Owner:">
-				所有者:
+				オーナー：
 			</text>
 			<text name="Owner Name">
 				Thrax Linden
 			</text>
-			<button label="プロファイル..." label_selected="プロファイル..."
+			<button label="ﾌﾟﾛﾌｨｰﾙ..." label_selected="ﾌﾟﾛﾌｨｰﾙ..."
 			     name="button owner profile" />
 			<text name="Group:">
-				グループ:
+				グループ：
 			</text>
 			<text name="Group Name Proxy">
-				The Lindens
+				Linden家
 			</text>
 			<button label="設定..." label_selected="設定..." name="button set group" />
 			<text name="prim info">
-				1オブジェクト、1基本要素
+				1オブジェクト、1プリム
 			</text>
 			<text name="Permissions:">
-				許可：
+				権限
 			</text>
 			<text name="perm_modify">
-				このオブジェクトを修正することができます。
+				このオブジェクトは修正できます。
 			</text>
-			<check_box label="グループで共有" name="checkbox share with group"
-			     tool_tip="グループメンバーに移動、修正、コピー、削除を許可します。" />
+			<check_box label="グループ分担" name="checkbox share with group"
+			     tool_tip="グループ・メンバーに対して移動、修正、コピー、削除を許可" />
 			<text name="text deed continued">
-				証書を作成して譲渡する...
+				譲渡...
 			</text>
 			<text name="text deed">
-				譲渡する
+				譲渡
 			</text>
-			<button label="証書を作成して譲渡する..."
-			     label_selected="証書を作成して譲渡する..." name="button deed"
+			<button label="譲渡..." label_selected="譲渡..." name="button deed"
 			     tool_tip="グループ共有のオブジェクトは、グループ・オフィサーにより譲渡可能です。" />
-			<check_box label="誰でも移動を許可" name="checkbox allow everyone move" />
-			<check_box label="全てにコピーを許可" name="checkbox allow everyone copy" />
-			<check_box label="売り出し" name="checkbox for sale" />
+			<check_box label="誰に対しても移動を許可" name="checkbox allow everyone move" />
+			<check_box label="誰に対してもコピーを許可"
+			     name="checkbox allow everyone copy" />
+			<check_box label="売り出し中" name="checkbox for sale" />
 			<text name="Price:  L$">
-				価格:  L$
+				料金：L$
 			</text>
 			<radio_group name="sale type">
 				<radio_item name="Original">
@@ -166,26 +164,26 @@
 				</radio_item>
 			</radio_group>
 			<text name="Next owner can:">
-				次の所有者が可能:
+				次のオーナーが実行できる操作：
 			</text>
-			<check_box label="変更" name="checkbox next owner can modify" />
+			<check_box label="修正" name="checkbox next owner can modify" />
 			<check_box label="コピー" name="checkbox next owner can copy" />
-			<check_box label="転売/寄贈" name="checkbox next owner can transfer" />
+			<check_box label="再販／プレゼント" name="checkbox next owner can transfer" />
 			<text name="label click action">
-				左クリックだった場合：
+				左クリックすると：
 			</text>
 			<combo_box name="clickaction">
 				<combo_item name="Touch/grab(default)">
-					触る／掴む（デフォルト）
+					触る／つかむ (デフォルト)
 				</combo_item>
 				<combo_item name="Sitonobject">
 					オブジェクトに座る
 				</combo_item>
 				<combo_item name="Buyobject">
-					オブジエクトの購入
+					オブジェクトを購入
 				</combo_item>
 				<combo_item name="Payobject">
-					オブジェクトの代金を払う
+					オブジェクトへの支払い
 				</combo_item>
 				<combo_item name="Open">
 					開く
@@ -204,42 +202,42 @@
 				E:
 			</text>
 			<text name="N:">
-				N:
+				N：
 			</text>
 			<text name="F:">
 				F：
 			</text>
 			<text name="text modify info 1">
-				このオブジェクトを修正することができます。
+				このオブジェクトは修正できます。
 			</text>
 			<text name="text modify info 2">
-				これらのオブジェクトを修正することができます。
+				これらのオブジェクトは修正できます。
 			</text>
 			<text name="text modify info 3">
-				このオブジェクトを修正することができません。
+				このオブジェクトは修正できません。
 			</text>
 			<text name="text modify info 4">
-				これらのオブジェクトを修正することができません。
+				これらのオブジェクトは修正できません。
 			</text>
 			<text name="text modify warning">
-				許可を設定するには、オブジェクト全体を選択する必要があります。
+				権限を設定するには、オブジェクト全体を選択する必要があります。
 			</text>
 		</panel>
 		<panel label="オブジェクト" name="Object">
 			<text name="select_single">
-				パラメーターを編集するには、一つの基本要素のみ選択してください。
+				パラメーターを編集するには、基本要素を1つだけ選択してください。
 			</text>
 			<text name="edit_object">
 				オブジェクトのパラメーターを編集：
 			</text>
-			<check_box label="ロックされる" name="checkbox locked"
-			     tool_tip="オブジェクトの移動または削除を防止します。構築中に意図しない編集を避けるために、しばしば有効です。" />
+			<check_box label="ロック済み" name="checkbox locked"
+			     tool_tip="オブジェクトの移動と削除を禁止します。 この機能を使うと、構築中に意図しない編集を防ぐことができます。" />
 			<check_box label="物理" name="Physical Checkbox Ctrl"
-			     tool_tip="重力によりオブジェクトが押され、影響を受けることを許可します。" />
-			<check_box label="一時的" name="Temporary Checkbox Ctrl"
+			     tool_tip="オブジェクトに対する重力の作用と影響を有効にする" />
+			<check_box label="臨時" name="Temporary Checkbox Ctrl"
 			     tool_tip="作成1分後にオブジェクトを削除" />
 			<check_box label="ファントム" name="Phantom Checkbox Ctrl"
-			     tool_tip="オブジェクトが他のオブジェクト、またはアバターと衝突を回避させる。" />
+			     tool_tip="オブジェクト同士の衝突またはオブジェクトとアバターの衝突を回避" />
 			<text name="label position">
 				位置（メートル）
 			</text>
@@ -247,7 +245,7 @@
 			<spinner label="Y" name="Pos Y" />
 			<spinner label="Z" name="Pos Z" />
 			<text name="label size">
-				規模（メートル）
+				サイズ（メートル）
 			</text>
 			<spinner label="X" name="Scale X" />
 			<spinner label="Y" name="Scale Y" />
@@ -285,7 +283,7 @@
 				</combo_item>
 			</combo_box>
 			<text name="label basetype">
-				建造物ブロックタイプ
+				建造物ブロック・タイプ
 			</text>
 			<combo_box name="comboBaseType">
 				<combo_item name="Box">
@@ -311,12 +309,12 @@
 				</combo_item>
 			</combo_box>
 			<text name="text cut">
-				パス・カット開始と終了
+				パス・カットの始点と終点
 			</text>
 			<spinner label="B" name="cut begin" />
 			<spinner label="E" name="cut end" />
 			<text name="text hollow">
-				中空の形
+				中空
 			</text>
 			<text name="text skew">
 				傾斜
@@ -339,7 +337,7 @@
 				</combo_item>
 			</combo_box>
 			<text name="text twist">
-				捻りの開始および終了
+				ひねりの始まりと終わり
 			</text>
 			<spinner label="B" name="Twist Begin" />
 			<spinner label="E" name="Twist End" />
@@ -357,10 +355,10 @@
 			<spinner label="X" name="Shear X" />
 			<spinner label="Y" name="Shear Y" />
 			<text name="advanced_cut">
-				プロファイルカット開始および終了
+				プロフィール・カットの始点と終点
 			</text>
 			<text name="advanced_dimple">
-				さざなみのはじめと終わり
+				さざなみの始点と終点
 			</text>
 			<spinner label="B" name="Path Limit Begin" />
 			<spinner label="E" name="Path Limit End" />
@@ -378,39 +376,39 @@
 		</panel>
 		<panel label="特徴" name="Features">
 			<text name="select_single">
-				特徴を編集するには、一つの基本要素のみ選択してください。
+				特徴を編集するには、基本要素を1つだけ選択してください。
 			</text>
 			<text name="edit_object">
 				オブジェクトの特徴を編集：
 			</text>
 			<check_box label="フレキシブル・パス" name="Flexible1D Checkbox Ctrl"
-			     tool_tip="Z軸についてオブジェクトが折れ曲がることを許可します。（クライアント側のみ）" />
+			     tool_tip="Z軸を中心とするオブジェクトの折れ曲がりを有効にする （クライアント側のみ）" />
 			<spinner label="柔軟性" name="FlexNumSections" />
 			<spinner label="重力" name="FlexGravity" />
 			<spinner label="ドラッグ" name="FlexFriction" />
 			<spinner label="風" name="FlexWind" />
 			<spinner label="緊張" name="FlexTension" />
-			<spinner label="フォースX" name="FlexForceX" />
-			<spinner label="フォースY" name="FlexForceY" />
-			<spinner label="フォースZ" name="FlexForceZ" />
-			<check_box label="軽い" name="Light Checkbox Ctrl"
+			<spinner label="X軸方向の力" name="FlexForceX" />
+			<spinner label="Y軸方向の力" name="FlexForceY" />
+			<spinner label="Z軸方向の力" name="FlexForceZ" />
+			<check_box label="光" name="Light Checkbox Ctrl"
 			     tool_tip="オブジェクトが発光" />
 			<text name="label color">
 				色
 			</text>
 			<color_swatch label="" name="colorswatch"
-			     tool_tip="クリックしてカラーピッカーを開けてください。" />
-			<spinner label="強さ" name="Light Intensity" />
+			     tool_tip="カラー・ピッカーをクリックして開く" />
+			<spinner label="輝度" name="Light Intensity" />
 			<spinner label="半径" name="Light Radius" />
 			<spinner label="弱まる" name="Light Falloff" />
 		</panel>
 		<panel label="テクスチャー" name="Texture">
 			<texture_picker label="テクスチャー" name="texture control"
-			     tool_tip="クリックして写真を選択してください。" />
+			     tool_tip="写真をクリックして選択" />
 			<color_swatch label="色" name="colorswatch"
-			     tool_tip="クリックしてカラーピッカーを開けてください。" />
+			     tool_tip="カラー・ピッカーをクリックして開く" />
 			<text name="color trans">
-				透明度 ％
+				透過度 %
 			</text>
 			<check_box label="明るさ全開" name="checkbox fullbright" />
 			<text name="tex gen">
@@ -432,13 +430,13 @@
 					なし
 				</combo_item>
 				<combo_item name="Low">
-					低い
+					低
 				</combo_item>
 				<combo_item name="Medium">
-					中間
+					中
 				</combo_item>
 				<combo_item name="High">
-					高い
+					高
 				</combo_item>
 			</combo_box>
 			<text name="label bumpiness">
@@ -458,13 +456,13 @@
 					木目調
 				</combo_item>
 				<combo_item name="bark">
-					樹皮
+					木の皮
 				</combo_item>
 				<combo_item name="bricks">
 					レンガ
 				</combo_item>
 				<combo_item name="checker">
-					チェック
+					チェッカー
 				</combo_item>
 				<combo_item name="concrete">
 					コンクリート
@@ -482,7 +480,7 @@
 					砂利
 				</combo_item>
 				<combo_item name="petridish">
-					ペトリディッシュ
+					ペトリ
 				</combo_item>
 				<combo_item name="siding">
 					羽目板
@@ -497,57 +495,60 @@
 					吸い込み
 				</combo_item>
 				<combo_item name="weave">
-					織り
+					織目
 				</combo_item>
 			</combo_box>
 			<text name="tex scale">
-				フェース毎に繰り返す
+				顔ごとに繰り返す
 			</text>
 			<spinner label="水平（U）" name="TexScaleU" />
 			<check_box label="反転" name="checkbox flip s" />
-			<spinner label="垂直（V）" name="TexScaleV" />
+			<spinner label="垂直 (V)" name="TexScaleV" />
 			<check_box label="反転" name="checkbox flip t" />
 			<text name="tex rotate">
 				回転（度）
 			</text>
 			<text name="string repeats per meter">
-				メートル毎に繰り返す
+				メートルごとに繰り返す
 			</text>
 			<text name="string repeats per face">
-				フェース毎に繰り返す
+				顔ごとに繰り返す
 			</text>
 			<text name="rpt">
-				メートル毎に繰り返す
+				メートルごとに繰り返す
 			</text>
 			<button label="適用" label_selected="適用" name="button apply" />
 			<text name="tex offset">
 				ずれ
 			</text>
 			<spinner label="水平（U）" name="TexOffsetU" />
-			<spinner label="垂直（V）" name="TexOffsetV" />
+			<spinner label="垂直 (V)" name="TexOffsetV" />
 			<text name="textbox autofix">
-				メディア・テクスチャーを揃えてください。（はじめに読み込む必要があります)
+				メディア・テクスチャーを揃える
+（最初にロードすること）
 			</text>
 			<button label="揃える" label_selected="揃える" name="button align" />
 		</panel>
-		<panel label="内容" name="Contents">
-			<button label="新しいスクリプト" label_selected="新しいスクリプト"
-			     name="button new script" />
+		<panel label="コンテンツ" name="Contents">
+			<button label="新しいスクリプト..."
+			     label_selected="新しいスクリプト..." name="button new script" />
 		</panel>
 	</tab_container>
 	<panel name="land info panel">
 		<text name="label_area_price">
-			価格：[AREA]平方メートルあたりL＄[PRICE]
+			価格：[AREA]平方メートルあたりL$[PRICE]
 		</text>
 		<text name="label_area">
-			エリア：[AREA]平方メートル
+			面積：[AREA]平方メートル
 		</text>
 		<button label="土地を購入..." label_selected="土地を購入..."
 		     name="button buy land" />
-		<button label="土地を捨てる..." label_selected="土地を捨てる..."
+		<button label="土地を放棄..." label_selected="土地を放棄..."
 		     name="button abandon land" />
-		<button label="再分割" label_selected="再分割" name="button subdivide land" />
-		<button label="参加する" label_selected="参加する" name="button join land" />
-		<button label="土地情報" label_selected="土地情報" name="button about land" />
+		<button label="再分割..." label_selected="再分割..." name="button subdivide land" />
+		<button label="参加する..." label_selected="参加する..."
+		     name="button join land" />
+		<button label="土地情報..." label_selected="土地情報..."
+		     name="button about land" />
 	</panel>
 </floater>

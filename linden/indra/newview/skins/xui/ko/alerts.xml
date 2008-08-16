@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <alerts>
 	<alert name="MissingAlert">
-		<message name="message">
+		<messagename="message">
 			alerts.xml에 [ALERT_NAME]이(가) 없습니다.
 		</message>
 		<option name="OK">
@@ -18,7 +18,7 @@
 			확인
 		</option>
 	</alert>
-	<alert name="MOTD" title="오늘의 메시지">
+	<alert name="MOTD" title="오늘 메시지">
 		<message name="message">
 			[MOTD]
 		</message>
@@ -826,7 +826,7 @@ www.secondlife.com으로 이동하여 새로운 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ResetShowNextTimeDialogs">
 		<message name="message">
-			나중에 알림&apos; 초기화
+			&apos;나중에 알림&apos; 대화 재설정?
 		</message>
 		<option name="OK">
 			확인
@@ -3094,7 +3094,7 @@ Applications 폴더에 다운로드하시겠습니까?
 받으면 귀하의 다른 용무 중 응답이 답변 됩니다. 모든 텔리포트 및 아이템 제공이 거부됩니다.
 		</message>
 		<ignore name="ignore">
-			부재중 모드를 설정할 때
+			통화중 모드를 설정할 때
 		</ignore>
 		<option name="OK">
 			확인
@@ -3487,9 +3487,9 @@ Applications 폴더에 다운로드하시겠습니까?
 	</alert>
 	<alert name="PublishClassified">
 		<message name="message">
-			잊지 말 것: 광고 수수료는 환불 되지 않음.
+			기억할 것: 광고 수수료는 환불 되지 않음.
  
-광고를 L$[AMOUNT] 지금 게재 하시겠습니까?
+광고를 L$[AMOUNT]에 지금 게재 하시겠습니까?
 		</message>
 		<option name="Publish">
 			게시하기
@@ -3713,7 +3713,7 @@ Simulation 성능이 느려질 수 있습니다.  물리적으로 20 ms 이상 �
 	</alert>
 	<alert name="HelpRegionRestart" title="지역 재시작">
 		<message name="message">
-			잠시 기다린 후 이 지역을 실행하는 서버 처리를 재시작 합니다.지역의 모든 주민들은 
+			잠시 기다린 후 이 지역을 실행하는 서버 처리를 재시작 합니다. 지역의 모든 주민들은 
  연결 해제됩니다.지역이 해당 지역 데이터를 저장하고 
  90 초 이내에 돌아 와야 합니다.
  

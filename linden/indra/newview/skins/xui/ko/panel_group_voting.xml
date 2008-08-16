@@ -21,7 +21,7 @@
 		제안 투표
 	</text>
 	<text name="empty_proposal_txt">
-		만들려는 제안은 비어 있습니다.  제안을 만들기 전에 작성하셔야 합니다.
+		작성하고자 하는 제안이 비어 있습니다.  제안을 하기전에 작성하셔야 합니다.
 	</text>
 	<text name="proposal_instructions">
 		투표하려는 제안을 더블 클릭하거나 만들기를 눌러 새로운 제안을 생성합니다.
@@ -49,7 +49,7 @@
 	<text name="duration_text">
 		일
 	</text>
-	<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+	<radio_group name="majority" tool_tip="전체중 과반수가 이기게 됩니다.">
 		단순 과반수
 		2/3 과반수
 		만장일치
@@ -62,14 +62,14 @@
 	</text>
 	<button label="제안 제출" label_selected="제안 제출" name="btn_submit" />
 	<button label="취소" label_selected="취소" name="btn_cancel" />
-	<button label="예" label_selected="예" name="btn_yes" />
-	<button label="아니오" label_selected="아니오" name="btn_no" />
+	<button label="예스" label_selected="예스" name="btn_yes" />
+	<button label="노우" label_selected="노우" name="btn_no" />
 	<button label="기권" label_selected="기권" name="btn_abstain" />
 	<text name="txt">
 		그룹 투표 기록
 	</text>
 	<text name="instructions">
-		지난 투표를 더블 클릭하거나 하나를 선택하고 결과보기를 클릭하여 결과를 봅니다.
+		과거의 투표를 더블 클릭하거나 하나를 선택하고 아이템보기를 클릭합니다.
 	</text>
 	<text name="history_list_lbl">
 		과거의 투표                                                         투표 종료

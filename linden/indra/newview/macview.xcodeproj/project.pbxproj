@@ -27,9 +27,6 @@
 		1A0201850B7A861200D5C589 /* llblowfishcipher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A02017E0B7A861200D5C589 /* llblowfishcipher.cpp */; };
 		1A0201860B7A861200D5C589 /* llnullcipher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A0201810B7A861200D5C589 /* llnullcipher.cpp */; };
 		1A0201870B7A861200D5C589 /* llxorcipher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A0201830B7A861200D5C589 /* llxorcipher.cpp */; };
-		1A0DA5130C3AC07800361F49 /* llviewerjointmesh_vec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A0DA5100C3AC07700361F49 /* llviewerjointmesh_vec.cpp */; };
-		1A0DA5140C3AC07800361F49 /* llviewerjointmesh_sse2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A0DA5110C3AC07700361F49 /* llviewerjointmesh_sse2.cpp */; };
-		1A0DA5150C3AC07800361F49 /* llviewerjointmesh_sse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A0DA5120C3AC07700361F49 /* llviewerjointmesh_sse.cpp */; };
 		1A1C61620847AEE6005D7227 /* llvolumemgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1C615E0847AEE6005D7227 /* llvolumemgr.cpp */; };
 		1A1C61630847AEE6005D7227 /* llvolume.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1C615F0847AEE6005D7227 /* llvolume.cpp */; };
 		1A1C61760847B307005D7227 /* llvolumemessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1C61740847B307005D7227 /* llvolumemessage.cpp */; };
@@ -435,6 +432,7 @@
 		88AA282C0C17720D0032DF53 /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AA282B0C17720D0032DF53 /* libpng12.a */; };
 		9104C0CC0778AE0F001EC4F6 /* llpanelmsgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9104C0CB0778AE0F001EC4F6 /* llpanelmsgs.cpp */; };
 		910D255306484F1A0034E66F /* llvolumesliderctrl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 910D255206484F1A0034E66F /* llvolumesliderctrl.cpp */; };
+		9117EAA20BF24A6100845BD2 /* llpacketack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9117EAA10BF24A6100845BD2 /* llpacketack.cpp */; };
 		9118669B07F4FAF700E3D5BC /* llmediaremotectrl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9118669907F4FAF700E3D5BC /* llmediaremotectrl.cpp */; };
 		911CAD87075BE87B00CD1090 /* llinventoryview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 911CAD86075BE87B00CD1090 /* llinventoryview.cpp */; };
 		911CAD8B075BE90600CD1090 /* llgroupmgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 911CAD8A075BE90600CD1090 /* llgroupmgr.cpp */; };
@@ -539,6 +537,7 @@
 		9C1853AE0A91175E00DA7B01 /* llviewercontrol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C1853AD0A91175E00DA7B01 /* llviewercontrol.cpp */; };
 		9C1A4F6D0A8D4BB30037639E /* llsdserialize_xml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD1558240A06BB5F00DE9AE5 /* llsdserialize_xml.cpp */; };
 		9C659A870BAB0B6E00D2EB60 /* llmessageconfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C659A850BAB0B6E00D2EB60 /* llmessageconfig.cpp */; };
+		9CC280FF0BE79737006D8BDC /* llmessagetemplateparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CC280FE0BE79737006D8BDC /* llmessagetemplateparser.cpp */; };
 		9CD49D5709D0BAC100192434 /* llflexibleobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CD49D5609D0BAC100192434 /* llflexibleobject.cpp */; };
 		9CD49D5B09D0BB1500192434 /* lllocalanimationobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CD49D5909D0BB1500192434 /* lllocalanimationobject.cpp */; };
 		A241CB7D07B3DE0D001A39E3 /* llviewerprecompiledheaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A241CB7B07B3DE0D001A39E3 /* llviewerprecompiledheaders.cpp */; };
@@ -821,9 +820,6 @@
 		1A0201820B7A861200D5C589 /* llnullcipher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llnullcipher.h; sourceTree = "<group>"; };
 		1A0201830B7A861200D5C589 /* llxorcipher.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llxorcipher.cpp; sourceTree = "<group>"; };
 		1A0201840B7A861200D5C589 /* llxorcipher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llxorcipher.h; sourceTree = "<group>"; };
-		1A0DA5100C3AC07700361F49 /* llviewerjointmesh_vec.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llviewerjointmesh_vec.cpp; sourceTree = "<group>"; };
-		1A0DA5110C3AC07700361F49 /* llviewerjointmesh_sse2.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llviewerjointmesh_sse2.cpp; sourceTree = "<group>"; };
-		1A0DA5120C3AC07700361F49 /* llviewerjointmesh_sse.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llviewerjointmesh_sse.cpp; sourceTree = "<group>"; };
 		1A1C615E0847AEE6005D7227 /* llvolumemgr.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llvolumemgr.cpp; sourceTree = "<group>"; };
 		1A1C615F0847AEE6005D7227 /* llvolume.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llvolume.cpp; sourceTree = "<group>"; };
 		1A1C61600847AEE6005D7227 /* llvolumemgr.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llvolumemgr.h; sourceTree = "<group>"; };
@@ -1502,6 +1498,7 @@
 		9104C0CB0778AE0F001EC4F6 /* llpanelmsgs.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llpanelmsgs.cpp; sourceTree = "<group>"; };
 		9104C0CD0778AE20001EC4F6 /* llpanelmsgs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llpanelmsgs.h; sourceTree = "<group>"; };
 		910D255206484F1A0034E66F /* llvolumesliderctrl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llvolumesliderctrl.cpp; sourceTree = "<group>"; };
+		9117EAA10BF24A6100845BD2 /* llpacketack.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llpacketack.cpp; sourceTree = "<group>"; };
 		9118669907F4FAF700E3D5BC /* llmediaremotectrl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llmediaremotectrl.cpp; sourceTree = "<group>"; };
 		9118669A07F4FAF700E3D5BC /* llmediaremotectrl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llmediaremotectrl.h; sourceTree = "<group>"; };
 		911CAD86075BE87B00CD1090 /* llinventoryview.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llinventoryview.cpp; sourceTree = "<group>"; };
@@ -1923,6 +1920,8 @@
 		9C659A850BAB0B6E00D2EB60 /* llmessageconfig.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llmessageconfig.cpp; sourceTree = "<group>"; };
 		9C659A860BAB0B6E00D2EB60 /* llmessageconfig.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llmessageconfig.h; sourceTree = "<group>"; };
 		9C67A8440A02BBA60056B4E0 /* gpu_table.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = gpu_table.txt; sourceTree = "<group>"; };
+		9CC280FE0BE79737006D8BDC /* llmessagetemplateparser.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llmessagetemplateparser.cpp; sourceTree = "<group>"; };
+		9CC281000BE79746006D8BDC /* llmessagetemplateparser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llmessagetemplateparser.h; sourceTree = "<group>"; };
 		9CD49D5609D0BAC100192434 /* llflexibleobject.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llflexibleobject.cpp; sourceTree = "<group>"; };
 		9CD49D5809D0BAD600192434 /* llflexibleobject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llflexibleobject.h; sourceTree = "<group>"; };
 		9CD49D5909D0BB1500192434 /* lllocalanimationobject.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lllocalanimationobject.cpp; sourceTree = "<group>"; };
@@ -2346,9 +2345,6 @@
 		26F529A0051F61CD00A80050 /* newview */ = {
 			isa = PBXGroup;
 			children = (
-				1A0DA5100C3AC07700361F49 /* llviewerjointmesh_vec.cpp */,
-				1A0DA5110C3AC07700361F49 /* llviewerjointmesh_sse2.cpp */,
-				1A0DA5120C3AC07700361F49 /* llviewerjointmesh_sse.cpp */,
 				26F52A9D051F61DF00A80050 /* head.cpp */,
 				26F52A41051F61DF00A80050 /* llagent.cpp */,
 				1A758C910A436FCA00589675 /* llagentdata.cpp */,
@@ -2975,6 +2971,9 @@
 		619221B8074A9B58005E1F34 /* llmessage */ = {
 			isa = PBXGroup;
 			children = (
+				9117EAA10BF24A6100845BD2 /* llpacketack.cpp */,
+				9CC281000BE79746006D8BDC /* llmessagetemplateparser.h */,
+				9CC280FE0BE79737006D8BDC /* llmessagetemplateparser.cpp */,
 				9C659A850BAB0B6E00D2EB60 /* llmessageconfig.cpp */,
 				9C659A860BAB0B6E00D2EB60 /* llmessageconfig.h */,
 				AA348DF80B0EAB31002C3015 /* llcurl.cpp */,
@@ -4097,7 +4096,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# exit on any error\nset -e\n\n# Copy the necessary resources into the build directory.\npython viewer_manifest.py --actions=\"copy\" --configuration=\"${CONFIGURATION}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\"\n";
+			shellScript = "# exit on any error\nset -e\n\n# Check that the message template is compatible\npython ../../scripts/template_verifier.py --mode=\"development\"\n\n# Copy the necessary resources into the build directory.\npython viewer_manifest.py --actions=\"copy\" --configuration=\"${CONFIGURATION}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\"\n";
 		};
 		FD53B40409BDF9F600BFE3BC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4558,12 +4557,10 @@
 				A3C20E4C0BB0BD12007E872B /* llviewerjoystick.cpp in Sources */,
 				1A8870D50BCC5A6300E89AA6 /* llinventorytype.cpp in Sources */,
 				1A8870E50BCC5A9500E89AA6 /* llviewermenufile.cpp in Sources */,
+				9CC280FF0BE79737006D8BDC /* llmessagetemplateparser.cpp in Sources */,
 				88A95BB20C14D5FC0027E363 /* llsrv.cpp in Sources */,
 				8833693F0C18AF33007F52DA /* llimagepng.cpp in Sources */,
 				883369400C18AF33007F52DA /* llpngwrapper.cpp in Sources */,
-				1A0DA5130C3AC07800361F49 /* llviewerjointmesh_vec.cpp in Sources */,
-				1A0DA5140C3AC07800361F49 /* llviewerjointmesh_sse2.cpp in Sources */,
-				1A0DA5150C3AC07800361F49 /* llviewerjointmesh_sse.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4739,6 +4736,7 @@
 				DA9C41140B54B8CA00DD6F44 /* lllivefile.cpp in Sources */,
 				1A97C4560B8BCF9C00331A24 /* llliveappconfig.cpp in Sources */,
 				1A9897E90B98E2F4005C45D7 /* llbase32.cpp in Sources */,
+				9117EAA20BF24A6100845BD2 /* llpacketack.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

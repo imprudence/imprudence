@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="modal container" title=" ">
 	<button label="保存" label_selected="保存" name="Save" />
-	<button label="取消" label_selected="取消" name="Cancel" />
+	<button label="取り消し" label_selected="取り消し" name="Cancel" />
 	<check_box label="形" name="checkbox_Shape" />
 	<check_box label="スキン" name="checkbox_Skin" />
 	<check_box label="髪" name="checkbox_Hair" />
-	<check_box label="目" name="checkbox_Eyes" />
-	<check_box label="服をフォルダー名と同じにする" name="rename" />
+	<check_box label="眼" name="checkbox_Eyes" />
+	<check_box label="服をフォルダと同じ名前に変更" name="rename" />
 	<check_box label="シャツ" name="checkbox_Shirt" />
 	<check_box label="ズボン" name="checkbox_Pants" />
 	<check_box label="靴" name="checkbox_Shoes" />
 	<check_box label="靴下" name="checkbox_Socks" />
 	<check_box label="ジャケット" name="checkbox_Jacket" />
 	<check_box label="手袋" name="checkbox_Gloves" />
-	<check_box label="下着" name="checkbox_Undershirt" />
-	<check_box label="パンツ" name="checkbox_Underpants" />
+	<check_box label="（下着の）シャツ" name="checkbox_Undershirt" />
+	<check_box label="（下着の）パンツ" name="checkbox_Underpants" />
 	<check_box label="スカート" name="checkbox_Skirt" />
 	<check_box label="胸" name="checkbox_Chest" />
 	<check_box label="頭骨" name="checkbox_Skull" />
@@ -48,25 +48,28 @@
 	<check_box label="右胸筋" name="checkbox_Right Pec" />
 	<check_box label="センター2" name="checkbox_Center 2" />
 	<check_box label="右上部" name="checkbox_Top Right" />
-	<check_box label="上部" name="checkbox_Top" />
+	<check_box label="トップ" name="checkbox_Top" />
 	<check_box label="左上部" name="checkbox_Top Left" />
 	<check_box label="センター" name="checkbox_Center" />
 	<check_box label="左下" name="checkbox_Bottom Left" />
 	<check_box label="下部" name="checkbox_Bottom" />
 	<check_box label="右下" name="checkbox_Bottom Right" />
 	<text type="string" length="1" name="Make New Outfit">
-		新しい服装をつくる
+		新しい服装を作成
 	</text>
 	<text type="string" length="1"
 	     name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
-		服装は、服と身体部位を含むフォルダーです。装着するには、服装フォルダーをアバターにドラッグしてください。
-『新しい服装作成』は、新しいフォルダーを作成し、現在装着しているアイテムのコピーを保存します。
+		服装フォルダには、服と身体部位が含まれます。
+服などを装着するには、服装フォルダをアバターにドラッグします。
+ 
+[新しい服装を作成]では、新しいフォルダを作成し、
+現在装着しているアイテムのコピーを保存します。
 	</text>
 	<text type="string" length="1" name="Folder name:">
-		フォルダー名：
+		フォルダ名：
 	</text>
 	<text type="string" length="1" name="Items to include in outfit:">
-		服装に含むアイテム：
+		服装に含めるアイテム：
 	</text>
 	<text type="string" length="1" name="Body Parts:">
 		身体部位：
@@ -75,7 +78,7 @@
 		服：
 	</text>
 	<text type="string" length="1" name="Attachments:">
-		付属品：
+		添付物：
 	</text>
 	<text type="string" length="1" name="Options:">
 		オプション：

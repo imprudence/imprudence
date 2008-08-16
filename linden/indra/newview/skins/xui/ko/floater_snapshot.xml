@@ -5,13 +5,13 @@
 	</text>
 	<radio_group label="스냅샷 유형" name="snapshot_type_radio">
 		<radio_item name="postcard">
-			보내기
+			엽서 보내기
 		</radio_item>
 		<radio_item name="texture">
 			스냅샷 업로드
 		</radio_item>
 		<radio_item name="local">
-			저장하기
+			하드 드라이브에 저장하기
 		</radio_item>
 	</radio_group>
 	<text name="type_label2">

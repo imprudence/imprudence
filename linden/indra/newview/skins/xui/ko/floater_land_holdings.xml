@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="land holdings floater" title="내 토지">
 	<scroll_list name="parcel list">
-		<column label="Name" name="name" />
-		<column label="Location" name="location" />
-		<column label="Area" name="area" />
+		<column label="이름" name="name" />
+		<column label="위치" name="location" />
+		<column label="면적" name="area" />
 		<column label="" name="hidden" />
 	</scroll_list>
 	<button label="텔리포트" label_selected="텔리포트" name="Teleport"
@@ -14,8 +14,8 @@
 		귀하의 그룹에 대한 기부:
 	</text>
 	<scroll_list name="grant list">
-		<column label="Group" name="group" />
-		<column label="Area" name="area" />
+		<column label="그룹" name="group" />
+		<column label="면적" name="area" />
 	</scroll_list>
 	<text name="allowed_label">
 		현재 결제수단으로 허용되는 토지 보유량:

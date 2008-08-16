@@ -17,8 +17,8 @@
 	<button label="?" name="disable_physics_help" />
 	<button label="적용" name="apply_btn" />
 	<button label="아바타 선택..." name="choose_avatar_btn" />
-	<button label="스크립트 오브젝트 제거" name="return_scripted_other_land_btn" />
-	<button label="모든 스크립트 오브젝트 제거" name="return_scripted_all_btn" />
+	<button label="타인 토지에서 아바타 스크립트 오브젝트 반환" name="return_scripted_other_land_btn" />
+	<button label="모든 아바타 스크립트 오브젝트 반환" name="return_scripted_all_btn" />
 	<button label="대용량 콜라이더 보기…" name="top_colliders_btn"
 	     tool_tip="충돌 가능한 최상위 오브젝트 목록" />
 	<button label="?" name="top_colliders_help" />

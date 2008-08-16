@@ -2,5 +2,5 @@
 <panel name="Place" title="場所">
 	<button label="テレポート" name="teleport_btn" />
 	<button label="地図上に表示" name="map_btn" />
-	<button label="入札..." name="auction_btn" />
+	<button label="賭ける..." name="auction_btn" />
 </panel>

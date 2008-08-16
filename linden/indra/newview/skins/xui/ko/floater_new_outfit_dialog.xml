@@ -4,7 +4,7 @@
 	<button label="취소" label_selected="취소" name="Cancel" />
 	<check_box label="외형" name="checkbox_Shape" />
 	<check_box label="피부" name="checkbox_Skin" />
-	<check_box label="헤어" name="checkbox_Hair" />
+	<check_box label="머리카락" name="checkbox_Hair" />
 	<check_box label="눈" name="checkbox_Eyes" />
 	<check_box label="폴더 이름으로 의상 이름 변경" name="rename" />
 	<check_box label="셔츠" name="checkbox_Shirt" />
@@ -44,8 +44,8 @@
 	<check_box label="왼쪽 허벅지" name="checkbox_L Upper Leg" />
 	<check_box label="왼쪽 종아리" name="checkbox_L Lower Leg" />
 	<check_box label="복부" name="checkbox_Stomach" />
-	<check_box label="왼쪽 가슴 근육" name="checkbox_Left Pec" />
-	<check_box label="오른쪽 가슴 근육" name="checkbox_Right Pec" />
+	<check_box label="왼가슴 근육" name="checkbox_Left Pec" />
+	<check_box label="오른가슴 근육" name="checkbox_Right Pec" />
 	<check_box label="중앙 2" name="checkbox_Center 2" />
 	<check_box label="오른쪽 상단" name="checkbox_Top Right" />
 	<check_box label="상단" name="checkbox_Top" />

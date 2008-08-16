@@ -285,7 +285,7 @@
 			</text>
 			<combo_box name="comboBaseType">
 				<combo_item name="Box">
-					Box
+					Quader
 				</combo_item>
 				<combo_item name="Cylinder">
 					Zylinder
@@ -294,7 +294,7 @@
 					Prisma
 				</combo_item>
 				<combo_item name="Sphere">
-					Sphäre
+					Kugel
 				</combo_item>
 				<combo_item name="Torus">
 					Torus
@@ -307,7 +307,7 @@
 				</combo_item>
 			</combo_box>
 			<text name="text cut">
-				Pfadausschnitt-Beginn und Ende
+				Pfadschnitt Beginn und Ende
 			</text>
 			<spinner label="B" name="cut begin" />
 			<spinner label="E" name="cut end" />
@@ -315,7 +315,7 @@
 				Hohl
 			</text>
 			<text name="text skew">
-				Schräg
+				Versatz
 			</text>
 			<text name="Hollow Shape">
 				Hohlform
@@ -335,12 +335,12 @@
 				</combo_item>
 			</combo_box>
 			<text name="text twist">
-				Dienstag 15. Aug. 13:47:25 2006
+				Torsion
 			</text>
 			<spinner label="B" name="Twist Begin" />
 			<spinner label="E" name="Twist End" />
 			<text name="scale_taper">
-				Verjüngt
+				Verjüngung
 			</text>
 			<text name="scale_hole">
 				Lochgröße
@@ -348,25 +348,25 @@
 			<spinner label="X" name="Taper Scale X" />
 			<spinner label="Y" name="Taper Scale Y" />
 			<text name="text topshear">
-				Obere Schicht
+				Verscherung
 			</text>
 			<spinner label="X" name="Shear X" />
 			<spinner label="Y" name="Shear Y" />
 			<text name="advanced_cut">
-				Profil abgeschnitten-Beginn und Ende
+				Profilschnitt-Beginn und Ende
 			</text>
 			<text name="advanced_dimple">
-				Kräuseln-Beginn und Ende
+				Vertiefung-Beginn und Ende
 			</text>
 			<spinner label="B" name="Path Limit Begin" />
 			<spinner label="E" name="Path Limit End" />
 			<text name="text taper2">
-				Verjüngt
+				Verjüngung
 			</text>
 			<spinner label="X" name="Taper X" />
 			<spinner label="Y" name="Taper Y" />
 			<text name="text radius delta">
-				Radius Delta
+				Spiralform
 			</text>
 			<text name="text revolutions">
 				Umdrehungen
@@ -374,7 +374,7 @@
 		</panel>
 		<panel label="Eigenschaften" name="Features">
 			<text name="select_single">
-				Wählen Sie ein Primitivum aus, um Eigenschaften zu bearbeiten.
+				Wählen Sie nur einen einzelnen Baustein aus, um Eigenschaften zu bearbeiten.
 			</text>
 			<text name="edit_object">
 				Objekteigenschaften bearbeiten:

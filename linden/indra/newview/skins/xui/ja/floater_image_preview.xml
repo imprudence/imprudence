@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="Image Preview" title="">
 	<text name="name_label">
-		名前:
+		名前：
 	</text>
 	<text name="description_label">
-		説明:
+		説明：
 	</text>
 	<text name="preview_label">
-		以下としてイメージを再検討:
+		ｲﾒｰｼﾞのﾌﾟﾚﾋﾞｭｰ：
 	</text>
-	<combo_box label="衣類のタイプ" name="clothing_type_combo">
+	<combo_box label="服の種類" name="clothing_type_combo">
 		<combo_item name="Image">
-			イメージ
+			画像
 		</combo_item>
 		<combo_item name="Hair">
 			髪
@@ -39,10 +39,10 @@
 		</combo_item>
 	</combo_box>
 	<text name="bad_image_text">
-		イメージを読むことが不可能です。
-	
-	24 ビット Targaとしてイメージを保存することを試みます(.tga)。
+		画像を読み込めません。
+ 
+ 24ビット Targa (.tga)として画像を保存してみてください。
 	</text>
-	<button label="取消" name="cancel_btn" />
-	<button label="アップロード（L＄[AMOUNT]）" name="ok_btn" />
+	<button label="取り消し" name="cancel_btn" />
+	<button label="ｱｯﾌﾟﾛｰﾄﾞL$[AMOUNT]" name="ok_btn" />
 </floater>

@@ -23,13 +23,13 @@
 			     tool_tip="그룹 운영진은 이 토지가 그룹의 토지 할당으로 유지되도록 해당 토지를 그룹에 양도할 수 있습니다." />
 			<button label="양도..." label_selected="양도..." name="Deed..."
 			     tool_tip="사용자가 선택된 그룹의 운영진일 경우에만 토지를 양도할 수 있습니다." />
-			<check_box label="소유주가 양도로 기여" name="check contrib"
+			<check_box label="소유주가 양도로 기부" name="check contrib"
 			     tool_tip="토지가 그룹에 양도되면, 이전 소유주는 해당 토지를 그룹을 지원하기에 충분한 토지 할당분을 기부한 셈입니다." />
 			<text type="string" length="1" name="For Sale:">
 				판매 여부:
 			</text>
 			<text type="string" length="1" name="Not for sale.">
-				비매용.
+				비매용
 			</text>
 			<text type="string" length="1" name="For Sale: Price L$[PRICE].">
 				가격: L$[PRICE].
@@ -111,10 +111,10 @@
 				이 지역에서 구매한 토지는 재판매 할 수 없습니다.
 			</text>
 			<text type="string" length="1" name="changeable_clause">
-				이 지역에서 구매한 토지는 결합/분할 불가능 합니다.
+				이 지역에서 구매한 토지는 결합/분할이 불가능 합니다.
 			</text>
 			<text_editor type="string" length="1" name="covenant_editor">
-				이 사유지에 대해 제공된시행 규칙이 없습니다.
+				이 사유지에 대해 제공된 시행 규칙이 없습니다.
 			</text_editor>
 			<text name="can_resell">
 				이 지역에서 구매한 토지는 재판매 할 수 있습니다.
@@ -123,10 +123,10 @@
 				이 지역에서 구매한 토지는 재판매 할 수 없습니다.
 			</text>
 			<text name="can_change">
-				이 지역에서 구매한 토지는 결합 또는 분할 가능 합니다.
+				이 지역에서 구매한 토지는 결합/분할이 가능 합니다.
 			</text>
 			<text name="can_not_change">
-				이 지역에서 구매한 토지는 결합 또는 분할 불가능 합니다.
+				이 지역에서 구매한 토지는 결합 또는 분할이
 			</text>
 		</panel>
 		<panel label="오브젝트" name="land_objects_panel">
@@ -187,7 +187,7 @@
 			<text type="string" length="1" name="Object Owners:">
 				오브젝트 소유주:
 			</text>
-			<button label="목록 새로 고침" label_selected="목록 새로 고침"
+			<button label="목록 고침" label_selected="목록 고침"
 			     name="Refresh List" />
 			<button label="오브젝트 반환…" label_selected="오브젝트 반환…"
 			     name="Return objects..." />
@@ -222,7 +222,7 @@
 			<text type="string" length="1" name="land_options_label">
 				토지 옵션:
 			</text>
-			<check_box label="안전(데미지 없음)" name="check safe" />
+			<check_box label="안전(손상 없음)" name="check safe" />
 			<check_box label="밀기 한정" name="PushRestrictCheck"
 			     tool_tip="llPushObject기능은 구획 소유주 스크립트이거나 기능 구현자가 스크립트 소유자인 경우에만 작동합니다." />
 			<check_box label="검색 &gt; 장소(L$30/주)에 보이기" name="ShowDirectoryCheck" />
@@ -288,7 +288,7 @@
 				텔레포트 착신 전환:
 			</text>
 			<combo_box name="landing type"
-			     tool_tip="Teleport Routing -- select how to handle teleports onto your land.">
+			     tool_tip="텔레포트 착신 전환 -- 텔레포터들을 도착지로 어떻게 핸들할지 선택">
 				<combo_item type="string" length="1" name="Blocked">
 					금지됨
 				</combo_item>
@@ -310,12 +310,12 @@
 텍스처:
 			</text>
 			<text type="string" length="1" name="Replace this texture:">
-				이 텍스처를 대체함:
+				이 텍스처를:
 			</text>
 			<texture_picker label="" name="media texture"
 			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<text type="string" length="1" name="with content from this URL:">
-				이 URL의 컨텐츠로 교체:
+				다음 URL의 컨텐츠로 교체:
 			</text>
 			<check_box label="컨텐츠 자동 크기 조절 (속도 및 시각 품질 저하)"
 			     name="media_auto_scale"
@@ -334,15 +334,15 @@
 			<spinner label="사용시간:" name="HoursSpin" />
 		</panel>
 		<panel label="차단" name="land_ban_panel">
-			<check_box label="차단된 아바타: (0개 나열, 최대 300개)" name="LandBanCheck" />
+			<check_box label="다음의 아바타 차단: (0개 나열, 최대 300개)" name="LandBanCheck" />
 			<button label="추가..." label_selected="추가..." name="Add..." />
 			<button label="제거" label_selected="제거" name="Remove" />
 			<text type="string" length="1" name="Deny by Payment Status:">
 				지불 상태별로 출입 거부
 			</text>
-			<check_box label="결제수단 미등록자 출입 거부" name="DenyAnonymousCheck" />
-			<check_box label="결제수단 등록자 출입 거부" name="DenyIdentifiedCheck" />
-			<check_box label="결제수단 사용자 출입 거부" name="DenyTransactedCheck" />
+			<check_box label="미등록자 출입 거부" name="DenyAnonymousCheck" />
+			<check_box label="등록자 출입 거부" name="DenyIdentifiedCheck" />
+			<check_box label="사용자 출입 거부" name="DenyTransactedCheck" />
 		</panel>
 	</tab_container>
 </floater>

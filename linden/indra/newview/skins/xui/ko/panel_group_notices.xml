@@ -21,9 +21,9 @@
 	</text>
 	<scroll_list name="notice_list">
 		<column label="" name="icon" />
-		<column label="Subject" name="subject" />
-		<column label="From" name="from" />
-		<column label="Date" name="date" />
+		<column label="제목" name="subject" />
+		<column label="부터" name="from" />
+		<column label="날짜" name="date" />
 	</scroll_list>
 	<text name="notice_list_none_found">
 		발견되지 않음.
@@ -37,10 +37,10 @@
 			공지 만들기
 		</text>
 		<text name="lbl2">
-			공지를 전송하려면 제목을 입력해야 합니다. 인벤토리에서 이 창으로
-아이템을 드래그하여 공지 작성창에 단일 아이템을 첨부할 수 
-있습니다. 첨부한 아이템은 복사 및 전송할 수 있지만
-전체 폴더를 전송할 수는 없습니다.
+			공지를 전송하려면 제목을 입력해야 합니다. 인벤토리에서
+이 창으로 아이템을 드래그하여 공지 작성창에 단일 아이템을
+첨부할 수 있습니다. 첨부한 아이템은 복사 및 전송할
+수 있지만 전체 폴더를 전송할 수는 없습니다.
 		</text>
 		<text name="lbl3">
 			제목:
@@ -55,7 +55,7 @@
 		     name="remove_attachment" />
 		<button label="공지 전송" label_selected="공지 전송" name="send_notice" />
 		<panel name="drop_target"
-		     tool_tip="Drag an inventory item onto the message box to send it with the notice. You must have permission to copy and transfer the object to send it with the notice." />
+		     tool_tip="인벤토리 아이템을 공지와 함께 보내려면 메시지 박스로 드래그하십시오. 공지와 함께 보내려면 복사와 전송할 권리를 허가받아야 합니다." />
 	</panel>
 	<panel label="과거 공지 보기" name="panel_view_past_notice">
 		<text name="lbl">

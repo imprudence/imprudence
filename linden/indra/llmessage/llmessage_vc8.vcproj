@@ -347,6 +347,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llmessagetemplateparser.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llmessagethrottle.cpp"
 				>
 			</File>
@@ -360,6 +364,10 @@
 			</File>
 			<File
 				RelativePath=".\llnullcipher.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llpacketack.cpp"
 				>
 			</File>
 			<File
@@ -674,6 +682,10 @@
 			</File>
 			<File
 				RelativePath=".\llmessagetemplate.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmessagetemplateparser.h"
 				>
 			</File>
 			<File

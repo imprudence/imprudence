@@ -50,12 +50,12 @@
 			<button label="검색" name="search_button" />
 			<button label="모두 표시" name="show_all_button" />
 			<name_list name="member_list">
-				<column label="Member Name" name="name" />
-				<column label="Donated Tier" name="donated" />
-				<column label="Last Login" name="online" />
+				<column label="회원 이름" name="name" />
+				<column label="기부된 토지층 " name="donated" />
+				<column label="마지막 로그인" name="online" />
 			</name_list>
 			<button label="새로운 사람 초대…" name="member_invite" />
-			<button label="그룹에서 강퇴" name="member_eject" />
+			<button label="그룹에서 퇴출" name="member_eject" />
 			<text name="help_text">
 				회원에게 할당된 역할을 추가 또는 제거할 수 있습니다. 
 				Ctrl 키를 누른 상태로 해당하는 회원 이름을 클릭하면
@@ -66,9 +66,9 @@
 			<button label="검색" name="search_button" />
 			<button label="모두 표시" name="show_all_button" />
 			<scroll_list name="role_list">
-				<column label="Role Name" name="name" />
-				<column label="Title" name="title" />
-				<column label="Members" name="members" />
+				<column label="역할 이름" name="name" />
+				<column label="타이틀" name="title" />
+				<column label="회원" name="members" />
 			</scroll_list>
 			<button label="새 역할 생성 …" name="role_create" />
 			<button label="역할 삭제" name="role_delete" />
@@ -81,7 +81,7 @@
 		<panel label="권한" name="actions_sub_tab">
 			<button label="검색" name="search_button" />
 			<button label="모두 표시" name="show_all_button" />
-			<scroll_list name="action_list" tool_tip="Select an Ability to view more details.">
+			<scroll_list name="action_list" tool_tip="자세한 사항을 보려면 권한 탭을 선택하십시오.">
 				<column label="" name="icon" />
 				<column label="" name="action" />
 			</scroll_list>
@@ -103,7 +103,7 @@
 			<column label="" name="role" />
 		</scroll_list>
 		<scroll_list name="member_allowed_actions"
-		     tool_tip="For Details of each Allowed Ability see the Abilities tab.">
+		     tool_tip="개개의 허용된 권한 세부사항은 권한 탭을 참고하십시오.">
 			<column label="" name="icon" />
 			<column label="" name="action" />
 		</scroll_list>
@@ -137,7 +137,7 @@
 		<check_box label="회원이 표시되었습니다." name="role_visible_in_list"
 		     tool_tip="역할의 회원이 일반 탭에서 그룹 밖의 사람들에게 보이는지 여부를 설정합니다." />
 		<scroll_list name="role_allowed_actions"
-		     tool_tip="For Details of each Allowed Ability see the Abilities tab.">
+		     tool_tip="개개의 허용된 권한 세부사항은 권한 탭을 참고하십시오.">
 			<column label="" name="icon" />
 			<column label="" name="checkbox" />
 			<column label="" name="action" />

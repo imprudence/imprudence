@@ -275,9 +275,6 @@ newview/llviewerinventory.cpp
 newview/llviewerjointattachment.cpp
 newview/llviewerjoint.cpp
 newview/llviewerjointmesh.cpp
-newview/llviewerjointmesh_sse.cpp
-newview/llviewerjointmesh_sse2.cpp
-newview/llviewerjointmesh_vec.cpp
 newview/llviewerjointshape.cpp
 newview/llviewerjoystick.cpp
 newview/llviewerkeyboard.cpp

@@ -1,11 +1,12 @@
 /**
  * @file lldatapacker_tut.cpp
  * @author Adroit
- * @date February 2007
+ * @date 2007-02
  * @brief LLDataPacker test cases.
  *
  * Copyright (c) 2007-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement

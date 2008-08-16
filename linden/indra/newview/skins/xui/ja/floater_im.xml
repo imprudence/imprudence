@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <multi_floater name="im_floater" title="インスタント・メッセージ">
 	<text name="only_user_message">
-		あなたが、本セッションの唯一のユーザーです。
+		このセッションにいるユーザーはあなただけです。
 	</text>
 	<text name="offline_message">
-		[FIRST][LAST]はオフラインです
+		[FIRST] [LAST]はオフラインです。
+	</text>
+	<text name="generic_request_error">
+		要求中にエラーが発生しました。後でもう一度試してください。
+	</text>
+	<text name="insufficient_perms_error">
+		あなたには充分な権限がありません。
+	</text>
+	<text name="user_no_help">
+		リクエストされたユーザーは、もうヘルプセッションにはいません。
+	</text>
+	<text name="add_session_event">
+		...とのチャット・セッションにエージェントを追加中...
+	</text>
+	<text name="message_session_event">
+		IMチャット・セッションの相手
+	</text>
+	<text name="teleport_session_event">
+		のクリエーターにテレポート
+	</text>
+	<text name="removed_from_group">
+		あなたはグループから削除されました。
 	</text>
 </multi_floater>

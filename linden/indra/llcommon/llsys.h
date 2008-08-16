@@ -72,18 +72,16 @@ public:
 
 	std::string getCPUString() const;
 
-	bool hasAltivec() const;
-	bool hasSSE() const;
-	bool hasSSE2() const;
-	S32	 getMhz() const;
+	BOOL  hasSSE() const	{ return mHasSSE; }
+	BOOL  hasSSE2()	const	{ return mHasSSE2; }
+	S32	  getMhz() const	{ return mCPUMhz; }
 
 	// Family is "AMD Duron" or "Intel Pentium Pro"
 	const std::string& getFamily() const { return mFamily; }
 
 private:
-	bool mHasSSE;
-	bool mHasSSE2;
-	bool mHasAltivec;
+	BOOL mHasSSE;
+	BOOL mHasSSE2;
 	S32 mCPUMhz;
 	std::string mFamily;
 };

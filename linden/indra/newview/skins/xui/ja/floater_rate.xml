@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="rate" title="あなたのJeska Lindenへの評価">
+<floater name="rate" title="Jeska Lindenに対するあなたの評価">
 	<radio_group name="behavior">
 		<radio_item type="string" length="1" name="Positive">
 			ポジティブ
 		</radio_item>
 		<radio_item type="string" length="1" name="No Rating">
-			無評価
+			評価なし
 		</radio_item>
 	</radio_group>
 	<radio_group name="appearance">
@@ -13,7 +13,7 @@
 			ポジティブ
 		</radio_item>
 		<radio_item type="string" length="1" name="No Rating">
-			無評価
+			評価なし
 		</radio_item>
 	</radio_group>
 	<radio_group name="building">
@@ -21,24 +21,24 @@
 			ポジティブ
 		</radio_item>
 		<radio_item type="string" length="1" name="No Rating">
-			無評価
+			評価なし
 		</radio_item>
 	</radio_group>
 	<button label="OK" label_selected="OK" name="OK" />
-	<button label="取消" label_selected="取消" name="Cancel" />
+	<button label="取り消し" label_selected="取り消し" name="Cancel" />
 	<text type="string" length="1" name="Overall behavior:">
-		全体的な態度：
+		全体的な行動：
 	</text>
 	<text type="string" length="1" name="Skill at appearance (clothing and attachments):">
-		容姿のスキル （服、装飾品）：
+		容姿のスキル（服と装飾品）：
 	</text>
 	<text type="string" length="1" name="Skill at building:">
 		建造物のスキル：
 	</text>
 	<text type="string" length="1" name="Message:">
-		Mメッセージ:
+		メッセージ：
 	</text>
 	<text type="string" length="1" name="cost">
-		費用：各評価を変更するにはL＄[COST]　全体費用：L＄[TOTAL]
+		費用：各評価を変更するにはL＄[TOTAL] 全体費用：L＄[COST].
 	</text>
 </floater>

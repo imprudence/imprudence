@@ -2,7 +2,7 @@
 <alerts>
 	<alert name="MissingAlert">
 		<message name="message">
-			[ALERT_NAME]がalerts.xmlにありません！
+			[ALERT_NAME]がalerts.xmlに含まれていません！
 		</message>
 		<option name="OK">
 			OK
@@ -10,7 +10,7 @@
 	</alert>
 	<alert name="FloaterNotFound">
 		<message name="message">
-			フロータエラー：下記のコントロールが見つかりませんでした。
+			フロータ・エラー：下記のコントロールが見つかりませんでした：
 [CONTROLS]
 		</message>
 		<option name="OK">
@@ -35,7 +35,7 @@
 			はい
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="GenericServerAlert">
@@ -46,9 +46,9 @@
 	<alert name="ConnectTimeout">
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
-このシステムはダウンしている可能性があります。
-数秒後にもう一度試みるか、または助言をえる
-そしてシステムステータスウェブページへのリンクのためにHelpをクリックしてください。
+システムがダウンしている可能性があります。
+数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
+リンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -59,96 +59,95 @@
 	</alert>
 	<alert name="RemoveWearableSave">
 		<message name="message">
-			現在の衣類/体の部分への変更の全てを保存しますか。
+			現在の衣服／身体部位に対する変更を保存しますか？
 		</message>
 		<option name="Save">
 			保存
 		</option>
 		<option name="Don&apos;tSave">
-			保存できない
+			保存しない
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="SetWearableSave">
 		<message name="message">
-			現在の衣類/体の部分への変更の全てを保存しますか。
+			現在の衣服／身体部位に対する変更を保存しますか？
 		</message>
 		<option name="Save">
 			保存
 		</option>
 		<option name="Don&apos;tSave">
-			保存できない
+			保存しない
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="CompileQueueSaveText">
 		<message name="message">
-			次のような理由によってスクリプトようのテキストをアップロードするのに問題があります: [REASON]. 後でもう一度試みてください。
+			次の理由で、スクリプト用テキストのアップロード時に問題が起こりました。 [REASON] 後でもう一度試してください。
 		</message>
 	</alert>
 	<alert name="CompileQueueSaveBytecode">
 		<message name="message">
-			次のような理由によって準拠したスクリプトをアップロードするのに問題があります: [REASON]. 後でもう一度試みてください。
+			次の理由で、コンパイルしたスクリプトのアップロード時に問題が起こりました。 [REASON]後でもう一度試してください。
 		</message>
 	</alert>
 	<alert name="WriteAnimationFail">
 		<message name="message">
-			アニメーションデータを書くことに失敗
+			アニメーション・データの書き込み失敗
 		</message>
 	</alert>
 	<alert name="UploadAuctionSnapshotFail">
 		<message name="message">
-			次のような理由によってオークションスナップショットをアップロードするのに問題があります: [REASON]
+			次の理由で、オークションのスナップショットのアップロード時に問題が起こりました。 [REASON]
 		</message>
 	</alert>
 	<alert name="UnableToViewContentsMoreThanOne">
 		<message name="message">
-			一度に一つ以上の項目のコンテンツを見ることはできません。
-ただ一つのオブジェクトを選択し、再び試みてください。
+			一度に複数のアイテムのコンテンツは表示できません。
+選択するアイテムを1つだけにして、もう一度試してください。
 		</message>
 	</alert>
 	<alert name="MustSupplyVoteProposal">
 		<message name="message">
-			選挙のために提案を供給する必要があります。
-グループの意図として簡単な説明を入力します。
+			投票のために問題を提起してください。
+グループの目的を簡単に説明してください。
 		</message>
 	</alert>
 	<alert name="InsufficientFunds">
 		<message name="message">
-			不十分な資金
+			資金が不十分です。
 		</message>
 	</alert>
 	<alert name="CharacterSnapshotSaved">
 		<message name="message">
-			あなたのキャラクターのスナップショットを保存しました。
+			あなたのキャラクターのスナップショットが保存されました。
  
-それを見るにはウェブページスタジオを見てください。
+Studio exhibitのウェブ・ページで確認してください。
 		</message>
 	</alert>
 	<alert name="SaveClothingBodyChanges">
 		<message name="message">
-			衣類/体の部分に変更の全てを保存しますか。
+			衣服／身体部位に対する変更をすべて保存しますか？
 		</message>
 		<option name="SaveAll">
-			全て保存
+			すべて保存
 		</option>
 		<option name="Don&apos;tSave">
-			保存できない
+			保存しない
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="GrantModifyRights">
 		<message name="message">
-			Granting modify rights to another resident allows them to change 
-ANY objects you may have in-world. Be VERY careful when handing 
-out this permission.
-Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
+			他の住人に変更権限を与えると、その人はあなたが所有している
+すべてのオブジェクトを変更できるようになります。 この許可を与えるときには細心の注意を払ってください。
+[FIRST_NAME] [LAST_NAME]に変更権限を与えますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -159,7 +158,7 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="RevokeModifyRights">
 		<message name="message">
-			Do you want to revoke modify rights for [FIRST_NAME] [LAST_NAME]?
+			[FIRST_NAME][LAST_NAME]に対して変更権限を取り消しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -170,23 +169,23 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="RemoveFriend">
 		<message name="message">
-			あなたはあなたの友達から[FIRST] [LAST]を取り除きたいですか。
+			[FIRST][LAST]をフレンド・リストから削除しますか？
 		</message>
 		<option name="Remove">
-			取り除く
+			削除
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="GroupCreateSuccess">
 		<message name="message">
-			グループの作成に成功しました。
+			グループの作成が正常に終了しました。
 		</message>
 	</alert>
 	<alert name="UnableToCreateGroup">
 		<message name="message">
-			グループを作成することは不可能です。
+			グループを作成できません。
 [MESSAGE]
 		</message>
 		<option name="OK">
@@ -195,50 +194,55 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="PanelGroupApply">
 		<message name="message">
-			[NEEDS_APPLY_MESSAGE][WANT_APPLY_MESSAGE]
+			[NEEDS_APPLY_MESSAGE]
+[WANT_APPLY_MESSAGE]
 		</message>
 		<option name="ApplyChanges">
-			変更の適用
+			変更を適用
 		</option>
 		<option name="IgnoreChanges">
-			変更の無視
+			変更を無視
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="CreateGroupCanAfford">
 		<message name="message">
-			グループ設立にはL＄[COST]かかります。　3日間以上グループを維持するためには、全体で3名以上のメンバー数が必要です。
+			グループ作成にはL$[COST]かかります。
+ 
+グループを4日以上維持するには、
+全体で3名以上のメンバー数に達する必要があります。
+ 
 グループを設立しますか？
 		</message>
 		<option name="Create">
-			生成
+			作成
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="CreateGroupCannotAfford">
 		<message name="message">
-			グループの価格 L$[COST]を作成
-あなたはこのグループを生成するのに十分な金を持っていません。
+			グループの作成にはL$[COST]かかります。
+お金が不足しているため、このグループを作成できません。
 		</message>
 	</alert>
 	<alert name="GroupNameTooShort">
 		<message name="message">
-			グループ名は、少なくとも４字文字の長さである必要があります。
+			グループ名は、4文字以上にする必要があります。
 		</message>
 	</alert>
 	<alert name="GroupNameUsesReservedWord">
 		<message name="message">
-			そのグループ名には予約の言葉を使用します。
-異なった名前を選択してください。
+			このグループ名はすでに使われています。 違う
+名前を選んでください。
 		</message>
 	</alert>
 	<alert name="MustSpecifyGroupNoticeSubject">
 		<message name="message">
-			グループ通知を送信する際は、題名を特定してください。
+			グループ通知の送信には、件名の記入が必要です。
 		</message>
 		<option name="OK">
 			OK
@@ -246,15 +250,20 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="MustSupplyGroupCharter">
 		<message name="message">
-			グループのために支部を供給する必要があります。
-グループの意図として簡単な説明を入力します。
+			グループ用の特権が必要です。
+グループの目的を簡単に説明してください。
 		</message>
 	</alert>
 	<alert name="AddGroupOwnerWarning">
 		<message name="message">
-			あなたは[ROLE_NAME]の役割に、グループメンバーを追加しようとしています。役割についたメンバーは、自ら退任しない限り、役割から外すことが出来ません。
-本当に作業を続けますか？
+			あなたは [ROLE_NAME]の役割にメンバーを加えようとしています。
+任命されたメンバーが自ら退任しない
+限り、彼らを役柄から削除できません。
+操作を続行しますか？
 		</message>
+		<ignore name="ignore">
+			オーナーの役割にグループ・メンバーを加えるとき
+		</ignore>
 		<option name="Yes">
 			はい
 		</option>
@@ -264,11 +273,17 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="AssignDangerousActionWarning">
 		<message name="message">
-			あなたは、権限『[ACTION_NAME]』を役割『[ROLE_NAME]』に追加しようとしています。
-*警告*
-この権限を持つ役割のメンバーは、自分自身や他のメンバーに、現在よりも強力な、オーナーに近いパワーをもたせることが出来ます。
-この権限を与える前に、そのことを確認してください。
-この権限を『[ROLE_NAME]』に追加しますか？
+			あなたは[ROLE_NAME]に [ACTION_NAME]の能力を 
+加えようとしています。
+ 
+ *警告*
+ この能力を持つ役割のメンバーは、
+ 自分と他のメンバーに現在より強力な権限を割り当て、
+自分をオーナーとほぼ同様の立場に
+任命することもできるようになります。 この行為の意味をよく理解してから
+実行してください。
+ 
+この能力を[ROLE_NAME]に加えますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -279,10 +294,15 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="AssignDangerousAbilityWarning">
 		<message name="message">
-			あなたは権限『[ACTION_NAME]』を、役割『[ROLE_NAME]』に追加しようとしています。 
-*警告*
-この権限を持つ役割のメンバーは、自分自身や他のメンバーに、オーナーに近いパワーをもたせることが出来ます。
-この権限を『[ROLE_NAME]』に追加しますか？
+			あなたは[ROLE_NAME]に [ACTION_NAME]の能力を 
+加えようとしています。
+ 
+ *警告*
+ この能力をもつ役割のメンバーは、自分と他のメンバーにすべての
+能力を割り当て、自分をオーナーとほぼ同様の立場に
+任命できます。
+ 
+この能力を[ROLE_NAME]に加えますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -293,70 +313,93 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="ClickPublishHelpGroup">
 		<message name="message">
-			ウェブ上で公開&apos; オプションを選択した場合、[SECOND_LIFE]Webサイトにて、グループ名、記章、特権、タイトル、創立者を公開できるようになります。上記内容がコミュニティ・スタンダードにおいて成人向けコンテンツと判断されるかどうかの責任はあなたにあります。
+			[ウェブ上で公開]オプションを選択すると、
+[SECOND_LIFE]ウェブ・サイト上でグループ名、記章、特権、タイトル、および創立者を公開できます。 上記のコンテンツがコミュニティ・スタンダードにおいて
+成人向けコンテンツと判断されるかどうかについては、
+あなた自身がそれを明記しなければなりません。
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpLand">
 		<message name="message">
-			ウェブ上で公開&apos; オプションを選択した場合、[SECOND_LIFE]Webサイトにて、名前、説明、スナップショット、場所を公開できるようになります。上記内容がコミュニティ・スタンダードにおいて成人向けコンテンツと判断されるかどうかの責任はあなたにあります。
+			[ウェブ上で公開]オプションを選択すると、
+[SECOND_LIFE]ウェブ・サイト上で、この区画の名前、説明、スナップショット、およびロケーションを公開できます。 上記のコンテンツがコミュニティ・スタンダードにおいて
+成人向けコンテンツと判断されるかどうかについては、
+あなた自身がそれを明記しなければなりません。
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpPostcard">
 		<message name="message">
-			ウェブ上で公開&apos; オプションを選択した場合、[SECOND_LIFE]Webサイトにて、撮影者の[SECOND_LIFE]名、題名、場所、メッセージ、スナップショットを公開できるようになります。上記内容がコミュニティ・スタンダードにおいて成人向けコンテンツと判断されるかどうかの責任はあなたにあります。
+			[ウェブ上で公開]オプションを選択すると、
+[SECOND_LIFE]ウェブ・サイト上で撮影者の[SECOND_LIFE]名、題名、ロケーション、メッセージ、およびスナップショットを公開できます。 上記のコンテンツがコミュニティ・スタンダードにおいて
+成人向けコンテンツと判断されるかどうかについては、
+あなた自身がそれをスナップショットごとに明記しなければなりません。
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
 		<message name="message">
-			ウェブ上で公開&apos; オプションを選択した場合、[SECOND_LIFE]Webサイトにて、あなたの名前、イメージ画像、自己紹介を公開できるようになります。
+			[ウェブ上で公開]オプションを選択すると、
+[SECOND_LIFE]ウェブ・サイト上で、あなた自身の名前、画像、および自己紹介を公開できます。
 		</message>
+	</alert>
+	<alert name="ClickPartnerHelpAvatar">
+		<message name="message">
+			[SECOND_LIFE]のウェブ・サイトから、他の住人へのプロポーズ、パートナー解消ができます。
+
+ウェブ・サイトに行って パートナーに関する情報を取得しますか？
+		</message>
+		<option name="GotoPage">
+			ページに移動
+		</option>
+		<option name="Cancel">
+			取り消し
+		</option>
 	</alert>
 	<alert name="ClickWebProfileHelpAvatar">
 		<message name="message">
-			If this resident has a web profile URL set then you can:
- * Click Load to load the page with the embedded web browser.
- * Click Open to view externally in your default web browser.
+			この住人がウェブ・プロフィールURLを設定している場合は、以下のことが可能です。
+*そのページを内蔵ブラウザーで表示するには、[ロード]をクリックします。
+*そのページをデフォルトの外部ウェブ・ブラウザーで表示するには、[開く]をクリックします。
  
-When viewing your profile you can enter any URL as your Web Profile.
-Residents can visit the URL you specify when they view your profile.
+自分のプロフィールを表示しているときは、任意のURLをウェブ・プロフィールとして入力できます。
+プロフィールを見た住人は、そのURLにアクセスすることができます。
 		</message>
 	</alert>
 	<alert name="ClickWebProfileNoWebHelpAvatar">
 		<message name="message">
-			If this resident has a web profile URL set then you can:
- * Click Open to view externally in your default web browser.
+			この住人がウェブ・プロフィールURLを設定している場合は、以下のことが可能です:
+*そのページをデフォルトの外部ウェブ・ブラウザーで表示するには、[開く]をクリックします。
  
-When viewing your profile you can enter any URL as your Web Profile.
-Residents can visit the URL you specify when they view your profile.
+自分のプロフィールを表示しているときは、任意のURLをウェブ・プロフィールとして入力できます。
+プロフィールを見た住人は、そのURLにアクセスすることができます。
 		</message>
 	</alert>
 	<alert name="ReputationMinGreaterThanMax">
 		<message name="message">
-			名声の最低限度は最大限度より大きいです。
-最小限度をより下げるかまたは最大限度を上げるかどちらかです。
+			評判の最低値が最高値を超えています。
+最低値を下げるか、最高値を上げてください。
 		</message>
 	</alert>
 	<alert name="MoneyMinGreaterThanMax">
 		<message name="message">
-			金銭の最低限度は最大限度より大きいです。
-最小限度をより下げるかまたは最大限度を上げるかどちらかです。
+			最低金額が最高金額を超えています。
+最低金額を下げるか、最高金額を上げてください。
 		</message>
 	</alert>
 	<alert name="OfficerTitleTooLong">
 		<message name="message">
-			オフィサーのタイトルは、最大20文字の長さである必要があります。
-より短いタイトルを選択してください。
+			オフィサーの肩書きが長すぎます。
+20文字以下のタイトルを選択してください。
 		</message>
 	</alert>
 	<alert name="MemberTitleTooLong">
 		<message name="message">
-			メンバーの役職は、最大20文字の長さである必要があります。
-より短い役職を選択してください。
+			メンバーのタイトルが長すぎます。
+20文字以下のタイトルを選択してください。
 		</message>
 	</alert>
 	<alert name="RunningLocally">
 		<message name="message">
-			ローカルで起動中…
+			ローカルで実行中…
 データがありません。
 		</message>
 		<option name="OK">
@@ -365,7 +408,7 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="EjectNoMemberSelected">
 		<message name="message">
-			追放するために選択されたメンバーはいない。
+			追放するメンバーが選択されていません。
 		</message>
 		<option name="OK">
 			OK
@@ -373,426 +416,461 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="ConfirmEject">
 		<message name="message">
-			これはグループから[MEMBER]を追放します。
-続行したいですか。
+			これをすると [MEMBER] がグループから追放されます。
+手続きを続けますか？
 		</message>
 		<option name="Eject">
-			追放する
+			追放
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="JoinGroupCanAfford">
 		<message name="message">
-			グループに参加する価格は L$[COST]です。
-続行したいですか。
+			このグループに参加するには、L$[COST]かかります。
+続行しますか？
 		</message>
 		<option name="Join">
 			参加
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="JoinGroupCannotAfford">
 		<message name="message">
-			グループに参加する価格は L$[COST]です。
-あなたはこのグループに参加するための十分な残金を持っていません。
+			このグループに参加するにはL$[COST]かかります。
+残金不足のため、このグループに参加できません。
 		</message>
 	</alert>
 	<alert name="LandBuyPass">
 		<message name="message">
-			L$[COST]で [TIME] 時間のためにこの土地[PARCEL_NAME]
-入ることができます。 パスをかいますか。
+			L$[COST]で [TIME] 時間にわたって、この土地[PARCEL_NAME]に入ることができます。パスを購入しますか？
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="CannotStartAuctionAlreadyForSale">
 		<message name="message">
-			あなたは売り物としてすでに設定された区画でオークションを開始できません。
-もしオークションを開始することが確かな場合には
-土地売却を不可能にします。
+			売り出し中の区画では、オークションを
+開始できません。 オークションを始める場合は、
+土地の売り出しを無効にします。
 		</message>
 	</alert>
 	<alert name="SalePriceRestriction">
 		<message name="message">
-			誰かに売却する場合には、売却価格は &gt; L$0 で設定される必要があります。
-L$0で売却する場合には、売却する個人を選択してください。
+			任意の相手に売却する場合、売却価格はL$0を超えている必要があります。
+L$0で売却するには、売却先の個人を選択してください。
 		</message>
 	</alert>
 	<alert name="ConfirmLandSaleChange">
 		<message name="message">
-			選択した [LAND_SIZE] 平方メーターの土地は売り物として設定されています。
-売却価格はL$[SALE_PRICE]で、[NAME]に売却を認可されます。
+			選択された [LAND_SIZE] 平方メートルの土地が売り出し中です。
+あなたの売値はL$[SALE_PRICE]で、[NAME]への販売が承認される予定です。
  
-この変更をすることを続けたいですか。
+この変更手続きを続けますか？
 		</message>
 		<option name="Continue">
-			継続
+			続行
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ReturnObjectsDeededToGroup">
 		<message name="message">
-			この区画のグループ『[NAME]』共有の全てのオブジェクトを、以前の所有者の持ち物に本当に返却してもよいですか？
-*警告*これにより、そのグループに譲渡された譲渡不可能なオブジェクトは削除されます！
-オブジェクト：[N]
+			この区画のグループ[NAME]共有のすべてのオブジェクトを、以前のオーナーの持ち物に戻そうとしています。
+操作を続行しますか？
+ 
+*警告* これにより、
+そのグループに譲渡された
+譲渡不可能なオブジェクトは削除されます！ 
+オブジェクト： [N]
 		</message>
 		<option name="Return">
-			戻る
+			返却
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ReturnObjectsOwnedByUser">
 		<message name="message">
-			この区画の居住者『[NAME]』所有の全てのオブジェクトを、所有者の持ち物に本当に返却してもよいですか？
-オブジェクト：[N]
+			この土地区画の
+住人[NAME]所有のすべてのオブジェクトを、オーナーの持ち物に戻そうとしています。
+操作を続行しますか？
+ 
+オブジェクト： [N]
 		</message>
 		<option name="Return">
-			戻る
+			返却
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ReturnObjectsOwnedBySelf">
 		<message name="message">
-			この区画であなたが所有する全てのオブジェクトを、あなたの持ち物に本当に返却してもよいですか？
-オブジェクト：[N]
+			この土地区画内のオブジェクトのうち、
+あなたが所有するすべてのオブジェクトを
+あなたの持ち物に戻そうとしています。操作を続行しますか？
+ 
+オブジェクト： [N]
 		</message>
 		<option name="Return">
-			戻る
+			返却
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ReturnObjectsNotOwnedBySelf">
 		<message name="message">
-			この区画であなたが所有する全てのオブジェクトを、あなたの持ち物に本当に返却してもよいですか？グループに譲渡された譲渡可能オブジェクトは、以前の所有者に返却されます。
-*警告*これにより、そのグループに譲渡された譲渡不可能なオブジェクトは削除されます！
-オブジェクト：[N]
+			この土地区画内のオブジェクトのうち、
+あなたが所有していないすべてのオブジェクトをそれぞれのオーナーの持ち物に戻そうとしています。
+操作を続行しますか？グループに譲渡された譲渡可能オブジェクトは、以前のオーナーに返却されます。
+ 
+*警告* これにより、
+そのグループに譲渡された
+譲渡不可能なオブジェクトは削除されます！ 
+オブジェクト： [N]
 		</message>
 		<option name="Return">
-			戻る
+			返却
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ReturnObjectsNotOwnedByUser">
 		<message name="message">
-			この土地の一区画において[NAME]の所有ではない
-全てのオブジェクトをその所有者&apos;の在庫目録に戻してもよいですか。
-グループに譲渡された譲渡可能なオブジェクトは
-前の所有者に戻されます。
+			この土地区画内のオブジェクトのうち、
+[NAME]が所有していないすべてのオブジェクトをそれぞれのオーナーの持ち物に返却しようとしています。
+操作を続行しますか？グループに譲渡された譲渡可能オブジェクトは、以前のオーナーに返却されます。
  
-*警告* グループに譲渡された譲渡不可能なオブジェクトは
-削除されます。
- 
-オブジェクト：[N]
+*警告* これにより、
+そのグループに譲渡された
+譲渡不可能なオブジェクトは削除されます！ 
+オブジェクト： [N]
 		</message>
 		<option name="Return">
-			戻る
+			返却
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ReturnAllTopObjects">
 		<message name="message">
-			Are you sure you want to return all objects
-in this region back to their owner&apos;s inventory?
+			この地域にあるすべてのオブジェクトをオーナーに返却しようとしています。操作を続行しますか？
 		</message>
 		<option name="Return">
-			戻る
+			返却
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="DisableAllTopObjects">
 		<message name="message">
-			Are you sure you want to disable all objects in this region?
+			この地域内のすべてのオブジェクトを無効にしようとしています。操作を続行しますか？
 		</message>
 		<option name="Disable">
-			不能
+			無効化
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ReturnObjectsNotOwnedByGroup">
 		<message name="message">
-			この土地の区画においてグループ[NAME]と共有していないオブジェクトを、所有者に返却しますか？
-オブジェクト：[N]
+			この土地の区画上のオブジェクトのうち、グループ[NAME]
+との間で共有していないオブジェクトをオーナーに返却しますか？
+ 
+オブジェクト： [N]
 		</message>
 		<option name="Return">
-			戻る
+			返却
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="UnableToDisableOutsideScripts">
 		<message name="message">
-			外部スクリプトを不能にすることはできません。
-この地域全体では、健全であるようにします（安全でない)。
-スクリプトは仕事で拳銃を作動させることを許す必要があります。
+			外部スクリプトを無効にできません。
+この地域全域でヘルス・システムが有効になっています（安全ではありません）。
+スクリプトを実行して発砲を許可する必要があります。
 		</message>
 	</alert>
 	<alert name="MustBeInParcel">
 		<message name="message">
-			そのLanding Pointを設定するには
-土地区画の内側に立つ必要があります。
+			着地点を設定するには、この区画の内側に
+立ってください。
 		</message>
 	</alert>
 	<alert name="PromptRecipientEmail">
 		<message name="message">
-			受領者のＥメールのアドレスを入力してください。
+			受信者の電子メール・アドレスを入力してください。
 		</message>
 	</alert>
 	<alert name="PromptSelfEmail">
 		<message name="message">
-			あなたのＥメールのアドレスを入力してください。
+			あなたの電子メール・アドレスを入力してください。
 		</message>
 	</alert>
 	<alert name="ErrorProcessingSnapshot">
 		<message name="message">
-			エラープロセススナップショットデータ
+			スナップショット・データの処理エラー
 		</message>
 	</alert>
 	<alert name="ErrorEncodingSnapshot">
 		<message name="message">
-			エラー暗号化スナップショット!
+			スナップショットのエンコード・エラー！
 		</message>
 	</alert>
 	<alert name="ErrorUploadingPostcard">
 		<message name="message">
-			次のような理由によってポストカードをアップロードするのに問題があります: [REASON]
+			次の理由で、ポストカードのアップロード時に問題が起こりました。 [REASON]
 		</message>
 	</alert>
 	<alert name="ErrorUploadingReportScreenshot">
 		<message name="message">
-			次のような理由によって報告のスクリーンショットをアップロードするのに問題があります: [REASON]
+			次の理由で、レポートのスクリーンショットのアップロード時に問題が起こりました。 [REASON]
 		</message>
 	</alert>
 	<alert name="MustAgreeToLogIn">
 		<message name="message">
-			[SECOND_LIFE]に続けてロクインするにはTerms of Serviceに同意する必要があります。
+			[SECOND_LIFE]へのログインを続けるには、利用規約に同意してください。
 		</message>
 	</alert>
 	<alert name="CouldNotPutOnOutfit">
 		<message name="message">
-			服を着ることができなかった。
-アウトフィットフォルダーは衣服、体の一部または装身具は含まれていません。
+			服装を装着できません。
+服装フォルダに衣服、身体部位、付属品がありません。
 		</message>
 	</alert>
 	<alert name="CannotWearTrash">
 		<message name="message">
-			ゴミ箱内の衣類または体の一部をつけることはできません。
+			ゴミ箱に入っている服や身体部位は装着できません。
 		</message>
 	</alert>
 	<alert name="CannotWearInfoNotComplete">
 		<message name="message">
-			完全な情報がまだ使用可能でないのでこの項目を着用できません。すぐにもう一度試みてください。
+			情報セットが不足しているため、このアイテムを装着することはできません。数分後に試してください。
 		</message>
 	</alert>
 	<alert name="MustHaveAccountToLogInNoLinks">
 		<message name="message">
-			[SECOND_LIFE]に接続するにはアカウントを持つ必要があります。
+			[SECOND_LIFE]への接続にはアカウントが必要です。
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
-			[SECOND_LIFE]に接続するにはアカウントを持つ必要があります。
+			[SECOND_LIFE]への接続にはアカウントが必要です。
  
-新しいアカウントを作成するために www.secondlife.com に行きますか。
+www.secondlife.comに行き、アカウントを作成しますか？
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			検索ディレクトリの『クラシファイド』セクションに、クラシファイド広告が一週間掲載されます。広告を記入後、『発行』をクリックし、ディレクトリに追加します。
-発行する際に、支払いをする金額を尋ねられます。支払い金額を多く出すことや、キーワード検索が多くされることにより、あなたの広告は上位にリストされます。
+			クラシファイド広告は、
+検索ディレクトリのクラシファイド・セクションに
+1週間掲示されます。 
+広告を記入後、[発行]をクリックし、
+ディレクトリ
+に追加します。 [発行]をクリックすると、料金の支払いが要求されます。
+支払い額が大きいほど、広告がリスト内で上位に表示され、
+キーワードで検索されたときも上位に表示されます。
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
+		<ignore name="ignore">
+			新しいクラシファイド広告を加えるとき
+		</ignore>
 	</alert>
 	<alert name="DeleteClassified">
 		<message name="message">
-			分類された[NAME]を削除しますか。
-支払った料金のための返済はありません。
+			クラシファイド広告[NAME]の削除をしますか？
+支払い済みの料金は返金されません。
 		</message>
 		<option name="Delete">
 			削除
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="DeleteAvatarPick">
 		<message name="message">
-			ピック [PICK]を削除しますか。?
+			ピック[PICK]を削除しますか？
 		</message>
 		<option name="Delete">
 			削除
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="DisplayChangeRestart">
 		<message name="message">
-			その表示のいくつかは、進行中の仕事を失う原因となるような
-即座のシャットダウンをすることを[SECOND_LIFE]に要求
-させることを変更します。
+			あなたが表示に対して行った変更には、[SECOND_LIFE]の即時シャットダウンを
+必要とするものが含まれています。
+これにより、現在の作業内容が失われる可能性があります。
  
-これらの変更を適用し、終了します
+それらの変更を適用した後、終了します。
 		</message>
 		<option name="ApplyandQuit">
-			適用と終了
+			適用して終了
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="PromptGoToEventsPage">
 		<message name="message">
-			[SECOND_LIFE] イベントウェブページに行きますか。
+			[SECOND_LIFE]イベント・ウェブ・ページに移動しますか？
 		</message>
 		<option name="GotoPage">
-			ページに行く
+			ページに移動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="MustSelectCandidate">
 		<message name="message">
-			投票する候補者を選択する必要があります。
+			候補者を選定して投票します。
 		</message>
 	</alert>
 	<alert name="SelectItemToView">
 		<message name="message">
-			見たい項目を選択してください。
+			表示するアイテムを選択してください。
 		</message>
 	</alert>
 	<alert name="SelectProposalToView">
 		<message name="message">
-			閲覧する提案を選択してください。
+			表示する提案を選択してください。
 		</message>
 	</alert>
 	<alert name="SelectHistoryItemToView">
 		<message name="message">
-			見たい履歴項目を選択してください。
+			表示する履歴アイテムを選択してください。
 		</message>
 	</alert>
 	<alert name="ResetShowNextTimeDialogs">
 		<message name="message">
-			全て再設定 &apos;次の時間を見せる&apos; ダイアログ...
+			「次回表示」ダイアログをすべてリセットしますか？
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="CacheWillClear">
 		<message name="message">
-			キャッシュは[SECOND_LIFE]を再起動された後クリアされます。
+			[SECOND_LIFE]の再起動後にキャッシュがクリアされます。
+		</message>
+	</alert>
+	<alert name="CacheWillBeMoved">
+		<message name="message">
+			[SECOND_LIFE]の再起動後にキャッシュが移動されます。
+メモ：これによりキャッシュがクリアされます。
+		</message>
+	</alert>
+	<alert name="ChangeConnectionPort">
+		<message name="message">
+			ポートの設定は、[SECOND_LIFE]の再起動後に有効になります。
 		</message>
 	</alert>
 	<alert name="GoToAuctionPage">
 		<message name="message">
-			オークションの詳細をみたり、
-または入札をするために[SECOND_LIFE] ウェブページに行きますか。
+			オークションの詳細を見たり、
+入札をするために[SECOND_LIFE]ウェブ・ページに移動しますか？
 		</message>
 		<option name="GotoPage">
-			ページに行く
+			ページに移動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="SaveChanges">
 		<message name="message">
-			変更を保存しますか。
+			変更を保存しますか？
 		</message>
 		<option name="Save">
 			保存
 		</option>
 		<option name="Don&apos;tSave">
-			保存できない
+			保存しない
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="GestureSaveFailedTooManySteps">
 		<message name="message">
-			身振りの保存に失敗しました。
-この身振りはステップが多すぎます。
-いくつかのステップ取り除くことを試み、それから再び保存してください。
+			ジェスチャーの保存に失敗しました。
+ステップが多すぎます。
+ステップをいくつか削除してから再保存してください
 		</message>
 	</alert>
 	<alert name="GestureSaveFailedTryAgain">
 		<message name="message">
-			身振りの保存に失敗しました。  すぐにもう一度試みてください。
+			ジェスチャーの保存に失敗しました。少し待ってからもう一度試してください。
 		</message>
 	</alert>
 	<alert name="GestureSaveFailedObjectNotFound">
 		<message name="message">
-			オブジェクトまたは関連したオブジェクト在庫目録を見つけることができないので、身振りを保存できなかった。
-このオブジェクトは範囲の外にあるかまたは削除されてしまった可能性があります。
+			ジェスチャーの保存に失敗しました。オブジェクト、または関連するオブジェクト持ち物が見つかりません。
+オブジェクトが範囲内に存在しないか、または削除された可能性があります。
 		</message>
 	</alert>
 	<alert name="GestureSaveFailedReason">
 		<message name="message">
-			次のような理由によって身振りを保存するのに問題があります: [REASON].  後で身振りを再保存することを試みてください。
+			次の理由で、ジェスチャーの保存時に問題が起こりました。 [REASON].  後でもう一度試してください。
 		</message>
 	</alert>
 	<alert name="SaveNotecardFailObjectNotFound">
 		<message name="message">
-			オブジェクトまたは関連したオブジェクト在庫目録を見つけることができないので、ノートカードを保存できなかった。
-このオブジェクトは範囲の外にあるかまたは削除されてしまった可能性があります。
+			ノートカードの保存に失敗しました。オブジェクト、または関連するオブジェクト持ち物が見つかりません。
+オブジェクトが範囲内に存在しないか、または削除された可能性があります。
 		</message>
 	</alert>
 	<alert name="SaveNotecardFailReason">
 		<message name="message">
-			次のような理由によってノートカードを保存するのに問題があります: [REASON].  あとでこのノートカードを再保存することを試みてください。
+			次の理由で、ノートカードの保存時に問題が起こりました。 [REASON].  後でもう一度試してください。
 		</message>
 	</alert>
 	<alert name="ScriptCannotUndo">
 		<message name="message">
-			あなたのスクリプトのバージョンでは、変更を元に戻す事はできませんでした。サーバーの最新保存バージョンをロードしますか？
-（注意：この操作は元に戻すことができません）
+			あなたが使用しているバージョンのスクリプトに対して行った変更をすべて元に戻すことに失敗しました。
+サーバー側の最新保存バージョンをロードしますか？
+（注意：この操作は元に戻すことができません）。
 		</message>
 		<option name="Yes">
 			はい
@@ -803,50 +881,50 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="SaveScriptFailReason">
 		<message name="message">
-			次のような理由によってスクリプトを保存するのに問題があります: [REASON].  あとでこのスクリプトを再保存することを試みてください。
+			次の理由で、スクリプトの保存に問題が起こりました。 [REASON].  後でもう一度試してください。
 		</message>
 	</alert>
 	<alert name="SaveScriptFailObjectNotFound">
 		<message name="message">
-			スクリプトが乗っているオブジェクトを見つけることができないのでスクリプトを保存できませんでした。
-このオブジェクトは範囲の外にあるかまたは削除されてしまった可能性があります。
+			スクリプトの保存に失敗しました。スクリプトが格納されているオブジェクトが見つかりません。
+オブジェクトが範囲内に存在しないか、または削除された可能性があります。
 		</message>
 	</alert>
 	<alert name="SaveBytecodeFailReason">
 		<message name="message">
-			次のような理由によって準拠したスクリプトを保存するのに問題があります: [REASON].  あとでこのスクリプトを再保存することを試みてください。
+			次の理由で、コンパイルしたスクリプトの保存時に問題が起こりました。 [REASON].  後でもう一度試してください。
 		</message>
 	</alert>
 	<alert name="CouldNotStartStopScript">
 		<message name="message">
-			スクリプトが乗っているオブジェクトを見つけることができないのでスクリプトを開始または停止できませんでした。
-このオブジェクトは範囲の外にあるかまたは削除されてしまった可能性があります。
+			スクリプトの起動または停止に失敗しました。スクリプトが格納されているオブジェクトが見つかりません。
+オブジェクトが範囲内に存在しないか、または削除された可能性があります。
 		</message>
 	</alert>
 	<alert name="CannotDownloadFile">
 		<message name="message">
-			ファイルをダウンロードすることが不可能です。
+			ファイルをダウンロードできません。
 		</message>
 	</alert>
 	<alert name="CannotWriteEncode">
 		<message name="message">
-			ファイルを暗号化することが不可能です [[FILE]]
+			[[FILE]]のファイルをエンコードできません。
 		</message>
 	</alert>
 	<alert name="CannotWriteFile">
 		<message name="message">
-			ファイルを書き込むことは不可能です[[FILE]]
+			ファイル[[FILE]を書き込めません。
 		</message>
 	</alert>
 	<alert name="CannotLoadWearable">
 		<message name="message">
-			すみません。衣類をロードできません
+			残念ながら、着用可能なものをロードできませんでした。
 		</message>
 	</alert>
 	<alert name="ConfirmDeleteComplicated">
 		<message name="message">
-			少なくとも一つ選択されたオブジェクトはロックされているか、コピーが不可能か、ほかのだれかによって所有されています。
-これらの項目を削除することを確かに望んでいますか。
+			選択内容に含まれているオブジェクトのうち、ロックされているものか、コピーできないもの、または他人が所有しているものが少なくとも1つあります。
+これらのアイテムの削除を続行しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -857,13 +935,14 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="DisplaySettingsSafe">
 		<message name="message">
-			表示設定は、あなたが安全オプションを指定したので
-安全レベルに設定されました。
+			-safeオプションを指定したので、
+表示設定はセーフ・レベルに設定されています。
 		</message>
 	</alert>
 	<alert name="DisplaySettingsRecommended">
 		<message name="message">
-			ディスプレイ設定は、あなたのシステム構成に基づいて推奨されたレベルに設定されています。
+			表示設定は、あなたのシステム構成に
+基づいて推奨されたレベルに設定されています。
 		</message>
 		<option name="OK">
 			OK
@@ -872,17 +951,17 @@ in this region back to their owner&apos;s inventory?
 	<alert name="CannotRequestDomain">
 		<message name="message">
 			サーバーに接続できません。
-ドメイン名を依頼できませんでした: [HOST]
+ドメイン名[HOST]をリクエストできませんでした。
 		</message>
 	</alert>
 	<alert name="CannotFindDomain">
 		<message name="message">
-			このサーバードメイン名をみつけることが不可能です。
-これはネットワーク接続を失ったか
-またはサーバーの問題で起こる結果の可能性があります。
+			サーバーのドメイン名が見つかりません。
+ネットワーク接続が失われたか、サーバーに問題が
+あります。
  
-数秒後にもう一度試みるか、または助言をえるそしてシステムステータスウェブページへのリンクのために
-Helpをクリックしてください。
+数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
+リンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -899,68 +978,70 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="CannotConnectDNSError">
 		<message name="message">
-			[SECOND_LIFE]に接続できません
-DNS はホスト名を解明できませんでした。
-www.secondlife.com ウエブサイトに接続できることを確認してください。
-もしできで、しかしこのエラーを続けて受け取る場合には、
-支援セクションに行きそしてこの問題を報告してください。
+			[SECOND_LIFE]に接続できません。
+DNSがホスト名を見つけられませんでした。
+ www.secondlife.comウェブ・サイトに接続できることを確認
+してください。  接続はできるのにこのエラーが続く場合は、
+[サポート]に連絡してこの問題を報告してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectSecurityError">
 		<message name="message">
-			ログインサーバーに安定した接続を確立することが不可能です。
-しばしばこれはあなたのコンピュータのクロックが不適当に設定されていることを意味します。
-Control Panels に行きそして時間と日付が正しく設定されていることを
+			ログインサーバーとの接続が確立できません。
+あなたのコンピューターの時計が正しく設定されていないことが原因かもしれません。
+日時の設定が正しいか[コントロールパネル]から
 確認してください。
  
-このエラーを続けて受け取る場合には、
-SecondLife.com ウェブサイト上のSupportセクションにいって
-そしてこの問題を報告してください。
+ エラーが続くようならSecondLife.com 
+ウェブ・サイトの「サポート」セクションに行き
+問題を報告してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectVerificationError">
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
-このログインサーバーはそれ自身をSSLを介して確認できませんでした。
-このエラーを続けて受領する場合には、
-SecondLife.com ウェブサイト上のSupportセクションにいって
-そしてこの問題を報告してください。
+ログインサーバーはSSLを介して自己認証できませんでした。
+このエラーが続く場合は、SecondLife.com
+ウェブ・サイトの[サポート]セクションに連絡して
+この問題を報告してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorWindows">
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
-我々の最善の努力にも関わらず、予期しない出来事が発生しました。
-SecondLife.comのWebサイトのサポート・セクションで問題を報告してください。可能ならば、C:\Documents and Settings\(name)\Application Data\SecondLife\logs から、あなたのログファイルを含めてください。
-ご協力ありがとうございます。
+最善の努力を行ったにもかかわらず、予想外の問題が起きました。
+ウェブ上のSecondLife.comの[サポート]セクションに行き
+問題を報告してください。.  できれば下のところにあるあなたの SecondLife.ログファイルも
+入れてください： C:\Documents and Settings\(name)\Application Data\SecondLife\logs
+よろしくお願いいたします。
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorDarwin">
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
-最高の努力にも関わらず、予期しない何かが故障しました。
-SecondLife.com ウェブサイトの支援セクションに行きそして問題を報告してください。
-可能な場合には、以下からのあなたのSecondLife.logファイルを含める:
-file from: ~/Library/Application Support/SecondLife/logs
-どうもありがとう
+最善の努力を行ったにもかかわらず、予想外の問題が起きました。
+ウェブ上のSecondLife.comの[サポート]セクションに行き
+問題を報告してください。  できれば~/Library/Application Support/SecondLife/logsにある  
+ あなたのSecondLife.ログファイルも入れてください。
+よろしくお願いいたします。
 		</message>
 	</alert>
 	<alert name="CannotResolveLoginToken">
 		<message name="message">
-			認証を取った
-あなたの地域で解決する問題があります。
-もう一度ロクインを試みてください。
-このエラーを続けて受け取る場合には、
-SecondLife.com ウェブサイト上のSupportセクションにいってください。
+			ログイン認証トークンの解読に
+問題がありました。 もう一度ログインを試して
+ください。 このエラーが続くようなら
+ SecondLife.comのサポートセクションに
+ 連絡してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectNoMessage">
 		<message name="message">
-			未知の問題を正しく直すには
-(サーバーからの空エラーメッセージ)
+			接続中に未知のエラーが起こりました。
+(サーバーからブランク・エラーメッセージ)
  
-数秒後にもう一度試みるか、または助言をえるそしてシステムステータスウェブページへのリンクのために
-Helpをクリックしてください。
+数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
+リンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -971,10 +1052,10 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="CannotConnectNoReplyFromLogin">
 		<message name="message">
-			接続は不可能です。ログインデータベースからは返答がありません。
+			接続できません。  ログインデータベースが応答していません。
  
-数秒後にもう一度試みるか、または助言をえるそしてシステムステータスウェブページへのリンクのために
-Helpをクリックしてください。
+数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
+リンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -985,46 +1066,45 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="CannotConnectLoginTimeout">
 		<message name="message">
-			ログインは世界の中のあなたの場所でまっていることにタイムアウトしました。 もう一度試みてください。
+			インワールドでのあなたのロケーションの取得中にログインがタイムアウトしました。もう一度試みてください。
 		</message>
 	</alert>
 	<alert name="FirstRunDialog">
 		<message name="message">
-			[SECOND_LIFE] のインストールは完了しました。
+			[SECOND_LIFE] のインストールが完了しました。
  
-これはあなたが最初に[SECOND_LIFE]使用する場合に、
-あなたがロクオンする前にアカウント生成する必要があります。.
- 
-新しいアカウントを作成するために www.secondlife.com に戻りますか。
+[SECOND_LIFE]の使用が初めての方は、ログイン前に
+アカウントの作成が必要です。 
+www.secondlife.comに戻って新規アカウントの作成を行いますか？
 		</message>
 		<option name="NewAccount...">
-			新しいアカウント...
+			新規アカウント...
 		</option>
 		<option name="Continue">
-			継続
+			続行
 		</option>
 	</alert>
 	<alert name="ClothingStillDownloading">
 		<message name="message">
-			あなたの衣類はまだダウンロードしています。
-あなたは世界を普通に使用でき、そして他の使用者は
-現在のあなたを見ます。
+			あなたの服をダウンロード中です。
+通常どおりに世界を使え、他のユーザーもあなたを
+正常に見ることができます。
 		</message>
 	</alert>
 	<alert name="CannotResolveDomain">
 		<message name="message">
 			サーバーに接続できません。
-ドメイン名を解明できませんでした: [DOMAIN]
-あなたのネットワーク接続をチェックしてください。
+ ドメイン名[DOMAIN]を確認できませんでした。 
+ネットワーク接続を確認してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectLoginPacket">
 		<message name="message">
-			接続は不可能です。ロクインのパケットは
-ロクインサーバーによって受け取られませんでした。
+			接続できません。  ログインパケットがログインサーバーに
+到達しませんでした。
  
-数秒後にもう一度試みるか、または助言をえるそしてシステムステータスウェブページへのリンクのために
-Helpをクリックしてください。
+数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
+リンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -1035,12 +1115,12 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="WelcomeToSecondLife">
 		<message name="message">
-			[SECOND_LIFE]にようこそ!
+			[SECOND_LIFE]にようこそ！ 
  
-矢印キーを使用して歩きます。
+&gt;矢印のキーを使うと歩くことができます。
  
-男性あるいは女性の人物を選択してください。
-後であなたの決定を変更できます。
+あなたの分身の性別を選んでください。 
+これは後から変えることもできます。
 		</message>
 		<option name="Male">
 			男性
@@ -1051,11 +1131,11 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="WelcomeToSecondLifeSimple">
 		<message name="message">
-			[SECOND_LIFE]にようこそ!
+			[SECOND_LIFE]にようこそ！ 
  
-矢印キーを使用して歩きます。
+矢印のキーを使うと歩くことができます。
  
-男性あるいは女性の人物を選択してください。
+あなたの分身の性別を選んでください。
 		</message>
 		<option name="Male">
 			男性
@@ -1066,7 +1146,7 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="ConfirmQuit">
 		<message name="message">
-			止めるのは望んでいるのは確かですか。
+			終了しようとしています。操作を続行しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -1077,19 +1157,17 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="RegionNoTerraforming">
 		<message name="message">
-			この地域[REGION]は、土地生成は許されません。
-土地生成をするには
-世界のほかの部分で土地を購入する必要があります。
+			この地域 [REGION] では土地整備は禁じられています。
+土地を整備するには、ほかの地域で土地を購入
+してください。
 		</message>
 	</alert>
 	<alert name="CannotCopyWarning">
 		<message name="message">
-			この項目を
-コピーする許可を持っていないし、
-それをあげてしまう場合にはあなたの
-在庫目録からそれを失います。
-この項目を実際に
-提供したいですか。
+			あなたはこのアイテムのコピーを
+許されていないので、人にあげると
+持ち物から失われます。 本当に
+これをあげたいですか？
 		</message>
 		<option name="Yes">
 			はい
@@ -1100,30 +1178,30 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="CannotGiveItem">
 		<message name="message">
-			在庫目録の分類を与えることが不可能です。
+			持ち物のアイテムを渡せません。
 		</message>
 	</alert>
 	<alert name="TransactionCancelled">
 		<message name="message">
-			取引は取れ消されました。
+			取引がキャンセルされました。
 		</message>
 	</alert>
 	<alert name="TooManyItems">
 		<message name="message">
-			一つの在庫目録移動の中でたくさんの項目を与えることはできません。
+			1回の持ち物譲渡で譲渡できるアイテム数の上限を超えています。
 		</message>
 	</alert>
 	<alert name="NoItems">
 		<message name="message">
-			与えることができる項目はない。
+			渡せるアイテムがありません。
 		</message>
 	</alert>
 	<alert name="CannotCopyCountItems">
 		<message name="message">
-			選択された項目の
-[COUNT]コピーについて許可を持っていません。
-あなたの在庫目録からこれらの項目を失います。
-この項目を実際に与えたいですか。
+			あなたは選択されたアイテムの[COUNT]のコピーを
+許されていません。 これらのアイテムはあなたの
+持ち物から失われます。
+本当にアイテムをあげたいですか？
 		</message>
 		<option name="Yes">
 			はい
@@ -1134,65 +1212,63 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="CannotGiveCategory">
 		<message name="message">
-			在庫目録の分類を与えることが不可能です。
+			持ち物のカテゴリーを渡せません。
 		</message>
 	</alert>
 	<alert name="FreezeAvatar">
 		<message name="message">
-			このアバターを静止させてますか。
-彼または彼女は移動する
-チャットまたは世界と対話することがことが一時的にできません。
+			このアバターをフリーズしますか？
+アバターは一時的に動けなくなり、
+チャットなど、この世界に対する関わりを持つことができなくなります。
 		</message>
 		<option name="Freeze">
-			静止する
+			フリーズ
 		</option>
 		<option name="Unfreeze">
-			静止を解除する
+			解凍
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="EjectAvatar">
 		<message name="message">
-			あなたの土地からこのアバターを追放しますか。
+			あなたの土地からこのアバターを追放しますか？
 		</message>
 		<option name="Eject">
-			追放する
+			追放
 		</option>
 		<option name="EjectandBan">
 			追放と禁止
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="InvalidUUID">
 		<message name="message">
-			有効なuuidではない
+			UUIDが無効
 		</message>
 	</alert>
 	<alert name="AcquireErrorTooManyObjects">
 		<message name="message">
-			エラーを獲得: 選択されたオブジェクトが多すぎます。
+			取得エラー：選択したオブジェクトの数が多すぎます。
 		</message>
 	</alert>
 	<alert name="AcquireErrorObjectSpan">
 		<message name="message">
-			エラーを獲得: オブジェクトは一つ以上の地域に広がります。
-獲得されたオブジェクトの全てを移動してください。
-同じ地域で
+			取得エラー：オブジェクトが複数の地域にまたがって存在しています。
+取得するオブジェクトは、すべて同じ地域内に移動させてください。
 		</message>
 	</alert>
 	<alert name="TakeLockedOrNotOwnedBy">
 		<message name="message">
-			少なくとも一つのオブジェクトはロックされるかまたはあなたによって所有されません。
-オブジェクトがあなたによって所有されないそしてあなたがそれを得ている場合には、
-オブジェクトがあなたによって所有されないそしてあなたがそれを得ている場合には、
-それを変更するまたはコピーするためにあなたの能力をことによると限定します。
-将来
-しかし、あなたはまだ現行の選択を取ることができます。
-これらの項目を得ることを確かに望んでいますか。
+			選択内容に含まれているオブジェクトのうち、ロックされているか、またはあなたが所有していないものが少なくとも1つあります。
+この選択内容をそのまま取得することは可能ですが、あなたの所有物ではないオブジェクトを取得すると、
+次のオーナーの権限がそのオブジェクトに適用されます。
+このため、
+将来、変更やコピーの能力が制限される可能性があります。
+これらのアイテムの取得を続行しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -1206,49 +1282,51 @@ Helpをクリックしてください。
 			[EXTRA]
  
  
-購入通貨に関する情報について [URL]に行きますか。
+[URL]に移動して貨幣購入に関する情報を確認しますか？
 		</message>
 		<option name="GotoPage">
-			ページに行く
+			ページに移動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="UnableToLinkObjects">
 		<message name="message">
-			これらの[COUNT]オブジェクトをリンクできません。
-最大[MAX]オブジェクトをリンクすることができます。数を減らして、試みてください。
+			これら[COUNT]個のオブジェクトをリンクできません。
+リンクできるのは [MAX] 個までです。
+選択するオブジェクトを減らしてください。
 		</message>
 	</alert>
 	<alert name="CannotLinkIncompleteSet">
 		<message name="message">
-			あなたは完全なセットのオブジェクトにリンクでき、
-そして一つ以上のオブジェクトを選択しなければなりません。
+			セットとして揃っているオブジェクトのみリンクできます。複数の
+オブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotLinkModify">
 		<message name="message">
-			リンクすることが不可能です。すべてのオブジェクトの許可
-を修正しなかったからです。
-どれもロックされていない、そしてそれらの全てをあなたが所有していることを確認します。
+			すべてのオブジェクトに対する修正許可があなたにない
+ため、リンクできません。  オブジェクトがすべてロックされておらず、あなたのものであることを
+確認してください。
 		</message>
 	</alert>
 	<alert name="CannotLinkDifferentOwners">
 		<message name="message">
-			リンクすることが不可能です。全てのオブジェクトが同じ所有者を持たないからです。
-選択されたオブジェクトの全てを所有していることを確認してください。
+			所有者が異なるため、すべてのオブジェクトを
+リンクできません。 自分が所有しているオブジェクトだけを選択してください。
 		</message>
 	</alert>
 	<alert name="NoFileExtension">
 		<message name="message">
-			このファイルのためのファイル拡張はない:[FILE]
-このファイルが正しいファイル拡張があるか確認してください
+			ファイル[FILE]の拡張子が無効です。
+このファイルの拡張子が正しいかどうかを確認してください。
 		</message>
 	</alert>
 	<alert name="InvalidFileExtension">
 		<message name="message">
-			期待された [VALIDS]
+			ファイル拡張子[EXTENSION]は無効です
+正しい拡張子：[VALIDS]
 		</message>
 		<option name="OK">
 			OK
@@ -1256,318 +1334,309 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="CannotUploadSoundFile">
 		<message name="message">
-			読むためにアップロード音ファイルを開くことができません。:
+			読み込み用のアップロード・サウンド・ファイルを開くことができません。
 [FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileNotRIFF">
 		<message name="message">
-			ファイルは RIFF WAVE ファイルであることがわかりません: 
+			ファイルがRIFF WAVEファイルとして認識されません：
 [FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileNotPCM">
 		<message name="message">
-			ファイルはPCM WAVE オーディオファイルであることがわかりません: 
-[FILE]
+			ファイルがPCM WAVEオーディオ・ファイルとして認識されません：
+[FILE][FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidChannelCount">
 		<message name="message">
-			ファイルは、チャンネルの無効な数字を保持しています (モノまたはステレオである必要があります): 
+			ファイルのチャンネル数が無効です（モノラルまたはステレオを使用する必要があります）：
 [FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidSampleRate">
 		<message name="message">
-			ファイルは支援されたサンプル率であることがわかりません (44.1kである必要がある): 
+			ファイルのサンプル・レートがサポート外です（44.1kを指定する必要があります）：
 [FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidWordSize">
 		<message name="message">
-			ファイルは支援された言葉サイズであることがわかりません (8 または16 ビットである必要があります): 
+			ファイルのワード・サイズがサポート外です（8または16ビットを指定する必要があります）：
 [FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidHeader">
 		<message name="message">
-			WAVヘダー内にデータのかたまりを見つけることができなかった: 
-[FILE]
+			WAVヘッダーにデータ・チャンクが見つかりません：[FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidTooLong">
 		<message name="message">
-			オーディオファイルは長すぎます (最大10秒): 
-[FILE]
+			オーディオ・ファイルが長すぎます。（最大10秒）：[FILE]
 		</message>
 	</alert>
 	<alert name="ProblemWithFile">
 		<message name="message">
-			ファイルでの問題 [FILE]:
+			ファイル[FILE]にエラーがあります。
  
 [ERROR]
 		</message>
 	</alert>
 	<alert name="CannotOpenTemporarySoundFile">
 		<message name="message">
-			Couldn&apos;t 書き込みするために一時的な圧縮音ファイルを開くことができません。: [FILE]
+			書き込み用の一時圧縮サウンド・ファイルを開くことができません：[FILE]
 		</message>
 	</alert>
 	<alert name="UnknownVorbisEncodeFailure">
 		<message name="message">
-			以下で未知のvorbis 暗号化に失敗: [FILE]
+			未知のvorbisエンコードに失敗しました： [FILE]
 		</message>
 	</alert>
 	<alert name="CorruptResourceFile">
 		<message name="message">
-			リソースファイルの破壊: [FILE]
+			破損したリソース・ファイル：[FILE]
 		</message>
 	</alert>
 	<alert name="UnknownResourceFileVersion">
 		<message name="message">
-			ファイル内の未知のlinden リソースファイルバージョン: [FILE]
+			次のファイル内に未知のLindenリソースファイルバージョンがあります: [FILE]
 		</message>
 	</alert>
 	<alert name="UnableToCreateOutputFile">
 		<message name="message">
-			出力ファイルを作成することは不可能です。: [FILE]
+			服装ファイルを作成できません： [FILE]
 		</message>
 	</alert>
 	<alert name="DoNotSupportBulkAnimationUpload">
 		<message name="message">
-			アニメーションファイルのバルクアップロードを現在支援していません
+			現在、アニメーション・ファイルの大量アップロードはサポートされていません。
 		</message>
 	</alert>
 	<alert name="CannotAccessOutputFile">
 		<message name="message">
-			出力ファイルにアクセス不能: [FILE]
+			出力ファイル[FILE]にアクセスできません：
 		</message>
 	</alert>
 	<alert name="InsufficientFundsToUploadFile">
 		<message name="message">
-			価格はL$[COST]で、残金はL$[BALANCE]です: ファイルをアップロードするには不十分な資金[FILE]
+			ファイル[FILE]をアップロードするには資金不足です：価格はL$[COST]ですが残金はL$[BALANCE]です。
 		</message>
 	</alert>
 	<alert name="InsufficientFundsToFinishUpload">
 		<message name="message">
-			アップロードを終了するには不十分な資金[FILE]: 価格はL$[COST]で、残金はL$[BALANCE]です
+			ファイル[FILE]のアップロードを完了するには資金不足です：価格はL$[COST]ですが残金はL$[BALANCE]です。
 		</message>
 	</alert>
 	<alert name="CannotUploadReason">
 		<message name="message">
-			次のような理由で [FILE] をアップロードすることは不可能: [REASON]
-後でもう一度試みてください。
+			次の理由で、[FILE] をアップロードできません： [REASON]
+あとでもう一度試してください。
 		</message>
 	</alert>
 	<alert name="CannotCreateLandmarkNotOwner">
 		<message name="message">
-			ここにランドマークを生成できません。
-それはこの土地の所有者がそれを許可しないからです。
-最初に数メーター動くことを試みます。
+			土地所有者が許可していないので、
+ここにランドマークを作成することはできません。
+まず数メートル移動してください。
 		</message>
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoScripts">
 		<message name="message">
-			再コンパイルを行うことができません。
-有効なスクリプトを持ったオブジェクトを
-選択する。
+			再コンパイルできません。
+スクリプトが有効なオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoPermission">
 		<message name="message">
-			再コンパイルを行うことができません。
-あなたが修正する許可のあるスクリプトを持ったオブジェクトを選択する。
-あなたが修正する許可のあるスクリプトを持ったオブジェクトを選択する。
+			再コンパイルできません。
+自分にスクリプトの変更権限があるオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoScripts">
 		<message name="message">
-			再設定を行うことができません。
-有効なスクリプトを持ったオブジェクトを
-選択する。
+			リセットできません。
+スクリプトが有効なオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoPermission">
 		<message name="message">
-			再設定を行うことができません。
-あなたが修正する許可のあるスクリプトを持ったオブジェクトを
-選択する。
+			リセットできません。
+自分にスクリプトの変更権限があるオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoScripts">
 		<message name="message">
-			実行するようなどんなスクリプトも設定できない。
-有効なスクリプトを持ったオブジェクトを
-選択する。
+			スクリプトの実行を有効化できません。
+スクリプトが有効なオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoPermission">
 		<message name="message">
-			実行するようなどんなスクリプトも設定できない。
-あなたが修正する許可のあるスクリプトを持ったオブジェクトを
-選択する。
+			スクリプトの実行を有効化できません。
+自分にスクリプトの変更権限があるオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoScripts">
 		<message name="message">
-			実行しないようなどんなスクリプトも設定できない。
-有効なスクリプトを持ったオブジェクトを
-選択する。
+			スクリプトの実行を無効化できません。
+スクリプトが有効なオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoPermission">
 		<message name="message">
-			実行しないようなどんなスクリプトも設定できない。
-あなたが修正する許可のあるスクリプトを持ったオブジェクトを
-選択する。
+			スクリプトの実行を無効化できません。
+自分にスクリプトの変更権限があるオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="NoFrontmostFloater">
 		<message name="message">
-			保存するためにのfrontmost フロータはない
+			保存すべき最前面フローターがありません。
 		</message>
 	</alert>
 	<alert name="ColladaExportFailedUnknownServerError">
 		<message name="message">
-			コライダのエクスポートに失敗した: 未知のサービスエラー
+			Colladaエクスポート失敗：原因不明のサーバーエラー
 		</message>
 	</alert>
 	<alert name="ColladaExportFailedInvalidPermissions">
 		<message name="message">
-			コライダのエクスポートに失敗した: 有効でない許可またはオブジェクトがロックされた。
+			Colladaエクスポート失敗：権限無効またはオブジェクト・ロック！
 		</message>
 	</alert>
 	<alert name="ColladaExportFailedUnknownError">
 		<message name="message">
-			コライダのエクスポートに失敗した: 未知のエラー
+			Colladaエクスポート失敗：原因不明のエラー
 		</message>
 	</alert>
 	<alert name="ObjectImportFailedTransfer">
 		<message name="message">
-			オブジェクトのインポートに失敗しました。ファイルを転送することができなかった。
+			オブジェクトのインポートに失敗しました。ファイルを転送できませんでした。
 		</message>
 	</alert>
 	<alert name="ObjectImportFailedBadFormat">
 		<message name="message">
-			オブジェクトのインポートに失敗しました。 ファイルはSLObject フォーマットを受け入れません。
+			オブジェクトのインポートに失敗しました。有効なSLObject形式のファイルではありません。
 		</message>
 	</alert>
 	<alert name="ObjectImportFailedUnknownError">
 		<message name="message">
-			オブジェクトのインポートに失敗しました。 未知のエラー.
+			オブジェクトのインポートに失敗しました。未知のエラー。
 		</message>
 	</alert>
 	<alert name="CouldNotTeleportReason">
 		<message name="message">
-			テレポートができませんでした。
+			テレポートに失敗しました。
 [REASON]
 		</message>
 	</alert>
 	<alert name="CannotSetLandOwnerNothingSelected">
 		<message name="message">
-			土地所有者を設定することは不可能:
-何も選択しませんでした。
+			土地所有者を設定できません：
+何も選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotSetLandOwnerMultipleRegions">
 		<message name="message">
-			土地の所有権を強制することができません。選択が複数の地域に渡るからです。
-より小さなエリアを選択し、再度試みてください。
+			複数の地域が選択されたため、土地の所有権を主張
+できません。 選択する面積を小さくして、もう一度試してください。
 		</message>
 	</alert>
 	<alert name="ForceOwnerAuctionWarning">
 		<message name="message">
-			この区画はオークションにでます。所有権を強制することは
-オークションを取消し、そして入札が始まった場合にはいくらかの居住者を
-不幸にする可能性があります。所有権を強制しますか。
+			この区画はオークションに出品されています。 区画の所有権を主張すると
+オークションが無効になり、入札が開始していたら不満に思う
+住人が出てくるかもしれません。 所有権を主張しますか？
 		</message>
 		<option name="Force">
-			強制
+			フォース
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="CannotContentifyNothingSelected">
 		<message name="message">
-			コンテンツ化は不可能です。
-何も選択しませんでした。
+			コンテンツ化できません:
+何も選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotContentifyNoRegion">
 		<message name="message">
-			コンテンツ化は不可能です。
-地域は無し。
+			コンテンツ化できません:
+地域がありません。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNothingSelected">
 		<message name="message">
-			土地を捨てることは不可能:
-N何も選択しませんでした。
+			土地を破棄できません： 
+何も選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNoRegion">
 		<message name="message">
-			土地を捨てることは不可能:
-地域を見つけることができません。
+			土地を破棄できません：
+地域が見つかりません。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandNothingSelected">
 		<message name="message">
-			土地を購入することは不可能:
-何も選択しませんでした。
+			土地を購入できません：
+何も選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandNoRegion">
 		<message name="message">
-			土地を購入することは不可能:
-この土地がある地域を見つけることができません。
+			土地を購入できません：
+この土地がある地域が見つかりません。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNothingSelected">
 		<message name="message">
-			土地を証書を作成して譲渡することは不可能:
-何も選択しませんでした。
+			土地を譲渡できません：
+何も選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNoGroup">
 		<message name="message">
-			土地を証書を作成して譲渡することは不可能:
-グループは無し。
+			土地を譲渡できません：
+グループがありません。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNoRegion">
 		<message name="message">
-			土地を証書を作成して譲渡することは不能:
-この土地がある地域を見つけることができません。
-この報告をするためにHelp -&gt; Report Bugを使用してください。
+			土地を譲渡できません：
+この土地がある地域が見つかりません。
+[ツール]＞[バグを報告する]を使って報告してください。
 		</message>
 	</alert>
 	<alert name="CannotSetLandOwnerNothingSelected">
 		<message name="message">
-			土地所有者を設定することは不可能:
-何も選択しませんでした。
+			土地所有者を設定できません：
+何も選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandMultipleRegions">
 		<message name="message">
-			土地を購入することができません。選択が複数の地域に渡るからです。
-より小さなエリアを選択し、再度試みてください。
+			複数の地域が選択されたため、土地を購入できません。
+選択する面積を小さくしてもう一度試してください。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandMultipleSelected">
 		<message name="message">
-			土地を購入することは不可能:
-複数の異なった区画を選択しました。
-より小さなエリアを選択するよう試みます。
+			土地を購入できません：
+複数の区画が選択されています。
+選択する面積を小さくしてください。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandMultipleSelected">
 		<message name="message">
-			土地を証書を作成して譲渡することは不可能:
-複数の異なった区画を選択しました。
-より小さなエリアを選択するよう試みます。
+			土地を譲渡できません：
+
+複数の異なった区画が選択されています。
+選択する面積を小さくしてください。
 		</message>
 	</alert>
 	<alert name="RegionNotFound">
@@ -1577,315 +1646,314 @@ N何も選択しませんでした。
 	</alert>
 	<alert name="ParcelCanPlayMusic">
 		<message name="message">
-			この場所はストリーミング音楽を演奏できます。
+			ここではストリーミング・ミュージック再生が可能です。 
  
-音楽は768 kbps を要求するかまたは より速い
-Internet の接続が必要です。
+ ミュージックの再生には768 kbpsより速い
+接続環境が必要です。
  
-使用可能なときは音楽を演奏しますか。
+利用可能になったら再生しますか？
 		</message>
 		<option name="PlayMusic">
-			音楽を演奏
+			音楽を再生
 		</option>
 		<option name="Disable">
-			不能
+			無効化
 		</option>
 	</alert>
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
-			この場所はストリーミングビデオを上映できます。
+			ここではストリーミング・ビデオ再生が可能です。 
  
-ストリーミングビデオは768 kbps を要求するかまたは より速い
-Internet の接続が必要です。
+ビデオの再生には768 kbps より速い 
+接続環境が必要です。
  
-使用可能なときはビデオを演奏しますか。
+使用可能になったら再生しますか？
  
-(Preferences &gt; Audio ＆ Videoの所で
-このオプションを後で変更できます。)
+(このオプションは、[環境設定]＞[音声とビデオ]を通じて
+後からでも変更できます)
 		</message>
 		<option name="PlayMedia">
-			メディアを上映
+			メディアを再生
 		</option>
 		<option name="Disable">
-			不能
+			無効化
 		</option>
 	</alert>
 	<alert name="CannotBuyLandWaitingForServer">
 		<message name="message">
-			土地を購入することは不可能:
-W価格を報告するためのサーバーを待っています。
-数秒後に一度試みてください。
+			土地を購入できません：
+サーバーからコストの報告を待っています。
+少ししてからもう一度試してください。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandWaitingForServer">
 		<message name="message">
-			土地を証書を作成して譲渡することは不可能:
-所有権を報告するためのサーバーを待っています。
-数秒後に一度試みてください。
+			土地を譲渡できません：
+所有権に関するサーバーの報告を待っています。
+少ししてからもう一度試してください。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandNoPublic">
 		<message name="message">
-			土地を購入することは不可能:
-この選択はいかなる公共の土地も含んでいません。
+			土地を購入できません：
+公共の土地が全く選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandLandOwned">
 		<message name="message">
-			土地を購入することは不可能:
-他の使用者によって所有された土地が選択されています。
-より小さなエリアを選択するよう試みます。
+			土地を購入できません：
+他の人所有の土地が選択されました。
+選択する面積を小さくしてください。
 		</message>
 	</alert>
 	<alert name="CannotButLandRegionNotFound">
 		<message name="message">
-			土地を購入することは不可能:
-この土地がある地域を見つけることができません。
-この報告をするためにHelp -&gt; Report Bugを使用してください。
+			土地を購入できません：
+この土地がある地域が見つかりません。
+[ツール]＞[バグを報告する]を使って報告してください。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandNoTransfer">
 		<message name="message">
-			土地を購入することは不可能:
-この地域[REGION]は、土地の転送を許されません。
+			土地を購入できません：
+この [REGION] では土地の譲渡が許されていません。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNoTransfer">
 		<message name="message">
-			土地を証書を作成して譲渡することは不可能:
-この地域[REGION]は、土地の転送を許されません。
+			土地を譲渡できません：
+この地域 [REGION] では土地の譲渡が許されていません。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandForGroupNotOfficer">
 		<message name="message">
-			グループようの土地の購入が不可能:
-現在のクループであなたはオフィサーではありません。
-Edit -&gt; Groupsを使用して他のクループを起動してください...
+			このグループ用に土地を購入できません：
+あなたはこのグループの役員ではありません。
+[編集]＞[グループ...]を使って他のグループをアクティブにしてください。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandInsufficientFunds">
 		<message name="message">
-			土地価格L$[PRICE]のこの [AREA] 平方メーターを買います。
-あんたはただ L$[BALANCE]を持っています。
+			この[AREA]平方メートルの土地を購入するには、L$[PRICE]かかります。
+残金がL$[BALANCE]しかありません。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNothingSelected">
 		<message name="message">
-			土地を捨てることは不可能:
-N何も選択しませんでした。
+			土地を破棄できません： 
+何も選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandWatingForServer">
 		<message name="message">
-			土地を捨てることは不可能:
-価格を報告するためのサーバーを待っています。
-数秒後に一度試みてください。
+			土地を破棄できません：
+サーバーからのコストの報告を待っています。
+少ししてからもう一度試してください。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandSelected">
 		<message name="message">
-			土地を捨てることは不可能:
-複数の異なった区画を選択しました。
-より小さなエリアを選択するよう試みます。
+			土地を破棄できません：
+複数の異なった区画が選択されています。
+選択する面積を小さくしてください。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandDontOwn">
 		<message name="message">
-			土地を捨てることができません：
-この区画を解放する権限がありません。あなたの所有する区画は緑色で表されます。
+			土地を破棄できません：
+あなたはこの土地を手放すことを許可されていません。
+あなたの区画は緑色で表示されています。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandRegionNotFound">
 		<message name="message">
-			土地を捨てることは不可能:
-この土地がある地域を見つけることができません。
-この報告をするためにHelp -&gt; Report Bugを使用してください。
+			土地を破棄できません：
+この土地がある地域が見つかりません。
+[ツール]＞[バグを報告する]を使ってバグを報告してください。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNoTransfer">
 		<message name="message">
-			土地を捨てることは不可能:
-この地域[REGION]は、土地の転送を許されません。
+			土地を破棄できません：
+この [REGION] では土地の譲渡が許されていません。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandPartialSelection">
 		<message name="message">
-			土地を捨てることは不可能:
-区画全体を選択するか、それを解放する必要があります。
-ダブルクリックを試みて、区画全体を選択するか、または
-最初にあなたの区画を分割します。
+			土地を破棄できません：
+この区画を手放すには、区画全域を選択します。
+ダブルクリックして区画全域を選択するか、
+最初に区画を分割してください。
 		</message>
 	</alert>
 	<alert name="ReleaseLandWarning">
 		<message name="message">
-			あなたは [AREA] 平方メーターの土地を手放そうとしています。
-この区画の解放はあなたの土地
-保有からそれを取り除きますが、
-いくらかの金額L$でクレジットされません。
+			あなたは [AREA] 平方メートルの土地を手放そうと
+しています。あなたの所有地からこの区画分が
+減りますが、お金（L$）は入りません。
  
-土地を解放しますか。
+この土地を手放しますか？
 		</message>
 		<option name="Release">
 			解放
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="CannotDivideLandNothingSelected">
 		<message name="message">
-			土地を分割することは不可能:
-何も選択しませんでした。
+			土地を分割できません：
+何も選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotDivideLandPartialSelection">
 		<message name="message">
-			土地を分割することは不可能:
-あなたは選択された全ての区画を持っています。
-クリックとドラッグによってより小さいエリアを選択するように
-心がけます。
+			土地を分割できません：
+1区画全域が選択されています。
+クリックとドラッグを使用して、選択する面積を
+小さくしてください。
 		</message>
 	</alert>
 	<alert name="LandDivideWarning">
 		<message name="message">
-			この土地を分割することは、この区画を２つに分割し、
-そして各区画はそれ自身の設定を保持することができます。 いくつかの設定は
-オペレーションの後デフォルトで再設定されます。
+			この土地を分割すると、2つの区画に別れます。
+区画ごとの設定が可能になります。 この操作を行うと、一部の設定がデフォルトにリセットされます。
  
-土地を分割しますか。
+土地の分割操作を続行しますか？
 		</message>
 		<option name="Divide">
-			分割
+			分割する
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="CannotDivideLandNoRegion">
 		<message name="message">
-			土地を分割することは不可能:
-この土地がある地域を見つけることができません。
-の報告をするためにHelp -&gt; Report Bugを使用してください。
+			土地を分割できません：
+この土地がある地域が見つかりません。
+[ツール]＞[バグを報告する]を使って報告してください。
 		</message>
 	</alert>
 	<alert name="CannotJoinLandNoRegion">
 		<message name="message">
-			土地を統合することが出来ませんでした：
-この土地が存在する地域が見つかりません。ヘルプのバグを報告を利用して報告してください。
+			土地を統合できません：
+この土地がある地域が見つかりません。
+[ツール]＞[バグを報告する]を使って報告してください。
 		</message>
 	</alert>
 	<alert name="CannotJoinLandNothingSelected">
 		<message name="message">
-			土地に加わることは不可能:
-何も選択しませんでした。
+			土地を統合できません：
+何も選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotJoinLandEntireParcelSelected">
 		<message name="message">
-			土地に加わることは不可能:
-あなたは選択された全ての区画を持っています。
-クリックとドラッグによってより大きいエリアを
-選択するように心がけます。
+			土地を統合できません：
+1区画だけが選択されています。
+クリックとドラッグにより、選択する面積を
+大きくしてください。
 		</message>
 	</alert>
 	<alert name="CannotJoinLandSelection">
 		<message name="message">
-			土地に加わることは不可能:
-一つ以上の区画を選択する必要があります。
-クリックとドラッグによってより大きいエリアを
-選択するように心がけます。
+			土地を統合できません：
+複数の区画を選択してください。
+クリックとドラッグで、選択する面積を
+大きくしてください。
 		</message>
 	</alert>
 	<alert name="JoinLandWarning">
 		<message name="message">
-			この土地に加わるには、選択された長方形に交差する全ての区画の外の 
-一つの大きな区画を生成します。 
- 
-あなたは、新しい区画 
-の名前とオプションを再設定する必要があります。 
- 
-土地に加わりますか。
+			この土地を統合すると、選択された長方形に交差する全ての区画を基にして1つの大きな区画が作成されます。
+
+新しい区画の名前とオプションを再設定する必要があります。
+
+
+土地を統合しますか？
 		</message>
 		<option name="Join">
 			参加
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ConfirmNotecardSave">
 		<message name="message">
-			This notecard needs to be saved before the item can be copied or viewed. Save notecard?
+			このアイテムをコピー、表示する前に、ノートカードの保存が必要です。 保存しますか？
 		</message>
 		<option name="Save">
 			保存
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ConfirmLandmarkCopy">
 		<message name="message">
-			あなたの在庫目録にこの項目をコピーする。
+			このアイテムをあなたの持ち物にコピーしますか？
 		</message>
 		<option name="Copy">
 			コピー
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ConfirmItemCopy">
 		<message name="message">
-			あなたの在庫目録にこの項目をコピーする。
+			このアイテムをあなたの持ち物にコピーしますか？
 		</message>
 		<option name="Copy">
 			コピー
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ResolutionSwitchFail">
 		<message name="message">
-			ソリューションを [RESY]で[RESX]に交換することに失敗した
+			解像度を [RESX]x[RESY]に切り替えることができませんでした。
 		</message>
 	</alert>
 	<alert name="ErrorUndefinedGrasses">
 		<message name="message">
-			エラー: 未定義の草: [SPECIES]
+			エラー：未定義の植物：[SPECIES]
 		</message>
 	</alert>
 	<alert name="ErrorUndefinedTrees">
 		<message name="message">
-			エラー: 未定義の草: [SPECIES]
+			エラー：未定義の樹木：[SPECIES]
 		</message>
 	</alert>
 	<alert name="CannotSaveWearableOutOfSpace">
 		<message name="message">
-			衣類のファイルにを保存することが不可能です。
-あなたのコンピュータのいくつかのスペースを解放する必要があり、
-そしてもう一度衣類を保存してください。
+			&apos;[NAME]&apos;を服のファイルに保存できません。  コンピューターの
+ディスクスペースを少し増やしてから、もう一度
+保存してみてください。
 		</message>
 	</alert>
 	<alert name="CannotSaveToAssetStore">
 		<message name="message">
-			中央資産格納庫に[NAME]の保存が不可能です。
-これは通常一時的な故障です。
-カスタマイズして、そして数分後もう一度衣類を保存してください。
-この問題が続く場合には、
-プルダウンメニューをクリックし
-そしてあなたのネットワーク設定について詳細を提供してください。
+			[NAME] を中央資産格納庫に保存できません。
+通常、これは一時的な不具合です。 服を
+カスタマイズし、数分後にもう一度保存
+してください。 この問題が続くようなら、[ツール]＞
+[バグを報告する]をクリックし、お使いの
+ネットワーク設定の詳細を報告してください。
 		</message>
 	</alert>
 	<alert name="AppEarlyExit">
 		<message name="message">
 			[MESSAGE]
  
-この問題から回復することができません。
-もう一度試みる前にアンインストールし、そしてインストールしてください。
-問題が続く場合には、以下でTech Support FAQをチェック:
-www.secondlife.com/support.
+この問題から正常復帰することができません。 
+いったんアンインストールしてから再インストールした後、もう一度試してください。 
+この問題を解決できない場合は、Tech SupportFAQ（
+www.secondlife.com/support）を参照してください。
 		</message>
 		<option name="Quit">
 			終了
@@ -1893,128 +1961,147 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="YouHaveBeenLoggedOut">
 		<message name="message">
-			[SECOND_LIFE]をログアウト:
+			あなたは[SECOND_LIFE]からログアウトされました：
  
 [MESSAGE]
  
-存在するIM とチャットをみるためにContinueをクリックします。
-他のオペレーションを行うことはできません。
-即座に[SECOND_LIFE] をでるにはQuitをクリックします。
+[続行]をクリックすると現在あるIM とチャットを見られます。
+これ以外の操作はできません。
+[終了]をクリックして、すぐに [SECOND_LIFE] から退出してください。
 		</message>
 		<option name="Continue">
-			継続
+			続行
 		</option>
 		<option name="Quit">
 			終了
 		</option>
 	</alert>
+	<alert name="SelectSingleRate">
+		<message name="message">
+			評価対象の単一のオブジェクトを選択
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
-			グループ用の土地の購入ができません：
-活動グループのための土地を購入する権限がありません。Edit→Groupsを使用して、他のグループを起動してください。
+			このグループ用に土地を購入できません：
+あなたはこのグループ用の土地購入を許可されていません。
+[編集]＞[グループ...]を使って他のグループをアクティブにしてください。
 		</message>
 	</alert>
 	<alert name="AddFriend" title="フレンドを追加">
 		<message name="message">
-			Friends can give permissions to 
-track each other on the map and 
-receive online status updates. 
+			フレンド同士は、
+地図上で互いを追跡し、
+オンライン・ステータスの更新情報を受信する権限を与え合うことができます。 
  
-Offer friendship to [NAME]?
+[NAME]にフレンドシップを贈りますか？
 		</message>
 		<option name="Offer">
-			申し出る
+			贈る
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="RemoveFromFriends">
 		<message name="message">
-			あなたはあなたの友達から[FIRST_NAME] [LAST_NAME]を取り除きたいですか。
+			[FIRST_NAME][LAST_NAME]をフレンド・リストから削除しますか？
 		</message>
 		<option name="Remove">
-			取り除く
+			削除
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="RemoveMultipleFromFriends">
 		<message name="message">
-			Do you want to remove multiple friends from your friends list?
+			フレンド・リストから複数のフレンドを削除しますか？
 		</message>
 		<option name="Remove">
-			取り除く
+			削除
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="GodDeleteAllScriptedPublicObjectsByUser">
 		<message name="message">
-			このシムの他の全ての土地において、**[AVATAR_NAME]**所有のスクリプトを含むオブジェクトを、本当に全部削除してもよいですか？
+			**[AVATAR_NAME]**
+
+所有のすべてのスクリプト・オブジェクトをこのシム内の他のすべての土地から削除しようとしています。操作を続行しますか？
 		</message>
 		<option name="DELETE!!">
-			削除!!
+			削除！！
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="GodDeleteAllScriptedObjectsByUser">
 		<message name="message">
-			このシムの全ての土地において、**[AVATAR_NAME]**所有のスクリプトを含むオブジェクトを、本当に全部削除してもよいですか？
+			**[AVATAR_NAME]**
+
+所有のすべてのスクリプト・オブジェクトをこのシムのすべての土地から削除しようとしています。操作を続行しますか？
 		</message>
 		<option name="!!DELETEALL!!">
-			!!全て削除!!
+			！！全て削除！！
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="GodDeleteAllObjectsByUser">
 		<message name="message">
-			このシムの全ての土地において、**[AVATAR_NAME]**所有のオブジェクト（スクリプトを含む、または無し）を、本当に全部削除してもよいですか？
+			**[AVATAR_NAME]**
+
+所有のすべてのオブジェクト（スクリプト・オブジェクトと非スクリプト・オブジェクト）をこのシムのすべての土地から削除しようとしています。操作を続行しますか？
 		</message>
 		<option name="!!DELETEALL!!">
-			!!全て削除!!
+			！！全て削除！！
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="PublishGroupInfoToWeb">
 		<message name="message">
-			ウェブ上で公開&apos; オプションを選択した場合、[SECOND_LIFE]Webサイトにて、グループ名、記章、特権、タイトル、創立者を公開できるようになります。上記内容がコミュニティ・スタンダードにおいて成人向けコンテンツと判断されるかどうかの責任はあなたにあります。
+			[ウェブ上で公開]オプションを選択すると、
+[SECOND_LIFE]ウェブ・サイト上でグループ名、記章、特権、タイトル、および創立者を公開できます。 上記のコンテンツがコミュニティ・スタンダード
+において成人向けコンテンツと判断されるかどうかについては、
+あなた自身がそれを明記しなければなりません。
 		</message>
 	</alert>
 	<alert name="ErrorEncodingSnapshot">
 		<message name="message">
-			エラー暗号化スナップショット!
+			スナップショットのエンコード・エラー！
 		</message>
 	</alert>
 	<alert name="BlankClassifiedName">
 		<message name="message">
-			あなたの分類のために空白でない名前を指定する必要があります。
+			クラシファイド広告には名前の記入が必要です。
 		</message>
 	</alert>
 	<alert name="MinClassifiedPrice">
 		<message name="message">
-			指定の支払い金額は少なくともL＄[MIN_PRICE]です。
-もっと高い金額を入力してください。
+			広告料の支払い金額は、Lと[MIN_PRICE]が下限です。
+ 
+金額を増やしてください。
 		</message>
 	</alert>
 	<alert name="CantLoadVertexShaders">
 		<message name="message">
-			Vertex Shadersをロードすることが不可能です。
+			頂点シェーダーをロードできません。
 		</message>
 	</alert>
 	<alert name="ConfirmObjectDeleteLock">
 		<message name="message">
-			すくなくとも一つのオブジェクトはロックされます。
-しかし、あなたはまだ現行の選択を削除できます。
-これらの項目を削除することを確かに望んでいますか。
+			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
+このまま選択内容を削除することも可能です。
+これらのアイテムの削除を続行しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -2025,9 +2112,9 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="ConfirmObjectDeleteNoCopy">
 		<message name="message">
-			すくなくとも一つのオブジェクトはコピーが可能ではありません。
-しかし、あなたはまだ現行の選択を削除できます。
-これらの項目を削除することを確かに望んでいますか。
+			選択内容に含まれているオブジェクトのうち、コピーできないものが少なくとも1つあります。。
+このまま選択内容を削除することも可能です。
+これらのアイテムの削除を続行しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -2038,9 +2125,9 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="ConfirmObjectDeleteNoOwn">
 		<message name="message">
-			あなたは特に一つのオブジェクトも所有していません。
-しかし、あなたはまだ現行の選択を削除できます。
-これらの項目を削除することを確かに望んでいますか。
+			少なくとも1つ所有していないオブジェクトがあります。
+けれどもこの選択を削除できます。
+これらのアイテムを削除しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -2051,10 +2138,10 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoCopy">
 		<message name="message">
-			すくなくとも一つのオブジェクトはロックされます。
-すくなくとも一つのオブジェクトはコピーが可能ではありません。
-しかし、あなたはまだ現行の選択を削除できます。
-これらの項目を削除することを確かに望んでいますか。
+			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
+また、コピーできないオブジェクトが少なくとも1つあります。
+このまま選択内容を削除することも可能です。
+これらのアイテムの削除を続行しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -2065,10 +2152,10 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoOwn">
 		<message name="message">
-			すくなくとも一つのオブジェクトはロックされます。
-あなたは特に一つのオブジェクトも所有していません。
-しかし、あなたはまだ現行の選択を削除できます。
-これらの項目を削除することを確かに望んでいますか。
+			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
+また、あなたの所有物ではないオブジェクトが少なくとも１つあります。
+このまま選択内容を削除することも可能です。
+これらのアイテムの削除を続行しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -2079,10 +2166,10 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="ConfirmObjectDeleteNoCopyNoOwn">
 		<message name="message">
-			すくなくとも一つのオブジェクトはコピーが可能ではありません。
-あなたは特に一つのオブジェクトも所有していません。
-しかし、あなたはまだ現行の選択を削除できます。
-これらの項目を削除することを確かに望んでいますか。
+			選択内容に含まれているオブジェクトのうち、コピーできないものが少なくとも1つあります。。
+また、あなたの所有物ではないオブジェクトが少なくとも１つあります。
+このまま選択内容を削除することも可能です。
+これらのアイテムの削除を続行しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -2093,11 +2180,11 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoCopyNoOwn">
 		<message name="message">
-			すくなくとも一つのオブジェクトはロックされます。
-すくなくとも一つのオブジェクトはコピーが可能ではありません。
-あなたは特に一つのオブジェクトも所有していません。
-しかし、あなたはまだ現行の選択を削除できます。
-これらの項目を削除することを確かに望んでいますか。
+			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
+また、コピーできないオブジェクトが少なくとも1つあります。
+さらに、あなたの所有物ではないオブジェクトが少なくとも１つあります。
+このまま選択内容を削除することも可能です。
+これらのアイテムの削除を続行しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -2108,9 +2195,9 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="ConfirmObjectTakeLock">
 		<message name="message">
-			すくなくとも一つのオブジェクトはロックされます。
-しかし、あなたはまだ現行の選択を得ることができます。
-これらの項目を得ることを確かに望んでいますか。
+			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
+このまま選択内容を取得することも可能です。
+これらのアイテムの取得を続行しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -2121,12 +2208,12 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="ConfirmObjectTakeNoOwn">
 		<message name="message">
-			あなたは得ているオブジェクトの全てを所有していません。
-もし継続する場合には, 次の所有者の許可は、オブジェクトに適用され、
-そして将来それらを変更またはコピーするためのあなたの能力を
-ことによると限定します。
-しかし、あなたはまだ現行の選択を得ることができます。
-これらの項目を得ることを確かに望んでいますか。
+			取ろうとするオブジェクトは、すべてあなたの物ではありません。
+このまま続けると、次の所有者の許可が オブジェクトに
+適用され、将来あなたが修正、コピー
+する際、制限を受けるかもしれません。
+ただし、この選択で実行は可能です。
+これらのアイテムを取りますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -2137,13 +2224,13 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="ConfirmObjectTakeLockNoOwn">
 		<message name="message">
-			すくなくとも一つのオブジェクトはロックされます。
-あなたが得ているオブジェクトの全てを所有していません。
-もし継続する場合には, 次の所有者の許可は、オブジェクトに適用
-能力をことによると限定します。
-され、そして将来それらを変更またはコピーするためのあなたの
-しかし、あなたはまだ現行の選択を得ることができます。
-これらの項目を得ることを確かに望んでいますか。
+			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
+取得しようとしているオブジェクトには、あなたの所有物でないオブジェクトが含まれています。
+この選択内容をそのまま取得することは可能ですが、あなたの所有物ではないオブジェクトを取得すると、
+次のオーナーの権限がそのオブジェクトに適用されます。
+このため、
+将来、変更やコピーの能力が制限される可能性があります。
+これらのアイテムの取得を続行しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -2154,76 +2241,70 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="CantBuyLandAcrossMultipleRegions">
 		<message name="message">
-			土地を購入することができません。選択が複数の地域に渡るからです。
-より小さなエリアを選択し、再度試みてください。
+			複数の地域が選択されたため、土地を購入できません。
+選択する面積を小さくしてもう一度試してください。
 		</message>
 	</alert>
 	<alert name="DeedLandToGroup">
 		<message name="message">
-			この区画を証書を作成して譲渡することで、このグループはクレジットを使用して十分な土地を保持し、維持することを
-要求されます。
+			この区画の譲渡に際しては、このグループが十分な土地クレジットを保有および維持することが必要条件となります。
  
-その土地の購入価格は、所有者その土地の購入価格は、所有者
-には返金されません。 もし譲渡された区画が、売却される場合には、その売却
-価格は、グループメンバーの間で均等に分配されます。
+土地の購入価格は、オーナーに
+返金されません。 譲渡された区画が売れると、販売価格はグループ・メンバーに均等に割り振られます。
  
-このクループへ土地のこの[AREA] 平方メーターを証書を作成して譲渡しますか。
-[GROUP_NAME]?
+この[AREA]平方メートルの土地をグループ[GROUP_NAME]に譲渡しますか？
 		</message>
 		<option name="Deed">
-			譲渡する
+			譲渡
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="DeedLandToGroupWithContribution">
 		<message name="message">
-			この区画を証書を作成して譲渡することで、このグループはクレジットを使用して十分な土地を保持し、維持することを
-要求されます。
+			この区画の譲渡に際しては、このグループが十分な土地クレジットを保有および維持することが必要条件となります。
  
-この譲渡は、[FIRST_NAME] [LAST_NAME]からそのグループへの同時に起こる土地
-の寄贈を含みます。
+この譲渡により、[FIRST_NAME][LAST_NAME]からグループに対して土地が同時に提供されます。
  
-Tその土地の購入価格は、所有者には返金されません。
-もし譲渡された区画が、売却される場合には、その売却
-価格は、グループメンバーの間で均等に分配されます。
+土地の購入価格は、オーナーに
+返金されません。 譲渡された区画が売れると、販売価格はグループ・メンバーに均等に割り振られます。
  
-このクループへ土地のこの[AREA] 平方メーターを証書を作成して譲渡しますか。
-[GROUP_NAME]
+この[AREA]平方メートルの土地をグループ[GROUP_NAME]に譲渡しますか？
 		</message>
 		<option name="Deed">
-			譲渡する
+			譲渡
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="DisplaySetToSafe">
 		<message name="message">
-			表示設定は、あなたが安全オプションを指定したので
-安全レベルに設定されました。
+			-safeオプションを指定したので、
+表示設定はセーフ・レベルに設定されています。
 		</message>
 	</alert>
 	<alert name="DisplaySetToRecommended">
 		<message name="message">
-			ディスプレイ設定は、あなたのシステム構成に基づいて推奨されたレベルに設定されています。
+			表示設定は、あなたのシステム構成に
+基づいて推奨されたレベルに設定されています。
 		</message>
 	</alert>
 	<alert name="UnableToConnect">
 		<message name="message">
 			サーバーに接続できません。
-ドメイン名を依頼できませんでした: [HOST_NAME]
+ドメイン名[HOST_NAME]をリクエストできませんでした。
 		</message>
 	</alert>
 	<alert name="CanNotFindServer">
 		<message name="message">
-			このサーバードメイン名をみつけることが不可能です。
-これはネットワーク接続を失ったか
-またはサーバーの問題で起こる結果の可能性があります。
+			サーバーのドメイン名が見つかりません。
+ネットワーク接続が失われたか、サーバーに問題が
+あります。
  
-数秒後にもう一度試みるか、または助言をえるそしてシステムステータスウェブページへのリンクのために
-Helpをクリックしてください。
+数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
+リンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -2240,10 +2321,10 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="SystemMayBeDown">
 		<message name="message">
-			SECOND_LIFE]に接続できません
-このシステムはダウンしている可能性があります。
-数秒後にもう一度試みるか、または助言をえるそしてシステムステータスウェブページへのリンクのために
-Helpをクリックしてください
+			[SECOND_LIFE]に接続できません。
+システムがダウンしている可能性があります。
+数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
+リンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -2259,48 +2340,47 @@ Helpをクリックしてください
 	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
-			Your [TYPE] location is not currently available.
+			あなたの [TYPE] のロケーションは現在使用不可能です。
 [HELP] 
-You have been moved into a nearby region.
+あなたは近くの地域に移されました。
 		</message>
 	</alert>
 	<alert name="ClothingLoading">
 		<message name="message">
-			あなたの衣類はまだダウンロードしています。
-あなたは世界を普通に使用でき、そして他の使用者は
-現在のあなたを見ます。
+			あなたの服をダウンロード中です。
+通常どおりに世界を使え、他のユーザーもあなたを
+正常に見ることができます。
 		</message>
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
-			[SECOND_LIFE] のインストールは完了しました。
+			[SECOND_LIFE] のインストールが完了しました。
  
-これはあなたが最初に[SECOND_LIFE]使用する場合に、
-あなたがロクオンする前にアカウント生成する必要があります。.
- 
-新しいアカウントを作成するために www.secondlife.com に戻りますか。
+[SECOND_LIFE]の使用が初めての方は、ログイン前に
+アカウントの作成が必要です。 
+www.secondlife.comに戻って新規アカウントの作成を行いますか？
 		</message>
 		<option name="NewAccount...">
-			新しいアカウント...
+			新規アカウント...
 		</option>
 		<option name="Continue">
-			継続
+			続行
 		</option>
 	</alert>
 	<alert name="SetByHostFail">
 		<message name="message">
 			サーバーに接続できません。
-ドメイン名を解明できませんでした: [HOST_NAME]
-あなたのネットワーク接続をチェックしてください。
+ドメイン名を確認できませんでした。 [HOST_NAME]
+ネットワーク接続を確認してください。
 		</message>
 	</alert>
 	<alert name="LoginPacketNeverReceived">
 		<message name="message">
-			接続は不可能です。ロクインのパケットは
-ロクインサーバーによって受け取られませんでした。
+			接続できません。  ログインパケットがログインサーバーに
+到達しませんでした。
  
-数秒後にもう一度試みるか、または助言をえるそしてシステムステータスウェブページへのリンクのために
-Helpをクリックしてください。
+数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
+リンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -2311,17 +2391,25 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="WelcomeNoClothes">
 		<message name="message">
-			あなたのキャラクターは、まもなく表示されます。
-矢印キーを使用して歩きます。
-ヘルプ、または[SECOND_LIFE]に関して学ぶ場合は、いつでもF1キーを押してください。
+			まもなくあなたのアバターが表示されます。
+ 
+矢印キーを使うと歩くことができます。
+ 
+ヘルプが必要なときや[SECOND_LIFE]について知りたいときは、
+いつでも F1 キーを押してください。
 		</message>
 	</alert>
 	<alert name="WelcomeChooseSex">
 		<message name="message">
-			あなたのキャラクターは、まもなく表示されます。
-矢印キーを使用して歩きます。
-ヘルプ、または[SECOND_LIFE]に関して学ぶ場合は、いつでもF1キーを押してください。
-男性あるいは女性のキャラクターを選択してください。あなたの決定は後で変更可能です。
+			まもなくあなたのアバターが表示されます。
+ 
+矢印キーを使うと歩くことができます。
+ 
+ヘルプが必要なときや[SECOND_LIFE]について知りたいときは、
+いつでも F1 キーを押してください。 
+ 
+アバターの性別を選んでください。
+これは後から変えることもできます。
 		</message>
 		<option name="Male">
 			男性
@@ -2332,139 +2420,149 @@ Helpをクリックしてください。
 	</alert>
 	<alert name="NotEnoughCurrency">
 		<message name="message">
-			[NAME] L$ [PRICE] それをするのは十分な金額をもっていません。
+			[NAME] L$ [PRICE] 残金が足りません。
 		</message>
 	</alert>
 	<alert name="GrantedModifyRights">
 		<message name="message">
-			You have been granted the privilege to modify [FIRST_NAME] [LAST_NAME]&apos;s objects.
+			あなたには、 [FIRST_NAME] [LAST_NAME]のオブジェクトを修正する特権が与えられています。
 		</message>
 	</alert>
 	<alert name="RevokedModifyRights">
 		<message name="message">
-			Your privilege to modify [FIRST_NAME] [LAST_NAME]&apos;s objects has been revoked
+			[FIRST_NAME] [LAST_NAME]のオブジェクトを修正する特権が取り消されました。
 		</message>
 	</alert>
 	<alert name="FlushMapVisibilityCaches">
 		<message name="message">
-			この地域の地図のキャッシュを消去します。実際にはデバッグを行う時のみ有用なオプションです。 （プロダクションには、5分程度待つと、再度ログイン後に、全員の地図が更新されます）
+			この手順は、この地域の地図のキャッシュを消去します。
+ 
+これが便利なのはデバッグ時のみです。 
+ 
+（作成中は5分間経つと、全員の地図が再度
+ログイン後に更新されます）
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="OnlyCopyContentsOfSingleItem">
 		<message name="message">
-			一度に一つ以上のコンテンツをコピーすることはできません。単一オブジェクトを選択し、再度、試みてください。
+			一度に複数のアイテムのコンテンツはコピーできません。
+選択するオブジェクトを1つだけにして、もう一度試してください。
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="KickUsersFromRegion">
 		<message name="message">
-			本地域の全てのユーザーをホームにテレポートしますか？
+			地域のユーザー全員をホームにテレポートしますか？
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ReturnScriptedOnOthersLand">
 		<message name="message">
-			**[USER_NAME]**所有の土地で、彼／彼女の全てのスクリプトを含むオブジェクトを、本当に返却してもよいですか？
+			**[USER_NAME]**が所有する土地以外のすべての土地にある彼／彼女が所有しているすべてのスクリプト・オブジェクトを返却してもいいですか？
 		</message>
 		<option name="Return">
-			戻る
+			返却
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ReturnScriptedOnAllLand">
 		<message name="message">
-			この地域の他の全ての土地において、**[AVATAR_NAME]**所有のスクリプトを含むオブジェクトを、本当に全部返却してもよいですか？
+			**[USER_NAME]**
+所有のすべてのスクリプト・オブジェクトをこの地域内のすべての土地から削除しようとしています。操作を続行しますか？
 		</message>
 		<option name="Return">
-			戻る
+			返却
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="InvalidTerrainBitDepth">
 		<message name="message">
-			Couldn&apos;t set region textures: 
+			地域テクスチャーの設定に失敗しました：
+
+地形テクスチャー[TEXTURE_NUM]のビット深度[TEXTURE_BIT_DEPTH]は無効です。
  
-Terrain texture [TEXTURE_NUM] has an invalid bit depth of [TEXTURE_BIT_DEPTH].
- 
-Replace texture [TEXTURE_NUM] with a 24 bit 512x512 or smaller image
-then click &quot;Set&quot; again.
+テクスチャー[TEXTURE_NUM]を24ビット512X512以下のイメージと交換し、
+「設定」を再度クリックしてください。
 		</message>
 	</alert>
 	<alert name="InvalidTerrainSize">
 		<message name="message">
-			Couldn&apos;t set region textures: 
+			地域テクスチャーの設定に失敗しました：
+
+地形テクスチャー[TEXTURE_NUM]のサイズ[TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]は上限を超えています。 
  
-Terrain texture [TEXTURE_NUM] is too large at [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]. 
- 
-Replace texture [TEXTURE_NUM] with a 24 bit 512x512 or smaller image
-then click &quot;Set&quot; again.
+テクスチャー[TEXTURE_NUM]を24ビット512X512以下のイメージと交換し、
+[設定]を再度クリックしてください。
 		</message>
 	</alert>
 	<alert name="RawUploadStarted">
 		<message name="message">
-			アップロードが開始されました。あなたの接続速度により、2分程度かかることがあります。
+			アップロード開始。 接続速度によっては、
+最大2分間かかります。
 		</message>
 	</alert>
 	<alert name="ConfirmBakeTerrain">
 		<message name="message">
-			現在の領域を上昇／下降させる境界の中間点にベークし、『復帰』ツールのデフォルトにしますか？
+			現在の地形を構築しようとしています。
+この操作を行うと、現在の地形が上昇／下降の制限範囲の中心になり、「復帰」ツールのデフォルトになります。
+操作を続行しますか？
 		</message>
 		<option name="Bake">
-			ベークする
+			構築する
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="MaxAllowedAgentOnRegion">
 		<message name="message">
-			[MAX_AGENTS]許可居住人のみ使用可能です
+			住人は、最大 [MAX_AGENTS] 人まで抱えることができます。
 		</message>
 	</alert>
 	<alert name="MaxAllowedGroupsOnRegion">
 		<message name="message">
-			[MAX_GROUPS]許可グループのみ使用可能です
+			グループは、最大[MAX_GROUPS]個まで抱えることができます。
 		</message>
 		<option name="Bake">
-			ベークする
+			構築する
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="MaxBannedAgentsOnRegion">
 		<message name="message">
-			[MAX_BANNED]禁止居住者のみ使用可能です
+			禁止された住人は、最大 [MAX_BANNED] 人まで抱えることができます。
 		</message>
 	</alert>
 	<alert name="MaxManagersOnRegion">
 		<message name="message">
-			[MAX_MANAGER]禁止居住者のみ使用可能です
+			禁止された住人は、[MAX_MANAGER] 人までしか抱えることができません。
 		</message>
 	</alert>
 	<alert name="OwnerCanNotBeDenied">
 		<message name="message">
-			不動産オーナーを不動産『アクセス拒否』リストに追加できません。
+			不動産オーナーを不動産の「アクセス拒否」リストに追加できません。
 		</message>
 	</alert>
 	<alert name="CanNotChangeAppearanceUntilLoaded">
@@ -2474,22 +2572,27 @@ then click &quot;Set&quot; again.
 	</alert>
 	<alert name="ClassifiedMustBeAlphanumeric">
 		<message name="message">
-			クラシファイドの名前は、AからZの文字、または、数字で始める必要があります。句読点からは始められません。
+			クラシファイド広告の名前は、アルファベットか 
+数字で始めます。  句読点では始められません。
 		</message>
 	</alert>
 	<alert name="CantSetBuyObject">
 		<message name="message">
-			オブジェクトが販売対象ではないため、オブジェクトの購入が設定できません。 販売対象のオブジェクトを設定し、再度試みてください。
+			オブジェクトが販売対象ではないため、オブジェクトの購入が設定できません。 
+販売対象のオブジェクトを設定し、もう一度試してください。
 		</message>
 	</alert>
 	<alert name="FinishedRawDownload">
 		<message name="message">
-			[DOWNLOAD_PATH]への、 未加工の領域ファイルのダウンロードが終了しました。
+			未加工の地形ファイルを
+[DOWNLOAD_PATH]にダウンロードしました。
 		</message>
 	</alert>
 	<alert name="DownloadWindowsMandatory">
 		<message name="message">
-			[SECOND_LIFE]の新しいバージョンが使用可能です。              [MESSAGE]  このシステムを使用するために、アップデートをダウンロードする必要があります。
+			[SECOND_LIFE]の新しいバージョンが使用可能です。
+[MESSAGE]
+システムを使用するには、このアップデートをダウンロードする必要があります。
 		</message>
 		<option name="Download">
 			ダウンロード
@@ -2500,38 +2603,40 @@ then click &quot;Set&quot; again.
 	</alert>
 	<alert name="DownloadWindows">
 		<message name="message">
-			[SECOND_LIFE]のアップデートバージョンが使用可能です。
+			[SECOND_LIFE]のアップデート・バージョンが利用可能です。
 [MESSAGE]
-このアップデートは必須ではありませんが、性能と安定性を向上させるために、インストールする事をお勧めします。
+ 
+このアップデートは必須ではありませんが、パフォーマンスと安定性を向上させるためにインストールすることをお勧めします。
 		</message>
 		<option name="Download">
 			ダウンロード
 		</option>
 		<option name="Continue">
-			継続
+			続行
 		</option>
 	</alert>
 	<alert name="DownloadWindowsReleaseForDownload">
 		<message name="message">
-			[SECOND_LIFE]のアップデートバージョンが使用可能です。
+			[SECOND_LIFE]のアップデート・バージョンが利用可能です。
 [MESSAGE]
-このアップデートは必須ではありませんが、性能と安定性を向上させるために、インストールする事をお勧めします。
+ 
+このアップデートは必須ではありませんが、パフォーマンスと安定性を向上させるためにインストールすることをお勧めします。
 		</message>
 		<option name="Download">
 			ダウンロード
 		</option>
 		<option name="Continue">
-			継続
+			続行
 		</option>
 	</alert>
 	<alert name="DownloadMacMandatory">
 		<message name="message">
-			A new version of [SECOND_LIFE] is available.
+			[SECOND_LIFE]の新しいバージョンが利用可能です。
 [MESSAGE]
 
-You must download this update to use the system.
+システムを使用するには、このアップデートをダウンロードする必要があります。
  
-Download to your Applications folder?
+アプリケーション・フォルダにダウンロードしますか？
 		</message>
 		<option name="Download">
 			ダウンロード
@@ -2542,248 +2647,242 @@ Download to your Applications folder?
 	</alert>
 	<alert name="DownloadMac">
 		<message name="message">
-			[SECOND_LIFE]のアップデートバージョンが使用可能です。
+			[SECOND_LIFE]のアップデート・バージョンが利用可能です。
 [MESSAGE]
-このアップデートは必須ではありませんが、性能と安定性を向上させるために、インストールする事をお勧めします。
-アプリケーション・フォルダーにダウンロードしますか？
+ 
+このアップデートは必須ではありませんが、パフォーマンスと安定性を向上させるためにインストールすることをお勧めします。
+ 
+アプリケーション・フォルダにダウンロードしますか？
 		</message>
 		<option name="Download">
 			ダウンロード
 		</option>
 		<option name="Continue">
-			継続
+			続行
 		</option>
 	</alert>
 	<alert name="DownloadMacReleaseForDownload">
 		<message name="message">
-			[SECOND_LIFE]のアップデートバージョンが使用可能です。
+			[SECOND_LIFE]のアップデート・バージョンが利用可能です。
 [MESSAGE]
-このアップデートは必須ではありませんが、性能と安定性を向上させるために、インストールする事をお勧めします。
-アプリケーション・フォルダーにダウンロードしますか？
+ 
+このアップデートは必須ではありませんが、パフォーマンスと安定性を向上させるためにインストールすることをお勧めします。
+ 
+アプリケーション・フォルダにダウンロードしますか？
 		</message>
 		<option name="Download">
 			ダウンロード
 		</option>
 		<option name="Continue">
-			継続
+			続行
 		</option>
 	</alert>
 	<alert name="DeedObjectToGroup">
 		<message name="message">
-			このオブジェクトを譲渡することはグループとって以下の原因になります:
-* オブジェクトへの支払いの金銭を受け取ります
+			このオブジェクトを譲渡すると、グループは
+*オブジェクトに支払われた金額を受領します。
 		</message>
+		<ignore name="ignore">
+			オブジェクトをグループに譲渡するとき
+		</ignore>
 		<option name="Deed">
-			譲渡する
+			譲渡
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			案内広告は、;一週間のディレクトリーを見つけるの
-部分に現れます。
- 
-あなたの広告を見つけるには、Publish...をクリックし、
-ディレクトリーにそれを追加します。
- 
-Publishをクリックする時支払いをする金額を尋ねられます。
-より多く支払うことは、リスト内であなたの広告がより高い位置に表示され、そして
-キーワードで検索した時にもより高い頻度で現れます。
+			クラシファイド広告は、
+検索ディレクトリのクラシファイド・セクションに
+1週間掲示されます。 
+広告を記入後、[発行]をクリックし、
+ディレクトリ
+に追加します。 [発行]をクリックするすると、料金の支払いが要求されます。
+支払い額が大きいほど、広告がリスト内で上位に表示され、
+キーワードで検索されたときも上位に表示されます。
 		</message>
+		<ignore name="ignore">
+			新しいクラシファイド広告を加えるとき
+		</ignore>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
-	</alert>
-	<alert name="WebLaunchGraphicsDriver">
-		<message name="message">
-			このコンピュータに搭載の[VENDOR_LABLE][CARD_NAME]グラフィック・ドライバーは旧式です。
-これはあなたのグラフィック・カードを制御するソフトウェアの一つです。古いドライバーは[SECOND_LIFE]のような3Dグラフィック・プログラムでの動作の遅延やクラッシュの原因になる可能性があります。
-[VENDOR_LABLE] から無料でダウンロードできる[DRIVER_NAME]ドライバーへのアップグレードを強く推奨します。[SECOND_LIFE]のドライバーWebページに移行しますか？
-		</message>
-		<option name="Gotopage">
-			ページに行く
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
-	<alert name="WebLaunchGraphicsDriverIntelExtreme">
-		<message name="message">
-			このコンピュータのあなたの Intel Extreme グラフィックドライバーは旧式です。
- 
-これはあなたのグラフィックカードを制御するソフトウェアの一つです。
-古いドライバーは[SECOND_LIFE]のような3Dグラフィックプログラムでゆっくり作動したり、またはチャッシュの原因になる可能性があります。
- 
-最も最新のドライバーにアップグレードすることを強く推奨します、Intelから無料のダウンロードが使用可能です。
- 
-[SECOND_LIFE] ドライバーウェブページに行きたいですか。?
-		</message>
-		<option name="Gotopage">
-			ページに行く
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
-	<alert name="RunningInPCI">
-		<message name="message">
-			GL は、このシステム上のこのグラフィックドライバが、グラフィックを描くよりゆっくりした方法であるPCI
-モードで作動していることを示しています。  あなたがPCIビデオカードを使用している場合には
-このメッセージを無視できます。  あなたがAGPビデオカードを使用している場合には、このアプリケーションそして
-3Dアプリケーションでの向上した性能のためにあなたのマザーボードドライバをアップデートする
-必要があります。  PCI Express グラフィックスカードを使用している場合には、[SECOND_LIFE]内の参照のオプションパネルから
-AGP Graphics Accelerationを可能にできます。
-		</message>
 	</alert>
 	<alert name="WebLaunchJoinNow">
 		<message name="message">
-			あなたのアカウントを管理するために www.secondlife.com に行きますか。
+			www.secondlife.comに移動してアカウントを管理しますか？
 		</message>
+		<ignore name="ignore">
+			口座を管理するため、ウェブ・ブラウザーを起動するとき
+		</ignore>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="WebLaunchForums">
 		<message name="message">
-			最新のヒントおよびトリックは、[SECOND_LIFE]の知識ベースを検索してください。
+			最新のヒントおよびトリックについては、[SECOND_LIFE]の知識ベースを検索してください。
 		</message>
+		<ignore name="ignore">
+			知識ベースを表示するため、ウェブ・ブラウザーを起動するとき
+		</ignore>
 		<option name="Gotopage">
-			ページに行く
+			ページに移動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="WebLaunchSupport">
 		<message name="message">
-			Contact [SECOND_LIFE] Support.
+			[SECOND_LIFE]サポートにコンタクト
 		</message>
+		<ignore name="ignore">
+			サポートに連絡するため、ウェブ・ブラウザーを起動するとき
+		</ignore>
 		<option name="Gotopage">
-			ページに行く
+			ページに移動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="WebLaunchSupportWiki">
 		<message name="message">
-			公式のLindenブログで、最新のニュースや情報を入手してください。
+			Linden公式ブログで、最新のニュースや情報を入手してください。
 		</message>
+		<ignore name="ignore">
+			ブログを表示するため、ウェブ・ブラウザーを起動するとき
+		</ignore>
 		<option name="Gotopage">
-			ページに行く
+			ページに移動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="WebLaunchLSLGuide">
 		<message name="message">
-			スクリプトによるヘルプのためにLSL ガイドに行きますか。
+			LSLガイドを開いてスクリプトのヘルプを参照しますか？
 		</message>
+		<ignore name="ignore">
+			LSLガイドを表示するため、ウェブ・ブラウザーを起動するとき
+		</ignore>
 		<option name="Gotopage">
-			ページに行く
+			ページに移動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="WebLaunchLSLWiki">
 		<message name="message">
-			スクリプトによるヘルプのためにLSL Wikiに行きますか。
+			LSLポータルを開いてスクリプトのヘルプを参照しますか？
 		</message>
+		<ignore name="ignore">
+			LSLポータルを表示するために、ウェブ・ブラウザーを起動するとき
+		</ignore>
 		<option name="Gotopage">
-			ページに行く
+			ページに移動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="WebLaunchReleaseNotes">
 		<message name="message">
-			[SECOND_LIFE]のリリースノートを閲覧しますか？
+			[SECOND_LIFE] のリリースノートを表示しますか？
 		</message>
+		<ignore name="ignore">
+			リリースノートを表示するため、ウェブ・ブラウザーを起動するとき
+		</ignore>
 		<option name="Gotopage">
-			ページに行く
+			ページに移動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
-			オブジェクトをそれらの所有者に戻すことを確かに望んでいますか。
-選択された 譲渡可能な証書を作成して譲渡された
-オブジェクトはそれらの以前の所有者に戻されます。
-(返還された全てにオブジェクトは、それらが最後にあったフォールダに戻されます。.)
- 
-*警告* 譲渡不可能な証書を作成して譲渡されたオブジェクトは削除されます。
+			選択したオブジェクトをオーナーに返却しようとしています。
+操作を続行しますか？ 譲渡された譲渡可能オブジェクトは以前のオーナーに返却されます。
+（返却したオブジェクトは、それらが譲渡前に格納されていたフォルダに戻されます）。 
+*警告* 譲渡不可能なオブジェクトは削除されます。
 		</message>
+		<ignore name="ignore">
+			オブジェクトを持ち主に返却するとき
+		</ignore>
 		<option name="Return">
-			戻る
+			返却
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ViewReleaseNotes">
 		<message name="message">
-			Second Lifeのリリースノートを閲覧しますか？
+			Second Lifeのリリースノートを表示しますか？
 		</message>
+		<ignore name="ignore">
+			リリースノートを表示するとき
+		</ignore>
 		<option name="Gotopage">
-			ページに行く
+			ページに移動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="GroupLeaveConfirmOfficer">
 		<message name="message">
-			あなたは現在このグループ[GROUP]のオフィサーです。
-グループを去りますか。
+			現在あなたは [GROUP]のオフィサーです。
+ここから抜けますか？
 		</message>
 		<option name="Leave">
-			去る
+			立ち去る
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="GroupLeaveConfirmMember">
 		<message name="message">
-			あなたは現在このグループ[GROUP]のメンバーです。
-グループを去りますか。
+			現在あなたは [GROUP]のメンバーです。
+ここから抜けますか？
 		</message>
 		<option name="Leave">
-			去る
+			立ち去る
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ConfirmKick">
 		<message name="message">
-			全ての使用者をグリッドから追い出すことを本当に望んでいるのですか。
+			すべてのユーザーをグリッド外にキックしようとしています。操作を続行しますか？
 		</message>
 	</alert>
 	<alert name="MuteLinden">
 		<message name="message">
-			すみません。Lindenをミュートできません。
+			残念ながら、Lindenをミュートすることはできません。
 		</message>
 		<option name="OK">
 			OK
 		</option>
 	</alert>
-	<alert name="MuteByName" title="オブジェクト名でミュートする">
+	<alert name="MuteByName" title="オブジェクトを名前でミュート">
 		<message name="message">
-			名前によるミュートは、オブジェクト・チャット、およびＩＭのみに影響し、サウンドには影響しません。 正確なオブジェクト名をタイプする必要があります。
+			名前によるミュートは、オブジェクト・チャット、およびIMのみに影響し、サウンドには影響しません。 
+正確なオブジェクト名を入力する必要があります。
 		</message>
 		<editline>
 			オブジェクト名
@@ -2792,12 +2891,13 @@ AGP Graphics Accelerationを可能にできます。
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
-	<alert name="MuteByNameFailed" title="オブジェクト名でミュートの失敗">
+	<alert name="MuteByNameFailed"
+	     title="オブジェクトを名前でミュートできませんでした">
 		<message name="message">
-			この名前は、すでにミュートされています。
+			あなたはすでにこの名前をミュートしています。
 		</message>
 		<option name="OK">
 			OK
@@ -2805,8 +2905,8 @@ AGP Graphics Accelerationを可能にできます。
 	</alert>
 	<alert name="RemoveItemWarn">
 		<message name="message">
-			許可されたけれど、在庫目録を削除することはそのオブジェクトに損害を与える可能性があります。
-その在庫目録項目を削除したいですか。
+			許されてはいますが、持ち物を削除するとオブジェクトが壊れる
+恐れがあります。 持ち物アイテムを削除しますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -2817,7 +2917,7 @@ AGP Graphics Accelerationを可能にできます。
 	</alert>
 	<alert name="CantRateOwnedByGroup">
 		<message name="message">
-			Can&apos;t このオブジェクトの所有者を格付けすることはできないので, オブジェクトはグループによて所有されます。
+			このオブジェクトのオーナーを評価できません。オブジェクトはグループの所有物です。
 		</message>
 		<option name="OK">
 			OK
@@ -2825,7 +2925,7 @@ AGP Graphics Accelerationを可能にできます。
 	</alert>
 	<alert name="CantOfferCallingCard">
 		<message name="message">
-			今のところ電話カードを提供できません。すぐにもう一度試みてください。
+			現在コーリング・カードを贈れません。数分後にもう一度試してください。
 		</message>
 		<option name="OK">
 			OK
@@ -2833,7 +2933,7 @@ AGP Graphics Accelerationを可能にできます。
 	</alert>
 	<alert name="CantOfferFriendship">
 		<message name="message">
-			今のところ友情を提供できません。すぐにもう一度試みてください。
+			現在フレンドシップを贈れません。数分後に試してください。
 		</message>
 		<option name="OK">
 			OK
@@ -2841,8 +2941,7 @@ AGP Graphics Accelerationを可能にできます。
 	</alert>
 	<alert name="CantSetHome">
 		<message name="message">
-			Can&apos;t ここにホームを設定できま
-あなたのホームは、あなたまたはあなたのグループが所有する土地の上にある必要があります。
+			ここにホームを設定することはできません。ホームは、あなた自身の土地か、あなたのグループ所有の土地に設定する必要があります。
 		</message>
 		<option name="OK">
 			OK
@@ -2850,18 +2949,19 @@ AGP Graphics Accelerationを可能にできます。
 	</alert>
 	<alert name="BusyModeSet">
 		<message name="message">
-			使用中モードの設定
-チャットとインスタントメッセージは隠されます。 インスタント
-メッセージは、あなたの使用中の返答を受けます。 全てのテレポート
-と在庫目録の提供は、低下します。
+			ビジー・モードのセット。
+チャットとインスタント・メッセージが隠れます。 インスタント・メッセージは、ビジー応答を受け取ります。 テレポートと持ち物のオファーはすべて拒否されます。
 		</message>
+		<ignore name="ignore">
+			ビジー・モードを設定するとき
+		</ignore>
 		<option name="OK">
 			OK
 		</option>
 	</alert>
 	<alert name="NoPVPDetected">
 		<message name="message">
-			プレーヤ無し 対 プレーヤ (PvP) 悪用が発見された
+			プレイヤー間（PvP）の嫌がらせ未検出
 		</message>
 		<option name="OK">
 			OK
@@ -2869,8 +2969,8 @@ AGP Graphics Accelerationを可能にできます。
 	</alert>
 	<alert name="NotecardAttachPermFail">
 		<message name="message">
-			制限されない次の所有者の許可付きの項目だけが
-ノートカードに添付できます。
+			ノートカードには、
+次のオーナーの権限が制限されていないアイテムのみ添付できます。
 		</message>
 		<option name="OK">
 			OK
@@ -2878,339 +2978,344 @@ AGP Graphics Accelerationを可能にできます。
 	</alert>
 	<alert name="JoinedTooManyGroupsMember">
 		<message name="message">
-			　	      　&quot;他のグループに参加するにはあまりに多くのグループのメンバーです。&quot;
-	      　&quot;このグループに参加する前に少なくとも一つのグループから去るか、&quot;
-	      　&quot;またはこの申し出を断ってください。&quot;
-	      　&quot;グループを去るためにメニューからオプションを選択します。&quot;
-	      　&quot;[NAME] はメンバーとしてグループに参加するために&quot;
-	     　 &quot;あなたを招待しました。&quot;
-	      　&quot;[INVITE]&quot;
-	      　&quot;&quot;
+			加入グループが多すぎて、別のグループに
+加われません。 少なくとも1つのグループから
+抜けるか、この招待を断ってください。
+脱退するには[編集]メニューから[私のグループ]
+オプションを選びます。
+[NAME] があなたをメンバーとしてグループに招待しました。
+[INVITE]
 		</message>
 		<option name="Join">
 			参加
 		</option>
 		<option name="Decline">
-			断わる
+			辞退
 		</option>
 	</alert>
 	<alert name="JoinedTooManyGroupsOfficer">
 		<message name="message">
-			　&quot;他のグループに参加するにはあまりに多くのグループのメンバーです。&quot;
-	      　&quot;このグループに参加する前に少なくとも一つのグループから去るか、&quot;
-	      　&quot;またはこの申し出を断ってください。&quot;
-	      　&quot;グループを去るためにメニューからオプションを選択します。&quot;
-	      　&quot;[[NAME] はオフィサーとしてグループに参加するために&quot;
-	      　&quot;あなたを招待しました。&quot;
-	      　&quot;[INVITE]&quot;
-	      　&quot;&quot;
+			加入グループが多すぎて、別のグループに
+加われません。 少なくとも1つのグループから
+抜けるか、この招待を断ってください。
+脱退するには[編集]メニューから[私のグループ]
+オプションを選びます。
+[NAME] があなたをオフィサーとしてグループに招待しました。
+[INVITE]
 		</message>
 		<option name="Join">
 			参加
 		</option>
 		<option name="Decline">
-			断わる
+			辞退
+		</option>
+	</alert>
+	<alert name="HandleRateOwner">
+		<message name="message">
+			このオブジェクトのオーナーを評価できません。オブジェクトはグループの所有物です。
+		</message>
+		<option name="OK">
+			OK
 		</option>
 	</alert>
 	<alert name="KickUser">
 		<message name="message">
-			どんなメッセージでこの使用者を追い出しますか。
+			どんなメッセージを表示して、このユーザーを追い出しますか？
 		</message>
 		<editline>
-			管理人があなたをログオフしました。
+			あなたは管理者によりログオフされました。
 		</editline>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="KickAllUsers">
 		<message name="message">
-			どんなメッセージでグリット上の皆を追い出しますか。
+			どんなメッセージを表示して、グリッドにいる全員を追い出しますか？
 		</message>
 		<editline>
-			管理人があなたをログオフしました。
+			あなたは管理者によりログオフされました。
 		</editline>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="FreezeUser">
 		<message name="message">
-			どんなメッセージでこの使用者を静止させますか。
+			どんなメッセージを表示して、このユーザーをフリーズしますか？
 		</message>
 		<editline>
-			あなたは動けませんでした。 あなたは移動またはチャットができません。 管理人がインスタントメッセージ(IM)で連絡します 。
+			あなたはフリーズされています。 動くこともチャットすることもできません。 管理者がIMを通じてあなたに連絡します。
 		</editline>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="UnFreezeUser">
 		<message name="message">
-			どんなメッセージでこの使用者の静止状態を解除しますか。
+			どんなメッセージを表示して、このユーザーのフリーズを解除しますか？
 		</message>
 		<editline>
-			あなたはもう動けます。
+			もうフリーズされていません。
 		</editline>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ExpungeUser">
 		<message name="message">
-			削除するために使用者のエージェントidを入力してください
+			消去するユーザーのエージェントIDを入力
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="OfferTeleport">
 		<message name="message">
-			次のメッセージを持ったあなたの位置にテレポートを提供しますか。
+			あなたのロケーションへのテレポートを次のメッセージと共に贈りますか？
 		</message>
 		<editline>
-			[REGION]に私を入れてください
+			[REGION]に参加希望
 		</editline>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="OfferTeleportFromGod">
 		<message name="message">
-			神があなたの場所に使用者を呼び出しますか。
+			ユーザーをゴッド・コールで呼び寄せますか？
 		</message>
 		<editline>
-			[REGION]に私を入れてください
+			[REGION]に参加希望
 		</editline>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="MessageEstate"
-	     title="あなたの不動産内全員にメッセージ送信">
+	     title="あなたの不動産内の全員にメッセージを送信">
 		<message name="message">
-			あなたの所有地内のみんなに現在送られる
-短い通知をタイプします。
+			今あなたの不動産にいる人全員に送る
+短いメッセージを入力してください。.
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
-	<alert name="ChangeLindenEstate" title="Lindenエステートを変更">
+	<alert name="ChangeLindenEstate" title="Lindenの不動産を変更">
 		<message name="message">
-			　&quot;所有地を所有したLindenを変更しようとしています&quot;
-	      　&quot;(本土, ティーン格子、 オリエンテーションなど)。&quot;
-	      　&quot; &quot;
-	      　&quot;これは極めて危険です。それは使用者の経験に&quot;
-	      　&quot;基本的に影響力があるからです。 本土では、数千の地域が変更され、&quot;
-	      　&quot;そしてスペースサーバーに問題をつくっています。&quot;
-	      　&quot; &quot;
-	      　&quot;続行しますか。&quot;
-	      　&quot;&quot;
+			あなたはLinden所有の不動産(メインランド、ティーングリッド、
+オリエンテーションなど)を変更しようとしています。 
+ 
+これはユーザーの経験を根本から揺るがしかねない
+「非常に危険な行為」です。  メインランドで何千もの地域が
+変わり、スペースサーバーに悪影響が出ます。
+ 
+操作を続行しますか？
 		</message>
 		<option name="ChangeEstate">
-			所有地の変更
+			不動産を変更
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
-	<alert name="ChangeLindenAccess" title="Lindenエステート・アクセスを変更">
+	<alert name="ChangeLindenAccess" title="Lindenの不動産へのアクセスを変更">
 		<message name="message">
-			所有地を所有したLindenのためのアクセスリストを変更しようとしています
-(本土,ティーン格子、オリエンテーションなど)。
+			あなたはLinden所有の不動産（メインランド、ティーングリッド、
+オリエンテーションなど）へのアクセス・リストを変更しようとしています。 
  
-これはDANGEROUSです。そして実行すべきではありません。グリッドの
-内部/外部にオブジェクト/金銭を転送することを許す
-ハッキングを引き起こします。
+この行為は「危険」であり、グリッドからオブジェクトやお金の
+譲渡を許すハッキングを引き起こす結果に
+終わる可能性大です。 
  
-I数千の地域が変更され、そして
-スペースサーバーに問題をつくっています。
+メインランドで何千もの地域が変わり、
+スペースサーバーに悪影響が出ます。 
  
-続行しますか。
+操作を続行しますか？
 		</message>
 		<option name="ChangeEstate">
-			所有地の変更
+			不動産を変更
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="EstateAllowedAgentAdd" title="不動産を選択">
 		<message name="message">
-			この所有地または[ALL_ESTATES]のために許可リストに追加しますか
+			この不動産の許可リストだけに追加しますか？ それとも[ALL_ESTATES]のすべての許可リストに追加しますか？
 		</message>
 		<option name="ThisEstate">
-			この所有地
+			この不動産
 		</option>
 		<option name="AllEstates">
-			全ての所有地
+			すべての不動産
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="EstateAllowedAgentRemove" title="不動産を選択">
 		<message name="message">
-			この所有地ためだけまたは[ALL_ESTATES]のために許可リストから取り除きますか
+			許可リストからの削除をこの不動産についてのみ行いますか？ それとも、[ALL_ESTATES]について行いますか？
 		</message>
 		<option name="ThisEstate">
-			この所有地
+			この不動産
 		</option>
 		<option name="AllEstates">
-			全ての所有地
+			すべての不動産
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="EstateAllowedGroupAdd" title="不動産を選択">
 		<message name="message">
-			この所有地または[ALL_ESTATES]のためにグループ許可リストに追加しますか
+			この不動産のグループ許可リストだけに追加しますか？ それとも[ALL_ESTATES]のグループ許可リストに追加しますか？
 		</message>
 		<option name="ThisEstate">
-			この所有地
+			この不動産
 		</option>
 		<option name="AllEstates">
-			全ての所有地
+			すべての不動産
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="EstateAllowedGroupRemove" title="不動産を選択">
 		<message name="message">
-			この所有地だけまたは[ALL_ESTATES]のためにリストを許可されたグループから取り除きますか
+			許可リストからの削除をこの不動産についてのみ行いますか？ それとも、[ALL_ESTATES]について行いますか？
 		</message>
 		<option name="ThisEstate">
-			この所有地
+			この不動産
 		</option>
 		<option name="AllEstates">
-			全ての所有地
+			すべての不動産
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="EstateBannedAgentAdd" title="不動産を選択">
 		<message name="message">
-			この所有地だけまたは[ALL_ESTATES]のためにアクセスを拒みますか
+			この不動産についてのみアクセスを拒否しますか？ それとも[ALL_ESTATE]へのアクセスを拒否しますか？
 		</message>
 		<option name="ThisEstate">
-			この所有地
+			この不動産
 		</option>
 		<option name="AllEstates">
-			全ての所有地
+			すべての不動産
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="EstateBannedAgentRemove" title="不動産を選択">
 		<message name="message">
-			この所有地だけまたは[ALL_ESTATES]のためにアクセスを拒むことを止めますか
+			アクセス拒否をこの不動産についてのみ停止しますか。それとも、[ALL_ESTATES]に対して停止しますか。
 		</message>
 		<option name="ThisEstate">
-			この所有地
+			この不動産
 		</option>
 		<option name="AllEstates">
-			全ての所有地
+			すべての不動産
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="EstateManagerAdd" title="不動産を選択">
 		<message name="message">
-			この所有地または全てのあなたの所有地に対して所有地マネージャを追加しますか。
+			不動産マネージャーをこの不動産だけに追加しますか？ それともすべての不動産に追加しますか？
 		</message>
 		<option name="ThisEstate">
-			この所有地
+			この不動産
 		</option>
 		<option name="AllEstates">
-			全ての所有地
+			すべての不動産
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="EstateManagerRemove" title="不動産を選択">
 		<message name="message">
-			この所有地または全てのあなたの所有地のための所有地マネージャを取り除きますか。
+			不動産マネージャーをこの不動産からのみ削除しますか？ それとも、あなたの全不動産から削除しますか？
 		</message>
 		<option name="ThisEstate">
-			この所有地
+			この不動産
 		</option>
 		<option name="AllEstates">
-			全ての所有地
+			すべての不動産
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="EstateCovenantChange" title="不動産を選択">
 		<message name="message">
-			本不動産のみ、または、[ALL_ESTATES]のための約款メッセージを変更しますか？
+			約款メッセージをこの不動産についてのみ変更しますか？ それとも[ALL_ESTATES]を対象に変更しますか？
 		</message>
 		<option name="ThisEstate">
-			この所有地
+			この不動産
 		</option>
 		<option name="AllEstates">
-			全ての所有地
+			すべての不動産
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
-	<alert name="EstateKickUser" title="キック確認">
+	<alert name="EstateKickUser" title="キックを確認">
 		<message name="message">
-			この所有地から[EVIL_USER] 追い出しますか。
+			この不動産から[EVIL_USER]を追い出しますか？
 		</message>
 		<option name="Kick">
-			追い出す
+			キック
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="EstateChangeCovenant">
 		<message name="message">
-			不動産約款を本当に変更してもよいですか？
+			不動産約款を変更しようとしています。操作を続行しますか？
 		</message>
 		<option name="Change">
 			変更
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ProblemImportingEstateCovenant">
 		<message name="message">
-			不動産約款インポートの問題
+			不動産約款のインポート時に問題発生。
 		</message>
 		<option name="OK">
 			OK
@@ -3218,7 +3323,7 @@ I数千の地域が変更され、そして
 	</alert>
 	<alert name="UnableToLoadNotecard">
 		<message name="message">
-			今回は、ノートカード資産を読み込むことができません。
+			現在ノートカードの資産をロードできません。
 		</message>
 		<option name="OK">
 			OK
@@ -3226,7 +3331,7 @@ I数千の地域が変更され、そして
 	</alert>
 	<alert name="NotAllowedToViewNotecard">
 		<message name="message">
-			要求された資産IDに関するノートカード閲覧のための許可が不十分です
+			要求された資産IDに関するノートカードを閲覧するには権限が不十分です。
 		</message>
 		<option name="OK">
 			OK
@@ -3234,7 +3339,7 @@ I数千の地域が変更され、そして
 	</alert>
 	<alert name="MissingNotecardAssetID">
 		<message name="message">
-			ノートカード用資産ＩＤがデータベースから紛失
+			ノートカード用資産IDがデータベースに登録されていません。
 		</message>
 		<option name="OK">
 			OK
@@ -3242,405 +3347,389 @@ I数千の地域が変更され、そして
 	</alert>
 	<alert name="PublishClassified">
 		<message name="message">
-			注意 ：案内広告の料金は払い戻しされません。
-L＄[AMOUNT]で、この案内を表示しますか？
+			注意：クラシファイド広告の料金は払い戻しされません。
+ 
+L$[AMOUNT]で、このクラシファイド広告を今すぐ掲載しますか？
 		</message>
 		<option name="Publish">
-			表示
+			公開
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
-	<alert name="ConfirmRestart" title="再スタート確認">
+	<alert name="ConfirmRestart" title="再起動を確認">
 		<message name="message">
-			実際に2分間でこの地域を再スタートしたいですか。
+			この地域を2分後に再起動しようとしています。操作を続行しますか？
 		</message>
 		<option name="Restart">
 			再起動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
-	<alert name="MessageRegion" title="この地域内全員にメッセージ送信">
+	<alert name="MessageRegion"
+	     title="この地域内の全員にメッセージを送信">
 		<message name="message">
-			あなたの所有地内のみんなに送られる
-短い通知をタイプします。
+			この地域にいる人全員に送る
+短いメッセージを入力してください。
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
-	<alert name="HelpRegionBlockTerraform" title="フロック土地形成">
+	<alert name="HelpRegionBlockTerraform" title="土地整備をブロック">
 		<message name="message">
-			本ボックスがチェックされている場合、区画毎の『領域を編集』設定にかかわらず、土地オーナーは土地整備が出来ません。
-デフォルト: オフ
+			このボックスがチェックされている場合、区画ごとの「領域を編集」設定にかかわらず、土地オーナーは土地整備ができません。
+ 
+デフォルト：オフ
 		</message>
 	</alert>
-	<alert name="HelpRegionBlockFly" title="ブロックフライ">
+	<alert name="HelpRegionBlockFly" title="飛行をブロック">
 		<message name="message">
-			このボックスがチェックされる場合には、人々は区画毎のFly設定に関わりなく
-彼らの土地での飛行はできません。
+			このボックスをチェックすると、区画ごとの「飛行」設定に関わらず飛行ができなくなります。
  
-ディフォルト値: オフ
+デフォルト：オフ
 		</message>
 	</alert>
-	<alert name="HelpRegionAllowDamage" title="ダメージを許可">
+	<alert name="HelpRegionAllowDamage" title="損害を許可">
 		<message name="message">
-			このボックスをチェックすることは、個々人の区画設定に関わらず
-全ての区画に渡って健全なシステムが可能です。
-このボックスがチェックしないで残される場合には、
-個々の区画の所有者は彼らの区画で健全なシステムを起動することはまだできます。
- 
-ディフォルト値: オフ
+			このボックスをチェックすると、区画別の設定に関係なく、すべての区画に対してヘルス・システムが有効になります。
+このボックスがチェックされていない場合は、各区画のオーナー各人が自分の区画に対してヘルス・システムのオン／オフを設定できます。
+デフォルトでは、オフになっています。
 		</message>
 	</alert>
-	<alert name="HelpRegionAgentLimit" title="エージェントの制限">
+	<alert name="HelpRegionAgentLimit" title="人物の制限">
 		<message name="message">
-			この地域に許可される最大数のアバターを設定します。
-一つの地域により多くのアバターを持っていると、
-性能がより悪くなる可能性があることに注意します。
+			この地域で使用可能なアバターの最大数を設定します。
+1つの地域に存在するアバターが多いとパフォーマンスが
+低下する原因になるので注意してください。
  
-ディフォルト値: 30
+デフォルト：30
 		</message>
 	</alert>
-	<alert name="HelpRegionObjectBonus" title="オブジェクトボーナス">
+	<alert name="HelpRegionObjectBonus" title="物体ボーナス">
 		<message name="message">
-			The Object Bonus is a multiplier for primitives allowed on any given
-parcel. The range allowed is 1 to 10. Set at &apos;1&apos; each 512m2 parcel
-would be allowed 117 objects. Set at &apos;2&apos; each 512m2 parcel would be
-allowed 234, or twice as many, and so on. The max number of objects
-allowed per region remains 15,000 no matter what the value set for
-Object Bonus. Once this value is set, it should not be lowered until
-you are certain that changing it will not force return or deletion of
-the objects currently on parcels.
+			物体ボーナスとは、すべての区画に認められたプリム（オブジェクト）の増倍数です。 1から10までの増倍数が認められています。&apos;1&apos; の設定では、512m2の1区画に\117のオブジェクトが許可されます。 &apos;2&apos; の設定では、同じ1区画に許される\オブジェクトは2倍の234で、3以降も同様になります。 オブジェクト・ボーナスの\数値にかかわらず、1つの地域に認められるオブジェクトの最大数は常に\15,000です。 いったんこの数値を決めたら、それを変えても区画上の\オブジェクトを返却または削除させることにならないと確認できるまで、\数値を下げるべきではありません。
  
-Default: 1.0
+デフォルト: 1.0
 		</message>
 	</alert>
-	<alert name="HelpRegionMaturity" title="年齢制限">
+	<alert name="HelpRegionMaturity" title="成人指定">
 		<message name="message">
-			地図のポップアップ助言とスクリーンの上部右側
-の角に示したように、この地域の年齢制限を設定します。  年齢制限
-も検索結果に影響します - 居住者は成人向け地域でのコンテンツを
-を見つけないように選択できます。
+			地域の成人指定を設定します。成人指定は、
+スクリーンの右上の角に示されるほか、地図のポップアップ・ヒントに示されます。  
+成人指定は、検索結果にも影響します。住人は、成人向け地域のコンテンツを検索から除外することができます。
  
-システムが地図情報を定期的にアップデートしているだけな 
-ので、マップ上のポップアップ助言は5 分間は変更しません。 
+地図情報は一定間隔でのみ更新されるため、
+地図上のポップアップ・ヒントに変更が反映されるまでに5分かかります。 
  
-ディフォルト値: PG
+デフォルト：PG
 		</message>
 	</alert>
-	<alert name="HelpRegionRestrictPushObject" title="プッシングを制限">
+	<alert name="HelpRegionRestrictPushObject" title="プッシュを制限">
 		<message name="message">
-			全地域において、プッシュ許可を制限します。エージェントは自分自身でのプッシュ、他区画のオーナー、および、その区画に設定／譲渡されたグループ所有のスクリプトにプッシュされる可能性があります。
+			制限されたプッシュ権限を全地域に適用します。
+これによりエージェントのプッシュは、自分自身でのプッシュ、
+他区画のオーナーが所有しているスクリプトによるプッシュ、または区画のグループに設定されているスクリプトによるプッシュだけに制限されます
+（区画にグループが設定/譲渡されている場合）。
+プッシュでは、LSLのllPushObject()関数を参照します。
+ 
 デフォルト：オフ
 		</message>
 	</alert>
 	<alert name="HelpParcelChanges" title="区画統合／再分割">
 		<message name="message">
-			不動産オーナーが所有していない区画を統合／再分割できる
-か設定します。
-本オプションが無効な場合：
-*不動産オーナー、または管理者のみが、統合／再分割を行うことができます。 *オーナー、または、適切な権限を持つグループに属する区画のみを統合／再分割することができます。
-本オプションが有効な場合：
-*全ての区画オーナーは、所有する区画の統合／再分割ができます。 *グループ所有の区画は、適切な権限を持つグループに属する区画を統合／再分割することができます
-		</message>
-	</alert>
-	<alert name="RegionMaturityChange" title="地域の成熟度変更済み">
-		<message name="message">
-			この地域の年齢制限のランクはアップデートされました。
+			不動産オーナーが所有していない区画に関して、統合／再分割が\可能かどうかを設定します。 
+このオプションがチェックされていない場合
+ *不動産のオーナーまたは管理者だけが、区画を統合／再分割できます。 
+ *彼らが統合／再分割できるのは、オーナーの持つ区画、または適切な権限を持つグループに属する区画だけです。
+このオプションが有効の場合
+ * 全ての区画オーナーは、所有する区画を統合／再分割できます。 
+ * グループ所有の区画では、適切な権限を持つグループが区画を統合／再分割できます。
  
-しかしながら世界地図は更新するのに約 5分間かかります。
-このシステムは定期的に
-地図情報を更新しているからです。
+デフォルト: チェックあり
 		</message>
 	</alert>
-	<alert name="HelpRegionLandResell" title="再販の土地">
+	<alert name="RegionMaturityChange" title="地域の成人指定変更済み">
 		<message name="message">
-			不動産オーナーや管理者は、不動産オーナーの土地を販売することができます。 もし、このオプションが設定されていない場合、購入者は本地域における土地を再販することができません。もし、このオプションが設定されている場合、購入者は本地域における土地を再販することができます。
-デフォルト: 許可しない
-		</message>
-	</alert>
-	<alert name="HelpEstateCovenantID" title="特権資産ID">
-		<message name="message">
-			本不動産に属する不動産約款のノートカード資産IDを設定 デフォルト：00000000－0000－0000－0000－000000000000もしくは、無し
-		</message>
-	</alert>
-	<alert name="HelpRegionDisableScripts" title="スクリプトを無効にする">
-		<message name="message">
-			加入者識別モジュールの動作が不良の時は、スクリプトに原因がある可能性があります。
-Statistics Bar (Ctrl-Shift-1)
-を開いてください。Simulator Physics FPSを見てください。
-それが45より低い場合には、Stats Barのボタン
-にある&apos;Time&apos;パネルを開きます。Script Timeが25ms以上である場合には、
-&apos;Get Top Scripts&apos;ボタンをクリックします。動作不良の原因と考えられるスクリプトの名前と位置
-が表示されます。
+			この地域の成人指定が更新されました。 
  
-&apos;Disable Scripts&apos;ボックスをチェックし、&apos;Apply&apos;
-ボタンを押すと、この地域での全てのスクリプトが一時的に無効になります。注をつけた
-&apos;トップスクリプト&apos;の場所に行くためには、これを行う必要
-かあるでしょう。その場所に移動したら直ぐに、それが問題の原因かどうか判断するためにその
-スクリプトを調査します。そのスクリプトの所有者に連絡しても良いし、オブジェクトを削除したり戻したりしてもかまいません。
-&apos;Disable Script&apos;ボックスのチェックを外し、&apos;Apply&apos;して
-その地域でのスクリプトを再び有効にします。
-デフォルト値：off
+ただしシステムが行う地図情報の更新は一定期間
+ごとなので、世界地図に反映されるには5分ほど 
+かかります。
 		</message>
 	</alert>
-	<alert name="HelpRegionDisableCollisions" title="衝突を無効にする">
+	<alert name="HelpRegionLandResell" title="土地の再販">
 		<message name="message">
-			加入者識別モジュールの動作が不良の時は、スクリプトに原因がある可能性があります。
-Statistics Bar (Ctrl-Shift-1)を開いてください。Simulator
-Physics FPSを見てください。”それが45より低い場合には、Stats Barのボタンにある
-&apos;Time&apos;パネルを開きます。Sim Time (Physics) が20ms以上で
-ある場合には、&apos;Get Top Colliders&apos;ボタンをクリックします。
-動作不良の原因と考えられる
-物理的オブジェクトの名前と位置が表示されます。
+			不動産のオーナーと管理者は、不動産オーナーの土地を販売することができます。 
+このオプションをチェックしない場合、購入者が本地域における土地を再販することはできなくなります。 
+このオプションをチェックした場合、購入者は本地域における土地を再販することができます。 
  
-&apos;Disable Collisions&apos;ボックスをチェックし、&apos;Apply&apos;
-ボタンを押すと、この地域での全てのオブジェクト間の衝突が一時的に無効になります。注をつけた
-&apos;トップコライダー&apos;の場所に行くためには、これを行う必要
-があるでしょう。その場所に移動したら直ぐに、
-そのオブジェクトが他のオブジェクトと常に衝突しているかを調査します。そのオブジェクトの所有者に連絡しても良いし、オブジェクトを削除したり戻したりしてもかまいません。
-&apos;Disable Collisions&apos;ボックスのチェックを外し、&apos;Apply&apos;して
-その地域での衝突を再び有効にします。
-ディォルト値： off
+デフォルト：許可しない
 		</message>
 	</alert>
-	<alert name="HelpRegionDisablePhysics" title="フィジックスを無効にする">
+	<alert name="HelpEstateCovenantID" title="約款資産ID">
 		<message name="message">
-			Physics を不能にすることは、全ての 
-フィジックスシュミレーションを不能にするを除いてはCollisionsを不能にすることと似ています。  これは、オブジェクトが衝突を止めるのみならず、 
-アバターが移動できなくなることを意味します。 
+			この不動産に属する不動産約款のノートカード資産IDを設定します。
  
-Disable Collisionsがフィジックスの問題またはTop Colliderを 
-調査するために地域に十分な業績を与え返さ 
-ない時だけにこれは使用されます。
  
-終了する時、フィジックスを再可能にすることを確認するか、またはアバターの 
-動きができなくなることが続けます。 
- 
-ディフォルト値: オフ
+デフォルト：00000000-0000-0000-0000-000000000000または値なし
 		</message>
 	</alert>
-	<alert name="HelpRegionTopColliders" title="上部コライダー">
+	<alert name="HelpRegionDisableScripts" title="スクリプトを無効化">
 		<message name="message">
-			可能性のあるオブジェクト-オブジェクトの
-衝突の最大数を経験するオブジェクトのリストを示します。
-これらのオブジェクトは参加者識別モジュールの性能をゆっくりにする可能性があります。
-Statistics Barを選択し、そしてSim Time (Physics)の下を見て、 20 ms以上がフィジックス内で費やされているかかどうか
-みます。
+			スクリプトが原因で、シムのパフォーマンスが低下することがあります。 (Ctrl-Shift-1)を\押して、統計バーを開き、 シムの物理モデリング}のFPS値を見ます。
+その数値が45を下回っていれば、統計バーの下側にある[時間]\パネルを開きます。 スクリプトタイムが25ms以上であれば、\[トップ・スクリプトを取得]ボタンをクリックします。 問題の原因と思われる\スクリプトの名前と位置が表示されます。
+ 
+[スクリプトを無効化]をチェックしてから[適用]ボタンをクリック\すると、この地域の全てのスクリプトが一時的に無効になります。 表示された\[トップ・スクリプト]の位置に行くには、この操作が\必要になります。 トップ・スクリプトにたどり着いたら、この\スクリプトが問題を起こしているか調べます。 スクリプトの\オーナーに連絡するか、オブジェクトを削除または返却しましょう。 
+[スクリプトを無効化]のチェックを外してから[適用]ボタンをクリックして、\地域のスクリプトをアクティブに戻します。
+ 
+デフォルト: オフ
 		</message>
 	</alert>
-	<alert name="HelpRegionTopScripts" title="上部スクリプト">
+	<alert name="HelpRegionDisableCollisions" title="衝突を無効化">
 		<message name="message">
-			ほとんどの時間
-LSL スクリプトの実行に費やしているオブジェクトのリストを示します。
-これらのオブジェクトは参加者識別モジュールの性能をゆっくりにする可能性があります。
-Statistics Barを選択し、そしてSimulator &gt; Time &gt; Sim Time (Physics)の下を見て、 25 ms以上
-がフィジックス内で費やされているかかどうか みます。
+			物理オブジェクトが原因で、シムのパフォーマンスが低下することがあります。 
+(Ctrl-Shift-1)を押して、統計バーを開き、 シムの物理モデリング}のFPS値を見ます。  その数値が45を下回っていれば、統計バーの\下側にある[時間]パネルを開きます。 シム時間（物理作用）が \20ms以上だったらシム時間（物理作用）、[トップ・コライダーを取得]ボタンをクリックします。 
+問題の原因と思われる物理オブジェクトの\名前と位置が表示されます。
+ 
+[衝突を無効化]をチェックしてから[適用]ボタンをクリックすると、\オブジェクト同士の衝突が一時的に無効になります。 表示された\[トップ・コライダー]の位置に行くには、この操作が\必要になります。 トップ・コライダーにたどり着いたら、オブジェクトを調べます。\それは常に他のオブジェクトと衝突していますか？ このオブジェクトの\オーナーに連絡するか、オブジェクトを削除または返却しましょう。 
+[衝突を無効化]のチェックを外してから[適用]ボタンをクリックし、地域の衝突を\アクティブに戻します。
+ 
+デフォルト: オフ
 		</message>
 	</alert>
-	<alert name="HelpRegionRestart" title="地域を再起動">
+	<alert name="HelpRegionDisablePhysics" title="物理作用を無効化">
 		<message name="message">
-			後この地域で実行しているサーバープロセスを再起動する。
-2分間の警告のこの地域の全ての居住者は、連絡を
-絶たれます。 この地域はそのデータを保存し、90秒以内に元に戻され
-ます。
+			物理作用を無効化した場合に得られる結果は、衝突を無効化した場合と似ていますが、すべての
+物理シミュレーションが無効化される点が異なります。  これは、
+オブジェクトが衝突しなくなるだけではなく、アバターも移動できなくなることを意味します。 
  
-この地域を再起動することはほとんどの性能の
-題を修正しません、これは指示された時だけ通常使用される必要があります。
+この機能は、衝突を無効化しても
+地域内で物理問題または「上部コライダー」を検証するために
+十分なパフォーマンスが得られない場合にのみ使用してください。
+ 
+作業が完了したら必ず物理作用を再度有効化してください。
+これを怠ると、アバターが依然として移動できない状態になります。 
+ 
+デフォルト：オフ
 		</message>
 	</alert>
-	<alert name="HelpRegionWaterHeight" title="水の高さ">
+	<alert name="HelpRegionTopColliders" title="トップ・コライダー">
 		<message name="message">
-			これは水が現れるメーターでの高さです。
-もしこの設定が20以外のもので、そして世界の端に隣接する水または
-役に立たない水がある
-場合には、目に見えるギャップがあります。
- 
-ディフォルト値: 20
+			オブジェクト同士の衝突が最も多い可能性のある
+オブジェクトのリストを表示します。  これらのオブジェクトは、
+シムのパフォーマンスを低下させる可能性があります。  [ビュー]＞[統計バー]を選択して、
+[シミュレータ]＞[時間]＞[シム時間（物理作用）]をチェックし、
+物理作用に使用されている時間が20msを超えているかどうかを確認してください。
 		</message>
 	</alert>
-	<alert name="HelpRegionTerrainRaise" title="領域隆起">
+	<alert name="HelpRegionTopScripts" title="トップ・スクリプト">
 		<message name="message">
-			これは、区画所有者が彼らの土地を焼いた
-土地のディフォルトの高さの上に
-上げることができます。
- 
-ディフォルト値: 4
+			LSLスクリプトの実行に最も時間を費やしているオブジェクトのリスト
+を表示します。  これらのオブジェクトは、シムのパフォーマンスを低下させる可能性があります。 
+[ビュー]＞[統計バー]を選択して、
+[シミュレータ]＞[時間]＞[シム時間（物理作用）]をチェックし、スクリプトに使用されている時間が25ms
+を超えているかどうかを確認してください。
 		</message>
 	</alert>
-	<alert name="HelpRegionTerrainLower" title="領域沈降">
+	<alert name="HelpRegionRestart" title="地域をリスタート">
 		<message name="message">
-			これは、区画所有者が彼らの土地を焼いた
-土地のディフォルトの高さの下に
-下げることができます。
+			2分後にサーバーが再起動されることを警告するメッセージが表示された後、
+サーバーを再起動します。  この地域内のすべての住人の接続が切れます。
+  地域のデータは保存され、通常は90秒以内に元に戻ります。 
  
-ディフォルト値: -4
+この地域をリスタートしてもパフォーマンス上の問題はほとんど解決されないので、
+指示された場合以外はリスタートしないでください。
 		</message>
 	</alert>
-	<alert name="HelpRegionUploadRaw" title="RAW領域をアップロード">
+	<alert name="HelpRegionWaterHeight" title="水面の高さ">
 		<message name="message">
-			This button uploads a .RAW file to the region you are in. 
-The file must have the correct dimensions/number of channels: 
-RGB, 256x256 and 13 channels.  The best way to create a 
-terrain file is to download the existing RAW file.  A good 
-first step is to modify the first channel (land height), 
-and upload it. 
+			これは、水が現れる高さ（単位：メートル）です。 
+この設定が20以外で、水が世界の
+端や、「空の」水に近ければ、 
+溝が見えるでしょう。 
  
-The upload can take up to 45 seconds. Note that uploading a 
-terrain file *will not* move the objects that are on the land, 
-only the terrain itself and the permissions associated with the 
-parcels.  This can result in objects going underground. 
+デフォルト: 20
+		</message>
+	</alert>
+	<alert name="HelpRegionTerrainRaise" title="地形の上昇">
+		<message name="message">
+			この数値は、区画オーナーが、構築した地形のデフォルトの高さから
+自分の地形を上昇させてよい距離を
+示します。 
  
-For more information on editing region height fields, go to: 
+デフォルト: 4
+		</message>
+	</alert>
+	<alert name="HelpRegionTerrainLower" title="地形の下降">
+		<message name="message">
+			この数値は、区画オーナーが、構築した地形のデフォルトの高さから
+自分の地形を下降させてよい距離を
+示します。 
+ 
+デフォルト: -4
+		</message>
+	</alert>
+	<alert name="HelpRegionUploadRaw" title="RAW地形をアップロード">
+		<message name="message">
+			このボタンをクリックすると、.RAWファイルがあなたのいる地域にアップロードされます。 
+ファイルには正しい寸法とチャンネル数である「RGB、256x256、 
+13チャンネル」を指定します。  地形ファイルを作成する\最良の方法は、既存のRAW ファイルをダウンロードすることです。  まず\最初のチャンネル（土地の高さ）を変更して\アップロードします。 
+ 
+アップロードには最大45秒かかります。 地形ファイルをアップロード\しても、その土地にあるオブジェクトは「移動しない」ので、注意してください。\地形そのものと、その区画にかかわる許可事項だけが\移動します。  その結果、オブジェクトが地下に潜ってしまうこともあります。 
+ 
+地域の高さフィールドの編集の詳細は 
+http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFileを参照してください。
+		</message>
+	</alert>
+	<alert name="HelpRegionDownloadRaw" title="RAW地形をダウンロード">
+		<message name="message">
+			このボタンをクリックすると、標高フィールドデータ、区画寸法、
+売り出し区画の状況、この地域の区画に関する許可が入ったファイルが 
+ダウンロードされます。 Photoshopなどのソフトウェアでこのファイルを
+開く場合、文書サイズを次のように指定
+します。 「RGB, 256x256 、13チャンネル」 この地形ファイルは、これ 
+以外の方法で開くことはできせん。 
+ 
+地域における標高フィールドの編集に関する参照先： 
 http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 		</message>
 	</alert>
-	<alert name="HelpRegionDownloadRaw" title="RAW領域をダウンロード">
+	<alert name="HelpRegionUseEstateSun" title="不動産の太陽を使用">
 		<message name="message">
-			このボタンは高さフィールドデータ、区画寸法、売り出し状態の区画そしてこの地域
-ようのいくらかの区画許可を含むファイルをダウンロードします。
-Photoshopのようなプログラムのなかでこのファイルを開いた時には、以下のように
-ドキュメント寸法を指定する必要があります。
-: RGB, RGB, 256x256 で 13 チャンネルです。
-この土地ファイルは他の方法では開くことができません。
+			このボックスがチェックされていると、この地域の太陽は 
+不動産の他の場所における太陽と位置が同じになります。 
  
-地域の高さファイルを編集することに関する詳しい情報については、以下を参照してください：
-http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
+デフォルト: オン
 		</message>
 	</alert>
-	<alert name="HelpRegionUseEstateSun" title="Estate Sunを使用">
+	<alert name="HelpRegionFixedSun" title="太陽固定">
 		<message name="message">
-			このチェックボックスは、この地域での太陽の位置がこの所有地の残りの部分での
-太陽の位置と同じであるようにさせます。
- 
-Default: on
+			このボックスをチェックすると、太陽の位置は段階スライダー内に
+設定され、動かなくなります。 
+デフォルト: オフ
 		</message>
 	</alert>
-	<alert name="HelpRegionFixedSun" title="固定の太陽">
+	<alert name="HelpRegionBakeTerrain" title="地形を構築する">
 		<message name="message">
-			このチェックボックスは太陽の位置をPhase スライダーの中の位置を設定し、
-そして移動から太陽を止めます。
- 
-ディフォルト値: オフ
-		</message>
-	</alert>
-	<alert name="HelpRegionBakeTerrain" title="土地を焼く">
-		<message name="message">
-			このボタンにより、現在の領域の形を新たなデフォルトとして保存します。一度ベークされると、あなたや他の使用者が領域編集の『復帰』オプション／ツールを利用しなくても、保存された形に復帰することができます。ベークされた領域は、領域上昇および下降境界の中間点でもあります。
+			このボタンをクリックすると、地形の現在の形状が地域の新しい
+デフォルトとして保存されます。 構築されると、あなたや他の人が[地形の編集]から
+[戻す]オプション／ツールを使って、保存された形状に
+戻すことができます。 構築された地形は、地形の上昇限界と 
+下降限界の中間点にもなります。
 		</message>
 	</alert>
 	<alert name="HelpEstateEstateManager" title="不動産マネージャー">
 		<message name="message">
-			所有地マネージャは、地域と所有地の設定の制御を
-委託した居住者です。
-所有地マネージャは 
-アップロード、ダウンロード、地形を焼くためを除いては、
-これらの区域内でいかなる設定も変更できます。 特に、 
-あなたの所有地から居住者を許可したり締め出したりできます。 
+			不動産マネージャーとは、
+地域管理と不動産設定が委任された住人をさします。  不動産マネージャーは
+アップロード、ダウンロード、地形構築以外
+のパネル内の設定を変更できます。  特に、住人のアクセス
+禁止の設定ができることは大きな特徴です。  
  
-所有地マネージャは、お互いによってではなく、その所有地の所有者によって 
-追加または取り除くことができます。 所有地マネージャとしてあなたが信用する
-居住者のみを選択してください。あなたには彼らの行為に対する
- 
-最終的な責任があります。
+不動産マネージャーを追加または削除できるのは、不動産オーナーだけです。逆はできません。  信頼の置ける住人のみ
+不動産マネージャーに任命してください。
+彼らの行動の全責任はあなたにあります。
 		</message>
 	</alert>
-	<alert name="HelpEstateUseGlobalTime" title="Global Timeを使用">
+	<alert name="HelpEstateUseGlobalTime" title="グローバル・タイムを使用">
 		<message name="message">
-			このチェックボックスは、あなたの所有地での太陽がLinden-所有の
-本土の所有地でものと同じ位置に
-準じるようにします。
+			このボックスがチェックされていると、あなたの所有地の太陽は 
+Linden社所有のメインランドの不動産での太陽の位置に
+準じます。 
  
-ディフォルト値: オン
+デフォルト: オン
 		</message>
 	</alert>
-	<alert name="HelpEstateFixedSun" title="固定の太陽">
+	<alert name="HelpEstateFixedSun" title="太陽固定">
 		<message name="message">
-			このチェックボックスは太陽の位置をPhase スライダーの中の位置を設定し、
-そして移動から太陽を止めます。
+			このボックスがチェックされていると、太陽の位置は段階スライダー内に
+設定され、動かなくなります。
 		</message>
 	</alert>
-	<alert name="HelpEstateExternallyVisible" title="Public Access">
+	<alert name="HelpEstateExternallyVisible" title="パブリック・アクセス">
 		<message name="message">
-			Sets whether residents who are on other estates can enter this
-			 estate without being on an access list.
+			他の不動産の住人がアクセス・リストに登録されていなくても、
+この不動産に立ち入ることができるようにするかどうかを指定します。
  
-Default: on
+デフォルト：オン
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowDirectTeleport" title="直接テレポートを許可">
 		<message name="message">
-			When checked, allows residents to directly teleport to any 
-point in your estate.  When unchecked, residents teleport 
-to the nearest telehub. 
+			チェックされていると、住人はあなたの不動産のどこにでも直接
+テレポートすることができます。  チェックされていないと、住人はいちばん近いテレハブに
+テレポートします。 
  
-Default: off
+デフォルト： オフ
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowResident" title="アクセスを許可">
 		<message name="message">
-			どんな居住者でもここにリストされている場合には、所有地にアクセスすることは 
-どんな居住者でもここにリストされている場合には、所有地にアクセスすることは上記で特別に許可されたグループに限定されています。
+			このリストに住人が登録されている場合、
+不動産へのアクセスは、
+登録されている住人と下記で特別に登録されたグループだけに限定して許可されます。 
  
-(この所有地が本土から見える場合には、アクセスは 
-居住者またはリストされたクループに限定することはできないし、これらの制御は 
-不能にされています。 ただアクセス拒否リストだけが使用されます。)
+（この不動産がメインランドから見える設定の場合には、
+アクセスが住人またはクループのリストに限定されることはなく、これらのコントロールは
+無効になります。  「アクセス拒否リスト」だけが使用されることになります）。
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowGroup" title="グループ・アクセスを許可">
 		<message name="message">
-			どんなグループでもここにリストされている場合には、所有地にアクセスすることは  
-このリスト上のグループそして 
-上記で特別に許可された居住者に限定されています。 
+			このリストにグループが登録されている場合、
+不動産へのアクセスは、
+登録されているグループと上記で特別に許可された住人だけに限定して許可されます。 
  
-(この所有地が本土から見える場合には、アクセスは
-居住者またはリストされたクループに限定することはできないし、これらの制御は 
-不能にされています。 アクセス拒否リストだけが使用されます。)
+（この不動産がメインランドから見える設定の場合には、
+アクセスが住人またはクループのリストに限定されることはなく、これらのコントロールは
+無効になります。  「アクセス拒否リスト」だけが使用されることになります）。
 		</message>
 	</alert>
 	<alert name="HelpEstateBanResident" title="アクセス拒否">
 		<message name="message">
-			許可と上記のグループ設定に関わらず 
-、このリストの居住者はあなたの所有地へのアクセスを拒絶されます。 
+			このリストに含めた住人は、上記の許可設定とグループ設定にかかわりなく、あなたの不動産へのアクセスを禁止されます。 
  
-このリストに居住者を追加することは許可リスト 
-から彼らを取り除きます。
+このリストに住人を加えると、その住人は許可リストから削除されます。
 		</message>
 	</alert>
-	<alert name="HelpEstateCovenant" title="不動産特権">
+	<alert name="HelpEstateCovenant" title="不動産約款">
 		<message name="message">
-			不動産約款を設定することにより、その不動産内において土地を販売することができます。約款がない場合、その土地を販売することができません。購入者が購入する前に、土地に関する規則を適用したり、アドバイスをしたくない場合は、約款のノートカードは空白でも構いません。 約款は、規則、ガイドライン、文化的情報、または、単に将来の購入者に対してあなたが期待することを伝えるために利用できます。これには、土地使用区分、建造物規制、支払いオプション、または、新しいオーナーにとってあなたが重要と思われる事柄等の、購入前に購入者が読んで同意しておくべき情報を含むことができます。 購入者は購入を完了する前にチェックボックスをチェックし、約款に同意する必要があります。不動産約款が設定されている土地の約款は、土地に関するダイアログ内に表示されます。
+			不動産約款を定めると、自分の不動産内の区画を販売\できるようになります。 約款を定めていないと、\土地は売れません。 土地に関する規則を適用したくなかったり、購入前に\土地に関する情報を購入者に知らせたくなかったら、\あなたの約款のノートカードは白紙でかまいません。 
+ 
+約款は購入を考えている人に、規則、ガイドライン、\文化的情報や単にあなたが期待することを伝えるためにも\使えます。 ここには、区画規制、建造物規制、\支払いオプション、それから購入者が事前に\目を通して同意しておくべきだとあなたが思う重要な情報をすべて\入れることができます。 
+
+購入者がボックスをチェックして約款に同意しないかぎり、\購入の手続きは完了しません。 不動産\約款が定められている区画であれば、すべて[土地情報]から\約款をいつでも閲覧できます。
 		</message>
 	</alert>
-	<alert name="BuyObjectOneOnly" title="オブジェクトの購入不可">
+	<alert name="BuyObjectOneOnly" title="オブジェクトを購入できません">
 		<message name="message">
-			一度に一つ以上のオブジェクトを購入できません。
-ただ一つのオブジェクトを選択し、再び試みてください。
+			一度に複数のオブジェクトは購入できません。 
+選択するオブジェクトを1つだけにして、もう一度試してください。
 		</message>
 	</alert>
-	<alert name="BuyObjectOneOwner" title="オブジェクトの購入不可">
+	<alert name="BuyObjectOneOwner" title="オブジェクトを購入できません">
 		<message name="message">
-			同時に異なった所有者からオブジェクトを購入できません。 
-ただ一つのオブジェクトを選択し、再び試みてください。
+			複数のオーナーから同時にオブジェクトを購入することはできません。 
+単一のオブジェクトを選択し、もう一度試してください。
 		</message>
 	</alert>
-	<alert name="BuyContentsOneOnly" title="コンテンツの購入不可">
+	<alert name="BuyContentsOneOnly" title="コンテンツを購入できません">
 		<message name="message">
-			一度に一つ以上のオブジェクトを購入できません。
-ただ一つのオブジェクトを選択し、再び試みてください。
+			一度に複数のオブジェクトのコンテンツは購入できません。 
+選択するオブジェクトを1つだけにして、もう一度試してください。
 		</message>
 	</alert>
-	<alert name="BuyContentsOneOwner" title="コンテンツの購入不可">
+	<alert name="BuyContentsOneOwner" title="コンテンツを購入できません">
 		<message name="message">
-			同時に異なった所有者からオブジェクトを購入できません。 
-ただ一つのオブジェクトを選択し、再び試みてください。
+			複数のオーナーから同時にオブジェクトを購入することはできません。 
+単一のオブジェクトを選択し、もう一度試してください。
 		</message>
 	</alert>
 	<alert name="PermYes">
@@ -3655,127 +3744,126 @@ Default: off
 	</alert>
 	<alert name="BuyOriginal">
 		<message name="message">
-			L＄[PRICE]で[OWNER]からオリジナルのオブジェクトを購入しますか？
-あなたが本オブジェクトの所有者になります。
-あなたには以下の権限があります。
-修正：[MODIFYPERM]
-コピー：[COPYPERM]
-再販、またはプレゼント：[RESELLPERM]
+			オリジナルのオブジェクトを[OWNER]からL$[PRICE]で購入しますか？
+これにより、あなたがオブジェクトのオーナーになります。
+可能な操作は、
+変更：[MODIFYPERM]
+、コピー：[COPYPERM]
+、再販／プレゼント[RESELLPERM]です。
 		</message>
 		<option name="Buy">
 			購入
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="BuyOriginalNoOwner">
 		<message name="message">
-			L＄[PRICE]でオリジナルのオブジェクトを購入しますか？
-あなたが本オブジェクトの所有者になります。
-あなたには以下の権限があります。
-修正：[MODIFYPERM]
-コピー：[COPYPERM]
-再販、またはプレゼント：[RESELLPERM]
+			L$[PRICE]でオリジナルのオブジェクトを購入しますか？
+これにより、あなたがオブジェクトのオーナーになります。
+可能な操作は、
+変更：[MODIFYPERM]
+、コピー：[COPYPERM]
+、再販／プレゼント[RESELLPERM]です。
 		</message>
 		<option name="Buy">
 			購入
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="BuyCopy">
 		<message name="message">
-			L＄[PRICE]で[OWNER]からコピーを購入しますか？
-そのオブジェクトはあなたの持ち物にコピーされます。
-あなたには以下の権限があります。
-修正：[MODIFYPERM]
-コピー：[COPYPERM]
-再販、またはプレゼント：[RESELLPERM]
+			コピーを[OWNER]からL$[PRICE]で購入しますか？
+購入したオブジェクトは、あなたの持ち物にコピーされます。
+可能な操作は、変更：[MODIFYPERM]
+、コピー：[COPYPERM]
+、再販／プレゼント[RESELLPERM]です。
 		</message>
 		<option name="Buy">
 			購入
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="BuyCopyNoOwner">
 		<message name="message">
-			L＄[PRICE]でコピーを購入しますか？
-そのオブジェクトはあなたの持ち物にコピーされます。
-あなたには以下の権限があります。
-修正：[MODIFYPERM]
-コピー：[COPYPERM]
-再販、またはプレゼント：[RESELLPERM]
+			L$[PRICE]でコピーを購入しますか？
+購入したオブジェクトは、あなたの持ち物にコピーされます。
+可能な操作は、変更：[MODIFYPERM]
+、コピー：[COPYPERM]
+、再販／プレゼント[RESELLPERM]です。
 		</message>
 		<option name="Buy">
 			購入
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="BuyContents">
 		<message name="message">
-			L＄[PRICE]で[OWNER]からコンテンツを購入しますか？
-それらはあなたの持ち物にコピーされます。
+			コンテンツを[OWNER]からL$[PRICE]で購入しますか？
+購入したコンテンツは、あなたの持ち物にコピーされます。
 		</message>
 		<option name="Buy">
 			購入
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="BuyContentsNoOwner">
 		<message name="message">
 			L＄[PRICE]でコンテンツを購入しますか？
-それらはあなたの持ち物にコピーされます。
+購入したコンテンツは、あなたの持ち物にコピーされます。
 		</message>
 		<option name="Buy">
 			購入
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ConfirmPurchase">
 		<message name="message">
-			この取引は以下です:
+			この手続きをすると以下のことが起こります。
  
 [ACTION]
  
-この購入を続行したいですか。
+購入の手続きを続けますか？
 		</message>
 		<option name="Confirm">
 			確認
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="ConfirmPurchasePassword">
 		<message name="message">
-			この取引は以下です:
+			この手続きをすると以下のことが起こります。
  
 [ACTION]
  
-この購入を続行したいですか。
-あなたのパスワードを再入力してそして確認をクリックしてください。
+購入の手続きを続けますか？
+パスワードを再入力し、[確認]をクリックしてください。
 		</message>
 		<option name="ConfirmPurchase">
-			購入を確認
+			購買を確認
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
 	<alert name="SetPickLocation">
 		<message name="message">
-			注意：
-あなたは、本ピックのロケーションを更新しましたが、他の詳細は、元の値のままです。
+			メモ：
+本ピックのロケーションを更新しましたが
+、他の詳細は元の値のままになります。
 		</message>
 		<option name="OK">
 			OK
@@ -3783,186 +3871,301 @@ Default: off
 	</alert>
 	<alert name="MoveInventoryFromObject">
 		<message name="message">
-			コピー無し在庫目録を選択しました。
-これらの項目は、あなたの在庫目録に移動され、コピーはされません。
+			[コピー禁止]の持ち物アイテムが選択されました。
+これらの~アイテムはコピーされないまま、あなたの持ち物に移動されます。
  
-在庫目録項目を移しますか。
+ 
+アイテムを動かしますか？
 		</message>
+		<ignore name="ignore">
+			コピー禁止の持ち物をオブジェクトから移動させるとき
+		</ignore>
 		<option name="Move">
-			移動する
+			移動
 		</option>
 		<option name="Don&apos;tMove">
-			移動できない
+			移動しない
 		</option>
 	</alert>
 	<alert name="MoveInventoryFromScriptedObject">
 		<message name="message">
-			コピー無し在庫目録項目を選択しました。
-これらの項目はあなたの在庫目録に移動され、コピーはされません。
+			[コピー禁止]の持ち物アイテムが選択されました。  これらの
+アイテムはコピーされないまま、あなたの持ち物に移動されます。
  
-このオブジェクトはスクリプトされているので、あなたの在庫目録にこれらの項目を移すことは
-スクリプトが誤作動する原因になる可能性があります。
+このオブジェクトはスクリプト付きなので、
+あなたの持ち物に移動させると誤動作が起きるかもしれません。 
  
-在庫目録項目を移しますか。
+アイテムを動かしますか？
 		</message>
+		<ignore name="ignore">
+			コピー禁止の持ち物をスクリプト付きオブジェクトから移動させるとき
+		</ignore>
 		<option name="Move">
-			移動する
+			移動
 		</option>
 		<option name="Don&apos;tMove">
-			移動できない
+			移動しない
 		</option>
 	</alert>
 	<alert name="ClickActionNotPayable">
 		<message name="message">
-			警告: Pay Object クリックオークションは設定されましたが、しかしこれはスクリプトが金銭() イベントに
-追加された場合にはだけ作動します。
-これは、居住者が一般に金銭がそれらに支払われる時にどういうわけか
-反応するオブジェクトを期待するからです。
+			警告： [オブジェクトへの支払い]ボタンが設定されましたが
+money()イベントを含むスクリプトを追加しないと作動しません。 
+一般的に住人はオブジェクトにお金が支払われると
+何らかの反応があると思うため、このような仕様となっています。
 		</message>
+		<ignore name="ignore">
+			money()イベントなしに[オブジェクトに支払う]を設定するとき
+		</ignore>
 	</alert>
 	<alert name="OpenObjectCannotCopy">
 		<message name="message">
-			このオブジェクト内に、あなたがコピーできるアイテムはありません
+			このオブジェクトにあなたがコピーしてよいアイテムはありません。
 		</message>
 	</alert>
-	<alert name="LoadAccountTransactions">
+	<alert name="WebLaunchAccountHistory">
 		<message name="message">
-			取引の詳細を見るために 
-[URL]に行ってください。
+			SecondLifeウェブ・ページを開いてアカウント履歴を確認しますか？
 		</message>
-		<option name="OK">
-			OK
+		<ignore name="ignore">
+			口座履歴のウェブ・ページをロードするとき
+		</ignore>
+		<option name="Gotopage">
+			ページに移動
 		</option>
 		<option name="Cancel">
-			取消
+			取り消し
 		</option>
 	</alert>
-	<alert name="HelpReportAbuse">
+	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
-			Use this tool to report violations of the Terms of Service and Community Standards. See: 
+			このツールで、利用規約ならびにコミュニティ・スタンダード
+への違反を報告してください。 参照先： 
+-
 http://secondlife.com/corporate/tos.php 
 http://secondlife.com/corporate/cs.php 
- 
-All reported abuses of the Terms of Service and Community Standards 
-are investigated and resolved. You will receive an email informing you
-of the resolution when it occurs. 
-You can also view the incident resolution on the Police Blotter at: 
- 
+-
+利用規約ならびにコミュニティ・スタンダードへの違反は
+すべて調査され、解決されます。 問題が解決した時点で、Ｅメールで
+ご報告します。 解決結果は下記アドレスの
+[警察日誌]でも表示可能です：
+- 
 http://secondlife.com/community/blotter.php
+		</message>
+	</alert>
+	<alert name="HelpReportAbuseEmailEO">
+		<message name="message">
+			重要: このレポートはLinden Lab社ではなく、\あなたが現在いる地域のオーナーに送られます。
+-
+あなたが今いる地域のオーナーは、住人と訪問者への\サービスの一環として、この地域からのレポートをすべて\受け付け、解決することに同意しています。 Linden Lab社が\あなたがここから提出するレポートを調査することはありません。 
+地域のオーナーは、不動産約款で指定している\地元の規則を基に、報告された問題を解決します。 
+（[世界]のメニューから[土地情報]を選ぶと、約款を\閲覧できます。）
+-
+このレポートに関する解決策は、この地域にだけ当てはまります。\住人がセカンドライフの他の地域へアクセスする際、\このレポートの結果に影響されることはありません。 Linden Lab社だけが\セカンドライフ全域におけるアクセス制限権を持っています。
 		</message>
 	</alert>
 	<alert name="HelpReportBug">
 		<message name="message">
-			Use this tool to report technical features that do not perform 
-as described or expected. All bug reports are investigated and 
-resolved. No email response will be sent, you may reply to the 
-auto-response email to add more details to your report. 
-If you are having a technical difficulty, please contact Support at: 
- 
+			このツールは、説明どおりに動作しないテクニカルの機能の報告「のみに」
+使用してください。説明はできるだけ詳細にしてください。
+自動応答メールへの返信に詳細を付け加えてもかまいません。
+バグの報告はすべて、調査、査定されます。 Ｅメールでの返答は送られません。
+-
+技術的な問題があるときは、以下から[サポート]に連絡してください： 
 http://secondlife.com/community/support.php
+-
+注意：: 不完全な報告には調査は行われません。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSelectCategory">
 		<message name="message">
-			この嫌がらせ報告のカテゴリを選択してください。カテゴリを選択することにより、嫌がらせ報告の処理や保管に大変役立ちます。
+			この嫌がらせ報告のカテゴリーを選択してください。
+ 
+嫌がらせ報告を適切に処理できるように、カテゴリーの選択をお願いいたします。
 		</message>
 	</alert>
 	<alert name="HelpReportBugSelectCategory">
 		<message name="message">
-			Please select a category for this bug.
+			このバグのカテゴリーを選択してください。
  
-Selecting a category helps us file and process bug reports.
+バグ報告を適切に処理できるように、カテゴリーの選択をお願いいたします。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserNameEmpty">
 		<message name="message">
-			嫌がらせを行った者の名前を入力してください。あなたの正確な情報は、嫌がらせ報告の処理や保管に大変役立ちます。
+			嫌がらせ行為をした人の名前を入力してください。
+ 
+嫌がらせ報告を適切に処理できるように、正確な記述をお願いいたします。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserLocationEmpty">
 		<message name="message">
-			嫌がらせの起きた場所を入力してください。あなたの正確な場所（地点）は、嫌がらせ報告の処理や保管に大変役立ちます。
+			嫌がらせがあった場所を入力してください。
+ 
+嫌がらせ報告を適切に処理できるように、正確な記述をお願いいたします。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSummaryEmpty">
 		<message name="message">
-			起きた嫌がらせの要旨を入力してください。あなたの正確な要旨は、嫌がらせ報告の処理や保管に大変役立ちます。
+			嫌がらせの概要を入力してください。
+ 
+嫌がらせ報告を適切に処理できるように、正確な記述をお願いいたします。
 		</message>
 	</alert>
 	<alert name="HelpReportBugSummaryEmpty">
 		<message name="message">
-			Please enter a summary of the bug.
+			バグの概要を入力してください。
  
-Entering an accurate summary helps us file and process bug reports.
+バグ報告を適切に処理できるように、正確な記述をお願いいたします。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseDetailsEmpty">
 		<message name="message">
-			嫌がらせの詳細説明を入力してください。名前や、報告する事象等、できるだけ詳しくわかりやすく記入してください。
-あなたの正確な説明は、嫌がらせ報告の処理や保管に大変役立ちます。
+			嫌がらせの詳細な説明を入力してください。
+名前や嫌がらせの詳細をできるだけ具体的に記入してください。
+
+ 
+嫌がらせ報告を適切に処理できるように、正確な記述をお願いいたします。
 		</message>
 	</alert>
 	<alert name="HelpReportBugDetailsEmpty">
 		<message name="message">
-			Please enter a detailed description of the bug.
-Be as specific as you can, including steps to reproduce the bug
-if possible.
+			バグについての詳細な説明を入力してください。
+
+バグがどのような条件で再現するかなどを
+できるだけ具体的に示してください。
  
-Entering an accurate description helps us file and process bug reports.
+バグ報告を適切に処理できるように、正確な記述をお願いいたします。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
-			親愛なる居住者の皆様へ：
-著作権侵害に関する報告は http://secondlife.com/corporate/dmca.phpの記述に従ってのみ提出することができます。
-著作権侵害に関する報告は『嫌がらせ報告』を通して提出され場合、自動的に廃棄されます。報告が著作権侵害に関しない場合は、本ウインドウを閉じ、報告を提出してください。
-ありがとうございます。
-Linden　Lab
+			親愛なる住人の皆様へ：
+著作権侵害に関する報告は 
+http://secondlife.com/corporate/dmca.phpの記述に従ってのみ提出することができます。 
+「嫌がらせ報告」を通じて著作権侵害に関する報告を提出しても、その報告は自動的に破棄されます。
+ 著作権侵害に関係のない報告であれば、このウィンドウを閉じて報告を提出することができます。
+ 
+敬具。
+
+Linden Lab
 		</message>
 	</alert>
 	<alert name="FailedRequirementsCheck">
 		<message name="message">
-			次の要求されたコンポーネントは[FLOATER]から失われています。:
+			以下の必要なコンポーネントが、[FLOATER]から抜け落ちています
 [COMPONENTS]
 		</message>
 	</alert>
-	<alert name="ReplaceAttachment" title="既存の付属品を入れ替え">
+	<alert name="ReplaceAttachment" title="既存の付属品を置換">
 		<message name="message">
-			この体の部位には、すでに装着されているオブジェクトが存在します。選択されたオブジェクトとそれを取り替えますか？
+			体のこの部位にはオブジェクトが装着されています。
+選択されたオブジェクトと置き換えますか？
 		</message>
-		<option ignore="自動的に交換" name="Yes">
+		<ignore>
+			現在、装着しているものを置換するとき
+		</ignore>
+		<option ignore="自動置換" name="Yes">
 			はい
 		</option>
-		<option ignore="交換しない" name="No">
+		<option ignore="置き換えない" name="No">
 			いいえ
 		</option>
 	</alert>
-	<alert name="BusyModePay" title="取り込み中モードの警告">
+	<alert name="BusyModePay" title="ビジー・モードの警告">
 		<message name="message">
-			使用中モードです。
-それはあなたがこの支払いで交換として提供された項目も
-受け取れないことを意味します。
+			現在、ビジー・モードのため、この支払いと
+引き換えのアイテムを受け取ることが
+できません。
  
-この取引を完了するまえに
-使用中モードを去りたいですか。
+この取引を完了する前に、ビジー・
+モードを外しますか？
 		</message>
-		<option ignore="いつも使用中モードにしておく" name="Yes">
+		<ignore>
+			ビジー・モードの人またはオブジェクトに支払うとき
+		</ignore>
+		<option ignore="常にビジー・モード外" name="Yes">
 			はい
 		</option>
-		<option ignore="使用中モードのままにしない" name="No">
+		<option ignore="ビジー・モードに固定" name="No">
 			いいえ
 		</option>
 	</alert>
 	<alert name="ConfirmEmptyTrash">
 		<message name="message">
-			Are you sure you want to permanently remove
-the contents of your Trash folder?
+			ゴミ箱フォルダの中身を完全に削除しようとしています。操作を続行しますか？
 		</message>
+		<ignore name="ignore">
+			持ち物内の[ごみ箱]フォルダを空にするとき
+		</ignore>
 		<option name="Yes">
 			はい
 		</option>
 		<option name="No">
 			いいえ
+		</option>
+	</alert>
+	<alert name="ConfirmEmptyLostAndFound">
+		<message name="message">
+			遺失物フォルダの中身を完全に削除しようとしています。操作を続行しますか？
+		</message>
+		<ignore name="ignore">
+			持ち物内の[遺失物]フォルダを空にするとき
+		</ignore>
+		<option name="Yes">
+			はい
+		</option>
+		<option name="No">
+			いいえ
+		</option>
+	</alert>
+	<alert name="CopySLURL">
+		<message name="message">
+			以下のSLURLがクリップボードにコピーされました。
+   
+			[SLURL] 
+   
+			他の人がアクセスしやすいよう、ウェブ・ページに載せたり
+			あなたのブラウザのアドレス・バーに貼り付けてみましょう。
+		</message>
+		<ignore name="ignore">
+			SLURLをクリップボードにコピーするとき
+		</ignore>
+	</alert>
+	<alert name="IMSessionStartError">
+		<message name="message">
+			[RECIPIENT]との新しいIMセッションの開始エラー。
+			[REASON]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="IMSessionStartNotVerified">
+		<message name="message">
+			[RECIPIENT]との新しいIMセッションの開始エラー。
+			[REASON]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="IMSessionEventError">
+		<message name="message">
+			エラー[EVENT][RECIPIENT]。
+			[REASON]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="ForceCloseIMSession">
+		<message name="messsage">
+			[NAME] とのIMを閉じてください。
+            [REASON]
+		</message>
+		<option name="OK">
+			OK
 		</option>
 	</alert>
 </alerts>

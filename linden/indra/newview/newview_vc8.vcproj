@@ -25,6 +25,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Executing pre-build batch file"
+				CommandLine="prebuild.bat debug"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -116,6 +118,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Executing pre-build batch file"
+				CommandLine="prebuild.bat release"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -207,6 +211,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Executing pre-build batch file"
+				CommandLine="prebuild.bat releasefordownload"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -297,6 +303,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Executing pre-build batch file"
+				CommandLine="prebuild.bat releasenoopt"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1501,95 +1509,6 @@
 			</File>
 			<File
 				RelativePath=".\llviewerjointmesh.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\llviewerjointmesh_sse.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="1"
-						UsePrecompiledHeader="0"
-						WarnAsError="false"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="1"
-						UsePrecompiledHeader="0"
-						WarnAsError="false"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseForDownload|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="1"
-						UsePrecompiledHeader="0"
-						WarnAsError="false"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseNoOpt|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="1"
-						UsePrecompiledHeader="0"
-						WarnAsError="false"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\llviewerjointmesh_sse2.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="2"
-						WarnAsError="false"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="2"
-						WarnAsError="false"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseForDownload|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="2"
-						WarnAsError="false"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseNoOpt|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						EnableEnhancedInstructionSet="2"
-						UsePrecompiledHeader="0"
-						WarnAsError="false"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\llviewerjointmesh_vec.cpp"
 				>
 			</File>
 			<File

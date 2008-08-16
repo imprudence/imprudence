@@ -20,15 +20,15 @@
 			Mein Zuhause
 		</combo_item>
 		<combo_item name="MyLastLocation">
-			Meine letzte Position
+			Letzter Aufenthaltsort
 		</combo_item>
-		<combo_item name="&lt;Typeregionname&gt;">
+		<combo_item name="Typeregionname">
 			&lt;Regionsnamen eingeben&gt;
 		</combo_item>
 	</combo_box>
 	<check_box label="Kennwort merken" name="remember_check" />
 	<text name="full_screen_text">
-		Viewer zeigt bei Anmeldung Vollbild an.
+		Umschaltung auf Vollbild erfolgt nach Anmeldung.
 	</text>
 	<button label="Neuer Account..." label_selected="Neuer Account..."
 	     name="new_account_btn" />

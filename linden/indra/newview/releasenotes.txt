@@ -1,3 +1,21 @@
+Release Notes for Second Life 1.18.0(6) July 11, 2007
+=====================================
+Changes:
+* Message system changes to support transport via TCP (HTTP) as well as UDP.
+** More details are available here: http://blog.secondlife.com/2006/12/21/a-big-change-youll-barely-notice/
+** And here: http://blog.secondlife.com/2007/06/25/dia-de-la-liberacion/
+* German language added to the Windows installer
+* Updated translations for German language viewer
+* Updated translations for Japanese language viewer
+* Updated translations for Korean language viewer
+* Viewer "channel" (Release, First Look, etc) now visible at login in the lower right corner next to the version number
+
+Bug fixes:
+* Fixed SVC-286: deleted fully-permissive objects owned by others skip trash
+* Fixed SVC-251: Death teleport fails when teleporting to a home point you no longer have access to
+* Fixed MISC-273: Enrollment fee is incorrectly deducted if you belong to max. # of groups and try to join new ones
+
+
 Release Notes for Second Life 1.17.3(0) July 5, 2007
 =====================================
 Changes:
@@ -19,7 +37,17 @@ Bug fixes:
 * Fixed odd text overlay on About Land > General tab
 * Fixed format of llOwnerSay chat text
 
+
 Release Notes for Second Life 1.17.2(0) June 27, 2007
+=====================================
+Bug fixes:
+* VWR-1369: Creating, re-rezzing, then editing an object results in a viewer crash
+
+Not for public:
+* SL-46373 VWR-1369: Creating, re-rezzing, then editing an object results in a viewer crash
+
+
+Release Notes for Second Life 1.17.1(0) June 25, 2007
 =====================================
 Changes:
 * VWR-650: Make "Give money" permissions look different than the other permissions

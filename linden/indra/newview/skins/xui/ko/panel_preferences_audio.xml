@@ -24,8 +24,8 @@
 	<text type="string" length="1" name="ui_volume_text">
 		메뉴 효과음:
 	</text>
-	<spinner label="L$ 변화 알림" name="L$ Change Threshold" />
-	<spinner label="건강변화 알림" name="Health Change Threshold" />
+	<spinner label="L$ 변화 시작" name="L$ Change Threshold" />
+	<spinner label="건강변화 시작" name="Health Change Threshold" />
 	<text type="string" length="1" name="doppler_effect_text">
 		도플러 효과:
 	</text>

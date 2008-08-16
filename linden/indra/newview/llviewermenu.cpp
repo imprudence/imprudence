@@ -278,7 +278,7 @@ void handle_leave_group(void *);
 // File Menu
 const char* upload_pick(void* data);
 void handle_upload(void* data);
-void handle_upload_object(void* data);
+//void handle_upload_object(void* data);
 void handle_compress_image(void*);
 BOOL enable_save_as(void *);
 
@@ -395,11 +395,11 @@ void slow_mo_animations(void *);
 void handle_disconnect_viewer(void *);
 
 void handle_stopall(void*);
-void handle_hinge(void*);
-void handle_ptop(void*);
-void handle_lptop(void*);
-void handle_wheel(void*);
-void handle_dehinge(void*);
+//void handle_hinge(void*);
+//void handle_ptop(void*);
+//void handle_lptop(void*);
+//void handle_wheel(void*);
+//void handle_dehinge(void*);
 BOOL enable_dehinge(void*);
 void handle_force_delete(void*);
 void print_object_info(void*);
@@ -980,7 +980,6 @@ extern BOOL gDebugClicks;
 extern BOOL gDebugWindowProc;
 extern BOOL gDebugTextEditorTips;
 extern BOOL gDebugSelectMgr;
-extern BOOL gVectorizePerfTest;
 
 void init_debug_ui_menu(LLMenuGL* menu)
 {
@@ -1189,8 +1188,6 @@ void init_debug_rendering_menu(LLMenuGL* menu)
 										   &menu_check_control,
 										   (void*)"ShowDepthBuffer"));
 	sub_menu->append(new LLMenuItemToggleGL("Show Select Buffer", &gDebugSelect));
-
-	sub_menu->append(new LLMenuItemToggleGL("Vectorize Perf Test", &gVectorizePerfTest));
 
 	sub_menu = new LLMenuGL("Render Tests");
 
@@ -4550,36 +4547,36 @@ class LLToolsStopAllAnimations : public view_listener_t
 	}
 };
 
-void handle_hinge(void*)
-{
-	gSelectMgr->sendHinge(1);
-}
+//void handle_hinge(void*)
+//{
+//	gSelectMgr->sendHinge(1);
+//}
 
-void handle_ptop(void*)
-{
-	gSelectMgr->sendHinge(2);
-}
+//void handle_ptop(void*)
+//{
+//	gSelectMgr->sendHinge(2);
+//}
 
-void handle_lptop(void*)
-{
-	gSelectMgr->sendHinge(3);
-}
+//void handle_lptop(void*)
+//{
+//	gSelectMgr->sendHinge(3);
+//}
 
-void handle_wheel(void*)
-{
-	gSelectMgr->sendHinge(4);
-}
+//void handle_wheel(void*)
+//{
+//	gSelectMgr->sendHinge(4);
+//}
 
-void handle_dehinge(void*)
-{
-	gSelectMgr->sendDehinge();
-}
+//void handle_dehinge(void*)
+//{
+//	gSelectMgr->sendDehinge();
+//}
 
-BOOL enable_dehinge(void*)
-{
-	LLViewerObject* obj = gSelectMgr->getSelection()->getFirstEditableObject();
-	return obj && !obj->isAttachment();
-}
+//BOOL enable_dehinge(void*)
+//{
+//	LLViewerObject* obj = gSelectMgr->getSelection()->getFirstEditableObject();
+//	return obj && !obj->isAttachment();
+//}
 
 
 class LLEditEnableCut : public view_listener_t

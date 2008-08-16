@@ -5,6 +5,6 @@
 	<button label="転送" name="forward_btn" />
 	<button label="閉じる" name="close_btn" />
 	<text name="status_text">
-		終了
+		完了
 	</text>
 </floater>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="script panel">
-	<button label="保存" label_selected="保存" name="Save_btn" />
 	<text_editor type="string" length="1" name="Script Editor">
-		ローディング...
+		ロード中．．．
 	</text_editor>
+	<button label="保存" label_selected="保存" name="Save_btn" />
 	<menu_bar name="script_menu">
 		<menu name="File">
 			<menu_item_call label="保存" name="Save" />
-			<menu_item_call label="全ての変更を取り消す" name="Revert All Changes" />
+			<menu_item_call label="すべての変更を元に戻す" name="Revert All Changes" />
 		</menu>
 		<menu name="Edit">
 			<menu_item_call label="元に戻す" name="Undo" />
@@ -17,13 +17,14 @@
 			<menu_item_call label="コピー" name="Copy" />
 			<menu_item_call label="貼り付け" name="Paste" />
 			<menu_item_separator label="-----------" name="separator2" />
-			<menu_item_call label="全てを選択" name="Select All" />
-			<menu_item_call label="選定しない" name="Deselect" />
+			<menu_item_call label="すべてを選択" name="Select All" />
+			<menu_item_call label="選択解除" name="Deselect" />
 			<menu_item_separator label="-----------" name="separator3" />
-			<menu_item_call label="検索／置換" name="Search / Replace..." />
+			<menu_item_call label="検索／置換..." name="Search / Replace..." />
 		</menu>
 		<menu name="Help">
-			<menu_item_call label="ヘルプ" name="Help..." />
+			<menu_item_call label="ヘルプ..." name="Help..." />
+			<menu_item_call label="LSL Wikiヘルプ..." name="LSL Wiki Help..." />
 		</menu>
 	</menu_bar>
 </panel>

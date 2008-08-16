@@ -452,6 +452,9 @@ void LLFloaterImport::draw()
 // static
 void LLFloaterImport::finishImport(ImportAssetInfo *info)
 {
+	// Commenting this code out and removing 
+	// ObjectImport message from the message template
+	/*
 	llinfos << "Uploading object " << info->FilenameAndPath << "..." << llendl;
 
 	LLUUID new_file_id;
@@ -502,7 +505,7 @@ void LLFloaterImport::finishImport(ImportAssetInfo *info)
 	else
 	{
 		llinfos << "Failed to copy file." << llendl;
-	}
+	}*/
 }
 
 // static

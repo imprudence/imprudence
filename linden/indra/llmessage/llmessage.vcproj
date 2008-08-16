@@ -240,6 +240,9 @@
 				RelativePath=".\llmessagetemplate.cpp">
 			</File>
 			<File
+				RelativePath=".\llmessagetemplateparser.cpp">
+			</File>
+			<File
 				RelativePath=".\llmessagethrottle.cpp">
 			</File>
 			<File
@@ -250,6 +253,9 @@
 			</File>
 			<File
 				RelativePath=".\llnullcipher.cpp">
+			</File>
+			<File
+				RelativePath=".\llpacketack.cpp">
 			</File>
 			<File
 				RelativePath=".\llpacketbuffer.cpp">
@@ -437,10 +443,10 @@
 				RelativePath=".\llhttpclient.h">
 			</File>
 			<File
-				RelativePath=".\llhttpsender.h">
+				RelativePath=".\llhttpnode.h">
 			</File>
 			<File
-				RelativePath=".\llhttpnode.h">
+				RelativePath=".\llhttpsender.h">
 			</File>
 			<File
 				RelativePath=".\llinstantmessage.h">
@@ -480,6 +486,9 @@
 			</File>
 			<File
 				RelativePath=".\llmessagetemplate.h">
+			</File>
+			<File
+				RelativePath=".\llmessagetemplateparser.h">
 			</File>
 			<File
 				RelativePath=".\llmessagethrottle.h">

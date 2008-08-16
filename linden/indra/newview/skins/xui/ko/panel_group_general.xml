@@ -9,10 +9,10 @@
 	</text>
 	<button label="?" label_selected="?" name="help_button" />
 	<line_editor name="group_name_editor">
-		새 그룹 이름을 여기에 입력
+		새 그룹 이름 입력
 	</line_editor>
 	<text name="group_name">
-		새 그룹 이름을 여기에 입력
+		새 그룹 이름 입력
 	</text>
 	<text name="prepend_founded_by">
 		설립자
@@ -37,9 +37,9 @@
 		(소유주는 굵은 글씨로 표시)
 	</text>
 	<name_list name="visible_members">
-		<column label="Member Name" name="name" />
-		<column label="Title" name="title" />
-		<column label="Last Login" name="online" />
+		<column label="회원 이름" name="name" />
+		<column label="타이틀" name="title" />
+		<column label="마지막 로그인" name="online" />
 	</name_list>
 	<text name="incomplete_member_data_str">
 		회원 데이터를 가져오는 중
@@ -66,10 +66,10 @@
 		     tool_tip="그룹 정보를 성인 전용으로 간주할지를 여부를 설정합니다." />
 		<panel name="title_container">
 			<text name="active_title_label">
-				보여질 타이틀
+				활성화된 타이틀
 			</text>
 			<combo_box name="active_title"
-			     tool_tip="Sets the title that appears in your avatar&apos;s name tag   when this group is active." />
+			     tool_tip="이 그룹이 활성화되었을 때 아바타의 이름 택에 타이틀이 보이도록 설정합니다." />
 		</panel>
 		<check_box label="그룹 공지 수령" name="receive_notices"
 		     tool_tip="그룹으로부터 공지를 수신할지를 여부를 설정합니다.   본 그룹이 스팸 메일을 보낼 경우 이 상자를 선택 해제합니다." />

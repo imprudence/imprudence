@@ -206,6 +206,7 @@ const char* upload_pick(void* data)
 	return filename;
 }
 
+/*
 void handle_upload_object(void* data)
 {
 	const char* filename = upload_pick(data);
@@ -215,7 +216,7 @@ void handle_upload_object(void* data)
 		LLFloaterImport* floaterp = new LLFloaterImport(filename);
 		gUICtrlFactory->buildFloater(floaterp, "floater_import.xml");
 	}
-}
+}*/
 
 class LLFileUploadImage : public view_listener_t
 {

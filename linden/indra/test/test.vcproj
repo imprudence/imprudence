@@ -20,7 +20,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llmessage;..\llmath;..\..\libraries\include;..\llinventory;&quot;..\..\libraries\i686-win32\include&quot;;..\llxml;..\lldatabase"
+				AdditionalIncludeDirectories="..\llcharacter;..\llcommon;..\lldatabase;..\llinventory;..\llmath;..\llmessage;..\llxml;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;LL_WINDOWS;LL_DEBUG"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
@@ -74,7 +74,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llmessage;..\llmath;..\..\libraries\include;..\llinventory;&quot;..\..\libraries\i686-win32\include&quot;;..\llxml;..\lldatabase"
+				AdditionalIncludeDirectories="..\llcharacter;..\llcommon;..\lldatabase;..\llinventory;..\llmath;..\llmessage;..\llxml;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include"
 				PreprocessorDefinitions="WIN32;__WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;LL_RELEASE;APR_DECLARE_STATIC;LL_HTTPD=1"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
@@ -130,7 +130,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llmessage;..\llmath;..\..\libraries\include;..\llinventory;&quot;..\..\libraries\i686-win32\include&quot;;..\llxml;..\lldatabase"
+				AdditionalIncludeDirectories="..\llcharacter;..\llcommon;..\lldatabase;..\llinventory;..\llmath;..\llmessage;..\llxml;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include"
 				PreprocessorDefinitions="WIN32;__WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;LL_RELEASE;APR_DECLARE_STATIC;LL_HTTPD=1"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
@@ -193,21 +193,45 @@
 			<File
 				RelativePath=".\io.cpp">
 			</File>
+			<File
+				RelativePath=".\llbuffer_tut.cpp">
+			</File>
 
 			<File
+				RelativePath=".\lldate_tut.cpp">
+			</File>
+			<File
 				RelativePath=".\llerror_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\llhost_tut.cpp">
 			</File>
 			<File
 				RelativePath=".\llhttpclient_tut.cpp">
 			</File>
 			<File
+				RelativePath=".\lljoint_tut.cpp">
+			</File>
+			<File
 				RelativePath=".\llmime_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\llnamevalue_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\llpermissions_tut.cpp">
 			</File>
 			<File
 				RelativePath=".\llpipeutil.cpp">
 			</File>
 			<File
+				RelativePath=".\llquaternion_tut.cpp">
+			</File>
+			<File
 				RelativePath=".\llrandom_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\llsaleinfo_tut.cpp">
 			</File>
 			<File
 				RelativePath=".\llsd_new_tut.cpp">
@@ -225,7 +249,16 @@
 				RelativePath=".\llsdtraits.h">
 			</File>
 			<File
+				RelativePath=".\llsdutil_tut.cpp">
+			</File>
+			<File
 				RelativePath=".\llservicebuilder_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\llstreamtools_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\lltemplatemessagebuilder_tut.cpp">
 			</File>
 			<File
 				RelativePath=".\lltiming_tut.cpp">
@@ -240,6 +273,9 @@
 				RelativePath=".\lluserrelations_tut.cpp">
 			</File>
 			<File
+				RelativePath=".\lluuidhashmap_tut.cpp">
+			</File>
+			<File
 				RelativePath=".\math.cpp">
 			</File>
 			<File
@@ -247,6 +283,30 @@
 			</File>
 			<File
 				RelativePath=".\test.cpp">
+			</File>
+			<File
+				RelativePath=".\v2math_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\v3color_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\v3dmath_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\v3math_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\v4color_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\v4coloru_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\v4math_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\xform_tut.cpp">
 			</File>
 		</Filter>
 		<Filter

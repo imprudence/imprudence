@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="그래픽 디테일" name="Display panel 3">
+<panel label="그래픽 세부사항" name="Display panel 3">
 	<text type="string" length="1" name="text">
 		쉐이더:
 	</text>
 	<check_box label="범프매핑 및 광택 보이기" name="bumpshiny" />
 	<check_box label="잔물결 보이기" name="ripple" />
-	<check_box label="아바타 버텍스 프로그램" name="avatarvp" />
+	<check_box label="아바타 버텍스 프로그램 보이기" name="avatarvp" />
 	<text type="string" length="1" name="Avatar Rendering:">
 		아바타 렌더링:
 	</text>
@@ -43,15 +43,15 @@
 		</radio_item>
 	</radio_group>
 	<text type="string" length="1" name="Object Mesh Detail:">
-		오브젝트 메쉬  디테일:
+		오브젝트 그물 세부사항:
 	</text>
 	<text type="string" length="1" name="Flexible Mesh Detail:">
-		플렉시블 메쉬 디테일:
+		신축적 그물 세부사항:
 	</text>
 	<text type="string" length="1" name="Tree Mesh Detail:">
-		나무 메쉬 디테일:
+		나무 그물 세부사항:
 	</text>
 	<text type="string" length="1" name="Avatar Mesh Detail:">
-		아바타 메쉬 디테일:
+		아바타 그물 세부사항:
 	</text>
 </panel>

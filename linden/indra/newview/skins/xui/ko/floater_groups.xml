@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="groups" title="그룹">
 	<text name="groupdesc">
-		현재 활동 중인 그룹은 굵은 글씨로 표시됩니다.
+		현재 활동중인 그룹은 굵은 글씨로 표시됩니다.
 	</text>
 	<text name="groupcount">
-		[COUNT] 그룹(최대 [MAX])에 속해 있습니다.
+		[COUNT]개의 그룹(최대 [MAX])에 속해 있습니다.
 	</text>
 	<button label="활성화" label_selected="활성화" name="Activate" />
 	<button label="정보" label_selected="정보" name="Info" />

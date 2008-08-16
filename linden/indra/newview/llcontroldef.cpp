@@ -1317,12 +1317,6 @@ void declare_settings()
 	gSavedSettings.declareBOOL("FlycamAbsolute", FALSE, "Treat Flycam values as absolute positions (not deltas).");
 	gSavedSettings.declareBOOL("FlycamZoomDirect", FALSE, "Map flycam zoom axis directly to camera zoom."); 
 
-	// Vector Processor & Math
-	gSavedSettings.declareBOOL("VectorizePerfTest", TRUE, "Test SSE/vectorization performance and choose fastest version.");
-	gSavedSettings.declareBOOL("VectorizeEnable", FALSE, "Enable general vector operations and data alignment.");
-	gSavedSettings.declareBOOL("VectorizeSkin", TRUE, "Enable vector operations for avatar skinning.");
-	gSavedSettings.declareU32( "VectorizeProcessor", 0, "0=Compiler Default, 1=SSE, 2=SSE2, autodetected", NO_PERSIST);
-
 	//
 	// crash_settings.xml
 	//

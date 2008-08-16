@@ -392,18 +392,6 @@ for build_target in targets:
 
     env_no_distcc = env.Copy(CXX = compiler_no_distcc)
 
-    vec_match	= re.compile("_vec\.")
-    env_vec = env.Copy()	# _vec is for default vector optimizations or none
-
-    sse_match	= re.compile("_sse\.")
-    env_sse = env.Copy()
-    env_sse.Append(CPPFLAGS = ' -msse -mfpmath=sse')
-
-    sse2_match	= re.compile("_sse2\.") 
-    env_sse2 = env.Copy()
-    env_sse2.Append(CPPFLAGS = ' -msse2 -mfpmath=sse')
-
-
     ### Distributed build hosts ###
 
     if enable_distcc:
@@ -431,21 +419,6 @@ for build_target in targets:
     # HELPER FUNCTIONS  #
     #####################
 
-    ## handle special compiler modes
-
-    def file_obj(file):
-        if file == 'newsim/lltask.cpp':
-            print 'Found lltask!'
-            return env_no_distcc.Object(file)
-        elif vec_match.search(file) != None:
-            return env_vec.Object(file)
-        elif sse_match.search(file) != None:
-            return env_sse.Object(file)
-        elif sse2_match.search(file) != None:
-            return env_sse2.Object(file)
-        else:
-            return file
-
     ### Load a files.lst and files.PLATFORM.lst for each module ###
 
     def load_files(module, source_fname):
@@ -456,7 +429,12 @@ for build_target in targets:
             for x in list:
                 if not x.startswith('#'):
                     file = os.path.join(build_dir, x)
-                    new_list.append(file_obj(file))
+                    if x == 'newsim/lltask.cpp':
+                        print 'Found lltask!'
+                        obj = env_no_distcc.Object(file)
+                        new_list.append(obj)
+                    else:
+                        new_list.append(file)
             list_file.close()
         except IOError, val:
             print 'Error: unable to open file list',source_fname,
@@ -468,7 +446,7 @@ for build_target in targets:
             list = Split(platform_list_file.read())
             for x in list:
                 file = os.path.join(build_dir, x)
-                new_list.append(file_obj(file))
+                new_list.append(file)
             platform_list_file.close()
         except IOError:
             return new_list
@@ -521,6 +499,13 @@ for build_target in targets:
         tgt = env.Program(exec_file, files_list, LIBS = module_libs)
         Default(tgt)
 
+
+    ### Check the message template for compatibility with the base ###
+    tgt = env.Command("template_verifier_output",
+                      '../scripts/template_verifier.py',
+                      'python $SOURCE  --mode="development" 2>&1')
+    Default(tgt)
+    AlwaysBuild(tgt)
 
     ####################
     # BUILD LIBRARIES  #
@@ -684,16 +669,8 @@ for build_target in targets:
         create_executable('newspace/spaceserver' + file_suffix, 'newspace',
                             internal_libs + external_libs)
 
-        # Userserver
-        Depends('userserver/userserver', 'newspace/spaceserver' + file_suffix)
-        external_libs = common_external_libs
-        internal_libs = ['llinventory', 'llscene', 'llmessage', 'llvfs', 
-                'llxml', 'llmath', 'llcommon']
-        create_executable('userserver/userserver' + file_suffix, 'userserver',
-                            internal_libs + external_libs)
-
         # Rpcserver
-        Depends('rpcserver/rpcserver', 'userserver/userserver' + file_suffix)
+        Depends('rpcserver/rpcserver', 'newspace/spaceserver' + file_suffix)
         external_libs = common_external_libs + ['xmlrpc', 'mysqlclient']
         internal_libs = ['llscene', 'llmessage', 'lldatabase', 'llvfs', 
                 'llmath', 'llcommon']
@@ -754,7 +731,7 @@ for build_target in targets:
         Depends('test/test', 'newsim/simulator' + file_suffix)
         external_libs = common_external_libs + ['mysqlclient']
         internal_libs = [ 'lldatabase', 'llinventory', 'llmessage', 'llxml',
-                'llvfs', 'llmath', 'llcommon' ]
+                'llvfs', 'llcharacter', 'llmath', 'llcommon' ]
         test_executable = 'test/test' + file_suffix
         create_executable(test_executable, 'test', 
                             internal_libs + external_libs)
@@ -763,7 +740,7 @@ for build_target in targets:
         test_results_file = 'test/test_results' + file_suffix + '.txt'
         env.Command(test_results_file,
                     test_executable,
-                    "$SOURCE 2>&1 | tee $TARGET")
+                    "$SOURCE 2>&1")  # tee masks segfaults
         Depends(test_results_file, test_executable)
         Default(test_results_file)
 
@@ -771,7 +748,7 @@ for build_target in targets:
         script_test_results = 'test/script_test_result' + file_suffix + '.txt'
         env.Command(script_test_results,
                     test_script,
-                    "$SOURCE 2>&1 | tee $TARGET")
+                    "$SOURCE 2>&1")  # tee masks segfaults
 
         Depends(script_test_results, test_results_file)
         Default(script_test_results)

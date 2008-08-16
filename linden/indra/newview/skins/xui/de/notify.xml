@@ -12,7 +12,7 @@
 	</notify>
 	<notify name="CancelledSit">
 		<message name="message">
-			Sitzen abgebrochen
+			Hinsetzen abgebrochen
 		</message>
 	</notify>
 	<notify name="CancelledAttach">
@@ -37,23 +37,23 @@
 	</notify>
 	<notify name="AddSelfFriend">
 		<message name="message">
-			You cannot add yourself as a friend.
+			Sie können sich nicht selber zur Freundesliste hinzufügen.
 		</message>
 	</notify>
 	<notify name="UploadingAuctionSnapshot">
 		<message name="message">
-			Spielinterne und Website-Fotosn werden hochgeladen...
+			Spielinterne und Website-Fotos werden hochgeladen...
 (Dauert ca. 5 Minuten.)
 		</message>
 	</notify>
 	<notify name="UploadPayment">
 		<message name="message">
-			You paid L$[AMOUNT] to upload.
+			Hochladegebühr von L$[AMOUNT] wurde abgebucht.
 		</message>
 	</notify>
 	<notify name="UploadingSnapshot">
 		<message name="message">
-			Spielinterne Foto wird hochgeladen...
+			Bildschirmfoto wird hochgeladen...
 (Dauert ca. 1 Minute.)
 		</message>
 	</notify>
@@ -64,7 +64,7 @@
 	</notify>
 	<notify name="UploadSnapshotDone">
 		<message name="message">
-			Upload der spielinternen Foto abgeschlossen
+			Hochladen des Bildschirmfotos abgeschlossen.
 		</message>
 	</notify>
 	<notify name="TerrainDownloaded">
@@ -95,34 +95,34 @@ Bitte versuchen Sie es noch einmal.
 	</notify>
 	<notify name="LandmarkMissing">
 		<message name="message">
-			Landmarken fehlt in Datenbank.
+			Landmarke fehlt in Datenbank.
 		</message>
 	</notify>
 	<notify name="UnableToLoadLandmark">
 		<message name="message">
-			Landmarken kann nicht geladen werden.  Bitte versuchen Sie es noch einmal.
+			Landmarke kann nicht geladen werden.  Bitte versuchen Sie es noch einmal.
 		</message>
 	</notify>
 	<notify name="CapsKeyOn">
 		<message name="message">
 			Ihre Feststelltaste ist aktiviert.
 Da sich dies auf das von Ihnen eingegebene Kennwort auswirkt,
-sollten Sie sie evtl. deaktivieren.
+wird empfohlen, die Feststelltaste zu deaktivieren.
 		</message>
 	</notify>
 	<notify name="NotecardMissing">
 		<message name="message">
-			Grußkarte fehlt in Datenbank.
+			Notiz fehlt in Datenbank.
 		</message>
 	</notify>
 	<notify name="NotecardNoPermissions">
 		<message name="message">
-			Berechtigungen reichen zum Anzeigen der Grußkarte nicht aus.
+			Berechtigungen reichen zum Anzeigen der Notiz nicht aus.
 		</message>
 	</notify>
 	<notify name="UnableToLoadNotecard">
 		<message name="message">
-			Grußkarte kann nicht geladen werden.
+			Notiz kann nicht geladen werden.
 Bitte versuchen Sie es noch einmal.
 		</message>
 	</notify>
@@ -206,14 +206,14 @@ Bitte wählen Sie ein einzelnes Objekt.
 			Kopieren wegen fehlender Kopierberechtigung fehlgeschlagen
 		</message>
 	</notify>
-	<notify name="InventoryAccepted">
+	<notify name="InventoryAccepted" tip="true">
 		<message name="message">
-			[MESSAGE]
+			[NAME] hat Ihr Inventarangebot angenommen
 		</message>
 	</notify>
-	<notify name="InventoryDeclined">
+	<notify name="InventoryDeclined" tip="true">
 		<message name="message">
-			[NAME] hat Ihr Freundschaftsangebot angenommen.
+			[NAME] hat Ihr Inventarangebot abgelehnt
 		</message>
 	</notify>
 	<notify name="ObjectMessage">
@@ -565,12 +565,12 @@ see each other&apos;s online status.
 	</notify>
 	<notify name="FriendshipAccepted">
 		<message name="message">
-			[NAME]
+			[NAME] hat Ihr Freundschaftsangebot angenommen.
 		</message>
 	</notify>
 	<notify name="FriendshipDeclined">
 		<message name="message">
-			[NAME] L$ [PRICE] Sie haben nicht genug der Währung, um dies zu tun.
+			[NAME] hat Ihr Freundschaftsangebot abgelehnt
 		</message>
 	</notify>
 	<notify name="OfferCallingCard">
@@ -790,10 +790,10 @@ Sie können Ihr Aussehen beliebig oft ändern.
 	</notify>
 	<notify name="FirstInventory">
 		<message name="message">
-			Dies ist Ihr Inventar, das Objekte, Grußkarten, Kleidung und andere Sachen enthält, die Ihnen gehören.
+			Dies ist Ihr Inventar, das Objekte, Notizen, Kleidung und andere Sachen enthält, die Ihnen gehören.
 * Um ein Objekt oder einen Outfit-Ordner zu tragen, ziehen Sie das Objekt auf sich.
 * Um ein Objekt in die Welt zu bringen, ziehen Sie es auf den Boden.
-* Um eine Grußkarte zu lesen, doppelklicken Sie darauf.
+* Um eine Notiz zu lesen, doppelklicken Sie darauf.
 		</message>
 	</notify>
 	<notify name="FirstSandbox">

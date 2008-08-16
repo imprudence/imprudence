@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="item properties" title="在庫目録項目の提案">
+<floater name="item properties" title="持ち物アイテムのプロパティ">
 	<text name="LabelItemNameTitle">
-		名前:
+		名前：
 	</text>
 	<text name="LabelItemDescTitle">
-		説明:
+		説明：
 	</text>
 	<text name="LabelCreatorTitle">
-		創作者:
+		クリエーター
 	</text>
 	<text name="LabelCreatorName">
 		Nicole Linden
 	</text>
-	<button label="プロファイル..." label_selected="" name="BtnCreator" />
+	<button label="プロフィール..." label_selected="" name="BtnCreator" />
 	<text name="LabelOwnerTitle">
-		所有者:
+		オーナー：
 	</text>
 	<text name="LabelOwnerName">
 		Thrax Linden
 	</text>
-	<button label="プロファイル..." label_selected="" name="BtnOwner" />
+	<button label="プロフィール..." label_selected="" name="BtnOwner" />
 	<text name="LabelAcquiredTitle">
-		獲得:
+		入手：
 	</text>
 	<text name="LabelAcquiredDate">
-		2006年 5月 24日水曜日12:50:46
+		2006年5月24日水曜日12:50:46
 	</text>
 	<text name="OwnerLabel">
-		あなたは可能:
+		できることは：
 	</text>
-	<check_box label="変更" name="CheckOwnerModify" />
+	<check_box label="修正" name="CheckOwnerModify" />
 	<check_box label="コピー" name="CheckOwnerCopy" />
-	<check_box label="転売/寄贈" name="CheckOwnerTransfer" />
+	<check_box label="再販／プレゼント" name="CheckOwnerTransfer" />
 	<text name="BaseMaskDebug">
 		B:
 	</text>
@@ -45,20 +45,20 @@
 		E:
 	</text>
 	<text name="NextMaskDebug">
-		N:
+		N：
 	</text>
-	<check_box label="グループで共有" name="CheckShareWithGroup" />
-	<check_box label="全てにコピーを許可" name="CheckEveryoneCopy" />
+	<check_box label="グループ分担" name="CheckShareWithGroup" />
+	<check_box label="誰に対してもコピーを許可" name="CheckEveryoneCopy" />
 	<text name="NextOwnerLabel">
-		次の所有者が可能:
+		次のオーナーが実行できる操作：
 	</text>
-	<check_box label="変更" name="CheckNextOwnerModify" />
+	<check_box label="修正" name="CheckNextOwnerModify" />
 	<check_box label="コピー" name="CheckNextOwnerCopy" />
-	<check_box label="転売/寄贈" name="CheckNextOwnerTransfer" />
+	<check_box label="再販／プレゼント" name="CheckNextOwnerTransfer" />
 	<text name="SaleLabel">
-		項目を作る:
+		アイテムにマーク：
 	</text>
-	<check_box label="売り出し" name="CheckPurchase" />
+	<check_box label="売り出し中" name="CheckPurchase" />
 	<radio_group name="RadioSaleType">
 		<radio_item name="radio">
 			オリジナル
@@ -68,6 +68,6 @@
 		</radio_item>
 	</radio_group>
 	<text name="TextPrice">
-		価格:  L$
+		料金：L$
 	</text>
 </floater>

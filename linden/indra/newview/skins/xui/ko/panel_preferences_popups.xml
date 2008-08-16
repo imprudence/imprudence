@@ -5,9 +5,9 @@
 	</text>
 	<button label="팝업 보기" label_selected="팝업 보기" name="enable_popup" />
 	<text type="string" length="1" name="text_box2">
-		허용된 팝업:
+		제공된 노트카드, 텍스쳐, 랜드마크:
 	</text>
-	<button label="나중에 알림&apos; 초기화…"
-	     label_selected="나중에 알림&apos; 초기화…"
+	<button label="&apos;다음에 생략&apos; 모든대화 표시…"
+	     label_selected="모든 &apos;다음에 보이기&apos; 메시지 재설정합니까?"
 	     name="reset_dialogs_btn" />
 </panel>

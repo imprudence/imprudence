@@ -11,15 +11,15 @@
 			<check_box label="성인용 컨텐츠 포함" name="incmature" />
 			<scroll_list name="results">
 				<column label="" name="icon" />
-				<column label="Name" name="name" />
-				<column label="Price" name="price" />
-				<column label="Time (PT)" name="date" />
-				<column label="Time" name="time" />
-				<column label="Traffic" name="dwell" />
-				<column label="Area" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
-				<column label="Online" name="online" />
-				<column label="Members" name="members" />
+				<column label="이름" name="name" />
+				<column label="가격" name="price" />
+				<column label="시간(PT)" name="date" />
+				<column label="시간" name="time" />
+				<column label="교통" name="dwell" />
+				<column label="면적" name="area" />
+				<column label="L$/sq. m." name="per_meter" />
+				<column label="온라인" name="online" />
+				<column label="회원" name="members" />
 			</scroll_list>
 		</panel>
 		<panel label="광고" name="classified_panel">
@@ -49,10 +49,10 @@
 					신제품
 				</combo_item>
 				<combo_item name="Employment">
-					일자리
+					구직
 				</combo_item>
 				<combo_item name="Wanted">
-					모집
+					고용
 				</combo_item>
 				<combo_item name="Service">
 					서비스
@@ -68,8 +68,8 @@
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Price" name="price" />
+				<column label="이름" name="name" />
+				<column label="가격" name="price" />
 			</scroll_list>
 		</panel>
 		<panel label="이벤트" name="events_panel">
@@ -140,10 +140,10 @@
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Time (PT)" name="date" />
+				<column label="이름" name="name" />
+				<column label="시간 (PT)" name="date" />
 				<column label="" name="event_id" />
-				<column label="Time" name="time" />
+				<column label="시간" name="time" />
 			</scroll_list>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
@@ -155,13 +155,13 @@
 			<check_box label="성인용 컨텐츠 구획 포함" name="incmature" />
 			<text
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
-				본 장소들은 통행량(사람들이 해당 장소에서 보내는 시간을 기준)에 따른 가장 인기 있는 장소들입니다.
+				본 장소들은 통행량(머무는 시간 기준)에 따른 가장 인기 있는 장소들입니다.
 			</text>
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Traffic" name="dwell" />
+				<column label="시간" name="name" />
+				<column label="교통" name="dwell" />
 			</scroll_list>
 		</panel>
 		<panel label="토지 매물" name="land_sales_panel">
@@ -196,16 +196,16 @@
 			<check_box label="면적&gt;=sq.m." name="areacheck" />
 			<button label="검색" label_selected="검색" name="Search" />
 			<text name="land">
-				토지는 린든 달러(L$)로 직접 구매, 또는 린든 달러(L$)나 US$로 경매하여 구매할 수 있습니다.
-직접 구매하려면, 토지를 방문하여 타이틀 바에 있는 장소 이름을 클릭 하십시오!
+				토지는 L$로 직매하거나, L$나 US$로 경매하여 구매할 수 있습니다.
+직매하려면, 토지를 방문하여 타이틀 바에 있는 장소 이름을 클릭 하십시오!
 			</text>
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="L$ Price" name="price" />
-				<column label="Area" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
+				<column label="이름" name="name" />
+				<column label="L$ 가격" name="price" />
+				<column label="면적" name="area" />
+				<column label="L$/sq.m." name="per_meter" />
 			</scroll_list>
 		</panel>
 		<panel label="장소" name="places_panel">
@@ -260,8 +260,8 @@
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Traffic" name="dwell" />
+				<column label="이름" name="name" />
+				<column label="교통" name="dwell" />
 			</scroll_list>
 		</panel>
 		<panel label="사람" name="people_panel">
@@ -274,7 +274,7 @@
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
+				<column label="이름" name="name" />
 			</scroll_list>
 		</panel>
 		<panel label="그룹" name="groups_panel">
@@ -288,8 +288,8 @@
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Members" name="members" />
+				<column label="이름" name="name" />
+				<column label="회원" name="members" />
 				<column label="" name="score" />
 			</scroll_list>
 		</panel>

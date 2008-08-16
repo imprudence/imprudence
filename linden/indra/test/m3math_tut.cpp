@@ -1,7 +1,7 @@
 /** 
  * @file m3math_tut.cpp
  * @author Adroit
- * @date March 2007
+ * @date 2007-03
  * @brief Test cases of m3math.h
  *
  * Copyright (c) 2007-2007, Linden Research, Inc.

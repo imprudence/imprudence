@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="im" title="IM">
 	<text>
-		IMのオプション:
+		IMオプション：
 	</text>
-	<check_box label="Ｅメールに IMを送信" name="send_im_to_email"
-	     tool_tip="secondlife.comであなたのＥメールのアドレスを変更" />
-	<check_box label="チャット履歴に IMを含む" name="include_im_in_chat_history" />
+	<check_box label="IMを電子メールへ送信" name="send_im_to_email"
+	     tool_tip="secondlife.com上の電子メール・アドレスを変更" />
+	<check_box label="チャット履歴にIMを含める" name="include_im_in_chat_history" />
 	<check_box label="IMにタイムスタンプを表示" name="show_timestamps_check" />
 	<text>
-		使用中モードの応答：
+		ビジー・モード応答：
 	</text>
 </panel>

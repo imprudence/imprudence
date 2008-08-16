@@ -28,12 +28,6 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
-/** 
- * 
- * THOROUGH_DESCRIPTION of inventory.cpp
- *
- */
-
 #include "linden_common.h"
 #include "lltut.h"
 #include "llinventory.h"
@@ -102,67 +96,438 @@ namespace tut
 	typedef inventory_test::object inventory_object;
 	tut::inventory_test inv("llinventory");
 
+//***class LLInventoryType***//
+
+
 	template<> template<>
 	void inventory_object::test<1>()
 	{
-		LLPointer<LLInventoryItem> src = create_random_inventory_item();
-		LLSD sd = ll_create_sd_from_inventory_item(src);
-		//llinfos << "sd: " << *sd << llendl;
-		LLPointer<LLInventoryItem> dst;
-		dst = ll_create_item_from_sd(sd);
-		ensure_equals("item id", dst->getUUID(), src->getUUID());
-		ensure_equals("parent", dst->getParentUUID(), src->getParentUUID());
-		ensure_equals("name", dst->getName(), src->getName());
-		ensure_equals("type", dst->getType(), src->getType());
-		ensure_equals(
-			"permissions",
-			dst->getPermissions(),
-			src->getPermissions());
-		ensure_equals(
-			"description",
-			dst->getDescription(),
-			src->getDescription());
-		ensure_equals(
-			"sale type",
-			dst->getSaleInfo().getSaleType(),
-			src->getSaleInfo().getSaleType());
-		ensure_equals(
-			"sale price",
-			dst->getSaleInfo().getSalePrice(),
-			src->getSaleInfo().getSalePrice());
-		ensure_equals("asset id", dst->getAssetUUID(), src->getAssetUUID());
-		ensure_equals(
-			"inventory type",
-			dst->getInventoryType(),
-			src->getInventoryType());
-		ensure_equals("flags", dst->getFlags(), src->getFlags());
-		ensure_equals(
-			"creation",
-			dst->getCreationDate(),
-			src->getCreationDate());
+		LLInventoryType::EType retType =  LLInventoryType::lookup("sound");
+		ensure("1.LLInventoryType::lookup(char*) failed", retType == LLInventoryType::IT_SOUND);
+
+		retType = LLInventoryType::lookup("snapshot");
+		ensure("2.LLInventoryType::lookup(char*) failed", retType == LLInventoryType::IT_SNAPSHOT);
 	}
 
 	template<> template<>
 	void inventory_object::test<2>()
 	{
-		LLPointer<LLInventoryCategory> src = create_random_inventory_cat();
-		LLSD sd = ll_create_sd_from_inventory_category(src);
-		LLPointer<LLInventoryCategory> dst = ll_create_category_from_sd(sd);
-		ensure_equals("item id", dst->getUUID(), src->getUUID());
-		ensure_equals("parent", dst->getParentUUID(), src->getParentUUID());
-		ensure_equals("name", dst->getName(), src->getName());
-		ensure_equals("type", dst->getType(), src->getType());
-		ensure_equals(
-			"preferred type",
-			dst->getPreferredType(),
-			src->getPreferredType());
+		const char* retType =  LLInventoryType::lookup(LLInventoryType::IT_CALLINGCARD);
+		ensure("1.LLInventoryType::lookup(EType) failed", 0 == strcmp(retType, "callcard")); 
+
+		retType = LLInventoryType::lookup(LLInventoryType::IT_LANDMARK);
+		ensure("2.LLInventoryType::lookup(EType) failed", 0 == strcmp(retType, "landmark"));
+		
 	}
 
-/*
 	template<> template<>
 	void inventory_object::test<3>()
 	{
+		static const char* retType =  LLInventoryType::lookupHumanReadable(LLInventoryType::IT_CALLINGCARD);
+		ensure("1.LLInventoryType::lookupHumanReadable(EType) failed", 0 == strcmp(retType, "calling card")); 
+
+		retType =  LLInventoryType::lookupHumanReadable(LLInventoryType::IT_LANDMARK);
+		ensure("2.LLInventoryType::lookupHumanReadable(EType) failed", 0 == strcmp(retType, "landmark")); 
+	}
+
+	template<> template<>
+	void inventory_object::test<4>()
+	{
+		static LLInventoryType::EType retType =  LLInventoryType::defaultForAssetType(LLAssetType::AT_TEXTURE);
+		ensure("1.LLInventoryType::defaultForAssetType(LLAssetType EType) failed", retType == LLInventoryType::IT_TEXTURE);
+
+		retType =  LLInventoryType::defaultForAssetType(LLAssetType::AT_LANDMARK);
+		ensure("2.LLInventoryType::defaultForAssetType(LLAssetType EType) failed", retType == LLInventoryType::IT_LANDMARK);
+	}
+
+//*****class LLInventoryItem*****//
+
+	template<> template<>
+	void inventory_object::test<5>()
+	{
+		LLPointer<LLInventoryItem> src = create_random_inventory_item();
+		LLSD sd = ll_create_sd_from_inventory_item(src);
+		//llinfos << "sd: " << *sd << llendl;
+		LLPointer<LLInventoryItem> dst = ll_create_item_from_sd(sd);
+		ensure_equals("1.item id::getUUID() failed", dst->getUUID(), src->getUUID());
+		ensure_equals("2.parent::getParentUUID() failed", dst->getParentUUID(), src->getParentUUID());
+		ensure_equals("3.name::getName() failed", dst->getName(), src->getName());
+		ensure_equals("4.type::getType() failed", dst->getType(), src->getType());
+		
+		ensure_equals("5.permissions::getPermissions() failed", dst->getPermissions(), src->getPermissions());
+		ensure_equals("6.description::getDescription() failed", dst->getDescription(), src->getDescription());
+		ensure_equals("7.sale type::getSaleType() failed", dst->getSaleInfo().getSaleType(), src->getSaleInfo().getSaleType());
+		ensure_equals("8.sale price::getSalePrice() failed", dst->getSaleInfo().getSalePrice(), src->getSaleInfo().getSalePrice());
+		ensure_equals("9.asset id::getAssetUUID() failed", dst->getAssetUUID(), src->getAssetUUID());
+		ensure_equals("10.inventory type::getInventoryType() failed", dst->getInventoryType(), src->getInventoryType());
+		ensure_equals("11.flags::getFlags() failed", dst->getFlags(), src->getFlags());
+		ensure_equals("12.creation::getCreationDate() failed", dst->getCreationDate(), src->getCreationDate());
+
+		LLUUID new_item_id, new_parent_id;
+		new_item_id.generate();
+		src->setUUID(new_item_id);
+		
+		new_parent_id.generate();
+		src->setParent(new_parent_id);
+		
+		LLString new_name = "LindenLab";
+		src->rename(new_name);
+		
+		src->setType(LLAssetType::AT_SOUND);
+
+		LLUUID new_asset_id;
+		new_asset_id.generate();
+		
+		src->setAssetUUID(new_asset_id);
+		LLString new_desc = "SecondLife Testing";
+		src->setDescription(new_desc);
+		
+		S32 new_price = rand();
+		LLSaleInfo new_sale_info(LLSaleInfo::FS_COPY, new_price);
+		src->setSaleInfo(new_sale_info);
+
+		U32 new_flags = rand();
+		S32 new_creation = time(NULL);
+
+		LLPermissions new_perm;
+
+		LLUUID new_creator_id;
+		new_creator_id.generate();
+	
+		LLUUID new_owner_id;
+		new_owner_id.generate();
+
+		LLUUID last_owner_id;
+		last_owner_id.generate();
+
+		LLUUID new_group_id;
+		new_group_id.generate();
+		new_perm.init(new_creator_id, new_owner_id, last_owner_id, new_group_id);
+		new_perm.initMasks(PERM_ALL, PERM_ALL, PERM_COPY, PERM_COPY, PERM_MODIFY | PERM_COPY);
+		src->setPermissions(new_perm);
+
+		src->setInventoryType(LLInventoryType::IT_SOUND);
+		src->setFlags(new_flags);
+		src->setCreationDate(new_creation);
+
+		sd = ll_create_sd_from_inventory_item(src);
+		//llinfos << "sd: " << *sd << llendl;
+		dst = ll_create_item_from_sd(sd);
+		ensure_equals("13.item id::getUUID() failed", dst->getUUID(), src->getUUID());
+		ensure_equals("14.parent::getParentUUID() failed", dst->getParentUUID(), src->getParentUUID());
+		ensure_equals("15.name::getName() failed", dst->getName(), src->getName());
+		ensure_equals("16.type::getType() failed", dst->getType(), src->getType());
+		
+		ensure_equals("17.permissions::getPermissions() failed", dst->getPermissions(), src->getPermissions());
+		ensure_equals("18.description::getDescription() failed", dst->getDescription(), src->getDescription());
+		ensure_equals("19.sale type::getSaleType() failed type", dst->getSaleInfo().getSaleType(), src->getSaleInfo().getSaleType());
+		ensure_equals("20.sale price::getSalePrice() failed price", dst->getSaleInfo().getSalePrice(), src->getSaleInfo().getSalePrice());
+		ensure_equals("21.asset id::getAssetUUID() failed id", dst->getAssetUUID(), src->getAssetUUID());
+		ensure_equals("22.inventory type::getInventoryType() failed type", dst->getInventoryType(), src->getInventoryType());
+		ensure_equals("23.flags::getFlags() failed", dst->getFlags(), src->getFlags());
+		ensure_equals("24.creation::getCreationDate() failed", dst->getCreationDate(), src->getCreationDate());
+		
+	}
+
+	template<> template<>
+	void inventory_object::test<6>()
+	{
+		LLPointer<LLInventoryItem> src = create_random_inventory_item();
+		
+		LLUUID new_item_id, new_parent_id;
+		new_item_id.generate();
+		src->setUUID(new_item_id);
+		
+		new_parent_id.generate();
+		src->setParent(new_parent_id);
+		
+		LLString new_name = "LindenLab";
+		src->rename(new_name);
+		
+		src->setType(LLAssetType::AT_SOUND);
+
+		LLUUID new_asset_id;
+		new_asset_id.generate();
+		
+		src->setAssetUUID(new_asset_id);
+		LLString new_desc = "SecondLife Testing";
+		src->setDescription(new_desc);
+		
+		S32 new_price = rand();
+		LLSaleInfo new_sale_info(LLSaleInfo::FS_COPY, new_price);
+		src->setSaleInfo(new_sale_info);
+
+		U32 new_flags = rand();
+		S32 new_creation = time(NULL);
+
+		LLPermissions new_perm;
+
+		LLUUID new_creator_id;
+		new_creator_id.generate();
+	
+		LLUUID new_owner_id;
+		new_owner_id.generate();
+
+		LLUUID last_owner_id;
+		last_owner_id.generate();
+
+		LLUUID new_group_id;
+		new_group_id.generate();
+		new_perm.init(new_creator_id, new_owner_id, last_owner_id, new_group_id);
+		new_perm.initMasks(PERM_ALL, PERM_ALL, PERM_COPY, PERM_COPY, PERM_MODIFY | PERM_COPY);
+		src->setPermissions(new_perm);
+
+		src->setInventoryType(LLInventoryType::IT_SOUND);
+		src->setFlags(new_flags);
+		src->setCreationDate(new_creation);
+
+		LLSD sd = ll_create_sd_from_inventory_item(src);
+		LLPointer<LLInventoryItem> dst = ll_create_item_from_sd(sd);
+
+
+		LLPointer<LLInventoryItem> src1 = create_random_inventory_item();
+		src1->copy(src);
+		src1->clone(src);
+		
+		ensure_equals("1.item id::getUUID() failed", dst->getUUID(), src1->getUUID());
+		ensure_equals("2.parent::getParentUUID() failed", dst->getParentUUID(), src1->getParentUUID());
+		ensure_equals("3.name::getName() failed", dst->getName(), src1->getName());
+		ensure_equals("4.type::getType() failed", dst->getType(), src1->getType());
+		
+		ensure_equals("5.permissions::getPermissions() failed", dst->getPermissions(), src1->getPermissions());
+		ensure_equals("6.description::getDescription() failed", dst->getDescription(), src1->getDescription());
+		ensure_equals("7.sale type::getSaleType() failed type", dst->getSaleInfo().getSaleType(), src1->getSaleInfo().getSaleType());
+		ensure_equals("8.sale price::getSalePrice() failed price", dst->getSaleInfo().getSalePrice(), src1->getSaleInfo().getSalePrice());
+		ensure_equals("9.asset id::getAssetUUID() failed id", dst->getAssetUUID(), src1->getAssetUUID());
+		ensure_equals("10.inventory type::getInventoryType() failed type", dst->getInventoryType(), src1->getInventoryType());
+		ensure_equals("11.flags::getFlags() failed", dst->getFlags(), src1->getFlags());
+		ensure_equals("12.creation::getCreationDate() failed", dst->getCreationDate(), src1->getCreationDate());
+
+		LLPointer<LLInventoryItem> src2;
+		src1->clone(src2);
+		
+		ensure_not_equals("13.item id::getUUID() failed", src1->getUUID(), src2->getUUID());
+		ensure_equals("14.parent::getParentUUID() failed", src2->getParentUUID(), src1->getParentUUID());
+		ensure_equals("15.name::getName() failed", src2->getName(), src1->getName());
+		ensure_equals("16.type::getType() failed", src2->getType(), src1->getType());
+		
+		ensure_equals("17.permissions::getPermissions() failed", src2->getPermissions(), src1->getPermissions());
+		ensure_equals("18.description::getDescription() failed", src2->getDescription(), src1->getDescription());
+		ensure_equals("19.sale type::getSaleType() failed type", src2->getSaleInfo().getSaleType(), src1->getSaleInfo().getSaleType());
+		ensure_equals("20.sale price::getSalePrice() failed price", src2->getSaleInfo().getSalePrice(), src1->getSaleInfo().getSalePrice());
+		ensure_equals("21.asset id::getAssetUUID() failed id", src2->getAssetUUID(), src1->getAssetUUID());
+		ensure_equals("22.inventory type::getInventoryType() failed type", src2->getInventoryType(), src1->getInventoryType());
+		ensure_equals("23.flags::getFlags() failed", src2->getFlags(), src1->getFlags());
+		ensure_equals("24.creation::getCreationDate() failed", src2->getCreationDate(), src1->getCreationDate());
+
+
+	}
+
+	template<> template<>
+	void inventory_object::test<7>()
+	{
+		FILE* fp = fopen("linden_file.dat","w+");
+		if(!fp)
+		{
+			llerrs << "file could not be opened\n" << llendl;
+			return;
+		}
+			
+		LLPointer<LLInventoryItem> src1 = create_random_inventory_item();
+		src1->exportFile(fp, TRUE);
+		fclose(fp);
+
+		LLPointer<LLInventoryItem> src2 = new LLInventoryItem();	
+		fp = fopen("linden_file.dat","r+");
+		if(!fp)
+		{
+			llerrs << "file could not be opened\n" << llendl;
+			return;
+		}
+		
+		src2->importFile(fp);
+		fclose(fp);
+		
+		ensure_equals("1.item id::getUUID() failed", src1->getUUID(), src2->getUUID());
+		ensure_equals("2.parent::getParentUUID() failed", src1->getParentUUID(), src2->getParentUUID());
+		ensure_equals("3.permissions::getPermissions() failed", src1->getPermissions(), src2->getPermissions());
+		ensure_equals("4.sale price::getSalePrice() failed price", src1->getSaleInfo().getSalePrice(), src2->getSaleInfo().getSalePrice());
+		ensure_equals("5.asset id::getAssetUUID() failed id", src1->getAssetUUID(), src2->getAssetUUID());
+		ensure_equals("6.type::getType() failed", src1->getType(), src2->getType());
+		ensure_equals("7.inventory type::getInventoryType() failed type", src1->getInventoryType(), src2->getInventoryType());
+		ensure_equals("8.name::getName() failed", src1->getName(), src2->getName());
+		ensure_equals("9.description::getDescription() failed", src1->getDescription(), src2->getDescription());				
+		ensure_equals("10.creation::getCreationDate() failed", src1->getCreationDate(), src2->getCreationDate());
 			
 	}
-*/
+
+	template<> template<>
+	void inventory_object::test<8>()
+	{
+			
+		LLPointer<LLInventoryItem> src1 = create_random_inventory_item();
+
+		std::ostringstream ostream;
+		src1->exportLegacyStream(ostream, TRUE);
+		
+		std::istringstream istream(ostream.str());
+		LLPointer<LLInventoryItem> src2 = new LLInventoryItem();
+		src2->importLegacyStream(istream);
+					
+		ensure_equals("1.item id::getUUID() failed", src1->getUUID(), src2->getUUID());
+		ensure_equals("2.parent::getParentUUID() failed", src1->getParentUUID(), src2->getParentUUID());
+		ensure_equals("3.permissions::getPermissions() failed", src1->getPermissions(), src2->getPermissions());
+		ensure_equals("4.sale price::getSalePrice() failed price", src1->getSaleInfo().getSalePrice(), src2->getSaleInfo().getSalePrice());
+		ensure_equals("5.asset id::getAssetUUID() failed id", src1->getAssetUUID(), src2->getAssetUUID());
+		ensure_equals("6.type::getType() failed", src1->getType(), src2->getType());
+		ensure_equals("7.inventory type::getInventoryType() failed type", src1->getInventoryType(), src2->getInventoryType());
+		ensure_equals("8.name::getName() failed", src1->getName(), src2->getName());
+		ensure_equals("9.description::getDescription() failed", src1->getDescription(), src2->getDescription());				
+		ensure_equals("10.creation::getCreationDate() failed", src1->getCreationDate(), src2->getCreationDate());
+		
+		
+	}
+
+	template<> template<>
+	void inventory_object::test<9>()
+	{
+// exportFileXML seg-faults for some reason. LLXMLNode is teh suck.
+#if 0		
+		LLPointer<LLInventoryItem> src1 = create_random_inventory_item();
+		LLXMLNode* x_node = src1->exportFileXML(TRUE);
+
+		LLPointer<LLInventoryItem> src2 = new LLInventoryItem();
+		src2->importXML(x_node);
+		ensure_equals("1.item id::getUUID() failed", src1->getUUID(), src2->getUUID());
+		ensure_equals("2.parent::getParentUUID() failed", src1->getParentUUID(), src2->getParentUUID());
+		ensure_equals("3.permissions::getPermissions() failed", src1->getPermissions(), src2->getPermissions());
+		ensure_equals("4.sale price::getSalePrice() failed price", src1->getSaleInfo().getSalePrice(), src2->getSaleInfo().getSalePrice());
+		ensure_equals("5.asset id::getAssetUUID() failed id", src1->getAssetUUID(), src2->getAssetUUID());
+		ensure_equals("6.type::getType() failed", src1->getType(), src2->getType());
+		ensure_equals("7.inventory type::getInventoryType() failed type", src1->getInventoryType(), src2->getInventoryType());
+		ensure_equals("8.name::getName() failed", src1->getName(), src2->getName());
+		ensure_equals("9.description::getDescription() failed", src1->getDescription(), src2->getDescription());				
+		ensure_equals("10.creation::getCreationDate() failed", src1->getCreationDate(), src2->getCreationDate());
+#endif		
+	}
+		
+	template<> template<>
+	void inventory_object::test<10>()
+	{
+		LLPointer<LLInventoryItem> src1 = create_random_inventory_item();
+		U8* bin_bucket = new U8[300];
+		S32 bin_bucket_size = src1->packBinaryBucket(bin_bucket, NULL);
+
+		LLPointer<LLInventoryItem> src2 = new LLInventoryItem();
+		src2->unpackBinaryBucket(bin_bucket, bin_bucket_size);
+
+		ensure_equals("1.sale price::getSalePrice() failed price", src1->getSaleInfo().getSalePrice(), src2->getSaleInfo().getSalePrice());
+		ensure_equals("2.sale type::getSaleType() failed type", src1->getSaleInfo().getSaleType(), src2->getSaleInfo().getSaleType());
+		ensure_equals("3.type::getType() failed", src1->getType(), src2->getType());
+		ensure_equals("4.inventory type::getInventoryType() failed type", src1->getInventoryType(), src2->getInventoryType());
+		ensure_equals("5.name::getName() failed", src1->getName(), src2->getName());
+		ensure_equals("6.description::getDescription() failed", src1->getDescription(), src2->getDescription());				
+		ensure_equals("7.flags::getFlags() failed", src1->getFlags(), src2->getFlags());
+	
+	}
+	
+	template<> template<>
+	void inventory_object::test<11>()
+	{
+		LLPointer<LLInventoryItem> src1 = create_random_inventory_item();
+		LLSD retSd = src1->asLLSD();
+		LLPointer<LLInventoryItem> src2 = new LLInventoryItem();
+		src2->fromLLSD(retSd);
+
+		ensure_equals("1.item id::getUUID() failed", src1->getUUID(), src2->getUUID());
+		ensure_equals("2.parent::getParentUUID() failed", src1->getParentUUID(), src2->getParentUUID());
+		ensure_equals("3.permissions::getPermissions() failed", src1->getPermissions(), src2->getPermissions());
+		ensure_equals("4.asset id::getAssetUUID() failed id", src1->getAssetUUID(), src2->getAssetUUID());
+		ensure_equals("5.type::getType() failed", src1->getType(), src2->getType());
+		ensure_equals("6.inventory type::getInventoryType() failed type", src1->getInventoryType(), src2->getInventoryType());
+		ensure_equals("7.flags::getFlags() failed", src1->getFlags(), src2->getFlags());
+		ensure_equals("8.sale type::getSaleType() failed type", src1->getSaleInfo().getSaleType(), src2->getSaleInfo().getSaleType());
+		ensure_equals("9.sale price::getSalePrice() failed price", src1->getSaleInfo().getSalePrice(), src2->getSaleInfo().getSalePrice());
+		ensure_equals("10.name::getName() failed", src1->getName(), src2->getName());
+		ensure_equals("11.description::getDescription() failed", src1->getDescription(), src2->getDescription());				
+
+
+		skip_fail("12.creation::getCreationDate()");
+		ensure_equals("12.creation::getCreationDate() failed", src1->getCreationDate(), src2->getCreationDate());
+	}	
+
+//******class LLInventoryCategory*******//
+
+	template<> template<>
+	void inventory_object::test<12>()
+	{
+		LLPointer<LLInventoryCategory> src = create_random_inventory_cat();
+		LLSD sd = ll_create_sd_from_inventory_category(src);
+		LLPointer<LLInventoryCategory> dst = ll_create_category_from_sd(sd);
+		
+		ensure_equals("1.item id::getUUID() failed", dst->getUUID(), src->getUUID());
+		ensure_equals("2.parent::getParentUUID() failed", dst->getParentUUID(), src->getParentUUID());
+		ensure_equals("3.name::getName() failed", dst->getName(), src->getName());
+		ensure_equals("4.type::getType() failed", dst->getType(), src->getType());
+		ensure_equals("5.preferred type::getPreferredType() failed", dst->getPreferredType(), src->getPreferredType());
+
+		src->setPreferredType( LLAssetType::AT_TEXTURE);
+		sd = ll_create_sd_from_inventory_category(src);
+		dst = ll_create_category_from_sd(sd);
+		ensure_equals("6.preferred type::getPreferredType() failed", dst->getPreferredType(), src->getPreferredType());
+
+		
+	}
+
+	template<> template<>
+	void inventory_object::test<13>()
+	{
+		FILE* fp = fopen("linden_file.dat","w");
+		if(!fp)
+		{
+			llerrs << "file coudnt be opened\n" << llendl;
+			return;
+		}
+			
+		LLPointer<LLInventoryCategory> src1 = create_random_inventory_cat();
+		src1->exportFile(fp, TRUE);
+		fclose(fp);
+
+		LLPointer<LLInventoryCategory> src2 = new LLInventoryCategory();	
+		fp = fopen("linden_file.dat","r");
+		if(!fp)
+	{
+			llerrs << "file coudnt be opened\n" << llendl;
+			return;
+		}
+		
+		src2->importFile(fp);
+		fclose(fp);
+
+		ensure_equals("1.item id::getUUID() failed", src1->getUUID(), src2->getUUID());
+		ensure_equals("2.parent::getParentUUID() failed", src1->getParentUUID(), src2->getParentUUID());
+ 		ensure_equals("3.type::getType() failed", src1->getType(), src2->getType());
+		ensure_equals("4.preferred type::getPreferredType() failed", src1->getPreferredType(), src2->getPreferredType());
+		ensure_equals("5.name::getName() failed", src1->getName(), src2->getName());
+	}
+
+	template<> template<>
+	void inventory_object::test<14>()
+	{
+		LLPointer<LLInventoryCategory> src1 = create_random_inventory_cat();
+
+		std::ostringstream ostream;
+		src1->exportLegacyStream(ostream, TRUE);
+
+		std::istringstream istream(ostream.str());
+		LLPointer<LLInventoryCategory> src2 = new LLInventoryCategory();
+		src2->importLegacyStream(istream);
+					
+		ensure_equals("1.item id::getUUID() failed", src1->getUUID(), src2->getUUID());
+		ensure_equals("2.parent::getParentUUID() failed", src1->getParentUUID(), src2->getParentUUID());
+		ensure_equals("3.type::getType() failed", src1->getType(), src2->getType());
+		ensure_equals("4.preferred type::getPreferredType() failed", src1->getPreferredType(), src2->getPreferredType());
+		ensure_equals("5.name::getName() failed", src1->getName(), src2->getName());
+			
+	}
 }

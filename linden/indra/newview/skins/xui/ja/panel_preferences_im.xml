@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="IM" name="im">
+<panel label="コミュニケーション" name="im">
 	<text type="string" length="1" name="text_box">
-		IMのオプション:
+		オンライン状態：
+	</text>
+	<check_box label="オンライン・ステータスをフレンドにのみ見せる"
+	     name="online_visibility" />
+	<text type="string" length="1" name="text_box2">
+		IMオプション：
 	</text>
 	<text name="log_in_to_change">
-		変更するのにログインする
+		変更時にログイン
 	</text>
-	<check_box label="IMを電子メールに送信（[EMAIL]）" name="send_im_to_email" />
-	<check_box label="チャット履歴に IMを含む" name="include_im_in_chat_history" />
+	<check_box label="IMを電子メール（[EMAIL]）へ送信" name="send_im_to_email" />
+	<check_box label="チャット履歴にIMを含める" name="include_im_in_chat_history" />
 	<check_box label="IMにタイムスタンプを表示" name="show_timestamps_check" />
-	<check_box label="Log Instant Messages" name="log_instant_messages" />
-	<check_box label="Log Chat" name="log_chat" />
-	<check_box label="Show end of last IM conversation" name="log_show_history" />
-	<button label="Change Path" label_selected="Change Path" name="log_path_button" />
-	<text type="string" length="1" name="text_box2">
-		使用中モードの応答：
+	<check_box label="IMを記録" name="log_instant_messages" />
+	<check_box label="チャットを記録" name="log_chat" />
+	<check_box label="最後のIM会話の末尾を表示" name="log_show_history" />
+	<button label="パス変更" label_selected="パス変更" name="log_path_button" />
+	<text type="string" length="1" name="text_box3">
+		ビジー・モード応答：
 	</text>
 </panel>

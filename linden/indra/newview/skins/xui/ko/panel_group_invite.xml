@@ -14,7 +14,7 @@
 		할당할 역할을 선택 하십시오:
 	</text>
 	<combo_box name="role_name"
-	     tool_tip="Choose from the list of Roles you  are allowed to assign members to." />
+	     tool_tip="회원을 할당할 수 있게 허가된 역할 목록에서 선택합니다." />
 	<button label="초대장 전송" name="ok_button" />
 	<button label="취소" name="cancel_button" />
 </panel>

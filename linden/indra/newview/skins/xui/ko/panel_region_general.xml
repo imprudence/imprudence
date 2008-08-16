@@ -35,8 +35,8 @@
 	</combo_box>
 	<button label="?" name="access_help" />
 	<button label="적용" name="apply_btn" />
-	<button label="한 명의 사용자를 홈으로 텔리포트..." name="kick_btn" />
-	<button label="모든 사용자를 홈으로 텔리포트..." name="kick_all_btn" />
+	<button label="1명의 사용자 홈으로 텔리포트..." name="kick_btn" />
+	<button label="모든 사용자 홈으로 텔리포트..." name="kick_all_btn" />
 	<button label="사유지에 메시지 보내기…" name="im_btn" />
 	<button label="텔레허브 관리…" name="manage_telehub_btn" />
 </panel>

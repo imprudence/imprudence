@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="top_objects" title="ローディング...">
+<floater name="top_objects" title="ロード中．．．">
 	<text name="title_text">
-		ローディング...
+		ロード中．．．
 	</text>
 	<scroll_list name="objects_list">
-		<column label="Score" name="score" />
-		<column label="Name" name="name" />
-		<column label="Owner" name="owner" />
-		<column label="Location" name="location" />
+		<column label="数" name="score" />
+		<column label="名前" name="name" />
+		<column label="所有者" name="owner" />
+		<column label="ロケーション" name="location" />
 	</scroll_list>
 	<text name="id_text">
-		オブジェクト ID::
+		物体ID：
 	</text>
-	<button label="ビーコンを表示" name="show_beacon_btn" />
+	<button label="標識を表示" name="show_beacon_btn" />
 	<text name="obj_name_text">
-		オブジェクト名：
+		物体名：
 	</text>
-	<button label="フィルター" name="filter_object_btn" />
+	<button label="フィルタ" name="filter_object_btn" />
 	<text name="owner_name_text">
 		所有者名：
 	</text>
-	<button label="フィルター" name="filter_owner_btn" />
-	<button label="選択されたものを戻す" name="return_selected_btn" />
-	<button label="すべて戻す" name="return_all_btn" />
-	<button label="選択したものを無効にする" name="disable_selected_btn" />
-	<button label="全て無効にする" name="disable_all_btn" />
-	<button label="リフレッシュ" name="refresh_btn" />
+	<button label="フィルタ" name="filter_owner_btn" />
+	<button label="選択内容を返却" name="return_selected_btn" />
+	<button label="すべて返却" name="return_all_btn" />
+	<button label="選択内容を無効化" name="disable_selected_btn" />
+	<button label="すべて無効化" name="disable_all_btn" />
+	<button label="更新" name="refresh_btn" />
 	<text name="top_scripts_title">
-		上部スクリプト
+		トップ・スクリプト
 	</text>
 	<text name="top_scripts_text">
-		[COUNT]スクリプトは全体で[TIME]分かかります
+		[COUNT]スクリプト全体の実行時間は[TIME]ミリ秒。
 	</text>
 	<text name="scripts_score_label">
 		時間
@@ -39,12 +39,12 @@
 		上部コライダー
 	</text>
 	<text name="top_colliders_text">
-		上部[COUNT]のオブジェクトは、多くの潜在的な衝突を経験しています。
+		上位[COUNT]個の物体は多くの衝突可能性があります。
 	</text>
 	<text name="colliders_score_label">
-		得点
+		数
 	</text>
 	<text name="none_descriptor">
-		何も見つかりませんでした
+		何も見つかりませんでした。
 	</text>
 </floater>

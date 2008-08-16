@@ -34,7 +34,7 @@
 				현재 온라인
 			</text>
 			<text name="label">
-				탄생:
+				출생:
 			</text>
 			<text name="label2">
 				계정:
@@ -97,7 +97,7 @@
 		</panel>
 		<panel label="관심사항" name="Interests">
 			<text name="I Want To:">
-				내 관심사:
+				관심사:
 			</text>
 			<check_box label="만들기" name="chk0" />
 			<check_box label="탐험" name="chk1" />
@@ -108,7 +108,7 @@
 			<check_box label="판매" name="chk5" />
 			<check_box label="고용" name="chk7" />
 			<text name="Skills:">
-				내 기술:
+				기술:
 			</text>
 			<check_box label="텍스처" name="schk0" />
 			<check_box label="건축" name="schk1" />
@@ -122,7 +122,7 @@
 		</panel>
 		<panel label="관심장소" name="Picks">
 			<text name="Tell everyone about your favorite places in Second Life.">
-				세컨드라이프에서 가장 즐겨찾는 장소에 대해 알려주십시오.
+				세컨드라이프에서 가장 즐겨찾는 장소를 알려주십시오.
 			</text>
 			<button label="신규…" label_selected="신규…" name="New..." />
 			<button label="삭제..." label_selected="삭제..." name="Delete..." />
@@ -155,8 +155,8 @@
 		<panel label="나의 메모" name="My Notes">
 			<text name="label">
 				이 공란을 사용하여 이 사람에 관한 참고 정보를 기록합니다.  진행 중인
-거래, 공동 프로젝트 등을 추적합니다. 사용자는 이러한
-참고 정보만 볼 수 있습니다.  이 사람은 참고 정보를 볼 수 없으며 다른 사람들도 마찬가지입니다.
+거래, 공동 프로젝트 등을 추적합니다. 사용자만이 이러한 참고 정보를
+볼 수 있습니다.  이 사람이나 다른 사람은 참고 정보를 볼 수 없습니다.
 			</text>
 		</panel>
 	</tab_container>

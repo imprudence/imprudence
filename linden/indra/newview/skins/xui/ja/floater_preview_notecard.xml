@@ -2,9 +2,9 @@
 <floater name="preview notecard" title="メモ：">
 	<button label="保存" label_selected="保存" name="Save" />
 	<text type="string" length="1" name="desc txt">
-		説明:
+		説明：
 	</text>
 	<text_editor type="string" length="1" name="Notecard Editor">
-		ローディング...
+		ロード中．．．
 	</text_editor>
 </floater>

@@ -4,13 +4,13 @@
 		신고자:
 	</text>
 	<text name="sim_title">
-		시뮬레이터:
+		씸:
 	</text>
 	<text name="pos_title">
 		위치:
 	</text>
 	<text name="select_object_label">
-		버튼 및 선택할 오브젝트를 차례로 클릭하십시오:
+		버튼과 오브젝트를 차례로 클릭함:
 	</text>
 	<button label="" label_selected="" name="pick_btn"
 	     tool_tip="오브젝트 피커 - 오브젝트를 본 보고서의 주제로 식별함" />
@@ -21,12 +21,12 @@
 		소유자:
 	</text>
 	<check_box label="스크린샷 포함" name="screen_check" />
-	<texture_picker label="작업 중..." name="screenshot" />
+	<texture_picker label="작업 중..." name="스크린샷" />
 	<text name="category_label">
 		카테고리:
 	</text>
 	<combo_box name="category_combo"
-	     tool_tip="Category -- select the category that best describes this report">
+	     tool_tip="카테고리 -- 이 리포트를 가장 잘 설명하는 카테고리 선택함">
 		<combo_item name="Selectcategory">
 			카테고리 선택
 		</combo_item>

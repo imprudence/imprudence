@@ -205,7 +205,6 @@
 #include "llviewerbuild.h"
 #include "llviewercamera.h"
 #include "llviewercontrol.h"
-#include "llviewerjointmesh.h"
 #include "llviewerimagelist.h"
 #include "llviewerkeyboard.h"
 #include "llviewermenu.h"
@@ -322,6 +321,9 @@ LLString gDisabledMessage;
 BOOL gHideLinks = FALSE;
 
 // This is whether or not we are connect to a production grid.
+// HACK/TEMP - the code that used to set this based on the userserver selection
+// is gone, so there is no code that currently sets this to TRUE. Since we don't 
+// want to ship as "FALSE", hardcoding it to TRUE for now. Please fix.
 BOOL gInProductionGrid	= FALSE;
 
 //#define APPLE_PREVIEW // Define this if you're doing a preview build on the Mac
@@ -929,6 +931,11 @@ int main( int argc, char **argv )
 		}
 	}
 
+	if (!strcmp(gUserServerName, gUserServerDomainName[USERSERVER_AGNI].mName))
+	{
+		gInProductionGrid = TRUE;
+	}
+
 	//
 	// Start of the application
 	//
@@ -966,7 +973,6 @@ int main( int argc, char **argv )
 	// Set up some defaults...
 	gSettingsFileName = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, DEFAULT_SETTINGS_FILE);
 	gOldSettingsFileName = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, LEGACY_DEFAULT_SETTINGS_FILE);
-	gUserServer.setPort(DEFAULT_USER_SERVER_PORT);
 
 	/////////////////////////////////////////
 	//
@@ -1078,10 +1084,8 @@ int main( int argc, char **argv )
 	// Initialize apple menubar and various callbacks
 	init_apple_menu(gSecondLife.c_str());
 
-#if __ppc__
 	// If the CPU doesn't have Altivec (i.e. it's not at least a G4), don't go any further.
-	// Only test PowerPC - all Intel Macs have SSE.
-	if(!gSysCPU.hasAltivec())
+	if(!gSysCPU.hasSSE())
 	{
 		std::ostringstream msg;
 		msg << gSecondLife << " requires a processor with AltiVec (G4 or later).";
@@ -1092,7 +1096,6 @@ int main( int argc, char **argv )
 		remove_marker_file();
 		return 1;
 	}
-#endif
 	
 #endif // LL_DARWIN
 
@@ -3101,36 +3104,7 @@ void user_logout()
 		LLMessageSystem* msg = gMessageSystem;
 		if (msg)
 		{
-/*			if (gSavedSettings.getBOOL("LoggedIn") )
-			{
-				// bleah - we can't use llinfos inside a signal handler
-				//llinfos << "Sending logout message" << llendl;
-
-				msg->newMessage("LogoutDemand");
-				msg->nextBlockFast(_PREHASH_LogoutBlock);
-				msg->addUUIDFast(_PREHASH_SessionID, gAgentSessionID );
-				msg->sendMessage(gUserServer);
-*/
 				gSavedSettings.setBOOL("LoggedIn", FALSE);
-//			}
-			/*  This message has been removed and functionality moved into logoutrequest
-
-			if (gAgent.getRegion())
-			{
-				msg->newMessageFast(_PREHASH_AgentQuit);
-				msg->nextBlockFast(_PREHASH_AgentData);
-				msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-				msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-				gAgent.sendMessage();
-			}
-			*/
-
-			// Go through all of the regions we know about...
-/*			if (gWorldp)
-			{
-				gWorldp->disconnectRegions();
-			}*/
-
 		}
 		gDoneLogout = TRUE;
 	}
@@ -3404,15 +3378,7 @@ void update_statistics(U32 frame_count)
 	
 	gViewerStats->mTexturePacketsStat.addValue(LLViewerImageList::sTexturePackets);
 
-	cdp = gMessageSystem->mCircuitInfo.findCircuit(gUserServer);
-	if (cdp)
-	{
-		gViewerStats->mUserserverPingStat.addValue(cdp->getPingDelay());
-	}
-	else
-	{
-		gViewerStats->mUserserverPingStat.addValue(10000);
-	}
+	gViewerStats->mUserserverPingStat.addValue(0); // userserver doesn't exist, therefore ping time is always awesome
 
 	// log when the LibXUL (aka Mozilla) widget is used and opened so we can monitor framerate changes
 	#if LL_LIBXUL_ENABLED
@@ -4998,89 +4964,6 @@ class LLRenderLightingDetailListener: public LLSimpleListener
 };
 static LLRenderLightingDetailListener render_lighting_detail_listener;
 
-
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-// Vector Performance Options
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-
-// Initially, we test the performance of the vectorization code, then
-// turn it off if it ends up being slower. JC
-BOOL	gVectorizePerfTest	= TRUE;
-BOOL	gVectorizeEnable	= FALSE;
-U32		gVectorizeProcessor	= 0;
-BOOL	gVectorizeSkin		= FALSE;
-
-void update_vector_performances(void)
-{
-	char *vp;
-	
-	switch(gVectorizeProcessor)
-	{
-		case 2: vp = "SSE2"; break;					// *TODO: replace the magic #s
-		case 1: vp = "SSE"; break;
-		default: vp = "COMPILER DEFAULT"; break;
-	}
-	llinfos << "Vectorization         : " << ( gVectorizeEnable ? "ENABLED" : "DISABLED" ) << llendl ;
-	llinfos << "Vector Processor      : " << vp << llendl ;
-	llinfos << "Vectorized Skinning   : " << ( gVectorizeSkin ? "ENABLED" : "DISABLED" ) << llendl ;
-	
-	if(gVectorizeEnable && gVectorizeSkin)
-	{
-		switch(gVectorizeProcessor)
-		{
-			case 2:
-				LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometrySSE2;
-				break;
-			case 1:
-				LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometrySSE;
-				break;
-			default:
-				LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometryVectorized;
-				break;
-		}
-	}
-	else
-	{
-		LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometryOriginal;
-	}
-}
-
-
-class LLVectorizationEnableListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gVectorizeEnable = event->getValue().asBoolean();
-		update_vector_performances();
-		return true;
-	}
-};
-static LLVectorizationEnableListener vectorization_enable_listener;
-
-class LLVectorizeSkinListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gVectorizeSkin = event->getValue().asBoolean();
-		update_vector_performances();
-		return true;
-	}
-};
-static LLVectorizeSkinListener vectorize_skin_listener;
-
-class LLVectorProcessorListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gVectorizeProcessor = event->getValue().asInteger();
-		update_vector_performances();
-		return true;
-	}
-};
-static LLVectorProcessorListener vector_processor_listener;
-
 // Use these strictly for things that are constructed at startup,
 // or for things that are performance critical.  JC
 void saved_settings_to_globals()
@@ -5132,38 +5015,6 @@ void saved_settings_to_globals()
 	gHandleKeysAsync = gSavedSettings.getBOOL("AsyncKeyboard");
 	LLHoverView::sShowHoverTips = gSavedSettings.getBOOL("ShowHoverTips");
 
-	if (gSysCPU.hasAltivec())
-	{
-		gSavedSettings.setBOOL("VectorizeEnable", TRUE );
-		gSavedSettings.setU32("VectorizeProcessor", 0 );
-	}
-	else
-	if (gSysCPU.hasSSE2())
-	{
-		gSavedSettings.setBOOL("VectorizeEnable", TRUE );
-		gSavedSettings.setU32("VectorizeProcessor", 2 );
-	}
-	else
-	if (gSysCPU.hasSSE())
-	{
-		gSavedSettings.setBOOL("VectorizeEnable", TRUE );
-		gSavedSettings.setU32("VectorizeProcessor", 1 );
-	}
-	else
-	{
-		// Don't bother testing or running if CPU doesn't support it. JC
-		gSavedSettings.setBOOL("VectorizePerfTest", FALSE );
-		gSavedSettings.setBOOL("VectorizeEnable", FALSE );
-		gSavedSettings.setU32("VectorizeProcessor", 0 );
-		gSavedSettings.setBOOL("VectorizeSkin", FALSE);
-	}
-
-	gVectorizePerfTest = gSavedSettings.getBOOL("VectorizePerfTest");
-	gVectorizeEnable = gSavedSettings.getBOOL("VectorizeEnable");
-	gVectorizeProcessor = gSavedSettings.getU32("VectorizeProcessor");
-	gVectorizeSkin = gSavedSettings.getBOOL("VectorizeSkin");
-	update_vector_performances();
-
 	// Into a global in case we corrupt the list on crash.
 	gCrashBehavior = gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING);
 
@@ -5210,9 +5061,6 @@ void saved_settings_to_globals()
 	gSavedSettings.getControl("FlycamAxis4")->addListener(&joystick_listener);
 	gSavedSettings.getControl("FlycamAxis5")->addListener(&joystick_listener);
 	gSavedSettings.getControl("FlycamAxis6")->addListener(&joystick_listener);
-	gSavedSettings.getControl("VectorizeEnable")->addListener(&vectorization_enable_listener);
-	gSavedSettings.getControl("VectorizeProcessor")->addListener(&vector_processor_listener);
-	gSavedSettings.getControl("VectorizeSkin")->addListener(&vectorize_skin_listener);
 	
 	// gAgent.init() also loads from saved settings.
 }
@@ -5828,27 +5676,9 @@ int parse_args(int argc, char **argv)
 				gUserServerChoice = USERSERVER_OTHER;
 				ip_string.assign( argv[j] );
 				LLString::trim(ip_string);
-				gUserServer.setHostByName( ip_string.c_str() );
 				snprintf(gUserServerName, MAX_STRING, "%s", ip_string.c_str());		/* Flawfinder: ignore */
 			}
 			gConnectToSomething = TRUE;
-		}
-		else if (!strcmp(argv[j], "-space") && (++j < argc)) 
-		{
-			if (!strcmp(argv[j], "-"))
-			{
-				gUserServerChoice = USERSERVER_LOCAL;
-			}
-			else
-			{
-				gUserServerChoice = USERSERVER_OTHER;
-				ip_string.assign( argv[j] );
-				LLString::trim(ip_string);
-				gUserServer.setAddress( ip_string.c_str() );
-			}
-			gConnectToSomething = TRUE;
-
-			llinfos << "Argument -space is deprecated, use -user instead" << llendl;
 		}
 		else if (!strcmp(argv[j], "-loginuri") && (++j < argc))
 		{
@@ -5921,7 +5751,6 @@ int parse_args(int argc, char **argv)
 		else if (!strcmp(argv[j], "-local"))
 		{
 			gConnectToSomething = FALSE;
-			gUserServer.invalidate();
 			gRunLocal = TRUE;
 		}
 		else if(!strcmp(argv[j], "-noinvlib"))
@@ -6345,7 +6174,6 @@ void disconnect_viewer(void *)
 	gWorldp = NULL;
 
 	cleanup_xfer_manager();
-	gUserServer.invalidate();
 	gDisconnected = TRUE;
 }
 

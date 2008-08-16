@@ -241,7 +241,7 @@
 		38A8BF620A18C31D00814862 /* metaproperty.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = metaproperty.cpp; sourceTree = "<group>"; };
 		38A8BF690A18C38800814862 /* reflective.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = reflective.h; sourceTree = "<group>"; };
 		38A8BF740A18C42900814862 /* reflective.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = reflective.cpp; sourceTree = "<group>"; };
-		8DD76F6C0486A84900D96B5E /* MacTester */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MacTester; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DD76F6C0486A84900D96B5E /* MacTester */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.executable"; path = MacTester; sourceTree = BUILT_PRODUCTS_DIR; };
 		91469E7F0B4486F20009E8F9 /* llmime.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llmime.cpp; sourceTree = "<group>"; };
 		91469E800B4486F20009E8F9 /* llmime.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llmime.h; sourceTree = "<group>"; };
 		91469E830B44870B0009E8F9 /* llmime_tut.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llmime_tut.cpp; sourceTree = "<group>"; };

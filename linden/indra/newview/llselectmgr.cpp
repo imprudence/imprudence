@@ -3688,6 +3688,7 @@ void LLSelectMgr::sendDelink()
 // Hinges
 //----------------------------------------------------------------------
 
+/*
 void LLSelectMgr::sendHinge(U8 type)
 {
 	if (!mSelectedObjects->getNumNodes())
@@ -3717,7 +3718,7 @@ void LLSelectMgr::sendDehinge()
 		packObjectLocalID,
 		NULL,
 		SEND_ONLY_ROOTS);
-}
+}*/
 
 void LLSelectMgr::sendSelect()
 {

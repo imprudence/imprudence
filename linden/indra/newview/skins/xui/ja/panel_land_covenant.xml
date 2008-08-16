@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="Covenant" title="特権">
+<panel name="Covenant" title="約款">
 	<text name="region_name_lbl">
-		地域:
+		地域：
 	</text>
 	<text name="region_name_text">
-		(未知)
+		（不明）
 	</text>
 	<text name="estate_name_lbl">
-		所有地:
+		不動産：
 	</text>
 	<text name="estate_name_text">
-		(未知)
+		（不明）
 	</text>
 	<text name="estate_owner_lbl">
 		不動産オーナー：
 	</text>
 	<text name="estate_owner_text">
-		(未知)
+		（不明）
 	</text>
 	<text name="resellable_clause">
-		この地域で購入した土地は、再販できるかどうかわかりません。
+		この地域で購入した土地は、再販が可能な場合とそうでない場合があります。
 	</text>
 	<text name="changeable_clause">
-		この地域で購入した土地は、統合／再分割ができるかどうかわかりません。
+		この地域で購入した土地は、統合／再分割が可能な場合とそうでない場合があります。
 	</text>
 	<text name="can_resell">
-		この地域で購入した土地は、再販ができます。
+		この地域で購入した土地は、再販できます。
 	</text>
 	<text name="can_not_resell">
-		この地域で購入した土地は、再販ができない可能性があります。
+		この地域で購入した土地は、再販できないことがあります。
 	</text>
 	<text name="can_change">
-		この地域で購入した土地は、統合、または再分割ができます。
+		この地域で購入した土地は、統合または再分割できます。
 	</text>
 	<text name="can_not_change">
-		この地域で購入した土地は、統合、または再分割ができない可能性があります。
+		この地域で購入した土地は、統合／再分割できないことがあります。
 	</text>
 </panel>
