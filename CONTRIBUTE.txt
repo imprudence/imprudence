@@ -1,0 +1,104 @@
+
+
+                         HOW YOU CAN CONTRIBUTE
+
+
+   Imprudence isn't just a project for programmers. No matter your
+   skills (or lack thereof) or how much time you can commit, there's
+   a way for you to be a part of it.
+
+
+ EVERYBODY AND THEIR GRANDMAS
+
+   Here are some good ways anybody can help out:
+
+     * Let us know what you think needs to be improved about the SL
+       Viewer.
+
+     * Participate in discussions on the forums or mailing list.
+       (Visit ImprudenceViewer.org for links to both of those.)
+
+     * Try out the Imprudence Viewer (when it's released) and give
+       feedback about it.
+
+     * Watch a friend, family member, or co-worker to try SL for the
+       first time, and take notes about the things they find difficult
+       or confusing.
+
+     * Blog about the latest Imprudence news and developments (either
+       on the ImprudenceViewer.org blog or your own).
+
+     * Help organize and coordinate other volunteers to keep things
+       running smoothly.
+
+     * Tell a friend and get them involved too!
+
+
+ ARTISTS, DESIGNERS, AND UI FREAKS
+
+   If you happen to have some graphics skill or an interest in User
+   Interface design, here are some things you could do:
+
+     * Work with users to turn their ideas into something people can
+       look at.
+
+     * Make a sketch or Flash mock-up of how some part of the UI
+       should behave, look, or be organized.
+
+     * Offer suggestions and constructive criticism about other
+       people's designs.
+
+     * Create or improve a color scheme or skin for the Viewer.
+
+     * Paint some graphics or icons for a UI-in-progress.
+
+     * Hook up with a programmer and turn your design into a real,
+       working interface!
+
+
+ CODE MONKEYS AND TEKKIE-WIKIS
+
+   Of course, there's always plenty for programmers and other
+   tech-savvy people to do:
+
+     * Compile a Viewer branch for other people to download and test.
+
+     * Try out a patch to make sure it applies cleanly, and make a Git
+       branch so others can easily merge the changes.
+
+     * Clean up or add comments/documentation for part of the source
+       code.
+
+     * Fix a bug or optimize a slow piece of code.
+
+     * Work with a designer to bring a UI concept to life!
+
+
+ OTHER REALLY COOL PEOPLE
+
+   We're also looking for people who can help with:
+
+     * Accessibility. We'd love to make it easier for people with
+       disabilities to have a functional and satisfying SL experience,
+       but we need people with the knowledge and experience to help us
+       identify the biggest hurdles and find solutions.
+
+     * Localization & Translation. Many of the non-English UI
+       translations are awkward or wrong, but only someone who knows
+       the language can make them better. If you are fluent in both
+       English and another tongue, please help us add or improve the
+       translation for your language.
+
+
+ GOT ANOTHER IDEA?
+
+   There are many more ways to get involved than we could list here;
+   and there are surely some good ones that you can think of, but that
+   we hadn't! Don't hesitate to contact us if you'd like to help
+   out, even if it's not listed here!
+
+
+ CONTACT INFO
+
+   If you’d like to contribute to Imprudence in any way, send an email
+   to jacek.antonelli at gmail or an IM to Jacek Antonelli in-world.
