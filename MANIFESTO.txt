@@ -1,0 +1,178 @@
+
+
+                        THE IMPRUDENCE MANIFESTO
+
+
+ THE PROBLEM
+
+   The Second Life Viewer suffers from a stifling atmosphere of
+   non-change. This atmosphere emanates from Linden Lab, whose
+   attitudes and policies discourage all but the smallest and most
+   superficial improvements. This is the result of the nature of
+   Linden Lab as a corporation; in particular:
+
+
+     * A lack of resources to invest in making significant
+       improvements to the Viewer. Linden Lab is stuck treading water;
+       they don't have the manpower to spend on making major
+       improvements to the Viewer.
+
+     * A burdensome Quality Assurance procedure that punishes any sort
+       of change. The larger the change, the more it's punished. The
+       simple fact that all changes have to pass through such an
+       arduous process discourages anyone from attempting any major
+       endeavor.
+
+     * A vast throng of paying customers who want the Viewer to remain
+       constant and familiar. If the Viewer changes, they are forced
+       to spend effort relearning it. The most vocal and abusive users
+       even meet change with sneers and insults.
+
+
+   Combined, these render Linden Lab ineffectual at dealing with the
+   fundamental usability problems that plague the Viewer:
+
+
+     * A cluttered interface that frustrates and confuses both new and
+       long-time users. It is difficult to learn, frustrating to use,
+       and obscures the thing that users actually care about: the
+       world.
+
+     * Crude tools that force users into awkward and inefficient
+       workflows. The tools bear little relation to the way today's
+       users want to use them. Whether because these tools are
+       outdated relics of the past, or just half-baked non-solutions,
+       very few rise above even the "somewhat usable" mark.
+
+     * Stability and performance problems that make the Viewer
+       unreliable for any real use. Viewer crashes are an everyday
+       occurance for many users, disrupting their activities,
+       destroying their unsaved work, and afflicting their lives with
+       undue stress and frustration.
+
+
+   We don't deny that Linden Lab has made some progress in these areas
+   over time. But such progress is slow and often superficial, because
+   Linden Lab cannot afford to make significant improvement.
+   Encumbered by their own nature, they are forced onto an untenable
+   road of caution, hesitation, and prudence. This is a path that can
+   lead only to stagnation.
+
+   These fundamental usability problems will not be solved by Linden
+   Lab; their atmosphere precludes it. Even the contribution of source
+   code patches by open sourcers can only address one factor, Linden
+   Lab's lack of resources. Patch contributors are still affected by
+   the burdensome QA process and the community's anti-change attitude
+   just as much as Linden Lab developers are. Any endeavor which
+   relies on Linden Lab to approve and integrate changes will face the
+   same bottlenecks.
+
+
+ SOLUTION
+
+   As I have described, Linden Lab's approach is characterized by
+   three factors that put a damper on significant improvement or
+   innovation:
+
+     * Cautious, gradual changes over a long period of time.
+
+     * Dependence on an overloaded central QA department.
+
+     * Yielding to pressure from large numbers of users to reject
+       change.
+
+   It stands to reason that a project which removed or reduced these
+   factors would be more free to make radical, fundamental changes to
+   the Viewer. Such a project would exhibit the opposite
+   characteristics:
+
+     * More significant changes over a shorter period of time.
+
+     * A scalable, hierarchical QA process to screen and approve
+       changes.
+
+     * Less need to satisfy users who demand non-change.
+
+   This is precisely the sort of project we propose to undertake.
+   Because our approach is incautious, and perhaps even reckless, we
+   have dubbed the project Imprudence. Goals
+
+   The primary goal of Imprudence is simple: to greatly improve the
+   usability of the Viewer. In particular, there are 3 aspects of
+   usability that we intend to address:
+
+     * Approachability. Improving comfort and ease of use, especially
+       for new or non-technical users.
+
+     * Efficiency. Improving speed and ease of common tasks and
+       workflows.
+
+     * Satisfaction. Improving the emotional effect of the software on
+       the user.
+
+   This is not to minimize other aspects of usability, such as
+   reliability, accessibility, or internationalization/localization.
+   We recognize their importance, but lack the expertise to properly
+   address them. We welcome people with such expertise to join the
+   project and help.
+
+
+ METHOD
+
+   In order to achieve these goals, we propose to combine the open and
+   distributed nature of open source development with the dedication
+   to quality design usually associated with commercial products. The
+   main highlights of our approach are:
+
+     * Open, public project management. Our plans, goals, and roadmaps
+       are laid out on the table. Our code is published in plain view
+       as it's written. There won't be any sudden bombshells to
+       disrupt your plans.
+
+     * A pro-change atmosphere. Change is natural and healthy, and it
+       is the only way to make improvement. We encourage experimental
+       change, coupled with evaluation to filter out the negative.
+       Users wanting a static, unchanging viewer should look
+       elsewhere.
+
+     * Designers, programmers, and users working with each other. Good
+       software requires more than just a team of programmers. It
+       needs designers listening to users, programmers working with
+       designers, and users testing and providing feedback. Every role
+       is necessary and appreciated.
+
+     * Commmunity involvement. There are many ways to be involved,
+       whatever your interests, skill set, or level of commitment.
+       Contributions are welcomed, not looked upon as burdens.
+
+     * A modern, distributed development model. The Git version
+       control system makes it easy for programmers to work freely
+       without stepping on each others' toes. Easy and powerful
+       branching and merging tools mean that releases will never be
+       littered with untested, half-baked code.
+
+     * A scalable, hierarchical QA model. New contributions work their
+       way up a hierarchy of approval, which will start small and grow
+       naturally as load increases. By the time a contribution reaches
+       the top of the hierarchy, it has been tested, polished, and
+       approved by multiple people, and is ready to be integrated.
+
+
+ A CALL FOR VOLUNTEERS
+
+   Imprudence is an open-source, volunteer effort; it depends on
+   people like you getting involved! There are many ways to
+   contribute, and most of them don't require any programming skills
+   or special knowledge -- just some free time and the will to be part
+   of something great.
+
+   If you'd like to contribute in any way, have a look at
+   CONTRIBUTE.txt.
+
+   You have nothing to lose, and a better SL experience to gain!
+
+
+ SIGNATORIES
+
+   Jacek Antonelli       (August 27, 2008)
+   McCabe Maxsted        (August 27, 2008)
