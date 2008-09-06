@@ -2597,21 +2597,6 @@ Nota: Isto limpará o cache.
 		</option>
 
 	</alert>
-	<alert name="WebLaunchReleaseNotes">
-		<message name="message">
-			Visite o [SECOND_LIFE] notas de lançamentos.
-		</message>
-		<ignore>
-			Quano iniciar o navegador, visitar as notas de lançamento.
-		</ignore>
-		<option name="Gotopage">
-			Ir para a página
-		</option>
-		<option name="Cancel">
-			Cancelar
-		</option>
-
-	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
 			Você tem certeza que quer devolver os objetos selecionados aos seus donos? A autoria dos objetos transferíveis retornará para os seu antigos donos. (Todos os objetos retornarão para as pastas que estavam localizados anteriormente.)* *AVISO* Nenhum objeto transferível acionado será deletado!
@@ -2685,7 +2670,7 @@ Nota: Isto limpará o cache.
 		<message name="message">
 			Silenciar por nome somente afetará objetos, bate-papo e MI, mas não sons. Você deve digitar o nome do objeto corretamente.
 		</message>
-		<editline>
+		<editline name="editline">
 			Nome do objeto
 		</editline>
 		<option name="OK">
@@ -2820,7 +2805,7 @@ Nota: Isto limpará o cache.
 		<message name="message">
 			Expulsar este usuário com qual mensagem?
 		</message>
-		<editline>
+		<editline name="editline">
 			Um administrador o desconectou.
 		</editline>
 		<option name="OK">
@@ -2835,7 +2820,7 @@ Nota: Isto limpará o cache.
 		<message name="message">
 			Expulsar todo mundo atualmente do grid com qual mensagem?
 		</message>
-		<editline>
+		<editline name="editline">
 			Um administrador te desconectou.
 		</editline>
 		<option name="OK">
@@ -2850,7 +2835,7 @@ Nota: Isto limpará o cache.
 		<message name="message">
 			Paralise este usuário com qual mensagem?
 		</message>
-		<editline>
+		<editline name="editline">
 			Você foi paralisado. Você não pode mover-se ou conversar. Um administrador entrará em contato com você através de mensagem instantânea (MI).
 		</editline>
 		<option name="OK">
@@ -2865,7 +2850,7 @@ Nota: Isto limpará o cache.
 		<message name="message">
 			Liberar este usuário com qual mensagem?
 		</message>
-		<editline>
+		<editline name="editline">
 			Você não está mais paralisado.
 		</editline>
 		<option name="OK">
@@ -2891,7 +2876,7 @@ Nota: Isto limpará o cache.
 		<message name="message">
 			Oferecer um teletransporte para uma localização com a seguinte mensagem?
 		</message>
-		<editline>
+		<editline name="editline">
 			Venha para [REGION]
 		</editline>
 		<option name="OK">
@@ -2906,7 +2891,7 @@ Nota: Isto limpará o cache.
 		<message name="message">
 			God user convocou para a sua localização?
 		</message>
-		<editline>
+		<editline name="editline">
 			Venha para [REGION]
 		</editline>
 		<option name="OK">

@@ -114,13 +114,13 @@ LLFloaterAvatarInfo::LLFloaterAvatarInfo(const std::string& name, const LLRect &
 	
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_profile.xml", &factory_map);
 
-
 	if(mPanelAvatarp)
 	{
 		mPanelAvatarp->selectTab(0);
 	}
 
-	gAvatarInfoInstances.addData(avatar_id, this);
+	gAvatarInfoInstances.addData(avatar_id, this); // must be done before callback below is called.
+	gCacheName->get(avatar_id, FALSE, callbackLoadAvatarName);
 }
 
 // virtual
@@ -175,7 +175,7 @@ void LLFloaterAvatarInfo::showFromObject(
 	LLFloaterAvatarInfo *floater = show(avatar_id);
 	if (floater)
 	{
-		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
+		floater->mPanelAvatarp->setAvatarID(avatar_id, LLStringUtil::null, ONLINE_STATUS_NO);
 		floater->mPanelAvatarp->selectTabByName(tab_name);
 	}
 }
@@ -186,7 +186,7 @@ void LLFloaterAvatarInfo::showFromDirectory(const LLUUID &avatar_id)
 	LLFloaterAvatarInfo *floater = show(avatar_id);
 	if (floater)
 	{
-		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
+		floater->mPanelAvatarp->setAvatarID(avatar_id, LLStringUtil::null, ONLINE_STATUS_NO);
 	}
 }
 
@@ -222,7 +222,7 @@ void LLFloaterAvatarInfo::showFromProfile(const LLUUID &avatar_id, LLRect rect)
 										   avatar_id);
 		floater->translate(rect.mLeft - floater->getRect().mLeft + 16,
 						   rect.mTop - floater->getRect().mTop - 16);
-		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
+		floater->mPanelAvatarp->setAvatarID(avatar_id, LLStringUtil::null, ONLINE_STATUS_NO);
 	}
 	if (floater)
 	{
@@ -238,6 +238,23 @@ void LLFloaterAvatarInfo::showProfileCallback(S32 option, void *userdata)
 	}
 }
 
+// static
+void LLFloaterAvatarInfo::callbackLoadAvatarName(const LLUUID& id,
+												 const std::string& first,
+												 const std::string& last,
+												 BOOL is_group,
+												 void* data)
+{
+	LLFloaterAvatarInfo *floater = gAvatarInfoInstances.getIfThere(id);
+
+	if (floater)
+	{
+		// Build a new title including the avatar name.
+		std::ostringstream title;
+		title << first << " " << last << " - " << floater->getTitle();
+		floater->setTitle(title.str());
+	}
+}
 
 //// virtual
 void LLFloaterAvatarInfo::draw()
@@ -260,7 +277,7 @@ LLFloaterAvatarInfo* LLFloaterAvatarInfo::getInstance(const LLUUID &id)
 void LLFloaterAvatarInfo::loadAsset()
 {
 	if (mPanelAvatarp) {
-		mPanelAvatarp->setAvatarID(mAvatarID, "", mSuggestedOnlineStatus);
+		mPanelAvatarp->setAvatarID(mAvatarID, LLStringUtil::null, mSuggestedOnlineStatus);
 		mAssetStatus = PREVIEW_ASSET_LOADING;
 	}
 }

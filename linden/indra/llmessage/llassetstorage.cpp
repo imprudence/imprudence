@@ -42,6 +42,7 @@
 #include "llstring.h"
 #include "lldir.h"
 #include "llsd.h"
+#include "llframetimer.h"
 
 // this library includes
 #include "message.h"
@@ -58,7 +59,10 @@
 LLAssetStorage *gAssetStorage = NULL;
 LLMetrics *LLAssetStorage::metric_recipient = NULL;
 
-const LLUUID CATEGORIZE_LOST_AND_FOUND_ID("00000000-0000-0000-0000-000000000010");
+const LLUUID CATEGORIZE_LOST_AND_FOUND_ID(std::string("00000000-0000-0000-0000-000000000010"));
+
+const U64 TOXIC_ASSET_LIFETIME = (120 * 1000000);		// microseconds
+
 
 ///----------------------------------------------------------------------------
 /// LLAssetInfo
@@ -133,20 +137,20 @@ void LLAssetInfo::setFromNameValue( const LLNameValue& nv )
 	str.assign( nv.mName );
 	pos1 = str.find('|');
 	buf.assign( str, 0, pos1++ );
-	mType = LLAssetType::lookup( buf.c_str() );
+	mType = LLAssetType::lookup( buf );
 	buf.assign( str, pos1, std::string::npos );
-	mUuid.set( buf.c_str() );
+	mUuid.set( buf );
 
 	// convert the value to useful information
 	str.assign( nv.getAsset() );
 	pos1 = str.find('|');
 	buf.assign( str, 0, pos1++ );
-	mCreatorID.set( buf.c_str() );
+	mCreatorID.set( buf );
 	pos2 = str.find( '|', pos1 );
 	buf.assign( str, pos1, (pos2++) - pos1 );
-	setName( buf.c_str() );
+	setName( buf );
 	buf.assign( str, pos2, std::string::npos );
-	setDescription( buf.c_str() );
+	setDescription( buf );
 	llinfos << "uuid: " << mUuid << llendl;
 	llinfos << "creator: " << mCreatorID << llendl;
 }
@@ -314,6 +318,9 @@ LLAssetStorage::~LLAssetStorage()
 		// unregister our callbacks with the message system
 		gMessageSystem->setHandlerFuncFast(_PREHASH_AssetUploadComplete, NULL, NULL);
 	}
+
+	// Clear the toxic asset map
+	mToxicAssetMap.clear();
 }
 
 void LLAssetStorage::setUpstream(const LLHost &upstream_host)
@@ -1231,16 +1238,20 @@ void LLAssetStorage::getAssetData(const LLUUID uuid, LLAssetType::EType type, vo
 void LLAssetStorage::legacyGetDataCallback(LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type, void *user_data, S32 status, LLExtStat ext_status)
 {
 	LLLegacyAssetRequest *legacy = (LLLegacyAssetRequest *)user_data;
-	char filename[LL_MAX_PATH] = "";	/* Flawfinder: ignore */ 
+	std::string filename;
 
-	if (! status)
+	// Check if the asset is marked toxic, and don't load bad stuff
+	BOOL toxic = gAssetStorage->isAssetToxic( uuid );
+
+	if ( !status
+		&& !toxic )
 	{
 		LLVFile file(vfs, uuid, type);
 
-		char uuid_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */ 
+		std::string uuid_str;
 
 		uuid.toString(uuid_str);
-		snprintf(filename,sizeof(filename),"%s.%s",gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str).c_str(),LLAssetType::lookup(type));	/* Flawfinder: ignore */
+		filename = llformat("%s.%s",gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str).c_str(),LLAssetType::lookup(type));
 
 		LLFILE* fp = LLFile::fopen(filename, "wb");	/* Flawfinder: ignore */ 
 		if (fp)
@@ -1264,7 +1275,7 @@ void LLAssetStorage::legacyGetDataCallback(LLVFS *vfs, const LLUUID &uuid, LLAss
 		}
 	}
 
-	legacy->mDownCallback(filename, uuid, legacy->mUserData, status, ext_status);
+	legacy->mDownCallback(filename.c_str(), uuid, legacy->mUserData, status, ext_status);
 	delete legacy;
 }
 
@@ -1283,7 +1294,7 @@ void LLAssetStorage::storeAssetData(
 {
 	llwarns << "storeAssetData: wrong version called" << llendl;
 	// LLAssetStorage metric: Virtual base call
-	reportMetric( LLUUID::null, asset_type, NULL, LLUUID::null, 0, MR_BAD_FUNCTION, __FILE__, __LINE__, "Illegal call to base: LLAssetStorage::storeAssetData 1" );
+	reportMetric( LLUUID::null, asset_type, LLStringUtil::null, LLUUID::null, 0, MR_BAD_FUNCTION, __FILE__, __LINE__, "Illegal call to base: LLAssetStorage::storeAssetData 1" );
 }
 
 // virtual
@@ -1302,13 +1313,13 @@ void LLAssetStorage::storeAssetData(
 {
 	llwarns << "storeAssetData: wrong version called" << llendl;
 	// LLAssetStorage metric: Virtual base call
-	reportMetric( asset_id, asset_type, NULL, requesting_agent_id, 0, MR_BAD_FUNCTION, __FILE__, __LINE__, "Illegal call to base: LLAssetStorage::storeAssetData 2" );
+	reportMetric( asset_id, asset_type, LLStringUtil::null, requesting_agent_id, 0, MR_BAD_FUNCTION, __FILE__, __LINE__, "Illegal call to base: LLAssetStorage::storeAssetData 2" );
 }
 
 // virtual
 // this does nothing, viewer and sim both override this.
 void LLAssetStorage::storeAssetData(
-	const char* filename,
+	const std::string& filename,
 	const LLUUID& asset_id,
 	LLAssetType::EType asset_type,
 	LLStoreAssetCallback callback,
@@ -1320,13 +1331,13 @@ void LLAssetStorage::storeAssetData(
 {
 	llwarns << "storeAssetData: wrong version called" << llendl;
 	// LLAssetStorage metric: Virtual base call
-	reportMetric( asset_id, asset_type, NULL, LLUUID::null, 0, MR_BAD_FUNCTION, __FILE__, __LINE__, "Illegal call to base: LLAssetStorage::storeAssetData 3" );
+	reportMetric( asset_id, asset_type, LLStringUtil::null, LLUUID::null, 0, MR_BAD_FUNCTION, __FILE__, __LINE__, "Illegal call to base: LLAssetStorage::storeAssetData 3" );
 }
 
 // virtual
 // this does nothing, viewer and sim both override this.
 void LLAssetStorage::storeAssetData(
-	const char* filename,
+	const std::string& filename,
 	const LLTransactionID &transactoin_id,
 	LLAssetType::EType asset_type,
 	LLStoreAssetCallback callback,
@@ -1338,7 +1349,7 @@ void LLAssetStorage::storeAssetData(
 {
 	llwarns << "storeAssetData: wrong version called" << llendl;
 	// LLAssetStorage metric: Virtual base call
-	reportMetric( LLUUID::null, asset_type, NULL, LLUUID::null, 0, MR_BAD_FUNCTION, __FILE__, __LINE__, "Illegal call to base: LLAssetStorage::storeAssetData 4" );
+	reportMetric( LLUUID::null, asset_type, LLStringUtil::null, LLUUID::null, 0, MR_BAD_FUNCTION, __FILE__, __LINE__, "Illegal call to base: LLAssetStorage::storeAssetData 4" );
 }
 
 // static
@@ -1385,9 +1396,9 @@ void LLAssetStorage::clearTempAssetData()
 { }
 
 // static
-void LLAssetStorage::reportMetric( const LLUUID& asset_id, const LLAssetType::EType asset_type, const char *filename,
+void LLAssetStorage::reportMetric( const LLUUID& asset_id, const LLAssetType::EType asset_type, const std::string& in_filename,
 								   const LLUUID& agent_id, S32 asset_size, EMetricResult result,
-								   const char *file, const S32 line, const char *message )
+								   const char *file, const S32 line, const std::string& in_message )
 {
 	if( !metric_recipient )
 	{
@@ -1395,18 +1406,13 @@ void LLAssetStorage::reportMetric( const LLUUID& asset_id, const LLAssetType::ET
 		return;
 	}
 
-	filename = filename ? filename : "";
-	file = file ? file : "";
-
-	// Create revised message - message = "message :: file:line"
-	std::string new_message; //( message );
-	new_message = message; // << " " << file << " " << line;
-	new_message += " :: ";
-	new_message += filename;
-	char line_string[16];
-	sprintf( line_string, ":%d", line );
-	new_message += line_string;
-	message = new_message.c_str();
+	std::string filename(in_filename);
+	if (filename.empty())
+		filename = ll_safe_string(file);
+	
+	// Create revised message - new_message = "in_message :: file:line"
+	std::stringstream new_message;
+	new_message << in_message << " :: " << filename << ":" << line;
 
 	// Change always_report to true if debugging... do not check it in this way
 	static bool always_report = false;
@@ -1419,15 +1425,68 @@ void LLAssetStorage::reportMetric( const LLUUID& asset_id, const LLAssetType::ET
 		LLSD stats;
 		stats["asset_id"] = asset_id;
 		stats["asset_type"] = asset_type;
-		stats["filename"] = filename? filename : "";
+		stats["filename"] = filename;
 		stats["agent_id"] = agent_id;
 		stats["asset_size"] = (S32)asset_size;
 		stats["result"] = (S32)result;
 
-		metric_recipient->recordEventDetails( metric_name, message, success, stats);
+		metric_recipient->recordEventDetails( metric_name, new_message.str(), success, stats);
 	}
 	else
 	{
-		metric_recipient->recordEvent(metric_name, message, success);
+		metric_recipient->recordEvent(metric_name, new_message.str(), success);
 	}
 }
+
+
+// Check if an asset is in the toxic map.  If it is, the entry is updated
+BOOL	LLAssetStorage::isAssetToxic( const LLUUID& uuid )
+{
+	BOOL is_toxic = FALSE;
+
+	if ( !uuid.isNull() )
+	{
+		toxic_asset_map_t::iterator iter = mToxicAssetMap.find( uuid );
+		if ( iter != mToxicAssetMap.end() )
+		{	// Found toxic asset
+			(*iter).second = LLFrameTimer::getTotalTime() + TOXIC_ASSET_LIFETIME;
+			is_toxic = TRUE;
+		} 
+	}
+	return is_toxic;
+}
+
+
+
+
+// Clean the toxic asset list, remove old entries
+void	LLAssetStorage::flushOldToxicAssets( BOOL force_it )
+{
+	// Scan and look for old entries
+	U64 now = LLFrameTimer::getTotalTime();
+	toxic_asset_map_t::iterator iter = mToxicAssetMap.begin();
+	while ( iter != mToxicAssetMap.end() )
+	{
+		if ( force_it
+			|| (*iter).second < now )
+		{	// Too old - remove it
+			mToxicAssetMap.erase( iter++ );
+		}
+		else
+		{
+			iter++;
+		}
+	}
+}
+
+
+// Add an item to the toxic asset map
+void	LLAssetStorage::markAssetToxic( const LLUUID& uuid )
+{	
+	if ( !uuid.isNull() )
+	{
+		// Set the value to the current time.  Creates a new entry if needed
+		mToxicAssetMap[ uuid ] = LLFrameTimer::getTotalTime() + TOXIC_ASSET_LIFETIME;
+	}
+}
+

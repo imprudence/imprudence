@@ -36,6 +36,7 @@
 #include "lltexteditor.h"
 #include "llviewercontrol.h"
 #include "lluictrlfactory.h"
+#include "llstylemap.h"
 
 class LLPrefsChatImpl : public LLPanel
 {
@@ -53,6 +54,7 @@ protected:
 	F32	mChatPersist;
 	S32	mChatMaxLines;
 	LLColor4 mSystemChatColor;
+	LLColor4 mUserChatColor;
 	LLColor4 mAgentChatColor;
 	LLColor4 mIMChatColor;
 	LLColor4 mObjectChatColor;
@@ -73,7 +75,7 @@ protected:
 
 
 LLPrefsChatImpl::LLPrefsChatImpl()
-:	LLPanel("Chat Panel")
+	:	LLPanel(std::string("Chat Panel"))
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_chat.xml");
 
@@ -89,6 +91,7 @@ void LLPrefsChatImpl::refresh()
 	mChatPersist = gSavedSettings.getF32("ChatPersistTime");
 	mChatMaxLines = gSavedSettings.getS32("ConsoleMaxLines");
 	mSystemChatColor = gSavedSettings.getColor4("SystemChatColor");
+	mUserChatColor = gSavedSettings.getColor4("UserChatColor");
 	mAgentChatColor = gSavedSettings.getColor4("AgentChatColor");
 	mIMChatColor = gSavedSettings.getColor4("IMChatColor");
 	mObjectChatColor = gSavedSettings.getColor4("ObjectChatColor");
@@ -102,6 +105,7 @@ void LLPrefsChatImpl::refresh()
 	mChatBubbles = gSavedSettings.getBOOL("UseChatBubbles");
 	mChatFullWidth = gSavedSettings.getBOOL("ChatFullWidth");
 	mCloseChatOnReturn = gSavedSettings.getBOOL("CloseChatOnReturn");
+	mPlayTypingAnim = gSavedSettings.getBOOL("PlayTypingAnim"); 
 	mConsoleOpacity = gSavedSettings.getF32("ConsoleBackgroundOpacity");
 	mBubbleOpacity = gSavedSettings.getF32("ChatBubbleOpacity");
 }
@@ -112,6 +116,7 @@ void LLPrefsChatImpl::cancel()
 	gSavedSettings.setF32("ChatPersistTime", mChatPersist);
 	gSavedSettings.setS32("ConsoleMaxLines", mChatMaxLines);
 	gSavedSettings.setColor4("SystemChatColor", mSystemChatColor);
+	gSavedSettings.setColor4("UserChatColor", mUserChatColor);
 	gSavedSettings.setColor4("AgentChatColor", mAgentChatColor);
 	gSavedSettings.setColor4("IMChatColor", mIMChatColor);
 	gSavedSettings.setColor4("ObjectChatColor", mObjectChatColor);
@@ -125,6 +130,7 @@ void LLPrefsChatImpl::cancel()
 	gSavedSettings.setBOOL("UseChatBubbles", mChatBubbles);
 	gSavedSettings.setBOOL("ChatFullWidth", mChatFullWidth);
 	gSavedSettings.setBOOL("CloseChatOnReturn", mCloseChatOnReturn);
+	gSavedSettings.setBOOL("PlayTypingAnim", mPlayTypingAnim); 
 	gSavedSettings.setF32("ConsoleBackgroundOpacity", mConsoleOpacity);
 	gSavedSettings.setF32("ChatBubbleOpacity", mBubbleOpacity);	
 }
@@ -149,6 +155,7 @@ void LLPrefsChat::apply()
 {
 	impl.apply();
 	LLTextEditor::setLinkColor( gSavedSettings.getColor4("HTMLLinkColor") );
+	LLStyleMap::instance().update();
 }
 
 void LLPrefsChat::cancel()

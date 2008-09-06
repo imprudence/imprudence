@@ -63,7 +63,7 @@ public:
 	LLStat mSimFPS;
 	LLStat mSimPhysicsFPS;
 	LLStat mSimAgentUPS;
-	LLStat mSimLSLIPS;
+	LLStat mSimScriptEPS;
 
 	LLStat mSimFrameMsec;
 	LLStat mSimNetMsec;
@@ -184,8 +184,6 @@ public:
 	void updateFrameStats(const F64 time_diff);
 	
 	void addToMessage(LLSD &body) const;
-
-	static const char *statTypeToText(EStatType type);
 
 private:
 	F64	mStats[ST_COUNT];

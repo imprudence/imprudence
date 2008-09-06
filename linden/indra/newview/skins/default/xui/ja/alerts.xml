@@ -3256,20 +3256,6 @@ F1キーを押してください。
 			取り消し
 		</option>
 	</alert>
-	<alert name="WebLaunchReleaseNotes">
-		<message name="message">
-			[SECOND_LIFE] のリリースノートを閲覧しますか？
-		</message>
-		<ignore name="ignore">
-			リリースノートを表示するため、ウェブ・ブラウザーを起動するとき
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			取り消し
-		</option>
-	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
 			選択したオブジェクトを、所有者に返却しますか？
@@ -3350,7 +3336,7 @@ F1キーを押してください。
 			名前によるミュートは、オブジェクト・チャット、およびIMのみに影響し、サウンドには影響しません。 
 正確なオブジェクト名を入力する必要があります。
 		</message>
-		<editline>
+		<editline name="editline">
 			オブジェクト名
 		</editline>
 		<option name="OK">
@@ -3491,7 +3477,7 @@ F1キーを押してください。
 		<message name="message">
 			どんなメッセージを表示して、このユーザーを追い出しますか？
 		</message>
-		<editline>
+		<editline name="editline">
 			あなたは管理者によりログオフされました。
 		</editline>
 		<option name="OK">
@@ -3505,7 +3491,7 @@ F1キーを押してください。
 		<message name="message">
 			どんなメッセージを表示して、グリッドにいる全員を追い出しますか？
 		</message>
-		<editline>
+		<editline name="editline">
 			あなたは管理者によりログオフされました。
 		</editline>
 		<option name="OK">
@@ -3519,7 +3505,7 @@ F1キーを押してください。
 		<message name="message">
 			どんなメッセージを表示して、このユーザーをフリーズしますか？
 		</message>
-		<editline>
+		<editline name="editline">
 			あなたはフリーズされています。 動くこともチャットすることもできません。 管理者がIMを通じてあなたに連絡します。
 		</editline>
 		<option name="OK">
@@ -3533,7 +3519,7 @@ F1キーを押してください。
 		<message name="message">
 			どんなメッセージを表示して、このユーザーのフリーズを解除しますか？
 		</message>
-		<editline>
+		<editline name="editline">
 			もうフリーズされていません。
 		</editline>
 		<option name="OK">
@@ -3558,7 +3544,7 @@ F1キーを押してください。
 		<message name="message">
 			あなたのロケーションへのテレポートを次のメッセージと共に贈りますか？
 		</message>
-		<editline>
+		<editline name="editline">
 			[REGION]に参加希望
 		</editline>
 		<option name="OK">
@@ -3572,7 +3558,7 @@ F1キーを押してください。
 		<message name="message">
 			ユーザーをゴッド・コールで呼び寄せますか？
 		</message>
-		<editline>
+		<editline name="editline">
 			[REGION]に参加希望
 		</editline>
 		<option name="OK">
@@ -4984,13 +4970,15 @@ Linden Lab
 		<message name="message">
 			新しい空の名前を指定してください。
 		</message>
+		<editline name="editline">
+			新しい事前設定
+		</editline>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
 			キャンセル
 		</option>
-		新しい事前設定
 	</alert>
 	<alert name="ExistsSkyPresetAlert">
 		<message name="message">
@@ -5001,13 +4989,15 @@ Linden Lab
 		<message name="message">
 			新しい水の事前設定の名前を指定してください。
 		</message>
+		<editline name="editline">
+			新しい事前設定
+		</editline>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
 			キャンセル
 		</option>
-		新しい事前設定
 	</alert>
 	<alert name="ExistsWaterPresetAlert">
 		<message name="message">

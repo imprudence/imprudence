@@ -45,8 +45,8 @@ public:
 
 	virtual void draw();
 
-	void setLabel(const char *label);
-	void setUnits(const char *units);
+	void setLabel(const std::string& label);
+	void setUnits(const std::string& units);
 	void setPrecision(const S32 precision);
 	void setStat(LLStat *statp);
 	void setThreshold(const S32 i, F32 value);
@@ -63,8 +63,8 @@ private:
 	F32 mMin;
 	F32 mMax;
 	LLFrameTimer mUpdateTimer;
-	LLString mLabel;
-	LLString mUnits;
+	std::string mLabel;
+	std::string mUnits;
 	S32 mPrecision; // Num of digits of precision after dot
 
 	S32 mNumThresholds;

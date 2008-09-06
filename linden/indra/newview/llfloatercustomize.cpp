@@ -131,13 +131,13 @@ protected:
 class LLWearableSaveAsDialog : public LLModalDialog
 {
 private:
-	LLString	mItemName;
+	std::string	mItemName;
 	void		(*mCommitCallback)(LLWearableSaveAsDialog*,void*);
 	void*		mCallbackUserData;
 
 public:
-	LLWearableSaveAsDialog( const LLString& desc, void(*commit_cb)(LLWearableSaveAsDialog*,void*), void* userdata )
-		: LLModalDialog( "", 240, 100 ),
+	LLWearableSaveAsDialog( const std::string& desc, void(*commit_cb)(LLWearableSaveAsDialog*,void*), void* userdata )
+		: LLModalDialog( LLStringUtil::null, 240, 100 ),
 		  mCommitCallback( commit_cb ),
 		  mCallbackUserData( userdata )
 	{
@@ -157,13 +157,13 @@ public:
 		edit->selectAll();
 	}
 
-	const LLString& getItemName() { return mItemName; }
+	const std::string& getItemName() { return mItemName; }
 
 	static void onSave( void* userdata )
 	{
 		LLWearableSaveAsDialog* self = (LLWearableSaveAsDialog*) userdata;
 		self->mItemName = self->childGetValue("name ed").asString();
-		LLString::trim(self->mItemName);
+		LLStringUtil::trim(self->mItemName);
 		if( !self->mItemName.empty() )
 		{
 			if( self->mCommitCallback )
@@ -198,14 +198,14 @@ BOOL edit_wearable_for_teens(EWearableType type)
 class LLMakeOutfitDialog : public LLModalDialog
 {
 private:
-	LLString	mFolderName;
+	std::string	mFolderName;
 	void		(*mCommitCallback)(LLMakeOutfitDialog*,void*);
 	void*		mCallbackUserData;
 	std::vector<std::pair<std::string,S32> > mCheckBoxList;
 	
 public:
 	LLMakeOutfitDialog( void(*commit_cb)(LLMakeOutfitDialog*,void*), void* userdata )
-		: LLModalDialog("",515, 510, TRUE ),
+		: LLModalDialog(LLStringUtil::null,515, 510, TRUE ),
 		  mCommitCallback( commit_cb ),
 		  mCallbackUserData( userdata )
 	{
@@ -214,14 +214,14 @@ public:
 		// Build list of check boxes
 		for( S32 i = 0; i < WT_COUNT; i++ )
 		{
-			LLString name = LLString("checkbox_") + LLWearable::typeToTypeLabel( (EWearableType)i );
+			std::string name = std::string("checkbox_") + LLWearable::typeToTypeLabel( (EWearableType)i );
 			mCheckBoxList.push_back(std::make_pair(name,i));
 			// Hide teen items
 			if (gAgent.isTeen() &&
 				!edit_wearable_for_teens((EWearableType)i))
 			{
 				// hide wearable checkboxes that don't apply to this account
-				LLString name = LLString("checkbox_") + LLWearable::typeToTypeLabel( (EWearableType)i );
+				std::string name = std::string("checkbox_") + LLWearable::typeToTypeLabel( (EWearableType)i );
 				childSetVisible(name, FALSE);
 			}
 		}
@@ -237,7 +237,7 @@ public:
 				LLViewerJointAttachment* attachment = curiter->second;
 				S32	attachment_pt = curiter->first;	
 				BOOL object_attached = ( attachment->getNumObjects() > 0 );
-				LLString name = LLString("checkbox_") + attachment->getName();
+				std::string name = std::string("checkbox_") + attachment->getName();
 				mCheckBoxList.push_back(std::make_pair(name,attachment_pt));
 				childSetEnabled(name, object_attached);
 			}
@@ -269,13 +269,13 @@ public:
 		LLModalDialog::draw();
 	}
 
-	const LLString& getFolderName() { return mFolderName; }
+	const std::string& getFolderName() { return mFolderName; }
 
 	void setWearableToInclude( S32 wearable, S32 enabled, S32 selected )
 	{
 		if( (0 <= wearable) && (wearable < WT_COUNT) )
 		{
-			LLString name = LLString("checkbox_") + LLWearable::typeToTypeLabel( (EWearableType)wearable );
+			std::string name = std::string("checkbox_") + LLWearable::typeToTypeLabel( (EWearableType)wearable );
 			childSetEnabled(name, enabled);
 			childSetValue(name, selected);
 		}
@@ -285,7 +285,7 @@ public:
 	{
 		for( S32 i = 0; i < (S32)mCheckBoxList.size(); i++)
 		{
-			LLString name = mCheckBoxList[i].first;
+			std::string name = mCheckBoxList[i].first;
 			BOOL checked = childGetValue(name).asBoolean();
 			if (i < WT_COUNT )
 			{
@@ -309,7 +309,7 @@ public:
 	{
 		LLMakeOutfitDialog* self = (LLMakeOutfitDialog*) userdata;
 		self->mFolderName = self->childGetValue("name ed").asString();
-		LLString::trim(self->mFolderName);
+		LLStringUtil::trim(self->mFolderName);
 		if( !self->mFolderName.empty() )
 		{
 			if( self->mCommitCallback )
@@ -365,9 +365,9 @@ struct LLSubpart
 {
 	LLSubpart() : mSex( SEX_BOTH ) {}
 
-	LLString			mButtonName;
-	LLString			mTargetJoint;
-	LLString			mEditGroup;
+	std::string			mButtonName;
+	std::string			mTargetJoint;
+	std::string			mEditGroup;
 	LLVector3d			mTargetOffset;
 	LLVector3d			mCameraOffset;
 	ESex				mSex;
@@ -385,11 +385,11 @@ public:
 	virtual void		draw();
 	virtual BOOL		isDirty() const;	// LLUICtrl
 	
-	void				addSubpart(const LLString& name, ESubpart id, LLSubpart* part );
-	void				addTextureDropTarget( LLVOAvatar::ETextureIndex te, const LLString& name, const LLUUID& default_image_id, BOOL allow_no_texture );
-	void				addColorSwatch( LLVOAvatar::ETextureIndex te, const LLString& name );
+	void				addSubpart(const std::string& name, ESubpart id, LLSubpart* part );
+	void				addTextureDropTarget( LLVOAvatar::ETextureIndex te, const std::string& name, const LLUUID& default_image_id, BOOL allow_no_texture );
+	void				addColorSwatch( LLVOAvatar::ETextureIndex te, const std::string& name );
 
-	const char*			getLabel()	{ return LLWearable::typeToTypeLabel( mType ); }
+	const std::string&	getLabel()	{ return LLWearable::typeToTypeLabel( mType ); }
 	EWearableType		getType()	{ return mType; }
 
 	LLSubpart*			getCurrentSubpart() { return mSubpartList[mCurrentSubpart]; }
@@ -433,8 +433,8 @@ public:
 private:
 	EWearableType		mType;
 	BOOL				mCanTakeOff;
-	std::map<LLString, S32> mTextureList;
-	std::map<LLString, S32> mColorList;
+	std::map<std::string, S32> mTextureList;
+	std::map<std::string, S32> mColorList;
 	std::map<ESubpart, LLSubpart*> mSubpartList;
 	ESubpart			mCurrentSubpart;
 	LLUndoBuffer*		mUndoBuffer;
@@ -453,7 +453,7 @@ LLPanelEditWearable::LLPanelEditWearable( EWearableType type )
 BOOL LLPanelEditWearable::postBuild()
 {
 	LLAssetType::EType asset_type = LLWearable::typeToAssetType( mType );
-	LLString icon_name = (asset_type == LLAssetType::AT_CLOTHING ?
+	std::string icon_name = (asset_type == LLAssetType::AT_CLOTHING ?
 										 "inv_item_clothing.tga" :
 										 "inv_item_skin.tga" );
 	childSetValue("icon", icon_name);
@@ -489,7 +489,7 @@ LLPanelEditWearable::~LLPanelEditWearable()
 	}
 }
 
-void LLPanelEditWearable::addSubpart( const LLString& name, ESubpart id, LLSubpart* part )
+void LLPanelEditWearable::addSubpart( const std::string& name, ESubpart id, LLSubpart* part )
 {
 	if (!name.empty())
 	{
@@ -694,7 +694,7 @@ void LLPanelEditWearable::onSelectAutoWearOption(S32 option, void* data)
 			wearable->getPermissions().getMaskNextOwner(), cb);
 	}
 }
-void LLPanelEditWearable::addColorSwatch( LLVOAvatar::ETextureIndex te, const LLString& name )
+void LLPanelEditWearable::addColorSwatch( LLVOAvatar::ETextureIndex te, const std::string& name )
 {
 	childSetCommitCallback(name, LLPanelEditWearable::onColorCommit, this);
 	mColorList[name] = te;
@@ -729,7 +729,7 @@ void LLPanelEditWearable::onColorCommit( LLUICtrl* ctrl, void* userdata )
 }
 
 
-void LLPanelEditWearable::addTextureDropTarget( LLVOAvatar::ETextureIndex te, const LLString& name,
+void LLPanelEditWearable::addTextureDropTarget( LLVOAvatar::ETextureIndex te, const std::string& name,
 												const LLUUID& default_image_id, BOOL allow_no_texture )
 {
 	childSetCommitCallback(name, LLPanelEditWearable::onTextureCommit, this);
@@ -870,14 +870,14 @@ void LLPanelEditWearable::draw()
 	{
 		// *TODO:Translate
 		childSetVisible("title_no_modify", TRUE);
-		childSetTextArg("title_no_modify", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
+		childSetTextArg("title_no_modify", "[DESC]", std::string(LLWearable::typeToTypeLabel( mType )));
 		
-		for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
+		for( std::map<std::string, S32>::iterator iter = mTextureList.begin();
 			 iter != mTextureList.end(); ++iter )
 		{
 			childSetVisible(iter->first, FALSE );
 		}
-		for( std::map<LLString, S32>::iterator iter = mColorList.begin();
+		for( std::map<std::string, S32>::iterator iter = mColorList.begin();
 			 iter != mColorList.end(); ++iter )
 		{
 			childSetVisible(iter->first, FALSE );
@@ -887,20 +887,20 @@ void LLPanelEditWearable::draw()
 	{
 		// *TODO:Translate
 		childSetVisible("title_loading", TRUE);
-		childSetTextArg("title_loading", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
+		childSetTextArg("title_loading", "[DESC]", std::string(LLWearable::typeToTypeLabel( mType )));
 			
-		LLString path;
+		std::string path;
 		const LLUUID& item_id = gAgent.getWearableItem( wearable->getType() );
 		gInventory.appendPath(item_id, path);
 		childSetVisible("path", TRUE);
 		childSetTextArg("path", "[PATH]", path);
 
-		for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
+		for( std::map<std::string, S32>::iterator iter = mTextureList.begin();
 			 iter != mTextureList.end(); ++iter )
 		{
 			childSetVisible(iter->first, FALSE );
 		}
-		for( std::map<LLString, S32>::iterator iter = mColorList.begin();
+		for( std::map<std::string, S32>::iterator iter = mColorList.begin();
 			 iter != mColorList.end(); ++iter )
 		{
 			childSetVisible(iter->first, FALSE );
@@ -911,16 +911,16 @@ void LLPanelEditWearable::draw()
 		childSetVisible("title", TRUE);
 		childSetTextArg("title", "[DESC]", wearable->getName() );
 
-		LLString path;
+		std::string path;
 		const LLUUID& item_id = gAgent.getWearableItem( wearable->getType() );
 		gInventory.appendPath(item_id, path);
 		childSetVisible("path", TRUE);
 		childSetTextArg("path", "[PATH]", path);
 
-		for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
+		for( std::map<std::string, S32>::iterator iter = mTextureList.begin();
 			 iter != mTextureList.end(); ++iter )
 		{
-			LLString name = iter->first;
+			std::string name = iter->first;
 			LLTextureCtrl* texture_ctrl = getChild<LLTextureCtrl>(name);
 			S32 te_index = iter->second;
 			childSetVisible(name, is_copyable && is_modifiable && is_complete );
@@ -938,10 +938,10 @@ void LLPanelEditWearable::draw()
 			}
 		}
 
-		for( std::map<LLString, S32>::iterator iter = mColorList.begin();
+		for( std::map<std::string, S32>::iterator iter = mColorList.begin();
 			 iter != mColorList.end(); ++iter )
 		{
-			LLString name = iter->first;
+			std::string name = iter->first;
 			S32 te_index = iter->second;
 			childSetVisible(name, is_modifiable && is_complete );
 			childSetEnabled(name, is_modifiable && is_complete );
@@ -956,14 +956,14 @@ void LLPanelEditWearable::draw()
 	{
 		// *TODO:Translate
 		childSetVisible("title_not_worn", TRUE);
-		childSetTextArg("title_not_worn", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
+		childSetTextArg("title_not_worn", "[DESC]", std::string(LLWearable::typeToTypeLabel( mType )));
 
-		for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
+		for( std::map<std::string, S32>::iterator iter = mTextureList.begin();
 			 iter != mTextureList.end(); ++iter )
 		{
 			childSetVisible(iter->first, FALSE );
 		}
-		for( std::map<LLString, S32>::iterator iter = mColorList.begin();
+		for( std::map<std::string, S32>::iterator iter = mColorList.begin();
 			 iter != mColorList.end(); ++iter )
 		{
 			childSetVisible(iter->first, FALSE );
@@ -1006,7 +1006,7 @@ void LLPanelEditWearable::setVisible(BOOL visible)
 			gEditMenuHandler = NULL;
 		}
 
-		for( std::map<LLString, S32>::iterator iter = mColorList.begin();
+		for( std::map<std::string, S32>::iterator iter = mColorList.begin();
 			 iter != mColorList.end(); ++iter )
 		{
 			// this forces any open color pickers to cancel their selection
@@ -1079,12 +1079,12 @@ void LLPanelEditWearable::setUIPermissions(U32 perm_mask, BOOL is_complete)
 	childSetEnabled("Save As", is_copyable && is_complete);
 	childSetEnabled("Randomize", is_modifiable && is_complete);
 	childSetEnabled("sex radio", is_modifiable && is_complete);
-	for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
+	for( std::map<std::string, S32>::iterator iter = mTextureList.begin();
 		 iter != mTextureList.end(); ++iter )
 	{
 		childSetVisible(iter->first, is_copyable && is_modifiable && is_complete );
 	}
-	for( std::map<LLString, S32>::iterator iter = mColorList.begin();
+	for( std::map<std::string, S32>::iterator iter = mColorList.begin();
 		 iter != mColorList.end(); ++iter )
 	{
 		childSetVisible(iter->first, is_modifiable && is_complete );
@@ -1097,7 +1097,7 @@ void LLPanelEditWearable::setUIPermissions(U32 perm_mask, BOOL is_complete)
 class LLScrollingPanelParam : public LLScrollingPanel
 {
 public:
-	LLScrollingPanelParam( const LLString& name, LLViewerJointMesh* mesh, LLViewerVisualParam* param, BOOL allow_modify );
+	LLScrollingPanelParam( const std::string& name, LLViewerJointMesh* mesh, LLViewerVisualParam* param, BOOL allow_modify );
 	virtual ~LLScrollingPanelParam();
 
 	virtual void		draw();
@@ -1144,7 +1144,7 @@ const S32 PARAM_HINT_LABEL_HEIGHT = 16;
 const S32 PARAM_PANEL_WIDTH = 2 * (3* BTN_BORDER + PARAM_HINT_WIDTH +  LLPANEL_BORDER_WIDTH);
 const S32 PARAM_PANEL_HEIGHT = 2 * BTN_BORDER + PARAM_HINT_HEIGHT + PARAM_HINT_LABEL_HEIGHT + 4 * LLPANEL_BORDER_WIDTH; 
 
-LLScrollingPanelParam::LLScrollingPanelParam( const LLString& name,
+LLScrollingPanelParam::LLScrollingPanelParam( const std::string& name,
 											  LLViewerJointMesh* mesh, LLViewerVisualParam* param, BOOL allow_modify )
 	: LLScrollingPanel( name, LLRect( 0, PARAM_PANEL_HEIGHT, PARAM_PANEL_WIDTH, 0 ) ),
 	  mParam(param),
@@ -1169,8 +1169,8 @@ LLScrollingPanelParam::LLScrollingPanelParam( const LLString& name,
 	childSetCommitCallback("param slider", LLScrollingPanelParam::onSliderMoved, this);
 
 	// *TODO::translate
-	LLString min_name = param->getMinDisplayName();
-	LLString max_name = param->getMaxDisplayName();
+	std::string min_name = param->getMinDisplayName();
+	std::string max_name = param->getMaxDisplayName();
 	childSetValue("min param text", min_name);
 	childSetValue("max param text", max_name);
 
@@ -1502,7 +1502,7 @@ F32 LLScrollingPanelParam::percentToWeight( F32 percent )
 	return percent / 100.f * (param->getMaxWeight() - param->getMinWeight()) + param->getMinWeight();
 }
 
-const LLString& LLFloaterCustomize::getEditGroup()
+const std::string& LLFloaterCustomize::getEditGroup()
 {
 	return getCurrentWearablePanel()->getCurrentSubpart()->mEditGroup;
 }
@@ -1523,7 +1523,7 @@ struct WearablePanelData
 };
 
 LLFloaterCustomize::LLFloaterCustomize()
-:	LLFloater("customize"),
+:	LLFloater(std::string("customize")),
 	mScrollingPanelList( NULL ),
 	mGenePool( NULL ),
 	mInventoryObserver(NULL),
@@ -1616,7 +1616,7 @@ void LLFloaterCustomize::setCurrentWearableType( EWearableType type )
 		if( gFloaterCustomize
 			&& gFloaterCustomize->mWearablePanelList[type_int])
 		{
-			LLString panelname = gFloaterCustomize->mWearablePanelList[type_int]->getName();
+			std::string panelname = gFloaterCustomize->mWearablePanelList[type_int]->getName();
 			gFloaterCustomize->childShowTab("customize tab container", panelname);
 			gFloaterCustomize->switchToDefaultSubpart();
 		}
@@ -1650,7 +1650,7 @@ void LLFloaterCustomize::onBtnSnapshot( void* userdata )
 	success = jpeg_image->encode(raw, 0.0f);
 	if(!success) return;
 
-	LLString filepath("C:\\snapshot");
+	std::string filepath("C:\\snapshot");
 	filepath += ".jpg";
 
 	success = jpeg_image->save(filepath);
@@ -1885,7 +1885,7 @@ void LLFloaterCustomize::initWearablePanels()
 	part->mEditGroup = "eyes";
 	part->mTargetOffset.setVec(0.f, 0.f, 0.05f);
 	part->mCameraOffset.setVec(-0.5f, 0.05f, 0.07f);
-	panel->addSubpart( "", SUBPART_EYES, part );
+	panel->addSubpart( LLStringUtil::null, SUBPART_EYES, part );
 
 	panel->addTextureDropTarget(LLVOAvatar::TEX_EYES_IRIS, "Iris",
 								LLUUID( gSavedSettings.getString( "UIImgDefaultEyesUUID" ) ),
@@ -1902,7 +1902,7 @@ void LLFloaterCustomize::initWearablePanels()
 	part->mEditGroup = "shirt";
 	part->mTargetOffset.setVec(0.f, 0.f, 0.3f);
 	part->mCameraOffset.setVec(-1.f, 0.15f, 0.3f);
-	panel->addSubpart( "", SUBPART_SHIRT, part );
+	panel->addSubpart( LLStringUtil::null, SUBPART_SHIRT, part );
 
 	panel->addTextureDropTarget( LLVOAvatar::TEX_UPPER_SHIRT, "Fabric",
 								 LLUUID( gSavedSettings.getString( "UIImgDefaultShirtUUID" ) ),
@@ -1920,7 +1920,7 @@ void LLFloaterCustomize::initWearablePanels()
 	part->mEditGroup = "pants";
 	part->mTargetOffset.setVec(0.f, 0.f, -0.5f);
 	part->mCameraOffset.setVec(-1.6f, 0.15f, -0.5f);
-	panel->addSubpart( "", SUBPART_PANTS, part );
+	panel->addSubpart( LLStringUtil::null, SUBPART_PANTS, part );
 
 	panel->addTextureDropTarget(LLVOAvatar::TEX_LOWER_PANTS, "Fabric",
 								LLUUID( gSavedSettings.getString( "UIImgDefaultPantsUUID" ) ),
@@ -1940,7 +1940,7 @@ void LLFloaterCustomize::initWearablePanels()
 		part->mEditGroup = "shoes";
 		part->mTargetOffset.setVec(0.f, 0.f, -0.5f);
 		part->mCameraOffset.setVec(-1.6f, 0.15f, -0.5f);
-		panel->addSubpart( "", SUBPART_SHOES, part );
+		panel->addSubpart( LLStringUtil::null, SUBPART_SHOES, part );
 
 		panel->addTextureDropTarget( LLVOAvatar::TEX_LOWER_SHOES, "Fabric",
 									 LLUUID( gSavedSettings.getString( "UIImgDefaultShoesUUID" ) ),
@@ -1961,7 +1961,7 @@ void LLFloaterCustomize::initWearablePanels()
 		part->mEditGroup = "socks";
 		part->mTargetOffset.setVec(0.f, 0.f, -0.5f);
 		part->mCameraOffset.setVec(-1.6f, 0.15f, -0.5f);
-		panel->addSubpart( "", SUBPART_SOCKS, part );
+		panel->addSubpart( LLStringUtil::null, SUBPART_SOCKS, part );
 
 		panel->addTextureDropTarget( LLVOAvatar::TEX_LOWER_SOCKS, "Fabric",
 									 LLUUID( gSavedSettings.getString( "UIImgDefaultSocksUUID" ) ),
@@ -1981,7 +1981,7 @@ void LLFloaterCustomize::initWearablePanels()
 		part->mEditGroup = "jacket";
 		part->mTargetOffset.setVec(0.f, 0.f, 0.f);
 		part->mCameraOffset.setVec(-2.f, 0.1f, 0.3f);
-		panel->addSubpart( "", SUBPART_JACKET, part );
+		panel->addSubpart( LLStringUtil::null, SUBPART_JACKET, part );
 
 		panel->addTextureDropTarget( LLVOAvatar::TEX_UPPER_JACKET, "Upper Fabric",
 									 LLUUID( gSavedSettings.getString( "UIImgDefaultJacketUUID" ) ),
@@ -2004,7 +2004,7 @@ void LLFloaterCustomize::initWearablePanels()
 		part->mEditGroup = "skirt";
 		part->mTargetOffset.setVec(0.f, 0.f, -0.5f);
 		part->mCameraOffset.setVec(-1.6f, 0.15f, -0.5f);
-		panel->addSubpart( "", SUBPART_SKIRT, part );
+		panel->addSubpart( LLStringUtil::null, SUBPART_SKIRT, part );
 
 		panel->addTextureDropTarget( LLVOAvatar::TEX_SKIRT,  "Fabric",
 									 LLUUID( gSavedSettings.getString( "UIImgDefaultSkirtUUID" ) ),
@@ -2025,7 +2025,7 @@ void LLFloaterCustomize::initWearablePanels()
 		part->mEditGroup = "gloves";
 		part->mTargetOffset.setVec(0.f, 0.f, 0.f);
 		part->mCameraOffset.setVec(-1.f, 0.15f, 0.f);
-		panel->addSubpart( "", SUBPART_GLOVES, part );
+		panel->addSubpart( LLStringUtil::null, SUBPART_GLOVES, part );
 
 		panel->addTextureDropTarget( LLVOAvatar::TEX_UPPER_GLOVES,  "Fabric",
 									 LLUUID( gSavedSettings.getString( "UIImgDefaultGlovesUUID" ) ),
@@ -2046,7 +2046,7 @@ void LLFloaterCustomize::initWearablePanels()
 		part->mEditGroup = "undershirt";
 		part->mTargetOffset.setVec(0.f, 0.f, 0.3f);
 		part->mCameraOffset.setVec(-1.f, 0.15f, 0.3f);
-		panel->addSubpart( "", SUBPART_UNDERSHIRT, part );
+		panel->addSubpart( LLStringUtil::null, SUBPART_UNDERSHIRT, part );
 
 		panel->addTextureDropTarget( LLVOAvatar::TEX_UPPER_UNDERSHIRT,  "Fabric",
 									 LLUUID( gSavedSettings.getString( "UIImgDefaultUnderwearUUID" ) ),
@@ -2066,7 +2066,7 @@ void LLFloaterCustomize::initWearablePanels()
 		part->mEditGroup = "underpants";
 		part->mTargetOffset.setVec(0.f, 0.f, -0.5f);
 		part->mCameraOffset.setVec(-1.6f, 0.15f, -0.5f);
-		panel->addSubpart( "", SUBPART_UNDERPANTS, part );
+		panel->addSubpart( LLStringUtil::null, SUBPART_UNDERPANTS, part );
 
 		panel->addTextureDropTarget( LLVOAvatar::TEX_LOWER_UNDERPANTS, "Fabric",
 									 LLUUID( gSavedSettings.getString( "UIImgDefaultUnderwearUUID" ) ),
@@ -2173,7 +2173,7 @@ void LLFloaterCustomize::initScrollingPanelList()
 		getChild<LLScrollableContainerView>("panel_container");
 	// LLScrollingPanelList's do not import correctly 
 // 	mScrollingPanelList = LLUICtrlFactory::getScrollingPanelList(this, "panel_list");
-	mScrollingPanelList = new LLScrollingPanelList("panel_list", LLRect());
+	mScrollingPanelList = new LLScrollingPanelList(std::string("panel_list"), LLRect());
 	if (scroll_container)
 	{
 		scroll_container->setScrolledView(mScrollingPanelList);

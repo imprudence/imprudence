@@ -175,7 +175,7 @@ const LLFaceID	LL_FACE_OUTER_SIDE_3	= 0x1 << 8;
 
 //============================================================================
 
-// sculpt types
+// sculpt types + flags
 
 const U8 LL_SCULPT_TYPE_NONE      = 0;
 const U8 LL_SCULPT_TYPE_SPHERE    = 1;
@@ -183,21 +183,30 @@ const U8 LL_SCULPT_TYPE_TORUS     = 2;
 const U8 LL_SCULPT_TYPE_PLANE     = 3;
 const U8 LL_SCULPT_TYPE_CYLINDER  = 4;
 
+const U8 LL_SCULPT_TYPE_MASK      = LL_SCULPT_TYPE_SPHERE | LL_SCULPT_TYPE_TORUS | LL_SCULPT_TYPE_PLANE | LL_SCULPT_TYPE_CYLINDER;
+
+const U8 LL_SCULPT_FLAG_INVERT    = 64;
+const U8 LL_SCULPT_FLAG_MIRROR    = 128;
 
 
 class LLProfileParams
 {
 public:
 	LLProfileParams()
+		: mCurveType(LL_PCODE_PROFILE_SQUARE),
+		  mBegin(0.f),
+		  mEnd(1.f),
+		  mHollow(0.f),
+		  mCRC(0)
 	{
-		mCurveType = LL_PCODE_PROFILE_SQUARE;
-		mBegin     = 0.f;
-		mEnd       = 1.f;
-		mHollow    = 0.f;
 	}
 
 	LLProfileParams(U8 curve, F32 begin, F32 end, F32 hollow)
-		: mCurveType(curve), mBegin(begin), mEnd(end), mHollow(hollow)
+		: mCurveType(curve),
+		  mBegin(begin),
+		  mEnd(end),
+		  mHollow(hollow),
+		  mCRC(0)
 	{
 	}
 
@@ -222,6 +231,7 @@ public:
 			temp_f32 = 1.f;
 		}
 		mHollow = temp_f32;
+		mCRC = 0;
 	}
 
 	bool operator==(const LLProfileParams &params) const;
@@ -309,27 +319,36 @@ class LLPathParams
 {
 public:
 	LLPathParams()
+		:
+		mCurveType(LL_PCODE_PATH_LINE),
+		mBegin(0.f),
+		mEnd(1.f),
+		mScale(1.f,1.f),
+		mShear(0.f,0.f),
+		mTwistBegin(0.f),
+		mTwistEnd(0.f),
+		mRadiusOffset(0.f),
+		mTaper(0.f,0.f),
+		mRevolutions(1.f),
+		mSkew(0.f),
+		mCRC(0)
 	{
-		mBegin     = 0.f;
-		mEnd       = 1.f;
-		mScale.setVec(1.f,1.f);
-		mShear.setVec(0.f,0.f);
-		mCurveType = LL_PCODE_PATH_LINE;
-		mTwistBegin		= 0.f;
-		mTwistEnd     	= 0.f;
-		mRadiusOffset	= 0.f;
-		mTaper.setVec(0.f,0.f);
-		mRevolutions	= 1.f;
-		mSkew			= 0.f;
 	}
 
 	LLPathParams(U8 curve, F32 begin, F32 end, F32 scx, F32 scy, F32 shx, F32 shy, F32 twistend, F32 twistbegin, F32 radiusoffset, F32 tx, F32 ty, F32 revolutions, F32 skew)
-		: mCurveType(curve), mBegin(begin), mEnd(end), mTwistBegin(twistbegin), mTwistEnd(twistend), 
-		  mRadiusOffset(radiusoffset), mRevolutions(revolutions), mSkew(skew)
+		: mCurveType(curve),
+		  mBegin(begin),
+		  mEnd(end),
+		  mScale(scx,scy),
+		  mShear(shx,shy),
+		  mTwistBegin(twistbegin),
+		  mTwistEnd(twistend), 
+		  mRadiusOffset(radiusoffset),
+		  mTaper(tx,ty),
+		  mRevolutions(revolutions),
+		  mSkew(skew),
+		  mCRC(0)
 	{
-		mScale.setVec(scx,scy);
-		mShear.setVec(shx,shy);
-		mTaper.setVec(tx,ty);
 	}
 
 	LLPathParams(U8 curve, U16 begin, U16 end, U8 scx, U8 scy, U8 shx, U8 shy, U8 twistend, U8 twistbegin, U8 radiusoffset, U8 tx, U8 ty, U8 revolutions, U8 skew)
@@ -347,6 +366,8 @@ public:
 		mTaper.setVec(U8_TO_F32(tx) * TAPER_QUANTA,U8_TO_F32(ty) * TAPER_QUANTA);
 		mRevolutions = ((F32)revolutions) * REV_QUANTA + 1.0f;
 		mSkew = U8_TO_F32(skew) * SCALE_QUANTA;
+
+		mCRC = 0;
 	}
 
 	bool operator==(const LLPathParams &params) const;
@@ -525,6 +546,7 @@ class LLVolumeParams
 {
 public:
 	LLVolumeParams()
+		: mSculptType(LL_SCULPT_TYPE_NONE)
 	{
 	}
 
@@ -649,7 +671,9 @@ public:
 		  mConcave(FALSE),
 		  mDirty(TRUE),
 		  mTotalOut(0),
-		  mTotal(2)
+		  mTotal(2),
+		  mMinX(0.f),
+		  mMaxX(0.f)
 	{
 	}
 
@@ -660,7 +684,8 @@ public:
 	BOOL isFlat(S32 face) const							{ return (mFaces[face].mCount == 2); }
 	BOOL isOpen() const									{ return mOpen; }
 	void setDirty()										{ mDirty     = TRUE; }
-	BOOL generate(const LLProfileParams& params, BOOL path_open, F32 detail = 1.0f, S32 split = 0, BOOL is_sculpted = FALSE);
+	BOOL generate(const LLProfileParams& params, BOOL path_open, F32 detail = 1.0f, S32 split = 0,
+				  BOOL is_sculpted = FALSE, S32 sculpt_size = 0);
 	BOOL isConcave() const								{ return mConcave; }
 public:
 	struct Face
@@ -678,8 +703,6 @@ public:
 	std::vector<Face>      mFaces;
 	std::vector<LLVector3> mEdgeNormals;
 	std::vector<LLVector3> mEdgeCenters;
-	F32			  mMaxX;
-	F32			  mMinX;
 
 	friend std::ostream& operator<<(std::ostream &s, const LLProfile &profile);
 
@@ -698,6 +721,9 @@ protected:
 
 	S32			  mTotalOut;
 	S32			  mTotal;
+
+	F32			  mMaxX;
+	F32			  mMinX;
 };
 
 //-------------------------------------------------------------------
@@ -728,7 +754,8 @@ public:
 	virtual ~LLPath();
 
 	void genNGon(const LLPathParams& params, S32 sides, F32 offset=0.0f, F32 end_scale = 1.f, F32 twist_scale = 1.f);
-	virtual BOOL generate(const LLPathParams& params, F32 detail=1.0f, S32 split = 0, BOOL is_sculpted = FALSE);
+	virtual BOOL generate(const LLPathParams& params, F32 detail=1.0f, S32 split = 0,
+						  BOOL is_sculpted = FALSE, S32 sculpt_size = 0);
 
 	BOOL isOpen() const						{ return mOpen; }
 	F32 getStep() const						{ return mStep; }
@@ -754,7 +781,8 @@ class LLDynamicPath : public LLPath
 {
 public:
 	LLDynamicPath() : LLPath() { }
-	/*virtual*/ BOOL generate(const LLPathParams& params, F32 detail=1.0f, S32 split = 0, BOOL is_sculpted = FALSE);
+	/*virtual*/ BOOL generate(const LLPathParams& params, F32 detail=1.0f, S32 split = 0,
+							  BOOL is_sculpted = FALSE, S32 sculpt_size = 0);
 };
 
 // Yet another "face" class - caches volume-specific, but not instance-specific data for faces)
@@ -885,7 +913,13 @@ public:
 	//get the face index of the face that intersects with the given line segment at the point 
 	//closest to start.  Moves end to the point of intersection.  Returns -1 if no intersection.
 	//Line segment must be in volume space.
-	S32 lineSegmentIntersect(const LLVector3& start, LLVector3& end) const;
+	S32 lineSegmentIntersect(const LLVector3& start, const LLVector3& end,
+							 S32 face = -1,                          // which face to check, -1 = ALL_SIDES
+							 LLVector3* intersection = NULL,         // return the intersection point
+							 LLVector2* tex_coord = NULL,            // return the texture coordinates of the intersection point
+							 LLVector3* normal = NULL,               // return the surface normal at the intersection point
+							 LLVector3* bi_normal = NULL             // return the surface bi-normal at the intersection point
+		);
 	
 	// The following cleans up vertices and triangles,
 	// getting rid of degenerate triangles and duplicate vertices,
@@ -916,6 +950,8 @@ private:
 	F32 sculptGetSurfaceArea(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data);
 	void sculptGenerateMapVertices(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data, U8 sculpt_type);
 	void sculptGeneratePlaceholder();
+	void sculptCalcMeshResolution(U16 width, U16 height, U8 type, S32& s, S32& t);
+
 	
 protected:
 	BOOL generate();
@@ -945,5 +981,11 @@ LLVector3 calc_binormal_from_triangle(
 		const LLVector2& tex1,
 		const LLVector3& pos2,
 		const LLVector2& tex2);
+
+BOOL LLLineSegmentBoxIntersect(const LLVector3& start, const LLVector3& end, const LLVector3& center, const LLVector3& size);
+BOOL LLTriangleRayIntersect(const LLVector3& vert0, const LLVector3& vert1, const LLVector3& vert2, const LLVector3& orig, const LLVector3& dir,
+							F32* intersection_a, F32* intersection_b, F32* intersection_t, BOOL two_sided);
+	
+	
 
 #endif

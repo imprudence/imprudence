@@ -3,17 +3,17 @@
      can_resize="false" height="500" min_height="100" min_width="100"
      name="modal container" title="" width="600">
 	<button bottom="15" font="SansSerif" halign="center" height="20" label="Continue"
-	     label_selected="Continue" left="370" mouse_opaque="true" name="Continue"
+	     label_selected="Continue" left="484" mouse_opaque="true" name="Continue"
 	     width="100" />
 	<button bottom="15" font="SansSerif" halign="center" height="20" label="Cancel"
-	     label_selected="Cancel" left_delta="108" mouse_opaque="true" name="Cancel"
+	     label_selected="Cancel" left="16" mouse_opaque="true" name="Cancel"
 	     width="100" />
 	<!-- No title text here because our "critical message" is usually the
 	community standards. JC -->
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false" bottom="-35" drop_shadow_visible="true" follows="left|top" font="SansSerif" h_pad="0" halign="left" height="20" left="20" mouse_opaque="true" name="tos_heading" v_pad="0" width="552">
 		Please read the following message carefully.
 	</text>
-	<text_editor bottom="45" embedded_items="false" follows="left|top" font="SansSerif" left="20" max_length="65536" mouse_opaque="true" text_readonly_color="255,255,255,255" bg_readonly_color="0, 30, 80, 200" name="tos_text" right="-20" top="-45" word_wrap="true">
+	<text_editor bottom="45" embedded_items="false" follows="left|top" font="SansSerif" left="20" max_length="65536" mouse_opaque="true" text_readonly_color="0,0,0,255" bg_readonly_color="255,255,255,255" name="tos_text" right="-20" top="-45" word_wrap="true">
 		TOS_TEXT
 	</text_editor>
 </floater>

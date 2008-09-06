@@ -3284,20 +3284,6 @@ Applications 폴더에 다운로드하시겠습니까?
 			취소
 		</option>
 	</alert>
-	<alert name="WebLaunchReleaseNotes">
-		<message name="message">
-			[SECOND_LIFE] 출시 정보를 보시겠습니까?
-		</message>
-		<ignore name="ignore">
-			출시 정보를 보려고 웹 브라우저를 시작할 때
-		</ignore>
-		<option name="Gotopage">
-			페이지로 이동
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
 			선택한 오브젝트를 소유주에게
@@ -3378,7 +3364,7 @@ Applications 폴더에 다운로드하시겠습니까?
 			이름별 차단은 오브젝트 채팅과 메신저에만 영향을 주며 음소거는 하지 않습니다. 
 오브젝트의 이름을 정확하게 입력해야 합니다.
 		</message>
-		<editline>
+		<editline name="editline">
 			오브젝트 이름
 		</editline>
 		<option name="OK">
@@ -3519,7 +3505,7 @@ Applications 폴더에 다운로드하시겠습니까?
 		<message name="message">
 			어떤 메시지로 이 사용자를 추방합니까?
 		</message>
-		<editline>
+		<editline name="editline">
 			관리자에 의해 로그오프되었습니다.
 		</editline>
 		<option name="OK">
@@ -3533,7 +3519,7 @@ Applications 폴더에 다운로드하시겠습니까?
 		<message name="message">
 			그리드에 지금 메시지가 있는 모든 사람들을 추방합니까?
 		</message>
-		<editline>
+		<editline name="editline">
 			관리자에 의해 로그오프되었습니다.
 		</editline>
 		<option name="OK">
@@ -3547,7 +3533,7 @@ Applications 폴더에 다운로드하시겠습니까?
 		<message name="message">
 			어떤 메시지로 이 사용자를 동결 시킵니까?
 		</message>
-		<editline>
+		<editline name="editline">
 			귀하는 정지된 상태이므로 이동하거나 대화를 나눌 수 없습니다. 관리자가 메신저를 통해 연락을 취할 것입니다.
 		</editline>
 		<option name="OK">
@@ -3561,7 +3547,7 @@ Applications 폴더에 다운로드하시겠습니까?
 		<message name="message">
 			어떤 메시지를 사용하여 이 사용자의 동결 상태를 해제하시겠습니까?
 		</message>
-		<editline>
+		<editline name="editline">
 			더 이상 정지 모드에 있지 않습니다.
 		</editline>
 		<option name="OK">
@@ -3586,7 +3572,7 @@ Applications 폴더에 다운로드하시겠습니까?
 		<message name="message">
 			다음 메시지가 있는 내 위치로 텔레포팅을 제공합니까?
 		</message>
-		<editline>
+		<editline name="editline">
 			[REGION]에 가입하기
 		</editline>
 		<option name="OK">
@@ -3600,7 +3586,7 @@ Applications 폴더에 다운로드하시겠습니까?
 		<message name="message">
 			사용자를 귀하의 위치로 불러옵니까?
 		</message>
-		<editline>
+		<editline name="editline">
 			[REGION]에 가입하기
 		</editline>
 		<option name="OK">
@@ -5043,13 +5029,15 @@ D 슬라이더를 사용해서는 구름의 농도를
 		<message name="message">
 			새 하늘의 이름을 지정하십시오.
 		</message>
+		<editline name="editline">
+			새 사전 설정
+		</editline>
 		<option name="OK">
 			확인
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
-		새 사전 설정
 	</alert>
 	<alert name="ExistsSkyPresetAlert">
 		<message name="message">
@@ -5060,13 +5048,15 @@ D 슬라이더를 사용해서는 구름의 농도를
 		<message name="message">
 			새 수면 사전 설정의 이름을 지정하십시오.
 		</message>
+		<editline name="editline">
+			새 사전 설정
+		</editline>
 		<option name="OK">
 			확인
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
-		새 사전 설정
 	</alert>
 	<alert name="ExistsWaterPresetAlert">
 		<message name="message">

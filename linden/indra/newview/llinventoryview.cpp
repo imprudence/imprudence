@@ -105,10 +105,10 @@ const S32 INV_FINDER_HEIGHT = 408;
 /// LLInventoryViewFinder
 ///----------------------------------------------------------------------------
 
-LLInventoryViewFinder::LLInventoryViewFinder(const LLString& name,
+LLInventoryViewFinder::LLInventoryViewFinder(const std::string& name,
 						const LLRect& rect,
 						LLInventoryView* inventory_view) :
-	LLFloater(name, rect, "Filters", RESIZE_NO,
+	LLFloater(name, rect, std::string("Filters"), RESIZE_NO,
 				INV_FINDER_WIDTH, INV_FINDER_HEIGHT, DRAG_ON_TOP,
 				MINIMIZE_NO, CLOSE_YES),
 	mInventoryView(inventory_view),
@@ -175,7 +175,7 @@ void LLInventoryViewFinder::updateElementsFromFilter()
 
 	// Get data needed for filter display
 	U32 filter_types = mFilter->getFilterTypes();
-	LLString filter_string = mFilter->getFilterSubString();
+	std::string filter_string = mFilter->getFilterSubString();
 	LLInventoryFilter::EFolderShow show_folders = mFilter->getShowFolderState();
 	U32 hours = mFilter->getHoursAgo();
 
@@ -449,10 +449,10 @@ void LLSaveFolderState::doFolder(LLFolderViewFolder* folder)
 }
 
 // Default constructor
-LLInventoryView::LLInventoryView(const LLString& name,
-								 const LLString& rect,
+LLInventoryView::LLInventoryView(const std::string& name,
+								 const std::string& rect,
 								 LLInventoryModel* inventory) :
-	LLFloater(name, rect, "Inventory", RESIZE_YES,
+	LLFloater(name, rect, std::string("Inventory"), RESIZE_YES,
 			  INV_MIN_WIDTH, INV_MIN_HEIGHT, DRAG_ON_TOP,
 			  MINIMIZE_NO, CLOSE_YES)
 	//LLHandle<LLFloater> mFinderHandle takes care of its own initialization
@@ -460,10 +460,10 @@ LLInventoryView::LLInventoryView(const LLString& name,
 	init(inventory);
 }
 
-LLInventoryView::LLInventoryView(const LLString& name,
+LLInventoryView::LLInventoryView(const std::string& name,
 								 const LLRect& rect,
 								 LLInventoryModel* inventory) :
-	LLFloater(name, rect, "Inventory", RESIZE_YES,
+	LLFloater(name, rect, std::string("Inventory"), RESIZE_YES,
 			  INV_MIN_WIDTH, INV_MIN_HEIGHT, DRAG_ON_TOP,
 			  MINIMIZE_NO, CLOSE_YES)
 	//LLHandle<LLFloater> mFinderHandle takes care of its own initialization
@@ -521,7 +521,7 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 	std::ostringstream filterSaveName;
 	filterSaveName << gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "filters.xml");
 	llinfos << "LLInventoryView::init: reading from " << filterSaveName << llendl;
-    llifstream file(filterSaveName.str().c_str());
+    llifstream file(filterSaveName.str());
 	LLSD savedFilterState;
     if (file.is_open())
     {
@@ -587,7 +587,7 @@ LLInventoryView::~LLInventoryView( void )
 
 	std::ostringstream filterSaveName;
 	filterSaveName << gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "filters.xml");
-	llofstream filtersFile(filterSaveName.str().c_str());
+	llofstream filtersFile(filterSaveName.str());
 	if(!LLSDSerialize::toPrettyXML(filterRoot, filtersFile))
 	{
 		llwarns << "Could not write to filters save file " << filterSaveName << llendl;
@@ -607,7 +607,7 @@ void LLInventoryView::draw()
 		LLLocale locale(LLLocale::USER_LOCALE);
 		std::ostringstream title;
 		title << "Inventory";
-		LLString item_count_string;
+		std::string item_count_string;
 		LLResMgr::getInstance()->getIntegerString(item_count_string, gInventory.getItemCount());
 		title << " (" << item_count_string << " items)";
 		title << mFilterText;
@@ -764,7 +764,7 @@ void LLInventoryView::changed(U32 mask)
  	if (LLInventoryModel::backgroundFetchActive())
 	{
 		LLLocale locale(LLLocale::USER_LOCALE);
-		LLString item_count_string;
+		std::string item_count_string;
 		LLResMgr::getInstance()->getIntegerString(item_count_string, gInventory.getItemCount());
 		title << " (Fetched " << item_count_string << " items...)";
 	}
@@ -793,8 +793,8 @@ LLInventoryView* LLInventoryView::showAgentInventory(BOOL take_keyboard_focus)
 	if(!iv && !gAgent.cameraMouselook())
 	{
 		// create one.
-		iv = new LLInventoryView("Inventory",
-								 "FloaterInventoryRect",
+		iv = new LLInventoryView(std::string("Inventory"),
+								 std::string("FloaterInventoryRect"),
 								 &gInventory);
 		iv->open();
 		// keep onscreen
@@ -805,7 +805,7 @@ LLInventoryView* LLInventoryView::showAgentInventory(BOOL take_keyboard_focus)
 	if(iv)
 	{
 		// Make sure it's in front and it makes a noise
-		iv->setTitle("Inventory");
+		iv->setTitle(std::string("Inventory"));
 		iv->open();		/*Flawfinder: ignore*/
 	}
 	//if (take_keyboard_focus)
@@ -887,7 +887,7 @@ void LLInventoryView::toggleFindOptions()
 	LLFloater *floater = getFinder();
 	if (!floater)
 	{
-		LLInventoryViewFinder * finder = new LLInventoryViewFinder("Inventory Finder",
+		LLInventoryViewFinder * finder = new LLInventoryViewFinder(std::string("Inventory Finder"),
 										LLRect(getRect().mLeft - INV_FINDER_WIDTH, getRect().mTop, getRect().mLeft, getRect().mTop - INV_FINDER_HEIGHT),
 										this);
 		mFinderHandle = finder->getHandle();
@@ -897,13 +897,13 @@ void LLInventoryView::toggleFindOptions()
 		// start background fetch of folders
 		gInventory.startBackgroundFetch();
 
-		mFloaterControls["Inventory.ShowFilters"]->setValue(TRUE);
+		mFloaterControls[std::string("Inventory.ShowFilters")]->setValue(TRUE);
 	}
 	else
 	{
 		floater->close();
 
-		mFloaterControls["Inventory.ShowFilters"]->setValue(FALSE);
+		mFloaterControls[std::string("Inventory.ShowFilters")]->setValue(FALSE);
 	}
 }
 
@@ -925,7 +925,7 @@ void LLInventoryView::onClearSearch(void* user_data)
 	LLFloater *finder = self->getFinder();
 	if (self->mActivePanel)
 	{
-		self->mActivePanel->setFilterSubString("");
+		self->mActivePanel->setFilterSubString(LLStringUtil::null);
 		self->mActivePanel->setFilterTypes(0xffffffff);
 	}
 
@@ -946,7 +946,7 @@ void LLInventoryView::onClearSearch(void* user_data)
 }
 
 //static
-void LLInventoryView::onSearchEdit(const LLString& search_string, void* user_data )
+void LLInventoryView::onSearchEdit(const std::string& search_string, void* user_data )
 {
 	if (search_string == "")
 	{
@@ -960,9 +960,9 @@ void LLInventoryView::onSearchEdit(const LLString& search_string, void* user_dat
 
 	gInventory.startBackgroundFetch();
 
-	LLString filter_text = search_string;
-	LLString uppercase_search_string = filter_text;
-	LLString::toUpper(uppercase_search_string);
+	std::string filter_text = search_string;
+	std::string uppercase_search_string = filter_text;
+	LLStringUtil::toUpper(uppercase_search_string);
 	if (self->mActivePanel->getFilterSubString().empty() && uppercase_search_string.empty())
 	{
 			// current filter and new filter empty, do nothing
@@ -982,39 +982,39 @@ void LLInventoryView::onSearchEdit(const LLString& search_string, void* user_dat
 
 
 // static
-BOOL LLInventoryView::incrementalFind(LLFolderViewItem* first_item, const char *find_text, BOOL backward)
-{
-	LLInventoryView* active_view = NULL;
+// BOOL LLInventoryView::incrementalFind(LLFolderViewItem* first_item, const char *find_text, BOOL backward)
+// {
+// 	LLInventoryView* active_view = NULL;
 
-	for (S32 i = 0; i < sActiveViews.count(); i++)
-	{
-		if (gFocusMgr.childHasKeyboardFocus(sActiveViews[i]))
-		{
-			active_view = sActiveViews[i];
-			break;
-		}
-	}
+// 	for (S32 i = 0; i < sActiveViews.count(); i++)
+// 	{
+// 		if (gFocusMgr.childHasKeyboardFocus(sActiveViews[i]))
+// 		{
+// 			active_view = sActiveViews[i];
+// 			break;
+// 		}
+// 	}
 
-	if (!active_view)
-	{
-		return FALSE;
-	}
+// 	if (!active_view)
+// 	{
+// 		return FALSE;
+// 	}
 
-	LLString search_string(find_text);
+// 	std::string search_string(find_text);
 
-	if (search_string.empty())
-	{
-		return FALSE;
-	}
+// 	if (search_string.empty())
+// 	{
+// 		return FALSE;
+// 	}
 
-	if (active_view->mActivePanel &&
-		active_view->mActivePanel->getRootFolder()->search(first_item, search_string, backward))
-	{
-		return TRUE;
-	}
+// 	if (active_view->mActivePanel &&
+// 		active_view->mActivePanel->getRootFolder()->search(first_item, search_string, backward))
+// 	{
+// 		return TRUE;
+// 	}
 
-	return FALSE;
-}
+// 	return FALSE;
+// }
 
 //static
 void LLInventoryView::onFilterSelected(void* userdata, bool from_click)
@@ -1062,7 +1062,7 @@ BOOL LLInventoryView::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 										 EDragAndDropType cargo_type,
 										 void* cargo_data,
 										 EAcceptance* accept,
-										 LLString& tooltip_msg)
+										 std::string& tooltip_msg)
 {
 	// Check to see if we are auto scrolling from the last frame
 	LLInventoryPanel* panel = (LLInventoryPanel*)this->getActivePanel();
@@ -1079,7 +1079,7 @@ BOOL LLInventoryView::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 
 	return handled;
 }
-LLString get_item_icon_name(LLAssetType::EType asset_type,
+std::string get_item_icon_name(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
 							 U32 attachment_point,
 							 BOOL item_is_multi )
@@ -1197,7 +1197,7 @@ LLString get_item_icon_name(LLAssetType::EType asset_type,
 		break;
 	}
 	
-	return LLString(ICON_NAME[idx]);
+	return ICON_NAME[idx];
 }
 
 LLUIImagePtr get_item_icon(LLAssetType::EType asset_type,
@@ -1205,19 +1205,18 @@ LLUIImagePtr get_item_icon(LLAssetType::EType asset_type,
 							 U32 attachment_point,
 							 BOOL item_is_multi)
 {
-	const LLString& icon_name = get_item_icon_name(asset_type, inventory_type, attachment_point, item_is_multi );
+	const std::string& icon_name = get_item_icon_name(asset_type, inventory_type, attachment_point, item_is_multi );
 	return LLUI::getUIImage(icon_name);
 }
 
-const LLString LLInventoryPanel::DEFAULT_SORT_ORDER = LLString("InventorySortOrder");
-const LLString LLInventoryPanel::RECENTITEMS_SORT_ORDER = LLString("RecentItemsSortOrder");
-const LLString LLInventoryPanel::INHERIT_SORT_ORDER = LLString("");
+const std::string LLInventoryPanel::DEFAULT_SORT_ORDER = std::string("InventorySortOrder");
+const std::string LLInventoryPanel::RECENTITEMS_SORT_ORDER = std::string("RecentItemsSortOrder");
+const std::string LLInventoryPanel::INHERIT_SORT_ORDER = std::string("");
 
-LLInventoryPanel::LLInventoryPanel(const LLString& name,
-								    const LLString& sort_order_setting,
+LLInventoryPanel::LLInventoryPanel(const std::string& name,
+								    const std::string& sort_order_setting,
 									const LLRect& rect,
 									LLInventoryModel* inventory,
-									LLFolderSearchFunction search,
 									BOOL allow_multi_select,
 									LLView *parent_view) :
 	LLPanel(name, rect, TRUE),
@@ -1226,8 +1225,7 @@ LLInventoryPanel::LLInventoryPanel(const LLString& name,
 	mFolders(NULL),
 	mScroller(NULL),
 	mAllowMultiSelect(allow_multi_select),
-	mSortOrderSetting(sort_order_setting),
-	mSearchFunction(search)
+	mSortOrderSetting(sort_order_setting)
 {
 	setBackgroundColor(gColors.getColor("InventoryBackgroundColor"));
 	setBackgroundVisible(TRUE);
@@ -1248,7 +1246,7 @@ BOOL LLInventoryPanel::postBuild()
 	// scroller
 	LLRect scroller_view_rect = getRect();
 	scroller_view_rect.translate(-scroller_view_rect.mLeft, -scroller_view_rect.mBottom);
-	mScroller = new LLScrollableContainerView("Inventory Scroller",
+	mScroller = new LLScrollableContainerView(std::string("Inventory Scroller"),
 											   scroller_view_rect,
 											  mFolders);
 	mScroller->setFollowsAll();
@@ -1263,7 +1261,7 @@ BOOL LLInventoryPanel::postBuild()
 	rebuildViewsFor(LLUUID::null, LLInventoryObserver::ADD);
 
 	// bit of a hack to make sure the inventory is open.
-	mFolders->openFolder("My Inventory");
+	mFolders->openFolder(std::string("My Inventory"));
 
 	if (mSortOrderSetting != INHERIT_SORT_ORDER)
 	{
@@ -1308,7 +1306,7 @@ LLView* LLInventoryPanel::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFac
 {
 	LLInventoryPanel* panel;
 
-	LLString name("inventory_panel");
+	std::string name("inventory_panel");
 	node->getAttributeString("name", name);
 
 	BOOL allow_multi_select = TRUE;
@@ -1317,12 +1315,12 @@ LLView* LLInventoryPanel::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFac
 	LLRect rect;
 	createRect(node, rect, parent, LLRect());
 
-	LLString sort_order(INHERIT_SORT_ORDER);
+	std::string sort_order(INHERIT_SORT_ORDER);
 	node->getAttributeString("sort_order", sort_order);
 
 	panel = new LLInventoryPanel(name, sort_order,
-								rect, &gInventory,
-								 LLInventoryView::incrementalFind, allow_multi_select, parent);
+								 rect, &gInventory,
+								 allow_multi_select, parent);
 
 	panel->initFromXML(node, parent);
 
@@ -1341,7 +1339,7 @@ void LLInventoryPanel::setFilterPermMask(PermissionMask filter_perm_mask)
 	mFolders->getFilter()->setFilterPermissions(filter_perm_mask);
 }
 
-void LLInventoryPanel::setFilterSubString(const LLString& string)
+void LLInventoryPanel::setFilterSubString(const std::string& string)
 {
 	mFolders->getFilter()->setFilterSubString(string);
 }
@@ -1666,7 +1664,7 @@ BOOL LLInventoryPanel::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 								   EDragAndDropType cargo_type,
 								   void* cargo_data,
 								   EAcceptance* accept,
-								   LLString& tooltip_msg)
+								   std::string& tooltip_msg)
 {
 
 	BOOL handled = LLPanel::handleDragAndDrop(x, y, mask, drop, cargo_type, cargo_data, accept, tooltip_msg);
@@ -1715,13 +1713,13 @@ void LLInventoryPanel::clearSelection()
 	mFolders->clearSelection();
 }
 
-void LLInventoryPanel::createNewItem(const char* name,
+void LLInventoryPanel::createNewItem(const std::string& name,
 									const LLUUID& parent_id,
 									LLAssetType::EType asset_type,
 									LLInventoryType::EType inv_type,
 									U32 next_owner_perm)
 {
-	LLString desc;
+	std::string desc;
 	LLAssetType::generateDescriptionFor(asset_type, desc);
 	next_owner_perm = (next_owner_perm) ? next_owner_perm : PERM_MOVE | PERM_TRANSFER;
 
@@ -1730,15 +1728,15 @@ void LLInventoryPanel::createNewItem(const char* name,
 	{
 		LLPointer<LLInventoryCallback> cb = new CreateGestureCallback();
 		create_inventory_item(gAgent.getID(), gAgent.getSessionID(),
-		parent_id, LLTransactionID::tnull, name, desc, asset_type, inv_type,
-		NOT_WEARABLE, next_owner_perm, cb);
+							  parent_id, LLTransactionID::tnull, name, desc, asset_type, inv_type,
+							  NOT_WEARABLE, next_owner_perm, cb);
 	}
 	else
 	{
 		LLPointer<LLInventoryCallback> cb = NULL;
 		create_inventory_item(gAgent.getID(), gAgent.getSessionID(),
-		parent_id, LLTransactionID::tnull, name, desc, asset_type, inv_type,
-		NOT_WEARABLE, next_owner_perm, cb);
+							  parent_id, LLTransactionID::tnull, name, desc, asset_type, inv_type,
+							  NOT_WEARABLE, next_owner_perm, cb);
 	}
 	
 }	

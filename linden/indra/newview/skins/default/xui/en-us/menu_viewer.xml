@@ -357,7 +357,7 @@
 			<on_check function="View.CheckHighlightTransparent" />
 		</menu_item_check>
 		<menu_item_check bottom="-384" enabled="true" height="19" label="Beacons Always On" left="0"
-		     mouse_opaque="true" name="Beacons Always On" shortcut="control|N"
+		     mouse_opaque="true" name="Beacons Always On"
 		     width="211">
 			<on_click function="ToggleControl" userdata="BeaconAlwaysOn" />
 			<on_check control="BeaconAlwaysOn" />
@@ -518,7 +518,12 @@
 		     mouse_opaque="true" name="Stop All Animations" width="250">
 			<on_click function="Tools.StopAllAnimations" userdata="" />
 		</menu_item_call>
-		<menu_item_separator bottom="-213" enabled="true" height="8" label="-----------" left="0"
+		<menu_item_call bottom="-213" enabled="false" height="19" label="Release Keys" left="0"
+		     mouse_opaque="true" name="Release Keys" width="250">
+			<on_click function="Tools.ReleaseKeys" userdata="" />
+			<on_enable function="Tools.EnableReleaseKeys" userdata="" />
+		</menu_item_call>
+		<menu_item_separator bottom="-232" enabled="true" height="8" label="-----------" left="0"
 		     mouse_opaque="true" name="separator4" width="185" />
 		<menu_item_call bottom="-232" enabled="true" height="19" label="Account History..." left="0"
 		     mouse_opaque="true" name="Account History..." width="185">
@@ -732,12 +737,22 @@
 		     name="Show Script Warning/Error Window" width="250">
 			<on_click function="ShowFloater" userdata="script errors" />
 		</menu_item_call>
-		<menu_item_call bottom="-449" enabled="false" height="19"
-		     label="Recompile Scripts in Selection" left="0" mouse_opaque="true"
-		     name="Recompile Scripts in Selection" width="250">
-			<on_click function="Tools.SelectedScriptAction" userdata="compile" />
-			<on_enable function="EditableSelected" />
-		</menu_item_call>
+		<menu bottom="-449" color="0 0 0 1" drop_shadow="true" enabled="true" height="52"
+		     hidden="false" label="Recompile Scripts in Selection" left="0" mouse_opaque="false"
+		     name="Recompile Scripts in Selection" opaque="true" tear_off="true" create_jump_keys="true" width="169">
+		     <menu_item_call bottom="-29" enabled="true" height="19" 
+		             hidden="false" label="Mono" left="0"
+			     mouse_opaque="true" name="Mono" width="169">
+			     <on_click function="Tools.SelectedScriptAction" userdata="compile mono" />
+			     <on_enable function="EditableSelectedMono" />
+		     </menu_item_call>
+		     <menu_item_call bottom="-48" enabled="true" height="19" 
+		             hidden="false" label="LSL" left="0"
+			     mouse_opaque="true" name="LSL" width="169">
+			     <on_click function="Tools.SelectedScriptAction" userdata="compile lsl" />
+			     <on_enable function="EditableSelected" />
+		     </menu_item_call>
+		</menu>
 		<menu_item_call bottom="-468" enabled="false" height="19" label="Reset Scripts in Selection"
 		     left="0" mouse_opaque="true" name="Reset Scripts in Selection" width="250">
 			<on_click function="Tools.SelectedScriptAction" userdata="reset" />
@@ -840,14 +855,6 @@
 				     userdata="WebLaunchPublicIssue,http://jira.secondlife.com" />
 			</menu_item_call>
 		</menu>
-		<menu_item_separator bottom="-221" enabled="true" height="8" label="-----------" left="0"
-		     mouse_opaque="true" name="separator5" width="166" />
-		<menu_item_call bottom="-121" enabled="true" height="19" label="Release Notes..." left="0"
-		     mouse_opaque="true" name="Release Notes..." width="166">
-			<on_click function="PromptShowFile" userdata="WebLaunchReleaseNotes,releasenotes.txt" />
-		</menu_item_call>
-		<menu_item_separator bottom="-294" enabled="true" height="8" label="-----------" left="0"
-		     mouse_opaque="true" name="separator6" width="166" />
 		<menu_item_call bottom="-313" enabled="true" height="19" label="About Second Life..." left="0"
 		     mouse_opaque="true" name="About Second Life..." width="166">
 			<on_click function="ShowFloater" userdata="about" />

@@ -32,9 +32,9 @@
 
 #include "linden_common.h"
 
+#include "lluuid.h"
 #include "lltransactionflags.h"
 #include "lltransactiontypes.h"
-#include "lluuid.h"
  
 const U8 TRANSACTION_FLAGS_NONE = 0;
 const U8 TRANSACTION_FLAG_SOURCE_GROUP = 1;
@@ -69,12 +69,12 @@ BOOL is_tf_owner_group(TransactionFlags flags)
 void append_reason(
 	std::ostream& ostr,
 	S32 transaction_type,
-	const char* description)
+	const std::string& description)
 {
 	switch( transaction_type )
 	{
 	case TRANS_OBJECT_SALE:
-		ostr << " for " << (description ? description : "<unknown>");
+	  ostr << " for " << (description.length() > 0 ? description : std::string("<unknown>"));
 		break;
 	case TRANS_LAND_SALE:
 		ostr << " for a parcel of land";
@@ -95,12 +95,21 @@ std::string build_transfer_message_to_source(
 	const LLUUID& dest_id,
 	const std::string& dest_name,
 	S32 transaction_type,
-	const char* description)
+	const std::string& description)
 {
 	lldebugs << "build_transfer_message_to_source: " << amount << " "
 		<< source_id << " " << dest_id << " " << dest_name << " "
-		<< (description?description:"(no desc)") << llendl;
-	if((0 == amount) || source_id.isNull()) return ll_safe_string(description);
+		<< transaction_type << " "
+		<< (description.empty() ? "(no desc)" : description)
+		<< llendl;
+	if(source_id.isNull())
+	{
+		return description;
+	}
+	if((0 == amount) && description.empty())
+	{
+		return description;
+	}
 	std::ostringstream ostr;
 	if(dest_id.isNull())
 	{
@@ -135,13 +144,20 @@ std::string build_transfer_message_to_destination(
 	const LLUUID& source_id,
 	const std::string& source_name,
 	S32 transaction_type,
-	const char* description)
+	const std::string& description)
 {
 	lldebugs << "build_transfer_message_to_dest: " << amount << " "
 		<< dest_id << " " << source_id << " " << source_name << " "
-		<< (description?description:"(no desc)") << llendl;
-	if(0 == amount) return std::string();
-	if(dest_id.isNull()) return ll_safe_string(description);
+		<< transaction_type << " " << (description.empty() ? "(no desc)" : description)
+		<< llendl;
+	if(0 == amount)
+	{
+		return std::string();
+	}
+	if(dest_id.isNull())
+	{
+		return description;
+	}
 	std::ostringstream ostr;
 	ostr << source_name << " paid you L$" << amount;
 	append_reason(ostr, transaction_type, description);

@@ -56,7 +56,7 @@ public:
 	void initialQuery();
 
 private:
-	void queryCore(const LLString& name, S32 category, BOOL pg_only);
+	void queryCore(const std::string& name, S32 category, BOOL pg_only);
 };
 
 #endif

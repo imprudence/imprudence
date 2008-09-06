@@ -76,7 +76,7 @@ bool LLCrashLoggerText::mainLoop()
 	return true;	
 }
 
-void LLCrashLoggerText::updateApplication(LLString message)
+void LLCrashLoggerText::updateApplication(const std::string& message)
 {
 	LLCrashLogger::updateApplication(message);
 	std::cout << message << std::endl;
@@ -147,10 +147,8 @@ void LLCrashLogger::gatherFiles()
 	updateApplication("Gathering logs...");
 
 	// Figure out the filename of the debug log
-	std::string db_file_name = gDirUtilp->getExpandedFilename(
-		LL_PATH_LOGS,
-		"debug_info.log");
-	llifstream debug_log_file(db_file_name.c_str());
+	std::string db_file_name = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"debug_info.log");
+	std::ifstream debug_log_file(db_file_name.c_str());
 
 	// Look for it in the debug_info.log file
 	if (debug_log_file.is_open())
@@ -191,7 +189,7 @@ void LLCrashLogger::gatherFiles()
 	{
 		// This is a 'little' hacky, but its the best simple solution.
 		std::string grid_host = mDebugLog["GridName"].asString();
-		LLString::toLower(grid_host);
+		LLStringUtil::toLower(grid_host);
 
 		mCrashHost = "https://login.";
 		mCrashHost += grid_host;
@@ -207,12 +205,12 @@ void LLCrashLogger::gatherFiles()
 	
 	updateApplication("Encoding files...");
 
-	for(std::map<LLString, LLString>::iterator itr = mFileMap.begin(); itr != mFileMap.end(); ++itr)
+	for(std::map<std::string, std::string>::iterator itr = mFileMap.begin(); itr != mFileMap.end(); ++itr)
 	{
 		std::ifstream f((*itr).second.c_str());
 		if(!f.is_open())
 		{
-			std::cout << "Can't find file " << (*itr).second.c_str() << std::endl;
+			std::cout << "Can't find file " << (*itr).second << std::endl;
 			continue;
 		}
 		std::stringstream s;
@@ -265,10 +263,10 @@ bool LLCrashLogger::saveCrashBehaviorSetting(S32 crash_behavior)
 	return true;
 }
 
-bool LLCrashLogger::runCrashLogPost(LLString host, LLSD data, LLString msg, int retries, int timeout)
+bool LLCrashLogger::runCrashLogPost(std::string host, LLSD data, std::string msg, int retries, int timeout)
 {
 	gBreak = false;
-	LLString status_message;
+	std::string status_message;
 	for(int i = 0; i < retries; ++i)
 	{
 		status_message = llformat("%s, try %d...", msg.c_str(), i+1);
@@ -304,14 +302,15 @@ bool LLCrashLogger::sendCrashLogs()
 
 	bool sent = false;
 
+	//*TODO: Translate
 	if(mCrashHost != "")
 	{
-		sent = runCrashLogPost(mCrashHost, post_data, "Sending to server", 3, 5);
+		sent = runCrashLogPost(mCrashHost, post_data, std::string("Sending to server"), 3, 5);
 	}
 
 	if(!sent)
 	{
-		sent = runCrashLogPost(mAltCrashHost, post_data, "Sending to alternate server", 3, 5);
+		sent = runCrashLogPost(mAltCrashHost, post_data, std::string("Sending to alternate server"), 3, 5);
 	}
 	
 	mSentCrashLogs = sent;
@@ -319,7 +318,7 @@ bool LLCrashLogger::sendCrashLogs()
 	return true;
 }
 
-void LLCrashLogger::updateApplication(LLString message)
+void LLCrashLogger::updateApplication(const std::string& message)
 {
 	gServicePump->pump();
     gServicePump->callback();
@@ -372,7 +371,7 @@ bool LLCrashLogger::init()
 	//If we've opened the crash logger, assume we can delete the marker file if it exists	
 	if( gDirUtilp )
 	{
-		LLString marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"SecondLife.exec_marker");
+		std::string marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"SecondLife.exec_marker");
 		ll_apr_file_remove( marker_file );
 	}
 	

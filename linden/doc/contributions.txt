@@ -79,6 +79,7 @@ bushing Spatula
 	VWR-424
 Carjay McGinnis
 	VWR-3737
+	VWR-6154
 Catherine Pfeffer
 	VWR-1282
 Dale Glass
@@ -121,12 +122,16 @@ Farallon Greyskin
 Feep Larsson
 	VWR-447
 	VWR-1314
+	VWR-4444
+Fluf Fredriksson
+	VWR-3450
 Fremont Cunningham
 	VWR-1147
 Gudmund Shepherd
 	VWR-1873
 Gigs Taggart
 	SVC-493
+	VWR-6
 	VWR-38
 	VWR-71
 	VWR-101
@@ -141,7 +146,9 @@ Gigs Taggart
 	VWR-1434
 	VWR-1987
 	VWR-2065
+	VWR-2491
 	VWR-2502
+	VWR-2331
 Ginko Bayliss
 	VWR-4
 Grazer Kline
@@ -152,6 +159,7 @@ Gudmund Shepherd
 Hamncheese Omlet
 	VWR-333
 Henri Beauchamp
+	VWR-1320
 	VWR-1406
 	VWR-4157
 Hikkoshi Sakai
@@ -178,6 +186,8 @@ Jacek Antonelli
 	VWR-597
 	VWR-2448
 	VWR-3605
+JB Kraft
+  VWR-5283
 Joghert LeSabre
 	VWR-64
 Kage Pixel
@@ -200,6 +210,9 @@ Michelle2 Zenovka
 	VWR-2652
 	VWR-2834
 	VWR-3749
+	VWR-4506
+	VWR-7831
+	VWR-4022
 Mm Alder
 	VWR-3777
 	VWR-4794
@@ -260,6 +273,7 @@ Nicholaz Beresford
 	VWR-1721
 	VWR-1723
 	VWR-1732
+	VWR-1754
 	VWR-1769
 	VWR-1808
 	VWR-1861
@@ -369,6 +383,7 @@ Wilton Lundquist
 Whoops Babii
 	VWR-631
 	VWR-1640
+	VWR-3340
 Zarkonnen Decosta
 	VWR-253
 Zi Ree

@@ -44,10 +44,7 @@ public:
 
 	void apply();
 	void cancel();
-	void setPersonalInfo(
-		const char* visibility,
-		bool im_via_email,
-		const char* email);
+	void setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email);
 
 	LLPanel* getPanel();
 

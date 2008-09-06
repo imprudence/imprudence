@@ -30,6 +30,7 @@
 
 #include "linden_common.h"
 
+#include "lldir.h"
 #include "llimagetga.h"
 #include "llerror.h"
 #include "llmath.h"
@@ -63,11 +64,34 @@ LLImageTGA::LLImageTGA()
 	  mColorMapStart( 0 ),
 	  mColorMapLength( 0 ),
 	  mColorMapBytesPerEntry( 0 ),
-	  mIs15Bit( FALSE )
+	  mIs15Bit( FALSE ),
+
+	  mAttributeBits(0),
+	  mColorMapDepth(0),
+	  mColorMapIndexHi(0),
+	  mColorMapIndexLo(0),
+	  mColorMapLengthHi(0),
+	  mColorMapLengthLo(0),
+	  mColorMapType(0),
+	  mDataOffset(0),
+	  mHeightHi(0),
+	  mHeightLo(0),
+	  mIDLength(0),
+	  mImageType(0),
+	  mInterleave(0),
+	  mOriginRightBit(0),
+	  mOriginTopBit(0),
+	  mPixelSize(0),
+	  mWidthHi(0),
+	  mWidthLo(0),
+	  mXOffsetHi(0),
+	  mXOffsetLo(0),
+	  mYOffsetHi(0),
+	  mYOffsetLo(0)
 {
 }
 
-LLImageTGA::LLImageTGA(const LLString& file_name) 
+LLImageTGA::LLImageTGA(const std::string& file_name) 
 	: LLImageFormatted(IMG_CODEC_TGA),
 	  mColorMap( NULL ),
 	  mColorMapStart( 0 ),
@@ -1113,7 +1137,7 @@ BOOL LLImageTGA::decodeAndProcess( LLImageRaw* raw_image, F32 domain, F32 weight
 }
 
 // Reads a .tga file and creates an LLImageTGA with its data.
-bool LLImageTGA::loadFile( const LLString& path )
+bool LLImageTGA::loadFile( const std::string& path )
 {
 	S32 len = path.size();
 	if( len < 5 )
@@ -1121,14 +1145,13 @@ bool LLImageTGA::loadFile( const LLString& path )
 		return false;
 	}
 	
-	LLString extension = path.substr( len - 4, 4 );
-	LLString::toLower(extension);
-	if( ".tga" != extension )
+	std::string extension = gDirUtilp->getExtension(path);
+	if( "tga" != extension )
 	{
 		return false;
 	}
 	
-	LLFILE* file = LLFile::fopen(path.c_str(), "rb");	/* Flawfinder: ignore */
+	LLFILE* file = LLFile::fopen(path, "rb");	/* Flawfinder: ignore */
 	if( !file )
 	{
 		llwarns << "Couldn't open file " << path << llendl;

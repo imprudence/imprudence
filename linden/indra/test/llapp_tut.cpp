@@ -67,7 +67,7 @@ namespace tut
 	void application_object_t::test<1>()
 	{
 		LLSD defaults;
-		defaults["template"] = "../../scripts/messages/message_template.msg";
+		defaults["template"] = "../../../scripts/messages/message_template.msg";
 		defaults["configdir"] = ".";
 		defaults["db_host"] = "mysql.durga.lindenlab.com";
 		defaults["db_user"] = "linden";

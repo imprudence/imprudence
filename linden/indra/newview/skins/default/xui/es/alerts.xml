@@ -2827,17 +2827,6 @@ Aceleración de Gráficos AGP en el panel Opciones en Preferencias en [SECOND_LI
 			Cancelar
 		</option>
 	</alert>
-	<alert name="WebLaunchReleaseNotes">
-		<message name="message">
-			¿Ver las notas de lanzamiento de [SECOND_LIFE]?.
-		</message>
-		<option name="Gotopage">
-			Ir hacia página
-		</option>
-		<option name="Cancel">
-			Cancelar
-		</option>
-	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
 			¿Seguro que desea devolver los objetos
@@ -2907,7 +2896,7 @@ volverán para sus propietarios anteriores.
 			Desactivar sonido por el nombre apenas afecta chat y MI, no los sonidos. 
 Usted debe teclear el nombre exacto del objeto.
 		</message>
-		<editline>
+		<editline name="editline">
 			Nombre del objeto
 		</editline>
 		<option name="OK">
@@ -3037,7 +3026,7 @@ del menú &apos;Editar&apos;.
 		<message name="message">
 			¿Expulsar a este usuario con cuál mensaje?
 		</message>
-		<editline>
+		<editline name="editline">
 			Un administrador te desconectó.
 		</editline>
 		<option name="OK">
@@ -3051,7 +3040,7 @@ del menú &apos;Editar&apos;.
 		<message name="message">
 			¿Expulsar a todos en la red con cuál mensaje?
 		</message>
-		<editline>
+		<editline name="editline">
 			Un administrador te desconectó.
 		</editline>
 		<option name="OK">
@@ -3065,7 +3054,7 @@ del menú &apos;Editar&apos;.
 		<message name="message">
 			¿Congelar este usuario con cuál mensaje?
 		</message>
-		<editline>
+		<editline name="editline">
 			Usted fue congelado y no podrá moverse o usar el chat. Un administrador hará contacto vía mensaje
 instantáneo (MI).
 		</editline>
@@ -3080,7 +3069,7 @@ instantáneo (MI).
 		<message name="message">
 			¿Descongelar este usuario con este mensaje?
 		</message>
-		<editline>
+		<editline name="editline">
 			Usted no está congelado por mucho tiempo.
 		</editline>
 		<option name="OK">
@@ -3105,7 +3094,7 @@ instantáneo (MI).
 		<message name="message">
 			¿Ofrecer un teletransporte para su local con el siguiente mensaje?
 		</message>
-		<editline>
+		<editline name="editline">
 			Juntarme a la [REGION]
 		</editline>
 		<option name="OK">
@@ -3119,7 +3108,7 @@ instantáneo (MI).
 		<message name="message">
 			¿Dios invoca usuario para su posición?
 		</message>
-		<editline>
+		<editline name="editline">
 			Juntarme a la [REGION]
 		</editline>
 		<option name="OK">

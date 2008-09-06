@@ -6,4 +6,7 @@
 	<text name="f1_help_url">
 		http://secondlife.com/app/support/index_pt.html
 	</text>
+	<string name="support_page_url">
+	  	http://secondlife.com/app/support/index_pt.html
+	</string>
 </floater>

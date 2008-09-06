@@ -253,6 +253,11 @@ namespace tut
 					  LLURI::escape("http://10.0.1.4:12032/agent/god/agent-id/map/layer/?resume=http://station3.ll.com:12032/agent/203ad6df-b522-491d-ba48-4e24eb57aeff/send-postcard", unreserved + ":@!$'()*+,="), 
 					  "http:%2F%2F10.0.1.4:12032%2Fagent%2Fgod%2Fagent-id%2Fmap%2Flayer%2F%3Fresume=http:%2F%2Fstation3.ll.com:12032%2Fagent%2F203ad6df-b522-491d-ba48-4e24eb57aeff%2Fsend-postcard");
 		// French cedilla (C with squiggle, like in the word Francais) is UTF-8 C3 A7
+
+#if LL_WINDOWS
+#pragma warning(disable: 4309)
+#endif
+
 		std::string cedilla;
 		cedilla.push_back( (char)0xC3 );
 		cedilla.push_back( (char)0xA7 );

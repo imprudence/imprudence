@@ -72,15 +72,16 @@ void LLFloaterPermissionsMgr::processPermissionsList(LLMessageSystem* msg, void*
 {
 }
 
-LLFloaterPermissionsMgr::LLFloaterPermissionsMgr() : LLFloater("floater_perm_mgr", "PermissionsManagerRect", "Permissions Manager", TRUE, MIN_PERM_MGR_WIDTH,
-															MIN_PERM_MGR_HEIGHT)
+LLFloaterPermissionsMgr::LLFloaterPermissionsMgr() :
+	LLFloater(std::string("floater_perm_mgr"), std::string("PermissionsManagerRect"), std::string("Permissions Manager"),
+			  TRUE, MIN_PERM_MGR_WIDTH, MIN_PERM_MGR_HEIGHT)
 {
 	S32 y = getRect().getHeight() - VPAD - LINE;
 	LLRect scrollable_container_rect(0, y, getRect().getWidth(), 0);
 	LLRect permissions_rect(0, 0, getRect().getWidth() - HPAD - HPAD, 0);
 	mPermissions = new LLPermissionsView(permissions_rect);
 	mScroller = new LLScrollableContainerView(
-				"permissions container",
+				std::string("permissions container"),
 				scrollable_container_rect,
 				mPermissions
 				);
@@ -98,7 +99,7 @@ LLFloaterPermissionsMgr::~LLFloaterPermissionsMgr()
 // LLPermissionsView
 //
 
-LLPermissionsView::LLPermissionsView(const LLRect &rect) : LLView("permissions_view", rect, TRUE, FOLLOWS_NONE)
+LLPermissionsView::LLPermissionsView(const LLRect &rect) : LLView(std::string("permissions_view"), rect, TRUE, FOLLOWS_NONE)
 {
 }
 
@@ -109,7 +110,7 @@ void LLPermissionsView::clearPermissionsData()
 	mPermData.clear();
 }
 
-void LLPermissionsView::addPermissionsData(const LLString& object_name, const LLUUID& object_id, U32 permissions_flags) 
+void LLPermissionsView::addPermissionsData(const std::string& object_name, const LLUUID& object_id, U32 permissions_flags) 
 {
 	// grow to make room for new element
 	LLPermissionsData* perm_datap = new LLPermissionsData(object_id, permissions_flags);
@@ -117,19 +118,19 @@ void LLPermissionsView::addPermissionsData(const LLString& object_name, const LL
 	reshape(getRect().getWidth(), getRect().getHeight() + LINE + VPAD + BTN_HEIGHT + VPAD);
 	S32 y = getRect().getHeight() - LINE - VPAD;
 	LLRect label_rect(HPAD, y + LINE, getRect().getWidth(), y);
-	LLTextBox* text = new LLTextBox("perm_label", label_rect, object_name.c_str());
+	LLTextBox* text = new LLTextBox(std::string("perm_label"), label_rect, object_name);
 	text->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_BOTTOM);
 	addChild(text);
 
 	y -= LINE + VPAD;
 
 	LLRect btn_rect(HPAD, y + BTN_HEIGHT, 120, y);
-	LLButton* button = new LLButton("Revoke permissions", btn_rect, "", revokePermissions, (void*)perm_datap);
+	LLButton* button = new LLButton(std::string("Revoke permissions"), btn_rect, LLStringUtil::null, revokePermissions, (void*)perm_datap);
 	button->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM);
 	addChild(button);
 
 	btn_rect.set(HPAD + 120 + HPAD, y + BTN_HEIGHT, HPAD + 120 + HPAD + 120, y);
-	button = new LLButton("Find in world", btn_rect, "", findObject, (void*)perm_datap);
+	button = new LLButton(std::string("Find in world"), btn_rect, LLStringUtil::null, findObject, (void*)perm_datap);
 	button->setFollows(FOLLOWS_LEFT | FOLLOWS_BOTTOM);
 	addChild(button);
 

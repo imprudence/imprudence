@@ -68,6 +68,8 @@ LLPointer<LLViewerImage> LLViewerImage::sSmokeImagep = NULL;
 LLPointer<LLImageGL> LLViewerImage::sNullImagep = NULL;
 
 S32 LLViewerImage::sImageCount = 0;
+S32 LLViewerImage::sRawCount = 0;
+S32 LLViewerImage::sAuxCount = 0;
 LLTimer LLViewerImage::sEvaluationTimer;
 F32 LLViewerImage::sDesiredDiscardBias = 0.f;
 static F32 sDesiredDiscardBiasMin = -2.0f; // -max number of levels to improve image quality by
@@ -206,7 +208,7 @@ LLViewerImage::LLViewerImage(const LLUUID& id, BOOL usemipmaps)
 	sImageCount++;
 }
 
-LLViewerImage::LLViewerImage(const LLString& filename, const LLUUID& id, BOOL usemipmaps)
+LLViewerImage::LLViewerImage(const std::string& filename, const LLUUID& id, BOOL usemipmaps)
 	: LLImageGL(usemipmaps),
 	  mID(id),
 	  mLocalFileName(filename)
@@ -220,7 +222,6 @@ LLViewerImage::LLViewerImage(const U32 width, const U32 height, const U8 compone
 	: LLImageGL(width, height, components, usemipmaps)
 {
 	init(true);
-	mNeedsAux = FALSE;
 	// Create an empty image of the specified size and width
 	mID.generate();
 	mFullyLoaded = TRUE;
@@ -231,7 +232,6 @@ LLViewerImage::LLViewerImage(const LLImageRaw* raw, BOOL usemipmaps)
 	: LLImageGL(raw, usemipmaps)
 {
 	init(true);
-	mNeedsAux = FALSE;
 	// Create an empty image of the specified size and width
 	mID.generate();
 	mFullyLoaded = TRUE;
@@ -335,7 +335,8 @@ void LLViewerImage::cleanup()
 		delete entryp;
 	}
 	mLoadedCallbackList.clear();
-
+	mNeedsAux = FALSE;
+	
 	// Clean up image data
 	destroyRawImage();
 	
@@ -423,6 +424,7 @@ BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
 
 	if (!imageraw_callbacks)
 	{
+		mNeedsAux = FALSE;
 		destroyRawImage();
 	}
 	return res;
@@ -605,6 +607,7 @@ F32 LLViewerImage::calcDecodePriority()
 
 	F32 priority;
 	S32 cur_discard = getDiscardLevel();
+	bool have_all_data = (cur_discard >= 0 && (cur_discard <= mDesiredDiscardLevel));
 	F32 pixel_priority = fsqrtf(mMaxVirtualSize) * (1.f + mMaxCosAngle);
 	const S32 MIN_NOT_VISIBLE_FRAMES = 30; // NOTE: this function is not called every frame
 	mDecodeFrame++;
@@ -622,11 +625,11 @@ F32 LLViewerImage::calcDecodePriority()
 		// Don't decode anything we don't need
 		priority = -1.0f;
 	}
-	else if (mBoostLevel == LLViewerImage::BOOST_UI)
+	else if (mBoostLevel == LLViewerImage::BOOST_UI && !have_all_data)
 	{
 		priority = 1.f;
 	}
-	else if (pixel_priority <= 0.f && (cur_discard < 0 || mDesiredDiscardLevel < cur_discard))
+	else if (pixel_priority <= 0.f && !have_all_data)
 	{
 		// Not on screen but we might want some data
 		if (mBoostLevel > BOOST_HIGH)
@@ -645,6 +648,11 @@ F32 LLViewerImage::calcDecodePriority()
 			return mDecodePriority;
 		}
 	}
+	else if ((mBoostLevel == LLViewerImage::BOOST_SCULPTED) && !have_all_data)
+	{
+		// Sculpted images are small, treat them like they always have no data.
+		priority = 900000.f;
+	}
 	else if (cur_discard < 0)
 	{
 		// We don't have any data yet, so we don't know the size of the image, treat as 1024x1024
@@ -655,7 +663,7 @@ F32 LLViewerImage::calcDecodePriority()
 		ddiscard = llclamp(ddiscard, 1, 9);
 		priority = ddiscard*100000.f;
 	}
-	else if (cur_discard <= mMinDiscardLevel)
+	else if ((mMinDiscardLevel > 0) && (cur_discard <= mMinDiscardLevel))
 	{
 		// larger mips are corrupted
 		priority = -3.0f;
@@ -681,15 +689,14 @@ F32 LLViewerImage::calcDecodePriority()
 	}
 	if (priority > 0.0f)
 	{
-		pixel_priority = llclamp(pixel_priority, 0.0f, priority-1.f);
-		priority += pixel_priority;
+		pixel_priority = llclamp(pixel_priority, 0.0f, priority-1.f); // priority range = 100000-900000
 		if ( mBoostLevel > BOOST_HIGH)
 		{
-			priority += 1000000.f + 1000.f * mBoostLevel;
+			priority = 1000000.f + pixel_priority + 1000.f * mBoostLevel;
 		}
-		else if ( mBoostLevel > 0)
+		else
 		{
-			priority +=       0.f + 1000.f * mBoostLevel;
+			priority +=      0.f + pixel_priority + 1000.f * mBoostLevel;
 		}
 	}
 	return priority;
@@ -774,7 +781,11 @@ bool LLViewerImage::updateFetch()
 	{
 		// Sets mRawDiscardLevel, mRawImage, mAuxRawImage
 		S32 fetch_discard = current_discard;
+		if (mRawImage.notNull()) sRawCount--;
+		if (mAuxRawImage.notNull()) sAuxCount--;
 		bool finished = LLAppViewer::getTextureFetch()->getRequestFinished(getID(), fetch_discard, mRawImage, mAuxRawImage);
+		if (mRawImage.notNull()) sRawCount++;
+		if (mAuxRawImage.notNull()) sAuxCount++;
 		if (finished)
 		{
 			mIsFetching = FALSE;
@@ -958,7 +969,8 @@ void LLViewerImage::setIsMissingAsset()
 
 //============================================================================
 
-void LLViewerImage::setLoadedCallback( loaded_callback_func loaded_callback, S32 discard_level, BOOL keep_imageraw, void* userdata)
+void LLViewerImage::setLoadedCallback( loaded_callback_func loaded_callback,
+									   S32 discard_level, BOOL keep_imageraw, BOOL needs_aux, void* userdata)
 {
 	//
 	// Don't do ANYTHING here, just add it to the global callback list
@@ -970,6 +982,12 @@ void LLViewerImage::setLoadedCallback( loaded_callback_func loaded_callback, S32
 	}
 	LLLoadedCallbackEntry* entryp = new LLLoadedCallbackEntry(loaded_callback, discard_level, keep_imageraw, userdata);
 	mLoadedCallbackList.push_back(entryp);
+	mNeedsAux |= needs_aux;
+	if (mNeedsAux && mAuxRawImage.isNull() && getDiscardLevel() >= 0)
+	{
+		// We need aux data, but we've already loaded the image, and it didn't have any
+		llwarns << "No aux data available for callback for image:" << getID() << llendl;
+	}
 }
 
 bool LLViewerImage::doLoadedCallbacks()
@@ -1090,9 +1108,7 @@ bool LLViewerImage::doLoadedCallbacks()
 		// We have GL data.
 
 		destroyRawImage();
-		createRawImage(gl_discard, TRUE);
-		readBackRaw(gl_discard, mRawImage, false);
-		mIsRawImageValid = TRUE;
+		readBackRawImage(gl_discard);
 		llassert_always(mRawImage.notNull());
 		llassert_always(!mNeedsAux || mAuxRawImage.notNull());
 	}
@@ -1237,32 +1253,28 @@ BOOL LLViewerImage::bind(S32 stage) const
 }
 
 // Was in LLImageGL
-LLImageRaw* LLViewerImage::createRawImage(S8 discard_level, BOOL allocate)
+LLImageRaw* LLViewerImage::readBackRawImage(S8 discard_level)
 {
-	llassert(discard_level >= 0);
+	llassert_always(discard_level >= 0);
+	llassert_always(mComponents > 0);
 	if (mRawImage.notNull())
 	{
-		llerrs << "createRawImage() called with existing mRawImage" << llendl;
+		llerrs << "called with existing mRawImage" << llendl;
 		mRawImage = NULL;
-		mAuxRawImage = NULL;
 	}
-	if (allocate && mComponents)
-	{
-		mRawImage = new LLImageRaw(getWidth(discard_level), getHeight(discard_level), mComponents);
-		mIsRawImageValid = TRUE;
-	}
-	else
-	{
-		mRawImage = new LLImageRaw;
-		mIsRawImageValid = FALSE;
-	}
+	mRawImage = new LLImageRaw(getWidth(discard_level), getHeight(discard_level), mComponents);
+	sRawCount++;
 	mRawDiscardLevel = discard_level;
+	readBackRaw(mRawDiscardLevel, mRawImage, false);
+	mIsRawImageValid = TRUE;
 	
 	return mRawImage;
 }
 
 void LLViewerImage::destroyRawImage()
 {
+	if (mRawImage.notNull()) sRawCount--;
+	if (mAuxRawImage.notNull()) sAuxCount--;
 	mRawImage = NULL;
 	mAuxRawImage = NULL;
 	mIsRawImageValid = FALSE;

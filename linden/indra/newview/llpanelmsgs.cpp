@@ -52,7 +52,7 @@ LLPopupData sPopupData;
 
 //-----------------------------------------------------------------------------
 LLPanelMsgs::LLPanelMsgs() : 
-	LLPanel("Messages Panel"),
+	LLPanel(std::string("Messages Panel")),
 	mDisabledPopups( NULL ),
 	mEnabledPopups( NULL )
 {
@@ -199,10 +199,10 @@ void LLPanelMsgs::onClickEnablePopup(void* user_data)
 	std::vector<LLScrollListItem*>::iterator itor;
 	for (itor = items.begin(); itor != items.end(); ++itor)
 	{
-		LLAlertDialog::template_map_t::iterator found_alert = LLAlertDialog::sAlertTemplates.find(*(LLString*)((*itor)->getUserdata()));
+		LLAlertDialog::template_map_t::iterator found_alert = LLAlertDialog::sAlertTemplates.find(*(std::string*)((*itor)->getUserdata()));
 		if (found_alert != LLAlertDialog::sAlertTemplates.end())
 		{
-			LLAlertDialogTemplate* alert_temp = LLAlertDialog::sAlertTemplates[*(LLString*)((*itor)->getUserdata())];
+			LLAlertDialogTemplate* alert_temp = LLAlertDialog::sAlertTemplates[*(std::string*)((*itor)->getUserdata())];
 			gSavedSettings.setWarning(alert_temp->mIgnoreLabel, TRUE);
 		}
 	}

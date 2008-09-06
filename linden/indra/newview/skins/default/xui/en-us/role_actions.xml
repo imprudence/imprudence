@@ -181,4 +181,17 @@
 		     longdescription="Members in a Role with this Ability can vote on proposals in Group Information &gt; Proposals tab."
 		     name="proposal vote" value="45" />
 	</action_set>
+	<action_set
+	     description="These Abilities include powers to allow or restrict access to group chat sessions and group voice chat." 
+	     name="Chat">
+		<action description="Join Group Chat"
+		     longdescription="Members in a Role with this Ability can join group chat sessions, for text and voice."
+		     name="join group chat" value="16" />
+		<action description="Join Group Voice Chat"
+		     longdescription="Members in a Role with this Ability can join group voice chat sessions.  NOTE: The Join Group Chat ability is required to access the voice chat session."
+		     name="join voice chat" value="27" />	
+		<action description="Moderate Group Chat"
+		     longdescription="Members in a Role with this Ability can control access and participation in group voice and text chat sessions."
+		     name="moderate group chat" value="37" />
+	</action_set>
 </role_actions>

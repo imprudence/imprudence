@@ -224,7 +224,11 @@ protected:
 			mEaseOutStopTime(0.f), 
 			mUseTargetOffset(FALSE),
 			mConstraintType(TYPE_POINT),
-			mConstraintTargetType(TYPE_BODY) {};
+			mConstraintTargetType(TYPE_BODY),
+			mSourceConstraintVolume(0),
+			mTargetConstraintVolume(0),
+			mJointStateIndices(NULL)
+		{ };
 		~JointConstraintSharedData() { delete [] mJointStateIndices; }
 
 		S32						mSourceConstraintVolume;
@@ -416,6 +420,10 @@ public:
 		typedef std::list<JointConstraintSharedData*> constraint_list_t;
 		constraint_list_t		mConstraints;
 		LLBBoxLocal				mPelvisBBox;
+		// mEmoteName is a facial motion, but it's necessary to appear here so that it's cached.
+		// TODO: LLKeyframeDataCache::getKeyframeData should probably return a class containing 
+		// JointMotionList and mEmoteName, see LLKeyframeMotion::onInitialize.
+		std::string				mEmoteName; 
 	public:
 		JointMotionList();
 		~JointMotionList();
@@ -435,7 +443,6 @@ protected:
 	std::vector<LLPointer<LLJointState> > mJointStates;
 	LLJoint*						mPelvisp;
 	LLCharacter*					mCharacter;
-	std::string						mEmoteName;
 	typedef std::list<JointConstraint*>	constraint_list_t;
 	constraint_list_t				mConstraints;
 	U32								mLastSkeletonSerialNum;

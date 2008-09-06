@@ -126,6 +126,9 @@ const S32 LSL_PRIM_SCULPT_TYPE_SPHERE   = 1;
 const S32 LSL_PRIM_SCULPT_TYPE_TORUS    = 2;
 const S32 LSL_PRIM_SCULPT_TYPE_PLANE    = 3;
 const S32 LSL_PRIM_SCULPT_TYPE_CYLINDER = 4;
+const S32 LSL_PRIM_SCULPT_TYPE_MASK     = 7;
+const S32 LSL_PRIM_SCULPT_FLAG_INVERT   = 64;
+const S32 LSL_PRIM_SCULPT_FLAG_MIRROR   = 128;
 
 const S32 LSL_ALL_SIDES				= -1;
 const S32 LSL_LINK_ROOT				= 1;
@@ -180,5 +183,8 @@ const S32 OBJECT_VELOCITY = 5;
 const S32 OBJECT_OWNER = 6;
 const S32 OBJECT_GROUP = 7;
 const S32 OBJECT_CREATOR = 8;
+
+// llTextBox() magic token string - yes this is a hack.  sue me.
+const std::string TEXTBOX_MAGIC_TOKEN = "!!llTextBox!!";
 
 #endif

@@ -136,7 +136,7 @@ void LLHoverView::updateHover(LLTool* current_tool)
 			}
 			else if (mStartHoverTimer.getElapsedTimeF32() > DELAY_BEFORE_SHOW_TIP)
 			{
-				gViewerWindow->hitObjectOrLandGlobalAsync(gViewerWindow->getCurrentMouseX(),
+				gViewerWindow->pickAsync(gViewerWindow->getCurrentMouseX(),
 													 gViewerWindow->getCurrentMouseY(), 0, pickCallback );
 			}
 		}
@@ -148,16 +148,16 @@ void LLHoverView::updateHover(LLTool* current_tool)
 
 }
 
-void LLHoverView::pickCallback(S32 x, S32 y, MASK mask)
+void LLHoverView::pickCallback(const LLPickInfo& pick_info)
 {
-	LLViewerObject* hit_obj = gViewerWindow->lastObjectHit();
+	LLViewerObject* hit_obj = pick_info.getObject();
 
 	if (hit_obj)
 	{
 		gHoverView->setHoverActive(TRUE);
 		LLSelectMgr::getInstance()->setHoverObject(hit_obj);
 		gHoverView->mLastHoverObject = hit_obj;
-		gHoverView->mHoverOffset = gViewerWindow->lastObjectHitOffset();
+		gHoverView->mHoverOffset = pick_info.mObjectOffset;
 	}
 	else
 	{
@@ -165,10 +165,10 @@ void LLHoverView::pickCallback(S32 x, S32 y, MASK mask)
 	}
 
 	// We didn't hit an object, but we did hit land.
-	if (!hit_obj && gLastHitPosGlobal != LLVector3d::zero)
+	if (!hit_obj && pick_info.mPosGlobal != LLVector3d::zero)
 	{
 		gHoverView->setHoverActive(TRUE);
-		gHoverView->mHoverLandGlobal = gLastHitPosGlobal;
+		gHoverView->mHoverLandGlobal = pick_info.mPosGlobal;
 		LLViewerParcelMgr::getInstance()->requestHoverParcelProperties( gHoverView->mHoverLandGlobal );
 	}
 	else
@@ -413,7 +413,7 @@ void LLHoverView::updateText()
 					}
 					else if (for_sale)
 					{
-						LLString::format_map_t args;
+						LLStringUtil::format_map_t args;
 						args["[AMOUNT]"] = llformat("%d", nodep->mSaleInfo.getSalePrice());
 						line.append(LLTrans::getString("TooltipForSaleL$", args));
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
@@ -426,7 +426,7 @@ void LLHoverView::updateText()
 				}
 				else
 				{
-					LLString::format_map_t args;
+					LLStringUtil::format_map_t args;
 					args["[MESSAGE]"] = LLTrans::getString("RetrievingData");
 					line.append(LLTrans::getString("TooltipForSaleMsg", args));
 				}
@@ -588,7 +588,7 @@ void LLHoverView::updateText()
 		*/
 		if (hover_parcel && hover_parcel->getParcelFlag(PF_FOR_SALE))
 		{
-			LLString::format_map_t args;
+			LLStringUtil::format_map_t args;
 			args["[AMOUNT]"] = llformat("%d", hover_parcel->getSalePrice());
 			line = LLTrans::getString("TooltipForSaleL$", args);
 			mText.push_back(line);
@@ -635,8 +635,7 @@ void LLHoverView::draw()
 			}
 			else
 			{
-				LLVector3 local_offset((F32)mHoverOffset.mdV[VX], (F32)mHoverOffset.mdV[VY], (F32)mHoverOffset.mdV[VZ]);
-				gAgent.setLookAt(LOOKAT_TARGET_HOVER, getLastHoverObject(), local_offset);
+				gAgent.setLookAt(LOOKAT_TARGET_HOVER, getLastHoverObject(), mHoverOffset);
 			}
 		}
 	}

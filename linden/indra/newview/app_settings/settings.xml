@@ -23,6 +23,22 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>UserChatColor</key>
+        <map>
+        <key>Comment</key>
+            <string>Color of your chat messages</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>Color4</string>
+        <key>Value</key>
+            <array>
+                <real>0.0196078431372</real>
+                <real>0.6862745098039</real>
+                <real>0.9803921568627</real>
+                <real>1</real>
+            </array>
+        </map>
     <key>AgentChatColor</key>
     <map>
       <key>Comment</key>
@@ -670,6 +686,17 @@
       <key>Value</key>
       <string>http://www.secondlife.com</string>
     </map>
+    <key>BlockAvatarAppearanceMessages</key>
+        <map>
+        <key>Comment</key>
+            <string>Ignore's appearance messages (for simulating Ruth)</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>Boolean</string>
+        <key>Value</key>
+            <integer>0</integer>
+        </map>
     <key>BrowserProxyAddress</key>
     <map>
       <key>Comment</key>
@@ -888,7 +915,7 @@
       <key>Type</key>
       <string>S32</string>
       <key>Value</key>
-      <integer>3</integer>
+      <integer>8</integer>
     </map>
     <key>ButtonFlashRate</key>
     <map>
@@ -899,7 +926,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>2.0</real>
+      <real>1.25</real>
     </map>
     <key>ButtonHPad</key>
     <map>
@@ -1131,7 +1158,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>15.0</real>
+      <real>20.0</real>
     </map>
     <key>ChatShowTimestamps</key>
     <map>
@@ -1864,7 +1891,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>0.40000000596</real>
+      <real>0.700</real>
     </map>
     <key>ConsoleBufferSize</key>
     <map>
@@ -2594,7 +2621,7 @@
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>speaker_name</string>
+      <string>speaking_status</string>
     </map>
     <key>FloaterAdvancedSkyRect</key>
     <map>
@@ -4126,6 +4153,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>LSLFindCaseInsensitivity</key>
+        <map>
+        <key>Comment</key>
+            <string>Use case insensitivity when searching in LSL editor</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>Boolean</string>
+        <key>Value</key>
+            <integer>0</integer>
+        </map>
     <key>LSLHelpRect</key>
     <map>
       <key>Comment</key>
@@ -4175,6 +4213,17 @@
       <key>Value</key>
       <string>default</string>
     </map>
+    <key>LanguageIsPublic</key>
+        <map>
+        <key>Comment</key>
+            <string>Let other residents see our language information</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>Boolean</string>
+        <key>Value</key>
+            <integer>1</integer>
+        </map>
     <key>LastFeatureVersion</key>
     <map>
       <key>Comment</key>
@@ -4439,6 +4488,17 @@
       <key>Value</key>
       <real>20.0</real>
     </map>
+    <key>MainloopTimeoutDefault</key>
+        <map>
+        <key>Comment</key>
+            <string>Timeout duration for mainloop lock detection, in seconds.</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>F32</string>
+        <key>Value</key>
+            <real>10.0</real>
+        </map>
     <key>MapOverlayIndex</key>
     <map>
       <key>Comment</key>
@@ -4460,17 +4520,6 @@
       <string>F32</string>
       <key>Value</key>
       <real>128.0</real>
-    </map>
-    <key>MapShowClassifieds</key>
-    <map>
-      <key>Comment</key>
-      <string>Show locations associated with classified ads on world map</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
     </map>
     <key>MapShowEvents</key>
     <map>
@@ -4911,17 +4960,6 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>NoQuickTime</key>
-    <map>
-      <key>Comment</key>
-      <string>Disable quicktime playback.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
     <key>NoVerifySSLCert</key>
     <map>
       <key>Comment</key>
@@ -5025,10 +5063,10 @@
       <string>Color4</string>
       <key>Value</key>
       <array>
-        <real>0.699999988079</real>
-        <real>0.899999976158</real>
-        <real>0.699999988079</real>
-        <real>1.0</real>
+        <real>1</real>
+        <real>0.5</real>
+        <real>0.0</real>
+        <real>1</real>
       </array>
     </map>
     <key>OpenDebugStatAdvanced</key>
@@ -5216,6 +5254,28 @@
       <string>F32</string>
       <key>Value</key>
       <real>0.34999999404</real>
+    </map>
+    <key>PicksPerSecondMouseMoving</key>
+    <map>
+      <key>Comment</key>
+      <string>How often to perform hover picks while the mouse is moving (picks per second)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>5.0</real>
+    </map>
+    <key>PicksPerSecondMouseStationary</key>
+    <map>
+      <key>Comment</key>
+      <string>How often to perform hover picks while the mouse is stationary (picks per second)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>0.0</real>
     </map>
     <key>PieMenuLineWidth</key>
     <map>
@@ -5569,6 +5629,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>LandBrushForce</key>
+        <map>
+        <key>Comment</key>
+            <string>Multiplier for land modification brush force.</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>F32</string>
+        <key>Value</key>
+            <real>1.0</real>
+        </map>
     <key>RecentItemsSortOrder</key>
     <map>
       <key>Comment</key>
@@ -5635,6 +5706,28 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>RenderAttachedLights</key>
+        <map>
+        <key>Comment</key>
+            <string>Render lighted prims that are attached to avatars</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>Boolean</string>
+        <key>Value</key>
+            <integer>1</integer>
+        </map>
+    <key>RenderAttachedParticles</key>
+        <map>
+        <key>Comment</key>
+            <string>Render particle systems that are attached to avatars</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>Boolean</string>
+        <key>Value</key>
+            <integer>1</integer>
+        </map> 
     <key>RenderAvatarCloth</key>
     <map>
       <key>Comment</key>
@@ -5721,7 +5814,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>0</integer>
+      <integer>1</integer>
     </map>
     <key>RenderDebugPipeline</key>
     <map>
@@ -6792,17 +6885,6 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>ShowDepthBuffer</key>
-    <map>
-      <key>Comment</key>
-      <string>Show depth buffer contents</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
     <key>ShowDirectory</key>
     <map>
       <key>Comment</key>
@@ -6968,12 +7050,23 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>ShowInInventory</key>
+        <map>
+        <key>Comment</key>
+            <string>Automatically opens inventory to show accepted objects</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>Boolean</string>
+        <key>Value</key>
+            <integer>1</integer>
+        </map>
     <key>ShowObjectUpdates</key>
     <map>
       <key>Comment</key>
       <string>Show when update messages are received for individual objects</string>
       <key>Persist</key>
-      <integer>1</integer>
+      <integer>0</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
@@ -7089,7 +7182,18 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>ShowVoiceChannelPopup</key>
+	<key>ShowTutorial</key>
+	<map>
+		<key>Comment</key>
+		<string>Show tutorial window on login</string>
+		<key>Persist</key>
+		<integer>1</integer>
+		<key>Type</key>
+		<string>Boolean</string>
+		<key>Value</key>
+		<integer>0</integer>
+	</map>
+	<key>ShowVoiceChannelPopup</key>
     <map>
       <key>Comment</key>
       <string>Controls visibility of the current voice channel popup above the voice tab</string>
@@ -7305,6 +7409,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>SnapshotFormat</key>
+    <map>
+      <key>Comment</key>
+      <string>Save snapshots in this format (0 = PNG, 1 = JPEG, 2 = BMP)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>  
     <key>SnapshotLocalLastResolution</key>
     <map>
       <key>Comment</key>
@@ -9935,7 +10050,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>0</integer>
+      <integer>1</integer>
     </map>
     <key>WaterEditPresets</key>
     <map>

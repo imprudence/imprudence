@@ -98,8 +98,8 @@ BOOL LLPanelPermissions::postBuild()
 	
 	this->childSetCommitCallback("checkbox for sale",LLPanelPermissions::onCommitSaleInfo,this);
 
-	this->childSetCommitCallback("EdCost",LLPanelPermissions::onCommitSaleInfo,this);
-	this->childSetPrevalidate("EdCost",LLLineEditor::prevalidateNonNegativeS32);
+	this->childSetCommitCallback("Edit Cost",LLPanelPermissions::onCommitSaleInfo,this);
+	this->childSetPrevalidate("Edit Cost",LLLineEditor::prevalidateNonNegativeS32);
 
 	this->childSetCommitCallback("sale type",LLPanelPermissions::onCommitSaleType,this);
 	
@@ -135,7 +135,7 @@ void LLPanelPermissions::refresh()
 	LLButton*	BtnDeedToGroup = getChild<LLButton>("button deed");
 	if(BtnDeedToGroup)
 	{	
-		LLString deedText;
+		std::string deedText;
 		if (gSavedSettings.getWarning("DeedObject"))
 		{
 			deedText = getString("text deed continued");
@@ -165,33 +165,33 @@ void LLPanelPermissions::refresh()
 	{
 		// ...nothing selected
 		childSetEnabled("perm_modify",false);
-		childSetText("perm_modify",LLString::null);
+		childSetText("perm_modify",LLStringUtil::null);
 
 		childSetEnabled("Creator:",false);
-		childSetText("Creator Name",LLString::null);
+		childSetText("Creator Name",LLStringUtil::null);
 		childSetEnabled("Creator Name",false);
 		childSetEnabled("button creator profile",false);
 
 		childSetEnabled("Owner:",false);
-		childSetText("Owner Name",LLString::null);
+		childSetText("Owner Name",LLStringUtil::null);
 		childSetEnabled("Owner Name",false);
 		childSetEnabled("button owner profile",false);
 
 		childSetEnabled("Group:",false);
-		childSetText("Group Name",LLString::null);
+		childSetText("Group Name",LLStringUtil::null);
 		childSetEnabled("Group Name",false);
 		childSetEnabled("button set group",false);
 
-		childSetText("Object Name",LLString::null);
+		childSetText("Object Name",LLStringUtil::null);
 		childSetEnabled("Object Name",false);
 		childSetEnabled("Name:",false);
-		childSetText("Group Name",LLString::null);
+		childSetText("Group Name",LLStringUtil::null);
 		childSetEnabled("Group Name",false);
 		childSetEnabled("Description:",false);
-		childSetText("Object Description",LLString::null);
+		childSetText("Object Description",LLStringUtil::null);
 		childSetEnabled("Object Description",false);
  
-		childSetText("prim info",LLString::null);
+		childSetText("prim info",LLStringUtil::null);
 		childSetEnabled("prim info",false);
 
 		childSetEnabled("Permissions:",false);
@@ -229,9 +229,10 @@ void LLPanelPermissions::refresh()
 			RadioSaleType->setEnabled(FALSE);
 		}
 		
-		childSetEnabled("Price:  L$",false);
-		childSetText("EdCost",LLString::null);
-		childSetEnabled("EdCost",false);
+		childSetEnabled("Cost",false);
+		childSetText("Cost",getString("Cost Default"));
+		childSetText("Edit Cost",LLStringUtil::null);
+		childSetEnabled("Edit Cost",false);
 		
 		childSetEnabled("label click action",false);
 		LLComboBox*	ComboClickAction = getChild<LLComboBox>("clickaction");
@@ -259,7 +260,7 @@ void LLPanelPermissions::refresh()
 							|| LLSelectMgr::getInstance()->selectGetModify();
 	const LLView* keyboard_focus_view = gFocusMgr.getKeyboardFocus();
 	S32 string_index = 0;
-	LLString MODIFY_INFO_STRINGS[] =
+	std::string MODIFY_INFO_STRINGS[] =
 	{
 		getString("text modify info 1"),
 		getString("text modify info 2"),
@@ -282,7 +283,7 @@ void LLPanelPermissions::refresh()
 	// Update creator text field
 	childSetEnabled("Creator:",true);
 	BOOL creators_identical;
-	LLString creator_name;
+	std::string creator_name;
 	creators_identical = LLSelectMgr::getInstance()->selectGetCreator(mCreatorID,
 													  creator_name);
 
@@ -294,7 +295,7 @@ void LLPanelPermissions::refresh()
 	childSetEnabled("Owner:",true);
 
 	BOOL owners_identical;
-	LLString owner_name;
+	std::string owner_name;
 	owners_identical = LLSelectMgr::getInstance()->selectGetOwner(mOwnerID, owner_name);
 
 //	llinfos << "owners_identical " << (owners_identical ? "TRUE": "FALSE") << llendl;
@@ -308,7 +309,7 @@ void LLPanelPermissions::refresh()
 		else
 		{
 			// Display last owner if public
-			LLString last_owner_name;
+			std::string last_owner_name;
 			LLSelectMgr::getInstance()->selectGetLastOwner(mLastOwnerID, last_owner_name);
 
 			// It should never happen that the last owner is null and the owner
@@ -327,7 +328,7 @@ void LLPanelPermissions::refresh()
 
 	// update group text field
 	childSetEnabled("Group:",true);
-	childSetText("Group Name",LLString::null);
+	childSetText("Group Name",LLStringUtil::null);
 	LLUUID group_id;
 	BOOL groups_identical = LLSelectMgr::getInstance()->selectGetGroup(group_id);
 	if (groups_identical)
@@ -343,7 +344,7 @@ void LLPanelPermissions::refresh()
 		if(mLabelGroupName)
 		{
 			mLabelGroupName->setNameID(LLUUID::null, TRUE);
-			mLabelGroupName->refresh(LLUUID::null, "", "", TRUE);
+			mLabelGroupName->refresh(LLUUID::null, LLStringUtil::null, LLStringUtil::null, TRUE);
 			mLabelGroupName->setEnabled(FALSE);
 		}
 	}
@@ -392,16 +393,14 @@ void LLPanelPermissions::refresh()
 	S32 prim_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
 	S32 obj_count = LLSelectMgr::getInstance()->getSelection()->getRootObjectCount();
 
-	LLString object_info_string;
+	std::string object_info_string;
 	if (1 == obj_count)
 	{
 		object_info_string.assign("1 Object, ");
 	}
 	else
 	{
-		char buffer[MAX_STRING];		/*Flawfinder: ignore*/
-		snprintf(buffer, MAX_STRING, "%d Objects, ", obj_count);			/* Flawfinder: ignore */
-		object_info_string.assign(buffer);
+		object_info_string = llformat( "%d Objects, ", obj_count);
 	}
 	if (1 == prim_count)
 	{
@@ -409,63 +408,99 @@ void LLPanelPermissions::refresh()
 	}
 	else
 	{
-		char buffer[MAX_STRING];		/*Flawfinder: ignore*/
-		snprintf(buffer, MAX_STRING, "%d Primitives", prim_count);			/* Flawfinder: ignore */
+		std::string buffer;
+		buffer = llformat( "%d Primitives", prim_count);
 		object_info_string.append(buffer);
 	}
 	childSetText("prim info",object_info_string);
 	childSetEnabled("prim info",true);
 
-	S32 price;
-	BOOL is_for_sale = LLSelectMgr::getInstance()->selectIsForSale(price);
-	if (!is_for_sale)
-	{
-		price = DEFAULT_PRICE;
-	}
+	S32 total_sale_price = 0;
+	S32 individual_sale_price = 0;
+	BOOL is_for_sale_mixed = FALSE;
+	BOOL is_sale_price_mixed = FALSE;
+	U32 num_for_sale = FALSE;
+    LLSelectMgr::getInstance()->selectGetAggregateSaleInfo(num_for_sale,
+										   is_for_sale_mixed,
+										   is_sale_price_mixed,
+										   total_sale_price,
+										   individual_sale_price);
 
-	BOOL self_owned = (gAgent.getID() == mOwnerID);
-	BOOL group_owned = LLSelectMgr::getInstance()->selectIsGroupOwned() ;
-	BOOL public_owned = (mOwnerID.isNull() && !LLSelectMgr::getInstance()->selectIsGroupOwned());
-	BOOL can_transfer = LLSelectMgr::getInstance()->selectGetRootsTransfer();
-	BOOL can_copy = LLSelectMgr::getInstance()->selectGetRootsCopy();
+	const BOOL self_owned = (gAgent.getID() == mOwnerID);
+	const BOOL group_owned = LLSelectMgr::getInstance()->selectIsGroupOwned() ;
+	const BOOL public_owned = (mOwnerID.isNull() && !LLSelectMgr::getInstance()->selectIsGroupOwned());
+	const BOOL can_transfer = LLSelectMgr::getInstance()->selectGetRootsTransfer();
+	const BOOL can_copy = LLSelectMgr::getInstance()->selectGetRootsCopy();
 
 	if(!owners_identical)
 	{
-		childSetEnabled("Price:  L$",false);
-		childSetText("EdCost",LLString::null);
-		childSetEnabled("EdCost",false);
+		childSetEnabled("Cost",false);
+		childSetText("Edit Cost",LLStringUtil::null);
+		childSetEnabled("Edit Cost",false);
 	}
+	// You own these objects.
 	else if(self_owned || (group_owned && gAgent.hasPowerInGroup(group_id,GP_OBJECT_SET_SALE)))
 	{
-		LLLineEditor*	EditPrice = getChild<LLLineEditor>("EdCost");
-		if(keyboard_focus_view != EditPrice)
+		// If there are multiple items for sale then set text to PRICE PER UNIT.
+		if (num_for_sale > 1)
 		{
-			childSetText("EdCost",llformat("%d",price));
-		}
-		if(is_for_sale && is_one_object && can_transfer)
-		{
-			childSetEnabled("Price:  L$",true);
-			childSetEnabled("EdCost",true);
+			childSetText("Cost",getString("Cost Per Unit"));
 		}
 		else
 		{
-			childSetEnabled("Price:  L$",false);
-			childSetEnabled("EdCost",false);
+			childSetText("Cost",getString("Cost Default"));
 		}
+		
+		LLLineEditor *editPrice = getChild<LLLineEditor>("Edit Cost");
+		if(keyboard_focus_view != editPrice)
+		{
+			// If the sale price is mixed then set the cost to MIXED, otherwise
+			// set to the actual cost.
+			if (num_for_sale > 0 && is_for_sale_mixed)
+			{
+				childSetText("Edit Cost",getString("Sale Mixed"));
+			}
+			else if (num_for_sale > 0 && is_sale_price_mixed)
+			{
+				childSetText("Edit Cost",getString("Cost Mixed"));
+			}
+			else 
+			{
+				childSetText("Edit Cost",llformat("%d",individual_sale_price));
+			}
+		}
+		// The edit fields are only enabled if you can sell this object
+		// and the sale price is not mixed.
+		bool enable_edit = (num_for_sale && can_transfer) ? !is_for_sale_mixed : false;
+		childSetEnabled("Cost",enable_edit);
+		childSetEnabled("Edit Cost",enable_edit);
 	}
+	// Someone, not you, owns these objects.
 	else if(!public_owned)
 	{
-		// ...someone, not you, owns it
-		childSetEnabled("Price:  L$",false);
-		childSetText("EdCost",llformat("%d",price));
-		childSetEnabled("EdCost",false);
+		childSetEnabled("Cost",false);
+		childSetEnabled("Edit Cost",false);
+		
+		// Don't show a price if none of the items are for sale.
+		if (num_for_sale)
+			childSetText("Edit Cost",llformat("%d",total_sale_price));
+		else
+			childSetText("Edit Cost",LLStringUtil::null);
+
+		// If multiple items are for sale, set text to TOTAL PRICE.
+		if (num_for_sale > 1)
+			childSetText("Cost",getString("Cost Total"));
+		else
+			childSetText("Cost",getString("Cost Default"));
 	}
+	// This is a public object.
 	else
 	{
-		// ...public object
-		childSetEnabled("Price:  L$",false);
-		childSetText("EdCost",LLString::null);
-		childSetEnabled("EdCost",false);
+		childSetEnabled("Cost",false);
+		childSetText("Cost",getString("Cost Default"));
+		
+		childSetText("Edit Cost",LLStringUtil::null);
+		childSetEnabled("Edit Cost",false);
 	}
 
 	// Enable and disable the permissions checkboxes
@@ -601,8 +636,11 @@ void LLPanelPermissions::refresh()
 
 	if (has_change_sale_ability && (owner_mask_on & PERM_TRANSFER))
 	{
-		childSetEnabled("checkbox for sale", can_transfer || (!can_transfer && is_for_sale));
-		childSetEnabled("sale type",is_for_sale && can_transfer);
+		childSetEnabled("checkbox for sale", can_transfer || (!can_transfer && num_for_sale));
+		// Set the checkbox to tentative if the prices of each object selected
+		// are not the same.
+		childSetTentative("checkbox for sale", is_for_sale_mixed);
+		childSetEnabled("sale type",num_for_sale && can_transfer && !is_sale_price_mixed);
 
 		childSetEnabled("Next owner can:", TRUE);
 		childSetEnabled("checkbox next owner can modify",base_mask_on & PERM_MODIFY);
@@ -744,21 +782,23 @@ void LLPanelPermissions::refresh()
 		if (valid_sale_info)
 		{
 			RadioSaleType->setSelectedIndex((S32)sale_type - 1);
+			RadioSaleType->setTentative(FALSE); // unfortunately this doesn't do anything at the moment.
 		}
 		else
 		{
 			// default option is sell copy, determined to be safest
 			RadioSaleType->setSelectedIndex((S32)LLSaleInfo::FS_COPY - 1);
+			RadioSaleType->setTentative(TRUE); // unfortunately this doesn't do anything at the moment.
 		}
 	}
 
-	childSetValue("checkbox for sale", is_for_sale);
+	childSetValue("checkbox for sale", num_for_sale != 0);
 
 	// HACK: There are some old objects in world that are set for sale,
 	// but are no-transfer.  We need to let users turn for-sale off, but only
 	// if for-sale is set.
 	bool cannot_actually_sell = !can_transfer || (!can_copy && sale_type == LLSaleInfo::FS_COPY);
-	if (is_for_sale && has_change_sale_ability && cannot_actually_sell)
+	if (num_for_sale && has_change_sale_ability && cannot_actually_sell)
 	{
 		childSetEnabled("checkbox for sale", true);
 	}
@@ -829,7 +869,7 @@ void LLPanelPermissions::onClickGroup(void* data)
 {
 	LLPanelPermissions* panelp = (LLPanelPermissions*)data;
 	LLUUID owner_id;
-	LLString name;
+	std::string name;
 	BOOL owners_identical = LLSelectMgr::getInstance()->selectGetOwner(owner_id, name);
 	LLFloater* parent_floater = gFloaterView->getParentFloater(panelp);
 
@@ -982,9 +1022,10 @@ void LLPanelPermissions::setAllSaleInfo()
 	llinfos << "LLPanelPermissions::setAllSaleInfo()" << llendl;
 	LLSaleInfo::EForSale sale_type = LLSaleInfo::FS_NOT;
 
-	LLCheckBoxCtrl*	mCheckPurchase = getChild<LLCheckBoxCtrl>("checkbox for sale");
-
-	if(mCheckPurchase && mCheckPurchase->get())
+	LLCheckBoxCtrl *checkPurchase = getChild<LLCheckBoxCtrl>("checkbox for sale");
+	
+	// Set the sale type if the object(s) are for sale.
+	if(checkPurchase && checkPurchase->get())
 	{
 		LLRadioGroup* RadioSaleType = getChild<LLRadioGroup>("sale type");
 		if(RadioSaleType)
@@ -1006,23 +1047,37 @@ void LLPanelPermissions::setAllSaleInfo()
 			}
 		}
 	}
-	LLLineEditor*	mEditPrice = getChild<LLLineEditor>("EdCost");
 
 	S32 price = -1;
-	if(mEditPrice)
+	
+	LLLineEditor *editPrice = getChild<LLLineEditor>("Edit Cost");
+	if (editPrice)
 	{
-		price = atoi(mEditPrice->getText().c_str());
+		// Don't extract the price if it's labeled as MIXED or is empty.
+		const std::string& editPriceString = editPrice->getText();
+		if (editPriceString != getString("Cost Mixed") &&
+			!editPriceString.empty())
+		{
+			price = atoi(editPriceString.c_str());
+		}
+		else
+		{
+			price = DEFAULT_PRICE;
+		}
 	}
-	// Invalid data - turn off the sale
+	// If somehow an invalid price, turn the sale off.
 	if (price < 0)
-	{
 		sale_type = LLSaleInfo::FS_NOT;
-		price = 0;
-	}
 
+	// Force the sale price of not-for-sale items to DEFAULT_PRICE.
+	if (sale_type == LLSaleInfo::FS_NOT)
+	{
+		price = DEFAULT_PRICE;
+	}
+	// Pack up the sale info and send the update.
 	LLSaleInfo sale_info(sale_type, price);
 	LLSelectMgr::getInstance()->selectionSetObjectSaleInfo(sale_info);
-
+	
 	// If turned off for-sale, make sure click-action buy is turned
 	// off as well
 	if (sale_type == LLSaleInfo::FS_NOT)

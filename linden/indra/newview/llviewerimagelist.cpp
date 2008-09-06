@@ -126,6 +126,14 @@ void LLViewerImageList::doPreloadImages()
 	LLUIImageList* image_list = LLUIImageList::getInstance();
 
 	image_list->initFromFile();
+	
+	// turn off clamping and bilinear filtering for uv picking images
+	//LLViewerImage* uv_test = preloadUIImage("uv_test1.tga", LLUUID::null, FALSE);
+	//uv_test->setClamp(FALSE, FALSE);
+	//uv_test->setMipFilterNearest(TRUE, TRUE);
+	//uv_test = preloadUIImage("uv_test2.tga", LLUUID::null, FALSE);
+	//uv_test->setClamp(FALSE, FALSE);
+	//uv_test->setMipFilterNearest(TRUE, TRUE);
 
 	// prefetch specific UUIDs
 	getImage(IMG_SHOT, TRUE);
@@ -181,7 +189,7 @@ void LLViewerImageList::doPrefetchImages()
 	LLSD imagelist;
 	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, get_texture_list_name());
 	llifstream file;
-	file.open(filename.c_str());
+	file.open(filename);
 	if (file.is_open())
 	{
 		LLSDSerialize::fromXML(imagelist, file);
@@ -206,7 +214,6 @@ void LLViewerImageList::doPrefetchImages()
 
 LLViewerImageList::~LLViewerImageList()
 {
-	llassert(mIRCallbackData.empty());
 }
 
 void LLViewerImageList::shutdown()
@@ -252,7 +259,7 @@ void LLViewerImageList::shutdown()
 	{
 		std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, get_texture_list_name());
 		llofstream file;
-		file.open(filename.c_str());
+		file.open(filename);
 		LLSDSerialize::toPrettyXML(imagelist, file);
 	}
 	
@@ -260,7 +267,6 @@ void LLViewerImageList::shutdown()
 	// Clean up "loaded" callbacks.
 	//
 	mCallbackList.clear();
-	mIRCallbackData.clear();
 	
 	// Flush all of the references
 	mLoadingStreamList.clear();
@@ -307,7 +313,7 @@ void LLViewerImageList::restoreGL()
 
 ///////////////////////////////////////////////////////////////////////////////
 
-LLViewerImage* LLViewerImageList::getImageFromFile(const LLString& filename,
+LLViewerImage* LLViewerImageList::getImageFromFile(const std::string& filename,
 												   BOOL usemipmaps,
 												   BOOL level_immediate,
 												   LLGLint internal_format,
@@ -336,7 +342,7 @@ LLViewerImage* LLViewerImageList::getImageFromFile(const LLString& filename,
 	}
 	else
 	{
-		new_id.generate(std::string(full_path));
+		new_id.generate(full_path);
 	}
 
 	LLPointer<LLViewerImage> imagep = hasImage(new_id);
@@ -452,7 +458,7 @@ void LLViewerImageList::addImage(LLViewerImage *new_image)
 	LLViewerImage *image = hasImage(image_id);
 	if (image)
 	{
-		llerrs << "Image with ID " << image_id << " already in list" << llendl;
+		llwarns << "Image with ID " << image_id << " already in list" << llendl;
 	}
 	sNumImages++;
 	
@@ -667,6 +673,7 @@ F32 LLViewerImageList::updateImagesFetchTextures(F32 max_time)
 		if(iter1 == mImageList.end())
 		{
 			llerrs << "DEV-12002: update_counter not calculated correctly!" << llendl;
+			return 0.f;
 		}
 
 		LLPointer<LLViewerImage> const & ptr = *iter1;
@@ -795,8 +802,8 @@ void LLViewerImageList::decodeAllImages(F32 max_time)
 }
 
 
-BOOL LLViewerImageList::createUploadFile(const LLString& filename,
-										 const LLString& out_filename,
+BOOL LLViewerImageList::createUploadFile(const std::string& filename,
+										 const std::string& out_filename,
 										 const U8 codec)
 {
 	// First, load the image.
@@ -1170,7 +1177,7 @@ void LLUIImageList::cleanUp()
 LLUIImagePtr LLUIImageList::getUIImageByID(const LLUUID& image_id)
 {
 	// use id as image name
-	LLString image_name = image_id.asString();
+	std::string image_name = image_id.asString();
 
 	// look for existing image
 	uuid_ui_image_map_t::iterator found_it = mUIImages.find(image_name);
@@ -1182,7 +1189,7 @@ LLUIImagePtr LLUIImageList::getUIImageByID(const LLUUID& image_id)
 	return loadUIImageByID(image_id);
 }
 
-LLUIImagePtr LLUIImageList::getUIImage(const LLString& image_name)
+LLUIImagePtr LLUIImageList::getUIImage(const std::string& image_name)
 {
 	// look for existing image
 	uuid_ui_image_map_t::iterator found_it = mUIImages.find(image_name);
@@ -1194,7 +1201,7 @@ LLUIImagePtr LLUIImageList::getUIImage(const LLString& image_name)
 	return loadUIImageByName(image_name, image_name);
 }
 
-LLUIImagePtr LLUIImageList::loadUIImageByName(const LLString& name, const LLString& filename, BOOL use_mips, const LLRect& scale_rect)
+LLUIImagePtr LLUIImageList::loadUIImageByName(const std::string& name, const std::string& filename, BOOL use_mips, const LLRect& scale_rect)
 {
 	LLViewerImage* imagep = gImageList.getImageFromFile(filename, MIPMAP_NO, IMMEDIATE_YES);
 	return loadUIImage(imagep, name, use_mips, scale_rect);
@@ -1206,7 +1213,7 @@ LLUIImagePtr LLUIImageList::loadUIImageByID(const LLUUID& id, BOOL use_mips, con
 	return loadUIImage(imagep, id.asString(), use_mips, scale_rect);
 }
 
-LLUIImagePtr LLUIImageList::loadUIImage(LLViewerImage* imagep, const LLString& name, BOOL use_mips, const LLRect& scale_rect)
+LLUIImagePtr LLUIImageList::loadUIImage(LLViewerImage* imagep, const std::string& name, BOOL use_mips, const LLRect& scale_rect)
 {
 	if (!imagep) return NULL;
 
@@ -1219,12 +1226,12 @@ LLUIImagePtr LLUIImageList::loadUIImage(LLViewerImage* imagep, const LLString& n
 	datap->mImageName = name;
 	datap->mImageScaleRegion = scale_rect;
 
-	imagep->setLoadedCallback(onUIImageLoaded, 0, FALSE, datap);
+	imagep->setLoadedCallback(onUIImageLoaded, 0, FALSE, FALSE, datap);
 
 	return new_imagep;
 }
 
-LLUIImagePtr LLUIImageList::preloadUIImage(const LLString& name, const LLString& filename, BOOL use_mips, const LLRect& scale_rect)
+LLUIImagePtr LLUIImageList::preloadUIImage(const std::string& name, const std::string& filename, BOOL use_mips, const LLRect& scale_rect)
 {
 	// look for existing image
 	uuid_ui_image_map_t::iterator found_it = mUIImages.find(name);
@@ -1245,7 +1252,7 @@ void LLUIImageList::onUIImageLoaded( BOOL success, LLViewerImage *src_vi, LLImag
 		return;
 	}
 
-	LLString ui_image_name ;
+	std::string ui_image_name ;
 	LLRect scale_rect ;
 	{
 		LLUIImageLoadData* image_datap = (LLUIImageLoadData*)user_data;
@@ -1345,10 +1352,10 @@ bool LLUIImageList::initFromFile()
 		LLXMLNodePtr child_nodep = root->getFirstChild();
 		while(child_nodep.notNull())
 		{
-			LLString image_name;
+			std::string image_name;
 			child_nodep->getAttributeString("name", image_name);
 
-			LLString file_name = image_name;
+			std::string file_name = image_name;
 			LLRect scale_rect;
 			BOOL use_mip_maps = FALSE;
 
@@ -1393,4 +1400,5 @@ bool LLUIImageList::initFromFile()
 	}
 	return true;
 }
+
 

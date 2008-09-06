@@ -45,19 +45,19 @@
 
 #if LL_LINUX
 # include <dlfcn.h>		// RTLD_LAZY
-# include <execinfo.h>            // backtrace - glibc only
-# ifndef LL_ELFBIN
-#  define LL_ELFBIN 1
-# endif // LL_ELFBIN
-# if LL_ELFBIN
-#  include <cxxabi.h>         // for symbol demangling
-#  include "ELFIO.h"          // for better backtraces
-# endif // LL_ELFBIN
+# include <execinfo.h>  // backtrace - glibc only
 #elif LL_SOLARIS
 # include <sys/types.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <ucontext.h>
+#endif
+
+#ifdef LL_ELFBIN
+# ifdef __GNUC__
+#  include <cxxabi.h>			// for symbol demangling
+# endif
+# include "ELFIO/ELFIO.h"		// for better backtraces
 #endif
 
 namespace
@@ -131,7 +131,7 @@ static inline BOOL do_basic_glibc_backtrace()
 
 	std::string strace_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
 	llinfos << "Opening stack trace file " << strace_filename << llendl;
-	LLFILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");
+	LLFILE* StraceFile = LLFile::fopen(strace_filename, "w");
 	if (!StraceFile)
 	{
 		llinfos << "Opening stack trace file " << strace_filename << " failed. Using stderr." << llendl;
@@ -162,7 +162,7 @@ static inline BOOL do_basic_glibc_backtrace()
 
 	std::string strace_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
 	llinfos << "Opening stack trace file " << strace_filename << llendl;
-	LLFILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");		// Flawfinder: ignore
+	LLFILE* StraceFile = LLFile::fopen(strace_filename, "w");		// Flawfinder: ignore
         if (!StraceFile)
 	{
 		llinfos << "Opening stack trace file " << strace_filename << " failed. Using stderr." << llendl;
@@ -200,7 +200,7 @@ static inline BOOL do_elfio_glibc_backtrace()
 
 	std::string strace_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
 	llinfos << "Opening stack trace file " << strace_filename << llendl;
-	LLFILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");		// Flawfinder: ignore
+	LLFILE* StraceFile = LLFile::fopen(strace_filename, "w");		// Flawfinder: ignore
         if (!StraceFile)
 	{
 		llinfos << "Opening stack trace file " << strace_filename << " failed. Using stderr." << llendl;
@@ -340,25 +340,25 @@ void LLAppViewerLinux::handleCrashReporting()
 	if (CRASH_BEHAVIOR_NEVER_SEND != cb)
 	{	
 		// launch the actual crash logger
-		char* ask_dialog = "-dialog";
+		const char* ask_dialog = "-dialog";
 		if (CRASH_BEHAVIOR_ASK != cb)
 			ask_dialog = ""; // omit '-dialog' option
 		std::string cmd =gDirUtilp->getAppRODataDir();
 		cmd += gDirUtilp->getDirDelimiter();
 		cmd += "linux-crash-logger.bin";
-		char* const cmdargv[] =
-			{(char*)cmd.c_str(),
+		const char * cmdargv[] =
+			{cmd.c_str(),
 			 ask_dialog,
-			 (char*)"-user",
+			 "-user",
 			 (char*)LLViewerLogin::getInstance()->getGridLabel().c_str(),
-			 (char*)"-name",
-			 (char*)LLAppViewer::instance()->getSecondLifeTitle().c_str(),
+			 "-name",
+			 LLAppViewer::instance()->getSecondLifeTitle().c_str(),
 			 NULL};
 		fflush(NULL);
 		pid_t pid = fork();
 		if (pid == 0)
 		{ // child
-			execv(cmd.c_str(), cmdargv);		/* Flawfinder: ignore */
+			execv(cmd.c_str(), (char* const*) cmdargv);		/* Flawfinder: ignore */
 			llwarns << "execv failure when trying to start " << cmd << llendl;
 			_exit(1); // avoid atexit()
 		} 
@@ -429,7 +429,7 @@ bool LLAppViewerLinux::initLogging()
 	// Remove the last stack trace, if any
 	std::string old_stack_file =
 		gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
-	LLFile::remove(old_stack_file.c_str());
+	LLFile::remove(old_stack_file);
 
 	return LLAppViewer::initLogging();
 }
@@ -448,14 +448,18 @@ bool LLAppViewerLinux::initParseCommandLine(LLCommandLineParser& clp)
 	{
 		if (success >= 2 && locale->lang) // confident!
 		{
+			LL_INFOS("AppInit") << "Language " << ll_safe_string(locale->lang) << LL_ENDL;
+			LL_INFOS("AppInit") << "Location " << ll_safe_string(locale->country) << LL_ENDL;
+			LL_INFOS("AppInit") << "Variant " << ll_safe_string(locale->variant) << LL_ENDL;
+
 			LLControlVariable* c = gSavedSettings.getControl("SystemLanguage");
 			if(c)
 			{
 				c->setValue(std::string(locale->lang), false);
 			}
 		}
-		FL_FreeLocale(&locale);
 	}
+	FL_FreeLocale(&locale);
 
 	return true;
 }

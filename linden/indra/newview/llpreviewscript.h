@@ -118,19 +118,20 @@ public:
 	void selectFirstError();
 
 	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	
+	void enableSave(BOOL b) {mEnableSave = b;}
 
 protected:
 	void deleteBridges();
-	void setHelpPage(const LLString& help_string);
+	void setHelpPage(const std::string& help_string);
 	void updateDynamicHelp(BOOL immediate = FALSE);
-	void addHelpItemToHistory(const LLString& help_string);
-
+	void addHelpItemToHistory(const std::string& help_string);
 	static void onErrorList(LLUICtrl*, void* user_data);
 
  	virtual const char *getTitleName() const { return "Script"; }
 
 private:
-	LLString		mSampleText;
+	std::string		mSampleText;
 	std::string		mHelpFile;
 	LLTextEditor*	mEditor;
 	void			(*mLoadCallback)(void* userdata);
@@ -147,6 +148,7 @@ private:
 	LLKeywordToken* mLastHelpToken;
 	LLFrameTimer	mLiveHelpTimer;
 	S32				mLiveHelpHistorySize;
+	BOOL			mEnableSave;
 };
 
 
@@ -184,8 +186,9 @@ protected:
 							   void* user_data, S32 status, LLExtStat ext_status);
 	static void onSaveComplete(const LLUUID& uuid, void* user_data, S32 status, LLExtStat ext_status);
 	static void onSaveBytecodeComplete(const LLUUID& asset_uuid, void* user_data, S32 status, LLExtStat ext_status);
+public:
 	static LLPreviewLSL* getInstance(const LLUUID& uuid);
-
+protected:
 	static void* createScriptEdPanel(void* userdata);
 
 
@@ -195,6 +198,7 @@ protected:
 	LLScriptEdCore* mScriptEd;
 	// Can safely close only after both text and bytecode are uploaded
 	S32 mPendingUploads;
+
 };
 
 
@@ -253,7 +257,7 @@ protected:
 	static void onRunningCheckboxClicked(LLUICtrl*, void* userdata);
 	static void onReset(void* userdata);
 
-	void loadScriptText(const char* filename);
+// 	void loadScriptText(const std::string& filename); // unused
 	void loadScriptText(LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type);
 
 	static void onErrorList(LLUICtrl*, void* user_data);
@@ -277,9 +281,15 @@ protected:
 	S32 mPendingUploads;
 
 	static LLMap<LLUUID, LLLiveLSLEditor*> sInstances;
-};
+	BOOL getIsModifiable() const { return mIsModifiable; } // Evaluated on load assert
+	
+private:
 
-// name of help file for lsl
-extern const char HELP_LSL[];
+	static void	onMonoCheckboxClicked(LLUICtrl*, void* userdata);
+	BOOL monoChecked() const;
+
+	LLCheckBoxCtrl*	mMonoCheckbox;
+	BOOL mIsModifiable;
+};
 
 #endif  // LL_LLPREVIEWSCRIPT_H

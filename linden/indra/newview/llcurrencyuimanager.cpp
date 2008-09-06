@@ -122,6 +122,7 @@ LLCurrencyUIManager::Impl::Impl(LLPanel& dialog)
 	mError(false),
 	mUserCurrencyBuy(1000), mUserEnteredCurrencyBuy(false),
 	mSiteCurrencyEstimated(false),
+	  mSiteCurrencyEstimatedCost(0),
 	mBought(false),
 	mTransactionType(TransactionNone), mTransaction(0),
 	mCurrencyChanged(false)
@@ -380,7 +381,7 @@ void LLCurrencyUIManager::Impl::updateUI()
 		{
 			if (!mZeroMessage.empty() && mUserCurrencyBuy == 0)
 			{
-				lindenAmount->setText(LLString::null);
+				lindenAmount->setText(LLStringUtil::null);
 			}
 			else
 			{
@@ -466,7 +467,7 @@ bool LLCurrencyUIManager::process()
 	return changed;
 }
 
-void LLCurrencyUIManager::buy(const LLString& buy_msg)
+void LLCurrencyUIManager::buy(const std::string& buy_msg)
 {
 	if (!canBuy())
 	{

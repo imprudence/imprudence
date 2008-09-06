@@ -70,7 +70,7 @@
 #include "pipeline.h"
 #include "lluictrlfactory.h"
 #include "llfeaturemanager.h"
-#include "llglslshader.h"
+#include "llviewershadermgr.h"
 #include "llfloaterhardwaresettings.h"
 #include "llboost.h"
 
@@ -338,7 +338,7 @@ void LLPanelDisplay::initWindowSizeControls()
 		U32 height_test = 0;
 		U32 width_test = 0;
 		mCtrlWindowSize->setCurrentByIndex(i);
-		if (extractWindowSizeFromString(mCtrlWindowSize->getValue().asString().c_str(), width_test, height_test))
+		if (extractWindowSizeFromString(mCtrlWindowSize->getValue().asString(), width_test, height_test))
 		{
 			if ((height_test == height) && (width_test == width))
 			{
@@ -448,11 +448,11 @@ void LLPanelDisplay::refreshEnabledState()
 	// Reflections
 	BOOL reflections = gSavedSettings.getBOOL("VertexShaderEnable") 
 		&& gGLManager.mHasCubeMap 
-		&& LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap");
+		&& LLCubeMap::sUseCubeMaps;
 	mCtrlReflections->setEnabled(reflections);
 	
 	// Bump & Shiny
-	bool bumpshiny = gGLManager.mHasCubeMap && LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap") && LLFeatureManager::getInstance()->isFeatureAvailable("RenderObjectBump");
+	bool bumpshiny = gGLManager.mHasCubeMap && LLCubeMap::sUseCubeMaps && LLFeatureManager::getInstance()->isFeatureAvailable("RenderObjectBump");
 	mCtrlBumpShiny->setEnabled(bumpshiny ? TRUE : FALSE);
 	
 	for (S32 i = 0; i < mRadioReflectionDetail->getItemCount(); ++i)
@@ -461,7 +461,7 @@ void LLPanelDisplay::refreshEnabledState()
 	}
 
 	// Avatar Mode
-	S32 max_avatar_shader = LLShaderMgr::sMaxAvatarShaderLevel;
+	S32 max_avatar_shader = LLViewerShaderMgr::instance()->mMaxAvatarShaderLevel;
 	mCtrlAvatarVP->setEnabled((max_avatar_shader > 0) ? TRUE : FALSE);
 	
 	if (gSavedSettings.getBOOL("VertexShaderEnable") == FALSE || 
@@ -756,6 +756,7 @@ void LLPanelDisplay::applyResolution()
 	char aspect_ratio_text[ASPECT_RATIO_STR_LEN];		/*Flawfinder: ignore*/
 	if (mCtrlAspectRatio->getCurrentIndex() == -1)
 	{
+		// *Can't pass const char* from c_str() into strtok
 		strncpy(aspect_ratio_text, mCtrlAspectRatio->getSimple().c_str(), sizeof(aspect_ratio_text) -1);	/*Flawfinder: ignore*/
 		aspect_ratio_text[sizeof(aspect_ratio_text) -1] = '\0';
 		char *element = strtok(aspect_ratio_text, ":/\\");
@@ -863,12 +864,12 @@ void LLPanelDisplay::applyResolution()
 }
 
 // Extract from strings of the form "<width> x <height>", e.g. "640 x 480".
-bool LLPanelDisplay::extractWindowSizeFromString(const char *sInput, U32 &width, U32 &height)
+bool LLPanelDisplay::extractWindowSizeFromString(const std::string& instr, U32 &width, U32 &height)
 {
 	using namespace boost;
 	cmatch what;
 	const regex expression("([0-9]+) x ([0-9]+)");
-	if (regex_match(sInput, what, expression))
+	if (regex_match(instr.c_str(), what, expression))
 	{
 		width = atoi(what[1].first);
 		height = atoi(what[2].first);
@@ -917,7 +918,7 @@ void LLPanelDisplay::onCommitAutoDetectAspect(LLUICtrl *ctrl, void *data)
 		gViewerWindow->mWindow->setNativeAspectRatio(0.f);
 		fractionFromDecimal(gViewerWindow->mWindow->getNativeAspectRatio(), numerator, denominator);
 
-		LLString aspect;
+		std::string aspect;
 		if (numerator != 0)
 		{
 			aspect = llformat("%d:%d", numerator, denominator);
@@ -997,15 +998,15 @@ void LLPanelDisplay::updateSliderText(LLUICtrl* ctrl, void* user_data)
 	// choose the right text
 	if(slider->getValueF32() < midPoint)
 	{
-		text_box->setText(LLString("Low"));
+		text_box->setText(std::string("Low"));
 	} 
 	else if (slider->getValueF32() < highPoint)
 	{
-		text_box->setText(LLString("Mid"));
+		text_box->setText(std::string("Mid"));
 	}
 	else
 	{
-		text_box->setText(LLString("High"));
+		text_box->setText(std::string("High"));
 	}
 }
 

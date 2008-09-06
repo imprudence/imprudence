@@ -71,7 +71,7 @@ S32 LLFloaterDirectory::sNewSearchCount = 0; // debug
 
 
 LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
-:	LLFloater(name, "FloaterFindRect2", ""),
+:	LLFloater(name, std::string("FloaterFindRect2"), LLStringUtil::null),
 	mMinimizing(false)
 {
 	sInstance = this;
@@ -249,7 +249,7 @@ void* LLFloaterDirectory::createGroupDetail(void* userdata)
 	self->mPanelGroupp = new LLPanelGroup("panel_group.xml",
 										  "PanelGroup",
 										  gAgent.getGroupID());
-	self->mPanelGroupp->setAllowEdit(FALSE);
+	self->mPanelGroupp->setAllowEdit(FALSE || gAgent.isGodlike()); // Gods can always edit panels
 	self->mPanelGroupp->setVisible(FALSE);
 	return self->mPanelGroupp;
 }
@@ -258,7 +258,7 @@ void* LLFloaterDirectory::createGroupDetail(void* userdata)
 void* LLFloaterDirectory::createGroupDetailHolder(void* userdata)
 {
 	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
-	self->mPanelGroupHolderp = new LLPanel("PanelGroupHolder");
+	self->mPanelGroupHolderp = new LLPanel(std::string("PanelGroupHolder"));
 	self->mPanelGroupHolderp->setVisible(FALSE);
 	return self->mPanelGroupHolderp;
 }
@@ -389,7 +389,7 @@ void LLFloaterDirectory::toggleFind(void*)
 #endif
 	if (!sInstance)
 	{
-		LLString panel = gSavedSettings.getString("LastFindPanel");
+		std::string panel = gSavedSettings.getString("LastFindPanel");
 		showPanel(panel);
 
 		// HACK: force query for today's events

@@ -111,7 +111,7 @@ void LLPanelDirPlaces::draw()
 // virtual
 void LLPanelDirPlaces::performQuery()
 {
-	LLString place_name = childGetValue("name").asString();
+	std::string place_name = childGetValue("name").asString();
 	if (place_name.length() < mMinSearchChars)
 	{
 		return;
@@ -119,7 +119,7 @@ void LLPanelDirPlaces::performQuery()
 
     // "hi " is three chars but not a long-enough search
 	std::string query_string = place_name;
-	LLString::trim( query_string );
+	LLStringUtil::trim( query_string );
 	bool query_was_filtered = (query_string != place_name);
 
 	// possible we threw away all the short words in the query so check length
@@ -132,12 +132,12 @@ void LLPanelDirPlaces::performQuery()
 	// if we filtered something out, display a popup
 	if ( query_was_filtered )
 	{
-		LLString::format_map_t args;
+		LLStringUtil::format_map_t args;
 		args["[FINALQUERY]"] = query_string;
 		gViewerWindow->alertXml("SeachFilteredOnShortWords", args);
 	};
 
-	LLString catstring = childGetValue("Category").asString();
+	std::string catstring = childGetValue("Category").asString();
 	
 	// Because LLParcel::C_ANY is -1, must do special check
 	S32 category = 0;
@@ -147,7 +147,7 @@ void LLPanelDirPlaces::performQuery()
 	}
 	else
 	{
-		category = LLParcel::getCategoryFromString(catstring.c_str());
+		category = LLParcel::getCategoryFromString(catstring);
 	}
 
 	BOOL pg_only = !gSavedSettings.getBOOL("ShowMatureSims") 
@@ -160,10 +160,10 @@ void LLPanelDirPlaces::initialQuery()
 {
 	// All Linden locations in PG/Mature sims, any name.
 	const BOOL pg_only = FALSE;
-	queryCore("", LLParcel::C_LINDEN, pg_only);
+	queryCore(LLStringUtil::null, LLParcel::C_LINDEN, pg_only);
 }
 
-void LLPanelDirPlaces::queryCore(const LLString& name, 
+void LLPanelDirPlaces::queryCore(const std::string& name, 
 								 S32 category, 
 								 BOOL pg_only)
 {

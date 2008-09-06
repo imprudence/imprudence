@@ -70,7 +70,7 @@ public:
 		LLPointer<LLVorbisDecodeState> mDecoder;
 	};
 	
-	LLVorbisDecodeState(const LLUUID &uuid, const LLString &out_filename);
+	LLVorbisDecodeState(const LLUUID &uuid, const std::string &out_filename);
 
 	BOOL initDecode();
 	BOOL decodeSection(); // Return TRUE if done.
@@ -93,7 +93,7 @@ protected:
 
 	std::vector<U8> mWAVBuffer;
 #if !defined(USE_WAV_VFILE)
-	LLString mOutFilename;
+	std::string mOutFilename;
 	LLLFSThread::handle_t mFileHandle;
 #endif
 	
@@ -166,7 +166,7 @@ long vfs_tell (void *datasource)
 	return file->tell();
 }
 
-LLVorbisDecodeState::LLVorbisDecodeState(const LLUUID &uuid, const LLString &out_filename)
+LLVorbisDecodeState::LLVorbisDecodeState(const LLUUID &uuid, const std::string &out_filename)
 {
 	mDone = FALSE;
 	mValid = FALSE;
@@ -386,7 +386,7 @@ BOOL LLVorbisDecodeState::finishDecode()
 		mWAVBuffer[7] = (data_length >> 24) & 0x000000FF;
 
 		//
-		// FUCK!!! Vorbis encode/decode messes up loop point transitions (pop)
+		// FUDGECAKES!!! Vorbis encode/decode messes up loop point transitions (pop)
 		// do a cheap-and-cheesy crossfade 
 		//
 		{
@@ -413,12 +413,12 @@ BOOL LLVorbisDecodeState::finishDecode()
 			if((WAV_HEADER_SIZE+(2 * fade_length)) < (S32)mWAVBuffer.size())
 			{
 				memcpy(&mWAVBuffer[WAV_HEADER_SIZE], pcmout, (2 * fade_length));	/*Flawfinder: ignore*/
-		    }
+			}
 			S32 near_end = mWAVBuffer.size() - (2 * fade_length);
 			if ((S32)mWAVBuffer.size() >= ( near_end + 2* fade_length))
 			{
 				memcpy(pcmout, &mWAVBuffer[near_end], (2 * fade_length));	/*Flawfinder: ignore*/
-		    }
+			}
 			llendianswizzle(&pcmout, 2, fade_length);
 
 			samplep = (S16 *)pcmout;
@@ -443,8 +443,8 @@ BOOL LLVorbisDecodeState::finishDecode()
 		}
 #if !defined(USE_WAV_VFILE)
 		mBytesRead = -1;
-		mFileHandle = LLLFSThread::sLocal->write(mOutFilename, &mWAVBuffer[0], 0, data_length,
-												 new WriteResponder(this));
+		mFileHandle = LLLFSThread::sLocal->write(mOutFilename, &mWAVBuffer[0], 0, mWAVBuffer.size(),
+							 new WriteResponder(this));
 #endif
 	}
 
@@ -583,14 +583,14 @@ void LLAudioDecodeMgr::Impl::processQueue(const F32 num_secs)
 
 				lldebugs << "Decoding " << uuid << " from audio queue!" << llendl;
 
-				char uuid_str[64];			/*Flawfinder: ignore*/
-				char d_path[LL_MAX_PATH];	/*Flawfinder: ignore*/
+				std::string uuid_str;
+				std::string d_path;
 
 				LLTimer timer;
 				timer.reset();
 
 				uuid.toString(uuid_str);
-				snprintf(d_path, LL_MAX_PATH, "%s.dsf", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str).c_str()); 	/* Flawfinder: ignore */
+				d_path = gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str) + ".dsf";
 
 				mCurrentDecodep = new LLVorbisDecodeState(uuid, d_path);
 				if (!mCurrentDecodep->initDecode())

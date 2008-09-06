@@ -86,8 +86,8 @@ public:
 	};
 	
 	LLFloater();
- 	LLFloater(const LLString& name); //simple constructor for data-driven initialization
-	LLFloater(	const LLString& name, const LLRect& rect, const LLString& title,
+ 	LLFloater(const std::string& name); //simple constructor for data-driven initialization
+	LLFloater(	const std::string& name, const LLRect& rect, const std::string& title,
 		BOOL resizable = FALSE,
 		S32 min_width = DEFAULT_MIN_WIDTH,
 		S32 min_height = DEFAULT_MIN_HEIGHT,
@@ -96,7 +96,7 @@ public:
 		BOOL close_btn = TRUE,
 		BOOL bordered = BORDER_NO);
 
-	LLFloater(	const LLString& name, const LLString& rect_control, const LLString& title,
+	LLFloater(	const std::string& name, const std::string& rect_control, const std::string& title,
 		BOOL resizable = FALSE,
 		S32 min_width = DEFAULT_MIN_WIDTH, 
 		S32 min_height = DEFAULT_MIN_HEIGHT,
@@ -119,7 +119,7 @@ public:
 
 	// Can be called multiple times to reset floater parameters.
 	// Deletes all children of the floater.
-	virtual void		initFloater(const LLString& title, BOOL resizable, 
+	virtual void		initFloater(const std::string& title, BOOL resizable, 
 						S32 min_width, S32 min_height, BOOL drag_on_left,
 						BOOL minimizable, BOOL close_btn);
 
@@ -142,17 +142,19 @@ public:
 
 	LLMultiFloater* getHost() { return (LLMultiFloater*)mHostHandle.get(); }
 
-	void			setTitle( const LLString& title );
-	const LLString&	getTitle() const;
-	void			setShortTitle( const LLString& short_title );
-	LLString		getShortTitle();
+	void			applyTitle();
+	const std::string&	getCurrentTitle() const;
+	void			setTitle( const std::string& title);
+	std::string		getTitle();
+	void			setShortTitle( const std::string& short_title );
+	std::string		getShortTitle();
 	void			setTitleVisible(bool visible);
 	virtual void	setMinimized(BOOL b);
 	void			moveResizeHandlesToFront();
 	void			addDependentFloater(LLFloater* dependent, BOOL reposition = TRUE);
 	void			addDependentFloater(LLHandle<LLFloater> dependent_handle, BOOL reposition = TRUE);
-	LLFloater*      getDependee() { return (LLFloater*)mDependeeHandle.get(); }
-	void            removeDependentFloater(LLFloater* dependent);
+	LLFloater*		getDependee() { return (LLFloater*)mDependeeHandle.get(); }
+	void		removeDependentFloater(LLFloater* dependent);
 	BOOL			isMinimized()					{ return mMinimized; }
 	BOOL			isFrontmost();
 	BOOL			isDependent()					{ return !mDependeeHandle.isDead(); }
@@ -221,8 +223,8 @@ protected:
 	virtual void	bringToFront(S32 x, S32 y);
 	virtual void	setVisibleAndFrontmost(BOOL take_focus=TRUE);    
 	
-	void            setExpandedRect(const LLRect& rect) { mExpandedRect = rect; } // size when not minimized
-    const LLRect&    getExpandedRect() const { return mExpandedRect; }
+	void		setExpandedRect(const LLRect& rect) { mExpandedRect = rect; } // size when not minimized
+	const LLRect&	getExpandedRect() const { return mExpandedRect; }
 
 	void			setAutoFocus(BOOL focus) { mAutoFocus = focus; } // whether to automatically take focus when opened
 	LLDragHandle*	getDragHandle() const { return mDragHandle; }
@@ -236,17 +238,19 @@ private:
 	void			createMinimizeButton();
 	void			updateButtons();
 	void			buildButtons();
+	BOOL			offerClickToButton(S32 x, S32 y, MASK mask, EFloaterButtons index);
 
 	LLRect			mExpandedRect;
 	LLDragHandle*	mDragHandle;
 	LLResizeBar*	mResizeBar[4];
-	LLResizeHandle* mResizeHandle[4];
+	LLResizeHandle*	mResizeHandle[4];
 	LLButton		*mMinimizeButton;
 	BOOL			mCanTearOff;
 	BOOL			mMinimized;
 	BOOL			mForeground;
 	LLHandle<LLFloater>	mDependeeHandle;
-	LLString		mShortTitle;
+	std::string		mTitle;
+	std::string		mShortTitle;
 
 	BOOL			mFirstLook;			// TRUE if the _next_ time this floater is visible will be the first time in the session that it is visible.
 
@@ -259,7 +263,7 @@ private:
 	typedef std::set<LLHandle<LLFloater> > handle_set_t;
 	typedef std::set<LLHandle<LLFloater> >::iterator handle_set_iter_t;
 	handle_set_t	mDependents;
-	bool            mDragOnLeft;
+	bool			mDragOnLeft;
 
 	BOOL			mButtonsEnabled[BUTTON_COUNT];
 	LLButton*		mButtons[BUTTON_COUNT];
@@ -272,11 +276,11 @@ private:
 
 	static LLMultiFloater* sHostp;
 	static BOOL		sEditModeEnabled;
-	static LLString	sButtonActiveImageNames[BUTTON_COUNT];
-	static LLString	sButtonInactiveImageNames[BUTTON_COUNT];
-	static LLString	sButtonPressedImageNames[BUTTON_COUNT];
-	static LLString	sButtonNames[BUTTON_COUNT];
-	static LLString	sButtonToolTips[BUTTON_COUNT];
+	static std::string	sButtonActiveImageNames[BUTTON_COUNT];
+	static std::string	sButtonInactiveImageNames[BUTTON_COUNT];
+	static std::string	sButtonPressedImageNames[BUTTON_COUNT];
+	static std::string	sButtonNames[BUTTON_COUNT];
+	static std::string	sButtonToolTips[BUTTON_COUNT];
 	typedef void (*click_callback)(void *);
 	static click_callback sButtonCallbacks[BUTTON_COUNT];
 
@@ -301,7 +305,7 @@ private:
 class LLFloaterView : public LLUICtrl
 {
 public:
-	LLFloaterView( const LLString& name, const LLRect& rect );
+	LLFloaterView( const std::string& name, const LLRect& rect );
 
 	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 	void reshapeFloater(S32 width, S32 height, BOOL called_from_parent, BOOL adjust_vertical);
@@ -361,9 +365,9 @@ class LLMultiFloater : public LLFloater
 public:
 	LLMultiFloater();
 	LLMultiFloater(LLTabContainer::TabPosition tab_pos);
-	LLMultiFloater(const LLString& name);
-	LLMultiFloater(const LLString& name, const LLRect& rect, LLTabContainer::TabPosition tab_pos = LLTabContainer::TOP, BOOL auto_resize = TRUE);
-	LLMultiFloater(const LLString& name, const LLString& rect_control, LLTabContainer::TabPosition tab_pos = LLTabContainer::TOP, BOOL auto_resize = TRUE);
+	LLMultiFloater(const std::string& name);
+	LLMultiFloater(const std::string& name, const LLRect& rect, LLTabContainer::TabPosition tab_pos = LLTabContainer::TOP, BOOL auto_resize = TRUE);
+	LLMultiFloater(const std::string& name, const std::string& rect_control, LLTabContainer::TabPosition tab_pos = LLTabContainer::TOP, BOOL auto_resize = TRUE);
 	virtual ~LLMultiFloater() {};
 
 	virtual BOOL postBuild();
@@ -387,8 +391,8 @@ public:
 	virtual void selectNextFloater();
 	virtual void selectPrevFloater();
 
-	virtual LLFloater* getActiveFloater();
-	virtual BOOL       isFloaterFlashing(LLFloater* floaterp);
+	virtual LLFloater*	getActiveFloater();
+	virtual BOOL		isFloaterFlashing(LLFloater* floaterp);
 	virtual S32			getFloaterCount();
 
 	virtual void setFloaterFlashing(LLFloater* floaterp, BOOL flashing);

@@ -71,7 +71,7 @@ class LLViewerImageList
 	friend class LLTextureView;
 	
 public:
-	static BOOL createUploadFile(const LLString& filename, const LLString& out_filename, const U8 codec);
+	static BOOL createUploadFile(const std::string& filename, const std::string& out_filename, const U8 codec);
 	static LLPointer<LLImageJ2C> convertToUploadFile(LLPointer<LLImageRaw> raw_image);
 	static void processImageNotInDatabase( LLMessageSystem *msg, void **user_data );
 	static S32 calcMaxTextureRAM();
@@ -96,7 +96,7 @@ public:
 									 LLHost request_from_host = LLHost()
 									 );
 	
-	LLViewerImage * getImageFromFile(const LLString& filename,
+	LLViewerImage * getImageFromFile(const std::string& filename,
 									 BOOL usemipmap = TRUE,
 									 BOOL level_immediate = FALSE,		// Get the requested level immediately upon creation.
 									 LLGLint internal_format = 0,
@@ -168,10 +168,6 @@ private:
 	// simply holds on to LLViewerImage references to stop them from being purged too soon
 	std::set<LLPointer<LLViewerImage> > mImagePreloads;
 
-	typedef std::vector<LLPointer<LLViewerImage> > callback_data_t;
-	typedef std::set< callback_data_t* > callback_data_list_t;
-	callback_data_list_t mIRCallbackData;
-
 	BOOL mUpdateStats;
 	S32	mMaxResidentTexMem;
 	LLFrameTimer mForceDecodeTimer;
@@ -197,28 +193,28 @@ class LLUIImageList : public LLImageProviderInterface, public LLSingleton<LLUIIm
 public:
 	// LLImageProviderInterface
 	LLUIImagePtr getUIImageByID(const LLUUID& id);
-	LLUIImagePtr getUIImage(const LLString& name);
+	LLUIImagePtr getUIImage(const std::string& name);
 	void cleanUp();
 
 	bool initFromFile();
 
-	LLUIImagePtr preloadUIImage(const LLString& name, const LLString& filename, BOOL use_mips, const LLRect& scale_rect);
+	LLUIImagePtr preloadUIImage(const std::string& name, const std::string& filename, BOOL use_mips, const LLRect& scale_rect);
 	
 	static void onUIImageLoaded( BOOL success, LLViewerImage *src_vi, LLImageRaw* src, LLImageRaw* src_aux, S32 discard_level, BOOL final, void* userdata );
 private:
-	LLUIImagePtr loadUIImageByName(const LLString& name, const LLString& filename, BOOL use_mips = FALSE, const LLRect& scale_rect = LLRect::null);
+	LLUIImagePtr loadUIImageByName(const std::string& name, const std::string& filename, BOOL use_mips = FALSE, const LLRect& scale_rect = LLRect::null);
 	LLUIImagePtr loadUIImageByID(const LLUUID& id, BOOL use_mips = FALSE, const LLRect& scale_rect = LLRect::null);
 
-	LLUIImagePtr loadUIImage(LLViewerImage* imagep, const LLString& name, BOOL use_mips = FALSE, const LLRect& scale_rect = LLRect::null);
+	LLUIImagePtr loadUIImage(LLViewerImage* imagep, const std::string& name, BOOL use_mips = FALSE, const LLRect& scale_rect = LLRect::null);
 
 
 	struct LLUIImageLoadData
 	{
-		LLString mImageName;
+		std::string mImageName;
 		LLRect mImageScaleRegion;
 	};
 
-	typedef std::map< LLString, LLPointer<LLUIImage> > uuid_ui_image_map_t;
+	typedef std::map< std::string, LLPointer<LLUIImage> > uuid_ui_image_map_t;
 	uuid_ui_image_map_t mUIImages;
 };
 

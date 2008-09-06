@@ -61,11 +61,11 @@ public:
 	F32 mLabelSpacing;
 	S32 mCenterOn;
 	BOOL mShowPercent;
-	void addStat(LLStat *statp, const char *label, const LLColor4 &color);
+	void addStat(LLStat *statp, const std::string& label, const LLColor4 &color);
 private:
 	LLStat *mStats[MAX_STATS];
 	LLColor4 mColors[MAX_STATS];
-	const char *mLabels[MAX_STATS];		/* Flawfinder: ignore */
+	std::string mLabels[MAX_STATS];
 	S32 mNumStats;
 };
 

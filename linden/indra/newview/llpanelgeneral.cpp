@@ -110,7 +110,7 @@ BOOL LLPanelGeneral::postBuild()
 {
 	childSetCommitCallback("fade_out_combobox", set_render_name_fade_out);
 
-	LLString region_name_prompt = getString("region_name_prompt");
+	std::string region_name_prompt = getString("region_name_prompt");
 
 
 	// location combobox

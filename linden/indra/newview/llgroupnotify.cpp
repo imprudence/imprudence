@@ -61,35 +61,36 @@ S32 LLGroupNotifyBox::sGroupNotifyBoxCount = 0;
 // LLGroupNotifyBox
 //---------------------------------------------------------------------------
 
-char* g_formatted_time(const time_t& the_time, char* buffer)
+static std::string g_formatted_time(const time_t& the_time)
 {
+	char buffer[30];		/*Flawfinder: ignore*/	
 	time_t t = the_time;
 	if (!t) time(&t);
-	LLString::copy(buffer, ctime(&t), 30);
+	LLStringUtil::copy(buffer, ctime(&t), 30);
 	buffer[24] = '\0';
-	return buffer;
+	return std::string(buffer);
 }
 
 // static
-LLGroupNotifyBox* LLGroupNotifyBox::show(const char* subject,
-							 const char* message,
-							 const char* from_name,
-							 const LLUUID& group_id,
-							 const U32& t,
-							 const bool& has_inventory,
-							 const char* inventory_name,
-							 LLOfferInfo* inventory_offer)
+LLGroupNotifyBox* LLGroupNotifyBox::show(const std::string& subject,
+										 const std::string& message,
+										 const std::string& from_name,
+										 const LLUUID& group_id,
+										 const U32& t,
+										 const bool& has_inventory,
+										 const std::string& inventory_name,
+										 LLOfferInfo* inventory_offer)
 {
 	// Get the group data
 	LLGroupData group_data;
 	if (!gAgent.getGroupData(group_id,group_data))
 	{
-		llwarns << "Group notice for unkown group: " << group_id << llendl;
+		llwarns << "Group notice for unknown group: " << group_id << llendl;
 		return NULL;
 	}
 
 	LLGroupNotifyBox* self;
-	self = new LLGroupNotifyBox(subject, message, from_name, group_id, group_data.mInsigniaID, group_data.mName.c_str(),t,has_inventory,inventory_name,inventory_offer);
+	self = new LLGroupNotifyBox(subject, message, from_name, group_id, group_data.mInsigniaID, group_data.mName,t,has_inventory,inventory_name,inventory_offer);
 	gNotifyBoxView->addChild(self);
 
 	// TODO: play a sound
@@ -112,17 +113,17 @@ bool is_openable(LLAssetType::EType type)
 	}
 }
 
-LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
-							 const char* message,
-							 const char* from_name,
-							 const LLUUID& group_id,
-							 const LLUUID& group_insignia,
-							 const char* group_name,
-							 const U32& t,
-							 const bool& has_inventory,
-							 const char* inventory_name,
-							 LLOfferInfo* inventory_offer)
-:	LLPanel("groupnotify", LLGroupNotifyBox::getGroupNotifyRect(), BORDER_YES),
+LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
+								   const std::string& message,
+								   const std::string& from_name,
+								   const LLUUID& group_id,
+								   const LLUUID& group_insignia,
+								   const std::string& group_name,
+								   const U32& t,
+								   const bool& has_inventory,
+								   const std::string& inventory_name,
+								   LLOfferInfo* inventory_offer)
+:	LLPanel(std::string("groupnotify"), LLGroupNotifyBox::getGroupNotifyRect(), BORDER_YES),
 	mAnimating(TRUE),
 	mTimer(),
 	mGroupID(group_id),
@@ -133,8 +134,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 
 	time_t timestamp = (time_t)t;
 
-	char time_buf[30];		/*Flawfinder: ignore*/	
-	g_formatted_time(timestamp, time_buf);
+	std::string time_buf = g_formatted_time(timestamp);
 
 	setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
 	setBackgroundVisible(TRUE);
@@ -162,7 +162,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	class NoticeText : public LLTextBox
 	{
 	public:
-		NoticeText(const LLString& name, const LLRect& rect, const LLString& text = LLString::null, const LLFontGL* font = NULL) 
+		NoticeText(const std::string& name, const LLRect& rect, const std::string& text = LLStringUtil::null, const LLFontGL* font = NULL) 
 			: LLTextBox(name, rect, text, font)
 		{
 			setHAlign(LLFontGL::RIGHT);
@@ -175,7 +175,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 
 
 	// Title
-	addChild(new NoticeText("title",LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),"Group Notice",LLFontGL::sSansSerifHuge));
+	addChild(new NoticeText(std::string("title"),LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),std::string("Group Notice"),LLFontGL::sSansSerifHuge));
 
 	y -= llfloor(1.5f*LINE_HEIGHT);
 
@@ -184,7 +184,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	std::stringstream from;
 	from << "Sent by " << from_name << ", " << group_name;
 
-	addChild(new NoticeText("group",LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),from.str().c_str(),LLFontGL::sSansSerif));
+	addChild(new NoticeText(std::string("group"),LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),from.str(),LLFontGL::sSansSerif));
 	
 	y -= (LINE_HEIGHT + VPAD);
 	x = HPAD + HPAD;
@@ -192,15 +192,15 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	// TODO: change this to be the group icon.
 	if (!group_insignia.isNull())
 	{
-		icon = new LLIconCtrl("icon",
+		icon = new LLIconCtrl(std::string("icon"),
 							  LLRect(x, y, x+ICON_WIDTH, y-ICON_WIDTH),
 							  group_insignia);
 	}
 	else
 	{
-		icon = new LLIconCtrl("icon",
+		icon = new LLIconCtrl(std::string("icon"),
 							  LLRect(x, y, x+ICON_WIDTH, y-ICON_WIDTH),
-							  "notify_box_icon.tga");
+							  std::string("notify_box_icon.tga"));
 	}
 
 	icon->setMouseOpaque(FALSE);
@@ -210,10 +210,10 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	// If we have inventory with this message, leave room for the name.
 	S32 box_bottom = BTN_TOP + (mHasInventory ? (LINE_HEIGHT + 2*VPAD) : 0);
 
-	text = new LLViewerTextEditor("box",
+	text = new LLViewerTextEditor(std::string("box"),
 		LLRect(x, y, RIGHT, box_bottom),
 		DB_GROUP_NOTICE_MSG_STR_LEN,
-		"",
+		LLStringUtil::null,
 		LLFontGL::sSansSerif,
 		FALSE);
 
@@ -224,14 +224,14 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	text->appendStyledText(time_buf,false,false,&datestyle);
 	// Sadly, our LLTextEditor can't handle both styled and unstyled text
 	// at the same time.  Hence this space must be styled. JC
-	text->appendColoredText(" ",false,false,LLColor4::grey4);
+	text->appendColoredText(std::string(" "),false,false,LLColor4::grey4);
 	text->appendColoredText(message,false,false,LLColor4::grey4);
 
 	LLColor4 semi_transparent(1.0f,1.0f,1.0f,0.8f);
 	text->setCursor(0,0);
 	text->setEnabled(FALSE);
 	text->setWordWrap(TRUE);
-	text->setTabStop(FALSE);
+	//text->setTabStop(FALSE); // was interfering with copy-and-paste
 	text->setTabsToNextField(TRUE);
 	text->setMouseOpaque(TRUE);
 	text->setBorderVisible(TRUE);
@@ -246,7 +246,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 
 	if (mHasInventory)
 	{
-			addChild(new NoticeText("subjecttitle",LLRect(x,y,x + LABEL_WIDTH,y - LINE_HEIGHT),"Attached: ",LLFontGL::sSansSerif));
+			addChild(new NoticeText(std::string("subjecttitle"),LLRect(x,y,x + LABEL_WIDTH,y - LINE_HEIGHT),std::string("Attached: "),LLFontGL::sSansSerif));
 
 			LLUIImagePtr item_icon = get_item_icon(mInventoryOffer->mType,
 													LLInventoryType::IT_TEXTURE,
@@ -257,7 +257,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 
 			std::stringstream ss;
 			ss << "        " << inventory_name;
-			LLTextBox *line = new LLTextBox("object_name",LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),ss.str().c_str(),LLFontGL::sSansSerif);
+			LLTextBox *line = new LLTextBox(std::string("object_name"),LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),ss.str(),LLFontGL::sSansSerif);
 			line->setEnabled(FALSE);
 			line->setBorderVisible(TRUE);
 			line->setDisabledColor(LLColor4::blue4);
@@ -266,7 +266,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 			line->setBackgroundColor( semi_transparent );
 			addChild(line);
 
-			icon = new LLIconCtrl("icon",
+			icon = new LLIconCtrl(std::string("icon"),
 									LLRect(x, y, x+16, y-16),
 									item_icon->getName());
 			icon->setMouseOpaque(FALSE);
@@ -274,15 +274,15 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	}
 
 	LLButton* btn;
-	btn = new LLButton("next",
+	btn = new LLButton(std::string("next"),
 				LLRect(getRect().getWidth()-26, BOTTOM_PAD + 20, getRect().getWidth()-2, BOTTOM_PAD),
-				"notify_next.png",
-				"notify_next.png",
-				"",
+				std::string("notify_next.png"),
+				std::string("notify_next.png"),
+				LLStringUtil::null,
 				onClickNext,
 				this,
 				LLFontGL::sSansSerif);
-	btn->setToolTip(LLString("Next")); // *TODO: Translate
+	btn->setToolTip(std::string("Next")); // *TODO: Translate
 	btn->setScaleImage(TRUE);
 	addChild(btn);
 	mNextBtn = btn;
@@ -297,7 +297,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 								btn_width,
 								BTN_HEIGHT);
 
-	btn = new LLButton("OK", btn_rect, "", onClickOk, this);
+	btn = new LLButton(std::string("OK"), btn_rect, LLStringUtil::null, onClickOk, this);
 	addChild(btn, -1);
 	setDefaultBtn(btn);
 
@@ -309,8 +309,8 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 								wide_btn_width,
 								BTN_HEIGHT);
 
-	btn = new LLButton("Group Notices", btn_rect, "", onClickGroupInfo, this);
-	btn->setToolTip(LLString("View past notices or opt-out of receiving these messages here.")); // TODO: Translate
+	btn = new LLButton(std::string("Group Notices"), btn_rect, LLStringUtil::null, onClickGroupInfo, this);
+	btn->setToolTip(std::string("View past notices or opt-out of receiving these messages here.")); // TODO: Translate
 	addChild(btn, -1);
 
 	if (mHasInventory && mInventoryOffer)
@@ -322,7 +322,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 									wide_btn_width,
 									BTN_HEIGHT);
 
-		LLString btn_lbl("");
+		std::string btn_lbl("");
 		if(is_openable(mInventoryOffer->mType))
 		{
 			btn_lbl = "Open Attachment";
@@ -331,7 +331,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 		{
 			btn_lbl = "Save Attachment";
 		}
-		mSaveInventoryBtn = new LLButton(btn_lbl, btn_rect, "", onClickSaveInventory, this);
+		mSaveInventoryBtn = new LLButton(btn_lbl, btn_rect, LLStringUtil::null, onClickSaveInventory, this);
 		mSaveInventoryBtn->setVisible(mHasInventory);
 		addChild(mSaveInventoryBtn);
 	}

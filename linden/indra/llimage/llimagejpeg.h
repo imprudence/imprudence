@@ -32,7 +32,7 @@
 #ifndef LL_LLIMAGEJPEG_H
 #define LL_LLIMAGEJPEG_H
 
-#include <setjmp.h>
+#include <csetjmp>
 
 #include "llimage.h"
 
@@ -52,8 +52,9 @@ protected:
 	virtual ~LLImageJPEG();
 	
 public:
-	LLImageJPEG();
+	LLImageJPEG(S32 quality = 75);
 
+	/*virtual*/ std::string getExtension() { return std::string("jpg"); }
 	/*virtual*/ BOOL updateData();
 	/*virtual*/ BOOL decode(LLImageRaw* raw_image, F32 decode_time);
 	/*virtual*/ BOOL encode(const LLImageRaw* raw_image, F32 encode_time);
@@ -83,8 +84,8 @@ protected:
 	S32				mOutputBufferSize;	// bytes in mOuputBuffer
 
 	S32				mEncodeQuality;		// on a scale from 1 to 100
-
-	jmp_buf			mSetjmpBuffer;		// To allow the library to abort.
+private:
+	static jmp_buf	sSetjmpBuffer;		// To allow the library to abort.
 };
 
 #endif  // LL_LLIMAGEJPEG_H

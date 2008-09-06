@@ -77,7 +77,7 @@ public:
 	
 protected:
 	void initWindowSizeControls();
-	bool extractWindowSizeFromString(const char *sInput, U32 &width, U32 &height);
+	bool extractWindowSizeFromString(const std::string& instr, U32 &width, U32 &height);
 	
 	// aspect ratio sliders and boxes
 	LLComboBox		*mCtrlFullScreen;               // Fullscreen resolution

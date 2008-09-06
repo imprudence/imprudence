@@ -45,15 +45,13 @@
 #include "llviewerregion.h"
 #include "noise.h"
 #include "pipeline.h"
-#include "llglslshader.h"
+#include "llviewershadermgr.h"
 #include "llappviewer.h"
 
 static U32 sDataMask = LLDrawPoolAvatar::VERTEX_DATA_MASK;
 static U32 sBufferUsage = GL_STREAM_DRAW_ARB;
 static U32 sShaderLevel = 0;
 static LLGLSLShader* sVertexProgram = NULL;
-
-extern BOOL gUseGLPick;
 
 F32 CLOTHING_GRAVITY_EFFECT = 0.7f;
 F32 CLOTHING_ACCEL_FORCE_FACTOR = 0.2f;
@@ -106,13 +104,12 @@ BOOL gRenderAvatar = TRUE;
 
 S32 LLDrawPoolAvatar::getVertexShaderLevel() const
 {
-	return sShaderLevel;
-	//return (S32) LLShaderMgr::getVertexShaderLevel(LLShaderMgr::SHADER_AVATAR);
+	return (S32) LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_AVATAR);
 }
 
 void LLDrawPoolAvatar::prerender()
 {
-	mVertexShaderLevel = LLShaderMgr::getVertexShaderLevel(LLShaderMgr::SHADER_AVATAR);
+	mVertexShaderLevel = LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_AVATAR);
 	sShaderLevel = mVertexShaderLevel;
 	
 	if (sShaderLevel > 0)
@@ -289,16 +286,16 @@ void LLDrawPoolAvatar::beginSkinned()
 		sVertexProgram->bind();
 		if (sShaderLevel >= SHADER_LEVEL_CLOTH)
 		{
-			enable_cloth_weights(sVertexProgram->mAttribute[LLShaderMgr::AVATAR_CLOTHING]);
+			enable_cloth_weights(sVertexProgram->mAttribute[LLViewerShaderMgr::AVATAR_CLOTHING]);
 		}
-		enable_vertex_weighting(sVertexProgram->mAttribute[LLShaderMgr::AVATAR_WEIGHT]);
+		enable_vertex_weighting(sVertexProgram->mAttribute[LLViewerShaderMgr::AVATAR_WEIGHT]);
 
 		if (sShaderLevel >= SHADER_LEVEL_BUMP)
 		{
-			enable_binormals(sVertexProgram->mAttribute[LLShaderMgr::BINORMAL]);
+			enable_binormals(sVertexProgram->mAttribute[LLViewerShaderMgr::BINORMAL]);
 		}
 		
-		sVertexProgram->enableTexture(LLShaderMgr::BUMP_MAP);
+		sVertexProgram->enableTexture(LLViewerShaderMgr::BUMP_MAP);
 		gGL.getTexUnit(0)->activate();
 	}
 	else
@@ -318,16 +315,16 @@ void LLDrawPoolAvatar::endSkinned()
 	if (sShaderLevel > 0)
 	{
 		sRenderingSkinned = FALSE;
-		sVertexProgram->disableTexture(LLShaderMgr::BUMP_MAP);
+		sVertexProgram->disableTexture(LLViewerShaderMgr::BUMP_MAP);
 		gGL.getTexUnit(0)->activate();
-		disable_vertex_weighting(sVertexProgram->mAttribute[LLShaderMgr::AVATAR_WEIGHT]);
+		disable_vertex_weighting(sVertexProgram->mAttribute[LLViewerShaderMgr::AVATAR_WEIGHT]);
 		if (sShaderLevel >= SHADER_LEVEL_BUMP)
 		{
-			disable_binormals(sVertexProgram->mAttribute[LLShaderMgr::BINORMAL]);
+			disable_binormals(sVertexProgram->mAttribute[LLViewerShaderMgr::BINORMAL]);
 		}
 		if ((sShaderLevel >= SHADER_LEVEL_CLOTH))
 		{
-			disable_cloth_weights(sVertexProgram->mAttribute[LLShaderMgr::AVATAR_CLOTHING]);
+			disable_cloth_weights(sVertexProgram->mAttribute[LLViewerShaderMgr::AVATAR_CLOTHING]);
 		}
 
 		sVertexProgram->unbind();
@@ -466,7 +463,7 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 	
 	if (sShaderLevel > 0)
 	{
-		gAvatarMatrixParam = sVertexProgram->mUniform[LLShaderMgr::AVATAR_MATRIX];
+		gAvatarMatrixParam = sVertexProgram->mUniform[LLViewerShaderMgr::AVATAR_MATRIX];
 	}
     
 	if ((sShaderLevel >= SHADER_LEVEL_CLOTH))
@@ -482,16 +479,16 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 		wind = wind * rot_mat;
 		wind.mV[VW] = avatarp->mWindVec.mV[VW];
 
-		sVertexProgram->vertexAttrib4fv(LLShaderMgr::AVATAR_WIND, wind.mV);
+		sVertexProgram->vertexAttrib4fv(LLViewerShaderMgr::AVATAR_WIND, wind.mV);
 		F32 phase = -1.f * (avatarp->mRipplePhase);
 
 		F32 freq = 7.f + (noise1(avatarp->mRipplePhase) * 2.f);
 		LLVector4 sin_params(freq, freq, freq, phase);
-		sVertexProgram->vertexAttrib4fv(LLShaderMgr::AVATAR_SINWAVE, sin_params.mV);
+		sVertexProgram->vertexAttrib4fv(LLViewerShaderMgr::AVATAR_SINWAVE, sin_params.mV);
 
 		LLVector4 gravity(0.f, 0.f, -CLOTHING_GRAVITY_EFFECT, 0.f);
 		gravity = gravity * rot_mat;
-		sVertexProgram->vertexAttrib4fv(LLShaderMgr::AVATAR_GRAVITY, gravity.mV);
+		sVertexProgram->vertexAttrib4fv(LLViewerShaderMgr::AVATAR_GRAVITY, gravity.mV);
 	}
 
 	if( !single_avatar || (avatarp == single_avatar) )
@@ -566,11 +563,6 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 //-----------------------------------------------------------------------------
 void LLDrawPoolAvatar::renderForSelect()
 {
-	if (gUseGLPick)
-	{
-		return;
-	}
-	
 	if (!gRenderAvatar)
 	{
 		return;
@@ -593,6 +585,7 @@ void LLDrawPoolAvatar::renderForSelect()
 		return;
 	}
 
+	S32 curr_shader_level = getVertexShaderLevel();
 	S32 name = avatarp->mDrawable->getVObj()->mGLName;
 	LLColor4U color((U8)(name >> 16), (U8)(name >> 8), (U8)name);
 
@@ -609,30 +602,30 @@ void LLDrawPoolAvatar::renderForSelect()
 	}
 
 	sVertexProgram = &gAvatarPickProgram;
-	if (sShaderLevel > 0)
+	if (curr_shader_level > 0)
 	{
-		gAvatarMatrixParam = sVertexProgram->mUniform[LLShaderMgr::AVATAR_MATRIX];
+		gAvatarMatrixParam = sVertexProgram->mUniform[LLViewerShaderMgr::AVATAR_MATRIX];
 	}
 	gGL.setAlphaRejectSettings(LLRender::CF_GREATER_EQUAL, 0.2f);
 	gGL.setSceneBlendType(LLRender::BT_REPLACE);
 
 	glColor4ubv(color.mV);
 
-	if ((sShaderLevel > 0) && !gUseGLPick)  // for hardware blending
+	if (curr_shader_level > 0)  // for hardware blending
 	{
 		sRenderingSkinned = TRUE;
 		sVertexProgram->bind();
-		enable_vertex_weighting(sVertexProgram->mAttribute[LLShaderMgr::AVATAR_WEIGHT]);
+		enable_vertex_weighting(sVertexProgram->mAttribute[LLViewerShaderMgr::AVATAR_WEIGHT]);
 	}
 	
 	avatarp->renderSkinned(AVATAR_RENDER_PASS_SINGLE);
 
 	// if we're in software-blending, remember to set the fence _after_ we draw so we wait till this rendering is done
-	if ((sShaderLevel > 0) && !gUseGLPick)
+	if (curr_shader_level > 0)
 	{
 		sRenderingSkinned = FALSE;
 		sVertexProgram->unbind();
-		disable_vertex_weighting(sVertexProgram->mAttribute[LLShaderMgr::AVATAR_WEIGHT]);
+		disable_vertex_weighting(sVertexProgram->mAttribute[LLViewerShaderMgr::AVATAR_WEIGHT]);
 	}
 
 	gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
@@ -670,7 +663,7 @@ LLColor3 LLDrawPoolAvatar::getDebugColor() const
 
 LLVertexBufferAvatar::LLVertexBufferAvatar()
 : LLVertexBuffer(sDataMask, 
-	LLShaderMgr::getVertexShaderLevel(LLShaderMgr::SHADER_AVATAR) > 0 ?	
+	LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_AVATAR) > 0 ?	
 	GL_STATIC_DRAW_ARB : 
 	GL_STREAM_DRAW_ARB)
 {
@@ -692,16 +685,16 @@ void LLVertexBufferAvatar::setupVertexBuffer(U32 data_mask) const
 		glClientActiveTextureARB(GL_TEXTURE0_ARB);
 		glTexCoordPointer(2,GL_FLOAT, mStride, (void*)(base + mOffsets[TYPE_TEXCOORD]));
 		
-		set_vertex_weights(sVertexProgram->mAttribute[LLShaderMgr::AVATAR_WEIGHT], mStride, (F32*)(base + mOffsets[TYPE_WEIGHT]));
+		set_vertex_weights(sVertexProgram->mAttribute[LLViewerShaderMgr::AVATAR_WEIGHT], mStride, (F32*)(base + mOffsets[TYPE_WEIGHT]));
 
 		if (sShaderLevel >= LLDrawPoolAvatar::SHADER_LEVEL_BUMP)
 		{
-			set_binormals(sVertexProgram->mAttribute[LLShaderMgr::BINORMAL], mStride, (LLVector3*)(base + mOffsets[TYPE_BINORMAL]));
+			set_binormals(sVertexProgram->mAttribute[LLViewerShaderMgr::BINORMAL], mStride, (LLVector3*)(base + mOffsets[TYPE_BINORMAL]));
 		}
 	
 		if (sShaderLevel >= LLDrawPoolAvatar::SHADER_LEVEL_CLOTH)
 		{
-			set_vertex_clothing_weights(sVertexProgram->mAttribute[LLShaderMgr::AVATAR_CLOTHING], mStride, (LLVector4*)(base + mOffsets[TYPE_CLOTHWEIGHT]));
+			set_vertex_clothing_weights(sVertexProgram->mAttribute[LLViewerShaderMgr::AVATAR_CLOTHING], mStride, (LLVector4*)(base + mOffsets[TYPE_CLOTHWEIGHT]));
 		}
 	}
 	else

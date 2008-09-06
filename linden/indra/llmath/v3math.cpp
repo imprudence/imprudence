@@ -34,6 +34,7 @@
 #include "v3math.h"
 
 //#include "vmath.h"
+#include "v2math.h"
 #include "v4math.h"
 #include "m4math.h"
 #include "m3math.h"
@@ -72,6 +73,72 @@ BOOL LLVector3::clamp(F32 min, F32 max)
 
 	return ret;
 }
+
+// Clamps length to an upper limit.  
+// Returns TRUE if the data changed
+BOOL LLVector3::clampLength( F32 length_limit )
+{
+	BOOL changed = FALSE;
+
+	F32 len = length();
+	if (llfinite(len))
+	{
+		if ( len > length_limit)
+		{
+			normalize();
+			if (length_limit < 0.f)
+			{
+				length_limit = 0.f;
+			}
+			mV[0] *= length_limit;
+			mV[1] *= length_limit;
+			mV[2] *= length_limit;
+			changed = TRUE;
+		}
+	}
+	else
+	{	// this vector may still be salvagable
+		F32 max_abs_component = 0.f;
+		for (S32 i = 0; i < 3; ++i)
+		{
+			F32 abs_component = fabs(mV[i]);
+			if (llfinite(abs_component))
+			{
+				if (abs_component > max_abs_component)
+				{
+					max_abs_component = abs_component;
+				}
+			}
+			else
+			{
+				// no it can't be salvaged --> clear it
+				clear();
+				changed = TRUE;
+				break;
+			}
+		}
+		if (!changed)
+		{
+			// yes it can be salvaged -->
+			// bring the components down before we normalize
+			mV[0] /= max_abs_component;
+			mV[1] /= max_abs_component;
+			mV[2] /= max_abs_component;
+			normalize();
+
+			if (length_limit < 0.f)
+			{
+				length_limit = 0.f;
+			}
+			mV[0] *= length_limit;
+			mV[1] *= length_limit;
+			mV[2] *= length_limit;
+		}
+	}
+
+	return changed;
+}
+
 
 // Sets all values to absolute value of their original values
 // Returns TRUE if data changed
@@ -204,6 +271,13 @@ const LLVector3&	LLVector3::setVec(const LLVector4 &vec)
 	return (*this);
 }
 
+LLVector3::LLVector3(const LLVector2 &vec)
+{
+	mV[VX] = (F32)vec.mV[VX];
+	mV[VY] = (F32)vec.mV[VY];
+	mV[VZ] = 0;
+}
+
 LLVector3::LLVector3(const LLVector3d &vec)
 {
 	mV[VX] = (F32)vec.mdV[VX];
@@ -260,15 +334,15 @@ const LLVector3& operator*=(LLVector3 &a, const LLQuaternion &rot)
 }
 
 // static 
-BOOL LLVector3::parseVector3(const char* buf, LLVector3* value)
+BOOL LLVector3::parseVector3(const std::string& buf, LLVector3* value)
 {
-	if( buf == NULL || buf[0] == '\0' || value == NULL)
+	if( buf.empty() || value == NULL)
 	{
 		return FALSE;
 	}
 
 	LLVector3 v;
-	S32 count = sscanf( buf, "%f %f %f", v.mV + 0, v.mV + 1, v.mV + 2 );
+	S32 count = sscanf( buf.c_str(), "%f %f %f", v.mV + 0, v.mV + 1, v.mV + 2 );
 	if( 3 == count )
 	{
 		value->setVec( v );

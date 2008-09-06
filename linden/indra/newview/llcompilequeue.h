@@ -64,9 +64,12 @@ public:
 	// start() returns TRUE if the queue has started, otherwise FALSE.
 	BOOL start();
 
+	// find an instance by ID. Return NULL if it does not exist.
+	static LLFloaterScriptQueue* findInstance(const LLUUID& id);
+
 protected:
 	LLFloaterScriptQueue(const std::string& name, const LLRect& rect,
-						 const char* title, const char* start_string);
+						 const std::string& title, const std::string& start_string);
 	virtual ~LLFloaterScriptQueue();
 
 	// This is the callback method for the viewer object currently
@@ -92,9 +95,6 @@ protected:
 
 	// Get this instances ID.
 	const LLUUID& getID() const { return mID; } 
-
-	// find an instance by ID. Return NULL if it does not exist.
-	static LLFloaterScriptQueue* findInstance(const LLUUID& id);
 	
 protected:
 	// UI
@@ -109,7 +109,7 @@ protected:
 	LLUUID mID;
 	static LLMap<LLUUID, LLFloaterScriptQueue*> sInstances;
 
-	const char* mStartString;
+	std::string mStartString;
 };
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,12 +118,29 @@ protected:
 // This script queue will recompile each script.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+struct LLCompileQueueData
+{
+	LLUUID mQueueID;
+	LLUUID mItemId;
+	LLCompileQueueData(const LLUUID& q_id, const LLUUID& item_id) :
+		mQueueID(q_id), mItemId(item_id) {}
+};
+
+class LLAssetUploadQueue;
+
 class LLFloaterCompileQueue : public LLFloaterScriptQueue
 {
 public:
 	// Use this method to create a compile queue. Once created, it
 	// will be responsible for it's own destruction.
-	static LLFloaterCompileQueue* create();
+	static LLFloaterCompileQueue* create(BOOL mono);
+
+	static void onSaveBytecodeComplete(const LLUUID& asset_id,
+									void* user_data,
+									S32 status);
+									
+	// remove any object in mScriptScripts with the matching uuid.
+	void removeItemByItemID(const LLUUID& item_id);
 
 protected:
 	LLFloaterCompileQueue(const std::string& name, const LLRect& rect);
@@ -139,24 +156,29 @@ protected:
 								void* user_data, S32 status, LLExtStat ext_status);
 
 	static void onSaveTextComplete(const LLUUID& asset_id, void* user_data, S32 status, LLExtStat ext_status);
+
 	static void onSaveBytecodeComplete(const LLUUID& asset_id,
 									   void* user_data,
 									   S32 status, LLExtStat ext_status);
 
 	// compile the file given and save it out.
-	void compile(const char* filename, const LLUUID& asset_id);
+	void compile(const std::string& filename, const LLUUID& asset_id);
 	
 	// remove any object in mScriptScripts with the matching uuid.
 	void removeItemByAssetID(const LLUUID& asset_id);
 
-	// save the items indicatd by the asset id.
-	void saveItemByAssetID(const LLUUID& asset_id);
+	// save the items indicated by the item id.
+	void saveItemByItemID(const LLUUID& item_id);
 
-	// find old_asst_id, and set the asset id to new_asset_id
-	void updateAssetID(const LLUUID& old_asset_id, const LLUUID& new_asset_id);
+	// find InventoryItem given item id.
+	const LLInventoryItem* findItemByItemID(const LLUUID& item_id) const;
 
 protected:
 	LLViewerInventoryItem::item_array_t mCurrentScripts;
+
+private:
+	BOOL mMono; // Compile to mono.
+	LLAssetUploadQueue* mUploadQueue;
 };
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

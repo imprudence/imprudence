@@ -56,7 +56,7 @@
 #include "llvoavatar.h"
 #include "llsky.h"
 #include "pipeline.h"
-#include "llglslshader.h"
+#include "llviewershadermgr.h"
 #include "llmath.h"
 #include "v4math.h"
 #include "m3math.h"
@@ -307,7 +307,7 @@ void LLViewerJointMesh::setMesh( LLPolyMesh *mesh )
 		U32 jn;
 		for (jn = 0; jn < numJointNames; jn++)
 		{
-			//llinfos << "Setting up joint " << jointNames[jn].c_str() << llendl;
+			//llinfos << "Setting up joint " << jointNames[jn] << llendl;
 			LLViewerJoint* joint = (LLViewerJoint*)(getRoot()->findJoint(jointNames[jn]) );
 			mSkinJoints[jn].setupSkinJoint( joint );
 		}
@@ -880,7 +880,7 @@ void LLViewerJointMesh::updateJointGeometry()
 		  && mFace
 		  && mMesh->hasWeights()
 		  && mFace->mVertexBuffer.notNull()
-		  && LLShaderMgr::getVertexShaderLevel(LLShaderMgr::SHADER_AVATAR) == 0))
+		  && LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_AVATAR) == 0))
 	{
 		return;
 	}

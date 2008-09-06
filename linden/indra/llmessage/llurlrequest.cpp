@@ -42,7 +42,7 @@
 #include "llpumpio.h"
 #include "llsd.h"
 #include "llstring.h"
-#include "apr-1/apr_env.h"
+#include "apr_env.h"
 
 static const U32 HTTP_STATUS_PIPE_ERROR = 499;
 
@@ -385,6 +385,13 @@ bool LLURLRequest::configure()
 		rv = true;
 		break;
 
+	case HTTP_MOVE:
+		// Set the handle for an http post
+		mDetail->mCurlRequest->setoptString(CURLOPT_CUSTOMREQUEST, "MOVE");
+		// *NOTE: should we check for the Destination header?
+		rv = true;
+		break;
+
 	default:
 		llwarns << "Unhandled URLRequest action: " << mAction << llendl;
 		break;
@@ -535,7 +542,7 @@ LLIOPipe::EStatus LLContextURLExtractor::process_impl(
 	// find the context url
 	if(context.has(CONTEXT_DEST_URI_SD_LABEL))
 	{
-		mRequest->setURL(context[CONTEXT_DEST_URI_SD_LABEL]);
+		mRequest->setURL(context[CONTEXT_DEST_URI_SD_LABEL].asString());
 		return STATUS_DONE;
 	}
 	return STATUS_ERROR;

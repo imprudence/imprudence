@@ -2800,17 +2800,6 @@ l&apos;accélération graphique AGP dans les Options du menu Preferences dans [S
 			Annuler
 		</option>
 	</alert>
-	<alert name="WebLaunchReleaseNotes">
-		<message name="message">
-			Afficher les notes de version de [SECOND_LIFE] ?
-		</message>
-		<option name="Gotopage">
-			Aller à la page
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
 			Etes-vous sûr(e) de vouloir renvoyer les objets
@@ -2880,7 +2869,7 @@ Quitter le groupe ?
 			Ignorer par nom n&apos;affecte que le chat et les IM, pas les sons.
 Vous devez entrer le nom exact de l&apos;objet.
 		</message>
-		<editline>
+		<editline name="editline">
 			Nom de l&apos;objet
 		</editline>
 		<option name="OK">
@@ -3009,7 +2998,7 @@ dans le menu &apos;Edition&apos;.
 		<message name="message">
 			Dégager cet utilisateur avec quel message ?
 		</message>
-		<editline>
+		<editline name="editline">
 			Vous avez été déconnecté par un administrateur.
 		</editline>
 		<option name="OK">
@@ -3023,7 +3012,7 @@ dans le menu &apos;Edition&apos;.
 		<message name="message">
 			Dégager tous les utilisateurs actuellement présents sur la grille avec quel message ?
 		</message>
-		<editline>
+		<editline name="editline">
 			Vous avez été déconnecté par un administrateur.
 		</editline>
 		<option name="OK">
@@ -3037,7 +3026,7 @@ dans le menu &apos;Edition&apos;.
 		<message name="message">
 			Bloquer cet utilisateur avec quel message ?
 		</message>
-		<editline>
+		<editline name="editline">
 			Vous avez été bloqué. Vous ne pouvez ni vous déplacer, ni chatter. Un administrateur va vous contacter via message instantané (IM).
 		</editline>
 		<option name="OK">
@@ -3051,7 +3040,7 @@ dans le menu &apos;Edition&apos;.
 		<message name="message">
 			Débloquer cet utilisateur avec quel message ?
 		</message>
-		<editline>
+		<editline name="editline">
 			Vous n&apos;êtes plus bloqué.
 		</editline>
 		<option name="OK">
@@ -3076,7 +3065,7 @@ dans le menu &apos;Edition&apos;.
 		<message name="message">
 			Proposer de téléporter la personne avec le message suivant ?
 		</message>
-		<editline>
+		<editline name="editline">
 			Rejoins-moi à [REGION]
 		</editline>
 		<option name="OK">
@@ -3090,7 +3079,7 @@ dans le menu &apos;Edition&apos;.
 		<message name="message">
 			Super-invoquer l&apos;utilisateur ici ?
 		</message>
-		<editline>
+		<editline name="editline">
 			Rejoins-moi à [REGION]
 		</editline>
 		<option name="OK">

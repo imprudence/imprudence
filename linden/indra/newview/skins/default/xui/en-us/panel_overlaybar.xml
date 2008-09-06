@@ -27,11 +27,6 @@
 					     tool_tip="Chat and IM is hidden for you. Click here to set yourself not busy."
 					     width="102" />
 					<button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
-					     label="Release Keys" label_selected="Release Keys" left="229"
-					     name="Release Keys" scale_image="true"
-					     tool_tip="A script has taken control of your keys. Click here to release them."
-					     width="102" />
-					<button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
 					     label="Mouselook" label_selected="Mouselook" left="343" name="Mouselook"
 					     scale_image="true"
 					     tool_tip="Use mouse to steer your view. If you have a gun, clicking will shoot."

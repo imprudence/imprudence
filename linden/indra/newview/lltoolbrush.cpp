@@ -89,7 +89,7 @@ const LLColor4 OVERLAY_COLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
 // constructor
 LLToolBrushLand::LLToolBrushLand()
-:	LLTool("Land"),
+:	LLTool(std::string("Land")),
 	mStartingZ( 0.0f ),
 	mMouseX( 0 ),
 	mMouseY(0),
@@ -154,7 +154,7 @@ void LLToolBrushLand::modifyLandAtPointGlobal(const LLVector3d &pos_global,
 		regionp->forceUpdate();
 
 		// tell the simulator what we've done
-		F32 seconds = 1.0f / gFPSClamped;
+		F32 seconds = (1.0f / gFPSClamped) * gSavedSettings.getF32("LandBrushForce");
 		F32 x_pos = (F32)pos_region.mV[VX];
 		F32 y_pos = (F32)pos_region.mV[VY];
 		U8 brush_size = (U8)mBrushIndex;
@@ -242,7 +242,7 @@ void LLToolBrushLand::modifyLandInSelectionGlobal()
 	
 		min_region.clamp(0.f, regionp->getWidth());
 		max_region.clamp(0.f, regionp->getWidth());
-		F32 seconds = 1.0f;
+		F32 seconds = gSavedSettings.getF32("LandBrushForce");
 
 		LLSurface &land = regionp->getLand();
 		char action = E_LAND_LEVEL;
@@ -251,21 +251,23 @@ void LLToolBrushLand::modifyLandInSelectionGlobal()
 		case 0:
 		//	// average toward mStartingZ
 			action = E_LAND_LEVEL;
-			seconds = 1.f;
+			seconds *= 0.25f;
 			break;
 		case 1:
 			action = E_LAND_RAISE;
+			seconds *= 0.25f;
 			break;
 		case 2:
 			action = E_LAND_LOWER;
+			seconds *= 0.25f;
 			break;
 		case 3:
 			action = E_LAND_SMOOTH;
-			seconds = 10.f;
+			seconds *= 5.0f;
 			break;
 		case 4:
 			action = E_LAND_NOISE;
-			seconds = 0.5f;
+			seconds *= 0.5f;
 			break;
 		case 5:
 			action = E_LAND_REVERT;
@@ -464,6 +466,27 @@ void LLToolBrushLand::render()
 	}
 }
 
+/*
+ * Draw vertical lines from each vertex straight up in world space
+ * with lengths indicating the current "strength" slider.
+ * Decorate the tops and bottoms of the lines like this:
+ *
+ *		Raise        Revert
+ *		/|\           ___
+ *		 |             |
+ *		 |             |
+ *
+ *		Rough        Smooth
+ *		/|\           ___
+ *		 |             |
+ *		 |             |
+ *		\|/..........._|_
+ *
+ *		Lower        Flatten
+ *		 |             |
+ *		 |             |
+ *		\|/..........._|_
+ */
 void LLToolBrushLand::renderOverlay(LLSurface& land, const LLVector3& pos_region,
 									const LLVector3& pos_world)
 {
@@ -477,19 +500,55 @@ void LLToolBrushLand::renderOverlay(LLSurface& land, const LLVector3& pos_region
 	S32 i = (S32) pos_region.mV[VX];
 	S32 j = (S32) pos_region.mV[VY];
 	S32 half_edge = llfloor(LAND_BRUSH_SIZE[mBrushIndex]);
+	S32 radioAction = gSavedSettings.getS32("RadioLandBrushAction");
+	F32 force = gSavedSettings.getF32("LandBrushForce"); // .1 to 100?
 	
-	gGL.begin(LLVertexBuffer::POINTS);
+	gGL.begin(LLVertexBuffer::LINES);
 	for(S32 di = -half_edge; di <= half_edge; di++)
 	{
 		if((i+di) < 0 || (i+di) >= (S32)land.mGridsPerEdge) continue;
 		for(S32 dj = -half_edge; dj <= half_edge; dj++)
 		{
 			if( (j+dj) < 0 || (j+dj) >= (S32)land.mGridsPerEdge ) continue;
-			gGL.vertex3f(pos_world.mV[VX] + di, pos_world.mV[VY] + dj,
-					   land.getZ((i+di)+(j+dj)*land.mGridsPerEdge));
+			const F32 
+				wx = pos_world.mV[VX] + di,
+				wy = pos_world.mV[VY] + dj,
+				wz = land.getZ((i+di)+(j+dj)*land.mGridsPerEdge),
+				norm_dist = sqrt((float)di*di + dj*dj) / half_edge,
+				force_scale = sqrt(2.f) - norm_dist, // 1 at center, 0 at corner
+				wz2 = wz + .2 + (.2 + force/100) * force_scale, // top vertex
+				tic = .075f; // arrowhead size
+			// vertical line
+			gGL.vertex3f(wx, wy, wz);
+			gGL.vertex3f(wx, wy, wz2);
+			if(radioAction == E_LAND_RAISE || radioAction == E_LAND_NOISE) // up arrow
+			{
+				gGL.vertex3f(wx, wy, wz2);
+				gGL.vertex3f(wx+tic, wy, wz2-tic);
+				gGL.vertex3f(wx, wy, wz2);
+				gGL.vertex3f(wx-tic, wy, wz2-tic);
+			}
+			if(radioAction == E_LAND_LOWER || radioAction == E_LAND_NOISE) // down arrow
+			{
+				gGL.vertex3f(wx, wy, wz);
+				gGL.vertex3f(wx+tic, wy, wz+tic);
+				gGL.vertex3f(wx, wy, wz);
+				gGL.vertex3f(wx-tic, wy, wz+tic);
+			}
+			if(radioAction == E_LAND_REVERT || radioAction == E_LAND_SMOOTH) // flat top
+			{
+				gGL.vertex3f(wx-tic, wy, wz2);
+				gGL.vertex3f(wx+tic, wy, wz2);
+			}
+			if(radioAction == E_LAND_LEVEL || radioAction == E_LAND_SMOOTH) // flat bottom
+			{
+				gGL.vertex3f(wx-tic, wy, wz);
+				gGL.vertex3f(wx+tic, wy, wz);
+			}
 		}
 	}
 	gGL.end();
+
 	glPopMatrix();
 }
 
@@ -589,7 +648,7 @@ void LLToolBrushLand::alertNoTerraform(LLViewerRegion* regionp)
 {
 	if (!regionp) return;
 	
-	LLStringBase<char>::format_map_t args;
+	LLStringUtil::format_map_t args;
 	args["[REGION]"] = regionp->getName();
 	gViewerWindow->alertXml("RegionNoTerraforming", args);
 

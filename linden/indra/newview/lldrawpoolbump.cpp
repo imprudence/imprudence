@@ -53,7 +53,7 @@
 #include "llviewerimagelist.h"
 #include "pipeline.h"
 #include "llspatialpartition.h"
-#include "llglslshader.h"
+#include "llviewershadermgr.h"
 
 //#include "llimagebmp.h"
 //#include "../tools/imdebug/imdebug.h"
@@ -100,7 +100,7 @@ void LLStandardBumpmap::restoreGL()
 	gStandardBumpmapList[LLStandardBumpmap::sStandardBumpmapCount++] = LLStandardBumpmap("Darkness");	// BE_DARKNESS
 
 	std::string file_name = gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "std_bump.ini" );
-	LLFILE* file = LLFile::fopen( file_name.c_str(), "rt" );	 /*Flawfinder: ignore*/
+	LLFILE* file = LLFile::fopen( file_name, "rt" );	 /*Flawfinder: ignore*/
 	if( !file )
 	{
 		llwarns << "Could not open std_bump <" << file_name << ">" << llendl;
@@ -177,7 +177,7 @@ LLDrawPoolBump::LLDrawPoolBump()
 
 void LLDrawPoolBump::prerender()
 {
-	mVertexShaderLevel = LLShaderMgr::getVertexShaderLevel(LLShaderMgr::SHADER_OBJECT);
+	mVertexShaderLevel = LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_OBJECT);
 }
 
 // static
@@ -333,7 +333,7 @@ void LLDrawPoolBump::beginShiny(bool invisible)
 	LLCubeMap* cube_map = gSky.mVOSkyp ? gSky.mVOSkyp->getCubeMap() : NULL;
 	if( cube_map )
 	{
-		if (!invisible && LLShaderMgr::getVertexShaderLevel(LLShaderMgr::SHADER_OBJECT) > 0 )
+		if (!invisible && LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_OBJECT) > 0 )
 		{
 			LLMatrix4 mat;
 			mat.initRows(LLVector4(gGLModelView+0),
@@ -343,23 +343,23 @@ void LLDrawPoolBump::beginShiny(bool invisible)
 			shader->bind();
 			LLVector3 vec = LLVector3(gShinyOrigin) * mat;
 			LLVector4 vec4(vec, gShinyOrigin.mV[3]);
-			shader->uniform4fv(LLShaderMgr::SHINY_ORIGIN, 1, vec4.mV);			
+			shader->uniform4fv(LLViewerShaderMgr::SHINY_ORIGIN, 1, vec4.mV);			
 			if (mVertexShaderLevel > 1)
 			{
 				cube_map->setMatrix(1);
 				// Make sure that texture coord generation happens for tex unit 1, as that's the one we use for 
 				// the cube map in the one pass shiny shaders
-				cube_channel = shader->enableTexture(LLShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB);
+				cube_channel = shader->enableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB);
 				cube_map->enableTexture(cube_channel);
 				cube_map->enableTextureCoords(1);
-				diffuse_channel = shader->enableTexture(LLShaderMgr::DIFFUSE_MAP);
+				diffuse_channel = shader->enableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
 			}
 			else
 			{
 				cube_channel = 0;
 				diffuse_channel = -1;
 				cube_map->setMatrix(0);
-				cube_map->enable(shader->enableTexture(LLShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB));
+				cube_map->enable(shader->enableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB));
 			}			
 			cube_map->bind();
 		}
@@ -423,13 +423,13 @@ void LLDrawPoolBump::endShiny(bool invisible)
 
 		if (!invisible && mVertexShaderLevel > 1)
 		{
-			shader->disableTexture(LLShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB);
+			shader->disableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB);
 					
-			if (LLShaderMgr::getVertexShaderLevel(LLShaderMgr::SHADER_OBJECT) > 0)
+			if (LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_OBJECT) > 0)
 			{
 				if (diffuse_channel != 0)
 				{
-					shader->disableTexture(LLShaderMgr::DIFFUSE_MAP);
+					shader->disableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
 				}
 			}
 
@@ -443,6 +443,7 @@ void LLDrawPoolBump::endShiny(bool invisible)
 		}
 	}
 	
+	gGL.getTexUnit(0)->activate();
 	LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
 	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 	
@@ -483,15 +484,15 @@ void LLDrawPoolBump::beginFullbrightShiny()
 		shader->bind();
 		LLVector3 vec = LLVector3(gShinyOrigin) * mat;
 		LLVector4 vec4(vec, gShinyOrigin.mV[3]);
-		shader->uniform4fv(LLShaderMgr::SHINY_ORIGIN, 1, vec4.mV);			
+		shader->uniform4fv(LLViewerShaderMgr::SHINY_ORIGIN, 1, vec4.mV);			
 
 		cube_map->setMatrix(1);
 		// Make sure that texture coord generation happens for tex unit 1, as that's the one we use for 
 		// the cube map in the one pass shiny shaders
-		cube_channel = shader->enableTexture(LLShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB);
+		cube_channel = shader->enableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB);
 		cube_map->enableTexture(cube_channel);
 		cube_map->enableTextureCoords(1);
-		diffuse_channel = shader->enableTexture(LLShaderMgr::DIFFUSE_MAP);
+		diffuse_channel = shader->enableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
 
 		cube_map->bind();
 	}
@@ -531,7 +532,7 @@ void LLDrawPoolBump::endFullbrightShiny()
 
 		if (diffuse_channel != 0)
 		{
-			shader->disableTexture(LLShaderMgr::DIFFUSE_MAP);
+			shader->disableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
 		}
 		gGL.getTexUnit(0)->activate();
 		glEnable(GL_TEXTURE_2D);
@@ -556,7 +557,7 @@ void LLDrawPoolBump::renderGroup(LLSpatialGroup* group, U32 type, U32 mask, BOOL
 	for (LLSpatialGroup::drawmap_elem_t::iterator k = draw_info.begin(); k != draw_info.end(); ++k) 
 	{
 		LLDrawInfo& params = **k;
-			
+		
 		applyModelMatrix(params);
 
 		params.mVertexBuffer->setBuffer(mask);
@@ -851,7 +852,7 @@ LLImageGL* LLBumpImageList::getBrightnessDarknessImage(LLViewerImage* src_image,
 			bump->setExplicitFormat(GL_ALPHA8, GL_ALPHA);			
 
 			// Note: this may create an LLImageGL immediately
-			src_image->setLoadedCallback( callback_func, 0, TRUE, new LLUUID(src_image->getID()) );
+			src_image->setLoadedCallback( callback_func, 0, TRUE, FALSE, new LLUUID(src_image->getID()) );
 			bump = (*entries_list)[src_image->getID()]; // In case callback was called immediately and replaced the image
 
 //			bump_total++;

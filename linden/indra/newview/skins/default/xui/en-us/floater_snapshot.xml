@@ -4,18 +4,18 @@
      rect_control="FloaterSnapshotRect" title="Snapshot Preview" width="215">
 	<text bottom_delta="-40" follows="top|left" height="15" left="10" name="type_label"
 	     width="195">
-		What would you like to do?
-	</text>
+    Snapshot destination
+  </text>
 	<radio_group bottom_delta="-65" follows="left|top" height="60" label="Snapshot type"
 	     left="10" name="snapshot_type_radio" width="195">
 		<radio_item bottom="-19" height="16" name="postcard">
-			Send a postcard
+			Send via email
 		</radio_item>
 		<radio_item bottom="-38" height="16" name="texture">
-			Upload a snapshot
-		</radio_item>
+      Save to your inventory (L$10)
+    </radio_item>
 		<radio_item bottom="-57" height="16" name="local">
-			Save snapshot to hard drive
+			Save to your hard drive
 		</radio_item>
 	</radio_group>
 	<text bottom="-236" follows="left|top" height="25" left="10" name="file_size_label"
@@ -26,10 +26,14 @@
 	     name="new_snapshot_btn" width="195" />
 	<button bottom_delta="-22" follows="left|top" height="20" label="Send" left="10"
 	     name="send_btn" width="105" />
-	<button bottom_delta="0" follows="left|top" height="20" label="Upload (L$10)" left="10"
+	<button bottom_delta="0" follows="left|top" height="20" label="Save (L$10)" left="10"
 	     name="upload_btn" width="105" />
-	<button bottom_delta="0" follows="left|top" height="20" label="Save" left="10"
-	     name="save_btn" width="105" />
+  <flyout_button bottom_delta="0" follows="left|top" height="20" label="Save" left="10"
+       list_position="below" mouse_opaque="true" name="save_btn" tool_tip="Save image to a file"
+       width="105">
+    <flyout_button_item value="save">Save</flyout_button_item>
+    <flyout_button_item value="save as">Save As...</flyout_button_item>
+  </flyout_button>
 	<button bottom_delta="0" follows="left|top" height="20" label="Cancel" left="120"
 	     name="discard_btn" width="85" />
 	<button bottom="-290" follows="left|top" font="SansSerifSmall" halign="center"
@@ -41,11 +45,15 @@
 	     mouse_opaque="true" name="less_btn" scale_image="TRUE"
 	     tool_tip="Advanced Options" width="80" />
 	<text bottom_delta="-20" follows="top|left" height="15" left="10" name="type_label2"
-	     width="195">
-		What size image do you need?
-	</text>
+	     width="115">
+	Size
+  </text>
+  <text bottom_delta="0" follows="top|left" height="15" left="130" name="format_label"
+       width="70">
+  Format
+  </text>
 	<combo_box bottom_delta="-22" follows="left|top" height="20" label="Resolution" left="10"
-	     name="postcard_size_combo" width="195">
+	     name="postcard_size_combo" width="115">
 		<combo_item name="CurrentWindow" value="[i0,i0]">
 			Current Window
 		</combo_item>
@@ -63,7 +71,7 @@
 		</combo_item>
 	</combo_box>
 	<combo_box bottom_delta="0" follows="left|top" height="20" label="Resolution" left="10"
-	     name="texture_size_combo" width="195">
+	     name="texture_size_combo" width="115">
 		<combo_item name="CurrentWindow" value="[i0,i0]">
 			Current Window
 		</combo_item>
@@ -81,7 +89,7 @@
 		</combo_item>
 	</combo_box>
 	<combo_box bottom_delta="0" follows="left|top" height="20" label="Resolution" left="10"
-	     name="local_size_combo" width="195">
+	     name="local_size_combo" width="115">
 		<combo_item name="CurrentWindow" value="[i0,i0]">
 			Current Window
 		</combo_item>
@@ -107,12 +115,25 @@
 			Custom
 		</combo_item>
 	</combo_box>
+	<combo_box bottom_delta="0" follows="left|top" height="20" label="Format" left="130"
+	     name="local_format_combo" width="70">
+		<combo_item name="PNG">
+			PNG
+		</combo_item>
+		<combo_item name="JPEG">
+			JPEG
+		</combo_item>
+		<combo_item name="BMP">
+			BMP
+		</combo_item>
+	</combo_box>
+
 	<spinner bottom_delta="-25" decimal_digits="0" follows="left|top" height="20"
 	     increment="32" label="Width" label_width="30" left="10" max_val="6016"
-	     min_val="32" name="snapshot_width" width="95" />
+	     min_val="32" name="snapshot_width" width="95" allow_text_entry="false"/>
 	<spinner bottom_delta="0" decimal_digits="0" follows="left|top" height="20"
 	     increment="32" label="Height" label_width="35" left="110" max_val="6016"
-	     min_val="32" name="snapshot_height" width="95" />
+	     min_val="32" name="snapshot_height" width="95" allow_text_entry="false"/>
 	<check_box bottom_delta="-20" follows="left|top" label="Constrain Proportions" left="10"
 	     name="keep_aspect_check" />
 	<slider bottom_delta="-20" decimal_digits="0" follows="left|top" height="15"
@@ -148,3 +169,4 @@
 		unknown
 	</string>
 </floater>
+ 

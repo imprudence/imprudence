@@ -171,9 +171,6 @@ S32 LLTemplateMessageReader::getNumberOfBlocks(const char *blockname)
 	
 	if (iter == mCurrentRMessageData->mMemberBlocks.end())
 	{
-//		sprintf(errmsg, "Block %s not in message %s", bnamep, mCurrentRMessageData->mName);
-//		llerrs << errmsg << llendl;
-//		return -1;
 		return 0;
 	}
 
@@ -433,6 +430,15 @@ inline void LLTemplateMessageReader::getString(const char *block, const char *va
 	s[buffer_size - 1] = '\0';
 }
 
+inline void LLTemplateMessageReader::getString(const char *block, const char *var, std::string& outstr, S32 blocknum )
+{
+	char s[MTUBYTES];
+	s[0] = '\0';
+	getData(block, var, s, 0, blocknum, MTUBYTES);
+	s[MTUBYTES - 1] = '\0';
+	outstr = s;
+}
+
 //virtual 
 S32 LLTemplateMessageReader::getMessageSize() const
 {
@@ -568,7 +574,9 @@ BOOL LLTemplateMessageReader::decodeData(const U8* buffer, const LLHost& sender 
 			// repeat number is a single byte
 			if (decode_pos >= mReceiveSize)
 			{
-				logRanOffEndOfPacket(sender, decode_pos, 1);
+				// commented out - hetgrid says that missing variable blocks
+				// at end of message are legal
+				// logRanOffEndOfPacket(sender, decode_pos, 1);
 
 				// default to 0 repeats
 				repeat_number = 0;

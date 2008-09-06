@@ -44,6 +44,7 @@
 #include "llviewerobject.h"
 
 class LLTool;
+class LLPickInfo;
 
 
 //
@@ -78,7 +79,7 @@ public:
 
 	LLViewerObject* getLastHoverObject() const;
 
-	static void pickCallback(S32 x, S32 y, MASK mask);
+	static void pickCallback(const LLPickInfo& info);
 
 protected:
 	void	updateText();
@@ -104,7 +105,7 @@ protected:
 
 	// If not LLVector3d::ZERO, we're over land.
 	LLVector3d					mHoverLandGlobal;
-	LLVector3d					mHoverOffset;
+	LLVector3					mHoverOffset;
 
 	BOOL		mTyping;
 

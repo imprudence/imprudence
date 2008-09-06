@@ -140,12 +140,12 @@ void LLStatGraph::setStat(LLStat *statp)
 	mStatp = statp;
 }
 
-void LLStatGraph::setLabel(const char *label)
+void LLStatGraph::setLabel(const std::string& label)
 {
 	mLabel = label;
 }
 
-void LLStatGraph::setUnits(const char *units)
+void LLStatGraph::setUnits(const std::string& units)
 {
 	mUnits = units;
 }

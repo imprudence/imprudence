@@ -79,7 +79,7 @@
 
 #define USE_VIEWER_AUTH 0
 
-LLString load_password_from_disk(void);
+std::string load_password_from_disk(void);
 void save_password_to_disk(const char* hashed_password);
 
 const S32 BLACK_BORDER_HEIGHT = 160;
@@ -146,6 +146,10 @@ void LLLoginHandler::parse(const LLSD& queryMap)
 	{
 		grid_choice = GRID_INFO_SIVA;
 	}
+	else if (queryMap["grid"].asString() == "damballah")
+	{
+		grid_choice = GRID_INFO_DAMBALLAH;
+	}
 	else if (queryMap["grid"].asString() == "durga")
 	{
 		grid_choice = GRID_INFO_DURGA;
@@ -204,7 +208,7 @@ void LLLoginHandler::parse(const LLSD& queryMap)
 		LLViewerLogin::getInstance()->setGridChoice(grid_choice);
 	}
 
-	LLString startLocation = queryMap["location"].asString();
+	std::string startLocation = queryMap["location"].asString();
 
 	if (startLocation == "specify")
 	{
@@ -213,12 +217,12 @@ void LLLoginHandler::parse(const LLSD& queryMap)
 	else if (startLocation == "home")
 	{
 		gSavedSettings.setBOOL("LoginLastLocation", FALSE);
-		LLURLSimString::setString("");
+		LLURLSimString::setString(LLStringUtil::null);
 	}
 	else if (startLocation == "last")
 	{
 		gSavedSettings.setBOOL("LoginLastLocation", TRUE);
-		LLURLSimString::setString("");
+		LLURLSimString::setString(LLStringUtil::null);
 	}
 }
 
@@ -234,7 +238,7 @@ bool LLLoginHandler::handle(const LLSD& tokens,
 		return true;
 	}
 	
-	LLString password = queryMap["password"].asString();
+	std::string password = queryMap["password"].asString();
 
 	if (!password.empty())
 	{
@@ -245,7 +249,7 @@ bool LLLoginHandler::handle(const LLSD& tokens,
 			LLMD5 pass((unsigned char*)password.c_str());
 			char md5pass[33];		/* Flawfinder: ignore */
 			pass.hex_digest(md5pass);
-			password = md5pass;
+			password = ll_safe_string(md5pass, 32);
 			save_password_to_disk(password.c_str());
 		}
 	}
@@ -324,7 +328,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 						 BOOL show_server,
 						 void (*callback)(S32 option, void* user_data),
 						 void *cb_data)
-:	LLPanel("panel_login", LLRect(0,600,800,0), FALSE),		// not bordered
+:	LLPanel(std::string("panel_login"), LLRect(0,600,800,0), FALSE),		// not bordered
 	mLogoImage(),
 	mCallback(callback),
 	mCallbackData(cb_data),
@@ -371,7 +375,6 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 	// change z sort of clickable text to be behind buttons
 	sendChildToBack(getChildView("channel_text"));
-	sendChildToBack(getChildView("version_text"));
 	sendChildToBack(getChildView("forgot_password_text"));
 
 	LLLineEditor* edit = getChild<LLLineEditor>("password_edit");
@@ -386,7 +389,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	// 2 - "<Type region name>"
 
 	BOOL login_last = gSavedSettings.getBOOL("LoginLastLocation");
-	LLString sim_string = LLURLSimString::sInstance.mSimString;
+	std::string sim_string = LLURLSimString::sInstance.mSimString;
 	if (!sim_string.empty())
 	{
 		// Replace "<Type region name>" with this region name
@@ -414,25 +417,25 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 	setDefaultBtn("connect_btn");
 
-	childSetAction("quit_btn", onClickQuit, this);
+	// childSetAction("quit_btn", onClickQuit, this);
 
-	LLTextBox* version_text = getChild<LLTextBox>("version_text");
-	LLString version = llformat("%d.%d.%d (%d)",
+	std::string channel = gSavedSettings.getString("VersionChannelName");
+	std::string version = llformat("%d.%d.%d (%d)",
 		LL_VERSION_MAJOR,
 		LL_VERSION_MINOR,
 		LL_VERSION_PATCH,
 		LL_VIEWER_BUILD );
-	version_text->setText(version);
-	version_text->setClickedCallback(onClickVersion);
-	version_text->setCallbackUserData(this);
-
 	LLTextBox* channel_text = getChild<LLTextBox>("channel_text");
-	channel_text->setText(gSavedSettings.getString("VersionChannelName"));
+	channel_text->setTextArg("[CHANNEL]", channel);
+	channel_text->setTextArg("[VERSION]", version);
 	channel_text->setClickedCallback(onClickVersion);
 	channel_text->setCallbackUserData(this);
 	
 	LLTextBox* forgot_password_text = getChild<LLTextBox>("forgot_password_text");
 	forgot_password_text->setClickedCallback(onClickForgotPassword);
+
+	LLTextBox* create_new_account_text = getChild<LLTextBox>("create_new_account_text");
+	create_new_account_text->setClickedCallback(onClickNewAccount);
 #endif    
 	
 	// get the web browser control
@@ -746,7 +749,7 @@ void LLPanelLogin::setFields(const std::string& firstname, const std::string& la
 
 
 // static
-void LLPanelLogin::addServer(const char *server, S32 domain_name)
+void LLPanelLogin::addServer(const std::string& server, S32 domain_name)
 {
 	if (!sInstance)
 	{
@@ -760,7 +763,7 @@ void LLPanelLogin::addServer(const char *server, S32 domain_name)
 }
 
 // static
-void LLPanelLogin::getFields(LLString &firstname, LLString &lastname, LLString &password,
+void LLPanelLogin::getFields(std::string &firstname, std::string &lastname, std::string &password,
 							BOOL &remember)
 {
 	if (!sInstance)
@@ -770,10 +773,10 @@ void LLPanelLogin::getFields(LLString &firstname, LLString &lastname, LLString &
 	}
 
 	firstname = sInstance->childGetText("first_name_edit");
-	LLString::trim(firstname);
+	LLStringUtil::trim(firstname);
 
 	lastname = sInstance->childGetText("last_name_edit");
-	LLString::trim(lastname);
+	LLStringUtil::trim(lastname);
 
 	password = sInstance->mMungedPassword;
 	remember = sInstance->childGetValue("remember_check");
@@ -796,7 +799,7 @@ BOOL LLPanelLogin::isGridComboDirty()
 }
 
 // static
-void LLPanelLogin::getLocation(LLString &location)
+void LLPanelLogin::getLocation(std::string &location)
 {
 	if (!sInstance)
 	{
@@ -898,7 +901,7 @@ void LLPanelLogin::loadLoginPage()
 	}
 
 	// Language
-	LLString language(gSavedSettings.getString("Language"));
+	std::string language(gSavedSettings.getString("Language"));
 	if(language == "default")
 	{
 		language = gSavedSettings.getString("SystemLanguage");
@@ -912,7 +915,7 @@ void LLPanelLogin::loadLoginPage()
 	}
 
 	// Channel and Version
-	LLString version = llformat("%d.%d.%d (%d)",
+	std::string version = llformat("%d.%d.%d (%d)",
 						LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD);
 
 	char* curl_channel = curl_escape(gSavedSettings.getString("VersionChannelName").c_str(), 0);
@@ -936,9 +939,9 @@ void LLPanelLogin::loadLoginPage()
 #if USE_VIEWER_AUTH
 	LLURLSimString::sInstance.parse();
 
-	LLString location;
-	LLString region;
-	LLString password;
+	std::string location;
+	std::string region;
+	std::string password;
 	
 	if (LLURLSimString::parse())
 	{
@@ -961,7 +964,7 @@ void LLPanelLogin::loadLoginPage()
 		}
 	}
 	
-	LLString firstname, lastname;
+	std::string firstname, lastname;
 
     if(gSavedSettings.getLLSD("UserLoginInfo").size() == 3)
     {
@@ -1054,8 +1057,8 @@ void LLPanelLogin::onClickConnect(void *)
 		// JC - Make sure the fields all get committed.
 		sInstance->setFocus(FALSE);
 
-		LLString first = sInstance->childGetText("first_name_edit");
-		LLString last  = sInstance->childGetText("last_name_edit");
+		std::string first = sInstance->childGetText("first_name_edit");
+		std::string last  = sInstance->childGetText("last_name_edit");
 		if (!first.empty() && !last.empty())
 		{
 			// has both first and last name typed
@@ -1063,9 +1066,15 @@ void LLPanelLogin::onClickConnect(void *)
 		}
 		else
 		{
-			// empty first or last name
-			// same as clicking new account
-			onClickNewAccount(NULL);
+			if (gHideLinks)
+			{
+				gViewerWindow->alertXml("MustHaveAccountToLogInNoLinks");
+			}
+			else
+			{
+				gViewerWindow->alertXml("MustHaveAccountToLogIn",
+										LLPanelLogin::newAccountAlertCallback);
+			}
 		}
 	}
 }
@@ -1077,7 +1086,7 @@ void LLPanelLogin::newAccountAlertCallback(S32 option, void*)
 	if (0 == option)
 	{
 		llinfos << "Going to account creation URL" << llendl;
-		LLWeb::loadURL( CREATE_ACCOUNT_URL );
+		LLWeb::loadURLExternal( CREATE_ACCOUNT_URL );
 	}
 	else
 	{
@@ -1089,18 +1098,12 @@ void LLPanelLogin::newAccountAlertCallback(S32 option, void*)
 // static
 void LLPanelLogin::onClickNewAccount(void*)
 {
-	if (gHideLinks)
-	{
-		gViewerWindow->alertXml("MustHaveAccountToLogInNoLinks");
-	}
-	else
-	{
-		gViewerWindow->alertXml("MustHaveAccountToLogIn",
-								LLPanelLogin::newAccountAlertCallback);
-	}
+	LLWeb::loadURLExternal( CREATE_ACCOUNT_URL );
 }
 
 
+// *NOTE: This function is dead as of 2008 August.  I left it here in case
+// we suddenly decide to put the Quit button back. JC
 // static
 void LLPanelLogin::onClickQuit(void*)
 {
@@ -1121,14 +1124,14 @@ void LLPanelLogin::onClickVersion(void*)
 	LLFloaterAbout::show(NULL);
 }
 
+//static
 void LLPanelLogin::onClickForgotPassword(void*)
 {
 	if (sInstance )
 	{
-		LLWeb::loadURL(sInstance->getString( "forgot_password_url" ));
+		LLWeb::loadURLExternal(sInstance->getString( "forgot_password_url" ));
 	}
 }
-
 
 // static
 void LLPanelLogin::onPassKey(LLLineEditor* caller, void* user_data)
@@ -1149,7 +1152,7 @@ void LLPanelLogin::onSelectServer(LLUICtrl*, void*)
 
 	// The user twiddled with the grid choice ui.
 	// apply the selection to the grid setting.
-	LLString grid_label;
+	std::string grid_label;
 	S32 grid_index;
 
 	LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");

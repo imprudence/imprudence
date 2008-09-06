@@ -39,10 +39,6 @@
 #include "v4color.h"
 #endif
 
-//const char TAB = '\t';
-//const char DIVIDER[] = " / ";
-
-
 class LLCompass : public LLView
 {
 protected:

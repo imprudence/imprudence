@@ -75,8 +75,8 @@
 #include "llstylemap.h"
 
 // Used for LCD display
-extern void AddNewIMToLCD(const LLString &newLine);
-extern void AddNewChatToLCD(const LLString &newLine);
+extern void AddNewIMToLCD(const std::string &newLine);
+extern void AddNewChatToLCD(const std::string &newLine);
 //
 // Constants
 //
@@ -94,7 +94,7 @@ LLColor4 get_text_color(const LLChat& chat);
 // Member Functions
 //
 LLFloaterChat::LLFloaterChat(const LLSD& seed)
-:	LLFloater("chat floater", "FloaterChatRect", "", 
+:	LLFloater(std::string("chat floater"), std::string("FloaterChatRect"), LLStringUtil::null, 
 			  RESIZE_YES, 440, 100, DRAG_ON_TOP, MINIMIZE_NO, CLOSE_YES),
 	mPanel(NULL)
 {
@@ -191,7 +191,7 @@ void LLFloaterChat::updateConsoleVisibility()
 
 void add_timestamped_line(LLViewerTextEditor* edit, const LLChat &chat, const LLColor4& color)
 {
-	LLString line = chat.mText;
+	std::string line = chat.mText;
 	bool prepend_newline = true;
 	if (gSavedSettings.getBOOL("ChatShowTimestamps"))
 	{
@@ -205,9 +205,10 @@ void add_timestamped_line(LLViewerTextEditor* edit, const LLChat &chat, const LL
 		chat.mFromID != LLUUID::null &&
 		(line.length() > chat.mFromName.length() && line.find(chat.mFromName,0) == 0))
 	{
-		line = line.substr(chat.mFromName.length());
+		std::string start_line = line.substr(0, chat.mFromName.length() + 1);
+		line = line.substr(chat.mFromName.length() + 1);
 		const LLStyleSP &sourceStyle = LLStyleMap::instance().lookup(chat.mFromID);
-		edit->appendStyledText(chat.mFromName, false, prepend_newline, &sourceStyle);
+		edit->appendStyledText(start_line, false, prepend_newline, &sourceStyle);
 		prepend_newline = false;
 	}
 	edit->appendColoredText(line, false, prepend_newline, color);
@@ -215,13 +216,13 @@ void add_timestamped_line(LLViewerTextEditor* edit, const LLChat &chat, const LL
 
 void log_chat_text(const LLChat& chat)
 {
-		LLString histstr;
+		std::string histstr;
 		if (gSavedPerAccountSettings.getBOOL("LogChatTimestamp"))
 			histstr = LLLogChat::timestamp(gSavedPerAccountSettings.getBOOL("LogTimestampDate")) + chat.mText;
 		else
 			histstr = chat.mText;
 
-		LLLogChat::saveHistory("chat",histstr);
+		LLLogChat::saveHistory(std::string("chat"),histstr);
 }
 // static
 void LLFloaterChat::addChatHistory(const LLChat& chat, bool log_to_file)
@@ -304,7 +305,7 @@ void LLFloaterChat::onClickMute(void *data)
 
 	LLComboBox*	chatter_combo = self->getChild<LLComboBox>("chatter combobox");
 
-	const LLString& name = chatter_combo->getSimple();
+	const std::string& name = chatter_combo->getSimple();
 	LLUUID id = chatter_combo->getCurrentID();
 
 	if (name.empty()) return;
@@ -356,7 +357,7 @@ void LLFloaterChat::addChat(const LLChat& chat,
 			chat.mChatType == CHAT_TYPE_DEBUG_MSG
 			&& !gSavedSettings.getBOOL("ScriptErrorsAsChat");
 
-#if LL_WINDOWS && LL_LCD_COMPILE
+#if LL_LCD_COMPILE
 	// add into LCD displays
 	if (!invisible_script_debug_chat)
 	{
@@ -420,7 +421,14 @@ LLColor4 get_text_color(const LLChat& chat)
 			}
 			else
 			{
-				text_color = gSavedSettings.getColor4("AgentChatColor");
+				if(gAgent.getID() == chat.mFromID)
+				{
+					text_color = gSavedSettings.getColor4("UserChatColor");
+				}
+				else
+				{
+					text_color = gSavedSettings.getColor4("AgentChatColor");
+				}
 			}
 			break;
 		case CHAT_SOURCE_OBJECT:
@@ -459,11 +467,11 @@ LLColor4 get_text_color(const LLChat& chat)
 //static
 void LLFloaterChat::loadHistory()
 {
-	LLLogChat::loadHistory("chat", &chatFromLogFile, (void *)LLFloaterChat::getInstance(LLSD())); 
+	LLLogChat::loadHistory(std::string("chat"), &chatFromLogFile, (void *)LLFloaterChat::getInstance(LLSD())); 
 }
 
 //static
-void LLFloaterChat::chatFromLogFile(LLLogChat::ELogLineType type , LLString line, void* userdata)
+void LLFloaterChat::chatFromLogFile(LLLogChat::ELogLineType type , std::string line, void* userdata)
 {
 	switch (type)
 	{

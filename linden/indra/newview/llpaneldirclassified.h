@@ -44,7 +44,7 @@ class LLScrollListCtrl;
 class LLPanelDirClassified : public LLPanelDirBrowser
 {
 public:
-	LLPanelDirClassified(const char* name, LLFloaterDirectory* floater);
+	LLPanelDirClassified(const std::string& name, LLFloaterDirectory* floater);
 	/*virtual*/ ~LLPanelDirClassified();
 
 	/*virtual*/ void draw();

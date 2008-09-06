@@ -116,10 +116,16 @@ LLDir_Win32::LLDir_Win32()
 	GetCurrentDirectory(MAX_PATH, w_str);
 	mExecutableDir = utf16str_to_utf8str(llutf16string(w_str));
 #endif
+	
+	mAppRODataDir = getCurPath();
+	// *FIX:Mani - The following is the old way we did things. I'm keeping this around
+	// in case there is some really good reason to make mAppRODataDir == mExecutableDir
+	/*
 	if (strstr(mExecutableDir.c_str(), "indra\\newview"))
 		mAppRODataDir = getCurPath();
 	else
 		mAppRODataDir = mExecutableDir;
+	*/
 }
 
 LLDir_Win32::~LLDir_Win32()
@@ -135,7 +141,7 @@ void LLDir_Win32::initAppDirs(const std::string &app_name)
 	mOSUserAppDir += "\\";
 	mOSUserAppDir += app_name;
 
-	int res = LLFile::mkdir(mOSUserAppDir.c_str());
+	int res = LLFile::mkdir(mOSUserAppDir);
 	if (res == -1)
 	{
 		if (errno != EEXIST)
@@ -147,7 +153,7 @@ void LLDir_Win32::initAppDirs(const std::string &app_name)
 	}
 	//dumpCurrentDirectories();
 
-	res = LLFile::mkdir(getExpandedFilename(LL_PATH_LOGS,"").c_str());
+	res = LLFile::mkdir(getExpandedFilename(LL_PATH_LOGS,""));
 	if (res == -1)
 	{
 		if (errno != EEXIST)
@@ -156,7 +162,7 @@ void LLDir_Win32::initAppDirs(const std::string &app_name)
 		}
 	}
 	
-	res = LLFile::mkdir(getExpandedFilename(LL_PATH_USER_SETTINGS,"").c_str());
+	res = LLFile::mkdir(getExpandedFilename(LL_PATH_USER_SETTINGS,""));
 	if (res == -1)
 	{
 		if (errno != EEXIST)
@@ -165,7 +171,7 @@ void LLDir_Win32::initAppDirs(const std::string &app_name)
 		}
 	}
 	
-	res = LLFile::mkdir(getExpandedFilename(LL_PATH_CACHE,"").c_str());
+	res = LLFile::mkdir(getExpandedFilename(LL_PATH_CACHE,""));
 	if (res == -1)
 	{
 		if (errno != EEXIST)
@@ -174,7 +180,7 @@ void LLDir_Win32::initAppDirs(const std::string &app_name)
 		}
 	}
 	
-	res = LLFile::mkdir(getExpandedFilename(LL_PATH_MOZILLA_PROFILE,"").c_str());
+	res = LLFile::mkdir(getExpandedFilename(LL_PATH_MOZILLA_PROFILE,""));
 	if (res == -1)
 	{
 		if (errno != EEXIST)
@@ -343,7 +349,7 @@ BOOL LLDir_Win32::fileExists(const std::string &filename) const
 	llstat stat_data;
 	// Check the age of the file
 	// Now, we see if the files we've gathered are recent...
-	int res = LLFile::stat(filename.c_str(), &stat_data);
+	int res = LLFile::stat(filename, &stat_data);
 	if (!res)
 	{
 		return TRUE;

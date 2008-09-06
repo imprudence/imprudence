@@ -66,7 +66,7 @@ public:
 	virtual BOOL	handleDragAndDrop(S32 x, S32 y, MASK mask,
 		BOOL drop, EDragAndDropType cargo_type, void *cargo_data, 
 		EAcceptance *accept,
-		LLString& tooltip_msg);
+		std::string& tooltip_msg);
 	virtual BOOL	handleKeyHere(KEY key, MASK mask);
 
 	// LLFloater overrides
@@ -87,7 +87,7 @@ public:
 	static void		onBtnRename( void* userdata );
 	static void		onSelectionChange(const std::deque<LLFolderViewItem*> &items, BOOL user_action, void* data);
 	static void		onShowFolders(LLUICtrl* ctrl, void* userdata);
-	static void		onSearchEdit(const LLString& search_string, void* user_data );
+	static void		onSearchEdit(const std::string& search_string, void* user_data );
 
 protected:
 	LLPointer<LLViewerImage> mLandmarkp;
@@ -101,7 +101,7 @@ protected:
 	LLTextBox*			mTentativeLabel;
 	LLTextBox*			mResolutionLabel;
 
-	LLString			mPendingName;
+	std::string			mPendingName;
 	BOOL				mIsDirty;
 	BOOL				mActive;
 

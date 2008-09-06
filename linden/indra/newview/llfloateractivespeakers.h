@@ -67,16 +67,16 @@ public:
 	} ESpeakerStatus;
 
 
-	LLSpeaker(const LLUUID& id, const LLString& name = LLString::null, const ESpeakerType type = SPEAKER_AGENT);
+	LLSpeaker(const LLUUID& id, const std::string& name = LLStringUtil::null, const ESpeakerType type = SPEAKER_AGENT);
 	~LLSpeaker() {};
 	void lookupName();
 
-	static void onAvatarNameLookup(const LLUUID& id, const char* first, const char* last, BOOL is_group, void* user_data);
+	static void onAvatarNameLookup(const LLUUID& id, const std::string& first, const std::string& last, BOOL is_group, void* user_data);
 
 	ESpeakerStatus	mStatus;			// current activity status in speech group
 	F32				mLastSpokeTime;		// timestamp when this speaker last spoke
 	F32				mSpeechVolume;		// current speech amplitude (timea average rms amplitude?)
-	LLString		mDisplayName;		// cache user name for this speaker
+	std::string		mDisplayName;		// cache user name for this speaker
 	LLFrameTimer	mActivityTimer;	// time out speakers when they are not part of current voice channel
 	BOOL			mHasSpoken;			// has this speaker said anything this session?
 	LLColor4		mDotColor;
@@ -120,11 +120,11 @@ public:
 	virtual ~LLSpeakerMgr();
 
 	const LLPointer<LLSpeaker> findSpeaker(const LLUUID& avatar_id);
-	void update();
+	void update(BOOL resort_ok);
 	void setSpeakerTyping(const LLUUID& speaker_id, BOOL typing);
 	void speakerChatted(const LLUUID& speaker_id);
 	LLPointer<LLSpeaker> setSpeaker(const LLUUID& id, 
-					const LLString& name = LLString::null, 
+					const std::string& name = LLStringUtil::null, 
 					LLSpeaker::ESpeakerStatus status = LLSpeaker::STATUS_TEXT_ONLY, 
 					LLSpeaker::ESpeakerType = LLSpeaker::SPEAKER_AGENT);
 
@@ -211,7 +211,7 @@ public:
 	void refreshSpeakers();
 	
 	void setSpeaker(const LLUUID& id, 
-					const LLString& name = LLString::null, 
+					const std::string& name = LLStringUtil::null, 
 					LLSpeaker::ESpeakerStatus status = LLSpeaker::STATUS_TEXT_ONLY, 
 					LLSpeaker::ESpeakerType = LLSpeaker::SPEAKER_AGENT);
 

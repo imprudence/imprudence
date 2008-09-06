@@ -286,7 +286,7 @@ namespace tut
 	{
 		U8 r = 0x12, g = 0xFF, b = 0xAF, a = 12;
 		LLColor4U llcolor4u1(r,g,b,a);
-		const char *color = "12, 23, 132, 50";
+		std::string color("12, 23, 132, 50");
 		LLColor4U::parseColor4U(color, &llcolor4u1);
 		ensure("parseColor4U() failed to parse the color value ", ((12 == llcolor4u1.mV[VX]) && (23 == llcolor4u1.mV[VY]) && (132 == llcolor4u1.mV[VZ])&& (50 == llcolor4u1.mV[VW])));
 

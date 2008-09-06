@@ -52,7 +52,7 @@ public:
 	static void onClickExpandBtn(void* user_data);
 	static void* createVolumePanel(void* data);
 	
-	virtual void setToolTip(const LLString& msg);
+	virtual void setToolTip(const std::string& msg);
 
 protected:
 	void build();

@@ -66,7 +66,8 @@
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="40"
 	     mouse_opaque="true" name="server_lag_cause" right="-32" v_pad="0" />
 	<button bottom="5" follows="left|top" font="SansSerif" halign="center" height="18"
-	     help_url="http://secondlife.com/support" label="?" mouse_opaque="true"
+	     help_url="https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=4851" 
+	     label="?" mouse_opaque="true"
 	     name="server_help" right="-10" width="18" />
 	<button bottom="5" follows="left|top" font="SansSerif" halign="center" height="20"
 	     label="&gt;&gt;" left="5" mouse_opaque="true" name="minimize" width="25" />

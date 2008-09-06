@@ -35,12 +35,13 @@
 
 #include "llerror.h"
 
-LLImageJPEG::LLImageJPEG() 
+jmp_buf	LLImageJPEG::sSetjmpBuffer ;
+LLImageJPEG::LLImageJPEG(S32 quality) 
 	:
 	LLImageFormatted(IMG_CODEC_JPEG),
 	mOutputBuffer( NULL ),
 	mOutputBufferSize( 0 ),
-	mEncodeQuality( 75 ) 		// on a scale from 1 to 100
+	mEncodeQuality( quality ) // on a scale from 1 to 100
 {
 }
 
@@ -76,7 +77,16 @@ BOOL LLImageJPEG::updateData()
 	jerr.error_exit =		&LLImageJPEG::errorExit;			// Error exit handler: does not return to caller
 	jerr.emit_message =		&LLImageJPEG::errorEmitMessage;		// Conditionally emit a trace or warning message
 	jerr.output_message =	&LLImageJPEG::errorOutputMessage;	// Routine that actually outputs a trace or error message
-
+	
+	//
+	//try/catch will crash on Mac and Linux if LLImageJPEG::errorExit throws an error
+	//so as instead, we use setjmp/longjmp to avoid this crash, which is the best we can get. --bao 
+	//
+	if(setjmp(sSetjmpBuffer))
+	{
+		jpeg_destroy_decompress(&cinfo);
+		return FALSE;
+	}
 	try
 	{
 		// Now we can initialize the JPEG decompression object.
@@ -208,7 +218,15 @@ BOOL LLImageJPEG::decode(LLImageRaw* raw_image, F32 decode_time)
 	jerr.emit_message =		&LLImageJPEG::errorEmitMessage;		// Conditionally emit a trace or warning message
 	jerr.output_message =	&LLImageJPEG::errorOutputMessage;	// Routine that actually outputs a trace or error message
 	
-
+	//
+	//try/catch will crash on Mac and Linux if LLImageJPEG::errorExit throws an error
+	//so as instead, we use setjmp/longjmp to avoid this crash, which is the best we can get. --bao 
+	//
+	if(setjmp(sSetjmpBuffer))
+	{
+		jpeg_destroy_decompress(&cinfo);
+		return FALSE;
+	}
 	try
 	{
 		// Now we can initialize the JPEG decompression object.
@@ -402,7 +420,7 @@ void LLImageJPEG::errorExit( j_common_ptr cinfo )
 	jpeg_destroy(cinfo);
 
 	// Return control to the setjmp point
-	throw 1;
+	longjmp(sSetjmpBuffer, 1) ;
 }
 
 // Decide whether to emit a trace or warning message.
@@ -500,8 +518,11 @@ BOOL LLImageJPEG::encode( const LLImageRaw* raw_image, F32 encode_time )
 	jerr.emit_message =		&LLImageJPEG::errorEmitMessage;		// Conditionally emit a trace or warning message
 	jerr.output_message =	&LLImageJPEG::errorOutputMessage;	// Routine that actually outputs a trace or error message
 
-	// Establish the setjmp return context mSetjmpBuffer.  Used by library to abort.
-	if( setjmp(mSetjmpBuffer) ) 
+	//
+	//try/catch will crash on Mac and Linux if LLImageJPEG::errorExit throws an error
+	//so as instead, we use setjmp/longjmp to avoid this crash, which is the best we can get. --bao 
+	//
+	if( setjmp(sSetjmpBuffer) ) 
 	{
 		// If we get here, the JPEG code has signaled an error.
 		// We need to clean up the JPEG object, close the input file, and return.

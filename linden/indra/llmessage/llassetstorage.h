@@ -197,7 +197,8 @@ public:
 };
 
 
-
+// Map of known bad assets
+typedef std::map<LLUUID,U64,lluuid_less> toxic_asset_map_t;
 
 typedef void (*LLGetAssetCallback)(LLVFS *vfs, const LLUUID &asset_id,
 										 LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status);
@@ -231,6 +232,9 @@ protected:
 	request_list_t mPendingUploads;
 	request_list_t mPendingLocalUploads;
 	
+	// Map of toxic assets - these caused problems when recently rezzed, so avoid them
+	toxic_asset_map_t	mToxicAssetMap;		// Objects in this list are known to cause problems and are not loaded
+
 public:
 	LLAssetStorage(LLMessageSystem *msg, LLXferManager *xfer,
 				   LLVFS *vfs, const LLHost &upstream_host);
@@ -290,6 +294,15 @@ public:
 						 const LLUUID &owner_id, const LLUUID &task_id, const LLUUID &item_id,
 						 const LLUUID &asset_id, LLAssetType::EType atype,
 						 LLGetAssetCallback cb, void *user_data, BOOL is_priority = FALSE); // Get a particular inventory item.
+
+	// Check if an asset is in the toxic map.  If it is, the entry is updated
+	BOOL		isAssetToxic( const LLUUID& uuid );
+
+	// Clean the toxic asset list, remove old entries
+	void		flushOldToxicAssets( BOOL force_it );
+
+	// Add an item to the toxic asset map
+	void		markAssetToxic( const LLUUID& uuid );
 
 protected:
 	virtual LLSD getPendingDetails(const request_list_t* requests,
@@ -365,7 +378,7 @@ public:
 	 * AssetID version.
 	 */
 	virtual void storeAssetData(
-		const char* filename,
+		const std::string& filename,
 		const LLUUID& asset_id,
 		LLAssetType::EType type,
 		LLStoreAssetCallback callback,
@@ -379,7 +392,7 @@ public:
 	 * TransactionID version
 	 */
 	virtual void storeAssetData(
-		const char * filename,
+		const std::string& filename,
 		const LLTransactionID &transaction_id,
 		LLAssetType::EType type,
 		LLStoreAssetCallback callback,
@@ -438,9 +451,9 @@ protected:
 
 	static class LLMetrics *metric_recipient;
 
-	static void reportMetric( const LLUUID& asset_id, const LLAssetType::EType asset_type, const char *filename,
-					   const LLUUID& agent_id, S32 asset_size, EMetricResult result,
-					   const char *file, const S32 line, const char *message ); 
+	static void reportMetric( const LLUUID& asset_id, const LLAssetType::EType asset_type, const std::string& filename,
+							  const LLUUID& agent_id, S32 asset_size, EMetricResult result,
+							  const char* file, const S32 line, const std::string& message ); 
 public:
 	static void setMetricRecipient( LLMetrics *recip )
 	{

@@ -66,15 +66,14 @@ class LLSearchEditor;
 class LLInventoryPanel : public LLPanel
 {
 public:
-	static const LLString DEFAULT_SORT_ORDER;
-	static const LLString RECENTITEMS_SORT_ORDER;
-	static const LLString INHERIT_SORT_ORDER;
+	static const std::string DEFAULT_SORT_ORDER;
+	static const std::string RECENTITEMS_SORT_ORDER;
+	static const std::string INHERIT_SORT_ORDER;
 
-	LLInventoryPanel(const LLString& name,
-			const LLString& sort_order_setting,
+	LLInventoryPanel(const std::string& name,
+			const std::string& sort_order_setting,
 			const LLRect& rect,
 			LLInventoryModel* inventory,
-			LLFolderSearchFunction search,
 			BOOL allow_multi_select,
 			LLView *parent_view = NULL);
 	~LLInventoryPanel();
@@ -92,7 +91,7 @@ public:
 								   EDragAndDropType cargo_type,
 								   void* cargo_data,
 								   EAcceptance* accept,
-								   LLString& tooltip_msg);
+								   std::string& tooltip_msg);
 
 	// Call this method to set the selection.
 	void openAllFolders();
@@ -106,8 +105,8 @@ public:
 	U32 getFilterTypes() const { return mFolders->getFilterTypes(); }
 	void setFilterPermMask(PermissionMask filter_perm_mask);
 	U32 getFilterPermMask() const { return mFolders->getFilterPermissions(); }
-	void setFilterSubString(const LLString& string);
-	const LLString getFilterSubString() { return mFolders->getFilterSubString(); }
+	void setFilterSubString(const std::string& string);
+	const std::string getFilterSubString() { return mFolders->getFilterSubString(); }
 	void setSortOrder(U32 order);
 	U32 getSortOrder() { return mFolders->getSortOrder(); }
 	void setSinceLogoff(BOOL sl);
@@ -139,7 +138,7 @@ public:
 	// helper method which creates an item with a good description,
 	// updates the inventory, updates the server, and pushes the
 	// inventory update out to other observers.
-	void createNewItem(const char* name,
+	void createNewItem(const std::string& name,
 					   const LLUUID& parent_id,
 					   LLAssetType::EType asset_type,
 					   LLInventoryType::EType inv_type,
@@ -151,8 +150,7 @@ protected:
 	LLFolderView*				mFolders;
 	LLScrollableContainerView*	mScroller;
 	BOOL 						mAllowMultiSelect;
-	const LLString				mSortOrderSetting;
-	LLFolderSearchFunction 		mSearchFunction;
+	const std::string				mSortOrderSetting;
 };
 
 class LLInventoryView;
@@ -160,7 +158,7 @@ class LLInventoryView;
 class LLInventoryViewFinder : public LLFloater
 {
 public:
-	LLInventoryViewFinder(const LLString& name,
+	LLInventoryViewFinder(const std::string& name,
 						const LLRect& rect,
 						LLInventoryView* inventory_view);
 	virtual void draw();
@@ -188,9 +186,9 @@ class LLInventoryView : public LLFloater, LLInventoryObserver
 friend class LLInventoryViewFinder;
 
 public:
-	LLInventoryView(const LLString& name, const LLString& rect,
+	LLInventoryView(const std::string& name, const std::string& rect,
 			LLInventoryModel* inventory);
-	LLInventoryView(const LLString& name, const LLRect& rect,
+	LLInventoryView(const std::string& name, const LLRect& rect,
 					LLInventoryModel* inventory);
 	~LLInventoryView();
 
@@ -230,7 +228,7 @@ public:
 		EDragAndDropType cargo_type,
 		void* cargo_data,
 		EAcceptance* accept,
-		LLString& tooltip_msg);
+		std::string& tooltip_msg);
 
 
 	LLInventoryPanel* getPanel() { return mActivePanel; }
@@ -240,17 +238,14 @@ public:
 	static void onClearSearch(void* user_data);
 	static void onFoldersByName(void *user_data);
 	static BOOL checkFoldersByName(void *user_data);
-	static void onSearchEdit(const LLString& search_string, void* user_data );
-	//static void onSearchCommit(LLUICtrl* caller, void* user_data );
+	static void onSearchEdit(const std::string& search_string, void* user_data );
 	static void onFilterSelected(void* userdata, bool from_click);
 	static void onSelectionChange(const std::deque<LLFolderViewItem*> &items, BOOL user_action, void* data);
-	static BOOL incrementalFind(LLFolderViewItem* first_item, const char* find_text, BOOL backward);
 
-	const LLString getFilterSubString() { return mActivePanel->getFilterSubString(); }
-	void setFilterSubString(const LLString& string) { mActivePanel->setFilterSubString(string); }
+	const std::string getFilterSubString() { return mActivePanel->getFilterSubString(); }
+	void setFilterSubString(const std::string& string) { mActivePanel->setFilterSubString(string); }
 
 	// HACK: Until we can route this info through the instant message hierarchy
-	//static BOOL sOpenNextNewItem;
 	static BOOL sWearNewClothing;
 	static LLUUID sWearNewClothingTransactionID;	// wear all clothing in this transaction
 
@@ -269,7 +264,7 @@ protected:
 	LLInventoryPanel*			mActivePanel;
 	LLSaveFolderState*			mSavedFolderState;
 
-	LLString					mFilterText;
+	std::string					mFilterText;
 
 
 	// This container is used to hold all active inventory views. This
@@ -336,15 +331,15 @@ class LLInventoryItem;
 //void wear_inventory_category_on_avatar(LLInventoryCategory* category);
 
 void wear_inventory_item_on_avatar(LLInventoryItem* item);
-void wear_outfit_by_name(const char* name);
+void wear_outfit_by_name(const std::string& name);
 void wear_inventory_category(LLInventoryCategory* category, bool copy, bool append);
 
 // These methods can open items without the inventory being visible
-void open_notecard(LLViewerInventoryItem* inv_item, const LLString& title, const LLUUID& object_id, BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
-void open_landmark(LLViewerInventoryItem* inv_item, const LLString& title,                          BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
-void open_texture(const LLUUID& item_id, const LLString& title, BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
+void open_notecard(LLViewerInventoryItem* inv_item, const std::string& title, const LLUUID& object_id, BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
+void open_landmark(LLViewerInventoryItem* inv_item, const std::string& title,                          BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
+void open_texture(const LLUUID& item_id, const std::string& title, BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
 
-LLString get_item_icon_name(LLAssetType::EType asset_type,
+std::string get_item_icon_name(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
 							 U32 attachment_point, 
 							 BOOL item_is_multi );

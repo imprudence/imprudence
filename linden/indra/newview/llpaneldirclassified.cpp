@@ -69,7 +69,7 @@
 // Constants
 //-----------------------------------------------------------------------------
 
-LLPanelDirClassified::LLPanelDirClassified(const char* name, LLFloaterDirectory* floater)
+LLPanelDirClassified::LLPanelDirClassified(const std::string& name, LLFloaterDirectory* floater)
 :	LLPanelDirBrowser(name, floater)
 {
 }

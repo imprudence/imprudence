@@ -224,6 +224,7 @@ LLSD LLApp::getOptionData(OptionPriority level)
 void LLApp::stepFrame()
 {
 	LLFrameTimer::updateFrameTime();
+	LLFrameTimer::updateFrameCount();
 	LLEventTimer::updateClass();
 	mRunner.run();
 }
@@ -492,6 +493,7 @@ void LLApp::setDefaultChildCallback(LLAppChildCallback callback)
 
 pid_t LLApp::fork()
 {
+	fflush(NULL); // flush all buffers before the child inherits them
 	pid_t pid = ::fork();
 	if( pid < 0 )
 	{

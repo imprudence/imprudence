@@ -37,15 +37,11 @@
 
 class LLListener_FMOD : public LLListener
 {
- private:
  protected:
 	 F32 mDopplerFactor;
 	 F32 mDistanceFactor;
 	 F32 mRolloffFactor;
- public:
 
- private:
- protected:
  public:  
 	LLListener_FMOD();
 	virtual ~LLListener_FMOD();

@@ -93,7 +93,7 @@ void LLPanelDirPeople::performQuery()
 	// if we filtered something out, display a popup
 	if ( query_was_filtered )
 	{
-		LLString::format_map_t args;
+		LLStringUtil::format_map_t args;
 		args["[FINALQUERY]"] = query_string;
 		gViewerWindow->alertXml("SeachFilteredOnShortWords", args);
 	};

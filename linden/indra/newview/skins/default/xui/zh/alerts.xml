@@ -2835,17 +2835,6 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 			取消
 		</option>
 	</alert>
-	<alert name="WebLaunchReleaseNotes">
-		<message name="message">
-			是否查看[SECOND_LIFE] 发布的消息?.
-		</message>
-		<option name="Gotopage">
-			回主页
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
 			你确定要将所选东东归还至
@@ -2915,7 +2904,7 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 			通过名字屏蔽声音只会影响对象聊天和即时消息, 不会影效果声音。 
 你必须准确键入对象的名字.
 		</message>
-		<editline>
+		<editline name="editline">
 			东东名称
 		</editline>
 		<option name="OK">
@@ -3044,7 +3033,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			以哪句消息踢走此人?
 		</message>
-		<editline>
+		<editline name="editline">
 			管理员已经迫使您下线。
 		</editline>
 		<option name="OK">
@@ -3058,7 +3047,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			以哪句消息踢走目前在此的每个人?
 		</message>
-		<editline>
+		<editline name="editline">
 			管理员已经迫使您下线。
 		</editline>
 		<option name="OK">
@@ -3072,7 +3061,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			用哪一条通知冻结化身?
 		</message>
-		<editline>
+		<editline name="editline">
 			你已经被冻结。你不能移动或聊天。管理员会通过即时信息联系你。
 		</editline>
 		<option name="OK">
@@ -3086,7 +3075,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			发送何种信息封锁该用户?
 		</message>
-		<editline>
+		<editline name="editline">
 			你已经被解冻
 		</editline>
 		<option name="OK">
@@ -3111,7 +3100,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			用以下消息提供到你所在地的闪电传送?
 		</message>
-		<editline>
+		<editline name="editline">
 			我要加入 [REGION]
 		</editline>
 		<option name="OK">
@@ -3125,7 +3114,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			是否神明召唤用户去你的位置?
 		</message>
-		<editline>
+		<editline name="editline">
 			我要加入 [REGION]
 		</editline>
 		<option name="OK">

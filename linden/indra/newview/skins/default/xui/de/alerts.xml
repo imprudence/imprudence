@@ -3219,20 +3219,6 @@ erscheint Ihre Anzeige weiter oben in der Liste.
 			Abbrechen
 		</option>
 	</alert>
-	<alert name="WebLaunchReleaseNotes">
-		<message name="message">
-			Die Release-Hinweise von [SECOND_LIFE] anzeigen?
-		</message>
-		<ignore name="ignore">
-			Beim Starten eines Browsers, um die Versionshinweise anzuzeigen
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
 			Möchten Sie die ausgewählten Objekte
@@ -3313,7 +3299,7 @@ Diese Gruppe verlassen?
 			Stummschalten nach Name betrifft nur Chat und IM, keine Sounds. 
 Sie müssen den Objektnamen exakt angeben.
 		</message>
-		<editline>
+		<editline name="editline">
 			Objektname
 		</editline>
 		<option name="OK">
@@ -3445,7 +3431,7 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter
 		<message name="message">
 			Beim Hinauswerfen dieses Benutzers welche Meldung anzeigen?
 		</message>
-		<editline>
+		<editline name="editline">
 			Sie wurden von einem Administrator abgemeldet.
 		</editline>
 		<option name="OK">
@@ -3459,7 +3445,7 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter
 		<message name="message">
 			Beim Hinauswerfen aller Personen vom Grid welche Meldung anzeigen?
 		</message>
-		<editline>
+		<editline name="editline">
 			Sie wurden von einem Administrator abgemeldet.
 		</editline>
 		<option name="OK">
@@ -3473,7 +3459,7 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter
 		<message name="message">
 			Beim Einfrieren dieses Benutzers welche Meldung anzeigen?
 		</message>
-		<editline>
+		<editline name="editline">
 			Sie wurden eingefroren. Bewegen oder Chatten ist nicht mehr möglich. Ein Administrator wird sich über IM an Sie wenden
 		</editline>
 		<option name="OK">
@@ -3487,7 +3473,7 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter
 		<message name="message">
 			Beim Auftauen dieses Benutzers welche Meldung anzeigen?
 		</message>
-		<editline>
+		<editline name="editline">
 			Sie sind nicht mehr eingefroren.
 		</editline>
 		<option name="OK">
@@ -3512,7 +3498,7 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter
 		<message name="message">
 			Teleport an Ihre Position mit der folgenden Meldung anbieten?
 		</message>
-		<editline>
+		<editline name="editline">
 			Triff mich in [REGION]
 		</editline>
 		<option name="OK">
@@ -3526,7 +3512,7 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter
 		<message name="message">
 			Benutzer an Ihrem Standort herbeirufen?
 		</message>
-		<editline>
+		<editline name="editline">
 			Triff mich in [REGION]
 		</editline>
 		<option name="OK">
@@ -4944,13 +4930,15 @@ Wolkendichte.
 		<message name="message">
 			Wählen Sie einen Namen für den neuen Himmel.
 		</message>
+		<editline name="editline">
+			Neue Voreinstellung
+		</editline>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
 			Abbrechen
 		</option>
-		Neue Voreinstellung
 	</alert>
 	<alert name="ExistsSkyPresetAlert">
 		<message name="message">
@@ -4961,13 +4949,15 @@ Wolkendichte.
 		<message name="message">
 			Wählen Sie einen Namen für die neue Wasservoreinstellung.
 		</message>
+		<editline name="editline">
+			Neue Voreinstellung
+		</editline>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
 			Abbrechen
 		</option>
-		Neue Voreinstellung
 	</alert>
 	<alert name="ExistsWaterPresetAlert">
 		<message name="message">

@@ -51,22 +51,22 @@ namespace tut
 	{
 		for (S32 i=0; i<LLParcel::C_COUNT; ++i)
 		{
-			const char *catstring =  LLParcel::getCategoryString(LLParcel::ECategory(i));
+			const std::string& catstring =  LLParcel::getCategoryString(LLParcel::ECategory(i));
 			ensure("LLParcel::getCategoryString(i)",
-			       NULL != catstring);
+			       !catstring.empty());
 
-			const char *catuistring =  LLParcel::getCategoryUIString(LLParcel::ECategory(i));
+			const std::string& catuistring =  LLParcel::getCategoryUIString(LLParcel::ECategory(i));
 			ensure("LLParcel::getCategoryUIString(i)",
-			       NULL != catuistring);
+			       !catuistring.empty());
 
 			ensure_equals("LLParcel::ECategory mapping of string back to enum", LLParcel::getCategoryFromString(catstring), i);
 			ensure_equals("LLParcel::ECategory mapping of uistring back to enum", LLParcel::getCategoryFromUIString(catuistring), i);
 		}
 
 		// test the C_ANY case, which has to work for UI strings
-		const char *catuistring =  LLParcel::getCategoryUIString(LLParcel::C_ANY);
+		const std::string& catuistring =  LLParcel::getCategoryUIString(LLParcel::C_ANY);
 		ensure("LLParcel::getCategoryUIString(C_ANY)",
-		       NULL != catuistring);
+		       !catuistring.empty());
 
 		ensure_equals("LLParcel::ECategory mapping of uistring back to enum", LLParcel::getCategoryFromUIString(catuistring), LLParcel::C_ANY);
 	}

@@ -166,19 +166,11 @@ void LLManipScale::handleSelect()
 	LLManip::handleSelect();
 }
 
-void LLManipScale::handleDeselect()
-{
-	mHighlightedPart = LL_NO_PART;
-	mManipPart = LL_NO_PART;
-	LLManip::handleDeselect();
-}
-
 LLManipScale::LLManipScale( LLToolComposite* composite )
 	: 
-	LLManip( "Scale", composite ),
+	LLManip( std::string("Scale"), composite ),
 	mBoxHandleSize( 1.f ),
 	mScaledBoxHandleSize( 1.f ),
-	mManipPart( LL_NO_PART ),
 	mLastMouseX( -1 ),
 	mLastMouseY( -1 ),
 	mSendUpdateOnMouseUp( FALSE ),
@@ -216,7 +208,7 @@ void LLManipScale::render()
 		glPushMatrix();
 		if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 		{
-			F32 zoom = gAgent.getAvatarObject()->mHUDCurZoom;
+			F32 zoom = gAgent.mHUDCurZoom;
 			glScalef(zoom, zoom, zoom);
 		}
 
@@ -233,7 +225,7 @@ void LLManipScale::render()
 		if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 		{
 			mBoxHandleSize = BOX_HANDLE_BASE_SIZE * BOX_HANDLE_BASE_FACTOR / (F32) LLViewerCamera::getInstance()->getViewHeightInPixels();
-			mBoxHandleSize /= gAgent.getAvatarObject()->mHUDCurZoom;
+			mBoxHandleSize /= gAgent.mHUDCurZoom;
 		}
 		else
 		{
@@ -316,9 +308,7 @@ BOOL LLManipScale::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	BOOL	handled = FALSE;
 
-	LLViewerObject* hit_obj = gViewerWindow->lastObjectHit();
-	if( hit_obj ||  
-		(mHighlightedPart != LL_NO_PART) )
+	if(mHighlightedPart != LL_NO_PART)
 	{
 		handled = handleMouseDownOnPart( x, y, mask );
 	}
@@ -446,7 +436,7 @@ void LLManipScale::highlightManipulators(S32 x, S32 y)
 			LLMatrix4 cfr(OGL_TO_CFR_ROTATION);
 			transform *= cfr;
 			LLMatrix4 window_scale;
-			F32 zoom_level = 2.f * gAgent.getAvatarObject()->mHUDCurZoom;
+			F32 zoom_level = 2.f * gAgent.mHUDCurZoom;
 			window_scale.initAll(LLVector3(zoom_level / LLViewerCamera::getInstance()->getAspect(), zoom_level, 0.f),
 				LLQuaternion::DEFAULT,
 				LLVector3::zero);
@@ -1013,9 +1003,11 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 			if (selectNode->mIndividualSelection)
 			{
 				// counter-translate child objects if we are moving the root as an individual
-				for (U32 child_num = 0; child_num < cur->mChildList.size(); child_num++)
+				LLViewerObject::const_child_list_t& child_list = cur->getChildren();
+				for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+					 iter != child_list.end(); iter++)
 				{
-					LLViewerObject* childp = cur->mChildList[child_num];
+					LLViewerObject* childp = *iter;
 
 					if (cur->isAttachment())
 					{
@@ -1311,9 +1303,11 @@ void LLManipScale::stretchFace( const LLVector3& drag_start_agent, const LLVecto
 			if (cur->isRootEdit() && selectNode->mIndividualSelection)
 			{
 				// counter-translate child objects if we are moving the root as an individual
-				for (U32 child_num = 0; child_num < cur->mChildList.size(); child_num++)
+				LLViewerObject::const_child_list_t& child_list = cur->getChildren();
+				for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+					 iter != child_list.end(); iter++)
 				{
-					LLViewerObject* childp = cur->mChildList[child_num];
+					LLViewerObject* childp = *iter;
 					if (!getUniform())
 					{
 						LLVector3 child_pos = childp->getPosition() - (delta_pos * ~cur->getRotationEdit());
@@ -1367,7 +1361,7 @@ void LLManipScale::updateSnapGuides(const LLBBox& bbox)
 
 	if(mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 	{
-		mSnapRegimeOffset = SNAP_GUIDE_SCREEN_OFFSET / gAgent.getAvatarObject()->mHUDCurZoom;
+		mSnapRegimeOffset = SNAP_GUIDE_SCREEN_OFFSET / gAgent.mHUDCurZoom;
 
 	}
 	else
@@ -1380,7 +1374,7 @@ void LLManipScale::updateSnapGuides(const LLBBox& bbox)
 	if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		cam_at_axis.setVec(1.f, 0.f, 0.f);
-		snap_guide_length = SNAP_GUIDE_SCREEN_LENGTH / gAgent.getAvatarObject()->mHUDCurZoom;
+		snap_guide_length = SNAP_GUIDE_SCREEN_LENGTH / gAgent.mHUDCurZoom;
 	}
 	else
 	{
@@ -1751,7 +1745,7 @@ void LLManipScale::renderSnapGuides(const LLBBox& bbox)
 					text_highlight = 1.f;
 				}
 
-				renderTickValue(text_origin, tick_val, grid_mode == GRID_MODE_WORLD ? "m" : "x", LLColor4(text_highlight, text_highlight, text_highlight, alpha));
+				renderTickValue(text_origin, tick_val, grid_mode == GRID_MODE_WORLD ? std::string("m") : std::string("x"), LLColor4(text_highlight, text_highlight, text_highlight, alpha));
 			}
 		}
 
@@ -1803,7 +1797,7 @@ void LLManipScale::renderSnapGuides(const LLBBox& bbox)
 						text_highlight = 1.f;
 					}
 
-					renderTickValue(text_origin, tick_val, grid_mode == GRID_MODE_WORLD ? "m" : "x", LLColor4(text_highlight, text_highlight, text_highlight, alpha));
+					renderTickValue(text_origin, tick_val, grid_mode == GRID_MODE_WORLD ? std::string("m") : std::string("x"), LLColor4(text_highlight, text_highlight, text_highlight, alpha));
 				}
 			}
 		}

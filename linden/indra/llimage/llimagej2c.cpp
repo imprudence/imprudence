@@ -29,8 +29,8 @@
  */
 #include "linden_common.h"
 
-#include <apr-1/apr_pools.h>
-#include <apr-1/apr_dso.h>
+#include "apr_pools.h"
+#include "apr_dso.h"
 
 #include "lldir.h"
 #include "llimagej2c.h"
@@ -374,7 +374,7 @@ void LLImageJ2C::setReversible(const BOOL reversible)
 }
 
 
-BOOL LLImageJ2C::loadAndValidate(const LLString &filename)
+BOOL LLImageJ2C::loadAndValidate(const std::string &filename)
 {
 	resetLastError();
 

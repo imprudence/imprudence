@@ -95,6 +95,7 @@ class LLMessageSystem;
 class LLPermissions;
 class LLHost;
 class LLFriendObserver;
+class LLPickInfo;
 
 struct LLGroupData
 {
@@ -150,7 +151,9 @@ public:
 	void			sendReliableMessage();
 
 	LLVector3d		calcCameraPositionTargetGlobal(BOOL *hit_limit = NULL); // Calculate the camera position target
-	LLVector3d		calcFocusPositionTargetGlobal();			// target for this mode
+	LLVector3d		calcFocusPositionTargetGlobal();
+	LLVector3d		calcThirdPersonFocusOffset();
+			// target for this mode
 	LLVector3d		getCameraPositionGlobal() const;
 	const LLVector3 &getCameraPositionAgent() const;
 	F32				calcCameraFOVZoomFactor();
@@ -191,6 +194,7 @@ public:
 	void			changeCameraToFollow(BOOL animate = TRUE);
 	//end Ventrella
 
+	void			setFocusGlobal(const LLPickInfo& pick);
 	void			setFocusGlobal(const LLVector3d &focus, const LLUUID &object_id = LLUUID::null);
 	void			setFocusOnAvatar(BOOL focus, BOOL animate);
 	void			setCameraPosAndFocusGlobal(const LLVector3d& pos, const LLVector3d& focus, const LLUUID &object_id);
@@ -331,7 +335,7 @@ public:
 																	// of the agent in the absolute frame
 //	BOOL				getLookingAtAvatar() const;
 
-	void				getName(LLString& name);
+	void				getName(std::string& name);
 
 	const LLColor4		&getEffectColor();
 	void				setEffectColor(const LLColor4 &color);
@@ -374,7 +378,7 @@ public:
 	void			sendAnimationRequests(LLDynamicArray<LLUUID> &anim_ids, EAnimRequest request);
 	void			sendAnimationRequest(const LLUUID &anim_id, EAnimRequest request);
 
-	LLVector3d		calcFocusOffset(LLViewerObject *object, S32 x, S32 y);
+	LLVector3		calcFocusOffset(LLViewerObject *object, S32 x, S32 y);
 	BOOL			calcCameraMinDistance(F32 &obj_min_distance);
 
 	void			startCameraAnimation();
@@ -525,7 +529,7 @@ public:
 
 	BOOL			sitCameraEnabled() { return mSitCameraEnabled; }
 
-	F32				getCurrentCameraBuildOffset() { return (F32)mCameraFocusOffset.magVec(); }
+	F32				getCurrentCameraBuildOffset() { return (F32)mCameraFocusOffset.length(); }
 
 	// look at behavior
 	BOOL			setLookAt(ELookAtType target_type, LLViewerObject *object = NULL, LLVector3 position = LLVector3::zero);
@@ -563,8 +567,8 @@ public:
 
 	ETeleportState	getTeleportState() const			{ return mTeleportState; }
 	void			setTeleportState( ETeleportState state );
-	const LLString& getTeleportMessage() const { return mTeleportMessage; }
-	void setTeleportMessage(const LLString& message)
+	const std::string& getTeleportMessage() const { return mTeleportMessage; }
+	void setTeleportMessage(const std::string& message)
 	{
 		mTeleportMessage = message;
 	}
@@ -694,8 +698,8 @@ public:
 
 	U64				mGroupPowers;
 	BOOL			mHideGroupTitle;
-	char			mGroupTitle[DB_GROUP_TITLE_BUF_SIZE];	/*Flawfinder: ignore*/	// honorific, like "Sir"
-	char			mGroupName[DB_GROUP_NAME_BUF_SIZE];	/*Flawfinder: ignore*/
+	std::string		mGroupTitle; // honorific, like "Sir"
+	std::string		mGroupName;
 	LLUUID			mGroupID;
 	//LLUUID			mGroupInsigniaID;
 	LLUUID			mInventoryRootID;
@@ -711,6 +715,9 @@ public:
 
 	LLDynamicArray<LLGroupData> mGroups;
 
+	F32				mHUDTargetZoom;	// target zoom level for HUD objects (used when editing)
+	F32				mHUDCurZoom;	// current animated zoom level for HUD objects
+
 	BOOL			mInitialized;
 
 	static BOOL		sDebugDisplayTarget;
@@ -719,12 +726,12 @@ public:
 
 	BOOL			mForceMouselook;
 
-	static void parseTeleportMessages(const LLString& xml_filename);
+	static void parseTeleportMessages(const std::string& xml_filename);
 	//we should really define ERROR and PROGRESS enums here
 	//but I don't really feel like doing that, so I am just going
 	//to expose the mappings....yup
-	static std::map<LLString, LLString> sTeleportErrorMessages;
-	static std::map<LLString, LLString> sTeleportProgressMessages;
+	static std::map<std::string, std::string> sTeleportErrorMessages;
+	static std::map<std::string, std::string> sTeleportProgressMessages;
 
 	LLFrameTimer mDoubleTapRunTimer;
 	EDoubleTapRunMode mDoubleTapRunMode;
@@ -736,7 +743,7 @@ private:
 	// Access or "maturity" level
 	U8				mAccess;	// SIM_ACCESS_MATURE or SIM_ACCESS_PG
 	ETeleportState	mTeleportState;
-	LLString		mTeleportMessage;
+	std::string		mTeleportMessage;
 
 	S32				mControlsTakenCount[TOTAL_CONTROLS];
 	S32				mControlsTakenPassedOnCount[TOTAL_CONTROLS];
@@ -785,7 +792,9 @@ private:
 	LLVector3		mSitCameraPos;					// root relative camera pos when sitting
 	LLVector3		mSitCameraFocus;				// root relative camera target when sitting
 	LLVector3d      mCameraSmoothingLastPositionGlobal;    
-	LLVector3d      mCameraSmoothingLastPositionAgent;    
+	LLVector3d      mCameraSmoothingLastPositionAgent;
+	BOOL            mCameraSmoothingStop;
+
 	
 	//Ventrella
 	LLVector3		mCameraUpVector;				// camera's up direction in world coordinates (determines the 'roll' of the view)

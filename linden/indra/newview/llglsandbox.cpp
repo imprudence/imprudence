@@ -1102,7 +1102,7 @@ void LLViewerObjectList::renderObjectBeacons()
 			color = debug_beacon.mTextColor;
 			color.mV[3] *= 1.f;
 
-			hud_textp->setString(utf8str_to_wstring(debug_beacon.mString.c_str()));
+			hud_textp->setString(utf8str_to_wstring(debug_beacon.mString));
 			hud_textp->setColor(color);
 			hud_textp->setPositionAgent(debug_beacon.mPositionAgent);
 			debug_beacon.mHUDObject = hud_textp;
@@ -1111,44 +1111,3 @@ void LLViewerObjectList::renderObjectBeacons()
 }
 
 
-void pre_show_depth_buffer()
-{
-	glClear(GL_STENCIL_BUFFER_BIT);
-	glEnable(GL_STENCIL_TEST);
-	glStencilFunc(GL_ALWAYS,0,0);
-	glStencilOp(GL_INCR,GL_INCR,GL_INCR);
-}
-
-void post_show_depth_buffer()
-{
-	int xsize =500, ysize =500;
-	U8 *buf = new U8[xsize*ysize];
-
-	glReadPixels(0,0,xsize,ysize,GL_STENCIL_INDEX,GL_UNSIGNED_BYTE, buf);
-
-	int total = 0;
-	int i;
-	for (i=0;i<xsize*ysize;i++) 
-	{
-		total += buf[i];
-		buf[i] <<= 3;
-	}
-
-	float DC = (float)total/(float)(ysize*xsize);
-	int DCline = llfloor((xsize-20) * DC / 10.0f);
-	int stride = xsize / 10;
-
-	int y = 2;
-
-	for (i=0;i<DCline;i++)
-	{
-		if (i % stride == 0) i+=2;
-		if (i > xsize) y=6;
-		buf[ysize*(y+0)+i]=255;
-		buf[ysize*(y+1)+i]=255;
-		buf[ysize*(y+2)+i]=255;
-	}
-	glDrawPixels(xsize,ysize,GL_RED,GL_UNSIGNED_BYTE,buf);
-
-	delete [] buf;
-}

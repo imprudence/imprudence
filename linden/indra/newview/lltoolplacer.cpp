@@ -70,7 +70,7 @@ const LLVector3 DEFAULT_OBJECT_SCALE(0.5f, 0.5f, 0.5f);
 LLPCode	LLToolPlacer::sObjectType = LL_PCODE_CUBE;
 
 LLToolPlacer::LLToolPlacer()
-:	LLTool( "Create" )
+:	LLTool( std::string("Create") )
 {
 }
 
@@ -81,14 +81,22 @@ BOOL LLToolPlacer::raycastForNewObjPos( S32 x, S32 y, LLViewerObject** hit_obj, 
 
 	// Viewer-side pick to find the right sim to create the object on.  
 	// First find the surface the object will be created on.
-	gViewerWindow->hitObjectOrLandGlobalImmediate(x, y, NULL, FALSE);
+	LLPickInfo pick = gViewerWindow->pickImmediate(x, y, FALSE);
 	
 	// Note: use the frontmost non-flora version because (a) plants usually have lots of alpha and (b) pants' Havok
 	// representations (if any) are NOT the same as their viewer representation.
-	*hit_obj = gObjectList.findObject( gLastHitNonFloraObjectID );
-	*hit_face = gLastHitNonFloraObjectFace;
-	*b_hit_land = !(*hit_obj) && !gLastHitNonFloraPosGlobal.isExactlyZero();
-	LLVector3d land_pos_global = gLastHitNonFloraPosGlobal;
+	if (pick.mPickType == LLPickInfo::PICK_FLORA)
+	{
+		*hit_obj = NULL;
+		*hit_face = -1;
+	}
+	else
+	{
+		*hit_obj = pick.getObject();
+		*hit_face = pick.mObjectFace;
+	}
+	*b_hit_land = !(*hit_obj) && !pick.mPosGlobal.isExactlyZero();
+	LLVector3d land_pos_global = pick.mPosGlobal;
 
 	// Make sure there's a surface to place the new object on.
 	BOOL bypass_sim_raycast = FALSE;
@@ -570,7 +578,7 @@ LLToolPlacerPanel::LLToolPlacerPanel(const std::string& name, const LLRect& rect
 	*/
 }
 
-void LLToolPlacerPanel::addButton( const LLString& up_state, const LLString& down_state, LLPCode* pcode )
+void LLToolPlacerPanel::addButton( const std::string& up_state, const std::string& down_state, LLPCode* pcode )
 {
 	const S32 TOOL_SIZE = 32;
 	const S32 HORIZ_SPACING = TOOL_SIZE + 5;
@@ -593,11 +601,11 @@ void LLToolPlacerPanel::addButton( const LLString& up_state, const LLString& dow
 		TOOL_SIZE );
 
 	LLButton* btn = new LLButton(
-		"ToolPlacerOptBtn",
+		std::string("ToolPlacerOptBtn"),
 		rect,
 		up_state,
 		down_state,
-		"", &LLToolPlacerPanel::setObjectType,
+		LLStringUtil::null, &LLToolPlacerPanel::setObjectType,
 		pcode,
 		LLFontGL::sSansSerif);
 	btn->setFollowsBottom();

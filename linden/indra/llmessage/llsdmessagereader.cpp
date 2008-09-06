@@ -37,7 +37,15 @@
 #include "llsdmessagebuilder.h"
 #include "llsdutil.h"
 
-LLSDMessageReader::LLSDMessageReader()
+#include "v3math.h"
+#include "v4math.h"
+#include "v3dmath.h"
+#include "v2math.h"
+#include "llquaternion.h"
+#include "v4color.h"
+
+LLSDMessageReader::LLSDMessageReader() :
+	mMessageName(NULL)
 {
 }
 
@@ -63,14 +71,20 @@ LLSD getLLSD(const LLSD& input, const char* block, const char* var, S32 blocknum
 	}
 	if(! input[block].isArray())
 	{
-		llerrs << "block " << block << " not found" << llendl;
+		// NOTE: babbage: need to return default for missing blocks to allow
+		// backwards/forwards compatibility - handlers must cope with default
+		// values.
+		llwarns << "block " << block << " not found" << llendl;
 		return LLSD();
 	}
 
 	LLSD result = input[block][blocknum][var]; 
 	if(result.isUndefined())
 	{
-		llerrs << "var " << var << " not found" << llendl;
+		// NOTE: babbage: need to return default for missing vars to allow
+		// backwards/forwards compatibility - handlers must cope with default
+		// values.
+		llwarns << "var " << var << " not found" << llendl;
 	}
 	return result;
 }
@@ -235,6 +249,12 @@ void LLSDMessageReader::getString(const char *block, const char *var,
 	buffer[data_size] = '\0';
 }
 
+//virtual 
+void LLSDMessageReader::getString(const char *block, const char *var, 
+						   std::string& outstr, S32 blocknum)
+{
+	outstr = getLLSD(mMessage, block, var, blocknum).asString();
+}
 
 //virtual 
 S32	LLSDMessageReader::getNumberOfBlocks(const char *blockname)

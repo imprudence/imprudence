@@ -36,6 +36,7 @@
 #include "llmath.h"
 
 #include "llsd.h"
+class LLVector2;
 class LLVector4;
 class LLMatrix3;
 class LLVector3d;
@@ -62,6 +63,7 @@ class LLVector3
 		inline LLVector3();							// Initializes LLVector3 to (0, 0, 0)
 		inline LLVector3(const F32 x, const F32 y, const F32 z);			// Initializes LLVector3 to (x. y, z)
 		inline explicit LLVector3(const F32 *vec);				// Initializes LLVector3 to (vec[0]. vec[1], vec[2])
+		explicit LLVector3(const LLVector2 &vec);				// Initializes LLVector3 to (vec[0]. vec[1], 0)
 		explicit LLVector3(const LLVector3d &vec);				// Initializes LLVector3 to (vec[0]. vec[1], vec[2])
 		explicit LLVector3(const LLVector4 &vec);				// Initializes LLVector4 to (vec[0]. vec[1], vec[2])
 		LLVector3(const LLSD& sd);
@@ -74,6 +76,7 @@ class LLVector3
 
 		inline BOOL isFinite() const;									// checks to see if all values of LLVector3 are finite
 		BOOL		clamp(F32 min, F32 max);		// Clamps all values to (min,max), returns TRUE if data changed
+		BOOL		clampLength( F32 length_limit );					// Scales vector to limit length to a value
 
 		void		quantize16(F32 lowerxy, F32 upperxy, F32 lowerz, F32 upperz);	// changes the vector to reflect quatization
 		void		quantize8(F32 lowerxy, F32 upperxy, F32 lowerz, F32 upperz);	// changes the vector to reflect quatization
@@ -147,7 +150,7 @@ class LLVector3
 
 		friend std::ostream&	 operator<<(std::ostream& s, const LLVector3 &a);		// Stream a
 
-		static BOOL parseVector3(const char* buf, LLVector3* value);
+		static BOOL parseVector3(const std::string& buf, LLVector3* value);
 };
 
 typedef LLVector3 LLSimLocalVec;

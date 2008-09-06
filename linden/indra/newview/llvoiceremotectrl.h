@@ -39,7 +39,7 @@ class LLButton;
 class LLVoiceRemoteCtrl : public LLPanel
 {
 public:
-	LLVoiceRemoteCtrl (const LLString& name);
+	LLVoiceRemoteCtrl (const std::string& name);
 	virtual ~LLVoiceRemoteCtrl();
 
 	/*virtual*/ BOOL postBuild();

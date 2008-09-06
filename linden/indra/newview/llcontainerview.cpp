@@ -262,7 +262,7 @@ LLRect LLContainerView::getRequiredRect()
 	return req_rect;
 }
 
-void LLContainerView::setLabel(const LLString& label)
+void LLContainerView::setLabel(const std::string& label)
 {
 	mLabel = label;
 }

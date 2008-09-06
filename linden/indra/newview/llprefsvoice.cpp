@@ -57,7 +57,7 @@ private:
 
 public:
 	LLVoiceHotkeySelectDialog( LLPrefsVoiceLogic *parent )
-		: LLModalDialog( "", 240, 100 ),
+		: LLModalDialog( LLStringUtil::null, 240, 100 ),
 		  mParent( parent )
 	{
 		mOldFrontmost = gFloaterView->getFrontmost();
@@ -229,7 +229,7 @@ BOOL LLVoiceHotkeySelectDialog::handleKeyHere(KEY key, MASK mask)
 
 
 LLPrefsVoice::LLPrefsVoice()
-:	LLPanel("Voice Chat Panel")
+	:	LLPanel(std::string("Voice Chat Panel"))
 { 
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_voice.xml");
 	mLogic = new LLPrefsVoiceLogic(this);

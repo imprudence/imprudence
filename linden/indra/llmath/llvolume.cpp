@@ -82,11 +82,6 @@ const F32 TAPER_MAX =  1.f;
 const F32 SKEW_MIN	= -0.95f;
 const F32 SKEW_MAX	=  0.95f;
 
-const S32 SCULPT_REZ_1 = 6;  // changed from 4 to 6 - 6 looks round whereas 4 looks square
-const S32 SCULPT_REZ_2 = 8;
-const S32 SCULPT_REZ_3 = 16;
-const S32 SCULPT_REZ_4 = 32;
-
 const F32 SCULPT_MIN_AREA = 0.002f;
 
 BOOL check_same_clock_dir( const LLVector3& pt1, const LLVector3& pt2, const LLVector3& pt3, const LLVector3& norm)
@@ -104,46 +99,128 @@ BOOL check_same_clock_dir( const LLVector3& pt1, const LLVector3& pt2, const LLV
 	}
 } 
 
-// intersect test between triangle pt1,pt2,pt3 and line from linept to linept+vect
-//returns TRUE if intersecting and moves linept to the point of intersection
-BOOL LLTriangleLineSegmentIntersect( const LLVector3& pt1, const LLVector3& pt2, const LLVector3& pt3, LLVector3& linept, const LLVector3& vect)
+BOOL LLLineSegmentBoxIntersect(const LLVector3& start, const LLVector3& end, const LLVector3& center, const LLVector3& size)
 {
-	LLVector3 V1 = pt2-pt1;
-	LLVector3 V2 = pt3-pt2;
-	
-	LLVector3 norm = V1 % V2;
-	
-	F32 dotprod = norm * vect;
+	float fAWdU[3];
+	LLVector3 dir;
+	LLVector3 diff;
 
-	if(dotprod < 0)
+	for (U32 i = 0; i < 3; i++)
 	{
-		//Find point of intersect to triangle plane.
-		//find t to intersect point
-		F32 t = -(norm * (linept-pt1))/dotprod;
+		dir.mV[i] = 0.5f * (end.mV[i] - start.mV[i]);
+		diff.mV[i] = (0.5f * (end.mV[i] + start.mV[i])) - center.mV[i];
+		fAWdU[i] = fabsf(dir.mV[i]);
+		if(fabsf(diff.mV[i])>size.mV[i] + fAWdU[i]) return false;
+	}
 
-		// if ds is neg line started past triangle so can't hit triangle.
-		if (t > 0) 
+	float f;
+	f = dir.mV[1] * diff.mV[2] - dir.mV[2] * diff.mV[1];    if(fabsf(f)>size.mV[1]*fAWdU[2] + size.mV[2]*fAWdU[1])  return false;
+	f = dir.mV[2] * diff.mV[0] - dir.mV[0] * diff.mV[2];    if(fabsf(f)>size.mV[0]*fAWdU[2] + size.mV[2]*fAWdU[0])  return false;
+	f = dir.mV[0] * diff.mV[1] - dir.mV[1] * diff.mV[0];    if(fabsf(f)>size.mV[0]*fAWdU[1] + size.mV[1]*fAWdU[0])  return false;
+	
+	return true;
+}
+
+
+// intersect test between triangle vert0, vert1, vert2 and a ray from orig in direction dir.
+// returns TRUE if intersecting and returns barycentric coordinates in intersection_a, intersection_b,
+// and returns the intersection point along dir in intersection_t.
+
+// Moller-Trumbore algorithm
+BOOL LLTriangleRayIntersect(const LLVector3& vert0, const LLVector3& vert1, const LLVector3& vert2, const LLVector3& orig, const LLVector3& dir,
+							F32* intersection_a, F32* intersection_b, F32* intersection_t, BOOL two_sided)
+{
+	F32 u, v, t;
+	
+	/* find vectors for two edges sharing vert0 */
+	LLVector3 edge1 = vert1 - vert0;
+	
+	LLVector3 edge2 = vert2 - vert0;;
+
+	/* begin calculating determinant - also used to calculate U parameter */
+	LLVector3 pvec = dir % edge2;
+	
+	/* if determinant is near zero, ray lies in plane of triangle */
+	F32 det = edge1 * pvec;
+
+	if (!two_sided)
+	{
+		if (det < F_APPROXIMATELY_ZERO)
+		{
+			return FALSE;
+		}
+
+		/* calculate distance from vert0 to ray origin */
+		LLVector3 tvec = orig - vert0;
+
+		/* calculate U parameter and test bounds */
+		u = tvec * pvec;	
+
+		if (u < 0.f || u > det)
 		{
 			return FALSE;
 		}
 	
-		LLVector3 pt_int = linept + (vect*t);
+		/* prepare to test V parameter */
+		LLVector3 qvec = tvec % edge1;
 		
-		if(check_same_clock_dir(pt1, pt2, pt_int, norm))
+		/* calculate V parameter and test bounds */
+		v = dir * qvec;
+		if (v < 0.f || u + v > det)
 		{
-			if(check_same_clock_dir(pt2, pt3, pt_int, norm))
-			{
-				if(check_same_clock_dir(pt3, pt1, pt_int, norm))
-				{
-					// answer in pt_int is insde triangle
-					linept.setVec(pt_int);
-					return TRUE;
-				}
-			}
+			return FALSE;
 		}
+
+		/* calculate t, scale parameters, ray intersects triangle */
+		t = edge2 * qvec;
+		F32 inv_det = 1.0 / det;
+		t *= inv_det;
+		u *= inv_det;
+		v *= inv_det;
 	}
 	
-	return FALSE;
+	else // two sided
+			{
+		if (det > -F_APPROXIMATELY_ZERO && det < F_APPROXIMATELY_ZERO)
+				{
+			return FALSE;
+				}
+		F32 inv_det = 1.0 / det;
+
+		/* calculate distance from vert0 to ray origin */
+		LLVector3 tvec = orig - vert0;
+		
+		/* calculate U parameter and test bounds */
+		u = (tvec * pvec) * inv_det;
+		if (u < 0.f || u > 1.f)
+		{
+			return FALSE;
+			}
+
+		/* prepare to test V parameter */
+		LLVector3 qvec = tvec - edge1;
+		
+		/* calculate V parameter and test bounds */
+		v = (dir * qvec) * inv_det;
+		
+		if (v < 0.f || u + v > 1.f)
+		{
+			return FALSE;
+		}
+
+		/* calculate t, ray intersects triangle */
+		t = (edge2 * qvec) * inv_det;
+	}
+	
+	if (intersection_a != NULL)
+		*intersection_a = u;
+	if (intersection_b != NULL)
+		*intersection_b = v;
+	if (intersection_t != NULL)
+		*intersection_t = t;
+	
+	
+	return TRUE;
 } 
 
 
@@ -198,9 +275,6 @@ void LLProfile::genNGon(const LLProfileParams& params, S32 sides, F32 offset, F3
 	F32 t, t_step, t_first, t_fraction, ang, ang_step;
 	LLVector3 pt1,pt2;
 
-	mMaxX = 0.f;
-	mMinX = 0.f;
-
 	F32 begin  = params.getBegin();
 	F32 end    = params.getEnd();
 
@@ -236,15 +310,6 @@ void LLProfile::genNGon(const LLProfileParams& params, S32 sides, F32 offset, F3
 	if (t_fraction < 0.9999f)
 	{
 		LLVector3 new_pt = lerp(pt1, pt2, t_fraction);
-		F32 pt_x = new_pt.mV[VX];
-		if (pt_x < mMinX)
-		{
-			mMinX = pt_x;
-		}
-		else if (pt_x > mMaxX)
-		{
-			mMaxX = pt_x;
-		}
 		mProfile.push_back(new_pt);
 	}
 
@@ -253,16 +318,6 @@ void LLProfile::genNGon(const LLProfileParams& params, S32 sides, F32 offset, F3
 	{
 		// Iterate through all the integer steps of t.
 		pt1.setVec(cos(ang)*scale,sin(ang)*scale,t);
-
-		F32 pt_x = pt1.mV[VX];
-		if (pt_x < mMinX)
-		{
-			mMinX = pt_x;
-		}
-		else if (pt_x > mMaxX)
-		{
-			mMaxX = pt_x;
-		}
 
 		if (mProfile.size() > 0) {
 			LLVector3 p = mProfile[mProfile.size()-1];
@@ -287,15 +342,6 @@ void LLProfile::genNGon(const LLProfileParams& params, S32 sides, F32 offset, F3
 	if (t_fraction > 0.0001f)
 	{
 		LLVector3 new_pt = lerp(pt1, pt2, t_fraction);
-		F32 pt_x = new_pt.mV[VX];
-		if (pt_x < mMinX)
-		{
-			mMinX = pt_x;
-		}
-		else if (pt_x > mMaxX)
-		{
-			mMaxX = pt_x;
-		}
 		
 		if (mProfile.size() > 0) {
 			LLVector3 p = mProfile[mProfile.size()-1];
@@ -472,31 +518,9 @@ LLProfile::Face* LLProfile::addHole(const LLProfileParams& params, BOOL flat, F3
 }
 
 
-S32 sculpt_sides(F32 detail)
-{
 
-	// detail is usually one of: 1, 1.5, 2.5, 4.0.
-	
-	if (detail <= 1.0)
-	{
-		return SCULPT_REZ_1;
-	}
-	if (detail <= 2.0)
-	{
-		return SCULPT_REZ_2;
-	}
-	if (detail <= 3.0)
-	{
-		return SCULPT_REZ_3;
-	}
-	else
-	{
-		return SCULPT_REZ_4;
-	}
-}
-
-
-BOOL LLProfile::generate(const LLProfileParams& params, BOOL path_open,F32 detail, S32 split, BOOL is_sculpted)
+BOOL LLProfile::generate(const LLProfileParams& params, BOOL path_open,F32 detail, S32 split,
+						 BOOL is_sculpted, S32 sculpt_size)
 {
 	LLMemType m1(LLMemType::MTYPE_VOLUME);
 	
@@ -640,7 +664,7 @@ BOOL LLProfile::generate(const LLProfileParams& params, BOOL path_open,F32 detai
 			S32 sides = (S32)circle_detail;
 
 			if (is_sculpted)
-				sides = sculpt_sides(detail);
+				sides = sculpt_size;
 			
 			genNGon(params, sides);
 			
@@ -1131,7 +1155,8 @@ const LLVector2 LLPathParams::getEndScale() const
 	return end_scale;
 }
 
-BOOL LLPath::generate(const LLPathParams& params, F32 detail, S32 split, BOOL is_sculpted)
+BOOL LLPath::generate(const LLPathParams& params, F32 detail, S32 split,
+					  BOOL is_sculpted, S32 sculpt_size)
 {
 	LLMemType m1(LLMemType::MTYPE_VOLUME);
 	
@@ -1194,7 +1219,7 @@ BOOL LLPath::generate(const LLPathParams& params, F32 detail, S32 split, BOOL is
 			S32 sides = (S32)llfloor(llfloor((MIN_DETAIL_FACES * detail + twist_mag * 3.5f * (detail-0.5f))) * params.getRevolutions());
 
 			if (is_sculpted)
-				sides = sculpt_sides(detail);
+				sides = sculpt_size;
 			
 			genNGon(params, sides);
 		}
@@ -1259,7 +1284,8 @@ BOOL LLPath::generate(const LLPathParams& params, F32 detail, S32 split, BOOL is
 	return TRUE;
 }
 
-BOOL LLDynamicPath::generate(const LLPathParams& params, F32 detail, S32 split, BOOL is_sculpted)
+BOOL LLDynamicPath::generate(const LLPathParams& params, F32 detail, S32 split,
+							 BOOL is_sculpted, S32 sculpt_size)
 {
 	LLMemType m1(LLMemType::MTYPE_VOLUME);
 	
@@ -1979,6 +2005,12 @@ void LLVolume::sculptGeneratePlaceholder()
 // create the vertices from the map
 void LLVolume::sculptGenerateMapVertices(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data, U8 sculpt_type)
 {
+	U8 sculpt_stitching = sculpt_type & LL_SCULPT_TYPE_MASK;
+	BOOL sculpt_invert = sculpt_type & LL_SCULPT_FLAG_INVERT;
+	BOOL sculpt_mirror = sculpt_type & LL_SCULPT_FLAG_MIRROR;
+	BOOL reverse_horizontal = (sculpt_invert ? !sculpt_mirror : sculpt_mirror);  // XOR
+	
+	
 	LLMemType m1(LLMemType::MTYPE_VOLUME);
 	
 	S32 sizeS = mPathp->mPath.size();
@@ -1993,13 +2025,21 @@ void LLVolume::sculptGenerateMapVertices(U16 sculpt_width, U16 sculpt_height, S8
 			S32 i = t + line;
 			Point& pt = mMesh[i];
 
-			U32 x = (U32) ((F32)t/(sizeT-1) * (F32) sculpt_width);
+			S32 reversed_t = t;
+
+			if (reverse_horizontal)
+			{
+				reversed_t = sizeT - t - 1;
+			}
+			
+			U32 x = (U32) ((F32)reversed_t/(sizeT-1) * (F32) sculpt_width);
 			U32 y = (U32) ((F32)s/(sizeS-1) * (F32) sculpt_height);
 
+			
 			if (y == 0)  // top row stitching
 			{
 				// pinch?
-				if (sculpt_type == LL_SCULPT_TYPE_SPHERE)
+				if (sculpt_stitching == LL_SCULPT_TYPE_SPHERE)
 				{
 					x = sculpt_width / 2;
 				}
@@ -2008,7 +2048,7 @@ void LLVolume::sculptGenerateMapVertices(U16 sculpt_width, U16 sculpt_height, S8
 			if (y == sculpt_height)  // bottom row stitching
 			{
 				// wrap?
-				if (sculpt_type == LL_SCULPT_TYPE_TORUS)
+				if (sculpt_stitching == LL_SCULPT_TYPE_TORUS)
 				{
 					y = 0;
 				}
@@ -2018,7 +2058,7 @@ void LLVolume::sculptGenerateMapVertices(U16 sculpt_width, U16 sculpt_height, S8
 				}
 
 				// pinch?
-				if (sculpt_type == LL_SCULPT_TYPE_SPHERE)
+				if (sculpt_stitching == LL_SCULPT_TYPE_SPHERE)
 				{
 					x = sculpt_width / 2;
 				}
@@ -2027,9 +2067,9 @@ void LLVolume::sculptGenerateMapVertices(U16 sculpt_width, U16 sculpt_height, S8
 			if (x == sculpt_width)   // side stitching
 			{
 				// wrap?
-				if ((sculpt_type == LL_SCULPT_TYPE_SPHERE) ||
-					(sculpt_type == LL_SCULPT_TYPE_TORUS) ||
-					(sculpt_type == LL_SCULPT_TYPE_CYLINDER))
+				if ((sculpt_stitching == LL_SCULPT_TYPE_SPHERE) ||
+					(sculpt_stitching == LL_SCULPT_TYPE_TORUS) ||
+					(sculpt_stitching == LL_SCULPT_TYPE_CYLINDER))
 				{
 					x = 0;
 				}
@@ -2041,11 +2081,68 @@ void LLVolume::sculptGenerateMapVertices(U16 sculpt_width, U16 sculpt_height, S8
 			}
 
 			pt.mPos = sculpt_xy_to_vector(x, y, sculpt_width, sculpt_height, sculpt_components, sculpt_data);
+
+			if (sculpt_mirror)
+			{
+				pt.mPos.mV[VX] *= -1.f;
+			}
 		}
+		
 		line += sizeT;
 	}
 }
 
+
+const S32 SCULPT_REZ_1 = 6;  // changed from 4 to 6 - 6 looks round whereas 4 looks square
+const S32 SCULPT_REZ_2 = 8;
+const S32 SCULPT_REZ_3 = 16;
+const S32 SCULPT_REZ_4 = 32;
+
+S32 sculpt_sides(F32 detail)
+{
+
+	// detail is usually one of: 1, 1.5, 2.5, 4.0.
+	
+	if (detail <= 1.0)
+	{
+		return SCULPT_REZ_1;
+	}
+	if (detail <= 2.0)
+	{
+		return SCULPT_REZ_2;
+	}
+	if (detail <= 3.0)
+	{
+		return SCULPT_REZ_3;
+	}
+	else
+	{
+		return SCULPT_REZ_4;
+	}
+}
+
+
+
+// determine the number of vertices in both s and t direction for this sculpt
+void sculpt_calc_mesh_resolution(U16 width, U16 height, U8 type, F32 detail, S32& s, S32& t)
+{
+	S32 vertices = sculpt_sides(detail);
+
+	F32 ratio;
+	if ((width == 0) || (height == 0))
+		ratio = 1.f;
+	else
+		ratio = (F32) width / (F32) height;
+
+	
+	s = (S32)(vertices / fsqrtf(ratio));
+
+	s = llmax(s, 3);   // no degenerate sizes, please
+	t = vertices * vertices / s;
+
+	t = llmax(t, 3);   // no degenerate sizes, please
+	s = vertices * vertices / t;
+}
 
 // sculpt replaces generate() for sculpted surfaces
 void LLVolume::sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data, S32 sculpt_level)
@@ -2061,11 +2158,16 @@ void LLVolume::sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components,
 		data_is_empty = TRUE;
 	}
 
-	mPathp->generate(mParams.getPathParams(), mDetail, 0, TRUE);
-	mProfilep->generate(mParams.getProfileParams(), mPathp->isOpen(), mDetail, 0, TRUE);
+	S32 requested_sizeS = 0;
+	S32 requested_sizeT = 0;
 
-	S32 sizeS = mPathp->mPath.size();
-	S32 sizeT = mProfilep->mProfile.size();
+	sculpt_calc_mesh_resolution(sculpt_width, sculpt_height, sculpt_type, mDetail, requested_sizeS, requested_sizeT);
+
+	mPathp->generate(mParams.getPathParams(), mDetail, 0, TRUE, requested_sizeS);
+	mProfilep->generate(mParams.getProfileParams(), mPathp->isOpen(), mDetail, 0, TRUE, requested_sizeT);
+
+	S32 sizeS = mPathp->mPath.size();         // we requested a specific size, now see what we really got
+	S32 sizeT = mProfilep->mProfile.size();   // we requested a specific size, now see what we really got
 
 	// weird crash bug - DEV-11158 - trying to collect more data:
 	if ((sizeS == 0) || (sizeT == 0))
@@ -3405,47 +3507,99 @@ void LLVolume::generateSilhouetteVertices(std::vector<LLVector3> &vertices,
 	}
 }
 
-S32 LLVolume::lineSegmentIntersect(const LLVector3& start, LLVector3& end) const
+S32 LLVolume::lineSegmentIntersect(const LLVector3& start, const LLVector3& end, 
+								   S32 face,
+								   LLVector3* intersection,LLVector2* tex_coord, LLVector3* normal, LLVector3* bi_normal)
 {
-	S32 ret = -1;
+	S32 hit_face = -1;
 	
-	LLVector3 vec = end - start;
+	S32 start_face;
+	S32 end_face;
 	
-	for (S32 i = 0; i < getNumFaces(); i++)
+	if (face == -1) // ALL_SIDES
 	{
-		const LLVolumeFace& face = getVolumeFace(i);
+		start_face = 0;
+		end_face = getNumFaces() - 1;
+	}
+	else
+	{
+		start_face = face;
+		end_face = face;
+	}
 
-		for (U32 j = 0; j < face.mIndices.size()/3; j++) 
+	LLVector3 dir = end - start;
+
+	F32 closest_t = 2.f; // must be larger than 1
+	
+	for (S32 i = start_face; i <= end_face; i++)
+	{
+		const LLVolumeFace &face = getVolumeFace((U32)i);
+
+		LLVector3 box_center = (face.mExtents[0] + face.mExtents[1]) / 2.f;
+		LLVector3 box_size   = face.mExtents[1] - face.mExtents[0];
+
+        if (LLLineSegmentBoxIntersect(start, end, box_center, box_size))
 		{
-			//approximate normal
-			S32 v1 = face.mIndices[j*3+0];
-			S32 v2 = face.mIndices[j*3+1];
-			S32 v3 = face.mIndices[j*3+2];
-
-			LLVector3 norm = (face.mVertices[v2].mPosition - face.mVertices[v1].mPosition) % 
-				(face.mVertices[v3].mPosition - face.mVertices[v2].mPosition);
-			
-			if (norm.magVecSquared() >= 0.00000001f) 
+			if (bi_normal != NULL) // if the caller wants binormals, we may need to generate them
 			{
-				//get view vector
-				//LLVector3 view = (start-face.mVertices[v1].mPosition);
-				//if (view * norm < 0.0f)
+				genBinormals(i);
+			}
+			
+			for (U32 tri = 0; tri < face.mIndices.size()/3; tri++) 
+			{
+				S32 index1 = face.mIndices[tri*3+0];
+				S32 index2 = face.mIndices[tri*3+1];
+				S32 index3 = face.mIndices[tri*3+2];
+
+				F32 a, b, t;
+			
+				if (LLTriangleRayIntersect(face.mVertices[index1].mPosition,
+										   face.mVertices[index2].mPosition,
+										   face.mVertices[index3].mPosition,
+										   start, dir, &a, &b, &t, FALSE))
 				{
-					if (LLTriangleLineSegmentIntersect( face.mVertices[v1].mPosition,
-														face.mVertices[v2].mPosition,
-														face.mVertices[v3].mPosition,
-														end,
-														vec))
+					if ((t >= 0.f) &&      // if hit is after start
+						(t <= 1.f) &&      // and before end
+						(t < closest_t))   // and this hit is closer
+		{
+						closest_t = t;
+						hit_face = i;
+
+						if (intersection != NULL)
+						{
+							*intersection = start + dir * closest_t;
+						}
+			
+						if (tex_coord != NULL)
+			{
+							*tex_coord = ((1.f - a - b)  * face.mVertices[index1].mTexCoord +
+										  a              * face.mVertices[index2].mTexCoord +
+										  b              * face.mVertices[index3].mTexCoord);
+
+						}
+
+						if (normal != NULL)
+				{
+							*normal    = ((1.f - a - b)  * face.mVertices[index1].mNormal + 
+										  a              * face.mVertices[index2].mNormal +
+										  b              * face.mVertices[index3].mNormal);
+						}
+
+						if (bi_normal != NULL)
 					{
-						vec = end-start;
-						ret = (S32) i;
+							*bi_normal = ((1.f - a - b)  * face.mVertices[index1].mBinormal + 
+										  a              * face.mVertices[index2].mBinormal +
+										  b              * face.mVertices[index3].mBinormal);
+						}
+
 					}
 				}
 			}
 		}		
 	}
 	
-	return ret;
+	
+	return hit_face;
 }
 
 class LLVertexIndexPair
@@ -4768,6 +4922,13 @@ BOOL LLVolumeFace::createSide(LLVolume* volume, BOOL partial_build)
 	LLMemType m1(LLMemType::MTYPE_VOLUME);
 	
 	BOOL flat = mTypeMask & FLAT_MASK;
+
+	U8 sculpt_type = volume->getParams().getSculptType();
+	U8 sculpt_stitching = sculpt_type & LL_SCULPT_TYPE_MASK;
+	BOOL sculpt_invert = sculpt_type & LL_SCULPT_FLAG_INVERT;
+	BOOL sculpt_mirror = sculpt_type & LL_SCULPT_FLAG_MIRROR;
+	BOOL sculpt_reverse_horizontal = (sculpt_invert ? !sculpt_mirror : sculpt_mirror);  // XOR
+	
 	S32 num_vertices, num_indices;
 
 	const std::vector<LLVolume::Point>& mesh = volume->getMesh();
@@ -4834,6 +4995,11 @@ BOOL LLVolumeFace::createSide(LLVolume* volume, BOOL partial_build)
 				}
 			}
 
+			if (sculpt_reverse_horizontal)
+			{
+				ss = 1.f - ss;
+			}
+			
 			// Check to see if this triangle wraps around the array.
 			if (mBeginS + s >= max_s)
 			{
@@ -4995,9 +5161,7 @@ BOOL LLVolumeFace::createSide(LLVolume* volume, BOOL partial_build)
 	
 	BOOL s_bottom_converges = ((mVertices[0].mPosition - mVertices[mNumS*(mNumT-2)].mPosition).magVecSquared() < 0.000001f);
 	BOOL s_top_converges = ((mVertices[mNumS-1].mPosition - mVertices[mNumS*(mNumT-2)+mNumS-1].mPosition).magVecSquared() < 0.000001f);
-	U8 sculpt_type = volume->getParams().getSculptType();
-
-	if (sculpt_type == LL_SCULPT_TYPE_NONE)  // logic for non-sculpt volumes
+	if (sculpt_stitching == LL_SCULPT_TYPE_NONE)  // logic for non-sculpt volumes
 	{
 		if (volume->getPath().isOpen() == FALSE)
 		{ //wrap normals on T
@@ -5046,15 +5210,15 @@ BOOL LLVolumeFace::createSide(LLVolume* volume, BOOL partial_build)
 		BOOL wrap_s = FALSE;
 		BOOL wrap_t = FALSE;
 
-		if (sculpt_type == LL_SCULPT_TYPE_SPHERE)
+		if (sculpt_stitching == LL_SCULPT_TYPE_SPHERE)
 			average_poles = TRUE;
 
-		if ((sculpt_type == LL_SCULPT_TYPE_SPHERE) ||
-			(sculpt_type == LL_SCULPT_TYPE_TORUS) ||
-			(sculpt_type == LL_SCULPT_TYPE_CYLINDER))
+		if ((sculpt_stitching == LL_SCULPT_TYPE_SPHERE) ||
+			(sculpt_stitching == LL_SCULPT_TYPE_TORUS) ||
+			(sculpt_stitching == LL_SCULPT_TYPE_CYLINDER))
 			wrap_s = TRUE;
 
-		if (sculpt_type == LL_SCULPT_TYPE_TORUS)
+		if (sculpt_stitching == LL_SCULPT_TYPE_TORUS)
 			wrap_t = TRUE;
 			
 		

@@ -43,8 +43,8 @@ extern "C" {
 #include <stdio.h>
 #include <gst/gst.h>
 
-#include <apr-1/apr_pools.h>
-#include <apr-1/apr_dso.h>
+#include "apr_pools.h"
+#include "apr_dso.h"
 }
 
 #include "llmediaimplgstreamervidplug.h"
@@ -76,16 +76,20 @@ class LLMediaImplGStreamer:
 		/* virtual */ int getTextureFormatPrimary() const;
 		/* virtual */ int getTextureFormatType() const;
 		/* virtual */ int getTextureFormatInternal() const;
+		/* virtual */ bool seek( double time );
 	        /* virtual */ bool setVolume( float volume );
 
-	        bool stop();
-	        bool play();
 	        LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
 
 	private:
         	// misc
 	        bool unload();
 	        bool pause();
+	        bool stop();
+	        bool play();
+	        static gboolean bus_callback (GstBus     *bus,
+					      GstMessage *message,
+					      gpointer    data);
 		unsigned char* mediaData;
         	int mMediaRowbytes;
 

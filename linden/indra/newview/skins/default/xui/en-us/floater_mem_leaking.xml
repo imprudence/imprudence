@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="500" left="100" can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" follows="left|top" height="175" name="MemLeak"
+     title="Memory Leaking Simulation" width="350">					
+	<spinner bottom="125" decimal_digits="0" follows="left|top" height="20"
+	     increment="256" label="Leaking Speed (bytes per frame):" label_width="180" left="10" max_val="4294967296"
+	     min_val="0" initial_val="512" name="leak_speed" width="330" />
+	<spinner bottom_delta="-25" decimal_digits="0" follows="left|top" height="20"
+	     increment="4" label="Max Leaked Memory (MB):" label_width="180" left="10" max_val="4096"
+	     min_val="0" initial_val="512" name="max_leak" width="330" />
+	<text bottom_delta="-25" follows="left|top" height="25" left="10" name="total_leaked_label"
+	     width="300">
+		Current leaked memory: [SIZE] KB
+	</text>	
+	<text bottom_delta="-25" follows="left|top" height="25" left="10" name="note_label_1"
+	     width="330">
+		[NOTE1]
+	</text>
+	<text bottom_delta="-25" follows="left|top" height="25" left="10" name="note_label_2"
+	     width="330">
+		[NOTE2]
+	</text>	
+	<button bottom="10" follows="left|top" height="20" label="Start" left="10"
+	     name="start_btn" width="60" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Stop" left="100"
+	     name="stop_btn" width="60" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Release" left="190"
+	     name="release_btn" width="60" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Close" left="280"
+	     name="close_btn" width="60" />	
+</floater>

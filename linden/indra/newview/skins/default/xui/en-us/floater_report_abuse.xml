@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" height="560" min_height="100" min_width="100"
+     can_resize="false" height="590" min_height="100" min_width="100"
      name="floater_report_abuse" title="Report Abuse" width="390">
 	<texture_picker allow_no_texture="true" bottom="-150" default_image_name="None"
 	     follows="left|top" height="114" label="" left="238" mouse_opaque="true"
 	     name="screenshot" width="134" />
-	<check_box bottom_delta="-16" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Include screenshot" left="234"
+	<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Include screenshot" left="13"
 	     mouse_opaque="true" name="screen_check" width="116" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-48" drop_shadow_visible="true" follows="left|top"
@@ -45,12 +45,12 @@
 		{128.1, 128.1, 15.4}
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
+	     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
 	     mouse_opaque="true" name="select_object_label" v_pad="0" width="220">
 		Click the button then the object:
 	</text>
-	<button bottom_delta="-32" font="SansSerif" halign="center" height="32" label=""
+	<button bottom_delta="-30" font="SansSerif" halign="center" height="32" label=""
 	     label_selected="" left="16" mouse_opaque="true" name="pick_btn"
 	     tool_tip="Object Picker - Identify an object as the subject of this report"
 	     width="32" />
@@ -78,37 +78,90 @@
 	     mouse_opaque="true" name="owner_name" v_pad="0" width="109">
 		Hendrerit Vulputate
 	</text>
-	<combo_box bottom_delta="-28" follows="left|top" height="20" left="16" mouse_opaque="true"
+	<combo_box bottom_delta="-48" follows="left|top" height="20" left="16" mouse_opaque="true"
 	     name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report"
-	     width="180">
-		<combo_item name="Selectcategory" value="0">
-			Select category
-		</combo_item>
-		<combo_item name="Intolerance" value="23">
-			Intolerance
-		</combo_item>
-		<combo_item name="Harassment" value="24">
-			Harassment
-		</combo_item>
-		<combo_item name="Assault" value="25">
-			Assault
-		</combo_item>
-		<combo_item name="Disclosure" value="26">
-			Disclosure
-		</combo_item>
-		<combo_item name="Indecency" value="27">
-			Indecency
-		</combo_item>
-		<combo_item name="Age" value="28">
-			Age
-		</combo_item>
-		<combo_item name="Parcel" value="29">
-			Parcel
-		</combo_item>
-		<combo_item name="Other" value="30">
-			Other
-		</combo_item>
+	     width="356">
+<combo_item name="Select_category" value="0">
+Select category
+</combo_item><combo_item name="Age__Age_play" value="31">
+Age > Age play
+</combo_item><combo_item name="Age__Adult_resident_on_Teen_Second_Life" value="32">
+Age > Adult resident on Teen Second Life
+</combo_item><combo_item name="Age__Underage_resident_on_Adult_Second_Life" value="33">
+Age > Underage resident on Adult Second Life
+</combo_item><combo_item name="Assault__Combat_sandbox___unsafe_area" value="34">
+Assault > Combat sandbox / unsafe area
+</combo_item><combo_item name="Assault__Safe_area" value="35">
+Assault > Safe area
+</combo_item><combo_item name="Assault__Weapons_testing_sandbox" value="36">
+Assault > Weapons testing sandbox
+</combo_item><combo_item name="Copyright_or_intellectual_property_violation" value="37">
+Copyright or intellectual property violation
+</combo_item><combo_item name="Commerce__Failure_to_deliver_product_or_service" value="38">
+Commerce > Failure to deliver product or service
+</combo_item><combo_item name="Disclosure__First_Life_information" value="39">
+Disclosure > First life information
+</combo_item><combo_item name="Disclosure__Remotely_monitoring chat" value="40">
+Disclosure > Remotely monitoring chat
+</combo_item><combo_item name="Disclosure__Second_Life_information_chat_IMs" value="41">
+Disclosure > Second Life information/chat/IMs
+</combo_item><combo_item name="Disturbing_the_peace__Unfair_use_of_region_resources" value="42">
+Disturbing the peace > Unfair use of region resources
+</combo_item><combo_item name="Disturbing_the_peace__Excessive_scripted_objects" value="43">
+Disturbing the peace > Excessive scripted objects
+</combo_item><combo_item name="Disturbing_the_peace__Object_littering" value="44">
+Disturbing the peace > Object littering
+</combo_item><combo_item name="Disturbing_the_peace__Repetitive_spam" value="45">
+Disturbing the peace > Repetitive spam
+</combo_item><combo_item name="Disturbing_the_peace__Unwanted_advert_spam" value="46">
+Disturbing the peace > Unwanted advert spam
+</combo_item><combo_item name="Fraud__L$" value="47">
+Fraud > L$
+</combo_item><combo_item name="Fraud__Land" value="48">
+Fraud > Land
+</combo_item><combo_item name="Fraud__Pyramid_scheme_or_chain_letter" value="49">
+Fraud > Pyramid scheme or chain letter
+</combo_item><combo_item name="Fraud__US$" value="50">
+Fraud > US$
+</combo_item><combo_item name="Harassment__Advert_farms___visual_spam" value="51">
+Harassment > Advert farms / visual spam
+</combo_item><combo_item name="Harassment__Defaming_individuals_or_groups" value="52">
+Harassment > Defaming individuals or groups
+</combo_item><combo_item name="Harassment__Impeding_movement" value="53">
+Harassment > Impeding movement
+</combo_item><combo_item name="Harassment__Sexual_harassment" value="54">
+Harassment > Sexual harassment
+</combo_item><combo_item name="Harassment__Solicting_inciting_others_to_violate_ToS" value="55">
+Harassment > Solicting/inciting others to violate ToS
+</combo_item><combo_item name="Harassment__Verbal_abuse" value="56">
+Harassment > Verbal abuse
+</combo_item><combo_item name="Indecency__Broadly_offensive_content_or_conduct" value="57">
+Indecency > Broadly offensive content or conduct
+</combo_item><combo_item name="Indecency__Broadly_visible_mature_content" value="58">
+Indecency > Broadly visible mature content
+</combo_item><combo_item name="Indecency__Inappropriate_avatar_name" value="59">
+Indecency > Inappropriate avatar name
+</combo_item><combo_item name="Indecency__Mature_content_in_PG_region" value="60">
+Indecency > Mature content in PG region
+</combo_item><combo_item name="Intolerance" value="61">
+Intolerance
+</combo_item><combo_item name="Land__Abuse_of_sandbox_resources" value="62">
+Land > Abuse of sandbox resources
+</combo_item><combo_item name="Land__Encroachment__Objects_textures" value="63">
+Land > Encroachment > Objects/textures
+</combo_item><combo_item name="Land__Encroachment__Particles" value="64">
+Land > Encroachment > Particles
+</combo_item><combo_item name="Land__Encroachment__Trees_plants" value="65">
+Land > Encroachment > Trees/plants
+</combo_item><combo_item name="Trademark_violation" value="66">
+Trademark violation
+</combo_item><combo_item name="Wagering_gambling" value="67">
+Wagering/gambling
+</combo_item><combo_item name="Other" value="68">
+Other
+</combo_item>
+
 	</combo_box>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-26" drop_shadow_visible="true" follows="left|top"
@@ -125,6 +178,12 @@
 	     label="Choose Resident" label_selected="" left_delta="190"
 	     mouse_opaque="true" name="select_abuser"
 	     tool_tip="Select the name of the abuser from a list" width="160" />
+
+	<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Don't know abuser's name" left="13" visible="false"
+	     mouse_opaque="true" name="omit_abuser_name" width="116" 
+		 tool_tip="Check this if you are unable to provide the abuser's name"/>
+
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
@@ -173,8 +232,8 @@ if possible.
 	</text>
 	<button bottom="10" follows="right|bottom" font="SansSerif" halign="center" height="20"
 	     label="Cancel" label_selected="Cancel" mouse_opaque="true"
-	     name="cancel_btn" right="380" width="150" />
+	     name="cancel_btn" right="373" width="150" />
 	<button bottom="10" follows="right|bottom" font="SansSerif" halign="center" height="20"
 	     label="Report Abuse" label_selected="Report Abuse" mouse_opaque="true"
-	     name="send_btn" right="224" width="150" />
+	     name="send_btn" right="217" width="150" />
 </floater>

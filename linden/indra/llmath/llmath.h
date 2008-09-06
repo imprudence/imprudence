@@ -33,9 +33,10 @@
 #define LLMATH_H
 
 #include <cmath>
-//#include <math.h>
-//#include <stdlib.h>
+#include <cstdlib>
 #include "lldefs.h"
+#include "llstl.h" // *TODO: Remove when LLString is gone
+#include "llstring.h" // *TODO: Remove when LLString is gone
 
 // work around for Windows & older gcc non-standard function names.
 #if LL_WINDOWS
@@ -93,6 +94,9 @@ const F32	F_APPROXIMATELY_ZERO = 0.00001f;
 const F32	F_LN2		= 0.69314718056f;
 const F32	OO_LN2		= 1.4426950408889634073599246810019f;
 
+const F32	F_ALMOST_ZERO	= 0.0001f;
+const F32	F_ALMOST_ONE	= 1.0f - F_ALMOST_ZERO;
+
 // BUG: Eliminate in favor of F_APPROXIMATELY_ZERO above?
 const F32 FP_MAG_THRESHOLD = 0.0000001f;
 
@@ -102,13 +106,13 @@ inline BOOL is_approx_zero( F32 f ) { return (-F_APPROXIMATELY_ZERO < f) && (f <
 inline BOOL is_approx_equal(F32 x, F32 y)
 {
 	const S32 COMPARE_MANTISSA_UP_TO_BIT = 0x02;
-	return (abs((S32) ((U32&)x - (U32&)y) ) < COMPARE_MANTISSA_UP_TO_BIT);
+	return (std::abs((S32) ((U32&)x - (U32&)y) ) < COMPARE_MANTISSA_UP_TO_BIT);
 }
 
 inline BOOL is_approx_equal(F64 x, F64 y)
 {
 	const S64 COMPARE_MANTISSA_UP_TO_BIT = 0x02;
-	return (abs((S32) ((U64&)x - (U64&)y) ) < COMPARE_MANTISSA_UP_TO_BIT);
+	return (std::abs((S32) ((U64&)x - (U64&)y) ) < COMPARE_MANTISSA_UP_TO_BIT);
 }
 
 inline BOOL is_approx_equal_fraction(F32 x, F32 y, U32 frac_bits)
@@ -155,17 +159,17 @@ inline BOOL is_approx_equal_fraction(F64 x, F64 y, U32 frac_bits)
 
 inline S32 llabs(const S32 a)
 {
-	return S32(labs(a));
+	return S32(std::labs(a));
 }
 
 inline F32 llabs(const F32 a)
 {
-	return F32(fabs(a));
+	return F32(std::fabs(a));
 }
 
 inline F64 llabs(const F64 a)
 {
-	return F64(fabs(a));
+	return F64(std::fabs(a));
 }
 
 inline S32 lltrunc( F32 f )
@@ -473,8 +477,8 @@ inline F32 llsimple_angle(F32 angle)
 	return angle;
 }
 
-//calculate the nearesr power of two number for val, bounded by max_power_two
-inline U32 get_nearest_power_two(U32 val, U32 max_power_two)
+//SDK - Renamed this to get_lower_power_two, since this is what this actually does.
+inline U32 get_lower_power_two(U32 val, U32 max_power_two)
 {
 	if(!max_power_two)
 	{
@@ -489,4 +493,34 @@ inline U32 get_nearest_power_two(U32 val, U32 max_power_two)
 	
 	return max_power_two ;
 }
+
+// calculate next highest power of two, limited by max_power_two
+// This is taken from a brilliant little code snipped on http://acius2.blogspot.com/2007/11/calculating-next-power-of-2.html
+// Basically we convert the binary to a solid string of 1's with the same
+// number of digits, then add one.  We subtract 1 initially to handle
+// the case where the number passed in is actually a power of two.
+// WARNING: this only works with 32 bit ints.
+inline U32 get_next_power_two(U32 val, U32 max_power_two)
+{
+	if(!max_power_two)
+	{
+		max_power_two = 1 << 31 ;
+	}
+
+	if(val >= max_power_two)
+	{
+		return max_power_two;
+	}
+
+	val--;
+	val = (val >> 1) | val;
+	val = (val >> 2) | val;
+	val = (val >> 4) | val;
+	val = (val >> 8) | val;
+	val = (val >> 16) | val;
+	val++;
+
+	return val;
+}
+
 #endif

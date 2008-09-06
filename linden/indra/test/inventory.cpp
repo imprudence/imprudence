@@ -36,6 +36,11 @@
 #include "llinventory.h"
 #include "llsd.h"
 
+#if LL_WINDOWS
+// disable unreachable code warnings
+#pragma warning(disable: 4702)
+#endif
+
 LLPointer<LLInventoryItem> create_random_inventory_item()
 {
 	LLUUID item_id;
@@ -67,8 +72,8 @@ LLPointer<LLInventoryItem> create_random_inventory_item()
 		asset_id,
 		LLAssetType::AT_OBJECT,
 		LLInventoryType::IT_ATTACHMENT,
-		"Sample Object",
-		"Used for Testing",
+		std::string("Sample Object"),
+		std::string("Used for Testing"),
 		sale_info,
 		flags,
 		creation);
@@ -86,7 +91,7 @@ LLPointer<LLInventoryCategory> create_random_inventory_cat()
 		item_id,
 		parent_id,
 		LLAssetType::AT_NONE,
-		"Sample category");
+		std::string("Sample category"));
 	return cat;
 }
 
@@ -105,10 +110,10 @@ namespace tut
 	template<> template<>
 	void inventory_object::test<1>()
 	{
-		LLInventoryType::EType retType =  LLInventoryType::lookup("sound");
+		LLInventoryType::EType retType =  LLInventoryType::lookup(std::string("sound"));
 		ensure("1.LLInventoryType::lookup(char*) failed", retType == LLInventoryType::IT_SOUND);
 
-		retType = LLInventoryType::lookup("snapshot");
+		retType = LLInventoryType::lookup(std::string("snapshot"));
 		ensure("2.LLInventoryType::lookup(char*) failed", retType == LLInventoryType::IT_SNAPSHOT);
 	}
 
@@ -173,7 +178,7 @@ namespace tut
 		new_parent_id.generate();
 		src->setParent(new_parent_id);
 		
-		LLString new_name = "LindenLab";
+		std::string new_name = "LindenLab";
 		src->rename(new_name);
 		
 		src->setType(LLAssetType::AT_SOUND);
@@ -182,7 +187,7 @@ namespace tut
 		new_asset_id.generate();
 		
 		src->setAssetUUID(new_asset_id);
-		LLString new_desc = "SecondLife Testing";
+		std::string new_desc = "SecondLife Testing";
 		src->setDescription(new_desc);
 		
 		S32 new_price = rand();
@@ -244,7 +249,7 @@ namespace tut
 		new_parent_id.generate();
 		src->setParent(new_parent_id);
 		
-		LLString new_name = "LindenLab";
+		std::string new_name = "LindenLab";
 		src->rename(new_name);
 		
 		src->setType(LLAssetType::AT_SOUND);
@@ -253,7 +258,7 @@ namespace tut
 		new_asset_id.generate();
 		
 		src->setAssetUUID(new_asset_id);
-		LLString new_desc = "SecondLife Testing";
+		std::string new_desc = "SecondLife Testing";
 		src->setDescription(new_desc);
 		
 		S32 new_price = rand();
@@ -453,7 +458,6 @@ namespace tut
 		ensure_equals("9.sale price::getSalePrice() failed price", src1->getSaleInfo().getSalePrice(), src2->getSaleInfo().getSalePrice());
 		ensure_equals("10.name::getName() failed", src1->getName(), src2->getName());
 		ensure_equals("11.description::getDescription() failed", src1->getDescription(), src2->getDescription());				
-		//skip_fail("12.creation::getCreationDate()");
 		ensure_equals("12.creation::getCreationDate() failed", src1->getCreationDate(), src2->getCreationDate());
 	}	
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="false"
      can_resize="true" height="380" min_height="380" min_width="450"
-     name="Postcard" title="Send Postcard" width="450">
+     name="Postcard" title="Email Snapshot" width="450">
 	<text bottom="-35" follows="top|left" font="SansSerif" left="12" name="to_label">
 		Recipient&apos;s Email:
 	</text>
@@ -36,7 +36,7 @@
 	</text_editor>
 	<text bottom_delta="-37" follows="left|bottom" font="SansSerifSmall" left="12"
 	     name="fine_print">
-		If your postcard recipient joins SL, you&apos;ll get a referral bonus.
+		If your recipient joins SL, you&apos;ll get a referral bonus.
 	</text>
 	<button bottom_delta="-32" follows="right|bottom" height="20" label="Cancel"
 	     name="cancel_btn" right="-10" width="100" />
@@ -48,4 +48,7 @@
 	<string name="default_message">
 		Check this out!
 	</string>
+	<string name="upload_message">
+	 "Sending..."
+	</string>	
 </floater>

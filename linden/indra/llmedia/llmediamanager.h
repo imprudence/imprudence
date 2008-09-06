@@ -78,6 +78,10 @@ class LLMediaManager
 	public:
 		virtual ~LLMediaManager();
 
+		// Special case early init for just web browser component
+		// so we can show login screen.  See .cpp file for details. JC
+		static void initBrowser( LLMediaManagerData* init_data );
+
 		static void initClass( LLMediaManagerData* init_data );
 		static void cleanupClass();
 		static LLMediaManager* getInstance();

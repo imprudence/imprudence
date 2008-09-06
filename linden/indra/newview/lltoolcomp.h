@@ -37,6 +37,7 @@
 class LLManip;
 class LLToolSelectRect;
 class LLToolPlacer;
+class LLPickInfo;
 
 class LLView;
 class LLTextBox;
@@ -47,7 +48,7 @@ class LLTextBox;
 class LLToolComposite : public LLTool
 {
 public:
-	LLToolComposite(const LLString& name);
+	LLToolComposite(const std::string& name);
 
     virtual BOOL			handleMouseDown(S32 x, S32 y, MASK mask) = 0;	// Sets the current tool
     virtual BOOL			handleMouseUp(S32 x, S32 y, MASK mask);			// Returns to the default tool
@@ -97,7 +98,7 @@ protected:
 	LLToolSelectRect*		mSelectRect;
 
 public:
-	static const LLString sNameComp;
+	static const std::string sNameComp;
 };
 
 
@@ -114,7 +115,7 @@ public:
     virtual BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
     virtual BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
 
-	static void pickCallback(S32 x, S32 y, MASK mask);
+	static void pickCallback(const LLPickInfo& pick_info);
 };
 
 //-----------------------------------------------------------------------
@@ -135,7 +136,7 @@ public:
 
 	virtual LLTool*		getOverrideTool(MASK mask);
 
-	static void pickCallback(S32 x, S32 y, MASK mask);
+	static void pickCallback(const LLPickInfo& pick_info);
 };
 
 //-----------------------------------------------------------------------
@@ -156,7 +157,7 @@ public:
 
 	virtual LLTool*		getOverrideTool(MASK mask);
 	
-	static void pickCallback(S32 x, S32 y, MASK mask);
+	static void pickCallback(const LLPickInfo& pick_info);
 };
 
 
@@ -178,7 +179,7 @@ public:
 
 	virtual LLTool*		getOverrideTool(MASK mask);
 
-	static void pickCallback(S32 x, S32 y, MASK mask);
+	static void pickCallback(const LLPickInfo& pick_info);
 
 protected:
 };
@@ -197,7 +198,7 @@ public:
     virtual BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
 	virtual BOOL		handleMouseUp(S32 x, S32 y, MASK mask);
 	
-	static void pickCallback(S32 x, S32 y, MASK mask);
+	static void pickCallback(const LLPickInfo& pick_info);
 protected:
 	LLToolPlacer*		mPlacer;
 	BOOL				mObjectPlacedOnMouseDown;

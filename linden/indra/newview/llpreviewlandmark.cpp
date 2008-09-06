@@ -57,6 +57,7 @@
 #include "llviewerregion.h"
 #include "llviewerstats.h"
 #include "lluictrlfactory.h"
+#include "lltexturectrl.h"
 
 
 
@@ -137,14 +138,14 @@ void LLPreviewLandmark::getDegreesAndDist( F32* degrees, F64* horiz_dist, F64* v
 	}
 }
 
-const LLString& LLPreviewLandmark::getName() const
+const std::string& LLPreviewLandmark::getName() const
 {
 	const LLInventoryItem *item = getItem();
 	if (item)
 	{
 		return item->getName();
 	}
-	return LLString::null;
+	return LLStringUtil::null;
 }
 
 LLVector3d LLPreviewLandmark::getPositionGlobal() const

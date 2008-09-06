@@ -41,7 +41,7 @@
 LLTrans::template_map_t LLTrans::sStringTemplates;
 
 //static 
-bool LLTrans::parseStrings(const LLString& xml_filename)
+bool LLTrans::parseStrings(const std::string& xml_filename)
 {
 	LLXMLNodePtr root;
 	BOOL success  = LLUICtrlFactory::getLayeredXMLNode(xml_filename, root);
@@ -60,7 +60,7 @@ bool LLTrans::parseStrings(const LLString& xml_filename)
 			continue;
 		}
 		
-		LLString string_name;
+		std::string string_name;
 
 		if (! string->getAttributeString("name", string_name))
 		{
@@ -76,20 +76,20 @@ bool LLTrans::parseStrings(const LLString& xml_filename)
 }
 
 //static 
-LLString LLTrans::getString(const LLString &xml_desc, const LLString::format_map_t& args)
+std::string LLTrans::getString(const std::string &xml_desc, const LLStringUtil::format_map_t& args)
 {
 	template_map_t::iterator iter = sStringTemplates.find(xml_desc);
 
 	if (iter != sStringTemplates.end())
 	{
-		LLString text = iter->second.mText;
-		LLString::format(text, args);
+		std::string text = iter->second.mText;
+		LLStringUtil::format(text, args);
 		
 		return text;
 	}
 	else
 	{
-		LLString::format_map_t args;
+		LLStringUtil::format_map_t args;
 		args["[STRING_NAME]"] = xml_desc;
 		llwarns << "Missing String: [" << xml_desc << "]" << llendl;
 		LLAlertDialog* dialogp = LLAlertDialog::showXml("MissingString", args);

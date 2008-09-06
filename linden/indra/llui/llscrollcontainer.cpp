@@ -32,9 +32,7 @@
 
 #include "linden_common.h"
 
-#include "llgl.h"
 #include "llrender.h"
-
 #include "llscrollcontainer.h"
 #include "llscrollbar.h"
 #include "llui.h"
@@ -44,8 +42,6 @@
 #include "llframetimer.h"
 #include "lluictrlfactory.h"
 #include "llfontgl.h"
-
-#include "llglheaders.h"
 
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
@@ -64,7 +60,7 @@ static const F32 AUTO_SCROLL_RATE_ACCEL = 120.f;
 static LLRegisterWidget<LLScrollableContainerView> r("scroll_container");
 
 // Default constructor
-LLScrollableContainerView::LLScrollableContainerView( const LLString& name,
+LLScrollableContainerView::LLScrollableContainerView( const std::string& name,
 													  const LLRect& rect,
 													  LLView* scrolled_view,
 													  BOOL is_opaque,
@@ -86,7 +82,7 @@ LLScrollableContainerView::LLScrollableContainerView( const LLString& name,
 }
 
 // LLUICtrl constructor
-LLScrollableContainerView::LLScrollableContainerView( const LLString& name, const LLRect& rect,
+LLScrollableContainerView::LLScrollableContainerView( const std::string& name, const LLRect& rect,
 							   LLUICtrl* scrolled_ctrl, BOOL is_opaque,
 							   const LLColor4& bg_color) :
 	LLUICtrl( name, rect, FALSE, NULL, NULL ),
@@ -108,7 +104,7 @@ LLScrollableContainerView::LLScrollableContainerView( const LLString& name, cons
 void LLScrollableContainerView::init()
 {
 	LLRect border_rect( 0, getRect().getHeight(), getRect().getWidth(), 0 );
-	mBorder = new LLViewBorder( "scroll border", border_rect, LLViewBorder::BEVEL_IN );
+	mBorder = new LLViewBorder( std::string("scroll border"), border_rect, LLViewBorder::BEVEL_IN );
 	addChild( mBorder );
 
 	mInnerRect.set( 0, getRect().getHeight(), getRect().getWidth(), 0 );
@@ -116,7 +112,7 @@ void LLScrollableContainerView::init()
 
 	LLRect vertical_scroll_rect = mInnerRect;
 	vertical_scroll_rect.mLeft = vertical_scroll_rect.mRight - SCROLLBAR_SIZE;
-	mScrollbar[VERTICAL] = new LLScrollbar( "scrollable vertical",
+	mScrollbar[VERTICAL] = new LLScrollbar( std::string("scrollable vertical"),
 											vertical_scroll_rect,
 											LLScrollbar::VERTICAL,
 											mInnerRect.getHeight(), 
@@ -132,7 +128,7 @@ void LLScrollableContainerView::init()
 	
 	LLRect horizontal_scroll_rect = mInnerRect;
 	horizontal_scroll_rect.mTop = horizontal_scroll_rect.mBottom + SCROLLBAR_SIZE;
-	mScrollbar[HORIZONTAL] = new LLScrollbar( "scrollable horizontal",
+	mScrollbar[HORIZONTAL] = new LLScrollbar( std::string("scrollable horizontal"),
 											  horizontal_scroll_rect,
 											  LLScrollbar::HORIZONTAL,
 											  mInnerRect.getWidth(),
@@ -268,7 +264,7 @@ BOOL LLScrollableContainerView::handleDragAndDrop(S32 x, S32 y, MASK mask,
 												  EDragAndDropType cargo_type,
 												  void* cargo_data,
 												  EAcceptance* accept,
-												  LLString& tooltip_msg)
+												  std::string& tooltip_msg)
 {
 	// Scroll folder view if needed.  Never accepts a drag or drop.
 	*accept = ACCEPT_NO;
@@ -340,7 +336,7 @@ BOOL LLScrollableContainerView::handleDragAndDrop(S32 x, S32 y, MASK mask,
 }
 
 
-BOOL LLScrollableContainerView::handleToolTip(S32 x, S32 y, LLString& msg, LLRect* sticky_rect)
+BOOL LLScrollableContainerView::handleToolTip(S32 x, S32 y, std::string& msg, LLRect* sticky_rect)
 {
 	S32 local_x, local_y;
 	for( S32 i = 0; i < SCROLLBAR_COUNT; i++ )
@@ -704,7 +700,7 @@ LLXMLNodePtr LLScrollableContainerView::getXML(bool save_children) const
 
 LLView* LLScrollableContainerView::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 {
-	LLString name("scroll_container");
+	std::string name("scroll_container");
 	node->getAttributeString("name", name);
 
 	LLRect rect;
@@ -742,7 +738,7 @@ LLView* LLScrollableContainerView::fromXML(LLXMLNodePtr node, LLView *parent, LL
 
 	if (panelp == NULL)
 	{
-		panelp = new LLPanel("dummy", LLRect::null, FALSE);
+		panelp = new LLPanel(std::string("dummy"), LLRect::null, FALSE);
 	}
 
 	ret->mScrolledView = panelp;

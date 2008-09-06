@@ -52,13 +52,13 @@ class LLSpinCtrl
 : public LLUICtrl
 {
 public:
-	LLSpinCtrl(const LLString& name, const LLRect& rect,
-		const LLString& label,
+	LLSpinCtrl(const std::string& name, const LLRect& rect,
+		const std::string& label,
 		const LLFontGL* font,
 		void (*commit_callback)(LLUICtrl*, void*),
 		void* callback_userdata,
 		F32 initial_value, F32 min_value, F32 max_value, F32 increment,
-		const LLString& control_name = LLString(),
+		const std::string& control_name = std::string(),
 		S32 label_width = SPINCTRL_DEFAULT_LABEL_WIDTH );
 
 	virtual ~LLSpinCtrl() {} // Children all cleaned up by default view destructor.
@@ -93,6 +93,7 @@ public:
 	void			setLabel(const LLStringExplicit& label);
 	void			setLabelColor(const LLColor4& c)			{ mTextEnabledColor = c; }
 	void			setDisabledLabelColor(const LLColor4& c)	{ mTextDisabledColor = c; }
+	void			setAllowEdit(BOOL allow_edit);
 
 	virtual void	onTabInto();
 
@@ -134,6 +135,7 @@ private:
 	class LLButton*		mDownBtn;
 
 	BOOL			mbHasBeenSet;
+	BOOL			mAllowEdit;
 };
 
 #endif  // LL_LLSPINCTRL_H

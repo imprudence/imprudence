@@ -55,23 +55,23 @@ const S32 MSG_PAD = 8;
 /*static*/ LLAlertDialog::template_map_t LLAlertDialog::sAlertTemplates;
 /*static*/ LLAlertDialog::template_map_t LLAlertDialog::sIgnorableTemplates;
 /*static*/ LLControlGroup* LLAlertDialog::sSettings = NULL;
-/*static*/ std::map<LLString,LLAlertDialog*> LLAlertDialog::sUniqueActiveMap;
+/*static*/ std::map<std::string,LLAlertDialog*> LLAlertDialog::sUniqueActiveMap;
 /*static*/ LLAlertDialog::display_callback_t LLAlertDialog::sDisplayCallback;
-/*static*/ LLString LLAlertDialog::sStringSkipNextTime("Skip this dialog next time");
-/*static*/ LLString LLAlertDialog::sStringAlwaysChoose("Always choose this option");
+/*static*/ std::string LLAlertDialog::sStringSkipNextTime("Skip this dialog next time");
+/*static*/ std::string LLAlertDialog::sStringAlwaysChoose("Always choose this option");
 /*static*/ LLAlertDialog::URLLoader* LLAlertDialog::sURLLoader;
 
 
 //static
-LLAlertDialog* LLAlertDialog::createXml( const LLString& xml_desc,
+LLAlertDialog* LLAlertDialog::createXml( const std::string& xml_desc,
 										 alert_callback_t callback, void *user_data)
 {
-	LLString::format_map_t args;
+	LLStringUtil::format_map_t args;
 	return createXml(xml_desc, args, callback, user_data);
 }
 
 //static
-LLAlertDialog* LLAlertDialog::createXml( const LLString& xml_desc, const LLString::format_map_t& args,
+LLAlertDialog* LLAlertDialog::createXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
 										 alert_callback_t callback, void *user_data)
 {
 	template_map_t::iterator iter = sAlertTemplates.find(xml_desc);
@@ -85,7 +85,7 @@ LLAlertDialog* LLAlertDialog::createXml( const LLString& xml_desc, const LLStrin
 	}
 	else
 	{
-		LLString::format_map_t args;
+		LLStringUtil::format_map_t args;
 		args["[ALERT_NAME]"] = xml_desc;
 		llwarns << "Missing Alert: [" << xml_desc << "]" << llendl;
 		LLAlertDialog* dialogp = LLAlertDialog::showXml("MissingAlert", args);
@@ -98,15 +98,15 @@ LLAlertDialog* LLAlertDialog::createXml( const LLString& xml_desc, const LLStrin
 }
 
 //static
-LLAlertDialog* LLAlertDialog::showXml( const LLString& xml_desc,
+LLAlertDialog* LLAlertDialog::showXml( const std::string& xml_desc,
 							 alert_callback_t callback, void *user_data)
 {
-	LLString::format_map_t args;
+	LLStringUtil::format_map_t args;
 	return showXml(xml_desc, args, callback, user_data);
 }
 
 //static
-LLAlertDialog* LLAlertDialog::showXml( const LLString& xml_desc, const LLString::format_map_t& args,
+LLAlertDialog* LLAlertDialog::showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
 							 alert_callback_t callback, void *user_data)
 {
 	LLAlertDialog* dialog = createXml(xml_desc, args, callback, user_data);
@@ -114,10 +114,10 @@ LLAlertDialog* LLAlertDialog::showXml( const LLString& xml_desc, const LLString:
 }
 
 //static
-LLAlertDialog* LLAlertDialog::showCritical( const LLString& desc, alert_callback_t callback, void *user_data)
+LLAlertDialog* LLAlertDialog::showCritical( const std::string& desc, alert_callback_t callback, void *user_data)
 {
 	LLAlertDialogTemplate xml_template;
-	LLString::format_map_t args;
+	LLStringUtil::format_map_t args;
 	xml_template.mTitle = "Critical Error";
 	xml_template.mMessage = desc;
 	xml_template.mModal = TRUE;
@@ -135,7 +135,7 @@ static const S32 BTN_HPAD = 8;
 static const LLFONT_ID font_name = LLFONT_SANSSERIF;
 
 LLAlertDialog::LLAlertDialog( const LLAlertDialogTemplate* xml_template,
-							  const LLString::format_map_t& args,
+							  const LLStringUtil::format_map_t& args,
 							  alert_callback_t callback, void *user_data)
 	:	LLModalDialog( xml_template->mTitle, 100, 100, xml_template->mModal ),  // dummy size.  Will reshape below.
 		mCallback( callback ),
@@ -156,7 +156,7 @@ LLAlertDialog::LLAlertDialog( const LLAlertDialogTemplate* xml_template,
 {
 	mURL = xml_template->mURL;
 	mURLOption = xml_template->mURLOption;
-	createDialog(&(xml_template->mOptions), xml_template->mDefaultOption,
+	createDialog(xml_template->mOptions, xml_template->mDefaultOption,
 				 xml_template->mMessage, args,
 				 xml_template->mEditLineText);
 	setTitle(xml_template->mTitle);
@@ -226,7 +226,7 @@ bool LLAlertDialog::show()
 	// Check to see if we are already displaying the alert
 	if (mUnique)
 	{
-		std::map<LLString,LLAlertDialog*>::iterator iter = sUniqueActiveMap.find(mLabel);
+		std::map<std::string,LLAlertDialog*>::iterator iter = sUniqueActiveMap.find(mLabel);
 		if (iter != sUniqueActiveMap.end())
 		{
 			gFloaterView->bringToFront(iter->second);
@@ -254,18 +254,18 @@ bool LLAlertDialog::show()
 	return true;
 }
 
-void LLAlertDialog::format(LLString& msg, const LLString::format_map_t& args)
+void LLAlertDialog::format(std::string& msg, const LLStringUtil::format_map_t& args)
 {
 	// XUI:translate!
-	LLString::format_map_t targs = args;
+	LLStringUtil::format_map_t targs = args;
 	targs["[SECOND_LIFE]"] = "Second Life";
 	targs["[_URL]"] = mURL;
-	LLString::format(msg, targs);
+	LLStringUtil::format(msg, targs);
 }
 
-void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 default_option,
-								 const LLString& msg_in, const LLString::format_map_t& args,
-								 const LLString& edit_text)
+void LLAlertDialog::createDialog(const options_list_t& options_in, S32 default_option,
+								 const std::string& msg_in, const LLStringUtil::format_map_t& args,
+								 const std::string& edit_text)
 {
 	setBackgroundVisible(TRUE);
 	setBackgroundOpaque(TRUE);
@@ -274,9 +274,11 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 	const S32 LINE_HEIGHT = llfloor(font->getLineHeight() + 0.99f);
 	const S32 EDITOR_HEIGHT = 20;
 
+	const options_list_t* optionsp = &options_in;
+	
 	// Buttons
-	std::vector<LLString> default_option_list;
-	mNumOptions = optionsp->size();
+	options_list_t default_option_list;
+	mNumOptions = options_in.size();
 	if( 0 == mNumOptions )
 	{
 		default_option_list.push_back("Close");
@@ -285,12 +287,13 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 		mNumOptions = 1;
 	}
 
-	const std::vector<LLString>& options = *optionsp;
+	const options_list_t& options= *optionsp;
+	
 	mButtonData = new ButtonData[mNumOptions];
 
 	// Calc total width of buttons
 	S32 button_width = 0;
-	S32 sp = font->getWidth("OO");
+	S32 sp = font->getWidth(std::string("OO"));
 	for( S32 i = 0; i < mNumOptions; i++ )
 	{
 		S32 w = S32(font->getWidth( options[i] ) + 0.99f) + sp + 2 * LLBUTTON_H_PAD;
@@ -304,10 +307,10 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 
 	// Message: create text box using raw string, as text has been structure deliberately
 	// Use size of created text box to generate dialog box size
-	LLString msg = msg_in;
+	std::string msg = msg_in;
 	format( msg, args );		 
 	llwarns << "Alert: " << msg << llendl;
-	LLTextBox* msg_box = new LLTextBox( "Alert message", msg, (F32)MAX_ALLOWED_MSG_WIDTH, font );
+	LLTextBox* msg_box = new LLTextBox( std::string("Alert message"), msg, (F32)MAX_ALLOWED_MSG_WIDTH, font );
 
 	const LLRect& text_rect = msg_box->getRect();
 	S32 dialog_width = llmax( btn_total_width, text_rect.getWidth() ) + 2 * HPAD;
@@ -339,7 +342,7 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 
 	if (mCaution)
 	{
-		LLIconCtrl* icon = new LLIconCtrl("icon", LLRect(msg_x, msg_y, msg_x+32, msg_y-32), "notify_caution_icon.tga");
+		LLIconCtrl* icon = new LLIconCtrl(std::string("icon"), LLRect(msg_x, msg_y, msg_x+32, msg_y-32), std::string("notify_caution_icon.tga"));
 		icon->setMouseOpaque(FALSE);
 		addChild(icon);
 		msg_x += 32 + HPAD;
@@ -362,13 +365,12 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 		LLRect button_rect;
 		button_rect.setOriginAndSize( button_left, VPAD, button_width, BTN_HEIGHT );
 
-		LLButton* btn = new LLButton(
-			"btn", button_rect,
-			"","", "", 
-			&LLAlertDialog::onButtonPressed, (void*)(&mButtonData[i]),
-			font,
-			options[i], 
-			options[i]);
+		LLButton* btn = new LLButton(std::string("btn"), button_rect,
+									 LLStringUtil::null, LLStringUtil::null, LLStringUtil::null, 
+									 &LLAlertDialog::onButtonPressed, (void*)(&mButtonData[i]),
+									 font,
+									 options[i], 
+									 options[i]);
 
 		mButtonData[i].mSelf = this;
 		mButtonData[i].mButton = btn;
@@ -388,7 +390,7 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 	if (edit_text.size() > 0)
 	{
 		S32 y = VPAD + BTN_HEIGHT + VPAD/2;
-		mLineEditor = new LLLineEditor("lineeditor",
+		mLineEditor = new LLLineEditor(std::string("lineeditor"),
 			LLRect( HPAD, y+EDITOR_HEIGHT, dialog_width-HPAD, y),
 			edit_text,
 			LLFontGL::sSansSerif,
@@ -397,7 +399,7 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 	}
 }
 
-bool LLAlertDialog::setCheckBox( const LLString& check_title, const LLString& check_control )
+bool LLAlertDialog::setCheckBox( const std::string& check_title, const std::string& check_control )
 {
 	const LLFontGL* font = LLResMgr::getInstance()->getRes( font_name );
 	const S32 LINE_HEIGHT = llfloor(font->getLineHeight() + 0.99f);
@@ -420,7 +422,7 @@ bool LLAlertDialog::setCheckBox( const LLString& check_title, const LLString& ch
 	check_rect.setOriginAndSize(msg_x, VPAD+BTN_HEIGHT+LINE_HEIGHT/2, 
 								max_msg_width, LINE_HEIGHT);
 
-	mCheck = new LLCheckboxCtrl("check", check_rect, check_title, font);
+	mCheck = new LLCheckboxCtrl(std::string("check"), check_rect, check_title, font);
 	addChild(mCheck);
 
 	// mCheck is sometimes "show again" and sometimes "hide" :-(
@@ -508,7 +510,7 @@ void LLAlertDialog::handleCallbacks()
 }
 BOOL LLAlertDialog::hasTitleBar() const
 {
-	return (getTitle() != "" && getTitle() != " ")	// has title
+	return (getCurrentTitle() != "" && getCurrentTitle() != " ")	// has title
 			|| isMinimizeable()
 			|| isCloseable();
 }
@@ -586,11 +588,11 @@ void LLAlertDialog::setEditTextCallback(alert_text_callback_t callback, void *us
 	}
 }
 
-void LLAlertDialog::setEditTextArgs(const LLString::format_map_t& edit_args)
+void LLAlertDialog::setEditTextArgs(const LLStringUtil::format_map_t& edit_args)
 {
 	if (mLineEditor)
 	{
-		LLString msg = mLineEditor->getText();
+		std::string msg = mLineEditor->getText();
 		format(msg, edit_args);
 		mLineEditor->setText(msg);
 	}
@@ -625,7 +627,7 @@ void LLAlertDialog::onButtonPressed( void* userdata )
 //=============================================================================
 
 //static
-const LLString& LLAlertDialog::getTemplateMessage(const LLString& xml_desc)
+const std::string& LLAlertDialog::getTemplateMessage(const std::string& xml_desc)
 {
 	template_map_t::iterator iter = sAlertTemplates.find(xml_desc);
 	if (iter != sAlertTemplates.end())
@@ -639,7 +641,7 @@ const LLString& LLAlertDialog::getTemplateMessage(const LLString& xml_desc)
 }
 
 //static
-bool LLAlertDialog::parseAlerts(const LLString& xml_filename, LLControlGroup* settings, BOOL settings_only)
+bool LLAlertDialog::parseAlerts(const std::string& xml_filename, LLControlGroup* settings, BOOL settings_only)
 {
 	LLXMLNodePtr root;
 	BOOL success  = LLUICtrlFactory::getLayeredXMLNode(xml_filename, root);
@@ -663,7 +665,7 @@ bool LLAlertDialog::parseAlerts(const LLString& xml_filename, LLControlGroup* se
 	{
 		if (alert->hasName("global"))
 		{
-			LLString global_name;
+			std::string global_name;
 			if (alert->getAttributeString("name", global_name))
 			{
 				if (global_name == "skipnexttime")
@@ -686,7 +688,7 @@ bool LLAlertDialog::parseAlerts(const LLString& xml_filename, LLControlGroup* se
 		LLAlertDialogTemplate* xml_template = settings_only ? NULL : new LLAlertDialogTemplate;
 
 		// name=
-		LLString alert_name;
+		std::string alert_name;
 		if (alert->getAttributeString("name", alert_name))
 		{
 			if (xml_template)
@@ -701,7 +703,7 @@ bool LLAlertDialog::parseAlerts(const LLString& xml_filename, LLControlGroup* se
 			continue;
 		}
 		// title=
-		LLString title;
+		std::string title;
 		if (alert->getAttributeString("title", title))
 		{
 			if (xml_template)
@@ -767,10 +769,10 @@ bool LLAlertDialog::parseAlerts(const LLString& xml_filename, LLControlGroup* se
 			// <option>
 			if (child->hasName("option"))
 			{
-				LLString label = child->getTextContents();
+				std::string label = child->getTextContents();
 				BOOL is_default = FALSE;
 				child->getAttributeBOOL("default", is_default);
-				LLString ignore_text;
+				std::string ignore_text;
 				if (!child->getAttributeString("ignore", ignore_text))
 				{
 					ignore_text = label;
@@ -802,9 +804,9 @@ bool LLAlertDialog::parseAlerts(const LLString& xml_filename, LLControlGroup* se
 			// <ignore>
 			if (child->hasName("ignore"))
 			{
-				LLString ignore_text = child->getTextContents();
+				std::string ignore_text = child->getTextContents();
 				// label=
-				LLString name;
+				std::string name;
 				child->getAttributeString("name", name);
 				
 				//always set to alert_name for the sake of i18n
@@ -839,7 +841,7 @@ bool LLAlertDialog::parseAlerts(const LLString& xml_filename, LLControlGroup* se
 					}
 					if (add_settings)
 					{
-						settings->declareS32("Default" + name, default_option, "Default option number for this alert dialog");
+						settings->declareS32(std::string("Default") + name, default_option, std::string("Default option number for this alert dialog"));
 					}
 				}
 			}

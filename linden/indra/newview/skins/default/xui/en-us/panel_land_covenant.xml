@@ -46,7 +46,7 @@
 	     max_length="65535" name="covenant_editor" 
 	     width="425" word_wrap="true" />
 	<string name="can_resell">
-		string land in this region may be resold.
+		Purchased land in this region may be resold.
 	</string>
 	<string name="can_not_resell">
 		Purchased land in this region may not be resold.

@@ -180,7 +180,7 @@ BOOL LLFloaterLandmark::handleDragAndDrop(
 		BOOL drop,
 		EDragAndDropType cargo_type, void *cargo_data, 
 		EAcceptance *accept,
-		LLString& tooltip_msg)
+		std::string& tooltip_msg)
 {
 	BOOL handled = FALSE;
 
@@ -442,12 +442,12 @@ void LLFloaterLandmark::onShowFolders(LLUICtrl* ctrl, void *user_data)
 	}
 }
 
-void LLFloaterLandmark::onSearchEdit(const LLString& search_string, void* user_data )
+void LLFloaterLandmark::onSearchEdit(const std::string& search_string, void* user_data )
 {
 	LLFloaterLandmark* picker = (LLFloaterLandmark*)user_data;
 
 	std::string upper_case_search_string = search_string;
-	LLString::toUpper(upper_case_search_string);
+	LLStringUtil::toUpper(upper_case_search_string);
 
 	if (upper_case_search_string.empty())
 	{

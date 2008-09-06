@@ -227,6 +227,10 @@
 			<string name="sale_pending_text">
 				(Sale Pending)
 			</string>
+			<string name="no_selection_text">
+			No parcel selected.
+Go to World menu > About Land or select another parcel to show its details.
+			</string>
 		</panel>
 		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" label="Covenant" left="0" mouse_opaque="true"
@@ -310,7 +314,7 @@
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
-			     mouse_opaque="true" name="parcel_object_bonus" v_pad="0" visible="fakse"
+			     mouse_opaque="true" name="parcel_object_bonus" v_pad="0" visible="false"
 			     width="364">
 				Region Object Bonus Factor: [BONUS]
 			</text>
@@ -463,6 +467,7 @@
 				<column name="online_status" width="-1" />
 				<column name="name" dynamicwidth="true" label="Name" />
 				<column name="count" label="Count" width="70" />
+				<column label="Most Recent" width="160" />
 			</name_list>
 		</panel>
 		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
@@ -819,7 +824,7 @@ Options:
 			     tool_tip="Ban residents who have not verified their age. See support.secondlife.com for more information."
 			     width="278" />
 			<string name="estate_override">
-				One ore more of these options is set at the estate level
+				One or more of these options is set at the estate level
 			</string>
 			<check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" initial_value="false" label="Allow Group Access: [GROUP]"

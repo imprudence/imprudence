@@ -3,7 +3,7 @@
      can_resize="false" follows="left|top" height="550" 
      left="308" min_height="100" min_width="100" mouse_opaque="true"
      name="toolbox floater" rect_control="ToolboxRect" sound_flags="0" title=""
-     width="272">
+     short_title="Build" width="272">
 
 <!-- Main floater tabs -->
 
@@ -278,6 +278,15 @@
 			Large
 		</combo_item>
 	</combo_box>
+	<volume_slider bottom_delta="-19" follows="left|top" height="16" hidden="false" increment="0.1"
+         initial_val="0.00" left="176" max_val="2.0" min_val="-1.0"
+	     mouse_opaque="true" name="slider force" width="70" />	
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="4" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="126" mouse_opaque="true" name="Strength:" v_pad="0" width="128">
+	          Strength:
+	</text>    
 	<button bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="center"
 	     height="16" label="Apply to selection" label_selected="Apply to selection"
 	     left="118" mouse_opaque="true" name="button apply to selection"
@@ -417,13 +426,13 @@
 			     name="checkbox for sale" width="78" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="100"
-			     mouse_opaque="true" name="Price:  L$" v_pad="0" width="56">
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="90"
+			     mouse_opaque="true" name="Cost" v_pad="0" width="78">
 				Price:  L$
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
-			     follows="left|top|right" font="SansSerifSmall" height="16" left_delta="56"
-			     max_length="25" mouse_opaque="true" name="EdCost" width="84" />
+			     follows="left|top|right" font="SansSerifSmall" height="16" left_delta="80"
+			     max_length="25" mouse_opaque="true" name="Edit Cost" width="75" />
 			<radio_group bottom="-286" draw_border="false" follows="left|top|right" height="16"
 			     left="42" mouse_opaque="true" name="sale type" width="218">
 				<radio_item bottom="-16" follows="left|top" height="16" left="0" mouse_opaque="true"
@@ -536,6 +545,21 @@
 			</string>
 			<string name="text modify warning">
 				Must select entire object to set permissions.
+			</string>
+			<string name="Cost Default">
+			Price:           L$
+			</string>
+			<string name="Cost Total">
+			Total Price:  L$
+			</string>
+			<string name="Cost Per Unit">
+			Price Per:     L$
+			</string>
+			<string name="Cost Mixed">
+			Mixed Price
+			</string>
+			<string name="Sale Mixed">
+			Mixed Sale
 			</string>
 		</panel>
 
@@ -1178,7 +1202,7 @@
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
 		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
-		     mouse_opaque="true" name="label_area" v_pad="0" width="72">
+		     mouse_opaque="true" name="label_area" v_pad="0" width="128">
 			Area: [AREA] sq. m.
 		</text>
 		<button bottom_delta="-38" follows="left|top" font="SansSerif" halign="center"

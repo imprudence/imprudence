@@ -58,6 +58,10 @@ static LLGridData gGridInfo[GRID_INFO_COUNT] =
 	  "util.aruna.lindenlab.com",
 	  "https://login.aruna.lindenlab.com/cgi-bin/login.cgi",
 	  "http://aruna-secondlife.webdev.lindenlab.com/helpers/" },
+	{ "Damballah",
+	  "util.damballah.lindenlab.com",
+	  "https://login.damballah.lindenlab.com/cgi-bin/login.cgi",
+	  "http://damballah-secondlife.webdev.lindenlab.com/helpers/" },
 	{ "Durga",
 	  "util.durga.lindenlab.com",
 	  "https://login.durga.lindenlab.com/cgi-bin/login.cgi",
@@ -171,7 +175,7 @@ void LLViewerLogin::setGridChoice(const std::string& grid_name)
         int grid_index = GRID_INFO_NONE; 
         for(;grid_index < GRID_INFO_OTHER; ++grid_index)
         {
-            if(0 == LLString::compareInsensitive(gGridInfo[grid_index].mLabel, grid_name.c_str()))
+            if(0 == LLStringUtil::compareInsensitive(gGridInfo[grid_index].mLabel, grid_name))
             {
 				// Founding a matching label in the list...
 				setGridChoice((EGridInfo)grid_index);
@@ -296,7 +300,7 @@ bool LLViewerLogin::isInProductionGrid()
 	// but it seems that loginURI trumps that.
 	std::vector<std::string> uris;
 	getLoginURIs(uris);
-	LLString::toLower(uris[0]);
+	LLStringUtil::toLower(uris[0]);
 	if((uris[0].find("agni") != std::string::npos))
 	{
 		return true;

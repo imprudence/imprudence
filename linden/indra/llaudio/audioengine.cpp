@@ -1,4 +1,4 @@
-/** 
+ /** 
  * @file audioengine.cpp
  * @brief implementation of LLAudioEngine class abstracting the Open
  * AL audio support
@@ -916,7 +916,7 @@ void LLAudioEngine::cleanupAudioSource(LLAudioSource *asp)
 
 BOOL LLAudioEngine::hasDecodedFile(const LLUUID &uuid)
 {
-	char uuid_str[UUID_STR_LENGTH]; 		/*Flawfinder: ignore*/
+	std::string uuid_str;
 	uuid.toString(uuid_str);
 
 	std::string wav_path;
@@ -1653,10 +1653,10 @@ BOOL LLAudioData::load()
 		return FALSE;
 	}
 
-	char uuid_str[UUID_STR_LENGTH];			/*Flawfinder: ignore*/
-	char wav_path[MAX_PATH]; 				/*Flawfinder: ignore*/
+	std::string uuid_str;
+	std::string wav_path;
 	mID.toString(uuid_str);
-	snprintf(wav_path, MAX_PATH, "%s.dsf",gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str).c_str());	/* Flawfinder: ignore */
+	wav_path= gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str) + ".dsf";
 
 	if (!mBufferp->loadWAV(wav_path))
 	{

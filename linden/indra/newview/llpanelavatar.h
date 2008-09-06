@@ -84,7 +84,7 @@ public:
 	// when they are first displayed.
 	// type is one of "avatarnotesrequest", "avatarpicksrequest",
 	// or "avatarclassifiedsrequest"
-	void sendAvatarProfileRequestIfNeeded(const char* method);
+	void sendAvatarProfileRequestIfNeeded(const std::string& method);
 
 private:
 	LLPanelAvatar* mPanelAvatar;
@@ -147,10 +147,9 @@ public:
 
 	void setWebURL(std::string url);
 
-	void load();
 	void load(std::string url);
-	static void onClickLoad(void* data);
-	static void onClickOpen(void* data);
+	static void onURLKeystroke(LLLineEditor* editor, void* data);
+	static void onCommitLoad(LLUICtrl* ctrl, void* data);
 	static void onCommitURL(LLUICtrl* ctrl, void* data);
 	static void onClickWebProfileHelp(void *);
 
@@ -159,7 +158,7 @@ public:
 	virtual void onLocationChange( const EventType& eventIn );
 
 private:
-	std::string			mURL;
+	std::string			mHome;
 	LLWebBrowserCtrl*	mWebBrowser;
 };
 
@@ -207,7 +206,7 @@ public:
 class LLPanelAvatarClassified : public LLPanelAvatarTab
 {
 public:
-	LLPanelAvatarClassified(const LLString& name, const LLRect& rect, LLPanelAvatar* panel_avatar);
+	LLPanelAvatarClassified(const std::string& name, const LLRect& rect, LLPanelAvatar* panel_avatar);
 
 	/*virtual*/ BOOL postBuild(void);
 
@@ -279,7 +278,7 @@ public:
 	// Fill in the avatar ID and handle some field fill-in, as well as 
 	// button enablement.
 	// Pass one of the ONLINE_STATUS_foo constants above.
-	void setAvatarID(const LLUUID &avatar_id, const LLString &name, EOnlineStatus online_status);
+	void setAvatarID(const LLUUID &avatar_id, const std::string &name, EOnlineStatus online_status);
 
 	void setOnlineStatus(EOnlineStatus online_status);
 
@@ -326,9 +325,9 @@ public:
 private:
 	void enableOKIfReady();
 
-	static void finishKick(S32 option, const LLString& text, void* userdata);
-	static void finishFreeze(S32 option, const LLString& text, void* userdata);
-	static void finishUnfreeze(S32 option, const LLString& text, void* userdata);
+	static void finishKick(S32 option, const std::string& text, void* userdata);
+	static void finishFreeze(S32 option, const std::string& text, void* userdata);
+	static void finishUnfreeze(S32 option, const std::string& text, void* userdata);
 
 	static void showProfileCallback(S32 option, void *userdata);
 
@@ -374,7 +373,7 @@ private:
 };
 
 // helper funcs
-void add_left_label(LLPanel *panel, const LLString& name, S32 y);
+void add_left_label(LLPanel *panel, const std::string& name, S32 y);
 
 
 #endif // LL_LLPANELAVATAR_H

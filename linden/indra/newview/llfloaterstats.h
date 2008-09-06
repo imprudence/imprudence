@@ -45,7 +45,7 @@ class LLFloaterStats : public LLFloater
 	LLFloaterStats(const LLRect& rect);
 	virtual ~LLFloaterStats();
 	void addStatView(LLStatView* stat);
-	void reshape(S32 width, S32 height);
+	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 	void onClose(bool app_quitting);
 	
  private:

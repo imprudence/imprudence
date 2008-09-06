@@ -475,7 +475,7 @@ namespace tut
 	void v3math_object::test<28>()
 	{
 		F32 x1 =1.23f, y1 = 2.f,z1 = 4.f;
-		char buf[] = "1.23 2. 4";
+		std::string buf("1.23 2. 4");
 		LLVector3 vec3, vec3a(x1,y1,z1);
 		LLVector3::parseVector3(buf, &vec3);
 		ensure_equals("1:parseVector3 failed", vec3, vec3a);	

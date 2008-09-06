@@ -94,6 +94,7 @@
 #include "llsky.h"
 #include "llrendersphere.h"
 #include "llstatusbar.h"
+#include "llstartup.h"
 #include "llimview.h"
 #include "lltool.h"
 #include "lltoolfocus.h"
@@ -125,14 +126,10 @@
 #include "roles_constants.h"
 #include "llviewercontrol.h"
 #include "llappviewer.h"
-#include "llvoiceclient.h"
-
-// Ventrella
+#include "llviewerjoystick.h"
 #include "llfollowcam.h"
-// end Ventrella
 
 extern LLMenuBarGL* gMenuBarView;
-extern U8 gLastPickAlpha;
 
 //drone wandering constants
 const F32 MAX_WANDER_TIME = 20.f;						// seconds
@@ -176,7 +173,7 @@ const F32 AVATAR_ZOOM_MIN_Z_FACTOR = 1.15f;
 
 const F32 MAX_CAMERA_DISTANCE_FROM_AGENT = 50.f;
 
-const F32 MAX_CAMERA_SMOOTH_DISTANCE = 20.0f;
+const F32 MAX_CAMERA_SMOOTH_DISTANCE = 50.0f;
 
 const F32 HEAD_BUFFER_SIZE = 0.3f;
 const F32 CUSTOMIZE_AVATAR_CAMERA_ANIM_SLOP = 0.2f;
@@ -236,8 +233,8 @@ BOOL LLAgent::sDebugDisplayTarget = FALSE;
 
 const F32 LLAgent::TYPING_TIMEOUT_SECS = 5.f;
 
-std::map<LLString, LLString> LLAgent::sTeleportErrorMessages;
-std::map<LLString, LLString> LLAgent::sTeleportProgressMessages;
+std::map<std::string, std::string> LLAgent::sTeleportErrorMessages;
+std::map<std::string, std::string> LLAgent::sTeleportProgressMessages;
 
 class LLAgentFriendObserver : public LLFriendObserver
 {
@@ -329,6 +326,8 @@ LLAgent::LLAgent()
 	mCameraZoomFraction(1.f),			// deprecated
 	mThirdPersonHeadOffset(0.f, 0.f, 1.f),
 	mSitCameraEnabled(FALSE),
+	mHUDTargetZoom(1.f),
+	mHUDCurZoom(1.f),
 	mFocusOnAvatar(TRUE),
 	mFocusGlobal(),
 	mFocusTargetGlobal(),
@@ -338,6 +337,7 @@ LLAgent::LLAgent()
 	mTrackFocusObject(TRUE),
 	mCameraSmoothingLastPositionGlobal(),
 	mCameraSmoothingLastPositionAgent(),
+	mCameraSmoothingStop(FALSE),
 
 	mFrameAgent(),
 
@@ -529,10 +529,7 @@ void LLAgent::resetView(BOOL reset_camera)
 		setFocusOnAvatar(TRUE, ANIMATE);
 	}
 
-	if (mAvatarObject.notNull())
-	{
-		mAvatarObject->mHUDTargetZoom = 1.f;
-	}
+	mHUDTargetZoom = 1.f;
 }
 
 // Handle any actions that need to be performed when the main app gains focus
@@ -819,13 +816,10 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 	llassert(regionp);
 	if (mRegionp != regionp)
 	{
-		// JC - Avoid this, causes out-of-bounds array write deep within
-		// Windows.
-		// char host_name[MAX_STRING];
-		// regionp->getHost().getHostName(host_name, MAX_STRING);
+		// std::string host_name;
+		// host_name = regionp->getHost().getHostName();
 
-		char ip[MAX_STRING];		/*Flawfinder: ignore*/
-		regionp->getHost().getString(ip, MAX_STRING);
+		std::string ip = regionp->getHost().getString();
 		llinfos << "Moving agent into region: " << regionp->getName()
 				<< " located at " << ip << llendl;
 		if (mRegionp)
@@ -1300,7 +1294,7 @@ LLQuaternion LLAgent::getQuat() const
 //-----------------------------------------------------------------------------
 // calcFocusOffset()
 //-----------------------------------------------------------------------------
-LLVector3d LLAgent::calcFocusOffset(LLViewerObject *object, S32 x, S32 y)
+LLVector3 LLAgent::calcFocusOffset(LLViewerObject *object, S32 x, S32 y)
 {
 	// calculate offset based on view direction
 	BOOL is_avatar = object->isAvatar();
@@ -1459,10 +1453,10 @@ LLVector3d LLAgent::calcFocusOffset(LLViewerObject *object, S32 x, S32 y)
 		
 		obj_rel = lerp(focus_delta, obj_rel, bias);
 		
-		return LLVector3d(obj_rel);
+		return LLVector3(obj_rel);
 	}
 
-	return LLVector3d(focus_delta.mV[VX], focus_delta.mV[VY], focus_delta.mV[VZ]);
+	return LLVector3(focus_delta.mV[VX], focus_delta.mV[VY], focus_delta.mV[VZ]);
 }
 
 //-----------------------------------------------------------------------------
@@ -1652,7 +1646,7 @@ F32 LLAgent::getCameraZoomFraction()
 	if (selection->getObjectCount() && selection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		// already [0,1]
-		return mAvatarObject->mHUDTargetZoom;
+		return mHUDTargetZoom;
 	}
 	else if (mFocusOnAvatar && cameraThirdPerson())
 	{
@@ -1700,7 +1694,7 @@ void LLAgent::setCameraZoomFraction(F32 fraction)
 
 	if (selection->getObjectCount() && selection->getSelectType() == SELECT_TYPE_HUD)
 	{
-		mAvatarObject->mHUDTargetZoom = fraction;
+		mHUDTargetZoom = fraction;
 	}
 	else if (mFocusOnAvatar && cameraThirdPerson())
 	{
@@ -1810,7 +1804,7 @@ void LLAgent::cameraZoomIn(const F32 fraction)
 	if (selection->getObjectCount() && selection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		// just update hud zoom level
-		mAvatarObject->mHUDTargetZoom /= fraction;
+		mHUDTargetZoom /= fraction;
 		return;
 	}
 
@@ -1956,6 +1950,10 @@ void LLAgent::cameraPanLeft(F32 meters)
 
 	mFocusTargetGlobal += meters * left_axis;
 	mFocusGlobal = mFocusTargetGlobal;
+
+	// disable smoothing for camera pan, which causes some residents unhappiness
+	mCameraSmoothingStop = TRUE;
+	
 	cameraZoomIn(1.f);
 	updateFocusOffset();
 }
@@ -1970,6 +1968,10 @@ void LLAgent::cameraPanUp(F32 meters)
 
 	mFocusTargetGlobal += meters * up_axis;
 	mFocusGlobal = mFocusTargetGlobal;
+
+	// disable smoothing for camera pan, which causes some residents unhappiness
+	mCameraSmoothingStop = TRUE;
+
 	cameraZoomIn(1.f);
 	updateFocusOffset();
 }
@@ -2092,7 +2094,7 @@ void LLAgent::setAFK()
 		if (gAFKMenu)
 		{
 			//*TODO:Translate
-			gAFKMenu->setLabel(LLString("Set Not Away"));
+			gAFKMenu->setLabel(std::string("Set Not Away"));
 		}
 	}
 }
@@ -2116,7 +2118,7 @@ void LLAgent::clearAFK()
 		if (gAFKMenu)
 		{
 			//*TODO:Translate
-			gAFKMenu->setLabel(LLString("Set Away"));
+			gAFKMenu->setLabel(std::string("Set Away"));
 		}
 	}
 }
@@ -2139,7 +2141,7 @@ void LLAgent::setBusy()
 	if (gBusyMenu)
 	{
 		//*TODO:Translate
-		gBusyMenu->setLabel(LLString("Set Not Busy"));
+		gBusyMenu->setLabel(std::string("Set Not Busy"));
 	}
 	LLFloaterMute::getInstance()->updateButtons();
 }
@@ -2154,7 +2156,7 @@ void LLAgent::clearBusy()
 	if (gBusyMenu)
 	{
 		//*TODO:Translate
-		gBusyMenu->setLabel(LLString("Set Busy"));
+		gBusyMenu->setLabel(std::string("Set Busy"));
 	}
 	LLFloaterMute::getInstance()->updateButtons();
 }
@@ -3228,11 +3230,11 @@ void LLAgent::updateCamera()
 		LLVector3d agent_pos = getPositionGlobal();
 		LLVector3d camera_pos_agent = camera_pos_global - agent_pos;
 		
-		if (cameraThirdPerson()) // only smooth in third person mode
+		if (cameraThirdPerson() && !mCameraSmoothingStop) // only smooth in third person mode
 		{
-			F32 smoothing = llclampf(1.f - pow(2.f, -4.f * gSavedSettings.getF32("CameraPositionSmoothing") / gFPSClamped));
-			// we use average FPS instead of LLCriticalDamp b/c exact frame time is jittery
-
+			const F32 SMOOTHING_HALF_LIFE = 0.02f;
+			
+			F32 smoothing = LLCriticalDamp::getInterpolant(gSavedSettings.getF32("CameraPositionSmoothing") * SMOOTHING_HALF_LIFE, FALSE);
 					
 			if (!mFocusObject)  // we differentiate on avatar mode 
 			{
@@ -3242,7 +3244,7 @@ void LLAgent::updateCamera()
 				LLVector3d delta = camera_pos_agent - mCameraSmoothingLastPositionAgent;
 				if (delta.magVec() < MAX_CAMERA_SMOOTH_DISTANCE)  // only smooth over short distances please
 				{
-					camera_pos_agent = lerp(camera_pos_agent, mCameraSmoothingLastPositionAgent, smoothing);
+					camera_pos_agent = lerp(mCameraSmoothingLastPositionAgent, camera_pos_agent, smoothing);
 					camera_pos_global = camera_pos_agent + agent_pos;
 				}
 			}
@@ -3251,13 +3253,14 @@ void LLAgent::updateCamera()
 				LLVector3d delta = camera_pos_global - mCameraSmoothingLastPositionGlobal;
 				if (delta.magVec() < MAX_CAMERA_SMOOTH_DISTANCE) // only smooth over short distances please
 				{
-					camera_pos_global = lerp(camera_pos_global, mCameraSmoothingLastPositionGlobal, smoothing);
+					camera_pos_global = lerp(mCameraSmoothingLastPositionGlobal, camera_pos_global, smoothing);
 				}
 			}
 		}
 								 
 		mCameraSmoothingLastPositionGlobal = camera_pos_global;
 		mCameraSmoothingLastPositionAgent = camera_pos_agent;
+		mCameraSmoothingStop = FALSE;
 	}
 
 	
@@ -3293,19 +3296,6 @@ void LLAgent::updateCamera()
 	if (cameraCustomizeAvatar())	
 	{
 		setLookAt(LOOKAT_TARGET_FOCUS, NULL, mCameraPositionAgent);
-	}
-
-	// Send the camera position to the spatialized voice system.
-	if(gVoiceClient && getRegion())
-	{
-		LLMatrix3 rot;
-		rot.setRows(LLViewerCamera::getInstance()->getAtAxis(), LLViewerCamera::getInstance()->getLeftAxis (),  LLViewerCamera::getInstance()->getUpAxis());		
-
-		// MBW -- XXX -- Setting velocity to 0 for now.  May figure it out later...
-		gVoiceClient->setCameraPosition(
-				getRegion()->getPosGlobalFromRegion(LLViewerCamera::getInstance()->getOrigin()),// position
-				LLVector3::zero, 			// velocity
-				rot);						// rotation matrix
 	}
 
 	// update the travel distance stat
@@ -3510,20 +3500,24 @@ LLVector3d LLAgent::calcFocusPositionTargetGlobal()
 	}
 	else
 	{
-		// ...offset from avatar
-		LLVector3d focus_offset;
-		focus_offset.setVec(gSavedSettings.getVector3("FocusOffsetDefault"));
-
-		LLQuaternion agent_rot = mFrameAgent.getQuaternion();
-		if (!mAvatarObject.isNull() && mAvatarObject->getParent())
-		{
-			agent_rot *= ((LLViewerObject*)(mAvatarObject->getParent()))->getRenderRotation();
-		}
-
-		focus_offset = focus_offset * agent_rot;
-
-		return getPositionGlobal() + focus_offset;
+		return getPositionGlobal() + calcThirdPersonFocusOffset();
 	}
+}
+
+LLVector3d LLAgent::calcThirdPersonFocusOffset()
+{
+	// ...offset from avatar
+	LLVector3d focus_offset;
+	focus_offset.setVec(gSavedSettings.getVector3("FocusOffsetDefault"));
+
+	LLQuaternion agent_rot = mFrameAgent.getQuaternion();
+	if (!mAvatarObject.isNull() && mAvatarObject->getParent())
+	{
+		agent_rot *= ((LLViewerObject*)(mAvatarObject->getParent()))->getRenderRotation();
+	}
+
+	focus_offset = focus_offset * agent_rot;
+	return focus_offset;
 }
 
 void LLAgent::setupSitCamera()
@@ -3759,7 +3753,7 @@ LLVector3d LLAgent::calcCameraPositionTargetGlobal(BOOL *hit_limit)
 
 					lag_interp *= u;
 
-					if (gViewerWindow->getLeftMouseDown() && gLastHitObjectID == mAvatarObject->getID())
+					if (gViewerWindow->getLeftMouseDown() && gViewerWindow->getLastPick().mObjectID == mAvatarObject->getID())
 					{
 						// disable camera lag when using mouse-directed steering
 						target_lag.clearVec();
@@ -3951,6 +3945,11 @@ void LLAgent::resetCamera()
 //-----------------------------------------------------------------------------
 void LLAgent::changeCameraToMouselook(BOOL animate)
 {
+	if (LLViewerJoystick::getInstance()->getOverrideCamera())
+	{
+		return;
+	}
+
 	// visibility changes at end of animation
 	gViewerWindow->getWindow()->resetBusyCount();
 
@@ -3977,7 +3976,7 @@ void LLAgent::changeCameraToMouselook(BOOL animate)
 
 	if( mCameraMode != CAMERA_MODE_MOUSELOOK )
 	{
-		gViewerWindow->setKeyboardFocus( NULL );
+		gFocusMgr.setKeyboardFocus( NULL );
 		
 		mLastCameraMode = mCameraMode;
 		mCameraMode = CAMERA_MODE_MOUSELOOK;
@@ -4006,6 +4005,11 @@ void LLAgent::changeCameraToMouselook(BOOL animate)
 //-----------------------------------------------------------------------------
 void LLAgent::changeCameraToDefault()
 {
+	if (LLViewerJoystick::getInstance()->getOverrideCamera())
+	{
+		return;
+	}
+
 	if (LLFollowCamMgr::getActiveFollowCamParams())
 	{
 		changeCameraToFollow();
@@ -4023,6 +4027,11 @@ void LLAgent::changeCameraToDefault()
 //-----------------------------------------------------------------------------
 void LLAgent::changeCameraToFollow(BOOL animate)
 {
+	if (LLViewerJoystick::getInstance()->getOverrideCamera())
+	{
+		return;
+	}
+
 	if( mCameraMode != CAMERA_MODE_FOLLOW )
 	{
 		if (mCameraMode == CAMERA_MODE_MOUSELOOK)
@@ -4081,7 +4090,10 @@ void LLAgent::changeCameraToFollow(BOOL animate)
 //-----------------------------------------------------------------------------
 void LLAgent::changeCameraToThirdPerson(BOOL animate)
 {
-//printf( "changeCameraToThirdPerson\n" );
+	if (LLViewerJoystick::getInstance()->getOverrideCamera())
+	{
+		return;
+	}
 
 	gViewerWindow->getWindow()->resetBusyCount();
 
@@ -4163,6 +4175,11 @@ void LLAgent::changeCameraToThirdPerson(BOOL animate)
 //-----------------------------------------------------------------------------
 void LLAgent::changeCameraToCustomizeAvatar(BOOL avatar_animate, BOOL camera_animate)
 {
+	if (LLViewerJoystick::getInstance()->getOverrideCamera())
+	{
+		return;
+	}
+
 	setControlFlags(AGENT_CONTROL_STAND_UP); // force stand up
 	gViewerWindow->getWindow()->resetBusyCount();
 
@@ -4198,8 +4215,8 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL avatar_animate, BOOL camera_ani
 			mbFlagsDirty = TRUE;
 		}
 
-		gViewerWindow->setKeyboardFocus( NULL );
-		gViewerWindow->setMouseCapture( NULL );
+		gFocusMgr.setKeyboardFocus( NULL );
+		gFocusMgr.setMouseCapture( NULL );
 
 		LLVOAvatar::onCustomizeStart();
 	}
@@ -4287,6 +4304,12 @@ void LLAgent::setFocusObject(LLViewerObject* object)
 //-----------------------------------------------------------------------------
 // setFocusGlobal()
 //-----------------------------------------------------------------------------
+void LLAgent::setFocusGlobal(const LLPickInfo& pick)
+{
+	setFocusGlobal(pick.mPosGlobal, pick.mObjectID);
+}
+
+
 void LLAgent::setFocusGlobal(const LLVector3d& focus, const LLUUID &object_id)
 {
 	setFocusObject(gObjectList.findObject(object_id));
@@ -4473,7 +4496,7 @@ void LLAgent::setFocusOnAvatar(BOOL focus_on_avatar, BOOL animate)
 	//RN: when focused on the avatar, we're not "looking" at it
 	// looking implies intent while focusing on avatar means
 	// you're just walking around with a camera on you...eesh.
-	if (focus_on_avatar && !mFocusOnAvatar)
+	if (!mFocusOnAvatar && focus_on_avatar)
 	{
 		setFocusGlobal(LLVector3d::zero);
 		mCameraFOVZoomFactor = 0.f;
@@ -4496,6 +4519,12 @@ void LLAgent::setFocusOnAvatar(BOOL focus_on_avatar, BOOL animate)
 				resetAxes(at_axis);
 			}
 		}
+	}
+	// unlocking camera from avatar
+	else if (mFocusOnAvatar && !focus_on_avatar)
+	{
+		// keep camera focus point consistent, even though it is now unlocked
+		setFocusGlobal(getPositionGlobal() + calcThirdPersonFocusOffset(), gAgent.getID());
 	}
 	
 	mFocusOnAvatar = focus_on_avatar;
@@ -4770,6 +4799,9 @@ void LLAgent::buildFullnameAndTitle(std::string& name) const
 
 BOOL LLAgent::isInGroup(const LLUUID& group_id) const
 {
+	if (isGodlike())
+		return true;
+
 	S32 count = mGroups.count();
 	for(S32 i = 0; i < count; ++i)
 	{
@@ -4784,6 +4816,9 @@ BOOL LLAgent::isInGroup(const LLUUID& group_id) const
 // This implementation should mirror LLAgentInfo::hasPowerInGroup
 BOOL LLAgent::hasPowerInGroup(const LLUUID& group_id, U64 power) const
 {
+	if (isGodlike())
+		return true;
+
 	// GP_NO_POWERS can also mean no power is enough to grant an ability.
 	if (GP_NO_POWERS == power) return FALSE;
 
@@ -4805,6 +4840,9 @@ BOOL LLAgent::hasPowerInActiveGroup(U64 power) const
 
 U64 LLAgent::getPowerInGroup(const LLUUID& group_id) const
 {
+	if (isGodlike())
+		return GP_ALL_POWERS;
+	
 	S32 count = mGroups.count();
 	for(S32 i = 0; i < count; ++i)
 	{
@@ -5104,9 +5142,8 @@ BOOL LLAgent::allowOperation(PermissionBit op,
 }
 
 
-void LLAgent::getName(LLString& name)
+void LLAgent::getName(std::string& name)
 {
-	// Note: assumes that name points to a buffer of at least DB_FULL_NAME_BUF_SIZE bytes.
 	name.clear();
 
 	if (mAvatarObject)
@@ -5189,8 +5226,8 @@ void LLAgent::processAgentDropGroup(LLMessageSystem *msg, void **)
 		{
 			gAgent.mGroupID.setNull();
 			gAgent.mGroupPowers = 0;
-			gAgent.mGroupName[0] = '\0';
-			gAgent.mGroupTitle[0] = '\0';
+			gAgent.mGroupName.clear();
+			gAgent.mGroupTitle.clear();
 		}
 		
 		// refresh all group information
@@ -5268,8 +5305,8 @@ class LLAgentDropGroupViewerNode : public LLHTTPNode
 				{
 					gAgent.mGroupID.setNull();
 					gAgent.mGroupPowers = 0;
-					gAgent.mGroupName[0] = '\0';
-					gAgent.mGroupTitle[0] = '\0';
+					gAgent.mGroupName.clear();
+					gAgent.mGroupTitle.clear();
 				}
 		
 				// refresh all group information
@@ -5321,7 +5358,6 @@ void LLAgent::processAgentGroupDataUpdate(LLMessageSystem *msg, void **)
 	LLGroupData group;
 	S32 index = -1;
 	bool need_floater_update = false;
-	char group_name[DB_GROUP_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 	for(S32 i = 0; i < count; ++i)
 	{
 		msg->getUUIDFast(_PREHASH_GroupData, _PREHASH_GroupID, group.mID, i);
@@ -5329,8 +5365,7 @@ void LLAgent::processAgentGroupDataUpdate(LLMessageSystem *msg, void **)
 		msg->getU64(_PREHASH_GroupData, "GroupPowers", group.mPowers, i);
 		msg->getBOOL(_PREHASH_GroupData, "AcceptNotices", group.mAcceptNotices, i);
 		msg->getS32(_PREHASH_GroupData, "Contribution", group.mContribution, i);
-		msg->getStringFast(_PREHASH_GroupData, _PREHASH_GroupName, DB_GROUP_NAME_BUF_SIZE, group_name, i);
-		group.mName.assign(group_name);
+		msg->getStringFast(_PREHASH_GroupData, _PREHASH_GroupName, group.mName, i);
 		
 		if(group.mID.notNull())
 		{
@@ -5428,7 +5463,7 @@ void LLAgent::processAgentDataUpdate(LLMessageSystem *msg, void **)
 		return;
 	}
 
-	msg->getStringFast(_PREHASH_AgentData, _PREHASH_GroupTitle, DB_GROUP_TITLE_BUF_SIZE, gAgent.mGroupTitle);
+	msg->getStringFast(_PREHASH_AgentData, _PREHASH_GroupTitle, gAgent.mGroupTitle);
 	LLUUID active_id;
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_ActiveGroupID, active_id);
 
@@ -5437,13 +5472,13 @@ void LLAgent::processAgentDataUpdate(LLMessageSystem *msg, void **)
 	{
 		gAgent.mGroupID = active_id;
 		msg->getU64(_PREHASH_AgentData, "GroupPowers", gAgent.mGroupPowers);
-		msg->getString(_PREHASH_AgentData, _PREHASH_GroupName, DB_GROUP_NAME_BUF_SIZE, gAgent.mGroupName);
+		msg->getString(_PREHASH_AgentData, _PREHASH_GroupName, gAgent.mGroupName);
 	}
 	else
 	{
 		gAgent.mGroupID.setNull();
 		gAgent.mGroupPowers = 0;
-		gAgent.mGroupName[0] = '\0';
+		gAgent.mGroupName.clear();
 	}		
 
 	update_group_floaters(active_id);
@@ -6208,7 +6243,7 @@ void LLAgent::saveWearableAs(
 		return;
 	}
 	std::string trunc_name(new_name);
-	LLString::truncate(trunc_name, DB_INV_ITEM_NAME_STR_LEN);
+	LLStringUtil::truncate(trunc_name, DB_INV_ITEM_NAME_STR_LEN);
 	LLWearable* new_wearable = gWearableList.createCopyFromAvatar(
 		old_wearable,
 		trunc_name);
@@ -6242,7 +6277,7 @@ void LLAgent::saveWearableAs(
 	LLWearable* old_wearable = getWearable( type );
 	if( old_wearable )
 	{
-		LLString old_name = old_wearable->getName();
+		std::string old_name = old_wearable->getName();
 		old_wearable->setName( new_name );
 		LLWearable* new_wearable = gWearableList.createCopyFromAvatar( old_wearable );
 		old_wearable->setName( old_name );
@@ -6321,7 +6356,7 @@ void LLAgent::setWearableName( const LLUUID& item_id, const std::string& new_nam
 			LLWearable* old_wearable = mWearableEntry[i].mWearable;
 			llassert( old_wearable );
 
-			LLString old_name = old_wearable->getName();
+			std::string old_name = old_wearable->getName();
 			old_wearable->setName( new_name );
 			LLWearable* new_wearable = gWearableList.createCopy( old_wearable );
 			LLInventoryItem* item = gInventory.getItem(item_id);
@@ -6429,27 +6464,14 @@ BOOL LLAgent::isWearingItem( const LLUUID& item_id )
 	return (getWearableFromWearableItem( item_id ) != NULL);
 }
 
-extern LLString gInitialOutfit;
-
 // static
 void LLAgent::processAgentInitialWearablesUpdate( LLMessageSystem* mesgsys, void** user_data )
 {
 	// We should only receive this message a single time.  Ignore subsequent AgentWearablesUpdates
 	// that may result from AgentWearablesRequest having been sent more than once. 
-	static BOOL first = TRUE;
-	if( first )
-	{
-		first = FALSE;
-	}
-	else
-	{
-		return;
-	}
-	
-	if (gNoRender)
-	{
-		return;
-	}
+	static bool first = true;
+	if (!first) return;
+	first = false;
 
 	LLUUID agent_id;
 	gMessageSystem->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
@@ -6465,16 +6487,6 @@ void LLAgent::processAgentInitialWearablesUpdate( LLMessageSystem* mesgsys, void
 			// Transitional state.  Avatars should always have at least their body parts (hair, eyes, shape and skin).
 			// The fact that they don't have any here (only a dummy is sent) implies that this account existed
 			// before we had wearables, or that the database has gotten messed up.
-			// Deal with this by creating new body parts.
-			//avatar->createStandardWearables();
-
-			// no, deal with it by noting that we need to choose a
-			// gender, but only if an initial outfit load isn't happening.
-			// This whole check (num_wearables < 4) can probably be deleted. JC
-			if (gInitialOutfit.empty())
-			{
-				gAgent.setGenderChosen(FALSE);
-			}
 			return;
 		}
 
@@ -6523,7 +6535,7 @@ void LLAgent::processAgentInitialWearablesUpdate( LLMessageSystem* mesgsys, void
 			{
 				gWearableList.getAsset( 
 					asset_id_array[i],
-					LLString::null,
+					LLStringUtil::null,
 					LLWearable::typeToAssetType( (EWearableType) i ), 
 					LLAgent::onInitialWearableAssetArrived, (void*)(intptr_t)i );
 			}
@@ -6765,7 +6777,7 @@ void LLAgent::makeNewOutfit(
 					new_name = new_folder_name;
 					new_name.append(" ");
 					new_name.append(old_wearable->getTypeLabel());
-					LLString::truncate(new_name, DB_INV_ITEM_NAME_STR_LEN);
+					LLStringUtil::truncate(new_name, DB_INV_ITEM_NAME_STR_LEN);
 					new_wearable->setName(new_name);
 				}
 
@@ -7466,7 +7478,7 @@ void LLAgent::observeFriends()
 	}
 }
 
-void LLAgent::parseTeleportMessages(const LLString& xml_filename)
+void LLAgent::parseTeleportMessages(const std::string& xml_filename)
 {
 	LLXMLNodePtr root;
 	BOOL success = LLUICtrlFactory::getLayeredXMLNode(xml_filename, root);
@@ -7484,8 +7496,8 @@ void LLAgent::parseTeleportMessages(const LLString& xml_filename)
 	{
 		if ( !message_set->hasName("message_set") ) continue;
 
-		std::map<LLString, LLString> *teleport_msg_map = NULL;
-		LLString message_set_name;
+		std::map<std::string, std::string> *teleport_msg_map = NULL;
+		std::string message_set_name;
 
 		if ( message_set->getAttributeString("name", message_set_name) )
 		{
@@ -7503,7 +7515,7 @@ void LLAgent::parseTeleportMessages(const LLString& xml_filename)
 
 		if ( !teleport_msg_map ) continue;
 
-		LLString message_name;
+		std::string message_name;
 		for (LLXMLNode* message_node = message_set->getFirstChild();
 			 message_node != NULL;
 			 message_node = message_node->getNextSibling())

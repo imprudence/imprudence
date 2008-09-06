@@ -102,7 +102,7 @@ namespace {
 	public:
 		RecordToFile(const std::string& filename)
 		{
-			mFile.open(filename.c_str(), llofstream::out | llofstream::app);
+			mFile.open(filename, llofstream::out | llofstream::app);
 			if (!mFile)
 			{
 				llinfos << "Error setting log file to " << filename << llendl;
@@ -168,7 +168,7 @@ namespace {
 	
 	private:
 		bool mTimestamp;
-		typedef enum ANSIState {ANSI_PROBE, ANSI_YES, ANSI_NO};
+		enum ANSIState {ANSI_PROBE, ANSI_YES, ANSI_NO};
 		ANSIState mUseANSI;
 		void colorANSI(const std::string color)
 		{
@@ -196,7 +196,7 @@ namespace {
 		virtual void recordMessage(LLError::ELevel level,
 									const std::string& message)
 		{
-			mBuffer.addLine(message.c_str());
+			mBuffer.addLine(message);
 		}
 	
 	private:
@@ -305,7 +305,7 @@ namespace
 		std::string file = dirBase + "logcontrol-dev.xml";
 		
 		llstat stat_info;
-		if (LLFile::stat(file.c_str(), &stat_info)) {
+		if (LLFile::stat(file, &stat_info)) {
 			// NB: stat returns non-zero if it can't read the file, for example
 			// if it doesn't exist.  LLFile has no better abstraction for 
 			// testing for file existence.
@@ -321,7 +321,7 @@ namespace
 		LLSD configuration;
 
 		{
-			llifstream file(filename().c_str());
+			llifstream file(filename());
 			if (file.is_open())
 			{
 				LLSDSerialize::fromXML(configuration, file);
@@ -1040,17 +1040,37 @@ namespace LLError
 					<< "(" << site.mLine << ") : ";
 		}
 		
-		if (message.find(functionName(site.mFunction)) == std::string::npos)
-		{
 	#if LL_WINDOWS
-			// DevStudio: __FUNCTION__ already includes the full class name
+		// DevStudio: __FUNCTION__ already includes the full class name
 	#else
-			if (site.mClassInfo != typeid(NoClassInfo))
-			{
-				prefix << className(site.mClassInfo) << "::";
-			}
+		if (site.mClassInfo != typeid(NoClassInfo))
+		{
+			prefix << className(site.mClassInfo) << "::";
+		}
 	#endif
-			prefix << site.mFunction << ": ";
+		prefix << site.mFunction << ": ";
+
+		if (site.mPrintOnce)
+		{
+			std::map<std::string, unsigned int>::iterator messageIter = s.uniqueLogMessages.find(message);
+			if (messageIter != s.uniqueLogMessages.end())
+			{
+				messageIter->second++;
+				unsigned int num_messages = messageIter->second;
+				if (num_messages == 10 || num_messages == 50 || (num_messages % 100) == 0)
+				{
+					prefix << "ONCE (" << num_messages << "th time seen): ";
+				} 
+				else
+				{
+					return;
+				}
+			}
+			else 
+			{
+				prefix << "ONCE: ";
+				s.uniqueLogMessages[message] = 1;
+			}
 		}
 
 		if (site.mPrintOnce)

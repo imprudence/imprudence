@@ -65,8 +65,8 @@ typedef enum e_avatar_skinning_method
 
 BOOL compute_min_max(LLMatrix4& box, LLVector2& min, LLVector2& max); // Shouldn't be defined here!
 bool LLRayAABB(const LLVector3 &center, const LLVector3 &size, const LLVector3& origin, const LLVector3& dir, LLVector3 &coord, F32 epsilon = 0);
-BOOL LLLineSegmentAABB(const LLVector3& start, const LLVector3& end, const LLVector3& center, const LLVector3& size);
-BOOL setup_hud_matrices(BOOL for_select);
+BOOL setup_hud_matrices(); // use whole screen to render hud
+BOOL setup_hud_matrices(const LLRect& screen_region); // specify portion of screen (in pixels) to render hud attachments from (for picking)
 glh::matrix4f glh_copy_matrix(GLdouble* src);
 glh::matrix4f glh_get_current_modelview();
 void glh_set_current_modelview(const glh::matrix4f& mat);
@@ -129,8 +129,21 @@ public:
 	void        markTextured(LLDrawable *drawablep);
 	void        markRebuild(LLDrawable *drawablep, LLDrawable::EDrawableFlags flag = LLDrawable::REBUILD_ALL, BOOL priority = FALSE);
 		
-	//get the object between start and end that's closest to start.  Return the point of collision in collision.
-	LLViewerObject* pickObject(const LLVector3 &start, const LLVector3 &end, LLVector3 &collision);
+	//get the object between start and end that's closest to start.
+	LLViewerObject* lineSegmentIntersectInWorld(const LLVector3& start, const LLVector3& end,
+												S32* face_hit,                          // return the face hit
+												LLVector3* intersection = NULL,         // return the intersection point
+												LLVector2* tex_coord = NULL,            // return the texture coordinates of the intersection point
+												LLVector3* normal = NULL,               // return the surface normal at the intersection point
+												LLVector3* bi_normal = NULL             // return the surface bi-normal at the intersection point  
+		);
+	LLViewerObject* lineSegmentIntersectInHUD(const LLVector3& start, const LLVector3& end,
+											  S32* face_hit,                          // return the face hit
+											  LLVector3* intersection = NULL,         // return the intersection point
+											  LLVector2* tex_coord = NULL,            // return the texture coordinates of the intersection point
+											  LLVector3* normal = NULL,               // return the surface normal at the intersection point
+											  LLVector3* bi_normal = NULL             // return the surface bi-normal at the intersection point
+		);
 
 	// Something about these textures has changed.  Dirty them.
 	void        dirtyPoolObjectTextures(const std::set<LLViewerImage*>& textures);
@@ -185,8 +198,7 @@ public:
 	void renderHighlights();
 	void renderDebug();
 
-	void renderForSelect(std::set<LLViewerObject*>& objects);
-	void renderFaceForUVSelect(LLFace* facep);
+	void renderForSelect(std::set<LLViewerObject*>& objects, BOOL render_transparent, const LLRect& screen_rect);
 	void rebuildPools(); // Rebuild pools
 
 	void findReferences(LLDrawable *drawablep);	// Find the lists which have references to this object
@@ -261,8 +273,6 @@ public:
 	static void toggleRenderHighlights(void* data);
 	static BOOL getRenderHighlights(void* data);
 
-	static BOOL getProcessBeacons(void* data);
-
 private:
 	void unloadShaders();
 	void addToQuickLookup( LLDrawPool* new_poolp );
@@ -329,7 +339,8 @@ public:
 		RENDER_DEBUG_TEXTURE_ANIM		= 0x080000,
 		RENDER_DEBUG_LIGHTS				= 0x100000,
 		RENDER_DEBUG_BATCH_SIZE			= 0x200000,
-		RENDER_DEBUG_SHAME				= 0x400000,
+		RENDER_DEBUG_RAYCAST            = 0x400000,
+		RENDER_DEBUG_SHAME				= 0x800000
 	};
 
 public:
@@ -376,6 +387,8 @@ public:
 	static BOOL				sRenderGlow;
 	static BOOL				sTextureBindTest;
 	static BOOL				sRenderFrameTest;
+	static BOOL				sRenderAttachedLights;
+	static BOOL				sRenderAttachedParticles;
 	
 	//screen texture
 	LLRenderTarget			mScreen;
@@ -390,10 +403,6 @@ public:
 
 	//texture for making the glow
 	LLRenderTarget				mGlow[3];
-	
-	//framebuffer objects for off-screen scratch space
-	//GLuint					mFramebuffer[4];
-	//GLuint					mDepthbuffer[2];
 
 	//dynamic cube map scratch space
 	LLPointer<LLCubeMap>	mCubeBuffer;
@@ -539,7 +548,6 @@ protected:
 public:
 	static BOOL				sRenderBeacons;
 	static BOOL				sRenderHighlight;
-	static BOOL				sRenderProcessBeacons;
 };
 
 void render_bbox(const LLVector3 &min, const LLVector3 &max);

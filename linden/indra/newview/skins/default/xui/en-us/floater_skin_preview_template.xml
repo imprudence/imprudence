@@ -64,7 +64,7 @@
 	     label_width="36" left="5" max_val="1" min_val="0" name="SliderTestName"
 	     show_text="false" volume="true" width="140" />
             <check_box name="check_box_test_1" label="True" bottom_delta="56" initial_value="true" left="0" />
-        <check_box name="check_box_test_1" label="False" bottom_delta="0" left_delta="50" initial_value="false" />
+        <check_box name="check_box_test_2" label="False" bottom_delta="0" left_delta="50" initial_value="false" />
             <text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
 			     bottom="8" embedded_items="false" enabled="false"
 			      font="SansSerif" height="22" left="2"

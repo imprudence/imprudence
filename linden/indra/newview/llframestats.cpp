@@ -41,7 +41,7 @@
 LLFrameStats gFrameStats;
 
 // static
-char *LLFrameStats::sStatLabels[NUM_STATS] = {
+std::string LLFrameStats::sStatLabels[NUM_STATS] = {
 					"IdleNetwork",
 					"AgentMisc",
 					"ObjectUpdate",
@@ -178,12 +178,12 @@ void LLFrameStats::dump()
 
 		static S32 dump_count = 0;
 
-		char file_with_num[256];		/* Flawfinder: ignore */
-		snprintf(file_with_num, sizeof(file_with_num), "fs%d.txt", dump_count);			/* Flawfinder: ignore */
+		std::string file_with_num;
+		file_with_num = llformat("fs%d.txt", dump_count);
 		dump_count++;
 
-		char filename[LL_MAX_PATH];		/* Flawfinder: ignore */
-		snprintf(filename, LL_MAX_PATH, "%s", gDirUtilp->getExpandedFilename(LL_PATH_LOGS, file_with_num).c_str());			/* Flawfinder: ignore */
+		std::string filename;
+		filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, file_with_num);
 		LLFILE *fp = LLFile::fopen(filename, "w");		/* Flawfinder: ignore */
 		if (!fp)
 		{
@@ -197,7 +197,7 @@ void LLFrameStats::dump()
 		S32 i;
 		for (i = 0; i < NUM_STATS; i++)
 		{
-			fprintf(fp, "%s\t", sStatLabels[i]);
+			fprintf(fp, "%s\t", sStatLabels[i].c_str());
 		}
 		fprintf(fp, "Full Updates\tTerse Updates\tTotal Vorbis\tLong Vorbis\tNum Vorbis Decodes\t");
 		fprintf(fp, "\n");
@@ -224,7 +224,7 @@ void LLFrameStats::dump()
 		fclose(fp);
 
 		// Now dump cumulative stats
-		snprintf(filename, LL_MAX_PATH, "%s", gDirUtilp->getExpandedFilename(LL_PATH_LOGS, mSummaryFilename.c_str()).c_str());			/* Flawfinder: ignore */
+		filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, mSummaryFilename);
 		fp = LLFile::fopen(filename, "a");		/* Flawfinder: ignore */
 		if (!fp)
 		{
@@ -306,7 +306,3 @@ void LLFrameStats::timedLogging10(void *)
 	gFrameStats.mUseTimer = TRUE;
 }
 
-const char *LLFrameStats::getCurStatName() const
-{
-	return getStatLabel(mCurrentStat);
-}

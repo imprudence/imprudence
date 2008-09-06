@@ -61,14 +61,14 @@
 //*FIX:Mani - This hack is to fix a linker issue with libndofdev.lib
 // The lib was compiled under VS2005 - in VS2003 we need to remap assert
 #ifdef LL_DEBUG
-	#if (_MSC_VER < 1400)
-	extern "C" {
-	void _wassert(const wchar_t * _Message, const wchar_t *_File, unsigned _Line) 
-	{
-		llerrs << _Message << llendl;
-	}
-	}
-	#endif
+#ifdef LL_MSVC7 
+extern "C" {
+    void _wassert(const wchar_t * _Message, const wchar_t *_File, unsigned _Line)
+    {
+        llerrs << _Message << llendl;
+    }
+}
+#endif
 #endif
 
 LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *exception_infop)
@@ -298,7 +298,7 @@ void LLAppViewerWin32::initConsole()
 
 void write_debug_dx(const char* str)
 {
-	LLString value = gDebugInfo["DXInfo"].asString();
+	std::string value = gDebugInfo["DXInfo"].asString();
 	value += str;
 	gDebugInfo["DXInfo"] = value;
 }
@@ -347,7 +347,7 @@ bool LLAppViewerWin32::initHardwareTest()
 				"\n"
 				"Do you wish to continue?\n";
 			S32 button = OSMessageBox(
-				msg.str().c_str(),
+				msg.str(),
 				"Warning",
 				OSMB_YESNO);
 			if (OSBTN_NO== button)
@@ -367,7 +367,7 @@ bool LLAppViewerWin32::initHardwareTest()
 		std::ostringstream splash_msg;
 		splash_msg << "Loading " << LLAppViewer::instance()->getSecondLifeTitle() << "...";
 
-		LLSplashScreen::update(splash_msg.str().c_str());
+		LLSplashScreen::update(splash_msg.str());
 	}
 
 	if (!LLWinDebug::checkExceptionHandler())
@@ -395,14 +395,17 @@ bool LLAppViewerWin32::initParseCommandLine(LLCommandLineParser& clp)
 	{
 		if (success >= 2 && locale->lang) // confident!
 		{
+			LL_INFOS("AppInit") << "Language: " << ll_safe_string(locale->lang) << LL_ENDL;
+			LL_INFOS("AppInit") << "Location: " << ll_safe_string(locale->country) << LL_ENDL;
+			LL_INFOS("AppInit") << "Variant: " << ll_safe_string(locale->variant) << LL_ENDL;
 			LLControlVariable* c = gSavedSettings.getControl("SystemLanguage");
 			if(c)
 			{
 				c->setValue(std::string(locale->lang), false);
 			}
 		}
-		FL_FreeLocale(&locale);
 	}
+	FL_FreeLocale(&locale);
 
 	return true;
 }

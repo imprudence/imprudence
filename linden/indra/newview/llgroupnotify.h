@@ -46,30 +46,30 @@ class LLGroupNotifyBox
 :	public LLPanel
 {
 public:
-	static LLGroupNotifyBox* show(const char* subject,
-									const char* message,
-									const char* from_name,
-									const LLUUID& group_id,
-									const U32& time_stamp,
-									const bool& has_inventory = FALSE,
-									const char* inventory_name = NULL,
-									LLOfferInfo* inventory_offer = NULL);
+	static LLGroupNotifyBox* show(const std::string& subject,
+								  const std::string& message,
+								  const std::string& from_name,
+								  const LLUUID& group_id,
+								  const U32& time_stamp,
+								  const bool& has_inventory = FALSE,
+								  const std::string& inventory_name = std::string(),
+								  LLOfferInfo* inventory_offer = NULL);
 	void close();
 
 protected:
 	// Non-transient messages.  You can specify non-default button
 	// layouts (like one for script dialogs) by passing various
 	// numbers in for "layout".
-	LLGroupNotifyBox(const char* subject,
-						const char* message,
-						const char* from_name,
-						const LLUUID& group_id,
-						const LLUUID& group_insignia,
-						const char* group_name,
-						const U32& t,
-						const bool& has_inventory = FALSE,
-						const char* inventory_name = NULL,
-						LLOfferInfo* inventory_offer = NULL);
+	LLGroupNotifyBox(const std::string& subject,
+					 const std::string& message,
+					 const std::string& from_name,
+					 const LLUUID& group_id,
+					 const LLUUID& group_insignia,
+					 const std::string& group_name,
+					 const U32& t,
+					 const bool& has_inventory = FALSE,
+					 const std::string& inventory_name = std::string(),
+					 LLOfferInfo* inventory_offer = NULL);
 
 	/*virtual*/ ~LLGroupNotifyBox();
 

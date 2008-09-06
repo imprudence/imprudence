@@ -136,7 +136,7 @@ void LLPanelDirEvents::setDay(S32 day)
 	// it's daylight savings time there.
 	internal_time = utc_to_pacific_time(utc_time, gPacificDaylightTime);
 
-	LLString buffer = llformat("%d/%d",
+	std::string buffer = llformat("%d/%d",
 			1 + internal_time->tm_mon,		// Jan = 0
 			internal_time->tm_mday);	// 2001 = 101
 	childSetValue("date_text", buffer);
@@ -168,7 +168,7 @@ void LLPanelDirEvents::performQueryOrDelete(U32 event_id)
 	// it's daylight savings time there.
 	internal_time = utc_to_pacific_time(utc_time, gPacificDaylightTime);
 
-	LLString buffer = llformat("%d/%d",
+	std::string buffer = llformat("%d/%d",
 			1 + internal_time->tm_mon,		// Jan = 0
 			internal_time->tm_mday);	// 2001 = 101
 	childSetValue("date_text", buffer);
@@ -207,7 +207,7 @@ void LLPanelDirEvents::performQueryOrDelete(U32 event_id)
 	// send the message
 	if (0 == event_id)
 	{
-		sendDirFindQuery(gMessageSystem, mSearchID, params.str().c_str(), scope, mSearchStart);
+		sendDirFindQuery(gMessageSystem, mSearchID, params.str(), scope, mSearchStart);
 	}
 	else
 	{

@@ -2197,11 +2197,11 @@ public:
 	void recurse(LLFILE *fp, S32 tabs, S32 tabsize, LSCRIPTCompilePass pass, LSCRIPTPruneType ptype, BOOL &prunearg, LLScriptScope *scope, LSCRIPTType &type, LSCRIPTType basetype, U64 &count, LLScriptByteCodeChunk *chunk, LLScriptByteCodeChunk *heap, S32 stacksize, LLScriptScopeEntry *entry, S32 entrycount, LLScriptLibData **ldata);
 	S32 getSize();
 
-	LSCRIPTStateType		mType;
-	LLScriptIdentifier		*mIdentifier;
-	LLScriptEventHandler	*mEvent;
-	LLScriptState			*mNextp;
-
+	LSCRIPTStateType mType;
+	LLScriptIdentifier *mIdentifier;
+	LLScriptEventHandler *mEvent;
+	LLScriptState *mNextp;
+	LLScriptScope *mStateScope;
 };
 
 class LLScritpGlobalStorage : public LLScriptFilePosition
@@ -2262,6 +2262,9 @@ public:
 
 	void setBytecodeDest(const char* dst_filename);
 
+	void setClassName(const char* class_name);
+	const char* getClassName() {return mClassName;}
+
 	LLScriptState			*mStates;
 	LLScriptScope			*mGlobalScope;
 	LLScriptGlobalVariable	*mGlobals;
@@ -2269,7 +2272,8 @@ public:
 	BOOL					mGodLike;
 
 private:
-	char mBytecodeDest[MAX_STRING];		/*Flawfinder: ignore*/
+	std::string mBytecodeDest;
+	char mClassName[MAX_STRING];
 };
 
 class LLScriptAllocationManager

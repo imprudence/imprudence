@@ -37,10 +37,10 @@ XPStyle on                  ; add an XP manifest to the installer
 ;; (these files are in the same place as the nsi template but the python script generates a new nsi file in the 
 ;; application directory so we have to add a path to these include files)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-!include "installers\windows\lang_de.nsi"
-!include "installers\windows\lang_en-us.nsi"
-!include "installers\windows\lang_ja.nsi"
-!include "installers\windows\lang_ko.nsi"
+!include "%%SOURCE%%\installers\windows\lang_de.nsi"
+!include "%%SOURCE%%\installers\windows\lang_en-us.nsi"
+!include "%%SOURCE%%\installers\windows\lang_ja.nsi"
+!include "%%SOURCE%%\installers\windows\lang_ko.nsi"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tweak for different servers/builds (this placeholder is replaced by viewer_manifest.py)
@@ -51,8 +51,8 @@ Name ${INSTNAME}
 SubCaption 0 $(LicenseSubTitleSetup)	; override "license agreement" text
 
 BrandingText " "						; bottom of window text
-Icon res\install_icon.ico				; our custom icon
-UninstallIcon res\uninstall_icon.ico    ; our custom icon
+Icon %%SOURCE%%\res\install_icon.ico	; our custom icon
+UninstallIcon %%SOURCE%%\res\uninstall_icon.ico    ; our custom icon
 WindowIcon on							; show our icon in left corner
 BGGradient off							; no big background window
 CRCCheck on								; make sure CRC is OK
@@ -115,6 +115,10 @@ Call RemoveOldShaders
 Call RemoveOldXUI
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Clear out old releasenotes.txt files. These are now on the public wiki.
+Call RemoveOldReleaseNotes
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This placeholder is replaced by the complete list of all the files in the installer, by viewer_manifest.py
@@ -146,8 +150,6 @@ WriteINIStr		"$SMPROGRAMS\$INSTSHORTCUT\SL Create Trial Account.url" \
 WriteINIStr		"$SMPROGRAMS\$INSTSHORTCUT\SL Your Account.url" \
 				"InternetShortcut" "URL" \
 				"http://www.secondlife.com/account/"
-CreateShortCut	"$SMPROGRAMS\$INSTSHORTCUT\SL Release Notes.lnk" \
-				"$INSTDIR\releasenotes.txt"
 CreateShortCut	"$SMPROGRAMS\$INSTSHORTCUT\SL Scripting Language Help.lnk" \
 				"$INSTDIR\lsl_guide.html"
 CreateShortCut	"$SMPROGRAMS\$INSTSHORTCUT\Uninstall $INSTSHORTCUT.lnk" \
@@ -507,6 +509,22 @@ RmDir /r "$INSTDIR\skins\textures"
 Delete "$INSTDIR\skins\*.txt"
 
 FunctionEnd
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Remove any releasenotes files.
+;;; We are no longer including release notes with the viewer. This will delete
+;;; any that were left behind by an older installer. Delete will not fail if
+;;; the files do not exist
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Function RemoveOldReleaseNotes
+
+;; remove releasenotes.txt file from application directory, and the shortcut
+;; from the start menu.
+Delete "$SMPROGRAMS\$INSTSHORTCUT\SL Release Notes.lnk"
+Delete "$INSTDIR\releasenotes.txt"
+
+FunctionEnd
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Delete files in Documents and Settings\<user>\SecondLife

@@ -57,7 +57,7 @@ LLFloaterHtml* LLFloaterHtml::getInstance()
 ////////////////////////////////////////////////////////////////////////////////
 //
 LLFloaterHtml::LLFloaterHtml()
-:	LLFloater( "HTML Floater" )
+:	LLFloater( std::string("HTML Floater") )
 
         ,
 	mWebBrowser( 0 )
@@ -113,11 +113,11 @@ void LLFloaterHtml::draw()
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-void LLFloaterHtml::show( LLString content_id, bool open_link_external, bool open_app_slurls )
+void LLFloaterHtml::show( std::string content_id, bool open_link_external, bool open_app_slurls )
 {
 	// calculate the XML labels we'll need (if only XML folders worked)
-	LLString title_str = content_id + "_title";
-	LLString url_str = content_id + "_url";
+	std::string title_str = content_id + "_title";
+	std::string url_str = content_id + "_url";
 
 	std::string title = getString( title_str );
 	std::string url = getString( url_str );
@@ -142,6 +142,13 @@ void LLFloaterHtml::show( std::string start_url, std::string title, bool open_li
 
 	// make floater appear
 	setVisibleAndFrontmost();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+std::string LLFloaterHtml::getSupportUrl()
+{
+	return getString("support_page_url");
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -197,12 +197,12 @@
 	</notify>
 	<notify name="InventoryAccepted">
 		<message name="message">
-			[NAME] aceitou seu convite de amizade.
+			[NAME] aceitou seu convite de inventário.
 		</message>
 	</notify>
 	<notify name="InventoryDeclined">
 		<message name="message">
-			[NAME] rejeitou seu convite de amizade
+			[NAME] rejeitou seu convite de inventário.
 		</message>
 	</notify>
 	<notify name="ObjectMessage">

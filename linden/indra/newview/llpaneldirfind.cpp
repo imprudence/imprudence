@@ -73,7 +73,8 @@ class LLPanelDirFindAll
 public:
 	LLPanelDirFindAll(const std::string& name, LLFloaterDirectory* floater);
 
-	/*Virtual*/ void search(const std::string& search_text);
+	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent);
+	/*virtual*/ void search(const std::string& search_text);
 };
 
 LLPanelDirFindAll::LLPanelDirFindAll(const std::string& name, LLFloaterDirectory* floater)
@@ -166,6 +167,15 @@ void LLPanelDirFind::onVisibilityChange(BOOL new_visibility)
 		mFloaterDirectory->hideAllDetailPanels();
 	}
 	LLPanel::onVisibilityChange(new_visibility);
+}
+
+// virtual
+void LLPanelDirFindAll::reshape(S32 width, S32 height, BOOL called_from_parent = TRUE)
+{
+	if ( mWebBrowser )
+		mWebBrowser->navigateTo( mWebBrowser->getCurrentNavUrl() );
+
+	LLUICtrl::reshape( width, height, called_from_parent );
 }
 
 void LLPanelDirFindAll::search(const std::string& search_text)
@@ -367,7 +377,7 @@ void LLPanelDirFind::onCommitSearch(LLUICtrl*, void* data)
 void LLPanelDirFind::onClickSearch(void* data)
 {
 	LLPanelDirFind* self = ( LLPanelDirFind* )data;
-	LLString search_text = self->childGetText("search_editor");
+	std::string search_text = self->childGetText("search_editor");
 	self->search(search_text);
 
 	LLFloaterDirectory::sNewSearchCount++;

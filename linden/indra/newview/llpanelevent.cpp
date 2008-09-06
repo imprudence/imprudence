@@ -56,7 +56,7 @@
 //static
 std::list<LLPanelEvent*> LLPanelEvent::sAllPanels;
 
-LLPanelEvent::LLPanelEvent() : LLPanel("Event Panel")
+LLPanelEvent::LLPanelEvent() : LLPanel(std::string("Event Panel"))
 {
 	sAllPanels.push_back(this);
 }
@@ -175,7 +175,7 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		S32 region_y = llround(global_y) % REGION_WIDTH_UNITS;
 		S32 region_z = llround((F32)self->mEventInfo.mPosGlobal.mdV[VZ]);
 		
-		LLString desc = self->mEventInfo.mSimName + llformat(" (%d, %d, %d)", region_x, region_y, region_z);
+		std::string desc = self->mEventInfo.mSimName + llformat(" (%d, %d, %d)", region_x, region_y, region_z);
 		self->mTBLocation->setText(desc);
 
 		if (self->mEventInfo.mEventFlags & EVENT_FLAG_MATURE)

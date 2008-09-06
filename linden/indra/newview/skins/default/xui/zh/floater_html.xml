@@ -6,4 +6,7 @@
 	<button label="停止" name="stop_btn" />
 	<button label="家" name="home_btn" />
 	<button label="行动" name="go_btn" />
+	<string name="support_page_url">
+	  	http://secondlife.com/app/support/index_zh.html
+	</string>
 </floater>

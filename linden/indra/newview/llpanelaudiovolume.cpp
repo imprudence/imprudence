@@ -88,7 +88,7 @@ void LLPanelAudioVolume::draw()
 void LLPanelAudioVolume::onCommitVolumeChange(LLUICtrl* ctrl, void* user_data)
 {
 	// unmute various audio sources when user changes volume
-	LLString control_name = ctrl->getControlName();
+	std::string control_name = ctrl->getControlName();
 	if (control_name == "AudioLevelMaster")
 	{
 		gSavedSettings.setBOOL("MuteAudio", FALSE);

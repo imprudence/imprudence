@@ -66,7 +66,7 @@ class LLMemberListener : public LLSimpleListener
 public:
 	LLMemberListener() : mPtr(NULL), mRegisteredName() { }
 
-	void registerListener(T *pointer, const LLString& register_name)
+	void registerListener(T *pointer, const std::string& register_name)
 	{
 		mPtr = pointer;
 		mRegisteredName = register_name;
@@ -78,7 +78,7 @@ public:
 
 protected:
 	T *mPtr; // The object that this listener manipulates
-	LLString mRegisteredName;
+	std::string mRegisteredName;
 };
 
 

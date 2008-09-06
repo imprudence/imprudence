@@ -12,6 +12,7 @@
 	<string name="LoginAttempt">Previous login attempt failed. Logging in, attempt [NUMBER]</string>
 	<string name="LoginPrecaching">Loading world...</string>
 	<string name="LoginInitializingBrowser">Initializing embedded web browser...</string>
+	<string name="LoginInitializingMultimedia">Initializing multimedia...</string>
 	<string name="LoginVerifyingCache">Verifying cache files (can take 60-90 seconds)...</string>
 	<string name="LoginProcessingResponse">Processing Response...</string>
 	<string name="LoginInitializingWorld">Initializing World...</string>
@@ -23,9 +24,12 @@
 	<string name="LoginConnectingToRegion">Connecting to region...</string>
 	<string name="LoginDownloadingClothing">Downloading clothing...</string>
 
+
+	<!-- Disconnection -->
+	<string name="AgentLostConnection">This region may be experiencing trouble.  Please check your connection to the Internet.</string>
 	
 	
-	<!-- Tooltip, llhoverview.cpp. Note: spaces at the end are intentional -->
+	<!-- Tooltip, llhoverview.cpp -->
 	<string name="TooltipPerson">Person</string><!-- Object under mouse pointer is an avatar -->
 	<string name="TooltipNoName">(no name)</string> <!-- No name on an object -->
 	<string name="TooltipOwner">Owner:</string> <!-- Owner name follows -->
@@ -49,13 +53,15 @@
 	<string name="TooltipFlagNoFly">No Fly</string>
 	<string name="TooltipFlagGroupScripts">Group Scripts</string>
 	<string name="TooltipFlagNoScripts">No Scripts</string>
-	
 	<string name="TooltipLand">Land:</string>
-	
+	<string name="TooltipMustSingleDrop">Only a single item can be dragged here</string>	
+
 	
 	<!-- Indicates that an avatar's name or other similar datum is being retrieved. General usage. -->
 	<string name="RetrievingData">Retrieving...</string>
-	
+
+	<string name="ReleaseNotes">Release Notes</string>
+
 	<!-- Indicates something is being loaded. Maybe should be merged with RetrievingData -->
 	<string name="LoadingData">Loading...</string>
 	
@@ -90,7 +96,7 @@
 	<string name="AvatarAway">Away</string>
 	<string name="AvatarBusy">Busy</string>
 	<string name="AvatarMuted">Muted</string>
-	
+
 	<!-- animations -->
 	<string name="anim_express_afraid">Afraid</string>
 	<string name="anim_express_anger">Angry</string>
@@ -162,5 +168,12 @@
 	<string name="anim_yes_happy">Yes (Happy)</string>
 	<string name="anim_yes_head">Yes</string>
 	
+	<string name="texture_loading">Loading...</string>
+	<string name="worldmap_offline">Offline</string>
+	
+	<!-- Chat -->
+	<string name="whisper">whispers:</string>
+	<string name="shout">shouts:</string>
+
 </strings>
 

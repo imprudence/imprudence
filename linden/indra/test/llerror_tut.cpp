@@ -372,27 +372,21 @@ namespace
 	std::string logFromClassWithLogTypeMember(bool id) { ClassWithLogType c; return c.logFromMember(id); }
 	std::string logFromClassWithLogTypeStatic(bool id) { return ClassWithLogType::logFromStatic(id); }
 	
-	void ensure_has_once(const std::string& message,
+	void ensure_has(const std::string& message,
 		const std::string& actual, const std::string& expected)
 	{
 		std::string::size_type n1 = actual.find(expected);
-		std::string::size_type n2 = std::string::npos;
-		if (n1 != std::string::npos)
-		{
-			n2 = std::string(actual, n1 + expected.size()).find(expected);
-		}
-		
-		if (n1 == std::string::npos  ||  n2 != std::string::npos)
+		if (n1 == std::string::npos)
 		{
 			std::stringstream ss;
-			ss << message << ": " << "expected to find one copy of " << expected
+			ss << message << ": " << "expected to find a copy of " << expected
 				<< " in actual " << actual;
 			throw tut::failure(ss.str().c_str());
 		}
 	}
 	
 	typedef std::string (*LogFromFunction)(bool);
-	void testLogNameOnce(TestRecorder& recorder, LogFromFunction f,
+	void testLogName(TestRecorder& recorder, LogFromFunction f,
 		const std::string& class_name = "")
 	{
 		recorder.clearMessages();
@@ -402,16 +396,16 @@ namespace
 		std::string messageWithoutName = recorder.message(0);
 		std::string messageWithName = recorder.message(1);
 		
-		ensure_has_once(name + " logged without name",
+		ensure_has(name + " logged without name",
 			messageWithoutName, name);
-		ensure_has_once(name + " logged with name",
+		ensure_has(name + " logged with name",
 			messageWithName, name);
 
 		if (!class_name.empty())
 		{
-			ensure_has_once(name + "logged without name",
+			ensure_has(name + "logged without name",
 				messageWithoutName, class_name);
-			ensure_has_once(name + "logged with name",
+			ensure_has(name + "logged with name",
 				messageWithName, class_name);
 		}
 	}
@@ -423,15 +417,15 @@ namespace tut
 		// 	class/function information in output
 	void ErrorTestObject::test<6>()
 	{
-		testLogNameOnce(mRecorder, logFromGlobal);
-		testLogNameOnce(mRecorder, logFromStatic);
-		testLogNameOnce(mRecorder, logFromAnon);
-		testLogNameOnce(mRecorder, logFromNamespace);
-		//testLogNameOnce(mRecorder, logFromClassWithNoLogTypeMember, "ClassWithNoLogType");
-		//testLogNameOnce(mRecorder, logFromClassWithNoLogTypeStatic, "ClassWithNoLogType");
+		testLogName(mRecorder, logFromGlobal);
+		testLogName(mRecorder, logFromStatic);
+		testLogName(mRecorder, logFromAnon);
+		testLogName(mRecorder, logFromNamespace);
+		//testLogName(mRecorder, logFromClassWithNoLogTypeMember, "ClassWithNoLogType");
+		//testLogName(mRecorder, logFromClassWithNoLogTypeStatic, "ClassWithNoLogType");
 			// XXX: figure out what the exepcted response is for these
-		testLogNameOnce(mRecorder, logFromClassWithLogTypeMember, "ClassWithLogType");
-		testLogNameOnce(mRecorder, logFromClassWithLogTypeStatic, "ClassWithLogType");
+		testLogName(mRecorder, logFromClassWithLogTypeMember, "ClassWithLogType");
+		testLogName(mRecorder, logFromClassWithLogTypeStatic, "ClassWithLogType");
 	}
 }
 

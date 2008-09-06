@@ -168,11 +168,6 @@ again in a minute.
 			You have offered a calling card to [FIRST] [LAST]
 		</message>
 	</notify>
-	<notify name="OfferedFriendship" tip="true">
-		<message name="message">
-			You have offered friendship to [FIRST] [LAST]
-		</message>
-	</notify>
 	<notify name="UnableToBuyWhileDownloading" tip="true">
 		<message name="message">
 			Unable to buy while downloading object data.
@@ -573,9 +568,24 @@ to his or her location:
 	<notify name="OfferFriendship" tip="false">
 		<message name="message">
 			[NAME] is offering friendship.
-      
-      By default, you will be able to 
-see each other&apos;s online status.
+ 
+[MESSAGE]
+ 
+(By default, you will be able to see each other&apos;s online status.)
+		</message>
+		<option name="Accept">
+			Accept
+		</option>
+		<option name="Decline">
+			Decline
+		</option>
+	</notify>
+	<notify name="OfferFriendshipNoMessage" tip="false">
+		<message name="message">
+			[NAME] is offering friendship.
+
+(By default, you will be able to 
+see each other&apos;s online status.)
 		</message>
 		<option name="Accept">
 			Accept
@@ -636,14 +646,20 @@ From object: [OBJECTNAME], owner: [NAME]?
 	</notify>
 	<notify name="FailedToLoadWearableUnnamed" tip="false">
 		<message name="message">
-			Failed to load [TYPE].
-Please notify the vendor from whom you purchased this item.
+			Oops!
+You tried to wear a [TYPE] and it did not load.
+
+Don't panic.
+Try again in a minute to give things a chance to settle down.
 		</message>
 	</notify>
 	<notify name="FailedToLoadWearable" tip="false">
 		<message name="message">
-			Failed to load [TYPE] named [DESC].
-Please notify the vendor from whom you purchased this item.
+			Oops!
+You tried to wear [TYPE] named [DESC] and it did not load.
+
+Don't panic.
+Try again in a minute to give things a chance to settle down.
 		</message>
 	</notify>
 	<notify name="FailedToFindWearableUnnamed" tip="false">
@@ -828,9 +844,9 @@ Right-click always shows a menu of things you can do.
 	</notify>
 	<notify name="FirstTeleport" tip="false">
 		<message name="message">
-			You have just teleported. 
-You are at the Infohub nearest your destination.
-Your destination is marked with a tall red beacon.
+			This region doesn't allow point-to-point teleports, so you've been transported to the nearest telehub. 
+Your destination is marked with a tall beacon. 
+Follow the red arrow to the beacon, or click the arrow to dismiss the beacon.
 		</message>
 	</notify>
 	<notify name="FirstOverrideKeys" tip="false">

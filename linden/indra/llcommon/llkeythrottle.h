@@ -55,32 +55,39 @@ class LLKeyThrottleImpl
 protected:
 	struct Entry {
 		U32		count;
-		BOOL	blocked;
+		bool	blocked;
 
-		Entry() : count(0), blocked(FALSE) { }
+		Entry() : count(0), blocked(false) { }
 	};
 
 	typedef std::map<T, Entry> EntryMap;
 
-	EntryMap * prevMap;
-	EntryMap * currMap;
+	EntryMap* prevMap;
+	EntryMap* currMap;
 	
 	U32 countLimit;
 		// maximum number of keys allowed per interval
 		
-	U64 interval_usec;
-		// each map covers this time period
-	U64 start_usec;
+	U64 intervalLength;		// each map covers this time period (usec or frame number)
+	U64 startTime;			// start of the time period (usec or frame number)
 		// currMap started counting at this time
 		// prevMap covers the previous interval
 	
-	LLKeyThrottleImpl() : prevMap(0), currMap(0),
-			      countLimit(0), interval_usec(0),
-			      start_usec(0) { };
+	LLKeyThrottleImpl() :
+		prevMap(NULL),
+		currMap(NULL),
+		countLimit(0),
+		intervalLength(1),
+		startTime(0)
+	{}
 
 	static U64 getTime()
 	{
 		return LLFrameTimer::getTotalTime();
+	}
+	static U64 getFrame()		// Return the current frame number
+	{
+		return (U64) LLFrameTimer::getFrameCount();
 	}
 };
 
@@ -89,17 +96,12 @@ template< class T >
 class LLKeyThrottle
 {
 public:
-	LLKeyThrottle(U32 limit, F32 interval)
+	// @param realtime = FALSE for frame-based throttle, TRUE for usec
+	// real-time throttle
+	LLKeyThrottle(U32 limit, F32 interval, BOOL realtime = TRUE)	
 		: m(* new LLKeyThrottleImpl<T>)
 	{
-		// limit is the maximum number of keys
-		// allowed per interval (in seconds)
-		m.countLimit = limit;
-		m.interval_usec = (U64)(interval * USEC_PER_SEC);
-		m.start_usec = LLKeyThrottleImpl<T>::getTime();
-
-		m.prevMap = new typename LLKeyThrottleImpl<T>::EntryMap;
-		m.currMap = new typename LLKeyThrottleImpl<T>::EntryMap;
+		setParameters( limit, interval, realtime );
 	}
 		
 	~LLKeyThrottle()
@@ -118,18 +120,26 @@ public:
 	// call each time the key wants use
 	State noteAction(const T& id, S32 weight = 1)
 	{
-		U64 now = LLKeyThrottleImpl<T>::getTime();
-
-		if (now >= (m.start_usec + m.interval_usec))
+		U64 now = 0;
+		if ( mIsRealtime )
 		{
-			if (now < (m.start_usec + 2 * m.interval_usec))
+			now = LLKeyThrottleImpl<T>::getTime();
+		}
+		else
+		{
+			now = LLKeyThrottleImpl<T>::getFrame();
+		}
+
+		if (now >= (m.startTime + m.intervalLength))
+		{
+			if (now < (m.startTime + 2 * m.intervalLength))
 			{
 				// prune old data
 				delete m.prevMap;
 				m.prevMap = m.currMap;
 				m.currMap = new typename LLKeyThrottleImpl<T>::EntryMap;
 
-				m.start_usec += m.interval_usec;
+				m.startTime += m.intervalLength;
 			}
 			else
 			{
@@ -139,12 +149,12 @@ public:
 				m.prevMap = new typename LLKeyThrottleImpl<T>::EntryMap;
 				m.currMap = new typename LLKeyThrottleImpl<T>::EntryMap;
 
-				m.start_usec = now;
+				m.startTime = now;
 			}
 		}
 
 		U32 prevCount = 0;
-		BOOL prevBlocked = FALSE;
+		bool prevBlocked = false;
 
 		typename LLKeyThrottleImpl<T>::EntryMap::const_iterator prev = m.prevMap->find(id);
 		if (prev != m.prevMap->end())
@@ -166,7 +176,7 @@ public:
 		// (now) time.
 
 		// compute current, windowed rate
-		F64 timeInCurrent = ((F64)(now - m.start_usec) / m.interval_usec);
+		F64 timeInCurrent = ((F64)(now - m.startTime) / m.intervalLength);
 		F64 averageCount = curr.count + prevCount * (1.0 - timeInCurrent);
 		
 		curr.blocked |= averageCount > m.countLimit;
@@ -193,17 +203,17 @@ public:
 		noteAction(id);
 		typename LLKeyThrottleImpl<T>::Entry& curr = (*m.currMap)[id];
 		curr.count = llmax(m.countLimit, curr.count);
-		curr.blocked = TRUE;
+		curr.blocked = true;
 	}
 
-	// returns TRUE if key is blocked
-	BOOL isThrottled(const T& id) const
+	// returns true if key is blocked
+	bool isThrottled(const T& id) const
 	{
 		if (m.currMap->empty()
 			&& m.prevMap->empty())
 		{
 			// most of the time we'll fall in here
-			return FALSE;
+			return false;
 		}
 
 		// NOTE, we ignore the case where id is in the map but the map is stale.  
@@ -221,11 +231,49 @@ public:
 		{
 			return entry->second.blocked;
 		}
-		return FALSE;
+		return false;
+	}
+
+	// Get the throttling parameters
+	void getParameters( U32 & out_limit, F32 & out_interval, BOOL & out_realtime )
+	{
+		out_limit = m.countLimit;
+		out_interval = m.intervalLength;
+		out_realtime = mIsRealtime;
+	}
+
+	// Set the throttling behavior
+	void setParameters( U32 limit, F32 interval, BOOL realtime )
+	{
+		// limit is the maximum number of keys
+		// allowed per interval (in seconds or frames)
+		mIsRealtime = realtime;
+		m.countLimit = limit;
+		if ( mIsRealtime )
+		{
+			m.intervalLength = (U64)(interval * USEC_PER_SEC);
+			m.startTime = LLKeyThrottleImpl<T>::getTime();
+		}
+		else
+		{
+			m.intervalLength = (U64)interval;
+			m.startTime = LLKeyThrottleImpl<T>::getFrame();
+		}
+
+		if ( m.intervalLength == 0 )
+		{	// Don't allow zero intervals
+			m.intervalLength = 1;
+		}
+
+		delete m.prevMap;
+		m.prevMap = new typename LLKeyThrottleImpl<T>::EntryMap;
+		delete m.currMap;
+		m.currMap = new typename LLKeyThrottleImpl<T>::EntryMap;
 	}
 
 protected:
 	LLKeyThrottleImpl<T>& m;
+	BOOL	mIsRealtime;	// TRUE to be time based (default), FALSE for frame based
 };
 
 #endif

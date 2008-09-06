@@ -80,10 +80,8 @@ public:
 
 	void dump();
 
-	const char *getCurStatName() const;
-
 	LLStat &getStat(const S32 i)						{ return mStats[i]; }
-	const char *getStatLabel(const S32 i) const			{ return sStatLabels[i]; }
+	const std::string& getStatLabel(const S32 i) const	{ return sStatLabels[i]; } // array of const char*'s
 	LLColor4 getStatColor(const S32 i) const			{ return sStatColors[i]; }
 
 	static void startLogging(void *);
@@ -107,8 +105,8 @@ private:
 		S32 mNumVorbisDecodes;
 	};
 
-	LLString			mFilename;
-	LLString			mSummaryFilename;
+	std::string			mFilename;
+	std::string			mSummaryFilename;
 
 	BOOL				mTrackStats;
 	LLTimer				mTimer;
@@ -118,7 +116,7 @@ private:
 	EStat				mCurrentStat;
 
 	LLStat				mStats[NUM_STATS];
-	static char			*sStatLabels[NUM_STATS];
+	static std::string	sStatLabels[NUM_STATS];
 	static LLColor4		sStatColors[NUM_STATS];
 	LLDynamicArray<FrameData> mFrameData;
 	void stop();

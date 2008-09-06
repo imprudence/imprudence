@@ -42,7 +42,7 @@
 #include "llstatbar.h"
 #include "llviewercontrol.h"
 
-LLStatView::LLStatView(const LLString& name, const LLString& label, const LLString& setting, const LLRect& rect)
+LLStatView::LLStatView(const std::string& name, const std::string& label, const std::string& setting, const LLRect& rect)
 	:	LLContainerView(name, rect),
 		mNumStatBars(0),
 		mSetting(setting)
@@ -67,7 +67,7 @@ LLStatView::~LLStatView()
 	}
 }
 
-LLStatBar *LLStatView::addStat(const LLString& name, LLStat *statp)
+LLStatBar *LLStatView::addStat(const std::string& name, LLStat *statp)
 {
 	LLStatBar *stat_barp;
 	LLRect r;
@@ -92,7 +92,7 @@ LLStatBar *LLStatView::addStat(const LLString& name, LLStat *statp)
 	return stat_barp;
 }
 
-LLStatBar *LLStatView::getStatBar(const LLString& name)
+LLStatBar *LLStatView::getStatBar(const std::string& name)
 {
 	sb_vector_t::iterator iter;
 	for(iter = mStatBars.begin(); iter != mStatBars.end(); ++iter)

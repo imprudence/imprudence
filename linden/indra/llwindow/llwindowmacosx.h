@@ -86,12 +86,6 @@ public:
 	/*virtual*/ void delayInputProcessing() {};
 	/*virtual*/ void swapBuffers();
 
-	/*virtual*/ LLString getTempFileName();
-	/*virtual*/ void deleteFile( const char* file_name );
-	/*virtual*/ S32 stat( const char* file_name, struct stat* stat_info );
-	/*virtual*/ BOOL sendEmail(const char* address,const char* subject,const char* body_text,const char* attachment=NULL, const char* attachment_displayed_name=NULL);
-
-
 	// handy coordinate space conversion routines
 	/*virtual*/ BOOL convertCoords(LLCoordScreen from, LLCoordWindow *to);
 	/*virtual*/ BOOL convertCoords(LLCoordWindow from, LLCoordScreen *to);
@@ -111,16 +105,18 @@ public:
 	/*virtual*/ BOOL dialog_color_picker(F32 *r, F32 *g, F32 *b);
 
 	/*virtual*/ void *getPlatformWindow();
+	/*virtual*/ void *getMediaWindow();
 	/*virtual*/ void bringToFront() {};
 	
 	/*virtual*/ void allowLanguageTextInput(LLPreeditor *preeditor, BOOL b);
 	/*virtual*/ void interruptLanguageTextInput();
+	/*virtual*/ void spawnWebBrowser(const std::string& escaped_url);
 
 	static std::string getFontListSans();
 
 protected:
 	LLWindowMacOSX(
-		char *title, char *name, int x, int y, int width, int height, U32 flags,
+		const std::string& title, const std::string& name, int x, int y, int width, int height, U32 flags,
 		BOOL fullscreen, BOOL clearBg, BOOL disable_vsync, BOOL use_gl,
 		BOOL ignore_pixel_depth,
 		U32 fsaa_samples);
@@ -154,8 +150,9 @@ protected:
 	// create or re-create the GL context/window.  Called from the constructor and switchContext().
 	BOOL createContext(int x, int y, int width, int height, int bits, BOOL fullscreen, BOOL disable_vsync);
 	void destroyContext();
-	void setupFailure(const char* text, const char* caption, U32 type);
+	void setupFailure(const std::string& text, const std::string& caption, U32 type);
 	static pascal OSStatus staticEventHandler (EventHandlerCallRef myHandler, EventRef event, void* userData);
+	static pascal Boolean staticMoveEventComparator( EventRef event, void* data);
 	OSStatus eventHandler (EventHandlerCallRef myHandler, EventRef event);
 	void adjustCursorDecouple(bool warpingMouse = false);
 	void fixWindowSize(void);
@@ -174,6 +171,8 @@ protected:
 	EventHandlerUPP 	mEventHandlerUPP;
 	EventHandlerRef		mGlobalHandlerRef;
 	EventHandlerRef		mWindowHandlerRef;
+	EventComparatorUPP  mMoveEventCampartorUPP;
+	
 	Rect		mOldMouseClip;  // Screen rect to which the mouse cursor was globally constrained before we changed it in clipMouse()
 	Str255 		mWindowTitle;
 	double		mOriginalAspectRatio;
@@ -203,7 +202,11 @@ protected:
 	LangCode	mTSMLangCode;
 	LLPreeditor*	mPreeditor;
 	
+	static BOOL	sUseMultGL;
+
 	friend class LLWindowManager;
+	static WindowRef sMediaWindow;
+
 };
 
 
@@ -214,14 +217,14 @@ public:
 	virtual ~LLSplashScreenMacOSX();
 
 	/*virtual*/ void showImpl();
-	/*virtual*/ void updateImpl(const char* mesg);
+	/*virtual*/ void updateImpl(const std::string& mesg);
 	/*virtual*/ void hideImpl();
 
 private:
 	WindowRef   mWindow;
 };
 
-S32 OSMessageBoxMacOSX(const char* text, const char* caption, U32 type);
+S32 OSMessageBoxMacOSX(const std::string& text, const std::string& caption, U32 type);
 
 void load_url_external(const char* url);
 

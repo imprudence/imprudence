@@ -41,8 +41,6 @@
 #include "lldir.h"
 #include "llfindlocale.h"
 
-#include "llglheaders.h"
-
 #include "indra_constants.h"
 
 #if LL_GTK
@@ -66,7 +64,10 @@ extern "C" {
 
 extern BOOL gDebugWindowProc;
 
-const S32	MAX_NUM_RESOLUTIONS = 32;
+const S32 MAX_NUM_RESOLUTIONS = 200;
+
+// static variable for ATI mouse cursor crash work-around:
+static bool ATIbug = false;
 
 //
 // LLWindowSDL
@@ -183,43 +184,7 @@ Display* get_SDL_Display(void)
 #endif // LL_X11
 
 
-BOOL check_for_card(const char* RENDERER, const char* bad_card)
-{
-	if (!strncasecmp(RENDERER, bad_card, strlen(bad_card)))
-	{
-		char buffer[1024];	/* Flawfinder: ignore */
-		snprintf(buffer, sizeof(buffer),	
-			"Your video card appears to be a %s, which Second Life does not support.\n"
-			"\n"
-			"Second Life requires a video card with 32 Mb of memory or more, as well as\n"
-			"multitexture support.  We explicitly support nVidia GeForce 2 or better, \n"
-			"and ATI Radeon 8500 or better.\n"
-			"\n"
-			"If you own a supported card and continue to receive this message, try \n"
-			"updating to the latest video card drivers. Otherwise look in the\n"
-			"secondlife.com support section or e-mail technical support\n"
-			"\n"
-			"You can try to run Second Life, but it will probably crash or run\n"
-			"very slowly.  Try anyway?",
-			bad_card);
-		S32 button = OSMessageBox(buffer, "Unsupported video card", OSMB_YESNO);
-		if (OSBTN_YES == button)
-		{
-			return FALSE;
-		}
-		else
-		{
-			return TRUE;
-		}
-	}
-
-	return FALSE;
-}
-
-
-
-
-LLWindowSDL::LLWindowSDL(char *title, S32 x, S32 y, S32 width,
+LLWindowSDL::LLWindowSDL(const std::string& title, S32 x, S32 y, S32 width,
 							   S32 height, U32 flags,
 							   BOOL fullscreen, BOOL clearBg,
 							   BOOL disable_vsync, BOOL use_gl,
@@ -260,18 +225,11 @@ LLWindowSDL::LLWindowSDL(char *title, S32 x, S32 y, S32 width,
 	// Get the original aspect ratio of the main device.
 	mOriginalAspectRatio = 1024.0 / 768.0;  // !!! *FIX: ? //(double)CGDisplayPixelsWide(mDisplay) / (double)CGDisplayPixelsHigh(mDisplay);
 
-	if (!title)
-		title = "SDL Window";  // *FIX: (???)
+	if (title.empty())
+		mWindowTitle = "SDL Window";  // *FIX: (???)
+	else
+		mWindowTitle = title;
 
-	// Stash the window title
-	mWindowTitle = new char[strlen(title) + 1]; /* Flawfinder: ignore */
-	if(mWindowTitle == NULL)
-	{
-		llwarns << "Memory allocation failure" << llendl;
-		return;
-	}
-
-	strcpy(mWindowTitle, title); /* Flawfinder: ignore */
 	// Create the GL context and set it up for windowed or fullscreen, as appropriate.
 	if(createContext(x, y, width, height, 32, fullscreen, disable_vsync))
 	{
@@ -485,7 +443,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 	}
 
 	SDL_EnableUNICODE(1);
-	SDL_WM_SetCaption(mWindowTitle, mWindowTitle);
+	SDL_WM_SetCaption(mWindowTitle.c_str(), mWindowTitle.c_str());
 
 	// Set the application icon.
 	SDL_Surface *bmpsurface;
@@ -635,8 +593,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 			mFullscreenBits    = -1;
 			mFullscreenRefresh = -1;
 
-			char error[256];	/* Flawfinder: ignore */
-			snprintf(error, sizeof(error), "Unable to run fullscreen at %d x %d.\nRunning in window.", width, height);	
+			std::string error = llformat("Unable to run fullscreen at %d x %d.\nRunning in window.", width, height);	
 			OSMessageBox(error, "Error", OSMB_OK);
 		}
 	}
@@ -825,8 +782,6 @@ LLWindowSDL::~LLWindowSDL()
 	{
 		delete []mSupportedResolutions;
 	}
-
-	delete[] mWindowTitle;
 
 	gWindowImplementation = NULL;
 }
@@ -1207,11 +1162,6 @@ void LLWindowSDL::afterDialog()
 	// LLViewerWindow::restoreGL() - but how??
 }
 
-
-S32 LLWindowSDL::stat(const char* file_name, struct stat* stat_info)
-{
-	return ::stat( file_name, stat_info );
-}
 
 #if LL_X11
 // set/reset the XWMHints flag for 'urgency' that usually makes the icon flash
@@ -1777,15 +1727,6 @@ BOOL LLWindowSDL::copyTextToClipboard(const LLWString &s)
 }
 #endif // LL_X11
 
-BOOL LLWindowSDL::sendEmail(const char* address, const char* subject, const char* body_text,
-									   const char* attachment, const char* attachment_displayed_name )
-{
-	// MBW -- XXX -- Um... yeah.  I'll get to this later.
-
-	return FALSE;
-}
-
-
 LLWindow::LLWindowResolution* LLWindowSDL::getSupportedResolutions(S32 &num_resolutions)
 {
 	if (!mSupportedResolutions)
@@ -1797,7 +1738,7 @@ LLWindow::LLWindowResolution* LLWindowSDL::getSupportedResolutions(S32 &num_reso
         if ( (modes != NULL) && (modes != ((SDL_Rect **) -1)) )
         {
             int count = 0;
-            while (*modes)  // they're sorted biggest to smallest, so find end...
+            while (*modes && count<MAX_NUM_RESOLUTIONS)  // they're sorted biggest to smallest, so find end...
             {
                 modes++;
                 count++;
@@ -1890,7 +1831,7 @@ BOOL LLWindowSDL::convertCoords(LLCoordGL from, LLCoordScreen *to)
 
 
 
-void LLWindowSDL::setupFailure(const char* text, const char* caption, U32 type)
+void LLWindowSDL::setupFailure(const std::string& text, const std::string& caption, U32 type)
 {
 	destroyContext();
 
@@ -2337,6 +2278,12 @@ static SDL_Cursor *makeSDLCursorFromBMP(const char *filename, int hotx, int hoty
 
 void LLWindowSDL::setCursor(ECursorType cursor)
 {
+	if (ATIbug) {
+		// cursor-updating is very flaky when this bug is
+		// present; do nothing.
+		return;
+	}
+
 	if (mCurrentCursor != cursor)
 	{
 		if (cursor < UI_CURSOR_COUNT)
@@ -2409,6 +2356,11 @@ void LLWindowSDL::initCursors()
 	mSDLCursors[UI_CURSOR_TOOLPAUSE] = makeSDLCursorFromBMP("toolpause.BMP",0,0);
 	mSDLCursors[UI_CURSOR_TOOLMEDIAOPEN] = makeSDLCursorFromBMP("toolmediaopen.BMP",0,0);
 	mSDLCursors[UI_CURSOR_PIPETTE] = makeSDLCursorFromBMP("lltoolpipette.BMP",2,28);
+
+	if (getenv("LL_ATI_MOUSE_CURSOR_BUG") != NULL) {
+		llinfos << "Disabling cursor updating due to LL_ATI_MOUSE_CURSOR_BUG" << llendl;
+		ATIbug = true;
+	}
 }
 
 void LLWindowSDL::quitCursors()
@@ -2520,7 +2472,7 @@ void LLSplashScreenSDL::showImpl()
 {
 }
 
-void LLSplashScreenSDL::updateImpl(const char* mesg)
+void LLSplashScreenSDL::updateImpl(const std::string& mesg)
 {
 }
 
@@ -2541,7 +2493,7 @@ static void response_callback (GtkDialog *dialog,
 	gtk_main_quit();
 }
 
-S32 OSMessageBoxSDL(const char* text, const char* caption, U32 type)
+S32 OSMessageBoxSDL(const std::string& text, const std::string& caption, U32 type)
 {
 	S32 rtn = OSBTN_CANCEL;
 
@@ -2578,9 +2530,7 @@ S32 OSMessageBoxSDL(const char* text, const char* caption, U32 type)
 			buttons = GTK_BUTTONS_YES_NO;
 			break;
 		}
-		win = gtk_message_dialog_new(NULL,
-                                             flags, messagetype, buttons,
-                                             text);
+		win = gtk_message_dialog_new(NULL,flags, messagetype, buttons, text.c_str());
 
 # if LL_X11
 		// Make GTK tell the window manager to associate this
@@ -2602,8 +2552,8 @@ S32 OSMessageBoxSDL(const char* text, const char* caption, U32 type)
 		gtk_window_set_type_hint(GTK_WINDOW(win),
 					 GDK_WINDOW_TYPE_HINT_DIALOG);
 
-		if (caption)
-			gtk_window_set_title(GTK_WINDOW(win), caption);
+		if (!caption.empty())
+			gtk_window_set_title(GTK_WINDOW(win), caption.c_str());
 
 		gint response = GTK_RESPONSE_NONE;
 		g_signal_connect (win,
@@ -2727,7 +2677,7 @@ BOOL LLWindowSDL::dialog_color_picker ( F32 *r, F32 *g, F32 *b)
 	return rtn;
 }
 #else
-S32 OSMessageBoxSDL(const char* text, const char* caption, U32 type)
+S32 OSMessageBoxSDL(const std::string& text, const std::string& caption, U32 type)
 {
 	llinfos << "MSGBOX: " << caption << ": " << text << llendl;
 	return 0;
@@ -2739,29 +2689,12 @@ BOOL LLWindowSDL::dialog_color_picker ( F32 *r, F32 *g, F32 *b)
 }
 #endif // LL_GTK
 
-// Open a URL with the user's default web browser.
-// Must begin with protocol identifier.
-void spawn_web_browser(const char* escaped_url)
-{
-	llinfos << "spawn_web_browser: " << escaped_url << llendl;
-	
 #if LL_LINUX || LL_SOLARIS
-# if LL_X11
-	if (gWindowImplementation && gWindowImplementation->mSDL_Display)
-	{
-		maybe_lock_display();
-		// Just in case - before forking.
-		XSync(gWindowImplementation->mSDL_Display, False);
-		maybe_unlock_display();
-	}
-# endif // LL_X11
-
-	std::string cmd;
-	cmd  = gDirUtilp->getAppRODataDir();
-	cmd += gDirUtilp->getDirDelimiter();
-	cmd += "launch_url.sh";
-	char* const argv[] = {(char*)cmd.c_str(), (char*)escaped_url, NULL};
-
+// extracted from spawnWebBrowser for clarity and to eliminate
+//  compiler confusion regarding close(int fd) vs. LLWindow::close()
+void exec_cmd(const std::string& cmd, const std::string& arg)
+{
+	char* const argv[] = {(char*)cmd.c_str(), (char*)arg.c_str(), NULL};
 	fflush(NULL);
 	pid_t pid = fork();
 	if (pid == 0)
@@ -2786,6 +2719,32 @@ void spawn_web_browser(const char* escaped_url)
 			llwarns << "fork failure." << llendl;
 		}
 	}
+}
+#endif
+
+// Open a URL with the user's default web browser.
+// Must begin with protocol identifier.
+void LLWindowSDL::spawnWebBrowser(const std::string& escaped_url)
+{
+	llinfos << "spawn_web_browser: " << escaped_url << llendl;
+	
+#if LL_LINUX || LL_SOLARIS
+# if LL_X11
+	if (mSDL_Display)
+	{
+		maybe_lock_display();
+		// Just in case - before forking.
+		XSync(mSDL_Display, False);
+		maybe_unlock_display();
+	}
+# endif // LL_X11
+
+	std::string cmd, arg;
+	cmd  = gDirUtilp->getAppRODataDir().c_str();
+	cmd += gDirUtilp->getDirDelimiter().c_str();
+	cmd += "launch_url.sh";
+	arg = escaped_url;
+	exec_cmd(cmd, arg);
 #endif // LL_LINUX || LL_SOLARIS
 
 	llinfos << "spawn_web_browser returning." << llendl;
@@ -2871,14 +2830,18 @@ std::string LLWindowSDL::getFontListSans()
 	{
 		if (success >= 2 && locale->lang) // confident!
 		{
+			LL_INFOS("AppInit") << "Language " << locale->lang << LL_ENDL;
+			LL_INFOS("AppInit") << "Location " << locale->country << LL_ENDL;
+			LL_INFOS("AppInit") << "Variant " << locale->variant << LL_ENDL;
+
 			llinfos << "Preferring fonts of language: "
 				<< locale->lang
 				<< llendl;
 			sort_order = "lang=" + std::string(locale->lang) + ":"
 				+ sort_order;
 		}
-		FL_FreeLocale(&locale);
 	}
+	FL_FreeLocale(&locale);
 
 	if (!FcInit())
 	{

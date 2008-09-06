@@ -9,6 +9,9 @@
 	<check_box bottom="-545" enabled="false" follows="left|bottom" font="SansSerif"
 	     height="18" initial_value="true" label="Running" left="12"
 	     mouse_opaque="true" name="running" radio_style="false" width="100" />
+	<check_box bottom="-545" enabled="false" follows="left|bottom" font="SansSerif"
+	     height="18" hidden="false" initial_value="true" label="Mono" left="82"
+	     mouse_opaque="true" name="mono" radio_style="false" width="100" />
 	<panel bottom="-524" enabled="true" follows="left|top|right|bottom" height="506"
 	     left="1" name="script ed panel" width="497" border_drop_shadow_visible="false" border_visible="false" bevel_style="none" border_style="line" border_thickness="0" />
 	<string name="not_allowed">

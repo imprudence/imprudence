@@ -94,7 +94,7 @@ private:
 
 
 LLFloaterTestImpl::LLFloaterTestImpl()
-:	LLFloater("test", LLRect(0, 500, 700, 0), "Test UI")
+:	LLFloater(std::string("test"), LLRect(0, 500, 700, 0), std::string("Test UI"))
 {
 	const S32 HPAD = 5;
 	const S32 VPAD = 5;
@@ -114,16 +114,16 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	LLCheckBoxCtrl* check = NULL;
 	LLComboBox* combo = NULL;
 
-	btn = new LLButton("can't click",
+	btn = new LLButton(std::string("can't click"),
 		LLRect(LEFT+150, y, LEFT+150+100, y-LINE),
-		NULL,	// LLString converts to ""
+		LLStringUtil::null,
 		onClickButton, this);
 	btn->setFollows(FOLLOWS_LEFT|FOLLOWS_TOP);
 	btn->setFont(LLFontGL::sSansSerifSmall);
 	addChild(btn);
 
-	text = new LLTextBox("simple_text", 
-		"simple sans-serif text that is mouse opaque opaque opaque",
+	text = new LLTextBox(std::string("simple_text"), 
+		std::string("simple sans-serif text that is mouse opaque opaque opaque"),
 		50,	// max_width
 		LLFontGL::sSansSerifSmall,
 		TRUE);	// mouse_opaque
@@ -133,25 +133,25 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 
 	y -= VPAD + LINE;
 
-	btn = new LLButton("can click",
+	btn = new LLButton(std::string("can click"),
 		LLRect(LEFT+150, y, LEFT+150+100, y-LINE),
-		NULL,	// LLString converts to ""
+		LLStringUtil::null,
 		onClickButton, this);
 	btn->setFollows(FOLLOWS_LEFT|FOLLOWS_TOP);
 	btn->setFont(LLFontGL::sSansSerifSmall);
 	addChild(btn);
 
-	text = new LLTextBox("simple2_text", 
+	text = new LLTextBox(std::string("simple2_text"), 
 		LLRect(LEFT, y, RIGHT, y-LINE),
-		"monospaced, non-opaque text with tooltip, non-opaque non-opaque",
+		std::string("monospaced, non-opaque text with tooltip, non-opaque non-opaque"),
 		LLFontGL::sMonospace,
 		FALSE);	// mouse_opaque
-	text->setToolTip(LLString("I'm a tooltip"));
+	text->setToolTip(std::string("I'm a tooltip"));
 	addChild(text);
 
 	y -= VPAD + LINE;
 
-	tab = new LLTabContainer("test_tab", 
+	tab = new LLTabContainer(std::string("test_tab"), 
 		LLRect(LEFT, y, RIGHT, BOTTOM),
 		LLTabContainer::TOP,
 		TRUE,	// bordered
@@ -162,36 +162,36 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	//-----------------------------------------------------------------------
 	// First tab container panel
 	//-----------------------------------------------------------------------
-	panel = new LLPanel("first_tab_panel",
+	panel = new LLPanel(std::string("first_tab_panel"),
 		LLRect(0, 400, 400, 0),	// dummy rect
 		TRUE);	// bordered
-	tab->addTabPanel(panel, "First", 
+	tab->addTabPanel(panel, std::string("First"), 
 		TRUE,	// select
 		onClickTab, this);
 
 	y = panel->getRect().getHeight() - VPAD;
 
-	text = new LLTextBox("unicode_text",
+	text = new LLTextBox(std::string("unicode_text"),
 		LLRect(LEFT, y, RIGHT, y-LINE),
-		LLString("File"),
+		std::string("File"),
 		LLFontGL::sSansSerif,
 		TRUE);	// mouse_opaque
-	text->setToolTip(LLString("This should be Unicode text"));
+	text->setToolTip(std::string("This should be Unicode text"));
 	panel->addChild(text);
 
 	y -= VPAD + LINE;
 
-	btn = new LLButton("unicode_btn", LLRect(LEFT, y, LEFT+100, y-20));
-	btn->setLabel(LLString("unicode"));
+	btn = new LLButton(std::string("unicode_btn"), LLRect(LEFT, y, LEFT+100, y-20));
+	btn->setLabel(std::string("unicode"));
 	panel->addChild(btn);
 
 	y -= VPAD + 20;
 
-	btn = new LLButton("image_btn",
+	btn = new LLButton(std::string("image_btn"),
 		LLRect(LEFT, y, LEFT+32, y-32),
-		"tool_zoom.tga",
-		"tool_zoom_active.tga",
-		"",	// control_name,
+		std::string("tool_zoom.tga"),
+		std::string("tool_zoom_active.tga"),
+		LLStringUtil::null,
 		onClickButton, this,
 		LLFontGL::sSansSerifSmall);
 	btn->setFollows(FOLLOWS_LEFT | FOLLOWS_TOP);
@@ -199,56 +199,56 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 
 	y -= VPAD + 32;
 
-	check = new LLCheckBoxCtrl("simple_check",
+	check = new LLCheckBoxCtrl(std::string("simple_check"),
 		LLRect(LEFT, y, LEFT+150, y-LLCHECKBOXCTRL_HEIGHT),
-		"Simple Checkbox",
+		std::string("Simple Checkbox"),
 		LLFontGL::sSansSerifSmall,
 		onCommitCheck, this,
 		TRUE,	// initial_value
 		FALSE,	// radio_style
-		"UIFloaterTestBool");	// control_which
+		std::string("UIFloaterTestBool"));	// control_which
 	panel->addChild(check);
 
 	y -= VPAD + LLCHECKBOXCTRL_HEIGHT;
 
-	check = new LLCheckBoxCtrl("unicode_check",
+	check = new LLCheckBoxCtrl(std::string("unicode_check"),
 		LLRect(LEFT, y, LEFT+150, y-LLCHECKBOXCTRL_HEIGHT),
-		"TODO: Unicode Checkbox",
+		std::string("TODO: Unicode Checkbox"),
 		LLFontGL::sSansSerifSmall,
 		onCommitCheck, this,
 		TRUE,	// initial_value
 		FALSE,	// radio_style
-		"");	// control_which
+		LLStringUtil::null);	// control_which
 	panel->addChild(check);
 	mCheckUnicode = check;
 
 	y -= VPAD + LLCHECKBOXCTRL_HEIGHT;
 
-	combo = new LLComboBox("combo",
+	combo = new LLComboBox(std::string("combo"),
 		LLRect(LEFT, y, LEFT+100, y-LLCOMBOBOX_HEIGHT),
-		"Combobox Label",
+		std::string("Combobox Label"),
 		onCommitCombo, this);
-	combo->add("first item");
-	combo->add("second item");
-	combo->add("should go to the top", ADD_TOP);
-	combo->add("disabled item", NULL, ADD_BOTTOM, FALSE);
+	combo->add(std::string("first item"));
+	combo->add(std::string("second item"));
+	combo->add(std::string("should go to the top"), ADD_TOP);
+	combo->add(std::string("disabled item"), NULL, ADD_BOTTOM, FALSE);
 	panel->addChild(combo);
 
 	y -= VPAD + LLCOMBOBOX_HEIGHT;
 
 	LLIconCtrl* icon = new LLIconCtrl(
-		"test_icon",
+		std::string("test_icon"),
 		LLRect(LEFT, y, LEFT+32, y-32),
-		"object_cone.tga" );
+		std::string("object_cone.tga") );
 	panel->addChild(icon);
 	mIcon = icon;
 
 	y -= VPAD + 32;
 
 	LLLineEditor* line = new LLLineEditor(
-		"test_line",
+		std::string("test_line"),
 		LLRect(LEFT, y, LEFT+200, y-20),
-		"test some unicode text here",
+		std::string("test some unicode text here"),
 		LLFontGL::sSansSerif,
 		200,	// max_length_bytes
 		onCommitLine,
@@ -261,7 +261,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	y -= VPAD + 20;
 
 	LLRadioGroup* group = new LLRadioGroup(
-		"radio_group",
+		std::string("radio_group"),
 		LLRect(LEFT, y, LEFT+200, y - 50),
 		0,	// initial_index
 		onChangeRadioGroup, this,
@@ -269,28 +269,28 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	panel->addChild(group);
 
 	S32 yy = 100;
-	group->addRadioButton("Radio1", "Radio 1", LLRect(0, yy, 200, yy-LINE), LLFontGL::sSansSerifSmall);
+	group->addRadioButton(std::string("Radio1"), std::string("Radio 1"), LLRect(0, yy, 200, yy-LINE), LLFontGL::sSansSerifSmall);
 	yy -= LINE;
-	group->addRadioButton("Radio2", "Radio 2", LLRect(0, yy, 200, yy-LINE), LLFontGL::sSansSerifSmall);
+	group->addRadioButton(std::string("Radio2"), std::string("Radio 2"), LLRect(0, yy, 200, yy-LINE), LLFontGL::sSansSerifSmall);
 	yy -= LINE;
-	group->addRadioButton("Radio3", "Radio 3", LLRect(0, yy, 200, yy-LINE), LLFontGL::sSansSerifSmall);
+	group->addRadioButton(std::string("Radio3"), std::string("Radio 3"), LLRect(0, yy, 200, yy-LINE), LLFontGL::sSansSerifSmall);
 	yy -= LINE;
 
 	//-----------------------------------------------------------------------
 	// Second tab container panel
 	//-----------------------------------------------------------------------
-	panel = new LLPanel("second_tab_panel",
+	panel = new LLPanel(std::string("second_tab_panel"),
 		LLRect(0, 400, 400, 0),	// dummy rect
 		TRUE);	// bordered
-	tab->addTabPanel(panel, "Second", 
+	tab->addTabPanel(panel, std::string("Second"), 
 		FALSE,	// select
 		onClickTab, this);
 
 	y = panel->getRect().getHeight() - VPAD;
 
-	btn = new LLButton("Simple Button",
+	btn = new LLButton(std::string("Simple Button"),
 		LLRect(LEFT, y, LEFT+100, y - 20),
-		"",
+		LLStringUtil::null,
 		onClickButton, this);
 	btn->setFollows(FOLLOWS_TOP|FOLLOWS_LEFT);
 	panel->addChild(btn);
@@ -331,7 +331,7 @@ void LLFloaterTestImpl::onCommitCheck(LLUICtrl*, void*)
 void LLFloaterTestImpl::onCommitCombo(LLUICtrl* ctrl, void*)
 {
 	LLComboBox* combo = (LLComboBox*)ctrl;
-	LLString name = combo->getSimple();
+	std::string name = combo->getSimple();
 	LLSD value = combo->getValue();
 	llinfos << "commit combo name " << name << " value " << value.asString() << llendl;
 }

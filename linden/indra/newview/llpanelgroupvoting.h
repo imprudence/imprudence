@@ -52,8 +52,8 @@ public:
 	virtual BOOL isVisibleByAgent(LLAgent* agentp);
 
 	virtual void activate();
-	virtual bool needsApply(LLString& mesg);
-	virtual bool apply(LLString& mesg);
+	virtual bool needsApply(std::string& mesg);
+	virtual bool apply(std::string& mesg);
 	virtual void update(LLGroupChange gc);
 	static  void handleResponse(
 		const LLUUID& group_id,

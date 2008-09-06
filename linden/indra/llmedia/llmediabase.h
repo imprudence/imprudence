@@ -34,25 +34,6 @@
 #ifndef LLMEDIABASE_H
 #define LLMEDIABASE_H
 
-// Per-OS feature switches.
-#if LL_DARWIN
-	#define LL_QUICKTIME_ENABLED		1
-	#define LL_LLMOZLIB_ENABLED			1
-#elif LL_WINDOWS
-	#define LL_QUICKTIME_ENABLED		1
-	#define LL_LLMOZLIB_ENABLED			1
-#elif LL_LINUX
-	#define LL_QUICKTIME_ENABLED		0
-	#ifndef LL_LLMOZLIB_ENABLED
-		#define LL_LLMOZLIB_ENABLED		1
-	#endif // def LL_LLMOZLIB_ENABLED
-#elif LL_SOLARIS
-	#define LL_QUICKTIME_ENABLED		0
-	#ifndef LL_LLMOZLIB_ENABLED
-		#define LL_LLMOZLIB_ENABLED		0
-	#endif // def LL_LLMOZLIB_ENABLED
-#endif
-
 #if LL_LLMOZLIB_ENABLED && !defined ( MOZILLA_INTERNAL_API )
 	// Without this, nsTAString.h errors out with:
 	// "Cannot use internal string classes without MOZILLA_INTERNAL_API defined. Use the frozen header nsStringAPI.h instead."

@@ -32,6 +32,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llfloaterhtmlhelp.h"
+#include "llfloaterhtml.h"
 
 #include "llparcel.h"
 #include "lluictrlfactory.h"
@@ -122,7 +123,7 @@ void LLFloaterMediaBrowser::onLocationChange( const EventType& eventIn )
 	// hitting the refresh button will navigate to same URL, so don't add to address history
 	mCurrentURL = eventIn.getStringValue();
 	std::string::size_type string_start = mCurrentURL.find("://");
-	LLString truncated_url;
+	std::string truncated_url;
 	if ((string_start == std::string::npos) || (1)) // NOTE: this conditional is forced true to disable truncation DEV-9834
 	{
 		truncated_url = mCurrentURL;
@@ -224,10 +225,10 @@ void LLFloaterMediaBrowser::onClickAssign(void* user_data)
 		return;
 	}
 	std::string media_url = self->mAddressCombo->getValue().asString();
-	LLString::trim(media_url);
+	LLStringUtil::trim(media_url);
 
-	parcel->setMediaURL(media_url.c_str());
-	parcel->setMediaType("text/html");
+	parcel->setMediaURL(media_url);
+	parcel->setMediaType(std::string("text/html"));
 
 	// Send current parcel data upstream to server 
 	LLViewerParcelMgr::getInstance()->sendParcelPropertiesUpdate( parcel, true );
@@ -278,8 +279,9 @@ protected:
 	LLButton* mForwardButton;
 	LLButton* mCloseButton;
 	LLTextBox* mStatusText;
-	LLString mStatusTextContents;
-	LLString mCurrentUrl;
+	std::string mStatusTextContents;
+	std::string mCurrentUrl;
+	std::string mSupportUrl;
 };
 
 LLFloaterHtmlHelp* LLFloaterHtmlHelp::sInstance = 0;
@@ -289,10 +291,10 @@ BOOL LLFloaterHtmlHelp::sFloaterOpened = FALSE;
 ////////////////////////////////////////////////////////////////////////////////
 //
 LLFloaterHtmlHelp::LLFloaterHtmlHelp(std::string start_url, std::string title)
-:	LLFloater( "HTML Help" ),
+:	LLFloater( std::string("HTML Help") ),
 	mWebBrowser( 0 ),
-	mStatusTextContents( "" ),
-	mCurrentUrl( "" )
+	mStatusTextContents( LLStringUtil::null ),
+	mCurrentUrl( LLStringUtil::null )
 {
 	sInstance = this;
 		
@@ -302,7 +304,7 @@ LLFloaterHtmlHelp::LLFloaterHtmlHelp(std::string start_url, std::string title)
 	childSetAction("back_btn", onClickBack, this);
 	childSetAction("home_btn", onClickHome, this);
 	childSetAction("forward_btn", onClickForward, this);
-	
+
 	if (!title.empty())
 	{
 		setTitle(title);
@@ -323,7 +325,7 @@ LLFloaterHtmlHelp::LLFloaterHtmlHelp(std::string start_url, std::string title)
 			// if the last page we were at before the client was closed is valid, go there and
 			// override what is in the XML file
 			// (not when the window was closed - it's only ever hidden - not closed)
-			LLString lastPageUrl = gSavedSettings.getString( "HtmlHelpLastPage" );
+			std::string lastPageUrl = gSavedSettings.getString( "HtmlHelpLastPage" );
 			if ( lastPageUrl != "" )
 			{
 				mWebBrowser->navigateTo( lastPageUrl );
@@ -372,67 +374,28 @@ void LLFloaterHtmlHelp::draw()
 //
 void LLFloaterHtmlHelp::show(std::string url, std::string title)
 {
-    gViewerWindow->alertXml("ClickOpenF1Help", onClickF1HelpLoadURL, (void*) NULL);
+	LLFloaterHtml* floater_html = LLFloaterHtml::getInstance();
+	floater_html->setVisible(FALSE);
 
-	// switching this out for the moment - will come back later
-	// want it still to be compiled so not using comments of #if 0
-	if ( false )
+	if(url.empty())
 	{
-		sFloaterOpened = true;
+		url = floater_html->getSupportUrl();
+	}
+	std::string* url_copy = new std::string(url);
 
-		if ( sInstance )
-		{
-			if (sInstance->mWebBrowser)
-			{
-				sInstance->mWebBrowser->navigateTo(url);
-			}
-			sInstance->setVisibleAndFrontmost();
-			return;
-		}
+    gViewerWindow->alertXml("ClickOpenF1Help", onClickF1HelpLoadURL, url_copy);
 
-		LLFloaterHtmlHelp* self = new LLFloaterHtmlHelp(url, title);
-
-		// reposition floater from saved settings
-		LLRect rect = gSavedSettings.getRect( "HtmlHelpRect" );
-		self->reshape( rect.getWidth(), rect.getHeight(), FALSE );
-		self->setRect( rect );
-	};
 }
 
 // static 
 void LLFloaterHtmlHelp::onClickF1HelpLoadURL(S32 option, void* userdata)
 {
-	if (option == 0)
+	std::string* urlp = (std::string*)userdata;
+	if (0 == option)
 	{
-		// choose HELP url based on selected language - default to english language support page
-		LLString lang = LLUI::sConfigGroup->getString("Language");
-
-		// this sucks but there isn't a way to grab an arbitrary string from an XML file
-		// (using llcontroldef strings causes problems if string don't exist)
-		LLString help_url( "http://secondlife.com/support" );
-		if ( lang == "ja" )
-			help_url = "http://help.secondlife.com/jp";
-		else
-		if ( lang == "ko" )
-			help_url = "http://help.secondlife.com/kr";
-		else
-		if ( lang == "pt" )
-			help_url = "http://help.secondlife.com/pt";
-		else
-		if ( lang == "de" )
-			help_url = "http://de.secondlife.com/support";
-		else
-		if ( lang == "es" )
-			help_url = "http://secondlife.com/app/support/index_es.html";
-		else
-		if ( lang == "fr" )
-			help_url = "http://secondlife.com/app/support/index_fr.html";
-		else
-		if ( lang == "zh" )
-			help_url = "http://secondlife.com/app/support/index_zh.html";		
-
-		LLWeb::loadURL( help_url );
-	};
+		LLWeb::loadURL(urlp->c_str());
+	}
+	delete urlp;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -499,7 +462,7 @@ void LLFloaterHtmlHelp::onClickForward( void* data )
 //
 void LLFloaterHtmlHelp::onStatusTextChange( const EventType& eventIn )
 {
-	mStatusTextContents = LLString( eventIn.getStringValue() );
+	mStatusTextContents = std::string( eventIn.getStringValue() );
 
 	childSetText("status_text", mStatusTextContents);
 }
@@ -509,7 +472,7 @@ void LLFloaterHtmlHelp::onStatusTextChange( const EventType& eventIn )
 void LLFloaterHtmlHelp::onLocationChange( const EventType& eventIn )
 {
 	llinfos << "MOZ> Location changed to " << eventIn.getStringValue() << llendl;
-	mCurrentUrl = LLString( eventIn.getStringValue() );
+	mCurrentUrl = std::string( eventIn.getStringValue() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

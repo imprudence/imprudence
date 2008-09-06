@@ -35,8 +35,6 @@
 
 #include "llxfer_file.h"
 
-#include <string>
-
 namespace tut
 {
 	struct llxfer_data
@@ -49,8 +47,8 @@ namespace tut
 	template<> template<>
 	void llxfer_object::test<1>()
 	{
-		// test that he handle an oversized filename correctly.
-		LLString oversized_filename;
+		// test that we handle an oversized filename correctly.
+		std::string oversized_filename;
 		U32 i;
 		for (i=0; i<LL_MAX_PATH*2; ++i) // create oversized filename
 		{
@@ -59,6 +57,6 @@ namespace tut
 
 		LLXfer_File xff(oversized_filename, FALSE, 1);
 		ensure("oversized local_filename nul-terminated",
-		       strnlen(xff.getName(), LL_MAX_PATH) < LL_MAX_PATH);
+		       xff.getFileName().length() < LL_MAX_PATH);
 	}
 }

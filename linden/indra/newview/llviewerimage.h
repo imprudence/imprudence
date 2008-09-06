@@ -182,7 +182,7 @@ protected:
 	/*virtual*/ ~LLViewerImage();
 	
 public:
-	LLViewerImage(const LLString& filename, const LLUUID& id, BOOL usemipmaps = TRUE);
+	LLViewerImage(const std::string& filename, const LLUUID& id, BOOL usemipmaps = TRUE);
 	LLViewerImage(const LLUUID& id, BOOL usemipmaps = TRUE);
 	LLViewerImage(const U32 width, const U32 height, const U8 components, BOOL usemipmaps);
 	LLViewerImage(const LLImageRaw* raw, BOOL usemipmaps);
@@ -226,15 +226,13 @@ public:
 	// Set callbacks to get called when the image gets updated with higher 
 	// resolution versions.
 	void setLoadedCallback(loaded_callback_func cb,
-						   S32 discard_level,
-						   BOOL keep_imageraw,
+						   S32 discard_level, BOOL keep_imageraw, BOOL needs_aux,
 						   void* userdata);
 
 	 // ONLY call from LLViewerImageList
 	BOOL createTexture(S32 usename = 0);
 
 	BOOL needsAux() const							{ return mNeedsAux; }
-	void setNeedsAux(const BOOL needs_aux)			{ mNeedsAux = needs_aux; }
 
 	// setDesiredDiscardLevel is only used by LLViewerImageList
 	void setDesiredDiscardLevel(S32 discard) { mDesiredDiscardLevel = discard; }
@@ -303,7 +301,7 @@ private:
 	void init(bool firstinit);
 
 	// Used to be in LLImageGL
-	LLImageRaw* createRawImage(S8 discard_level = 0, BOOL allocate = FALSE);
+	LLImageRaw* readBackRawImage(S8 discard_level = 0);
 	void destroyRawImage();
 	
 public:
@@ -312,7 +310,7 @@ public:
 
 	S32 mOrigWidth;
 	S32 mOrigHeight;
-	LLString mLocalFileName;
+	std::string mLocalFileName;
 
 	// Data used for calculating required image priority/quality level/decimation
 	mutable F32 mMaxVirtualSize;	// The largest virtual size of the image, in pixels - how much data to we need?
@@ -385,6 +383,8 @@ public:
 	static LLPointer<LLImageGL> sNullImagep; // Null texture for non-textured objects.
 
 	static S32 sImageCount;
+	static S32 sRawCount;
+	static S32 sAuxCount;
 	static LLTimer sEvaluationTimer;
 	static F32 sDesiredDiscardBias;
 	static F32 sDesiredDiscardScale;

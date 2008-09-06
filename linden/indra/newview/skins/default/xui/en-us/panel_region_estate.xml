@@ -75,6 +75,7 @@ regions in the estate.
 	</text>
 	<line_editor bottom_delta="-16" follows="top|left" height="19" left="15" max_length="254"
 	     name="abuse_email_address" width="205" />
+	<string name="email_unsupported">Feature unsupported</string>
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     name="abuse_email_address_help" right="250" width="18" />
 	<button bottom_delta="-26" enabled="false" follows="left|top" height="20" label="Apply"

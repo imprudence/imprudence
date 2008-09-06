@@ -69,7 +69,7 @@ private:
 	static void onSelectName(LLUICtrl* caller, void *data);
 	static void onPickUser(const std::vector<std::string>& names, const std::vector<LLUUID>& ids, void* user_data);
 	static void onClickMuteByName(void*);
-	static void callbackMuteByName(const LLString& text, void*);
+	static void callbackMuteByName(const std::string& text, void*);
 
 private:
 	LLScrollListCtrl*			mMuteList;

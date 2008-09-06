@@ -59,37 +59,37 @@ char gOutFile[1024];		/* Flawfinder: ignore */
 //------------------------------------------------------------------------
 // Status Codes
 //------------------------------------------------------------------------
-char *LLBVHLoader::ST_OK				= "Ok";
-char *LLBVHLoader::ST_EOF				= "Premature end of file.";
-char *LLBVHLoader::ST_NO_CONSTRAINT		= "Can't read constraint definition.";
-char *LLBVHLoader::ST_NO_FILE			= "Can't open BVH file.";
-char *LLBVHLoader::ST_NO_HIER			= "Invalid HIERARCHY header.";
-char *LLBVHLoader::ST_NO_JOINT			= "Can't find ROOT or JOINT.";
-char *LLBVHLoader::ST_NO_NAME			= "Can't get JOINT name.";
-char *LLBVHLoader::ST_NO_OFFSET			= "Can't find OFFSET.";
-char *LLBVHLoader::ST_NO_CHANNELS		= "Can't find CHANNELS.";
-char *LLBVHLoader::ST_NO_ROTATION		= "Can't get rotation order.";
-char *LLBVHLoader::ST_NO_AXIS			= "Can't get rotation axis.";
-char *LLBVHLoader::ST_NO_MOTION			= "Can't find MOTION.";
-char *LLBVHLoader::ST_NO_FRAMES			= "Can't get number of frames.";
-char *LLBVHLoader::ST_NO_FRAME_TIME		= "Can't get frame time.";
-char *LLBVHLoader::ST_NO_POS			= "Can't get position values.";
-char *LLBVHLoader::ST_NO_ROT			= "Can't get rotation values.";
-char *LLBVHLoader::ST_NO_XLT_FILE		= "Can't open translation file.";
-char *LLBVHLoader::ST_NO_XLT_HEADER		= "Can't read translation header.";
-char *LLBVHLoader::ST_NO_XLT_NAME		= "Can't read translation names.";
-char *LLBVHLoader::ST_NO_XLT_IGNORE		= "Can't read translation ignore value.";
-char *LLBVHLoader::ST_NO_XLT_RELATIVE	= "Can't read translation relative value.";
-char *LLBVHLoader::ST_NO_XLT_OUTNAME	= "Can't read translation outname value.";
-char *LLBVHLoader::ST_NO_XLT_MATRIX		= "Can't read translation matrix.";
-char *LLBVHLoader::ST_NO_XLT_MERGECHILD = "Can't get mergechild name.";
-char *LLBVHLoader::ST_NO_XLT_MERGEPARENT = "Can't get mergeparent name.";
-char *LLBVHLoader::ST_NO_XLT_PRIORITY	= "Can't get priority value.";
-char *LLBVHLoader::ST_NO_XLT_LOOP		= "Can't get loop value.";
-char *LLBVHLoader::ST_NO_XLT_EASEIN		= "Can't get easeIn values.";
-char *LLBVHLoader::ST_NO_XLT_EASEOUT	= "Can't get easeOut values.";
-char *LLBVHLoader::ST_NO_XLT_HAND		= "Can't get hand morph value.";
-char *LLBVHLoader::ST_NO_XLT_EMOTE		= "Can't read emote name.";
+const char *LLBVHLoader::ST_OK				= "Ok";
+const char *LLBVHLoader::ST_EOF				= "Premature end of file.";
+const char *LLBVHLoader::ST_NO_CONSTRAINT		= "Can't read constraint definition.";
+const char *LLBVHLoader::ST_NO_FILE			= "Can't open BVH file.";
+const char *LLBVHLoader::ST_NO_HIER			= "Invalid HIERARCHY header.";
+const char *LLBVHLoader::ST_NO_JOINT			= "Can't find ROOT or JOINT.";
+const char *LLBVHLoader::ST_NO_NAME			= "Can't get JOINT name.";
+const char *LLBVHLoader::ST_NO_OFFSET			= "Can't find OFFSET.";
+const char *LLBVHLoader::ST_NO_CHANNELS		= "Can't find CHANNELS.";
+const char *LLBVHLoader::ST_NO_ROTATION		= "Can't get rotation order.";
+const char *LLBVHLoader::ST_NO_AXIS			= "Can't get rotation axis.";
+const char *LLBVHLoader::ST_NO_MOTION			= "Can't find MOTION.";
+const char *LLBVHLoader::ST_NO_FRAMES			= "Can't get number of frames.";
+const char *LLBVHLoader::ST_NO_FRAME_TIME		= "Can't get frame time.";
+const char *LLBVHLoader::ST_NO_POS			= "Can't get position values.";
+const char *LLBVHLoader::ST_NO_ROT			= "Can't get rotation values.";
+const char *LLBVHLoader::ST_NO_XLT_FILE		= "Can't open translation file.";
+const char *LLBVHLoader::ST_NO_XLT_HEADER		= "Can't read translation header.";
+const char *LLBVHLoader::ST_NO_XLT_NAME		= "Can't read translation names.";
+const char *LLBVHLoader::ST_NO_XLT_IGNORE		= "Can't read translation ignore value.";
+const char *LLBVHLoader::ST_NO_XLT_RELATIVE	= "Can't read translation relative value.";
+const char *LLBVHLoader::ST_NO_XLT_OUTNAME	= "Can't read translation outname value.";
+const char *LLBVHLoader::ST_NO_XLT_MATRIX		= "Can't read translation matrix.";
+const char *LLBVHLoader::ST_NO_XLT_MERGECHILD = "Can't get mergechild name.";
+const char *LLBVHLoader::ST_NO_XLT_MERGEPARENT = "Can't get mergeparent name.";
+const char *LLBVHLoader::ST_NO_XLT_PRIORITY	= "Can't get priority value.";
+const char *LLBVHLoader::ST_NO_XLT_LOOP		= "Can't get loop value.";
+const char *LLBVHLoader::ST_NO_XLT_EASEIN		= "Can't get easeIn values.";
+const char *LLBVHLoader::ST_NO_XLT_EASEOUT	= "Can't get easeOut values.";
+const char *LLBVHLoader::ST_NO_XLT_HAND		= "Can't get hand morph value.";
+const char *LLBVHLoader::ST_NO_XLT_EMOTE		= "Can't read emote name.";
 
 //------------------------------------------------------------------------
 // find_next_whitespace()
@@ -175,11 +175,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 	//--------------------------------------------------------------------
 	// open file
 	//--------------------------------------------------------------------
-	char path[LL_MAX_PATH];		/* Flawfinder: ignore */
-
-	snprintf( path, sizeof(path), "%s",	/* Flawfinder: ignore */
-		gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,fileName).c_str());	
-
+	std::string path = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,fileName);
 
 	apr_file_t *fp = ll_apr_file_open(path, LL_APR_R);
 	if (!fp)
@@ -243,7 +239,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for optional emote 
 		//----------------------------------------------------------------
-		if (loadingGlobals && LLString::compareInsensitive(token, "emote")==0)
+		if (loadingGlobals && LLStringUtil::compareInsensitive(token, "emote")==0)
 		{
 			char emote_str[1024];	/* Flawfinder: ignore */
 			if ( sscanf(mLine, " %*s = %1023s", emote_str) != 1 )	/* Flawfinder: ignore */
@@ -258,7 +254,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for global priority setting
 		//----------------------------------------------------------------
-		if (loadingGlobals && LLString::compareInsensitive(token, "priority")==0)
+		if (loadingGlobals && LLStringUtil::compareInsensitive(token, "priority")==0)
 		{
 			S32 priority;
 			if ( sscanf(mLine, " %*s = %d", &priority) != 1 )
@@ -272,7 +268,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for global loop setting
 		//----------------------------------------------------------------
-		if (loadingGlobals && LLString::compareInsensitive(token, "loop")==0)
+		if (loadingGlobals && LLStringUtil::compareInsensitive(token, "loop")==0)
 		{
 			char trueFalse[128];		/* Flawfinder: ignore */
 			trueFalse[0] = '\0';
@@ -286,7 +282,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 			}
 			else if ( sscanf(mLine, " %*s = %127s", trueFalse) == 1 )	/* Flawfinder: ignore */	
 			{
-				mLoop = (LLString::compareInsensitive(trueFalse, "true")==0);
+				mLoop = (LLStringUtil::compareInsensitive(trueFalse, "true")==0);
 			}
 			else
 			{
@@ -302,7 +298,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for global easeIn setting
 		//----------------------------------------------------------------
-		if (loadingGlobals && LLString::compareInsensitive(token, "easein")==0)
+		if (loadingGlobals && LLStringUtil::compareInsensitive(token, "easein")==0)
 		{
 			F32 duration;
 			char type[128];	/* Flawfinder: ignore */
@@ -316,7 +312,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for global easeOut setting
 		//----------------------------------------------------------------
-		if (loadingGlobals && LLString::compareInsensitive(token, "easeout")==0)
+		if (loadingGlobals && LLStringUtil::compareInsensitive(token, "easeout")==0)
 		{
 			F32 duration;
 			char type[128];		/* Flawfinder: ignore */
@@ -330,7 +326,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for global handMorph setting
 		//----------------------------------------------------------------
-		if (loadingGlobals && LLString::compareInsensitive(token, "hand")==0)
+		if (loadingGlobals && LLStringUtil::compareInsensitive(token, "hand")==0)
 		{
 			S32 handMorph;
 			if (sscanf(mLine, " %*s = %d", &handMorph) != 1)
@@ -340,7 +336,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 			continue;
 		}
 
-		if (loadingGlobals && LLString::compareInsensitive(token, "constraint")==0)
+		if (loadingGlobals && LLStringUtil::compareInsensitive(token, "constraint")==0)
 		{
 			Constraint constraint;
 
@@ -400,7 +396,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 			continue;
 		}
 
-		if (loadingGlobals && LLString::compareInsensitive(token, "planar_constraint")==0)
+		if (loadingGlobals && LLStringUtil::compareInsensitive(token, "planar_constraint")==0)
 		{
 			Constraint constraint;
 
@@ -470,20 +466,20 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for ignore flag
 		//----------------------------------------------------------------
-		if ( LLString::compareInsensitive(token, "ignore")==0 )
+		if ( LLStringUtil::compareInsensitive(token, "ignore")==0 )
 		{
 			char trueFalse[128];	/* Flawfinder: ignore */
 			if ( sscanf(mLine, " %*s = %127s", trueFalse) != 1 )	/* Flawfinder: ignore */
 				return ST_NO_XLT_IGNORE;
 
-			trans->mIgnore = (LLString::compareInsensitive(trueFalse, "true")==0);
+			trans->mIgnore = (LLStringUtil::compareInsensitive(trueFalse, "true")==0);
 			continue;
 		}
 
 		//----------------------------------------------------------------
 		// check for relativepos flag
 		//----------------------------------------------------------------
-		if ( LLString::compareInsensitive(token, "relativepos")==0 )
+		if ( LLStringUtil::compareInsensitive(token, "relativepos")==0 )
 		{
 			F32 x, y, z;
 			char relpos[128];	/* Flawfinder: ignore */
@@ -493,7 +489,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 			}
 			else if ( sscanf(mLine, " %*s = %127s", relpos) == 1 )	/* Flawfinder: ignore */
 			{
-				if ( LLString::compareInsensitive(relpos, "firstkey")==0 )
+				if ( LLStringUtil::compareInsensitive(relpos, "firstkey")==0 )
 				{
 					trans->mRelativePositionKey = TRUE;
 				}
@@ -513,13 +509,13 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for relativerot flag
 		//----------------------------------------------------------------
-		if ( LLString::compareInsensitive(token, "relativerot")==0 )
+		if ( LLStringUtil::compareInsensitive(token, "relativerot")==0 )
 		{
 			//F32 x, y, z;
 			char relpos[128];	/* Flawfinder: ignore */
 			if ( sscanf(mLine, " %*s = %127s", relpos) == 1 )	/* Flawfinder: ignore */
 			{
-				if ( LLString::compareInsensitive(relpos, "firstkey")==0 )
+				if ( LLStringUtil::compareInsensitive(relpos, "firstkey")==0 )
 				{
 					trans->mRelativeRotationKey = TRUE;
 				}
@@ -539,7 +535,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for outname value
 		//----------------------------------------------------------------
-		if ( LLString::compareInsensitive(token, "outname")==0 )
+		if ( LLStringUtil::compareInsensitive(token, "outname")==0 )
 		{
 			char outName[128];	/* Flawfinder: ignore */
 			if ( sscanf(mLine, " %*s = %127s", outName) != 1 )	/* Flawfinder: ignore */
@@ -552,7 +548,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for frame matrix value
 		//----------------------------------------------------------------
-		if ( LLString::compareInsensitive(token, "frame")==0 )
+		if ( LLStringUtil::compareInsensitive(token, "frame")==0 )
 		{
 			LLMatrix3 fm;
 			if ( sscanf(mLine, " %*s = %f %f %f, %f %f %f, %f %f %f",
@@ -568,7 +564,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for offset matrix value
 		//----------------------------------------------------------------
-		if ( LLString::compareInsensitive(token, "offset")==0 )
+		if ( LLStringUtil::compareInsensitive(token, "offset")==0 )
 		{
 			LLMatrix3 om;
 			if ( sscanf(mLine, " %*s = %f %f %f, %f %f %f, %f %f %f",
@@ -584,7 +580,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for mergeparent value
 		//----------------------------------------------------------------
-		if ( LLString::compareInsensitive(token, "mergeparent")==0 )
+		if ( LLStringUtil::compareInsensitive(token, "mergeparent")==0 )
 		{
 			char mergeParentName[128];	/* Flawfinder: ignore */
 			if ( sscanf(mLine, " %*s = %127s", mergeParentName) != 1 )	/* Flawfinder: ignore */
@@ -597,7 +593,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for mergechild value
 		//----------------------------------------------------------------
-		if ( LLString::compareInsensitive(token, "mergechild")==0 )
+		if ( LLStringUtil::compareInsensitive(token, "mergechild")==0 )
 		{
 			char mergeChildName[128];	/* Flawfinder: ignore */
 			if ( sscanf(mLine, " %*s = %127s", mergeChildName) != 1 )	/* Flawfinder: ignore */
@@ -610,7 +606,7 @@ LLBVHLoader::Status LLBVHLoader::loadTranslationTable(const char *fileName)
 		//----------------------------------------------------------------
 		// check for per-joint priority
 		//----------------------------------------------------------------
-		if ( LLString::compareInsensitive(token, "priority")==0 )
+		if ( LLStringUtil::compareInsensitive(token, "priority")==0 )
 		{
 			S32 priority;
 			if ( sscanf(mLine, " %*s = %d", &priority) != 1 )
@@ -1304,7 +1300,7 @@ BOOL LLBVHLoader::serialize(LLDataPacker& dp)
 	dp.packU16(KEYFRAME_MOTION_SUBVERSION, "sub_version");
 	dp.packS32(mPriority, "base_priority");
 	dp.packF32(mDuration, "duration");
-	dp.packString(mEmoteName.c_str(), "emote_name");
+	dp.packString(mEmoteName, "emote_name");
 	dp.packF32(mLoopInPoint, "loop_in_point");
 	dp.packF32(mLoopOutPoint, "loop_out_point");
 	dp.packS32(mLoop, "loop");
@@ -1325,7 +1321,7 @@ BOOL LLBVHLoader::serialize(LLDataPacker& dp)
 		LLQuaternion first_frame_rot;
 		LLQuaternion fixup_rot;
 
-		dp.packString(joint->mOutName.c_str(), "joint_name");
+		dp.packString(joint->mOutName, "joint_name");
 		dp.packS32(joint->mPriority, "joint_priority");
 
 		// compute coordinate frame rotation

@@ -36,6 +36,11 @@
 #include "llnamevalue.h"
 #include "llsdserialize.h"
 
+#if LL_WINDOWS
+// disable unreachable code warnings
+#pragma warning(disable: 4702)
+#endif
+
 namespace tut
 {
 	struct namevalue_test

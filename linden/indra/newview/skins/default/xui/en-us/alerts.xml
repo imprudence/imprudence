@@ -367,9 +367,9 @@ according to the Community Standards.
 	</alert>
 	<alert modal="true" name="ClickPublishHelpAvatar">
 		<message name="message">
-			Selecting &quot;Show in Search&quot; will show:
-			- my profile in search results
-			- a link to my profile in public group pages
+Selecting &quot;Show in Search&quot; will show:
+- my profile in search results
+- a link to my profile in public group pages
 		</message>
 	</alert>
 	<alert modal="true" name="ClickPartnerHelpAvatar">
@@ -387,12 +387,13 @@ Go to the Second Life web site for more information on partnering?
 	</alert>
 	<alert modal="true" name="ClickWebProfileHelpAvatar">
 		<message name="message">
-			If this resident has a web profile URL set then you can:
- * Click Load to load the page with the embedded web browser.
- * Click Open to view externally in your default web browser.
+			If this resident has set a web profile URL then you can:
+ * Click "Load" to load the page with the embedded web browser.
+ * Click Load->"Open in external browser" to view externally.
+ * Click Load->"Home URL" to return to resident's web profile if you've navigated away.
  
-When viewing your profile you can enter any URL as your Web Profile.
-Residents can visit the URL you specify when they view your profile.
+When viewing your own profile you can enter any URL as your web profile and click OK to set it.
+Other residents can visit the URL you set when they view your profile.
 		</message>
 	</alert>
 	<alert modal="true" name="ClickWebProfileNoWebHelpAvatar">
@@ -674,7 +675,7 @@ to set its Landing Point.
 	</alert>
 	<alert modal="true" name="PromptMissingSubjMsg">
 		<message name="message">
-			Send postcard with the default subject or message?
+			Email snapshot with the default subject or message?
 		</message>
 		<option name="OK">
 			OK
@@ -695,7 +696,7 @@ to set its Landing Point.
 	</alert>
 	<alert modal="true" name="ErrorUploadingPostcard">
 		<message name="message">
-			There was a problem uploading a postcard due to the following reason: [REASON]
+			There was a problem sending a snapshot due to the following reason: [REASON]
 		</message>
 	</alert>
 	<alert modal="true" name="ErrorUploadingReportScreenshot">
@@ -734,14 +735,16 @@ The outfit folder contains no clothing, body parts, or attachments.
 	</alert>
 	<alert modal="true" name="MustHaveAccountToLogIn">
 		<message name="message">
-			You must have an account to connect to [SECOND_LIFE].
-Go to www.secondlife.com to create an account?
-		</message>
+Oops! Something was left blank.
+You need to enter both the First and Last name of your avatar.
+
+You need an account to enter [SECOND_LIFE]. Would you like to create one now?
+</message>
 		<option name="OK">
-			OK
+			Create a new account
 		</option>
 		<option name="Cancel">
-			Cancel
+			Try again
 		</option>
 	</alert>
 	<alert modal="true" name="AddClassified">
@@ -849,7 +852,7 @@ Apply those changes and quit?
 	</alert>
 	<alert modal="true" name="ResetShowNextTimeDialogs">
 		<message name="message">
-			Reset all &apos;Show next time&apos; dialogs?
+			Would you like to re-enable all these popups, which you previously indicated &apos;Don&apos;t show me again&apos;?
 		</message>
 		<option name="OK">
 			OK
@@ -860,7 +863,7 @@ Apply those changes and quit?
 	</alert>
 	<alert modal="true" name="SkipShowNextTimeDialogs">
 		<message name="message">
-			Disable all &apos;Show next time&apos; dialogs?
+			Would you like to disable all popups which can be skipped?
 		</message>
 		<option name="OK">
 			OK
@@ -1344,7 +1347,7 @@ Do you really want to give these items?
 	<alert modal="true" name="CannotGiveCategory">
 		<message name="message">
 			You do not have permission to transfer
-			the selected folder.
+the selected folder.
 		</message>
 	</alert>
 	<alert modal="true" name="FreezeAvatar">
@@ -1781,7 +1784,7 @@ No parcel selected.
 	<alert modal="true" name="CannotBuyLandNoRegion">
 		<message name="message">
 			Unable to buy land:
-			Cannot find the region this land is in.
+Cannot find the region this land is in.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotCloseFloaterBuyLand">
@@ -2079,15 +2082,12 @@ www.secondlife.com/support.
 	</alert>
 	<alert modal="true" name="YouHaveBeenLoggedOut">
 		<message name="message">
-			You have been logged out of [SECOND_LIFE]:
-[MESSAGE]
-
-Click Continue to look at existing IM and chat.
-You will not be able to perform any other operations.
-Click Quit to exit [SECOND_LIFE] immediately.
-		</message>
-		<option name="Continue">
-			Continue
+You have been logged out of [SECOND_LIFE]:
+            [MESSAGE]
+You can still look at existing IM and chat by clicking 'View IM &amp; Chat'. Otherwise, click 'Quit' to exit [SECOND_LIFE] immediately.
+    </message>
+    <option name="Continue">
+			View IM &amp; Chat
 		</option>
 		<option name="Quit">
 			Quit
@@ -2101,12 +2101,14 @@ You do not have permission to buy land for your active group.
 	</alert>
 	<alert modal="true" name="AddFriend" title="Add Friend">
 		<message name="message">
-			Friends can give permissions to 
-track each other on the map and 
-receive online status updates. 
+			Friends can give permissions to track each 
+other on the map and receive online status updates. 
 
 Offer friendship to [NAME]?
 		</message>
+		<editline name="editline">
+			Would you be my friend?
+		</editline>
 		<option name="Offer">
 			OK
 		</option>
@@ -2593,24 +2595,10 @@ Please select only one object and try again.
 			Cancel
 		</option>
 	</alert>
-	<alert modal="true" name="ReturnScriptedOnOthersLand">
+	<alert modal="true" name="EstateObjectReturn">
 		<message name="message">
-			Are you sure you want to return all scripted objects owned by
-** [USER_NAME] **
-on all land in this region they do not own?
-		</message>
-		<option name="Return">
-			OK
-		</option>
-		<option default="true" name="Cancel">
-			Cancel
-		</option>
-	</alert>
-	<alert modal="true" name="ReturnScriptedOnAllLand">
-		<message name="message">
-			Are you sure you want to return ALL scripted objects owned by
-** [USER_NAME] **
-on ALL LAND in this region?
+			Are you sure you want to return objects owned by
+[USER_NAME] ?
 		</message>
 		<option name="Return">
 			OK
@@ -2984,20 +2972,6 @@ Download to your Applications folder?
 			Cancel
 		</option>
 	</alert>
-	<alert modal="true" name="WebLaunchReleaseNotes">
-		<message name="message">
-			View the [SECOND_LIFE] Release Notes?
-		</message>
-		<ignore name="ignore">
-			When launching web browser to view the Release Notes
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
 	<alert modal="true" name="ReturnToOwner">
 		<message name="message">
 			Are you sure you want to return the selected
@@ -3195,7 +3169,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			Kick this user with what message?
 		</message>
-		<editline>
+		<editline name="editline">
 			An administrator has logged you off.
 		</editline>
 		<option name="OK">
@@ -3209,7 +3183,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			Kick everyone currently on the grid with what message?
 		</message>
-		<editline>
+		<editline name="editline">
 			An administrator has logged you off.
 		</editline>
 		<option name="OK">
@@ -3223,7 +3197,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			Freeze this user with what message?
 		</message>
-		<editline>
+		<editline name="editline">
 			You have been frozen. You cannot move or chat. An administrator will contact you via instant message (IM).
 		</editline>
 		<option name="OK">
@@ -3237,7 +3211,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			Unfreeze this user with what message?
 		</message>
-		<editline>
+		<editline name="editline">
 			You are no longer frozen.
 		</editline>
 		<option name="OK">
@@ -3263,7 +3237,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			Offer a teleport to your location with the following message?
 		</message>
-		<editline>
+		<editline name="editline">
 			Join me in [REGION]
 		</editline>
 		<option name="OK">
@@ -3277,7 +3251,7 @@ from the &apos;Edit&apos; menu.
 		<message name="message">
 			God summon user to your location?
 		</message>
-		<editline>
+		<editline name="editline">
 			Join me in [REGION]
 		</editline>
 		<option name="OK">
@@ -3306,7 +3280,7 @@ from the &apos;Edit&apos; menu.
 			Type a short announcement which will be
 sent to everyone currently in your estate.
 		</message>
-		<editline />
+		<editline name="editline" />
 		<option name="OK">
 			OK
 		</option>
@@ -3597,7 +3571,7 @@ Does this group contain Mature content?
 			Type a short announcement which will be
 sent to everyone in this region.
 		</message>
-		<editline />
+		<editline name="editline" />
 		<option name="OK">
 			OK
 		</option>
@@ -4385,19 +4359,18 @@ Entering an accurate description helps us file and process bug reports.
 	<alert modal="true" name="HelpReportAbuseContainsCopyright">
 		<message name="message">
 			Dear Resident,
- 
-Reports about copyright infringement can only be submitted
-as described at http://secondlife.com/corporate/dmca.php.
 
-Reports concerning copyright infringement will automatically
-be discarded if they are submitted through the &apos;Abuse Report&apos;
-feature. If your report does not relate to copyright infringement,
-you may close this window and finish submitting your report.
- 
+If you are reporting intellectual property infringement, please make sure you are reporting it correctly:
+
+(1) The Abuse Process. You may submit an abuse report if you believe a Resident is exploiting the Second Life permissions system, for example, by using CopyBot or similar copying tools, to infringe intellectual property rights. The Abuse Team investigates and issues appropriate disciplinary action for behavior that violates the Second Life Community Standards or Terms of Service. However, the Abuse Team does not handle and will not respond to requests to remove content from the Second Life world.
+
+(2) The DMCA or Content Removal Process. To request removal of content from Second Life, you must submit a valid notification of infringement as provided in our DMCA Policy at http://secondlife.com/corporate/dmca.php.
+
+If you still wish to continue with the abuse process, please close this window and finish submitting your report.
+
 Thank you,
- 
-Linden Lab
-		</message>
+
+Linden Lab</message>
 	</alert>
 	<alert modal="true" name="FailedRequirementsCheck">
 		<message name="message">
@@ -4467,8 +4440,7 @@ the contents of your Trash folder?
 	</alert>
 	<alert modal="true" name="ConfirmClearCookies">
 		<message name="message">
-			Are you sure you want to clear 
-your cookies?
+			Are you sure you want to clear your cookies?
 		</message>
 		<option default="true" name="Yes">
 			Yes
@@ -4829,7 +4801,7 @@ with the the D slider.
 		<message name="message">
 			Give me a name for the new sky.
 		</message>
-		<editline>
+		<editline name="editline">
 			New Preset
 		</editline>
 		<option name="OK">
@@ -4848,7 +4820,7 @@ with the the D slider.
 		<message name="message">
 			Give me a name for the new water preset.
 		</message>
-		<editline>
+		<editline name="editline">
 			New Preset
 		</editline>
 		<option name="OK">
@@ -4907,7 +4879,7 @@ with the the D slider.
 	<alert modal="true" name="Cannot_Purchase_an_Attachment">
 		<message name="message">
 			Items may not be purchased while
-			they are part of an attachment.
+they are part of an attachment.
 		</message>
 	</alert>
 	<alert modal="true" name="DebitPermissionDetails"

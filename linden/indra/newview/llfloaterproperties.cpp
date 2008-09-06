@@ -346,7 +346,7 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 	////////////////
 	if(perm.isOwned())
 	{
-		LLString name;
+		std::string name;
 		if (perm.isGroupOwned())
 		{
 			gCacheName->getGroupName(perm.getGroup(), name);
@@ -373,14 +373,14 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 	//////////////////
 
 	// *TODO: Localize / translate this
-	time_t time_utc = (time_t)item->getCreationDate();
+	time_t time_utc = item->getCreationDate();
 	if (0 == time_utc)
 	{
 		childSetText("LabelAcquiredDate",getString("unknown"));
 	}
 	else
 	{
-		childSetText("LabelAcquiredDate", LLString(ctime(&time_utc)) );
+		childSetText("LabelAcquiredDate", std::string(ctime(&time_utc)) );
 	}
 
 	///////////////////////
@@ -942,7 +942,7 @@ void LLFloaterProperties::closeByID(const LLUUID& item_id, const LLUUID &object_
 /// LLMultiProperties
 ///----------------------------------------------------------------------------
 
-LLMultiProperties::LLMultiProperties(const LLRect &rect) : LLMultiFloater("Properties", rect)
+LLMultiProperties::LLMultiProperties(const LLRect &rect) : LLMultiFloater(std::string("Properties"), rect)
 {
 }
 

@@ -71,6 +71,15 @@ static F32 MAX_CONSTRAINTS = 10;
 // JointMotionList
 //-----------------------------------------------------------------------------
 LLKeyframeMotion::JointMotionList::JointMotionList()
+	: mDuration(0.f),
+	  mLoop(FALSE),
+	  mLoopInPoint(0.f),
+	  mLoopOutPoint(0.f),
+	  mEaseInDuration(0.f),
+	  mEaseOutDuration(0.f),
+	  mBasePriority(LLJoint::LOW_PRIORITY),
+	  mHandPose(LLHandMotion::HAND_POSE_SPREAD),
+	  mMaxPriority(LLJoint::LOW_PRIORITY)
 {
 }
 
@@ -646,9 +655,9 @@ BOOL LLKeyframeMotion::setupPose()
 BOOL LLKeyframeMotion::onActivate()
 {
 	// If the keyframe anim has an associated emote, trigger it. 
-	if( mEmoteName.length() > 0 )
+	if( mJointMotionList->mEmoteName.length() > 0 )
 	{
-		mCharacter->startMotion( gAnimLibrary.stringToAnimState(mEmoteName.c_str()) );
+		mCharacter->startMotion( gAnimLibrary.stringToAnimState(mJointMotionList->mEmoteName) );
 	}
 
 	mLastLoopedTime = 0.f;
@@ -1221,7 +1230,7 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 	//-------------------------------------------------------------------------
 	// get emote (optional)
 	//-------------------------------------------------------------------------
-	if (!dp.unpackString(mEmoteName, "emote_name"))
+	if (!dp.unpackString(mJointMotionList->mEmoteName, "emote_name"))
 	{
 		llwarns << "can't read optional_emote_animation" << llendl;
 		return FALSE;
@@ -1663,7 +1672,7 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 				if (!parent)
 				{
 					llwarns << "Joint with no parent: " << joint->getName()
-							<< " Emote: " << mEmoteName << llendl;
+							<< " Emote: " << mJointMotionList->mEmoteName << llendl;
 					return FALSE;
 				}
 				joint = parent;
@@ -1701,7 +1710,7 @@ BOOL LLKeyframeMotion::serialize(LLDataPacker& dp) const
 	success &= dp.packU16(KEYFRAME_MOTION_SUBVERSION, "sub_version");
 	success &= dp.packS32(mJointMotionList->mBasePriority, "base_priority");
 	success &= dp.packF32(mJointMotionList->mDuration, "duration");
-	success &= dp.packString(mEmoteName.c_str(), "emote_name");
+	success &= dp.packString(mJointMotionList->mEmoteName, "emote_name");
 	success &= dp.packF32(mJointMotionList->mLoopInPoint, "loop_in_point");
 	success &= dp.packF32(mJointMotionList->mLoopOutPoint, "loop_out_point");
 	success &= dp.packS32(mJointMotionList->mLoop, "loop");
@@ -1713,7 +1722,7 @@ BOOL LLKeyframeMotion::serialize(LLDataPacker& dp) const
 	for (U32 i = 0; i < mJointMotionList->getNumJointMotions(); i++)
 	{
 		JointMotion* joint_motionp = mJointMotionList->getJointMotion(i);
-		success &= dp.packString(joint_motionp->mJointName.c_str(), "joint_name");
+		success &= dp.packString(joint_motionp->mJointName, "joint_name");
 		success &= dp.packS32(joint_motionp->mPriority, "joint_priority");
 		success &= dp.packS32(joint_motionp->mRotationCurve.mNumKeys, "num_rot_keys");
 
@@ -1839,11 +1848,11 @@ void LLKeyframeMotion::setEmote(const LLUUID& emote_id)
 	const char* emote_name = gAnimLibrary.animStateToString(emote_id);
 	if (emote_name)
 	{
-		mEmoteName = emote_name;
+		mJointMotionList->mEmoteName = emote_name;
 	}
 	else
 	{
-		mEmoteName = "";
+		mJointMotionList->mEmoteName = "";
 	}
 }
 
@@ -2114,11 +2123,19 @@ void LLKeyframeDataCache::clear()
 //-----------------------------------------------------------------------------
 LLKeyframeMotion::JointConstraint::JointConstraint(JointConstraintSharedData* shared_data) : mSharedData(shared_data) 
 {
+	mWeight = 0.f;
 	mTotalLength = 0.f;
 	mActive = FALSE;
 	mSourceVolume = NULL;
 	mTargetVolume = NULL;
 	mFixupDistanceRMS = 0.f;
+
+	int i;
+	for (i=0; i<MAX_CHAIN_LENGTH; ++i)
+	{
+		mJointLengths[i] = 0.f;
+		mJointLengthFractions[i] = 0.f;
+	}
 }
 
 //-----------------------------------------------------------------------------

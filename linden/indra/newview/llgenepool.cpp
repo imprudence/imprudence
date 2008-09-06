@@ -60,10 +60,9 @@ LLGenePool::~LLGenePool()
 
 BOOL LLGenePool::load()
 {
-	char filename[MAX_PATH]; /*Flawfinder: ignore*/
+	std::string filename;
 
-	strncpy(filename,gDirUtilp->getExpandedFilename(LL_PATH_CHARACTER,"genepool.xml").c_str(), sizeof(filename) -1);		/*Flawfinder: ignore*/	
-        filename[sizeof(filename) -1] = '\0';
+	filename = gDirUtilp->getExpandedFilename(LL_PATH_CHARACTER,"genepool.xml");
 	if( mLoaded )
 	{
 		return TRUE;
@@ -91,7 +90,7 @@ BOOL LLGenePool::load()
 		return FALSE;
 	}
 
-	LLString version;
+	std::string version;
 	static LLStdStringHandle version_string = LLXmlTree::addAttributeString("version");
 	if( !root->getFastAttributeString( version_string, version ) || (version != "1.0") )
 	{

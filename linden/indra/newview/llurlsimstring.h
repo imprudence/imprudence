@@ -39,7 +39,7 @@ class LLURLSimString
 public:
 	enum { NOT_SET=0, NOT_PARSED=1, PARSE_OK=2, PARSE_FAIL=-1 };
 
-	static void setString(const LLString& url);
+	static void setString(const std::string& url);
 		// Accepts all sorts of fragments:
 		//   secondlife://RegionName/1/2/
 		//   sl://RegionName/1/2/3/
@@ -51,7 +51,7 @@ public:
 		// (and it parsed correctly, which is basically always because
 		// any bare region string is a valid fragment).
 
-	static bool parse(const LLString& sim_string, std::string *region_name, S32 *x, S32 *y, S32 *z);
+	static bool parse(const std::string& sim_string, std::string *region_name, S32 *x, S32 *y, S32 *z);
 		// Parse a sim string "Ahern/1/2" and return location data,
 		// doesn't affect static instance.
 
@@ -64,16 +64,18 @@ public:
 	LLURLSimString() : mX(128), mY(128), mZ(0), mParseState(NOT_PARSED) {}
 
 private:
-	static S32 parseGridIdx(const LLString& in_string, S32 idx0, S32* res);
+	static std::string::size_type parseGridIdx(const std::string& in_string,
+											   std::string::size_type idx0,
+											   std::string::size_type* res);
 
 public:
 	static LLURLSimString sInstance;
-	static LLString sLocationStringHome;
-	static LLString sLocationStringLast;
+	static std::string sLocationStringHome;
+	static std::string sLocationStringLast;
 
 public:
-	LLString mSimString; // "name/x/y/z"
-	LLString mSimName;
+	std::string mSimString; // "name/x/y/z"
+	std::string mSimName;
 	S32 mX,mY,mZ;
 	S32 mParseState;
 };

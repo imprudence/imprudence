@@ -36,9 +36,12 @@
 #include "llmediaimplexample2.h"
 #include "llmediaimplquicktime.h"
 #include "llmediaimplgstreamer.h"
-#include "llmediaimplllmozlib.h"
+#if LL_LLMOZLIB_ENABLED
+# include "llmediaimplllmozlib.h"
+#endif
 
 LLMediaManager* LLMediaManager::sInstance = 0;
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // (private)
@@ -49,6 +52,20 @@ LLMediaManager::LLMediaManager()
 ////////////////////////////////////////////////////////////////////////////////
 LLMediaManager::~LLMediaManager()
 {
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Early initialization for web browser for the viewer, so we can show
+// the login screen and defer initialization of QuickTime, etc. JC
+// (static)
+void LLMediaManager::initBrowser( LLMediaManagerData* init_data )
+{
+	if ( ! sInstance )
+		sInstance = new LLMediaManager();
+
+#if LL_LLMOZLIB_ENABLED
+	LLMediaImplLLMozLib::startup( init_data );
+#endif // LL_LLMOZLIB_ENABLED
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,10 +90,6 @@ void LLMediaManager::initClass( LLMediaManagerData* init_data )
 #if LL_GSTREAMER_ENABLED
 	LLMediaImplGStreamer::startup( init_data );
 #endif // LL_GSTREAMER_ENABLED
-
-#if LL_LLMOZLIB_ENABLED
-	LLMediaImplLLMozLib::startup( init_data );
-#endif // LL_LLMOZLIB_ENABLED
 }
 
 ////////////////////////////////////////////////////////////////////////////////

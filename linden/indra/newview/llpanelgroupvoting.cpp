@@ -72,7 +72,7 @@ public:
 
 	void sendGroupProposalsRequest(const LLUUID& group_id);
 	void sendStartGroupProposal();
-	void sendGroupProposalBallot(const char* vote);
+	void sendGroupProposalBallot(const std::string& vote);
 	void sendGroupVoteHistoryRequest(const LLUUID& group_id);
 
 	void setEnableCreateProposal();
@@ -307,7 +307,7 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		}
 		else
 		{	// Something's wrong... should have some text
-			mProposalText->setText(LLString());
+			mProposalText->setText(LLStringUtil::null);
 		}
 
 		proposal_cell = item->getColumn(2);
@@ -318,7 +318,7 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		}
 		else
 		{	// Something's wrong... should have some text
-			mEndDate->setText(LLString());
+			mEndDate->setText(LLStringUtil::null);
 		}
 
 		// col 3: Vote Type
@@ -341,7 +341,7 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		}
 		else
 		{	// Something's wrong... should have some text
-			mStartDate->setText(LLString());
+			mStartDate->setText(LLStringUtil::null);
 		}
 
 		proposal_cell = item->getColumn(6);
@@ -461,7 +461,7 @@ void LLPanelGroupVoting::impl::setEnableCreateProposal()
 	mProposals->setVisible(FALSE); 
 	mProposalText->setEnabled(TRUE);
 	mProposalText->setVisible(TRUE);
-	mProposalText->setText(LLString::null);
+	mProposalText->setText(LLStringUtil::null);
 	mBtnYes->setEnabled(FALSE);
 	mBtnYes->setVisible(FALSE);
 	mBtnNo->setEnabled(FALSE);
@@ -556,7 +556,7 @@ void LLPanelGroupVoting::impl::setEnableHistoryItem()
 	}
 	else
 	{	// Something's wrong...
-		mVoteHistoryText->setText(LLString());
+		mVoteHistoryText->setText(LLStringUtil::null);
 	}
 	mVotesHistoryLbl->setVisible(FALSE);
 	mVotesHistory->setVisible(FALSE);
@@ -631,7 +631,7 @@ void LLPanelGroupVoting::handleResponse(
 		
 		if (response == BALLOT)
 		{
-			LLString::format_map_t args;
+			LLStringUtil::format_map_t args;
 	
 			if (success)
 			{
@@ -791,7 +791,7 @@ void LLPanelGroupVoting::impl::sendStartGroupProposal()
 		msg->addF32Fast(_PREHASH_Majority, majority );
 		msg->addS32Fast(_PREHASH_Quorum, quorum );
 		msg->addS32Fast(_PREHASH_Duration, duration_seconds );
-		msg->addStringFast(_PREHASH_ProposalText, mProposalText->getText().c_str());
+		msg->addStringFast(_PREHASH_ProposalText, mProposalText->getText());
 
 		gAgent.sendReliableMessage();
 
@@ -801,7 +801,7 @@ void LLPanelGroupVoting::impl::sendStartGroupProposal()
 	}
 }
 
-void LLPanelGroupVoting::impl::sendGroupProposalBallot(const char* vote)
+void LLPanelGroupVoting::impl::sendGroupProposalBallot(const std::string& vote)
 {
 	if ( !gAgent.hasPowerInGroup(mGroupID, GP_PROPOSAL_VOTE) )
 		return;
@@ -904,13 +904,13 @@ void LLPanelGroupVoting::impl::addPendingActiveScrollListItem(unsigned int curre
 void LLPanelGroupVoting::impl::addNoActiveScrollListItem(EAddPosition pos)
 {
 	//*TODO: translate
-	mProposals->addCommentText("There are currently no active proposals", pos);
+	mProposals->addCommentText(std::string("There are currently no active proposals"), pos);
 }
 
 void LLPanelGroupVoting::impl::addNoHistoryScrollListItem(EAddPosition pos)
 {
 	//*TODO: translate
-	mVotesHistory->addCommentText("There are currently no archived proposals", pos);
+	mVotesHistory->addCommentText(std::string("There are currently no archived proposals"), pos);
 }
 
 void LLPanelGroupVoting::impl::addPendingHistoryScrollListItem(unsigned int current,
@@ -958,16 +958,15 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 
 
 	U32 num_expected;
-	const S32 MAX_STRING_NUM_LEN = 20;
-	char item_num_string[DB_TERSE_DATETIME_BUF_SIZE];		/*Flawfinder: ignore*/
-	char proposal_text[DB_VOTE_TEXT_BUF_SIZE];		/*Flawfinder: ignore*/
-	char vote_cast[DB_VOTE_RESULT_BUF_SIZE];		/*Flawfinder: ignore*/
-	char start_datetime[DB_DATETIME_BUF_SIZE];		/*Flawfinder: ignore*/
-	char end_datetime[DB_DATETIME_BUF_SIZE];		/*Flawfinder: ignore*/
-	char vote_type[DB_VOTE_TYPE_BUF_SIZE];		/*Flawfinder: ignore*/
-	char majority_text[MAX_STRING_NUM_LEN];		/*Flawfinder: ignore*/
-	char quorum_text[MAX_STRING_NUM_LEN];		/*Flawfinder: ignore*/
-	char vote_initiator_string[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
+	std::string item_num_string;
+	std::string proposal_text;
+	std::string vote_cast;
+	std::string start_datetime;
+	std::string end_datetime;
+	std::string vote_type;
+	std::string majority_text;
+	std::string quorum_text;
+	std::string vote_initiator_string;
 
 	LLUUID vote_id;
 	LLUUID vote_initiator;
@@ -989,20 +988,20 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 
 	for (int i = 0; i < num_proposals; i++)
 	{
-		msg->getStringFast(_PREHASH_ProposalData, _PREHASH_TerseDateID, DB_TERSE_DATETIME_BUF_SIZE, item_num_string, i );
+		msg->getStringFast(_PREHASH_ProposalData, _PREHASH_TerseDateID, item_num_string, i );
 		msg->getUUIDFast(_PREHASH_ProposalData, _PREHASH_VoteID,	vote_id, i );
-		msg->getStringFast(_PREHASH_ProposalData, _PREHASH_StartDateTime, DB_DATETIME_BUF_SIZE, start_datetime, i );
-		msg->getStringFast(_PREHASH_ProposalData, _PREHASH_EndDateTime, DB_DATETIME_BUF_SIZE, end_datetime, i );
+		msg->getStringFast(_PREHASH_ProposalData, _PREHASH_StartDateTime, start_datetime, i );
+		msg->getStringFast(_PREHASH_ProposalData, _PREHASH_EndDateTime, end_datetime, i );
 		msg->getUUIDFast(_PREHASH_ProposalData, _PREHASH_VoteInitiator, vote_initiator, i );
 		msg->getBOOLFast(_PREHASH_ProposalData,_PREHASH_AlreadyVoted, already_voted, i );
-		msg->getStringFast(_PREHASH_ProposalData,_PREHASH_VoteCast, DB_VOTE_RESULT_BUF_SIZE, vote_cast, i );
-		msg->getStringFast(_PREHASH_ProposalData, _PREHASH_ProposalText, DB_VOTE_TEXT_BUF_SIZE, proposal_text, i );
+		msg->getStringFast(_PREHASH_ProposalData,_PREHASH_VoteCast, vote_cast, i );
+		msg->getStringFast(_PREHASH_ProposalData, _PREHASH_ProposalText, proposal_text, i );
 		msg->getF32Fast(_PREHASH_ProposalData, _PREHASH_Majority, majority, i );
 		msg->getS32Fast(_PREHASH_ProposalData, _PREHASH_Quorum, quorum, i );
 
 		vote_initiator.toString(vote_initiator_string);
-		snprintf(majority_text, MAX_STRING_NUM_LEN, "%f", majority);			/* Flawfinder: ignore */
-		snprintf(quorum_text, MAX_STRING_NUM_LEN, "%i", quorum);			/* Flawfinder: ignore */
+		majority_text = llformat("%f", majority);
+		quorum_text = llformat("%i", quorum);
 
 		LLSD row;
 		S32 index = 0;
@@ -1139,15 +1138,14 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 		return;
 	}
 
-	const S32 ITEM_NUM_MAX_BUF_LEN = 15;
-	char item_num_string[ITEM_NUM_MAX_BUF_LEN];		/*Flawfinder: ignore*/
-	char proposal_text[DB_VOTE_TEXT_BUF_SIZE];		/*Flawfinder: ignore*/
-	char vote_result[MAX_STRING];		/*Flawfinder: ignore*/
-	char start_datetime[DB_DATETIME_BUF_SIZE];		/*Flawfinder: ignore*/
-	char end_datetime[DB_DATETIME_BUF_SIZE];		/*Flawfinder: ignore*/
-	char vote_type[DB_VOTE_TYPE_BUF_SIZE];		/*Flawfinder: ignore*/
+	std::string item_num_string;
+	std::string proposal_text;
+	std::string vote_result;
+	std::string start_datetime;
+	std::string end_datetime;
+	std::string vote_type;
 
-	LLString vote_text;
+	std::string vote_text;
 	LLUUID vote_id;
 	LLUUID vote_initiator;
 	LLUUID winner_id;
@@ -1155,14 +1153,14 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 	F32	majority;
 	S32	quorum;
 
-	msg->getStringFast(_PREHASH_HistoryItemData, _PREHASH_TerseDateID, ITEM_NUM_MAX_BUF_LEN, item_num_string );
+	msg->getStringFast(_PREHASH_HistoryItemData, _PREHASH_TerseDateID, item_num_string );
 	msg->getUUIDFast(_PREHASH_HistoryItemData, _PREHASH_VoteID,	vote_id );
-	msg->getStringFast(_PREHASH_HistoryItemData, _PREHASH_StartDateTime, DB_DATETIME_BUF_SIZE, start_datetime );
-	msg->getStringFast(_PREHASH_HistoryItemData, _PREHASH_EndDateTime, DB_DATETIME_BUF_SIZE, end_datetime );
+	msg->getStringFast(_PREHASH_HistoryItemData, _PREHASH_StartDateTime, start_datetime );
+	msg->getStringFast(_PREHASH_HistoryItemData, _PREHASH_EndDateTime, end_datetime );
 	msg->getUUIDFast(_PREHASH_HistoryItemData, _PREHASH_VoteInitiator, vote_initiator);
-	msg->getStringFast(_PREHASH_HistoryItemData, _PREHASH_VoteType, DB_VOTE_TYPE_BUF_SIZE, vote_type);
-	msg->getStringFast(_PREHASH_HistoryItemData,_PREHASH_VoteResult, DB_VOTE_RESULT_BUF_SIZE, vote_result);
-	msg->getStringFast(_PREHASH_HistoryItemData, _PREHASH_ProposalText, DB_VOTE_TEXT_BUF_SIZE, proposal_text );
+	msg->getStringFast(_PREHASH_HistoryItemData, _PREHASH_VoteType, vote_type);
+	msg->getStringFast(_PREHASH_HistoryItemData,_PREHASH_VoteResult, vote_result);
+	msg->getStringFast(_PREHASH_HistoryItemData, _PREHASH_ProposalText, proposal_text );
 	msg->getF32Fast(_PREHASH_HistoryItemData, _PREHASH_Majority, majority);
 	msg->getS32Fast(_PREHASH_HistoryItemData, _PREHASH_Quorum, quorum);
 
@@ -1170,7 +1168,7 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 
 	if (vote_items > 0)
 	{
-		if (!strcmp(vote_type, "Proposal"))
+		if (vote_type == "Proposal")
 		{
 			LLSD row;
 			row["id"] = vote_id;
@@ -1183,7 +1181,7 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 			
 			vote_text.assign(proposal_text);
 			vote_text.append("\n\n--\n");
-			if (!strcmp(vote_result, "Success"))
+			if (vote_result == "Success")
 			{
 				vote_text.append("Proposal PASSED.");
 			}
@@ -1193,25 +1191,20 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 			}
 			vote_text.append("  Votes->\n");
 
-			char vote_result[DB_VOTE_RESULT_BUF_SIZE];		/*Flawfinder: ignore*/
-			char result_msg[MAX_STRING];		/*Flawfinder: ignore*/
+			std::string vote_result;
 			S32 num_votes;
 
 			for (S32 i = 0; i < vote_items; ++i)
 			{
-				msg->getStringFast(_PREHASH_VoteItem, _PREHASH_VoteCast, DB_VOTE_RESULT_BUF_SIZE, vote_result, i);
+				msg->getStringFast(_PREHASH_VoteItem, _PREHASH_VoteCast, vote_result, i);
 				msg->getS32Fast(_PREHASH_VoteItem, _PREHASH_NumVotes, num_votes, i);
-				snprintf(result_msg, MAX_STRING,			/* Flawfinder: ignore */
-						"    %s: %d\n",
-						vote_result,
-						num_votes);
-				vote_text.append(result_msg);
+				vote_text.append(llformat("    %s: %d\n", vote_result.c_str(), num_votes));
 			}
 
 			vote_text.append("\n");
 
-			LLString vote_text_stripped = vote_text;
-			LLString::stripNonprintable(vote_text_stripped);
+			std::string vote_text_stripped = vote_text;
+			LLStringUtil::stripNonprintable(vote_text_stripped);
 
 			row["columns"][1]["column"] = "vote_text_stripped";
 			row["columns"][1]["value"] = vote_text_stripped;
@@ -1328,7 +1321,7 @@ void LLPanelGroupVoting::impl::onClickSubmitProposal(void *userdata)
 		if ( self->mProposalText->getText().empty() )
 		{
 			//throw up an error dialog
-			LLString::format_map_t args;
+			LLStringUtil::format_map_t args;
 			args["[MESSAGE]"] = self->mPanel.getString("empty_proposal_txt");
 			gViewerWindow->alertXml("GenericAlert", args);
 			return;
@@ -1596,12 +1589,12 @@ void LLPanelGroupVoting::activate()
 	mImpl->setEnableHistoryList();
 }
 
-bool LLPanelGroupVoting::needsApply(LLString& mesg)
+bool LLPanelGroupVoting::needsApply(std::string& mesg)
 {
 	return false;
 }
 
-bool LLPanelGroupVoting::apply(LLString& mesg)
+bool LLPanelGroupVoting::apply(std::string& mesg)
 {
 	return true;
 }

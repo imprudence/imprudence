@@ -56,7 +56,7 @@ extern BOOL gAllowSelectAvatar;
 const F32 SELECTION_ROTATION_TRESHOLD = 0.1f;
 
 LLToolSelect::LLToolSelect( LLToolComposite* composite )
-:	LLTool( "Select", composite ),
+:	LLTool( std::string("Select"), composite ),
 	mIgnoreGroup( FALSE )
 {
  }
@@ -64,39 +64,24 @@ LLToolSelect::LLToolSelect( LLToolComposite* composite )
 // True if you selected an object.
 BOOL LLToolSelect::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
-
-	// didn't click in any UI object, so must have clicked in the world
-	LLViewerObject*	object = NULL;
-
-	// You must hit the body for this tool to think you hit the object.
-	object = gObjectList.findObject( gLastHitObjectID );
-
-	if (object)
-	{
-		mSelectObjectID = object->getID();
-		handled = TRUE;
-	}
-	else
-	{
-		mSelectObjectID.setNull();
-	}
+	// do immediate pick query
+	mPick = gViewerWindow->pickImmediate(x, y, TRUE);
 
 	// Pass mousedown to agent
 	LLTool::handleMouseDown(x, y, mask);
 
-	return handled;
+	return mPick.getObject().notNull();
 }
 
-BOOL LLToolSelect::handleDoubleClick(S32 x, S32 y, MASK mask)
-{
-	//RN: double click to toggle individual/linked picking???
-	return LLTool::handleDoubleClick(x, y, mask);
-}
 
 // static
-LLSafeHandle<LLObjectSelection> LLToolSelect::handleObjectSelection(LLViewerObject *object, MASK mask, BOOL ignore_group, BOOL temp_select)
+LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pick, BOOL ignore_group, BOOL temp_select, BOOL select_root)
 {
+	LLViewerObject* object = pick.getObject();
+	if (select_root)
+	{
+		object = object->getRootEdit();
+	}
 	BOOL select_owned = gSavedSettings.getBOOL("SelectOwnedOnly");
 	BOOL select_movable = gSavedSettings.getBOOL("SelectMovableOnly");
 	
@@ -108,14 +93,16 @@ LLSafeHandle<LLObjectSelection> LLToolSelect::handleObjectSelection(LLViewerObje
 		LLSelectMgr::getInstance()->setForceSelection(TRUE);
 	}
 
-	BOOL extend_select = (mask == MASK_SHIFT) || (mask == MASK_CONTROL);
+	BOOL extend_select = (pick.mKeyMask == MASK_SHIFT) || (pick.mKeyMask == MASK_CONTROL);
 
 	// If no object, check for icon, then just deselect
 	if (!object)
 	{
-		if (gLastHitHUDIcon && gLastHitHUDIcon->getSourceObject())
+		LLHUDIcon* last_hit_hud_icon = pick.mHUDIcon;
+
+		if (last_hit_hud_icon && last_hit_hud_icon->getSourceObject())
 		{
-			LLFloaterScriptDebug::show(gLastHitHUDIcon->getSourceObject()->getID());
+			LLFloaterScriptDebug::show(last_hit_hud_icon->getSourceObject()->getID());
 		}
 		else if (!extend_select)
 		{
@@ -212,9 +199,12 @@ LLSafeHandle<LLObjectSelection> LLToolSelect::handleObjectSelection(LLViewerObje
 					select_node->setTransient(TRUE);
 				}
 
-				for (S32 i = 0; i < (S32)root_object->mChildList.size(); i++)
+				LLViewerObject::const_child_list_t& child_list = root_object->getChildren();
+				for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+					 iter != child_list.end(); iter++)
 				{
-					select_node = selection->findNode(root_object->mChildList[i]);
+					LLViewerObject* child = *iter;
+					select_node = selection->findNode(child);
 					if (select_node)
 					{
 						select_node->setTransient(TRUE);
@@ -240,8 +230,7 @@ BOOL LLToolSelect::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	mIgnoreGroup = gSavedSettings.getBOOL("EditLinkedParts");
 
-	LLViewerObject* object = gObjectList.findObject(mSelectObjectID);
-	LLToolSelect::handleObjectSelection(object, mask, mIgnoreGroup, FALSE);
+	handleObjectSelection(mPick, mIgnoreGroup, FALSE);
 
 	return LLTool::handleMouseUp(x, y, mask);
 }
@@ -272,6 +261,7 @@ void LLToolSelect::onMouseCaptureLost()
 	// Clean up drag-specific variables
 	mIgnoreGroup = FALSE;
 }
+
 
 
 

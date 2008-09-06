@@ -65,7 +65,12 @@ int main( int argc, char **argv )
 #endif
 
 	// Set the working dir to <bundle>/Contents/Resources
-	(void) chdir(gDirUtilp->getAppRODataDir().c_str());
+	if (chdir(gDirUtilp->getAppRODataDir().c_str()) == -1)
+	{
+		llwarns << "Could not change directory to "
+				<< gDirUtilp->getAppRODataDir() << ": " << strerror(errno)
+				<< llendl;
+	}
 
 	LLAppViewerMacOSX* viewer_app_ptr = new LLAppViewerMacOSX();
 
@@ -173,7 +178,7 @@ bool LLAppViewerMacOSX::initParseCommandLine(LLCommandLineParser& clp)
 	char path[MAX_PATH];
 	if(CFURLGetFileSystemRepresentation(url, false, (UInt8 *)path, sizeof(path)))
 	{
-		LLString lang;
+		std::string lang;
 		if(_read_file_into_string(lang, path))		/* Flawfinder: ignore*/
 		{
             LLControlVariable* c = gSavedSettings.getControl("SystemLanguage");
@@ -196,8 +201,8 @@ void LLAppViewerMacOSX::handleSyncCrashTrace()
 void LLAppViewerMacOSX::handleCrashReporting()
 {
 	// Macintosh
-	LLString command_str;
-	command_str += "open crashreporter.app";	
+	std::string command_str;
+	command_str += "open mac-crash-logger.app";	
 	
 	clear_signals();
 	llinfos << "Launching crash reporter using: '" << command_str << "'" << llendl;
@@ -302,121 +307,6 @@ OSStatus simpleDialogHandler(EventHandlerCallRef handler, EventRef event, void *
 	}
 	
 	return(result);
-}
-
-OSStatus DisplayReleaseNotes(void)
-{
-	OSStatus err;
-	IBNibRef nib = NULL;
-	WindowRef window = NULL;
-	
-	err = CreateNibReference(CFSTR("SecondLife"), &nib);
-	
-	if(err == noErr)
-	{
-		CreateWindowFromNib(nib, CFSTR("Release Notes"), &window);
-	}
-		
-	if(err == noErr)
-	{
-		// Get the text view control
-		HIViewRef textView;
-		ControlID id;
-
-		id.signature = 'text';
-		id.id = 0;
-
-		LLString releaseNotesText;
-		
-		_read_file_into_string(releaseNotesText, "releasenotes.txt");		// Flawfinder: ignore
-
-		err = HIViewFindByID(HIViewGetRoot(window), id, &textView);
-		
-		if(err == noErr)
-		{
-			// Convert from the encoding used in the release notes.
-			CFStringRef str = CFStringCreateWithBytes(
-				NULL, 
-				(const UInt8*)releaseNotesText.c_str(), 
-				releaseNotesText.size(), 
-				kCFStringEncodingWindowsLatin1, 		// This matches the way the Windows version displays the release notes.
-				FALSE);
-			
-			if(str != NULL)
-			{
-				int size = CFStringGetLength(str);
-
-				if(size > 0)
-				{
-					UniChar *chars = new UniChar[size + 1];
-					CFStringGetCharacters(str, CFRangeMake(0, size), chars);
-				
-					err = TXNSetData(HITextViewGetTXNObject(textView), kTXNUnicodeTextData, chars, size * sizeof(UniChar), kTXNStartOffset, kTXNStartOffset);
-					
-					delete[] chars;
-				}
-				
-				CFRelease(str);
-			}
-			else
-			{
-				// Creating the string failed.  Probably an encoding problem.  Display SOMETHING...
-				err = TXNSetData(HITextViewGetTXNObject(textView), kTXNTextData, releaseNotesText.c_str(), releaseNotesText.size(), kTXNStartOffset, kTXNStartOffset);
-			}
-		}
-		
-		// Set the selection to the beginning of the text and scroll it into view.
-		if(err == noErr)
-		{
-			err = TXNSetSelection(HITextViewGetTXNObject(textView), kTXNStartOffset, kTXNStartOffset);
-		}
-		
-		if(err == noErr)
-		{
-			// This function returns void.
-			TXNShowSelection(HITextViewGetTXNObject(textView), false);
-		}
-	}
-
-	if(err == noErr)
-	{
-		ShowWindow(window);
-	}
-
-	if(err == noErr)
-	{
-		// Set up an event handler for the window.
-		EventHandlerRef handler = NULL;
-		EventTypeSpec handlerEvents[] = 
-		{
-			{ kEventClassCommand, kEventCommandProcess }
-		};
-
-		InstallWindowEventHandler(
-				window, 
-				NewEventHandlerUPP(simpleDialogHandler), 
-				GetEventTypeCount (handlerEvents), 
-				handlerEvents, 
-				(void*)window, 
-				&handler);
-	}
-			
-	if(err == noErr)
-	{
-		RunAppModalLoopForWindow(window);
-	}
-			
-	if(window != NULL)
-	{
-		DisposeWindow(window);
-	}
-	
-	if(nib != NULL)
-	{
-		DisposeNibReference(nib);
-	}
-
-	return(err);
 }
 
 void init_apple_menu(const char* product)

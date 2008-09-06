@@ -94,50 +94,48 @@ LLPanelDebug::LLPanelDebug(const std::string& name, const LLRect& rect)
 
 	S32 cur_y = rect.getHeight() - TOP_PAD;
 
-	sliderctrl = new LLSliderCtrl(
-		"Drop Shadow Floater",
-		LLRect( LEFT, cur_y, RIGHT, cur_y - SLIDERCTRL_HEIGHT ),
-		"Drop Shadow Floater",
-		font,
-		LABEL_OFFSET,
-		RULER2 + SPINCTRL_DEFAULT_LABEL_WIDTH + SPINCTRL_BTN_WIDTH,
-		TRUE,
-		TRUE,
-		FALSE,
-		NULL, NULL,
-	    (F32)gSavedSettings.getS32("DropShadowFloater"), 
-		0.f, 10.f, 1.0f, 
-		"DropShadowFloater");
+	sliderctrl = new LLSliderCtrl(std::string("Drop Shadow Floater"),
+								  LLRect( LEFT, cur_y, RIGHT, cur_y - SLIDERCTRL_HEIGHT ),
+								  std::string("Drop Shadow Floater"),
+								  font,
+								  LABEL_OFFSET,
+								  RULER2 + SPINCTRL_DEFAULT_LABEL_WIDTH + SPINCTRL_BTN_WIDTH,
+								  TRUE,
+								  TRUE,
+								  FALSE,
+								  NULL, NULL,
+								  (F32)gSavedSettings.getS32("DropShadowFloater"), 
+								  0.f, 10.f, 1.0f, 
+								  std::string("DropShadowFloater"));
 	sliderctrl->setFollowsTop();
 	sliderctrl->setFollowsLeft();
 	addChild(sliderctrl);
 	cur_y -= VPAD + SLIDERCTRL_HEIGHT;
 
-	sliderctrl = new LLSliderCtrl(
-		"Drop Shadow Button",
-		LLRect( LEFT, cur_y, RIGHT, cur_y - SLIDERCTRL_HEIGHT ),
-		"Drop Shadow Button",
-		font,
-		LABEL_OFFSET,
-		RULER2 + SPINCTRL_DEFAULT_LABEL_WIDTH + SPINCTRL_BTN_WIDTH,
-		TRUE,
-		TRUE,
-		FALSE,
-		NULL, NULL,
-	    (F32)gSavedSettings.getS32("DropShadowButton"), 
-		0.f, 10.f, 1.0f, 
-		"DropShadowButton");
+	sliderctrl = new LLSliderCtrl(std::string("Drop Shadow Button"),
+								  LLRect( LEFT, cur_y, RIGHT, cur_y - SLIDERCTRL_HEIGHT ),
+								  std::string("Drop Shadow Button"),
+								  font,
+								  LABEL_OFFSET,
+								  RULER2 + SPINCTRL_DEFAULT_LABEL_WIDTH + SPINCTRL_BTN_WIDTH,
+								  TRUE,
+								  TRUE,
+								  FALSE,
+								  NULL, NULL,
+								  (F32)gSavedSettings.getS32("DropShadowButton"), 
+								  0.f, 10.f, 1.0f, 
+								  std::string("DropShadowButton"));
 	sliderctrl->setFollowsTop();
 	sliderctrl->setFollowsLeft();
 	addChild(sliderctrl);
 	cur_y -= VPAD + SLIDERCTRL_HEIGHT;
 
-	check = new LLCheckboxCtrl("left click",
-		LLRect(LEFT, cur_y, RIGHT, cur_y - 20),
-		"Left Click Shows Menu Unless Interactive",
-		font,
-		NULL, NULL,
-		gSavedSettings.getBOOL("LeftClickShowMenu"));
+	check = new LLCheckboxCtrl(std::string("left click"),
+							   LLRect(LEFT, cur_y, RIGHT, cur_y - 20),
+							   std::string("Left Click Shows Menu Unless Interactive"),
+							   font,
+							   NULL, NULL,
+							   gSavedSettings.getBOOL("LeftClickShowMenu"));
 	check->setFollows(FOLLOWS_LEFT|FOLLOWS_TOP);
 	addChild(check);
 	mLeftClickCheck = check;

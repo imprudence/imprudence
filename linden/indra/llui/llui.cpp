@@ -41,24 +41,18 @@
 #include "audioengine.h"
 #include "v2math.h"
 #include "v4color.h"
-#include "llgl.h"
 #include "llrender.h"
 #include "llrect.h"
 #include "llimagegl.h"
-//#include "llviewerimage.h"
 #include "lldir.h"
 #include "llfontgl.h"
 
 // Project includes
-//#include "audioengine.h"
 #include "llcontrol.h"
-//#include "llstartup.h"
 #include "llui.h"
 #include "llview.h"
 #include "lllineeditor.h"
 #include "llwindow.h"
-
-#include "llglheaders.h"
 
 //
 // Globals
@@ -69,8 +63,8 @@ const LLColor4 UI_VERTEX_COLOR(1.f, 1.f, 1.f, 1.f);
 BOOL gShowTextEditCursor = TRUE;
 
 // Language for UI construction
-std::map<LLString, LLString> gTranslation;
-std::list<LLString> gUntranslated;
+std::map<std::string, std::string> gTranslation;
+std::list<std::string> gUntranslated;
 
 LLControlGroup* LLUI::sConfigGroup = NULL;
 LLControlGroup* LLUI::sColorsGroup = NULL;
@@ -86,8 +80,9 @@ BOOL            LLUI::sQAMode = FALSE;
 //
 // Functions
 //
-void make_ui_sound(const LLString& name)
+void make_ui_sound(const char* namep)
 {
+	std::string name = ll_safe_string(namep);
 	if (!LLUI::sConfigGroup->controlExists(name))
 	{
 		llwarns << "tried to make ui sound for unknown sound name: " << name << llendl;	
@@ -1563,7 +1558,7 @@ void LLUI::initClass(LLControlGroup* config,
 					 LLImageProviderInterface* image_provider,
 					 LLUIAudioCallback audio_callback,
 					 const LLVector2* scale_factor,
-					 const LLString& language)
+					 const std::string& language)
 {
 	sConfigGroup = config;
 	sColorsGroup = colors;
@@ -1653,10 +1648,10 @@ void LLUI::setCursorPositionLocal(const LLView* viewp, S32 x, S32 y)
 }
 
 //static
-LLString LLUI::locateSkin(const LLString& filename)
+std::string LLUI::locateSkin(const std::string& filename)
 {
-	LLString slash = gDirUtilp->getDirDelimiter();
-	LLString found_file = filename;
+	std::string slash = gDirUtilp->getDirDelimiter();
+	std::string found_file = filename;
 	if (!gDirUtilp->fileExists(found_file))
 	{
 		found_file = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, filename); // Should be CUSTOM_SKINS?
@@ -1665,18 +1660,18 @@ LLString LLUI::locateSkin(const LLString& filename)
 	{
 		if (!gDirUtilp->fileExists(found_file))
 		{
-			LLString localization(sConfigGroup->getString("Language"));		
+			std::string localization(sConfigGroup->getString("Language"));		
 			if(localization == "default")
 			{
 				localization = sConfigGroup->getString("SystemLanguage");
 			}
-			LLString local_skin = "xui" + slash + localization + slash + filename;
+			std::string local_skin = "xui" + slash + localization + slash + filename;
 			found_file = gDirUtilp->findSkinnedFilename(local_skin);
 		}
 	}
 	if (!gDirUtilp->fileExists(found_file))
 	{
-		LLString local_skin = "xui" + slash + "en-us" + slash + filename;
+		std::string local_skin = "xui" + slash + "en-us" + slash + filename;
 		found_file = gDirUtilp->findSkinnedFilename(local_skin);
 	}
 	if (!gDirUtilp->fileExists(found_file))
@@ -1724,7 +1719,7 @@ void LLUI::glRectToScreen(const LLRect& gl, LLRect *screen)
 }
 
 //static 
-LLUIImage* LLUI::getUIImage(const LLString& name)
+LLUIImage* LLUI::getUIImage(const std::string& name)
 {
 	if (!name.empty())
 		return sImageProvider->getUIImage(name);
@@ -1812,7 +1807,7 @@ LLLocalClipRect::LLLocalClipRect(const LLRect &rect, BOOL enabled)
 // LLUIImage
 //
 
-LLUIImage::LLUIImage(const LLString& name, LLPointer<LLImageGL> image) :
+LLUIImage::LLUIImage(const std::string& name, LLPointer<LLImageGL> image) :
 						mName(name),
 						mImage(image),
 						mScaleRegion(0.f, 1.f, 1.f, 0.f),

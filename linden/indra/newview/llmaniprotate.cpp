@@ -86,7 +86,7 @@ const F32 MANIPULATOR_SCALE_HALF_LIFE = 0.07f;
 extern void handle_reset_rotation(void*);  // in LLViewerWindow
 
 LLManipRotate::LLManipRotate( LLToolComposite* composite )
-: 	LLManip( "Rotate", composite ),
+: 	LLManip( std::string("Rotate"), composite ),
 	mRotationCenter(),
 	mCenterScreen(),
 	mRotation(),
@@ -98,7 +98,6 @@ LLManipRotate::LLManipRotate( LLToolComposite* composite )
 	mCenterToCamMag(0.f),
 	mCenterToProfilePlane(),
 	mCenterToProfilePlaneMag(0.f),
-	mManipPart( LL_NO_PART ),
 	mSendUpdateOnMouseUp( FALSE ),
 	mSmoothRotate( FALSE ),
 	mCamEdgeOn(FALSE),
@@ -111,13 +110,6 @@ void LLManipRotate::handleSelect()
 	LLSelectMgr::getInstance()->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
 	gFloaterTools->setStatusText("rotate");
 	LLManip::handleSelect();
-}
-
-void LLManipRotate::handleDeselect()
-{
-	mHighlightedPart = LL_NO_PART;
-	mManipPart = LL_NO_PART;
-	LLManip::handleDeselect();
 }
 
 void LLManipRotate::render()
@@ -144,7 +136,7 @@ void LLManipRotate::render()
 	glPushMatrix();
 	if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 	{
-		F32 zoom = gAgent.getAvatarObject()->mHUDCurZoom;
+		F32 zoom = gAgent.mHUDCurZoom;
 		glScalef(zoom, zoom, zoom);
 	}
 
@@ -363,8 +355,7 @@ BOOL LLManipRotate::handleMouseDown(S32 x, S32 y, MASK mask)
 	LLViewerObject* first_object = mObjectSelection->getFirstMoveableObject(TRUE);
 	if( first_object )
 	{
-		LLViewerObject* hit_obj = gViewerWindow->lastObjectHit();
-		if( hit_obj && mHighlightedPart != LL_NO_PART )
+		if( mHighlightedPart != LL_NO_PART )
 		{
 			handled = handleMouseDownOnPart( x, y, mask );
 		}
@@ -457,6 +448,19 @@ BOOL LLManipRotate::handleMouseUp(S32 x, S32 y, MASK mask)
 
 	if( hasMouseCapture() )
 	{
+		for (LLObjectSelection::iterator iter = mObjectSelection->begin();
+		 iter != mObjectSelection->end(); iter++)
+		{
+			LLSelectNode* selectNode = *iter;
+			LLViewerObject* object = selectNode->getObject();
+
+			// have permission to move and object is root of selection or individually selected
+			if (object->permMove() && (object->isRootEdit() || selectNode->mIndividualSelection))
+			{
+				object->mUnselectedChildrenPositions.clear() ;
+			}
+		}
+
 		mManipPart = LL_NO_PART;
 
 		// Might have missed last update due to timing.
@@ -553,16 +557,12 @@ void LLManipRotate::drag( S32 x, S32 y )
 			}
 
 			LLQuaternion new_rot = selectNode->mSavedRotation * mRotation;
-			std::vector<LLVector3> child_positions;
+			std::vector<LLVector3>& child_positions = object->mUnselectedChildrenPositions ;
 			std::vector<LLQuaternion> child_rotations;
 			if (object->isRootEdit() && selectNode->mIndividualSelection)
 			{
-				for (U32 i = 0; i < object->mChildList.size(); i++)
-				{
-					LLViewerObject* childp = object->mChildList[i];
-					child_positions.push_back(childp->getPositionEdit());
-					child_rotations.push_back(childp->getRotationEdit());
-				}
+				object->saveUnselectedChildrenRotation(child_rotations) ;
+				object->saveUnselectedChildrenPosition(child_positions) ;			
 			}
 
 			if (object->getParent() && object->mDrawable.notNull())
@@ -584,17 +584,7 @@ void LLManipRotate::drag( S32 x, S32 y )
 			{
 				//RN: must do non-damped updates on these objects so relative rotation appears constant
 				// instead of having two competing slerps making the child objects appear to "wobble"
-				for (U32 i = 0; i < object->mChildList.size(); i++)
-				{
-					LLViewerObject* childp = object->mChildList[i];
-					LLVector3 child_offset = ((child_positions[i] - object->getPositionEdit()) * ~object->getRotationEdit()) - childp->getPosition();
-					if (!childp->isSelected() && childp->mDrawable.notNull())
-					{
-						childp->setRotation(child_rotations[i] * ~object->getRotationEdit());
-						childp->setPosition((child_positions[i] - object->getPositionEdit()) * ~object->getRotationEdit());
-						rebuild(childp);
-					}
-				}
+				object->resetChildrenRotationAndPosition(child_rotations, child_positions) ;
 			}
 		}
 	}
@@ -676,28 +666,8 @@ void LLManipRotate::drag( S32 x, S32 y )
 			if (object->isRootEdit() && selectNode->mIndividualSelection)
 			{
 				// only offset by parent's translation as we've already countered parent's rotation
-				LLVector3 child_offset;
-				if (object->isAttachment() && object->mDrawable.notNull())
-				{
-					LLXform* attachment_point_xform = object->mDrawable->getXform()->getParent();
-					LLQuaternion parent_rotation = object->getRotation() * attachment_point_xform->getWorldRotation();
-					child_offset = LLVector3(old_position - new_position) * ~parent_rotation;
-				}
-				else
-				{
-					child_offset = LLVector3(old_position - new_position) * ~object->getRenderRotation();
-				}
-
 				rebuild(object);
-				for (U32 i = 0; i < object->mChildList.size(); i++)
-				{
-					LLViewerObject* childp = object->mChildList[i];
-					if (!childp->isSelected() && childp->mDrawable.notNull())
-					{
-						childp->setPosition(childp->getPosition() + child_offset);
-						rebuild(childp);
-					}
-				}
+				object->resetChildrenPosition(old_position - new_position) ;				
 			}
 		}
 	}
@@ -926,6 +896,7 @@ void LLManipRotate::renderSnapGuides()
 				}
 				gGL.end();
 
+				// *TODO: Translate
 				//RN: text rendering does own shadow pass, so only render once
 				if (pass == 1 && render_text && i % 16 == 0)
 				{
@@ -933,32 +904,32 @@ void LLManipRotate::renderSnapGuides()
 					{
 						if (i == 0)
 						{
-							renderTickText(text_point, mObjectSelection->isAttachment() ? "Forward" : "East", LLColor4::white);
+							renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Forward") : std::string("East"), LLColor4::white);
 						}
 						else if (i == 16)
 						{
 							if (constraint_axis.mV[VZ] > 0.f)
 							{
-								renderTickText(text_point, mObjectSelection->isAttachment() ? "Left" : "North", LLColor4::white);
+								renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Left") : std::string("North"), LLColor4::white);
 							}
 							else
 							{
-								renderTickText(text_point, mObjectSelection->isAttachment() ? "Right" : "South", LLColor4::white);
+								renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Right") : std::string("South"), LLColor4::white);
 							}
 						}
 						else if (i == 32)
 						{
-							renderTickText(text_point, mObjectSelection->isAttachment() ? "Back" : "West", LLColor4::white);
+							renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Back") : std::string("West"), LLColor4::white);
 						}
 						else
 						{
 							if (constraint_axis.mV[VZ] > 0.f)
 							{
-								renderTickText(text_point, mObjectSelection->isAttachment() ? "Right" : "South", LLColor4::white);
+								renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Right") : std::string("South"), LLColor4::white);
 							}
 							else
 							{
-								renderTickText(text_point, mObjectSelection->isAttachment() ? "Left" : "North", LLColor4::white);
+								renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Left") : std::string("North"), LLColor4::white);
 							}
 						}
 					}
@@ -966,32 +937,32 @@ void LLManipRotate::renderSnapGuides()
 					{
 						if (i == 0)
 						{
-							renderTickText(text_point, mObjectSelection->isAttachment() ? "Left" : "North", LLColor4::white);
+							renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Left") : std::string("North"), LLColor4::white);
 						}
 						else if (i == 16)
 						{
 							if (constraint_axis.mV[VX] > 0.f)
 							{
-								renderTickText(text_point, "Up", LLColor4::white);
+								renderTickText(text_point, std::string("Up"), LLColor4::white);
 							}
 							else
 							{
-								renderTickText(text_point, "Down", LLColor4::white);
+								renderTickText(text_point, std::string("Down"), LLColor4::white);
 							}
 						}
 						else if (i == 32)
 						{
-							renderTickText(text_point, mObjectSelection->isAttachment() ? "Right" : "South", LLColor4::white);
+							renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Right") : std::string("South"), LLColor4::white);
 						}
 						else
 						{
 							if (constraint_axis.mV[VX] > 0.f)
 							{
-								renderTickText(text_point, "Down", LLColor4::white);
+								renderTickText(text_point, std::string("Down"), LLColor4::white);
 							}
 							else
 							{
-								renderTickText(text_point, "Up", LLColor4::white);
+								renderTickText(text_point, std::string("Up"), LLColor4::white);
 							}
 						}
 					}
@@ -999,32 +970,32 @@ void LLManipRotate::renderSnapGuides()
 					{
 						if (i == 0)
 						{
-							renderTickText(text_point, "Up", LLColor4::white);
+							renderTickText(text_point, std::string("Up"), LLColor4::white);
 						}
 						else if (i == 16)
 						{
 							if (constraint_axis.mV[VY] > 0.f)
 							{
-								renderTickText(text_point, mObjectSelection->isAttachment() ? "Forward" : "East", LLColor4::white);
+								renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Forward") : std::string("East"), LLColor4::white);
 							}
 							else
 							{
-								renderTickText(text_point, mObjectSelection->isAttachment() ? "Back" : "West", LLColor4::white);
+								renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Back") : std::string("West"), LLColor4::white);
 							}
 						}
 						else if (i == 32)
 						{
-							renderTickText(text_point, "Down", LLColor4::white);
+							renderTickText(text_point, std::string("Down"), LLColor4::white);
 						}
 						else
 						{
 							if (constraint_axis.mV[VY] > 0.f)
 							{
-								renderTickText(text_point, mObjectSelection->isAttachment() ? "Back" : "West", LLColor4::white);
+								renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Back") : std::string("West"), LLColor4::white);
 							}
 							else
 							{
-								renderTickText(text_point, mObjectSelection->isAttachment() ? "Forward" : "East", LLColor4::white);
+								renderTickText(text_point, mObjectSelection->isAttachment() ? std::string("Forward") : std::string("East"), LLColor4::white);
 							}
 						}
 					}
@@ -1125,18 +1096,18 @@ BOOL LLManipRotate::updateVisiblity()
 	LLVector3 center = gAgent.getPosAgentFromGlobal( mRotationCenter );
 	if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 	{
-		mCenterToCam = LLVector3(-1.f / gAgent.getAvatarObject()->mHUDCurZoom, 0.f, 0.f);
+		mCenterToCam = LLVector3(-1.f / gAgent.mHUDCurZoom, 0.f, 0.f);
 		mCenterToCamNorm = mCenterToCam;
 		mCenterToCamMag = mCenterToCamNorm.normVec();
 
 		mRadiusMeters = RADIUS_PIXELS / (F32) LLViewerCamera::getInstance()->getViewHeightInPixels();
-		mRadiusMeters /= gAgent.getAvatarObject()->mHUDCurZoom;
+		mRadiusMeters /= gAgent.mHUDCurZoom;
 
 		mCenterToProfilePlaneMag = mRadiusMeters * mRadiusMeters / mCenterToCamMag;
 		mCenterToProfilePlane = -mCenterToProfilePlaneMag * mCenterToCamNorm;
 
-		mCenterScreen.set((S32)((0.5f - mRotationCenter.mdV[VY]) / gAgent.getAvatarObject()->mHUDCurZoom * gViewerWindow->getWindowWidth()),
-							(S32)((mRotationCenter.mdV[VZ] + 0.5f) / gAgent.getAvatarObject()->mHUDCurZoom * gViewerWindow->getWindowHeight()));
+		mCenterScreen.set((S32)((0.5f - mRotationCenter.mdV[VY]) / gAgent.mHUDCurZoom * gViewerWindow->getWindowWidth()),
+							(S32)((mRotationCenter.mdV[VZ] + 0.5f) / gAgent.mHUDCurZoom * gViewerWindow->getWindowHeight()));
 		visible = TRUE;
 	}
 	else
@@ -1652,8 +1623,8 @@ void LLManipRotate::mouseToRay( S32 x, S32 y, LLVector3* ray_pt, LLVector3* ray_
 {
 	if (LLSelectMgr::getInstance()->getSelection()->getSelectType() == SELECT_TYPE_HUD)
 	{
-		F32 mouse_x = (((F32)x / gViewerWindow->getWindowWidth()) - 0.5f) / gAgent.getAvatarObject()->mHUDCurZoom;
-		F32 mouse_y = ((((F32)y) / gViewerWindow->getWindowHeight()) - 0.5f) / gAgent.getAvatarObject()->mHUDCurZoom;
+		F32 mouse_x = (((F32)x / gViewerWindow->getWindowWidth()) - 0.5f) / gAgent.mHUDCurZoom;
+		F32 mouse_y = ((((F32)y) / gViewerWindow->getWindowHeight()) - 0.5f) / gAgent.mHUDCurZoom;
 
 		*ray_pt = LLVector3(-1.f, -mouse_x, mouse_y);
 		*ray_dir = LLVector3(1.f, 0.f, 0.f);

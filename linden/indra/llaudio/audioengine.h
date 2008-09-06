@@ -36,10 +36,6 @@
 #include <list>
 #include <map>
 
-#ifndef LL_FMOD
-#  define LL_FMOD 1
-#endif
-
 #include "listener.h"
 #include "v3math.h"
 #include "v3dmath.h"
@@ -136,14 +132,14 @@ public:
 	LLAudioData *getAudioData(const LLUUID &audio_uuid);
 
 
-	virtual void startInternetStream(const char* url) = 0;
+	virtual void startInternetStream(const std::string& url) = 0;
 	virtual void stopInternetStream() = 0;
 	virtual void pauseInternetStream(int pause) = 0;
 	virtual int isInternetStreamPlaying() = 0;
 	virtual void getInternetStreamInfo(char* artist, char* title) { artist[0] = 0; title[0] = 0; }
 	// use a value from 0.0 to 1.0, inclusive
 	virtual void setInternetStreamGain(F32 vol) { mInternetStreamGain = vol; }
-	virtual const char* getInternetStreamURL() { return ""; }
+	virtual const std::string& getInternetStreamURL() { return LLStringUtil::null; }
 
 	// For debugging usage
 	virtual LLVector3 getListenerPos();
@@ -416,7 +412,7 @@ class LLAudioBuffer
 {
 public:
 	virtual ~LLAudioBuffer() {};
-	virtual BOOL loadWAV(const char *filename) = 0;
+	virtual BOOL loadWAV(const std::string& filename) = 0;
 	virtual U32 getLength() = 0;
 
 	friend class LLAudioEngine;

@@ -1,33 +1,33 @@
 /** 
- * @file llstatusbar.cpp
- * @brief LLStatusBar class implementation
- *
- * $LicenseInfo:firstyear=2002&license=viewergpl$
- * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
- * 
- * Second Life Viewer Source Code
- * The source code in this file ("Source Code") is provided by Linden Lab
- * to you under the terms of the GNU General Public License, version 2.0
- * ("GPL"), unless you have obtained a separate licensing agreement
- * ("Other License"), formally executed by you and Linden Lab.  Terms of
- * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
- * 
- * There are special exceptions to the terms and conditions of the GPL as
- * it is applied to this Source Code. View the full text of the exception
- * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
- * 
- * By copying, modifying or distributing this software, you acknowledge
- * that you have read and understood your obligations described above,
- * and agree to abide by those obligations.
- * 
- * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
- * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
- * COMPLETENESS OR PERFORMANCE.
- * $/LicenseInfo$
- */
+* @file llstatusbar.cpp
+* @brief LLStatusBar class implementation
+*
+* $LicenseInfo:firstyear=2002&license=viewergpl$
+* 
+* Copyright (c) 2002-2008, Linden Research, Inc.
+* 
+* Second Life Viewer Source Code
+* The source code in this file ("Source Code") is provided by Linden Lab
+* to you under the terms of the GNU General Public License, version 2.0
+* ("GPL"), unless you have obtained a separate licensing agreement
+* ("Other License"), formally executed by you and Linden Lab.  Terms of
+* the GPL can be found in doc/GPL-license.txt in this distribution, or
+* online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
+* 
+* There are special exceptions to the terms and conditions of the GPL as
+* it is applied to this Source Code. View the full text of the exception
+* in the file doc/FLOSS-exception.txt in this software distribution, or
+* online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+* 
+* By copying, modifying or distributing this software, you acknowledge
+* that you have read and understood your obligations described above,
+* and agree to abide by those obligations.
+* 
+* ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
+* WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
+* COMPLETENESS OR PERFORMANCE.
+* $/LicenseInfo$
+*/
 
 #include "llviewerprecompiledheaders.h"
 
@@ -121,10 +121,10 @@ const U32 LLStatusBar::MAX_DATE_STRING_LENGTH = 2000;
 
 LLStatusBar::LLStatusBar(const std::string& name, const LLRect& rect)
 :	LLPanel(name, LLRect(), FALSE),		// not mouse opaque
-	mBalance(0),
-	mHealth(100),
-	mSquareMetersCredit(0),
-	mSquareMetersCommitted(0)
+mBalance(0),
+mHealth(100),
+mSquareMetersCredit(0),
+mSquareMetersCommitted(0)
 {
 	// status bar can possible overlay menus?
 	setMouseOpaque(FALSE);
@@ -150,7 +150,7 @@ LLStatusBar::LLStatusBar(const std::string& name, const LLRect& rect)
 
 	mTextHealth = getChild<LLTextBox>("HealthText" );
 	mTextTime = getChild<LLTextBox>("TimeText" );
-	
+
 	childSetAction("scriptout", onClickScriptDebug, this);
 	childSetAction("health", onClickHealth, this);
 	childSetAction("no_fly", onClickFly, this);
@@ -179,9 +179,9 @@ LLStatusBar::LLStatusBar(const std::string& name, const LLRect& rect)
 	mSGBandwidth = new LLStatGraph("BandwidthGraph", r);
 	mSGBandwidth->setFollows(FOLLOWS_BOTTOM | FOLLOWS_RIGHT);
 	mSGBandwidth->setStat(&LLViewerStats::getInstance()->mKBitStat);
-	LLString text = childGetText("bandwidth_tooltip") + " ";
+	std::string text = childGetText("bandwidth_tooltip") + " ";
 	LLUIString bandwidth_tooltip = text;	// get the text from XML until this widget is XML driven
-	mSGBandwidth->setLabel(bandwidth_tooltip.getString().c_str());
+	mSGBandwidth->setLabel(bandwidth_tooltip.getString());
 	mSGBandwidth->setUnits("Kbps");
 	mSGBandwidth->setPrecision(0);
 	mSGBandwidth->setMouseOpaque(FALSE);
@@ -194,7 +194,7 @@ LLStatusBar::LLStatusBar(const std::string& name, const LLRect& rect)
 	mSGPacketLoss->setStat(&LLViewerStats::getInstance()->mPacketsLostPercentStat);
 	text = childGetText("packet_loss_tooltip") + " ";
 	LLUIString packet_loss_tooltip = text;	// get the text from XML until this widget is XML driven
-	mSGPacketLoss->setLabel(packet_loss_tooltip.getString().c_str());
+	mSGPacketLoss->setLabel(packet_loss_tooltip.getString());
 	mSGPacketLoss->setUnits("%");
 	mSGPacketLoss->setMin(0.f);
 	mSGPacketLoss->setMax(5.f);
@@ -233,8 +233,8 @@ void LLStatusBar::draw()
 	if (isBackgroundVisible())
 	{
 		gl_drop_shadow(0, getRect().getHeight(), getRect().getWidth(), 0, 
-				LLUI::sColorsGroup->getColor("ColorDropShadow"), 
-				LLUI::sConfigGroup->getS32("DropShadowFloater") );
+			LLUI::sColorsGroup->getColor("ColorDropShadow"), 
+			LLUI::sConfigGroup->getS32("DropShadowFloater") );
 	}
 	LLPanel::draw();
 }
@@ -252,10 +252,10 @@ void LLStatusBar::refresh()
 	mSGBandwidth->setThreshold(2, bwtotal);
 
 	// *TODO: Localize / translate time
-	
+
 	// Get current UTC time, adjusted for the user's clock
 	// being off.
-	U32 utc_time;
+	time_t utc_time;
 	utc_time = time_corrected();
 
 	// There's only one internal tm buffer.
@@ -284,23 +284,23 @@ void LLStatusBar::refresh()
 	if (hour == 0) hour = 12;
 	std::ostringstream t;
 	t << std::setfill(' ') << std::setw(2) << hour << ":" 
-	  << std::setfill('0') << std::setw(2) << min 
-	  << " " << am_pm << " " << tz;
+		<< std::setfill('0') << std::setw(2) << min 
+		<< " " << am_pm << " " << tz;
 	mTextTime->setText(t.str());
 
 	// Year starts at 1900, set the tooltip to have the date
 	std::ostringstream date;
 	date	<< sDays[internal_time->tm_wday] << ", "
-			<< std::setfill('0') << std::setw(2) << internal_time->tm_mday << " "
-			<< sMonths[internal_time->tm_mon] << " "
-			<< internal_time->tm_year + 1900;
+		<< std::setfill('0') << std::setw(2) << internal_time->tm_mday << " "
+		<< sMonths[internal_time->tm_mon] << " "
+		<< internal_time->tm_year + 1900;
 	mTextTime->setToolTip(date.str());
 
 	LLRect r;
 	const S32 MENU_RIGHT = gMenuBarView->getRightmostMenuEdge();
 	S32 x = MENU_RIGHT + MENU_PARCEL_SPACING;
 	S32 y = 0;
-	
+
 	bool search_visible = gSavedSettings.getBOOL("ShowSearchBar");
 
 	// reshape menu bar to its content's width
@@ -348,7 +348,7 @@ void LLStatusBar::refresh()
 		childSetRect("health", r);
 		x += buttonRect.getWidth();
 
-		const S32 health_width = S32( LLFontGL::sSansSerifSmall->getWidth("100%") );
+		const S32 health_width = S32( LLFontGL::sSansSerifSmall->getWidth(std::string("100%")) );
 		r.set(x, y+TEXT_HEIGHT - 2, x+health_width, y);
 		mTextHealth->setRect(r);
 		x += health_width;
@@ -394,8 +394,8 @@ void LLStatusBar::refresh()
 	BOOL no_scripts = FALSE;
 	if((region
 		&& ((region->getRegionFlags() & REGION_FLAGS_SKIP_SCRIPTS)
-			|| (region->getRegionFlags() & REGION_FLAGS_ESTATE_SKIP_SCRIPTS)))
-	   || (parcel && !parcel->getAllowOtherScripts()))
+		|| (region->getRegionFlags() & REGION_FLAGS_ESTATE_SKIP_SCRIPTS)))
+		|| (parcel && !parcel->getAllowOtherScripts()))
 	{
 		no_scripts = TRUE;
 	}
@@ -429,7 +429,7 @@ void LLStatusBar::refresh()
 		childSetVisible("restrictpush", FALSE);
 	}
 
-	BOOL have_voice = parcel && parcel->getVoiceEnabled(); 
+	BOOL have_voice = parcel && parcel->getParcelFlagAllowVoice(); 
 	if (have_voice)
 	{
 		childSetVisible("status_no_voice", FALSE);
@@ -457,7 +457,7 @@ void LLStatusBar::refresh()
 		x += buttonRect.getWidth();
 	}
 
-	LLString location_name;
+	std::string location_name;
 	if (region)
 	{
 		const LLVector3& agent_pos_region = gAgent.getPositionAgent();
@@ -487,14 +487,14 @@ void LLStatusBar::refresh()
 
 		mRegionDetails.mTime = mTextTime->getText();
 		mRegionDetails.mBalance = mBalance;
-		mRegionDetails.mAccesString = region->getSimAccessString();
+		mRegionDetails.mAccessString = region->getSimAccessString();
 		mRegionDetails.mPing = region->getNetDetailsForLCD();
-		if (parcel && !parcel->getName().empty())
+		if (parcel)
 		{
 			location_name = region->getName()
 				+ llformat(" %d, %d, %d (%s) - %s", 
 						   pos_x, pos_y, pos_z,
-						   region->getSimAccessString(),
+						   region->getSimAccessString().c_str(),
 						   parcel->getName().c_str());
 
 			// keep these around for the LCD to use
@@ -503,6 +503,7 @@ void LLStatusBar::refresh()
 			mRegionDetails.mX = pos_x;
 			mRegionDetails.mY = pos_y;
 			mRegionDetails.mZ = pos_z;
+
 			mRegionDetails.mArea = parcel->getArea();
 			mRegionDetails.mForSale = parcel->getForSale();
 			mRegionDetails.mTraffic = LLViewerParcelMgr::getInstance()->getDwelling();
@@ -536,7 +537,7 @@ void LLStatusBar::refresh()
 			location_name = region->getName()
 				+ llformat(" %d, %d, %d (%s)", 
 						   pos_x, pos_y, pos_z,
-						   region->getSimAccessString());
+						   region->getSimAccessString().c_str());
 			// keep these around for the LCD to use
 			mRegionDetails.mRegionName = region->getName();
 			mRegionDetails.mParcelName = "Unknown";
@@ -557,7 +558,7 @@ void LLStatusBar::refresh()
 		// keep these around for the LCD to use
 		mRegionDetails.mRegionName = "Unknown";
 		mRegionDetails.mParcelName = "Unknown";
-		mRegionDetails.mAccesString = "Unknown";
+		mRegionDetails.mAccessString = "Unknown";
 		mRegionDetails.mX = 0;
 		mRegionDetails.mY = 0;
 		mRegionDetails.mZ = 0;
@@ -655,8 +656,8 @@ void LLStatusBar::creditBalance(S32 credit)
 
 void LLStatusBar::setBalance(S32 balance)
 {
-	LLString money_str = LLResMgr::getInstance()->getMonetaryString( balance );
-	LLString balance_str = "L$";
+	std::string money_str = LLResMgr::getInstance()->getMonetaryString( balance );
+	std::string balance_str = "L$";
 	balance_str += money_str;
 	mTextBalance->setText( balance_str );
 
@@ -821,14 +822,14 @@ static void onClickBuyLand(void*)
 void LLStatusBar::setupDate()
 {
 	// fill the day array with what's in the xui
-	LLString day_list = getString("StatBarDaysOfWeek");
+	std::string day_list = getString("StatBarDaysOfWeek");
 	size_t length = day_list.size();
 	
 	// quick input check
 	if(length < MAX_DATE_STRING_LENGTH)
 	{
 		// tokenize it and put it in the array
-		LLString cur_word;
+		std::string cur_word;
 		for(size_t i = 0; i < length; ++i)
 		{
 			if(day_list[i] == ':')
@@ -838,21 +839,21 @@ void LLStatusBar::setupDate()
 			}
 			else
 			{
-				cur_word.append(1, day_list.c_str()[i]);
+				cur_word.append(1, day_list[i]);
 			}
 		}
 		sDays.push_back(cur_word);
 	}
 	
 	// fill the day array with what's in the xui	
-	LLString month_list = getString( "StatBarMonthsOfYear" );
+	std::string month_list = getString( "StatBarMonthsOfYear" );
 	length = month_list.size();
 	
 	// quick input check
 	if(length < MAX_DATE_STRING_LENGTH)
 	{
 		// tokenize it and put it in the array
-		LLString cur_word;
+		std::string cur_word;
 		for(size_t i = 0; i < length; ++i)
 		{
 			if(month_list[i] == ':')
@@ -862,7 +863,7 @@ void LLStatusBar::setupDate()
 			}
 			else
 			{
-				cur_word.append(1, month_list.c_str()[i]);
+				cur_word.append(1, month_list[i]);
 			}
 		}
 		sMonths.push_back(cur_word);
@@ -891,7 +892,7 @@ void LLStatusBar::onCommitSearch(LLUICtrl*, void* data)
 void LLStatusBar::onClickSearch(void* data)
 {
 	LLStatusBar* self = (LLStatusBar*)data;
-	LLString search_text = self->childGetText("search_editor");
+	std::string search_text = self->childGetText("search_editor");
 	LLFloaterDirectory::showFindAll(search_text);
 }
 

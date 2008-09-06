@@ -78,7 +78,7 @@ const F32 CONTEXT_FADE_TIME = 0.08f;
 // default ctor
 LLFloaterColorPicker::
 LLFloaterColorPicker (LLColorSwatchCtrl* swatch, BOOL show_apply_immediate )
-	: LLFloater ("Color Picker Floater"),
+	: LLFloater (std::string("Color Picker Floater")),
 	  mComponents			( 3 ),
 	  mMouseDownInLumRegion	( FALSE ),
 	  mMouseDownInHueRegion	( FALSE ),
@@ -232,7 +232,7 @@ postBuild()
 
 	mPipetteBtn = getChild<LLButton>("color_pipette" );
 
-	mPipetteBtn->setImages("eye_button_inactive.tga", "eye_button_active.tga");
+	mPipetteBtn->setImages(std::string("eye_button_inactive.tga"), std::string("eye_button_active.tga"));
 
 	mPipetteBtn->setClickedCallback( onClickPipette );
 	mPipetteBtn->setCallbackUserData ( this );
@@ -794,7 +794,7 @@ LLFloaterColorPicker::
 onTextEntryChanged ( LLUICtrl* ctrl )
 {
 	// value in RGB boxes changed
-	LLString name = ctrl->getName();
+	std::string name = ctrl->getName();
 	if ( ( name == "rspin" ) || ( name == "gspin" ) || ( name == "bspin" ) )
 	{
 		// get current RGB
@@ -913,7 +913,7 @@ handleMouseDown ( S32 x, S32 y, MASK mask )
 
 	if ( rgbAreaRect.pointInRect ( x, y ) )
 	{
-		gViewerWindow->setMouseCapture(this);
+		gFocusMgr.setMouseCapture(this);
 		// mouse button down
 		setMouseDownInHueRegion ( TRUE );
 
@@ -932,7 +932,7 @@ handleMouseDown ( S32 x, S32 y, MASK mask )
 
 	if ( lumAreaRect.pointInRect ( x, y ) )
 	{
-		gViewerWindow->setMouseCapture(this);
+		gFocusMgr.setMouseCapture(this);
 		// mouse button down
 		setMouseDownInLumRegion ( TRUE );
 
@@ -1148,7 +1148,7 @@ handleMouseUp ( S32 x, S32 y, MASK mask )
 
 	if (hasMouseCapture())
 	{
-		gViewerWindow->setMouseCapture(NULL);
+		gFocusMgr.setMouseCapture(NULL);
 	}
 
 	// dispatch to base class for the rest of things

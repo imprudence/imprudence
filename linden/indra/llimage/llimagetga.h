@@ -43,8 +43,9 @@ protected:
 	
 public:
 	LLImageTGA();
-	LLImageTGA(const LLString& file_name);
+	LLImageTGA(const std::string& file_name);
 
+	/*virtual*/ std::string getExtension() { return std::string("tga"); }
 	/*virtual*/ BOOL updateData();
 	/*virtual*/ BOOL decode(LLImageRaw* raw_image, F32 decode_time=0.0);
 	/*virtual*/ BOOL encode(const LLImageRaw* raw_image, F32 encode_time=0.0);
@@ -70,7 +71,7 @@ private:
 	void			 decodeColorMapPixel24(U8* dst, const U8* src);
 	void			 decodeColorMapPixel32(U8* dst, const U8* src);
 
-	bool			 loadFile(const LLString& file_name);
+	bool			 loadFile(const std::string& file_name);
 	
 private:
 	// Class specific data

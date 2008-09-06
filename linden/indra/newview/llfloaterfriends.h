@@ -38,6 +38,7 @@
 #include "llstring.h"
 #include "lluuid.h"
 #include "lltimer.h"
+#include "llcallingcard.h"
 
 class LLFriendObserver;
 class LLRelationship;
@@ -79,7 +80,7 @@ public:
 
 	// Just request friendship, no dialog.
 	static void requestFriendship(const LLUUID& target_id,
-								  const LLString& target_name);
+								  const std::string& target_name, const std::string& message);
 
 private:
 
@@ -96,8 +97,9 @@ private:
 
 	// protected members
 	typedef std::map<LLUUID, S32> rights_map_t;
-	void reloadNames();
-	void refreshNames();
+	void refreshNames(U32 changed_mask);
+	BOOL refreshNamesSync(const LLAvatarTracker::buddy_map_t & all_buddies);
+	BOOL refreshNamesPresence(const LLAvatarTracker::buddy_map_t & all_buddies);
 	void refreshUI();
 	void refreshRightsChangeList();
 	void applyRightsToFriends();
@@ -117,7 +119,7 @@ private:
 
 	// callback methods
 	static void onSelectName(LLUICtrl* ctrl, void* user_data);
-	static void callbackAddFriend(S32 option, void* user_data);
+	static void callbackAddFriend(S32 option, const std::string& text, void* user_data);
 	static void onPickAvatar(const std::vector<std::string>& names, const std::vector<LLUUID>& ids, void* user_data);
 	static void onMaximumSelect(void* user_data);
 
@@ -138,7 +140,7 @@ private:
 	// member data
 	LLFriendObserver* mObserver;
 	LLUUID mAddFriendID;
-	LLString mAddFriendName;
+	std::string mAddFriendName;
 	LLScrollListCtrl* mFriendsList;
 	BOOL mShowMaxSelectWarning;
 	BOOL mAllowRightsChange;

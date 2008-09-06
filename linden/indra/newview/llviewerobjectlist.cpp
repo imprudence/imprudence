@@ -716,17 +716,17 @@ void LLViewerObjectList::update(LLAgent &agent, LLWorld &world)
 	/*
 	// Debugging code for viewing orphans, and orphaned parents
 	LLUUID id;
-	char id_str[UUID_STR_LENGTH + 20];
 	for (i = 0; i < mOrphanParents.count(); i++)
 	{
 		id = sIndexAndLocalIDToUUID[mOrphanParents[i]];
 		LLViewerObject *objectp = findObject(id);
 		if (objectp)
 		{
-			sprintf(id_str, "Par:    ");
-			objectp->mID.toString(id_str + 5);
+			std::string id_str;
+			objectp->mID.toString(id_str);
+			std::string tmpstr = std::string("Par:    ") + id_str;
 			addDebugBeacon(objectp->getPositionAgent(),
-							id_str,
+							tmpstr,
 							LLColor4(1.f,0.f,0.f,1.f),
 							LLColor4(1.f,1.f,1.f,1.f));
 		}
@@ -739,20 +739,22 @@ void LLViewerObjectList::update(LLAgent &agent, LLWorld &world)
 		LLViewerObject *objectp = findObject(oi.mChildInfo);
 		if (objectp)
 		{
+			std::string id_str;
+			objectp->mID.toString(id_str);
+			std::string tmpstr;
 			if (objectp->getParent())
 			{
-				sprintf(id_str, "ChP:     ");
+				tmpstr = std::string("ChP:    ") + id_str;
 				text_color = LLColor4(0.f, 1.f, 0.f, 1.f);
 			}
 			else
 			{
-				sprintf(id_str, "ChNoP:    ");
+				tmpstr = std::string("ChNoP:    ") + id_str;
 				text_color = LLColor4(1.f, 0.f, 0.f, 1.f);
 			}
 			id = sIndexAndLocalIDToUUID[oi.mParentInfo];
-			objectp->mID.toString(id_str + 8);
 			addDebugBeacon(objectp->getPositionAgent() + LLVector3(0.f, 0.f, -0.25f),
-							id_str,
+							tmpstr,
 							LLColor4(0.25f,0.25f,0.25f,1.f),
 							text_color);
 		}
@@ -1076,14 +1078,14 @@ void LLViewerObjectList::renderObjectBounds(const LLVector3 &center)
 {
 }
 
-
-U32 LLViewerObjectList::renderObjectsForSelect(LLCamera &camera, BOOL pick_parcel_wall, BOOL keep_pick_list)
+void LLViewerObjectList::renderObjectsForSelect(LLCamera &camera, const LLRect& screen_rect, BOOL pick_parcel_wall, BOOL render_transparent)
 {
-	gRenderForSelect = TRUE;
+	generatePickList(camera);
+	renderPickList(screen_rect, pick_parcel_wall, render_transparent);
+}
 
-	//	LLTimer pick_timer;
-	if (!keep_pick_list)
-	{
+void LLViewerObjectList::generatePickList(LLCamera &camera)
+{
 		LLViewerObject *objectp;
 		S32 i;
 		// Reset all of the GL names to zero.
@@ -1161,9 +1163,11 @@ U32 LLViewerObjectList::renderObjectsForSelect(LLCamera &camera, BOOL pick_parce
 					if (objectp)
 					{
 						mSelectPickList.insert(objectp);		
-						for (U32 i = 0; i < objectp->mChildList.size(); i++)
+						LLViewerObject::const_child_list_t& child_list = objectp->getChildren();
+						for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+							 iter != child_list.end(); iter++)
 						{
-							LLViewerObject* childp = objectp->mChildList[i];
+							LLViewerObject* childp = *iter;
 							if (childp)
 							{
 								mSelectPickList.insert(childp);
@@ -1197,11 +1201,14 @@ U32 LLViewerObjectList::renderObjectsForSelect(LLCamera &camera, BOOL pick_parce
 			}
 
 			LLHUDIcon::generatePickIDs(i * step, step);
-		
-			// At this point, we should only have live drawables/viewer objects
-			gPipeline.renderForSelect(mSelectPickList);
-		}
 	}
+}
+
+void LLViewerObjectList::renderPickList(const LLRect& screen_rect, BOOL pick_parcel_wall, BOOL render_transparent)
+{
+	gRenderForSelect = TRUE;
+		
+	gPipeline.renderForSelect(mSelectPickList, render_transparent, screen_rect);
 
 	//
 	// Render pass for selected objects
@@ -1209,8 +1216,13 @@ U32 LLViewerObjectList::renderObjectsForSelect(LLCamera &camera, BOOL pick_parce
 	gGL.color4f(1,1,1,1);	
 	gViewerWindow->renderSelections( TRUE, pick_parcel_wall, FALSE );
 
-	// render pickable ui elements, like names, etc.
-	LLHUDObject::renderAllForSelect();
+	//fix for DEV-19335.  Don't pick hud objects when customizing avatar (camera mode doesn't play nice with nametags).
+	if (!gAgent.cameraCustomizeAvatar())
+	{
+		// render pickable ui elements, like names, etc.
+		LLHUDObject::renderAllForSelect();
+	}
+	
 	gGL.flush();
 	LLVertexBuffer::unbind();
 
@@ -1218,7 +1230,6 @@ U32 LLViewerObjectList::renderObjectsForSelect(LLCamera &camera, BOOL pick_parce
 
 	//llinfos << "Rendered " << count << " for select" << llendl;
 	//llinfos << "Took " << pick_timer.getElapsedTimeF32()*1000.f << "ms to pick" << llendl;
-	return 0;
 }
 
 LLViewerObject *LLViewerObjectList::getSelectedObject(const U32 object_id)
@@ -1235,7 +1246,7 @@ LLViewerObject *LLViewerObjectList::getSelectedObject(const U32 object_id)
 }
 
 void LLViewerObjectList::addDebugBeacon(const LLVector3 &pos_agent,
-										const LLString &string,
+										const std::string &string,
 										const LLColor4 &color,
 										const LLColor4 &text_color,
 										S32 line_width)
@@ -1505,6 +1516,7 @@ void LLViewerObjectList::findOrphans(LLViewerObject* objectp, U32 ip, U32 port)
 ////////////////////////////////////////////////////////////////////////////
 
 LLViewerObjectList::OrphanInfo::OrphanInfo()
+	: mParentInfo(0)
 {
 }
 
@@ -1522,4 +1534,5 @@ bool LLViewerObjectList::OrphanInfo::operator!=(const OrphanInfo &rhs) const
 {
 	return !operator==(rhs);
 }
+
 

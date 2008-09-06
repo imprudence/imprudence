@@ -6,4 +6,7 @@
 	<button label="Arrêter" name="stop_btn" />
 	<button label="Domicile" name="home_btn" />
 	<button label="Aller" name="go_btn" />
+	<string name="support_page_url">
+	  	http://secondlife.com/app/support/index_fr.html
+	</string>
 </floater>

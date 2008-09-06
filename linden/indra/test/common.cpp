@@ -49,6 +49,11 @@
 #include "llsdserialize.h"
 #include "u64.h"
 
+#if LL_WINDOWS
+// disable overflow warnings
+#pragma warning(disable: 4307)
+#endif
+
 namespace tut
 {
 	struct sd_data
@@ -369,6 +374,9 @@ namespace tut
 	template<> template<>
 	void sd_object::test<14>()
 	{
+//#if LL_WINDOWS && _MSC_VER >= 1400
+//        skip_fail("Fails on VS2005 due to broken LLSDSerialize::fromNotation() parser.");
+//#endif
 		std::string param = "[{'version':i1},{'data':{'binary_bucket':b(0)\"\"},'from_id':u3c115e51-04f4-523c-9fa6-98aff1034730,'from_name':'Phoenix Linden','id':u004e45e5-5576-277a-fba7-859d6a4cb5c8,'message':'hey','offline':i0,'timestamp':i0,'to_id':u3c5f1bb4-5182-7546-6401-1d329b4ff2f8,'type':i0},{'agent_id':u3c115e51-04f4-523c-9fa6-98aff1034730,'god_level':i0,'limited_to_estate':i1}]";
 		std::istringstream istr;
 		istr.str(param);
@@ -548,7 +556,7 @@ namespace tut
 		ensure_equals("str_to_U64 converted 2.1", val, result);
 
 		val = U64L(0); // empty string
-		result = str_to_U64("");
+		result = str_to_U64(LLStringUtil::null);
 		ensure_equals("str_to_U64 converted 2.2", val, result);
 
 		val = U64L(0); // 0

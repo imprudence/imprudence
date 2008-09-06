@@ -94,12 +94,9 @@ public:
 	static void sendDirFindQuery(
 		LLMessageSystem* msg,
 		const LLUUID& query_id,
-		const LLString& text,
+		const std::string& text,
 		U32 flags,
 		S32 query_start);
-
-	// Put an item in the first line of the results list.
-	void addHelpText(const char* text);
 
 	void newClassified();
 
@@ -123,8 +120,8 @@ public:
 protected:
 	void updateResultCount();
 
-	void addClassified(LLCtrlListInterface *list, const LLUUID& classified_id, const char* name, const U32 creation_date, const S32 price_for_listing);
-	LLSD createLandSale(const LLUUID& parcel_id, BOOL is_auction, BOOL is_for_sale, const LLString& name, S32 *type);
+	void addClassified(LLCtrlListInterface *list, const LLUUID& classified_id, const std::string& name, const U32 creation_date, const S32 price_for_listing);
+	LLSD createLandSale(const LLUUID& parcel_id, BOOL is_auction, BOOL is_for_sale, const std::string& name, S32 *type);
 
 	static void onKeystrokeName(LLLineEditor* line, void* data);
 
@@ -136,7 +133,7 @@ protected:
 protected:
 	LLUUID			mSearchID;		// Unique ID for a pending search
 	LLUUID			mWantSelectID;	// scroll item to select on arrival
-	LLString        mCurrentSortColumn;
+	std::string     mCurrentSortColumn;
 	BOOL            mCurrentSortAscending;
 	// Some searches return a max of 100 items per page, so we can
 	// start the search from the 100th item rather than the 0th, etc.

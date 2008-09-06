@@ -110,7 +110,7 @@ void	LLFloaterEditUI::navigateHierarchyButtonPressed(void*	data)
 }
 	
 LLFloaterEditUI::LLFloaterEditUI()
-:	LLFloater("floater_ui_editor", LLRect(0, 200, 200, 0), "Edit User Interface"),
+:	LLFloater(std::string("floater_ui_editor"), LLRect(0, 200, 200, 0), std::string("Edit User Interface")),
 	mLastView(NULL),
 	mLabelLine(NULL),
 	mWidthSpin(NULL),
@@ -129,16 +129,16 @@ LLFloaterEditUI::LLFloaterEditUI()
 	LLButton*	button = NULL;
 
 
-	text = new LLTextBox("Selected UI Widget:", LLRect(x, y+16, x+100, y));
+	text = new LLTextBox(std::string("Selected UI Widget:"), LLRect(x, y+16, x+100, y));
 	addChild(text);
 	y -= VPAD + 16;
 
-	text = new LLTextBox("Label:", LLRect(x, y+16, x+40, y));
+	text = new LLTextBox(std::string("Label:"), LLRect(x, y+16, x+40, y));
 	addChild(text);
 	x = R1;
 
-	line = new LLLineEditor("label_line", LLRect(x, y+20, x+100, y),
-		"",
+	line = new LLLineEditor(std::string("label_line"), LLRect(x, y+20, x+100, y),
+		LLStringUtil::null,
 		NULL,
 		254,
 		onCommitLabel,
@@ -151,8 +151,8 @@ LLFloaterEditUI::LLFloaterEditUI()
 	x = HPAD;
 	y -= VPAD + 20;
 
-	spin = new LLSpinCtrl("height_spin", LLRect(x, y+20, x+100, y),
-		"Height:", LLFontGL::sSansSerifSmall,
+	spin = new LLSpinCtrl(std::string("height_spin"), LLRect(x, y+20, x+100, y),
+		std::string("Height:"), LLFontGL::sSansSerifSmall,
 		onCommitHeight,
 		this,
 		0.f,
@@ -165,8 +165,8 @@ LLFloaterEditUI::LLFloaterEditUI()
 
 	y -= VPAD + 20;
 
-	spin = new LLSpinCtrl("width_spin", LLRect(x, y+20, x+100, y),
-		"Width:", LLFontGL::sSansSerifSmall,
+	spin = new LLSpinCtrl(std::string("width_spin"), LLRect(x, y+20, x+100, y),
+		std::string("Width:"), LLFontGL::sSansSerifSmall,
 		onCommitWidth,
 		this,
 		0.f,
@@ -179,31 +179,31 @@ LLFloaterEditUI::LLFloaterEditUI()
 
 	y -= VPAD + 20;
 
-	text = new LLTextBox("XML Name:", LLRect(x, y+16, x+60, y));
+	text = new LLTextBox(std::string("XML Name:"), LLRect(x, y+16, x+60, y));
 	addChild(text);
 	x+=60;
-	text = new LLTextBox("xml_name", LLRect(x, y+16, x+100, y));
+	text = new LLTextBox(std::string("xml_name"), LLRect(x, y+16, x+100, y));
 	addChild(text);
 	x-=50;
 
 	y -= VPAD + 20;
 
 	x += 40;
-	button = new LLButton("up",LLRect(x, y+16, x+32, y));
+	button = new LLButton(std::string("up"),LLRect(x, y+16, x+32, y));
 	addChild(button);
 	x -= 40;
 	y -= VPAD + 20;
-	button = new LLButton("<<",LLRect(x, y+16, x+32, y));
+	button = new LLButton(std::string("<<"),LLRect(x, y+16, x+32, y));
 	addChild(button);
 	x += 40;
-	button = new LLButton("rfrsh",LLRect(x, y+16, x+32, y));
+	button = new LLButton(std::string("rfrsh"),LLRect(x, y+16, x+32, y));
 	addChild(button);
 	x += 40;
-	button = new LLButton(">>",LLRect(x, y+16, x+32, y));
+	button = new LLButton(std::string(">>"),LLRect(x, y+16, x+32, y));
 	addChild(button);
 	x -= 40;
 	y -= VPAD + 20;
-	button = new LLButton("dn",LLRect(x, y+16, x+32, y));
+	button = new LLButton(std::string("dn"),LLRect(x, y+16, x+32, y));
 	addChild(button);
 
 	childSetAction("up",navigateHierarchyButtonPressed,(void*)0);
@@ -240,7 +240,7 @@ void LLFloaterEditUI::refresh()
 	if (!view) 
 	{
 		mLastView = NULL;
-		mLabelLine->setText(LLString::null);
+		mLabelLine->setText(LLStringUtil::null);
 		mLabelLine->setEnabled(FALSE);
 		mWidthSpin->set(0.f);
 		mWidthSpin->setEnabled(FALSE);
@@ -291,14 +291,14 @@ void LLFloaterEditUI::refreshCore()
 void LLFloaterEditUI::refreshView(LLView* view)
 {
 	mLabelLine->setEnabled(FALSE);
-	mLabelLine->setText(LLString::null);
+	mLabelLine->setText(LLStringUtil::null);
 	childSetText("xml_name",view->getName());
 }
 
 void LLFloaterEditUI::refreshButton(LLView* view)
 {
 	LLButton* btn = (LLButton*)view;
-	LLString label = btn->getLabelUnselected();
+	std::string label = btn->getLabelUnselected();
 	mLabelLine->setEnabled(TRUE);
 	mLabelLine->setText(label);
 	childSetText("xml_name",view->getName());
@@ -385,7 +385,7 @@ void LLFloaterEditUI::onCommitLabel(LLUICtrl* ctrl, void* data)
 	if (!view) return;
 
 	LLLineEditor* line = (LLLineEditor*)ctrl;
-	const LLString& text = line->getText();
+	const std::string& text = line->getText();
 	LLButton* btn = dynamic_cast<LLButton*>(view);
 	if (btn)
 	{

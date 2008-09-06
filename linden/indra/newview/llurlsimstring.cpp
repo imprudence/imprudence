@@ -1,5 +1,5 @@
 /** 
- * @file llsimurlstring.cpp
+ * @file llurlsimstring.cpp (was llsimurlstring.cpp)
  * @brief Handles "SLURL fragments" like Ahern/123/45 for
  * startup processing, login screen, prefs, etc.
  *
@@ -41,13 +41,13 @@
 
 //static
 LLURLSimString LLURLSimString::sInstance;
-LLString LLURLSimString::sLocationStringHome("My Home");
-LLString LLURLSimString::sLocationStringLast("My Last Location");
+std::string LLURLSimString::sLocationStringHome("My Home");
+std::string LLURLSimString::sLocationStringLast("My Last Location");
 
 // "secondlife://simname/x/y/z" -> "simname/x/y/z"
 // (actually .*//foo -> foo)
 // static
-void LLURLSimString::setString(const LLString& sim_string)
+void LLURLSimString::setString(const std::string& sim_string)
 {
 	sInstance.mSimString.clear();
 	sInstance.mSimName.clear();
@@ -63,29 +63,31 @@ void LLURLSimString::setString(const LLString& sim_string)
 	else
 	{
 		char* curlstr = curl_unescape(sim_string.c_str(), sim_string.size());
-		LLString tstring = LLString(curlstr);
+		std::string tstring = std::string(curlstr);
 		curl_free(curlstr);
 		std::string::size_type idx = tstring.find("//");
-		idx = (idx == LLString::npos) ? 0 : idx+2;
+		idx = (idx == std::string::npos) ? 0 : idx+2;
 		sInstance.mSimString = tstring.substr(idx);
 	}
 }
 
 // "/100" -> 100
 // static
-S32 LLURLSimString::parseGridIdx(const LLString& in_string, S32 idx0, S32* res)
+std::string::size_type LLURLSimString::parseGridIdx(const std::string& in_string,
+												 std::string::size_type idx0,
+												 std::string::size_type* res)
 {
-	if (idx0 == LLString::npos || in_string[idx0] != '/')
+	if (idx0 == std::string::npos || in_string[idx0] != '/')
 	{
-		return (S32)LLString::npos; // parse error
+		return std::string::npos; // parse error
 	}
 	idx0++;
-	LLString::size_type idx1 = in_string.find_first_of('/', idx0);
-	LLString::size_type len = (idx1 == LLString::npos) ? LLString::npos : idx1-idx0;
-	LLString tstring = in_string.substr(idx0,len);
+	std::string::size_type idx1 = in_string.find_first_of('/', idx0);
+	std::string::size_type len = (idx1 == std::string::npos) ? std::string::npos : idx1-idx0;
+	std::string tstring = in_string.substr(idx0,len);
 	if (!tstring.empty())
 	{
-		S32 val = atoi(tstring.c_str());
+		std::string::size_type val = atoi(tstring.c_str());
 		*res = val;
 	}
 	return idx1;
@@ -118,24 +120,32 @@ bool LLURLSimString::parse()
 }
 
 // static
-bool LLURLSimString::parse(const LLString& sim_string, std::string *region_name, S32 *x, S32 *y, S32 *z)
+bool LLURLSimString::parse(const std::string& sim_string,
+						   std::string *region_name,
+						   S32 *x, S32 *y, S32 *z)
 {
-	 // strip any bogus initial '/'
-	LLString::size_type idx0 = sim_string.find_first_not_of('/');
+	// strip any bogus initial '/'
+	std::string::size_type idx0 = sim_string.find_first_not_of('/');
 	if (idx0 == std::string::npos) idx0 = 0;
 
-	LLString::size_type idx1 = sim_string.find_first_of('/', idx0);
-	LLString::size_type len = (idx1 == std::string::npos) ? std::string::npos : idx1-idx0;
-	LLString tstring = sim_string.substr(idx0,len);
+	std::string::size_type idx1 = sim_string.find_first_of('/', idx0);
+	std::string::size_type len = (idx1 == std::string::npos) ? std::string::npos : idx1-idx0;
+	std::string tstring = sim_string.substr(idx0,len);
 	*region_name = unescapeRegionName(tstring);
 	if (!region_name->empty())
 	{
+		// return position data if found. otherwise leave passed-in values alone. (DEV-18380) -MG
 		if (idx1 != std::string::npos)
 		{
-			idx1 = parseGridIdx(sim_string, idx1, x);
-			idx1 = parseGridIdx(sim_string, idx1, y);
-			idx1 = parseGridIdx(sim_string, idx1, z);
+			std::string::size_type xs = *x, ys = *y, zs = *z;
+			idx1 = parseGridIdx(sim_string, idx1, &xs);
+			idx1 = parseGridIdx(sim_string, idx1, &ys);
+			idx1 = parseGridIdx(sim_string, idx1, &zs);
+			*x = xs;
+			*y = ys;
+			*z = zs;
 		}
+		
 		return true;
 	}
 	else

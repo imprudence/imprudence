@@ -185,7 +185,7 @@ void LLPanelDirBrowser::updateResultCount()
 	LLScrollListCtrl* list = getChild<LLScrollListCtrl>("results");
 
 	S32 result_count = list->getItemCount();
-	LLString result_text;
+	std::string result_text;
 
 	if (!mHaveSearchResults) result_count = 0;
 
@@ -207,7 +207,7 @@ void LLPanelDirBrowser::updateResultCount()
 		// add none found response
 		if (list->getItemCount() == 0)
 		{
-			list->addCommentText(getString("not_found_text"));
+			list->addCommentText(std::string("None found.")); // *TODO: Translate
 			list->operateOnAll(LLCtrlListInterface::OP_DESELECT);
 		}
 	}
@@ -324,7 +324,7 @@ void LLPanelDirBrowser::getSelectedInfo(LLUUID* id, S32 *type)
 
 	*id = id_sd.asUUID();
 
-	LLString id_str = id_sd.asString();
+	std::string id_str = id_sd.asString();
 	*type = mResultsContents[id_str]["type"];
 }
 
@@ -347,7 +347,7 @@ void LLPanelDirBrowser::onCommitList(LLUICtrl* ctrl, void* data)
 		return;
 	}
 
-	LLString id_str = self->childGetValue("results").asString();
+	std::string id_str = self->childGetValue("results").asString();
 	if (id_str.empty())
 	{
 		return;
@@ -361,7 +361,7 @@ void LLPanelDirBrowser::onCommitList(LLUICtrl* ctrl, void* data)
 		item_id = self->mResultsContents[id_str]["event_id"];
 	}
 
-	//LLString name = self->mResultsContents[id_str]["name"].asString();
+	//std::string name = self->mResultsContents[id_str]["name"].asString();
 	self->showDetailPanel(type, item_id);
 }
 
@@ -373,7 +373,7 @@ void LLPanelDirBrowser::showDetailPanel(S32 type, LLSD id)
 		if (mFloaterDirectory && mFloaterDirectory->mPanelAvatarp)
 		{
 			mFloaterDirectory->mPanelAvatarp->setVisible(TRUE);
-			mFloaterDirectory->mPanelAvatarp->setAvatarID(id.asUUID(), "", ONLINE_STATUS_NO);
+			mFloaterDirectory->mPanelAvatarp->setAvatarID(id.asUUID(), LLStringUtil::null, ONLINE_STATUS_NO);
 		}
 		break;
 	case EVENT_CODE:
@@ -445,8 +445,8 @@ void LLPanelDirBrowser::showEvent(const U32 event_id)
 void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 {
 	LLUUID query_id;
-	char   first_name[DB_FIRST_NAME_BUF_SIZE];	/* Flawfinder: ignore */
-	char   last_name[DB_LAST_NAME_BUF_SIZE];	/* Flawfinder: ignore */
+	std::string   first_name;
+	std::string   last_name;
 	LLUUID agent_id;
 
 	msg->getUUIDFast(_PREHASH_QueryData,_PREHASH_QueryID, query_id);
@@ -477,12 +477,12 @@ void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 
 	for (S32 i = 0; i < rows; i++)
 	{			
-		msg->getStringFast(_PREHASH_QueryReplies,_PREHASH_FirstName, DB_FIRST_NAME_BUF_SIZE, first_name, i);
-		msg->getStringFast(_PREHASH_QueryReplies,_PREHASH_LastName,	DB_LAST_NAME_BUF_SIZE, last_name, i);
+		msg->getStringFast(_PREHASH_QueryReplies,_PREHASH_FirstName, first_name, i);
+		msg->getStringFast(_PREHASH_QueryReplies,_PREHASH_LastName,	last_name, i);
 		msg->getUUIDFast(  _PREHASH_QueryReplies,_PREHASH_AgentID, agent_id, i);
 		// msg->getU8Fast(    _PREHASH_QueryReplies,_PREHASH_Online, online, i);
 		// unused
-		// msg->getStringFast(_PREHASH_QueryReplies,_PREHASH_Group, DB_GROUP_NAME_BUF_SIZE, group, i);
+		// msg->getStringFast(_PREHASH_QueryReplies,_PREHASH_Group, group, i);
 		// msg->getS32Fast(   _PREHASH_QueryReplies,_PREHASH_Reputation, reputation, i);
 
 		if (agent_id.isNull())
@@ -503,7 +503,7 @@ void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 
 		content["type"] = AVATAR_CODE;
 
-		LLString fullname = LLString(first_name) + " " + LLString(last_name);
+		std::string fullname = first_name + " " + last_name;
 		row["columns"][1]["column"] = "name";
 		row["columns"][1]["value"] = fullname;
 		row["columns"][1]["font"] = "SANSSERIF";
@@ -528,7 +528,7 @@ void LLPanelDirBrowser::processDirPlacesReply(LLMessageSystem* msg, void**)
 	LLUUID	agent_id;
 	LLUUID	query_id;
 	LLUUID	parcel_id;
-	char	name[MAX_STRING];		/*Flawfinder: ignore*/
+	std::string	name;
 	BOOL	is_for_sale;
 	BOOL	is_auction;
 	F32		dwell;
@@ -555,16 +555,15 @@ void LLPanelDirBrowser::processDirPlacesReply(LLMessageSystem* msg, void**)
 		self->mResultsContents = LLSD();
 	}
 
-	S32 i;
 	S32 count = msg->getNumberOfBlocks("QueryReplies");
 	self->mResultsReceived += count;
 
 	count = self->showNextButton(count);
 
-	for (i = 0; i < count ; i++)
+	for (S32 i = 0; i < count ; i++)
 	{
 		msg->getUUID("QueryReplies", "ParcelID", parcel_id, i);
-		msg->getString("QueryReplies", "Name", MAX_STRING, name, i);
+		msg->getString("QueryReplies", "Name", name, i);
 		msg->getBOOL("QueryReplies", "ForSale", is_for_sale, i);
 		msg->getBOOL("QueryReplies", "Auction", is_auction, i);
 		msg->getF32("QueryReplies", "Dwell", dwell, i);
@@ -577,12 +576,12 @@ void LLPanelDirBrowser::processDirPlacesReply(LLMessageSystem* msg, void**)
 		LLSD content;
 		S32 type;
 
-		LLSD row = self->createLandSale(parcel_id, is_auction, is_for_sale,  name, &type);
+		LLSD row = self->createLandSale(parcel_id, is_auction, is_for_sale, name, &type);
 
 		content["type"] = type;
 		content["name"] = name;
 
-		LLString buffer = llformat("%.0f", (F64)dwell);
+		std::string buffer = llformat("%.0f", (F64)dwell);
 		row["columns"][3]["column"] = "dwell";
 		row["columns"][3]["value"] = buffer;
 		row["columns"][3]["font"] = "SANSSERIFSMALL";
@@ -605,8 +604,8 @@ void LLPanelDirBrowser::processDirEventsReply(LLMessageSystem* msg, void**)
 	LLUUID	agent_id;
 	LLUUID	query_id;
 	LLUUID	owner_id;
-	char	name[MAX_STRING];			/*Flawfinder: ignore*/
-	char	date[MAX_STRING];		/*Flawfinder: ignore*/
+	std::string	name;
+	std::string	date;
 	BOOL	show_mature = gSavedSettings.getBOOL("ShowMatureEvents");
 
 	msg->getUUID("AgentData", "AgentID", agent_id);
@@ -642,9 +641,9 @@ void LLPanelDirBrowser::processDirEventsReply(LLMessageSystem* msg, void**)
 		U32 event_flags;
 
 		msg->getUUID("QueryReplies", "OwnerID", owner_id, i);
-		msg->getString("QueryReplies", "Name", MAX_STRING, name, i);
+		msg->getString("QueryReplies", "Name", name, i);
 		msg->getU32("QueryReplies", "EventID", event_id, i);
-		msg->getString("QueryReplies", "Date", MAX_STRING, date, i);
+		msg->getString("QueryReplies", "Date", date, i);
 		msg->getU32("QueryReplies", "UnixTime", unix_time, i);
 		msg->getU32("QueryReplies", "EventFlags", event_flags, i);
 	
@@ -701,7 +700,7 @@ void LLPanelDirBrowser::processDirEventsReply(LLMessageSystem* msg, void**)
 
 		list->addElement(row, ADD_SORTED);
 
-		LLString id_str = llformat("%u", event_id);
+		std::string id_str = llformat("%u", event_id);
 		self->mResultsContents[id_str] = content;
 	}
 
@@ -721,7 +720,7 @@ void LLPanelDirBrowser::processDirGroupsReply(LLMessageSystem* msg, void**)
 	
 	LLUUID	query_id;
 	LLUUID	group_id;
-	char	group_name[DB_GROUP_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+	std::string	group_name;
 	S32     members;
 	F32     search_order;
 
@@ -753,7 +752,7 @@ void LLPanelDirBrowser::processDirGroupsReply(LLMessageSystem* msg, void**)
 	for (i = 0; i < rows; i++)
 	{
 		msg->getUUIDFast(_PREHASH_QueryReplies, _PREHASH_GroupID,		group_id, i );
-		msg->getStringFast(_PREHASH_QueryReplies, _PREHASH_GroupName,	DB_GROUP_NAME_BUF_SIZE,		group_name,		i);
+		msg->getStringFast(_PREHASH_QueryReplies, _PREHASH_GroupName,	group_name,		i);
 		msg->getS32Fast(_PREHASH_QueryReplies, _PREHASH_Members,		members, i );
 		msg->getF32Fast(_PREHASH_QueryReplies, _PREHASH_SearchOrder,	search_order, i );
 		
@@ -839,12 +838,12 @@ void LLPanelDirBrowser::processDirClassifiedReply(LLMessageSystem* msg, void**)
 	for (i = 0; i < num_new_rows; i++)
 	{
 		LLUUID classified_id;
-		char name[DB_PARCEL_NAME_SIZE];		/*Flawfinder: ignore*/
+		std::string name;
 		U32 creation_date = 0;	// unix timestamp
 		U32 expiration_date = 0;	// future use
 		S32 price_for_listing = 0;
 		msg->getUUID("QueryReplies", "ClassifiedID", classified_id, i);
-		msg->getString("QueryReplies", "Name", DB_PARCEL_NAME_SIZE, name, i);
+		msg->getString("QueryReplies", "Name", name, i);
 		msg->getU32("QueryReplies","CreationDate",creation_date,i);
 		msg->getU32("QueryReplies","ExpirationDate",expiration_date,i);
 		msg->getS32("QueryReplies","PriceForListing",price_for_listing,i);
@@ -872,7 +871,7 @@ void LLPanelDirBrowser::processDirLandReply(LLMessageSystem *msg, void**)
 	LLUUID	agent_id;
 	LLUUID	query_id;
 	LLUUID	parcel_id;
-	char	name[MAX_STRING];		/*Flawfinder: ignore*/
+	std::string	name;
 	BOOL	auction;
 	BOOL	for_sale;
 	S32		sale_price;
@@ -917,7 +916,7 @@ void LLPanelDirBrowser::processDirLandReply(LLMessageSystem *msg, void**)
 	for (i = 0; i < count; i++)
 	{
 		msg->getUUID(	"QueryReplies", "ParcelID", parcel_id, i);
-		msg->getString(	"QueryReplies", "Name", MAX_STRING, name, i);
+		msg->getString(	"QueryReplies", "Name", name, i);
 		msg->getBOOL(	"QueryReplies", "Auction", auction, i);
 		msg->getBOOL(	"QueryReplies", "ForSale", for_sale, i);
 		msg->getS32(	"QueryReplies", "SalePrice", sale_price, i);
@@ -937,7 +936,7 @@ void LLPanelDirBrowser::processDirLandReply(LLMessageSystem *msg, void**)
 		content["type"] = type;
 		content["name"] = name;
 
-		LLString buffer = "Auction";
+		std::string buffer = "Auction";
 		if (!auction)
 		{
 			buffer = llformat("%d", sale_price);
@@ -987,7 +986,7 @@ void LLPanelDirBrowser::processDirLandReply(LLMessageSystem *msg, void**)
 	count = self->showNextButton(non_auction_count);
 
 	// Empty string will sort by current sort options.
-	list->sortByColumn("",FALSE);
+	list->sortByColumn(LLStringUtil::null,FALSE);
 	self->updateResultCount();
 
 	// Poke the result received timer
@@ -995,9 +994,9 @@ void LLPanelDirBrowser::processDirLandReply(LLMessageSystem *msg, void**)
 	self->mDidAutoSelect = FALSE;
 }
 
-void LLPanelDirBrowser::addClassified(LLCtrlListInterface *list, const LLUUID& pick_id, const char* name, const U32 creation_date, const S32 price_for_listing)
+void LLPanelDirBrowser::addClassified(LLCtrlListInterface *list, const LLUUID& pick_id, const std::string& name, const U32 creation_date, const S32 price_for_listing)
 {
-	LLString type = llformat("%d", CLASSIFIED_CODE);
+	std::string type = llformat("%d", CLASSIFIED_CODE);
 
 	LLSD row;
 	row["id"] = pick_id;
@@ -1017,7 +1016,7 @@ void LLPanelDirBrowser::addClassified(LLCtrlListInterface *list, const LLUUID& p
 	list->addElement(row);
 }
 
-LLSD LLPanelDirBrowser::createLandSale(const LLUUID& parcel_id, BOOL is_auction, BOOL is_for_sale,  const LLString& name, S32 *type)
+LLSD LLPanelDirBrowser::createLandSale(const LLUUID& parcel_id, BOOL is_auction, BOOL is_for_sale,  const std::string& name, S32 *type)
 {
 	LLSD row;
 	row["id"] = parcel_id;
@@ -1074,7 +1073,7 @@ void LLPanelDirBrowser::newClassified()
 		LLUUID classified_id = mFloaterDirectory->mPanelClassifiedp->getClassifiedID();
 
 		// Put it in the list on the left
-		addClassified(list, classified_id, mFloaterDirectory->mPanelClassifiedp->getClassifiedName().c_str(),0,0);
+		addClassified(list, classified_id, mFloaterDirectory->mPanelClassifiedp->getClassifiedName(),0,0);
 
 		// Select it.
 		list->setCurrentByID(classified_id);
@@ -1096,7 +1095,7 @@ void LLPanelDirBrowser::setupNewSearch()
 
 	// ready the list for results
 	list->operateOnAll(LLCtrlListInterface::OP_DELETE);
-	list->addCommentText(getString("searching_text"));
+	list->addCommentText(std::string("Searching...")); // *TODO: Translate
 	childDisable("results");
 
 	mResultsReceived = 0;
@@ -1127,7 +1126,7 @@ void LLPanelDirBrowser::onClickSearchCore(void* userdata)
 void LLPanelDirBrowser::sendDirFindQuery(
 	LLMessageSystem* msg,
 	const LLUUID& query_id,
-	const LLString& text,
+	const std::string& text,
 	U32 flags,
 	S32 query_start)
 {
@@ -1141,15 +1140,6 @@ void LLPanelDirBrowser::sendDirFindQuery(
 	msg->addU32("QueryFlags", flags);
 	msg->addS32("QueryStart", query_start);
 	gAgent.sendReliableMessage();
-}
-
-
-void LLPanelDirBrowser::addHelpText(const char* text)
-{
-	LLScrollListCtrl* list = getChild<LLScrollListCtrl>("results");
-
-	list->addCommentText(text);
-	childDisable("results");
 }
 
 

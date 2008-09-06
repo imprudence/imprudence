@@ -68,7 +68,7 @@ void LLEventNotifier::update()
 		// Check our notifications again and send out updates
 		// if they happen.
 
-		U32 alert_time = time_corrected() + 5 * 60;
+		time_t alert_time = time_corrected() + 5 * 60;
 		en_map::iterator iter;
 		for (iter = mEventNotifications.begin();
 			 iter != mEventNotifications.end();)
@@ -77,7 +77,7 @@ void LLEventNotifier::update()
 
 			if (np->getEventDate() < (alert_time))
 			{
-				LLString::format_map_t args;
+				LLStringUtil::format_map_t args;
 				args["[NAME]"] = np->getEventName();
 				args["[DATE]"] = np->getEventDateStr();
 				LLNotifyBox::showXml("EventNotification", args, 
@@ -203,7 +203,8 @@ void LLEventNotifier::notifyCallback(S32 option, void *user_data)
 
 LLEventNotification::LLEventNotification() :
 	mEventID(0),
-	mEventName("")
+	mEventName(""),
+	mEventDate(0)
 {
 }
 

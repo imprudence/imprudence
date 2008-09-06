@@ -38,16 +38,29 @@
 const S32 LOG_RECALL_SIZE = 2048;
 
 //static
-LLString LLLogChat::makeLogFileName(LLString filename)
+std::string LLLogChat::makeLogFileName(std::string filename)
 {
-	filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_ACCOUNT_CHAT_LOGS,filename.c_str());
+	filename = cleanFileName(filename);
+	filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_ACCOUNT_CHAT_LOGS,filename);
 	filename += ".txt";
 	return filename;
 }
 
-LLString LLLogChat::timestamp(bool withdate)
+std::string LLLogChat::cleanFileName(std::string filename)
 {
-	U32 utc_time;
+	std::string invalidChars = "\"\'\\/?*:<>|";
+	S32 position = filename.find_first_of(invalidChars);
+	while (position != filename.npos)
+	{
+		filename[position] = '_';
+		position = filename.find_first_of(invalidChars, position);
+	}
+	return filename;
+}
+
+std::string LLLogChat::timestamp(bool withdate)
+{
+	time_t utc_time;
 	utc_time = time_corrected();
 
 	// There's only one internal tm buffer.
@@ -57,7 +70,7 @@ LLString LLLogChat::timestamp(bool withdate)
 	// it's daylight savings time there.
 	timep = utc_to_pacific_time(utc_time, gPacificDaylightTime);
 
-	LLString text;
+	std::string text;
 	if (withdate)
 		text = llformat("[%d/%02d/%02d %d:%02d]  ", (timep->tm_year-100)+2000, timep->tm_mon+1, timep->tm_mday, timep->tm_hour, timep->tm_min);
 	else
@@ -68,7 +81,7 @@ LLString LLLogChat::timestamp(bool withdate)
 
 
 //static
-void LLLogChat::saveHistory(LLString filename, LLString line)
+void LLLogChat::saveHistory(std::string filename, std::string line)
 {
 	if(!filename.size())
 	{
@@ -76,7 +89,7 @@ void LLLogChat::saveHistory(LLString filename, LLString line)
 		return;
 	}
 
-	LLFILE* fp = LLFile::fopen(LLLogChat::makeLogFileName(filename).c_str(), "a"); 		/*Flawfinder: ignore*/
+	LLFILE* fp = LLFile::fopen(LLLogChat::makeLogFileName(filename), "a"); 		/*Flawfinder: ignore*/
 	if (!fp)
 	{
 		llinfos << "Couldn't open chat history log!" << llendl;
@@ -89,19 +102,19 @@ void LLLogChat::saveHistory(LLString filename, LLString line)
 	}
 }
 
-void LLLogChat::loadHistory(LLString filename , void (*callback)(ELogLineType,LLString,void*), void* userdata)
+void LLLogChat::loadHistory(std::string filename , void (*callback)(ELogLineType,std::string,void*), void* userdata)
 {
 	if(!filename.size())
 	{
 		llerrs << "Filename is Empty!" << llendl;
 	}
 
-	LLFILE* fptr = LLFile::fopen(makeLogFileName(filename).c_str(), "r");		/*Flawfinder: ignore*/
+	LLFILE* fptr = LLFile::fopen(makeLogFileName(filename), "r");		/*Flawfinder: ignore*/
 	if (!fptr)
 	{
 		//LLUIString message = LLFloaterChat::getInstance()->getUIString("IM_logging_string");
 		//callback(LOG_EMPTY,"IM_logging_string",userdata);
-		callback(LOG_EMPTY,"",userdata);
+		callback(LOG_EMPTY,LLStringUtil::null,userdata);
 		return;			//No previous conversation with this name.
 	}
 	else
@@ -128,14 +141,14 @@ void LLLogChat::loadHistory(LLString filename , void (*callback)(ELogLineType,LL
 			
 			if (!firstline)
 			{
-				callback(LOG_LINE,buffer,userdata);
+				callback(LOG_LINE,std::string(buffer),userdata);
 			}
 			else
 			{
 				firstline = FALSE;
 			}
 		}
-		callback(LOG_END,"",userdata);
+		callback(LOG_END,LLStringUtil::null,userdata);
 		
 		fclose(fptr);
 	}

@@ -137,17 +137,17 @@ void LLStatBar::draw()
 	LLFontGL::sMonospace->renderUTF8(mLabel, 0, 0, getRect().getHeight(), LLColor4(1.f, 1.f, 1.f, 1.f),
 							LLFontGL::LEFT, LLFontGL::TOP);
 
-	char value_format[64];		/* Flawfinder: ignore */
-	char value_str[256];		/* Flawfinder: ignore */
+	std::string value_format;
+	std::string value_str;
 	if (!mUnitLabel.empty())
 	{
-		snprintf(value_format, sizeof(value_format), "%%.%df%%s", mPrecision);		/* Flawfinder: ignore */
-		snprintf(value_str, sizeof(value_str), value_format, mValue, mUnitLabel.c_str());		/* Flawfinder: ignore */
+		value_format = llformat( "%%.%df%%s", mPrecision);
+		value_str = llformat( value_format.c_str(), mValue, mUnitLabel.c_str());
 	}
 	else
 	{
-		snprintf(value_format, sizeof(value_format), "%%.%df", mPrecision);		/* Flawfinder: ignore */
-		snprintf(value_str, sizeof(value_str), value_format, mValue);		/* Flawfinder: ignore */
+		value_format = llformat( "%%.%df", mPrecision);
+		value_str = llformat( value_format.c_str(), mValue);
 	}
 
 	// Draw the value.
@@ -155,10 +155,10 @@ void LLStatBar::draw()
 		LLColor4(1.f, 1.f, 1.f, 0.5f),
 		LLFontGL::RIGHT, LLFontGL::TOP);
 
-	snprintf(value_format, sizeof(value_format), "%%.%df", mPrecision);		/* Flawfinder: ignore */
+	value_format = llformat( "%%.%df", mPrecision);
 	if (mDisplayBar)
 	{
-		char tick_label[256];		/* Flawfinder: ignore */
+		std::string tick_label;
 
 		// Draw the tick marks.
 		F32 tick_value;
@@ -182,7 +182,7 @@ void LLStatBar::draw()
 			right = left + tick_width;
 			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.25f));
 
-			snprintf(tick_label, sizeof(tick_label), value_format, tick_value);		/* Flawfinder: ignore */
+			tick_label = llformat( value_format.c_str(), tick_value);
 			// draw labels for the tick marks
 			LLFontGL::sMonospace->renderUTF8(tick_label, 0, left - 1, bar_top - bar_height - tick_height,
 											 LLColor4(1.f, 1.f, 1.f, 0.5f),
@@ -258,17 +258,17 @@ void LLStatBar::draw()
 	LLView::draw();
 }
 
-const LLString& LLStatBar::getLabel() const
+const std::string& LLStatBar::getLabel() const
 {
 	return mLabel;
 }
 
-void LLStatBar::setLabel(const LLString& label)
+void LLStatBar::setLabel(const std::string& label)
 {
 	mLabel = label;
 }
 
-void LLStatBar::setUnitLabel(const LLString& unit_label)
+void LLStatBar::setUnitLabel(const std::string& unit_label)
 {
 	mUnitLabel = unit_label;
 }

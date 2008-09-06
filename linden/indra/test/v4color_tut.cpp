@@ -337,7 +337,7 @@ namespace tut
 	{
 		F32 r = 12.0f, g = -2.3f, b = 1.32f, a = 5.0f;
 		LLColor4 llcolor4a(r,g,b,a),llcolor4b;
-		const char *color = "red";
+		std::string color("red");
 		LLColor4::parseColor(color, &llcolor4b);
 		ensure_equals("1:parseColor() failed to parse the color value ", llcolor4b, LLColor4::red);
 
@@ -357,7 +357,7 @@ namespace tut
 	{
 		F32 r = 12.0f, g = -2.3f, b = 1.32f, a = 5.0f;
 		LLColor4 llcolor4a(r,g,b,a),llcolor4b;
-		const char *color = "12.0, -2.3, 1.32, 5.0";
+		std::string color("12.0, -2.3, 1.32, 5.0");
 		LLColor4::parseColor4(color, &llcolor4b);
 		ensure_equals("parseColor4() failed to parse the color value ",  llcolor4a, llcolor4b);
 	}

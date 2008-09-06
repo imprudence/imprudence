@@ -1509,10 +1509,12 @@ FSGetVolMountInfo(
 
 #pragma mark FSVolumeMount
 
+#ifndef AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER
 OSErr
 FSVolumeMount(
 	const void *volMountInfo,
 	FSVolumeRefNum *volRefNum);
+#endif
 
 /*
 	The VolumeMount function mounts a volume using a volume mounting

@@ -60,11 +60,11 @@ const LLStyleSP &LLStyleMap::lookup(const LLUUID &source)
 	{
 		LLStyleSP style(new LLStyle);
 		style->setVisible(true);
-		style->setFontName(LLString::null);
-		if (source != gAgent.getID() && source != LLUUID::null)
+		style->setFontName(LLStringUtil::null);
+		if (source != LLUUID::null)
 		{
 			style->setColor(gSavedSettings.getColor4("HTMLLinkColor"));
-			LLString link = llformat("secondlife:///app/agent/%s/about",source.asString().c_str());
+			std::string link = llformat("secondlife:///app/agent/%s/about",source.asString().c_str());
 			style->setLinkHREF(link);
 		}
 		else
@@ -72,4 +72,14 @@ const LLStyleSP &LLStyleMap::lookup(const LLUUID &source)
 		(*this)[source] = style;
 	}
 	return (*this)[source];
+}
+
+void LLStyleMap::update()
+{
+	for (style_map_t::iterator iter = begin(); iter != end(); ++iter)
+	{
+		LLStyleSP &style = iter->second;
+		// Update the link color in case it has been changed.
+		style->setColor(gSavedSettings.getColor4("HTMLLinkColor"));
+	}
 }

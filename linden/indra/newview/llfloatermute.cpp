@@ -56,7 +56,7 @@
 //
 // Constants
 //
-const char FLOATER_TITLE[] = "Muted Residents & Objects";
+const std::string FLOATER_TITLE = "Muted Residents & Objects";
 const F32 INSTANT_MSG_SIZE = 8.0f;
 const LLColor4 INSTANT_MSG_COLOR(1, 1, 1, 1);
 const LLColor4 MUTED_MSG_COLOR(0.5f, 0.5f, 0.5f, 1.f);
@@ -73,7 +73,7 @@ const S32 HPAD = 4;
 class LLFloaterMuteObjectUI : public LLFloater
 {
 public:
-	typedef void(*callback_t)(const LLString&, void*);
+	typedef void(*callback_t)(const std::string&, void*);
 
 	static LLFloaterMuteObjectUI* show(callback_t callback,
 					   void* userdata);
@@ -89,7 +89,7 @@ private:
 	static void onBtnOk(void *data);
 	static void onBtnCancel(void *data);
 
-	void (*mCallback)(const LLString& objectName, 
+	void (*mCallback)(const std::string& objectName, 
 			  void* userdata);
 	void* mCallbackUserData;
 
@@ -99,7 +99,7 @@ private:
 LLFloaterMuteObjectUI* LLFloaterMuteObjectUI::sInstance = NULL;
 
 LLFloaterMuteObjectUI::LLFloaterMuteObjectUI()
-	: LLFloater("Mute object by name"),
+	: LLFloater(std::string("Mute object by name")),
 	  mCallback(NULL),
 	  mCallbackUserData(NULL)
 {
@@ -148,7 +148,7 @@ void LLFloaterMuteObjectUI::onBtnOk(void* userdata)
 
 	if (self->mCallback)
 	{
-		const LLString& text = self->childGetValue("object_name").asString();
+		const std::string& text = self->childGetValue("object_name").asString();
 		self->mCallback(text,self->mCallbackUserData);
 	}
 	self->close();
@@ -186,7 +186,7 @@ BOOL LLFloaterMuteObjectUI::handleKeyHere(KEY key, MASK mask)
 // LLFloaterMute()
 //-----------------------------------------------------------------------------
 LLFloaterMute::LLFloaterMute(const LLSD& seed)
-:	LLFloater("mute floater", "FloaterMuteRect3", FLOATER_TITLE, 
+:	LLFloater(std::string("mute floater"), std::string("FloaterMuteRect3"), FLOATER_TITLE, 
 			  RESIZE_YES, 220, 140, DRAG_ON_TOP, MINIMIZE_YES, CLOSE_YES)
 {
 
@@ -234,7 +234,7 @@ void LLFloaterMute::refreshMuteList()
 	std::vector<LLMute>::iterator it;
 	for (it = mutes.begin(); it != mutes.end(); ++it)
 	{
-		LLString display_name = it->getDisplayName();
+		std::string display_name = it->getDisplayName();
 		mMuteList->addStringUUIDItem(display_name, it->mID);
 	}
 
@@ -279,7 +279,7 @@ void LLFloaterMute::onClickRemove(void *data)
 {
 	LLFloaterMute* floater = (LLFloaterMute *)data;
 
-	LLString name = floater->mMuteList->getSelectedItemLabel();
+	std::string name = floater->mMuteList->getSelectedItemLabel();
 	LLUUID id = floater->mMuteList->getStringUUIDSelectedItem();
 	LLMute mute(id);
 	mute.setFromDisplayName(name);
@@ -340,7 +340,7 @@ void LLFloaterMute::onClickMuteByName(void* data)
 	floaterp->addDependentFloater(picker);
 }
 
-void LLFloaterMute::callbackMuteByName(const LLString& text, void* data)
+void LLFloaterMute::callbackMuteByName(const std::string& text, void* data)
 {
 	if (text.empty()) return;
 

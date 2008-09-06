@@ -54,6 +54,7 @@
 #include "llpanelvolume.h"
 #include "llpanelpermissions.h"
 #include "llselectmgr.h"
+#include "llslider.h"
 #include "llstatusbar.h"
 #include "lltabcontainer.h"
 #include "lltextbox.h"
@@ -82,13 +83,13 @@
 LLFloaterTools *gFloaterTools = NULL;
 
 
-const LLString PANEL_NAMES[LLFloaterTools::PANEL_COUNT] =
+const std::string PANEL_NAMES[LLFloaterTools::PANEL_COUNT] =
 {
-	LLString("General"), 	// PANEL_GENERAL,
-	LLString("Object"), 	// PANEL_OBJECT,
-	LLString("Features"),	// PANEL_FEATURES,
-	LLString("Texture"),	// PANEL_FACE,
-	LLString("Content"),	// PANEL_CONTENTS,
+	std::string("General"), 	// PANEL_GENERAL,
+	std::string("Object"), 	// PANEL_OBJECT,
+	std::string("Features"),	// PANEL_FEATURES,
+	std::string("Texture"),	// PANEL_FACE,
+	std::string("Content"),	// PANEL_CONTENTS,
 };
 
 // Local prototypes
@@ -106,6 +107,7 @@ void click_popup_rotate_reset(void*);
 void click_popup_rotate_right(void*);
 void click_popup_dozer_mode(LLUICtrl *, void *user);
 void click_popup_dozer_size(LLUICtrl *, void *user);
+void commit_slider_dozer_force(LLUICtrl *, void*);
 void click_dozer_size(LLUICtrl *, void*);
 void click_apply_to_selection(void*);
 void commit_radio_zoom(LLUICtrl *, void*);
@@ -158,7 +160,7 @@ void*	LLFloaterTools::createPanelContents(void* data)
 void*	LLFloaterTools::createPanelContentsInventory(void* data)
 {
 	LLFloaterTools* floater = (LLFloaterTools*)data;
-	floater->mPanelContents->mPanelInventory = new LLPanelInventory("ContentsInventory", LLRect());
+	floater->mPanelContents->mPanelInventory = new LLPanelInventory(std::string("ContentsInventory"), LLRect());
 	return floater->mPanelContents->mPanelInventory;
 }
 
@@ -166,7 +168,7 @@ void*	LLFloaterTools::createPanelContentsInventory(void* data)
 void*	LLFloaterTools::createPanelLandInfo(void* data)
 {
 	LLFloaterTools* floater = (LLFloaterTools*)data;
-	floater->mPanelLandInfo = new LLPanelLandInfo("land info panel");
+	floater->mPanelLandInfo = new LLPanelLandInfo(std::string("land info panel"));
 	return floater->mPanelLandInfo;
 }
 
@@ -236,7 +238,7 @@ BOOL	LLFloaterTools::postBuild()
 	// Create Buttons
 	//
 
-	static	const LLString	toolNames[]={
+	static	const std::string	toolNames[]={
 			"ToolCube",
 			"ToolPrism",
 			"ToolPyramid",
@@ -308,6 +310,12 @@ BOOL	LLFloaterTools::postBuild()
 	childSetAction("button apply to selection",click_apply_to_selection,  (void*)0);
 	mCheckShowOwners = getChild<LLCheckBoxCtrl>("checkbox show owners");
 	childSetValue("checkbox show owners",gSavedSettings.getBOOL("ShowParcelOwners"));
+
+	mSliderDozerForce = getChild<LLSlider>("slider force");
+	childSetCommitCallback("slider force",commit_slider_dozer_force,  (void*)0);
+	// the setting stores the actual force multiplier, but the slider is logarithmic, so we convert here
+	childSetValue( "slider force", log10(gSavedSettings.getF32("LandBrushForce")));
+
 	childSetAction("button more", click_show_more, this);
 	childSetAction("button less", click_show_more, this);
 	mTab = getChild<LLTabContainer>("Object Info Tabs");
@@ -335,7 +343,7 @@ BOOL	LLFloaterTools::postBuild()
 // Create the popupview with a dummy center.  It will be moved into place
 // during LLViewerWindow's per-frame hover processing.
 LLFloaterTools::LLFloaterTools()
-:	LLFloater("toolbox floater"),
+:	LLFloater(std::string("toolbox floater")),
 	mBtnFocus(NULL),
 	mBtnMove(NULL),
 	mBtnEdit(NULL),
@@ -741,6 +749,11 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	{
 		mCheckShowOwners	->setVisible( land_visible );
 	}
+	if (mSliderDozerForce)
+	{
+		mSliderDozerForce	->setVisible( land_visible );
+		childSetVisible("Strength:", land_visible);
+	}
 
 	//
 	// More panel visibility
@@ -765,8 +778,8 @@ void LLFloaterTools::onOpen()
 	mParcelSelection = LLViewerParcelMgr::getInstance()->getFloatingParcelSelection();
 	mObjectSelection = LLSelectMgr::getInstance()->getEditSelection();
 	
-	gMenuBarView->setItemVisible("Tools", TRUE);
-	gMenuBarView->arrange();
+	// gMenuBarView->setItemVisible(std::string("Tools"), TRUE);
+	// gMenuBarView->arrange();
 }
 
 // virtual
@@ -799,8 +812,8 @@ void LLFloaterTools::onClose(bool app_quitting)
 	// so manually reset tool to default (pie menu tool)
 	LLToolMgr::getInstance()->getCurrentToolset()->selectFirstTool();
 
-	gMenuBarView->setItemVisible("Tools", FALSE);
-	gMenuBarView->arrange();
+	// gMenuBarView->setItemVisible(std::string("Tools"), FALSE);
+	// gMenuBarView->arrange();
 }
 
 void LLFloaterTools::showMore(BOOL show_more)
@@ -939,6 +952,16 @@ void click_dozer_size(LLUICtrl *ctrl, void *user)
 	gSavedSettings.setS32("RadioLandBrushSize", size);
 }
 
+void commit_slider_dozer_force(LLUICtrl *ctrl, void*)
+{
+	// the slider is logarithmic, so we exponentiate to get the actual force multiplier
+	F32 dozer_force = pow(10.f, (F32)ctrl->getValue().asReal());
+	gSavedSettings.setF32("LandBrushForce", dozer_force);
+}
+
+
+
+
 void click_apply_to_selection(void* user)
 {
 	LLToolBrushLand::getInstance()->modifyLandInSelectionGlobal();
@@ -988,7 +1011,7 @@ void LLFloaterTools::setObjectType( void* data )
 	LLPCode pcode = *(LLPCode*) data;
 	LLToolPlacer::setObjectType( pcode );
 	gSavedSettings.setBOOL("CreateToolCopySelection", FALSE);
-	gViewerWindow->setMouseCapture(NULL);
+	gFocusMgr.setMouseCapture(NULL);
 }
 
 // static

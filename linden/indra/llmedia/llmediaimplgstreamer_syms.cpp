@@ -34,8 +34,8 @@
 extern "C" {
 #include <gst/gst.h>
 
-#include <apr-1/apr_pools.h>
-#include <apr-1/apr_dso.h>
+#include "apr_pools.h"
+#include "apr_dso.h"
 }
 
 #include "llmediaimplgstreamer.h"

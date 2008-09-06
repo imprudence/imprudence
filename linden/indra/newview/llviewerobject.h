@@ -129,7 +129,8 @@ protected:
 	std::map<U16, ExtraParameter*> mExtraParameterList;
 
 public:
-	typedef std::vector<LLPointer<LLViewerObject> > child_list_t;
+	typedef std::list<LLPointer<LLViewerObject> > child_list_t;
+	typedef const child_list_t const_child_list_t;
 
 	LLViewerObject(const LLUUID &id, const LLPCode type, LLViewerRegion *regionp);
 	MEM_TYPE_NEW(LLMemType::MTYPE_OBJECT);
@@ -143,8 +144,8 @@ public:
 	static void cleanupVOClasses();
 
 	void			addNVPair(const std::string& data);
-	BOOL			removeNVPair(const char *name);
-	LLNameValue		*getNVPair(const char *name) const;			// null if no name value pair by that name
+	BOOL			removeNVPair(const std::string& name);
+	LLNameValue*	getNVPair(const std::string& name) const;			// null if no name value pair by that name
 
 	// Object create and update functions
 	virtual BOOL	idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time);
@@ -153,7 +154,7 @@ public:
 	enum { MEDIA_TYPE_NONE = 0, MEDIA_TYPE_WEB_PAGE = 1 };
 
 	// Return codes for processUpdateMessage
-	enum { MEDIA_URL_REMOVED = 0x1, MEDIA_URL_ADDED = 0x2, MEDIA_URL_UPDATED = 0x4 };
+	enum { MEDIA_URL_REMOVED = 0x1, MEDIA_URL_ADDED = 0x2, MEDIA_URL_UPDATED = 0x4, INVALID_UPDATE = 0x80000000 };
 
 	virtual U32		processUpdateMessage(LLMessageSystem *mesgsys,
 										void **user_data,
@@ -212,7 +213,8 @@ public:
 	U32 getLocalID() const							{ return mLocalID; }
 	U32 getCRC() const								{ return mTotalCRC; }
 
-	virtual BOOL isFlexible() const					{ return false; }
+	virtual BOOL isFlexible() const					{ return FALSE; }
+	virtual BOOL isSculpted() const 				{ return FALSE; }
 
 	// This method returns true if the object is over land owned by
 	// the agent.
@@ -234,7 +236,8 @@ public:
 	virtual void setParent(LLViewerObject* parent);
 	virtual void addChild(LLViewerObject *childp);
 	virtual void removeChild(LLViewerObject *childp);
-	child_list_t& getChildren();
+	const_child_list_t& getChildren() const { 	return mChildList; }
+	S32 numChildren() const { return mChildList.size(); }
 	void addThisAndAllChildren(LLDynamicArray<LLViewerObject*>& objects);
 	void addThisAndNonJointChildren(LLDynamicArray<LLViewerObject*>& objects);
 	BOOL isChild(LLViewerObject *childp) const;
@@ -242,9 +245,15 @@ public:
 	
 
 	//detect if given line segment (in agent space) intersects with this viewer object.
-	//returns TRUE if intersection detected and moves end to the point of intersection
-	//closest to start.
-	virtual BOOL lineSegmentIntersect(const LLVector3& start, LLVector3& end) const;
+	//returns TRUE if intersection detected and returns information about intersection
+	virtual BOOL lineSegmentIntersect(const LLVector3& start, const LLVector3& end,
+									  S32 face = -1,                          // which face to check, -1 = ALL_SIDES
+									  S32* face_hit = NULL,                   // which face was hit
+									  LLVector3* intersection = NULL,         // return the intersection point
+									  LLVector2* tex_coord = NULL,            // return the texture coordinates of the intersection point
+									  LLVector3* normal = NULL,               // return the surface normal at the intersection point
+									  LLVector3* bi_normal = NULL             // return the surface bi-normal at the intersection point
+		);
 	
 	virtual const LLVector3d getPositionGlobal() const;
 	virtual const LLVector3 &getPositionRegion() const;
@@ -326,8 +335,8 @@ public:
 	U8 getMediaType() const;
 	void setMediaType(U8 media_type);
 
-	const LLString& getMediaURL() const;
-	void setMediaURL(const LLString& media_url);
+	std::string getMediaURL() const;
+	void setMediaURL(const std::string& media_url);
 
 	BOOL getMediaPassedWhitelist() const;
 	void setMediaPassedWhitelist(BOOL passed);
@@ -378,6 +387,7 @@ public:
 	// manager, so do no call updateInventory() from the selection
 	// manager until we have better iterators.
 	void updateInventory(LLViewerInventoryItem* item, U8 key, bool is_new);
+	void updateInventoryLocal(LLInventoryItem* item, U8 key); // Update without messaging.
 	LLInventoryObject* getInventoryObject(const LLUUID& item_id);
 	void getInventoryContents(InventoryObjectList& objects);
 	LLInventoryObject* getInventoryRoot();
@@ -465,6 +475,16 @@ public:
 	friend class LLViewerObjectList;
 	friend class LLViewerMediaList;
 
+public:
+	//counter-translation
+	void resetChildrenPosition(const LLVector3& offset, BOOL simplified = FALSE) ;
+	//counter-rotation
+	void resetChildrenRotationAndPosition(const std::vector<LLQuaternion>& rotations, 
+											const std::vector<LLVector3>& positions) ;
+	void saveUnselectedChildrenRotation(std::vector<LLQuaternion>& rotations) ;
+	void saveUnselectedChildrenPosition(std::vector<LLVector3>& positions) ;
+	std::vector<LLVector3> mUnselectedChildrenPositions ;
+
 private:
 	ExtraParameter* createNewParameterEntry(U16 param_type);
 	ExtraParameter* getExtraParameterEntry(U16 param_type) const;
@@ -489,7 +509,6 @@ public:
 		LL_VO_WL_SKY =				LL_PCODE_APP | 0xb0, // should this be moved to 0x40?
 	} EVOType;
 
-	child_list_t	mChildList;
 	LLUUID			mID;
 
 	// unique within region, not unique across regions
@@ -534,7 +553,7 @@ protected:
 
 	// do the update/caching logic. called by saveScript and
 	// updateInventory.
-	void doUpdateInventory(LLViewerInventoryItem* item, U8 key, bool is_new);
+	void doUpdateInventory(LLPointer<LLViewerInventoryItem>& item, U8 key, bool is_new);
 
 
 	static LLViewerObject *createObject(const LLUUID &id, LLPCode pcode, LLViewerRegion *regionp);
@@ -550,7 +569,7 @@ protected:
 	//
 
 	static void processTaskInvFile(void** user_data, S32 error_code, LLExtStat ext_status);
-	void loadTaskInvFile(const char* filename);
+	void loadTaskInvFile(const std::string& filename);
 	void doInventoryCallback();
 	
 	BOOL isOnMap();
@@ -568,6 +587,8 @@ protected:
 	typedef std::map<char *, LLNameValue *> name_value_map_t;
 	name_value_map_t mNameValuePairs;	// Any name-value pairs stored by script
 
+	child_list_t	mChildList;
+	
 	F64				mLastInterpUpdateSecs;			// Last update for purposes of interpolation
 	F64				mLastMessageUpdateSecs;			// Last update from a message from the simulator
 	TPACKETID		mLatestRecvPacketID;			// Latest time stamp on message from simulator
@@ -657,7 +678,7 @@ class LLViewerObjectMedia
 public:
 	LLViewerObjectMedia() : mMediaURL(), mPassedWhitelist(FALSE), mMediaType(0) { }
 
-	LLString mMediaURL;	// for web pages on surfaces, one per prim
+	std::string mMediaURL;	// for web pages on surfaces, one per prim
 	BOOL mPassedWhitelist;	// user has OK'd display
 	U8 mMediaType;			// see LLTextureEntry::WEB_PAGE, etc.
 };

@@ -68,7 +68,7 @@ bool is_addr_in_use(apr_status_t status)
 // Define this to see the actual file descriptors being tossed around.
 //#define LL_DEBUG_SOCKET_FILE_DESCRIPTORS 1
 #if LL_DEBUG_SOCKET_FILE_DESCRIPTORS
-#include "apr-1/apr_portable.h"
+#include "apr_portable.h"
 #endif
 #endif
 
@@ -220,11 +220,11 @@ bool LLSocket::blockingConnect(const LLHost& host)
 {
 	if(!mSocket) return false;
 	apr_sockaddr_t* sa = NULL;
-	char ip_address[MAXADDRSTR];	/*Flawfinder: ignore*/
-	host.getIPString(ip_address, MAXADDRSTR);
+	std::string ip_address;
+	ip_address = host.getIPString();
 	if(ll_apr_warn_status(apr_sockaddr_info_get(
 		&sa,
-		ip_address,
+		ip_address.c_str(),
 		APR_UNSPEC,
 		host.getPort(),
 		0,

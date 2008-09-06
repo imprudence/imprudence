@@ -299,7 +299,7 @@ namespace tut
 		ensure("2. LLQuaternion Operator* failed", (4543086.5f == result.mQ[0]) &&
 											(8567578.0f == result.mQ[1]) &&
 											(3967591.25f == result.mQ[2]) &&
-											(-2047783.25f == result.mQ[3]));
+											is_approx_equal(-2047783.25f, result.mQ[3]));
 
 		//inline LLQuaternion operator+(const LLQuaternion &a, const LLQuaternion &b)fn.		
 		result = quat1 + quat2;
@@ -343,11 +343,11 @@ namespace tut
 		LLVector4 result = vect * quat;
 		ensure(
 			"1. LLVector4 operator*(const LLVector4 &a, const LLQuaternion &rot) failed", 
-			(39928406016.0f == result.mV[0]) &&
+			is_approx_equal(39928406016.0f, result.mV[0]) &&
 			// gcc on x86 actually gives us more precision than we were expecting, verified with -ffloat-store - we forgive this
 			(1457802240.0f >= result.mV[1]) && // gcc+x86+linux
-			(1457801728.0f <= result.mV[1]) && // elsewhere
-			(200580612096.0f == result.mV[2]) &&
+			(1457800960.0f <= result.mV[1]) && // elsewhere
+			is_approx_equal(200580612096.0f, result.mV[2]) &&
 			(75.099998f == result.mV[3]));
 
 		LLVector4 vect1(22.0f, 45.0f, 40.0f, 78.1f);

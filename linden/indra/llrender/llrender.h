@@ -178,6 +178,7 @@ public:
 	~LLRender();
 
 	void translatef(const GLfloat& x, const GLfloat& y, const GLfloat& z);
+	void scalef(const GLfloat& x, const GLfloat& y, const GLfloat& z);
 	void pushMatrix();
 	void popMatrix();
 
@@ -232,7 +233,10 @@ private:
 	std::vector<LLTexUnit*> mTexUnits;
 };
 
-
+extern F64 gGLModelView[16];
+extern F64 gGLLastModelView[16];
+extern F64 gGLProjection[16];
+extern S32 gGLViewport[4];
 
 extern LLRender gGL;
 

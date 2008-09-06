@@ -2298,6 +2298,7 @@ BadParameter:
 
 /*****************************************************************************/
 
+#ifndef AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER
 OSErr
 FSVolumeMount(
 	const void *volMountInfo,
@@ -2321,6 +2322,7 @@ BadParameter:
 
 	return ( result );
 }
+#endif
 
 /*****************************************************************************/
 

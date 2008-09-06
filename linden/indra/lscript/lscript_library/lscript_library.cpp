@@ -398,9 +398,8 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetCameraPos", "v", "", "vector llGetCameraPos()\nGets current camera position for agent task has permissions for."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetCameraRot", "q", "", "rotation llGetCameraRot()\nGets current camera orientation for agent task has permissions for."));
 	
-	addFunction(new LLScriptLibraryFunction(10.f, 2.f, dummy_func, "llSetPrimURL", NULL, "s", "llSetPrimURL(string url)\nUpdates the URL for the web page shown on the sides of the object."));
+	addFunction(new LLScriptLibraryFunction(10.f, 20.f, dummy_func, "llSetPrimURL", NULL, "s", "llSetPrimURL(string url)\nUpdates the URL for the web page shown on the sides of the object."));
 	addFunction(new LLScriptLibraryFunction(10.f, 20.f, dummy_func, "llRefreshPrimURL", NULL, "", "llRefreshPrimURL()\nReloads the web page shown on the sides of the object."));
-	
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llEscapeURL", "s", "s", "string llEscapeURL(string url)\nReturns and escaped/encoded version of url, replacing spaces with %20 etc."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llUnescapeURL", "s", "s", "string llUnescapeURL(string url)\nReturns and unescaped/unencoded version of url, replacing %20 with spaces etc."));
 
@@ -436,10 +435,20 @@ void LLScriptLibrary::init()
 	
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llStringTrim", "s", "si", "string llStringTrim(string src, integer trim_type)\nTrim leading and/or trailing spaces from a string.\nUses trim_type of STRING_TRIM, STRING_TRIM_HEAD or STRING_TRIM_TAIL."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llRegionSay", NULL, "is", "llRegionSay(integer channel, string msg)\nbroadcasts msg to entire region on channel (not 0.)"));
-
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetObjectDetails", "l", "kl", "list llGetObjectDetails(key id, list params)\nGets the object details specified in params for the object with key id.\nDetails are OBJECT_NAME, _DESC, _POS, _ROT, _VELOCITY, _OWNER, _GROUP, _CREATOR."));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetClickAction", NULL, "i", "llSetClickAction(integer action)\nSets the action performed when a prim is clicked upon."));
 
-		addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetClickAction", NULL, "i", "llSetClickAction(integer action)\nSets the action performed when a prim is clicked upon."));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetRegionAgentCount", "i", NULL, "int llGetRegionAgentCount()\nreturns the number of agents in a region"));
+	addFunction(new LLScriptLibraryFunction(10.f, 1.f, dummy_func, "llTextBox", NULL, "ksi", "llTextBox(key avatar, string message, integer chat_channel\nShows a dialog box on the avatar's screen with the message.\nA text box asks for input, and if entered the text is chatted on chat_channel."));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetAgentLanguage", "s", "k", "string llGetAgentLanguage(key id)\nGets the agents preferred language.."));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llDetectedTouchUV", "v", "i", "vector llDetectedTouchUV(integer number)\nreturns the u and v coordinates in the first two components of a vector, for a triggered touch event"));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llDetectedTouchFace", "i", "i", "integer llDetectedTouchFace(integer number)\nreturns the index of the face on the object for a triggered touch event"));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llDetectedTouchPos", "v", "i", "vector llDetectedTouchPos(integer number)\nreturns the position touched for a triggered touch event"));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llDetectedTouchNormal", "v", "i", "vector llDetectedTouchNormal(integer number)\nreturns the surface normal for a triggered touch event"));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llDetectedTouchBinormal", "v", "i", "vector llDetectedTouchBinormal(integer number)\nreturns the surface binormal for a triggered touch event"));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llDetectedTouchST", "v", "i", "vector llDetectedTouchST(integer number)\nreturns the s and t coordinates in the first two components of a vector, for a triggered touch event"));
+
+
 
 	// energy, sleep, dummy_func, name, return type, parameters, help text, gods-only
 
@@ -448,32 +457,14 @@ void LLScriptLibrary::init()
 	// existing scripts will crash.
 }
 
-	//Ventrella Follow Cam Script Stuff
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamPitch",				NULL, "f", "llSetCamPitch(-45 to 80)\n(Adjusts the angular amount that the camera aims straight ahead vs. straight down, maintaining the same distance. Analogous to 'incidence'."));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamVerticalOffset",		NULL, "f", "llSetCamVerticalOffset(-2 to 2)\nAdjusts the vertical position of the camera focus position relative to the subject"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamPositionLag",			NULL, "f", "llSetCamPositionLag(0 to 3) \nHow much the camera lags as it tries to move towards its 'ideal' position"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamFocusLag",			NULL, "f", "llSetCamFocusLag(0 to 3)\nHow much the camera lags as it tries to aim towards the subject"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamDistance",			NULL, "f", "llSetCamDistance(0.5 to 10)\nSets how far away the camera wants to be from its subject"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamBehindnessAngle",		NULL, "f", "llSetCamBehindnessAngle(0 to 180)\nSets the angle in degrees within which the camera is not constrained by changes in subject rotation"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamBehindnessLag",		NULL, "f", "llSetCamBehindnessLag(0 to 3)\nSets how strongly the camera is forced to stay behind the target if outside of behindness angle"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamPositionThreshold",	NULL, "f", "llSetCamPositionThreshold(0 to 4)\nSets the radius of a sphere around the camera's ideal position within which it is not affected by subject motion"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamFocusThreshold",		NULL, "f", "llSetCamFocusThreshold(0 to 4)\nSets the radius of a sphere around the camera's subject position within which its focus is not affected by subject motion"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamScriptControl",				NULL, "i", "llSetCamScriptControl(TRUE or FALSE)\nTurns on or off scripted control of the camera"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamPosition",			NULL, "v", "llSetCamPosition(vector)\nSets the position of the camera"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamFocus",				NULL, "v", "llSetCamFocus(vector focus)\nSets the focus (target position) of the camera"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamPositionLocked",		NULL, "i", "llSetCamPositionLocked(TRUE or FALSE)\nLocks the camera position so it will not move"));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamFocusLocked",			NULL, "i", "llSetCamFocusLocked(TRUE or FALSE)\nLocks the camera focus so it will not move"));
-
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetForSale", "i", "ii", "integer llSetForSale(integer selltype, integer price)\nSets this object for sale in mode selltype for price.  Returns TRUE if successfully set for sale."));
-
-LLScriptLibraryFunction::LLScriptLibraryFunction(F32 eu, F32 st, void (*exec_func)(LLScriptLibData *, LLScriptLibData *, const LLUUID &), char *name, char *ret_type, char *args, char *desc, BOOL god_only)
+LLScriptLibraryFunction::LLScriptLibraryFunction(F32 eu, F32 st, void (*exec_func)(LLScriptLibData *, LLScriptLibData *, const LLUUID &), const char *name, const char *ret_type, const char *args, const char *desc, BOOL god_only)
 		: mEnergyUse(eu), mSleepTime(st), mExecFunc(exec_func), mName(name), mReturnType(ret_type), mArgs(args), mGodOnly(god_only)
 {
-	mDesc = new char[512];
+	char *mDesc_ = new char[512];
 	if (mSleepTime)
 	{
 		snprintf(	/* Flawfinder: ignore */
-			mDesc,
+			mDesc_,
 			512,
 			"%s\nSleeps script for %.1f seconds.",
 			desc,
@@ -481,9 +472,10 @@ LLScriptLibraryFunction::LLScriptLibraryFunction(F32 eu, F32 st, void (*exec_fun
 	}
 	else
 	{
-		strncpy(mDesc, desc, 512);	/* Flawfinder: ignore */
-		mDesc[511] = '\0'; // just in case.
+		strncpy(mDesc_, desc, 512);	/* Flawfinder: ignore */
+		mDesc_[511] = '\0'; // just in case.
 	}
+	mDesc = mDesc_;
 }
 
 LLScriptLibraryFunction::~LLScriptLibraryFunction()
@@ -507,7 +499,7 @@ void LLScriptLibrary::addFunction(LLScriptLibraryFunction *func)
 	mNextNumber++;
 }
 
-void LLScriptLibrary::assignExec(char *name, void (*exec_func)(LLScriptLibData *, LLScriptLibData *, const LLUUID &))
+void LLScriptLibrary::assignExec(const char *name, void (*exec_func)(LLScriptLibData *, LLScriptLibData *, const LLUUID &))
 {
 	S32 i;
 	for (i = 0; i < mNextNumber; i++)

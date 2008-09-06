@@ -33,9 +33,6 @@
 #include "linden_common.h"
 
 #include "audioengine_fmod.h"
-
-#if LL_FMOD
-
 #include "listener_fmod.h"
 
 #include "llerror.h"
@@ -72,7 +69,7 @@ F32 gCurrentPanGainR = 0.5f;
 
 
 // Safe strcpy
-#if LL_WINDOWS || LL_LINUX
+#if 0 //(unused)  //LL_WINDOWS || LL_LINUX
 static size_t strlcpy( char* dest, const char* src, size_t dst_size )
 {
 	size_t source_len = 0;
@@ -655,11 +652,11 @@ LLAudioBufferFMOD::~LLAudioBufferFMOD()
 }
 
 
-BOOL LLAudioBufferFMOD::loadWAV(const char *filename)
+BOOL LLAudioBufferFMOD::loadWAV(const std::string& filename)
 {
 	// Try to open a wav file from disk.  This will eventually go away, as we don't
 	// really want to block doing this.
-	if (filename == NULL)
+	if (filename.empty())
 	{
 		// invalid filename, abort.
 		return FALSE;
@@ -705,7 +702,7 @@ BOOL LLAudioBufferFMOD::loadWAV(const char *filename)
 		fclose(sound_file);
 	}
 #else
-	mSamplep = FSOUND_Sample_Load(FSOUND_UNMANAGED, filename, FSOUND_LOOP_NORMAL, 0, 0);
+	mSamplep = FSOUND_Sample_Load(FSOUND_UNMANAGED, filename.c_str(), FSOUND_LOOP_NORMAL, 0, 0);
 #endif
 
 	if (!mSamplep)
@@ -777,11 +774,11 @@ void LLAudioEngine_FMOD::initInternetStream()
 
 	// Leave the net buffer properties at the default.
 	//FSOUND_Stream_Net_SetBufferProperties(20000, 40, 80);
-	mInternetStreamURL[0] = 0;
+	mInternetStreamURL.clear();
 }
 
 
-void LLAudioEngine_FMOD::startInternetStream(const char* url)
+void LLAudioEngine_FMOD::startInternetStream(const std::string& url)
 {
 	if (!mInited)
 	{
@@ -791,16 +788,16 @@ void LLAudioEngine_FMOD::startInternetStream(const char* url)
 
 	// "stop" stream but don't clear url, etc. in calse url == mInternetStreamURL
 	stopInternetStream();
-	if (url)
+	if (!url.empty())
 	{
 		llinfos << "Starting internet stream: " << url << llendl;
 		mCurrentInternetStreamp = new LLAudioStreamFMOD(url);
-		strlcpy(mInternetStreamURL, url, 1024);
+		mInternetStreamURL = url;
 	}
 	else
 	{
 		llinfos << "Set internet stream to null" << llendl;
-		mInternetStreamURL[0] = 0;
+		mInternetStreamURL.clear();
 	}
 }
 
@@ -930,7 +927,7 @@ void LLAudioEngine_FMOD::stopInternetStream()
 			mDeadStreams.push_back(mCurrentInternetStreamp);
 		}
 		mCurrentInternetStreamp = NULL;
-		//mInternetStreamURL[0] = 0;
+		//mInternetStreamURL.clear();
 	}
 }
 
@@ -963,7 +960,7 @@ int LLAudioEngine_FMOD::isInternetStreamPlaying()
 	{
 		return 1; // Active and playing
 	}
-	else if (mInternetStreamURL[0])
+	else if (!mInternetStreamURL.empty())
 	{
 		return 2; // "Paused"
 	}
@@ -993,19 +990,18 @@ void LLAudioEngine_FMOD::setInternetStreamGain(F32 vol)
 }
 
 
-const char* LLAudioEngine_FMOD::getInternetStreamURL()
+const std::string& LLAudioEngine_FMOD::getInternetStreamURL()
 {
 	return mInternetStreamURL;
 }
 
 
-LLAudioStreamFMOD::LLAudioStreamFMOD(const char *url) :
+LLAudioStreamFMOD::LLAudioStreamFMOD(const std::string& url) :
 	mInternetStream(NULL),
 	mReady(FALSE)
 {
-	mInternetStreamURL[0] = 0;
-	strlcpy(mInternetStreamURL, url, 1024);
-	mInternetStream = FSOUND_Stream_Open(url, FSOUND_NORMAL | FSOUND_NONBLOCKING, 0, 0);
+	mInternetStreamURL = url;
+	mInternetStream = FSOUND_Stream_Open(url.c_str(), FSOUND_NORMAL | FSOUND_NONBLOCKING, 0, 0);
 	if (!mInternetStream)
 	{
 		llwarns << "Couldn't open fmod stream, error "
@@ -1171,6 +1167,3 @@ void * F_CALLBACKAPI windCallback(void *originalbuffer, void *newbuffer, int len
 
 	return newbuffer;
 }
-
-#endif  // LL_FMOD
-

@@ -101,7 +101,7 @@ const U32 ARROW_TO_AXIS[4] =
 };
 
 LLManipTranslate::LLManipTranslate( LLToolComposite* composite )
-:	LLManip( "Move", composite ),
+:	LLManip( std::string("Move"), composite ),
 	mLastHoverMouseX(-1),
 	mLastHoverMouseY(-1),
 	mSendUpdateOnMouseUp(FALSE),
@@ -113,7 +113,6 @@ LLManipTranslate::LLManipTranslate( LLToolComposite* composite )
 	mConeSize(0),
 	mArrowLengthMeters(0.f),
 	mPlaneManipOffsetMeters(0.f),
-	mManipPart(LL_NO_PART),
 	mUpdateTimer(),
 	mSnapOffsetMeters(0.f),
 	mArrowScales(1.f, 1.f, 1.f),
@@ -257,21 +256,12 @@ void LLManipTranslate::handleSelect()
 	LLManip::handleSelect();
 }
 
-void LLManipTranslate::handleDeselect()
-{
-	mHighlightedPart = LL_NO_PART;
-	mManipPart = LL_NO_PART;
-	LLManip::handleDeselect();
-}
-
 BOOL LLManipTranslate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	BOOL	handled = FALSE;
 
 	// didn't click in any UI object, so must have clicked in the world
-	LLViewerObject* hit_obj = gViewerWindow->lastObjectHit();
-	if( hit_obj && 
-		(mHighlightedPart == LL_X_ARROW ||
+	if( (mHighlightedPart == LL_X_ARROW ||
 		 mHighlightedPart == LL_Y_ARROW ||
 		 mHighlightedPart == LL_Z_ARROW ||
 		 mHighlightedPart == LL_YZ_PLANE ||
@@ -687,19 +677,9 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 				if (selectNode->mIndividualSelection)
 				{
 					send_update = FALSE;
-					LLVector3 child_offset = (old_position_local - new_position_local) * ~object->getRotation();
-
+		
 					// counter-translate child objects if we are moving the root as an individual
-					for (U32 child_num = 0; child_num < object->mChildList.size(); child_num++)
-					{
-						LLViewerObject* childp = object->mChildList[child_num];
-
-						if (!childp->isSelected())
-						{
-							childp->setPosition(childp->getPosition() + child_offset);
-							rebuild(childp);
-						}
-					}
+					object->resetChildrenPosition(old_position_local - new_position_local, TRUE) ;					
 				}
 			}
 			else
@@ -753,18 +733,8 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 
 				if (selectNode->mIndividualSelection)
 				{
-					LLVector3 parent_offset = (new_position_agent - old_position_agent) * ~object->getRotation();
-
 					// counter-translate child objects if we are moving the root as an individual
-					for (U32 child_num = 0; child_num < object->mChildList.size(); child_num++)
-					{
-						LLViewerObject* childp = object->mChildList[child_num];
-						if (!childp->isSelected())
-						{
-							childp->setPosition(childp->getPosition() - parent_offset);
-							rebuild(childp);
-						}
-					}
+					object->resetChildrenPosition(old_position_agent - new_position_agent, TRUE) ;					
 					send_update = FALSE;
 				}
 				else if (old_position_global != new_position_global)
@@ -818,7 +788,7 @@ void LLManipTranslate::highlightManipulators(S32 x, S32 y)
 		LLMatrix4 cfr(OGL_TO_CFR_ROTATION);
 		transform *= cfr;
 		LLMatrix4 window_scale;
-		F32 zoom_level = 2.f * gAgent.getAvatarObject()->mHUDCurZoom;
+		F32 zoom_level = 2.f * gAgent.mHUDCurZoom;
 		window_scale.initAll(LLVector3(zoom_level / LLViewerCamera::getInstance()->getAspect(), zoom_level, 0.f),
 			LLQuaternion::DEFAULT,
 			LLVector3::zero);
@@ -1056,7 +1026,7 @@ void LLManipTranslate::render()
 	gGL.pushMatrix();
 	if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 	{
-		F32 zoom = gAgent.getAvatarObject()->mHUDCurZoom;
+		F32 zoom = gAgent.mHUDCurZoom;
 		glScalef(zoom, zoom, zoom);
 	}
 	{
@@ -1220,7 +1190,7 @@ void LLManipTranslate::renderSnapGuides()
 
 		if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 		{
-			guide_size_meters = 1.f / gAgent.getAvatarObject()->mHUDCurZoom;
+			guide_size_meters = 1.f / gAgent.mHUDCurZoom;
 			mSnapOffsetMeters = mArrowLengthMeters * 1.5f;
 		}
 		else
@@ -1412,11 +1382,11 @@ void LLManipTranslate::renderSnapGuides()
 				{
 					// rescale units to meters from multiple of grid scale
 					offset_val *= 2.f * grid_scale[ARROW_TO_AXIS[mManipPart]];
-					renderTickValue(text_origin, offset_val, "m", LLColor4(text_highlight, text_highlight, text_highlight, alpha));
+					renderTickValue(text_origin, offset_val, std::string("m"), LLColor4(text_highlight, text_highlight, text_highlight, alpha));
 				}
 				else
 				{
-					renderTickValue(text_origin, offset_val, "x", LLColor4(text_highlight, text_highlight, text_highlight, alpha));
+					renderTickValue(text_origin, offset_val, std::string("x"), LLColor4(text_highlight, text_highlight, text_highlight, alpha));
 				}
 			}
 		}
@@ -1803,7 +1773,7 @@ void LLManipTranslate::renderTranslationHandles()
 	if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		mArrowLengthMeters = mAxisArrowLength / gViewerWindow->getWindowHeight();
-		mArrowLengthMeters /= gAgent.getAvatarObject()->mHUDCurZoom;
+		mArrowLengthMeters /= gAgent.mHUDCurZoom;
 	}
 	else
 	{

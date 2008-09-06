@@ -32,10 +32,14 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llfloaterhud.h"
+
+// Viewer libs
 #include "llviewercontrol.h"
-#include "lluictrlfactory.h"
 #include "llwebbrowserctrl.h"
 #include "llalertdialog.h"
+
+// Linden libs
+#include "lluictrlfactory.h"
 
 // statics 
 LLFloaterHUD* LLFloaterHUD::sInstance = 0; 
@@ -47,7 +51,7 @@ LLFloaterHUD* LLFloaterHUD::sInstance = 0;
 
 // Default constructor
 LLFloaterHUD::LLFloaterHUD()
-:	LLFloater("floater_hud"),
+:	LLFloater(std::string("floater_hud")),
 	mWebBrowser(0)
 {
 	// Create floater from its XML definition
@@ -80,7 +84,7 @@ LLFloaterHUD::LLFloaterHUD()
 		// arrow keys during tutorial).
 		mWebBrowser->setTakeFocusOnClick(false);
 
-		LLString language(gSavedSettings.getString("Language"));
+		std::string language(gSavedSettings.getString("Language"));
 		if(language == "default")
 		{
 			language = gSavedSettings.getString("SystemLanguage");
@@ -120,7 +124,7 @@ LLFloaterHUD::~LLFloaterHUD()
 }
 
 // Show the HUD
-void LLFloaterHUD::show()
+void LLFloaterHUD::showHUD()
 {
 	// do not build the floater if there the url is empty
 	if (gSavedSettings.getString("TutorialURL") == "")
@@ -135,7 +139,12 @@ void LLFloaterHUD::show()
 	hud->setFrontmost(FALSE);
 }
 
-void LLFloaterHUD::close()
+// Save our visibility state on close in case the user accidentally
+// quit the application while the tutorial was visible.
+// virtual
+void LLFloaterHUD::onClose(bool app_quitting)
 {
-	if (sInstance) sInstance->close();
+	bool stay_visible = app_quitting;
+	gSavedSettings.setBOOL("ShowTutorial", stay_visible);
+	destroy();
 }

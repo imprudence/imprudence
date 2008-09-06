@@ -650,7 +650,7 @@ BOOL LLPermissions::importFile(LLFILE* fp)
 
 BOOL LLPermissions::exportFile(LLFILE* fp) const
 {
-	char uuid_str[256];	/* Flawfinder: ignore */
+	std::string uuid_str;
 
 	fprintf(fp, "\tpermissions 0\n");
 	fprintf(fp, "\t{\n");
@@ -662,16 +662,16 @@ BOOL LLPermissions::exportFile(LLFILE* fp) const
 	fprintf(fp, "\t\tnext_owner_mask\t%08x\n",	mMaskNextOwner);
 
 	mCreator.toString(uuid_str);
-	fprintf(fp, "\t\tcreator_id\t%s\n",			uuid_str);
+	fprintf(fp, "\t\tcreator_id\t%s\n",			uuid_str.c_str());
 
 	mOwner.toString(uuid_str);
-	fprintf(fp, "\t\towner_id\t%s\n",			uuid_str);
+	fprintf(fp, "\t\towner_id\t%s\n",			uuid_str.c_str());
 
 	mLastOwner.toString(uuid_str);
-	fprintf(fp, "\t\tlast_owner_id\t%s\n",		uuid_str);
+	fprintf(fp, "\t\tlast_owner_id\t%s\n",		uuid_str.c_str());
 
 	mGroup.toString(uuid_str);
-	fprintf(fp, "\t\tgroup_id\t%s\n",			uuid_str);
+	fprintf(fp, "\t\tgroup_id\t%s\n",			uuid_str.c_str());
 
 	if(mIsGroupOwned)
 	{
@@ -784,21 +784,21 @@ BOOL LLPermissions::importLegacyStream(std::istream& input_stream)
 
 BOOL LLPermissions::exportLegacyStream(std::ostream& output_stream) const
 {
-	char uuid_str[256];	/* Flawfinder: ignore */
+	std::string uuid_str;
 
 	output_stream <<  "\tpermissions 0\n";
 	output_stream <<  "\t{\n";
 
-	char buffer[256];	/* Flawfinder: ignore */
-	snprintf(buffer, sizeof(buffer), "\t\tbase_mask\t%08x\n",		mMaskBase);		/* Flawfinder: ignore */
+	std::string buffer;
+	buffer = llformat( "\t\tbase_mask\t%08x\n",		mMaskBase);
 	output_stream << buffer;
-	snprintf(buffer, sizeof(buffer), "\t\towner_mask\t%08x\n",		mMaskOwner);		/* Flawfinder: ignore */
+	buffer = llformat( "\t\towner_mask\t%08x\n",		mMaskOwner);
 	output_stream << buffer;
-	snprintf(buffer, sizeof(buffer), "\t\tgroup_mask\t%08x\n",		mMaskGroup);		/* Flawfinder: ignore */
+	buffer = llformat( "\t\tgroup_mask\t%08x\n",		mMaskGroup);
 	output_stream << buffer;
-	snprintf(buffer, sizeof(buffer), "\t\teveryone_mask\t%08x\n",	mMaskEveryone);		/* Flawfinder: ignore */
+	buffer = llformat( "\t\teveryone_mask\t%08x\n",	mMaskEveryone);
 	output_stream << buffer;
-	snprintf(buffer, sizeof(buffer), "\t\tnext_owner_mask\t%08x\n",	mMaskNextOwner);		/* Flawfinder: ignore */
+	buffer = llformat( "\t\tnext_owner_mask\t%08x\n",	mMaskNextOwner);
 	output_stream << buffer;
 
 	mCreator.toString(uuid_str);
@@ -826,7 +826,7 @@ LLXMLNode *LLPermissions::exportFileXML() const
 {
 	LLXMLNode *ret = new LLXMLNode("permissions", FALSE);
 
-	ret->createChild("group_owned", TRUE)->setBoolValue(1, (const BOOL*)&mIsGroupOwned);
+	ret->createChild("group_owned", TRUE)->setBoolValue(mIsGroupOwned);
 
 	ret->createChild("base_mask", FALSE)->setByteValue(4, (U8*)&mMaskBase, LLXMLNode::ENCODING_HEX);
 	ret->createChild("owner_mask", FALSE)->setByteValue(4, (U8*)&mMaskOwner, LLXMLNode::ENCODING_HEX);
@@ -869,7 +869,11 @@ bool LLPermissions::importXML(LLXMLNode* node)
 		if (node->getChild("group_id", sub_node))
 			success = success && (1 == sub_node->getUUIDValue(1, &mGroup));
 		if (node->getChild("group_owned", sub_node))
-			success = success && (1 == sub_node->getBoolValue(1, (BOOL*)&mIsGroupOwned));
+		{
+			BOOL tmpbool = FALSE;
+			success = success && (1 == sub_node->getBoolValue(1, &tmpbool));
+			mIsGroupOwned = (bool)tmpbool;
+		}
 		if (!success)
 		{
 			lldebugs << "LLPermissions::importXML() failed for node named '" 
@@ -1114,12 +1118,12 @@ void LLAggregatePermissions::unpackMessage(LLMessageSystem* msg, const char* blo
 	mBits[PI_TRANSFER] = bits & TWO_BITS;
 }
 
-const LLString AGGREGATE_VALUES[4] =
+const std::string AGGREGATE_VALUES[4] =
 	{
-		LLString( "Empty" ),
-		LLString( "None" ),
-		LLString( "Some" ),
-		LLString( "All" )
+		std::string( "Empty" ),
+		std::string( "None" ),
+		std::string( "Some" ),
+		std::string( "All" )
 	};
 
 std::ostream& operator<<(std::ostream &s, const LLAggregatePermissions &perm)

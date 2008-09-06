@@ -37,7 +37,7 @@
 class LLRootView : public LLView
 {
 public:
-	LLRootView(const LLString& name, const LLRect& rect, BOOL mouse_opaque, U32 follows=FOLLOWS_NONE);
+	LLRootView(const std::string& name, const LLRect& rect, BOOL mouse_opaque, U32 follows=FOLLOWS_NONE);
 };
 
 #endif

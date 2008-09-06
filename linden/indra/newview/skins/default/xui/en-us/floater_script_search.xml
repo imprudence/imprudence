@@ -3,7 +3,7 @@
      can_resize="false" can_tear_off="true" enabled="true" height="120"
      left="223" min_height="100" min_width="100" mouse_opaque="true"
      name="script search" title="Script Search" width="300">
-	<check_box bottom="-77" enabled="true" follows="left|top" font="SansSerifSmall"
+	<check_box bottom="-77" control_name="LSLFindCaseInsensitivity" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Case Insensitive" left="55"
 	     mouse_opaque="true" name="case_text" radio_style="false" width="240" />
 	<button bottom="-108" enabled="true" font="SansSerif" halign="center" height="24"

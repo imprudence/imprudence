@@ -42,17 +42,22 @@
 
 LLPngWrapper::LLPngWrapper()
 	: mReadPngPtr( NULL ),
-      mReadInfoPtr( NULL ),
+	  mReadInfoPtr( NULL ),
 	  mWritePngPtr( NULL ),
 	  mWriteInfoPtr( NULL ),
 	  mRowPointers( NULL ),
+	  mWidth( 0 ),
+	  mHeight( 0 ),
 	  mBitDepth( 0 ),
 	  mColorType( 0 ),
 	  mChannels( 0 ),
 	  mInterlaceType( 0 ),
 	  mCompressionType( 0 ),
 	  mFilterMethod( 0 ),
-	  mFinalSize( 0 )
+	  mFinalSize( 0 ),
+	  mHasBKGD(false),
+	  mBackgroundColor(),
+	  mGamma(0.f)
 {
 }
 
@@ -384,7 +389,7 @@ U32 LLPngWrapper::getFinalSize()
 }
 
 // Get last error message, if any
-LLString LLPngWrapper::getErrorMessage()
+const std::string& LLPngWrapper::getErrorMessage()
 {
 	return mErrorMessage;
 }

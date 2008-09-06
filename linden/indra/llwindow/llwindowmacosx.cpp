@@ -29,8 +29,6 @@
  * $/LicenseInfo$
  */
 
-#if LL_DARWIN
-
 #include "linden_common.h"
 
 #include <Carbon/Carbon.h>
@@ -42,10 +40,6 @@
 #include "llgl.h"
 #include "llstring.h"
 #include "lldir.h"
-#include "llviewercontrol.h"
-
-#include "llglheaders.h"
-
 #include "indra_constants.h"
 
 #include "llwindowmacosx-objc.h"
@@ -66,37 +60,16 @@ const S32	MAX_NUM_RESOLUTIONS = 32;
 // LLWindowMacOSX
 //
 
-// Cross-platform bits:
+BOOL LLWindowMacOSX::sUseMultGL = FALSE;
+WindowRef LLWindowMacOSX::sMediaWindow = NULL;
 
-void show_window_creation_error(const char* title)
-{
-	llwarns << title << llendl;
-	/*
-	OSMessageBox(
-	"Second Life is unable to run because it can't set up your display.\n"
-	"We need to be able to make a 32-bit color window at 1024x768, with\n"
-	"an 8 bit alpha channel.\n"
-	"\n"
-	"First, be sure your monitor is set to True Color (32-bit) in\n"
-	"Start -> Control Panels -> Display -> Settings.\n"
-	"\n"
-	"Otherwise, this may be due to video card driver issues.\n"
-	"Please make sure you have the latest video card drivers installed.\n"
-	"ATI drivers are available at http://www.ati.com/\n"
-	"nVidia drivers are available at http://www.nvidia.com/\n"
-	"\n"
-	"If you continue to receive this message, contact customer service.",
-	title,
-	OSMB_OK);
-	*/
-}
+// Cross-platform bits:
 
 BOOL check_for_card(const char* RENDERER, const char* bad_card)
 {
 	if (!strnicmp(RENDERER, bad_card, strlen(bad_card)))
 	{
-		char buffer[1024];/* Flawfinder: ignore */
-		snprintf(buffer, sizeof(buffer), 
+		std::string buffer = llformat(
 			"Your video card appears to be a %s, which Second Life does not support.\n"
 			"\n"
 			"Second Life requires a video card with 32 Mb of memory or more, as well as\n"
@@ -110,7 +83,7 @@ BOOL check_for_card(const char* RENDERER, const char* bad_card)
 			"You can try to run Second Life, but it will probably crash or run\n"
 			"very slowly.  Try anyway?",
 			bad_card);
-		S32 button = OSMessageBox(buffer, "Unsupported video card", OSMB_YESNO);
+		S32 button = OSMessageBox(buffer.c_str(), "Unsupported video card", OSMB_YESNO);
 		if (OSBTN_YES == button)
 		{
 			return FALSE;
@@ -123,8 +96,6 @@ BOOL check_for_card(const char* RENDERER, const char* bad_card)
 
 	return FALSE;
 }
-
-
 
 // Switch to determine whether we capture all displays, or just the main one.
 // We may want to base this on the setting of _DEBUG...
@@ -242,7 +213,7 @@ static LLWindowMacOSX *gWindowImplementation = NULL;
 
 
 
-LLWindowMacOSX::LLWindowMacOSX(char *title, char *name, S32 x, S32 y, S32 width,
+LLWindowMacOSX::LLWindowMacOSX(const std::string& title, const std::string& name, S32 x, S32 y, S32 width,
 							   S32 height, U32 flags,
 							   BOOL fullscreen, BOOL clearBg,
 							   BOOL disable_vsync, BOOL use_gl,
@@ -289,10 +260,11 @@ LLWindowMacOSX::LLWindowMacOSX(char *title, char *name, S32 x, S32 y, S32 width,
 	mOriginalAspectRatio = (double)CGDisplayPixelsWide(mDisplay) / (double)CGDisplayPixelsHigh(mDisplay);
 
 	// Stash the window title
-	strcpy((char*)mWindowTitle + 1, title); /* Flawfinder: ignore */
-	mWindowTitle[0] = strlen(title);	/* Flawfinder: ignore */
+	strcpy((char*)mWindowTitle + 1, title.c_str()); /* Flawfinder: ignore */
+	mWindowTitle[0] = title.length();
 
 	mEventHandlerUPP = NewEventHandlerUPP(staticEventHandler);
+	mMoveEventCampartorUPP = NewEventComparatorUPP(staticMoveEventComparator);
 	mGlobalHandlerRef = NULL;
 	mWindowHandlerRef = NULL;
 
@@ -467,8 +439,7 @@ BOOL LLWindowMacOSX::createContext(int x, int y, int width, int height, int bits
 			mFullscreenBits    = -1;
 			mFullscreenRefresh = -1;
 
-			char error[256];	/* Flawfinder: ignore */
-			snprintf(error, sizeof(error), "Unable to run fullscreen at %d x %d.\nRunning in window.", width, height);	
+			std::string error= llformat("Unable to run fullscreen at %d x %d.\nRunning in window.", width, height);	
 			OSMessageBox(error, "Error", OSMB_OK);
 		}
 	}
@@ -809,7 +780,7 @@ BOOL LLWindowMacOSX::createContext(int x, int y, int width, int height, int bits
 	aglSetInteger(mContext, AGL_SWAP_INTERVAL, &frames_per_swap);  
 
 	//enable multi-threaded OpenGL
-	if (gSavedSettings.getBOOL("RenderAppleUseMultGL"))
+	if (sUseMultGL)
 	{
 		CGLError cgl_err;
 		CGLContextObj ctx = CGLGetCurrentContext();
@@ -826,9 +797,6 @@ BOOL LLWindowMacOSX::createContext(int x, int y, int width, int height, int bits
 		}
 	}
 
-	//make sure multisample starts off disabled
-	glDisable(GL_MULTISAMPLE_ARB);
-	
 	// Don't need to get the current gamma, since there's a call that restores it to the system defaults.
 	return TRUE;
 }
@@ -1445,6 +1413,11 @@ BOOL LLWindowMacOSX::setCursorPosition(const LLCoordWindow position)
 	// Under certain circumstances, this will trigger us to decouple the cursor.
 	adjustCursorDecouple(true);
 
+	// trigger mouse move callback
+	LLCoordGL gl_pos;
+	convertCoords(position, &gl_pos);
+	mCallbacks->handleMouseMove(this, gl_pos, (MASK)0);
+
 	return result;
 }
 
@@ -1515,6 +1488,7 @@ void LLWindowMacOSX::adjustCursorDecouple(bool warpingMouse)
 				//			llinfos << "adjustCursorDecouple: decoupling cursor" << llendl;
 				CGAssociateMouseAndMouseCursorPosition(false);
 				mCursorDecoupled = true;
+				FlushSpecificEventsFromQueue(GetCurrentEventQueue(), mMoveEventCampartorUPP, NULL);
 				mCursorIgnoreNextDelta = TRUE;
 			}
 		}
@@ -1609,11 +1583,6 @@ void LLWindowMacOSX::afterDialog()
 	}
 }
 
-
-S32 LLWindowMacOSX::stat(const char* file_name, struct stat* stat_info)
-{
-	return ::stat( file_name, stat_info );
-}
 
 void LLWindowMacOSX::flashIcon(F32 seconds)
 {
@@ -1741,15 +1710,6 @@ BOOL LLWindowMacOSX::copyTextToClipboard(const LLWString &s)
 	}
 
 	return result;
-}
-
-
-BOOL LLWindowMacOSX::sendEmail(const char* address, const char* subject, const char* body_text,
-									   const char* attachment, const char* attachment_displayed_name )
-{
-	// MBW -- XXX -- Um... yeah.  I'll get to this later.
-
-	return false;
 }
 
 
@@ -1949,12 +1909,29 @@ BOOL LLWindowMacOSX::convertCoords(LLCoordGL from, LLCoordScreen *to)
 
 
 
-void LLWindowMacOSX::setupFailure(const char* text, const char* caption, U32 type)
+void LLWindowMacOSX::setupFailure(const std::string& text, const std::string& caption, U32 type)
 {
 	destroyContext();
 
 	OSMessageBox(text, caption, type);
 }
+
+pascal Boolean LLWindowMacOSX::staticMoveEventComparator( EventRef event, void* data)
+{
+	UInt32 				evtClass = GetEventClass (event);
+	UInt32 				evtKind = GetEventKind (event);
+
+	if ((evtClass == kEventClassMouse) && ((evtKind == kEventMouseDragged) || (evtKind == kEventMouseMoved)))
+	{
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
+}
+
 
 pascal OSStatus LLWindowMacOSX::staticEventHandler(EventHandlerCallRef myHandler, EventRef event, void* userData)
 {
@@ -3020,20 +2997,13 @@ void LLSplashScreenMacOSX::showImpl()
 #endif
 }
 
-void LLSplashScreenMacOSX::updateImpl(const char* mesg)
+void LLSplashScreenMacOSX::updateImpl(const std::string& mesg)
 {
 	if(mWindow != NULL)
 	{
 		CFStringRef string = NULL;
 
-		if(mesg != NULL)
-		{
-			string = CFStringCreateWithCString(NULL, mesg, kCFStringEncodingUTF8);
-		}
-		else
-		{
-			string = CFStringCreateWithCString(NULL, "", kCFStringEncodingUTF8);
-		}
+		string = CFStringCreateWithCString(NULL, mesg.c_str(), kCFStringEncodingUTF8);
 
 		if(string != NULL)
 		{
@@ -3068,7 +3038,7 @@ void LLSplashScreenMacOSX::hideImpl()
 
 
 
-S32 OSMessageBoxMacOSX(const char* text, const char* caption, U32 type)
+S32 OSMessageBoxMacOSX(const std::string& text, const std::string& caption, U32 type)
 {
 	S32 result = OSBTN_CANCEL;
 	SInt16 retval_mac = 1;
@@ -3079,23 +3049,8 @@ S32 OSMessageBoxMacOSX(const char* text, const char* caption, U32 type)
 	AlertType alertType = kAlertCautionAlert;
 	OSStatus err;
 
-	if(text != NULL)
-	{
-		explanationString = CFStringCreateWithCString(NULL, text, kCFStringEncodingUTF8);
-	}
-	else
-	{
-		explanationString = CFStringCreateWithCString(NULL, "", kCFStringEncodingUTF8);
-	}
-
-	if(caption != NULL)
-	{
-		errorString = CFStringCreateWithCString(NULL, caption, kCFStringEncodingUTF8);
-	}
-	else
-	{
-		errorString = CFStringCreateWithCString(NULL, "", kCFStringEncodingUTF8);
-	}
+	explanationString = CFStringCreateWithCString(NULL, text.c_str(), kCFStringEncodingUTF8);
+	errorString = CFStringCreateWithCString(NULL, caption.c_str(), kCFStringEncodingUTF8);
 
 	params.version = kStdCFStringAlertVersionOne;
 	params.movable = false;
@@ -3179,15 +3134,13 @@ S32 OSMessageBoxMacOSX(const char* text, const char* caption, U32 type)
 
 // Open a URL with the user's default web browser.
 // Must begin with protocol identifier.
-void spawn_web_browser(const char* escaped_url)
+void LLWindowMacOSX::spawnWebBrowser(const std::string& escaped_url)
 {
 	bool found = false;
 	S32 i;
 	for (i = 0; i < gURLProtocolWhitelistCount; i++)
 	{
-		S32 len = strlen(gURLProtocolWhitelist[i]);	/* Flawfinder: ignore */
-		if (!strncmp(escaped_url, gURLProtocolWhitelist[i], len)
-			&& escaped_url[len] == ':')
+		if (escaped_url.find(gURLProtocolWhitelist[i]) != std::string::npos)
 		{
 			found = true;
 			break;
@@ -3196,7 +3149,7 @@ void spawn_web_browser(const char* escaped_url)
 
 	if (!found)
 	{
-		llwarns << "spawn_web_browser() called for url with protocol not on whitelist: " << escaped_url << llendl;
+		llwarns << "spawn_web_browser called for url with protocol not on whitelist: " << escaped_url << llendl;
 		return;
 	}
 
@@ -3205,7 +3158,7 @@ void spawn_web_browser(const char* escaped_url)
 
 	llinfos << "Opening URL " << escaped_url << llendl;
 
-	CFStringRef	stringRef = CFStringCreateWithCString(NULL, escaped_url, kCFStringEncodingUTF8);
+	CFStringRef	stringRef = CFStringCreateWithCString(NULL, escaped_url.c_str(), kCFStringEncodingUTF8);
 	if (stringRef)
 	{
 		// This will succeed if the string is a full URL, including the http://
@@ -3268,25 +3221,34 @@ BOOL LLWindowMacOSX::dialog_color_picker ( F32 *r, F32 *g, F32 *b)
 	return (retval);
 }
 
-static WindowRef dummywindowref = NULL;
 
 void *LLWindowMacOSX::getPlatformWindow()
 {
-	if(mWindow != NULL)
-		return (void*)mWindow;
+	// NOTE: this will be NULL in fullscreen mode.  Plan accordingly.
+	return (void*)mWindow;
+}
 
-	// If we're in fullscreen mode, there's no window pointer available.
-	// Since Mozilla needs one to function, create a dummy window here.
-	// Note that we will never destroy it, but since only one will be created per run of the application, that's okay.
+void *LLWindowMacOSX::getMediaWindow()
+{
+	/* 
+		Mozilla needs to be initialized with a WindowRef to function properly.  
+		(There's no good reason for this, since it shouldn't be interacting with our window in any way, but that's another issue.)
+		If we're in windowed mode, we _could_ hand it our actual window pointer, but a subsequent switch to fullscreen will destroy that window, 
+		which trips up Mozilla.
+		Instead of using our actual window, we create an invisible window which will persist for the lifetime of the application and pass that to Mozilla.
+		This satisfies its deep-seated need to latch onto a WindowRef and solves the issue with switching between fullscreen and windowed modes.
+
+		Note that we will never destroy this window (by design!), but since only one will ever be created per run of the application, that's okay.
+	*/
 	
-	if(dummywindowref == NULL)
+	if(sMediaWindow == NULL)
 	{
 		Rect window_rect = {100, 100, 200, 200};
 
-		dummywindowref = NewCWindow(
+		sMediaWindow = NewCWindow(
 			NULL,
 			&window_rect,
-			"\p",
+			(ConstStr255Param) "\p",
 			false,				// Create the window invisible.  
 			zoomDocProc,		// Window with a grow box and a zoom box
 			kLastWindowOfClass,		// create it behind other windows
@@ -3294,7 +3256,7 @@ void *LLWindowMacOSX::getPlatformWindow()
 			0);
 	}
 	
-	return (void*)dummywindowref;
+	return (void*)sMediaWindow;
 }
 
 void LLWindowMacOSX::stopDockTileBounce()
@@ -3402,5 +3364,3 @@ std::string LLWindowMacOSX::getFontListSans()
 	// The third filename is in UTF8, but it shows up in the font menu as "STHeiti Light"
 	return "\xE3\x83\x92\xE3\x83\xA9\xE3\x82\xAD\xE3\x82\x99\xE3\x83\x8E\xE8\xA7\x92\xE3\x82\xB3\xE3\x82\x99 Pro W3.otf;\xE3\x83\x92\xE3\x83\xA9\xE3\x82\xAD\xE3\x82\x99\xE3\x83\x8E\xE8\xA7\x92\xE3\x82\xB3\xE3\x82\x99 ProN W3.otf;AppleGothic.dfont;AppleGothic.ttf;\xe5\x8d\x8e\xe6\x96\x87\xe7\xbb\x86\xe9\xbb\x91.ttf";
 }
-
-#endif // LL_DARWIN

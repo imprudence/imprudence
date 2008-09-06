@@ -32,8 +32,6 @@
 #ifndef LL_LLWINDOW_H
 #define LL_LLWINDOW_H
 
-#include <sys/stat.h>
-
 #include "llrect.h"
 #include "llcoord.h"
 #include "llstring.h"
@@ -197,10 +195,6 @@ public:
 	virtual void bringToFront() = 0;
 	virtual void focusClient() { };		// this may not have meaning or be required on other platforms, therefore, it's not abstract
 	
-	virtual S32 stat( const char* file_name, struct stat* stat_info ) = 0;
-	virtual BOOL sendEmail(const char* address,const char* subject,const char* body_text, const char* attachment=NULL, const char* attachment_displayed_name=NULL ) = 0;
-
-
 	// handy coordinate space conversion routines
 	// NB: screen to window and vice verse won't work on width/height coordinate pairs,
 	// as the conversion must take into account left AND right border widths, etc.
@@ -225,14 +219,18 @@ public:
 // opens system default color picker
 	virtual BOOL dialog_color_picker (F32 *r, F32 *g, F32 *b) { return FALSE; };
 
-// return a platform-specific window reference (HWND on Windows, WindowRef on the Mac)
+// return a platform-specific window reference (HWND on Windows, WindowRef on the Mac, Gtk window on Linux)
 	virtual void *getPlatformWindow() = 0;
+
+// return the platform-specific window reference we use to initialize llmozlib (HWND on Windows, WindowRef on the Mac, Gtk window on Linux)
+	virtual void *getMediaWindow();
 	
 	// control platform's Language Text Input mechanisms.
 	virtual void allowLanguageTextInput(LLPreeditor *preeditor, BOOL b) {}
 	virtual void setLanguageTextInput( const LLCoordGL & pos ) {};
 	virtual void updateLanguageTextInputArea() {}
 	virtual void interruptLanguageTextInput() {}
+	virtual void spawnWebBrowser(const std::string& escaped_url) {};
 
 	static std::string getFontListSans();
 
@@ -293,13 +291,13 @@ public:
 	static LLSplashScreen * create();
 	static void show();
 	static void hide();
-	static void update(const char* string);
+	static void update(const std::string& string);
 
 	static bool isVisible();
 protected:
 	// These are overridden by the platform implementation
 	virtual void showImpl() = 0;
-	virtual void updateImpl(const char* string) = 0;
+	virtual void updateImpl(const std::string& string) = 0;
 	virtual void hideImpl() = 0;
 
 	static BOOL sVisible;
@@ -307,7 +305,7 @@ protected:
 };
 
 // Platform-neutral for accessing the platform specific message box
-S32 OSMessageBox(const char* text, const char* caption, U32 type);
+S32 OSMessageBox(const std::string& text, const std::string& caption, U32 type);
 const U32 OSMB_OK = 0;
 const U32 OSMB_OKCANCEL = 1;
 const U32 OSMB_YESNO = 2;
@@ -325,8 +323,8 @@ class LLWindowManager
 {
 public:
 	static LLWindow* createWindow(
-		char *title,
-		char *name,
+		const std::string& title,
+		const std::string& name,
 		LLCoordScreen upper_left = LLCoordScreen(10, 10),
 		LLCoordScreen size = LLCoordScreen(320, 240),
 		U32 flags = 0,
@@ -336,7 +334,7 @@ public:
 		BOOL use_gl = TRUE,
 		BOOL ignore_pixel_depth = FALSE);
 	static LLWindow *createWindow(
-		char* title, char* name, S32 x, S32 y, S32 width, S32 height,
+		const std::string& title, const std::string& name, S32 x, S32 y, S32 width, S32 height,
 		U32 flags = 0,
 		BOOL fullscreen = FALSE,
 		BOOL clearBg = FALSE,
@@ -355,11 +353,8 @@ extern BOOL gDebugWindowProc;
 
 // Protocols, like "http" and "https" we support in URLs
 extern const S32 gURLProtocolWhitelistCount;
-extern const char* gURLProtocolWhitelist[];
-extern const char* gURLProtocolWhitelistHandler[];
-
-// Loads a URL with the user's default browser
-void spawn_web_browser(const char* escaped_url);
+extern const std::string gURLProtocolWhitelist[];
+extern const std::string gURLProtocolWhitelistHandler[];
 
 void simpleEscapeString ( std::string& stringIn  );
 

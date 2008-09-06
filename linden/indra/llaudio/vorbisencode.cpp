@@ -70,7 +70,7 @@
 
 #endif
 
-S32 check_for_invalid_wav_formats(const char *in_fname, char *error_msg)
+S32 check_for_invalid_wav_formats(const std::string& in_fname, std::string& error_msg)
 {
 	U16 num_channels = 0;
 	U32 sample_rate = 0;
@@ -83,12 +83,12 @@ S32 check_for_invalid_wav_formats(const char *in_fname, char *error_msg)
 
 	unsigned char wav_header[44];		/*Flawfinder: ignore*/
 
-	error_msg[0] = '\0';
+	error_msg.clear();
 
     apr_file_t* infp = ll_apr_file_open(in_fname,LL_APR_RB);
 	if (!infp)
 	{
-		strcpy(error_msg, "CannotUploadSoundFile");	/*Flawfinder: ignore*/
+		error_msg = "CannotUploadSoundFile";
 		return(LLVORBISENC_SOURCE_OPEN_ERR);
 	}
 
@@ -97,14 +97,14 @@ S32 check_for_invalid_wav_formats(const char *in_fname, char *error_msg)
 
 	if (strncmp((char *)&(wav_header[0]),"RIFF",4))
 	{
-		strcpy(error_msg, "SoundFileNotRIFF");	/*Flawfinder: ignore*/
+		error_msg = "SoundFileNotRIFF";
 		apr_file_close(infp);
 	    return(LLVORBISENC_WAV_FORMAT_ERR);
 	}
 
 	if (strncmp((char *)&(wav_header[8]),"WAVE",4))
 	{
-		strcpy(error_msg, "SoundFileNotRIFF");	/*Flawfinder: ignore*/
+		error_msg = "SoundFileNotRIFF";
 		apr_file_close(infp);
 	    return(LLVORBISENC_WAV_FORMAT_ERR);
 	}
@@ -154,31 +154,31 @@ S32 check_for_invalid_wav_formats(const char *in_fname, char *error_msg)
 
 	if (!uncompressed_pcm)
 	{	
-		 strcpy(error_msg, "SoundFileNotPCM");		/*Flawfinder: ignore*/
+		 error_msg = "SoundFileNotPCM";
 		  return(LLVORBISENC_PCM_FORMAT_ERR);
 	}
 	
 	if ((num_channels < 1) || (num_channels > 2))
 	{	
-		strcpy(error_msg, "SoundFileInvalidChannelCount");	/*Flawfinder: ignore*/
+		error_msg = "SoundFileInvalidChannelCount";
 		return(LLVORBISENC_MULTICHANNEL_ERR);
 	}
 
 	if (sample_rate != 44100)
 	{	
-		strcpy(error_msg, "SoundFileInvalidSampleRate");		/*Flawfinder: ignore*/
+		error_msg = "SoundFileInvalidSampleRate";
 		return(LLVORBISENC_UNSUPPORTED_SAMPLE_RATE);
 	}
 	
 	if ((bits_per_sample != 16) && (bits_per_sample != 8))
 	{		 
-		strcpy(error_msg, "SoundFileInvalidWordSize");		/*Flawfinder: ignore*/
+		error_msg = "SoundFileInvalidWordSize";
 		return(LLVORBISENC_UNSUPPORTED_WORD_SIZE);
 	}
 
 	if (!raw_data_length)
 	{
-		strcpy(error_msg, "SoundFileInvalidHeader");			/*Flawfinder: ignore*/
+		error_msg = "SoundFileInvalidHeader";
 		return(LLVORBISENC_CLIP_TOO_LONG);		 
 	}
 
@@ -186,14 +186,14 @@ S32 check_for_invalid_wav_formats(const char *in_fname, char *error_msg)
 		
 	if (clip_length > 10.0f)
 	{
-		strcpy(error_msg, "SoundFileInvalidTooLong");			/*Flawfinder: ignore*/
+		error_msg = "SoundFileInvalidTooLong";
 		return(LLVORBISENC_CLIP_TOO_LONG);		 
 	}
 
     return(LLVORBISENC_NOERR);
 }
 
-S32 encode_vorbis_file(const char *in_fname, const char *out_fname)
+S32 encode_vorbis_file(const std::string& in_fname, const std::string& out_fname)
 {
 #define READ_BUFFER 1024
 	unsigned char readbuffer[READ_BUFFER*4+44];   /* out of the data segment, not the stack */	/*Flawfinder: ignore*/
@@ -216,7 +216,7 @@ S32 encode_vorbis_file(const char *in_fname, const char *out_fname)
 	U32 bits_per_sample = 0;
 
 	S32 format_error = 0;
-	char error_msg[MAX_STRING];	/*Flawfinder: ignore*/
+	std::string error_msg;
 	if ((format_error = check_for_invalid_wav_formats(in_fname, error_msg)))
 	{
 		llwarns << error_msg << ": " << in_fname << llendl;

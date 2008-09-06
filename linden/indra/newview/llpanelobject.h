@@ -87,9 +87,9 @@ public:
 protected:
 	void			getState();
 
-	void			sendRotation();
-	void			sendScale();
-	void			sendPosition();
+	void			sendRotation(BOOL btn_down);
+	void			sendScale(BOOL btn_down);
+	void			sendPosition(BOOL btn_down);
 	void			sendIsPhysical();
 	void			sendIsTemporary();
 	void			sendIsPhantom();
@@ -170,6 +170,8 @@ protected:
 	LLTextureCtrl   *mCtrlSculptTexture;
 	LLTextBox       *mLabelSculptType;
 	LLComboBox      *mCtrlSculptType;
+	LLCheckBoxCtrl  *mCtrlSculptMirror;
+	LLCheckBoxCtrl  *mCtrlSculptInvert;
 	
 	LLVector3		mCurEulerDegrees;		// to avoid sending rotation when not changed
 	BOOL			mIsPhysical;			// to avoid sending "physical" when not changed
@@ -180,7 +182,7 @@ protected:
 
 	LLUUID          mSculptTextureRevert;   // so we can revert the sculpt texture on cancel
 	U8              mSculptTypeRevert;      // so we can revert the sculpt type on cancel
-	
+
 	LLPointer<LLViewerObject> mObject;
 	LLPointer<LLViewerObject> mRootObject;
 };

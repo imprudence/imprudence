@@ -48,7 +48,7 @@
 #include "llvoavatar.h"
 #include "llviewercontrol.h"
 
-const LLString LOADING_STRING("Loading...");
+const std::string LOADING_STRING("Loading...");
 
 // static
 LLFloaterClothing* LLFloaterClothing::sInstance = NULL;
@@ -70,7 +70,7 @@ public:
 // LLFloaterClothing
 //---------------------------------------------------------------------------
 LLFloaterClothing::LLFloaterClothing()
-:	LLFloater("floater_clothing", "FloaterClothingRect", ""),
+:	LLFloater(std::string("floater_clothing"), std::string("FloaterClothingRect"), LLStringUtil::null),
 	mSelectedID(),
 	mAllowSelection(FALSE)
 {
@@ -272,15 +272,15 @@ void LLFloaterClothing::buildClothingList()
 			item_is_multi = TRUE;
 		}
 
-		LLString icon_name = get_item_icon_name(item->getType(),
+		std::string icon_name = get_item_icon_name(item->getType(),
 											 item->getInventoryType(),
 											 item->getFlags(), item_is_multi);		// flags = wearable type
 		row["columns"][0]["column"] = "icon";
 		row["columns"][0]["type"] = "icon";
 		row["columns"][0]["value"] = icon_name;
 
-		LLString text = item->getName();
-		LLString style = "NORMAL";
+		std::string text = item->getName();
+		std::string style = "NORMAL";
 		if( gAgent.isWearingItem( item->getUUID() ) )
 		{
 			text.append(" (worn)");
@@ -294,7 +294,7 @@ void LLFloaterClothing::buildClothingList()
 		// hidden column for sorting
 		U32 flags = item->getFlags();	// flags = wearable type
 		enum EWearableType wearable_type = (enum EWearableType)flags;
-		const char* wearable_label = LLWearable::typeToTypeLabel(wearable_type);
+		const std::string& wearable_label = LLWearable::typeToTypeLabel(wearable_type);
 		//line->addColumn(wearable_label, FONT, -1);	// invisible
 		row["columns"][2]["column"] = "sort";
 		row["columns"][2]["value"] = wearable_label;
@@ -315,7 +315,7 @@ void LLFloaterClothing::buildClothingList()
 	else
 	{
 		// Weird case, we're done loading but have no clothing
-		list->addCommentText("No clothing found.");
+		list->addCommentText(std::string("No clothing found.")); // *TODO: Translate
 		mAllowSelection = FALSE;
 	}
 }

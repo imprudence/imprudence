@@ -19,11 +19,7 @@ FS			(f|F)
 #include "lscript_tree.h"
 #include "lscript_typecheck.h"
 #include "lscript_resource.h"
-#if LL_WINDOWS
-#include "ytab.h"
-#else
-#include "indra.y.h"
-#endif
+#include "indra.y.hpp"
 #include "lltimer.h"
 #include "indra_constants.h"
 #include "llagentconstants.h"
@@ -505,6 +501,9 @@ extern "C" { int yyerror(const char *fmt, ...); }
 "PRIM_SCULPT_TYPE_TORUS"	{ count(); yylval.ival = LSL_PRIM_SCULPT_TYPE_TORUS; return(INTEGER_CONSTANT); }
 "PRIM_SCULPT_TYPE_PLANE"	{ count(); yylval.ival = LSL_PRIM_SCULPT_TYPE_PLANE; return(INTEGER_CONSTANT); }
 "PRIM_SCULPT_TYPE_CYLINDER"	{ count(); yylval.ival = LSL_PRIM_SCULPT_TYPE_CYLINDER; return(INTEGER_CONSTANT); }
+"PRIM_SCULPT_TYPE_MASK" 	{ count(); yylval.ival = LSL_PRIM_SCULPT_TYPE_MASK; return(INTEGER_CONSTANT); }
+"PRIM_SCULPT_FLAG_MIRROR" 	{ count(); yylval.ival = LSL_PRIM_SCULPT_FLAG_MIRROR; return(INTEGER_CONSTANT); }
+"PRIM_SCULPT_FLAG_INVERT" 	{ count(); yylval.ival = LSL_PRIM_SCULPT_FLAG_INVERT; return(INTEGER_CONSTANT); }
 
 "MASK_BASE"				{ count(); yylval.ival = 0; return(INTEGER_CONSTANT); }
 "MASK_OWNER"			{ count(); yylval.ival = 1; return(INTEGER_CONSTANT); }
@@ -680,7 +679,7 @@ int yyerror(const char *fmt, ...)
 //#define EMIT_CIL_ASSEMBLER
 
 BOOL lscript_compile(const char* src_filename, const char* dst_filename,
-					 const char* err_filename, BOOL is_god_like)
+					 const char* err_filename, BOOL compile_to_mono, const char* class_name, BOOL is_god_like)
 {
 	BOOL			b_parse_ok = FALSE;
 	BOOL			b_dummy = FALSE;
@@ -696,10 +695,10 @@ BOOL lscript_compile(const char* src_filename, const char* dst_filename,
 	init_temp_jumps();
 	gAllocationManager = new LLScriptAllocationManager();
 
-	yyin = LLFile::fopen(src_filename, "r");
+	yyin = LLFile::fopen(std::string(src_filename), "r");
 	if (yyin)
 	{
-		yyout = LLFile::fopen(err_filename, "w");
+		yyout = LLFile::fopen(std::string(err_filename), "w");
 
 		// Reset the lexer's internal buffering.
 
@@ -722,6 +721,8 @@ BOOL lscript_compile(const char* src_filename, const char* dst_filename,
 			}
 
 			gScriptp->mGodLike = is_god_like;
+			
+			gScriptp->setClassName(class_name);
 
 			gScopeStringTable = new LLStringTable(16384);
 #ifdef EMERGENCY_DEBUG_PRINTOUTS
@@ -737,34 +738,25 @@ BOOL lscript_compile(const char* src_filename, const char* dst_filename,
 #ifdef EMERGENCY_DEBUG_PRINTOUTS
 				gScriptp->recurse(yyout, 0, 0, LSCP_EMIT_ASSEMBLY, LSPRUNE_INVALID,  b_dummy, NULL, type, type, b_dummy_count, NULL, NULL, 0, NULL, 0, NULL);
 #endif
-#ifdef EMIT_CIL_ASSEMBLER
-				const char* cil_output_file_name = dst_filename? dst_filename : "lscript.cil";
-				LLFILE* cilout = LLFile::fopen(cil_output_file_name, "w");
-				if(NULL == cilout)
+				if(TRUE == compile_to_mono)
 				{
-					fprintf(yyout, "Error opening cil output file %s\n", cil_output_file_name);
+					gScriptp->recurse(yyout, 0, 0, LSCP_EMIT_CIL_ASSEMBLY, LSPRUNE_INVALID,  b_dummy, NULL, type, type, b_dummy_count, NULL, NULL, 0, NULL, 0, NULL);
 				}
 				else
 				{
-					gScriptp->recurse(cilout, 0, 0, LSCP_EMIT_CIL_ASSEMBLY, LSPRUNE_INVALID,  b_dummy, NULL, type, type, b_dummy_count, NULL, NULL, 0, NULL, 0, NULL);
-					if(fclose(cilout) == EOF)
-					{
-						fprintf(yyout, "Error closing cil output file %s\n", cil_output_file_name);
-					}
+					gScriptp->recurse(yyout, 0, 0, LSCP_EMIT_BYTE_CODE, LSPRUNE_INVALID, b_dummy, NULL, type, type, b_dummy_count, NULL, NULL, 0, NULL, 0, NULL);
 				}
-#endif
-				gScriptp->recurse(yyout, 0, 0, LSCP_EMIT_BYTE_CODE, LSPRUNE_INVALID, b_dummy, NULL, type, type, b_dummy_count, NULL, NULL, 0, NULL, 0, NULL);
 			}
 			delete gScopeStringTable;
 			gScopeStringTable = NULL;
 #ifdef EMERGENCY_DEBUG_PRINTOUTS
 			fclose(compfile);
 #endif
+			fclose(yyout);
 		}
-		fclose(yyout);
+		fclose(yyin);
 	}
 
-	fclose(yyin);
 	delete gAllocationManager;
 	delete gScopeStringTable;
 	
@@ -772,13 +764,15 @@ BOOL lscript_compile(const char* src_filename, const char* dst_filename,
 }
 
 
-BOOL lscript_compile(char *filename, BOOL is_god_like = FALSE)
+BOOL lscript_compile(char *filename, BOOL compile_to_mono, BOOL is_god_like = FALSE)
 {
 	char src_filename[MAX_STRING];
 	sprintf(src_filename, "%s.lsl", filename);
 	char err_filename[MAX_STRING];
 	sprintf(err_filename, "%s.out", filename);
-	return lscript_compile(src_filename, NULL, err_filename, is_god_like);
+	char class_name[MAX_STRING];
+	sprintf(class_name, "%s", filename);
+	return lscript_compile(src_filename, NULL, err_filename, compile_to_mono, class_name, is_god_like);
 }
 
 

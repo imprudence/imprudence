@@ -46,124 +46,6 @@
 
 #include "llsdserialize.h"
 
-// vector3
-LLSD ll_sd_from_vector3(const LLVector3& vec)
-{
-	LLSD rv;
-	rv.append((F64)vec.mV[VX]);
-	rv.append((F64)vec.mV[VY]);
-	rv.append((F64)vec.mV[VZ]);
-	return rv;
-}
-
-LLVector3 ll_vector3_from_sd(const LLSD& sd, S32 start_index)
-{
-	LLVector3 rv;
-	rv.mV[VX] = (F32)sd[start_index].asReal();
-	rv.mV[VY] = (F32)sd[++start_index].asReal();
-	rv.mV[VZ] = (F32)sd[++start_index].asReal();
-	return rv;
-}
-
-// vector4
-LLSD ll_sd_from_vector4(const LLVector4& vec)
-{
-	LLSD rv;
-	rv.append((F64)vec.mV[VX]);
-	rv.append((F64)vec.mV[VY]);
-	rv.append((F64)vec.mV[VZ]);
-	rv.append((F64)vec.mV[VW]);
-	return rv;
-}
-
-LLVector4 ll_vector4_from_sd(const LLSD& sd, S32 start_index)
-{
-	LLVector4 rv;
-	rv.mV[VX] = (F32)sd[start_index].asReal();
-	rv.mV[VY] = (F32)sd[++start_index].asReal();
-	rv.mV[VZ] = (F32)sd[++start_index].asReal();
-	rv.mV[VW] = (F32)sd[++start_index].asReal();
-	return rv;
-}
-
-// vector3d
-LLSD ll_sd_from_vector3d(const LLVector3d& vec)
-{
-	LLSD rv;
-	rv.append(vec.mdV[VX]);
-	rv.append(vec.mdV[VY]);
-	rv.append(vec.mdV[VZ]);
-	return rv;
-}
-
-LLVector3d ll_vector3d_from_sd(const LLSD& sd, S32 start_index)
-{
-	LLVector3d rv;
-	rv.mdV[VX] = sd[start_index].asReal();
-	rv.mdV[VY] = sd[++start_index].asReal();
-	rv.mdV[VZ] = sd[++start_index].asReal();
-	return rv;
-}
-
-//vector2
-LLSD ll_sd_from_vector2(const LLVector2& vec)
-{
-	LLSD rv;
-	rv.append((F64)vec.mV[VX]);
-	rv.append((F64)vec.mV[VY]);
-	return rv;
-}
-
-LLVector2 ll_vector2_from_sd(const LLSD& sd)
-{
-	LLVector2 rv;
-	rv.mV[VX] = (F32)sd[0].asReal();
-	rv.mV[VY] = (F32)sd[1].asReal();
-	return rv;
-}
-
-// Quaternion
-LLSD ll_sd_from_quaternion(const LLQuaternion& quat)
-{
-	LLSD rv;
-	rv.append((F64)quat.mQ[VX]);
-	rv.append((F64)quat.mQ[VY]);
-	rv.append((F64)quat.mQ[VZ]);
-	rv.append((F64)quat.mQ[VW]);
-	return rv;
-}
-
-LLQuaternion ll_quaternion_from_sd(const LLSD& sd)
-{
-	LLQuaternion quat;
-	quat.mQ[VX] = (F32)sd[0].asReal();
-	quat.mQ[VY] = (F32)sd[1].asReal();
-	quat.mQ[VZ] = (F32)sd[2].asReal();
-	quat.mQ[VW] = (F32)sd[3].asReal();
-	return quat;
-}
-
-// color4
-LLSD ll_sd_from_color4(const LLColor4& c)
-{
-	LLSD rv;
-	rv.append(c.mV[0]);
-	rv.append(c.mV[1]);
-	rv.append(c.mV[2]);
-	rv.append(c.mV[3]);
-	return rv;
-}
-
-LLColor4 ll_color4_from_sd(const LLSD& sd)
-{
-	LLColor4 c;
-	c.mV[0] = (F32)sd[0].asReal();
-	c.mV[1] = (F32)sd[1].asReal();
-	c.mV[2] = (F32)sd[2].asReal();
-	c.mV[3] = (F32)sd[3].asReal();
-	return c;
-}
-
 // U32
 LLSD ll_sd_from_U32(const U32 val)
 {
@@ -263,12 +145,11 @@ LLSD ll_binary_from_string(const LLSD& sd)
 {
 	std::vector<U8> binary_value;
 
-	LLString string_value = sd.asString();
-	const char* string_p = string_value.c_str();
-	while (*string_p)
+	std::string string_value = sd.asString();
+	for (std::string::iterator iter = string_value.begin();
+		 iter != string_value.end(); ++iter)
 	{
-		binary_value.push_back(*string_p);
-		string_p++;
+		binary_value.push_back(*iter);
 	}
 
 	binary_value.push_back('\0');
@@ -303,8 +184,9 @@ char* ll_pretty_print_sd(const LLSD& sd)
 }
 
 //compares the structure of an LLSD to a template LLSD and stores the
-//"valid" values in a 3rd LLSD.  Default values are stored in the template
-//
+//"valid" values in a 3rd LLSD.  Default values pulled from the template
+//if the tested LLSD does not contain the key/value pair.
+//Excess values in the test LLSD are ignored in the resultant_llsd.
 //If the llsd to test has a specific key to a map and the values
 //are not of the same type, false is returned or if the LLSDs are not
 //of the same value.  Ordering of arrays matters

@@ -57,8 +57,8 @@ namespace tut
 			mInputSize = 36;
 		}
 
-		bool matchFile(const char* filename,
-				const std::string& data)
+		bool matchFile(const std::string& filename,
+					   const std::string& data)
 		{
 			LLFILE* fp = LLFile::fopen(filename, "rb");
 			if (!fp) 
@@ -66,7 +66,7 @@ namespace tut
 				// sometimes test is run inside the indra directory
 				std::string path = "test/";
 				path += filename;
-				fp = LLFile::fopen(path.c_str(), "rb");
+				fp = LLFile::fopen(path, "rb");
 			}
 			if (!fp)
 			{
@@ -93,6 +93,9 @@ namespace tut
 	template<> template<>
 	void blowfish_object::test<1>()
 	{
+#if !LL_LINUX
+		skip_fail("Blowfish only supported on Linux.");
+#else
 		LLUUID blank;
 		LLBlowfishCipher cipher(&blank.mData[0], UUID_BYTES);
 
@@ -105,11 +108,15 @@ namespace tut
 		dst_len = cipher.requiredEncryptionSpace(8);
 		ensure("encryption space 8",
 				(dst_len == 16)  );
+#endif // !LL_LINUX
 	}
 
 	template<> template<>
 	void blowfish_object::test<2>()
 	{
+#if !LL_LINUX
+		skip_fail("Blowfish only supported on Linux.");
+#else
 		LLUUID blank;
 		LLBlowfishCipher cipher(&blank.mData[0], UUID_BYTES);
 
@@ -123,12 +130,16 @@ namespace tut
 		result.resize(count);
 
 		ensure("encrypt null key", matchFile("blowfish.1.bin", result));
+#endif // !LL_LINUX
 	}
 
 	template<> template<>
 	void blowfish_object::test<3>()
 	{
-		// same as base64 test id
+#if !LL_LINUX
+        skip_fail("Blowfish only supported on Linux.");
+#else
+        // same as base64 test id
 		LLUUID id("526a1e07-a19d-baed-84c4-ff08a488d15e");
 		LLBlowfishCipher cipher(&id.mData[0], UUID_BYTES);
 
@@ -142,5 +153,6 @@ namespace tut
 		result.resize(count);
 
 		ensure("encrypt real key", matchFile("blowfish.2.bin", result));
+#endif // !LL_LINUX
 	}
 }

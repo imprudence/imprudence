@@ -76,8 +76,8 @@ protected:
 	BOOL mLogIMChat;
 	BOOL mLogTimestampDate;
 
-	LLString mIMBusyResponse;
-	LLString mLogPath;
+	std::string mIMBusyResponse;
+	std::string mLogPath;
 
 	bool mGotPersonalInfo;
 	bool mOriginalIMViaEmail;
@@ -89,7 +89,7 @@ protected:
 
 
 LLPrefsIMImpl::LLPrefsIMImpl()
- : LLPanel("IM Prefs Panel")
+	: LLPanel(std::string("IM Prefs Panel"))
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_im.xml");
 }
@@ -190,16 +190,16 @@ void LLPrefsIMImpl::apply()
 	LLTextEditor* busy = getChild<LLTextEditor>("busy_response");
 	LLWString busy_response;
 	if (busy) busy_response = busy->getWText(); 
-	LLWString::replaceTabsWithSpaces(busy_response, 4);
-	LLWString::replaceChar(busy_response, '\n', '^');
-	LLWString::replaceChar(busy_response, ' ', '%');
+	LLWStringUtil::replaceTabsWithSpaces(busy_response, 4);
+	LLWStringUtil::replaceChar(busy_response, '\n', '^');
+	LLWStringUtil::replaceChar(busy_response, ' ', '%');
 	
 	if(mGotPersonalInfo)
 	{ 
 
-		gSavedPerAccountSettings.setString("BusyModeResponse", LLString(wstring_to_utf8str(busy_response)));
+		gSavedPerAccountSettings.setString("BusyModeResponse", std::string(wstring_to_utf8str(busy_response)));
 
-		gSavedPerAccountSettings.setString("InstantMessageLogPath", childGetText("log_path_string").c_str());
+		gSavedPerAccountSettings.setString("InstantMessageLogPath", childGetText("log_path_string"));
 		gSavedPerAccountSettings.setBOOL("LogInstantMessages",childGetValue("log_instant_messages").asBoolean());
 		gSavedPerAccountSettings.setBOOL("LogChat",childGetValue("log_chat").asBoolean());
 		gSavedPerAccountSettings.setBOOL("LogShowHistory",childGetValue("log_show_history").asBoolean());
@@ -210,9 +210,9 @@ void LLPrefsIMImpl::apply()
 
 		gDirUtilp->setChatLogsDir(gSavedPerAccountSettings.getString("InstantMessageLogPath"));
 
-		gDirUtilp->setPerAccountChatLogsDir(gSavedSettings.getString("FirstName").c_str(), 
-											gSavedSettings.getString("LastName").c_str() );
-		LLFile::mkdir(gDirUtilp->getPerAccountChatLogsDir().c_str());
+		gDirUtilp->setPerAccountChatLogsDir(gSavedSettings.getString("FirstName"), 
+											gSavedSettings.getString("LastName") );
+		LLFile::mkdir(gDirUtilp->getPerAccountChatLogsDir());
 		
 		bool new_im_via_email = childGetValue("send_im_to_email").asBoolean();
 		bool new_hide_online = childGetValue("online_visibility").asBoolean();		
@@ -281,8 +281,8 @@ void LLPrefsIMImpl::setPersonalInfo(
 	
 	//RN: get wide string so replace char can work (requires fixed-width encoding)
 	LLWString busy_response = utf8str_to_wstring( gSavedPerAccountSettings.getString("BusyModeResponse") );
-	LLWString::replaceChar(busy_response, '^', '\n');
-	LLWString::replaceChar(busy_response, '%', ' ');
+	LLWStringUtil::replaceChar(busy_response, '^', '\n');
+	LLWStringUtil::replaceChar(busy_response, '%', ' ');
 	childSetText("busy_response", wstring_to_utf8str(busy_response));
 
 	enableHistory();
@@ -305,7 +305,7 @@ void LLPrefsIMImpl::onClickLogPath(void* user_data)
 {
 	LLPrefsIMImpl* self=(LLPrefsIMImpl*)user_data;
 	
-	LLString proposed_name(self->childGetText("log_path_string"));	 
+	std::string proposed_name(self->childGetText("log_path_string"));	 
 	
 	LLDirPicker& picker = LLDirPicker::instance();
 	if (! picker.getDir(&proposed_name ) )
@@ -346,15 +346,9 @@ void LLPrefsIM::cancel()
 	impl.cancel();
 }
 
-void LLPrefsIM::setPersonalInfo(
-	const char* visibility,
-	bool im_via_email,
-	const char* email)
+void LLPrefsIM::setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email)
 {
-	impl.setPersonalInfo(
-		ll_safe_string(visibility),
-		im_via_email,
-		ll_safe_string(email));
+	impl.setPersonalInfo(visibility, im_via_email, email);
 }
 
 LLPanel* LLPrefsIM::getPanel()

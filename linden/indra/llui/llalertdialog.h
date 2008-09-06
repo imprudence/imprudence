@@ -47,8 +47,10 @@ class LLAlertDialog : public LLModalDialog
 {
 public:
 	typedef void (*alert_callback_t)(S32 option, void* user_data);
-	typedef void (*alert_text_callback_t)(S32 option, const LLString& text, void* user_data);
+	typedef void (*alert_text_callback_t)(S32 option, const std::string& text, void* user_data);
 	typedef bool (*display_callback_t)(S32 modal);
+	typedef std::vector<std::string> options_list_t;
+	
 	enum { IGNORE_USE_DEFAULT=1, IGNORE_USE_SAVED=2, IGNORE_SHOW_AGAIN=3 };
 
 	class URLLoader
@@ -65,7 +67,7 @@ public:
 	
 public:
 	// User's responsibility to call show() after creating these.
-	LLAlertDialog( const LLAlertDialogTemplate* xml_template, const LLString::format_map_t& args,
+	LLAlertDialog( const LLAlertDialogTemplate* xml_template, const LLStringUtil::format_map_t& args,
 				   alert_callback_t callback = NULL, void *user_data = NULL);
 
 	virtual BOOL	handleKeyHere(KEY key, MASK mask );
@@ -74,13 +76,13 @@ public:
 	virtual void	setVisible( BOOL visible );
 	virtual void	onClose(bool app_quitting);
 
-	bool 			setCheckBox( const LLString&, const LLString& );	
+	bool 			setCheckBox( const std::string&, const std::string& );	
 	void			setOptionEnabled( S32 option, BOOL enable );
 	void			setCaution(BOOL val = TRUE) { mCaution = val; }
 	// If mUnique==TRUE only one copy of this message should exist
 	void			setUnique(BOOL val = TRUE) { mUnique = val; }
 	void			setEditTextCallback(alert_text_callback_t callback, void *user_data);
-	void			setEditTextArgs(const LLString::format_map_t& edit_args);
+	void			setEditTextArgs(const LLStringUtil::format_map_t& edit_args);
 	void			setDrawAsterixes(BOOL enable);
 	
 	bool			show();	// May instantly destroy the message if it is unique (returns false)
@@ -88,44 +90,45 @@ public:
 	//statics
 	static void		onButtonPressed(void* userdata);
 
-	static LLAlertDialog* createXml( const LLString& xml_desc,
+	static LLAlertDialog* createXml( const std::string& xml_desc,
 									 alert_callback_t callback = NULL, void *user_data = NULL);
-	static LLAlertDialog* createXml( const LLString& xml_desc, const LLString::format_map_t& args,
+	static LLAlertDialog* createXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
 									 alert_callback_t callback = NULL, void *user_data = NULL);
 	
-	static LLAlertDialog* 	showXml( const LLString& xml_desc,
+	static LLAlertDialog* 	showXml( const std::string& xml_desc,
 							 alert_callback_t callback = NULL, void *user_data = NULL);
-	static LLAlertDialog* 	showXml( const LLString& xml_desc, const LLString::format_map_t& args,
+	static LLAlertDialog* 	showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
 							 alert_callback_t callback = NULL, void *user_data = NULL);
 
-	static LLAlertDialog* 	showCritical( const LLString& msg, alert_callback_t callback = NULL, void *user_data = NULL);
+	static LLAlertDialog* 	showCritical( const std::string& msg, alert_callback_t callback = NULL, void *user_data = NULL);
 	
-	static bool parseAlerts(const LLString& xml_filename, LLControlGroup* settings = NULL, BOOL settings_only = FALSE);
-	static const LLString& getTemplateMessage(const LLString& xml_desc);
+	static bool parseAlerts(const std::string& xml_filename, LLControlGroup* settings = NULL, BOOL settings_only = FALSE);
+	static const std::string& getTemplateMessage(const std::string& xml_desc);
 
 	static void setDisplayCallback(display_callback_t callback) { sDisplayCallback = callback; }
 
-	void format(LLString& msg, const LLString::format_map_t& args);
+private:
+	void format(std::string& msg, const LLStringUtil::format_map_t& args);
 
+public:
 	static LLControlGroup* sSettings;
 
 	// use LLPointer so they delete themselves when sTemplates is destroyed
-	typedef std::map<LLString, LLPointer<LLAlertDialogTemplate> > template_map_t;
+	typedef std::map<std::string, LLPointer<LLAlertDialogTemplate> > template_map_t;
 	static template_map_t sAlertTemplates; // by mLabel
 	static template_map_t sIgnorableTemplates; // by mIgnoreLabel
 
-
 private:
 
-	static std::map<LLString, LLAlertDialog*> sUniqueActiveMap;
+	static std::map<std::string, LLAlertDialog*> sUniqueActiveMap;
 	static display_callback_t sDisplayCallback;
 
-	static LLString sStringSkipNextTime;
-	static LLString sStringAlwaysChoose;
+	static std::string sStringSkipNextTime;
+	static std::string sStringAlwaysChoose;
 
-	void createDialog(const std::vector<LLString>* options, S32 default_option,
-					  const LLString& msg, const LLString::format_map_t& args,
-					  const LLString& edit_text);
+	void createDialog(const options_list_t& options_in, S32 default_option,
+					  const std::string& msg, const LLStringUtil::format_map_t& args,
+					  const std::string& edit_text);
 	
 	virtual ~LLAlertDialog();
 	void handleCallbacks();
@@ -150,14 +153,14 @@ private:
 	BOOL	mCaution;
 	BOOL	mUnique;
 	S32		mIgnorable;
-	LLString mLabel;
-	LLString mIgnoreLabel;
+	std::string mLabel;
+	std::string mIgnoreLabel;
 	LLFrameTimer mDefaultBtnTimer;
 	// For Dialogs that take a line as text as input:
 	LLLineEditor* mLineEditor;
 	alert_text_callback_t mTextCallback;
 	// For Dialogs linked to a URL
-	LLString mURL;		 		// Some alerts will direct the resident to a URL
+	std::string mURL;		 		// Some alerts will direct the resident to a URL
 	S32 mURLOption;
 
 private:
@@ -171,7 +174,7 @@ class LLAlertDialogTemplate : public LLRefCount
 public:
 	LLAlertDialogTemplate() : mTitle(), mURLOption(0), mModal(FALSE), mCaution(FALSE), mUnique(FALSE), mIgnorable(0), mDefaultOption(0) {}
 	
-	void addOption(const LLString& label, const LLString& ignore_text, BOOL is_default = FALSE)
+	void addOption(const std::string& label, const std::string& ignore_text, BOOL is_default = FALSE)
 	{
 		if (is_default)
 		{
@@ -203,21 +206,21 @@ public:
 
 	
 public:
-	LLString mLabel;			// Handle for access from code, etc
-	LLString mTitle;			// (optional) text to display in title bar
-	LLString mMessage;			// Message to display
-	LLString mIgnoreListText; 	// Text to display in enable/disable dialog (if mIgnorable == TRUE)
-	LLString mIgnoreLabel; 		// Handle for ignore variable (may be shared by multiple templates)
-	LLString mURL;		 		// Some alerts will direct the resident to a URL
+	std::string mLabel;			// Handle for access from code, etc
+	std::string mTitle;			// (optional) text to display in title bar
+	std::string mMessage;			// Message to display
+	std::string mIgnoreListText; 	// Text to display in enable/disable dialog (if mIgnorable == TRUE)
+	std::string mIgnoreLabel; 		// Handle for ignore variable (may be shared by multiple templates)
+	std::string mURL;		 		// Some alerts will direct the resident to a URL
 	S32 mURLOption;
 	BOOL mModal;
 	BOOL mCaution;
 	BOOL mUnique;
 	S32 mIgnorable; // 0 = Never Ignore, 1 = Do default option, 2 = Do saved option
-	std::vector<LLString> mOptions;
-	std::vector<LLString> mOptionDefaultText;
+	LLAlertDialog::options_list_t mOptions;
+	LLAlertDialog::options_list_t mOptionDefaultText;
 	S32 mDefaultOption;
-	LLString mEditLineText;
+	std::string mEditLineText;
 };
 
 #endif  // LL_ALERTDIALOG_H

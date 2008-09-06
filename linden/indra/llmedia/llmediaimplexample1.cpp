@@ -32,6 +32,8 @@
 #include "llmediaimplexample1.h"
 #include "llmediaimplregister.h"
 
+#include <cstring>
+
 // register this impl with media manager factory
 static LLMediaImplRegister sLLMediaImplExample1Reg( "LLMediaImplExample1", new LLMediaImplExample1Maker() );
 

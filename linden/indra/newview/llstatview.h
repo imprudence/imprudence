@@ -41,7 +41,7 @@ class LLStatBar;
 class LLStatView : public LLContainerView
 {
 public:
-	LLStatView(const LLString& name, const LLString& label, const LLString& setting, const LLRect& rect);
+	LLStatView(const std::string& name, const std::string& label, const std::string& setting, const LLRect& rect);
 	~LLStatView();
 
 /*
@@ -50,13 +50,13 @@ public:
 	virtual LLRect getRequiredRect();	// Return the height of this object, given the set options.
 */
 
-	LLStatBar *addStat(const LLString& name, LLStat *statp);
-	LLStatBar *getStatBar(const LLString& name);
+	LLStatBar *addStat(const std::string& name, LLStat *statp);
+	LLStatBar *getStatBar(const std::string& name);
 
 protected:
 	typedef std::vector<LLStatBar *> sb_vector_t;
 	sb_vector_t mStatBars;
 	U32 mNumStatBars;
-	LLString mSetting;
+	std::string mSetting;
 };
 #endif // LL_STATVIEW_

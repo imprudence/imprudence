@@ -45,7 +45,7 @@
 #include "lloverlaybar.h"
 #include "lltextbox.h"
 
-LLVoiceRemoteCtrl::LLVoiceRemoteCtrl (const LLString& name) : LLPanel(name)
+LLVoiceRemoteCtrl::LLVoiceRemoteCtrl (const std::string& name) : LLPanel(name)
 {
 	setIsChrome(TRUE);
 
@@ -116,7 +116,7 @@ void LLVoiceRemoteCtrl::draw()
 	mSpeakersBtn->setToggleState(LLFloaterActiveSpeakers::instanceVisible(LLSD()));
 	mTalkLockBtn->setToggleState(!gSavedSettings.getBOOL("PTTCurrentlyEnabled"));
 
-	LLString talk_blip_image;
+	std::string talk_blip_image;
 	if (gVoiceClient->getIsSpeaking(gAgent.getID()))
 	{
 		F32 voice_power = gVoiceClient->getCurrentPower(gAgent.getID());
@@ -156,7 +156,7 @@ void LLVoiceRemoteCtrl::draw()
 	}
 
 	LLFloater* voice_floater = LLFloaterChatterBox::getInstance()->getCurrentVoiceFloater();
-	LLString active_channel_name;
+	std::string active_channel_name;
 	if (voice_floater)
 	{
 		active_channel_name = voice_floater->getShortTitle();
@@ -204,11 +204,11 @@ void LLVoiceRemoteCtrl::draw()
 	{
 		if (expand_button->getToggleState())
 		{
-			expand_button->setImageOverlay("arrow_down.tga");
+			expand_button->setImageOverlay(std::string("arrow_down.tga"));
 		}
 		else
 		{
-			expand_button->setImageOverlay("arrow_up.tga");
+			expand_button->setImageOverlay(std::string("arrow_up.tga"));
 		}
 	}
 

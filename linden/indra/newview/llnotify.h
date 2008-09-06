@@ -45,24 +45,24 @@ class LLNotifyBox : public LLPanel, public LLEventTimer
 {
 public:
 	typedef void (*notify_callback_t)(S32 option, void* data);
-	typedef std::vector<LLString> option_list_t;
+	typedef std::vector<std::string> option_list_t;
 
-	static LLNotifyBox* showXml( const LLString& xml_desc,
+	static LLNotifyBox* showXml( const std::string& xml_desc,
 						 notify_callback_t callback = NULL, void *user_data = NULL);
-	static LLNotifyBox* showXml( const LLString& xml_desc, const LLString::format_map_t& args, BOOL is_caution,
+	static LLNotifyBox* showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args, BOOL is_caution,
 						 notify_callback_t callback = NULL, void *user_data = NULL);
-	static LLNotifyBox* showXml( const LLString& xml_desc, const LLString::format_map_t& args,
+	static LLNotifyBox* showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
 						 notify_callback_t callback = NULL, void *user_data = NULL);
 	// For script notifications:
-	static LLNotifyBox* showXml( const LLString& xml_desc, const LLString::format_map_t& args,
+	static LLNotifyBox* showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
 						 notify_callback_t callback, void *user_data,
 						 const option_list_t& options,
 						 BOOL layout_script_dialog = FALSE);
 
-	static bool parseNotify(const LLString& xml_filename);
-	static const LLString getTemplateMessage(const LLString& xml_desc, const LLString::format_map_t& args);
-	static const LLString getTemplateMessage(const LLString& xml_desc);
- 	static BOOL getTemplateIsCaution(const LLString& xml_desc);
+	static bool parseNotify(const std::string& xml_filename);
+	static const std::string getTemplateMessage(const std::string& xml_desc, const LLStringUtil::format_map_t& args);
+	static const std::string getTemplateMessage(const std::string& xml_desc);
+ 	static BOOL getTemplateIsCaution(const std::string& xml_desc);
 	
 	BOOL isTip() const { return mIsTip; }
 	BOOL isCaution() const { return mIsCaution; }
@@ -74,10 +74,10 @@ public:
 	void close();
 
 	static void cleanup();
-	static void format(LLString& msg, const LLString::format_map_t& args);
+	static void format(std::string& msg, const LLStringUtil::format_map_t& args);
 
 protected:
-	LLNotifyBox(LLPointer<LLNotifyBoxTemplate> notify_template, const LLString::format_map_t& args,
+	LLNotifyBox(LLPointer<LLNotifyBoxTemplate> notify_template, const LLStringUtil::format_map_t& args,
 							 notify_callback_t callback, void* user_data,
  							 BOOL is_caution = FALSE,
 							 const option_list_t& extra_options = option_list_t(),
@@ -97,7 +97,7 @@ protected:
 	// Returns the rect, relative to gNotifyView, where this
 	// notify box should be placed.
 	static LLRect getNotifyRect(S32 num_options, BOOL layout_script_dialog, BOOL is_caution);
-	static LLRect getNotifyTipRect(const LLString &message);
+	static LLRect getNotifyTipRect(const std::string &message);
 
 	// internal handler for button being clicked
 	static void onClickButton(void* data);
@@ -105,8 +105,8 @@ protected:
 	// for "next" button
 	static void onClickNext(void* data);
 
-	static LLPointer<LLNotifyBoxTemplate> getTemplate(const LLString& xml_desc);
-	static LLNotifyBox* findExistingNotify(LLPointer<LLNotifyBoxTemplate> notify_template, const LLString::format_map_t& args);
+	static LLPointer<LLNotifyBoxTemplate> getTemplate(const std::string& xml_desc);
+	static LLNotifyBox* findExistingNotify(LLPointer<LLNotifyBoxTemplate> notify_template, const LLStringUtil::format_map_t& args);
 
 private:
 	void drawBackground() const;
@@ -114,7 +114,7 @@ private:
 	static LLPointer<LLNotifyBoxTemplate> sDefaultTemplate;
 
 protected:
-	LLString mMessage;
+	std::string mMessage;
 
 	BOOL mIsTip;
 	BOOL mIsCaution; // is this a caution notification?
@@ -150,21 +150,21 @@ protected:
 	};
 	std::vector<InstanceAndS32*> mBtnCallbackData;
 
-	typedef std::map<LLString, LLPointer<LLNotifyBoxTemplate> > template_map_t;
+	typedef std::map<std::string, LLPointer<LLNotifyBoxTemplate> > template_map_t;
 	static template_map_t sNotifyTemplates; // by mLabel
 	
 	static S32 sNotifyBoxCount;
 	static const LLFontGL* sFont;
 	static const LLFontGL* sFontSmall;
 
-	typedef std::map<LLString, LLNotifyBox*> unique_map_t;
+	typedef std::map<std::string, LLNotifyBox*> unique_map_t;
 	static unique_map_t sOpenUniqueNotifyBoxes;
 };
 
 class LLNotifyBoxView : public LLUICtrl
 {
 public:
-	LLNotifyBoxView(const LLString& name, const LLRect& rect, BOOL mouse_opaque, U32 follows=FOLLOWS_NONE);
+	LLNotifyBoxView(const std::string& name, const LLRect& rect, BOOL mouse_opaque, U32 follows=FOLLOWS_NONE);
 	void showOnly(LLView * ctrl);
 	LLNotifyBox * getFirstNontipBox() const;
 
@@ -195,12 +195,12 @@ public:
 		mDefaultOption(0)
 	{}
 
-	void setMessage(const LLString& message)
+	void setMessage(const std::string& message)
 	{
 		mMessage = message;
 	}
 	
-	void addOption(const LLString& label, BOOL is_default = FALSE)
+	void addOption(const std::string& label, BOOL is_default = FALSE)
 	{
 		if (is_default)
 		{
@@ -210,8 +210,8 @@ public:
 	}
 
 public:
-	LLString mLabel;			// Handle for access from code, etc
-	LLString mMessage;			// Message to display
+	std::string mLabel;			// Handle for access from code, etc
+	std::string mMessage;			// Message to display
 	BOOL mIsTip;
 	BOOL mIsCaution;
 	BOOL mUnique;

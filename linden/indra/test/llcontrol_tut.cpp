@@ -44,8 +44,8 @@ namespace tut
 	struct control_group
 	{
 		LLControlGroup* mCG;
-		LLString mTestConfigDir;
-		LLString mTestConfigFile;
+		std::string mTestConfigDir;
+		std::string mTestConfigFile;
 		static bool mListenerFired;
 		control_group()
 		{
@@ -57,7 +57,7 @@ namespace tut
 			oStr << "/tmp/llcontrol-test-" << random << "/";
 			mTestConfigDir = oStr.str();
 			mTestConfigFile = mTestConfigDir + "settings.xml";
-			LLFile::mkdir(mTestConfigDir.c_str());
+			LLFile::mkdir(mTestConfigDir);
 			LLSD config;
 			config["TestSetting"]["Comment"] = "Dummy setting used for testing";
 			config["TestSetting"]["Persist"] = 1;
@@ -72,7 +72,7 @@ namespace tut
 		}
 		void writeSettingsFile(const LLSD& config)
 		{
-			llofstream file(mTestConfigFile.c_str());
+			llofstream file(mTestConfigFile);
 			if (file.is_open())
 			{
 				LLSDSerialize::toPrettyXML(config, file);
@@ -109,7 +109,7 @@ namespace tut
 		mCG->setU32("TestSetting", 13);
 		ensure_equals("value of changed setting", mCG->getU32("TestSetting"), 13);
 		LLControlGroup test_cg;
-		LLString temp_test_file = (mTestConfigDir + "setting_llsd_temp.xml");
+		std::string temp_test_file = (mTestConfigDir + "setting_llsd_temp.xml");
 		mCG->saveToFile(temp_test_file.c_str(), TRUE);
 		results = test_cg.loadFromFile(temp_test_file.c_str());
 		ensure("number of changed settings loaded", (results == 1));
@@ -126,7 +126,7 @@ namespace tut
 		control->setValue(new_value, FALSE);
 		ensure_equals("value of changed setting", mCG->getU32("TestSetting"), 13);
 		LLControlGroup test_cg;
-		LLString temp_test_file = (mTestConfigDir + "setting_llsd_persist_temp.xml");
+		std::string temp_test_file = (mTestConfigDir + "setting_llsd_persist_temp.xml");
 		mCG->saveToFile(temp_test_file.c_str(), TRUE);
 		results = test_cg.loadFromFile(temp_test_file.c_str());
 		//If we haven't changed any settings, then we shouldn't have any settings to load

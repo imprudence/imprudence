@@ -49,12 +49,14 @@ class LLFloaterHtml :
 		virtual void onClose( bool app_quitting );
 		
 		// Pass string like "in-world_help" or "additional help"
-		void show( LLString content_id, bool open_link_external, bool open_app_slurls );
+		void show( std::string content_id, bool open_link_external, bool open_app_slurls );
 
 		// Pass raw URL and window title
 		// Can be set to handle secondlife:///app/ URLs, but this should
 		// usually be false.
 		void show( std::string start_url, std::string title, bool open_link_external, bool open_app_slurls );
+
+		std::string getSupportUrl(); 
 		
 		static void onClickClose( void* data );
 		static void onClickBack( void* data );

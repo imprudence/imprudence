@@ -48,7 +48,11 @@ put_ = suite.put_
 request = suite.request
 request_ = suite.request_
 
-for x in (httpc.ConnectionError, httpc.NotFound, httpc.Forbidden):
+# import every httpc error exception into our namespace for convenience
+for x in httpc.status_to_error_map.itervalues():
+    globals()[x.__name__] = x
+
+for x in (httpc.ConnectionError,):
     globals()[x.__name__] = x
 
 
@@ -60,21 +64,22 @@ def postFile(url, filename):
     return post_(url, llsd_body)
 
 
+# deprecated in favor of get_
 def getStatus(url, use_proxy=False):
     status, _headers, _body = get_(url, use_proxy=use_proxy)
     return status
 
-
+# deprecated in favor of put_
 def putStatus(url, data):
     status, _headers, _body = put_(url, data)
     return status
 
-
+# deprecated in favor of delete_
 def deleteStatus(url):
     status, _headers, _body = delete_(url)
     return status
 
-
+# deprecated in favor of post_
 def postStatus(url, data):
     status, _headers, _body = post_(url, data)
     return status

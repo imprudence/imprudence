@@ -47,7 +47,7 @@ class LLButton;
 class LLObjectSelection;
 struct LLGiveMoneyInfo;
 
-typedef void (*money_callback)(const LLUUID&, LLViewerRegion*,S32,BOOL,S32,const LLString&);
+typedef void (*money_callback)(const LLUUID&, LLViewerRegion*,S32,BOOL,S32,const std::string&);
 
 class LLFloaterPay : public LLFloater
 {
@@ -77,8 +77,8 @@ private:
 	void give(S32 amount);
 	static void processPayPriceReply(LLMessageSystem* msg, void **userdata);
 	static void onCacheOwnerName(const LLUUID& owner_id,
-								 const char* firstname,
-								 const char* lastname,
+								 const std::string& firstname,
+								 const std::string& lastname,
 								 BOOL is_group,
 								 void* userdata);
 	void finishPayUI(const LLUUID& target_id, BOOL is_group);

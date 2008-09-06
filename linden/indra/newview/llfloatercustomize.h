@@ -87,13 +87,12 @@ public:
 	void			generateVisualParamHints(LLViewerJointMesh* joint_mesh,
 											 param_map& params);
 
-	const LLString& getEditGroup();
+	const std::string& getEditGroup();
 	void			addVisualParamToUndoBuffer( LLViewerVisualParam* param, F32 current_weight );
 
 	void 			updateScrollingPanelList(BOOL allow_modify);
 
 	void			setWearable(EWearableType type, LLWearable* wearable, U32 perm_mask, BOOL is_complete);
-	//const char*		getWearableDescription( EWearableType type );
 	LLPanelEditWearable* getCurrentWearablePanel() { return mWearablePanelList[ sCurrentWearableType ]; }
 
 	virtual BOOL	isDirty() const;

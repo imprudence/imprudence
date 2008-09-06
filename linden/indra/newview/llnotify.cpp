@@ -63,7 +63,7 @@ const F32 ANIMATION_TIME = 0.333f;
 S32 LLNotifyBox::sNotifyBoxCount = 0;
 const LLFontGL* LLNotifyBox::sFont = NULL;
 const LLFontGL* LLNotifyBox::sFontSmall = NULL;
-std::map<LLString, LLNotifyBox*> LLNotifyBox::sOpenUniqueNotifyBoxes;
+std::map<std::string, LLNotifyBox*> LLNotifyBox::sOpenUniqueNotifyBoxes;
 LLPointer<LLNotifyBoxTemplate> LLNotifyBox::sDefaultTemplate;
 
 
@@ -80,14 +80,14 @@ LLNotifyBox::LLNotifyBehavior::LLNotifyBehavior(notify_callback_t callback, void
 //---------------------------------------------------------------------------
 
 //static
-LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, notify_callback_t callback, void *user_data)
+LLNotifyBox* LLNotifyBox::showXml( const std::string& xml_desc, notify_callback_t callback, void *user_data)
 {
-	return showXml(xml_desc, LLString::format_map_t(), callback, user_data);
+	return showXml(xml_desc, LLStringUtil::format_map_t(), callback, user_data);
 }
 
 
 //static
-LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_t& args, BOOL is_caution,
+LLNotifyBox* LLNotifyBox::showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args, BOOL is_caution,
 						   notify_callback_t callback, void *user_data)
 {
 	// for script permission prompts
@@ -108,7 +108,7 @@ LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, const LLString::for
 }
 
 //static
-LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_t& args,
+LLNotifyBox* LLNotifyBox::showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
 						   notify_callback_t callback, void *user_data)
 {
 	LLPointer<LLNotifyBoxTemplate> xml_template = getTemplate(xml_desc);
@@ -128,7 +128,7 @@ LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, const LLString::for
 }
 
 //static
-LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_t& args,
+LLNotifyBox* LLNotifyBox::showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
 						   notify_callback_t callback, void *user_data,
 						   const option_list_t& options,
 						   BOOL layout_script_dialog)
@@ -149,11 +149,11 @@ LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, const LLString::for
 }
 
 //static
-LLNotifyBox* LLNotifyBox::findExistingNotify(LLPointer<LLNotifyBoxTemplate> notify_template, const LLString::format_map_t &args)
+LLNotifyBox* LLNotifyBox::findExistingNotify(LLPointer<LLNotifyBoxTemplate> notify_template, const LLStringUtil::format_map_t &args)
 {
 	if(notify_template->mUnique)
 	{
-		LLString message = notify_template->mMessage;
+		std::string message = notify_template->mMessage;
 		format(message, args);
 		unique_map_t::iterator found_it = sOpenUniqueNotifyBoxes.find(notify_template->mLabel + message);
 		if (found_it != sOpenUniqueNotifyBoxes.end())
@@ -172,7 +172,7 @@ void LLNotifyBox::cleanup()
 
 //---------------------------------------------------------------------------
 
-LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLString::format_map_t& args,
+LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLStringUtil::format_map_t& args,
 						 notify_callback_t callback, void* user_data, BOOL is_caution,
 						 const option_list_t& extra_options,
 						 BOOL layout_script_dialog)
@@ -250,17 +250,17 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 	if (mIsTip)
 	{
 		// use the tip notification icon
-		icon = new LLIconCtrl("icon", LLRect(x, y, x+32, TOP-32), "notify_tip_icon.tga");
+		icon = new LLIconCtrl(std::string("icon"), LLRect(x, y, x+32, TOP-32), std::string("notify_tip_icon.tga"));
 	}
 	else if (mIsCaution)
 	{
 		// use the caution notification icon
-		icon = new LLIconCtrl("icon", LLRect(x, y, x+32, TOP-32), "notify_caution_icon.tga");
+		icon = new LLIconCtrl(std::string("icon"), LLRect(x, y, x+32, TOP-32), std::string("notify_caution_icon.tga"));
 	}
 	else
 	{
 		// use the default notification icon
-		icon = new LLIconCtrl("icon", LLRect(x, y, x+32, TOP-32), "notify_box_icon.tga");
+		icon = new LLIconCtrl(std::string("icon"), LLRect(x, y, x+32, TOP-32), std::string("notify_box_icon.tga"));
 	}
 
 	icon->setMouseOpaque(FALSE);
@@ -274,9 +274,9 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 	{
 		S32 caution_height = ((S32)sFont->getLineHeight() * 2) + VPAD;
 		caution_box = new LLTextBox(
-			"caution_box", 
+			std::string("caution_box"), 
 			LLRect(x, y, getRect().getWidth() - 2, caution_height), 
-			"", 
+			LLStringUtil::null, 
 			sFont, 
 			FALSE);
 
@@ -303,7 +303,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 		DB_LAST_NAME_BUF_SIZE +
 		DB_INV_ITEM_NAME_BUF_SIZE;  // For script dialogs: add space for title.
 
-	text = new LLTextEditor("box",
+	text = new LLTextEditor(std::string("box"),
 							LLRect(x, y, getRect().getWidth()-2, mIsTip ? BOTTOM : BTN_TOP+16),
 							MAX_LENGTH,
 							mMessage,
@@ -333,16 +333,16 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 	else
 	{
 		LLButton* btn;
-		btn = new LLButton("next",
+		btn = new LLButton(std::string("next"),
 						   LLRect(getRect().getWidth()-26, BOTTOM_PAD + 20, getRect().getWidth()-2, BOTTOM_PAD),
-						   "notify_next.png",
-						   "notify_next.png",
-						   "",
+						   std::string("notify_next.png"),
+						   std::string("notify_next.png"),
+						   LLStringUtil::null,
 						   onClickNext,
 						   this,
 						   sFont);
 		btn->setScaleImage(TRUE);
-		btn->setToolTip(LLString("Next")); // *TODO: Translate
+		btn->setToolTip(std::string("Next")); // *TODO: Translate
 		addChild(btn);
 		mNextBtn = btn;
 
@@ -382,7 +382,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 
 			mBtnCallbackData.push_back(userdata);
 
-			btn = new LLButton(options[i], btn_rect, "", onClickButton, userdata);
+			btn = new LLButton(options[i], btn_rect, LLStringUtil::null, onClickButton, userdata);
 			btn->setFont(font);
 
 			if (mIsCaution)
@@ -569,12 +569,12 @@ void LLNotifyBox::close()
 	}
 }
 
-void LLNotifyBox::format(LLString& msg, const LLString::format_map_t& args)
+void LLNotifyBox::format(std::string& msg, const LLStringUtil::format_map_t& args)
 {
 	// XUI:translate!
-	LLString::format_map_t targs = args;
+	LLStringUtil::format_map_t targs = args;
 	targs["[SECOND_LIFE]"] = "Second Life";
-	LLString::format(msg, targs);
+	LLStringUtil::format(msg, targs);
 }
 
 
@@ -667,7 +667,7 @@ LLRect LLNotifyBox::getNotifyRect(S32 num_options, BOOL layout_script_dialog, BO
 }
 
 // static
-LLRect LLNotifyBox::getNotifyTipRect(const LLString &utf8message)
+LLRect LLNotifyBox::getNotifyTipRect(const std::string &utf8message)
 {
 	S32 line_count = 1;
 	LLWString message = utf8str_to_wstring(utf8message);
@@ -789,7 +789,7 @@ void LLNotifyBox::onClickNext(void* data)
 }
 
 // static
-LLPointer<LLNotifyBoxTemplate> LLNotifyBox::getTemplate(const LLString& xml_desc)
+LLPointer<LLNotifyBoxTemplate> LLNotifyBox::getTemplate(const std::string& xml_desc)
 {
 	// get template
 	
@@ -808,7 +808,7 @@ LLPointer<LLNotifyBoxTemplate> LLNotifyBox::getTemplate(const LLString& xml_desc
 	}
 	else
 	{
-		LLString tmsg = "[Notification template not found:\n " + xml_desc + " ]";
+		std::string tmsg = "[Notification template not found:\n " + xml_desc + " ]";
 		sDefaultTemplate->setMessage(tmsg);
 		xml_template = sDefaultTemplate;
 	}
@@ -819,12 +819,12 @@ LLPointer<LLNotifyBoxTemplate> LLNotifyBox::getTemplate(const LLString& xml_desc
 //-----------------------------------------------------------------------------
 
 //static
-const LLString LLNotifyBox::getTemplateMessage(const LLString& xml_desc, const LLString::format_map_t& args)
+const std::string LLNotifyBox::getTemplateMessage(const std::string& xml_desc, const LLStringUtil::format_map_t& args)
 {
 	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
 	if (iter != sNotifyTemplates.end())
 	{
-		LLString message = iter->second->mMessage;
+		std::string message = iter->second->mMessage;
 		format(message, args);
 		return message;
 	}
@@ -835,7 +835,7 @@ const LLString LLNotifyBox::getTemplateMessage(const LLString& xml_desc, const L
 }
 
 //static
-const LLString LLNotifyBox::getTemplateMessage(const LLString& xml_desc)
+const std::string LLNotifyBox::getTemplateMessage(const std::string& xml_desc)
 {
 	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
 	if (iter != sNotifyTemplates.end())
@@ -849,7 +849,7 @@ const LLString LLNotifyBox::getTemplateMessage(const LLString& xml_desc)
 }
 
 // method to check whether a given notify template show as a caution or not
-BOOL LLNotifyBox::getTemplateIsCaution(const LLString& xml_desc)
+BOOL LLNotifyBox::getTemplateIsCaution(const std::string& xml_desc)
 {
 	BOOL is_caution = FALSE;
 
@@ -863,7 +863,7 @@ BOOL LLNotifyBox::getTemplateIsCaution(const LLString& xml_desc)
 }
 
 //static
-bool LLNotifyBox::parseNotify(const LLString& xml_filename)
+bool LLNotifyBox::parseNotify(const std::string& xml_filename)
 {
 	LLXMLNodePtr root;
 
@@ -892,7 +892,7 @@ bool LLNotifyBox::parseNotify(const LLString& xml_filename)
 		LLPointer<LLNotifyBoxTemplate> xml_template = new LLNotifyBoxTemplate(unique, duration);
 
 		// label=
-		LLString notify_name;
+		std::string notify_name;
 		if (notify->getAttributeString("name", notify_name))
 		{
 			xml_template->mLabel = notify_name;
@@ -934,10 +934,10 @@ bool LLNotifyBox::parseNotify(const LLString& xml_filename)
 			// <option>
 			if (child->hasName("option"))
 			{
-				LLString label = child->getValue();
+				std::string label = child->getValue();
 				BOOL is_default = FALSE;
 				child->getAttributeBOOL("default", is_default);
-				LLString ignore_text;
+				std::string ignore_text;
 				if (!child->getAttributeString("ignore", ignore_text))
 				{
 					ignore_text = label;
@@ -957,7 +957,7 @@ bool LLNotifyBox::parseNotify(const LLString& xml_filename)
 	return true;
 }
 
-LLNotifyBoxView::LLNotifyBoxView(const LLString& name, const LLRect& rect, BOOL mouse_opaque, U32 follows)
+LLNotifyBoxView::LLNotifyBoxView(const std::string& name, const LLRect& rect, BOOL mouse_opaque, U32 follows)
 	: LLUICtrl(name,rect,mouse_opaque,NULL,NULL,follows) 
 {
 }

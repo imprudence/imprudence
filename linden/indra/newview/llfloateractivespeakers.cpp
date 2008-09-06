@@ -46,13 +46,15 @@
 #include "llimpanel.h" // LLVoiceChannel
 #include "llsdutil.h"
 #include "llimview.h"
+#include "llviewerwindow.h"
 
 const F32 SPEAKER_TIMEOUT = 10.f; // seconds of not being on voice channel before removed from list of active speakers
+const F32 RESORT_TIMEOUT = 5.f; // seconds of mouse inactivity before it's ok to sort regardless of mouse-in-view.
 const LLColor4 INACTIVE_COLOR(0.3f, 0.3f, 0.3f, 0.5f);
 const LLColor4 ACTIVE_COLOR(0.5f, 0.5f, 0.5f, 1.f);
 const F32 TYPING_ANIMATION_FPS = 2.5f;
 
-LLSpeaker::LLSpeaker(const LLUUID& id, const LLString& name, const ESpeakerType type) : 
+LLSpeaker::LLSpeaker(const LLUUID& id, const std::string& name, const ESpeakerType type) : 
 	mStatus(LLSpeaker::STATUS_TEXT_ONLY),
 	mLastSpokeTime(0.f), 
 	mSpeechVolume(0.f), 
@@ -87,14 +89,14 @@ void LLSpeaker::lookupName()
 }
 
 //static 
-void LLSpeaker::onAvatarNameLookup(const LLUUID& id, const char* first, const char* last, BOOL is_group, void* user_data)
+void LLSpeaker::onAvatarNameLookup(const LLUUID& id, const std::string& first, const std::string& last, BOOL is_group, void* user_data)
 {
 	LLSpeaker* speaker_ptr = ((LLHandle<LLSpeaker>*)user_data)->get();
 	delete (LLHandle<LLSpeaker>*)user_data;
 
 	if (speaker_ptr)
 	{
-		speaker_ptr->mDisplayName = llformat("%s %s", first, last);
+		speaker_ptr->mDisplayName = first + " " + last;
 	}
 }
 
@@ -105,7 +107,7 @@ LLSpeakerTextModerationEvent::LLSpeakerTextModerationEvent(LLSpeaker* source)
 
 LLSD LLSpeakerTextModerationEvent::getValue()
 {
-	return LLString("text");
+	return std::string("text");
 }
 
 
@@ -116,7 +118,7 @@ LLSpeakerVoiceModerationEvent::LLSpeakerVoiceModerationEvent(LLSpeaker* source)
 
 LLSD LLSpeakerVoiceModerationEvent::getValue()
 {
-	return LLString("voice");
+	return std::string("voice");
 }
 
 LLSpeakerListChangeEvent::LLSpeakerListChangeEvent(LLSpeakerMgr* source, const LLUUID& speaker_id)
@@ -287,8 +289,8 @@ LLPanelActiveSpeakers::LLPanelActiveSpeakers(LLSpeakerMgr* data_source, BOOL sho
 
 BOOL LLPanelActiveSpeakers::postBuild()
 {
-	std::string sort_column = gSavedSettings.getString(LLString("FloaterActiveSpeakersSortColumn"));
-	BOOL sort_ascending     = gSavedSettings.getBOOL(  LLString("FloaterActiveSpeakersSortAscending"));
+	std::string sort_column = gSavedSettings.getString(std::string("FloaterActiveSpeakersSortColumn"));
+	BOOL sort_ascending     = gSavedSettings.getBOOL(  std::string("FloaterActiveSpeakersSortAscending"));
 
 	mSpeakerList = getChild<LLScrollListCtrl>("speakers_list");
 	mSpeakerList->sortByColumn(sort_column, sort_ascending);
@@ -334,7 +336,7 @@ void LLPanelActiveSpeakers::addSpeaker(const LLUUID& speaker_id)
 	if (speakerp)
 	{
 		// since we are forced to sort by text, encode sort order as string
-		LLString speaking_order_sort_string = llformat("%010d", speakerp->mSortIndex);
+		std::string speaking_order_sort_string = llformat("%010d", speakerp->mSortIndex);
 
 		LLSD row;
 		row["id"] = speaker_id;
@@ -345,7 +347,7 @@ void LLPanelActiveSpeakers::addSpeaker(const LLUUID& speaker_id)
 		columns[0]["type"] = "icon";
 		columns[0]["value"] = "icn_active-speakers-dot-lvl0.tga";
 
-		LLString speaker_name;
+		std::string speaker_name;
 		if (speakerp->mDisplayName.empty())
 		{
 			speaker_name = LLCacheName::getDefaultName();
@@ -397,15 +399,25 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 	LLUUID selected_id = mSpeakerList->getSelectedValue().asUUID();
 	S32 scroll_pos = mSpeakerList->getScrollInterface()->getScrollPos();
 
-	mSpeakerMgr->update();
+	// decide whether it's ok to resort the list then update the speaker manager appropriately.
+	// rapid resorting by activity makes it hard to interact with speakers in the list
+	// so we freeze the sorting while the user appears to be interacting with the control.
+	// we assume this is the case whenever the mouse pointer is within the active speaker
+	// panel and hasn't been motionless for more than a few seconds. see DEV-6655 -MG
+	LLRect screen_rect;
+	localRectToScreen(getLocalRect(), &screen_rect);
+	BOOL mouse_in_view = screen_rect.pointInRect(gViewerWindow->getCurrentMouseX(), gViewerWindow->getCurrentMouseY());
+	F32 mouses_last_movement = gMouseIdleTimer.getElapsedTimeF32();
+	BOOL sort_ok = ! (mouse_in_view && mouses_last_movement<RESORT_TIMEOUT);
+	mSpeakerMgr->update(sort_ok);
 
-	const LLString icon_image_0 = "icn_active-speakers-dot-lvl0.tga";
-	const LLString icon_image_1 = "icn_active-speakers-dot-lvl1.tga";
-	const LLString icon_image_2 = "icn_active-speakers-dot-lvl2.tga";
+	const std::string icon_image_0 = "icn_active-speakers-dot-lvl0.tga";
+	const std::string icon_image_1 = "icn_active-speakers-dot-lvl1.tga";
+	const std::string icon_image_2 = "icn_active-speakers-dot-lvl2.tga";
 
 	std::vector<LLScrollListItem*> items = mSpeakerList->getAllData();
 
-	LLString mute_icon_image = "mute_icon.tga";
+	std::string mute_icon_image = "mute_icon.tga";
 
 	LLSpeakerMgr::speaker_list_t speaker_list;
 	mSpeakerMgr->getSpeakerList(&speaker_list, mShowTextChatters);
@@ -423,13 +435,13 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 		}
 
 		// since we are forced to sort by text, encode sort order as string
-		LLString speaking_order_sort_string = llformat("%010d", speakerp->mSortIndex);
+		std::string speaking_order_sort_string = llformat("%010d", speakerp->mSortIndex);
 
 		LLScrollListCell* icon_cell = itemp->getColumn(0);
 		if (icon_cell)
 		{
 
-			LLString icon_image_id;
+			std::string icon_image_id;
 
 			S32 icon_image_idx = llmin(2, llfloor((speakerp->mSpeechVolume / LLVoiceClient::OVERDRIVEN_POWER_LEVEL) * 3.f));
 			switch(icon_image_idx)
@@ -494,7 +506,7 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 				name_cell->setColor(LLColor4::black);
 			}
 
-			LLString speaker_name;
+			std::string speaker_name;
 			if (speakerp->mDisplayName.empty())
 			{
 				speaker_name = LLCacheName::getDefaultName();
@@ -506,7 +518,7 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 
 			if (speakerp->mIsModerator)
 			{
-				speaker_name += LLString(" ") + getString("moderator_label");
+				speaker_name += std::string(" ") + getString("moderator_label");
 			}
 			
 			name_cell->setValue(speaker_name);
@@ -579,7 +591,7 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 		}
 		else
 		{
-			mNameText->setValue(LLString::null);
+			mNameText->setValue(LLStringUtil::null);
 		}
 	}
 
@@ -595,7 +607,7 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 	mSpeakerList->getScrollInterface()->setScrollPos(scroll_pos);
 }
 
-void LLPanelActiveSpeakers::setSpeaker(const LLUUID& id, const LLString& name, LLSpeaker::ESpeakerStatus status, LLSpeaker::ESpeakerType type)
+void LLPanelActiveSpeakers::setSpeaker(const LLUUID& id, const std::string& name, LLSpeaker::ESpeakerStatus status, LLSpeaker::ESpeakerType type)
 {
 	mSpeakerMgr->setSpeaker(id, name, status, type);
 }
@@ -729,8 +741,8 @@ void LLPanelActiveSpeakers::onSortChanged(void* user_data)
 	LLPanelActiveSpeakers* panelp = (LLPanelActiveSpeakers*)user_data;
 	std::string sort_column = panelp->mSpeakerList->getSortColumnName();
 	BOOL sort_ascending = panelp->mSpeakerList->getSortAscending();
-	gSavedSettings.setString(LLString("FloaterActiveSpeakersSortColumn"), sort_column);
-	gSavedSettings.setBOOL(  LLString("FloaterActiveSpeakersSortAscending"), sort_ascending);
+	gSavedSettings.setString(std::string("FloaterActiveSpeakersSortColumn"), sort_column);
+	gSavedSettings.setBOOL(  std::string("FloaterActiveSpeakersSortAscending"), sort_ascending);
 }
 
 
@@ -747,9 +759,9 @@ void LLPanelActiveSpeakers::onModeratorMuteVoice(LLUICtrl* ctrl, void* user_data
 	data["session-id"] = self->mSpeakerMgr->getSessionID();
 	data["params"] = LLSD::emptyMap();
 	data["params"]["agent_id"] = speakers_list->getValue();
-	data["params"]["mutes"] = LLSD::emptyMap();
+	data["params"]["mute_info"] = LLSD::emptyMap();
 	// ctrl value represents ability to type, so invert
-	data["params"]["mutes"]["voice"] = !ctrl->getValue();
+	data["params"]["mute_info"]["voice"] = !ctrl->getValue();
 
 	class MuteVoiceResponder : public LLHTTPClient::Responder
 	{
@@ -812,9 +824,9 @@ void LLPanelActiveSpeakers::onModeratorMuteText(LLUICtrl* ctrl, void* user_data)
 	data["session-id"] = self->mSpeakerMgr->getSessionID();
 	data["params"] = LLSD::emptyMap();
 	data["params"]["agent_id"] = speakers_list->getValue();
-	data["params"]["mutes"] = LLSD::emptyMap();
+	data["params"]["mute_info"] = LLSD::emptyMap();
 	// ctrl value represents ability to type, so invert
-	data["params"]["mutes"]["text"] = !ctrl->getValue();
+	data["params"]["mute_info"]["text"] = !ctrl->getValue();
 
 	class MuteTextResponder : public LLHTTPClient::Responder
 	{
@@ -875,14 +887,17 @@ void LLPanelActiveSpeakers::onChangeModerationMode(LLUICtrl* ctrl, void* user_da
 	data["method"] = "session update";
 	data["session-id"] = self->mSpeakerMgr->getSessionID();
 	data["params"] = LLSD::emptyMap();
-	data["params"]["moderated_mode"] = LLSD::emptyMap();
+
+	data["params"]["update_info"] = LLSD::emptyMap();
+
+	data["params"]["update_info"]["moderated_mode"] = LLSD::emptyMap();
 	if (ctrl->getValue().asString() == "unmoderated")
 	{
-		data["params"]["moderated_mode"]["voice"] = false;
+		data["params"]["update_info"]["moderated_mode"]["voice"] = false;
 	}
 	else if (ctrl->getValue().asString() == "moderated")
 	{
-		data["params"]["moderated_mode"]["voice"] = true;
+		data["params"]["update_info"]["moderated_mode"]["voice"] = true;
 	}
 
 	struct ModerationModeResponder : public LLHTTPClient::Responder
@@ -909,7 +924,7 @@ LLSpeakerMgr::~LLSpeakerMgr()
 {
 }
 
-LLPointer<LLSpeaker> LLSpeakerMgr::setSpeaker(const LLUUID& id, const LLString& name, LLSpeaker::ESpeakerStatus status, LLSpeaker::ESpeakerType type)
+LLPointer<LLSpeaker> LLSpeakerMgr::setSpeaker(const LLUUID& id, const std::string& name, LLSpeaker::ESpeakerStatus status, LLSpeaker::ESpeakerType type)
 {
 	if (id.isNull()) return NULL;
 
@@ -944,7 +959,7 @@ LLPointer<LLSpeaker> LLSpeakerMgr::setSpeaker(const LLUUID& id, const LLString& 
 	return speakerp;
 }
 
-void LLSpeakerMgr::update()
+void LLSpeakerMgr::update(BOOL resort_ok)
 {
 	if (!gVoiceClient)
 	{
@@ -954,7 +969,10 @@ void LLSpeakerMgr::update()
 	LLColor4 speaking_color = gSavedSettings.getColor4("SpeakingColor");
 	LLColor4 overdriven_color = gSavedSettings.getColor4("OverdrivenColor");
 
-	updateSpeakerList();
+	if(resort_ok) // only allow list changes when user is not interacting with it
+	{
+		updateSpeakerList();
+	}
 
 	// update status of all current speakers
 	BOOL voice_channel_active = (!mVoiceChannel && gVoiceClient->inProximalChannel()) || (mVoiceChannel && mVoiceChannel->isActive());
@@ -1021,8 +1039,11 @@ void LLSpeakerMgr::update()
 		}
 	}
 
-	// sort by status then time last spoken
-	std::sort(mSpeakersSorted.begin(), mSpeakersSorted.end(), LLSortRecentSpeakers());
+	if(resort_ok)  // only allow list changes when user is not interacting with it
+	{
+		// sort by status then time last spoken
+		std::sort(mSpeakersSorted.begin(), mSpeakersSorted.end(), LLSortRecentSpeakers());
+	}
 
 	// for recent speakers who are not currently speaking, show "recent" color dot for most recent
 	// fading to "active" color
@@ -1072,7 +1093,7 @@ void LLSpeakerMgr::updateSpeakerList()
 		for (participant_it = participants->begin(); participant_it != participants->end(); ++participant_it)
 		{
 			LLVoiceClient::participantState* participantp = participant_it->second;
-			setSpeaker(participantp->mAvatarID, "", LLSpeaker::STATUS_VOICE_ACTIVE);
+			setSpeaker(participantp->mAvatarID, LLStringUtil::null, LLSpeaker::STATUS_VOICE_ACTIVE);
 		}
 	}
 }
@@ -1163,7 +1184,7 @@ void LLIMSpeakerMgr::setSpeakers(const LLSD& speakers)
 
 			LLPointer<LLSpeaker> speakerp = setSpeaker(
 				agent_id,
-				"",
+				LLStringUtil::null,
 				LLSpeaker::STATUS_TEXT_ONLY);
 
 			if ( speaker_it->second.isMap() )
@@ -1187,7 +1208,7 @@ void LLIMSpeakerMgr::setSpeakers(const LLSD& speakers)
 
 			LLPointer<LLSpeaker> speakerp = setSpeaker(
 				agent_id,
-				"",
+				LLStringUtil::null,
 				LLSpeaker::STATUS_TEXT_ONLY);
 		}
 	}

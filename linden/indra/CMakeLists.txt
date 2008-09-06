@@ -1,0 +1,102 @@
+# -*- cmake -*-
+
+# cmake_minimum_required should appear before any
+# other commands to guarantee full compatibility
+# with the version specified
+
+# The "cmake -E touch" command was released with 2.4.8.
+cmake_minimum_required(VERSION 2.4.8 FATAL_ERROR)
+
+# This makes cmake 2.6 not complain about a version
+# 2.4 compatibility mode
+if(COMMAND cmake_policy)
+  cmake_policy(SET CMP0003 OLD)
+endif(COMMAND cmake_policy)
+
+project(SecondLife)
+
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
+include(Variables)
+
+if (NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING
+      "Build type.  One of: Debug Release RelWithDebInfo" FORCE)
+endif (NOT CMAKE_BUILD_TYPE)
+
+# For the library installation process;
+# see cmake/Prebuild.cmake for the counterpart code.
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp)
+file(WRITE ${CMAKE_BINARY_DIR}/temp/sentinel_installed "0")
+add_subdirectory(cmake)
+
+add_subdirectory(${LIBS_OPEN_PREFIX}llaudio)
+add_subdirectory(${LIBS_OPEN_PREFIX}llcharacter)
+add_subdirectory(${LIBS_OPEN_PREFIX}llcommon)
+add_subdirectory(${LIBS_OPEN_PREFIX}llimage)
+add_subdirectory(${LIBS_OPEN_PREFIX}llimagej2coj)
+add_subdirectory(${LIBS_OPEN_PREFIX}llinventory)
+add_subdirectory(${LIBS_OPEN_PREFIX}llmath)
+add_subdirectory(${LIBS_OPEN_PREFIX}llmedia)
+add_subdirectory(${LIBS_OPEN_PREFIX}llmessage)
+add_subdirectory(${LIBS_OPEN_PREFIX}llprimitive)
+add_subdirectory(${LIBS_OPEN_PREFIX}llrender)
+add_subdirectory(${LIBS_OPEN_PREFIX}llvfs)
+add_subdirectory(${LIBS_OPEN_PREFIX}llwindow)
+add_subdirectory(${LIBS_OPEN_PREFIX}llxml)
+
+if (EXISTS ${LIBS_CLOSED_DIR}llkdu AND NOT STANDALONE)
+  add_subdirectory(${LIBS_CLOSED_PREFIX}llkdu)
+endif (EXISTS ${LIBS_CLOSED_DIR}llkdu AND NOT STANDALONE)
+
+add_subdirectory(${LIBS_OPEN_PREFIX}lscript)
+
+if (WINDOWS AND EXISTS ${LIBS_CLOSED_DIR}copy_win_scripts)
+  add_subdirectory(${LIBS_CLOSED_PREFIX}copy_win_scripts)
+endif (WINDOWS AND EXISTS ${LIBS_CLOSED_DIR}copy_win_scripts)
+
+add_custom_target(viewer)
+if (VIEWER)
+  add_subdirectory(${LIBS_OPEN_PREFIX}llcrashlogger)
+  add_subdirectory(${LIBS_OPEN_PREFIX}llui)
+
+  if (LINUX)
+    add_subdirectory(${VIEWER_PREFIX}linux_crash_logger)
+    add_dependencies(viewer linux-crash-logger)
+  elseif (DARWIN)
+    add_subdirectory(${VIEWER_PREFIX}mac_crash_logger)
+    add_subdirectory(${VIEWER_PREFIX}mac_updater)
+    add_dependencies(viewer mac-updater mac-crash-logger)
+  elseif (WINDOWS)
+    add_subdirectory(${VIEWER_PREFIX}win_crash_logger)
+    add_subdirectory(${VIEWER_PREFIX}win_updater)
+    add_dependencies(viewer windows-updater windows-crash-logger)
+  elseif (SOLARIS)
+    add_subdirectory(solaris_crash_logger)
+    add_dependencies(viewer solaris-crash-logger)
+  endif (LINUX)
+
+  add_subdirectory(${VIEWER_PREFIX}newview)
+  add_dependencies(viewer secondlife-bin)
+endif (VIEWER)
+
+# Linux builds the viewer and server in 2 separate projects
+# In order for ./develop.py build server to work on linux, 
+# the viewer project needs a server target.
+# This is not true for mac and windows.
+if (LINUX) 
+  add_custom_target(server)
+endif (LINUX)
+if (SERVER)
+  if (NOT LINUX)
+    add_custom_target(server)
+  endif (NOT LINUX)
+  include(${SERVER_PREFIX}Server.cmake)
+endif (SERVER)
+
+# Windows builds include tools like VFS tool
+if (SERVER)
+  if (WINDOWS)
+    add_subdirectory(${SERVER_PREFIX}tools)
+  endif (WINDOWS)
+endif (SERVER)

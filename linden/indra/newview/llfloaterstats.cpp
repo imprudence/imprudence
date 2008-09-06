@@ -42,7 +42,7 @@
 const S32 LL_SCROLL_BORDER = 1;
 
 LLFloaterStats::LLFloaterStats(const LLRect& rect)
-	:   LLFloater("floater_stats", rect, "Statistics", TRUE, rect.getWidth())
+	:   LLFloater(std::string("floater_stats"), rect, std::string("Statistics"), TRUE, rect.getWidth())
 
 {
 	LLRect stats_rect(0, rect.getHeight() - LLFLOATER_HEADER_SIZE,
@@ -52,7 +52,7 @@ LLFloaterStats::LLFloaterStats(const LLRect& rect)
 
 	LLRect scroll_rect(LL_SCROLL_BORDER, rect.getHeight() - LLFLOATER_HEADER_SIZE - LL_SCROLL_BORDER,
 					   rect.getWidth() - LL_SCROLL_BORDER, LL_SCROLL_BORDER);
-		mScrollContainer = new LLScrollableContainerView("statistics_scroll", scroll_rect, mStatsContainer);
+		mScrollContainer = new LLScrollableContainerView(std::string("statistics_scroll"), scroll_rect, mStatsContainer);
 	mScrollContainer->setFollowsAll();
 	mScrollContainer->setReserveScrollCorner(TRUE);
 
@@ -66,13 +66,13 @@ LLFloaterStats::~LLFloaterStats()
 {
 }
 
-void LLFloaterStats::reshape(S32 width, S32 height)
+void LLFloaterStats::reshape(S32 width, S32 height, BOOL called_from_parent)
 {
 	LLRect rect = mStatsContainer->getRect();
 
 	mStatsContainer->reshape(rect.getWidth() - 2, rect.getHeight(), TRUE);
 
-	LLFloater::reshape(width, height);
+	LLFloater::reshape(width, height, called_from_parent);
 }
 
 

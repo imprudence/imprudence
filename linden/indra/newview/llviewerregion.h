@@ -47,6 +47,7 @@
 #include "lluuid.h"
 #include "lldatapacker.h"
 #include "llvocache.h"
+#include "llweb.h"
 
 // Surface id's
 #define LAND  1
@@ -122,6 +123,9 @@ public:
 	inline BOOL isPrelude()					const;
 	inline BOOL getAllowTerraform() 		const;
 	inline BOOL getRestrictPushObject()		const;
+	inline BOOL getReleaseNotesRequested()		const;
+
+	bool isAlive(); // can become false if circuit disconnects
 
 	void setWaterHeight(F32 water_level);
 	F32 getWaterHeight() const;
@@ -161,9 +165,9 @@ public:
 	const LLVector3d &getCenterGlobal() const	{ return mCenterGlobal; }
 	LLVector3 getCenterAgent() const;
 
-	void setRegionNameAndZone(const char* name_and_zone);
-	const LLString& getName() const				{ return mName; }
-	const LLString& getZoning() const			{ return mZoning; }
+	void setRegionNameAndZone(const std::string& name_and_zone);
+	const std::string& getName() const				{ return mName; }
+	const std::string& getZoning() const			{ return mZoning; }
 
 	void setOwner(const LLUUID& owner_id) { mOwnerID = owner_id; }
 	const LLUUID& getOwner() const { return mOwnerID; }
@@ -175,18 +179,18 @@ public:
 
 	void setSimAccess(U8 sim_access)			{ mSimAccess = sim_access; }
 	U8 getSimAccess() const						{ return mSimAccess; }
-	const char* getSimAccessString() const;
+	const std::string getSimAccessString() const;
 
 	// Returns "Sandbox", "Expensive", etc.
 	static std::string regionFlagsToString(U32 flags);
 
 	// Returns "Mature", "PG", etc.
-	static const char* accessToString(U8 access);
+	static std::string accessToString(U8 sim_access);
 
-	static U8 stringToAccess(const char* access_str);
+	static U8 stringToAccess(const std::string& access_str);
 
 	// Returns "M", "PG", etc.
-	static const char* accessToShortString(U8 access);		/* Flawfinder: ignore */
+	static std::string accessToShortString(U8 sim_access);
 
 	// helper function which just makes sure all interested parties
 	// can process the message.
@@ -215,6 +219,7 @@ public:
 	void setSeedCapability(const std::string& url);
 	void setCapability(const std::string& name, const std::string& url);
 	std::string getCapability(const std::string& name) const;
+	static bool isSpecialCapabilityName(const std::string &name);
 	void logActiveCapabilities() const;
 
 	const LLHost	&getHost() const			{ return mHost; }
@@ -274,7 +279,9 @@ public:
 			return lhs->mCameraDistanceSquared < rhs->mCameraDistanceSquared; 
 		}
 	};
-	
+
+	void showReleaseNotes();
+
 protected:
 	void disconnectAllNeighbors();
 	void initStats();
@@ -284,8 +291,6 @@ public:
 	LLWind  mWind;
 	LLCloudLayer mCloudLayer;
 	LLViewerParcelOverlay	*mParcelOverlay;
-
-	BOOL	mAlive;					// can become false if circuit disconnects
 
 	LLStat	mBitStat;
 	LLStat	mPacketsStat;
@@ -301,7 +306,7 @@ public:
 	LLDynamicArray<U32> mMapAvatars;
 	LLDynamicArray<LLUUID> mMapAvatarIDs;
 
-protected:
+private:
 	// The surfaces and other layers
 	LLSurface*	mLandp;
 
@@ -319,8 +324,8 @@ protected:
 	F32			mTimeDilation;	// time dilation of physics simulation on simulator
 
 	// simulator name
-	LLString mName;
-	LLString mZoning;
+	std::string mName;
+	std::string mZoning;
 
 	// region/estate owner - usually null.
 	LLUUID mOwnerID;
@@ -374,10 +379,14 @@ protected:
 	LLEventPoll* mEventPoll;
 
 private:
+	bool	mAlive;					// can become false if circuit disconnects
+
 	//spatial partitions for objects in this region
 	std::vector<LLSpatialPartition*> mObjectPartition;
 
 	LLHTTPClient::ResponderPtr  mHttpResponderPtr ;
+
+	BOOL mReleaseNotesRequested;
 };
 
 inline BOOL LLViewerRegion::getAllowDamage() const
@@ -428,6 +437,11 @@ inline BOOL LLViewerRegion::getAllowTerraform() const
 inline BOOL LLViewerRegion::getRestrictPushObject() const
 {
 	return ((mRegionFlags & REGION_FLAGS_RESTRICT_PUSHOBJECT) != 0);
+}
+
+inline BOOL LLViewerRegion::getReleaseNotesRequested() const
+{
+	return mReleaseNotesRequested;
 }
 
 #endif

@@ -45,8 +45,8 @@ const S32 LLVORBISENC_UNSUPPORTED_WORD_SIZE        = 9; // unsupported word size
 const S32 LLVORBISENC_CLIP_TOO_LONG                = 10; // source file is too long
 
 
-S32 check_for_invalid_wav_formats(const char *in_fname, char *error_msg);
-S32 encode_vorbis_file(const char *in_fname, const char *out_fname);
+S32 check_for_invalid_wav_formats(const std::string& in_fname, std::string& error_msg);
+S32 encode_vorbis_file(const std::string& in_fname, const std::string& out_fname);
 
 #endif
 

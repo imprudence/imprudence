@@ -65,6 +65,7 @@
 #include "llviewercontrol.h"
 #include "llglheaders.h"
 #include "lluictrlfactory.h"
+#include "lltrans.h"
 
 
 static const S32 CLOSE_BTN_WIDTH = 100;
@@ -117,7 +118,7 @@ public:
 	virtual BOOL	handleDragAndDrop(S32 x, S32 y, MASK mask,
 						BOOL drop, EDragAndDropType cargo_type, void *cargo_data, 
 						EAcceptance *accept,
-						LLString& tooltip_msg);
+						std::string& tooltip_msg);
 	virtual void	draw();
 	virtual BOOL	handleKeyHere(KEY key, MASK mask);
 
@@ -155,7 +156,7 @@ public:
 	static void		onSelectionChange(const std::deque<LLFolderViewItem*> &items, BOOL user_action, void* data);
 	static void		onShowFolders(LLUICtrl* ctrl, void* userdata);
 	static void		onApplyImmediateCheck(LLUICtrl* ctrl, void* userdata);
-	static void		onSearchEdit(const LLString& search_string, void* user_data );
+	static void		onSearchEdit(const std::string& search_string, void* user_data );
 	static void		onTextureSelect( const LLTextureEntry& te, void *data );
 
 protected:
@@ -173,7 +174,7 @@ protected:
 	LLTextBox*			mTentativeLabel;
 	LLTextBox*			mResolutionLabel;
 
-	LLString			mPendingName;
+	std::string			mPendingName;
 	BOOL				mIsDirty;
 	BOOL				mActive;
 
@@ -195,9 +196,9 @@ LLFloaterTexturePicker::LLFloaterTexturePicker(
 	PermissionMask non_immediate_filter_perm_mask,
 	BOOL can_apply_immediately)
 	:
-	LLFloater( "texture picker",
+	LLFloater( std::string("texture picker"),
 		rect,
-		LLString( "Pick: " ) + label,
+		std::string( "Pick: " ) + label,
 		TRUE,
 		TEX_PICKER_MIN_WIDTH, TEX_PICKER_MIN_HEIGHT ),
 	mOwner( owner ),
@@ -345,12 +346,12 @@ void LLFloaterTexturePicker::updateImageStats()
 		//RN: have we received header data for this image?
 		if (mTexturep->getWidth(0) > 0 && mTexturep->getHeight(0) > 0)
 		{
-			LLString formatted_dims = llformat("%d x %d", mTexturep->getWidth(0),mTexturep->getHeight(0));
+			std::string formatted_dims = llformat("%d x %d", mTexturep->getWidth(0),mTexturep->getHeight(0));
 			mResolutionLabel->setTextArg("[DIMENSIONS]", formatted_dims);
 		}
 		else
 		{
-			mResolutionLabel->setTextArg("[DIMENSIONS]", LLString("[? x ?]"));
+			mResolutionLabel->setTextArg("[DIMENSIONS]", std::string("[? x ?]"));
 		}
 	}
 }
@@ -361,7 +362,7 @@ BOOL LLFloaterTexturePicker::handleDragAndDrop(
 		BOOL drop,
 		EDragAndDropType cargo_type, void *cargo_data, 
 		EAcceptance *accept,
-		LLString& tooltip_msg)
+		std::string& tooltip_msg)
 {
 	BOOL handled = FALSE;
 
@@ -815,12 +816,12 @@ void LLFloaterTexturePicker::updateFilterPermMask()
 	//mInventoryPanel->setFilterPermMask( getFilterPermMask() );  Commented out due to no-copy texture loss.
 }
 
-void LLFloaterTexturePicker::onSearchEdit(const LLString& search_string, void* user_data )
+void LLFloaterTexturePicker::onSearchEdit(const std::string& search_string, void* user_data )
 {
 	LLFloaterTexturePicker* picker = (LLFloaterTexturePicker*)user_data;
 
 	std::string upper_case_search_string = search_string;
-	LLString::toUpper(upper_case_search_string);
+	LLStringUtil::toUpper(upper_case_search_string);
 
 	if (upper_case_search_string.empty())
 	{
@@ -908,7 +909,8 @@ LLTextureCtrl::LLTextureCtrl(
 	mCanApplyImmediately( FALSE ),
 	mNeedsRawImageData( FALSE ),
 	mValid( TRUE ),
-	mDirty( FALSE )
+	mDirty( FALSE ),
+	mShowLoadingPlaceholder( TRUE )
 {
 	mCaption = new LLTextBox( label, 
 		LLRect( 0, BTN_HEIGHT_SMALL, getRect().getWidth(), 0 ),
@@ -922,11 +924,11 @@ LLTextureCtrl::LLTextureCtrl(
 	S32 image_middle = (image_top + image_bottom) / 2;
 	S32 line_height = llround(LLFontGL::sSansSerifSmall->getLineHeight());
 
-	mTentativeLabel = new LLTextBox( "Multiple", 
+	mTentativeLabel = new LLTextBox( std::string("Multiple"), 
 		LLRect( 
 			0, image_middle + line_height / 2,
 			getRect().getWidth(), image_middle - line_height / 2 ),
-		"Multiple",
+		std::string("Multiple"),
 		LLFontGL::sSansSerifSmall );
 	mTentativeLabel->setHAlign( LLFontGL::HCENTER );
 	mTentativeLabel->setFollowsAll();
@@ -934,11 +936,12 @@ LLTextureCtrl::LLTextureCtrl(
 
 	LLRect border_rect(0, getRect().getHeight(), getRect().getWidth(), 0);
 	border_rect.mBottom += BTN_HEIGHT_SMALL;
-	mBorder = new LLViewBorder("border", border_rect, LLViewBorder::BEVEL_IN);
+	mBorder = new LLViewBorder(std::string("border"), border_rect, LLViewBorder::BEVEL_IN);
 	mBorder->setFollowsAll();
 	addChild(mBorder);
 
 	setEnabled(TRUE); // for the tooltip
+	mLoadingPlaceholderString = LLTrans::getString("texture_loading");
 }
 
 
@@ -965,22 +968,22 @@ LLXMLNodePtr LLTextureCtrl::getXML(bool save_children) const
 
 LLView* LLTextureCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 {
-	LLString name("texture_picker");
+	std::string name("texture_picker");
 	node->getAttributeString("name", name);
 
 	LLRect rect;
 	createRect(node, rect, parent);
 
-	LLString label;
+	std::string label;
 	node->getAttributeString("label", label);
 
-	LLString image_id("");
+	std::string image_id("");
 	node->getAttributeString("image", image_id);
 
-	LLString default_image_id("");
+	std::string default_image_id("");
 	node->getAttributeString("default_image", default_image_id);
 
-	LLString default_image_name("Default");
+	std::string default_image_name("Default");
 	node->getAttributeString("default_image_name", default_image_name);
 
 	BOOL allow_no_texture = FALSE;
@@ -1009,7 +1012,12 @@ LLView* LLTextureCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 	return texture_picker;
 }
 
-void LLTextureCtrl::setCaption(const LLString& caption)
+void LLTextureCtrl::setShowLoadingPlaceholder(BOOL showLoadingPlaceholder)
+{
+	mShowLoadingPlaceholder = showLoadingPlaceholder;
+}
+
+void LLTextureCtrl::setCaption(const std::string& caption)
 {
 	mCaption->setText( caption );
 }
@@ -1038,13 +1046,13 @@ void LLTextureCtrl::setEnabled( BOOL enabled )
 	LLFloaterTexturePicker* floaterp = (LLFloaterTexturePicker*)mFloaterHandle.get();
 	if( enabled )
 	{
-		LLString tooltip;
+		std::string tooltip;
 		if (floaterp) tooltip = floaterp->getUIString("choose_picture");
 		setToolTip( tooltip );
 	}
 	else
 	{
-		setToolTip( LLString() );
+		setToolTip( std::string() );
 		// *TODO: would be better to keep floater open and show
 		// disabled state.
 		closeFloater();
@@ -1092,7 +1100,7 @@ void LLTextureCtrl::clear()
 	setImageAssetID(LLUUID::null);
 }
 
-void LLTextureCtrl::setLabel(const LLString& label)
+void LLTextureCtrl::setLabel(const std::string& label)
 {
 	mLabel = label;
 	mCaption->setText(label);
@@ -1243,7 +1251,7 @@ void LLTextureCtrl::setImageAssetID( const LLUUID& asset_id )
 BOOL LLTextureCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask,
 					  BOOL drop, EDragAndDropType cargo_type, void *cargo_data,
 					  EAcceptance *accept,
-					  LLString& tooltip_msg)
+					  std::string& tooltip_msg)
 {
 	BOOL handled = FALSE;
 
@@ -1318,6 +1326,26 @@ void LLTextureCtrl::draw()
 	}
 
 	mTentativeLabel->setVisible( !mTexturep.isNull() && getTentative() );
+	
+	
+	// Show "Loading..." string on the top left corner while this texture is loading.
+	// Using the discard level, do not show the string if the texture is almost but not 
+	// fully loaded.
+	if ( mTexturep.notNull() &&
+		 (mShowLoadingPlaceholder == TRUE) && 
+		 (mTexturep->getDiscardLevel() != 1) &&
+		 (mTexturep->getDiscardLevel() != 0))
+	{
+		LLFontGL* font = LLFontGL::sSansSerifBig;
+		font->renderUTF8(
+			mLoadingPlaceholderString, 0,
+			llfloor(interior.mLeft+10), 
+			llfloor(interior.mTop-20),
+			LLColor4::white,
+			LLFontGL::LEFT,
+			LLFontGL::BASELINE,
+			LLFontGL::DROP_SHADOW);
+	}
 
 	LLUICtrl::draw();
 }
@@ -1411,7 +1439,7 @@ protected:
 LLToolTexEyedropper::LLToolTexEyedropper( 
 	void (*callback)(const LLUUID& obj_id, const LLUUID& image_id, void* userdata ),
 	void* userdata )
-	: LLTool("texeyedropper"),
+	: LLTool(std::string("texeyedropper")),
 	  mCallback( callback ),
 	  mCallbackUserData( userdata )
 {
@@ -1424,13 +1452,15 @@ LLToolTexEyedropper::~LLToolTexEyedropper()
 
 BOOL LLToolTexEyedropper::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	LLViewerObject* hit_obj	= gViewerWindow->lastObjectHit();
+	// this will affect framerate on mouse down
+	const LLPickInfo& pick = gViewerWindow->pickImmediate(x, y, FALSE);
+	LLViewerObject* hit_obj	= pick.getObject();
 	if (hit_obj && 
 		!hit_obj->isAvatar())
 	{
-		if( (0 <= gLastHitObjectFace) && (gLastHitObjectFace < hit_obj->getNumTEs()) )
+		if( (0 <= pick.mObjectFace) && (pick.mObjectFace < hit_obj->getNumTEs()) )
 		{
-			LLViewerImage* image = hit_obj->getTEImage( gLastHitObjectFace );
+			LLViewerImage* image = hit_obj->getTEImage( pick.mObjectFace );
 			if( image )
 			{
 				if( mCallback )

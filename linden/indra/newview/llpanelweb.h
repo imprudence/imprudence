@@ -63,7 +63,7 @@ private:
 private:
 	BOOL mCookiesEnabled;
 	BOOL mWebProxyEnabled;
-	LLString mWebProxyAddress;
+	std::string mWebProxyAddress;
 	S32 mWebProxyPort;
 	BOOL mExternalBrowser;
 };

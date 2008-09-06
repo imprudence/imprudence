@@ -1,7 +1,0 @@
-llrender/llfont.cpp
-llrender/llfontgl.cpp
-llrender/llgldbg.cpp
-llrender/llrender.cpp
-llrender/llimagegl.cpp
-llrender/llrendertarget.cpp
-llrender/llvertexbuffer.cpp

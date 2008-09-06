@@ -40,10 +40,10 @@
 class LLTransTemplate
 {
 public:
-	LLTransTemplate(const LLString& name = "", const LLString& text = "") : mName(name), mText(text) {}
+	LLTransTemplate(const std::string& name = LLStringUtil::null, const std::string& text = LLStringUtil::null) : mName(name), mText(text) {}
 
-	LLString mName;
-	LLString mText;
+	std::string mName;
+	std::string mText;
 };
 
 /**
@@ -62,7 +62,7 @@ public:
 	 * @param xml_filename Filename to parse
 	 * @returns true if the file was parsed successfully, true if something went wrong
 	 */
-	static bool parseStrings(const LLString& xml_filename);
+	static bool parseStrings(const std::string& xml_filename);
 
 	/**
 	 * @brief Returns a translated string
@@ -70,22 +70,22 @@ public:
 	 * @param args A list of substrings to replace in the string
 	 * @returns Translated string
 	 */
-	static LLString getString(const LLString &xml_desc, const LLString::format_map_t& args);
+	static std::string getString(const std::string &xml_desc, const LLStringUtil::format_map_t& args);
 
 	/**
 	 * @brief Returns a translated string
 	 * @param xml_desc String's description
 	 * @returns Translated string
 	 */
-	static LLString getString(const LLString &xml_desc)
+	static std::string getString(const std::string &xml_desc)
 	{
-		LLString::format_map_t empty;
+		LLStringUtil::format_map_t empty;
 		return getString(xml_desc, empty);
 	}
 	
 
 private:
-	typedef std::map<LLString, LLTransTemplate > template_map_t;
+	typedef std::map<std::string, LLTransTemplate > template_map_t;
 	static template_map_t sStringTemplates;
 };
 

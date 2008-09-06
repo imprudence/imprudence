@@ -91,7 +91,7 @@ namespace tut
 		U32 ip = ip_string_to_u32("192.168.1.1");
 		U32 port = 8080;
 
-		LLHost host(ip_port_string.c_str());
+		LLHost host(ip_port_string);
 		ensure("IP address from IP:port is invalid", ip == host.getAddress());
 		ensure("Port Number from from IP:port is invalid", port == host.getPort());
 	}
@@ -138,23 +138,16 @@ namespace tut
 	template<> template<>
 	void host_object::test<8>()
 	{
-		char buffer[50];
-		char buffer1[50];
-		const char* str = "192.168.1.1";
+		const std::string str("192.168.1.1");
 		U32 port = 8080;
 		LLHost host;
 		host.set(str,port);
-		host.getString(buffer, 50);	
-		ensure("Function Failed", (0 == strcmp("192.168.1.1:8080", buffer)));
-
-		host.getIPString(buffer1, 50);
-		ensure("Function Failed", (0 == strcmp(str, buffer1)));
 
 		std::string ip_string = host.getIPString();
-		ensure("Function Failed", (0 == strcmp(str, buffer1)));
+		ensure("Function Failed", (ip_string == str));
 
 		std::string ip_string_port = host.getIPandPort();
-		ensure("Function Failed", (0 == strcmp("192.168.1.1:8080", buffer)));
+		ensure("Function Failed", (ip_string_port == "192.168.1.1:8080"));
 	}
 
 
@@ -163,17 +156,15 @@ namespace tut
 	void host_object::test<9>()
 	{
 		std::string hostStr = "google.com";		
-		char buffer[50] = {0};
 		LLHost host;
-		host.setHostByName(hostStr.c_str());	
-		host.getHostName(buffer, 50);
+		host.setHostByName(hostStr);	
+
 		// reverse DNS will likely result in appending of some
 		// sub-domain to the main hostname. so look for
 		// the main domain name and not do the exact compare
-		ensure("getHostName failed", (NULL != strstr(buffer, hostStr.c_str())));
 		
-		LLString hostname = host.getHostName();
-		ensure("getHostName failed", (NULL != strstr(hostname.c_str(), hostStr.c_str())));
+		std::string hostname = host.getHostName();
+		ensure("getHostName failed", hostname.find(hostStr) != std::string::npos);
 	}
 
 //	setHostByName for dotted IP
@@ -182,7 +173,7 @@ namespace tut
 	{
 		std::string hostStr = "64.233.167.99";		
 		LLHost host;
-		host.setHostByName(hostStr.c_str());	
+		host.setHostByName(hostStr);	
 		ensure("SetHostByName for dotted IP Address failed", host.getAddress() == ip_string_to_u32(hostStr.c_str()));
 	}
 

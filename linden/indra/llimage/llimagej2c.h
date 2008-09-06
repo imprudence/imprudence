@@ -45,6 +45,7 @@ public:
 	LLImageJ2C();
 
 	// Base class overrides
+	/*virtual*/ std::string getExtension() { return std::string("j2c"); }
 	/*virtual*/ BOOL updateData();
 	/*virtual*/ BOOL decode(LLImageRaw *raw_imagep, F32 decode_time);
 	/*virtual*/ BOOL decodeChannels(LLImageRaw *raw_imagep, F32 decode_time, S32 first_channel, S32 max_channel_count);
@@ -58,7 +59,7 @@ public:
 	BOOL encode(const LLImageRaw *raw_imagep, const char* comment_text, F32 encode_time=0.0);
 
 	BOOL validate(U8 *data, U32 file_size);
-	BOOL loadAndValidate(const LLString &filename);
+	BOOL loadAndValidate(const std::string &filename);
 
 	// Encode accessors
 	void setReversible(const BOOL reversible); // Use non-lossy?

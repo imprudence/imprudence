@@ -71,6 +71,12 @@
 		확대/축소 사각지대
 	</text>
 	<button label="SpaceNavigator 기본값" name="SpaceNavigatorDefaults" />
+	<string name="JoystickMonitor">
+		조이스틱 검사
+	</string>
+	<string name="Axis">
+		축 [NUM]
+	</string>
 	<string name="NoDevice">
 		검색된 장치가 없습니다.
 	</string>

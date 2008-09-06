@@ -209,6 +209,7 @@ class LLWebBrowserCtrl :
 		bool canNavigateForward();
 		void setOpenInExternalBrowser( bool valIn );
 		void setOpenInInternalBrowser( bool valIn );
+		std::string getCurrentNavUrl();
 
 		// By default, we do not handle "secondlife:///app/" SLURLs, because
 		// those can cause teleports, open windows, etc.  We cannot be sure
@@ -284,6 +285,7 @@ class LLWebBrowserCtrl :
 		bool mOpenAppSLURLs;
 		std::string mHomePageUrl;
 		std::string mExternalUrl;
+		std::string mCurrentNavUrl;
 		bool mIgnoreUIScale;
 		bool mAlwaysRefresh;
 		LLMediaBase* mMediaSource;

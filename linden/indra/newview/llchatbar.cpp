@@ -96,7 +96,7 @@ private:
 //
 
 LLChatBar::LLChatBar() 
-:	LLPanel("", LLRect(), BORDER_NO),
+:	LLPanel(LLStringUtil::null, LLRect(), BORDER_NO),
 	mInputEditor(NULL),
 	mGestureLabelTimer(),
 	mLastSpecialChatChannel(0),
@@ -220,9 +220,9 @@ void LLChatBar::refreshGestures()
 	if (mGestureCombo && gestures)
 	{
 		//store current selection so we can maintain it
-		LLString cur_gesture = mGestureCombo->getValue().asString();
+		std::string cur_gesture = mGestureCombo->getValue().asString();
 		gestures->selectFirstItem();
-		LLString label = mGestureCombo->getValue().asString();;
+		std::string label = mGestureCombo->getValue().asString();;
 		// clear
 		gestures->clearRows();
 
@@ -241,14 +241,14 @@ void LLChatBar::refreshGestures()
 			}
 		}
 
-		// ad unique gestures
+		// add unique gestures
 		std::map <std::string, BOOL>::iterator it2;
 		for (it2 = unique.begin(); it2 != unique.end(); ++it2)
 		{
 			gestures->addSimpleElement((*it2).first);
 		}
 		
-		gestures->sortByColumn(0, TRUE);
+		gestures->sortByColumn(LLStringUtil::null, TRUE);
 		// Insert label after sorting
 		gestures->addSimpleElement(label, ADD_TOP);
 		
@@ -299,9 +299,9 @@ BOOL LLChatBar::inputEditorHasFocus()
 	return mInputEditor && mInputEditor->hasFocus();
 }
 
-LLString LLChatBar::getCurrentChat()
+std::string LLChatBar::getCurrentChat()
 {
-	return mInputEditor ? mInputEditor->getText() : LLString::null;
+	return mInputEditor ? mInputEditor->getText() : LLStringUtil::null;
 }
 
 void LLChatBar::setGestureCombo(LLComboBox* combo)
@@ -344,12 +344,12 @@ LLWString LLChatBar::stripChannelNumber(const LLWString &mesg, S32* channel)
 		S32 pos = 0;
 
 		// Copy the channel number into a string
-		llwchar channel_string[64];
+		LLWString channel_string;
 		llwchar c;
 		do
 		{
 			c = mesg[pos+1];
-			channel_string[pos] = c;
+			channel_string.push_back(c);
 			pos++;
 		}
 		while(c && pos < 64 && LLStringOps::isDigit(c));
@@ -362,7 +362,6 @@ LLWString LLChatBar::stripChannelNumber(const LLWString &mesg, S32* channel)
 			c = mesg[pos+1];
 			pos++;
 		}
-
 		
 		mLastSpecialChatChannel = strtol(wstring_to_utf8str(channel_string).c_str(), NULL, 10);
 		*channel = mLastSpecialChatChannel;
@@ -379,41 +378,41 @@ LLWString LLChatBar::stripChannelNumber(const LLWString &mesg, S32* channel)
 
 void LLChatBar::sendChat( EChatType type )
 {
-	LLWString text;
-	if (mInputEditor) text = mInputEditor->getWText();
-	LLWString::trim(text);
-	LLWString::replaceChar(text,182,'\n'); // Convert paragraph symbols back into newlines.
-
-	if (!text.empty())
+	if (mInputEditor)
 	{
-		// store sent line in history, duplicates will get filtered
-		if (mInputEditor) mInputEditor->updateHistory();
-		// Check if this is destined for another channel
-		S32 channel = 0;
-		stripChannelNumber(text, &channel);
-
-		std::string utf8text = wstring_to_utf8str(text);
-		// Try to trigger a gesture, if not chat to a script.
-		std::string utf8_revised_text;
-		if (0 == channel)
+		LLWString text = mInputEditor->getConvertedText();
+		if (!text.empty())
 		{
-			// discard returned "found" boolean
-			gGestureManager.triggerAndReviseString(utf8text, &utf8_revised_text);
-		}
-		else
-		{
-			utf8_revised_text = utf8text;
-		}
+			// store sent line in history, duplicates will get filtered
+			if (mInputEditor) mInputEditor->updateHistory();
+			// Check if this is destined for another channel
+			S32 channel = 0;
+			stripChannelNumber(text, &channel);
+			
+			std::string utf8text = wstring_to_utf8str(text);
+			// Try to trigger a gesture, if not chat to a script.
+			std::string utf8_revised_text;
+			if (0 == channel)
+			{
+				// discard returned "found" boolean
+				gGestureManager.triggerAndReviseString(utf8text, &utf8_revised_text);
+			}
+			else
+			{
+				utf8_revised_text = utf8text;
+			}
 
-		utf8_revised_text = utf8str_trim(utf8_revised_text);
+			utf8_revised_text = utf8str_trim(utf8_revised_text);
 
-		if (!utf8_revised_text.empty())
-		{
-			// Chat with animation
-			sendChatFromViewer(utf8_revised_text, type, TRUE);
+			if (!utf8_revised_text.empty())
+			{
+				// Chat with animation
+				sendChatFromViewer(utf8_revised_text, type, TRUE);
+			}
 		}
 	}
-	childSetValue("Chat Editor", LLString::null);
+
+	childSetValue("Chat Editor", LLStringUtil::null);
 
 	gAgent.stopTyping();
 
@@ -478,7 +477,7 @@ void LLChatBar::onInputEditorKeystroke( LLLineEditor* caller, void* userdata )
 
 	// Can't trim the end, because that will cause autocompletion
 	// to eat trailing spaces that might be part of a gesture.
-	LLWString::trimHead(raw_text);
+	LLWStringUtil::trimHead(raw_text);
 
 	S32 length = raw_text.length();
 
@@ -499,7 +498,7 @@ void LLChatBar::onInputEditorKeystroke( LLLineEditor* caller, void* userdata )
 	{
 		// the selection will already be deleted, but we need to trim
 		// off the character before
-		LLString new_text = raw_text.substr(0, length-1);
+		std::string new_text = raw_text.substr(0, length-1);
 		self->mInputEditor->setText( new_text );
 		self->mInputEditor->setCursorToEnd();
 		length = length - 1;

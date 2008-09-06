@@ -85,15 +85,15 @@
 #include "lluictrlfactory.h"
 #include "llselectmgr.h"
 
-const char* NEW_LSL_NAME = "New Script"; // *TODO:Translate? (probably not)
-const char* NEW_NOTECARD_NAME = "New Note"; // *TODO:Translate? (probably not)
-const char* NEW_GESTURE_NAME = "New Gesture"; // *TODO:Translate? (probably not)
+const std::string NEW_LSL_NAME = "New Script"; // *TODO:Translate? (probably not)
+const std::string NEW_NOTECARD_NAME = "New Note"; // *TODO:Translate? (probably not)
+const std::string NEW_GESTURE_NAME = "New Gesture"; // *TODO:Translate? (probably not)
 
 typedef LLMemberListener<LLPanelInventory> object_inventory_listener_t;
 typedef LLMemberListener<LLInventoryView> inventory_listener_t;
 typedef LLMemberListener<LLInventoryPanel> inventory_panel_listener_t;
 
-bool doToSelected(LLFolderView* folder, LLString action)
+bool doToSelected(LLFolderView* folder, std::string action)
 {
 	LLInventoryModel* model = &gInventory;
 	if ("rename" == action)
@@ -169,7 +169,7 @@ class LLDoToSelectedPanel : public object_inventory_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLString action = userdata.asString();
+		std::string action = userdata.asString();
 		LLPanelInventory *panel = mPtr;
 		LLFolderView* folder = panel->getRootFolder();
 		if(!folder) return true;
@@ -182,7 +182,7 @@ class LLDoToSelectedFloater : public inventory_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLString action = userdata.asString();
+		std::string action = userdata.asString();
 		LLInventoryPanel *panel = mPtr->getPanel();
 		LLFolderView* folder = panel->getRootFolder();
 		if(!folder) return true;
@@ -195,7 +195,7 @@ class LLDoToSelected : public inventory_panel_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLString action = userdata.asString();
+		std::string action = userdata.asString();
 		LLInventoryPanel *panel = mPtr;
 		LLFolderView* folder = panel->getRootFolder();
 		if(!folder) return true;
@@ -212,7 +212,7 @@ class LLNewWindow : public inventory_listener_t
 		S32 left = 0 , top = 0;
 		gFloaterView->getNewFloaterPosition(&left, &top);
 		rect.setLeftTopAndSize(left, top, rect.getWidth(), rect.getHeight());
-		LLInventoryView* iv = new LLInventoryView("Inventory",
+		LLInventoryView* iv = new LLInventoryView(std::string("Inventory"),
 												rect,
 												mPtr->getActivePanel()->getModel());
 		iv->getActivePanel()->setFilterTypes(mPtr->getActivePanel()->getFilterTypes());
@@ -327,19 +327,19 @@ class LLEmptyTrashFloater : public inventory_listener_t
 	}
 };
 
-void do_create(LLInventoryModel *model, LLInventoryPanel *ptr, LLString type, LLFolderBridge *self = NULL)
+void do_create(LLInventoryModel *model, LLInventoryPanel *ptr, std::string type, LLFolderBridge *self = NULL)
 {
 	if ("category" == type)
 	{
 		LLUUID category;
 		if (self)
 		{
-			category = model->createNewCategory(self->getUUID(), LLAssetType::AT_NONE, NULL);
+			category = model->createNewCategory(self->getUUID(), LLAssetType::AT_NONE, LLStringUtil::null);
 		}
 		else
 		{
 			category = model->createNewCategory(gAgent.getInventoryRootID(),
-									LLAssetType::AT_NONE, NULL);
+												LLAssetType::AT_NONE, LLStringUtil::null);
 		}
 		model->notifyObservers();
 		ptr->setSelection(category, TRUE);
@@ -446,7 +446,7 @@ class LLDoCreate : public inventory_panel_listener_t
 	{
 		LLInventoryModel* model = mPtr->getModel();
 		if(!model) return false;
-		LLString type = userdata.asString();
+		std::string type = userdata.asString();
 		do_create(model, mPtr, type, LLFolderBridge::sSelf);
 		return true;
 	}
@@ -458,7 +458,7 @@ class LLDoCreateFloater : public inventory_listener_t
 	{
 		LLInventoryModel* model = mPtr->getPanel()->getModel();
 		if(!model) return false;
-		LLString type = userdata.asString();
+		std::string type = userdata.asString();
 		do_create(model, mPtr->getPanel(), type);
 		return true;
 	}
@@ -468,7 +468,7 @@ class LLSetSortBy : public inventory_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLString sort_field = userdata.asString();
+		std::string sort_field = userdata.asString();
 		if (sort_field == "name")
 		{
 			U32 order = mPtr->getActivePanel()->getSortOrder();
@@ -534,7 +534,7 @@ class LLBeginIMSession : public inventory_panel_listener_t
 		std::set<LLUUID> selected_items;
 		panel->getRootFolder()->getSelectionList(selected_items);
 
-		LLString name;
+		std::string name;
 		static int session_num = 1;
 
 		LLDynamicArray<LLUUID> members;
@@ -615,9 +615,7 @@ class LLBeginIMSession : public inventory_panel_listener_t
 
 		if (name.empty())
 		{
-			char buffer [50];
-			sprintf(buffer, "Session %d", session_num++);
-			name = buffer;
+			name = llformat("Session %d", session_num++);
 		}
 
 
@@ -645,7 +643,7 @@ class LLAttachObject : public inventory_panel_listener_t
 		folder->getSelectionList(selected_items);
 		LLUUID id = *selected_items.begin();
 
-		LLString joint_name = userdata.asString();
+		std::string joint_name = userdata.asString();
 		LLVOAvatar *avatarp = gAgent.getAvatarObject();
 		LLViewerJointAttachment* attachmentp = NULL;
 		for (LLVOAvatar::attachment_map_t::iterator iter = avatarp->mAttachmentPoints.begin(); 

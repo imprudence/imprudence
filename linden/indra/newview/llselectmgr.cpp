@@ -96,9 +96,6 @@ const S32 MAX_ACTION_QUEUE_SIZE = 20;
 const S32 MAX_SILS_PER_FRAME = 50;
 const S32 MAX_OBJECTS_PER_PACKET = 254;
 
-extern LLUUID			gLastHitObjectID;
-extern LLVector3d		gLastHitObjectOffset;
-
 //
 // Globals
 //
@@ -848,9 +845,12 @@ void LLSelectMgr::highlightObjectAndFamily(LLViewerObject* objectp)
 
 	highlightObjectOnly(root_obj);
 
-	for(U32 i = 0; i < root_obj->mChildList.size(); i++)
+	LLViewerObject::const_child_list_t& child_list = root_obj->getChildren();
+	for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+		 iter != child_list.end(); iter++)
 	{
-		highlightObjectOnly(root_obj->mChildList[i]);
+		LLViewerObject* child = *iter;
+		highlightObjectOnly(child);
 	}
 }
 
@@ -875,8 +875,9 @@ void LLSelectMgr::highlightObjectAndFamily(const std::vector<LLViewerObject*>& o
 		LLViewerObject* root = (LLViewerObject*)object->getRoot();
 		mRectSelectedObjects.insert(root);
 
-		for (LLViewerObject::child_list_t::const_iterator iter2 = root->mChildList.begin();
-			 iter2 != root->mChildList.end(); ++iter2)
+		LLViewerObject::const_child_list_t& child_list = root->getChildren();
+		for (LLViewerObject::child_list_t::const_iterator iter2 = child_list.begin();
+			 iter2 != child_list.end(); iter2++)
 		{
 			LLViewerObject* child = *iter2;
 			mRectSelectedObjects.insert(child);
@@ -905,10 +906,11 @@ void LLSelectMgr::unhighlightObjectAndFamily(LLViewerObject* objectp)
 
 	unhighlightObjectOnly(root_obj);
 
-	for (LLViewerObject::child_list_t::iterator iter2 = root_obj->mChildList.begin();
-		 iter2 != root_obj->mChildList.end(); ++iter2)
+	LLViewerObject::const_child_list_t& child_list = root_obj->getChildren();
+	for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+		 iter != child_list.end(); iter++)
 	{
-		LLViewerObject* child = *iter2;
+		LLViewerObject* child = *iter;
 		unhighlightObjectOnly(child);
 	}
 }
@@ -1008,10 +1010,11 @@ void LLSelectMgr::addGridObject(LLViewerObject* objectp)
 	LLSelectNode* nodep = new LLSelectNode(objectp, FALSE);
 	mGridObjects.addNodeAtEnd(nodep);
 
-	for (LLViewerObject::child_list_t::iterator iter2 = objectp->mChildList.begin();
-		 iter2 != objectp->mChildList.end(); ++iter2)
+	LLViewerObject::const_child_list_t& child_list = objectp->getChildren();
+	for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+		 iter != child_list.end(); iter++)
 	{
-		LLViewerObject* child = *iter2;
+		LLViewerObject* child = *iter;
 		nodep = new LLSelectNode(child, FALSE);
 		mGridObjects.addNodeAtEnd(nodep);
 	}
@@ -1955,12 +1958,13 @@ void LLSelectMgr::selectionSetClickAction(U8 action)
 // godlike requests
 //-----------------------------------------------------------------------------
 
-typedef std::pair<const LLString, const LLString> godlike_request_t;
-void LLSelectMgr::sendGodlikeRequest(const LLString& request, const LLString& param)
+typedef std::pair<const std::string, const std::string> godlike_request_t;
+
+void LLSelectMgr::sendGodlikeRequest(const std::string& request, const std::string& param)
 {
 	// If the agent is neither godlike nor an estate owner, the server
 	// will reject the request.
-	LLString message_type;
+	std::string message_type;
 	if (gAgent.isGodlike())
 	{
 		message_type = "GodlikeMessage";
@@ -1993,7 +1997,7 @@ void LLSelectMgr::packGodlikeHead(void* user_data)
 	msg->addUUID("TransactionID", LLUUID::null);
 	godlike_request_t* data = (godlike_request_t*)user_data;
 	msg->nextBlock("MethodData");
-	msg->addString("Method", data->first.c_str());
+	msg->addString("Method", data->first);
 	msg->addUUID("Invoice", LLUUID::null);
 
 	// The parameters used to be restricted to either string or
@@ -2011,8 +2015,7 @@ void LLSelectMgr::packGodlikeHead(void* user_data)
 // static
 void LLSelectMgr::packObjectIDAsParam(LLSelectNode* node, void *)
 {
-	char buf [MAX_STRING];		/* Flawfinder: ignore */
-	snprintf(buf, MAX_STRING, "%u", node->getObject()->getLocalID());			/* Flawfinder: ignore */
+	std::string buf = llformat("%u", node->getObject()->getLocalID());
 	gMessageSystem->nextBlock("ParamList");
 	gMessageSystem->addString("Parameter", buf);
 }
@@ -2304,7 +2307,7 @@ BOOL LLSelectMgr::selectGetRootsCopy()
 // selectGetCreator()
 // Creator information only applies to root objects.
 //-----------------------------------------------------------------------------
-BOOL LLSelectMgr::selectGetCreator(LLUUID& result_id, LLString& name)
+BOOL LLSelectMgr::selectGetCreator(LLUUID& result_id, std::string& name)
 {
 	BOOL identical = TRUE;
 	BOOL first = TRUE;
@@ -2356,7 +2359,7 @@ BOOL LLSelectMgr::selectGetCreator(LLUUID& result_id, LLString& name)
 // selectGetOwner()
 // Owner information only applies to roots.
 //-----------------------------------------------------------------------------
-BOOL LLSelectMgr::selectGetOwner(LLUUID& result_id, LLString& name)
+BOOL LLSelectMgr::selectGetOwner(LLUUID& result_id, std::string& name)
 {
 	BOOL identical = TRUE;
 	BOOL first = TRUE;
@@ -2424,7 +2427,7 @@ BOOL LLSelectMgr::selectGetOwner(LLUUID& result_id, LLString& name)
 // selectGetLastOwner()
 // Owner information only applies to roots.
 //-----------------------------------------------------------------------------
-BOOL LLSelectMgr::selectGetLastOwner(LLUUID& result_id, LLString& name)
+BOOL LLSelectMgr::selectGetLastOwner(LLUUID& result_id, std::string& name)
 {
 	BOOL identical = TRUE;
 	BOOL first = TRUE;
@@ -2825,27 +2828,53 @@ void LLSelectMgr::selectForceDelete()
 		SEND_ONLY_ROOTS);
 }
 
-
-// returns TRUE if anything is for sale. calculates the total price
-// and stores that value in price.
-BOOL LLSelectMgr::selectIsForSale(S32& price)
+void LLSelectMgr::selectGetAggregateSaleInfo(U32 &num_for_sale,
+											 BOOL &is_for_sale_mixed, 
+											 BOOL &is_sale_price_mixed,
+											 S32 &total_sale_price,
+											 S32 &individual_sale_price)
 {
-	BOOL any_for_sale = FALSE;
-	price = 0;
+	num_for_sale = 0;
+	is_for_sale_mixed = FALSE;
+	is_sale_price_mixed = FALSE;
+	total_sale_price = 0;
+	individual_sale_price = 0;
 
+
+	// Empty set.
+	if (getSelection()->root_begin() == getSelection()->root_end())
+		return;
+	
+	LLSelectNode *node = *(getSelection()->root_begin());
+	const BOOL first_node_for_sale = node->mSaleInfo.isForSale();
+	const S32 first_node_sale_price = node->mSaleInfo.getSalePrice();
+	
 	for (LLObjectSelection::root_iterator iter = getSelection()->root_begin();
 		 iter != getSelection()->root_end(); iter++)
 	{
 		LLSelectNode* node = *iter;
-		if (node->mSaleInfo.isForSale())
+		const BOOL node_for_sale = node->mSaleInfo.isForSale();
+		const S32 node_sale_price = node->mSaleInfo.getSalePrice();
+		
+		// Set mixed if the fields don't match the first node's fields.
+		if (node_for_sale != first_node_for_sale) 
+			is_for_sale_mixed = TRUE;
+		if (node_sale_price != first_node_sale_price)
+			is_sale_price_mixed = TRUE;
+		
+		if (node_for_sale)
 		{
-			price += node->mSaleInfo.getSalePrice();
-			any_for_sale = TRUE;
+			total_sale_price += node_sale_price;
+			num_for_sale ++;
 		}
 	}
-
-	return any_for_sale;
-
+	
+	individual_sale_price = first_node_sale_price;
+	if (is_for_sale_mixed)
+	{
+		is_sale_price_mixed = TRUE;
+		individual_sale_price = 0;
+	}
 }
 
 // returns TRUE if all nodes are valid. method also stores an
@@ -3445,7 +3474,7 @@ void LLSelectMgr::deselectAllIfTooFar()
 }
 
 
-void LLSelectMgr::selectionSetObjectName(const LLString& name)
+void LLSelectMgr::selectionSetObjectName(const std::string& name)
 {
 	// we only work correctly if 1 object is selected.
 	if(mSelectedObjects->getRootObjectCount() == 1)
@@ -3453,7 +3482,7 @@ void LLSelectMgr::selectionSetObjectName(const LLString& name)
 		sendListToRegions("ObjectName",
 						  packAgentAndSessionID,
 						  packObjectName,
-						  (void*)name.c_str(),
+						  (void*)(new std::string(name)),
 						  SEND_ONLY_ROOTS);
 	}
 	else if(mSelectedObjects->getObjectCount() == 1)
@@ -3461,12 +3490,12 @@ void LLSelectMgr::selectionSetObjectName(const LLString& name)
 		sendListToRegions("ObjectName",
 						  packAgentAndSessionID,
 						  packObjectName,
-						  (void*)name.c_str(),
+						  (void*)(new std::string(name)),
 						  SEND_INDIVIDUALS);
 	}
 }
 
-void LLSelectMgr::selectionSetObjectDescription(const LLString& desc)
+void LLSelectMgr::selectionSetObjectDescription(const std::string& desc)
 {
 	// we only work correctly if 1 object is selected.
 	if(mSelectedObjects->getRootObjectCount() == 1)
@@ -3474,7 +3503,7 @@ void LLSelectMgr::selectionSetObjectDescription(const LLString& desc)
 		sendListToRegions("ObjectDescription",
 						  packAgentAndSessionID,
 						  packObjectDescription,
-						  (void*)desc.c_str(),
+						  (void*)(new std::string(desc)),
 						  SEND_ONLY_ROOTS);
 	}
 	else if(mSelectedObjects->getObjectCount() == 1)
@@ -3482,7 +3511,7 @@ void LLSelectMgr::selectionSetObjectDescription(const LLString& desc)
 		sendListToRegions("ObjectDescription",
 						  packAgentAndSessionID,
 						  packObjectDescription,
-						  (void*)desc.c_str(),
+						  (void*)(new std::string(desc)),
 						  SEND_INDIVIDUALS);
 	}
 }
@@ -3501,8 +3530,6 @@ void LLSelectMgr::selectionSetObjectCategory(const LLCategory& category)
 
 void LLSelectMgr::selectionSetObjectSaleInfo(const LLSaleInfo& sale_info)
 {
-	// Only one sale info at a time for now
-	if(mSelectedObjects->getRootObjectCount() != 1) return;
 	sendListToRegions("ObjectSaleInfo",
 					  packAgentAndSessionID,
 					  packObjectSaleInfo,
@@ -3969,22 +3996,26 @@ void LLSelectMgr::packObjectLocalID(LLSelectNode* node, void *)
 // static
 void LLSelectMgr::packObjectName(LLSelectNode* node, void* user_data)
 {
-	char* name = (char*)user_data;
-	if(!name) return;
-	gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
-	gMessageSystem->addU32Fast(_PREHASH_LocalID, node->getObject()->getLocalID());
-	gMessageSystem->addStringFast(_PREHASH_Name, name);
+	const std::string* name = (const std::string*)user_data;
+	if(!name->empty())
+	{
+		gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
+		gMessageSystem->addU32Fast(_PREHASH_LocalID, node->getObject()->getLocalID());
+		gMessageSystem->addStringFast(_PREHASH_Name, *name);
+	}
+	delete name;
 }
 
 // static
-void LLSelectMgr::packObjectDescription(LLSelectNode* node,
-										void* user_data)
+void LLSelectMgr::packObjectDescription(LLSelectNode* node, void* user_data)
 {
-	char* desc = (char*)user_data;
-	if(!desc) return;
-	gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
-	gMessageSystem->addU32Fast(_PREHASH_LocalID, node->getObject()->getLocalID());
-	gMessageSystem->addStringFast(_PREHASH_Description, desc);
+	const std::string* desc = (const std::string*)user_data;
+	if(!desc->empty())
+	{
+		gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
+		gMessageSystem->addU32Fast(_PREHASH_LocalID, node->getObject()->getLocalID());
+		gMessageSystem->addStringFast(_PREHASH_Description, *desc);
+	}
 }
 
 // static
@@ -4033,7 +4064,7 @@ void LLSelectMgr::packPermissions(LLSelectNode* node, void *user_data)
 // Utility function to send some information to every region containing
 // an object on the selection list.  We want to do this to reduce the total
 // number of packets sent by the viewer.
-void LLSelectMgr::sendListToRegions(const LLString& message_name,
+void LLSelectMgr::sendListToRegions(const std::string& message_name,
 									void (*pack_header)(void *user_data), 
 									void (*pack_body)(LLSelectNode* node, void *user_data), 
 									void *user_data,
@@ -4273,15 +4304,15 @@ void LLSelectMgr::processObjectProperties(LLMessageSystem* msg, void** user_data
 
 		msg->getUUIDFast(_PREHASH_ObjectData, _PREHASH_LastOwnerID, last_owner_id, i);
 
-		char name[DB_INV_ITEM_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-		msg->getStringFast(_PREHASH_ObjectData, _PREHASH_Name, DB_INV_ITEM_NAME_BUF_SIZE, name, i);
-		char desc[DB_INV_ITEM_DESC_BUF_SIZE];		/* Flawfinder: ignore */
-		msg->getStringFast(_PREHASH_ObjectData, _PREHASH_Description, DB_INV_ITEM_DESC_BUF_SIZE, desc, i);
+		std::string name;
+		msg->getStringFast(_PREHASH_ObjectData, _PREHASH_Name, name, i);
+		std::string desc;
+		msg->getStringFast(_PREHASH_ObjectData, _PREHASH_Description, desc, i);
 
-		char touch_name[DB_INV_ITEM_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-		msg->getStringFast(_PREHASH_ObjectData, _PREHASH_TouchName, DB_INV_ITEM_NAME_BUF_SIZE, touch_name, i);
-		char sit_name[DB_INV_ITEM_DESC_BUF_SIZE];		/* Flawfinder: ignore */
-		msg->getStringFast(_PREHASH_ObjectData, _PREHASH_SitName, DB_INV_ITEM_DESC_BUF_SIZE, sit_name, i);
+		std::string touch_name;
+		msg->getStringFast(_PREHASH_ObjectData, _PREHASH_TouchName, touch_name, i);
+		std::string sit_name;
+		msg->getStringFast(_PREHASH_ObjectData, _PREHASH_SitName, sit_name, i);
 
 		//unpack TE IDs
 		std::vector<LLUUID> texture_ids;
@@ -4424,11 +4455,11 @@ void LLSelectMgr::processObjectPropertiesFamily(LLMessageSystem* msg, void** use
 	msg->getUUIDFast(_PREHASH_ObjectData, _PREHASH_LastOwnerID, last_owner_id );
 
 	// unpack name & desc
-	char name[DB_INV_ITEM_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-	msg->getStringFast(_PREHASH_ObjectData, _PREHASH_Name, DB_INV_ITEM_NAME_BUF_SIZE, name);
+	std::string name;
+	msg->getStringFast(_PREHASH_ObjectData, _PREHASH_Name, name);
 
-	char desc[DB_INV_ITEM_DESC_BUF_SIZE];		/* Flawfinder: ignore */
-	msg->getStringFast(_PREHASH_ObjectData, _PREHASH_Description, DB_INV_ITEM_DESC_BUF_SIZE, desc);
+	std::string desc;
+	msg->getStringFast(_PREHASH_ObjectData, _PREHASH_Description, desc);
 
 	// the reporter widget askes the server for info about picked objects
 	if (request_flags & (COMPLAINT_REPORT_REQUEST | BUG_REPORT_REQUEST))
@@ -4694,8 +4725,9 @@ void LLSelectMgr::updateSilhouettes()
 			}
 			else
 			{
-				for (LLViewerObject::child_list_t::iterator iter = objectp->mChildList.begin();
-					 iter != objectp->mChildList.end(); ++iter)
+				LLViewerObject::const_child_list_t& child_list = objectp->getChildren();
+				for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+					 iter != child_list.end(); iter++)
 				{
 					LLViewerObject* child_objectp = *iter;
 				
@@ -4805,7 +4837,7 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 	{
 		LLBBox hud_bbox = avatar->getHUDBBox();
 
-		F32 cur_zoom = avatar->mHUDCurZoom;
+		F32 cur_zoom = gAgent.mHUDCurZoom;
 
 		// set up transform to encompass bounding box of HUD
 		glMatrixMode(GL_PROJECTION);
@@ -4928,10 +4960,10 @@ LLSelectNode::LLSelectNode(LLViewerObject* object, BOOL glow)
 	mValid			= FALSE;
 	mPermissions	= new LLPermissions();
 	mInventorySerial = 0;
-	mName = LLString::null;
-	mDescription = LLString::null;
-	mTouchName = LLString::null;
-	mSitName = LLString::null;
+	mName = LLStringUtil::null;
+	mDescription = LLStringUtil::null;
+	mTouchName = LLStringUtil::null;
+	mSitName = LLStringUtil::null;
 	mSilhouetteExists = FALSE;
 	mDuplicated = FALSE;
 
@@ -5252,7 +5284,7 @@ void LLSelectNode::renderOneSilhouette(const LLColor4 &color)
 		F32 silhouette_thickness;
 		if (is_hud_object && gAgent.getAvatarObject())
 		{
-			silhouette_thickness = LLSelectMgr::sHighlightThickness / gAgent.getAvatarObject()->mHUDCurZoom;
+			silhouette_thickness = LLSelectMgr::sHighlightThickness / gAgent.mHUDCurZoom;
 		}
 		else
 		{
@@ -5387,8 +5419,9 @@ S32 get_family_count(LLViewerObject *parent)
 		llwarns << "Trying to get_family_count on null parent!" << llendl;
 	}
 	S32 count = 1;	// for this object
-	for (LLViewerObject::child_list_t::iterator iter = parent->mChildList.begin();
-		 iter != parent->mChildList.end(); ++iter)
+	LLViewerObject::const_child_list_t& child_list = parent->getChildren();
+	for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+		 iter != child_list.end(); iter++)
 	{
 		LLViewerObject* child = *iter;
 
@@ -5451,8 +5484,8 @@ void LLSelectMgr::updateSelectionCenter()
 		if (mSelectedObjects->mSelectType != SELECT_TYPE_HUD && gAgent.getAvatarObject())
 		{
 			// reset hud ZOOM
-			gAgent.getAvatarObject()->mHUDTargetZoom = 1.f;
-			gAgent.getAvatarObject()->mHUDCurZoom = 1.f;
+			gAgent.mHUDTargetZoom = 1.f;
+			gAgent.mHUDCurZoom = 1.f;
 		}
 
 		mShowSelection = FALSE;
@@ -5536,11 +5569,12 @@ void LLSelectMgr::updatePointAt()
 		if (mSelectedObjects->getObjectCount())
 		{					
 			LLVector3 select_offset;
-			LLViewerObject *click_object = gObjectList.findObject(gLastHitObjectID);
+			const LLPickInfo& pick = gViewerWindow->getLastPick();
+			LLViewerObject *click_object = pick.getObject();
 			if (click_object && click_object->isSelected())
 			{
 				// clicked on another object in our selection group, use that as target
-				select_offset.setVec(gLastHitObjectOffset);
+				select_offset.setVec(pick.mObjectOffset);
 				select_offset.rotVec(~click_object->getRenderRotation());
 		
 				gAgent.setPointAt(POINTAT_TARGET_SELECT, click_object, select_offset);
@@ -5738,29 +5772,20 @@ BOOL LLSelectMgr::setForceSelection(BOOL force)
 
 void LLSelectMgr::resetAgentHUDZoom()
 {
-	if (gAgent.getAvatarObject())
-	{
-		gAgent.getAvatarObject()->mHUDTargetZoom = 1.f;
-		gAgent.getAvatarObject()->mHUDCurZoom = 1.f;
-	}
+	gAgent.mHUDTargetZoom = 1.f;
+	gAgent.mHUDCurZoom = 1.f;
 }
 
 void LLSelectMgr::getAgentHUDZoom(F32 &target_zoom, F32 &current_zoom) const
 {
-	if (gAgent.getAvatarObject())
-	{
-		target_zoom = gAgent.getAvatarObject()->mHUDTargetZoom;
-		current_zoom = gAgent.getAvatarObject()->mHUDCurZoom;
-	}
+	target_zoom = gAgent.mHUDTargetZoom;
+	current_zoom = gAgent.mHUDCurZoom;
 }
 
 void LLSelectMgr::setAgentHUDZoom(F32 target_zoom, F32 current_zoom)
 {
-	if (gAgent.getAvatarObject())
-	{
-		gAgent.getAvatarObject()->mHUDTargetZoom = target_zoom;
-		gAgent.getAvatarObject()->mHUDCurZoom = current_zoom;
-	}
+	gAgent.mHUDTargetZoom = target_zoom;
+	gAgent.mHUDCurZoom = current_zoom;
 }
 
 LLObjectSelection::LLObjectSelection() : 

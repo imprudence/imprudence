@@ -39,8 +39,8 @@
 
 S32 COL_1_WIDTH = 200;
 
-static LLString sOnlineDescriptor = "*";
-static LLString sNameFormat = "[FIRST] [LAST]";
+static std::string sOnlineDescriptor = "*";
+static std::string sNameFormat = "[FIRST] [LAST]";
 
 LLFloaterNewIM::LLFloaterNewIM()
 {
@@ -181,7 +181,7 @@ void LLFloaterNewIM::onStart(void* userdata)
 	if(item)
 	{
 		const LLScrollListCell* cell = item->getColumn(0);
-		LLString name(cell->getValue());
+		std::string name(cell->getValue());
 
 		// *NOTE: Do a live detrmination of what type of session it
 		// should be. If we restrict the new im panel to online users,

@@ -95,12 +95,12 @@ public:
 
 	// viewer auth version
 	void authenticate(
-		const char* auth_uri,
-		const char* auth_method,
-		const char* firstname,
-		const char* lastname,
+		const std::string& auth_uri,
+		const std::string& auth_method,
+		const std::string& firstname,
+		const std::string& lastname,
 		LLUUID web_login_key,
-		const char* start,
+		const std::string& start,
 		BOOL skip_optional_update,
 		BOOL accept_tos,
 		BOOL accept_critical_message,
@@ -111,12 +111,12 @@ public:
 
 	// legacy version
 	void authenticate(
-		const char* auth_uri,
-		const char* auth_method,
-		const char* firstname,
-		const char* lastname,
-		const char* password,
-		const char* start,
+		const std::string& auth_uri,
+		const std::string& auth_method,
+		const std::string& firstname,
+		const std::string& lastname,
+		const std::string& password,
+		const std::string& start,
 		BOOL skip_optional_update,
 		BOOL accept_tos,
 		BOOL accept_critical_message,
@@ -134,8 +134,8 @@ public:
 
 	// function to get a direct reponse from the login api by
 	// name. returns NULL if the named response was not found.
-	const char* getResponse(const char* name) const;
-	BOOL getOptions(const char* name, options_t& options) const;
+	const std::string& getResponse(const std::string& name) const;
+	BOOL getOptions(const std::string& name, options_t& options) const;
 
 	F64 getLastTransferRateBPS() const { return mLastTransferRateBPS; }
 

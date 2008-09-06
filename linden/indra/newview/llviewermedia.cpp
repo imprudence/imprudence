@@ -460,13 +460,45 @@ bool LLViewerMediaImpl::handleSkinCurrentChanged(const LLSD& /*newvalue*/)
 // Wrapper class
 //////////////////////////////////////////////////////////////////////////////////////////
 
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// The viewer takes a long time to load the start screen.  Part of the problem
+// is media initialization -- in particular, QuickTime loads many DLLs and
+// hits the disk heavily.  So we initialize only the browser component before
+// the login screen, then do the rest later when we have a progress bar. JC
+// static
+void LLViewerMedia::initBrowser()
+{
+	LLMediaManagerData* init_data = new LLMediaManagerData;
+	buildMediaManagerData( init_data );
+	LLMediaManager::initBrowser( init_data );
+	delete init_data;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 // static
 void LLViewerMedia::initClass()
 {
 	// *TODO: This looks like a memory leak to me. JC
 	LLMediaManagerData* init_data = new LLMediaManagerData;
+	buildMediaManagerData( init_data );
+	LLMediaManager::initClass( init_data );
+	delete init_data;
 
+	LLMediaManager* mm = LLMediaManager::getInstance();
+	LLMIMETypes::mime_info_map_t::const_iterator it;
+	for (it = LLMIMETypes::sMap.begin(); it != LLMIMETypes::sMap.end(); ++it)
+	{
+		const std::string& mime_type = it->first;
+		const LLMIMETypes::LLMIMEInfo& info = it->second;
+		mm->addMimeTypeImplNameMap( mime_type, info.mImpl );
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// static
+void LLViewerMedia::buildMediaManagerData( LLMediaManagerData* init_data )
+{
 //	std::string executable_dir = std::string( arg0 ).substr( 0, std::string( arg0 ).find_last_of("\\/") );
 //	std::string component_dir = std::string( executable_dir ).substr( 0, std::string( executable_dir ).find_last_of("\\/") );
 //	component_dir = std::string( component_dir ).substr( 0, std::string( component_dir ).find_last_of("\\/") );
@@ -504,9 +536,7 @@ void LLViewerMedia::initClass()
 	init_data->setBrowserComponentDir( component_dir );
 	std::string profile_name("Second Life");
 	init_data->setBrowserProfileName( profile_name );
-	init_data->setBrowserParentWindow( gViewerWindow->getPlatformWindow() );
-
-	LLMediaManager::initClass( init_data );
+	init_data->setBrowserParentWindow( gViewerWindow->getMediaWindow() );
 
 	// We use a custom user agent with viewer version and skin name.
 	LLViewerMediaImpl::updateBrowserUserAgent();
@@ -516,14 +546,6 @@ void LLViewerMedia::initClass()
 	gSavedSettings.getControl("SkinCurrent")->getSignal()->connect( 
 		boost::bind( LLViewerMediaImpl::handleSkinCurrentChanged, _1 ) );
 
-	LLMediaManager* mm = LLMediaManager::getInstance();
-	LLMIMETypes::mime_info_map_t::const_iterator it;
-	for (it = LLMIMETypes::sMap.begin(); it != LLMIMETypes::sMap.end(); ++it)
-	{
-		const LLString& mime_type = it->first;
-		const LLMIMETypes::LLMIMEInfo& info = it->second;
-		mm->addMimeTypeImplNameMap( mime_type, info.mImpl );
-	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -672,5 +694,3 @@ void LLViewerMedia::setMimeType(std::string mime_type)
 {
 	sViewerMediaImpl.mMimeType = mime_type;
 }
-
-

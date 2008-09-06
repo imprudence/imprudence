@@ -1,9 +1,0 @@
-llimage/llimagebmp.cpp
-llimage/llimage.cpp
-llimage/llimagedxt.cpp
-llimage/llimagej2c.cpp
-llimage/llimagejpeg.cpp
-llimage/llimagepng.cpp
-llimage/llimagetga.cpp
-llimage/llimageworker.cpp
-llimage/llpngwrapper.cpp

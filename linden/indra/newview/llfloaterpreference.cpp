@@ -76,14 +76,6 @@
 #include "llscrollcontainer.h"
 #include "llfloaterhardwaresettings.h"
 
-#if LL_WINDOWS
-// for Logitech LCD keyboards / speakers
-#ifndef LL_LOGITECH_LCD_H
-#include "lllogitechlcd.h"
-#endif
-extern LLLCD	*gLcdScreen; 
-#endif
-
 const S32 PREF_BORDER = 4;
 const S32 PREF_PAD = 5;
 const S32 PREF_BUTTON_WIDTH = 70;
@@ -176,7 +168,7 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mTabContainer->addTabPanel(mPrefsIM->getPanel(), mPrefsIM->getPanel()->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mPrefsIM->getPanel()->setDefaultBtn(default_btn);
 
-#if LL_WINDOWS && LL_LCD_COMPILE
+#if LL_LCD_COMPILE
 
 	// only add this option if we actually have a logitech keyboard / speaker set
 	if (gLcdScreen->Enabled())
@@ -277,7 +269,7 @@ void LLPreferenceCore::apply()
 	LLFloaterHardwareSettings::instance()->apply();
 
 	mWebPanel->apply();
-#if LL_WINDOWS && LL_LCD_COMPILE
+#if LL_LCD_COMPILE
 	// only add this option if we actually have a logitech keyboard / speaker set
 	if (gLcdScreen->Enabled())
 	{
@@ -305,7 +297,7 @@ void LLPreferenceCore::cancel()
 	LLFloaterHardwareSettings::instance()->cancel();
 
 	mWebPanel->cancel();
-#if LL_WINDOWS && LL_LCD_COMPILE
+#if LL_LCD_COMPILE
 	// only add this option if we actually have a logitech keyboard / speaker set
 	if (gLcdScreen->Enabled())
 	{
@@ -324,10 +316,7 @@ void LLPreferenceCore::onTabChanged(void* user_data, bool from_click)
 }
 
 
-void LLPreferenceCore::setPersonalInfo(
-	const char* visibility,
-	BOOL im_via_email,
-	const char* email)
+void LLPreferenceCore::setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email)
 {
 	mPrefsIM->setPersonalInfo(visibility, im_via_email, email);
 }
@@ -457,7 +446,7 @@ void LLFloaterPreference::onBtnOK( void* userdata )
 		
 		std::string crash_settings_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, CRASH_SETTINGS_FILE);
 		// save all settings, even if equals defaults
-		gCrashSettings.saveToFile(crash_settings_filename.c_str(), FALSE);
+		gCrashSettings.saveToFile(crash_settings_filename, FALSE);
 	}
 	else
 	{
@@ -510,15 +499,11 @@ void LLFloaterPreference::onBtnCancel( void* userdata )
 
 
 // static
-void LLFloaterPreference::updateUserInfo(
-	const char* visibility,
-	BOOL im_via_email,
-	const char* email)
+void LLFloaterPreference::updateUserInfo(const std::string& visibility, bool im_via_email, const std::string& email)
 {
 	if(sInstance && sInstance->mPreferenceCore)
 	{
-		sInstance->mPreferenceCore->setPersonalInfo(
-			visibility, im_via_email, email);
+		sInstance->mPreferenceCore->setPersonalInfo(visibility, im_via_email, email);
 	}
 }
 

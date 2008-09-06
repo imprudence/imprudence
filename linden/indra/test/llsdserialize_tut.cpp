@@ -44,7 +44,19 @@
 
 // These tests take too long to run on Windows. JC
 // Yeah, who cares if windows works or not, right? Phoenix
-#if !LL_WINDOWS
+// Change the 'FALSE' here to 'TRUE' to enable them on Windows
+#define RUN_PARSER_TESTS_ON_WINDOWS		FALSE
+
+#define RUN_PARSER_TESTS	(!LL_WINDOWS || RUN_PARSER_TESTS_ON_WINDOWS)
+
+
+
+#if RUN_PARSER_TESTS
+
+#if LL_WINDOWS
+#include <winsock2.h>
+typedef U32 uint32_t;
+#endif
 
 namespace tut
 {
@@ -225,6 +237,7 @@ namespace tut
 		mFormatter->format(v, stream);
 		//llinfos << "checkRoundTrip: length " << stream.str().length() << llendl;
 		LLSD w;
+		mParser->reset();	// reset() call is needed since test code re-uses mParser
 		mParser->parse(stream, w, stream.str().size());
 		
 		try
@@ -475,6 +488,7 @@ namespace tut
 			input.str(in);
 
 			LLSD parsed_result;
+			mParser->reset();	// reset() call is needed since test code re-uses mParser
 			S32 parsed_count = mParser->parse(input, parsed_result, in.size());
 			ensure_equals(msg, parsed_result, expected_value);
 

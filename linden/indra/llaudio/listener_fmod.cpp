@@ -32,9 +32,6 @@
 
 #include "linden_common.h"
 #include "audioengine.h"
-
-#if LL_FMOD
-
 #include "listener_fmod.h"
 #include "fmod.h"
 
@@ -143,7 +140,3 @@ F32 LLListener_FMOD::getDistanceFactor()
 {
 	return mDistanceFactor;
 }
-
-#endif  // LL_FMOD
-
-

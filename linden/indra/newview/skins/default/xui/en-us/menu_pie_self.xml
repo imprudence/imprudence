@@ -87,5 +87,6 @@
 	</pie_menu>
 	<menu_item_call enabled="true" label="Appearance..." name="Appearance...">
 		<on_click function="ShowFloater" userdata="appearance" />
+		<on_enable function="Edit.EnableCustomizeAvatar" />
 	</menu_item_call>
 </pie_menu>

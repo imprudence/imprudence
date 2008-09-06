@@ -81,7 +81,7 @@ void LLIndraConfigFile::loadFile()
     LLSD config;
 
     {
-        llifstream file(filename().c_str());
+        llifstream file(filename());
         if (file.is_open())
         {
             LLSDSerialize::fromXML(config, file);

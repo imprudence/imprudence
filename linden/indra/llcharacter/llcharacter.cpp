@@ -287,8 +287,8 @@ BOOL LLCharacter::setVisualParamWeight(LLVisualParam* which_param, F32 weight, B
 //-----------------------------------------------------------------------------
 BOOL LLCharacter::setVisualParamWeight(const char* param_name, F32 weight, BOOL set_by_user)
 {
-	LLString tname(param_name);
-	LLString::toLower(tname);
+	std::string tname(param_name);
+	LLStringUtil::toLower(tname);
 	char *tableptr = sVisualParamNames.checkString(tname);
 	VisualParamNameMap_t::iterator name_iter = mVisualParamNameMap.find(tableptr);
 	if (name_iter != mVisualParamNameMap.end())
@@ -338,8 +338,8 @@ F32 LLCharacter::getVisualParamWeight(LLVisualParam *which_param)
 //-----------------------------------------------------------------------------
 F32 LLCharacter::getVisualParamWeight(const char* param_name)
 {
-	LLString tname(param_name);
-	LLString::toLower(tname);
+	std::string tname(param_name);
+	LLStringUtil::toLower(tname);
 	char *tableptr = sVisualParamNames.checkString(tname);
 	VisualParamNameMap_t::iterator name_iter = mVisualParamNameMap.find(tableptr);
 	if (name_iter != mVisualParamNameMap.end())
@@ -409,8 +409,8 @@ BOOL LLCharacter::visualParamWeightsAreDefault()
 //-----------------------------------------------------------------------------
 LLVisualParam*	LLCharacter::getVisualParam(const char *param_name)
 {
-	LLString tname(param_name);
-	LLString::toLower(tname);
+	std::string tname(param_name);
+	LLStringUtil::toLower(tname);
 	char *tableptr = sVisualParamNames.checkString(tname);
 	VisualParamNameMap_t::iterator name_iter = mVisualParamNameMap.find(tableptr);
 	if (name_iter != mVisualParamNameMap.end())
@@ -467,8 +467,8 @@ void LLCharacter::addVisualParam(LLVisualParam *param)
 	if (param->getInfo())
 	{
 		// Add name map
-		LLString tname(param->getName());
-		LLString::toLower(tname);
+		std::string tname(param->getName());
+		LLStringUtil::toLower(tname);
 		char *tableptr = sVisualParamNames.addString(tname);
 		std::pair<VisualParamNameMap_t::iterator, bool> nameres;
 		nameres = mVisualParamNameMap.insert(VisualParamNameMap_t::value_type(tableptr, param));

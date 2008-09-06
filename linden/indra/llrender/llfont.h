@@ -121,11 +121,11 @@ public:
 //	                     ^     ^
 //						 |     |
 //				xxx x    |Ascender
-//	           x   x     |     |
+//	           x   x     v     |
 //	---------   xxxx-------------- Baseline
-//	^		       x	 |     |
-//  | descender    x     |     |
-//	v			xxxx     v     |LineHeight
+//	^		       x	       |
+//  | Descender    x           |
+//	v			xxxx           |LineHeight
 //  -----------------------    |
 //                             v
 //	------------------------------

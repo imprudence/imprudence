@@ -89,12 +89,12 @@ void LLUserAuth::reset()
 
 
 void LLUserAuth::authenticate(
-	const char* auth_uri,
-	const char* method,
-	const char* firstname,
-	const char* lastname,
+	const std::string& auth_uri,
+	const std::string& method,
+	const std::string& firstname,
+	const std::string& lastname,
 	LLUUID web_login_key,
-	const char* start,
+	const std::string& start,
 	BOOL skip_optional,
 	BOOL accept_tos,
 	BOOL accept_critical_message,
@@ -111,22 +111,22 @@ void LLUserAuth::authenticate(
 	std::copy(requested_options.begin(), requested_options.end(), appender);
 	option_str << "END";
 	
-	LL_INFOS2("AppInit", "Authentication") << option_str.str().c_str() << LL_ENDL;
+	LL_INFOS2("AppInit", "Authentication") << option_str.str() << LL_ENDL;
 
 	mAuthResponse = E_NO_RESPONSE_YET;
 	//mDownloadTimer.reset();
 	
 	// create the request
 	XMLRPC_REQUEST request = XMLRPC_RequestNew();
-	XMLRPC_RequestSetMethodName(request, method);
+	XMLRPC_RequestSetMethodName(request, method.c_str());
 	XMLRPC_RequestSetRequestType(request, xmlrpc_request_call);
 
 	// stuff the parameters
 	XMLRPC_VALUE params = XMLRPC_CreateVector(NULL, xmlrpc_vector_struct);
-	XMLRPC_VectorAppendString(params, "first", firstname, 0);
-	XMLRPC_VectorAppendString(params, "last", lastname, 0);
+	XMLRPC_VectorAppendString(params, "first", firstname.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "last", lastname.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "web_login_key", web_login_key.getString().c_str(), 0);
-	XMLRPC_VectorAppendString(params, "start", start, 0);
+	XMLRPC_VectorAppendString(params, "start", start.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "version", gCurrentVersion.c_str(), 0); // Includes channel name
 	XMLRPC_VectorAppendString(params, "channel", gSavedSettings.getString("VersionChannelName").c_str(), 0);
 	XMLRPC_VectorAppendString(params, "platform", PLATFORM_STRING, 0);
@@ -173,12 +173,12 @@ void LLUserAuth::authenticate(
 
 // passwd is already MD5 hashed by the time we get to it.
 void LLUserAuth::authenticate(
-	const char* auth_uri,
-	const char* method,
-	const char* firstname,
-	const char* lastname,
-	const char* passwd,
-	const char* start,
+	const std::string& auth_uri,
+	const std::string& method,
+	const std::string& firstname,
+	const std::string& lastname,
+	const std::string& passwd,
+	const std::string& start,
 	BOOL skip_optional,
 	BOOL accept_tos,
 	BOOL accept_critical_message,
@@ -204,15 +204,15 @@ void LLUserAuth::authenticate(
 	
 	// create the request
 	XMLRPC_REQUEST request = XMLRPC_RequestNew();
-	XMLRPC_RequestSetMethodName(request, method);
+	XMLRPC_RequestSetMethodName(request, method.c_str());
 	XMLRPC_RequestSetRequestType(request, xmlrpc_request_call);
 
 	// stuff the parameters
 	XMLRPC_VALUE params = XMLRPC_CreateVector(NULL, xmlrpc_vector_struct);
-	XMLRPC_VectorAppendString(params, "first", firstname, 0);
-	XMLRPC_VectorAppendString(params, "last", lastname, 0);
+	XMLRPC_VectorAppendString(params, "first", firstname.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "last", lastname.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "passwd", dpasswd.c_str(), 0);
-	XMLRPC_VectorAppendString(params, "start", start, 0);
+	XMLRPC_VectorAppendString(params, "start", start.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "version", gCurrentVersion.c_str(), 0); // Includes channel name
 	XMLRPC_VectorAppendString(params, "channel", gSavedSettings.getString("VersionChannelName").c_str(), 0);
 	XMLRPC_VectorAppendString(params, "platform", PLATFORM_STRING, 0);
@@ -379,9 +379,7 @@ LLUserAuth::UserAuthcode LLUserAuth::parseResponse()
 		}
 		else if(xmlrpc_type_int == type)
 		{
-			char buf[MAX_STRING];		/* Flawfinder: ignore */
-			snprintf(buf, MAX_STRING, "%d", XMLRPC_GetValueInt(current));		/* Flawfinder: ignore */
-			val.assign(buf);
+			val = llformat( "%d", XMLRPC_GetValueInt(current));
 			lldebugs << "val: " << val << llendl;
 			mResponses.insert(response_t::value_type(key, val));
 		}
@@ -407,22 +405,18 @@ LLUserAuth::UserAuthcode LLUserAuth::parseResponse()
 	return rv;
 }
 
-const char* LLUserAuth::getResponse(const char* name) const
+const std::string& LLUserAuth::getResponse(const std::string& key) const
 {
-	if(!name) return NULL;
-	std::string key(name);
 	response_t::const_iterator it = mResponses.find(key);
 	if(it != mResponses.end())
 	{
-		return((*it).second.c_str());
+		return((*it).second);
 	}
-	return NULL;
+	return LLStringUtil::null;
 }
 
-BOOL LLUserAuth::getOptions(const char* name, options_t& options) const
+BOOL LLUserAuth::getOptions(const std::string& key, options_t& options) const
 {
-	if(!name) return FALSE;
-	std::string key(name);
 	all_options_t::const_iterator it = mOptions.find(key);
 	if(it != mOptions.end())
 	{

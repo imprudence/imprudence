@@ -29,16 +29,16 @@
  * $/LicenseInfo$
  */
 
+// system library includes
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+
 #include "llviewerprecompiledheaders.h"
 
 #include "llpanellogin.h"
 #include "llviewerkeyboard.h"
 #include "llviewerwindow.h"
-
-// system library includes
-#include <stdio.h>
-#include <iostream>
-#include <fstream>
 
 #include "llviewquery.h"
 #include "llxmltree.h"
@@ -47,9 +47,6 @@
 
 #include "llvoiceclient.h"	// for push-to-talk button handling
 
-#ifdef SABINRIG
-#include "cbw.h"
-#endif //SABINRIG
 
 //
 // TODO: Many of these includes are unnecessary.  Remove them.
@@ -60,6 +57,7 @@
 #include "indra_constants.h"
 #include "llassetstorage.h"
 #include "llfontgl.h"
+#include "llmousehandler.h"
 #include "llrect.h"
 #include "llsky.h"
 #include "llstring.h"
@@ -112,7 +110,6 @@
 #include "llframestatview.h"
 #include "llgesturemgr.h"
 #include "llglheaders.h"
-#include "llhippo.h"
 #include "llhoverview.h"
 #include "llhudmanager.h"
 #include "llhudview.h"
@@ -192,7 +189,7 @@
 //
 // Globals
 //
-void render_ui_and_swap();
+void render_ui();
 LLBottomPanel* gBottomPanel = NULL;
 
 extern BOOL gDebugClicks;
@@ -204,32 +201,8 @@ extern S32 gJamesInt;
 LLViewerWindow	*gViewerWindow = NULL;
 LLVelocityBar	*gVelocityBar = NULL;
 
-LLVector3d		gLastHitPosGlobal;
-LLVector3d		gLastHitObjectOffset;
-LLUUID			gLastHitObjectID;
-S32				gLastHitObjectFace = -1;
-BOOL			gLastHitLand = FALSE;
-F32				gLastHitUCoord;
-F32				gLastHitVCoord;
-
-
-LLVector3d		gLastHitNonFloraPosGlobal;
-LLVector3d		gLastHitNonFloraObjectOffset;
-LLUUID			gLastHitNonFloraObjectID;
-S32				gLastHitNonFloraObjectFace = -1;
-BOOL			gLastHitParcelWall = FALSE;
-
-S32				gLastHitUIElement = 0;
-LLHUDIcon*		gLastHitHUDIcon = NULL;
 
 BOOL			gDebugSelect = FALSE;
-U8				gLastPickAlpha = 255;
-BOOL			gUseGLPick = FALSE;
-
-// On the next pick pass (whenever that happens)
-// should we try to pick individual faces?
-// Cleared to FALSE every time a pick happens.
-BOOL			gPickFaces = FALSE;
 
 LLFrameTimer	gMouseIdleTimer;
 LLFrameTimer	gAwayTimer;
@@ -240,6 +213,11 @@ BOOL			gShowOverlayTitle = FALSE;
 BOOL			gPickTransparent = TRUE;
 
 BOOL			gDebugFastUIRender = FALSE;
+LLViewerObject*  gDebugRaycastObject = NULL;
+LLVector3       gDebugRaycastIntersection;
+LLVector2       gDebugRaycastTexCoord;
+LLVector3       gDebugRaycastNormal;
+LLVector3       gDebugRaycastBinormal;
 
 // HUD display lines in lower right
 BOOL				gDisplayWindInfo = FALSE;
@@ -257,120 +235,17 @@ const F32 MIN_AFK_TIME = 2.f; // minimum time after setting away state before co
 const F32 MAX_FAST_FRAME_TIME = 0.5f;
 const F32 FAST_FRAME_INCREMENT = 0.1f;
 
-const S32 PICK_HALF_WIDTH = 5;
-const S32 PICK_DIAMETER = 2 * PICK_HALF_WIDTH+1;
-
-const F32 MIN_DISPLAY_SCALE = 0.85f;
+const F32 MIN_DISPLAY_SCALE = 0.75f;
 
 const S32 CONSOLE_BOTTOM_PAD = 40;
-#ifdef SABINRIG
-/// ALL RIG STUFF
-bool rigControl = false;
-bool voltDisplay = true;
-bool nominalX = false;
-bool nominalY = false;
-static F32 nomerX = 0.0f;
-static F32 nomerY = 0.0f;
-const BOARD_NUM = 0; // rig stuff!
-const ADRANGE = BIP10VOLTS; // rig stuff!
-static unsigned short DataVal; // rig stuff!
-static F32 oldValueX = 0;
-static F32 newValueX = 50;
-static F32 oldValueY = 0;
-static F32 newValueY = 50;
-static S32 mouseX = 50;
-static S32 mouseY = 50;
-static float VoltageX = 50; // rig stuff!
-static float VoltageY = 50; // rig stuff!
-static float nVoltX = 0;
-static float nVoltY = 0;
-static F32 temp1 = 50.f;
-static F32 temp2 = 20.f;
-LLCoordGL new_gl;
-#endif //SABINRIG
 
-char	LLViewerWindow::sSnapshotBaseName[LL_MAX_PATH];
-char	LLViewerWindow::sSnapshotDir[LL_MAX_PATH];
+std::string	LLViewerWindow::sSnapshotBaseName;
+std::string	LLViewerWindow::sSnapshotDir;
 
-char	LLViewerWindow::sMovieBaseName[LL_MAX_PATH];
+std::string	LLViewerWindow::sMovieBaseName;
 
 extern void toggle_debug_menus(void*);
 
-#ifdef SABINRIG
-// static
-void LLViewerWindow::printFeedback()
-{
-	if(rigControl == true)
-	{
-		cbAIn (BOARD_NUM, 0, ADRANGE, &DataVal);
-		cbToEngUnits (BOARD_NUM,ADRANGE,DataVal,&VoltageX); //Convert raw to voltage for X-axis
-		cbAIn (BOARD_NUM, 1, ADRANGE, &DataVal);
-		cbToEngUnits (BOARD_NUM,ADRANGE,DataVal,&VoltageY); //Convert raw to voltage for Y-axis
-		if(voltDisplay == true)
-		{
-			llinfos <<  "Current Voltages - X:" << VoltageX << " Y:" << VoltageY << llendl; //Display voltage
-		}
-
-		if(nVoltX == 0)
-		{
-			nVoltX = VoltageX;
-			nVoltY = VoltageY; //First time setup of nominal values.
-		}
-
-		newValueX = VoltageX;
-		newValueY = VoltageY; //Take in current voltage and set to a separate value for adjustment.
-
-		mouseX = mCurrentMousePoint.mX;
-		mouseY = mCurrentMousePoint.mY; //Take in current cursor position and set to separate value for adjustment.
-
-		if( abs(newValueX - nVoltX) > nomerX )
-		{
-			if( (newValueX - oldValueX) < 0)
-			{
-				mouseX += (S32)( ((newValueX - oldValueX)*.5)) * -temp;
-			}
-			else
-			{
-				mouseX += (S32)( ((newValueX - oldValueX)*.5) * temp1);
-			}
-		}
-		else
-		{
-			mouseX = getWindowWidth() / 2;
-		}
-		if( abs(newValueY - nVoltY) > nomerY )
-		{
-			if( (newValueY - oldValueY) < 0)
-			{
-				mouseY += (S32)( ((newValueY - oldValueY)*(newValueY - oldValueY)) * -temp2);
-			}
-			else
-			{
-				mouseY += (S32)( ((newValueY - oldValueY)*(newValueY - oldValueY)) * temp2);
-			}
-		}
-		else
-		{
-			mouseY = getWindowHeight() / 2;
-		}
-		//mouseX += (S32)( (newValueX - nVoltX) * temp1 + 0.5 );
-		// (newValueX - oldValueX) = difference between current position and nominal position
-		// * temp1 = the amplification of the number that sets sensitivity
-		// + 0.5 = fixes rounding errors
-		
-
-		//mouseY += (S32)( (newValueY - nVoltY) * temp2 + 0.5 ); //Algorithm to adjust voltage for mouse adjustment.
-
-		oldValueX = newValueX;
-		oldValueY = newValueY;
-
-		new_gl.mX = mouseX;
-		new_gl.mY = mouseY; //Setup final coordinate to move mouse to.
-
-		setCursorPosition(new_gl); //Set final cursor position
-	}
-}
-#endif //SABINRIG
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -597,7 +472,7 @@ public:
 			ypos += y_inc;
 		}
 		// only display these messages if we are actually rendering beacons at this moment
-		if (LLPipeline::getRenderBeacons(NULL) && LLPipeline::getProcessBeacons(NULL))
+		if (LLPipeline::getRenderBeacons(NULL) && gSavedSettings.getBOOL("BeaconAlwaysOn"))
 		{
 			if (LLPipeline::getRenderParticleBeacons(NULL))
 			{
@@ -658,6 +533,21 @@ void LLViewerWindow::updateDebugText()
 // LLViewerWindow
 //
 
+bool LLViewerWindow::shouldShowToolTipFor(LLMouseHandler *mh)
+{
+	if (mToolTip && mh)
+	{
+		LLMouseHandler::EShowToolTip showlevel = mh->getShowToolTip();
+
+		return (
+			showlevel == LLMouseHandler::SHOW_ALWAYS ||
+			(showlevel == LLMouseHandler::SHOW_IF_NOT_BLOCKED &&
+			 !mToolTipBlocked)
+			);
+	}
+	return false;
+}
+
 BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
 	S32 x = pos.mX;
@@ -665,7 +555,7 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
 	x = llround((F32)x / mDisplayScale.mV[VX]);
 	y = llround((F32)y / mDisplayScale.mV[VY]);
 
-	LLView::sMouseHandlerMessage = "";
+	LLView::sMouseHandlerMessage.clear();
 
 	if (gDebugClicks)
 	{
@@ -687,11 +577,7 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
 	gMouseIdleTimer.reset();
 
 	// Hide tooltips on mousedown
-	if( mToolTip )
-	{
-		mToolTipBlocked = TRUE;
-		mToolTip->setVisible( FALSE );
-	}
+	mToolTipBlocked = TRUE;
 
 	// Also hide hover info on mousedown
 	if (gHoverView)
@@ -731,7 +617,7 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
 		}
 		else
 		{
-			setTopCtrl(NULL);
+			gFocusMgr.setTopCtrl(NULL);
 		}
 	}
 
@@ -773,7 +659,7 @@ BOOL LLViewerWindow::handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK ma
 	x = llround((F32)x / mDisplayScale.mV[VX]);
 	y = llround((F32)y / mDisplayScale.mV[VY]);
 
-	LLView::sMouseHandlerMessage = "";
+	LLView::sMouseHandlerMessage.clear();
 
 	if (gDebugClicks)
 	{
@@ -814,7 +700,7 @@ BOOL LLViewerWindow::handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK ma
 		}
 		else
 		{
-			setTopCtrl(NULL);
+			gFocusMgr.setTopCtrl(NULL);
 		}
 	}
 
@@ -853,7 +739,7 @@ BOOL LLViewerWindow::handleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
 	x = llround((F32)x / mDisplayScale.mV[VX]);
 	y = llround((F32)y / mDisplayScale.mV[VY]);
 
-	LLView::sMouseHandlerMessage = "";
+	LLView::sMouseHandlerMessage.clear();
 
 	if (gDebugClicks)
 	{
@@ -944,7 +830,7 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 	x = llround((F32)x / mDisplayScale.mV[VX]);
 	y = llround((F32)y / mDisplayScale.mV[VY]);
 
-	LLView::sMouseHandlerMessage = "";
+	LLView::sMouseHandlerMessage.clear();
 
 	if (gDebugClicks)
 	{
@@ -1004,7 +890,7 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 		}
 		else
 		{
-			setTopCtrl(NULL);
+			gFocusMgr.setTopCtrl(NULL);
 		}
 	}
 
@@ -1051,7 +937,7 @@ BOOL LLViewerWindow::handleRightMouseUp(LLWindow *window,  LLCoordGL pos, MASK m
 	x = llround((F32)x / mDisplayScale.mV[VX]);
 	y = llround((F32)y / mDisplayScale.mV[VY]);
 
-	LLView::sMouseHandlerMessage = "";
+	LLView::sMouseHandlerMessage.clear();
 
 	// Don't care about caps lock for mouse events.
 	if (gDebugClicks)
@@ -1150,6 +1036,7 @@ BOOL LLViewerWindow::handleMiddleMouseUp(LLWindow *window,  LLCoordGL pos, MASK 
 	return TRUE;
 }
 
+// WARNING: this is potentially called multiple times per frame
 void LLViewerWindow::handleMouseMove(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
 	S32 x = pos.mX;
@@ -1177,13 +1064,9 @@ void LLViewerWindow::handleMouseMove(LLWindow *window,  LLCoordGL pos, MASK mask
 		gAgent.clearAFK();
 	}
 
-	if(mToolTip && mouse_actually_moved)
+	if(mouse_actually_moved)
 	{
-		mToolTipBlocked = FALSE;  // Blocking starts on keyboard events and (only) ends here.
-		if( mToolTip->getVisible() && !mToolTipStickyRect.pointInRect( x, y ) )
-		{
-			mToolTip->setVisible( FALSE );
-		}
+		mToolTipBlocked = FALSE;
 	}
 
 	// Activate the hover picker on mouse move.
@@ -1406,24 +1289,23 @@ BOOL LLViewerWindow::handlePaint(LLWindow *window,  S32 x,  S32 y, S32 width,  S
 		//SetBKColor(hdc, RGB(255, 255, 255));
 		FillRect(hdc, &wnd_rect, CreateSolidBrush(RGB(255, 255, 255)));
 
-		LLString name_str;
+		std::string name_str;
 		gAgent.getName(name_str);
 
-		S32 len;
-		char temp_str[255];		/* Flawfinder: ignore */
-		snprintf(temp_str, sizeof(temp_str), "%s FPS %3.1f Phy FPS %2.1f Time Dil %1.3f",		/* Flawfinder: ignore */
+		std::string temp_str;
+		temp_str = llformat( "%s FPS %3.1f Phy FPS %2.1f Time Dil %1.3f",		/* Flawfinder: ignore */
 				name_str.c_str(),
 				LLViewerStats::getInstance()->mFPSStat.getMeanPerSec(),
 				LLViewerStats::getInstance()->mSimPhysicsFPS.getPrev(0),
 				LLViewerStats::getInstance()->mSimTimeDilation.getPrev(0));
-		len = strlen(temp_str);		/* Flawfinder: ignore */
-		TextOutA(hdc, 0, 0, temp_str, len); 
+		S32 len = temp_str.length();
+		TextOutA(hdc, 0, 0, temp_str.c_str(), len); 
 
 
 		LLVector3d pos_global = gAgent.getPositionGlobal();
-		snprintf(temp_str, sizeof(temp_str), "Avatar pos %6.1lf %6.1lf %6.1lf", pos_global.mdV[0], pos_global.mdV[1], pos_global.mdV[2]);		/* Flawfinder: ignore */
-		len = strlen(temp_str);		/* Flawfinder: ignore */
-		TextOutA(hdc, 0, 25, temp_str, len); 
+		temp_str = llformat( "Avatar pos %6.1lf %6.1lf %6.1lf", pos_global.mdV[0], pos_global.mdV[1], pos_global.mdV[2]);
+		len = temp_str.length();
+		TextOutA(hdc, 0, 25, temp_str.c_str(), len); 
 
 		TextOutA(hdc, 0, 50, "Set \"DisableRendering FALSE\" in settings.ini file to reenable", 61);
 		EndPaint(window_handle, &ps); 
@@ -1492,7 +1374,7 @@ BOOL LLViewerWindow::handleDeviceChange(LLWindow *window)
 // Classes
 //
 LLViewerWindow::LLViewerWindow(
-	char* title, char* name,
+	const std::string& title, const std::string& name,
 	S32 x, S32 y,
 	S32 width, S32 height,
 	BOOL fullscreen, BOOL ignore_pixel_depth)
@@ -1511,14 +1393,14 @@ LLViewerWindow::LLViewerWindow(
 	mToolStored( NULL ),
 	mSuppressToolbox( FALSE ),
 	mHideCursorPermanent( FALSE ),
-	mPickPending(FALSE),
-	mIgnoreActivate( FALSE )
+	mCursorHidden(FALSE),
+	mIgnoreActivate( FALSE ),
+	mHoverPick()
 {
 	// Default to application directory.
-	strcpy(LLViewerWindow::sSnapshotBaseName, "Snapshot");	/* Flawfinder: ignore */
-	strcpy(LLViewerWindow::sMovieBaseName, "SLmovie");	/* Flawfinder: ignore */
-	LLViewerWindow::sSnapshotDir[0] = '\0';
-
+	LLViewerWindow::sSnapshotBaseName = "Snapshot";
+	LLViewerWindow::sMovieBaseName = "SLmovie";
+	resetSnapshotLoc();
 
 	// create window
 	mWindow = LLWindowManager::createWindow(
@@ -1621,12 +1503,10 @@ LLViewerWindow::LLViewerWindow(
 	mCurrentMousePoint.mX = getWindowWidth() / 2;
 	mCurrentMousePoint.mY = getWindowHeight() / 2;
 
-	mPickBuffer = new U8[PICK_DIAMETER * PICK_DIAMETER * 4];
-
 	gShowOverlayTitle = gSavedSettings.getBOOL("ShowOverlayTitle");
 	mOverlayTitle = gSavedSettings.getString("OverlayTitle");
 	// Can't have spaces in settings.ini strings, so use underscores instead and convert them.
-	LLString::replaceChar(mOverlayTitle, '_', ' ');
+	LLStringUtil::replaceChar(mOverlayTitle, '_', ' ');
 
 	LLAlertDialog::setDisplayCallback(alertCallback); // call this before calling any modal dialogs
 
@@ -1757,7 +1637,7 @@ void LLViewerWindow::initBase()
 	mRootView->addChild(gNotifyBoxView, -2);
 
 	// Tooltips go above floaters
-	mToolTip = new LLTextBox( "tool tip", LLRect(0, 1, 1, 0 ) );
+	mToolTip = new LLTextBox( std::string("tool tip"), LLRect(0, 1, 1, 0 ) );
 	mToolTip->setHPad( 4 );
 	mToolTip->setVPad( 2 );
 	mToolTip->setColor( gColors.getColor( "ToolTipTextColor" ) );
@@ -1770,14 +1650,14 @@ void LLViewerWindow::initBase()
 	mToolTip->setVisible( FALSE );
 
 	// Add the progress bar view (startup view), which overrides everything
-	mProgressView = new LLProgressView("ProgressView", full_window);
+	mProgressView = new LLProgressView(std::string("ProgressView"), full_window);
 	mRootView->addChild(mProgressView);
 	setShowProgress(FALSE);
-	setProgressCancelButtonVisible(FALSE, "");
+	setProgressCancelButtonVisible(FALSE);
 }
 
 
-void adjust_rect_top_left(const LLString& control, const LLRect& window)
+void adjust_rect_top_left(const std::string& control, const LLRect& window)
 {
 	LLRect r = gSavedSettings.getRect(control);
 	if (r.mLeft == 0 && r.mBottom == 0)
@@ -1787,7 +1667,7 @@ void adjust_rect_top_left(const LLString& control, const LLRect& window)
 	}
 }
 
-void adjust_rect_top_center(const LLString& control, const LLRect& window)
+void adjust_rect_top_center(const std::string& control, const LLRect& window)
 {
 	LLRect r = gSavedSettings.getRect(control);
 	if (r.mLeft == 0 && r.mBottom == 0)
@@ -1800,7 +1680,7 @@ void adjust_rect_top_center(const LLString& control, const LLRect& window)
 	}
 }
 
-void adjust_rect_top_right(const LLString& control, const LLRect& window)
+void adjust_rect_top_right(const std::string& control, const LLRect& window)
 {
 	LLRect r = gSavedSettings.getRect(control);
 	if (r.mLeft == 0 && r.mBottom == 0)
@@ -1813,7 +1693,7 @@ void adjust_rect_top_right(const LLString& control, const LLRect& window)
 	}
 }
 
-void adjust_rect_bottom_center(const LLString& control, const LLRect& window)
+void adjust_rect_bottom_center(const std::string& control, const LLRect& window)
 {
 	LLRect r = gSavedSettings.getRect(control);
 	if (r.mLeft == 0 && r.mBottom == 0)
@@ -1829,7 +1709,7 @@ void adjust_rect_bottom_center(const LLString& control, const LLRect& window)
 	}
 }
 
-void adjust_rect_centered_partial_zoom(const LLString& control,
+void adjust_rect_centered_partial_zoom(const std::string& control,
 									   const LLRect& window)
 {
 	LLRect rect = gSavedSettings.getRect(control);
@@ -1868,8 +1748,6 @@ void LLViewerWindow::adjustRectanglesForFirstUse(const LLRect& window)
 
 	adjust_rect_top_left("FloaterLandRect5", window);
 
-	adjust_rect_top_left("FloaterHUDRect2", window);
-
 	adjust_rect_top_left("FloaterFindRect2", window);
 
 	adjust_rect_top_left("FloaterGestureRect2", window);
@@ -1891,8 +1769,29 @@ void LLViewerWindow::adjustRectanglesForFirstUse(const LLRect& window)
 			r.getHeight());
 		gSavedSettings.setRect("FloaterInventoryRect", r);
 	}
+	
+// 	adjust_rect_top_left("FloaterHUDRect2", window);
+
+	// slightly off center to be left of the avatar.
+	r = gSavedSettings.getRect("FloaterHUDRect2");
+	if (r.mLeft == 0 && r.mBottom == 0)
+	{
+		r.setOriginAndSize(
+			window.getWidth()/4 - r.getWidth()/2,
+			2*window.getHeight()/3 - r.getHeight()/2,
+			r.getWidth(),
+			r.getHeight());
+		gSavedSettings.setRect("FloaterHUDRect2", r);
+	}
 }
 
+//Rectangles need to be adjusted after the window is constructed
+//in order for proper centering to take place
+void LLViewerWindow::adjustControlRectanglesForFirstUse(const LLRect& window)
+{
+	adjust_rect_bottom_center("FloaterMoveRect2", window);
+	adjust_rect_top_center("FloaterCameraRect3", window);
+}
 
 void LLViewerWindow::initWorldUI()
 {
@@ -1909,7 +1808,7 @@ void LLViewerWindow::initWorldUI()
 		mRootView->addChild(gBottomPanel);
 
 		// View for hover information
-		gHoverView = new LLHoverView("gHoverView", full_window);
+		gHoverView = new LLHoverView(std::string("gHoverView"), full_window);
 		gHoverView->setVisible(TRUE);
 		mRootView->addChild(gHoverView);
 
@@ -1917,7 +1816,7 @@ void LLViewerWindow::initWorldUI()
 		// Map
 		//
 		// TODO: Move instance management into class
-		gFloaterMap = new LLFloaterMap("Map");
+		gFloaterMap = new LLFloaterMap(std::string("Map"));
 		gFloaterMap->setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
 
 		// keep onscreen
@@ -1933,7 +1832,7 @@ void LLViewerWindow::initWorldUI()
 		LLRect morph_view_rect = full_window;
 		morph_view_rect.stretch( -STATUS_BAR_HEIGHT );
 		morph_view_rect.mTop = full_window.mTop - 32;
-		gMorphView = new LLMorphView("gMorphView", morph_view_rect );
+		gMorphView = new LLMorphView(std::string("gMorphView"), morph_view_rect );
 		mRootView->addChild(gMorphView);
 		gMorphView->setVisible(FALSE);
 
@@ -1960,7 +1859,7 @@ void LLViewerWindow::initWorldUI()
 		S32 menu_bar_height = gMenuBarView->getRect().getHeight();
 		LLRect root_rect = getRootView()->getRect();
 		LLRect status_rect(0, root_rect.getHeight(), root_rect.getWidth(), root_rect.getHeight() - menu_bar_height);
-		gStatusBar = new LLStatusBar("status", status_rect);
+		gStatusBar = new LLStatusBar(std::string("status"), status_rect);
 		gStatusBar->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_TOP);
 
 		gStatusBar->reshape(root_rect.getWidth(), gStatusBar->getRect().getHeight(), TRUE);
@@ -1977,10 +1876,11 @@ void LLViewerWindow::initWorldUI()
 	}
 }
 
-
-LLViewerWindow::~LLViewerWindow()
+// Destroy the UI
+void LLViewerWindow::shutdownViews()
 {
 	delete mDebugText;
+	mDebugText = NULL;
 	
 	gSavedSettings.setS32("FloaterViewBottom", gFloaterView->getRect().mBottom);
 
@@ -2010,7 +1910,10 @@ LLViewerWindow::~LLViewerWindow()
 
 	delete mToolTip;
 	mToolTip = NULL;
-	
+}
+
+void LLViewerWindow::shutdownGL()
+{
 	//--------------------------------------------------------
 	// Shutdown GL cleanly.  Order is very important here.
 	//--------------------------------------------------------
@@ -2035,9 +1938,6 @@ LLViewerWindow::~LLViewerWindow()
 
 	LLViewerImage::cleanupClass();
 	
-	delete[] mPickBuffer;
-	mPickBuffer = NULL;
-
 	llinfos << "Cleaning up select manager" << llendl;
 	LLSelectMgr::getInstance()->cleanup();
 
@@ -2049,8 +1949,11 @@ LLViewerWindow::~LLViewerWindow()
 		stopGL(FALSE);
 		stop_glerror();
 	}
+}
 
-
+// shutdownViews() and shutdownGL() need to be called first
+LLViewerWindow::~LLViewerWindow()
+{
 	llinfos << "Destroying Window" << llendl;
 	destroyWindow();
 }
@@ -2064,6 +1967,8 @@ void LLViewerWindow::setCursor( ECursorType c )
 void LLViewerWindow::showCursor()
 {
 	mWindow->showCursor();
+	
+	mCursorHidden = FALSE;
 }
 
 void LLViewerWindow::hideCursor()
@@ -2076,6 +1981,8 @@ void LLViewerWindow::hideCursor()
 
 	// And hide the cursor
 	mWindow->hideCursor();
+
+	mCursorHidden = TRUE;
 }
 
 void LLViewerWindow::sendShapeToSim()
@@ -2215,7 +2122,7 @@ void LLViewerWindow::setNormalControlsVisible( BOOL visible )
 
 void LLViewerWindow::setMenuBackgroundColor(bool god_mode, bool dev_grid)
 {
-   	LLString::format_map_t args;
+   	LLStringUtil::format_map_t args;
     LLColor4 new_bg_color;
 
     if(god_mode && LLViewerLogin::getInstance()->isInProductionGrid())
@@ -2287,7 +2194,7 @@ void LLViewerWindow::draw()
 	if (gSavedSettings.getBOOL("DisplayTimecode"))
 	{
 		// draw timecode block
-		char text[256];		/* Flawfinder: ignore */
+		std::string text;
 
 		glLoadIdentity();
 
@@ -2425,11 +2332,7 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 	}
 
 	// Hide tooltips on keypress
-	if(mToolTip )
-	{
-		mToolTipBlocked = TRUE; // block until next time mouse is moved
-		mToolTip->setVisible( FALSE );
-	}
+	mToolTipBlocked = TRUE; // block until next time mouse is moved
 
 	// Also hide hover info on keypress
 	if (gHoverView)
@@ -2461,32 +2364,9 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 		}
 	}
 
-	// Example "bug" for bug reporter web page
-	if ((MASK_SHIFT & mask) 
-		&& (MASK_ALT & mask)
-		&& (MASK_CONTROL & mask)
-		&& ('H' == key || 'h' == key))
-	{
-		trigger_hippo_bug(NULL);
-	}
-
 	// handle escape key
-	if (key == KEY_ESCAPE && mask == MASK_NONE)
-	{
-		if (gMenuHolder && gMenuHolder->hideMenus())
-		{
-			return TRUE;
-		}
-
-		//if quit from menu, turn off the Keyboardmode for the menu.
-		if(LLMenuGL::getKeyboardMode())
-			LLMenuGL::setKeyboardMode(FALSE);
-
-		if (gFocusMgr.getTopCtrl())
-		{
-			gFocusMgr.setTopCtrl(NULL);
-			return TRUE;
-		}
+	//if (key == KEY_ESCAPE && mask == MASK_NONE)
+	//{
 
 		// *TODO: get this to play well with mouselook and hidden
 		// cursor modes, etc, and re-enable.
@@ -2495,7 +2375,7 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 		//	gFocusMgr.setMouseCapture(NULL);
 		//	return TRUE;
 		//}
-	}
+	//}
 
 	// let menus handle navigation keys
 	if (gMenuBarView && gMenuBarView->handleKey(key, mask, TRUE))
@@ -2667,7 +2547,7 @@ BOOL LLViewerWindow::handleUnicodeChar(llwchar uni_char, MASK mask)
 
 void LLViewerWindow::handleScrollWheel(S32 clicks)
 {
-	LLView::sMouseHandlerMessage = "";
+	LLView::sMouseHandlerMessage.clear();
 
 	gMouseIdleTimer.reset();
 
@@ -2743,7 +2623,11 @@ BOOL LLViewerWindow::handlePerFrameHover()
 {
 	static std::string last_handle_msg;
 
-	LLView::sMouseHandlerMessage = "";
+	LLView::sMouseHandlerMessage.clear();
+
+	S32 x = mCurrentMousePoint.mX;
+	S32 y = mCurrentMousePoint.mY;
+	MASK mask = gKeyboard->currentMask(TRUE);
 
 	//RN: fix for asynchronous notification of mouse leaving window not working
 	LLCoordWindow mouse_pos;
@@ -2759,6 +2643,7 @@ BOOL LLViewerWindow::handlePerFrameHover()
 	{
 		mMouseInWindow = TRUE;
 	}
+
 
 	S32 dx = lltrunc((F32) (mCurrentMousePoint.mX - mLastMousePoint.mX) * LLUI::sGLScaleFactor.mV[VX]);
 	S32 dy = lltrunc((F32) (mCurrentMousePoint.mY - mLastMousePoint.mY) * LLUI::sGLScaleFactor.mV[VY]);
@@ -2789,10 +2674,6 @@ BOOL LLViewerWindow::handlePerFrameHover()
 	{
 		return TRUE;
 	}
-
-	S32 x = mCurrentMousePoint.mX;
-	S32 y = mCurrentMousePoint.mY;
-	MASK mask = gKeyboard->currentMask(TRUE);
 
 	// clean up current focus
 	LLUICtrl* cur_focus = gFocusMgr.getKeyboardFocus();
@@ -2827,13 +2708,6 @@ BOOL LLViewerWindow::handlePerFrameHover()
 			// this assumes that focus roots are not valid focus holders on their own
 			cur_focus->focusFirstItem();
 		}
-	}
-
-	gPipeline.sRenderProcessBeacons = FALSE;
-	KEY key = gKeyboard->currentKey();
-	if (((mask & MASK_CONTROL) && ('N' == key || 'n' == key)) || gSavedSettings.getBOOL("BeaconAlwaysOn"))
-	{
-		gPipeline.sRenderProcessBeacons = TRUE;
 	}
 
 	BOOL handled = FALSE;
@@ -2884,9 +2758,9 @@ BOOL LLViewerWindow::handlePerFrameHover()
 			}
 			else if (LLView::sDebugMouseHandling)
 			{
-				if (last_handle_msg != "")
+				if (last_handle_msg != LLStringUtil::null)
 				{
-					last_handle_msg = "";
+					last_handle_msg.clear();
 					llinfos << "Hover not handled by view" << llendl;
 				}
 			}
@@ -2928,10 +2802,9 @@ BOOL LLViewerWindow::handlePerFrameHover()
 
 	}
 
-	//llinfos << (mToolTipBlocked ? "BLOCKED" : "NOT BLOCKED") << llendl;
 	// Show a new tool tip (or update one that is alrady shown)
 	BOOL tool_tip_handled = FALSE;
-	LLString tool_tip_msg;
+	std::string tool_tip_msg;
 	F32 tooltip_delay = gSavedSettings.getF32( "ToolTipDelay" );
 	//HACK: hack for tool-based tooltips which need to pop up more quickly
 	//Also for show xui names as tooltips debug mode
@@ -2940,38 +2813,48 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		tooltip_delay = gSavedSettings.getF32( "DragAndDropToolTipDelay" );
 	}
 	if( handled && 
-		!mToolTipBlocked &&
-		(gMouseIdleTimer.getElapsedTimeF32() > tooltip_delay) &&
-		!mWindow->isCursorHidden() )
+	    gMouseIdleTimer.getElapsedTimeF32() > tooltip_delay &&
+	    !mWindow->isCursorHidden() )
 	{
 		LLRect screen_sticky_rect;
-
+		LLMouseHandler *mh;
+		S32 local_x, local_y;
 		if (mouse_captor)
 		{
-			S32 local_x, local_y;
-			mouse_captor->screenPointToLocal( x, y, &local_x, &local_y );
-			tool_tip_handled = mouse_captor->handleToolTip( local_x, local_y, tool_tip_msg, &screen_sticky_rect );
+			mouse_captor->screenPointToLocal(x, y, &local_x, &local_y);
+			mh = mouse_captor;
 		}
 		else if (handled_by_top_ctrl)
 		{
-			S32 local_x, local_y;
-			top_ctrl->screenPointToLocal( x, y, &local_x, &local_y );
-			tool_tip_handled = top_ctrl->handleToolTip( local_x, local_y, tool_tip_msg, &screen_sticky_rect );
+			top_ctrl->screenPointToLocal(x, y, &local_x, &local_y);
+			mh = top_ctrl;
 		}
 		else
 		{
-			tool_tip_handled = mRootView->handleToolTip(x, y, tool_tip_msg, &screen_sticky_rect );
+			local_x = x; local_y = y;
+			mh = mRootView;
 		}
 
-		if( tool_tip_handled && !tool_tip_msg.empty() )
+		BOOL tooltip_vis = FALSE;
+		if (shouldShowToolTipFor(mh))
 		{
-			mToolTipStickyRect = screen_sticky_rect;
-			mToolTip->setWrappedText( tool_tip_msg, 200 );
-			mToolTip->reshapeToFitText();
-			mToolTip->setOrigin( x, y );
-			LLRect virtual_window_rect(0, getWindowHeight(), getWindowWidth(), 0);
-			mToolTip->translateIntoRect( virtual_window_rect, FALSE );
-			mToolTip->setVisible( TRUE );
+			tool_tip_handled = mh->handleToolTip(local_x, local_y, tool_tip_msg, &screen_sticky_rect );
+		
+			if( tool_tip_handled && !tool_tip_msg.empty() )
+			{
+				mToolTipStickyRect = screen_sticky_rect;
+				mToolTip->setWrappedText( tool_tip_msg, 200 );
+				mToolTip->reshapeToFitText();
+				mToolTip->setOrigin( x, y );
+				LLRect virtual_window_rect(0, getWindowHeight(), getWindowWidth(), 0);
+				mToolTip->translateIntoRect( virtual_window_rect, FALSE );
+				tooltip_vis = TRUE;
+			}
+		}
+
+		if (mToolTip)
+		{
+			mToolTip->setVisible( tooltip_vis );
 		}
 	}		
 	
@@ -3135,9 +3018,64 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		LLSelectMgr::getInstance()->deselectUnused();
 	}
 
+	if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_RAYCAST))
+	{
+		gDebugRaycastObject = cursorIntersect(-1, -1, 512.f, NULL, -1,
+											  NULL,
+											  &gDebugRaycastIntersection,
+											  &gDebugRaycastTexCoord,
+											  &gDebugRaycastNormal,
+											  &gDebugRaycastBinormal);
+	}
+
+
+	// per frame picking - for tooltips and changing cursor over interactive objects
+	static S32 previous_x = -1;
+	static S32 previous_y = -1;
+	static BOOL mouse_moved_since_pick = FALSE;
+
+	if ((previous_x != x) || (previous_y != y))
+		mouse_moved_since_pick = TRUE;
+
+	BOOL do_pick = FALSE;
+
+	F32 picks_moving = gSavedSettings.getF32("PicksPerSecondMouseMoving");
+	if ((mouse_moved_since_pick) && (picks_moving > 0.0) && (mPickTimer.getElapsedTimeF32() > 1.0f / picks_moving))
+	{
+		do_pick = TRUE;
+	}
+
+	F32 picks_stationary = gSavedSettings.getF32("PicksPerSecondMouseStationary");
+	if ((!mouse_moved_since_pick) && (picks_stationary > 0.0) && (mPickTimer.getElapsedTimeF32() > 1.0f / picks_stationary))
+	{
+		do_pick = TRUE;
+	}
+
+	if (getCursorHidden())
+	{
+		do_pick = FALSE;
+	}
+
+	if (do_pick)
+	{
+		mouse_moved_since_pick = FALSE;
+		mPickTimer.reset();
+		pickAsync(getCurrentMouseX(), getCurrentMouseY(), mask, hoverPickCallback, TRUE);
+	}
+
+	previous_x = x;
+	previous_y = y;
+	
 	return handled;
 }
 
+
+/* static */
+void LLViewerWindow::hoverPickCallback(const LLPickInfo& pick_info)
+{
+	gViewerWindow->mHoverPick = pick_info;
+}
+	
 
 void LLViewerWindow::saveLastMouse(const LLCoordGL &point)
 {
@@ -3232,7 +3170,7 @@ void LLViewerWindow::renderSelections( BOOL for_gl_pick, BOOL pick_parcel_walls,
 			glPushMatrix();
 			if (selection->getSelectType() == SELECT_TYPE_HUD)
 			{
-				F32 zoom = gAgent.getAvatarObject()->mHUDCurZoom;
+				F32 zoom = gAgent.mHUDCurZoom;
 				glScalef(zoom, zoom, zoom);
 			}
 
@@ -3384,19 +3322,14 @@ BOOL LLViewerWindow::clickPointOnSurfaceGlobal(const S32 x, const S32 y, LLViewe
 	return intersect;
 }
 
-void LLViewerWindow::hitObjectOrLandGlobalAsync(S32 x, S32 y_from_bot, MASK mask, void (*callback)(S32 x, S32 y, MASK mask), BOOL pick_transparent, BOOL pick_parcel_walls)
+void LLViewerWindow::pickAsync(S32 x, S32 y_from_bot, MASK mask, void (*callback)(const LLPickInfo& info), BOOL pick_transparent, BOOL get_surface_info)
 {
 	if (gNoRender)
 	{
 		return;
 	}
 	
-	glClear(GL_DEPTH_BUFFER_BIT);
-	gDepthDirty = TRUE;
-
-	S32 scaled_x = llround((F32)x * mDisplayScale.mV[VX]);
-	S32 scaled_y = llround((F32)y_from_bot * mDisplayScale.mV[VY]);
-
+	// push back pick info object
 	BOOL in_build_mode = gFloaterTools && gFloaterTools->getVisible();
 	if (in_build_mode || LLDrawPoolAlpha::sShowDebugAlpha)
 	{
@@ -3404,29 +3337,54 @@ void LLViewerWindow::hitObjectOrLandGlobalAsync(S32 x, S32 y_from_bot, MASK mask
 		// "Show Debug Alpha" means no object actually transparent
 		pick_transparent = TRUE;
 	}
-	gPickTransparent = pick_transparent;
 
-	gUseGLPick = FALSE;
-	mPickCallback = callback;
+	// center initial pick frame buffer region under mouse cursor
+	// since that area is guaranteed to be onscreen and hence a valid
+	// part of the framebuffer
+	if (mPicks.empty())
+	{
+		mPickScreenRegion.setCenterAndSize(x, y_from_bot, PICK_DIAMETER, PICK_DIAMETER);
+
+		if (mPickScreenRegion.mLeft < 0) mPickScreenRegion.translate(-mPickScreenRegion.mLeft, 0);
+		if (mPickScreenRegion.mBottom < 0) mPickScreenRegion.translate(0, -mPickScreenRegion.mBottom);
+		if (mPickScreenRegion.mRight > mWindowRect.getWidth() ) mPickScreenRegion.translate(mWindowRect.getWidth() - mPickScreenRegion.mRight, 0);
+		if (mPickScreenRegion.mTop > mWindowRect.getHeight() ) mPickScreenRegion.translate(0, mWindowRect.getHeight() - mPickScreenRegion.mTop);
+	}
+
+	// set frame buffer region for picking results
+	// stack multiple picks left to right
+	LLRect screen_region = mPickScreenRegion;
+	screen_region.translate(mPicks.size() * PICK_DIAMETER, 0);
+
+	LLPickInfo pick(LLCoordGL(x, y_from_bot), screen_region, mask, pick_transparent, get_surface_info, callback);
+
+	schedulePick(pick);
+}
+
+void LLViewerWindow::schedulePick(LLPickInfo& pick_info)
+{
+	if (mPicks.size() >= 1024 || mWindow->getMinimized())
+	{ //something went wrong, picks are being scheduled but not processed
+		
+		if (pick_info.mPickCallback)
+		{
+			pick_info.mPickCallback(pick_info);
+		}
+	
+		return;
+	}
+	llassert_always(pick_info.mScreenRegion.notNull());
+	mPicks.push_back(pick_info);
+	
+	S32 scaled_x = llround((F32)pick_info.mMousePt.mX * mDisplayScale.mV[VX]);
+	S32 scaled_y = llround((F32)pick_info.mMousePt.mY * mDisplayScale.mV[VY]);
 
 	// Default to not hitting anything
-	gLastHitPosGlobal.zeroVec();
-	gLastHitObjectOffset.zeroVec();
-	gLastHitObjectID.setNull();
-	gLastHitObjectFace = -1;
-
-	gLastHitNonFloraPosGlobal.zeroVec();
-	gLastHitNonFloraObjectOffset.zeroVec();
-	gLastHitNonFloraObjectID.setNull();
-	gLastHitNonFloraObjectFace = -1;
-
-	gLastHitParcelWall = FALSE;
-
 	LLCamera pick_camera;
 	pick_camera.setOrigin(LLViewerCamera::getInstance()->getOrigin());
 	pick_camera.setOriginAndLookAt(LLViewerCamera::getInstance()->getOrigin(),
 								   LLViewerCamera::getInstance()->getUpAxis(),
-								   LLViewerCamera::getInstance()->getOrigin() + mouseDirectionGlobal(x, y_from_bot));
+								   LLViewerCamera::getInstance()->getOrigin() + mouseDirectionGlobal(pick_info.mMousePt.mX, pick_info.mMousePt.mY));
 	pick_camera.setView(0.5f*DEG_TO_RAD);
 	pick_camera.setNear(LLViewerCamera::getInstance()->getNear());
 	pick_camera.setFar(LLViewerCamera::getInstance()->getFar());
@@ -3443,26 +3401,39 @@ void LLViewerWindow::hitObjectOrLandGlobalAsync(S32 x, S32 y_from_bot, MASK mask
 	glPushMatrix();
 	glLoadIdentity();
 
+	// clear work area
+	{
+		LLGLState scissor_state(GL_SCISSOR_TEST);
+		scissor_state.enable();
+		glScissor(pick_info.mScreenRegion.mLeft, pick_info.mScreenRegion.mBottom, pick_info.mScreenRegion.getWidth(), pick_info.mScreenRegion.getHeight());
+	glClearColor(0.f, 0.f, 0.f, 0.f);
+	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	}
+	
 	// build perspective transform and picking viewport
 	// Perform pick on a PICK_DIAMETER x PICK_DIAMETER pixel region around cursor point.
 	// Don't limit the select distance for this pick.
-	LLViewerCamera::getInstance()->setPerspective(FOR_SELECTION, scaled_x - (PICK_HALF_WIDTH + 2), scaled_y - (PICK_HALF_WIDTH + 2), PICK_DIAMETER + 4, PICK_DIAMETER + 4, FALSE);
+	LLViewerCamera::getInstance()->setPerspective(FOR_SELECTION, scaled_x - PICK_HALF_WIDTH, scaled_y - PICK_HALF_WIDTH, PICK_DIAMETER, PICK_DIAMETER, FALSE);
+
+	// render for object picking
+
 	// make viewport big enough to handle antialiased frame buffers
-	gGLViewport[0] = scaled_x - (PICK_HALF_WIDTH + 2);
-	gGLViewport[1] = scaled_y - (PICK_HALF_WIDTH + 2);
-	gGLViewport[2] = PICK_DIAMETER + 4;
-	gGLViewport[3] = PICK_DIAMETER + 4;
+	gGLViewport[0] = pick_info.mScreenRegion.mLeft;
+	gGLViewport[1] = pick_info.mScreenRegion.mBottom;
+	gGLViewport[2] = pick_info.mScreenRegion.getWidth();
+	gGLViewport[3] = pick_info.mScreenRegion.getHeight();
+
 	glViewport(gGLViewport[0], gGLViewport[1], gGLViewport[2], gGLViewport[3]);
 	LLViewerCamera::updateFrustumPlanes(pick_camera);
 	stop_glerror();
 
-	glClearColor(0.f, 0.f, 0.f, 0.f);
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
 	// Draw the objects so the user can select them.
 	// The starting ID is 1, since land is zero.
-	gObjectList.renderObjectsForSelect(pick_camera, pick_parcel_walls);
+	LLRect pick_region;
+	pick_region.setOriginAndSize(pick_info.mMousePt.mX - PICK_HALF_WIDTH,
+								 pick_info.mMousePt.mY - PICK_HALF_WIDTH, PICK_DIAMETER, PICK_DIAMETER);
+	gObjectList.renderObjectsForSelect(pick_camera, pick_region, FALSE, pick_info.mPickTransparent);
 
 	stop_glerror();
 
@@ -3472,400 +3443,135 @@ void LLViewerWindow::hitObjectOrLandGlobalAsync(S32 x, S32 y_from_bot, MASK mask
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 
+	setup3DRender();
+	setup2DRender();
 	setupViewport();
-
-	mPickPoint.set(x, y_from_bot);
-	mPickOffset.set(0, 0);
-	mPickMask = mask;
-	mPickPending = TRUE;
 
 	// delay further event processing until we receive results of pick
 	mWindow->delayInputProcessing();
 }
 
-void LLViewerWindow::hitUIElementImmediate(S32 x, S32 y, void (*callback)(S32 x, S32 y, MASK mask))
-{
-	// Performs the GL UI pick.
-	// Stores its results in global, gLastHitUIElement
-	if (gNoRender)
-	{
-		return;
-	}
-	
-	hitUIElementAsync(x, y, gKeyboard->currentMask(TRUE), NULL);
-	performPick();
-	if (callback)
-	{
-		callback(x, y, gKeyboard->currentMask(TRUE));
-	}
-}
-
-//RN: this currently doesn't do anything
-void LLViewerWindow::hitUIElementAsync(S32 x, S32 y_from_bot, MASK mask, void (*callback)(S32 x, S32 y, MASK mask))
-{
-	if (gNoRender)
-	{
-		return;
-	}
-
-// 	F32 delta_time = gAlphaFadeTimer.getElapsedTimeAndResetF32();
-
-	gUseGLPick = FALSE;
-	mPickCallback = callback;
-
-	// Default to not hitting anything
-	gLastHitUIElement = 0;
-
-	LLCamera pick_camera;
-	pick_camera.setOrigin(LLViewerCamera::getInstance()->getOrigin());
-	pick_camera.setOriginAndLookAt(LLViewerCamera::getInstance()->getOrigin(),
-								   LLViewerCamera::getInstance()->getUpAxis(),
-								   LLViewerCamera::getInstance()->getOrigin() + mouseDirectionGlobal(x, y_from_bot));
-	pick_camera.setView(0.5f*DEG_TO_RAD);
-	pick_camera.setNear(LLViewerCamera::getInstance()->getNear());
-	pick_camera.setFar(LLViewerCamera::getInstance()->getFar());
-	pick_camera.setAspect(1.f);
-
-	// save our drawing state
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-
-	// build orthogonal transform and picking viewport
-	// Perform pick on a PICK_DIAMETER x PICK_DIAMETER pixel region around cursor point.
-	// Don't limit the select distance for this pick.
-	setup2DRender();
-	const LLVector2& display_scale = getDisplayScale();
-	glScalef(display_scale.mV[VX], display_scale.mV[VY], 1.f);
-
-	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
-
-	// make viewport big enough to handle antialiased frame buffers
-	glViewport(x - (PICK_HALF_WIDTH + 2), y_from_bot - (PICK_HALF_WIDTH + 2), PICK_DIAMETER + 4, PICK_DIAMETER + 4);
-	stop_glerror();
-
-	glClearColor(0.f, 0.f, 0.f, 0.f);
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-
-	// Draw the objects so the user can select them.
-	// The starting ID is 1, since land is zero.
-	//drawForSelect();
-
-	stop_glerror();
-
-	// restore drawing state
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
-
-	setupViewport();
-
-	mPickPoint.set(x, y_from_bot);
-	mPickOffset.set(0, 0);
-	mPickMask = mask;
-	mPickPending = TRUE;
-}
 
 void LLViewerWindow::performPick()
 {
-	if (gNoRender || !mPickPending)
-	{
-		return;
-	}
-
-	mPickPending = FALSE;
-	U32	te_offset = NO_FACE;
-	
-	// find pick region that is fully onscreen
-	LLCoordGL scaled_pick_point = mPickPoint;
-	scaled_pick_point.mX = llclamp(llround((F32)mPickPoint.mX * mDisplayScale.mV[VX]), PICK_HALF_WIDTH, getWindowDisplayWidth() - PICK_HALF_WIDTH);
-	scaled_pick_point.mY = llclamp(llround((F32)mPickPoint.mY * mDisplayScale.mV[VY]), PICK_HALF_WIDTH, getWindowDisplayHeight() - PICK_HALF_WIDTH);
-
-	glReadPixels(scaled_pick_point.mX - PICK_HALF_WIDTH, scaled_pick_point.mY - PICK_HALF_WIDTH, PICK_DIAMETER, PICK_DIAMETER, GL_RGBA, GL_UNSIGNED_BYTE, mPickBuffer);
-
-	S32 pixel_index = PICK_HALF_WIDTH * PICK_DIAMETER + PICK_HALF_WIDTH;
-	S32 name = (U32)mPickBuffer[(pixel_index * 4) + 0] << 16 | (U32)mPickBuffer[(pixel_index * 4) + 1] << 8 | (U32)mPickBuffer[(pixel_index * 4) + 2];
-	gLastPickAlpha = mPickBuffer[(pixel_index * 4) + 3];
-
-	if (name >= (S32)GL_NAME_UI_RESERVED && name < (S32)GL_NAME_INDEX_OFFSET)
-	{
-		// hit a UI element
-		gLastHitUIElement = name;
-		if (mPickCallback)
-		{
-			mPickCallback(mPickPoint.mX, mPickPoint.mY, mPickMask);
-		}
-	}
-
-	//imdebug("rgba rbga=bbba b=8 w=%d h=%d %p", PICK_DIAMETER, PICK_DIAMETER, mPickBuffer);
-
-	S32 x_offset = mPickPoint.mX - llround((F32)scaled_pick_point.mX / mDisplayScale.mV[VX]);
-	S32 y_offset = mPickPoint.mY - llround((F32)scaled_pick_point.mY / mDisplayScale.mV[VY]);
-
-	
-	// we hit nothing, scan surrounding pixels for something useful
-	if (!name)
-	{
-		S32 closest_distance = 10000;
-		//S32 closest_pick_name = 0;
-		for (S32 col = 0; col < PICK_DIAMETER; col++)
-		{
-			for (S32 row = 0; row < PICK_DIAMETER; row++)
-			{
-				S32 distance_squared = (llabs(col - x_offset - PICK_HALF_WIDTH) * llabs(col - x_offset - PICK_HALF_WIDTH)) + (llabs(row - y_offset - PICK_HALF_WIDTH) * llabs(row - y_offset - PICK_HALF_WIDTH));
-				pixel_index = row * PICK_DIAMETER + col;
-				S32 test_name = (U32)mPickBuffer[(pixel_index * 4) + 0] << 16 | (U32)mPickBuffer[(pixel_index * 4) + 1] << 8 | (U32)mPickBuffer[(pixel_index * 4) + 2];
-				gLastPickAlpha = mPickBuffer[(pixel_index * 4) + 3];
-				if (test_name && distance_squared < closest_distance)
-				{
-					closest_distance = distance_squared;
-					name = test_name;
-					gLastPickAlpha = mPickBuffer[(pixel_index * 4) + 3];
-					mPickOffset.mX = col - PICK_HALF_WIDTH;
-					mPickOffset.mY = row - PICK_HALF_WIDTH;
-				}
-			}
-		}
-	}
-
-	if (name)
-	{
-		mPickPoint.mX += llround((F32)mPickOffset.mX * mDisplayScale.mV[VX]);
-		mPickPoint.mY += llround((F32)mPickOffset.mY * mDisplayScale.mV[VY]);
-	}
-
-	if (gPickFaces)
-	{
-		te_offset = ((U32)name >> 20);
-		name &= 0x000fffff;
-		// don't clear gPickFaces, as we still need to check for UV coordinates
-	}
-
-	LLViewerObject	*objectp = NULL;
-
-	// Frontmost non-foreground object that isn't trees or grass
-	LLViewerObject* nonflora_objectp = NULL;
-	S32 nonflora_name = -1;
-	S32 nonflora_te_offset = NO_FACE;
-
-	if (name == (S32)GL_NAME_PARCEL_WALL)
-	{
-		gLastHitParcelWall = TRUE;
-	}
-
-	gLastHitHUDIcon = NULL;
-
-	objectp = gObjectList.getSelectedObject(name);
-	if (objectp)
-	{
-		LLViewerObject* parent = (LLViewerObject*)(objectp->getParent());
-		if (NULL == parent) {
-			// if you are the parent
-			parent = objectp;
-		}
-		if (objectp->mbCanSelect)
-		{
-			te_offset = (te_offset == 16) ? NO_FACE : te_offset;
-
-			// If the hit object isn't a plant, store it as the frontmost non-flora object.
-			LLPCode pcode = objectp->getPCode();
-			if( (LL_PCODE_LEGACY_GRASS != pcode) &&
-				(LL_PCODE_LEGACY_TREE != pcode) &&
-				(LL_PCODE_TREE_NEW != pcode))
-			{
-				nonflora_objectp = objectp;
-				nonflora_name = name;
-				nonflora_te_offset = te_offset;
-			}
-		}
-		else
-		{
-			//llinfos << "Hit object you can't select" << llendl;
-		}
-	}
-	else
-	{
-		// was this name referring to a hud icon?
-		gLastHitHUDIcon = LLHUDIcon::handlePick(name);
-	}
-
-	analyzeHit( 
-		mPickPoint.mX, mPickPoint.mY, objectp, te_offset,
-		&gLastHitObjectID, &gLastHitObjectFace, &gLastHitPosGlobal, &gLastHitLand, &gLastHitUCoord, &gLastHitVCoord );
-
-	if (objectp && !gLastHitObjectID.isNull())
-	{
-		gLastHitObjectOffset = gAgent.calcFocusOffset(objectp, mPickPoint.mX, mPickPoint.mY);
-	}
-
-	if( objectp == nonflora_objectp )
-	{
-		gLastHitNonFloraObjectID	= gLastHitObjectID;
-		gLastHitNonFloraObjectFace	= gLastHitObjectFace;
-		gLastHitNonFloraPosGlobal	= gLastHitPosGlobal;
-		gLastHitNonFloraObjectOffset= gLastHitObjectOffset;
-	}
-	else
-	{
-		analyzeHit(  mPickPoint.mX, mPickPoint.mY, nonflora_objectp, nonflora_te_offset,
-			&gLastHitNonFloraObjectID, &gLastHitNonFloraObjectFace, &gLastHitNonFloraPosGlobal,
-			&gLastHitLand, &gLastHitUCoord, &gLastHitVCoord);
-
-		if( nonflora_objectp )
-		{
-			gLastHitNonFloraObjectOffset = gAgent.calcFocusOffset(nonflora_objectp, mPickPoint.mX, mPickPoint.mY);
-		}
-	}
-
-	if (mPickCallback)
-	{
-		mPickCallback(mPickPoint.mX, mPickPoint.mY, mPickMask);
-	}
-
-	gPickFaces = FALSE;
-}
-
-// Performs the GL object/land pick.
-// Stores its results in globals, gHit*
-void LLViewerWindow::hitObjectOrLandGlobalImmediate(S32 x, S32 y_from_bot, void (*callback)(S32 x, S32 y, MASK mask), BOOL pick_transparent)
-{
 	if (gNoRender)
 	{
 		return;
 	}
-	
-	hitObjectOrLandGlobalAsync(x, y_from_bot, gKeyboard->currentMask(TRUE), NULL, pick_transparent);
-	performPick();
-	if (callback)
+
+	if (!mPicks.empty())
 	{
-		callback(x, y_from_bot, gKeyboard->currentMask(TRUE));
+		std::vector<LLPickInfo>::iterator pick_it;
+		for (pick_it = mPicks.begin(); pick_it != mPicks.end(); ++pick_it)
+		{
+			pick_it->fetchResults();
+		}
+
+		mLastPick = mPicks.back();
+		mPicks.clear();
 	}
 }
 
-LLViewerObject* LLViewerWindow::getObjectUnderCursor(const F32 depth)
+void LLViewerWindow::returnEmptyPicks()
 {
-	S32 x = getCurrentMouseX();
-	S32 y = getCurrentMouseY();
+	std::vector<LLPickInfo>::iterator pick_it;
+	for (pick_it = mPicks.begin(); pick_it != mPicks.end(); ++pick_it)
+	{
+		mLastPick = *pick_it;
+		// just trigger callback with empty results
+		if (pick_it->mPickCallback)
+		{
+			pick_it->mPickCallback(*pick_it);
+		}
+	}
+	mPicks.clear();
+}
+
+// Performs the GL object/land pick.
+LLPickInfo LLViewerWindow::pickImmediate(S32 x, S32 y_from_bot,  BOOL pick_transparent)
+{
+	if (gNoRender)
+	{
+		return LLPickInfo();
+	}
+
+	pickAsync(x, y_from_bot, gKeyboard->currentMask(TRUE), NULL, pick_transparent);
+	// assume that pickAsync put the results in the back of the mPicks list
+	mLastPick = mPicks.back();
+	mLastPick.fetchResults();
+	mPicks.pop_back();
+
+	return mLastPick;
+}
+
+LLViewerObject* LLViewerWindow::cursorIntersect(S32 mouse_x, S32 mouse_y, F32 depth,
+												LLViewerObject *this_object,
+												S32 this_face,
+												S32* face_hit,
+												LLVector3 *intersection,
+												LLVector2 *uv,
+												LLVector3 *normal,
+												LLVector3 *binormal)
+{
+	S32 x = mouse_x;
+	S32 y = mouse_y;
+
+	if ((mouse_x == -1) && (mouse_y == -1)) // use current mouse position
+	{
+		x = getCurrentMouseX();
+		y = getCurrentMouseY();
+	}
+
+	// HUD coordinates of mouse
+	LLVector3 mouse_point_hud = mousePointHUD(x, y);
+	LLVector3 mouse_hud_start = mouse_point_hud - LLVector3(depth, 0, 0);
+	LLVector3 mouse_hud_end   = mouse_point_hud + LLVector3(depth, 0, 0);
 	
+	// world coordinates of mouse
 	LLVector3		mouse_direction_global = mouseDirectionGlobal(x,y);
-	LLVector3		camera_pos_global = LLViewerCamera::getInstance()->getOrigin();
-	LLVector3		pick_end = camera_pos_global + mouse_direction_global * depth;
-	LLVector3		collision_point;
-	return gPipeline.pickObject(camera_pos_global, pick_end, collision_point);
-}
+	LLVector3 mouse_point_global = LLViewerCamera::getInstance()->getOrigin();
+	LLVector3 mouse_world_start = mouse_point_global;
+	LLVector3 mouse_world_end   = mouse_point_global + mouse_direction_global * depth;
 
-void LLViewerWindow::analyzeHit(
-	S32				x,				// input
-	S32				y_from_bot,		// input
-	LLViewerObject* objectp,		// input
-	U32				te_offset,		// input
-	LLUUID*			hit_object_id_p,// output
-	S32*			hit_face_p,		// output
-	LLVector3d*		hit_pos_p,		// output
-	BOOL*			hit_land,		// output
-	F32*			hit_u_coord,	// output
-	F32*			hit_v_coord)	// output
-{
-	// Clean up inputs
-	S32 face = -1;
 	
-	if (te_offset != NO_FACE ) 
+	LLViewerObject* found = NULL;
+
+	if (this_object)  // check only this object
 	{
-		face = te_offset;
+		if (this_object->isHUDAttachment()) // is a HUD object?
+		{
+			if (this_object->lineSegmentIntersect(mouse_hud_start, mouse_hud_end, this_face,
+												  face_hit, intersection, uv, normal, binormal))
+			{
+				found = this_object;
+			}
+			}
+		
+		else // is a world object
+		{
+			if (this_object->lineSegmentIntersect(mouse_world_start, mouse_world_end, this_face,
+												  face_hit, intersection, uv, normal, binormal))
+			{
+				found = this_object;
+			}
+			}
+			}
+
+	else // check ALL objects
+			{
+		found = gPipeline.lineSegmentIntersectInHUD(mouse_hud_start, mouse_hud_end,
+													face_hit, intersection, uv, normal, binormal);
+
+		if (!found) // if not found in HUD, look in world:
+
+			{
+			found = gPipeline.lineSegmentIntersectInWorld(mouse_world_start, mouse_world_end,
+														  face_hit, intersection, uv, normal, binormal);
+			}
+
 	}
 
-	*hit_land = FALSE;
-
-	if (objectp)
-	{
-		if( objectp->getPCode() == LLViewerObject::LL_VO_SURFACE_PATCH )
-		{
-			// Hit land
-			*hit_land = TRUE;
-
-			// put global position into land_pos
-			LLVector3d land_pos;
-			if (mousePointOnLandGlobal(x, y_from_bot, &land_pos))
-			{
-				*hit_object_id_p = LLUUID::null;
-				*hit_face_p = -1;
-
-				// Fudge the land focus a little bit above ground.
-				*hit_pos_p = land_pos + LLVector3d(0.f, 0.f, 0.1f);
-				//llinfos << "DEBUG Hit Land " << *hit_pos_p  << llendl;
-				return;
-			}
-			else
-			{
-				//llinfos << "Hit land but couldn't find position" << llendl;
-				// Fall through to "Didn't hit anything"
-			}
-		}
-		else
-		{
-			*hit_object_id_p = objectp->mID;
-			*hit_face_p = face;
-
-			// Hit an object
-			if (objectp->isAvatar())
-			{
-				*hit_pos_p = gAgent.getPosGlobalFromAgent(((LLVOAvatar*)objectp)->mPelvisp->getWorldPosition());
-			}
-			else if (objectp->mDrawable.notNull())
-			{
-				*hit_pos_p = gAgent.getPosGlobalFromAgent(objectp->getRenderPosition());
-			}
-			else
-			{
-				// regular object
-				*hit_pos_p = objectp->getPositionGlobal();
-			}
-
-			if (gPickFaces && face > -1 &&
-				objectp->mDrawable.notNull() && objectp->getPCode() == LL_PCODE_VOLUME &&
-				face < objectp->mDrawable->getNumFaces())
-			{
-				// render red-blue gradient to get 1/256 precision
-				// then render green grid to get final 1/4096 precision
-				S32 scaled_x = llround((F32)x * mDisplayScale.mV[VX]);
-				S32 scaled_y = llround((F32)y_from_bot * mDisplayScale.mV[VY]);
-				const S32 UV_PICK_WIDTH = 41;
-				const S32 UV_PICK_HALF_WIDTH = (UV_PICK_WIDTH - 1) / 2;
-				U8 uv_pick_buffer[UV_PICK_WIDTH * UV_PICK_WIDTH * 4];
-				S32 pick_face = face;
-				LLFace* facep = objectp->mDrawable->getFace(pick_face);
-				LLViewerCamera::getInstance()->setPerspective(FOR_SELECTION, scaled_x - UV_PICK_HALF_WIDTH, scaled_y - UV_PICK_HALF_WIDTH, UV_PICK_WIDTH, UV_PICK_WIDTH, FALSE);
-				glViewport(scaled_x - UV_PICK_HALF_WIDTH, scaled_y - UV_PICK_HALF_WIDTH, UV_PICK_WIDTH, UV_PICK_WIDTH);
-				gPipeline.renderFaceForUVSelect(facep);
-
-				glReadPixels(scaled_x - UV_PICK_HALF_WIDTH, scaled_y - UV_PICK_HALF_WIDTH, UV_PICK_WIDTH, UV_PICK_WIDTH, GL_RGBA, GL_UNSIGNED_BYTE, uv_pick_buffer);
-				U8* center_pixel = &uv_pick_buffer[4 * ((UV_PICK_WIDTH * UV_PICK_HALF_WIDTH) + UV_PICK_HALF_WIDTH + 1)];
-				*hit_u_coord = (F32)((center_pixel[VGREEN] & 0xf) + (16.f * center_pixel[VRED])) / 4095.f;
-				*hit_v_coord = (F32)((center_pixel[VGREEN] >> 4) + (16.f * center_pixel[VBLUE])) / 4095.f;
-			}
-			else
-			{
-				*hit_u_coord = 0.f;
-				*hit_v_coord = 0.f;
-			}
-
-			//llinfos << "DEBUG Hit Object " << *hit_pos_p << llendl;
-			return;
-		}
-	}
-
-	// Didn't hit anything.
-	*hit_object_id_p = LLUUID::null;
-	*hit_face_p = -1;
-	*hit_pos_p = LLVector3d::zero;
-	*hit_u_coord = 0.f;
-	*hit_v_coord = 0.f;
-	//llinfos << "DEBUG Hit Nothing " << llendl;
+	return found;
 }
 
 // Returns unit vector relative to camera
@@ -3896,6 +3602,18 @@ LLVector3 LLViewerWindow::mouseDirectionGlobal(const S32 x, const S32 y) const
 	return mouse_vector;
 }
 
+LLVector3 LLViewerWindow::mousePointHUD(const S32 x, const S32 y) const
+{
+	// find screen resolution
+	S32			height = getWindowHeight();
+	S32			width = getWindowWidth();
+
+	// remap with uniform scale (1/height) so that top is -0.5, bottom is +0.5
+	F32 hud_x = -((F32)x - (F32)width/2.f)  / height;
+	F32 hud_y = ((F32)y - (F32)height/2.f) / height;
+
+	return LLVector3(0.f, hud_x, hud_y);
+}
 
 // Returns unit vector relative to camera in camera space
 // indicating direction of point on screen x,y
@@ -4064,14 +3782,14 @@ BOOL LLViewerWindow::mousePointOnLandGlobal(const S32 x, const S32 y, LLVector3d
 }
 
 // Saves an image to the harddrive as "SnapshotX" where X >= 1.
-BOOL LLViewerWindow::saveImageNumbered(LLImageRaw *raw, const LLString& extension_in)
+BOOL LLViewerWindow::saveImageNumbered(LLImageFormatted *image)
 {
-	if (! raw)
+	if (!image)
 	{
 		return FALSE;
 	}
 
-	LLString extension(extension_in);
+	std::string extension("." + image->getExtension());
 	if (extension.empty())
 	{
 		extension = (gSavedSettings.getBOOL("CompressSnapshotsToDisk")) ? ".j2c" : ".bmp";
@@ -4082,101 +3800,62 @@ BOOL LLViewerWindow::saveImageNumbered(LLImageRaw *raw, const LLString& extensio
 		pick_type = LLFilePicker::FFSAVE_J2C;
 	else if (extension == ".bmp")
 		pick_type = LLFilePicker::FFSAVE_BMP;
+	else if (extension == ".jpg")
+		pick_type = LLFilePicker::FFSAVE_JPEG;
+	else if (extension == ".png")
+		pick_type = LLFilePicker::FFSAVE_PNG;
 	else if (extension == ".tga")
 		pick_type = LLFilePicker::FFSAVE_TGA;
 	else
 		pick_type = LLFilePicker::FFSAVE_ALL; // ???
 	
-	// Get a directory if this is the first time.
-	if (strlen(sSnapshotDir) == 0)		/* Flawfinder: ignore */
+	// Get a base file location if needed.
+	if ( ! isSnapshotLocSet())		
 	{
-		LLString proposed_name( sSnapshotBaseName );
+		std::string proposed_name( sSnapshotBaseName );
 		proposed_name.append( extension );
 
 		// pick a directory in which to save
 		LLFilePicker& picker = LLFilePicker::instance();
-		if (!picker.getSaveFile(pick_type, proposed_name.c_str()))
+		if (!picker.getSaveFile(pick_type, proposed_name))
 		{
 			// Clicked cancel
 			return FALSE;
 		}
 
 		// Copy the directory + file name
-		char directory[LL_MAX_PATH];		/* Flawfinder: ignore */
-		strncpy(directory, picker.getFirstFile(), LL_MAX_PATH -1);		/* Flawfinder: ignore */
-		directory[LL_MAX_PATH -1] = '\0';
+		std::string filepath = picker.getFirstFile();
 
-		// Smash the file extension
-		S32 length = strlen(directory);		/* Flawfinder: ignore */
-		S32 index = length;
-
-		// Back up over extension
-		index -= extension.length();
-		if (index >= 0 && directory[index] == '.')
-		{
-			directory[index] = '\0';
-		}
-		else
-		{
-			index = length;
-		}
-
-		// Find trailing backslash
-		while (index >= 0 && directory[index] != gDirUtilp->getDirDelimiter()[0])
-		{
-			index--;
-		}
-
-		// If we found one, truncate the string there
-		if (index >= 0)
-		{
-			if (index + 1 <= length)
-			{
-				strncpy(LLViewerWindow::sSnapshotBaseName, directory + index + 1, LL_MAX_PATH -1);		/* Flawfinder: ignore */
-				LLViewerWindow::sSnapshotBaseName[LL_MAX_PATH -1] = '\0';
-			}
-
-			index++;
-			directory[index] = '\0';
-			strncpy(LLViewerWindow::sSnapshotDir, directory, LL_MAX_PATH -1);		/* Flawfinder: ignore */
-			LLViewerWindow::sSnapshotDir[LL_MAX_PATH -1] = '\0';
-		}
+		LLViewerWindow::sSnapshotBaseName = gDirUtilp->getBaseFileName(filepath, true);
+		LLViewerWindow::sSnapshotDir = gDirUtilp->getDirName(filepath);
 	}
 
 	// Look for an unused file name
-	LLString filepath;
+	std::string filepath;
 	S32 i = 1;
 	S32 err = 0;
 
 	do
 	{
 		filepath = sSnapshotDir;
+		filepath += gDirUtilp->getDirDelimiter();
 		filepath += sSnapshotBaseName;
 		filepath += llformat("_%.3d",i);
 		filepath += extension;
 
-		struct stat stat_info;
-		err = mWindow->stat( filepath.c_str(), &stat_info );
+		llstat stat_info;
+		err = LLFile::stat( filepath, &stat_info );
 		i++;
 	}
 	while( -1 != err );  // search until the file is not found (i.e., stat() gives an error).
 
-	LLPointer<LLImageFormatted> formatted_image = LLImageFormatted::createFromExtension(extension);
-	LLImageBase::setSizeOverride(TRUE);
-	BOOL success = formatted_image->encode(raw, 0.0f);
-	if( success )
-	{
-		success = formatted_image->save(filepath);
-	}
-	else
-	{
-		llwarns << "Unable to encode bmp snapshot" << llendl;
-	}
-	LLImageBase::setSizeOverride(FALSE);
-
-	return success;
+	return image->save(filepath);
 }
 
+void LLViewerWindow::resetSnapshotLoc()
+{
+	sSnapshotDir.clear();
+}
 
 static S32 BORDERHEIGHT = 0;
 static S32 BORDERWIDTH = 0;
@@ -4211,7 +3890,7 @@ void LLViewerWindow::movieSize(S32 new_width, S32 new_height)
 	}
 }
 
-BOOL LLViewerWindow::saveSnapshot( const LLString& filepath, S32 image_width, S32 image_height, BOOL show_ui, BOOL do_rebuild, ESnapshotType type)
+BOOL LLViewerWindow::saveSnapshot( const std::string& filepath, S32 image_width, S32 image_height, BOOL show_ui, BOOL do_rebuild, ESnapshotType type)
 {
 	llinfos << "Saving snapshot to: " << filepath << llendl;
 
@@ -4300,13 +3979,12 @@ BOOL LLViewerWindow::thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 p
 	LLHUDText::setDisplayText(FALSE) ;
 	if (type == SNAPSHOT_TYPE_OBJECT_ID)
 	{
-		gPickTransparent = FALSE;
-		gObjectList.renderObjectsForSelect(*LLViewerCamera::getInstance(), FALSE, FALSE);
+		gObjectList.renderPickList(gViewerWindow->getVirtualWindowRect(), FALSE, FALSE);
 	}
 	else
 	{
 		display(do_rebuild, 1.0f, 0, TRUE);
-		render_ui_and_swap();
+		render_ui();
 	}
 
 	S32 glformat, gltype, glpixel_length ;
@@ -4456,7 +4134,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 					window_width = snapshot_width;
 					window_height = snapshot_height;
 					scale_factor = 1.f;
-					mWindowRect.set(0, 0, snapshot_width, snapshot_height);
+					mWindowRect.set(0, snapshot_height, snapshot_width, 0);
 					target.bindTarget();			
 				}
 			}
@@ -4483,7 +4161,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		image_buffer_x = llfloor(snapshot_width*scale_factor) ;
 		image_buffer_y = llfloor(snapshot_height *scale_factor) ;
 	}
-	raw->resize(image_buffer_x, image_buffer_y, type == SNAPSHOT_TYPE_DEPTH ? 4 : 3);
+	raw->resize(image_buffer_x, image_buffer_y, 3);
 	if(raw->isBufferInvalid())
 	{
 		return FALSE ;
@@ -4502,6 +4180,8 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 
 	F32 depth_conversion_factor_1 = (LLViewerCamera::getInstance()->getFar() + LLViewerCamera::getInstance()->getNear()) / (2.f * LLViewerCamera::getInstance()->getFar() * LLViewerCamera::getInstance()->getNear());
 	F32 depth_conversion_factor_2 = (LLViewerCamera::getInstance()->getFar() - LLViewerCamera::getInstance()->getNear()) / (2.f * LLViewerCamera::getInstance()->getFar() * LLViewerCamera::getInstance()->getNear());
+
+	gObjectList.generatePickList(*LLViewerCamera::getInstance());
 
 	for (int subimage_y = 0; subimage_y < scale_factor; ++subimage_y)
 	{
@@ -4523,13 +4203,13 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 				LLViewerCamera::getInstance()->setZoomParameters(scale_factor, subimage_x+(subimage_y*llceil(scale_factor)));
 				setup3DRender();
 				setupViewport();
-				BOOL first_time_through = (subimage_x + subimage_y == 0);
-				gPickTransparent = FALSE;
-				gObjectList.renderObjectsForSelect(*LLViewerCamera::getInstance(), FALSE, !first_time_through);
+				gObjectList.renderPickList(gViewerWindow->getVirtualWindowRect(), FALSE, FALSE);
 			}
 			else
 			{
-				display(do_rebuild, scale_factor, subimage_x+(subimage_y*llceil(scale_factor)), use_fbo);
+				display(do_rebuild, scale_factor, subimage_x+(subimage_y*llceil(scale_factor)), TRUE);
+				// Required for showing the GUI in snapshots?  See DEV-16350 for details. JC
+				render_ui();
 			}
 
 			S32 subimage_x_offset = llclamp(buffer_x_offset - (subimage_x * window_width), 0, window_width);
@@ -4538,49 +4218,43 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 									llmax(0, (window_width * (subimage_x + 1)) - (buffer_x_offset + raw->getWidth())));
 			for(U32 out_y = 0; out_y < read_height ; out_y++)
 			{
+				S32 output_buffer_offset = ( 
+							(out_y * (raw->getWidth())) // ...plus iterated y...
+							+ (window_width * subimage_x) // ...plus subimage start in x...
+							+ (raw->getWidth() * window_height * subimage_y) // ...plus subimage start in y...
+							- output_buffer_offset_x // ...minus buffer padding x...
+							- (output_buffer_offset_y * (raw->getWidth()))  // ...minus buffer padding y...
+						) * raw->getComponents();
 				if (type == SNAPSHOT_TYPE_OBJECT_ID || type == SNAPSHOT_TYPE_COLOR)
 				{
 					glReadPixels(
 						subimage_x_offset, out_y + subimage_y_offset,
 						read_width, 1,
 						GL_RGB, GL_UNSIGNED_BYTE,
-						raw->getData() + // current output pixel is beginning of buffer...
-							( 
-								(out_y * (raw->getWidth())) // ...plus iterated y...
-								+ (window_width * subimage_x) // ...plus subimage start in x...
-								+ (raw->getWidth() * window_height * subimage_y) // ...plus subimage start in y...
-								- output_buffer_offset_x // ...minus buffer padding x...
-								- (output_buffer_offset_y * (raw->getWidth()))  // ...minus buffer padding y...
-							) * 3 // times 3 bytes per pixel
+						raw->getData() + output_buffer_offset
 					);
 				}
 				else // SNAPSHOT_TYPE_DEPTH
 				{
-					S32 output_buffer_offset = ( 
-								(out_y * (raw->getWidth())) // ...plus iterated y...
-								+ (window_width * subimage_x) // ...plus subimage start in x...
-								+ (raw->getWidth() * window_height * subimage_y) // ...plus subimage start in y...
-								- output_buffer_offset_x // ...minus buffer padding x...
-								- (output_buffer_offset_y * (raw->getWidth()))  // ...minus buffer padding y...
-							) * 4; // times 4 bytes per pixel
-
+					LLPointer<LLImageRaw> depth_line_buffer = new LLImageRaw(read_width, 1, sizeof(GL_FLOAT)); // need to store floating point values
 					glReadPixels(
 						subimage_x_offset, out_y + subimage_y_offset,
 						read_width, 1,
 						GL_DEPTH_COMPONENT, GL_FLOAT,
-						raw->getData() + output_buffer_offset// current output pixel is beginning of buffer...
+						depth_line_buffer->getData()// current output pixel is beginning of buffer...
 					);
 
-					for (S32 i = output_buffer_offset; i < output_buffer_offset + (S32)read_width * 4; i += 4)
+					for (S32 i = 0; i < (S32)read_width; i++)
 					{
-						F32 depth_float = *(F32*)(raw->getData() + i);
+						F32 depth_float = *(F32*)(depth_line_buffer->getData() + (i * sizeof(F32)));
 					
 						F32 linear_depth_float = 1.f / (depth_conversion_factor_1 - (depth_float * depth_conversion_factor_2));
 						U8 depth_byte = F32_to_U8(linear_depth_float, LLViewerCamera::getInstance()->getNear(), LLViewerCamera::getInstance()->getFar());
-						*(raw->getData() + i + 0) = depth_byte;
-						*(raw->getData() + i + 1) = depth_byte;
-						*(raw->getData() + i + 2) = depth_byte;
-						*(raw->getData() + i + 3) = 255;
+						//write converted scanline out to result image
+						for(S32 j = 0; j < raw->getComponents(); j++)
+						{
+							*(raw->getData() + output_buffer_offset + (i * raw->getComponents()) + j) = depth_byte;
+						}
 					}
 				}
 			}
@@ -4618,7 +4292,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 
 	// Pre-pad image to number of pixels such that the line length is a multiple of 4 bytes (for BMP encoding)
 	// Note: this formula depends on the number of components being 3.  Not obvious, but it's correct.	
-	image_width += (image_width * (type == SNAPSHOT_TYPE_DEPTH ? 4 : 3)) % 4 ;	
+	image_width += (image_width * 3) % 4;
 
 	BOOL ret = TRUE ;
 	// Resize image
@@ -4665,7 +4339,7 @@ void LLViewerWindow::destroyWindow()
 void LLViewerWindow::drawMouselookInstructions()
 {
 	// Draw instructions for mouselook ("Press ESC to leave Mouselook" in a box at the top of the screen.)
-	const char* instructions = "Press ESC to leave Mouselook.";
+	const std::string instructions = "Press ESC to leave Mouselook.";
 	const LLFontGL* font = LLResMgr::getInstance()->getRes( LLFONT_SANSSERIF );
 
 	const S32 INSTRUCTIONS_PAD = 5;
@@ -4691,39 +4365,6 @@ void LLViewerWindow::drawMouselookInstructions()
 }
 
 
-// These functions are here only because LLViewerWindow used to do the work that gFocusMgr does now.
-// They let other objects continue to work without change.
-
-void LLViewerWindow::setKeyboardFocus(LLUICtrl* new_focus)
-{
-	gFocusMgr.setKeyboardFocus( new_focus );
-}
-
-LLUICtrl* LLViewerWindow::getKeyboardFocus()
-{
-	return gFocusMgr.getKeyboardFocus();
-}
-
-BOOL LLViewerWindow::hasKeyboardFocus(const LLUICtrl* possible_focus) const
-{
-	return possible_focus == gFocusMgr.getKeyboardFocus();
-}
-
-BOOL LLViewerWindow::childHasKeyboardFocus(const LLView* parent) const
-{
-	return gFocusMgr.childHasKeyboardFocus( parent );
-}
-
-void LLViewerWindow::setMouseCapture(LLMouseHandler* new_captor)
-{
-	gFocusMgr.setMouseCapture( new_captor );
-}
-
-LLMouseHandler* LLViewerWindow::getMouseCaptor() const
-{
-	return gFocusMgr.getMouseCapture();
-}
-
 S32	LLViewerWindow::getWindowHeight()	const 	
 { 
 	return mVirtualWindowRect.getHeight(); 
@@ -4742,21 +4383,6 @@ S32	LLViewerWindow::getWindowDisplayHeight()	const
 S32	LLViewerWindow::getWindowDisplayWidth() const 	
 { 
 	return mWindowRect.getWidth(); 
-}
-
-LLUICtrl* LLViewerWindow::getTopCtrl() const
-{
-	return gFocusMgr.getTopCtrl();
-}
-
-BOOL LLViewerWindow::hasTopCtrl(LLView* view) const
-{
-	return view == gFocusMgr.getTopCtrl();
-}
-
-void LLViewerWindow::setTopCtrl(LLUICtrl* new_top)
-{
-	gFocusMgr.setTopCtrl( new_top );
 }
 
 void LLViewerWindow::setupViewport(S32 x_offset, S32 y_offset)
@@ -4778,27 +4404,6 @@ void LLViewerWindow::setup2DRender()
 	gl_state_for_2d(mWindowRect.getWidth(), mWindowRect.getHeight());
 }
 
-// Could cache the pointer from the last hitObjectOrLand here.
-LLViewerObject *LLViewerWindow::lastObjectHit()
-{
-	return gObjectList.findObject( gLastHitObjectID );
-}
-
-const LLVector3d& LLViewerWindow::lastObjectHitOffset()
-{
-	return gLastHitObjectOffset;
-}
-
-// Could cache the pointer from the last hitObjectOrLand here.
-LLViewerObject *LLViewerWindow::lastNonFloraObjectHit()
-{
-	return gObjectList.findObject( gLastHitNonFloraObjectID );
-}
-
-const LLVector3d& LLViewerWindow::lastNonFloraObjectHitOffset()
-{
-	return gLastHitNonFloraObjectOffset;
-}
 
 
 void LLViewerWindow::setShowProgress(const BOOL show)
@@ -4824,7 +4429,7 @@ void LLViewerWindow::moveProgressViewToFront()
 	}
 }
 
-void LLViewerWindow::setProgressString(const LLString& string)
+void LLViewerWindow::setProgressString(const std::string& string)
 {
 	if (mProgressView)
 	{
@@ -4832,7 +4437,7 @@ void LLViewerWindow::setProgressString(const LLString& string)
 	}
 }
 
-void LLViewerWindow::setProgressMessage(const LLString& msg)
+void LLViewerWindow::setProgressMessage(const std::string& msg)
 {
 	if(mProgressView)
 	{
@@ -4848,7 +4453,7 @@ void LLViewerWindow::setProgressPercent(const F32 percent)
 	}
 }
 
-void LLViewerWindow::setProgressCancelButtonVisible( BOOL b, const LLString& label )
+void LLViewerWindow::setProgressCancelButtonVisible( BOOL b, const std::string& label )
 {
 	if (mProgressView)
 	{
@@ -4916,7 +4521,7 @@ void LLViewerWindow::stopGL(BOOL save_state)
 	}
 }
 
-void LLViewerWindow::restoreGL(const LLString& progress_message)
+void LLViewerWindow::restoreGL(const std::string& progress_message)
 {
 	if (gGLManager.mIsDisabled)
 	{
@@ -5154,7 +4759,7 @@ BOOL LLViewerWindow::changeDisplaySettings(BOOL fullscreen, LLCoordScreen size, 
 
 	if (!result_first_try)
 	{
-		LLStringBase<char>::format_map_t args;
+		LLStringUtil::format_map_t args;
 		args["[RESX]"] = llformat("%d",size.mX);
 		args["[RESY]"] = llformat("%d",size.mY);
 		alertXml("ResolutionSwitchFail", args);
@@ -5221,46 +4826,7 @@ F32 LLViewerWindow::getDisplayAspectRatio() const
 
 void LLViewerWindow::drawPickBuffer() const
 {
-	if (mPickBuffer)
-	{
-		gGL.color4f(1,1,1,1);
-		gGL.pushMatrix();
-		LLGLDisable no_blend(GL_BLEND);
-		LLGLDisable no_alpha_test(GL_ALPHA_TEST);
-		LLGLSNoTexture no_texture;
-		glPixelZoom(10.f, 10.f);
-		glRasterPos2f(((F32)mPickPoint.mX * mDisplayScale.mV[VX] + 10.f), 
-			((F32)mPickPoint.mY * mDisplayScale.mV[VY] + 10.f));
-		glDrawPixels(PICK_DIAMETER, PICK_DIAMETER, GL_RGBA, GL_UNSIGNED_BYTE, mPickBuffer);
-		glPixelZoom(1.f, 1.f);
-		gGL.color4fv(LLColor4::white.mV);
-		gl_rect_2d(llround((F32)mPickPoint.mX * mDisplayScale.mV[VX] - (F32)(PICK_HALF_WIDTH)), 
-			llround((F32)mPickPoint.mY * mDisplayScale.mV[VY] + (F32)(PICK_HALF_WIDTH)),
-			llround((F32)mPickPoint.mX * mDisplayScale.mV[VX] + (F32)(PICK_HALF_WIDTH)),
-			llround((F32)mPickPoint.mY * mDisplayScale.mV[VY] - (F32)(PICK_HALF_WIDTH)),
-			FALSE);
-		gl_line_2d(llround((F32)mPickPoint.mX * mDisplayScale.mV[VX] - (F32)(PICK_HALF_WIDTH)), 
-			llround((F32)mPickPoint.mY * mDisplayScale.mV[VY] + (F32)(PICK_HALF_WIDTH)),
-			llround((F32)mPickPoint.mX * mDisplayScale.mV[VX] + 10.f), 
-			llround((F32)mPickPoint.mY * mDisplayScale.mV[VY] + (F32)(PICK_DIAMETER) * 10.f + 10.f));
-		gl_line_2d(llround((F32)mPickPoint.mX * mDisplayScale.mV[VX] + (F32)(PICK_HALF_WIDTH)),
-			llround((F32)mPickPoint.mY * mDisplayScale.mV[VY] - (F32)(PICK_HALF_WIDTH)),
-			llround((F32)mPickPoint.mX * mDisplayScale.mV[VX] + (F32)(PICK_DIAMETER) * 10.f + 10.f), 
-			llround((F32)mPickPoint.mY * mDisplayScale.mV[VY] + 10.f));
-		gGL.translatef(10.f, 10.f, 0.f);
-		gl_rect_2d(llround((F32)mPickPoint.mX * mDisplayScale.mV[VX]), 
-			llround((F32)mPickPoint.mY * mDisplayScale.mV[VY] + (F32)(PICK_DIAMETER) * 10.f),
-			llround((F32)mPickPoint.mX * mDisplayScale.mV[VX] + (F32)(PICK_DIAMETER) * 10.f),
-			llround((F32)mPickPoint.mY * mDisplayScale.mV[VY]),
-			FALSE);
-		gl_rect_2d(llround((F32)mPickPoint.mX * mDisplayScale.mV[VX] + (F32)(PICK_HALF_WIDTH + mPickOffset.mX)* 10.f), 
-			llround((F32)mPickPoint.mY * mDisplayScale.mV[VY] + (F32)(PICK_HALF_WIDTH + mPickOffset.mY + 1) * 10.f),
-			llround((F32)mPickPoint.mX * mDisplayScale.mV[VX] + (F32)(PICK_HALF_WIDTH + mPickOffset.mX + 1) * 10.f),
-			llround((F32)mPickPoint.mY * mDisplayScale.mV[VY] + (F32)(PICK_HALF_WIDTH  + mPickOffset.mY) * 10.f),
-			FALSE);
-		gGL.popMatrix();
-		gGL.flush();
-	}
+	mHoverPick.drawPickBuffer();
 }
 
 void LLViewerWindow::calcDisplayScale()
@@ -5327,11 +4893,11 @@ bool LLViewerWindow::alertCallback(S32 modal)
 LLAlertDialog* LLViewerWindow::alertXml(const std::string& xml_filename,
 							  LLAlertDialog::alert_callback_t callback, void* user_data)
 {
-	LLString::format_map_t args;
+	LLStringUtil::format_map_t args;
 	return alertXml( xml_filename, args, callback, user_data );
 }
 
-LLAlertDialog* LLViewerWindow::alertXml(const std::string& xml_filename, const LLString::format_map_t& args,
+LLAlertDialog* LLViewerWindow::alertXml(const std::string& xml_filename, const LLStringUtil::format_map_t& args,
 							  LLAlertDialog::alert_callback_t callback, void* user_data)
 {
 	if (gNoRender)
@@ -5355,10 +4921,10 @@ LLAlertDialog* LLViewerWindow::alertXml(const std::string& xml_filename, const L
 	return LLAlertDialog::showXml( xml_filename, args, callback, user_data );
 }
 
-LLAlertDialog* LLViewerWindow::alertXmlEditText(const std::string& xml_filename, const LLString::format_map_t& args,
+LLAlertDialog* LLViewerWindow::alertXmlEditText(const std::string& xml_filename, const LLStringUtil::format_map_t& args,
 									  LLAlertDialog::alert_callback_t callback, void* user_data,
 									  LLAlertDialog::alert_text_callback_t text_callback, void *text_data,
-									  const LLString::format_map_t& edit_args, BOOL draw_asterixes)
+									  const LLStringUtil::format_map_t& edit_args, BOOL draw_asterixes)
 {
 	if (gNoRender)
 	{
@@ -5395,7 +4961,7 @@ LLAlertDialog* LLViewerWindow::alertXmlEditText(const std::string& xml_filename,
 ////////////////////////////////////////////////////////////////////////////
 
 LLBottomPanel::LLBottomPanel(const LLRect &rect) : 
-	LLPanel("", rect, FALSE),
+	LLPanel(LLStringUtil::null, rect, FALSE),
 	mIndicator(NULL)
 {
 	// bottom panel is focus root, so Tab moves through the toolbar and button bar, and overlay
@@ -5448,4 +5014,343 @@ void* LLBottomPanel::createToolBar(void* data)
 	delete gToolBar;
 	gToolBar = new LLToolBar();
 	return gToolBar;
+}
+
+//
+// LLPickInfo
+//
+LLPickInfo::LLPickInfo()
+	: mKeyMask(MASK_NONE),
+	  mPickCallback(NULL),
+	  mPickType(PICK_INVALID),
+	  mWantSurfaceInfo(FALSE),
+	  mObjectFace(-1),
+	  mUVCoords(-1.f, -1.f),
+	  mSTCoords(-1.f, -1.f),
+	  mXYCoords(-1, -1),
+	  mIntersection(),
+	  mNormal(),
+	  mBinormal(),
+	  mHUDIcon(NULL),
+	  mPickTransparent(FALSE)
+{
+}
+
+LLPickInfo::LLPickInfo(const LLCoordGL& mouse_pos, 
+					   const LLRect& screen_region,
+						MASK keyboard_mask, 
+						BOOL pick_transparent,
+						BOOL pick_uv_coords,
+						void (*pick_callback)(const LLPickInfo& pick_info))
+	: mMousePt(mouse_pos),
+	  mScreenRegion(screen_region),
+	  mKeyMask(keyboard_mask),
+	  mPickCallback(pick_callback),
+	  mPickType(PICK_INVALID),
+	  mWantSurfaceInfo(pick_uv_coords),
+	  mObjectFace(-1),
+	  mUVCoords(-1.f, -1.f),
+	  mSTCoords(-1.f, -1.f),
+	  mXYCoords(-1, -1),
+	  mNormal(),
+	  mBinormal(),
+	  mHUDIcon(NULL),
+	  mPickTransparent(pick_transparent)
+{
+}
+
+LLPickInfo::~LLPickInfo()
+{
+}
+
+void LLPickInfo::fetchResults()
+{
+	// read back colors and depth values from buffer
+	glReadPixels(mScreenRegion.mLeft, mScreenRegion.mBottom, mScreenRegion.getWidth(), mScreenRegion.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE, mPickBuffer);
+	glReadPixels(mScreenRegion.mLeft, mScreenRegion.mBottom, mScreenRegion.getWidth(), mScreenRegion.getHeight(), GL_DEPTH_COMPONENT, GL_FLOAT, mPickDepthBuffer );
+
+	// find pick region that is fully onscreen
+	LLCoordGL scaled_pick_point;;
+	scaled_pick_point.mX = llclamp(llround((F32)mMousePt.mX * gViewerWindow->getDisplayScale().mV[VX]), PICK_HALF_WIDTH, gViewerWindow->getWindowDisplayWidth() - PICK_HALF_WIDTH);
+	scaled_pick_point.mY = llclamp(llround((F32)mMousePt.mY * gViewerWindow->getDisplayScale().mV[VY]), PICK_HALF_WIDTH, gViewerWindow->getWindowDisplayHeight() - PICK_HALF_WIDTH);
+	S32 pixel_index = PICK_HALF_WIDTH * PICK_DIAMETER + PICK_HALF_WIDTH;
+	S32 pick_id = (U32)mPickBuffer[(pixel_index * 4) + 0] << 16 | (U32)mPickBuffer[(pixel_index * 4) + 1] << 8 | (U32)mPickBuffer[(pixel_index * 4) + 2];
+	F32 depth = mPickDepthBuffer[pixel_index];
+
+	S32 x_offset = mMousePt.mX - llround((F32)scaled_pick_point.mX / gViewerWindow->getDisplayScale().mV[VX]);
+	S32 y_offset = mMousePt.mY - llround((F32)scaled_pick_point.mY / gViewerWindow->getDisplayScale().mV[VY]);
+
+	mPickPt = mMousePt;
+
+	// we hit nothing, scan surrounding pixels for something useful
+	if (!pick_id)
+	{
+		S32 closest_distance = 10000;
+		//S32 closest_pick_name = 0;
+		for (S32 col = 0; col < PICK_DIAMETER; col++)
+		{
+			for (S32 row = 0; row < PICK_DIAMETER; row++)
+			{
+				S32 distance_squared = (llabs(col - x_offset - PICK_HALF_WIDTH) * llabs(col - x_offset - PICK_HALF_WIDTH)) + (llabs(row - y_offset - PICK_HALF_WIDTH) * llabs(row - y_offset - PICK_HALF_WIDTH));
+				pixel_index = row * PICK_DIAMETER + col;
+				S32 test_name = (U32)mPickBuffer[(pixel_index * 4) + 0] << 16 | (U32)mPickBuffer[(pixel_index * 4) + 1] << 8 | (U32)mPickBuffer[(pixel_index * 4) + 2];
+				if (test_name && distance_squared < closest_distance)
+				{
+					closest_distance = distance_squared;
+					pick_id = test_name;
+					depth = mPickDepthBuffer[pixel_index];
+					mPickPt.mX = mMousePt.mX + (col - PICK_HALF_WIDTH);
+					mPickPt.mY = mMousePt.mY + (row - PICK_HALF_WIDTH);
+				}
+			}
+		}
+	}
+
+	U32 te_offset = ((U32)pick_id >> 20);
+	pick_id &= 0x000fffff;
+
+	//unproject relative clicked coordinate from window coordinate using GL
+	GLint viewport[4];
+	GLdouble modelview[16];
+	GLdouble projection[16];
+	GLfloat winX, winY;
+	GLdouble posX, posY, posZ;
+
+	LLViewerObject* objectp = gObjectList.getSelectedObject(pick_id);
+
+	if (pick_id == (S32)GL_NAME_PARCEL_WALL)
+	{
+		mPickType = PICK_PARCEL_WALL;
+	}
+	else if (objectp)
+	{
+		if( objectp->getPCode() == LLViewerObject::LL_VO_SURFACE_PATCH )
+		{
+			// Hit land
+			mPickType = PICK_LAND;
+			mObjectID.setNull(); // land has no id
+
+			// put global position into land_pos
+			LLVector3d land_pos;
+			if (gViewerWindow->mousePointOnLandGlobal(mPickPt.mX, mPickPt.mY, &land_pos))
+			{
+				// Fudge the land focus a little bit above ground.
+				mPosGlobal = land_pos + LLVector3d::z_axis * 0.1f;
+			}
+		}
+		else
+		{
+			if(isFlora(objectp))
+			{
+				mPickType = PICK_FLORA;
+			}
+			else
+			{
+				mPickType = PICK_OBJECT;
+			}
+			mObjectOffset = gAgent.calcFocusOffset(objectp, mPickPt.mX, mPickPt.mY);
+			mObjectID = objectp->mID;
+			mObjectFace = (te_offset == NO_FACE) ? -1 : (S32)te_offset;
+
+			glh::matrix4f newModel((F32*)LLViewerCamera::getInstance()->getModelview().mMatrix);
+
+			for(U32 i = 0; i < 16; ++i)
+			{
+				modelview[i] = newModel.m[i];
+				projection[i] = LLViewerCamera::getInstance()->getProjection().mMatrix[i/4][i%4];
+			}
+			glGetIntegerv( GL_VIEWPORT, viewport );
+
+			winX = ((F32)mPickPt.mX) * gViewerWindow->getDisplayScale().mV[VX];
+			winY = ((F32)mPickPt.mY) * gViewerWindow->getDisplayScale().mV[VY];
+
+			gluUnProject( winX, winY, depth, modelview, projection, viewport, &posX, &posY, &posZ);
+
+			mPosGlobal = gAgent.getPosGlobalFromAgent(LLVector3(posX, posY, posZ));
+			
+			if (mWantSurfaceInfo)
+			{
+				getSurfaceInfo();
+			}
+		}
+	}
+	else
+	{
+		// was this name referring to a hud icon?
+		mHUDIcon = LLHUDIcon::handlePick(pick_id);
+		if (mHUDIcon)
+		{
+			mPickType = PICK_ICON;
+			mPosGlobal = mHUDIcon->getPositionGlobal();
+		}
+	}
+
+	if (mPickCallback)
+	{
+		mPickCallback(*this);
+	}
+}
+
+LLPointer<LLViewerObject> LLPickInfo::getObject() const
+{
+	return gObjectList.findObject( mObjectID );
+}
+
+void LLPickInfo::updateXYCoords()
+{
+	const LLTextureEntry* tep = getObject()->getTE(mObjectFace);
+	LLPointer<LLViewerImage> imagep = gImageList.getImage(tep->getID());
+	if(mUVCoords.mV[VX] >= 0.f && mUVCoords.mV[VY] >= 0.f && imagep.notNull())
+	{
+		LLCoordGL coords;
+		
+		coords.mX = llround(mUVCoords.mV[VX] * (F32)imagep->getWidth());
+		coords.mY = llround(mUVCoords.mV[VY] * (F32)imagep->getHeight());
+
+		gViewerWindow->getWindow()->convertCoords(coords, &mXYCoords);
+	}
+}
+
+void LLPickInfo::drawPickBuffer() const
+{
+	if (mPickBuffer)
+	{
+		gGL.pushMatrix();
+		LLGLDisable no_blend(GL_BLEND);
+		LLGLDisable no_alpha_test(GL_ALPHA_TEST);
+		LLGLSNoTexture no_texture;
+		glPixelZoom(10.f, 10.f);
+		LLVector2 display_scale = gViewerWindow->getDisplayScale();
+		glRasterPos2f(((F32)mMousePt.mX * display_scale.mV[VX] + 10.f), 
+			((F32)mMousePt.mY * display_scale.mV[VY] + 10.f));
+		glDrawPixels(PICK_DIAMETER, PICK_DIAMETER, GL_RGBA, GL_UNSIGNED_BYTE, mPickBuffer);
+		glPixelZoom(1.f, 1.f);
+		gGL.color4fv(LLColor4::white.mV);
+		gl_rect_2d(llround((F32)mMousePt.mX * display_scale.mV[VX] - (F32)(PICK_HALF_WIDTH)), 
+			llround((F32)mMousePt.mY * display_scale.mV[VY] + (F32)(PICK_HALF_WIDTH)),
+			llround((F32)mMousePt.mX * display_scale.mV[VX] + (F32)(PICK_HALF_WIDTH)),
+			llround((F32)mMousePt.mY * display_scale.mV[VY] - (F32)(PICK_HALF_WIDTH)),
+			FALSE);
+		gl_line_2d(llround((F32)mMousePt.mX * display_scale.mV[VX] - (F32)(PICK_HALF_WIDTH)), 
+			llround((F32)mMousePt.mY * display_scale.mV[VY] + (F32)(PICK_HALF_WIDTH)),
+			llround((F32)mMousePt.mX * display_scale.mV[VX] + 10.f), 
+			llround((F32)mMousePt.mY * display_scale.mV[VY] + (F32)(PICK_DIAMETER) * 10.f + 10.f));
+		gl_line_2d(llround((F32)mMousePt.mX * display_scale.mV[VX] + (F32)(PICK_HALF_WIDTH)),
+			llround((F32)mMousePt.mY * display_scale.mV[VY] - (F32)(PICK_HALF_WIDTH)),
+			llround((F32)mMousePt.mX * display_scale.mV[VX] + (F32)(PICK_DIAMETER) * 10.f + 10.f), 
+			llround((F32)mMousePt.mY * display_scale.mV[VY] + 10.f));
+		gGL.translatef(10.f, 10.f, 0.f);
+		gl_rect_2d(llround((F32)mPickPt.mX * display_scale.mV[VX]), 
+			llround((F32)mPickPt.mY * display_scale.mV[VY] + (F32)(PICK_DIAMETER) * 10.f),
+			llround((F32)mPickPt.mX * display_scale.mV[VX] + (F32)(PICK_DIAMETER) * 10.f),
+			llround((F32)mPickPt.mY * display_scale.mV[VY]),
+			FALSE);
+		gl_rect_2d(llround((F32)mPickPt.mX * display_scale.mV[VX]), 
+			llround((F32)mPickPt.mY * display_scale.mV[VY] + 10.f),
+			llround((F32)mPickPt.mX * display_scale.mV[VX] + 10.f),
+			llround((F32)mPickPt.mY * display_scale.mV[VY]),
+			FALSE);
+		gGL.popMatrix();
+	}
+}
+
+void LLPickInfo::getSurfaceInfo()
+{
+	// set values to uninitialized - this is what we return if no intersection is found
+	mObjectFace   = -1;
+	mUVCoords     = LLVector2(-1, -1);
+	mSTCoords     = LLVector2(-1, -1);
+	mXYCoords	  = LLCoordScreen(-1, -1);
+	mIntersection = LLVector3(0,0,0);
+	mNormal       = LLVector3(0,0,0);
+	mBinormal     = LLVector3(0,0,0);
+	
+	LLViewerObject* objectp = getObject();
+
+	if (objectp)
+	{
+		if (gViewerWindow->cursorIntersect(llround((F32)mMousePt.mX), llround((F32)mMousePt.mY), 1024.f,
+										   objectp, -1,
+										   &mObjectFace,
+										   &mIntersection,
+										   &mSTCoords,
+										   &mNormal,
+										   &mBinormal))
+		{
+			// if we succeeded with the intersect above, compute the texture coordinates:
+
+			if (objectp->mDrawable.notNull())
+			{
+				LLFace* facep = objectp->mDrawable->getFace(mObjectFace);
+
+				mUVCoords = facep->surfaceToTexture(mSTCoords, mIntersection, mNormal);
+			}
+
+			// and XY coords:
+			updateXYCoords();
+			
+		}
+	}
+}
+
+
+/* code to get UV via a special UV render - removed in lieu of raycast method
+LLVector2 LLPickInfo::pickUV()
+{
+	LLVector2 result(-1.f, -1.f);
+
+	LLViewerObject* objectp = getObject();
+	if (!objectp)
+	{
+		return result;
+	}
+
+	if (mObjectFace > -1 &&
+		objectp->mDrawable.notNull() && objectp->getPCode() == LL_PCODE_VOLUME &&
+		mObjectFace < objectp->mDrawable->getNumFaces())
+	{
+		S32 scaled_x = llround((F32)mPickPt.mX * gViewerWindow->getDisplayScale().mV[VX]);
+		S32 scaled_y = llround((F32)mPickPt.mY * gViewerWindow->getDisplayScale().mV[VY]);
+		const S32 UV_PICK_WIDTH = 5;
+		const S32 UV_PICK_HALF_WIDTH = (UV_PICK_WIDTH - 1) / 2;
+		U8 uv_pick_buffer[UV_PICK_WIDTH * UV_PICK_WIDTH * 4];
+		LLFace* facep = objectp->mDrawable->getFace(mObjectFace);
+		if (facep)
+		{
+			LLGLState scissor_state(GL_SCISSOR_TEST);
+			scissor_state.enable();
+			LLViewerCamera::getInstance()->setPerspective(FOR_SELECTION, scaled_x - UV_PICK_HALF_WIDTH, scaled_y - UV_PICK_HALF_WIDTH, UV_PICK_WIDTH, UV_PICK_WIDTH, FALSE);
+			//glViewport(scaled_x - UV_PICK_HALF_WIDTH, scaled_y - UV_PICK_HALF_WIDTH, UV_PICK_WIDTH, UV_PICK_WIDTH);
+			glScissor(scaled_x - UV_PICK_HALF_WIDTH, scaled_y - UV_PICK_HALF_WIDTH, UV_PICK_WIDTH, UV_PICK_WIDTH);
+
+			glClear(GL_DEPTH_BUFFER_BIT);
+
+			facep->renderSelectedUV();
+
+			glReadPixels(scaled_x - UV_PICK_HALF_WIDTH, scaled_y - UV_PICK_HALF_WIDTH, UV_PICK_WIDTH, UV_PICK_WIDTH, GL_RGBA, GL_UNSIGNED_BYTE, uv_pick_buffer);
+			U8* center_pixel = &uv_pick_buffer[4 * ((UV_PICK_WIDTH * UV_PICK_HALF_WIDTH) + UV_PICK_HALF_WIDTH + 1)];
+
+			result.mV[VX] = (F32)((center_pixel[VGREEN] & 0xf) + (16.f * center_pixel[VRED])) / 4095.f;
+			result.mV[VY] = (F32)((center_pixel[VGREEN] >> 4) + (16.f * center_pixel[VBLUE])) / 4095.f;
+		}
+	}
+
+	return result;
+} */
+
+
+//static 
+bool LLPickInfo::isFlora(LLViewerObject* object)
+{
+	if (!object) return false;
+
+	LLPCode pcode = object->getPCode();
+
+	if( (LL_PCODE_LEGACY_GRASS == pcode) 
+		|| (LL_PCODE_LEGACY_TREE == pcode) 
+		|| (LL_PCODE_TREE_NEW == pcode))
+	{
+		return true;
+	}
+	return false;
 }

@@ -185,7 +185,7 @@ void LLFloaterGroupInfo::refreshGroup(const LLUUID& group_id)
 }
 
 // static
-void LLFloaterGroupInfo::callbackLoadGroupName(const LLUUID& id, const char* first, const char* last, BOOL is_group, void* data)
+void LLFloaterGroupInfo::callbackLoadGroupName(const LLUUID& id, const std::string& first, const std::string& last, BOOL is_group, void* data)
 {
 	LLFloaterGroupInfo *fgi = get_if_there(sInstances, id, (LLFloaterGroupInfo*)NULL);
 
@@ -230,12 +230,12 @@ void LLFloaterGroupInfo::showFromUUID(const LLUUID& group_id,
 }
 
 // static 
-void LLFloaterGroupInfo::showNotice(const char* subject,
-							const char* message,
-							const LLUUID& group_id,
-							const bool& has_inventory,
-							const char* inventory_name,
-							LLOfferInfo* inventory_offer)
+void LLFloaterGroupInfo::showNotice(const std::string& subject,
+									const std::string& message,
+									const LLUUID& group_id,
+									const bool& has_inventory,
+									const std::string& inventory_name,
+									LLOfferInfo* inventory_offer)
 {
 	llinfos << "LLFloaterGroupInfo::showNotice : " << subject << llendl;
 

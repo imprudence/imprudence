@@ -63,7 +63,7 @@ LLPanelNetwork::LLPanelNetwork()
 
 BOOL LLPanelNetwork::postBuild()
 {
-	LLString cache_location = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "");
+	std::string cache_location = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "");
 	childSetText("cache_location", cache_location);
 		
 	childSetAction("clear_cache", onClickClearCache, this);
@@ -121,8 +121,8 @@ void LLPanelNetwork::onClickSetCache(void* user_data)
 {
 	LLPanelNetwork* self = (LLPanelNetwork*)user_data;
 
-	LLString cur_name(gSavedSettings.getString("CacheLocation"));
-	LLString proposed_name(cur_name);
+	std::string cur_name(gSavedSettings.getString("CacheLocation"));
+	std::string proposed_name(cur_name);
 	
 	LLDirPicker& picker = LLDirPicker::instance();
 	if (! picker.getDir(&proposed_name ) )
@@ -130,7 +130,7 @@ void LLPanelNetwork::onClickSetCache(void* user_data)
 		return; //Canceled!
 	}
 
-	LLString dir_name = picker.getDirName();
+	std::string dir_name = picker.getDirName();
 	if (!dir_name.empty() && dir_name != cur_name)
 	{
 		self->childSetText("cache_location", dir_name);
@@ -139,7 +139,7 @@ void LLPanelNetwork::onClickSetCache(void* user_data)
 	}
 	else
 	{
-		LLString cache_location = gDirUtilp->getCacheDir();
+		std::string cache_location = gDirUtilp->getCacheDir();
 		self->childSetText("cache_location", cache_location);
 	}
 }
@@ -153,7 +153,7 @@ void LLPanelNetwork::onClickResetCache(void* user_data)
 		gSavedSettings.setString("NewCacheLocation", "");
 		gViewerWindow->alertXml("CacheWillBeMoved");
 	}
-	LLString cache_location = gDirUtilp->getCacheDir(true);
+	std::string cache_location = gDirUtilp->getCacheDir(true);
 	self->childSetText("cache_location", cache_location);
 }
 

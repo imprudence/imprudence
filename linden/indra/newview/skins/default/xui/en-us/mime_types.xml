@@ -224,6 +224,14 @@
 			image
 		</widgettype>
 	</mimetype>
+	<mimetype name="application/smil">
+		<label name="application/smil_label">
+		    Synchronized Multimedia Integration Language (SMIL)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+	</mimetype>
 	<mimetype name="application/xhtml+xml">
 		<label name="application/xhtml+xml_label">
 			Web Page (XHTML)

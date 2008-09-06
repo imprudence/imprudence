@@ -1,4 +1,4 @@
-/** 
+ /** 
  * @file llvoiceclient.cpp
  * @brief Implementation of LLVoiceClient class which is the interface to the voice client process.
  *
@@ -39,7 +39,11 @@
 #include "llvoavatar.h"
 #include "llbufferstream.h"
 #include "llfile.h"
-#include "expat/expat.h"
+#ifdef LL_STANDALONE
+# include "expat.h"
+#else
+# include "expat/expat.h"
+#endif
 #include "llcallbacklist.h"
 #include "llviewerregion.h"
 #include "llviewernetwork.h"		// for gGridChoice
@@ -56,12 +60,13 @@
 #include "llviewerparcelmgr.h"
 #include "llfirstuse.h"
 #include "llviewerwindow.h"
+#include "llviewercamera.h"
 
 // for base64 decoding
-#include "apr-1/apr_base64.h"
+#include "apr_base64.h"
 
 // for SHA1 hash
-#include "apr-1/apr_sha1.h"
+#include "apr_sha1.h"
 
 // If we are connecting to agni AND the user's last name is "Linden", join this channel instead of looking up the sim name.
 // If we are connecting to agni and the user's last name is NOT "Linden", disable voice.
@@ -218,6 +223,19 @@ void LLVivoxProtocolParser::reset()
 	ignoringTags = false;
 	accumulateText = false;
 	textBuffer.clear();
+
+	energy = 0.f;
+	ignoreDepth = 0;
+	isChannel = false;
+	isEvent = false;
+	isLocallyMuted = false;
+	isModeratorMuted = false;
+	isSpeaking = false;
+	participantType = 0;
+	returnCode = 0;
+	state = 0;
+	statusCode = 0;
+	volume = 0;
 }
 
 //virtual 
@@ -404,7 +422,7 @@ void LLVivoxProtocolParser::StartTag(const char *tag, const char **attr)
 
 void LLVivoxProtocolParser::EndTag(const char *tag)
 {
-	const char	*string = textBuffer.c_str();
+	const std::string& string = textBuffer;
 	bool clearbuffer = true;
 
 	responseDepth--;
@@ -428,9 +446,9 @@ void LLVivoxProtocolParser::EndTag(const char *tag)
 
 		// Closing a tag. Finalize the text we've accumulated and reset
 		if (strcmp("ReturnCode", tag) == 0)
-			returnCode = strtol(string, NULL, 10);
+			returnCode = strtol(string.c_str(), NULL, 10);
 		else if (strcmp("StatusCode", tag) == 0)
-			statusCode = strtol(string, NULL, 10);
+			statusCode = strtol(string.c_str(), NULL, 10);
 		else if (strcmp("ConnectorHandle", tag) == 0)
 			connectorHandle = string;
 		else if (strcmp("AccountHandle", tag) == 0)
@@ -445,11 +463,11 @@ void LLVivoxProtocolParser::EndTag(const char *tag)
 		else if (strcmp("StatusString", tag) == 0)
 			statusString = string;
 		else if (strcmp("State", tag) == 0)
-			state = strtol(string, NULL, 10);
+			state = strtol(string.c_str(), NULL, 10);
 		else if (strcmp("URI", tag) == 0)
 			uriString = string;
 		else if (strcmp("IsChannel", tag) == 0)
-			isChannel = strcmp(string, "true") == 0;
+			isChannel = string == "true" ? true : false;
 		else if (strcmp("Name", tag) == 0)
 			nameString = string;
 		else if (strcmp("AudioMedia", tag) == 0)
@@ -463,19 +481,19 @@ void LLVivoxProtocolParser::EndTag(const char *tag)
 		else if (strcmp("AccountName", tag) == 0)
 			nameString = string;
 		else if (strcmp("ParticipantTyppe", tag) == 0)
-			participantType = strtol(string, NULL, 10);
+			participantType = strtol(string.c_str(), NULL, 10);
 		else if (strcmp("IsLocallyMuted", tag) == 0)
-			isLocallyMuted = strcmp(string, "true") == 0;
+			isLocallyMuted = string == "true" ? true : false;
 		else if (strcmp("IsModeratorMuted", tag) == 0)
-			isModeratorMuted = strcmp(string, "true") == 0;
+			isModeratorMuted = string == "true" ? true : false;
 		else if (strcmp("IsSpeaking", tag) == 0)
-			isSpeaking = strcmp(string, "true") == 0;
+			isSpeaking = string == "true" ? true : false;
 		else if (strcmp("Volume", tag) == 0)
-			volume = strtol(string, NULL, 10);
+			volume = strtol(string.c_str(), NULL, 10);
 		else if (strcmp("Energy", tag) == 0)
-			energy = (F32)strtod(string, NULL);
+			energy = (F32)strtod(string.c_str(), NULL);
 		else if (strcmp("MicEnergy", tag) == 0)
-			energy = (F32)strtod(string, NULL);
+			energy = (F32)strtod(string.c_str(), NULL);
 		else if (strcmp("ChannelName", tag) == 0)
 			nameString = string;
 		else if (strcmp("ChannelURI", tag) == 0)
@@ -1079,9 +1097,9 @@ void LLVoiceClient::idle(void* user_data)
 	self->stateMachine();
 }
 
-const char *LLVoiceClient::state2string(LLVoiceClient::state inState)
+std::string LLVoiceClient::state2string(LLVoiceClient::state inState)
 {
-	const char *result = "UNKNOWN";
+	std::string result = "UNKNOWN";
 	
 		// Prevent copy-paste errors when updating this list...
 #define CASE(x)  case x:  result = #x;  break
@@ -1131,9 +1149,9 @@ const char *LLVoiceClient::state2string(LLVoiceClient::state inState)
 	return result;
 }
 
-const char *LLVoiceClientStatusObserver::status2string(LLVoiceClientStatusObserver::EStatusType inStatus)
+std::string LLVoiceClientStatusObserver::status2string(LLVoiceClientStatusObserver::EStatusType inStatus)
 {
-	const char *result = "UNKNOWN";
+	std::string result = "UNKNOWN";
 	
 		// Prevent copy-paste errors when updating this list...
 #define CASE(x)  case x:  result = #x;  break
@@ -1174,7 +1192,11 @@ void LLVoiceClient::stateMachine()
 		setVoiceEnabled(false);
 	}
 	
-	if(!mVoiceEnabled)
+	if(mVoiceEnabled)
+	{
+		updatePosition();
+	}
+	else
 	{
 		if(getState() != stateDisabled)
 		{
@@ -1246,17 +1268,23 @@ void LLVoiceClient::stateMachine()
 				if(true)
 				{
 					// Launch the voice daemon
-					std::string exe_path = gDirUtilp->getAppRODataDir();
+					
+					// *FIX:Mani - Using the executable dir instead 
+					// of mAppRODataDir, the working directory from which the app
+					// is launched.
+					//std::string exe_path = gDirUtilp->getAppRODataDir();
+					std::string exe_path = gDirUtilp->getExecutableDir();
 					exe_path += gDirUtilp->getDirDelimiter();
 #if LL_WINDOWS
 					exe_path += "SLVoice.exe";
+#elif LL_DARWIN
+					exe_path += "../Resources/SLVoice";
 #else
-					// This will be the same for mac and linux
 					exe_path += "SLVoice";
 #endif
 					// See if the vivox executable exists
 					llstat s;
-					if(!LLFile::stat(exe_path.c_str(), &s))
+					if(!LLFile::stat(exe_path, &s))
 					{
 						// vivox executable exists.  Build the command line and launch the daemon.
 						std::string args = " -p tcp -h -c";
@@ -1302,7 +1330,7 @@ void LLVoiceClient::stateMachine()
 						// This should be the same for mac and linux
 						{
 							std::vector<std::string> arglist;
-							arglist.push_back(exe_path.c_str());
+							arglist.push_back(exe_path);
 							
 							// Split the argument string into separate strings for each argument
 							typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
@@ -1323,6 +1351,7 @@ void LLVoiceClient::stateMachine()
 
 							fakeargv[i] = NULL;
 							
+							fflush(NULL); // flush all buffers before the child inherits them
 							pid_t id = vfork();
 							if(id == 0)
 							{
@@ -1343,7 +1372,7 @@ void LLVoiceClient::stateMachine()
 					}	
 					else
 					{
-						LL_INFOS("Voice") << exe_path << "not found." << LL_ENDL
+						LL_INFOS("Voice") << exe_path << "not found." << LL_ENDL;
 					}	
 				}
 				else
@@ -1352,7 +1381,7 @@ void LLVoiceClient::stateMachine()
 					// To do this, launch the gateway on a nearby host like this:
 					//  vivox-gw.exe -p tcp -i 0.0.0.0:44124
 					// and put that host's IP address here.
-					mDaemonHost = LLHost(gSavedSettings.getString("VoiceHost").c_str(), gSavedSettings.getU32("VoicePort"));
+					mDaemonHost = LLHost(gSavedSettings.getString("VoiceHost"), gSavedSettings.getU32("VoicePort"));
 				}
 
 				mUpdateTimer.start();
@@ -2903,9 +2932,9 @@ void LLVoiceClient::sessionNewEvent(
 						LLIMMgr::computeSessionID(
 							IM_SESSION_P2P_INVITE,
 							caller_id),
-						LLString::null,
+						LLStringUtil::null,
 						caller_id, 
-						LLString::null, 
+						LLStringUtil::null, 
 						IM_SESSION_P2P_INVITE, 
 						LLIMMgr::INVITATION_TYPE_VOICE,
 						eventSessionHandle);
@@ -3012,7 +3041,7 @@ void LLVoiceClient::muteListChanged()
 /////////////////////////////
 // Managing list of participants
 LLVoiceClient::participantState::participantState(const std::string &uri) : 
-	 mURI(uri), mPTT(false), mIsSpeaking(false), mIsModeratorMuted(false), mPower(0.0), mServiceType(serviceTypeUnknown),
+	 mURI(uri), mPTT(false), mIsSpeaking(false), mIsModeratorMuted(false), mLastSpokeTimestamp(0.f), mPower(0.f), mVolume(0), mServiceType(serviceTypeUnknown),
 	 mOnMuteList(false), mUserVolume(100), mVolumeDirty(false), mAvatarIDValid(false)
 {
 }
@@ -3402,18 +3431,15 @@ std::string LLVoiceClient::nameFromAvatar(LLVOAvatar *avatar)
 std::string LLVoiceClient::nameFromID(const LLUUID &uuid)
 {
 	std::string result;
-	U8 rawuuid[UUID_BYTES + 1]; 
-	uuid.toCompressedString((char*)rawuuid);
-	
 	// Prepending this apparently prevents conflicts with reserved names inside the vivox and diamondware code.
 	result = "x";
 	
 	// Base64 encode and replace the pieces of base64 that are less compatible 
 	// with e-mail local-parts.
 	// See RFC-4648 "Base 64 Encoding with URL and Filename Safe Alphabet"
-	result += LLBase64::encode(rawuuid, UUID_BYTES);
-	LLString::replaceChar(result, '+', '-');
-	LLString::replaceChar(result, '/', '_');
+	result += LLBase64::encode(uuid.mData, UUID_BYTES);
+	LLStringUtil::replaceChar(result, '+', '-');
+	LLStringUtil::replaceChar(result, '/', '_');
 	
 	// If you need to transform a GUID to this form on the Mac OS X command line, this will do so:
 	// echo -n x && (echo e669132a-6c43-4ee1-a78d-6c82fff59f32 |xxd -r -p |openssl base64|tr '/+' '_-')
@@ -3435,16 +3461,14 @@ bool LLVoiceClient::IDFromName(const std::string name, LLUUID &uuid)
 
 		// Reverse the transforms done by nameFromID
 		std::string temp = name;
-		LLString::replaceChar(temp, '-', '+');
-		LLString::replaceChar(temp, '_', '/');
+		LLStringUtil::replaceChar(temp, '-', '+');
+		LLStringUtil::replaceChar(temp, '_', '/');
 
 		U8 rawuuid[UUID_BYTES + 1]; 
 		int len = apr_base64_decode_binary(rawuuid, temp.c_str() + 1);
 		if(len == UUID_BYTES)
 		{
 			// The decode succeeded.  Stuff the bits into the result's UUID
-			// MBW -- XXX -- there's no analogue of LLUUID::toCompressedString that allows you to set a UUID from binary data.
-			// The data field is public, so we cheat thusly:
 			memcpy(uuid.mData, rawuuid, UUID_BYTES);
 			result = true;
 		}
@@ -3466,7 +3490,7 @@ std::string LLVoiceClient::sipURIFromName(std::string &name)
 	result += "@";
 	result += mAccountServerName;
 
-//	LLString::toLower(result);
+//	LLStringUtil::toLower(result);
 
 	return result;
 }
@@ -3494,6 +3518,45 @@ void LLVoiceClient::enforceTether(void)
 	{
 		mCameraPosition = tethered;
 		mSpatialCoordsDirty = true;
+	}
+}
+
+void LLVoiceClient::updatePosition(void)
+{
+	
+	if(gVoiceClient)
+	{
+		LLVOAvatar *agent = gAgent.getAvatarObject();
+		LLViewerRegion *region = gAgent.getRegion();
+		if(region && agent)
+		{
+			LLMatrix3 rot;
+			LLVector3d pos;
+
+			// MBW -- XXX -- Setting both camera and avatar velocity to 0 for now.  May figure it out later...
+
+			// Send the current camera position to the voice code
+			rot.setRows(LLViewerCamera::getInstance()->getAtAxis(), LLViewerCamera::getInstance()->getLeftAxis (),  LLViewerCamera::getInstance()->getUpAxis());		
+			pos = gAgent.getRegion()->getPosGlobalFromRegion(LLViewerCamera::getInstance()->getOrigin());
+			
+			gVoiceClient->setCameraPosition(
+					pos,				// position
+					LLVector3::zero, 	// velocity
+					rot);				// rotation matrix
+					
+			// Send the current avatar position to the voice code
+			rot = agent->getRootJoint()->getWorldRotation().getMatrix3();
+	
+			pos = agent->getPositionGlobal();
+			// MBW -- XXX -- Can we get the head offset from outside the LLVOAvatar?
+//			pos += LLVector3d(mHeadOffset);
+			pos += LLVector3d(0.f, 0.f, 1.f);
+		
+			gVoiceClient->setAvatarPosition(
+					pos,				// position
+					LLVector3::zero, 	// velocity
+					rot);				// rotation matrix
+		}
 	}
 }
 
@@ -3831,9 +3894,9 @@ F32 LLVoiceClient::getCurrentPower(const LLUUID& id)
 }
 
 
-LLString LLVoiceClient::getDisplayName(const LLUUID& id)
+std::string LLVoiceClient::getDisplayName(const LLUUID& id)
 {
-	LLString result;
+	std::string result;
 	participantState *participant = findParticipantByID(id);
 	if(participant)
 	{
@@ -4030,17 +4093,17 @@ void LLVoiceClient::notifyStatusObservers(LLVoiceClientStatusObserver::EStatusTy
 }
 
 //static
-void LLVoiceClient::onAvatarNameLookup(const LLUUID& id, const char* first, const char* last, BOOL is_group, void* user_data)
-{
-	participantState* statep = gVoiceClient->findParticipantByID(id);
+// void LLVoiceClient::onAvatarNameLookup(const LLUUID& id, const std::string& first, const std::string& last, BOOL is_group, void* user_data)
+// {
+// 	participantState* statep = gVoiceClient->findParticipantByID(id);
 
-	if (statep)
-	{
-		statep->mDisplayName = llformat("%s %s", first, last);
-	}
+// 	if (statep)
+// 	{
+// 		statep->mDisplayName = first + " " + last;
+// 	}
 	
-	gVoiceClient->notifyObservers();
-}
+// 	gVoiceClient->notifyObservers();
+// }
 
 class LLViewerParcelVoiceInfo : public LLHTTPNode
 {
@@ -4052,6 +4115,9 @@ class LLViewerParcelVoiceInfo : public LLHTTPNode
 		//the parcel you are in has changed something about its
 		//voice information
 
+		//this is a misnomer, as it can also be when you are not in
+		//a parcel at all.  Should really be something like
+		//LLViewerVoiceInfoChanged.....
 		if ( input.has("body") )
 		{
 			LLSD body = input["body"];
@@ -4061,6 +4127,11 @@ class LLViewerParcelVoiceInfo : public LLHTTPNode
 
 			//body["voice_credentials"] has "channel_uri" (str),
 			//body["voice_credentials"] has "channel_credentials" (str)
+
+			//if we really wanted to be extra careful,
+			//we'd check the supplied
+			//local parcel id to make sure it's for the same parcel
+			//we believe we're in
 			if ( body.has("voice_credentials") )
 			{
 				LLSD voice_credentials = body["voice_credentials"];

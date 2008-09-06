@@ -50,6 +50,8 @@
 // linden library includes
 #include "llfocusmgr.h"
 
+extern BOOL gRestoreGL;
+
 // Setting the mozilla buffer width to 2048 exactly doesn't work, since it pads its rowbytes a bit, pushing the texture width over 2048.
 // 2000 should give enough headroom for any amount of padding it cares to add.
 const S32 MAX_DIMENSION = 2000;
@@ -73,7 +75,8 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 	mAlwaysRefresh( false ),
 	mExternalUrl( "" ),
 	mMediaSource( 0 ),
-	mTakeFocusOnClick( true )
+	mTakeFocusOnClick( true ),
+	mCurrentNavUrl( "about:blank" )
 {
 	S32 screen_width = mIgnoreUIScale ? 
 		llround((F32)getRect().getWidth() * LLUI::sGLScaleFactor.mV[VX]) : getRect().getWidth();
@@ -109,7 +112,7 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 	}
 
 	LLRect border_rect( 0, getRect().getHeight() + 2, getRect().getWidth() + 2, 0 );
-	mBorder = new LLViewBorder( "web control border", border_rect, LLViewBorder::BEVEL_IN );
+	mBorder = new LLViewBorder( std::string("web control border"), border_rect, LLViewBorder::BEVEL_IN );
 	addChild( mBorder );
 }
 
@@ -230,7 +233,7 @@ BOOL LLWebBrowserCtrl::handleMouseUp( S32 x, S32 y, MASK mask )
 		}
 	}
 	
-	gViewerWindow->setMouseCapture( NULL );
+	gFocusMgr.setMouseCapture( NULL );
 
 	return TRUE;
 }
@@ -244,7 +247,7 @@ BOOL LLWebBrowserCtrl::handleMouseDown( S32 x, S32 y, MASK mask )
 	if (mMediaSource)
 		mMediaSource->mouseDown(x, y);
 	
-	gViewerWindow->setMouseCapture( this );
+	gFocusMgr.setMouseCapture( this );
 
 	if (mTakeFocusOnClick)
 	{
@@ -263,7 +266,7 @@ BOOL LLWebBrowserCtrl::handleDoubleClick( S32 x, S32 y, MASK mask )
 	if (mMediaSource)
 		mMediaSource->mouseLeftDoubleClick( x, y );
 
-	gViewerWindow->setMouseCapture( this );
+	gFocusMgr.setMouseCapture( this );
 
 	if (mTakeFocusOnClick)
 	{
@@ -462,8 +465,8 @@ void LLWebBrowserCtrl::navigateTo( std::string urlIn )
 	// don't browse to anything that starts with secondlife:// or sl://
 	const std::string protocol1 = "secondlife://";
 	const std::string protocol2 = "sl://";
-	if ((LLString::compareInsensitive(urlIn.substr(0, protocol1.length()).c_str(), protocol1.c_str()) == 0) ||
-	    (LLString::compareInsensitive(urlIn.substr(0, protocol2.length()).c_str(), protocol2.c_str()) == 0))
+	if ((LLStringUtil::compareInsensitive(urlIn.substr(0, protocol1.length()), protocol1) == 0) ||
+	    (LLStringUtil::compareInsensitive(urlIn.substr(0, protocol2.length()), protocol2) == 0))
 	{
 		// TODO: Print out/log this attempt?
 		// llinfos << "Rejecting attempt to load restricted website :" << urlIn << llendl;
@@ -471,7 +474,10 @@ void LLWebBrowserCtrl::navigateTo( std::string urlIn )
 	}
 	
 	if (mMediaSource)
+	{
+		mCurrentNavUrl = urlIn;
 		mMediaSource->navigateTo(urlIn);
+        }
 }
 
 
@@ -552,6 +558,14 @@ void LLWebBrowserCtrl::draw()
 {
 	if ( ! mWebBrowserImage )
 		return;
+
+	if ( gRestoreGL == 1 )
+	{
+		LLRect r = getRect();
+		mMediaSource->updateMedia();
+		reshape( r.getWidth(), r.getHeight(), FALSE );
+		return;
+	};
 
 	// NOTE: optimization needed here - probably only need to do this once
 	// unless tearoffs change the parent which they probably do.
@@ -721,8 +735,8 @@ void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 	{
 		if ( eventIn.getStringValue().length() )
 		{
-			if ( LLString::compareInsensitive( eventIn.getStringValue().substr( 0, protocol1.length() ).c_str(), protocol1.c_str() ) == 0 ||
-				 LLString::compareInsensitive( eventIn.getStringValue().substr( 0, protocol2.length() ).c_str(), protocol2.c_str() ) == 0 )
+			if ( LLStringUtil::compareInsensitive( eventIn.getStringValue().substr( 0, protocol1.length() ), protocol1 ) == 0 ||
+				 LLStringUtil::compareInsensitive( eventIn.getStringValue().substr( 0, protocol2.length() ), protocol2 ) == 0 )
 			{
 				LLWeb::loadURLExternal( eventIn.getStringValue() );
 			};
@@ -733,8 +747,8 @@ void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 	{
 		if ( eventIn.getStringValue().length() )
 		{
-			if ( LLString::compareInsensitive( eventIn.getStringValue().substr( 0, protocol1.length() ).c_str(), protocol1.c_str() ) == 0 ||
-				 LLString::compareInsensitive( eventIn.getStringValue().substr( 0, protocol2.length() ).c_str(), protocol2.c_str() ) == 0 )
+			if ( LLStringUtil::compareInsensitive( eventIn.getStringValue().substr( 0, protocol1.length() ), protocol1 ) == 0 ||
+				 LLStringUtil::compareInsensitive( eventIn.getStringValue().substr( 0, protocol2.length() ), protocol2 ) == 0 )
 			{
 				// If we spawn a new LLFloaterHTML, assume we want it to
 				// follow this LLWebBrowserCtrl's setting for whether or
@@ -922,6 +936,7 @@ void LLWebBrowserTexture::resize( S32 new_width, S32 new_height )
 	// HACK - this code is executing a render - resize should call render() instead
 	// (and render() should be refactored so it doesn't call resize())
 	
+	mMediaSource->updateMedia();
 	const unsigned char* pixels = mMediaSource->getMediaData();
 
 	S32 media_width  = mMediaSource->getMediaWidth();
@@ -1011,10 +1026,10 @@ void LLWebBrowserTexture::resize( S32 new_width, S32 new_height )
 
 LLView* LLWebBrowserCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 {
-	LLString name("web_browser");
+	std::string name("web_browser");
 	node->getAttributeString("name", name);
 
-	LLString start_url("start_url");
+	std::string start_url("start_url");
 	node->getAttributeString("start_url", start_url );
 
 	BOOL border_visible = true;
@@ -1048,4 +1063,8 @@ LLView* LLWebBrowserCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFac
 	return web_browser;
 }
 
+std::string LLWebBrowserCtrl::getCurrentNavUrl()
+{
+	return mCurrentNavUrl;
+}
 

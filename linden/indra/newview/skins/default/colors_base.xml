@@ -37,6 +37,7 @@
 <ButtonUnselectedBgColor value="62, 62, 62, 255" />
 <ButtonUnselectedFgColor value="255, 255, 255, 255" />
 <ButtonBorderColor value="239, 156, 0, 255" />
+<ButtonFlashBgColor value="255, 190, 62, 127" />
 <ButtonColor value="255, 255, 255, 255" /> 		<!-- Blended with button art, usually left as opaque white -->
 <ButtonImageColor value="255, 255, 255, 255" /> 	<!-- Blended with button art, usually left as opaque white -->
 

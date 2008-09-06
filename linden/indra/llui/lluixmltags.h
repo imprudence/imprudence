@@ -31,7 +31,7 @@
 #ifndef LL_UI_XML_TAGS_H
 #define LL_UI_XML_TAGS_H
 
-const LLString
+const std::string
 	LL_BUTTON_TAG("button"),
 	LL_UI_CTRL_LOCATE_TAG("locate"),
 	LL_PAD_TAG("pad"),
@@ -120,6 +120,6 @@ const LLString
 	LL_JOYSTICK_SLIDE("joystick_slide"),
 	LL_JOYSTICK_TURN("joystick_turn"),
 	LL_GROUP_DROP_TARGET_TAG("group_drop_target"),
-	LL_LAYOUT_STACK_TAG("layout_stack");
-#define LL_FLYOUT_BUTTON_TAG "flyout_button"
+	LL_LAYOUT_STACK_TAG("layout_stack"),
+	LL_FLYOUT_BUTTON_TAG("flyout_button");
 #endif

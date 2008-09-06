@@ -43,7 +43,7 @@
 #include "lldrawpoolterrain.h"
 #include "llflexibleobject.h"
 #include "llfeaturemanager.h"
-#include "llglslshader.h"
+#include "llviewershadermgr.h"
 #include "llnetmap.h"
 #include "llpanelgeneral.h"
 #include "llpanelinput.h"
@@ -76,14 +76,14 @@ BOOL 				gHackGodmode = FALSE;
 #endif
 
 
-std::map<LLString, LLControlGroup*> gSettings;
+std::map<std::string, LLControlGroup*> gSettings;
 LLControlGroup gSavedSettings;	// saved at end of session
 LLControlGroup gSavedPerAccountSettings; // saved at end of session
 LLControlGroup gColors;			// read-only
 LLControlGroup gCrashSettings;	// saved at end of session
 
-LLString gLastRunVersion;
-LLString gCurrentVersion;
+std::string gLastRunVersion;
+std::string gCurrentVersion;
 
 extern BOOL gResizeScreenTexture;
 extern BOOL gDebugGL;
@@ -114,7 +114,7 @@ static bool handleTerrainDetailChanged(const LLSD& newvalue)
 
 static bool handleSetShaderChanged(const LLSD& newvalue)
 {
-	LLShaderMgr::setShaders();
+	LLViewerShaderMgr::instance()->setShaders();
 	return true;
 }
 
@@ -138,6 +138,12 @@ static bool handleVolumeLODChanged(const LLSD& newvalue)
 static bool handleAvatarLODChanged(const LLSD& newvalue)
 {
 	LLVOAvatar::sLODFactor = (F32) newvalue.asReal();
+	return true;
+}
+
+static bool handleAvatarMaxVisibleChanged(const LLSD& newvalue)
+{
+	LLVOAvatar::sMaxVisible = (U32) newvalue.asInteger();
 	return true;
 }
 
@@ -271,7 +277,7 @@ static bool handleAudioStreamMusicChanged(const LLSD& newvalue)
 				// otherwise music will briefly stop
 				if ( !gAudiop->isInternetStreamPlaying() )
 				{
-					gAudiop->startInternetStream(LLViewerParcelMgr::getInstance()->getAgentParcel()->getMusicURL().c_str());
+					gAudiop->startInternetStream(LLViewerParcelMgr::getInstance()->getAgentParcel()->getMusicURL());
 				}
 			}
 		}
@@ -385,7 +391,7 @@ static bool handleDebugViewsChanged(const LLSD& newvalue)
 static bool handleLogFileChanged(const LLSD& newvalue)
 {
 	std::string log_filename = newvalue.asString();
-	LLFile::remove(log_filename.c_str());
+	LLFile::remove(log_filename);
 	LLError::logToFile(log_filename);
 	return true;
 }
@@ -454,6 +460,7 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("RenderAvatarCloth")->getSignal()->connect(boost::bind(&handleSetShaderChanged, _1));
 	gSavedSettings.getControl("WindLightUseAtmosShaders")->getSignal()->connect(boost::bind(&handleSetShaderChanged, _1));
 	gSavedSettings.getControl("RenderGammaFull")->getSignal()->connect(boost::bind(&handleSetShaderChanged, _1));
+	gSavedSettings.getControl("RenderAvatarMaxVisible")->getSignal()->connect(boost::bind(&handleAvatarMaxVisibleChanged, _1));
 	gSavedSettings.getControl("RenderVolumeLODFactor")->getSignal()->connect(boost::bind(&handleVolumeLODChanged, _1));
 	gSavedSettings.getControl("RenderAvatarLODFactor")->getSignal()->connect(boost::bind(&handleAvatarLODChanged, _1));
 	gSavedSettings.getControl("RenderTerrainLODFactor")->getSignal()->connect(boost::bind(&handleTerrainLODChanged, _1));
@@ -687,3 +694,4 @@ void test_cached_control()
 	if((std::string)test_BrowserHomePage != "http://www.secondlife.com") llerrs << "Fail BrowserHomePage" << llendl;
 }
 #endif // TEST_CACHED_CONTROL
+

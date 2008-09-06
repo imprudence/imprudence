@@ -57,12 +57,12 @@ public:
 	static void closeGroup(const LLUUID& group_id);
 	static void refreshGroup(const LLUUID& group_id);
 
-	static void showNotice(const char* subject,
-							 const char* message,
-							 const LLUUID& group_id,
-							 const bool& has_inventory,
-							 const char* inventory_name,
-							 LLOfferInfo* inventory_offer);
+	static void showNotice(const std::string& subject,
+						   const std::string& message,
+						   const LLUUID& group_id,
+						   const bool& has_inventory,
+						   const std::string& inventory_name,
+						   LLOfferInfo* inventory_offer);
 
 	LLUUID		getGroupID() { return mGroupID;}
 
@@ -75,7 +75,7 @@ protected:
 	LLFloaterGroupInfo(const std::string& name, const LLRect &rect, const std::string& title, const LLUUID& group_id = LLUUID::null, const std::string& tab_name = std::string());
 
 private:
-	static void callbackLoadGroupName(const LLUUID& id, const char* first, const char* last, BOOL is_group, void* data);
+	static void callbackLoadGroupName(const LLUUID& id, const std::string& first, const std::string& last, BOOL is_group, void* data);
 	static std::map<LLUUID, LLFloaterGroupInfo*> sInstances;
 
 	LLUUID			mGroupID;

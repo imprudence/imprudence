@@ -60,8 +60,8 @@ class LLFolderViewEventListener;
 // Utility function to hide all entries except those in the list
 class LLMenuGL;
 void hideContextEntries(LLMenuGL& menu, 
-		const std::vector<LLString> &entries_to_show, 
-		const std::vector<LLString> &disabled_entries);
+		const std::vector<std::string> &entries_to_show, 
+		const std::vector<std::string> &disabled_entries);
 
 class LLPanelInventory : public LLPanel, public LLVOInventoryListener
 {
@@ -89,7 +89,7 @@ protected:
 	void clearContents();
 
 public:
-	LLPanelInventory(const LLString& name, const LLRect& rect);
+	LLPanelInventory(const std::string& name, const LLRect& rect);
 	virtual ~LLPanelInventory();
 
 	void refresh();
@@ -101,7 +101,7 @@ public:
 
 	virtual void draw();
 	virtual void deleteAllChildren();
-	virtual BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop, EDragAndDropType cargo_type, void *cargo_data, EAcceptance *accept, LLString& tooltip_msg);
+	virtual BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop, EDragAndDropType cargo_type, void *cargo_data, EAcceptance *accept, std::string& tooltip_msg);
 	
 	static void idle(void* user_data);
 };

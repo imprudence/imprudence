@@ -99,7 +99,7 @@ enum {
 };
 
 //*TODO:translate (depricated, so very low priority)
-static const LLString LEGACY_FULLBRIGHT_DESC("Fullbright (Legacy)");
+static const std::string LEGACY_FULLBRIGHT_DESC("Fullbright (Legacy)");
 
 BOOL	LLPanelObject::postBuild()
 {
@@ -289,9 +289,12 @@ BOOL	LLPanelObject::postBuild()
 	}
 
 	mLabelSculptType = getChild<LLTextBox>("label sculpt type");
-	mCtrlSculptType = getChild<LLComboBox>( "sculpt type control");
+	mCtrlSculptType = getChild<LLComboBox>("sculpt type control");
 	childSetCommitCallback("sculpt type control", onCommitSculptType, this);
-
+	mCtrlSculptMirror = getChild<LLCheckBoxCtrl>("sculpt mirror control");
+	childSetCommitCallback("sculpt mirror control", onCommitSculptType, this);
+	mCtrlSculptInvert = getChild<LLCheckBoxCtrl>("sculpt invert control");
+	childSetCommitCallback("sculpt invert control", onCommitSculptType, this);
 	
 	// Start with everyone disabled
 	clearCtrls();
@@ -429,7 +432,7 @@ void LLPanelObject::getState( )
 
 	BOOL owners_identical;
 	LLUUID owner_id;
-	LLString owner_name;
+	std::string owner_name;
 	owners_identical = LLSelectMgr::getInstance()->selectGetOwner(owner_id, owner_name);
 
 	// BUG? Check for all objects being editable?
@@ -538,7 +541,7 @@ void LLPanelObject::getState( )
 				mComboMaterial->remove(LEGACY_FULLBRIGHT_DESC);
 			}
 			// *TODO:Translate
-			mComboMaterial->setSimple(LLString(LLMaterialTable::basic.getName(material_code)));
+			mComboMaterial->setSimple(std::string(LLMaterialTable::basic.getName(material_code)));
 		}
 	}
 	else
@@ -1057,6 +1060,8 @@ void LLPanelObject::getState( )
 	mCtrlSculptTexture->setVisible(sculpt_texture_visible);
 	mLabelSculptType->setVisible(sculpt_texture_visible);
 	mCtrlSculptType->setVisible(sculpt_texture_visible);
+	mCtrlSculptMirror->setVisible(sculpt_texture_visible);
+	mCtrlSculptInvert->setVisible(sculpt_texture_visible);
 
 
 	// sculpt texture
@@ -1086,10 +1091,27 @@ void LLPanelObject::getState( )
 					mTextureCtrl->setImageAssetID(LLUUID::null);
 			}
 
+			U8 sculpt_type = sculpt_params->getSculptType();
+			U8 sculpt_stitching = sculpt_type & LL_SCULPT_TYPE_MASK;
+			BOOL sculpt_invert = sculpt_type & LL_SCULPT_FLAG_INVERT;
+			BOOL sculpt_mirror = sculpt_type & LL_SCULPT_FLAG_MIRROR;
+			
 			if (mCtrlSculptType)
 			{
-				mCtrlSculptType->setCurrentByIndex(sculpt_params->getSculptType());
+				mCtrlSculptType->setCurrentByIndex(sculpt_stitching);
 				mCtrlSculptType->setEnabled(editable);
+			}
+
+			if (mCtrlSculptMirror)
+			{
+				mCtrlSculptMirror->set(sculpt_mirror);
+				mCtrlSculptMirror->setEnabled(editable);
+			}
+
+			if (mCtrlSculptInvert)
+			{
+				mCtrlSculptInvert->set(sculpt_invert);
+				mCtrlSculptInvert->setEnabled(editable);
 			}
 
 			if (mLabelSculptType)
@@ -1191,10 +1213,10 @@ void LLPanelObject::onCommitMaterial( LLUICtrl* ctrl, void* userdata )
 	if (box)
 	{
 		// apply the currently selected material to the object
-		const LLString& material_name = box->getSimple();
+		const std::string& material_name = box->getSimple();
 		if (material_name != LEGACY_FULLBRIGHT_DESC)
 		{
-			U8 material_code = LLMaterialTable::basic.getMCode(material_name.c_str());
+			U8 material_code = LLMaterialTable::basic.getMCode(material_name);
 			LLSelectMgr::getInstance()->selectionSetMaterial(material_code);
 		}
 	}
@@ -1546,7 +1568,7 @@ void LLPanelObject::getVolumeParams(LLVolumeParams& volume_params)
 }
 
 // BUG: Make work with multiple objects
-void LLPanelObject::sendRotation()
+void LLPanelObject::sendRotation(BOOL btn_down)
 {
 	if (mObject.isNull()) return;
 
@@ -1570,16 +1592,34 @@ void LLPanelObject::sendRotation()
 		{
 			rotation = rotation * ~mRootObject->getRotationRegion();
 		}
+		std::vector<LLVector3>& child_positions = mObject->mUnselectedChildrenPositions ;
+		std::vector<LLQuaternion> child_rotations;
+		if (mObject->isRootEdit())
+		{
+			mObject->saveUnselectedChildrenRotation(child_rotations) ;
+			mObject->saveUnselectedChildrenPosition(child_positions) ;			
+		}
 
-		mObject->setRotation(rotation, TRUE );
+		mObject->setRotation(rotation);
+		LLManip::rebuild(mObject) ;
 
-		LLSelectMgr::getInstance()->sendMultipleUpdate(UPD_ROTATION);
+		// for individually selected roots, we need to counterrotate all the children
+		if (mObject->isRootEdit())
+		{			
+			mObject->resetChildrenRotationAndPosition(child_rotations, child_positions) ;			
+		}
+
+		if(!btn_down)
+		{
+			child_positions.clear() ;
+			LLSelectMgr::getInstance()->sendMultipleUpdate(UPD_ROTATION | UPD_POSITION);
+		}
 	}
 }
 
 
 // BUG: Make work with multiple objects
-void LLPanelObject::sendScale()
+void LLPanelObject::sendScale(BOOL btn_down)
 {
 	if (mObject.isNull()) return;
 
@@ -1599,7 +1639,11 @@ void LLPanelObject::sendScale()
 		}
 
 		mObject->setScale(newscale, TRUE);
-		LLSelectMgr::getInstance()->sendMultipleUpdate(UPD_SCALE | UPD_POSITION);
+
+		if(!btn_down)
+		{
+			LLSelectMgr::getInstance()->sendMultipleUpdate(UPD_SCALE | UPD_POSITION);
+		}
 
 		LLSelectMgr::getInstance()->adjustTexturesByScale(TRUE, !dont_stretch_textures);
 //		llinfos << "scale sent" << llendl;
@@ -1611,7 +1655,7 @@ void LLPanelObject::sendScale()
 }
 
 
-void LLPanelObject::sendPosition()
+void LLPanelObject::sendPosition(BOOL btn_down)
 {	
 	if (mObject.isNull()) return;
 
@@ -1654,7 +1698,7 @@ void LLPanelObject::sendPosition()
 		LLVector3d delta = new_pos_global - old_pos_global;
 		// moved more than 1/2 millimeter
 		if (delta.magVec() >= 0.0005f)
-		{
+		{			
 			if (mRootObject != mObject)
 			{
 				newpos = newpos - mRootObject->getPositionRegion();
@@ -1664,8 +1708,21 @@ void LLPanelObject::sendPosition()
 			else
 			{
 				mObject->setPositionEdit(newpos);
+			}			
+			
+			LLManip::rebuild(mObject) ;
+
+			// for individually selected roots, we need to counter-translate all unselected children
+			if (mObject->isRootEdit())
+			{								
+				// only offset by parent's translation
+				mObject->resetChildrenPosition(LLVector3(-delta), TRUE) ;				
 			}
-			LLSelectMgr::getInstance()->sendMultipleUpdate(UPD_POSITION);
+
+			if(!btn_down)
+			{
+				LLSelectMgr::getInstance()->sendMultipleUpdate(UPD_POSITION);
+			}
 
 			LLSelectMgr::getInstance()->updateSelectionCenter();
 		}
@@ -1690,9 +1747,18 @@ void LLPanelObject::sendSculpt()
 	if (mCtrlSculptTexture)
 		sculpt_params.setSculptTexture(mCtrlSculptTexture->getImageAssetID());
 
-	if (mCtrlSculptType)
-		sculpt_params.setSculptType(mCtrlSculptType->getCurrentIndex());
+	U8 sculpt_type = 0;
 	
+	if (mCtrlSculptType)
+		sculpt_type |= mCtrlSculptType->getCurrentIndex();
+
+	if ((mCtrlSculptMirror) && (mCtrlSculptMirror->get()))
+		sculpt_type |= LL_SCULPT_FLAG_MIRROR;
+
+	if ((mCtrlSculptInvert) && (mCtrlSculptInvert->get()))
+		sculpt_type |= LL_SCULPT_FLAG_INVERT;
+	
+	sculpt_params.setSculptType(sculpt_type);
 	mObject->setParameterEntry(LLNetworkData::PARAMS_SCULPT, sculpt_params, TRUE);
 }
 
@@ -1846,21 +1912,24 @@ void LLPanelObject::onCommitLock(LLUICtrl *ctrl, void *data)
 void LLPanelObject::onCommitPosition( LLUICtrl* ctrl, void* userdata )
 {
 	LLPanelObject* self = (LLPanelObject*) userdata;
-	self->sendPosition();
+	BOOL btn_down = ((LLSpinCtrl*)ctrl)->isMouseHeldDown() ;
+	self->sendPosition(btn_down);
 }
 
 // static
 void LLPanelObject::onCommitScale( LLUICtrl* ctrl, void* userdata )
 {
 	LLPanelObject* self = (LLPanelObject*) userdata;
-	self->sendScale();
+	BOOL btn_down = ((LLSpinCtrl*)ctrl)->isMouseHeldDown() ;
+	self->sendScale(btn_down);
 }
 
 // static
 void LLPanelObject::onCommitRotation( LLUICtrl* ctrl, void* userdata )
 {
 	LLPanelObject* self = (LLPanelObject*) userdata;
-	self->sendRotation();
+	BOOL btn_down = ((LLSpinCtrl*)ctrl)->isMouseHeldDown() ;
+	self->sendRotation(btn_down);
 }
 
 // static

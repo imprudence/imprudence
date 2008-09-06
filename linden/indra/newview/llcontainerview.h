@@ -42,7 +42,7 @@ class LLContainerView : public LLView
 {
 protected:
 	BOOL mDisplayChildren;
-	LLString mLabel;
+	std::string mLabel;
 public:
 	BOOL mCollapsible;
 public:
@@ -56,7 +56,7 @@ public:
 	virtual void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 	virtual LLRect getRequiredRect();	// Return the height of this object, given the set options.
 
-	void setLabel(const LLString& label);
+	void setLabel(const std::string& label);
 	void showLabel(BOOL show) { mShowLabel = show; }
 	void setDisplayChildren(const BOOL displayChildren);
 	BOOL getDisplayChildren() { return mDisplayChildren; }

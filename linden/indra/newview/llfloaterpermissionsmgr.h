@@ -80,7 +80,7 @@ public:
 
 public:
 	void clearPermissionsData();
-	void addPermissionsData(const LLString& object_name, const LLUUID& object_id, U32 permissions_flags);
+	void addPermissionsData(const std::string& object_name, const LLUUID& object_id, U32 permissions_flags);
 
 	static void revokePermissions(void *userdata);
 	static void findObject(void *userdata);

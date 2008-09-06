@@ -235,10 +235,11 @@ static char* get_gst_state_name(GstState state)
 }
 #endif // LL_GST_REPORT_STATE_CHANGES
 
-static gboolean
-bus_callback (GstBus     *bus,
-	      GstMessage *message,
-	      gpointer    data)
+//static
+gboolean
+LLMediaImplGStreamer::bus_callback (GstBus     *bus,
+				    GstMessage *message,
+				    gpointer    data)
 {
 	if (GST_MESSAGE_TYPE(message) != GST_MESSAGE_STATE_CHANGED &&
 	    GST_MESSAGE_TYPE(message) != GST_MESSAGE_BUFFERING)
@@ -605,6 +606,27 @@ LLMediaImplGStreamer::
 getMediaData ()
 {
 	return mediaData;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// virtual
+bool
+LLMediaImplGStreamer::
+seek( double time )
+{
+	bool success = false;
+	if (mPlaybin)
+	{
+		success = llgst_element_seek(mPlaybin, 1.0F, GST_FORMAT_TIME,
+				GstSeekFlags(GST_SEEK_FLAG_FLUSH |
+					     GST_SEEK_FLAG_KEY_UNIT),
+				GST_SEEK_TYPE_SET, gint64(time*1000000000.0F),
+				GST_SEEK_TYPE_NONE, GST_CLOCK_TIME_NONE);
+	}
+	DEBUGMSG("MEDIA SEEK REQUEST to %fsec result was %d",
+		 float(time), int(success));
+	return success;
 }
 
 

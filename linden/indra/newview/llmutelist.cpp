@@ -97,9 +97,9 @@ const char AGENT_SUFFIX[] = " (resident)";
 const char OBJECT_SUFFIX[] = " (object)";
 const char GROUP_SUFFIX[] = " (group)";
 
-LLString LLMute::getDisplayName() const
+std::string LLMute::getDisplayName() const
 {
-	LLString name_with_suffix = mName;
+	std::string name_with_suffix = mName;
 	switch (mType)
 	{
 		case BY_NAME:
@@ -119,7 +119,7 @@ LLString LLMute::getDisplayName() const
 	return name_with_suffix;
 }
 
-void LLMute::setFromDisplayName(const LLString& display_name)
+void LLMute::setFromDisplayName(const std::string& display_name)
 {
 	size_t pos = 0;
 	mName = display_name;
@@ -198,7 +198,7 @@ void LLMuteList::loadUserVolumes()
 
 	LLSD settings_llsd;
 	llifstream file;
-	file.open(filename.c_str());
+	file.open(filename);
 	if (file.is_open())
 	{
 		LLSDSerialize::fromXML(settings_llsd, file);
@@ -225,11 +225,11 @@ LLMuteList::~LLMuteList()
 	}
 
 	llofstream file;
-	file.open(filename.c_str());
+	file.open(filename);
 	LLSDSerialize::toPrettyXML(settings_llsd, file);
 }
 
-BOOL LLMuteList::isLinden(const LLString& name) const
+BOOL LLMuteList::isLinden(const std::string& name) const
 {
 	typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 	boost::char_separator<char> sep(" ");
@@ -240,7 +240,7 @@ BOOL LLMuteList::isLinden(const LLString& name) const
 	token_iter++;
 	if (token_iter == tokens.end()) return FALSE;
 	
-	LLString last_name = *token_iter;
+	std::string last_name = *token_iter;
 	return last_name == "Linden";
 }
 
@@ -449,9 +449,9 @@ void LLMuteList::updateRemove(const LLMute& mute)
 	gAgent.sendReliableMessage();
 }
 
-void notify_automute_callback(const LLUUID& agent_id, const char* first_name, const char* last_name, BOOL is_group, void* user_data)
+void notify_automute_callback(const LLUUID& agent_id, const std::string& first_name, const std::string& last_name, BOOL is_group, void* user_data)
 {
-	U32 temp_data = (U32)user_data;
+	U32 temp_data = (U32) (uintptr_t) user_data;
 	LLMuteList::EAutoReason reason = (LLMuteList::EAutoReason)temp_data;
 	LLUIString auto_message;
 
@@ -486,20 +486,19 @@ void notify_automute_callback(const LLUUID& agent_id, const char* first_name, co
 }
 
 
-BOOL LLMuteList::autoRemove(const LLUUID& agent_id, const EAutoReason reason, const LLString& first_name, const LLString& last_name)
+BOOL LLMuteList::autoRemove(const LLUUID& agent_id, const EAutoReason reason, const std::string& first_name, const std::string& last_name)
 {
 	BOOL removed = FALSE;
 
 	if (isMuted(agent_id))
 	{
-		LLMute automute(agent_id, "", LLMute::AGENT);
+		LLMute automute(agent_id, LLStringUtil::null, LLMute::AGENT);
 		removed = TRUE;
 		remove(automute);
 
 		if (first_name.empty() && last_name.empty())
 		{
-			char cache_first[DB_FIRST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-			char cache_last[DB_LAST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
+			std::string cache_first, cache_last;
 			if (gCacheName->getName(agent_id, cache_first, cache_last))
 			{
 				// name in cache, call callback directly
@@ -514,7 +513,7 @@ BOOL LLMuteList::autoRemove(const LLUUID& agent_id, const EAutoReason reason, co
 		else
 		{
 			// call callback directly
-			notify_automute_callback(agent_id, first_name.c_str(), last_name.c_str(), FALSE, (void *)reason);
+			notify_automute_callback(agent_id, first_name, last_name, FALSE, (void *)reason);
 		}
 	}
 
@@ -548,7 +547,7 @@ std::vector<LLMute> LLMuteList::getMutes() const
 //-----------------------------------------------------------------------------
 // loadFromFile()
 //-----------------------------------------------------------------------------
-BOOL LLMuteList::loadFromFile(const LLString& filename)
+BOOL LLMuteList::loadFromFile(const std::string& filename)
 {
 	if(!filename.size())
 	{
@@ -556,7 +555,7 @@ BOOL LLMuteList::loadFromFile(const LLString& filename)
 		return FALSE;
 	}
 
-	LLFILE* fp = LLFile::fopen(filename.c_str(), "rb");		/*Flawfinder: ignore*/
+	LLFILE* fp = LLFile::fopen(filename, "rb");		/*Flawfinder: ignore*/
 	if (!fp)
 	{
 		llwarns << "Couldn't open mute list " << filename << llendl;
@@ -579,7 +578,7 @@ BOOL LLMuteList::loadFromFile(const LLString& filename)
 			buffer, " %d %254s %254[^|]| %u\n", &type, id_buffer, name_buffer,
 			&flags);
 		LLUUID id = LLUUID(id_buffer);
-		LLMute mute(id, name_buffer, (LLMute::EType)type, flags);
+		LLMute mute(id, std::string(name_buffer), (LLMute::EType)type, flags);
 		if (mute.mID.isNull()
 			|| mute.mType == LLMute::BY_NAME)
 		{
@@ -598,7 +597,7 @@ BOOL LLMuteList::loadFromFile(const LLString& filename)
 //-----------------------------------------------------------------------------
 // saveToFile()
 //-----------------------------------------------------------------------------
-BOOL LLMuteList::saveToFile(const LLString& filename)
+BOOL LLMuteList::saveToFile(const std::string& filename)
 {
 	if(!filename.size())
 	{
@@ -606,35 +605,35 @@ BOOL LLMuteList::saveToFile(const LLString& filename)
 		return FALSE;
 	}
 
-	LLFILE* fp = LLFile::fopen(filename.c_str(), "wb");		/*Flawfinder: ignore*/
+	LLFILE* fp = LLFile::fopen(filename, "wb");		/*Flawfinder: ignore*/
 	if (!fp)
 	{
 		llwarns << "Couldn't open mute list " << filename << llendl;
 		return FALSE;
 	}
 	// legacy mutes have null uuid
-	char id_string[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
+	std::string id_string;
 	LLUUID::null.toString(id_string);
 	for (string_set_t::iterator it = mLegacyMutes.begin();
 		 it != mLegacyMutes.end();
 		 ++it)
 	{
-		fprintf(fp, "%d %s %s|\n", (S32)LLMute::BY_NAME, id_string, it->c_str());
+		fprintf(fp, "%d %s %s|\n", (S32)LLMute::BY_NAME, id_string.c_str(), it->c_str());
 	}
 	for (mute_set_t::iterator it = mMutes.begin();
 		 it != mMutes.end();
 		 ++it)
 	{
 		it->mID.toString(id_string);
-		const LLString& name = it->mName;
-		fprintf(fp, "%d %s %s|%u\n", (S32)it->mType, id_string, name.c_str(), it->mFlags);
+		const std::string& name = it->mName;
+		fprintf(fp, "%d %s %s|%u\n", (S32)it->mType, id_string.c_str(), name.c_str(), it->mFlags);
 	}
 	fclose(fp);
 	return TRUE;
 }
 
 
-BOOL LLMuteList::isMuted(const LLUUID& id, const LLString& name, U32 flags) const
+BOOL LLMuteList::isMuted(const LLUUID& id, const std::string& name, U32 flags) const
 {
 	LLUUID id_to_check = id;
 	
@@ -677,10 +676,10 @@ void LLMuteList::requestFromServer(const LLUUID& agent_id)
 {
 	loadUserVolumes();
 	
-	char agent_id_string[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
-	char filename[LL_MAX_PATH];		/*Flawfinder: ignore*/
+	std::string agent_id_string;
+	std::string filename;
 	agent_id.toString(agent_id_string);
-	snprintf(filename, sizeof(filename), "%s.cached_mute", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string).c_str());			/* Flawfinder: ignore */
+	filename = gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string) + ".cached_mute";
 	LLCRC crc;
 	crc.update(filename);
 
@@ -703,10 +702,10 @@ void LLMuteList::cache(const LLUUID& agent_id)
 	// Write to disk even if empty.
 	if(mIsLoaded)
 	{
-		char agent_id_string[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
-		char filename[LL_MAX_PATH];		/*Flawfinder: ignore*/
+		std::string agent_id_string;
+		std::string filename;
 		agent_id.toString(agent_id_string);
-		snprintf(filename, sizeof(filename), "%s.cached_mute", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string).c_str());			/* Flawfinder: ignore */
+		filename = gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string) + ".cached_mute";
 		saveToFile(filename);
 	}
 }
@@ -745,12 +744,11 @@ void LLMuteList::processMuteListUpdate(LLMessageSystem* msg, void**)
 		llwarns << "Got an mute list update for the wrong agent." << llendl;
 		return;
 	}
-	char filename[MAX_STRING];		/*Flawfinder: ignore*/
-	filename[0] = '\0';
-	msg->getStringFast(_PREHASH_MuteData, _PREHASH_Filename, MAX_STRING, filename);
+	std::string filename;
+	msg->getStringFast(_PREHASH_MuteData, _PREHASH_Filename, filename);
 	
 	std::string *local_filename_and_path = new std::string(gDirUtilp->getExpandedFilename( LL_PATH_CACHE, filename ));
-	gXferManager->requestFile(local_filename_and_path->c_str(),
+	gXferManager->requestFile(*local_filename_and_path,
 							  filename,
 							  LL_PATH_CACHE,
 							  msg->getSender(),
@@ -764,10 +762,10 @@ void LLMuteList::processUseCachedMuteList(LLMessageSystem* msg, void**)
 {
 	llinfos << "LLMuteList::processUseCachedMuteList()" << llendl;
 
-	char agent_id_string[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
+	std::string agent_id_string;
 	gAgent.getID().toString(agent_id_string);
-	char filename[LL_MAX_PATH];		/*Flawfinder: ignore*/
-	snprintf(filename, sizeof(filename), "%s.cached_mute", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string).c_str());			/* Flawfinder: ignore */
+	std::string filename;
+	filename = gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string) + ".cached_mute";
 	LLMuteList::getInstance()->loadFromFile(filename);
 }
 
@@ -775,11 +773,11 @@ void LLMuteList::onFileMuteList(void** user_data, S32 error_code, LLExtStat ext_
 {
 	llinfos << "LLMuteList::processMuteListFile()" << llendl;
 
-	std::string *local_filename_and_path = (std::string*)user_data;
+	std::string* local_filename_and_path = (std::string*)user_data;
 	if(local_filename_and_path && !local_filename_and_path->empty() && (error_code == 0))
 	{
-		LLMuteList::getInstance()->loadFromFile(local_filename_and_path->c_str());
-		LLFile::remove(local_filename_and_path->c_str());
+		LLMuteList::getInstance()->loadFromFile(*local_filename_and_path);
+		LLFile::remove(*local_filename_and_path);
 	}
 	delete local_filename_and_path;
 }

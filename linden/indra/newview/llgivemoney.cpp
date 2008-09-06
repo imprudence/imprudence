@@ -55,8 +55,6 @@
 /// Local function declarations, constants, enums, and typedefs
 ///----------------------------------------------------------------------------
 
-const char* GIVE_MONEY_TITLE = "";	// Dialog contains text "Pay"
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Class LLGiveMoneyInfo
 //
@@ -84,7 +82,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 						   money_callback callback,
 						   const LLUUID& uuid,
 						   BOOL target_is_object) :
-	LLFloater(name, "FloaterPayRectB", GIVE_MONEY_TITLE, RESIZE_NO,
+	LLFloater(name, std::string("FloaterPayRectB"), LLStringUtil::null, RESIZE_NO,
 				DEFAULT_MIN_WIDTH, DEFAULT_MIN_HEIGHT, DRAG_ON_TOP,
 				MINIMIZE_NO, CLOSE_YES),
 	mCallbackData(),
@@ -150,7 +148,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 	
     childSetVisible("amount text", FALSE);	
 
-	LLString last_amount;
+	std::string last_amount;
 	if(sLastAmount > 0)
 	{
 		last_amount = llformat("%d", sLastAmount);
@@ -241,7 +239,7 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 			msg->getS32Fast(_PREHASH_ButtonData,_PREHASH_PayButton,pay_button,i);
 			if (pay_button > 0)
 			{
-				LLString button_str = "L$";
+				std::string button_str = "L$";
 				button_str += LLResMgr::getInstance()->getMonetaryString( pay_button );
 
 				self->mQuickPayButton[i]->setLabelSelected(button_str);
@@ -262,10 +260,10 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 		}
 
 		// build a string containing the maximum value and calc nerw button width from it.
-		LLString balance_str = "L$";
+		std::string balance_str = "L$";
 		balance_str += LLResMgr::getInstance()->getMonetaryString( max_pay_amount );
 		const LLFontGL* font = LLResMgr::getInstance()->getRes(LLFONT_SANSSERIF);
-		S32 new_button_width = font->getWidth( LLString(balance_str));
+		S32 new_button_width = font->getWidth( std::string(balance_str));
 		new_button_width += ( 12 + 12 );	// padding
 
 		// dialong is sized for 2 digit pay amounts - larger pay values need to be scaled
@@ -276,7 +274,7 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 			S32 num_digits_max = (S32)log10((double)max_pay_amount) + 1;
 				
 			// calculate the extra width required by 2 buttons with max amount and some commas
-			padding_required = ( num_digits_max - num_digits_threshold + ( num_digits_max / 3 ) ) * font->getWidth( "0" );
+			padding_required = ( num_digits_max - num_digits_threshold + ( num_digits_max / 3 ) ) * font->getWidth( std::string("0") );
 		};
 
 		// change in button width
@@ -388,8 +386,8 @@ void LLFloaterPay::finishPayUI(const LLUUID& target_id, BOOL is_group)
 
 // static
 void LLFloaterPay::onCacheOwnerName(const LLUUID& owner_id,
-									const char* firstname,
-									const char* lastname,
+									const std::string& firstname,
+									const std::string& lastname,
 									BOOL is_group,
 									void* userdata)
 {
@@ -407,8 +405,8 @@ void LLFloaterPay::onCacheOwnerName(const LLUUID& owner_id,
 		self->childSetVisible("payee_resident",true);
 	}
 	
-	self->childSetTextArg("payee_name", "[FIRST]", LLString(firstname));
-	self->childSetTextArg("payee_name", "[LAST]", LLString(lastname));
+	self->childSetTextArg("payee_name", "[FIRST]", firstname);
+	self->childSetTextArg("payee_name", "[LAST]", lastname);
 }
 
 // static
@@ -428,7 +426,7 @@ void LLFloaterPay::onKeystroke(LLLineEditor*, void* data)
 	if(self)
 	{
 		// enable the Pay button when amount is non-empty and positive, disable otherwise
-		LLString amtstr = self->childGetText("amount");
+		std::string amtstr = self->childGetText("amount");
 		self->childSetEnabled("pay btn", !amtstr.empty() && atoi(amtstr.c_str()) > 0);
 	}
 }
@@ -467,7 +465,7 @@ void LLFloaterPay::give(S32 amount)
 				{
 					// Find the name of the root object
 					LLSelectNode* node = mObjectSelection->getFirstRootNode();
-					LLString object_name;
+					std::string object_name;
 					if (node)
 					{
 						object_name = node->mName;
@@ -493,7 +491,7 @@ void LLFloaterPay::give(S32 amount)
 		else
 		{
 			// just transfer the L$
-			mCallback(mTargetUUID, gAgent.getRegion(), amount, mTargetIsGroup, TRANS_GIFT, LLString::null);
+			mCallback(mTargetUUID, gAgent.getRegion(), amount, mTargetIsGroup, TRANS_GIFT, LLStringUtil::null);
 
 			// check if the payee needs to be unmuted
 			LLMuteList::getInstance()->autoRemove(mTargetUUID, LLMuteList::AR_MONEY);

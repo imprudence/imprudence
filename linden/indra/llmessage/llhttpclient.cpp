@@ -122,7 +122,7 @@ namespace
 	{
 	public:
 		RawInjector(const U8* data, S32 size) : mData(data), mSize(size) {}
-		virtual ~RawInjector() {}
+		virtual ~RawInjector() {delete mData;}
 
 		const char* contentType() { return "application/octet-stream"; }
 
@@ -152,17 +152,22 @@ namespace
 		{
 			LLBufferStream ostream(channels, buffer.get());
 
-			llifstream fstream(mFilename.c_str(), std::iostream::binary | std::iostream::out);
-            fstream.seekg(0, std::ios::end);
-            U32 fileSize = fstream.tellg();
-            fstream.seekg(0, std::ios::beg);
-			char* fileBuffer;
-			fileBuffer = new char [fileSize];
-            fstream.read(fileBuffer, fileSize);
-            ostream.write(fileBuffer, fileSize);
-			fstream.close();
-			eos = true;
-			return STATUS_DONE;
+			llifstream fstream(mFilename, std::iostream::binary | std::iostream::out);
+			if(fstream.is_open())
+			{
+				fstream.seekg(0, std::ios::end);
+				U32 fileSize = fstream.tellg();
+				fstream.seekg(0, std::ios::beg);
+				char* fileBuffer;
+				fileBuffer = new char [fileSize];
+				fstream.read(fileBuffer, fileSize);
+				ostream.write(fileBuffer, fileSize);
+				fstream.close();
+				eos = true;
+				return STATUS_DONE;
+			}
+			
+			return STATUS_ERROR;
 		}
 
 		const std::string mFilename;
@@ -199,14 +204,13 @@ namespace
 	LLPumpIO* theClientPump = NULL;
 }
 
-static void request(const std::string& url,
-					LLURLRequest::ERequestAction method,
-					Injector* body_injector,
-					LLCurl::ResponderPtr responder,
-					const LLSD& headers = LLSD(),
-					const F32 timeout = HTTP_REQUEST_EXPIRY_SECS,
-					S32 offset = 0,
-					S32 bytes = 0)
+static void request(
+	const std::string& url,
+	LLURLRequest::ERequestAction method,
+	Injector* body_injector,
+	LLCurl::ResponderPtr responder,
+	const F32 timeout = HTTP_REQUEST_EXPIRY_SECS,
+	const LLSD& headers = LLSD())
 {
 	if (!LLHTTPClient::hasPump())
 	{
@@ -215,7 +219,7 @@ static void request(const std::string& url,
 	}
 	LLPumpIO::chain_t chain;
 
-	LLURLRequest *req = new LLURLRequest(method, url);
+	LLURLRequest* req = new LLURLRequest(method, url);
 	req->checkRootCertificate(true);
 
     // Insert custom headers is the caller sent any
@@ -234,10 +238,10 @@ static void request(const std::string& url,
             //to not use the proxy (read: llurlrequest.cpp)
             if ((iter->first == "Pragma") && (iter->second.asString() == ""))
             {
-                req->useProxy(FALSE);
+                req->useProxy(false);
             }
             header << iter->first << ": " << iter->second.asString() ;
-            llinfos << "header = " << header.str() << llendl;
+            lldebugs << "header = " << header.str() << llendl;
             req->addHeader(header.str().c_str());
         }
     }
@@ -257,25 +261,27 @@ static void request(const std::string& url,
    		chain.push_back(LLIOPipe::ptr_t(body_injector));
 	}
 
-	if (method == LLURLRequest::HTTP_GET && (offset > 0 || bytes > 0))
-	{
-		std::string range = llformat("Range: bytes=%d-%d", offset,offset+bytes-1);
-		req->addHeader(range.c_str());
-   	}
-	
 	chain.push_back(LLIOPipe::ptr_t(req));
 
 	theClientPump->addChain(chain, timeout);
 }
 
 
-void LLHTTPClient::getByteRange(const std::string& url,
-								S32 offset, S32 bytes,
-								ResponderPtr responder,
-								const LLSD& headers,
-								const F32 timeout)
+void LLHTTPClient::getByteRange(
+	const std::string& url,
+	S32 offset,
+	S32 bytes,
+	ResponderPtr responder,
+	const LLSD& hdrs,
+	const F32 timeout)
 {
-    request(url, LLURLRequest::HTTP_GET, NULL, responder, LLSD(), timeout, offset, bytes);
+	LLSD headers = hdrs;
+	if(offset > 0 || bytes > 0)
+	{
+		std::string range = llformat("bytes=%d-%d", offset, offset+bytes-1);
+		headers["Range"] = range;
+	}
+    request(url,LLURLRequest::HTTP_GET, NULL, responder, timeout, headers);
 }
 
 void LLHTTPClient::head(const std::string& url, ResponderPtr responder, const F32 timeout)
@@ -285,11 +291,11 @@ void LLHTTPClient::head(const std::string& url, ResponderPtr responder, const F3
 
 void LLHTTPClient::get(const std::string& url, ResponderPtr responder, const LLSD& headers, const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_GET, NULL, responder, headers, timeout);
+	request(url, LLURLRequest::HTTP_GET, NULL, responder, timeout, headers);
 }
 void LLHTTPClient::getHeaderOnly(const std::string& url, ResponderPtr responder, const LLSD& headers, const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_HEAD, NULL, responder, headers, timeout);
+	request(url, LLURLRequest::HTTP_HEAD, NULL, responder, timeout, headers);
 }
 void LLHTTPClient::getHeaderOnly(const std::string& url, ResponderPtr responder, const F32 timeout)
 {
@@ -401,17 +407,11 @@ void LLHTTPClient::post(const std::string& url, const LLSD& body, ResponderPtr r
 	request(url, LLURLRequest::HTTP_POST, new LLSDInjector(body), responder, timeout);
 }
 
-void LLHTTPClient::post(const std::string& url, const U8* data, S32 size, ResponderPtr responder, const F32 timeout)
+void LLHTTPClient::postRaw(const std::string& url, const U8* data, S32 size, ResponderPtr responder, const F32 timeout)
 {
 	request(url, LLURLRequest::HTTP_POST, new RawInjector(data, size), responder, timeout);
 }
 
-void LLHTTPClient::del(const std::string& url, ResponderPtr responder, const F32 timeout)
-{
-	request(url, LLURLRequest::HTTP_DELETE, NULL, responder, timeout);
-}
-
-#if 1
 void LLHTTPClient::postFile(const std::string& url, const std::string& filename, ResponderPtr responder, const F32 timeout)
 {
 	request(url, LLURLRequest::HTTP_POST, new FileInjector(filename), responder, timeout);
@@ -422,7 +422,28 @@ void LLHTTPClient::postFile(const std::string& url, const LLUUID& uuid,
 {
 	request(url, LLURLRequest::HTTP_POST, new VFileInjector(uuid, asset_type), responder, timeout);
 }
-#endif
+
+// static
+void LLHTTPClient::del(
+	const std::string& url,
+	ResponderPtr responder,
+	const F32 timeout)
+{
+	request(url, LLURLRequest::HTTP_DELETE, NULL, responder, timeout);
+}
+
+// static
+void LLHTTPClient::move(
+	const std::string& url,
+	const std::string& destination,
+	ResponderPtr responder,
+	const F32 timeout)
+{
+	LLSD headers;
+	headers["Destination"] = destination;
+	request(url, LLURLRequest::HTTP_MOVE, NULL, responder, timeout, headers);
+}
+
 
 void LLHTTPClient::setPump(LLPumpIO& pump)
 {

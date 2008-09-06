@@ -73,7 +73,7 @@ LLColorSwatchCtrl::LLColorSwatchCtrl(const std::string& name, const LLRect& rect
 	// Scalable UI made this off-by-one, I don't know why. JC
 	LLRect border_rect(0, getRect().getHeight()-1, getRect().getWidth()-1, 0);
 	border_rect.mBottom += BTN_HEIGHT_SMALL;
-	mBorder = new LLViewBorder("border", border_rect, LLViewBorder::BEVEL_IN);
+	mBorder = new LLViewBorder(std::string("border"), border_rect, LLViewBorder::BEVEL_IN);
 	addChild(mBorder);
 
 	mAlphaGradientImage = LLUI::getUIImage("color_swatch_alpha.tga");
@@ -100,7 +100,7 @@ LLColorSwatchCtrl::LLColorSwatchCtrl(const std::string& name, const LLRect& rect
 	// Scalable UI made this off-by-one, I don't know why. JC
 	LLRect border_rect(0, getRect().getHeight()-1, getRect().getWidth()-1, 0);
 	border_rect.mBottom += BTN_HEIGHT_SMALL;
-	mBorder = new LLViewBorder("border", border_rect, LLViewBorder::BEVEL_IN);
+	mBorder = new LLViewBorder(std::string("border"), border_rect, LLViewBorder::BEVEL_IN);
 	addChild(mBorder);
 
 	mAlphaGradientImage = LLUI::getUIImage("color_swatch_alpha.tga");
@@ -172,7 +172,7 @@ BOOL LLColorSwatchCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// Route future Mouse messages here preemptively.  (Release on mouse up.)
 	// No handler is needed for capture lost since this object has no state that depends on it.
-	gViewerWindow->setMouseCapture( this );
+	gFocusMgr.setMouseCapture( this );
 
 	return TRUE;
 }
@@ -184,7 +184,7 @@ BOOL LLColorSwatchCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
 	if( hasMouseCapture() )
 	{
 		// Release the mouse
-		gViewerWindow->setMouseCapture( NULL );
+		gFocusMgr.setMouseCapture( NULL );
 
 		// If mouseup in the widget, it's been clicked
 		if ( pointInView(x, y) )
@@ -351,10 +351,10 @@ LLXMLNodePtr LLColorSwatchCtrl::getXML(bool save_children) const
 
 LLView* LLColorSwatchCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 {
-	LLString name("colorswatch");
+	std::string name("colorswatch");
 	node->getAttributeString("name", name);
 
-	LLString label;
+	std::string label;
 	node->getAttributeString("label", label);
 
 	LLColor4 color(1.f, 1.f, 1.f, 1.f);

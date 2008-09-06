@@ -133,11 +133,11 @@ void* LLMediaRemoteCtrl::createVolumePanel(void* data)
 }
 
 // Virtual
-void LLMediaRemoteCtrl::setToolTip(const LLString& msg)
+void LLMediaRemoteCtrl::setToolTip(const std::string& msg)
 {
-	LLString mime_type = LLMIMETypes::translate(LLViewerMedia::getMimeType());
-	LLString tool_tip = LLMIMETypes::findToolTip(LLViewerMedia::getMimeType());
-	LLString play_tip = LLMIMETypes::findPlayTip(LLViewerMedia::getMimeType());
+	std::string mime_type = LLMIMETypes::translate(LLViewerMedia::getMimeType());
+	std::string tool_tip = LLMIMETypes::findToolTip(LLViewerMedia::getMimeType());
+	std::string play_tip = LLMIMETypes::findPlayTip(LLViewerMedia::getMimeType());
 	// childSetToolTip("media_stop", mControls->getString("stop_label") + "\n" + tool_tip);
 	childSetToolTip("media_icon", tool_tip);
 	childSetToolTip("media_play", play_tip);
@@ -154,10 +154,10 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 	bool media_show_pause = false;
 	LLColor4 music_icon_color = LLUI::sColorsGroup->getColor( "IconDisabledColor" );
 	LLColor4 media_icon_color = LLUI::sColorsGroup->getColor( "IconDisabledColor" );
-	LLString media_type = "none/none";
+	std::string media_type = "none/none";
 
 	// Put this in xui file
-	LLString media_url = mControls->getString("default_tooltip_label");
+	std::string media_url = mControls->getString("default_tooltip_label");
 	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 
 	if (gSavedSettings.getBOOL("AudioStreamingVideo"))
@@ -225,7 +225,7 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 			stop_media_enabled = false;
 		}
 	}
-	const LLString media_icon_name = LLMIMETypes::findIcon(media_type);
+	const std::string media_icon_name = LLMIMETypes::findIcon(media_type);
 	LLButton* music_play_btn = getChild<LLButton>("music_play");
 	LLButton* music_stop_btn = getChild<LLButton>("music_stop");
 	LLButton* music_pause_btn = getChild<LLButton>("music_pause");

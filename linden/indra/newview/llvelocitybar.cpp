@@ -109,32 +109,32 @@ void LLVelocityBar::draw()
 
 	top = BAR_TOP + 15;
 	left = 0;
-	char str[80];		/* Flawfinder: ignore */
-	snprintf(str, sizeof(str), "Velocity %.3fm/s", velocity);		/* Flawfinder: ignore */
+	std::string str;
+	str = llformat( "Velocity %.3fm/s", velocity);
 	LLFontGL::sMonospace->renderUTF8(str, 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	top = TICK_BOTTOM;
 
 	left = - MAGIC_CHAR_WIDTH/2;
-	LLFontGL::sMonospace->renderUTF8("0", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::sMonospace->renderUTF8(std::string("0"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*1 / 6) - MAGIC_CHAR_WIDTH * 2;
-	LLFontGL::sMonospace->renderUTF8("1", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::sMonospace->renderUTF8(std::string("1"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*2 / 6) - MAGIC_CHAR_WIDTH;
-	LLFontGL::sMonospace->renderUTF8("2", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::sMonospace->renderUTF8(std::string("2"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*3 / 6) - MAGIC_CHAR_WIDTH * 2;
-	LLFontGL::sMonospace->renderUTF8("3", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::sMonospace->renderUTF8(std::string("3"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*4 / 6) - MAGIC_CHAR_WIDTH;
-	LLFontGL::sMonospace->renderUTF8("4", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::sMonospace->renderUTF8(std::string("4"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*5 / 6) - MAGIC_CHAR_WIDTH * 2;
-	LLFontGL::sMonospace->renderUTF8("5", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::sMonospace->renderUTF8(std::string("5"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*6 / 6) - MAGIC_CHAR_WIDTH * 3;
-	LLFontGL::sMonospace->renderUTF8("6 m/s", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::sMonospace->renderUTF8(std::string("6 m/s"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	// draw idle time
 	top = BAR_TOP;

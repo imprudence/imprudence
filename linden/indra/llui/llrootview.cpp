@@ -32,7 +32,7 @@
 
 #include "llrootview.h"
 
-LLRootView::LLRootView(const LLString& name, const LLRect& rect, BOOL mouse_opaque, U32 follows)
+LLRootView::LLRootView(const std::string& name, const LLRect& rect, BOOL mouse_opaque, U32 follows)
 : LLView(name,rect,mouse_opaque,follows) 
 { }
 

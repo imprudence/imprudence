@@ -163,11 +163,13 @@ bool LLURLDispatcherImpl::dispatchRightClick(const std::string& url)
 // static
 bool LLURLDispatcherImpl::dispatchHelp(const std::string& url, BOOL right_mouse)
 {
+#if LL_LIBXUL_ENABLED
 	if (matchPrefix(url, SLURL_SL_HELP_PREFIX))
 	{
 		gViewerHtmlHelp.show();
 		return true;
 	}
+#endif
 	return false;
 }
 
@@ -324,7 +326,7 @@ void LLURLDispatcherImpl::regionHandleCallback(U64 region_handle, const std::str
 bool LLURLDispatcherImpl::matchPrefix(const std::string& url, const std::string& prefix)
 {
 	std::string test_prefix = url.substr(0, prefix.length());
-	LLString::toLower(test_prefix);
+	LLStringUtil::toLower(test_prefix);
 	return test_prefix == prefix;
 }
 
