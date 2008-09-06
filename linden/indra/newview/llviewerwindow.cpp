@@ -1370,6 +1370,11 @@ BOOL LLViewerWindow::handleDeviceChange(LLWindow *window)
 	return FALSE;
 }
 
+void LLViewerWindow::handlePingWatchdog(LLWindow *window, const char * msg)
+{
+	LLAppViewer::instance()->pingMainloopTimeout(msg);
+}
+
 //
 // Classes
 //

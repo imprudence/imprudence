@@ -61,7 +61,7 @@
 	     width="237" />
 	<check_box bottom="-245" control_name="IMLogTimestamp" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Show timestamps in IM Log" left="168"
+	     initial_value="false" label="Show timestamps in IM log" left="168"
 	     mouse_opaque="true" name="log_instant_messages_timestamp" radio_style="false"
 	     width="217" />
 	<check_box bottom="-265" control_name="LogShowHistory" enabled="true" follows="left|top"
@@ -76,14 +76,14 @@
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show timestamps in Local Chat log" left="168" mouse_opaque="true"
 	     name="log_chat_timestamp" radio_style="false" width="217" />
-	<check_box bottom="-325" control_name="LogTimestampDate" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Include date with timestamp" left="168" mouse_opaque="true"
-	     name="log_date_timestamp" radio_style="false" width="217" />
-	<check_box bottom="-345" control_name="LogChatIM" enabled="true" follows="left|top"
+	<check_box bottom="-325" control_name="LogChatIM" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show incoming IM in Local Chat log" left="168" mouse_opaque="true"
 	     name="log_chat_IM" radio_style="false" width="217" />
+	<check_box bottom="-345" control_name="LogTimestampDate" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Include date with timestamps" left="148" mouse_opaque="true"
+	     name="log_date_timestamp" radio_style="false" width="237" />
 	<button bottom="-367" follows="right|bottom" font="SansSerif" halign="center"
 	     height="20" label="Change Path" label_selected="Change Path" left="170"
 	     mouse_opaque="true" name="log_path_button" width="90" />

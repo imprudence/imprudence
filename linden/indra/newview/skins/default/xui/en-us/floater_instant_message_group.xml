@@ -32,7 +32,7 @@
 		Starting session with [NAME], please wait.
 	</string>
 	<string name="moderated_chat_label">
-		(Moderated)
+		(Moderated: Voices off by default)
 	</string>
 	<string name="default_text_label">
 		Click here to instant message.

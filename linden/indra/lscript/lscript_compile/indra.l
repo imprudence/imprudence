@@ -752,8 +752,8 @@ BOOL lscript_compile(const char* src_filename, const char* dst_filename,
 #ifdef EMERGENCY_DEBUG_PRINTOUTS
 			fclose(compfile);
 #endif
-			fclose(yyout);
 		}
+		fclose(yyout);
 		fclose(yyin);
 	}
 

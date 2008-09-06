@@ -12,10 +12,10 @@
 			<combo_box bottom="0" follows="left|top|right|bottom" height="20" left="5"
 			     name="moderation_mode" width="130">
 				<combo_item name="OpenVoice" value="unmoderated">
-					Open Voice (default)
+					Voices on by default
 				</combo_item>
 				<combo_item name="ModeratedVoice" value="moderated">
-					Moderated Voice
+					Voices off by default
 				</combo_item>
 			</combo_box>
 		</layout_panel>

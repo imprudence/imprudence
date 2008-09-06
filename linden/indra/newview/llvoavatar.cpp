@@ -6269,10 +6269,6 @@ void LLVOAvatar::sitOnObject(LLViewerObject *sit_object)
 	mDrawable->mXform.setPosition(rel_pos);
 	mDrawable->mXform.setRotation(mDrawable->getWorldRotation() * inv_obj_rot);
 
-	//in case the viewerobject is not updated in time
-	mDrawable->getVObj()->setPosition(sit_object->getWorldPosition()) ;
-	mDrawable->getVObj()->setRotation(sit_object->getWorldRotation()) ;
-
 	gPipeline.markMoved(mDrawable, TRUE);
 	mIsSitting = TRUE;
 	mRoot.getXform()->setParent(&sit_object->mDrawable->mXform); // LLVOAvatar::sitOnObject
@@ -6333,10 +6329,6 @@ void LLVOAvatar::getOffObject()
 	mDrawable->mXform.setPosition(cur_position_world);
 	mDrawable->mXform.setRotation(cur_rotation_world);	
 	
-	//in case the viewerobject is not updated from sim in time
-	mDrawable->getVObj()->setPosition(cur_position_world);
-	mDrawable->getVObj()->setRotation(cur_rotation_world);
-
 	gPipeline.markMoved(mDrawable, TRUE);
 
 	mIsSitting = FALSE;

@@ -36,7 +36,7 @@
 		You are not a session moderator.
 	</string>
 	<string name="muted_error">
-		You have been muted.
+		A group moderator disabled your text chat.
 	</string>
 	<string name="add_session_event">
 		adding agents to chat session with

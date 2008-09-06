@@ -1041,7 +1041,7 @@ MINSPECS
 Do you wish to visit [_URL] for more information?
 		</message>
 		<ignore name="ignore">
-			Ignore unsupported hardware
+			When detecting unsupported hardware
 		</ignore>
 		<option name="Yes">
 			Yes
@@ -1088,7 +1088,7 @@ adjust your graphics settings to something more appropriate.
 (Edit menu > Preferences > Graphics).
 		</message>
 		<ignore name="ignore">
-			Ignore unknown graphics card
+			When detecting an unknown graphics card
 		</ignore>
 	</alert>
 
