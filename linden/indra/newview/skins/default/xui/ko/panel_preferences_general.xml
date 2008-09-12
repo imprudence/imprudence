@@ -120,4 +120,6 @@
 			Español (스페인어) - 베타
 		</combo_item>
 	</combo_box>
+	<check_box label="오브젝트와 언어 공유" name="language_is_public"
+	     tool_tip="인월드 오브젝트에 사용자의 기본 언어를 설정할 수 있습니다." />
 </panel>

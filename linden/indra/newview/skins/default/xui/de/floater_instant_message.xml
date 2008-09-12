@@ -12,6 +12,9 @@
 	<string name="hang_up">
 		Anruf beendet
 	</string>
+	<string name="inventory_item_offered">
+		Inventarobjekt angeboten
+	</string>
 	<string name="voice_icon">
 		icn_voice-pvtfocus.tga
 	</string>

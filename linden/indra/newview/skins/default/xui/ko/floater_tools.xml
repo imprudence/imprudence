@@ -89,6 +89,9 @@
 			대
 		</combo_item>
 	</combo_box>
+	<text name="Strength:">
+		강도:
+	</text>
 	<button label="선택 사항에 적용" label_selected="선택 사항에 적용"
 	     name="button apply to selection" tool_tip="선택한 토지 수정" />
 	<check_box label="소유주 표시" name="checkbox show owners" />
@@ -149,6 +152,9 @@
 			     tool_tip="사람들이 이 오브젝트 검색 결과를 보게 합니다." />
 			<check_box label="판매 여부" name="checkbox for sale" />
 			<text name="Price:  L$">
+				가격:  L$
+			</text>
+			<text name="Cost">
 				가격:  L$
 			</text>
 			<radio_group name="sale type">
@@ -227,6 +233,21 @@
 			<text name="text modify warning">
 				권한을 설정하려면 전체 오브젝트를 선택해야 합니다.
 			</text>
+			<string name="Cost Default">
+				가격:           L$
+			</string>
+			<string name="Cost Total">
+				총 가격:  L$
+			</string>
+			<string name="Cost Per Unit">
+				단가:     L$
+			</string>
+			<string name="Cost Mixed">
+				혼합 가격
+			</string>
+			<string name="Sale Mixed">
+				혼합 판매
+			</string>
 		</panel>
 		<panel label="오브젝트" name="Object">
 			<text name="select_single">
@@ -382,6 +403,10 @@
 				회전
 			</text>
 			<texture_picker label="텍스처" name="sculpt texture control" tool_tip="이미지 선택" />
+			<check_box label="미러" name="sculpt mirror control"
+			     tool_tip="X축을 따라 sculpted prim(조각 프림)을 뒤집습니다." />
+			<check_box label="내부-외부" name="sculpt invert control"
+			     tool_tip="Sculpted prim(조각 프림) 수직선을 반전하여 내/외부가 반전되어 나타나도록 합니다." />
 			<text name="label sculpt type">
 				스티칭  타입
 			</text>

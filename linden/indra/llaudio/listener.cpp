@@ -59,11 +59,6 @@ void LLListener::init(void)
 }
 
 //-----------------------------------------------------------------------
-void LLListener::free(void)
-{
-}
-
-//-----------------------------------------------------------------------
 void LLListener::translate(LLVector3 offset)
 {
 	mPosition += offset;

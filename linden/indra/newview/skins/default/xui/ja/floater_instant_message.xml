@@ -12,6 +12,9 @@
 	<string name="hang_up">
 		通話が終了しました
 	</string>
+	<string name="inventory_item_offered">
+		贈られた持ち物アイテム
+	</string>
 	<string name="voice_icon">
 		icn_voice-pvtfocus.tga
 	</string>

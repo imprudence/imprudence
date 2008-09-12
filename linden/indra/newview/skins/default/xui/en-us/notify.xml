@@ -997,7 +997,7 @@ Click Accept to join the chat or Decline to decline the invitation. Click Mute t
 	</notify>
 	<notify name="ProximalVoiceChannelFull" tip="true" unique="true">
 		<message name="message">
-			We&apos;re sorry.  This area has has reached maximum capacity for voice conversations.  Please try to use voice in another area.
+			We&apos;re sorry.  This area has reached maximum capacity for voice conversations.  Please try to use voice in another area.
 		</message>
 	</notify>
 	<notify name="VoiceChannelDisconnected" tip="true" unique="true">

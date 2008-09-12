@@ -8886,6 +8886,11 @@ U32 LLVOAvatar::getVisibilityRank()
 
 void LLVOAvatar::setVisibilityRank(U32 rank)
 {
+	if (mDrawable.isNull() || mDrawable->isDead())
+	{ //do nothing
+		return;
+	}
+
 	BOOL stale = gFrameTimeSeconds - mLastFadeTime > 10.f;
 	
 	//only raise visibility rank or trigger a fade out every 10 seconds

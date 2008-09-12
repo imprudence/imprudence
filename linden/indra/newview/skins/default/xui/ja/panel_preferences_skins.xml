@@ -5,7 +5,7 @@
 	</text>
 	<radio_group name="skin_selection">
 		<radio_item name="default">
-			クラシック
+			デフォルト
 		</radio_item>
 		<radio_item name="silver">
 			シルバー

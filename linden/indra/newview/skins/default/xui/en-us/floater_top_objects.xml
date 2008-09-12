@@ -10,10 +10,10 @@
 	     follows="left|top|bottom|right" height="150" left="10" multi_select="true"
 	     name="objects_list" width="530">
 		<column label="Score" name="score" width="55" />
-		<column dynamicwidth="true" label="Name" name="name" />
+		<column label="Name" name="name" width="140"/>
 		<column label="Owner" name="owner" width="105" />
 		<column label="Location" name="location" width="130" />
-		<column label="Time" name="time" width="180" />
+		<column label="Time" name="time" width="100" />
 	</scroll_list>
 	<text bottom_delta="-30" follows="left|bottom" font="SansSerifSmall" height="20"
 	     left="10" name="id_text" width="100">

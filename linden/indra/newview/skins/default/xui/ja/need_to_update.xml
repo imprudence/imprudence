@@ -1,513 +1,759 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <strings>
-<string><a_file>alerts.xml</a_file>
-<b_path>//GrantModifyRights/message</b_path>
-<c_attribute></c_attribute>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//ClickPublishHelpAvatar/message</b_path>
+<c_attribute/>
 <d_old>
-			Granting modify rights to another resident allows them to change 
-ANY objects you may have in-world. Be VERY careful when handing 
-out this permission.
-Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
-		</d_old>
+
+			Selecting "Show in Search" will show:
+			- my profile in search results
+			- a link to my profile in public group pages
+		
+</d_old>
 <e_new>
-			Granting modify rights to another resident allows them to change,
-delete or take ANY objects you may have in-world. Be VERY careful
-when handing out this permission.
-Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
-		</e_new>
+
+Selecting "Show in Search" will show:
+- my profile in search results
+- a link to my profile in public group pages
+		
+</e_new>
 <f_translation>
-			他の住人に変更権限を与えると、その人はあなたが所有している
-すべてのオブジェクトを変更、削除、または取得することができるようになります。この許可を与えるときは細心の注意を払ってください。
-[FIRST_NAME][LAST_NAME]に対して変更権限を与えますか？
+
+[検索に表示]を選択すると表示:
+- 検索結果における自分のプロフィール
+- パブリック・グループ・ページにおける自分のプロフィールへのリンク
+		
+</f_translation>
+<f_old_trans>
+
+			「検索に表示」を選択すると表示:
+			- 検索結果における自分のプロフィール
+			- パブリックグループページにおける自分のプロフィールへのリンク
+		
+</f_old_trans>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//PromptMissingSubjMsg/message</b_path>
+<c_attribute/>
+<d_old>
+
+			Send postcard with the default subject or message?
+		
+</d_old>
+<e_new>
+
+			Email snapshot with the default subject or message?
+		
+</e_new>
+<f_translation>
+			デフォルトの件名またはメッセージを付けて、スナップショットを送信しますか？
 		</f_translation>
 <f_old_trans>
-			他の住人に変更権限を与えると、その人はあなたが所有している
-すべてのオブジェクトを変更できるようになります。 この許可を与えるときには細心の注意を払ってください。
-[FIRST_NAME] [LAST_NAME]に変更権限を与えますか？
+			デフォルトの件名またはメッセージを付けて、ポストカードを送信しますか？
 		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//CannotBuyLandNoRegion/message</b_path>
-<c_attribute></c_attribute>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//ErrorUploadingPostcard/message</b_path>
+<c_attribute/>
 <d_old>
-			Unable to buy land:
-Cannot find the region this land is in.
+
+			There was a problem uploading a postcard due to the following reason: [REASON]
+		
+</d_old>
+<e_new>
+
+			There was a problem sending a snapshot due to the following reason: [REASON]
+		
+</e_new>
+<f_translation>
+			次の理由で、スナップショットの送信時に問題が起こりました： [REASON]
+		</f_translation>
+<f_old_trans>
+			次の理由で、ポストカードのアップロード時に問題が起こりました。 [REASON]
+		</f_old_trans>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//MustHaveAccountToLogIn/message</b_path>
+<c_attribute/>
+<d_old>
+
+			You must have an account to connect to [SECOND_LIFE].
+Go to www.secondlife.com to create an account?
+		
+</d_old>
+<e_new>
+
+Oops! Something was left blank.
+You need to enter both the First and Last name of your avatar.
+
+You need an account to enter [SECOND_LIFE]. Would you like to create one now?
+</e_new>
+<f_translation>
+
+おっと! 記入漏れがありますよ。
+アバターのファーストネームとラストネームの両方を入力する必要があります。
+
+[SECOND_LIFE]に入るには、アカウントが必要です。 アカウントを作成しますか?
+</f_translation>
+<f_old_trans>
+
+			[SECOND_LIFE]に接続するにはアカウントが必要です。
+アカウントを作成するためにwww.secondlife.comを開きますか？
+		
+</f_old_trans>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//MustHaveAccountToLogIn/OK</b_path>
+<c_attribute/>
+<d_old>
+			OK
 		</d_old>
 <e_new>
+			Create a new account
+		</e_new>
+<f_translation>
+			新しいアカウントを作成
+		</f_translation>
+<f_old_trans>
+			OK
+		</f_old_trans>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//MustHaveAccountToLogIn/Cancel</b_path>
+<c_attribute/>
+<d_old>
+			Cancel
+		</d_old>
+<e_new>
+			Try again
+		</e_new>
+<f_translation>
+			もう一度試す
+		</f_translation>
+<f_old_trans>
+			取り消し
+		</f_old_trans>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//ChangeSkin/message</b_path>
+<c_attribute/>
+<d_old>
+
+      New skin will appear after you restart [SECOND_LIFE].
+    
+</d_old>
+<e_new>
+
+      The new skin will appear after you restart [SECOND_LIFE].
+    
+</e_new>
+<f_translation>
+      新しいスキンは[SECOND_LIFE]を再起動すると現れます
+    </f_translation>
+<f_old_trans>
+			新しいスキンは[SECOND_LIFE]を再起動すると現れます
+		</f_old_trans>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//CannotGiveCategory/message</b_path>
+<c_attribute/>
+<d_old>
+
+			You do not have permission to transfer
+			the selected folder.
+		
+</d_old>
+<e_new>
+
+			You do not have permission to transfer
+the selected folder.
+		
+</e_new>
+<f_translation>
+			選択したフォルダを譲渡できる権限
+がありません
+		</f_translation>
+<f_old_trans>
+			選択したフォルダを譲渡できる権限
+			がありません。
+		</f_old_trans>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//CannotBuyLandNoRegion/message</b_path>
+<c_attribute/>
+<d_old>
+
 			Unable to buy land:
 			Cannot find the region this land is in.
-		</e_new>
+		
+</d_old>
+<e_new>
+
+			Unable to buy land:
+Cannot find the region this land is in.
+		
+</e_new>
 <f_translation>
+			土地を購入できません：
+この土地がある地域を見つけることができません
+		</f_translation>
+<f_old_trans>
 			土地を購入できません：
 			この土地がある地域を見つけることができません。
-		</f_translation>
-<f_old_trans>
-			土地を購入できません：
-この土地がある地域が見つかりません。
 		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ParcelCanPlayMedia/message</b_path>
-<c_attribute></c_attribute>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//YouHaveBeenLoggedOut/message</b_path>
+<c_attribute/>
 <d_old>
-			This location can play streaming video. 
-Streaming video requires a 768 kbps or 
-faster Internet connection.
- 
-Play streaming video when available?
-(You can change this option later under 
-Preferences &gt; Audio &amp; Video.)
+
+			You have been logged out of [SECOND_LIFE]:
+[MESSAGE]
+
+Click Continue to look at existing IM and chat.
+You will not be able to perform any other operations.
+Click Quit to exit [SECOND_LIFE] immediately.
+		
+</d_old>
+<e_new>
+You have been logged out of [SECOND_LIFE]:
+            [MESSAGE]
+You can still look at existing IM and chat by clicking &apos;View IM &amp; Chat&apos;. Otherwise, click &apos;Quit&apos; to exit [SECOND_LIFE] immediately.
+    </e_new>
+<f_translation>
+
+あなたは[SECOND_LIFE]からログアウトされました。
+            [MESSAGE]
+[IMとチャットを表示]をクリックすると、現在あるIMとチャットを確認できます。 確認しない場合は、[終了]をクリックして、すぐに[SECOND_LIFE]を終了してください。
+    
+</f_translation>
+<f_old_trans>
+
+			あなたは[SECOND_LIFE]からログアウトされました：
+[MESSAGE]
+
+[続行]をクリックすると現在あるIMとチャットを確認できます。
+これ以外の操作はできません。
+[終了]をクリックして、すぐに[SECOND_LIFE]を終了してください。
+		
+</f_old_trans>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//YouHaveBeenLoggedOut/Continue</b_path>
+<c_attribute/>
+<d_old>
+			Continue
 		</d_old>
 <e_new>
-			This location can play streaming media. 
-Streaming media requires a fast Internet connection.
- 
-Play streaming media when available?
-(You can change this option later under 
-Preferences &gt; Audio &amp; Video.)
+			View IM &amp; Chat
 		</e_new>
 <f_translation>
-			ここではストリーミング・メディア再生が可能です。 
-メディアのストリーミングには、高速なインターネット接続環境が必要です。
- 
-利用可能になったら再生しますか？
-(このオプションは、［環境設定］＞［オーディオ＆ビデオ］で後からでも変更できます)
+			IMとチャットを表示
 		</f_translation>
 <f_old_trans>
-			ここではストリーミング・ビデオ再生が可能です。 
-ビデオの再生には768 kbpsより速い
-接続環境が必要です。
- 
-利用可能になったら再生しますか？
-（このオプションは、
-[環境設定]＞[音声とビデオ]を通じて後からでも変更できます)
+			続行
 		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ConfirmClearBrowserCache/message</b_path>
-<c_attribute></c_attribute>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//AddFriend/message</b_path>
+<c_attribute/>
 <d_old>
-			Are you sure you want to clear your
-browser cache?
-		</d_old>
+
+			Friends can give permissions to 
+track each other on the map and 
+receive online status updates. 
+
+Offer friendship to [NAME]?
+		
+</d_old>
 <e_new>
-			Are you sure you want to clear your browser cache?
-		</e_new>
+
+			Friends can give permissions to track each 
+other on the map and receive online status updates. 
+
+Offer friendship to [NAME]?
+		
+</e_new>
 <f_translation>
-			本当にブラウザのキャッシュをクリアしますか?
+
+			フレンド同士は、地図上でお互いを追跡し、
+オンライン・ステータスの更新情報を受信する権限を与え合うことができます。 
+
+[NAME]とフレンド登録をしますか?
+		
+</f_translation>
+<f_old_trans>
+
+			フレンド同士は、地図上で互いを追跡し、
+オンライン・ステータスの更新情報を受信する
+権限を与え合うことができます。 
+
+[NAME]とフレンド登録をしますか？
+		
+</f_old_trans>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//ConfirmClearCookies/message</b_path>
+<c_attribute/>
+<d_old>
+
+			Are you sure you want to clear 
+your cookies?
+		
+</d_old>
+<e_new>
+
+			Are you sure you want to clear your cookies?
+		
+</e_new>
+<f_translation>
+			本当にクッキーをクリアしますか?
 		</f_translation>
 <f_old_trans>
-			本当にブラウザのキャッシュを
+			本当にクッキーを
 クリアしますか？
 		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//HelpWaterNormalMap/message</b_path>
-<c_attribute></c_attribute>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//Cannot_Purchase_an_Attachment/message</b_path>
+<c_attribute/>
 <d_old>
-			Controls what normal map is layered across the water
-to determine reflections/refractions.
-		</d_old>
+
+			Items may not be purchased while
+			they are part of an attachment.
+		
+</d_old>
 <e_new>
-			Controls what normal map is layered across the water to determine reflections/refractions.
-		</e_new>
+
+			Items may not be purchased while
+they are part of an attachment.
+		
+</e_new>
 <f_translation>
-			反射や屈折を決定するために水に重ねられるノーマル・マップを制御します。
+			アイテムが添付物の一部である間は、
+アイテムを購入できません。
 		</f_translation>
 <f_old_trans>
-			反射や屈折を決定するために水に重ねられるノーマル・マップを制御します。
+			アイテムが添付物の一部である間は、
+			アイテムを購入できません。
 		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//HelpWaterWave1/message</b_path>
-<c_attribute></c_attribute>
+</string>
+<string>
+<a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/estate_override</b_path>
+<c_attribute/>
 <d_old>
-			Controls where and how fast the large scaled version of the normal
-map moves in the X and Y direction.
-		</d_old>
+
+				One ore more of these options is set at the estate level
+			
+</d_old>
 <e_new>
-			Controls where and how fast the large scaled version of the normal map moves in the X and Y direction.
-		</e_new>
+
+				One or more of these options is set at the estate level
+			
+</e_new>
 <f_translation>
-			拡大されたノーマル・マップが移動する方向（X 軸と Y 軸で表現）と速度を制御します。
-		</f_translation>
+				1つ以上のオプションが、不動産レベルで設定されています。
+			</f_translation>
 <f_old_trans>
-			引き伸ばされたノーマル・マップがX と Y 軸でどの方向にそして
-どのくらいの速度で移動するかを制御します。
-		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//HelpWaterWave2/message</b_path>
-<c_attribute></c_attribute>
-<d_old>
-			Controls where and how fast the the small scaled version of the
-normal map moves in the X and Y direction.
-		</d_old>
-<e_new>
-			Controls where and how fast the the small scaled version of the normal map moves in the X and Y direction.
-		</e_new>
-<f_translation>
-			縮小されたノーマル・マップが移動する方向（X 軸と Y 軸で表現）と速度を制御します。
-		</f_translation>
-<f_old_trans>
-			縮められたノーマル・マップがX と Y 軸でどの方向にそしてどのくらいの速度で移動するかを制御します。
-		</f_old_trans>
-</string><string><a_file>floater_buy_land.xml</a_file>
-<b_path>/buy land/land_use_reason</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		You hold 1,309 square meters of land.
-This parcel is 512 square meters of land.
-	</d_old>
-<e_new>
-		You hold 1,309 square meters of land. 
-This parcel is 512 square meters of land.
-	</e_new>
-<f_translation>
-		あなたは1,309平方メートルの土地を所有しています。 
-この区画は512平方メートルです。
-	</f_translation>
-<f_old_trans>
-		あなたには1,309平方メートルの土地があります。
-この区画は 512平方メートルです。
-	</f_old_trans>
-</string><string><a_file>floater_buy_land.xml</a_file>
-<b_path>/buy land/multiple_parcels_selected</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Multiple different parcels selected.
-Try selecting a smaller area.
-	</d_old>
-<e_new>
-		Multiple different parcels selected. 
-Try selecting a smaller area.
-	</e_new>
-<f_translation>
-		複数の異なった区画を選択しました。 
-これより小さなエリアを選択してください。
-	</f_translation>
-<f_old_trans>
-		複数の区域が選択されています。
-選択領域を狭めてみてください。
-	</f_old_trans>
-</string><string><a_file>floater_buy_land.xml</a_file>
-<b_path>/buy land/not_owned_by_you</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Land owned by another user is selected.
-Try selecting a smaller area.
-	</d_old>
-<e_new>
-		Land owned by another user is selected. 
-Try selecting a smaller area.
-	</e_new>
-<f_translation>
-		他の使用者に所有された土地が選択されています。 
-これより小さなエリアを選択してください。
-	</f_translation>
-<f_old_trans>
-		選択した土地は、他のユーザーが所有しています。
-選択領域を狭めてみてください。
-	</f_old_trans>
-</string><string><a_file>floater_buy_land.xml</a_file>
-<b_path>/buy land/for_first_time_group</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		This land is reserved for first time buyers.
-You cannot buy it for a group.
-	</d_old>
-<e_new>
-		This land is reserved for first time buyers. 
-You cannot buy it for a group.
-	</e_new>
-<f_translation>
-		本土地は初めて土地購入をする人のために確保されています。 
-グループのために購入することはできません。
-	</f_translation>
-<f_old_trans>
-		これは初めて土地を購入する人用の土地です。
-グループ用には購入できません。
-	</f_old_trans>
-</string><string><a_file>floater_buy_land.xml</a_file>
-<b_path>/buy land/for_first_time</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		This land is reserved for first time buyers.
-You already own land.
-	</d_old>
-<e_new>
-		This land is reserved for first time buyers. 
-You already own land.
-	</e_new>
-<f_translation>
-		本土地は初めて土地購入をする人のために確保されています。 
-あなたは、すでに土地を所有しています。
-	</f_translation>
-<f_old_trans>
-		これは初めて土地を購入する人用の土地です。
-あなたはすでに土地を持っています。
-	</f_old_trans>
-</string><string><a_file>floater_gesture.xml</a_file>
-<b_path>/gestures/help_label</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Click a gesture or press a key to play animations and sounds.
-	</d_old>
-<e_new>
-		Double-click a gesture to play animations and sounds.
-	</e_new>
-<f_translation>
-		ジェスチャーをダブルクリックして、アニメーションとサウンドを再生。
-	</f_translation>
-<f_old_trans>
-		ジェスチャーをクリックするか、キーを押してアニメーションとサウンドを再生。
-	</f_old_trans>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick</b_path>
-<c_attribute>title</c_attribute>
-<d_old>Flycam Options</d_old>
-<e_new>Joystick Configuration</e_new>
-<f_translation>ジョイスティックの設定</f_translation>
-</string><string><a_file>floater_preview_notecard_keep_discard.xml</a_file>
-<b_path>/preview_notecard/no_object</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Unable to find object containing this note.:
-	</d_old>
-<e_new>Unable to find object containing this note.:</e_new>
-<f_translation>このノートを含んだオブジェクトが見つかりません:</f_translation>
-<f_old_trans>
-		このノートを含んだオブジェクトが見つかりません:
-	</f_old_trans>
-</string><string><a_file>panel_friends.xml</a_file>
-<b_path>/friends/friend_list/icon_edit_mine</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old>Friend can edit your objects</d_old>
-<e_new>Friend can edit, delete or take objects</e_new>
-<f_translation>フレンドは、オブジェクトを編集、削除、または取得することができます。</f_translation>
-<f_old_trans>フレンドは、あなたのオブジェクトを編集することができます。</f_old_trans>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/invitee_list</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old>Hold the Ctrl key and click resident names  to multi-select.</d_old>
-<e_new>Hold the Ctrl key and click resident names to multi-select.</e_new>
-<f_translation>複数の住人を選択するには、Ctrlキーを押しながら住人名をクリックします。</f_translation>
-<f_old_trans>複数の住人を選択するには、Ctrlキーを押しながら住人名をクリックします。</f_old_trans>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/role_name</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old>Choose from the list of Roles you  are allowed to assign members to.</d_old>
-<e_new>Choose from the list of Roles you are allowed to assign members to.</e_new>
-<f_translation>メンバーに割り当て可能な役割をリストから選択。</f_translation>
-<f_old_trans>Choose from the list of Roles you  are allowed to assign members to.</f_old_trans>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/loading</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		(loading...)
-	</d_old>
-<e_new>(loading...)</e_new>
-<f_translation>(ローディング．．．)</f_translation>
-<f_old_trans>
-		(ローディング．．．)
-	</f_old_trans>
-</string><string><a_file>panel_preferences_chat.xml</a_file>
-<b_path>/chat/users</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Users</d_old>
-<e_new>Chat</e_new>
-<f_translation>チャット</f_translation>
-<f_old_trans>ﾕｰｻﾞｰ</f_old_trans>
-</string><string><a_file>panel_preferences_voice.xml</a_file>
-<b_path>/chat/device_settings_text</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		NOTE: Running the Device Settings or Voice Chat Setup will temporarily disconnect you from Voice Chat.
-	</d_old>
-<e_new>
-		NOTE: Running the Device Settings will temporarily disconnect you from Voice Chat.
-	</e_new>
-<f_translation>
-		注意：「機器の設定」を実行すると、一時的にボイス・チャットから切断されます。
-	</f_translation>
-<f_old_trans>
-		メモ： 「機器の設定」または「ボイス・チャットの設定」を実行すると、一時的にボイス・チャットから切断されます。
-	</f_old_trans>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/Redock Windows</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Redock Windows
-	</d_old>
-<e_new>Redock Windows</e_new>
-<f_translation>ウィンドウを再置する</f_translation>
-<f_old_trans>ウィンドウを再置する</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ClothingLoading/message</b_path>
-<c_attribute></c_attribute>
-<d_old>
-			Your clothing is still downloading.
-You can use the world normally, and other users
-will see you correctly.
-		</d_old>
-<e_new>
-			Your clothing is still downloading. 
-You can use [SECOND_LIFE] normally and other users will see you correctly.
-		</e_new>
-<f_translation>
-			あなたの服を、ダウンロード中です。 
-通常どおりに[SECOND_LIFE]を使え、他のユーザーもあなたを正常に見ることができます。
-		</f_translation>
-<f_old_trans>
-			あなたの服をダウンロード中です。
-通常どおりに世界を使え、他のユーザーもあなたを
-正常に見ることができます。
-		</f_old_trans>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/places_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old>
-				Searching...
-			</d_old>
-<e_new>Searching...</e_new>
-<f_translation>検索中...</f_translation>
-<f_old_trans>
-				検索中...
+				1つ以上のオプションが、不動産レベルで設定されています。
 			</f_old_trans>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/places_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
+</string>
+<string>
+<a_file>floater_im.xml</a_file>
+<b_path>/im_floater/muted_message</b_path>
+<c_attribute/>
 <d_old>
-				None Found.
-			</d_old>
-<e_new>None Found.</e_new>
-<f_translation>何も見つかりませんでした。</f_translation>
-<f_old_trans>
-				何も見つかりませんでした
-			</f_old_trans>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/people_panel/find</b_path>
-<c_attribute></c_attribute>
-<d_old>
-				Find:
-			</d_old>
-<e_new>
-        Find:
-      </e_new>
-<f_translation>
-検索:
-      </f_translation>
-<f_old_trans>
-				検索：
-			</f_old_trans>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old>
-				Searching...
-			</d_old>
-<e_new>Searching...</e_new>
-<f_translation>検索中...</f_translation>
-<f_old_trans>
-				検索中...
-			</f_old_trans>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old>
-				None Found.
-			</d_old>
-<e_new>None Found.</e_new>
-<f_translation>何も見つかりませんでした。</f_translation>
-<f_old_trans>
-				何も見つかりませんでした
-			</f_old_trans>
-</string><string><a_file>floater_script_debug.xml</a_file>
-<b_path>/script debug floater</b_path>
-<c_attribute>title</c_attribute>
-<d_old>Script Errors/Warning</d_old>
-<e_new>Script Warning/Error</e_new>
-<f_translation>スクリプト警告/エラー</f_translation>
-<f_old_trans>スクリプト・エラー／警告</f_old_trans>
-</string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/friend combo</b_path>
-<c_attribute>label</c_attribute>
-<d_old>My Friends</d_old>
-<e_new>Online Friends</e_new>
-<f_translation>オンラインのフレンド</f_translation>
-<f_old_trans>自分のフレンド</f_old_trans>
-</string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/friend combo/none_selected</b_path>
-<c_attribute></c_attribute>
-<d_old>
-			My Friends
-		</d_old>
-<e_new>
-			Online Friends
-		</e_new>
-<f_translation>
-			オンラインのフレンド
-		</f_translation>
-<f_old_trans>
-			自分のフレンド
-		</f_old_trans>
-</string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/landmark combo</b_path>
-<c_attribute>label</c_attribute>
-<d_old>My Landmarks</d_old>
-<e_new>Landmarks</e_new>
-<f_translation>ランドマーク</f_translation>
-<f_old_trans>自分のランドマーク</f_old_trans>
-</string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/landmark combo/none_selected</b_path>
-<c_attribute></c_attribute>
-<d_old>
-			My Landmarks
-		</d_old>
-<e_new>
-			Landmarks
-		</e_new>
-<f_translation>
-			ランドマーク
-		</f_translation>
-<f_old_trans>
-			自分のランドマーク
-		</f_old_trans>
-</string><string><a_file>panel_avatar_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Mature</d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-<f_old_trans>成人</f_old_trans>
-</string><string><a_file>panel_group_notices.xml</a_file>
-<b_path>/notices_tab/lbl2</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Notices are kept for 30 days. Click the notice below you wish to view.
-Click the &apos;Refresh&apos; button to check if new notices have been received.
+		[FIRST] [LAST] is muted.
 	</d_old>
 <e_new>
-		Notices are kept for 14 days. Click the notice below you wish to view.
-Click the &apos;Refresh&apos; button to check if new notices have been received.
-Notice lists are limited to 200 notices per group on a daily basis.
-	</e_new>
+
+		You have muted this resident. Sending a message will automatically unmute them.
+	
+</e_new>
 <f_translation>
-		通知は、14日間保存されます。閲覧したい通知をクリックしてください。
-新着の通知をチェックするには、[更新]ボタンをクリックします。
-ただし、各グループの通知リストは1日あたり200通に制限されます。
-	</f_translation>
+
+		あなたはこの住人をミュートしています。 メッセージを送信すると、ミュートは自動的に解除されます。
+	
+</f_translation>
 <f_old_trans>
-		通知は、14日間保存されます。 閲覧したい通知をクリックしてください。
-新着の通知をチェックするには、[更新]ボタンをクリックします。
-	</f_old_trans>
-</string><string><a_file>panel_login.xml</a_file>
-<b_path>/panel_login/forgot_password_text</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Forgot your password?
-	</d_old>
-<e_new>Forgot your name or password?
-	</e_new>
-<f_translation>名前またはパスワードをお忘れですか?
-	</f_translation>
-<f_old_trans>
-		パスワードをお忘れですか?
+		住人はミュートされています。
 	</f_old_trans>
 </string>
+<string>
+<a_file>floater_postcard.xml</a_file>
+<b_path>/Postcard</b_path>
+<c_attribute>title</c_attribute>
+<d_old>Send Postcard</d_old>
+<e_new>Email Snapshot</e_new>
+<f_translation>スナップショットを電子メールで送信</f_translation>
+<f_old_trans>ポストカードを送る</f_old_trans>
+</string>
+<string>
+<a_file>floater_postcard.xml</a_file>
+<b_path>/Postcard/fine_print</b_path>
+<c_attribute/>
+<d_old>
+
+		If your postcard recipient joins SL, you'll get a referral bonus.
+	
+</d_old>
+<e_new>
+
+		If your recipient joins SL, you'll get a referral bonus.
+	
+</e_new>
+<f_translation>
+		あなたの受信者がSLに参加すると、あなたは紹介ボーナスを受け取れます
+	</f_translation>
+<f_old_trans>
+		あなたのポストカードの受信者がSLに参加すると、あなたは紹介ボーナスを受
+け取ります。
+	</f_old_trans>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Intolerance</b_path>
+<c_attribute/>
+<d_old>
+			Intolerance
+		</d_old>
+<e_new>
+Intolerance
+</e_new>
+<f_translation>
+不寛容
+</f_translation>
+<f_old_trans>
+			非許容
+		</f_old_trans>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Other</b_path>
+<c_attribute/>
+<d_old>
+			Other
+		</d_old>
+<e_new>
+Other
+</e_new>
+<f_translation>
+その他
+</f_translation>
+<f_old_trans>
+			その他
+		</f_old_trans>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/type_label</b_path>
+<c_attribute/>
+<d_old>
+		What would you like to do?
+	</d_old>
+<e_new>
+    Snapshot destination
+  </e_new>
+<f_translation>
+    スナップショットの送り先
+  </f_translation>
+<f_old_trans>
+		何をしたいですか？
+	</f_old_trans>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/snapshot_type_radio/postcard</b_path>
+<c_attribute/>
+<d_old>
+			Send a postcard
+		</d_old>
+<e_new>
+			Send via email
+		</e_new>
+<f_translation>
+			電子メールで送信
+		</f_translation>
+<f_old_trans>
+			ポストカード送信
+		</f_old_trans>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/snapshot_type_radio/texture</b_path>
+<c_attribute/>
+<d_old>
+			Upload a snapshot
+		</d_old>
+<e_new>
+      Save to your inventory (L$10)
+    </e_new>
+<f_translation>
+      持ち物に保存(L$10)
+    </f_translation>
+<f_old_trans>
+			アップロード
+		</f_old_trans>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/snapshot_type_radio/local</b_path>
+<c_attribute/>
+<d_old>
+			Save snapshot to hard drive
+		</d_old>
+<e_new>
+			Save to your hard drive
+		</e_new>
+<f_translation>
+			ハードディスクに保存
+		</f_translation>
+<f_old_trans>
+			ハード・ドライブに保存
+		</f_old_trans>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/upload_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Upload (L$10)</d_old>
+<e_new>Save (L$10)</e_new>
+<f_translation>保存(L$10)</f_translation>
+<f_old_trans>ｱｯﾌﾟﾛｰﾄﾞL$10</f_old_trans>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/type_label2</b_path>
+<c_attribute/>
+<d_old>
+		What size image do you need?
+	</d_old>
+<e_new>
+	Size
+  </e_new>
+<f_translation>
+	サイズ
+  </f_translation>
+<f_old_trans>
+		どんな大きさの画像が必要ですか？
+	</f_old_trans>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/auto_snapshot_check</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Auto-snapshot</d_old>
+<e_new>Auto-refresh</e_new>
+<f_translation>自動更新</f_translation>
+<f_old_trans>自動スナップショット</f_old_trans>
+</string>
+<string>
+<a_file>menu_pie_avatar.xml</a_file>
+<b_path>/Avatar Pie/Add Friend</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Add Friend</d_old>
+<e_new>Add Friend...</e_new>
+<f_translation>フレンドを追加...</f_translation>
+<f_old_trans>フレンドを追加</f_old_trans>
+</string>
+<string>
+<a_file>notify.xml</a_file>
+<b_path>//OfferFriendship/message</b_path>
+<c_attribute/>
+<d_old>
+
+			[NAME] is offering friendship.
+      
+      By default, you will be able to 
+see each other's online status.
+		
+</d_old>
+<e_new>
+
+			[NAME] is offering friendship.
+ 
+[MESSAGE]
+ 
+(By default, you will be able to see each other's online status.)
+		
+</e_new>
+<f_translation>
+
+			[NAME]は、フレンドを贈っています。
+ 
+[MESSAGE]
+ 
+(デフォルトでお互いのオンライン・ステータスを見ることができるようになります。)
+		
+</f_translation>
+<f_old_trans>
+
+			[NAME] は、フレンドシップを贈っています。
+      
+   デフォルトでお互いのオンライン・ステータスを見ることができるようになります。
+		
+</f_old_trans>
+</string>
+<string>
+<a_file>notify.xml</a_file>
+<b_path>//FailedToLoadWearableUnnamed/message</b_path>
+<c_attribute/>
+<d_old>
+
+			Failed to load [TYPE].
+Please notify the vendor from whom you purchased this item.
+		
+</d_old>
+<e_new>
+
+			Oops!
+You tried to wear a [TYPE] and it did not load.
+
+Don't panic.
+Try again in a minute to give things a chance to settle down.
+		
+</e_new>
+<f_translation>
+
+			おっと!
+まだ読み込まれていないため、[TYPE]を装着できません。
+
+すこし時間がたてば状況が改善されるはずですので、しばらくしてからもう一度試してみてください
+		
+</f_translation>
+<f_old_trans>
+
+			[TYPE]をロードできませんでした。
+このアイテムを購入した販売者に通知してください。
+		
+</f_old_trans>
+</string>
+<string>
+<a_file>notify.xml</a_file>
+<b_path>//FailedToLoadWearable/message</b_path>
+<c_attribute/>
+<d_old>
+
+			Failed to load [TYPE] named [DESC].
+Please notify the vendor from whom you purchased this item.
+		
+</d_old>
+<e_new>
+
+			Oops!
+You tried to wear [TYPE] named [DESC] and it did not load.
+
+Don't panic.
+Try again in a minute to give things a chance to settle down.
+		
+</e_new>
+<f_translation>
+
+			おっと!
+まだ読み込まれていないため、[DESC]という名前の[TYPE]を装着できません。
+
+すこし時間がたてば状況が改善されるはずですので、しばらくしてからもう一度試してみてください
+		
+</f_translation>
+<f_old_trans>
+
+			[DESC]という名前の[TYPE]をロードできませんでした。
+本アイテムを購入した販売者に通知してください。
+		
+</f_old_trans>
+</string>
+<string>
+<a_file>notify.xml</a_file>
+<b_path>//FirstTeleport/message</b_path>
+<c_attribute/>
+<d_old>
+
+			You have just teleported. 
+You are at the Infohub nearest your destination.
+Your destination is marked with a tall red beacon.
+		
+</d_old>
+<e_new>
+
+			This region doesn't allow point-to-point teleports, so you've been transported to the nearest telehub. 
+Your destination is marked with a tall beacon. 
+Follow the red arrow to the beacon, or click the arrow to dismiss the beacon.
+		
+</e_new>
+<f_translation>
+
+			この地域では、ポイント間のテレポートが認められていませんので、最も近いテレハブ周辺に移動しました。 
+あなたの目的地は、大きなビーコンで標されています。赤い矢印に続いて進むとビーコンへ辿り着きます。
+矢印をクリックするとビーコンを消せます
+		
+</f_translation>
+<f_old_trans>
+
+			あなたはたった今、テレポートしました。 
+あなたの目的地に一番近いインフォハブにいます。
+目的地は、背の高い赤い標識で示されています。
+		
+</f_old_trans>
+</string>
+<string>
+<a_file>panel_login.xml</a_file>
+<b_path>/panel_login/connect_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Connect</d_old>
+<e_new>Enter Second Life</e_new>
+<f_translation>Second Lifeに入る</f_translation>
+<f_old_trans>接続</f_old_trans>
+</string>
+<string>
+<a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/script_error</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Color</d_old>
+<e_new>Errors</e_new>
+<f_translation>エラー</f_translation>
+<f_old_trans>色</f_old_trans>
+</string>
+<string>
+<a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/skin_selection/default</b_path>
+<c_attribute/>
+<d_old>
+      Classic
+    </d_old>
+<e_new>
+      Default
+    </e_new>
+<f_translation>
+      デフォルト
+    </f_translation>
+<f_old_trans>
+			クラシック
+		</f_old_trans>
+</string>
+<string>
+<a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/choose_avatar_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Choose Avatar...</d_old>
+<e_new>Choose...</e_new>
+<f_translation>選択...</f_translation>
+<f_old_trans>アバターを選択...</f_old_trans>
+</string>
+
 </strings>

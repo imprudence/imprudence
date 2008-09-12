@@ -2,7 +2,7 @@
 <panel name="toolbar">
 	<layout_stack name="toolbar_stack">
 	<button label="即时通" name="im_btn" tool_tip="用即时通联系你的朋友。" />
-	<button label="聊天" name="chat_btn"
+	<button label="" name="chat_btn"
 	     tool_tip="与附近的人交谈.点击交谈之后点击历史去查找交谈记录。" />
 	<button label="伙伴&quot;" name="friends_btn"
 	     tool_tip="查找并与你的好朋友交流。" />

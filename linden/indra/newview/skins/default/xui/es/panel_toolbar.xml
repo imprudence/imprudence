@@ -3,7 +3,7 @@
 	<layout_stack name="toolbar_stack">
 	<button label="MI" name="im_btn"
 	     tool_tip="Enviar mensaje instantáneo para sus amigos." />
-	<button label="Chat" name="chat_btn" tool_tip="Talk to people nearby. (Enter)" />
+	<button label="" name="chat_btn" tool_tip="Talk to people nearby. (Enter)" />
 	<button label="Amigos" name="friends_btn"
 	     tool_tip="Encontrar y se comunicar con sus amigos." />
 	<button label="Volar" label_selected="Parar de volar" name="fly_btn"

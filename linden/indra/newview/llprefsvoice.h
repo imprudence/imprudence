@@ -58,7 +58,6 @@ protected:
 
 	BOOL mEnableVoice;
 	BOOL mVoiceCallsFriendsOnly;
-	BOOL mEnablePushToTalk;
 	std::string mModifier;
 	BOOL mPushToTalkToggle;
 	S32  mEarLocation;

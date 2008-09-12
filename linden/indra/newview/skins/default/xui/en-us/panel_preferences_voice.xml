@@ -36,11 +36,6 @@
 	     name="voice_chat_description" tab_stop="false" width="450" word_wrap="true">
 		Push-to-Talk mode lets you control when your voice is transmitted. When in toggle mode, press and release the push-to-talk trigger to switch your microphone on and off. When not in toggle mode, the microphone is active only when the trigger is held down.
 	</text_editor>
-<!-- 	<check_box bottom_delta="-20" control_name="EnablePushToTalk" enabled="true" -->
-<!-- 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false" -->
-<!-- 	     label="Start Viewer in Push-to-Talk mode" left_delta="0" -->
-<!-- 	     mouse_opaque="true" name="push_to_talk_check" radio_style="false" -->
-<!-- 	     width="200" /> -->
 	<check_box bottom_delta="-20" control_name="PushToTalkToggle" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Use Push-to-Talk in toggle mode" left_delta="0" mouse_opaque="true"

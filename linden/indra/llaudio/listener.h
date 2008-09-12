@@ -51,7 +51,6 @@ class LLListener
 	LLListener();
 	virtual ~LLListener();
 	virtual void init();  
-	virtual void free();
 
 	virtual void set(LLVector3 pos, LLVector3 vel, LLVector3 up, LLVector3 at);
 

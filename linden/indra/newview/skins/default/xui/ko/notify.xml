@@ -576,10 +576,25 @@
 	</notify>
 	<notify name="OfferFriendship">
 		<message name="message">
-			[NAME]님이 우정을 제안합니다.
-      
-      기본적으로 사용자는 
-서로의 온라인 상태를 확인할 수 있습니다.
+			[NAME]님이 친구 사귀기를 제안합니다.
+ 
+[MESSAGE]
+ 
+(기본적으로 사용자는 서로의 온라인 상태를 확인할 수 있습니다.)
+		</message>
+		<option name="Accept">
+			동의
+		</option>
+		<option name="Decline">
+			거부
+		</option>
+	</notify>
+	<notify name="OfferFriendshipNoMessage">
+		<message name="message">
+			[NAME]님이 친구 사귀기를 제안합니다.
+
+(기본적으로 사용자는
+서로의 온라인 상태를 볼 수 있습니다.)
 		</message>
 		<option name="Accept">
 			동의
@@ -640,14 +655,20 @@
 	</notify>
 	<notify name="FailedToLoadWearableUnnamed">
 		<message name="message">
-			[TYPE]을(를) 로드하지 못했습니다.
-이 오브젝트의 판매자에게 알리십시오.
+			죄송합니다.
+[TYPE] 착용을 시도했지만 로드하지 못했습니다.
+
+당황하지 마십시오.
+몇 분 후 다시 시도해서 오브젝트를 제대로 로드하십시오.
 		</message>
 	</notify>
 	<notify name="FailedToLoadWearable">
 		<message name="message">
-			[DESC](이)라는 [TYPE]을(를) 로드하지 못했습니다.
-이 오브젝트를 구입한 판매자에게 알리십시오.
+			죄송합니다.
+[DESC](이)라는 [TYPE] 착용을 시도했지만 로드하지 못했습니다.
+
+당황하지 마십시오.
+몇 분 후 다시 시도해서 오브젝트를 제대로 로드하십시오.
 		</message>
 	</notify>
 	<notify name="FailedToFindWearableUnnamed">
@@ -832,9 +853,9 @@ Ctrl 또는 Alt 키를 누른 상태에서 신속하게 도구를 전환하십�
 	</notify>
 	<notify name="FirstTeleport">
 		<message name="message">
-			방금 텔레포트되었습니다. 
-목적지에서 가장 가까운 인포허브에 있습니다.
-목적지는 큰 빨간색 표지로 표시되어 있습니다.
+			이 지역에서는 두 지점 간 텔레포트가 허용되지 않기 때문에 가장 가까운 텔레허브로 이동되었습니다. 
+목적지는 큰 표지로 표시되어 있습니다. 
+표지의 빨간색 화살표를 따라가거나 표지를 무시하려면 화살표를 클릭하십시오.
 		</message>
 	</notify>
 	<notify name="FirstOverrideKeys">

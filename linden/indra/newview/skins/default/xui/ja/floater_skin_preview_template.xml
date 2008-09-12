@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater name="floater_chatterbox">
+	<icon label="飛行" label_selected="飛行を停止" name=""
+	     tool_tip="飛行開始： EキーまたはPageUpキーで上昇、CキーまたはPageDownキーで下降" />
+	<panel name="panel_unfocused_floater">
+		<text name="titlebar_focused">
+			アンフォーカス
+		</text>
+		<combo_box label="コンボ・ボックス" name="combo_box_1" />
+		<text_editor name="Chat History Editor">
+			テキスト
+		</text_editor>
+	</panel>
+	<panel name="panel_focused_floater">
+		<text name="titlebar_focused">
+			フォーカス
+		</text>
+		<tab_container name="chatterbox_tabs">
+			<panel label="フォーカス" name="test_1">
+				<slider label="スライダー" name="SliderTestName" />
+				<check_box label="正" name="check_box_test_1" />
+				<check_box label="不" name="check_box_test_2" />
+				<text_editor name="Chat History Editor">
+					チャット・テキスト
+				</text_editor>
+			</panel>
+			<panel label="アンフォーカス" name="test_2" />
+		</tab_container>
+	</panel>
+</multi_floater>

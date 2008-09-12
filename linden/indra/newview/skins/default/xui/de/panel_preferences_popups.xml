@@ -24,4 +24,5 @@
 	<button label="Alle &apos;Überspringen&apos;-Dialoge überspringen..."
 	     name="skip_dialogs_btn"
 	     tool_tip="Alle optionalen Popups und &apos;Das erste Mal&apos;-Meldungen deaktivieren." />
+	<check_box label="Neue Objekte im Inventar automatisch anzeigen" name="show_in_inventory" />
 </panel>

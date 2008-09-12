@@ -17,6 +17,8 @@
 	<text type="string" length="1" name="text_box2">
 		글자색:
 	</text>
+	<color_swatch label="나" name="user" />
+	<color_swatch label="다른 사용자" name="agent" />
 	<color_swatch label="메신저" name="im" />
 	<color_swatch label="시스템" name="system" />
 	<color_swatch label="채팅" name="users" />
@@ -43,6 +45,7 @@
 	<check_box label="화살표 키는 채팅시 아바타를 움직이는데 사용"
 	     name="arrow_keys_move_avatar_check" />
 	<check_box label="채팅 시간 표시하기" name="show_timestamps_check" />
+	<check_box label="타이핑 애니메이션 재생" name="play_typing_animation" />
 	<text type="string" length="1" name="text_box7">
 		말풍선 채팅:
 	</text>
@@ -53,5 +56,5 @@
 	</text>
 	<check_box label="스크립트 오류 및 경고를 일반 채팅으로 표시하기"
 	     name="script_errors_as_chat" />
-	<color_swatch label="색" name="script_error" />
+	<color_swatch label="오류" name="script_error" />
 </panel>

@@ -4,7 +4,7 @@
 	<menu_item_call label="차단" name="Avatar Mute" />
 	<menu_item_call label="이동 장소" name="Go To" />
 	<menu_item_call label="평가" name="Rate" />
-	<menu_item_call label="친구 추가" name="Add Friend" />
+	<menu_item_call label="친구 추가..." name="Add Friend" />
 	<menu_item_call label="지불…" name="Pay..." />
 	<pie_menu label="더 보기&gt;" name="More &gt;">
 		<menu_item_call label="동결" name="Freeze..." />

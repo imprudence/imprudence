@@ -1,19 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <strings>
 <string><a_file>alerts.xml</a_file>
-<b_path>//TutorialNotFound/message</b_path>
+<b_path>//AddFriend/editline</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			No tutorial is currently available.
+			Would you be my friend?
 		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-			현재 튜토리얼을 사용할 수 없습니다.
+			제 친구가 되시겠습니까?
 		</f_translation>
 </string><string><a_file>alerts.xml</a_file>
-<b_path>//TutorialNotFound/OK</b_path>
+<b_path>//EstateObjectReturn/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Are you sure you want to return objects owned by
+[USER_NAME] ?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+[USER_NAME]이(가) 소유하는 오브젝트를 반환하시겠습니까?
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//EstateObjectReturn/Return</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
@@ -24,44 +36,7 @@
 			확인
 		</f_translation>
 </string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Freeze [AVATAR_NAME]?
-He or she will temporarily be unable to move,
-chat, or interact with the world.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			[AVATAR_NAME]을(를) 정지시키겠습니까?
-이렇게 하면 일시적으로 움직이지 못하게 되고,
-채팅이나 상호작용을 할 수 없습니다.
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/Freeze</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Freeze
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			정지
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/Unfreeze</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Unfreeze
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			정지 해제
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/Cancel</b_path>
+<b_path>//EstateObjectReturn/Cancel</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
@@ -71,2664 +46,970 @@ chat, or interact with the world.
 <f_translation>
 			취소
 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Eject [AVATAR_NAME] from your land?
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			[AVATAR_NAME]을(를) 본인의 토지에서 강제로 퇴장시키겠습니까?
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/Eject</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Eject
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			강퇴
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/EjectandBan</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Eject and Ban
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			강퇴 및 차단
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Cancel
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			취소
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SeachFilteredOnShortWords/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Your search query was modified and the 
-words that were too short were removed.
-
-Searched for: [FINALQUERY]
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-귀하의 검색 질문이 수정되었으며 
-너무 짧은 검색어는 삭제되었습니다.
-
-검색 대상: [FINALQUERY]
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SeachFilteredOnShortWordsEmpty/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Your search terms were too short
-so no search was performed.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-검색어가 너무 짧아
-검색할 수 없습니다.
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//CannotCloseFloaterBuyLand/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			You cannot close the Buy Land window until Second Life
-estimates the price of this transaction.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			세컨드라이프에서 이 거래 비용을 산정할 때까지
-토지 구매 창을 닫을 수 없습니다.
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//MaxAgentOnRegionBatch/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Failure while attempting to add [NUM_ADDED] agents:
-Exceeds the [MAX_AGENTS] [LIST_TYPE] limit by [NUM_EXCESS].
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			[NUM_ADDED] 에이전트를 추가하는 데 실패했습니다:
-[NUM_EXCESS]에 지정된 [MAX_AGENTS] [LIST_TYPE] 제한이 초과하였습니다.
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Open your system Web browser to view this content?
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			컨텐츠를 보려면 시스템 웹 브라우저를 여십시오.
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			When opening your system browser to view a Web page
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			시스템 브라우저를 열어 웹 페이지를 확인할 경우
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/Open</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			OK
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			확인
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Cancel
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			취소
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ProblemAddingEstateGeneric/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Problems adding to this estate list.  One or more estates may have a full list.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			사유지 목록에 추가하는 동안 문제가 발생했습니다.  하나 이상의 사유지 관리자 목록이 모두 찬 상태입니다.
-		</f_translation>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/type</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Type</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>유형</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/name</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Name</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>이름</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/count</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Count</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>개수</f_translation>
-</string><string><a_file>floater_active_speakers.xml</a_file>
-<b_path>/active_speakers/active_speakers_panel/speakers_list/speaking_status</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_avatar_textures.xml</a_file>
-<b_path>/avatar_texture_debug/baked_label</b_path>
+<b_path>/floaterland/landtab/land_general_panel/no_selection_text</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		Baked Textures
+			No parcel selected.
+Go to World menu &gt; About Land or select another parcel to show its details.
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			구획을 선택하지 않았습니다.
+세부 사항을 보려면 '월드 메뉴 &gt; 토지 소개'를 선택 하시거나 다른 구획을 선택하십시오.
+			</f_translation>
+</string><string><a_file>floater_instant_message.xml</a_file>
+<b_path>/im_floater/inventory_item_offered</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Inventory item offered
 	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-		저장된 텍스처
+		인벤토리 아이템이 제공되었습니다.
 	</f_translation>
-</string><string><a_file>floater_avatar_textures.xml</a_file>
-<b_path>/avatar_texture_debug/composite_label</b_path>
-<c_attribute></c_attribute>
+</string><string><a_file>floater_live_lsleditor.xml</a_file>
+<b_path>/script ed float/mono</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>
-		Composite Textures
-	</e_new>
+<e_new>Mono</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-		복합 텍스처
-	</f_translation>
-</string><string><a_file>floater_buy_currency.xml</a_file>
-<b_path>/buy currency/getting_data</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Getting data...
-	</e_new>
+<f_translation>모노</f_translation>
 <f_old_trans></f_old_trans>
-<f_translation>
-		데이터를 가져오는 중...
-	</f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater</b_path>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak</b_path>
 <c_attribute>title</c_attribute>
 <d_old></d_old>
-<e_new></e_new>
+<e_new>Memory Leaking Simulation</e_new>
 <f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater/rotate_tooltip</b_path>
+<f_translation>메모리 손실 시뮬레이션</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/leak_speed</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Leaking Speed (bytes per frame):</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>손실 속도(프레임당 바이트 수):</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/max_leak</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Max Leaked Memory (MB):</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>손실된 최대 메모리(MB):</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/total_leaked_label</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Rotate Camera Around Focus</e_new>
+<e_new>
+		Current leaked memory: [SIZE] KB
+	</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>초점 주위로 카메라 회전</f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater/zoom_tooltip</b_path>
+<f_translation>
+		현재 손실된 메모리: [SIZE] KB
+	</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/note_label_1</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Zoom Camera Towards Focus</e_new>
+<e_new>
+		[NOTE1]
+	</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>초점을 향해 카메라 확대/축소</f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater/move_tooltip</b_path>
+<f_translation>
+		[NOTE1]
+	</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/note_label_2</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Move Camera Up and Down, Left and Right</e_new>
+<e_new>
+		[NOTE2]
+	</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>위/아래, 왼쪽/오른쪽으로 카메라 이동</f_translation>
-</string><string><a_file>floater_chatterbox.xml</a_file>
+<f_translation>
+		[NOTE2]
+	</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/start_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Start</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>시작</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/stop_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Stop</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>중지</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/release_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Release</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>해제</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/close_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Close</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>닫기</f_translation>
+</string><string><a_file>floater_postcard.xml</a_file>
+<b_path>/Postcard/upload_message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	 &quot;Sending...&quot;
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	 &quot;보내는 중...&quot;
+	</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Select_category</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Select category
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+카테고리 선택
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Age__Age_play</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Age &gt; Age play
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+연령관련 &gt; 에이지 플레이
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Age__Adult_resident_on_Teen_Second_Life</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Age &gt; Adult resident on Teen Second Life
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+연령관련 &gt; 틴 세컨드라이프내의 성인 주민
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Age__Underage_resident_on_Adult_Second_Life</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Age &gt; Underage resident on Adult Second Life
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+연령관련 &gt; 세컨드라이프의 미성년자 주민
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Assault__Combat_sandbox___unsafe_area</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Assault &gt; Combat sandbox / unsafe area
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+폭력관련 &gt; 전투 샌드박스/위험 지대
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Assault__Safe_area</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Assault &gt; Safe area
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+폭력관련 &gt; 안전 지대
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Assault__Weapons_testing_sandbox</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Assault &gt; Weapons testing sandbox
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+폭력관련 &gt; 총기류 테스트 샌드박스
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Copyright_or_intellectual_property_violation</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Copyright or intellectual property violation
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+저작권 또는 지적재산권 위반 관련 
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Commerce__Failure_to_deliver_product_or_service</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Commerce &gt; Failure to deliver product or service
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+쇼핑관련 &gt; 제품 배달 또는 서비스 제공 실패
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disclosure__First_Life_information</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disclosure &gt; First life information
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+개인정보 관련 &gt; 오프라인 정보
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disclosure__Remotely_monitoring chat</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disclosure &gt; Remotely monitoring chat
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+개인정보 관련 &gt; 원격 모니터링 채팅
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disclosure__Second_Life_information_chat_IMs</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disclosure &gt; Second Life information/chat/IMs
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+개인정보 관련 &gt; 세컨드라이프 정보/채팅/메신저
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Unfair_use_of_region_resources</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disturbing the peace &gt; Unfair use of region resources
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+치안관련 &gt; 지역 자원의 부당한 이용
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Excessive_scripted_objects</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disturbing the peace &gt; Excessive scripted objects
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+치안관련 &gt; 초과 스크립트 오브젝트
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Object_littering</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disturbing the peace &gt; Object littering
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+치안관련 &gt; 오브젝트 혼란 방치
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Repetitive_spam</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disturbing the peace &gt; Repetitive spam
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+치안관련 &gt; 반복적인 스팸
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Unwanted_advert_spam</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disturbing the peace &gt; Unwanted advert spam
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+치안관련 &gt; 원치 않는 광고성 스팸
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__L$</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Fraud &gt; L$
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+사기관련 &gt; L$
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__Land</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Fraud &gt; Land
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+사기관련 &gt; 토지
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__Pyramid_scheme_or_chain_letter</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Fraud &gt; Pyramid scheme or chain letter
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+사기관련 &gt; 피라미드 조직 또는 연쇄 편지
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__US$</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Fraud &gt; US$
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+사기관련 &gt; US$
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Advert_farms___visual_spam</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Advert farms / visual spam
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+괴롭힘 관련&gt; 광고성 유료 사이트/비주얼 스팸
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Defaming_individuals_or_groups</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Defaming individuals or groups
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+괴롭힘 관련 &gt; 개인 또는 집단 명예 훼손
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Impeding_movement</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Impeding movement
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+괴롭힘 관련 &gt; 고의적인 방해
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Sexual_harassment</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Sexual harassment
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+괴롭힘 관련 &gt; 성희롱
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Solicting_inciting_others_to_violate_ToS</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Solicting/inciting others to violate ToS
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+괴롭힘 관련 &gt; TOS를 위반하도록 타인 유혹/조장
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Verbal_abuse</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Verbal abuse
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+괴롭힘 관련 &gt; 언어 폭력
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Broadly_offensive_content_or_conduct</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Indecency &gt; Broadly offensive content or conduct
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+외설 관련&gt; 노골적으로 불쾌한 컨텐츠 또는 행동
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Broadly_visible_mature_content</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Indecency &gt; Broadly visible mature content
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+외설 관련 &gt; 노골적인 성인용 컨텐츠
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Inappropriate_avatar_name</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Indecency &gt; Inappropriate avatar name
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+외설 관련 &gt; 부적절한 아바타 이름
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Mature_content_in_PG_region</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Indecency &gt; Mature content in PG region
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+외설 관련 &gt; PG 지역에서 성인용 컨텐츠 사용
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Abuse_of_sandbox_resources</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Land &gt; Abuse of sandbox resources
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+토지 관련 &gt; 샌드박스 리소스 남용
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Encroachment__Objects_textures</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Land &gt; Encroachment &gt; Objects/textures
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+토지 관련 &gt; 침략 &gt; 오브젝트/텍스처
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Encroachment__Particles</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Land &gt; Encroachment &gt; Particles
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+토지 관련 &gt; 침략 &gt; 구획
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Encroachment__Trees_plants</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Land &gt; Encroachment &gt; Trees/plants
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+토지 관련 &gt; 침략 &gt; 나무/식물
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Trademark_violation</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Trademark violation
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+상표 위반 관련
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Wagering_gambling</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Wagering/gambling
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+도박 관련
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/omit_abuser_name</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Don&apos;t know abuser&apos;s name</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>악용자의 이름 모름</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/omit_abuser_name</b_path>
+<c_attribute>tool_tip</c_attribute> 	
+<d_old></d_old>
+<e_new>Check this if you are unable to provide the abuser&apos;s name</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>악용자의 이름을 제공할 수 없는 경우 이 옵션을 선택하십시오.</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
 <b_path>/floater_chatterbox</b_path>
 <c_attribute>title</c_attribute>
 <d_old></d_old>
-<e_new>Communicate</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>통신</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/IM_logging_string</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		-- Instant message logging enabled --
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		-- 메신저 로깅 사용 --
-	</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/IM_end_log_string</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		-- End of Log --
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		-- 로그 끝 --
-	</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/Gesture</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Gestures</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>제스처</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/Gesture/Gestures</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Gestures
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-					제스처
-				</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/show mutes</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Show Muted Text</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>차단된 텍스트 표시하기</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/toggle_active_speakers_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>&lt; &lt;</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>&lt; &lt;</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/toggle_active_speakers_btn</b_path>
-<c_attribute>label_selected</c_attribute>
-<d_old></d_old>
-<e_new>&gt; &gt;</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>&gt; &gt;</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/toggle_active_speakers_btn</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Click here to show list of active participants in this IM session.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>채팅 참가자 목록 보기 </f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/chat_panel/Chat Editor</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Click here to chat.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>채팅하려면 여기를 클릭하십시오.</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/chat_panel/Say</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Say</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>말하기</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/chat_panel/Say</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>(Enter)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(입력)</f_translation>
-</string><string><a_file>floater_critical.xml</a_file>
-<b_path>/modal container/tos_title</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-    Critical Message
-  </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-    중요 메시지
-  </f_translation>
-</string><string><a_file>floater_customize.xml</a_file>
-<b_path>/floater customize/customize tab container/body_parts_placeholder</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Body Parts</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>신체 부위</f_translation>
-</string><string><a_file>floater_customize.xml</a_file>
-<b_path>/floater customize/customize tab container/clothes_placeholder</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Clothes</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>의상</f_translation>
-</string><string><a_file>floater_day_cycle_options.xml</a_file>
-<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLTimeSlider</b_path>
+<f_translation></f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//chat_btn</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
-</string><string><a_file>floater_day_cycle_options.xml</a_file>
-<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLDayCycleKeys</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_device_settings.xml</a_file>
-<b_path>/floater_device_settings</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Voice Chat Device Settings</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>음성 채팅 장치 설정</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/find_all_old_panel/results/icon</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_env_settings.xml</a_file>
-<b_path>/Environment Editor Floater/EnvTimeSlider</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_env_settings.xml</a_file>
-<b_path>/Environment Editor Floater/EnvCloudSlider</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_env_settings.xml</a_file>
-<b_path>/Environment Editor Floater/EnvWaterFogSlider</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_groups.xml</a_file>
-<b_path>/groups/group list/name</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/Antialiasing:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-    Antialiasing:
-  </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-    앤티앨리어싱:
-  </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Antialiasing</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>앤티앨리어싱</f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/FSAADisabled</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Disabled
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      비활성화됨
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/2x</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      2x
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      2x
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/4x</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      4x
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      4x
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/8x</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      8x
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      8x
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/16x</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      16x
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      16x
-    </f_translation>
-</string><string><a_file>floater_hud.xml</a_file>
-<b_path>/floater_hud</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Tutorial</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>튜토리얼</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Joystick Configuration</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>조이스틱 설정</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis1</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>X Axis Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>X축 매핑</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis2</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Y Axis Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Y축 매핑</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis0</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Z Axis Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Z축 매핑</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis4</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Pitch Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>피치 매핑</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis5</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Yaw Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>요 매핑</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis3</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Roll Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>롤 매핑</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis6</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Zoom Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>확대/축소 매핑</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZoomDirect</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Direct Zoom</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>직접 확대/축소</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Cursor3D</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>3D Cursor</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>3D 커서</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/AutoLeveling</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Auto Level</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>레벨 자동 수정</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Control Modes:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Control Modes:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		조절 모드:
-	</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/XScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>X Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>X 크기</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Y Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Y 크기</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Z Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Z 크기</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/PitchScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Pitch Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>피치 크기</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YawScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yaw Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>요 크기</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/RollScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Roll Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>롤 크기</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/XDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>X Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>X 사각지대</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Y Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Y 사각지대</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Z Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Z 사각지대</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/PitchDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Pitch Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>피치 사각지대</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YawDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yaw Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>요 사각지대</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/RollDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Roll Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>롤 사각지대</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Feathering</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Feathering</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>부드러움 효과</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/AvatarFeathering</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/BuildFeathering</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/FlycamFeathering</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZoomScale2</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Zoom Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>확대/축소 크기</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/FlycamAxisScale6</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZoomDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Zoom Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>확대/축소 사각지대</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/FlycamAxisDeadZone6</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/SpaceNavigatorDefaults</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>SpaceNavigator Defaults</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>SpaceNavigator 기본값</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickMonitor</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Joystick Monitor</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>조이스틱 검사</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Axis</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Axis [NUM]</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>축 [NUM]</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/NoDevice</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>no device detected</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>검색된 장치가 없습니다.</f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterBrightness</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterSaturation</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterContrast</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionBrightMult</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionNoiseSize</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionNoiseStrength</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomExtract</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomSize</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomStrength</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_preview_classified.xml</a_file>
-<b_path>/classified_preview</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Classified Information</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>광고 정보</f_translation>
-</string><string><a_file>floater_preview_event.xml</a_file>
-<b_path>/event_preview</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Event Information</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>이벤트 정보</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/library_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Library:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		라이브러리:
-	</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/steps_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Steps:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		단계:
-	</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/animation_trigger_type/start</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Start
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			시작
-		</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/animation_trigger_type/stop</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Stop
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			중지
-		</f_translation>
-</string><string><a_file>floater_preview_notecard_keep_discard.xml</a_file>
-<b_path>/preview_notecard/not_allowed</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>You are not allowed to view this note.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>사용자는 이 노트를 볼 수 없습니다.</f_translation>
-</string><string><a_file>floater_preview_url.xml</a_file>
-<b_path>/url_preview</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Place Information</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>장소 정보</f_translation>
-</string><string><a_file>floater_region_info.xml</a_file>
-<b_path>/regioninfo</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Region/Estate</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>지역/사유지</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolCube</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Cube</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>정육면체</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolPrism</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Prism</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>삼각기둥</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolPyramid</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Pyramid</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>삼각뿔</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTetrahedron</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Tetrahedron</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>사면체</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolCylinder</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Cylinder</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>원통</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolHemiCylinder</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Hemicylinder</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>반원통</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolCone</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Cone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>원뿔</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolHemiCone</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Hemicone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>반원뿔</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolSphere</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Sphere</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>구</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolHemiSphere</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Hemisphere</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>반구</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTorus</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Torus</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>원환</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTube</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Tube</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>관</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolRing</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Ring</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>반지</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTree</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Tree</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>나무</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolGrass</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Grass</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>잔디</f_translation>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/View/Joystick Flycam</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Joystick Flycam</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>조이스틱 Flycam</f_translation>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/Tutorial</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Tutorial</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>튜토리얼</f_translation>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/separator7</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>-----------</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>-----------</f_translation>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/Bug Reporting/separator9</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>-----------</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>-----------</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/web/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Web Content
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			웹 컨텐츠
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/web/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			This location has Web content
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이 위치에는 웹 컨텐츠가 포함되어 있습니다.
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/web/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Show Web content
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			웹 컨텐츠 표시
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/movie/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			동영상
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/movie/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			There is a movie to play here
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			여기서 동영상을 재생할 수 있습니다.
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/movie/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Play movie
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			동영상 재생
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/none/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			No Content
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			컨텐츠 없음
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/none/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			No media here
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			미디어 없음
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/image/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이미지
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/image/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			There is an image at this location
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이 위치에 이미지가 있습니다.
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/image/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			View this location&apos;s image
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이 위치의 이미지 보기
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/audio/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			오디오
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/audio/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			There is audio at this location
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이 위치에 오디오가 있습니다.
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/audio/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			View this location&apos;s audio
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이 위치의 오디오 보기
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/rtsp/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Real Time Streaming
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			실시간 스트리밍
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/blank/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			- None -
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			- 없음 -
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;none/none&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			- None -
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			- 없음 -
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/*&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			오디오
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/*&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Video
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			비디오
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/*&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이미지
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/vnd.secondlife.qt.legacy&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (QuickTime)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			동영상(QuickTime)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/javascript&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Javascript
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Javascript
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/ogg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Ogg Audio/Video
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Ogg 오디오/비디오
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/pdf&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			PDF Document
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			PDF 문서
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/postscript&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Postscript Document
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			포스트스크립트 문서
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/rtf&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Rich Text (RTF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			서식있는 텍스트(RTF)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/xhtml+xml&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Web Page (XHTML)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			웹 페이지(XHTML)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/x-director&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Macromedia Director
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Macromedia Director
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/x-shockwave-flash&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Flash
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			플래시
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/mid&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (MIDI)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			오디오(MIDI)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/mpeg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (MP3)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			오디오(MP3)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/x-aiff&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (AIFF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			오디오(AIFF)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/x-wav&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (WAV)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			오디오(WAV)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/bmp&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (BMP)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이미지(BMP)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/gif&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (GIF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이미지(GIF)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/jpeg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (JPEG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이미지(JPEG)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/png&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (PNG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이미지(PNG)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/svg+xml&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (SVG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이미지(SVG)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/tiff&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (TIFF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이미지(TIFF)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;text/html&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Web Page
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			웹 페이지
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;text/plain&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Text
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			텍스트
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;text/xml&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			XML
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			XML
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/mpeg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (MPEG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			동영상(MPEG)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/mp4&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (MP4)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			동영상(MP4)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/quicktime&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (QuickTime)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			동영상(QuickTime)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/x-ms-asf&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (Windows Media ASF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			동영상(Windows Media ASF)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/x-ms-wmv&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (Windows Media WMV)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			동영상(Windows Media WMV)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/x-msvideo&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (AVI)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			동영상(AVI)
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//RezItemNoPermissions/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Insufficient permissions to rez object.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			rez 오브젝트에 대한 권한이 부족합니다.
-		</f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_audio</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_music</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_media</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_voice</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_sfx</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_wind</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_ui</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_groups.xml</a_file>
-<b_path>/groups/group list/name</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/help_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		You can select multiple residents to 
-invite to your group. Click &apos;Open 
-Person Chooser&apos; to start.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		여러 주민을 선택하여 
-그룹에 초대할 수 있습니다. '주민 
-선택기 열기'를 클릭하여 시작합니다.
-	</f_translation>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/role_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Choose what Role to assign them to:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		할당할 역할을 선택하십시오:
-	</f_translation>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/confirm_invite_owner_str</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Are you sure you want to invite new owner(s)? This action is permanent!
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		새 소유자를 초대하시겠습니까? 이 기능은 영구적으로 적용됩니다!
-	</f_translation>
-</string><string><a_file>panel_master_volume.xml</a_file>
-<b_path>/master_volume/mute_master</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/play_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Play
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		재생
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/stop_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Stop
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		중지
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/pause_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Pause
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		일시 정지
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/default_tooltip_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		No Media Specified
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		지정된 미디어가 없습니다.
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_hidden_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		(URL hidden by parcel owner)
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		(구획 소유자에 의해 URL이 숨겨져 있습니다.)
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_icon_tooltip_web</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		This location displays content from the World Wide Web. Click the Play button to display Web content.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		이 위치에서는 WWW의 컨텐츠가 표시됩니다. 웹 컨텐츠를 표시하려면 재생 버튼을 클릭하십시오.
-	</f_translation>
-<f_old_trans></f_old_trans>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_icon_tooltip_movie</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		This location displays Video content. Click the Play button to play the video.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		이 위치에서는 비디오 컨텐츠가 표시됩니다. 비디오를 재생하려면 재생 버튼을 클릭하십시오.
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_play_tooltip</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Display Web content at this location.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		이 위치에서 웹 컨텐츠를 재생합니다.
-	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/name_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Name:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		이름:
-	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/description_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Description:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		설명:
-	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/information_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Information:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		정보:
-	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/location_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Location:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		위치:
-	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/name_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Name:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		이름:
-	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/description_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Description:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		설명:
-	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/information_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Information:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		정보:
-	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/location_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Location:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		위치:
-	</f_translation>
-</string><string><a_file>panel_preferences_chat.xml</a_file>
-<b_path>/chat/im</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>IM</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>메신저</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/fade_out_combobox/Never</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Never
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			안함
-		</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/fade_out_combobox/Show Temporarily</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Show Temporarily
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			임시로 표시
-		</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/fade_out_combobox/Always</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Always
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			항상
-		</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/group_titles_textbox</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Group Titles:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		그룹 타이틀:
-	</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/show_all_title_checkbox</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Hide All Group Titles</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>모든 그룹 타이틀 숨기기</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/QualityPerformanceSelection</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/Camera Follow Distance:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Camera Follow Distance:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		카메라 이동 거리:
-	</f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/Camera Transition Time:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Camera Transition Time:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		카메라 전환 시간:
-	</f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/Camera Smoothing:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Camera Smoothing:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		카메라 스무딩:
-	</f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/joystic_setup_button</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Joystick Setup</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>조이스틱 설치</f_translation>
-</string><string><a_file>panel_preferences_popups.xml</a_file>
-<b_path>/popups/dont_show_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Do not show popups:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		팝업 차단:
-	</f_translation>
-</string><string><a_file>panel_preferences_popups.xml</a_file>
-<b_path>/popups/show_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Show popups:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		허용된 팝업:
-	</f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderation_mode_panel/moderation_mode/OpenVoice</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Open Voice (default)
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-					음성 사용(기본 설정)
-				</f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderation_mode_panel/moderation_mode/ModeratedVoice</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Moderated Voice
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-					음성 제어
-				</f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderate_chat_panel/speakers_list/speaking_status</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderate_chat_panel/speaker_controls/profile_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_status_bar.xml</a_file>
-<b_path>/status/menubar_search_bevel_bg</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/chat_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/chat_btn</b_path>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//chat_btn</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
 <e_new>Show Chat Bar. (Enter)</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>채팅 표시줄 표시 (입력)</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/communicate_btn</b_path>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//communicate_btn</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
 <e_new>Communicate</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>통신</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/communicate_btn</b_path>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//communicate_btn</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
 <e_new>Communicate with your Friends and Groups.</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>친구 및 그룹과 통신합니다.</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/fly_btn</b_path>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//fly_btn</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
 <e_new>Fly</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>비행</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/fly_btn</b_path>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//fly_btn</b_path>
 <c_attribute>label_selected</c_attribute>
 <d_old></d_old>
 <e_new>Stop Flying</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>비행 중지</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/fly_btn</b_path>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//fly_btn</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
 <e_new>Start flying. Use E/C or PgUp/PgDn to fly up and down.</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>비행 시작. 위, 아래로 비행하려면 E/C 또는 PgUp/PgDn을 사용하십시오.</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/snapshot_btn</b_path>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_unfocused_floater/titlebar_focused</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Unfocused</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>초점이 맞지 않음</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_unfocused_floater/combo_box_1</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Snapshot</e_new>
+<e_new>Combo Box</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>스냅샷</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/snapshot_btn</b_path>
+<f_translation>콤보 박스</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_unfocused_floater/Chat History Editor</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Text</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>텍스트</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/titlebar_focused</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Focused</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>초점이 맞음</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Focused</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>초점이 맞음</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/SliderTestName</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Slider</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>슬라이더</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/check_box_test_1</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>True</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>참</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/check_box_test_2</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>False</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>거짓</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/Chat History Editor</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Chat Text</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>채팅 텍스트</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_2</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Unfocused</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>초점이 맞지 않음</f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/save_btn</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>Save a screen shot to disk or inventory.</e_new>
+<e_new>Save image to a file</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>디스크 또는 인벤토리에 스크린샷 저장.</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/directory_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Search</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>검색</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/directory_btn</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Search for places, events, people, and more.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>장소, 이벤트, 사람, 더 자세히 등을 검색할 수 있습니다.</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/build_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Build</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>만들기</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/build_btn</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Create new objects.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>새 오브젝트를 만듭니다.</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/map_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Map</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>지도</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/map_btn</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Map of the world. (Ctrl-M)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>월드 지도 (Ctrl-M)</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/radar_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Mini-Map</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>미니지도</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/radar_btn</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Map of the area around you. (Ctrl-Shift-M)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>내 주변 영역의 지도 (Ctrl-Shitf-M)</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/inventory_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Inventory</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>인벤토리</f_translation>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/toolbar_stack/inventory_btn</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Your items. (Ctrl-I)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>아이템. (Ctrl-I)</f_translation>
-</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
-<b_path>/voice_remote/voice_channel_bg</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
-<b_path>/voice_remote/voice_channel_icon</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
-<b_path>/voice_remote/channel_label</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//UnsupportedHardware/ignore</b_path>
+<f_translation>파일에 이미지 저장</f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/format_label</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			Ignore unsupported hardware
+  Format
+  </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+  파일 형식
+  </f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Format</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>파일 형식</f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo/PNG</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			PNG
 		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-			지원되지 않는 하드웨어 무시
+			PNG
 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//UnknownGPU/message</b_path>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo/JPEG</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-Your system contains a graphics card that is unknown to us at this time.  
-This is often the case with new hardware we haven&apos;t had a chance to 
-test.  Second Life will most likely run properly, but you may need to 
-adjust your graphics settings to something more appropriate.
-(Edit &gt; Preferences &gt; Graphics).
+			JPEG
 		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-알 수 없는 그래픽 카드를 사용하고 있습니다.  
-이 문제는 린든랩에서 검증하지 못한  새로운 하드웨어가 사용되었기 때문일 수 
-있습니다.  대부분의 경우 세컨드라이프는 정상적으로 실행되지만 사용 중인 그래픽 설정을 
-적합한 설정으로 조정해야 할 수 있습니다.
-(편집 &gt; 환경 설정 &gt; 그래픽)
+			JPEG
 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//UnknownGPU/ignore</b_path>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo/BMP</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			Ignore unknown graphics card
+			BMP
 		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-			알 수 없는 그래픽 카드 무시
+			BMP
 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ClothingLoading/ignore</b_path>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Strength:</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			When clothing is taking a long time to download
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			의복 다운로드 시간이 오래 걸리는 경우
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Does this classified contain Mature content?
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-이 광고에 성인용 컨텐츠가 포함되어 있습니까?
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Yes
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      예
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/Not Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      No
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      아니오
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Cancel
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      취소
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Does this group contain Mature content?
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-이 그룹에 성인용 컨텐츠가 포함되어 있습니까?
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Yes
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      예
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/Not Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      No
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      아니오
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Cancel
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      취소
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//MissingString/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			The string [STRING_NAME] is missing from strings.xml
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			strings.xml에 [STRING_NAME] 문자열이 없습니다.
-		</f_translation>
-</string><string><a_file>floater_active_speakers.xml</a_file>
-<b_path>/active_speakers/active_speakers_panel/speakers_list/speaking_status</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Showcase</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>쇼케이스</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>검색</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>발견되지 않음.</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/back_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Back</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>뒤로</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/forward_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Forward</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>앞으로</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/loading_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Loading...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>로딩 중</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/done_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Done</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>완료</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/back_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Back</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>뒤로</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/forward_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Forward</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>앞으로</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/search_editor</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Search</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>검색</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/search_editor</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Search Second Life</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>세컨드라이프 검색</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/search_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Search</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>검색</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/mature_check</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Include Mature content</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>성인용 컨텐츠 포함</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/loading_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Loading...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>로딩 중</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/done_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Done</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>완료</f_translation>
-</string><string><a_file>floater_im.xml</a_file>
-<b_path>/im_floater/muted_message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		[FIRST] [LAST] is muted.
+	          Strength:
 	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-		[FIRST] [LAST]님이 음소거되었습니다.
+	          강도:
 	</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//AutoUnmuteByIM/message</b_path>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			[FIRST] [LAST] was sent an instant message and has been automatically unmuted.
-		</e_new>
+				Price:  L$
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-			[FIRST] [LAST]님에게 메시지가 전송되었으며 자동으로 음소거가 해제되었습니다.
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//AutoUnmuteByMoney/message</b_path>
+				가격:  L$
+			</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Default</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			[FIRST] [LAST] was given money and has been automatically unmuted.
-		</e_new>
+			Price:           L$
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-			[FIRST] [LAST]님에게 금액이 전송되었으며 자동으로 음소거가 해제되었습니다.
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//AutoUnmuteByInventory/message</b_path>
+			가격:           L$
+			</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Total</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			[FIRST] [LAST] was offered inventory and has been automatically unmuted.
-		</e_new>
+			Total Price:  L$
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-			[FIRST] [LAST]님에게 인벤토리가 전송되었으며 자동으로 음소거가 해제되었습니다.
-		</f_translation>
-</string><string><a_file>panel_avatar_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/select_mature</b_path>
+			총 가격:  L$
+			</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Per Unit</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-      - Select Mature -
-    </e_new>
+			Price Per:     L$
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-      - 성인용 컨텐츠 선택 -
-    </f_translation>
-</string><string><a_file>panel_avatar_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/mature</b_path>
+			단가:     L$
+			</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Mixed</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-      Mature Content
-    </e_new>
+			Mixed Price
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-      성인용 컨텐츠
-    </f_translation>
-</string><string><a_file>panel_avatar_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/not_mature</b_path>
+			혼합 가격
+			</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Sale Mixed</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-      Not Mature Content
-    </e_new>
+			Mixed Sale
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-      성인용 컨텐츠 아님
-    </f_translation>
-</string><string><a_file>panel_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/select_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      - Select Mature -
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      - 성인용 컨텐츠 선택 -
-    </f_translation>
-</string><string><a_file>panel_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Mature Content
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      성인용 컨텐츠
-    </f_translation>
-</string><string><a_file>panel_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/not_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Not Mature Content
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      성인용 컨텐츠 아님
-    </f_translation>
-</string><string><a_file>panel_groups.xml</a_file>
-<b_path>/groups/group list/name</b_path>
+			혼합 판매
+			</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt mirror control</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new></e_new>
+<e_new>Mirror</e_new>
 <f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check</b_path>
+<f_translation>미러</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt mirror control</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>Sets whether your group information is considered mature.</e_new>
+<e_new>Flips sculpted prim along the X axis.</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>그룹 정보를 성인용으로 간주할지 여부를 설정합니다.</f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check/select_mature</b_path>
+<f_translation>X축을 따라 sculpted prim(조각 프림)을 뒤집습니다.</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt invert control</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Inside-out</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>내부-외부</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt invert control</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Inverts the sculpted prims normals, making it appear inside-out.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Sculpted prim(조각 프림) 수직선을 반전하여 내/외부가 반전되어 나타나도록 합니다.</f_translation>
+</string><string><a_file>floater_top_objects.xml</a_file>
+<b_path>/top_objects/objects_list/time</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Time</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>시간</f_translation>
+</string><string><a_file>floater_tos.xml</a_file>
+<b_path>/modal container/agree_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>I Agree to the Terms of Service</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>서비스 약관에 동의합니다.</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/World/Release Keys</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Release Keys</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>키 해제</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/Tools/Recompile Scripts in Selection/Mono</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Mono</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>모노</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/Tools/Recompile Scripts in Selection/LSL</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>LSL</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>LSL</f_translation>
+</string><string><a_file>mime_types.xml</a_file>
+<b_path>/default/&quot;application/smil&quot;/&quot;application/smil_label&quot;</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			- Select Mature -
-			</e_new>
+		    Synchronized Multimedia Integration Language (SMIL)
+		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-			- 성인용 컨텐츠 선택 -
-			</f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check/mature</b_path>
+		    SMIL(동기식 멀티미디어 통합 언어)
+		</f_translation>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//OfferFriendshipNoMessage/message</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			Mature Content
-			</e_new>
+			[NAME] is offering friendship.
+
+(By default, you will be able to 
+see each other&apos;s online status.)
+		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-			성인용 컨텐츠
-			</f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check/not_mature</b_path>
+			[NAME]님이 친구 사귀기를 제안합니다.
+
+(기본적으로 사용자는
+서로의 온라인 상태를 볼 수 있습니다.)
+		</f_translation>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//OfferFriendshipNoMessage/Accept</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			Not Mature Content
-			</e_new>
+			Accept
+		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-			성인용 컨텐츠 아님
-			</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/WindowSizeLabel</b_path>
+			동의
+		</f_translation>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//OfferFriendshipNoMessage/Decline</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		Window Size:
+			Decline
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			거부
+		</f_translation>
+</string><string><a_file>panel_login.xml</a_file>
+<b_path>/panel_login/create_new_account_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Create new account.
 	</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-		창 크기:
+<f_translation>새 계정을 만듭니다.
 	</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/640x480</b_path>
-<c_attribute></c_attribute>
+</string><string><a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/user</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>
-			640x480
-		</e_new>
+<e_new>You</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-			640x480
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/800x600</b_path>
-<c_attribute></c_attribute>
+<f_translation>나</f_translation>
+</string><string><a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/agent</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>
-			800x600 
-		</e_new>
+<e_new>Others</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-			800x600 
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/720x480</b_path>
-<c_attribute></c_attribute>
+<f_translation>다른 사용자</f_translation>
+</string><string><a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/play_typing_animation</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>
-			720x480 (NTSC)
-		</e_new>
+<e_new>Play typing animation</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-			720x480(NTSC)
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/768x576</b_path>
-<c_attribute></c_attribute>
+<f_translation>타이핑 애니메이션 재생</f_translation>
+</string><string><a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/language_is_public</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>
-			768x576 (PAL)
-		</e_new>
+<e_new>Share language with objects</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-			768x576(PAL)
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/1024x768</b_path>
-<c_attribute></c_attribute>
+<f_translation>오브젝트와 언어 공유</f_translation>
+</string><string><a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/language_is_public</b_path>
+<c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>
-			1024x768
-		</e_new>
+<e_new>This lets in-world objects know your preferred language.</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-			1024x768
-		</f_translation>
+<f_translation>인월드 오브젝트에 사용자의 기본 언어를 설정할 수 있습니다.</f_translation>
 </string><string><a_file>panel_preferences_graphics1.xml</a_file>
 <b_path>/Display panel/QualityPerformanceSelection</b_path>
 <c_attribute>label</c_attribute>
@@ -2736,1000 +1017,216 @@ Does this group contain Mature content?
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
-</string><string><a_file>panel_preferences_web.xml</a_file>
-<b_path>/web/use_external_browser/internal</b_path>
+</string><string><a_file>panel_preferences_im.xml</a_file>
+<b_path>/im/friends_online_notify_checkbox</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Show Online Friend Notifications</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>온라인 친구 보여주기</f_translation>
+</string><string><a_file>panel_preferences_popups.xml</a_file>
+<b_path>/popups/show_in_inventory</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Automatically show newly accepted objects in inventory</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>인벤토리에서 새로 수락한 오브젝트를 자동으로 보여주기</f_translation>
+</string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/classic_preview</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/silver_preview</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/target_avatar_name</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	  (none)
+    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	  (없음)
+    </f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_scripts</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Return only those objects with scripts</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>스크립트가 있는 오브젝트만 반환</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_scripts</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>Use the built-in web browser for help, web links, etc. This browser opens as a new window inside Second Life.</e_new>
+<e_new>Return only objects which have scripts.</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>도움말, 웹 링크 등은 세컨드라이프 웹 브라우저로 열립니다.</f_translation>
-</string><string><a_file>panel_region_general.xml</a_file>
-<b_path>/General/version_channel_text_lbl</b_path>
+<f_translation>스크립트가 있는 오브젝트만 반환합니다.</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_other_land</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Return only those objects on someone else&apos;s land</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>다른 주민의 토지에 속한 오브젝트만 반환</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_other_land</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Return only objects which are on land belonging to someone else</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>다른 주민이 소유하고 있는 토지에 있는 오브젝트만 반환합니다.</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_estate_wide</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Return objects in every region of this estate</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>이 사유지의 모든 지역에 속한 오브젝트 반환</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_estate_wide</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Return objects in all of the regions that make up this estate</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>이 사유지를 구성하는 모든 지역에 포함되는 오브젝트를 반환합니다.</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Return</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>반환</f_translation>
+</string><string><a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/abuse_email_text</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		Version: 
+		Abuse email address:
 	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-		버전: 
+		악용 신고 이메일 주소:
 	</f_translation>
-</string><string><a_file>panel_region_general.xml</a_file>
-<b_path>/General/version_channel_text</b_path>
+</string><string><a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/email_unsupported</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>
-		unknown
-	</e_new>
+<e_new>Feature unsupported</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-		알 수 없음
-	</f_translation>
+<f_translation>기능이 지원되지 않습니다.</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old></d_old>
+<e_new>These Abilities include powers to allow or restrict access to group chat sessions and group voice chat.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>이러한 권한에는 그룹 채팅 세션 및 그룹 음성 채팅에 대한 허용 또는 제한의 권한이 포함됩니다.</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/join group chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old></d_old>
+<e_new>Join Group Chat</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>그룹 채팅 참여</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/join group chat</b_path>
+<c_attribute>longdescription</c_attribute>
+<d_old></d_old>
+<e_new>Members in a Role with this Ability can join group chat sessions, for text and voice.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>역할에 이 권한이 있는 회원은 텍스트 및 음성을 사용한 그룹 채팅 세션에 참여할 수 있습니다.</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/join voice chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old></d_old>
+<e_new>Join Group Voice Chat</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>그룹 음성 채팅 참여</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/join voice chat</b_path>
+<c_attribute>longdescription</c_attribute>
+<d_old></d_old>
+<e_new>Members in a Role with this Ability can join group voice chat sessions.  NOTE: The Join Group Chat ability is required to access the voice chat session.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>역할에 이 권한이 있는 회원은 그룹 음성 채팅 세션에 참여할 수 있습니다.  참고: 음성 채팅 세션에 참여하려면 그룹 채팅 참여 권한이 있어야 합니다.</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/moderate group chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old></d_old>
+<e_new>Moderate Group Chat</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>그룹 채팅 중재</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/moderate group chat</b_path>
+<c_attribute>longdescription</c_attribute>
+<d_old></d_old>
+<e_new>Members in a Role with this Ability can control access and participation in group voice and text chat sessions.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>역할에 이 권한이 있는 회원은 그룹 음성 및 텍스트 채팅 세션에 대한 접근과 참여를 제어할 수 있습니다.</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInProgress</b_path>
+<b_path>//LoginInitializingMultimedia</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Logging in. [APP_NAME] may appear frozen.  Please wait.</e_new>
+<e_new>Initializing multimedia...</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>로그인 중. [APP_NAME]님은 정지된 상태로 나타날 수 있습니다.  잠시만 기다리십시오.</f_translation>
+<f_translation>멀티미디어 초기화 중...</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//LoginAuthenticating</b_path>
+<b_path>//AgentLostConnection</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Authenticating</e_new>
+<e_new>This region may be experiencing trouble.  Please check your connection to the Internet.</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>인증</f_translation>
+<f_translation>이 지역에 문제가 있을 수 있습니다.  인터넷 연결을 확인하십시오.</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//LoginMaintenance</b_path>
+<b_path>//TooltipMustSingleDrop</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Performing account maintenance...</e_new>
+<e_new>Only a single item can be dragged here</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>계정 확인 중</f_translation>
+<f_translation>하나의 아이템만 여기로 드래그할 수 있습니다.</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//LoginAttempt</b_path>
+<b_path>//ReleaseNotes</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Previous login attempt failed. Logging in, attempt [NUMBER]</e_new>
+<e_new>Release Notes</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>이전 로그인 시도가 실패했습니다. [NUMBER]번째 로그인 시도 중</f_translation>
+<f_translation>출시 정보</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//LoginPrecaching</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Loading world...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>로딩 중</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInitializingBrowser</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Initializing embedded web browser...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>웹 브라우저 초기화 중</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginVerifyingCache</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Verifying cache files (can take 60-90 seconds)...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>캐시 파일 확인 중(60-90초 소요)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginProcessingResponse</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Processing Response...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>응답 처리 중</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInitializingWorld</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Initializing World...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>초기화 중</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginDecodingImages</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Decoding images...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>이미디 디코딩 중</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInitializingQuicktime</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Initializing QuickTime...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>QuickTime 초기화 중...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginQuicktimeNotFound</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>QuickTime not found - unable to initialize.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>QuickTime을 찾을 수 없으므로 초기화할 수 없습니다.</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginQuicktimeOK</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>QuickTime initialized successfully.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>QuickTime이 성공적으로 초기화되었습니다.</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginWaitingForRegionHandshake</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Waiting for region handshake...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>지역 대기 중</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginConnectingToRegion</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Connecting to region...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>지역에 연결하는 중</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginDownloadingClothing</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Downloading clothing...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>의복 다운로드 중</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipPerson</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Person</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>아바타</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipNoName</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(no name)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(이름 없음)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipOwner</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Owner:</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>소유자:</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipPublic</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Public</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>공개</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipIsGroup</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(Group)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(그룹)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagScript</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Script</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>스크립트</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagPhysics</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Physics</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>물리 엔진</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagTouch</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Touch</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>만지기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagL$</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>L$</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>L$</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagDropInventory</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Drop Inventory</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>인벤토리 드롭</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagPhantom</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Phantom</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>팬텀</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagTemporary</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Temporary</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>임시</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagRightClickMenu</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(Right-click for menu)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(오른쪽 클릭 메뉴)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFreeToCopy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Free to copy</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>무료 복사</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipForSaleL$</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>For Sale: L$[AMOUNT]</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>판매: L$ [AMOUNT]</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipForSaleMsg</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>For Sale: [MESSAGE]</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>판매: [MESSAGE]</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagGroupBuild</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Group Build</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>그룹 만들기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoBuild</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No Build</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>건축 금지</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoEdit</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Group Build</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>그룹 만들기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNotSafe</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Not Safe</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>안전하지 않음</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoFly</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No Fly</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>비행 금지</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagGroupScripts</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Group Scripts</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>그룹 스크립트</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoScripts</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No Scripts</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>스크립트 금지</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipLand</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Land:</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>토지:</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//RetrievingData</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Retrieving...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>가져오는 중</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoadingData</b_path>
+<b_path>//texture_loading</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>Loading...</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>로딩 중</f_translation>
+<f_translation>로딩 중...</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarNameNobody</b_path>
+<b_path>//worldmap_offline</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>(nobody)</e_new>
+<e_new>Offline</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>(없음)</f_translation>
+<f_translation>오프라인</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarNameWaiting</b_path>
+<b_path>//whisper</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>(waiting)</e_new>
+<e_new>whispers:</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>(대기 중)</f_translation>
+<f_translation>속삭이기:</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarNameHippos</b_path>
+<b_path>//shout</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>(hippos)</e_new>
+<e_new>shouts:</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>(하마)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//GroupNameNone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(none)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(없음)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorNone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No error</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>오류 없음</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorRequestFailed</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Asset request: failed</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>자산 요청: 실패</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorNonexistentFile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Asset request: non-existent file</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>자산 요청: 파일이 존재하지 않습니다.</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorNotInDatabase</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Asset request: asset not found in database</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>자산 요청: 데이터베이스에 자산이 없습니다.</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorEOF</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>End of file</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>파일 끝</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorCannotOpenFile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Cannot open file</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>파일을 열 수 없습니다.</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorFileNotFound</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>File not found</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>파일을 찾을 수 없습니다.</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorTCPTimeout</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>File transfer timeout</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>파일 전송 시간초과</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorCircuitGone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Circuit gone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>연결이 끊겼습니다.</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorUnknownStatus</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Unknown status</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>알 수 없는 상태</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarEditingApparance</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(Editing Appearance)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(내 모습 편집)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarAway</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Away</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>자리비움</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarBusy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Busy</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>다른 용무 중</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarMuted</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Muted</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>음소거</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_afraid</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Afraid</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>두려움</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_anger</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Angry</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>화남</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_away</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Away</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>자리비움</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_backflip</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Backflip</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>뒤공중제비</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_laugh</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Belly Laugh</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>포복 절도</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_toothsmile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>BigSmile</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>함박 웃음</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_blowkiss</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Blow Kiss</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>키스를 날리는 모습</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_bored</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Bored</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>지루함</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_bow</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Bow</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>인사</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_clap</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Clap</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>박수</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_courtbow</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Court Bow</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>알현</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_cry</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Cry</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>울기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance1</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 1</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>댄스 1</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance2</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 2</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>댄스 2</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance3</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 3</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>댄스 3</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance4</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 4</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>댄스 4</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance5</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 5</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>댄스 5</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance6</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 6</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>댄스 6</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance7</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 7</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>댄스 7</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance8</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 8</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>댄스 8</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_disdain</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Disdain</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>경멸</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_drink</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Drink</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>술 취함</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_embarrased</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Embarrassed</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>당황함</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_angry_fingerwag</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Finger Wag</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>손가락 흔들기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_fist_pump</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Fist Pump</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>주먹 휘두르기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_yoga_float</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Floating Yoga</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>공중부양</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_frown</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Frown</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>표정 찡그림</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_impatient</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Impatient</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>조급함</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_jumpforjoy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Jump For Joy</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>기쁨에 펄쩍 뜀</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_kissmybutt</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Kiss My Butt</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>내 엉덩이에 키스</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_kiss</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Kiss</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>키스</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_laugh_short</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Laugh</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>웃음</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_musclebeach</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Muscle Beach</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>근육 비치</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_no_unhappy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No (Unhappy)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>강한 부정</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_no_head</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>부정</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_nyanya</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Nya-nya-nya</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>냐-냐-냐</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_punch_onetwo</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>One-Two Punch</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>원투 펀치</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_open_mouth</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Open Mouth</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>입을 크게 벌린 모습</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_peace</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Peace</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>평화</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_point_you</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Point at Other</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>다른 사람을 가리킴</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_point_me</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Point at Self</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>자신을 가리킴</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_punch_l</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Punch Left</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>좌측 펀치</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_punch_r</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Punch Right</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>우측 펀치</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_countdown</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS count</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>가위-바위-보</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_paper</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS paper</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>가위-바위-보에 보자기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_rock</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS rock</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>가위-바위-보에 바위</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_scissors</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS scissors</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>가위-바위-보에 가위</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_repulsed</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Repulsed</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>거절됨</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_kick_roundhouse_r</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Roundhouse Kick</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>발차기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_sad</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Sad</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>슬픔</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_salute</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Salute</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>경례</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_shout</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Shout</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>외치기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_shrug</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Shrug</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>어깨 으쓱하기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_smile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smile</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>미소</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_smoke_idle</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smoke Idle</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>담배를 쥐고 있는 모습</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_smoke_inhale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smoke Inhale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>담배를 빨아들이는 모습</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_smoke_throw_down</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smoke Throw Down</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>담배 던지기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_surprise</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Surprise</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>놀람</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_sword_strike_r</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Sword Strike</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>검 베기 </f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_angry_tantrum</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Tantrum</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>짜증</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_tongue_out</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>TongueOut</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>메롱</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_hello</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Wave</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>손 흔들기</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_whisper</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Whisper</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>속삭임</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_whistle</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Whistle</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>휘파람</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_wink</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Wink</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>윙크</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_wink_hollywood</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Wink (Hollywood)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>윙크(할리우드)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_worry</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Worry</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>걱정</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_yes_happy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yes (Happy)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>강항 동의</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_yes_head</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yes</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>동의</f_translation>
+<f_translation>외치기:</f_translation>
 </string>
-<string><a_file>alerts.xml</a_file>
-<b_path>//ChangeSkin/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      The new skin will appear after you restart [SECOND_LIFE].
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      새로운 스킨은 [SECOND_LIFE]를 재시동후 적용 됩니다.
-    </f_translation></string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/enable_joystick</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Enable Joystick:</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>죠이스틱 활성:</f_translation></string><string><a_file>notify.xml</a_file>
-<b_path>//UnableToOpenCommandURL/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			The URL you clicked cannot be opened from this web browser.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			본 URL은 현재의 웹브라우져에서 볼 수 없습니다.
-		</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Skins</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>스킨</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel/muting_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Select a skin (requires restart):
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		스킨 선택(재시동 필요):
-	</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel/skin_selection/default</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Classic
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      클래식
-    </f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel/skin_selection/silver</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Silver
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      실버
-    </f_translation></string>
 </strings>

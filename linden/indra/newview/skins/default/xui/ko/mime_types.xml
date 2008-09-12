@@ -112,6 +112,11 @@
 			서식있는 텍스트(RTF)
 		</label>
 	</mimetype>
+	<mimetype name="application/smil">
+		<label name="application/smil_label">
+			SMIL(동기식 멀티미디어 통합 언어)
+		</label>
+	</mimetype>
 	<mimetype name="application/xhtml+xml">
 		<label name="application/xhtml+xml_label">
 			웹 페이지(XHTML)

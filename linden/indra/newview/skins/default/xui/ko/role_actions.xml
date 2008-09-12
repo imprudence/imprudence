@@ -141,7 +141,7 @@
 		     name="land gardening" value="35" />
 	</action_set>
 	<action_set
-	     description="이러한 권한에는 그룹 소유 오브젝트를 양도, 수정, 판매하는 권한이 포함됩니다. 이러한 변경은 '편집 도구 &gt; 일반 탭'에서 수행됩니다. 오브젝트를 마우스 오른쪽 클릭하고 '편집'을 선택해 설정을 봅니다."
+	     description="이러한 권한에는 그룹 소유 오브젝트를 양도, 수정, 판매하는 권한이 포함됩니다. 이러한 변경은 &apos;편집 도구 &gt; 일반 탭&apos;에서 수행됩니다. 오브젝트를 마우스 오른쪽 클릭하고 &apos;편집&apos;을 선택해 설정을 봅니다."
 	     name="Object Management">
 		<action description="그룹에게 오브젝트 양도"
 		     longdescription="편집 도구 &gt; 일반 탭에서 오브젝트를 그룹에 양도합니다."
@@ -179,5 +179,18 @@
 		<action description="제안에 투표"
 		     longdescription="역할에 이 권한이 있는 회원은 그룹 정보 &gt; 제안 탭에서 제안에 관한 투표를 할 수 있습니다."
 		     name="proposal vote" value="45" />
+	</action_set>
+	<action_set
+	     description="이러한 권한에는 그룹 채팅 세션 및 그룹 음성 채팅에 대한 허용 또는 제한의 권한이 포함됩니다."
+	     name="Chat">
+		<action description="그룹 채팅 참여"
+		     longdescription="역할에 이 권한이 있는 회원은 텍스트 및 음성을 사용한 그룹 채팅 세션에 참여할 수 있습니다."
+		     name="join group chat" />
+		<action description="그룹 음성 채팅 참여"
+		     longdescription="역할에 이 권한이 있는 회원은 그룹 음성 채팅 세션에 참여할 수 있습니다.  참고: 음성 채팅 세션에 참여하려면 그룹 채팅 참여 권한이 있어야 합니다."
+		     name="join voice chat" />
+		<action description="그룹 채팅 중재"
+		     longdescription="역할에 이 권한이 있는 회원은 그룹 음성 및 텍스트 채팅 세션에 대한 접근과 참여를 제어할 수 있습니다."
+		     name="moderate group chat" />
 	</action_set>
 </role_actions>

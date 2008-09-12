@@ -1,3625 +1,1551 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <strings>
-<string><a_file>alerts.xml</a_file>
-<b_path>//TutorialNotFound/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//AddFriend/editline</b_path>
+<c_attribute/>
+<d_old/>
 <e_new>
-			No tutorial is currently available.
+			Would you be my friend?
 		</e_new>
-<f_old_trans></f_old_trans>
+<f_old_trans/>
 <f_translation>
-			現在利用可能なチュートリアルはありません。
+			フレンドになっていただけますか?
 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//TutorialNotFound/OK</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//EstateObjectReturn/message</b_path>
+<c_attribute/>
+<d_old/>
 <e_new>
-			OK
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			OK
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Freeze [AVATAR_NAME]?
-He or she will temporarily be unable to move,
-chat, or interact with the world.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			[AVATAR_NAME]をフリーズしますか?
-フリーズされた人は一時的に動けなくなり、チャットなど、この世界に対する関わりを持つことができなくなります。
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/Freeze</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Freeze
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			フリーズ
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/Unfreeze</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Unfreeze
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			解凍
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Cancel
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			キャンセル
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Eject [AVATAR_NAME] from your land?
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			あなたの土地から[AVATAR_NAME]を追放しますか?
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/Eject</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Eject
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			追放
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/EjectandBan</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Eject and Ban
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			追放と禁止
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Cancel
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			キャンセル
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SeachFilteredOnShortWords/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Your search query was modified and the 
-words that were too short were removed.
 
-Searched for: [FINALQUERY]
-		</e_new>
-<f_old_trans></f_old_trans>
+			Are you sure you want to return objects owned by
+[USER_NAME] ?
+		
+</e_new>
+<f_old_trans/>
 <f_translation>
-指定した検索クエリは変更され、短すぎる語句は取り除かれています。
-
-検索語句: [FINALQUERY]
+			[USER_NAME]が所有しているオブジェクトを返却しますか?
 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SeachFilteredOnShortWordsEmpty/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Your search terms were too short
-so no search was performed.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-指定した検索語句が短すぎたため、検索は行われませんでした。
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//CannotCloseFloaterBuyLand/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			You cannot close the Buy Land window until Second Life
-estimates the price of this transaction.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Second Lifeによるこの取引の見積りが完了するまで［土地を購入］ウィンドウを閉じることはできません。
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//MaxAgentOnRegionBatch/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Failure while attempting to add [NUM_ADDED] agents:
-Exceeds the [MAX_AGENTS] [LIST_TYPE] limit by [NUM_EXCESS].
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			[NUM_ADDED] 個のエージェントを追加しようとして失敗しました: [MAX_AGENTS] [LIST_TYPE] 制限を [NUM_EXCESS] 個超過しています。
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Open your system Web browser to view this content?
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			お使いのシステムのウェブ・ブラウザーを開いて、この内容を表示しますか?
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			When opening your system browser to view a Web page
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			お使いのシステムのブラウザーを開いてウェブ・ページを表示しようとしたとき
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/Open</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//EstateObjectReturn/Return</b_path>
+<c_attribute/>
+<d_old/>
 <e_new>
 			OK
 		</e_new>
-<f_old_trans></f_old_trans>
+<f_old_trans/>
 <f_translation>
 			OK
 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
+</string>
+<string>
+<a_file>alerts.xml</a_file>
+<b_path>//EstateObjectReturn/Cancel</b_path>
+<c_attribute/>
+<d_old/>
 <e_new>
 			Cancel
 		</e_new>
-<f_old_trans></f_old_trans>
+<f_old_trans/>
 <f_translation>
 			キャンセル
 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ProblemAddingEstateGeneric/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
+</string>
+<string>
+<a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_general_panel/no_selection_text</b_path>
+<c_attribute/>
+<d_old/>
 <e_new>
-			Problems adding to this estate list.  One or more estates may have a full list.
-		</e_new>
-<f_old_trans></f_old_trans>
+
+			No parcel selected.
+Go to World menu > About Land or select another parcel to show its details.
+			
+</e_new>
+<f_old_trans/>
 <f_translation>
-			不動産リストの追加に関する問題。1つ以上の不動産で、リストが満杯になっています。
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ReplaceAttachment/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
+
+			区画が選定されていません。
+[世界]メニュー>[土地情報]に進むか、別の区画を選択して、詳細を表示します。
+			
+</f_translation>
+</string>
+<string>
+<a_file>floater_instant_message.xml</a_file>
+<b_path>/im_floater/inventory_item_offered</b_path>
+<c_attribute/>
+<d_old/>
 <e_new>
-			When replacing existing attachments
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			現在、装着しているものを置換するとき
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//BusyModePay/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			When paying a person or object in busy mode
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ビジー・モードの人またはオブジェクトに支払うとき
-		</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/type</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Type</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>タイプ</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/name</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Name</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>名前</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/count</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Count</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>カウント</f_translation>
-</string><string><a_file>floater_active_speakers.xml</a_file>
-<b_path>/active_speakers/active_speakers_panel/speakers_list/speaking_status</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_avatar_textures.xml</a_file>
-<b_path>/avatar_texture_debug/baked_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Baked Textures
+		Inventory item offered
 	</e_new>
-<f_old_trans></f_old_trans>
+<f_old_trans/>
 <f_translation>
-		構築されたテクスチャー
+		贈られた持ち物アイテム
 	</f_translation>
-</string><string><a_file>floater_avatar_textures.xml</a_file>
-<b_path>/avatar_texture_debug/composite_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Composite Textures
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		合成テクスチャー
-	</f_translation>
-</string><string><a_file>floater_buy_currency.xml</a_file>
-<b_path>/buy currency/getting_data</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Getting data...
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		データを取得しています...
-	</f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater</b_path>
+</string>
+<string>
+<a_file>floater_live_lsleditor.xml</a_file>
+<b_path>/script ed float/mono</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Mono</e_new>
+<f_old_trans/>
+<f_translation>モノ</f_translation>
+<f_old_trans/>
+</string>
+<string>
+<a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak</b_path>
 <c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater/rotate_tooltip</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Rotate Camera Around Focus</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>フォーカスを中心にカメラを回転</f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater/zoom_tooltip</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Zoom Camera Towards Focus</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>フォーカスに向けてカメラをズーム</f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater/move_tooltip</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Move Camera Up and Down, Left and Right</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>カメラを上下左右に移動</f_translation>
-</string><string><a_file>floater_chatterbox.xml</a_file>
+<d_old/>
+<e_new>Memory Leaking Simulation</e_new>
+<f_old_trans/>
+<f_translation>メモリ・リーク・シミュレーション</f_translation>
+</string>
+<string>
+<a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/leak_speed</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Leaking Speed (bytes per frame):</e_new>
+<f_old_trans/>
+<f_translation>リークスピード(1フレームごとのバイト数):</f_translation>
+</string>
+<string>
+<a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/max_leak</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Max Leaked Memory (MB):</e_new>
+<f_old_trans/>
+<f_translation>リークした最大メモリ数(MB)：</f_translation>
+</string>
+<string>
+<a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/total_leaked_label</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+		Current leaked memory: [SIZE] KB
+	</e_new>
+<f_old_trans/>
+<f_translation>
+		現在のリークメモリサイズ： [SIZE] KB
+	</f_translation>
+</string>
+<string>
+<a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/note_label_1</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+		[NOTE1]
+	</e_new>
+<f_old_trans/>
+<f_translation>
+		[NOTE1]
+	</f_translation>
+</string>
+<string>
+<a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/note_label_2</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+		[NOTE2]
+	</e_new>
+<f_old_trans/>
+<f_translation>
+		[NOTE2]
+	</f_translation>
+</string>
+<string>
+<a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/start_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Start</e_new>
+<f_old_trans/>
+<f_translation>開始</f_translation>
+</string>
+<string>
+<a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/stop_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Stop</e_new>
+<f_old_trans/>
+<f_translation>停止</f_translation>
+</string>
+<string>
+<a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/release_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Release</e_new>
+<f_old_trans/>
+<f_translation>解放</f_translation>
+</string>
+<string>
+<a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/close_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Close</e_new>
+<f_old_trans/>
+<f_translation>閉じる</f_translation>
+</string>
+<string>
+<a_file>floater_postcard.xml</a_file>
+<b_path>/Postcard/upload_message</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+	 "Sending..."
+	</e_new>
+<f_old_trans/>
+<f_translation>
+	 "送信中..."
+	</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Select_category</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Select category
+</e_new>
+<f_old_trans/>
+<f_translation>
+カテゴリーを選択
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Age__Age_play</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Age > Age play
+</e_new>
+<f_old_trans/>
+<f_translation>
+年齢>年齢偽証
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Age__Adult_resident_on_Teen_Second_Life</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Age > Adult resident on Teen Second Life
+</e_new>
+<f_old_trans/>
+<f_translation>
+年齢>成人の住人がTeen Second Life上にいる
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Age__Underage_resident_on_Adult_Second_Life</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Age > Underage resident on Adult Second Life
+</e_new>
+<f_old_trans/>
+<f_translation>
+年齢>未成年の住人がAdult Second Life上にいる
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Assault__Combat_sandbox___unsafe_area</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Assault > Combat sandbox / unsafe area
+</e_new>
+<f_old_trans/>
+<f_translation>
+攻撃>コンバット・サンドボックス/危険なエリア
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Assault__Safe_area</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Assault > Safe area
+</e_new>
+<f_old_trans/>
+<f_translation>
+攻撃>安全なエリア
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Assault__Weapons_testing_sandbox</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Assault > Weapons testing sandbox
+</e_new>
+<f_old_trans/>
+<f_translation>
+攻撃>武器テスト用サンドボックス
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Copyright_or_intellectual_property_violation</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Copyright or intellectual property violation
+</e_new>
+<f_old_trans/>
+<f_translation>
+著作権または知的所有権に関する違反
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Commerce__Failure_to_deliver_product_or_service</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Commerce > Failure to deliver product or service
+</e_new>
+<f_old_trans/>
+<f_translation>
+商取引>製品またはサービスの提供が行われない
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disclosure__First_Life_information</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Disclosure > First life information
+</e_new>
+<f_old_trans/>
+<f_translation>
+開示>1st Lifeの情報
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disclosure__Remotely_monitoring chat</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Disclosure > Remotely monitoring chat
+</e_new>
+<f_old_trans/>
+<f_translation>
+開示>離れたところからチャットをモニターしている
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disclosure__Second_Life_information_chat_IMs</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Disclosure > Second Life information/chat/IMs
+</e_new>
+<f_old_trans/>
+<f_translation>
+開示>Second Lifeの情報/チャット/IM
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Unfair_use_of_region_resources</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+
+Disturbing the peace > Unfair use of region resources
+</e_new>
+<f_old_trans/>
+<f_translation>
+平穏を乱す行為>地域リソースの使用が不公平
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Excessive_scripted_objects</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+
+Disturbing the peace > Excessive scripted objects
+</e_new>
+<f_old_trans/>
+<f_translation>
+平穏を乱す行為>スクリプト・オブジェクトの乱用
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Object_littering</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Disturbing the peace > Object littering
+</e_new>
+<f_old_trans/>
+<f_translation>
+平穏を乱す行為>オブジェクトの捨て置き
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Repetitive_spam</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Disturbing the peace > Repetitive spam
+</e_new>
+<f_old_trans/>
+<f_translation>
+平穏を乱す行為>繰り返しスパム
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Unwanted_advert_spam</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Disturbing the peace > Unwanted advert spam
+</e_new>
+<f_old_trans/>
+<f_translation>
+平穏を乱す行為>不要な広告スパム
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__L$</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Fraud > L$
+</e_new>
+<f_old_trans/>
+<f_translation>
+詐欺> L$
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__Land</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Fraud > Land
+</e_new>
+<f_old_trans/>
+<f_translation>
+詐欺>土地
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__Pyramid_scheme_or_chain_letter</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Fraud > Pyramid scheme or chain letter
+</e_new>
+<f_old_trans/>
+<f_translation>
+詐欺>マルチ商法またはチェーン・メール
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__US$</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Fraud > US$
+</e_new>
+<f_old_trans/>
+<f_translation>
+詐欺> US$
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Advert_farms___visual_spam</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Harassment > Advert farms / visual spam
+</e_new>
+<f_old_trans/>
+<f_translation>
+嫌がらせ>広告委託/視覚的なスパム
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Defaming_individuals_or_groups</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Harassment > Defaming individuals or groups
+</e_new>
+<f_old_trans/>
+<f_translation>
+嫌がらせ>個人またはグループの中傷
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Impeding_movement</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Harassment > Impeding movement
+</e_new>
+<f_old_trans/>
+<f_translation>
+嫌がらせ>移動の妨害
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Sexual_harassment</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Harassment > Sexual harassment
+</e_new>
+<f_old_trans/>
+<f_translation>
+嫌がらせ>性的な嫌がらせ
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Solicting_inciting_others_to_violate_ToS</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+
+Harassment > Solicting/inciting others to violate ToS
+</e_new>
+<f_old_trans/>
+<f_translation>
+嫌がらせ>利用規約（ToS）に違反する行為を行うよう他者を勧誘/扇動
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Verbal_abuse</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Harassment > Verbal abuse
+</e_new>
+<f_old_trans/>
+<f_translation>
+嫌がらせ>暴言
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Broadly_offensive_content_or_conduct</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Indecency > Broadly offensive content or conduct
+</e_new>
+<f_old_trans/>
+<f_translation>
+わいせつ>著しく不快であると見なされるコンテンツまたは行為
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Broadly_visible_mature_content</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Indecency > Broadly visible mature content
+</e_new>
+<f_old_trans/>
+<f_translation>
+わいせつ>あからさまに見せつけられる成人向けと見なされるコンテンツ
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Inappropriate_avatar_name</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Indecency > Inappropriate avatar name
+</e_new>
+<f_old_trans/>
+<f_translation>
+わいせつ>不適切なアバター名
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Mature_content_in_PG_region</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Indecency > Mature content in PG region
+</e_new>
+<f_old_trans/>
+<f_translation>
+わいせつ>PG地域で成人向けと見なされるコンテンツ
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Abuse_of_sandbox_resources</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Land > Abuse of sandbox resources
+</e_new>
+<f_old_trans/>
+<f_translation>
+土地>サンドボックス・リソースの乱用
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Encroachment__Objects_textures</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Land > Encroachment > Objects/textures
+</e_new>
+<f_old_trans/>
+<f_translation>
+土地>不法侵入>オブジェクト/テクスチャー
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Encroachment__Particles</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Land > Encroachment > Particles
+</e_new>
+<f_old_trans/>
+<f_translation>
+土地>不法侵入>パーティクル
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Encroachment__Trees_plants</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Land > Encroachment > Trees/plants
+</e_new>
+<f_old_trans/>
+<f_translation>
+土地>不法侵入>樹木/植物
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Trademark_violation</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Trademark violation
+</e_new>
+<f_old_trans/>
+<f_translation>
+商標権の侵害
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Wagering_gambling</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+Wagering/gambling
+</e_new>
+<f_old_trans/>
+<f_translation>
+賭け/ギャンブル
+</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/omit_abuser_name</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Don't know abuser's name</e_new>
+<f_old_trans/>
+<f_translation>嫌がらせをした人の名前が不明</f_translation>
+</string>
+<string>
+<a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/omit_abuser_name</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old/>
+<e_new>
+Check this if you are unable to provide the abuser's name
+</e_new>
+<f_old_trans/>
+<f_translation>嫌がらせをした人の名前を提供できないかについて、これを確認</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
 <b_path>/floater_chatterbox</b_path>
 <c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Communicate</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>コミュニケーション</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/IM_logging_string</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		-- Instant message logging enabled --
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		-- インスタント・メッセージのログ記録が有効 --
-	</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/IM_end_log_string</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		-- End of Log --
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		-- ログ記録終了 --
-	</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/Gesture</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Gestures</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ジェスチャー</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/Gesture/Gestures</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Gestures
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-					ジェスチャー
-				</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/show mutes</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Show Muted Text</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ミュートされたテキストを表示</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/toggle_active_speakers_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>&lt; &lt;</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>&lt; &lt;</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/toggle_active_speakers_btn</b_path>
-<c_attribute>label_selected</c_attribute>
-<d_old></d_old>
-<e_new>&gt; &gt;</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>&gt; &gt;</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/toggle_active_speakers_btn</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Click here to show list of active participants in this IM session.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ここをクリックして、このIMセッションへのアクティブな参加者リストを表示。</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/chat_panel/Chat Editor</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Click here to chat.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>チャットを開始するには、ここをクリックします。</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/chat_panel/Say</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Say</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>発言</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/chat_panel/Say</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>(Enter)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>（Enter）</f_translation>
-</string><string><a_file>floater_critical.xml</a_file>
-<b_path>/modal container/tos_title</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-    Critical Message
-  </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-クリティカル・メッセージ
-  </f_translation>
-</string><string><a_file>floater_customize.xml</a_file>
-<b_path>/floater customize/customize tab container/body_parts_placeholder</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Body Parts</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>身体部位</f_translation>
-</string><string><a_file>floater_customize.xml</a_file>
-<b_path>/floater customize/customize tab container/clothes_placeholder</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Clothes</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>服</f_translation>
-</string><string><a_file>floater_day_cycle_options.xml</a_file>
-<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLTimeSlider</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_day_cycle_options.xml</a_file>
-<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLDayCycleKeys</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_device_settings.xml</a_file>
-<b_path>/floater_device_settings</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Voice Chat Device Settings</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ボイスチャット機器の設定</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/find_all_old_panel/results/icon</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_env_settings.xml</a_file>
-<b_path>/Environment Editor Floater/EnvTimeSlider</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_env_settings.xml</a_file>
-<b_path>/Environment Editor Floater/EnvCloudSlider</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_env_settings.xml</a_file>
-<b_path>/Environment Editor Floater/EnvWaterFogSlider</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_groups.xml</a_file>
-<b_path>/groups/group list/name</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/Antialiasing:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-    Antialiasing:
-  </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-アンチエイリアシング:
-  </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Antialiasing</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>アンチエイリアシング</f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/FSAADisabled</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Disabled
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-無効
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/2x</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      2x
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-2x
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/4x</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      4x
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-4x
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/8x</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      8x
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-8x
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/16x</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      16x
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-16x
-    </f_translation>
-</string><string><a_file>floater_hud.xml</a_file>
-<b_path>/floater_hud</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Tutorial</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>チュートリアル</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Joystick Configuration</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ジョイスティックの設定</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis1</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>X Axis Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>X軸マッピング</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis2</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Y Axis Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Y軸マッピング</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis0</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Z Axis Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Z軸マッピング</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis4</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Pitch Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ピッチ・マッピング</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis5</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Yaw Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ヨー・マッピング</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis3</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Roll Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ロール・マッピング</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis6</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Zoom Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ズーム・マッピング</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZoomDirect</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Direct Zoom</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>直接ズーム</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Cursor3D</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>3D Cursor</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>3Dカーソル</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/AutoLeveling</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Auto Level</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>自動レベル</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Control Modes:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Control Modes:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		制御モード:
-	</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/XScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>X Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Xスケール</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Y Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Yスケール</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Z Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zスケール</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/PitchScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Pitch Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ピッチ・スケール</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YawScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yaw Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ヨー・スケール</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/RollScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Roll Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ロール・スケール</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/XDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>X Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Xデッド・ゾーン</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Y Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Yデッド・ゾーン</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Z Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zデッド・ゾーン</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/PitchDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Pitch Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ピッチ・デッド・ゾーン</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YawDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yaw Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ヨー・デッド・ゾーン</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/RollDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Roll Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ロール・デッド・ゾーン</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Feathering</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Feathering</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>羽毛</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/AvatarFeathering</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/BuildFeathering</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/FlycamFeathering</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZoomScale2</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Zoom Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ズーム・スケール</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/FlycamAxisScale6</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZoomDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Zoom Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ズーム・デッド・ゾーン</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/FlycamAxisDeadZone6</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/SpaceNavigatorDefaults</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>SpaceNavigator Defaults</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>SpaceNavigatorのデフォルト設定</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickMonitor</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Joystick Monitor</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ジョイスティック・モニター</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Axis</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Axis [NUM]</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>軸 [NUM]</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/NoDevice</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>no device detected</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>デバイスは検出されませんでした</f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterBrightness</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterSaturation</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterContrast</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionBrightMult</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionNoiseSize</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionNoiseStrength</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomExtract</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomSize</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomStrength</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_preview_classified.xml</a_file>
-<b_path>/classified_preview</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Classified Information</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>クラシファイド広告情報</f_translation>
-</string><string><a_file>floater_preview_event.xml</a_file>
-<b_path>/event_preview</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Event Information</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>イベント情報</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/library_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Library:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		ライブラリ：
-	</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/steps_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Steps:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		手順：
-	</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/animation_trigger_type/start</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Start
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			開始
-		</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/animation_trigger_type/stop</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Stop
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			停止
-		</f_translation>
-</string><string><a_file>floater_preview_notecard_keep_discard.xml</a_file>
-<b_path>/preview_notecard/not_allowed</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>You are not allowed to view this note.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>あなたはこのノートを見ることができません。</f_translation>
-</string><string><a_file>floater_preview_url.xml</a_file>
-<b_path>/url_preview</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Place Information</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>場所の情報</f_translation>
-</string><string><a_file>floater_region_info.xml</a_file>
-<b_path>/regioninfo</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Region/Estate</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>地域/不動産</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolCube</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Cube</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>キューブ</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolPrism</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Prism</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>プリズム</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolPyramid</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Pyramid</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ピラミッド</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTetrahedron</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Tetrahedron</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>4面体</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolCylinder</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Cylinder</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>シリンダー</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolHemiCylinder</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Hemicylinder</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>半円柱</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolCone</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Cone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>円錐</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolHemiCone</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Hemicone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>半円錐</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolSphere</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Sphere</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>球形</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolHemiSphere</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Hemisphere</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>半球</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTorus</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Torus</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>トーラス</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTube</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Tube</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>チューブ</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolRing</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Ring</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>リング</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTree</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Tree</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>樹木</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolGrass</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Grass</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>草地</f_translation>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/View/Joystick Flycam</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Joystick Flycam</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ジョイスティック・フライカム</f_translation>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/Tutorial</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Tutorial</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>チュートリアル</f_translation>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/separator7</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>-----------</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>-----------</f_translation>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/Bug Reporting/separator9</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>-----------</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>-----------</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/web/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Web Content
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ウェブ・コンテンツ
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/web/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			This location has Web content
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ここにウェブ・コンテンツがあります。
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/web/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Show Web content
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ウェブ・コンテンツを表示
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/movie/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ムービー
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/movie/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			There is a movie to play here
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ここにはムービーがあります
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/movie/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Play movie
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ムービー再生
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/none/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			No Content
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			コンテンツなし
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/none/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			No media here
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			メディアなし
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/image/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			画像
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/image/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			There is an image at this location
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ここには画像があります
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/image/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			View this location&apos;s image
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ここの画像を表示
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/audio/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			オーディオ
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/audio/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			There is audio at this location
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ここではオーディオが聞けます
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/audio/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			View this location&apos;s audio
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ここのオーディオを再生する
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/rtsp/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Real Time Streaming
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			リアルタイム・ストリーミング
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/blank/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			- None -
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			-- なし --
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;none/none&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			- None -
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			-- なし --
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/*&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			オーディオ
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/*&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Video
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ビデオ
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/*&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			画像
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/vnd.secondlife.qt.legacy&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (QuickTime)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ムービー (QuickTime)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/javascript&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Javascript
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Javascript
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/ogg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Ogg Audio/Video
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Oggオーディオ/ビデオ
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/pdf&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			PDF Document
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			PDFドキュメント
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/postscript&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Postscript Document
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Postscriptドキュメント
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/rtf&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Rich Text (RTF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			リッチ・テキスト (RTF)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/xhtml+xml&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Web Page (XHTML)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ウェブ・ページ (XHTML)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/x-director&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Macromedia Director
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Macromedia Director
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/x-shockwave-flash&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Flash
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Flash
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/mid&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (MIDI)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			オーディオ (MIDI)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/mpeg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (MP3)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			オーディオ (MP3)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/x-aiff&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (AIFF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			オーディオ (AIFF)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/x-wav&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (WAV)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			オーディオ (WAV)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/bmp&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (BMP)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			画像 (BMP)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/gif&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (GIF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			画像 (GIF)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/jpeg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (JPEG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			画像 (JPEG)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/png&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (PNG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			画像 (PNG)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/svg+xml&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (SVG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			画像 (SVG)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/tiff&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (TIFF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			画像 (TIFF)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;text/html&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Web Page
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ウェブ・ページ
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;text/plain&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Text
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			テキスト
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;text/xml&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			XML
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			XML
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/mpeg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (MPEG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ムービー (MPEG)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/mp4&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (MP4)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ムービー (MP4)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/quicktime&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (QuickTime)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ムービー (QuickTime)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/x-ms-asf&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (Windows Media ASF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ムービー (Windows Media ASF)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/x-ms-wmv&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (Windows Media WMV)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ムービー (Windows Media WMV)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/x-msvideo&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (AVI)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			ムービー (AVI)
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//RezItemNoPermissions/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Insufficient permissions to rez object.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			オブジェクトをrezするにはパーミッション（承認）が不足してます。
-		</f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_audio</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-<f_old_trans></f_old_trans>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_music</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_media</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_voice</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_sfx</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_wind</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_ui</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_groups.xml</a_file>
-<b_path>/groups/group list/name</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/help_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		You can select multiple residents to 
-invite to your group. Click &apos;Open 
-Person Chooser&apos; to start.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		あなたのグループに、一度に複数の人を招待することができます。［リストから人を選ぶ］をクリックしてください。
-	</f_translation>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/role_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Choose what Role to assign them to:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		割り当て先の役割を選択：
-	</f_translation>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/confirm_invite_owner_str</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Are you sure you want to invite new owner(s)? This action is permanent!
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		本当に新しい所有者を招待しますか?この操作は取り消しできません。
-	</f_translation>
-</string><string><a_file>panel_master_volume.xml</a_file>
-<b_path>/master_volume/mute_master</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/play_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Play
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		再生
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/stop_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Stop
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		停止
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/pause_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Pause
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		一時停止
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/default_tooltip_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		No Media Specified
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		メディアが指定されていません
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_hidden_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		(URL hidden by parcel owner)
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		（区画オーナーが URL を非表示に設定）
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_icon_tooltip_web</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		This location displays content from the World Wide Web. Click the Play button to display Web content.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		このロケーションではワールド・ワイド・ウェブの内容が表示されます。ウェブ・コンテンツを表示するには［再生］ボタンをクリックしてください。
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_icon_tooltip_movie</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		This location displays Video content. Click the Play button to play the video.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		このロケーションではビデオ・コンテンツが表示されます。ビデオを再生するには［再生］ボタンをクリックしてください。
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_play_tooltip</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Display Web content at this location.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		このロケーションでウェブ・コンテンツを表示します。
-	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/name_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Name:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		名前：
-	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/description_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Description:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		説明：
-	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/information_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Information:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		情報:
-	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/location_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Location:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		ロケーション：
-	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/name_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Name:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		名前：
-	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/description_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Description:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		説明：
-	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/information_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Information:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		情報:
-	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/location_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Location:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		ロケーション：
-	</f_translation>
-</string><string><a_file>panel_preferences_chat.xml</a_file>
-<b_path>/chat/im</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>IM</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>IM</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/fade_out_combobox/Never</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Never
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			なし
-		</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/fade_out_combobox/Show Temporarily</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Show Temporarily
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			一時的に表示
-		</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/fade_out_combobox/Always</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Always
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			いつも
-		</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/group_titles_textbox</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Group Titles:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		グループ・タイトル:
-	</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/show_all_title_checkbox</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Hide All Group Titles</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>グループ・タイトルをすべて非表示</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/QualityPerformanceSelection</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/Camera Follow Distance:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Camera Follow Distance:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		カメラ追従距離:
-	</f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/Camera Transition Time:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Camera Transition Time:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		カメラ移動時間:
-	</f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/Camera Smoothing:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Camera Smoothing:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		カメラ・スムージング:
-	</f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/joystic_setup_button</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Joystick Setup</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ジョイスティック設定</f_translation>
-</string><string><a_file>panel_preferences_popups.xml</a_file>
-<b_path>/popups/dont_show_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Do not show popups:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		ポップアップを表示しない：
-	</f_translation>
-</string><string><a_file>panel_preferences_popups.xml</a_file>
-<b_path>/popups/show_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Show popups:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		ポップアップを表示：
-	</f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderation_mode_panel/moderation_mode/OpenVoice</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Open Voice (default)
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-					ボイスを開く（デフォルト）
-				</f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderation_mode_panel/moderation_mode/ModeratedVoice</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Moderated Voice
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-					モデレート済みボイス
-				</f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderate_chat_panel/speakers_list/speaking_status</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderate_chat_panel/speaker_controls/profile_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_status_bar.xml</a_file>
-<b_path>/status/menubar_search_bevel_bg</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
-<b_path>/voice_remote/voice_channel_bg</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
-<b_path>/voice_remote/voice_channel_icon</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
-<b_path>/voice_remote/channel_label</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//UnsupportedHardware/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Ignore unsupported hardware
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			サポート外のハードウェアを無視する
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//UnknownGPU/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Your system contains a graphics card that is unknown to us at this time.  
-This is often the case with new hardware we haven&apos;t had a chance to 
-test.  Second Life will most likely run properly, but you may need to 
-adjust your graphics settings to something more appropriate.
-(Edit &gt; Preferences &gt; Graphics).
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-お使いのシステムには、現時点では不明なグラフィック・カードが搭載されています。  
-これは、当社による動作テストが行われていない新しいハードウェアが使用されている場合がほとんどです。  Second Lifeはほぼ間違いなく正常に動作しますが、必要に応じたグラフィック設定の調整が必要になる場合があります。
-([編集]&gt;[環境設定]&gt;[グラフィック])。
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//UnknownGPU/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Ignore unknown graphics card
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			不明なグラフィック・カードを無視する
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ClothingLoading/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			When clothing is taking a long time to download
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			服のダウンロードに長い時間がかかる場合
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Does this classified contain Mature content?
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-このクラシファイド広告には、成人向けコンテンツが含まれていますか?
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Yes
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-はい
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/Not Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      No
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-いいえ
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Cancel
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-キャンセル
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Does this group contain Mature content?
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-このグループには、成人向けコンテンツが含まれていますか?
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Yes
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-はい
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/Not Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      No
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-いいえ
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Cancel
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-キャンセル
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//MissingString/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			The string [STRING_NAME] is missing from strings.xml
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			文字列[STRING_NAME]がstrings.xmlに含まれていません
-		</f_translation>
-</string><string><a_file>floater_active_speakers.xml</a_file>
-<b_path>/active_speakers/active_speakers_panel/speakers_list/speaking_status</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Showcase</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ショーケース</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>何も見つかりませんでした。</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/back_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Back</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>戻る</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/forward_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Forward</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>転送</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/loading_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Loading...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ロード中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/done_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Done</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>完了</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/back_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Back</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>戻る</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/forward_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Forward</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>転送</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/search_editor</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Search</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/search_editor</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Search Second Life</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Second Lifeを検索</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/search_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Search</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/mature_check</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Include Mature content</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>成人向けコンテンツを含める</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/loading_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Loading...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ロード中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/done_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Done</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>完了</f_translation>
-</string><string><a_file>floater_im.xml</a_file>
-<b_path>/im_floater/muted_message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		[FIRST] [LAST] is muted.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		[FIRST] [LAST]はミュートされています。
-	</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//AutoUnmuteByIM/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			[FIRST] [LAST] was sent an instant message and has been automatically unmuted.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			[FIRST] [LAST]にインスタント・メッセージが送信され、ミュートが自動的に解除されました。
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//AutoUnmuteByMoney/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			[FIRST] [LAST] was given money and has been automatically unmuted.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			[FIRST] [LAST]にお金が与えられ、ミュートが自動的に解除されました。
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//AutoUnmuteByInventory/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			[FIRST] [LAST] was offered inventory and has been automatically unmuted.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			[FIRST] [LAST]に持ち物が与えられ、ミュートが自動的に解除されました。
-		</f_translation>
-</string><string><a_file>panel_avatar_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/select_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      - Select Mature -
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      -成熟度を選択-
-    </f_translation>
-</string><string><a_file>panel_avatar_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Mature Content
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-成人向けコンテンツ
-    </f_translation>
-</string><string><a_file>panel_avatar_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/not_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Not Mature Content
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      非成人向けコンテンツ
-    </f_translation>
-</string><string><a_file>panel_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/select_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      - Select Mature -
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      -成熟度を選択-
-    </f_translation>
-</string><string><a_file>panel_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Mature Content
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-成人向けコンテンツ
-    </f_translation>
-</string><string><a_file>panel_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/not_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Not Mature Content
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      非成人向けコンテンツ
-    </f_translation>
-</string><string><a_file>panel_groups.xml</a_file>
-<b_path>/groups/group list/name</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Sets whether your group information is considered mature.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>あなたのグループ情報が成人向けとみなされるかどうかを指定します。</f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check/select_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			- Select Mature -
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			-成熟度を選択-
-			</f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check/mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Mature Content
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			成人向けコンテンツ
-			</f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check/not_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Not Mature Content
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			非成人向けコンテンツ
-			</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/WindowSizeLabel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Window Size:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		ウィンドウ・サイズ:
-	</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/640x480</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			640x480
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			640x480
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/800x600</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			800x600 
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			800x600 
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/720x480</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			720x480 (NTSC)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			720x480 (NTSC)
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/768x576</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			768x576 (PAL)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			768x576 (PAL)
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/1024x768</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			1024x768
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			1024x768
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/QualityPerformanceSelection</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_preferences_web.xml</a_file>
-<b_path>/web/use_external_browser/internal</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Use the built-in web browser for help, web links, etc. This browser opens as a new window inside Second Life.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ヘルプやWebリンクに埋め込みWebブラウザを使用します。ブラウザはSecond Lifeの新しいウィンドウとして開きます。</f_translation>
-</string><string><a_file>panel_region_general.xml</a_file>
-<b_path>/General/version_channel_text_lbl</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Version: 
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		バージョン: 
-	</f_translation>
-</string><string><a_file>panel_region_general.xml</a_file>
-<b_path>/General/version_channel_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		unknown
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		不明
-	</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInProgress</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Logging in. [APP_NAME] may appear frozen.  Please wait.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ログイン中です。[APP_NAME]の表示がフリーズする場合があります。  しばらくお待ちください。</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginAuthenticating</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Authenticating</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>認証しています...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginMaintenance</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Performing account maintenance...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>アカウント・メンテナンスを実行しています...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginAttempt</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Previous login attempt failed. Logging in, attempt [NUMBER]</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>前回のログインに失敗しました。 ログイン中です([NUMBER]回目)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginPrecaching</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Loading world...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ワールドをロードしています...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInitializingBrowser</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Initializing embedded web browser...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>埋め込みWebブラウザを初期化しています...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginVerifyingCache</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Verifying cache files (can take 60-90 seconds)...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>キャッシュ・ファイルを検証しています(所要時間は60～90秒)...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginProcessingResponse</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Processing Response...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>応答を処理しています...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInitializingWorld</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Initializing World...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ワールドを初期化しています...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginDecodingImages</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Decoding images...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>画像をデコードしています...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInitializingQuicktime</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Initializing QuickTime...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>QuickTimeを初期化しています...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginQuicktimeNotFound</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>QuickTime not found - unable to initialize.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>QuickTimeが見つかりません。初期化に失敗しました。</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginQuicktimeOK</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>QuickTime initialized successfully.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>QuickTimeが正常に初期化されました。</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginWaitingForRegionHandshake</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Waiting for region handshake...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>地域のハンドシェイクを待っています...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginConnectingToRegion</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Connecting to region...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>地域に接続しています...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginDownloadingClothing</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Downloading clothing...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>服をダウンロードしています...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipPerson</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Person</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>人</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipNoName</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(no name)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(名前なし)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipOwner</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Owner:</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>オーナー:</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipPublic</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Public</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>公共</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipIsGroup</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(Group)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(グループ)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagScript</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Script</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>スクリプト</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagPhysics</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Physics</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>物理作用</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagTouch</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Touch</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>触る</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagL$</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>L$</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>L$</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagDropInventory</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Drop Inventory</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>持ち物をドロップする</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagPhantom</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Phantom</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ファントム</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagTemporary</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Temporary</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>一時的</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagRightClickMenu</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(Right-click for menu)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(右クリックでメニューを表示)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFreeToCopy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Free to copy</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>コピー可能</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipForSaleL$</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>For Sale: L$[AMOUNT]</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>売り出し中:L$[AMOUNT]</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipForSaleMsg</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>For Sale: [MESSAGE]</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>売り出し中: [MESSAGE]</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagGroupBuild</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Group Build</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>グループ作成</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoBuild</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No Build</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>作成禁止</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoEdit</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Group Build</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>グループ作成</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNotSafe</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Not Safe</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>危険</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoFly</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No Fly</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>飛行禁止</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagGroupScripts</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Group Scripts</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>グループ・スクリプト</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoScripts</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No Scripts</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>スクリプトなし</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipLand</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Land:</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>土地:</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//RetrievingData</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Retrieving...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索中...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoadingData</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Loading...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ロード中...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarNameNobody</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(nobody)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(無人)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarNameWaiting</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(waiting)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(待機中)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarNameHippos</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(hippos)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(カバ)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//GroupNameNone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(none)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(なし)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorNone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No error</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>エラーなし</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorRequestFailed</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Asset request: failed</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>資産の要求: 失敗</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorNonexistentFile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Asset request: non-existent file</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>資産の要求: 存在しないファイル</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorNotInDatabase</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Asset request: asset not found in database</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>資産の要求: データベースでは見つからない資産</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorEOF</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>End of file</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ファイルの終わり</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorCannotOpenFile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Cannot open file</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ファイルを開くことができません</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorFileNotFound</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>File not found</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ファイルが見つかりません</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorTCPTimeout</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>File transfer timeout</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ファイル転送タイムアウトです</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorCircuitGone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Circuit gone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>接続が解除されました</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorUnknownStatus</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Unknown status</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ステータスが不明です</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarEditingApparance</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(Editing Appearance)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(容姿の編集)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarAway</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Away</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>退席中</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarBusy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Busy</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>取り込み中</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarMuted</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Muted</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ミュート</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_afraid</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Afraid</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>怖れ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_anger</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Angry</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>怒り</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_away</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Away</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>退席中</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_backflip</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Backflip</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>後ろ宙返り</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_laugh</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Belly Laugh</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>大笑い</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_toothsmile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>BigSmile</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>満面の笑顔</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_blowkiss</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Blow Kiss</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>投げキッス</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_bored</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Bored</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>退屈</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_bow</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Bow</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>おじぎ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_clap</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Clap</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>拍手</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_courtbow</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Court Bow</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>深いおじぎ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_cry</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Cry</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>泣く</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance1</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 1</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ダンス1</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance2</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 2</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ダンス2</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance3</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 3</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ダンス3</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance4</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 4</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ダンス4</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance5</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 5</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ダンス5</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance6</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 6</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ダンス6</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance7</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 7</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ダンス7</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance8</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 8</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ダンス8</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_disdain</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Disdain</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>侮蔑</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_drink</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Drink</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>酔っぱらう</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_embarrased</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Embarrassed</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>困惑</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_angry_fingerwag</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Finger Wag</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>指を振る</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_fist_pump</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Fist Pump</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ガッツポーズ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_yoga_float</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Floating Yoga</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ヨガ浮遊</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_frown</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Frown</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>しかめっ面</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_impatient</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Impatient</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>いらいらする</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_jumpforjoy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Jump For Joy</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>飛び上がって喜ぶ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_kissmybutt</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Kiss My Butt</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>挑発ポーズ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_kiss</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Kiss</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>キス</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_laugh_short</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Laugh</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>笑う</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_musclebeach</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Muscle Beach</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>力こぶを見せる</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_no_unhappy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No (Unhappy)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>不満げに否定する</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_no_head</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>否定する</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_nyanya</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Nya-nya-nya</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>冷やかす</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_punch_onetwo</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>One-Two Punch</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ワンツー・パンチ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_open_mouth</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Open Mouth</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>口を開けて驚く</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_peace</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Peace</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ピース・サイン</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_point_you</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Point at Other</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>他人を指差す</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_point_me</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Point at Self</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>自分を指差す</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_punch_l</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Punch Left</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>左パンチ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_punch_r</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Punch Right</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>右パンチ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_countdown</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS count</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>じゃんけんポーズ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_paper</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS paper</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>パー</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_rock</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS rock</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>グー</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_scissors</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS scissors</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>チョキ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_repulsed</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Repulsed</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>嫌悪感</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_kick_roundhouse_r</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Roundhouse Kick</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>まわし蹴り</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_sad</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Sad</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>悲しむ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_salute</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Salute</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>敬礼する</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_shout</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Shout</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>叫ぶ</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_shrug</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Shrug</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>肩をすくめる</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_smile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smile</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>微笑む</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_smoke_idle</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smoke Idle</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>たばこをくゆらす</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_smoke_inhale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smoke Inhale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>たばこを吸う</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_smoke_throw_down</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smoke Throw Down</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>たばこを捨てる</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_surprise</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Surprise</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>驚く</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_sword_strike_r</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Sword Strike</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>剣で斬りつける</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_angry_tantrum</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Tantrum</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>じだんだを踏む</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_tongue_out</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>TongueOut</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>舌を出す</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_hello</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Wave</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>手を振る</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_whisper</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Whisper</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>小声で話す</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_whistle</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Whistle</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>口笛を吹く</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_wink</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Wink</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ウィンク</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_wink_hollywood</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Wink (Hollywood)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ウィンク(ハリウッド)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_worry</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Worry</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>心配する</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_yes_happy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yes (Happy)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>笑顔で頷く</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_yes_head</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yes</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>頷く</f_translation>
+<d_old/>
+<e_new/>
+<f_old_trans/>
+<f_translation/>
 </string>
-<string><a_file>alerts.xml</a_file>
-<b_path>//ChangeSkin/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      The new skin will appear after you restart [SECOND_LIFE].
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      新しいスキンは[SECOND_LIFE]を再起動すると現れます
-    </f_translation></string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/enable_joystick</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Enable Joystick:</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>ジョイスティックを使う：</f_translation></string><string><a_file>notify.xml</a_file>
-<b_path>//UnableToOpenCommandURL/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			The URL you clicked cannot be opened from this web browser.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			クリックしたURLはこのウェブブラウザでは開けません
-		</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel</b_path>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//chat_btn</b_path>
 <c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Skins</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>スキン</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel/muting_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
+<d_old/>
+<e_new/>
+<f_old_trans/>
+<f_translation/>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//chat_btn</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old/>
+<e_new>Show Chat Bar. (Enter)</e_new>
+<f_old_trans/>
+<f_translation>チャット・バーを表示 （エンター・キー）</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//communicate_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Communicate</e_new>
+<f_old_trans/>
+<f_translation>コミュニケーション</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//communicate_btn</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old/>
+<e_new>Communicate with your Friends and Groups.</e_new>
+<f_old_trans/>
+<f_translation>フレンドやグループとコミュニケーション</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//fly_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Fly</e_new>
+<f_old_trans/>
+<f_translation>飛行</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//fly_btn</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old/>
+<e_new>Stop Flying</e_new>
+<f_old_trans/>
+<f_translation>飛行を停止</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//fly_btn</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old/>
 <e_new>
-		Select a skin (requires restart):
+Start flying. Use E/C or PgUp/PgDn to fly up and down.
+</e_new>
+<f_old_trans/>
+<f_translation>飛行開始： EキーまたはPageUpキーで上昇、CキーまたはPageDownキーで下降</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_unfocused_floater/titlebar_focused</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>Unfocused</e_new>
+<f_old_trans/>
+<f_translation>アンフォーカス</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_unfocused_floater/combo_box_1</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Combo Box</e_new>
+<f_old_trans/>
+<f_translation>コンボ・ボックス</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_unfocused_floater/Chat History Editor</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>Text</e_new>
+<f_old_trans/>
+<f_translation>テキスト</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/titlebar_focused</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>Focused</e_new>
+<f_old_trans/>
+<f_translation>フォーカス</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Focused</e_new>
+<f_old_trans/>
+<f_translation>フォーカス</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/SliderTestName</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Slider</e_new>
+<f_old_trans/>
+<f_translation>スライダー</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/check_box_test_1</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>True</e_new>
+<f_old_trans/>
+<f_translation>正</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/check_box_test_2</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>False</e_new>
+<f_old_trans/>
+<f_translation>不</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/Chat History Editor</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>Chat Text</e_new>
+<f_old_trans/>
+<f_translation>チャット・テキスト</f_translation>
+</string>
+<string>
+<a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_2</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Unfocused</e_new>
+<f_old_trans/>
+<f_translation>アンフォーカス</f_translation>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/save_btn</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old/>
+<e_new>Save image to a file</e_new>
+<f_old_trans/>
+<f_translation>画像をファイルに保存</f_translation>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/format_label</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+  Format
+  </e_new>
+<f_old_trans/>
+<f_translation>
+  フォーマット
+  </f_translation>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Format</e_new>
+<f_old_trans/>
+<f_translation>フォーマット</f_translation>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo/PNG</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+			PNG
+		</e_new>
+<f_old_trans/>
+<f_translation>
+			PNG
+		</f_translation>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo/JPEG</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+			JPEG
+		</e_new>
+<f_old_trans/>
+<f_translation>
+			JPEG
+		</f_translation>
+</string>
+<string>
+<a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo/BMP</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+			BMP
+		</e_new>
+<f_old_trans/>
+<f_translation>
+			BMP
+		</f_translation>
+</string>
+<string>
+<a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Strength:</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+	          Strength:
 	</e_new>
-<f_old_trans></f_old_trans>
+<f_old_trans/>
 <f_translation>
-		スキンを選択（要アプリの再起動）：
-	</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel/skin_selection/default</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
+	          強度:
+	</f_translation>
+</string>
+<string>
+<a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost</b_path>
+<c_attribute/>
+<d_old/>
 <e_new>
-      Classic
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      クラシック
-    </f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel/skin_selection/silver</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Silver
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      シルバー
-    </f_translation></string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderator_controls/moderator_allow_voice</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-				Allow voice chat
+				Price:  L$
 			</e_new>
-<f_old_trans></f_old_trans>
+<f_old_trans/>
 <f_translation>
-				ボイスチャットを許可
-			</f_translation></string>
+				価格：  L$
+			</f_translation>
+</string>
+<string>
+<a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Default</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+			Price:           L$
+			</e_new>
+<f_old_trans/>
+<f_translation>
+			価格：           L$
+			</f_translation>
+</string>
+<string>
+<a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Total</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+			Total Price:  L$
+			</e_new>
+<f_old_trans/>
+<f_translation>
+			合計価格:  L$
+			</f_translation>
+</string>
+<string>
+<a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Per Unit</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+			Price Per:     L$
+			</e_new>
+<f_old_trans/>
+<f_translation>
+			単価：     L$
+			</f_translation>
+</string>
+<string>
+<a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Mixed</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+			Mixed Price
+			</e_new>
+<f_old_trans/>
+<f_translation>
+			混合価格
+			</f_translation>
+</string>
+<string>
+<a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Sale Mixed</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+			Mixed Sale
+			</e_new>
+<f_old_trans/>
+<f_translation>
+			混合販売
+			</f_translation>
+</string>
+<string>
+<a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt mirror control</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Mirror</e_new>
+<f_old_trans/>
+<f_translation>ミラー</f_translation>
+</string>
+<string>
+<a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt mirror control</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old/>
+<e_new>Flips sculpted prim along the X axis.</e_new>
+<f_old_trans/>
+<f_translation>スカルプトされたプリムをX軸上で反転</f_translation>
+</string>
+<string>
+<a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt invert control</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Inside-out</e_new>
+<f_old_trans/>
+<f_translation>裏返し</f_translation>
+</string>
+<string>
+<a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt invert control</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old/>
+<e_new>
+Inverts the sculpted prims normals, making it appear inside-out.
+</e_new>
+<f_old_trans/>
+<f_translation>スカルプトされたプリムのノーマルを逆転させ、裏返しに表示</f_translation>
+</string>
+<string>
+<a_file>floater_top_objects.xml</a_file>
+<b_path>/top_objects/objects_list/time</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Time</e_new>
+<f_old_trans/>
+<f_translation>時間</f_translation>
+</string>
+<string>
+<a_file>floater_tos.xml</a_file>
+<b_path>/modal container/agree_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>I Agree to the Terms of Service</e_new>
+<f_old_trans/>
+<f_translation>利用規約に同意します</f_translation>
+</string>
+<string>
+<a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/World/Release Keys</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Release Keys</e_new>
+<f_old_trans/>
+<f_translation>キーを解除</f_translation>
+</string>
+<string>
+<a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/Tools/Recompile Scripts in Selection/Mono</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Mono</e_new>
+<f_old_trans/>
+<f_translation>モノ</f_translation>
+</string>
+<string>
+<a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/Tools/Recompile Scripts in Selection/LSL</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>LSL</e_new>
+<f_old_trans/>
+<f_translation>LSL</f_translation>
+</string>
+<string>
+<a_file>mime_types.xml</a_file>
+<b_path>/default/"application/smil"/"application/smil_label"</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+
+		    Synchronized Multimedia Integration Language (SMIL)
+		
+</e_new>
+<f_old_trans/>
+<f_translation>
+		    同期マルチメディア統合言語(SMIL)
+		</f_translation>
+</string>
+<string>
+<a_file>notify.xml</a_file>
+<b_path>//OfferFriendshipNoMessage/message</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+
+			[NAME] is offering friendship.
+
+(By default, you will be able to 
+see each other's online status.)
+		
+</e_new>
+<f_old_trans/>
+<f_translation>
+
+			[NAME]は、フレンドシップを贈っています。
+
+(デフォルトでお互いのオンライン・ステータスを見ることができるようになります。)
+		
+</f_translation>
+</string>
+<string>
+<a_file>notify.xml</a_file>
+<b_path>//OfferFriendshipNoMessage/Accept</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+			Accept
+		</e_new>
+<f_old_trans/>
+<f_translation>
+			受け入れる
+		</f_translation>
+</string>
+<string>
+<a_file>notify.xml</a_file>
+<b_path>//OfferFriendshipNoMessage/Decline</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+			Decline
+		</e_new>
+<f_old_trans/>
+<f_translation>
+			拒否
+		</f_translation>
+</string>
+<string>
+<a_file>panel_login.xml</a_file>
+<b_path>/panel_login/create_new_account_text</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>Create new account.
+	</e_new>
+<f_old_trans/>
+<f_translation>新しいアカウントを作成します。
+	</f_translation>
+</string>
+<string>
+<a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/user</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>You</e_new>
+<f_old_trans/>
+<f_translation>貴方</f_translation>
+</string>
+<string>
+<a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/agent</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Others</e_new>
+<f_old_trans/>
+<f_translation>その他</f_translation>
+</string>
+<string>
+<a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/play_typing_animation</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Play typing animation</e_new>
+<f_old_trans/>
+<f_translation>タイピング動作のアニメーションを再生</f_translation>
+</string>
+<string>
+<a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/language_is_public</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Share language with objects</e_new>
+<f_old_trans/>
+<f_translation>言語をオブジェクトと共有</f_translation>
+</string>
+<string>
+<a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/language_is_public</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old/>
+<e_new>
+This lets in-world objects know your preferred language.
+</e_new>
+<f_old_trans/>
+<f_translation>優先言語をインワールドのオブジェクトが認識する</f_translation>
+</string>
+<string>
+<a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/QualityPerformanceSelection</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new/>
+<f_old_trans/>
+<f_translation/>
+</string>
+<string>
+<a_file>panel_preferences_im.xml</a_file>
+<b_path>/im/friends_online_notify_checkbox</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Show Online Friend Notifications</e_new>
+<f_old_trans/>
+<f_translation>オンライン・フレンド通知を表示</f_translation>
+</string>
+<string>
+<a_file>panel_preferences_popups.xml</a_file>
+<b_path>/popups/show_in_inventory</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>
+Automatically show newly accepted objects in inventory
+</e_new>
+<f_old_trans/>
+<f_translation>新たに受け取ったオブジェクトを持ち物に自動的に表示</f_translation>
+</string>
+<string>
+<a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/classic_preview</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new/>
+<f_old_trans/>
+<f_translation/>
+</string>
+<string>
+<a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/silver_preview</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new/>
+<f_old_trans/>
+<f_translation/>
+</string>
+<string>
+<a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/target_avatar_name</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+	  (none)
+    </e_new>
+<f_old_trans/>
+<f_translation>
+	  (なし)
+    </f_translation>
+</string>
+<string>
+<a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_scripts</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Return only those objects with scripts</e_new>
+<f_old_trans/>
+<f_translation>スクリプトのあるオブジェクトのみを返却</f_translation>
+</string>
+<string>
+<a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_scripts</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old/>
+<e_new>Return only objects which have scripts.</e_new>
+<f_old_trans/>
+<f_translation>スクリプトがあるオブジェクトのみを返却</f_translation>
+</string>
+<string>
+<a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_other_land</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Return only those objects on someone else's land</e_new>
+<f_old_trans/>
+<f_translation>他人の土地にあるオブジェクトのみを返却</f_translation>
+</string>
+<string>
+<a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_other_land</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old/>
+<e_new>
+Return only objects which are on land belonging to someone else
+</e_new>
+<f_old_trans/>
+<f_translation>他人に属する土地にあるオブジェクトのみを返却</f_translation>
+</string>
+<string>
+<a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_estate_wide</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Return objects in every region of this estate</e_new>
+<f_old_trans/>
+<f_translation>この不動産の各地域のオブジェクトを返却</f_translation>
+</string>
+<string>
+<a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_estate_wide</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old/>
+<e_new>
+Return objects in all of the regions that make up this estate
+</e_new>
+<f_old_trans/>
+<f_translation>この不動産に含まれているすべての地域のオブジェクトを返却</f_translation>
+</string>
+<string>
+<a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old/>
+<e_new>Return</e_new>
+<f_old_trans/>
+<f_translation>返却</f_translation>
+</string>
+<string>
+<a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/abuse_email_text</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+		Abuse email address:
+	</e_new>
+<f_old_trans/>
+<f_translation>
+		嫌がらせに関するメール先:
+	</f_translation>
+</string>
+<string>
+<a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/email_unsupported</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>Feature unsupported</e_new>
+<f_old_trans/>
+<f_translation>サポートされていない機能</f_translation>
+</string>
+<string>
+<a_file>role_actions.xml</a_file>
+<b_path>//Chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old/>
+<e_new>
+These Abilities include powers to allow or restrict access to group chat sessions and group voice chat.
+</e_new>
+<f_old_trans/>
+<f_translation>
+これらのアビリティには、グループ・チャット・セッションやグループ・ボイス・チャットへのアクセスの許可や制限の権限が含まれます。
+</f_translation>
+</string>
+<string>
+<a_file>role_actions.xml</a_file>
+<b_path>//Chat/join group chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old/>
+<e_new>Join Group Chat</e_new>
+<f_old_trans/>
+<f_translation>グループ・チャットに参加する</f_translation>
+</string>
+<string>
+<a_file>role_actions.xml</a_file>
+<b_path>//Chat/join group chat</b_path>
+<c_attribute>longdescription</c_attribute>
+<d_old/>
+<e_new>
+Members in a Role with this Ability can join group chat sessions, for text and voice.
+</e_new>
+<f_old_trans/>
+<f_translation>
+このアビリティを持つ役割のメンバーは、グループ・チャット・セッションにテキストおよびボイスで参加できます。
+</f_translation>
+</string>
+<string>
+<a_file>role_actions.xml</a_file>
+<b_path>//Chat/join voice chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old/>
+<e_new>Join Group Voice Chat</e_new>
+<f_old_trans/>
+<f_translation>グループ・ボイス・チャットに参加する</f_translation>
+</string>
+<string>
+<a_file>role_actions.xml</a_file>
+<b_path>//Chat/join voice chat</b_path>
+<c_attribute>longdescription</c_attribute>
+<d_old/>
+<e_new>
+Members in a Role with this Ability can join group voice chat sessions.  NOTE: The Join Group Chat ability is required to access the voice chat session.
+</e_new>
+<f_old_trans/>
+<f_translation>
+このアビリティを持つ役割のメンバーは、グループ・ボイス・チャット・セッションに参加できます。  注： ボイス・チャット・セッションにアクセスするには、グループ・チャットに参加するアビリティが必要です。
+</f_translation>
+</string>
+<string>
+<a_file>role_actions.xml</a_file>
+<b_path>//Chat/moderate group chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old/>
+<e_new>Moderate Group Chat</e_new>
+<f_old_trans/>
+<f_translation>グループ・チャットを管理する</f_translation>
+</string>
+<string>
+<a_file>role_actions.xml</a_file>
+<b_path>//Chat/moderate group chat</b_path>
+<c_attribute>longdescription</c_attribute>
+<d_old/>
+<e_new>
+Members in a Role with this Ability can control access and participation in group voice and text chat sessions.
+</e_new>
+<f_old_trans/>
+<f_translation>
+このアビリティを持つ役割のメンバーは、グループ・ボイス・チャット・セッションおよびグループ・テキスト・チャット・セッションへのアクセスや参加をコントロールすることができます。
+</f_translation>
+</string>
+<string>
+<a_file>strings.xml</a_file>
+<b_path>//LoginInitializingMultimedia</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>Initializing multimedia...</e_new>
+<f_old_trans/>
+<f_translation>マルチメディアを初期化しています...</f_translation>
+</string>
+<string>
+<a_file>strings.xml</a_file>
+<b_path>//AgentLostConnection</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>
+This region may be experiencing trouble.  Please check your connection to the Internet.
+</e_new>
+<f_old_trans/>
+<f_translation>この地域には、問題が発生している可能性があります。  インターネット接続を確認してください。</f_translation>
+</string>
+<string>
+<a_file>strings.xml</a_file>
+<b_path>//TooltipMustSingleDrop</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>Only a single item can be dragged here</e_new>
+<f_old_trans/>
+<f_translation>1つのアイテムのみをここにドラッグできます</f_translation>
+</string>
+<string>
+<a_file>strings.xml</a_file>
+<b_path>//ReleaseNotes</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>Release Notes</e_new>
+<f_old_trans/>
+<f_translation>リリースノート</f_translation>
+</string>
+<string>
+<a_file>strings.xml</a_file>
+<b_path>//texture_loading</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>Loading...</e_new>
+<f_old_trans/>
+<f_translation>ロード中...</f_translation>
+</string>
+<string>
+<a_file>strings.xml</a_file>
+<b_path>//worldmap_offline</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>Offline</e_new>
+<f_old_trans/>
+<f_translation>オフライン</f_translation>
+</string>
+<string>
+<a_file>strings.xml</a_file>
+<b_path>//whisper</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>whispers:</e_new>
+<f_old_trans/>
+<f_translation>ささやく:</f_translation>
+</string>
+<string>
+<a_file>strings.xml</a_file>
+<b_path>//shout</b_path>
+<c_attribute/>
+<d_old/>
+<e_new>shouts:</e_new>
+<f_old_trans/>
+<f_translation>叫ぶ:</f_translation>
+</string>
 </strings>

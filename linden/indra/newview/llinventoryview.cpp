@@ -1506,8 +1506,6 @@ void LLInventoryPanel::buildNewViews(const LLUUID& id)
 {
 	LLFolderViewItem* itemp = NULL;
 	LLInventoryObject* objectp = gInventory.getObject(id);
-	S32 i;
-	S32 count;
 
 	if (objectp)
 	{		
@@ -1577,11 +1575,11 @@ void LLInventoryPanel::buildNewViews(const LLUUID& id)
 		LLViewerInventoryCategory::cat_array_t* categories;
 		LLViewerInventoryItem::item_array_t* items;
 
-		mInventory->getDirectDescendentsOf(id, categories, items);
+		mInventory->lockDirectDescendentArrays(id, categories, items);
 		if(categories)
 		{
-			count = categories->count();
-			for(i = 0; i < count; ++i)
+			S32 count = categories->count();
+			for(S32 i = 0; i < count; ++i)
 			{
 				LLInventoryCategory* cat = categories->get(i);
 				buildNewViews(cat->getUUID());
@@ -1589,13 +1587,14 @@ void LLInventoryPanel::buildNewViews(const LLUUID& id)
 		}
 		if(items)
 		{
-			count = items->count();
-			for(i = 0; i < count; ++i)
+			S32 count = items->count();
+			for(S32 i = 0; i < count; ++i)
 			{
 				LLInventoryItem* item = items->get(i);
 				buildNewViews(item->getUUID());
 			}
 		}
+		mInventory->unlockDirectDescendentArrays(id);
 	}
 }
 

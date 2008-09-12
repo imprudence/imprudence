@@ -2,6 +2,7 @@
 <floater name="script ed float" title="스크립트: 새 스크립트">
 	<button label="초기화" label_selected="초기화" name="Reset" />
 	<check_box label="실행 중" name="running" />
+	<check_box label="모노" name="mono" />
 	<text name="not_allowed">
 		이 스크립트를 볼 수 없습니다.
 	</text>

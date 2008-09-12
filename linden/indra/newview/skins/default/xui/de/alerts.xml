@@ -378,12 +378,13 @@ Die Second Life Website für weitere Informationen über Partnerschaften öffnen
 	</alert>
 	<alert name="ClickWebProfileHelpAvatar">
 		<message name="message">
-			Wenn dieser Einwohner einen Webprofil-URL angegeben hat, können Sie:
- * Auf &apos;Laden&apos; klicken und die Seite im integrierten Browser anzeigen.
- * Auf &apos;Öffnen&apos; klicken und die Seite im externen Browser anzeigen.
+			Wenn dieser Einwohner eine Webprofil-URL angegeben hat, können Sie:
+* Auf &apos;Laden&apos; klicken und die Seite im integrierten Browser anzuzeigen.
+* Auf Laden-&gt;&quot;In external Browser öffnen&quot; klicken um die Seite extern anzeigen zu lassen.
+* Auf Laden-&gt;&quot;Home-URL&quot; klicken um zum Webprofil des Benutzers zurückzukehren.
  
-In Ihrem Profil können Sie jeden URL als Webprofil festlegen.
-Bei Anzeige ihres Profils kann jeder Einwohner diesen URL öffnen.
+In Ihrem eigenen Profil können Sie jede beliebige URL als Ihr Webprofil eingeben und mit OK übernehmen.
+Wenn andere Einwohner Ihr Profil betrachten, können sie diese URL besuchen.
 		</message>
 	</alert>
 	<alert name="ClickWebProfileNoWebHelpAvatar">
@@ -665,7 +666,7 @@ um ihren Landepunkt festzulegen.
 	</alert>
 	<alert name="PromptMissingSubjMsg">
 		<message name="message">
-			Postkarte mit Standardbetreff bzw. -nachricht senden?
+			Foto mit Standardbetreff bzw. -nachricht als E-Mail versenden?
 		</message>
 		<option name="OK">
 			OK
@@ -686,7 +687,7 @@ um ihren Landepunkt festzulegen.
 	</alert>
 	<alert name="ErrorUploadingPostcard">
 		<message name="message">
-			Eine Postkarte konnte aus folgendem Grund nicht hochgeladen werden: [REASON]
+			Ein Foto konnte aus folgendem Grund nicht gesendet werden: [REASON]
 		</message>
 	</alert>
 	<alert name="ErrorUploadingReportScreenshot">
@@ -725,19 +726,21 @@ Der Outfit-Ordner enthält keine Kleidung, Körperteile oder Anhänge.
 	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
-			Sie benötigen ein Konto, um sich in [SECOND_LIFE] anmelden zu können.
-Möchten Sie auf www.secondlife.com ein Konto anlegen?
+			Hoppla! Da fehlt noch etwas.
+Geben Sie bitte den Vor- und den Nachnamen Ihres Avatars ein.
+
+Sie benötigen ein Benutzerkonto, um [SECOND_LIFE] betreten zu können.Möchten Sie jetzt ein Benutzerkonto anlegen?
 		</message>
 		<option name="OK">
-			OK
+			Neues Benutzerkonto anlegen
 		</option>
 		<option name="Cancel">
-			Abbrechen
+			Erneut versuchen
 		</option>
 	</alert>
 	<alert name="ChangeSkin">
 		<message name="message">
-			Die neue Benutzeroberfläche wird nach einem Neustart von [SECOND_LIFE] angewendet.
+			Die neue Haut wird nach dem erneuten Start von [SECOND_LIFE] angezeigt.
 		</message>
 	</alert>
 	<alert name="UnsupportedGLRequirements">
@@ -1350,6 +1353,17 @@ Bitte wählen Sie einen männlichen oder weiblichen Avatar.
 			Weiblich
 		</option>
 	</alert>
+	<alert name="EstateObjectReturn">
+		<message name="message">
+			Möchten Sie wirklich alle Objekte zurückgeben, die [USER_NAME] gehören?
+		</message>
+		<option name="Return">
+			OK
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
 	<alert name="MaxAgentOnRegionBatch">
 		<message name="message">
 			Fehler beim Versuch, [NUM_ADDED] Agenten hinzuzufügen:
@@ -1561,8 +1575,8 @@ Möchten Sie diese Objekte weggeben?
 	</alert>
 	<alert name="CannotGiveCategory">
 		<message name="message">
-			Sie sind nicht berechtigt, die ausgewählten
-			Ordner zu kopieren.
+			Sie sind nicht berechtigt, den ausgewählten
+Ordner zu kopieren.
 		</message>
 	</alert>
 	<alert name="FreezeAvatar">
@@ -1955,7 +1969,7 @@ Keine Parzelle ausgewählt.
 	<alert name="CannotBuyLandNoRegion">
 		<message name="message">
 			Land kann nicht gekauft werden:
-			Kann die Region nicht finden, in der sich dieses Land befindet.
+Kann die Region nicht finden, in der sich dieses Land befindet.
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNothingSelected">
@@ -2339,14 +2353,11 @@ www.secondlife.com/support.
 	<alert name="YouHaveBeenLoggedOut">
 		<message name="message">
 			Sie wurden von [SECOND_LIFE] abgemeldet:
-[MESSAGE]
-
-Klicken Sie auf &apos;Weiter&apos;, um IM und Chat anzuzeigen.
-Andere Optionen sind nicht mehr möglich.
-Klicken Sie auf &apos;Beenden&apos;, um [SECOND_LIFE] zu schließen.
+            [MESSAGE]
+Klicken Sie auf &apos;IM &amp; Chat anzeigen&apos;, um vorhandene Nachrichten und Chat weiterhin anzuzeigen. Klicken Sie andernfalls auf &apos;Beenden&apos;, um [SECOND_LIFE] sofort zu beenden.
 		</message>
 		<option name="Continue">
-			Weiter
+			IM &amp; Chat anzeigen
 		</option>
 		<option name="Quit">
 			Beenden
@@ -2360,11 +2371,10 @@ Sie sind nicht berechtigt, Land für die aktive Gruppe zu kaufen.
 	</alert>
 	<alert name="AddFriend" title="Freund hinzufügen">
 		<message name="message">
-			Freunde können einander die Erlaubnis erteilen, 
-sich gegenseitig auf der Karte verfolgen und 
-ihren Online-Status einsehen zu können. 
+			Freunde können sich gegenseitig die Berechtigung 
+erteilen, sich auf der Karte zu verfolgen und den jeweiligen Online-Status einzusehen. 
 
-[NAME] Freundschaft anbieten?
+[NAME] die Freundschaft anbieten?
 		</message>
 		<option name="Offer">
 			OK
@@ -2372,6 +2382,7 @@ ihren Online-Status einsehen zu können.
 		<option name="Cancel">
 			Abbrechen
 		</option>
+		Wollen wir Freunde sein?
 	</alert>
 	<alert name="RemoveFromFriends">
 		<message name="message">
@@ -4444,17 +4455,17 @@ Fehler schneller zu beseitigen.
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
 			Sehr geehrte(r) Einwohner(in),
- 
-Meldungen über Urheberrechtsverletzungen können nur auf
-http://secondlife.com/corporate/dmca.php eingereicht werden.
 
-Meldungen über Urheberrechtsverletzungen, die über
-&apos;Missbrauch melden&apos; eingereicht wurden, werden automatisch
-gelöscht. Wenn Sie keine Urheberrechtsverletzung melden möchten,
-können Sie dieses Fenster schließen und mit dem Einreichen Ihrer Meldung fortfahren.
- 
+achten Sie bei der Meldung einer Urheberrechtsverletzung darauf, dass Sie dabei korrekt vorgehen:
+
+1. Missbrauch melden. Wenn Sie der Meinung sind, ein Einwohner nutzt das Berechtigungssystem von Second Life auf unerlaubte Weise zu seinem Vorteil aus, indem er zum Beispiel einen CopyBot oder verwandte Kopiertools verwendet und damit eine Urheberrechtsverletzung begeht, können Sie diesen Missbrauch melden.Das Missbrauchsteam untersucht etwaige Verstöße gegen die Second Life Community Standards oder die Nutzungsbedingungen und verhängt entsprechende Strafen.Das Missbrauchsteam ist jedoch nicht dafür zuständig, Inhalte aus der Second Life-Welt zu entfernen und reagiert auch nicht auf entsprechende Anfragen.
+
+2. Die DMCA oder Inhaltsentfernungs-Vorgehensweise. Sie können das Entfernen von Inhalten aus Second Life beantragen. Dazu müssen Sie eine Urheberrechtsverletzung gemäß den in unserer DMCA-Richtlinie unter http://secondlife.com/corporate/dmca.php dargelegten Anweisungen einreichen.
+
+Wenn Sie jetzt mit der Missbrauchmeldung fortfahren möchten, schließen Sie bitte dieses Fenster und senden Sie Ihren Bericht ein.
+
 Vielen Dank,
- 
+
 Linden Lab
 		</message>
 	</alert>
@@ -4532,8 +4543,7 @@ wirklich löschen?
 	</alert>
 	<alert name="ConfirmClearCookies">
 		<message name="message">
-			Möchten Sie Ihre Cookies 
-wirklich löschen?
+			Sind Sie sicher, dass Sie Ihre Cookies löschen möchten?
 		</message>
 		<option name="Yes">
 			Ja
@@ -5012,7 +5022,7 @@ Wolkendichte.
 	<alert name="Cannot_Purchase_an_Attachment">
 		<message name="message">
 			Objekte können nicht gekauft werden,
-			wenn sie Teil eines Anhangs sind.
+solange sie Teil eines Anhangs sind.
 		</message>
 	</alert>
 	<alert name="DebitPermissionDetails" title="Info zur Abfrage der Abbucherlaubnis">

@@ -3,7 +3,7 @@
 	<layout_stack name="toolbar_stack">
 	<button label="IM" name="im_btn"
 	     tool_tip="Envoyez des messages instantanés à vos amis." />
-	<button label="Chat" name="chat_btn"
+	<button label="" name="chat_btn"
 	     tool_tip="Parlez aux personnes dans votre entourage. Cliquez Chat puis Historique pour afficher ce qui s&apos;est dit." />
 	<button label="Amis" name="friends_btn"
 	     tool_tip="Retrouvez vos amis et communiquez avec eux." />

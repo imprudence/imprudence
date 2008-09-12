@@ -867,6 +867,16 @@
 			     label="Sculpt Texture" left="121" mouse_opaque="true"
 			     name="sculpt texture control" tool_tip="Click to choose a picture"
 			     visible="false" width="141" />
+			<check_box bottom_delta="-24" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Mirror" left="121" mouse_opaque="true"
+			     name="sculpt mirror control" visible="false"
+			     tool_tip="Flips sculpted prim along the X axis."
+			     width="121" />
+			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Inside-out" left="121" mouse_opaque="true"
+			     name="sculpt invert control" visible="false"
+			     tool_tip="Inverts the sculpted prims normals, making it appear inside-out."
+			     width="121" />
 			<text align="left" bg_visible="false" border_drop_shadow_visible="false"
 			     border_visible="false" bottom_delta="-20" drop_shadow_visible="true"
 			     follows="left|top" font="SansSerifSmall" h_pad="0" height="10" left="121"

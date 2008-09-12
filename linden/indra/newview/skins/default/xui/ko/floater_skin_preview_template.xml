@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater name="floater_chatterbox">
+	<icon label="비행" label_selected="비행 중지" name=""
+	     tool_tip="비행 시작. 위, 아래로 비행하려면 E/C 또는 PgUp/PgDn을 사용하십시오." />
+	<panel name="panel_unfocused_floater">
+		<text name="titlebar_focused">
+			초점이 맞지 않음
+		</text>
+		<combo_box label="콤보 박스" name="combo_box_1" />
+		<text_editor name="Chat History Editor">
+			텍스트
+		</text_editor>
+	</panel>
+	<panel name="panel_focused_floater">
+		<text name="titlebar_focused">
+			초점이 맞음
+		</text>
+		<tab_container name="chatterbox_tabs">
+			<panel label="초점이 맞음" name="test_1">
+				<slider label="슬라이더" name="SliderTestName" />
+				<check_box label="참" name="check_box_test_1" />
+				<check_box label="거짓" name="check_box_test_2" />
+				<text_editor name="Chat History Editor">
+					채팅 텍스트
+				</text_editor>
+			</panel>
+			<panel label="초점이 맞지 않음" name="test_2" />
+		</tab_container>
+	</panel>
+</multi_floater>

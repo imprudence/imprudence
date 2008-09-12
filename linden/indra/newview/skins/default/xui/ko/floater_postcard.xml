@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Postcard" title="엽서 보내기">
+<floater name="Postcard" title="이메일로 스냅샷 보내기">
 	<text name="to_label">
 		수신인 이메일:
 	</text>
@@ -25,7 +25,7 @@
 	     tool_tip="이 엽서에는 성인 전용 컨텐츠가 포함되어 있습니다." />
 	<button label="?" name="publish_help_btn" />
 	<text name="fine_print">
-		엽서 수령인이 세컨드라이프에 가입 할 경우 추천 보너스를 얻게 됩니다.
+		수령인이 세컨드라이프에 가입을 하면 추천 보너스를 얻게 됩니다.
 	</text>
 	<button label="취소" name="cancel_btn" />
 	<button label="보내기" name="send_btn" />
@@ -35,4 +35,7 @@
 	<text name="default_message">
 		여기를 체크하여 주십시요.
 	</text>
+	<string name="upload_message">
+		보내는 중...
+	</string>
 </floater>

@@ -3,7 +3,7 @@
 	<menu_item_call label="Profil..." name="Profile..." />
 	<menu_item_call label="Stummschalten" name="Avatar Mute" />
 	<menu_item_call label="Gehe zu" name="Go To" />
-	<menu_item_call label="Freund hinzufügen" name="Add Friend" />
+	<menu_item_call label="Freund hinzufügen..." name="Add Friend" />
 	<menu_item_call label="Zahlen..." name="Pay..." />
 	<pie_menu label="Mehr &gt;" name="More &gt;">
 		<menu_item_call label="Einfrieren..." name="Freeze..." />

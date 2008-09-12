@@ -29,10 +29,13 @@
 	</text>
 	<button label="신규 계정" label_selected="신규 계정" name="new_account_btn" />
 	<button label="환경 설정" label_selected="환경 설정" name="preferences_btn" />
-	<button label="연결" label_selected="연결" name="connect_btn" />
+	<button label="세컨드라이프 연결" label_selected="연결" name="connect_btn" />
 	<button label="종료" label_selected="종료" name="quit_btn" />
 	<text name="version_text">
 		1.23.4 (5)
+	</text>
+	<text name="create_new_account_text">
+		새 계정을 만듭니다.
 	</text>
 	<text name="channel_text">
 		[Viewer Channel Name]

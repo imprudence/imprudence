@@ -16,10 +16,22 @@
 	     tool_tip="이 지역 내 모든 물리엔진 끄기" />
 	<button label="?" name="disable_physics_help" />
 	<button label="적용" name="apply_btn" />
-	<button label="아바타 선택..." name="choose_avatar_btn" />
+	<line_editor name="target_avatar_name">
+		(없음)
+	</line_editor>
+	<button label="선택" name="choose_avatar_btn" />
 	<button label="타인 토지상에 있는 스크립트 오브젝트 반환"
 	     name="return_scripted_other_land_btn" />
 	<button label="모든 스크립트 오브젝트 반환" name="return_scripted_all_btn" />
+	<check_box label="스크립트가 있는 오브젝트만 반환" name="return_scripts"
+	     tool_tip="스크립트가 있는 오브젝트만 반환합니다." />
+	<check_box label="다른 주민의 토지에 속한 오브젝트만 반환"
+	     name="return_other_land"
+	     tool_tip="다른 주민이 소유하고 있는 토지에 있는 오브젝트만 반환합니다." />
+	<check_box label="이 사유지의 모든 지역에 속한 오브젝트 반환"
+	     name="return_estate_wide"
+	     tool_tip="이 사유지를 구성하는 모든 지역에 포함되는 오브젝트를 반환합니다." />
+	<button label="반환" name="return_btn" />
 	<button label="대용량 콜라이더 보기…" name="top_colliders_btn"
 	     tool_tip="충돌 가능한 최상위 오브젝트 목록" />
 	<button label="?" name="top_colliders_help" />

@@ -113,6 +113,10 @@
 			<text name="sale_pending_text">
 				(판매 보류)
 			</text>
+			<string name="no_selection_text">
+				구획을 선택하지 않았습니다.
+세부 사항을 보려면 &apos;월드 메뉴 &gt; 토지 소개&apos;를 선택 하시거나 다른 구획을 선택하십시오.
+			</string>
 		</panel>
 		<panel label="시행 규칙" name="land_covenant_panel">
 			<text type="string" length="1" name="covenant_timestamp_text">

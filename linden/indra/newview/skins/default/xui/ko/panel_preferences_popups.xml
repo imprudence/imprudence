@@ -22,4 +22,7 @@
 	<button label="모두 보기&apos; 다음 건너뛰기&apos; 대화 상자..."
 	     name="skip_dialogs_btn"
 	     tool_tip="팝업&apos;처음 사용&apos; 통보 옵션 모두 사용 안 함" />
+	<check_box
+	     label="인벤토리에서 새로 수락한 오브젝트를 자동으로 보여주기"
+	     name="show_in_inventory" />
 </panel>

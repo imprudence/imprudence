@@ -2,18 +2,31 @@
 
 <strings>
 <string><a_file>alerts.xml</a_file>
-<b_path>//TutorialNotFound/message</b_path>
+<b_path>//AddFriend/editline</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			No tutorial is currently available.
+			Would you be my friend?
 		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 			Derzeit ist kein Tutorial verfügbar.
- 		</f_translation>
+			Wollen wir Freunde sein?
+		</f_translation>
 </string><string><a_file>alerts.xml</a_file>
-<b_path>//TutorialNotFound/OK</b_path>
+<b_path>//EstateObjectReturn/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Are you sure you want to return objects owned by
+[USER_NAME] ?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Möchten Sie wirklich alle Objekte zurückgeben, die [USER_NAME] gehören?
+
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//EstateObjectReturn/Return</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
@@ -21,191 +34,10 @@
 		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 			OK
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Freeze [AVATAR_NAME]?
-He or she will temporarily be unable to move,
-chat, or interact with the world.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			[AVATAR_NAME] einfrieren?
-Der Avatar wird außer Gefecht gesetzt und kann
-sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/Freeze</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Freeze
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Einfrieren
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/Unfreeze</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Unfreeze
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Auftauen
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//FreezeAvatarFullname/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Cancel
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Abbrechen
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Eject [AVATAR_NAME] from your land?
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			[AVATAR_NAME] von Ihrem Land werfen?
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/Eject</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Eject
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Ausschließen
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/EjectandBan</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Eject and Ban
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Ausschließen und Verbannen
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EjectAvatarFullname/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Cancel
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Abbrechen
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SeachFilteredOnShortWords/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Your search query was modified and the 
-words that were too short were removed.
-
-Searched for: [FINALQUERY]
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-Ihre Suchanfrage wurde geändert. 
-Zu kurze Begriffe wurden entfernt.
-
-Ihre Suchanfrage: [FINALQUERY]
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SeachFilteredOnShortWordsEmpty/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Your search terms were too short
-so no search was performed.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-Ihre Suchbegriffe sind zu kurz.
-Es wurde keine Suche durchgeführt.
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//CannotCloseFloaterBuyLand/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			You cannot close the Buy Land window until Second Life
-estimates the price of this transaction.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Das Fenster &apos;Land kaufen&apos; kann erst geschlossen werden,
-nachdem Second Life den Transaktionspreis geschätzt hat.
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//MaxAgentOnRegionBatch/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Failure while attempting to add [NUM_ADDED] agents:
-Exceeds the [MAX_AGENTS] [LIST_TYPE] limit by [NUM_EXCESS].
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Fehler beim Versuch, [NUM_ADDED] Agenten hinzuzufügen:
-Überschreitet den Grenzwert [MAX_AGENTS] [LIST_TYPE] um [NUM_EXCESS].
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Open your system Web browser to view this content?
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Den System-Webbrowser öffnen, um diesen Inhalt anzuzeigen?
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			When opening your system browser to view a Web page
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Wenn der System-Webbrowser zur Anzeige einer Webseite geöffnet wird
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/Open</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
 			OK
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			OK
- 		</f_translation>
+		</f_translation>
 </string><string><a_file>alerts.xml</a_file>
-<b_path>//WebLaunchExternalTarget/Cancel</b_path>
+<b_path>//EstateObjectReturn/Cancel</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
@@ -213,1791 +45,972 @@ Exceeds the [MAX_AGENTS] [LIST_TYPE] limit by [NUM_EXCESS].
 		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 			Abbrechen
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ProblemAddingEstateGeneric/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Problems adding to this estate list.  One or more estates may have a full list.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Problem beim Hinzufügen zu dieser Grundstücksliste.  Bei mindestens einem Grundstück ist die Liste voll.
- 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ReplaceAttachment/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			When replacing existing attachments
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Beim Wechseln von Anhängen
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//BusyModePay/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			When paying a person or object in busy mode
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Beim Bezahlen einer Person oder eines Objekts im Beschäftigt-Modus
+			Abbrechen
 		</f_translation>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/type</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Type</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Typ</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/name</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Name</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Name</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/count</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Count</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zählen</f_translation>
-</string><string><a_file>floater_active_speakers.xml</a_file>
-<b_path>/active_speakers/active_speakers_panel/speakers_list/speaking_status</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_avatar_textures.xml</a_file>
-<b_path>/avatar_texture_debug/baked_label</b_path>
+<b_path>/floaterland/landtab/land_general_panel/no_selection_text</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		Baked Textures
-	</e_new>
+			No parcel selected.
+Go to World menu &gt; About Land or select another parcel to show its details.
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 		Gebackene Texturen
- 	</f_translation>
-</string><string><a_file>floater_avatar_textures.xml</a_file>
-<b_path>/avatar_texture_debug/composite_label</b_path>
+			Keine Parzelle ausgewählt.
+Öffnen Sie &quot;Welt&quot; &gt; &quot;Land-Info&quot; oder wählen Sie eine andere Parzelle aus, um Informationen darüber anzuzeigen.
+			</f_translation>
+</string><string><a_file>floater_instant_message.xml</a_file>
+<b_path>/im_floater/inventory_item_offered</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		Composite Textures
+		Inventory item offered
 	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-		Zusammengesetzte Texturen
+		Inventarobjekt angeboten
 	</f_translation>
-</string><string><a_file>floater_buy_currency.xml</a_file>
-<b_path>/buy currency/getting_data</b_path>
-<c_attribute></c_attribute>
+</string><string><a_file>floater_live_lsleditor.xml</a_file>
+<b_path>/script ed float/mono</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>
-		Getting data...
-	</e_new>
+<e_new>Mono</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-		Daten werden geladen...
-	</f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater</b_path>
+<f_translation>Mono</f_translation>
+<f_old_trans></f_old_trans>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak</b_path>
 <c_attribute>title</c_attribute>
 <d_old></d_old>
-<e_new></e_new>
+<e_new>Memory Leaking Simulation</e_new>
 <f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater/rotate_tooltip</b_path>
+<f_translation>Speicherverlust-Simulation</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/leak_speed</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Leaking Speed (bytes per frame):</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Verlustgeschwindigkeit (Bytes pro Frame):</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/max_leak</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Max Leaked Memory (MB):</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Max. Speicherverlust (MB):</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/total_leaked_label</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Rotate Camera Around Focus</e_new>
+<e_new>
+		Current leaked memory: [SIZE] KB
+	</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Kamera um Fokus drehen</f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater/zoom_tooltip</b_path>
+<f_translation>
+		Aktueller Speicherverlust:[SIZE] KB
+	</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/note_label_1</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Zoom Camera Towards Focus</e_new>
+<e_new>
+		[NOTE1]
+	</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Kamera auf Fokus zoomen</f_translation>
-</string><string><a_file>floater_camera.xml</a_file>
-<b_path>/move floater/move_tooltip</b_path>
+<f_translation>
+		[NOTE1]
+	</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/note_label_2</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Move Camera Up and Down, Left and Right</e_new>
+<e_new>
+		[NOTE2]
+	</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Kamera nach oben, unten, links und rechts bewegen</f_translation>
-</string><string><a_file>floater_chatterbox.xml</a_file>
+<f_translation>
+		[NOTE2]
+	</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/start_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Start</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Start</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/stop_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Stop</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Stopp</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/release_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Release</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Freigeben</f_translation>
+</string><string><a_file>floater_mem_leaking.xml</a_file>
+<b_path>/MemLeak/close_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Close</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Schließen</f_translation>
+</string><string><a_file>floater_postcard.xml</a_file>
+<b_path>/Postcard/upload_message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	 &quot;Sending...&quot;
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	 &quot;Wird gesendet...&quot;
+	</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Select_category</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Select category
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Kategorie auswählen
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Age__Age_play</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Age &gt; Age play
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Alter&gt; Age-Play
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Age__Adult_resident_on_Teen_Second_Life</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Age &gt; Adult resident on Teen Second Life
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Alter&gt; Erwachsener Einwohner in Teen Second Life
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Age__Underage_resident_on_Adult_Second_Life</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Age &gt; Underage resident on Adult Second Life
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Alter &gt; Minderjähriger Einwohner in Adult Second Life
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Assault__Combat_sandbox___unsafe_area</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Assault &gt; Combat sandbox / unsafe area
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Angriff&gt; Kampf-Sandbox / unsichere Region
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Assault__Safe_area</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Assault &gt; Safe area
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Angriff&gt; Sichere Region
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Assault__Weapons_testing_sandbox</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Assault &gt; Weapons testing sandbox
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Angriff &gt; Sandbox für Waffentest
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Copyright_or_intellectual_property_violation</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Copyright or intellectual property violation
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Urheberrechtsverletzung
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Commerce__Failure_to_deliver_product_or_service</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Commerce &gt; Failure to deliver product or service
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Handel &gt; Produkt nicht geliefer oder Dienstleistung nicht erbracht
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disclosure__First_Life_information</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disclosure &gt; First life information
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Offenlegung &gt; Private Benutzerdaten
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disclosure__Remotely_monitoring chat</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disclosure &gt; Remotely monitoring chat
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Offenlegung &gt; Abhören eines Chats aus der Ferne
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disclosure__Second_Life_information_chat_IMs</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disclosure &gt; Second Life information/chat/IMs
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Offenlegung &gt; Second Life-Informationen/Chat/IMs
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Unfair_use_of_region_resources</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disturbing the peace &gt; Unfair use of region resources
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Ruhestörung &gt; Unfaire Nutzung von Regionsressourcen
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Excessive_scripted_objects</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disturbing the peace &gt; Excessive scripted objects
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Ruhestörung &gt; Exzessive Nutzung geskripteter Objekte
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Object_littering</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disturbing the peace &gt; Object littering
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Ruhestörung &gt; Wildes Erzeugen von Objekten
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Repetitive_spam</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disturbing the peace &gt; Repetitive spam
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Ruhestörung &gt; Ständige Spam-Wiederholung
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Disturbing_the_peace__Unwanted_advert_spam</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Disturbing the peace &gt; Unwanted advert spam
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Ruhestörung &gt; Unerwünschte Spam-Werbung
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__L$</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Fraud &gt; L$
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Betrug &gt; L$
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__Land</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Fraud &gt; Land
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Betrug&gt; Land
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__Pyramid_scheme_or_chain_letter</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Fraud &gt; Pyramid scheme or chain letter
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Betrug &gt; Schneeballsystem oder Kettenbrief
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Fraud__US$</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Fraud &gt; US$
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Betrug &gt; US$
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Advert_farms___visual_spam</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Advert farms / visual spam
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Belästigung &gt; Werbefarmen / visueller Spam
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Defaming_individuals_or_groups</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Defaming individuals or groups
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Belästigung &gt; Diffamieren von Einzelpersonen/Gruppen
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Impeding_movement</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Impeding movement
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Belästigung &gt; Bewegungseinschränkung
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Sexual_harassment</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Sexual harassment
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Belästigung &gt; Sexuelle Belästigung
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Solicting_inciting_others_to_violate_ToS</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Solicting/inciting others to violate ToS
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Belästigung &gt; Anstiften Dritter zur Missachtung der Nutzungsbedingungen
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Harassment__Verbal_abuse</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Harassment &gt; Verbal abuse
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Belästigung &gt; Beschimpfung
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Broadly_offensive_content_or_conduct</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Indecency &gt; Broadly offensive content or conduct
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Unanständigkeit &gt; Anstößige Inhalte oder Handlungen in der Öffentlichkeit
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Broadly_visible_mature_content</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Indecency &gt; Broadly visible mature content
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Unanständigkeit &gt; Nicht jugendfreier Inhalt in der Öffentlichkeit
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Inappropriate_avatar_name</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Indecency &gt; Inappropriate avatar name
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Unanständigkeit &gt; Anstößiger Avatarname
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Indecency__Mature_content_in_PG_region</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Indecency &gt; Mature content in PG region
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Unanständigkeit &gt; Nicht jugendfreier Inhalt in &quot;Jugendfrei&quot;-Region
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Abuse_of_sandbox_resources</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Land &gt; Abuse of sandbox resources
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Land &gt; Missbrauch der Sandbox-Ressourcen
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Encroachment__Objects_textures</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Land &gt; Encroachment &gt; Objects/textures
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Land &gt; Unbefugte Nutzung &gt; Objekte/Texturen
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Encroachment__Particles</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Land &gt; Encroachment &gt; Particles
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Land &gt; Unbefugte Nutzung &gt; Partikel
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Land__Encroachment__Trees_plants</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Land &gt; Encroachment &gt; Trees/plants
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Land &gt; Unbefugte Nutzung &gt; Bäume/Pflanzen
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Trademark_violation</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Trademark violation
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Markenrechtsverletzung
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/category_combo/Wagering_gambling</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Wagering/gambling
+</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+Wetten/Glücksspiel
+</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/omit_abuser_name</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Don&apos;t know abuser&apos;s name</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Name des Täters ist nicht bekannt</f_translation>
+</string><string><a_file>floater_report_abuse.xml</a_file>
+<b_path>/floater_report_abuse/omit_abuser_name</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Check this if you are unable to provide the abuser&apos;s name</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Wählen Sie diese Option, wenn Ihnen der Name des Täters unbekannt ist</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
 <b_path>/floater_chatterbox</b_path>
 <c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//chat_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//chat_btn</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Show Chat Bar. (Enter)</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Chat-Leiste anzeigen.(Eingabe)</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//communicate_btn</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
 <e_new>Communicate</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>Unterhalten</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/IM_logging_string</b_path>
-<c_attribute></c_attribute>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//communicate_btn</b_path>
+<c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>
-		-- Instant message logging enabled --
-	</e_new>
+<e_new>Communicate with your Friends and Groups.</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
- 		-- Instant-Message-Protokoll aktiviert --
-	</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/IM_end_log_string</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		-- End of Log --
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		-- Ende des Protokolls --
- 	</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/Gesture</b_path>
+<f_translation>Unterhalten Sie sich mit Freunden und in Gruppen.</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//fly_btn</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Gestures</e_new>
+<e_new>Fly</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Gesten</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/Gesture/Gestures</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Gestures
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 					Gesten
- 				</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/show mutes</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Show Muted Text</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Stummgeschalteten Text anzeigen</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/toggle_active_speakers_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>&lt; &lt;</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>&lt; &lt;</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/toggle_active_speakers_btn</b_path>
+<f_translation>Fliegen</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//fly_btn</b_path>
 <c_attribute>label_selected</c_attribute>
 <d_old></d_old>
-<e_new>&gt; &gt;</e_new>
+<e_new>Stop Flying</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>&gt; &gt;</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/toggle_active_speakers_btn</b_path>
+<f_translation>Landen</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox//fly_btn</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>Click here to show list of active participants in this IM session.</e_new>
+<e_new>Start flying. Use E/C or PgUp/PgDn to fly up and down.</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Klicken Sie hier, um eine Liste der aktiven Teilnehmer an dieser IM-Sitzung anzuzeigen.</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/chat_panel/Chat Editor</b_path>
+<f_translation>Flug beginnen.Steigen/sinken mit E/C oder Bild hoch/Bild ab.</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_unfocused_floater/titlebar_focused</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Unfocused</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht fokussiert</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_unfocused_floater/combo_box_1</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Click here to chat.</e_new>
+<e_new>Combo Box</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Zum Chatten hier klicken.</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/chat_panel/Say</b_path>
+<f_translation>Kombifeld</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_unfocused_floater/Chat History Editor</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Text</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Text</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/titlebar_focused</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Focused</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Fokussiert</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Say</e_new>
+<e_new>Focused</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Sprechen</f_translation>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/panels/im_contents_panel/chat_panel/Say</b_path>
+<f_translation>Fokussiert</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/SliderTestName</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Slider</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Regler</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/check_box_test_1</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>True</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Wahr</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/check_box_test_2</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>False</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Unwahr</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_1/Chat History Editor</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Chat Text</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Chat-Text</f_translation>
+</string><string><a_file>floater_skin_preview_template.xml</a_file>
+<b_path>/floater_chatterbox/panel_focused_floater/chatterbox_tabs/test_2</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Unfocused</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht fokussiert</f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/save_btn</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>(Enter)</e_new>
+<e_new>Save image to a file</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>(Eingabe)</f_translation>
-</string><string><a_file>floater_critical.xml</a_file>
-<b_path>/modal container/tos_title</b_path>
+<f_translation>Bild als Datei speichern</f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/format_label</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-    Critical Message
+  Format
   </e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-    Kritische Nachricht
+Format
   </f_translation>
-</string><string><a_file>floater_customize.xml</a_file>
-<b_path>/floater customize/customize tab container/body_parts_placeholder</b_path>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Body Parts</e_new>
+<e_new>Format</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Körperteile</f_translation>
-</string><string><a_file>floater_customize.xml</a_file>
-<b_path>/floater customize/customize tab container/clothes_placeholder</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Clothes</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Kleidung</f_translation>
-</string><string><a_file>floater_day_cycle_options.xml</a_file>
-<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLTimeSlider</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_day_cycle_options.xml</a_file>
-<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLDayCycleKeys</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_device_settings.xml</a_file>
-<b_path>/floater_device_settings</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Voice Chat Device Settings</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Geräte-Einstellungen für Voice-Chat</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/find_all_old_panel/results/icon</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_env_settings.xml</a_file>
-<b_path>/Environment Editor Floater/EnvTimeSlider</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_env_settings.xml</a_file>
-<b_path>/Environment Editor Floater/EnvCloudSlider</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_env_settings.xml</a_file>
-<b_path>/Environment Editor Floater/EnvWaterFogSlider</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/Antialiasing:</b_path>
+<f_translation>Format</f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo/PNG</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-    Antialiasing:
-  </e_new>
+			PNG
+		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-    Antialiasing:
-  </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Antialiasing</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Antialiasing</f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/FSAADisabled</b_path>
+			PNG
+		</f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo/JPEG</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-      Disabled
-    </e_new>
+			JPEG
+		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-      Deaktiviert
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/2x</b_path>
+			JPEG
+		</f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/local_format_combo/BMP</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-      2x
-    </e_new>
+			BMP
+		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-      2x
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/4x</b_path>
+			BMP
+		</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Strength:</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-      4x
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      4x
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/8x</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      8x
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      8x
-    </f_translation>
-</string><string><a_file>floater_hardware_settings.xml</a_file>
-<b_path>/Hardware Settings Floater/fsaa/16x</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      16x
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      16x
-    </f_translation>
-</string><string><a_file>floater_hud.xml</a_file>
-<b_path>/floater_hud</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Tutorial</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Tutorial</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Joystick Configuration</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Joystick-Konfiguration</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis1</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>X Axis Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>X-Achse</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis2</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Y Axis Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Y-Achse</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis0</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Z Axis Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Z-Achse</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis4</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Pitch Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Neigungswinkel</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis5</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Yaw Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Gierwinkel</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis3</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Roll Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Rollwinkel</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickAxis6</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Zoom Mapping</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zoom</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZoomDirect</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Direct Zoom</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Direkt-Zoom</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Cursor3D</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>3D Cursor</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>3D-Cursor</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/AutoLeveling</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Auto Level</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Automatisch ausrichten</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Control Modes:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Control Modes:
+	          Strength:
 	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 		Steuermodi:
- 	</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/XScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>X Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>X-Skala </f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Y Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Y-Skala</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Z Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Z-Skala</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/PitchScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Pitch Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Neigungsskala</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YawScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yaw Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Gierskala</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/RollScale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Roll Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Rollskala</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/XDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>X Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>X-Totzone </f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Y Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Y-Totzone</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Z Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Z-Totzone</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/PitchDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Pitch Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Neigen-Totzone</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/YawDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yaw Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Gieren-Totzone</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/RollDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Roll Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Rollen-Totzone</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Feathering</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Feathering</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Auslaufen</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/AvatarFeathering</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/BuildFeathering</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/FlycamFeathering</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZoomScale2</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Zoom Scale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zoom-Skala</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/FlycamAxisScale6</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/ZoomDeadZone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Zoom Dead Zone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zoom-Totzone</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/FlycamAxisDeadZone6</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/SpaceNavigatorDefaults</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>SpaceNavigator Defaults</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>SpaceNavigator-Standards</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/JoystickMonitor</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Joystick Monitor</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Joystick-Monitor</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/Axis</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Axis [NUM]</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Achse [NUM]</f_translation>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick/NoDevice</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>no device detected</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Kein Gerät erkannt</f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterBrightness</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterSaturation</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterContrast</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionBrightMult</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionNoiseSize</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionNoiseStrength</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomExtract</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomSize</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_post_process.xml</a_file>
-<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomStrength</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_preview_classified.xml</a_file>
-<b_path>/classified_preview</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Classified Information</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Vertrauliche Informationen</f_translation>
-</string><string><a_file>floater_preview_event.xml</a_file>
-<b_path>/event_preview</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Event Information</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Event-Informationen</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/library_label</b_path>
+	          Stärke:
+	</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		Library:
-	</e_new>
+				Price:  L$
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 		Bibliothek:
- 	</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/steps_label</b_path>
+				Preis:L$
+			</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Default</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		Steps:
-	</e_new>
+			Price:           L$
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 		Schritte:
- 	</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/animation_trigger_type/start</b_path>
+			Preis:L$
+			</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Total</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			Start
-		</e_new>
+			Total Price:  L$
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 			Start
- 		</f_translation>
-</string><string><a_file>floater_preview_gesture.xml</a_file>
-<b_path>/gesture_preview/animation_trigger_type/stop</b_path>
+			Summe:L$
+			</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Per Unit</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			Stop
-		</e_new>
+			Price Per:     L$
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 			Stopp
- 		</f_translation>
-</string><string><a_file>floater_preview_notecard_keep_discard.xml</a_file>
-<b_path>/preview_notecard/not_allowed</b_path>
+			Stückpreis:L$
+			</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/Cost Mixed</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>You are not allowed to view this note.</e_new>
+<e_new>
+			Mixed Price
+			</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Sie können diese Notiz nicht anzeigen.</f_translation>
-</string><string><a_file>floater_preview_url.xml</a_file>
-<b_path>/url_preview</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Place Information</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Ortsinformationen</f_translation>
-</string><string><a_file>floater_region_info.xml</a_file>
-<b_path>/regioninfo</b_path>
-<c_attribute>title</c_attribute>
-<d_old></d_old>
-<e_new>Region/Estate</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Region/Grundstück</f_translation>
+<f_translation>
+			Mischpreis
+			</f_translation>
 </string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolCube</b_path>
+<b_path>/toolbox floater/Object Info Tabs/General/Sale Mixed</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Mixed Sale
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Mischverkauf
+			</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt mirror control</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Mirror</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Spiegeln</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt mirror control</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>Cube</e_new>
+<e_new>Flips sculpted prim along the X axis.</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Würfel</f_translation>
+<f_translation>Geformtes Primitiv entlang der X-Achse spiegeln.</f_translation>
 </string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolPrism</b_path>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt invert control</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Inside-out</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Wenden</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Object/sculpt invert control</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>Prism</e_new>
+<e_new>Inverts the sculpted prims normals, making it appear inside-out.</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Prisma</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolPyramid</b_path>
-<c_attribute>tool_tip</c_attribute>
+<f_translation>Dreht die Normalen des geformten Primitivs von innen nach außen.</f_translation>
+</string><string><a_file>floater_top_objects.xml</a_file>
+<b_path>/top_objects/objects_list/time</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Pyramid</e_new>
+<e_new>Time</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Pyramide</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTetrahedron</b_path>
-<c_attribute>tool_tip</c_attribute>
+<f_translation>Uhrzeit</f_translation>
+</string><string><a_file>floater_tos.xml</a_file>
+<b_path>/modal container/agree_chk</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Tetrahedron</e_new>
+<e_new>I Agree to the Terms of Service</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Tetraeder</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolCylinder</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Cylinder</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zylinder</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolHemiCylinder</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Hemicylinder</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Halbzylinder</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolCone</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Cone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Kegel</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolHemiCone</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Hemicone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Halbkegel</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolSphere</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Sphere</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Kugel</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolHemiSphere</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Hemisphere</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Halbkugel</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTorus</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Torus</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Torus</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTube</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Tube</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Rohr</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolRing</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Ring</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Ring</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolTree</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Tree</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Baum</f_translation>
-</string><string><a_file>floater_tools.xml</a_file>
-<b_path>/toolbox floater/ToolGrass</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Grass</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Gras</f_translation>
+<f_translation>Ich stimme den Nutzungsbedingungen zu</f_translation>
 </string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/View/Joystick Flycam</b_path>
+<b_path>/Main Menu/World/Release Keys</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Joystick Flycam</e_new>
+<e_new>Release Keys</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Joystick-Flycam</f_translation>
+<f_translation>Tasten freigeben</f_translation>
 </string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/Tutorial</b_path>
+<b_path>/Main Menu/Tools/Recompile Scripts in Selection/Mono</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Tutorial</e_new>
+<e_new>Mono</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Tutorial</f_translation>
+<f_translation>Mono</f_translation>
 </string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/separator7</b_path>
+<b_path>/Main Menu/Tools/Recompile Scripts in Selection/LSL</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>-----------</e_new>
+<e_new>LSL</e_new>
 <f_old_trans></f_old_trans>
-<f_translation> -----------</f_translation>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/Bug Reporting/separator7</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>-----------</e_new>
-<f_old_trans></f_old_trans>
-<f_translation> -----------</f_translation>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/Bug Reporting/separator9</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>-----------</e_new>
-<f_old_trans></f_old_trans>
-<f_translation> -----------</f_translation>
+<f_translation>LSL</f_translation>
 </string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/web/</b_path>
+<b_path>/default/&quot;application/smil&quot;/&quot;application/smil_label&quot;</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			Web Content
+		    Synchronized Multimedia Integration Language (SMIL)
 		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 			Webinhalt
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/web/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			This location has Web content
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Dieser Ort verfügt über Webinhalte
+		    Synchronized Multimedia Integration Language (SMIL)
 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/web/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Show Web content
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Webinhalt anzeigen
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/movie/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Video
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/movie/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			There is a movie to play here
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Kein Video gefunden
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/movie/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Play movie
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Video wiedergeben
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/none/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			No Content
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Keine Inhalte
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/none/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			No media here
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Keine Medien gefunden
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/image/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Bild
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/image/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			There is an image at this location
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Dieser Ort verfügt über Bildinhalte
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/image/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			View this location&apos;s image
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Das Bild an diesem Ort anzeigen
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/audio/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Audio
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/audio/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			There is audio at this location
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Dieser Ort verfügt über Audioinhalte
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/audio/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			View this location&apos;s audio
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Audio an diesem Ort wiedergeben
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/rtsp/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Real Time Streaming
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Echtzeit-Streaming
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/blank/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			- None -
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			- Keine - 
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;none/none&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			- None -
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			- Keine - 
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/*&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Audio
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/*&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Video
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Video
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/*&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Bild
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/vnd.secondlife.qt.legacy&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (QuickTime)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Video (QuickTime)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/javascript&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Javascript
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Javascript
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/ogg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Ogg Audio/Video
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Ogg Audio/Video
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/pdf&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			PDF Document
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			PDF-Dokument
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/postscript&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Postscript Document
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Postscript-Dokument
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/rtf&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Rich Text (RTF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Rich Text (RTF)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/xhtml+xml&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Web Page (XHTML)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Webseite (XHTML)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/x-director&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Macromedia Director
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Macromedia Director
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;application/x-shockwave-flash&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Flash
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Flash
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/mid&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (MIDI)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Audio (MIDI)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/mpeg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (MP3)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Audio (MP3)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/x-aiff&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (AIFF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Audio (AIFF)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;audio/x-wav&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Audio (WAV)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Audio (WAV)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/bmp&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (BMP)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Bild (BMP)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/gif&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (GIF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Bild (GIF)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/jpeg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (JPEG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Bild (JPEG)
-		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/png&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (PNG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Bild (PNG)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/svg+xml&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (SVG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Bild (SVG)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;image/tiff&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Image (TIFF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Bild (TIFF)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;text/html&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Web Page
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Webseite
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;text/plain&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Text
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Text
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;text/xml&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			XML
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			XML
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/mpeg&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (MPEG)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Video (MPEG)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/mp4&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (MP4)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Video (MP4)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/quicktime&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (QuickTime)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Video (QuickTime)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/x-ms-asf&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (Windows Media ASF)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Video (Windows Media ASF)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/x-ms-wmv&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (Windows Media WMV)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Video (Windows Media WMV)
- 		</f_translation>
-</string><string><a_file>mime_types.xml</a_file>
-<b_path>/default/&quot;video/x-msvideo&quot;/</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Movie (AVI)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Video (AVI)
- 		</f_translation>
 </string><string><a_file>notify.xml</a_file>
-<b_path>//RezItemNoPermissions/message</b_path>
+<b_path>//OfferFriendshipNoMessage/message</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			Insufficient permissions to rez object.
+			[NAME] is offering friendship.
+
+(By default, you will be able to 
+see each other&apos;s online status.)
 		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 			Keine Berechtigung zum Rezzen von Objekten.
+			[NAME] bietet Ihnen die Freundschaft an.
+
+(Sie werden dadurch den gegenseitigen 
+Online-Status sehen können.)
 		</f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_audio</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_music</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_media</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_voice</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_sfx</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_wind</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_ui</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_groups.xml</a_file>
-<b_path>/groups/group list/name</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/help_text</b_path>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//OfferFriendshipNoMessage/Accept</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		You can select multiple residents to 
-invite to your group. Click &apos;Open 
-Person Chooser&apos; to start.
-	</e_new>
+			Accept
+		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-		Sie können mehrere Einwohner zu Ihrer
-Gruppe einladen. Klicken Sie auf
-&apos;Personenauswahl öffnen&apos;.
- 	</f_translation>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/role_text</b_path>
+			Akzeptieren
+		</f_translation>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//OfferFriendshipNoMessage/Decline</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		Choose what Role to assign them to:
-	</e_new>
+			Decline
+		</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
- 		Wählen Sie eine Rolle aus:
- 	</f_translation>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/confirm_invite_owner_str</b_path>
+			Ablehnen
+		</f_translation>
+</string><string><a_file>panel_login.xml</a_file>
+<b_path>/panel_login/create_new_account_text</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>
-		Are you sure you want to invite new owner(s)? This action is permanent!
+<e_new>Create new account.
 	</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
- 		Möchten Sie wirklich (einen) neue(n) Eigentümer einladen? Dies kann nicht rückgängig gemacht werden!
+<f_translation>Neues Konto erstellen.
 	</f_translation>
-</string><string><a_file>panel_master_volume.xml</a_file>
-<b_path>/master_volume/mute_master</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/play_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Play
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Wiedergeben
- 	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/stop_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Stop
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Stopp
- 	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/pause_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Pause
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Pause
- 	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/default_tooltip_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		No Media Specified
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Keine Medien angegeben
- 	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_hidden_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		(URL hidden by parcel owner)
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		(URL von Parzelleneigentümer versteckt)
- 	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_icon_tooltip_web</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		This location displays content from the World Wide Web. Click the Play button to display Web content.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		An diesem Ort werden Inhalte aus dem World Wide Web wiedergegeben. Klicken Sie auf &apos;Wiedergeben&apos;, um Webinhalte wiederzugeben.
- 	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_icon_tooltip_movie</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		This location displays Video content. Click the Play button to play the video.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		An diesem Ort werden Videoinhalte wiedergegeben. Klicken Sie auf &apos;Wiedergeben&apos;, um das Video abzuspielen.
-	</f_translation>
-</string><string><a_file>panel_media_remote_expanded.xml</a_file>
-<b_path>/media_remote/media_play_tooltip</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Display Web content at this location.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Webinhalt an diesem Ort anzeigen.
- 	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/name_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Name:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Name:
- 	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/description_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Description:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Beschreibung:
- 	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/information_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Information:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Information:
- 	</f_translation>
-</string><string><a_file>panel_place.xml</a_file>
-<b_path>/Place/location_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Location:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Standort:
- 	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/name_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Name:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Name:
- 	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/description_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Description:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Beschreibung:
- 	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/information_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Information:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Information:
- 	</f_translation>
-</string><string><a_file>panel_place_small.xml</a_file>
-<b_path>/Place/location_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Location:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Standort:
- 	</f_translation>
 </string><string><a_file>panel_preferences_chat.xml</a_file>
-<b_path>/chat/im</b_path>
+<b_path>/chat/user</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>IM</e_new>
+<e_new>You</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>IM</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/fade_out_combobox/Never</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Never
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Nie
- 		</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/fade_out_combobox/Show Temporarily</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Show Temporarily
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Temporär anzeigen
- 		</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/fade_out_combobox/Always</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Always
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 			Immer
- 		</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/group_titles_textbox</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Group Titles:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Gruppentitel:
- 	</f_translation>
-</string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/show_all_title_checkbox</b_path>
+<f_translation>Sie</f_translation>
+</string><string><a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/agent</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Hide All Group Titles</e_new>
+<e_new>Others</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Alle Gruppentitel ausblenden</f_translation>
+<f_translation>Andere</f_translation>
+</string><string><a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/play_typing_animation</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Play typing animation</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Tipp-Animation abspielen</f_translation>
+</string><string><a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/language_is_public</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Share language with objects</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Objekten Sprache mitteilen</f_translation>
+</string><string><a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/language_is_public</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>This lets in-world objects know your preferred language.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>In-Welt-Objekten wird Ihre bevorzugte Spracheinstellung mitgeteilt.</f_translation>
 </string><string><a_file>panel_preferences_graphics1.xml</a_file>
 <b_path>/Display panel/QualityPerformanceSelection</b_path>
 <c_attribute>label</c_attribute>
@@ -2005,1611 +1018,216 @@ Gruppe einladen. Klicken Sie auf
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/Camera Follow Distance:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Camera Follow Distance:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Kameraabstand:
- 	</f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/Camera Transition Time:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Camera Transition Time:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Zeit für Kamerawechsel:
-	</f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/Camera Smoothing:</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Camera Smoothing:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Bewegungsglättung:
- 	</f_translation>
-</string><string><a_file>panel_preferences_input.xml</a_file>
-<b_path>/Input panel/joystic_setup_button</b_path>
+</string><string><a_file>panel_preferences_im.xml</a_file>
+<b_path>/im/friends_online_notify_checkbox</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Joystick Setup</e_new>
+<e_new>Show Online Friend Notifications</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Joystick-Einrichtung</f_translation>
+<f_translation>Online-Freundbenachrichtigungen anzeigen</f_translation>
 </string><string><a_file>panel_preferences_popups.xml</a_file>
-<b_path>/popups/dont_show_label</b_path>
-<c_attribute></c_attribute>
+<b_path>/popups/show_in_inventory</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>
-		Do not show popups:
-	</e_new>
+<e_new>Automatically show newly accepted objects in inventory</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
- 		Popups nicht anzeigen:
- 	</f_translation>
-</string><string><a_file>panel_preferences_popups.xml</a_file>
-<b_path>/popups/show_label</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Show popups:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 		Popups anzeigen:
- 	</f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderation_mode_panel/moderation_mode/OpenVoice</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Open Voice (default)
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 					Freies Voice (Standard)
- 				</f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderation_mode_panel/moderation_mode/ModeratedVoice</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Moderated Voice
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
- 					Moderiertes Voice
- 				</f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderate_chat_panel/speakers_list/speaking_status</b_path>
+<f_translation>Neue Objekte im Inventar automatisch anzeigen</f_translation>
+</string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/classic_preview</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
-</string><string><a_file>panel_speaker_controls.xml</a_file>
-<b_path>/active_speakers_panel/panels/moderate_chat_panel/speaker_controls/profile_btn</b_path>
+</string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/silver_preview</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
-</string><string><a_file>panel_status_bar.xml</a_file>
-<b_path>/status/menubar_search_bevel_bg</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
-<b_path>/voice_remote/voice_channel_bg</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
-<b_path>/voice_remote/voice_channel_icon</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
-<b_path>/voice_remote/channel_label</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//UnsupportedHardware/ignore</b_path>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/target_avatar_name</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-			Ignore unsupported hardware
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Nicht unterstützte Hardware ignorieren
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//UnknownGPU/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Your system contains a graphics card that is unknown to us at this time.  
-This is often the case with new hardware we haven&apos;t had a chance to 
-test.  Second Life will most likely run properly, but you may need to 
-adjust your graphics settings to something more appropriate.
-(Edit &gt; Preferences &gt; Graphics).
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-Ihr System verwendet eine uns zurzeit unbekannte Grafikkarte.  
-Dies ist häufig der Fall bei neuer Hardware, die wir noch nicht testen konnten. 
-Second Life funktioniert aller Voraussicht nach normal, möglicherweise 
-müssen Sie aber die Grafikeinstellungen anpassen.
-(Bearbeiten &gt; Einstellungen &gt; Grafik).
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//UnknownGPU/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Ignore unknown graphics card
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Unbekannte Grafikkarte ignorieren
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ClothingLoading/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			When clothing is taking a long time to download
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Wenn das Herunterladen von Kleidung lange dauert
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Does this classified contain Mature content?
+	  (none)
     </e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-Enthält diese Anzeige nicht jugendfreie Inhalte?
+	  (keiner)
     </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Yes
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Ja
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/Not Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      No
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Nein
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetClassifiedMature/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Cancel
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Abbrechen
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-Does this group contain Mature content?
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-Beschäftigt sich diese Gruppe mit nicht jugendfreien Inhalten?
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Yes
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Ja
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/Not Mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      No
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Nein
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//SetGroupMature/Cancel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Cancel
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Abbrechen
-    </f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//MissingString/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			The string [STRING_NAME] is missing from strings.xml
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Der String [STRING_NAME] fehlt in strings.xml
-		</f_translation>
-</string><string><a_file>floater_active_speakers.xml</a_file>
-<b_path>/active_speakers/active_speakers_panel/speakers_list/speaking_status</b_path>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_scripts</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new></e_new>
+<e_new>Return only those objects with scripts</e_new>
 <f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Showcase</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Showcase</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Suchen...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Nicht gefunden.</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/back_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Back</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zurück</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/forward_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Forward</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Weiter</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/loading_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Loading...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Wird geladen...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/showcase_panel/done_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Done</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Fertig</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/back_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Back</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zurück</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/forward_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Forward</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Weiter</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/search_editor</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Search</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Suchen</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/search_editor</b_path>
+<f_translation>Nur Objekte mit Skripten zurückgeben</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_scripts</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>Search Second Life</e_new>
+<e_new>Return only objects which have scripts.</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Second Life durchsuchen</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/search_btn</b_path>
+<f_translation>Es werden nur die Objekte zurückgegeben, die über Skripte verfügen.</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_other_land</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Search</e_new>
+<e_new>Return only those objects on someone else&apos;s land</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Suchen</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/mature_check</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Include Mature content</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Ab-18-Inhalte einschließen</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/loading_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Loading...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Wird geladen...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/done_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Done</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Fertig</f_translation>
-</string><string><a_file>floater_im.xml</a_file>
-<b_path>/im_floater/muted_message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		[FIRST] [LAST] is muted.
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		[FIRST] [LAST] ist stummgeschaltet.
-	</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//AutoUnmuteByIM/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			[FIRST] [LAST] was sent an instant message and has been automatically unmuted.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			[FIRST] [LAST] hat eine Instant Message erhalten; die Stummschaltung wurde aufgehoben.
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//AutoUnmuteByMoney/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			[FIRST] [LAST] was given money and has been automatically unmuted.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			[FIRST] [LAST] hat Geld erhalten; die Stummschaltung wurde aufgehoben.
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//AutoUnmuteByInventory/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			[FIRST] [LAST] was offered inventory and has been automatically unmuted.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			[FIRST] [LAST] wurde ein Inventarobjekt angeboten; die Stummschaltung wurde aufgehoben.
-		</f_translation>
-</string><string><a_file>panel_avatar_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/select_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      - Select Mature -
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      - Jugendfreigabe wählen -
-    </f_translation>
-</string><string><a_file>panel_avatar_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Mature Content
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Ab-18-Inhalt
-    </f_translation>
-</string><string><a_file>panel_avatar_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/not_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Not Mature Content
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Jugendfreier Inhalt
-    </f_translation>
-</string><string><a_file>panel_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/select_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      - Select Mature -
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      - Jugendfreigabe wählen -
-    </f_translation>
-</string><string><a_file>panel_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Mature Content
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Ab-18-Inhalt
-    </f_translation>
-</string><string><a_file>panel_classified.xml</a_file>
-<b_path>/Classified/classified_mature_check/not_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Not Mature Content
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Jugendfreier Inhalt
-    </f_translation>
-</string><string><a_file>panel_groups.xml</a_file>
-<b_path>/groups/group list/name</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new></e_new>
-<f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check</b_path>
+<f_translation>Nur Objekte auf dem Land eines anderen Einwohners zurückgeben</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_other_land</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>Sets whether your group information is considered mature.</e_new>
+<e_new>Return only objects which are on land belonging to someone else</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Festlegen, ob die Informationen Ihrer Gruppe nicht jugendfrei sind.</f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check/select_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			- Select Mature -
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			- Jugendfreigabe wählen -
-			</f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check/mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Mature Content
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Ab-18-Inhalt
-			</f_translation>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/preferences_container/group_mature_check/not_mature</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Not Mature Content
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Jugendfreier Inhalt
-			</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/WindowSizeLabel</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Window Size:
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		Fenstergröße:
-	</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/640x480</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			640x480
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			640x480
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/800x600</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			800x600 
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			800x600 
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/720x480</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			720x480 (NTSC)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			720x480 (NTSC)
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/768x576</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			768x576 (PAL)
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			768x576 (PAL)
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowsize combo/1024x768</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			1024x768
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			1024x768
-		</f_translation>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/QualityPerformanceSelection</b_path>
+<f_translation>Es werden nur die Objekte zurückgegeben, die sich auf dem Land eines anderen Einwohners befinden</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_estate_wide</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new></e_new>
+<e_new>Return objects in every region of this estate</e_new>
 <f_old_trans></f_old_trans>
-<f_translation></f_translation>
-</string><string><a_file>panel_preferences_web.xml</a_file>
-<b_path>/web/use_external_browser/internal</b_path>
+<f_translation>Objekte in jeder Region dieses Grundstücks zurückgeben</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_estate_wide</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>Use the built-in web browser for help, web links, etc. This browser opens as a new window inside Second Life.</e_new>
+<e_new>Return objects in all of the regions that make up this estate</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Den integrierten Browser zur Suche im Internet verwenden. Der Browser wird als eigenständiges Fenster in Second Life geöffnet.</f_translation>
-</string><string><a_file>panel_region_general.xml</a_file>
-<b_path>/General/version_channel_text_lbl</b_path>
+<f_translation>Es werden die Objekte in allen Regionen dieses Grundstücks zurückgegeben</f_translation>
+</string><string><a_file>panel_region_debug.xml</a_file>
+<b_path>/Debug/return_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Return</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Zurückgeben</f_translation>
+</string><string><a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/abuse_email_text</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		Version: 
+		Abuse email address:
 	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-		Version: 
+		E-Mail-Adresse für Missbrauchsmeldungen:
 	</f_translation>
-</string><string><a_file>panel_region_general.xml</a_file>
-<b_path>/General/version_channel_text</b_path>
+</string><string><a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/email_unsupported</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>
-		unknown
-	</e_new>
+<e_new>Feature unsupported</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-		unbekannt
-	</f_translation>
+<f_translation>Funktion nicht unterstützt</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old></d_old>
+<e_new>These Abilities include powers to allow or restrict access to group chat sessions and group voice chat.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Diese Fähigkeiten ermöglichen es, den Zugang zu Gruppen-Chat und Gruppen-Voice-Chat zu steuern.</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/join group chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old></d_old>
+<e_new>Join Group Chat</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Gruppen-Chat beitreten</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/join group chat</b_path>
+<c_attribute>longdescription</c_attribute>
+<d_old></d_old>
+<e_new>Members in a Role with this Ability can join group chat sessions, for text and voice.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Mitglieder in einer Rolle mit dieser Fähigkeit können Gruppen-Chat und Gruppen-Voice-Chat beitreten.</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/join voice chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old></d_old>
+<e_new>Join Group Voice Chat</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Gruppen-Voice-Chat beitreten</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/join voice chat</b_path>
+<c_attribute>longdescription</c_attribute>
+<d_old></d_old>
+<e_new>Members in a Role with this Ability can join group voice chat sessions.  NOTE: The Join Group Chat ability is required to access the voice chat session.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Mitglieder in einer Rolle mit dieser Fähigkeit können Gruppen-Voice-Chat beitreten.HINWEIS:Sie benötigen die Fähigkeit &apos;Gruppen-Chat beitreten&apos;, um Zugang zu dieser Voice-Chat-Sitzung zu erhalten.</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/moderate group chat</b_path>
+<c_attribute>description</c_attribute>
+<d_old></d_old>
+<e_new>Moderate Group Chat</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Gruppen-Chat moderieren</f_translation>
+</string><string><a_file>role_actions.xml</a_file>
+<b_path>//Chat/moderate group chat</b_path>
+<c_attribute>longdescription</c_attribute>
+<d_old></d_old>
+<e_new>Members in a Role with this Ability can control access and participation in group voice and text chat sessions.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Mitglieder in einer Rolle mit dieser Fähigkeit können den Zugang zu und die Teilnahme an Gruppen-Chat- und Voice-Chat-Sitzungen steuern.</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInProgress</b_path>
+<b_path>//LoginInitializingMultimedia</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Logging in. [APP_NAME] may appear frozen.  Please wait.</e_new>
+<e_new>Initializing multimedia...</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Anmeldevorgang gestartet. [APP_NAME] reagiert möglicherweise nicht.  Bitte warten.</f_translation>
+<f_translation>Multimedia wird initialisiert...</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//LoginAuthenticating</b_path>
+<b_path>//AgentLostConnection</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Authenticating</e_new>
+<e_new>This region may be experiencing trouble.  Please check your connection to the Internet.</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Authentifizierung</f_translation>
+<f_translation>In dieser Region kann es zu Problemen kommen. Bitte überprüfen Sie Ihre Internetverbindung.</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//LoginMaintenance</b_path>
+<b_path>//TooltipMustSingleDrop</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Performing account maintenance...</e_new>
+<e_new>Only a single item can be dragged here</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Account wird aktualisiert...</f_translation>
+<f_translation>Sie können nur ein einzelnes Objekt hierher ziehen</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//LoginAttempt</b_path>
+<b_path>//ReleaseNotes</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Previous login attempt failed. Logging in, attempt [NUMBER]</e_new>
+<e_new>Release Notes</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Ein früherer Anmeldeversuch ist fehlgeschlagen. Anmeldung, Versuch [NUMBER]</f_translation>
+<f_translation>Versionshinweise</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//LoginPrecaching</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Loading world...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Welt wird geladen...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInitializingBrowser</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Initializing embedded web browser...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Integrierter Webbrowser wird initialisiert...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginVerifyingCache</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Verifying cache files (can take 60-90 seconds)...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Cache-Dateien werden überprüft (dauert 60-90 Sekunden)...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginProcessingResponse</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Processing Response...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Antwort wird verarbeitet...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInitializingWorld</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Initializing World...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Welt wird initialisiert...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginDecodingImages</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Decoding images...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Bilder werden entpackt...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginInitializingQuicktime</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Initializing QuickTime...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>QuickTime wird initialisiert...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginQuicktimeNotFound</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>QuickTime not found - unable to initialize.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>QuickTime nicht gefunden - Initialisierung nicht möglich.</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginQuicktimeOK</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>QuickTime initialized successfully.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>QuickTime wurde initialisiert.</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginWaitingForRegionHandshake</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Waiting for region handshake...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Region-Handshake...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginConnectingToRegion</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Connecting to region...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Region-Verbindung...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoginDownloadingClothing</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Downloading clothing...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Kleidung wird geladen...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipPerson</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Person</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Person</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipNoName</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(no name)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(namenlos)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipOwner</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Owner:</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Eigentümer:</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipPublic</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Public</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Öffentlich</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipIsGroup</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(Group)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(Gruppe)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagScript</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Script</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Skript</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagPhysics</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Physics</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Physik</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagTouch</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Touch</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Berühren</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagL$</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>L$</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>L$</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagDropInventory</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Drop Inventory</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Inventar fallen lassen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagPhantom</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Phantom</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Phantom</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagTemporary</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Temporary</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Temporär</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagRightClickMenu</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(Right-click for menu)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(Rechtsklick für Menü)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFreeToCopy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Free to copy</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Kopieren möglich</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipForSaleL$</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>For Sale: L$[AMOUNT]</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zum Verkauf: [AMOUNT] L$</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipForSaleMsg</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>For Sale: [MESSAGE]</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zum Verkauf: [MESSAGE]</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagGroupBuild</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Group Build</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Gruppenbau</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoBuild</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No Build</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Bauen aus</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoEdit</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Group Build</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Gruppenbau</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNotSafe</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Not Safe</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Unsicher</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoFly</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No Fly</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Fliegen aus</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagGroupScripts</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Group Scripts</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Gruppenskripte</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipFlagNoScripts</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No Scripts</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Skripte aus</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//TooltipLand</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Land:</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Land:</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//RetrievingData</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Retrieving...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Laden...</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//LoadingData</b_path>
+<b_path>//texture_loading</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>Loading...</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>Wird geladen...</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarNameNobody</b_path>
+<b_path>//worldmap_offline</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>(nobody)</e_new>
+<e_new>Offline</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>(niemand)</f_translation>
+<f_translation>Offline</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarNameWaiting</b_path>
+<b_path>//whisper</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>(waiting)</e_new>
+<e_new>whispers:</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>(wartet)</f_translation>
+<f_translation>Flüstert:</f_translation>
 </string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarNameHippos</b_path>
+<b_path>//shout</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>(hippos)</e_new>
+<e_new>shouts:</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>(hippos)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//GroupNameNone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(none)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(keiner)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorNone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No error</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Kein Fehler</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorRequestFailed</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Asset request: failed</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Asset-Anforderung: fehlgeschlagen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorNonexistentFile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Asset request: non-existent file</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Asset-Anforderung: Datei existiert nicht</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorNotInDatabase</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Asset request: asset not found in database</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Asset-Anforderung: Asset in Datenbank nicht gefunden</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorEOF</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>End of file</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Ende der Datei</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorCannotOpenFile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Cannot open file</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Datei kann nicht geöffnet werden</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorFileNotFound</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>File not found</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Datei nicht gefunden</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorTCPTimeout</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>File transfer timeout</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zeitüberschreitung bei Dateiübertragung</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorCircuitGone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Circuit gone</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Verbindung verloren</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AssetErrorUnknownStatus</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Unknown status</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Status unbekannt</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarEditingApparance</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>(Editing Appearance)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>(Aussehen wird bearbeitet)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarAway</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Away</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Abwesend</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarBusy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Busy</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Beschäftigt</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//AvatarMuted</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Muted</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Stummgeschaltet</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_afraid</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Afraid</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Ängstlich</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_anger</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Angry</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Verärgert</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_away</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Away</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Abwesend</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_backflip</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Backflip</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Rückwärtssalto</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_laugh</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Belly Laugh</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Lachkrampf</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_toothsmile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>BigSmile</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Grinsen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_blowkiss</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Blow Kiss</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Kusshand</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_bored</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Bored</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Gelangweilt</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_bow</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Bow</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Verbeugen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_clap</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Clap</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Klatschen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_courtbow</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Court Bow</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Diener</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_cry</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Cry</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Weinen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance1</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 1</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Tanz 1</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance2</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 2</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Tanz 2</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance3</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 3</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Tanz 3</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance4</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 4</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Tanz 4</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance5</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 5</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Tanz 5</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance6</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 6</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Tanz 6</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance7</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 7</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Tanz 7</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_dance8</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Dance 8</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Tanz 8</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_disdain</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Disdain</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Verachten</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_drink</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Drink</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Trinken</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_embarrased</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Embarrassed</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Verlegen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_angry_fingerwag</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Finger Wag</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Drohen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_fist_pump</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Fist Pump</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Faust pumpen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_yoga_float</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Floating Yoga</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Yogaflieger</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_frown</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Frown</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Stirnrunzeln</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_impatient</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Impatient</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Ungeduldig</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_jumpforjoy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Jump For Joy</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Freudensprung</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_kissmybutt</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Kiss My Butt</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>LMA</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_kiss</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Kiss</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Küssen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_laugh_short</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Laugh</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Lachen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_musclebeach</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Muscle Beach</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Posen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_no_unhappy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No (Unhappy)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Nein (Bedauernd)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_no_head</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>No</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Nein</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_nyanya</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Nya-nya-nya</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Ällabätsch</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_punch_onetwo</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>One-Two Punch</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Eins-Zwei-Punch</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_open_mouth</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Open Mouth</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Mund offen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_peace</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Peace</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Friede</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_point_you</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Point at Other</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Auf anderen zeigen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_point_me</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Point at Self</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Auf mich zeigen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_punch_l</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Punch Left</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Linker Haken</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_punch_r</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Punch Right</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Rechter Haken</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_countdown</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS count</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>SSP zählen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_paper</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS paper</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>SSP Papier</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_rock</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS rock</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>SSP Stein</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_rps_scissors</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>RPS scissors</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>SSP Schere</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_repulsed</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Repulsed</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Angewidert</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_kick_roundhouse_r</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Roundhouse Kick</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Rundkick</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_sad</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Sad</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Traurig</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_salute</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Salute</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Salutieren</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_shout</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Shout</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Rufen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_shrug</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Shrug</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Schulterzucken</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_smile</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smile</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Lächeln</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_smoke_idle</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smoke Idle</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zigarette halten</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_smoke_inhale</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smoke Inhale</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Rauchen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_smoke_throw_down</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Smoke Throw Down</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zigarette wegwerfen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_surprise</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Surprise</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Überraschung</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_sword_strike_r</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Sword Strike</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Schwerthieb</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_angry_tantrum</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Tantrum</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Wutanfall</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_tongue_out</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>TongueOut</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zunge rausstrecken</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_hello</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Wave</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Winken</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_whisper</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Whisper</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Flüstern</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_whistle</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Whistle</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Pfeifen</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_wink</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Wink</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zwinkern</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_wink_hollywood</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Wink (Hollywood)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Zwinkern (Hollywood)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_express_worry</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Worry</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Sorgenvoll</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_yes_happy</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yes (Happy)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Ja (Erfreut)</f_translation>
-</string><string><a_file>strings.xml</a_file>
-<b_path>//anim_yes_head</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Yes</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Ja</f_translation>
+<f_translation>Ruft:</f_translation>
 </string>
-<string><a_file>alerts.xml</a_file>
-<b_path>//ChangeSkin/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      The new skin will appear after you restart [SECOND_LIFE].
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>      Die neue Benutzeroberfläche wird nach einem Neustart von [SECOND_LIFE] angewendet.
-    </f_translation></string><string><a_file>notify.xml</a_file>
-<b_path>//UnableToOpenCommandURL/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			The URL you clicked cannot be opened from this web browser.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>			Die URL, die Sie angeklickt haben, kann in diesem Web Browser nicht geöffnet werden.
-		</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Skins</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Benutzeroberflächen</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel/muting_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-		Select a skin (requires restart):
-	</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-		Wählen Sie eine Benutzeroberfläche aus (erfordert Neustart):
-	</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel/skin_selection/default</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Classic
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Klassisch
-    </f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
-<b_path>/Skins panel/skin_selection/silver</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-      Silver
-    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-      Silber
-    </f_translation></string>
 </strings>

@@ -96,7 +96,6 @@ void LLPrefsVoiceLogic::init()
 	mEnableVoice = gSavedSettings.getBOOL("EnableVoiceChat");
 
 	mVoiceCallsFriendsOnly = gSavedSettings.getBOOL("VoiceCallsFriendsOnly");
-// 	mEnablePushToTalk = gSavedSettings.getBOOL("EnablePushToTalk");
 	mModifier = gSavedSettings.getString("PushToTalkButton");
 	mPushToTalkToggle = gSavedSettings.getBOOL("PushToTalkToggle");
 	mEarLocation = gSavedSettings.getS32("VoiceEarLocation");
@@ -139,7 +138,6 @@ void LLPrefsVoiceLogic::cancel()
 {
 	gSavedSettings.setBOOL("EnableVoiceChat", mEnableVoice);
 	gSavedSettings.setBOOL("VoiceCallsFriendsOnly", mVoiceCallsFriendsOnly);
-// 	gSavedSettings.setBOOL("EnablePushToTalk", mEnablePushToTalk );
 	gSavedSettings.setString("PushToTalkButton", mModifier);
 	gSavedSettings.setBOOL("PushToTalkToggle", mPushToTalkToggle );
 	gSavedSettings.setS32("VoiceEarLocation", mEarLocation);

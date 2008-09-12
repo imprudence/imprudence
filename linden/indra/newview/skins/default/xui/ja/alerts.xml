@@ -396,9 +396,9 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
 		<message name="message">
-			「検索に表示」を選択すると表示:
-			- 検索結果における自分のプロフィール
-			- パブリックグループページにおける自分のプロフィールへのリンク
+			[検索に表示]を選択すると表示:
+- 検索結果における自分のプロフィール
+- パブリック・グループ・ページにおける自分のプロフィールへのリンク
 		</message>
 	</alert>
 	<alert name="ClickPartnerHelpAvatar">
@@ -416,12 +416,13 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="ClickWebProfileHelpAvatar">
 		<message name="message">
-			この住人がウェブ・プロフィールURLを設定している場合は、以下のことが可能です。
-*そのページを内蔵ブラウザーで表示するには、[ロード]をクリックします。
-*そのページをデフォルトの外部ウェブ・ブラウザーで表示するには、[開く]をクリックします。
+			この住人がウェブプロフィールURLを設定している場合は、以下のことが可能です。
+ * そのページを内蔵ブラウザーで表示するには、[ロード]をクリックします。
+ * そのページを外部ブラウザーで表示するには、[ロード]-[開く]をクリックします。
+ * 別のページにアクセスしてしまい、住人のウェブ・プロフィールに戻りたい時は、[ロード]-[ホームURL]をクリックします。
  
-自分のプロフィールを表示しているときは、任意のURLをウェブ・プロフィールとして入力できます。
-プロフィールを見た住人は、そのURLにアクセスすることができます。
+自分のプロフィールを表示しているときは、任意のURLをウェブプロフィールとして入力し、[OK]をクリックして設定できます。
+プロフィールを見た他の住人は、そのURLにアクセスすることができます。
 		</message>
 	</alert>
 	<alert name="ClickWebProfileNoWebHelpAvatar">
@@ -698,7 +699,7 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="PromptMissingSubjMsg">
 		<message name="message">
-			デフォルトの件名またはメッセージを付けて、ポストカードを送信しますか？
+			デフォルトの件名またはメッセージを付けて、スナップショットを送信しますか？
 		</message>
 		<option name="OK">
 			OK
@@ -817,7 +818,7 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="ErrorUploadingPostcard">
 		<message name="message">
-			次の理由で、ポストカードのアップロード時に問題が起こりました。 [REASON]
+			次の理由で、スナップショットの送信時に問題が起こりました： [REASON]
 		</message>
 	</alert>
 	<alert name="ErrorUploadingReportScreenshot">
@@ -859,14 +860,16 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
-			[SECOND_LIFE]に接続するにはアカウントが必要です。
-アカウントを作成するためにwww.secondlife.comを開きますか？
+			おっと! 記入漏れがありますよ。
+アバターのファーストネームとラストネームの両方を入力する必要があります。
+
+[SECOND_LIFE]に入るには、アカウントが必要です。 アカウントを作成しますか?
 		</message>
 		<option name="OK">
-			OK
+			新しいアカウントを作成
 		</option>
 		<option name="Cancel">
-			取り消し
+			もう一度試す
 		</option>
 	</alert>
 	<alert name="FreezeAvatarFullname">
@@ -1378,6 +1381,17 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 			女性
 		</option>
 	</alert>
+	<alert name="EstateObjectReturn">
+		<message name="message">
+			[USER_NAME]が所有しているオブジェクトを返却しますか?
+		</message>
+		<option name="Return">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
 	<alert name="MaxAgentOnRegionBatch">
 		<message name="message">
 			[NUM_ADDED] 個のエージェントを追加しようとして失敗しました: [MAX_AGENTS] [LIST_TYPE] 制限を [NUM_EXCESS] 個超過しています。
@@ -1658,7 +1672,7 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 	<alert name="CannotGiveCategory">
 		<message name="message">
 			選択したフォルダを譲渡できる権限
-			がありません。
+がありません
 		</message>
 	</alert>
 	<alert name="FreezeAvatar">
@@ -2048,7 +2062,7 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 	<alert name="CannotBuyLandNoRegion">
 		<message name="message">
 			土地を購入できません：
-			この土地がある地域を見つけることができません。
+この土地がある地域を見つけることができません
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNothingSelected">
@@ -2426,15 +2440,12 @@ L$は贈与されません。
 	</alert>
 	<alert name="YouHaveBeenLoggedOut">
 		<message name="message">
-			あなたは[SECOND_LIFE]からログアウトされました：
-[MESSAGE]
-
-[続行]をクリックすると現在あるIMとチャットを確認できます。
-これ以外の操作はできません。
-[終了]をクリックして、すぐに[SECOND_LIFE]を終了してください。
+			あなたは[SECOND_LIFE]からログアウトされました。
+            [MESSAGE]
+[IMとチャットを表示]をクリックすると、現在あるIMとチャットを確認できます。 確認しない場合は、[終了]をクリックして、すぐに[SECOND_LIFE]を終了してください。
 		</message>
 		<option name="Continue">
-			続行
+			IMとチャットを表示
 		</option>
 		<option name="Quit">
 			終了
@@ -2456,11 +2467,10 @@ L$は贈与されません。
 	</alert>
 	<alert name="AddFriend" title="フレンドを追加">
 		<message name="message">
-			フレンド同士は、地図上で互いを追跡し、
-オンライン・ステータスの更新情報を受信する
-権限を与え合うことができます。 
+			フレンド同士は、地図上でお互いを追跡し、
+オンライン・ステータスの更新情報を受信する権限を与え合うことができます。 
 
-[NAME]とフレンド登録をしますか？
+[NAME]とフレンド登録をしますか?
 		</message>
 		<option name="Offer">
 			OK
@@ -2468,6 +2478,7 @@ L$は贈与されません。
 		<option name="Cancel">
 			取り消し
 		</option>
+		フレンドになっていただけますか?
 	</alert>
 	<alert name="RemoveFromFriends">
 		<message name="message">
@@ -4502,15 +4513,18 @@ http://secondlife.com/community/support.php
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
-			親愛なる住人の皆様へ：
- 
-著作権侵害に関する報告はhttp://secondlife.com/corporate/dmca.phpの
-記述に従ってのみ提出することができます。
+			親愛なる住人の皆様へ
 
-[嫌がらせ報告]機能を通じて著作権侵害に関する報告を提出しても、その報告は自動的に破棄されます。著作権侵害に関係のない報告であれば、このウィンドウを閉じて報告を提出することができます。
- 
+知的所有権の侵害を報告する場合は、以下のとおり正確に報告してください。
+
+(1) 嫌がらせの処理。 住人がSecond Lifeの許可システムを不当に使用し、知的所有権が侵害されていると考えられる場合は、嫌がらせ報告を提出することができます。許可システムを不当に使用する手段としては、たとえば、CopyBotまたは類似したコピー・ツールがあります。 嫌がらせ対応担当チームが調査を行い、Second Lifeのコミュニティ・スタンダードまたは利用規約に違反する態度に対しては適切な懲罰処分が行われます。 ただし、嫌がらせ対応担当チームでは、コンテンツをSecond Lifeワールドから削除するリクエストに対する処理または回答は行いません。
+
+(2) DMCAまたはコンテンツの削除処理。 Second Lifeからのコンテンツの削除をリクエストするには、http://secondlife.com/corporate/dmca.phpのDMCAポリシーにある、侵害に関する有効な通知を提出する必要があります。
+
+嫌がらせの処理を継続する場合は、このウインドウを閉じ、報告を提出してください。
+
 ご協力ありがとうございます。
- 
+
 Linden Lab
 		</message>
 	</alert>
@@ -4587,8 +4601,7 @@ Linden Lab
 	</alert>
 	<alert name="ConfirmClearCookies">
 		<message name="message">
-			本当にクッキーを
-クリアしますか？
+			本当にクッキーをクリアしますか?
 		</message>
 		<option name="Yes">
 			はい
@@ -5052,7 +5065,7 @@ Linden Lab
 	<alert name="Cannot_Purchase_an_Attachment">
 		<message name="message">
 			アイテムが添付物の一部である間は、
-			アイテムを購入できません。
+アイテムを購入できません。
 		</message>
 	</alert>
 	<alert name="DebitPermissionDetails"

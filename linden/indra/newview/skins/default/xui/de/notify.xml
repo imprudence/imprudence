@@ -576,10 +576,25 @@ Der Beitritt ist kostenlos.
 	</notify>
 	<notify name="OfferFriendship">
 		<message name="message">
-			[NAME] bietet die Freundschaft an.
-      
-      Sie werden dadurch den gegenseitigen 
-Online-Status sehen können.
+			[NAME] bietet Ihnen die Freundschaft an.
+ 
+[MESSAGE]
+ 
+(Standardmäßig werden Sie gegenseitig ihren Online-Status sehen können.)
+		</message>
+		<option name="Accept">
+			Akzeptieren
+		</option>
+		<option name="Decline">
+			Ablehnen
+		</option>
+	</notify>
+	<notify name="OfferFriendshipNoMessage">
+		<message name="message">
+			[NAME] bietet Ihnen die Freundschaft an.
+
+(Sie werden dadurch den gegenseitigen 
+Online-Status sehen können.)
 		</message>
 		<option name="Accept">
 			Akzeptieren
@@ -640,14 +655,20 @@ Von Objekt: [OBJECTNAME], Eigentümer: [NAME]?
 	</notify>
 	<notify name="FailedToLoadWearableUnnamed">
 		<message name="message">
-			[TYPE] konnte nicht geladen werden.
-Wenden Sie sich an den Verkäufer dieses Objekts.
+			Hoppla!
+Sie haben versucht, ein(e)/einen [TYPE] anzuziehen, aber das Laden hat nicht funktioniert.
+
+Keine Panik.
+Versuchen Sie es in einer Minute erneut, dann wird es schon klappen.
 		</message>
 	</notify>
 	<notify name="FailedToLoadWearable">
 		<message name="message">
-			[TYPE] namens [DESC] konnte nicht geladen werden.
-Wenden Sie sich an den Verkäufer dieses Objekts.
+			Hoppla!
+Sie haben versucht, ein(e)/einen [TYPE] namens [DESC] anzuziehen, aber das Laden hat nicht funktioniert.
+
+Keine Panik.
+Versuchen Sie es in einer Minute erneut, dann wird es schon klappen.
 		</message>
 	</notify>
 	<notify name="FailedToFindWearableUnnamed">
@@ -832,9 +853,9 @@ Die rechte Maustaste zeigt immer ein Aktionsmenü an.
 	</notify>
 	<notify name="FirstTeleport">
 		<message name="message">
-			Sie wurden teleportiert. 
-Sie befinden sich am Infohub, der Ihrem Ziel am nächsten liegt.
-Ihr Ziel ist mit einem großen roten Strahl markiert.
+			Diese Region unterstützt keine direkten Teleports. Sie wurden zum nächstgelegenen Telehub transportiert. 
+Ihr Ziel ist mit einem großen roten Strahl markiert. 
+Folgen Sie dem roten Pfeil zum Strahl oder klicken Sie auf den Pfeil, um den Strahl zu entfernen.
 		</message>
 	</notify>
 	<notify name="FirstOverrideKeys">

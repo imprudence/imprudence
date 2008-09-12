@@ -8,6 +8,7 @@
 		<column label="Name" name="name" />
 		<column label="Owner" name="owner" />
 		<column label="Location" name="location" />
+		<column label="시간" name="time" />
 	</scroll_list>
 	<text name="id_text">
 		오브젝트 ID:

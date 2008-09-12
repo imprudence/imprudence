@@ -909,8 +909,7 @@ LLPointer<LLImageJ2C> LLViewerImageList::convertToUploadFile(LLPointer<LLImageRa
 	compressedImage->setRate(0.f);
 	
 	if (gSavedSettings.getBOOL("LosslessJ2CUpload") &&
-		(raw_image->getWidth() <= LL_IMAGE_REZ_LOSSLESS_CUTOFF) &&
-		(raw_image->getHeight() <= LL_IMAGE_REZ_LOSSLESS_CUTOFF))
+		(raw_image->getWidth() * raw_image->getHeight() <= LL_IMAGE_REZ_LOSSLESS_CUTOFF * LL_IMAGE_REZ_LOSSLESS_CUTOFF))
 		compressedImage->setReversible(TRUE);
 	
 	compressedImage->encode(raw_image, 0.0f);

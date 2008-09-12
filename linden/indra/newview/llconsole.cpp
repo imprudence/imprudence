@@ -383,6 +383,10 @@ void LLConsole::Paragraph::updateLines(F32 screen_width, LLFontGL* font, bool fo
 			}
 			mLines.push_back(line);								//Append line to paragraph line list.
 		}
+		else
+		{
+			break; // Nothing more to print
+		}
 		paragraph_offset += (drawable + skip_chars);
 	}
 }

@@ -23,4 +23,7 @@
 	<button label="「次に見せる」ダイアログ全てを省略..."
 	     name="skip_dialogs_btn"
 	     tool_tip="全てのオプショナルポップアップと「初回使用」通知を無効にしてください。" />
+	<check_box
+	     label="新たに受け取ったオブジェクトを持ち物に自動的に表示"
+	     name="show_in_inventory" />
 </panel>

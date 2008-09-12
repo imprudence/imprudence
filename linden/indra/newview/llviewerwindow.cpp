@@ -1954,6 +1954,8 @@ void LLViewerWindow::shutdownGL()
 		stopGL(FALSE);
 		stop_glerror();
 	}
+
+	gGL.shutdown();
 }
 
 // shutdownViews() and shutdownGL() need to be called first

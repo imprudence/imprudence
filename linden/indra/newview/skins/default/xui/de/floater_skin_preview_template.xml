@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater name="floater_chatterbox">
+	<icon label="Fliegen" label_selected="Landen" name=""
+	     tool_tip="Flug beginnen.Steigen/sinken mit E/C oder Bild hoch/Bild ab." />
+	<panel name="panel_unfocused_floater">
+		<text name="titlebar_focused">
+			Nicht fokussiert
+		</text>
+		<combo_box label="Kombifeld" name="combo_box_1" />
+		<text_editor name="Chat History Editor">
+			Text
+		</text_editor>
+	</panel>
+	<panel name="panel_focused_floater">
+		<text name="titlebar_focused">
+			Fokussiert
+		</text>
+		<tab_container name="chatterbox_tabs">
+			<panel label="Fokussiert" name="test_1">
+				<slider label="Regler" name="SliderTestName" />
+				<check_box label="Wahr" name="check_box_test_1" />
+				<check_box label="Unwahr" name="check_box_test_2" />
+				<text_editor name="Chat History Editor">
+					Chat-Text
+				</text_editor>
+			</panel>
+			<panel label="Nicht fokussiert" name="test_2" />
+		</tab_container>
+	</panel>
+</multi_floater>

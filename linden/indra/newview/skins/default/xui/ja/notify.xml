@@ -575,15 +575,30 @@
 	</notify>
 	<notify name="OfferFriendship">
 		<message name="message">
-			[NAME] は、フレンドシップを贈っています。
-      
-   デフォルトでお互いのオンライン・ステータスを見ることができるようになります。
+			[NAME]は、フレンドを贈っています。
+ 
+[MESSAGE]
+ 
+(デフォルトでお互いのオンライン・ステータスを見ることができるようになります。)
 		</message>
 		<option name="Accept">
 			受け入れる
 		</option>
 		<option name="Decline">
 			辞退
+		</option>
+	</notify>
+	<notify name="OfferFriendshipNoMessage">
+		<message name="message">
+			[NAME]は、フレンドシップを贈っています。
+
+(デフォルトでお互いのオンライン・ステータスを見ることができるようになります。)
+		</message>
+		<option name="Accept">
+			受け入れる
+		</option>
+		<option name="Decline">
+			拒否
 		</option>
 	</notify>
 	<notify name="FriendshipAccepted">
@@ -638,14 +653,18 @@
 	</notify>
 	<notify name="FailedToLoadWearableUnnamed">
 		<message name="message">
-			[TYPE]をロードできませんでした。
-このアイテムを購入した販売者に通知してください。
+			おっと!
+まだ読み込まれていないため、[TYPE]を装着できません。
+
+すこし時間がたてば状況が改善されるはずですので、しばらくしてからもう一度試してみてください
 		</message>
 	</notify>
 	<notify name="FailedToLoadWearable">
 		<message name="message">
-			[DESC]という名前の[TYPE]をロードできませんでした。
-本アイテムを購入した販売者に通知してください。
+			おっと!
+まだ読み込まれていないため、[DESC]という名前の[TYPE]を装着できません。
+
+すこし時間がたてば状況が改善されるはずですので、しばらくしてからもう一度試してみてください
 		</message>
 	</notify>
 	<notify name="FailedToFindWearableUnnamed">
@@ -830,9 +849,9 @@
 	</notify>
 	<notify name="FirstTeleport">
 		<message name="message">
-			あなたはたった今、テレポートしました。 
-あなたの目的地に一番近いインフォハブにいます。
-目的地は、背の高い赤い標識で示されています。
+			この地域では、ポイント間のテレポートが認められていませんので、最も近いテレハブ周辺に移動しました。 
+あなたの目的地は、大きなビーコンで標されています。赤い矢印に続いて進むとビーコンへ辿り着きます。
+矢印をクリックするとビーコンを消せます
 		</message>
 	</notify>
 	<notify name="FirstOverrideKeys">

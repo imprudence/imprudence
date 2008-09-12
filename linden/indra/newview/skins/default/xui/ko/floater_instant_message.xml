@@ -12,6 +12,9 @@
 	<string name="hang_up">
 		연결종료
 	</string>
+	<string name="inventory_item_offered">
+		인벤토리 아이템이 제공되었습니다.
+	</string>
 	<string name="voice_icon">
 		icn_voice-pvtfocus.tga
 	</string>

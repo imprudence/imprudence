@@ -142,6 +142,7 @@
 		<menu_item_call label="자리비움 설정" name="Set Away" />
 		<menu_item_call label="다른 용무중 설정" name="Set Busy" />
 		<menu_item_call label="모든 애니메이션 중지" name="Stop All Animations" />
+		<menu_item_call label="키 해제" name="Release Keys" />
 		<menu_item_separator label="-----------" name="separator4" />
 		<menu_item_call label="계정 기록" name="Account History..." />
 		<menu_item_call label="내 계정 관리" name="Manage My Account..." />
@@ -211,7 +212,10 @@
 		<menu_item_call label="스크립트 경고/오류 창 표시"
 		     name="Show Script Warning/Error Window" />
 		<menu_item_call label="선택 사항에 스크립트 리컴파일"
-		     name="Recompile Scripts in Selection" />
+		     name="Recompile Scripts in Selection">
+			<menu_item_call label="모노" name="Mono" />
+			<menu_item_call label="LSL" name="LSL" />
+		</menu_item_call>
 		<menu_item_call label="선택 사항에 스크립트 초기화"
 		     name="Reset Scripts in Selection" />
 		<menu_item_call label="선택 오브젝트에 스크립트 실행"
