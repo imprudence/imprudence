@@ -1,3 +1,8 @@
+2008-09-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/lltexturecache.cpp (purgeTextureFilesTimeSliced):
+	Skip "N files scheduled for deletion" message when nothing scheduled.
+
 2008-09-16  Nicholaz Beresford  <nicholaz@blueflash.cc>
 
 	* linden/indra/newview/lltexturecache.cpp:

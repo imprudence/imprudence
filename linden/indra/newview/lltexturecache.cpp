@@ -1315,7 +1315,10 @@ void LLTextureCache::purgeTextureFilesTimeSliced(BOOL force_all)
 	LLTimer timer;
 	S32 howmany = 0;
 
-	llinfos << "TEXTURE CACHE: " << mFilesToDelete.size() << " files scheduled for deletion" << llendl;
+	if (mFilesToDelete.size() > 0)
+	{
+		llinfos << "TEXTURE CACHE: " << mFilesToDelete.size() << " files scheduled for deletion" << llendl;
+	}
 
 	for (LLTextureCache::filename_list_t::iterator iter = mFilesToDelete.begin(); iter!=mFilesToDelete.end(); ) 
 	{	
