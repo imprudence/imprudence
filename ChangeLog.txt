@@ -1,0 +1,4 @@
+2008-09-16  Nicholaz Beresford  <nicholaz@blueflash.cc>
+
+	* linden/indra/llmessage/llassetstorage.cpp:
+	VWR-3877: A nasty possible memory overwrite and two minor leaks.
