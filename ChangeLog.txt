@@ -1,0 +1,6 @@
+2008-09-17  Nicholaz Beresford  <nicholaz@blueflash.cc>
+
+	* linden/indra/newview/llfloateractivespeakers.cpp (updateSpeakerList): 
+	VWR-2683: Possible crash accessing dead llviewerregion.
+	* linden/indra/newview/llviewerobjectlist.cpp (killObjects): 
+	Ditto.

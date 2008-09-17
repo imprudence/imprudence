@@ -1342,7 +1342,7 @@ void LLLocalSpeakerMgr::updateSpeakerList()
 	for(avatar_it = LLCharacter::sInstances.begin(); avatar_it != LLCharacter::sInstances.end(); ++avatar_it)
 	{
 		LLVOAvatar* avatarp = (LLVOAvatar*)*avatar_it;
-		if (dist_vec(avatarp->getPositionAgent(), gAgent.getPositionAgent()) <= CHAT_NORMAL_RADIUS)
+		if (!avatarp->isDead() &&  dist_vec(avatarp->getPositionAgent(), gAgent.getPositionAgent()) <= CHAT_NORMAL_RADIUS)
 		{
 			setSpeaker(avatarp->getID());
 		}
@@ -1356,7 +1356,7 @@ void LLLocalSpeakerMgr::updateSpeakerList()
 		if (speakerp->mStatus == LLSpeaker::STATUS_TEXT_ONLY)
 		{
 			LLVOAvatar* avatarp = (LLVOAvatar*)gObjectList.findObject(speaker_id);
-			if (!avatarp || dist_vec(avatarp->getPositionAgent(), gAgent.getPositionAgent()) > CHAT_NORMAL_RADIUS)
+			if (!avatarp || avatarp->isDead() || dist_vec(avatarp->getPositionAgent(), gAgent.getPositionAgent()) > CHAT_NORMAL_RADIUS)
 			{
 				speakerp->mStatus = LLSpeaker::STATUS_NOT_IN_CHANNEL;
 				speakerp->mDotColor = INACTIVE_COLOR;
