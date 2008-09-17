@@ -10,3 +10,6 @@
 	seconds, with heavy disk activity.
 	* linden/indra/newview/lltexturecache.h:
 	Ditto.
+
+	* linden/indra/llmessage/llassetstorage.cpp:
+	VWR-3877: A nasty possible memory overwrite and two minor leaks.
