@@ -1,0 +1,5 @@
+2008-09-17  Nicholaz Beresford  <nicholaz@blueflash.cc>
+
+	* linden/indra/newview/llviewerjointattachment.h (LLViewerJoint): 
+	VWR-2685: Possible crash in bounding box (getBoundingBoxAgent())
+	from hud attachments.
