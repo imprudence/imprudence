@@ -929,6 +929,12 @@ void LLToolDragAndDrop::dragOrDrop( S32 x, S32 y, MASK mask, BOOL drop,
 		{
 			LLInventoryObject* cargo = locateInventory(item, cat);
 
+			if (!cargo) 
+			{
+				handled = FALSE;
+				break;
+			}
+
 			EAcceptance item_acceptance = ACCEPT_NO;
 			handled = handled && root_view->handleDragAndDrop(x, y, mask, FALSE,
 												mCargoTypes[mCurItemIndex],

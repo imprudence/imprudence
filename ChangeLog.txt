@@ -1,0 +1,4 @@
+2008-09-17  Nicholaz Beresford  <nicholaz@blueflash.cc>
+
+	* linden/indra/newview/lltooldraganddrop.cpp (dragOrDrop): 
+	VWR-2003: Possible crash in lltooldraganddrop.cpp.
