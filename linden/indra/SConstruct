@@ -100,6 +100,7 @@ opts.AddOptions(
     BoolOption('ELFIO', 'Enabled enhanced backtraces with libELFIO symbol extraction support', True),
     BoolOption('STANDALONE', 'Build using system packages (implies OPENSOURCE)', False),
     BoolOption('RUNTESTS', 'Run tests at end of compilation', True),
+    BoolOption('MAKE_PACKAGE', 'Create a package (tarball) after compiling "releasefordownload".', True),
     BoolOption('OPENSOURCE', 'Build using only non-proprietary dependencies', True) # OPENSOURCE: do not edit this line
 )
 optenv = Environment(options = opts)
@@ -120,6 +121,7 @@ runtests = optenv['RUNTESTS']
 opensource = standalone or optenv['OPENSOURCE']
 enable_fmod = not opensource and optenv['FMOD']
 elfio = optenv['ELFIO']
+make_package = optenv['MAKE_PACKAGE']
 
 targets = [ target_param ]
 
@@ -717,6 +719,8 @@ for build_target in targets:
                     'arch':arch}
                 if login_channel:
                     cmd += ' --login_channel=\'Second Life %s\'' % (login_channel)
+                if not make_package:
+                    cmd += ' --actions="copy"'
                 env.Command('newview/' + package_name, 'newview/viewer_manifest.py', cmd)
                 Depends('newview/' + package_name, output_bin + '-stripped')
                 Depends('newview/' + package_name, output_crashlogger_bin + '-stripped')
