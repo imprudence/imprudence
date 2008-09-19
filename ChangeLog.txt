@@ -1,6 +1,10 @@
 2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/SConstruct:
+	New optional SConstruct flag to specify an exact path to build
+	directory: BUILD_DIR. For convenience until we switch to CMake.
+
+	* linden/indra/SConstruct:
 	VWR-2865: New SConstruct flag to (not) make tarball after compiling.
 	For convenience until we switch to CMake.
 	* linden/indra/newview/viewer_manifest.py: 

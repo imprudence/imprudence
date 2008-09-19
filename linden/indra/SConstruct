@@ -101,6 +101,7 @@ opts.AddOptions(
     BoolOption('STANDALONE', 'Build using system packages (implies OPENSOURCE)', False),
     BoolOption('RUNTESTS', 'Run tests at end of compilation', True),
     BoolOption('MAKE_PACKAGE', 'Create a package (tarball) after compiling "releasefordownload".', True),
+    PathOption('BUILD_DIR', 'Specify full path to build directory. If omitted, use default build directory.', '', PathOption.PathAccept),
     BoolOption('OPENSOURCE', 'Build using only non-proprietary dependencies', True) # OPENSOURCE: do not edit this line
 )
 optenv = Environment(options = opts)
@@ -207,12 +208,19 @@ for build_target in targets:
         system_lib_dir += '/lib_release'
         lib_dir = './lib_release_' + build_target + '/' + system_str
 
-    try:
-        build_dir_prefix = os.environ['TEMP_BUILD_DIR']
-    except:
-        build_dir_prefix = '/tmp/' + os.environ['USER']
-        
-    build_dir = build_dir_prefix + os.getcwd() + '/' + system_str + '-' + build_target + '-' + buildtype
+
+    build_dir = optenv['BUILD_DIR']
+    if build_dir != '':
+        # Validate directory, and create if needed.
+        # This is a hack to get around SCons' inflexibility.
+        PathOption.PathIsDirCreate("BUILD_DIR", build_dir, optenv)
+    else:
+        try:
+            build_dir_prefix = os.environ['TEMP_BUILD_DIR']
+        except:
+            build_dir_prefix = '/tmp/' + os.environ['USER'] + os.getcwd() + '/'
+
+        build_dir = build_dir_prefix + system_str + '-' + build_target + '-' + buildtype
 
     ### Base include directories ###
 
