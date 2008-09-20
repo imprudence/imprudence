@@ -4,6 +4,10 @@
 	VWR-2947: Create event callbacks for Advanced menu functions.
 	Part of VWR-2896: Convert "Advanced" menu to XUI.
 
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	VWR-2948: Create XUI-based Advanced menu.
+	Part of VWR-2896: Convert "Advanced" menu to XUI.
+
 2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/SConstruct:
