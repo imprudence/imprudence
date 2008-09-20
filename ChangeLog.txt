@@ -1,5 +1,11 @@
 2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llviewermenu.cpp: 
+	VWR-2947: Create event callbacks for Advanced menu functions.
+	Part of VWR-2896: Convert "Advanced" menu to XUI.
+
+2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
 	* linden/indra/SConstruct:
 	New optional SConstruct flag to specify an exact path to build
 	directory: BUILD_DIR. For convenience until we switch to CMake.
