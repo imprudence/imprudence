@@ -1,3 +1,8 @@
+2008-09-19  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	VWR-1363: Add "Return Object" to the Tools menu.
+
 2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/SConstruct:
