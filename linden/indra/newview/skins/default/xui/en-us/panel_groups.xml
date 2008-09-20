@@ -34,4 +34,6 @@
 	     label="Create..." name="Create" width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
 	     label="Search..." name="Search..." width="80" />
+	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
+	     label="Invite..." name="Invite..." width="80" />
 </panel>
