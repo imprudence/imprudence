@@ -756,6 +756,11 @@
 			<on_click function="Tools.SelectedScriptAction" userdata="stop" />
 			<on_enable function="EditableSelected" />
 		</menu_item_call>
+		<menu_item_call bottom="-468" enabled="false" height="19" label="Set permissions on selected task inventory"
+		     left="0" mouse_opaque="true" name="Set permissions on selected task inventory" width="250">
+			<on_click function="Tools.SetBulkPerms" userdata="" />
+			<on_enable function="EditableSelected" />
+		</menu_item_call>
 	</menu>
 	<menu bottom="219" create_jump_keys="true" drop_shadow="true" enabled="true"
 	     height="317" label="Help" left="227" mouse_opaque="false" name="Help"
