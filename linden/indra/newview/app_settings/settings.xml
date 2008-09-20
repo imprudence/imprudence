@@ -4164,6 +4164,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>LandBrushForce</key>
+    <map>
+      <key>Comment</key>
+      <string>Multiplier for land modification brush force.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>1.0</real>
+    </map>
     <key>Language</key>
     <map>
       <key>Comment</key>

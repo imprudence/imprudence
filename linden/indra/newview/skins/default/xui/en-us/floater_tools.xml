@@ -278,7 +278,16 @@
 			Large
 		</combo_item>
 	</combo_box>
-	<button bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="center"
+	<volume_slider bottom_delta="-19" follows="left|top" height="16" hidden="false" increment="0.1"
+         initial_val="0.00" left="155" max_val="2.0" min_val="-1.0"
+	     mouse_opaque="true" name="slider force" width="70" />	
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="4" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="118" mouse_opaque="true" name="Force:" v_pad="0" width="128">
+	          Force:
+	</text>    
+	<button bottom_delta="-22" follows="left|top" font="SansSerifSmall" halign="center"
 	     height="16" label="Apply to selection" label_selected="Apply to selection"
 	     left="118" mouse_opaque="true" name="button apply to selection"
 	     scale_image="TRUE" tool_tip="Modify Selected Land" width="134" />

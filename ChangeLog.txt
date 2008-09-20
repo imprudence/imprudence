@@ -1,3 +1,17 @@
+2008-09-19  Gigs Taggart  <gigstaggart@gmail.com>
+
+	* linden/indra/newview/app_settings/settings.xml:
+	VWR-2331: Terraform tool variable "strength".
+	Contributing authors: Gigs Taggart, Aimee Trescothick, Which Linden.
+	* linden/indra/newview/llfloatertools.cpp:
+	Ditto.
+	* linden/indra/newview/llfloatertools.h:
+	Ditto.
+	* linden/indra/newview/lltoolbrush.cpp:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Ditto.
+
 2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/SConstruct:
