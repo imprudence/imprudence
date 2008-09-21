@@ -63,6 +63,7 @@ newview/llfloateravatarinfo.cpp
 newview/llfloateravatarpicker.cpp
 newview/llfloateravatartextures.cpp
 newview/llfloaterbuildoptions.cpp
+newview/llfloaterbulkpermission.cpp
 newview/llfloaterbump.cpp
 newview/llfloaterbuy.cpp
 newview/llfloaterbuycontents.cpp
