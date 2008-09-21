@@ -750,10 +750,13 @@ void init_menus()
 	gLandmarkMenu = menu;
 	*/
 
+	// Advanced (Client) menu is XUI now! \o/
+	/*
 	menu = new LLMenuGL(CLIENT_MENU_NAME);
 	init_client_menu(menu);
 	gMenuBarView->appendMenu( menu );
 	menu->updateParent(LLMenuGL::sMenuContainer);
+	*/
 
 	menu = new LLMenuGL(SERVER_MENU_NAME);
 	init_server_menu(menu);
@@ -7720,6 +7723,2118 @@ class LLWorldDayCycle : public view_listener_t
 
 
 
+
+//-------------------------------------------------------------------
+// Advanced menu
+//-------------------------------------------------------------------
+
+
+///////////////////
+// SHOW CONSOLES //
+///////////////////
+
+
+class LLAdvancedToggleConsole : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLString console_type = userdata.asString();
+		if ("frame" == console_type)
+		{
+			toggle_visibility( (void*)gDebugView->mFrameStatView );
+		}
+		else if ("texture" == console_type)
+		{
+			toggle_visibility( (void*)gTextureView );
+		}
+		else if ("debug" == console_type)
+		{
+			toggle_visibility( (void*)((LLView*)gDebugView->mDebugConsolep) );
+		}
+		else if ("fast timers" == console_type)
+		{
+			toggle_visibility( (void*)gDebugView->mFastTimerView );
+		}
+		else if ("memory" == console_type)
+		{
+			toggle_visibility( (void*)gDebugView->mMemoryView );
+		}
+		return true;
+	}
+};
+
+
+class LLAdvancedCheckConsole : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLString console_type = userdata["data"].asString();
+		bool new_value = false;
+		if ("frame" == console_type)
+		{
+			new_value = get_visibility( (void*)gDebugView->mFrameStatView );
+		}
+		else if ("texture" == console_type)
+		{
+			new_value = get_visibility( (void*)gTextureView );
+		}
+		else if ("debug" == console_type)
+		{
+			new_value = get_visibility( (void*)((LLView*)gDebugView->mDebugConsolep) );
+		}
+		else if ("fast timers" == console_type)
+		{
+			new_value = get_visibility( (void*)gDebugView->mFastTimerView );
+		}
+		else if ("memory" == console_type)
+		{
+			new_value = get_visibility( (void*)gDebugView->mMemoryView );
+		}
+
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+//////////////////////////
+// DUMP INFO TO CONSOLE //
+//////////////////////////
+
+
+class LLAdvancedDumpInfoToConsole : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLString info_type = userdata.asString();
+		if ("region" == info_type)
+		{
+			handle_region_dump_settings(NULL);
+		}
+		else if ("group" == info_type)
+		{
+			handle_dump_group_info(NULL);
+		}
+		else if ("capabilities" == info_type)
+		{
+			handle_dump_capabilities_info(NULL);
+		}
+		return true;
+	}
+};
+
+
+
+///////////////////////////////
+// RELOAD SETTINGS OVERRIDES //
+///////////////////////////////
+
+
+class LLAdvancedReloadSettingsOverrides : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		reload_personal_settings_overrides(NULL);
+		return true;
+	}
+};
+
+
+
+//////////////
+// HUD INFO //
+//////////////
+
+
+class LLAdvancedToggleHUDInfo : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLString info_type = userdata.asString();
+		if ("velocity" == info_type)
+		{
+			toggle_visibility( (void*)gVelocityBar );
+		}
+		else if ("camera" == info_type)
+		{
+			gDisplayCameraPos = !(gDisplayCameraPos);
+		}
+		else if ("wind" == info_type)
+		{
+			gDisplayWindInfo = !(gDisplayWindInfo);
+		}
+		else if ("fov" == info_type)
+		{
+			gDisplayFOV = !(gDisplayFOV);
+		}
+		return true;
+	}
+};
+
+class LLAdvancedCheckHUDInfo : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLString info_type = userdata["data"].asString();
+		bool new_value = false;
+		if ("velocity" == info_type)
+		{
+			new_value = get_visibility( (void*)gVelocityBar );
+		}
+		else if ("camera" == info_type)
+		{
+			new_value = gDisplayCameraPos;
+		}
+		else if ("wind" == info_type)
+		{
+			new_value = gDisplayWindInfo;
+		}
+		else if ("fov" == info_type)
+		{
+			new_value = gDisplayFOV;
+		}
+
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		
+		return true;
+	}
+};
+
+
+
+///////////////////////
+// CLEAR GROUP CACHE //
+///////////////////////
+
+
+class LLAdvancedClearGroupCache : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLGroupMgr::debugClearAllGroups(NULL);
+		return true;
+	}
+};
+
+
+
+
+/////////////////
+// RENDER TYPE //
+/////////////////
+
+
+U32 render_type_from_string(LLString render_type)
+{
+	if ("simple" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_SIMPLE;
+	}
+	else if ("alpha" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_ALPHA;
+	}
+	else if ("tree" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_TREE;
+	}
+	else if ("avatar" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_AVATAR;
+	}
+	else if ("terrain" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_TERRAIN;
+	}
+	else if ("sky" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_SKY;
+	}
+	else if ("water" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_WATER;
+	}
+	else if ("ground" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_GROUND;
+	}
+	else if ("volume" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_VOLUME;
+	}
+	else if ("grass" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_GRASS;
+	}
+	else if ("clouds" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_CLOUDS;
+	}
+	else if ("particles" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_PARTICLES;
+	}
+	else if ("bump" == render_type)
+	{
+		return LLPipeline::RENDER_TYPE_BUMP;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+
+class LLAdvancedToggleRenderType : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		U32 render_type = render_type_from_string( userdata.asString() );
+		if ( render_type != 0 )
+		{
+			LLPipeline::toggleRenderTypeControl( (void*)render_type );
+		}
+		return true;
+	}
+};
+
+
+class LLAdvancedCheckRenderType : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		U32 render_type = render_type_from_string( userdata["data"].asString() );
+		bool new_value = false;
+
+		if ( render_type != 0 )
+		{
+			new_value = LLPipeline::hasRenderTypeControl( (void*)render_type );
+		}
+		
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+/////////////
+// FEATURE //
+/////////////
+
+
+U32 feature_from_string(LLString feature)
+{
+	if ("ui" == feature)
+	{
+		return LLPipeline::RENDER_DEBUG_FEATURE_UI;
+	}
+	else if ("selected" == feature)
+	{
+		return LLPipeline::RENDER_DEBUG_FEATURE_SELECTED;
+	}
+	else if ("highlighted" == feature)
+	{
+		return LLPipeline::RENDER_DEBUG_FEATURE_HIGHLIGHTED;
+	}
+	else if ("dynamic textures" == feature)
+	{
+		return LLPipeline::RENDER_DEBUG_FEATURE_DYNAMIC_TEXTURES;
+	}
+	else if ("foot shadows" == feature)
+	{
+		return LLPipeline::RENDER_DEBUG_FEATURE_FOOT_SHADOWS;
+	}
+	else if ("fog" == feature)
+	{
+		return LLPipeline::RENDER_DEBUG_FEATURE_FOG;
+	}
+	else if ("palette" == feature)
+	{
+		return LLPipeline::RENDER_DEBUG_FEATURE_PALETTE;
+	}
+	else if ("fr info" == feature)
+	{
+		return LLPipeline::RENDER_DEBUG_FEATURE_FR_INFO;
+	}
+	else if ("flexible" == feature)
+	{
+		return LLPipeline::RENDER_DEBUG_FEATURE_FLEXIBLE;
+	}
+	else
+	{
+		return 0;
+	}
+};
+
+
+class LLAdvancedToggleFeature : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		U32 feature = feature_from_string( userdata.asString() );
+
+		if ( feature != 0 )
+		{
+			LLPipeline::toggleRenderDebugFeature( (void*)feature );
+		}
+
+		return true;
+	}
+};
+
+
+class LLAdvancedCheckFeature : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		U32 feature = feature_from_string( userdata["data"].asString() );
+		bool new_value = false;
+
+		if ( feature != 0 )
+		{
+			new_value = LLPipeline::toggleRenderDebugFeatureControl( (void*)feature );
+		}
+		
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+//////////////////
+// INFO DISPLAY //
+//////////////////
+
+
+U32 info_display_from_string(LLString info_display)
+{
+	if ("verify" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_VERIFY;
+	}
+	else if ("bboxes" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_BBOXES;
+	}
+	else if ("points" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_POINTS;
+	}
+	else if ("octree" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_OCTREE;
+	}
+	else if ("occlusion" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_OCCLUSION;
+	}
+	else if ("render batches" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_BATCH_SIZE;
+	}
+	else if ("texture anim" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_TEXTURE_ANIM;
+	}
+	else if ("texture priority" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_TEXTURE_PRIORITY;
+	}
+	else if ("shame" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_SHAME;
+	}
+	else if ("texture area" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_TEXTURE_AREA;
+	}
+	else if ("face area" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_FACE_AREA;
+	}
+	else if ("picking" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_PICKING;
+	}
+	else if ("lights" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_LIGHTS;
+	}
+	else if ("particles" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_PARTICLES;
+	}
+	else if ("composition" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_COMPOSITION;
+	}
+	else if ("glow" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_GLOW;
+	}
+	else
+	{
+		return 0;
+	}
+};
+
+
+class LLAdvancedToggleInfoDisplay : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		U32 info_display = info_display_from_string( userdata.asString() );
+
+		if ( info_display != 0 )
+		{
+			LLPipeline::toggleRenderDebug( (void*)info_display );
+		}
+
+		return true;
+	}
+};
+
+
+class LLAdvancedCheckInfoDisplay : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		U32 info_display = info_display_from_string( userdata["data"].asString() );
+		bool new_value = false;
+
+		if ( info_display != 0 )
+		{
+			new_value = LLPipeline::toggleRenderDebugControl( (void*)info_display );
+		}
+		
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+///////////////////
+// SELECT BUFFER //
+///////////////////
+
+
+class LLAdvancedToggleSelectBuffer : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gDebugSelect = !(gDebugSelect);
+		return true;
+	}
+};
+
+class LLAdvancedCheckSelectBuffer : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gDebugSelect;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+/////////////////////////
+// RANDOMIZE FRAMERATE //
+/////////////////////////
+
+
+class LLAdvancedToggleRandomizeFramerate : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gRandomizeFramerate = !(gRandomizeFramerate);
+		return true;
+	}
+};
+
+class LLAdvancedCheckRandomizeFramerate : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gRandomizeFramerate;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+/////////////////////////
+// PERIODIC SLOW FRAME //
+/////////////////////////
+
+
+class LLAdvancedTogglePeriodicSlowFrame : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gPeriodicSlowFrame = !(gPeriodicSlowFrame);
+		return true;
+	}
+};
+
+class LLAdvancedCheckPeriodicSlowFrame : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gPeriodicSlowFrame;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+////////////////
+// FRAME TEST //
+////////////////
+
+
+class LLAdvancedToggleFrameTest : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLPipeline::sRenderFrameTest = !(LLPipeline::sRenderFrameTest);
+		return true;
+	}
+};
+
+class LLAdvancedCheckFrameTest : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLPipeline::sRenderFrameTest;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+///////////////////////////
+// HIDE SELECTED OBJECTS //
+///////////////////////////
+
+
+class LLAdvancedToggleHideSelectedObjects : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gHideSelectedObjects = !(gHideSelectedObjects);
+		return true;
+	}
+};
+
+class LLAdvancedCheckHideSelectedObjects : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gHideSelectedObjects;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+///////////////////////////
+// SELECTED TEXTURE INFO //
+///////////////////////////
+
+
+class LLAdvancedSelectedTextureInfo : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_selected_texture_info(NULL);
+		return true;
+	}
+};
+
+
+
+//////////////////////
+// TOGGLE WIREFRAME //
+//////////////////////
+
+
+class LLAdvancedToggleWireframe : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gUseWireframe = !(gUseWireframe);
+		return true;
+	}
+};
+
+class LLAdvancedCheckWireframe : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gUseWireframe;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+//////////////////////
+// DISABLE TEXTURES //
+//////////////////////
+
+
+class LLAdvancedToggleDisableTextures : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		menu_toggle_variable((void*)&LLViewerImage::sDontLoadVolumeTextures);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDisableTextures : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = menu_check_variable((void*)&LLViewerImage::sDontLoadVolumeTextures);
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+//////////////////////////
+// DUMP SCRIPTED CAMERA //
+//////////////////////////
+
+
+class LLAdvancedDumpScriptedCamera : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_dump_followcam(NULL);
+		return true;
+	}
+};
+
+
+
+//////////////////////////////
+// DUMP REGION OBJECT CACHE //
+//////////////////////////////
+
+
+class LLAdvancedDumpRegionObjectCache : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_dump_region_object_cache(NULL);
+		return true;
+	}
+};
+
+
+
+////////////////
+// SLURL TEST //
+////////////////
+
+
+class LLAdvancedSLURLTest : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_slurl_test(NULL);
+		return true;
+	}
+};
+
+
+
+////////////////////////
+// TOGGLE EDITABLE UI //
+////////////////////////
+
+
+class LLAdvancedToggleEditableUI : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		edit_ui(NULL);
+		return true;
+	}
+};
+
+// *TODO: Add corresponding "Check" for EditableUI, so it can
+// become a menu_item_check. Need to add check_edit_ui(void*)
+// or functional equivalent to do that.
+
+
+
+//////////////////////
+// ASYNC KEYSTROKES //
+//////////////////////
+
+
+class LLAdvancedToggleAsyncKeystrokes : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gHandleKeysAsync = !(gHandleKeysAsync);
+		return true;
+	}
+};
+
+class LLAdvancedCheckAsyncKeystrokes : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gHandleKeysAsync;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+/////////////////////
+// DUMP SELECT MGR //
+/////////////////////
+
+
+class LLAdvancedDumpSelectMgr : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		dump_select_mgr(NULL);
+		return true;
+	}
+};
+
+
+
+////////////////////
+// DUMP INVENTORY //
+////////////////////
+
+
+class LLAdvancedDumpInventory : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		dump_inventory(NULL);
+		return true;
+	}
+};
+
+
+
+///////////////////////
+// DUMP FOCUS HOLDER //
+///////////////////////
+
+
+class LLAdvancedDumpFocusHolder : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_dump_focus(NULL);
+		return true;
+	}
+};
+
+
+
+////////////////////////////////
+// PRINT SELECTED OBJECT INFO //
+////////////////////////////////
+
+
+class LLAdvancedPrintSelectedObjectInfo : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		print_object_info(NULL);
+		return true;
+	}
+};
+
+
+
+//////////////////////
+// PRINT AGENT INFO //
+//////////////////////
+
+
+class LLAdvancedPrintAgentInfo : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		print_agent_nvpairs(NULL);
+		return true;
+	}
+};
+
+
+
+////////////////////////////////
+// PRINT TEXTURE MEMORY STATS //
+////////////////////////////////
+
+
+class LLAdvancedPrintTextureMemoryStats : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		output_statistics(NULL);
+		return true;
+	}
+};
+
+
+
+//////////////////////
+// DEBUG SELECT MGR //
+//////////////////////
+
+
+class LLAdvancedToggleDebugSelectMgr : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gDebugSelectMgr = !(gDebugSelectMgr);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDebugSelectMgr : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gDebugSelectMgr;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+//////////////////
+// DEBUG CLICKS //
+//////////////////
+
+
+class LLAdvancedToggleDebugClicks : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gDebugClicks = !(gDebugClicks);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDebugClicks : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gDebugClicks;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+/////////////////
+// DEBUG VIEWS //
+/////////////////
+
+
+class LLAdvancedToggleDebugViews : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLView::sDebugRects = !(LLView::sDebugRects);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDebugViews : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLView::sDebugRects;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+///////////////////////
+// XUI NAME TOOLTIPS //
+///////////////////////
+
+
+class LLAdvancedToggleXUINameTooltips : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		toggle_show_xui_names(NULL);
+		return true;
+	}
+};
+
+class LLAdvancedCheckXUINameTooltips : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = check_show_xui_names(NULL);
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+////////////////////////
+// DEBUG MOUSE EVENTS //
+////////////////////////
+
+
+class LLAdvancedToggleDebugMouseEvents : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLView::sDebugMouseHandling = !(LLView::sDebugMouseHandling);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDebugMouseEvents : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLView::sDebugMouseHandling;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+////////////////
+// DEBUG KEYS //
+////////////////
+
+
+class LLAdvancedToggleDebugKeys : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLView::sDebugKeys = !(LLView::sDebugKeys);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDebugKeys : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLView::sDebugKeys;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+///////////////////////
+// DEBUG WINDOW PROC //
+///////////////////////
+
+
+class LLAdvancedToggleDebugWindowProc : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gDebugWindowProc = !(gDebugWindowProc);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDebugWindowProc : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gDebugWindowProc;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+////////////////////////////
+// DEBUG TEXT EDITOR TIPS //
+////////////////////////////
+
+
+class LLAdvancedToggleDebugTextEditorTips : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gDebugTextEditorTips = !(gDebugTextEditorTips);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDebugTextEditorTips : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gDebugTextEditorTips;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+///////////////////////
+// SHOW FLOATER TEST //
+///////////////////////
+
+
+class LLAdvancedShowFloaterTest : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLFloaterTest::show(NULL);
+		return true;
+	}
+};
+
+
+
+/////////////////////////
+// EXPORT MENUS TO XML //
+/////////////////////////
+
+
+class LLAdvancedExportMenusToXML : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_export_menus_to_xml(NULL);
+		return true;
+	}
+};
+
+
+
+/////////////
+// EDIT UI //
+/////////////
+
+
+class LLAdvancedEditUI : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLFloaterEditUI::show(NULL);
+		return true;
+	}
+};
+
+
+
+//////////////////////
+// LOAD UI FROM XML //
+//////////////////////
+
+
+class LLAdvancedLoadUIFromXML : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_load_from_xml(NULL);
+		return true;
+	}
+};
+
+
+
+////////////////////
+// SAVE UI TO XML //
+////////////////////
+
+
+class LLAdvancedSaveUIToXML : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_save_to_xml(NULL);
+		return true;
+	}
+};
+
+
+
+///////////////
+// XUI NAMES //
+///////////////
+
+
+class LLAdvancedToggleXUINames : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		toggle_show_xui_names(NULL);
+		return true;
+	}
+};
+
+class LLAdvancedCheckXUINames : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = check_show_xui_names(NULL);
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+////////////////////////
+// GRAB BAKED TEXTURE //
+////////////////////////
+
+
+class LLAdvancedGrabBakedTexture : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLString texture_type = userdata.asString();
+		if ("eyes" == texture_type)
+		{
+			handle_grab_texture( (void*)LLVOAvatar::TEX_EYES_BAKED );
+		}
+		else if ("head" == texture_type)
+		{
+			handle_grab_texture( (void*)LLVOAvatar::TEX_HEAD_BAKED );
+		}
+		else if ("upper" == texture_type)
+		{
+			handle_grab_texture( (void*)LLVOAvatar::TEX_UPPER_BAKED );
+		}
+		else if ("lower" == texture_type)
+		{
+			handle_grab_texture( (void*)LLVOAvatar::TEX_SKIRT_BAKED );
+		}
+		else if ("skirt" == texture_type)
+		{
+			handle_grab_texture( (void*)LLVOAvatar::TEX_SKIRT_BAKED );
+		}
+
+		return true;
+	}
+};
+
+class LLAdvancedEnableGrabBakedTexture : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLString texture_type = userdata["data"].asString();
+		bool new_value = false;
+
+		if ("iris" == texture_type)
+		{
+			new_value = enable_grab_texture( (void*)LLVOAvatar::TEX_EYES_BAKED );
+		}
+		else if ("head" == texture_type)
+		{
+			new_value = enable_grab_texture( (void*)LLVOAvatar::TEX_HEAD_BAKED );
+		}
+		else if ("upper" == texture_type)
+		{
+			new_value = enable_grab_texture( (void*)LLVOAvatar::TEX_UPPER_BAKED );
+		}
+		else if ("lower" == texture_type)
+		{
+			new_value = enable_grab_texture( (void*)LLVOAvatar::TEX_LOWER_BAKED );
+		}
+		else if ("skirt" == texture_type)
+		{
+			new_value = enable_grab_texture( (void*)LLVOAvatar::TEX_SKIRT_BAKED );
+		}
+		
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+//////////////////////
+// ALLOW IDLE / AFK //
+//////////////////////
+
+
+class LLAdvancedToggleAllowIdleAFK : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gAllowIdleAFK = !(gAllowIdleAFK);
+		return true;
+	}
+};
+
+class LLAdvancedCheckAllowIdleAFK : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gAllowIdleAFK;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+///////////////////////
+// APPEARANCE TO XML //
+///////////////////////
+
+
+class LLAdvancedAppearanceToXML : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOAvatar::dumpArchetypeXML(NULL);
+		return true;
+	}
+};
+
+
+
+///////////////////////////////
+// TOGGLE CHARACTER GEOMETRY //
+///////////////////////////////
+
+
+class LLAdvancedToggleCharacterGeometry : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_god_request_avatar_geometry(NULL);
+		return true;
+	}
+};
+
+class LLAdvancedEnableCharacterGeometry : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		enable_god_customer_service(NULL);
+		return true;
+	}
+};
+
+
+
+/////////////////////////////
+// TEST MALE / TEST FEMALE //
+/////////////////////////////
+
+
+class LLAdvancedTestMale : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_test_male(NULL);
+		return true;
+	}
+};
+
+
+class LLAdvancedTestFemale : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_test_female(NULL);
+		return true;
+	}
+};
+
+
+
+///////////////
+// TOGGLE PG //
+///////////////
+
+
+class LLAdvancedTogglePG : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_toggle_pg(NULL);
+		return true;
+	}
+};
+
+
+
+/////////////////////////
+// ALLOW SELECT AVATAR //
+/////////////////////////
+
+
+class LLAdvancedToggleAllowSelectAvatar : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gAllowSelectAvatar = !(gAllowSelectAvatar);
+		return true;
+	}
+};
+
+class LLAdvancedCheckAllowSelectAvatar : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gAllowSelectAvatar;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+////////////////////////////
+// ALLOW TAP-TAP-HOLD RUN //
+////////////////////////////
+
+
+class LLAdvancedToggleAllowTapTapHoldRun : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gAllowTapTapHoldRun = !(gAllowTapTapHoldRun);
+		return true;
+	}
+};
+
+class LLAdvancedCheckAllowTapTapHoldRun : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gAllowTapTapHoldRun;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+/////////////////////////////
+// FORCE PARAMS TO DEFAULT //
+/////////////////////////////
+
+
+class LLAdvancedForceParamsToDefault : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLAgent::clearVisualParams(NULL);
+		return true;
+	}
+};
+
+
+
+//////////////////////////
+// RELOAD VERTEX SHADER //
+//////////////////////////
+
+
+class LLAdvancedReloadVertexShader : public view_listener_t
+{
+  bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+  {
+    reload_vertex_shader(NULL);
+    return true;
+  }
+};
+
+
+
+////////////////////
+// ANIMATION INFO //
+////////////////////
+
+
+class LLAdvancedToggleAnimationInfo : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOAvatar::sShowAnimationDebug = !(LLVOAvatar::sShowAnimationDebug);
+		return true;
+	}
+};
+
+class LLAdvancedCheckAnimationInfo : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLVOAvatar::sShowAnimationDebug;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+////////////////////////////
+// SLOW MOTION ANIMATIONS //
+////////////////////////////
+
+
+class LLAdvancedToggleSlowMotionAnimations : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		slow_mo_animations(NULL);
+		return true;
+	}
+};
+
+// *TODO: Add a corresponding "Check" event for SlowMotionAnimations,
+// so that it can become a menu_item_check with the "X" indicator.
+// See indra/newview/skins/xui/en_us/menu_viewer.xml
+
+
+
+//////////////////
+// SHOW LOOK AT //
+//////////////////
+
+
+class LLAdvancedToggleShowLookAt : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLHUDEffectLookAt::sDebugLookAt = !(LLHUDEffectLookAt::sDebugLookAt);
+		return true;
+	}
+};
+
+class LLAdvancedCheckShowLookAt : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLHUDEffectLookAt::sDebugLookAt;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+///////////////////
+// SHOW POINT AT //
+///////////////////
+
+
+class LLAdvancedToggleShowPointAt : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLHUDEffectPointAt::sDebugPointAt = !(LLHUDEffectPointAt::sDebugPointAt);
+		return true;
+	}
+};
+
+class LLAdvancedCheckShowPointAt : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLHUDEffectPointAt::sDebugPointAt;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+/////////////////////////
+// DEBUG JOINT UPDATES //
+/////////////////////////
+
+
+class LLAdvancedToggleDebugJointUpdates : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOAvatar::sJointDebug = !(LLVOAvatar::sJointDebug);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDebugJointUpdates : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLVOAvatar::sJointDebug;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+/////////////////
+// DISABLE LOD //
+/////////////////
+
+
+class LLAdvancedToggleDisableLOD : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLViewerJoint::sDisableLOD = !(LLViewerJoint::sDisableLOD);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDisableLOD : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLViewerJoint::sDisableLOD;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+/////////////////////////
+// DEBUG CHARACTER VIS //
+/////////////////////////
+
+
+class LLAdvancedToggleDebugCharacterVis : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOAvatar::sDebugInvisible = !(LLVOAvatar::sDebugInvisible);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDebugCharacterVis : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLVOAvatar::sDebugInvisible;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+//////////////////////////
+// SHOW COLLISION PLANE //
+//////////////////////////
+
+/***************************
+ *
+ *  Disabled. See DEV-14477
+ *
+ ***************************
+
+class LLAdvancedToggleShowCollisionPlane : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOAvatar::sShowFootPlane = !(LLVOAvatar::sShowFootPlane);
+		return true;
+	}
+};
+
+class LLAdvancedCheckShowCollisionPlane : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLVOAvatar::sShowFootPlane;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+***************************/
+
+
+/////////////////////////////
+// SHOW COLLISION SKELETON //
+/////////////////////////////
+
+
+class LLAdvancedToggleShowCollisionSkeleton : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOAvatar::sShowCollisionVolumes = !(LLVOAvatar::sShowCollisionVolumes);
+		return true;
+	}
+};
+
+class LLAdvancedCheckShowCollisionSkeleton : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLVOAvatar::sShowCollisionVolumes;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+//////////////////////////
+// DISPLAY AGENT TARGET //
+//////////////////////////
+
+
+class LLAdvancedToggleDisplayAgentTarget : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLAgent::sDebugDisplayTarget = !(LLAgent::sDebugDisplayTarget);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDisplayAgentTarget : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLAgent::sDebugDisplayTarget;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+///////////////////////////
+// DEBUG AVATAR ROTATION //
+///////////////////////////
+
+
+class LLAdvancedToggleDebugAvatarRotation : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gDebugAvatarRotation = !(gDebugAvatarRotation);
+		return true;
+	}
+};
+
+class LLAdvancedCheckDebugAvatarRotation : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gDebugAvatarRotation;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+//////////////////////
+// DUMP ATTACHMENTS //
+//////////////////////
+
+
+class LLAdvancedDumpAttachments : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_dump_attachments(NULL);
+		return true;
+	}
+};
+
+
+
+/////////////////////
+// REBAKE TEXTURES //
+/////////////////////
+
+
+class LLAdvancedRebakeTextures : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_rebake_textures(NULL);
+		return true;
+	}
+};
+
+
+
+///////////////////////////
+// DEBUG AVATAR TEXTURES //
+///////////////////////////
+
+
+class LLAdvancedDebugAvatarTextures : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_debug_avatar_textures(NULL);
+		return true;
+	}
+};
+
+
+
+////////////////////////////////
+// DUMP AVATAR LOCAL TEXTURES //
+////////////////////////////////
+
+
+class LLAdvancedDumpAvatarLocalTextures : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_dump_avatar_local_textures(NULL);
+		return true;
+	}
+};
+
+
+
+/////////////////
+// MESSAGE LOG //
+/////////////////
+
+
+class LLAdvancedEnableMessageLog : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_viewer_enable_message_log(NULL);
+		return true;
+	}
+};
+
+class LLAdvancedDisableMessageLog : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_viewer_disable_message_log(NULL);
+		return true;
+	}
+};
+
+
+
+/////////////////
+// DROP PACKET //
+/////////////////
+
+
+class LLAdvancedDropPacket : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		drop_packet(NULL);
+		return true;
+	}
+};
+
+
+
+/////////////////////////
+// FRAME STATS LOGGING //
+/////////////////////////
+
+
+class LLAdvancedFrameStatsLogging : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLString command = userdata.asString();
+		if ("start logging" == command)
+		{
+			LLFrameStats::startLogging(NULL);
+		}
+		else if ("stop logging" == command)
+		{
+			LLFrameStats::stopLogging(NULL);
+		}
+		else if ("timed logging 10" == command)
+		{
+			LLFrameStats::timedLogging10(NULL);
+		}
+		else if ("timed logging 30" == command)
+		{
+			LLFrameStats::timedLogging30(NULL);
+		}
+		else if ("timed logging 60" == command)
+		{
+			LLFrameStats::timedLogging60(NULL);
+		}
+
+		return true;
+	}		
+};
+
+
+
+/////////////////
+// AGENT PILOT //
+/////////////////
+
+
+class LLAdvancedAgentPilot : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLString command = userdata.asString();
+		if ("start playback" == command)
+		{
+			LLAgentPilot::startPlayback(NULL);
+		}
+		else if ("stop playback" == command)
+		{
+			LLAgentPilot::stopPlayback(NULL);
+		}
+		else if ("start record" == command)
+		{
+			LLAgentPilot::startRecord(NULL);
+		}
+		else if ("stop record" == command)
+		{
+			LLAgentPilot::saveRecord(NULL);
+		}
+
+		return true;
+	}		
+};
+
+
+
+//////////////////////
+// AGENT PILOT LOOP //
+//////////////////////
+
+
+class LLAdvancedToggleAgentPilotLoop : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLAgentPilot::sLoop = !(LLAgentPilot::sLoop);
+		return true;
+	}
+};
+
+class LLAdvancedCheckAgentPilotLoop : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = LLAgentPilot::sLoop;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+/////////////////////////
+// SHOW OBJECT UPDATES //
+/////////////////////////
+
+
+class LLAdvancedToggleShowObjectUpdates : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gShowObjectUpdates = !(gShowObjectUpdates);
+		return true;
+	}
+};
+
+class LLAdvancedCheckShowObjectUpdates : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gShowObjectUpdates;
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+////////////////////
+// COMPRESS IMAGE //
+////////////////////
+
+
+class LLAdvancedCompressImage : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_compress_image(NULL);
+		return true;
+	}
+};
+
+
+
+//////////////////////
+// CLOTHING FLOATER //
+//////////////////////
+
+
+class LLAdvancedToggleClothingFloater : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_clothing(NULL);
+		return true;
+	}
+};
+
+// There is no LLAdvancedCheckClothingFloater.
+
+
+
+/////////////////////////
+// SHOW DEBUG SETTINGS //
+/////////////////////////
+
+
+class LLAdvancedShowDebugSettings : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLFloaterSettingsDebug::show(NULL);
+		return true;
+	}
+};
+
+
+
+////////////////////////
+// VIEW ADMIN OPTIONS //
+////////////////////////
+
+
+class LLAdvancedToggleViewAdminOptions : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_admin_override_toggle(NULL);
+		return true;
+	}
+};
+
+class LLAdvancedCheckViewAdminOptions : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = check_admin_override(NULL);
+		LLString control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+//////////////////
+// ADMIN STATUS //
+//////////////////
+
+
+class LLAdvancedRequestAdminStatus : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_god_mode(NULL);
+		return true;
+	}
+};
+
+class LLAdvancedLeaveAdminStatus : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		handle_leave_god_mode(NULL);
+		return true;
+	}
+};
+
+
+
 static void addMenu(view_listener_t *menu, const char *name)
 {
 	sMenus.push_back(menu);
@@ -7928,4 +10043,155 @@ void initialize_menus()
 	addMenu(new LLSomethingSelected(), "SomethingSelected");
 	addMenu(new LLSomethingSelectedNoHUD(), "SomethingSelectedNoHUD");
 	addMenu(new LLEditableSelected(), "EditableSelected");
+
+
+	// Advanced (top level menu)
+	addMenu(new LLAdvancedToggleConsole(), "Advanced.ToggleConsole");
+	addMenu(new LLAdvancedCheckConsole(), "Advanced.CheckConsole");
+	addMenu(new LLAdvancedDumpInfoToConsole(), "Advanced.DumpInfoToConsole");
+	addMenu(new LLAdvancedReloadSettingsOverrides(), "Advanced.ReloadSettingsOverrides");
+
+	// Advanced > HUD Info
+	addMenu(new LLAdvancedToggleHUDInfo(), "Advanced.ToggleHUDInfo");
+	addMenu(new LLAdvancedCheckHUDInfo(), "Advanced.CheckHUDInfo");
+
+	addMenu(new LLAdvancedClearGroupCache(), "Advanced.ClearGroupCache");
+
+	// Advanced > Render > Types
+	addMenu(new LLAdvancedToggleRenderType(), "Advanced.ToggleRenderType");
+	addMenu(new LLAdvancedCheckRenderType(), "Advanced.CheckRenderType");
+
+	// Advanced > Render > Features
+	addMenu(new LLAdvancedToggleFeature(), "Advanced.ToggleFeature");
+	addMenu(new LLAdvancedCheckFeature(), "Advanced.CheckFeature");
+
+	// Advanced > Render > Info Displays
+	addMenu(new LLAdvancedToggleInfoDisplay(), "Advanced.ToggleInfoDisplay");
+	addMenu(new LLAdvancedCheckInfoDisplay(), "Advanced.CheckInfoDisplay");
+	addMenu(new LLAdvancedToggleSelectBuffer(), "Advanced.ToggleSelectBuffer");
+	addMenu(new LLAdvancedCheckSelectBuffer(), "Advanced.CheckSelectBuffer");
+	addMenu(new LLAdvancedToggleRandomizeFramerate(), "Advanced.ToggleRandomizeFramerate");
+	addMenu(new LLAdvancedCheckRandomizeFramerate(), "Advanced.CheckRandomizeFramerate");
+	addMenu(new LLAdvancedTogglePeriodicSlowFrame(), "Advanced.TogglePeriodicSlowFrame");
+	addMenu(new LLAdvancedCheckPeriodicSlowFrame(), "Advanced.CheckPeriodicSlowFrame");
+	addMenu(new LLAdvancedToggleFrameTest(), "Advanced.ToggleFrameTest");
+	addMenu(new LLAdvancedCheckFrameTest(), "Advanced.CheckFrameTest");
+	addMenu(new LLAdvancedToggleHideSelectedObjects(), "Advanced.ToggleHideSelectedObjects");
+	addMenu(new LLAdvancedCheckHideSelectedObjects(), "Advanced.CheckHideSelectedObjects");
+	addMenu(new LLAdvancedSelectedTextureInfo(), "Advanced.SelectedTextureInfo");
+	addMenu(new LLAdvancedToggleWireframe(), "Advanced.ToggleWireframe");
+	addMenu(new LLAdvancedCheckWireframe(), "Advanced.CheckWireframe");
+	addMenu(new LLAdvancedToggleDisableTextures(), "Advanced.ToggleDisableTextures");
+	addMenu(new LLAdvancedCheckDisableTextures(), "Advanced.CheckDisableTextures");
+
+	// Advanced > World
+	addMenu(new LLAdvancedDumpScriptedCamera(), "Advanced.DumpScriptedCamera");
+	addMenu(new LLAdvancedDumpRegionObjectCache(), "Advanced.DumpRegionObjectCache");
+
+	// Advanced > UI
+	addMenu(new LLAdvancedSLURLTest(), "Advanced.SLURLTest");
+	addMenu(new LLAdvancedToggleEditableUI(), "Advanced.ToggleEditableUI");
+	//addMenu(new LLAdvancedCheckEditableUI(), "Advanced.CheckEditableUI");
+	addMenu(new LLAdvancedToggleAsyncKeystrokes(), "Advanced.ToggleAsyncKeystrokes");
+	addMenu(new LLAdvancedCheckAsyncKeystrokes(), "Advanced.CheckAsyncKeystrokes");
+	addMenu(new LLAdvancedDumpSelectMgr(), "Advanced.DumpSelectMgr");
+	addMenu(new LLAdvancedDumpInventory(), "Advanced.DumpInventory");
+	addMenu(new LLAdvancedDumpFocusHolder(), "Advanced.DumpFocusHolder");
+	addMenu(new LLAdvancedPrintSelectedObjectInfo(), "Advanced.PrintSelectedObjectInfo");
+	addMenu(new LLAdvancedPrintAgentInfo(), "Advanced.PrintAgentInfo");
+	addMenu(new LLAdvancedPrintTextureMemoryStats(), "Advanced.PrintTextureMemoryStats");
+	addMenu(new LLAdvancedToggleDebugSelectMgr(), "Advanced.ToggleDebugSelectMgr");
+	addMenu(new LLAdvancedCheckDebugSelectMgr(), "Advanced.CheckDebugSelectMgr");
+	addMenu(new LLAdvancedToggleDebugClicks(), "Advanced.ToggleDebugClicks");
+	addMenu(new LLAdvancedCheckDebugClicks(), "Advanced.CheckDebugClicks");
+	addMenu(new LLAdvancedCheckDebugViews(), "Advanced.CheckDebugViews");
+	addMenu(new LLAdvancedToggleDebugViews(), "Advanced.ToggleDebugViews");
+	addMenu(new LLAdvancedToggleXUINameTooltips(), "Advanced.ToggleXUINameTooltips");
+	addMenu(new LLAdvancedCheckXUINameTooltips(), "Advanced.CheckXUINameTooltips");
+	addMenu(new LLAdvancedToggleDebugMouseEvents(), "Advanced.ToggleDebugMouseEvents");
+	addMenu(new LLAdvancedCheckDebugMouseEvents(), "Advanced.CheckDebugMouseEvents");
+	addMenu(new LLAdvancedToggleDebugKeys(), "Advanced.ToggleDebugKeys");
+	addMenu(new LLAdvancedCheckDebugKeys(), "Advanced.CheckDebugKeys");
+	addMenu(new LLAdvancedToggleDebugWindowProc(), "Advanced.ToggleDebugWindowProc");
+	addMenu(new LLAdvancedCheckDebugWindowProc(), "Advanced.CheckDebugWindowProc");
+	addMenu(new LLAdvancedToggleDebugTextEditorTips(), "Advanced.ToggleDebugTextEditorTips");
+	addMenu(new LLAdvancedCheckDebugTextEditorTips(), "Advanced.CheckDebugTextEditorTips");
+
+	// Advanced > XUI
+	addMenu(new LLAdvancedShowFloaterTest(), "Advanced.ShowFloaterTest");
+	addMenu(new LLAdvancedExportMenusToXML(), "Advanced.ExportMenusToXML");
+	addMenu(new LLAdvancedEditUI(), "Advanced.EditUI");
+	addMenu(new LLAdvancedLoadUIFromXML(), "Advanced.LoadUIFromXML");
+	addMenu(new LLAdvancedSaveUIToXML(), "Advanced.SaveUIToXML");
+	addMenu(new LLAdvancedToggleXUINames(), "Advanced.ToggleXUINames");
+	addMenu(new LLAdvancedCheckXUINames(), "Advanced.CheckXUINames");
+
+	// Advanced > Character > Grab Baked Texture
+	addMenu(new LLAdvancedGrabBakedTexture(), "Advanced.GrabBakedTexture");
+	addMenu(new LLAdvancedEnableGrabBakedTexture(), "Advanced.EnableGrabBakedTexture");
+
+	// Advanced > Character > Character Tests
+	addMenu(new LLAdvancedToggleAllowIdleAFK(), "Advanced.ToggleAllowIdleAFK");
+	addMenu(new LLAdvancedCheckAllowIdleAFK(), "Advanced.CheckAllowIdleAFK");
+	addMenu(new LLAdvancedAppearanceToXML(), "Advanced.AppearanceToXML");
+	addMenu(new LLAdvancedToggleCharacterGeometry(), "Advanced.ToggleCharacterGeometry");
+	addMenu(new LLAdvancedTestMale(), "Advanced.TestMale");
+	addMenu(new LLAdvancedTestFemale(), "Advanced.TestFemale");
+	addMenu(new LLAdvancedTogglePG(), "Advanced.TogglePG");
+	addMenu(new LLAdvancedToggleAllowSelectAvatar(), "Advanced.ToggleAllowSelectAvatar");
+	addMenu(new LLAdvancedCheckAllowSelectAvatar(), "Advanced.CheckAllowSelectAvatar");
+
+	// Advanced > Character (toplevel)
+	addMenu(new LLAdvancedToggleAllowTapTapHoldRun(), "Advanced.ToggleAllowTapTapHoldRun");
+	addMenu(new LLAdvancedCheckAllowTapTapHoldRun(), "Advanced.CheckAllowTapTapHoldRun");
+	addMenu(new LLAdvancedForceParamsToDefault(), "Advanced.ForceParamsToDefault");
+	addMenu(new LLAdvancedReloadVertexShader(), "Advanced.ReloadVertexShader");
+	addMenu(new LLAdvancedToggleAnimationInfo(), "Advanced.ToggleAnimationInfo");
+	addMenu(new LLAdvancedCheckAnimationInfo(), "Advanced.CheckAnimationInfo");
+	addMenu(new LLAdvancedToggleSlowMotionAnimations(), "Advanced.ToggleSlowMotionAnimations");
+	//addMenu(new LLAdvancedCheckSlowMotionAnimations(), "Advanced.CheckSlowMotionAnimations");
+	addMenu(new LLAdvancedToggleShowLookAt(), "Advanced.ToggleShowLookAt");
+	addMenu(new LLAdvancedCheckShowLookAt(), "Advanced.CheckShowLookAt");
+	addMenu(new LLAdvancedToggleShowPointAt(), "Advanced.ToggleShowPointAt");
+	addMenu(new LLAdvancedCheckShowPointAt(), "Advanced.CheckShowPointAt");
+	addMenu(new LLAdvancedToggleDebugJointUpdates(), "Advanced.ToggleDebugJointUpdates");
+	addMenu(new LLAdvancedCheckDebugJointUpdates(), "Advanced.CheckDebugJointUpdates");
+	addMenu(new LLAdvancedToggleDisableLOD(), "Advanced.ToggleDisableLOD");
+	addMenu(new LLAdvancedCheckDisableLOD(), "Advanced.CheckDisableLOD");
+	addMenu(new LLAdvancedToggleDebugCharacterVis(), "Advanced.ToggleDebugCharacterVis");
+	addMenu(new LLAdvancedCheckDebugCharacterVis(), "Advanced.CheckDebugCharacterVis");
+// 	addMenu(new LLAdvancedToggleShowCollisionPlane(), "Advanced.ToggleShowCollisionPlane");
+// 	addMenu(new LLAdvancedCheckShowCollisionPlane(), "Advanced.CheckShowCollisionPlane");
+	addMenu(new LLAdvancedToggleShowCollisionSkeleton(), "Advanced.ToggleShowCollisionSkeleton");
+	addMenu(new LLAdvancedCheckShowCollisionSkeleton(), "Advanced.CheckShowCollisionSkeleton");
+	addMenu(new LLAdvancedToggleDisplayAgentTarget(), "Advanced.ToggleDisplayAgentTarget");
+	addMenu(new LLAdvancedCheckDisplayAgentTarget(), "Advanced.CheckDisplayAgentTarget");
+	addMenu(new LLAdvancedToggleDebugAvatarRotation(), "Advanced.ToggleDebugAvatarRotation");
+	addMenu(new LLAdvancedCheckDebugAvatarRotation(), "Advanced.CheckDebugAvatarRotation");
+	addMenu(new LLAdvancedDumpAttachments(), "Advanced.DumpAttachments");
+	addMenu(new LLAdvancedRebakeTextures(), "Advanced.RebakeTextures");
+	addMenu(new LLAdvancedDebugAvatarTextures(), "Advanced.DebugAvatarTextures");
+	addMenu(new LLAdvancedDumpAvatarLocalTextures(), "Advanced.DumpAvatarLocalTextures");
+
+	// Advanced > Network
+	addMenu(new LLAdvancedEnableMessageLog(), "Advanced.EnableMessageLog");
+	addMenu(new LLAdvancedDisableMessageLog(), "Advanced.DisableMessageLog");
+	addMenu(new LLAdvancedDropPacket(), "Advanced.DropPacket");
+
+	// Advanced > Recorder
+	addMenu(new LLAdvancedFrameStatsLogging(), "Advanced.FrameStatsLogging");
+	addMenu(new LLAdvancedAgentPilot(), "Advanced.AgentPilot");
+	addMenu(new LLAdvancedToggleAgentPilotLoop(), "Advanced.ToggleAgentPilotLoop");
+	addMenu(new LLAdvancedCheckAgentPilotLoop(), "Advanced.CheckAgentPilotLoop");
+
+	// Advanced (toplevel)
+	addMenu(new LLAdvancedToggleShowObjectUpdates(), "Advanced.ToggleShowObjectUpdates");
+	addMenu(new LLAdvancedCheckShowObjectUpdates(), "Advanced.CheckShowObjectUpdates");
+	addMenu(new LLAdvancedCompressImage(), "Advanced.CompressImage");
+	addMenu(new LLAdvancedToggleClothingFloater(), "Advanced.ToggleClothingFloater");
+	addMenu(new LLAdvancedShowDebugSettings(), "Advanced.ShowDebugSettings");
+	addMenu(new LLAdvancedToggleViewAdminOptions(), "Advanced.ToggleViewAdminOptions");
+	addMenu(new LLAdvancedCheckViewAdminOptions(), "Advanced.CheckViewAdminOptions");
+	addMenu(new LLAdvancedRequestAdminStatus(), "Advanced.RequestAdminStatus");
+	addMenu(new LLAdvancedLeaveAdminStatus(), "Advanced.LeaveAdminStatus");
 }
