@@ -1,3 +1,16 @@
+2008-09-20  Michelle2 Zenovka  <robin.cornelius@gmail.com>
+
+	* linden/indra/newview/llfloaterbulkpermission.h: 
+	VWR-5082: 'Set permissions on selected task inventory' feature.
+	* linden/indra/newview/llfloaterbulkpermission.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_bulk_perms.xml:
+	Ditto.
+
 2008-09-19  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:

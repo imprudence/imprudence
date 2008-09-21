@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-554" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" can_tear_off="false" enabled="true" height="420"
+     left="367" min_height="1000" min_width="460" mouse_opaque="true"
+     name="floaterrecursiveperms" title="Bulk permission settings"
+     width="460">
+
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
+			     mouse_opaque="true" name="applyto" v_pad="0" width="206">Apply to</text>
+
+<check_box bottom="-70" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Scripts" left="10" mouse_opaque="true"
+			     name="scripts" radio_style="false"
+			     tool_tip="Apply bulk permissions to scripts"
+			     width="219"/>
+
+<check_box bottom="-90" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Textures" left="10" mouse_opaque="true"
+			     name="textures" radio_style="false"
+			     tool_tip="Apply bulk permissions to textures"
+			     width="219"/>
+
+<check_box bottom="-110" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Animations" left="10" mouse_opaque="true"
+			     name="animations" radio_style="false"
+			     tool_tip="Apply bulk permissions to animations"
+			     width="219"/>
+
+<check_box bottom="-130" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Sounds" left="10" mouse_opaque="true"
+			     name="sounds" radio_style="false"
+			     tool_tip="Apply bulk permissions to sounds"
+			     width="219"/>
+
+<check_box bottom="-150" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Contained objects" left="10" mouse_opaque="true"
+			     name="objects" radio_style="false"
+			     tool_tip="Apply bulk permissions to objects inside inventory"
+			     width="219"/>
+
+<check_box bottom="-170" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Landmarks" left="10" mouse_opaque="true"
+			     name="landmarks" radio_style="false"
+			     tool_tip="Apply bulk permissions to landmarks"
+			     width="219"/>
+
+<check_box bottom="-190" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Notecards" left="10" mouse_opaque="true"
+			     name="notecards" radio_style="false"
+			     tool_tip="Apply bulk permissions to notecards"
+			     width="219"/>
+
+<check_box bottom="-210" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Gesture" left="10" mouse_opaque="true"
+			     name="gestures" radio_style="false"
+			     tool_tip="Apply bulk permissions to gestures"
+			     width="219"/>
+
+<check_box bottom="-230" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Clothing" left="10" mouse_opaque="true"
+			     name="clothing" radio_style="false"
+			     tool_tip="Apply bulk permissions to clothing"
+			     width="219"/>
+
+<check_box bottom="-250" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Bodypart" left="10" mouse_opaque="true"
+			     name="bodyparts" radio_style="false"
+			     tool_tip="Apply bulk permissions to bodyparts"
+			     width="219"/>
+
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="200"
+			     mouse_opaque="true" name="applyto" v_pad="0" width="206">Permissions</text>
+
+
+<check_box bottom="-110" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Copy" left="200" mouse_opaque="true"
+			     name="Copy" radio_style="false"
+			     tool_tip="Next owner can copy"
+			     width="219"/>
+
+<check_box bottom="-130" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Modify" left="200" mouse_opaque="true"
+			     name="Modify" radio_style="false"
+			     tool_tip="Next owner can modify"
+			     width="219"/>
+
+<check_box bottom="-150" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Trans" left="200" mouse_opaque="true"
+			     name="Trans" radio_style="false"
+			     tool_tip="Next owner can transfer"
+			     width="219"/>
+
+<check_box bottom="-230" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" initial_value="false"
+			     label="Modify Parent Prims" left="200" mouse_opaque="true"
+			     name="Parent" radio_style="false"
+			     tool_tip="Modify parent prims not just inventory"
+			     width="219" default="true"/>
+
+<scroll_list background_visible="true" bottom="-410" column_padding="5" draw_border="true"
+	     draw_heading="false" draw_stripes="true" enabled="true"
+	     follows="left|top|right|bottom" height="140" left="10" mouse_opaque="true"
+	     multi_select="false" name="queue output" width="440" />
+
+<button bottom="-70" enabled="true" follows="left|top" font="SansSerif"
+			     halign="center" height="20" label="Apply..."
+			     label_selected="Apply..." left="295" mouse_opaque="true"
+			     name="Apply..." scale_image="true" width="145" />
+
+</floater>
