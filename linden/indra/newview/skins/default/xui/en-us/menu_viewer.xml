@@ -590,6 +590,10 @@
 			<on_click function="Tools.TakeCopy" userdata="" />
 			<on_enable function="Tools.EnableTakeCopy" />
 		</menu_item_call>
+		<menu_item_call name="Return..." enabled="false" label="Return Object">
+			<on_click function="Object.Return" />
+			<on_enable function="Object.EnableReturn" />
+		</menu_item_call>
 		<menu_item_call name="Save Object Back to My Inventory" enabled="false"
 		     label="Save Object Back to My Inventory">
 			<on_click function="Tools.SaveToInventory" userdata="" />
