@@ -9,3 +9,8 @@
 	For convenience until we switch to CMake.
 	* linden/indra/newview/viewer_manifest.py: 
 	Ditto.
+
+2008-09-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	VWR-8056: Clean up menu_viewer.xml (main menu XUI).
