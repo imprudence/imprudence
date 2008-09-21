@@ -1,3 +1,8 @@
+2008-09-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Reindented and cleaned up menu XML for code readability.
+
 2008-09-20  Michelle2 Zenovka  <robin.cornelius@gmail.com>
 
 	* linden/indra/newview/llfloaterbulkpermission.h: 
