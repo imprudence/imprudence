@@ -975,7 +975,7 @@
 				Transparency %
 			</text>
 			<spinner bottom_delta="-20" decimal_digits="0" follows="left|top" height="16"
-			     increment="2" initial_val="0" left="180" max_val="90" min_val="0"
+			     increment="2" initial_val="0" left="180" max_val="100" min_val="0"
 			     mouse_opaque="true" name="ColorTrans" width="80" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-12" drop_shadow_visible="true" follows="left|top"
