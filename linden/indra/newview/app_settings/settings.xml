@@ -5569,7 +5569,7 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>RadioLandBrushSize</key>
+    <key>LandBrushSize</key>
     <map>
       <key>Comment</key>
       <string>Size of land modification brush (0 = small, 1 = medium, 2 = large)</string>
