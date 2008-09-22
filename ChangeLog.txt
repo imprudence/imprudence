@@ -1,3 +1,12 @@
+2008-09-22  Aimee Trescothick  <aimee@ama-zing.co.uk>
+
+	* linden/indra/newview/lloverlaybar.cpp:
+	VWR-8341: Bring back a UI indicator of 'Flycam' text.
+	* linden/indra/newview/lloverlaybar.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/panel_overlaybar.xml:
+	Ditto.
+
 2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/SConstruct:
