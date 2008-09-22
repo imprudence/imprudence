@@ -77,7 +77,7 @@
 	     initial_value="false" label="Stretch (Ctrl-Shift)" left="4"
 	     mouse_opaque="true" name="radio stretch" radio_style="true" width="123" />
 	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Select Texture" left="4" mouse_opaque="true"
+	     initial_value="false" label="Select Faces to Texture" left="4" mouse_opaque="true"
 	     name="radio select face" radio_style="true" width="114" />
 	<check_box bottom_delta="-19" control_name="EditLinkedParts" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"

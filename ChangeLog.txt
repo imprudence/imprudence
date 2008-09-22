@@ -1,3 +1,8 @@
+2008-09-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Changed "Select Texture" to "Select Faces to Texture".
+
 2008-09-19  McCabe Maxsted  <hakushakukun@gmail.com>
 	
 	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
