@@ -827,7 +827,7 @@ void LLPanelObject::getState( )
 	BOOL top_shear_x_visible		= TRUE;
 	BOOL top_shear_y_visible		= TRUE;
 	BOOL twist_visible				= TRUE;
-	BOOL advanced_cut_visible		= FALSE;
+	BOOL advanced_cut_visible		= TRUE;
 	BOOL taper_visible				= FALSE;
 	BOOL skew_visible				= FALSE;
 	BOOL radius_offset_visible		= FALSE;
@@ -838,6 +838,7 @@ void LLPanelObject::getState( )
 	F32	 twist_inc					= OBJECT_TWIST_LINEAR_INC;
 
 	BOOL advanced_is_dimple = FALSE;
+	BOOL advanced_is_slice = FALSE;
 	BOOL size_is_hole = FALSE;
 
 	// Tune based on overall volume type
@@ -851,6 +852,7 @@ void LLPanelObject::getState( )
 		//twist_visible			= FALSE;
 		advanced_cut_visible	= TRUE;
 		advanced_is_dimple		= TRUE;
+		advanced_is_slice		= FALSE;
 		twist_min				= OBJECT_TWIST_MIN;
 		twist_max				= OBJECT_TWIST_MAX;
 		twist_inc				= OBJECT_TWIST_INC;
@@ -864,6 +866,7 @@ void LLPanelObject::getState( )
 	  	size_is_hole 			= TRUE;
 		skew_visible			= TRUE;
 		advanced_cut_visible	= TRUE;
+		advanced_is_slice		= FALSE;
 		taper_visible			= TRUE;
 		radius_offset_visible	= TRUE;
 		revolutions_visible		= TRUE;
@@ -891,8 +894,20 @@ void LLPanelObject::getState( )
 		break;
 		
 	case MI_BOX:
+		advanced_cut_visible	= TRUE;
+		advanced_is_slice		= TRUE;
+		break;
+
 	case MI_CYLINDER:
+		advanced_cut_visible	= TRUE;
+		advanced_is_slice		= TRUE;
+		break;
+
 	case MI_PRISM:
+		advanced_cut_visible	= TRUE;
+		advanced_is_slice		= TRUE;
+		break;
+
 	default:
 		break;
 	}
@@ -984,12 +999,20 @@ void LLPanelObject::getState( )
 
 	childSetVisible("advanced_cut", FALSE);
 	childSetVisible("advanced_dimple", FALSE);
+	childSetVisible("advanced_slice", FALSE);
+
 	if (advanced_cut_visible)
 	{
 		if (advanced_is_dimple)
 		{
 			childSetVisible("advanced_dimple", TRUE);
 			childSetEnabled("advanced_dimple", enabled);
+		}
+
+		else if (advanced_is_slice)
+		{
+			childSetVisible("advanced_slice", TRUE);
+			childSetEnabled("advanced_slice", enabled);
 		}
 		else
 		{
@@ -1823,6 +1846,7 @@ void LLPanelObject::clearCtrls()
 	childSetEnabled("scale_taper", FALSE);
 	childSetEnabled( "advanced_cut", FALSE );
 	childSetEnabled( "advanced_dimple", FALSE );
+	childSetVisible("advanced_slice", FALSE);
 }
 
 //

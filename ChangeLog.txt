@@ -9,3 +9,11 @@
 	For convenience until we switch to CMake.
 	* linden/indra/newview/viewer_manifest.py: 
 	Ditto.
+
+2008-09-07  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llpanelobject.cpp:
+	VWR-7827: Allow Dimple/Profile Cut for boxes and box-based prims
+	in the UI.
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Ditto.
