@@ -48,6 +48,7 @@ class LLPanelContents;
 class LLPanelFace;
 class LLPanelLandInfo;
 class LLComboBox;
+class LLSlider;
 class LLParcelSelection;
 class LLObjectSelection;
 
@@ -167,10 +168,10 @@ public:
 	LLCheckBoxCtrl	*mRadioDozerSmooth;
 	LLCheckBoxCtrl	*mRadioDozerNoise;
 	LLCheckBoxCtrl	*mRadioDozerRevert;
+	LLSlider		*mSliderDozerSize;
+	LLSlider		*mSliderDozerForce;
 
-	LLComboBox		*mComboDozerSize;
 	LLButton		*mBtnApplyToSelection;
-	LLCheckBoxCtrl	*mCheckShowOwners;
 
 	std::vector<LLButton*>	mButtons;//[ 15 ];
 

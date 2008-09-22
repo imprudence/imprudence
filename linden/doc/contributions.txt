@@ -14,6 +14,7 @@ Adam Marker
 Aimee Trescothick
 	VWR-3903
 	VWR-4083
+	VWR-8430
 Alejandro Rosenthal
 	VWR-1184
 Alissa Sabre
@@ -142,6 +143,7 @@ Gigs Taggart
 	VWR-1987
 	VWR-2065
 	VWR-2502
+	VWR-2331
 Ginko Bayliss
 	VWR-4
 Grazer Kline

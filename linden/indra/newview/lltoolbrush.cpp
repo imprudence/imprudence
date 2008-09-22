@@ -96,7 +96,7 @@ LLToolBrushLand::LLToolBrushLand()
 	mGotHover(FALSE),
 	mBrushSelected(FALSE)
 {
-	mBrushIndex = gSavedSettings.getS32("RadioLandBrushSize");
+	mBrushIndex = gSavedSettings.getS32("LandBrushSize");
 }
 
 void LLToolBrushLand::modifyLandAtPointGlobal(const LLVector3d &pos_global,
@@ -154,7 +154,7 @@ void LLToolBrushLand::modifyLandAtPointGlobal(const LLVector3d &pos_global,
 		regionp->forceUpdate();
 
 		// tell the simulator what we've done
-		F32 seconds = 1.0f / gFPSClamped;
+		F32 seconds = (1.0f / gFPSClamped) * gSavedSettings.getF32("LandBrushForce");
 		F32 x_pos = (F32)pos_region.mV[VX];
 		F32 y_pos = (F32)pos_region.mV[VY];
 		U8 brush_size = (U8)mBrushIndex;
@@ -242,7 +242,7 @@ void LLToolBrushLand::modifyLandInSelectionGlobal()
 	
 		min_region.clamp(0.f, regionp->getWidth());
 		max_region.clamp(0.f, regionp->getWidth());
-		F32 seconds = 1.0f;
+		F32 seconds = gSavedSettings.getF32("LandBrushForce");
 
 		LLSurface &land = regionp->getLand();
 		char action = E_LAND_LEVEL;
@@ -251,21 +251,23 @@ void LLToolBrushLand::modifyLandInSelectionGlobal()
 		case 0:
 		//	// average toward mStartingZ
 			action = E_LAND_LEVEL;
-			seconds = 1.f;
+			seconds *= 0.25f;
 			break;
 		case 1:
 			action = E_LAND_RAISE;
+			seconds *= 0.25f;
 			break;
 		case 2:
 			action = E_LAND_LOWER;
+			seconds *= 0.25f;
 			break;
 		case 3:
 			action = E_LAND_SMOOTH;
-			seconds = 10.f;
+			seconds *= 5.0f;
 			break;
 		case 4:
 			action = E_LAND_NOISE;
-			seconds = 0.5f;
+			seconds *= 0.5f;
 			break;
 		case 5:
 			action = E_LAND_REVERT;
@@ -445,7 +447,7 @@ void LLToolBrushLand::render()
 			spot.mdV[VX] = floor( spot.mdV[VX] + 0.5 );
 			spot.mdV[VY] = floor( spot.mdV[VY] + 0.5 );
 
-			mBrushIndex = gSavedSettings.getS32("RadioLandBrushSize");
+			mBrushIndex = gSavedSettings.getS32("LandBrushSize");
 			region_list_t regions;
 			determineAffectedRegions(regions, spot);
 
