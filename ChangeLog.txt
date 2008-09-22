@@ -1,3 +1,8 @@
+2008-09-19  McCabe Maxsted  <hakushakukun@gmail.com>
+	
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	VWR-7877: Change the default cut increment from 0.05 to 0.025.
+	
 2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/SConstruct:
