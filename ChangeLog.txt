@@ -1,3 +1,11 @@
+2008-09-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Increased maximum settable transparency from 90% to 100%.
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Changed "Select Texture" to "Select Faces to Texture".
+
 2008-09-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
@@ -21,6 +29,9 @@
 	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
 	VWR-1363: Add "Return Object" to the Tools menu.
 
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	VWR-7877: Change the default cut increment from 0.05 to 0.025.
+
 2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llviewermenu.cpp: 
@@ -39,6 +50,14 @@
 	VWR-2865: New SConstruct flag to (not) make tarball after compiling.
 	For convenience until we switch to CMake.
 	* linden/indra/newview/viewer_manifest.py: 
+	Ditto.
+
+2008-09-07  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llpanelobject.cpp:
+	VWR-7827: Allow Dimple/Profile Cut for boxes and box-based prims
+	in the UI.
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
 	Ditto.
 
 2008-09-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
