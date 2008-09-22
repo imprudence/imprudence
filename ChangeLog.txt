@@ -8,6 +8,13 @@
 
 2008-09-22  Aimee Trescothick  <aimee@ama-zing.co.uk>
 
+	* linden/indra/newview/lloverlaybar.cpp:
+	VWR-8341: Bring back a UI indicator of 'Flycam' text.
+	* linden/indra/newview/lloverlaybar.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/panel_overlaybar.xml:
+	Ditto.
+
 	* linden/indra/newview/app_settings/settings.xml:
 	VWR-8430: Usability improvements to the land tools floater.
 	* linden/indra/newview/llfloatertools.cpp:

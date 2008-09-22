@@ -50,6 +50,7 @@
 #include "llui.h"
 #include "llviewercontrol.h"
 #include "llviewerimagelist.h"
+#include "llviewerjoystick.h"
 #include "llviewermedia.h"
 #include "llviewermenu.h"	// handle_reset_view()
 #include "llviewermedia.h"
@@ -121,6 +122,7 @@ BOOL LLOverlayBar::postBuild()
 	childSetAction("IM Received",onClickIMReceived,this);
 	childSetAction("Set Not Busy",onClickSetNotBusy,this);
 	childSetAction("Release Keys",onClickReleaseKeys,this);
+	childSetAction("Flycam",onClickFlycam,this);
 	childSetAction("Mouselook",onClickMouselook,this);
 	childSetAction("Stand Up",onClickStandUp,this);
 	childSetVisible("chat_bar", gSavedSettings.getBOOL("ChatVisible"));
@@ -221,6 +223,16 @@ void LLOverlayBar::refresh()
 		buttons_changed = TRUE;
 	}
 
+	BOOL flycam = LLViewerJoystick::getInstance()->getOverrideCamera();
+	button = getChild<LLButton>("Flycam");
+	if (button && button->getVisible() != flycam)
+	{
+		button->setVisible(flycam);
+		sendChildToFront(button);
+		moveChildToBackOfTabGroup(button);
+		buttons_changed = TRUE;
+	}		
+
 	BOOL mouselook_grabbed;
 	mouselook_grabbed = gAgent.isControlGrabbed(CONTROL_ML_LBUTTON_DOWN_INDEX)
 		|| gAgent.isControlGrabbed(CONTROL_ML_LBUTTON_UP_INDEX);
@@ -299,6 +311,12 @@ void LLOverlayBar::onClickSetNotBusy(void*)
 void LLOverlayBar::onClickReleaseKeys(void*)
 {
 	gAgent.forceReleaseControls();
+}
+
+// static
+void LLOverlayBar::onClickFlycam(void*)
+{
+	LLViewerJoystick::getInstance()->toggleFlycam();
 }
 
 // static
