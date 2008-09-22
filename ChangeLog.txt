@@ -43,6 +43,15 @@
 	* linden/indra/newview/skins/default/xui/en-us/floater_bulk_perms.xml:
 	Ditto.
 
+2008-09-20  Paul Churchill  <pnolan@dsl.pipex.com>
+
+	* linden/indra/newview/llimpanel.cpp:
+	VWR-2072: New Feature -> UI -> IM -> Teleport (other person) Button.
+	* linden/indra/newview/llimpanel.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml:
+	Ditto.
+
 2008-09-19  Gigs Taggart  <gigstaggart@gmail.com>
 
 	* linden/indra/newview/app_settings/settings.xml:
