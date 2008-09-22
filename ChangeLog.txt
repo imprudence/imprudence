@@ -68,6 +68,9 @@
 
 2008-09-19  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden/indra/newview/skins/default/xui/en-us/panel_groups.xml: 
+	VWR-8024: simplify group invites: invite to group from groups list.
+
 	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
 	VWR-1363: Add "Return Object" to the Tools menu.
 
