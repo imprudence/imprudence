@@ -1,4 +1,35 @@
+2008-09-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Reindented and cleaned up menu XML for code readability.
+
+2008-09-20  Michelle2 Zenovka  <robin.cornelius@gmail.com>
+
+	* linden/indra/newview/llfloaterbulkpermission.h: 
+	VWR-5082: 'Set permissions on selected task inventory' feature.
+	* linden/indra/newview/llfloaterbulkpermission.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_bulk_perms.xml:
+	Ditto.
+
+2008-09-19  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	VWR-1363: Add "Return Object" to the Tools menu.
+
 2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llviewermenu.cpp: 
+	VWR-2947: Create event callbacks for Advanced menu functions.
+	Part of VWR-2896: Convert "Advanced" menu to XUI.
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	VWR-2948: Create XUI-based Advanced menu.
+	Part of VWR-2896: Convert "Advanced" menu to XUI.
 
 	* linden/indra/SConstruct:
 	New optional SConstruct flag to specify an exact path to build
@@ -9,3 +40,8 @@
 	For convenience until we switch to CMake.
 	* linden/indra/newview/viewer_manifest.py: 
 	Ditto.
+
+2008-09-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	VWR-8056: Clean up menu_viewer.xml (main menu XUI).
