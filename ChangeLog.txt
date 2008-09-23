@@ -1,5 +1,11 @@
 2008-09-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llimpanel.cpp:
+	'Offer Teleport' button in IM panel is now always enabled,
+	regardless of whether the other person is known to be online.
+	Fixes crash introduced by VWR-2072 when IMing someone not on
+	your friends list, and makes the feature useful in more cases.
+
 	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
 	Increased maximum settable transparency from 90% to 100%.
 

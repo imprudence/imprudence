@@ -1397,19 +1397,6 @@ void LLFloaterIMPanel::draw()
 		childSetVisible("mute_btn", LLVoiceClient::voiceEnabled() && mVoiceChannel->isActive());
 	}
 
-	// enable 'offer teleport' button
-	if(mDialog == IM_NOTHING_SPECIAL)
-	{
-		const LLRelationship* info = NULL;
-		info = LLAvatarTracker::instance().getBuddyInfo(mOtherParticipantUUID);
-		childSetEnabled("offer_tp_btn", info->isOnline());
-	}
-	else
-	{
-		childSetEnabled("offer_tp_btn", false);
-		childSetVisible("offer_tp_button", false);
-	}
-
 	LLFloater::draw();
 }
 
