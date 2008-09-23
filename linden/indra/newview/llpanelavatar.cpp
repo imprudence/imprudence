@@ -1325,7 +1325,7 @@ void LLPanelAvatar::setOnlineStatus(EOnlineStatus online_status)
 	}
 	else
 	{
-		childSetEnabled("Offer Teleport...", (online_status == ONLINE_STATUS_YES));
+		childSetEnabled("Offer Teleport...", TRUE);
 		childSetToolTip("Offer Teleport...", childGetValue("TeleportNormal").asString());
 	}
 }

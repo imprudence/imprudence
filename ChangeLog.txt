@@ -1,5 +1,9 @@
 2008-09-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llpanelavatar.cpp (setOnlineStatus):
+	'Offer Teleport' button in avatar profile is now always enabled,
+	regardless of whether the other person is known to be online.
+
 	* linden/indra/newview/llimpanel.cpp:
 	'Offer Teleport' button in IM panel is now always enabled,
 	regardless of whether the other person is known to be online.
