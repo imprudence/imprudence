@@ -65,6 +65,9 @@
 	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
 	VWR-7877: Change the default cut increment from 0.05 to 0.025.
 
+	* linden/indra/newview/skins/default/xui/en-us/panel_groups.xml: 
+	VWR-8024: simplify group invites: invite to group from groups list.
+
 2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llviewermenu.cpp: 
