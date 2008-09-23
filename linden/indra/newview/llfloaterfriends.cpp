@@ -326,13 +326,8 @@ void LLPanelFriends::refreshRightsChangeList()
 		{
 			if(!friend_status->isOnline())
 			{
-				can_offer_teleport = false;
 				selected_friends_online = false;
 			}
-		}
-		else // missing buddy info, don't allow any operations
-		{
-			can_offer_teleport = false;
 		}
 	}
 	

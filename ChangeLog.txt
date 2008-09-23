@@ -1,3 +1,12 @@
+2008-09-23  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llfloaterfriends.cpp:
+	'Offer Teleport' button in friends list is now enabled
+	even when the selected user(s) appear to be offline.
+	Mostly for consistency, but also to allow a work-around
+	for times when presence is flakey.
+	
+
 2008-09-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llpanelavatar.cpp (setOnlineStatus):
