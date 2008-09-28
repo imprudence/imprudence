@@ -168,11 +168,10 @@ public:
 	LLCheckBoxCtrl	*mRadioDozerSmooth;
 	LLCheckBoxCtrl	*mRadioDozerNoise;
 	LLCheckBoxCtrl	*mRadioDozerRevert;
+	LLSlider		*mSliderDozerSize;
 	LLSlider		*mSliderDozerForce;
-
-	LLComboBox		*mComboDozerSize;
+	LLCheckBoxCtrl  *mCheckShowOwners;
 	LLButton		*mBtnApplyToSelection;
-	LLCheckBoxCtrl	*mCheckShowOwners;
 
 	std::vector<LLButton*>	mButtons;//[ 15 ];
 

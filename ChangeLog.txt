@@ -1,0 +1,113 @@
+2008-09-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Updated to SL source 1.21.2.
+
+2008-09-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Increased maximum settable transparency from 90% to 100%.
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Changed "Select Texture" to "Select Faces to Texture".
+
+2008-09-22  Aimee Trescothick  <aimee@ama-zing.co.uk>
+
+	* linden/indra/newview/lloverlaybar.cpp:
+	VWR-8341: Bring back a UI indicator of 'Flycam' text.
+	* linden/indra/newview/lloverlaybar.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/panel_overlaybar.xml:
+	Ditto.
+
+	* linden/indra/newview/app_settings/settings.xml:
+	VWR-8430: Usability improvements to the land tools floater.
+	* linden/indra/newview/llfloatertools.cpp:
+	Ditto.
+	* linden/indra/newview/llfloatertools.h:
+	Ditto.
+	* linden/indra/newview/llpanelland.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelland.h:
+	Ditto.
+	* linden/indra/newview/lltoolbrush.cpp:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Ditto.
+
+2008-09-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Reindented and cleaned up menu XML for code readability.
+
+2008-09-20  Michelle2 Zenovka  <robin.cornelius@gmail.com>
+
+	* linden/indra/newview/llfloaterbulkpermission.h: 
+	VWR-5082: 'Set permissions on selected task inventory' feature.
+	* linden/indra/newview/llfloaterbulkpermission.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_bulk_perms.xml:
+	Ditto.
+
+2008-09-19  Gigs Taggart  <gigstaggart@gmail.com>
+
+	* linden/indra/newview/app_settings/settings.xml:
+	VWR-2331: Terraform tool variable "strength".
+	Contributing authors: Gigs Taggart, Aimee Trescothick, Which Linden.
+	* linden/indra/newview/llfloatertools.cpp:
+	Ditto.
+	* linden/indra/newview/llfloatertools.h:
+	Ditto.
+	* linden/indra/newview/lltoolbrush.cpp:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Ditto.
+
+2008-09-19  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	VWR-1363: Add "Return Object" to the Tools menu.
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	VWR-7877: Change the default cut increment from 0.05 to 0.025.
+
+	* linden/indra/newview/skins/default/xui/en-us/panel_groups.xml: 
+	VWR-8024: simplify group invites: invite to group from groups list.
+
+2008-09-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llviewermenu.cpp: 
+	VWR-2947: Create event callbacks for Advanced menu functions.
+	Part of VWR-2896: Convert "Advanced" menu to XUI.
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	VWR-2948: Create XUI-based Advanced menu.
+	Part of VWR-2896: Convert "Advanced" menu to XUI.
+
+	* linden/indra/SConstruct:
+	New optional SConstruct flag to specify an exact path to build
+	directory: BUILD_DIR. For convenience until we switch to CMake.
+
+	* linden/indra/SConstruct:
+	VWR-2865: New SConstruct flag to (not) make tarball after compiling.
+	For convenience until we switch to CMake.
+	* linden/indra/newview/viewer_manifest.py: 
+	Ditto.
+
+2008-09-07  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llpanelobject.cpp:
+	VWR-7827: Allow Dimple/Profile Cut for boxes and box-based prims
+	in the UI.
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Ditto.
+
+2008-09-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	VWR-8056: Clean up menu_viewer.xml (main menu XUI).

@@ -124,6 +124,7 @@ set(viewer_SOURCE_FILES
     llfloateravatarpicker.cpp
     llfloateravatartextures.cpp
     llfloaterbuildoptions.cpp
+    llfloaterbulkpermission.cpp
     llfloaterbump.cpp
     llfloaterbuycontents.cpp
     llfloaterbuy.cpp
@@ -514,6 +515,7 @@ set(viewer_HEADER_FILES
     llfloateravatarpicker.h
     llfloateravatartextures.h
     llfloaterbuildoptions.h
+    llfloaterbulkpermission.h
     llfloaterbump.h
     llfloaterbuy.h
     llfloaterbuycontents.h
@@ -1019,6 +1021,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_avatar_picker.xml
     skins/default/xui/en-us/floater_avatar_textures.xml
     skins/default/xui/en-us/floater_build_options.xml
+    skins/default/xui/en-us/floater_bulk_perms.xml
     skins/default/xui/en-us/floater_bumps.xml
     skins/default/xui/en-us/floater_buy_contents.xml
     skins/default/xui/en-us/floater_buy_currency.xml

@@ -39,6 +39,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llfloatergroups.h"
+#include "llfloatergroupinvite.h"
 
 #include "message.h"
 #include "roles_constants.h"
@@ -223,6 +224,8 @@ BOOL LLPanelGroups::postBuild()
 	childSetAction("Create", onBtnCreate, this);
 
 	childSetAction("Search...", onBtnSearch, this);
+	
+	childSetAction("Invite...", onBtnInvite, this);
 
 	setDefaultBtn("IM");
 
@@ -271,6 +274,14 @@ void LLPanelGroups::enableButtons()
 	{
 		childDisable("Create");
 	}
+	if (group_id.notNull() && gAgent.hasPowerInGroup(group_id, GP_MEMBER_INVITE))
+	{
+		LLPanelGroups::childEnable("Invite...");
+	}
+	else
+	{
+		LLPanelGroups::childDisable("Invite...");
+	}
 }
 
 
@@ -278,6 +289,12 @@ void LLPanelGroups::onBtnCreate(void* userdata)
 {
 	LLPanelGroups* self = (LLPanelGroups*)userdata;
 	if(self) self->create();
+}
+
+void LLPanelGroups::onBtnInvite(void* userdata)
+{
+	LLPanelGroups* self = (LLPanelGroups*)userdata;
+	if(self) self->invite();
 }
 
 void LLPanelGroups::onBtnActivate(void* userdata)
@@ -399,6 +416,21 @@ void LLPanelGroups::leave()
 void LLPanelGroups::search()
 {
 	LLFloaterDirectory::showGroups();
+}
+
+void LLPanelGroups::invite()
+{
+	LLCtrlListInterface *group_list = childGetListInterface("group list");
+	LLUUID group_id;
+
+	//if (group_list && (group_id = group_list->getCurrentID()).notNull())
+	
+	if (group_list)
+	{
+		group_id = group_list->getCurrentID();
+	}
+
+		LLFloaterGroupInvite::showForGroup(group_id);
 }
 
 // static

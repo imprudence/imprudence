@@ -96,7 +96,7 @@ LLToolBrushLand::LLToolBrushLand()
 	mGotHover(FALSE),
 	mBrushSelected(FALSE)
 {
-	mBrushIndex = gSavedSettings.getS32("RadioLandBrushSize");
+	mBrushIndex = gSavedSettings.getS32("LandBrushSize");
 }
 
 void LLToolBrushLand::modifyLandAtPointGlobal(const LLVector3d &pos_global,
@@ -447,7 +447,7 @@ void LLToolBrushLand::render()
 			spot.mdV[VX] = floor( spot.mdV[VX] + 0.5 );
 			spot.mdV[VY] = floor( spot.mdV[VY] + 0.5 );
 
-			mBrushIndex = gSavedSettings.getS32("RadioLandBrushSize");
+			mBrushIndex = gSavedSettings.getS32("LandBrushSize");
 			region_list_t regions;
 			determineAffectedRegions(regions, spot);
 

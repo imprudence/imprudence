@@ -77,7 +77,7 @@
 	     initial_value="false" label="Stretch (Ctrl-Shift)" left="4"
 	     mouse_opaque="true" name="radio stretch" radio_style="true" width="123" />
 	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Select Texture" left="4" mouse_opaque="true"
+	     initial_value="false" label="Select Faces to Texture" left="4" mouse_opaque="true"
 	     name="radio select face" radio_style="true" width="114" />
 	<check_box bottom_delta="-19" control_name="EditLinkedParts" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
@@ -245,55 +245,63 @@
 
 <!-- Land panel -->
 
-	<check_box bottom="-70" follows="left|top" font="SansSerifSmall" height="16"
+	<check_box bottom="-69" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Select Land" left="4" mouse_opaque="true"
 	     name="radio select land" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Flatten Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Flatten" left="4" mouse_opaque="true"
 	     name="radio flatten" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Raise Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Raise" left="4" mouse_opaque="true"
 	     name="radio raise" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Lower Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Lower" left="4" mouse_opaque="true"
 	     name="radio lower" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Smooth Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Smooth" left="4" mouse_opaque="true"
 	     name="radio smooth" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Roughen Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Roughen" left="4" mouse_opaque="true"
 	     name="radio noise" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Revert Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Revert" left="4" mouse_opaque="true"
 	     name="radio revert" radio_style="true" width="114" />
-	<combo_box allow_text_entry="false" bottom="-85" follows="left|top" height="18" left="118"
-	     max_chars="20" mouse_opaque="true" name="combobox brush size" width="134">
-		<combo_item name="Small" value="Small">
-			Small
-		</combo_item>
-		<combo_item name="Medium" value="Medium">
-			Medium
-		</combo_item>
-		<combo_item name="Large" value="Large">
-			Large
-		</combo_item>
-	</combo_box>
-	<volume_slider bottom_delta="-19" follows="left|top" height="16" hidden="false" increment="0.1"
-         initial_val="0.00" left="176" max_val="2.0" min_val="-1.0"
-	     mouse_opaque="true" name="slider force" width="70" />	
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="4" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
-	     left="126" mouse_opaque="true" name="Strength:" v_pad="0" width="128">
-	          Strength:
-	</text>    
-	<button bottom_delta="-22" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="16" label="Apply to selection" label_selected="Apply to selection"
+	<button bottom="-74" follows="left|top" font="SansSerifSmall" halign="center"
+	     height="20" label="Apply to selection" label_selected="Apply to selection"
 	     left="118" mouse_opaque="true" name="button apply to selection"
 	     scale_image="TRUE" tool_tip="Modify Selected Land" width="134" />
-	<check_box bottom_delta="-20" control_name="ShowParcelOwners" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false" label="Show Owners"
-	     left="118" mouse_opaque="true" name="checkbox show owners" width="134" />
+
+
+
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
+	     border_visible="false" bottom_delta="-16" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="12" left="118"
+	     hidden="false" mouse_opaque="true" name="Brush:" v_pad="0" width="100">
+	          Brush:
+	</text>
+
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
+	     border_visible="false" bottom_delta="-18" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="12" left="132"
+	     hidden="false" mouse_opaque="true" name="Brush Size:" v_pad="0" width="100">
+	          Size
+	</text>
+	<volume_slider bottom_delta="-4" follows="left|top" height="16" hidden="false"
+	     increment="1.0" initial_val="0.0" left="178" max_val="2.0" min_val="0.0"
+	     mouse_opaque="true" name="slider brush size" width="80" />	
+
+
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
+	     border_visible="false" bottom_delta="-18" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="12" left="132"
+	      hidden="false" mouse_opaque="true" name="Strength:" v_pad="0" width="100">
+	          Strength
+	</text>
+	<volume_slider bottom_delta="-4" follows="left|top" height="16" hidden="false"
+	     increment="0.1" initial_val="0.00" left="178" max_val="2.0" min_val="-1.0"
+	     mouse_opaque="true" name="slider force" width="80" />	
+
+
 	<button bottom="-163" follows="left|top" font="SansSerifSmall" halign="center"
 	     height="20" label="More &gt;&gt;" left="186" mouse_opaque="true"
 	     name="button more" scale_image="TRUE" tool_tip="Advanced Options"
@@ -722,10 +730,10 @@
 				Path Cut Begin and End
 			</text>
 			<spinner bottom_delta="-22" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.05" initial_val="0" label="B" label_width="10" left="121"
+			     increment="0.025" initial_val="0" label="B" label_width="10" left="121"
 			     max_val="0.98" min_val="0" mouse_opaque="true" name="cut begin" width="68" />
 			<spinner bottom_delta="0" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.05" initial_val="1" label="E" label_width="10" left_delta="73"
+			     increment="0.025" initial_val="1" label="E" label_width="10" left_delta="73"
 			     max_val="1" min_val="0.02" mouse_opaque="true" name="cut end" width="68" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-14" drop_shadow_visible="true" follows="left|top"
@@ -824,12 +832,18 @@
 			     mouse_opaque="true" name="advanced_dimple" v_pad="0" width="141">
 				Dimple Begin and End
 			</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="0"
+			     mouse_opaque="true" name="advanced_slice" v_pad="0" width="141">
+				Slice Begin and End
+			</text>
 			<spinner bottom_delta="-19" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.05" initial_val="0" label="B" label_width="10" left="121"
+			     increment="0.025" initial_val="0" label="B" label_width="10" left="121"
 			     max_val="0.95" min_val="0" mouse_opaque="true" name="Path Limit Begin"
 			     width="68" />
 			<spinner bottom_delta="0" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.05" initial_val="1" label="E" label_width="10" left_delta="73"
+			     increment="0.025" initial_val="1" label="E" label_width="10" left_delta="73"
 			     max_val="1" min_val="0.05" mouse_opaque="true" name="Path Limit End"
 			     width="68" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -1003,7 +1017,7 @@
 				Transparency %
 			</text>
 			<spinner bottom_delta="-20" decimal_digits="0" follows="left|top" height="16"
-			     increment="2" initial_val="0" left="180" max_val="90" min_val="0"
+			     increment="2" initial_val="0" left="180" max_val="100" min_val="0"
 			     mouse_opaque="true" name="ColorTrans" width="80" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-12" drop_shadow_visible="true" follows="left|top"
@@ -1204,34 +1218,59 @@
 	<panel bottom="-550" follows="left|top" height="384" left="0" mouse_opaque="true"
 	     name="land info panel" width="272">
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-		     bottom="-18" drop_shadow_visible="true" follows="left|top"
-		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
+		     bottom="-40" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="40"
+		     mouse_opaque="true" name="label_parcel_modify" v_pad="0" width="150">
+			Modify Parcel
+		</text>
+		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
+		     height="20" label="Subdivide..." label_selected="Subdivide..." left="48"
+		     mouse_opaque="true" name="button subdivide land" scale_image="TRUE"
+		     width="112" />
+		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
+		     height="20" label="Join..." label_selected="Join..." left="48"
+		     mouse_opaque="true" name="button join land" scale_image="TRUE" width="112" />
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom_delta="-56" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="40"
+		     mouse_opaque="true" name="label_parcel_info" v_pad="0" width="150">
+			Parcel Information
+		</text>
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="48"
 		     mouse_opaque="true" name="label_area_price" v_pad="0" width="150">
 			Price: L$[PRICE] for [AREA] sq. m.
 		</text>
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
-		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
-		     mouse_opaque="true" name="label_area" v_pad="0" width="128">
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="48"
+		     mouse_opaque="true" name="label_area" v_pad="0" width="150">
 			Area: [AREA] sq. m.
 		</text>
-		<button bottom_delta="-38" follows="left|top" font="SansSerif" halign="center"
-		     height="20" label="Buy Land..." label_selected="Buy Land..." left="76"
-		     mouse_opaque="true" name="button buy land" scale_image="TRUE" width="102" />
+		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
+		     height="20" label="About Land..." label_selected="About Land..." left="48"
+		     mouse_opaque="true" name="button about land" scale_image="TRUE" width="112" />
+		<check_box bottom_delta="-24" control_name="ShowParcelOwners" follows="left|top"
+		     tool_tip="Colour parcels according to their status" font="SansSerifSmall"
+		     height="16" initial_value="false" label="Show Status" left="48" 
+		     mouse_opaque="true" name="checkbox show owners" width="100" />
+			<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+			     height="18" label="?" label_selected="?" left_delta="94"
+			     mouse_opaque="true" name="button show owners help" width="18" />
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom_delta="-56" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="40"
+		     mouse_opaque="true" name="label_parcel_trans" v_pad="0" width="150">
+			Land Transactions
+		</text>
+		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
+		     height="20" label="Buy Land..." label_selected="Buy Land..." left="48"
+		     mouse_opaque="true" name="button buy land" scale_image="TRUE" width="112" />
 		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
 		     height="20" label="Abandon Land..." label_selected="Abandon Land..."
-		     left="76" mouse_opaque="true" name="button abandon land" scale_image="TRUE"
-		     width="102" />
-		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
-		     height="20" label="Subdivide..." label_selected="Subdivide..." left="76"
-		     mouse_opaque="true" name="button subdivide land" scale_image="TRUE"
-		     width="102" />
-		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
-		     height="20" label="Join..." label_selected="Join..." left="76"
-		     mouse_opaque="true" name="button join land" scale_image="TRUE" width="102" />
-		<button bottom_delta="-40" follows="left|top" font="SansSerif" halign="center"
-		     height="20" label="About Land..." label_selected="About Land..." left="76"
-		     mouse_opaque="true" name="button about land" scale_image="TRUE" width="102" />
+		     left="48" mouse_opaque="true" name="button abandon land" scale_image="TRUE"
+		     width="112" />
 	</panel>
 	<string name="status_rotate">
 		Drag colored bands to rotate object

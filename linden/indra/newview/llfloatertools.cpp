@@ -106,9 +106,8 @@ void click_popup_rotate_left(void*);
 void click_popup_rotate_reset(void*);
 void click_popup_rotate_right(void*);
 void click_popup_dozer_mode(LLUICtrl *, void *user);
-void click_popup_dozer_size(LLUICtrl *, void *user);
+void commit_slider_dozer_size(LLUICtrl *, void*);
 void commit_slider_dozer_force(LLUICtrl *, void*);
-void click_dozer_size(LLUICtrl *, void*);
 void click_apply_to_selection(void*);
 void commit_radio_zoom(LLUICtrl *, void*);
 void commit_radio_orbit(LLUICtrl *, void*);
@@ -303,13 +302,15 @@ BOOL	LLFloaterTools::postBuild()
 	childSetCommitCallback("radio noise",click_popup_dozer_mode,  (void*)4);
 	mRadioDozerRevert = getChild<LLCheckBoxCtrl>("radio revert");
 	childSetCommitCallback("radio revert",click_popup_dozer_mode,  (void*)5);
-	mComboDozerSize = getChild<LLComboBox>("combobox brush size");
-	childSetCommitCallback("combobox brush size",click_dozer_size,  (void*)0);
-	if(mComboDozerSize) mComboDozerSize->setCurrentByIndex(0);
 	mBtnApplyToSelection = getChild<LLButton>("button apply to selection");
 	childSetAction("button apply to selection",click_apply_to_selection,  (void*)0);
 	mCheckShowOwners = getChild<LLCheckBoxCtrl>("checkbox show owners");
 	childSetValue("checkbox show owners",gSavedSettings.getBOOL("ShowParcelOwners"));
+
+	mSliderDozerSize = getChild<LLSlider>("slider brush size");
+	childSetCommitCallback("slider brush size", commit_slider_dozer_size,  (void*)0);
+	childSetValue( "slider brush size", gSavedSettings.getS32("LandBrushSize"));
+	
 
 	mSliderDozerForce = getChild<LLSlider>("slider force");
 	childSetCommitCallback("slider force",commit_slider_dozer_force,  (void*)0);
@@ -391,7 +392,8 @@ LLFloaterTools::LLFloaterTools()
 	mRadioDozerSmooth(NULL),
 	mRadioDozerNoise(NULL),
 	mRadioDozerRevert(NULL),
-	mComboDozerSize(NULL),
+	mSliderDozerSize(NULL),
+	mSliderDozerForce(NULL),
 	mBtnApplyToSelection(NULL),
 	mCheckShowOwners(NULL),
 
@@ -702,7 +704,6 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	if (mRadioSelectLand)	mRadioSelectLand->setVisible( land_visible );
 
 	S32 dozer_mode = gSavedSettings.getS32("RadioLandBrushAction");
-	S32 dozer_size = gSavedSettings.getS32("RadioLandBrushSize");
 
 	if (mRadioDozerFlatten)
 	{
@@ -734,16 +735,16 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 		mRadioDozerRevert	->set( tool == LLToolBrushLand::getInstance() && dozer_mode == 5);
 		mRadioDozerRevert	->setVisible( land_visible );
 	}
-	if (mComboDozerSize)
-	{
-		mComboDozerSize		->setCurrentByIndex(dozer_size);
-		mComboDozerSize 	->setVisible( land_visible );
-		mComboDozerSize 	->setEnabled( tool == LLToolBrushLand::getInstance() );
-	}
 	if (mBtnApplyToSelection)
 	{
 		mBtnApplyToSelection->setVisible( land_visible );
 		mBtnApplyToSelection->setEnabled( land_visible && !LLViewerParcelMgr::getInstance()->selectionEmpty() && tool != LLToolSelectLand::getInstance());
+	}
+	if (mSliderDozerSize)
+	{
+		mSliderDozerSize	->setVisible( land_visible );
+		childSetVisible("Brush:", land_visible);
+		childSetVisible("Brush Size:", land_visible);
 	}
 	if (mCheckShowOwners)
 	{
@@ -933,23 +934,15 @@ void click_popup_rotate_right(void*)
 
 void click_popup_dozer_mode(LLUICtrl *, void *user)
 {
-	S32 show_owners = gSavedSettings.getBOOL("ShowParcelOwners");
 	S32 mode = (S32)(intptr_t) user;
 	gFloaterTools->setEditTool( LLToolBrushLand::getInstance() );
 	gSavedSettings.setS32("RadioLandBrushAction", mode);
-	gSavedSettings.setBOOL("ShowParcelOwners", show_owners);
 }
 
-void click_popup_dozer_size(LLUICtrl *, void *user)
+void commit_slider_dozer_size(LLUICtrl *ctrl, void*)
 {
-	S32 size = (S32)(intptr_t) user;
-	gSavedSettings.setS32("RadioLandBrushSize", size);
-}
-
-void click_dozer_size(LLUICtrl *ctrl, void *user)
-{
-	S32 size = ((LLComboBox*) ctrl)->getCurrentIndex();
-	gSavedSettings.setS32("RadioLandBrushSize", size);
+	S32 size = (S32)ctrl->getValue().asInteger();
+	gSavedSettings.setS32("LandBrushSize", size);
 }
 
 void commit_slider_dozer_force(LLUICtrl *ctrl, void*)

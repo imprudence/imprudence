@@ -1999,6 +1999,19 @@ Join land?
 			Cancel
 		</option>
 	</alert>
+	<alert name="ShowOwnersHelp">
+		<message name="message">
+			If this box is checked, land parcels will be
+overlaid with a color indicating their status.
+			
+Red: Land owned by others.
+Green: Your land.
+Aqua: Land owned by a group that you are a member of.
+Yellow: For sale.
+Purple: Land in the auction system.
+Grey: Rare public land.
+		</message>
+	</alert>	
 	<alert modal="true" name="ConfirmNotecardSave">
 		<message name="message">
 			This notecard needs to be saved before the item can be copied or viewed. Save notecard?
