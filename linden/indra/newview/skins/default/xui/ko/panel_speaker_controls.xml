@@ -10,20 +10,20 @@
 					음성 사용(기본 설정)
 				</combo_item>
 				<combo_item name="ModeratedVoice" value="moderated">
-					음성 제어
+					음성 제어(기본 설정)
 				</combo_item>
 			</combo_box>
 		</layout_panel>
 		<layout_panel name="moderate_chat_panel">
 			<scroll_list name="speakers_list">
-				<column label="이름" name="speaker_name" />
+				<column label="이름" name="speaker_name"/>
 			</scroll_list>
 			<panel name="speaker_controls">
 				<text name="resident_name">
 					Rumplstiltskin Califragilistic
 				</text>
-				<button name="mute_btn" tool_tip="이 사용자의 음성 소거" />
-				<check_box label="텍스트 차단" name="mute_text_btn" />
+				<button name="mute_btn" tool_tip="이 사용자의 음성 소거"/>
+				<check_box label="텍스트 차단" name="mute_text_btn"/>
 			</panel>
 		</layout_panel>
 		<layout_panel name="moderator_controls">

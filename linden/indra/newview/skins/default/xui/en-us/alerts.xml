@@ -3004,20 +3004,6 @@ objects will be returned to their previous owners.
 			Cancel
 		</option>
 	</alert>
-	<alert modal="true" name="ViewReleaseNotes">
-		<message name="message">
-			View the Second Life release notes?
-		</message>
-		<ignore name="ignore">
-			When viewing the release notes
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
 	<alert name="GroupLeaveConfirmOfficer">
 		<message name="message">
 			You are currently an officer of the group [GROUP].
@@ -4856,16 +4842,7 @@ with the the D slider.
 	</alert>
 	<alert modal="true" name="ChatterBoxSessionStartError">
 		<message name="message">
-			Error starting a new chat session with [RECIPIENT].
-[REASON]
-		</message>
-		<option default="true" name="OK">
-			OK
-		</option>
-	</alert>
-	<alert modal="true" name="ChatterBoxSessionStartNotVerified">
-		<message name="message">
-			Error starting a new chat session with [RECIPIENT].
+			Unable to start a new chat session with [RECIPIENT].
 [REASON]
 		</message>
 		<option default="true" name="OK">
@@ -4874,7 +4851,7 @@ with the the D slider.
 	</alert>
 	<alert modal="true" name="ChatterBoxSessionEventError">
 		<message name="message">
-			Error [EVENT] [RECIPIENT].
+			[EVENT]
 [REASON]
 		</message>
 		<option default="true" name="OK">

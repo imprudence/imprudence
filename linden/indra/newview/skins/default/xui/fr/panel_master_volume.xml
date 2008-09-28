@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="master_volume">
+	<button name="volume"
+	     tool_tip="Contrôle du volume master, cliquez pour ouvrir les paramètres" />
+	<volume_slider name="volume_slider" tool_tip="Réglez le volume à l&apos;aide de ce curseur." />
+</panel>

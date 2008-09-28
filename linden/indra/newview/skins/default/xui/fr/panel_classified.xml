@@ -8,7 +8,26 @@
 	<button label="Téléportation" name="classified_teleport_btn" />
 	<button label="Localiser" name="classified_map_btn" />
 	<button label="Profil" name="classified_profile_btn" />
-	<check_box label="Adulte" name="classified_mature_check" />
+	<check_box label="Adulte" name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Sélectionner Pour adultes -
+		</combo_item>
+		<combo_item name="mature">
+			Contenu pour adultes
+		</combo_item>
+		<combo_item name="not_mature">
+			Contenu non réservé aux adultes
+		</combo_item>
+	</check_box>
 	<combo_box label="" name="classified_category_combo" />
 	<button label="Mettre à jour" name="classified_update_btn" />
+	<string name="ad_placed_paid">
+		Annonce passée  : [DATE], a payé [AMT] $L pour l&apos;annonce.
+	</string>
+	<string name="update_txt">
+		Mise à jour
+	</string>
+	<string name="publish_txt">
+		Publier...
+	</string>
 </panel>

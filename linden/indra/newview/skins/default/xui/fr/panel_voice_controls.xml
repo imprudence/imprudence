@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="voice_controls">
+	<button name="speakers_btn"
+	     tool_tip="Afficher la liste des résidents utilisant le chat vocal près de vous" />
+	<button label="Parler" name="push_to_talk" tool_tip="Appuyer sur le bouton pour parler" />
+	<button name="ptt_lock" tool_tip="Cliquer sur Verrouiller pour passer au mode Parler" />
+	<button name="show_channel" tool_tip="Cliquer pour afficher le canal vocal actuel" />
+</panel>

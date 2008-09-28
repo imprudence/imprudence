@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Audio &amp; Vidéo" name="Media panel">
+<panel label="Audio et Vidéo" name="Media panel">
 	<text type="string" length="1" name="muting_text">
-		Options de son :
+		Volume :
 	</text>
 	<check_box label="Désactiver le son" name="disable audio" />
-	<check_box label="Désactiver le son lorsque la fenêtre est réduite"
+	<text name="streaming_prefs_text">
+		Préférences de flux continu :
+	</text>
+	<text name="audio_prefs_text">
+		Préférences audio :
+	</text>
+	<panel label="Volume" name="Volume Panel" />
+	<check_box label="Lire automatiquement le média" name="auto_streaming_video" />
+	<check_box label="Désactiver le son lorsque la fenêtre est minimisée"
 	     name="mute_when_minimized" />
 	<text type="string" length="1" name="streaming_text">
 		Flux :
 	</text>
-	<check_box label="Lire flux audio disponibles (consomme plus de bande passante)"
+	<check_box
+	     label="Jouer des flux musicaux quand cela est possible (gourmand en bande passante)"
 	     name="streaming_music" />
-	<check_box label="Lire flux vidéo disponibles (consomme plus de bande passante)"
+	<check_box
+	     label="Jouer des flux médias quand cela est possible (gourmand en bande passante)"
 	     name="streaming_video" />
 	<text type="string" length="1" name="system_volume_text">
 		Effets sonores :
@@ -25,8 +35,11 @@
 	<text type="string" length="1" name="ui_volume_text">
 		Volume de l&apos;IU :
 	</text>
-	<spinner label="Seuil de changement du L$" name="L$ Change Threshold" />
-	<spinner label="Seuil de changement de santé" name="Health Change Threshold" />
+	<slider label="Effet Doppler" name="Doppler Effect" />
+	<slider label="Facteur d&apos;éloignement" name="Distance Factor" />
+	<slider label="Facteur d&apos;atténuation" name="Rolloff Factor" />
+	<spinner label="Alerte dépenses" name="L$ Change Threshold" />
+	<spinner label="Alerte santé" name="Health Change Threshold" />
 	<text type="string" length="1" name="doppler_effect_text">
 		Effet Doppler :
 	</text>

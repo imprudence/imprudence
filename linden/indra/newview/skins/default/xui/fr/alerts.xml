@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <alerts>
+	<global name="skipnexttime">
+		Ne plus afficher
+	</global>
+	<global name="alwayschoose">
+		Toujours choisir cette option
+	</global>
 	<alert name="MissingAlert">
 		<message name="message">
 			[ALERT_NAME] est absent de alerts.xml!
@@ -22,6 +28,14 @@
 		<message name="message">
 			[MOTD]
 		</message>
+	</alert>
+	<alert name="TutorialNotFound">
+		<message name="message">
+			Aucun didacticiel n&apos;est disponible actuellement.
+		</message>
+		<option name="OK">
+			OK
+		</option>
 	</alert>
 	<alert name="GenericAlert">
 		<message name="message">
@@ -75,6 +89,20 @@ pour des conseils et un lien vers la page web d&apos;état du service.
 	<alert name="SetWearableSave">
 		<message name="message">
 			Enregistrer les modifications du vêtement/partie du corps actuel ?
+		</message>
+		<option name="Save">
+			Enregistrer
+		</option>
+		<option name="Don&apos;tSave">
+			Ne pas enregistrer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WearableSave">
+		<message name="message">
+			Enregistrer les changements dans la partie du corps/les habits actuels ?
 		</message>
 		<option name="Save">
 			Enregistrer
@@ -147,6 +175,52 @@ Visitez l&apos;exposition Webpage Studio pour le visualiser.
 	<alert name="AlterModifyRights">
 		<message name="message">
 			Souhaitez-vous [ACTION] les droits de modification [DIRECTION] [FIRSTNAME] [LASTNAME]?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="GrantModifyRights">
+		<message name="message">
+			Lorsque vous accordez des droits d&apos;édition à un autre résident, vous lui permettez de changer, supprimer ou prendre n&apos;importe lequel de vos objets dans le Monde. Réfléchissez bien avant d&apos;accorder ces droits.
+Souhaitez-vous accorder des droits d&apos;édition à [FIRST_NAME] [LAST_NAME] ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="GrantModifyRightsMultiple">
+		<message name="message">
+			Lorsque vous accordez des droits d&apos;édition à un autre résident, vous lui permettez de changer n&apos;importe lequel de vos objets dans le Monde. Réfléchissez bien avant d&apos;accorder ces droits.
+Souhaitez-vous accorder des droits d&apos;édition aux résidents selectionnés ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="RevokeModifyRights">
+		<message name="message">
+			Souhaitez-vous retirer les droits d&apos;édition à [FIRST_NAME] [LAST_NAME] ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="RevokeModifyRightsMultiple">
+		<message name="message">
+			Souhaitez-vous retirer les droits d&apos;édition aux résidents selectionnés ?
 		</message>
 		<option name="Yes">
 			Oui
@@ -249,6 +323,9 @@ Les membres ne peuvent pas être déchus de ce rôle.
 Ils devront quitter le rôle par eux-mêmes.
 Etes-vous sûr(e) de vouloir poursuivre?
 		</message>
+		<ignore name="ignore">
+			Lorsque vous donnez à des membres du groupe le rôle de « propriétaire »
+		</ignore>
 		<option name="Yes">
 			Oui
 		</option>
@@ -308,6 +385,11 @@ tout ou partie du contenu ci-dessus est considéré comme Adulte au regard
 des règles de base de la Communauté.
 		</message>
 	</alert>
+	<alert name="ClickPublishHelpLandDisabled">
+		<message name="message">
+			Cette parcelle ne peut pas apparaître dans la recherche car elle est dans une région où cela n&apos;est pas autorisé.
+		</message>
+	</alert>
 	<alert name="ClickPublishHelpPostcard">
 		<message name="message">
 			L&apos;option &quot;Publier sur le Web&quot; nous permet de publier
@@ -322,6 +404,19 @@ des règles de base de la Communauté.
 			L&apos;option &quot;Publier sur le Web&quot; nous permet de publier
 votre nom, image, et texte &apos;A propos&apos; sur le site [SECOND_LIFE].
 		</message>
+	</alert>
+	<alert name="ClickPartnerHelpAvatar">
+		<message name="message">
+			Vous pouvez proposer à un autre résident de dissoudre un partenariat existant par le biais du site de [SECOND_LIFE].
+
+Aller sur le site de Second Life pour avoir plus d&apos;informations sur les partenariats ?
+		</message>
+		<option name="GotoPage">
+			Aller sur cette page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
 	</alert>
 	<alert name="ClickWebProfileHelpAvatar">
 		<message name="message">
@@ -447,6 +542,20 @@ Voulez-vous poursuivre les modifications ?
 		</message>
 		<option name="Continue">
 			Continuer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmLandSaleToAnyoneChange">
+		<message name="message">
+			Attention : En cliquant sur Vendre à n&apos;importe qui, vous rendez votre terrain disponible à toute la communauté de Second Life, même aux personnes qui ne sont pas dans cette région.
+
+Le terrain sélectionné, de [LAND_SIZE] m², est mis en vente.
+Votre prix de vente sera de [SALE_PRICE] $L et la vente sera disponible à [NAME].
+		</message>
+		<option name="Continue">
+			OK
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -597,6 +706,17 @@ pour définir le point d&apos;atterrissage.
 			Veuillez saisir votre adresse mail.
 		</message>
 	</alert>
+	<alert name="PromptMissingSubjMsg">
+		<message name="message">
+			Envoyer la capture d&apos;écran avec le sujet ou le message par défaut ?
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
 	<alert name="ErrorProcessingSnapshot">
 		<message name="message">
 			Erreur dans le traitement des données de l&apos;instantané
@@ -680,6 +800,9 @@ Ceci est également valable pour les résultats de recherche de mots-clé.
 		<option name="Cancel">
 			Annuler
 		</option>
+		<ignore name="ignore">
+			Lors de l&apos;ajout d&apos;une nouvelle petite annonce
+		</ignore>
 	</alert>
 	<alert name="DeleteClassified">
 		<message name="message">
@@ -688,6 +811,20 @@ Les frais d&apos;insertion sont non remboursables.
 		</message>
 		<option name="Delete">
 			Supprimer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ClassifiedSave">
+		<message name="message">
+			Enregistrer les changements dans l&apos;annonce [NAME] ?
+		</message>
+		<option name="Save">
+			Enregistrer
+		</option>
+		<option name="Don&apos;tSave">
+			Ne pas enregistrer
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -761,9 +898,36 @@ Veuillez appliquer vos modifications et quitter
 			Annuler
 		</option>
 	</alert>
+	<alert name="SkipShowNextTimeDialogs">
+		<message name="message">
+			Voulez-vous désactiver tous les pop-ups qui peuvent être évités ?
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
 	<alert name="CacheWillClear">
 		<message name="message">
 			Le cache sera vidé au redémarrage de [SECOND_LIFE].
+		</message>
+	</alert>
+	<alert name="CacheWillBeMoved">
+		<message name="message">
+			Le cache sera déplacé après le redémarrage de [SECOND_LIFE].
+Remarque : cela videra le cache.
+		</message>
+	</alert>
+	<alert name="ChangeConnectionPort">
+		<message name="message">
+			Les paramètres du port prendront effet après le redémarrage de [SECOND_LIFE].
+		</message>
+	</alert>
+	<alert name="ChangeSkin">
+		<message name="message">
+			Le nouveau thème apparaîtra après le redémarrage de [SECOND_LIFE].
 		</message>
 	</alert>
 	<alert name="GoToAuctionPage">
@@ -899,6 +1063,66 @@ Etes-vous sûr(e) de vouloir supprimer ces eléments ?
 car vous avez activé le mode sans échec.
 		</message>
 	</alert>
+	<alert name="UnsupportedGLRequirements">
+		<message name="message">
+			Vous semblez ne pas avoir le matériel requis pour utiliser Second Life. Second Life requiert une carte graphique OpenGL avec une prise en charge du multitexturing. Si vous avez une telle carte, assurez-vous que vous avez aussi les drivers les plus récents pour la carte, ainsi que les service packs et les patchs pour votre système d&apos;exploitation.
+
+Si vous avez toujours des problèmes, veuillez consulter la page suivante : http://www.secondlife.com/support
+		</message>
+	</alert>
+	<alert name="UnsupportedHardware">
+		<message name="message">
+			Avertissement : vous n&apos;avez pas la configuration système requise pour utiliser Second Life. Si vous continuez à utiliser Second Life, votre performance risque d&apos;être moindre. Malheureusement, nous n&apos;offrons aucune assistance pour les problèmes de configuration système. 
+
+MINSPECS
+Voulez-vous visiter [_URL] pour plus d&apos;informations ?
+		</message>
+		<ignore name="ignore">
+			Lors de la détection de matériel non pris en charge
+		</ignore>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="UnsupportedGPU">
+		<message name="message">
+			- Votre carte graphique ne remplit pas les conditions minimum requises.
+		</message>
+	</alert>
+	<alert name="UnsupportedCPU">
+		<message name="message">
+			- Votre CPU ne remplit pas les conditions minimum requises.
+		</message>
+	</alert>
+	<alert name="UnsupportedCPUAmount">
+		<message name="message">
+			796
+		</message>
+	</alert>
+	<alert name="UnsupportedRAM">
+		<message name="message">
+			- Votre mémoire système ne remplit pas les conditions minimum requises.
+		</message>
+	</alert>
+	<alert name="UnsupportedRAMAmount">
+		<message name="message">
+			510
+		</message>
+	</alert>
+	<alert name="UnknownGPU">
+		<message name="message">
+			Votre système contient une carte graphique que nous ne connaissons pas actuellement. 
+Cela est souvent le cas avec le nouveau materiel qui n&apos;a pas encore été testé.
+Vous pourrez probablement utiliser Second Life sans problème, mais vous devrez peut-être ajuster les paramètres de vos graphiques.
+(Menu Edition &gt; Préférences &gt; Graphiques).
+		</message>
+		<ignore name="ignore">
+			Lors de la détection d&apos;une carte graphique inconnue
+		</ignore>
+	</alert>
 	<alert name="DisplaySettingsRecommended">
 		<message name="message">
 			Les paramètres d&apos;affichage ont été définis aux valeurs recommandées
@@ -907,6 +1131,15 @@ d&apos;après votre configuration matérielle.
 		<option name="OK">
 			OK
 		</option>
+	</alert>
+	<alert name="DisplaySettingsNoShaders">
+		<message name="message">
+			[SECOND_LIFE] a planté lors de l&apos;initialisation des drivers graphiques.
+La qualité des graphiques sera paramétrée sur Faible pour éviter certaines erreurs de driver fréquentes.
+Certaines fonctionnalités graphiques seront donc désactivées.
+Nous vous recommandons de mettre à jour les drivers de votre carte graphique.
+La qualité des graphiques peut être augmentée à la section Préférences &gt; Graphiques
+		</message>
 	</alert>
 	<alert name="CannotRequestDomain">
 		<message name="message">
@@ -1104,6 +1337,236 @@ Veuillez choisir le sexe de votre personnage.
 			Féminin
 		</option>
 	</alert>
+	<alert name="FreezeAvatarFullname">
+		<message name="message">
+			Geler [AVATAR_NAME] ?
+Il ou elle ne pourra temporairement plus bouger, chatter, ou interagir dans le Monde.
+		</message>
+		<option name="Freeze">
+			Geler ?
+		</option>
+		<option name="Unfreeze">
+			Dégeler
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullname">
+		<message name="message">
+			Expulser [AVATAR_NAME] de votre terrain ?
+		</message>
+		<option name="Eject">
+			Expulser
+		</option>
+		<option name="EjectandBan">
+			Expulser et interdire
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="SeachFilteredOnShortWords">
+		<message name="message">
+			Votre requête a été modifiée et les mots trops courts ont été supprimés.
+
+Recherche effectuée : [FINALQUERY]
+		</message>
+	</alert>
+	<alert name="SeachFilteredOnShortWordsEmpty">
+		<message name="message">
+			Vos termes de recherche étaient trop courts et aucune recherche n&apos;a été effectuée.
+		</message>
+	</alert>
+	<alert name="CannotCloseFloaterBuyLand">
+		<message name="message">
+			Vous ne pouvez pas fermer la fenêtre Acheter le terrain avant que Second Life n&apos;estime le montant de cette transaction.
+		</message>
+	</alert>
+	<alert name="ConfirmNotecardSave">
+		<message name="message">
+			Cette note doit être sauvegardée avant que l&apos;objet ne puisse être copié ou visualisé. Enregistrer la note ?
+		</message>
+		<option name="Save">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="RemoveMultipleFromFriends">
+		<message name="message">
+			Voulez-vous supprimer plusieurs personnes de votre liste d&apos;amis ?
+		</message>
+		<option name="Remove">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="GrantedModifyRights">
+		<message name="message">
+			Vous avez reçu la permission de modifier les objets de [FIRST_NAME] [LAST_NAME].
+		</message>
+	</alert>
+	<alert name="RevokedModifyRights">
+		<message name="message">
+			Vous n&apos;avez plus la permission de modifier les objets de [FIRST_NAME] [LAST_NAME].
+		</message>
+	</alert>
+	<alert name="EstateObjectReturn">
+		<message name="message">
+			Etes-vous certain de vouloir rendre les objets appartenant à [USER_NAME] ?
+		</message>
+		<option name="Return">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="InvalidTerrainBitDepth">
+		<message name="message">
+			Impossible de definir les textures de la région : 
+La texture du terrain [TEXTURE_NUM] a une profondeur invalide ([TEXTURE_BIT_DEPTH]).
+
+Remplacer la texture [TEXTURE_NUM] avec une image de 24 bits, 512 X 512, ou plus petite, puis cliquez à nouveau sur Appliquer.
+		</message>
+	</alert>
+	<alert name="InvalidTerrainSize">
+		<message name="message">
+			Impossible de definir les textures de la région : 
+La texture du terrain [TEXTURE_NUM] est trop volumineuse ([TEXTURE_SIZE_X] X [TEXTURE_SIZE_Y]). 
+
+Remplacer la texture [TEXTURE_NUM] avec une image de 24 bits, 512 X 512, ou plus petite, puis cliquez à nouveau sur Appliquer.
+		</message>
+	</alert>
+	<alert name="MaxAgentOnRegionBatch">
+		<message name="message">
+			Echec lors de la tentative d&apos;ajout de [NUM_ADDED] agents :
+Dépasse la limite fixée à [MAX_AGENTS] [LIST_TYPE] de [NUM_EXCESS].
+		</message>
+	</alert>
+	<alert name="WebLaunchExternalTarget">
+		<message name="message">
+			Ouvrir votre navigateur web système pour afficher ce contenu ?
+		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture de votre navigateur système pour afficher une page web
+		</ignore>
+		<option name="Open">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="TeleportFromLandmark">
+		<message name="message">
+			Etes-vous certain de vouloir être téléporté ?
+		</message>
+		<ignore name="ignore">
+			Lors de la téléportation depuis un repère de l&apos;inventaire
+		</ignore>
+		<option name="Teleport">
+			Téléporter
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ProblemAddingEstateManager">
+		<message name="message">
+			Problèmes lors de l&apos;ajout d&apos;un nouveau gérant de domaine. Il est possible qu&apos;au moins un des domaines ait une liste de gérants complète.
+		</message>
+	</alert>
+	<alert name="ProblemAddingEstateGeneric">
+		<message name="message">
+			Problème lors de l&apos;ajout à la liste de ce domaine. Il est possible qu&apos;au moins un des domaines ait une liste complète.
+		</message>
+	</alert>
+	<alert name="SetClassifiedMature">
+		<message name="message">
+			Cette petite annonce contient-elle du contenu réservé aux adultes ?
+		</message>
+		<option name="Mature">
+			Oui
+		</option>
+		<option name="Not Mature">
+			Non
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="SetGroupMature">
+		<message name="message">
+			Ce groupe contient-il du contenu réservé aux adultes ?
+		</message>
+		<option name="Mature">
+			Oui
+		</option>
+		<option name="Not Mature">
+			Non
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="HelpRegionSearch" title="Ne pas montrer dans les résultats de recherche">
+		<message name="message">
+			Si vous cochez cette option, les propriétaires ne pourront pas faire apparaître leurs parcelles dans les résultats de recherche.
+Défaut : Désactivé
+		</message>
+	</alert>
+	<alert name="HelpEstateAbuseEmailAddress"
+	     title="Adresse e-mail où signaler une infraction">
+		<message name="message">
+			Si vous utilisez une adresse e-mail valide, les rapports d&apos;infraction de ce domaine iront à cette adresse. 
+Si vous laissez ce champ vide, les rapports d&apos;infraction seront envoyés à Linden Lab uniquement.
+		</message>
+	</alert>
+	<alert name="HelpEstateVoiceChat" title="Autoriser les chats vocaux">
+		<message name="message">
+			Les parcelles de ce domaine peuvent avoir leurs propres canaux vocaux, ce qui permet aux résidents de communiquer avec leurs voisins.
+
+Défaut : désactivé
+		</message>
+	</alert>
+	<alert name="VoiceVersionMismatch" title="Versions de voix non compatibles">
+		<message name="message">
+			Cette version de Second Life n&apos;est pas compatible avec la fonctionnalité de chat vocal dans cette région. Vous devez mettre à jour Second Life pour que le chat vocal fonctionne correctement.
+		</message>
+	</alert>
+	<alert name="ClickOpenF1Help">
+		<message name="message">
+			Visiter les pages d&apos;aide de Second Life ?
+		</message>
+		<ignore name="ignore">
+			Lors de la visite des pages d&apos;aide de Second Life
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="RetryFetchInventoryDescendents">
+		<message name="message">
+			Délai d&apos;extraction de l&apos;inventaire depuis le serveur dépassé. Réessayer ?
+		</message>
+		<ignore name="ignore">
+			Réessayer d&apos;extraire l&apos;inventaire
+		</ignore>
+		<option name="Retry">
+			Réessayer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
 	<alert name="ConfirmQuit">
 		<message name="message">
 			Etes-vous sûr(e) de vouloir quitter?
@@ -1113,6 +1576,15 @@ Veuillez choisir le sexe de votre personnage.
 		</option>
 		<option name="No">
 			Non
+		</option>
+		<ignore name="ignore">
+			Lorsque vous quittez Second Life
+		</ignore>
+		<option name="Quit">
+			Quitter
+		</option>
+		<option name="Continue">
+			Continuer
 		</option>
 	</alert>
 	<alert name="RegionNoTerraforming">
@@ -1958,6 +2430,7 @@ Proposer à [NAME] de devenir votre ami(e)?
 		<option name="Cancel">
 			Annuler
 		</option>
+		Voulez-vous être mon ami(e) ?
 	</alert>
 	<alert name="RemoveFromFriends">
 		<message name="message">
@@ -2308,6 +2781,9 @@ You have been moved into a nearby region.
 Vous pouvez utiliser le monde normalement, les autres utilisateurs
 vous verront correctement.
 		</message>
+		<ignore name="ignore">
+			Lorsque les habits prennent longtemps à télécharger
+		</ignore>
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
@@ -2345,6 +2821,9 @@ pour des conseils et un lien vers la page web d&apos;état du service.
 		</option>
 		<option name="Help">
 			Aide
+		</option>
+		<option name="Teleport">
+			Téléporter
 		</option>
 	</alert>
 	<alert name="WelcomeNoClothes">
@@ -2424,6 +2903,12 @@ seront mises à jour après redémarrage.)
 			Impossible de copier le contenu de plus d&apos;un objet à la fois.
 Veuillez sélectionner un seul objet et recommencez.
 		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
 	</alert>
 	<alert name="KickUsersFromRegion">
 		<message name="message">
@@ -2540,6 +3025,12 @@ et la valeur par défaut pour l&apos;outil &apos;Terrain par défaut&apos; ?
 		<message name="message">
 			Nombre maximum de groupes autorisés : [MAX_GROUPS]
 		</message>
+		<option name="Bake">
+			Figer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
 	</alert>
 	<alert name="MaxBannedAgentsOnRegion">
 		<message name="message">
@@ -2583,8 +3074,7 @@ Veuillez mettre l&apos;objet en vente et réessayez.
 		<message name="message">
 			Une nouvelle version de [SECOND_LIFE] est disponible.
 [MESSAGE]
- 
-Vous devez télécharger cette mise à jour pour accéder au service.
+Pour utiliser [SECOND_LIFE] vous devez télécharger cette mise à jour.
 		</message>
 		<option name="Download">
 			Télécharger
@@ -2597,8 +3087,7 @@ Vous devez télécharger cette mise à jour pour accéder au service.
 		<message name="message">
 			Une mise à jour de [SECOND_LIFE] est disponible.
 [MESSAGE]
- 
-Cette mise à jour n&apos;est pas indispensable, cependant nous vous conseillons de l&apos;installer pour de meilleures performances et une plus grande stabilité.
+Cette mise à jour n&apos;est pas requise mais si vous voulez une meilleure performance et plus de stabilité, nous vous recommandons de l&apos;installer.
 		</message>
 		<option name="Download">
 			Télécharger
@@ -2611,8 +3100,7 @@ Cette mise à jour n&apos;est pas indispensable, cependant nous vous conseillons
 		<message name="message">
 			Une mise à jour de [SECOND_LIFE] est disponible.
 [MESSAGE]
- 
-Cette mise à jour n&apos;est pas indispensable, cependant nous vous conseillons de l&apos;installer pour de meilleures performances et une plus grande stabilité.
+Cette mise à jour n&apos;est pas requise mais si vous voulez une meilleure performance et plus de stabilité, nous vous recommandons de l&apos;installer.
 		</message>
 		<option name="Download">
 			Télécharger
@@ -2625,10 +3113,9 @@ Cette mise à jour n&apos;est pas indispensable, cependant nous vous conseillons
 		<message name="message">
 			Une nouvelle version de [SECOND_LIFE] est disponible.
 [MESSAGE]
- 
-Vous devez télécharger cette mise à jour pour accéder au service.
- 
-Télécharger vers le dossier Applications ?
+Pour utiliser [SECOND_LIFE] vous devez télécharger cette mise à jour.
+
+Télécharger vers le dossier Applications ?
 		</message>
 		<option name="Download">
 			Télécharger
@@ -2641,10 +3128,9 @@ Télécharger vers le dossier Applications ?
 		<message name="message">
 			Une mise à jour de [SECOND_LIFE] est disponible.
 [MESSAGE]
+Cette mise à jour n&apos;est pas requise mais si vous voulez une meilleure performance et plus de stabilité, nous vous recommandons de l&apos;installer.
  
-Cette mise à jour n&apos;est pas indispensable, cependant nous vous conseillons de l&apos;installer pour de meilleures performances et une plus grande stabilité.
- 
-Télécharger vers le dossier Applications ?
+Télécharger vers le dossier Applications ?
 		</message>
 		<option name="Download">
 			Télécharger
@@ -2657,10 +3143,9 @@ Télécharger vers le dossier Applications ?
 		<message name="message">
 			Une mise à jour de [SECOND_LIFE] est disponible.
 [MESSAGE]
+Cette mise à jour n&apos;est pas requise mais si vous voulez une meilleure performance et plus de stabilité, nous vous recommandons de l&apos;installer.
  
-Cette mise à jour n&apos;est pas indispensable, cependant nous vous conseillons de l&apos;installer pour de meilleures performances et une plus grande stabilité.
- 
-Télécharger vers le dossier Applications ?
+Télécharger vers le dossier Applications ?
 		</message>
 		<option name="Download">
 			Télécharger
@@ -2674,6 +3159,9 @@ Télécharger vers le dossier Applications ?
 			Le transfert de cet objet permettra au groupe de :
 * Recevoir l&apos;argent payé à l&apos;objet
 		</message>
+		<ignore name="ignore">
+			Lors du transfert d&apos;objets au groupe
+		</ignore>
 		<option name="Deed">
 			Transférer
 		</option>
@@ -2782,6 +3270,9 @@ l&apos;accélération graphique AGP dans les Options du menu Preferences dans [S
 		<message name="message">
 			Consulter le Manuel LSL pour de l&apos;aide sur les scripts ?
 		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture du navigateur web pour voir le Guide de scripting
+		</ignore>
 		<option name="Gotopage">
 			Aller à la page
 		</option>
@@ -2809,19 +3300,11 @@ seront renvoyés à leurs propriétaires précédents.
  
 *AVERTISSEMENT* Les objets non cessibles transférés seront supprimés !
 		</message>
+		<ignore name="ignore">
+			Lors du retour d&apos;objets à leurs propriétaires
+		</ignore>
 		<option name="Return">
 			Retourner
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="ViewReleaseNotes">
-		<message name="message">
-			Afficher les notes de version de Second Life ?
-		</message>
-		<option name="Gotopage">
-			Aller à la page
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -2855,6 +3338,12 @@ Quitter le groupe ?
 		<message name="message">
 			Souhaitez-vous REELLEMENT dégager tous les utilisateurs de la grille ?
 		</message>
+		<option name="Kick">
+			Vider Tous
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
 	</alert>
 	<alert name="MuteLinden">
 		<message name="message">
@@ -2939,6 +3428,9 @@ Le chat et les messages instantanés seront cachés. Les IM
 retourneront un message d&apos;occupation. Toutes les offres de téléportation
 et d&apos;inventaire seront déclinées.
 		</message>
+		<ignore name="ignore">
+			Lors de l&apos;utilisation du mode Occupé
+		</ignore>
 		<option name="OK">
 			OK
 		</option>
@@ -3908,6 +4400,9 @@ Ces éléments seront déplacés vers votre inventaire, et non copiés.
  
 Déplacer l(es) élément(s)?
 		</message>
+		<ignore name="ignore">
+			Lors du transfert d&apos;un inventaire non reproductible depuis des objets
+		</ignore>
 		<option name="Move">
 			Se déplacer
 		</option>
@@ -3925,6 +4420,9 @@ votre inventaire risque de perturber le fonctionnement du script.
  
 Déplacer l(es) élément(s) d&apos;inventaire ?
 		</message>
+		<ignore name="ignore">
+			Lors du transfert d&apos;un inventaire non reproductible depuis des objets scriptés
+		</ignore>
 		<option name="Move">
 			Se déplacer
 		</option>
@@ -3939,6 +4437,9 @@ ne fonctionnera que si un script de transaction money() y est ajouté,
 car les résidents s&apos;attendent à ce que les objets 
 réagissent lorsqu&apos;un paiement est effectué.
 		</message>
+		<ignore name="ignore">
+			Lors du paramétrage de la fonction Payer sur des objets sans événement monétaire
+		</ignore>
 	</alert>
 	<alert name="OpenObjectCannotCopy">
 		<message name="message">
@@ -3969,6 +4470,39 @@ of the resolution when it occurs.
 You can also view the incident resolution on the Police Blotter at: 
  
 http://secondlife.com/community/blotter.php
+		</message>
+	</alert>
+	<alert name="HelpReportAbuseEmailLL">
+		<message name="message">
+			Utilisez cet outil pour signaler des infractions aux Conditions d&apos;utilisation et aux Règles de la communauté. Voir :
+
+http://secondlife.com/corporate/tos.php 
+http://secondlife.com/corporate/cs.php
+
+Lorsqu&apos;elles sont signalées, toutes les infractions aux Conditions d&apos;utilisation et aux Règles de la communauté, font l&apos;objet d&apos;une enquête et sont résolues. Pour accéder aux détails de la résolution d&apos;un incident, allez sur :
+
+http://secondlife.com/community/blotter.php
+		</message>
+	</alert>
+	<alert name="HelpReportAbuseEmailEO">
+		<message name="message">
+			Important : Ce rapport ira au propriétaire de la 
+région dans laquelle vous êtes et non à Linden Lab.
+
+Pour aider les résidents et les visiteurs, le propriétaire de 
+la région dans laquelle vous êtes a choisi de recevoir et de s&apos;occuper de 
+tous les rapports envoyés à partir de cette région. Linden Lab 
+n&apos;enquêtera pas sur les rapports que vous envoyez à partir de cet endroit.
+
+Le propriétaire de la région traitera les rapports en fonction 
+des règles de cette région, comme indiqué dans le réglement du domaine. 
+(Les réglements sont visibles à partir du menu Monde &gt; 
+A propos du terrain.)
+
+La résolution de ce rapport ne s&apos;applique qu&apos;à cette région ; 
+L&apos;accès aux autres endroits de Second Life 
+ne sera pas affecté par les résultats de cette enquête. Seul Linden Lab peut 
+interdire l&apos;accès à l&apos;ensemble de Second Life.
 		</message>
 	</alert>
 	<alert name="HelpReportBug">
@@ -4044,18 +4578,18 @@ Une description précise nous permet de classer et traiter efficacement les rapp
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
-			Cher(e) Résident(e),
- 
-Toute violation du droit d&apos;auteur doit faire l&apos;objet d&apos;un rapport.
-La procédure à suivre est décrite sur http://secondlife.com/corporate/dmca.php.
- 
-Les rapports de violation de droit d&apos;auteur seront automatiquement
-ignorés s&apos;ils sont envoyés via l&apos;outil &apos;Signaler un abus&apos;.
-Si votre rapport ne concerne pas la violation de droit d&apos;auteur,
-veuillez refermer cette fenêtre et poursuivre la rédaction de votre rapport.
- 
-Merci,
- 
+			Cher résident,
+
+Si vous signalez une infraction aux droits de propriété intellectuelle, assurez-vous de fournir les détails suivants :
+
+(1) Vous pouvez envoyer un rapport d&apos;infraction si vous pensez qu&apos;un résident exploite le système de permissions de Second Life, par exemple en utilisant CopyBot ou des outils similaires, pour enfreindre des droits de propriété intellectuelle. L&apos;équipe chargée des infractions mènera une enquête et prendra les mesures nécessaires à l&apos;encontre de toute personne non respectueuse des Conditions d&apos;utilisation et des Règles de la communauté. Néanmoins, cette équipe ignorera les requêtes au sujet du retrait de contenu se trouvant sur Second Life.
+
+(2) Pour demander à ce que du contenu soit retiré de Second Life, vous devez soumettre un rapport d&apos;infraction valide, tel que fourni dans notre règlement sur le retrait de contenu à la page suivante : http://secondlife.com/corporate/dmca.php.
+
+Si vous souhaitez continuer à signaler l&apos;infraction, veuillez fermer cette fenêtre et finir de soumettre votre rapport.
+
+Cordialement,
+
 Linden Lab
 		</message>
 	</alert>
@@ -4070,6 +4604,9 @@ Linden Lab
 			Il y a déjà un objet attaché à cette partie du corps.
 Voulez-vous le remplacer par l&apos;objet sélectionné ?
 		</message>
+		<ignore name="ignore">
+			Lors du remplacement de pièces-jointes existantes
+		</ignore>
 		<option ignore="Remplacer automatiquement" name="Yes">
 			Oui
 		</option>
@@ -4086,11 +4623,514 @@ ce paiement.
 Voulez-vous quitter le mode Occupé avant
 de finaliser cette transaction ?
 		</message>
+		<ignore name="ignore">
+			Lorsque vous envoyez de l&apos;argent à une personne en mode Occupé
+		</ignore>
 		<option ignore="Toujours quitter le mode Occupé" name="Yes">
 			Oui
 		</option>
 		<option ignore="Ne jamais quitter le mode Occupé" name="No">
 			Non
 		</option>
+	</alert>
+	<alert name="ConfirmEmptyTrash">
+		<message name="message">
+			Etes-vous certain de vouloir supprimer le contenu de votre poubelle de manière permanente  ?
+		</message>
+		<ignore name="ignore">
+			Lorsque vous videz la poubelle de l&apos;inventaire
+		</ignore>
+		<option name="Yes">
+			OK
+		</option>
+		<option name="No">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmClearBrowserCache">
+		<message name="message">
+			Etes-vous certain de vouloir vider le cache de votre navigateur ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmClearCookies">
+		<message name="message">
+			Etes-vous certain de vouloir supprimer vos cookies ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmClearMediaUrlList">
+		<message name="message">
+			Etes-vous certain de vouloir supprimer la liste des URL enregistrées ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmEmptyLostAndFound">
+		<message name="message">
+			Etes-vous certain de vouloir supprimer le contenu de votre dossier Objets trouvés de manière permanente ?
+		</message>
+		<ignore name="ignore">
+			Losque vous videz le dossier Objets trouvés dans vote inventaire
+		</ignore>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="CopySLURL">
+		<message name="message">
+			La SLURL suivante a été copiée sur votre presse-papier :
+ [SLURL] 
+
+Mettez-la dans une page web pour permettre aux autres utilisateurs d&apos;accéder facilement à cet endroit ou bien collez-la dans la barre d&apos;adresse de votre navigateur.
+		</message>
+		<ignore name="ignore">
+			Lorsque vous copiez une SLURL sur votre presse-papier
+		</ignore>
+	</alert>
+	<alert name="GraphicsPreferencesHelp">
+		<message name="message">
+			Ce panel contrôle la taille de la fenêtre et la résolution, ainsi que la qualité des graphiques client.  Les Préférences de l&apos;interface graphique vous permettent de choisir entre 4 niveaux de graphiques : Faible, Moyen, Elevé et Ultra. Personnalisez vos options graphiques en cliquant sur le bouton Personnaliser et en changeant les paramètres suivants :
+
+Shaders : Active ou désactive les différents types de shaders pixels. 
+
+Détails des reflets : Définit le type d&apos;objets reflétés dans l&apos;eau.
+
+Rendu de l&apos;avatar : Définit les options qui impactent la manière dont le client rend les avatars.
+
+Distance d&apos;affichage : C&apos;est la distance à laquelle vous voyez les objets s&apos;afficher dans la scène.
+
+Nombre de particules max. : Définit le nombre maximum de particules que vous pouvez voir à la fois sur votre écran.
+
+Qualité post-traitement : Définit la résolution du rayonnement. 
+
+Détails du maillage : Définit le niveau de détail ou le nombre de triangles utilisés dans le rendu de certains objets. Une valeur plus élevée prendra plus de temps pour apparaître, mais permettra d&apos;avoir des objets plus détaillés.
+
+Détails de la lumière : Définit les types de lumières que vous souhaitez faire apparaître.
+
+Détails du terrain : Définit le niveau de détail que vous souhaitez utiliser dans la texture du terrain.
+		</message>
+	</alert>
+	<alert name="WLSavePresetAlert">
+		<message name="message">
+			Voulez-vous écraser l&apos;option précédemment enregistrée ?
+		</message>
+		<option name="Save">
+			Oui
+		</option>
+		<option name="Cancel">
+			Non
+		</option>
+	</alert>
+	<alert name="WLDeletePresetAlert">
+		<message name="message">
+			Voulez-vous supprimer [SKY] ?
+		</message>
+		<option name="Delete">
+			Oui
+		</option>
+		<option name="Cancel">
+			Non
+		</option>
+	</alert>
+	<alert name="WLNoEditDefault">
+		<message name="message">
+			Vous ne pouvez pas éditer ou supprimer un préréglage par défaut.
+		</message>
+	</alert>
+	<alert name="WLMissingSky">
+		<message name="message">
+			Une dossier semble manquer au Cycle du jour : [SKY].
+		</message>
+	</alert>
+	<alert name="PPSaveEffectAlert">
+		<message name="message">
+			Certains effets post-traitement existent. Voulez-vous quand même écraser ce fichier ?
+		</message>
+		<option name="Save">
+			Oui
+		</option>
+		<option name="Cancel">
+			Non
+		</option>
+	</alert>
+	<alert name="HelpEditSky">
+		<message name="message">
+			Pour créer et sauvegarder plusieurs ciels, modifiez les curseurs WindLight.
+		</message>
+	</alert>
+	<alert name="HelpEditDayCycle">
+		<message name="message">
+			Choisissez quel ciel apparaît au cours de la journée.
+		</message>
+	</alert>
+	<alert name="EnvSettingsHelpButton">
+		<message name="message">
+			Ces paramètres permettent de modifier l&apos;environnement local sur votre ordinateur. Pour que vous ayez accès à tous les paramètres, votre carte graphique doit prendre en charge les shaders atmosphériques.
+ 
+Pour changer les différentes phases de la journée sur votre visualisateur, utilisez le curseur Heure de la journée.
+ 
+Le curseur Couverture nuageuse permet de contrôler le nombre de nuages dans le ciel.
+ 
+L&apos;option Couleur de l&apos;eau vous permet de modifier la couleur de l&apos;eau grâce au sélecteur de couleurs.
+ 
+Le curseur Brouillard dans l&apos;eau permet de contrôler la densité du brouillard sous l&apos;eau.
+ 
+Pour synchroniser l&apos;heure du jour sur celle de la région, cliquez sur Utiliser heure domaine.  
+ 
+En cliquant sur le bouton Ciel Avancé, vous aurez accès à tous les réglages relatifs au ciel. 
+ 
+En cliquant sur le bouton Eau Avancée, vous aurez accès à tous les réglages relatifs à l&apos;eau.
+		</message>
+	</alert>
+	<alert name="HelpDayCycle">
+		<message name="message">
+			L&apos;éditeur du cycle du jour vous permet de contrôler le ciel au cours du cycle jour/nuit de second Life. C&apos;est ce même cycle qui est contrôlé par le curseur Heure de la journée dans l&apos;éditeur d&apos;environnement basique.
+
+L&apos;éditeur du jour fonctionne grâce au réglage d&apos;images-clés. Ces images-clés sont représentées par les marques grises sur la ligne du temps et ont des préréglages qui leurs sont associées. Au cours de la journée et de la nuit, le ciel WindLight s&apos;anime en passant d&apos;une clé à l&apos;autre. 
+
+La flèche jaune au dessus de la ligne du temps représente votre vue actuelle, basée sur l&apos;heure de la journée. Cliquez et faites glisser pour voir l&apos;animation au cours de votre journée. Ajoutez ou supprimez des clés en appuyant sur les boutons Ajouter clé ou Supprimer clé, à droite de la ligne du temps.
+
+Vous pouvez définir la position d&apos;une clé en la faisant glisser le long de la ligne du temps ou en définissant manuellement ses valeurs dans la section Réglages des images-clés. Dans cette même section, vous pouvez associer chaque clé au préréglage WindLight respectif.
+
+La Durée du cycle contrôle la durée d&apos;une « journée ». Si vous choisissez une valeur basse (2mn par exemple), cela signigie que toutes les animations de votre journée de 24h se dérouleront en 2mn seulement ! Une fois satisfait de vos choix, utilisez les boutons Jouer et Stop ! pour prévisualiser les résultats. Pour voir l&apos;animation, vous pouvez aussi bouger la flèche jaune au dessus de la ligne du temps. Si vous sélectionnez l&apos;option Utiliser heure domaine, vous synchronisez la durée de votre journée et votre heure avec celle du cycle du jour du domaine.
+
+Une fois que vous êtes satisfait de votre Cycle du jour, vous pouvez le sauvegarder et le charger grâce aux boutons Enregistrer jour test et Charger Jour Test. Veuillez noter que pour l&apos;instant, nous ne pouvez avoir qu&apos;un seul Cycle du jour.
+		</message>
+	</alert>
+	<alert name="HelpBlueHorizon">
+		<message name="message">
+			Utilisez les curseurs Rouge/Vert/Bleu (RVB) pour ajuster la couleur du ciel. Pour déplacer les trois curseurs en même temps, utilisez le curseur Intensité.
+		</message>
+	</alert>
+	<alert name="HelpHazeHorizon">
+		<message name="message">
+			Le paramètre Quantité de brume est l&apos;un des plus utiles pour ajuster l&apos;exposition lumineuse de la scène.  
+Il permet de simuler de nombreux paramètres d&apos;exposition, tels que les voiles blancs créés par le soleil ou des lumières plus foncées.
+		</message>
+	</alert>
+	<alert name="HelpBlueDensity">
+		<message name="message">
+			La Densité du bleu affecte la saturation générale des couleurs du ciel et du brouillard. Si vous déplacez le curseur Intensité (I) vers la droite, les couleurs deviennent plus vives et plus vibrantes. Si vous vous le déplacez complètement à gauche, les couleurs deviennent plus fades, puis finalement noires et blanches. Pour paramétrer avec précision la couleur du ciel, vous pouvez contrôler chacun des éléments de la saturation à l&apos;aide des curseurs Rouge/Vert/Bleu (RVB).
+		</message>
+	</alert>
+	<alert name="HelpHazeDensity">
+		<message name="message">
+			Le paramètre Densité de la brume permet de contrôler le niveau de brume grisâtre dans l&apos;atmosphère. Ce paramètre est utile pour simuler les scènes dans lesquelles il y a beaucoup de fumée et de substances polluantes émises par l&apos;homme. Il est également utile pour simuler le brouillard et la brume.
+		</message>
+	</alert>
+	<alert name="HelpDensityMult">
+		<message name="message">
+			Utilisez le Multiplicateur de densité pour modifier la densité atmosphérique générale. Une valeur basse donne l&apos;impression d&apos;un air « léger » alors qu&apos;une valeur élevée donne l&apos;impression d&apos;un air « lourd » et enfumé.
+		</message>
+	</alert>
+	<alert name="HelpDistanceMult">
+		<message name="message">
+			Ajuste la distance perçue par WindLight.  
+La valeur zéro désactive l&apos;influence de WindLight sur le terrain et les objets.  
+Les valeurs supérieures à 1 simulent des distances plus importantes pour des effets atmosphériques plus épais.
+		</message>
+	</alert>
+	<alert name="HelpMaxAltitude">
+		<message name="message">
+			L&apos;Altitude max. ajuste les calculs de WindLight lors de la computation de la lumière atmosphérique. Quand la fin de la journée approche, il est utile pour ajuster la  « profondeur » du coucher de soleil.
+		</message>
+	</alert>
+	<alert name="HelpSunlightColor">
+		<message name="message">
+			Ajuste la couleur et l&apos;intensité de la lumière directe de la scène.
+		</message>
+	</alert>
+	<alert name="HelpSunAmbient">
+		<message name="message">
+			Ajuste la couleur et l&apos;intensité de la lumière atmosphérique ambiante de la scène.
+		</message>
+	</alert>
+	<alert name="HelpSunGlow">
+		<message name="message">
+			Le curseur Taille contrôle la taille du soleil. 
+Le curseur Netteté permet de rendre le soleil plus ou moins flou dans le ciel.
+		</message>
+	</alert>
+	<alert name="HelpSceneGamma">
+		<message name="message">
+			Ajuste la distribution de clair et de foncé sur l&apos;écran.
+		</message>
+	</alert>
+	<alert name="HelpStarBrightness">
+		<message name="message">
+			Vous permet de contrôler l&apos;intensité des étoiles dans le ciel.
+		</message>
+	</alert>
+	<alert name="HelpTimeOfDay">
+		<message name="message">
+			Contrôle la position du soleil dans le ciel.  
+Même chose que l&apos;élévation.
+		</message>
+	</alert>
+	<alert name="HelpEastAngle">
+		<message name="message">
+			Contrôle la position du soleil dans le ciel.  
+Même chose que l&apos;azimut.
+		</message>
+	</alert>
+	<alert name="HelpCloudColor">
+		<message name="message">
+			Modifie la couleur des nuages. Il est recommandé de laisser les nuages en blanc mais vous pouvez aussi faire preuve de créativité...
+		</message>
+	</alert>
+	<alert name="HelpCloudDetail">
+		<message name="message">
+			Contrôle le détail de l&apos;image placée sur l&apos;image du nuage principal. X et Y contrôlent sa position. D (Densité) permet de rendre les nuages plus ou moins pleins ou plus ou moins fracturés.
+		</message>
+	</alert>
+	<alert name="HelpCloudDensity">
+		<message name="message">
+			Vous permet de contrôler la position des nuages avec les curseurs X et Y ainsi que leur densité avec le curseur D.
+		</message>
+	</alert>
+	<alert name="HelpCloudCoverage">
+		<message name="message">
+			Contrôle la surface du ciel couverte par les nuages.
+		</message>
+	</alert>
+	<alert name="HelpCloudScale">
+		<message name="message">
+			Contrôle l&apos;échelle de l&apos;image des nuages sur le dôme du ciel.
+		</message>
+	</alert>
+	<alert name="HelpCloudScrollX">
+		<message name="message">
+			Contrôle la vitesse des nuages sur l&apos;axe des X.
+		</message>
+	</alert>
+	<alert name="HelpCloudScrollY">
+		<message name="message">
+			Contrôle la vitesse des nuages sur l&apos;axe des Y.
+		</message>
+	</alert>
+	<alert name="HelpClassicClouds">
+		<message name="message">
+			Cochez cette option pour utiliser les anciens nuages de Second Life en plus des nuages WindLight.
+		</message>
+	</alert>
+	<alert name="HelpWaterFogColor">
+		<message name="message">
+			Permet de sélectionner la couleur du brouillard sous l&apos;eau.
+		</message>
+	</alert>
+	<alert name="HelpWaterFogDensity">
+		<message name="message">
+			Contrôle la densité du brouillard sous l&apos;eau, ainsi que votre visibilité.
+		</message>
+	</alert>
+	<alert name="HelpUnderWaterFogMod">
+		<message name="message">
+			Modifie l&apos;effet créé par l&apos;option Densité du brouillard pour contrôler votre visibilité quand votre avatar est sous l&apos;eau.
+		</message>
+	</alert>
+	<alert name="HelpWaterGlow">
+		<message name="message">
+			Contrôle l&apos;éclat de l&apos;eau à la surface.
+		</message>
+	</alert>
+	<alert name="HelpWaterNormalScale">
+		<message name="message">
+			Contrôle l&apos;échelle des trois vaguelettes qui forment l&apos;eau.
+		</message>
+	</alert>
+	<alert name="HelpWaterFresnelScale">
+		<message name="message">
+			Contrôle la quantité de lumière réfléchie à des angles différents.
+		</message>
+	</alert>
+	<alert name="HelpWaterFresnelOffset">
+		<message name="message">
+			Contrôle l&apos;intensité de la lumière réfléchie.
+		</message>
+	</alert>
+	<alert name="HelpWaterScaleAbove">
+		<message name="message">
+			Contrôle la quantité de lumière réfractée lorsque quelque votre avatar regarde au dessus de l&apos;eau.
+		</message>
+	</alert>
+	<alert name="HelpWaterScaleBelow">
+		<message name="message">
+			Contrôle la quantité de lumière réfractée lorsque votre avatar est sous l&apos;eau.
+		</message>
+	</alert>
+	<alert name="HelpWaterBlurMultiplier">
+		<message name="message">
+			Contrôle le mélange reflets/vagues.
+		</message>
+	</alert>
+	<alert name="HelpWaterNormalMap">
+		<message name="message">
+			Contrôle quelle normal map est posée sur l&apos;eau pour déterminer la réflection/réfraction.
+		</message>
+	</alert>
+	<alert name="HelpWaterWave1">
+		<message name="message">
+			Contrôle dans quelle direction et à quelle vitesse la version grande échelle de la normal map se déplace sur l&apos;axe des X et l&apos;axe des Y.
+		</message>
+	</alert>
+	<alert name="HelpWaterWave2">
+		<message name="message">
+			Contrôle dans quelle direction et à quelle vitesse la version grande échelle de la normal map se déplace sur l&apos;axe des X et l&apos;axe des Y.
+		</message>
+	</alert>
+	<alert name="NewSkyPreset">
+		<message name="message">
+			Nommez le nouveau ciel.
+		</message>
+		<editline name="editline">
+			Nouveau préréglage
+		</editline>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ExistsSkyPresetAlert">
+		<message name="message">
+			Ce préréglage existe déjà !
+		</message>
+	</alert>
+	<alert name="NewWaterPreset">
+		<message name="message">
+			Nommez ce nouveau préréglage d&apos;eau.
+		</message>
+		<editline name="editline">
+			Nouveau préréglage
+		</editline>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ExistsWaterPresetAlert">
+		<message name="message">
+			Ce préréglage existe déjà !
+		</message>
+	</alert>
+	<alert name="WaterNoEditDefault">
+		<message name="message">
+			Vous ne pouvez pas éditer ou supprimer un préréglage par défaut.
+		</message>
+	</alert>
+	<alert name="ChatterBoxSessionStartError">
+		<message name="message">
+			Impossible de commencer une nouvelle session de chat avec [RECIPIENT].
+[REASON]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="ChatterBoxSessionEventError">
+		<message name="message">
+			[EVENT]
+[REASON]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="ForceCloseChatterBoxSession">
+		<message name="message">
+			Vous devez terminer votre session de chat avec [NAME].
+[REASON]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="Cannot_Purchase_an_Attachment">
+		<message name="message">
+			Les objets qui font partie d&apos;une pièce-jointe ne peuvent pas être achetés.
+		</message>
+	</alert>
+	<alert name="DebitPermissionDetails"
+	     title="A propos des requêtes pour les permissions de débit">
+		<message name="message">
+			Accepter cette requête donne au script la permission de prélever des dollars Linden (L$) sur votre compte de manière continue. Pour révoquer cette permission, le propriétaire de l&apos;objet doit supprimer l&apos;objet ou bien réinitialiser les scripts dans l&apos;objet.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="AutoWearNewClothing">
+		<message name="message">
+			Voulez-vous automatiquement porter l&apos;habit que vous créez ?
+		</message>
+		<ignore name="ignore">
+			Porter automatiquement
+		</ignore>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="NotAgeVerified">
+		<message name="message">
+			Pour que vous puissiez accéder à cette parcelle, votre âge doit être vérifié.
+Voulez-vous aller sur le site de Second Life pour vérifier votre âge ?
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			Avertir si l&apos;âge n&apos;a pas été vérifié
+		</ignore>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="Cannot enter parcel: no payment info on file">
+		<message name="message">
+			Avant de pouvoir pénétrer sur cette parcelle, vous devez enregistrer vos informations de paiement.
+Voulez-vous aller sur le site de Second Life pour enregistrer ces informations ?
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			Avertir si les informations de paiement ne sont pas fournies
+		</ignore>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="MissingString">
+		<message name="message">
+			The string [STRING_NAME] is missing from strings.xml
+		</message>
 	</alert>
 </alerts>

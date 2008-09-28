@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="chat floater" title="Lokaler Chat">
-	<button label="Chat" name="Chat" />
-	<button label="Stummschalten" name="Mute resident" />
-	<check_box label="Stummgeschalteten Text anzeigen" name="show mutes" />
 	<string name="ringing">
 		Verbindung mit In-Welt-Voice-Chat...
 	</string>
@@ -31,12 +28,21 @@
 					Gesten
 				</combo_item>
 			</combo_box>
-			<check_box label="Stummgeschalteten Text anzeigen" name="show mutes" />
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
-			     tool_tip="Klicken Sie hier, um eine Liste der aktiven Teilnehmer an dieser IM-Sitzung anzuzeigen." />
+			<check_box label="Stummgeschalteten Text anzeigen" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Klicken Sie hier, um eine Liste der aktiven Teilnehmer an dieser IM-Sitzung anzuzeigen."/>
 			<panel name="chat_panel">
-				<line_editor label="Zum Chatten hier klicken." name="Chat Editor" />
-				<flyout_button label="Sprechen" name="Say" tool_tip="(Eingabe)" />
+				<string name="gesture_label">
+					Gesten
+				</string>
+				<line_editor label="Zum Chatten hier klicken." name="Chat Editor"/>
+				<flyout_button label="Sprechen" name="Say" tool_tip="(Eingabe)">
+					<flyout_button_item>
+						Shout
+					</flyout_button_item>
+					<flyout_button_item>
+						Say
+					</flyout_button_item>
+				</flyout_button>
 			</panel>
 		</layout_panel>
 	</layout_stack>

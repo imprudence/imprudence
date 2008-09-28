@@ -18,6 +18,12 @@
 	<text name="event_mature">
 		(inconnu)
 	</text>
+	<text name="event_mature_yes">
+		Oui
+	</text>
+	<text name="event_mature_no">
+		Non
+	</text>
 	<text name="event_date_label">
 		Date :
 	</text>
@@ -55,4 +61,13 @@
 	<button label="Localiser" name="map_btn" />
 	<button label="Avertir" name="notify_btn" />
 	<button label="Créer événement" name="create_event_btn" />
+	<string name="none">
+		aucun
+	</string>
+	<string name="notify">
+		Prévenir
+	</string>
+	<string name="dont_notify">
+		Ne pas prévenir
+	</string>
 </panel>

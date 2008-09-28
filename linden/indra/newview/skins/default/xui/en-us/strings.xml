@@ -23,6 +23,7 @@
 	<string name="LoginWaitingForRegionHandshake">Waiting for region handshake...</string>
 	<string name="LoginConnectingToRegion">Connecting to region...</string>
 	<string name="LoginDownloadingClothing">Downloading clothing...</string>
+  <string name="LoginFailedNoNetwork">Network Error: Could not establish connection, please check your network connection.</string>
 
 
 	<!-- Disconnection -->

@@ -26,8 +26,6 @@
 	</flyout_button>
 	<combo_box allow_text_entry="false" bottom="-23" follows="right|bottom" height="20"
 	     label="Gestures" left_delta="85" max_chars="20" name="Gesture" width="90">
-		<combo_item name="Gestures">
-			Gestures
-		</combo_item>
 	</combo_box>
+  <string name="gesture_label">Gestures</string>
 </panel>

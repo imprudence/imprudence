@@ -11,15 +11,33 @@ voter des propositions ouvertes, et afficher les propositions passées.
 	<text name="proposal_header">
 		Propositions ouvertes du Groupe
 	</text>
+	<text name="proposal_voting_lbl">
+		Proposition                                                         Fin du vote                    Votée ?
+	</text>
 	<text name="proposals_header_view_txt">
 		Propositions ouvertes du Groupe
 	</text>
+	<string name="proposals_header_view_inst">
+		Double-cliquez sur la proposition pour laquelle vous aimeriez voter
+ou cliquez sur Créer proposition pour créer une nouvelle proposition.
+	</string>
 	<text name="proposals_header_create_txt">
 		Créer Proposition
 	</text>
+	<string name="proposals_header_create_inst">
+		Saisissez une description. Vous pouvez changer le
+quorum, la durée et la majorité requise pour que la proposition soit adoptée.
+	</string>
 	<text name="proposals_header_vote_txt">
 		Vote sur les propositions
 	</text>
+	<string name="proposals_header_vote_inst">
+		Pour voter, cliquez sur les boutons Oui ou Non,
+ou abstenez-vous en cliquant sur M&apos;abstenir.
+	</string>
+	<string name="proposals_header_voted_inst">
+		Vous avez voté : [VOTE]
+	</string>
 	<text name="empty_proposal_txt">
 		La proposition que vous essayez de créer est vide. Veuillez saisir la proposition avant de la créer.
 	</text>
@@ -81,4 +99,22 @@ voter des propositions ouvertes, et afficher les propositions passées.
 		Résultats du vote :
 	</text>
 	<button label="Voir liste" label_selected="Voir liste" name="btn_view_history_list" />
+	<string name="proposals_submit_yes_txt">
+		Soumission du Oui en cours...
+	</string>
+	<string name="proposals_submit_no_txt">
+		Soumission du Non en cours...
+	</string>
+	<string name="proposals_submit_abstain_txt">
+		Soumission de l&apos;abstention en cours...
+	</string>
+	<string name="proposals_submit_new_txt">
+		Soumission de la nouvelle proposition en cours...
+	</string>
+	<string name="vote_recorded">
+		Votre vote a été reçu.
+	</string>
+	<string name="vote_previously_recorded">
+		Vous avez déjà voté. Vous ne pouvez voter qu&apos;une fois au cours d&apos;une élection.
+	</string>
 </panel>

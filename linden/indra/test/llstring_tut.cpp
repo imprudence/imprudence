@@ -564,18 +564,21 @@ namespace tut
 		for (LLStringUtil::format_map_t::const_iterator iter = fmt_map.begin(); iter != fmt_map.end(); ++iter)
 		{
 			// Test when source string is entirely one key
-			s = iter->first;
-			subcount = LLStringUtil::format(s, fmt_map);
-			ensure_equals("LLStringUtil::format: Raw interpolation result", s, iter->second);
+			std::string s1 = (std::string)iter->first;
+			std::string s2 = (std::string)iter->second;
+			subcount = LLStringUtil::format(s1, fmt_map);
+			ensure_equals("LLStringUtil::format: Raw interpolation result", s1, s2);
 			ensure_equals("LLStringUtil::format: Raw interpolation result count", 1, subcount);
 		}
 
 		for (LLStringUtil::format_map_t::const_iterator iter = fmt_map.begin(); iter != fmt_map.end(); ++iter)
 		{
 			// Test when source string is one key, duplicated
-			s = iter->first + iter->first + iter->first + iter->first;
+			std::string s1 = (std::string)iter->first;
+			std::string s2 = (std::string)iter->second;
+			s = s1 + s1 + s1 + s1;
 			subcount = LLStringUtil::format(s, fmt_map);
-			ensure_equals("LLStringUtil::format: Rawx4 interpolation result", s, iter->second + iter->second + iter->second + iter->second);
+			ensure_equals("LLStringUtil::format: Rawx4 interpolation result", s, s2 + s2 + s2 + s2);
 			ensure_equals("LLStringUtil::format: Rawx4 interpolation result count", 4, subcount);
 		}
 

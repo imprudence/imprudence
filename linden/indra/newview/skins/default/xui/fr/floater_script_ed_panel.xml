@@ -4,6 +4,7 @@
 	<text_editor type="string" length="1" name="Script Editor">
 		Chargement en cours...
 	</text_editor>
+	<combo_box label="Insérer..." name="Insert..." />
 	<menu_bar name="script_menu">
 		<menu name="File">
 			<menu_item_call label="Enregistrer" name="Save" />
@@ -24,6 +25,19 @@
 		</menu>
 		<menu name="Help">
 			<menu_item_call label="Aide..." name="Help..." />
+			<menu_item_call label="Aide du Wiki sur le LSL..." name="LSL Wiki Help..." />
 		</menu>
 	</menu_bar>
+	<string name="loading">
+		Chargement en cours...
+	</string>
+	<string name="can_not_view">
+		Vous n&apos;êtes pas autorisé à afficher ce script.
+	</string>
+	<string name="public_objects_can_not_run">
+		Les objets publics ne peuvent pas exécuter de scripts
+	</string>
+	<string name="script_running">
+		Exécution en cours
+	</string>
 </panel>

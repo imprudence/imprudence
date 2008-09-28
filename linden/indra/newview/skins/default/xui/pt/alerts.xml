@@ -2612,21 +2612,6 @@ Nota: Isto limpará o cache.
 		</option>
 
 	</alert>
-	<alert name="ViewReleaseNotes">
-		<message name="message">
-			Deseja visitar as notas de lançamentos do Second Life?
-		</message>
-		<ignore>
-			Enquanto estiver vendo as notas de lançamento.
-		</ignore>
-		<option name="Gotopage">
-			Ir para a página
-		</option>
-		<option name="Cancel">
-			Cancelar
-		</option>
-
-	</alert>
 	<alert name="GroupLeaveConfirmOfficer">
 		<message name="message">
 			Você é um gerenciador do grupo [GROUP]. Deixar este grupo?

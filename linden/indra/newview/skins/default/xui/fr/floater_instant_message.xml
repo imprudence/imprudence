@@ -2,6 +2,38 @@
 <floater label="(inconnu)" name="im_floater" title="(inconnu)">
 	<button label="Profil..." label_selected="Profil..." name="profile_btn" />
 	<button label="Fermer" label_selected="Fermer" name="close_btn" />
+	<string name="ringing">
+		Appel en cours...
+	</string>
+	<string name="answering">
+		Connexion en cours...
+	</string>
+	<string name="connected">
+		Connecté, cliquez sur Raccrocher pour terminer l&apos;appel
+	</string>
+	<string name="hang_up">
+		Appel terminé
+	</string>
+	<string name="inventory_item_offered">
+		Objet de l&apos;inventaire offert
+	</string>
+	<string name="voice_icon">
+		icn_voice-pvtfocus.tga
+	</string>
+	<string name="session_start_string">
+		Début de la session avec [NAME], veuillez patienter.
+	</string>
+	<string name="default_text_label">
+		Cliquez ici pour envoyer un message instantané.
+	</string>
+	<button label="Profil..." name="profile_callee_btn" />
+	<button label="Appeler" name="start_call_btn" />
+	<button label="Raccrocher" name="end_call_btn" />
+	<panel name="speaker_controls">
+		<button name="mute_btn" tool_tip="Ignorer" />
+	</panel>
+	<line_editor label="Cliquez ici pour envoyer un message instantané" name="chat_editor" />
+	<button label="Envoyer" name="send_btn" />
 	<text name="live_help_dialog">
 		*** Welcome to Live Help, where our wonderful volunteers assist their fellow Residents with Second Life! *** 
 Please first check our SL Help Pages by pressing F1. 

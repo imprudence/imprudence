@@ -27,6 +27,12 @@
 			<text name="NoPaymentInfoOnFile">
 				Aucune info de paiement
 			</text>
+			<string name="AgeVerified">
+				Personne dont l&apos;âge a été vérifié
+			</string>
+			<string name="NotAgeVerified">
+				Personne dont l&apos;âge n&apos;a pas été vérifié
+			</string>
 			<text name="Name:">
 				Nom :
 			</text>
@@ -49,6 +55,9 @@
 			     tool_tip="Compagne/compagnon dans Second Life. Plus de précisions sur cette option à www.secondlife.com/partner">
 				Compagne/Compagnon :
 			</text>
+			<button label="i" label_selected="i" name="partner_info"
+			     tool_tip="Cliquez pour ouvrir le profil du partenaire" />
+			<button label="?" label_selected="?" name="partner_help" />
 			<line_editor name="partner_edit"
 			     tool_tip="Compagne/compagnon dans Second Life. Plus de précisions sur cette option à www.secondlife.com/partner">
 				[FIRST] [LAST]
@@ -80,11 +89,14 @@
 			     tool_tip="Publiez votre profil sur le web." />
 			<button label="?" label_selected="?" name="?" />
 			<button label="Localiser" label_selected="Localiser" name="Show on Map" />
+			<button label="Localiser" label_selected="Localiser" name="Find on Map" />
 			<button label="Proposer Téléportation" label_selected="Proposer Téléportation"
 			     name="Offer Teleport..." />
+			<button label="Ajouter comme ami..." label_selected="Ajouter comme ami..."
+			     name="Add Friend..." />
 			<button label="Payer..." label_selected="Payer..." name="Pay..." />
 			<button label="Message instantané…" label_selected="Message instantané…"
-			     name="Instant Message..." />
+			     name="Instant Message..." tool_tip="Message instantané (IM)" />
 			<button label="Ignorer" label_selected="Ignorer" name="Mute" />
 		</panel>
 		<panel label="Web" name="WebProfile">
@@ -131,6 +143,9 @@
 			</text>
 			<button label="Nouveau..." label_selected="Nouveau..." name="New..." />
 			<button label="Supprimer..." label_selected="Supprimer..." name="Delete..." />
+			<text name="loading_text">
+				Chargement en cours...
+			</text>
 		</panel>
 		<panel label="Petites annonces" name="Classified">
 			<text name="Place an ad in Second Life&apos;s classified listings.">
@@ -138,6 +153,9 @@
 			</text>
 			<button label="Nouveau..." label_selected="Nouveau..." name="New..." />
 			<button label="Supprimer..." label_selected="Supprimer..." name="Delete..." />
+			<text name="loading_text">
+				Chargement en cours...
+			</text>
 		</panel>
 		<panel label="1re vie" name="1st Life">
 			<text name="Photo:">
@@ -152,6 +170,9 @@
 			</text>
 		</panel>
 		<panel label="Mes Notes" name="My Notes">
+			<string name="Loading">
+				Chargement en cours...
+			</string>
 			<text name="label">
 				Utilisez cet espace pour prendre des notes à propos de cette personne. 
 (échanges en cours, projets communs, etc...). Vous seul(e)
@@ -190,4 +211,7 @@ Désactivé jusqu&apos;à ce que vous quittiez l&apos;Ile d&apos;Orientation.
 	<text name="TeleportNormal">
 		Offrir téléportation vers votre position.
 	</text>
+	<string name="Loading">
+		Chargement en cours...
+	</string>
 </panel>

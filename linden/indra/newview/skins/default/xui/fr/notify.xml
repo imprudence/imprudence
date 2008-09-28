@@ -12,33 +12,43 @@
 	</notify>
 	<notify name="CancelledSit">
 		<message name="message">
-			Action annulée
+			Ne plus m&apos;asseoir
 		</message>
 	</notify>
 	<notify name="CancelledAttach">
 		<message name="message">
-			Attachement annulé
+			Ne plus attacher
 		</message>
 	</notify>
 	<notify name="ReplacedMissingWearable">
 		<message name="message">
-			Vêtement / Partie du corps manquants remplacés par leur valeur par défaut.
+			Remplacer les habits/parties du corps manquants avec les options par défaut.
 		</message>
 	</notify>
 	<notify name="FriendOnline">
 		<message name="message">
-			[FIRST] [LAST] vient de se connecter
+			[FIRST] [LAST] est en ligne
 		</message>
 	</notify>
 	<notify name="FriendOffline">
 		<message name="message">
-			[FIRST] [LAST] vient de se déconnecter
+			[FIRST] [LAST] n&apos;est pas en ligne
+		</message>
+	</notify>
+	<notify name="AddSelfFriend">
+		<message name="message">
+			Vous ne pouvez pas vous ajouter comme ami.
 		</message>
 	</notify>
 	<notify name="UploadingAuctionSnapshot">
 		<message name="message">
 			Upload des instantanés vers Second Life et le web...
 (environ 5 minutes.)
+		</message>
+	</notify>
+	<notify name="UploadPayment">
+		<message name="message">
+			Le chargement a coûté [AMOUNT] $L.
 		</message>
 	</notify>
 	<notify name="UploadingSnapshot">
@@ -95,9 +105,8 @@ Veuillez réessayer.
 	</notify>
 	<notify name="CapsKeyOn">
 		<message name="message">
-			Le verrouillage des majuscules est activé.
-Lorsque vous saisissez votre mot de passe,
-pensez à le désactiver.
+			La touche Verr.maj est activée.
+Vous devriez la désactiver, sinon vous risquez de saisir un mot de passe erroné.
 		</message>
 	</notify>
 	<notify name="NotecardMissing">
@@ -108,6 +117,11 @@ pensez à le désactiver.
 	<notify name="NotecardNoPermissions">
 		<message name="message">
 			Autorisations insuffisantes pour afficher la note.
+		</message>
+	</notify>
+	<notify name="RezItemNoPermissions">
+		<message name="message">
+			Permissions insuffisantes pour rezzer l&apos;objet.
 		</message>
 	</notify>
 	<notify name="UnableToLoadNotecard">
@@ -369,6 +383,11 @@ Vous ne pouvez voler ici.
 Vous ne pouvez pousser les autres ici à moins d&apos;être le propriétaire du terrain.
 		</message>
 	</notify>
+	<notify name="NoVoice">
+		<message name="message">
+			La voix est désactivée sur ce terrain.
+		</message>
+	</notify>
 	<notify name="NoBuild">
 		<message name="message">
 			La construction est désactivée sur ce terrain (&apos;no build&apos;).
@@ -467,6 +486,9 @@ Seuls les scripts appartenant au propriétaire du terrain seront activés.
 		<option name="Decline">
 			Décliner
 		</option>
+		<option name="Info">
+			Infos
+		</option>
 	</notify>
 	<notify name="JoinGroupOfficerNoFee">
 		<message name="message">
@@ -481,6 +503,9 @@ L&apos;inscription à ce groupe est gratuite.
 		</option>
 		<option name="Decline">
 			Décliner
+		</option>
+		<option name="Info">
+			Infos
 		</option>
 	</notify>
 	<notify name="JoinGroupMember">
@@ -497,6 +522,9 @@ L&apos;inscription à ce groupe coûte L$[COST]
 		<option name="Decline">
 			Décliner
 		</option>
+		<option name="Info">
+			Infos
+		</option>
 	</notify>
 	<notify name="JoinGroupMemberNoFee">
 		<message name="message">
@@ -511,6 +539,9 @@ L&apos;inscription à ce groupe est gratuite.
 		</option>
 		<option name="Decline">
 			Décliner
+		</option>
+		<option name="Info">
+			Infos
 		</option>
 	</notify>
 	<notify name="OfferTeleport">
@@ -552,6 +583,20 @@ en ligne.
 		</option>
 		<option name="Decline">
 			Décliner
+		</option>
+	</notify>
+	<notify name="OfferFriendshipNoMessage">
+		<message name="message">
+			[NAME] vous demande de devenir son ami(e).
+
+(Par défaut, vous pourrez 
+voir quand vous êtes tous deux en ligne)
+		</message>
+		<option name="Accept">
+			Accepter
+		</option>
+		<option name="Decline">
+			Refuser
 		</option>
 	</notify>
 	<notify name="FriendshipAccepted">
@@ -694,6 +739,43 @@ Etes-vous d&apos;accord ?
 		<option name="No">
 			Non
 		</option>
+		<option name="Mute">
+			Ignorer
+		</option>
+	</notify>
+	<notify name="ScriptQuestionCautionChatGranted">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, un objet appartenant à &apos;[OWNERNAME]&apos;, situé dans [REGIONNAME] à [REGIONPOS], a reçu la permission de : [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCautionChatDenied">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, un objet appartenant à &apos;[OWNERNAME]&apos;, situé dans [REGIONNAME] à [REGIONPOS], n&apos;a pas reçu la permission de : [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCautionWarn">
+		<message name="message">
+			Un objet demande la permission de prélever des dollars Linden ($L) sur votre compte.
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCaution">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, un objet appartenant à &apos;[NAME]&apos;, aimerait :
+ 
+[QUESTIONS]
+Si vous n&apos;avez pas confiance en cet objet ni en son créateur, vous devriez refuser cette requête. Pour plus d&apos;informations, cliquez sur le bouton Détails.
+
+Accepter cette requête ?
+		</message>
+		<option name="Grant">
+			Accepter
+		</option>
+		<option name="Deny">
+			Refuser
+		</option>
+		<option name="Details">
+			Détails...
+		</option>
 	</notify>
 	<notify name="ScriptDialog">
 		<message name="message">
@@ -806,6 +888,181 @@ Les bacs à sable sont rares, et signalés par des panneaux.
 			Cet objet est flexible. 
 Les objets flexibles peuvent ne pas être physiques et doivent rester fantômes 
 jusqu&apos;à ce que la case flexible soit cochée.
+		</message>
+	</notify>
+	<notify name="FirstDebugMenus">
+		<message name="message">
+			Vous avez activé le menu Avancé. 
+Ce menu contient des fonctionnalités utiles pour les développeurs qui travaillent sur Second Life.
+Pour activer/désactiver ce menu sous Windows, appuyez sur Ctrl-Alt-D. Sur un Mac, appuyez sur Cmd-Opt-Maj-D
+		</message>
+	</notify>
+	<notify name="FirstSculptedPrim">
+		<message name="message">
+			Vous êtes en train d&apos;éditer un prim sculpté.  
+Pour spécifier la forme d&apos;un prim sculpté, vous devez utiliser une texture spécifique.  
+Vous trouverez des exemples de textures sculptées dans la bibliothèque de l&apos;inventaire.
+		</message>
+	</notify>
+	<notify name="FirstMedia">
+		<message name="message">
+			Vous avez lancé la lecture d&apos;un média. Dans le menu Préférences, à l&apos;onglet Audio/Vidéo, vous pouvez choisir de lire automatiquement les médias. Notez que cela peut être risqué lorsque les médias viennent de sites que vous ne connaissez pas.
+		</message>
+	</notify>
+	<notify name="MaxListSelectMessage">
+		<message name="message">
+			Vous ne pouvez sélectionner que [MAX_SELECT] objets maximum
+dans cette liste.
+		</message>
+	</notify>
+	<notify name="VoiceInviteP2P">
+		<message name="message">
+			[NAME] vous invite à un chat vocal. 
+Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignorer cette personne, cliquez sur Ignorer.
+		</message>
+		<option name="Accept">
+			Accepter
+		</option>
+		<option name="Decline">
+			Refuser
+		</option>
+		<option name="Mute">
+			Ignorer
+		</option>
+	</notify>
+	<notify name="AutoUnmuteByIM">
+		<message name="message">
+			[FIRST] [LAST] a reçu un message instantané et n&apos;est donc plus ignoré.
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByMoney">
+		<message name="message">
+			[FIRST] [LAST] a reçu de l&apos;argent et n&apos;est donc plus ignoré.
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByInventory">
+		<message name="message">
+			[FIRST] [LAST] a reçu un inventaire et n&apos;est donc plus ignoré.
+		</message>
+	</notify>
+	<notify name="VoiceInviteGroup">
+		<message name="message">
+			[NAME] a rejoint un chat oral avec le groupe [GROUP]. 
+Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignorer cette personne, cliquez sur Ignorer.
+		</message>
+		<option name="Accept">
+			Accepter
+		</option>
+		<option name="Decline">
+			Refuser
+		</option>
+		<option name="Mute">
+			Ignorer
+		</option>
+	</notify>
+	<notify name="VoiceInviteAdHoc">
+		<message name="message">
+			[NAME] a rejoint un chat vocal avec conférence. 
+Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignorer cet utilisateur, cliquez sur Ignorer.
+		</message>
+		<option name="Accept">
+			Accepter
+		</option>
+		<option name="Decline">
+			Refuser
+		</option>
+		<option name="Mute">
+			Ignorer
+		</option>
+	</notify>
+	<notify name="InviteAdHoc">
+		<message name="message">
+			[NAME] vous invite à un chat conférence. 
+Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignorer cet utilisateur, cliquez sur Ignorer.
+		</message>
+		<option name="Accept">
+			Accepter
+		</option>
+		<option name="Decline">
+			Refuser
+		</option>
+		<option name="Mute">
+			Ignorer
+		</option>
+	</notify>
+	<notify name="VoiceChannelFull">
+		<message name="message">
+			L&apos;appel auquel vous essayez de participer, [VOICE_CHANNEL_NAME], a atteint le nombre maximum de participants. Veuillez réessayer ultérieurement.
+		</message>
+	</notify>
+	<notify name="ProximalVoiceChannelFull">
+		<message name="message">
+			Désolés. Le nombre maximum de personnes qui discutent dans cet endroit a été atteint. Veuillez trouver une autre zone pour discuter.
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnected">
+		<message name="message">
+			Vous avez été déconnecté de [VOICE_CHANNEL_NAME]. Vous allez maintenant être reconnecté au chat vocal spatial.
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnectedP2P">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] a mis fin à l&apos;appel. Vous allez maintenant être reconnecté au chat vocal spatial.
+		</message>
+	</notify>
+	<notify name="P2PCallDeclined">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] a refusé votre appel. Vous allez maintenant être reconnecté au chat vocal spatial.
+		</message>
+	</notify>
+	<notify name="P2PCallNoAnswer">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] ne peut pas prendre votre appel. Vous allez maintenant être reconnecté au chat vocal spatial.
+		</message>
+	</notify>
+	<notify name="VoiceChannelJoinFailed">
+		<message name="message">
+			Echec de la connexion avec [VOICE_CHANNEL_NAME], veuillez réessayer ultérieurement. Vous allez maintenant être reconnecté au chat vocal spatial.
+		</message>
+	</notify>
+	<notify name="VoiceLoginRetry">
+		<message name="message">
+			Nous sommes en train de créer un canal vocal pour vous. Veuillez patienter quelques instants.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: not a group member">
+		<message name="message">
+			Vous ne pouvez pas pénétrer sur ce terrain car vous n&apos;êtes pas membre du groupe adéquat.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: banned">
+		<message name="message">
+			Vous ne pouvez pas pénétrer sur ce terrain car l&apos;accès vous y est interdit.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: not on access list">
+		<message name="message">
+			Vous ne pouvez pas pénétrer sur ce terrain car vous n&apos;avez pas les droits d&apos;accès requis.
+		</message>
+	</notify>
+	<notify name="VoiceNotAllowed">
+		<message name="message">
+			Vous n&apos;êtes pas autorisé à vous connecter au chat oral pour [VOICE_CHANNEL_NAME].
+		</message>
+	</notify>
+	<notify name="VoiceCallGenericError">
+		<message name="message">
+			Une erreur est survenue pendant la connexion au chat vocal pour [VOICE_CHANNEL_NAME]. Veuillez réessayer ultérieurement.
+		</message>
+	</notify>
+	<notify name="ServerVersionChanged">
+		<message name="message">
+			La région dans laquelle vous avez pénétré utilise une version de simulateur différente. Pour plus de détails, cliquez sur ce message.
+		</message>
+	</notify>
+	<notify name="UnableToOpenCommandURL">
+		<message name="message">
+			L&apos;URL sur laquelle vous avez cliqué ne peut pas être ouverte dans ce navigateur.
 		</message>
 	</notify>
 </notifications>

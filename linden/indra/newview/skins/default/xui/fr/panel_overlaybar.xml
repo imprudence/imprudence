@@ -10,4 +10,22 @@
 	     tool_tip="Utilisez la souris pour diriger votre vue. Si vous avez une arme, cliquez pour tirer." />
 	<button label="Se lever" label_selected="Se lever" name="Stand Up"
 	     tool_tip="Cliquez ici pour vous lever." />
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
+				<layout_panel name="state_buttons">
+					<button label="IM reçu" label_selected="IM reçu" name="IM Received"
+					     tool_tip="Vous avez reçu un message instantané. Cliquez pour afficher les IM." />
+					<button label="Ne pas définir comme occupé(e)"
+					     label_selected="Ne pas définir comme occupé(e)" name="Set Not Busy"
+					     tool_tip="Le chat et les IM ne s&apos;affichent pas. Cliquez ici pour ne pas apparaître occupé(e)." />
+					<button label="Vue depuis la souris" label_selected="Vue depuis la souris"
+					     name="Mouselook"
+					     tool_tip="Utilisez la souris pour diriger votre vue. Si vous avez un pistolet, vous pouvez tirer en cliquant." />
+					<button label="Se lever" label_selected="Se lever" name="Stand Up"
+					     tool_tip="Cliquez ici pour vous lever." />
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+	</layout_stack>
 </panel>

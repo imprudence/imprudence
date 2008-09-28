@@ -2478,7 +2478,6 @@ L$は贈与されません。
 		<option name="Cancel">
 			取り消し
 		</option>
-		フレンドになっていただけますか?
 	</alert>
 	<alert name="RemoveFromFriends">
 		<message name="message">
@@ -3279,20 +3278,6 @@ F1キーを押してください。
 			オブジェクトを持ち主に返却するとき
 		</ignore>
 		<option name="Return">
-			OK
-		</option>
-		<option name="Cancel">
-			取り消し
-		</option>
-	</alert>
-	<alert name="ViewReleaseNotes">
-		<message name="message">
-			Second Lifeのリリースノートを表示しますか？
-		</message>
-		<ignore name="ignore">
-			リリースノートを表示するとき
-		</ignore>
-		<option name="Gotopage">
 			OK
 		</option>
 		<option name="Cancel">
@@ -5031,18 +5016,9 @@ Linden Lab
 			OK
 		</option>
 	</alert>
-	<alert name="ChatterBoxSessionStartNotVerified">
-		<message name="message">
-			[RECIPIENT]との新しいチャットの開始の際にエラーが発生しました。
-[REASON]
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
 	<alert name="ChatterBoxSessionEventError">
 		<message name="message">
-			エラー[EVENT][RECIPIENT]。
+			[EVENT]
 [REASON]
 		</message>
 		<option name="OK">

@@ -2843,17 +2843,6 @@ volverán para sus propietarios anteriores.
 			Cancelar
 		</option>
 	</alert>
-	<alert name="ViewReleaseNotes">
-		<message name="message">
-			¿Ver las notas de lanzamiento de Second Life?
-		</message>
-		<option name="Gotopage">
-			Ir hacia página
-		</option>
-		<option name="Cancel">
-			Cancelar
-		</option>
-	</alert>
 	<alert name="GroupLeaveConfirmOfficer">
 		<message name="message">
 			Usted es un oficial del grupo [GROUP].

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <multi_floater name="floater_chatterbox">
-	<icon label="飛行" label_selected="飛行を停止" name=""
-	     tool_tip="飛行開始： EキーまたはPageUpキーで上昇、CキーまたはPageDownキーで下降" />
+	<panel name="panel_littletoolbar">
+		<button label="" name="chat_btn" tool_tip="チャット・バーを表示 （エンター・キー）" />
+		<flyout_button label="コミュニケーション" name="communicate_btn"
+		     tool_tip="フレンドやグループとコミュニケーション" />
+		<button label="飛行" label_selected="飛行を停止" name="fly_btn"
+		     tool_tip="飛行開始： EキーまたはPageUpキーで上昇、CキーまたはPageDownキーで下降" />
+	</panel>
 	<panel name="panel_unfocused_floater">
 		<text name="titlebar_focused">
 			アンフォーカス

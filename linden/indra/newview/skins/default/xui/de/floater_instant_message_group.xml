@@ -2,13 +2,12 @@
 <floater label="(unbekannt)" name="im_floater" title="(unbekannt)">
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="Gruppeninfo..." name="group_info_btn" />
-			<button label="Gespräch beitreten" name="start_call_btn" />
-			<button label="Anruf beenden" name="end_call_btn" />
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
-			     tool_tip="Klicken Sie hier, um eine Liste der aktiven Teilnehmer an dieser IM-Sitzung anzuzeigen." />
-			<line_editor label="Für Instant Message hier klicken" name="chat_editor" />
-			<button label="Senden" name="send_btn" />
+			<button label="Gruppeninfo" name="group_info_btn" width="85"/>
+			<button label="Gespräch beitreten" left_delta="90" name="start_call_btn" width="145"/>
+			<button halign="center" label="Anruf beenden" name="end_call_btn" width="145"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Klicken Sie hier um eine Liste der aktiven Teilnehmer dieser IM-Sitzung anzuzeigen."/>
+			<line_editor label="Für Instant Message hier klicken" name="chat_editor"/>
+			<button label="Senden" name="send_btn"/>
 			<text name="live_help_dialog">
 				*** Willkommen bei Help Request ***  
     			Bitte werfen Sie zuerst einen Blick auf unsere SL-Hilfeseiten. Drücken Sie dazu F1. Oder rufen Sie unter http://secondlife.com/knowledgebase/ die Knowledge Base auf. 
@@ -27,7 +26,7 @@
 		</layout_panel>
 		<layout_panel name="active_speakers_panel">
 			<scroll_list name="speakers_list">
-				<column label="Name" name="speaker_name" />
+				<column label="Name" name="speaker_name"/>
 			</scroll_list>
 			<panel name="volume_container">
 				<text name="resident_name">
@@ -36,8 +35,8 @@
 				<text name="Mute:">
 					Stummschalten:
 				</text>
-				<check_box label="Text" name="mute_text_btn" />
-				<check_box label="Sprache" name="mute_btn" />
+				<check_box label="Text" name="mute_text_btn"/>
+				<check_box label="Sprache" name="mute_btn"/>
 			</panel>
 		</layout_panel>
 	</layout_stack>
@@ -69,12 +68,12 @@
 		Beginne Sitzung mit [NAME], bitte warten.
 	</string>
 	<string name="moderated_chat_label">
-		(Moderiert)
+		(Moderiert: Voice-Chat standardmäßig stummgeschaltet)
 	</string>
 	<string name="default_text_label">
 		Für Instant Message hier klicken.
 	</string>
 	<string name="muted_text_label">
-		Text-Chat wurde von einem Gruppenmoderator deaktiviert.
+		Ihr Text-Chat wurde von einem Gruppenmoderator deaktiviert.
 	</string>
 </floater>

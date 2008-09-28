@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="chat floater" title="로컬 채팅">
-	<button label="채팅" name="Chat" />
-	<button label="차단" name="Mute resident" />
-	<check_box label="음소거된 텍스트 표시하기" name="show mutes" />
 	<string name="ringing">
 		음성 채팅에 연결하는 중...
 	</string>
@@ -31,12 +28,21 @@
 					제스처
 				</combo_item>
 			</combo_box>
-			<check_box label="차단된 텍스트 표시하기" name="show mutes" />
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
-			     tool_tip="채팅 참가자 목록 보기 " />
+			<check_box label="차단된 텍스트 표시하기" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="채팅 참가자 목록 보기"/>
 			<panel name="chat_panel">
-				<line_editor label="채팅하려면 여기를 클릭하십시오." name="Chat Editor" />
-				<flyout_button label="말하기" name="Say" tool_tip="(입력)" />
+				<string name="gesture_label">
+					제스처
+				</string>
+				<line_editor label="채팅하려면 여기를 클릭하십시오." name="Chat Editor"/>
+				<flyout_button label="말하기" name="Say" tool_tip="(입력)">
+					<flyout_button_item>
+						Shout
+					</flyout_button_item>
+					<flyout_button_item>
+						Say
+					</flyout_button_item>
+				</flyout_button>
 			</panel>
 		</layout_panel>
 	</layout_stack>

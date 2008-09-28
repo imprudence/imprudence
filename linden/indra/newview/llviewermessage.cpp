@@ -539,9 +539,9 @@ void process_places_reply(LLMessageSystem* msg, void** data)
 
 void send_sound_trigger(const LLUUID& sound_id, F32 gain)
 {
-	if (sound_id.isNull())
+	if (sound_id.isNull() || gAgent.getRegion() == NULL)
 	{
-		// zero guids don't get sent (no sound)
+		// disconnected agent or zero guids don't get sent (no sound)
 		return;
 	}
 
@@ -861,7 +861,9 @@ void open_offer(const std::vector<LLUUID>& items, const std::string& from_name)
 		}
 
 		if(gSavedSettings.getBOOL("ShowInInventory") &&
-			asset_type != LLAssetType::AT_CALLINGCARD)
+		   asset_type != LLAssetType::AT_CALLINGCARD &&
+		   item->getInventoryType() != LLInventoryType::IT_ATTACHMENT &&
+		   !from_name.empty())
 		{
 			LLInventoryView::showAgentInventory(TRUE);
 		}

@@ -17,6 +17,9 @@
 	<text name="object_name_label">
 		Nom :
 	</text>
+	<text name="object_name">
+		Consetetur Sadipscing
+	</text>
 	<text name="owner_name_label">
 		Propriétaire :
 	</text>
@@ -24,6 +27,9 @@
 	<texture_picker label="Instantané en cours..." name="screenshot" />
 	<text name="category_label">
 		Catégorie :
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
 	</text>
 	<combo_box name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report">

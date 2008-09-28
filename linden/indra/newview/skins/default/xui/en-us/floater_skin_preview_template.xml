@@ -2,7 +2,7 @@
 <multi_floater bottom="256" can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="false" height="148" left="256" name="floater_chatterbox" title="" title_bar="true" width="300" rect_control="ChatterboxRect">
     <icon image_name="checkerboard_transparency_bg.png" follows="left|right|top|bottom" bottom="0" left="0" height="128" width="300" />
-    <panel width="300" height="28" left="0" bottom="0" background_opaque="true" background_visible="true">
+    <panel name="panel_littletoolbar" width="300" height="28" left="0" bottom="0" background_opaque="true" background_visible="true">
         <panel bottom="0" filename="panel_bg_toolbar.xml" height="26" left="0" width="300" follows="left|right|top|bottom"/>
         <button bottom="0" font="SansSerif" height="24"
             image_selected="btn_chatbar_selected.tga" scale_image="true"

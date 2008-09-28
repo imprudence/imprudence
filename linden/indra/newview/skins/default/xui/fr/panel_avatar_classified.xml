@@ -8,7 +8,17 @@
 	<button label="Téléportation" name="classified_teleport_btn" />
 	<button label="Carte" name="classified_map_btn" />
 	<combo_box label="" name="classified_category_combo" />
-	<check_box label="Adulte" name="classified_mature_check" />
+	<check_box label="Adulte" name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Pour adultes -
+		</combo_item>
+		<combo_item name="mature">
+			Contenu réservé aux adultes
+		</combo_item>
+		<combo_item name="not_mature">
+			Contenu non réservé aux adultes
+		</combo_item>
+	</check_box>
 	<text name="classified_info_text"
 	     tool_tip="Plus vous payez pour votre annonce, plus elle apparaît en haut de liste.">
 		Annonce déposée : pas encore publiée
@@ -22,4 +32,10 @@
 	<text name="ad_placed_paid">
 		Annonce déposée le : [DATE], L$[AMT] versés pour publication.
 	</text>
+	<string name="update_txt">
+		Mise à jour
+	</string>
+	<string name="publish_txt">
+		Publier...
+	</string>
 </panel>

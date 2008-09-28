@@ -24,11 +24,6 @@
 			확인
 		</option>
 	</alert>
-	<alert name="MOTD" title="오늘 메시지">
-		<message name="message">
-			[MOTD]
-		</message>
-	</alert>
 	<alert name="TutorialNotFound">
 		<message name="message">
 			현재 튜토리얼을 사용할 수 없습니다.
@@ -71,34 +66,6 @@
 		</option>
 		<option name="Help">
 			도움말
-		</option>
-	</alert>
-	<alert name="RemoveWearableSave">
-		<message name="message">
-			변경 사항을 의복/신체 부위로 저장합니까?
-		</message>
-		<option name="Save">
-			저장
-		</option>
-		<option name="Don&apos;tSave">
-			저장 안 함
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="SetWearableSave">
-		<message name="message">
-			변경 사항을 의복/신체 부위로 저장합니까?
-		</message>
-		<option name="Save">
-			저장
-		</option>
-		<option name="Don&apos;tSave">
-			저장 안 함
-		</option>
-		<option name="Cancel">
-			취소
 		</option>
 	</alert>
 	<alert name="WearableSave">
@@ -712,106 +679,6 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 			스냅샷 데이터 처리 중 오류가 발생했습니다.
 		</message>
 	</alert>
-	<alert name="ClassifiedSave">
-		<message name="message">
-			[NAME]광고에 저장 하시겠습니까?
-		</message>
-		<option name="Save">
-			저장
-		</option>
-		<option name="Don&apos;tSave">
-			저장하지 않음
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="SkipShowNextTimeDialogs">
-		<message name="message">
-			&apos;나중에 알림&apos;&apos; 비활성화?
-		</message>
-		<option name="OK">
-			확인
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="ChangeSkin">
-		<message name="message">
-			새로운 스킨은 [SECOND_LIFE]를 재시동한 후 적용됩니다.
-		</message>
-	</alert>
-	<alert name="UnsupportedGLRequirements">
-		<message name="message">
-			세컨드라이프를 실행하는 데 필요한 하드웨어 요구 사항이 충족되지 않았습니다. 세컨드라이프를 이용하려면 멀티텍스처를 지원하는 OpenGL 그래픽 카드가 필요합니다. 적절한 그래픽 카드가 있는 경우 해당 그래픽 카드에 대한 최신 드라이버와 운영 체제에 맞는 서비스 팩과 패치가 설치되어 있는지 확인하십시오.
-
-그래도 문제가 지속되면 다음 사이트를 방문해 보십시오: http://www.secondlife.com/support
-		</message>
-	</alert>
-	<alert name="UnsupportedHardware">
-		<message name="message">
-			경고: 시스템이 세컨드라이프의 최소 시스템 요구 사항을 충족하지 않습니다. 계속해서 세컨드라이프를 사용하면 컴퓨터의 성능 저하가 발생할 수 있습니다.  지원되지 않는 시스템 구성에 대한 기술적인 지원은 제공되지 않습니다. 
-
-최소 사양
-[_URL]을 방문하여 추가 정보를 확인 하시겠습니까?
-		</message>
-		<ignore name="ignore">
-			지원되지 않는 하드웨어 무시
-		</ignore>
-		<option name="Yes">
-			예
-		</option>
-		<option name="No">
-			아니오
-		</option>
-	</alert>
-	<alert name="UnsupportedGPU">
-		<message name="message">
-			- 사용 중인 그래픽 카드가 최소 요구 사항을 충족하지 않습니다.
-		</message>
-	</alert>
-	<alert name="UnsupportedCPU">
-		<message name="message">
-			- 사용 중인 CPU 속도가 최소 요구 사항을 충족하지 않습니다.
-		</message>
-	</alert>
-	<alert name="UnsupportedCPUAmount">
-		<message name="message">
-			796
-		</message>
-	</alert>
-	<alert name="UnsupportedRAM">
-		<message name="message">
-			- 사용 중인 시스템 메모리가 카드가 최소 요구 사항을 충족하지 않습니다.
-		</message>
-	</alert>
-	<alert name="UnsupportedRAMAmount">
-		<message name="message">
-			510
-		</message>
-	</alert>
-	<alert name="UnknownGPU">
-		<message name="message">
-			알 수 없는 그래픽 카드를 사용하고 있습니다.  
-이 문제는 린든랩에서 검증하지 못한  새로운 하드웨어가 사용되었기 때문일 수 
-있습니다.  대부분의 경우 세컨드라이프는 정상적으로 실행되지만 사용 중인 그래픽 설정을 
-적합한 설정으로 조정해야 할 수 있습니다.
-(편집 &gt; 환경 설정 &gt; 그래픽)
-		</message>
-		<ignore name="ignore">
-			알 수 없는 그래픽 카드 무시
-		</ignore>
-	</alert>
-	<alert name="DisplaySettingsNoShaders">
-		<message name="message">
-			그래픽 드라이버 초기화 중 [SECOND_LIFE]에 오류가 발생했습니다.
-일반적인 드라이버 오류를 방지하기 위해 그래픽 품질이 낮게 설정됩니다.
-이로 인해 일부 그래픽 기능을 사용할 수 없게 될 수 있습니다..
-그래픽 카드 드라이버의 업데이트를 권장합니다.
-환경 설정 &gt; 그래픽에서 그래픽 품질을 높일 수 있습니다.
-		</message>
-	</alert>
 	<alert name="ErrorEncodingSnapshot">
 		<message name="message">
 			스냅샷 인코딩 중 오류가 발생했습니다.
@@ -855,9 +722,6 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 		<option name="OK">
 			확인
 		</option>
-		<option name="Cancel">
-			취소
-		</option>
 	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
@@ -872,67 +736,6 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 		<option name="Cancel">
 			다시 시도
 		</option>
-	</alert>
-	<alert name="FreezeAvatarFullname">
-		<message name="message">
-			[AVATAR_NAME]을(를) 정지시키겠습니까?
-이렇게 하면 일시적으로 움직이지 못하게 되고,
-채팅이나 상호작용을 할 수 없습니다.
-		</message>
-		<option name="Freeze">
-			정지
-		</option>
-		<option name="Unfreeze">
-			정지 해제
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="EjectAvatarFullname">
-		<message name="message">
-			[AVATAR_NAME]을(를) 본인의 토지에서 강제로 퇴장시키겠습니까?
-		</message>
-		<option name="Eject">
-			강퇴
-		</option>
-		<option name="EjectandBan">
-			강퇴 및 차단
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="SeachFilteredOnShortWords">
-		<message name="message">
-			귀하의 검색 질문이 수정되었으며 
-너무 짧은 검색어는 삭제되었습니다.
-
-검색 대상: [FINALQUERY]
-		</message>
-	</alert>
-	<alert name="SeachFilteredOnShortWordsEmpty">
-		<message name="message">
-			검색어가 너무 짧아
-검색할 수 없습니다.
-		</message>
-	</alert>
-	<alert name="CannotCloseFloaterBuyLand">
-		<message name="message">
-			세컨드라이프에서 이 거래 비용을 산정할 때까지
-토지 구매 창을 닫을 수 없습니다.
-		</message>
-	</alert>
-	<alert name="QuickTimeOutOfDate">
-		<ignore name="ignore">
-			QuickTime이 구버전이기 때문에 비활성화된 경우
-		</ignore>
-		<message name="message">
-			현재 시스템에 설치된 QuickTime이 구버전이기 때문에 
-스트리밍 비디오가 비활성화되었습니다. 
-
-http://www.apple.com/quicktime/을 방문하여 최신 버전을 다운로드하십시오.
-		</message>
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
@@ -961,6 +764,20 @@ http://www.apple.com/quicktime/을 방문하여 최신 버전을 다운로드하
 		</message>
 		<option name="Delete">
 			삭제
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="ClassifiedSave">
+		<message name="message">
+			[NAME]광고에 저장 하시겠습니까?
+		</message>
+		<option name="Save">
+			저장
+		</option>
+		<option name="Don&apos;tSave">
+			저장하지 않음
 		</option>
 		<option name="Cancel">
 			취소
@@ -1025,7 +842,18 @@ http://www.apple.com/quicktime/을 방문하여 최신 버전을 다운로드하
 	</alert>
 	<alert name="ResetShowNextTimeDialogs">
 		<message name="message">
-			&apos;나중에 알림&apos; 초기화
+			이전에 &apos;이 메시지를 다시 표시 안 함&apos;으로 설정한 모든 팝업을 다시 활성화하시겠습니까?
+		</message>
+		<option name="OK">
+			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="SkipShowNextTimeDialogs">
+		<message name="message">
+			무시할 수 있는 모든 팝업을 비활성화하시겠습니까?
 		</message>
 		<option name="OK">
 			확인
@@ -1048,6 +876,11 @@ http://www.apple.com/quicktime/을 방문하여 최신 버전을 다운로드하
 	<alert name="ChangeConnectionPort">
 		<message name="message">
 			포트 설정은 [SECOND_LIFE]를 다시 시작한 후 유효합니다.
+		</message>
+	</alert>
+	<alert name="ChangeSkin">
+		<message name="message">
+			새로운 스킨은 [SECOND_LIFE]를 재시동한 후 적용됩니다.
 		</message>
 	</alert>
 	<alert name="GoToAuctionPage">
@@ -1182,6 +1015,70 @@ http://www.apple.com/quicktime/을 방문하여 최신 버전을 다운로드하
 안전 수준으로 설정되었습니다.
 		</message>
 	</alert>
+	<alert name="UnsupportedGLRequirements">
+		<message name="message">
+			세컨드라이프를 실행하는 데 필요한 하드웨어 요구 사항이 충족되지 않았습니다. 세컨드라이프를 이용하려면 멀티텍스처를 지원하는 OpenGL 그래픽 카드가 필요합니다. 적절한 그래픽 카드가 있는 경우 해당 그래픽 카드에 대한 최신 드라이버와 운영 체제에 맞는 서비스 팩과 패치가 설치되어 있는지 확인하십시오.
+
+그래도 문제가 지속되면 다음 사이트를 방문해 보십시오: http://www.secondlife.com/support
+		</message>
+	</alert>
+	<alert name="UnsupportedHardware">
+		<message name="message">
+			경고: 시스템이 세컨드라이프의 최소 시스템 요구 사항을 충족하지 않습니다. 계속해서 세컨드라이프를 사용하면 컴퓨터의 성능 저하가 발생할 수 있습니다.  지원되지 않는 시스템 구성에 대한 기술적인 지원은 제공되지 않습니다. 
+
+최소 사양
+[_URL]을 방문하여 추가 정보를 확인 하시겠습니까?
+		</message>
+		<ignore name="ignore">
+			지원되지 않는 하드웨어가 감지될 때
+		</ignore>
+		<option name="Yes">
+			예
+		</option>
+		<option name="No">
+			아니오
+		</option>
+		<url>
+			http://www.secondlife.com/corporate/sysreqs.php
+		</url>
+	</alert>
+	<alert name="UnsupportedGPU">
+		<message name="message">
+			- 사용 중인 그래픽 카드가 최소 요구 사항을 충족하지 않습니다.
+		</message>
+	</alert>
+	<alert name="UnsupportedCPU">
+		<message name="message">
+			- 사용 중인 CPU 속도가 최소 요구 사항을 충족하지 않습니다.
+		</message>
+	</alert>
+	<alert name="UnsupportedCPUAmount">
+		<message name="message">
+			796
+		</message>
+	</alert>
+	<alert name="UnsupportedRAM">
+		<message name="message">
+			- 사용 중인 시스템 메모리가 카드가 최소 요구 사항을 충족하지 않습니다.
+		</message>
+	</alert>
+	<alert name="UnsupportedRAMAmount">
+		<message name="message">
+			510
+		</message>
+	</alert>
+	<alert name="UnknownGPU">
+		<message name="message">
+			알 수 없는 그래픽 카드를 사용하고 있습니다.  
+이 문제는 린든랩에서 검증하지 못한  새로운 하드웨어가 사용되었기 때문일 수 
+있습니다.  대부분의 경우 세컨드라이프는 정상적으로 실행되지만 사용 중인 그래픽 설정을 
+적합한 설정으로 조정해야 할 수 있습니다.
+(편집 &gt; 환경 설정 &gt; 그래픽)
+		</message>
+		<ignore name="ignore">
+			알 수 없는 그래픽 카드가 감지될 때
+		</ignore>
+	</alert>
 	<alert name="DisplaySettingsRecommended">
 		<message name="message">
 			귀하의 시스템 구성을 바탕으로 디스플레이 설정이
@@ -1190,6 +1087,15 @@ http://www.apple.com/quicktime/을 방문하여 최신 버전을 다운로드하
 		<option name="OK">
 			확인
 		</option>
+	</alert>
+	<alert name="DisplaySettingsNoShaders">
+		<message name="message">
+			그래픽 드라이버 초기화 중 [SECOND_LIFE]에 오류가 발생했습니다.
+일반적인 드라이버 오류를 방지하기 위해 그래픽 품질이 낮게 설정됩니다.
+이로 인해 일부 그래픽 기능을 사용할 수 없게 될 수 있습니다..
+그래픽 카드 드라이버의 업데이트를 권장합니다.
+환경 설정 &gt; 그래픽에서 그래픽 품질을 높일 수 있습니다.
+		</message>
 	</alert>
 	<alert name="CannotRequestDomain">
 		<message name="message">
@@ -1343,21 +1249,6 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 네트워크 연결을 확인하십시오.
 		</message>
 	</alert>
-	<alert name="CannotConnectLoginPacket">
-		<message name="message">
-			연결할 수 없습니다.  로그인 서버에서 로그인 패킷이
-수신되지 않았습니다.
- 
-몇 초 후에 다시 시도하거나 도움말을 클릭하여
-시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
-		</message>
-		<option name="OK">
-			확인
-		</option>
-		<option name="Help">
-			도움말
-		</option>
-	</alert>
 	<alert name="WelcomeToSecondLife">
 		<message name="message">
 			[SECOND_LIFE]에 오신 것을 환영합니다! 
@@ -1385,186 +1276,6 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		</option>
 		<option name="Female">
 			여성
-		</option>
-	</alert>
-	<alert name="EstateObjectReturn">
-		<message name="message">
-			[USER_NAME]이(가) 소유하는 오브젝트를 반환하시겠습니까?
-		</message>
-		<option name="Return">
-			확인
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="MaxAgentOnRegionBatch">
-		<message name="message">
-			[NUM_ADDED] 에이전트를 추가하는 데 실패했습니다:
-[NUM_EXCESS]에 지정된 [MAX_AGENTS] [LIST_TYPE] 제한이 초과하였습니다.
-		</message>
-	</alert>
-	<alert name="WebLaunchExternalTarget">
-		<message name="message">
-			컨텐츠를 보려면 시스템 웹 브라우저를 여십시오.
-		</message>
-		<ignore name="ignore">
-			시스템 브라우저를 열어 웹 페이지를 확인할 경우
-		</ignore>
-		<option name="Open">
-			확인
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="WebLaunchQAWiki">
-		<message name="message">
-			[SECOND_LIFE] QA Wiki를 방문합니다.
-		</message>
-		<ignore name="ignore">
-			QA Wiki를 보기 위해 웹 브라우저를 시작할 때
-		</ignore>
-		<option name="Gotopage">
-			확인
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="TeleportFromLandmark">
-		<message name="message">
-			텔리포트하시겠습니까?
-		</message>
-		<ignore name="ignore">
-			인벤토리의 랜드마크에서 텔리포트하는 경우
-		</ignore>
-		<option name="Teleport">
-			텔리포트
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="ProblemAddingEstateManager">
-		<message name="message">
-			새로운 사유지 관리자를 추가하는 데 문제가 발생하였습니다.  하나 이상의 사유지 관리자 목록이 모두 찬 상태입니다.
-		</message>
-	</alert>
-	<alert name="ProblemAddingEstateGeneric">
-		<message name="message">
-			사유지 목록에 추가하는 동안 문제가 발생했습니다.  하나 이상의 사유지 관리자 목록이 모두 찬 상태입니다.
-		</message>
-	</alert>
-	<alert name="SetClassifiedMature">
-		<message name="message">
-			이 광고에 성인용 컨텐츠가 포함되어 있습니까?
-		</message>
-		<option name="Mature">
-			예
-		</option>
-		<option name="Not Mature">
-			아니오
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="SetGroupMature">
-		<message name="message">
-			이 그룹에 성인용 컨텐츠가 포함되어 있습니까?
-		</message>
-		<option name="Mature">
-			예
-		</option>
-		<option name="Not Mature">
-			아니오
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="HelpRegionSearch" title="검색 보기 안 함">
-		<message name="message">
-			이 확인란을 선택하면 구획 소유주가 검색 구획 목록을 만들 수 없습니다.
-기본 설정: 꺼짐
-		</message>
-	</alert>
-	<alert name="HelpParcelSearch" title="검색 보기 안 함">
-		<message name="message">
-			이 확인란을 선택하면:
-- 이 구획의 검색 결과
-- 이 구획의 일반 오브젝트
-		</message>
-	</alert>
-	<alert name="HelpEstateAbuseEmailAddress" title="악용 신고 이메일 주소">
-		<message name="message">
-			유효한 이메일 주소로 이 옵션을 설정하면
-이 사유지에 대한 악용 신고가 해당 주소로 전송됩니다. 
-이 옵션을 공란으로 비워두면 악용 신고 내용이
-린든랩으로만 전송됩니다.
-		</message>
-	</alert>
-	<alert name="HelpEstateVoiceChat" title="음성 채팅 허용">
-		<message name="message">
-			이 사유지의 구획은 주민들이 부근에 있는 다른 사람들과 대화할 수 있는
-음성 대화를 할 수 있게
-설정합니다.
-
-기본 설정: 꺼짐
-		</message>
-	</alert>
-	<alert name="VoiceVersionMismatch" title="음성 버전이 일치하지 않음.">
-		<message name="message">
-			현재Second Life 버전은 이 지역의 음성 채팅 사양과 일치하지 않습니다. 음성 채팅 기능이 올바르게 작동하려면Second Life를 업데이트 해야 합니다.
-		</message>
-	</alert>
-	<alert name="ClickOpenF1Help">
-		<message name="message">
-			Second Life 지원 웹 사이트를 방문하시겠습니까?
-		</message>
-		<ignore name="ignore">
-			Second Life 지원 웹 사이트를 방문할 때.
-		</ignore>
-		<option name="Gotopage">
-			이동
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="RetryFetchInventoryDescendents">
-		<message name="message">
-			서버에서 인벤토리를 가져오는 중 시간이 초과되었습니다.  다시 시도하시겠습니까?
-		</message>
-		<ignore name="ignore">
-			인벤토리 가져오기 다시 시도
-		</ignore>
-		<option name="Retry">
-			다시 시도
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="ConfirmQuit">
-		<message name="message">
-			종료 하시겠습니까?
-		</message>
-		<option name="Yes">
-			예
-		</option>
-		<option name="No">
-			아니오
-		</option>
-		<ignore name="ignore">
-			Second Life를 종료할 때.
-		</ignore>
-		<option name="Quit">
-			종료
-		</option>
-		<option name="Continue">
-			계속
 		</option>
 	</alert>
 	<alert name="RegionNoTerraforming">
@@ -1644,6 +1355,22 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 			취소
 		</option>
 	</alert>
+	<alert name="FreezeAvatarFullname">
+		<message name="message">
+			[AVATAR_NAME]을(를) 정지시키겠습니까?
+이렇게 하면 일시적으로 움직이지 못하게 되고,
+채팅이나 상호작용을 할 수 없습니다.
+		</message>
+		<option name="Freeze">
+			정지
+		</option>
+		<option name="Unfreeze">
+			정지 해제
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
 	<alert name="EjectAvatar">
 		<message name="message">
 			이 아바타를 귀하의 토지에서 강퇴시키시겠습니까?
@@ -1653,6 +1380,20 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		</option>
 		<option name="EjectandBan">
 			축출 및 차단
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullname">
+		<message name="message">
+			[AVATAR_NAME]을(를) 본인의 토지에서 강제로 퇴장시키겠습니까?
+		</message>
+		<option name="Eject">
+			강퇴
+		</option>
+		<option name="EjectandBan">
+			강퇴 및 차단
 		</option>
 		<option name="Cancel">
 			취소
@@ -1927,6 +1668,20 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 			맨 앞의 플러터 저장 안함
 		</message>
 	</alert>
+	<alert name="SeachFilteredOnShortWords">
+		<message name="message">
+			귀하의 검색 질문이 수정되었으며 
+너무 짧은 검색어는 삭제되었습니다.
+
+검색 대상: [FINALQUERY]
+		</message>
+	</alert>
+	<alert name="SeachFilteredOnShortWordsEmpty">
+		<message name="message">
+			검색어가 너무 짧아
+검색할 수 없습니다.
+		</message>
+	</alert>
 	<alert name="ColladaExportFailedUnknownServerError">
 		<message name="message">
 			Collada 내보내기 실패: 알 수 없는 서버 오류입니다.
@@ -2024,6 +1779,12 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 이 토지가 소속된 지역을 찾을 수 없습니다.
 		</message>
 	</alert>
+	<alert name="CannotCloseFloaterBuyLand">
+		<message name="message">
+			세컨드라이프에서 이 거래 비용을 산정할 때까지
+토지 구매 창을 닫을 수 없습니다.
+		</message>
+	</alert>
 	<alert name="CannotDeedLandNothingSelected">
 		<message name="message">
 			토지를 양도하지 못했습니다:
@@ -2043,27 +1804,6 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 도구 -&gt; 버그 신고에서 신고하십시오.
 		</message>
 	</alert>
-	<alert name="CannotSetLandOwnerNothingSelected">
-		<message name="message">
-			토지 소유주를 설정할 수 없습니다:
-선택한 항목이 없습니다.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandMultipleRegions">
-		<message name="message">
-			선택 항목이 여러 지역에 분산되어 있기 때문에 토지를 매입할 수 없습니다.
-
-더 작은 영역을 선택한 후 다시 시도해 주십시오.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandMultipleSelected">
-		<message name="message">
-			토지를 구매하지 못했습니다:
-여러 개의 각기 다른 구획이 선택되었습니다.
-
-더 작은 영역을 선택해 주십시오.
-		</message>
-	</alert>
 	<alert name="CannotDeedLandMultipleSelected">
 		<message name="message">
 			토지를 양도하지 못했습니다:
@@ -2076,21 +1816,6 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			지역을 발견할 수 없음
 		</message>
-	</alert>
-	<alert name="ParcelCanPlayMusic">
-		<message name="message">
-			이 지역에서는 스트리밍 음악을 재생할 수 있습니다. 
-음악을 재생하려면 768 kbps 이상의
-인터넷 연결이 필요합니다.
-
-가능한 경우 음악을 재생하시겠습니까?
-		</message>
-		<option name="PlayMusic">
-			음악 재생
-		</option>
-		<option name="Disable">
-			비활성
-		</option>
 	</alert>
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
@@ -2108,14 +1833,6 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 			비활성
 		</option>
 	</alert>
-	<alert name="CannotBuyLandWaitingForServer">
-		<message name="message">
-			토지를 구매하지 못했습니다:
-서버가 비용을 보고할 때까지 기다리는 중입니다.
-
-몇 초 후 다시 시도해 주십시오.
-		</message>
-	</alert>
 	<alert name="CannotDeedLandWaitingForServer">
 		<message name="message">
 			토지를 양도하지 못했습니다:
@@ -2124,57 +1841,10 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 몇 초 후 다시 시도해 주십시오.
 		</message>
 	</alert>
-	<alert name="CannotBuyLandNoPublic">
-		<message name="message">
-			토지를 구매하지 못했습니다:
-선택한 영역에는 공공 토지가 없습니다.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandLandOwned">
-		<message name="message">
-			토지를 구매하지 못했습니다:
-다른 사용자 소유의 토지가 선택되었습니다.
-더 작은 영역을 선택해 주십시오.
-		</message>
-	</alert>
-	<alert name="CannotButLandRegionNotFound">
-		<message name="message">
-			토지를 구매하지 못했습니다:
-이 토지가 소속된 지역을 찾을 수 없습니다.
-
-도구 -&gt; 오류 보고에서 버그를 신고해주십시오.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandNoTransfer">
-		<message name="message">
-			토지를 구매하지 못했습니다:
-지역 [REGION]은(는) 토지 양도가 허용되지 않습니다.
-		</message>
-	</alert>
 	<alert name="CannotDeedLandNoTransfer">
 		<message name="message">
 			토지를 양도하지 못했습니다:
 지역 [REGION]은(는) 토지 양도가 허용되지 않습니다.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandForGroupNotOfficer">
-		<message name="message">
-			그룹을 대신해 토지를 매입하지 못했습니다:
-귀하는 현재 그룹에서 간부가 아닙니다.
-
-&apos;편집 -&gt; 그룹...&apos;을 이용하여 다른 그룹을 활성화하십시오.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandInsufficientFunds">
-		<message name="message">
-			이 토지 [AREA]제곱미터를 구매 하려면 L$[PRICE]가 듭니다.
-귀하의 잔고는 L$[BALANCE]뿐입니다.
-		</message>
-	</alert>
-	<alert name="CannotReleaseLandNothingSelected">
-		<message name="message">
-			토지를 포기하지 못했습니다:
-선택한 항목이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandWatingForServer">
@@ -2415,14 +2085,6 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 			종료
 		</option>
 	</alert>
-	<alert name="SelectSingleRate">
-		<message name="message">
-			평가할 오브젝트 선택
-		</message>
-		<option name="OK">
-			확인
-		</option>
-	</alert>
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
 			그룹을 대신해 토지를 매입하지 못했습니다:
@@ -2433,7 +2095,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="AddFriend" title="친구 추가">
 		<message name="message">
 			친구들은 지도에서 서로의 위치를
-추적할 수 있으며 온라인 상태 업데이트도 받을 수 있습니다. 
+추적할 수 있으며 온라인 상태 업데이트도 받을 수 있습니다.
 
 [NAME]에게 친구 추가를 요청하시겠습니까?
 		</message>
@@ -2443,7 +2105,23 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<option name="Cancel">
 			취소
 		</option>
-		제 친구가 되시겠습니까?
+	</alert>
+	<alert name="AddFriendWithMessage" title="친구 추가">
+		<message name="message">
+			친구들은 지도에서 서로의 위치를
+추적할 수 있으며 온라인 상태 업데이트도 받을 수 있습니다.
+
+[NAME]에게 친구 추가를 요청하시겠습니까?
+		</message>
+		<editline name="editline">
+			저와 친구가 되시겠습니까?
+		</editline>
+		<option name="Offer">
+			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
 	</alert>
 	<alert name="RemoveFromFriends">
 		<message name="message">
@@ -2514,11 +2192,6 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
  웹 사이트에 그룹 이름, 로고, 설립 조항, 타이틀 및 설립자 이름을 게시할 수 있습니다.상기 내용 중 지역 사회 기준으로 볼 때 
  성인 전용으로 간주될 수 있는 내용이 있을 경우 그 사실을 
  표시할 의무가 있습니다.
-		</message>
-	</alert>
-	<alert name="ErrorEncodingSnapshot">
-		<message name="message">
-			스냅샷 인코딩 중 오류가 발생했습니다.
 		</message>
 	</alert>
 	<alert name="BlankClassifiedName">
@@ -2786,6 +2459,17 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 			[ERROR_MESSAGE]
 		</message>
 	</alert>
+	<alert name="QuickTimeOutOfDate">
+		<ignore name="ignore">
+			QuickTime이 구버전이기 때문에 비활성화된 경우
+		</ignore>
+		<message name="message">
+			현재 시스템에 설치된 QuickTime이 구버전이기 때문에 
+스트리밍 비디오가 비활성화되었습니다. 
+
+http://www.apple.com/quicktime/을 방문하여 최신 버전을 다운로드하십시오.
+		</message>
+	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
 			현재 [TYPE] 위치를 사용할 수 없습니다. [HELP] 
@@ -2918,27 +2602,12 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 			취소
 		</option>
 	</alert>
-	<alert name="ReturnScriptedOnOthersLand">
+	<alert name="EstateObjectReturn">
 		<message name="message">
-			사용자의 토지를 제외한 모든 토지에서
-** [USER_NAME] **
-소유의 모든 스크립트 오브젝트를 반환 하시겠습니까?
+			[USER_NAME]이(가) 소유하는 오브젝트를 반환하시겠습니까?
 		</message>
 		<option name="Return">
-			반환
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="ReturnScriptedOnAllLand">
-		<message name="message">
-			이 지역 내 모든 토지에서
-** [USER_NAME] **
-소유의 모든 스크립트 오브젝트를 반환하시겠습니까?
-		</message>
-		<option name="Return">
-			반환
+			확인
 		</option>
 		<option name="Cancel">
 			취소
@@ -2986,6 +2655,17 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 			귀하에게 허용되는 최대 주민 수는 [MAX_AGENTS]입니다.
 		</message>
 	</alert>
+	<alert name="MaxBannedAgentsOnRegion">
+		<message name="message">
+			귀하의 최대 금지 주민 수는 [MAX_BANNED]입니다.
+		</message>
+	</alert>
+	<alert name="MaxAgentOnRegionBatch">
+		<message name="message">
+			[NUM_ADDED] 에이전트를 추가하는 데 실패했습니다:
+[NUM_EXCESS]에 지정된 [MAX_AGENTS] [LIST_TYPE] 제한이 초과하였습니다.
+		</message>
+	</alert>
 	<alert name="MaxAllowedGroupsOnRegion">
 		<message name="message">
 			귀하에게 허용되는 최대 그룹 수는 [MAX_GROUPS]입니다.
@@ -2996,11 +2676,6 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<option name="Cancel">
 			취소
 		</option>
-	</alert>
-	<alert name="MaxBannedAgentsOnRegion">
-		<message name="message">
-			귀하의 최대 금지 주민 수는 [MAX_BANNED]입니다.
-		</message>
 	</alert>
 	<alert name="MaxManagersOnRegion">
 		<message name="message">
@@ -3134,22 +2809,14 @@ Applications 폴더에 다운로드하시겠습니까?
 			취소
 		</option>
 	</alert>
-	<alert name="AddClassified">
+	<alert name="WebLaunchExternalTarget">
 		<message name="message">
-			광고가 1주일 동안 찾기 디렉토리의 &apos;광고&apos; 섹션에
-나타납니다.
- 
-광고를 작성한 후 &apos;게시하기...&apos;를 클릭하여 디렉토리에
-추가합니다.
- 
-게시하기를 클릭하면 지불할 가격을 묻는 메시지가 나타납니다.
-높은 가격을 지불 할수록 광고가 목록에서 더 높은 위치에 게시되고
-키워드 검색 결과에서 더 우선적으로 표시됩니다.
+			컨텐츠를 보려면 시스템 웹 브라우저를 여십시오.
 		</message>
 		<ignore name="ignore">
-			새 광고를 추가할 때
+			시스템 브라우저를 열어 웹 페이지를 확인할 경우
 		</ignore>
-		<option name="OK">
+		<option name="Open">
 			확인
 		</option>
 		<option name="Cancel">
@@ -3190,6 +2857,20 @@ Applications 폴더에 다운로드하시겠습니까?
 		</message>
 		<ignore name="ignore">
 			보안 관련 위키를 웹 브라우저에서 볼때
+		</ignore>
+		<option name="Gotopage">
+			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="WebLaunchQAWiki">
+		<message name="message">
+			[SECOND_LIFE] QA Wiki를 방문합니다.
+		</message>
+		<ignore name="ignore">
+			QA Wiki를 보기 위해 웹 브라우저를 시작할 때
 		</ignore>
 		<option name="Gotopage">
 			확인
@@ -3314,20 +2995,6 @@ Applications 폴더에 다운로드하시겠습니까?
 			취소
 		</option>
 	</alert>
-	<alert name="ViewReleaseNotes">
-		<message name="message">
-			세컨드라이프 출시 정보를 보시겠습니까?
-		</message>
-		<ignore name="ignore">
-			출시 정보를 볼 때
-		</ignore>
-		<option name="Gotopage">
-			페이지로 이동
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
 	<alert name="GroupLeaveConfirmOfficer">
 		<message name="message">
 			귀하께서는 현재 그룹 [GROUP]의 운영진입니다.
@@ -3369,21 +3036,6 @@ Applications 폴더에 다운로드하시겠습니까?
 		</message>
 		<option name="OK">
 			확인
-		</option>
-	</alert>
-	<alert name="MuteByName" title="차단할 오브젝트">
-		<message name="message">
-			이름별 차단은 오브젝트 채팅과 메신저에만 영향을 주며 음소거는 하지 않습니다. 
-오브젝트의 이름을 정확하게 입력해야 합니다.
-		</message>
-		<editline name="editline">
-			오브젝트 이름
-		</editline>
-		<option name="OK">
-			확인
-		</option>
-		<option name="Cancel">
-			취소
 		</option>
 	</alert>
 	<alert name="MuteByNameFailed" title="오브젝트 차단 실패">
@@ -3505,14 +3157,6 @@ Applications 폴더에 다운로드하시겠습니까?
 			거부
 		</option>
 	</alert>
-	<alert name="HandleRateOwner">
-		<message name="message">
-			이 오브젝트의 소유주를 평가할 수 없습니다. 오브젝트가 그룹 소유입니다.
-		</message>
-		<option name="OK">
-			확인
-		</option>
-	</alert>
 	<alert name="KickUser">
 		<message name="message">
 			어떤 메시지로 이 사용자를 추방합니까?
@@ -3603,6 +3247,20 @@ Applications 폴더에 다운로드하시겠습니까?
 		</editline>
 		<option name="OK">
 			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="TeleportFromLandmark">
+		<message name="message">
+			텔리포트하시겠습니까?
+		</message>
+		<ignore name="ignore">
+			인벤토리의 랜드마크에서 텔리포트하는 경우
+		</ignore>
+		<option name="Teleport">
+			텔리포트
 		</option>
 		<option name="Cancel">
 			취소
@@ -3812,6 +3470,16 @@ Applications 폴더에 다운로드하시겠습니까?
 			확인
 		</option>
 	</alert>
+	<alert name="ProblemAddingEstateManager">
+		<message name="message">
+			새로운 사유지 관리자를 추가하는 데 문제가 발생하였습니다.  하나 이상의 사유지 관리자 목록이 모두 찬 상태입니다.
+		</message>
+	</alert>
+	<alert name="ProblemAddingEstateGeneric">
+		<message name="message">
+			사유지 목록에 추가하는 동안 문제가 발생했습니다.  하나 이상의 사유지 관리자 목록이 모두 찬 상태입니다.
+		</message>
+	</alert>
 	<alert name="UnableToLoadNotecard">
 		<message name="message">
 			참고카드 자산을 로드할 수 없습니다.
@@ -3844,6 +3512,34 @@ L$[AMOUNT]의 비용을 지불하고 이 광고물을 지금 게재하시겠습�
 		</message>
 		<option name="Publish">
 			게시하기
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="SetClassifiedMature">
+		<message name="message">
+			이 광고에 성인용 컨텐츠가 포함되어 있습니까?
+		</message>
+		<option name="Mature">
+			예
+		</option>
+		<option name="Not Mature">
+			아니오
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="SetGroupMature">
+		<message name="message">
+			이 그룹에 성인용 컨텐츠가 포함되어 있습니까?
+		</message>
+		<option name="Mature">
+			예
+		</option>
+		<option name="Not Mature">
+			아니오
 		</option>
 		<option name="Cancel">
 			취소
@@ -3956,6 +3652,19 @@ L$[AMOUNT]의 비용을 지불하고 이 광고물을 지금 게재하시겠습�
        결합하거나 세분할 수 있습니다.
  
 기본 설정: 선택됨
+		</message>
+	</alert>
+	<alert name="HelpRegionSearch" title="검색 보기 안 함">
+		<message name="message">
+			이 확인란을 선택하면 구획 소유주가 검색 구획 목록을 만들 수 없습니다.
+기본 설정: 꺼짐
+		</message>
+	</alert>
+	<alert name="HelpParcelSearch" title="검색 보기 안 함">
+		<message name="message">
+			이 확인란을 선택하면:
+- 이 구획의 검색 결과
+- 이 구획의 일반 오브젝트
 		</message>
 	</alert>
 	<alert name="RegionMaturityChange" title="변경된 지역 만기일">
@@ -4201,6 +3910,14 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 이용할 수 있습니다.
 		</message>
 	</alert>
+	<alert name="HelpEstateAbuseEmailAddress" title="악용 신고 이메일 주소">
+		<message name="message">
+			유효한 이메일 주소로 이 옵션을 설정하면
+이 사유지에 대한 악용 신고가 해당 주소로 전송됩니다. 
+이 옵션을 공란으로 비워두면 악용 신고 내용이
+린든랩으로만 전송됩니다.
+		</message>
+	</alert>
 	<alert name="HelpEstateBanResident" title="액세스 거부">
 		<message name="message">
 			이 목록에 있는 주민들은 
@@ -4208,6 +3925,20 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
  
 이 목록으로 주민을 추가하면 
  허가 목록에서 해당 주민이 제거됩니다.
+		</message>
+	</alert>
+	<alert name="HelpEstateVoiceChat" title="음성 채팅 허용">
+		<message name="message">
+			이 사유지의 구획은 주민들이 부근에 있는 다른 사람들과 대화할 수 있는
+음성 대화를 할 수 있게
+설정합니다.
+
+기본 설정: 꺼짐
+		</message>
+	</alert>
+	<alert name="VoiceVersionMismatch" title="음성 버전이 일치하지 않음.">
+		<message name="message">
+			현재Second Life 버전은 이 지역의 음성 채팅 사양과 일치하지 않습니다. 음성 채팅 기능이 올바르게 작동하려면Second Life를 업데이트 해야 합니다.
 		</message>
 	</alert>
 	<alert name="HelpEstateCovenant" title="사유지 시행 규칙">
@@ -4459,6 +4190,48 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 			취소
 		</option>
 	</alert>
+	<alert name="ClickOpenF1Help">
+		<message name="message">
+			Second Life 지원 웹 사이트를 방문하시겠습니까?
+		</message>
+		<ignore name="ignore">
+			Second Life 지원 웹 사이트를 방문할 때.
+		</ignore>
+		<option name="Gotopage">
+			이동
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="RetryFetchInventoryDescendents">
+		<message name="message">
+			서버에서 인벤토리를 가져오는 중 시간이 초과되었습니다.  다시 시도하시겠습니까?
+		</message>
+		<ignore name="ignore">
+			인벤토리 가져오기 다시 시도
+		</ignore>
+		<option name="Retry">
+			다시 시도
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="ConfirmQuit">
+		<message name="message">
+			종료 하시겠습니까?
+		</message>
+		<ignore name="ignore">
+			Second Life를 종료할 때.
+		</ignore>
+		<option name="Quit">
+			종료
+		</option>
+		<option name="Continue">
+			계속
+		</option>
+	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
 			이 도구를 사용하여 서비스 약관과 커뮤니티 규칙의 위반 사항을 
@@ -4590,10 +4363,10 @@ http://secondlife.com/community/support.php
 		<ignore name="ignore">
 			기존 착용물을 교체할 때
 		</ignore>
-		<option ignore="자동 대체" name="Yes">
+		<option name="Yes">
 			예
 		</option>
-		<option ignore="대체 금지" name="No">
+		<option name="No">
 			아니오
 		</option>
 	</alert>
@@ -4609,10 +4382,10 @@ http://secondlife.com/community/support.php
 		<ignore name="ignore">
 			부재중 모드에서 사람 또는 오브젝트를 지불할 때
 		</ignore>
-		<option ignore="다른 용무 중 모드 항상 해제" name="Yes">
+		<option name="Yes">
 			예
 		</option>
-		<option ignore="다른 용무 모드 사용 안함" name="No">
+		<option name="No">
 			아니오
 		</option>
 	</alert>
@@ -4690,42 +4463,6 @@ http://secondlife.com/community/support.php
 		<ignore name="ignore">
 			SLURL을 클릭보드로 복사할 때
 		</ignore>
-	</alert>
-	<alert name="IMSessionStartError">
-		<message name="message">
-			[RECIPIENT]에 대한 새 메신저 세션 시작 중 오류가 발생했습니다.
-			[REASON]
-		</message>
-		<option name="OK">
-			확인
-		</option>
-	</alert>
-	<alert name="IMSessionStartNotVerified">
-		<message name="message">
-			[RECIPIENT]에 대한 새 메신저 세션 시작 중 오류가 발생했습니다.
-			[REASON]
-		</message>
-		<option name="OK">
-			확인
-		</option>
-	</alert>
-	<alert name="IMSessionEventError">
-		<message name="message">
-			오류:  [EVENT] [RECIPIENT].
-			[REASON]
-		</message>
-		<option name="OK">
-			확인
-		</option>
-	</alert>
-	<alert name="ForceCloseIMSession">
-		<message name="messsage">
-			[NAME](과)와의 메신저 세션을 종료해야 합니다.
-            [REASON]
-		</message>
-		<option name="OK">
-			확인
-		</option>
 	</alert>
 	<alert name="GraphicsPreferencesHelp">
 		<message name="message">
@@ -5082,16 +4819,7 @@ D 슬라이더를 사용해서는 구름의 농도를
 	</alert>
 	<alert name="ChatterBoxSessionStartError">
 		<message name="message">
-			[RECIPIENT](과)와의 새 채팅 세션 시작 중 오류가 발생했습니다.
-[REASON]
-		</message>
-		<option name="OK">
-			확인
-		</option>
-	</alert>
-	<alert name="ChatterBoxSessionStartNotVerified">
-		<message name="message">
-			[RECIPIENT](과)와의 새 채팅 세션 시작 중 오류가 발생했습니다.
+			[RECIPIENT]님과의 새 채팅 세션을 시작할 수 없습니다.
 [REASON]
 		</message>
 		<option name="OK">
@@ -5100,7 +4828,7 @@ D 슬라이더를 사용해서는 구름의 농도를
 	</alert>
 	<alert name="ChatterBoxSessionEventError">
 		<message name="message">
-			오류: [EVENT] [RECIPIENT]
+			[EVENT]
 [REASON]
 		</message>
 		<option name="OK">
@@ -5108,10 +4836,6 @@ D 슬라이더를 사용해서는 구름의 농도를
 		</option>
 	</alert>
 	<alert name="ForceCloseChatterBoxSession">
-		<message name="messsage">
-			[NAME](와)과의 채팅 세션을 종료해야 합니다.
-            [REASON]
-		</message>
 		<message name="message">
 			[NAME](과)와의 채팅 세션을 종료해야 합니다.
 [REASON]
@@ -5176,6 +4900,9 @@ Second Life 웹사이트를 방문하여 성인 인증을 하시겠습니까?
 		<option name="No">
 			아니오
 		</option>
+		<url>
+			https://secondlife.com/account/verification.php
+		</url>
 	</alert>
 	<alert name="Cannot enter parcel: no payment info on file">
 		<message name="message">
@@ -5193,6 +4920,9 @@ Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
 		<option name="No">
 			아니오
 		</option>
+		<url>
+			https://secondlife.com/account/
+		</url>
 	</alert>
 	<alert name="MissingString">
 		<message name="message">
