@@ -1418,13 +1418,11 @@
         <on_check control="CheesyBeacon" />
       </menu_item_check>
       <menu_item_check name="Attached Lights" label="Attached Lights">
-        <on_click function="ToggleControl"
-                  userdata="RenderAttachedLights" />
+        <on_click function="ToggleRenderAttachedLights" />
         <on_check control="RenderAttachedLights" />
       </menu_item_check>
       <menu_item_check name="Attached Particles" label="Attached Particles">
-        <on_click function="ToggleControl"
-                  userdata="RenderAttachedParticles" />
+        <on_click function="ToggleRenderAttachedParticles" />
         <on_check control="RenderAttachedParticles" />
       </menu_item_check>
     </menu>

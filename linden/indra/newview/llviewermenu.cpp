@@ -8295,6 +8295,33 @@ class LLAdvancedCheckDisableTextures : public view_listener_t
 
 
 
+////////////////////////////////////////
+// RENDER ATTACHED LIGHTS / PARTICLES //
+////////////////////////////////////////
+
+
+class LLToggleRenderAttachedLights : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+    menu_toggle_control((void *)"RenderAttachedLights");
+    LLPipeline::sRenderAttachedLights = gSavedSettings.getBOOL("RenderAttachedLights");
+		return true;
+	}
+};
+
+class LLToggleRenderAttachedParticles : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+    menu_toggle_control((void *)"RenderAttachedParticles");
+    LLPipeline::sRenderAttachedParticles = gSavedSettings.getBOOL("RenderAttachedParticles");
+		return true;
+	}
+};
+
+
+
 //////////////////////////
 // DUMP SCRIPTED CAMERA //
 //////////////////////////
@@ -9955,6 +9982,10 @@ void initialize_menus()
 	addMenu(new LLAdvancedCheckWireframe(), "Advanced.CheckWireframe");
 	addMenu(new LLAdvancedToggleDisableTextures(), "Advanced.ToggleDisableTextures");
 	addMenu(new LLAdvancedCheckDisableTextures(), "Advanced.CheckDisableTextures");
+
+	// Advanced > Render (top level menu)
+	addMenu(new LLToggleRenderAttachedLights(), "ToggleRenderAttachedLights");
+	addMenu(new LLToggleRenderAttachedParticles(), "ToggleRenderAttachedParticles");
 
 	// Advanced > World
 	addMenu(new LLAdvancedDumpScriptedCamera(), "Advanced.DumpScriptedCamera");

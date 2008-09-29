@@ -1,5 +1,11 @@
 2008-09-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llviewermenu.cpp: 
+	Added event callbacks for Attached Lights and Attached Particles.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml: 
+	Updated XUI menu entries for Attached Lights and Attached Particles
+	to use the new event callbacks. Those menu entries now work.
+	
 	* Updated to SL source 1.21.2.
 
 2008-09-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
