@@ -308,7 +308,7 @@ const char *VFS_INDEX_FILE_BASE = "index.db2.x.";
 static std::string gSecondLife;
 static std::string gWindowTitle;
 #ifdef LL_WINDOWS
-	static char sWindowClass[] = "Second Life";
+	static char sWindowClass[] = IMP_VIEWER_NAME;
 #endif
 
 std::string gLoginPage;
@@ -1569,7 +1569,7 @@ bool LLAppViewer::initConfiguration()
 	gSavedSettings.setString("ClientSettingsFile", 
         gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, getSettingsFileName("Global")));
 
-	gSavedSettings.setString("VersionChannelName", LL_CHANNEL);
+	gSavedSettings.setString("VersionChannelName", IMP_VIEWER_NAME);
 
 #ifndef	LL_RELEASE_FOR_DOWNLOAD
         gSavedSettings.setBOOL("ShowConsoleWindow", TRUE);
@@ -1836,7 +1836,7 @@ bool LLAppViewer::initConfiguration()
     mYieldTime = gSavedSettings.getS32("YieldTime");
              
 	// XUI:translate
-	gSecondLife = "Second Life";
+	gSecondLife = IMP_VIEWER_NAME;
 
 	// Read skin/branding settings if specified.
 	//if (! gDirUtilp->getSkinDir().empty() )
@@ -2082,7 +2082,7 @@ bool LLAppViewer::initWindow()
 
 	// always start windowed
 	BOOL ignorePixelDepth = gSavedSettings.getBOOL("IgnorePixelDepth");
-	gViewerWindow = new LLViewerWindow(gWindowTitle, "Second Life",
+	gViewerWindow = new LLViewerWindow(gWindowTitle, gWindowTitle,
 		gSavedSettings.getS32("WindowX"), gSavedSettings.getS32("WindowY"),
 		gSavedSettings.getS32("WindowWidth"), gSavedSettings.getS32("WindowHeight"),
 		FALSE, ignorePixelDepth);

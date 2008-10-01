@@ -37,6 +37,9 @@ const S32 LL_VERSION_MINOR = 21;
 const S32 LL_VERSION_PATCH = 2;
 const S32 LL_VERSION_BUILD = 0;
 
-const char * const LL_CHANNEL = "Second Life Release";
+const char * const LL_CHANNEL = "Imprudence";
+
+const char * const LL_VIEWER_NAME = "Second Life";
+const char * const IMP_VIEWER_NAME = "Imprudence";
 
 #endif

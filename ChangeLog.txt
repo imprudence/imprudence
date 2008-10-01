@@ -1,3 +1,14 @@
+2008-10-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llcommon/llversionviewer.h: 
+	Changed viewer and channel name to "Imprudence".
+	* linden/indra/newview/llappviewer.cpp: 
+	Ditto.
+	* linden/indra/cmake/Variables.cmake: 
+	Ditto.
+	* linden/indra/newview/app_settings/settings.xml: 
+	Ditto.
+
 2008-09-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llviewermenu.cpp: 
