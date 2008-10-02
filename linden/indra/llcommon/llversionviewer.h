@@ -42,4 +42,8 @@ const char * const LL_CHANNEL = "Imprudence";
 const char * const LL_VIEWER_NAME = "Second Life";
 const char * const IMP_VIEWER_NAME = "Imprudence";
 
+const S32 IMP_VERSION_MAJOR = 1;
+const S32 IMP_VERSION_MINOR = 0;
+const S32 IMP_VERSION_PATCH = 0;
+
 #endif
