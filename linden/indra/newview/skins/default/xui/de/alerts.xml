@@ -838,7 +838,7 @@ Die Änderungen übernehmen und das Programm beenden?
 	</alert>
 	<alert name="ResetShowNextTimeDialogs">
 		<message name="message">
-			Möchten Sie alle Popups wieder aktivieren, die Sie zuvor auf ‚Nicht mehr anzeigen&apos; gesetzt haben?
+			Möchten Sie alle Popups wieder aktivieren, die Sie zuvor auf &apos;Nicht mehr anzeigen&apos; gesetzt haben?
 		</message>
 		<option name="OK">
 			OK

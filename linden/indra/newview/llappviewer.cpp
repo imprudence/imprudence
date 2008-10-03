@@ -2680,7 +2680,7 @@ bool LLAppViewer::initCache()
 			std::string cache_dir = gDirUtilp->getOSUserAppDir();
 			std::string new_cache_dir = gDirUtilp->getOSCacheDir();
 			cache_dir = cache_dir + "/cache";
-			new_cache_dir = new_cache_dir + "/" + gSecondLife;
+			new_cache_dir = new_cache_dir + "/SecondLife";
 			if (gDirUtilp->fileExists(cache_dir))
 			{
 				gDirUtilp->setCacheDir(cache_dir);

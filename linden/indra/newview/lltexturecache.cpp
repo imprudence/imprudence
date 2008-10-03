@@ -839,10 +839,6 @@ void LLTextureCacheWorker::finishWork(S32 param, bool completed)
 			{
 				delete[] mReadData;
 				mReadData = NULL;
-				if (mDataSize != 0)
-				{
-					llinfos << "Read Failed. mDataSize = " << mDataSize << llendl;
-				}
 			}
 		}
 		else

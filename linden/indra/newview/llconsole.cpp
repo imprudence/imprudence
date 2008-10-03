@@ -334,22 +334,21 @@ void LLConsole::Paragraph::updateLines(F32 screen_width, LLFontGL* font, bool fo
 	// Wrap lines that are longer than the view is wide.
 	while( paragraph_offset < (S32)mParagraphText.length() )
 	{
-		S32 skip_newline_chars; // skip '\n'
+		bool found_newline = false; // skip '\n'
 		// Figure out if a word-wrapped line fits here.
 		LLWString::size_type line_end = mParagraphText.find_first_of(llwchar('\n'), paragraph_offset);
 		if (line_end != LLWString::npos)
 		{
-			skip_newline_chars = 1; // skip '\n'
+			found_newline = true; // skip '\n'
 		}
 		else
 		{
 			line_end = mParagraphText.size();
-			skip_newline_chars = 0;
 		}
 
 		U32 drawable = font->maxDrawableChars(mParagraphText.c_str()+paragraph_offset, screen_width, line_end - paragraph_offset, TRUE);
 
-		if (drawable != 0)
+		if (drawable != 0 || found_newline)
 		{
 			F32 x_position = 0;						//Screen X position of text.
 			
@@ -394,10 +393,10 @@ void LLConsole::Paragraph::updateLines(F32 screen_width, LLFontGL* font, bool fo
 		}
 		else
 		{
-			if( !skip_newline_chars )
-				break; // Nothing more to print
+			break; // Nothing more to print
 		}
-		paragraph_offset += (drawable + skip_newline_chars);
+
+		paragraph_offset += (drawable + ( found_newline ? 1 : 0 ) );
 	}
 }
 

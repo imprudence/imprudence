@@ -38,9 +38,9 @@
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="Infos sur le groupe" name="group_info_btn" />
-			<button label="Participer à l&apos;appel" name="start_call_btn" />
-			<button label="Raccrocher" name="end_call_btn" />
+			<button label="Infos sur le groupe" name="group_info_btn" width="120"/>
+			<button label="Participer à l&apos;appel" name="start_call_btn" left_delta="125" width="145"/>
+			<button label="Raccrocher" name="end_call_btn" width="145" halign="center" />
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
 			     tool_tip="Cliquez ici pour mettre la liste des intervenants actifs dans cette session IM en mode bascule." />
 			<button label="Envoyer" name="send_btn" />

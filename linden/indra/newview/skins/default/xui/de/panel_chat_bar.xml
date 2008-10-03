@@ -4,11 +4,11 @@
 	<button label="Lokaler Chat" name="History" tool_tip="Klicken Sie hier zur Anzeige des Gesprächs"/>
 	<line_editor label="Zum Chatten hier klicken." name="Chat Editor" tool_tip="Eingabe für Sprechen, Strg-Eingabe für Rufen."/>
 	<flyout_button label="Reden" name="Say" tool_tip="(Eingabe)">
-		<flyout_button_item>
-			Say
+		<flyout_button_item name="say_item">
+			Reden
 		</flyout_button_item>
-		<flyout_button_item>
-			Shout
+		<flyout_button_item name="shout_item">
+			Rufen
 		</flyout_button_item>
 	</flyout_button>
 	<combo_box label="Gesten" name="Gesture"/>

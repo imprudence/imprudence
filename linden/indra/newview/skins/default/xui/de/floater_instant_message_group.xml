@@ -68,7 +68,7 @@
 		Beginne Sitzung mit [NAME], bitte warten.
 	</string>
 	<string name="moderated_chat_label">
-		(Moderiert: Voice-Chat standardmäßig stummgeschaltet)
+		(Moderiert: Voice-Chat standardmäßig abschaltet)
 	</string>
 	<string name="default_text_label">
 		Für Instant Message hier klicken.

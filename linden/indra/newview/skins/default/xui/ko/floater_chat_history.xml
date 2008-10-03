@@ -36,11 +36,11 @@
 				</string>
 				<line_editor label="채팅하려면 여기를 클릭하십시오." name="Chat Editor"/>
 				<flyout_button label="말하기" name="Say" tool_tip="(입력)">
-					<flyout_button_item>
-						Shout
+					<flyout_button_item name="shout_item">
+						외치기
 					</flyout_button_item>
-					<flyout_button_item>
-						Say
+					<flyout_button_item name="say_item">
+						말하기
 					</flyout_button_item>
 				</flyout_button>
 			</panel>

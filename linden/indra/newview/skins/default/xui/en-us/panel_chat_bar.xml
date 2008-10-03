@@ -17,10 +17,10 @@
 	<flyout_button bottom="-23" follows="right|bottom" height="20" label="Say" left_delta="110"
 	     list_position="above" mouse_opaque="true" name="Say" tool_tip="(Enter)"
 	     width="80">
-		<flyout_button_item value="say">
+		<flyout_button_item value="say" name="say_item">
 			Say
 		</flyout_button_item>
-		<flyout_button_item value="shout">
+		<flyout_button_item value="shout" name="shout_item">
 			Shout
 		</flyout_button_item>
 	</flyout_button>

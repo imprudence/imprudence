@@ -34,13 +34,13 @@
 				<string name="gesture_label">
 					Gesten
 				</string>
-				<line_editor label="Zum Chatten hier klicken." name="Chat Editor"/>
-				<flyout_button label="Sprechen" name="Say" tool_tip="(Eingabe)">
-					<flyout_button_item>
-						Shout
+				<line_editor label="Zum Chatten hier klicken." name="Chat Editor" right="-75" />
+				<flyout_button label="Reden" name="Say" tool_tip="(Eingabe)" width="75" left="-70">
+					<flyout_button_item name="shout_item">
+						Rufen
 					</flyout_button_item>
-					<flyout_button_item>
-						Say
+					<flyout_button_item name="say_item">
+						Reden
 					</flyout_button_item>
 				</flyout_button>
 			</panel>

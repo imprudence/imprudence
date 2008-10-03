@@ -23,11 +23,6 @@
 			OK
 		</option>
 	</alert>
-	<alert name="MOTD" title="本日のメッセージ">
-		<message name="message">
-			[MOTD]
-		</message>
-	</alert>
 	<alert name="TutorialNotFound">
 		<message name="message">
 			現在利用可能なチュートリアルはありません。
@@ -70,34 +65,6 @@
 		</option>
 		<option name="Help">
 			ヘルプ
-		</option>
-	</alert>
-	<alert name="RemoveWearableSave">
-		<message name="message">
-			現在の衣服／身体部位に対する変更を保存しますか？
-		</message>
-		<option name="Save">
-			保存
-		</option>
-		<option name="Don&apos;tSave">
-			保存しない
-		</option>
-		<option name="Cancel">
-			取り消し
-		</option>
-	</alert>
-	<alert name="SetWearableSave">
-		<message name="message">
-			現在の衣服／身体部位に対する変更を保存しますか？
-		</message>
-		<option name="Save">
-			保存
-		</option>
-		<option name="Don&apos;tSave">
-			保存しない
-		</option>
-		<option name="Cancel">
-			取り消し
 		</option>
 	</alert>
 	<alert name="WearableSave">
@@ -713,104 +680,6 @@ Studio exhibitのウェブ・ページで確認してください。
 			スナップショット・データの処理エラー
 		</message>
 	</alert>
-	<alert name="ClassifiedSave">
-		<message name="message">
-			クラシファイド広告[NAME]への変更を保存しますか？
-		</message>
-		<option name="Save">
-			保存
-		</option>
-		<option name="Don&apos;tSave">
-			保存しない
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="SkipShowNextTimeDialogs">
-		<message name="message">
-			「次に見せる」ダイアログ全てをリセットしますか？
-		</message>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="ChangeSkin">
-		<message name="message">
-			新しいスキンは[SECOND_LIFE]を再起動すると現れます
-		</message>
-	</alert>
-	<alert name="UnsupportedGLRequirements">
-		<message name="message">
-			Second Life の使用に必要なハードウェアの環境が満たされていないようです。 Second Life ではマルチテクスチャーに対応したOpenGLグラフィック・カードが必要です。 この場合、グラフィック・カードの最新ドライバがインストールされていること、およびオペレーティング・システムにサービス・パックと修正プログラムが適用されていることをご確認ください。
-
-問題が解決されない場合には、次のサイトにアクセスしてください。 http://www.secondlife.com/support
-		</message>
-	</alert>
-	<alert name="UnsupportedHardware">
-		<message name="message">
-			警告： あなたのシステムは Second Life を使用するために必要な必須動作環境の条件をを満たしていません。 Second Life をこのままご使用になると、不十分なパフォーマンスしか得られないおそれがあります。 また、サポート外のシステム構成でご使用の場合、テクニカルサポートをご利用いただくことができません。 
-
- 必須動作環境の条件
-［_URL］ にアクセスして、さらに詳しい情報をご覧になりますか?
-		</message>
-		<ignore name="ignore">
-			サポート外のハードウェアを無視する
-		</ignore>
-		<option name="Yes">
-			はい
-		</option>
-		<option name="No">
-			いいえ
-		</option>
-	</alert>
-	<alert name="UnsupportedGPU">
-		<message name="message">
-			- あなたのグラフィック・カードは必須動作環境の条件を満たしていません。
-		</message>
-	</alert>
-	<alert name="UnsupportedCPU">
-		<message name="message">
-			- あなたの CPU の速度は必須動作環境の条件を満たしていません。
-		</message>
-	</alert>
-	<alert name="UnsupportedCPUAmount">
-		<message name="message">
-			796
-		</message>
-	</alert>
-	<alert name="UnsupportedRAM">
-		<message name="message">
-			- あなたのシステム・メモリは必須動作環境の条件を満たしていません。
-		</message>
-	</alert>
-	<alert name="UnsupportedRAMAmount">
-		<message name="message">
-			510
-		</message>
-	</alert>
-	<alert name="UnknownGPU">
-		<message name="message">
-			お使いのシステムには、現時点では不明なグラフィック・カードが搭載されています。  
-これは、当社による動作テストが行われていない新しいハードウェアが使用されている場合がほとんどです。  Second Lifeはほぼ間違いなく正常に動作しますが、必要に応じたグラフィック設定の調整が必要になる場合があります。
-([編集]&gt;[環境設定]&gt;[グラフィック])。
-		</message>
-		<ignore name="ignore">
-			不明なグラフィック・カードを無視する
-		</ignore>
-	</alert>
-	<alert name="DisplaySettingsNoShaders">
-		<message name="message">
-			[SECOND_LIFE] は、グラフィック・ドライバの初期化中にクラッシュしました。
-一般的なドライバ・エラーを回避するため、[グラフィックの品質]は[低]に設定されます。
-これにより、いくつかのグラフィックス機能は無効になります。
-グラフィックカード・ドライバのアップデートをお勧めします。
-[グラフィックの品質]は[環境設定]&gt;[グラフィック]から上げることができます。
-		</message>
-	</alert>
 	<alert name="ErrorEncodingSnapshot">
 		<message name="message">
 			スナップショットのエンコード化でエラーが出ました！
@@ -854,9 +723,6 @@ Studio exhibitのウェブ・ページで確認してください。
 		<option name="OK">
 			閉じる
 		</option>
-		<option name="Cancel">
-			取り消し
-		</option>
 	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
@@ -871,63 +737,6 @@ Studio exhibitのウェブ・ページで確認してください。
 		<option name="Cancel">
 			もう一度試す
 		</option>
-	</alert>
-	<alert name="FreezeAvatarFullname">
-		<message name="message">
-			[AVATAR_NAME]をフリーズしますか?
-フリーズされた人は一時的に動けなくなり、チャットなど、この世界に対する関わりを持つことができなくなります。
-		</message>
-		<option name="Freeze">
-			フリーズ
-		</option>
-		<option name="Unfreeze">
-			解凍
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="EjectAvatarFullname">
-		<message name="message">
-			あなたの土地から[AVATAR_NAME]を追放しますか?
-		</message>
-		<option name="Eject">
-			追放
-		</option>
-		<option name="EjectandBan">
-			追放と禁止
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="SeachFilteredOnShortWords">
-		<message name="message">
-			指定した検索クエリは変更され、短すぎる語句は取り除かれています。
-
-検索語句: [FINALQUERY]
-		</message>
-	</alert>
-	<alert name="SeachFilteredOnShortWordsEmpty">
-		<message name="message">
-			指定した検索語句が短すぎたため、検索は行われませんでした。
-		</message>
-	</alert>
-	<alert name="CannotCloseFloaterBuyLand">
-		<message name="message">
-			Second Lifeによるこの取引の見積りが完了するまで［土地を購入］ウィンドウを閉じることはできません。
-		</message>
-	</alert>
-	<alert name="QuickTimeOutOfDate">
-		<ignore name="ignore">
-			QuickTimeのバージョンが古いために無効化されている場合
-		</ignore>
-		<message name="message">
-			あなたのコンピュータにインストールされているQuickTimeのバージョンが古いため、 
-ストリーミング・ビデオが無効化されています。 
-
-http://www.apple.com/quicktime/で、最新版をダウンロードしてください。
-		</message>
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
@@ -959,6 +768,20 @@ http://www.apple.com/quicktime/で、最新版をダウンロードしてくだ�
 		</option>
 		<option name="Cancel">
 			取り消し
+		</option>
+	</alert>
+	<alert name="ClassifiedSave">
+		<message name="message">
+			クラシファイド広告[NAME]への変更を保存しますか？
+		</message>
+		<option name="Save">
+			保存
+		</option>
+		<option name="Don&apos;tSave">
+			保存しない
+		</option>
+		<option name="Cancel">
+			キャンセル
 		</option>
 	</alert>
 	<alert name="DeleteAvatarPick">
@@ -1020,13 +843,24 @@ http://www.apple.com/quicktime/で、最新版をダウンロードしてくだ�
 	</alert>
 	<alert name="ResetShowNextTimeDialogs">
 		<message name="message">
-			「次回表示」ダイアログをすべてリセットしますか？
+			これらのポップアップ全てを再度有効化しますか？（以前「今後は表示しない」と指定しています）
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Cancel">
 			取り消し
+		</option>
+	</alert>
+	<alert name="SkipShowNextTimeDialogs">
+		<message name="message">
+			スキップ可能なポップアップ全てを無効化しますか？
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
 		</option>
 	</alert>
 	<alert name="CacheWillClear">
@@ -1043,6 +877,11 @@ http://www.apple.com/quicktime/で、最新版をダウンロードしてくだ�
 	<alert name="ChangeConnectionPort">
 		<message name="message">
 			ポートの設定は、[SECOND_LIFE]の再起動後に有効になります。
+		</message>
+	</alert>
+	<alert name="ChangeSkin">
+		<message name="message">
+			新しいスキンは[SECOND_LIFE]を再起動すると現れます
 		</message>
 	</alert>
 	<alert name="GoToAuctionPage">
@@ -1178,6 +1017,68 @@ http://www.apple.com/quicktime/で、最新版をダウンロードしてくだ�
 表示設定はセーフ・レベルに設定されています。
 		</message>
 	</alert>
+	<alert name="UnsupportedGLRequirements">
+		<message name="message">
+			Second Life の使用に必要なハードウェアの環境が満たされていないようです。 Second Life ではマルチテクスチャーに対応したOpenGLグラフィック・カードが必要です。 この場合、グラフィック・カードの最新ドライバがインストールされていること、およびオペレーティング・システムにサービス・パックと修正プログラムが適用されていることをご確認ください。
+
+問題が解決されない場合には、次のサイトにアクセスしてください。 http://www.secondlife.com/support
+		</message>
+	</alert>
+	<alert name="UnsupportedHardware">
+		<message name="message">
+			警告： あなたのシステムは Second Life を使用するために必要な必須動作環境の条件をを満たしていません。 Second Life をこのままご使用になると、不十分なパフォーマンスしか得られないおそれがあります。 また、サポート外のシステム構成でご使用の場合、テクニカルサポートをご利用いただくことができません。 
+
+ 必須動作環境の条件
+［_URL］ にアクセスして、さらに詳しい情報をご覧になりますか?
+		</message>
+		<ignore name="ignore">
+			サポート外のハードウェアの検出時
+		</ignore>
+		<option name="Yes">
+			はい
+		</option>
+		<option name="No">
+			いいえ
+		</option>
+		<url>
+			http://www.secondlife.com/corporate/sysreqs.php
+		</url>
+	</alert>
+	<alert name="UnsupportedGPU">
+		<message name="message">
+			- あなたのグラフィック・カードは必須動作環境の条件を満たしていません。
+		</message>
+	</alert>
+	<alert name="UnsupportedCPU">
+		<message name="message">
+			- あなたの CPU の速度は必須動作環境の条件を満たしていません。
+		</message>
+	</alert>
+	<alert name="UnsupportedCPUAmount">
+		<message name="message">
+			796
+		</message>
+	</alert>
+	<alert name="UnsupportedRAM">
+		<message name="message">
+			- あなたのシステム・メモリは必須動作環境の条件を満たしていません。
+		</message>
+	</alert>
+	<alert name="UnsupportedRAMAmount">
+		<message name="message">
+			510
+		</message>
+	</alert>
+	<alert name="UnknownGPU">
+		<message name="message">
+			お使いのシステムには、現時点では不明なグラフィック・カードが搭載されています。  
+これは、当社による動作テストが行われていない新しいハードウェアが使用されている場合がほとんどです。  Second Lifeはほぼ間違いなく正常に動作しますが、必要に応じたグラフィック設定の調整が必要になる場合があります。
+([編集]&gt;[環境設定]&gt;[グラフィック])。
+		</message>
+		<ignore name="ignore">
+			不明なグラフィック・カードの検出時
+		</ignore>
+	</alert>
 	<alert name="DisplaySettingsRecommended">
 		<message name="message">
 			表示設定は、あなたのシステム構成に
@@ -1186,6 +1087,15 @@ http://www.apple.com/quicktime/で、最新版をダウンロードしてくだ�
 		<option name="OK">
 			OK
 		</option>
+	</alert>
+	<alert name="DisplaySettingsNoShaders">
+		<message name="message">
+			[SECOND_LIFE] は、グラフィック・ドライバの初期化中にクラッシュしました。
+一般的なドライバ・エラーを回避するため、[グラフィックの品質]は[低]に設定されます。
+これにより、いくつかのグラフィックス機能は無効になります。
+グラフィックカード・ドライバのアップデートをお勧めします。
+[グラフィックの品質]は[環境設定]&gt;[グラフィック]から上げることができます。
+		</message>
 	</alert>
 	<alert name="CannotRequestDomain">
 		<message name="message">
@@ -1337,21 +1247,6 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 ネットワーク接続を確認してください。
 		</message>
 	</alert>
-	<alert name="CannotConnectLoginPacket">
-		<message name="message">
-			接続できません。  ログインパケットがログインサーバーに
-到達しませんでした。
- 
-数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
-リンクをクリックしてください。
-		</message>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Help">
-			ヘルプ
-		</option>
-	</alert>
 	<alert name="WelcomeToSecondLife">
 		<message name="message">
 			[SECOND_LIFE]にようこそ! 
@@ -1379,241 +1274,6 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 		</option>
 		<option name="Female">
 			女性
-		</option>
-	</alert>
-	<alert name="EstateObjectReturn">
-		<message name="message">
-			[USER_NAME]が所有しているオブジェクトを返却しますか?
-		</message>
-		<option name="Return">
-			OK
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="MaxAgentOnRegionBatch">
-		<message name="message">
-			[NUM_ADDED] 個のエージェントを追加しようとして失敗しました: [MAX_AGENTS] [LIST_TYPE] 制限を [NUM_EXCESS] 個超過しています。
-		</message>
-	</alert>
-	<alert name="WebLaunchExternalTarget">
-		<message name="message">
-			お使いのシステムのウェブ・ブラウザーを開いて、この内容を表示しますか?
-		</message>
-		<ignore name="ignore">
-			お使いのシステムのブラウザーを開いてウェブ・ページを表示しようとしたとき
-		</ignore>
-		<option name="Open">
-			OK
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="WebLaunchBugReport101">
-		<message name="message">
-			[SECOND_LIFE]Wikiで、バグを報告する正しい方法をご覧ください。
-		</message>
-		<ignore name="ignore">
-			バグレポート101 Wikiを閲覧するためのブラウザを開くにあたって
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="WebLaunchSecurityIssues">
-		<message name="message">
-			[SECOND_LIFE]Wikiで、セキュリティ問題を報告する方法をご覧ください。
-		</message>
-		<ignore name="ignore">
-			セキュリティ問題Wikiを閲覧するためにウェブ・ブラウザを起動するにあたって
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="WebLaunchQAWiki">
-		<message name="message">
-			[SECOND_LIFE] QA Wikiをご覧ください。
-		</message>
-		<ignore name="ignore">
-			QA Wikiを閲覧するためにウェブ・ブラウザを起動するにあたって
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="WebLaunchPublicIssue">
-		<message name="message">
-			[SECOND_LIFE]のパブリック問題トラッカーで、バグやその他の問題を報告できます。
-		</message>
-		<ignore name="ignore">
-			パブリック問題トラッカーを閲覧するためにウェブ・ブラウザを起動するにあたって
-		</ignore>
-		<option name="Gotopage">
-			ページへ行く
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="WebLaunchPublicIssueHelp">
-		<message name="message">
-			[SECOND_LIFE]Wikiで、パブリック問題トラッカーの使用方法をご覧ください。
-		</message>
-		<ignore name="ignore">
-			パブリック問題トラッカーWikiを閲覧するためにウェブ・ブラウザを起動するにあたって
-		</ignore>
-		<option name="Gotopage">
-			ページへ行く
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="TeleportFromLandmark">
-		<message name="message">
-			本当にテレポートしますか?
-		</message>
-		<ignore name="ignore">
-			持ち物のランドマークからテレポートする時
-		</ignore>
-		<option name="Teleport">
-			テレポート
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="ProblemAddingEstateManager">
-		<message name="message">
-			新しい不動産マネージャーの追加に関する問題。1つ以上の不動産で、マネージャーリストが満杯になっています。
-		</message>
-	</alert>
-	<alert name="ProblemAddingEstateGeneric">
-		<message name="message">
-			不動産リストの追加に関する問題。1つ以上の不動産で、リストが満杯になっています。
-		</message>
-	</alert>
-	<alert name="SetClassifiedMature">
-		<message name="message">
-			このクラシファイド広告には、成人向けコンテンツが含まれていますか?
-		</message>
-		<option name="Mature">
-			はい
-		</option>
-		<option name="Not Mature">
-			いいえ
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="SetGroupMature">
-		<message name="message">
-			このグループには、成人向けコンテンツが含まれていますか?
-		</message>
-		<option name="Mature">
-			はい
-		</option>
-		<option name="Not Mature">
-			いいえ
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="HelpRegionSearch" title="検索で表示しない">
-		<message name="message">
-			このボックスをチェックすると、区画のオーナーは、自分の区画が検索結果にリストされることを阻止できます。
-デフォルト:オフ
-		</message>
-	</alert>
-	<alert name="HelpParcelSearch" title="検索で表示しない">
-		<message name="message">
-			このボックスをチェックすると表示：
-- 検索結果におけるこの区画
-- この区画のパブリック・オブジェクト
-		</message>
-	</alert>
-	<alert name="HelpEstateAbuseEmailAddress" title="嫌がらせに関するメール先">
-		<message name="message">
-			これを有効なメールアドレスに設定すると、そのアドレスにこの不動産において行われた
-嫌がらせの報告が送信されるようになります。 
-設定を行わない場合（空白）、嫌がらせ報告は Linden Lab にのみ
-送信されます。
-		</message>
-	</alert>
-	<alert name="HelpEstateVoiceChat" title="ボイスチャットを許可">
-		<message name="message">
-			この不動産の区画は、住人が近所の人と対話できる
-独自のボイスチャンネルを持つことが
-できます。
-
-デフォルト:オフ
-		</message>
-	</alert>
-	<alert name="VoiceVersionMismatch" title="ボイスバージョンの不一致">
-		<message name="message">
-			このバージョンの Second Life は、この地域のボイスチャット機能に対応していません。ボイスチャットを正しく使用するには、Second Life のアップデートが必要です。
-		</message>
-	</alert>
-	<alert name="ClickOpenF1Help">
-		<message name="message">
-			Second Life のサポートウェブサイトを利用しますか？
-		</message>
-		<ignore name="ignore">
-			Second Life のサポートウェブサイトを閲覧するにあたって。
-		</ignore>
-		<option name="Gotopage">
-			行く
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="RetryFetchInventoryDescendents">
-		<message name="message">
-			「持ち物」データの取得はサーバーのタイムアウトにより完了しませんでした。  再実行しますか?
-		</message>
-		<ignore name="ignore">
-			「持ち物」データの後続要素の取得を再実行
-		</ignore>
-		<option name="Retry">
-			再実行
-		</option>
-		<option name="Cancel">
-			キャンセル
-		</option>
-	</alert>
-	<alert name="ConfirmQuit">
-		<message name="message">
-			終了しようとしています。操作を続行しますか？
-		</message>
-		<option name="Yes">
-			はい
-		</option>
-		<option name="No">
-			いいえ
-		</option>
-		<ignore name="ignore">
-			Second Life の終了にあたって。
-		</ignore>
-		<option name="Quit">
-			終了
-		</option>
-		<option name="Continue">
-			継続
 		</option>
 	</alert>
 	<alert name="RegionNoTerraforming">
@@ -1691,6 +1351,21 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 			取り消し
 		</option>
 	</alert>
+	<alert name="FreezeAvatarFullname">
+		<message name="message">
+			[AVATAR_NAME]をフリーズしますか?
+フリーズされた人は一時的に動けなくなり、チャットなど、この世界に対する関わりを持つことができなくなります。
+		</message>
+		<option name="Freeze">
+			フリーズ
+		</option>
+		<option name="Unfreeze">
+			解凍
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
 	<alert name="EjectAvatar">
 		<message name="message">
 			あなたの土地からこのアバターを追放しますか？
@@ -1703,6 +1378,20 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 		</option>
 		<option name="Cancel">
 			取り消し
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullname">
+		<message name="message">
+			あなたの土地から[AVATAR_NAME]を追放しますか?
+		</message>
+		<option name="Eject">
+			追放
+		</option>
+		<option name="EjectandBan">
+			追放と禁止
+		</option>
+		<option name="Cancel">
+			キャンセル
 		</option>
 	</alert>
 	<alert name="InvalidUUID">
@@ -1968,6 +1657,18 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 			保存すべきfrontmostフロータがありません。
 		</message>
 	</alert>
+	<alert name="SeachFilteredOnShortWords">
+		<message name="message">
+			指定した検索クエリは変更され、短すぎる語句は取り除かれています。
+
+検索語句: [FINALQUERY]
+		</message>
+	</alert>
+	<alert name="SeachFilteredOnShortWordsEmpty">
+		<message name="message">
+			指定した検索語句が短すぎたため、検索は行われませんでした。
+		</message>
+	</alert>
 	<alert name="ColladaExportFailedUnknownServerError">
 		<message name="message">
 			Colladaエクスポート失敗：原因不明のサーバーエラー
@@ -2065,6 +1766,11 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 この土地がある地域を見つけることができません
 		</message>
 	</alert>
+	<alert name="CannotCloseFloaterBuyLand">
+		<message name="message">
+			Second Lifeによるこの取引の見積りが完了するまで［土地を購入］ウィンドウを閉じることはできません。
+		</message>
+	</alert>
 	<alert name="CannotDeedLandNothingSelected">
 		<message name="message">
 			土地を譲渡できません:
@@ -2084,27 +1790,6 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 [ツール]＞[バグを報告する]を使って報告してください。
 		</message>
 	</alert>
-	<alert name="CannotSetLandOwnerNothingSelected">
-		<message name="message">
-			土地所有者を設定できません：
-何も選択されていません。
-		</message>
-	</alert>
-	<alert name="CannotBuyLandMultipleRegions">
-		<message name="message">
-			複数の地域が選択されたため、土地を購入できません。
-
-選択する面積を小さくしてもう一度試してください。
-		</message>
-	</alert>
-	<alert name="CannotBuyLandMultipleSelected">
-		<message name="message">
-			土地を購入できません：
-複数の区画が選択されています。
-
-これより1つの区画を選択してください。
-		</message>
-	</alert>
 	<alert name="CannotDeedLandMultipleSelected">
 		<message name="message">
 			土地を譲渡できません：
@@ -2117,21 +1802,6 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 		<message name="message">
 			地域が見つかりません
 		</message>
-	</alert>
-	<alert name="ParcelCanPlayMusic">
-		<message name="message">
-			ここではストリーミング・ミュージック再生が可能です。 
-ミュージックの再生には768 kbpsより速い
-接続環境が必要です。
-
-利用可能になったら再生しますか？
-		</message>
-		<option name="PlayMusic">
-			音楽を再生
-		</option>
-		<option name="Disable">
-			無効化
-		</option>
 	</alert>
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
@@ -2148,14 +1818,6 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 			無効化
 		</option>
 	</alert>
-	<alert name="CannotBuyLandWaitingForServer">
-		<message name="message">
-			土地を購入できません：
-サーバーからの価格情報を待っています。
-
-再度、試みてください。
-		</message>
-	</alert>
 	<alert name="CannotDeedLandWaitingForServer">
 		<message name="message">
 			土地を譲渡できません：
@@ -2164,57 +1826,10 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 再度、試みてください。
 		</message>
 	</alert>
-	<alert name="CannotBuyLandNoPublic">
-		<message name="message">
-			土地を購入できません：
-公共の土地が全く選択されていません。
-		</message>
-	</alert>
-	<alert name="CannotBuyLandLandOwned">
-		<message name="message">
-			土地を購入できません:
-他の住人が所有している区画を
-選択しました。
-		</message>
-	</alert>
-	<alert name="CannotButLandRegionNotFound">
-		<message name="message">
-			土地を購入できません：
-この土地がある地域が見つかりません。
-
-[ツール]＞[バグを報告する]を使って報告してください。
-		</message>
-	</alert>
-	<alert name="CannotBuyLandNoTransfer">
-		<message name="message">
-			土地を購入できません：
-この [REGION] では土地の譲渡が許されていません。
-		</message>
-	</alert>
 	<alert name="CannotDeedLandNoTransfer">
 		<message name="message">
 			土地を譲渡できません：
 この地域 [REGION] では土地の譲渡が許されていません。
-		</message>
-	</alert>
-	<alert name="CannotBuyLandForGroupNotOfficer">
-		<message name="message">
-			グループ用に土地を購入できません：
-あなたはこのグループの役員ではありません。
-
-[編集]＞[グループ...]を使って他のグループをアクティブにしてください。
-		</message>
-	</alert>
-	<alert name="CannotBuyLandInsufficientFunds">
-		<message name="message">
-			この[AREA]平方メートルの土地を買うには、L$[PRICE]必要です。
-残金はL$[BALANCE]しかありません。
-		</message>
-	</alert>
-	<alert name="CannotReleaseLandNothingSelected">
-		<message name="message">
-			土地を破棄できません： 
-何も選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandWatingForServer">
@@ -2451,14 +2066,6 @@ L$は贈与されません。
 			終了
 		</option>
 	</alert>
-	<alert name="SelectSingleRate">
-		<message name="message">
-			評価対象の単一のオブジェクトを選択
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
 			グループ用の土地の購入ができません：
@@ -2467,16 +2074,31 @@ L$は贈与されません。
 	</alert>
 	<alert name="AddFriend" title="フレンドを追加">
 		<message name="message">
-			フレンド同士は、地図上でお互いを追跡し、
-オンライン・ステータスの更新情報を受信する権限を与え合うことができます。 
+			フレンド同士はお互いの現在地を地図に表示することを許可し、オンラインステータスの更新ができます
 
-[NAME]とフレンド登録をしますか?
+[NAME] にフレンドシップを送りますか？
 		</message>
 		<option name="Offer">
 			OK
 		</option>
 		<option name="Cancel">
 			取り消し
+		</option>
+	</alert>
+	<alert name="AddFriendWithMessage" title="フレンドを追加">
+		<message name="message">
+			フレンド同士はお互いの現在地を地図に表示することを許可し、オンラインステータスの更新ができます
+
+[NAME] にフレンドシップのオファーをしますか？
+		</message>
+		<editline name="editline">
+			私のフレンドになっていただけますか？
+		</editline>
+		<option name="Offer">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
 		</option>
 	</alert>
 	<alert name="RemoveFromFriends">
@@ -2544,11 +2166,6 @@ L$は贈与されません。
 [SECOND_LIFE]ウェブ・サイト上でグループ名、記章、特権、タイトル、および創立者を公開できます。 上記のコンテンツがコミュニティ・スタンダード
 において成人向けコンテンツと判断されるかどうかについては、
 あなた自身がそれを明記しなければなりません。
-		</message>
-	</alert>
-	<alert name="ErrorEncodingSnapshot">
-		<message name="message">
-			スナップショットのエンコード・エラー！
 		</message>
 	</alert>
 	<alert name="BlankClassifiedName">
@@ -2814,6 +2431,17 @@ L$は贈与されません。
 			[ERROR_MESSAGE]
 		</message>
 	</alert>
+	<alert name="QuickTimeOutOfDate">
+		<ignore name="ignore">
+			QuickTimeのバージョンが古いために無効化されている場合
+		</ignore>
+		<message name="message">
+			あなたのコンピュータにインストールされているQuickTimeのバージョンが古いため、 
+ストリーミング・ビデオが無効化されています。 
+
+http://www.apple.com/quicktime/で、最新版をダウンロードしてください。
+		</message>
+	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
 			[TYPE]のロケーションは現在利用できません。 [HELP] 
@@ -2945,30 +2573,15 @@ F1キーを押してください。
 			取り消し
 		</option>
 	</alert>
-	<alert name="ReturnScriptedOnOthersLand">
+	<alert name="EstateObjectReturn">
 		<message name="message">
-			この地域で**[USER_NAME]**が所有していない全ての土地にある、
-
-が所有する全てのスクリプトを含むオブジェクトを、本当に返却しますか？
+			[USER_NAME]が所有しているオブジェクトを返却しますか?
 		</message>
 		<option name="Return">
 			OK
 		</option>
 		<option name="Cancel">
-			取り消し
-		</option>
-	</alert>
-	<alert name="ReturnScriptedOnAllLand">
-		<message name="message">
-			この地域の全ての土地で、** [USER_NAME] **
-
-が所有する全てのスクリプトを含むオブジェクトを、本当に返却しますか？
-		</message>
-		<option name="Return">
-			OK
-		</option>
-		<option name="Cancel">
-			取り消し
+			キャンセル
 		</option>
 	</alert>
 	<alert name="InvalidTerrainBitDepth">
@@ -3013,6 +2626,16 @@ F1キーを押してください。
 			許可住人は [MAX_AGENTS] 人までです。
 		</message>
 	</alert>
+	<alert name="MaxBannedAgentsOnRegion">
+		<message name="message">
+			禁止住人は[MAX_BANNED]人までです。
+		</message>
+	</alert>
+	<alert name="MaxAgentOnRegionBatch">
+		<message name="message">
+			[NUM_ADDED] 個のエージェントを追加しようとして失敗しました: [MAX_AGENTS] [LIST_TYPE] 制限を [NUM_EXCESS] 個超過しています。
+		</message>
+	</alert>
 	<alert name="MaxAllowedGroupsOnRegion">
 		<message name="message">
 			許可グループは[MAX_GROUPS]グループまでです。
@@ -3023,11 +2646,6 @@ F1キーを押してください。
 		<option name="Cancel">
 			取り消し
 		</option>
-	</alert>
-	<alert name="MaxBannedAgentsOnRegion">
-		<message name="message">
-			禁止住人は[MAX_BANNED]人までです。
-		</message>
 	</alert>
 	<alert name="MaxManagersOnRegion">
 		<message name="message">
@@ -3161,25 +2779,18 @@ F1キーを押してください。
 			取り消し
 		</option>
 	</alert>
-	<alert name="AddClassified">
+	<alert name="WebLaunchExternalTarget">
 		<message name="message">
-			クラシファイド広告は、
-検索ディレクトリのクラシファイド・セクションに
-1週間掲示されます。 
-広告を記入後、[発行]をクリックし、
-ディレクトリ
-に追加します。 [発行]をクリックするすると、料金の支払いが要求されます。
-支払い額が大きいほど、広告がリスト内で上位に表示され、
-キーワードで検索されたときも上位に表示されます。
+			お使いのシステムのウェブ・ブラウザーを開いて、この内容を表示しますか?
 		</message>
 		<ignore name="ignore">
-			新しいクラシファイド広告を加えるとき
+			お使いのシステムのブラウザーを開いてウェブ・ページを表示しようとしたとき
 		</ignore>
-		<option name="OK">
+		<option name="Open">
 			OK
 		</option>
 		<option name="Cancel">
-			取り消し
+			キャンセル
 		</option>
 	</alert>
 	<alert name="WebLaunchJoinNow">
@@ -3194,6 +2805,76 @@ F1キーを押してください。
 		</option>
 		<option name="Cancel">
 			取り消し
+		</option>
+	</alert>
+	<alert name="WebLaunchBugReport101">
+		<message name="message">
+			[SECOND_LIFE]Wikiで、バグを報告する正しい方法をご覧ください。
+		</message>
+		<ignore name="ignore">
+			バグレポート101 Wikiを閲覧するためのブラウザを開くにあたって
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="WebLaunchSecurityIssues">
+		<message name="message">
+			[SECOND_LIFE]Wikiで、セキュリティ問題を報告する方法をご覧ください。
+		</message>
+		<ignore name="ignore">
+			セキュリティ問題Wikiを閲覧するためにウェブ・ブラウザを起動するにあたって
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="WebLaunchQAWiki">
+		<message name="message">
+			[SECOND_LIFE] QA Wikiをご覧ください。
+		</message>
+		<ignore name="ignore">
+			QA Wikiを閲覧するためにウェブ・ブラウザを起動するにあたって
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="WebLaunchPublicIssue">
+		<message name="message">
+			[SECOND_LIFE]のパブリック問題トラッカーで、バグやその他の問題を報告できます。
+		</message>
+		<ignore name="ignore">
+			パブリック問題トラッカーを閲覧するためにウェブ・ブラウザを起動するにあたって
+		</ignore>
+		<option name="Gotopage">
+			ページへ行く
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="WebLaunchPublicIssueHelp">
+		<message name="message">
+			[SECOND_LIFE]Wikiで、パブリック問題トラッカーの使用方法をご覧ください。
+		</message>
+		<ignore name="ignore">
+			パブリック問題トラッカーWikiを閲覧するためにウェブ・ブラウザを起動するにあたって
+		</ignore>
+		<option name="Gotopage">
+			ページへ行く
+		</option>
+		<option name="Cancel">
+			キャンセル
 		</option>
 	</alert>
 	<alert name="WebLaunchForums">
@@ -3327,23 +3008,7 @@ F1キーを押してください。
 			OK
 		</option>
 	</alert>
-	<alert name="MuteByName" title="オブジェクトを名前でミュート">
-		<message name="message">
-			名前によるミュートは、オブジェクト・チャット、およびIMのみに影響し、サウンドには影響しません。 
-正確なオブジェクト名を入力する必要があります。
-		</message>
-		<editline name="editline">
-			オブジェクト名
-		</editline>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Cancel">
-			取り消し
-		</option>
-	</alert>
-	<alert name="MuteByNameFailed"
-	     title="オブジェクトを名前でミュートできませんでした">
+	<alert name="MuteByNameFailed" title="オブジェクトを名前でミュートできませんでした">
 		<message name="message">
 			あなたはすでにこの名前をミュートしています。
 		</message>
@@ -3461,14 +3126,6 @@ F1キーを押してください。
 			辞退
 		</option>
 	</alert>
-	<alert name="HandleRateOwner">
-		<message name="message">
-			このオブジェクトのオーナーを評価できません。オブジェクトはグループの所有物です。
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
 	<alert name="KickUser">
 		<message name="message">
 			どんなメッセージを表示して、このユーザーを追い出しますか？
@@ -3564,8 +3221,21 @@ F1キーを押してください。
 			取り消し
 		</option>
 	</alert>
-	<alert name="MessageEstate"
-	     title="あなたの不動産内の全員にメッセージを送信">
+	<alert name="TeleportFromLandmark">
+		<message name="message">
+			本当にテレポートしますか?
+		</message>
+		<ignore name="ignore">
+			持ち物のランドマークからテレポートする時
+		</ignore>
+		<option name="Teleport">
+			テレポート
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="MessageEstate" title="あなたの不動産内の全員にメッセージを送信">
 		<message name="message">
 			今あなたの不動産にいる人全員に送る
 短いメッセージを入力してください。.
@@ -3766,6 +3436,16 @@ F1キーを押してください。
 			OK
 		</option>
 	</alert>
+	<alert name="ProblemAddingEstateManager">
+		<message name="message">
+			新しい不動産マネージャーの追加に関する問題。1つ以上の不動産で、マネージャーリストが満杯になっています。
+		</message>
+	</alert>
+	<alert name="ProblemAddingEstateGeneric">
+		<message name="message">
+			不動産リストの追加に関する問題。1つ以上の不動産で、リストが満杯になっています。
+		</message>
+	</alert>
 	<alert name="UnableToLoadNotecard">
 		<message name="message">
 			現在ノートカードの資産をロードできません。
@@ -3803,6 +3483,34 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ公開しますか�
 			取り消し
 		</option>
 	</alert>
+	<alert name="SetClassifiedMature">
+		<message name="message">
+			このクラシファイド広告には、成人向けコンテンツが含まれていますか?
+		</message>
+		<option name="Mature">
+			はい
+		</option>
+		<option name="Not Mature">
+			いいえ
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="SetGroupMature">
+		<message name="message">
+			このグループには、成人向けコンテンツが含まれていますか?
+		</message>
+		<option name="Mature">
+			はい
+		</option>
+		<option name="Not Mature">
+			いいえ
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
 	<alert name="ConfirmRestart" title="再起動を確認">
 		<message name="message">
 			この地域を2分後に再起動しようとしています。操作を続行しますか？
@@ -3814,8 +3522,7 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ公開しますか�
 			取り消し
 		</option>
 	</alert>
-	<alert name="MessageRegion"
-	     title="この地域内の全員にメッセージを送信">
+	<alert name="MessageRegion" title="この地域内の全員にメッセージを送信">
 		<message name="message">
 			この地域にいる人全員に送る
 短いメッセージを入力してください。
@@ -3909,6 +3616,19 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ公開しますか�
 統合／再分割することができます。
  
 デフォルト:チェックあり
+		</message>
+	</alert>
+	<alert name="HelpRegionSearch" title="検索で表示しない">
+		<message name="message">
+			このボックスをチェックすると、区画のオーナーは、自分の区画が検索結果にリストされることを阻止できます。
+デフォルト:オフ
+		</message>
+	</alert>
+	<alert name="HelpParcelSearch" title="検索で表示しない">
+		<message name="message">
+			このボックスをチェックすると表示：
+- 検索結果におけるこの区画
+- この区画のパブリック・オブジェクト
 		</message>
 	</alert>
 	<alert name="RegionMaturityChange" title="地域の成人指定変更済み">
@@ -4165,10 +3885,32 @@ Linden社所有のメインランドの不動産での太陽の位置に
 使用可能です。
 		</message>
 	</alert>
+	<alert name="HelpEstateAbuseEmailAddress" title="嫌がらせに関するメール先">
+		<message name="message">
+			これを有効なメールアドレスに設定すると、そのアドレスにこの不動産において行われた
+嫌がらせの報告が送信されるようになります。 
+設定を行わない場合（空白）、嫌がらせ報告は Linden Lab にのみ
+送信されます。
+		</message>
+	</alert>
 	<alert name="HelpEstateBanResident" title="アクセス拒否">
 		<message name="message">
 			このリストの住人は、他の設定にかかわらず、あなたの不動産への
 アクセスが禁止されています。
+		</message>
+	</alert>
+	<alert name="HelpEstateVoiceChat" title="ボイスチャットを許可">
+		<message name="message">
+			この不動産の区画は、住人が近所の人と対話できる
+独自のボイスチャンネルを持つことが
+できます。
+
+デフォルト:オフ
+		</message>
+	</alert>
+	<alert name="VoiceVersionMismatch" title="ボイスバージョンの不一致">
+		<message name="message">
+			このバージョンの Second Life は、この地域のボイスチャット機能に対応していません。ボイスチャットを正しく使用するには、Second Life のアップデートが必要です。
 		</message>
 	</alert>
 	<alert name="HelpEstateCovenant" title="不動産約款">
@@ -4404,6 +4146,48 @@ Linden社所有のメインランドの不動産での太陽の位置に
 			取り消し
 		</option>
 	</alert>
+	<alert name="ClickOpenF1Help">
+		<message name="message">
+			Second Life のサポートウェブサイトを利用しますか？
+		</message>
+		<ignore name="ignore">
+			Second Life のサポートウェブサイトを閲覧するにあたって。
+		</ignore>
+		<option name="Gotopage">
+			行く
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="RetryFetchInventoryDescendents">
+		<message name="message">
+			「持ち物」データの取得はサーバーのタイムアウトにより完了しませんでした。  再実行しますか?
+		</message>
+		<ignore name="ignore">
+			「持ち物」データの後続要素の取得を再実行
+		</ignore>
+		<option name="Retry">
+			再実行
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="ConfirmQuit">
+		<message name="message">
+			終了しようとしています。操作を続行しますか？
+		</message>
+		<ignore name="ignore">
+			Second Life の終了にあたって。
+		</ignore>
+		<option name="Quit">
+			終了
+		</option>
+		<option name="Continue">
+			継続
+		</option>
+	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
 			このツールは利用規約違反とコミュニティースタンダード違反の 
@@ -4524,16 +4308,13 @@ Linden Lab
 			体のこの部位にはオブジェクトが装着されています。
 選択されたオブジェクトと置き換えますか？
 		</message>
-		<ignore>
-			現在、装着しているものを置換するとき
-		</ignore>
 		<ignore name="ignore">
 			現在、装着しているものを置換するとき
 		</ignore>
-		<option ignore="自動置換" name="Yes">
+		<option name="Yes">
 			OK
 		</option>
-		<option ignore="置き換えない" name="No">
+		<option name="No">
 			キャンセル
 		</option>
 	</alert>
@@ -4546,16 +4327,13 @@ Linden Lab
 この取引を完了する前に、ビジー・
 モードを外しますか？
 		</message>
-		<ignore>
-			ビジー・モードの人またはオブジェクトに支払うとき
-		</ignore>
 		<ignore name="ignore">
 			ビジー・モードの人またはオブジェクトに支払うとき
 		</ignore>
-		<option ignore="常にビジー・モード外" name="Yes">
+		<option name="Yes">
 			OK
 		</option>
-		<option ignore="ビジー・モードに固定" name="No">
+		<option name="No">
 			キャンセル
 		</option>
 	</alert>
@@ -4631,42 +4409,6 @@ Linden Lab
 		<ignore name="ignore">
 			SLURLをクリップボードにコピーするとき
 		</ignore>
-	</alert>
-	<alert name="IMSessionStartError">
-		<message name="message">
-			[RECIPIENT]との新しいIMセッションの開始エラー。
-			[REASON]
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
-	<alert name="IMSessionStartNotVerified">
-		<message name="message">
-			[RECIPIENT]との新しいIMセッションの開始エラー。
-			[REASON]
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
-	<alert name="IMSessionEventError">
-		<message name="message">
-			エラー[EVENT][RECIPIENT]。
-			[REASON]
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
-	<alert name="ForceCloseIMSession">
-		<message name="messsage">
-			[NAME] とのIMを閉じてください。
-            [REASON]
-		</message>
-		<option name="OK">
-			OK
-		</option>
 	</alert>
 	<alert name="GraphicsPreferencesHelp">
 		<message name="message">
@@ -5009,7 +4751,7 @@ Linden Lab
 	</alert>
 	<alert name="ChatterBoxSessionStartError">
 		<message name="message">
-			[RECIPIENT]との新しいチャットの開始の際にエラーが発生しました。
+			[RECIPIENT]との新しいチャットを開始することができません
 [REASON]
 		</message>
 		<option name="OK">
@@ -5026,10 +4768,6 @@ Linden Lab
 		</option>
 	</alert>
 	<alert name="ForceCloseChatterBoxSession">
-		<message name="messsage">
-			[NAME]とのチャットセッションを閉じます。
-            [REASON]
-		</message>
 		<message name="message">
 			[NAME]とのチャットセッションを閉じます。
 [REASON]
@@ -5044,8 +4782,7 @@ Linden Lab
 アイテムを購入できません。
 		</message>
 	</alert>
-	<alert name="DebitPermissionDetails"
-	     title="デビット許可のリクエストについて">
+	<alert name="DebitPermissionDetails" title="デビット許可のリクエストについて">
 		<message name="message">
 			この要求を許可すると、スクリプトからあなたのアカウントにリンデン・ドルを課金できるようになります。 この許可を取り消すには、オブジェクトのオーナーはオブジェクトを削除するか、オブジェクトのスクリプトをリセットしなければなりません。
 		</message>
@@ -5094,6 +4831,9 @@ Second Lifeのウェブサイトにアクセスして、年齢確認を行いま
 		<option name="No">
 			いいえ
 		</option>
+		<url>
+			https://secondlife.com/account/verification.php
+		</url>
 	</alert>
 	<alert name="Cannot enter parcel: no payment info on file">
 		<message name="message">
@@ -5111,6 +4851,9 @@ Second Lifeのウェブサイトにアクセスして、設定しますか？
 		<option name="No">
 			いいえ
 		</option>
+		<url>
+			https://secondlife.com/account/
+		</url>
 	</alert>
 	<alert name="MissingString">
 		<message name="message">
