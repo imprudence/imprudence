@@ -1247,6 +1247,7 @@ BOOL LLFloaterIMPanel::postBuild()
 		childSetAction("end_call_btn", onClickEndCall, this);
 		childSetAction("send_btn", onClickSend, this);
 		childSetAction("toggle_active_speakers_btn", onClickToggleActiveSpeakers, this);
+		childSetAction("offer_tp_btn", onClickOfferTeleport, this);
 
 		childSetAction("moderator_kick_speaker", onKickSpeaker, this);
 		//LLButton* close_btn = getChild<LLButton>("close_btn");
@@ -1396,6 +1397,7 @@ void LLFloaterIMPanel::draw()
 		childSetValue("mute_btn", LLMuteList::getInstance()->isMuted(mOtherParticipantUUID, LLMute::flagVoiceChat));
 		childSetVisible("mute_btn", LLVoiceClient::voiceEnabled() && mVoiceChannel->isActive());
 	}
+
 	LLFloater::draw();
 }
 
@@ -1732,6 +1734,13 @@ void LLFloaterIMPanel::onTabClick(void* userdata)
 	self->setInputFocus(TRUE);
 }
 
+// static
+void LLFloaterIMPanel::onClickOfferTeleport(void* userdata)
+{
+	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
+
+	handle_lure(self->mOtherParticipantUUID);
+}
 
 // static
 void LLFloaterIMPanel::onClickProfile( void* userdata )

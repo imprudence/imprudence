@@ -8,7 +8,27 @@
 	
 	* Updated to SL source 1.21.2.
 
+
+2008-09-23  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llfloaterfriends.cpp:
+	'Offer Teleport' button in friends list is now enabled
+	even when the selected user(s) appear to be offline.
+	Mostly for consistency, but also to allow a work-around
+	for times when presence is flakey.
+
+
 2008-09-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llpanelavatar.cpp (setOnlineStatus):
+	'Offer Teleport' button in avatar profile is now always enabled,
+	regardless of whether the other person is known to be online.
+
+	* linden/indra/newview/llimpanel.cpp:
+	'Offer Teleport' button in IM panel is now always enabled,
+	regardless of whether the other person is known to be online.
+	Fixes crash introduced by VWR-2072 when IMing someone not on
+	your friends list, and makes the feature useful in more cases.
 
 	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
 	Increased maximum settable transparency from 90% to 100%.
@@ -60,6 +80,15 @@
 	* linden/indra/newview/skins/default/xui/en-us/floater_bulk_perms.xml:
 	Ditto.
 
+2008-09-20  Paul Churchill  <pnolan@dsl.pipex.com>
+
+	* linden/indra/newview/llimpanel.cpp:
+	VWR-2072: New Feature -> UI -> IM -> Teleport (other person) Button.
+	* linden/indra/newview/llimpanel.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml:
+	Ditto.
+
 2008-09-19  Gigs Taggart  <gigstaggart@gmail.com>
 
 	* linden/indra/newview/app_settings/settings.xml:
@@ -75,6 +104,9 @@
 	Ditto.
 
 2008-09-19  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/panel_groups.xml: 
+	VWR-8024: simplify group invites: invite to group from groups list.
 
 	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
 	VWR-1363: Add "Return Object" to the Tools menu.

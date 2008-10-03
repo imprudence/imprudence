@@ -51,6 +51,9 @@
 		     image_unselected="icn_speaker_dark.tga" label="" left_delta="56"
 		     name="mute_btn" tool_tip="Mute voice" width="25" />
 	</panel>
+	<button bottom_delta="0" follows="right|top" font="SansSerif"
+	     halign="center" bottom ="-40" height="20" label="Offer Teleport" right="-5"
+	     mouse_opaque="true" name="offer_tp_btn" scale_image="true" width="102" />
 	<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
 	     bottom="30" embedded_items="false" enabled="false"
 	     follows="left|top|right|bottom" font="SansSerif" height="221" left="5"
