@@ -27,7 +27,6 @@
 					     tool_tip="Chat and IM is hidden for you. Click here to set yourself not busy."
 					     width="102" />
 					<button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
-					<button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
 					     label="Flycam" label_selected="Flycam" left="229" name="Flycam" scale_image="true"
 					     tool_tip="Your camera is under joystick control, click here to release it."
 					     width="102" />
