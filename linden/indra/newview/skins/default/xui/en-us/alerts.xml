@@ -387,22 +387,22 @@ Go to the Second Life web site for more information on partnering?
 	</alert>
 	<alert modal="true" name="ClickWebProfileHelpAvatar">
 		<message name="message">
-			If this resident has set a web profile URL then you can:
- * Click "Load" to load the page with the embedded web browser.
- * Click Load->"Open in external browser" to view externally.
- * Click Load->"Home URL" to return to resident's web profile if you've navigated away.
+			If this Resident has set a web profile URL then you can:
+ * Click &apos;Load&apos; to see the page in this Web tab.
+ * Click Load &gt; &apos;In external browser&apos; to view the page in your default web browser.
+ * Click Load &gt; &apos;Home URL&apos; to return to this Resident's web profile if you've navigated away.
  
-When viewing your own profile you can enter any URL as your web profile and click OK to set it.
-Other residents can visit the URL you set when they view your profile.
+When viewing your own profile, you can enter any URL as your web profile and click OK to set it.
+Other residents can visit the URL you set when they look at your profile.
 		</message>
 	</alert>
 	<alert modal="true" name="ClickWebProfileNoWebHelpAvatar">
 		<message name="message">
-			If this resident has a web profile URL set then you can:
- * Click Open to view externally in your default web browser.
+			If this resident has set a web profile URL then you can:
+ * Click Open to view the page in your default web browser.
  
-When viewing your profile you can enter any URL as your Web Profile.
-Residents can visit the URL you specify when they view your profile.
+When viewing your own profile, you can enter any URL as your web profile and click OK to set it.
+Other residents can visit the URL you set when they look at your profile.
 		</message>
 	</alert>
 	<alert modal="true" name="ReputationMinGreaterThanMax">

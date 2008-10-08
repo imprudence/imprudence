@@ -7,7 +7,7 @@
 		kbps (kilobits per second)
 	</text>
 	<text type="string" length="1" name="cache_size_label_l">
-		디스크 캐시 크기(MB):
+		디스크 캐시 크기:
 	</text>
 	<button label="캐시 비우기" name="clear_cache" />
 	<text type="string" length="1" name="cache_location_label">

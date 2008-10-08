@@ -124,6 +124,7 @@ private:
 	LLVector3       mLastIntersection;
 	LLVector3       mLastNormal;
 	LLVector3       mLastBinormal;
+	LLVector3       mLastGrabPos;
 
 
 	BOOL			mSpinGrabbing;

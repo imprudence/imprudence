@@ -1553,7 +1553,7 @@ bool LLTextureCache::removeHeaderCacheEntry(const LLUUID& id)
 
 void LLTextureCache::removeFromCache(const LLUUID& id)
 {
-	llwarns << "Removing texture from cache: " << id << llendl;
+	//llwarns << "Removing texture from cache: " << id << llendl;
 	if (!mReadOnly)
 	{
 		removeHeaderCacheEntry(id);

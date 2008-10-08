@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="Place" title="Lieu">
+<panel name="Place" title="Emplacement">
 	<text name="name_label">
 		Nom :
 	</text>
@@ -9,11 +9,13 @@
 	<text name="information_label">
 		Informations :
 	</text>
+	<text left="103" name="info_editor" width="338" />
 	<text name="location_label">
 		Emplacement :
 	</text>
-	<button label="Téléportation" name="teleport_btn" />
-	<button label="Localiser" name="map_btn" />
+	<text left="103" name="location_editor" width="338" />
+	<button label="Téléporter" name="teleport_btn" />
+	<button label="Voir sur la carte" name="map_btn" />
 	<button label="Enchères..." name="auction_btn" />
 	<string name="traffic_text">
 		Trafic : [TRAFFIC]

@@ -407,6 +407,7 @@ void LLToolGrab::startGrab()
 	mLastIntersection = mGrabPick.mIntersection;
 	mLastNormal = mGrabPick.mNormal;
 	mLastBinormal = mGrabPick.mBinormal;
+	mLastGrabPos = LLVector3(-1.f, -1.f, -1.f);
 }
 
 
@@ -809,12 +810,14 @@ void LLToolGrab::handleHoverNonPhysical(S32 x, S32 y, MASK mask)
 	
 	BOOL changed_since_last_update = FALSE;
 
+	// test if touch data needs to be updated
 	if ((pick.mObjectFace != mLastFace) ||
 		(pick.mUVCoords != mLastUVCoords) ||
 		(pick.mSTCoords != mLastSTCoords) ||
 		(pick.mIntersection != mLastIntersection) ||
 		(pick.mNormal != mLastNormal) ||
-		(pick.mBinormal != mLastBinormal))
+		(pick.mBinormal != mLastBinormal) ||
+		(grab_pos_region != mLastGrabPos))
 	{
 		changed_since_last_update = TRUE;
 	}
@@ -847,6 +850,7 @@ void LLToolGrab::handleHoverNonPhysical(S32 x, S32 y, MASK mask)
 		mLastIntersection = pick.mIntersection;
 		mLastNormal= pick.mNormal;
 		mLastBinormal= pick.mBinormal;
+		mLastGrabPos = grab_pos_region;
 	}
 	
 	// update point-at / look-at

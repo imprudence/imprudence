@@ -6,17 +6,17 @@
 	<check_box label="Activer le chat vocal" name="enable_voice_check" />
 	<radio_group name="ear_location">
 		<radio_item name="0">
-			Ecouter depuis la position de la caméra.
+			Écouter depuis la position de la caméra.
 		</radio_item>
 		<radio_item name="1">
-			Ecouter depuis la position de l&apos;avatar.
+			Écouter depuis la position de l&apos;avatar.
 		</radio_item>
 	</radio_group>
 	<text name="push_to_talk_heading">
 		Mode Appuyer pour parler
 	</text>
-	<text_editor name="voice_chat_description">
-		En mode Appuyer pour parler, vous contrôlez le moment où votre voix est transmise. Lorsque vous êtes en mode bascule, appuyez et relâchez le bouton Appuyer pour parler pour activer ou désactiver votre micro. Lorsque vous n&apos;êtes pas en mode bascule, le micro n&apos;est activé que lorsque vous appuyez sur le bouton.
+	<text_editor name="voice_chat_description" width="465">
+		En mode Appuyer pour parler, vous contrôlez le moment où votre voix est transmise. Lorsque vous êtes en mode bascule, appuyez et relâchez le bouton Appuyer pour parler pour activer ou désactiver votre micro. Lorsque vous n&apos;êtes pas en mode bascule, le micro n&apos;est activé que lorsque vous appuyez sur le déclencheur.
 	</text_editor>
 	<check_box label="Utiliser la fonction Appuyer pour parler en mode bascule"
 	     name="push_to_talk_toggle_check" />

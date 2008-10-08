@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="htmlfloater" title="">
 	<button label="Fermer" name="close_btn" />
-	<button label="Retour" name="back_btn" />
-	<button label="Avancer" name="forward_btn" />
+	<button label="Précédente" name="back_btn" />
+	<button label="Suivante" name="forward_btn" />
 	<button label="Recharger" name="reload_btn" />
 	<button label="Arrêter" name="stop_btn" />
 	<button label="Domicile" name="home_btn" />
@@ -11,6 +11,6 @@
 		http://www.secondlife.com
 	</string>
 	<string name="support_page_url">
-		http://secondlife.com/app/support/index_fr.html
+		http://support.secondlife.com
 	</string>
 </floater>

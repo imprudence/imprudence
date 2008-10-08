@@ -3886,3 +3886,4 @@ void login_alert_done(S32 option, void* user_data)
 {
 	LLPanelLogin::giveFocus();
 }
+

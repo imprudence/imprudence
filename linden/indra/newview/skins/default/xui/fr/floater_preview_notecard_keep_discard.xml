@@ -7,7 +7,7 @@
 		Description :
 	</text>
 	<button label="Garder" label_selected="Garder" name="Keep" />
-	<button label="Annuler" label_selected="Annuler" name="Discard" />
+	<button label="Jeter" label_selected="Jeter" name="Discard" />
 	<string name="no_object">
 		Impossible de trouver l&apos;objet contenant cette note.
 	</string>

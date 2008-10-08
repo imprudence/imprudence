@@ -4,7 +4,7 @@
 		En train de rejoindre le chat vocal...
 	</string>
 	<string name="connected">
-		Connecté, cliquez sur Raccrocher pour terminer l&apos;appel
+		Connecté(e), cliquez sur Raccrocher pour terminer l&apos;appel
 	</string>
 	<string name="hang_up">
 		A quitté le chat vocal
@@ -28,7 +28,7 @@
 		Début de la session avec [NAME], veuillez patienter.
 	</string>
 	<string name="moderated_chat_label">
-		(Modérée : voix désactivées par défaut)
+		(Modéré : Voix désactivées par défaut)
 	</string>
 	<string name="default_text_label">
 		Cliquez ici pour envoyer un message instantané.
@@ -38,9 +38,10 @@
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="Infos sur le groupe" name="group_info_btn" width="120"/>
-			<button label="Participer à l&apos;appel" name="start_call_btn" left_delta="125" width="145"/>
-			<button label="Raccrocher" name="end_call_btn" width="145" halign="center" />
+			<button label="Infos sur le groupe" name="group_info_btn" width="120" />
+			<button label="Participer à l&apos;appel" left_delta="125" name="start_call_btn"
+			     width="145" />
+			<button halign="center" label="Raccrocher" name="end_call_btn" width="145" />
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
 			     tool_tip="Cliquez ici pour mettre la liste des intervenants actifs dans cette session IM en mode bascule." />
 			<button label="Envoyer" name="send_btn" />

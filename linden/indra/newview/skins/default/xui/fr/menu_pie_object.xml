@@ -12,7 +12,7 @@
 		<menu_item_call label="Prendre une copie" name="Take Copy" />
 		<pie_menu label="Attacher HUD &gt;" name="Object Attach HUD" />
 		<pie_menu label="Attacher &gt;" name="Object Attach" />
-		<menu_item_call label="Rendre..." name="Return..." />
+		<menu_item_call label="Renvoyer..." name="Return..." />
 		<pie_menu label="Plus &gt;" name="Rate Menu">
 			<menu_item_call label="Signaler une infraction..." name="Report Abuse..." />
 			<menu_item_call label="Ignorer" name="Object Mute" />
@@ -20,5 +20,5 @@
 		</pie_menu>
 		<menu_item_call label="Acheter..." name="Buy..." />
 	</pie_menu>
-	<menu_item_call label="Editer..." name="Edit..." />
+	<menu_item_call label="Éditer..." name="Edit..." />
 </pie_menu>

@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<strings name="">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!-- This file contains strings that used to be hardcoded in the source.
+     It is only for those strings which don&apos;t belong in a floater.
+     For example, the strings used in avatar chat bubbles, and strings 
+     that are returned from one component and may appear in many places-->
+<strings>
+	<!-- Login -->
 	<string name="LoginInProgress">
 		로그인 중. [APP_NAME]님은 정지된 상태로 나타날 수 있습니다.  잠시만 기다리십시오.
 	</string>
@@ -51,24 +56,34 @@
 	<string name="LoginDownloadingClothing">
 		의복 다운로드 중
 	</string>
+	<string name="LoginFailedNoNetwork">
+		네트웍 에러: 네트웍 연결에 문제가 있습니다. 네트웍 연결을 확인해 주십시오.
+	</string>
+	<!-- Disconnection -->
 	<string name="AgentLostConnection">
 		이 지역에 문제가 있을 수 있습니다.  인터넷 연결을 확인하십시오.
 	</string>
+	<!-- Tooltip, llhoverview.cpp -->
 	<string name="TooltipPerson">
 		아바타
 	</string>
+	<!-- Object under mouse pointer is an avatar -->
 	<string name="TooltipNoName">
 		(이름 없음)
 	</string>
+	<!-- No name on an object -->
 	<string name="TooltipOwner">
 		소유자:
 	</string>
+	<!-- Owner name follows -->
 	<string name="TooltipPublic">
 		공개
 	</string>
+	<!-- Public permissions on an object -->
 	<string name="TooltipIsGroup">
 		(그룹)
 	</string>
+	<!-- The name before this text is that of a group -->
 	<string name="TooltipFlagScript">
 		스크립트
 	</string>
@@ -99,9 +114,11 @@
 	<string name="TooltipForSaleL$">
 		판매: L$ [AMOUNT]
 	</string>
+	<!-- L$ version -->
 	<string name="TooltipForSaleMsg">
 		판매: [MESSAGE]
 	</string>
+	<!-- Message (RetrievingData) -->
 	<string name="TooltipFlagGroupBuild">
 		그룹 만들기
 	</string>
@@ -114,6 +131,7 @@
 	<string name="TooltipFlagNotSafe">
 		안전하지 않음
 	</string>
+	<!-- damage area -->
 	<string name="TooltipFlagNoFly">
 		비행 금지
 	</string>
@@ -129,27 +147,35 @@
 	<string name="TooltipMustSingleDrop">
 		하나의 아이템만 여기로 드래그할 수 있습니다.
 	</string>
+	<!-- Indicates that an avatar&apos;s name or other similar datum is being retrieved. General usage. -->
 	<string name="RetrievingData">
 		가져오는 중
 	</string>
 	<string name="ReleaseNotes">
 		출시 정보
 	</string>
+	<!-- Indicates something is being loaded. Maybe should be merged with RetrievingData -->
 	<string name="LoadingData">
 		로딩 중
 	</string>
+	<!-- namecache -->
+	<!-- Avatar name: text shown for LLUUID::null -->
 	<string name="AvatarNameNobody">
 		(없음)
 	</string>
+	<!-- Avatar name: text shown while fetching name -->
 	<string name="AvatarNameWaiting">
 		(대기 중)
 	</string>
+	<!-- Avatar name: text shown as an alternative to AvatarNameFetching, easter egg. -->
 	<string name="AvatarNameHippos">
 		(하마)
 	</string>
+	<!-- Group name: text shown for LLUUID::null -->
 	<string name="GroupNameNone">
 		(없음)
 	</string>
+	<!-- Asset errors. Used in llassetstorage.cpp, translation from error code to error message. -->
 	<string name="AssetErrorNone">
 		오류 없음
 	</string>
@@ -180,6 +206,7 @@
 	<string name="AssetErrorUnknownStatus">
 		알 수 없는 상태
 	</string>
+	<!-- llvoavatar. Displayed in the avatar&apos;s chat bubble -->
 	<string name="AvatarEditingApparance">
 		(내 모습 편집)
 	</string>
@@ -192,6 +219,7 @@
 	<string name="AvatarMuted">
 		음소거
 	</string>
+	<!-- animations -->
 	<string name="anim_express_afraid">
 		두려움
 	</string>
@@ -405,6 +433,7 @@
 	<string name="worldmap_offline">
 		오프라인
 	</string>
+	<!-- Chat -->
 	<string name="whisper">
 		속삭이기:
 	</string>

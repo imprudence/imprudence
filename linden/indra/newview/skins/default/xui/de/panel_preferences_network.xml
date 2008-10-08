@@ -7,7 +7,7 @@
 		kbit/s (Kilobit pro Sekunde)
 	</text>
 	<text type="string" length="1" name="cache_size_label_l">
-		Größe Festplatten-Cache (MB):
+		Größe Festplatten-Cache:
 	</text>
 	<button label="Cache leeren" name="clear_cache" />
 	<text type="string" length="1" name="cache_location_label">

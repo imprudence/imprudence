@@ -375,8 +375,8 @@ Die Second Life Website für weitere Informationen über Partnerschaften öffnen
 		<message name="message">
 			Wenn dieser Einwohner eine Webprofil-URL angegeben hat, können Sie:
 * Auf &apos;Laden&apos; klicken und die Seite im integrierten Browser anzuzeigen.
-* Auf Laden-&gt;&quot;In external Browser öffnen&quot; klicken um die Seite extern anzeigen zu lassen.
-* Auf Laden-&gt;&quot;Home-URL&quot; klicken um zum Webprofil des Benutzers zurückzukehren.
+* Auf Laden &gt; &apos;In externem Browser&apos; klicken, um die Seite extern anzeigen zu lassen.
+* Auf Laden &gt; &apos;Start URL&apos; klicken, um zum Webprofil des Benutzers zurückzukehren.
  
 In Ihrem eigenen Profil können Sie jede beliebige URL als Ihr Webprofil eingeben und mit OK übernehmen.
 Wenn andere Einwohner Ihr Profil betrachten, können sie diese URL besuchen.
@@ -860,7 +860,7 @@ Die Änderungen übernehmen und das Programm beenden?
 	</alert>
 	<alert name="CacheWillClear">
 		<message name="message">
-			Der Cache wird nach einem Neustart von [SECOND_LIFE] gelöscht/geleert.
+			Der Cache wird nach einem Neustart von [SECOND_LIFE] geleert.
 		</message>
 	</alert>
 	<alert name="CacheWillBeMoved">
@@ -1024,7 +1024,8 @@ Sollte das Problem fortbestehen, finden Sie weitere Hilfestellung unter: http://
 			Achtung: Ihr System erfüllt nicht die Mindestanforderungen von Second Life. Dies kann eine schlechte Darstellungsleistung in Second Life zur Folge haben. Für nicht unterstützte Systemkonfigurationen bieten wir keinen technischen Support. 
 
 MINDESTANF.
-Die Seite [_URL] für weitere Informationen öffnen?
+Die Seite [_URL] für
+weitere Informationen öffnen?
 		</message>
 		<ignore name="ignore">
 			Bei Entdeckung nicht unterstützter Hardware

@@ -10,8 +10,8 @@
 	<text name="show_label" width="300" >
 		次のポップアップは表示：
 	</text>
-	<text length="1" name="text_box2" type="string">
-		ノートカード、テクスチャ、ランドマークの提供:
+	<text length="1" name="text_box2" type="string" width="280">
+		ノートカード、テクスチャ、ランドマークの提供：
 	</text>
 	<check_box label="自動的に承認" name="accept_new_inventory"/>
 	<check_box label="承認後、自動的に閲覧" name="show_new_inventory"/>

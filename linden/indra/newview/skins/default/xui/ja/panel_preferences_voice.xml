@@ -23,7 +23,7 @@
 	<check_box label="切り替えモードで、プッシュ・トゥ・トークを使用"
 	     name="push_to_talk_toggle_check" />
 	<text name="push_to_talk_label">
-		プッシュ・トゥ・トークトリガー:
+		プッシュ・トゥ・トークトリガー：
 	</text>
 	<button label="セットキー" name="set_voice_hotkey_button" />
 	<button label="ミドルマウスボタン" name="set_voice_middlemouse_button" />

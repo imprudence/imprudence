@@ -192,8 +192,8 @@
 			     height="18" label="Load" label_selected="Load" left="10"
 			     mouse_opaque="true" name="load" enabled="false" 
 			     tool_tip="Load this profile page with embedded web browser." width="80" >
-				<flyout_button_item value="open">In external browser</flyout_button_item>
-				<flyout_button_item value="home">Home URL</flyout_button_item>
+				<flyout_button_item value="open" name="open_item">In external browser</flyout_button_item>
+				<flyout_button_item value="home" name="home_item">Home URL</flyout_button_item>
 			</flyout_button>
 			<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
 			     height="18" label="?" label_selected="?" left_delta="85"

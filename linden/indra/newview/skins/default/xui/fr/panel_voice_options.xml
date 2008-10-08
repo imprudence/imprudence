@@ -5,10 +5,10 @@
 	</text_editor>
 	<radio_group name="ear_location">
 		<radio_item name="0">
-			Ecouter depuis la position de la caméra.
+			Écouter depuis la position de la caméra.
 		</radio_item>
 		<radio_item name="1">
-			Ecouter depuis la position de l&apos;avatar.
+			Écouter depuis la position de l&apos;avatar.
 		</radio_item>
 	</radio_group>
 	<check_box label="N&apos;autoriser que mes amis à m&apos;appeler."

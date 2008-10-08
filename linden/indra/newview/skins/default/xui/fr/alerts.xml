@@ -24,11 +24,6 @@
 			OK
 		</option>
 	</alert>
-	<alert name="MOTD" title="Message du jour">
-		<message name="message">
-			[MOTD]
-		</message>
-	</alert>
 	<alert name="TutorialNotFound">
 		<message name="message">
 			Aucun didacticiel n&apos;est disponible actuellement.
@@ -70,34 +65,6 @@ pour des conseils et un lien vers la page web d&apos;état du service.
 		</option>
 		<option name="Help">
 			Aide
-		</option>
-	</alert>
-	<alert name="RemoveWearableSave">
-		<message name="message">
-			Enregistrer les modifications du vêtement/partie du corps actuel ?
-		</message>
-		<option name="Save">
-			Enregistrer
-		</option>
-		<option name="Don&apos;tSave">
-			Ne pas enregistrer
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="SetWearableSave">
-		<message name="message">
-			Enregistrer les modifications du vêtement/partie du corps actuel ?
-		</message>
-		<option name="Save">
-			Enregistrer
-		</option>
-		<option name="Don&apos;tSave">
-			Ne pas enregistrer
-		</option>
-		<option name="Cancel">
-			Annuler
 		</option>
 	</alert>
 	<alert name="WearableSave">
@@ -170,17 +137,6 @@ Visitez l&apos;exposition Webpage Studio pour le visualiser.
 		</option>
 		<option name="Cancel">
 			Annuler
-		</option>
-	</alert>
-	<alert name="AlterModifyRights">
-		<message name="message">
-			Souhaitez-vous [ACTION] les droits de modification [DIRECTION] [FIRSTNAME] [LASTNAME]?
-		</message>
-		<option name="Yes">
-			Oui
-		</option>
-		<option name="No">
-			Non
 		</option>
 	</alert>
 	<alert name="GrantModifyRights">
@@ -418,25 +374,6 @@ Aller sur le site de Second Life pour avoir plus d&apos;informations sur les par
 			Annuler
 		</option>
 	</alert>
-	<alert name="ClickWebProfileHelpAvatar">
-		<message name="message">
-			If this resident has a web profile URL set then you can:
- * Click Load to load the page with the embedded web browser.
- * Click Open to view externally in your default web browser.
- 
-When viewing your profile you can enter any URL as your Web Profile.
-Residents can visit the URL you specify when they view your profile.
-		</message>
-	</alert>
-	<alert name="ClickWebProfileNoWebHelpAvatar">
-		<message name="message">
-			If this resident has a web profile URL set then you can:
- * Click Open to view externally in your default web browser.
- 
-When viewing your profile you can enter any URL as your Web Profile.
-Residents can visit the URL you specify when they view your profile.
-		</message>
-	</alert>
 	<alert name="ReputationMinGreaterThanMax">
 		<message name="message">
 			La réputation minimum est supérieure au maximum.
@@ -549,7 +486,9 @@ Voulez-vous poursuivre les modifications ?
 	</alert>
 	<alert name="ConfirmLandSaleToAnyoneChange">
 		<message name="message">
-			Attention : En cliquant sur Vendre à n&apos;importe qui, vous rendez votre terrain disponible à toute la communauté de Second Life, même aux personnes qui ne sont pas dans cette région.
+			Attention : En cliquant sur Vendre à n&apos;importe qui, vous rendez votre
+terrain disponible à toute la communauté de Second Life, même aux personnes qui ne sont pas dans
+cette région.
 
 Le terrain sélectionné, de [LAND_SIZE] m², est mis en vente.
 Votre prix de vente sera de [SALE_PRICE] $L et la vente sera disponible à [NAME].
@@ -646,10 +585,6 @@ Objets : [N]
 		</option>
 	</alert>
 	<alert name="ReturnAllTopObjects">
-		<message name="message">
-			Are you sure you want to return all objects
-in this region back to their owner&apos;s inventory?
-		</message>
 		<option name="Return">
 			Retourner
 		</option>
@@ -658,9 +593,6 @@ in this region back to their owner&apos;s inventory?
 		</option>
 	</alert>
 	<alert name="DisableAllTopObjects">
-		<message name="message">
-			Are you sure you want to disable all objects in this region?
-		</message>
 		<option name="Disable">
 			Désactiver
 		</option>
@@ -708,7 +640,7 @@ pour définir le point d&apos;atterrissage.
 	</alert>
 	<alert name="PromptMissingSubjMsg">
 		<message name="message">
-			Envoyer la capture d&apos;écran avec le sujet ou le message par défaut ?
+			Envoyer la photo avec le sujet ou le message par défaut ?
 		</message>
 		<option name="OK">
 			OK
@@ -755,7 +687,8 @@ Le dossier Tenues ne contient ni vêtements, ni éléments corporels, ni attache
 	</alert>
 	<alert name="CannotWearInfoNotComplete">
 		<message name="message">
-			Impossible de porter cet élément car ses informations ne sont pas encore disponibles. Veuillez réessayer dans une minute.
+			Impossible de porter cet élément car ses informations ne sont pas encore disponibles.
+Veuillez réessayer dans une minute.
 		</message>
 	</alert>
 	<alert name="MustHaveAccountToLogInNoLinks">
@@ -764,9 +697,6 @@ Le dossier Tenues ne contient ni vêtements, ni éléments corporels, ni attache
 		</message>
 		<option name="OK">
 			OK
-		</option>
-		<option name="Cancel">
-			Annuler
 		</option>
 	</alert>
 	<alert name="MustHaveAccountToLogIn">
@@ -1086,6 +1016,9 @@ Voulez-vous visiter [_URL] pour plus d&apos;informations ?
 		<option name="No">
 			Non
 		</option>
+		<url>
+			http://www.secondlife.com/corporate/sysreqs.php
+		</url>
 	</alert>
 	<alert name="UnsupportedGPU">
 		<message name="message">
@@ -1117,7 +1050,7 @@ Voulez-vous visiter [_URL] pour plus d&apos;informations ?
 			Votre système contient une carte graphique que nous ne connaissons pas actuellement. 
 Cela est souvent le cas avec le nouveau materiel qui n&apos;a pas encore été testé.
 Vous pourrez probablement utiliser Second Life sans problème, mais vous devrez peut-être ajuster les paramètres de vos graphiques.
-(Menu Edition &gt; Préférences &gt; Graphiques).
+(Menu Édition &gt; Préférences &gt; Graphiques).
 		</message>
 		<ignore name="ignore">
 			Lors de la détection d&apos;une carte graphique inconnue
@@ -1291,21 +1224,6 @@ Domaine injoignable : [DOMAIN]
 Veuillez vérifier votre connexion.
 		</message>
 	</alert>
-	<alert name="CannotConnectLoginPacket">
-		<message name="message">
-			Connexion impossible.  Identification non reçue
-par le serveur.
- 
-Veuillez réessayer d&apos;ici quelques minutes, ou cliquez sur Aide
-pour des conseils et un lien vers la page web d&apos;état du service.
-		</message>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Help">
-			Aide
-		</option>
-	</alert>
 	<alert name="WelcomeToSecondLife">
 		<message name="message">
 			Welcome to [SECOND_LIFE] ! 
@@ -1335,256 +1253,6 @@ Veuillez choisir le sexe de votre personnage.
 		</option>
 		<option name="Female">
 			Féminin
-		</option>
-	</alert>
-	<alert name="FreezeAvatarFullname">
-		<message name="message">
-			Geler [AVATAR_NAME] ?
-Il ou elle ne pourra temporairement plus bouger, chatter, ou interagir dans le Monde.
-		</message>
-		<option name="Freeze">
-			Geler ?
-		</option>
-		<option name="Unfreeze">
-			Dégeler
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="EjectAvatarFullname">
-		<message name="message">
-			Expulser [AVATAR_NAME] de votre terrain ?
-		</message>
-		<option name="Eject">
-			Expulser
-		</option>
-		<option name="EjectandBan">
-			Expulser et interdire
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="SeachFilteredOnShortWords">
-		<message name="message">
-			Votre requête a été modifiée et les mots trops courts ont été supprimés.
-
-Recherche effectuée : [FINALQUERY]
-		</message>
-	</alert>
-	<alert name="SeachFilteredOnShortWordsEmpty">
-		<message name="message">
-			Vos termes de recherche étaient trop courts et aucune recherche n&apos;a été effectuée.
-		</message>
-	</alert>
-	<alert name="CannotCloseFloaterBuyLand">
-		<message name="message">
-			Vous ne pouvez pas fermer la fenêtre Acheter le terrain avant que Second Life n&apos;estime le montant de cette transaction.
-		</message>
-	</alert>
-	<alert name="ConfirmNotecardSave">
-		<message name="message">
-			Cette note doit être sauvegardée avant que l&apos;objet ne puisse être copié ou visualisé. Enregistrer la note ?
-		</message>
-		<option name="Save">
-			OK
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="RemoveMultipleFromFriends">
-		<message name="message">
-			Voulez-vous supprimer plusieurs personnes de votre liste d&apos;amis ?
-		</message>
-		<option name="Remove">
-			OK
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="GrantedModifyRights">
-		<message name="message">
-			Vous avez reçu la permission de modifier les objets de [FIRST_NAME] [LAST_NAME].
-		</message>
-	</alert>
-	<alert name="RevokedModifyRights">
-		<message name="message">
-			Vous n&apos;avez plus la permission de modifier les objets de [FIRST_NAME] [LAST_NAME].
-		</message>
-	</alert>
-	<alert name="EstateObjectReturn">
-		<message name="message">
-			Etes-vous certain de vouloir rendre les objets appartenant à [USER_NAME] ?
-		</message>
-		<option name="Return">
-			OK
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="InvalidTerrainBitDepth">
-		<message name="message">
-			Impossible de definir les textures de la région : 
-La texture du terrain [TEXTURE_NUM] a une profondeur invalide ([TEXTURE_BIT_DEPTH]).
-
-Remplacer la texture [TEXTURE_NUM] avec une image de 24 bits, 512 X 512, ou plus petite, puis cliquez à nouveau sur Appliquer.
-		</message>
-	</alert>
-	<alert name="InvalidTerrainSize">
-		<message name="message">
-			Impossible de definir les textures de la région : 
-La texture du terrain [TEXTURE_NUM] est trop volumineuse ([TEXTURE_SIZE_X] X [TEXTURE_SIZE_Y]). 
-
-Remplacer la texture [TEXTURE_NUM] avec une image de 24 bits, 512 X 512, ou plus petite, puis cliquez à nouveau sur Appliquer.
-		</message>
-	</alert>
-	<alert name="MaxAgentOnRegionBatch">
-		<message name="message">
-			Echec lors de la tentative d&apos;ajout de [NUM_ADDED] agents :
-Dépasse la limite fixée à [MAX_AGENTS] [LIST_TYPE] de [NUM_EXCESS].
-		</message>
-	</alert>
-	<alert name="WebLaunchExternalTarget">
-		<message name="message">
-			Ouvrir votre navigateur web système pour afficher ce contenu ?
-		</message>
-		<ignore name="ignore">
-			Lors de l&apos;ouverture de votre navigateur système pour afficher une page web
-		</ignore>
-		<option name="Open">
-			OK
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="TeleportFromLandmark">
-		<message name="message">
-			Etes-vous certain de vouloir être téléporté ?
-		</message>
-		<ignore name="ignore">
-			Lors de la téléportation depuis un repère de l&apos;inventaire
-		</ignore>
-		<option name="Teleport">
-			Téléporter
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="ProblemAddingEstateManager">
-		<message name="message">
-			Problèmes lors de l&apos;ajout d&apos;un nouveau gérant de domaine. Il est possible qu&apos;au moins un des domaines ait une liste de gérants complète.
-		</message>
-	</alert>
-	<alert name="ProblemAddingEstateGeneric">
-		<message name="message">
-			Problème lors de l&apos;ajout à la liste de ce domaine. Il est possible qu&apos;au moins un des domaines ait une liste complète.
-		</message>
-	</alert>
-	<alert name="SetClassifiedMature">
-		<message name="message">
-			Cette petite annonce contient-elle du contenu réservé aux adultes ?
-		</message>
-		<option name="Mature">
-			Oui
-		</option>
-		<option name="Not Mature">
-			Non
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="SetGroupMature">
-		<message name="message">
-			Ce groupe contient-il du contenu réservé aux adultes ?
-		</message>
-		<option name="Mature">
-			Oui
-		</option>
-		<option name="Not Mature">
-			Non
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="HelpRegionSearch" title="Ne pas montrer dans les résultats de recherche">
-		<message name="message">
-			Si vous cochez cette option, les propriétaires ne pourront pas faire apparaître leurs parcelles dans les résultats de recherche.
-Défaut : Désactivé
-		</message>
-	</alert>
-	<alert name="HelpEstateAbuseEmailAddress"
-	     title="Adresse e-mail où signaler une infraction">
-		<message name="message">
-			Si vous utilisez une adresse e-mail valide, les rapports d&apos;infraction de ce domaine iront à cette adresse. 
-Si vous laissez ce champ vide, les rapports d&apos;infraction seront envoyés à Linden Lab uniquement.
-		</message>
-	</alert>
-	<alert name="HelpEstateVoiceChat" title="Autoriser les chats vocaux">
-		<message name="message">
-			Les parcelles de ce domaine peuvent avoir leurs propres canaux vocaux, ce qui permet aux résidents de communiquer avec leurs voisins.
-
-Défaut : désactivé
-		</message>
-	</alert>
-	<alert name="VoiceVersionMismatch" title="Versions de voix non compatibles">
-		<message name="message">
-			Cette version de Second Life n&apos;est pas compatible avec la fonctionnalité de chat vocal dans cette région. Vous devez mettre à jour Second Life pour que le chat vocal fonctionne correctement.
-		</message>
-	</alert>
-	<alert name="ClickOpenF1Help">
-		<message name="message">
-			Visiter les pages d&apos;aide de Second Life ?
-		</message>
-		<ignore name="ignore">
-			Lors de la visite des pages d&apos;aide de Second Life
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="RetryFetchInventoryDescendents">
-		<message name="message">
-			Délai d&apos;extraction de l&apos;inventaire depuis le serveur dépassé. Réessayer ?
-		</message>
-		<ignore name="ignore">
-			Réessayer d&apos;extraire l&apos;inventaire
-		</ignore>
-		<option name="Retry">
-			Réessayer
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="ConfirmQuit">
-		<message name="message">
-			Etes-vous sûr(e) de vouloir quitter?
-		</message>
-		<option name="Yes">
-			Oui
-		</option>
-		<option name="No">
-			Non
-		</option>
-		<ignore name="ignore">
-			Lorsque vous quittez Second Life
-		</ignore>
-		<option name="Quit">
-			Quitter
-		</option>
-		<option name="Continue">
-			Continuer
 		</option>
 	</alert>
 	<alert name="RegionNoTerraforming">
@@ -1663,6 +1331,21 @@ chatter, ou interagir avec le monde.
 			Annuler
 		</option>
 	</alert>
+	<alert name="FreezeAvatarFullname">
+		<message name="message">
+			Geler [AVATAR_NAME] ?
+Il ou elle ne pourra temporairement plus bouger, chatter, ou interagir dans le Monde.
+		</message>
+		<option name="Freeze">
+			Geler ?
+		</option>
+		<option name="Unfreeze">
+			Dégeler
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
 	<alert name="EjectAvatar">
 		<message name="message">
 			Ejecter cet avatar de votre terrain ?
@@ -1672,6 +1355,20 @@ chatter, ou interagir avec le monde.
 		</option>
 		<option name="EjectandBan">
 			Ejecter et bannir
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullname">
+		<message name="message">
+			Expulser [AVATAR_NAME] de votre terrain ?
+		</message>
+		<option name="Eject">
+			Expulser
+		</option>
+		<option name="EjectandBan">
+			Expulser et interdire
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -1940,6 +1637,18 @@ autorisé(e) à modifier les scripts.
 			No frontmost floater to save
 		</message>
 	</alert>
+	<alert name="SeachFilteredOnShortWords">
+		<message name="message">
+			Votre requête a été modifiée et les mots trops courts ont été supprimés.
+
+Recherche effectuée : [FINALQUERY]
+		</message>
+	</alert>
+	<alert name="SeachFilteredOnShortWordsEmpty">
+		<message name="message">
+			Vos termes de recherche étaient trop courts et aucune recherche n&apos;a été effectuée.
+		</message>
+	</alert>
 	<alert name="ColladaExportFailedUnknownServerError">
 		<message name="message">
 			Erreur d&apos;export Collada : erreur de serveur inconnue.
@@ -2037,6 +1746,11 @@ Sélection vide.
 la région dans laquelle il est situé est introuvable.
 		</message>
 	</alert>
+	<alert name="CannotCloseFloaterBuyLand">
+		<message name="message">
+			Vous ne pouvez pas fermer la fenêtre Acheter le terrain avant que Second Life n&apos;estime le montant de cette transaction.
+		</message>
+	</alert>
 	<alert name="CannotDeedLandNothingSelected">
 		<message name="message">
 			Transfert du terrain impossible :
@@ -2056,25 +1770,6 @@ La région contenant ce terrain est introuvable.
 Veuillez utiliser Aide -&gt; Signaler un bug pour envoyer un rapport.
 		</message>
 	</alert>
-	<alert name="CannotSetLandOwnerNothingSelected">
-		<message name="message">
-			Impossible de définir le propriétaire :
-Sélection vide.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandMultipleRegions">
-		<message name="message">
-			Impossible d&apos;acheter le terrain car la sélection s&apos;étend sur plusieurs régions.
-Veuillez sélectionner une surface plus petite et recommencez.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandMultipleSelected">
-		<message name="message">
-			Impossible d&apos;acheter le terrain :
-Plusieurs parcelles distinctes sélectionnées.
-Essayez de sélectionner une surface plus petite.
-		</message>
-	</alert>
 	<alert name="CannotDeedLandMultipleSelected">
 		<message name="message">
 			Transfert du terrain impossible :
@@ -2086,22 +1781,6 @@ Essayez de sélectionner une surface plus petite.
 		<message name="message">
 			Région introuvable
 		</message>
-	</alert>
-	<alert name="ParcelCanPlayMusic">
-		<message name="message">
-			Cet endroit peut diffuser un flux musical. 
- 
-Le flux audio requiert une connexion internet 
-d&apos;un débit de 768 kbps ou plus.
- 
-Lire la musique lorsque disponible ?
-		</message>
-		<option name="PlayMusic">
-			Lire la musique
-		</option>
-		<option name="Disable">
-			Désactiver
-		</option>
 	</alert>
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
@@ -2122,13 +1801,6 @@ Préferences &gt; Audio &amp; Vidéo.)
 			Désactiver
 		</option>
 	</alert>
-	<alert name="CannotBuyLandWaitingForServer">
-		<message name="message">
-			Impossible d&apos;acheter le terrain :
-En attente du serveur pour le calcul du coût.
-Veuillez réessayer d&apos;ici quelques secondes.
-		</message>
-	</alert>
 	<alert name="CannotDeedLandWaitingForServer">
 		<message name="message">
 			Transfert du terrain impossible :
@@ -2136,55 +1808,10 @@ Données de propriété en attente du serveur.
 Réessayez d&apos;ici quelques secondes.
 		</message>
 	</alert>
-	<alert name="CannotBuyLandNoPublic">
-		<message name="message">
-			Impossible d&apos;acheter le terrain :
-La sélection ne contient pas de terrain public.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandLandOwned">
-		<message name="message">
-			Impossible d&apos;acheter le terrain :
-La sélection comprend un terrain appartenant à quelqu&apos;un d&apos;autre.
-Essayez de sélectionner une surface plus petite.
-		</message>
-	</alert>
-	<alert name="CannotButLandRegionNotFound">
-		<message name="message">
-			Impossible d&apos;acheter le terrain :
-la région dans laquelle il est situé est introuvable.
-Utilisez Aide -&gt; Signaler un bug pour envoyer un rapport.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandNoTransfer">
-		<message name="message">
-			Impossible d&apos;acheter le terrain :
-La région [REGION] n&apos;autorise pas la cession de terrain.
-		</message>
-	</alert>
 	<alert name="CannotDeedLandNoTransfer">
 		<message name="message">
 			Transfert du terrain impossible :
 La région [REGION] n&apos;autorise pas le transfert de terrain.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandForGroupNotOfficer">
-		<message name="message">
-			Impossible d&apos;acheter le terrain pour le groupe :
-Vous n&apos;êtes pas officier dans ce groupe.
-Veuillez activer un autre groupe dans Edition -&gt; Groupes...
-		</message>
-	</alert>
-	<alert name="CannotBuyLandInsufficientFunds">
-		<message name="message">
-			Acheter [AREA] m2 de terrain coûte L$[PRICE].
-Vous ne disposez que de L$[BALANCE].
-		</message>
-	</alert>
-	<alert name="CannotReleaseLandNothingSelected">
-		<message name="message">
-			Impossible de céder le terrain :
-Sélection vide.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandWatingForServer">
@@ -2326,6 +1953,17 @@ Fusionner le terrain ?
 			Annuler
 		</option>
 	</alert>
+	<alert name="ConfirmNotecardSave">
+		<message name="message">
+			Cette note doit être sauvegardée avant que l&apos;objet ne puisse être copié ou visualisé. Enregistrer la note ?
+		</message>
+		<option name="Save">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
 	<alert name="ConfirmLandmarkCopy">
 		<message name="message">
 			Copier cet élément vers votre inventaire ?
@@ -2430,7 +2068,24 @@ Proposer à [NAME] de devenir votre ami(e)?
 		<option name="Cancel">
 			Annuler
 		</option>
-		Voulez-vous être mon ami(e) ?
+		Voulez-vous être mon ami ?
+	</alert>
+	<alert name="AddFriendWithMessage" title="Ajouter comme ami">
+		<message name="message">
+			Vous pouvez suivre les déplacements de vos
+amis sur la carte et voir lorsqu&apos;ils se connectent.
+
+Proposer à [NAME] de devenir votre ami ?
+		</message>
+		<editline name="editline">
+			Voulez-vous être mon ami(e) ?
+		</editline>
+		<option name="Offer">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
 	</alert>
 	<alert name="RemoveFromFriends">
 		<message name="message">
@@ -2438,6 +2093,17 @@ Proposer à [NAME] de devenir votre ami(e)?
 		</message>
 		<option name="Remove">
 			Retirer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="RemoveMultipleFromFriends">
+		<message name="message">
+			Voulez-vous supprimer plusieurs personnes de votre liste d&apos;amis ?
+		</message>
+		<option name="Remove">
+			OK
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -2496,11 +2162,6 @@ le nom du groupe, son insigne, sa charte, ses titres, et ses fondateurs sur le
 site [SECOND_LIFE]. Il est de votre responsabilité d&apos;indiquer si 
 tout ou partie du contenu ci-dessus est considéré comme Adulte au regard
 des règles de base de la Communauté.
-		</message>
-	</alert>
-	<alert name="ErrorEncodingSnapshot">
-		<message name="message">
-			Erreur d&apos;encodage de l&apos;instantané !
 		</message>
 	</alert>
 	<alert name="BlankClassifiedName">
@@ -2768,13 +2429,6 @@ pour des conseils et un lien vers la page web d&apos;état du service.
 			[ERROR_MESSAGE]
 		</message>
 	</alert>
-	<alert name="AvatarMoved">
-		<message name="message">
-			Your [TYPE] location is not currently available.
-[HELP] 
-You have been moved into a nearby region.
-		</message>
-	</alert>
 	<alert name="ClothingLoading">
 		<message name="message">
 			Vos vêtements sont en cours de téléchargement.
@@ -2860,27 +2514,15 @@ Vous pourrez le modifier ultérieurement.
 			[NAME] L$ [PRICE] Votre solde est insuffisant.
 		</message>
 	</alert>
-	<alert name="GrantModRights">
+	<alert name="GrantedModifyRights">
 		<message name="message">
-			Souhaitez-vous accorder les droits de modification à [FIRST_NAME] [LAST_NAME]?
+			Vous avez reçu la permission de modifier les objets de [FIRST_NAME] [LAST_NAME].
 		</message>
-		<option name="Yes">
-			Oui
-		</option>
-		<option name="No">
-			Non
-		</option>
 	</alert>
-	<alert name="RevokeModRights">
+	<alert name="RevokedModifyRights">
 		<message name="message">
-			Souhaitez-vous déchoir [FIRST_NAME] [LAST_NAME] de ses droits de modification ?
+			Vous n&apos;avez plus la permission de modifier les objets de [FIRST_NAME] [LAST_NAME].
 		</message>
-		<option name="Yes">
-			Oui
-		</option>
-		<option name="No">
-			Non
-		</option>
 	</alert>
 	<alert name="FlushMapVisibilityCaches">
 		<message name="message">
@@ -2921,80 +2563,31 @@ Veuillez sélectionner un seul objet et recommencez.
 			Annuler
 		</option>
 	</alert>
-	<alert name="ReturnScriptedOnOthersLand">
+	<alert name="EstateObjectReturn">
 		<message name="message">
-			Etes-vous sûr(e) de vouloir renvoyer tous les objets scriptés appartenant à
-** [USER_NAME] **
-sur tous les terrains excepté les siens ?
+			Etes-vous certain de vouloir renvoyer les objets appartenant à [USER_NAME] ?
 		</message>
 		<option name="Return">
-			Retourner
+			OK
 		</option>
 		<option name="Cancel">
 			Annuler
 		</option>
 	</alert>
-	<alert name="ReturnScriptedOnAllLand">
+	<alert name="InvalidTerrainBitDepth">
 		<message name="message">
-			Etes-vous sûr(e) de vouloir renvoyer TOUS les objets scriptés appartenant à
-** [USER_NAME] **
-sur TOUS LES TERRAINS de cette région ?
-		</message>
-		<option name="Return">
-			Retourner
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="InvalidTerrainBitDepthSmall">
-		<message name="message">
-			Impossible de définir les textures de la région : 
- 
-La texture de base [TEXTURE_NUM] a un nombre de bits par pixel invalide : [TEXTURE_BIT_DEPTH]. 
- 
-Remplacez la texture de base [TEXTURE_NUM] par une image 24-bit de 128x128, 
-puis cliquez à nouveau sur &quot;Définir&quot;.
+			Impossible de definir les textures de la région : 
+La texture du terrain [TEXTURE_NUM] a une profondeur invalide ([TEXTURE_BIT_DEPTH]).
+
+Remplacer la texture [TEXTURE_NUM] avec une image de 24 bits, 512 X 512, ou plus petite, puis cliquez à nouveau sur Appliquer.
 		</message>
 	</alert>
-	<alert name="InvalidTerrainSizeSmall">
+	<alert name="InvalidTerrainSize">
 		<message name="message">
-			Impossible de définir les textures de la région :  
- 
-La texture de base [TEXTURE_NUM] a une taille invalide : [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]. 
- 
-Remplacez la texture de base [TEXTURE_NUM] par une image 24-bit de 128x128, 
-puis cliquez à nouveau sur &quot;Définir&quot;.
-		</message>
-	</alert>
-	<alert name="InvalidTerrainBitDepthLarge">
-		<message name="message">
-			Impossible de définir les textures de la région : 
- 
-La texture de base [TEXTURE_NUM] a un nombre de bits par pixel invalide : [TEXTURE_BIT_DEPTH]. 
- 
-Remplacez la texture de base [TEXTURE_NUM] par une image 24-bit 
-de 512x512 ou plus petite, puis cliquez à nouveau sur &quot;Définir&quot;.
-		</message>
-	</alert>
-	<alert name="InvalidTerrainWidthLarge">
-		<message name="message">
-			Impossible de définir les textures de la région :  
- 
-La texture de base [TEXTURE_NUM] est trop large : [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]. 
- 
-Remplacez la texture de base [TEXTURE_NUM] par une image 24-bit de
-512x512 ou plus petite, puis cliquez à nouveau sur &quot;Définir&quot;.
-		</message>
-	</alert>
-	<alert name="InvalidTerrainHeightLarge">
-		<message name="message">
-			Impossible de définir les textures de la région :  
- 
-La texture de base [TEXTURE_NUM] est trop haute : [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]. 
- 
-Remplacez la texture de base [TEXTURE_NUM] par une image 24-bit de
-512x512 ou plus petite, puis cliquez à nouveau sur &quot;Définir&quot;.
+			Impossible de definir les textures de la région : 
+La texture du terrain [TEXTURE_NUM] est trop volumineuse ([TEXTURE_SIZE_X] X [TEXTURE_SIZE_Y]). 
+
+Remplacer la texture [TEXTURE_NUM] avec une image de 24 bits, 512 X 512, ou plus petite, puis cliquez à nouveau sur Appliquer.
 		</message>
 	</alert>
 	<alert name="RawUploadStarted">
@@ -3021,6 +2614,17 @@ et la valeur par défaut pour l&apos;outil &apos;Terrain par défaut&apos; ?
 			Nombre maximum de résidents autorisés : [MAX_AGENTS]
 		</message>
 	</alert>
+	<alert name="MaxBannedAgentsOnRegion">
+		<message name="message">
+			Nombre maximum de résidents bannis : [MAX_BANNED]
+		</message>
+	</alert>
+	<alert name="MaxAgentOnRegionBatch">
+		<message name="message">
+			Echec lors de la tentative d&apos;ajout de [NUM_ADDED] agents :
+Dépasse la limite fixée à [MAX_AGENTS] [LIST_TYPE] de [NUM_EXCESS].
+		</message>
+	</alert>
 	<alert name="MaxAllowedGroupsOnRegion">
 		<message name="message">
 			Nombre maximum de groupes autorisés : [MAX_GROUPS]
@@ -3031,11 +2635,6 @@ et la valeur par défaut pour l&apos;outil &apos;Terrain par défaut&apos; ?
 		<option name="Cancel">
 			Annuler
 		</option>
-	</alert>
-	<alert name="MaxBannedAgentsOnRegion">
-		<message name="message">
-			Nombre maximum de résidents bannis : [MAX_BANNED]
-		</message>
 	</alert>
 	<alert name="MaxManagersOnRegion">
 		<message name="message">
@@ -3169,69 +2768,19 @@ Télécharger vers le dossier Applications ?
 			Annuler
 		</option>
 	</alert>
-	<alert name="AddClassified">
+	<alert name="WebLaunchExternalTarget">
 		<message name="message">
-			Les petites annonces sont publiées dans la section &apos;Annonces&apos;
-du module de recherche, pour une durée d&apos;une semaine.
- 
-Rédigez votre annonce, puis cliquez sur &apos;Publier...&apos; pour
-l&apos;ajouter à la liste des annonces.
- 
-Vous devrez payer des frais d&apos;insertion au moment de cliquer sur &apos;Publier&apos;.
-Plus vous payez, plus votre annonce apparaîtra en haut de liste.
-Ceci est également valable pour les résultats de recherche de mots-clé.
+			Ouvrir votre navigateur web système pour afficher ce contenu ?
 		</message>
-		<option name="OK">
+		<ignore name="ignore">
+			Lors de l&apos;ouverture de votre navigateur système pour afficher une page web
+		</ignore>
+		<option name="Open">
 			OK
 		</option>
 		<option name="Cancel">
 			Annuler
 		</option>
-	</alert>
-	<alert name="WebLaunchGraphicsDriver">
-		<message name="message">
-			Le pilote de votre carte graphique [VENDOR_LABLE] [CARD_NAME] nécessite une mise à jour.
- 
-Il s&apos;agit d&apos;une ressource logicielle qui contrôle votre carte graphique.
-Des pilotes non mis à jour peuvent ralentir ou empêcher le bon fonctionnement de programmes 3D comme [SECOND_LIFE].
- 
-Il est vivement recommandé de mettre à jour le pilote &quot;[DRIVER_NAME]&quot;, téléchargeable gratuitement chez [VENDOR_LABLE]. 
- 
-Souhaitez-vous visiter la page web des pilotes de [SECOND_LIFE] ?
-		</message>
-		<option name="Gotopage">
-			Aller à la page
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="WebLaunchGraphicsDriverIntelExtreme">
-		<message name="message">
-			Le pilote de votre carte graphique Intel Extreme nécessite une mise à jour.
- 
-Il s&apos;agit d&apos;une ressource logicielle qui contrôle votre carte graphique.
-Des pilotes non mis à jour peuvent ralentir ou empêcher le bon fonctionnement de programmes 3D comme [SECOND_LIFE].
- 
-Il est vivement recommandé d&apos;installer le pilote le plus récent, téléchargeable gratuitement chez Intel.
- 
-Souhaitez-vous visiter la page web des pilotes de [SECOND_LIFE] ?
-		</message>
-		<option name="Gotopage">
-			Aller à la page
-		</option>
-		<option name="Cancel">
-			Annuler
-		</option>
-	</alert>
-	<alert name="RunningInPCI">
-		<message name="message">
-			GL indique que le pilote graphique de ce système tourne en mode PCI, une méthode plus lente pour restituer les graphismes.  Si vous utilisez une carte vidéo PCI,
-vous pouvez ignorer ce message. Si vous utilisez une carte vidéo AGP, vous devriez
-mettre à jour les pilotes de votre carte mère pour de meilleures performances dans vos
-applications 3D.  Si vous utilisez une carte graphique PCI Express, vous pouvez activer
-l&apos;accélération graphique AGP dans les Options du menu Preferences dans [SECOND_LIFE].
-		</message>
 	</alert>
 	<alert name="WebLaunchJoinNow">
 		<message name="message">
@@ -3301,7 +2850,7 @@ seront renvoyés à leurs propriétaires précédents.
 *AVERTISSEMENT* Les objets non cessibles transférés seront supprimés !
 		</message>
 		<ignore name="ignore">
-			Lors du retour d&apos;objets à leurs propriétaires
+			Lors du renvoi d&apos;objets à leurs propriétaires
 		</ignore>
 		<option name="Return">
 			Retourner
@@ -3351,21 +2900,6 @@ Quitter le groupe ?
 		</message>
 		<option name="OK">
 			OK
-		</option>
-	</alert>
-	<alert name="MuteByName" title="Ignorer objet par nom">
-		<message name="message">
-			Ignorer par nom n&apos;affecte que le chat et les IM, pas les sons.
-Vous devez entrer le nom exact de l&apos;objet.
-		</message>
-		<editline name="editline">
-			Nom de l&apos;objet
-		</editline>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Cancel">
-			Annuler
 		</option>
 	</alert>
 	<alert name="MuteByNameFailed" title="L&apos;objet n&apos;a pu être ignoré">
@@ -3581,6 +3115,20 @@ dans le menu &apos;Edition&apos;.
 			Annuler
 		</option>
 	</alert>
+	<alert name="TeleportFromLandmark">
+		<message name="message">
+			Etes-vous certain de vouloir être téléporté ?
+		</message>
+		<ignore name="ignore">
+			Lors de la téléportation depuis un repère de l&apos;inventaire
+		</ignore>
+		<option name="Teleport">
+			Téléporter
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
 	<alert name="MessageEstate"
 	     title="Envoyez un message à tout le monde dans votre domaine">
 		<message name="message">
@@ -3787,6 +3335,16 @@ Continuer ?
 			OK
 		</option>
 	</alert>
+	<alert name="ProblemAddingEstateManager">
+		<message name="message">
+			Problèmes lors de l&apos;ajout d&apos;un nouveau gérant de domaine. Il est possible qu&apos;au moins un des domaines ait une liste de gérants complète.
+		</message>
+	</alert>
+	<alert name="ProblemAddingEstateGeneric">
+		<message name="message">
+			Problème lors de l&apos;ajout à la liste de ce domaine. Il est possible qu&apos;au moins un des domaines ait une liste complète.
+		</message>
+	</alert>
 	<alert name="UnableToLoadNotecard">
 		<message name="message">
 			Impossible de charger ressource de la note pour le moment.
@@ -3819,6 +3377,34 @@ Publier cette annonce maintenant pour L$[AMOUNT]?
 		</message>
 		<option name="Publish">
 			Publier
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="SetClassifiedMature">
+		<message name="message">
+			Cette petite annonce contient-elle du contenu réservé aux adultes ?
+		</message>
+		<option name="Mature">
+			Oui
+		</option>
+		<option name="Not Mature">
+			Non
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="SetGroupMature">
+		<message name="message">
+			Ce groupe contient-il du contenu réservé aux adultes ?
+		</message>
+		<option name="Mature">
+			Oui
+		</option>
+		<option name="Not Mature">
+			Non
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -3882,20 +3468,6 @@ Plus il y a d&apos;avatars dans une région, plus les performances peuvent se d�
 Défaut : 30
 		</message>
 	</alert>
-	<alert name="HelpRegionObjectBonus" title="Bonus de l&apos;objet">
-		<message name="message">
-			The Object Bonus is a multiplier for primitives allowed on any given
-parcel. The range allowed is 1 to 10. Set at &apos;1&apos; each 512m2 parcel
-would be allowed 117 objects. Set at &apos;2&apos; each 512m2 parcel would be
-allowed 234, or twice as many, and so on. The max number of objects
-allowed per region remains 15,000 no matter what the value set for
-Object Bonus. Once this value is set, it should not be lowered until
-you are certain that changing it will not force return or deletion of
-the objects currently on parcels.
- 
-Default: 1.0
-		</message>
-	</alert>
 	<alert name="HelpRegionMaturity" title="Classification">
 		<message name="message">
 			Définit la classification de la région (M=Adulte, PG=Tout Public), affichée dans le coin supérieur droit
@@ -3921,18 +3493,30 @@ Défaut : Désactiver
 	</alert>
 	<alert name="HelpParcelChanges" title="Fusionner/subdiviser parcelle">
 		<message name="message">
-			Sets whether or not parcels not owned by the estate owner
-can be joined or subdivided. 
-If this option is unchecked:
- * Only estate owners or managers can join or subdivide parcels. 
- * They may only join or subdivide parcels belonging to the owner, 
-       or to a group where they have the appropriate group powers.
-If this option is checked:
- * All parcel owners can join or subdivide the parcels they own. 
- * For group owned parcels, those with appropriate group powers
-       may join or subdivide parcels.
+			Cette case permet de choisir si les parcelles n&apos;appartenant pas au gérant du domaine peuvent être fusionnées ou divisées ou pas. 
+Si cette case n&apos;est pas cochée :
+ * Seuls les propriétaires ou gérants de domaine peuvent fusionner ou diviser des parcelles. 
+ * Ils ne peuvent fusionner ou diviser que les parcelles du propriétaire, 
+       ou celles d&apos;un groupe dans lequel il ont les pouvoirs nécessaires.
+Si cette case est cochée :
+ * Tous les propriétaires peuvent fusionner ou diviser leurs parcelles. 
+ * Pour les parcelles du groupe, ceux avec les pouvoirs nécessaires
+       peuvent fusionner ou diviser les parcelles.
  
-Default: Checked
+Défaut : Cochée
+		</message>
+	</alert>
+	<alert name="HelpRegionSearch" title="Ne pas montrer dans les résultats de recherche">
+		<message name="message">
+			Si vous cochez cette option, les propriétaires ne pourront pas faire apparaître leurs parcelles dans les résultats de recherche.
+Défaut : Désactivé
+		</message>
+	</alert>
+	<alert name="HelpParcelSearch" title="Do Not Show In Search">
+		<message name="message">
+			Checking this box will show:
+- this parcel in search results
+- this parcel&apos;s public objects
 		</message>
 	</alert>
 	<alert name="RegionMaturityChange" title="Classification de la Région modifiée.">
@@ -3960,45 +3544,27 @@ Défaut : 00000000-0000-0000-0000-000000000000 ou aucun
 	</alert>
 	<alert name="HelpRegionDisableScripts" title="Désactiver les scripts">
 		<message name="message">
-			When sim performance is poor, a script may be to blame. Open the
-Statistics Bar (Ctrl-Shift-1). Look at the Simulator Physics FPS.
-If it is lower than 45 then open the &apos;Time&apos; panel located at the 
-bottom of the Stats Bar. If Script Time reads 25 ms or higher, click 
-the &apos;Get Top Scripts&apos; button. You will be given the name and location 
-of scripts that may be causing poor performance.
+			Lorsque la performance d&apos;une sim est faible, cela vient peut-être d&apos;un script. Ouvrez la barre de statistiques (Ctrl-Maj-1). Consultez le Simulateur de propriétés physiques FPS.
+S&apos;il est en dessous de 45, ouvrez le panel Heure situé en bas de la barre de statistiques. Si le script Heure indique 25mn ou moins, cliquez sur le bouton Afficher les scripts fréquemment utilisés. Vous verrez le nom et l&apos;emplacement des scripts qui sont peut-être à l&apos;origine du problème.
  
-Checking the &apos;Disable Scripts&apos; box and then pressing the &apos;Apply&apos; 
-button will temporarily disable all scripts in this region. You may 
-need to do this in order to travel to the location of a noted 
-&apos;top script&apos;. Once you have arrived at the location, investigate the 
-script to determine if it is causing the problem. You may want to 
-contact the owner of the script or delete or return the object. 
-Uncheck the &apos;Disable Script&apos; box and then &apos;Apply&apos; to reactivate 
-the scripts in the region.
+Si vous cochez la case Désactiver les scripts et que vous appuyez sur Appliquer, tous les scripts de cette région seront temporairement désactivés. Vous devrez peut-être faire cela pour aller dans un endroit où se trouve un 
+script fréquemment utilisé. Une fois arrivé, cherchez à savoir si le script est bien à l&apos;origine du problème. Pour cela, vous devrez peut-être contacter le propriétaire du script ou bien supprimer ou renvoyer l&apos;objet. 
+Décochez la case Désactiver le script, puis cliquez sur Appliquer pour réactiver tous les scripts dans la région.
  
-Default: off
+Défaut : désactivé
 		</message>
 	</alert>
 	<alert name="HelpRegionDisableCollisions" title="Désactiver collisions">
 		<message name="message">
-			When sim performance is poor, physical objects may be to blame. 
-Open the Statistics Bar (Ctrl-Shift-1). Look at the Simulator 
-Physics FPS.  If it is lower than 45 then open the &apos;Time&apos; panel 
-located at the bottom of the Stats Bar. If Sim Time (Physics) 
-reads 20 ms or higher, click the &apos;Get Top Colliders&apos; button. 
-You will be given the name and location of physical objects 
-that may be causing poor performance.
+			Lorsque la performance d&apos;une sim est faible, cela vient peut-être des objets physiques. 
+Ouvrez la barre de statistiques (Ctrl-Maj-1). Consultez le Simulateur de propriétés physiques FPS. S&apos;il est en dessous de 45, ouvrez le panel Heure situé en bas de la barre de statistiques. Si le script Heure indique 25mn ou moins, cliquez sur le bouton Afficher les objets souvent responsables de collision. 
+Vous verrez le nom et l&apos;emplacement des objets physiques qui sont peut-être à l&apos;origine du problème.
  
-Checking the &apos;Disable Collisions&apos; box and then pressing the &apos;Apply&apos; 
-button will temporarily disable object-object collisions. You may 
-need to do this in order to travel to the location of a noted 
-&apos;top collider&apos;. Once you have arrived at the location, investigate the 
-object - is it constantly colliding with other objects? You may want to 
-contact the owner of the object or delete or return the object. 
-Uncheck the &apos;Disable Collisions&apos; box and then &apos;Apply&apos; to reactivate 
-collisions in the region.
+Si vous décochez la case Désactiver les collisions et que vous appuyez sur Appliquer, toutes les collisions entre objets seront désactivées. Vous devrez peut-être faire cela pour aller dans un endroit où se trouve un 
+objet souvent responsable de collision. Une fois arrivé, cherchez à savoir si l&apos;objet est sans cesse en collision avec d&apos;autres objets. Pour cela, vous devrez peut-être contacter le propriétaire de l&apos;objet ou bien supprimer ou renvoyer l&apos;objet. 
+Décochez la case Désactiver les collision, puis cliquez sur Appliquer pour réactiver les collisions dans la région.
  
-Default: off
+Défaut : désactivé
 		</message>
 	</alert>
 	<alert name="HelpRegionDisablePhysics" title="Désactiver Physiques">
@@ -4070,20 +3636,12 @@ Défaut : -4
 	</alert>
 	<alert name="HelpRegionUploadRaw" title="Uploader relief au format RAW...">
 		<message name="message">
-			This button uploads a .RAW file to the region you are in. 
-The file must have the correct dimensions/number of channels: 
-RGB, 256x256 and 13 channels.  The best way to create a 
-terrain file is to download the existing RAW file.  A good 
-first step is to modify the first channel (land height), 
-and upload it. 
+			Ce bouton permet de charger un fichier .RAW dans la région où vous vous trouvez. 
+Ce fichier doit avoir les bonnes dimensions (RGB, 256 x 256) et 13 canaux. Le meilleur moyen de créer un fichier terrain est de télécharger le fichier RAW existant. Un bon moyen est de modifier le canal rouge (hauteur terrain) et de le charger. 
  
-The upload can take up to 45 seconds. Note that uploading a 
-terrain file *will not* move the objects that are on the land, 
-only the terrain itself and the permissions associated with the 
-parcels.  This can result in objects going underground. 
+Le chargement peut prendre jusqu&apos;à 45 secondes. Veuillez noter que le chargement d&apos;un fichier terrain ne déplacera pas les objets qui se trouvent sur le terrain, mais seulement le terrain et les permissions associées aux parcelles. Certains objets risquent d&apos;aller sous la terre. 
  
-For more information on editing region height fields, go to: 
-http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
+Pour en savoir plus sur la modification de la hauteur des terrains d&apos;une région, consultez l&apos;Aide F1.
 		</message>
 	</alert>
 	<alert name="HelpRegionDownloadRaw" title="Télécharger un relief au format RAW">
@@ -4153,14 +3711,6 @@ Défaut : activé
 sur celle du curseur de Phase et fige le soleil.
 		</message>
 	</alert>
-	<alert name="HelpEstateMainlandVisible" title="Vue sur le continent">
-		<message name="message">
-			Définit si les résidents de ce domaine peuvent voir les domaines du Continent
-(appartenant aux Linden) sur la carte du monde. 
- 
-Défaut : activé
-		</message>
-	</alert>
 	<alert name="HelpEstateExternallyVisible" title="Visible depuis le continent">
 		<message name="message">
 			Définit si les résidents qui se trouvent sur des domaines du Continent (appartenant aux Linden) 
@@ -4199,6 +3749,13 @@ limité à une liste de résidents ou de groupes. Cette option sera
 désactivée.  Seule la liste noire sera prise en compte.)
 		</message>
 	</alert>
+	<alert name="HelpEstateAbuseEmailAddress"
+	     title="Adresse e-mail où signaler une infraction">
+		<message name="message">
+			Si vous utilisez une adresse e-mail valide, les rapports d&apos;infraction de ce domaine iront à cette adresse. 
+Si vous laissez ce champ vide, les rapports d&apos;infraction seront envoyés à Linden Lab uniquement.
+		</message>
+	</alert>
 	<alert name="HelpEstateBanResident" title="Refuser l&apos;accès">
 		<message name="message">
 			Les résidents figurant sur cette liste n&apos;ont pas accès à votre domaine, 
@@ -4208,25 +3765,25 @@ Ajouter un résident à cette liste le retirera de
 la liste des personnes autorisées.
 		</message>
 	</alert>
+	<alert name="HelpEstateVoiceChat" title="Autoriser les chats vocaux">
+		<message name="message">
+			Les parcelles de ce domaine peuvent avoir leurs propres canaux vocaux, ce qui permet aux résidents de communiquer avec leurs voisins.
+
+Défaut : désactivé
+		</message>
+	</alert>
+	<alert name="VoiceVersionMismatch" title="Versions de voix non compatibles">
+		<message name="message">
+			Cette version de Second Life n&apos;est pas compatible avec la fonctionnalité de chat vocal dans cette région. Vous devez mettre à jour Second Life pour que le chat vocal fonctionne correctement.
+		</message>
+	</alert>
 	<alert name="HelpEstateCovenant" title="Clause de sauvegarde du domaine">
 		<message name="message">
-			Setting an estate covenant enables you to sell parcels 
-within that estate. If a covenant is not set, you cannot 
-sell the land. The notecard for your covenant can be empty 
-if you do not wish to apply any rules or advise buyers of 
-anything in relation to the land before they buy it. 
+			Définir un règlement pour le domaine vous permet de vendre les parcelles de ce domaine. S&apos;il n&apos;y a pas de règlement, vous ne pouvez pas vendre le terrain. Si vous ne souhaitez pas indiquer de règlement ou donner de conseils aux acheteurs, laissez la section relative au règlement vide. 
  
-A covenant can be used to communicate rules, guidelines, 
-cultural information or simply your own expectations to the 
-prospective buyer. This can include zoning, building regulations, 
-payment options or any other information you feel it is 
-important for the new owner to have seen and to have agreed 
-to before they purchase. 
+Un règlement sert à communiquer des règles, des lignes directrices ou informations culturelles, ou simplement à expliquer vos attentes à un acheteur potentiel. Il peut s&apos;agir de régulations concernant la construction, les options de paiement ou tout autre information que vous souhaitez faire passer au résident avant que l&apos;achat n&apos;ait lieu. 
  
-The buyer must agree to the covenant by ticking the check box 
-before they will be able to finish the purchase. Estate 
-covenants are always visible in the About Land dialog for 
-any parcels that have one set.
+L&apos;acheteur est tenu  d&apos;accepter le règlement en cochant une case avant de pouvoir finaliser l&apos;achat. Les règlements, lorsqu&apos;ils existent, apparaissent toujours dans la boîte de dialogue À propos du terrain.
 		</message>
 	</alert>
 	<alert name="BuyObjectOneOnly" title="Achat des objets impossible">
@@ -4446,31 +4003,47 @@ réagissent lorsqu&apos;un paiement est effectué.
 			Cet objet ne contient aucun élément copiable.
 		</message>
 	</alert>
-	<alert name="LoadAccountTransactions">
+	<alert name="ClickOpenF1Help">
 		<message name="message">
-			Aller à [URL] 
-pour afficher les détails de la transaction?
+			Visiter les pages d&apos;aide de Second Life ?
 		</message>
-		<option name="OK">
-			OK
+		<ignore name="ignore">
+			Lors de la visite des pages d&apos;aide de Second Life
+		</ignore>
+		<option name="Gotopage">
+			Aller
 		</option>
 		<option name="Cancel">
 			Annuler
 		</option>
 	</alert>
-	<alert name="HelpReportAbuse">
+	<alert name="RetryFetchInventoryDescendents">
 		<message name="message">
-			Use this tool to report violations of the Terms of Service and Community Standards. See: 
-http://secondlife.com/corporate/tos.php 
-http://secondlife.com/corporate/cs.php 
- 
-All reported abuses of the Terms of Service and Community Standards 
-are investigated and resolved. You will receive an email informing you
-of the resolution when it occurs. 
-You can also view the incident resolution on the Police Blotter at: 
- 
-http://secondlife.com/community/blotter.php
+			Délai d&apos;extraction de l&apos;inventaire depuis le serveur dépassé. Réessayer ?
 		</message>
+		<ignore name="ignore">
+			Réessayer d&apos;extraire l&apos;inventaire
+		</ignore>
+		<option name="Retry">
+			Réessayer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmQuit">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir quitter?
+		</message>
+		<ignore name="ignore">
+			Lorsque vous quittez Second Life
+		</ignore>
+		<option name="Quit">
+			Quitter
+		</option>
+		<option name="Continue">
+			Continuer
+		</option>
 	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
@@ -4497,23 +4070,12 @@ n&apos;enquêtera pas sur les rapports que vous envoyez à partir de cet endroit
 Le propriétaire de la région traitera les rapports en fonction 
 des règles de cette région, comme indiqué dans le réglement du domaine. 
 (Les réglements sont visibles à partir du menu Monde &gt; 
-A propos du terrain.)
+À propos du terrain.)
 
 La résolution de ce rapport ne s&apos;applique qu&apos;à cette région ; 
 L&apos;accès aux autres endroits de Second Life 
 ne sera pas affecté par les résultats de cette enquête. Seul Linden Lab peut 
 interdire l&apos;accès à l&apos;ensemble de Second Life.
-		</message>
-	</alert>
-	<alert name="HelpReportBug">
-		<message name="message">
-			Use this tool to report technical features that do not perform 
-as described or expected. All bug reports are investigated and 
-resolved. No email response will be sent, you may reply to the 
-auto-response email to add more details to your report. 
-If you are having a technical difficulty, please contact Support at: 
- 
-http://secondlife.com/community/support.php
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSelectCategory">
@@ -4607,10 +4169,10 @@ Voulez-vous le remplacer par l&apos;objet sélectionné ?
 		<ignore name="ignore">
 			Lors du remplacement de pièces-jointes existantes
 		</ignore>
-		<option ignore="Remplacer automatiquement" name="Yes">
+		<option name="Yes">
 			Oui
 		</option>
-		<option ignore="Ne jamais remplacer" name="No">
+		<option name="No">
 			Non
 		</option>
 	</alert>
@@ -4626,10 +4188,10 @@ de finaliser cette transaction ?
 		<ignore name="ignore">
 			Lorsque vous envoyez de l&apos;argent à une personne en mode Occupé
 		</ignore>
-		<option ignore="Toujours quitter le mode Occupé" name="Yes">
+		<option name="Yes">
 			Oui
 		</option>
-		<option ignore="Ne jamais quitter le mode Occupé" name="No">
+		<option name="No">
 			Non
 		</option>
 	</alert>
@@ -4707,25 +4269,25 @@ Mettez-la dans une page web pour permettre aux autres utilisateurs d&apos;accéd
 	</alert>
 	<alert name="GraphicsPreferencesHelp">
 		<message name="message">
-			Ce panel contrôle la taille de la fenêtre et la résolution, ainsi que la qualité des graphiques client.  Les Préférences de l&apos;interface graphique vous permettent de choisir entre 4 niveaux de graphiques : Faible, Moyen, Elevé et Ultra. Personnalisez vos options graphiques en cliquant sur le bouton Personnaliser et en changeant les paramètres suivants :
+			Ce panel contrôle la taille de la fenêtre et la résolution, ainsi que la qualité des graphiques client.  Les préférences de l&apos;interface graphique vous permettent de choisir entre 4 niveaux de graphiques : Faible, Moyen, Élevé et Ultra. Personnalisez vos options graphiques en cliquant sur le bouton Personnaliser et en changeant les paramètres suivants :
 
-Shaders : Active ou désactive les différents types de shaders pixels. 
+Shaders : active ou désactive les différents types de shaders pixels. 
 
-Détails des reflets : Définit le type d&apos;objets reflétés dans l&apos;eau.
+Détails des reflets : définit le type d&apos;objets reflétés dans l&apos;eau.
 
-Rendu de l&apos;avatar : Définit les options qui impactent la manière dont le client rend les avatars.
+Rendu de l&apos;avatar : définit les options qui impactent la manière dont le client rend les avatars.
 
-Distance d&apos;affichage : C&apos;est la distance à laquelle vous voyez les objets s&apos;afficher dans la scène.
+Distance d&apos;affichage : la distance à laquelle vous voyez les objets s&apos;afficher dans la scène.
 
-Nombre de particules max. : Définit le nombre maximum de particules que vous pouvez voir à la fois sur votre écran.
+Nombre de particules max. : définit le nombre maximum de particules que vous pouvez voir à la fois sur votre écran.
 
-Qualité post-traitement : Définit la résolution du rayonnement. 
+Qualité post-traitement : définit la résolution du rayonnement. 
 
-Détails du maillage : Définit le niveau de détail ou le nombre de triangles utilisés dans le rendu de certains objets. Une valeur plus élevée prendra plus de temps pour apparaître, mais permettra d&apos;avoir des objets plus détaillés.
+Détails du maillage : définit le niveau de détail ou le nombre de triangles utilisés dans le rendu de certains objets. Une valeur plus élevée prendra plus de temps pour apparaître, mais permettra d&apos;avoir des objets plus détaillés.
 
-Détails de la lumière : Définit les types de lumières que vous souhaitez faire apparaître.
+Détails de la lumière : définit les types de lumières que vous souhaitez faire apparaître.
 
-Détails du terrain : Définit le niveau de détail que vous souhaitez utiliser dans la texture du terrain.
+Détails du terrain : définit le niveau de détail que vous souhaitez utiliser dans la texture du terrain.
 		</message>
 	</alert>
 	<alert name="WLSavePresetAlert">
@@ -5041,7 +4603,7 @@ Même chose que l&apos;azimut.
 	</alert>
 	<alert name="ChatterBoxSessionStartError">
 		<message name="message">
-			Impossible de commencer une nouvelle session de chat avec [RECIPIENT].
+			Impossible de démarrer une nouvelle session de chat avec [RECIPIENT].
 [REASON]
 		</message>
 		<option name="OK">
@@ -5072,7 +4634,7 @@ Même chose que l&apos;azimut.
 		</message>
 	</alert>
 	<alert name="DebitPermissionDetails"
-	     title="A propos des requêtes pour les permissions de débit">
+	     title="À propos des requêtes pour les permissions de débit">
 		<message name="message">
 			Accepter cette requête donne au script la permission de prélever des dollars Linden (L$) sur votre compte de manière continue. Pour révoquer cette permission, le propriétaire de l&apos;objet doit supprimer l&apos;objet ou bien réinitialiser les scripts dans l&apos;objet.
 		</message>
@@ -5110,6 +4672,9 @@ Voulez-vous aller sur le site de Second Life pour vérifier votre âge ?
 		<option name="No">
 			Non
 		</option>
+		<url>
+			https://secondlife.com/account/verification.php
+		</url>
 	</alert>
 	<alert name="Cannot enter parcel: no payment info on file">
 		<message name="message">
@@ -5127,10 +4692,8 @@ Voulez-vous aller sur le site de Second Life pour enregistrer ces informations 
 		<option name="No">
 			Non
 		</option>
-	</alert>
-	<alert name="MissingString">
-		<message name="message">
-			The string [STRING_NAME] is missing from strings.xml
-		</message>
+		<url>
+			https://secondlife.com/account/
+		</url>
 	</alert>
 </alerts>

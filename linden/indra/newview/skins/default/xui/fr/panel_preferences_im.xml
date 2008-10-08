@@ -3,7 +3,7 @@
 	<text type="string" length="1" name="text_box">
 		Mon statut en ligne :
 	</text>
-	<check_box label="Seuls mes amis et groupes voient quand je suis en ligne"
+	<check_box label="Seuls mes amis et groupes voient quand je suis connecté(e)"
 	     name="online_visibility" />
 	<text name="log_in_to_change">
 		se connecter pour changer
@@ -23,17 +23,16 @@
 	</text>
 	<check_box label="Enregistrer un journal des IM sur mon ordinateur"
 	     name="log_instant_messages" />
-	<check_box label="Afficher les marques temporelles dans le journal des IM"
-	     name="log_instant_messages_timestamp" />
+	<check_box label="Inclure les marques temporelles" name="log_instant_messages_timestamp" />
 	<check_box label="Enregistrer un journal du chat local sur mon ordinateur" name="log_chat" />
-	<check_box label="Montrer la fin de la dernière conversation IM" name="log_show_history" />
-	<check_box label="Afficher les marques temporelles dans le journal du chat local"
-	     name="log_chat_timestamp" />
-	<check_box label="Afficher les IM reçus dans le journal du chat local" name="log_chat_IM" />
+	<check_box label="Inclure la fin de la dernière conversation IM" name="log_show_history" />
+	<check_box label="Inclure les marques temporelles" name="log_chat_timestamp" />
+	<check_box label="Inclure les IM reçus" name="log_chat_IM" />
 	<check_box label="Inclure la date avec les marques temporelles" name="log_date_timestamp" />
 	<button label="Changer d&apos;emplacement" label_selected="Changer d&apos;emplacement"
-	     name="log_path_button" />
+	     name="log_path_button" width="150" />
+	<line_editor left="308" name="log_path_string" right="-20" />
 	<text type="string" length="1" name="text_box2">
-		Options IM:
+		Options IM :
 	</text>
 </panel>

@@ -38,7 +38,7 @@
 	</text>
 	<slider label="不透明度" name="console_opacity"/>
 	<text length="1" name="text_box6" type="string">
-		チャット・オプション
+		チャット・オプション：
 	</text>
 	<check_box label="全画面幅を使用 (再起動が必要)" name="chat_full_width_check"/>
 	<check_box label="Enterキーを押した後チャット バーを閉じる" name="close_chat_on_return_check"/>
