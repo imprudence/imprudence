@@ -1,5 +1,24 @@
 2008-10-14  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/installers/windows/installer_template.nsi:
+	Rebranded Windows-specific installer/support files.
+	Replaced instances of "Second Life" with "Imprudence", etc.
+	* linden/indra/newview/installers/windows/lang_de.nsi:
+	Ditto.
+	* linden/indra/newview/installers/windows/lang_en-us.nsi:
+	Ditto.
+	* linden/indra/newview/installers/windows/lang_ja.nsi:
+	Ditto.
+	* linden/indra/newview/installers/windows/lang_ko.nsi:
+	Ditto.
+	* linden/indra/newview/res/viewerRes.rc:
+	Ditto.
+	* linden/indra/copy_win_scripts/start-client.py: 
+	Ditto.
+	* linden/indra/win_updater/updater.cpp: 
+	Ditto.
+	
+
 	* linden/indra/mac_updater/mac_updater.cpp: 
 	Rebranded Mac-specific installer/support files.
 	Replaced instances of "Second Life" with "Imprudence", etc.
