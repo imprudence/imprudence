@@ -1,5 +1,16 @@
 2008-10-14  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/mac_updater/mac_updater.cpp: 
+	Rebranded Mac-specific installer/support files.
+	Replaced instances of "Second Life" with "Imprudence", etc.
+	* linden/indra/newview/English.lproj/InfoPlist.strings: 
+	Ditto.
+	* linden/indra/newview/Info-SecondLife.plist: 
+	Ditto.
+	* linden/indra/newview/SecondLife.nib/objects.xib: 
+	Ditto.
+
+
 	* linden/indra/cmake/UnixInstall.cmake: 
 	Rebranded Linux-specific installer/support files.
 	Replaced instances of "Second Life" with "Imprudence", etc.
