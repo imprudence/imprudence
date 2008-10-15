@@ -1,3 +1,24 @@
+2008-10-14  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/CMakeLists.txt: 
+	Rebranded platform-independent/shared installer/support files.
+	Replaced instances of "Second Life" with "Imprudence", etc.
+	* linden/indra/cmake/00-Common.cmake: 
+	Ditto.
+	* linden/indra/develop.py: 
+	Ditto.
+	* linden/indra/llcrashlogger/llcrashlogger.cpp: 
+	Ditto.
+	* linden/indra/newview/CMakeLists.txt: 
+	Ditto.
+	* linden/indra/newview/ViewerInstall.cmake: 
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp: 
+	Ditto.
+	* linden/indra/newview/viewer_manifest.py: 
+	Ditto.
+
+
 2008-10-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llcommon/llversionviewer.h: 

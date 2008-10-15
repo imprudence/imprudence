@@ -293,10 +293,10 @@ BOOL gLogoutInProgress = FALSE;
 // Internal globals... that should be removed.
 static std::string gArgs;
 
-const std::string MARKER_FILE_NAME("SecondLife.exec_marker");
-const std::string ERROR_MARKER_FILE_NAME("SecondLife.error_marker");
-const std::string LLERROR_MARKER_FILE_NAME("SecondLife.llerror_marker");
-const std::string LOGOUT_MARKER_FILE_NAME("SecondLife.logout_marker");
+const std::string MARKER_FILE_NAME("Imprudence.exec_marker");
+const std::string ERROR_MARKER_FILE_NAME("Imprudence.error_marker");
+const std::string LLERROR_MARKER_FILE_NAME("Imprudence.llerror_marker");
+const std::string LOGOUT_MARKER_FILE_NAME("Imprudence.logout_marker");
 static BOOL gDoDisconnect = FALSE;
 static std::string gLaunchFileOnQuit;
 
@@ -1468,15 +1468,15 @@ bool LLAppViewer::initLogging()
 	
 	// Remove the last ".old" log file.
 	std::string old_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "SecondLife.old");
+							     "Imprudence.old");
 	LLFile::remove(old_log_file);
 
 	// Rename current log file to ".old"
 	std::string log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "SecondLife.log");
+							     "Imprudence.log");
 	LLFile::rename(log_file, old_log_file);
 
-	// Set the log file to SecondLife.log
+	// Set the log file to Imprudence.log
 
 	LLError::logToFile(log_file);
 
@@ -1658,7 +1658,7 @@ bool LLAppViewer::initConfiguration()
 		llinfos	<< "Command	line usage:\n" << clp << llendl;
 
 		std::ostringstream msg;
-		msg << "Second Life found an error parsing the command line. \n" 
+		msg << gSecondLife << " found an error parsing the command line. \n" 
 			<< "Please see: http://wiki.secondlife.com/wiki/Client_parameters \n"
 			<< "Error: " << clp.getErrorMessage();
 
@@ -2654,7 +2654,7 @@ bool LLAppViewer::initCache()
 			std::string cache_dir = gDirUtilp->getOSUserAppDir();
 			std::string new_cache_dir = gDirUtilp->getOSCacheDir();
 			cache_dir = cache_dir + "/cache";
-			new_cache_dir = new_cache_dir + "/" + gSecondLife;
+			new_cache_dir = new_cache_dir + "/" + "SecondLife";
 			if (gDirUtilp->fileExists(cache_dir))
 			{
 				gDirUtilp->setCacheDir(cache_dir);
@@ -2947,7 +2947,7 @@ void LLAppViewer::badNetworkHandler()
 	message <<
 		"The viewer has detected mangled network data indicative\n"
 		"of a bad upstream network connection or an incomplete\n"
-		"local installation of " << LLAppViewer::instance()->getSecondLifeTitle() << ". \n"
+		"local installation of " << gSecondLife << ". \n"
 		" \n"
 		"Try uninstalling and reinstalling to see if this resolves \n"
 		"the issue. \n"
