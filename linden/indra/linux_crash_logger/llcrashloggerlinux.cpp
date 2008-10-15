@@ -53,13 +53,13 @@
 
 // These need to be localized.
 static const char dialog_text[] =
-"Second Life appears to have crashed or frozen last time it ran.\n"
-"This crash reporter collects information about your computer's hardware, operating system, and some Second Life logs, all of which are used for debugging purposes only.\n"
+"Imprudence appears to have crashed or frozen last time it ran.\n"
+"This crash reporter collects information about your computer's hardware, operating system, and some Imprudence logs, all of which are used for debugging purposes only.\n"
 "\n"
 "Send crash report?";
 
 static const char dialog_title[] =
-"Second Life Crash Logger";
+"Imprudence Crash Logger";
 
 #if LL_GTK
 static void response_callback (GtkDialog *dialog,

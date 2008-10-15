@@ -21,11 +21,11 @@ if (INSTALL)
   set(INSTALL_SHARE_DIR ${INSTALL_PREFIX}/share CACHE PATH
       "Installation directory for read-only shared files.")
 
-  set(APP_BINARY_DIR ${INSTALL_LIBRARY_DIR}/secondlife-${viewer_VERSION}
+  set(APP_BINARY_DIR ${INSTALL_LIBRARY_DIR}/imprudence-${viewer_VERSION}
       CACHE PATH
       "Installation directory for binaries.")
 
-  set(APP_SHARE_DIR ${INSTALL_SHARE_DIR}/secondlife-${viewer_VERSION}
+  set(APP_SHARE_DIR ${INSTALL_SHARE_DIR}/imprudence-${viewer_VERSION}
       CACHE PATH
       "Installation directory for read-only data files.")
 endif (INSTALL)

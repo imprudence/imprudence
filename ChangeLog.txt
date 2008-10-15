@@ -1,5 +1,16 @@
 2008-10-14  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/cmake/UnixInstall.cmake: 
+	Rebranded Linux-specific installer/support files.
+	Replaced instances of "Second Life" with "Imprudence", etc.
+	* linden/indra/linux_crash_logger/llcrashloggerlinux.cpp: 
+	Ditto.
+	* linden/indra/newview/linux_tools/handle_secondlifeprotocol.sh: 
+	Ditto.
+	* linden/indra/newview/linux_tools/wrapper.sh: 
+	Ditto.
+
+
 	* linden/indra/CMakeLists.txt: 
 	Rebranded platform-independent/shared installer/support files.
 	Replaced instances of "Second Life" with "Imprudence", etc.
