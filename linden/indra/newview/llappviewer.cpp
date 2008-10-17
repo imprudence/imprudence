@@ -308,7 +308,7 @@ const char *VFS_INDEX_FILE_BASE = "index.db2.x.";
 static std::string gSecondLife;
 static std::string gWindowTitle;
 #ifdef LL_WINDOWS
-	static char sWindowClass[] = IMP_VIEWER_NAME;
+	static char sWindowClass[] = "Imprudence";
 #endif
 
 std::string gLoginPage;
