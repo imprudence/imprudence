@@ -42,7 +42,8 @@
 	</notify>
 	<notify name="UploadingAuctionSnapshot">
 		<message name="message">
-			Importation de photos SL et Web en cours (prend environ 5 minutes…)
+			Importation de photos SL et Web en cours
+(prend environ 5 minutes…)
 		</message>
 	</notify>
 	<notify name="UploadPayment">
@@ -52,7 +53,8 @@
 	</notify>
 	<notify name="UploadingSnapshot">
 		<message name="message">
-			Importation de photo SL en cours (prend une à deux minutes…)
+			Importation de photo SL en cours
+(prend une à deux minutes…)
 		</message>
 	</notify>
 	<notify name="UploadWebSnapshotDone">
@@ -104,7 +106,8 @@ Merci de réessayer.
 	<notify name="CapsKeyOn">
 		<message name="message">
 			La touche Verr.maj est activée.
-Ce mode modifie le mot de passe que vous saisissez, vous devriez le quitter.
+Ce mode modifie le mot de passe que vous
+saisissez, vous devriez le quitter.
 		</message>
 	</notify>
 	<notify name="NotecardMissing">
@@ -145,7 +148,9 @@ Merci de réessayer.
 	</notify>
 	<notify name="IncompleteInventory">
 		<message name="message">
-			Tous les éléments que vous souhaitez transférer ne sont pas encore disponibles sur le serveur. Merci d&apos;essayer à nouveau dans une minute.
+			Tous les éléments que vous souhaitez transférer ne
+sont pas encore disponibles sur le serveur.
+Merci d&apos;essayer à nouveau dans une minute.
 		</message>
 	</notify>
 	<notify name="CannotModifyProtectedCategories">
@@ -182,8 +187,8 @@ Merci de réessayer.
 	</notify>
 	<notify name="CannotBuyObjectsFromDifferentOwners">
 		<message name="message">
-			Impossible d&apos;acheter simultanément des objets de propriétaires différents.
-Veuillez sélectionner un seul objet.
+			Impossible d&apos;acheter simultanément des objets de
+propriétaires différents. Veuillez sélectionner un seul objet.
 		</message>
 	</notify>
 	<notify name="ObjectNotForSale">
@@ -260,7 +265,7 @@ Veuillez sélectionner un terrain plus petit.
 [MESSAGE]
 		</message>
 		<option name="VoteNow">
-			Voter maintenant
+			Voter
 		</option>
 		<option name="Later">
 			Plus tard
@@ -272,7 +277,7 @@ Veuillez sélectionner un terrain plus petit.
 [MESSAGE]
 		</message>
 		<option name="VoteNow">
-			Voter maintenant
+			Voter
 		</option>
 		<option name="Later">
 			Plus tard
@@ -302,7 +307,8 @@ Veuillez sélectionner un terrain plus petit.
 	</notify>
 	<notify name="TransferObjectsHighlighted">
 		<message name="message">
-			Tous les objets sur cette parcelle qui seront transférés à l&apos;acheteur sont maintenant mis en surbrillance.
+			Tous les objets sur cette parcelle qui seront
+transférés à l&apos;acheteur sont maintenant mis en surbrillance.
  
 * Les arbres et la pelouse qui seront transférés ne sont pas mis en surbrillance.
 		</message>
@@ -329,17 +335,22 @@ Pour voir les vidéos sur les terrains qui le permettent, allez sur le site de Q
 	</notify>
 	<notify name="OwnedObjectsReturned">
 		<message name="message">
-			Les objets que vous possédez sur la parcelle de terrain sélectionnée ont été renvoyés dans votre inventaire.
+			Les objets que vous possédez sur la parcelle de
+terrain sélectionnée ont été renvoyés dans votre inventaire.
 		</message>
 	</notify>
 	<notify name="OtherObjectsReturned">
 		<message name="message">
-			Les objets que vous possédez sur la parcelle de terrain  appartenant à [FIRST] [LAST] ont été renvoyés dans votre inventaire.
+			Les objets que vous possédez sur la parcelle de terrain
+appartenant à [FIRST] [LAST]
+ont été renvoyés dans votre inventaire.
 		</message>
 	</notify>
 	<notify name="OtherObjectsReturned2">
 		<message name="message">
-			Les objets sur la parcelle de terrain appartenant à [NAME] ont étés renvoyés à leur propriétaire.
+			Les objets sur la parcelle de terrain
+appartenant à « [NAME] »
+ont étés renvoyés à leur propriétaire.
 		</message>
 	</notify>
 	<notify name="GroupObjectsReturned">
@@ -395,7 +406,8 @@ Vous ne pouvez pas créer d&apos;objets ici.
 	</notify>
 	<notify name="NoOutsideScripts">
 		<message name="message">
-			Les scripts externes sont désactivés sur ce terrain (« pas de scripts externes »).
+			Les scripts externes sont désactivés sur ce terrain
+(« pas de scripts externes »).
 Aucun script n&apos;est exécuté à part ceux du propriétaire du terrain.
 		</message>
 	</notify>
@@ -480,7 +492,8 @@ Aucun script n&apos;est exécuté à part ceux du propriétaire du terrain.
 	</notify>
 	<notify name="JoinGroupOfficerNoFee">
 		<message name="message">
-			[NAME] vous invite à rejoindre un groupe comme officier.
+			[NAME] vous invite à
+rejoindre un groupe comme officier.
 L&apos;adhésion est gratuite.
  
 [MESSAGE]
@@ -497,7 +510,8 @@ L&apos;adhésion est gratuite.
 	</notify>
 	<notify name="JoinGroupMember">
 		<message name="message">
-			[NAME] vous invite à rejoindre un groupe.
+			[NAME] vous invite à
+rejoindre un groupe.
 L&apos;adhésion coûte [COST] $L.
  
 [MESSAGE]
@@ -514,7 +528,8 @@ L&apos;adhésion coûte [COST] $L.
 	</notify>
 	<notify name="JoinGroupMemberNoFee">
 		<message name="message">
-			[NAME] vous invite à rejoindre un groupe.
+			[NAME] vous invite à
+rejoindre un groupe.
 L&apos;adhésion est gratuite.
  
 [MESSAGE]
@@ -531,7 +546,8 @@ L&apos;adhésion est gratuite.
 	</notify>
 	<notify name="OfferTeleport">
 		<message name="message">
-			[NAME] vous propose de le/la rejoindre par téléportation :
+			[NAME] vous propose de
+le/la rejoindre par téléportation :
  
 [MESSAGE]
 		</message>
@@ -596,7 +612,8 @@ voir quand vous êtes tous deux connectés)
 	<notify name="OfferCallingCard">
 		<message name="message">
 			[FIRST] [FIRST] [LAST] vous offre sa carte de visite.
-Cela ajoute un marque-page dans votre inventaire, ce qui vous permet d&apos;envoyer rapidement un IM à ce résident.
+Cela ajoute un marque-page dans votre inventaire, ce qui
+vous permet d&apos;envoyer rapidement un IM à ce résident.
 		</message>
 		<option name="Accept">
 			Accepter
@@ -768,7 +785,7 @@ Accepter cette requête ?
 	</notify>
 	<notify name="ScriptDialog">
 		<message name="message">
-			[TITLE][FIRST] [LAST] 
+			[TITLE] [FIRST] [LAST] 
 [MESSAGE]
 		</message>
 		<option name="Ignore">

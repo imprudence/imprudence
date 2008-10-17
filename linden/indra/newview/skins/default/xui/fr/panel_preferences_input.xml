@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Entrées et Caméra" name="Input panel">
+<panel label="Entrée et Caméra" name="Input panel">
 	<text type="string" length="1" name=" Mouselook Options:">
 		Vue subjective :
 	</text>

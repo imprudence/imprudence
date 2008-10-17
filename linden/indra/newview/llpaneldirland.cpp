@@ -100,8 +100,6 @@ BOOL LLPanelDirLand::postBuild()
 	if (results)
 	{
 		results->setSortChangedCallback(onClickSort);
-		// primary sort key is mCurrentSortColumn, secondary is name
-		results->sortByColumn("name", TRUE);
 		results->sortByColumn(mCurrentSortColumn,mCurrentSortAscending);
 	}
 

@@ -105,7 +105,7 @@
 		</panel>
 		<panel label="Intérêts" name="Interests">
 			<text left="2" name="I Want To:">
-				J&apos;aimerais :
+				Je veux :
 			</text>
 			<check_box label="Construire" name="chk0" />
 			<check_box label="Explorer" left_delta="160" name="chk1" />

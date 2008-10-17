@@ -10,7 +10,7 @@
 	</text>
 	<check_box label="Envoyer l&apos;IM à une adresse e-mail ([EMAIL])"
 	     name="send_im_to_email" />
-	<check_box label="Inclure les IM dans le chat vocal" name="include_im_in_chat_history" />
+	<check_box label="Inclure les IM dans le chat local" name="include_im_in_chat_history" />
 	<check_box label="Afficher les marques temporelles dans les IM"
 	     name="show_timestamps_check" />
 	<check_box label="Me prévenir quand des amis se connectent"
