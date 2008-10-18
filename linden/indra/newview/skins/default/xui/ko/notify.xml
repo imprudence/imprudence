@@ -1006,7 +1006,7 @@ sculpted prim은 그 형태를 지정하는 특별한 텍스처를 요구합니�
 	</notify>
 	<notify name="ProximalVoiceChannelFull">
 		<message name="message">
-			죄송합니다.  이 영역은 음성 대화 최대 허용 용량에 도달한 상태입니다.  다른 지역에서 음성 사용을 시도하여 주십시요.
+			죄송합니다.  이 영역은 음성 대화 최대 허용 용량에 도달했습니다.  다른 지역에서 음성 사용을 시도해 주십시오.
 		</message>
 	</notify>
 	<notify name="VoiceChannelDisconnected">

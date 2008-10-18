@@ -155,14 +155,28 @@ public:
 	static BOOL isDigit(llwchar a) { return iswdigit(a) != 0; }
 };
 
+/**
+ * @brief Return a string constructed from in without crashing if the
+ * pointer is NULL.
+ */
+std::string ll_safe_string(const char* in);
+std::string ll_safe_string(const char* in, S32 maxlen);
+
+
 // Allowing assignments from non-strings into format_map_t is apparently
 // *really* error-prone, so subclass std::string with just basic c'tors.
-class FormatMapString : public std::string
+class LLFormatMapString
 {
 public:
-	FormatMapString() : std::string() {};
-	FormatMapString(const char* s) : std::string(s) {};
-	FormatMapString(const std::string& s) : std::string(s) {};
+	LLFormatMapString() {};
+	LLFormatMapString(const char* s) : mString(ll_safe_string(s)) {};
+	LLFormatMapString(const std::string& s) : mString(s) {};
+	operator std::string() const { return mString; }
+	bool operator<(const LLFormatMapString& rhs) const { return mString < rhs.mString; }
+	std::size_t length() const { return mString.length(); }
+	
+private:
+	std::string mString;
 };
 
 template <class T>
@@ -177,7 +191,7 @@ public:
 
 	static std::basic_string<T> null;
 	
-	typedef std::map<FormatMapString, FormatMapString> format_map_t;
+	typedef std::map<LLFormatMapString, LLFormatMapString> format_map_t;
 	static S32 format(std::basic_string<T>& s, const format_map_t& fmt_map);
 	
 	static BOOL	isValidIndex(const std::basic_string<T>& string, size_type i)
@@ -310,13 +324,6 @@ inline std::string chop_tail_copy(
 {
 	return std::string(in, 0, in.length() - count);
 }
-
-/**
- * @brief Return a string constructed from in without crashing if the
- * pointer is NULL.
- */
-std::string ll_safe_string(const char* in);
-std::string ll_safe_string(const char* in, S32 maxlen);
 
 /**
  * @brief This translates a nybble stored as a hex value from 0-f back

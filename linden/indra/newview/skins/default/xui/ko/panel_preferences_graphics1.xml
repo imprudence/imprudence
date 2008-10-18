@@ -88,16 +88,15 @@
 	<text name="ShadersPrefText3">
 		높음
 	</text>
-	<text name="ShadersPrefText4">
+	<text name="ShadersPrefText4" left_delta="34" width="60" >
 		매우 높음
 	</text>
-	<text name="HigherText2">
-		더 높게
+	<text name="HigherText2" bottom="-86" left="317">
+		더 높게 품질
 	</text>
 	<text name="QualityText2">
-		품질
 	</text>
-	<check_box label="사용자 크기" name="CustomSettings" />
+	<check_box label="사용자 크기" name="CustomSettings" left="400"  />
 	<text name="ShadersText">
 		쉐이더:
 	</text>

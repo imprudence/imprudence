@@ -1,117 +1,155 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="directory" title="Rechercher">
+<floater name="directory" title="Rechercher dans Second Life">
 	<tab_container name="Directory Tabs">
-		<panel label="Tous" name="all_panel">
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="Name" name="name" />
-				<column label="Price" name="price" />
-				<column label="Time (PDT)" name="date" />
-				<column label="Time" name="time" />
-				<column label="Traffic" name="dwell" />
-				<column label="Area" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
-				<column label="Online" name="online" />
-				<column label="Members" name="members" />
-			</scroll_list>
-			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
-			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
-			<text name="find">
-				Chercher :
-			</text>
-			<button label="Rechercher" label_selected="Rechercher" name="Search" />
-			<check_box label="Inclure contenu adulte" name="incmature" />
+		<panel label="Tout" name="find_all_panel">
+			<string name="searching_text">
+				Recherche en cours...
+			</string>
+			<string name="not_found_text">
+				Aucun résultat.
+			</string>
+			<button label="Précédente" name="back_btn" />
+			<button label="Suivante" name="forward_btn" />
+			<line_editor label="Rechercher" name="search_editor" tool_tip="Rechercher dans Second Life" />
+			<button label="Rechercher" name="search_btn" width="80" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Toute catégorie
+				</combo_item>
+				<combo_item name="Events">
+					Événements
+				</combo_item>
+				<combo_item name="Groups">
+					Groupes
+				</combo_item>
+				<combo_item name="People">
+					Personnes
+				</combo_item>
+				<combo_item name="Places">
+					Endroits
+				</combo_item>
+				<combo_item name="Wiki">
+					Wiki
+				</combo_item>
+			</combo_box>
+			<check_box label="Inclure le contenu pour adultes" name="mature_check" />
+			<string name="loading_text">
+				Chargement en cours...
+			</string>
+			<string name="done_text">
+				Fini
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+			<string name="default_search_page">
+				http://secondlife.com/app/search/index.php?
+			</string>
 		</panel>
 		<panel label="Petites annonces" name="classified_panel">
+			<string name="searching_text">
+				Recherche en cours...
+			</string>
+			<string name="not_found_text">
+				Aucun résultat.
+			</string>
+			<button label="Parcourir" label_selected="Parcourir" name="Browse" />
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Price" name="price" />
+				<column label="Nom" name="name" />
+				<column label="Prix" name="price" />
 			</scroll_list>
-			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
-			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
-			<text name="find">
-				Chercher :
+			<button label="&lt; Préc" label_selected="&lt; Préc" name="&lt; Prev" />
+			<button label="Suivante &gt;" label_selected="Suivante &gt;" name="Next &gt;" />
+			<text name="find" width="63">
+				Trouver :
 			</text>
-			<check_box label="Inclure contenu adulte" name="incmature" />
-			<combo_box name="Category">
+			<line_editor left_delta="51" name="name" width="128" />
+			<check_box label="Inclure le contenu pour adultes" name="incmature" />
+			<combo_box left="195" name="Category">
 				<combo_item name="AnyCategory">
-					Toutes catégories
+					Toute catégorie
 				</combo_item>
 				<combo_item name="Shopping">
 					Shopping
 				</combo_item>
 				<combo_item name="LandRental">
-					Terrains à louer
+					Terrain à louer
 				</combo_item>
 				<combo_item name="PropertyRental">
-					Propriétés à louer
+					Propriété à louer
 				</combo_item>
 				<combo_item name="SpecialAttraction">
-					Spectacles
+					Divertissements spéciaux
 				</combo_item>
 				<combo_item name="NewProducts">
 					Nouveaux produits
 				</combo_item>
 				<combo_item name="Employment">
-					Offres d&apos;emploi
+					Emploi
 				</combo_item>
 				<combo_item name="Wanted">
-					On recherche
+					Offres
 				</combo_item>
 				<combo_item name="Service">
-					Services
+					Service
 				</combo_item>
 				<combo_item name="Personal">
-					Annonces personnelles
+					Rencontres
 				</combo_item>
 			</combo_box>
-			<button label="Rechercher" label_selected="Rechercher" name="Search" />
-			<button label="Passer une annonce..." label_selected="Passer une annonce..."
-			     name="Place an Ad..." />
+			<button label="Rechercher" label_selected="Rechercher" name="Search" width="85" />
+			<button label="Passer une annonce…" label_selected="Passer une annonce…"
+			     name="Place an Ad..." width="135" />
 			<button label="Supprimer" label_selected="Supprimer" name="Delete" />
 		</panel>
-		<panel label="Evénements" name="events_panel">
+		<panel label="Événements" name="events_panel">
+			<string name="searching_text">
+				Recherche en cours...
+			</string>
+			<string name="not_found_text">
+				Aucun résultat.
+			</string>
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Time (PDT)" name="date" />
+				<column label="Nom" name="name" />
+				<column label="Heure (Californie)" name="date" width="115" />
 				<column label="" name="event_id" />
-				<column label="Time" name="time" />
+				<column label="Heure" name="time" />
 			</scroll_list>
-			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
-			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
+			<button label="&lt; Préc" label_selected="&lt; Préc" name="&lt; Prev" />
+			<button label="Suivante &gt;" label_selected="Suivante &gt;" name="Next &gt;" />
 			<radio_group name="date_mode">
 				<radio_item name="current">
-					En cours et à venir
+					En cours et futurs
 				</radio_item>
 				<radio_item name="date">
 					Date
 				</radio_item>
 			</radio_group>
 			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;"
-			     tool_tip="Reculer d&apos;un jour" />
+			     tool_tip="Revenir en arrière d&apos;un jour" />
 			<text name="date_text">
 				6/6
 			</text>
 			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;"
 			     tool_tip="Avancer d&apos;un jour" />
 			<button label="Aujourd&apos;hui" label_selected="Aujourd&apos;hui" name="Today"
-			     tool_tip="Afficher les événements du jour" />
+			     tool_tip="Afficher les événements qui ont lieu aujourd&apos;hui" />
 			<text name="text">
-				Catégorie :
+				Catégorie :
 			</text>
 			<text name="text2">
-				Nom/Desc. :
+				Nom/Descr. :
 			</text>
-			<combo_box name="category combo">
+			<combo_box left="370" name="category combo" width="175">
 				<combo_item name="All">
-					Tous
+					Tout
 				</combo_item>
 				<combo_item name="Discussion">
-					Débats
+					Discussion
 				</combo_item>
 				<combo_item name="Sports">
 					Sports
@@ -120,139 +158,162 @@
 					Musique live
 				</combo_item>
 				<combo_item name="Commercial">
-					Commercial
+					Publicité
 				</combo_item>
 				<combo_item name="Nightlife/Entertainment">
-					Nuit/Divertissement
+					Divertissements/Soirées
 				</combo_item>
 				<combo_item name="Games/Contests">
-					Jeux/Concours
+					Jeux/Compétitions
 				</combo_item>
 				<combo_item name="Pageants">
-					Concours de beauté
+					Concours
 				</combo_item>
 				<combo_item name="Education">
-					Education
+					Éducation
 				</combo_item>
 				<combo_item name="ArtsandCulture">
 					Arts et Culture
 				</combo_item>
 				<combo_item name="Charity/SupportGroups">
-					Groupes caritatifs/de soutien
+					Groupes d&apos;entraide/Caritatif
 				</combo_item>
 				<combo_item name="Miscellaneous">
 					Divers
 				</combo_item>
 			</combo_box>
-			<check_box label="Inclure adulte" name="incmature" />
-			<button label="Rechercher" label_selected="Rechercher" name="Search"
+			<line_editor left="370" name="event_search_text" width="175" />
+			<check_box label="Inclure le contenu &#10;pour adultes" left="551" name="incmature" />
+			<button label="Rechercher" label_selected="Rechercher" left_delta="129" name="Search"
 			     tool_tip="Rechercher" />
 			<button label="Supprimer" label_selected="Supprimer" name="Delete" />
 		</panel>
-		<panel label="Lieux populaires" name="popular_panel">
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Traffic" name="dwell" />
-			</scroll_list>
-			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
-			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
-			<check_box label="N&apos;afficher que les lieux avec photo" name="incpictures" />
-			<check_box label="Inclure lieux situés en zones adultes" name="incmature" />
-			<text
-			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
-				These are the most popular places in the world, as measured by traffic,
-	the amount of time people spend there.
-			</text>
+		<panel label="A la Une" name="showcase_panel">
+			<string name="searching_text">
+				Recherche en cours...
+			</string>
+			<string name="not_found_text">
+				Aucun résultat.
+			</string>
+			<button label="Précédente" name="back_btn" />
+			<button label="Suivante" name="forward_btn" />
+			<string name="loading_text">
+				Chargement en cours...
+			</string>
+			<string name="done_text">
+				Fini
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+			<string name="default_search_page">
+				http://secondlife.com/app/showcase/index.php?
+			</string>
 		</panel>
-		<panel label="Ventes de terrains" name="land_sales_panel">
+		<panel label="Terrains à vendre" name="land_sales_panel">
+			<string name="searching_text">
+				Recherche en cours...
+			</string>
+			<string name="not_found_text">
+				Aucun résultat.
+			</string>
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="L$ Price" name="price" />
-				<column label="Area" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
+				<column label="Nom" name="name" />
+				<column label="Prix en $L" name="price" width="75" />
+				<column label="Surface" name="area" width="65" />
+				<column label="$L/m²" name="per_meter" />
 			</scroll_list>
-			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
-			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
-			<combo_box name="type">
+			<button label="&lt; Préc" label_selected="&lt; Préc" name="&lt; Prev" />
+			<button label="Suivante &gt;" label_selected="Suivante &gt;" name="Next &gt;" />
+			<combo_box name="type" width="150">
 				<combo_item name="AllTypes">
 					Tous types
 				</combo_item>
 				<combo_item name="Auction">
-					Enchères
+					Enchère
 				</combo_item>
-				<combo_item name="ForSale">
-					A vendre
+				<combo_item name="MainlandSales">
+					À vendre - Continent
 				</combo_item>
-				<combo_item name="FirstLand">
-					Premier terrain
+				<combo_item name="EstateSales">
+					À vendre - Domaine
 				</combo_item>
 			</combo_box>
-			<combo_box name="rating">
+			<combo_box name="rating" width="150">
 				<combo_item name="PG&amp;Mature">
-					Tout public et Adulte
+					Public averti et adulte
 				</combo_item>
 				<combo_item name="PGonly">
-					Tout public seulement
+					Public averti uniquement
 				</combo_item>
 				<combo_item name="Matureonly">
-					Adulte uniquement
+					Adultes uniquement
 				</combo_item>
 			</combo_box>
-			<check_box label="Prix (L$)" name="pricecheck" />
-			<check_box label="Surface (m2)" name="areacheck" />
-			<button label="Rechercher" label_selected="Rechercher" name="Search" />
-			<text name="land">
-				Vous pouvez acheter du terrain directement en Linden Dollars (L$) ou aux enchères (L$ ou US$).
-Pour un achat direct, rendez-vous sur le terrain et cliquez le nom du lieu dans la barre de titre.
+			<check_box label="Prix &lt;= $L" left="157" name="pricecheck" />
+			<check_box label="Surface &gt;= m²" left="157" name="areacheck" />
+			<line_editor left="251" name="priceedit" width="50" />
+			<line_editor left="251" name="areaedit" width="50" />
+			<button label="Rechercher" label_selected="Rechercher" left="306" name="Search"
+			     width="85" />
+			<text left="399" name="land" width="379">
+				Les terrains peuvent être achetés directement en dollars Linden (L$) ou
+aux enchères (en $L ou $US). Pour acheter directement, visitez le terrain
+et cliquez sur le nom de l&apos;endroit dans la barre de titre.
 			</text>
 		</panel>
-		<panel label="Lieux" name="places_panel">
+		<panel label="Endroits" name="places_panel">
+			<string name="searching_text">
+				Recherche en cours...
+			</string>
+			<string name="not_found_text">
+				Aucun résultat.
+			</string>
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Traffic" name="dwell" />
+				<column label="Nom" name="name" />
+				<column label="Trafic" name="dwell" />
 			</scroll_list>
-			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
-			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
-			<text name="find">
-				Chercher :
+			<button label="&lt; Préc" label_selected="&lt; Préc" name="&lt; Prev" />
+			<button label="Suivante &gt;" label_selected="Suivante &gt;" name="Next &gt;" />
+			<text name="find" width="63">
+				Trouver :
 			</text>
-			<check_box label="Inclure lieux situés en zones adultes" name="incmature" />
-			<combo_box name="Category">
+			<line_editor left_delta="51" name="name" width="128" />
+			<check_box label="Inclure les parcelles avec du contenu Adultes" name="incmature" />
+			<combo_box left="195" name="Category" width="170">
 				<combo_item name="AnyCategory">
-					Toutes catégories
+					Toute catégorie
 				</combo_item>
 				<combo_item name="LindenLocation">
-					Lieu appartenant aux Linden
+					Emplacement Linden
 				</combo_item>
 				<combo_item name="Adult">
-					Adulte
+					Adultes
 				</combo_item>
 				<combo_item name="Arts&amp;Culture">
-					Arts &amp; Culture
+					Art et Culture
 				</combo_item>
 				<combo_item name="Business">
-					Business
+					Affaires
 				</combo_item>
 				<combo_item name="Educational">
-					Educatif
+					Éducation
 				</combo_item>
 				<combo_item name="Gaming">
-					Gaming
+					Jeux
 				</combo_item>
 				<combo_item name="Hangout">
-					QG
+					Endroit favori
 				</combo_item>
 				<combo_item name="NewcomerFriendly">
-					Nouveaux arrivants bienvenus
+					Convivial pour les nouveaux
 				</combo_item>
 				<combo_item name="Parks&amp;Nature">
-					Parcs &amp; Nature
+					Parcs et Nature
 				</combo_item>
 				<combo_item name="Residential">
 					Résidentiel
@@ -264,36 +325,55 @@ Pour un achat direct, rendez-vous sur le terrain et cliquez le nom du lieu dans 
 					Autre
 				</combo_item>
 			</combo_box>
-			<button label="Rechercher" label_selected="Rechercher" name="Search" />
+			<button label="Rechercher" label_selected="Rechercher" left_delta="178" name="Search"
+			     width="80" />
 		</panel>
 		<panel label="Personnes" name="people_panel">
+			<string name="searching_text">
+				Recherche en cours...
+			</string>
+			<string name="not_found_text">
+				Aucun résultat.
+			</string>
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Online" name="online" />
+				<column label="Nom" name="name" />
 			</scroll_list>
-			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
-			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
-			<text name="find">
-				Chercher :
+			<button label="&lt; Préc" label_selected="&lt; Préc" name="&lt; Prev" />
+			<button label="Suivante &gt;" label_selected="Suivante &gt;" name="Next &gt;" />
+			<text name="find" width="63">
+				Trouver :
 			</text>
-			<check_box label="En ligne" name="online check" />
-			<button label="Rechercher" label_selected="Rechercher" name="Search" />
+			<line_editor left_delta="51" name="name" width="200" />
+			<button label="Rechercher" label_selected="Rechercher" name="Search" width="80" />
 		</panel>
 		<panel label="Groupes" name="groups_panel">
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Members" name="members" />
-			</scroll_list>
 			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
 			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
-			<text name="find">
-				Chercher :
-			</text>
-			<button label="Rechercher" label_selected="Rechercher" name="Search" />
+			<string name="searching_text">
+				Recherche en cours...
+			</string>
+			<string name="not_found_text">
+				Aucun résultat.
+			</string>
+			<button label="Précédente" name="back_btn" />
+			<button label="Suivante" name="forward_btn" />
+			<line_editor label="Rechercher" name="search_editor" tool_tip="Rechercher dans Second Life" />
+			<button label="Rechercher" name="search_btn" width="80" />
+			<check_box label="Inclure le contenu pour adultes" name="mature_check" />
+			<string name="loading_text">
+				Chargement en cours...
+			</string>
+			<string name="done_text">
+				Fini
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+			<string name="default_search_page">
+				http://secondlife.com/app/search/index_groups.php?
+			</string>
 		</panel>
 	</tab_container>
 </floater>

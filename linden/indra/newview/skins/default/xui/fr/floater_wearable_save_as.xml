@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="modal container" title=" ">
+<floater name="modal container">
 	<button label="Enregistrer" label_selected="Enregistrer" name="Save" />
 	<button label="Annuler" label_selected="Annuler" name="Cancel" />
 	<text type="string" length="1" name="Save item as:">
-		Enregistrer élement sous :
+		Enregistrer l&apos;objet sous :
 	</text>
 	<line_editor name="name ed">
 		Nouveau [DESC]

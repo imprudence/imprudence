@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Web" name="web">
+	<radio_group name="use_external_browser">
+		<radio_item name="external"
+		     tool_tip="Utilisez le navigateur web du système pour l&apos;aide, les liens web etc. Déconseillé en mode plein écran.">
+			Utiliser un navigateur web externe (Firefox, Safari, Internet Explorer)
+		</radio_item>
+		<radio_item name="internal"
+		     tool_tip="Utilisez le navigateur web intégré pour l&apos;aide, les liens etc. Ce navigateur s&apos;ouvre dans une nouvelle fenêtre à l&apos;intérieur de Second Life.">
+			Utiliser le navigateur web intégré
+		</radio_item>
+	</radio_group>
+	<text name="cache_size_label_l">
+		Cache du navigateur :
+	</text>
+	<button label="Vider" name="clear_cache" />
+	<text name="cookie_label">
+		Cookies :
+	</text>
+	<check_box label="Accepter les cookies d&apos;autres sites" name="cookies_enabled" />
+	<text name="proxy_label">
+		Web proxy :
+	</text>
+	<check_box label="Activer le Web proxy" name="web_proxy_enabled" />
+	<text name="proxy_text_label">
+		Adresse :
+	</text>
+	<line_editor name="web_proxy_editor"
+	     tool_tip="Le nom ou adresse IP du proxy que vous souhaitez utiliser" left="237" />
+	<spinner label="Numéro de port :" name="web_proxy_port" label_width="95" width="170"/>
+</panel>

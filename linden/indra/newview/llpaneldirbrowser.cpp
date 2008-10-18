@@ -985,8 +985,6 @@ void LLPanelDirBrowser::processDirLandReply(LLMessageSystem *msg, void**)
 	// So figure out the next button here, when we know how many aren't auctions
 	count = self->showNextButton(non_auction_count);
 
-	// Empty string will sort by current sort options.
-	list->sortByColumn(LLStringUtil::null,FALSE);
 	self->updateResultCount();
 
 	// Poke the result received timer

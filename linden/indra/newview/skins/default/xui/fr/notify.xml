@@ -22,60 +22,70 @@
 	</notify>
 	<notify name="ReplacedMissingWearable">
 		<message name="message">
-			Vêtement / Partie du corps manquants remplacés par leur valeur par défaut.
+			Habits et parties du corps manquants remplacés par les éléments par défaut.
 		</message>
 	</notify>
 	<notify name="FriendOnline">
 		<message name="message">
-			[FIRST] [LAST] vient de se connecter
+			[FIRST] [LAST] est connecté(e)
 		</message>
 	</notify>
 	<notify name="FriendOffline">
 		<message name="message">
-			[FIRST] [LAST] vient de se déconnecter
+			[FIRST] [LAST] est déconnecté(e)
+		</message>
+	</notify>
+	<notify name="AddSelfFriend">
+		<message name="message">
+			Vous ne pouvez pas vous ajouter comme ami.
 		</message>
 	</notify>
 	<notify name="UploadingAuctionSnapshot">
 		<message name="message">
-			Upload des instantanés vers Second Life et le web...
-(environ 5 minutes.)
+			Importation de photos SL et Web en cours
+(prend environ 5 minutes…)
+		</message>
+	</notify>
+	<notify name="UploadPayment">
+		<message name="message">
+			Le chargement a coûté [AMOUNT] $L.
 		</message>
 	</notify>
 	<notify name="UploadingSnapshot">
 		<message name="message">
-			Upload de l&apos;instantané vers Second Life...
-(environ 1 mn.)
+			Importation de photo SL en cours
+(prend une à deux minutes…)
 		</message>
 	</notify>
 	<notify name="UploadWebSnapshotDone">
 		<message name="message">
-			Upload de l&apos;instantané vers le web terminé.
+			Photo Web importée
 		</message>
 	</notify>
 	<notify name="UploadSnapshotDone">
 		<message name="message">
-			Upload de l&apos;instantané terminé
+			Photo SL importée
 		</message>
 	</notify>
 	<notify name="TerrainDownloaded">
 		<message name="message">
-			Fichier relief .raw téléchargé.
+			Fichier terrain.raw téléchargé
 		</message>
 	</notify>
 	<notify name="InMaxGroups">
 		<message name="message">
-			Vous appartenez déjà au nombre maximum de groupes autorisé. Vous devrez quitter un groupe avant d&apos;en créer un nouveau.
+			Votre nombre maximum de groupes est atteint. Vous devez quitter un groupe pour pouvoir en créer un nouveau.
 		</message>
 	</notify>
 	<notify name="GestureMissing">
 		<message name="message">
-			Le geste est absent de la base de données.
+			Geste [NAME] absent de la base de données.
 		</message>
 	</notify>
 	<notify name="UnableToLoadGesture">
 		<message name="message">
-			Chargement du geste impossible.
-Veuillez réessayer.
+			Impossible de charger le geste [NAME].
+Merci de réessayer.
 		</message>
 	</notify>
 	<notify name="InventoryLoaded">
@@ -85,35 +95,40 @@ Veuillez réessayer.
 	</notify>
 	<notify name="LandmarkMissing">
 		<message name="message">
-			Repère absent de la base de données
+			Repère absent de la base de données.
 		</message>
 	</notify>
 	<notify name="UnableToLoadLandmark">
 		<message name="message">
-			Chargement du repère impossible.  Veuillez réessayer.
+			Impossible de charger le repère.  Merci de réessayer.
 		</message>
 	</notify>
 	<notify name="CapsKeyOn">
 		<message name="message">
-			Le verrouillage des majuscules est activé.
-Lorsque vous saisissez votre mot de passe,
-pensez à le désactiver.
+			La touche Verr.maj est activée.
+Ce mode modifie le mot de passe que vous
+saisissez, vous devriez le quitter.
 		</message>
 	</notify>
 	<notify name="NotecardMissing">
 		<message name="message">
-			La note est absente de la base de données.
+			Note absente de la base de données.
 		</message>
 	</notify>
 	<notify name="NotecardNoPermissions">
 		<message name="message">
-			Autorisations insuffisantes pour afficher la note.
+			Permissions insuffisantes pour voir la note.
+		</message>
+	</notify>
+	<notify name="RezItemNoPermissions">
+		<message name="message">
+			Permissions insuffisantes pour rezzer l&apos;objet.
 		</message>
 	</notify>
 	<notify name="UnableToLoadNotecard">
 		<message name="message">
-			Chargement de la note impossible.
-Veuillez réessayer.
+			Impossible de charger la note.
+Merci de réessayer.
 		</message>
 	</notify>
 	<notify name="ScriptMissing">
@@ -123,29 +138,29 @@ Veuillez réessayer.
 	</notify>
 	<notify name="ScriptNoPermissions">
 		<message name="message">
-			Autorisations insuffisantes pour afficher le script.
+			Permissions insuffisantes pour voir le script.
 		</message>
 	</notify>
 	<notify name="UnableToLoadScript">
 		<message name="message">
-			Chargement du script impossible. Veuillez réessayer.
+			Impossible de charger le script.  Merci de réessayer.
 		</message>
 	</notify>
 	<notify name="IncompleteInventory">
 		<message name="message">
-			L&apos;intégralité du contenu que vous offrez n&apos;est pas encore
-disponible localement. Veuillez réessayer dans
-une minute.
+			Tous les éléments que vous souhaitez transférer ne
+sont pas encore disponibles sur le serveur.
+Merci d&apos;essayer à nouveau dans une minute.
 		</message>
 	</notify>
 	<notify name="CannotModifyProtectedCategories">
 		<message name="message">
-			Vous ne pouvez modifier des catégories protégées.
+			Vous ne pouvez pas modifier de catégories protégées.
 		</message>
 	</notify>
 	<notify name="CannotRemoveProtectedCategories">
 		<message name="message">
-			Vous ne pouvez retirer des catégories protégées.
+			Vous ne pouvez pas supprimer de catégories protégées.
 		</message>
 	</notify>
 	<notify name="OfferedCard">
@@ -160,20 +175,20 @@ une minute.
 	</notify>
 	<notify name="UnableToBuyWhileDownloading">
 		<message name="message">
-			Achat impossible pendant le rapatriement des données de l&apos;objet.
-Veuillez réessayer.
+			Achat impossible durant le chargement de l&apos;objet.
+Merci de réessayer.
 		</message>
 	</notify>
 	<notify name="UnableToLinkWhileDownloading">
 		<message name="message">
-			Liaison impossible pendant le téléchargement des données de l&apos;objet.
-Veuillez réessayer.
+			Impossible de lier durant le chargement de l&apos;objet.
+Merci de réessayer.
 		</message>
 	</notify>
 	<notify name="CannotBuyObjectsFromDifferentOwners">
 		<message name="message">
-			Vous ne pouvez acheter des objets à plusieurs personnes en même temps.
-Veuillez sélectionner un seul objet.
+			Impossible d&apos;acheter simultanément des objets de
+propriétaires différents. Veuillez sélectionner un seul objet.
 		</message>
 	</notify>
 	<notify name="ObjectNotForSale">
@@ -183,27 +198,27 @@ Veuillez sélectionner un seul objet.
 	</notify>
 	<notify name="EnteringGodMode">
 		<message name="message">
-			Accès au god mode, niveau [LEVEL]
+			Activation du mode admin : niveau [LEVEL]
 		</message>
 	</notify>
 	<notify name="LeavingGodMode">
 		<message name="message">
-			God mode quitté, niveau [LEVEL]
+			Désactivation du mode admin : niveau [LEVEL]
 		</message>
 	</notify>
 	<notify name="CopyFailed">
 		<message name="message">
-			La copie a échoué car vous ne disposez pas des autorisations nécessaires.
+			Copie impossible, permissions insuffisantes.
 		</message>
 	</notify>
 	<notify name="InventoryAccepted">
 		<message name="message">
-			[NAME] a accepté votre offre d&apos;inventaire.
+			[NAME] a accepté votre envoi.
 		</message>
 	</notify>
 	<notify name="InventoryDeclined">
 		<message name="message">
-			[NAME] a refusé votre offre d&apos;inventaire.
+			[NAME] a refusé votre envoi.
 		</message>
 	</notify>
 	<notify name="ObjectMessage">
@@ -213,30 +228,30 @@ Veuillez sélectionner un seul objet.
 	</notify>
 	<notify name="CallingCardAccepted">
 		<message name="message">
-			Carte de visite acceptée.
+			Votre carte de visite a été acceptée.
 		</message>
 	</notify>
 	<notify name="CallingCardDeclined">
 		<message name="message">
-			Carte de visite refusée.
+			Votre carte de visite a été refusée.
 		</message>
 	</notify>
 	<notify name="TeleportToLandmark">
 		<message name="message">
-			Maintenant que vous avez atteint le continent, vous pouvez vous téléporter vers &apos;[NAME]&apos; en cliquant sur le bouton Inventaire situé dans le coin inférieur droit de votre écran, puis sur le dossier Repères.
-Double-cliquez sur le repère et cliquez sur Téléportation pour vous y rendre.
+			A présent que vous êtes sur le continent, vous pouvez voyager par téléportation (vers [NAME] par exemple). Cliquez sur le bouton Inventaire en bas à droite de l&apos;écran puis sélectionnez le dossier Repères (Landmarks). 
+Choisissez un repère, double-cliquez dessus et cliquez sur Téléporter.
 		</message>
 	</notify>
 	<notify name="TeleportToPerson">
 		<message name="message">
-			Maintenant que vous avez atteint le continent, vous pouvez contacter le résident &apos;[NAME]&apos; en cliquant sur le bouton Inventaire situé dans le coin inférieur droit de votre écran, puis sur le dossier Cartes de visite.
-Double-cliquez sur la carte, cliquez sur Message Instantané, et composez un message.
+			A présent que vous êtes sur le continent, vous pouvez contacter des résidents (tel [NAME] par exemple). Cliquez sur le bouton Inventaire en bas à droite de l&apos;écran puis sélectionnez le dossier Cartes de visite (Calling Cards). 
+Choisissez en une, double-cliquez dessus et cliquez sur Message Instantané.
 		</message>
 	</notify>
 	<notify name="CantSelectLandFromMultipleRegions">
 		<message name="message">
-			Impossible de sélectionner un terrain s&apos;étendant sur plusieurs serveurs.
-Veuillez sélectionner une plus petite zone de terrain.
+			Vous ne pouvez pas sélectionner de terrain en dehors des limites du serveur.
+Veuillez sélectionner un terrain plus petit.
 		</message>
 	</notify>
 	<notify name="GenerticNotify">
@@ -246,11 +261,11 @@ Veuillez sélectionner une plus petite zone de terrain.
 	</notify>
 	<notify name="GroupVote">
 		<message name="message">
-			[NAME] propose un vote sur :
+			[NAME] a proposé un vote pour :
 [MESSAGE]
 		</message>
 		<option name="VoteNow">
-			Voter maintenant
+			Voter
 		</option>
 		<option name="Later">
 			Plus tard
@@ -258,11 +273,11 @@ Veuillez sélectionner une plus petite zone de terrain.
 	</notify>
 	<notify name="GroupElection">
 		<message name="message">
-			[NAME] a débuté un vote :
+			[NAME] a ouvert un vote :
 [MESSAGE]
 		</message>
 		<option name="VoteNow">
-			Voter maintenant
+			Voter
 		</option>
 		<option name="Later">
 			Plus tard
@@ -275,13 +290,13 @@ Veuillez sélectionner une plus petite zone de terrain.
 	</notify>
 	<notify name="EventNotification">
 		<message name="message">
-			Notification d&apos;événement :
+			Avis d&apos;événement :
  
 [NAME]
 [DATE]
 		</message>
 		<option name="Teleport">
-			Téléportation
+			Téléporter
 		</option>
 		<option name="Description">
 			Description
@@ -292,113 +307,117 @@ Veuillez sélectionner une plus petite zone de terrain.
 	</notify>
 	<notify name="TransferObjectsHighlighted">
 		<message name="message">
-			Tous les objets de cette parcelle qui seront cédés
-à l&apos;acquéreur de cette parcelle sont mis en surbrillance.
+			Tous les objets sur cette parcelle qui seront
+transférés à l&apos;acheteur sont maintenant mis en surbrillance.
  
-* Les arbres et pelouses transférés ne sont pas mis en surbrillance.
+* Les arbres et la pelouse qui seront transférés ne sont pas mis en surbrillance.
 		</message>
 		<option name="Done">
-			Terminé
+			Transfert effectué
 		</option>
 	</notify>
 	<notify name="DeactivatedGesturesTrigger">
 		<message name="message">
-			Gestes désactivés avec le même déclencheur :
+			Gestes désactivés ayant le même mot-clé :
 [NAMES]
 		</message>
 	</notify>
 	<notify name="InventoryNetworkCorruption">
 		<message name="message">
-			Impossible de charger l&apos;inventaire en raison d&apos;une erreur réseau. Ceci indique une mauvaise connexion au réseau.
+			L&apos;inventaire n&apos;a pas pu être chargé en raison d&apos;un problème réseau. Ceci est le signe d&apos;une mauvaise connexion réseau.
 		</message>
 	</notify>
 	<notify name="NoQuickTime">
 		<message name="message">
-			Le logiciel QuickTime d&apos;Apple semble ne pas être installé sur votre système.
-Si vous souhaitez profiter de la vidéo en streaming sur les parcelles qui le permettent, rendez vous sur le site de QuickTime (http://www.apple.com/quicktime) et installez le player QuickTime.
+			Le logiciel Apple QuickTime ne semble pas installé sur votre système.
+Pour voir les vidéos sur les terrains qui le permettent, allez sur le site de QuickTime (http://www.apple.com/fr/quicktime/download) et installez le lecteur QuickTime.
 		</message>
 	</notify>
 	<notify name="OwnedObjectsReturned">
 		<message name="message">
-			Les objets vous appartenant sur la parcelle sélectionnée 
-ont été réintégrés dans votre inventaire.
+			Les objets que vous possédez sur la parcelle de
+terrain sélectionnée ont été renvoyés dans votre inventaire.
 		</message>
 	</notify>
 	<notify name="OtherObjectsReturned">
 		<message name="message">
-			Les objets sur la parcelle sélectionnée
+			Les objets que vous possédez sur la parcelle de terrain
 appartenant à [FIRST] [LAST]
-ont été renvoyés vers son inventaire.
+ont été renvoyés dans votre inventaire.
 		</message>
 	</notify>
 	<notify name="OtherObjectsReturned2">
 		<message name="message">
-			Les objets sur la parcelle sélectionnée
-appartenant à &apos;[NAME]&apos;
-ont été renvoyés à leur propriétaire.
+			Les objets sur la parcelle de terrain
+appartenant à « [NAME] »
+ont étés renvoyés à leur propriétaire.
 		</message>
 	</notify>
 	<notify name="GroupObjectsReturned">
 		<message name="message">
-			Les objets sur la parcelle sélectionnée partagée par le groupe
-[GROUPNAME] ont été renvoyés vers l&apos;inventaire de leur propriétaire.
-Les objets cessibles transférés ont été renvoyés à leurs propriétaires précédents.
-Les objets non cessibles transférés au groupe ont été supprimés.
+			Les objets sélectionnés sur la parcelle de terrain partagée avec le groupe [GROUPNAME] ont été renvoyés dans l&apos;inventaire de leur propriétaire.
+Les objets donnés transférables ont étés renvoyés à leur propriétaire.
+Les objets non transférables donnés au groupe ont étés supprimés.
 		</message>
 	</notify>
 	<notify name="UnOwnedObjectsReturned">
 		<message name="message">
-			Les objets sur la parcelle sélectionnée qui ne vous appartiennent PAS ont été renvoyés à leurs propriétaires.
+			Les objets sélectionnés sur la parcelle et qui ne sont pas à vous ont été rendus à leurs propriétaires.
 		</message>
 	</notify>
 	<notify name="NotSafe">
 		<message name="message">
-			Les dégâts sont activés sur ce terrain (&apos;not safe&apos;).
-Vous pouvez être blessé(e) ici . Si vous mourez, vous serez téléporté(e) vers votre domicile.
+			Les dégâts sont autorisés sur ce terrain (« non sécurisé »).
+Vous pouvez être blessé ici.  Si vous décédez, vous serez téléporté à votre domicile.
 		</message>
 	</notify>
 	<notify name="NoFly">
 		<message name="message">
-			Le vol est désactivé sur ce terrain (&apos;no fly&apos;).
-Vous ne pouvez voler ici.
+			Le vol est interdit sur ce terrain (« pas de vol »).
+Vous ne pouvez pas voler ici.
 		</message>
 	</notify>
 	<notify name="PushRestricted">
 		<message name="message">
-			Ce terrain n&apos;autorise pas &apos;llPushObject&apos;.
-Vous ne pouvez pousser les autres ici à moins d&apos;être le propriétaire du terrain.
+			Ce terrain est « llPushObject Restricted ».
+Vous ne pouvez pas pousser les autres à moins que vous soyez propriétaire de ce terrain.
+		</message>
+	</notify>
+	<notify name="NoVoice">
+		<message name="message">
+			La voix est désactivée sur ce terrain.
 		</message>
 	</notify>
 	<notify name="NoBuild">
 		<message name="message">
-			La construction est désactivée sur ce terrain (&apos;no build&apos;).
-Vous ne pouvez créer d&apos;objets ici.
+			Le mode construction sur ce terrain est désactivé (« pas de construction »).
+Vous ne pouvez pas créer d&apos;objets ici.
 		</message>
 	</notify>
 	<notify name="ScriptsStopped">
 		<message name="message">
-			Un administrateur a temporairement désactivé les scripts dans cette région.
+			Un administrateur a temporairement stoppé les scripts dans cette région.
 		</message>
 	</notify>
 	<notify name="ScriptsNotRunning">
 		<message name="message">
-			Cette région n&apos;exécute aucun script.
+			Aucun script ne fonctionne dans cette région.
 		</message>
 	</notify>
 	<notify name="NoOutsideScripts">
 		<message name="message">
-			Les scripts extérieurs sont désactivés sur ce terrain.
-(&apos;no outside scripts&apos;).
-Seuls les scripts appartenant au propriétaire du terrain seront activés.
+			Les scripts externes sont désactivés sur ce terrain
+(« pas de scripts externes »).
+Aucun script n&apos;est exécuté à part ceux du propriétaire du terrain.
 		</message>
 	</notify>
 	<notify name="ApproveURL">
 		<message name="message">
-			Un objet souhaite afficher la page web suivante sur sa surface : 
+			Un objet veut afficher une page web sur cette surface :
 [URL]
 		</message>
 		<option name="LoadPage">
-			Charger la Page
+			Charger la page
 		</option>
 		<option name="Don&apos;tLoad">
 			Ne pas charger
@@ -406,18 +425,18 @@ Seuls les scripts appartenant au propriétaire du terrain seront activés.
 	</notify>
 	<notify name="ClaimPublicLand">
 		<message name="message">
-			Vous ne pouvez réclamer de terrain public que dans la région où vous vous trouvez.
+			Vous ne pouvez réclamer qu&apos;un terrain public dans la région où vous vous trouvez actuellement.
 		</message>
 	</notify>
 	<notify name="ObjectGiveItem">
 		<message name="message">
-			Un objet nommé [OBJECTFROMNAME] appartenant à [FIRST] [LAST] vous a donné un [OBJECTTYPE] nommé &apos;[OBJECTNAME]&apos;.
+			Un objet appelé [OBJECTFROMNAME] appartenant à [FIRST] [LAST] vous a donné un [OBJECTTYPE] appelé [OBJECTNAME].
 		</message>
 		<option name="Keep">
 			Garder
 		</option>
 		<option name="Discard">
-			Annuler
+			Jeter
 		</option>
 		<option name="Mute">
 			Ignorer
@@ -425,13 +444,13 @@ Seuls les scripts appartenant au propriétaire du terrain seront activés.
 	</notify>
 	<notify name="ObjectGiveItemUnknownUser">
 		<message name="message">
-			Un objet nommé [OBJECTFROMNAME] appartenant à (un utilisateur inconnu) vous a donné un [OBJECTTYPE] nommé &apos;[OBJECTNAME]&apos;.
+			L&apos;objet [OBJECTFROMNAME] appartenant à un utilisateur inconnu vous a donné un(e) [OBJECTTYPE] nommé(e) [OBJECTNAME].
 		</message>
 		<option name="Keep">
 			Garder
 		</option>
 		<option name="Discard">
-			Annuler
+			Jeter
 		</option>
 		<option name="Mute">
 			Ignorer
@@ -439,13 +458,13 @@ Seuls les scripts appartenant au propriétaire du terrain seront activés.
 	</notify>
 	<notify name="UserGiveItem">
 		<message name="message">
-			[NAME] vous a donné un [OBJECTTYPE] nommé &apos;[OBJECTNAME]&apos;.
+			[NAME] vous a donné un(e) [OBJECTTYPE] nommé(e) [OBJECTNAME].
 		</message>
 		<option name="Keep">
 			Garder
 		</option>
 		<option name="Discard">
-			Annuler
+			Jeter
 		</option>
 		<option name="Mute">
 			Ignorer
@@ -462,66 +481,78 @@ Seuls les scripts appartenant au propriétaire du terrain seront activés.
 			[MESSAGE]
 		</message>
 		<option name="Join">
-			Fusionner
+			Rejoindre
 		</option>
 		<option name="Decline">
-			Décliner
+			Refuser
+		</option>
+		<option name="Info">
+			Infos
 		</option>
 	</notify>
 	<notify name="JoinGroupOfficerNoFee">
 		<message name="message">
-			[NAME] vous invite
-à rejoindre un groupe comme Officer.
-L&apos;inscription à ce groupe est gratuite.
+			[NAME] vous invite à
+rejoindre un groupe comme officier.
+L&apos;adhésion est gratuite.
  
 [MESSAGE]
 		</message>
 		<option name="Join">
-			Fusionner
+			Rejoindre
 		</option>
 		<option name="Decline">
-			Décliner
+			Refuser
+		</option>
+		<option name="Info">
+			Infos
 		</option>
 	</notify>
 	<notify name="JoinGroupMember">
 		<message name="message">
-			[NAME] vous invite
-à devenir membre d&apos;un groupe.
-L&apos;inscription à ce groupe coûte L$[COST]
+			[NAME] vous invite à
+rejoindre un groupe.
+L&apos;adhésion coûte [COST] $L.
  
 [MESSAGE]
 		</message>
 		<option name="Join">
-			Fusionner
+			Rejoindre
 		</option>
 		<option name="Decline">
-			Décliner
+			Refuser
+		</option>
+		<option name="Info">
+			Infos
 		</option>
 	</notify>
 	<notify name="JoinGroupMemberNoFee">
 		<message name="message">
-			[NAME] vous invite
-à devenir membre d&apos;un groupe.
-L&apos;inscription à ce groupe est gratuite.
+			[NAME] vous invite à
+rejoindre un groupe.
+L&apos;adhésion est gratuite.
  
 [MESSAGE]
 		</message>
 		<option name="Join">
-			Fusionner
+			Rejoindre
 		</option>
 		<option name="Decline">
-			Décliner
+			Refuser
+		</option>
+		<option name="Info">
+			Infos
 		</option>
 	</notify>
 	<notify name="OfferTeleport">
 		<message name="message">
-			[NAME] vous propose de le ou la rejoindre
-par téléportation :
+			[NAME] vous propose de
+le/la rejoindre par téléportation :
  
 [MESSAGE]
 		</message>
 		<option name="Teleport">
-			Téléportation
+			Téléporter
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -536,69 +567,83 @@ par téléportation :
 			Plus tard
 		</option>
 		<option name="GoNow...">
-			S&apos;y rendre maintenant
+			Y aller maintenant...
 		</option>
 	</notify>
 	<notify name="OfferFriendship">
 		<message name="message">
-			[NAME] vous propose de devenir son ami(e).
+			[NAME] vous demande de devenir son ami(e).
  
-Vous pourrez vous localiser mutuellement
-sur la carte et serez prévenu(e) de sa présence
-en ligne.
+[MESSAGE]
+ 
+(Par défaut, vous pourrez voir chacun si l&apos;autre est connecté.)
 		</message>
 		<option name="Accept">
 			Accepter
 		</option>
 		<option name="Decline">
-			Décliner
+			Refuser
+		</option>
+	</notify>
+	<notify name="OfferFriendshipNoMessage">
+		<message name="message">
+			[NAME] vous demande de devenir son ami.
+
+(Par défaut, vous pourrez 
+voir quand vous êtes tous deux connectés)
+		</message>
+		<option name="Accept">
+			Accepter
+		</option>
+		<option name="Decline">
+			Refuser
 		</option>
 	</notify>
 	<notify name="FriendshipAccepted">
 		<message name="message">
-			[NAME] a accepté de devenir votre ami(e).
+			[NAME] a accepté votre amitié.
 		</message>
 	</notify>
 	<notify name="FriendshipDeclined">
 		<message name="message">
-			[NAME] a refusé de devenir votre ami(e).
+			[NAME] a refusé votre amitié.
 		</message>
 	</notify>
 	<notify name="OfferCallingCard">
 		<message name="message">
-			[FIRST] [LAST] vous offre sa carte de visite.
-Elle apparaîtra dans votre inventaire
-et vous permettra d&apos;envoyer des IM rapides à ce résident.
+			[FIRST] [FIRST] [LAST] vous offre sa carte de visite.
+Cela ajoute un marque-page dans votre inventaire, ce qui
+vous permet d&apos;envoyer rapidement un IM à ce résident.
 		</message>
 		<option name="Accept">
 			Accepter
 		</option>
 		<option name="Decline">
-			Décliner
+			Refuser
 		</option>
 	</notify>
 	<notify name="RegionRestartMinutes">
 		<message name="message">
 			La région va redémarrer dans [MINUTES] minutes.
-Si vous restez dans la région, vous serez déconnecté(e).
+Si vous restez dans cette région, vous serez déconnecté.
 		</message>
 	</notify>
 	<notify name="RegionRestartSeconds">
 		<message name="message">
-			La région va redémarrer dans [SECONDS] seconds.
-Si vous restez dans la région, vous serez déconnecté(e).
+			La région va redémarrer dans [SECONDS] secondes.
+Si vous restez dans cette région, vous serez déconnecté.
 		</message>
 	</notify>
 	<notify name="LoadWebPage">
 		<message name="message">
-			Charger la page web [URL]?
+			Charger cette page web [URL] ?
  
 [MESSAGE]
  
-De l&apos;objet : [OBJECTNAME], appartenant à : [NAME]?
+Venant de l&apos;objet :  [OBJECTNAME], appartenant à :  [NAME]?
 		</message>
 		<option name="Gotopage">
-			Aller à la page
+			Aller sur cette page
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -606,87 +651,93 @@ De l&apos;objet : [OBJECTNAME], appartenant à : [NAME]?
 	</notify>
 	<notify name="FailedToLoadWearableUnnamed">
 		<message name="message">
-			Impossible de charger le [TYPE].
-Veuillez prévenir le vendeur à qui vous avez acheté cet article.
+			Oups !
+Vous avez tenté de porter un(e) [TYPE] dont le chargement à échoué.
+
+Pas de panique.
+Réessayez dans une minute le temps de résoudre le problème.
 		</message>
 	</notify>
 	<notify name="FailedToLoadWearable">
 		<message name="message">
-			Impossible de charger le [TYPE] intitulé [DESC].
-Veuillez prévenir le vendeur à qui vous avez acheté cet article.
+			Oups !
+Vous avez tenté de porter un(e) [TYPE] nommé(e) [DESC] dont le chargement à échoué.
+
+Pas de panique.
+Réessayez dans une minute le temps de résoudre le problème.
 		</message>
 	</notify>
 	<notify name="FailedToFindWearableUnnamed">
 		<message name="message">
-			Impossible de trouver le [TYPE] dans la base de données.
+			La recherche du [TYPE] dans la base de données a échoué.
 		</message>
 	</notify>
 	<notify name="FailedToFindWearable">
 		<message name="message">
-			Impossible de trouver le [TYPE] intitulé [DESC] dans la base de données.
+			La recherche du [TYPE] nommé(e) [DESC] dans la base de données a échoué.
 		</message>
 	</notify>
 	<notify name="ScriptTakeMoney">
 		<message name="message">
-			Vous prendre des Linden Dollars (L$)
+			Débite vos dollars Linden ($L)
 		</message>
 	</notify>
 	<notify name="ActOnControlInputs">
 		<message name="message">
-			Agissez sur vos contrôles
+			Utilise vos touches de commandes
 		</message>
 	</notify>
 	<notify name="RemapControlInputs">
 		<message name="message">
-			Réaffecter vos contrôles
+			Reconfigure vos touches de commandes
 		</message>
 	</notify>
 	<notify name="AnimateYourAvatar">
 		<message name="message">
-			Animez votre avatar
+			Anime votre avatar
 		</message>
 	</notify>
 	<notify name="AttachToYourAvatar">
 		<message name="message">
-			Attacher à votre avatar
+			Attache des éléments à votre avatar
 		</message>
 	</notify>
 	<notify name="ReleaseOwnership">
 		<message name="message">
-			Céder la propriété et devenir public
+			Passe l&apos;objet dans le domaine public (sans propriétaire)
 		</message>
 	</notify>
 	<notify name="LinkAndDelink">
 		<message name="message">
-			Lier et délier avec d&apos;autres objets
+			Lie et délie d&apos;autres objets
 		</message>
 	</notify>
 	<notify name="AddAndRemoveJoints">
 		<message name="message">
-			Ajouter et retirer des joints avec d&apos;autres objets
+			Créer et supprimer des liens avec d&apos;autres objets
 		</message>
 	</notify>
 	<notify name="ChangePermissions">
 		<message name="message">
-			Modifier ses autorisations
+			Modifier ses permissions
 		</message>
 	</notify>
 	<notify name="TrackYourCamera">
 		<message name="message">
-			Suivi de la caméra
+			Suit votre caméra
 		</message>
 	</notify>
 	<notify name="ControlYourCamera">
 		<message name="message">
-			Contrôlez votre caméra
+			Contrôle votre caméra
 		</message>
 	</notify>
 	<notify name="ScriptQuestion">
 		<message name="message">
-			&apos;[OBJECTNAME]&apos;, un objet appartenant à &apos;[NAME]&apos;, souhaiterait :
+			&apos;[OBJECTNAME]&apos;, un objet appartenant à &apos;[NAME]&apos;, aimerait :
  
 [QUESTIONS]
-Etes-vous d&apos;accord ?
+Acceptez-vous ?
 		</message>
 		<option name="Yes">
 			Oui
@@ -694,10 +745,47 @@ Etes-vous d&apos;accord ?
 		<option name="No">
 			Non
 		</option>
+		<option name="Mute">
+			Ignorer
+		</option>
+	</notify>
+	<notify name="ScriptQuestionCautionChatGranted">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, un objet appartenant à &apos;[OWNERNAME]&apos;, situé dans [REGIONNAME] à [REGIONPOS], a reçu la permission de : [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCautionChatDenied">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, un objet appartenant à &apos;[OWNERNAME]&apos;, situé dans [REGIONNAME] à [REGIONPOS], n&apos;a pas reçu la permission de : [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCautionWarn">
+		<message name="message">
+			Un objet demande la permission de prélever des dollars Linden ($L) sur votre compte.
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCaution">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, un objet appartenant à &apos;[NAME]&apos;, aimerait :
+ 
+[QUESTIONS]
+Si vous n&apos;avez pas confiance en cet objet ni en son créateur, vous devriez refuser cette requête. Pour plus d&apos;informations, cliquez sur le bouton Détails.
+
+Accepter cette requête ?
+		</message>
+		<option name="Grant">
+			Accepter
+		</option>
+		<option name="Deny">
+			Refuser
+		</option>
+		<option name="Details">
+			Détails...
+		</option>
 	</notify>
 	<notify name="ScriptDialog">
 		<message name="message">
-			[TITLE]&apos; de [FIRST] [LAST]
+			[TITLE] [FIRST] [LAST] 
 [MESSAGE]
 		</message>
 		<option name="Ignore">
@@ -706,7 +794,7 @@ Etes-vous d&apos;accord ?
 	</notify>
 	<notify name="ScriptDialogGroup">
 		<message name="message">
-			[TITLE]&apos; de [GROUPNAME]
+			[TITLE] de [GROUPNAME]
 [MESSAGE]
 		</message>
 		<option name="Ignore">
@@ -715,97 +803,263 @@ Etes-vous d&apos;accord ?
 	</notify>
 	<notify name="FirstBalanceIncrease">
 		<message name="message">
-			Vous avez reçu L$[AMOUNT].
-Des objets et d&apos;autres utilisateurs peuvent vous donner des L$.
-Votre solde est affiché dans le coin
-supérieur droit de l&apos;écran.
+			Vous venez de recevoir [AMOUNT] $L.
+Des objets et des utilisateurs peuvent vous donner des $L.
+Votre solde est affiché dans le coin en haut à droite de l&apos;écran.
 		</message>
 	</notify>
 	<notify name="FirstBalanceDecrease">
 		<message name="message">
-			Vous avez payé L$[AMOUNT].
-Votre solde est affiché dans le coin
-supérieur droit de l&apos;écran.
+			Vous venez de payer [AMOUNT] $L.
+Votre solde est affiché dans le coin en haut à droite de l&apos;écran.
 		</message>
 	</notify>
 	<notify name="FirstSit">
 		<message name="message">
 			Vous êtes assis(e).
-Utilisez les touches de direction (ou AWSD) pour changer de vue.
-Cliquez sur le bouton &apos;Se lever&apos; pour vous lever.
+Utilisez les touches de direction (ou AWSD) pour changer la vue.
+Pour vous lever, cliquez sur le bouton Me lever.
 		</message>
 	</notify>
 	<notify name="FirstMap">
 		<message name="message">
-			Cliquez et glissez pour faire défiler la carte .
+			Cliquez et faîtes glisser pour faire défiler la carte.
 Double-cliquez pour vous téléporter.
-Utilisez les contrôles situés sur la droite pour rechercher des choses
-et afficher des fonds différents.
+Utilisez les contrôles à droite pour trouver des choses et afficher différents arrière-plans.
 		</message>
 	</notify>
 	<notify name="FirstBuild">
 		<message name="message">
-			Vous pouvez construire de nouveaux objets dans certaines zones de [SECOND_LIFE].
-Utilisez les outils de construction en haut à gauche, et essayez 
-de maintenir les touches Ctrl ou Alt enfoncées pour passer rapidement d&apos;un outil à l&apos;autre.
-Appuyez sur Esc pour arrêter de construire.
+			Vous pouvez construire des objets dans certaines zones de [SECOND_LIFE].
+Utilisez les outils en haut à gauche pour construire, et gardez la touche Ctrl ou Alt enfoncée pour passer rapidement d&apos;un outil à l&apos;autre.
+Appuyez sur la touche Esc pour arrêter de construire.
 		</message>
 	</notify>
 	<notify name="FirstLeftClickNoHit">
 		<message name="message">
-			Le clic-gauche permet une interaction avec des objets spéciaux. 
-Si le pointeur de la souris se transforme en main, 
-vous pouvez interagir avec l&apos;objet.  
-Le clic-droit fait toujours apparaître un menu d&apos;actions possibles.
+			Cliquer à gauche permet d&apos;interagir avec certains objets. 
+Si le pointeur de la souris se transforme en main, vous pouvez interagir avec l&apos;objet. 
+Cliquer à droite fait toujours apparaître un menu des choses que vous pouvez faire.
 		</message>
 	</notify>
 	<notify name="FirstTeleport">
 		<message name="message">
-			Vous venez de vous téléporter. 
-Vous êtes au Point Info le plus proche de votre destination.
-Votre destination est indiquée par une balise lumineuse rouge.
+			Cette région n&apos;autorise pas la téléportation de point à point. Vous avez donc été transporté au téléhub le plus proche.  
+Votre destination est marquée par une grande balise. 
+Suivez la flèche rouge vers la balise ou cliquez sur la flèche pour faire disparaître la balise.
 		</message>
 	</notify>
 	<notify name="FirstOverrideKeys">
 		<message name="message">
-			Vos touches de déplacement sont désormais contrôlées par un objet.  
-Essayez d&apos;utiliser les touches de direction ou AWSD.  
-Certains objets (comme les armes) nécessitent de passer en mode Mouselook pour être utilisés. 
-Appuyez sur &apos;M&apos; pour cela.
+			Vos mouvements sont maintenant pris en charge par un objet. 
+Essayez les flèches de votre clavier ou AWSD pour voir à quoi elles servent. 
+Certains objets (comme les armes) nécessitent l&apos;activation du mode Vue subjective pour être utilisés. 
+Pour cela, appuyez sur la touche M.
 		</message>
 	</notify>
 	<notify name="FirstAppearance">
 		<message name="message">
-			Vous êtes en train de modifier votre apparence.  
-Utilisez les touches de direction pour pivoter et zoomer. 
-Lorsque vous avez terminé, appuyez sur &apos;Tout enregistrer&apos; 
-pour sauvegarder votre look et revenir à l&apos;écran principal.  
+			Vous êtes en train d&apos;éditer votre apparence. 
+Pour tourner et zoomer, utilisez les flèches de direction. 
+Lorsque vous avez terminé, appuyez sur Enregistrer tout pour sauvegarder votre apparence et sortir. 
 Vous pouvez modifier votre apparence aussi souvent que vous le souhaitez.
 		</message>
 	</notify>
 	<notify name="FirstInventory">
 		<message name="message">
-			Ceci est votre inventaire. Il contient les objets, notes, vêtements et autres éléments vous appartenant.
-* Pour porter un objet ou un dossier de tenue, glissez/déposez-le sur vous-même. 
-* Pour matérialiser un objet dans le monde, glissez/déposez-le au sol.
-* Pour lire une note, double-cliquez dessus.
+			Il s&apos;agit de votre inventaire qui contient des objets, notes, vêtements, et autres choses que vous possédez. 
+* Pour porter un objet ou le dossier contenant un ensemble complet, faites-le glisser sur vous-même.
+* Pour mettre un objet dans le monde, faites-le glisser sur le sol.
+* Pour lire une notice, double-cliquez dessus.
 		</message>
 	</notify>
 	<notify name="FirstSandbox">
 		<message name="message">
-			Ceci est une région de construction temporaire (bac à sable).
-Les objets que vous construisez ici peuvent être supprimés
-lorsque vous quittez la zone. La région est automatiquement nettoyée 
-toutes les [HOURS] heures à partir de [TIME] PST.
+			Cette région est un bac à sable.
+Les objets que vous construisez ici peuvent être supprimés quand vous partez. Les bacs à sable sont nettoyés régulièrement, veuillez lire les informations en haut de l&apos;écran à côté du nom de la région.
  
-Les bacs à sable sont rares, et signalés par des panneaux.
+Les régions bacs à sable sont rares et sont signalées par des panneaux.
 		</message>
 	</notify>
 	<notify name="FirstFlexible">
 		<message name="message">
 			Cet objet est flexible. 
-Les objets flexibles peuvent ne pas être physiques et doivent rester fantômes 
-jusqu&apos;à ce que la case flexible soit cochée.
+Les objets flexibles ne peuvent pas avoir de propriétés physiques et doivent rester fantômes jusqu&apos;à ce que la case Fantôme soit décochée.
+		</message>
+	</notify>
+	<notify name="FirstDebugMenus">
+		<message name="message">
+			Vous avez activé le menu Avancé. 
+Ce menu contient des fonctionnalités utiles pour les développeurs qui travaillent sur Second Life.
+Pour activer/désactiver ce menu sous Windows, appuyez sur Ctrl-Alt-D. Sur un Mac, appuyez sur Cmd-Opt-Maj-D
+		</message>
+	</notify>
+	<notify name="FirstSculptedPrim">
+		<message name="message">
+			Vous êtes en train d&apos;éditer un prim sculpté.  
+Pour spécifier la forme d&apos;un prim sculpté, vous devez utiliser une texture spécifique.  
+Vous trouverez des exemples de textures sculptées dans la bibliothèque de l&apos;inventaire.
+		</message>
+	</notify>
+	<notify name="FirstMedia">
+		<message name="message">
+			Vous avez lancé la lecture d&apos;un média. Dans le menu Préférences, à l&apos;onglet Audio/Vidéo, vous pouvez choisir de lire automatiquement les médias. Notez que cela peut être risqué lorsque les médias viennent de sites que vous ne connaissez pas.
+		</message>
+	</notify>
+	<notify name="MaxListSelectMessage">
+		<message name="message">
+			Vous ne pouvez sélectionner que [MAX_SELECT] objets maximum
+dans cette liste.
+		</message>
+	</notify>
+	<notify name="VoiceInviteP2P">
+		<message name="message">
+			[NAME] vous invite à un chat vocal. 
+Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignorer cette personne, cliquez sur Ignorer.
+		</message>
+		<option name="Accept">
+			Accepter
+		</option>
+		<option name="Decline">
+			Refuser
+		</option>
+		<option name="Mute">
+			Ignorer
+		</option>
+	</notify>
+	<notify name="AutoUnmuteByIM">
+		<message name="message">
+			[FIRST] [LAST] a reçu un message instantané et n&apos;est donc plus ignoré.
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByMoney">
+		<message name="message">
+			[FIRST] [LAST] a reçu de l&apos;argent et n&apos;est donc plus ignoré.
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByInventory">
+		<message name="message">
+			[FIRST] [LAST] a reçu un inventaire et n&apos;est donc plus ignoré.
+		</message>
+	</notify>
+	<notify name="VoiceInviteGroup">
+		<message name="message">
+			[NAME] a rejoint un chat oral avec le groupe [GROUP]. 
+Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignorer cette personne, cliquez sur Ignorer.
+		</message>
+		<option name="Accept">
+			Accepter
+		</option>
+		<option name="Decline">
+			Refuser
+		</option>
+		<option name="Mute">
+			Ignorer
+		</option>
+	</notify>
+	<notify name="VoiceInviteAdHoc">
+		<message name="message">
+			[NAME] a rejoint un chat vocal avec conférence. 
+Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignorer cet utilisateur, cliquez sur Ignorer.
+		</message>
+		<option name="Accept">
+			Accepter
+		</option>
+		<option name="Decline">
+			Refuser
+		</option>
+		<option name="Mute">
+			Ignorer
+		</option>
+	</notify>
+	<notify name="InviteAdHoc">
+		<message name="message">
+			[NAME] vous invite à un chat conférence. 
+Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignorer cet utilisateur, cliquez sur Ignorer.
+		</message>
+		<option name="Accept">
+			Accepter
+		</option>
+		<option name="Decline">
+			Refuser
+		</option>
+		<option name="Mute">
+			Ignorer
+		</option>
+	</notify>
+	<notify name="VoiceChannelFull">
+		<message name="message">
+			L&apos;appel auquel vous essayez de participer, [VOICE_CHANNEL_NAME], a atteint le nombre maximum de participants. Veuillez réessayer ultérieurement.
+		</message>
+	</notify>
+	<notify name="ProximalVoiceChannelFull">
+		<message name="message">
+			Nous sommes désolés.  Le nombre maximum de conversations orales a été atteint dans cette zone.  Veuillez trouver un autre endroit pour discuter.
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnected">
+		<message name="message">
+			Vous avez été déconnecté(e) de [VOICE_CHANNEL_NAME]. Vous allez maintenant être reconnecté au chat vocal spatial.
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnectedP2P">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] a mis fin à l&apos;appel. Vous allez maintenant être reconnecté au chat vocal spatial.
+		</message>
+	</notify>
+	<notify name="P2PCallDeclined">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] a refusé votre appel. Vous allez maintenant être reconnecté au chat vocal spatial.
+		</message>
+	</notify>
+	<notify name="P2PCallNoAnswer">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] ne peut pas prendre votre appel. Vous allez maintenant être reconnecté au chat vocal spatial.
+		</message>
+	</notify>
+	<notify name="VoiceChannelJoinFailed">
+		<message name="message">
+			Echec de la connexion avec [VOICE_CHANNEL_NAME], veuillez réessayer ultérieurement. Vous allez maintenant être reconnecté au chat vocal spatial.
+		</message>
+	</notify>
+	<notify name="VoiceLoginRetry">
+		<message name="message">
+			Nous sommes en train de créer un canal vocal pour vous. Veuillez patienter quelques instants.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: not a group member">
+		<message name="message">
+			Vous ne pouvez pas pénétrer sur ce terrain car vous n&apos;êtes pas membre du groupe adéquat.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: banned">
+		<message name="message">
+			Vous ne pouvez pas pénétrer sur ce terrain car l&apos;accès vous y est interdit.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: not on access list">
+		<message name="message">
+			Vous ne pouvez pas pénétrer sur ce terrain car vous n&apos;avez pas les droits d&apos;accès requis.
+		</message>
+	</notify>
+	<notify name="VoiceNotAllowed">
+		<message name="message">
+			Vous n&apos;êtes pas autorisé à vous connecter au chat oral pour [VOICE_CHANNEL_NAME].
+		</message>
+	</notify>
+	<notify name="VoiceCallGenericError">
+		<message name="message">
+			Une erreur est survenue pendant la connexion au chat vocal pour [VOICE_CHANNEL_NAME]. Veuillez réessayer ultérieurement.
+		</message>
+	</notify>
+	<notify name="ServerVersionChanged">
+		<message name="message">
+			La région dans laquelle vous avez pénétré utilise une version de simulateur différente. Pour plus de détails, cliquez sur ce message.
+		</message>
+	</notify>
+	<notify name="UnableToOpenCommandURL">
+		<message name="message">
+			L&apos;URL sur laquelle vous avez cliqué ne peut pas être ouverte dans ce navigateur.
 		</message>
 	</notify>
 </notifications>

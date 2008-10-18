@@ -21,12 +21,11 @@
 	<string name="default_text_label">
 		ここをクリックしてIM
 	</string>
-	<button label="プロフィール..." name="profile_callee_btn" />
-	<button label="コール" name="start_call_btn" />
-	<button label="呼出終了" name="end_call_btn" />
-	<panel name="speaker_controls">
-		<check_box label="ボイスチャットをミュート" name="mute_btn"
-		     tool_tip="ボイスをミュート(消声)" />
+	<button label="プロフィール..." name="profile_callee_btn"  width="100"/>
+	<button label="コール" name="start_call_btn"  left_delta="105" width="100"/>
+	<button label="呼出終了" name="end_call_btn" width="100" />
+	<panel name="speaker_controls" left_delta="96">
+		<check_box name="mute_btn" tool_tip="ボイスをミュート(消声)" />
 	</panel>
 	<line_editor label="IMを開始するには、ここをクリックします。"
 	     name="chat_editor" />

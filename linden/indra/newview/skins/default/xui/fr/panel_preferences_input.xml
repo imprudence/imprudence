@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Saisie &amp; Caméra" name="Input panel">
+<panel label="Entrée et Caméra" name="Input panel">
 	<text type="string" length="1" name=" Mouselook Options:">
-		Options Mouselook :
+		Vue subjective :
 	</text>
 	<text type="string" length="1" name=" Mouse Sensitivity:">
 		Sensibilité de la souris :
@@ -10,17 +10,35 @@
 		Vol automatique :
 	</text>
 	<text type="string" length="1" name=" Camera Options:">
-		Options de caméra :
+		Options de la caméra :
 	</text>
 	<text type="string" length="1" name="Camera Springiness:">
 		Réactivité :
 	</text>
-	<check_box label="Souris inversée" name="invert mouse" />
-	<check_box label="Voler/atterrir en maintenant Pg. Préc./Pg. Suiv." name="automatic fly" />
-	<check_box label="Ajustement automatique de la caméra en mode Edition"
+	<check_box label="Inverser la souris" name="invert mouse" />
+	<check_box label="Voler/atterrir en appuyant sur la flèche du haut/bas"
+	     name="automatic fly" />
+	<text name="Camera Follow Distance:">
+		Distance de la caméra :
+	</text>
+	<text name="Camera Transition Time:">
+		Temps de transition :
+	</text>
+	<text name="Camera Smoothing:">
+		Effet de lissage :
+	</text>
+	<check_box label="Ajustement automatique de la caméra en mode Édition"
 	     name="edit camera movement"
-	     tool_tip="Ajuste automatiquement la caméra en entrée et sortie de mode Edition" />
+	     tool_tip="Positionner automatiquement la caméra lors de l&apos;entrée ou de la sortie du mode Édition" />
 	<check_box label="Ajustement automatique de la caméra en mode Apparence"
 	     name="appearance camera movement"
-	     tool_tip="Ajuste automatiquement la caméra en mode Edition" />
+	     tool_tip="Positionner automatiquement la caméra en mode Édition" />
+	<text name="text2">
+		Affichage de l&apos;avatar :
+	</text>
+	<check_box label="Montrer l&apos;avatar dans la vue subjective" name="avfp" />
+	<text name="text5">
+		Options du joystick :
+	</text>
+	<button label="Configuration du joystick" name="joystic_setup_button" width="175" />
 </panel>

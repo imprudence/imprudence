@@ -55,8 +55,13 @@ extern void AddNewDebugConsoleToLCD(const LLWString &newLine);
 LLConsole* gConsole = NULL;  // Created and destroyed in LLViewerWindow.
 
 const F32 FADE_DURATION = 2.f;
-const S32 MIN_CONSOLE_WIDTH = 200;
- 
+const S32 MIN_CONSOLE_WIDTH = 50;
+
+// Why don't these match?
+const S32 CONSOLE_GUTTER_LEFT = 14;
+const S32 CONSOLE_GUTTER_RIGHT = 15;
+
+
 LLConsole::LLConsole(const std::string& name, const U32 max_lines, const LLRect &rect, 
 					 S32 font_size_index, F32 persist_time ) 
 	: 
@@ -78,7 +83,7 @@ void LLConsole::setLinePersistTime(F32 seconds)
 
 void LLConsole::reshape(S32 width, S32 height, BOOL called_from_parent)
 {
-	S32 new_width = llmax(50, llmin(getRect().getWidth(), gViewerWindow->getWindowWidth()));
+	S32 new_width = llmax(MIN_CONSOLE_WIDTH, llmin(getRect().getWidth(), gViewerWindow->getWindowWidth()));
 	S32 new_height = llmax(llfloor(mFont->getLineHeight()) + 15, llmin(getRect().getHeight(), gViewerWindow->getWindowHeight()));
 
 	if (   mConsoleWidth == new_width
@@ -185,15 +190,19 @@ void LLConsole::draw()
 	for(paragraph_it = mParagraphs.rbegin(); paragraph_it != mParagraphs.rend(); paragraph_it++)
 	{
 		S32 target_height = llfloor( (*paragraph_it).mLines.size() * line_height + message_spacing);
-		S32 target_width =  llfloor( (*paragraph_it).mMaxWidth +15);
+		S32 target_width =  llfloor( (*paragraph_it).mMaxWidth + CONSOLE_GUTTER_RIGHT);
 		
 		bkg_height+= target_height;
-		if (target_width > bkg_width) bkg_width=target_width;
+		if (target_width > bkg_width)
+		{
+			bkg_width=target_width;
+		}
 
+		// Why is this not using llfloor as above?
 		y_pos += ((*paragraph_it).mLines.size()) * line_height;
-		y_pos  += message_spacing;  //Extra spacing between messages.
+		y_pos += message_spacing;  //Extra spacing between messages.
 	}
-	imagep->drawSolid(-14, (S32)(y_pos + line_height - bkg_height - message_spacing), bkg_width, bkg_height, color);
+	imagep->drawSolid(-CONSOLE_GUTTER_LEFT, (S32)(y_pos + line_height - bkg_height - message_spacing), bkg_width, bkg_height, color);
 	y_pos = 0.f;
 //End screen-eating black void
 
@@ -201,7 +210,7 @@ void LLConsole::draw()
 	{
 //080813 Spatters:  Dainty per-message block boxes
 //		S32 target_height = llfloor( (*paragraph_it).mLines.size() * line_height + 8);
-		S32 target_width =  llfloor( (*paragraph_it).mMaxWidth +15);
+		S32 target_width =  llfloor( (*paragraph_it).mMaxWidth + CONSOLE_GUTTER_RIGHT);
 
 		y_pos += ((*paragraph_it).mLines.size()) * line_height;
 //080813 Spatters:  Dainty per-message block boxes
@@ -325,22 +334,21 @@ void LLConsole::Paragraph::updateLines(F32 screen_width, LLFontGL* font, bool fo
 	// Wrap lines that are longer than the view is wide.
 	while( paragraph_offset < (S32)mParagraphText.length() )
 	{
-		S32 skip_chars; // skip '\n'
+		bool found_newline = false; // skip '\n'
 		// Figure out if a word-wrapped line fits here.
 		LLWString::size_type line_end = mParagraphText.find_first_of(llwchar('\n'), paragraph_offset);
 		if (line_end != LLWString::npos)
 		{
-			skip_chars = 1; // skip '\n'
+			found_newline = true; // skip '\n'
 		}
 		else
 		{
 			line_end = mParagraphText.size();
-			skip_chars = 0;
 		}
 
 		U32 drawable = font->maxDrawableChars(mParagraphText.c_str()+paragraph_offset, screen_width, line_end - paragraph_offset, TRUE);
 
-		if (drawable != 0)
+		if (drawable != 0 || found_newline)
 		{
 			F32 x_position = 0;						//Screen X position of text.
 			
@@ -387,7 +395,8 @@ void LLConsole::Paragraph::updateLines(F32 screen_width, LLFontGL* font, bool fo
 		{
 			break; // Nothing more to print
 		}
-		paragraph_offset += (drawable + skip_chars);
+
+		paragraph_offset += (drawable + ( found_newline ? 1 : 0 ) );
 	}
 }
 

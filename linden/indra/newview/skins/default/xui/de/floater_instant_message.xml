@@ -22,10 +22,10 @@
 		Für Instant Message hier klicken.
 	</string>
 	<button label="Profil..." name="profile_callee_btn" />
-	<button halign="" label="Anrufen" name="start_call_btn" pad_right="7" />
-	<button label="Anruf beenden" name="end_call_btn" />
-	<panel name="speaker_controls">
-		<check_box label="Voice-Chat stummschalten" name="mute_btn" tool_tip="Voice stummschalten" />
+	<button label="Anrufen" name="start_call_btn" pad_right="7" width="115" />
+	<button label="Anruf beenden" name="end_call_btn" width="115" halign="right" />
+	<panel name="speaker_controls" left_delta="111">
+		<check_box name="mute_btn" tool_tip="Voice stummschalten" />
 	</panel>
 	<line_editor label="Für Instant Message hier klicken" name="chat_editor" />
 	<button label="Profil..." label_selected="Profil..." name="profile_btn" />

@@ -387,22 +387,22 @@ Go to the Second Life web site for more information on partnering?
 	</alert>
 	<alert modal="true" name="ClickWebProfileHelpAvatar">
 		<message name="message">
-			If this resident has set a web profile URL then you can:
- * Click "Load" to load the page with the embedded web browser.
- * Click Load->"Open in external browser" to view externally.
- * Click Load->"Home URL" to return to resident's web profile if you've navigated away.
+			If this Resident has set a web profile URL then you can:
+ * Click &apos;Load&apos; to see the page in this Web tab.
+ * Click Load &gt; &apos;In external browser&apos; to view the page in your default web browser.
+ * Click Load &gt; &apos;Home URL&apos; to return to this Resident's web profile if you've navigated away.
  
-When viewing your own profile you can enter any URL as your web profile and click OK to set it.
-Other residents can visit the URL you set when they view your profile.
+When viewing your own profile, you can enter any URL as your web profile and click OK to set it.
+Other residents can visit the URL you set when they look at your profile.
 		</message>
 	</alert>
 	<alert modal="true" name="ClickWebProfileNoWebHelpAvatar">
 		<message name="message">
-			If this resident has a web profile URL set then you can:
- * Click Open to view externally in your default web browser.
+			If this resident has set a web profile URL then you can:
+ * Click Open to view the page in your default web browser.
  
-When viewing your profile you can enter any URL as your Web Profile.
-Residents can visit the URL you specify when they view your profile.
+When viewing your own profile, you can enter any URL as your web profile and click OK to set it.
+Other residents can visit the URL you set when they look at your profile.
 		</message>
 	</alert>
 	<alert modal="true" name="ReputationMinGreaterThanMax">
@@ -3017,20 +3017,6 @@ objects will be returned to their previous owners.
 			Cancel
 		</option>
 	</alert>
-	<alert modal="true" name="ViewReleaseNotes">
-		<message name="message">
-			View the Second Life release notes?
-		</message>
-		<ignore name="ignore">
-			When viewing the release notes
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
 	<alert name="GroupLeaveConfirmOfficer">
 		<message name="message">
 			You are currently an officer of the group [GROUP].
@@ -4387,13 +4373,13 @@ Entering an accurate description helps us file and process bug reports.
 		<message name="message">
 			Dear Resident,
 
-If you are reporting intellectual property infringement, please make sure you are reporting it correctly:
+You appear to be reporting intellectual property infringement. Please make sure you are reporting it correctly:
 
 (1) The Abuse Process. You may submit an abuse report if you believe a Resident is exploiting the Second Life permissions system, for example, by using CopyBot or similar copying tools, to infringe intellectual property rights. The Abuse Team investigates and issues appropriate disciplinary action for behavior that violates the Second Life Community Standards or Terms of Service. However, the Abuse Team does not handle and will not respond to requests to remove content from the Second Life world.
 
-(2) The DMCA or Content Removal Process. To request removal of content from Second Life, you must submit a valid notification of infringement as provided in our DMCA Policy at http://secondlife.com/corporate/dmca.php.
+(2) The DMCA or Content Removal Process. To request removal of content from Second Life, you MUST submit a valid notification of infringement as provided in our DMCA Policy at http://secondlife.com/corporate/dmca.php.
 
-If you still wish to continue with the abuse process, please close this window and finish submitting your report.
+If you still wish to continue with the abuse process, please close this window and finish submitting your report.  You may need to select the specific category 'CopyBot or Permissions Exploit'.
 
 Thank you,
 
@@ -4869,16 +4855,7 @@ with the the D slider.
 	</alert>
 	<alert modal="true" name="ChatterBoxSessionStartError">
 		<message name="message">
-			Error starting a new chat session with [RECIPIENT].
-[REASON]
-		</message>
-		<option default="true" name="OK">
-			OK
-		</option>
-	</alert>
-	<alert modal="true" name="ChatterBoxSessionStartNotVerified">
-		<message name="message">
-			Error starting a new chat session with [RECIPIENT].
+			Unable to start a new chat session with [RECIPIENT].
 [REASON]
 		</message>
 		<option default="true" name="OK">
@@ -4887,7 +4864,7 @@ with the the D slider.
 	</alert>
 	<alert modal="true" name="ChatterBoxSessionEventError">
 		<message name="message">
-			Error [EVENT] [RECIPIENT].
+			[EVENT]
 [REASON]
 		</message>
 		<option default="true" name="OK">

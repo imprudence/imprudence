@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Kamera" name="Input panel">
-	<text type="string" length="1" name=" Mouselook Options:">
+	<text length="1" name=" Mouselook Options:" type="string">
 		Mouselook-Optionen:
 	</text>
-	<text type="string" length="1" name=" Mouse Sensitivity:">
+	<text length="1" name=" Mouse Sensitivity:" type="string">
 		Mausempfindlichkeit:
 	</text>
-	<check_box label="Maus umkehren" name="invert mouse" />
-	<text type="string" length="1" name=" Auto Fly Options:">
+	<check_box label="Maus umkehren" name="invert mouse"/>
+	<text length="1" name=" Auto Fly Options:" type="string">
 		Auto-Flug-Optionen:
 	</text>
-	<check_box label="Zum Fliegen/Landen nach oben/unten halten" name="automatic fly" />
-	<text type="string" length="1" name=" Camera Options:">
+	<check_box label="Zum Fliegen/Landen nach oben/unten halten" name="automatic fly"/>
+	<text length="1" name=" Camera Options:" type="string">
 		Kameraoptionen:
 	</text>
-	<text type="string" length="1" name="Camera Springiness:">
+	<text length="1" name="Camera Springiness:" type="string">
 		Kamerafederung:
 	</text>
 	<text name="Camera Follow Distance:">
@@ -26,15 +26,14 @@
 	<text name="Camera Smoothing:">
 		Bewegungsglättung:
 	</text>
-	<check_box label="Automatischer Kameraschwenk im Bearbeiten-Modus"
-	     name="edit camera movement"
-	     tool_tip="Automatische Kamerapositionierung bei Wechsel in und aus dem Bearbeitungsmodus verwenden" />
-	<check_box label="Automatischer Kameraschwenk im Aussehen-Modus"
-	     name="appearance camera movement"
-	     tool_tip="Automatische Kamerapositionierung im Bearbeitenmodus verwenden" />
+	<check_box label="Automatischer Kameraschwenk im Bearbeiten-Modus" name="edit camera movement" tool_tip="Automatische Kamerapositionierung bei Wechsel in und aus dem Bearbeitungsmodus verwenden"/>
+	<check_box label="Automatischer Kameraschwenk im Aussehen-Modus" name="appearance camera movement" tool_tip="Automatische Kamerapositionierung im Bearbeitenmodus verwenden"/>
 	<text name="text2">
 		Avatar-Anzeigeoptionen:
 	</text>
-	<check_box label="Avatar in Mouselook anzeigen" name="avfp" />
-	<button label="Joystick-Einrichtung" name="joystic_setup_button" />
+	<check_box label="Avatar in Mouselook anzeigen" name="avfp"/>
+	<text name="text5">
+		Joystick-Optionen:
+	</text>
+	<button label="Joystick-Einrichtung" name="joystic_setup_button"/>
 </panel>

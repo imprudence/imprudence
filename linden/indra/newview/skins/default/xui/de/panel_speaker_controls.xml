@@ -7,23 +7,23 @@
 		<layout_panel name="moderation_mode_panel">
 			<combo_box name="moderation_mode">
 				<combo_item name="OpenVoice">
-					Freies Voice (Standard)
+					Voice-Chat standardmäßig einschalten
 				</combo_item>
 				<combo_item name="ModeratedVoice">
-					Moderiertes Voice
+					Voice-Chat standardmäßig abschalten
 				</combo_item>
 			</combo_box>
 		</layout_panel>
 		<layout_panel name="moderate_chat_panel">
 			<scroll_list name="speakers_list">
-				<column label="Name" name="speaker_name" />
+				<column label="Name" name="speaker_name"/>
 			</scroll_list>
 			<panel name="speaker_controls">
 				<text name="resident_name">
 					Rumpelstilzchen Megakrass
 				</text>
-				<button name="mute_btn" tool_tip="Voice für diesen Einwohner stummschalten" />
-				<check_box label="Text stummschalten" name="mute_text_btn" />
+				<button name="mute_btn" tool_tip="Voice für diesen Einwohner stummschalten"/>
+				<check_box label="Text stummschalten" name="mute_text_btn"/>
 			</panel>
 		</layout_panel>
 		<layout_panel name="moderator_controls">

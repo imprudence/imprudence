@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <multi_floater name="floater_chatterbox">
-	<icon label="비행" label_selected="비행 중지" name=""
-	     tool_tip="비행 시작. 위, 아래로 비행하려면 E/C 또는 PgUp/PgDn을 사용하십시오." />
+	<panel name="panel_littletoolbar">
+		<button label="" name="chat_btn" tool_tip="채팅 표시줄 표시 (입력)" />
+		<flyout_button label="통신" name="communicate_btn"
+		     tool_tip="친구 및 그룹과 통신합니다." />
+		<button label="비행" label_selected="비행 중지" name="fly_btn"
+		     tool_tip="비행 시작. 위, 아래로 비행하려면 E/C 또는 PgUp/PgDn을 사용하십시오." />
+	</panel>
 	<panel name="panel_unfocused_floater">
 		<text name="titlebar_focused">
 			초점이 맞지 않음

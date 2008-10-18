@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Chat vocal" name="chat">
+	<text_editor name="voice_unavailable">
+		Le chat vocal n&apos;est pas disponible
+	</text_editor>
+	<check_box label="Activer le chat vocal" name="enable_voice_check" />
+	<radio_group name="ear_location">
+		<radio_item name="0">
+			Écouter depuis la position de la caméra.
+		</radio_item>
+		<radio_item name="1">
+			Écouter depuis la position de l&apos;avatar.
+		</radio_item>
+	</radio_group>
+	<text name="push_to_talk_heading">
+		Mode Appuyer pour parler
+	</text>
+	<text_editor name="voice_chat_description" width="465">
+		En mode Appuyer pour parler, vous contrôlez le moment où votre voix est transmise. Lorsque vous êtes en mode bascule, appuyez et relâchez le bouton Appuyer pour parler pour activer ou désactiver votre micro. Lorsque vous n&apos;êtes pas en mode bascule, le micro n&apos;est activé que lorsque vous appuyez sur le déclencheur.
+	</text_editor>
+	<check_box label="Utiliser la fonction Appuyer pour parler en mode bascule"
+	     name="push_to_talk_toggle_check" />
+	<text name="push_to_talk_label">
+		Déclencheur de la fonction Appuyer pour parler :
+	</text>
+	<button label="Choisir la touche" name="set_voice_hotkey_button" />
+	<button label="Molette de la souris" name="set_voice_middlemouse_button" />
+	<text name="privacy_heading">
+		Options de confidentialité
+	</text>
+	<check_box label="N&apos;accepter que les appels de mes amis"
+	     name="voice_call_friends_only_check" />
+	<text_editor name="device_settings_text">
+		Remarque : si vous cliquez sur Paramètres du matériel, vous serez temporairement deconnecté du chat vocal.
+	</text_editor>
+	<button label="Paramètres du matériel" name="device_settings_btn" />
+</panel>

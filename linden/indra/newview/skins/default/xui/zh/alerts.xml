@@ -2851,17 +2851,6 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 			取消
 		</option>
 	</alert>
-	<alert name="ViewReleaseNotes">
-		<message name="message">
-			是否查看第二人生发布的消息?
-		</message>
-		<option name="Gotopage">
-			回主页
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
 	<alert name="GroupLeaveConfirmOfficer">
 		<message name="message">
 			你目前是社团[GROUP]的官员.

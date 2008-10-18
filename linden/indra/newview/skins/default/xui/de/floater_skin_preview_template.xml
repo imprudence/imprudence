@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <multi_floater name="floater_chatterbox">
-	<icon label="Fliegen" label_selected="Landen" name=""
-	     tool_tip="Flug beginnen.Steigen/sinken mit E/C oder Bild hoch/Bild ab." />
+	<panel name="panel_littletoolbar">
+		<button label="" name="chat_btn" tool_tip="Chat-Leiste anzeigen.(Eingabe)" />
+		<flyout_button label="Unterhalten" name="communicate_btn"
+		     tool_tip="Unterhalten Sie sich mit Freunden und in Gruppen." />
+		<button label="Fliegen" label_selected="Landen" name="fly_btn"
+		     tool_tip="Flug beginnen.Steigen/sinken mit E/C oder Bild hoch/Bild ab." />
+	</panel>
 	<panel name="panel_unfocused_floater">
 		<text name="titlebar_focused">
 			Nicht fokussiert

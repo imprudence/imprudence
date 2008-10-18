@@ -23,22 +23,22 @@
 			&lt;지역명 입력&gt;
 		</combo_item>
 	</combo_box>
-	<check_box label="비밀번호 기억" name="remember_check" />
+	<check_box label="비밀번호 기억" name="remember_check"/>
 	<text name="full_screen_text">
 		로그인할 때 뷰어에 전체 화면이 표시됩니다.
 	</text>
-	<button label="신규 계정" label_selected="신규 계정" name="new_account_btn" />
-	<button label="환경 설정" label_selected="환경 설정" name="preferences_btn" />
-	<button label="세컨드라이프 연결" label_selected="연결" name="connect_btn" />
-	<button label="종료" label_selected="종료" name="quit_btn" />
+	<button label="신규 계정" label_selected="신규 계정" name="new_account_btn"/>
+	<button label="환경 설정" label_selected="환경 설정" name="preferences_btn"/>
+	<button label="로그인" label_selected="로그인" name="connect_btn"/>
+	<button label="종료" label_selected="종료" name="quit_btn"/>
 	<text name="version_text">
 		1.23.4 (5)
 	</text>
 	<text name="create_new_account_text">
-		새 계정을 만듭니다.
+		회원 가입
 	</text>
 	<text name="channel_text">
-		[Viewer Channel Name]
+		[CHANNEL] [VERSION]
 	</text>
 	<text name="forgot_password_text">
 		세컨드라이프 이름 또는 비밀번호를 분실하셨습니까?

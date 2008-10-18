@@ -38,19 +38,18 @@
 	<string name="muted_error">
 		A group moderator disabled your text chat.
 	</string>
+
+	<!-- ALL of the event strings should have [RECIPIENT] in them -->
 	<string name="add_session_event">
-		adding agents to chat session with
+		Unable to add users to chat session with [RECIPIENT].
 	</string>
 	<string name="message_session_event">
-		messaging chat session with
-	</string>
-	<string name="mute_agent_event">
-		muting agent in
+		Unable to send your message to the chat session with [RECIPIENT].
 	</string>
 	<string name="removed_from_group">
 		You have been removed from the group.
 	</string>
 	<string name="close_on_no_ability">
-		You no longer have the ability to be in the chat session
+		You no longer have the ability to be in the chat session.
 	</string>
 </multi_floater>

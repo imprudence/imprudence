@@ -2,17 +2,15 @@
 <floater label="(알 수 없음)" name="im_floater" title="(알 수 없음)">
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="전화" name="start_call_btn" />
-			<button label="전화 종료" name="end_call_btn" />
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
-			     tool_tip="이 메신저 세션을 사용 중인 참가자 목록을 보기 위해 여기를 클릭합니다." />
-			<line_editor label="메신저를 사용하려면 여기를 클릭하십시오."
-			     name="chat_editor" />
-			<button label="보내기" name="send_btn" />
+			<button label="전화" name="start_call_btn"/>
+			<button label="전화 종료" name="end_call_btn"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="이 메신저 세션을 사용 중인 참가자 목록을 보려면 여기를 클릭합니다."/>
+			<line_editor label="메신저를 사용하려면 여기를 클릭하십시오." name="chat_editor"/>
+			<button label="보내기" name="send_btn"/>
 		</layout_panel>
 		<layout_panel name="active_speakers_panel">
 			<scroll_list name="speakers_list">
-				<column label="이름" name="speaker_name" />
+				<column label="이름" name="speaker_name"/>
 			</scroll_list>
 			<panel name="volume_container">
 				<text name="resident_name">
@@ -21,8 +19,8 @@
 				<text name="Mute:">
 					음소거:
 				</text>
-				<check_box label="텍스트" name="mute_text_btn" />
-				<check_box label="음성" name="mute_btn" />
+				<check_box label="텍스트" name="mute_text_btn"/>
+				<check_box label="음성" name="mute_btn"/>
 			</panel>
 		</layout_panel>
 	</layout_stack>

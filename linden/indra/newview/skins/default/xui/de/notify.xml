@@ -486,7 +486,7 @@ Nur Skripts, die dem Landeigentümer gehören, funktionieren.
 			[MESSAGE]
 		</message>
 		<option name="Join">
-			Zusammenlegen
+			Beitreten
 		</option>
 		<option name="Decline">
 			Ablehnen
@@ -504,7 +504,7 @@ Der Beitritt ist kostenlos.
 [MESSAGE]
 		</message>
 		<option name="Join">
-			Zusammenlegen
+			Beitreten
 		</option>
 		<option name="Decline">
 			Ablehnen
@@ -522,7 +522,7 @@ Die Beitrittsgebühr beträgt [COST] L$
 [MESSAGE]
 		</message>
 		<option name="Join">
-			Zusammenlegen
+			Beitreten
 		</option>
 		<option name="Decline">
 			Ablehnen
@@ -540,7 +540,7 @@ Der Beitritt ist kostenlos.
 [MESSAGE]
 		</message>
 		<option name="Join">
-			Zusammenlegen
+			Beitreten
 		</option>
 		<option name="Decline">
 			Ablehnen

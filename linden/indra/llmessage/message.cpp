@@ -754,11 +754,19 @@ BOOL LLMessageSystem::checkMessages( S64 frame_count )
 				clearReceiveState();
 				valid_packet = FALSE;
 			}
+
+			if( valid_packet && mTemplateMessageReader->isUdpBanned())
+			{
+				llwarns << "Received UDP black listed message "
+						<<  mTemplateMessageReader->getMessageName()
+						<< " from " << host << llendl;
+				clearReceiveState();
+				valid_packet = FALSE;
+			}
 			
 			if( valid_packet )
 			{
 				logValidMsg(cdp, host, recv_reliable, recv_resent, (BOOL)(acks>0) );
-
 				valid_packet = mTemplateMessageReader->readMessage(buffer, host);
 			}
 

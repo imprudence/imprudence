@@ -265,6 +265,7 @@ enum EMsgDeprecation
 {
 	MD_NOTDEPRECATED,
 	MD_UDPDEPRECATED,
+	MD_UDPBLACKLISTED,
 	MD_DEPRECATED
 };
 
@@ -299,7 +300,7 @@ public:
 	~LLMessageTemplate()
 	{
 		for_each(mMemberBlocks.begin(), mMemberBlocks.end(), DeletePointer());
-}
+	}
 
 	void addBlock(LLMessageBlock *blockp)
 	{
@@ -378,6 +379,11 @@ public:
 	bool isBanned(bool trustedSource) const
 	{
 		return trustedSource ? mBanFromTrusted : mBanFromUntrusted;
+	}
+
+	bool isUdpBanned() const
+	{
+		return mDeprecation == MD_UDPBLACKLISTED;
 	}
 
 	friend std::ostream&	 operator<<(std::ostream& s, LLMessageTemplate &msg);

@@ -24,11 +24,6 @@
 			OK
 		</option>
 	</alert>
-	<alert name="MOTD" title="Meldung des Tages">
-		<message name="message">
-			[MOTD]
-		</message>
-	</alert>
 	<alert name="TutorialNotFound">
 		<message name="message">
 			Derzeit ist kein Tutorial verfügbar.
@@ -380,8 +375,8 @@ Die Second Life Website für weitere Informationen über Partnerschaften öffnen
 		<message name="message">
 			Wenn dieser Einwohner eine Webprofil-URL angegeben hat, können Sie:
 * Auf &apos;Laden&apos; klicken und die Seite im integrierten Browser anzuzeigen.
-* Auf Laden-&gt;&quot;In external Browser öffnen&quot; klicken um die Seite extern anzeigen zu lassen.
-* Auf Laden-&gt;&quot;Home-URL&quot; klicken um zum Webprofil des Benutzers zurückzukehren.
+* Auf Laden &gt; &apos;In externem Browser&apos; klicken, um die Seite extern anzeigen zu lassen.
+* Auf Laden &gt; &apos;Start URL&apos; klicken, um zum Webprofil des Benutzers zurückzukehren.
  
 In Ihrem eigenen Profil können Sie jede beliebige URL als Ihr Webprofil eingeben und mit OK übernehmen.
 Wenn andere Einwohner Ihr Profil betrachten, können sie diese URL besuchen.
@@ -729,7 +724,7 @@ Der Outfit-Ordner enthält keine Kleidung, Körperteile oder Anhänge.
 			Hoppla! Da fehlt noch etwas.
 Geben Sie bitte den Vor- und den Nachnamen Ihres Avatars ein.
 
-Sie benötigen ein Benutzerkonto, um [SECOND_LIFE] betreten zu können.Möchten Sie jetzt ein Benutzerkonto anlegen?
+Sie benötigen ein Benutzerkonto, um [SECOND_LIFE] betreten zu können. Möchten Sie jetzt ein Benutzerkonto anlegen?
 		</message>
 		<option name="OK">
 			Neues Benutzerkonto anlegen
@@ -737,133 +732,6 @@ Sie benötigen ein Benutzerkonto, um [SECOND_LIFE] betreten zu können.Möchten 
 		<option name="Cancel">
 			Erneut versuchen
 		</option>
-	</alert>
-	<alert name="ChangeSkin">
-		<message name="message">
-			Die neue Haut wird nach dem erneuten Start von [SECOND_LIFE] angezeigt.
-		</message>
-	</alert>
-	<alert name="UnsupportedGLRequirements">
-		<message name="message">
-			Ihr Computer entspricht nicht den Hardwareanforderungen von Second Life. Second Life setzt eine OpenGL-Grafikkarte mit Multitextur-Unterstützung voraus. Falls Ihre Grafikkarte diese Funktion unterstützt, installieren Sie die neuesten Treiber sowie die aktuellen Service Packs und Patches für Ihr Betriebssystem.
-
-Sollte das Problem fortbestehen, finden Sie weitere Hilfestellung unter: http://www.secondlife.com/support
-		</message>
-	</alert>
-	<alert name="UnsupportedHardware">
-		<message name="message">
-			Achtung: Ihr System erfüllt nicht die Mindestanforderungen von Second Life. Dies kann eine schlechte Darstellungsleistung in Second Life zur Folge haben. Für nicht unterstützte Systemkonfigurationen bieten wir keinen technischen Support. 
-
-MINDESTANF.
-Die Seite [_URL] für weitere Informationen öffnen?
-		</message>
-		<ignore name="ignore">
-			Nicht unterstützte Hardware ignorieren
-		</ignore>
-		<option name="Yes">
-			Ja
-		</option>
-		<option name="No">
-			Nein
-		</option>
-	</alert>
-	<alert name="UnsupportedGPU">
-		<message name="message">
-			- Ihre Grafikkarte entspricht nicht den Mindestanforderungen.
-		</message>
-	</alert>
-	<alert name="UnsupportedCPU">
-		<message name="message">
-			- Ihre CPU-Geschwindigkeit entspricht nicht den Mindestanforderungen.
-		</message>
-	</alert>
-	<alert name="UnsupportedCPUAmount">
-		<message name="message">
-			796
-		</message>
-	</alert>
-	<alert name="UnsupportedRAM">
-		<message name="message">
-			- Ihr Arbeitsspeicher entspricht nicht den Mindestanforderungen.
-		</message>
-	</alert>
-	<alert name="UnsupportedRAMAmount">
-		<message name="message">
-			510
-		</message>
-	</alert>
-	<alert name="UnknownGPU">
-		<message name="message">
-			Ihr System verwendet eine uns zurzeit unbekannte Grafikkarte.  
-Dies ist häufig der Fall bei neuer Hardware, die wir noch nicht testen konnten. 
-Second Life funktioniert aller Voraussicht nach normal, möglicherweise 
-müssen Sie aber die Grafikeinstellungen anpassen.
-(Bearbeiten &gt; Einstellungen &gt; Grafik).
-		</message>
-		<ignore name="ignore">
-			Unbekannte Grafikkarte ignorieren
-		</ignore>
-	</alert>
-	<alert name="FreezeAvatarFullname">
-		<message name="message">
-			[AVATAR_NAME] einfrieren?
-Der Avatar wird außer Gefecht gesetzt und kann
-sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
-		</message>
-		<option name="Freeze">
-			Einfrieren
-		</option>
-		<option name="Unfreeze">
-			Auftauen
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
-	<alert name="EjectAvatarFullname">
-		<message name="message">
-			[AVATAR_NAME] von Ihrem Land werfen?
-		</message>
-		<option name="Eject">
-			Ausschließen
-		</option>
-		<option name="EjectandBan">
-			Ausschließen und Verbannen
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
-	<alert name="SeachFilteredOnShortWords">
-		<message name="message">
-			Ihre Suchanfrage wurde geändert. 
-Zu kurze Begriffe wurden entfernt.
-
-Ihre Suchanfrage: [FINALQUERY]
-		</message>
-	</alert>
-	<alert name="SeachFilteredOnShortWordsEmpty">
-		<message name="message">
-			Ihre Suchbegriffe sind zu kurz.
-Es wurde keine Suche durchgeführt.
-		</message>
-	</alert>
-	<alert name="CannotCloseFloaterBuyLand">
-		<message name="message">
-			Das Fenster &apos;Land kaufen&apos; kann erst geschlossen werden,
-nachdem Second Life den Transaktionspreis geschätzt hat.
-		</message>
-	</alert>
-	<alert name="QuickTimeOutOfDate">
-		<ignore name="ignore">
-			QuickTime wurde deaktiviert, weil Sie eine alte Version verwenden
-		</ignore>
-		<message name="message">
-			Streaming-Video wurde deaktiviert, weil die QuickTime-Version 
-auf Ihrem Computer nicht mehr aktuell ist. 
-
-Laden Sie ein Update von http://www.apple.com/quicktime/ herunter.
-		</message>
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
@@ -970,7 +838,7 @@ Die Änderungen übernehmen und das Programm beenden?
 	</alert>
 	<alert name="ResetShowNextTimeDialogs">
 		<message name="message">
-			Alle &apos;Nächstes Mal zeigen&apos;-Dialoge zurücksetzen?
+			Möchten Sie alle Popups wieder aktivieren, die Sie zuvor auf &apos;Nicht mehr anzeigen&apos; gesetzt haben?
 		</message>
 		<option name="OK">
 			OK
@@ -981,7 +849,7 @@ Die Änderungen übernehmen und das Programm beenden?
 	</alert>
 	<alert name="SkipShowNextTimeDialogs">
 		<message name="message">
-			Alle &apos;Nächstes Mal zeigen&apos;-Dialoge deaktivieren?
+			Möchten Sie alle Popups, die übersprungen werden können, deaktivieren?
 		</message>
 		<option name="OK">
 			OK
@@ -992,7 +860,7 @@ Die Änderungen übernehmen und das Programm beenden?
 	</alert>
 	<alert name="CacheWillClear">
 		<message name="message">
-			Der Cache wird nach einem Neustart von [SECOND_LIFE] gelöscht/geleert.
+			Der Cache wird nach einem Neustart von [SECOND_LIFE] geleert.
 		</message>
 	</alert>
 	<alert name="CacheWillBeMoved">
@@ -1004,6 +872,11 @@ Hinweis: Der Cache wird dabei gelöscht/geleert.
 	<alert name="ChangeConnectionPort">
 		<message name="message">
 			Die Port-Einstellungen werden nach einem Neustart von [SECOND_LIFE] wirksam.
+		</message>
+	</alert>
+	<alert name="ChangeSkin">
+		<message name="message">
+			Die neue Haut wird nach dem erneuten Start von [SECOND_LIFE] angezeigt.
 		</message>
 	</alert>
 	<alert name="GoToAuctionPage">
@@ -1138,6 +1011,71 @@ Möchten Sie diese Objekte löschen?
 			Es wurden sichere Anzeige-Einstellungen gewählt,
 da die Option -safe verwendet wurde.
 		</message>
+	</alert>
+	<alert name="UnsupportedGLRequirements">
+		<message name="message">
+			Ihr Computer entspricht nicht den Hardwareanforderungen von Second Life. Second Life setzt eine OpenGL-Grafikkarte mit Multitextur-Unterstützung voraus. Falls Ihre Grafikkarte diese Funktion unterstützt, installieren Sie die neuesten Treiber sowie die aktuellen Service Packs und Patches für Ihr Betriebssystem.
+
+Sollte das Problem fortbestehen, finden Sie weitere Hilfestellung unter: http://www.secondlife.com/support
+		</message>
+	</alert>
+	<alert name="UnsupportedHardware">
+		<message name="message">
+			Achtung: Ihr System erfüllt nicht die Mindestanforderungen von Second Life. Dies kann eine schlechte Darstellungsleistung in Second Life zur Folge haben. Für nicht unterstützte Systemkonfigurationen bieten wir keinen technischen Support. 
+
+MINDESTANF.
+Die Seite [_URL] für
+weitere Informationen öffnen?
+		</message>
+		<ignore name="ignore">
+			Bei Entdeckung nicht unterstützter Hardware
+		</ignore>
+		<option name="Yes">
+			Ja
+		</option>
+		<option name="No">
+			Nein
+		</option>
+		<url>
+			http://www.secondlife.com/corporate/sysreqs.php
+		</url>
+	</alert>
+	<alert name="UnsupportedGPU">
+		<message name="message">
+			- Ihre Grafikkarte entspricht nicht den Mindestanforderungen.
+		</message>
+	</alert>
+	<alert name="UnsupportedCPU">
+		<message name="message">
+			- Ihre CPU-Geschwindigkeit entspricht nicht den Mindestanforderungen.
+		</message>
+	</alert>
+	<alert name="UnsupportedCPUAmount">
+		<message name="message">
+			796
+		</message>
+	</alert>
+	<alert name="UnsupportedRAM">
+		<message name="message">
+			- Ihr Arbeitsspeicher entspricht nicht den Mindestanforderungen.
+		</message>
+	</alert>
+	<alert name="UnsupportedRAMAmount">
+		<message name="message">
+			510
+		</message>
+	</alert>
+	<alert name="UnknownGPU">
+		<message name="message">
+			Ihr System verwendet eine uns zurzeit unbekannte Grafikkarte.  
+Dies ist häufig der Fall bei neuer Hardware, die wir noch nicht testen konnten. 
+Second Life funktioniert aller Voraussicht nach normal, möglicherweise 
+müssen Sie aber die Grafikeinstellungen anpassen.
+(Bearbeiten &gt; Einstellungen &gt; Grafik).
+		</message>
+		<ignore name="ignore">
+			Bei Entdeckung einer unbekannten Grafikkarte
+		</ignore>
 	</alert>
 	<alert name="DisplaySettingsRecommended">
 		<message name="message">
@@ -1309,21 +1247,6 @@ Folgende Domäne konnte nicht aufgelöst werden: [DOMAIN]
 Bitte überprüfen Sie Ihre Netzwerkverbindung.
 		</message>
 	</alert>
-	<alert name="CannotConnectLoginPacket">
-		<message name="message">
-			Verbindung nicht möglich.  Anmeldeserver hat das Anmeldepaket
-nie erhalten.
- 
-Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
-für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
-		</message>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Help">
-			Hilfe
-		</option>
-	</alert>
 	<alert name="WelcomeToSecondLife">
 		<message name="message">
 			Willkommen bei [SECOND_LIFE]! 
@@ -1351,173 +1274,6 @@ Bitte wählen Sie einen männlichen oder weiblichen Avatar.
 		</option>
 		<option name="Female">
 			Weiblich
-		</option>
-	</alert>
-	<alert name="EstateObjectReturn">
-		<message name="message">
-			Möchten Sie wirklich alle Objekte zurückgeben, die [USER_NAME] gehören?
-		</message>
-		<option name="Return">
-			OK
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
-	<alert name="MaxAgentOnRegionBatch">
-		<message name="message">
-			Fehler beim Versuch, [NUM_ADDED] Agenten hinzuzufügen:
-Überschreitet den Grenzwert [MAX_AGENTS] [LIST_TYPE] um [NUM_EXCESS].
-		</message>
-	</alert>
-	<alert name="WebLaunchExternalTarget">
-		<message name="message">
-			Den System-Webbrowser öffnen, um diesen Inhalt anzuzeigen?
-		</message>
-		<ignore name="ignore">
-			Wenn der System-Webbrowser zur Anzeige einer Webseite geöffnet wird
-		</ignore>
-		<option name="Open">
-			OK
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
-	<alert name="WebLaunchQAWiki">
-		<message name="message">
-			Besuchen Sie das [SECOND_LIFE] QA-Wiki.
-		</message>
-		<ignore name="ignore">
-			Beim Starten eines Browsers, um das QA-Wiki anzuzeigen
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
-	<alert name="TeleportFromLandmark">
-		<message name="message">
-			Möchten Sie sich wirklich teleportieren?
-		</message>
-		<ignore name="ignore">
-			Beim Teleportieren von einer Landmarke im Inventar
-		</ignore>
-		<option name="Teleport">
-			Teleportieren
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
-	<alert name="ProblemAddingEstateManager">
-		<message name="message">
-			Es gibt Probleme beim Hinzufügen eines neuen Grundstücksverwalters.  Bei mindestens einem Grundstück ist die Verwalterliste voll.
-		</message>
-	</alert>
-	<alert name="ProblemAddingEstateGeneric">
-		<message name="message">
-			Problem beim Hinzufügen zu dieser Grundstücksliste.  Bei mindestens einem Grundstück ist die Liste voll.
-		</message>
-	</alert>
-	<alert name="SetClassifiedMature">
-		<message name="message">
-			Enthält diese Anzeige nicht jugendfreie Inhalte?
-		</message>
-		<option name="Mature">
-			Ja
-		</option>
-		<option name="Not Mature">
-			Nein
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
-	<alert name="SetGroupMature">
-		<message name="message">
-			Beschäftigt sich diese Gruppe mit nicht jugendfreien Inhalten?
-		</message>
-		<option name="Mature">
-			Ja
-		</option>
-		<option name="Not Mature">
-			Nein
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
-	<alert name="HelpRegionSearch" title="Nicht in Suche anzeigen">
-		<message name="message">
-			Wenn Sie diese Option auswählen, können Parzelleneigentümer ihre Parzellen nicht in der Suche anzeigen lassen
-Standard: aus
-		</message>
-	</alert>
-	<alert name="HelpParcelSearch" title="Nicht in Suche anzeigen">
-		<message name="message">
-			Dieses Kontrollkästchen zeigt Folgendes an:
-- diese Parzelle in den Suchergebnissen
-- die öffentlichen Objekte dieser Parzelle
-		</message>
-	</alert>
-	<alert name="HelpEstateAbuseEmailAddress"
-	     title="E-Mail-Adresse für Missbrauchsmeldungen">
-		<message name="message">
-			Geben Sie hier eine E-Mail-Adresse ein, an die 
-Missbrauchsmeldungen von diesem Grundstück gesendet werden. 
-Wenn dieses Feld leer ist, werden Missbrauchsmeldungen
-nur an Linden Lab gesendet.
-		</message>
-	</alert>
-	<alert name="HelpEstateVoiceChat" title="Voice-Chat erlauben">
-		<message name="message">
-			Die Parzellen auf diesem Grundstück können über eigene Voice-
-Channel verfügen, die es Einwohnern ermöglichen, sich mit
-anderen Personen in der Nähe zu unterhalten.
-
-Standard: aus
-		</message>
-	</alert>
-	<alert name="VoiceVersionMismatch" title="Falsche Voice-Version">
-		<message name="message">
-			Diese Version von Second ist mit dem Voice-Chat-Feature in dieser Region nicht kompatibel. Damit Voice-Chat funktioniert, müssen Sie Second Life aktualisieren.
-		</message>
-	</alert>
-	<alert name="RetryFetchInventoryDescendents">
-		<message name="message">
-			Zeitüberschreitung bei Inventarabfrage vom Server.  Wiederholen?
-		</message>
-		<ignore name="ignore">
-			Inventarobjekt-Abfrage wiederholen
-		</ignore>
-		<option name="Retry">
-			Wiederholen
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
-	<alert name="ConfirmQuit">
-		<message name="message">
-			Wirklich beenden?
-		</message>
-		<option name="Yes">
-			Ja
-		</option>
-		<option name="No">
-			Nein
-		</option>
-		<ignore name="ignore">
-			Beim Beenden von Second Life.
-		</ignore>
-		<option name="Quit">
-			Beenden
-		</option>
-		<option name="Continue">
-			Weiter
 		</option>
 	</alert>
 	<alert name="RegionNoTerraforming">
@@ -1595,9 +1351,39 @@ sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
 			Abbrechen
 		</option>
 	</alert>
+	<alert name="FreezeAvatarFullname">
+		<message name="message">
+			[AVATAR_NAME] einfrieren?
+Der Avatar wird außer Gefecht gesetzt und kann
+sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
+		</message>
+		<option name="Freeze">
+			Einfrieren
+		</option>
+		<option name="Unfreeze">
+			Auftauen
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
 	<alert name="EjectAvatar">
 		<message name="message">
 			Diesen Avatar aus Ihrem Land werfen?
+		</message>
+		<option name="Eject">
+			Ausschließen
+		</option>
+		<option name="EjectandBan">
+			Ausschließen und Verbannen
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullname">
+		<message name="message">
+			[AVATAR_NAME] von Ihrem Land werfen?
 		</message>
 		<option name="Eject">
 			Ausschließen
@@ -1875,6 +1661,20 @@ Sie bearbeiten dürfen.
 			Kein vorderster Floater zum Speichern.
 		</message>
 	</alert>
+	<alert name="SeachFilteredOnShortWords">
+		<message name="message">
+			Ihre Suchanfrage wurde geändert. 
+Zu kurze Begriffe wurden entfernt.
+
+Ihre Suchanfrage: [FINALQUERY]
+		</message>
+	</alert>
+	<alert name="SeachFilteredOnShortWordsEmpty">
+		<message name="message">
+			Ihre Suchbegriffe sind zu kurz.
+Es wurde keine Suche durchgeführt.
+		</message>
+	</alert>
 	<alert name="ColladaExportFailedUnknownServerError">
 		<message name="message">
 			Collada-Export fehlgeschlagen: Unbekannter Serverfehler.
@@ -1972,6 +1772,12 @@ Keine Parzelle ausgewählt.
 Kann die Region nicht finden, in der sich dieses Land befindet.
 		</message>
 	</alert>
+	<alert name="CannotCloseFloaterBuyLand">
+		<message name="message">
+			Das Fenster &apos;Land kaufen&apos; kann erst geschlossen werden,
+nachdem Second Life den Transaktionspreis geschätzt hat.
+		</message>
+	</alert>
 	<alert name="CannotDeedLandNothingSelected">
 		<message name="message">
 			Land kann nicht übertragen werden:
@@ -1991,27 +1797,6 @@ Kann die Region nicht finden, in der sich dieses Land befindet.
 Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
 		</message>
 	</alert>
-	<alert name="CannotSetLandOwnerNothingSelected">
-		<message name="message">
-			Landeigentümer kann nicht festgelegt werden:
-Keine Parzelle ausgewählt.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandMultipleRegions">
-		<message name="message">
-			Landkauf nicht möglich, da die Auswahl mehrere Regionen umfasst.
-
-Wählen Sie ein kleineres Gebiet und versuchen Sie es erneut.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandMultipleSelected">
-		<message name="message">
-			Land kann nicht gekauft werden:
-Mehrere Parzellen ausgewählt.
-
-Wählen Sie eine einzelne Parzelle.
-		</message>
-	</alert>
 	<alert name="CannotDeedLandMultipleSelected">
 		<message name="message">
 			Land kann nicht übertragen werden:
@@ -2024,21 +1809,6 @@ Wählen Sie eine einzelne Parzelle.
 		<message name="message">
 			Region nicht gefunden
 		</message>
-	</alert>
-	<alert name="ParcelCanPlayMusic">
-		<message name="message">
-			Dieser Ort kann Streaming-Musik abspielen. 
-Musik erfordert eine Internetverbindung
-mit mindestens 768 kbit/s.
-
-Musik abspielen, wenn verfügbar?
-		</message>
-		<option name="PlayMusic">
-			Musik wiedergeben
-		</option>
-		<option name="Disable">
-			Deaktivieren
-		</option>
 	</alert>
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
@@ -2056,14 +1826,6 @@ Streaming-Medien abspielen, wenn verfügbar?
 			Deaktivieren
 		</option>
 	</alert>
-	<alert name="CannotBuyLandWaitingForServer">
-		<message name="message">
-			Land kann nicht gekauft werden:
-Warte auf Server für Preisinformationen.
-
-Bitte versuchen Sie es erneut.
-		</message>
-	</alert>
 	<alert name="CannotDeedLandWaitingForServer">
 		<message name="message">
 			Land kann nicht übertragen werden:
@@ -2072,57 +1834,10 @@ Warte auf Server für Eigentümerinformationen.
 Bitte versuchen Sie es erneut.
 		</message>
 	</alert>
-	<alert name="CannotBuyLandNoPublic">
-		<message name="message">
-			Land kann nicht gekauft werden:
-Die Auswahl enthält kein öffentliches Land.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandLandOwned">
-		<message name="message">
-			Land kann nicht gekauft werden:
-Sie haben eine Parzelle ausgewählt,
-die einem anderen Einwohner gehört.
-		</message>
-	</alert>
-	<alert name="CannotButLandRegionNotFound">
-		<message name="message">
-			Land kann nicht gekauft werden:
-Kann die Region nicht finden, in der sich dieses Land befindet.
-
-Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandNoTransfer">
-		<message name="message">
-			Land kann nicht gekauft werden:
-Die Region [REGION] erlaubt keine Landübertragung.
-		</message>
-	</alert>
 	<alert name="CannotDeedLandNoTransfer">
 		<message name="message">
 			Land kann nicht übertragen werden:
 Die Region [REGION] erlaubt keine Landübertragung.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandForGroupNotOfficer">
-		<message name="message">
-			Landkauf für Gruppe nicht möglich:
-Sie sind kein Officer in Ihrer aktuellen Gruppe.
-
-Wählen Sie über &apos;Bearbeiten&apos; -&gt; &apos;Gruppen...&apos; eine andere Gruppe aus.
-		</message>
-	</alert>
-	<alert name="CannotBuyLandInsufficientFunds">
-		<message name="message">
-			[AREA] qm von diesem Land kosten [PRICE] L$.
-Sie haben nur [BALANCE] L$.
-		</message>
-	</alert>
-	<alert name="CannotReleaseLandNothingSelected">
-		<message name="message">
-			Land kann nicht aufgegeben werden:
-Keine Parzelle ausgewählt.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandWatingForServer">
@@ -2371,10 +2086,10 @@ Sie sind nicht berechtigt, Land für die aktive Gruppe zu kaufen.
 	</alert>
 	<alert name="AddFriend" title="Freund hinzufügen">
 		<message name="message">
-			Freunde können sich gegenseitig die Berechtigung 
-erteilen, sich auf der Karte zu verfolgen und den jeweiligen Online-Status einzusehen. 
+			Freunde können sich gegenseitig die Berechtigung
+erteilen, sich auf der Karte zu verfolgen und Online-Status Benachrichtigungen zu empfangen.
 
-[NAME] die Freundschaft anbieten?
+[NAME] Freundschaft anbieten?
 		</message>
 		<option name="Offer">
 			OK
@@ -2382,7 +2097,23 @@ erteilen, sich auf der Karte zu verfolgen und den jeweiligen Online-Status einzu
 		<option name="Cancel">
 			Abbrechen
 		</option>
-		Wollen wir Freunde sein?
+	</alert>
+	<alert name="AddFriendWithMessage" title="Freund hinzufügen">
+		<message name="message">
+			Freunde können sich gegenseitig die Berechtigung
+erteilen, sich auf der Karte zu verfolgen und Online-Status Benachrichtigungen zu empfangen.
+
+[NAME] Freundschaft anbieten?
+		</message>
+		<editline name="editline">
+			Möchtest du mein Freunde sein?
+		</editline>
+		<option name="Offer">
+			OK
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
 	</alert>
 	<alert name="RemoveFromFriends">
 		<message name="message">
@@ -2449,11 +2180,6 @@ auf ALLEN LÄNDERN in diesem Sim LÖSCHEN?
 	<alert name="PublishGroupInfoToWeb">
 		<message name="message">
 			Im Web veröffentlichen
-		</message>
-	</alert>
-	<alert name="ErrorEncodingSnapshot">
-		<message name="message">
-			Fehler beim Erstellen des Fotos!
 		</message>
 	</alert>
 	<alert name="BlankClassifiedName">
@@ -2720,6 +2446,17 @@ für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe
 			[ERROR_MESSAGE]
 		</message>
 	</alert>
+	<alert name="QuickTimeOutOfDate">
+		<ignore name="ignore">
+			QuickTime wurde deaktiviert, weil Sie eine alte Version verwenden
+		</ignore>
+		<message name="message">
+			Streaming-Video wurde deaktiviert, weil die QuickTime-Version 
+auf Ihrem Computer nicht mehr aktuell ist. 
+
+Laden Sie ein Update von http://www.apple.com/quicktime/ herunter.
+		</message>
+	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
 			Ihr [TYPE]-Ort ist zurzeit nicht verfügbar. [HELP] 
@@ -2852,24 +2589,9 @@ Wählen Sie ein einzelnes Objekt aus und versuchen Sie es erneut.
 			Abbrechen
 		</option>
 	</alert>
-	<alert name="ReturnScriptedOnOthersLand">
+	<alert name="EstateObjectReturn">
 		<message name="message">
-			Möchten Sie alle geskripteten Objekte von
-** [USER_NAME] **
-auf allen Ländern in dieser Region, die ihnen nicht gehören, zurückgeben?
-		</message>
-		<option name="Return">
-			OK
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
-	<alert name="ReturnScriptedOnAllLand">
-		<message name="message">
-			Möchten Sie ALLE geskripteten Objekte von
-** [USER_NAME] **
-auf ALLEN LÄNDERN in dieser Region zurückgeben?
+			Möchten Sie wirklich alle Objekte zurückgeben, die [USER_NAME] gehören?
 		</message>
 		<option name="Return">
 			OK
@@ -2920,6 +2642,17 @@ und zum Standard des &apos;Zurücksetzen&apos;-Tools machen?
 			Es sind maximal [MAX_AGENTS] zulässige Einwohner erlaubt.
 		</message>
 	</alert>
+	<alert name="MaxBannedAgentsOnRegion">
+		<message name="message">
+			Es sind maximal [MAX_BANNED] verbannte Einwohner erlaubt.
+		</message>
+	</alert>
+	<alert name="MaxAgentOnRegionBatch">
+		<message name="message">
+			Fehler beim Versuch, [NUM_ADDED] Agenten hinzuzufügen:
+Überschreitet den Grenzwert [MAX_AGENTS] [LIST_TYPE] um [NUM_EXCESS].
+		</message>
+	</alert>
 	<alert name="MaxAllowedGroupsOnRegion">
 		<message name="message">
 			Es sind maximal [MAX_GROUPS] zulässige Gruppen erlaubt.
@@ -2930,11 +2663,6 @@ und zum Standard des &apos;Zurücksetzen&apos;-Tools machen?
 		<option name="Cancel">
 			Abbrechen
 		</option>
-	</alert>
-	<alert name="MaxBannedAgentsOnRegion">
-		<message name="message">
-			Es sind maximal [MAX_BANNED] verbannte Einwohner erlaubt.
-		</message>
 	</alert>
 	<alert name="MaxManagersOnRegion">
 		<message name="message">
@@ -3068,22 +2796,14 @@ In Ihren Anwendungsordner herunterladen?
 			Abbrechen
 		</option>
 	</alert>
-	<alert name="AddClassified">
+	<alert name="WebLaunchExternalTarget">
 		<message name="message">
-			Anzeigen erscheinen eine Woche lang auf der Registerkarte &apos;Anzeigen&apos;
-im Suchverzeichnis.
- 
-Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum
-Verzeichnis hinzuzufügen.
- 
-Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf &apos;Veröffentlichen&apos; klicken.
-Wenn Sie mehr bezahlen oder ein Benutzer nach Ihren Suchbegriffen sucht,
-erscheint Ihre Anzeige weiter oben in der Liste.
+			Den System-Webbrowser öffnen, um diesen Inhalt anzuzeigen?
 		</message>
 		<ignore name="ignore">
-			Beim Hinzufügen einer neuen Anzeige
+			Wenn der System-Webbrowser zur Anzeige einer Webseite geöffnet wird
 		</ignore>
-		<option name="OK">
+		<option name="Open">
 			OK
 		</option>
 		<option name="Cancel">
@@ -3124,6 +2844,20 @@ erscheint Ihre Anzeige weiter oben in der Liste.
 		</message>
 		<ignore name="ignore">
 			Beim Starten eines Browsers, um das Sicherheitsfragen-Wiki anzuzeigen
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
+	<alert name="WebLaunchQAWiki">
+		<message name="message">
+			Besuchen Sie das [SECOND_LIFE] QA-Wiki.
+		</message>
+		<ignore name="ignore">
+			Beim Starten eines Browsers, um das QA-Wiki anzuzeigen
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -3248,20 +2982,6 @@ Objekte werden ihren früheren Eigentümern zurückgegeben.
 			Abbrechen
 		</option>
 	</alert>
-	<alert name="ViewReleaseNotes">
-		<message name="message">
-			Die Release-Hinweise von Second Life anzeigen?
-		</message>
-		<ignore name="ignore">
-			Beim Anzeigen der Versionshinweise
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			Abbrechen
-		</option>
-	</alert>
 	<alert name="GroupLeaveConfirmOfficer">
 		<message name="message">
 			Sie sind Officer der Gruppe [GROUP].
@@ -3303,21 +3023,6 @@ Diese Gruppe verlassen?
 		</message>
 		<option name="OK">
 			OK
-		</option>
-	</alert>
-	<alert name="MuteByName" title="Objekt nach Name stummschalten">
-		<message name="message">
-			Stummschalten nach Name betrifft nur Chat und IM, keine Sounds. 
-Sie müssen den Objektnamen exakt angeben.
-		</message>
-		<editline name="editline">
-			Objektname
-		</editline>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Cancel">
-			Abbrechen
 		</option>
 	</alert>
 	<alert name="MuteByNameFailed" title="Objekt nach Name stummschalten fehlgeschlagen">
@@ -3533,6 +3238,20 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter
 			Abbrechen
 		</option>
 	</alert>
+	<alert name="TeleportFromLandmark">
+		<message name="message">
+			Möchten Sie sich wirklich teleportieren?
+		</message>
+		<ignore name="ignore">
+			Beim Teleportieren von einer Landmarke im Inventar
+		</ignore>
+		<option name="Teleport">
+			Teleportieren
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
 	<alert name="MessageEstate" title="Nachricht an alle auf diesem Grundstück">
 		<message name="message">
 			Geben Sie eine kurze Nachricht ein, die
@@ -3737,6 +3456,16 @@ Spaceserver wird dadurch stark belastet.
 			OK
 		</option>
 	</alert>
+	<alert name="ProblemAddingEstateManager">
+		<message name="message">
+			Es gibt Probleme beim Hinzufügen eines neuen Grundstücksverwalters.  Bei mindestens einem Grundstück ist die Verwalterliste voll.
+		</message>
+	</alert>
+	<alert name="ProblemAddingEstateGeneric">
+		<message name="message">
+			Problem beim Hinzufügen zu dieser Grundstücksliste.  Bei mindestens einem Grundstück ist die Liste voll.
+		</message>
+	</alert>
 	<alert name="UnableToLoadNotecard">
 		<message name="message">
 			Notizkarten-Asset konnte nicht geladen werden.
@@ -3769,6 +3498,34 @@ Anzeige für [AMOUNT] L$ veröffentlichen?
 		</message>
 		<option name="Publish">
 			OK
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
+	<alert name="SetClassifiedMature">
+		<message name="message">
+			Enthält diese Anzeige nicht jugendfreie Inhalte?
+		</message>
+		<option name="Mature">
+			Ja
+		</option>
+		<option name="Not Mature">
+			Nein
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
+	<alert name="SetGroupMature">
+		<message name="message">
+			Beschäftigt sich diese Gruppe mit nicht jugendfreien Inhalten?
+		</message>
+		<option name="Mature">
+			Ja
+		</option>
+		<option name="Not Mature">
+			Nein
 		</option>
 		<option name="Cancel">
 			Abbrechen
@@ -3877,6 +3634,19 @@ Wenn aktiviert:
  * Die Parzelleneigentümer können ihre Parzellen selbst zusammenlegen/teilen.  * Parzellen in Gruppeneigentum können von Mitgliedern mit den
        entsprechenden Rechten zusammengelegt bzw. unterteilt werden.
  Standard: aktiviert
+		</message>
+	</alert>
+	<alert name="HelpRegionSearch" title="Nicht in Suche anzeigen">
+		<message name="message">
+			Wenn Sie diese Option auswählen, können Parzelleneigentümer ihre Parzellen nicht in der Suche anzeigen lassen
+Standard: aus
+		</message>
+	</alert>
+	<alert name="HelpParcelSearch" title="Nicht in Suche anzeigen">
+		<message name="message">
+			Dieses Kontrollkästchen zeigt Folgendes an:
+- diese Parzelle in den Suchergebnissen
+- die öffentlichen Objekte dieser Parzelle
 		</message>
 	</alert>
 	<alert name="RegionMaturityChange" title="Alterseinstufung der Region ändern">
@@ -4111,10 +3881,32 @@ nur verfügbar, wenn &apos;Öffentlich&apos;
 deaktiviert ist.
 		</message>
 	</alert>
+	<alert name="HelpEstateAbuseEmailAddress" title="E-Mail-Adresse für Missbrauchsmeldungen">
+		<message name="message">
+			Geben Sie hier eine E-Mail-Adresse ein, an die 
+Missbrauchsmeldungen von diesem Grundstück gesendet werden. 
+Wenn dieses Feld leer ist, werden Missbrauchsmeldungen
+nur an Linden Lab gesendet.
+		</message>
+	</alert>
 	<alert name="HelpEstateBanResident" title="Zugang verweigern">
 		<message name="message">
 			Einwohnern auf dieser Liste wird der Zugang zum Grundstück verwehrt, 
 unabhängig von etwaigen anderen Einstellungen.
+		</message>
+	</alert>
+	<alert name="HelpEstateVoiceChat" title="Voice-Chat erlauben">
+		<message name="message">
+			Die Parzellen auf diesem Grundstück können über eigene Voice-
+Channel verfügen, die es Einwohnern ermöglichen, sich mit
+anderen Personen in der Nähe zu unterhalten.
+
+Standard: aus
+		</message>
+	</alert>
+	<alert name="VoiceVersionMismatch" title="Falsche Voice-Version">
+		<message name="message">
+			Diese Version von Second ist mit dem Voice-Chat-Feature in dieser Region nicht kompatibel. Damit Voice-Chat funktioniert, müssen Sie Second Life aktualisieren.
 		</message>
 	</alert>
 	<alert name="HelpEstateCovenant" title="Grunstücksvertrag">
@@ -4362,6 +4154,34 @@ funktioniert aber nur, wenn ein Skript mit einem money() Ereignis hinzugefügt w
 			Abbrechen
 		</option>
 	</alert>
+	<alert name="RetryFetchInventoryDescendents">
+		<message name="message">
+			Zeitüberschreitung bei Inventarabfrage vom Server.  Wiederholen?
+		</message>
+		<ignore name="ignore">
+			Inventarobjekt-Abfrage wiederholen
+		</ignore>
+		<option name="Retry">
+			Wiederholen
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
+	<alert name="ConfirmQuit">
+		<message name="message">
+			Wirklich beenden?
+		</message>
+		<ignore name="ignore">
+			Beim Beenden von Second Life.
+		</ignore>
+		<option name="Quit">
+			Beenden
+		</option>
+		<option name="Continue">
+			Weiter
+		</option>
+	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
 			Verwenden Sie dieses Tool, um Verletzungen der Servicebedingungen 
@@ -4480,16 +4300,13 @@ Linden Lab
 			An dieser Körperstelle ist bereits ein Objekt angebracht.
 Möchten Sie es mit dem ausgewählten Objekt ersetzen?
 		</message>
-		<ignore>
-			Beim Wechseln von Anhängen
-		</ignore>
 		<ignore name="ignore">
 			Beim Wechseln von Anhängen
 		</ignore>
-		<option ignore="Automatisch ersetzen" name="Yes">
+		<option name="Yes">
 			OK
 		</option>
-		<option ignore="Nie ersetzen" name="No">
+		<option name="No">
 			Abbrechen
 		</option>
 	</alert>
@@ -4502,16 +4319,13 @@ Objekte erhalten können.
 Möchten Sie den Bechäftigt-Modus verlassen,
 bevor Sie diese Transaktion abschließen?
 		</message>
-		<ignore>
-			Beim Bezahlen einer Person oder eines Objekts im Beschäftigt-Modus
-		</ignore>
 		<ignore name="ignore">
 			Beim Bezahlen einer Person oder eines Objekts im Beschäftigt-Modus
 		</ignore>
-		<option ignore="Beschäftigt-Modus immer deaktivieren" name="Yes">
+		<option name="Yes">
 			OK
 		</option>
-		<option ignore="Beschäftigt-Modus aktiviert lassen" name="No">
+		<option name="No">
 			Abbrechen
 		</option>
 	</alert>
@@ -4589,42 +4403,6 @@ zu erleichtern, oder testen Sie sie, indem Sie sie in die Adressleiste Ihres Bro
 		<ignore name="ignore">
 			Beim Kopieren einer SLURL in die Zwischenablage
 		</ignore>
-	</alert>
-	<alert name="IMSessionStartError">
-		<message name="message">
-			Fehler beim Starten einer neuen IM-Sitzung mit [RECIPIENT].
-			[REASON]
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
-	<alert name="IMSessionStartNotVerified">
-		<message name="message">
-			Fehler beim Starten einer neuen IM-Sitzung mit [RECIPIENT].
-			[REASON]
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
-	<alert name="IMSessionEventError">
-		<message name="message">
-			Fehler [EVENT] [RECIPIENT].
-			[REASON]
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
-	<alert name="ForceCloseIMSession">
-		<message name="messsage">
-			Ihre IM-Sitzung mit [NAME] muss beendet werden.
-            [REASON]
-		</message>
-		<option name="OK">
-			OK
-		</option>
 	</alert>
 	<alert name="GraphicsPreferencesHelp">
 		<message name="message">
@@ -4981,16 +4759,7 @@ Wolkendichte.
 	</alert>
 	<alert name="ChatterBoxSessionStartError">
 		<message name="message">
-			Fehler beim Starten einer neuen Chat-Sitzung mit [RECIPIENT].
-[REASON]
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
-	<alert name="ChatterBoxSessionStartNotVerified">
-		<message name="message">
-			Fehler beim Starten einer neuen Chat-Sitzung mit [RECIPIENT].
+			Neue Chat-Sitzung mit [RECIPIENT] konnte nicht gestartet werden.
 [REASON]
 		</message>
 		<option name="OK">
@@ -4999,7 +4768,7 @@ Wolkendichte.
 	</alert>
 	<alert name="ChatterBoxSessionEventError">
 		<message name="message">
-			Fehler [EVENT] [RECIPIENT].
+			[EVENT]
 [REASON]
 		</message>
 		<option name="OK">
@@ -5007,10 +4776,6 @@ Wolkendichte.
 		</option>
 	</alert>
 	<alert name="ForceCloseChatterBoxSession">
-		<message name="messsage">
-			Ihre Chat-Sitzung mit [NAME] muss beendet werden.
-            [REASON]
-		</message>
 		<message name="message">
 			Ihre Chat-Sitzung mit [NAME] muss beendet werden.
 [REASON]
@@ -5075,6 +4840,9 @@ Möchten Sie auf der Second Life Website eine Altersüberprüfung durchführen?
 		<option name="No">
 			Nein
 		</option>
+		<url>
+			https://secondlife.com/account/verification.php
+		</url>
 	</alert>
 	<alert name="Cannot enter parcel: no payment info on file">
 		<message name="message">
@@ -5092,6 +4860,9 @@ Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
 		<option name="No">
 			Nein
 		</option>
+		<url>
+			https://secondlife.com/account/
+		</url>
 	</alert>
 	<alert name="MissingString">
 		<message name="message">

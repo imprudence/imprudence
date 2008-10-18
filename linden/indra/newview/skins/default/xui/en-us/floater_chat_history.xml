@@ -56,7 +56,8 @@
 			     text_readonly_color="ChatHistoryTextColor" width="300" word_wrap="true" />
 			<panel bottom="5" follows="left|right|bottom" left="5" name="chat_panel" right="-5"
 			     tab_group="1" top="25">
-				<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="0"
+        <string name="gesture_label">Gestures</string>
+        <line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="0"
 				     enabled="true" follows="left|right|bottom" font="SansSerif"
 				     handle_edit_keys_directly="false" height="20" label="Click here to chat."
 				     left="0" max_length="254" mouse_opaque="true" name="Chat Editor"
@@ -65,10 +66,10 @@
 				<flyout_button bottom="0" follows="right|bottom" height="20" label="Say" left="-65"
 				     list_position="above" mouse_opaque="true" name="Say" tool_tip="(Enter)"
 				     width="70">
-					<flyout_button_item value="shout">
+					<flyout_button_item value="shout" name="shout_item">
 						Shout
 					</flyout_button_item>
-					<flyout_button_item value="say">
+					<flyout_button_item value="say" name="say_item">
 						Say
 					</flyout_button_item>
 				</flyout_button>
