@@ -764,7 +764,7 @@
 
   <menu name="Help" create_jump_keys="true" label="Help"
         opaque="true" tear_off="true">
-    <menu_item_call name="Second Life Help" label="Second Life Help"
+    <menu_item_call name="Second Life Help" label="Help"
                     shortcut="F1">
       <on_click function="ShowFloater" userdata="help f1" />
     </menu_item_call>
@@ -773,9 +773,9 @@
     </menu_item_call>
     <menu_item_separator />
     <menu_item_call name="Official Linden Blog..."
-                    label="Official Linden Blog...">
+                    label="Imprudence Blog...">
       <on_click function="PromptShowURL"
-                userdata="WebLaunchSupportWiki,http://blog.secondlife.com/" />
+                userdata="WebLaunchSupportWiki,http://www.imprudence.com/" />
     </menu_item_call>
     <menu_item_separator />
     <menu_item_call name="Scripting Guide..."
@@ -836,7 +836,7 @@
     </menu>
     <menu_item_separator />
     <menu_item_call name="About Second Life..."
-                    label="About Second Life...">
+                    label="About Imprudence...">
       <on_click function="ShowFloater" userdata="about" />
     </menu_item_call>
   </menu>
