@@ -979,7 +979,7 @@ if (WINDOWS)
         comdlg32
         ${DINPUT_LIBRARY}
         ${DXGUID_LIBRARY}
-        fmodvc
+        ${FMOD_LIBRARY}
         gdi32
         kernel32
         odbc32

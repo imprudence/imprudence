@@ -1,5 +1,8 @@
 2008-10-17  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/CMakeLists.txt: 
+	Use FMOD_LIBRARY variable. It's there for a reason.
+	
 	* linden/indra/newview/viewer_manifest.py: 
 	Commented out fmod from viewer manifest.
 	Commented out kdu from viewer manifest.
