@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="landmarkpicker" title="Organiser : Repères">
+	<check_box label="Afficher les dossiers" name="show_folders_check" />
+	<button label="Nouveau" label_selected="Nouveau" name="New" />
+	<button label="Renommer" label_selected="Renommer" name="Rename" />
+	<button label="Nouveau dossier" label_selected="Nouveau dossier" name="NewFolder" />
+	<button label="Modifier" label_selected="Modifier" name="Edit" />
+	<button label="Supprimer" label_selected="Supprimer" name="Delete" />
+	<button label="Fermer" label_selected="Fermer" name="Close" />
+</floater>

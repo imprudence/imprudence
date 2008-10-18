@@ -1,50 +1,51 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="gesture_preview">
+	<string name="stop_txt">
+		중지
+	</string>
+	<string name="preview_txt">
+		미리보기
+	</string>
+	<string name="none_text">
+		-- 없음 --
+	</string>
 	<text name="desc_label">
 		설명:
 	</text>
 	<text name="trigger_label">
 		바로가기:
 	</text>
-	<text name="replace_text"
-	     tool_tip="이러한 말들로 시작 말을 대체합니다.   예를 들어, 시작 말을 ’hello’에서 ‘howdy(How do you do)’로 대체하면 채팅은 제스처 재생과 함께 &apos;I wanted to say hello&apos;’에서 &apos;I wanted to say howdy&apos;로 바뀝니다.">
+	<text name="replace_text" tool_tip="이러한 말들로 시작 말을 대체합니다.   예를 들어, 시작 말을 ’hello’에서 ‘howdy(How do you do)’로 대체하면 채팅은 제스처 재생과 함께 &apos;I wanted to say hello&apos;’에서 &apos;I wanted to say howdy&apos;로 바뀝니다.">
 		대체:
 	</text>
-	<line_editor name="replace_editor"
-	     tool_tip="이러한 말들로 시작 말을 대체합니다.   예를 들어, 시작 말을 ’hello’에서 ‘howdy(How do you do)’로 대체하면 채팅은 제스처 재생과 함께 &apos;I wanted to say hello&apos;’에서 &apos;I wanted to say howdy&apos;로 바뀝니다." />
+	<line_editor name="replace_editor" tool_tip="이러한 말들로 시작 말을 대체합니다.   예를 들어, 시작 말을 ’hello’에서 ‘howdy(How do you do)’로 대체하면 채팅은 제스처 재생과 함께 &apos;I wanted to say hello&apos;’에서 &apos;I wanted to say howdy&apos;로 바뀝니다."/>
 	<text name="key_label">
 		단축키:
 	</text>
-	<combo_box label="없음" name="modifier_combo" />
-	<combo_box label="없음" name="key_combo" />
-	<text>
-		라이브러리:
-	</text>
-	<text>
-		단계:
-	</text>
+	<combo_box label="없음" name="modifier_combo"/>
+	<combo_box label="없음" name="key_combo"/>
 	<text name="library_label">
 		라이브러리:
 	</text>
 	<text name="steps_label">
 		단계:
 	</text>
-	<button label="추가 &gt;&gt;" name="add_btn" />
-	<button label="위로 이동" name="up_btn" />
-	<button label="아래로 이동" name="down_btn" />
-	<button label="제거" name="delete_btn" />
+	<scroll_list name="library_list">
+		애니메이션 
+사운드 
+채팅 
+대기
+	</scroll_list>
+	<button label="추가 &gt;&gt;" name="add_btn"/>
+	<button label="위로 이동" name="up_btn"/>
+	<button label="아래로 이동" name="down_btn"/>
+	<button label="제거" name="delete_btn"/>
 	<text name="help_label">
 		사용자가 대기 단계를 추가하지 않
 는 한 모든 단계는 동시에 발생합니
 다.
 	</text>
 	<radio_group name="animation_trigger_type">
-		<radio_item>
-			시작
-		</radio_item>
-		<radio_item>
-			중지
-		</radio_item>
 		<radio_item name="start">
 			시작
 		</radio_item>
@@ -52,19 +53,9 @@
 			중지
 		</radio_item>
 	</radio_group>
-	<check_box label="애니메이션 완료 시까지" name="wait_anim_check" />
-	<check_box label="초 단위 시간" name="wait_time_check" />
-	<check_box label="활성" name="active_check"
-	     tool_tip="채팅 창에 바로가기 문구를 입력하거나 핫키를 눌러 사용중인 제스처를 표시할 수 있습니다.  일반적으로 키 조합 충돌이 있는 경우 제스처는 비활성화됩니다." />
-	<button label="미리보기" name="preview_btn" />
-	<button label="저장" name="save_btn" />
-	<text name="none_text">
-		-- 없음 --
-	</text>
-	<text name="stop_txt">
-		중지
-	</text>
-	<text name="preview_txt">
-		미리보기
-	</text>
+	<check_box label="애니메이션 완료 시까지" name="wait_anim_check"/>
+	<check_box label="초 단위 시간" name="wait_time_check"/>
+	<check_box label="활성" name="active_check" tool_tip="채팅 창에 바로가기 문구를 입력하거나 핫키를 눌러 사용중인 제스처를 표시할 수 있습니다.  일반적으로 키 조합 충돌이 있는 경우 제스처는 비활성화됩니다."/>
+	<button label="미리보기" name="preview_btn"/>
+	<button label="저장" name="save_btn"/>
 </floater>

@@ -1,60 +1,58 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="채팅 텍스트" name="chat">
-	<text type="string" length="1" name="text_box">
+	<text length="1" name="text_box" type="string">
 		글자 크기:
 	</text>
 	<radio_group name="chat font size">
-		<radio_item type="string" length="1" name="radio">
+		<radio_item length="1" name="radio" type="string">
 			소
 		</radio_item>
-		<radio_item type="string" length="1" name="radio2">
+		<radio_item length="1" name="radio2" type="string">
 			중
 		</radio_item>
-		<radio_item type="string" length="1" name="radio3">
+		<radio_item length="1" name="radio3" type="string">
 			대
 		</radio_item>
 	</radio_group>
-	<text type="string" length="1" name="text_box2">
+	<text length="1" name="text_box2" type="string">
 		글자색:
 	</text>
-	<color_swatch label="나" name="user" />
-	<color_swatch label="다른 사용자" name="agent" />
-	<color_swatch label="메신저" name="im" />
-	<color_swatch label="시스템" name="system" />
-	<color_swatch label="채팅" name="users" />
-	<color_swatch label="소유자:" name="objects" />
-	<color_swatch label="소유자" name="owner" />
-	<color_swatch label="말풍선" name="background" />
-	<color_swatch label="URL" name="links" />
-	<text type="string" length="1" name="text_box3">
+	<color_swatch label="나" name="user"/>
+	<color_swatch label="다른 사용자" name="agent"/>
+	<color_swatch label="메신저" name="im"/>
+	<color_swatch label="시스템" name="system"/>
+	<color_swatch label="채팅" name="users"/>
+	<color_swatch label="소유자:" name="objects"/>
+	<color_swatch label="소유자" name="owner"/>
+	<color_swatch label="말풍선" name="background"/>
+	<color_swatch label="URL" name="links"/>
+	<text length="1" name="text_box3" type="string">
 		콘솔:
 	</text>
-	<spinner label="채팅창 사라짐" name="fade_chat_time" />
-	<text type="string" length="1" name="text_box4">
+	<spinner label="채팅창 사라짐" name="fade_chat_time"/>
+	<text length="1" name="text_box4" type="string">
 		(초)
 	</text>
-	<text type="string" length="1" name="text_box5">
+	<text length="1" name="text_box5" type="string">
 		(#행)
 	</text>
-	<slider label="투명도" name="console_opacity" />
-	<text type="string" length="1" name="text_box6">
+	<slider label="투명도" name="console_opacity"/>
+	<text length="1" name="text_box6" type="string">
 		옵션:
 	</text>
-	<check_box label="전체화면 사용(재시작 필요)" name="chat_full_width_check" />
-	<check_box label="Enter키 누른 후 채팅창 닫기" name="close_chat_on_return_check" />
-	<check_box label="화살표 키는 채팅시 아바타를 움직이는데 사용"
-	     name="arrow_keys_move_avatar_check" />
-	<check_box label="채팅 시간 표시하기" name="show_timestamps_check" />
-	<check_box label="타이핑 애니메이션 재생" name="play_typing_animation" />
-	<text type="string" length="1" name="text_box7">
+	<check_box label="전체 화면 사용(재시작 필요)" name="chat_full_width_check"/>
+	<check_box label="Enter 키 누른 후 채팅창 닫기" name="close_chat_on_return_check"/>
+	<check_box label="화살표 키는 채팅시 아바타를 움직이는데 사용" name="arrow_keys_move_avatar_check"/>
+	<check_box label="채팅 시간 표시하기" name="show_timestamps_check"/>
+	<check_box label="타이핑 애니메이션 재생" name="play_typing_animation"/>
+	<text length="1" name="text_box7" type="string">
 		말풍선 채팅:
 	</text>
-	<check_box label="말풍선 표시하기" name="bubble_text_chat" />
-	<slider label="투명도" name="bubble_chat_opacity" />
-	<text type="string" length="1" name="text_box8">
+	<check_box label="말풍선 표시하기" name="bubble_text_chat"/>
+	<slider label="투명도" name="bubble_chat_opacity"/>
+	<text length="1" name="text_box8" type="string">
 		스크립트 오류:
 	</text>
-	<check_box label="스크립트 오류 및 경고를 일반 채팅으로 표시하기"
-	     name="script_errors_as_chat" />
-	<color_swatch label="오류" name="script_error" />
+	<check_box label="스크립트 오류 및 경고를 일반 채팅으로 표시하기" name="script_errors_as_chat"/>
+	<color_swatch label="오류" name="script_error"/>
 </panel>

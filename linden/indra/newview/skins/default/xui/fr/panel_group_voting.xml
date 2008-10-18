@@ -1,84 +1,119 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="Propositions" name="voting_tab">
 	<text name="help_text">
-		Les Propositions de Groupe permettent d&apos;en savoir plus sur les
-objectifs du groupe, ou son sentiment
-sur un sujet donné. Si vous disposez des  
-pouvoirs nécessaires, vous pouvez créer des propositions,
-voter des propositions ouvertes, et afficher les propositions passées.
+		Les propositions de groupe permettent d&apos;en savoir plus sur les objectifs du groupe ou son avis sur un sujet donné. Si vous avez les pouvoirs requis, vous pouvez créer des propositions, voter et accéder à d&apos;anciennes propositions.
 	</text>
 	<button label="?" name="help_button" />
 	<text name="proposal_header">
-		Propositions ouvertes du Groupe
+		Propositions du groupe actives
+	</text>
+	<text name="proposal_voting_lbl">
+		Proposition                                                      Fin du vote                      Votée ?
 	</text>
 	<text name="proposals_header_view_txt">
-		Propositions ouvertes du Groupe
+		Propositions du groupe actives
 	</text>
+	<string name="proposals_header_view_inst">
+		Double-cliquez sur la proposition pour laquelle vous aimeriez voter
+ou cliquez sur Créer proposition pour créer une nouvelle proposition.
+	</string>
 	<text name="proposals_header_create_txt">
-		Créer Proposition
+		Créer une proposition
 	</text>
+	<string name="proposals_header_create_inst">
+		Saisissez une description. Vous pouvez changer le quorum, la durée
+et la majorité requise pour que la proposition soit adoptée.
+	</string>
 	<text name="proposals_header_vote_txt">
-		Vote sur les propositions
+		Vote sur la proposition
 	</text>
+	<string name="proposals_header_vote_inst">
+		Pour voter, cliquez sur les boutons Oui ou Non,
+ou abstenez-vous en cliquant sur M&apos;abstenir.
+	</string>
+	<string name="proposals_header_voted_inst">
+		Vous avez voté : [VOTE]
+	</string>
 	<text name="empty_proposal_txt">
-		La proposition que vous essayez de créer est vide. Veuillez saisir la proposition avant de la créer.
+		La proposition que vous essayez de créer est vide. Veuillez saisir une description avant de créer la proposition.
 	</text>
 	<text name="proposal_instructions">
-		Double-cliquez sur la proposition que vous souhaitez soumettre au vote ou cliquez sur &quot;Créer une proposition&quot; pour créer une nouvelle proposition
+		Double-cliquez sur la proposition sur laquelle vous voulez voter ou cliquez sur Créer une nouvelle proposition pour en créer une nouvelle.
 	</text>
 	<text name="proposal_lbl">
-		Propositions :
+		Description de la proposition
 	</text>
-	<button label="Créer Proposition" label_selected="Créer Proposition"
+	<button label="Créer une proposition" label_selected="Créer une proposition"
 	     name="btn_proposal" />
-	<button label="Voir proposition" label_selected="Voir proposition"
+	<button label="Afficher la proposition" label_selected="Afficher la proposition"
 	     name="btn_view_proposal_item" />
-	<button label="Voir liste" label_selected="Voir liste" name="btn_view_proposal_list" />
+	<button label="Afficher la liste" label_selected="Afficher la liste"
+	     name="btn_view_proposal_list" />
 	<text name="quorum_lbl">
-		Quorum :
+		Quorum :
 	</text>
 	<spinner name="quorum"
-	     tool_tip="nombre total de votants requis pour que les résultats soient exécutoires." />
+	     tool_tip="Nombre total de votants nécessaires pour que les résultats de l&apos;élection soient valides." />
 	<text name="quorum_text">
-		sur un total de x membres du groupe.
+		sur [MEMBERS] membres doivent voter.
 	</text>
 	<text name="duration_lbl">
-		Durée :
+		Durée :
 	</text>
-	<spinner name="duration" tool_tip="nombre de jours que dure l&apos;élection." />
+	<spinner name="duration" tool_tip="Durée de l&apos;élection (en nombre de jours)." />
 	<text name="duration_text">
 		jours
 	</text>
-	<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
-		Simple Majority
-		2/3 Majority
-		Unanimous
+	<radio_group name="majority" left="296"
+	     tool_tip="Majorité de tous les votes nécessaires pour remporter l&apos;élection.">
+		Majorité simple
+		Majorité des 2/3
+		Unanimité
 	</radio_group>
 	<text name="start_lbl">
-		Début du vote :
+		Début du vote :
 	</text>
 	<text name="end_lbl">
-		Fin du vote :
+		Fin du vote :
 	</text>
-	<button label="Soumettre proposition" label_selected="Soumettre proposition"
-	     name="btn_submit" />
-	<button label="Annuler" label_selected="Annuler" name="btn_cancel" />
-	<button label="Oui" label_selected="Oui" name="btn_yes" />
-	<button label="Non" label_selected="Non" name="btn_no" />
-	<button label="S&apos;abstenir" label_selected="S&apos;abstenir" name="btn_abstain" />
-	<text name="txt">
-		Historique des Votes du Groupe
+	<button label="Soumettre la proposition" label_selected="Soumettre la proposition"
+	     name="btn_submit" width="150" left="170" />
+	<button label="Annuler" label_selected="Annuler" name="btn_cancel" left_delta="158"/>
+	<button label="Oui" label_selected="Oui" name="btn_yes" width="70" left="183" font="SansSerifSmall" />
+	<button label="Non" label_selected="Non" name="btn_no" width="70" left_delta="77" font="SansSerifSmall"/>
+	<button label="M&apos;abstenir" label_selected="M&apos;abstenir" name="btn_abstain" width="70" left_delta="77" font="SansSerifSmall"/>
+	<text name="txt" left="7">
+		Historique des votes du groupe
 	</text>
-	<text name="instructions">
-		Double-cliquez sur un vote passé ou sélectionnez-en un et cliquez sur Afficher pour voir les résultats.
+	<text name="instructions" left="7" width="405">
+		Double-cliquez sur un ancien vote ou sélectionnez-en un pour voir les résultats.
 	</text>
 	<text name="history_list_lbl">
-		Vote passé                                                         Vote terminé
+		Ancien vote                                                      Fin du vote
 	</text>
-	<button label="Voir élément" label_selected="Voir élément"
-	     name="btn_view_history_item" />
+	<button label="Afficher la proposition" label_selected="Afficher la proposition"
+	     name="btn_view_history_item" width="160" left="247"/>
 	<text name="vote_text_lbl">
-		Résultats du vote :
+		Résultats du vote :
 	</text>
-	<button label="Voir liste" label_selected="Voir liste" name="btn_view_history_list" />
+	<button label="Afficher la liste" label_selected="Afficher la liste"
+	     name="btn_view_history_list" />
+	<string name="proposals_submit_yes_txt">
+		Soumission du Oui en cours...
+	</string>
+	<string name="proposals_submit_no_txt">
+		Soumission du Non en cours...
+	</string>
+	<string name="proposals_submit_abstain_txt">
+		Soumission de l&apos;abstention en cours...
+	</string>
+	<string name="proposals_submit_new_txt">
+		Soumission de la nouvelle proposition en cours...
+	</string>
+	<string name="vote_recorded">
+		Votre vote a été reçu.
+	</string>
+	<string name="vote_previously_recorded">
+		Vous avez déjà voté. Vous ne pouvez voter qu&apos;une fois au cours d&apos;une élection.
+	</string>
 </panel>

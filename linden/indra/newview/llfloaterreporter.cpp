@@ -389,21 +389,36 @@ void LLFloaterReporter::onClickSend(void *userdata)
 		// only show copyright alert for abuse reports
 		if ( self->mReportType != BUG_REPORT )
 		{
+			const int IP_CONTENT_REMOVAL = 66;
+			const int IP_PERMISSONS_EXPLOIT = 37;
+			LLComboBox* combo = self->getChild<LLComboBox>( "category_combo");
+			int category_value = combo->getSelectedValue().asInteger(); 
+
 			if ( ! self->mCopyrightWarningSeen )
 			{
+
 				std::string details_lc = self->childGetText("details_edit");
 				LLStringUtil::toLower( details_lc );
 				std::string summary_lc = self->childGetText("summary_edit");
 				LLStringUtil::toLower( summary_lc );
 				if ( details_lc.find( "copyright" ) != std::string::npos ||
-					summary_lc.find( "copyright" ) != std::string::npos )
+					summary_lc.find( "copyright" ) != std::string::npos  ||
+					category_value == IP_CONTENT_REMOVAL ||
+					category_value == IP_PERMISSONS_EXPLOIT)
 				{
 					gViewerWindow->alertXml("HelpReportAbuseContainsCopyright");
 					self->mCopyrightWarningSeen = TRUE;
 					return;
-				};
-			};
-		};
+				}
+			}
+			else if (category_value == IP_CONTENT_REMOVAL)
+			{
+				// IP_CONTENT_REMOVAL *always* shows the dialog - 
+				// ergo you can never send that abuse report type.
+				gViewerWindow->alertXml("HelpReportAbuseContainsCopyright");
+				return;
+			}
+		}
 
 		LLUploadDialog::modalUploadDialog("Uploading...\n\nReport");
 		// *TODO don't upload image if checkbox isn't checked
@@ -937,11 +952,12 @@ void LLFloaterReporter::uploadDoneCallback(const LLUUID &uuid, void *user_data, 
 	if(result < 0)
 	{
 		LLStringUtil::format_map_t args;
-		args["[REASON]"] = std::string(LLAssetStorage::getErrorString(result));
+		std::string reason = std::string(LLAssetStorage::getErrorString(result));
+		args["[REASON]"] = reason;
 		gViewerWindow->alertXml("ErrorUploadingReportScreenshot", args);
 
 		std::string err_msg("There was a problem uploading a report screenshot");
-		err_msg += " due to the following reason: " + args["[REASON]"];
+		err_msg += " due to the following reason: " + reason;
 		llwarns << err_msg << llendl;
 		return;
 	}

@@ -1002,7 +1002,7 @@ Mキーを押して移行します。
 	</notify>
 	<notify name="ProximalVoiceChannelFull">
 		<message name="message">
-			すみません。このエリアのボイス会話は、混雑が最大限に達しています。他のエリアのボイスをお試しください。
+			このエリアのボイスチャットは混雑のため容量を超えてしまっています。申し訳ありませんが、他のエリアでボイスチャットをお試しください
 		</message>
 	</notify>
 	<notify name="VoiceChannelDisconnected">

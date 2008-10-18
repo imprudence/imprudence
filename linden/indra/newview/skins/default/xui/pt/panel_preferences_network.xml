@@ -7,7 +7,7 @@
 		kbps(kilobits por segundo)
 	</text>
 	<text type="string" length="1" name="cache_size_label_l">
-		Cache em Disco (MB):
+		Cache em Disco:
 	</text>
 	<button label="Limpar Cache" name="clear_cache" />
 	<text type="string" length="1" name="cache_location_label">

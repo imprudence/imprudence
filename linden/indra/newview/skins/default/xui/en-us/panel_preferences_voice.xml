@@ -60,7 +60,7 @@
 	     name="set_voice_middlemouse_button" width="160" />
 	<text allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-25"
 	     embedded_items="false" enabled="true" follows="left|top" height="16"
-	     left_delta="-120" name="privacy_heading" width="445">
+	     left="28" name="privacy_heading" width="445">
 		Privacy Options
 	</text>
 	<check_box bottom_delta="-20" control_name="VoiceCallsFriendsOnly" enabled="true"
@@ -68,14 +68,14 @@
 	     label="Only accept voice calls from people on My Friends list"
 	     left_delta="20" mouse_opaque="true" name="voice_call_friends_only_check"
 	     radio_style="false" width="200" />
-	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-40"
+	<button bottom_delta="-40" follows="left|top" font="SansSerif" height="20"
+	     label="Device Settings" left="28" mouse_opaque="true"
+	     name="device_settings_btn" width="155" />
+	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-32"
 	     embedded_items="false" enabled="false" follows="left|top"
 	     font="SansSerifSmall" height="35" hide_border="true" hide_scrollbar="true"
-	     left_delta="-20" max_length="65535" mouse_opaque="true"
+	     left="28" max_length="65535" mouse_opaque="true"
 	     name="device_settings_text" tab_stop="false" width="450" word_wrap="true">
 		NOTE: Running the Device Settings will temporarily disconnect you from Voice Chat.
 	</text_editor>
-	<button bottom_delta="-30" follows="left|top" font="SansSerif" height="20"
-	     label="Device Settings" left_delta="0" mouse_opaque="true"
-	     name="device_settings_btn" width="155" />
 </panel>

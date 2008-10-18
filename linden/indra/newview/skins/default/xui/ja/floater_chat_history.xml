@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="chat floater" title="ローカル・チャット">
-	<button label="ﾁｬｯﾄ" name="Chat" />
-	<button label="ﾐｭｰﾄ" name="Mute resident" />
-	<check_box label="ﾐｭｰﾄされたﾃｷｽﾄを表示" name="show mutes" />
 	<string name="ringing">
 		インワールドボイスチャットに接続中．．．
 	</string>
@@ -31,13 +28,21 @@
 					ジェスチャー
 				</combo_item>
 			</combo_box>
-			<check_box label="ミュートされたテキストを表示" name="show mutes" />
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
-			     tool_tip="ここをクリックして、このIMセッションへのアクティブな参加者リストを表示。" />
+			<check_box label="ミュートされたテキストを表示" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="ここをクリックして、このIMセッションへのアクティブな参加者リストを表示。"/>
 			<panel name="chat_panel">
-				<line_editor label="チャットを開始するには、ここをクリックします。"
-				     name="Chat Editor" />
-				<flyout_button label="発言" name="Say" tool_tip="（Enter）" />
+				<string name="gesture_label">
+					ジェスチャー
+				</string>
+				<line_editor label="チャットを開始するには、ここをクリックします。" name="Chat Editor"/>
+				<flyout_button label="発言" name="Say" tool_tip="（Enter）">
+					<flyout_button_item name="shout_item">
+						叫ぶ
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						発言
+					</flyout_button_item>
+				</flyout_button>
 			</panel>
 		</layout_panel>
 	</layout_stack>

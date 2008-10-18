@@ -125,7 +125,7 @@ BOOL LLPanelDisplay::postBuild()
 
 	mCtrlFullScreen = getChild<LLComboBox>( "fullscreen combo");
 	
-	LLUIString resolution_label = getUIString("resolution_format");
+	LLUIString resolution_label = getString("resolution_format");
 
 	for (S32 i = 0; i < num_resolutions; i++)
 	{
@@ -181,7 +181,7 @@ BOOL LLPanelDisplay::postBuild()
 	S32 denominator = 0;
 	fractionFromDecimal(mAspectRatio, numerator, denominator);
 
-	LLUIString aspect_ratio_text = getUIString("aspect_ratio_text");
+	LLUIString aspect_ratio_text = getString("aspect_ratio_text");
 	if (numerator != 0)
 	{
 		aspect_ratio_text.setArg("[NUM]", llformat("%d",  numerator));
@@ -347,7 +347,7 @@ void LLPanelDisplay::initWindowSizeControls()
 		}
 	}
 	// ...otherwise, add a new entry with the current window height/width.
-	LLUIString resolution_label = getUIString("resolution_format");
+	LLUIString resolution_label = getString("resolution_format");
 	resolution_label.setArg("[RES_X]", llformat("%d", width));
 	resolution_label.setArg("[RES_Y]", llformat("%d", height));
 	mCtrlWindowSize->add(resolution_label, ADD_TOP);

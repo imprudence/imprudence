@@ -23,8 +23,8 @@
 		<action description="Delete Roles"
 		     longdescription="Delete Roles in the Members &amp; Roles tab &gt; Roles sub-tab."
 		     name="role delete" value="5" />
-		<action description="Change Role names, titles, and descriptions"
-		     longdescription="Change Role names, titles, and descriptions at the bottom of the the Members &amp; Roles tab &gt; Roles sub-tab after selecting a Role."
+		<action description="Change Role names, titles, descriptions, and whether Role members are publicly visible"
+		     longdescription="Change Role names, titles, descriptions, and whether Role members are publicly visible. This is done at the bottom of the the Members &amp; Roles tab &gt; Roles sub-tab after selecting a Role."
 		     name="role properties" value="6" />
 		<action description="Assign Members to Assigner&apos;s Roles"
 		     longdescription="Assign Members to Roles in the Assigned Roles section of the Members &amp; Roles tab &gt; Members sub-tab. A Member with this Ability can only add Members to a Role the assigner is already in."
@@ -43,8 +43,8 @@
 	     description="These Abilities include powers to modify this group&apos;s identity, such as changing public visibility, charter, and insignia."
 	     name="Group Identity">
 		<action
-		     description="Change Charter, Insignia, &apos;Show in search&apos;, and which members are publicly visible in Group Information."
-		     longdescription="Change Charter, Insignia, &apos;Show in search&apos;, and which members are publicly visible in Group Information. This is done in the General tab."
+		     description="Change Charter, Insignia, and &apos;Show in search&apos;"
+		     longdescription="Change Charter, Insignia, and &apos;Show in search&apos;. This is done in the General tab."
 		     name="group change identity" value="11" />
 	</action_set>
 	<action_set

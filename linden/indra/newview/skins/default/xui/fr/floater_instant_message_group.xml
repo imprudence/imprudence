@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(inconnu)" name="im_floater" title="(inconnu)">
+	<string name="ringing">
+		En train de rejoindre le chat vocal...
+	</string>
+	<string name="connected">
+		Connecté(e), cliquez sur Raccrocher pour terminer l&apos;appel
+	</string>
+	<string name="hang_up">
+		A quitté le chat vocal
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="live_help_dialog">
+		*** Bienvenue sur la page Demande d&apos;aide *** 
+    	Veuillez au préalable consulter les pages d&apos;aide de Second Life en appuyant sur la touche F1, ou en accédant à la base de connaissances http://secondlife.com/knowledgebase/ 
+    	Si vous ne trouvez pas ce que vous cherchez, saisissez votre question et attendez quelques instants pour que quelqu&apos;un vous réponde. 
+    	-=-=- Les temps de réponse varient, surtout pendant les périodes de pointe -=-=-
+	</string>
+	<string name="title_string">
+		Envoyer un message instantané à [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] est en train d&apos;écrire…
+	</string>
+	<string name="session_start_string">
+		Début de la session avec [NAME], veuillez patienter.
+	</string>
+	<string name="moderated_chat_label">
+		(Modéré : Voix désactivées par défaut)
+	</string>
+	<string name="default_text_label">
+		Cliquez ici pour envoyer un message instantané.
+	</string>
+	<string name="muted_text_label">
+		Votre chat écrit a été désactivé par un modérateur de groupe.
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Infos sur le groupe" name="group_info_btn" width="120" />
+			<button label="Participer à l&apos;appel" left_delta="125" name="start_call_btn"
+			     width="145" />
+			<button halign="center" label="Raccrocher" name="end_call_btn" width="145" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Cliquez ici pour mettre la liste des intervenants actifs dans cette session IM en mode bascule." />
+			<button label="Envoyer" name="send_btn" />
+		</layout_panel>
+	</layout_stack>
+</floater>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="active_speakers" title="Intervenants actifs">
+	<panel name="active_speakers_panel">
+		<scroll_list name="speakers_list">
+			<column label="Nom" name="speaker_name" />
+		</scroll_list>
+		<panel name="volume_container">
+			<button name="mute_btn" tool_tip="Rendre ce résident muet" />
+		</panel>
+	</panel>
+</floater>

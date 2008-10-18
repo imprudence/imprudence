@@ -14,9 +14,9 @@
 		</radio_item>
 	</radio_group>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-20" drop_shadow_visible="true" enabled="true"
+	     bottom_delta="-25" drop_shadow_visible="true" enabled="true"
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="32" mouse_opaque="false" name="cache_size_label_l"
+	     height="10" left="15" mouse_opaque="false" name="cache_size_label_l"
 	     v_pad="0" width="128">
 		Browser cache:
 	</text>
@@ -26,7 +26,7 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-30" drop_shadow_visible="true" enabled="true"
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="66" mouse_opaque="false" name="cookie_label" v_pad="0"
+	     height="10" left="15" mouse_opaque="false" name="cookie_label" v_pad="0"
 	     width="128">
 		Cookies:
 	</text>
@@ -37,7 +37,7 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-24" drop_shadow_visible="true" enabled="true"
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="10" left="55" mouse_opaque="false" name="proxy_label" v_pad="0"
+	     height="10" left="15" mouse_opaque="false" name="proxy_label" v_pad="0"
 	     width="128">
 		Web Proxy:
 	</text>

@@ -9,7 +9,7 @@
 	<text name="pos_title">
 		位置:
 	</text>
-	<texture_picker label="工作..." name="screenshot" />
+	<texture_picker name="screenshot" />
 	<check_box label="包含屏幕截图" name="screen_check" />
 	<combo_box name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report">

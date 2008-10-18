@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="팝업" name="popups" title="팝업">
-	<text type="string" length="1" name="text_box">
+	<text length="1" name="text_box" type="string">
 		팝업 차단:
 	</text>
 	<text name="dont_show_label">
 		팝업 차단:
 	</text>
-	<button label="팝업 보기" label_selected="팝업 보기" name="enable_popup" />
+	<button label="팝업 보기" label_selected="팝업 보기" name="enable_popup"/>
 	<text name="show_label">
 		허용된 팝업:
 	</text>
-	<text type="string" length="1" name="text_box2">
+	<text length="1" name="text_box2" type="string">
 		허용된 팝업:
 	</text>
-	<check_box label="자동 수락" name="accept_new_inventory" />
-	<check_box label="수락 후 자동 보기" name="show_new_inventory" />
-	<button label="모두 보기&apos; 다음 건너뛰기&apos; 대화 상자..."
-	     label_selected="나중에 알림&apos; 초기화…"
-	     name="reset_dialogs_btn"
-	     tool_tip="팝업&apos;처음 사용&apos; 통보 옵션 모두 사용하기" />
-	<button label="모두 보기&apos; 다음 건너뛰기&apos; 대화 상자..."
-	     name="skip_dialogs_btn"
-	     tool_tip="팝업&apos;처음 사용&apos; 통보 옵션 모두 사용 안 함" />
-	<check_box
-	     label="인벤토리에서 새로 수락한 오브젝트를 자동으로 보여주기"
-	     name="show_in_inventory" />
+	<check_box label="자동 수락" name="accept_new_inventory"/>
+	<check_box label="수락 후 자동 보기" name="show_new_inventory"/>
+	<button label="모든 팝업 사용..." label_selected="나중에 알림&apos; 초기화…" name="reset_dialogs_btn" tool_tip="팝업&apos;처음 사용&apos; 통보 옵션 모두 사용하기"/>
+	<button label="모든 팝업 사용 안 함..." name="skip_dialogs_btn" tool_tip="팝업&apos;처음 사용&apos; 통보 옵션 모두 사용 안 함"/>
+	<check_box label="인벤토리에서 새로 수락한 오브젝트를 자동으로 보여주기" name="show_in_inventory"/>
 </panel>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="音声とビデオ" name="Media panel">
 	<text type="string" length="1" name="muting_text">
-		ボリューム:
+		ボリューム：
 	</text>
 	<check_box label="オーディオをミュート" name="disable audio" />
 	<text name="streaming_prefs_text">
@@ -33,7 +33,7 @@
 		足音：
 	</text>
 	<text type="string" length="1" name="ui_volume_text">
-		UI音量:
+		UI音量：
 	</text>
 	<slider label="ドップラー効果" name="Doppler Effect" />
 	<slider label="遠隔要因" name="Distance Factor" />

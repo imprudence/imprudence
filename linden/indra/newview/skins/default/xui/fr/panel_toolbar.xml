@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="toolbar">
+	<string name="Redock Windows">
+		Rétablir les fenêtres
+	</string>
 	<layout_stack name="toolbar_stack">
-	<button label="IM" name="im_btn"
-	     tool_tip="Envoyez des messages instantanés à vos amis." />
-	<button label="" name="chat_btn"
-	     tool_tip="Parlez aux personnes dans votre entourage. Cliquez Chat puis Historique pour afficher ce qui s&apos;est dit." />
-	<button label="Amis" name="friends_btn"
-	     tool_tip="Retrouvez vos amis et communiquez avec eux." />
-	<button label="Voler" label_selected="Arrêter de voler" name="fly_btn"
-	     tool_tip="Active le vol. Utilisez les touches E/C ou PgPréc/PgSuiv pour vous envoler ou atterrir." />
-	<button label="Instantané" name="snapshot_btn"
-	     tool_tip="Enregistrer une capture d&apos;écran sur disque ou dans votre inventaire" />
-	<button label="Rechercher" name="directory_btn"
-	     tool_tip="Recherchez des lieux, des événements, des personnes, et bien plus encore." />
-	<button label="Construire" name="build_btn" tool_tip="Créez de nouveaux objets." />
-	<button label="Mini-carte" name="radar_btn"
-	     tool_tip="Carte de la zone dans laquelle vous vous trouvez. (Ctrl-Shift-M)" />
-	<button label="Carte" name="map_btn" tool_tip="Carte du monde. (Ctrl-M)" />
-	<button label="Inventaire" name="inventory_btn" tool_tip="Vos éléments. (Ctrl-I)" />
-  </layout_stack>
+		<button label="" name="chat_btn" tool_tip="Afficher la barre de chat. (Entrée)" />
+		<flyout_button label="Communiquer" name="communicate_btn"
+		     tool_tip="Communiquer avec vos amis et vos groupes." />
+		<button label="Voler" label_selected="Atterrir" name="fly_btn"
+		     tool_tip="Commencer à voler. Utilisez E/C ou PgHaut/PageBas pour voler vers le haut et vers le bas." />
+		<button label="Photo" name="snapshot_btn"
+		     tool_tip="Enregistrer une photo sur le disque ou dans l&apos;inventaire." />
+		<button label="Rechercher" name="directory_btn"
+		     tool_tip="Rechercher des endroits, des événements, des personnes, et plus encore." />
+		<button label="Construire" name="build_btn" tool_tip="Créer de nouveaux objets." />
+		<button label="Mini-carte" name="radar_btn"
+		     tool_tip="Carte de la zone autour de vous. (Ctrl-Maj-M)" />
+		<button label="Carte" name="map_btn" tool_tip="Carte du monde. (Ctrl-M)" />
+		<button label="Inventaire" name="inventory_btn" tool_tip="Vos objets. (Ctrl-I)" />
+	</layout_stack>
 </panel>

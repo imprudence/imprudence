@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Thèmes" name="Skins panel">
+	<text name="muting_text">
+		Sélectionner un thème (redémarrage requis) :
+	</text>
+	<radio_group name="skin_selection">
+		<radio_item name="default">
+			Défaut
+		</radio_item>
+		<radio_item name="silver">
+			Argent
+		</radio_item>
+	</radio_group>
+</panel>

@@ -11,21 +11,21 @@
 		</radio_item>
 	</radio_group>
 	<text name="cache_size_label_l">
-		キャッシュ:
+		キャッシュ：
 	</text>
 	<button label="今すぐクリア" name="clear_cache" />
 	<text name="cookie_label">
-		クッキー:
+		クッキー：
 	</text>
 	<check_box label="サイトからのクッキーを承認" name="cookies_enabled" />
 	<button label="今すぐクリア" name="clear_cookies" />
 	<text name="proxy_label">
-		プロキシ:
+		プロキシ：
 	</text>
 	<check_box label="ウェブ・プロキシを有効にします。"
 	     name="web_proxy_enabled" />
 	<text name="proxy_text_label">
-		アドレス:
+		アドレス：
 	</text>
 	<line_editor name="web_proxy_editor"
 	     tool_tip="使用したいプロキシの名前、あるいはIPアドレス" />

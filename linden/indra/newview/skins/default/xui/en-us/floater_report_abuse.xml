@@ -96,12 +96,10 @@ Assault > Combat sandbox / unsafe area
 Assault > Safe area
 </combo_item><combo_item name="Assault__Weapons_testing_sandbox" value="36">
 Assault > Weapons testing sandbox
-</combo_item><combo_item name="Copyright_or_intellectual_property_violation" value="37">
-Copyright or intellectual property violation
 </combo_item><combo_item name="Commerce__Failure_to_deliver_product_or_service" value="38">
 Commerce > Failure to deliver product or service
-</combo_item><combo_item name="Disclosure__First_Life_information" value="39">
-Disclosure > First life information
+</combo_item><combo_item name="Disclosure__Real_world_information" value="39">
+Disclosure > Real world information
 </combo_item><combo_item name="Disclosure__Remotely_monitoring chat" value="40">
 Disclosure > Remotely monitoring chat
 </combo_item><combo_item name="Disclosure__Second_Life_information_chat_IMs" value="41">
@@ -144,6 +142,10 @@ Indecency > Broadly visible mature content
 Indecency > Inappropriate avatar name
 </combo_item><combo_item name="Indecency__Mature_content_in_PG_region" value="60">
 Indecency > Mature content in PG region
+</combo_item><combo_item name="Intellectual_property_infringement_Content_Removal" value="66">
+Intellectual property infringement > Content Removal
+</combo_item><combo_item name="Intellectual_property_infringement_CopyBot_or_Permissions_Exploit" value="37">
+Intellectual property infringement > CopyBot or Permissions Exploit
 </combo_item><combo_item name="Intolerance" value="61">
 Intolerance
 </combo_item><combo_item name="Land__Abuse_of_sandbox_resources" value="62">
@@ -154,8 +156,6 @@ Land > Encroachment > Objects/textures
 Land > Encroachment > Particles
 </combo_item><combo_item name="Land__Encroachment__Trees_plants" value="65">
 Land > Encroachment > Trees/plants
-</combo_item><combo_item name="Trademark_violation" value="66">
-Trademark violation
 </combo_item><combo_item name="Wagering_gambling" value="67">
 Wagering/gambling
 </combo_item><combo_item name="Other" value="68">

@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="Kommunikation" name="im">
-	<text type="string" length="1" name="text_box">
-		Profil-Onlinestatus:
+	<text length="1" name="text_box" type="string">
+		Mein Onlinestatus:
 	</text>
-	<check_box label="Nur Freunden und Gruppen meinen Online-Status mitteilen"
-	     name="online_visibility" />
-	<text type="string" length="1" name="text_box2">
+	<check_box label="Nur Freunden und Gruppen meinen Online-Status mitteilen" name="online_visibility"/>
+	<text length="1" name="text_box2" type="string">
 		IM-Optionen:
 	</text>
 	<text name="log_in_to_change">
 		Zum Ändern anmelden
 	</text>
-	<check_box label="IM an E-Mail senden ([EMAIL])" name="send_im_to_email" />
-	<check_box label="IM in Chat-Verlauf einschließen" name="include_im_in_chat_history" />
-	<check_box label="Zeitstempel in IM anzeigen" name="show_timestamps_check" />
-	<check_box label="Online-Freundbenachrichtigungen anzeigen"
-	     name="friends_online_notify_checkbox" />
-	<text type="string" length="1" name="text_box3">
+	<check_box label="IM an E-Mail senden ([EMAIL])" name="send_im_to_email"/>
+	<check_box label="IM in lokalen Chat einschließen" name="include_im_in_chat_history"/>
+	<check_box label="Zeitstempel in IM anzeigen" name="show_timestamps_check"/>
+	<check_box label="Online-Freundbenachrichtigungen anzeigen" name="friends_online_notify_checkbox"/>
+	<text length="1" name="text_box3" type="string">
 		Protokolloptionen:
 	</text>
-	<text type="string" length="1" name="text_box3">
+	<text length="1" name="text_box3" type="string">
 		Protokolloptionen:
 	</text>
 	<text name="text_box4">
 		Protokolloptionen:
 	</text>
-	<check_box label="Instant Messages protokollieren" name="log_instant_messages" />
-	<check_box label="Zeitstempel in IM-Verlauf anzeigen"
-	     name="log_instant_messages_timestamp" />
-	<check_box label="Ende des letzten IM-Gesprächs anzeigen" name="log_show_history" />
-	<check_box label="Chat protokollieren" name="log_chat" />
-	<check_box label="Zeitstempel in Chat-Verlauf anzeigen" name="log_chat_timestamp" />
-	<check_box label="Eingehende IM in Chat-Verlauf anzeigen" name="log_chat_IM" />
-	<check_box label="Datum und Zeitstempel hinzufügen" name="log_date_timestamp" />
-	<button label="Pfad ändern" label_selected="Pfad ändern" name="log_path_button" />
+	<check_box label="IM-Verlauf auf meinem Computer speichern" name="log_instant_messages"/>
+	<check_box label="Zeitstempel in IM-Verlauf anzeigen" name="log_instant_messages_timestamp"/>
+	<check_box label="Ende des letzten IM-Gesprächs anzeigen" name="log_show_history"/>
+	<check_box label="Verlauf des lokalen Chats auf meinem Computer speichern" name="log_chat"/>
+	<check_box label="Zeitstempel im Verlauf des lokalen Chats anzeigen" name="log_chat_timestamp"/>
+	<check_box label="Eingehende IM in Chat-Verlauf anzeigen" name="log_chat_IM"/>
+	<check_box label="Datum mit Zeitstempeln hinzufügen" name="log_date_timestamp"/>
+	<button label="Pfad ändern" label_selected="Pfad ändern" name="log_path_button"/>
 </panel>

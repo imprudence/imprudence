@@ -2,13 +2,12 @@
 <floater label="(不明）" name="im_floater" title="(不明）">
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="グループインフォ：" name="group_info_btn" />
-			<button label="コールに参加" name="start_call_btn" />
-			<button label="コールの終了" name="end_call_btn" />
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
-			     tool_tip="ここをクリックして、このIMセッションへのアクティブな参加者リストを表示。" />
-			<line_editor label="ここをクリックしてIM" name="chat_editor" />
-			<button label="送信" name="send_btn" />
+			<button label="グループインフォ" name="group_info_btn" width="120"/>
+			<button label="コールに参加" name="start_call_btn"  left_delta="125" width="120"/>
+			<button label="コールの終了" name="end_call_btn" width="120" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="このIMセッションのアクティブな参加者のリスト表示を切り替えるにはここをクリックします"/>
+			<line_editor label="ここをクリックしてIM" name="chat_editor"/>
+			<button label="送信" name="send_btn"/>
 			<text name="live_help_dialog">
 				*** ヘルプリクエストへようこそ *** 
 			まずF1を押してSLヘルプページを開くか、ナレッジベースのページ http://secondlife.com/knowledgebase/ へアクセスしてください。
@@ -27,7 +26,7 @@
 		</layout_panel>
 		<layout_panel name="active_speakers_panel">
 			<scroll_list name="speakers_list">
-				<column label="名前" name="speaker_name" />
+				<column label="名前" name="speaker_name"/>
 			</scroll_list>
 			<panel name="volume_container">
 				<text name="resident_name">
@@ -36,8 +35,8 @@
 				<text name="Mute:">
 					ミュート:
 				</text>
-				<check_box label="テキスト" name="mute_text_btn" />
-				<check_box label="ボイス" name="mute_btn" />
+				<check_box label="テキスト" name="mute_text_btn"/>
+				<check_box label="ボイス" name="mute_btn"/>
 			</panel>
 		</layout_panel>
 	</layout_stack>
@@ -66,15 +65,15 @@
 		[NAME]が入力中です...
 	</string>
 	<string name="session_start_string">
-		[NAME]とセッションを開始します。お待ちください。
+		[NAME]とセッションを開始します。お待ちください
 	</string>
 	<string name="moderated_chat_label">
-		(モデレート済み)
+		(モデレート済み： デフォルトでボイスをオフ)
 	</string>
 	<string name="default_text_label">
 		ここをクリックしてIM
 	</string>
 	<string name="muted_text_label">
-		テキスト・チャットはグループ・モデレータによって無効化されています。
+		テキストチャットはグループモデレータによって無効化されています
 	</string>
 </floater>

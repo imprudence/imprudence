@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater name="floater_chatterbox">
+	<icon label="Voler" label_selected="Atterrir" name=""
+	     tool_tip="Commencez à voler. Utilisez E/C ou PgHaut/PageBas pour voler vers le haut et vers le bas." />
+	<panel name="panel_littletoolbar">
+		<button name="chat_btn" tool_tip="Afficher la barre de chat. (Entrée)" />
+		<flyout_button label="Communiquer" name="communicate_btn"
+		     tool_tip="Communiquer avec vos amis et vos groupes." />
+		<button label="Voler" label_selected="Atterrir" name="fly_btn"
+		     tool_tip="Commencez à voler. Utilisez E/C ou PgHaut/PageBas pour voler vers le haut et vers le bas." />
+	</panel>
+	<panel name="panel_unfocused_floater">
+		<text name="titlebar_focused">
+			Pas de mise au point
+		</text>
+		<combo_box label="Zone combinée" name="combo_box_1" />
+		<text_editor name="Chat History Editor">
+			Texte
+		</text_editor>
+	</panel>
+	<panel name="panel_focused_floater">
+		<text name="titlebar_focused">
+			Mise au point
+		</text>
+		<tab_container name="chatterbox_tabs">
+			<panel label="Mise au point" name="test_1">
+				<slider label="Curseur" name="SliderTestName" />
+				<check_box label="Vrai" name="check_box_test_1" />
+				<check_box label="Faux" name="check_box_test_2" />
+				<text_editor name="Chat History Editor">
+					Texte du chat
+				</text_editor>
+			</panel>
+			<panel label="Pas de mise au point" name="test_2" />
+		</tab_container>
+	</panel>
+</multi_floater>

@@ -7,7 +7,7 @@
 		Kbps
 	</text>
 	<text type="string" length="1" name="cache_size_label_l">
-		キャッシュ(MB)：
+		キャッシュ：
 	</text>
 	<button label="クリア" name="clear_cache" />
 	<text type="string" length="1" name="cache_location_label">

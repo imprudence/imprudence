@@ -2,16 +2,15 @@
 <floater label="(不明）" name="im_floater" title="(不明）">
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="コール" name="start_call_btn" />
-			<button label="コールの終了" name="end_call_btn" />
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
-			     tool_tip="ここをクリックして、このIMセッションへのアクティブな参加者リストを表示。" />
-			<line_editor label="ここをクリックしてIM" name="chat_editor" />
-			<button label="送信" name="send_btn" />
+			<button label="コール" name="start_call_btn"/>
+			<button label="コールの終了" name="end_call_btn"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="このIMセッションのアクティブな参加者のリスト表示を切り替えるにはここをクリックします"/>
+			<line_editor label="ここをクリックしてIM" name="chat_editor"/>
+			<button label="送信" name="send_btn"/>
 		</layout_panel>
 		<layout_panel name="active_speakers_panel">
 			<scroll_list name="speakers_list">
-				<column label="名前" name="speaker_name" />
+				<column label="名前" name="speaker_name"/>
 			</scroll_list>
 			<panel name="volume_container">
 				<text name="resident_name">
@@ -20,8 +19,8 @@
 				<text name="Mute:">
 					ミュート:
 				</text>
-				<check_box label="テキスト" name="mute_text_btn" />
-				<check_box label="ボイス" name="mute_btn" />
+				<check_box label="テキスト" name="mute_text_btn"/>
+				<check_box label="ボイス" name="mute_btn"/>
 			</panel>
 		</layout_panel>
 	</layout_stack>

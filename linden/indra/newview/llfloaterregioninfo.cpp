@@ -542,7 +542,6 @@ void LLPanelRegionInfo::onClickHelp(void* data)
 {
 	const std::string* xml_alert = (std::string*)data;
 	gViewerWindow->alertXml(*xml_alert);
-	delete xml_alert;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1306,6 +1305,7 @@ void LLPanelRegionTerrainInfo::onClickDownloadRaw(void* data)
 		return;
 	}
 	std::string filepath = picker.getFirstFile();
+	gXferManager->expectFileForRequest(filepath);
 
 	LLPanelRegionTerrainInfo* self = (LLPanelRegionTerrainInfo*)data;
 	strings_t strings;
@@ -1325,6 +1325,7 @@ void LLPanelRegionTerrainInfo::onClickUploadRaw(void* data)
 		return;
 	}
 	std::string filepath = picker.getFirstFile();
+	gXferManager->expectFileForTransfer(filepath);
 
 	LLPanelRegionTerrainInfo* self = (LLPanelRegionTerrainInfo*)data;
 	strings_t strings;

@@ -176,7 +176,7 @@ void LLVoiceRemoteCtrl::draw()
 		LLIconCtrl* voice_channel_icon = getChild<LLIconCtrl>("voice_channel_icon");
 		if (voice_channel_icon && voice_floater)
 		{
-			voice_channel_icon->setImage(voice_floater->getUIString("voice_icon"));
+			voice_channel_icon->setImage(voice_floater->getString("voice_icon"));
 		}
 
 		LLButton* voice_channel_bg = getChild<LLButton>("voice_channel_bg");
