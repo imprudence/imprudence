@@ -3,6 +3,8 @@
 	* linden/indra/newview/viewer_manifest.py: 
 	Commented out fmod from viewer manifest.
 	Commented out kdu from viewer manifest.
+	Commented out vivox / SLVoice from viewer manifest.
+
 
 	* Updated to SL source 1.21.6.
 

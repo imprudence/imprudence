@@ -206,18 +206,18 @@ class WindowsManifest(ViewerManifest):
             self.end_prefix()
 
         # Vivox runtimes
-        if self.prefix(src="vivox-runtime/i686-win32", dst=""):
-            self.path("SLVoice.exe")
-            self.path("SLVoiceAgent.exe")
-            self.path("libeay32.dll")
-            self.path("srtp.dll")
-            self.path("ssleay32.dll")
-            self.path("tntk.dll")
-            self.path("alut.dll")
-            self.path("vivoxsdk.dll")
-            self.path("ortp.dll")
-            self.path("wrap_oal.dll")
-            self.end_prefix()
+        #if self.prefix(src="vivox-runtime/i686-win32", dst=""):
+        #    self.path("SLVoice.exe")
+        #    self.path("SLVoiceAgent.exe")
+        #    self.path("libeay32.dll")
+        #    self.path("srtp.dll")
+        #    self.path("ssleay32.dll")
+        #    self.path("tntk.dll")
+        #    self.path("alut.dll")
+        #    self.path("vivoxsdk.dll")
+        #    self.path("ortp.dll")
+        #    self.path("wrap_oal.dll")
+        #    self.end_prefix()
 
 #        # pull in the crash logger and updater from other projects
 #        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
@@ -402,12 +402,12 @@ class DarwinManifest(ViewerManifest):
                 self.path("Korean.lproj")
 
                 # SLVoice and vivox lols
-                self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
-                self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
-                self.path("vivox-runtime/universal-darwin/libortp.dylib", "libortp.dylib")
-                self.path("vivox-runtime/universal-darwin/libvivoxsdk.dylib", "libvivoxsdk.dylib")
-                self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
-                self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
+                #self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
+                #self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
+                #self.path("vivox-runtime/universal-darwin/libortp.dylib", "libortp.dylib")
+                #self.path("vivox-runtime/universal-darwin/libvivoxsdk.dylib", "libvivoxsdk.dylib")
+                #self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
+                #self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
 
                 # llkdu dynamic library
 #                self.path("../../libraries/universal-darwin/lib_release/libllkdu.dylib", "libllkdu.dylib")
@@ -532,7 +532,7 @@ class LinuxManifest(ViewerManifest):
         self.path("res/ll_icon.png","secondlife_icon.png")
         if self.prefix("linux_tools", dst=""):
             self.path("client-readme.txt","README-linux.txt")
-            self.path("client-readme-voice.txt","README-linux-voice.txt")
+            #self.path("client-readme-voice.txt","README-linux-voice.txt")
             self.path("wrapper.sh","secondlife")
             self.path("handle_secondlifeprotocol.sh")
             self.path("register_secondlifeprotocol.sh")
@@ -631,15 +631,15 @@ class Linux_i686Manifest(LinuxManifest):
             self.end_prefix("lib")
 
             # Vivox runtimes
-            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
-                    self.path("SLVoice")
-                    self.end_prefix()
-            if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
-                    self.path("libopenal.so.1")
-                    self.path("libortp.so")
-                    self.path("libvivoxsdk.so")
-                    self.path("libalut.so")
-                    self.end_prefix("lib")
+            #if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
+            #        self.path("SLVoice")
+            #        self.end_prefix()
+            #if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
+            #        self.path("libopenal.so.1")
+            #        self.path("libortp.so")
+            #        self.path("libvivoxsdk.so")
+            #        self.path("libalut.so")
+            #        self.end_prefix("lib")
 
 class Linux_x86_64Manifest(LinuxManifest):
     def construct(self):
