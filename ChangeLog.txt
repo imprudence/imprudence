@@ -1,5 +1,9 @@
 2008-10-17  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/cmake/FMOD.cmake: 
+	Disable fmod by default.
+	You can give -DFMOD=ON at configure time to turn it on.
+
 	* linden/indra/newview/CMakeLists.txt: 
 	Use FMOD_LIBRARY variable. It's there for a reason.
 	

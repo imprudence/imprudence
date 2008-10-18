@@ -7,6 +7,7 @@ if(INSTALL_PROPRIETARY)
   use_prebuilt_binary(fmod)
 endif(INSTALL_PROPRIETARY)
 
+if (FMOD)
 find_library(FMOD_LIBRARY_RELEASE
              NAMES fmod fmodvc fmod-3.75
              PATHS
@@ -18,6 +19,7 @@ find_library(FMOD_LIBRARY_DEBUG
              PATHS
              ${ARCH_PREBUILT_DIRS_DEBUG}
              )
+endif (FMOD)
 
 if (FMOD_LIBRARY_RELEASE AND FMOD_LIBRARY_DEBUG)
   set(FMOD_LIBRARY
