@@ -139,7 +139,7 @@ void LLStandardBumpmap::restoreGL()
 			return;
 		}
 
-// 		llinfos << "Loading bumpmap: " << bump_file << " from viewerart" << llendl;
+ 		llinfos << "Loading bumpmap: " << bump_file << " from viewerart" << llendl;
 		gStandardBumpmapList[LLStandardBumpmap::sStandardBumpmapCount].mLabel = label;
 		gStandardBumpmapList[LLStandardBumpmap::sStandardBumpmapCount].mImage = 
 			gImageList.getImageFromFile(bump_file,

@@ -1,3 +1,12 @@
+2008-10-17  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden\indra\newview\skins\default\xui\en-us\menu_viewer.xml:
+	Rebranded the Help menu to point to Imprudence sites, removed issue tracker.
+	* linden\indra\newview\skins\default\xui\en-us\alerts.xml:
+	Ditto.
+	* linden\indra\newview\llappviewer.cpp:
+	Fixed windows compile bug.
+
 2008-10-14  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/installers/windows/installer_template.nsi:
