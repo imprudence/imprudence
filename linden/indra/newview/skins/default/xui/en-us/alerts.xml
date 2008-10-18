@@ -4253,7 +4253,7 @@ will only work if a script is added with a money() event.
 	</alert>
 	<alert modal="true" name="ClickOpenF1Help">
 		<message name="message">
-			Visit the Second Life Support Web site (note: this is not an Imprudence help site)?
+			Visit the Second Life Support Web site? (note: this is not an Imprudence Help site)
 		</message>
 		<ignore name="ignore">
 			When visiting the Second Life Support Website.
