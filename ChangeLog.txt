@@ -1,3 +1,8 @@
+2008-10-17  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Updated to SL source 1.21.6.
+
+
 2008-09-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llviewermenu.cpp: 
