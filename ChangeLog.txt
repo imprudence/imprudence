@@ -77,6 +77,18 @@
 	Friends show yellow in minimap (VWR-3336).
 
 
+2008-10-18  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Added Home button functionality to the web browser.
+	* linden/indra/newview/llfloaterhtmlhelp.cpp:
+	Ditto.
+	* linden/indra/newview/llfloaterhtmlhelp.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_media_browser.xml:
+	Ditto.
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                         1.0.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

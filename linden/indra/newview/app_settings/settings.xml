@@ -675,16 +675,16 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>BrowserHomePage</key>
+    <key>BrowserHome</key>
     <map>
       <key>Comment</key>
-      <string>[NOT USED]</string>
+      <string>Inworld browser home page</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>http://www.secondlife.com</string>
+      <string>http://www.imprudenceviewer.org</string>
     </map>
     <key>BlockAvatarAppearanceMessages</key>
         <map>

@@ -73,6 +73,8 @@ public:
 	static void onClickClose(void* user_data);
 	static void onClickOpenWebBrowser(void* user_data);
 	static void onClickAssign(void* user_data);
+	static void onClickHome(void* user_data);
+	static void onClickSetHome(void* user_data);
 
 private:
 	LLWebBrowserCtrl* mBrowser;
