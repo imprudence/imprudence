@@ -79,6 +79,12 @@
 
 2008-10-18  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden\indra\newview\skins\default\xui\en-us\menu_viewer.xml:
+	Added menu option for inworld browser.
+	* linden\indra\newview\llviewermenu.cpp:
+	Ditto.
+
+
 	* linden/indra/newview/app_settings/settings.xml:
 	Added Home button functionality to the web browser.
 	* linden/indra/newview/llfloaterhtmlhelp.cpp:

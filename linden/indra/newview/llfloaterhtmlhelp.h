@@ -65,6 +65,7 @@ public:
 	void buildURLHistory();
 
 	static LLFloaterMediaBrowser* showInstance(const LLSD& id);
+	static void show();
 	static void onEnterAddress(LLUICtrl* ctrl, void* user_data);
 	static void onClickRefresh(void* user_data);
 	static void onClickBack(void* user_data);

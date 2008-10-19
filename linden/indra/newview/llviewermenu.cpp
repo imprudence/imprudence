@@ -5305,6 +5305,10 @@ class LLShowFloater : public view_listener_t
 		{
 			LLFloaterActiveSpeakers::toggleInstance(LLSD());
 		}
+		else if (floater_name == "inworld browser")
+		{
+			LLFloaterMediaBrowser::show();
+		}
 		return true;
 	}
 };

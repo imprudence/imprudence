@@ -150,6 +150,7 @@ void LLFloaterMediaBrowser::onLocationChange( const EventType& eventIn )
 	childSetEnabled("back", mBrowser->canNavigateBack());
 	childSetEnabled("forward", mBrowser->canNavigateForward());
 	childSetEnabled("reload", TRUE);
+	gSavedSettings.setString("BrowserLastVisited", truncated_url);
 }
 
 LLFloaterMediaBrowser* LLFloaterMediaBrowser::showInstance(const LLSD& media_url)
@@ -160,6 +161,14 @@ LLFloaterMediaBrowser* LLFloaterMediaBrowser::showInstance(const LLSD& media_url
 	return floaterp;
 }
 
+void LLFloaterMediaBrowser::show()
+{
+	//Show home url if new session, last visited if not
+	std::string last_url = gSavedSettings.getString("BrowserLastVisited");
+	if(last_url.empty()) 
+		last_url = gSavedSettings.getString("BrowserHome");
+	showInstance(last_url);
+}
 //static 
 void LLFloaterMediaBrowser::onEnterAddress(LLUICtrl* ctrl, void* user_data)
 {
