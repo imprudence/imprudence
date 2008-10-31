@@ -155,6 +155,36 @@
 	* linden/indra/newview/viewer_manifest.py: 
 	Ditto.
 
+2008-09-17  Nicholaz Beresford  <nicholaz@blueflash.cc>
+
+	* linden/indra/newview/llviewerjointattachment.h (LLViewerJoint): 
+	VWR-2685: Possible crash in bounding box (getBoundingBoxAgent())
+	from hud attachments.
+
+	* linden/indra/newview/llfloateractivespeakers.cpp (updateSpeakerList): 
+	VWR-2683: Possible crash accessing dead llviewerregion.
+	* linden/indra/newview/llviewerobjectlist.cpp (killObjects): 
+	Ditto.
+
+	* linden/indra/newview/lltooldraganddrop.cpp (dragOrDrop): 
+	VWR-2003: Possible crash in lltooldraganddrop.cpp.
+
+2008-09-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/lltexturecache.cpp (purgeTextureFilesTimeSliced):
+	Skip "N files scheduled for deletion" message when nothing scheduled.
+
+2008-09-16  Nicholaz Beresford  <nicholaz@blueflash.cc>
+
+	* linden/indra/newview/lltexturecache.cpp:
+	VWR-3878: Purging cache textures causes viewer to pause for many
+	seconds, with heavy disk activity.
+	* linden/indra/newview/lltexturecache.h:
+	Ditto.
+
+	* linden/indra/llmessage/llassetstorage.cpp:
+	VWR-3877: A nasty possible memory overwrite and two minor leaks.
+
 2008-09-07  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llpanelobject.cpp:
