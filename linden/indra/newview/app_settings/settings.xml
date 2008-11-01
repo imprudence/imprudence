@@ -3472,7 +3472,7 @@
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>profontwindows.ttf</string>
+      <string>VeraMono.ttf</string>
     </map>
     <key>FontSansSerif</key>
     <map>
@@ -3483,7 +3483,7 @@
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>MtBkLfRg.ttf</string>
+      <string>LiberationSans-Regular.ttf</string>
     </map>
     <key>FontSansSerifBold</key>
     <map>
@@ -3494,7 +3494,7 @@
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>MtBdLfRg.ttf</string>
+      <string>LiberationSans-Bold.ttf</string>
     </map>
     <key>FontSansSerifFallback</key>
     <map>
@@ -3538,7 +3538,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>16.0</real>
+      <real>15.2</real>
     </map>
     <key>FontSizeLarge</key>
     <map>
@@ -3549,7 +3549,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>12.0</real>
+      <real>11.5</real>
     </map>
     <key>FontSizeMedium</key>
     <map>
@@ -3560,7 +3560,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>10.0</real>
+      <real>9.5</real>
     </map>
     <key>FontSizeMonospace</key>
     <map>
@@ -3571,7 +3571,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>9.0</real>
+      <real>8.0</real>
     </map>
     <key>FontSizeSmall</key>
     <map>
@@ -3582,7 +3582,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>9.0</real>
+      <real>8.5</real>
     </map>
     <key>ForceShowGrid</key>
     <map>

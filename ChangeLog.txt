@@ -1,3 +1,8 @@
+2008-10-31  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Use Vera Mono and Liberation Sans fonts.
+
 2008-10-17  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/cmake/FMOD.cmake: 
