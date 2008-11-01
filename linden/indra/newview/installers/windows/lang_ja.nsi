@@ -39,11 +39,11 @@ LangString CheckAdministratorUnInstMB ${LANG_JAPANESE} "セカンドライフをアンイン
 ; checkifalreadycurrent
 LangString CheckIfCurrentMB ${LANG_JAPANESE} "セカンドライフ${VERSION_LONG} はインストール済みです。再度インストールしますか？ " 
 
-; closesecondlife function (install)
+; closeimprudence function (install)
 LangString CloseSecondLifeInstDP ${LANG_JAPANESE} "セカンドライフを終了中です..." 
 LangString CloseSecondLifeInstMB ${LANG_JAPANESE} "セカンドライフの起動中にインストールは出来ません。直ちにセカンドライフを終了してインストールを開始する場合はOKボタンを押してください。CANCELを押すと中止します。"
 
-; closesecondlife function (uninstall)
+; closeimprudence function (uninstall)
 LangString CloseSecondLifeUnInstDP ${LANG_JAPANESE} "セカンドライフを終了中です..." 
 LangString CloseSecondLifeUnInstMB ${LANG_JAPANESE} "セカンドライフの起動中にアンインストールは出来ません。直ちにセカンドライフを終了してアンインストールを開始する場合はOKボタンを押してください。CANCELを押すと中止します。" 
 

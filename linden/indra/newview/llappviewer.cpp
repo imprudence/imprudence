@@ -293,10 +293,10 @@ BOOL gLogoutInProgress = FALSE;
 // Internal globals... that should be removed.
 static std::string gArgs;
 
-const std::string MARKER_FILE_NAME("SecondLife.exec_marker");
-const std::string ERROR_MARKER_FILE_NAME("SecondLife.error_marker");
-const std::string LLERROR_MARKER_FILE_NAME("SecondLife.llerror_marker");
-const std::string LOGOUT_MARKER_FILE_NAME("SecondLife.logout_marker");
+const std::string MARKER_FILE_NAME("Imprudence.exec_marker");
+const std::string ERROR_MARKER_FILE_NAME("Imprudence.error_marker");
+const std::string LLERROR_MARKER_FILE_NAME("Imprudence.llerror_marker");
+const std::string LOGOUT_MARKER_FILE_NAME("Imprudence.logout_marker");
 static BOOL gDoDisconnect = FALSE;
 static std::string gLaunchFileOnQuit;
 
@@ -308,7 +308,7 @@ const char *VFS_INDEX_FILE_BASE = "index.db2.x.";
 static std::string gSecondLife;
 static std::string gWindowTitle;
 #ifdef LL_WINDOWS
-	static char sWindowClass[] = "Second Life";
+	static char sWindowClass[] = "Imprudence";
 #endif
 
 std::string gLoginPage;
@@ -602,8 +602,12 @@ bool LLAppViewer::init()
     writeSystemInfo();
 
 	// Build a string representing the current version number.
-    gCurrentVersion = llformat("%s %d.%d.%d.%d", 
+    gCurrentVersion = llformat("%s %d.%d.%d / %s %d.%d.%d.%d", 
         gSavedSettings.getString("VersionChannelName").c_str(), 
+        IMP_VERSION_MAJOR, 
+        IMP_VERSION_MINOR, 
+        IMP_VERSION_PATCH, 
+        LL_VIEWER_NAME,
         LL_VERSION_MAJOR, 
         LL_VERSION_MINOR, 
         LL_VERSION_PATCH, 
@@ -1470,15 +1474,15 @@ bool LLAppViewer::initLogging()
 	
 	// Remove the last ".old" log file.
 	std::string old_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "SecondLife.old");
+							     "Imprudence.old");
 	LLFile::remove(old_log_file);
 
 	// Rename current log file to ".old"
 	std::string log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "SecondLife.log");
+							     "Imprudence.log");
 	LLFile::rename(log_file, old_log_file);
 
-	// Set the log file to SecondLife.log
+	// Set the log file to Imprudence.log
 
 	LLError::logToFile(log_file);
 
@@ -1598,7 +1602,7 @@ bool LLAppViewer::initConfiguration()
 	gSavedSettings.setString("ClientSettingsFile", 
         gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, getSettingsFileName("Global")));
 
-	gSavedSettings.setString("VersionChannelName", LL_CHANNEL);
+	gSavedSettings.setString("VersionChannelName", IMP_VIEWER_NAME);
 
 #ifndef	LL_RELEASE_FOR_DOWNLOAD
         gSavedSettings.setBOOL("ShowConsoleWindow", TRUE);
@@ -1683,7 +1687,7 @@ bool LLAppViewer::initConfiguration()
 		llinfos	<< "Command	line usage:\n" << clp << llendl;
 
 		std::ostringstream msg;
-		msg << "Second Life found an error parsing the command line. \n" 
+		msg << gSecondLife << " found an error parsing the command line. \n" 
 			<< "Please see: http://wiki.secondlife.com/wiki/Client_parameters \n"
 			<< "Error: " << clp.getErrorMessage();
 
@@ -1865,7 +1869,7 @@ bool LLAppViewer::initConfiguration()
     mYieldTime = gSavedSettings.getS32("YieldTime");
              
 	// XUI:translate
-	gSecondLife = "Second Life";
+	gSecondLife = IMP_VIEWER_NAME;
 
 	// Read skin/branding settings if specified.
 	//if (! gDirUtilp->getSkinDir().empty() )
@@ -2111,7 +2115,7 @@ bool LLAppViewer::initWindow()
 
 	// always start windowed
 	BOOL ignorePixelDepth = gSavedSettings.getBOOL("IgnorePixelDepth");
-	gViewerWindow = new LLViewerWindow(gWindowTitle, "Second Life",
+	gViewerWindow = new LLViewerWindow(gWindowTitle, gWindowTitle,
 		gSavedSettings.getS32("WindowX"), gSavedSettings.getS32("WindowY"),
 		gSavedSettings.getS32("WindowWidth"), gSavedSettings.getS32("WindowHeight"),
 		FALSE, ignorePixelDepth);
@@ -2245,6 +2249,9 @@ void LLAppViewer::writeSystemInfo()
 	gDebugInfo["SLLog"] = LLError::logFileName();
 
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
+	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = IMP_VERSION_MAJOR;
+	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = IMP_VERSION_MINOR;
+	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = IMP_VERSION_PATCH;
 	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
 	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
 	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
@@ -2274,9 +2281,7 @@ void LLAppViewer::writeSystemInfo()
 #endif
 
 	// Dump some debugging info
-	LL_INFOS("SystemInfo") << gSecondLife
-			<< " version " << LL_VERSION_MAJOR << "." << LL_VERSION_MINOR << "." << LL_VERSION_PATCH
-			<< LL_ENDL;
+	LL_INFOS("SystemInfo") << gCurrentVersion << LL_ENDL;
 
 	// Dump the local time and time zone
 	time_t now;
@@ -2327,6 +2332,9 @@ void LLAppViewer::handleViewerCrash()
 	//to check against no matter what
 	gDebugInfo["ClientInfo"]["Name"] = gSavedSettings.getString("VersionChannelName");
 
+	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = IMP_VERSION_MAJOR;
+	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = IMP_VERSION_MINOR;
+	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = IMP_VERSION_PATCH;
 	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
 	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
 	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
@@ -2973,7 +2981,7 @@ void LLAppViewer::badNetworkHandler()
 	message <<
 		"The viewer has detected mangled network data indicative\n"
 		"of a bad upstream network connection or an incomplete\n"
-		"local installation of " << LLAppViewer::instance()->getSecondLifeTitle() << ". \n"
+		"local installation of " << gSecondLife << ". \n"
 		" \n"
 		"Try uninstalling and reinstalling to see if this resolves \n"
 		"the issue. \n"

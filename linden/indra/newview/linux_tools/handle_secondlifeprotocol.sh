@@ -13,5 +13,5 @@ fi
 RUN_PATH=`dirname "$0" || echo .`
 cd "${RUN_PATH}"
 
-exec ./secondlife -url \'"${URL}"\'
+exec ./imprudence -url \'"${URL}"\'
 

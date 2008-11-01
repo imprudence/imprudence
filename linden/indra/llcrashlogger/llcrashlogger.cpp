@@ -172,7 +172,7 @@ void LLCrashLogger::gatherFiles()
 	{
 		// Figure out the filename of the second life log
 		LLCurl::setCAFile(gDirUtilp->getCAFile());
-		mFileMap["SecondLifeLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"SecondLife.log");
+		mFileMap["SecondLifeLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"Imprudence.log");
 		mFileMap["SettingsXml"] = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,"settings.xml");
 	}
 
@@ -293,7 +293,7 @@ bool LLCrashLogger::sendCrashLogs()
 	updateApplication("Sending reports...");
 
 	std::string dump_path = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-															   "SecondLifeCrashReport");
+															   "ImprudenceCrashReport");
 	std::string report_file = dump_path + ".log";
 
 	std::ofstream out_file(report_file.c_str());
@@ -330,7 +330,7 @@ bool LLCrashLogger::init()
 	gDirUtilp->initAppDirs("SecondLife");
 
 	// Default to the product name "Second Life" (this is overridden by the -name argument)
-	mProductName = "Second Life";
+	mProductName = "Imprudence";
 	
 	mCrashSettings.declareS32(CRASH_BEHAVIOR_SETTING, CRASH_BEHAVIOR_ASK, "Controls behavior when viewer crashes "
 		"(0 = ask before sending crash report, 1 = always send crash report, 2 = never send crash report)");

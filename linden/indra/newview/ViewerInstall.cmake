@@ -1,4 +1,4 @@
-install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/secondlife-bin
+install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/imprudence-bin
         DESTINATION ${APP_BINARY_DIR}
         )
 

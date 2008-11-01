@@ -39,11 +39,11 @@ LangString CheckAdministratorUnInstMB ${LANG_KOREAN} " 현재 ‘손님’계정을 사용 
 ; checkifalreadycurrent
 LangString CheckIfCurrentMB ${LANG_KOREAN} "세컨드라이프 버전 ${VERSION_LONG}이 이미 설치되어 있습니다. 다시 설치하시겠습니까? "
 
-; closesecondlife function (install)
+; closeimprudence function (install)
 LangString CloseSecondLifeInstDP ${LANG_KOREAN} "세컨드라이프를 종료할 때 까지 대기 중… "
 LangString CloseSecondLifeInstMB ${LANG_KOREAN} "세컨드라이프가 이미 작동 중일 경우 설치를 계속 할 수 없습니다. 현재 작업을 멈추고 ‘확인’을 눌러 세컨드라이프를 종료한 다음 진행하기 바랍니다. 설치를 취소하려면 ‘취소’를 누르세요." 
 
-; closesecondlife function (uninstall)
+; closeimprudence function (uninstall)
 LangString CloseSecondLifeUnInstDP ${LANG_KOREAN} "세컨드라이프를 종료할 때 까지 대기 중…”"
 LangString CloseSecondLifeUnInstMB ${LANG_KOREAN} " 세컨드라이프가 이미 작동 중일 경우 제거를 계속 할 수 없습니다. 현재 작업을 멈추고 ‘확인’을 눌러 세컨드라이프를 종료한 다음 진행하기 바랍니다. 설치를 취하려면 ‘취소’를 누르세요. "
 
