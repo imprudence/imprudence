@@ -1,5 +1,11 @@
 2008-11-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/res/imprudence_icon.png
+	Imported Imprudence icon graphics.
+	* linden/indra/newview/res-sdl/imprudence_icon.BMP
+	Ditto.
+
+	
 	* linden/indra/newview/viewer_manifest.py:
 	Package only our free fonts.
 
