@@ -918,6 +918,7 @@ if (WINDOWS)
         res/bitmap2.bmp
         res/circleandline.cur
         res/icon1.ico
+        res/imprudence_icon.png
         res/install_icon.BMP
         res/install_icon.ico
         res/llarrow.cur
@@ -939,7 +940,6 @@ if (WINDOWS)
         res/lltooltranslate.cur
         res/lltoolzoomin.cur
         res/lltoolzoomout.cur
-        res/ll_icon.BMP
         res/ll_icon.ico
         res/loginbackground.bmp
         res/resource.h
