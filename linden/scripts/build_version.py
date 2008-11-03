@@ -20,16 +20,14 @@ def get_version(filename):
     fp.close()
 
     vals = {}
-    m = re.search('const S32 LL_VERSION_MAJOR = (\d+);', data)
+    m = re.search('const S32 IMP_VERSION_MAJOR = (\d+);', data)
     vals['major'] = m.group(1)
-    m = re.search('const S32 LL_VERSION_MINOR = (\d+);', data)
+    m = re.search('const S32 IMP_VERSION_MINOR = (\d+);', data)
     vals['minor'] = m.group(1)
-    m = re.search('const S32 LL_VERSION_PATCH = (\d+);', data)
+    m = re.search('const S32 IMP_VERSION_PATCH = (\d+);', data)
     vals['patch'] = m.group(1)
-    m = re.search('const S32 LL_VERSION_BUILD = (\d+);', data)
-    vals['build'] = m.group(1)
 
-    return "%(major)s.%(minor)s.%(patch)s.%(build)s" % vals
+    return "%(major)s.%(minor)s.%(patch)s" % vals
 
 if __name__ == '__main__':
     import sys

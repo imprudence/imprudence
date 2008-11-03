@@ -45,15 +45,12 @@ def get_version_file_contents(version_type):
 
 def get_version(version_type):
     file_str = get_version_file_contents(version_type)
-    m = re.search('const S32 LL_VERSION_MAJOR = (\d+);', file_str)
+    m = re.search('const S32 IMP_VERSION_MAJOR = (\d+);', file_str)
     VER_MAJOR = m.group(1)
-    m = re.search('const S32 LL_VERSION_MINOR = (\d+);', file_str)
+    m = re.search('const S32 IMP_VERSION_MINOR = (\d+);', file_str)
     VER_MINOR = m.group(1)
-    m = re.search('const S32 LL_VERSION_PATCH = (\d+);', file_str)
-    VER_PATCH = m.group(1)
-    m = re.search('const S32 LL_VERSION_BUILD = (\d+);', file_str)
-    VER_BUILD = m.group(1)
-    version = "%(VER_MAJOR)s.%(VER_MINOR)s.%(VER_PATCH)s.%(VER_BUILD)s" % locals()
+    m = re.search('const S32 IMP_VERSION_PATCH = (\d+);', file_str)
+    version = "%(VER_MAJOR)s.%(VER_MINOR)s.%(VER_PATCH)s" % locals()
     return version
 
 def get_channel(version_type):

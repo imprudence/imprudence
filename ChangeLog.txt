@@ -1,3 +1,11 @@
+2008-11-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/scripts/build_version.py: 
+	Script finds Imprudence version numbers for packaging.
+	* linden/indra/lib/python/indra/util/llversion.py:
+	Ditto.
+
+
 2008-11-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llwindow/llwindowsdl.cpp:
