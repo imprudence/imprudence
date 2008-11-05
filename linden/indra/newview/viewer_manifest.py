@@ -390,12 +390,7 @@ class DarwinManifest(ViewerManifest):
                 self.path("featuretable_mac.txt")
                 self.path("SecondLife.nib")
 
-                # If we are not using the default channel, use the 'Firstlook
-                # icon' to show that it isn't a stable release.
-                if self.default_channel() and self.default_grid():
-                    self.path("secondlife.icns")
-                else:
-                    self.path("secondlife_firstlook.icns", "secondlife.icns")
+                self.path("secondlife.icns")
                 
                 # Translations
                 self.path("English.lproj")
