@@ -1,3 +1,12 @@
+2008-11-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/mac_crash_logger/CMakeLists.txt: 
+	Fix Mac crash logger & updater missing Info.plist.
+	Suggested by Aimee Trescothick (Aimee Walton).
+	* linden/indra/mac_updater/CMakeLists.txt: 
+	Ditto.
+
+
 2008-11-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/scripts/build_version.py: 
