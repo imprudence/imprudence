@@ -50,6 +50,9 @@
 		<combo_item name="type_snapshot">
 			Snapshots
 		</combo_item>
+		<combo_item name="type_custom">
+			Custom...
+		</combo_item>
 	</combo_box>
 
 	<tab_container name="inventory filter tabs" follows="left|top|right|bottom"

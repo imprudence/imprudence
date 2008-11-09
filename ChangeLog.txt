@@ -1,5 +1,11 @@
 2008-11-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llinventoryview.cpp: 
+	Added 'Custom' filter option (opens filters window).
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml:
+	Ditto.
+
+
 	* linden/indra/newview/llinventoryview.cpp:
 	Quick Filter works, but is a bit rough.
 	It doesn't refresh its display when you change tabs,

@@ -1060,6 +1060,16 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 		filter_type = 0x1 << LLInventoryType::IT_SNAPSHOT;
 	}
 
+	else if ("Custom..." == item_type)
+	{
+		// When they select custom, show the floater then return
+		if( !(view->filtersVisible(view)) )
+		{
+			view->toggleFindOptions();
+		}
+		return;
+	}
+
 	else
 	{
 		// Show all types
