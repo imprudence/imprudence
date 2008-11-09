@@ -1,3 +1,9 @@
+2008-11-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml:
+	Added XUI for the Quick Filter combo box.
+
+
 2008-11-05  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
