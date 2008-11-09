@@ -44,6 +44,7 @@
 #include "llradiogroup.h"
 #include "llspinctrl.h"
 #include "lltextbox.h"
+#include "llcombobox.h"
 #include "llui.h"
 
 #include "llfirstuse.h"
@@ -549,6 +550,12 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 		mSearchEditor->setSearchCallback(onSearchEdit, this);
 	}
 
+	mQuickFilterCombo = getChild<LLComboBox>("Quick Filter");
+	if (mQuickFilterCombo)
+	{
+		mQuickFilterCombo->setCommitCallback(onQuickFilterCommit);
+	}
+
 	sActiveViews.put(this);
 
 	gInventory.addObserver(this);
@@ -978,6 +985,15 @@ void LLInventoryView::onSearchEdit(const std::string& search_string, void* user_
 
 	// set new filter string
 	self->mActivePanel->setFilterSubString(uppercase_search_string);
+}
+
+
+//static
+void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
+{
+	LLComboBox* quickfilter = (LLComboBox*)ctrl;
+
+	llinfos << "Quick Filter: " << quickfilter->getSimple() << llendl;
 }
 
 
