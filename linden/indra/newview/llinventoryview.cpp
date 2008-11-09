@@ -991,9 +991,84 @@ void LLInventoryView::onSearchEdit(const std::string& search_string, void* user_
 //static
 void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 {
+
 	LLComboBox* quickfilter = (LLComboBox*)ctrl;
 
-	llinfos << "Quick Filter: " << quickfilter->getSimple() << llendl;
+
+	LLInventoryView* view = (LLInventoryView*)(quickfilter->getParent());
+	if (!view->mActivePanel)
+	{
+		return;
+	}
+
+
+	std::string item_type = quickfilter->getSimple();
+	U32 filter_type;
+
+	if ("Animations" == item_type)
+	{
+		filter_type = 0x1 << LLInventoryType::IT_ANIMATION;
+	}
+
+	else if ("Calling Cards" == item_type)
+	{
+		filter_type = 0x1 << LLInventoryType::IT_CALLINGCARD;
+	}
+
+	else if ("Clothing" == item_type)
+	{
+		filter_type = 0x1 << LLInventoryType::IT_WEARABLE;
+	}
+
+	else if ("Gestures" == item_type)
+	{
+		filter_type = 0x1 << LLInventoryType::IT_GESTURE;
+	}
+
+	else if ("Landmarks" == item_type)
+	{
+		filter_type = 0x1 << LLInventoryType::IT_LANDMARK;
+	}
+
+	else if ("Notecards" == item_type)
+	{
+		filter_type = 0x1 << LLInventoryType::IT_NOTECARD;
+	}
+
+	else if ("Objects" == item_type)
+	{
+		filter_type = 0x1 << LLInventoryType::IT_OBJECT;
+	}
+
+	else if ("Scripts" == item_type)
+	{
+		filter_type = 0x1 << LLInventoryType::IT_LSL;
+	}
+
+	else if ("Sounds" == item_type)
+	{
+		filter_type = 0x1 << LLInventoryType::IT_SOUND;
+	}
+
+	else if ("Textures" == item_type)
+	{
+		filter_type = 0x1 << LLInventoryType::IT_TEXTURE;
+	}
+
+	else if ("Snapshots" == item_type)
+	{
+		filter_type = 0x1 << LLInventoryType::IT_SNAPSHOT;
+	}
+
+	else
+	{
+		// Show all types
+		filter_type = 0xffffffff;
+	}
+
+	view->mActivePanel->setFilterTypes( filter_type );
+
+	llinfos << "Quick Filter: " << item_type << llendl;
 }
 
 

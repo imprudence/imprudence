@@ -1,6 +1,12 @@
 2008-11-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventoryview.cpp:
+	Quick Filter works, but is a bit rough.
+	It doesn't refresh its display when you change tabs,
+	and the Show Filters window doesn't refresh either.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
 	Added commit callback for Quick Filter.
 	* linden/indra/newview/llinventoryview.h: 
 	Ditto.
