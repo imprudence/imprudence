@@ -1078,6 +1078,15 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 
 	view->mActivePanel->setFilterTypes( filter_type );
 
+
+	// Force the filters window to update itself, if it's open.
+	LLInventoryViewFinder* finder = view->getFinder();
+	if( finder )
+	{
+		finder->updateElementsFromFilter();
+	}
+
+
 	llinfos << "Quick Filter: " << item_type << llendl;
 }
 
