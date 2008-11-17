@@ -1,3 +1,12 @@
+2008-11-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/silver/xui/en-us/floater_tools.xml:
+	Removed floater_tools.xml from silver skin.
+	It was out of sync with the default version, and the only
+	changes that LL had made to it were tiny tweaks to button size
+	and position. It will now correctly inherit from default skin.
+
+
 2008-11-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Imprudence 1.0.0 RC1 released.
