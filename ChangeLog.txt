@@ -1,6 +1,10 @@
 2008-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llcrashlogger/llcrashlogger.cpp: 
+	Changed to Imprudence.exec_marker to match llappviewer.cpp.
+
+
+	* linden/indra/llcrashlogger/llcrashlogger.cpp: 
 	Changed app dir (for cache, etc.) to Imprudence.
 	* linden/indra/llvfs/lldir.cpp: 
 	Ditto.
