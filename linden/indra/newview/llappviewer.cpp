@@ -580,7 +580,7 @@ bool LLAppViewer::init()
 	
 	// Need to do this initialization before we do anything else, since anything
 	// that touches files should really go through the lldir API
-	gDirUtilp->initAppDirs("SecondLife");
+	gDirUtilp->initAppDirs(IMP_VIEWER_NAME);
 	// set skin search path to default, will be overridden later
 	// this allows simple skinned file lookups to work
 	gDirUtilp->setSkinFolder("default");
@@ -2688,7 +2688,7 @@ bool LLAppViewer::initCache()
 			std::string cache_dir = gDirUtilp->getOSUserAppDir();
 			std::string new_cache_dir = gDirUtilp->getOSCacheDir();
 			cache_dir = cache_dir + "/cache";
-			new_cache_dir = new_cache_dir + "/SecondLife";
+			new_cache_dir = new_cache_dir + "/" + gSecondLife;
 			if (gDirUtilp->fileExists(cache_dir))
 			{
 				gDirUtilp->setCacheDir(cache_dir);

@@ -327,9 +327,9 @@ void LLCrashLogger::updateApplication(const std::string& message)
 bool LLCrashLogger::init()
 {
 	// We assume that all the logs we're looking for reside on the current drive
-	gDirUtilp->initAppDirs("SecondLife");
+	gDirUtilp->initAppDirs("Imprudence");
 
-	// Default to the product name "Second Life" (this is overridden by the -name argument)
+	// Default to the product name "Imprudence" (this is overridden by the -name argument)
 	mProductName = "Imprudence";
 	
 	mCrashSettings.declareS32(CRASH_BEHAVIOR_SETTING, CRASH_BEHAVIOR_ASK, "Controls behavior when viewer crashes "

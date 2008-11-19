@@ -1,3 +1,15 @@
+2008-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llcrashlogger/llcrashlogger.cpp: 
+	Changed app dir (for cache, etc.) to Imprudence.
+	* linden/indra/llvfs/lldir.cpp: 
+	Ditto.
+	* linden/indra/llvfs/lldir_mac.cpp: 
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp: 
+	Ditto.
+
+
 2008-11-18  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/skins/default/xui/en-us/panel_group_invite.xml:
