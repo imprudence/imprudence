@@ -578,7 +578,7 @@ void LLGLManager::initExtensions()
 #else // LL_MESA_HEADLESS
 	mHasMultitexture = glh_init_extensions("GL_ARB_multitexture");
 	mHasMipMapGeneration = glh_init_extensions("GL_SGIS_generate_mipmap");
-	mHasPalettedTextures = glh_init_extension("GL_EXT_paletted_texture");
+	mHasPalettedTextures = glh_init_extensions("GL_EXT_paletted_texture");
 	mHasSeparateSpecularColor = glh_init_extensions("GL_EXT_separate_specular_color");
 	mHasAnisotropic = glh_init_extensions("GL_EXT_texture_filter_anisotropic");
 	glh_init_extensions("GL_ARB_texture_cube_map");

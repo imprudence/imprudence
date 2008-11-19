@@ -1,3 +1,10 @@
+2008-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llrender/llgl.cpp:
+	Likely fix for VWR-9358 (palletized textures).
+	Suggested by Angus Boyd.
+
+
 2008-11-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/skins/silver/xui/en-us/floater_tools.xml:
