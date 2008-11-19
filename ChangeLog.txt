@@ -50,6 +50,12 @@
 	From http://svn.secondlife.com/trac/linden/changeset/1393
 
 
+2008-11-19  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/install.xml:
+	Fixed inworld browser crash in Windows.
+
+
 2008-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llcrashlogger/llcrashlogger.cpp: 
