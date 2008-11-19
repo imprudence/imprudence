@@ -1,5 +1,10 @@
 2008-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llrender/llrender.h:
+	Fix VWR-9507: bad typedef breaks build on gcc 4.3.
+	Suggested by Alissa Sabre.
+
+
 	* linden/indra/llrender/llgl.cpp:
 	Likely fix for VWR-9358 (palletized textures).
 	Suggested by Angus Boyd.

@@ -214,7 +214,7 @@ public:
 
 	LLTexUnit* getTexUnit(U32 index);
 
-	typedef struct Vertex
+	struct Vertex
 	{
 		GLfloat v[3];
 		GLubyte c[4];
