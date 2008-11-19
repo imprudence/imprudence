@@ -1,3 +1,22 @@
+2008-11-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* indra/llaudio/audioengine_openal.cpp:
+	VWR-2662: OpenAL support (patch by Tofu Linden)
+	* indra/llaudio/audioengine_openal.h: Ditto.
+	* indra/llaudio/listener_openal.cpp: Ditto.
+	* indra/llaudio/listener_openal.h: Ditto.
+	* indra/llaudio/windgen.h: Ditto.
+	* indra/cmake/LLAudio.cmake: Ditto.
+	* indra/llaudio/CMakeLists.txt: Ditto.
+	* indra/llaudio/audioengine.h: Ditto.
+	* indra/llaudio/audioengine_fmod.cpp: Ditto.
+	* indra/llaudio/audioengine_fmod.h: Ditto.
+	* indra/llaudio/listener_fmod.h: Ditto.
+	* indra/newview/CMakeLists.txt: Ditto.
+	* indra/newview/llappviewer.cpp: Ditto.
+	* indra/newview/llstartup.cpp: Ditto.
+
+
 2008-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llcrashlogger/llcrashlogger.cpp: 

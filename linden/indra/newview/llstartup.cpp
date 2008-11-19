@@ -45,6 +45,10 @@
 # include "audioengine_fmod.h"
 #endif
 
+#ifdef LL_OPENAL
+#include "audioengine_openal.h"
+#endif
+
 #include "llares.h"
 #include "llcachename.h"
 #include "llviewercontrol.h"
@@ -579,10 +583,17 @@ bool idle_startup()
 
 		if (FALSE == gSavedSettings.getBOOL("NoAudio"))
 		{
+			gAudiop = NULL;
+
 #ifdef LL_FMOD
 			gAudiop = (LLAudioEngine *) new LLAudioEngine_FMOD();
-#else
-			gAudiop = NULL;
+#endif
+
+#ifdef LL_OPENAL
+			if (!gAudiop)
+			{
+				gAudiop = (LLAudioEngine *) new LLAudioEngine_OpenAL();
+			}
 #endif
 
 			if (gAudiop)
@@ -595,11 +606,16 @@ bool idle_startup()
 				void* window_handle = NULL;
 #endif
 				bool init = gAudiop->init(kAUDIO_NUM_SOURCES, window_handle);
-				if(!init)
+				if(init)
+				{
+					gAudiop->setMuted(TRUE);
+				}
+				else
 				{
 					LL_WARNS("AppInit") << "Unable to initialize audio engine" << LL_ENDL;
+					delete gAudiop;
+					gAudiop = NULL;
 				}
-				gAudiop->setMuted(TRUE);
 			}
 		}
 		

@@ -8,6 +8,7 @@ include(BuildVersion)
 include(DirectX)
 include(ELFIO)
 include(FMOD)
+include(OPENAL)
 include(FindOpenGL)
 include(LLAudio)
 include(LLCharacter)
@@ -56,6 +57,7 @@ include_directories(
     ${LLXML_INCLUDE_DIRS}
     ${LSCRIPT_INCLUDE_DIRS}
     ${LSCRIPT_INCLUDE_DIRS}/lscript_compile
+    ${GSTREAMER_INCLUDE_DIRS}
     )
 
 set(viewer_SOURCE_FILES
@@ -1238,6 +1240,11 @@ set_source_files_properties(${viewer_CHARACTER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 list(APPEND viewer_SOURCE_FILES ${viewer_CHARACTER_FILES})
+
+
+if (OPENAL)
+  set_source_files_properties(llstartup.cpp PROPERTIES COMPILE_FLAGS -DLL_OPENAL)
+endif (OPENAL)
 
 if (FMOD)
   set_source_files_properties(llstartup.cpp PROPERTIES COMPILE_FLAGS -DLL_FMOD)
