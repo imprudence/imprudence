@@ -1,6 +1,6 @@
 # -*- cmake -*-
 
-set(OPENAL OFF CACHE BOOL "Enable OpenAL")
+set(OPENAL ON CACHE BOOL "Enable OpenAL")
 
 if (OPENAL)
   include(FindPkgConfig)

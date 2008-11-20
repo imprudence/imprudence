@@ -1,3 +1,10 @@
+2008-11-20  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/OPENAL.cmake:
+	Enable OpenAL by default.
+	Configure with -DOPENAL:BOOL=OFF to disable.
+
+
 2008-11-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
