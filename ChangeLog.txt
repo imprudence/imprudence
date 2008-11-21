@@ -1,3 +1,10 @@
+2008-11-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/lldrawable.cpp:
+	Likely fix for VWR-8920 (disappearing attachments).
+	From http://svn.secondlife.com/trac/linden/changeset/1393
+
+
 2008-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llcrashlogger/llcrashlogger.cpp: 
