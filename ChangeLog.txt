@@ -1,6 +1,10 @@
 2008-11-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventoryview.cpp:
+	Disabled testing output when changing quick filter.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
 	Quick Filter combo box refreshes properly.
 	* linden/indra/newview/llinventoryview.h: 
 	Ditto.

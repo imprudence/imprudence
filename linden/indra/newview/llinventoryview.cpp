@@ -1091,8 +1091,8 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 		finder->updateElementsFromFilter();
 	}
 
+	// llinfos << "Quick Filter: " << item_type << llendl;
 
-	llinfos << "Quick Filter: " << item_type << llendl;
 }
 
 
