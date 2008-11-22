@@ -140,6 +140,8 @@
 <NetMapGroupOwnBelowWater value="200, 0, 200, 255" />
 <NetMapOtherOwnAboveWater value="60, 60, 60, 255" />
 <NetMapOtherOwnBelowWater value="30, 30, 30, 255" />
+<NetMapGlyphColorAvatar value="0, 255, 0, 255" />       <!-- Also the color of avatar glyphs on the map -->
+<NetMapGlyphColorFriend value="255, 255, 0, 255" />
 
 <!-- HELP WINDOW -->
 <HelpBgColor value="200, 209, 204, 255" />
