@@ -1,6 +1,10 @@
 2008-11-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventoryview.cpp:
+	Bogus quick filter strings should be ignored.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
 	Disabled testing output when changing quick filter.
 
 

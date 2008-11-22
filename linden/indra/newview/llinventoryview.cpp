@@ -1075,10 +1075,16 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 		return;
 	}
 
-	else
+	else if ("Show All Items" == item_type)
 	{
 		// Show all types
 		filter_type = 0xffffffff;
+	}
+
+	else
+	{
+		llwarns << "Ignoring unknown filter: " << item_type << llendl;
+		return;
 	}
 
 	view->mActivePanel->setFilterTypes( filter_type );
