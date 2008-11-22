@@ -221,7 +221,7 @@ class WindowsManifest(ViewerManifest):
         #    self.path("vivoxsdk.dll")
         #    self.path("ortp.dll")
 
-             self.end_prefix()
+            self.end_prefix()
 
 #        # pull in the crash logger and updater from other projects
 #        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
