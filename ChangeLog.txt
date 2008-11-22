@@ -1,5 +1,9 @@
 2008-11-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llui/llcombobox.cpp:
+	Combobox now supports separators in XUI.
+
+
 	* linden/indra/newview/llinventoryview.cpp:
 	Renamed "Clothing" filter to "Clothing / Body Parts".
 	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml: 
