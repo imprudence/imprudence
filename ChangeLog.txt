@@ -1,10 +1,24 @@
 2008-11-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventoryview.cpp:
+	Renamed "Clothing" filter to "Clothing / Body Parts".
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml: 
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory_view_finder.xml:
+	Ditto.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
 	Renamed "Show All Items" filter to "All Types".
 	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml: 
 	Ditto.
 
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Renamed "Show All Items" to "All Types".
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml: 
+	Ditto.
+	
 
 	* linden/indra/newview/llinventoryview.cpp:
 	Bogus quick filter strings should be ignored.

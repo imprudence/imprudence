@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-495" can_close="true" can_drag_on_left="false" can_minimize="false"
      can_resize="false" can_tear_off="true" enabled="true" height="408"
-     left="457" min_height="408" min_width="160" mouse_opaque="true"
-     name="Inventory Finder" title="inventory_recent_items" width="160">
+     left="457" min_height="408" min_width="170" mouse_opaque="true"
+     name="Inventory Finder" title="inventory_recent_items" width="170">
 	<icon bottom="-36" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_animation.tga" left="8" mouse_opaque="true"
 	     name="icon_animation" width="16" />
@@ -20,7 +20,7 @@
 	     image_name="inv_item_shirt.tga" left="8" mouse_opaque="true"
 	     name="icon_clothing" width="16" />
 	<check_box bottom="-76" enabled="true" follows="left|top" font="SansSerifSmall"
-	     height="16" initial_value="false" label="Clothing" left="26"
+	     height="16" initial_value="false" label="Clothing / Body Parts" left="26"
 	     mouse_opaque="true" name="check_clothing" radio_style="false" width="126" />
 	<icon bottom="-96" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_gesture.tga" left="8" mouse_opaque="true"

@@ -1020,7 +1020,7 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 		filter_type = 0x1 << LLInventoryType::IT_CALLINGCARD;
 	}
 
-	else if ("Clothing" == item_type)
+	else if ("Clothing / Body Parts" == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_WEARABLE;
 	}
@@ -1164,7 +1164,7 @@ void LLInventoryView::refreshQuickFilter(LLUICtrl* ctrl)
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_WEARABLE))
 	{
-		selection = "Clothing";
+		selection = "Clothing / Body Parts";
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_GESTURE))
