@@ -20,7 +20,9 @@
 		<combo_item name="type_all">
 			All Types
 		</combo_item>
-		<!-- combo list separator would go here, if such a thing existed -->
+
+    <separator />
+
 		<combo_item name="type_animation">
 			Animations
 		</combo_item>
@@ -54,6 +56,9 @@
 		<combo_item name="type_snapshot">
 			Snapshots
 		</combo_item>
+
+    <separator />
+
 		<combo_item name="type_custom">
 			Custom...
 		</combo_item>
