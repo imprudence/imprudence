@@ -1075,7 +1075,7 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 		return;
 	}
 
-	else if ("Show All Items" == item_type)
+	else if ("All Types" == item_type)
 	{
 		// Show all types
 		filter_type = 0xffffffff;
@@ -1149,7 +1149,7 @@ void LLInventoryView::refreshQuickFilter(LLUICtrl* ctrl)
 
 	if (filter_type == filter_mask)
 	{
-		selection = "Show All Items";
+		selection = "All Types";
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_ANIMATION))
