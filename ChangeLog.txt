@@ -1,3 +1,11 @@
+2008-11-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/OPENAL.cmake:
+	Cross-platform checking for OpenAL libs.
+	* linden/indra/cmake/LLAudio.cmake:
+	Ditto.
+
+
 2008-11-20  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/cmake/OPENAL.cmake:
