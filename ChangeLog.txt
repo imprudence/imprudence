@@ -1,5 +1,9 @@
 2008-11-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory_view_finder.xml:
+	Cleaned up Show Filters floater XML.
+
+
 	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml:
 	Added separators to Quick Filter.
 
