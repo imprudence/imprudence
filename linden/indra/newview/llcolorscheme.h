@@ -36,8 +36,6 @@
 
 extern LLColor4 gTrackColor;
 extern LLColor4 gSelfMapColor;
-extern LLColor4 gAvatarMapColor;
-extern LLColor4 gFriendMapColor;
 extern LLColor4 gLandmarkMapColor;
 extern LLColor4 gLocationMapColor;
 extern LLColor4 gTelehubMapColor;
