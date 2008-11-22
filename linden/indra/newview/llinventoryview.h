@@ -241,6 +241,7 @@ public:
 	static BOOL checkFoldersByName(void *user_data);
 	static void onSearchEdit(const std::string& search_string, void* user_data );
   static void onQuickFilterCommit(LLUICtrl* ctrl, void* user_data);
+  static void refreshQuickFilter(LLUICtrl* ctrl);
 	static void onFilterSelected(void* userdata, bool from_click);
 	static void onSelectionChange(const std::deque<LLFolderViewItem*> &items, BOOL user_action, void* data);
 

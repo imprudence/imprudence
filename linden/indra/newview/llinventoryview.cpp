@@ -624,6 +624,11 @@ void LLInventoryView::draw()
 	{
 		mSearchEditor->setText(mActivePanel->getFilterSubString());
 	}
+	if (mActivePanel && mQuickFilterCombo)
+	{
+		refreshQuickFilter( mQuickFilterCombo );
+	}
+
 	LLFloater::draw();
 }
 
@@ -1089,6 +1094,129 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 
 	llinfos << "Quick Filter: " << item_type << llendl;
 }
+
+
+
+//static
+void LLInventoryView::refreshQuickFilter(LLUICtrl* ctrl)
+{
+
+	LLInventoryView* view = (LLInventoryView*)(ctrl->getParent());
+	if (!view->mActivePanel)
+	{
+		return;
+	}
+
+	LLComboBox* quickfilter = view->getChild<LLComboBox>("Quick Filter");
+	if (!quickfilter)
+	{
+		return;
+	}
+
+
+	U32 filter_type = view->mActivePanel->getFilterTypes();
+
+
+  // Mask to extract only the bit fields we care about.
+  // *TODO: There's probably a cleaner way to construct this mask.
+  U32 filter_mask = 0;
+  filter_mask |= (0x1 << LLInventoryType::IT_ANIMATION);
+  filter_mask |= (0x1 << LLInventoryType::IT_CALLINGCARD);
+  filter_mask |= (0x1 << LLInventoryType::IT_WEARABLE);
+  filter_mask |= (0x1 << LLInventoryType::IT_GESTURE);
+  filter_mask |= (0x1 << LLInventoryType::IT_LANDMARK);
+  filter_mask |= (0x1 << LLInventoryType::IT_NOTECARD);
+  filter_mask |= (0x1 << LLInventoryType::IT_OBJECT);
+  filter_mask |= (0x1 << LLInventoryType::IT_LSL);
+  filter_mask |= (0x1 << LLInventoryType::IT_SOUND);
+  filter_mask |= (0x1 << LLInventoryType::IT_TEXTURE);
+  filter_mask |= (0x1 << LLInventoryType::IT_SNAPSHOT);
+
+
+  filter_type &= filter_mask;
+
+
+  //llinfos << "filter_type: " << filter_type << llendl;
+
+	std::string selection;
+
+
+	if (filter_type == filter_mask)
+	{
+		selection = "Show All Items";
+	}
+
+	else if (filter_type == (0x1 << LLInventoryType::IT_ANIMATION))
+	{
+		selection = "Animations";
+	}
+
+	else if (filter_type == (0x1 << LLInventoryType::IT_CALLINGCARD))
+	{
+		selection = "Calling Cards";
+	}
+
+	else if (filter_type == (0x1 << LLInventoryType::IT_WEARABLE))
+	{
+		selection = "Clothing";
+	}
+
+	else if (filter_type == (0x1 << LLInventoryType::IT_GESTURE))
+	{
+		selection = "Gestures";
+	}
+
+	else if (filter_type == (0x1 << LLInventoryType::IT_LANDMARK))
+	{
+		selection = "Landmarks";
+	}
+
+	else if (filter_type == (0x1 << LLInventoryType::IT_NOTECARD))
+	{
+		selection = "Notecards";
+	}
+
+	else if (filter_type == (0x1 << LLInventoryType::IT_OBJECT))
+	{
+		selection = "Objects";
+	}
+
+	else if (filter_type == (0x1 << LLInventoryType::IT_LSL))
+	{
+		selection = "Scripts";
+	}
+
+	else if (filter_type == (0x1 << LLInventoryType::IT_SOUND))
+	{
+		selection = "Sounds";
+	}
+
+	else if (filter_type == (0x1 << LLInventoryType::IT_TEXTURE))
+	{
+		selection = "Textures";
+	}
+
+	else if (filter_type == (0x1 << LLInventoryType::IT_SNAPSHOT))
+	{
+		selection = "Snapshots";
+	}
+
+	else
+	{
+		selection = "Custom...";
+	}
+
+
+	// Select the chosen item by label text
+	BOOL result = quickfilter->setSimple( (selection) );
+
+  if( !result )
+  {
+    llinfos << "The item didn't exist: " << selection << llendl;
+  }
+
+}
+
 
 
 // static
