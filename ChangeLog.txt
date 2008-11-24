@@ -1,4 +1,10 @@
 
+2008-11-23  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/panel_groups.xml:
+	Switched Invite and Leave buttons in group panel.
+
+
 2008-11-22  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden\indra\newview\skins\default\colors_base.xml:
