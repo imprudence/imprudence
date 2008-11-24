@@ -321,10 +321,10 @@ void LLAudioEngine_OpenAL::updateWind(LLVector3 wind_vec, F32 camera_altitude)
 	
 	mMaxWindGain=1.0;
 	
-	if (!mEnableWind)
+	if (mEnableWind)
 		return;
 	
-	if(!winddata)
+	if(winddata)
 		return;
 	
 	if (mWindUpdateTimer.checkExpirationAndReset(LL_WIND_UPDATE_INTERVAL))

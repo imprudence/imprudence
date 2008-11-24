@@ -35,8 +35,8 @@
 
 #include "listener.h"
 
-#include "AL/al.h"
-#include "AL/alut.h"
+#include "al.h"
+#include "alut.h"
 
 class LLListener_OpenAL  : public LLListener
 {
