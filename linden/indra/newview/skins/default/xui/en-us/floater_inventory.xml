@@ -11,57 +11,40 @@
 		Quick Filter:
 	</text>
 
+	<!-- Inventory Type Filter Labels -->
+	<string name="filter_type_all">All Types</string>
+	<string name="filter_type_animation">Animations</string>
+	<string name="filter_type_callingcard">Calling Cards</string>
+	<string name="filter_type_wearable">Clothing / Body Parts</string>
+	<string name="filter_type_gesture">Gestures</string>
+	<string name="filter_type_landmark">Landmarks</string>
+	<string name="filter_type_notecard">Notecards</string>
+	<string name="filter_type_object">Objects</string>
+	<string name="filter_type_script">Scripts</string>
+	<string name="filter_type_sound">Sounds</string>
+	<string name="filter_type_texture">Textures</string>
+	<string name="filter_type_snapshot">Snapshots</string>
+	<string name="filter_type_custom">Custom...</string>
+
 	<combo_box name="Quick Filter" label="Quick Filter" follows="left|top"
-						 height="20" left="80" width="150" bottom_delta="0">
+	           height="20" left="80" width="150" bottom_delta="0">
 
-		<!-- IF YOU CHANGE ANY OF THESE LABELS, YOU
-		     MUST ALSO UPDATE llinventoryview.cpp! -->
+		<combo_item name="filter_type_all">All Types</combo_item>
+		<separator />
+		<combo_item name="filter_type_animation">Animations</combo_item>
+		<combo_item name="filter_type_callingcard">Calling Cards</combo_item>
+		<combo_item name="filter_type_wearable">Clothing / Body Parts</combo_item>
+		<combo_item name="filter_type_gesture">Gestures</combo_item>
+		<combo_item name="filter_type_landmark">Landmarks</combo_item>
+		<combo_item name="filter_type_notecard">Notecards</combo_item>
+		<combo_item name="filter_type_object">Objects</combo_item>
+		<combo_item name="filter_type_script">Scripts</combo_item>
+		<combo_item name="filter_type_sound">Sounds</combo_item>
+		<combo_item name="filter_type_texture">Textures</combo_item>
+		<combo_item name="filter_type_snapshot">Snapshots</combo_item>
+		<separator />
+		<combo_item name="filter_type_custom">Custom...</combo_item>
 
-		<combo_item name="type_all">
-			All Types
-		</combo_item>
-
-    <separator />
-
-		<combo_item name="type_animation">
-			Animations
-		</combo_item>
-		<combo_item name="type_calling_card">
-			Calling Cards
-		</combo_item>
-		<combo_item name="type_wearable">
-			Clothing / Body Parts
-		</combo_item>
-		<combo_item name="type_gesture">
-			Gestures
-		</combo_item>
-		<combo_item name="type_landmark">
-			Landmarks
-		</combo_item>
-		<combo_item name="type_notecard">
-			Notecards
-		</combo_item>
-		<combo_item name="type_object">
-			Objects
-		</combo_item>
-		<combo_item name="type_script">
-			Scripts
-		</combo_item>
-		<combo_item name="type_sound">
-			Sounds
-		</combo_item>
-		<combo_item name="type_texture">
-			Textures
-		</combo_item>
-		<combo_item name="type_snapshot">
-			Snapshots
-		</combo_item>
-
-    <separator />
-
-		<combo_item name="type_custom">
-			Custom...
-		</combo_item>
 	</combo_box>
 
 	<tab_container name="inventory filter tabs" follows="left|top|right|bottom"
