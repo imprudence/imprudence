@@ -1010,62 +1010,62 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 	std::string item_type = quickfilter->getSimple();
 	U32 filter_type;
 
-	if ("Animations" == item_type)
+	if (view->getString("filter_type_animation") == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_ANIMATION;
 	}
 
-	else if ("Calling Cards" == item_type)
+	else if (view->getString("filter_type_callingcard") == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_CALLINGCARD;
 	}
 
-	else if ("Clothing / Body Parts" == item_type)
+	else if (view->getString("filter_type_wearable") == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_WEARABLE;
 	}
 
-	else if ("Gestures" == item_type)
+	else if (view->getString("filter_type_gesture") == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_GESTURE;
 	}
 
-	else if ("Landmarks" == item_type)
+	else if (view->getString("filter_type_landmark") == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_LANDMARK;
 	}
 
-	else if ("Notecards" == item_type)
+	else if (view->getString("filter_type_notecard") == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_NOTECARD;
 	}
 
-	else if ("Objects" == item_type)
+	else if (view->getString("filter_type_object") == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_OBJECT;
 	}
 
-	else if ("Scripts" == item_type)
+	else if (view->getString("filter_type_script") == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_LSL;
 	}
 
-	else if ("Sounds" == item_type)
+	else if (view->getString("filter_type_sound") == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_SOUND;
 	}
 
-	else if ("Textures" == item_type)
+	else if (view->getString("filter_type_texture") == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_TEXTURE;
 	}
 
-	else if ("Snapshots" == item_type)
+	else if (view->getString("filter_type_snapshot") == item_type)
 	{
 		filter_type = 0x1 << LLInventoryType::IT_SNAPSHOT;
 	}
 
-	else if ("Custom..." == item_type)
+	else if (view->getString("filter_type_custom") == item_type)
 	{
 		// When they select custom, show the floater then return
 		if( !(view->filtersVisible(view)) )
@@ -1075,7 +1075,7 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 		return;
 	}
 
-	else if ("All Types" == item_type)
+	else if (view->getString("filter_type_all") == item_type)
 	{
 		// Show all types
 		filter_type = 0xffffffff;
@@ -1149,67 +1149,67 @@ void LLInventoryView::refreshQuickFilter(LLUICtrl* ctrl)
 
 	if (filter_type == filter_mask)
 	{
-		selection = "All Types";
+		selection = view->getString("filter_type_all");
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_ANIMATION))
 	{
-		selection = "Animations";
+		selection = view->getString("filter_type_animation");
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_CALLINGCARD))
 	{
-		selection = "Calling Cards";
+		selection = view->getString("filter_type_callingcard");
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_WEARABLE))
 	{
-		selection = "Clothing / Body Parts";
+		selection = view->getString("filter_type_wearable");
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_GESTURE))
 	{
-		selection = "Gestures";
+		selection = view->getString("filter_type_gesture");
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_LANDMARK))
 	{
-		selection = "Landmarks";
+		selection = view->getString("filter_type_landmark");
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_NOTECARD))
 	{
-		selection = "Notecards";
+		selection = view->getString("filter_type_notecard");
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_OBJECT))
 	{
-		selection = "Objects";
+		selection = view->getString("filter_type_object");
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_LSL))
 	{
-		selection = "Scripts";
+		selection = view->getString("filter_type_script");
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_SOUND))
 	{
-		selection = "Sounds";
+		selection = view->getString("filter_type_sound");
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_TEXTURE))
 	{
-		selection = "Textures";
+		selection = view->getString("filter_type_texture");
 	}
 
 	else if (filter_type == (0x1 << LLInventoryType::IT_SNAPSHOT))
 	{
-		selection = "Snapshots";
+		selection = view->getString("filter_type_snapshot");
 	}
 
 	else
 	{
-		selection = "Custom...";
+		selection = view->getString("filter_type_custom");
 	}
 
 

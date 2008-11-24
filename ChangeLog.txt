@@ -1,5 +1,9 @@
 2008-11-23  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llinventoryview.cpp:
+	Read filter labels from LLTrans, no hard-coding.
+
+
 	* linden/indra/newview/skins/default/xui/en-us/strings.xml:
 	Defined strings for filter types (to allow translation).
 
