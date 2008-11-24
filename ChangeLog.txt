@@ -1,6 +1,10 @@
 
 2008-11-23  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml:
+	Moved 'Offer Teleport' in IM to be on the left side.
+
+
 	* linden/indra/newview/skins/default/xui/en-us/panel_groups.xml:
 	Switched Invite and Leave buttons in group panel.
 
