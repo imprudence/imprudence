@@ -1,6 +1,10 @@
 
 2008-11-23  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden/indra/newview/skins/default/xui/en-us/notify.xml:
+	VWR-4826 (ability to ignore friendship offers).
+
+
 	* linden/indra/newview/app_settings/settings.xml:
 	Beacons no longer persist between sessions.
 	That distressed users who accidentally enabled them,
