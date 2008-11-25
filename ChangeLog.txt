@@ -1,3 +1,15 @@
+2008-11-24  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llpanellogin.cpp: 
+	Changed the grid selector options at login.
+	Renamed "Agni" to "SL Main Grid", etc. and removed private
+	LL grids from the list. Also added "Local OpenSim" option.
+	* linden/indra/newview/llviewernetwork.cpp: 
+	Ditto.
+	* linden/indra/newview/llviewernetwork.h: 
+	Ditto.
+
+
 2008-11-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/lldrawable.cpp:
