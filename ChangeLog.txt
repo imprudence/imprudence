@@ -1,3 +1,16 @@
+2008-11-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llpanellogin.cpp:
+	Added "code name" field for grid selections.
+	The code name is used to fetch the proper splash page.
+	This decouples the user-visible label from the name
+	expected by the SL web server.
+	* linden/indra/newview/llviewernetwork.cpp:
+	Ditto.
+	* linden/indra/newview/llviewernetwork.h:
+	Ditto.
+
+
 2008-11-24  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llpanellogin.cpp: 

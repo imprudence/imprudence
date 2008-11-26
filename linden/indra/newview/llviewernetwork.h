@@ -72,6 +72,20 @@ public:
 	**/
 	std::string getGridLabel() const; 
 
+  /**
+   * @brief Get the code name for the grid choice.
+   *
+   * Returns the code name for the grid choice, as designated
+   * by Linden Lab. The SL main grid is Agni, and the beta
+   * grid is Aditi. There are other LL testing grids with code
+   * names, but we don't care about those.
+   *
+   * This string is used primarily for fetching the proper
+   * login splash page, since the web server expects "Agni"
+   * and "Aditi", not "SL Main Grid" and "SL Beta Grid".
+   */
+	std::string getGridCodeName() const; 
+
 	std::string getKnownGridLabel(EGridInfo grid_index) const; 
 
 	void getLoginURIs(std::vector<std::string>& uris) const;

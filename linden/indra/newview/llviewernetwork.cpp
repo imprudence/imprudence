@@ -38,6 +38,7 @@
 struct LLGridData
 {
 	const char* mLabel;
+  const char* mCodeName;
 	const char* mName;
 	const char* mLoginURI;
 	const char* mHelperURI;
@@ -45,23 +46,23 @@ struct LLGridData
 
 static LLGridData gGridInfo[GRID_INFO_COUNT] = 
 {
-	{ "None", "", "", ""},
+	{ "None", "", "", "", "" },
 	{ "SL Beta Grid",
+	  "Aditi",
 	  "util.aditi.lindenlab.com",
 	  "https://login.aditi.lindenlab.com/cgi-bin/login.cgi",
 	  "http://aditi-secondlife.webdev.lindenlab.com/helpers/" },
 	{ "SL Main Grid",
+	  "Agni",
 	  "util.agni.lindenlab.com", 
 	  "https://login.agni.lindenlab.com/cgi-bin/login.cgi",
 	  "https://secondlife.com/helpers/" },
 	{ "Local OpenSim",
+	  "",
 	  "localhost",
 	  "http://0.0.0.0:9000",
 	  "" },
-	{ "Other",
-	  "",
-	  "",
-	  "" }
+	{ "Other", "", "", "", "" }
 };
 
 const EGridInfo DEFAULT_GRID_CHOICE = GRID_INFO_AGNI;
@@ -158,6 +159,16 @@ std::string LLViewerLogin::getGridLabel() const
 	}
 
 	return mGridName;
+}
+
+std::string LLViewerLogin::getGridCodeName() const
+{
+	if( gGridInfo[mGridChoice].mCodeName == "" )
+	{
+		return getGridLabel();
+	}
+
+	return gGridInfo[mGridChoice].mCodeName;
 }
 
 std::string LLViewerLogin::getKnownGridLabel(EGridInfo grid_index) const
