@@ -38,8 +38,8 @@ class LLHost;
 enum EGridInfo
 {
 	GRID_INFO_NONE,
-	GRID_INFO_ADITI,
 	GRID_INFO_AGNI,
+	GRID_INFO_ADITI,
 	GRID_INFO_LOCAL,
 	GRID_INFO_OTHER, // IP address set via command line option
 	GRID_INFO_COUNT

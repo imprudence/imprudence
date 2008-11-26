@@ -1,5 +1,13 @@
 2008-11-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llstartup.cpp:
+	Rearranged grid selectors so main grid is first.
+	* linden/indra/newview/llviewernetwork.cpp:
+	Ditto.
+	* linden/indra/newview/llviewernetwork.cpp:
+	Ditto.
+
+
 	* linden/indra/newview/llpanellogin.cpp:
 	Added "code name" field for grid selections.
 	The code name is used to fetch the proper splash page.
