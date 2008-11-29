@@ -383,10 +383,6 @@ void LLFloaterDirectory::showPanel(const std::string& tabname)
 // static
 void LLFloaterDirectory::toggleFind(void*)
 {
-#ifndef LL_RELEASE_FOR_DOWNLOAD
-	delete sInstance;
-	sInstance = NULL;
-#endif
 	if (!sInstance)
 	{
 		std::string panel = gSavedSettings.getString("LastFindPanel");
