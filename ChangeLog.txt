@@ -1,3 +1,9 @@
+2008-11-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llappviewer.cpp:
+	Stop console window from always showing up.
+
+
 2008-11-29  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llfloaterdirectory.cpp:

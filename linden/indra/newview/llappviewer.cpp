@@ -1604,11 +1604,6 @@ bool LLAppViewer::initConfiguration()
 
 	gSavedSettings.setString("VersionChannelName", IMP_VIEWER_NAME);
 
-#ifndef	LL_RELEASE_FOR_DOWNLOAD
-        gSavedSettings.setBOOL("ShowConsoleWindow", TRUE);
-        gSavedSettings.setBOOL("AllowMultipleViewers", TRUE);
-#endif
-
 #if !LL_DYNAMIC_FONT_DISCOVERY
 	// static font discovery - user settings can override.
 	gSavedSettings.setString("FontSansSerifFallback",
