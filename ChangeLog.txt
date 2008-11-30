@@ -1,5 +1,9 @@
 2008-11-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/viewer_manifest.py:
+	Package up README.txt, etc. on Linux.
+
+
 	* linden/indra/llmedia/llmediamanager.cpp:
 	Disable llmozlib-dependent code when not available.
 	Patch by Stephen Zenith. [#12]

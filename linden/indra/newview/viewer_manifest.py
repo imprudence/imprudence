@@ -525,7 +525,7 @@ class DarwinManifest(ViewerManifest):
 class LinuxManifest(ViewerManifest):
     def construct(self):
         super(LinuxManifest, self).construct()
-        self.path("licenses-linux.txt","licenses.txt")
+
         self.path("res/imprudence_icon.png","imprudence_icon.png")
         if self.prefix("linux_tools", dst=""):
             self.path("client-readme.txt","README-linux.txt")
@@ -534,6 +534,29 @@ class LinuxManifest(ViewerManifest):
             self.path("handle_secondlifeprotocol.sh")
             self.path("register_secondlifeprotocol.sh")
             self.end_prefix("linux_tools")
+
+        # Top level directory (imprudence)
+        if self.prefix("../../..", dst=""):
+            self.path("README.txt", "README-Imprudence.txt")
+            self.path("MANIFESTO.txt")
+            self.path("CONTRIBUTE.txt")
+            self.path("ChangeLog.txt")
+            self.end_prefix("../../..")
+
+        # linden directory
+        if self.prefix("../..", dst="doc"):
+            self.path("LICENSE-source.txt")
+            self.path("LICENSE-logos.txt","LICENSE-artwork.txt")
+            self.path("LICENSE-libraries-linux.txt")
+            self.end_prefix("../..")
+
+        # linden/doc directory
+        if self.prefix("../../doc", dst="doc"):
+            self.path("contributions.txt")
+            self.path("GPL-license.txt", "GPL.txt")
+            self.path("FLOSS-exception.txt")
+            self.end_prefix("../../doc")
+            
 
         # Create an appropriate gridargs.dat for this package, denoting required grid.
         self.put_in_file(self.flags_list(), 'gridargs.dat')
