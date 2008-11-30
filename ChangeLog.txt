@@ -1,3 +1,15 @@
+2008-11-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llwindow/llwindowsdl.cpp:
+	Fixed passing nonliteral strings to *printf functions.
+	gcc 4.3 rejects that as being unsafe.
+	Patch by Stephen Zenith. [#11]
+	* linden/indra/linux_crash_logger/llcrashloggerlinux.cpp:
+	Ditto.
+	* linden/indra/lscript/lscript_compile/lscript_tree.cpp: 
+	Ditto.
+
+
 2008-11-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llpanellogin.cpp:
