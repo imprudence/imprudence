@@ -1,5 +1,10 @@
 2008-11-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmedia/llmediamanager.cpp:
+	Disable llmozlib-dependent code when not available.
+	Patch by Stephen Zenith. [#12]
+
+
 	* linden/indra/llwindow/llwindowsdl.cpp:
 	Fixed passing nonliteral strings to *printf functions.
 	gcc 4.3 rejects that as being unsafe.
