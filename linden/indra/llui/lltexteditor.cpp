@@ -4255,11 +4255,9 @@ S32 LLTextEditor::findHTMLToken(const std::string &line, S32 pos, BOOL reverse) 
 	std::string openers=" \t\n('\"[{<>";
 	std::string closers=" \t\n)'\"]}><;";
 
-	S32 index = 0;
-	
 	if (reverse)
 	{
-		for (index=pos; index >= 0; index--)
+		for (int index=pos; index >= 0; index--)
 		{
 			char c = line[index];
 			S32 m2 = openers.find(c);
@@ -4268,11 +4266,12 @@ S32 LLTextEditor::findHTMLToken(const std::string &line, S32 pos, BOOL reverse) 
 				return index+1;
 			}
 		}
+		return 0; // index is -1, don't want to return that. 
 	} 
 	else
 	{
 		
-		for (index=pos; index<(S32)line.length(); index++)
+		for (int index=pos; index<(S32)line.length(); index++)
 		{
 			char c = line[index];
 			S32 m2 = closers.find(c);
@@ -4281,9 +4280,8 @@ S32 LLTextEditor::findHTMLToken(const std::string &line, S32 pos, BOOL reverse) 
 				return index;
 			}
 		} 
+		return line.length();
 	}		
-	
-	return index;
 }
 
 BOOL LLTextEditor::findHTML(const std::string &line, S32 *begin, S32 *end) const
