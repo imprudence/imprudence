@@ -1,5 +1,9 @@
 2008-12-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/viewer_manifest.py:
+	Doc packaging moved to platform-independent manifest.
+
+
 	* Imported license files for libraries and artwork.
 
 

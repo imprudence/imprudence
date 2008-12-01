@@ -99,6 +99,31 @@ class ViewerManifest(LLManifest):
         self.path("lsl_guide.html")
         self.path("gpu_table.txt")
 
+
+    # Gather up the README file, etc.
+    def gather_documents(self):
+        # From the top level directory (imprudence)
+        if self.prefix("../../..", dst=""):
+            self.path("README.txt", "README-Imprudence.txt")
+            self.path("MANIFESTO.txt")
+            self.path("CONTRIBUTE.txt")
+            self.path("ChangeLog.txt")
+            self.end_prefix("../../..")
+
+        # From the linden directory
+        if self.prefix("../..", dst="doc"):
+            self.path("LICENSE-source.txt")
+            self.path("LICENSE-logos.txt", "LICENSE-artwork.txt")
+            self.end_prefix("../..")
+
+        # From the linden/doc directory
+        if self.prefix("../../doc", dst="doc"):
+            self.path("contributions.txt")
+            self.path("GPL-license.txt", "GPL.txt")
+            self.path("FLOSS-exception.txt")
+            self.end_prefix("../../doc")
+
+
     def login_channel(self):
         """Channel reported for login and upgrade purposes ONLY;
         used for A/B testing"""
@@ -161,7 +186,13 @@ class WindowsManifest(ViewerManifest):
                 #'../llkdu/relwithdebinfo/llkdu.dll',
                 #'../../libraries/i686-win32/lib/release/llkdu.dll'), 
                 #  dst='llkdu.dll')
-        self.path(src="licenses-win32.txt", dst="licenses.txt")
+
+        self.gather_documents()
+
+        if self.prefix("../..", dst="doc"):
+            self.path("LICENSE-libraries-win32.txt")
+            self.end_prefix("../..")
+
 
         self.path("featuretable.txt")
 
@@ -386,7 +417,13 @@ class DarwinManifest(ViewerManifest):
                     self.path("*.tif")
                     self.end_prefix("cursors_mac")
 
-                self.path("licenses-mac.txt", dst="licenses.txt")
+                # From the linden directory
+                if self.prefix("../..", dst="doc"):
+                    self.path("LICENSE-libraries-mac.txt")
+                    self.end_prefix("../..")
+
+                self.gather_documents()
+
                 self.path("featuretable_mac.txt")
                 self.path("SecondLife.nib")
 
@@ -535,28 +572,12 @@ class LinuxManifest(ViewerManifest):
             self.path("register_secondlifeprotocol.sh")
             self.end_prefix("linux_tools")
 
-        # Top level directory (imprudence)
-        if self.prefix("../../..", dst=""):
-            self.path("README.txt", "README-Imprudence.txt")
-            self.path("MANIFESTO.txt")
-            self.path("CONTRIBUTE.txt")
-            self.path("ChangeLog.txt")
-            self.end_prefix("../../..")
+        self.gather_documents()
 
-        # linden directory
+        # From the linden directory
         if self.prefix("../..", dst="doc"):
-            self.path("LICENSE-source.txt")
-            self.path("LICENSE-logos.txt","LICENSE-artwork.txt")
             self.path("LICENSE-libraries-linux.txt")
             self.end_prefix("../..")
-
-        # linden/doc directory
-        if self.prefix("../../doc", dst="doc"):
-            self.path("contributions.txt")
-            self.path("GPL-license.txt", "GPL.txt")
-            self.path("FLOSS-exception.txt")
-            self.end_prefix("../../doc")
-            
 
         # Create an appropriate gridargs.dat for this package, denoting required grid.
         self.put_in_file(self.flags_list(), 'gridargs.dat')
