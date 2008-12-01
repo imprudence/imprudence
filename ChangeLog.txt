@@ -1,3 +1,8 @@
+2008-12-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Imported license files for libraries and artwork.
+
+
 2008-11-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
