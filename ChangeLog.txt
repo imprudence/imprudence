@@ -1,3 +1,20 @@
+2008-12-01  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Added "Select Only Copyable Objects" menu option.
+	* linden/indra/newview/llselectmgr.cpp:
+	Ditto
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Ditto
+
+
+	Remove preprocessor condition for grid selector.
+	The grid selector on the login screen will always show,
+	instead of only showing when the viewer was compiled
+	as LL_RELEASE_FOR_DOWNLOAD.
+
 2008-11-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llpanellogin.cpp:
