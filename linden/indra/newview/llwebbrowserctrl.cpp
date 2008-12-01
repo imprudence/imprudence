@@ -596,14 +596,14 @@ void LLWebBrowserCtrl::draw()
 		}
 
 		// scale texture to fit the space using texture coords
-		mWebBrowserImage->bindTexture();
+		gGL.getTexUnit(0)->bind(mWebBrowserImage->getTexture());
 		gGL.color4fv( LLColor4::white.mV );
 		F32 max_u = ( F32 )mWebBrowserImage->getBrowserWidth() / ( F32 )mWebBrowserImage->getWidth();
 		F32 max_v = ( F32 )mWebBrowserImage->getBrowserHeight() / ( F32 )mWebBrowserImage->getHeight();
 
 		// draw the browser
 		gGL.setSceneBlendType(LLRender::BT_REPLACE);
-		gGL.begin( LLVertexBuffer::QUADS );
+		gGL.begin( LLRender::QUADS );
 		{
 			// render using web browser reported width and height, instead of trying to invert GL scale
 			gGL.texCoord2f( max_u, max_v );

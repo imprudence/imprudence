@@ -96,6 +96,9 @@ void LLAudioEngine::setDefaults()
 	mMasterGain = 1.f;
 	mInternetStreamGain = 0.125f;
 	mNextWindUpdate = 0.f;
+
+	for (U32 i = 0; i < LLAudioEngine::AUDIO_TYPE_COUNT; i++)
+		mSecondaryGain[i] = 1.0f;
 }
 
 
@@ -167,6 +170,13 @@ void LLAudioEngine::updateChannels()
 	{
 		if (mChannels[i])
 		{
+			// set secondary gain if type is available
+			LLAudioSource* source = mChannels[i]->getSource();
+			if (source)
+			{
+				mChannels[i]->setSecondaryGain(mSecondaryGain[source->getType()]);
+			}
+			
 			mChannels[i]->updateBuffer();
 			mChannels[i]->update3DPosition();
 			mChannels[i]->updateLoop();
@@ -643,6 +653,18 @@ F32 LLAudioEngine::getMasterGain()
 	return mMasterGain;
 }
 
+void LLAudioEngine::setSecondaryGain(S32 type, F32 gain)
+{
+	llassert(type < LLAudioEngine::AUDIO_TYPE_COUNT);
+	
+	mSecondaryGain[type] = gain;
+}
+
+F32 LLAudioEngine::getSecondaryGain(S32 type)
+{
+	return mSecondaryGain[type];
+}
+
 F32 LLAudioEngine::getInternetStreamGain()
 {
 	return mInternetStreamGain;
@@ -718,7 +740,8 @@ F64 LLAudioEngine::mapWindVecToPan(LLVector3 wind_vec)
 }
 
 
-void LLAudioEngine::triggerSound(const LLUUID &audio_uuid, const LLUUID& owner_id, const F32 gain, const LLVector3d &pos_global)
+void LLAudioEngine::triggerSound(const LLUUID &audio_uuid, const LLUUID& owner_id, const F32 gain,
+								 const S32 type, const LLVector3d &pos_global)
 {
 	// Create a new source (since this can't be associated with an existing source.
 	//llinfos << "Localized: " << audio_uuid << llendl;
@@ -731,7 +754,7 @@ void LLAudioEngine::triggerSound(const LLUUID &audio_uuid, const LLUUID& owner_i
 	LLUUID source_id;
 	source_id.generate();
 
-	LLAudioSource *asp = new LLAudioSource(source_id, owner_id, gain);
+	LLAudioSource *asp = new LLAudioSource(source_id, owner_id, gain, type);
 	gAudiop->addAudioSource(asp);
 	if (pos_global.isExactlyZero())
 	{
@@ -1180,11 +1203,12 @@ void LLAudioEngine::assetCallback(LLVFS *vfs, const LLUUID &uuid, LLAssetType::E
 //
 
 
-LLAudioSource::LLAudioSource(const LLUUID& id, const LLUUID& owner_id, const F32 gain)
+LLAudioSource::LLAudioSource(const LLUUID& id, const LLUUID& owner_id, const F32 gain, const S32 type)
 :	mID(id),
 	mOwnerID(owner_id),
 	mPriority(0.f),
 	mGain(gain),
+	mType(type),
 	mAmbient(FALSE),
 	mLoop(FALSE),
 	mSyncMaster(FALSE),
@@ -1515,7 +1539,8 @@ LLAudioChannel::LLAudioChannel() :
 	mCurrentSourcep(NULL),
 	mCurrentBufferp(NULL),
 	mLoopedThisFrame(FALSE),
-	mWaiting(FALSE)
+	mWaiting(FALSE),
+	mSecondaryGain(1.0f)
 {
 }
 

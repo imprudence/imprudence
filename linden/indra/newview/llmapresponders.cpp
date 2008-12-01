@@ -66,7 +66,7 @@ void LLMapLayerResponder::result(const LLSD& result)
 		new_layer.LayerDefined = TRUE;
 		new_layer.LayerImageID = layer_data["ImageID"];
 		new_layer.LayerImage = gImageList.getImage(new_layer.LayerImageID, MIPMAP_TRUE, FALSE);
-		new_layer.LayerImage->bindTexture(0);
+		gGL.getTexUnit(0)->bind(new_layer.LayerImage.get());
 		new_layer.LayerImage->setClamp(TRUE, TRUE);
 		
 		new_layer.LayerExtents.mLeft = layer_data["Left"];
@@ -163,7 +163,7 @@ void LLMapLayerResponder::result(const LLSD& result)
 				siminfo->mWaterHeight = (F32) water_height;
 				siminfo->mMapImageID[agent_flags] = image_id;
 				siminfo->mCurrentImage = gImageList.getImage(siminfo->mMapImageID[LLWorldMap::getInstance()->mCurrentMap], MIPMAP_TRUE, FALSE);
-				siminfo->mCurrentImage->bindTexture(0);
+				gGL.getTexUnit(0)->bind(siminfo->mCurrentImage.get());
 				siminfo->mCurrentImage->setClamp(TRUE, TRUE);
 			
 				if (siminfo->mMapImageID[2].notNull())

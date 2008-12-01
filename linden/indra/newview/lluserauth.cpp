@@ -324,17 +324,29 @@ static void parseOptionInto(
 		while(opt)
 		{
 			key.assign(XMLRPC_GetValueID(opt));
-			//llinfos "option key: " << key << llendl;
+			//llinfos << "option key: " << key << llendl;
 			type = XMLRPC_GetValueTypeEasy(opt);
 			if(xmlrpc_type_string == type)
 			{
 				val.assign(XMLRPC_GetValueString(opt));
+				//llinfos << "string val: " << val << llendl;
 			}
 			else if(xmlrpc_type_int == type)
 			{
 				val = llformat("%d", XMLRPC_GetValueInt(opt));
+				//llinfos << "int val: " << val << llendl;
 			}
-			//llinfos "option val: " << val << llendl;
+			else if(xmlrpc_type_double == type)
+			{
+				val = llformat("%g", XMLRPC_GetValueDouble(opt));
+				//llinfos << "double val: " << val << llendl;
+			}
+			else
+			{	// Can't understand the type
+				val = "???";
+				//llinfos << "unknown value type: " << type << llendl;
+			}
+
 			responses.insert(LLUserAuth::response_t::value_type(key, val));
 			opt = XMLRPC_VectorNext(row);
 		}

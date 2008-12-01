@@ -4828,7 +4828,7 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 		return;
 	}
 
-	LLViewerImage::bindTexture(mSilhouetteImagep);
+	gGL.getTexUnit(0)->bind(mSilhouetteImagep.get());
 	LLGLSPipelineSelection gls_select;
 	gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.f);
 	LLGLEnable blend(GL_BLEND);
@@ -4936,7 +4936,7 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 		stop_glerror();
 	}
 
-	mSilhouetteImagep->unbindTexture(0, GL_TEXTURE_2D);
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
 }
 
@@ -5313,7 +5313,7 @@ void LLSelectNode::renderOneSilhouette(const LLColor4 &color)
 
 			LLGLDepthTest gls_depth(GL_TRUE, GL_FALSE, GL_GEQUAL);
 			gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
-			gGL.begin(LLVertexBuffer::LINES);
+			gGL.begin(LLRender::LINES);
 			{
 				S32 i = 0;
 				for (S32 seg_num = 0; seg_num < (S32)mSilhouetteSegments.size(); seg_num++)
@@ -5334,7 +5334,7 @@ void LLSelectNode::renderOneSilhouette(const LLColor4 &color)
 
 		gGL.flush();
 		gGL.setSceneBlendType(LLRender::BT_ALPHA);
-		gGL.begin(LLVertexBuffer::TRIANGLES);
+		gGL.begin(LLRender::TRIANGLES);
 		{
 			S32 i = 0;
 			for (S32 seg_num = 0; seg_num < (S32)mSilhouetteSegments.size(); seg_num++)
@@ -5940,9 +5940,9 @@ S32 LLObjectSelection::getRootObjectCount()
 	return count;
 }
 
-bool LLObjectSelection::applyToObjects(LLSelectedObjectFunctor* func, bool firstonly)
+bool LLObjectSelection::applyToObjects(LLSelectedObjectFunctor* func)
 {
-	bool result = firstonly ? false : true;
+	bool result = true;
 	for (iterator iter = begin(); iter != end(); )
 	{
 		iterator nextiter = iter++;
@@ -5950,10 +5950,7 @@ bool LLObjectSelection::applyToObjects(LLSelectedObjectFunctor* func, bool first
 		if (!object)
 			continue;
 		bool r = func->apply(object);
-		if (firstonly && r)
-			return true;
-		else
-			result = result && r;
+		result = result && r;
 	}
 	return result;
 }

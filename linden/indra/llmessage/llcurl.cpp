@@ -265,6 +265,10 @@ LLCurl::Easy* LLCurl::Easy::getEasy()
 		delete easy;
 		return NULL;
 	}
+	
+	// set no DMS caching as default for all easy handles. This prevents them adopting a
+	// multi handles cache if they are added to one.
+	curl_easy_setopt(easy->mCurlEasyHandle, CURLOPT_DNS_CACHE_TIMEOUT, 0);
 	++gCurlEasyCount;
 	return easy;
 }
@@ -747,7 +751,7 @@ bool LLCurlRequest::post(const std::string& url, const LLSD& data, LLCurl::Respo
 	easy->setopt(CURLOPT_POSTFIELDS, (void*)NULL);
 	easy->setopt(CURLOPT_POSTFIELDSIZE, bytes);
 
-	easy->slist_append("Content-Type: application/xml");
+	easy->slist_append("Content-Type: application/llsd+xml");
 	easy->setHeaders();
 
 	lldebugs << "POSTING: " << bytes << " bytes." << llendl;

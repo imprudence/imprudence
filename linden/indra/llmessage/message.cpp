@@ -763,7 +763,7 @@ BOOL LLMessageSystem::checkMessages( S64 frame_count )
 				clearReceiveState();
 				valid_packet = FALSE;
 			}
-			
+
 			if( valid_packet )
 			{
 				logValidMsg(cdp, host, recv_reliable, recv_resent, (BOOL)(acks>0) );
@@ -3956,22 +3956,27 @@ void LLMessageSystem::getString(const char *block, const char *var,
 				  blocknum);
 }
 
-S32	LLMessageSystem::getNumberOfBlocksFast(const char *blockname)
+BOOL	LLMessageSystem::has(const char *blockname) const
+{
+	return getNumberOfBlocks(blockname) > 0;
+}
+
+S32	LLMessageSystem::getNumberOfBlocksFast(const char *blockname) const
 {
 	return mMessageReader->getNumberOfBlocks(blockname);
 }
 
-S32	LLMessageSystem::getNumberOfBlocks(const char *blockname)
+S32	LLMessageSystem::getNumberOfBlocks(const char *blockname) const
 {
 	return getNumberOfBlocksFast(LLMessageStringTable::getInstance()->getString(blockname));
 }
 	
-S32	LLMessageSystem::getSizeFast(const char *blockname, const char *varname)
+S32	LLMessageSystem::getSizeFast(const char *blockname, const char *varname) const
 {
 	return mMessageReader->getSize(blockname, varname);
 }
 
-S32	LLMessageSystem::getSize(const char *blockname, const char *varname)
+S32	LLMessageSystem::getSize(const char *blockname, const char *varname) const
 {
 	return getSizeFast(LLMessageStringTable::getInstance()->getString(blockname), 
 					   LLMessageStringTable::getInstance()->getString(varname));
@@ -3979,13 +3984,13 @@ S32	LLMessageSystem::getSize(const char *blockname, const char *varname)
 	
 // size in bytes of variable length data
 S32	LLMessageSystem::getSizeFast(const char *blockname, S32 blocknum, 
-								 const char *varname)
+								 const char *varname) const
 {
 	return mMessageReader->getSize(blockname, blocknum, varname);
 }
 		
 S32	LLMessageSystem::getSize(const char *blockname, S32 blocknum, 
-							 const char *varname)
+							 const char *varname) const
 {
 	return getSizeFast(LLMessageStringTable::getInstance()->getString(blockname), blocknum, 
 					   LLMessageStringTable::getInstance()->getString(varname));
@@ -4020,4 +4025,19 @@ bool LLMessageSystem::checkAllMessages(S64 frame_count, LLPumpIO* http_pump)
 	http_pump->pump();
 	http_pump->callback();
 	return (mPacketsIn - packetsIn) > 0;
+}
+
+void LLMessageSystem::banUdpMessage(const std::string& name)
+{
+	message_template_name_map_t::iterator itt = mMessageTemplates.find(
+		LLMessageStringTable::getInstance()->getString(name.c_str())
+		);
+	if(itt != mMessageTemplates.end())
+	{
+		itt->second->banUdp();
+	}
+	else
+	{
+		llwarns << "Attempted to ban an unknown message: " << name << "." << llendl;
+	}
 }

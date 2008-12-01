@@ -59,7 +59,7 @@ class Logger(object):
         return self._sequence
 
     def log(self, msg, llsd):
-        payload = 'LLLOGMESSAGE (%d) %s %s' % (self.next(), msg,
+        payload = 'INFO: log: LLLOGMESSAGE (%d) %s %s' % (self.next(), msg,
                                                format_notation(llsd))
         syslog.syslog(payload)
 

@@ -362,6 +362,7 @@ void LLDrawable::makeActive()
 		if (pcode == LLViewerObject::LL_VO_WATER ||
 			pcode == LLViewerObject::LL_VO_SURFACE_PATCH ||
 			pcode == LLViewerObject::LL_VO_PART_GROUP ||
+			pcode == LLViewerObject::LL_VO_HUD_PART_GROUP ||
 			pcode == LLViewerObject::LL_VO_CLOUDS ||
 			pcode == LLViewerObject::LL_VO_GROUND ||
 			pcode == LLViewerObject::LL_VO_SKY)
@@ -951,6 +952,9 @@ BOOL LLDrawable::isVisible() const
 		return TRUE;
 	}
 	
+#if 0
+	//disabling this code fixes DEV-20105.  Leaving in place in case some other bug pops up as a a result.
+	//should be safe to just always ask the spatial group for visibility.
 	if (isActive())
 	{
 		if (isRoot())
@@ -973,6 +977,7 @@ BOOL LLDrawable::isVisible() const
 		}
 	}
 	else
+#endif
 	{
 		LLSpatialGroup* group = getSpatialGroup();
 		if (group && group->isVisible())
@@ -1380,7 +1385,10 @@ BOOL LLDrawable::isAnimating() const
 	{
 		return TRUE;
 	}
-
+	if (mVObjp->getPCode() == LLViewerObject::LL_VO_HUD_PART_GROUP)
+	{
+		return TRUE;
+	}
 	if (mVObjp->getPCode() == LLViewerObject::LL_VO_CLOUDS)
 	{
 		return TRUE;

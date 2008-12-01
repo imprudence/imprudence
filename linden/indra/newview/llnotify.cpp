@@ -509,7 +509,7 @@ void LLNotifyBox::drawBackground() const
 	LLUIImagePtr imagep = LLUI::getUIImage("rounded_square.tga");
 	if (imagep)
 	{
-		LLViewerImage::bindTexture(imagep->getImage());
+		gGL.getTexUnit(0)->bind(imagep->getImage());
 		// set proper background color depending on whether notify box is a caution or not
 		LLColor4 color = mIsCaution? gColors.getColor("NotifyCautionBoxColor") : gColors.getColor("NotifyBoxColor");
 		if(gFocusMgr.childHasKeyboardFocus( this ))

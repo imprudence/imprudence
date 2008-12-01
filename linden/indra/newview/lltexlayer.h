@@ -211,9 +211,8 @@ public:
 	virtual void			postRender(BOOL success);
 	virtual BOOL			render();
 	BOOL					updateImmediate();
-	virtual void			bindTexture();
 	void					bindBumpTexture( U32 stage );
-	BOOL					isInitialized()							{ return mInitialized; }  // Initialized here means that we've done at least one render
+	bool					isInitialized(void) const;
 	BOOL					needsRender();
 	void					requestUpdate();
 	void					requestUpload();
@@ -236,7 +235,6 @@ private:
 	BOOL					mUploadPending;
 	LLUUID					mUploadID;		// Identifys the current upload process (null if none).  Used to avoid overlaps (eg, when the user rapidly makes two changes outside of Face Edit)
 	LLTexLayerSet*			mTexLayerSet;
-	BOOL					mInitialized;
 	LLGLuint				mBumpTexName;	// zero if none
 
 	static S32				sGLByteCount;
@@ -528,41 +526,6 @@ public:
 	S32 mTGABytes;
 };
 
-
-//-----------------------------------------------------------------------------
-// LLGradientPaletteList
-// A static set of ramp grayscale palettes.  The "effective_weight" is used 
-// to determine the x position of the ramp (offset)
-//
-// "Domain" isn't really the right word.  It refers to the width of the 
-// ramp portion of the function that relates input and output pixel values.
-// A domain of 0 gives a step function.
-// 
-//   |                      /----------------
-//  O|                     / |
-//  u|                    /  |
-//  t|                   /   |
-//  p|------------------/    |
-//  u|                  |    | 
-//  t|<---------------->|<-->|
-//   |  "offset"         "domain"
-//   |
-// --+---Input--------------------------------
-//   |
-//-----------------------------------------------------------------------------
-class LLGradientPaletteList
-{
-public:
-	LLGradientPaletteList() {}
-	~LLGradientPaletteList();
-
-	void		 initPalette(F32 domain);
-	void		 setHardwarePalette(F32 domain, F32 effective_weight);
-	
-private:
-	typedef std::map<F32, U8*> palette_map_t;
-	palette_map_t		mPaletteMap;
-};
 
 // Used by LLTexLayerSetBuffer for a callback.
 class LLBakedUploadData

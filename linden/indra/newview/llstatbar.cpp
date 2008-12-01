@@ -166,7 +166,7 @@ void LLStatBar::draw()
 		bottom = bar_top - bar_height - tick_height/2;
 
 		LLGLSUIDefault gls_ui;
-		LLGLSNoTexture gls_no_texture;
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		for (tick_value = mMinBar; tick_value <= mMaxBar; tick_value += mTickSpacing)
 		{
 			left = llfloor((tick_value - mMinBar)*value_scale);

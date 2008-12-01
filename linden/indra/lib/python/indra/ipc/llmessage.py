@@ -88,7 +88,7 @@ class Message:
     UDPDEPRECATED = "UDPDeprecated"
     UDPBLACKLISTED = "UDPBlackListed"
     deprecations = [ NOTDEPRECATED, UDPDEPRECATED, UDPBLACKLISTED, DEPRECATED ]
-        # in order of increasing deprecation
+    # in order of increasing deprecation
     
     def __init__(self, name, number, priority, trust, coding):
         self.name = name

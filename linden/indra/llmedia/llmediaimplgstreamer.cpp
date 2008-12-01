@@ -171,6 +171,9 @@ startup ( LLMediaManagerData* init_data )
 	static bool done_init = false;
 	if (!done_init)
 	{
+		// Init the glib type system - we need it.
+		g_type_init();
+
 		// Get symbols!
 		if (! grab_gst_syms("libgstreamer-0.10.so.0",
 				    "libgstvideo-0.10.so.0",

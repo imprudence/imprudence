@@ -247,7 +247,7 @@ void LLTextureBar::draw()
 	LLFontGL::sMonospace->renderUTF8(fetch_state_desc[state].desc, 0, title_x2, getRect().getHeight(),
 									 fetch_state_desc[state].color,
 									 LLFontGL::LEFT, LLFontGL::TOP);
-	LLGLSNoTexture gls_no_texture;
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 	// Draw the progress bar.
 	S32 bar_width = 100;
@@ -383,9 +383,9 @@ private:
 
 void LLGLTexMemBar::draw()
 {
-	S32 bound_mem = LLViewerImage::sBoundTextureMemory;
+	S32 bound_mem = (LLViewerImage::sBoundTextureMemory >> 20);
  	S32 max_bound_mem = LLViewerImage::sMaxBoundTextureMem;
-	S32 total_mem = LLViewerImage::sTotalTextureMemory;
+	S32 total_mem = (LLViewerImage::sTotalTextureMemory >> 20);
 	S32 max_total_mem = LLViewerImage::sMaxTotalTextureMem;
 	F32 discard_bias = LLViewerImage::sDesiredDiscardBias;
 	S32 line_height = (S32)(LLFontGL::sMonospace->getLineHeight() + .5f);
@@ -396,10 +396,10 @@ void LLGLTexMemBar::draw()
 	
 	std::string text;
 	text = llformat("GL Tot: %d/%d MB Bound: %d/%d MB Discard Bias: %.2f",
-					total_mem/(1024*1024),
-					max_total_mem/(1024*1024),
-					bound_mem/(1024*1024),
-					max_bound_mem/(1024*1024),
+					total_mem,
+					max_total_mem,
+					bound_mem,
+					max_bound_mem,
 					discard_bias);
 
 	LLFontGL::sMonospace->renderUTF8(text, 0, 0, line_height*3,
@@ -415,7 +415,7 @@ void LLGLTexMemBar::draw()
 
 	F32 bar_scale = (F32)bar_width / (max_bound_mem * 1.5f);
 	
-	LLGLSNoTexture gls_no_texture;
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	
 	gGL.color4f(0.5f, 0.5f, 0.5f, 0.75f);
 	gl_rect_2d(left, top, right, bottom);

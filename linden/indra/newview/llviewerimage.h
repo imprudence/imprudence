@@ -86,17 +86,6 @@ public:
 	static LLViewerImage * getImage(const LLUUID &image_id);
 		// lightweight wrapper for gImageList.getImage()
 
-	static BOOL bindTexture(LLImageGL* image, const U32 stage = 0)
-	{
-		if (image)
-		{
-			return image->bind(stage);
-		}
-		else
-		{
-			return sDefaultImagep->bind(stage);
-		}
-	}
 
 	struct Compare
 	{
@@ -189,7 +178,8 @@ public:
 
 	/*virtual*/ void dump();	// debug info to llinfos
 
-	/*virtual*/ BOOL bind(const S32 stage = 0) const;
+	/*virtual*/ bool bindError(const S32 stage = 0) const;
+	/*virtual*/ bool bindDefaultImage(const S32 stage = 0) const;
 	
 	void reinit(BOOL usemipmaps = TRUE);
 

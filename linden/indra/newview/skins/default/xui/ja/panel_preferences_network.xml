@@ -4,7 +4,7 @@
 		最大帯域幅：
 	</text>
 	<text type="string" length="1" name="text_box2">
-		Kbps
+		kbps
 	</text>
 	<text type="string" length="1" name="cache_size_label_l">
 		キャッシュ：

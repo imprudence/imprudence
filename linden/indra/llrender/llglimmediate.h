@@ -76,12 +76,12 @@ public:
 	void color3fv(const GLfloat* c);
 	void color4ubv(const GLubyte* c);
 	
-	typedef struct Vertex
+	typedef struct
 	{
 		GLfloat v[3];
 		GLubyte c[4];
 		GLfloat uv[2];
-	};
+	} Vertex;
 
 private:
 	U32 mCount;

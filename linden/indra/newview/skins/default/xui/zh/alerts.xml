@@ -3967,20 +3967,6 @@ allowed above.
 			取消
 		</option>
 	</alert>
-	<alert name="HelpReportAbuse">
-		<message name="message">
-			Use this tool to report violations of the Terms of Service and Community Standards. See: 
-http://secondlife.com/corporate/tos.php 
-http://secondlife.com/corporate/cs.php 
- 
-All reported abuses of the Terms of Service and Community Standards 
-are investigated and resolved. You will receive an email informing you
-of the resolution when it occurs. 
-You can also view the incident resolution on the Police Blotter at: 
- 
-http://secondlife.com/community/blotter.php
-		</message>
-	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
 			使用这个工具可以报告违反服务和社区标准条例的操作。详情请见： 

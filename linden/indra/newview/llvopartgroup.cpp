@@ -95,7 +95,7 @@ void LLVOPartGroup::setPixelAreaAndAngle(LLAgent &agent)
 {
 	// mPixelArea is calculated during render
 	F32 mid_scale = getMidScale();
-	F32 range = (getRenderPosition()-LLViewerCamera::getInstance()->getOrigin()).magVec();
+	F32 range = (getRenderPosition()-LLViewerCamera::getInstance()->getOrigin()).length();
 
 	if (range < 0.001f || isHUDAttachment())		// range == zero
 	{
@@ -133,15 +133,16 @@ F32 LLVOPartGroup::getPartSize(S32 idx)
 	return 0.f;
 }
 
+LLVector3 LLVOPartGroup::getCameraPosition() const
+{
+	return gAgent.getCameraPositionAgent();
+}
+
 BOOL LLVOPartGroup::updateGeometry(LLDrawable *drawable)
 {
 	LLFastTimer ftm(LLFastTimer::FTM_UPDATE_PARTICLES);
 
 	dirtySpatialGroup();
-
- 	LLVector3 at;
-	LLVector3 position_agent;
-	LLVector3 camera_agent = LLViewerCamera::getInstance()->getOrigin();
 	
 	S32 num_parts = mViewerPartGroupp->getCount();
 	LLFace *facep;
@@ -187,9 +188,9 @@ BOOL LLVOPartGroup::updateGeometry(LLDrawable *drawable)
 		const LLViewerPart *part = mViewerPartGroupp->mParticles[i];
 
 		LLVector3 part_pos_agent(part->mPosAgent);
-		at = part_pos_agent - camera_agent;
+		LLVector3 at(part_pos_agent - LLViewerCamera::getInstance()->getOrigin());
 
-		F32 camera_dist_squared = at.magVecSquared();
+		F32 camera_dist_squared = at.lengthSquared();
 		F32 inv_camera_dist_squared;
 		if (camera_dist_squared > 1.f)
 			inv_camera_dist_squared = 1.f / camera_dist_squared;
@@ -278,35 +279,37 @@ void LLVOPartGroup::getGeometry(S32 idx,
 
 	
 	LLVector3 part_pos_agent(part.mPosAgent);
-	LLVector3 camera_agent = gAgent.getCameraPositionAgent();
+	LLVector3 camera_agent = getCameraPosition(); 
 	LLVector3 at = part_pos_agent - camera_agent;
-	LLVector3 up, right;
+	LLVector3 up;
+	LLVector3 right;
 
 	right = at % LLVector3(0.f, 0.f, 1.f);
-	right.normVec();
+	right.normalize();
 	up = right % at;
-	up.normVec();
+	up.normalize();
 
 	if (part.mFlags & LLPartData::LL_PART_FOLLOW_VELOCITY_MASK)
 	{
 		LLVector3 normvel = part.mVelocity;
-		normvel.normVec();
+		normvel.normalize();
 		LLVector2 up_fracs;
 		up_fracs.mV[0] = normvel*right;
 		up_fracs.mV[1] = normvel*up;
-		up_fracs.normVec();
+		up_fracs.normalize();
 		LLVector3 new_up;
 		LLVector3 new_right;
 		new_up = up_fracs.mV[0] * right + up_fracs.mV[1]*up;
 		new_right = up_fracs.mV[1] * right - up_fracs.mV[0]*up;
 		up = new_up;
 		right = new_right;
-		up.normVec();
-		right.normVec();
+		up.normalize();
+		right.normalize();
 	}
 
 	right *= 0.5f*part.mScale.mV[0];
 	up *= 0.5f*part.mScale.mV[1];
+
 
 	const LLVector3& normal = -LLViewerCamera::getInstance()->getXAxis();
 		
@@ -353,6 +356,13 @@ LLParticlePartition::LLParticlePartition()
 	mBufferUsage = GL_DYNAMIC_DRAW_ARB;
 	mSlopRatio = 0.f;
 	mLODPeriod = 1;
+}
+
+LLHUDParticlePartition::LLHUDParticlePartition() :
+	LLParticlePartition()
+{
+	mDrawableType = LLPipeline::RENDER_TYPE_HUD;
+	mPartitionType = LLViewerRegion::PARTITION_HUD_PARTICLE;
 }
 
 void LLParticlePartition::addGeometryCount(LLSpatialGroup* group, U32& vertex_count, U32& index_count)
@@ -480,3 +490,24 @@ F32 LLParticlePartition::calcPixelArea(LLSpatialGroup* group, LLCamera& camera)
 	return 1024.f;
 }
 
+U32 LLVOHUDPartGroup::getPartitionType() const
+{ 
+	// Commenting out and returning PARTITION_NONE because DEV-16909 
+	// (SVC-2396: Particles not handled properly as hud) didn't work completely 
+	// so this disables HUD particles until they can be fixed properly. -MG
+	//return LLViewerRegion::PARTITION_HUD_PARTICLE; 
+	return LLViewerRegion::PARTITION_NONE;
+}
+
+LLDrawable* LLVOHUDPartGroup::createDrawable(LLPipeline *pipeline)
+{
+	pipeline->allocDrawable(this);
+	mDrawable->setLit(FALSE);
+	mDrawable->setRenderType(LLPipeline::RENDER_TYPE_HUD);
+	return mDrawable;
+}
+
+LLVector3 LLVOHUDPartGroup::getCameraPosition() const
+{
+	return LLVector3(-1,0,0);
+}

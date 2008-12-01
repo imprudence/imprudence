@@ -39,6 +39,8 @@
 
 #include "stdtypes.h"
 
+#include <string>
+#include <list>
 // units conversions
 #ifndef USEC_PER_SEC
     const U32	USEC_PER_SEC	= 1000000;
@@ -115,6 +117,7 @@ void update_clock_frequencies();
 
 // Sleep for milliseconds
 void ms_sleep(U32 ms);
+U32 micro_sleep(U64 us, U32 max_yields = 0xFFFFFFFF);
 
 // Returns the correct UTC time in seconds, like time(NULL).
 // Useful on the viewer, which may have its local clock set wrong.
@@ -184,7 +187,7 @@ protected:
 
 private:
 	//list of active timers
-	static std::list<LLEventTimer*> sActiveList;
+	static std::list<LLEventTimer*> sActiveList; // TODO should this be a vector
 };
 
 #endif

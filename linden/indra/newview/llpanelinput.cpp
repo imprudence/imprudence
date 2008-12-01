@@ -30,46 +30,10 @@
  */
 
 #include "llviewerprecompiledheaders.h"
-
 #include "llpanelinput.h"
-
-// linden library includes
-#include "llerror.h"
-#include "llrect.h"
-#include "llfontgl.h"
-#include "message.h"
 #include "lluictrlfactory.h"
-
-// project includes
-#include "llviewerwindow.h"
-#include "llcheckboxctrl.h"
-#include "llfloaterjoystick.h"
-#include "llradiogroup.h"
-#include "llresmgr.h"
-#include "llspinctrl.h"
-#include "llslider.h"
-#include "llsliderctrl.h"
-#include "lltextbox.h"
-#include "llui.h"
-#include "llappviewer.h"
 #include "llviewercontrol.h"
-
-//Ventrella
-#include "llagent.h"
-//end Ventrella
-
-
-//
-// Imported globals
-//
-
-//
-// Globals
-//
-
-//
-// Static functions
-//
+#include "llfloaterjoystick.h"
 
 
 LLPanelInput::LLPanelInput() 
@@ -79,50 +43,41 @@ LLPanelInput::LLPanelInput()
 
 BOOL LLPanelInput::postBuild()
 {
-	childSetAction("joystic_setup_button", onClickJoystickSetup, (void*)this);
-	
-	refresh();
+	childSetAction("joystick_setup_button", onClickJoystickSetup, (void*)this);
+
+	childSetValue("mouse_sensitivity", gSavedSettings.getF32("MouseSensitivity"));
+	childSetValue("automatic_fly", gSavedSettings.getBOOL("AutomaticFly"));
+	childSetValue("invert_mouse", gSavedSettings.getBOOL("InvertMouse"));
+	childSetValue("edit_camera_movement", gSavedSettings.getBOOL("EditCameraMovement"));
+	childSetValue("appearance_camera_movement", gSavedSettings.getBOOL("AppearanceCameraMovement"));
+	childSetValue("dynamic_camera_strength", gSavedSettings.getF32("DynamicCameraStrength"));
+	childSetValue("zoom_time", gSavedSettings.getF32("ZoomTime"));
+	childSetValue("camera_position_smoothing", gSavedSettings.getF32("CameraPositionSmoothing"));
+	childSetValue("first_person_avatar_visible", gSavedSettings.getBOOL("FirstPersonAvatarVisible"));
 
 	return TRUE;
 }
-
 
 LLPanelInput::~LLPanelInput()
 {
 	// Children all cleaned up by default view destructor.
 }
 
-void LLPanelInput::refresh()
-{
-	LLPanel::refresh();
-
-	mMouseSensitivityVal = gSavedSettings.getF32("MouseSensitivity");
-	mAutomaticFly =gSavedSettings.getBOOL("AutomaticFly");
-	mInvertMouse = gSavedSettings.getBOOL("InvertMouse");
-	mEditCameraMovement = gSavedSettings.getBOOL("EditCameraMovement");
-	mAppearanceCameraMovement = gSavedSettings.getBOOL("AppearanceCameraMovement");
-	mDynamicCameraStrengthVal = gSavedSettings.getF32("DynamicCameraStrength");
-	mNumpadControlVal = gSavedSettings.getS32("NumpadControl");
-	
-	// First Person Visibility
-	mFirstPersonAvatarVisible = gSavedSettings.getBOOL("FirstPersonAvatarVisible");
-}
-
 void LLPanelInput::apply()
 {
-
+	gSavedSettings.setF32("MouseSensitivity", childGetValue("mouse_sensitivity").asReal());
+	gSavedSettings.setBOOL("AutomaticFly", childGetValue("automatic_fly"));
+	gSavedSettings.setBOOL("InvertMouse", childGetValue("invert_mouse"));
+	gSavedSettings.setBOOL("EditCameraMovement", childGetValue("edit_camera_movement"));
+	gSavedSettings.setBOOL("AppearanceCameraMovement", childGetValue("appearance_camera_movement"));
+	gSavedSettings.setF32("DynamicCameraStrength", childGetValue("dynamic_camera_strength").asReal());
+	gSavedSettings.setF32("ZoomTime", childGetValue("zoom_time").asReal());
+	gSavedSettings.setF32("CameraPositionSmoothing", childGetValue("camera_position_smoothing").asReal());
+	gSavedSettings.setBOOL("FirstPersonAvatarVisible", childGetValue("first_person_avatar_visible"));
 }
 
 void LLPanelInput::cancel()
 {
-	gSavedSettings.setF32("MouseSensitivity", mMouseSensitivityVal);
-	gSavedSettings.setBOOL("AutomaticFly", mAutomaticFly);
-	gSavedSettings.setBOOL("InvertMouse", mInvertMouse);
-	gSavedSettings.setBOOL("EditCameraMovement", mEditCameraMovement);
-	gSavedSettings.setBOOL("AppearanceCameraMovement", mAppearanceCameraMovement);
-	gSavedSettings.setF32("DynamicCameraStrength", mDynamicCameraStrengthVal);
-	gSavedSettings.setS32("NumpadControl", mNumpadControlVal);
-	gSavedSettings.setBOOL("FirstPersonAvatarVisible", mFirstPersonAvatarVisible);
 }
 
 //static

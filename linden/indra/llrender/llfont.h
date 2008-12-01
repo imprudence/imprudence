@@ -72,6 +72,7 @@ public:
 	S32 mHeight;		// In pixels
 	F32 mXAdvance;		// In pixels
 	F32 mYAdvance;		// In pixels
+	BOOL mMetricsValid; // We have up-to-date metrics for this glyph
 
 	// Information for actually rendering
 	BOOL mIsRendered;	// We actually have rendered this glyph

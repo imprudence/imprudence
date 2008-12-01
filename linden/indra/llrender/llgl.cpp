@@ -263,7 +263,6 @@ LLGLManager::LLGLManager() :
 	mHasMultitexture(FALSE),
 	mNumTextureUnits(1),
 	mHasMipMapGeneration(FALSE),
-	mHasPalettedTextures(FALSE),
 	mHasCompressedTextures(FALSE),
 	mHasFramebufferObject(FALSE),
 
@@ -566,7 +565,6 @@ void LLGLManager::initExtensions()
 	mHasFramebufferObject = FALSE;
 # endif
 	mHasMipMapGeneration = FALSE;
-	mHasPalettedTextures = FALSE;
 	mHasSeparateSpecularColor = FALSE;
 	mHasAnisotropic = FALSE;
 	mHasCubeMap = FALSE;
@@ -578,7 +576,6 @@ void LLGLManager::initExtensions()
 #else // LL_MESA_HEADLESS
 	mHasMultitexture = glh_init_extensions("GL_ARB_multitexture");
 	mHasMipMapGeneration = glh_init_extensions("GL_SGIS_generate_mipmap");
-	mHasPalettedTextures = glh_init_extension("GL_EXT_paletted_texture");
 	mHasSeparateSpecularColor = glh_init_extensions("GL_EXT_separate_specular_color");
 	mHasAnisotropic = glh_init_extensions("GL_EXT_texture_filter_anisotropic");
 	glh_init_extensions("GL_ARB_texture_cube_map");
@@ -610,7 +607,6 @@ void LLGLManager::initExtensions()
 		mHasVertexBufferObject = FALSE;
 		mHasFramebufferObject = FALSE;
 		mHasMipMapGeneration = FALSE;
-		mHasPalettedTextures = FALSE;
 		mHasSeparateSpecularColor = FALSE;
 		mHasAnisotropic = FALSE;
 		mHasCubeMap = FALSE;
@@ -628,7 +624,6 @@ void LLGLManager::initExtensions()
 		// bug reports.  This should be the default until we get a
 		// proper blacklist/whitelist on Linux.
 		mHasMipMapGeneration = FALSE;
-		mHasPalettedTextures = FALSE;
 		mHasAnisotropic = FALSE;
 		//mHasCubeMap = FALSE; // apparently fatal on Intel 915 & similar
 		//mHasOcclusionQuery = FALSE; // source of many ATI system hangs
@@ -648,7 +643,6 @@ void LLGLManager::initExtensions()
 		if (strchr(blacklist,'b')) mHasCompressedTextures = FALSE;
 		if (strchr(blacklist,'c')) mHasVertexBufferObject = FALSE;
 		if (strchr(blacklist,'d')) mHasMipMapGeneration = FALSE;//S
-		if (strchr(blacklist,'e')) mHasPalettedTextures = FALSE;//S
 // 		if (strchr(blacklist,'f')) mHasNVVertexArrayRange = FALSE;//S
 // 		if (strchr(blacklist,'g')) mHasNVFence = FALSE;//S
 		if (strchr(blacklist,'h')) mHasSeparateSpecularColor = FALSE;
@@ -663,13 +657,6 @@ void LLGLManager::initExtensions()
 		if (strchr(blacklist,'q')) mHasFramebufferObject = FALSE;//S
 	}
 #endif // LL_LINUX
-
-#if LL_DARWIN || LL_LINUX
-	// MBW -- 12/4/2003 -- Using paletted textures causes a bunch of avatar rendering problems on the Mac.
-	// Not sure if this is due to driver problems or incorrect use of the extension, but I'm disabling it for now.
-	// Tofu - 2006-10-03 -- Same problem on Linux.
-	mHasPalettedTextures = false;
-#endif
 	
 	if (!mHasMultitexture)
 	{
@@ -682,10 +669,6 @@ void LLGLManager::initExtensions()
 	if (!mHasARBEnvCombine)
 	{
 		LL_INFOS("RenderInit") << "Couldn't initialize GL_ARB_texture_env_combine" << LL_ENDL;
-	}
-	if (!mHasPalettedTextures)
-	{
-		LL_INFOS("RenderInit") << "Couldn't initialize GL_EXT_paletted_texture" << LL_ENDL;
 	}
 	if (!mHasSeparateSpecularColor)
 	{
@@ -788,13 +771,7 @@ void LLGLManager::initExtensions()
 		mGLMaxIndexRange = 0;
 	}
 #endif // !LL_LINUX
-#if LL_LINUX
-	// On Linux we need to get glColorTableEXT dynamically.
-	if (mHasPalettedTextures)
-	{
-		glColorTableEXT = (PFNGLCOLORTABLEEXTPROC)GLH_EXT_GET_PROC_ADDRESS("glColorTableEXT");
-	}
-#endif // LL_LINUX
+
 	if (mHasOcclusionQuery)
 	{
 		glGenQueriesARB = (PFNGLGENQUERIESARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGenQueriesARB");
@@ -960,7 +937,8 @@ void assert_glerror()
 		GLubyte const * gl_error_msg = gluErrorString(error);
 		if (NULL != gl_error_msg)
 		{
-			LL_WARNS("RenderState") << "GL Error:" << gl_error_msg << LL_ENDL;
+			LL_WARNS("RenderState") << "GL Error:" << error<< LL_ENDL;
+			LL_WARNS("RenderState") << "GL Error String:" << gl_error_msg << LL_ENDL;
 		}
 		else
 		{
@@ -1001,7 +979,7 @@ GLboolean LLGLDepthTest::sWriteEnabled = GL_TRUE; // OpenGL default
 void LLGLState::initClass() 
 {
 	sStateMap[GL_DITHER] = GL_TRUE;
-	sStateMap[GL_TEXTURE_2D] = GL_TRUE;
+	// sStateMap[GL_TEXTURE_2D] = GL_TRUE;
 
 	//make sure multisample defaults to disabled
 	sStateMap[GL_MULTISAMPLE_ARB] = GL_FALSE;
@@ -1030,7 +1008,7 @@ void LLGLState::resetTextureStates()
 	{
 		gGL.getTexUnit(j)->activate();
 		glClientActiveTextureARB(GL_TEXTURE0_ARB+j);
-		j == 0 ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
+		j == 0 ? gGL.getTexUnit(j)->enable(LLTexUnit::TT_TEXTURE) : gGL.getTexUnit(j)->disable();
 	}
 }
 
@@ -1053,14 +1031,6 @@ void LLGLState::checkStates(const std::string& msg)
 
 	stop_glerror();
 
-	GLint activeTexture;
-	glGetIntegerv(GL_ACTIVE_TEXTURE_ARB, &activeTexture);
-	
-	if (activeTexture != GL_TEXTURE0_ARB)
-	{
-		LL_GL_ERRS << "Texture channel corrupted. " << LL_ENDL;
-	}
-	
 	GLint src;
 	GLint dst;
 	glGetIntegerv(GL_BLEND_SRC, &src);
@@ -1099,17 +1069,7 @@ void LLGLState::checkTextureChannels(const std::string& msg)
 	
 	BOOL error = FALSE;
 
-	if (activeTexture != GL_TEXTURE0_ARB)
-	{
-		error = TRUE;
- 		LL_WARNS("RenderState") << "Active texture channel corrupted. " << LL_ENDL;
-	}
-	else if (!glIsEnabled(GL_TEXTURE_2D))
-	{
-		error = TRUE;
-		LL_WARNS("RenderState") << "GL_TEXTURE_2D not enabled on texture channel 0." << LL_ENDL;
-	}
-	else 
+	if (activeTexture == GL_TEXTURE0_ARB)
 	{
 		GLint tex_env_mode = 0;
 
@@ -1152,7 +1112,7 @@ void LLGLState::checkTextureChannels(const std::string& msg)
 	LLMatrix4 identity;
 	LLMatrix4 matrix;
 
-	for (GLint i = 0; i < maxTextureUnits; i++)
+	for (GLint i = 1; i < maxTextureUnits; i++)
 	{
 		gGL.getTexUnit(i)->activate();
 		glClientActiveTextureARB(GL_TEXTURE0_ARB+i);
@@ -1458,16 +1418,6 @@ void set_binormals(const S32 index, const U32 stride,const LLVector3 *binormals)
 	stop_glerror();
 #endif
 }
-
-
-void set_palette(U8 *palette_data)
-{
-	if (gGLManager.mHasPalettedTextures)
-	{
-		glColorTableEXT(GL_TEXTURE_2D, GL_RGBA8, 256, GL_RGBA, GL_UNSIGNED_BYTE, palette_data);
-	}
-}
-
 
 void parse_gl_version( S32* major, S32* minor, S32* release, std::string* vendor_specific )
 {

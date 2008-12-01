@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="Place" title="Emplacement">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Place" title="Lieu">
 	<text name="name_label">
 		Nom :
 	</text>
@@ -9,14 +9,14 @@
 	<text name="information_label">
 		Informations :
 	</text>
-	<text left="103" name="info_editor" width="338" />
+	<text left="103" name="info_editor" width="338"/>
 	<text name="location_label">
-		Emplacement :
+		Lieu :
 	</text>
-	<text left="103" name="location_editor" width="338" />
-	<button label="Téléporter" name="teleport_btn" />
-	<button label="Voir sur la carte" name="map_btn" />
-	<button label="Enchères..." name="auction_btn" />
+	<text left="103" name="location_editor" width="338"/>
+	<button label="Téléporter" name="teleport_btn"/>
+	<button label="Voir sur la carte" name="map_btn"/>
+	<button label="Enchères..." name="auction_btn"/>
 	<string name="traffic_text">
 		Trafic : [TRAFFIC]
 	</string>
@@ -24,18 +24,18 @@
 		Surface : [AREA] m²
 	</string>
 	<string name="forsale_text">
-		En vente pour [PRICE] $L
+		En vente pour [PRICE] L$
 	</string>
 	<string name="auction_text">
 		Code de l&apos;enchère [ID].
 	</string>
 	<string name="server_update_text">
-		Les informations sur l&apos;emplacement ne sont pas disponibles sans mise à jour du serveur.
+		Les informations sur le lieu ne sont pas disponibles sans mise à jour du serveur.
 	</string>
 	<string name="server_error_text">
-		Aucune information sur cet emplacement n&apos;est disponible actuellement, veuillez réessayer ultérieurement.
+		Aucune information sur ce lieu n&apos;est disponible actuellement, veuillez réessayer ultérieurement.
 	</string>
 	<string name="server_forbidden_text">
-		Les informations sur cet emplacement ne sont pas disponibles car l&apos;accès y est restreint. Veuillez vérifier vos permissions avec le propriétaire de la parcelle.
+		Les informations sur ce lieu ne sont pas disponibles car l&apos;accès y est restreint. Veuillez vérifier vos permissions avec le propriétaire de la parcelle.
 	</string>
 </panel>

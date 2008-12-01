@@ -171,9 +171,6 @@
 			<text type="string" length="1" name="Simulator primitive usage:" width="500">
 				シミュレータの基本要素使用状況：
 			</text>
-			<text type="string" length="1" left="200" name="0 out of 0 available">
-				14055のうち0（14055利用可能）
-			</text>
 			<text left="200" name="objects_available">
 				[MAX]の内[COUNT]（[AVAILABLE]利用可能）
 			</text>

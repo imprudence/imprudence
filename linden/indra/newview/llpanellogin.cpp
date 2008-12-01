@@ -63,7 +63,6 @@
 #include "llviewernetwork.h"
 #include "llviewerwindow.h"			// to link into child list
 #include "llnotify.h"
-#include "llappviewer.h"					// for gHideLinks
 #include "llurlsimstring.h"
 #include "lluictrlfactory.h"
 #include "llhttpclient.h"
@@ -202,6 +201,26 @@ void LLLoginHandler::parse(const LLSD& queryMap)
 	{
 		grid_choice = GRID_INFO_ARUNA;
 	}
+	else if (queryMap["grid"].asString() == "bharati")
+	{
+		grid_choice = GRID_INFO_BHARATI;
+	}
+	else if (queryMap["grid"].asString() == "chandra")
+	{
+		grid_choice = GRID_INFO_CHANDRA;
+	}
+	else if (queryMap["grid"].asString() == "danu")
+	{
+		grid_choice = GRID_INFO_DANU;
+	}
+	else if (queryMap["grid"].asString() == "parvati")
+	{
+		grid_choice = GRID_INFO_PARVATI;
+	}
+	else if (queryMap["grid"].asString() == "skanda")
+	{
+		grid_choice = GRID_INFO_SKANDA;
+	}
 
 	if(grid_choice != GRID_INFO_NONE)
 	{
@@ -321,6 +340,11 @@ namespace {
 	boost::intrusive_ptr< LLIamHereLogin > gResponsePtr = 0;
 };
 
+void set_start_location(LLUICtrl* ctrl, void* data)
+{
+    LLURLSimString::setString(ctrl->getValue().asString());
+}
+
 //---------------------------------------------------------------------------
 // Public methods
 //---------------------------------------------------------------------------
@@ -407,7 +431,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 		combo->setCurrentByIndex( 0 );
 	}
 
-	combo->setCommitCallback( &LLPanelGeneral::set_start_location );
+	combo->setCommitCallback( &set_start_location );
 
 	LLComboBox* server_choice_combo = sInstance->getChild<LLComboBox>("server_combo");
 	server_choice_combo->setCommitCallback(onSelectServer);
@@ -1066,15 +1090,8 @@ void LLPanelLogin::onClickConnect(void *)
 		}
 		else
 		{
-			if (gHideLinks)
-			{
-				gViewerWindow->alertXml("MustHaveAccountToLogInNoLinks");
-			}
-			else
-			{
-				gViewerWindow->alertXml("MustHaveAccountToLogIn",
-										LLPanelLogin::newAccountAlertCallback);
-			}
+			gViewerWindow->alertXml("MustHaveAccountToLogIn",
+									LLPanelLogin::newAccountAlertCallback);
 		}
 	}
 }

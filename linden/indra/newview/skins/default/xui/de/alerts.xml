@@ -735,13 +735,8 @@ Sie benötigen ein Benutzerkonto, um [SECOND_LIFE] betreten zu können. Möchten
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			Anzeigen erscheinen für eine Woche unter &apos;Anzeigen&apos;
-im Suchverzeichnis.
-Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum
-Verzeichnis hinzuzufügen.
-Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf &apos;Veröffentlichen&apos; klicken.
-Wenn Sie mehr bezahlen oder ein Benutzer nach Ihren Suchbegriffen sucht,
-erscheint Ihre Anzeige weiter oben in der Liste.
+			Anzeigen erscheinen für eine Woche unter &apos;Anzeigen&apos; im Suchverzeichnis. Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum Verzeichnis hinzuzufügen.
+Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf &apos;Veröffentlichen&apos; klicken. Wenn Sie mehr bezahlen oder ein Benutzer nach Ihren Suchbegriffen sucht, erscheint Ihre Anzeige weiter oben in der Liste.
 		</message>
 		<option name="OK">
 			OK
@@ -881,8 +876,7 @@ Hinweis: Der Cache wird dabei gelöscht/geleert.
 	</alert>
 	<alert name="GoToAuctionPage">
 		<message name="message">
-			Zur [SECOND_LIFE]-Webseite, um Auktionen anzuzeigen oder
-ein Gebot abzugeben?
+			Zur [SECOND_LIFE]-Webseite, um Auktionen anzuzeigen oder ein Gebot abzugeben?
 		</message>
 		<option name="GotoPage">
 			OK

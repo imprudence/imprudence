@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="Image Preview" title="">
 	<text name="name_label">
 		Nom :
@@ -46,7 +46,7 @@
 
 Sauvegardez en Targa 24 bit (.tga).
 	</text>
-	<check_box label="Utiliser une compression sans perte" name="lossless_check" />
-	<button label="Annuler" name="cancel_btn" />
-	<button label="Charger ([AMOUNT] $L)" name="ok_btn" />
+	<check_box label="Utiliser une compression sans perte" name="lossless_check"/>
+	<button label="Annuler" name="cancel_btn"/>
+	<button label="Charger ([AMOUNT] L$)" name="ok_btn"/>
 </floater>

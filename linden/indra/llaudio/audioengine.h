@@ -78,6 +78,15 @@ class LLAudioBuffer;
 class LLAudioEngine 
 {
 public:
+	enum LLAudioType
+	{
+		AUDIO_TYPE_NONE    = 0,
+		AUDIO_TYPE_SFX     = 1,
+		AUDIO_TYPE_UI      = 2,
+		AUDIO_TYPE_AMBIENT = 3,
+		AUDIO_TYPE_COUNT   = 4 // last
+	};
+	
 	LLAudioEngine();
 	virtual ~LLAudioEngine();
 
@@ -109,6 +118,9 @@ public:
 	F32 getMasterGain();
 	void setMasterGain(F32 gain);
 
+	F32 getSecondaryGain(S32 type);
+	void setSecondaryGain(S32 type, F32 gain);
+
 	F32 getInternetStreamGain();
 
 	virtual void setDopplerFactor(F32 factor);
@@ -122,7 +134,9 @@ public:
 
 	// Methods actually related to setting up and removing sounds
 	// Owner ID is the owner of the object making the request
-	void triggerSound(const LLUUID &sound_id, const LLUUID& owner_id, const F32 gain, const LLVector3d &pos_global = LLVector3d::zero);
+	void triggerSound(const LLUUID &sound_id, const LLUUID& owner_id, const F32 gain,
+					  const S32 type = LLAudioEngine::AUDIO_TYPE_NONE,
+					  const LLVector3d &pos_global = LLVector3d::zero);
 	BOOL preloadSound(const LLUUID &id);
 
 	void addAudioSource(LLAudioSource *asp);
@@ -222,6 +236,7 @@ protected:
 	LLAudioBuffer *mBuffers[MAX_BUFFERS];
 	
 	F32 mMasterGain;
+	F32 mSecondaryGain[AUDIO_TYPE_COUNT];
 
 	// Hack!  Internet streams are treated differently from other sources!
 	F32 mInternetStreamGain;
@@ -247,7 +262,7 @@ class LLAudioSource
 public:
 	// owner_id is the id of the agent responsible for making this sound
 	// play, for example, the owner of the object currently playing it
-	LLAudioSource(const LLUUID &id, const LLUUID& owner_id, const F32 gain);
+	LLAudioSource(const LLUUID &id, const LLUUID& owner_id, const F32 gain, const S32 type = LLAudioEngine::AUDIO_TYPE_NONE);
 	virtual ~LLAudioSource();
 
 	virtual void update();						// Update this audio source
@@ -273,6 +288,9 @@ public:
 	BOOL isQueueSounds() const								{ return mQueueSounds; }
 
 	void setPlayedOnce(const BOOL played_once)				{ mPlayedOnce = played_once; }
+
+	void setType(S32 type)                                  { mType = type; }
+	S32 getType()                                           { return mType; }
 
 	void setPositionGlobal(const LLVector3d &position_global)		{ mPositionGlobal = position_global; }
 	LLVector3d getPositionGlobal() const							{ return mPositionGlobal; }
@@ -312,6 +330,7 @@ protected:
 	BOOL			mSyncSlave;
 	BOOL			mQueueSounds;
 	BOOL			mPlayedOnce;
+	S32             mType;
 	LLVector3d		mPositionGlobal;
 	LLVector3		mVelocity;
 
@@ -380,6 +399,9 @@ public:
 	virtual void setSource(LLAudioSource *sourcep);
 	LLAudioSource *getSource() const			{ return mCurrentSourcep; }
 
+	void setSecondaryGain(F32 gain)             { mSecondaryGain = gain; }
+	F32 getSecondaryGain()                      { return mSecondaryGain; }
+
 	friend class LLAudioEngine;
 	friend class LLAudioSource;
 protected:
@@ -398,6 +420,7 @@ protected:
 	LLAudioBuffer	*mCurrentBufferp;
 	BOOL			mLoopedThisFrame;
 	BOOL			mWaiting;	// Waiting for sync.
+	F32             mSecondaryGain;
 };
 
 

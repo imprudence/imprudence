@@ -85,6 +85,7 @@
 #include "llfloateranimpreview.h"
 #include "llfloateravatarinfo.h"
 #include "llfloateravatartextures.h"
+#include "llfloaterbeacons.h"
 #include "llfloaterbuildoptions.h"
 #include "llfloaterbump.h"
 #include "llfloaterbuy.h"
@@ -323,13 +324,6 @@ void handle_talk_to(void *userdata);
 // Debug menu
 void show_permissions_control(void*);
 void toggle_build_options(void* user_data);
-#if 0 // Unused
-void handle_audio_status_1(void*);
-void handle_audio_status_2(void*);
-void handle_audio_status_3(void*);
-void handle_audio_status_4(void*);
-#endif
-void manage_landmarks(void*);
 void reload_ui(void*);
 void handle_agent_stop_moving(void*);
 void print_packets_lost(void*);
@@ -795,12 +789,6 @@ void init_client_menu(LLMenuGL* menu)
 										&menu_check_control,
 										(void*)"QuietSnapshotsToDisk"));
 
-	menu->append(new LLMenuItemCheckGL( "Compress Snapshots to Disk",
-										&menu_toggle_control,
-										NULL,
-										&menu_check_control,
-										(void*)"CompressSnapshotsToDisk"));
-
 	menu->append(new LLMenuItemCheckGL("Show Mouselook Crosshairs",
 									   &menu_toggle_control,
 									   NULL,
@@ -948,6 +936,7 @@ void init_client_menu(LLMenuGL* menu)
 		sub->append(new LLMenuItemCallGL("Force LLError And Crash", &force_error_llerror));
         sub->append(new LLMenuItemCallGL("Force Bad Memory Access", &force_error_bad_memory_access));
 		sub->append(new LLMenuItemCallGL("Force Infinite Loop", &force_error_infinite_loop));
+		sub->append(new LLMenuItemCallGL("Force Disconnect Viewer", &handle_disconnect_viewer));
 		// *NOTE:Mani this isn't handled yet... sub->append(new LLMenuItemCallGL("Force Software Exception", &force_error_unhandled_exception)); 
 		sub->createJumpKeys();
 		menu->appendMenu(sub);
@@ -1162,10 +1151,6 @@ void init_debug_rendering_menu(LLMenuGL* menu)
 											&LLPipeline::toggleRenderDebugFeature, NULL,
 											&LLPipeline::toggleRenderDebugFeatureControl,
 											(void*)LLPipeline::RENDER_DEBUG_FEATURE_FOG, KEY_F6, MASK_ALT|MASK_CONTROL));
-	sub_menu->append(new LLMenuItemCheckGL("Palletized Textures",
-											&LLPipeline::toggleRenderDebugFeature, NULL,
-											&LLPipeline::toggleRenderDebugFeatureControl,
-											(void*)LLPipeline::RENDER_DEBUG_FEATURE_PALETTE, KEY_F7, MASK_ALT|MASK_CONTROL));
 	sub_menu->append(new LLMenuItemCheckGL("Test FRInfo",
 											&LLPipeline::toggleRenderDebugFeature, NULL,
 											&LLPipeline::toggleRenderDebugFeatureControl,
@@ -1216,9 +1201,6 @@ void init_debug_rendering_menu(LLMenuGL* menu)
 	sub_menu->append(new LLMenuItemCheckGL("Face Area (sqrt(A))",&LLPipeline::toggleRenderDebug, NULL,
 													&LLPipeline::toggleRenderDebugControl,
 													(void*)LLPipeline::RENDER_DEBUG_FACE_AREA));
-	sub_menu->append(new LLMenuItemCheckGL("Pick Render",	&LLPipeline::toggleRenderDebug, NULL,
-													&LLPipeline::toggleRenderDebugControl,
-													(void*)LLPipeline::RENDER_DEBUG_PICKING));
 	sub_menu->append(new LLMenuItemCheckGL("Lights",	&LLPipeline::toggleRenderDebug, NULL,
 													&LLPipeline::toggleRenderDebugControl,
 													(void*)LLPipeline::RENDER_DEBUG_LIGHTS));
@@ -1237,9 +1219,7 @@ void init_debug_rendering_menu(LLMenuGL* menu)
 	sub_menu->append(new LLMenuItemCheckGL("Sculpt",	&LLPipeline::toggleRenderDebug, NULL,
 													&LLPipeline::toggleRenderDebugControl,
 													(void*)LLPipeline::RENDER_DEBUG_SCULPTED));
-	
-	sub_menu->append(new LLMenuItemToggleGL("Show Select Buffer", &gDebugSelect));
-
+		
 	sub_menu->append(new LLMenuItemCallGL("Vectorize Perf Test", &run_vectorize_perf_test));
 
 	sub_menu = new LLMenuGL("Render Tests");
@@ -1757,6 +1737,24 @@ class LLViewCheckJoystickFlycam : public view_listener_t
 	}
 };
 
+class LLViewCommunicate : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+        if (LLFloaterChatterBox::getInstance()->getFloaterCount() == 0)
+		{
+			LLFloaterMyFriends::toggleInstance();
+		}
+		else
+		{
+			LLFloaterChatterBox::toggleInstance();
+		}
+		
+		return true;
+	}
+};
+
+
 void handle_toggle_flycam()
 {
 	LLViewerJoystick::getInstance()->toggleFlycam();
@@ -2225,37 +2223,71 @@ class LLAvatarDebug : public view_listener_t
 	}
 };
 
+struct MenuCallbackData
+{
+	bool ban_enabled;
+	LLUUID avatar_id;
+};
+
 void callback_eject(S32 option, void* data)
 {
-	LLUUID* avatar_id = (LLUUID*) data;
-
-	if (0 == option || 1 == option)
+	MenuCallbackData *callback_data = (MenuCallbackData*)data;
+	if (!callback_data)
 	{
+		return;
+	}
+	if (2 == option)
+	{
+		// Cancle button.
+		return;
+	}
+	LLUUID avatar_id = callback_data->avatar_id;
+	bool ban_enabled = callback_data->ban_enabled;
+
+	if (0 == option)
+	{
+		// Eject button
 		LLMessageSystem* msg = gMessageSystem;
-		LLViewerObject* avatar = gObjectList.findObject(*avatar_id);
+		LLViewerObject* avatar = gObjectList.findObject(avatar_id);
 
 		if (avatar)
 		{
 			U32 flags = 0x0;
-			if (1 == option)
-			{
-				// eject and add to ban list
-				flags |= 0x1;
-			}
-
 			msg->newMessage("EjectUser");
 			msg->nextBlock("AgentData");
 			msg->addUUID("AgentID", gAgent.getID() );
 			msg->addUUID("SessionID", gAgent.getSessionID() );
 			msg->nextBlock("Data");
-			msg->addUUID("TargetID", *avatar_id );
+			msg->addUUID("TargetID", avatar_id );
+			msg->addU32("Flags", flags );
+			msg->sendReliable( avatar->getRegion()->getHost() );
+		}
+	}
+	else if (ban_enabled)
+	{
+		// This is tricky. It is similar to say if it is not an 'Eject' button,
+		// and it is also not an 'Cancle' button, and ban_enabled==ture, 
+		// it should be the 'Eject and Ban' button.
+		LLMessageSystem* msg = gMessageSystem;
+		LLViewerObject* avatar = gObjectList.findObject(avatar_id);
+
+		if (avatar)
+		{
+			U32 flags = 0x1;
+			msg->newMessage("EjectUser");
+			msg->nextBlock("AgentData");
+			msg->addUUID("AgentID", gAgent.getID() );
+			msg->addUUID("SessionID", gAgent.getSessionID() );
+			msg->nextBlock("Data");
+			msg->addUUID("TargetID", avatar_id );
 			msg->addU32("Flags", flags );
 			msg->sendReliable( avatar->getRegion()->getHost() );
 		}
 	}
 
-	delete avatar_id;
-	avatar_id = NULL;
+
+	delete callback_data;
+	callback_data = NULL;
 }
 
 class LLAvatarEject : public view_listener_t
@@ -2265,23 +2297,50 @@ class LLAvatarEject : public view_listener_t
 		LLVOAvatar* avatar = find_avatar_from_object( LLSelectMgr::getInstance()->getSelection()->getPrimaryObject() );
 		if( avatar )
 		{
-			LLUUID* avatar_id = new LLUUID( avatar->getID() );
+			MenuCallbackData *data = new MenuCallbackData;
+			(*data).avatar_id = avatar->getID();
 			std::string fullname = avatar->getFullname();
 
-			if (!fullname.empty())
+			const LLVector3d& pos = avatar->getPositionGlobal();
+			LLParcel* parcel = LLViewerParcelMgr::getInstance()->selectParcelAt(pos)->getParcel();
+			
+			if (LLViewerParcelMgr::getInstance()->isParcelOwnedByAgent(parcel,GP_LAND_MANAGE_BANNED))
 			{
-				LLStringUtil::format_map_t args;
-				args["[AVATAR_NAME]"] = fullname;
-				gViewerWindow->alertXml("EjectAvatarFullname",
-							args,
-							callback_eject,
-							(void*)avatar_id);
+				(*data).ban_enabled = true;
+				if (!fullname.empty())
+				{
+					LLStringUtil::format_map_t args;
+					args["[AVATAR_NAME]"] = fullname;
+					gViewerWindow->alertXml("EjectAvatarFullname",
+						args,
+						callback_eject,
+						(void*)data);
+				}
+				else
+				{
+					gViewerWindow->alertXml("EjectAvatar",
+						callback_eject,
+						(void*)data);
+				}
 			}
 			else
 			{
-				gViewerWindow->alertXml("EjectAvatar",
-							callback_eject,
-							(void*)avatar_id);
+				(*data).ban_enabled = false;
+				if (!fullname.empty())
+				{
+					LLStringUtil::format_map_t args;
+					args["[AVATAR_NAME]"] = fullname;
+					gViewerWindow->alertXml("EjectAvatarFullnameNoBan",
+						args,
+						callback_eject,
+						(void*)data);
+				}
+				else
+				{
+					gViewerWindow->alertXml("EjectAvatarNoBan",
+						callback_eject,
+						(void*)data);
+				}
 			}
 		}
 		return true;
@@ -2298,12 +2357,18 @@ class LLAvatarEnableFreezeEject : public view_listener_t
 		if (new_value)
 		{
 			const LLVector3& pos = avatar->getPositionRegion();
+			const LLVector3d& pos_global = avatar->getPositionGlobal();
+			LLParcel* parcel = LLViewerParcelMgr::getInstance()->selectParcelAt(pos_global)->getParcel();
 			LLViewerRegion* region = avatar->getRegion();
 			new_value = (region != NULL);
-
+						
 			if (new_value)
 			{
-				new_value = (region->isOwnedSelf(pos) || region->isOwnedGroup(pos));
+				new_value = region->isOwnedSelf(pos);
+				if (!new_value || region->isOwnedGroup(pos))
+				{
+					new_value = LLViewerParcelMgr::getInstance()->isParcelOwnedByAgent(parcel,GP_LAND_ADMIN);
+				}
 			}
 		}
 
@@ -2674,33 +2739,6 @@ void process_grant_godlike_powers(LLMessageSystem* msg, void**)
 	}
 }
 
-void load_url_local_file(const std::string& file_name)
-{
-	if( gAgent.cameraMouselook() )
-	{
-		gAgent.changeCameraToDefault();
-	}
-
-#if LL_DARWIN || LL_LINUX || LL_SOLARIS
-	// MBW -- If the Mac client is in fullscreen mode, it needs to go windowed so the browser will be visible.
-	if(gViewerWindow->mWindow->getFullscreen())
-	{
-		gViewerWindow->toggleFullscreen(TRUE);
-	}
-#endif
-
-	// JC - system() blocks until IE has launched.
-	// spawn() runs asynchronously, but opens a command prompt.
-	// ShellExecute() just opens the damn file with the default
-	// web browser.
-	std::string full_path = "file:///";
-	full_path.append(gDirUtilp->getAppRODataDir());
-	full_path.append(gDirUtilp->getDirDelimiter());
-	full_path.append(file_name);
-
-	LLWeb::loadURL(full_path);
-}
-
 /*
 class LLHaveCallingcard : public LLInventoryCollectFunctor
 {
@@ -2908,63 +2946,16 @@ void show_permissions_control(void*)
 	floaterp->mPermissions->addPermissionsData("foo3", LLUUID::null, 0);
 }
 
-#if 0 // Unused (these just modify AudioInfoPage which is not used anywhere in the code
-void handle_audio_status_1(void*)
-{
-	S32 page = gSavedSettings.getS32("AudioInfoPage");
-	if (1 == page)
-	{
-		page = 0;
-	}
-	else
-	{
-		page = 1;
-	}
-	gSavedSettings.setS32("AudioInfoPage", page);	
-}
 
-void handle_audio_status_2(void*)
+class LLCreateLandmarkCallback : public LLInventoryCallback
 {
-	S32 page = gSavedSettings.getS32("AudioInfoPage");
-	if (2 == page)
+public:
+	/*virtual*/ void fire(const LLUUID& inv_item)
 	{
-		page = 0;
+		llinfos << "Created landmark with inventory id " << inv_item
+			<< llendl;
 	}
-	else
-	{
-		page = 2;
-	}
-	gSavedSettings.setS32("AudioInfoPage", page);	
-}
-
-void handle_audio_status_3(void*)
-{
-	S32 page = gSavedSettings.getS32("AudioInfoPage");
-	if (3 == page)
-	{
-		page = 0;
-	}
-	else
-	{
-		page = 3;
-	}
-	gSavedSettings.setS32("AudioInfoPage", page);	
-}
-
-void handle_audio_status_4(void*)
-{
-	S32 page = gSavedSettings.getS32("AudioInfoPage");
-	if (4 == page)
-	{
-		page = 0;
-	}
-	else
-	{
-		page = 4;
-	}
-	gSavedSettings.setS32("AudioInfoPage", page);	
-}
-#endif
+};
 
 void reload_ui(void *)
 {
@@ -3197,26 +3188,7 @@ void reset_view_final( BOOL proceed, void* )
 		return;
 	}
 
-	gAgent.changeCameraToDefault();
-	
-	if (LLViewerJoystick::getInstance()->getOverrideCamera())
-	{
-		handle_toggle_flycam();
-	}
-
-	// reset avatar mode from eventual residual motion
-	if (LLToolMgr::getInstance()->inBuildMode())
-	{
-		LLViewerJoystick::getInstance()->moveAvatar(true);
-	}
-
-	gAgent.resetView(!gFloaterTools->getVisible());
-	gFloaterTools->close();
-	
-	gViewerWindow->showCursor();
-
-	// Switch back to basic toolset
-	LLToolMgr::getInstance()->setCurrentToolset(gBasicToolset);
+	gAgent.resetView(TRUE, TRUE);
 }
 
 class LLViewLookAtLastChatter : public view_listener_t
@@ -4881,7 +4853,7 @@ class LLWorldCreateLandmark : public view_listener_t
 							  LLAssetType::AT_LANDMARK,
 							  LLInventoryType::IT_LANDMARK,
 							  NOT_WEARABLE, PERM_ALL, 
-							  NULL);
+							  new LLCreateLandmarkCallback);
 		return true;
 	}
 };
@@ -5301,6 +5273,10 @@ class LLShowFloater : public view_listener_t
 		{
 			LLFloaterActiveSpeakers::toggleInstance(LLSD());
 		}
+		else if (floater_name == "beacons")
+		{
+			LLFloaterBeacons::toggleInstance(LLSD());
+		}
 		return true;
 	}
 };
@@ -5348,6 +5324,10 @@ class LLFloaterVisible : public view_listener_t
 		{
 			new_value = LLFloaterActiveSpeakers::instanceVisible(LLSD());
 		}
+		else if (floater_name == "beacons")
+		{
+			new_value = LLFloaterBeacons::instanceVisible(LLSD());
+		}
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;
 	}
@@ -5379,37 +5359,6 @@ class LLPromptShowURL : public view_listener_t
 		else
 		{
 			llinfos << "PromptShowURL invalid parameters! Expecting \"ALERT,URL\"." << llendl;
-		}
-		return true;
-	}
-};
-
-void callback_show_file(S32 option, void* data)
-{
-	std::string* filenamep = (std::string*)data;
-	if (0 == option)
-	{
-		load_url_local_file(*filenamep);
-	}
-	delete filenamep;
-}
-
-class LLPromptShowFile : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		std::string param = userdata.asString();
-		std::string::size_type offset = param.find(",");
-		if (offset != param.npos)
-		{
-			std::string alert = param.substr(0, offset);
-			std::string file = param.substr(offset+1);
-			std::string* file_copy = new std::string(file);
-			gViewerWindow->alertXml(alert, callback_show_file, file_copy);
-		}
-		else
-		{
-			llinfos << "PromptShowFile invalid parameters! Expecting \"ALERT,FILE\"." << llendl;
 		}
 		return true;
 	}
@@ -6038,10 +5987,10 @@ namespace
 
 void queue_actions(LLFloaterScriptQueue* q, const std::string& noscriptmsg, const std::string& nomodmsg)
 {
-	// Apply until an object fails
 	QueueObjects func(q);
-	const bool firstonly = true;
-	bool fail = LLSelectMgr::getInstance()->getSelection()->applyToObjects(&func, firstonly);
+	LLSelectMgr *mgr = LLSelectMgr::getInstance();
+	LLObjectSelectionHandle selectHandle = mgr->getSelection();
+	bool fail = selectHandle->applyToObjects(&func);
 	if(fail)
 	{
 		if ( !func.scripted )
@@ -6066,60 +6015,66 @@ void queue_actions(LLFloaterScriptQueue* q, const std::string& noscriptmsg, cons
 	}
 }
 
-class LLToolsSelectedScriptAction : public view_listener_t
+void handle_compile_queue(std::string to_lang)
 {
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	LLFloaterCompileQueue* queue;
+	if (to_lang == "mono")
 	{
-		std::string action = userdata.asString();
-		LLFloaterScriptQueue* queue = NULL;
-		if (action == "compile mono")
-		{
-			queue = LLFloaterCompileQueue::create(TRUE);
-		}
-		if (action == "compile lsl")
-		{
-			queue = LLFloaterCompileQueue::create(FALSE);
-		}
-		else if (action == "reset")
-		{
-			queue = LLFloaterResetQueue::create();
-		}
-		else if (action == "start")
-		{
-			queue = LLFloaterRunQueue::create();
-		}
-		else if (action == "stop")
-		{
-			queue = LLFloaterNotRunQueue::create();
-		}
-		if (!queue)
-		{
-			return true;
-		}
-
-		queue_actions(queue, "CannotRecompileSelectObjectsNoScripts", "CannotRecompileSelectObjectsNoPermission");
-
-		return true;
+		queue = LLFloaterCompileQueue::create(TRUE);
 	}
-};
+	else
+	{
+		queue = LLFloaterCompileQueue::create(FALSE);
+	}
+	queue_actions(queue, "CannotRecompileSelectObjectsNoScripts", "CannotRecompileSelectObjectsNoPermission");
+}
 
-void handle_reset_selection(void*)
+void handle_reset_selection(void)
 {
 	LLFloaterResetQueue* queue = LLFloaterResetQueue::create();
 	queue_actions(queue, "CannotResetSelectObjectsNoScripts", "CannotResetSelectObjectsNoPermission");
 }
 
-void handle_set_run_selection(void*)
+void handle_set_run_selection(void)
 {
 	LLFloaterRunQueue* queue = LLFloaterRunQueue::create();
 	queue_actions(queue, "CannotSetRunningSelectObjectsNoScripts", "CannotSerRunningSelectObjectsNoPermission");
 }
 
-void handle_set_not_run_selection(void*)
+void handle_set_not_run_selection(void)
 {
 	LLFloaterNotRunQueue* queue = LLFloaterNotRunQueue::create();
 	queue_actions(queue, "CannotSetRunningNotSelectObjectsNoScripts", "CannotSerRunningNotSelectObjectsNoPermission");
 }
+
+class LLToolsSelectedScriptAction : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		std::string action = userdata.asString();
+		if (action == "compile mono")
+		{
+			handle_compile_queue("mono");
+		}
+		if (action == "compile lsl")
+		{
+			handle_compile_queue("lsl");
+		}
+		else if (action == "reset")
+		{
+			handle_reset_selection();
+		}
+		else if (action == "start")
+		{
+			handle_set_run_selection();
+		}
+		else if (action == "stop")
+		{
+			handle_set_not_run_selection();
+		}
+		return true;
+	}
+};
 
 void handle_selected_texture_info(void*)
 {
@@ -7139,148 +7094,6 @@ class LLViewCheckHighlightTransparent : public view_listener_t
 	}
 };
 
-class LLViewBeaconWidth : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		std::string width = userdata.asString();
-		if(width == "1")
-		{
-			gSavedSettings.setS32("DebugBeaconLineWidth", 1);
-		}
-		else if(width == "4")
-		{
-			gSavedSettings.setS32("DebugBeaconLineWidth", 4);
-		}
-		else if(width == "16")
-		{
-			gSavedSettings.setS32("DebugBeaconLineWidth", 16);
-		}
-		else if(width == "32")
-		{
-			gSavedSettings.setS32("DebugBeaconLineWidth", 32);
-		}
-
-		return true;
-	}
-};
-
-
-class LLViewToggleBeacon : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		std::string beacon = userdata.asString();
-		if (beacon == "scriptsbeacon")
-		{
-			LLPipeline::toggleRenderScriptedBeacons(NULL);
-			gSavedSettings.setBOOL( "scriptsbeacon", LLPipeline::getRenderScriptedBeacons(NULL) );
-			// toggle the other one off if it's on
-			if (LLPipeline::getRenderScriptedBeacons(NULL) && LLPipeline::getRenderScriptedTouchBeacons(NULL))
-			{
-				LLPipeline::toggleRenderScriptedTouchBeacons(NULL);
-				gSavedSettings.setBOOL( "scripttouchbeacon", LLPipeline::getRenderScriptedTouchBeacons(NULL) );
-			}
-		}
-		else if (beacon == "physicalbeacon")
-		{
-			LLPipeline::toggleRenderPhysicalBeacons(NULL);
-			gSavedSettings.setBOOL( "physicalbeacon", LLPipeline::getRenderPhysicalBeacons(NULL) );
-		}
-		else if (beacon == "soundsbeacon")
-		{
-			LLPipeline::toggleRenderSoundBeacons(NULL);
-			gSavedSettings.setBOOL( "soundsbeacon", LLPipeline::getRenderSoundBeacons(NULL) );
-		}
-		else if (beacon == "particlesbeacon")
-		{
-			LLPipeline::toggleRenderParticleBeacons(NULL);
-			gSavedSettings.setBOOL( "particlesbeacon", LLPipeline::getRenderParticleBeacons(NULL) );
-		}
-		else if (beacon == "scripttouchbeacon")
-		{
-			LLPipeline::toggleRenderScriptedTouchBeacons(NULL);
-			gSavedSettings.setBOOL( "scripttouchbeacon", LLPipeline::getRenderScriptedTouchBeacons(NULL) );
-			// toggle the other one off if it's on
-			if (LLPipeline::getRenderScriptedBeacons(NULL) && LLPipeline::getRenderScriptedTouchBeacons(NULL))
-			{
-				LLPipeline::toggleRenderScriptedBeacons(NULL);
-				gSavedSettings.setBOOL( "scriptsbeacon", LLPipeline::getRenderScriptedBeacons(NULL) );
-			}
-		}
-		else if (beacon == "renderbeacons")
-		{
-			LLPipeline::toggleRenderBeacons(NULL);
-			gSavedSettings.setBOOL( "renderbeacons", LLPipeline::getRenderBeacons(NULL) );
-			// toggle the other one on if it's not
-			if (!LLPipeline::getRenderBeacons(NULL) && !LLPipeline::getRenderHighlights(NULL))
-			{
-				LLPipeline::toggleRenderHighlights(NULL);
-				gSavedSettings.setBOOL( "renderhighlights", LLPipeline::getRenderHighlights(NULL) );
-			}
-		}
-		else if (beacon == "renderhighlights")
-		{
-			LLPipeline::toggleRenderHighlights(NULL);
-			gSavedSettings.setBOOL( "renderhighlights", LLPipeline::getRenderHighlights(NULL) );
-			// toggle the other one on if it's not
-			if (!LLPipeline::getRenderBeacons(NULL) && !LLPipeline::getRenderHighlights(NULL))
-			{
-				LLPipeline::toggleRenderBeacons(NULL);
-				gSavedSettings.setBOOL( "renderbeacons", LLPipeline::getRenderBeacons(NULL) );
-			}
-		}
-			
-		return true;
-	}
-};
-
-class LLViewCheckBeaconEnabled : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		std::string beacon = userdata["data"].asString();
-		bool new_value = false;
-		if (beacon == "scriptsbeacon")
-		{
-			new_value = gSavedSettings.getBOOL( "scriptsbeacon");
-			LLPipeline::setRenderScriptedBeacons(new_value);
-		}
-		else if (beacon == "physicalbeacon")
-		{
-			new_value = gSavedSettings.getBOOL( "physicalbeacon");
-			LLPipeline::setRenderPhysicalBeacons(new_value);
-		}
-		else if (beacon == "soundsbeacon")
-		{
-			new_value = gSavedSettings.getBOOL( "soundsbeacon");
-			LLPipeline::setRenderSoundBeacons(new_value);
-		}
-		else if (beacon == "particlesbeacon")
-		{
-			new_value = gSavedSettings.getBOOL( "particlesbeacon");
-			LLPipeline::setRenderParticleBeacons(new_value);
-		}
-		else if (beacon == "scripttouchbeacon")
-		{
-			new_value = gSavedSettings.getBOOL( "scripttouchbeacon");
-			LLPipeline::setRenderScriptedTouchBeacons(new_value);
-		}
-		else if (beacon == "renderbeacons")
-		{
-			new_value = gSavedSettings.getBOOL( "renderbeacons");
-			LLPipeline::setRenderBeacons(new_value);
-		}
-		else if (beacon == "renderhighlights")
-		{
-			new_value = gSavedSettings.getBOOL( "renderhighlights");
-			LLPipeline::setRenderHighlights(new_value);
-		}
-		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
-		return true;
-	}
-};
-
 class LLViewToggleRenderType : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -7622,12 +7435,11 @@ void initialize_menus()
 	addMenu(new LLViewMouselook(), "View.Mouselook");
 	addMenu(new LLViewBuildMode(), "View.BuildMode");
 	addMenu(new LLViewJoystickFlycam(), "View.JoystickFlycam");
+	addMenu(new LLViewCommunicate(), "View.Communicate");
 	addMenu(new LLViewResetView(), "View.ResetView");
 	addMenu(new LLViewLookAtLastChatter(), "View.LookAtLastChatter");
 	addMenu(new LLViewShowHoverTips(), "View.ShowHoverTips");
 	addMenu(new LLViewHighlightTransparent(), "View.HighlightTransparent");
-	addMenu(new LLViewToggleBeacon(), "View.ToggleBeacon");
-	addMenu(new LLViewBeaconWidth(), "View.BeaconWidth");
 	addMenu(new LLViewToggleRenderType(), "View.ToggleRenderType");
 	addMenu(new LLViewShowHUDAttachments(), "View.ShowHUDAttachments");
 	addMenu(new LLViewZoomOut(), "View.ZoomOut");
@@ -7643,7 +7455,6 @@ void initialize_menus()
 	addMenu(new LLViewCheckJoystickFlycam(), "View.CheckJoystickFlycam");
 	addMenu(new LLViewCheckShowHoverTips(), "View.CheckShowHoverTips");
 	addMenu(new LLViewCheckHighlightTransparent(), "View.CheckHighlightTransparent");
-	addMenu(new LLViewCheckBeaconEnabled(), "View.CheckBeaconEnabled");
 	addMenu(new LLViewCheckRenderType(), "View.CheckRenderType");
 	addMenu(new LLViewCheckHUDAttachments(), "View.CheckHUDAttachments");
 
@@ -7777,7 +7588,6 @@ void initialize_menus()
 	// Generic actions
 	addMenu(new LLShowFloater(), "ShowFloater");
 	addMenu(new LLPromptShowURL(), "PromptShowURL");
-	addMenu(new LLPromptShowFile(), "PromptShowFile");
 	addMenu(new LLShowAgentProfile(), "ShowAgentProfile");
 	addMenu(new LLShowAgentGroups(), "ShowAgentGroups");
 	addMenu(new LLToggleControl(), "ToggleControl");

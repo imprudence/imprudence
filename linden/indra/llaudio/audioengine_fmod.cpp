@@ -488,7 +488,7 @@ BOOL LLAudioChannelFMOD::updateBuffer()
 	if (mCurrentSourcep)
 	{
 		// SJB: warnings can spam and hurt framerate, disabling
-		if (!FSOUND_SetVolume(mChannelID, llround(mCurrentSourcep->getGain() * 255.0f)))
+		if (!FSOUND_SetVolume(mChannelID, llround(getSecondaryGain() * mCurrentSourcep->getGain() * 255.0f)))
 		{
 // 			llwarns << "LLAudioChannelFMOD::updateBuffer error: " << FMOD_ErrorString(FSOUND_GetError()) << llendl;
 		}

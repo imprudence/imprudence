@@ -356,7 +356,7 @@ void process_layer_data(LLMessageSystem *mesgsys, void **user_data)
 // 		size_t nread = fread(buffer, 1, length, fXML);
 // 		if (nread < (size_t) length)
 // 		{
-// 			llwarns << "Short read" << llendl;
+// 			LL_WARNS("Messaging") << "Short read" << LL_ENDL;
 // 		}
 // 		buffer[nread] = '\0';
 // 		fclose(fXML);
@@ -3308,8 +3308,7 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 		return;
 	}
 
-	F32 volume = gSavedSettings.getBOOL("MuteSounds") ? 0.f : (gain * gSavedSettings.getF32("AudioLevelSFX"));
-	gAudiop->triggerSound(sound_id, owner_id, volume, pos_global);
+	gAudiop->triggerSound(sound_id, owner_id, gain, LLAudioEngine::AUDIO_TYPE_SFX, pos_global);
 }
 
 void process_preload_sound(LLMessageSystem *msg, void **user_data)
@@ -3505,6 +3504,15 @@ void process_sim_stats(LLMessageSystem *msg, void **user_data)
 			break;
 		case LL_SIM_STAT_SIMPHYSICSMEMORY:
 			LLViewerStats::getInstance()->mPhysicsMemoryAllocated.addValue(stat_value);
+			break;
+		case LL_SIM_STAT_SIMSPARETIME:
+			LLViewerStats::getInstance()->mSimSpareMsec.addValue(stat_value);
+			break;
+		case LL_SIM_STAT_SIMSLEEPTIME:
+			LLViewerStats::getInstance()->mSimSleepMsec.addValue(stat_value);
+			break;
+		case LL_SIM_STAT_IOPUMPTIME:
+			LLViewerStats::getInstance()->mSimPumpIOMsec.addValue(stat_value);
 			break;
 		default:
 			// Used to be a commented out warning.
@@ -4718,7 +4726,7 @@ void process_teleport_local(LLMessageSystem *msg,void**)
 	gAgent.slamLookAt(look_at);
 
 	// likewise make sure the camera is behind the avatar
-	gAgent.resetView(TRUE);
+	gAgent.resetView(TRUE, TRUE);
 
 	// send camera update to new region
 	gAgent.updateCamera();

@@ -2,20 +2,21 @@
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
      height="408" label="General" left="102" mouse_opaque="true"
      name="general_panel" width="517">
-	<combo_box allow_text_entry="true" bottom="-24" enabled="true" follows="left|bottom"
-	     height="16" left="155" max_chars="128" mouse_opaque="true"
-	     name="location_combobox" width="146">
-		<combo_item name="MyHome" value="My Home">
-			My Home
-		</combo_item>
-		<combo_item name="MyLastLocation" value="My Last Location">
-			My Last Location
-		</combo_item>
-	</combo_box>
-	<check_box bottom="-44" control_name="ShowStartLocation" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="true"
-	     label="Show Start Location on Login Screen" left="151" mouse_opaque="true"
-	     name="show_location_checkbox" radio_style="false" width="256" />
+  <radio_group bottom="-45" draw_border="false" follows="left|bottom" height="40" left="151"
+	     name="default_start_location" width="220">
+    <radio_item bottom="-20" height="20" left="0" name="MyHome" width="50"
+		  tool_tip="Log into my home location by default.">
+      My Home
+    </radio_item>
+    <radio_item bottom="-20" height="20" left="100" name="MyLastLocation" width="50"
+		  tool_tip="Log into my last location by default.">
+      My Last Location
+    </radio_item>
+  </radio_group>
+  <check_box bottom="-44" enabled="true" follows="left|top"
+       font="SansSerifSmall" height="16" initial_value="true"
+       label="Show Start Location on Login Screen" left="151" mouse_opaque="true"
+       name="show_location_checkbox" radio_style="false" width="256" />
 	<combo_box bottom_delta="-25" follows="left|top" height="18" left="155"
 	     mouse_opaque="true" name="fade_out_combobox" width="146">
 		<combo_item name="Never" value="Never">
@@ -28,11 +29,11 @@
 			Always
 		</combo_item>
 	</combo_box>
-	<check_box bottom_delta="-25" control_name="SmallAvatarNames" follows="left|top"
+	<check_box bottom_delta="-25" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="true"
 	     label="Small Avatar Names" left="151" name="small_avatar_names_checkbox"
 	     width="200" />
-	<check_box bottom_delta="-18" control_name="RenderNameHideSelf" follows="left|top"
+	<check_box bottom_delta="-18" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Hide My Name On My Screen" left="151" name="show_my_name_checkbox"
 	     width="200" />
@@ -41,16 +42,16 @@
 	     width="394">
 		Group Titles:
 	</text>
-	<check_box bottom_delta="0" control_name="RenderHideGroupTitleAll" follows="left|top"
+	<check_box bottom_delta="0" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Hide All Group Titles" left="151" mouse_opaque="true"
 	     name="show_all_title_checkbox" radio_style="false" width="256" />
-	<check_box bottom_delta="-18" control_name="RenderHideGroupTitle" follows="left|top"
+	<check_box bottom_delta="-18" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Hide My Group Title" left="151" name="show_my_title_checkbox"
 	     radio_style="false" width="256" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-210"
-	     can_apply_immediately="false" color="1 1 1 1" control_name="EffectColor"
+	     can_apply_immediately="false" color="1 1 1 1"
 	     enabled="true" follows="left|top" height="48" label="" left="153"
 	     mouse_opaque="true" name="effect_color_swatch"
 	     tool_tip="Click to open Color Picker" width="32" />
@@ -60,34 +61,34 @@
 	     mouse_opaque="true" name="UI Size:" v_pad="0" width="128">
 		UI Size:
 	</text>
-	<slider bottom="-217" can_edit_text="true" control_name="UIScaleFactor"
+	<slider bottom="-217" can_edit_text="true"
 	     decimal_digits="3" enabled="true" height="16" increment="0.025"
 	     initial_val="1" left="148" max_val="1.4" min_val="0.75" mouse_opaque="true"
-	     name="UI Scale" show_text="true" value="1" width="256" />
-	<check_box bottom="-236" control_name="UIAutoScale" enabled="true" follows="left|top"
+	     name="ui_scale_slider" show_text="true" value="1" width="256" />
+	<check_box bottom="-236" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Use resolution independent scale" left="151" mouse_opaque="true"
 	     name="ui_auto_scale" radio_style="false" width="256" />
-	<spinner bottom="-260" control_name="AFKTimeout" decimal_digits="0" enabled="true"
+	<spinner bottom="-260" decimal_digits="0" enabled="true"
 	     follows="left|top" height="16" increment="1" initial_val="300"
 	     label="Away Timeout:" label_width="141" left="10" max_val="600"
 	     min_val="30" mouse_opaque="true" name="afk_timeout_spinner" width="202" />
-	<check_box bottom="-286" control_name="MiniMapRotate" enabled="true" follows="left|top"
+	<check_box bottom="-286" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Rotate Mini-Map" left="151" mouse_opaque="true"
 	     name="rotate_mini_map_checkbox" radio_style="false" width="256" />
-	<check_box bottom="-304" control_name="NotifyMoneyChange" enabled="true"
+	<check_box bottom="-304" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Notify when Linden dollars (L$) spent or received" left="151"
 	     mouse_opaque="true" name="notify_money_change_checkbox" radio_style="false"
 	     width="256" />
-	<check_box bottom="-322" control_name="UseDefaultColorPicker" enabled="true"
+	<check_box bottom="-322" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Use default system color picker" left="151" mouse_opaque="true"
 	     name="use_system_color_picker_checkbox" radio_style="false"
 	     tool_tip="Use the default system color picker instead of the one built into Second Life."
 	     width="256" />
-	<check_box bottom="-340" control_name="ShowSearchBar" enabled="true" follows="left|top"
+	<check_box bottom="-340" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show search panel in overlay bar" left="151" mouse_opaque="true"
 	     name="show_search_panel" radio_style="false"
@@ -151,7 +152,7 @@
 			Never send
 		</combo_item>
 	</combo_box>
-	<combo_box allow_text_entry="true" bottom="-382" control_name="Language" enabled="true"
+	<combo_box allow_text_entry="true" bottom="-382" enabled="true"
 	     follows="left|bottom" height="16" left="153" max_chars="135"
 	     mouse_opaque="true" name="language_combobox" width="146">
 		<combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">
@@ -182,7 +183,7 @@
 			Español (Spanish) - Beta
 		</combo_item>
 	</combo_box>
-	<check_box bottom="-400" control_name="LanguageIsPublic" enabled="true"
+	<check_box bottom="-400" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
 	     initial_value="false" label="Share language with objects" left="151"
 	     mouse_opaque="true" name="language_is_public"

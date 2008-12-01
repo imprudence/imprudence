@@ -32,9 +32,7 @@
 #ifndef LL_LLFLOATERLANDMARK_H
 #define LL_LLFLOATERLANDMARK_H
 
-#include "llcoord.h"
 #include "llfloater.h"
-#include "llstring.h"
 #include "lluictrl.h"
 #include "llpermissionsflags.h"
 

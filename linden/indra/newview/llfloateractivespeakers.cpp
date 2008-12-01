@@ -47,6 +47,7 @@
 #include "llsdutil.h"
 #include "llimview.h"
 #include "llviewerwindow.h"
+#include "llappviewer.h"
 
 const F32 SPEAKER_TIMEOUT = 10.f; // seconds of not being on voice channel before removed from list of active speakers
 const F32 RESORT_TIMEOUT = 5.f; // seconds of mouse inactivity before it's ok to sort regardless of mouse-in-view.
@@ -1357,6 +1358,11 @@ void LLLocalSpeakerMgr::updateSpeakerList()
 {
 	// pull speakers from voice channel
 	LLSpeakerMgr::updateSpeakerList();
+
+	if (gDisconnected)//the world is cleared.
+	{
+		return ;
+	}
 
 	// add non-voice speakers in chat range
 	std::vector< LLCharacter* >::iterator avatar_it;

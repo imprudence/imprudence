@@ -88,7 +88,7 @@ BOOL LLContainerView::handleMouseUp(S32 x, S32 y, MASK mask)
 void LLContainerView::draw()
 {
 	{
-		LLGLSNoTexture gls_no_texture;
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 		gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, LLColor4(0.f, 0.f, 0.f, 0.25f));
 	}

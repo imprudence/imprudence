@@ -33,37 +33,23 @@
 #define LL_LLPANELNETWORK_H
 
 #include "llpanel.h"
-#include "llviewerthrottle.h"
-
-class LLSliderCtrl;
-class LLCheckBoxCtrl;
-class LLLineEditor;
-class LLTextBox;
-class LLRadioGroup;
-class LLButton;
 
 class LLPanelNetwork : public LLPanel
 {
 public:
 	LLPanelNetwork();
-	virtual ~LLPanelNetwork();
+	~LLPanelNetwork();
 
-	virtual BOOL postBuild();
-	virtual void refresh();
-	virtual void apply();	// Apply the changed values.
-	virtual void cancel();	// Cancel the changed values.
+	BOOL postBuild();
+
+	void apply();
+	void cancel();
 
 private:
 	static void onClickClearCache(void*);
 	static void onClickSetCache(void*);
 	static void onClickResetCache(void*);
 	static void onCommitPort(LLUICtrl* ctrl, void*);
-
-private:
-	U32 mCacheSetting;
-	F32 mBandwidthBPS;
-	BOOL mConnectionPortEnabled;
-	U32 mConnectionPort;
 };
 
 #endif

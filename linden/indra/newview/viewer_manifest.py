@@ -51,7 +51,6 @@ class ViewerManifest(LLManifest):
             self.path("*.pem")
             self.path("*.ini")
             self.path("*.xml")
-            self.path("*.vp")
             self.path("*.db2")
 
             # include the entire shaders directory recursively
@@ -66,35 +65,35 @@ class ViewerManifest(LLManifest):
             self.path("*.tga")
             self.end_prefix("character")
 
-
         # Include our fonts
         if self.prefix(src="fonts"):
             self.path("*.ttf")
             self.path("*.txt")
             self.end_prefix("fonts")
 
-            # skins
-            if self.prefix(src="skins"):
-                    self.path("paths.xml")
-                    # include the entire textures directory recursively
-                    if self.prefix(src="*/textures"):
-                            self.path("*.tga")
-                            self.path("*.j2c")
-                            self.path("*.jpg")
-                            self.path("*.png")
-                            self.path("textures.xml")
-                            self.end_prefix("*/textures")
-                    self.path("*/xui/*/*.xml")
-                    self.path("*/*.xml")
-                    
-                    # Local HTML files (e.g. loading screen)
-                    if self.prefix(src="*/html"):
-                            self.path("*.png")
-                            self.path("*/*/*.html")
-                            self.path("*/*/*.gif")
-                            self.end_prefix("*/html")
-                    self.end_prefix("skins")
-        self.path("lsl_guide.html")
+        # skins
+        if self.prefix(src="skins"):
+                self.path("paths.xml")
+                # include the entire textures directory recursively
+                if self.prefix(src="*/textures"):
+                        self.path("*.tga")
+                        self.path("*.j2c")
+                        self.path("*.jpg")
+                        self.path("*.png")
+                        self.path("textures.xml")
+                        self.end_prefix("*/textures")
+                self.path("*/xui/*/*.xml")
+                self.path("*/*.xml")
+                
+                # Local HTML files (e.g. loading screen)
+                if self.prefix(src="*/html"):
+                        self.path("*.png")
+                        self.path("*/*/*.html")
+                        self.path("*/*/*.gif")
+                        self.end_prefix("*/html")
+                self.end_prefix("skins")
+        
+        # Files in the newview/ directory
         self.path("gpu_table.txt")
 
     def login_channel(self):
@@ -105,6 +104,8 @@ class ViewerManifest(LLManifest):
         # whether or not this is present
         return self.args.get('login_channel')
 
+    def grid(self):
+        return self.args['grid']
     def channel(self):
         return self.args['channel']
     def channel_unique(self):
@@ -117,22 +118,33 @@ class ViewerManifest(LLManifest):
     def flags_list(self):
         """ Convenience function that returns the command-line flags
         for the grid"""
-        channel_flags = ''
+
+        # Set command line flags relating to the target grid
         grid_flags = ''
         if not self.default_grid():
-            if self.default_channel():
-                # beta grid viewer
-                channel_flags = '--settings settings_beta.xml'
-            grid_flags = "--grid %(grid)s --helperuri http://preview-%(grid)s.secondlife.com/helpers/" % {'grid':self.args['grid']}
+            grid_flags = "--grid %(grid)s "\
+                         "--helperuri http://preview-%(grid)s.secondlife.com/helpers/" %\
+                           {'grid':self.grid()}
 
-        if not self.default_channel():
-            # some channel on some grid
-            channel_flags = '--settings settings_%s.xml --channel "%s"' % (self.channel_lowerword(), self.channel())
-        elif self.login_channel():
+        # set command line flags for channel
+        channel_flags = ''
+        if self.login_channel() and self.login_channel() != self.channel():
             # Report a special channel during login, but use default
             channel_flags = '--channel "%s"' % (self.login_channel())
-                        
-        return " ".join((channel_flags, grid_flags)).strip()
+        elif not self.default_channel():
+            channel_flags = '--channel "%s"' % self.channel()
+
+        # Deal with settings 
+        setting_flags = ''
+        if not self.default_channel() or not self.default_grid():
+            if self.default_grid():
+                setting_flags = '--settings settings_%s.xml'\
+                                % self.channel_lowerword()
+            else:
+                setting_flags = '--settings settings_%s_%s.xml'\
+                                % (self.grid(), self.channel_lowerword())
+                                                
+        return " ".join((channel_flags, grid_flags, setting_flags)).strip()
 
 
 class WindowsManifest(ViewerManifest):
@@ -153,10 +165,7 @@ class WindowsManifest(ViewerManifest):
         self.path(self.find_existing_file('debug/secondlife-bin.exe', 'release/secondlife-bin.exe', 'relwithdebinfo/secondlife-bin.exe'), dst=self.final_exe())
         # need to get the kdu dll from any of the build directories as well
         self.path(self.find_existing_file(
-                # *FIX:Mani we need to add support for packaging specific targets.
-                #'../llkdu/debug/llkdu.dll',
-                '../llkdu/release/llkdu.dll',
-                '../llkdu/relwithdebinfo/llkdu.dll',
+                '../llkdu/%s/llkdu.dll' % self.args['configuration'],
                 '../../libraries/i686-win32/lib/release/llkdu.dll'), 
                   dst='llkdu.dll')
         self.path(src="licenses-win32.txt", dst="licenses.txt")
@@ -174,9 +183,19 @@ class WindowsManifest(ViewerManifest):
             self.path("openjpeg.dll")
             self.end_prefix()
 
-        # Mozilla appears to force a dependency on these files so we need to ship it (CP)
-        self.path("msvcr71.dll")
-        self.path("msvcp71.dll")
+        # Mozilla appears to force a dependency on these files so we need to ship it (CP) - updated to vc8 versions (nyx)
+        # These need to be installed as a SxS assembly, currently a 'private' assembly.
+        # See http://msdn.microsoft.com/en-us/library/ms235291(VS.80).aspx
+        if self.prefix(src=self.args['configuration'], dst=""):
+            if self.args['configuration'] == 'Debug':
+                self.path("msvcr80d.dll")
+                self.path("msvcp80d.dll")
+                self.path("Microsoft.VC80.DebugCRT.manifest")
+            else:
+                self.path("msvcr80.dll")
+                self.path("msvcp80.dll")
+                self.path("Microsoft.VC80.CRT.manifest")
+            self.end_prefix()
 
         # Mozilla runtime DLLs (CP)
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
@@ -204,6 +223,11 @@ class WindowsManifest(ViewerManifest):
             self.path("res/*.*")
             self.path("res/*/*")
             self.end_prefix()
+
+        # Mozilla hack to get it to accept newer versions of msvc*80.dll than are listed in manifest
+        # necessary as llmozlib2-vc80.lib refers to an old version of msvc*80.dll - can be removed when new version of llmozlib is built - Nyx
+        # The config file name needs to match the exe's name.
+        self.path("SecondLife.exe.config", dst=self.final_exe() + ".config")
 
         # Vivox runtimes
         if self.prefix(src="vivox-runtime/i686-win32", dst=""):
@@ -348,7 +372,7 @@ class WindowsManifest(ViewerManifest):
                 "%%INSTALL_FILES%%":self.nsi_file_commands(True),
                 "%%DELETE_FILES%%":self.nsi_file_commands(False)})
 
-        NSIS_path = 'C:\\Program Files\\NSIS\\makensis.exe'
+        NSIS_path = 'C:\\Program Files\\NSIS\\Unicode\\makensis.exe'
         self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
         # self.remove(self.dst_path_of(tempfile))
         self.created_path(self.dst_path_of(installer_file))
@@ -394,6 +418,7 @@ class DarwinManifest(ViewerManifest):
                     self.path("secondlife.icns")
                 else:
                     self.path("secondlife_firstlook.icns", "secondlife.icns")
+                self.path("SecondLife.nib")
                 
                 # Translations
                 self.path("English.lproj")
@@ -491,9 +516,6 @@ class DarwinManifest(ViewerManifest):
 
         if not os.path.exists (self.src_path_of(dmg_template)):
             dmg_template = os.path.join ('installers', 'darwin', 'release-dmg')
-
-        # To reinstate the linden scripting guide, add this to the list below:
-        #            "lsl_guide.html":"Linden Scripting Language Guide.html",
 
         for s,d in {self.get_dst_prefix():app_name + ".app",
                     os.path.join(dmg_template, "_VolumeIcon.icns"): ".VolumeIcon.icns",

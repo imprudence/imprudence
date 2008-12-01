@@ -64,7 +64,7 @@
 
 #include "llcommandlineparser.h"
 
-//*FIX:Mani - This hack is to fix a linker issue with libndofdev.lib
+// *FIX:Mani - This hack is to fix a linker issue with libndofdev.lib
 // The lib was compiled under VS2005 - in VS2003 we need to remap assert
 #ifdef LL_DEBUG
 #ifdef LL_MSVC7 
@@ -76,6 +76,8 @@ extern "C" {
 }
 #endif
 #endif
+
+const std::string LLAppViewerWin32::sWindowClass = "Second Life";
 
 LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *exception_infop)
 {
@@ -91,6 +93,7 @@ LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *excepti
 	if (LLApp::isError())
 	{
 		llwarns << "Got another fatal signal while in the error handler, die now!" << llendl;
+
 		retval = EXCEPTION_EXECUTE_HANDLER;
 		return retval;
 	}
@@ -118,7 +121,6 @@ LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *excepti
 	retval = EXCEPTION_EXECUTE_HANDLER;	
 	return retval;
 }
-
 
 #if DEBUGGING_SEH_FILTER
 #	define WINMAIN DebuggingWinMain
@@ -195,6 +197,19 @@ int APIENTRY WINMAIN(HINSTANCE hInstance,
 	}
 	delete viewer_app_ptr;
 	viewer_app_ptr = NULL;
+
+	//start updater
+	if(LLAppViewer::sUpdaterInfo)
+	{
+#if LL_WINDOWS
+		_spawnl(_P_NOWAIT, LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str(), LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str(), LLAppViewer::sUpdaterInfo->mParams.str().c_str(), NULL);
+#elif LL_DARWIN
+		system(LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str());		/* Flawfinder: ignore */
+#endif
+		delete LLAppViewer::sUpdaterInfo ;
+		LLAppViewer::sUpdaterInfo = NULL ;
+	}
+
 	return 0;
 }
 
@@ -324,6 +339,17 @@ bool LLAppViewerWin32::cleanup()
 	return result;
 }
 
+bool LLAppViewerWin32::initLogging()
+{
+	// Remove the crash stack log from previous executions.
+	// Since we've started logging a new instance of the app, we can assume 
+	// *NOTE: This should happen before the we send a 'previous instance froze'
+	// crash report, but it must happen after we initialize the DirUtil.
+	LLWinDebug::clearCrashStacks();
+
+	return LLAppViewer::initLogging();
+}
+
 void LLAppViewerWin32::initConsole()
 {
 	// pop up debug console
@@ -405,7 +431,7 @@ bool LLAppViewerWin32::initHardwareTest()
 		LLSplashScreen::update(splash_msg.str());
 	}
 
-	if (!LLWinDebug::checkExceptionHandler())
+	if (!restoreErrorTrap())
 	{
 		LL_WARNS("AppInit") << " Someone took over my exception handler (post hardware probe)!" << LL_ENDL;
 	}
@@ -445,38 +471,68 @@ bool LLAppViewerWin32::initParseCommandLine(LLCommandLineParser& clp)
 	return true;
 }
 
+bool LLAppViewerWin32::restoreErrorTrap()
+{
+	return LLWinDebug::checkExceptionHandler();
+}
+
 void LLAppViewerWin32::handleSyncCrashTrace()
 {
 	// do nothing
 }
 
-void LLAppViewerWin32::handleCrashReporting()
+void LLAppViewerWin32::handleCrashReporting(bool reportFreeze)
 {
-	// Windows only behaivor. Spawn win crash reporter.
-	std::string exe_path = gDirUtilp->getAppRODataDir();
+	const char* logger_name = "win_crash_logger.exe";
+	std::string exe_path = gDirUtilp->getExecutableDir();
 	exe_path += gDirUtilp->getDirDelimiter();
-	exe_path += "win_crash_logger.exe";
+	exe_path += logger_name;
 
-	std::string arg_string = "-user ";
-	arg_string += LLViewerLogin::getInstance()->getGridLabel();
-	
-	S32 cb = gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING);
-	switch(cb)
+	const char* arg_str = logger_name;
+
+	// *NOTE:Mani - win_crash_logger.exe no longer parses command line options.
+	if(reportFreeze)
 	{
-	case CRASH_BEHAVIOR_ASK:
-	default:
-		arg_string += " -dialog ";
-		_spawnl(_P_NOWAIT, exe_path.c_str(), exe_path.c_str(), arg_string.c_str(), NULL);
-		break;
-
-	case CRASH_BEHAVIOR_ALWAYS_SEND:
-		_spawnl(_P_NOWAIT, exe_path.c_str(), exe_path.c_str(), arg_string.c_str(), NULL);
-		break;
-
-	case CRASH_BEHAVIOR_NEVER_SEND:
-		break;
+		// Spawn crash logger.
+		// NEEDS to wait until completion, otherwise log files will get smashed.
+		_spawnl(_P_WAIT, exe_path.c_str(), arg_str, NULL);
+	}
+	else
+	{
+		S32 cb = gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING);
+		if(cb != CRASH_BEHAVIOR_NEVER_SEND)
+		{
+			_spawnl(_P_NOWAIT, exe_path.c_str(), arg_str, NULL);
+		}
 	}
 }
+
+//virtual
+bool LLAppViewerWin32::sendURLToOtherInstance(const std::string& url)
+{
+	wchar_t window_class[256]; /* Flawfinder: ignore */   // Assume max length < 255 chars.
+	mbstowcs(window_class, sWindowClass.c_str(), 255);
+	window_class[255] = 0;
+	// Use the class instead of the window name.
+	HWND other_window = FindWindow(window_class, NULL);
+
+	if (other_window != NULL)
+	{
+		lldebugs << "Found other window with the name '" << getWindowTitle() << "'" << llendl;
+		COPYDATASTRUCT cds;
+		const S32 SLURL_MESSAGE_TYPE = 0;
+		cds.dwData = SLURL_MESSAGE_TYPE;
+		cds.cbData = url.length() + 1;
+		cds.lpData = (void*)url.c_str();
+
+		LRESULT msg_result = SendMessage(other_window, WM_COPYDATA, NULL, (LPARAM)&cds);
+		lldebugs << "SendMessage(WM_COPYDATA) to other window '" 
+				 << getWindowTitle() << "' returned " << msg_result << llendl;
+		return true;
+	}
+	return false;
+}
+
 
 std::string LLAppViewerWin32::generateSerialNumber()
 {

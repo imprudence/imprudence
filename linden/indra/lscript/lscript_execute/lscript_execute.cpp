@@ -60,6 +60,9 @@ const char* LSCRIPTRunTimeFaultStrings[LSRF_EOF] =		/*Flawfinder: ignore*/
 	"CLI Exception" // LSRF_CLI
 };
 
+void LLScriptExecuteLSL2::startRunning() {}
+void LLScriptExecuteLSL2::stopRunning() {}
+
 LLScriptExecuteLSL2::LLScriptExecuteLSL2(LLFILE *fp)
 {
 	U8  sizearray[4];
@@ -327,8 +330,9 @@ void LLScriptExecuteLSL2::resumeEventHandler(BOOL b_print, const LLUUID &id, F32
 	// NOTE: Babbage: all mExecuteFuncs return false.
 }
 
-void LLScriptExecuteLSL2::callEventHandler(LSCRIPTStateEventType event, S32 major_version, const LLUUID &id, F32 time_slice)
+void LLScriptExecuteLSL2::callEventHandler(LSCRIPTStateEventType event, const LLUUID &id, F32 time_slice)
 {
+	S32 major_version = getMajorVersion();
 	// push a zero to be popped
 	lscript_push(mBuffer, 0);
 	// push sp as current bp
@@ -403,8 +407,9 @@ void LLScriptExecuteLSL2::callEventHandler(LSCRIPTStateEventType event, S32 majo
 //	set_ip(mBuffer, opcode_start);
 //}
 
-void LLScriptExecuteLSL2::callQueuedEventHandler(LSCRIPTStateEventType event, S32 major_version, const LLUUID &id, F32 time_slice)
+void LLScriptExecuteLSL2::callQueuedEventHandler(LSCRIPTStateEventType event, const LLUUID &id, F32 time_slice)
 {
+	S32 major_version = getMajorVersion();
 	LLScriptDataCollection* eventdata;
 
 	for (eventdata = mEventData.mEventDataList.getFirstData(); eventdata; eventdata = mEventData.mEventDataList.getNextData())
@@ -452,8 +457,9 @@ void LLScriptExecuteLSL2::callQueuedEventHandler(LSCRIPTStateEventType event, S3
 	}
 }
 
-void LLScriptExecuteLSL2::callNextQueuedEventHandler(U64 event_register, S32 major_version, const LLUUID &id, F32 time_slice)
+void LLScriptExecuteLSL2::callNextQueuedEventHandler(U64 event_register, const LLUUID &id, F32 time_slice)
 {
+	S32 major_version = getMajorVersion();
 	LLScriptDataCollection* eventdata = mEventData.getNextEvent();
 	if (eventdata)
 	{
@@ -541,9 +547,9 @@ void LLScriptExecuteLSL2::setSleep(F32 value)
 }
 
 //virtual 
-U64 LLScriptExecuteLSL2::getCurrentHandler(S32 version)
+U64 LLScriptExecuteLSL2::getCurrentHandler()
 {
-	return get_event_register(mBuffer, LREG_IE, version);
+	return get_event_register(mBuffer, LREG_IE, getMajorVersion());
 }
 
 //virtual 
@@ -724,6 +730,20 @@ void LLScriptExecuteLSL2::reset()
 	bytestream2bytestream(mBuffer, dest_offset, src, src_offset, size);
 }
 
+S32 LLScriptExecuteLSL2::getMajorVersion() const
+{
+	S32 version = getVersion();
+	S32 major_version = 0;
+	if (version == LSL2_VERSION1_END_NUMBER){
+		major_version = 1;
+	}
+	else if (version == LSL2_VERSION_NUMBER)
+	{
+		major_version = 2;
+	}
+	return major_version;
+}
+
 LLScriptExecute::LLScriptExecute() :
 	mReset(FALSE)
 {
@@ -751,6 +771,10 @@ bool LLScriptExecute::isYieldDue() const
 		return true;
 	}
 
+	// State changes can occur within a single time slice,
+	// but LLScriptData's clean up is required. Yield here
+	// to allow LLScriptData to perform cleanup and then call
+	// runQuanta again.
 	if(isStateChangePending())
 	{
 		return true;
@@ -763,7 +787,6 @@ bool LLScriptExecute::isYieldDue() const
 // a single instruction for LSL2, a segment between save tests for Mono
 void LLScriptExecute::runInstructions(BOOL b_print, const LLUUID &id, 
 									 const char **errorstr, 
-									 BOOL &state_transition, 
 									 U32& events_processed,
 									 F32 quanta)
 {
@@ -806,17 +829,15 @@ void LLScriptExecute::runInstructions(BOOL b_print, const LLUUID &id,
 	else
 	{
 		// make sure that IE is zero
-		setCurrentHandler(0, major_version);
+		setCurrentHandler(0);
 
 		//	if no, we're in a state and waiting for an event
-		U64 current_events = getCurrentEvents(major_version);
-		U64 event_register = getEventHandlers(major_version);
+		U64 current_events = getCurrentEvents();
+		U64 event_register = getEventHandlers();
 
 		//	check NS to see if need to switch states (NS != CS)
 		if (isStateChangePending())
 		{
-			state_transition = TRUE;
-
 			// ok, blow away any pending events
 			deleteAllEvents();
 
@@ -824,16 +845,16 @@ void LLScriptExecute::runInstructions(BOOL b_print, const LLUUID &id,
 			if (current_events & LSCRIPTStateBitField[LSTT_STATE_EXIT])
 			{
 				// if yes, clear state exit flag
-				setCurrentHandler(LSCRIPTStateBitField[LSTT_STATE_EXIT], major_version);
+				setCurrentHandler(LSCRIPTStateBitField[LSTT_STATE_EXIT]);
 				current_events &= ~LSCRIPTStateBitField[LSTT_STATE_EXIT];
-				setCurrentEvents(current_events, major_version);
+				setCurrentEvents(current_events);
 
 				// check state exit event handler
 				// if there is a handler, call it
 				if (event_register & LSCRIPTStateBitField[LSTT_STATE_EXIT])
 				{
 					++events_processed;
-					callEventHandler(LSTT_STATE_EXIT, major_version, id, quanta);
+					callEventHandler(LSTT_STATE_EXIT, id, quanta);
 					return;
 				}
 			}
@@ -841,32 +862,32 @@ void LLScriptExecute::runInstructions(BOOL b_print, const LLUUID &id,
 			// if no handler or no state exit flag switch to new state
 			// set state entry flag and clear other CE flags
 			current_events = LSCRIPTStateBitField[LSTT_STATE_ENTRY];
-			setCurrentEvents(current_events, major_version);
+			setCurrentEvents(current_events);
 
 			U64 handled_events = nextState();
-			setEventHandlers(handled_events, major_version);
+			setEventHandlers(handled_events);
 		}
 
 		// try to get next event from stack
 		BOOL b_done = FALSE;
 		LSCRIPTStateEventType event = LSTT_NULL;
 
-		current_events = getCurrentEvents(major_version);
-		event_register = getEventHandlers(major_version);
+		current_events = getCurrentEvents();
+		event_register = getEventHandlers();
 
 		// first, check to see if state_entry or onrez are raised and handled
 		if ((current_events & LSCRIPTStateBitField[LSTT_STATE_ENTRY])
 			&&(current_events & event_register))
 		{
 			++events_processed;
-			callEventHandler(LSTT_STATE_ENTRY, major_version, id, quanta);
+			callEventHandler(LSTT_STATE_ENTRY, id, quanta);
 			b_done = TRUE;
 		}
 		else if ((current_events & LSCRIPTStateBitField[LSTT_REZ])
 				 &&(current_events & event_register))
 		{
 			++events_processed;
-			callQueuedEventHandler(LSTT_REZ, major_version, id, quanta);
+			callQueuedEventHandler(LSTT_REZ, id, quanta);
 			b_done = TRUE;
 		}
 
@@ -876,7 +897,7 @@ void LLScriptExecute::runInstructions(BOOL b_print, const LLUUID &id,
 			if(getEventCount() > 0)
 			{
 				++events_processed;
-				callNextQueuedEventHandler(event_register, major_version, id, quanta);
+				callNextQueuedEventHandler(event_register, id, quanta);
 				b_done = TRUE;
 			}
 			else
@@ -887,7 +908,7 @@ void LLScriptExecute::runInstructions(BOOL b_print, const LLUUID &id,
 				{
 					event = return_first_event((S32)handled_current);
 					++events_processed;
-					callEventHandler(event, major_version, id, quanta);
+					callEventHandler(event, id, quanta);
 				}
 				b_done = TRUE;
 			}
@@ -895,8 +916,8 @@ void LLScriptExecute::runInstructions(BOOL b_print, const LLUUID &id,
 	}
 }
 
-// Run for a single timeslice, or until a yield is due
-F32 LLScriptExecute::runQuanta(BOOL b_print, const LLUUID &id, const char **errorstr, BOOL &state_transition, F32 quanta, U32& events_processed, LLTimer& timer)
+// Run for a single timeslice, or until a yield or state transition is due
+F32 LLScriptExecute::runQuanta(BOOL b_print, const LLUUID &id, const char **errorstr, F32 quanta, U32& events_processed, LLTimer& timer)
 {
 	U32 timer_checks = 0;
 	F32 inloop = 0;
@@ -907,7 +928,7 @@ F32 LLScriptExecute::runQuanta(BOOL b_print, const LLUUID &id, const char **erro
 	// on current execution speed.
 	while(true)
 	{
-		runInstructions(b_print, id, errorstr, state_transition, 
+		runInstructions(b_print, id, errorstr,
 						events_processed, quanta);
 		
 		static const S32 lsl_timer_check_skip = 4;
@@ -3277,7 +3298,7 @@ BOOL run_state(U8 *buffer, S32 &offset, BOOL b_print, const LLUUID &id)
 	{
 		major_version = 2;
 	}
-
+					
 	S32 current_state = get_register(buffer, LREG_CS);
 	if (state != current_state)
 	{
@@ -3985,7 +4006,6 @@ void lscript_run(const std::string& filename, BOOL b_debug)
 	LLTimer	timer;
 
 	const char *error;
-	BOOL b_state;
 	LLScriptExecuteLSL2 *execute = NULL;
 
 	if (filename.empty())
@@ -4009,7 +4029,7 @@ void lscript_run(const std::string& filename, BOOL b_debug)
 
 		do {
 			LLTimer timer2;
-			execute->runQuanta(b_debug, LLUUID::null, &error, b_state, 
+			execute->runQuanta(b_debug, LLUUID::null, &error,
 							   time_slice, events_processed, timer2);
 		} while (!execute->isFinished());
 
@@ -4044,7 +4064,8 @@ void lscript_pop_variable(LLScriptLibData *data, U8 *buffer, char type)
 		break;
 	case 'k':
 		data->mType = LST_KEY;
-
+		data->mKey = NULL;
+		
 		base_address = lscript_pop_int(buffer);
 	// this bit of nastiness is to get around that code paths to local variables can result in lack of initialization
 	// and function clean up of ref counts isn't based on scope (a mistake, I know)
@@ -4063,7 +4084,7 @@ void lscript_pop_variable(LLScriptLibData *data, U8 *buffer, char type)
 			}
 			lsa_decrease_ref_count(buffer, base_address);
 		}
-		else
+		if (data->mKey == NULL)
 		{
 			data->mKey = new char[1];
 			data->mKey[0] = 0;
@@ -4071,6 +4092,7 @@ void lscript_pop_variable(LLScriptLibData *data, U8 *buffer, char type)
 		break;
 	case 's':
 		data->mType = LST_STRING;
+		data->mString = NULL;
 
 		base_address = lscript_pop_int(buffer);
 	// this bit of nastiness is to get around that code paths to local variables can result in lack of initialization
@@ -4090,7 +4112,7 @@ void lscript_pop_variable(LLScriptLibData *data, U8 *buffer, char type)
 			}
 			lsa_decrease_ref_count(buffer, base_address);
 		}
-		else
+		if (data->mString == NULL)
 		{
 			data->mString = new char[1];
 			data->mString[0] = 0;

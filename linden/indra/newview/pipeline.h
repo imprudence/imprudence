@@ -131,6 +131,7 @@ public:
 		
 	//get the object between start and end that's closest to start.
 	LLViewerObject* lineSegmentIntersectInWorld(const LLVector3& start, const LLVector3& end,
+												BOOL pick_transparent,
 												S32* face_hit,                          // return the face hit
 												LLVector3* intersection = NULL,         // return the intersection point
 												LLVector2* tex_coord = NULL,            // return the texture coordinates of the intersection point
@@ -138,6 +139,7 @@ public:
 												LLVector3* bi_normal = NULL             // return the surface bi-normal at the intersection point  
 		);
 	LLViewerObject* lineSegmentIntersectInHUD(const LLVector3& start, const LLVector3& end,
+											  BOOL pick_transparent,
 											  S32* face_hit,                          // return the face hit
 											  LLVector3* intersection = NULL,         // return the intersection point
 											  LLVector2* tex_coord = NULL,            // return the texture coordinates of the intersection point
@@ -317,7 +319,6 @@ public:
 // 		RENDER_DEBUG_FEATURE_HW_LIGHTING		= 0x0010,
 		RENDER_DEBUG_FEATURE_FLEXIBLE			= 0x0010,
 		RENDER_DEBUG_FEATURE_FOG				= 0x0020,
-		RENDER_DEBUG_FEATURE_PALETTE			= 0x0040,
 		RENDER_DEBUG_FEATURE_FR_INFO			= 0x0080,
 		RENDER_DEBUG_FEATURE_FOOT_SHADOWS		= 0x0100,
 	};

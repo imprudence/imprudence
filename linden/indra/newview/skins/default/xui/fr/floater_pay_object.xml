@@ -1,30 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="Give Money" title="">
-	<text type="string" length="1" name="payee_group">
+	<text length="1" name="payee_group" type="string">
 		Payer le groupe :
 	</text>
-	<text type="string" length="1" name="payee_resident">
+	<text length="1" name="payee_resident" type="string">
 		Payer le résident :
 	</text>
-	<text type="string" length="1" name="payee_name">
+	<text length="1" name="payee_name" type="string">
 		[FIRST] [LAST]
 	</text>
-	<text type="string" length="1" name="object_name_label">
+	<text length="1" name="object_name_label" type="string">
 		Via un objet :
 	</text>
-	<text type="string" length="1" name="object_name_text">
+	<text length="1" name="object_name_text" type="string">
 		...
 	</text>
-	<text type="string" length="1" name="fastpay text">
+	<text length="1" name="fastpay text" type="string">
 		Paiement rapide :
 	</text>
-	<text type="string" length="1" name="amount text">
+	<text length="1" name="amount text" type="string">
 		Montant :
 	</text>
-	<button label="1 $L" label_selected="1 $L" name="fastpay 1" />
-	<button label="5 $L" label_selected="5 $L" name="fastpay 5" />
-	<button label="10 $L" label_selected="10 $L" name="fastpay 10" />
-	<button label="20 $L" label_selected="20 $L" name="fastpay 20" />
-	<button label="Payer" label_selected="Payer" name="pay btn" />
-	<button label="Annuler" label_selected="Annuler" name="cancel btn" />
+	<button label="1 L$" label_selected="1 L$" name="fastpay 1"/>
+	<button label="5 L$" label_selected="5 L$" name="fastpay 5"/>
+	<button label="10 L$" label_selected="10 L$" name="fastpay 10"/>
+	<button label="20 L$" label_selected="20 L$" name="fastpay 20"/>
+	<button label="Payer" label_selected="Payer" name="pay btn"/>
+	<button label="Annuler" label_selected="Annuler" name="cancel btn"/>
 </floater>

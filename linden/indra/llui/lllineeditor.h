@@ -82,7 +82,7 @@ public:
 	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	void setColorParameters(LLXMLNodePtr node);
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
-	static void cleanupClass();
+	static void cleanupLineEditor();
 
 	// mousehandler overrides
 	/*virtual*/ BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
@@ -194,7 +194,6 @@ public:
 	void			setMaxTextLength(S32 max_text_length);
 	void			setTextPadding(S32 left, S32 right); // Used to specify room for children before or after text.
 
-	static BOOL		isPartOfWord(llwchar c);
 	// Prevalidation controls which keystrokes can affect the editor
 	void			setPrevalidate( BOOL (*func)(const LLWString &) );
 	static BOOL		prevalidateFloat(const LLWString &str );

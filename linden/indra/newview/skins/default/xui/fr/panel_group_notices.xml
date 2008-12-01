@@ -1,70 +1,65 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Notes" name="notices_tab">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Notifications" name="notices_tab">
 	<text name="help_text">
-		Les notes vous permettent d&apos;envoyer des messages et pièces-jointes à tous les membres du groupe en même temps. Ces messages ne sont envoyés qu&apos;aux membres dont le rôle les autorise à recevoir des notes. Vous pouvez désactiver les notes à l&apos;onglet Général.
+		Les notifications vous permettent d&apos;envoyer des messages et pièces-jointes à tous les membres du groupe en même temps. Ces messages ne sont envoyés qu&apos;aux membres dont le rôle les autorise à recevoir des notifications. Vous pouvez désactiver les notifications à l&apos;onglet Général.
 	</text>
 	<text name="no_notices_text">
-		Aucune note précédemment envoyée.
+		Aucune notification précédemment envoyée.
 	</text>
-	<button label="?" label_selected="?" name="help_button" />
+	<button label="?" label_selected="?" name="help_button"/>
 	<text name="lbl">
-		Archive des notes du groupe
+		Archive des notifications du groupe
 	</text>
 	<text name="lbl2">
-		Les notes sont conservées pendant 14 jours. Cliquez sur la note que vous
-voulez afficher. Pour voir si vous avez reçu de nouvelles notes, cliquez sur
-Rafraîchir. Chaque groupe a une limite quotidienne de 200 notes.
+		Les notifications sont conservées pendant 14 jours. Cliquez sur la notification que vous
+voulez afficher. Pour voir si vous avez reçu de nouvelles notifications, cliquez sur
+Rafraîchir. Chaque groupe a une limite quotidienne de 200 notifications.
 	</text>
 	<scroll_list name="notice_list">
-		<column label="" name="icon" />
-		<column label="Sujet" name="subject" />
-		<column label="De" name="from" />
-		<column label="Date" name="date" />
+		<column label="" name="icon"/>
+		<column label="Sujet" name="subject"/>
+		<column label="De" name="from"/>
+		<column label="Date" name="date"/>
 	</scroll_list>
 	<text name="notice_list_none_found">
 		Aucun résultat.
 	</text>
-	<button label="Créer une note" label_selected="Créer une note"
-	     name="create_new_notice" />
-	<button label="Rafraîchir" label_selected="Rafraîchir la liste"
-	     name="refresh_notices" />
-	<panel label="Créer une note" name="panel_create_new_notice">
+	<button label="Créer une notification" label_selected="Créer une notification" name="create_new_notice"/>
+	<button label="Rafraîchir" label_selected="Rafraîchir la liste" name="refresh_notices"/>
+	<panel label="Créer une notification" name="panel_create_new_notice">
 		<text name="lbl">
-			Créer une note
+			Créer une notification
 		</text>
 		<text name="lbl2">
-			Pour envoyer une note, vous devez saisir un sujet. Pour joindre
-une pièce-jointe à cette note, faites-la glisser depuis votre 
+			Pour envoyer une notification, vous devez saisir un sujet. Pour joindre
+une pièce-jointe à cette notification, faites-la glisser depuis votre 
 inventaire vers cette fenêtre. Les pièces-jointes doivent être
 copiables et transférables. Il n&apos;est pas possible d&apos;envoyer de
 dossiers.
 		</text>
-		<text name="lbl3" bottom_delta="-79" >
+		<text bottom_delta="-79" name="lbl3">
 			Sujet :
 		</text>
-		<line_editor name="create_subject" width="346" />
+		<line_editor name="create_subject" width="346"/>
 		<text name="lbl4">
 			Message :
 		</text>
-		<text_editor bottom_delta="-90" height="104" name="create_message" />
+		<text_editor bottom_delta="-90" height="104" name="create_message"/>
 		<text name="lbl5">
 			Attacher :
 		</text>
-		<line_editor name="create_inventory_name" width="206" />
-		<button label="Supprimer pièce-jointe" label_selected="Supprimer pièce-jointe"
-		     name="remove_attachment" left="274" width="140"/>
-		<button label="Envoyer note" label_selected="Envoyer note" name="send_notice" left="274" width="140"/>
-		<panel name="drop_target2"
-		     tool_tip="Drag an inventory item onto the message box to send it with the notice. You must have permission to copy and transfer the object to send it with the notice." />
-		<panel name="drop_target"
-		     tool_tip="Pour joindre un objet de l&apos;inventaire à la note, faites-le glisser dans la boîte de message. Pour envoyer l&apos;objet avec la note, vous devez avoir la permission de le copier et de le transférer." />
+		<line_editor name="create_inventory_name" width="206"/>
+		<button label="Supprimer pièce-jointe" label_selected="Supprimer pièce-jointe" left="274" name="remove_attachment" width="140"/>
+		<button label="Envoyer notification" label_selected="Envoyer notification" left="274" name="send_notice" width="140"/>
+		<panel name="drop_target2" tool_tip="Pour joindre un objet de l&apos;inventaire à la notification, faites-le glisser dans la boîte de message. Pour envoyer l&apos;objet avec la notification, vous devez avoir la permission de le copier et de le transférer."/>
+		<panel name="drop_target" tool_tip="Pour joindre un objet de l&apos;inventaire à la notification, faites-le glisser dans la boîte de message. Pour envoyer l&apos;objet avec la notification, vous devez avoir la permission de le copier et de le transférer."/>
 	</panel>
-	<panel label="Voir ancienne note" name="panel_view_past_notice">
+	<panel label="Voir ancienne notification" name="panel_view_past_notice">
 		<text name="lbl">
-			Note archivée
+			Notification archivée
 		</text>
 		<text name="lbl2">
-			Pour envoyer une nouvelle note, cliquez sur Créer une note ci-dessus.
+			Pour envoyer une nouvelle notification, cliquez sur Créer une notification ci-dessus.
 		</text>
 		<text name="lbl3">
 			Sujet :
@@ -72,8 +67,7 @@ dossiers.
 		<text name="lbl4">
 			Message :
 		</text>
-		<button label="Ouvrir pièce-jointe" label_selected="Ouvrir pièce-jointe"
-		     name="open_attachment" width="118" />
-		<line_editor left="128" name="view_inventory_name" width="256" />
+		<button label="Ouvrir pièce-jointe" label_selected="Ouvrir pièce-jointe" name="open_attachment" width="118"/>
+		<line_editor left="128" name="view_inventory_name" width="256"/>
 	</panel>
 </panel>

@@ -53,6 +53,16 @@ def mkdir(path):
         if err.errno != errno.EEXIST or not os.path.isdir(path):
             raise
 
+def getcwd():
+    cwd = os.getcwd()
+    if 'a' <= cwd[0] <= 'z' and cwd[1] == ':':
+        # CMake wants DOS drive letters to be in uppercase.  The above
+        # condition never asserts on platforms whose full path names
+        # always begin with a slash, so we don't need to test whether
+        # we are running on Windows.
+        cwd = cwd[0].upper() + cwd[1:]
+    return cwd
+
 def quote(opts):
     return '"' + '" "'.join([ opt.replace('"', '') for opt in opts ]) + '"'
 
@@ -63,8 +73,8 @@ class PlatformSetup(object):
         build_types[t.lower()] = t
 
     build_type = build_types['relwithdebinfo']
-    standalone = 'FALSE'
-    unattended = 'FALSE'
+    standalone = 'OFF'
+    unattended = 'OFF'
     distcc = True
     cmake_opts = []
 
@@ -141,7 +151,7 @@ class PlatformSetup(object):
         # do a sanity check to make sure we have a generator
         if not hasattr(self, 'generator'):
             raise "No generator available for '%s'" % (self.__name__,)
-        cwd = os.getcwd()
+        cwd = getcwd()
         created = []
         try:
             for d in self.build_dirs():
@@ -218,11 +228,15 @@ class UnixSetup(PlatformSetup):
         elif cpu == 'Power Macintosh':
             cpu = 'ppc'
         return cpu
-        
+
 
 class LinuxSetup(UnixSetup):
     def __init__(self):
         super(LinuxSetup, self).__init__()
+        try:
+            self.debian_sarge = open('/etc/debian_version').read().strip() == '3.1'
+        except:
+            self.debian_sarge = False
 
     def os(self):
         return 'linux'
@@ -230,10 +244,17 @@ class LinuxSetup(UnixSetup):
     def build_dirs(self):
         # Only build the server code if (a) we have it and (b) we're
         # on 32-bit x86.
+        platform_build = '%s-%s' % (self.platform(), self.build_type.lower())
+
         if self.arch() == 'i686' and self.is_internal_tree():
-            return ['viewer-' + self.platform(), 'server-' + self.platform()]
+            return ['viewer-' + platform_build, 'server-' + platform_build]
+        elif self.arch() == 'x86_64' and self.is_internal_tree():
+            # the viewer does not build in 64bit -- kdu5 issues
+            # we can either use openjpeg, or overhaul our viewer to handle kdu5 or higher
+            # doug knows about kdu issues
+            return ['server-' + platform_build]
         else:
-            return ['viewer-' + self.platform()]
+            return ['viewer-' + platform_build]
 
     def find_in_path(self, name, defval=None, basename=False):
         for p in os.getenv('PATH', '/usr/bin').split(':'):
@@ -254,7 +275,7 @@ class LinuxSetup(UnixSetup):
             type=self.build_type.upper()
             )
         if not self.is_internal_tree():
-            args.update({'cxx':'g++', 'server':'FALSE', 'viewer':'TRUE'})
+            args.update({'cxx':'g++', 'server':'OFF', 'viewer':'ON'})
         else:
             if self.distcc:
                 distcc = self.find_in_path('distcc')
@@ -263,18 +284,16 @@ class LinuxSetup(UnixSetup):
                 distcc = []
                 baseonly = False
             if 'server' in build_dir:
-                gcc33 = distcc + self.find_in_path('g++-3.3', 'g++', baseonly)
-                args.update({'cxx':' '.join(gcc33), 'server':'TRUE',
-                             'viewer':'FALSE'})
+                gcc = distcc + self.find_in_path(
+                    self.debian_sarge and 'g++-3.3' or 'g++-4.1',
+                    'g++', baseonly)
+                args.update({'cxx': ' '.join(gcc), 'server': 'ON',
+                             'viewer': 'OFF'})
             else:
                 gcc41 = distcc + self.find_in_path('g++-4.1', 'g++', baseonly)
-                args.update({'cxx': ' '.join(gcc41), 'server':'FALSE',
-                             'viewer':'TRUE'})
-        #if simple:
-        #    return (('cmake %(opts)s '
-        #             '-DSERVER:BOOL=%(server)s ' 
-        #             '-DVIEWER:BOOL=%(viewer)s '
-        #             '%(dir)r') % args)
+                args.update({'cxx': ' '.join(gcc41),
+                             'server': 'OFF',
+                             'viewer': 'ON'})
         cmd = (('cmake -DCMAKE_BUILD_TYPE:STRING=%(type)s '
                 '-G %(generator)r -DSERVER:BOOL=%(server)s '
                 '-DVIEWER:BOOL=%(viewer)s -DSTANDALONE:BOOL=%(standalone)s '
@@ -369,7 +388,7 @@ class DarwinSetup(UnixSetup):
         return 'darwin'
 
     def arch(self):
-        if self.unattended == 'TRUE':
+        if self.unattended == 'ON':
             return 'universal'
         else:
             return UnixSetup.arch(self)
@@ -384,7 +403,7 @@ class DarwinSetup(UnixSetup):
             universal='',
             type=self.build_type.upper()
             )
-        if self.unattended == 'TRUE':
+        if self.unattended == 'ON':
             args['universal'] = '-DCMAKE_OSX_ARCHITECTURES:STRING=\'i386;ppc\''
         #if simple:
         #    return 'cmake %(opts)s %(dir)r' % args
@@ -396,7 +415,7 @@ class DarwinSetup(UnixSetup):
                 '%(opts)s %(dir)r' % args)
 
     def run_build(self, opts, targets):
-        cwd = os.getcwd()
+        cwd = getcwd()
         if targets:
             targets = ' '.join(['-target ' + repr(t) for t in targets])
         else:
@@ -439,7 +458,7 @@ class WindowsSetup(PlatformSetup):
 
     def _get_generator(self):
         if self._generator is None:
-            for version in 'vc71 vc80 vc90'.split():
+            for version in 'vc80 vc90 vc71'.split():
                 if self.find_visual_studio(version):
                     self._generator = version
                     print 'Building with ', self.gens[version]['gen']
@@ -523,18 +542,30 @@ class WindowsSetup(PlatformSetup):
     def run_cmake(self, args=[]):
         '''Override to add the vstool.exe call after running cmake.'''
         PlatformSetup.run_cmake(self, args)
-        if self.unattended == 'FALSE':
-            for build_dir in self.build_dirs():
-                vstool_cmd = os.path.join('tools','vstool','VSTool.exe') \
-                             + ' --solution ' \
-                             + os.path.join(build_dir,'SecondLife.sln') \
-                             + ' --config RelWithDebInfo' \
-                             + ' --startup secondlife-bin'
-                print 'Running %r in %r' % (vstool_cmd, os.getcwd())
-                self.run(vstool_cmd)        
+        if self.unattended == 'OFF':
+            self.run_vstool()
+
+    def run_vstool(self):
+        for build_dir in self.build_dirs():
+            stamp = os.path.join(build_dir, 'vstool.txt')
+            try:
+                prev_build = open(stamp).read().strip()
+            except IOError:
+                prev_build = ''
+            if prev_build == self.build_type:
+                # Only run vstool if the build type has changed.
+                continue
+            vstool_cmd = (os.path.join('tools','vstool','VSTool.exe') +
+                          ' --solution ' +
+                          os.path.join(build_dir,'SecondLife.sln') +
+                          ' --config ' + self.build_type +
+                          ' --startup secondlife-bin')
+            print 'Running %r in %r' % (vstool_cmd, getcwd())
+            self.run(vstool_cmd)        
+            print >> open(stamp, 'w'), self.build_type
         
     def run_build(self, opts, targets):
-        cwd = os.getcwd()
+        cwd = getcwd()
         build_cmd = self.get_build_cmd()
 
         for d in self.build_dirs():
@@ -555,7 +586,7 @@ class WindowsSetup(PlatformSetup):
 class CygwinSetup(WindowsSetup):
     def __init__(self):
         super(CygwinSetup, self).__init__()
-        self.generator = 'vc71'
+        self.generator = 'vc80'
 
     def cmake_commandline(self, src_dir, build_dir, opts, simple):
         dos_dir = commands.getoutput("cygpath -w %s" % src_dir)
@@ -601,6 +632,13 @@ Commands:
   configure   configure project by running cmake
 
 If you do not specify a command, the default is "configure".
+
+Examples:
+  Set up a viewer-only project for your system:
+    develop.py configure -DSERVER:BOOL=OFF
+  
+  Set up a Visual Studio 2005 project with package target (to build installer):
+    develop.py -G vc80 configure -DPACKAGE:BOOL=ON
 '''
 
 def main(arguments):
@@ -612,6 +650,9 @@ def main(arguments):
             ['help', 'standalone', 'no-distcc', 'unattended', 'type=', 'incredibuild', 'generator='])
     except getopt.GetoptError, err:
         print >> sys.stderr, 'Error:', err
+        print >> sys.stderr, """
+Note: You must pass -D options to cmake after the "configure" command
+For example: develop.py configure -DSERVER:BOOL=OFF"""
         sys.exit(1)
 
     for o, a in opts:
@@ -619,9 +660,9 @@ def main(arguments):
             print usage_msg.strip()
             sys.exit(0)
         elif o in ('--standalone',):
-            setup.standalone = 'TRUE'
+            setup.standalone = 'ON'
         elif o in ('--unattended',):
-            setup.unattended = 'TRUE'
+            setup.unattended = 'ON'
         elif o in ('-t', '--type'):
             try:
                 setup.build_type = setup.build_types[a.lower()]
@@ -664,13 +705,14 @@ def main(arguments):
             print >> sys.stderr, 'Error: unknown subcommand', repr(cmd)
             print >> sys.stderr, "(run 'develop.py --help' for help)"
             sys.exit(1)
-    except CommandError, err:
-        print >> sys.stderr, 'Error:', err
-        sys.exit(1)
     except getopt.GetoptError, err:
         print >> sys.stderr, 'Error with %r subcommand: %s' % (cmd, err)
         sys.exit(1)
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    try:
+        main(sys.argv[1:])
+    except CommandError, err:
+        print >> sys.stderr, 'Error:', err
+        sys.exit(1)

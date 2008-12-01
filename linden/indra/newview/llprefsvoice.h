@@ -34,55 +34,24 @@
 
 #include "llpanel.h"
 
-class LLFloaterVoiceDeviceSettings;
-
-class LLPrefsVoiceLogic
-{
-public:
-	LLPrefsVoiceLogic(LLPanel* panelp);
-	virtual ~LLPrefsVoiceLogic(){};
-	
-	virtual void init();
-
-	void apply();
-	void cancel();
-	void refresh();
-	
-	void setKey(KEY key, MASK mask);
-
-protected:
-
-	static void onClickSetKey(void* user_data);
-	static void onClickSetMiddleMouse(void* user_data);
-	static void onEarLocationCommit(LLUICtrl* ctrl, void* user_data);
-
-	BOOL mEnableVoice;
-	BOOL mVoiceCallsFriendsOnly;
-	std::string mModifier;
-	BOOL mPushToTalkToggle;
-	S32  mEarLocation;
-	LLCtrlSelectionInterface	*mCtrlEarLocation;
-	
-	BOOL mEatNextSetKeyClick;
-
-	LLPanel* mPanel;
-};
-
 class LLPrefsVoice : public LLPanel
 {
 public:
 	LLPrefsVoice();
 	~LLPrefsVoice();
 
-	/*virtual*/ void draw();
+	BOOL postBuild();
+
 	void apply();
 	void cancel();
 
-protected:
-	static void onClickVoiceDeviceSettingsBtn(void* user_data);
+	void setKey(KEY key);
 
-	LLPrefsVoiceLogic* mLogic;
-	LLFloaterVoiceDeviceSettings* mVoiceDeviceSettings;
+private:
+	static void onCommitEnableVoiceChat(LLUICtrl* ctrl, void* user_data);
+	static void onClickSetKey(void* user_data);
+	static void onClickSetMiddleMouse(void* user_data);
+	static void onClickVoiceDeviceSettings(void* user_data);
 };
 
 #endif // LLPREFSVOICE_H

@@ -166,14 +166,13 @@ namespace tut
 	template<> template<>
 	void v4math_object::test<8>()
 	{
-#if LL_DEBUG && LL_WINDOWS && _MSC_VER >= 1400
-		skip_fail("This fails on VS2005 debug builds!");
-#else
-#if LL_WINDOWS && _MSC_VER < 1400
-		skip_fail("This fails on VS2003!");
-#else
 		F32 x = 10.f, y = -2.3f, z = -.023f, w = -2.0f;
-		const  F32 val[10] = {1.f,2.f,3.f,.34f,.1f,-.5f,2.f,1.23f,1.234f,.89f};
+		const  F32 val[16] = {
+            1.f,  2.f,   3.f,    0.f,
+            .34f, .1f,   -.5f,   0.f,
+            2.f,  1.23f, 1.234f, 0.f,
+            .89f, 0.f,   0.f,    0.f
+        };
 		LLMatrix4 mat(val);
 		LLVector4 vec4(x,y,z,w),vec4a;
 		vec4.rotVec(mat);
@@ -187,8 +186,6 @@ namespace tut
 		vec4c.setVec(a, b, c, d);
 		vec4c.rotVec(q);
 		ensure_equals("2:rotVec: Fail " ,vec4b, vec4c);
-#endif
-#endif
 	}
 	
 	template<> template<>

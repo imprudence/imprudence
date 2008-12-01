@@ -34,72 +34,27 @@
 #include "llfloaterlandmark.h"
 
 #include "llagent.h"
-#include "llviewerimagelist.h"
 #include "llcheckboxctrl.h"
-#include "llcombobox.h"
-#include "llbutton.h"
-#include "lldraghandle.h"
-#include "llfocusmgr.h"
-#include "llviewerimage.h"
 #include "llviewerparcelmgr.h"
 #include "llfolderview.h"
 #include "llinventory.h"
 #include "llinventorymodel.h"
 #include "llinventoryview.h"
-#include "lllineeditor.h"
-#include "llui.h"
 #include "llviewerinventory.h"
 #include "llpermissions.h"
 #include "llsaleinfo.h"
-#include "llassetstorage.h"
-#include "lltextbox.h"
 #include "llparcel.h"
-#include "llresizehandle.h"
-#include "llscrollcontainer.h"
-#include "lltoolmgr.h"
-#include "lltoolpipette.h"
 
-#include "lltool.h"
-#include "llviewerwindow.h"
-#include "llviewerobject.h"
+#include "llviewerwindow.h"		// alertXml
 #include "llviewercontrol.h"
-#include "llglheaders.h"
 #include "lluictrlfactory.h"
 
-#include "roles_constants.h"
+#include "roles_constants.h"	// GP_LAND_ALLOW_LANDMARK
 
 
-
-static const S32 CLOSE_BTN_WIDTH = 100;
-const S32 PIPETTE_BTN_WIDTH = 32;
-static const S32 HPAD = 4;
-static const S32 VPAD = 4;
-static const S32 LINE = 16;
-static const S32 SMALL_BTN_WIDTH = 64;
-static const S32 TEX_PICKER_MIN_WIDTH = 
-	(HPAD +
-	CLOSE_BTN_WIDTH +
-	HPAD +
-	CLOSE_BTN_WIDTH +
-	HPAD + 
-	SMALL_BTN_WIDTH +
-	HPAD +
-	SMALL_BTN_WIDTH +
-	HPAD + 
-	30 +
-	RESIZE_HANDLE_WIDTH * 2);
-static const S32 CLEAR_BTN_WIDTH = 50;
-static const S32 TEX_PICKER_MIN_HEIGHT = 290;
-static const S32 FOOTER_HEIGHT = 100;
-static const S32 BORDER_PAD = HPAD;
-static const S32 TEXTURE_INVENTORY_PADDING = 30;
 static const F32 CONTEXT_CONE_IN_ALPHA = 0.0f;
 static const F32 CONTEXT_CONE_OUT_ALPHA = 1.f;
 static const F32 CONTEXT_FADE_TIME = 0.08f;
-
-//static const char CURRENT_IMAGE_NAME[] = "Current Landmark";
-//static const char WHITE_IMAGE_NAME[] = "Blank Landmark";
-//static const char NO_IMAGE_NAME[] = "None";
 
 
 LLFloaterLandmark::LLFloaterLandmark(const LLSD& data)
@@ -167,6 +122,7 @@ LLFloaterLandmark::LLFloaterLandmark(const LLSD& data)
 LLFloaterLandmark::~LLFloaterLandmark()
 {
 	delete mSavedFolderState;
+	mSavedFolderState = NULL;
 }
 
 void LLFloaterLandmark::setActive( BOOL active )					

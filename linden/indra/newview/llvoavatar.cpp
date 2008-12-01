@@ -244,6 +244,11 @@ static F32 calc_bouncy_animation(F32 x)
 	return -(cosf(x * F_PI * 2.5f - F_PI_BY_TWO))*(0.4f + x * -0.1f) + x * 1.3f;
 }
 
+BOOL LLLineSegmentCapsuleIntersect(const LLVector3& start, const LLVector3& end, const LLVector3& p1, const LLVector3& p2, const F32& radius, LLVector3& result)
+{
+	return FALSE;
+}
+
 //-----------------------------------------------------------------------------
 // Static Data
 //-----------------------------------------------------------------------------
@@ -753,7 +758,7 @@ LLVOAvatar::LLVOAvatar(
 	mRippleTimeLast = 0.f;
 
 	mShadowImagep = gImageList.getImageFromFile("foot_shadow.j2c");
-	mShadowImagep->bind();
+	gGL.getTexUnit(0)->bind(mShadowImagep.get());
 	mShadowImagep->setClamp(TRUE, TRUE);
 	
 	mInAir = FALSE;
@@ -1131,7 +1136,7 @@ void LLVOAvatar::dumpBakedStatus()
 		}
 
 
-		F64 dist_to_camera = (inst->getPositionGlobal() - camera_pos_global).magVec();
+		F64 dist_to_camera = (inst->getPositionGlobal() - camera_pos_global).length();
 		llcont << " " << dist_to_camera << "m ";
 
 		llcont << " " << inst->mPixelArea << " pixels";
@@ -1567,6 +1572,96 @@ void LLVOAvatar::getSpatialExtents(LLVector3& newMin, LLVector3& newMax)
 	//pad bounding box	
 	newMin -= buffer;
 	newMax += buffer;
+}
+
+//-----------------------------------------------------------------------------
+// renderCollisionVolumes()
+//-----------------------------------------------------------------------------
+void LLVOAvatar::renderCollisionVolumes()
+{
+	for (S32 i = 0; i < mNumCollisionVolumes; i++)
+	{
+		mCollisionVolumes[i].renderCollision();
+	}
+
+	if (mNameText.notNull())
+	{
+		LLVector3 unused;
+		mNameText->lineSegmentIntersect(LLVector3(0,0,0), LLVector3(0,0,1), unused, TRUE);
+	}
+}
+
+BOOL LLVOAvatar::lineSegmentIntersect(const LLVector3& start, const LLVector3& end,
+									  S32 face,
+									  BOOL pick_transparent,
+									  S32* face_hit,
+									  LLVector3* intersection,
+									  LLVector2* tex_coord,
+									  LLVector3* normal,
+									  LLVector3* bi_normal
+		)
+{
+
+	if (mIsSelf && !gAgent.needsRenderAvatar())
+	{
+		return FALSE;
+	}
+
+	if (lineSegmentBoundingBox(start, end))
+	{
+		for (S32 i = 0; i < mNumCollisionVolumes; ++i)
+		{
+			mCollisionVolumes[i].updateWorldMatrix();
+
+			glh::matrix4f mat((F32*) mCollisionVolumes[i].getXform()->getWorldMatrix().mMatrix);
+			glh::matrix4f inverse = mat.inverse();
+			glh::matrix4f norm_mat = inverse.transpose();
+
+			glh::vec3f p1(start.mV);
+			glh::vec3f p2(end.mV);
+
+			inverse.mult_matrix_vec(p1);
+			inverse.mult_matrix_vec(p2);
+
+			LLVector3 position;
+			LLVector3 norm;
+
+			if (linesegment_sphere(LLVector3(p1.v), LLVector3(p2.v), LLVector3(0,0,0), 1.f, position, norm))
+			{
+				glh::vec3f res_pos(position.mV);
+				mat.mult_matrix_vec(res_pos);
+				
+				norm.normalize();
+				glh::vec3f res_norm(norm.mV);
+				norm_mat.mult_matrix_dir(res_norm);
+
+				if (intersection)
+				{
+					*intersection = LLVector3(res_pos.v);
+				}
+
+				if (normal)
+				{
+					*normal = LLVector3(res_norm.v);
+				}
+
+				return TRUE;
+			}
+		}
+	}
+	
+	LLVector3 position;
+	if (mNameText.notNull() && mNameText->lineSegmentIntersect(start, end, position))
+	{
+		if (intersection)
+		{
+			*intersection = position;
+		}
+
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 
@@ -2737,8 +2832,8 @@ void LLVOAvatar::idleUpdateMisc(bool detailed_update)
 			else
 			{
 				getSpatialExtents(ext[0], ext[1]);
-				if ((ext[1]-mImpostorExtents[1]).magVec() > 0.05f ||
-					(ext[0]-mImpostorExtents[0]).magVec() > 0.05f)
+				if ((ext[1]-mImpostorExtents[1]).length() > 0.05f ||
+					(ext[0]-mImpostorExtents[0]).length() > 0.05f)
 				{
 					mNeedsImpostorUpdate = TRUE;
 				}
@@ -2905,7 +3000,7 @@ void LLVOAvatar::idleUpdateWindEffect()
 		F32 time_delta = mRippleTimer.getElapsedTimeF32() - mRippleTimeLast;
 		mRippleTimeLast = mRippleTimer.getElapsedTimeF32();
 		LLVector3 velocity = getVelocity();
-		F32 speed = velocity.magVec();
+		F32 speed = velocity.length();
 		//RN: velocity varies too much frame to frame for this to work
 		mRippleAccel.clearVec();//lerp(mRippleAccel, (velocity - mLastVel) * time_delta, LLCriticalDamp::getInterpolant(0.02f));
 		mLastVel = velocity;
@@ -2924,7 +3019,7 @@ void LLVOAvatar::idleUpdateWindEffect()
 		}
 
 		wind.mV[VZ] += hover_strength;
-		wind.normVec();
+		wind.normalize();
 
 		wind.mV[VW] = llmin(0.025f + (speed * 0.015f) + hover_strength, 0.5f);
 		F32 interp;
@@ -3047,10 +3142,10 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				LLVector3 pixel_up_vec;
 				LLViewerCamera::getInstance()->getPixelVectors(root_pos_last, pixel_up_vec, pixel_right_vec);
 				LLVector3 camera_to_av = root_pos_last - LLViewerCamera::getInstance()->getOrigin();
-				camera_to_av.normVec();
+				camera_to_av.normalize();
 				LLVector3 local_camera_at = camera_to_av * ~root_rot;
 				LLVector3 local_camera_up = camera_to_av % LLViewerCamera::getInstance()->getLeftAxis();
-				local_camera_up.normVec();
+				local_camera_up.normalize();
 				local_camera_up = local_camera_up * ~root_rot;
 			
 				local_camera_up.scaleVec(mBodySize * 0.5f);
@@ -3509,7 +3604,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 
 	LLVector3 xyVel = getVelocity();
 	xyVel.mV[VZ] = 0.0f;
-	speed = xyVel.magVec();
+	speed = xyVel.length();
 
 	BOOL throttle = TRUE;
 
@@ -3594,14 +3689,14 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 			if (mIsSelf)
 			{
 				primDir = agent.getAtAxis() - projected_vec(agent.getAtAxis(), agent.getReferenceUpVector());
-				primDir.normVec();
+				primDir.normalize();
 			}
 			else
 			{
 				primDir = getRotation().getMatrix3().getFwdRow();
 			}
 			LLVector3 velDir = getVelocity();
-			velDir.normVec();
+			velDir.normalize();
 			if ( mSignaledAnimations.find(ANIM_AGENT_WALK) != mSignaledAnimations.end())
 			{
 				F32 vpD = velDir * primDir;
@@ -3623,13 +3718,13 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 					LLVector3 at_axis = LLViewerCamera::getInstance()->getAtAxis();
 					LLVector3 up_vector = gAgent.getReferenceUpVector();
 					at_axis -= up_vector * (at_axis * up_vector);
-					at_axis.normVec();
+					at_axis.normalize();
 					
 					F32 dot = fwdDir * at_axis;
 					if (dot < 0.f)
 					{
 						fwdDir -= 2.f * at_axis * dot;
-						fwdDir.normVec();
+						fwdDir.normalize();
 					}
 				}
 				
@@ -3697,7 +3792,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 
 			// Now compute the full world space rotation for the whole body (wQv)
 			LLVector3 leftDir = upDir % fwdDir;
-			leftDir.normVec();
+			leftDir.normalize();
 			fwdDir = leftDir % upDir;
 			LLQuaternion wQv( fwdDir, leftDir, upDir );
 
@@ -3828,10 +3923,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 //							AUDIO_STEP_LO_SPEED, AUDIO_STEP_HI_SPEED,
 //							AUDIO_STEP_LO_GAIN, AUDIO_STEP_HI_GAIN );
 
-			F32 ambient_volume = gSavedSettings.getF32("AudioLevelAmbient");
-			F32 gain = gSavedSettings.getBOOL("MuteAmbient") 
-				? 0.f 
-				: (.50f * ambient_volume * ambient_volume);
+			const F32 STEP_VOLUME = 0.5f;
 			LLUUID& step_sound_id = getStepSound();
 
 			LLVector3d foot_pos_global = gAgent.getPosGlobalFromAgent(foot_pos_agent);
@@ -3839,7 +3931,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 			if (LLViewerParcelMgr::getInstance()->canHearSound(foot_pos_global)
 				&& !LLMuteList::getInstance()->isMuted(getID(), LLMute::flagObjectSounds))
 			{
-				gAudiop->triggerSound(step_sound_id, getID(), gain, foot_pos_global);
+				gAudiop->triggerSound(step_sound_id, getID(), STEP_VOLUME, LLAudioEngine::AUDIO_TYPE_AMBIENT, foot_pos_global);
 			}
 		}
 	}
@@ -4141,7 +4233,7 @@ U32 LLVOAvatar::renderSkinned(EAvatarRenderPass pass)
 		LLVector3 collide_point = slaved_pos;
 		collide_point.mV[VZ] -= foot_plane_normal.mV[VZ] * (dist_from_plane + COLLISION_TOLERANCE - FOOT_COLLIDE_FUDGE);
 
-		gGL.begin(LLVertexBuffer::LINES);
+		gGL.begin(LLRender::LINES);
 		{
 			F32 SQUARE_SIZE = 0.2f;
 			gGL.color4f(1.f, 0.f, 0.f, 1.f);
@@ -4288,7 +4380,7 @@ U32 LLVOAvatar::renderFootShadows()
 	LLGLDepthTest test(GL_TRUE, GL_FALSE);
 	//render foot shadows
 	LLGLEnable blend(GL_BLEND);
-	mShadowImagep->bind();
+	gGL.getTexUnit(0)->bind(mShadowImagep.get());
 	glColor4fv(mShadow0Facep->getRenderColor().mV);
 	mShadow0Facep->renderIndexed(foot_mask);
 	glColor4fv(mShadow1Facep->getRenderColor().mV);
@@ -4306,7 +4398,7 @@ U32 LLVOAvatar::renderImpostor(LLColor4U color)
 
 	LLVector3 pos(getRenderPosition()+mImpostorOffset);
 	LLVector3 at = (pos - LLViewerCamera::getInstance()->getOrigin());
-	at.normVec();
+	at.normalize();
 	LLVector3 left = LLViewerCamera::getInstance()->getUpAxis() % at;
 	LLVector3 up = at%left;
 
@@ -4334,8 +4426,8 @@ U32 LLVOAvatar::renderImpostor(LLColor4U color)
 	color.mV[3] = (U8) (alpha*255);
 	
 	gGL.color4ubv(color.mV);
-	mImpostor.bindTexture();
-	gGL.begin(LLVertexBuffer::QUADS);
+	gGL.getTexUnit(0)->bind(&mImpostor);
+	gGL.begin(LLRender::QUADS);
 	gGL.texCoord2f(0,0);
 	gGL.vertex3fv((pos+left-up).mV);
 	gGL.texCoord2f(1,0);
@@ -4348,17 +4440,6 @@ U32 LLVOAvatar::renderImpostor(LLColor4U color)
 	gGL.flush();
 
 	return 6;
-}
-
-//-----------------------------------------------------------------------------
-// renderCollisionVolumes()
-//-----------------------------------------------------------------------------
-void LLVOAvatar::renderCollisionVolumes()
-{
-	for (S32 i = 0; i < mNumCollisionVolumes; i++)
-	{
-		mCollisionVolumes[i].renderCollision();
-	}
 }
 
 //------------------------------------------------------------------------
@@ -4395,23 +4476,23 @@ void LLVOAvatar::updateTextures(LLAgent &agent)
 	{
 		if( head_baked && ! mHeadBakedLoaded )
 		{
-			getTEImage( TEX_HEAD_BAKED )->bind();
+			gGL.getTexUnit(0)->bind(getTEImage( TEX_HEAD_BAKED ));
 		}
 		if( upper_baked && ! mUpperBakedLoaded )
 		{
-			getTEImage( TEX_UPPER_BAKED )->bind();
+			gGL.getTexUnit(0)->bind(getTEImage( TEX_UPPER_BAKED ));
 		}
 		if( lower_baked && ! mLowerBakedLoaded )
 		{
-			getTEImage( TEX_LOWER_BAKED )->bind();
+			gGL.getTexUnit(0)->bind(getTEImage( TEX_LOWER_BAKED ));
 		}
 		if( eyes_baked && ! mEyesBakedLoaded )
 		{
-			getTEImage( TEX_EYES_BAKED )->bind();
+			gGL.getTexUnit(0)->bind(getTEImage( TEX_EYES_BAKED ));
 		}
 		if( skirt_baked && ! mSkirtBakedLoaded )
 		{
-			getTEImage( TEX_SKIRT_BAKED )->bind();
+			gGL.getTexUnit(0)->bind(getTEImage( TEX_SKIRT_BAKED ));
 		}
 	}
 
@@ -4813,14 +4894,12 @@ BOOL LLVOAvatar::processSingleAnimationStateChange( const LLUUID& anim_id, BOOL 
 					// to support both spatialized and non-spatialized instances of the same sound
 					//if (mIsSelf)
 					//{
-					//  F32 volume = gain * gSavedSettings.getF32("AudioLevelUI")
-					//	gAudiop->triggerSound(LLUUID(gSavedSettings.getString("UISndTyping")), volume);
+					//	gAudiop->triggerSound(LLUUID(gSavedSettings.getString("UISndTyping")), 1.0f, LLAudioEngine::AUDIO_TYPE_UI);
 					//}
 					//else
 					{
 						LLUUID sound_id = LLUUID(gSavedSettings.getString("UISndTyping"));
-						F32 volume = gSavedSettings.getBOOL("MuteSounds") ? 0.f : gSavedSettings.getF32("AudioLevelSFX");
-						gAudiop->triggerSound(sound_id, getID(), volume, char_pos_global);
+						gAudiop->triggerSound(sound_id, getID(), 1.0f, LLAudioEngine::AUDIO_TYPE_SFX, char_pos_global);
 					}
 				}
 			}
@@ -5719,7 +5798,9 @@ BOOL LLVOAvatar::loadMeshNodes()
 
 		//	llinfos << "Parsing mesh data for " << type << "..." << llendl;
 
-		mesh->setColor( 0.8f, 0.8f, 0.8f, 1.0f );
+		// If this isn't set to white (1.0), avatars will *ALWAYS* be darker than their surroundings.
+		// Do not touch!!!
+		mesh->setColor( 1.0f, 1.0f, 1.0f, 1.0f );
 
 		LLPolyMesh *poly_mesh = NULL;
 
@@ -5837,7 +5918,7 @@ void LLVOAvatar::setPixelAreaAndAngle(LLAgent &agent)
 	}
 	else
 	{
-		F32 radius = size.magVec();
+		F32 radius = size.length();
 		mAppAngle = (F32) atan2( radius, range) * RAD_TO_DEG;
 	}
 
@@ -6009,7 +6090,7 @@ void LLVOAvatar::updateShadowFaces()
 			sprite.setPosition(shadow_pos_agent);
 
 			LLVector3 foot_to_knee = mKneeLeftp->getWorldPosition() - joint_world_pos;
-			//foot_to_knee.normVec();
+			//foot_to_knee.normalize();
 			foot_to_knee -= projected_vec(foot_to_knee, sun_vec);
 			sprite.setYaw(azimuth(sun_vec - foot_to_knee));
 		
@@ -6042,7 +6123,7 @@ void LLVOAvatar::updateShadowFaces()
 			sprite.setPosition(shadow_pos_agent);
 
 			LLVector3 foot_to_knee = mKneeRightp->getWorldPosition() - joint_world_pos;
-			//foot_to_knee.normVec();
+			//foot_to_knee.normalize();
 			foot_to_knee -= projected_vec(foot_to_knee, sun_vec);
 			sprite.setYaw(azimuth(sun_vec - foot_to_knee));
 	
@@ -6403,7 +6484,7 @@ void LLVOAvatar::getOffObject()
 		LLVector3 at_axis = LLVector3::x_axis;
 		at_axis = at_axis * av_rot;
 		at_axis.mV[VZ] = 0.f;
-		at_axis.normVec();
+		at_axis.normalize();
 		gAgent.resetAxes(at_axis);
 
 		//reset orientation
@@ -6957,7 +7038,7 @@ BOOL LLVOAvatar::bindScratchTexture( LLGLenum format )
 	GLuint gl_name = getScratchTexName( format, &texture_bytes );
 	if( gl_name )
 	{
-		LLImageGL::bindExternalTexture( gl_name, 0, GL_TEXTURE_2D );
+		gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, gl_name);
 		stop_glerror();
 
 		F32* last_bind_time = LLVOAvatar::sScratchTexLastBindTime.getIfThere( format );
@@ -7015,7 +7096,7 @@ LLGLuint LLVOAvatar::getScratchTexName( LLGLenum format, U32* texture_bytes )
 		glGenTextures(1, &name );
 		stop_glerror();
 
-		LLImageGL::bindExternalTexture( name, 0, GL_TEXTURE_2D ); 
+		gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, name);
 		stop_glerror();
 
 		glTexImage2D(
@@ -7030,7 +7111,7 @@ LLGLuint LLVOAvatar::getScratchTexName( LLGLenum format, U32* texture_bytes )
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 		stop_glerror();
 
-		LLImageGL::unbindTexture(0, GL_TEXTURE_2D); 
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		stop_glerror();
 
 		LLVOAvatar::sScratchTexNames.addData( format, new LLGLuint( name ) );
@@ -8639,7 +8720,7 @@ void LLVOAvatar::onBakedTextureMasksLoaded( BOOL success, LLViewerImage *src_vi,
 			glGenTextures(1, (GLuint*) &gl_name );
 			stop_glerror();
 
-			LLImageGL::bindExternalTexture( gl_name, 0, GL_TEXTURE_2D ); 
+			gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, gl_name);
 			stop_glerror();
 
 			glTexImage2D(
@@ -9914,7 +9995,7 @@ void LLVOAvatar::getImpostorValues(LLVector3* extents, LLVector3& angle, F32& di
 	extents[1] = ext[1];
 
 	LLVector3 at = LLViewerCamera::getInstance()->getOrigin()-(getRenderPosition()+mImpostorOffset);
-	distance = at.normVec();
+	distance = at.normalize();
 	F32 da = 1.f - (at*LLViewerCamera::getInstance()->getAtAxis());
 	angle.mV[0] = LLViewerCamera::getInstance()->getYaw()*da;
 	angle.mV[1] = LLViewerCamera::getInstance()->getPitch()*da;

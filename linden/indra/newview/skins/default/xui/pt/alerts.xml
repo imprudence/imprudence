@@ -3501,7 +3501,7 @@ s
 	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
-			Use esta ferramenta para reportar violações dos Termos de Serviço e Padrões da Comunidade. Veja: -http://secondlife.com/corporate/tos.php http://secondlife.com/corporate/cs.php - Todos os abusos reportados dos Termos de Serviço e Padrões da Comunidade são investigados e resolvidos. Você receberá um e-mail informando-lhe da resolução quando esta ocorrer. Você também pode ver a resolução do incidente no Police Blotter em:- http://secondlife.com/community/blotter.php
+			Use esta ferramenta para reportar violações dos Termos de Serviço e Padrões da Comunidade. Veja: -http://secondlife.com/corporate/tos.php http://secondlife.com/corporate/cs.php - Todos os abusos reportados dos Termos de Serviço e Padrões da Comunidade são investigados e resolvidos. Você receberá um e-mail informando-lhe da resolução quando esta ocorrer. Você também pode ver a resolução do incidente no Incident Report em:- http://secondlife.com/support/incidentreport.php
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseEmailEO">

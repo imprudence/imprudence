@@ -14,21 +14,21 @@
 	     mouse_opaque="true" name=" Mouse Sensitivity:" v_pad="0" width="128">
 		Mouse Sensitivity:
 	</text>
-	<slider_bar bottom="-26" control_name="MouseSensitivity" enabled="true" follows="left|top"
+	<slider_bar bottom="-26" enabled="true" follows="left|top"
 	     height="16" increment="0.25" initial_val="2" left="276" max_val="15"
-	     min_val="0" mouse_opaque="true" name="Mouse Sensitivity" width="128" />
-	<check_box bottom="-44" control_name="InvertMouse" enabled="true" follows="left|top"
+	     min_val="0" mouse_opaque="true" name="mouse_sensitivity" width="128" />
+	<check_box bottom="-44" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" label="Invert Mouse" left="148"
-	     mouse_opaque="true" name="invert mouse" radio_style="false" width="128" />
+	     mouse_opaque="true" name="invert_mouse" radio_style="false" width="128" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-74" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
 	     mouse_opaque="true" name=" Auto Fly Options:" v_pad="0" width="266">
 		Auto Fly Options:
 	</text>
-	<check_box bottom="-80" control_name="AutomaticFly" enabled="true" follows="left|top"
+	<check_box bottom="-80" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" label="Fly/land on holding up/down"
-	     left="148" mouse_opaque="true" name="automatic fly" radio_style="false"
+	     left="148" mouse_opaque="true" name="automatic_fly" radio_style="false"
 	     width="178" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-110" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -42,10 +42,10 @@
 	     mouse_opaque="true" name="Camera Follow Distance:" v_pad="0" width="128">
 		Camera Follow Distance:
 	</text>
-	<slider bottom="-116" can_edit_text="true" control_name="DynamicCameraStrength"
+	<slider bottom="-116" can_edit_text="true"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
 	     increment="1" initial_val="2" left="276" max_val="10" min_val="0"
-	     mouse_opaque="true" name="DynamicCameraStrength" show_text="true" value="2"
+	     mouse_opaque="true" name="dynamic_camera_strength" show_text="true" value="2"
 	     width="128" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-134" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -53,31 +53,31 @@
 	     mouse_opaque="true" name="Camera Transition Time:" v_pad="0" width="128">
 		Camera Transition Time:
 	</text>
-	<slider bottom="-140" can_edit_text="true" control_name="ZoomTime" decimal_digits="1"
+	<slider bottom="-140" can_edit_text="true" decimal_digits="1"
 	     enabled="true" follows="left|top" height="16" increment="0.1"
 	     initial_val="0.4" left="276" max_val="4" min_val="0" mouse_opaque="true"
-	     name="ZoomTime" show_text="true" value="2" width="128" />
+	     name="zoom_time" show_text="true" value="2" width="128" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-158" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
 	     mouse_opaque="true" name="Camera Smoothing:" v_pad="0" width="128">
 		Camera Smoothing:
 	</text>
-	<slider bottom="-164" can_edit_text="true" control_name="CameraPositionSmoothing"
+	<slider bottom="-164" can_edit_text="true"
 	     decimal_digits="1" enabled="true" follows="left|top" height="16"
 	     increment="0.1" initial_val="1" left="276" max_val="9" min_val="0"
-	     mouse_opaque="true" name="CameraPositionSmoothing" show_text="true" value="2"
+	     mouse_opaque="true" name="camera_position_smoothing" show_text="true" value="2"
 	     width="128" />
-	<check_box bottom="-188" control_name="EditCameraMovement" enabled="true"
+	<check_box bottom="-188" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Automatic Edit Camera Movement" left="148" mouse_opaque="true"
-	     name="edit camera movement" radio_style="false"
+	     name="edit_camera_movement" radio_style="false"
 	     tool_tip="Use automatic camera positioning when entering and exiting edit mode"
 	     width="201" />
-	<check_box bottom="-206" control_name="AppearanceCameraMovement" enabled="true"
+	<check_box bottom="-206" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Automatic Appearance Camera Movement" left="148" mouse_opaque="true"
-	     name="appearance camera movement" radio_style="false"
+	     name="appearance_camera_movement" radio_style="false"
 	     tool_tip="Use automatic camera positioning while in edit mode" width="242" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-228" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -85,9 +85,9 @@
 	     mouse_opaque="true" name="text2" v_pad="0" width="128">
 		Avatar Display Options:
 	</text>
-	<check_box bottom="-232" control_name="FirstPersonAvatarVisible" enabled="true"
+	<check_box bottom="-232" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Show Avatar in Mouselook" left="148" mouse_opaque="true" name="avfp"
+	     label="Show Avatar in Mouselook" left="148" mouse_opaque="true" name="first_person_avatar_visible"
 	     radio_style="false" width="256" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-264" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -97,5 +97,5 @@
 	</text>
 	<button bottom_delta="-4" follows="left|top" font="SansSerif" height="20"
 	     label="Joystick Setup" left="148" mouse_opaque="true"
-	     name="joystic_setup_button" width="155" />
+	     name="joystick_setup_button" width="155" />
 </panel>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="sell land" title="Vendre terrain">
 	<text name="info_parcel_label">
 		Parcelle :
@@ -22,10 +22,10 @@
 		Fixez un prix convenable pour ce terrain.
 	</text>
 	<text name="price_ld">
-		$L
+		L$
 	</text>
 	<text name="price_per_m">
-		([PER_METER] $L par mètre carré)
+		([PER_METER] L$ par mètre carré)
 	</text>
 	<text name="sell_to_label">
 		Vos acheteurs :
@@ -44,7 +44,7 @@
 			Acheteur spécifique :
 		</combo_item>
 	</combo_box>
-	<button label="Sélectionner..." name="sell_to_select_agent" />
+	<button label="Sélectionner..." name="sell_to_select_agent"/>
 	<text name="sell_objects_label">
 		Vendez-vous des objets avec ce terrain ?
 	</text>
@@ -59,10 +59,10 @@
 			Oui, vendre les objets avec le terrain
 		</radio_item>
 	</radio_group>
-	<button label="Afficher les objets" name="show_objects" />
+	<button label="Afficher les objets" name="show_objects"/>
 	<text name="nag_message_label">
 		Rappel : toute vente est définitive.
 	</text>
-	<button label="Mettre le terrain en vente" name="sell_btn" />
-	<button label="Annuler" name="cancel_btn" />
+	<button label="Mettre le terrain en vente" name="sell_btn"/>
+	<button label="Annuler" name="cancel_btn"/>
 </floater>

@@ -26,15 +26,15 @@
 	     height="16" initial_value="false" label="Send IM to Email ([EMAIL])"
 	     left="148" mouse_opaque="true" name="send_im_to_email" radio_style="false"
 	     width="350" />
-	<check_box bottom="-65" control_name="IMInChatHistory" enabled="true" follows="left|top"
+	<check_box bottom="-65" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Include IM in Local Chat" left="148" mouse_opaque="true"
 	     name="include_im_in_chat_history" radio_style="false" width="237" />
-	<check_box bottom="-85" control_name="IMShowTimestamps" enabled="true" follows="left|top"
+	<check_box bottom="-85" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show timestamps in IM" left="148" mouse_opaque="true"
 	     name="show_timestamps_check" radio_style="false" width="237" />
-    <check_box bottom="-105" control_name="ChatOnlineNotification" enabled="true"
+    <check_box bottom="-105" enabled="true"
          follows="left|top" font="SansSerifSmall" height="16"
          initial_value="false" label="Show online Friend notifications" left="148"
          mouse_opaque="true" name="friends_online_notify_checkbox"
@@ -54,33 +54,33 @@
 	     mouse_opaque="false" name="text_box4" v_pad="0" width="128">
 		Logging Options:
 	</text>
-	<check_box bottom="-225" control_name="LogInstantMessages" enabled="true"
+	<check_box bottom="-225" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Save a log of IM on my computer" left="148"
 	     mouse_opaque="true" name="log_instant_messages" radio_style="false"
 	     width="237" />
-	<check_box bottom="-245" control_name="IMLogTimestamp" enabled="true"
+	<check_box bottom="-245" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Show timestamps in IM log" left="168"
 	     mouse_opaque="true" name="log_instant_messages_timestamp" radio_style="false"
 	     width="217" />
-	<check_box bottom="-265" control_name="LogShowHistory" enabled="true" follows="left|top"
+	<check_box bottom="-265" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show the end of last IM conversation" left="168" mouse_opaque="true"
 	     name="log_show_history" radio_style="false" width="217" />
-	<check_box bottom="-285" control_name="LogChat" enabled="true" follows="left|top"
+	<check_box bottom="-285" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false" label="Save a log of Local Chat on my computer"
 	     left="148" mouse_opaque="true" name="log_chat" radio_style="false"
 	     width="237" />
-	<check_box bottom="-305" control_name="LogChatTimestamp" enabled="true" follows="left|top"
+	<check_box bottom="-305" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show timestamps in Local Chat log" left="168" mouse_opaque="true"
 	     name="log_chat_timestamp" radio_style="false" width="217" />
-	<check_box bottom="-325" control_name="LogChatIM" enabled="true" follows="left|top"
+	<check_box bottom="-325" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show incoming IM in Local Chat log" left="168" mouse_opaque="true"
 	     name="log_chat_IM" radio_style="false" width="217" />
-	<check_box bottom="-345" control_name="LogTimestampDate" enabled="true" follows="left|top"
+	<check_box bottom="-345" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Include date with timestamps" left="148" mouse_opaque="true"
 	     name="log_date_timestamp" radio_style="false" width="237" />

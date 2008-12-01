@@ -41,6 +41,7 @@
 #include "llapr.h"
 #include "llmemtype.h"
 #include "llstl.h"
+#include "llstat.h"
 
 // These should not be enabled in production, but they can be
 // intensely useful during development for finding certain kinds of
@@ -176,7 +177,8 @@ LLPumpIO::LLPumpIO(apr_pool_t* pool) :
 	mCurrentPool(NULL),
 	mCurrentPoolReallocCount(0),
 	mChainsMutex(NULL),
-	mCallbackMutex(NULL)
+	mCallbackMutex(NULL),
+	mCurrentChain(mRunningChains.end())
 {
 	LLMemType m1(LLMemType::MTYPE_IO_PUMP);
 	initialize(pool);
@@ -267,6 +269,16 @@ bool LLPumpIO::setTimeoutSeconds(F32 timeout)
 	}
 	(*mCurrentChain).setTimeoutSeconds(timeout);
 	return true;
+}
+
+void LLPumpIO::adjustTimeoutSeconds(F32 delta)
+{
+	// If no chain is running, bail
+	if(mRunningChains.end() == mCurrentChain) 
+	{
+		return;
+	}
+	(*mCurrentChain).adjustTimeoutSeconds(delta);
 }
 
 static std::string events_2_string(apr_int16_t events)
@@ -514,7 +526,10 @@ void LLPumpIO::pump(const S32& poll_timeout)
 		//llinfos << "polling" << llendl;
 		S32 count = 0;
 		S32 client_id = 0;
-		apr_pollset_poll(mPollset, poll_timeout, &count, &poll_fd);
+        {
+            LLPerfBlock polltime("pump_poll");
+            apr_pollset_poll(mPollset, poll_timeout, &count, &poll_fd);
+        }
 		PUMP_DEBUG;
 		for(S32 ii = 0; ii < count; ++ii)
 		{
@@ -1159,5 +1174,16 @@ void LLPumpIO::LLChainInfo::setTimeoutSeconds(F32 timeout)
 	else
 	{
 		mTimer.stop();
+	}
+}
+
+void LLPumpIO::LLChainInfo::adjustTimeoutSeconds(F32 delta)
+{
+	LLMemType m1(LLMemType::MTYPE_IO_PUMP);
+	if(mTimer.getStarted())
+	{
+		F64 expiry = mTimer.expiresAt();
+		expiry += delta;
+		mTimer.setExpiryAt(expiry);
 	}
 }

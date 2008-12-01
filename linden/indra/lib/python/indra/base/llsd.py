@@ -33,19 +33,26 @@ import time
 import types
 import re
 
-from indra.util.fastest_elementtree import fromstring
+from indra.util.fastest_elementtree import ElementTreeError, fromstring
 from indra.base import lluuid
 
-int_regex = re.compile("[-+]?\d+")
-real_regex = re.compile("[-+]?(\d+(\.\d*)?|\d*\.\d+)([eE][-+]?\d+)?")
-alpha_regex = re.compile("[a-zA-Z]+")
-date_regex = re.compile("(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})T(?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})(?P<second_float>\.\d{2})?Z")
-#date: d"YYYY-MM-DDTHH:MM:SS.FFZ"
+try:
+    import cllsd
+except ImportError:
+    cllsd = None
+
+int_regex = re.compile(r"[-+]?\d+")
+real_regex = re.compile(r"[-+]?(\d+(\.\d*)?|\d*\.\d+)([eE][-+]?\d+)?")
+alpha_regex = re.compile(r"[a-zA-Z]+")
+date_regex = re.compile(r"(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})T"
+                        r"(?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})"
+                        r"(?P<second_float>(\.\d+)?)Z")
+#date: d"YYYY-MM-DDTHH:MM:SS.FFFFFFZ"
 
 class LLSDParseError(Exception):
     pass
 
-class LLSDSerializationError(Exception):
+class LLSDSerializationError(TypeError):
     pass
 
 
@@ -62,14 +69,7 @@ BOOL_FALSE = ('0', '0.0', 'false', '')
 
 def format_datestr(v):
     """ Formats a datetime object into the string format shared by xml and notation serializations."""
-    second_str = ""
-    if v.microsecond > 0:
-        seconds = v.second + float(v.microsecond) / 1000000
-        second_str = "%05.2f" % seconds
-    else:
-        second_str = "%d" % v.second
-    return '%s%sZ' % (v.strftime('%Y-%m-%dT%H:%M:'), second_str)
-
+    return v.isoformat() + 'Z'
 
 def parse_datestr(datestr):
     """Parses a datetime object from the string format shared by xml and notation serializations."""
@@ -89,7 +89,7 @@ def parse_datestr(datestr):
     seconds_float = match.group('second_float')
     microsecond = 0
     if seconds_float:
-        microsecond = int(seconds_float[1:]) * 10000
+        microsecond = int(float('0' + seconds_float) * 1e6)
     return datetime.datetime(year, month, day, hour, minute, second, microsecond)
 
 
@@ -116,7 +116,7 @@ def uuid_to_python(node):
     return lluuid.UUID(node.text)
 
 def str_to_python(node):
-    return unicode(node.text or '').encode('utf8', 'replace')
+    return node.text or ''
 
 def bin_to_python(node):
     return binary(base64.decodestring(node.text or ''))
@@ -189,9 +189,13 @@ class LLSDXMLFormatter(object):
         if(contents is None or contents is ''):
             return "<%s />" % (name,)
         else:
+            if type(contents) is unicode:
+                contents = contents.encode('utf-8')
             return "<%s>%s</%s>" % (name, contents, name)
 
     def xml_esc(self, v):
+        if type(v) is unicode:
+            v = v.encode('utf-8')
         return v.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
     def LLSD(self, v):
@@ -237,8 +241,13 @@ class LLSDXMLFormatter(object):
             raise LLSDSerializationError("Cannot serialize unknown type: %s (%s)" % (
                 t, something))
 
-    def format(self, something):
+    def _format(self, something):
         return '<?xml version="1.0" ?>' + self.elt("llsd", self.generate(something))
+
+    def format(self, something):
+        if cllsd:
+            return cllsd.llsd_to_xml(something)
+        return self._format(something)
 
 _g_xml_formatter = None
 def format_xml(something):
@@ -356,8 +365,10 @@ class LLSDNotationFormatter(object):
     def UUID(self, v):
         return "u%s" % v
     def BINARY(self, v):
-        raise LLSDSerializationError("binary notation not yet supported")
+        return 'b64"' + base64.encodestring(v) + '"'
     def STRING(self, v):
+        if isinstance(v, unicode):
+            v = v.encode('utf-8')
         return "'%s'" % v.replace("\\", "\\\\").replace("'", "\\'")
     def URI(self, v):
         return 'l"%s"' % str(v).replace("\\", "\\\\").replace('"', '\\"')
@@ -366,16 +377,24 @@ class LLSDNotationFormatter(object):
     def ARRAY(self, v):
         return "[%s]" % ','.join([self.generate(item) for item in v])
     def MAP(self, v):
-        return "{%s}" % ','.join(["'%s':%s" % (key.replace("\\", "\\\\").replace("'", "\\'"), self.generate(value))
+        def fix(key):
+            if isinstance(key, unicode):
+                return key.encode('utf-8')
+            return key
+        return "{%s}" % ','.join(["'%s':%s" % (fix(key).replace("\\", "\\\\").replace("'", "\\'"), self.generate(value))
              for key, value in v.items()])
 
     def generate(self, something):
         t = type(something)
-        if self.type_map.has_key(t):
-            return self.type_map[t](something)
+        handler = self.type_map.get(t)
+        if handler:
+            return handler(something)
         else:
-            raise LLSDSerializationError("Cannot serialize unknown type: %s (%s)" % (
-                t, something))
+            try:
+                return self.ARRAY(iter(something))
+            except TypeError:
+                raise LLSDSerializationError(
+                    "Cannot serialize unknown type: %s (%s)" % (t, something))
 
     def format(self, something):
         return self.generate(something)
@@ -479,7 +498,6 @@ class LLSDBinaryParser(object):
                 raise LLSDParseError("invalid map key at byte %d." % (
                     self._index - 1,))
             value = self._parse()
-            #print "kv:",key,value
             rv[key] = value
             count += 1
             cc = self._buffer[self._index]
@@ -636,10 +654,22 @@ class LLSDNotationParser(object):
             # 'd' = date in seconds since epoch
             return self._parse_date()
         elif cc == 'b':
-            raise LLSDParseError("binary notation not yet supported")
+            return self._parse_binary()
         else:
             raise LLSDParseError("invalid token at index %d: %d" % (
                 self._index - 1, ord(cc)))
+
+    def _parse_binary(self):
+        i = self._index
+        if self._buffer[i:i+2] == '64':
+            q = self._buffer[i+2]
+            e = self._buffer.find(q, i+3)
+            try:
+                return base64.decodestring(self._buffer[i+3:e])
+            finally:
+                self._index = e + 1
+        else:
+            raise LLSDParseError('random horrible binary format not supported')
 
     def _parse_map(self):
         """ map: { string:object, string:object } """
@@ -653,30 +683,23 @@ class LLSDNotationParser(object):
                 if cc in ("'", '"', 's'):
                     key = self._parse_string(cc)
                     found_key = True
-                    #print "key:",key
                 elif cc.isspace() or cc == ',':
                     cc = self._buffer[self._index]
                     self._index += 1
                 else:
                     raise LLSDParseError("invalid map key at byte %d." % (
                                         self._index - 1,))
+            elif cc.isspace() or cc == ':':
+                cc = self._buffer[self._index]
+                self._index += 1
+                continue
             else:
-                if cc.isspace() or cc == ':':
-                    #print "skipping whitespace '%s'" % cc
-                    cc = self._buffer[self._index]
-                    self._index += 1
-                    continue
                 self._index += 1
                 value = self._parse()
-                #print "kv:",key,value
                 rv[key] = value
                 found_key = False
                 cc = self._buffer[self._index]
                 self._index += 1
-                #if cc == '}':
-                #    break
-                #cc = self._buffer[self._index]
-                #self._index += 1
 
         return rv
 
@@ -840,6 +863,14 @@ def format_binary(something):
     return '<?llsd/binary?>\n' + _format_binary_recurse(something)
 
 def _format_binary_recurse(something):
+    def _format_list(something):
+        array_builder = []
+        array_builder.append('[' + struct.pack('!i', len(something)))
+        for item in something:
+            array_builder.append(_format_binary_recurse(item))
+        array_builder.append(']')
+        return ''.join(array_builder)
+
     if something is None:
         return '!'
     elif isinstance(something, LLSD):
@@ -857,7 +888,10 @@ def _format_binary_recurse(something):
         return 'u' + something._bits
     elif isinstance(something, binary):
         return 'b' + struct.pack('!i', len(something)) + something
-    elif isinstance(something, (str, unicode)):
+    elif isinstance(something, str):
+        return 's' + struct.pack('!i', len(something)) + something
+    elif isinstance(something, unicode):
+        something = something.encode('utf-8')
         return 's' + struct.pack('!i', len(something)) + something
     elif isinstance(something, uri):
         return 'l' + struct.pack('!i', len(something)) + something
@@ -865,35 +899,50 @@ def _format_binary_recurse(something):
         seconds_since_epoch = time.mktime(something.timetuple())
         return 'd' + struct.pack('!d', seconds_since_epoch)
     elif isinstance(something, (list, tuple)):
-        array_builder = []
-        array_builder.append('[' + struct.pack('!i', len(something)))
-        for item in something:
-            array_builder.append(_format_binary_recurse(item))
-        array_builder.append(']')
-        return ''.join(array_builder)
+        return _format_list(something)
     elif isinstance(something, dict):
         map_builder = []
         map_builder.append('{' + struct.pack('!i', len(something)))
         for key, value in something.items():
+            if isinstance(key, unicode):
+                key = key.encode('utf-8')
             map_builder.append('k' + struct.pack('!i', len(key)) + key)
             map_builder.append(_format_binary_recurse(value))
         map_builder.append('}')
         return ''.join(map_builder)
     else:
-        raise LLSDSerializationError("Cannot serialize unknown type: %s (%s)" % (
-            type(something), something))
+        try:
+            return _format_list(list(something))
+        except TypeError:
+            raise LLSDSerializationError(
+                "Cannot serialize unknown type: %s (%s)" %
+                (type(something), something))
 
+
+def parse_binary(something):
+    header = '<?llsd/binary?>\n'
+    if not something.startswith(header):
+        raise LLSDParseError('LLSD binary encoding header not found')
+    return LLSDBinaryParser().parse(something[len(header):])
+    
+def parse_xml(something):
+    try:
+        return to_python(fromstring(something)[0])
+    except ElementTreeError, err:
+        raise LLSDParseError(*err.args)
+
+def parse_notation(something):
+    return LLSDNotationParser().parse(something)
 
 def parse(something):
     try:
         if something.startswith('<?llsd/binary?>'):
-            just_binary = something.split('\n', 1)[1]
-            return LLSDBinaryParser().parse(just_binary)
+            return parse_binary(something)
         # This should be better.
         elif something.startswith('<'):
-            return to_python(fromstring(something)[0])
+            return parse_xml(something)
         else:
-            return LLSDNotationParser().parse(something)
+            return parse_notation(something)
     except KeyError, e:
         raise Exception('LLSD could not be parsed: %s' % (e,))
 
@@ -913,6 +962,9 @@ class LLSD(object):
 
 undef = LLSD(None)
 
+XML_MIME_TYPE = 'application/llsd+xml'
+BINARY_MIME_TYPE = 'application/llsd+binary'
+
 # register converters for llsd in mulib, if it is available
 try:
     from mulib import stacked, mu
@@ -922,7 +974,7 @@ except:
     # mulib not available, don't print an error message since this is normal
     pass
 else:
-    mu.add_parser(parse, 'application/llsd+xml')
+    mu.add_parser(parse, XML_MIME_TYPE)
     mu.add_parser(parse, 'application/llsd+binary')
 
     def llsd_convert_xml(llsd_stuff, request):
@@ -931,11 +983,58 @@ else:
     def llsd_convert_binary(llsd_stuff, request):
         request.write(format_binary(llsd_stuff))
 
-    for typ in [LLSD, dict, list, tuple, str, int, float, bool, unicode, type(None)]:
-        stacked.add_producer(typ, llsd_convert_xml, 'application/llsd+xml')
+    for typ in [LLSD, dict, list, tuple, str, int, long, float, bool, unicode, type(None)]:
+        stacked.add_producer(typ, llsd_convert_xml, XML_MIME_TYPE)
         stacked.add_producer(typ, llsd_convert_xml, 'application/xml')
         stacked.add_producer(typ, llsd_convert_xml, 'text/xml')
 
         stacked.add_producer(typ, llsd_convert_binary, 'application/llsd+binary')
 
     stacked.add_producer(LLSD, llsd_convert_xml, '*/*')
+
+    # in case someone is using the legacy mu.xml wrapper, we need to
+    # tell mu to produce application/xml or application/llsd+xml
+    # (based on the accept header) from raw xml. Phoenix 2008-07-21
+    stacked.add_producer(mu.xml, mu.produce_raw, XML_MIME_TYPE)
+    stacked.add_producer(mu.xml, mu.produce_raw, 'application/xml')
+
+
+
+# mulib wsgi stuff
+# try:
+#     from mulib import mu, adapters
+#
+#     # try some known attributes from mulib to be ultra-sure we've imported it
+#     mu.get_current
+#     adapters.handlers
+# except:
+#     # mulib not available, don't print an error message since this is normal
+#     pass
+# else:
+#     def llsd_xml_handler(content_type):
+#         def handle_llsd_xml(env, start_response):
+#             llsd_stuff, _ = mu.get_current(env)
+#             result = format_xml(llsd_stuff)
+#             start_response("200 OK", [('Content-Type', content_type)])
+#             env['mu.negotiated_type'] = content_type
+#             yield result
+#         return handle_llsd_xml
+#    
+#     def llsd_binary_handler(content_type):
+#         def handle_llsd_binary(env, start_response):
+#             llsd_stuff, _ = mu.get_current(env)
+#             result = format_binary(llsd_stuff)
+#             start_response("200 OK", [('Content-Type', content_type)])
+#             env['mu.negotiated_type'] = content_type
+#             yield result
+#         return handle_llsd_binary
+#
+#     adapters.DEFAULT_PARSERS[XML_MIME_TYPE] = parse
+    
+#     for typ in [LLSD, dict, list, tuple, str, int, float, bool, unicode, type(None)]:
+#         for content_type in (XML_MIME_TYPE, 'application/xml'):
+#             adapters.handlers.set_handler(typ, llsd_xml_handler(content_type), content_type)
+#
+#         adapters.handlers.set_handler(typ, llsd_binary_handler(BINARY_MIME_TYPE), BINARY_MIME_TYPE)
+#
+#     adapters.handlers.set_handler(LLSD, llsd_xml_handler(XML_MIME_TYPE), '*/*')

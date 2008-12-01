@@ -45,7 +45,7 @@ static LLMediaImplRegister sLLMediaImplExample2Reg( "LLMediaImplExample2", new L
 LLMediaImplExample2Maker::LLMediaImplExample2Maker()
 {
 	// Register to handle the scheme
-	mSchema.push_back( "example2" );
+	mSchema.push_back( "example2." );
 }
 
 ///////////////////////////////////////////////////////////////////////////////

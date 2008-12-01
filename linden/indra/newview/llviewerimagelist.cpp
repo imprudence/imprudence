@@ -89,7 +89,8 @@ LLStat LLViewerImageList::sFormattedMemStat(32, TRUE);
 LLViewerImageList::LLViewerImageList() 
 	: mForceResetTextureStats(FALSE),
 	mUpdateStats(FALSE),
-	mMaxResidentTexMem(0)
+	mMaxResidentTexMem(0),
+	mMaxTotalTextureMem(0)
 {
 }
 
@@ -97,6 +98,7 @@ void LLViewerImageList::init()
 {
 	sNumImages = 0;
 	mMaxResidentTexMem = 0;
+	mMaxTotalTextureMem = 0 ;
 	
 	if (gNoRender)
 	{
@@ -918,12 +920,14 @@ LLPointer<LLImageJ2C> LLViewerImageList::convertToUploadFile(LLPointer<LLImageRa
 }
 
 const S32 MIN_VIDEO_RAM = 32;
-const S32 MAX_VIDEO_RAM = 2048;
+const S32 MAX_VIDEO_RAM = 512; // 512MB max for performance reasons.
 	
 // Returns min setting for TextureMemory (in MB)
 S32 LLViewerImageList::getMinVideoRamSetting()
 {
-	return MIN_VIDEO_RAM;
+	S32 system_ram = (S32)(gSysMemory.getPhysicalMemoryClamped() >> 20);
+	//min texture mem sets to 128M if total physical mem is more than 1.5GB
+	return (system_ram > 1500) ? 128 : MIN_VIDEO_RAM;
 }
 
 //static
@@ -956,8 +960,8 @@ S32 LLViewerImageList::getMaxVideoRamSetting(bool get_recommended)
 		max_texmem = llmin(max_texmem, (S32)(system_ram/2));
 	else
 		max_texmem = llmin(max_texmem, (S32)(system_ram));
-	
-	max_texmem = llclamp(max_texmem, MIN_VIDEO_RAM, MAX_VIDEO_RAM);
+		
+	max_texmem = llclamp(max_texmem, getMinVideoRamSetting(), MAX_VIDEO_RAM); 
 	
 	return max_texmem;
 }
@@ -994,7 +998,18 @@ void LLViewerImageList::updateMaxResidentTexMem(S32 mem)
 	
 	S32 vb_mem = mem;
 	S32 fb_mem = llmax(VIDEO_CARD_FRAMEBUFFER_MEM, vb_mem/4);
-	mMaxResidentTexMem = (vb_mem - fb_mem)<<20;
+	mMaxResidentTexMem = (vb_mem - fb_mem) ; //in MB
+	
+	mMaxTotalTextureMem = mMaxResidentTexMem * 2;
+	if (mMaxResidentTexMem > 640)
+	{
+		mMaxTotalTextureMem -= (mMaxResidentTexMem >> 2);
+	}
+	
+	if (mMaxTotalTextureMem > (S32)(gSysMemory.getPhysicalMemoryClamped() >> 20) - 128)
+	{
+		mMaxTotalTextureMem = (gSysMemory.getPhysicalMemoryClamped() >> 20) - 128 ;
+	}
 	
 	llinfos << "Total Video Memory set to: " << vb_mem << " MB" << llendl;
 	llinfos << "Available Texture Memory set to: " << (vb_mem - fb_mem) << " MB" << llendl;

@@ -42,6 +42,7 @@
 #pragma warning(disable: 4200)	//nonstandard extension used : zero-sized array in struct/union
 #pragma warning(disable: 4100)	//unreferenced formal parameter
 
+
 /*
 LLSD Block for Windows Dump Information
 <llsd>
@@ -552,6 +553,58 @@ void LLMemoryReserve::release()
 
 static LLMemoryReserve gEmergencyMemoryReserve;
 
+#ifndef _M_IX86
+	#error "The following code only works for x86!"
+#endif
+LPTOP_LEVEL_EXCEPTION_FILTER WINAPI MyDummySetUnhandledExceptionFilter(
+	LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter)
+{
+	if(lpTopLevelExceptionFilter ==  gFilterFunc)
+		return gFilterFunc;
+
+	llinfos << "Someone tried to set the exception filter. Listing call stack modules" << llendl;
+	LLSD cs_info;
+	GetCallStackData(NULL, cs_info);
+	
+	if(cs_info.has("CallStack") && cs_info["CallStack"].isArray())
+	{
+		LLSD cs = cs_info["CallStack"];
+		for(LLSD::array_iterator i = cs.beginArray(); 
+			i != cs.endArray(); 
+			++i)
+		{
+			llinfos << "Module: " << (*i)["ModuleName"] << llendl;
+		}
+	}
+	
+	return gFilterFunc;
+}
+
+BOOL PreventSetUnhandledExceptionFilter()
+{
+	HMODULE hKernel32 = LoadLibrary(_T("kernel32.dll"));
+	if (hKernel32 == NULL) 
+		return FALSE;
+
+	void *pOrgEntry = GetProcAddress(hKernel32, "SetUnhandledExceptionFilter");
+	if(pOrgEntry == NULL) 
+		return FALSE;
+	
+	unsigned char newJump[ 100 ];
+	DWORD dwOrgEntryAddr = (DWORD)pOrgEntry;
+	dwOrgEntryAddr += 5; // add 5 for 5 op-codes for jmp far
+	void *pNewFunc = &MyDummySetUnhandledExceptionFilter;
+	DWORD dwNewEntryAddr = (DWORD) pNewFunc;
+	DWORD dwRelativeAddr = dwNewEntryAddr - dwOrgEntryAddr;
+
+	newJump[ 0 ] = 0xE9;  // JMP absolute
+	memcpy(&newJump[ 1 ], &dwRelativeAddr, sizeof(pNewFunc));
+	SIZE_T bytesWritten;
+	BOOL bRet = WriteProcessMemory(GetCurrentProcess(),
+	pOrgEntry, newJump, sizeof(pNewFunc) + 1, &bytesWritten);
+	return bRet;
+}
+
 // static
 void  LLWinDebug::initExceptionHandler(LPTOP_LEVEL_EXCEPTION_FILTER filter_func)
 {
@@ -601,6 +654,9 @@ void  LLWinDebug::initExceptionHandler(LPTOP_LEVEL_EXCEPTION_FILTER filter_func)
 
     LPTOP_LEVEL_EXCEPTION_FILTER prev_filter;
 	prev_filter = SetUnhandledExceptionFilter(filter_func);
+
+	// *REMOVE:Mani
+	//PreventSetUnhandledExceptionFilter();
 
 	if(prev_filter != gFilterFunc)
 	{
@@ -736,4 +792,11 @@ void LLWinDebug::generateCrashStacks(struct _EXCEPTION_POINTERS *exception_infop
 	llofstream out_file(log_path);
 	LLSDSerialize::toPrettyXML(info, out_file);
 	out_file.close();
+}
+
+void LLWinDebug::clearCrashStacks()
+{
+	LLSD info;
+	std::string dump_path = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "SecondLifeException.log");
+	LLFile::remove(dump_path);
 }

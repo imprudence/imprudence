@@ -128,26 +128,14 @@
 			<text type="string" length="1" name="Simulator primitive usage:">
 				模拟器简单用法:
 			</text>
-			<text type="string" length="1" name="0 out of 0 available">
-				0个，总数为14055 (14055个有效)
-			</text>
 			<text type="string" length="1" name="Primitives parcel supports:">
 				原始土地支柱:
-			</text>
-			<text type="string" length="1" name="object_contrib_text">
-				926
 			</text>
 			<text type="string" length="1" name="Primitives on parcel:">
 				土地上所有的原始建筑:
 			</text>
-			<text type="string" length="1" name="total_objects_text">
-				0
-			</text>
 			<text type="string" length="1" name="Owned by parcel owner:">
 				为土地拥有者所有:
-			</text>
-			<text type="string" length="1" name="owner_objects_text">
-				0
 			</text>
 			<button label="显示" label_selected="显示" name="ShowOwner" />
 			<button label="归还..." label_selected="归还..." name="ReturnOwner..."
@@ -155,26 +143,17 @@
 			<text type="string" length="1" name="Set to group:">
 				转入社团状态:
 			</text>
-			<text type="string" length="1" name="group_objects_text">
-				0
-			</text>
 			<button label="显示" label_selected="显示" name="ShowGroup" />
 			<button label="归还..." label_selected="归还..." name="ReturnGroup..."
 			     tool_tip="将东东归还其主人." />
 			<text type="string" length="1" name="Owned by others:">
 				为其他人所有:
 			</text>
-			<text type="string" length="1" name="other_objects_text">
-				0
-			</text>
 			<button label="显示" label_selected="显示" name="ShowOther" />
 			<button label="归还..." label_selected="归还..." name="ReturnOther..."
 			     tool_tip="将东东归还其主人." />
 			<text type="string" length="1" name="Selected / sat upon:">
 				已选的/坐上去:
-			</text>
-			<text type="string" length="1" name="selected_objects_text">
-				0
 			</text>
 			<text type="string" length="1" name="Autoreturn other resident&amp;apos;s objects (minutes, 0 for off):">
 				自动归还其他居民的东东（分钟, 0为关闭):

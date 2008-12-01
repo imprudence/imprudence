@@ -58,7 +58,7 @@
 #endif
 
 
-typedef struct ProcessorExtensions
+struct ProcessorExtensions
 {
 	bool FPU_FloatingPointUnit;
 	bool VME_Virtual8086ModeEnhancements;
@@ -97,9 +97,9 @@ typedef struct ProcessorExtensions
 	bool _3DNOW_InstructionExtensions;
 	bool _E3DNOW_InstructionExtensions;
 	bool AA64_AMD64BitArchitecture;
-} ProcessorExtensions;
+};
 
-typedef struct ProcessorCache
+struct ProcessorCache
 {
 	bool bPresent;
 	char strSize[32];	/* Flawfinder: ignore */	
@@ -107,24 +107,24 @@ typedef struct ProcessorCache
 	unsigned int uiLineSize;
 	bool bSectored;
 	char strCache[128];	/* Flawfinder: ignore */	
-} ProcessorCache;
+};
 
-typedef struct ProcessorL1Cache
+struct ProcessorL1Cache
 {
     ProcessorCache Instruction;
 	ProcessorCache Data;
-} ProcessorL1Cache;
+};
 
-typedef struct ProcessorTLB
+struct ProcessorTLB
 {
 	bool bPresent;
 	char strPageSize[32];	/* Flawfinder: ignore */	
 	unsigned int uiAssociativeWays;
 	unsigned int uiEntries;
 	char strTLB[128];	/* Flawfinder: ignore */	
-} ProcessorTLB;
+};
 
-typedef struct ProcessorInfo
+struct ProcessorInfo
 {
 	char strVendor[16];	/* Flawfinder: ignore */	
 	unsigned int uiFamily;
@@ -148,7 +148,7 @@ typedef struct ProcessorInfo
 	ProcessorCache _Trace;
 	ProcessorTLB _Instruction;
 	ProcessorTLB _Data;
-} ProcessorInfo;
+};
 
 
 // CProcessor

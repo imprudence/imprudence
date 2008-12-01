@@ -48,6 +48,7 @@
 			     bottom="-265" embedded_items="false" enabled="false"
 			     follows="left|top|right|bottom" font="SansSerif" height="239" left="5"
 			     max_length="2147483647" mouse_opaque="true" name="im_history"
+           track_bottom="true" 
 			     text_color="ChatHistoryTextColor"
 			     text_readonly_color="ChatHistoryTextColor" width="490" word_wrap="true" />
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="7"

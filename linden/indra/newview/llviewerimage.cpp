@@ -149,23 +149,13 @@ F32 texmem_middle_bound_scale = 0.925f;
 //static
 void LLViewerImage::updateClass(const F32 velocity, const F32 angular_velocity)
 {
-	sBoundTextureMemory = LLImageGL::sBoundTextureMemory;
-	sTotalTextureMemory = LLImageGL::sGlobalTextureMemory;
-	sMaxBoundTextureMem = gImageList.getMaxResidentTexMem();
-	
-	sMaxTotalTextureMem = sMaxBoundTextureMem * 2;
-	if (sMaxBoundTextureMem > 64000000)
-	{
-		sMaxTotalTextureMem -= sMaxBoundTextureMem/4;
-	}
-	
-	if ((U32)sMaxTotalTextureMem > gSysMemory.getPhysicalMemoryClamped() - (U32)min_non_tex_system_mem)
-	{
-		sMaxTotalTextureMem = (S32)gSysMemory.getPhysicalMemoryClamped() - min_non_tex_system_mem;
-	}
-	
-	if (sBoundTextureMemory >= sMaxBoundTextureMem ||
-		sTotalTextureMemory >= sMaxTotalTextureMem)
+	sBoundTextureMemory = LLImageGL::sBoundTextureMemory;//in bytes
+	sTotalTextureMemory = LLImageGL::sGlobalTextureMemory;//in bytes
+	sMaxBoundTextureMem = gImageList.getMaxResidentTexMem();//in MB	
+	sMaxTotalTextureMem = gImageList.getMaxTotalTextureMem() ;//in MB
+
+	if ((sBoundTextureMemory >> 20) >= sMaxBoundTextureMem ||
+		(sTotalTextureMemory >> 20) >= sMaxTotalTextureMem)
 	{
 		// If we are using more texture memory than we should,
 		// scale up the desired discard level
@@ -176,8 +166,8 @@ void LLViewerImage::updateClass(const F32 velocity, const F32 angular_velocity)
 		}
 	}
 	else if (sDesiredDiscardBias > 0.0f &&
-			 sBoundTextureMemory < sMaxBoundTextureMem*texmem_lower_bound_scale &&
-			 sTotalTextureMemory < sMaxTotalTextureMem*texmem_lower_bound_scale)
+			 (sBoundTextureMemory >> 20) < sMaxBoundTextureMem*texmem_lower_bound_scale &&
+			 (sTotalTextureMemory >> 20) < sMaxTotalTextureMem*texmem_lower_bound_scale)
 	{
 		// If we are using less texture memory than we should,
 		// scale down the desired discard level
@@ -1210,45 +1200,58 @@ void LLViewerImage::setKnownDrawSize(S32 width, S32 height)
 }
 
 // virtual
-BOOL LLViewerImage::bind(S32 stage) const
+bool LLViewerImage::bindError(S32 stage) const
 {
-	if (stage == -1)
-	{
-		return TRUE;
-	}
+	if (stage < 0) return false;
 	
 	if (gNoRender)
 	{
-		return true;
+		return false;
 	}
-	BOOL res = bindTextureInternal(stage);
-	if (res)
+
+	bool res = true;
+	
+	// On failure to bind, what should we set the currently bound texture to?
+	if (mIsMissingAsset && !sMissingAssetImagep.isNull() && (this != (LLImageGL *)sMissingAssetImagep))
 	{
-		//llassert_always(mIsMissingAsset == FALSE);
-		
+		res = gGL.getTexUnit(stage)->bind(sMissingAssetImagep.get());
 	}
-	else
+	if (!res && !sDefaultImagep.isNull() && (this != (LLImageGL *)sDefaultImagep))
 	{
-		// On failure to bind, what should we set the currently bound texture to?
-		if (mIsMissingAsset && !sMissingAssetImagep.isNull() && (this != (LLImageGL *)sMissingAssetImagep))
-		{
-			res = sMissingAssetImagep->bind( stage );
-		}
-		if (!res && !sDefaultImagep.isNull() && (this != (LLImageGL *)sDefaultImagep))
-		{
-			// use default if we've got it
-			res = sDefaultImagep->bind(stage);
-		}
-		if (!res && !sNullImagep.isNull() && (this != (LLImageGL *)sNullImagep))
-		{
-			res = sNullImagep->bind(stage);
-		}
- 		if (!res)
-		{
-			llwarns << "LLViewerImage::bindTexture failed." << llendl;
-		}
-		stop_glerror();
+		// use default if we've got it
+		res = gGL.getTexUnit(stage)->bind(sDefaultImagep.get());
 	}
+	if (!res && !sNullImagep.isNull() && (this != (LLImageGL *)sNullImagep))
+	{
+		res = gGL.getTexUnit(stage)->bind(sNullImagep.get());
+	}
+	if (!res)
+	{
+		llwarns << "LLViewerImage::bindError failed." << llendl;
+	}
+	stop_glerror();
+	return res;
+}
+
+bool LLViewerImage::bindDefaultImage(S32 stage) const
+{
+	if (stage < 0) return false;
+
+	bool res = true;
+	if (!sDefaultImagep.isNull() && (this != (LLImageGL *)sDefaultImagep))
+	{
+		// use default if we've got it
+		res = gGL.getTexUnit(stage)->bind(sDefaultImagep.get());
+	}
+	if (!res && !sNullImagep.isNull() && (this != (LLImageGL *)sNullImagep))
+	{
+		res = gGL.getTexUnit(stage)->bind(sNullImagep.get());
+	}
+	if (!res)
+	{
+		llwarns << "LLViewerImage::bindError failed." << llendl;
+	}
+	stop_glerror();
 	return res;
 }
 

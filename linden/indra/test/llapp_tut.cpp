@@ -69,7 +69,7 @@ namespace tut
 		LLSD defaults;
 		defaults["template"] = "../../../scripts/messages/message_template.msg";
 		defaults["configdir"] = ".";
-		defaults["db_host"] = "mysql.mitra.lindenlab.com";
+		defaults["db_host"] = "mysql.shakti.lindenlab.com";
 		defaults["db_user"] = "linden";
 		defaults["db_password"] = "gomez";
 		defaults["datadir"] = "data";
