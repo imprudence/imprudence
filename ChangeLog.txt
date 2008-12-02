@@ -1,6 +1,9 @@
 2008-12-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
+	Fixed indentation for 'skins' prefix.
+
+	* linden/indra/newview/viewer_manifest.py:
 	Doc packaging moved to platform-independent manifest.
 
 
