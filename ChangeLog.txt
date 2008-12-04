@@ -1,3 +1,8 @@
+2008-12-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Imprudence 1.0.0 RC2 released.
+
+
 2008-11-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediamanager.cpp:
