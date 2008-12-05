@@ -34,6 +34,14 @@
 	Patch by Aleric Inglewood.
 
 
+2008-12-05  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llcommon/llsecondlifeurls.cpp:
+	Changed Release Notes link to point to Imprudence.
+	* linden/indra/newview/llfloaterabout.cpp:
+	Ditto.
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.0.0 RC2                        -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
