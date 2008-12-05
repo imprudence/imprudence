@@ -58,6 +58,10 @@
 	Rebranded login menu. [#23]
 
 
+	* linden/indra/newview/llurlhistory.cpp:
+	Fixed blank url_history.xml creation. (VWR-5808)
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.0.0 RC2                        -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
