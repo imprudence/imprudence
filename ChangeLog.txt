@@ -1,3 +1,9 @@
+2008-12-05  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llappviewer.cpp:
+	Windows defaults to settings_imprudence.xml when run from the .exe.
+
+
 2008-11-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llpanellogin.cpp:
