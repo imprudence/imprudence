@@ -54,6 +54,10 @@
 	Ditto.
 
 
+	* linden/indra/newview/skins/default/xui/en-us/menu_login.xml:
+	Rebranded login menu. [#23]
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.0.0 RC2                        -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
