@@ -51,6 +51,9 @@ extern void request_sound(const LLUUID &sound_guid);
 
 LLAudioEngine* gAudiop = NULL;
 
+// Maximum amount of time we wait for a transfer to complete before starting
+// off another one.
+const F32 MAX_CURRENT_TRANSFER_TIME = 60.f;
 
 //
 // LLAudioEngine implementation
@@ -74,8 +77,7 @@ void LLAudioEngine::setDefaults()
 
 	mListenerp = NULL;
 
-	mMuted = false;
-	mUserData = NULL;
+	mMuted = FALSE;
 
 	mLastStatus = 0;
 
@@ -96,17 +98,16 @@ void LLAudioEngine::setDefaults()
 	mInternetStreamGain = 0.125f;
 	mNextWindUpdate = 0.f;
 
-	mInternetStreamMedia = NULL;
-	mInternetStreamURL.clear();
+	for (U32 i = 0; i < LLAudioEngine::AUDIO_TYPE_COUNT; i++)
+		mSecondaryGain[i] = 1.0f;
 }
 
 
-bool LLAudioEngine::init(const S32 num_channels, void* userdata)
+BOOL LLAudioEngine::init(const S32 num_channels)
 {
 	setDefaults();
 
 	mNumChannels = num_channels;
-	mUserData = userdata;
 	
 	allocateListener();
 
@@ -145,146 +146,22 @@ void LLAudioEngine::shutdown()
 	S32 i;
 	for (i = 0; i < MAX_CHANNELS; i++)
 	{
-		delete mChannels[i];
-		mChannels[i] = NULL;
+		if (mChannels[i])
+		{
+			delete mChannels[i];
+			mChannels[i] = NULL;
+		}
 	}
 
 	// Clean up buffers
 	for (i = 0; i < MAX_BUFFERS; i++)
 	{
-		delete mBuffers[i];
-		mBuffers[i] = NULL;
-	}
-
-	delete mInternetStreamMedia;
-	mInternetStreamMedia = NULL;
-	mInternetStreamURL.clear();
-}
-
-
-// virtual
-void LLAudioEngine::startInternetStream(const std::string& url)
-{
-	llinfos << "entered startInternetStream()" << llendl;
-
-	if (!mInternetStreamMedia)
-	{
-		LLMediaManager* mgr = LLMediaManager::getInstance();
-		if (mgr)
+		if (mBuffers[i])
 		{
-			mInternetStreamMedia = mgr->createSourceFromMimeType(LLURI(url).scheme(), "audio/mpeg"); // assumes that whatever media implementation supports mp3 also supports vorbis.
-			llinfos << "mInternetStreamMedia is now " << mInternetStreamMedia << llendl;
+			delete mBuffers[i];
+			mBuffers[i] = NULL;
 		}
 	}
-
-	if(!mInternetStreamMedia)
-		return;
-	
-	if (!url.empty()) {
-		llinfos << "Starting internet stream: " << url << llendl;
-		mInternetStreamURL = url;
-		mInternetStreamMedia->navigateTo ( url );
-		llinfos << "Playing....." << llendl;		
-		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_START);
-		mInternetStreamMedia->updateMedia();
-	} else {
-		llinfos << "setting stream to NULL"<< llendl;
-		mInternetStreamURL.clear();
-		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP);
-		mInternetStreamMedia->updateMedia();
-	}
-	//#endif
-}
-
-// virtual
-void LLAudioEngine::stopInternetStream()
-{
-	llinfos << "entered stopInternetStream()" << llendl;
-	
-        if(mInternetStreamMedia)
-	{
-		if( ! mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP)){
-			llinfos << "attempting to stop stream failed!" << llendl;
-		}
-		mInternetStreamMedia->updateMedia();
-	}
-
-	mInternetStreamURL.clear();
-}
-
-// virtual
-void LLAudioEngine::pauseInternetStream(int pause)
-{
-	llinfos << "entered pauseInternetStream()" << llendl;
-
-	if(!mInternetStreamMedia)
-		return;
-	
-	if(pause)
-	{
-		if(! mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_PAUSE))
-		{
-			llinfos << "attempting to pause stream failed!" << llendl;
-		}
-	} else {
-		if(! mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_START))
-		{
-			llinfos << "attempting to unpause stream failed!" << llendl;
-		}
-	}
-	mInternetStreamMedia->updateMedia();
-}
-
-// virtual
-void LLAudioEngine::updateInternetStream()
-{
-	if (mInternetStreamMedia)
-		mInternetStreamMedia->updateMedia();
-}
-
-// virtual
-int LLAudioEngine::isInternetStreamPlaying()
-{
-	if (!mInternetStreamMedia)
-		return 0;
-	
-	if (mInternetStreamMedia->getStatus() == LLMediaBase::STATUS_STARTED)
-	{
-		return 1; // Active and playing
-	}	
-
-	if (mInternetStreamMedia->getStatus() == LLMediaBase::STATUS_PAUSED)
-	{
-		return 2; // paused
-	}
-
-	return 0; // Stopped
-}
-
-// virtual
-void LLAudioEngine::getInternetStreamInfo(char* artist, char* title)
-{
-	artist[0] = 0;
-	title[0] = 0;
-}
-
-// virtual
-void LLAudioEngine::setInternetStreamGain(F32 vol)
-{
-	mInternetStreamGain = vol;
-
-	if(!mInternetStreamMedia)
-		return;
-
-	vol = llclamp(vol, 0.f, 1.f);
-	mInternetStreamMedia->setVolume(vol);
-	mInternetStreamMedia->updateMedia();
-}
-
-// virtual
-const std::string& LLAudioEngine::getInternetStreamURL()
-{
-	return mInternetStreamURL;
 }
 
 
@@ -295,6 +172,13 @@ void LLAudioEngine::updateChannels()
 	{
 		if (mChannels[i])
 		{
+			// set secondary gain if type is available
+			LLAudioSource* source = mChannels[i]->getSource();
+			if (source)
+			{
+				mChannels[i]->setSecondaryGain(mSecondaryGain[source->getType()]);
+			}
+			
 			mChannels[i]->updateBuffer();
 			mChannels[i]->update3DPosition();
 			mChannels[i]->updateLoop();
@@ -565,8 +449,6 @@ void LLAudioEngine::idle(F32 max_decode_time)
 	// missed picking it up in all the places that can add
 	// or request new data.
 	startNextTransfer();
-
-	updateInternetStream();
 }
 
 
@@ -775,6 +657,18 @@ F32 LLAudioEngine::getMasterGain()
 	return mMasterGain;
 }
 
+void LLAudioEngine::setSecondaryGain(S32 type, F32 gain)
+{
+	llassert(type < LLAudioEngine::AUDIO_TYPE_COUNT);
+	
+	mSecondaryGain[type] = gain;
+}
+
+F32 LLAudioEngine::getSecondaryGain(S32 type)
+{
+	return mSecondaryGain[type];
+}
+
 F32 LLAudioEngine::getInternetStreamGain()
 {
 	return mInternetStreamGain;
@@ -850,7 +744,8 @@ F64 LLAudioEngine::mapWindVecToPan(LLVector3 wind_vec)
 }
 
 
-void LLAudioEngine::triggerSound(const LLUUID &audio_uuid, const LLUUID& owner_id, const F32 gain, const LLVector3d &pos_global)
+void LLAudioEngine::triggerSound(const LLUUID &audio_uuid, const LLUUID& owner_id, const F32 gain,
+								 const S32 type, const LLVector3d &pos_global)
 {
 	// Create a new source (since this can't be associated with an existing source.
 	//llinfos << "Localized: " << audio_uuid << llendl;
@@ -1317,12 +1212,13 @@ LLAudioSource::LLAudioSource(const LLUUID& id, const LLUUID& owner_id, const F32
 	mOwnerID(owner_id),
 	mPriority(0.f),
 	mGain(gain),
-	mAmbient(false),
-	mLoop(false),
-	mSyncMaster(false),
-	mSyncSlave(false),
-	mQueueSounds(false),
-	mPlayedOnce(false),
+	mType(type),
+	mAmbient(FALSE),
+	mLoop(FALSE),
+	mSyncMaster(FALSE),
+	mSyncSlave(FALSE),
+	mQueueSounds(FALSE),
+	mPlayedOnce(FALSE),
 	mChannelp(NULL),
 	mCurrentDatap(NULL),
 	mQueuedDatap(NULL)
@@ -1468,8 +1364,7 @@ bool LLAudioSource::play(const LLUUID &audio_uuid)
 bool LLAudioSource::isDone()
 {
 	const F32 MAX_AGE = 60.f;
-	const F32 MAX_UNPLAYED_AGE = 15.f;
-
+	const F32 MAX_UNPLAYED_AGE = 30.f;
 	if (isLoop())
 	{
 		// Looped sources never die on their own.
@@ -1647,8 +1542,9 @@ LLAudioBuffer *LLAudioSource::getCurrentBuffer()
 LLAudioChannel::LLAudioChannel() :
 	mCurrentSourcep(NULL),
 	mCurrentBufferp(NULL),
-	mLoopedThisFrame(false),
-	mWaiting(false)
+	mLoopedThisFrame(FALSE),
+	mWaiting(FALSE),
+	mSecondaryGain(1.0f)
 {
 }
 

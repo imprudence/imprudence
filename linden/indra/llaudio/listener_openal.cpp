@@ -81,14 +81,18 @@ void LLListener_OpenAL::commitDeferredChanges(){
 }
 
 void LLListener_OpenAL::setDopplerFactor(F32 factor){
+	// Effect is way too strong by default, scale it down here.
+	// Scaling the speed of sound up causes crashes.
+	factor *= 0.005f;
 	//llinfos << "LLListener_OpenAL::setDopplerFactor() : " << factor << llendl;
 	alDopplerFactor(factor);
 }
 
 F32 LLListener_OpenAL::getDopplerFactor(){
 	ALfloat factor;
-	factor = alGetFloat(AL_DOPPLER_FACTOR);
-	//llinfos << "LLListener_OpenAL::getDopplerFactor() : " << factor << llendl;
+	factor = 0.0f;
+	alDopplerFactor(factor);
+	llinfos << "LLListener_OpenAL::getDopplerFactor() : " << factor << llendl;
 	return factor;
 }
 

@@ -34,9 +34,13 @@
 #ifndef LL_AUDIOENGINE_OpenAL_H
 #define LL_AUDIOENGINE_OpenAL_H
 
+#include <string>
+
 #include "audioengine.h"
 #include "listener_openal.h"
-#include "windgen.h"
+#include "llmediamanager.h"
+#include "llmediaimplgstreamer.h"
+#include "llrand.h"
 
 class LLAudioEngine_OpenAL : public LLAudioEngine
 {
@@ -44,23 +48,58 @@ class LLAudioEngine_OpenAL : public LLAudioEngine
 		LLAudioEngine_OpenAL();
 		virtual ~LLAudioEngine_OpenAL();
 
-		virtual bool init(const S32 num_channels, void *user_data);
+		virtual BOOL init(const S32 num_channels);
+		virtual std::string getDriverName(bool verbose);
 		virtual void allocateListener();
 
 		virtual void shutdown();
+
+		virtual void idle(F32 max_decode_time = 0.f);
 
 		void setInternalGain(F32 gain);
 
 		LLAudioBuffer* createBuffer();
 		LLAudioChannel* createChannel();
 
-		/*virtual*/ void initWind();
-		/*virtual*/ void cleanupWind();
-		/*virtual*/ void updateWind(LLVector3 direction, F32 camera_altitude);
+		// Internet stream methods
+		virtual void initInternetStream();
+		virtual void startInternetStream(const std::string& url_cstr);
+		virtual void stopInternetStream();
+		virtual void updateInternetStream();
+		virtual void pauseInternetStream(int pause);
+		virtual int isInternetStreamPlaying();
+		virtual void getInternetStreamInfo(char* artist, char* title);
+		virtual void setInternetStreamGain(F32 vol);
+		virtual const std::string& getInternetStreamURL();
+		virtual void InitStreamer();
 
-	private:
+		void checkALError();
+
+		void initWind();
+		void cleanupWind();
+		void updateWind(LLVector3 direction, F32 camera_altitude);
+
+	protected: 
+		static const S32 mNumWindBuffers=20;
+		static const S32 mSampleRate=44100;
+		static const S32 mBytesPerSample=4;
+		static const S32 mWindDataSize=8820; //44100 * 0.200 * 2 channels * 2 bytes per sample
+
+		BOOL mFirstWind;
+		ALuint mWindBuffers[mNumWindBuffers];
+		ALuint mWindSource;
+
+		F32 mTargetGain;
+		F32 mTargetFreq;
+		F32 mTargetPanGainR;
+		S16 mWindData[mWindDataSize];
+
+		std::string mInternetStreamURL;
 		void * windDSP(void *newbuffer, int length);
-        	LLWindGen<S16> *mWindGen;
+#if LL_GSTREAMER_ENABLED
+		LLMediaManagerData * mMedia_data;
+		LLMediaImplGStreamer * m_streamer;
+#endif
 };
 
 class LLAudioChannelOpenAL : public LLAudioChannel
@@ -78,7 +117,7 @@ class LLAudioChannelOpenAL : public LLAudioChannel
 		void update3DPosition();
 		void updateLoop(){};
 
-		ALuint mALSource;
+		ALuint ALSource;
 };
 
 class LLAudioBufferOpenAL : public LLAudioBuffer{
@@ -92,9 +131,8 @@ class LLAudioBufferOpenAL : public LLAudioBuffer{
 		friend class LLAudioChannelOpenAL;
 	protected:
 		void cleanup();
-		ALuint getBuffer() {return mALBuffer;}
-
-		ALuint mALBuffer;
+		ALuint getBuffer(){return ALBuffer;}
+		ALuint ALBuffer;
 };
 
 #endif

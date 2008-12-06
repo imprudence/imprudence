@@ -35,11 +35,18 @@
 
 #include "listener.h"
 
-#include "al.h"
-#include "alut.h"
+
+//#include "AL/al.h"
+#include "AL/alut.h"
 
 class LLListener_OpenAL  : public LLListener
 {
+ private:
+ protected:
+ public:
+
+ private:
+ protected:
  public:  
 	LLListener_OpenAL();
 	virtual ~LLListener_OpenAL();
@@ -52,8 +59,6 @@ class LLListener_OpenAL  : public LLListener
 
 	virtual void setDopplerFactor(F32 factor);
 	virtual F32 getDopplerFactor();
-
- protected:
 };
 
 #endif

@@ -583,43 +583,28 @@ bool idle_startup()
 
 		if (FALSE == gSavedSettings.getBOOL("NoAudio"))
 		{
-			gAudiop = NULL;
-
-#ifdef LL_FMOD
-			gAudiop = (LLAudioEngine *) new LLAudioEngine_FMOD();
-#endif
-
-#ifdef LL_OPENAL
-			if (!gAudiop)
-			{
-				gAudiop = (LLAudioEngine *) new LLAudioEngine_OpenAL();
-			}
-#endif
+			
+		gAudiop = (LLAudioEngine *) new LLAudioEngine_OpenAL();
 
 			if (gAudiop)
 			{
-#if LL_WINDOWS
-				// FMOD on Windows needs the window handle to stop playing audio
-				// when window is minimized. JC
-				void* window_handle = (HWND)gViewerWindow->getPlatformWindow();
-#else
-				void* window_handle = NULL;
-#endif
-				bool init = gAudiop->init(kAUDIO_NUM_SOURCES, window_handle);
-				if(init)
+				BOOL init = gAudiop->init(kAUDIO_NUM_SOURCES);
+				if(!init)
 				{
-					gAudiop->setMuted(TRUE);
+					LL_WARNS("AppInit") << "Unable to initialize audio engine" << LL_ENDL;
+					gAudiop=NULL;
 				}
 				else
 				{
-					LL_WARNS("AppInit") << "Unable to initialize audio engine" << LL_ENDL;
-					delete gAudiop;
-					gAudiop = NULL;
+					gAudiop->setMuted(TRUE);
+					LL_INFOS("AppInit") << "Audio Engine Initialized." << LL_ENDL;
 				}
 			}
 		}
-		
-		LL_INFOS("AppInit") << "Audio Engine Initialized." << LL_ENDL;
+		else
+		{
+			gAudiop = NULL;
+		}
 		
 		if (LLTimer::knownBadTimer())
 		{
@@ -766,6 +751,12 @@ bool idle_startup()
 		gLoginMenuBarView->setVisible( TRUE );
 		gLoginMenuBarView->setEnabled( TRUE );
 
+		// DEV-16927.  The following code removes errant keystrokes that happen while the window is being 
+		// first made visible.
+#ifdef _WIN32
+		MSG msg;
+		while( PeekMessage( &msg, /*All hWnds owned by this thread */ NULL, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE ) );
+#endif
 		timeout.reset();
 		return FALSE;
 	}

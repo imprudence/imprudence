@@ -41,6 +41,7 @@
 
 #include "llcurl.h"
 #include "llimagej2c.h"
+#include "audioengine.h"
 
 #include "llviewertexteditor.h"
 #include "llviewercontrol.h"
@@ -198,6 +199,10 @@ LLFloaterAbout::LLFloaterAbout()
 
 	support.append("J2C Decoder Version: ");
 	support.append( LLImageJ2C::getEngineInfo() );
+	support.append("\n");
+
+	support.append("Audio Driver Version: ");
+	support.append( gAudiop ? gAudiop->getDriverName(true) : "(none)" );
 	support.append("\n");
 
 	LLMediaManager *mgr = LLMediaManager::getInstance();
