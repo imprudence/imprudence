@@ -1,6 +1,11 @@
 2008-12-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmessage/llhttpclient.cpp:
+	VWR-9400b (memleak whenever an LSL script is uploaded)
+	Patch by Henri Beauchamp.
+
+
+	* linden/indra/llmessage/llhttpclient.cpp:
 	VWR-9400 (memleak whenever an LSL script is uploaded)
 	Patch by Carjay McGinnis.
 
