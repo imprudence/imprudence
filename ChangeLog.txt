@@ -1,5 +1,10 @@
 2008-12-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmessage/llhttpclient.cpp:
+	VWR-9400 (memleak whenever an LSL script is uploaded)
+	Patch by Carjay McGinnis.
+
+
 	* linden/indra/llimage/llimagetga.cpp:
 	VWR-10837 (use delete [] in LLImageTGA)
 	Patch by Aleric Inglewood.
