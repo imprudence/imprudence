@@ -1,3 +1,10 @@
+2008-12-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	VWR-10759 (use delete [] in LLMediaImplGStreamer)
+	Patch by Aleric Inglewood.
+
+
 2008-12-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Imprudence 1.0.0 RC2 released.
