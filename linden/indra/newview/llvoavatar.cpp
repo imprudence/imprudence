@@ -3828,10 +3828,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 //							AUDIO_STEP_LO_SPEED, AUDIO_STEP_HI_SPEED,
 //							AUDIO_STEP_LO_GAIN, AUDIO_STEP_HI_GAIN );
 
-			F32 ambient_volume = gSavedSettings.getF32("AudioLevelAmbient");
-			F32 gain = gSavedSettings.getBOOL("MuteAmbient") 
-				? 0.f 
-				: (.50f * ambient_volume * ambient_volume);
+			const F32 STEP_VOLUME = 0.5f;
 			LLUUID& step_sound_id = getStepSound();
 
 			LLVector3d foot_pos_global = gAgent.getPosGlobalFromAgent(foot_pos_agent);
@@ -3839,7 +3836,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 			if (LLViewerParcelMgr::getInstance()->canHearSound(foot_pos_global)
 				&& !LLMuteList::getInstance()->isMuted(getID(), LLMute::flagObjectSounds))
 			{
-				gAudiop->triggerSound(step_sound_id, getID(), gain, foot_pos_global);
+				gAudiop->triggerSound(step_sound_id, getID(), STEP_VOLUME, LLAudioEngine::AUDIO_TYPE_AMBIENT, foot_pos_global);
 			}
 		}
 	}
@@ -4819,8 +4816,8 @@ BOOL LLVOAvatar::processSingleAnimationStateChange( const LLUUID& anim_id, BOOL 
 					//else
 					{
 						LLUUID sound_id = LLUUID(gSavedSettings.getString("UISndTyping"));
-						F32 volume = gSavedSettings.getBOOL("MuteSounds") ? 0.f : gSavedSettings.getF32("AudioLevelSFX");
-						gAudiop->triggerSound(sound_id, getID(), volume, char_pos_global);
+						gAudiop->triggerSound(sound_id, getID(), 1.0f, LLAudioEngine::AUDIO_TYPE_SFX, char_pos_global);
+
 					}
 				}
 			}

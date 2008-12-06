@@ -3308,8 +3308,7 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 		return;
 	}
 
-	F32 volume = gSavedSettings.getBOOL("MuteSounds") ? 0.f : (gain * gSavedSettings.getF32("AudioLevelSFX"));
-	gAudiop->triggerSound(sound_id, owner_id, volume, pos_global);
+	gAudiop->triggerSound(sound_id, owner_id, gain, LLAudioEngine::AUDIO_TYPE_SFX, pos_global);
 }
 
 void process_preload_sound(LLMessageSystem *msg, void **user_data)

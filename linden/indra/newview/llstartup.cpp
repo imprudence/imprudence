@@ -583,28 +583,55 @@ bool idle_startup()
 
 		if (FALSE == gSavedSettings.getBOOL("NoAudio"))
 		{
-			
-		gAudiop = (LLAudioEngine *) new LLAudioEngine_OpenAL();
+			gAudiop = NULL;
+
+#ifdef LL_OPENAL
+			if (!gAudiop
+#if !LL_WINDOWS
+			    && NULL == getenv("LL_BAD_OPENAL_DRIVER")
+#endif // !LL_WINDOWS
+			    )
+			{
+				gAudiop = (LLAudioEngine *) new LLAudioEngine_OpenAL();
+			}
+#endif
+
+#ifdef LL_FMOD			
+			if (!gAudiop
+#if !LL_WINDOWS
+			    && NULL == getenv("LL_BAD_FMOD_DRIVER")
+#endif // !LL_WINDOWS
+			    )
+			{
+				gAudiop = (LLAudioEngine *) new LLAudioEngine_FMOD();
+			}
+#endif
 
 			if (gAudiop)
 			{
-				BOOL init = gAudiop->init(kAUDIO_NUM_SOURCES);
-				if(!init)
+#if LL_WINDOWS
+				// FMOD on Windows needs the window handle to stop playing audio
+				// when window is minimized. JC
+				void* window_handle = (HWND)gViewerWindow->getPlatformWindow();
+#else
+				void* window_handle = NULL;
+#endif
+				bool init = gAudiop->init(kAUDIO_NUM_SOURCES, window_handle);
+				if(init)
 				{
-					LL_WARNS("AppInit") << "Unable to initialize audio engine" << LL_ENDL;
-					gAudiop=NULL;
+					gAudiop->setMuted(TRUE);
 				}
 				else
 				{
-					gAudiop->setMuted(TRUE);
-					LL_INFOS("AppInit") << "Audio Engine Initialized." << LL_ENDL;
+					LL_WARNS("AppInit") << "Unable to initialize audio engine" << LL_ENDL;
+					delete gAudiop;
+					gAudiop = NULL;
 				}
 			}
 		}
-		else
-		{
-			gAudiop = NULL;
-		}
+		
+		LL_INFOS("AppInit") << "Audio Engine Initialized." << LL_ENDL;
+
 		
 		if (LLTimer::knownBadTimer())
 		{

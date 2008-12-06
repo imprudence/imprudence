@@ -69,6 +69,7 @@ class LLVFS;
 class LLAudioSource;
 class LLAudioData;
 class LLAudioChannel;
+class LLAudioChannelOpenAL;
 class LLAudioBuffer;
 
 
@@ -79,8 +80,10 @@ class LLAudioBuffer;
 
 class LLAudioEngine 
 {
+	friend class LLAudioChannelOpenAL; // bleh. channel needs some listener methods.
+	
 public:
-	enum LLAudioType
+	typedef enum LLAudioType
 	{
 		AUDIO_TYPE_NONE    = 0,
 		AUDIO_TYPE_SFX     = 1,
@@ -93,9 +96,7 @@ public:
 	virtual ~LLAudioEngine();
 
 	// initialization/startup/shutdown
-	//virtual BOOL init();
-
-	virtual BOOL init(const S32 num_channels);
+	virtual bool init(const S32 num_channels, void *userdata);
 	virtual std::string getDriverName(bool verbose) = 0;
 	virtual void shutdown();
 
@@ -140,7 +141,7 @@ public:
 	void triggerSound(const LLUUID &sound_id, const LLUUID& owner_id, const F32 gain,
 					  const S32 type = LLAudioEngine::AUDIO_TYPE_NONE,
 					  const LLVector3d &pos_global = LLVector3d::zero);
-	BOOL preloadSound(const LLUUID &id);
+	bool preloadSound(const LLUUID &id);
 
 	void addAudioSource(LLAudioSource *asp);
 	void cleanupAudioSource(LLAudioSource *asp);
@@ -149,15 +150,16 @@ public:
 	LLAudioData *getAudioData(const LLUUID &audio_uuid);
 
 
-	virtual void startInternetStream(const std::string& url) = 0;
-	virtual void stopInternetStream() = 0;
-	virtual void pauseInternetStream(int pause) = 0;
-	virtual int isInternetStreamPlaying() = 0;
-	virtual void getInternetStreamInfo(char* artist, char* title) { artist[0] = 0; title[0] = 0; }
+	// Internet stream methods
+	virtual void startInternetStream(const std::string& url);
+	virtual void stopInternetStream();
+	virtual void pauseInternetStream(int pause);
+	virtual void updateInternetStream();
+	virtual int isInternetStreamPlaying();
+	virtual void getInternetStreamInfo(char* artist, char* title);
 	// use a value from 0.0 to 1.0, inclusive
-	virtual void setInternetStreamGain(F32 vol) { mInternetStreamGain = vol; }
-	virtual const std::string& getInternetStreamURL() { return LLStringUtil::null; }
-	virtual void InitStreamer() = 0;
+	virtual void setInternetStreamGain(F32 vol);
+	virtual const std::string& getInternetStreamURL();
 
 	// For debugging usage
 	virtual LLVector3 getListenerPos();
@@ -193,11 +195,6 @@ protected:
 	virtual void allocateListener() = 0;
 
 
-	// Internet stream methods
-	virtual void initInternetStream() {}
-	virtual void updateInternetStream() {}
-
-
 	// listener methods
 	virtual void setListenerPos(LLVector3 vec);
 	virtual void setListenerVelocity(LLVector3 vec);
@@ -212,7 +209,8 @@ protected:
 protected:
 	LLListener *mListenerp;
 
-	BOOL mMuted;
+	bool mMuted;
+	void* mUserData;
 
 	S32 mLastStatus;
 	
@@ -242,6 +240,7 @@ protected:
 
 	// Hack!  Internet streams are treated differently from other sources!
 	F32 mInternetStreamGain;
+	std::string mInternetStreamURL;
 
 	F32 mNextWindUpdate;
 
@@ -249,6 +248,7 @@ protected:
 
 private:
 	void setDefaults();
+	LLMediaBase *mInternetStreamMedia;
 };
 
 
@@ -264,7 +264,7 @@ class LLAudioSource
 public:
 	// owner_id is the id of the agent responsible for making this sound
 	// play, for example, the owner of the object currently playing it
-	LLAudioSource(const LLUUID &id, const LLUUID& owner_id, const F32 gain);
+	LLAudioSource(const LLUUID &id, const LLUUID& owner_id, const F32 gain, const S32 type = LLAudioEngine::AUDIO_TYPE_NONE);
 	virtual ~LLAudioSource();
 
 	virtual void update();						// Update this audio source
@@ -326,12 +326,12 @@ protected:
 	LLUUID			mOwnerID;	// owner of the object playing the sound
 	F32				mPriority;
 	F32				mGain;
-	BOOL			mAmbient;
-	BOOL			mLoop;
-	BOOL			mSyncMaster;
-	BOOL			mSyncSlave;
-	BOOL			mQueueSounds;
-	BOOL			mPlayedOnce;
+	bool			mAmbient;
+	bool			mLoop;
+	bool			mSyncMaster;
+	bool			mSyncSlave;
+	bool			mQueueSounds;
+	bool			mPlayedOnce;
 	S32             mType;
 	LLVector3d		mPositionGlobal;
 	LLVector3		mVelocity;
@@ -420,8 +420,8 @@ protected:
 protected:
 	LLAudioSource	*mCurrentSourcep;
 	LLAudioBuffer	*mCurrentBufferp;
-	BOOL			mLoopedThisFrame;
-	BOOL			mWaiting;	// Waiting for sync.
+	bool			mLoopedThisFrame;
+	bool			mWaiting;	// Waiting for sync.
 	F32             mSecondaryGain;
 };
 
