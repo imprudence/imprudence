@@ -1,5 +1,10 @@
 2008-12-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llimage/llimagetga.cpp:
+	VWR-10837 (use delete [] in LLImageTGA)
+	Patch by Aleric Inglewood.
+
+
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	VWR-10759 (use delete [] in LLMediaImplGStreamer)
 	Patch by Aleric Inglewood.
