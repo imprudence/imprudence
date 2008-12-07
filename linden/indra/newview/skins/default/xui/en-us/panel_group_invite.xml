@@ -4,10 +4,10 @@
 	<text bottom_delta="-78" height="54" left="7" width="200" name="help_text">
 		You can select multiple residents to 
 invite to your group. Click &apos;Open 
-Person Chooser&apos; to start.
+Resident Chooser&apos; to start.
 	</text>
 	<button bottom_delta="-10" font="SansSerifSmall" halign="center" height="20"
-	     label="Open Person Chooser" left="5" name="add_button" tool_tip=""
+	     label="Open Resident Chooser" left="5" name="add_button" tool_tip=""
 	     width="200" />
 	<name_list allow_calling_card_drop="true" background_visible="true" bottom_delta="-178"
 	     column_padding="0" draw_border="true" height="174" left="5"

@@ -229,7 +229,7 @@ const std::string  LLDir::getCacheDir(bool get_default) const
 		}
 		else
 		{
-			res = getOSCacheDir() + mDirDelimiter + "SecondLife";
+			res = getOSCacheDir() + mDirDelimiter + "Imprudence";
 		}
 		return res;
 	}

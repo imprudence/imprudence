@@ -38,23 +38,8 @@ class LLHost;
 enum EGridInfo
 {
 	GRID_INFO_NONE,
-	GRID_INFO_ADITI,
 	GRID_INFO_AGNI,
-	GRID_INFO_ARUNA,
-	GRID_INFO_DAMBALLAH,
-	GRID_INFO_DURGA,
-	GRID_INFO_GANGA,
-	GRID_INFO_MITRA,
-	GRID_INFO_MOHINI,
-	GRID_INFO_NANDI,
-	GRID_INFO_RADHA,
-	GRID_INFO_RAVI,
-	GRID_INFO_SIVA,
-	GRID_INFO_SHAKTI,
-	GRID_INFO_SOMA,
-	GRID_INFO_UMA,
-	GRID_INFO_VAAK,
-	GRID_INFO_YAMI,
+	GRID_INFO_ADITI,
 	GRID_INFO_LOCAL,
 	GRID_INFO_OTHER, // IP address set via command line option
 	GRID_INFO_COUNT
@@ -86,6 +71,20 @@ public:
 	* the string used to specifiy the grid.
 	**/
 	std::string getGridLabel() const; 
+
+  /**
+   * @brief Get the code name for the grid choice.
+   *
+   * Returns the code name for the grid choice, as designated
+   * by Linden Lab. The SL main grid is Agni, and the beta
+   * grid is Aditi. There are other LL testing grids with code
+   * names, but we don't care about those.
+   *
+   * This string is used primarily for fetching the proper
+   * login splash page, since the web server expects "Agni"
+   * and "Aditi", not "SL Main Grid" and "SL Beta Grid".
+   */
+	std::string getGridCodeName() const; 
 
 	std::string getKnownGridLabel(EGridInfo grid_index) const; 
 

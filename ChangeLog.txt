@@ -1,3 +1,39 @@
+2008-12-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* ChangeLog:
+	Added banners in ChangeLog to set versions apart.
+	
+	Entries should be placed in the section for the
+	version into which they were merged. Entries within
+	a section should be sorted chronologically.
+
+	This is important for keeping track of changes which
+	weren't merged until a later release than they were 
+	written. (Mixing them in chronologically would cause
+	confusion about which changes were included in a
+	release.)
+
+
+	* linden/indra/llmessage/llhttpclient.cpp:
+	VWR-9400b (memleak whenever an LSL script is uploaded)
+	Patch by Henri Beauchamp.
+
+
+	* linden/indra/llmessage/llhttpclient.cpp:
+	VWR-9400 (memleak whenever an LSL script is uploaded)
+	Patch by Carjay McGinnis.
+
+
+	* linden/indra/llimage/llimagetga.cpp:
+	VWR-10837 (use delete [] in LLImageTGA)
+	Patch by Aleric Inglewood.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	VWR-10759 (use delete [] in LLMediaImplGStreamer)
+	Patch by Aleric Inglewood.
+
+
 2008-11-23  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventoryview.cpp:
@@ -84,6 +120,157 @@
 
 	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml:
 	Added XUI for the Quick Filter combo box.
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                       1.0.0 RC2                        -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+2008-12-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Imprudence 1.0.0 RC2 released.
+
+
+	* linden/indra/newview/llviewernetwork.cpp:
+	Use 127.0.0.1 for local opensim, not 0.0.0.0.
+
+
+2008-11-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llmedia/llmediamanager.cpp:
+	Disable llmozlib-dependent code when not available.
+	Patch by Stephen Zenith. [#12]
+
+
+	* linden/indra/llwindow/llwindowsdl.cpp:
+	Fixed passing nonliteral strings to *printf functions.
+	gcc 4.3 rejects that as being unsafe.
+	Patch by Stephen Zenith. [#11]
+	* linden/indra/linux_crash_logger/llcrashloggerlinux.cpp:
+	Ditto.
+	* linden/indra/lscript/lscript_compile/lscript_tree.cpp: 
+	Ditto.
+
+
+2008-11-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llpanellogin.cpp:
+	Remove preprocessor condition for grid selector.
+	The grid selector on the login screen will always show,
+	instead of only showing when the viewer was compiled
+	as LL_RELEASE_FOR_DOWNLOAD.
+
+
+	* linden/indra/newview/llappviewer.cpp:
+	Stop console window from always showing up.
+
+
+2008-11-29  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloaterdirectory.cpp:
+	Fixed search window not refreshing in RelWithDebInfo builds.
+
+
+2008-11-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llstartup.cpp:
+	Rearranged grid selectors so main grid is first.
+	* linden/indra/newview/llviewernetwork.cpp:
+	Ditto.
+	* linden/indra/newview/llviewernetwork.cpp:
+	Ditto.
+
+
+	* linden/indra/newview/llpanellogin.cpp:
+	Added "code name" field for grid selections.
+	The code name is used to fetch the proper splash page.
+	This decouples the user-visible label from the name
+	expected by the SL web server.
+	* linden/indra/newview/llviewernetwork.cpp:
+	Ditto.
+	* linden/indra/newview/llviewernetwork.h:
+	Ditto.
+
+
+2008-11-24  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llpanellogin.cpp: 
+	Changed the grid selector options at login.
+	Renamed "Agni" to "SL Main Grid", etc. and removed private
+	LL grids from the list. Also added "Local OpenSim" option.
+	* linden/indra/newview/llviewernetwork.cpp: 
+	Ditto.
+	* linden/indra/newview/llviewernetwork.h: 
+	Ditto.
+
+
+2008-11-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/lldrawable.cpp:
+	Likely fix for VWR-8920 (disappearing attachments).
+	From http://svn.secondlife.com/trac/linden/changeset/1393
+
+
+2008-11-19  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/install.xml:
+	Fixed inworld browser crash in Windows.
+
+
+2008-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llcrashlogger/llcrashlogger.cpp: 
+	Changed to Imprudence.exec_marker to match llappviewer.cpp.
+
+
+	* linden/indra/llcrashlogger/llcrashlogger.cpp: 
+	Changed app dir (for cache, etc.) to Imprudence.
+	* linden/indra/llvfs/lldir.cpp: 
+	Ditto.
+	* linden/indra/llvfs/lldir_mac.cpp: 
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp: 
+	Ditto.
+
+
+2008-11-18  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/panel_group_invite.xml:
+	VWR-9007: Group UI uses "Person" instead of "Resident".
+	* linden/indra/newview/skins/default/xui/en-us/panel_group_roles.xml:
+	Ditto.
+
+
+2008-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llrender/llrender.h:
+	Fix VWR-9507: bad typedef breaks build on gcc 4.3.
+	Suggested by Alissa Sabre.
+
+
+	* linden/indra/llrender/llgl.cpp:
+	Likely fix for VWR-9358 (palletized textures).
+	Suggested by Angus Boyd.
+
+
+2008-11-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/silver/xui/en-us/floater_tools.xml:
+	Removed floater_tools.xml from silver skin.
+	It was out of sync with the default version, and the only
+	changes that LL had made to it were tiny tweaks to button size
+	and position. It will now correctly inherit from default skin.
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                       1.0.0 RC1                        -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+2008-11-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Imprudence 1.0.0 RC1 released.
 
 
 2008-11-05  Jacek Antonelli  <jacek.antonelli@gmail.com>
