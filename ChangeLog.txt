@@ -1,3 +1,9 @@
+2008-12-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llinventory/llinventorytype.h:
+	New bitfield enumerator for inventory types.
+
+
 2008-12-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* ChangeLog:
