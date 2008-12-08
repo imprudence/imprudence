@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <floater name="Inventory Finder" title="inventory_recent_items" 
-     bottom="-495" left="457" height="408" width="170"
+     bottom="-495" left="457" height="428" width="170"
      can_close="true" can_drag_on_left="false" can_minimize="false"
      can_resize="false" can_tear_off="true">
 
@@ -9,6 +9,13 @@
 	<icon name="icon_animation" image_name="inv_item_animation.tga" 
 	     bottom="-36" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Animation" name="check_animation"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
+	     font="SansSerifSmall" initial_value="false" />
+
+
+	<icon name="icon_bodypart" image_name="inv_item_skin.tga"
+	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
+	<check_box label="Body Parts" name="check_bodypart"
 	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
@@ -22,7 +29,7 @@
 
 	<icon name="icon_clothing" image_name="inv_item_shirt.tga"
 	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
-	<check_box label="Clothing / Body Parts" name="check_clothing"
+	<check_box label="Clothing" name="check_clothing"
 	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
@@ -121,6 +128,6 @@
 
 
 	<button label="Close" label_selected="Close" name="Close"
-	     bottom="-400" right="-6" height="20" width="76" follows="top|right"
+	     bottom="-420" right="-6" height="20" width="76" follows="top|right"
 	     font="SansSerif" halign="center" scale_image="true" />
 </floater>
