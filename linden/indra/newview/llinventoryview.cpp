@@ -182,18 +182,18 @@ void LLInventoryViewFinder::updateElementsFromFilter()
 
 	// update the ui elements
 	LLFloater::setTitle(mFilter->getName());
-	childSetValue("check_animation", (S32) (filter_types & 0x1 << LLInventoryType::IT_ANIMATION));
+	childSetValue("check_animation", (S32) (filter_types & LLInventoryType::NIT_ANIMATION));
 
-	childSetValue("check_calling_card", (S32) (filter_types & 0x1 << LLInventoryType::IT_CALLINGCARD));
-	childSetValue("check_clothing", (S32) (filter_types & 0x1 << LLInventoryType::IT_WEARABLE));
-	childSetValue("check_gesture", (S32) (filter_types & 0x1 << LLInventoryType::IT_GESTURE));
-	childSetValue("check_landmark", (S32) (filter_types & 0x1 << LLInventoryType::IT_LANDMARK));
-	childSetValue("check_notecard", (S32) (filter_types & 0x1 << LLInventoryType::IT_NOTECARD));
-	childSetValue("check_object", (S32) (filter_types & 0x1 << LLInventoryType::IT_OBJECT));
-	childSetValue("check_script", (S32) (filter_types & 0x1 << LLInventoryType::IT_LSL));
-	childSetValue("check_sound", (S32) (filter_types & 0x1 << LLInventoryType::IT_SOUND));
-	childSetValue("check_texture", (S32) (filter_types & 0x1 << LLInventoryType::IT_TEXTURE));
-	childSetValue("check_snapshot", (S32) (filter_types & 0x1 << LLInventoryType::IT_SNAPSHOT));
+	childSetValue("check_calling_card", (S32) (filter_types & LLInventoryType::NIT_CALLCARD));
+	childSetValue("check_clothing", (S32) (filter_types & LLInventoryType::NIT_WEARABLE));
+	childSetValue("check_gesture", (S32) (filter_types & LLInventoryType::NIT_GESTURE));
+	childSetValue("check_landmark", (S32) (filter_types & LLInventoryType::NIT_LANDMARK));
+	childSetValue("check_notecard", (S32) (filter_types & LLInventoryType::NIT_NOTECARD));
+	childSetValue("check_object", (S32) (filter_types & LLInventoryType::NIT_OBJECT));
+	childSetValue("check_script", (S32) (filter_types & LLInventoryType::NIT_SCRIPT_LSL2));
+	childSetValue("check_sound", (S32) (filter_types & LLInventoryType::NIT_SOUND));
+	childSetValue("check_texture", (S32) (filter_types & LLInventoryType::NIT_TEXTURE));
+	childSetValue("check_snapshot", (S32) (filter_types & LLInventoryType::NIT_SNAPSHOT));
 	childSetValue("check_show_empty", show_folders == LLInventoryFilter::SHOW_ALL_FOLDERS);
 	childSetValue("check_since_logoff", mFilter->isSinceLogoff());
 	mSpinSinceHours->set((F32)(hours % 24));
@@ -207,26 +207,26 @@ void LLInventoryViewFinder::draw()
 
 	if (!childGetValue("check_animation"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_ANIMATION);
+		filter &= ~(LLInventoryType::NIT_ANIMATION);
 		filtered_by_all_types = FALSE;
 	}
 
 
 	if (!childGetValue("check_calling_card"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_CALLINGCARD);
+		filter &= ~(LLInventoryType::NIT_CALLCARD);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_clothing"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_WEARABLE);
+		filter &= ~(LLInventoryType::NIT_WEARABLE);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_gesture"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_GESTURE);
+		filter &= ~(LLInventoryType::NIT_GESTURE);
 		filtered_by_all_types = FALSE;
 	}
 
@@ -234,52 +234,53 @@ void LLInventoryViewFinder::draw()
 
 
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_LANDMARK);
+		filter &= ~(LLInventoryType::NIT_LANDMARK);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_notecard"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_NOTECARD);
+		filter &= ~(LLInventoryType::NIT_NOTECARD);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_object"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_OBJECT);
-		filter &= ~(0x1 << LLInventoryType::IT_ATTACHMENT);
+		filter &= ~(LLInventoryType::NIT_OBJECT);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_script"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_LSL);
+		filter &= ~(LLInventoryType::NIT_SCRIPT_LSL2);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_sound"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_SOUND);
+		filter &= ~(LLInventoryType::NIT_SOUND);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_texture"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_TEXTURE);
+		filter &= ~(LLInventoryType::NIT_TEXTURE);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_snapshot"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_SNAPSHOT);
+		filter &= ~(LLInventoryType::NIT_SNAPSHOT);
 		filtered_by_all_types = FALSE;
 	}
 
+  /*
 	if (!filtered_by_all_types)
 	{
 		// don't include folders in filter, unless I've selected everything
-		filter &= ~(0x1 << LLInventoryType::IT_CATEGORY);
+		filter &= ~(LLInventoryType::NIT_CATEGORY);
 	}
+  */
 
 	// update the panel, panel will update the filter
 	mInventoryView->mActivePanel->setShowFolderState(getCheckShowEmpty() ?
@@ -1012,57 +1013,57 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 
 	if (view->getString("filter_type_animation") == item_type)
 	{
-		filter_type = 0x1 << LLInventoryType::IT_ANIMATION;
+		filter_type = LLInventoryType::NIT_ANIMATION;
 	}
 
 	else if (view->getString("filter_type_callingcard") == item_type)
 	{
-		filter_type = 0x1 << LLInventoryType::IT_CALLINGCARD;
+		filter_type = LLInventoryType::NIT_CALLCARD;
 	}
 
 	else if (view->getString("filter_type_wearable") == item_type)
 	{
-		filter_type = 0x1 << LLInventoryType::IT_WEARABLE;
+		filter_type = LLInventoryType::NIT_WEARABLE;
 	}
 
 	else if (view->getString("filter_type_gesture") == item_type)
 	{
-		filter_type = 0x1 << LLInventoryType::IT_GESTURE;
+		filter_type = LLInventoryType::NIT_GESTURE;
 	}
 
 	else if (view->getString("filter_type_landmark") == item_type)
 	{
-		filter_type = 0x1 << LLInventoryType::IT_LANDMARK;
+		filter_type = LLInventoryType::NIT_LANDMARK;
 	}
 
 	else if (view->getString("filter_type_notecard") == item_type)
 	{
-		filter_type = 0x1 << LLInventoryType::IT_NOTECARD;
+		filter_type = LLInventoryType::NIT_NOTECARD;
 	}
 
 	else if (view->getString("filter_type_object") == item_type)
 	{
-		filter_type = 0x1 << LLInventoryType::IT_OBJECT;
+		filter_type = LLInventoryType::NIT_OBJECT;
 	}
 
 	else if (view->getString("filter_type_script") == item_type)
 	{
-		filter_type = 0x1 << LLInventoryType::IT_LSL;
+		filter_type = LLInventoryType::NIT_SCRIPT_LSL2;
 	}
 
 	else if (view->getString("filter_type_sound") == item_type)
 	{
-		filter_type = 0x1 << LLInventoryType::IT_SOUND;
+		filter_type = LLInventoryType::NIT_SOUND;
 	}
 
 	else if (view->getString("filter_type_texture") == item_type)
 	{
-		filter_type = 0x1 << LLInventoryType::IT_TEXTURE;
+		filter_type = LLInventoryType::NIT_TEXTURE;
 	}
 
 	else if (view->getString("filter_type_snapshot") == item_type)
 	{
-		filter_type = 0x1 << LLInventoryType::IT_SNAPSHOT;
+		filter_type = LLInventoryType::NIT_SNAPSHOT;
 	}
 
 	else if (view->getString("filter_type_custom") == item_type)
@@ -1121,25 +1122,7 @@ void LLInventoryView::refreshQuickFilter(LLUICtrl* ctrl)
 
 
 	U32 filter_type = view->mActivePanel->getFilterTypes();
-
-
-  // Mask to extract only the bit fields we care about.
-  // *TODO: There's probably a cleaner way to construct this mask.
-  U32 filter_mask = 0;
-  filter_mask |= (0x1 << LLInventoryType::IT_ANIMATION);
-  filter_mask |= (0x1 << LLInventoryType::IT_CALLINGCARD);
-  filter_mask |= (0x1 << LLInventoryType::IT_WEARABLE);
-  filter_mask |= (0x1 << LLInventoryType::IT_GESTURE);
-  filter_mask |= (0x1 << LLInventoryType::IT_LANDMARK);
-  filter_mask |= (0x1 << LLInventoryType::IT_NOTECARD);
-  filter_mask |= (0x1 << LLInventoryType::IT_OBJECT);
-  filter_mask |= (0x1 << LLInventoryType::IT_LSL);
-  filter_mask |= (0x1 << LLInventoryType::IT_SOUND);
-  filter_mask |= (0x1 << LLInventoryType::IT_TEXTURE);
-  filter_mask |= (0x1 << LLInventoryType::IT_SNAPSHOT);
-
-
-  filter_type &= filter_mask;
+  filter_type &= LLInventoryType::NIT_ALL;
 
 
   //llinfos << "filter_type: " << filter_type << llendl;
@@ -1147,62 +1130,67 @@ void LLInventoryView::refreshQuickFilter(LLUICtrl* ctrl)
 	std::string selection;
 
 
-	if (filter_type == filter_mask)
+	if (filter_type == LLInventoryType::NIT_ALL)
 	{
 		selection = view->getString("filter_type_all");
 	}
 
-	else if (filter_type == (0x1 << LLInventoryType::IT_ANIMATION))
+  else if (filter_type == LLInventoryType::NIT_NONE)
+  {
+		selection = view->getString("filter_type_custom");
+  }
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_ANIMATION))
 	{
 		selection = view->getString("filter_type_animation");
 	}
 
-	else if (filter_type == (0x1 << LLInventoryType::IT_CALLINGCARD))
+	else if (filter_type == (filter_type & LLInventoryType::NIT_CALLCARD))
 	{
 		selection = view->getString("filter_type_callingcard");
 	}
 
-	else if (filter_type == (0x1 << LLInventoryType::IT_WEARABLE))
+	else if (filter_type == (filter_type & LLInventoryType::NIT_WEARABLE))
 	{
 		selection = view->getString("filter_type_wearable");
 	}
 
-	else if (filter_type == (0x1 << LLInventoryType::IT_GESTURE))
+	else if (filter_type == (filter_type & LLInventoryType::NIT_GESTURE))
 	{
 		selection = view->getString("filter_type_gesture");
 	}
 
-	else if (filter_type == (0x1 << LLInventoryType::IT_LANDMARK))
+	else if (filter_type == (filter_type & LLInventoryType::NIT_LANDMARK))
 	{
 		selection = view->getString("filter_type_landmark");
 	}
 
-	else if (filter_type == (0x1 << LLInventoryType::IT_NOTECARD))
+	else if (filter_type == (filter_type & LLInventoryType::NIT_NOTECARD))
 	{
 		selection = view->getString("filter_type_notecard");
 	}
 
-	else if (filter_type == (0x1 << LLInventoryType::IT_OBJECT))
+	else if (filter_type == (filter_type & LLInventoryType::NIT_OBJECT))
 	{
 		selection = view->getString("filter_type_object");
 	}
 
-	else if (filter_type == (0x1 << LLInventoryType::IT_LSL))
+	else if (filter_type == (filter_type & LLInventoryType::NIT_SCRIPT_LSL2))
 	{
 		selection = view->getString("filter_type_script");
 	}
 
-	else if (filter_type == (0x1 << LLInventoryType::IT_SOUND))
+	else if (filter_type == (filter_type & LLInventoryType::NIT_SOUND))
 	{
 		selection = view->getString("filter_type_sound");
 	}
 
-	else if (filter_type == (0x1 << LLInventoryType::IT_TEXTURE))
+	else if (filter_type == (filter_type & LLInventoryType::NIT_TEXTURE))
 	{
 		selection = view->getString("filter_type_texture");
 	}
 
-	else if (filter_type == (0x1 << LLInventoryType::IT_SNAPSHOT))
+	else if (filter_type == (filter_type & LLInventoryType::NIT_SNAPSHOT))
 	{
 		selection = view->getString("filter_type_snapshot");
 	}
