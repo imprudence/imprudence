@@ -14,8 +14,9 @@
 	<!-- Inventory Type Filter Labels -->
 	<string name="filter_type_all">All Types</string>
 	<string name="filter_type_animation">Animations</string>
+	<string name="filter_type_bodypart">Body Parts</string>
 	<string name="filter_type_callingcard">Calling Cards</string>
-	<string name="filter_type_wearable">Clothing / Body Parts</string>
+	<string name="filter_type_clothing">Clothing</string>
 	<string name="filter_type_gesture">Gestures</string>
 	<string name="filter_type_landmark">Landmarks</string>
 	<string name="filter_type_notecard">Notecards</string>
@@ -32,8 +33,9 @@
 		<combo_item name="filter_type_all">All Types</combo_item>
 		<separator />
 		<combo_item name="filter_type_animation">Animations</combo_item>
+		<combo_item name="filter_type_bodypart">Body Parts</combo_item>
 		<combo_item name="filter_type_callingcard">Calling Cards</combo_item>
-		<combo_item name="filter_type_wearable">Clothing / Body Parts</combo_item>
+		<combo_item name="filter_type_clothing">Clothing</combo_item>
 		<combo_item name="filter_type_gesture">Gestures</combo_item>
 		<combo_item name="filter_type_landmark">Landmarks</combo_item>
 		<combo_item name="filter_type_notecard">Notecards</combo_item>
