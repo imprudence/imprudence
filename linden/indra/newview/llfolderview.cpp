@@ -4522,7 +4522,7 @@ BOOL LLInventoryFilter::check(LLFolderViewItem* item)
 	}
 	LLFolderViewEventListener* listener = item->getListener();
 	mSubStringMatchOffset = mFilterSubString.size() ? item->getSearchableLabel().find(mFilterSubString) : std::string::npos;
-	BOOL passed = (0x1 << listener->getInventoryType() & mFilterOps.mFilterTypes || listener->getInventoryType() == LLInventoryType::IT_NONE)
+	BOOL passed = (listener->getNInventoryType() & mFilterOps.mFilterTypes || listener->getNInventoryType() == LLInventoryType::NIT_NONE)
 					&& (mFilterSubString.size() == 0 || mSubStringMatchOffset != std::string::npos)
 					&& ((listener->getPermissionMask() & mFilterOps.mPermissions) == mFilterOps.mPermissions)
 					&& (listener->getCreationDate() >= earliest && listener->getCreationDate() <= mFilterOps.mMaxDate);

@@ -1,5 +1,9 @@
 2008-12-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llfolderview.cpp:
+	Inventory filtering is now done by NType.
+
+
 	* linden/indra/newview/llinventorybridge.cpp:
 	LLInvFVBridge and derived classes have NTypes.
 	* linden/indra/newview/llinventorybridge.h:
