@@ -110,9 +110,9 @@ LLFloaterAbout::LLFloaterAbout()
 
 	// Version string
 	std::string version = llformat(
-	  "%s %d.%d.%d / %s %d.%d.%d (%d), %s %s\n",
+	  "%s %d.%d.%d %s / %s %d.%d.%d (%d), %s %s\n",
 		IMP_VIEWER_NAME,
-	  IMP_VERSION_MAJOR, IMP_VERSION_MINOR, IMP_VERSION_PATCH,
+	  IMP_VERSION_MAJOR, IMP_VERSION_MINOR, IMP_VERSION_PATCH, IMP_VERSION_TEST,
 		LL_VIEWER_NAME,
 	  LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD,
 	  __DATE__, __TIME__);
@@ -266,8 +266,13 @@ static std::string get_viewer_release_notes_url()
 		<< IMP_VERSION_MINOR << "."
 		<< IMP_VERSION_PATCH;
 
+	std::ostringstream test_version;
+
+	if(IMP_VERSION_TEST != "")
+		test_version << "#" << "Imprudence_" << version.str() << "_" << IMP_VERSION_TEST;
+
 	std::ostringstream url;
-	url << RELEASE_NOTES_BASE_URL << version.str();
+	url << RELEASE_NOTES_BASE_URL << version.str() << test_version.str();
 
 	return url.str();
 }

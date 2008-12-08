@@ -360,10 +360,11 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	// childSetAction("quit_btn", onClickQuit, this);
 
 	std::string imp_channel = gSavedSettings.getString("VersionChannelName");
-	std::string imp_version = llformat("%d.%d.%d",
+	std::string imp_version = llformat("%d.%d.%d %s",
 		IMP_VERSION_MAJOR,
 		IMP_VERSION_MINOR,
-		IMP_VERSION_PATCH );
+		IMP_VERSION_PATCH,
+		IMP_VERSION_TEST );
 
 	std::string ll_channel = LL_VIEWER_NAME;
 	std::string ll_version = llformat("%d.%d.%d (%d)",
