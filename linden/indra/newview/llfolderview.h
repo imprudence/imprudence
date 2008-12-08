@@ -103,6 +103,7 @@ public:
 	virtual BOOL isUpToDate() const = 0;
 	virtual BOOL hasChildren() const = 0;
 	virtual LLInventoryType::EType getInventoryType() const = 0;
+	virtual LLInventoryType::NType getNInventoryType() const = 0;
 	virtual void performAction(LLFolderView* folder, LLInventoryModel* model, std::string action) {}
 
 	// This method should be called when a drag begins. returns TRUE

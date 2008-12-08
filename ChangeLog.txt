@@ -1,5 +1,10 @@
 2008-12-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llfolderview.h:
+	Added LLFolderViewEventListener::getNInventoryType()
+	Pure virtual method, overridden in derived classes.
+
+
 	* linden/indra/newview/llinventoryview.cpp:
 	LLInventoryView uses new inventory type.
 
