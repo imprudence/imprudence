@@ -1,6 +1,10 @@
 2008-12-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llinventory/llinventory.cpp:
+	Recalculate ntype when changing type or flags.
+
+
+	* linden/indra/llinventory/llinventory.cpp:
 	Added LLInventoryItem::recalcNInventoryType().
 	* linden/indra/llinventory/llinventory.h:
 	Ditto.

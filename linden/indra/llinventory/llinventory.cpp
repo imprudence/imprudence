@@ -403,6 +403,7 @@ LLInventoryItem::LLInventoryItem(
 {
 	LLStringUtil::replaceNonstandardASCII(mDescription, ' ');
 	LLStringUtil::replaceChar(mDescription, '|', ' ');
+	recalcNInventoryType();
 }
 
 LLInventoryItem::LLInventoryItem() :
@@ -531,9 +532,16 @@ void LLInventoryItem::setPermissions(const LLPermissions& perm)
 	mPermissions = perm;
 }
 
+void LLInventoryItem::setType(LLAssetType::EType type)
+{
+	mType = type;
+	recalcNInventoryType();
+}
+
 void LLInventoryItem::setInventoryType(LLInventoryType::EType inv_type)
 {
 	mInventoryType = inv_type;
+	recalcNInventoryType();
 }
 
 void LLInventoryItem::setNInventoryType(LLInventoryType::NType inv_type)
@@ -544,6 +552,7 @@ void LLInventoryItem::setNInventoryType(LLInventoryType::NType inv_type)
 void LLInventoryItem::setFlags(U32 flags)
 {
 	mFlags = flags;
+	recalcNInventoryType();
 }
 
 void LLInventoryItem::setCreationDate(time_t creation_date_utc)

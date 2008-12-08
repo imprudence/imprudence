@@ -253,6 +253,7 @@ public:
 	void setDescription(const std::string& new_desc);
 	void setSaleInfo(const LLSaleInfo& sale_info);
 	void setPermissions(const LLPermissions& perm);
+	void setType(LLAssetType::EType type);
 	void setInventoryType(LLInventoryType::EType inv_type);
 	void setNInventoryType(LLInventoryType::NType inv_type);
 	void setFlags(U32 flags);
