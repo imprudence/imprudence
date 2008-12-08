@@ -192,7 +192,15 @@ public:
 	virtual BOOL dragOrDrop(MASK mask, BOOL drop,
 							EDragAndDropType cargo_type,
 							void* cargo_data) { return FALSE; }
-	virtual LLInventoryType::EType getInventoryType() const { return mInvType; }
+
+	virtual LLInventoryType::EType getInventoryType() const
+	{
+		return mInvType;
+	}
+	virtual LLInventoryType::NType getNInventoryType() const
+	{
+		return mNInvType;
+	}
 
 	// LLInvFVBridge functionality
 	virtual void clearDisplayName() {}
@@ -221,6 +229,7 @@ protected:
 	LLInventoryPanel* mInventoryPanel;
 	LLUUID mUUID;	// item id
 	LLInventoryType::EType mInvType;
+	LLInventoryType::NType mNInvType;
 };
 
 
