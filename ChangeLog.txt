@@ -1,5 +1,9 @@
 2008-12-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llinventoryview.cpp:
+	Hooked up Body Parts quickfilter and checkbox.
+
+
 	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml:
 	Added Quick Filter item for Body Parts.
 

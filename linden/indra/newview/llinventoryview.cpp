@@ -182,10 +182,11 @@ void LLInventoryViewFinder::updateElementsFromFilter()
 
 	// update the ui elements
 	LLFloater::setTitle(mFilter->getName());
-	childSetValue("check_animation", (S32) (filter_types & LLInventoryType::NIT_ANIMATION));
 
+	childSetValue("check_animation", (S32) (filter_types & LLInventoryType::NIT_ANIMATION));
+	childSetValue("check_bodypart", (S32) (filter_types & LLInventoryType::NIT_BODYPART));
 	childSetValue("check_calling_card", (S32) (filter_types & LLInventoryType::NIT_CALLCARD));
-	childSetValue("check_clothing", (S32) (filter_types & LLInventoryType::NIT_WEARABLE));
+	childSetValue("check_clothing", (S32) (filter_types & LLInventoryType::NIT_CLOTHING));
 	childSetValue("check_gesture", (S32) (filter_types & LLInventoryType::NIT_GESTURE));
 	childSetValue("check_landmark", (S32) (filter_types & LLInventoryType::NIT_LANDMARK));
 	childSetValue("check_notecard", (S32) (filter_types & LLInventoryType::NIT_NOTECARD));
@@ -211,6 +212,11 @@ void LLInventoryViewFinder::draw()
 		filtered_by_all_types = FALSE;
 	}
 
+	if (!childGetValue("check_bodypart"))
+	{
+		filter &= ~(LLInventoryType::NIT_BODYPART);
+		filtered_by_all_types = FALSE;
+	}
 
 	if (!childGetValue("check_calling_card"))
 	{
@@ -220,7 +226,7 @@ void LLInventoryViewFinder::draw()
 
 	if (!childGetValue("check_clothing"))
 	{
-		filter &= ~(LLInventoryType::NIT_WEARABLE);
+		filter &= ~(LLInventoryType::NIT_CLOTHING);
 		filtered_by_all_types = FALSE;
 	}
 
@@ -346,6 +352,7 @@ void LLInventoryViewFinder::selectAllTypes(void* user_data)
 	if(!self) return;
 
 	self->childSetValue("check_animation", TRUE);
+	self->childSetValue("check_bodypart", TRUE);
 	self->childSetValue("check_calling_card", TRUE);
 	self->childSetValue("check_clothing", TRUE);
 	self->childSetValue("check_gesture", TRUE);
@@ -391,6 +398,7 @@ void LLInventoryViewFinder::selectNoTypes(void* user_data)
 
 
 	self->childSetValue("check_animation", FALSE);
+	self->childSetValue("check_bodypart", FALSE);
 	self->childSetValue("check_calling_card", FALSE);
 	self->childSetValue("check_clothing", FALSE);
 	self->childSetValue("check_gesture", FALSE);
@@ -1016,14 +1024,19 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 		filter_type = LLInventoryType::NIT_ANIMATION;
 	}
 
+	else if (view->getString("filter_type_bodypart") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_BODYPART;
+	}
+
 	else if (view->getString("filter_type_callingcard") == item_type)
 	{
 		filter_type = LLInventoryType::NIT_CALLCARD;
 	}
 
-	else if (view->getString("filter_type_wearable") == item_type)
+	else if (view->getString("filter_type_clothing") == item_type)
 	{
-		filter_type = LLInventoryType::NIT_WEARABLE;
+		filter_type = LLInventoryType::NIT_CLOTHING;
 	}
 
 	else if (view->getString("filter_type_gesture") == item_type)
@@ -1145,14 +1158,19 @@ void LLInventoryView::refreshQuickFilter(LLUICtrl* ctrl)
 		selection = view->getString("filter_type_animation");
 	}
 
+	else if (filter_type == (filter_type & LLInventoryType::NIT_BODYPART))
+	{
+		selection = view->getString("filter_type_bodypart");
+	}
+
 	else if (filter_type == (filter_type & LLInventoryType::NIT_CALLCARD))
 	{
 		selection = view->getString("filter_type_callingcard");
 	}
 
-	else if (filter_type == (filter_type & LLInventoryType::NIT_WEARABLE))
+	else if (filter_type == (filter_type & LLInventoryType::NIT_CLOTHING))
 	{
-		selection = view->getString("filter_type_wearable");
+		selection = view->getString("filter_type_clothing");
 	}
 
 	else if (filter_type == (filter_type & LLInventoryType::NIT_GESTURE))
