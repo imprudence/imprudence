@@ -1,3 +1,13 @@
+2008-12-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llinventory/llwearabletype.h:
+	Moved enum EWearableType to its own file.
+	Was in newview/llwearable.h, now in llinventory/llwearabletype.h.
+	This allows it to be used in llinventory code.
+	* linden/indra/newview/llwearable.h: 
+	Ditto.
+
+
 2008-12-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llinventory/llinventory.cpp:

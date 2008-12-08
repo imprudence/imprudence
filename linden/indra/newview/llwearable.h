@@ -37,27 +37,9 @@
 #include "llpermissions.h"
 #include "llsaleinfo.h"
 #include "llassetstorage.h"
+#include "llwearabletype.h"
 
 class LLViewerInventoryItem;
-
-enum	EWearableType  // If you change this, update LLWearable::getTypeName(), getTypeLabel(), and LLVOAvatar::getTEWearableType()
-{
-	WT_SHAPE	= 0,
-	WT_SKIN		= 1,
-	WT_HAIR		= 2,
-	WT_EYES		= 3,
-	WT_SHIRT	= 4,
-	WT_PANTS	= 5,
-	WT_SHOES	= 6,
-	WT_SOCKS	= 7,
-	WT_JACKET	= 8,
-	WT_GLOVES	= 9,
-	WT_UNDERSHIRT = 10,
-	WT_UNDERPANTS = 11,
-	WT_SKIRT	= 12,
-	WT_COUNT	= 13,
-	WT_INVALID	= 255
-};
 
 class LLWearable
 {
