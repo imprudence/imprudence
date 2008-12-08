@@ -1,5 +1,12 @@
 2008-12-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llinventory/llinventory.cpp:
+	Added LLInventoryItem::mNInventoryType (new type) field.
+	Will always by NIT_NONE so far.
+	* linden/indra/llinventory/llinventory.h:
+	Ditto.
+
+
 	* linden/indra/llinventory/llinventorytype.h:
 	New bitfield enumerator for inventory types.
 

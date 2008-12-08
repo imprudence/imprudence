@@ -287,6 +287,7 @@ LLInventoryItem::LLInventoryItem(
 	mDescription(desc),
 	mSaleInfo(sale_info),
 	mInventoryType(inv_type),
+	mNInventoryType(LLInventoryType::NIT_NONE),
 	mFlags(flags),
 	mCreationDate(creation_date_utc)
 {
@@ -301,6 +302,7 @@ LLInventoryItem::LLInventoryItem() :
 	mDescription(),
 	mSaleInfo(),
 	mInventoryType(LLInventoryType::IT_NONE),
+	mNInventoryType(LLInventoryType::NIT_NONE),
 	mFlags(0),
 	mCreationDate(0)
 {
@@ -325,6 +327,7 @@ void LLInventoryItem::copyItem(const LLInventoryItem* other)
 	mDescription = other->mDescription;
 	mSaleInfo = other->mSaleInfo;
 	mInventoryType = other->mInventoryType;
+	mNInventoryType = other->mNInventoryType;
 	mFlags = other->mFlags;
 	mCreationDate = other->mCreationDate;
 }
@@ -417,6 +420,11 @@ void LLInventoryItem::setInventoryType(LLInventoryType::EType inv_type)
 	mInventoryType = inv_type;
 }
 
+void LLInventoryItem::setNInventoryType(LLInventoryType::NType inv_type)
+{
+	mNInventoryType = inv_type;
+}
+
 void LLInventoryItem::setFlags(U32 flags)
 {
 	mFlags = flags;
@@ -441,6 +449,11 @@ void LLInventoryItem::setSaleInfo(const LLSaleInfo& sale_info)
 LLInventoryType::EType LLInventoryItem::getInventoryType() const
 {
 	return mInventoryType;
+}
+
+LLInventoryType::NType LLInventoryItem::getNInventoryType() const
+{
+	return mNInventoryType;
 }
 
 U32 LLInventoryItem::getFlags() const
