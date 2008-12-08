@@ -70,6 +70,116 @@ const U8 TASK_INVENTORY_ASSET_KEY = 1;
 const LLUUID MAGIC_ID("3c115e51-04f4-523c-9fa6-98aff1034730");	
 	
 
+/**
+ * @brief Return the equivalent new inventory type.
+ *
+ * Takes an inventory type, asset type, and inventory flags,
+ * and returns the equivalent LLInventory::NType.
+ * 
+ * For example, an inventory type of IT_WEARABLE, asset type
+ * of AT_BODYPART, and flags indicated WT_SHAPE, would be
+ * converted to NIT_SHAPE.
+ *
+ * Returns the most specific type that can be determined,
+ * or NIT_NONE if no type could be determined.
+ *
+ */
+LLInventoryType::NType calc_ntype(
+	LLInventoryType::EType inv_type,
+	LLAssetType::EType asset_type,
+	U32 flags )
+{
+	switch( inv_type )
+	{
+
+		// WEARABLES
+		case LLInventoryType::IT_WEARABLE:
+		{
+			switch( asset_type )
+			{
+				// BODY PARTS
+				case LLAssetType::AT_BODYPART:
+					{
+						switch( flags & LLInventoryItem::II_FLAGS_WEARABLES_MASK )
+						{
+							case WT_SHAPE:       return LLInventoryType::NIT_SHAPE;
+							case WT_SKIN:        return LLInventoryType::NIT_SKIN;
+							case WT_HAIR:        return LLInventoryType::NIT_HAIR;
+							case WT_EYES:        return LLInventoryType::NIT_EYES;
+							default:             return LLInventoryType::NIT_BODYPART;
+						}
+					}
+
+					// CLOTHING
+				case LLAssetType::AT_CLOTHING:
+					{
+						switch( flags & LLInventoryItem::II_FLAGS_WEARABLES_MASK )
+						{
+							case WT_SHIRT:       return LLInventoryType::NIT_SHIRT;
+							case WT_PANTS:       return LLInventoryType::NIT_PANTS;
+							case WT_SHOES:       return LLInventoryType::NIT_SHOES;
+							case WT_SOCKS:       return LLInventoryType::NIT_SOCKS;
+							case WT_JACKET:      return LLInventoryType::NIT_JACKET;
+							case WT_GLOVES:      return LLInventoryType::NIT_GLOVES;
+							case WT_UNDERSHIRT:  return LLInventoryType::NIT_UNDERSHIRT;
+							case WT_UNDERPANTS:  return LLInventoryType::NIT_UNDERPANTS;
+							case WT_SKIRT:       return LLInventoryType::NIT_SKIRT;
+							default:             return LLInventoryType::NIT_CLOTHING;
+						}
+					}
+				default:
+					return LLInventoryType::NIT_WEARABLE;
+			}
+		}
+
+			// TEXTURES
+		case LLInventoryType::IT_TEXTURE:
+			return LLInventoryType::NIT_TEXTURE;
+
+			// SNAPSHOTS
+		case LLInventoryType::IT_SNAPSHOT:
+			return LLInventoryType::NIT_SNAPSHOT;
+
+			// CALLING CARDS
+		case LLInventoryType::IT_CALLINGCARD:
+			return LLInventoryType::NIT_CALLCARD;
+
+			// LANDMARKS
+		case LLInventoryType::IT_LANDMARK:
+			return LLInventoryType::NIT_LANDMARK;
+
+			// SOUNDS
+		case LLInventoryType::IT_SOUND:
+			return LLInventoryType::NIT_SOUND;
+
+			// ANIMATIONS
+		case LLInventoryType::IT_ANIMATION:
+			return LLInventoryType::NIT_ANIMATION;
+
+			// GESTURES
+		case LLInventoryType::IT_GESTURE:
+			return LLInventoryType::NIT_GESTURE;
+
+			// NOTECARDS
+		case LLInventoryType::IT_NOTECARD:
+			return LLInventoryType::NIT_NOTECARD;
+
+			// SCRIPTS
+		case LLInventoryType::IT_LSL:
+			return LLInventoryType::NIT_SCRIPT_LSL2;
+
+			// OBJECTS
+		case LLInventoryType::IT_OBJECT:
+		case LLInventoryType::IT_ATTACHMENT:
+			return LLInventoryType::NIT_OBJECT;
+
+			// UNKNOWN TYPE!
+		default:
+			return LLInventoryType::NIT_NONE;
+	}
+}
+
+
 ///----------------------------------------------------------------------------
 /// Class LLInventoryObject
 ///----------------------------------------------------------------------------

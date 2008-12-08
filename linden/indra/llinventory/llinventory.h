@@ -42,6 +42,7 @@
 #include "llsaleinfo.h"
 #include "llsd.h"
 #include "lluuid.h"
+#include "llwearabletype.h"
 #include "llxmlnode.h"
 
 // consts for Key field in the task inventory update message
@@ -55,6 +56,10 @@ enum
 	MAX_INVENTORY_BUFFER_SIZE = 1024
 };
 
+
+LLInventoryType::NType calc_ntype( LLInventoryType::EType inv_type,
+                                   LLAssetType::EType asset_type,
+                                   U32 flags );
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

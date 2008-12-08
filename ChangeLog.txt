@@ -1,5 +1,11 @@
 2008-12-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llinventory/llinventory.cpp:
+	Added calc_ntype() function.
+	* linden/indra/llinventory/llinventory.h:
+	Ditto.
+	
+
 	* linden/indra/llinventory/llwearabletype.h:
 	Moved enum EWearableType to its own file.
 	Was in newview/llwearable.h, now in llinventory/llwearabletype.h.
