@@ -1,5 +1,9 @@
 2008-12-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory_view_finder.xml:
+	Converted Show Filters window to relative positioning.
+
+
 	* linden/indra/newview/llfolderview.cpp:
 	Inventory filtering is now done by NType.
 

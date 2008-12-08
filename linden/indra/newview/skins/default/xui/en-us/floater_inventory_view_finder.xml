@@ -9,101 +9,101 @@
 	<icon name="icon_animation" image_name="inv_item_animation.tga" 
 	     bottom="-36" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Animation" name="check_animation"
-	     bottom="-36" left="26" height="16" width="126" follows="left|top"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<icon name="icon_calling_card" image_name="inv_item_callingcard_online.tga"
-	     bottom="-56" left="8" height="16" width="16" follows="left|top" />
+	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Calling Cards" name="check_calling_card"
-	     bottom="-56" left="26" height="16" width="126" follows="left|top"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<icon name="icon_clothing" image_name="inv_item_shirt.tga"
-	     bottom="-76" left="8" height="16" width="16" follows="left|top" />
+	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Clothing / Body Parts" name="check_clothing"
-	     bottom="-76" left="26" height="16" width="126" follows="left|top"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<icon name="icon_gesture" image_name="inv_item_gesture.tga"
-	     bottom="-96" left="8" height="16" width="16" follows="left|top" />
+	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Gestures" name="check_gesture"
-	     bottom="-96" left="26" height="16" width="126" follows="left|top"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<icon name="icon_landmark" image_name="inv_item_landmark_visited.tga"
-	     bottom="-116" left="8" height="16" width="16" follows="left|top" />
+	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Landmarks" name="check_landmark"
-	     bottom="-116" left="26" height="16" width="126" follows="left|top"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<icon name="icon_notecard" image_name="inv_item_notecard.tga"
-	     bottom="-136" left="8" height="16" width="16" follows="left|top" />
+	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Notecards" name="check_notecard"
-	     bottom="-136" left="26" height="16" width="126" follows="left|top"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<icon name="icon_object" image_name="inv_item_object.tga"
-	     bottom="-156" left="8" height="16" width="16" follows="left|top" />
+	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Objects" name="check_object"
-	     bottom="-156" left="26" height="16" width="126" follows="left|top"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<icon name="icon_script" image_name="inv_item_script.tga"
-	     bottom="-176" left="8" height="16" width="16" follows="left|top" />
+	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Scripts" name="check_script"
-	     bottom="-176" left="26" height="16" width="126" follows="left|top"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<icon name="icon_sound" image_name="inv_item_sound.tga"
-	     bottom="-196" left="8" height="16" width="16" follows="left|top" />
+	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Sounds" name="check_sound"
-	     bottom="-196" left="26" height="16" width="126" follows="left|top"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<icon name="icon_texture" image_name="inv_item_texture.tga"
-	     bottom="-216" left="8" height="16" width="16" follows="left|top" />
+	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Textures" name="check_texture"
-	     bottom="-216" left="26" height="16" width="126" follows="left|top"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<icon name="icon_snapshot" image_name="inv_item_snapshot.tga"
-	     bottom="-236" left="8" height="16" width="16" follows="left|top" />
+	     bottom_delta="-20" left="8" height="16" width="16" follows="left|top" />
 	<check_box label="Snapshots" name="check_snapshot"
-	     bottom="-236" left="26" height="16" width="126" follows="left|top"
+	     bottom_delta="0" left="26" height="16" width="126" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<button label="All" label_selected="All" name="All"
-	     bottom="-260" left="8" height="20" width="100" follows="left|top"
+	     bottom_delta="-24" left="8" height="20" width="100" follows="left|top"
 	     font="SansSerif" halign="center" scale_image="true" />
 
 	<button label="None" label_selected="None" name="None"
-	     bottom="-284" left="8" height="20" width="100" follows="left|top"
+	     bottom_delta="-24" left="8" height="20" width="100" follows="left|top"
 	     font="SansSerif" halign="center" scale_image="true" />
 
 
 	<check_box label="Always show folders" name="check_show_empty"
-	     bottom="-304" left="8" height="16" width="144" follows="left|top"
+	     bottom_delta="-20" left="8" height="16" width="144" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<check_box label="Since Logoff" name="check_since_logoff" 
-	     bottom="-324" left="8" height="16" width="144" follows="left|top"
+	     bottom_delta="-20" left="8" height="16" width="144" follows="left|top"
 	     font="SansSerifSmall" initial_value="false" />
 
 
 	<text name="- OR -" type="string" length="1"
-	     bottom="-336" left="8" height="12" width="144" follows="left|top"
+	     bottom_delta="-12" left="8" height="12" width="144" follows="left|top"
 	     halign="center" h_pad="0" v_pad="0"
 	     bg_visible="false" border_drop_shadow_visible="false"
 	     border_visible="false" drop_shadow_visible="true"
@@ -113,10 +113,10 @@
 
 
 	<spinner label="Hours Ago" label_width="64" name="spin_hours_ago"
-	     bottom="-356" left="8" height="16" width="144" follows="left|top"
+	     bottom_delta="-20" left="8" height="16" width="144" follows="left|top"
 	     increment="1" initial_val="0" max_val="240000" min_val="0" />
 	<spinner label="Days Ago" label_width="64" name="spin_days_ago"
-	     bottom="-376" left="8" width="144" height="16" follows="left|top"
+	     bottom_delta="-20" left="8" width="144" height="16" follows="left|top"
 	     increment="1" initial_val="0" max_val="10000" min_val="0" />
 
 
