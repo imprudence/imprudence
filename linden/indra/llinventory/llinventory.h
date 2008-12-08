@@ -285,6 +285,9 @@ public:
 	LLSD asLLSD() const;
 	bool fromLLSD(LLSD& sd);
 
+private:
+  void recalcNInventoryType();
+
 };
 
 BOOL item_dictionary_sort(LLInventoryItem* a,LLInventoryItem* b);

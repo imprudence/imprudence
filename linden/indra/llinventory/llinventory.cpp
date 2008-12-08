@@ -509,6 +509,12 @@ U32 LLInventoryItem::getCRC32() const
 }
 
 
+void LLInventoryItem::recalcNInventoryType()
+{
+	setNInventoryType( calc_ntype(mInventoryType, mType, mFlags) );
+}
+
+
 void LLInventoryItem::setDescription(const std::string& d)
 {
 	std::string new_desc(d);
