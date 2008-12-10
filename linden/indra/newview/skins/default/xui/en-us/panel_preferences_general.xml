@@ -176,6 +176,9 @@
 		<combo_item type="string" length="1" enabled="true" name="(Korean)" value="ko">
 			한국어 (Korean) - Beta
 		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="Danish" value="da">
+			Dansk (Danish) - Beta
+		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="Portugese" value="pt">
 			Portugués (Portuguese) - Beta
 		</combo_item>

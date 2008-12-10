@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Général" name="general_panel">
-	<combo_box name="location_combobox" width="166">
-		<combo_item name="MyHome">
+	<radio_group name="default_start_location" width="166">
+		<radio_item name="MyHome" tool_tip="Par défaut, choisir mon domicile comme lieu de départ.">
 			Domicile
-		</combo_item>
-		<combo_item name="MyLastLocation">
+		</radio_item>
+		<radio_item name="MyLastLocation" tool_tip="Par défaut, choisir mon dernier emplacement comme lieu de départ.">
 			Dernier emplacement
-		</combo_item>
-	</combo_box>
+		</radio_item>
+	</radio_group>
 	<check_box label="Afficher le lieu de départ sur l&apos;écran de connexion" name="show_location_checkbox"/>
 	<combo_box name="fade_out_combobox" width="166">
 		<combo_item name="Never">
@@ -20,21 +20,22 @@
 			Toujours
 		</combo_item>
 	</combo_box>
+	<check_box label="Nom des avatars en petit" name="small_avatar_names_checkbox"/>
 	<check_box label="Masquer mon nom sur mon écran" name="show_my_name_checkbox"/>
 	<text name="group_titles_textbox">
 		Titres de groupe :
 	</text>
 	<check_box label="Masquer tous les titres de groupe" name="show_all_title_checkbox"/>
 	<check_box label="Masquer mon titre de groupe" name="show_my_title_checkbox"/>
-	<check_box label="Nom de l&apos;avatar en petit" name="small_avatar_names_checkbox"/>
-	<check_box label="M&apos;avertir lorsque mes amis se connectent" name="friends_online_notify_checkbox"/>
+	<color_swatch label="" name="effect_color_swatch" tool_tip="Cliquer pour ouvrir le sélecteur de couleurs"/>
 	<text name="UI Size:">
 		Taille de l&apos;interface :
 	</text>
+	<slider name="ui_scale_slider"/>
 	<check_box label="Utiliser une échelle indépendante de la résolution" name="ui_auto_scale"/>
+	<spinner label="Absent(e) après :" name="afk_timeout_spinner"/>
 	<check_box label="Pivoter la mini-carte" name="rotate_mini_map_checkbox"/>
 	<check_box label="M&apos;avertir lorsque je dépense ou reçois des L$" name="notify_money_change_checkbox"/>
-	<check_box label="Détecter carte graphique au prochain démarrage" name="probe_hardware_checkbox" tool_tip="Second Life configure automatiquement certains réglages de la carte graphique d&apos;après votre configuration matérielle. Nous vous recommandons d&apos;effectuer la détection à chaque nouvelle installation de matériel."/>
 	<check_box label="Utiliser le sélecteur de couleur par défaut" name="use_system_color_picker_checkbox" tool_tip="Utiliser le sélecteur de couleur par défaut au lieu de celui intégré à Second Life."/>
 	<check_box label="Afficher la boîte de recherche en haut à droite de l&apos;écran" name="show_search_panel" tool_tip="Affiche la boîte de recherche incorporée."/>
 	<text length="1" name="start_location_textbox" type="string">
@@ -43,8 +44,8 @@
 	<text length="1" name="show_names_textbox" type="string">
 		Afficher les noms :
 	</text>
-	<text length="1" name="effects_color_textbox" type="string">
-		Couleur du faisceau de sélection :
+	<text length="1" name="effects_color_textbox" type="string" bottom="-174">
+		Couleur du faisceau &#10;de sélection :
 	</text>
 	<text length="1" name="seconds_textbox" type="string">
 		secondes
@@ -58,22 +59,9 @@
 	<text left_delta="313" length="1" name="language_textbox2" type="string">
 		(redémarrage requis)
 	</text>
-	<radio_group name="fade_out_radio">
-		<radio_item length="1" name="Never" type="string">
-			Jamais
-		</radio_item>
-		<radio_item length="1" name="Temporarily" type="string">
-			Temporairement
-		</radio_item>
-		<radio_item length="1" name="Always" type="string">
-			Toujours
-		</radio_item>
-	</radio_group>
-	<color_swatch label="" name="effect_color_swatch" tool_tip="Cliquer pour ouvrir le sélecteur de couleurs"/>
-	<spinner label="Absent(e) après :" name="afk_timeout_spinner"/>
-	<text name="region_name_prompt">
+	<string name="region_name_prompt">
 		&lt;Saisissez le nom de la région&gt;
-	</text>
+	</string>
 	<combo_box name="crash_behavior_combobox" width="166">
 		<combo_item length="1" name="Askbeforesending" type="string">
 			Demander avant d&apos;envoyer
@@ -90,7 +78,10 @@
 			Choix par défaut
 		</combo_item>
 		<combo_item length="1" name="English" type="string">
-			Anglais
+			English (Anglais)
+		</combo_item>
+		<combo_item length="1" name="Chinese" type="string">
+			汉语/漢語 (Chinois) - Bêta
 		</combo_item>
 		<combo_item length="1" name="Deutsch(German)" type="string">
 			Deutsch (Allemand) - Bêta
@@ -103,9 +94,6 @@
 		</combo_item>
 		<combo_item length="1" name="(Korean)" type="string">
 			한국어 (Coréen) - Bêta
-		</combo_item>
-		<combo_item length="1" name="Chinese" type="string">
-			汉语/漢語 (Chinois) - Bêta
 		</combo_item>
 		<combo_item name="Portugese">
 			Portugués (Portugais) - Bêta

@@ -3,7 +3,7 @@
 	<button label="Fermer" name="close_btn" />
 	<button label="Précédente" name="back_btn" />
 	<button label="Suivante" name="forward_btn" />
-	<button label="Recharger" name="reload_btn" />
+	<button label="Rafraîchir" name="reload_btn" />
 	<button label="Arrêter" name="stop_btn" />
 	<button label="Domicile" name="home_btn" />
 	<button label="Aller" name="go_btn" />

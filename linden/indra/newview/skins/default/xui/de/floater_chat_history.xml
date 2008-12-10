@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="chat floater" title="Lokaler Chat">
 	<string name="ringing">
 		Verbindung mit In-Welt-Voice-Chat...
@@ -41,6 +41,9 @@
 					</flyout_button_item>
 					<flyout_button_item name="say_item">
 						Reden
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Flüstern
 					</flyout_button_item>
 				</flyout_button>
 			</panel>

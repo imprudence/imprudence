@@ -6,10 +6,10 @@
 	<panel left="159" name="Volume Panel" width="249"/>
 	<check_box label="Couper le son" name="disable audio"/>
 	<text bottom="-195" name="streaming_prefs_text" width="145">
-		Préférences média :
+		Média :
 	</text>
 	<text name="audio_prefs_text">
-		Préférences audio :
+		Audio :
 	</text>
 	<panel label="Volume" name="Volume Panel"/>
 	<check_box label="Couper le son lorsque la fenêtre est minimisée" left="159" name="mute_when_minimized"/>

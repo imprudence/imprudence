@@ -4,10 +4,10 @@
 		Wird geladen...
 	</text>
 	<scroll_list name="objects_list">
-		<column label="Score" name="score" />
-		<column label="Name" name="name" />
-		<column label="Owner" name="owner" />
-		<column label="Location" name="location" />
+		<column label="Wertung" name="score" width="65" />
+		<column label="Name" name="name" width="135" />
+		<column label="Eigentümer" name="owner" />
+		<column label="Position" name="location" width="125" />
 		<column label="Uhrzeit" name="time" />
 	</scroll_list>
 	<line_editor bg_readonly_color="clear" bottom_delta="3" enabled="false"

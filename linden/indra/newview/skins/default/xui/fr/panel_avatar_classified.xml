@@ -11,10 +11,10 @@
 			- Type de public -
 		</combo_item>
 		<combo_item name="mature">
-			Contenu réservé aux adultes
+			Adulte
 		</combo_item>
 		<combo_item name="not_mature">
-			Contenu non réservé aux adultes
+			Tout public
 		</combo_item>
 	</check_box>
 	<text name="classified_info_text" tool_tip="Plus vous payez cher pour votre annonce, mieux elle est placée dans la liste.">

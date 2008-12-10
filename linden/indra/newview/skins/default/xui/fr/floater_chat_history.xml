@@ -42,6 +42,9 @@
 					<flyout_button_item name="say_item">
 						Dire
 					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Chuchoter
+					</flyout_button_item>
 				</flyout_button>
 			</panel>
 		</layout_panel>

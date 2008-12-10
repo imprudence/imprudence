@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="media_controls">
-	<icon name="music_icon" tool_tip="Jouer/pauser le flux musical"/>
-	<button name="music_play" tool_tip="Jouer/pauser le flux musical"/>
-	<button name="music_pause" tool_tip="Pauser le flux musical"/>
-	<button name="music_stop" tool_tip="Arrêter le flux musical"/>
-	<icon name="media_icon" tool_tip="Jouer/pauser le flux musical"/>
-	<button name="media_play" tool_tip="Jouer/pauser le flux musical"/>
-	<button name="media_pause" tool_tip="Pauser le flux de média"/>
-	<button name="media_stop" tool_tip="Arrêter le flux de média"/>
+	<icon name="music_icon" tool_tip="Jouez / pausez le flux musical"/>
+	<button name="music_play" tool_tip="Jouez / pausez le flux musical"/>
+	<button name="music_pause" tool_tip="Pausez le flux musical"/>
+	<button name="music_stop" tool_tip="Arrêtez le flux musical"/>
+	<icon name="media_icon" tool_tip="Jouer / pauser le flux musical"/>
+	<button name="media_play" tool_tip="Jouez / pausez le flux musical"/>
+	<button name="media_pause" tool_tip="Pausez le flux de média"/>
+	<button name="media_stop" tool_tip="Arrêtez le flux de média"/>
 	<volume_slider name="volume_slider" tool_tip="Volume principal"/>
 	<button name="mute_master" tool_tip="Coupez le volume principal"/>
 	<button name="expand" tool_tip="Ajustez les niveaux de volume individuels"/>
@@ -27,10 +27,10 @@
 		(URL cachée par le propriétaire de la parcelle)
 	</string>
 	<string name="media_icon_tooltip_web">
-		Il y a du contenu  web à cet endroit. Cliquez sur Jouer pour afficher le contenu web.
+		Cet endroit propose du contenu Web. Cliquez sur Jouer pour afficher le contenu web.
 	</string>
 	<string name="media_icon_tooltip_movie">
-		Il y a du contenu vidéo à cet endroit. Cliquez sur Jouer pour lire la vidéo.
+		Cet endroit propose du contenu vidéo. Cliquez sur Jouer pour lire la vidéo.
 	</string>
 	<string name="media_play_tooltip">
 		Afficher le contenu web qui se trouve ici.

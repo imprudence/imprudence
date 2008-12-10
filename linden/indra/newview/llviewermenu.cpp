@@ -1020,7 +1020,6 @@ void init_debug_ui_menu(LLMenuGL* menu)
 {
 	menu->append(new LLMenuItemCallGL("SLURL Test", &handle_slurl_test));
 	menu->append(new LLMenuItemCallGL("Editable UI", &edit_ui));
-	menu->append(new LLMenuItemToggleGL("Async Keystrokes", &gHandleKeysAsync));
 	menu->append(new LLMenuItemCallGL( "Dump SelectMgr", &dump_select_mgr));
 	menu->append(new LLMenuItemCallGL( "Dump Inventory", &dump_inventory));
 	menu->append(new LLMenuItemCallGL( "Dump Focus Holder", &handle_dump_focus, NULL, NULL, 'F', MASK_ALT | MASK_CONTROL));

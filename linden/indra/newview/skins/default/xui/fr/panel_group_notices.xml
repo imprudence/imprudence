@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel label="Notifications" name="notices_tab">
+<panel label="Notices" name="notices_tab">
 	<text name="help_text">
-		Les notifications vous permettent d&apos;envoyer des messages et pièces-jointes à tous les membres du groupe en même temps. Ces messages ne sont envoyés qu&apos;aux membres dont le rôle les autorise à recevoir des notifications. Vous pouvez désactiver les notifications à l&apos;onglet Général.
+		Les notices vous permettent d&apos;envoyer des messages et pièces-jointes aux membres du groupe autorisés à les recevoir. Vous pouvez désactiver la réception des notices à l&apos;onglet Général.
 	</text>
 	<text name="no_notices_text">
-		Aucune notification précédemment envoyée.
+		Aucune notice
 	</text>
 	<button label="?" label_selected="?" name="help_button"/>
 	<text name="lbl">
-		Archive des notifications du groupe
+		Anciennes notices du groupe
 	</text>
 	<text name="lbl2">
-		Les notifications sont conservées pendant 14 jours. Cliquez sur la notification que vous
-voulez afficher. Pour voir si vous avez reçu de nouvelles notifications, cliquez sur
-Rafraîchir. Chaque groupe a une limite quotidienne de 200 notifications.
+		Double-cliquez sur une notice pour l'afficher. Les notices sont conservées
+pendant 14 jours et chaque groupe a une limite quotidienne de 200 notices.
 	</text>
 	<scroll_list name="notice_list">
 		<column label="" name="icon"/>
@@ -24,15 +23,15 @@ Rafraîchir. Chaque groupe a une limite quotidienne de 200 notifications.
 	<text name="notice_list_none_found">
 		Aucun résultat.
 	</text>
-	<button label="Créer une notification" label_selected="Créer une notification" name="create_new_notice"/>
+	<button label="Créer une notice" label_selected="Créer une notice" name="create_new_notice"/>
 	<button label="Rafraîchir" label_selected="Rafraîchir la liste" name="refresh_notices"/>
-	<panel label="Créer une notification" name="panel_create_new_notice">
+	<panel label="Créer une notice" name="panel_create_new_notice">
 		<text name="lbl">
-			Créer une notification
+			Créer une notice
 		</text>
 		<text name="lbl2">
-			Pour envoyer une notification, vous devez saisir un sujet. Pour joindre
-une pièce-jointe à cette notification, faites-la glisser depuis votre 
+			Pour envoyer une notice, saisissez un sujet. Pour joindre
+une pièce-jointe à cette notice, faites-la glisser depuis votre 
 inventaire vers cette fenêtre. Les pièces-jointes doivent être
 copiables et transférables. Il n&apos;est pas possible d&apos;envoyer de
 dossiers.
@@ -46,20 +45,20 @@ dossiers.
 		</text>
 		<text_editor bottom_delta="-90" height="104" name="create_message"/>
 		<text name="lbl5">
-			Attacher :
+			Pièce-jointe :
 		</text>
 		<line_editor name="create_inventory_name" width="206"/>
 		<button label="Supprimer pièce-jointe" label_selected="Supprimer pièce-jointe" left="274" name="remove_attachment" width="140"/>
-		<button label="Envoyer notification" label_selected="Envoyer notification" left="274" name="send_notice" width="140"/>
-		<panel name="drop_target2" tool_tip="Pour joindre un objet de l&apos;inventaire à la notification, faites-le glisser dans la boîte de message. Pour envoyer l&apos;objet avec la notification, vous devez avoir la permission de le copier et de le transférer."/>
-		<panel name="drop_target" tool_tip="Pour joindre un objet de l&apos;inventaire à la notification, faites-le glisser dans la boîte de message. Pour envoyer l&apos;objet avec la notification, vous devez avoir la permission de le copier et de le transférer."/>
+		<button label="Envoyer la notice" label_selected="Envoyer la notice" left="274" name="send_notice" width="140"/>
+		<panel name="drop_target2" tool_tip="Pour joindre un objet de l&apos;inventaire à la notice, faites-le glisser dans la boîte de message. Pour envoyer l&apos;objet avec la notice, vous devez avoir la permission de le copier et de le transférer."/>
+		<panel name="drop_target" tool_tip="Pour joindre un objet de l&apos;inventaire à la notice, faites-le glisser dans la boîte de message. Pour envoyer l&apos;objet avec la notice, vous devez avoir la permission de le copier et de le transférer."/>
 	</panel>
-	<panel label="Voir ancienne notification" name="panel_view_past_notice">
+	<panel label="Voir ancienne notice" name="panel_view_past_notice">
 		<text name="lbl">
-			Notification archivée
+			Anciennes notices
 		</text>
 		<text name="lbl2">
-			Pour envoyer une nouvelle notification, cliquez sur Créer une notification ci-dessus.
+			Pour envoyer une nouvelle notice, cliquez sur Créer une notice ci-dessus.
 		</text>
 		<text name="lbl3">
 			Sujet :

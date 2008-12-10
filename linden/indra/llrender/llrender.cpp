@@ -190,6 +190,10 @@ bool LLTexUnit::bind(const LLImageGL* texture)
 	{
 		return texture->bindDefaultImage(mIndex);
 	}
+	if (!texture->getTexName()) //if texture does not exist
+	{
+		return texture->bindDefaultImage(mIndex);
+	}
 
 	// Disabled caching of binding state.
 	if (texture != NULL)

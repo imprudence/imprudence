@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Panel Avatar">
 	<tab_container name="tab">
-		<panel label="2nd Life" name="2nd Life">
+		<panel label="2ème vie" name="2nd Life">
 			<string name="CaptionTextAcctInfo">
 				[ACCTTYPE]
 [PAYMENTINFO]
@@ -125,7 +125,7 @@
 			<button label="Créer..." label_selected="Créer..." name="New..."/>
 			<button label="Supprimer..." label_selected="Supprimer..." name="Delete..."/>
 			<text name="loading_text">
-				Chargement en cours...
+				Chargement...
 			</text>
 		</panel>
 		<panel label="Annonces" name="Classified">
@@ -135,10 +135,10 @@
 			<button label="Créer..." label_selected="Créer..." name="New..."/>
 			<button label="Supprimer..." label_selected="Supprimer..." name="Delete..."/>
 			<text name="loading_text">
-				Chargement en cours...
+				Chargement...
 			</text>
 		</panel>
-		<panel label="1st Life" name="1st Life">
+		<panel label="1ère vie" name="1st Life">
 			<text name="Photo:">
 				Photo :
 			</text>
@@ -152,12 +152,12 @@
 		</panel>
 		<panel label="Mes notes" name="My Notes">
 			<string name="Loading">
-				Chargement en cours...
+				Chargement...
 			</string>
 			<text name="label">
 				Dans cet espace, vous pouvez enregistrer vos remarques au sujet de ce
 résident ou prendre des notes sur certains projets. Vous êtes le seul à
-pouvoir accéder à cet espace et même le résident dont vous consultez le profil
+pouvoir accéder à cette page et même le résident dont vous consultez le profil
 ne pourra pas voir ce que vous avez écrit.
 			</text>
 			<text_editor bottom_delta="-260" height="240" name="notes edit"/>
@@ -193,6 +193,6 @@ Ceci n&apos;est pas possible tant que vous êtes sur l&apos;île d&apos;orientat
 		Offrir au résident d&apos;être téléporté là où vous êtes.
 	</string>
 	<string name="Loading">
-		Chargement en cours...
+		Chargement...
 	</string>
 </panel>

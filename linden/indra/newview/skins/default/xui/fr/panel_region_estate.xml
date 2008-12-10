@@ -16,10 +16,10 @@
 		(inconnu)
 	</text>
 	<text name="Only Allow">
-		Limiter l&apos;accès aux résidents :
+		Limiter l&apos;accès aux résidents qui :
 	</text>
-	<check_box label="Qui ont enregistré leurs infos de paiement" name="limit_payment" tool_tip="Bannir les résidents non identifés."/>
-	<check_box label="Adultes dont l&apos;âge a été vérifié" name="limit_age_verified" tool_tip="Bannir les résidents dont l&apos;âge n&apos;a pas été vérifié. Pour plus d&apos;infos, consultez la page support.secondlife.com."/>
+	<check_box label="Ont enregistré leurs infos de paiement" name="limit_payment" tool_tip="Bannir les résidents non identifés."/>
+	<check_box label="Ont fait vérifier leur âge" name="limit_age_verified" tool_tip="Bannir les résidents dont l&apos;âge n&apos;a pas été vérifié. Pour plus d&apos;infos, consultez la page support.secondlife.com."/>
 	<check_box label="Autoriser les chats vocaux" name="voice_chat_check"/>
 	<button label="?" name="voice_chat_help"/>
 	<text name="abuse_email_text">

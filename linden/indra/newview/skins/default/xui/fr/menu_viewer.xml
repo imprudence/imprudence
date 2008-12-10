@@ -15,20 +15,9 @@
 		<menu_item_call label="Prendre une photo" name="Take Snapshot"/>
 		<menu_item_call label="Enregistrer la photo sur le disque" name="Snapshot to Disk" shortcut="control|shift|X"/>
 		<menu_item_separator label="-----------" name="separator4"/>
-		<menu label="Définir taille de la fenêtre" name="Set Window Size">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
-			<menu_item_call label="320x240" name="320x240"/>
-			<menu_item_call label="640x480" name="640x480"/>
-			<menu_item_call label="800x600" name="800x600"/>
-			<menu_item_separator label="-----------" name="separator"/>
-			<menu_item_call label="720x480 (NTSC)" name="720x480 (NTSC)"/>
-			<menu_item_call label="768x576 (PAL)" name="768x576 (PAL)"/>
-		</menu>
-		<menu_item_separator label="-----------" name="separator5"/>
 		<menu_item_call label="Quitter" name="Quit"/>
 	</menu>
 	<menu label="Édition" name="Edit">
-		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
 		<menu_item_call label="Annuler" name="Undo"/>
 		<menu_item_call label="Recommencer" name="Redo"/>
 		<menu_item_separator label="-----------" name="separator"/>
@@ -47,7 +36,6 @@
 		<menu label="Attacher l&apos;objet" name="Attach Object"/>
 		<menu label="Détacher l&apos;objet" name="Detach Object"/>
 		<menu label="Enlever mes habits" name="Take Off Clothing">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
 			<menu_item_call label="Chemise" name="Shirt"/>
 			<menu_item_call label="Pantalon" name="Pants"/>
 			<menu_item_call label="Chaussures" name="Shoes"/>
@@ -94,52 +82,25 @@
 		<menu_item_check label="Propriétaires fonciers" name="Land Owners"/>
 		<menu_item_separator label="-----------" name="separator4"/>
 		<menu label="Infobulles" name="Hover Tips">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
 			<menu_item_check label="Affichez les astuces" name="Show Tips"/>
 			<menu_item_separator label="-----------" name="separator"/>
 			<menu_item_check label="Astuces sur les terrains" name="Land Tips"/>
 			<menu_item_check label="Astuces sur tous les objets" name="Tips On All Objects"/>
 		</menu>
-		<menu_item_check label="Alt affiche les propriétés physiques" name="Alt Shows Physical"/>
 		<menu_item_check label="Voir les objets invisibles" name="Highlight Transparent"/>
-		<menu_item_check label="Balises toujours activées" name="Beacons Always On"/>
-		<menu label="Balises" name="Beacons">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
-			<menu_item_check label="Objets scriptés avec Toucher uniquement" name="Scripted Objects With Touch Only"/>
-			<menu_item_check label="Objets scriptés" name="Scripted Objects"/>
-			<menu_item_check label="Objets physiques" name="Physical Objects"/>
-			<menu_item_check label="Sources sonores" name="Sound Sources"/>
-			<menu_item_check label="Sources des particules" name="Particle Sources"/>
-			<menu_item_separator label="-----------" name="separator"/>
-			<menu_item_check label="Montrer les surbrillances" name="Render Highlights"/>
-			<menu_item_check label="Montrer les balises" name="Render Beacons"/>
-			<menu_item_separator label="-----------" name="separator2"/>
-			<menu_item_check label="Masquer les particules" name="Hide Particles"/>
-			<menu_item_separator label="-----------" name="separator3"/>
-			<menu label="Largeur de la balise" name="Beacon Width">
-				<menu_item_call label="1" name="Beacon Width 1"/>
-				<menu_item_call label="4" name="Beacon Width 4"/>
-				<menu_item_call label="16" name="Beacon Width 16"/>
-				<menu_item_call label="32" name="Beacon Width 32"/>
-			</menu>
-		</menu>
+		<menu_item_check label="Balises" name="beacons"/>
+		<menu_item_check label="Masquer les particules" name="Hide Particles"/>
 		<menu_item_check label="Afficher les HUD" name="Show HUD Attachments"/>
 		<menu_item_separator label="-----------" name="separator5"/>
 		<menu_item_call label="Zoomer" name="Zoom In"/>
 		<menu_item_call label="Zoom par défaut" name="Zoom Default"/>
 		<menu_item_call label="Zoomer en arrière" name="Zoom Out"/>
 		<menu_item_separator label="-----------" name="separator6"/>
-		<menu label="Plus" name="More">
-			<menu_item_call label="Passer en plein écran" name="Toggle Fullscreen"/>
-			<menu_item_call label="Définir la taille de l&apos;interface à sa valeur par défaut" name="Set UI Size to Default"/>
-		</menu>
 		<menu_item_call label="Activer/Quitter le plein écran" name="Toggle Fullscreen"/>
 		<menu_item_call label="Taille de l&apos;interface par défaut" name="Set UI Size to Default"/>
 	</menu>
 	<menu label="Monde" name="World">
-		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
 		<menu_item_call label="Chat" name="Chat"/>
-		<menu_item_call label="Démarrer le geste" name="Start Gesture"/>
 		<menu_item_check label="Toujours courir" name="Always Run"/>
 		<menu_item_check label="Voler" name="Fly" shortcut="F"/>
 		<menu_item_separator label="-----------" name="separator"/>
@@ -162,15 +123,6 @@
 		<menu_item_call label="Acheter le terrain..." name="Buy Land..."/>
 		<menu_item_call label="Région et domaine..." name="Region/Estate..."/>
 		<menu_item_separator label="-----------" name="separator6"/>
-		<menu label="Forcer le soleil" name="Force Sun">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
-			<menu_item_call label="Soleil Levant" name="Sunrise"/>
-			<menu_item_call label="Midi" name="Noon"/>
-			<menu_item_call label="Soleil Couchant" name="Sunset"/>
-			<menu_item_call label="Minuit" name="Midnight"/>
-			<menu_item_separator label="-----------" name="separator"/>
-			<menu_item_call label="Revenir aux valeurs par défaut de la région" name="Revert to Region Default"/>
-		</menu>
 		<menu label="Environnement" name="Environment Settings">
 			<menu_item_call label="Aube" name="Sunrise"/>
 			<menu_item_call label="Milieu de journée" name="Noon"/>
@@ -182,9 +134,7 @@
 		</menu>
 	</menu>
 	<menu label="Outils" name="Tools">
-		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
 		<menu label="Sélectionner un outil" name="Select Tool">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
 			<menu_item_call label="Mise au point" name="Focus"/>
 			<menu_item_call label="Déplacer" name="Move"/>
 			<menu_item_call label="Éditer" name="Edit"/>
@@ -208,7 +158,6 @@
 		<menu_item_call label="Lier" name="Link"/>
 		<menu_item_call label="Délier" name="Unlink"/>
 		<menu_item_separator label="-----------" name="separator4"/>
-		<menu_item_separator label="-----------" name="separator5"/>
 		<menu_item_call label="Mise au point sur la sélection" name="Focus on Selection"/>
 		<menu_item_call label="Zoom sur la sélection" name="Zoom to Selection"/>
 		<menu_item_call label="Acheter l&apos;objet" name="Menu Object Take"/>
@@ -217,35 +166,24 @@
 		<menu_item_call label="Remplacer l&apos;objet dans le contenu de l&apos;objet" name="Save Object Back to Object Contents"/>
 		<menu_item_separator label="-----------" name="separator6"/>
 		<menu_item_call label="Afficher la fenêtre d&apos;alertes/erreurs de script" name="Show Script Warning/Error Window"/>
-		<menu_item_call label="Recompiler les scripts dans la sélection" name="Recompile Scripts in Selection">
+		<menu label="Recompiler les scripts dans la sélection" name="Recompile Scripts in Selection">
 			<menu_item_call label="Mono" name="Mono"/>
 			<menu_item_call label="LSL" name="LSL"/>
-		</menu_item_call>
+		</menu>
 		<menu_item_call label="Réinitialiser les scripts dans la sélection" name="Reset Scripts in Selection"/>
 		<menu_item_call label="Activer les scripts dans la sélection" name="Set Scripts to Running in Selection"/>
 		<menu_item_call label="Désactiver les scripts dans la sélection" name="Set Scripts to Not Running in Selection"/>
 	</menu>
 	<menu label="Aide" name="Help">
-		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
 		<menu_item_call label="Aide Second Life" name="Second Life Help"/>
-		<menu_item_call label="Base de connaissances…" name="Knowledge Base..."/>
-		<menu_item_call label="Aide en ligne" name="Live Help..."/>
 		<menu_item_call label="Didacticiel" name="Tutorial"/>
 		<menu_item_separator label="-----------" name="separator"/>
 		<menu_item_call label="Blog officiel des Lindens..." name="Official Linden Blog..."/>
 		<menu_item_separator label="-----------" name="separator2"/>
-		<menu_item_call label="Guide pour l&apos;écriture de scripts..." name="Scripting Guide..."/>
-		<menu_item_call label="Scripting Wiki..." name="Scripting Wiki..."/>
 		<menu_item_call label="Portail pour l&apos;écriture de scripts..." name="Scripting Portal..."/>
 		<menu_item_separator label="-----------" name="separator3"/>
-		<menu_item_call label="Message du jour..." name="Message of the Day..."/>
-		<menu_item_separator label="-----------" name="separator4"/>
 		<menu_item_call label="Signaler une infraction..." name="Report Abuse..."/>
 		<menu_item_call label="Collisions, coups et bousculades…" name="Bumps, Pushes &amp;amp; Hits..."/>
-		<menu_item_separator label="-----------" name="separator5"/>
-		<menu_item_call label="Signaler un bug..." name="Report Bug..."/>
-		<menu_item_call label="Notes de version…" name="Release Notes..."/>
-		<menu_item_separator label="-----------" name="separator6"/>
 		<menu_item_call label="Mesure du lag" name="Lag Meter"/>
 		<menu_item_separator label="-----------" name="separator7"/>
 		<menu label="Signaler des bugs" name="Bug Reporting">

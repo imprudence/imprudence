@@ -476,7 +476,7 @@
 			</text>
 			<combo_box name="combobox shininess">
 				<combo_item name="None">
-					Keine
+					Kein
 				</combo_item>
 				<combo_item name="Low">
 					Niedrig

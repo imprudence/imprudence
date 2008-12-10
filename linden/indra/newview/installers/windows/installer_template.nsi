@@ -31,14 +31,26 @@ RequestExecutionLevel admin	; on Vista we must be admin because we write to Prog
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 !include "%%SOURCE%%\installers\windows\lang_de.nsi"
 !include "%%SOURCE%%\installers\windows\lang_en-us.nsi"
-!include "%%SOURCE%%\installers\windows\lang_ja.nsi"
-!include "%%SOURCE%%\installers\windows\lang_ko.nsi"
-!include "%%SOURCE%%\installers\windows\lang_pt-br.nsi"
-!include "%%SOURCE%%\installers\windows\lang_fr.nsi"
 !include "%%SOURCE%%\installers\windows\lang_es.nsi"
+!include "%%SOURCE%%\installers\windows\lang_fr.nsi"
+!include "%%SOURCE%%\installers\windows\lang_ja.nsi"
 !include "%%SOURCE%%\installers\windows\lang_it.nsi"
+!include "%%SOURCE%%\installers\windows\lang_ko.nsi"
 !include "%%SOURCE%%\installers\windows\lang_nl.nsi"
+!include "%%SOURCE%%\installers\windows\lang_pt-br.nsi"
 !include "%%SOURCE%%\installers\windows\lang_zh.nsi"
+
+# *TODO: Move these into the language files themselves
+LangString LanguageCode ${LANG_GERMAN}   "de"
+LangString LanguageCode ${LANG_ENGLISH}  "en"
+LangString LanguageCode ${LANG_SPANISH}  "es"
+LangString LanguageCode ${LANG_FRENCH}   "fr"
+LangString LanguageCode ${LANG_JAPANESE} "ja"
+LangString LanguageCode ${LANG_ITALIAN}  "it"
+LangString LanguageCode ${LANG_KOREAN}   "ko"
+LangString LanguageCode ${LANG_DUTCH}    "nl"
+LangString LanguageCode ${LANG_PORTUGUESEBR} "pt"
+LangString LanguageCode ${LANG_SIMPCHINESE}  "zh"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tweak for different servers/builds (this placeholder is replaced by viewer_manifest.py)
@@ -79,6 +91,7 @@ Var INSTEXE
 Var INSTFLAGS
 Var INSTSHORTCUT
 Var COMMANDLINE         ; command line passed to this installer, set in .onInit
+Var SHORTCUT_LANG_PARAM ; "--set InstallLanguage de", passes language to viewer
 
 ;;; Function definitions should go before file includes, because calls to
 ;;; DLLs like LangDLL trigger an implicit file include, so if that call is at
@@ -107,7 +120,7 @@ label_ask_launch:
         
 label_launch:
 	# Assumes SetOutPath $INSTDIR
-	Exec '"$INSTDIR\$INSTEXE" $INSTFLAGS'
+	Exec '"$INSTDIR\$INSTEXE" $INSTFLAGS $SHORTCUT_LANG_PARAM'
 label_no_launch:
 	Pop $R0
 FunctionEnd
@@ -725,13 +738,15 @@ Call RemoveOldReleaseNotes
 ;; This placeholder is replaced by the complete list of all the files in the installer, by viewer_manifest.py
 %%INSTALL_FILES%%
 
+# Pass the installer's language to the client to use as a default
+StrCpy $SHORTCUT_LANG_PARAM "--set InstallLanguage $(LanguageCode)"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Shortcuts in start menu
 CreateDirectory	"$SMPROGRAMS\$INSTSHORTCUT"
 SetOutPath "$INSTDIR"
 CreateShortCut	"$SMPROGRAMS\$INSTSHORTCUT\$INSTSHORTCUT.lnk" \
-				"$INSTDIR\$INSTEXE" "$INSTFLAGS"
+				"$INSTDIR\$INSTEXE" "$INSTFLAGS $SHORTCUT_LANG_PARAM"
 
 
 WriteINIStr		"$SMPROGRAMS\$INSTSHORTCUT\SL Create Account.url" \
@@ -749,8 +764,10 @@ CreateShortCut	"$SMPROGRAMS\$INSTSHORTCUT\Uninstall $INSTSHORTCUT.lnk" \
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Other shortcuts
 SetOutPath "$INSTDIR"
-CreateShortCut "$DESKTOP\$INSTSHORTCUT.lnk" "$INSTDIR\$INSTEXE" "$INSTFLAGS"
-CreateShortCut "$INSTDIR\$INSTSHORTCUT.lnk" "$INSTDIR\$INSTEXE" "$INSTFLAGS"
+CreateShortCut "$DESKTOP\$INSTSHORTCUT.lnk" \
+        "$INSTDIR\$INSTEXE" "$INSTFLAGS $SHORTCUT_LANG_PARAM"
+CreateShortCut "$INSTDIR\$INSTSHORTCUT.lnk" \
+        "$INSTDIR\$INSTEXE" "$INSTFLAGS $SHORTCUT_LANG_PARAM"
 CreateShortCut "$INSTDIR\Uninstall $INSTSHORTCUT.lnk" \
 				'"$INSTDIR\uninst.exe"' ''
 

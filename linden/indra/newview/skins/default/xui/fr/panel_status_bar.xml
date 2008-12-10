@@ -4,7 +4,7 @@
 		Saisissez le nom de la parcelle ici
 	</text>
 	<text length="1" name="BalanceText" tool_tip="Solde du compte" type="string">
-		Chargement en cours...
+		Chargement...
 	</text>
 	<button label="" label_selected="" name="buycurrency" tool_tip="Acheter des devises"/>
 	<text length="12" name="TimeText" tool_tip="Heure actuelle (Californie)" type="string">
@@ -27,7 +27,7 @@
 	<button name="no_fly" tool_tip="Interdiction de voler"/>
 	<button name="no_build" tool_tip="Interdiction de construire/rezzer"/>
 	<button name="no_scripts" tool_tip="Interdiction d&apos;utiliser des scripts"/>
-	<button label="" label_selected="" name="restrictpush" tool_tip="llPushObject interdit"/>
+	<button label="" label_selected="" name="restrictpush" tool_tip="Pas de bousculades"/>
 	<button name="status_no_voice" tool_tip="Voix non disponible ici"/>
 	<button label="" label_selected="" name="buyland" tool_tip="Acheter cette parcelle"/>
 	<line_editor label="Rechercher" name="search_editor" tool_tip="Rechercher dans Second Life"/>

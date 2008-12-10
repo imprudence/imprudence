@@ -379,7 +379,7 @@ Vous ne pouvez pas voler ici.
 	</notify>
 	<notify name="PushRestricted">
 		<message name="message">
-			Ce terrain est « llPushObject Restricted ».
+			Les bousculades sont interdites sur ce terrain.
 Vous ne pouvez pas pousser les autres à moins que vous soyez propriétaire de ce terrain.
 		</message>
 	</notify>
@@ -896,9 +896,9 @@ Pour activer/désactiver ce menu sous Windows, appuyez sur Ctrl-Alt-D. Sur un Ma
 	</notify>
 	<notify name="FirstSculptedPrim">
 		<message name="message">
-			Vous êtes en train d&apos;éditer un prim sculpté.  
-Pour spécifier la forme d&apos;un prim sculpté, vous devez utiliser une texture spécifique.  
-Vous trouverez des exemples de textures sculptées dans la bibliothèque de l&apos;inventaire.
+			Vous êtes en train d&apos;éditer un sculptie.  
+Pour spécifier la forme d&apos;un sculptie, vous devez utiliser une texture spécifique.  
+Vous trouverez des textures dans la bibliothèque de votre inventaire.
 		</message>
 	</notify>
 	<notify name="FirstMedia">

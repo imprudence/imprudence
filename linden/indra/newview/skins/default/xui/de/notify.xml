@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <notifications>
 	<notify name="SystemMessageTip">
 		<message name="message">
@@ -106,8 +106,7 @@ Bitte versuchen Sie es erneut.
 	<notify name="CapsKeyOn">
 		<message name="message">
 			Die Feststelltaste ist aktiv.
-Da dies Auswirkung auf die Kennworteingabe hat,
-sollten Sie die Taste besser ausschalten.
+Da dies Auswirkung auf die Kennworteingabe hat, sollten Sie die Taste besser ausschalten.
 		</message>
 	</notify>
 	<notify name="NotecardMissing">
@@ -148,9 +147,7 @@ Bitte versuchen Sie es erneut.
 	</notify>
 	<notify name="IncompleteInventory">
 		<message name="message">
-			Die von Ihnen angebotenen Inhalte sind noch nicht
-vollständig lokal verfügbar. Warten Sie kurz und wiederholen Sie
-dann das Angebot.
+			Die von Ihnen angebotenen Inhalte sind noch nicht vollständig lokal verfügbar. Warten Sie kurz und wiederholen Sie dann das Angebot.
 		</message>
 	</notify>
 	<notify name="CannotModifyProtectedCategories">
@@ -307,8 +304,7 @@ Wählen Sie eine kleinere Landfläche.
 	</notify>
 	<notify name="TransferObjectsHighlighted">
 		<message name="message">
-			Alle Objekte auf dieser Parzelle, die an den Käufer
-der Parzelle übertragen werden, sind jetzt markiert.
+			Alle Objekte auf dieser Parzelle, die an den Käufer der Parzelle übertragen werden, sind jetzt markiert.
  
 * Übertragene Bäume und Gräser sind nicht markiert.
 		</message>
@@ -335,22 +331,18 @@ Laden Sie QuickTime von der QuickTime-Webseite (http://www.apple.com/de/quicktim
 	</notify>
 	<notify name="OwnedObjectsReturned">
 		<message name="message">
-			Ihre Objekte auf der ausgewählten Parzelle 
-wurden in Ihr Inventar transferiert.
+			Ihre Objekte auf der ausgewählten Parzelle wurden in Ihr Inventar transferiert.
 		</message>
 	</notify>
 	<notify name="OtherObjectsReturned">
 		<message name="message">
-			Die Objekte von [FIRST] [LAST] auf dieser
-Parzelle wurden in das Inventar
-dieser Person transferiert.
+			Die Objekte von [FIRST] [LAST] auf dieser Parzelle wurden in das Inventar dieser Person transferiert.
 		</message>
 	</notify>
 	<notify name="OtherObjectsReturned2">
 		<message name="message">
 			Die Objekte von [FIRST] [LAST] auf dieser 
-Parzelle von &apos;[NAME]&apos;
-wurden an ihren Eigentümer zurückgegeben.
+Parzelle von &apos;[NAME]&apos; wurden an ihren Eigentümer zurückgegeben.
 		</message>
 	</notify>
 	<notify name="GroupObjectsReturned">
@@ -379,7 +371,7 @@ Fliegen ist hier nicht möglich.
 	</notify>
 	<notify name="PushRestricted">
 		<message name="message">
-			Dieses Land ist &apos;llPushObject-beschränkt&apos;.
+			Auf diesem Land gilt „Kein Stoßen“.
 Sie können keine anderen Personen stoßen, außer Ihnen gehört das Land.
 		</message>
 	</notify>
@@ -497,8 +489,7 @@ Nur Skripts, die dem Landeigentümer gehören, funktionieren.
 	</notify>
 	<notify name="JoinGroupOfficerNoFee">
 		<message name="message">
-			[NAME] hat Sie eingeladen
-einer Gruppe als Officer beizutreten.
+			[NAME] hat Sie eingeladen einer Gruppe als Officer beizutreten.
 Der Beitritt ist kostenlos.
  
 [MESSAGE]
@@ -515,8 +506,7 @@ Der Beitritt ist kostenlos.
 	</notify>
 	<notify name="JoinGroupMember">
 		<message name="message">
-			[NAME] hat Sie eingeladen
-einer Gruppe beizutreten.
+			[NAME] hat Sie eingeladen einer Gruppe beizutreten.
 Die Beitrittsgebühr beträgt [COST] L$
  
 [MESSAGE]
@@ -593,8 +583,7 @@ Der Beitritt ist kostenlos.
 		<message name="message">
 			[NAME] bietet Ihnen die Freundschaft an.
 
-(Sie werden dadurch den gegenseitigen 
-Online-Status sehen können.)
+(Sie werden dadurch den gegenseitigen Online-Status sehen können.)
 		</message>
 		<option name="Accept">
 			Akzeptieren
@@ -616,8 +605,7 @@ Online-Status sehen können.)
 	<notify name="OfferCallingCard">
 		<message name="message">
 			[FIRST] [LAST] bietet Ihnen eine Visitenkarte an.
-Dies erstellt ein Lesezeichen in Ihrem Inventar,
-damit Sie diesen Einwohner jederzeit über IM erreichen.
+Dies erstellt ein Lesezeichen in Ihrem Inventar, damit Sie diesen Einwohner jederzeit über IM erreichen.
 		</message>
 		<option name="Accept">
 			Akzeptieren
@@ -809,15 +797,13 @@ Anfrage gestatten?
 		<message name="message">
 			Sie haben gerade [AMOUNT] L$ erhalten.
 Objekte und andere Benutzer können Ihnen L$ geben.
-Ihren Kontostand sehen Sie in der
-oberen rechten Ecke des Bildschirms.
+Ihren Kontostand sehen Sie in der oberen rechten Ecke des Bildschirms.
 		</message>
 	</notify>
 	<notify name="FirstBalanceDecrease">
 		<message name="message">
 			Sie haben gerade [AMOUNT] L$ bezahlt.
-Ihren Kontostand sehen Sie in der oberen 
-rechten Ecke des Bildschirms.
+Ihren Kontostand sehen Sie in der oberen rechten Ecke des Bildschirms.
 		</message>
 	</notify>
 	<notify name="FirstSit">
@@ -831,8 +817,7 @@ Klicken Sie auf &apos;Aufstehen&apos;, um aufzustehen.
 		<message name="message">
 			Zum Verschieben der Karte klicken und ziehen.
 Zum Teleportieren doppelklicken.
-Nutzen Sie die Optionen links, um Dinge zu finden
-und um verschiedene Hintergründe anzuzeigen.
+Nutzen Sie die Optionen links, um Dinge zu finden und um verschiedene Hintergründe anzuzeigen.
 		</message>
 	</notify>
 	<notify name="FirstBuild">
@@ -854,8 +839,7 @@ Die rechte Maustaste zeigt immer ein Aktionsmenü an.
 	<notify name="FirstTeleport">
 		<message name="message">
 			Diese Region unterstützt keine direkten Teleports. Sie wurden zum nächstgelegenen Telehub transportiert. 
-Ihr Ziel ist mit einem großen roten Strahl markiert. 
-Folgen Sie dem roten Pfeil zum Strahl oder klicken Sie auf den Pfeil, um den Strahl zu entfernen.
+Ihr Ziel ist mit einem großen roten Strahl markiert. Folgen Sie dem roten Pfeil zum Strahl oder klicken Sie auf den Pfeil, um den Strahl zu entfernen.
 		</message>
 	</notify>
 	<notify name="FirstOverrideKeys">
@@ -870,8 +854,7 @@ Drücken Sie dazu &apos;M&apos;.
 		<message name="message">
 			Sie bearbeiten gerade Ihr Aussehen.  
 Benutzen Sie die Pfeiltasten zum Drehen und Zoomen. 
-Klicken Sie auf &apos;Alles speichern&apos;, wenn Sie fertig sind, 
-um Ihr Aussehen zu speichern.  
+Klicken Sie auf &apos;Alles speichern&apos;, wenn Sie fertig sind, um Ihr Aussehen zu speichern.  
 Sie können Ihr Aussehen jederzeit verändern.
 		</message>
 	</notify>
@@ -886,8 +869,7 @@ Sie können Ihr Aussehen jederzeit verändern.
 	<notify name="FirstSandbox">
 		<message name="message">
 			Dies ist eine Sandkastenregion.
-Objekte, die Sie hier bauen, können gelöscht werden,
-wenn Sie das Gebiet verlassen. Sandkästen werden regelmäßig gereinigt. Weitere Informationen hierzu finden Sie oben im Bild neben dem Regionsnamen.
+Objekte, die Sie hier bauen, können gelöscht werden, wenn Sie das Gebiet verlassen. Sandkästen werden regelmäßig gereinigt. Weitere Informationen hierzu finden Sie oben im Bild neben dem Regionsnamen.
  
 Sandkastenregionen kommen selten vor und sind entsprechend gekennzeichnet.
 		</message>
@@ -895,8 +877,7 @@ Sandkastenregionen kommen selten vor und sind entsprechend gekennzeichnet.
 	<notify name="FirstFlexible">
 		<message name="message">
 			Dieses Objekt ist flexibel. 
-Ein flexibles Objekt ist ein Phantom und nicht physisch, 
-bis die Option &apos;Flexibel&apos; deaktiviert wurde.
+Ein flexibles Objekt ist ein Phantom und nicht physisch, bis die Option &apos;Flexibel&apos; deaktiviert wurde.
 		</message>
 	</notify>
 	<notify name="FirstDebugMenus">

@@ -239,13 +239,13 @@ pour adultes" left="551" name="incmature"/>
 			</combo_box>
 			<combo_box name="rating" width="150">
 				<combo_item name="PG&amp;Mature">
-					Tout public et Adultes
+					Tout public et Adulte
 				</combo_item>
 				<combo_item name="PGonly">
 					Tout public uniquement
 				</combo_item>
 				<combo_item name="Matureonly">
-					Adultes uniquement
+					Adulte uniquement
 				</combo_item>
 			</combo_box>
 			<check_box label="Prix &lt;= L$" left="157" name="pricecheck"/>
@@ -278,7 +278,7 @@ et cliquez sur le nom de l&apos;endroit dans la barre de titre.
 				Trouver :
 			</text>
 			<line_editor left_delta="51" name="name" width="128"/>
-			<check_box label="Inclure les parcelles avec du contenu Adultes" name="incmature"/>
+			<check_box label="Inclure les parcelles avec du contenu Adulte" name="incmature"/>
 			<combo_box left="195" name="Category" width="170">
 				<combo_item name="AnyCategory">
 					Toutes catégories
@@ -287,7 +287,7 @@ et cliquez sur le nom de l&apos;endroit dans la barre de titre.
 					Appartenant aux Lindens
 				</combo_item>
 				<combo_item name="Adult">
-					Adultes
+					Adulte
 				</combo_item>
 				<combo_item name="Arts&amp;Culture">
 					Art et Culture

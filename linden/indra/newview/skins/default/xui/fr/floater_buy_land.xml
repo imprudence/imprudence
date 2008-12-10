@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="buy land" title="Acheter le terrain">
 	<text name="region_name_label">
 		Région :
@@ -19,7 +19,7 @@
 		(inconnu)
 	</text>
 	<text name="resellable_changeable_label">
-		Terrains achetés dans cette région :
+		Terrain acheté dans cette région :
 	</text>
 	<text name="resellable_clause">
 		Le terrain acheté dans cette région peut être revendu ou pas.
@@ -31,7 +31,7 @@
 		Vous devez accepter le règlement du domaine :
 	</text>
 	<text_editor name="covenant_editor">
-		Chargement en cours...
+		Chargement...
 	</text_editor>
 	<check_box label="J&apos;accepte le règlement ci-dessus." name="agree_covenant"/>
 	<text name="info_parcel_label">
@@ -205,7 +205,7 @@ peut-être chercher une parcelle Premier Terrain moins chère.
 		Ce terrain est en solde et les frais associés sont de [AMOUNT]/m².
 	</text>
 	<text name="meters_supports_object">
-		[AMOUNT] m² peuvent prendre en charge [AMOUNT2] objets
+		[AMOUNT] m² peuvent contenir [AMOUNT2] prims
 	</text>
 	<text name="sold_with_objects">
 		vendu avec objets

@@ -8,7 +8,7 @@
 	<pie_menu label="Plus &gt;" name="More &gt;">
 		<menu_item_call label="Geler..." name="Freeze..."/>
 		<menu_item_call label="Donner une carte" name="Give Card"/>
-		<menu_item_call label="Invitation de groupe..." name="Invite..."/>
+		<menu_item_call label="Inviter dans le groupe..." name="Invite..."/>
 		<menu_item_call label="Expulser..." name="Eject..."/>
 		<menu_item_call label="Débugger..." name="Debug..."/>
 		<menu_item_call label="Inspecter" name="Object Inspect"/>

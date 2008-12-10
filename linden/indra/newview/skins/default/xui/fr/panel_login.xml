@@ -29,7 +29,7 @@
 			&lt;Nom de la région&gt;
 		</combo_item>
 	</combo_box>
-	<check_box label="Enregistrer le mot de passe" name="remember_check"/>
+	<check_box label="Mémoriser" name="remember_check"/>
 	<text name="full_screen_text">
 		Le plein écran sera activé après identification.
 	</text>

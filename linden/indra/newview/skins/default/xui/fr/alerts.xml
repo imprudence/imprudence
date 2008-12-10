@@ -216,10 +216,10 @@ Souhaitez-vous accorder des droits d&apos;édition aux résidents selectionnés�
 [WANT_APPLY_MESSAGE]
 		</message>
 		<option name="ApplyChanges">
-			Appliquer les changements
+			Enregistrer les modifications
 		</option>
 		<option name="IgnoreChanges">
-			Ignorer les changements
+			Ignorer les modifications
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -260,7 +260,7 @@ choisir un autre nom.
 	</alert>
 	<alert name="MustSpecifyGroupNoticeSubject">
 		<message name="message">
-			Pour envoyer une notification au groupe, vous devez indiquer un sujet.
+			Pour envoyer une notice au groupe, vous devez indiquer un sujet.
 		</message>
 		<option name="OK">
 			OK
@@ -375,9 +375,18 @@ Aller sur le site de Second Life pour avoir plus d&apos;informations sur les par
 	<alert name="ClickWebProfileHelpAvatar">
 		<message name="message">
 			Si ce résident a défini une URL de profil web, vous pouvez :
- * cliquer sur Charger pour charger la page avec le navigateur web incorporé ;
- * cliquer sur Charger &gt; Dans un navigateur externe, pour afficher la page dans un navigateur externe.
- Pour retourner au profil web du résident, cliquez sur Charger &gt; URL du domicile.
+ * Cliquer sur Charger pour afficher la page dans cet onglet ;
+ * Cliquer sur Charger &amp;gt; Dans un navigateur externe, pour afficher la page dans votre navigateur par défaut ;
+ * Cliquer sur Charger &amp;gt; URL du domicile, pour retourner au profil web du résident.
+ 
+Lorsque vous êtes dans votre propre profil, vous pouvez définir n&apos;importe quelle URL comme profil web. Pour cela, saisissez l&apos;URL et cliquez sur OK.
+Les autres résidents peuvent visiter l&apos;URL que vous avez définie en regardant votre profil.
+		</message>
+	</alert>
+	<alert name="ClickWebProfileNoWebHelpAvatar">
+		<message name="message">
+			Si ce résident a défini une URL de profil web, vous pouvez :
+ * Cliquer sur Ouvrir pour afficher la page dans votre navigateur par défaut.
  
 Lorsque vous êtes dans votre propre profil, vous pouvez définir n&apos;importe quelle URL comme profil web. Pour cela, saisissez l&apos;URL et cliquez sur OK.
 Les autres résidents peuvent visiter l&apos;URL que vous avez définie en regardant votre profil.
@@ -451,7 +460,7 @@ Voulez-vous continuer ?
 	<alert name="JoinGroupCannotAfford">
 		<message name="message">
 			Rejoindre ce groupe coûte [COST] L$.
-Votre solde est insuffisant.
+Vous n&apos;avez pas suffisamment de L$ pour rejoindre ce groupe.
 		</message>
 	</alert>
 	<alert name="LandBuyPass">
@@ -688,14 +697,6 @@ Ce dossier ne contient pas d&apos;habits, de parties du corps ni de pièces join
 			Vous ne pouvez pas porter cet article car il n&apos;a pas encore été chargé. Veuillez réessayer dans une minute.
 		</message>
 	</alert>
-	<alert name="MustHaveAccountToLogInNoLinks">
-		<message name="message">
-			Pour vous connecter sur [SECOND_LIFE], vous devez avoir un compte.
-		</message>
-		<option name="OK">
-			Fermer
-		</option>
-	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
 			Oups! Vous avez oublié de fournir certaines informations.
@@ -712,8 +713,8 @@ Pour entrer dans [SECOND_LIFE], vous devez avoir un compte. Voulez-vous en crée
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			Les petites annonces sont publiées dans la section Petites annonces sous Recherche, pour une durée d&apos;une semaine.
-Rédigez votre annonce, puis cliquez sur Publier...pour l&apos;ajouter à la liste des annonces.
+			Les petites annonces sont publiées à l&apos;onglet Petites annonces de la section Recherche pendant une semaine.
+Rédigez votre annonce, puis cliquez sur Publier pour l&apos;ajouter à la liste des annonces.
 Au moment de cliquer sur Publier, vous serez invité à payer des frais.
 Plus vous payez cher, plus votre annonce est visible dans la liste ainsi que dans les résultats de recherche de mots-clés.
 		</message>
@@ -1537,12 +1538,12 @@ Assurez-vous que le fichier a l&apos;extension correcte.
 	</alert>
 	<alert name="InsufficientFundsToUploadFile">
 		<message name="message">
-			Fonds insuffisants pour uploader [FILE] : il vous faut L$[COST], votre solde est de L$[BALANCE]
+			Vous n&apos;avez pas suffisamment de L$ pour charger le fichier : le chargement coûte [COST] L$ et votre solde est de [BALANCE] L$
 		</message>
 	</alert>
 	<alert name="InsufficientFundsToFinishUpload">
 		<message name="message">
-			Fonds insuffisants pour terminer le téléchargement de [FILE] : il vous faut L$[COST] et votre solde est de L$[BALANCE]
+			Vous n&apos;avez pas suffisamment de L$ pour finir de charger le fichier [FILE] : le chargement coûte [COST] L$ et votre solde est de [BALANCE] L$
 		</message>
 	</alert>
 	<alert name="CannotUploadReason">
@@ -2026,13 +2027,15 @@ Vous n&apos;avez pas la permission d&apos;acheter de terrain pour votre groupe.
 
 Proposer à [NAME] de devenir votre ami(e) ?
 		</message>
+		<editline name="editline">
+			Voulez-vous être mon ami(e) ?
+		</editline>
 		<option name="Offer">
 			OK
 		</option>
 		<option name="Cancel">
 			Annuler
 		</option>
-		Voulez-vous être mon ami ?
 	</alert>
 	<alert name="AddFriendWithMessage" title="Devenir amis">
 		<message name="message">
@@ -2360,11 +2363,6 @@ pour des conseils et un lien vers la page web d&apos;état du service.
 			Aide
 		</option>
 	</alert>
-	<alert name="ErrorMessage">
-		<message name="message">
-			[ERROR_MESSAGE]
-		</message>
-	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
 			L&apos;emplacement [TYPE] n&apos;est pas disponible actuellement. [HELP] 
@@ -2443,7 +2441,7 @@ Vous pourrez revenir sur votre décision plus tard.
 	</alert>
 	<alert name="NotEnoughCurrency">
 		<message name="message">
-			[NAME]  [PRICE] L$ Vous n&apos;avez pas suffisamment d&apos;argent pour cela.
+			[NAME] [PRICE] L$ Vous n&apos;avez pas suffisamment de L$ pour faire cela.
 		</message>
 	</alert>
 	<alert name="GrantedModifyRights">
@@ -2933,10 +2931,10 @@ dans le menu &apos;Edition&apos;.
 [INVITE]
 		</message>
 		<option name="Join">
-			Fusionner
+			Rejoindre
 		</option>
 		<option name="Decline">
-			Décliner
+			Refuser
 		</option>
 	</alert>
 	<alert name="KickUser">
@@ -3052,6 +3050,7 @@ dans le menu &apos;Edition&apos;.
 		<message name="message">
 			Saisissez un message court qui sera envoyé à tous les résidents se trouvant actuellement sur votre domaine.
 		</message>
+		<editline name="editline"/>
 		<option name="OK">
 			OK
 		</option>
@@ -3094,10 +3093,10 @@ Cette action modifiera des milliers de régions et sera difficile à digérer po
 			Ajouter à la liste des résidents autorisés uniquement pour ce domaine ou pour [ALL_ESTATES] ?
 		</message>
 		<option name="ThisEstate">
-			ce domaine
+			Ce domaine
 		</option>
 		<option name="AllEstates">
-			tous les domaines
+			Tous les domaines
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -3108,10 +3107,10 @@ Cette action modifiera des milliers de régions et sera difficile à digérer po
 			Supprimer de la liste des résidents autorisés uniquement pour ce domaine ou pour [ALL_ESTATES] ?
 		</message>
 		<option name="ThisEstate">
-			ce domaine
+			Ce domaine
 		</option>
 		<option name="AllEstates">
-			tous les domaines
+			Tous les domaines
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -3119,13 +3118,13 @@ Cette action modifiera des milliers de régions et sera difficile à digérer po
 	</alert>
 	<alert name="EstateAllowedGroupAdd" title="Choisir le domaine">
 		<message name="message">
-			Ajouter à la liste des résidents autorisés uniquement pour ce domaine ou pour [ALL_ESTATES] ?
+			Ajouter à la liste des groupes autorisés uniquement pour ce domaine ou pour [ALL_ESTATES] ?
 		</message>
 		<option name="ThisEstate">
-			ce domaine
+			Ce domaine
 		</option>
 		<option name="AllEstates">
-			tous les domaines
+			Tous les domaines
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -3136,10 +3135,10 @@ Cette action modifiera des milliers de régions et sera difficile à digérer po
 			Supprimer de la liste des groupes autorisés uniquement pour ce domaine ou pour [ALL_ESTATES] ?
 		</message>
 		<option name="ThisEstate">
-			ce domaine
+			Ce domaine
 		</option>
 		<option name="AllEstates">
-			tous les domaines
+			Tous les domaines
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -3150,10 +3149,10 @@ Cette action modifiera des milliers de régions et sera difficile à digérer po
 			Refuser l&apos;accès à ce domaine uniquement ou à [ALL_ESTATES] ?
 		</message>
 		<option name="ThisEstate">
-			ce domaine
+			Ce domaine
 		</option>
 		<option name="AllEstates">
-			tous les domaines
+			Tous les domaines
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -3164,10 +3163,10 @@ Cette action modifiera des milliers de régions et sera difficile à digérer po
 			Supprimer ce résident de la liste des résidents bannis pour ce domaine uniquement ou pour [ALL_ESTATES] ?
 		</message>
 		<option name="ThisEstate">
-			ce domaine
+			Ce domaine
 		</option>
 		<option name="AllEstates">
-			tous les domaines
+			Tous les domaines
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -3178,10 +3177,10 @@ Cette action modifiera des milliers de régions et sera difficile à digérer po
 			Ajouter un gérant de domaine pour ce domaine uniquement ou pour [ALL_ESTATES] ?
 		</message>
 		<option name="ThisEstate">
-			ce domaine
+			Ce domaine
 		</option>
 		<option name="AllEstates">
-			tous les domaines
+			Tous les domaines
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -3192,10 +3191,10 @@ Cette action modifiera des milliers de régions et sera difficile à digérer po
 			Supprimer le gérant de domaine pour ce domaine uniquement ou pour [ALL_ESTATES] ?
 		</message>
 		<option name="ThisEstate">
-			ce domaine
+			Ce domaine
 		</option>
 		<option name="AllEstates">
-			cous les domaines
+			Tous les domaines
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -3206,10 +3205,10 @@ Cette action modifiera des milliers de régions et sera difficile à digérer po
 			Modifier le message du règlement pour ce domaine uniquement ou pour [ALL_ESTATES] ?
 		</message>
 		<option name="ThisEstate">
-			ce domaine
+			Ce domaine
 		</option>
 		<option name="AllEstates">
-			tous les domaines
+			Tous les domaines
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -3335,6 +3334,7 @@ Publier cette petite annonce maintenant pour [AMOUNT] L$ ?
 		<message name="message">
 			Saisissez une message court qui sera envoyé à tous les résidents se trouvant actuellement dans cette région.
 		</message>
+		<editline name="editline"/>
 		<option name="OK">
 			OK
 		</option>
@@ -3358,7 +3358,7 @@ Défaut : désactivé
 	</alert>
 	<alert name="HelpRegionAllowDamage" title="Autoriser les dégâts">
 		<message name="message">
-			Si vous cohez cette case, l&apos;alerte santé est désactivée sur toutes les parcelles quels que soient les paramètres individuels de la parcelle. Si la case n&apos;est pas cochée, les propriétaires de parcelles peuvent quand même activer l&apos;alerte santé de manière individuelle sur leurs parcelles.
+			Si vous cochez cette case, l&apos;alerte santé est désactivée sur toutes les parcelles quels que soient les paramètres individuels de la parcelle. Si la case n&apos;est pas cochée, les propriétaires de parcelles peuvent quand même activer l&apos;alerte santé de manière individuelle sur leurs parcelles.
  
 Défaut : désactivé
 		</message>
@@ -3399,15 +3399,15 @@ Défaut : Désactivé
 	</alert>
 	<alert name="HelpParcelChanges" title="Fusionner/Diviser des parcelles">
 		<message name="message">
-			Cette case permet de choisir si les parcelles n&apos;appartenant pas au gérant du domaine peuvent être fusionnées ou divisées ou pas. 
+			Cette case permet de choisir si les parcelles n&apos;appartenant pas au gérant du domaine peuvent ou pas être fusionnées ou divisées. 
 Si cette case n&apos;est pas cochée :
  * Seuls les propriétaires ou gérants de domaine peuvent fusionner ou diviser des parcelles. 
  * Ils ne peuvent fusionner ou diviser que les parcelles du propriétaire, 
-       ou celles d&apos;un groupe dans lequel il ont les pouvoirs nécessaires.
+   ou celles d&apos;un groupe dans lequel il ont les pouvoirs nécessaires.
 Si cette case est cochée :
  * Tous les propriétaires peuvent fusionner ou diviser leurs parcelles. 
- * Pour les parcelles du groupe, ceux avec les pouvoirs nécessaires
-       peuvent fusionner ou diviser les parcelles.
+ * Pour les parcelles du groupe, les résidents avec les pouvoirs nécessaires
+   peuvent fusionner ou diviser les parcelles.
  
 Défaut : Cochée
 		</message>
@@ -3588,7 +3588,7 @@ Défaut : activé
 	</alert>
 	<alert name="HelpEstateAllowDirectTeleport" title="Autoriser la téléportation directe">
 		<message name="message">
-			Lorsqu&apos;elle est cochée, cette option permet aux résidents d&apos;être téléporté à n&apos;importe quel endroit sur votre domaine.  Lorsque cette option n&apos;est pas cochée, les résidents sont téléportés au téléhub le plus proche. 
+			Lorsqu&apos;elle est cochée, cette option permet aux résidents d&apos;être téléportés à n&apos;importe quel endroit sur votre domaine.  Lorsque cette option n&apos;est pas cochée, les résidents sont téléportés au téléhub le plus proche. 
  
 Défaut : désactivé
 		</message>
@@ -3596,7 +3596,7 @@ Défaut : désactivé
 	<alert name="HelpEstateAllowResident" title="Autoriser l&apos;accès">
 		<message name="message">
 			L&apos;accès à ce domaine sera réservé aux résidents figurant dans cette liste et aux groupes ci-dessous.
- Cette option n&apos;est disponible que lorsque la case Accès public est décochée.
+Cette option n&apos;est disponible que lorsque la case Accès public est décochée.
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowGroup" title="Autoriser l&apos;accès de groupe">
@@ -3893,9 +3893,9 @@ Déplacer les objets de l&apos;inventaire ?
 http://secondlife.com/corporate/tos.php 
 http://secondlife.com/corporate/cs.php
 
-Lorsqu&apos;elles sont signalées, toutes les infractions aux Conditions d&apos;utilisation et aux Règles de la communauté, font l&apos;objet d&apos;une enquête et sont résolues. Pour accéder aux détails de la résolution d&apos;un incident, allez sur :
+Lorsqu&apos;elles sont signalées, toutes les infractions aux Conditions d&apos;utilisation et aux Règles de la communauté font l&apos;objet d&apos;une enquête et sont résolues. Pour accéder aux détails de la résolution d&apos;un incident, allez sur :
 
-http://secondlife.com/community/blotter.php
+http://secondlife.com/support/incidentreport.php
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseEmailEO">
@@ -3986,17 +3986,17 @@ Les descriptions précises nous permettent de résoudre les bugs plus rapidement
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
 			Cher résident,
+ 
+Il semble que vous souhaitiez reporter une infraction à des droits de propriété intellectuelle. Pour signaler correctement cette infraction :
 
-Si vous signalez une infraction aux droits de propriété intellectuelle, assurez-vous de fournir les détails suivants :
+(1) Remplissez un rapport d&apos;infraction. Vous pouvez soumettre un rapport d&apos;infraction si vous pensez qu&apos;un résident exploite le système de permissions de Second Life, par exemple en utilisant un CopyBot ou des outils similaires pour enfreindre des droits de propriété intellectuelle. Notre équipe chargée des infractions mènera une enquête et prendra les mesures nécessaires à l&apos;encontre du résident non respectueux des Conditions d&apos;utilisation ou des règles de la communauté. Sachez toutefois que l&apos;équipe chargée des infractions ne supprimera pas de contenu à l&apos;intérieur de Second Life.
 
-(1) Vous pouvez envoyer un rapport d&apos;infraction si vous pensez qu&apos;un résident exploite le système de permissions de Second Life, par exemple en utilisant CopyBot ou des outils similaires, pour enfreindre des droits de propriété intellectuelle. L&apos;équipe chargée des infractions mènera une enquête et prendra les mesures nécessaires à l&apos;encontre de toute personne non respectueuse des Conditions d&apos;utilisation et des Règles de la communauté. Néanmoins, cette équipe ignorera les requêtes au sujet du retrait de contenu se trouvant sur Second Life.
+(2) Demandez à ce que du contenu à l&apos;intérieur de Second Life soit supprimé. Pour demander à ce que du contenu soit supprimé de Second Life, vous devez soumettre un rapport d&apos;infraction valide, tel que fourni dans notre Règlement contre les violations des droit d&apos;auteurs (DMCA), à http://secondlife.com/corporate/dmca.php.
 
-(2) Pour demander à ce que du contenu soit retiré de Second Life, vous devez soumettre un rapport d&apos;infraction valide, tel que fourni dans notre règlement sur le retrait de contenu à la page suivante : http://secondlife.com/corporate/dmca.php.
+Si vous souhaitez toujours reporter cette infraction, veuillez fermer cette fenêtre et soumettre votre rapport.  Vous devrez peut-être sélectionner la catégorie CopyBot ou exploitation abusive des permissions.
 
-Si vous souhaitez continuer à signaler l&apos;infraction, veuillez fermer cette fenêtre et finir de soumettre votre rapport.
-
-Cordialement,
-
+Merci,
+ 
 Linden Lab
 		</message>
 	</alert>
@@ -4089,7 +4089,7 @@ Souhaitez-vous quitter le mode occupé avant de terminer cette transaction ?
 			Êtes-vous certain de vouloir supprimer le contenu de votre dossier Objets trouvés de manière permanente ?
 		</message>
 		<ignore name="ignore">
-			Losque vous videz le dossier Objets trouvés dans vote inventaire
+			Losque vous videz le dossier Objets trouvés dans votre inventaire
 		</ignore>
 		<option name="Yes">
 			Oui
@@ -4536,5 +4536,10 @@ Voulez-vous aller sur le site de Second Life pour enregistrer ces informations 
 		<url>
 			https://secondlife.com/account/
 		</url>
+	</alert>
+	<alert name="MissingString">
+		<message name="message">
+			The string [STRING_NAME] is missing from strings.xml
+		</message>
 	</alert>
 </alerts>

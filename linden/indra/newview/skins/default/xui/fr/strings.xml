@@ -139,7 +139,7 @@
 		Notes de version
 	</string>
 	<string name="LoadingData">
-		Chargement en cours...
+		Chargement..
 	</string>
 	<string name="AvatarNameNobody">
 		(personne)
@@ -403,7 +403,7 @@
 		Oui
 	</string>
 	<string name="texture_loading">
-		Chargement en cours...
+		Chargement...
 	</string>
 	<string name="worldmap_offline">
 		Hors ligne

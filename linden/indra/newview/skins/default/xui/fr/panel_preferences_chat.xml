@@ -19,7 +19,7 @@ du chat :
 		Couleur du chat :
 	</text>
 	<color_swatch label="Vous" name="user"/>
-	<color_swatch label="Les autres" name="agent" width="60"/>
+	<color_swatch label="Avatars" name="agent" width="60"/>
 	<color_swatch label="IM" left_delta="64" name="im"/>
 	<color_swatch label="Système" name="system"/>
 	<color_swatch label="Erreurs" name="script_error"/>
@@ -45,7 +45,7 @@ du chat :
 	<check_box label="Utiliser la largeur de l&apos;écran (redémarrage requis)" name="chat_full_width_check"/>
 	<check_box label="Fermer le chat après avoir appuyé sur Entrée" name="close_chat_on_return_check"/>
 	<check_box label="Faire bouger l&apos;avatar avec les touches de direction" name="arrow_keys_move_avatar_check"/>
-	<check_box label="Afficher les heures dans le chat local" name="show_timestamps_check"/>
+	<check_box label="Afficher les heures dans le chat" name="show_timestamps_check"/>
 	<check_box label="Jouer l&apos;animation clavier quand vous écrivez" name="play_typing_animation"/>
 	<text length="1" name="text_box7" type="string">
 		Bulles de chat  :
@@ -55,5 +55,5 @@ du chat :
 	<text length="1" name="text_box8" type="string">
 		Erreurs de script :
 	</text>
-	<check_box label="Afficher les erreurs et avertissements dans le chat" name="script_errors_as_chat"/>
+	<check_box label="Afficher les erreurs dans le chat" name="script_errors_as_chat"/>
 </panel>

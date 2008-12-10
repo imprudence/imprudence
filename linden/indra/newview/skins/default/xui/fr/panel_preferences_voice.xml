@@ -16,11 +16,11 @@
 		Mode Appuyer pour parler
 	</text>
 	<text_editor name="voice_chat_description" width="465">
-		En mode Appuyer pour parler, vous contrôlez le moment où votre voix est transmise en appuyant et en relâchant le bouton Parler en bas à droite de l&apos;écran. Pour quitter ce mode et laisser votre micro constamment activé, verrouillez le petit cadenas en cliquant dessus. Vous pouvez aussi définir une touche de contrôle pour le mode Appuyer pour parler. Pour cela, laissez le cadenas à gauche du bouton Parler déverrouillé, cochez l&apos;option ci-dessous et choisissez une nouvelle touche.
+		Avec ce mode, vous contrôlez quand vous parlez en appuyant sur le bouton Parler de l&apos;interface. Vous pouvez définir une touche de contrôle supplémentaire en cochant l&apos;option ci-dessous. Pour laisser votre micro constamment ouvert, verrouillez le petit cadenas de l&apos;interface en cliquant dessus.
 	</text_editor>
 	<check_box label="Attribuer une touche de contrôle" name="push_to_talk_toggle_check"/>
 	<text name="push_to_talk_label">
-		Touche de contrôle du mode Appuyer pour parler :
+		Touche de contrôle :
 	</text>
 	<button label="Choisir la touche" name="set_voice_hotkey_button"/>
 	<button label="Molette de la souris" name="set_voice_middlemouse_button"/>
@@ -29,7 +29,7 @@
 	</text>
 	<check_box label="N&apos;accepter que les appels de mes amis" name="voice_call_friends_only_check"/>
 	<text_editor name="device_settings_text">
-		Remarque : si vous cliquez sur Paramètres du matériel, vous serez temporairement deconnecté du chat vocal.
+		Remarque : si vous cliquez sur Paramètres du matériel, vous serez temporairement déconnecté du Chat vocal. Tous les changements que vous faites seront immédiatement appliqués.
 	</text_editor>
 	<button label="Paramètres du matériel" name="device_settings_btn"/>
 </panel>

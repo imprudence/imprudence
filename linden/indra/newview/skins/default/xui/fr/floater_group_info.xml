@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="groupinfo" title="Les Linden – Informations sur le groupe">
+<floater name="groupinfo" title="Les Linden – Profil du groupe">
 	<tab_container name="tab">
 		<panel label="Général" name="gen">
 			<text name="title_box">
-				Infos sur le groupe
+				Profil du groupe
 			</text>
 			<text name="txt">
 				Les groupes sont un moyen divertissant de collaborer avec vos amis.
@@ -78,7 +78,7 @@
 			<tab_container name="tab">
 				<panel label="Élection" name="recall">
 					<text name="txt">
-						Élections du groupe
+						Élections
 					</text>
 					<text name="instructions">
 						Pour commencer une nouvelle élection, cliquez sur Lancer l&apos;élection.  
@@ -171,15 +171,15 @@ Les candidats incluent tous les membres qui ne sont pas officiers.
 						jours
 					</text>
 					<text name="start_lbl">
-						Début du vote :
+						Début :
 					</text>
 					<text name="end_lbl">
-						Fin du vote :
+						Fin :
 					</text>
 				</panel>
 				<panel label="Historique" name="History">
 					<text name="txt">
-						Historique des votes du groupe
+						Historique des votes
 					</text>
 					<text name="instructions">
 						Vous pouvez afficher les anciens résultats en sélectionnant le vote et
@@ -200,7 +200,7 @@ Les candidats incluent tous les membres qui ne sont pas officiers.
 		</panel>
 		<panel label="Invitation" name="inv">
 			<text name="txt">
-				Invitations du groupe
+				Invitations
 			</text>
 			<text name="txt2">
 				Les invitations sont envoyées par messagerie instantanée.

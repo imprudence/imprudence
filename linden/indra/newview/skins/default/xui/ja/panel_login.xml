@@ -40,7 +40,7 @@
 	<text name="channel_text">
 		[CHANNEL] [VERSION]
 	</text>
-	<text name="forgot_password_text">
+	<text name="forgot_password_text" left="-230" width="220">
 		名前またはパスワードをお忘れですか?
 	</text>
 	<text name="forgot_password_url">

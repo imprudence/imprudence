@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <alerts>
 	<global name="skipnexttime">
 		今後は表示しない
@@ -383,22 +383,22 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="ClickWebProfileHelpAvatar">
 		<message name="message">
-			この住人がウェブプロフィールURLを設定している場合は、以下のことが可能です。
- * そのページを内蔵ブラウザーで表示するには、 [ロード]をクリックします。
- * そのページを外部ブラウザーで表示するには、 [ロード]-[開く]をクリックします。
- * 別のページにアクセスしてしまい、 住人のウェブ・プロフィールに戻りたい時は、 [ロード]-[ホームURL]をクリックします。
+			この住人がウェブ・プロフィールURLを設定している場合は、以下のことが可能です。
+ * [ロード]をクリックし、このウェブ・タブ内でページを表示
+ * [ロード] &gt; &apos;外部ブラウザ&apos; をクリックし、ディフォルトのウェブ・ブラウザでページを表示
+ * [ロード] &gt; &apos;ホームURL&apos; をクリックし、他のページからこの住人のウェブ・プロフィールに戻る
  
-自分のプロフィールを表示しているときは、任意のURLをウェブプロフィールとして入力し、[OK]をクリックして設定できます。
-プロフィールを見た他の住人は、そのURLにアクセスすることができます。
+自分のプロフィールに任意のURLを入力しOKをクリックして、ウェブ・プロフィールとして設定することができます。
+それを見た他の住人がそのサイトを訪れることができます。
 		</message>
 	</alert>
 	<alert name="ClickWebProfileNoWebHelpAvatar">
 		<message name="message">
-			この住人がウェブ・プロフィールURLを設定している場合は、以下のことが可能です:
-*そのページをデフォルトの外部ウェブ・ブラウザーで表示するには、[開く]をクリックします。
+			この住人がウェブ・プロフィールURLを設定している場合は、以下のことが可能です。
+ * Openをクリックし、ディフォルトのウェブ・ブラウザでページを表示
  
-自分のプロフィールを表示しているときは、任意のURLをウェブ・プロフィールとして入力できます。
-プロフィールを見た住人は、そのURLにアクセスすることができます。
+自分のプロフィールに任意のURLを入力しOKをクリックして、ウェブ・プロフィールとして設定することができます。
+それを見た他の住人がそのサイトを訪れることができます。
 		</message>
 	</alert>
 	<alert name="ReputationMinGreaterThanMax">
@@ -468,8 +468,8 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="JoinGroupCannotAfford">
 		<message name="message">
-			このグループに参加するにはL$[COST]かかります。
-残金不足のため、このグループに参加できません。
+			このグループに加入するには、L$[COST]必要です。
+L$が不足しているのでこのグループに参加することができません。
 		</message>
 	</alert>
 	<alert name="LandBuyPass">
@@ -715,14 +715,6 @@ Studio exhibitのウェブ・ページで確認してください。
 		<message name="message">
 			まだ読み込まれていないため、そのアイテムを装着できません。後でやり直してください。
 		</message>
-	</alert>
-	<alert name="MustHaveAccountToLogInNoLinks">
-		<message name="message">
-			[SECOND_LIFE]への接続にはアカウントが必要です。
-		</message>
-		<option name="OK">
-			閉じる
-		</option>
 	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
@@ -1573,12 +1565,12 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 	</alert>
 	<alert name="InsufficientFundsToUploadFile">
 		<message name="message">
-			ファイルをアップロードするには資金不足です:価格はL$[COST]ですが、残金はL$[BALANCE]です。
+			L$不足のため、ファイルのアップロードができません。 必要金額はL$[COST], 残高はL$[BALANCE]です。
 		</message>
 	</alert>
 	<alert name="InsufficientFundsToFinishUpload">
 		<message name="message">
-			ファイル[FILE]のアップロードを完了するには資金不足です:価格はL$[COST]ですが、残金はL$[BALANCE]です。
+			L$不足のため、[FILE]のアップロードができません。 必要金額はL$[COST], 残高はL$[BALANCE]です。
 		</message>
 	</alert>
 	<alert name="CannotUploadReason">
@@ -2078,6 +2070,9 @@ L$は贈与されません。
 
 [NAME] にフレンドシップを送りますか？
 		</message>
+		<editline name="editline">
+			フレンドとして登録してくれますか？
+		</editline>
 		<option name="Offer">
 			OK
 		</option>
@@ -2092,7 +2087,7 @@ L$は贈与されません。
 [NAME] にフレンドシップのオファーをしますか？
 		</message>
 		<editline name="editline">
-			私のフレンドになっていただけますか？
+			フレンドとして登録してくれますか？
 		</editline>
 		<option name="Offer">
 			OK
@@ -2523,7 +2518,7 @@ F1キーを押してください。
 	</alert>
 	<alert name="NotEnoughCurrency">
 		<message name="message">
-			[NAME] L$ [PRICE] 残金が足りません。
+			[NAME] L$ [PRICE] 残高不足のため実行不可です。
 		</message>
 	</alert>
 	<alert name="GrantedModifyRights">
@@ -3240,6 +3235,7 @@ F1キーを押してください。
 			今あなたの不動産にいる人全員に送る
 短いメッセージを入力してください。.
 		</message>
+		<editline name="editline"/>
 		<option name="OK">
 			OK
 		</option>
@@ -3527,6 +3523,7 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ公開しますか�
 			この地域にいる人全員に送る
 短いメッセージを入力してください。
 		</message>
+		<editline name="editline"/>
 		<option name="OK">
 			OK
 		</option>
@@ -4190,17 +4187,15 @@ Linden社所有のメインランドの不動産での太陽の位置に
 	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
-			このツールは利用規約違反とコミュニティースタンダード違反の 
-報告に使用してください。 参照:
+			利用規約違反とコミュニティースタンダード違反の報告にこのツールをご使用ください。 参照：
 
 http://secondlife.com/corporate/tos.php 
 http://secondlife.com/corporate/cs.php
 
-利用規約違反とコミュニティースタンダード違反に関する全てのレポートは 
-調査され、解決されます。 以下のPolice Blotterで 
-解決の確認をすることができます:
+利用規約違反とコミュニティースタンダード違反に関する全てのレポートは、調査され、解決されます。 
+以下のリンク先のIncident Reportにてその確認をすることができます。
 
-http://secondlife.com/community/blotter.php
+http://secondlife.com/support/incidentreport.php
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseEmailEO">
@@ -4282,18 +4277,22 @@ http://secondlife.com/community/support.php
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
-			親愛なる住人の皆様へ
+			Dear Resident,
+ 
+知的財産の侵害に関する報告を行う際には、以下の点に注意してください。
 
-知的所有権の侵害を報告する場合は、以下のとおり正確に報告してください。
+(1) 嫌がらせの報告のプロセス。Second Lifeの権限システムを悪用している住人を見つけたら、嫌がらせの報告を行ってください。
+例えばコピーBotの使用、それに似たツールの使用による知的財産権の侵害があります。
+アビューズチームは調査に基づきSecond Lifeのコミュニティースタンダードや利用規約に違反する行為と判断された場合には適切な処置を行っています。
+ただし、コンテンツをSecond Lifeから撤去してほしい、といった要望にはアビューズチームは応えることができません。
 
-(1) 嫌がらせの処理。 住人がSecond Lifeの許可システムを不当に使用し、知的所有権が侵害されていると考えられる場合は、嫌がらせ報告を提出することができます。許可システムを不当に使用する手段としては、たとえば、CopyBotまたは類似したコピー・ツールがあります。 嫌がらせ対応担当チームが調査を行い、Second Lifeのコミュニティ・スタンダードまたは利用規約に違反する態度に対しては適切な懲罰処分が行われます。 ただし、嫌がらせ対応担当チームでは、コンテンツをSecond Lifeワールドから削除するリクエストに対する処理または回答は行いません。
+(2) DMCA（デジタルミレニアム著作権法）及びコンテンツ撤去プロセス。 Second Lifeからのコンテンツの撤去をリクエストするには、著作権侵害通知の提出を行う必要があります。
+参照：http://secondlife.com/corporate/dmca.php
 
-(2) DMCAまたはコンテンツの削除処理。 Second Lifeからのコンテンツの削除をリクエストするには、http://secondlife.com/corporate/dmca.phpのDMCAポリシーにある、侵害に関する有効な通知を提出する必要があります。
+この件に関する嫌がらせの報告を続ける際は、このウィンドウを閉じてください。選択すべきカテゴリは「知的財産の侵害 &gt; コピーBot及び権限の悪用」が適しているかもしれませんのでご確認ください。
 
-嫌がらせの処理を継続する場合は、このウインドウを閉じ、報告を提出してください。
-
-ご協力ありがとうございます。
-
+Thank you,
+ 
 Linden Lab
 		</message>
 	</alert>

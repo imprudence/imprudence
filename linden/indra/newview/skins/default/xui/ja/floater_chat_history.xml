@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="chat floater" title="ローカル・チャット">
 	<string name="ringing">
 		インワールドボイスチャットに接続中．．．
@@ -41,6 +41,9 @@
 					</flyout_button_item>
 					<flyout_button_item name="say_item">
 						発言
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						ささやく
 					</flyout_button_item>
 				</flyout_button>
 			</panel>

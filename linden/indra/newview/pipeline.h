@@ -383,6 +383,7 @@ public:
 	static BOOL				sSkipUpdate; //skip lod updates
 	static BOOL				sWaterReflections;
 	static BOOL				sDynamicLOD;
+	static BOOL				sPickAvatar;
 	static BOOL				sReflectionRender;
 	static BOOL				sImpostorRender;
 	static BOOL				sUnderWaterRender;

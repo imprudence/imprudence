@@ -4,7 +4,7 @@
 		Certains changements n&apos;ont pas été appliqués sur ce sous-onglet.
 	</text>
 	<text name="want_apply_text">
-		Voulez-vous les appliquer ?
+		Voulez-vous enregistrer les modifications ?
 	</text>
 	<text name="cant_delete_role">
 		Les Rôles Tout le monde et Propriétaires sont spéciaux et ne peuvent être supprimés.
@@ -12,12 +12,11 @@
 	<button label="?" name="help_button"/>
 	<panel name="members_header">
 		<text name="static">
-			Membres et rôles
+			Membres
 		</text>
 		<text name="static2">
-			Chaque membre reçoit un rôle auquel sont associés certains pouvoirs. Ces
-paramètres peuvent être facilement personnalisés, ce qui permet une
-meilleure organisation et plus de flexibilité.
+			Les rôles de chaque membre peuvent être personnalisés, ce qui permet une
+meilleure organisation du groupe.
 		</text>
 	</panel>
 	<panel name="roles_header">
@@ -55,11 +54,11 @@ quels membres ces pouvoirs sont assignés.
 			<button label="Afficher tout" left_delta="80" name="show_all_button"/>
 			<name_list bottom_delta="-105" height="104" name="member_list">
 				<column label="Nom du membre" name="name"/>
-				<column label="Terrain donné" name="donated" width="116"/>
+				<column label="Surface donnée" name="donated" width="116"/>
 				<column label="Dernière connexion" name="online" width="136"/>
 			</name_list>
-			<button label="Inviter nouveau résident..." name="member_invite" width="165"/>
-			<button label="Expulser du groupe" name="member_eject"/>
+			<button label="Inviter un nouveau membre" name="member_invite" width="165"/>
+			<button label="Expulser un membre" name="member_eject"/>
 			<text name="help_text">
 				Vous pouvez ajouter ou supprimer les rôles assignés aux membres.
 Pour sélectionner plusieurs membres, cliquez sur leurs noms en maintenant la touche Ctrl enfoncée.
@@ -77,7 +76,7 @@ Pour sélectionner plusieurs membres, cliquez sur leurs noms en maintenant la to
 			<button label="Créer un rôle..." name="role_create"/>
 			<button label="Supprimer le rôle" name="role_delete"/>
 			<text name="help_text">
-				Chaque rôle a un titre et une liste des pouvoirs assignés aux membres. Chaque membre peut avoir un ou plusieurs rôles. Un groupe peut avoir jusqu&apos;à 10 rôles, y compris les rôles Tous et Propriétaires.
+				Chaque rôle possède un titre et des pouvoirs. Un membre peut avoir plusieurs rôles mais il ne peut y avoir que 10 rôles dans un groupe, Visiteur et Propriétaire inclus.
 			</text>
 			<string name="cant_delete_role">
 				Les rôles Tous et Propriétaires sont spéciaux et ne peuvent pas être supprimés.
@@ -92,7 +91,7 @@ Pour sélectionner plusieurs membres, cliquez sur leurs noms en maintenant la to
 				<column label="" name="action"/>
 			</scroll_list>
 			<text name="help_text">
-				Lorsqu&apos;un membre a des pouvoirs, il peut faire un certain nombre de choses dans le groupe. Il existe un grand nombre de pouvoirs.
+				Les pouvoirs déterminent les facultés de chaque membre dans le groupe.
 			</text>
 		</panel>
 	</tab_container>
@@ -137,8 +136,7 @@ Pour sélectionner plusieurs membres, cliquez sur leurs noms en maintenant la to
 		<text name="static5" tool_tip="Une liste des pouvoirs auquel le rôle sélectionné a accès.">
 			Pouvoirs attribués
 		</text>
-		<check_box label="Les membres sont 
-visibles" name="role_visible_in_list" tool_tip="Définit si les membres de ce rôle sont visibles à partir de l&apos;onglet Général aux personnes en dehors du groupe."/>
+		<check_box label="Membres visibles" name="role_visible_in_list" tool_tip="Définit si les membres de ce rôle sont visibles à partir de l&apos;onglet Général aux personnes en dehors du groupe."/>
 		<scroll_list name="role_allowed_actions" tool_tip="Pour avoir des détails sur chacun des pouvoirs attribués, allez à l&apos;onglet Pouvoirs.">
 			<column label="" name="icon"/>
 			<column label="" name="checkbox"/>
@@ -153,10 +151,10 @@ visibles" name="role_visible_in_list" tool_tip="Définit si les membres de ce r�
 			Ce pouvoir permet d&apos;expulser des membres du groupe. Seul un propriétaire peut expulser un autre propriétaire.
 		</text_editor>
 		<text name="static2">
-			Rôles avec pouvoirs
+			Rôles avec ce pouvoir
 		</text>
 		<text name="static3">
-			Membres avec pouvoirs
+			Membres avec ce pouvoir
 		</text>
 	</panel>
 </panel>

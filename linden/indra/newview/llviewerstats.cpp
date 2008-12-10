@@ -680,8 +680,7 @@ void send_stats()
 	// send fps only for time app spends in foreground
 	agent["fps"] = (F32)gForegroundFrameCount / gForegroundTime.getElapsedTimeF32();
 	agent["version"] = gCurrentVersion;
-	std::string language(gSavedSettings.getString("Language"));
-	if(language == "default") language = gSavedSettings.getString("SystemLanguage");	
+	std::string language = LLUI::getLanguage();
 	agent["language"] = language;
 	
 	agent["sim_fps"] = ((F32) gFrameCount - gSimFrames) /
@@ -760,8 +759,12 @@ void send_stats()
 	// misc["string_2"] = 
 // 	misc["int_1"] = LLFloaterDirectory::sOldSearchCount; // Steve: 1.18.6
 // 	misc["int_2"] = LLFloaterDirectory::sNewSearchCount; // Steve: 1.18.6
-	misc["int_1"] = LLSD::Integer(gSavedSettings.getU32("RenderQualityPerformance")); // Steve: 1.21
-	misc["int_2"] = LLSD::Integer(gFrameStalls); // Steve: 1.21
+// 	misc["int_1"] = LLSD::Integer(gSavedSettings.getU32("RenderQualityPerformance")); // Steve: 1.21
+// 	misc["int_2"] = LLSD::Integer(gFrameStalls); // Steve: 1.21
+	F32 unbaked_time = LLVOAvatar::sUnbakedTime / gFrameTime;
+	misc["int_1"] = LLSD::Integer(unbaked_time * 1000.f); // Steve: 1.22
+	F32 grey_time = LLVOAvatar::sGreyTime / gFrameTime;
+	misc["int_2"] = LLSD::Integer(grey_time * 1000.f); // Steve: 1.22
 	
 	LLViewerStats::getInstance()->addToMessage(body);
 

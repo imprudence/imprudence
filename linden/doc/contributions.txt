@@ -391,6 +391,13 @@ Tharax Ferraris
 Thraxis Epsilon
 	SVC-371
 	VWR-383
+Tue Torok
+	CT-68
+	CT-69
+	CT-70
+	CT-72
+	CT-73
+	CT-74
 Wilton Lundquist
 	VWR-7682
 Whoops Babii

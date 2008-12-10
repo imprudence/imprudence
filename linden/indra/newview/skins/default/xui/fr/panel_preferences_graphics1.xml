@@ -2,7 +2,7 @@
 <panel label="Graphiques" name="Display panel">
 	<button label="?" name="GraphicsPreferencesHelpButton"/>
 	<text_editor bottom="-56" height="40" left="25" name="FullScreenInfo" width="460">
-		Cochez cette option pour que le client s&apos;affiche en plein écran.
+		Décochez cette option pour passer en mode plein écran.
 	</text_editor>
 	<text name="WindowSizeLabel">
 		Taille de la fenêtre :
@@ -139,7 +139,7 @@
 	<slider label="  Flexiprims :" name="FlexibleMeshDetail"/>
 	<slider label="  Arbres :" name="TreeMeshDetail"/>
 	<slider label="  Avatars :" name="AvatarMeshDetail"/>
-	<slider label="Relief :" name="TerrainMeshDetail"/>
+	<slider label="  Relief :" name="TerrainMeshDetail"/>
 	<slider label="  Ciel :" name="SkyMeshDetail"/>
 	<text name="PostProcessText">
 		Faible

@@ -82,9 +82,6 @@
 	</text>
 	<combo_box label="" name="emote_combo"
 	     tool_tip="Controls what face does during animation.">
-		<combo_item name="[None]">
-			[None]
-		</combo_item>
 		<combo_item name="Aaaaah">
 			Aaaaah
 		</combo_item>
@@ -118,9 +115,6 @@
 		<combo_item name="Laugh">
 			Lachen
 		</combo_item>
-		<combo_item name="Plllppt">
-			Plllppt
-		</combo_item>
 		<combo_item name="Repulsed">
 			Zurückgestoßen
 		</combo_item>
@@ -152,8 +146,8 @@
 	<slider label="" name="playback_slider" />
 	<text name="bad_animation_text">
 		Animationsdatei konnte nicht gelesen werden.
-	
-	Wir empfehlen exportierte BVH-Dateien aus Poser 4.
+
+Wir empfehlen exportierte BVH-Dateien aus Poser 4.
 	</text>
 	<button label="Abbrechen" name="cancel_btn" />
 	<button label="Hochladen ([AMOUNT] L$)" name="ok_btn" />

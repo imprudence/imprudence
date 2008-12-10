@@ -154,7 +154,7 @@ void LLImageGL::destroyGL(BOOL save_state)
 		LLImageGL* glimage = *iter;
 		if (glimage->mTexName && glimage->mComponents)
 		{
-			if (save_state)
+			if (save_state && glimage->isInitialized())
 			{
 				glimage->mSaveData = new LLImageRaw;
 				glimage->readBackRaw(glimage->mCurrentDiscardLevel, glimage->mSaveData, false);

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="floater_report_abuse" title="Signaler une infraction">
+	<texture_picker label="" name="screenshot"/>
+	<check_box label="Inclure une capture d&apos;écran" name="screen_check"/>
 	<text name="reporter_title" width="60">
 		Déposant :
 	</text>
@@ -15,13 +17,21 @@
 	<text name="pos_title">
 		Position :
 	</text>
-	<texture_picker name="screenshot"/>
-	<check_box label="Inclure une capture d&apos;écran" name="screen_check"/>
 	<text name="pos_field">
 		{128.1, 128.1, 15.4}
 	</text>
+	<text name="select_object_label">
+		Cliquez sur le bouton puis l&apos;objet :
+	</text>
+	<button label="" label_selected="" name="pick_btn" tool_tip="Le sélecteur d&apos;objet vous permet d&apos;identifier un objet comme sujet du rapport."/>
+	<text name="object_name_label">
+		Nom :
+	</text>
 	<text left_delta="70" name="object_name" width="105">
 		Consetetur Sadipscing
+	</text>
+	<text name="owner_name_label" width="66">
+		Propriétaire :
 	</text>
 	<text left_delta="70" name="owner_name" width="105">
 		Hendrerit Vulputate
@@ -48,14 +58,11 @@
 		<combo_item name="Assault__Weapons_testing_sandbox">
 			Assaut &gt; Bac à sable pour tests d&apos;armes à feu
 		</combo_item>
-		<combo_item name="Copyright_or_intellectual_property_violation">
-			Violation de droits d&apos;auteur ou de propriété intellectuelle
-		</combo_item>
 		<combo_item name="Commerce__Failure_to_deliver_product_or_service">
 			Commerce &gt; Incapacité à fournir un produit ou service
 		</combo_item>
-		<combo_item name="Disclosure__First_Life_information">
-			Divulgation &gt; Informations sur la vie réelle (First Life)
+		<combo_item name="Disclosure__Real_world_information">
+			Divulgation &gt; Informations sur la vie réelle
 		</combo_item>
 		<combo_item name="Disclosure__Remotely_monitoring chat">
 			Divulgation &gt; Écoute d&apos;un chat à distance
@@ -120,6 +127,12 @@
 		<combo_item name="Indecency__Mature_content_in_PG_region">
 			Indécence &gt; Contenu Adultes dans une région Tout public
 		</combo_item>
+		<combo_item name="Intellectual_property_infringement_Content_Removal">
+			Violation de droits de propriété intellectuelle &gt; Suppression de contenu
+		</combo_item>
+		<combo_item name="Intellectual_property_infringement_CopyBot_or_Permissions_Exploit">
+			Violation de droits de propriété intellectuelle &gt; CopyBot ou exploitation abusive des permissions
+		</combo_item>
 		<combo_item name="Intolerance">
 			Intolérance
 		</combo_item>
@@ -135,9 +148,6 @@
 		<combo_item name="Land__Encroachment__Trees_plants">
 			Terrain &gt; Empiètement &gt; Arbres/plantes
 		</combo_item>
-		<combo_item name="Trademark_violation">
-			Violation des droits de marque
-		</combo_item>
 		<combo_item name="Wagering_gambling">
 			Paris/jeux d&apos;argent
 		</combo_item>
@@ -145,16 +155,6 @@
 			Autre
 		</combo_item>
 	</combo_box>
-	<button label="" label_selected="" name="pick_btn" tool_tip="Le sélecteur d&apos;objet vous permet d&apos;identifier un objet comme sujet du rapport."/>
-	<text name="select_object_label">
-		Cliquez sur le bouton puis l&apos;objet :
-	</text>
-	<text name="object_name_label">
-		Nom :
-	</text>
-	<text name="owner_name_label" width="66">
-		Propriétaire :
-	</text>
 	<text name="abuser_name_title">
 		Nom du contrevenant :
 	</text>
@@ -178,6 +178,6 @@ que possible. Pensez à indiquer un objet.
 		Remarque : les rapports incomplets ne feront pas l&apos;objet d&apos;une
 enquête.
 	</text>
-	<button label="Signaler une infraction" label_selected="Signaler une infraction" name="send_btn"/>
 	<button label="Annuler" label_selected="Annuler" name="cancel_btn"/>
+	<button label="Signaler une infraction" label_selected="Signaler une infraction" name="send_btn"/>
 </floater>

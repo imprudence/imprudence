@@ -467,7 +467,7 @@ Go to World menu > About Land or select another parcel to show its details.
 				<column name="online_status" width="-1" />
 				<column name="name" dynamicwidth="true" label="Name" />
 				<column name="count" label="Count" width="70" />
-				<column label="Most Recent" width="160" />
+				<column name="mostrecent" label="Most Recent" width="160" />
 			</name_list>
 		</panel>
 		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"

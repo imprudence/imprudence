@@ -85,6 +85,7 @@ LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *excepti
 	
     // Translate the signals/exceptions into cross-platform stuff
 	// Windows implementation
+    _tprintf( _T("Entering Windows Exception Handler...\n") );
 	llinfos << "Entering Windows Exception Handler..." << llendl;
 
 	// Make sure the user sees something to indicate that the app crashed.
@@ -92,6 +93,7 @@ LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *excepti
 
 	if (LLApp::isError())
 	{
+	    _tprintf( _T("Got another fatal signal while in the error handler, die now!\n") );
 		llwarns << "Got another fatal signal while in the error handler, die now!" << llendl;
 
 		retval = EXCEPTION_EXECUTE_HANDLER;
@@ -122,6 +124,7 @@ LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *excepti
 	return retval;
 }
 
+//#define DEBUGGING_SEH_FILTER 1
 #if DEBUGGING_SEH_FILTER
 #	define WINMAIN DebuggingWinMain
 #else

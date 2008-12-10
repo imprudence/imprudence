@@ -29,12 +29,12 @@
  * $/LicenseInfo$
  */
 
+#include "llviewerprecompiledheaders.h"
+
 // system library includes
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
-
-#include "llviewerprecompiledheaders.h"
 
 #include "llpanellogin.h"
 #include "llviewerkeyboard.h"
@@ -3560,7 +3560,7 @@ LLViewerObject* LLViewerWindow::cursorIntersect(S32 mouse_x, S32 mouse_y, F32 de
 	LLVector3 mouse_hud_end   = mouse_point_hud + LLVector3(depth, 0, 0);
 	
 	// world coordinates of mouse
-	LLVector3		mouse_direction_global = mouseDirectionGlobal(x,y);
+	LLVector3 mouse_direction_global = mouseDirectionGlobal(x,y);
 	LLVector3 mouse_point_global = LLViewerCamera::getInstance()->getOrigin();
 	LLVector3 mouse_world_start = mouse_point_global;
 	LLVector3 mouse_world_end   = mouse_point_global + mouse_direction_global * depth;
@@ -5202,7 +5202,7 @@ void LLPickInfo::fetchResults()
 	LLVector3 intersection, normal, binormal;
 	LLVector2 uv;
 
-	LLViewerObject* hit_object = gViewerWindow->cursorIntersect(-1, -1, 512.f,
+	LLViewerObject* hit_object = gViewerWindow->cursorIntersect(mMousePt.mX, mMousePt.mY, 512.f,
 									NULL, -1, mPickTransparent, &face_hit,
 									&intersection, &uv, &normal, &binormal);
 	

@@ -238,7 +238,6 @@ const S32 AGENT_UPDATES_PER_SECOND  = 10;
 //
 // "// llstartup" indicates that llstartup is the only client for this global.
 
-extern BOOL gHandleKeysAsync; // gSavedSettings used by llviewerdisplay.cpp & llviewermenu.cpp
 extern LLSD gDebugInfo;
 
 extern BOOL	gAllowIdleAFK;

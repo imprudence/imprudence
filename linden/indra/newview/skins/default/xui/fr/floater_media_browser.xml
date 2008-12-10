@@ -4,7 +4,7 @@
 		<layout_panel name="nav_controls">
 			<button label="Précédente" name="back" width="75"/>
 			<button label="Suivante" left_delta="75" name="forward" width="70"/>
-			<button label="Recharger" left_delta="75" name="reload"/>
+			<button label="Rafraîchir" left_delta="75" name="reload"/>
 			<combo_box left_delta="75" name="address" width="250"/>
 			<button label="OK" left_delta="255" name="go"/>
 		</layout_panel>

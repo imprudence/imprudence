@@ -7,6 +7,6 @@
 	<button label="Annuler" name="cancel_btn" />
 	<button label="Effacer" name="clear_btn" />
 	<text name="loading_label">
-		Chargement en cours...
+		Chargement...
 	</text>
 </floater>

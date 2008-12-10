@@ -483,13 +483,7 @@ void LLWebBrowserCtrl::navigateTo( std::string urlIn )
 
 void LLWebBrowserCtrl::navigateToLocalPage( const std::string& subdir, const std::string& filename_in )
 {
-	std::string language = gSavedSettings.getString("Language");
-	
-	if(language == "default")
-	{
-		language = gSavedSettings.getString("SystemLanguage");
-	}
-
+	std::string language = LLUI::getLanguage();
 	std::string delim = gDirUtilp->getDirDelimiter();
 	std::string filename;
 

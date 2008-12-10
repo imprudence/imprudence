@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="top_objects" title="en cours de chargement...">
 	<text name="title_text">
-		Chargement en cours...
+		Chargement...
 	</text>
 	<scroll_list name="objects_list">
 		<column label="Score" name="score"/>
@@ -40,7 +40,7 @@
 		Objets souvent responsables de collision
 	</text>
 	<text name="top_colliders_text">
-		[COUNT] objets le plus souvent responsables de collisions
+		[COUNT] objets souvent responsables de collisions
 	</text>
 	<text name="colliders_score_label">
 		Score

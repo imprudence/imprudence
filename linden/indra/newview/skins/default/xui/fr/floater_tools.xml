@@ -39,7 +39,8 @@
 		Axe :
 	</text>
 	<text name="text status">
-		Faîtes glisser pour déplacer, Maj-faire glisser pour copier.
+		Faîtes glisser pour déplacer, Maj-faire glisser pour
+		copier.
 	</text>
 	<combo_box name="combobox grid mode">
 		<combo_item name="World">
@@ -451,7 +452,7 @@
 			<text name="glow label">
 				Rayonnement
 			</text>
-			<check_box label="Rendre lumineux" name="checkbox fullbright"/>
+			<check_box label="Lumineux" name="checkbox fullbright"/>
 			<text name="tex gen">
 				Application
 			</text>

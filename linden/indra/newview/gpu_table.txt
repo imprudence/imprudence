@@ -193,6 +193,7 @@ NVIDIA GeForce 8200				.*NVIDIA.*GeForce 82.*				1		1
 NVIDIA GeForce 8300				.*NVIDIA.*GeForce 83.*				1		1
 NVIDIA GeForce 8400				.*NVIDIA.*GeForce 84.*				1		1
 NVIDIA GeForce 8500				.*GeForce 85.*						3		1
+NVIDIA GeForce 8600M			.*NVIDIA.*GeForce.*8600M.*			1		1
 NVIDIA GeForce 8600				.*NVIDIA.*GeForce 86.*				3		1
 NVIDIA GeForce 8700				.*NVIDIA.*GeForce 87.*				3		1
 NVIDIA GeForce 8800				.*NVIDIA.*GeForce 88.*				3		1

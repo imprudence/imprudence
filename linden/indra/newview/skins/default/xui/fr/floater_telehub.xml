@@ -15,7 +15,7 @@
 	<button label="Connecter le téléhub" name="connect_btn" />
 	<button label="Déconnecter" name="disconnect_btn" />
 	<text name="spawn_points_text">
-		Points d&apos;apparition (positions, pas objets):
+		Points d&apos;apparition (positions, pas objets) :
 	</text>
 	<button label="Ajouter point" name="add_spawn_point_btn" />
 	<button label="Supprimer point" name="remove_spawn_point_btn" />

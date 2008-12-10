@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Général" name="general_tab">
 	<text name="help_text">
-		L&apos;onglet Général contient des infos générales sur le groupe, une liste des propriétaires et des membres visibles, les préférences relatives au groupe ainsi que différentes options concernant les membres.
+		L&apos;onglet Général contient les infos générales et les préférences du groupe ainsi que la liste des propriétaires et des membres visibles.
 
-Pour obtenir de l&apos;aide, survolez les options avec votre souris.
 	</text>
 	<string name="group_info_unchanged">
-		Les infos générales du groupe ont changé.
+		Le profil du groupe a changé.
 	</string>
 	<button label="?" label_selected="?" name="help_button"/>
 	<line_editor label="Saisissez le nom du groupe ici" name="group_name_editor">
-		Entrez le nom de votre nouveau groupe ici
+		Saisissez le nom du groupe ici
 	</line_editor>
 	<text name="group_name">
 		Saisissez le nom du groupe ici
 	</text>
 	<text name="prepend_founded_by">
-		Fondé par
-	</text>
-	<text name="founder_name">
+		Fondé par </text>
+<text name="founder_name">
 		(en attente)
 	</text>
 	<text name="group_charter_label">
@@ -26,7 +24,7 @@ Pour obtenir de l&apos;aide, survolez les options avec votre souris.
 	</text>
 	<texture_picker label="Logo du groupe" name="insignia" tool_tip="Cliquez pour sélectionner une image"/>
 	<text_editor name="charter">
-		Charte du groupe
+		Indiquez ici la charte de votre groupe
 	</text_editor>
 	<button label="Rejoindre (0L$)" label_selected="Rejoindre (0L$)" name="join_button"/>
 	<button label="Affichage détaillé" label_selected="Affichage détaillé" name="info_button"/>
@@ -48,7 +46,7 @@ Pour obtenir de l&apos;aide, survolez les options avec votre souris.
 		<column label="Dernière connexion" name="online" relwidth="0.35"/>
 	</name_list>
 	<text name="text_group_preferences">
-		Préférences du groupe
+		Préférences
 	</text>
 	<text name="incomplete_member_data_str">
 		Extraction des données du résident en cours
@@ -56,10 +54,10 @@ Pour obtenir de l&apos;aide, survolez les options avec votre souris.
 	<text name="confirm_group_create_str">
 		La création de ce groupe coûte 100 L$. 
 Êtes-vous vraiment certain de vouloir dépenser 100 L$ pour créer ce groupe ?
-Sachez que si personne ne rejoint ce groupe sous 48h, il sera démantelé et ne pourra plus être utilisé à l&apos;avenir.
+Sachez que si personne ne rejoint ce groupe sous 48h, il sera démantelé et ne pourra plus être utilisé.
 	</text>
 	<text>
-		Préférences du Groupe
+		Préférences
 	</text>
 	<panel name="preferences_container">
 		<check_box label="Afficher dans la recherche" name="show_in_group_list" tool_tip="Afficher ce groupe dans les résultats de recherche."/>
@@ -73,7 +71,7 @@ Sachez que si personne ne rejoint ce groupe sous 48h, il sera démantelé et ne 
 				- Type de public -
 			</combo_item>
 			<combo_item name="mature">
-				Contenu pour adultes
+				Adulte
 			</combo_item>
 			<combo_item name="not_mature">
 				Tout public
@@ -85,7 +83,7 @@ Sachez que si personne ne rejoint ce groupe sous 48h, il sera démantelé et ne 
 			</text>
 			<combo_box name="active_title" tool_tip="Définit le titre qui apparaît près du nom de votre avatar lorsque ce groupe est actif."/>
 		</panel>
-		<check_box label="Recevoir des notifications du groupe" name="receive_notices" tool_tip="Cochez si vous souhaitez recevoir les notifications envoyées au groupe. Décochez si ce groupe vous envoie des spams."/>
+		<check_box label="Recevoir les notices" name="receive_notices" tool_tip="Cochez si vous souhaitez recevoir les notices envoyées au groupe. Décochez si ce groupe vous envoie des spams."/>
 		<check_box label="Afficher dans mon profil" name="list_groups_in_profile" tool_tip="Indique si vous voulez que ce groupe apparaisse dans votre profil"/>
 	</panel>
 </panel>

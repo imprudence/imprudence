@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Propositions" name="voting_tab">
 	<text name="help_text">
 		Les propositions de groupe permettent d&apos;en savoir plus sur les objectifs du groupe ou son avis sur un sujet donné. Si vous avez les pouvoirs requis, vous pouvez créer des propositions, voter et accéder à d&apos;anciennes propositions.
@@ -49,29 +49,29 @@ ou abstenez-vous en cliquant sur M&apos;abstenir.
 	<text name="quorum_lbl">
 		Quorum :
 	</text>
-	<spinner name="quorum" tool_tip="Nombre total de votants nécessaires pour que les résultats de l&apos;élection soient valides."/>
+	<spinner name="quorum" tool_tip="Nombre total de votants nécessaires pour que les résultats soient valides."/>
 	<text name="quorum_text">
 		sur [MEMBERS] membres doivent voter.
 	</text>
 	<text name="duration_lbl">
 		Durée :
 	</text>
-	<spinner name="duration" tool_tip="Durée de l&apos;élection (en nombre de jours)."/>
+	<spinner name="duration" tool_tip="Durée du vote (en nombre de jours)."/>
 	<text name="duration_text">
 		jours
 	</text>
-	<radio_group left="296" name="majority" tool_tip="Majorité de tous les votes nécessaires pour remporter l&apos;élection.">
+	<radio_group left="296" name="majority" tool_tip="Majorité de tous les votes nécessaires pour remporter le vote.">
 		Majorité simple
 		Majorité des 2/3
 		Unanimité
 	</radio_group>
 	<text name="start_lbl">
-		Début du vote :
+		Début :
 	</text>
 	<text name="end_lbl">
-		Fin du vote :
+		Fin :
 	</text>
-	<button label="Soumettre la proposition" label_selected="Soumettre la proposition" left="170" name="btn_submit" width="150"/>
+	<button label="Soumettre" label_selected="Soumettre" left="170" name="btn_submit" width="100"/>
 	<button label="Annuler" label_selected="Annuler" left_delta="158" name="btn_cancel"/>
 	<button font="SansSerifSmall" label="Oui" label_selected="Oui" left="183" name="btn_yes" width="70"/>
 	<button font="SansSerifSmall" label="Non" label_selected="Non" left_delta="77" name="btn_no" width="70"/>
@@ -106,6 +106,6 @@ ou abstenez-vous en cliquant sur M&apos;abstenir.
 		Votre vote a bien été reçu.
 	</string>
 	<string name="vote_previously_recorded">
-		Vous avez déjà voté. Vous ne pouvez voter qu&apos;une fois au cours d&apos;une élection.
+		Vous avez déjà voté. Vous ne pouvez voter qu&apos;une seule fois sur une proposition.
 	</string>
 </panel>

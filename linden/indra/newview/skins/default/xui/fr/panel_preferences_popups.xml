@@ -10,7 +10,7 @@
 	<text name="show_label">
 		Afficher ces pop-ups :
 	</text>
-	<button label="Désactiver tous les pop-ups..." name="skip_dialogs_btn" tool_tip="Désactiver tous les pop-ups et les notifications envoyées lors d&apos;un premier usage." width="185"/>
+	<button label="Désactiver tous les pop-ups" name="skip_dialogs_btn" tool_tip="Désactiver tous les pop-ups et les notifications envoyées lors d&apos;un premier usage." width="185"/>
 	<text length="1" name="text_box2" type="string">
 		Offres de notes, textures et repères :
 	</text>

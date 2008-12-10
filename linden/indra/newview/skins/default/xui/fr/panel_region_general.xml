@@ -20,11 +20,11 @@
 	<button label="?" name="damage_help"/>
 	<check_box label="Interdire les bousculades" name="restrict_pushobject"/>
 	<button label="?" name="restrict_pushobject_help"/>
-	<check_box label="Autoriser la revente de terrain" name="allow_land_resell_check"/>
+	<check_box label="Autoriser la revente" name="allow_land_resell_check"/>
 	<button label="?" name="land_resell_help"/>
-	<check_box label="Autoriser la fusion/division de terrain" name="allow_parcel_changes_check"/>
+	<check_box label="Autoriser la fusion/division" name="allow_parcel_changes_check"/>
 	<button label="?" name="parcel_changes_help"/>
-	<check_box label="Ne pas afficher le terrain dans la recherche" name="block_parcel_search_check" tool_tip="Afficher cette région et ses parcelles dans les résultats de recherche"/>
+	<check_box label="Ne pas afficher dans la recherche" name="block_parcel_search_check" tool_tip="Afficher cette région et ses parcelles dans les résultats de recherche"/>
 	<button label="?" name="parcel_search_help"/>
 	<spinner label="Nombre limite d&apos;avatars" name="agent_limit_spin"/>
 	<button label="?" name="agent_limit_help"/>
@@ -38,7 +38,7 @@
 			Tout public
 		</combo_item>
 		<combo_item name="Mature">
-			Adultes
+			Adulte
 		</combo_item>
 	</combo_box>
 	<button label="?" name="access_help"/>

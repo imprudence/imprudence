@@ -33,7 +33,7 @@
 		Le terrain acheté dans cette région peut être fusionné/divisé ou pas.
 	</text>
 	<text_editor name="covenant_editor">
-		Chargement en cours...
+		Chargement...
 	</text_editor>
 	<text name="can_resell">
 		Le terrain acheté dans cette région peut être revendu.

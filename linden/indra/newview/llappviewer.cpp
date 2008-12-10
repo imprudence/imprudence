@@ -202,8 +202,6 @@ extern BOOL gDebugGL;
 
 ////////////////////////////////////////////////////////////
 // All from the last globals push...
-BOOL gHandleKeysAsync = FALSE;
-
 const F32 DEFAULT_AFK_TIMEOUT = 5.f * 60.f; // time with no input before user flagged as Away From Keyboard
 
 F32 gSimLastTime; // Used in LLAppViewer::init and send_stats()
@@ -234,7 +232,7 @@ F32 gFPSClamped = 10.f;						// Pretend we start at target rate.
 F32 gFrameDTClamped = 0.f;					// Time between adjacent checks to network for packets
 U64	gStartTime = 0; // gStartTime is "private", used only to calculate gFrameTimeSeconds
 U32 gFrameStalls = 0;
-const F64 FRAME_STALL_THRESHOLD = 5.0;
+const F64 FRAME_STALL_THRESHOLD = 1.0;
 
 LLTimer gRenderStartTime;
 LLFrameTimer gForegroundTime;
@@ -404,7 +402,6 @@ static void settings_to_globals()
 	gShowObjectUpdates = gSavedSettings.getBOOL("ShowObjectUpdates");
 	gMapScale = gSavedSettings.getF32("MapScale");
 	gMiniMapScale = gSavedSettings.getF32("MiniMapScale");
-	gHandleKeysAsync = gSavedSettings.getBOOL("AsyncKeyboard");
 	LLHoverView::sShowHoverTips = gSavedSettings.getBOOL("ShowHoverTips");
 
 	LLCubeMap::sUseCubeMaps = LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap");
@@ -1379,14 +1376,17 @@ bool LLAppViewer::cleanup()
 	LLWatchdog::getInstance()->cleanup();
 
 	end_messaging_system();
+	llinfos << "Message system deleted." << llendflush;
 
 	// *NOTE:Mani - The following call is not thread safe. 
 	LLCurl::cleanupClass();
+	llinfos << "LLCurl cleaned up." << llendflush;
 
 	// If we're exiting to launch an URL, do that here so the screen
 	// is at the right resolution before we launch IE.
 	if (!gLaunchFileOnQuit.empty())
 	{
+		llinfos << "Launch file on quit." << llendflush;
 #if LL_WINDOWS
 		// Indicate an application is starting.
 		SetCursor(LoadCursor(NULL, IDC_WAIT));
@@ -1396,6 +1396,7 @@ bool LLAppViewer::cleanup()
 		ms_sleep(1000);
 
 		LLWeb::loadURLExternal( gLaunchFileOnQuit );
+		llinfos << "File launched." << llendflush;
 	}
 
     llinfos << "Goodbye" << llendflush;
@@ -2149,7 +2150,6 @@ void LLAppViewer::cleanupSavedSettings()
 
 	gSavedSettings.setF32("MapScale", gMapScale );
 	gSavedSettings.setF32("MiniMapScale", gMiniMapScale );
-	gSavedSettings.setBOOL("AsyncKeyboard", gHandleKeysAsync);
 	gSavedSettings.setBOOL("ShowHoverTips", LLHoverView::sShowHoverTips);
 
 	// Some things are cached in LLAgent.

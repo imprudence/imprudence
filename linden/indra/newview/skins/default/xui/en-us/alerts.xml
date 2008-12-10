@@ -2978,20 +2978,6 @@ Download to your Applications folder?
 			Cancel
 		</option>
 	</alert>
-	<alert modal="true" name="WebLaunchReleaseNotes">
-		<message name="message">
-			View the [SECOND_LIFE] Release Notes?
-		</message>
-		<ignore name="ignore">
-			When launching web browser to view the Release Notes
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
 	<alert modal="true" name="ReturnToOwner">
 		<message name="message">
 			Are you sure you want to return the selected
@@ -4268,7 +4254,7 @@ http://secondlife.com/corporate/cs.php
 
 All reported abuses of the Terms of Service and Community Standards 
 are investigated and resolved. You can view the incident 
-resolution on the on the Incident Report at:
+resolution on the Incident Report at:
 
 http://secondlife.com/support/incidentreport.php
 		</message>
