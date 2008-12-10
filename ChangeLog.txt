@@ -1,3 +1,9 @@
+2008-12-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Clearing search shouldn't clear filter type.
+
+
 2008-12-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventoryview.cpp:

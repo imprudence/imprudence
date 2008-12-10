@@ -943,16 +943,9 @@ void LLInventoryView::onClearSearch(void* user_data)
 	LLInventoryView* self = (LLInventoryView*)user_data;
 	if(!self) return;
 
-	LLFloater *finder = self->getFinder();
 	if (self->mActivePanel)
 	{
 		self->mActivePanel->setFilterSubString(LLStringUtil::null);
-		self->mActivePanel->setFilterTypes(0xffffffff);
-	}
-
-	if (finder)
-	{
-		LLInventoryViewFinder::selectAllTypes(finder);
 	}
 
 	// re-open folders that were initially open
