@@ -1,6 +1,12 @@
 2008-12-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llfolderview.cpp:
+	Refactored; added LLInventoryFilter::rebuildFilterText().
+	* linden/indra/newview/llfolderview.h:
+	Ditto.
+
+
+	* linden/indra/newview/llfolderview.cpp:
 	Updated Inventory window filter text generation.
 	It was putting the wrong types in the title when
 	filtering. [#25]

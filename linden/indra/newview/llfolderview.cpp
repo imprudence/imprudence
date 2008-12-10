@@ -4812,6 +4812,11 @@ std::string LLInventoryFilter::getFilterText()
 		return mFilterText;
 	}
 
+  return rebuildFilterText();
+}
+
+std::string LLInventoryFilter::rebuildFilterText()
+{
 	mNeedTextRebuild = FALSE;
 	std::string filtered_types;
 	std::string not_filtered_types;

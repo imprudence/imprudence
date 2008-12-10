@@ -222,6 +222,7 @@ public:
 	void clearModified() { mModified = FALSE; mFilterBehavior = FILTER_NONE; }
 	const std::string getName() const { return mName; }
 	std::string getFilterText();
+  std::string rebuildFilterText();
 
 	void setFilterCount(S32 count) { mFilterCount = count; }
 	S32 getFilterCount() { return mFilterCount; }
