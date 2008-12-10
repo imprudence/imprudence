@@ -1,6 +1,10 @@
 2008-12-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventoryview.cpp:
+	Start fetching inventory when quick filter changes.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
 	Refresh filter text when quick filter changes.
 
 

@@ -1103,6 +1103,10 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 
 	view->mActivePanel->setFilterTypes( filter_type );
 
+	// Start fetching inventory in the background, so we have
+	// some items to show the user.
+	gInventory.startBackgroundFetch();
+
 	// Update the Inventory window text
 	view->setFilterTextFromFilter();
 
