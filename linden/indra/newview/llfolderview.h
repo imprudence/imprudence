@@ -230,7 +230,7 @@ public:
 	void markDefault();
 	void resetDefault();
 
-	BOOL isFilterWith(LLInventoryType::EType t);
+	BOOL isFilterWith(LLInventoryType::NType t);
 
 	S32 getCurrentGeneration() const { return mFilterGeneration; }
 	S32 getMinRequiredGeneration() const { return mMinRequiredGeneration; }
