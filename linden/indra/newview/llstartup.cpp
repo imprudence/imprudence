@@ -2496,7 +2496,7 @@ void login_show()
 	LLPanelLogin::addServer(LLViewerLogin::getInstance()->getGridLabel(), LLViewerLogin::getInstance()->getGridChoice());
 
 	LLViewerLogin* vl = LLViewerLogin::getInstance();
-	for(int grid_index = GRID_INFO_ADITI; grid_index < GRID_INFO_OTHER; ++grid_index)
+	for(int grid_index = GRID_INFO_NONE + 1; grid_index < GRID_INFO_OTHER; ++grid_index)
 	{
 		LLPanelLogin::addServer(vl->getKnownGridLabel((EGridInfo)grid_index), grid_index);
 	}

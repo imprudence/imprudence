@@ -38,6 +38,7 @@
 struct LLGridData
 {
 	const char* mLabel;
+  const char* mCodeName;
 	const char* mName;
 	const char* mLoginURI;
 	const char* mHelperURI;
@@ -45,83 +46,23 @@ struct LLGridData
 
 static LLGridData gGridInfo[GRID_INFO_COUNT] = 
 {
-	{ "None", "", "", ""},
-	{ "Aditi", 
-	  "util.aditi.lindenlab.com", 
-	  "https://login.aditi.lindenlab.com/cgi-bin/login.cgi",
-	  "http://aditi-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Agni", 
+	{ "None", "", "", "", "" },
+	{ "SL Main Grid",
+	  "Agni",
 	  "util.agni.lindenlab.com", 
 	  "https://login.agni.lindenlab.com/cgi-bin/login.cgi",
 	  "https://secondlife.com/helpers/" },
-	{ "Aruna",
-	  "util.aruna.lindenlab.com",
-	  "https://login.aruna.lindenlab.com/cgi-bin/login.cgi",
-	  "http://aruna-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Damballah",
-	  "util.damballah.lindenlab.com",
-	  "https://login.damballah.lindenlab.com/cgi-bin/login.cgi",
-	  "http://damballah-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Durga",
-	  "util.durga.lindenlab.com",
-	  "https://login.durga.lindenlab.com/cgi-bin/login.cgi",
-	  "http://durga-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Ganga",
-	  "util.ganga.lindenlab.com",
-	  "https://login.ganga.lindenlab.com/cgi-bin/login.cgi",
-	  "http://ganga-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Mitra",
-	  "util.mitra.lindenlab.com",
-	  "https://login.mitra.lindenlab.com/cgi-bin/login.cgi",
-	  "http://mitra-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Mohini",
-	  "util.mohini.lindenlab.com",
-	  "https://login.mohini.lindenlab.com/cgi-bin/login.cgi",
-	  "http://mohini-secondlife.webdev.lindenlab.com/helpers/" },
-  	{ "Nandi",
-	  "util.nandi.lindenlab.com",
-	  "https://login.nandi.lindenlab.com/cgi-bin/login.cgi",
-	  "http://nandi-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Radha",
-	  "util.radha.lindenlab.com",
-	  "https://login.radha.lindenlab.com/cgi-bin/login.cgi",
-	  "http://radha-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Ravi",
-	  "util.ravi.lindenlab.com",
-	  "https://login.ravi.lindenlab.com/cgi-bin/login.cgi",
-	  "http://ravi-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Siva", 
-	  "util.siva.lindenlab.com",
-	  "https://login.siva.lindenlab.com/cgi-bin/login.cgi",
-	  "http://siva-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Shakti",
-	  "util.shakti.lindenlab.com",
-	  "https://login.shakti.lindenlab.com/cgi-bin/login.cgi",
-	  "http://shakti-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Soma",
-	  "util.soma.lindenlab.com",
-	  "https://login.soma.lindenlab.com/cgi-bin/login.cgi",
-	  "http://soma-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Uma",
-	  "util.uma.lindenlab.com",
-	  "https://login.uma.lindenlab.com/cgi-bin/login.cgi",
-	  "http://uma-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Vaak",
-	  "util.vaak.lindenlab.com",
-	  "https://login.vaak.lindenlab.com/cgi-bin/login.cgi",
-	  "http://vaak-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Yami",
-	  "util.yami.lindenlab.com",
-	  "https://login.yami.lindenlab.com/cgi-bin/login.cgi",
-	  "http://yami-secondlife.webdev.lindenlab.com/helpers/" },
-	{ "Local", 
-	  "localhost", 
-	  "https://login.dmz.lindenlab.com/cgi-bin/login.cgi",
+	{ "SL Beta Grid",
+	  "Aditi",
+	  "util.aditi.lindenlab.com",
+	  "https://login.aditi.lindenlab.com/cgi-bin/login.cgi",
+	  "http://aditi-secondlife.webdev.lindenlab.com/helpers/" },
+	{ "Local OpenSim",
+	  "",
+	  "localhost",
+	  "http://127.0.0.1:9000",
 	  "" },
-	{ "Other", 
-	  "", 
-	  "https://login.dmz.lindenlab.com/cgi-bin/login.cgi",
-	  "" }
+	{ "Other", "", "", "", "" }
 };
 
 const EGridInfo DEFAULT_GRID_CHOICE = GRID_INFO_AGNI;
@@ -218,6 +159,16 @@ std::string LLViewerLogin::getGridLabel() const
 	}
 
 	return mGridName;
+}
+
+std::string LLViewerLogin::getGridCodeName() const
+{
+	if( gGridInfo[mGridChoice].mCodeName == "" )
+	{
+		return getGridLabel();
+	}
+
+	return gGridInfo[mGridChoice].mCodeName;
 }
 
 std::string LLViewerLogin::getKnownGridLabel(EGridInfo grid_index) const
