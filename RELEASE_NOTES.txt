@@ -1,0 +1,101 @@
+
+== Imprudence 1.0.0 RC2 ==
+
+=== Known Issues ===
+
+* Some users have reported that system skirts (not attachments) and some uploaded images with alpha channels appear '''partially transparent all over''', instead of being opaque in some places and transparent in others. You can fix this by [http://imprudenceviewer.org/forums/viewtopic.php?f=6&t=64#p501 upgrading to OpenJPEG 1.3]. Future Imprudence releases will have the new OpenJPEG included in the regular download.
+
+* The grid selection list on the login screen displays a duplicate entry (e.g. two "SL Main Grid" entries). This is harmless, and a PITA to fix.
+
+* Still '''no sound or voice yet'''.
+
+=== Changes ===
+
+This version of Imprudence includes the following changes (as compared to Imprudence 1.0.0 RC1):
+
+* '''Rendering:''' Applied a likely fix for {{Jira|VWR-8920}} (disappearing attachments when zoomed in). Please [http://imprudenceviewer.org/forums/viewtopic.php?f=6&t=66 let us know in the forums] whether this fixes the issue for you. Thanks to an unknown Linden for the fix, and to Strife Onizuka for pointing to it!
+
+* '''Rendering:''' Applied a likely fix for {{Jira|VWR-9358}} (problems with palletized textures). Please [http://imprudenceviewer.org/forums/viewtopic.php?f=6&t=66 let us know in the forums] whether this fixes the issue for you. Thanks to Angus Boyd for suggesting the fix!
+
+* '''Misc UI.:''' Grid selection list on the login page has been embraced and cleaned up. It now lists 3 options: SL Main Grid, SL Beta Grid, and Local OpenSim (if you run OpenSim on your computer). It will be made customizable in a future version. Thanks to Jacek for sprucing that up!
+
+* '''Misc:''' Fixed the debug console window always showing up. Thanks to McCabe for fixing it, and to an unknown Linden's testing code for causing it in the first place!
+
+* '''Misc:''' Fixed the Windows viewer crashing when clicking on certain links in embedded web pages ({{Jira|VWR-4828}}). Thanks to Nyx Linden for pointing to the updated LLMozLib!
+
+* '''Misc:''' Fixed the Windows installer giving an error when launching the viewer after installation. Thanks to McCabe for fixing that!
+
+* '''Misc:''' Imprudence now uses a separate directory from Second Life for storing the cache, settings, and chat logs. This fixes the viewer clearing the cache the first time it's run. On Linux, it's the <code>.imprudence</code> directory in your home directory, and on Mac and Windows it's the <code>Imprudence</code> directory in your Application Data directory. Thanks to Jacek for doing this!
+
+* '''Misc:''' Fixed the Search window clearing itself out when closed and re-opened. Thanks to Samantha Poindexter for reporting the problem, to McCabe for fixing it, and to an unknown Linden's testing code for causing it in the first place!
+
+* '''Building:''' Fixed the Silver skin's Build floater not matching the one from the Classic skin. Thanks to Damien Fate for reporting the problem, and to Jacek for fixing it!
+
+* '''Code:''' Fixed several bits of sloppy Linden code that blocked compiling with gcc 4.3. Thanks to Alissa Sabre for suggesting the fix to {{Jira|VWR-9507}}, and Stephen Zenith for patches {{Lighthouse|11}} and {{Lighthouse|12}}!
+
+* '''Misc UI.:''' Changed Group UI to use "Resident" or "Member" instead of "Person", for consistency ({{Jira|VWR-9007}}). Thanks to McCabe for sprucing that up!
+
+== Imprudence 1.0.0 RC1 ==
+
+=== What to Expect ===
+
+* '''Many small usability improvements.''' The goal of Imprudence is to make significant usability improvements over the standard SL viewer, but for this first release our focus has simply been to get the project established. You'll find many small improvements scattered throughout the viewer, almost all of them programmed by SL Residents and submitted as patches to JIRA, but which LL has not (at least yet) accepted. Future versions of Imprudence will feature more significant improvements made specifically for this project.
+
+* '''New fonts.''' Imprudence uses different fonts than regular SL, because SL's fonts are proprietary and very expensive to license. The new fonts might make things seem "not quite right" at first, since your eye expects the old font you normally see in SL. We do think you'll enjoy the new fonts once you get used to them. (For the curious, the fonts used are Liberation Sans for the UI, and Bitstream Vera Mono for the script editor.)
+
+* '''No sound or voice.''' This release of Imprudence doesn't have any sound or voice support, because the software libraries SL uses for those things are proprietary and can't be used with open-source viewers. We hope to add back sound support using OpenAL for the next version of Imprudence. We're not sure yet when we'll be able to add voice back in.
+
+* '''Slightly slower texture loading.''' Textures may load ''slightly'' slower than they do in regular SL. Once again, this is because the texture software library SL uses by default (Kakadu / KDU) is proprietary, so we're using OpenJPEG, which is open source but not quite as speedy. The difference shouldn't be a major issue.
+
+=== Changes ===
+
+This version of Imprudence includes the following changes (as compared to Second Life viewer 1.21.6):
+
+* '''Building:''' You can now "Slice" (aka. Dimple / Profile Cut) the Box, Cylinder, and Prism prim types directly, without needing to switch to Sphere and back. ({{Jira|VWR-7827}}; thanks McCabe Maxsted!)
+
+* '''Stability:''' Several patches by Nicholaz Beresford to fix memory leaks and improve stability. ({{Jira|VWR-2003}}, {{Jira|VWR-2683}}, {{Jira|VWR-2685}}, {{Jira|VWR-3877}}, and {{Jira|VWR-3878}}; thanks Nicholaz!)
+
+* '''Misc.:''' The "Advanced" menu is now written in XUI, so you can edit shortcuts in that menu by editing the XML file, instead of needing to recompile the viewer from source. (Note: The file to edit is <code>skins/default/xui/en-us/menu_viewer.xml</code>) ({{Jira|VWR-2896}}; thanks Jacek Antonelli!)
+
+* '''Social:''' Added "Invite..." button to the Groups section of the Communicate panel, to make it easier to invite people to the selected group. ({{Jira|VWR-8024}}; thanks McCabe Maxsted!)
+
+* '''Building:''' Up and down arrows change Path Cut / Profile Cut by increments of 0.025 instead of 0.05, to make it easier to path-cut boxes in half, etc. ({{Jira|VWR-7877}}; thanks McCabe Maxsted!)
+
+* '''Misc. UI:''' Added "Return Object" to the Tools menu, to make it easier to return objects that are hard to right-click on. ({{Jira|VWR-1363}}; thanks McCabe Maxsted!)
+
+* '''Social:''' Added "Offer Teleport" button to the IM window. ({{Jira|VWR-2072}}; thanks Paul Churchill!)
+
+* '''Building:''' Added "Tools > Set permissions on selected task inventory" menu item, to set perms on multiple in-world objects and/or their contents. This will have a nicer UI later. ({{Jira|VWR-5082}}; thanks Michelle2 Zenovka!)
+
+* '''Misc. UI:''' Several usability and UI layout improvements to the land tools floater. ({{Jira|VWR-8430}}; thanks Aimee Trescothick!)
+
+* '''Misc. UI:''' Added "Flycam" button that appears when you are in flycam mode (using a joystick or SpaceNavigator); click it to cancel flycam mode. ({{Jira|VWR-8341}}; thanks Aimee Trescothick!)
+
+* '''Building:''' Rephrased "Select Texture" to the more accurate and descriptive phrase "Select Faces to Texture". (Inspired by {{Jira|VWR-5962}}; thanks McCabe Maxsted and Jacek Antonelli!)
+
+* '''Building:''' Increased maximum settable transparency from 90% to 100% in the Textures tab. (Thanks Jacek Antonelli!)
+
+* '''Social:''' "Offer Teleport" buttons throughough the UI are now always clickable, even for avatars who are not on your friends list or who appear offline. (Thanks Jacek Antonelli!)
+
+* '''Misc.:''' Changed the application name, logo, login page, etc. to Imprudence.
+
+* '''Misc.:''' Imprudence has its own version numbers, starting at 1.0.0. Use "Help > About Imprudence" to check the SL source version it's based on.
+
+* '''Misc.:''' Disabled FMOD, KDU, and Vivox (SLVoice) proprietary software.
+
+* '''Misc.:''' Changed fonts to Liberation Sans and Bitstream Vera Mono.
+
+=== Known Issues ===
+
+These are issues that have already been reported and are on our list to fix for the next release candidate. Please also see the [http://imprudenceviewer.org/forums/viewtopic.php?t=36 feeback thread in the forums] for other reported issues with this RC.
+
+* '''Windows:''' At the end of the installer, if you leave the "Launch Imprudence Viewer" checkbox enabled and press "Finish", you will receive an error message and it will not automatically start the viewer. But this does not harm anything, and starting the viewer yourself (e.g. from the desktop shortcut, start menu, or launching the EXE) should work fine.
+
+* '''Windows:''' When the viewer is started, a text console window will appear displaying debug information, and then be covered by the main viewer window. This will be disabled in future releases.
+
+* '''Windows:''' The viewer may crash when clicking links in embedded web pages, including certain sections of the Search window and the "Web" section of avatar profiles.
+
+* '''All Platforms:''' The viewer may be (very) slow to start the first time, as it clears the cache.
+
+* '''All Platforms:''' When using the Silver skin, the Tools (aka Build) floater doesn't have the new features (e.g. transparency up to 100%, smaller path cut increment), and improperly displays the land tools brush size combo box on every build tab.
+
