@@ -1,5 +1,9 @@
 2008-12-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llurlhistory.cpp:
+	Better warning when url_history.xml save fails.
+
+
 	* linden/indra/newview/llviewernetwork.cpp:
 	Fixed bad string comparison (grid code name). [#22]
 	Reported by Balp Allen.
