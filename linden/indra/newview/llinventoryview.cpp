@@ -1343,6 +1343,148 @@ std::string get_item_icon_name(LLInventoryType::NType inv_ntype,
 {
 	EInventoryIcon idx = OBJECT_ICON_NAME;
 
+	switch( inv_ntype )
+	{
+		// BODY PARTS
+
+		case LLInventoryType::NIT_SHAPE:
+			idx = BODYPART_SHAPE_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_SKIN:
+			idx = BODYPART_SKIN_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_HAIR:
+			idx = BODYPART_HAIR_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_EYES:
+			idx = BODYPART_EYES_ICON_NAME;
+			break;
+
+		case LLInventoryType::NIT_BODYPART:
+			idx = BODYPART_ICON_NAME;
+			break;
+
+
+		// CLOTHING
+
+		case LLInventoryType::NIT_SHIRT:
+			idx = CLOTHING_SHIRT_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_PANTS:
+			idx = CLOTHING_PANTS_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_SHOES:
+			idx = CLOTHING_SHOES_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_SOCKS:
+			idx = CLOTHING_SOCKS_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_JACKET:
+			idx = CLOTHING_JACKET_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_GLOVES:
+			idx = CLOTHING_GLOVES_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_UNDERSHIRT:
+			idx = CLOTHING_UNDERSHIRT_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_UNDERPANTS:
+			idx = CLOTHING_UNDERPANTS_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_SKIRT:
+			idx = CLOTHING_SKIRT_ICON_NAME;
+			break;
+
+		case LLInventoryType::NIT_CLOTHING:
+			idx = CLOTHING_ICON_NAME;
+			break;
+
+
+		// TEXTURES / SNAPSHOTS
+
+		case LLInventoryType::NIT_SNAPSHOT:
+			idx = SNAPSHOT_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_TEXTURE:
+		case LLInventoryType::NIT_IMAGE:
+			idx = TEXTURE_ICON_NAME;
+			break;
+
+
+		// CALLING CARDS
+
+		case LLInventoryType::NIT_CALLCARD_ON:
+			idx = CALLINGCARD_ONLINE_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_CALLCARD_OFF:
+		case LLInventoryType::NIT_CALLCARD:
+			idx = CALLINGCARD_OFFLINE_ICON_NAME;
+			break;
+
+
+		// LANDMARKS
+
+		case LLInventoryType::NIT_LANDMARK_USED:
+			idx = LANDMARK_VISITED_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_LANDMARK_UNUSED:
+		case LLInventoryType::NIT_LANDMARK:
+			idx = LANDMARK_ICON_NAME;
+			break;
+
+
+		// SOUNDS
+
+		case LLInventoryType::NIT_SOUND:
+			idx = SOUND_ICON_NAME;
+			break;
+
+
+		// ANIMATIONS
+
+		case LLInventoryType::NIT_ANIMATION:
+			idx = ANIMATION_ICON_NAME;
+			break;
+
+
+		// GESTURES
+
+		case LLInventoryType::NIT_GESTURE:
+			idx = GESTURE_ICON_NAME;
+			break;
+
+
+		// NOTECARD
+
+		case LLInventoryType::NIT_NOTECARD:
+			idx = NOTECARD_ICON_NAME;
+			break;
+
+
+		// SCRIPTS
+
+		case LLInventoryType::NIT_SCRIPT_LSL2:
+			idx = SCRIPT_ICON_NAME;
+			break;
+
+
+		// OBJECTS
+
+		case LLInventoryType::NIT_OBJECT:
+			if( item_is_multi )
+			{
+				idx = OBJECT_MULTI_ICON_NAME;
+			}
+			else
+			{
+				idx = OBJECT_ICON_NAME;
+			}
+			break;
+
+		default:
+			break;
+	}
+
 	return ICON_NAME[idx];
 }
 
