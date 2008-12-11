@@ -1328,124 +1328,21 @@ BOOL LLInventoryView::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 
 	return handled;
 }
+
 std::string get_item_icon_name(LLAssetType::EType asset_type,
-							 LLInventoryType::EType inventory_type,
-							 U32 attachment_point,
-							 BOOL item_is_multi )
+                               LLInventoryType::EType inv_type,
+                               U32 flags,
+                               BOOL item_is_multi )
+{
+	return get_item_icon_name( calc_ntype(inv_type, asset_type, flags),
+	                           item_is_multi );
+}
+
+std::string get_item_icon_name(LLInventoryType::NType inv_ntype,
+                               BOOL item_is_multi )
 {
 	EInventoryIcon idx = OBJECT_ICON_NAME;
-	if ( item_is_multi )
-	{
-		idx = OBJECT_MULTI_ICON_NAME;
-	}
-	
-	switch(asset_type)
-	{
-	case LLAssetType::AT_TEXTURE:
-		if(LLInventoryType::IT_SNAPSHOT == inventory_type)
-		{
-			idx = SNAPSHOT_ICON_NAME;
-		}
-		else
-		{
-			idx = TEXTURE_ICON_NAME;
-		}
-		break;
 
-	case LLAssetType::AT_SOUND:
-		idx = SOUND_ICON_NAME;
-		break;
-	case LLAssetType::AT_CALLINGCARD:
-		if(attachment_point!= 0)
-		{
-			idx = CALLINGCARD_ONLINE_ICON_NAME;
-		}
-		else
-		{
-			idx = CALLINGCARD_OFFLINE_ICON_NAME;
-		}
-		break;
-	case LLAssetType::AT_LANDMARK:
-		if(attachment_point!= 0)
-		{
-			idx = LANDMARK_VISITED_ICON_NAME;
-		}
-		else
-		{
-			idx = LANDMARK_ICON_NAME;
-		}
-		break;
-	case LLAssetType::AT_SCRIPT:
-	case LLAssetType::AT_LSL_TEXT:
-	case LLAssetType::AT_LSL_BYTECODE:
-		idx = SCRIPT_ICON_NAME;
-		break;
-	case LLAssetType::AT_CLOTHING:
-		idx = CLOTHING_ICON_NAME;
-	case LLAssetType::AT_BODYPART :
-		if(LLAssetType::AT_BODYPART == asset_type)
-		{
-			idx = BODYPART_ICON_NAME;
-		}
-		switch(attachment_point)
-		{
-		case WT_SHAPE:
-			idx = BODYPART_SHAPE_ICON_NAME;
-			break;
-		case WT_SKIN:
-			idx = BODYPART_SKIN_ICON_NAME;
-			break;
-		case WT_HAIR:
-			idx = BODYPART_HAIR_ICON_NAME;
-			break;
-		case WT_EYES:
-			idx = BODYPART_EYES_ICON_NAME;
-			break;
-		case WT_SHIRT:
-			idx = CLOTHING_SHIRT_ICON_NAME;
-			break;
-		case WT_PANTS:
-			idx = CLOTHING_PANTS_ICON_NAME;
-			break;
-		case WT_SHOES:
-			idx = CLOTHING_SHOES_ICON_NAME;
-			break;
-		case WT_SOCKS:
-			idx = CLOTHING_SOCKS_ICON_NAME;
-			break;
-		case WT_JACKET:
-			idx = CLOTHING_JACKET_ICON_NAME;
-			break;
-		case WT_GLOVES:
-			idx = CLOTHING_GLOVES_ICON_NAME;
-			break;
-		case WT_UNDERSHIRT:
-			idx = CLOTHING_UNDERSHIRT_ICON_NAME;
-			break;
-		case WT_UNDERPANTS:
-			idx = CLOTHING_UNDERPANTS_ICON_NAME;
-			break;
-		case WT_SKIRT:
-			idx = CLOTHING_SKIRT_ICON_NAME;
-			break;
-		default:
-			// no-op, go with choice above
-			break;
-		}
-		break;
-	case LLAssetType::AT_NOTECARD:
-		idx = NOTECARD_ICON_NAME;
-		break;
-	case LLAssetType::AT_ANIMATION:
-		idx = ANIMATION_ICON_NAME;
-		break;
-	case LLAssetType::AT_GESTURE:
-		idx = GESTURE_ICON_NAME;
-		break;
-	default:
-		break;
-	}
-	
 	return ICON_NAME[idx];
 }
 

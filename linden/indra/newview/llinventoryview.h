@@ -348,6 +348,9 @@ std::string get_item_icon_name(LLAssetType::EType asset_type,
 							 U32 attachment_point, 
 							 BOOL item_is_multi );
 
+std::string get_item_icon_name(LLInventoryType::NType inv_ntype,
+							 BOOL item_is_multi );
+
 LLUIImagePtr get_item_icon(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
 							 U32 attachment_point, 
