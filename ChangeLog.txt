@@ -1,3 +1,10 @@
+2008-12-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llfloaterabout.cpp:
+	Fixed bad string comparison (rel notes url) [#28]
+	Reported by Balp Allen.
+
+
 2008-12-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llpanellogin.cpp:
