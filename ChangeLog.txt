@@ -1,5 +1,14 @@
 2008-12-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llpanellogin.cpp:
+	Fix grid selector having a duplicate entry. [#24]
+	Patch by Balp Allen.
+	* linden/indra/newview/llpanellogin.h:
+	Ditto.
+	* linden/indra/newview/llstartup.cpp:
+	Ditto.
+
+
 	* linden/indra/newview/llurlhistory.cpp:
 	Better warning when url_history.xml save fails.
 

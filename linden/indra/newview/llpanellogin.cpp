@@ -712,6 +712,14 @@ void LLPanelLogin::addServer(const std::string& server, S32 domain_name)
 	combo->setCurrentByIndex(0);
 }
 
+
+// static
+void LLPanelLogin::setServer(S32 domain_name)
+{
+	LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
+	combo->setCurrentByIndex(domain_name);
+}
+
 // static
 void LLPanelLogin::getFields(std::string &firstname, std::string &lastname, std::string &password,
 							BOOL &remember)
