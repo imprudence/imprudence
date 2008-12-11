@@ -163,7 +163,8 @@ std::string LLViewerLogin::getGridLabel() const
 
 std::string LLViewerLogin::getGridCodeName() const
 {
-	if( gGridInfo[mGridChoice].mCodeName == "" )
+	// Fall back to grid label if code name is empty.
+	if( strcmp(gGridInfo[mGridChoice].mCodeName, "") == 0 )
 	{
 		return getGridLabel();
 	}

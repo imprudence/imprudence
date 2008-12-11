@@ -1,3 +1,10 @@
+2008-12-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llviewernetwork.cpp:
+	Fixed bad string comparison (grid code name). [#22]
+	Reported by Balp Allen.
+
+
 2008-12-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* ChangeLog:
