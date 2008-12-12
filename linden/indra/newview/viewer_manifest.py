@@ -108,7 +108,7 @@ class ViewerManifest(LLManifest):
     def gather_documents(self):
         # From the top level directory (imprudence)
         if self.prefix("../../..", dst=""):
-            self.path("README.txt", "README-Imprudence.txt")
+            self.path("README.txt")
             self.path("MANIFESTO.txt")
             self.path("CONTRIBUTE.txt")
             self.path("ChangeLog.txt")
@@ -569,7 +569,7 @@ class LinuxManifest(ViewerManifest):
 
         self.path("res/imprudence_icon.png","imprudence_icon.png")
         if self.prefix("linux_tools", dst=""):
-            self.path("client-readme.txt","README-linux.txt")
+            #self.path("client-readme.txt","README-linux.txt")
             #self.path("client-readme-voice.txt","README-linux-voice.txt")
             self.path("wrapper.sh","imprudence")
             self.path("handle_secondlifeprotocol.sh")
