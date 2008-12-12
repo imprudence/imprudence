@@ -1,3 +1,100 @@
+2008-12-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llfloaterabout.cpp:
+	Simplified release notes URL scheme.
+	Now uses e.g. "wiki/Release Notes/1.0.0-RC2",
+	which is set up as a wiki redirect.
+
+
+	* linden/indra/newview/llfloaterabout.cpp:
+	Fixed bad string comparison (rel notes url) [#28]
+	Reported by Balp Allen.
+
+
+2008-12-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llpanellogin.cpp:
+	Fix grid selector having a duplicate entry. [#24]
+	Patch by Balp Allen.
+	* linden/indra/newview/llpanellogin.h:
+	Ditto.
+	* linden/indra/newview/llstartup.cpp:
+	Ditto.
+
+
+	* linden/indra/newview/llurlhistory.cpp:
+	Better warning when url_history.xml save fails.
+
+
+	* linden/indra/newview/llviewernetwork.cpp:
+	Fixed bad string comparison (grid code name). [#22]
+	Reported by Balp Allen.
+
+
+2008-12-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* ChangeLog:
+	Added banners in ChangeLog to set versions apart.
+	
+	Entries should be placed in the section for the
+	version into which they were merged. Entries within
+	a section should be sorted chronologically.
+
+	This is important for keeping track of changes which
+	weren't merged until a later release than they were 
+	written. (Mixing them in chronologically would cause
+	confusion about which changes were included in a
+	release.)
+
+
+	* linden/indra/llmessage/llhttpclient.cpp:
+	VWR-9400b (memleak whenever an LSL script is uploaded)
+	Patch by Henri Beauchamp.
+
+
+	* linden/indra/llmessage/llhttpclient.cpp:
+	VWR-9400 (memleak whenever an LSL script is uploaded)
+	Patch by Carjay McGinnis.
+
+
+	* linden/indra/llimage/llimagetga.cpp:
+	VWR-10837 (use delete [] in LLImageTGA)
+	Patch by Aleric Inglewood.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	VWR-10759 (use delete [] in LLMediaImplGStreamer)
+	Patch by Aleric Inglewood.
+
+
+2008-12-06  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llcommon/llversionviewer.h:
+	Added test version info.
+	* linden/indra/newview/llfloaterabout.cpp:
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp:
+	Ditto.
+	* linden/indra/newview/llpanellogin.cpp:
+	Ditto.
+
+
+2008-12-05  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llcommon/llsecondlifeurls.cpp:
+	Changed Release Notes link to point to Imprudence.
+	* linden/indra/newview/llfloaterabout.cpp:
+	Ditto.
+
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_login.xml:
+	Rebranded login menu. [#23]
+
+
+	* linden/indra/newview/llurlhistory.cpp:
+	Fixed blank url_history.xml creation. (VWR-5808)
+
+
 2008-12-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
@@ -8,6 +105,20 @@
 
 
 	* Imported license files for libraries and artwork.
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                       1.0.0 RC2                        -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+2008-12-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Imprudence 1.0.0 RC2 released.
+
+
+	* linden/indra/newview/llviewernetwork.cpp:
+	Use 127.0.0.1 for local opensim, not 0.0.0.0.
 
 
 2008-11-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
@@ -139,6 +250,11 @@
 	It was out of sync with the default version, and the only
 	changes that LL had made to it were tiny tweaks to button size
 	and position. It will now correctly inherit from default skin.
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                       1.0.0 RC1                        -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
 2008-11-15  Jacek Antonelli  <jacek.antonelli@gmail.com>

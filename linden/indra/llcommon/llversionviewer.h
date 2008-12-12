@@ -45,5 +45,6 @@ const char * const IMP_VIEWER_NAME = "Imprudence";
 const S32 IMP_VERSION_MAJOR = 1;
 const S32 IMP_VERSION_MINOR = 0;
 const S32 IMP_VERSION_PATCH = 0;
+const char * const IMP_VERSION_TEST = "RC2";
 
 #endif

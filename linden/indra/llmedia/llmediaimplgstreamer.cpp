@@ -428,7 +428,7 @@ unload ()
 
 	if (mediaData)
 	{
-		delete mediaData;
+		delete [] mediaData;
 		mediaData = NULL;
 	}
 

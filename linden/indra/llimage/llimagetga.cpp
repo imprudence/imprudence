@@ -104,7 +104,7 @@ LLImageTGA::LLImageTGA(const std::string& file_name)
 
 LLImageTGA::~LLImageTGA()
 {
-	delete mColorMap;
+	delete [] mColorMap;
 }
 
 BOOL LLImageTGA::updateData()
