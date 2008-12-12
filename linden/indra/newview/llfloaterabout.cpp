@@ -263,18 +263,15 @@ static std::string get_viewer_release_notes_url()
 {
 	std::ostringstream version;
 	version << IMP_VERSION_MAJOR << "."
-		<< IMP_VERSION_MINOR << "."
-		<< IMP_VERSION_PATCH;
+	        << IMP_VERSION_MINOR << "."
+	        << IMP_VERSION_PATCH;
 
-	std::ostringstream test_version;
-
-	if(strcmp(IMP_VERSION_TEST,"")) {
-		test_version << "#" << "Imprudence_" << version.str() << "_"
-		    << IMP_VERSION_TEST;
-	}
+	// Append the test version if it's not empty
+	if( strcmp(IMP_VERSION_TEST, "") != 0 )
+		version << "-" << IMP_VERSION_TEST;
 
 	std::ostringstream url;
-	url << RELEASE_NOTES_BASE_URL << version.str() << test_version.str();
+	url << RELEASE_NOTES_BASE_URL << version.str();
 
 	return url.str();
 }
