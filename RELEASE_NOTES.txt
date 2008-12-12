@@ -1,3 +1,22 @@
+== Imprudence 1.0.0 RC3 ==
+
+=== Known Issues ===
+
+* Still '''no sound or voice yet'''.
+=== Changes ===
+This version of Imprudence includes the following changes (as compared to Imprudence 1.0.0 RC2):
+
+* '''Grid selection box''': No loger duplicate "SL Main Grid".
+
+* '''About Imprudence''': Even before loggend in.
+
+* '''Rebranding''': Even more rebranding done.
+
+* '''Memory leaks''': Serveral minor memory leaks fixed, thanks to Henri
+Beauchamp, Carjay McGinnis and Aleric Inglewood.
+  
+
+
 
 == Imprudence 1.0.0 RC2 ==
 

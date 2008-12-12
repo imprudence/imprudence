@@ -1,3 +1,10 @@
+2008-12-12  Balp Allen  <Anders@Arnholm.se>
+
+	* Bumped version to RC3
+
+	* Applied patches from Henri's CoolViewer:
+	Possible to discard much more given items.
+
 2008-12-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llfloaterabout.cpp:
