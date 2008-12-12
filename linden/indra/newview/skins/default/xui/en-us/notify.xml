@@ -593,6 +593,9 @@ see each other&apos;s online status.)
 		<option name="Decline">
 			Decline
 		</option>
+		<option name="Ignore">
+			Ignore
+		</option>
 	</notify>
 	<notify name="FriendshipAccepted" tip="false">
 		<message name="message">
@@ -615,6 +618,9 @@ so you can quickly IM this resident.
 		</option>
 		<option name="Decline">
 			Decline
+		</option>
+		<option name="Ignore">
+			Ignore
 		</option>
 	</notify>
 	<notify name="RegionRestartMinutes" tip="false">
