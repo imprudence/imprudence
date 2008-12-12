@@ -16,6 +16,13 @@
 	Bumped version to 1.1.0 alpha.
 
 
+2008-12-11  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloaterinspect.cpp:
+	VWR-10823: Right click > Inspect crashes viewer.
+	Backported from LL's 1.22 RC3.
+
+
 2008-11-24  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llfloatergroupinvite.cpp:
