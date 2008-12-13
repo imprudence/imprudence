@@ -111,9 +111,9 @@ LLFloaterAbout::LLFloaterAbout()
 
 	// Version string
 	std::string version = llformat(
-	  "%s %d.%d.%d / %s %d.%d.%d (%d), %s %s\n",
+	  "%s %d.%d.%d %s / %s %d.%d.%d (%d), %s %s\n",
 		IMP_VIEWER_NAME,
-	  IMP_VERSION_MAJOR, IMP_VERSION_MINOR, IMP_VERSION_PATCH,
+	  IMP_VERSION_MAJOR, IMP_VERSION_MINOR, IMP_VERSION_PATCH, IMP_VERSION_TEST,
 		LL_VIEWER_NAME,
 	  LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD,
 	  __DATE__, __TIME__);
@@ -267,17 +267,16 @@ void LLFloaterAbout::show(void*)
 static std::string get_viewer_release_notes_url()
 {
 	std::ostringstream version;
-	version << LL_VERSION_MAJOR << "."
-		<< LL_VERSION_MINOR << "."
-		<< LL_VERSION_PATCH << "."
-		<< LL_VERSION_BUILD;
+	version << IMP_VERSION_MAJOR << "."
+	        << IMP_VERSION_MINOR << "."
+	        << IMP_VERSION_PATCH;
 
-	LLSD query;
-	query["channel"] = gSavedSettings.getString("VersionChannelName");
-	query["version"] = version.str();
+	// Append the test version if it's not empty
+	if( strcmp(IMP_VERSION_TEST, "") != 0 )
+		version << "-" << IMP_VERSION_TEST;
 
 	std::ostringstream url;
-	url << RELEASE_NOTES_BASE_URL << LLURI::mapToQueryString(query);
+	url << RELEASE_NOTES_BASE_URL << version.str();
 
 	return url.str();
 }

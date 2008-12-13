@@ -87,6 +87,7 @@ public:
 		const std::string& password, BOOL remember);
 
 	static void addServer(const std::string& server, S32 domain_name);
+	static void setServer(S32 domain_name);
 	static void refreshLocation( bool force_visible );
 
 	static void getFields(std::string& firstname, std::string& lastname,

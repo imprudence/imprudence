@@ -26,7 +26,7 @@ if (OPENAL)
 
   find_path(OPENAL_INCLUDE_DIR
     NAMES al.h
-    PATHS ${LIBS_PREBUILT_DIR}/include
+    PATHS ${LIBS_PREBUILT_DIR}/include /usr/include/AL
     )
 
   if (NOT OPENAL_INCLUDE_DIR)
@@ -56,7 +56,7 @@ if (OPENAL)
 
   find_path(ALUT_INCLUDE_DIR
     NAMES alut.h
-    PATHS ${LIBS_PREBUILT_DIR}/include
+    PATHS ${LIBS_PREBUILT_DIR}/include /usr/include/AL
     )
 
   if (NOT ALUT_INCLUDE_DIR)
