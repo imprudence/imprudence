@@ -85,29 +85,59 @@ class ViewerManifest(LLManifest):
             self.path("*.txt")
             self.end_prefix("fonts")
 
-            # skins
-            if self.prefix(src="skins"):
-                    self.path("paths.xml")
-                    # include the entire textures directory recursively
-                    if self.prefix(src="*/textures"):
-                            self.path("*.tga")
-                            self.path("*.j2c")
-                            self.path("*.jpg")
-                            self.path("*.png")
-                            self.path("textures.xml")
-                            self.end_prefix("*/textures")
-                    self.path("*/xui/*/*.xml")
-                    self.path("*/*.xml")
-                    
-                    # Local HTML files (e.g. loading screen)
-                    if self.prefix(src="*/html"):
-                            self.path("*.png")
-                            self.path("*/*/*.html")
-                            self.path("*/*/*.gif")
-                            self.end_prefix("*/html")
-                    self.end_prefix("skins")
+        # skins
+        if self.prefix(src="skins"):
+            self.path("paths.xml")
+            
+            # include the entire textures directory recursively
+            if self.prefix(src="*/textures"):
+                self.path("*.tga")
+                self.path("*.j2c")
+                self.path("*.jpg")
+                self.path("*.png")
+                self.path("textures.xml")
+                self.end_prefix("*/textures")
+
+            self.path("*/xui/*/*.xml")
+            self.path("*/*.xml")
+
+            # Local HTML files (e.g. loading screen)
+            if self.prefix(src="*/html"):
+                self.path("*.png")
+                self.path("*/*/*.html")
+                self.path("*/*/*.gif")
+                self.end_prefix("*/html")
+                
+            self.end_prefix("skins")
+            
         self.path("lsl_guide.html")
         self.path("gpu_table.txt")
+
+
+    # Gather up the README file, etc.
+    def gather_documents(self):
+        # From the top level directory (imprudence)
+        if self.prefix("../../..", dst=""):
+            self.path("README.txt")
+            self.path("MANIFESTO.txt")
+            self.path("CONTRIBUTE.txt")
+            self.path("RELEASE_NOTES.txt")
+            self.path("ChangeLog.txt")
+            self.end_prefix("../../..")
+
+        # From the linden directory
+        if self.prefix("../..", dst="doc"):
+            self.path("LICENSE-source.txt")
+            self.path("LICENSE-logos.txt", "LICENSE-artwork.txt")
+            self.end_prefix("../..")
+
+        # From the linden/doc directory
+        if self.prefix("../../doc", dst="doc"):
+            self.path("contributions.txt")
+            self.path("GPL-license.txt", "GPL.txt")
+            self.path("FLOSS-exception.txt")
+            self.end_prefix("../../doc")
+
 
     def login_channel(self):
         """Channel reported for login and upgrade purposes ONLY;
@@ -171,7 +201,13 @@ class WindowsManifest(ViewerManifest):
                 #'../llkdu/relwithdebinfo/llkdu.dll',
                 #'../../libraries/i686-win32/lib/release/llkdu.dll'), 
                 #  dst='llkdu.dll')
-        self.path(src="licenses-win32.txt", dst="licenses.txt")
+
+        self.gather_documents()
+
+        if self.prefix("../..", dst="doc"):
+            self.path("LICENSE-libraries-win32.txt")
+            self.end_prefix("../..")
+
 
         self.path("featuretable.txt")
 
@@ -396,7 +432,13 @@ class DarwinManifest(ViewerManifest):
                     self.path("*.tif")
                     self.end_prefix("cursors_mac")
 
-                self.path("licenses-mac.txt", dst="licenses.txt")
+                # From the linden directory
+                if self.prefix("../..", dst="doc"):
+                    self.path("LICENSE-libraries-mac.txt")
+                    self.end_prefix("../..")
+
+                self.gather_documents()
+
                 self.path("featuretable_mac.txt")
                 self.path("SecondLife.nib")
 
@@ -535,15 +577,22 @@ class DarwinManifest(ViewerManifest):
 class LinuxManifest(ViewerManifest):
     def construct(self):
         super(LinuxManifest, self).construct()
-        self.path("licenses-linux.txt","licenses.txt")
+
         self.path("res/imprudence_icon.png","imprudence_icon.png")
         if self.prefix("linux_tools", dst=""):
-            self.path("client-readme.txt","README-linux.txt")
+            #self.path("client-readme.txt","README-linux.txt")
             #self.path("client-readme-voice.txt","README-linux-voice.txt")
             self.path("wrapper.sh","imprudence")
             self.path("handle_secondlifeprotocol.sh")
             self.path("register_secondlifeprotocol.sh")
             self.end_prefix("linux_tools")
+
+        self.gather_documents()
+
+        # From the linden directory
+        if self.prefix("../..", dst="doc"):
+            self.path("LICENSE-libraries-linux.txt")
+            self.end_prefix("../..")
 
         # Create an appropriate gridargs.dat for this package, denoting required grid.
         self.put_in_file(self.flags_list(), 'gridargs.dat')
