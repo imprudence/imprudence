@@ -11,10 +11,10 @@
 	<check_box label="Sons" name="check_sound"/>
 	<check_box label="Textures" name="check_texture"/>
 	<check_box label="Photos" name="check_snapshot"/>
-	<button label="Tout" label_selected="Tout" name="All"/>
-	<button label="Aucun" label_selected="Aucun" name="None"/>
-	<check_box label="Toujours montrer les dossiers" name="check_show_empty"/>
-	<check_box label="Depuis la déconnexion" name="check_since_logoff"/>
+	<button label="Tout" label_selected="Tout" name="All" width="70"/>
+	<button label="Aucun" label_selected="Aucun" name="None" width="70" bottom="-260" left="83"/>
+	<check_box label="Toujours montrer &#10;les dossiers" name="check_show_empty" bottom="-284"/>
+	<check_box label="Depuis la déconnexion" name="check_since_logoff" bottom="-318"/>
 	<text length="1" name="- OR -" type="string">
 		Ou il y a...
 	</text>

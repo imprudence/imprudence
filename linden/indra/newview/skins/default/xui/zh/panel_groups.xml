@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="groups">
+	<text name="groupdesc" >
+		您当前激活的社团以粗体表示。
+	</text>
+	<text name="groupcount" >
+		您现在属于 [COUNT] 个社团 (最大 [MAX] 个)。
+	</text>
+	<button
+		 label="聊天/呼叫"
+		 name="IM"
+		 tool_tip="打开即时通信会话" />
+	<button
+		 label="信息"
+		 name="Info" />
+	<button
+		 label="激活"
+		 name="Activate" />
+	<button
+		 label="离开"
+		 name="Leave" />
+	<button
+		 label="创建..."
+		 name="Create" />
+	<button
+		 label="搜索..."
+		 name="Search..." />
+</panel>
+<!--Translated for Second Life 1.19.0 (79185)-->

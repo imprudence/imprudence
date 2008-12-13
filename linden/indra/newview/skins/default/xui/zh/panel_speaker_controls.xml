@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="active_speakers_panel">
+	<string
+		 name="moderator_label">(管理员)</string>
+	<layout_stack>
+		<layout_panel
+			 min_height="25"
+			 name="moderation_mode_panel"
+			 top_delta="0"
+			 visible="false">
+		     <combo_box
+				 name="moderation_mode">
+				<combo_item
+					 value="unmoderated">语音默认打开</combo_item>
+				<combo_item
+					 value="moderated">语音默认关闭</combo_item>
+		     </combo_box>
+		</layout_panel>
+
+		<layout_panel
+			 name="moderate_chat_panel">
+			<scroll_list
+				 name="speakers_list">
+				<column
+					 label="名字"
+					 name="speaker_name" />
+			</scroll_list>
+
+			<panel
+				 name="speaker_controls">
+				<text
+					 name="resident_name"
+					 valign="center">Rumplstiltskin Califragilistic</text>
+				<button
+					 label=""
+					 name="mute_btn"
+					 tool_tip="将该居民的语音音量设置为静音" />
+				<check_box
+					 name="mute_text_btn"
+					 label="屏蔽文字聊天" />
+			</panel>
+		</layout_panel>
+		<layout_panel
+			 name="moderator_controls"
+			 top_delta="0"
+			 visible="false">
+		     <text
+				 right="-5"
+				 name="moderator_controls_label">管理员控制:</text>
+		     <check_box
+				 name="moderator_allow_voice"
+				 right="-5">允许语音聊天</check_box>
+		     <check_box
+				 name="moderator_allow_text"
+				 right="-5">允许文字聊天</check_box>
+		</layout_panel>
+
+	</layout_stack>
+</panel>
+<!--Translated for Second Life 1.19.0 (79185)-->

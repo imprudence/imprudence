@@ -168,12 +168,12 @@
 				Le prochain propriétaire pourra :
 			</text>
 			<check_box label="Modifier" name="checkbox next owner can modify"/>
-			<check_box label="Copier" name="checkbox next owner can copy"/>
+			<check_box label="Copier" name="checkbox next owner can copy" left_delta="66" />
 			<check_box label="Revendre/Donner" name="checkbox next owner can transfer"/>
 			<text name="label click action">
 				Action du clic-gauche :
 			</text>
-			<combo_box name="clickaction">
+			<combo_box name="clickaction" width="178">
 				<combo_item name="Touch/grab(default)">
 					Toucher/attraper (défaut)
 				</combo_item>
@@ -550,16 +550,18 @@
 			<text name="tex rotate">
 				Rotation (degrés)
 			</text>
-			<text name="string repeats per meter">
+			<spinner left="122" name="TexRot" width="58" />
+			<string name="string repeats per meter">
 				Répétitions au mètre
-			</text>
-			<text name="string repeats per face">
+			</string>
+			<string name="string repeats per face">
 				Répétitions par face
-			</text>
-			<text name="rpt">
+			</string>
+			<text name="rpt" width="160">
 				Répétitions au mètre
 			</text>
-			<button label="Appliquer" label_selected="Appliquer" name="button apply"/>
+			<spinner left="122" name="rptctrl" width="58" />
+			<button label="Appliquer" label_selected="Appliquer" name="button apply" left_delta="68" width="75"/>
 			<text name="tex offset">
 				Décalage
 			</text>
@@ -569,7 +571,7 @@
 				Ajuster la texture du média
 (chargement préalable)
 			</text>
-			<button label="Ajuster" label_selected="Ajuster" name="button align"/>
+			<button left="150" label="Ajuster" label_selected="Ajuster" name="button align"/>
 		</panel>
 		<panel label="Contenu" name="Contents">
 			<button label="Nouveau script..." label_selected="Nouveau script..." name="button new script"/>

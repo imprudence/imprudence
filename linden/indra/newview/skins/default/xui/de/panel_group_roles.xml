@@ -63,9 +63,9 @@ um mehrere Mitglieder auszuwählen.
 			<button label="Suchen" name="search_button"/>
 			<button label="Alle anzeigen" name="show_all_button"/>
 			<scroll_list name="role_list">
-				<column label="Rolle" name="name"/>
-				<column label="Titel" name="title"/>
-				<column label="Mitglieder" name="members"/>
+				<column label="Rolle" name="name" width="126"/>
+				<column label="Titel" name="title" width="180"/>
+				<column label="Mitglieder" name="members" width="82"/>
 			</scroll_list>
 			<button label="Neue Rolle erstellen..." name="role_create"/>
 			<button label="Rolle löschen" name="role_delete"/>
@@ -103,7 +103,7 @@ Rechte in einer Gruppe. Es gibt viele verschiedene Fähigkeiten.
 			<column label="" name="checkbox"/>
 			<column label="" name="role"/>
 		</scroll_list>
-		<scroll_list name="member_allowed_actions" >
+		<scroll_list name="member_allowed_actions" tool_tip="Um detaillierte Informationen zu erlaubten Fähigkeiten anzuzeigen, siehe Reiter Fähigkeiten.">
 			<column label="" name="icon"/>
 			<column label="" name="action"/>
 		</scroll_list>
@@ -134,7 +134,7 @@ Rechte in einer Gruppe. Es gibt viele verschiedene Fähigkeiten.
 			Zulässige Fähigkeiten
 		</text>
 		<check_box label="Mitglieder sind sichtbar" name="role_visible_in_list" tool_tip="Festlegen, ob Mitglieder in dieser Rolle auf der Registerkarte &apos;Allgemein&apos; für Personen außerhalb der Gruppe sichtbar sind."/>
-		<scroll_list name="role_allowed_actions" >
+		<scroll_list name="role_allowed_actions" tool_tip="Um detaillierte Informationen zu erlaubten Fähigkeiten anzuzeigen, siehe Reiter Fähigkeiten.">
 			<column label="" name="icon"/>
 			<column label="" name="checkbox"/>
 			<column label="" name="action"/>

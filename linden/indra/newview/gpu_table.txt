@@ -48,12 +48,12 @@ ATI ASUS EAH34xx				.*ATI.*ASUS.*EAH34.*				1		1
 ATI ASUS EAH36xx				.*ATI.*ASUS.*EAH36.*				3		1
 ATI ASUS EAH38xx				.*ATI.*ASUS.*EAH38.*				3		1
 ATI ASUS EAH48xx				.*ATI.*ASUS.*EAH48.*				3		1
-ATI ASUS X1xxx					.*ATI.*ASUS.*X1.*					2		1
-ATI ASUS X7xx					.*ATI.*ASUS.*X7.*					1		1
-ATI Diamond X550				.*ATI.*Diamond X550.*				1		1
-ATI Diamond X13xx				.*ATI.*Diamond X13.*				1		1
-ATI Diamond X16xx				.*ATI.*Diamond X16.*				1		1
-ATI Diamond X19xx				.*ATI.*Diamond X19.*				1		1
+ATI Radeon X1xxx				.*ATI.*ASUS.*X1.*					2		1
+ATI Radeon X7xx					.*ATI.*ASUS.*X7.*					1		1
+ATI Radeon X500					.*ATI.*Diamond X5.*					1		1
+ATI Radeon X13xx				.*ATI.*Diamond X13.*				1		1
+ATI Radeon X16xx				.*ATI.*Diamond X16.*				1		1
+ATI Radeon X19xx				.*ATI.*Diamond X19.*				1		1
 ATI Display Adapter				.*ATI.*display adapter.*			0		1
 ATI FireGL 5200					.*ATI.*FireGL V52.*					0		1
 ATI FireGL 5xxx					.*ATI.*FireGL V5.*					1		1

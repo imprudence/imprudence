@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="私人领地" name="Estate">
+<panel label="地产" name="Estate">
 	<text name="estate_help_text">
-		更改该桌面的设置会影响所有区域内的领地状况。
+		对该选项卡中设定的更改会影响到
+地产内所有的区域。
 	</text>
 	<text name="estate_text">
-		私人领地:
+		地产:
 	</text>
 	<text name="estate_name">
 		(未知)
@@ -16,22 +17,38 @@
 		(未知)
 	</text>
 	<text name="estate_manager_label">
-		领地经理人:
+		经理人:
 	</text>
-	<button label="?" name="estate_manager_help" />
 	<button label="添加..." name="add_estate_manager_btn" />
-	<button label="移除e..." name="remove_estate_manager_btn" />
+	<button label="移除..." name="remove_estate_manager_btn" />
 	<check_box label="使用国际时间" name="use_global_time_check" />
-	<button label="?" name="use_global_time_help" />
 	<check_box label="太阳固定" name="fixed_sun_check" />
-	<button label="?" name="fixed_sun_help" />
-	<slider label="状态" name="sun_hour_slider" />
+	<slider label="相位" name="sun_hour_slider" />
 	<check_box label="从大陆可视" name="externally_visible_check" />
-	<button label="?" name="externally_visible_help" />
-	<check_box label="从此处可以看见整个大陆" name="mainland_visible_check" />
-	<button label="?" name="mainland_visible_help" />
-	<check_box label="允许直接闪电传送" name="allow_direct_teleport" />
-	<button label="?" name="allow_direct_teleport_help" />
+	<check_box label="从此处可以看见大陆" name="mainland_visible_check" />
+<text
+		 name="Only Allow">
+		限制访问到:
+	</text>
+	<check_box
+		 label="支付信息在案的居民"
+		 name="limit_payment"
+		 tool_tip="封禁没有验证的居民。" />
+	<check_box
+		 label="通过年龄验证的成年人"
+		 name="limit_age_verified"
+		 tool_tip="封禁没有验证年龄的居民。详细信息请参见 support.secondlife.com 。" />
+	<check_box
+		 label="允许语音聊天"
+		 name="voice_chat_check" />
+	<text
+		 name="abuse_email_text">
+		不良行为报告电子邮件地址:
+	</text>
+	<string
+		 name="email_unsupported">不支持的功能</string>
+
+	<check_box label="允许直接瞬间移动" name="allow_direct_teleport" />
 	<text name="region_text_lbl">
 		拒绝通往支付情况信息:
 	</text>
@@ -40,23 +57,23 @@
 	<check_box label="否认使用过的支付信息" name="deny_transacted" />
 	<button label="应用" name="apply_btn" />
 	<text name="allow_resident_label">
-		允许居民:
+		允许的居民:
 	</text>
 	<button label="?" name="allow_resident_help" />
 	<button label="添加..." name="add_allowed_avatar_btn" />
-	<button label="移除e..." name="remove_allowed_avatar_btn" />
+	<button label="移除..." name="remove_allowed_avatar_btn" />
 	<text name="allow_group_label">
-		获准的社团:
+		允许的社团:
 	</text>
 	<button label="?" name="allow_group_help" />
 	<button label="添加..." name="add_allowed_group_btn" />
-	<button label="移除e..." name="remove_allowed_group_btn" />
+	<button label="移除..." name="remove_allowed_group_btn" />
 	<text name="ban_resident_label">
-		受限居民:
+		封禁的居民:
 	</text>
 	<button label="?" name="ban_resident_help" />
 	<button label="添加..." name="add_banned_avatar_btn" />
-	<button label="移除e..." name="remove_banned_avatar_btn" />
-	<button label="发消息至独立产业..." name="message_estate_btn" />
-	<button label="将用户从状态…踢走" name="kick_user_from_estate_btn" />
+	<button label="移除..." name="remove_banned_avatar_btn" />
+	<button label="向地产发送消息..." name="message_estate_btn" />
+	<button label="从地产将用户踢走..." name="kick_user_from_estate_btn" />
 </panel>

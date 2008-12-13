@@ -26,9 +26,9 @@
 	<button label="?" name="parcel_changes_help"/>
 	<check_box label="Ne pas afficher dans la recherche" name="block_parcel_search_check" tool_tip="Afficher cette région et ses parcelles dans les résultats de recherche"/>
 	<button label="?" name="parcel_search_help"/>
-	<spinner label="Nombre limite d&apos;avatars" name="agent_limit_spin"/>
+	<spinner label="Nombre limite d&apos;avatars" name="agent_limit_spin" label_width="127" width="190"/>
 	<button label="?" name="agent_limit_help"/>
-	<spinner label="Bonus objet" name="object_bonus_spin"/>
+	<spinner label="Bonus objet" name="object_bonus_spin" label_width="127" width="190"/>
 	<button label="?" name="object_bonus_help"/>
 	<text label="Maturité" name="access_text">
 		Maturité :

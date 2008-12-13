@@ -6,8 +6,7 @@
 	<check_box label="Peau" name="checkbox_Skin"/>
 	<check_box label="Cheveux" name="checkbox_Hair"/>
 	<check_box label="Yeux" name="checkbox_Eyes"/>
-	<check_box label="Donner le nom du 
-dossier à l&apos;ensemble" name="rename"/>
+	<check_box label="Donner le nom du dossier &#10;à l&apos;ensemble" name="rename"/>
 	<check_box label="Chemise" name="checkbox_Shirt"/>
 	<check_box label="Pantalon" name="checkbox_Pants"/>
 	<check_box label="Chaussures" name="checkbox_Shoes"/>
@@ -62,7 +61,8 @@ dossier à l&apos;ensemble" name="rename"/>
 		Les ensembles sont des dossiers qui contiennent des habits et des parties du corps.
 Faites glisser le dossier contenant un ensemble vers votre avatar pour lui faire porter.
  
-Le bouton Créer un ensemble vous permet de créer un dossier et d&apos;y sauvegarder les copies des articles que vous portez maintenant.
+Le bouton Créer un ensemble vous permet de créer un dossier et d&apos;y sauvegarder les copies
+des articles que vous portez maintenant.
 	</text>
 	<text length="1" name="Folder name:" type="string">
 		Nom du dossier :

@@ -52,7 +52,7 @@
 	<text name="info_price">
 		1500 L$, objets inclus
 	</text>
-	<text name="info_action">
+	<text name="info_action" width="275">
 		Si vous achetez ce terrain :
 	</text>
 	<text name="error_message">
@@ -76,7 +76,7 @@
 			6,00 US$/mois, facturation annuelle
 		</combo_item>
 	</combo_box>
-	<text name="land_use_action">
+	<text name="land_use_action" width="210" right="430">
 		Augmentez vos frais d&apos;occupation de terrain à 40 US$/mois.
 	</text>
 	<text name="land_use_reason">
@@ -205,7 +205,8 @@ peut-être chercher une parcelle Premier Terrain moins chère.
 		Ce terrain est en solde et les frais associés sont de [AMOUNT]/m².
 	</text>
 	<text name="meters_supports_object">
-		[AMOUNT] m² peuvent contenir [AMOUNT2] prims
+		[AMOUNT] m²
+peuvent contenir [AMOUNT2] prims
 	</text>
 	<text name="sold_with_objects">
 		vendu avec objets

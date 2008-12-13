@@ -1759,12 +1759,20 @@ BOOL LLVolume::generate()
 
 	if (regenPath || regenProf ) 
 	{
-		sNumMeshPoints -= mMesh.size();
-		mMesh.resize(mProfilep->mProfile.size() * mPathp->mPath.size());
-		sNumMeshPoints += mMesh.size();
-
 		S32 sizeS = mPathp->mPath.size();
 		S32 sizeT = mProfilep->mProfile.size();
+
+		//debug info
+		if((U32)(sizeS * sizeT) > (1u << 20))
+		{
+			llinfos << "sizeS: " << sizeS << " sizeT: " << sizeT << llendl ;
+			llinfos << "path_detail : " << path_detail << " split: " << split << " profile_detail: " << profile_detail << llendl ;
+			llinfos << mParams << llendl ;
+		}
+
+		sNumMeshPoints -= mMesh.size();
+		mMesh.resize(sizeT * sizeS);
+		sNumMeshPoints += mMesh.size();		
 
 		//generate vertex positions
 

@@ -66,9 +66,9 @@
 			<text name="(500 chars)">
 				(500 car.)
 			</text>
-			<text name="Give item:">
-				Donner des objets :
-			</text>
+			<text name="Give item:" height="20" bottom="-397">
+				Donner des 
+objets :</text>
 			<text name="Give inventory" tool_tip="Mettez les objets de l&apos;inventaire ici pour les donner à cette personne.">
 				Mettez les objets à transférer ici.
 			</text>

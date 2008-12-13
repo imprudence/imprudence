@@ -20,8 +20,8 @@ l&apos;eau
 		Brouillard
 dans l&apos;eau
 	</text>
-	<button bottom="-144" label="Utiliser heure du domaine" name="EnvUseEstateTimeButton"/>
-	<button label="Ciel avancé" name="EnvAdvancedSkyButton"/>
-	<button label="Eau avancée" name="EnvAdvancedWaterButton"/>
+	<button bottom="-144" label="Utiliser heure du domaine" name="EnvUseEstateTimeButton" width="145"/>
+	<button label="Ciel avancé" name="EnvAdvancedSkyButton" width="145" left="162" />
+	<button label="Eau avancée" name="EnvAdvancedWaterButton" width="145" left="316"/>
 	<button label="?" name="EnvSettingsHelpButton"/>
 </floater>

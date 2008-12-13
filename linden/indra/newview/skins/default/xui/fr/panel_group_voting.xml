@@ -38,7 +38,8 @@ ou abstenez-vous en cliquant sur M&apos;abstenir.
 		La proposition que vous essayez de créer est vide. Veuillez saisir une description avant de créer la proposition.
 	</text>
 	<text name="proposal_instructions">
-		Double-cliquez sur la proposition sur laquelle vous voulez voter ou cliquez sur Créer une nouvelle proposition pour en créer une nouvelle.
+		Double-cliquez sur la proposition sur laquelle vous voulez voter ou cliquez
+sur Créer une nouvelle proposition pour en créer une nouvelle.
 	</text>
 	<text name="proposal_lbl">
 		Description de la proposition
@@ -73,9 +74,9 @@ ou abstenez-vous en cliquant sur M&apos;abstenir.
 	</text>
 	<button label="Soumettre" label_selected="Soumettre" left="170" name="btn_submit" width="100"/>
 	<button label="Annuler" label_selected="Annuler" left_delta="158" name="btn_cancel"/>
-	<button font="SansSerifSmall" label="Oui" label_selected="Oui" left="183" name="btn_yes" width="70"/>
-	<button font="SansSerifSmall" label="Non" label_selected="Non" left_delta="77" name="btn_no" width="70"/>
-	<button font="SansSerifSmall" label="M&apos;abstenir" label_selected="M&apos;abstenir" left_delta="77" name="btn_abstain" width="70"/>
+	<button font="SansSerifSmall" label="Oui" label_selected="Oui" left="205" name="btn_yes" width="60"/>
+	<button font="SansSerifSmall" label="Non" label_selected="Non" left_delta="66" name="btn_no" width="60"/>
+	<button font="SansSerifSmall" label="M&apos;abstenir" label_selected="M&apos;abstenir" left_delta="66" name="btn_abstain" width="70"/>
 	<text left="7" name="txt">
 		Historique des votes du groupe
 	</text>

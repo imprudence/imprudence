@@ -239,7 +239,8 @@ void LLWatchdog::run()
 
 			llinfos << "Watchdog detected error:" << llendl;
 #ifdef LL_WINDOWS
-			RaiseException(0,0,0,0);
+			llerrs << "Windows Watchdog killer event" << llendl;
+			// RaiseException(0,0,0,0);
 #else
 			raise(SIGQUIT);
 #endif

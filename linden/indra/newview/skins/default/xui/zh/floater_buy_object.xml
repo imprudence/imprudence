@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="contents" title="购买东东拷贝">
+<floater name="contents" title="购买物体副本">
 	<text name="contents_text">
 		以及它的内容：
 	</text>
 	<text name="buy_text">
-		购买L$[AMOUNT]于[NAME]?
+		以 L$[AMOUNT] 从 [NAME] 处购买?
 	</text>
 	<button label="取消" label_selected="取消" name="cancel_btn" />
 	<button label="购买" label_selected="购买" name="buy_btn" />
+	<string name="title_buy_text">
+		购买
+	</string>
+	<string name="title_buy_copy_text">
+		购买复件
+	</string>
+	<string name="no_copy_text">
+		(不可复制)
+	</string>
+	<string name="no_modify_text">
+		(不可更改)
+	</string>
+	<string name="no_transfer_text">
+		(不可转让)
+	</string>
 </floater>

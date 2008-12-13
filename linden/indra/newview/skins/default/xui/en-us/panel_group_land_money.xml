@@ -114,6 +114,7 @@ provide information about the group&apos;s finances.
 	</text>
 	<tab_container border="false" bottom_delta="-189" height="180" left="6" mouse_opaque="false"
 	     name="group_money_tab_container" tab_position="top" width="406">
+		<!-- Comment out for [DEV-11287]
 		<panel border="true" bottom_delta="-260" follows="left|top|right|bottom" height="255"
 		     label="Planning" left="1" mouse_opaque="true"
 		     name="group_money_planning_tab" width="398">
@@ -125,6 +126,7 @@ provide information about the group&apos;s finances.
 				Computing...
 			</text_editor>
 		</panel>
+		-->
 		<panel border="true" bottom_delta="-250" follows="left|top|right|bottom" height="250"
 		     label="Details" left="1" mouse_opaque="true" name="group_money_details_tab"
 		     width="398">

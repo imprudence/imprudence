@@ -36,7 +36,7 @@
 	<text name="owner_name">
 		Hendrerit Vulputate
 	</text>
-	<combo_box name="category_combo" >
+	<combo_box name="category_combo" tool_tip="カテゴリー -- この報告に最も適したカテゴリーを選択してください">
 		<combo_item name="Select_category">
 			カテゴリーを選択
 		</combo_item>

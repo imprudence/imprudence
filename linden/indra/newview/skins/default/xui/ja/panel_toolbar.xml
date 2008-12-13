@@ -5,24 +5,24 @@
 	</string>
 	<layout_stack name="toolbar_stack">
 		<button label="IM" name="im_btn"
-		     tool_tip="フレンドとインスタント・メッセージ" />
+		     tool_tip="友人とインスタント・メッセージ" />
 		<button label="コミュニケート" name="communicate_btn"
-		     tool_tip="フレンドやグループとコミュケート。" />
+		     tool_tip="友人やグループとの交流" />
 		<button label="" name="chat_btn"
-		     tool_tip="チャット・バーを表示します。(Enter)" />
+		     tool_tip="チャット・バーを表示します(Enter)" />
 		<button label="フレンド" name="friends_btn"
-		     tool_tip="フレンドを探して会話する" />
+		     tool_tip="友人を探して会話する" />
 		<button label="飛行" label_selected="飛行を停止" name="fly_btn"
-		     tool_tip="飛行開始。 EキーまたはPageUpキーで上昇、CキーまたはPageDownキーで下降。" />
+		     tool_tip="飛行開始 EキーまたはPageUpキーで上昇、CキーまたはPageDownキーで下降" />
 		<button label="スナップショット" name="snapshot_btn"
-		     tool_tip="スクリーンショットをディスクまたは持ち物に保存します。" />
+		     tool_tip="スクリーンショットをディスクまたは持ち物に保存します" />
 		<button label="検索" name="directory_btn"
-		     tool_tip="場所、イベント、人など、さまざまな対象を検索できます。" />
-		<button label="建造" name="build_btn" tool_tip="オブジェクト新規作成" />
+		     tool_tip="場所、イベント、人など、さまざまな対象を検索できます" />
+		<button label="制作" name="build_btn" tool_tip="オブジェクト新規作成" />
 		<button label="ミニマップ" name="radar_btn"
-		     tool_tip="あなたの周辺領域の地図。 （Ctrl＋Shift＋M）" />
-		<button label="地図" name="map_btn" tool_tip="世界地図。 （Ctrl＋M）" />
+		     tool_tip="あなたの周辺領域の地図 （Ctrl＋Shift＋M）" />
+		<button label="地図" name="map_btn" tool_tip="世界地図 （Ctrl＋M）" />
 		<button label="持ち物" name="inventory_btn"
-		     tool_tip="あなたのアイテム。 (Ctrl-I)" />
+		     tool_tip="あなたのアイテム (Ctrl-I)" />
 	</layout_stack>
 </panel>

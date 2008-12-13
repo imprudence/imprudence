@@ -12,8 +12,7 @@
 	<text name="preview_label" width="97">
 		Vorschau während:
 	</text>
-	<combo_box label="" left_delta="107" name="preview_base_anim"
-	     tool_tip="Use this to test your animation behavior while your avatar performs common actions.">
+	<combo_box label="" left_delta="107" name="preview_base_anim" >
 		<combo_item name="Standing">
 			Stehend
 		</combo_item>
@@ -35,8 +34,7 @@
 	<text name="hand_label">
 		Handhaltung
 	</text>
-	<combo_box label="" name="hand_pose_combo"
-	     tool_tip="Controls what hands do during animation.">
+	<combo_box label="" name="hand_pose_combo" >
 		<combo_item name="Spread">
 			Dehnen
 		</combo_item>
@@ -80,8 +78,10 @@
 	<text name="emote_label">
 		Ausdruck
 	</text>
-	<combo_box label="" name="emote_combo"
-	     tool_tip="Controls what face does during animation.">
+	<combo_box label="" name="emote_combo" >
+		<combo_item name="[None]">
+			[Keine]
+		</combo_item>
 		<combo_item name="Aaaaah">
 			Aaaaah
 		</combo_item>
@@ -114,6 +114,9 @@
 		</combo_item>
 		<combo_item name="Laugh">
 			Lachen
+		</combo_item>
+		<combo_item name="Plllppt">
+			Bäääh
 		</combo_item>
 		<combo_item name="Repulsed">
 			Zurückgestoßen

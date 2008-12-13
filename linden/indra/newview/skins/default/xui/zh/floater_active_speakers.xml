@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="active_speakers"
+	 title="活跃的说话人">
+	<panel
+		 name="active_speakers_panel">
+		<scroll_list
+			 name="speakers_list">
+			<column
+				 label="名字"
+				 name="speaker_name" />
+		</scroll_list>
+		<panel
+			 name="volume_container"
+			 right="-10">
+			<button
+				 label=""
+				 name="mute_btn"
+				 toggle="true"
+				 tool_tip="屏蔽该居民的语音" />
+		</panel>
+	</panel>
+</floater>

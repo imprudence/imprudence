@@ -224,7 +224,7 @@
 				<column name="online_status"/>
 				<column label="名前" name="name"/>
 				<column label="カウント" name="count"/>
-				<column label="Most Recent" name="mostrecent"/>
+				<column label="最新" name="mostrecent"/>
 			</name_list>
 		</panel>
 		<panel label="オプション" name="land_options_panel">
@@ -379,7 +379,7 @@
 			<text name="Voice settings:">
 				ボイス：
 			</text>
-			<radio_group name="parcel_voice_channel">
+			<radio_group name="parcel_voice_channel" width="310">
 				<radio_item name="Estate">
 					不動産空間チャンネルを使用
 				</radio_item>

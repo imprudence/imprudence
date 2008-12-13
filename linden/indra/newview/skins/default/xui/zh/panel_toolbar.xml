@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="toolbar">
+	<string name="Redock Windows">
+		恢复停靠窗口
+	</string>
 	<layout_stack name="toolbar_stack">
-	<button label="即时通" name="im_btn" tool_tip="用即时通联系你的朋友。" />
-	<button label="" name="chat_btn"
-	     tool_tip="与附近的人交谈.点击交谈之后点击历史去查找交谈记录。" />
-	<button label="伙伴&quot;" name="friends_btn"
-	     tool_tip="查找并与你的好朋友交流。" />
-	<button label="飞翔" label_selected="停止飞翔" name="fly_btn"
-	     tool_tip="开始飞行。使用EC或者PgUp/PgDn来控制飞行高度。" />
-	<button label="快照" name="snapshot_btn"
-	     tool_tip="将屏幕截图保存到硬盘或清单中." />
-	<button label="搜索" name="directory_btn"
-	     tool_tip="搜索地区，时间，任务以及更多。" />
-	<button label="建造" name="build_btn" tool_tip="创建新的东东" />
-	<button label="迷你地图" name="radar_btn"
-	     tool_tip="你周围区域的地图。 (Ctrl-Shift-M)" />
-	<button label="地图" name="map_btn" tool_tip="全部完整地图。 (Ctrl-M)" />
-	<button label="库存" name="inventory_btn" tool_tip="你的东东栏。 (Ctrl-I)" />
-  </layout_stack>
+		<button label="即时通" name="im_btn" tool_tip="用即时通联系你的朋友。" />
+		<button label="" name="chat_btn" tool_tip="显示聊天栏。(回车键)" />
+		<flyout_button label="交流" name="communicate_btn"
+		     tool_tip="查找并与你的好友和社团交流。" />
+		<button label="飞翔" label_selected="停止飞翔" name="fly_btn"
+		     tool_tip="开始飞行。使用E/C键或者PgUp/PgDn来控制飞行高度。" />
+		<button label="快照" name="snapshot_btn"
+		     tool_tip="将屏幕截图保存到硬盘或库存中。" />
+		<button label="搜索" name="directory_btn"
+		     tool_tip="搜索地点，事件，人物以及更多。" />
+		<button label="建造" name="build_btn" tool_tip="创建新的物品。" />
+		<button label="迷你地图" name="radar_btn"
+		     tool_tip="你周围区域的地图。 (Ctrl-Shift-M)" />
+		<button label="地图" name="map_btn" tool_tip="世界地图。 (Ctrl-M)" />
+		<button label="库存" name="inventory_btn" tool_tip="你的物品栏。 (Ctrl-I)" />
+	</layout_stack>
 </panel>
+<!-- Translated for Second Life 1.19.0 (80267) -->

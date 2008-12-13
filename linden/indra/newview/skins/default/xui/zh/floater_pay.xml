@@ -13,7 +13,7 @@
 		[FIRST] [LAST]
 	</text>
 	<text type="string" length="1" name="fastpay text">
-		快速支付通道:
+		快速支付:
 	</text>
 	<text type="string" length="1" name="amount text">
 		数量:

@@ -3,6 +3,7 @@
 	<text name="media_label">
 		URL du média :
 	</text>
+	<combo_box left="100" name="media_entry" width="360" />
 	<button label="OK" name="ok_btn" />
 	<button label="Annuler" name="cancel_btn" />
 	<button label="Effacer" name="clear_btn" />

@@ -2896,7 +2896,10 @@ void update_dialog_callback(S32 option, void *userdata)
 	LLAppViewer::sUpdaterInfo->mUpdateExePath += "\" &";
 
 	LL_DEBUGS("AppInit") << "Calling updater: " << LLAppViewer::sUpdaterInfo->mUpdateExePath << LL_ENDL;
-	
+
+	// Run the auto-updater.
+	system(LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str()); /* Flawfinder: ignore */
+
 #elif LL_LINUX
 	OSMessageBox("Automatic updating is not yet implemented for Linux.\n"
 		"Please download the latest version from www.secondlife.com.",

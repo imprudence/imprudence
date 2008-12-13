@@ -10,21 +10,21 @@
 	<button label="?" name="water_height_help" />
 	<spinner label="地形提高限制" name="terrain_raise_spin" />
 	<button label="?" name="terrain_raise_help" />
-	<spinner label="地形较低限制" name="terrain_lower_spin" />
+	<spinner label="地形降低限制" name="terrain_lower_spin" />
 	<button label="?" name="terrain_lower_help" />
-	<check_box label="使用领地太阳" name="use_estate_sun_check" />
+	<check_box label="使用地产太阳" name="use_estate_sun_check" />
 	<button label="?" name="use_estate_sun_help" />
 	<check_box label="太阳固定" name="fixed_sun_check" />
 	<button label="?" name="fixed_sun_help" />
-	<slider label="状态" name="sun_hour_slider" />
+	<slider label="相位" name="sun_hour_slider" />
 	<button label="应用" name="apply_btn" />
-	<button label="下载 RAW地形..." name="download_raw_btn"
+	<button label="下载 RAW 地形..." name="download_raw_btn"
 	     tool_tip="只对地产所有人开放而不对经理人开放。" />
 	<button label="?" name="download_raw_help" />
-	<button label="上传RAW格式地形..." name="upload_raw_btn"
+	<button label="上传 RAW 地形..." name="upload_raw_btn"
 	     tool_tip="只对地产所有人开放而不对经理人开放。" />
 	<button label="?" name="upload_raw_help" />
-	<button label="硬地" name="bake_terrain_btn"
+	<button label="烘烤" name="bake_terrain_btn"
 	     tool_tip="设置目前地形为上升/下降极限的中点。" />
 	<button label="?" name="bake_terrain_help" />
 </panel>

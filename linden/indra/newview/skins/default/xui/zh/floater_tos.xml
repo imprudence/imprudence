@@ -2,25 +2,16 @@
 <floater name="modal container" title=" ">
 	<button label="继续" label_selected="继续" name="Continue" />
 	<button label="取消" label_selected="取消" name="Cancel" />
-	<radio_group name="tos_agreement">
-		<radio_item name="radio_disagree">
-			I Disagree with the Terms of Service
-		</radio_item>
-		<radio_item name="radio_agree">
-			I Agree to the Terms of Service
-		</radio_item>
-	</radio_group>
+	<check_box
+		 label="我接受服务条款。"
+		 name="agree_chk" />
 	<text name="tos_title">
-		服务条款合同
+		服务条款协议
 	</text>
 	<text name="tos_heading">
-		登陆第二人生前请仔细阅读下列服务条款。继续登录到第二人生，
-你必须接受该合同。
+		登陆第二人生前请仔细阅读下列服务条款。要继续登录到第二人生，
+您必须接受该协议。
 	</text>
-	<text_editor name="tos_text">
-		TOS_TEXT
-	</text_editor>
-	<text name="real_url">
-		http://secondlife.com/app/tos/
-	</text>
+	<web_browser name="tos_html"/>
+
 </floater>

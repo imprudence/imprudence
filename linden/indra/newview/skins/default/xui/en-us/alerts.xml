@@ -1402,7 +1402,29 @@ chat, or interact with the world.
 			Cancel
 		</option>
 	</alert>
-	<alert modal="true" name="InvalidUUID">
+    <alert modal="true" name="EjectAvatarNoBan">
+        <message name="message">
+            Eject this avatar from your land?
+        </message>
+        <option name="Eject">
+            Eject
+        </option>
+        <option name="Cancel">
+            Cancel
+        </option>
+    </alert>
+    <alert modal="true" name="EjectAvatarFullnameNoBan">
+        <message name="message">
+            Eject [AVATAR_NAME] from your land?
+        </message>
+        <option name="Eject">
+            Eject
+        </option>
+        <option name="Cancel">
+            Cancel
+        </option>
+    </alert>
+    <alert modal="true" name="InvalidUUID">
 		<message name="message">
 			Not a valid UUID.
 		</message>

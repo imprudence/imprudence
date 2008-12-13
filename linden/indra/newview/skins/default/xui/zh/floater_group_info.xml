@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- deprecated - doesn't seem to be used -->
 <floater name="groupinfo" title="林登家族-社团信息">
 	<tab_container name="tab">
-		<panel label="General" name="gen">
+		<panel label="一般" name="gen">
 			<text name="title_box">
 				社团信息
 			</text>
@@ -9,7 +10,7 @@
 				社团是你和朋友们合作的有趣的途径。
 			</text>
 			<text name="txt2">
-				社团使你拥有头衔，徽章和选举权.
+				社团使你拥有头衔，徽章和进行选举的能力。
 			</text>
 			<text name="txt3">
 				任何人都可以创建社团。但每个人最多只能参加15个社团。
@@ -32,33 +33,33 @@
 			<check_box label="在社团名单中显示" name="sho" />
 			<check_box label="在社团名单中显示成员" name="sho_mem" />
 			<check_box label="在网上公布" name="allow_publish"
-			     tool_tip="将你个人的简介发布到网上." />
+			     tool_tip="将简介发布到网上。" />
 			<button label="?" label_selected="?" name="publish_help_btn" />
 			<check_box label="成人" name="mature"
-			     tool_tip="你的档案文件被认为带有成人内容." />
+			     tool_tip="您的社团档案带有成人内容。" />
 		</panel>
-		<panel label="Titles" name="tit">
+		<panel label="头衔" name="tit">
 			<text name="txt">
 				社团头衔
 			</text>
 			<text name="txt2">
-				社团有官员和社员，他们拥有不同的头衔。
+				社团的官员和成员都可以有特殊的头衔。
 			</text>
 			<text name="txt3">
-				在世界里，聊天时和即时通消息里，头衔出现在名字之前。
+				头衔将在世界里、聊天时和即时通消息里出现在名字之前。
 			</text>
 			<text name="lbl">
-				官员职位:
+				官员头衔:
 			</text>
 			<text name="lbl2">
 				成员头衔:
 			</text>
 			<text name="lbl3">
-				从你的库存中选取材料制作社团徽章.
+				从库存中拖出材质来设置社团徽章。
 			</text>
 			<texture_picker name="insig" tool_tip="点击这里来选择图片" />
 		</panel>
-		<panel label="Members" name="mem">
+		<panel label="成员" name="mem">
 			<text name="txt">
 				社团成员
 			</text>
@@ -76,7 +77,7 @@
 			</text>
 			<button label="驱逐成员" label_selected="驱逐成员" name="eject_member_btn" />
 		</panel>
-		<panel label="Voting" name="voting">
+		<panel label="投票" name="voting">
 			<tab_container name="tab">
 				<panel label="Election" name="recall">
 					<text name="txt">
@@ -104,13 +105,13 @@
 					</text>
 					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
 						<radio_item name="radio">
-							Simple Majority
+							简单多数
 						</radio_item>
 						<radio_item name="radio2">
-							2/3 Majority
+							2/3 多数 
 						</radio_item>
 						<radio_item name="radio3">
-							Unanimous
+							一致同意
 						</radio_item>
 					</radio_group>
 					<text name="duration_lbl">
@@ -157,13 +158,13 @@
 					</text>
 					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
 						<radio_item name="radio">
-							Simple Majority
+							简单多数
 						</radio_item>
 						<radio_item name="radio2">
-							2/3 Majority
+							2/3 多数 
 						</radio_item>
 						<radio_item name="radio3">
-							Unanimous
+							一致同意
 						</radio_item>
 					</radio_group>
 					<text name="duration_lbl">
@@ -201,7 +202,7 @@
 				</panel>
 			</tab_container>
 		</panel>
-		<panel label="Invite" name="inv">
+		<panel label="邀请" name="inv">
 			<text name="txt">
 				社团邀请
 			</text>
@@ -249,14 +250,14 @@
 		</panel>
 		<panel label="金钱" name="mon">
 			<tab_container name="group money history tab">
-				<panel label="Planning" name="money panel" />
-				<panel label="Details" name="money panel2">
+				<panel label="计划" name="money panel" />
+				<panel label="详细" name="money panel2">
 					<button label="&lt;较早" label_selected="&lt;较早" name="&lt; Earlier"
 					     tool_tip="时间返回" />
 					<button label="延迟 &gt;" label_selected="延迟 &gt;" name="Later &gt;"
 					     tool_tip="时间前进" />
 				</panel>
-				<panel label="Sales" name="money panel3">
+				<panel label="出售" name="money panel3">
 					<button label="&lt;较早" label_selected="&lt;较早" name="&lt; Earlier"
 					     tool_tip="时间返回" />
 					<button label="延迟 &gt;" label_selected="延迟 &gt;" name="Later &gt;"

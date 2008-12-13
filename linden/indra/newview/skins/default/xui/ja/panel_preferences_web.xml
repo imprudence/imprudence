@@ -13,7 +13,7 @@
 	<text name="cache_size_label_l">
 		キャッシュ：
 	</text>
-	<button label="今すぐクリア" name="clear_cache" />
+	<button label="今すぐクリア" name="clear_cache" width="105" />
 	<text name="cookie_label">
 		クッキー：
 	</text>

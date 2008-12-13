@@ -323,9 +323,15 @@ Der Rolle &apos;[ROLE_NAME]&apos; diese Fähigkeit zuweisen?
 			Nein
 		</option>
 	</alert>
-	<alert name="ClickPublishHelpGroup">
-	</alert>
+	<alert name="ClickPublishHelpGroup"/>
 	<alert name="ClickPublishHelpLand">
+		<message name="message">
+			Auswahl von „In Suche veröffentlichen“  
+Dieses Kontrollkästchen zeigt Folgendes an:
+- diese Parzelle in den Suchergebnissen
+- die öffentlichen Objekte dieser Parzelle
+- diese Parzelle in der Websuche
+		</message>
 	</alert>
 	<alert name="ClickPublishHelpLandDisabled">
 		<message name="message">
@@ -338,6 +344,11 @@ Der Rolle &apos;[ROLE_NAME]&apos; diese Fähigkeit zuweisen?
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
+		<message name="message">
+			Auswahl von &quot;In Suche anzeigen&quot; zeigt Folgendes an:
+- Ihr Profil in den Suchergebnissen
+- einen Link auf Ihr Profil in den öffentlichen Gruppenseiten
+		</message>
 	</alert>
 	<alert name="ClickPartnerHelpAvatar">
 		<message name="message">
@@ -1309,6 +1320,28 @@ Der Avatar wird außer Gefecht gesetzt und kann sich nicht mehr bewegen, chatten
 		</option>
 		<option name="EjectandBan">
 			Ausschließen und Verbannen
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
+	<alert name="EjectAvatarNoBan">
+		<message name="message">
+			Diesen Avatar aus Ihrem Land werfen?
+		</message>
+		<option name="Eject">
+			Hinauswerfen
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullnameNoBan">
+		<message name="message">
+			[AVATAR_NAME] aus Ihrem Land werfen?
+		</message>
+		<option name="Eject">
+			Hinauswerfen
 		</option>
 		<option name="Cancel">
 			Abbrechen
@@ -2881,7 +2914,7 @@ Diese Gruppe verlassen?
 	</alert>
 	<alert name="MuteLinden">
 		<message name="message">
-			Linden können nicht stummgeschaltet werden.
+			Lindens können nicht stummgeschaltet werden.
 		</message>
 		<option name="OK">
 			OK

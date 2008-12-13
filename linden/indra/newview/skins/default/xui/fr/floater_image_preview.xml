@@ -9,7 +9,7 @@
 	<text name="preview_label">
 		Prévisualiser comme :
 	</text>
-	<combo_box label="Habits" name="clothing_type_combo">
+	<combo_box label="Habits" name="clothing_type_combo" left="126" >
 		<combo_item name="Image">
 			Image
 		</combo_item>

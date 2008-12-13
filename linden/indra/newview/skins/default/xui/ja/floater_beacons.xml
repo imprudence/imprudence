@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="beacons" title="ビーコン（標識）">
 	<panel name="beacons_panel">
-		<check_box label="タッチオンリーのスクリプトを含むオブジェクト" name="touch_only"/>
+		<check_box label="ﾀｯﾁｵﾝﾘｰのｽｸﾘﾌﾟﾄを含むｵﾌﾞｼﾞｪｸﾄ" name="touch_only"/>
 		<check_box label="スクリプト・オブジェクト" name="scripted"/>
 		<check_box label="物理的オブジェクト" name="physical"/>
 		<check_box label="音源" name="sounds"/>

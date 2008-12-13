@@ -10,7 +10,7 @@
 		位置:
 	</text>
 	<text name="select_object_label">
-		点击按钮选择一个东东:
+		点击按钮然后点击物体:
 	</text>
 	<button label="" label_selected="" name="pick_btn"
 	     tool_tip="东东拾取器 - 确认一个东东为此份报告中的一项" />
@@ -23,7 +23,7 @@
 	<check_box label="包含屏幕截图" name="screen_check" />
 	<texture_picker label="工作..." name="screenshot" />
 	<text name="category_label">
-		种类列表:
+		分类:
 	</text>
 	<combo_box name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report">
@@ -31,7 +31,7 @@
 			选择一个分类
 		</combo_item>
 		<combo_item name="Building">
-			楼宇
+			建造
 		</combo_item>
 		<combo_item name="Character">
 			角色
@@ -43,7 +43,7 @@
 			文档
 		</combo_item>
 		<combo_item name="Exploit">
-			开发
+			漏洞
 		</combo_item>
 		<combo_item name="Graphics">
 			图像
@@ -52,22 +52,22 @@
 			库存
 		</combo_item>
 		<combo_item name="Lag">
-			滞后
+			延迟
 		</combo_item>
 		<combo_item name="MissingContent">
 			遗失内容
 		</combo_item>
 		<combo_item name="LindenDollars(L$)">
-			Linden Dollars (L$)
+			林登币 (L$)
 		</combo_item>
 		<combo_item name="Permissions">
-			允许
+			许可
 		</combo_item>
 		<combo_item name="Physics">
-			实物
+			物理
 		</combo_item>
 		<combo_item name="Script">
-			剧本
+			脚本
 		</combo_item>
 		<combo_item name="Sound">
 			音效
@@ -79,7 +79,7 @@
 			用户界面
 		</combo_item>
 		<combo_item name="Miscellaneous">
-			混色
+			其他
 		</combo_item>
 	</combo_box>
 	<text name="sum_title">
@@ -89,14 +89,16 @@
 		详细:
 	</text>
 	<text_editor name="details_edit">
-		修复漏洞的途径：:
+重复漏洞发生的步骤:
 
-观察的结果：:
+观察到的结果:
+
+期望的结果:
 	</text_editor>
 	<text name="bug_aviso">
-		If this bug allows you to do something you should not be able 
-to do, especially if it impacts performance or security, please 
-select the &apos;Exploit&apos; category. Thank you!
+		注意：不完整的报告将不会被调查
+		如果这个漏洞允许你做你不应该做的事情，特别
+		是妨碍到性能或安全，请选择漏洞一类。谢谢!
 	</text>
 	<button label="报告漏洞" label_selected="报告漏洞" name="send_btn" />
 	<button label="取消" label_selected="取消" name="cancel_btn" />

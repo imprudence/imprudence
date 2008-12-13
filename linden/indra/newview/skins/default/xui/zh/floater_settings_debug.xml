@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="settings_debug" title="降低缺陷设定">
-	<combo_box name="boolean_combo">
-		<combo_item name="TRUE">
+<floater
+	 name="settings_debug"
+	 title="调试设定">
+	<combo_box
+		 name="boolean_combo">
+		<combo_item
+			 name="TRUE"
+			 value="true">
 			TRUE
 		</combo_item>
-		<combo_item name="FALSE">
+		<combo_item
+			 name="FALSE"
+			 value="">
 			FALSE
 		</combo_item>
 	</combo_box>
-	<spinner label="x" name="val_spinner_1" />
-	<spinner label="x" name="val_spinner_2" />
-	<spinner label="x" name="val_spinner_3" />
-	<spinner label="x" name="val_spinner_4" />
+	<color_swatch
+		 label="颜色"
+		 name="color_swatch"
+		 visible="true" />
+	<button
+		 label="重置为默认值"
+		 name="default_btn" />
 </floater>
+

@@ -57,6 +57,7 @@ Alissa Sabre
         VWR-7168
         VWR-7087
         VWR-7086
+	VWR-10728
 Angus Boyd
 	VWR-592
 Argent Stonecutter
@@ -133,6 +134,8 @@ Fluf Fredriksson
 	VWR-3450
 Fremont Cunningham
 	VWR-1147
+Geneko Nemeth
+	CT-117
 Gudmund Shepherd
 	VWR-1873
 Gigs Taggart
@@ -203,6 +206,8 @@ Kage Pixel
 Kunnis Basiat
 	VWR-82
 	VWR-102
+maciek marksman
+	CT-86
 march Korda
 	SVC-1020
 Matthew Dowd
@@ -321,6 +326,8 @@ Peekay Semyorka
 	VWR-19
 	VWR-49
 	VWR-79
+princess niven
+	VWR-5733
 Renault Clio
 	VWR-1976
 Robin Cornelius

@@ -6,7 +6,7 @@
 	<button label="20 L$" label_selected="20 L$" name="fastpay 20"/>
 	<button label="Payer" label_selected="Payer" name="pay btn"/>
 	<button label="Annuler" label_selected="Annuler" name="cancel btn"/>
-	<text length="1" name="payee_label" type="string">
+	<text length="1" name="payee_label" type="string" left="5">
 		Payer :
 	</text>
 	<text length="1" name="payee_name" type="string">

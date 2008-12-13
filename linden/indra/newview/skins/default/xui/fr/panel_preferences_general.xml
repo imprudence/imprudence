@@ -95,6 +95,9 @@
 		<combo_item length="1" name="(Korean)" type="string">
 			한국어 (Coréen) - Bêta
 		</combo_item>
+		<combo_item length="1" name="Danish" type="string">
+			Dansk (Danois) - Bêta
+		</combo_item>
 		<combo_item name="Portugese">
 			Portugués (Portugais) - Bêta
 		</combo_item>

@@ -376,8 +376,8 @@ Aller sur le site de Second Life pour avoir plus d&apos;informations sur les par
 		<message name="message">
 			Si ce résident a défini une URL de profil web, vous pouvez :
  * Cliquer sur Charger pour afficher la page dans cet onglet ;
- * Cliquer sur Charger &amp;gt; Dans un navigateur externe, pour afficher la page dans votre navigateur par défaut ;
- * Cliquer sur Charger &amp;gt; URL du domicile, pour retourner au profil web du résident.
+ * Cliquer sur Charger &gt; Dans un navigateur externe, pour afficher la page dans votre navigateur par défaut ;
+ * Cliquer sur Charger &gt; URL du domicile, pour retourner au profil web du résident.
  
 Lorsque vous êtes dans votre propre profil, vous pouvez définir n&apos;importe quelle URL comme profil web. Pour cela, saisissez l&apos;URL et cliquez sur OK.
 Les autres résidents peuvent visiter l&apos;URL que vous avez définie en regardant votre profil.
@@ -1170,7 +1170,7 @@ pour des conseils et un lien vers la page web d&apos;état du service.
 	</alert>
 	<alert name="CannotConnectNoReplyFromLogin">
 		<message name="message">
-			Connexion impossible. Pas de réponse du sim.
+			Connexion impossible. Pas de réponse de la région.
  
 Veuillez réessayer d&apos;ici quelques minutes, ou cliquez sur Aide
 pour des conseils et un lien vers la page web d&apos;état du service.
@@ -1354,6 +1354,28 @@ Il ou elle ne pourra temporairement plus bouger, chatter, ou interagir dans le M
 		</option>
 		<option name="EjectandBan">
 			Expulser et bannir
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EjectAvatarNoBan">
+		<message name="message">
+			Expulser cet avatar de votre terrain ?
+		</message>
+		<option name="Eject">
+			Expulser
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullnameNoBan">
+		<message name="message">
+			Expulser [AVATAR_NAME] de votre terrain ?
+		</message>
+		<option name="Eject">
+			Expulser
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -1673,12 +1695,12 @@ aucune parcelle sélectionnée.
 	</alert>
 	<alert name="CannotSetLandOwnerMultipleRegions">
 		<message name="message">
-			Impossible d&apos;imposer la propriété car la sélection couvre plusieurs régions. Veuillez sélectionner une zone plus petite et réessayer.
+			Impossible de définir un propriétaire car la sélection couvre plusieurs régions. Veuillez sélectionner une zone plus petite et réessayer.
 		</message>
 	</alert>
 	<alert name="ForceOwnerAuctionWarning">
 		<message name="message">
-			Cette parcelle est mise aux enchères. Imposer la propriété annulerait les enchères, ce qui pourrait être gênant pour certains résidents si ces dernières ont commencé. Imposer la propriété ?
+			Cette parcelle est mise aux enchères. Définir un propriétaire annulerait les enchères, ce qui pourrait être gênant pour certains résidents si ces dernières ont commencé. Souhaitez-vous définir un propriétaire ?
 		</message>
 		<option name="Force">
 			OK
@@ -1859,8 +1881,8 @@ aucune parcelle sélectionnée.
 		<message name="message">
 			Division du terrain impossible :
 
-vous devez sélectionner toute la parcelle.
-Essayez de sélectionner une partie de la parcelle.
+Toute la parcelle est sélectionnée.
+Sélectionnez une partie de la parcelle uniquement.
 		</message>
 	</alert>
 	<alert name="LandDivideWarning">
@@ -2077,7 +2099,7 @@ Proposer à [NAME] de devenir votre ami(e) ?
 	</alert>
 	<alert name="GodDeleteAllScriptedPublicObjectsByUser">
 		<message name="message">
-			Êtes-vous certain de vouloir supprimer tous les objets scriptés appartenant à ** [AVATAR_NAME] ** sur tous les terrains des autres résidents dans ce sim ?
+			Êtes-vous certain de vouloir supprimer tous les objets scriptés appartenant à ** [AVATAR_NAME] ** sur tous les terrains des autres résidents dans cette région ?
 		</message>
 		<option name="DELETE!!">
 			OK
@@ -2088,7 +2110,7 @@ Proposer à [NAME] de devenir votre ami(e) ?
 	</alert>
 	<alert name="GodDeleteAllScriptedObjectsByUser">
 		<message name="message">
-			Êtes-vous certain de vouloir supprimer tous les objets scriptés appartenant à ** [AVATAR_NAME] ** sur tous les terrains de ce sim ?
+			Êtes-vous certain de vouloir supprimer tous les objets scriptés appartenant à ** [AVATAR_NAME] ** sur tous les terrains de cette région ?
 		</message>
 		<option name="!!DELETEALL!!">
 			OK
@@ -2099,7 +2121,7 @@ Proposer à [NAME] de devenir votre ami(e) ?
 	</alert>
 	<alert name="GodDeleteAllObjectsByUser">
 		<message name="message">
-			Êtes-vous certain de vouloir supprimer tous les objets (scriptés ou pas) appartenant à ** [AVATAR_NAME] ** sur tous les terrains de ce sim ?
+			Êtes-vous certain de vouloir supprimer tous les objets (scriptés ou pas) appartenant à ** [AVATAR_NAME] ** sur tous les terrains de cette région ?
 		</message>
 		<option name="!!DELETEALL!!">
 			OK
@@ -2362,6 +2384,11 @@ pour des conseils et un lien vers la page web d&apos;état du service.
 		<option name="Help">
 			Aide
 		</option>
+	</alert>
+	<alert name="ErrorMessage">
+		<message name="message">
+			[ERROR_MESSAGE]
+		</message>
 	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
@@ -3874,7 +3901,7 @@ Déplacer les objets de l&apos;inventaire ?
 	</alert>
 	<alert name="ConfirmQuit">
 		<message name="message">
-			Êtes-vous certain de vouloir continuer ?
+			Êtes-vous certain de vouloir quitter ?
 		</message>
 		<ignore name="ignore">
 			Lorsque vous quittez Second Life

@@ -899,6 +899,13 @@ void LLSnapshotLivePreview::getSize(S32& w, S32& h) const
 
 LLFloaterPostcard* LLSnapshotLivePreview::savePostcard()
 {
+	if(mViewerImage[mCurImageIndex].isNull())
+	{
+		//this should never happen!!
+		llwarns << "The snapshot image has not been generated!" << llendl ;
+		return NULL ;
+	}
+
 	// calculate and pass in image scale in case image data only use portion
 	// of viewerimage buffer
 	LLVector2 image_scale(1.f, 1.f);
@@ -1636,6 +1643,9 @@ void LLFloaterSnapshot::Impl::updateResolution(LLUICtrl* ctrl, void* data, BOOL 
 	LLSnapshotLivePreview* previewp = getPreviewView(view);
 	if (previewp && combobox->getCurrentIndex() >= 0)
 	{
+		S32 original_width = 0 , original_height = 0 ;
+		previewp->getSize(original_width, original_height) ;
+		
 		if (width == 0 || height == 0)
 		{
 			// take resolution from current window size
@@ -1660,19 +1670,24 @@ void LLFloaterSnapshot::Impl::updateResolution(LLUICtrl* ctrl, void* data, BOOL 
 		{
 			resetSnapshotSizeOnUI(view, width, height) ;
 		}
-		previewp->setSize(width, height);
-
+		
 		if(view->childGetValue("snapshot_width").asInteger() != width || view->childGetValue("snapshot_height").asInteger() != height)
 		{
-		view->childSetValue("snapshot_width", width);
-		view->childSetValue("snapshot_height", height);
-		// hide old preview as the aspect ratio could be wrong
-		checkAutoSnapshot(previewp, FALSE);
+			view->childSetValue("snapshot_width", width);
+			view->childSetValue("snapshot_height", height);
+		}
+
+		if(original_width != width || original_height != height)
+		{
+			previewp->setSize(width, height);
+
+			// hide old preview as the aspect ratio could be wrong
+			checkAutoSnapshot(previewp, FALSE);
 			getPreviewView(view)->updateSnapshot(FALSE, TRUE);
 			if(do_update)
 			{
 				updateControls(view);
-	}
+			}
 		}
 	}
 }

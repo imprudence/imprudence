@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 can_tear_off="true"
+	 min_height="310"
+	 min_width="241"
+	 name="landmarkpicker"
+	 title="整理: 地标">
+	<check_box
+		 initial_value="true"
+		 label="显示文件夹"
+		 name="show_folders_check" />
+	<button
+		 label="新建"
+		 label_selected="新建"
+		 name="New" />
+	<button
+		 label="重命名"
+		 label_selected="重命名"
+		 name="Rename" />
+	<button
+		 label="新建文件夹"
+		 label_selected="新建文件夹"
+		 name="NewFolder" />
+	<button
+		 label="编辑"
+		 label_selected="编辑"
+		 name="Edit" />
+	<button
+		 label="删除"
+		 label_selected="删除"
+		 name="Delete" />
+	<button
+		 label="关闭"
+		 label_selected="关闭"
+		 name="Close" />
+</floater>
+ 

@@ -656,12 +656,12 @@ L$が不足しているのでこのグループに参加することができま
 	</alert>
 	<alert name="PromptRecipientEmail">
 		<message name="message">
-			受信者の電子メール・アドレスを入力してください。
+			受信者のEメール・アドレスを入力してください。
 		</message>
 	</alert>
 	<alert name="PromptSelfEmail">
 		<message name="message">
-			あなたの電子メール・アドレスを入力してください。
+			あなたのEメール・アドレスを入力してください。
 		</message>
 	</alert>
 	<alert name="PromptMissingSubjMsg">
@@ -878,8 +878,7 @@ L$が不足しているのでこのグループに参加することができま
 	</alert>
 	<alert name="GoToAuctionPage">
 		<message name="message">
-			オークションの詳細を見たり、
-入札をするために[SECOND_LIFE]ウェブ・ページに移動しますか？
+			[SECOND_LIFE]ウェブ・ページに移動し、入札あるいはオークションの詳細を確認しますか？
 		</message>
 		<option name="GotoPage">
 			OK
@@ -1381,6 +1380,28 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 		</option>
 		<option name="EjectandBan">
 			追放と禁止
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="EjectAvatarNoBan">
+		<message name="message">
+			このアバターをあなたの土地から追放しますか？
+		</message>
+		<option name="Eject">
+			追放
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullnameNoBan">
+		<message name="message">
+			[AVATAR_NAME] をあなたの土地から追放しますか？
+		</message>
+		<option name="Eject">
+			追放
 		</option>
 		<option name="Cancel">
 			キャンセル
@@ -3057,14 +3078,14 @@ F1キーを押してください。
 	</alert>
 	<alert name="BusyModeSet">
 		<message name="message">
-			ビジーモードに設定されました。
+			取り込み中に設定されました。
 チャットとＩＭが隠れます。 ＩＭ
-は、ビジーモードの応答を受け取ります。 全てのテレポート
+は、取り込み中の応答を受け取ります。 全てのテレポート
 のオファーは拒否されます。 全ての持ち物のオファーはゴミ箱に
 送られます。
 		</message>
 		<ignore name="ignore">
-			ビジー・モードを設定するとき
+			取り込み中の設定をするとき
 		</ignore>
 		<option name="OK">
 			OK
@@ -4215,7 +4236,7 @@ http://secondlife.com/support/incidentreport.php
 使用してください。できるだけ詳しい情報を提供してください。
 自動返答メールに、より詳しい情報を付け加えて返信することも
 できます。
-バグレポートは全て調査され解決されます。これによって電子メールで返答が送られてくることはありません。
+バグレポートは全て調査され解決されます。これによってEメールで返答が送られてくることはありません。
 -
 テクニカルな問題が生じた場合は、次のサポートに連絡してください:  
 http://secondlife.com/community/support.php
@@ -4317,17 +4338,16 @@ Linden Lab
 			キャンセル
 		</option>
 	</alert>
-	<alert name="BusyModePay" title="ビジー・モードの警告">
+	<alert name="BusyModePay" title="取り込み中の警告">
 		<message name="message">
-			現在、ビジー・モードのため、この支払いと
+			現在、取り込み中のため、この支払いと
 引き換えのアイテムを受け取ることが
 できません。
  
-この取引を完了する前に、ビジー・
-モードを外しますか？
+この取引を完了する前に、取り込み中の設定を解除しますか？
 		</message>
 		<ignore name="ignore">
-			ビジー・モードの人またはオブジェクトに支払うとき
+			取り込み中の人またはオブジェクトに支払うとき
 		</ignore>
 		<option name="Yes">
 			OK
@@ -4411,7 +4431,7 @@ Linden Lab
 	</alert>
 	<alert name="GraphicsPreferencesHelp">
 		<message name="message">
-			このパネルはウィンドウのサイズと解像度、およびクライアントのグラフィックの品質を制御します。  [環境設定]&gt;[グラフィック]のインタフェースでは、次の 4 つの中からグラフィック・レベルを選択できます。低、中、高、超高。 また、[カスタム]チェックボックスをクリックし、次の設定を操作することで、グラフィックスの設定をカスタマイズすることもできます。
+			このパネルでは、ウィンドウのサイズと解像度、およびクライアントのグラフィックの品質を設定することができます。[環境設定]&gt;[表示]のインタフェースでは、低、中、高、超高の4つの中からグラフィック・レベルを選択できます。また、[カスタム]チェックボックスをクリックし、以下のグラフィックスの設定をカスタマイズすることもできます。
 
 シェーダー:ピクセル・シェーダーのさまざまな種類を有効または無効にします。 
 

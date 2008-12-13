@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="mute floater" title="Residentes sin sonido &amp; Objetos">
-	<scroll_list name="mutes" tool_tip="List of currently muted residents" />
+<floater name="mute floater" title="Residentes &amp; Objetos sin sonido" short_title="Residentes &amp; Objetos sin sonido">
+	<scroll_list name="mutes" />
 	<button label="Desactivar sonido de residente..."
 	     label_selected="Desactivar sonido de residente..." name="Mute resident..."
 	     tool_tip="Dejar un residente sin sonido" />

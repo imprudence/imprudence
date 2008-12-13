@@ -39,7 +39,7 @@
 	</text>
 	<combo_box label="解像度" name="postcard_size_combo">
 		<combo_item name="CurrentWindow">
-			現在のウィンドウ
+			現在のｳｨﾝﾄﾞｳ
 		</combo_item>
 		<combo_item name="640x480">
 			640x480
@@ -56,7 +56,7 @@
 	</combo_box>
 	<combo_box label="解像度" name="texture_size_combo">
 		<combo_item name="CurrentWindow">
-			現在のウィンドウ
+			現在のｳｨﾝﾄﾞｳ
 		</combo_item>
 		<combo_item name="Small(128x128)">
 			小（128x128）
@@ -73,7 +73,7 @@
 	</combo_box>
 	<combo_box label="解像度" name="local_size_combo">
 		<combo_item name="CurrentWindow">
-			現在のウィンドウ
+			現在のｳｨﾝﾄﾞｳ
 		</combo_item>
 		<combo_item name="320x240">
 			320x240
@@ -110,7 +110,7 @@
 	</combo_box>
 	<spinner label="幅" name="snapshot_width" label_width="25" width="90"/>
 	<spinner label="高さ" name="snapshot_height" label_width="30" left="115" width="90"/>
-	<check_box label="比率の制限" name="keep_aspect_check"/>
+	<check_box label="縦横比の固定" name="keep_aspect_check"/>
 	<slider label="画質" name="image_quality_slider"/>
 	<text name="layer_type_label">
 		ｷｬﾌﾟﾁｬ：

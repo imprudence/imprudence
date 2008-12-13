@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="preview texture" title="材质: 手形">
-	<text type="string" length="1" name="desc txt">
+<floater name="preview_texture" title="材质: 手形">
+	<text type="string" name="desc txt">
 		描述:
 	</text>
-	<button label="保持" label_selected="保持" name="Keep" />
+	<button label="保留" label_selected="保留" name="Keep" />
 	<button label="放弃" label_selected="放弃" name="Discard" />
 	<text type="string" length="1" name="dimensions">
 		尺寸: [WIDTH] x [HEIGHT]

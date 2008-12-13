@@ -1740,7 +1740,7 @@ class LLViewCommunicate : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-        if (LLFloaterChatterBox::getInstance()->getFloaterCount() == 0)
+		if (LLFloaterChatterBox::getInstance()->getFloaterCount() == 0)
 		{
 			LLFloaterMyFriends::toggleInstance();
 		}
@@ -1748,7 +1748,6 @@ class LLViewCommunicate : public view_listener_t
 		{
 			LLFloaterChatterBox::toggleInstance();
 		}
-		
 		return true;
 	}
 };
@@ -5290,6 +5289,10 @@ class LLFloaterVisible : public view_listener_t
 		if (floater_name == "friends")
 		{
 			new_value = LLFloaterMyFriends::instanceVisible(0);
+		}
+		else if (floater_name == "communicate")
+		{
+			new_value = LLFloaterChatterBox::instanceVisible();
 		}
 		else if (floater_name == "toolbar")
 		{

@@ -161,29 +161,38 @@
 		<combo_item type="string" length="1" enabled="true" name="English" value="en-us">
 			English
 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Chinese" value="zh">
-			汉语/漢語 (Chinese) - Beta
+		
+		<!-- After "System Default" and "English", please keep the rest of these combo_items in alphabetical order by the first character in the string. -->
+		
+		<combo_item type="string" length="1" enabled="true" name="Danish" value="da">
+			Dansk (Danish) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="Deutsch(German)" value="de">
 			Deutsch (German) - Beta
 		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="Spanish" value="es">
+			Español (Spanish) - Beta
+		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="French" value="fr">
 			Français (French) - Beta
+		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="Hungarian" value="hu">
+			Magyar (Hungarian) - Beta
+		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="Polish" value="pl">
+			Polski (Polish) - Beta
+		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="Portugese" value="pt">
+			Portugués (Portuguese) - Beta
+		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="Chinese" value="zh">
+			汉语/漢語 (Chinese) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="(Japanese)" value="ja">
 			日本語 (Japanese) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="(Korean)" value="ko">
 			한국어 (Korean) - Beta
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Danish" value="da">
-			Dansk (Danish) - Beta
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Portugese" value="pt">
-			Portugués (Portuguese) - Beta
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Spanish" value="es">
-			Español (Spanish) - Beta
 		</combo_item>
 	</combo_box>
 	<check_box bottom="-400" enabled="true"

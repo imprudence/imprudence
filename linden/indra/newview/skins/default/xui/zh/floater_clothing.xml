@@ -2,7 +2,7 @@
 <floater name="clothing" title="衣物">
 	<scroll_list name="clothing_list">
 		<column label="" name="icon" />
-		<column label="Name" name="name" />
+		<column label="名称" name="name" />
 	</scroll_list>
 	<button label="脱掉" name="take_off_btn" />
 	<button label="穿上" name="wear_btn" />

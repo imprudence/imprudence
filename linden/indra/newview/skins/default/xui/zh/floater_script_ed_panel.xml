@@ -4,12 +4,39 @@
 	<text_editor type="string" length="1" name="Script Editor">
 		请等待...
 	</text_editor>
+		<string
+		 name="loading">
+		请等待......
+	</string>
+	<string
+		 name="can_not_view">
+		你没有权利查看该脚本。
+	</string>
+	<string
+		 name="public_objects_can_not_run">
+		公共物体不能运行脚本。
+	</string>
+	<string
+		 name="script_running">
+		运行中
+	</string>
+
+	<combo_box
+		 allow_text_entry="false"
+		 label="插入..."
+		 max_chars="20"
+		 name="Insert..." />
+
 	<menu_bar name="script_menu">
-		<menu name="File">
+		<menu 
+			label="文件"
+			name="File">
 			<menu_item_call label="存储" name="Save" />
 			<menu_item_call label="恢复所有更改" name="Revert All Changes" />
 		</menu>
-		<menu name="Edit">
+		<menu 
+			label="编辑"
+			name="Edit">
 			<menu_item_call label="撤销" name="Undo" />
 			<menu_item_call label="重置" name="Redo" />
 			<menu_item_separator label="-----------" name="separator" />
@@ -18,12 +45,18 @@
 			<menu_item_call label="粘贴" name="Paste" />
 			<menu_item_separator label="-----------" name="separator2" />
 			<menu_item_call label="全选" name="Select All" />
-			<menu_item_call label="取消选定" name="Deselect" />
+			<menu_item_call label="取消选择" name="Deselect" />
 			<menu_item_separator label="-----------" name="separator3" />
-			<menu_item_call label="查找 / 替代..." name="Search / Replace..." />
+			<menu_item_call label="查找 / 替换..." name="Search / Replace..." />
+
 		</menu>
-		<menu name="Help">
+		<menu 
+			label="帮助"
+			name="Help">
 			<menu_item_call label="帮助..." name="Help..." />
+			<menu_item_call
+				 label="LSL Wiki 帮助..."
+				 name="LSL Wiki Help..." />
 		</menu>
 	</menu_bar>
 </panel>

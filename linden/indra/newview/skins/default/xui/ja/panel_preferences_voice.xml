@@ -23,7 +23,7 @@
 	<text name="push_to_talk_label">
 		プッシュ・トゥ・トークトリガー：
 	</text>
-	<button label="セットキー" name="set_voice_hotkey_button"/>
+	<button label="キー設定" name="set_voice_hotkey_button"/>
 	<button label="ミドルマウスボタン" name="set_voice_middlemouse_button"/>
 	<text name="privacy_heading">
 		プライバシーオプション

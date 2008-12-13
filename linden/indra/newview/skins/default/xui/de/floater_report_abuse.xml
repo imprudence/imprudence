@@ -37,7 +37,7 @@ dann auf das Objekt:
 	<text name="owner_name">
 		Hendrerit Vulputate
 	</text>
-	<combo_box name="category_combo" >
+	<combo_box name="category_combo" tool_tip="Kategorie -- wählen Sie die Kategorie aus, die am besten auf diesen Bericht zutrifft">
 		<combo_item name="Select_category">
 			Kategorie auswählen
 		</combo_item>

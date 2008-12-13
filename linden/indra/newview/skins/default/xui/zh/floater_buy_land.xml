@@ -7,13 +7,13 @@
 		(未知)
 	</text>
 	<text name="estate_name_label">
-		私人领地:
+		地产:
 	</text>
 	<text name="estate_name_text">
 		(未知)
 	</text>
 	<text name="estate_owner_label">
-		不动产主人:
+		地产主人:
 	</text>
 	<text name="estate_owner_text">
 		(未知)
@@ -25,17 +25,17 @@
 		这块区域内被购买的土地可能可以被重新出售，也可能不能被重新出售。
 	</text>
 	<text name="changeable_clause">
-		可能可以或可能不可以被连接或划分
+		可能可以也可能不可以被合并或划分
 	</text>
 	<text name="covenant_text">
-		你必须同意这项不动产契约合同:
+		你必须同意以下的不动产契约合同:
 	</text>
 	<text_editor name="covenant_editor">
 		请等待...
 	</text_editor>
 	<check_box label="我同意以上规定的合约" name="agree_covenant" />
 	<text name="info_parcel_label">
-		土地:
+		地块:
 	</text>
 	<text name="info_parcel">
 		Scotopteryx 138,204
@@ -56,9 +56,9 @@
 		购买该土地将会:
 	</text>
 	<text name="error_message">
-		出错
+		事情好像哪里出了问题。
 	</text>
-	<button label="去网页" name="error_web" />
+	<button label="打开网页" name="error_web" />
 	<text name="account_action">
 		你将升级至优先级会员。
 	</text>
@@ -90,66 +90,75 @@
 		你有L$2,100.
 	</text>
 	<text name="currency_action">
-		购买更多L$
+		购买额外的 L$
 	</text>
 	<line_editor name="currency_amt">
 		1000
 	</line_editor>
 	<text name="currency_est">
-		for approx. US$ [AMOUNT2]
+		以大约 US$ [AMOUNT2]
 	</text>
 	<text name="currency_balance">
 		你有L$2,100.
 	</text>
-	<check_box label="Remove Group Contribution On Purchase" name="remove_contribution" />
+	<check_box
+		 label="从团队配额贡献中撤去 [AMOUNT] 平方米。"
+		 name="remove_contribution"
+		 visible="false" />
 	<button label="购买" name="buy_btn" />
 	<button label="取消" name="cancel_btn" />
 	<text name="can_resell">
-		可能被重新出售.
+		可以被重新出售。
 	</text>
 	<text name="can_not_resell">
-		可能不会被重新出售.
+		不可以被重新出售。
 	</text>
 	<text name="can_change">
-		可能被连接或划分.
+		可以被合并或划分。
 	</text>
 	<text name="can_not_change">
-		可能不会被连接或划分.
+		不可以被合并或划分。
 	</text>
 	<text name="cant_buy_for_group">
-		你没有为目前你的社团购买土地的许可证。
+		你没有为目前你的社团购买土地的许可。
 	</text>
 	<text name="no_land_selected">
 		没有选择任何土地
 	</text>
 	<text name="multiple_parcels_selected">
-		选择了多种不同类型的土地。请尝试选择一块较小的土地。
+		选择了多个不同的地块。请尝试选择一块较小的土地。
 	</text>
 	<text name="no_permission">
-		你没有为目前你的社团购买土地的许可证。
+		你没有为目前你的社团购买土地的许可。
 	</text>
 	<text name="parcel_not_for_sale">
-		所选择的土地不在待售状态.
+		所选择的土地是非卖的。
 	</text>
 	<text name="group_already_owns">
-		这个社团已经拥有了这块土地.
+		社团已经拥有了这块土地。
 	</text>
 	<text name="you_already_own">
-		你已经拥有了这块土地.
+		你已经拥有了这块土地。
 	</text>
 	<text name="set_to_sell_to_other">
-		所选的土地被设置成转卖至其他社团。
+		所选的土地被设置成转卖至他方。
 	</text>
 	<text name="no_public_land">
-		所选中的土地中没有公共区域.
+		所选中的土地中没有公共区域。
 	</text>
 	<text name="not_owned_by_you">
-		你选择了一块由其他人占有的土地.请尝试选择一块较小的土地.
+		你选择了一块由其他人占有的土地。请尝试选择一块较小的土地。
+	</text>
+	<text name="for_first_time_group">
+		这块土地将为第一次购买者保留。你不能为社团购买它。
+	</text>
+	<text name="for_first_time">
+		这块土地将为第一次购买者保留。你已经拥有自己的土地了。
 	</text>
 	<text name="processing">
-		Processing your purchase...
+		处理购买中...
  
-(This may take a minute or two.)
+(可能要等待一两分钟。)
 	</text>
 	<text name="fetching_error">
 		在获取土地购买信息的时候出现错误。
@@ -178,44 +187,55 @@
 	<text name="first_purchase">
 		这是你第一次购买土地，并且是你唯一一次能够购买&apos;第一块土地&apos;的机会.
 	</text>
+	<text name="first_time_but_not_first_land">
+		这是你第一次购买土地，但你购买的不是为第一次购买土地的用户保留的土地。你可以使用查询功能，定位一块更便宜的 &apos;第一块土地&apos;的代售土地.
+	</text>
 	<text name="land_holdings">
-		你拥有[BUYER]平方米的土地.
+		你拥有[BUYER]平方米的土地。
 	</text>
 	<text name="pay_to_for_land">
-		支付L$ [AMOUNT]至[SELLER]购买这块土地
+		支付L$ [AMOUNT] 至 [SELLER] 购买这块土地
 	</text>
 	<text name="buy_for_US">
-		Buy L$ [AMOUNT] for approx. US$ [AMOUNT2] ,
+		以大约 US$ [AMOUNT2] 购买 L$ [AMOUNT] ,
 	</text>
 	<text name="parcel_meters">
 		这块土地的面积为[AMOUNT]平方米。
 	</text>
 	<text name="premium_land">
-		这块土地是额外奖励, 而且现在只按[AMOUNT]平方米出售。
+		这块土地现在加价出售, 而且现在只按[AMOUNT]平方米出售。
 	</text>
 	<text name="discounted_land">
 		这块土地正在打折, 而且现在只按[AMOUNT]平方米出售。
 	</text>
 	<text name="meters_supports_object">
 		[AMOUNT]平方米
-s支持数量为[AMOUNT2]的东东
+支持[AMOUNT2]个物体
 	</text>
 	<text name="sold_with_objects">
-		和东东一起出售
+		和物体一起出售
 	</text>
 	<text name="insufficient_land_credits">
 		在这次购买完成之前，社团[GROUP]将需要足够的被贡献的土地所用的信用额度，来覆盖这片土地。
 	</text>
 	<text name="have_enough_lindens">
-		你有L$ [AMOUNT],这些钱足够购买这块土地。
+		你有L$ [AMOUNT], 这些钱足够购买这块土地。
 	</text>
 	<text name="not_enough_lindens">
-		你只有L$ [AMOUNT],你还需要 L$ [AMOUNT2] 、.
+		你只有L$ [AMOUNT], 你还需要 L$ [AMOUNT2]。
 	</text>
 	<text name="balance_left">
-		此项消费后,你还会有L$ [AMOUNT]结余.
+		此项消费后, 你还会有L$ [AMOUNT]结余.
 	</text>
 	<text name="balance_needed">
 		你需要购买至少 L$ [AMOUNT]来购买这块土地。
 	</text>
+	<string
+		 name="no_parcel_selected">
+		(没有选择地块)
+	</string>
+	<string
+		 name="buy_currency">
+		以大约 US$ [USD] 购买 L$ [LINDENS]
+	</string>
 </floater>

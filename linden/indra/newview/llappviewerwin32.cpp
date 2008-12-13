@@ -124,6 +124,27 @@ LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *excepti
 	return retval;
 }
 
+// Create app mutex creates a unique global windows object. 
+// If the object can be created it returns true, otherwise
+// it returns false. The false result can be used to determine 
+// if another instance of a second life app (this vers. or later)
+// is running.
+// *NOTE: Do not use this method to run a single instance of the app.
+// This is intended to help debug problems with the cross-platform 
+// locked file method used for that purpose.
+bool create_app_mutex()
+{
+	bool result = true;
+	LPCWSTR unique_mutex_name = L"SecondLifeAppMutex";
+	HANDLE hMutex;
+	hMutex = CreateMutex(NULL, TRUE, unique_mutex_name); 
+	if(GetLastError() == ERROR_ALREADY_EXISTS) 
+	{     
+		result = false;
+	}
+	return result;
+}
+
 //#define DEBUGGING_SEH_FILTER 1
 #if DEBUGGING_SEH_FILTER
 #	define WINMAIN DebuggingWinMain
@@ -150,6 +171,10 @@ int APIENTRY WINMAIN(HINSTANCE hInstance,
 	LLWinDebug::initExceptionHandler(viewer_windows_exception_handler); 
 	
 	viewer_app_ptr->setErrorHandler(LLAppViewer::handleViewerCrash);
+
+	// Set a debug info flag to indicate if multiple instances are running.
+	bool found_other_instance = !create_app_mutex();
+	gDebugInfo["FoundOtherInstanceAtStartup"] = LLSD::Boolean(found_other_instance);
 
 	bool ok = viewer_app_ptr->init();
 	if(!ok)
@@ -204,11 +229,8 @@ int APIENTRY WINMAIN(HINSTANCE hInstance,
 	//start updater
 	if(LLAppViewer::sUpdaterInfo)
 	{
-#if LL_WINDOWS
 		_spawnl(_P_NOWAIT, LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str(), LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str(), LLAppViewer::sUpdaterInfo->mParams.str().c_str(), NULL);
-#elif LL_DARWIN
-		system(LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str());		/* Flawfinder: ignore */
-#endif
+
 		delete LLAppViewer::sUpdaterInfo ;
 		LLAppViewer::sUpdaterInfo = NULL ;
 	}

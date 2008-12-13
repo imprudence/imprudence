@@ -15,9 +15,6 @@
 		<label name="movie_label">
 			Video
 		</label>
-		<tooltip name="movie_tooltip">
-			Kein Video gefunden
-		</tooltip>
 		<playtip name="movie_playtip">
 			Video wiedergeben
 		</playtip>

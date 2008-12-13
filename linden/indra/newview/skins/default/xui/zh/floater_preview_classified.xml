@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="classified_preview"
+	 title="分类广告信息">
+	<panel
+		 name="classified_details_panel" />
+</floater>

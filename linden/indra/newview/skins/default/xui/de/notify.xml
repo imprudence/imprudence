@@ -809,7 +809,7 @@ Ihren Kontostand sehen Sie in der oberen rechten Ecke des Bildschirms.
 	<notify name="FirstSit">
 		<message name="message">
 			Sie sitzen.
-Benutzen Sie die Pfeiltasten (oder AWSD), um die Ansicht zu ändern.
+Benutzen Sie die Pfeil- oder WASD-Tasten, um die Ansicht zu ändern.
 Klicken Sie auf &apos;Aufstehen&apos;, um aufzustehen.
 		</message>
 	</notify>
@@ -845,7 +845,7 @@ Ihr Ziel ist mit einem großen roten Strahl markiert. Folgen Sie dem roten Pfeil
 	<notify name="FirstOverrideKeys">
 		<message name="message">
 			Ihre Bewegungstasten werden jetzt von einem Objekt gesteuert.  
-Probieren Sie die Pfeiltasten oder AWSD aus.  
+Probieren Sie die Pfeil- oder WASD-Tasten aus.
 Manche Objekte (wie Waffen) müssen per Mouselook gesteuert werden. 
 Drücken Sie dazu &apos;M&apos;.
 		</message>
@@ -882,7 +882,7 @@ Ein flexibles Objekt ist ein Phantom und nicht physisch, bis die Option &apos;Fl
 	</notify>
 	<notify name="FirstDebugMenus">
 		<message name="message">
-			Sie haben das Erweitert-Menü aktiviert. 
+			Sie haben das Advanced-Menü aktiviert. 
 Dieses Menü enthält nützliche Funktionen zum Debuggen von Second Life.
 Drücken Sie in Windows Strg-Alt-D (Mac: Befehl-Opt-Umschalt-D) zum Ein- und Ausschalten dieses Menüs.
 		</message>

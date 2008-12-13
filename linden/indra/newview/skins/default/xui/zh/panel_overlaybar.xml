@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="overlay">
-	<button label="已收到即时消息" label_selected="已收到即时消息"
-	     name="IM Received"
-	     tool_tip="你有一个未察看的即时消息.请点击察看" />
-	<button label="设成不忙状态" label_selected="设成不忙状态"
-	     name="Set Not Busy"
-	     tool_tip="聊天与即时消息模式以对你隐藏。 点击这里来设定你不在忙碌模式下" />
-	<button label="释放键盘" label_selected="释放键盘" name="Release Keys"
-	     tool_tip="脚本已经控制了你的控制键。点击这里释放控制键。" />
-	<button label="第一人称视角" label_selected="第一人称视角" name="Mouselook"
-	     tool_tip="使用鼠标控制屏幕. 如果你有枪, 双击枪则会自动射击." />
-	<button label="起身" label_selected="起身" name="Stand Up"
-	     tool_tip="点击这里来站立" />
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="main_panel" min_width="420">
+			<layout_stack name="chatbar_and_buttons">
+				<layout_panel name="state_buttons">
+					<button label="已收到即时消息" label_selected="已收到即时消息"
+					     name="IM Received"
+					     tool_tip="你有一个未察看的即时消息。请点击察看" />
+					<button label="取消忙碌状态" label_selected="取消忙碌状态"
+					     name="Set Not Busy"
+					     tool_tip="聊天与即时消息模式已对你隐藏。 点击这里来设定你不在忙碌模式下" />
+					<button label="释放键盘" label_selected="释放键盘" name="Release Keys"
+					     tool_tip="一个脚本已经控制了你的控制键。点击这里释放控制键。" />
+					<button label="第一人称视角" label_selected="第一人称视角" name="Mouselook"
+					     tool_tip="使用鼠标控制屏幕。如果你有枪，点击则可以射击。" />
+					<button label="起身" label_selected="起身" name="Stand Up"
+					     tool_tip="点击这里来站立" />
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+	</layout_stack>
 </panel>

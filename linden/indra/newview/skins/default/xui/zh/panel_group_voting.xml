@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="议案" name="voting_tab">
+<panel label="提议" name="voting_tab">
 	<text name="help_text">
-		社团提议并不能视为是社团向要做的事，或者是社团度某些事情的看法。如果你有合适的权利，你就可以创建提议，投票表决开放性提议，并查看旧的提议。
+社团提议可以用来了解社团想要做的事，或者是社团对某些事情的看法。如果你有合适的权力，你就可以创建提议、投票表决开放的提议，以及查看旧的提议。
 	</text>
-	<button label="?" name="help_button" />
 	<text name="proposal_header">
-		打开社团提议
-	</text>
-	<text name="proposals_header_view_txt">
-		打开社团提议
-	</text>
-	<text name="proposals_header_create_txt">
-		创造提议
-	</text>
-	<text name="proposals_header_vote_txt">
-		议案的投票表决
-	</text>
-	<text name="empty_proposal_txt">
-		你正在尝试创建的提案是空的。请在创建之前填好你的提案。
-	</text>
+		开放的社团提议
+	</text>	
 	<text name="proposal_instructions">
 		双击你愿意投票的决议，点击创建决议， 以创建一个新的决议。
 	</text>
 	<text name="proposal_lbl">
-		建议:
+		提议描述
 	</text>
-	<button label="创造提议" label_selected="创造提议" name="btn_proposal" />
-	<button label="察看提议" label_selected="察看提议"
-	     name="btn_view_proposal_item" />
-	<button label="查看名单" label_selected="查看名单"
-	     name="btn_view_proposal_list" />
+	<text
+		 name="proposal_voting_lbl"
+		 visible="true">
+		 提议                                                                投票结束                        已经投票？
+	</text>
+	<button label="创建提议" label_selected="创建提议" name="btn_proposal" />
+	<button label="查看提议" label_selected="查看提议" name="btn_view_proposal_item" />
+	<button label="查看名单" label_selected="查看名单" name="btn_view_proposal_list" />
+	<text name="proposals_header_view_txt">
+		开放的社团提议
+	</text>
+	<text name="proposals_header_create_txt">
+		创建提议
+	</text>
+	<text name="proposals_header_vote_txt">
+		对提议投票
+	</text>
+	<text name="empty_proposal_txt">
+		你正在尝试创建的提议是空的。请在创建之前填好你的提议。
+	</text>
+
+
+
+
 	<text name="quorum_lbl">
 		法定人数:
 	</text>
-	<spinner name="quorum" tool_tip="# 人为选举结果有效还需要的人数。" />
+	<spinner name="quorum" tool_tip="为选举结果有效需要最少的人数。" />
 	<text name="quorum_text">
-		总数为x 社团会员.
+		位团员必须投票（总共 [MEMBERS]人）
 	</text>
 	<text name="duration_lbl">
 		持续时间:
 	</text>
-	<spinner name="duration" tool_tip="#天为选举还将持续的天数。" />
+	<spinner name="duration" tool_tip="投票持续的天数" />
 	<text name="duration_text">
 		天
 	</text>
-	<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+	<radio_group name="majority" tool_tip="投票成功需要的人数。">
 		简单多数
 		2/3 多数
 		全票通过
 	</radio_group>
 	<text name="start_lbl">
-		选举开始:
+		投票开始:
 	</text>
 	<text name="end_lbl">
-		选举结束 :
+		投票结束 :
 	</text>
 	<button label="提交提议" label_selected="提交提议" name="btn_submit" />
 	<button label="取消" label_selected="取消" name="btn_cancel" />
 	<button label="是" label_selected="是" name="btn_yes" />
 	<button label="否" label_selected="否" name="btn_no" />
-	<button label="放弃" label_selected="放弃" name="btn_abstain" />
+	<button label="弃权" label_selected="弃权" name="btn_abstain" />
 	<text name="txt">
 		社团选举史
 	</text>
@@ -69,10 +75,50 @@
 	<text name="history_list_lbl">
 		通过表决                                                        投票表决终止
 	</text>
-	<button label="查看物品栏" label_selected="查看物品栏"
+	<button label="查看项目" label_selected="查看项目"
 	     name="btn_view_history_item" />
 	<text name="vote_text_lbl">
-		选举结果:
+		投票结果:
 	</text>
 	<button label="查看名单" label_selected="查看名单" name="btn_view_history_list" />
+	<string
+		 name="proposals_header_view_inst">
+		双击你想要投票的提议，或者按‘创建提议’来创建新的提议。
+	</string>
+	<string
+		 name="proposals_header_create_inst">
+		输入新的提议的描述。您可以更改最少投票人数、时间以及需要通过投票的人数类别。
+	</string>
+	<string
+		 name="proposals_header_vote_inst">
+		按‘是’或‘否’来对提议投票，或者选择在此提议上弃权。
+	</string>
+	<string
+		 name="proposals_header_voted_inst">
+		您选择了: [VOTE]
+	</string>
+<string
+		 name="proposals_submit_yes_txt">
+		正在提交同意票...
+	</string>
+	<string
+		 name="proposals_submit_no_txt">
+		正在提交反对票...
+	</string>
+	<string
+		 name="proposals_submit_abstain_txt">
+		正在提交弃权票...
+	</string>
+	<string
+		 name="proposals_submit_new_txt">
+		正在提交新的提议...
+	</string>
+	<string
+		 name="vote_recorded">
+		您的投票已经收到。
+	</string>
+	<string
+		 name="vote_previously_recorded">
+		您已经投过票了。一次提议只能投票一次。
+	</string>
 </panel>

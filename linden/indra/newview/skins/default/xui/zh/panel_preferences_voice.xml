@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+     height="408" hidden="false" label="语音聊天" left="102"
+     mouse_opaque="true" name="chat" width="517">
+	<text_editor name="voice_unavailable" >
+		语音聊天不可用。
+	</text_editor>
+	<check_box 
+		 label="启用语音聊天" 
+		 name="enable_voice_check"/>
+	<radio_group name="ear_location" >
+		<radio_item name="0" >
+			从摄像机的位置听语音聊天。
+		</radio_item>
+		<radio_item name="1" >
+			从化身的位置听语音聊天。
+		</radio_item>
+	</radio_group>
+
+	<text name="push_to_talk_heading" >
+		即按即说
+	</text>
+	<text_editor name="voice_chat_description" width="465">即按即说允许你控制什么时候传送声音。在切换模式中，按下并释放即按即说键来切换麦克风开关。不在切换模式的时候，麦克风仅在即按即说键按下时才有效。</text_editor>
+	<check_box 
+		 label="在第二人生查看器启动时，使用即按即说模式"
+	     name="push_to_talk_check" />
+	<check_box label="以切换模式使用即按即说"
+	     name="push_to_talk_toggle_check" />
+	<text type="string" 
+	     name="push_to_talk_label" >
+		即按即说切换键:
+	</text>
+
+	<line_editor name="modifier_combo" />
+
+	<button 
+		 label="设置按键" 
+	     name="set_voice_hotkey_button" />
+	<button 
+		 label="使用鼠标中键" 
+	      name="set_voice_middlemouse_button" width="140" />
+
+	<text 
+	     name="privacy_heading">
+		隐私选项
+	</text>
+	<check_box label="只接受我的朋友列表上的人的语音呼叫" 
+	     name="voice_call_friends_only_check" />
+	
+	<text_editor name="device_settings_text" height="48" bottom_delta="-45">
+		*注意*: 运行设备选项或语音设置向导将临时将您从语音聊天断开，并且所作的更改将立即生效。
+	</text_editor>
+	<button 
+		 label="设备选项..." 
+		 name="device_settings_btn" />
+	<button 
+		 label="运行语音设置向导..." 
+	     name="launch_voice_wizard_button" />
+</panel>

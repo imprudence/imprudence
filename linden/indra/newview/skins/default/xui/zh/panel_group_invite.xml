@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Invite a Member" name="invite_panel">
+<panel label="邀请会员" name="invite_panel">
 	<text>
-		你可以选择多个居民，邀请他们假如你的社团。点击‘打开任务选择器’开始邀请。
+		您可以选择多个居民，邀请他们加入您的社团。点击 ‘打开人物选择器’ 开始邀请。
 	</text>
-	<button label="打开个人选举人" name="add_button" tool_tip="" />
+	<button label="打开人物选择器" name="add_button" tool_tip="" />
 	<name_list name="invitee_list"
-	     tool_tip="Hold the Ctrl key and click resident names  to multi-select." />
+	     tool_tip="按住Ctrl键然后点击居民名字来选择多个项目。" />
 	<button label="从名单中移除所选项" name="remove_button"
-	     tool_tip="将此住户从你的邀请单中列表中清除." />
+	     tool_tip="将此居民从您的邀请列表中清除。" />
 	<text>
 		选择哪个角色分配给他们：
 	</text>
 	<combo_box name="role_name"
-	     tool_tip="Choose from the list of Roles you  are allowed to assign members to." />
-	<button label="发送邀请函" name="ok_button" />
+	     tool_tip="从这个列表中选择你可以为会员分配的角色。" />
+	<button label="发送邀请" name="ok_button" />
 	<button label="取消" name="cancel_button" />
 </panel>

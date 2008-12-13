@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="floater_auction" title="开始销售林登土地">
+<floater name="floater_auction" title="开始林登土地销售">
 	<check_box label="包含黄色选择条" name="fence_check" />
 	<combo_box name="saletype_combo">
 		<combo_item name="Auction">
 			拍卖
-		</combo_item>
-		<combo_item name="FirstLand">
-			首次着陆
 		</combo_item>
 	</combo_box>
 	<button label="快照" label_selected="快照" name="snapshot_btn" />

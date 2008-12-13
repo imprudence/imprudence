@@ -50,12 +50,12 @@
 		Events (18+)
 	</text>
 	<check_box label=" " name="event_mature_chk" />
-	<combo_box label="Online-Freunde" name="friend combo" tool_tip="Friend to Show on Map">
+	<combo_box label="Online-Freunde" name="friend combo" >
 		<combo_item name="none_selected">
 			Online-Freunde
 		</combo_item>
 	</combo_box>
-	<combo_box label="Landmarken" name="landmark combo" tool_tip="Landmark to Show on Map">
+	<combo_box label="Landmarken" name="landmark combo" >
 		<combo_item name="none_selected">
 			Landmarken
 		</combo_item>

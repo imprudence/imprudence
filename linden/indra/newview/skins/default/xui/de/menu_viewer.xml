@@ -190,7 +190,10 @@
 			<menu_item_call label="Allgemeiner Probleme-Tracker..." name="Public Issue Tracker..."/>
 			<menu_item_call label="Hilfe zum Allgemeinen Probleme-Tracker..." name="Publc Issue Tracker Help..."/>
 			<menu_item_separator label="-----------" name="separator7"/>
-			<menu_item_call label="Fehlermeldungs-1x1..." name="Bug Reporing 101..."/>
+			<menu_item_call label="Fehlermeldungs-1x1..." name="Bug Reporing 101...">
+				<on_click function="PromptShowURL"
+				     userdata="WebLaunchBugReport101,http://wiki.secondlife.com/wiki/Bug_Reporting_101/de" />
+			</menu_item_call>
 			<menu_item_call label="Sicherheitsfragen..." name="Security Issues..."/>
 			<menu_item_call label="QA-Wiki..." name="QA Wiki..."/>
 			<menu_item_separator label="-----------" name="separator9"/>

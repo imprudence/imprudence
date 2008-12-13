@@ -1,9 +1,68 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<multi_floater name="im_floater" title="即时消息通">
-	<text name="only_user_message">
-		你是这个阶段唯一的用户。
-	</text>
-	<text name="offline_message">
-		[FIRST] [LAST] 目前不在线。
-	</text>
+<multi_floater
+	 min_height="130"
+	 min_width="350"
+	 name="im_floater"
+	 title="即时聊天">
+	<tab_container
+		 name="Preview Tabs" />
+	<string
+		 name="only_user_message">
+		您是该会话中唯一的参与者。
+	</string>
+	<string
+		 name="offline_message">
+		[FIRST] [LAST] 不在线。
+	</string>
+	<string
+		 name="invite_message">
+		点击 [BUTTON NAME] 按钮来接受/连接到该语音聊天。
+	</string>
+	<string
+		 name="muted_message">
+		您已经屏蔽了该位居民。发送消息的话将会自动解除屏蔽。
+	</string>
+ 
+	<string
+		 name="generic_request_error">
+		发出请求时发生错误，请等会儿再试。
+	</string>
+	<string
+		 name="insufficient_perms_error">
+		您的权限不足。
+	</string>
+	<string
+		 name="session_does_not_exist_error">
+		该会话已不存在
+	</string>
+	<string
+		 name="no_ability_error">
+		您没有那种能力。
+	</string>
+	<string
+		 name="not_a_mod_error">
+		您不是会话管理员。
+	</string>
+	<string
+		 name="muted_error">
+		一位会话管理员屏蔽了您的文字聊天。
+	</string>
+	<!-- *所有* 事件字符串都应该有 [RECIPIENT] 在其中 -->
+	<string
+		 name="add_session_event">
+		无法向与 [RECIPIENT] 的聊天会话中加入用户。
+	</string>
+	<string
+		 name="message_session_event">
+		无法将您的消息送达到与 [RECIPIENT] 的聊天会话中。
+	</string>
+	<string
+		 name="removed_from_group">
+		您已被从社团中去除。
+	</string>
+	<string
+		 name="close_on_no_ability">
+		您不再有在聊天会话中的能力。
+	</string>
 </multi_floater>
+

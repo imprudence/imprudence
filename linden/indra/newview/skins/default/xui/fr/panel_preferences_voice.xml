@@ -28,7 +28,7 @@
 		Options de confidentialité
 	</text>
 	<check_box label="N&apos;accepter que les appels de mes amis" name="voice_call_friends_only_check"/>
-	<text_editor name="device_settings_text">
+	<text_editor name="device_settings_text" height="48" bottom_delta="-45">
 		Remarque : si vous cliquez sur Paramètres du matériel, vous serez temporairement déconnecté du Chat vocal. Tous les changements que vous faites seront immédiatement appliqués.
 	</text_editor>
 	<button label="Paramètres du matériel" name="device_settings_btn"/>

@@ -930,6 +930,11 @@ void upload_new_resource(const LLTransactionID &tid, LLAssetType::EType asset_ty
 						 LLAssetStorage::LLStoreAssetCallback callback,
 						 void *userdata)
 {
+	if(gDisconnected)
+	{
+		return ;
+	}
+
 	LLAssetID uuid = tid.makeAssetID(gAgent.getSecureSessionID());
 	
 	if( LLAssetType::AT_SOUND == asset_type )

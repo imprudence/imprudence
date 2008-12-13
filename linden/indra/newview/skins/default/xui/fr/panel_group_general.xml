@@ -16,7 +16,7 @@
 	</text>
 	<text name="prepend_founded_by">
 		Fondé par </text>
-<text name="founder_name">
+	<text name="founder_name" left_delta="54">
 		(en attente)
 	</text>
 	<text name="group_charter_label">
