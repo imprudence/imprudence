@@ -1,5 +1,14 @@
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                         1.0.0                          -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
 2008-12-12  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Imprudence 1.0.0 finalized.
+
+	
 	* RELEASE_NOTES.txt:
 	Added release notes.
 	* linden/indra/newview/viewer_manifest.py:
