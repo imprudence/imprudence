@@ -1,3 +1,8 @@
+2008-12-13  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llcommon/llversionviewer.h:
+	Bumped version to 1.1.0 alpha.
+
 
 2008-11-24  McCabe Maxsted  <hakushakukun@gmail.com>
 
