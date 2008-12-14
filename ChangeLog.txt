@@ -1,5 +1,10 @@
 2008-12-13  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/scripts/build_version.py:
+	Version string generator now includes test label.
+	This is used for naming packages on Linux, among other things.
+
+
 	* linden/indra/llcommon/llversionviewer.h:
 	Bumped version to 1.1.0 alpha.
 
