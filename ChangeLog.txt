@@ -51,6 +51,32 @@
 	Added full comments to silver skin colors.
 
 
+2008-11-22  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* indra/newview/llcolorscheme.cpp:
+	Added minimap glyph color to colors.xml.
+	* indra/newview/llcolorscheme.h:
+	Ditto.
+	* indra/newview/llnetmap.cpp:
+	Ditto.
+	* indra/newview/llnetmap.h:
+	Ditto.
+	* indra/newview/llworldmapview.cpp:
+	Ditto.
+	* indra/newview/llworldmapview.h:
+	Ditto.
+	* indra/newview/skins/default/colors_base.xml:
+	Ditto.
+	* indra/newview/skins/silver/colors_base.xml:
+	Ditto.
+
+
+2008-11-21  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llnetmap.cpp:
+	Friends show yellow in minimap (VWR-3336).
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                         1.0.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

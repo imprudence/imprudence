@@ -164,6 +164,8 @@
 <NetMapGroupOwnBelowWater value="200, 0, 200, 255" />   <!-- Group owned objects below water -->
 <NetMapOtherOwnAboveWater value="60, 60, 60, 255" />    <!-- Objects owned by others above water -->
 <NetMapOtherOwnBelowWater value="30, 30, 30, 255" />    <!-- Objects owned by others below water -->
+<NetMapGlyphColorAvatar value="0, 255, 0, 255" />       <!-- Also the color of avatar glyphs on the map -->
+<NetMapGlyphColorFriend value="255, 255, 0, 255" />
  
 <!-- INVENTORY -->
 <InventoryBackgroundColor value="62, 62, 62, 80"/>              <!-- Inventory floater background -->
@@ -173,6 +175,14 @@
 <FilterTextColor value="255, 200, 70, 255" />                   <!-- Inventory search text -->
 <InventorySearchStatusColor value="255, 255, 255, 255" />       <!-- "Searching..." -->
  
+<!-- HELP WINDOW -->
+<HelpBgColor value="200, 209, 204, 255" />
+<HelpFgColor value="0, 0, 0, 255" />
+<HelpScrollTrackColor value="183, 184, 188, 255" />
+<HelpScrollThumbColor value="80, 96, 124, 255" />
+<HelpScrollHighlightColor value="115, 132, 155, 255" />
+<HelpScrollShadowColor value="0, 0, 0, 255" />
+
 <!-- MISC -->
 <AvatarNameColor value="251, 175, 93, 255" />           <!-- Text color of avatar nametags -->
 <FocusColor value="239, 156, 0, 255" />                 <!-- Color of the glow around UI controls with keyboard focus -->

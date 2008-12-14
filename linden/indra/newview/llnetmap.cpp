@@ -69,7 +69,7 @@
 
 #include "llglheaders.h"
 
-const F32 MAP_SCALE_MIN = 64;
+const F32 MAP_SCALE_MIN = 32;
 const F32 MAP_SCALE_MID = 172;
 const F32 MAP_SCALE_MAX = 512;
 const F32 MAP_SCALE_INCREMENT = 16;
@@ -97,6 +97,9 @@ LLNetMap::LLNetMap(
 	mPixelsPerMeter = gMiniMapScale / REGION_WIDTH_METERS;
 
 	LLNetMap::sRotateMap = gSavedSettings.getBOOL( "MiniMapRotate" );
+
+	glyph_color_avatar = gColors.getColor("NetMapGlyphColorAvatar");
+	glyph_color_friend = gColors.getColor("NetMapGlyphColorFriend");
 	
 	// Surface texture is dynamically generated/updated.
 // 	createObjectImage();
@@ -411,7 +414,7 @@ void LLNetMap::draw()
 				}
 				LLWorldMapView::drawAvatar(
 					pos_map.mV[VX], pos_map.mV[VY], 
-					show_as_friend ? gFriendMapColor : gAvatarMapColor, 
+					show_as_friend ? glyph_color_friend : glyph_color_avatar, 
 					pos_map.mV[VZ]);
 			}
 		}
