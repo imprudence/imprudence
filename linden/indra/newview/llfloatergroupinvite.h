@@ -52,6 +52,12 @@ protected:
 
 	class impl;
 	impl* mImpl;
+private:
+	static void callbackLoadGroupName(const LLUUID& id, 
+				const std::string& first, 
+				const std::string& last, 
+				BOOL is_group, 
+				void* data);
 };
 
 #endif

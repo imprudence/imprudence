@@ -34,7 +34,7 @@
 #include "llfloatergroupinvite.h"
 #include "llpanelgroupinvite.h"
 
-const char FLOATER_TITLE[] = "Group Invitation";
+const char FLOATER_TITLE[] = "Invite to ";
 const LLRect FGI_RECT(0, 380, 210, 0);
 
 class LLFloaterGroupInvite::impl
@@ -132,6 +132,11 @@ void LLFloaterGroupInvite::showForGroup(const LLUUID& group_id, std::vector<LLUU
 									   group_id);
 
 		impl::sInstances[group_id] = fgi;
+		
+		// Look up the group name.
+		// The callback will insert it into the title.
+		const BOOL is_group = TRUE;
+		gCacheName->get(group_id, is_group, callbackLoadGroupName, NULL);
 
 		fgi->mImpl->mInvitePanelp->clear();
 	}
@@ -144,4 +149,17 @@ void LLFloaterGroupInvite::showForGroup(const LLUUID& group_id, std::vector<LLUU
 	fgi->center();
 	fgi->open();	/*Flawfinder: ignore*/
 	fgi->mImpl->mInvitePanelp->update();
+}
+
+void LLFloaterGroupInvite::callbackLoadGroupName(const LLUUID& id, const std::string& first, const std::string& last, BOOL is_group, void* data)
+{
+	LLFloaterGroupInvite *fgi = get_if_there(impl::sInstances, id, (LLFloaterGroupInvite*)NULL);
+
+	if (fgi)
+	{
+		// Build a new title including the group name.
+		std::ostringstream title;
+		title << FLOATER_TITLE << first;
+		fgi->setTitle(title.str());
+	}
 }

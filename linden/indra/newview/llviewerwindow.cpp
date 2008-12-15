@@ -470,7 +470,7 @@ public:
 			ypos += y_inc;
 		}
 		// only display these messages if we are actually rendering beacons at this moment
-		if (LLPipeline::getRenderBeacons(NULL) && gSavedSettings.getBOOL("BeaconAlwaysOn"))
+		if (LLPipeline::getRenderBeacons(NULL) && gSavedSettings.getBOOL("BeaconsEnabled"))
 		{
 			if (LLPipeline::getRenderParticleBeacons(NULL))
 			{

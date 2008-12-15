@@ -25,15 +25,15 @@
 	     label="IM/Call" left_delta="0" name="IM"
 	     tool_tip="Open Instant Message session" width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
-	     label="Info" name="Info" width="80" />
-	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
 	     label="Activate" name="Activate" width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
-	     label="Leave" name="Leave" width="80" />
+	     label="Invite..." name="Invite..." width="80" />
+	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
+	     label="Info" name="Info" width="80" />
 	<button bottom_delta="-35" follows="top|right" font="SansSerif" height="22"
 	     label="Create..." name="Create" width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
 	     label="Search..." name="Search..." width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
-	     label="Invite..." name="Invite..." width="80" />
+	     label="Leave" name="Leave" width="80" />
 </panel>
