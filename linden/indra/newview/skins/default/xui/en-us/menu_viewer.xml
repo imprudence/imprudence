@@ -360,9 +360,9 @@
       <on_click function="View.HighlightTransparent" userdata="" />
       <on_check function="View.CheckHighlightTransparent" />
     </menu_item_check>
-    <menu_item_check name="Beacons Always On" label="Beacons Always On">
-      <on_click function="ToggleControl" userdata="BeaconAlwaysOn" />
-      <on_check control="BeaconAlwaysOn" />
+    <menu_item_check name="Beacons Always On" label="Show Beacons">
+      <on_click function="ToggleControl" userdata="BeaconsEnabled" />
+      <on_check control="BeaconsEnabled" />
     </menu_item_check>
     <menu name="Beacons" create_jump_keys="true" label="Beacons"
           opaque="true" tear_off="true">

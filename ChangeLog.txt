@@ -5,6 +5,59 @@
 	* Applied patches from Henri's CoolViewer:
 	Possible to discard much more given items.
 
+2008-12-13  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/scripts/build_version.py:
+	Version string generator now includes test label.
+	This is used for naming packages on Linux, among other things.
+
+
+	* linden/indra/llcommon/llversionviewer.h:
+	Bumped version to 1.1.0 alpha.
+
+
+2008-11-24  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloatergroupinvite.cpp:
+	Add group name to group invite window.
+	* linden/indra/newview/llfloatergroupinvite.h:
+	Ditto.
+
+
+2008-11-23  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/notify.xml:
+	VWR-4826 (ability to ignore friendship offers).
+
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Beacons no longer persist between sessions.
+	That distressed users who accidentally enabled them,
+	since not even relogging would disable them.
+	* linden/indra/newview/llviewerwindow.cpp:
+	Ditto.
+	* linden/indra/newview/pipeline.cpp:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Ditto.
+
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml:
+	Moved 'Offer Teleport' in IM to be on the left side.
+
+
+	* linden/indra/newview/skins/default/xui/en-us/panel_groups.xml:
+	Switched Invite and Leave buttons in group panel.
+
+
+2008-11-22  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden\indra\newview\skins\default\colors_base.xml:
+	Added full comments to default skin colors.
+	* linden\indra\newview\skins\silver\colors_base.xml:
+	Added full comments to silver skin colors.
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                         1.0.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
