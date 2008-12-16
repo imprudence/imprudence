@@ -613,6 +613,12 @@
                 userdata="movable" />
       <on_check control="SelectMovableOnly" />
     </menu_item_check>
+    <menu_item_check name="Select Only Copyable Objects"
+                     label="Select Only Copyable Objects">
+      <on_click function="Tools.SelectOnlyCopyableObjects"
+                userdata="copyable" />
+      <on_check control="SelectCopyableOnly" />
+    </menu_item_check>
     <menu_item_check name="Select By Surrounding"
                      label="Select By Surrounding">
       <on_click function="Tools.SelectBySurrounding"
