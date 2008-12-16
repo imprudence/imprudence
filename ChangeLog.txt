@@ -1,3 +1,10 @@
+2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llworld.cpp:
+	VWR-9352: Prim falls to 256m height when moved outworld.
+	Patch by Aimee Trescothick.
+
+
 2008-12-13  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/scripts/build_version.py:
