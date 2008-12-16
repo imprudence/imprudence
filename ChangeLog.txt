@@ -1,3 +1,10 @@
+2008-12-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llselectmgr.cpp:
+	VWR-1582: Local ruler mode wrong for linked objects.
+	Also VWR-11103 (regression of above).
+
+
 2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/install.xml:
