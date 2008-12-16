@@ -875,9 +875,9 @@ anguage Infrstructure (CLI) international standard</string>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>df51d460e5c9d091009b46460f79f7c5</string>
+            <string>8913f8ace065b14792cb0ec889a5f99a</string>
             <key>url</key>
-            <uri>https://imprudence.s3.amazonaws.com/extras/openjpeg-1.3-windows-20081211.zip</uri>
+            <uri>https://imprudence.s3.amazonaws.com/extras/openjpeg-1.3-windows-20081211.tar.bz2</uri>
           </map>
         </map>
       </map>

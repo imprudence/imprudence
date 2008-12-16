@@ -1,5 +1,11 @@
 2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/install.xml:
+	Switched OpenJPEG package to a tar.bz2.
+	The install.py script doesn't support .zip files.
+	Maybe later we could add support for that.
+
+
 	* linden/indra/newview/llworld.cpp:
 	VWR-9352: Prim falls to 256m height when moved outworld.
 	Patch by Aimee Trescothick.
