@@ -110,34 +110,34 @@ void LLViewerLogin::setGridChoice(const std::string& grid_name)
 	// The string can be:
 	// - a grid label from the gGridInfo table 
 	// - an ip address
-    if(!grid_name.empty())
-    {
-        // find the grid choice from the user setting.
-        int grid_index = GRID_INFO_NONE; 
-        for(;grid_index < GRID_INFO_OTHER; ++grid_index)
-        {
-            if(0 == LLStringUtil::compareInsensitive(gGridInfo[grid_index].mLabel, grid_name))
-            {
+	if(!grid_name.empty())
+	{
+		// find the grid choice from the user setting.
+		int grid_index = GRID_INFO_NONE; 
+		for(;grid_index < GRID_INFO_OTHER; ++grid_index)
+		{
+			if(0 == LLStringUtil::compareInsensitive(gGridInfo[grid_index].mLabel, grid_name))
+			{
 				// Founding a matching label in the list...
 				setGridChoice((EGridInfo)grid_index);
 				break;
-            }
-        }
+			}
+		}
 
-        if(GRID_INFO_OTHER == grid_index)
-        {
-            // *FIX:MEP Can and should we validate that this is an IP address?
-            mGridChoice = GRID_INFO_OTHER;
-            mGridName = grid_name;
+		if(GRID_INFO_OTHER == grid_index)
+		{
+			// *FIX:MEP Can and should we validate that this is an IP address?
+			mGridChoice = GRID_INFO_OTHER;
+			mGridName = grid_name;
 			gSavedSettings.setS32("ServerChoice", mGridChoice);
 			gSavedSettings.setString("CustomServer", mGridName);
-        }
-    }
+		}
+	}
 }
 
 void LLViewerLogin::resetURIs()
 {
-    // Clear URIs when picking a new server
+	// Clear URIs when picking a new server
 	gSavedSettings.setValue("CmdLineLoginURI", LLSD::emptyArray());
 	gSavedSettings.setString("CmdLineHelperURI", "");
 }
@@ -163,7 +163,8 @@ std::string LLViewerLogin::getGridLabel() const
 
 std::string LLViewerLogin::getGridCodeName() const
 {
-	if( gGridInfo[mGridChoice].mCodeName == "" )
+	// Fall back to grid label if code name is empty.
+	if( strcmp(gGridInfo[mGridChoice].mCodeName, "") == 0 )
 	{
 		return getGridLabel();
 	}

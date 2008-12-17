@@ -2101,7 +2101,7 @@ void LLPipeline::postSort(LLCamera& camera)
 	}
 
 	// only render if the flag is set. The flag is only set if we are in edit mode or the toggle is set in the menus
-	if (gSavedSettings.getBOOL("BeaconAlwaysOn"))
+	if (gSavedSettings.getBOOL("BeaconsEnabled"))
 	{
 		if (sRenderScriptedTouchBeacons)
 		{

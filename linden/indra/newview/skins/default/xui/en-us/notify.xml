@@ -579,6 +579,9 @@ to his or her location:
 		<option name="Decline">
 			Decline
 		</option>
+		<option name="Ignore">
+			Ignore
+		</option>
 	</notify>
 	<notify name="OfferFriendshipNoMessage" tip="false">
 		<message name="message">
@@ -592,6 +595,9 @@ see each other&apos;s online status.)
 		</option>
 		<option name="Decline">
 			Decline
+		</option>
+		<option name="Ignore">
+			Ignore
 		</option>
 	</notify>
 	<notify name="FriendshipAccepted" tip="false">
@@ -615,6 +621,9 @@ so you can quickly IM this resident.
 		</option>
 		<option name="Decline">
 			Decline
+		</option>
+		<option name="Ignore">
+			Ignore
 		</option>
 	</notify>
 	<notify name="RegionRestartMinutes" tip="false">

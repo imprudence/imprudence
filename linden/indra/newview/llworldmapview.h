@@ -189,6 +189,8 @@ public:
 	handle_list_t mVisibleRegions; // set every frame
 
 	static std::map<std::string,std::string> sStringsMap;
+
+	LLColor4		glyph_color_avatar;
 };
 
 #endif

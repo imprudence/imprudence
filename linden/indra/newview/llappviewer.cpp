@@ -602,11 +602,12 @@ bool LLAppViewer::init()
     writeSystemInfo();
 
 	// Build a string representing the current version number.
-    gCurrentVersion = llformat("%s %d.%d.%d / %s %d.%d.%d.%d", 
+    gCurrentVersion = llformat("%s %d.%d.%d %s / %s %d.%d.%d.%d", 
         gSavedSettings.getString("VersionChannelName").c_str(), 
         IMP_VERSION_MAJOR, 
         IMP_VERSION_MINOR, 
-        IMP_VERSION_PATCH, 
+        IMP_VERSION_PATCH,
+		IMP_VERSION_TEST,
         LL_VIEWER_NAME,
         LL_VERSION_MAJOR, 
         LL_VERSION_MINOR, 
@@ -2247,6 +2248,7 @@ void LLAppViewer::writeSystemInfo()
 	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = IMP_VERSION_MAJOR;
 	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = IMP_VERSION_MINOR;
 	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = IMP_VERSION_PATCH;
+	gDebugInfo["ClientInfo"]["ImpTestVersion"] = IMP_VERSION_TEST;
 	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
 	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
 	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
@@ -2330,6 +2332,7 @@ void LLAppViewer::handleViewerCrash()
 	gDebugInfo["ClientInfo"]["ImpMajorVersion"] = IMP_VERSION_MAJOR;
 	gDebugInfo["ClientInfo"]["ImpMinorVersion"] = IMP_VERSION_MINOR;
 	gDebugInfo["ClientInfo"]["ImpPatchVersion"] = IMP_VERSION_PATCH;
+	gDebugInfo["ClientInfo"]["ImpTestVersion"] = IMP_VERSION_TEST;
 	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
 	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
 	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;

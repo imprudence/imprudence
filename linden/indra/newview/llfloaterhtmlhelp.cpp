@@ -58,7 +58,9 @@ LLFloaterMediaBrowser::LLFloaterMediaBrowser(const LLSD& media_data)
 
 void LLFloaterMediaBrowser::draw()
 {
-	childSetEnabled("go", !mAddressCombo->getValue().asString().empty());
+	BOOL url_exists = !mAddressCombo->getValue().asString().empty();
+	childSetEnabled("go", url_exists);
+	childSetEnabled("set_home", url_exists);
 	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if(parcel)
 	{
@@ -84,6 +86,8 @@ BOOL LLFloaterMediaBrowser::postBuild()
 	childSetAction("close", onClickClose, this);
 	childSetAction("open_browser", onClickOpenWebBrowser, this);
 	childSetAction("assign", onClickAssign, this);
+	childSetAction("home", onClickHome, this);
+	childSetAction("set_home", onClickSetHome, this);
 
 	buildURLHistory();
 	return TRUE;
@@ -146,6 +150,7 @@ void LLFloaterMediaBrowser::onLocationChange( const EventType& eventIn )
 	childSetEnabled("back", mBrowser->canNavigateBack());
 	childSetEnabled("forward", mBrowser->canNavigateForward());
 	childSetEnabled("reload", TRUE);
+	gSavedSettings.setString("BrowserLastVisited", truncated_url);
 }
 
 LLFloaterMediaBrowser* LLFloaterMediaBrowser::showInstance(const LLSD& media_url)
@@ -156,6 +161,14 @@ LLFloaterMediaBrowser* LLFloaterMediaBrowser::showInstance(const LLSD& media_url
 	return floaterp;
 }
 
+void LLFloaterMediaBrowser::show()
+{
+	//Show home url if new session, last visited if not
+	std::string last_url = gSavedSettings.getString("BrowserLastVisited");
+	if(last_url.empty()) 
+		last_url = gSavedSettings.getString("BrowserHome");
+	showInstance(last_url);
+}
 //static 
 void LLFloaterMediaBrowser::onEnterAddress(LLUICtrl* ctrl, void* user_data)
 {
@@ -236,6 +249,29 @@ void LLFloaterMediaBrowser::onClickAssign(void* user_data)
 	LLViewerParcelMedia::update( parcel );
 
 
+}
+
+void LLFloaterMediaBrowser::onClickHome(void* user_data)
+{
+	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
+	if (self)
+	{
+		if (self->mBrowser)
+		{
+			std::string home_url = gSavedSettings.getString("BrowserHome");
+			self->mBrowser->navigateTo(home_url);
+		}
+	}
+}
+
+void LLFloaterMediaBrowser::onClickSetHome(void* user_data)
+{
+	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
+	std::string url = self->mCurrentURL;
+	if(!url.empty())
+	{
+		gSavedSettings.setString("BrowserHome", url);
+	}
 }
 
 void LLFloaterMediaBrowser::openMedia(const std::string& media_url)
