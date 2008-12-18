@@ -992,6 +992,7 @@ public:
 	static void onClickLess(void* data) ;
 	static void onClickMore(void* data) ;
 	static void onClickUICheck(LLUICtrl *ctrl, void* data);
+	static void onClickHighResCheck(LLUICtrl *ctrl, void* data);
 	static void onClickHUDCheck(LLUICtrl *ctrl, void* data);
 	static void onClickKeepOpenCheck(LLUICtrl *ctrl, void* data);
 	static void onClickKeepAspectCheck(LLUICtrl *ctrl, void* data);
@@ -1104,6 +1105,10 @@ void LLFloaterSnapshot::Impl::setResolution(LLFloaterSnapshot* floater, const st
 void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp)
 {
 	LLSnapshotLivePreview* previewp = getPreviewView(floaterp);
+
+	LLSnapshotLivePreview::ESnapshotType shot_type = getTypeIndex(floaterp);
+	if (shot_type != LLSnapshotLivePreview::SNAPSHOT_LOCAL)
+		gSavedSettings.setBOOL("HighResSnapshot", FALSE);
 
 	S32 delta_height = gSavedSettings.getBOOL("AdvanceSnapshot") ? 0 : floaterp->getUIWinHeightShort() - floaterp->getUIWinHeightLong() ;
 
@@ -1234,6 +1239,7 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater)
 	floater->childSetVisible("snapshot_height",			is_advance);
 	floater->childSetVisible("keep_aspect_check",		is_advance);
 	floater->childSetVisible("ui_check",				is_advance);
+	floater->childSetVisible("high_res_check",			is_advance && is_local);
 	floater->childSetVisible("hud_check",				is_advance);
 	floater->childSetVisible("keep_open_check",			is_advance);
 	floater->childSetVisible("freeze_frame_check",		is_advance);
@@ -1246,7 +1252,7 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater)
 		layer_type = LLViewerWindow::SNAPSHOT_TYPE_COLOR;
 		floater->childSetValue("layer_types", "colors");
 		if(is_advance)
-		{			
+		{
 			setResolution(floater, "postcard_size_combo");
 		}
 		break;
@@ -1434,7 +1440,26 @@ void LLFloaterSnapshot::Impl::onClickUICheck(LLUICtrl *ctrl, void* data)
 	
 	LLFloaterSnapshot *view = (LLFloaterSnapshot *)data;
 	if (view)
+	{	
+		BOOL high_res_snapshot = gSavedSettings.getBOOL("HighResSnapshot");
+		if (high_res_snapshot) gSavedSettings.setBOOL("HighResSnapshot", FALSE);
+		view->childSetEnabled("high_res_check", !check->get());
+		checkAutoSnapshot(getPreviewView(view), TRUE);
+	}
+}
+
+// static
+void LLFloaterSnapshot::Impl::onClickHighResCheck(LLUICtrl *ctrl, void* data)
+{
+	LLCheckBoxCtrl *check = (LLCheckBoxCtrl *)ctrl;
+	gSavedSettings.setBOOL( "HighResSnapshot", check->get() );
+	
+	LLFloaterSnapshot *view = (LLFloaterSnapshot *)data;
+	if (view)
 	{
+		BOOL ui_in_snapshot = gSavedSettings.getBOOL("RenderUIInSnapshot");
+		if (ui_in_snapshot) gSavedSettings.setBOOL("RenderUIInSnapshot", FALSE);
+		view->childSetEnabled("ui_check", !check->get());
 		checkAutoSnapshot(getPreviewView(view), TRUE);
 	}
 }
@@ -1912,6 +1937,9 @@ BOOL LLFloaterSnapshot::postBuild()
 
 	childSetCommitCallback("ui_check", Impl::onClickUICheck, this);
 
+	childSetCommitCallback("high_res_check", Impl::onClickHighResCheck, this);
+	childSetValue("high_res_check", gSavedSettings.getBOOL("HighResSnapshot"));
+
 	childSetCommitCallback("hud_check", Impl::onClickHUDCheck, this);
 	childSetValue("hud_check", gSavedSettings.getBOOL("RenderHUDInSnapshot"));
 
@@ -2001,8 +2029,23 @@ void LLFloaterSnapshot::draw()
 			childSetEnabled("send_btn", FALSE);
 			childSetEnabled("save_btn", FALSE);
 		}
-
+		
 		BOOL ui_in_snapshot = gSavedSettings.getBOOL("RenderUIInSnapshot");
+
+		if (previewp->getSnapshotType() != LLSnapshotLivePreview::SNAPSHOT_LOCAL)
+		{
+			childSetValue("high_res_check", FALSE);
+			childSetEnabled("ui_check", TRUE);
+		}
+		else
+		{
+			if (ui_in_snapshot)
+			{
+				gSavedSettings.setBOOL("HighResSnapshot", FALSE);
+				childSetEnabled("high_res_check", FALSE);
+			}
+		}
+
 		childSetValue("ui_check", ui_in_snapshot);
 		childSetToolTip("ui_check", std::string("If selected shows the UI in the snapshot"));
 	}

@@ -3812,10 +3812,6 @@ BOOL LLViewerWindow::saveImageNumbered(LLImageFormatted *image)
 	}
 
 	std::string extension("." + image->getExtension());
-	if (extension.empty())
-	{
-		extension = (gSavedSettings.getBOOL("CompressSnapshotsToDisk")) ? ".j2c" : ".bmp";
-	}
 
 	LLFilePicker::ESaveFilter pick_type;
 	if (extension == ".j2c")

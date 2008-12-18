@@ -1,3 +1,23 @@
+2008-12-16  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Enabled lip sync by default.
+	* linden/indra/newview/llfloatersnapshot.cpp:
+	Moved "High-res snapshot" to the snapshot floater.
+	* linden/indra/newview/skins/default/xui/en-us/floater_snapshot.xml:
+	Ditto.
+	* linden/indra/newview/llviewermenu.cpp:
+	Moved "High-res snapshot" to the snapshot floater.
+	Removed "Compress Snapshot to disk".
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Changed "Rebake Textures" to "Refresh Appearance" and placed it in Edit.
+	Added "Ctrl-Shift-X" as a shortcut to "Show XUI names").
+	* linden/indra/newview/llviewerwindow.cpp:
+	Removed "Compress Snapshot to disk".
+	* linden/indra/newview/skins/default/xui/en-us/panel_preferences_input.xml:
+	Moved "Disable Camera Constraints" to Preferences > Input/Camera.
+
+
 2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/install.xml:
