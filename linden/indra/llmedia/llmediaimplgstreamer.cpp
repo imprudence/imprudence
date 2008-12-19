@@ -81,6 +81,7 @@ LLMediaImplGStreamer () :
 #endif // LL_GST_SOUNDSINK
 {
 	LL_DEBUGS("MediaManager") << "constructing media..." << LL_ENDL;
+	mVolume = -1.0; // XXX Hack to make the vould change happend first time
 
 	setMediaDepth(4);
 
@@ -657,6 +658,12 @@ bool
 LLMediaImplGStreamer::
 setVolume(float volume)
 {
+        // XXX hack to make volume volume changes less othen
+	//     bug in gstreamer 0.10.21
+	if(mVolume == volume)
+	    return true;
+
+        LL_DEBUGS("MediaImpl") << "setVolume(" << volume << ") : " << getpid() << LL_ENDL;
 	mVolume = volume;
 	if (mPlaybin)
 	{
