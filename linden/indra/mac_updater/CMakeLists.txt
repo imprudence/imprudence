@@ -53,7 +53,7 @@ set_source_files_properties(
 set_source_files_properties(
   Info.plist
   PROPERTIES
-  MACOSX_PACKAGE_LOCATION . # will it blend? + poppy
+  MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist
   )
 SOURCE_GROUP("Resources" FILES ${mac_updater_RESOURCE_FILES})
 list(APPEND mac_updater_SOURCE_FILES ${mac_updater_RESOURCE_FILES})

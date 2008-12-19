@@ -5305,6 +5305,10 @@ class LLShowFloater : public view_listener_t
 		{
 			LLFloaterActiveSpeakers::toggleInstance(LLSD());
 		}
+		else if (floater_name == "inworld browser")
+		{
+			LLFloaterMediaBrowser::show();
+		}
 		return true;
 	}
 };
@@ -6709,6 +6713,18 @@ class LLToolsSelectOnlyMovableObjects : public view_listener_t
 		BOOL cur_val = gSavedSettings.getBOOL("SelectMovableOnly");
 
 		gSavedSettings.setBOOL("SelectMovableOnly", ! cur_val );
+
+		return true;
+	}
+};
+
+class LLToolsSelectOnlyCopyableObjects : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		BOOL cur_val = gSavedSettings.getBOOL("SelectCopyableOnly");
+
+		gSavedSettings.setBOOL("SelectCopyableOnly", ! cur_val );
 
 		return true;
 	}
@@ -9829,6 +9845,7 @@ void initialize_menus()
 	addMenu(new LLToolsSelectTool(), "Tools.SelectTool");
 	addMenu(new LLToolsSelectOnlyMyObjects(), "Tools.SelectOnlyMyObjects");
 	addMenu(new LLToolsSelectOnlyMovableObjects(), "Tools.SelectOnlyMovableObjects");
+	addMenu(new LLToolsSelectOnlyCopyableObjects(), "Tools.SelectOnlyCopyableObjects");
 	addMenu(new LLToolsSelectBySurrounding(), "Tools.SelectBySurrounding");
 	addMenu(new LLToolsShowHiddenSelection(), "Tools.ShowHiddenSelection");
 	addMenu(new LLToolsShowSelectionLightRadius(), "Tools.ShowSelectionLightRadius");

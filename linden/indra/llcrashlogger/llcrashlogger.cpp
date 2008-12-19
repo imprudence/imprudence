@@ -172,7 +172,7 @@ void LLCrashLogger::gatherFiles()
 	{
 		// Figure out the filename of the second life log
 		LLCurl::setCAFile(gDirUtilp->getCAFile());
-		mFileMap["SecondLifeLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"SecondLife.log");
+		mFileMap["SecondLifeLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"Imprudence.log");
 		mFileMap["SettingsXml"] = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,"settings.xml");
 	}
 
@@ -293,7 +293,7 @@ bool LLCrashLogger::sendCrashLogs()
 	updateApplication("Sending reports...");
 
 	std::string dump_path = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-															   "SecondLifeCrashReport");
+															   "ImprudenceCrashReport");
 	std::string report_file = dump_path + ".log";
 
 	std::ofstream out_file(report_file.c_str());
@@ -327,10 +327,10 @@ void LLCrashLogger::updateApplication(const std::string& message)
 bool LLCrashLogger::init()
 {
 	// We assume that all the logs we're looking for reside on the current drive
-	gDirUtilp->initAppDirs("SecondLife");
+	gDirUtilp->initAppDirs("Imprudence");
 
-	// Default to the product name "Second Life" (this is overridden by the -name argument)
-	mProductName = "Second Life";
+	// Default to the product name "Imprudence" (this is overridden by the -name argument)
+	mProductName = "Imprudence";
 	
 	mCrashSettings.declareS32(CRASH_BEHAVIOR_SETTING, CRASH_BEHAVIOR_ASK, "Controls behavior when viewer crashes "
 		"(0 = ask before sending crash report, 1 = always send crash report, 2 = never send crash report)");
@@ -341,7 +341,7 @@ bool LLCrashLogger::init()
 	//Run through command line options
 	if(getOption("previous").isDefined())
 	{
-		llinfos << "Previous execution did not remove SecondLife.exec_marker" << llendl;
+		llinfos << "Previous execution did not remove Imprudence.exec_marker" << llendl;
 		mCrashInPreviousExec = TRUE;
 	}
 
@@ -371,7 +371,7 @@ bool LLCrashLogger::init()
 	//If we've opened the crash logger, assume we can delete the marker file if it exists	
 	if( gDirUtilp )
 	{
-		std::string marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"SecondLife.exec_marker");
+		std::string marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"Imprudence.exec_marker");
 		ll_apr_file_remove( marker_file );
 	}
 	

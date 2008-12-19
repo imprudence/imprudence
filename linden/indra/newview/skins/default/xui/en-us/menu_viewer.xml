@@ -271,6 +271,11 @@
       <on_enable function="View.EnableLastChatter" />
     </menu_item_call>
     <menu_item_separator />
+    <menu_item_call name="Web Browser" label="Web Browser"
+                    shortcut="control|B">
+      <on_click function="ShowFloater" userdata="inworld browser" />
+    </menu_item_call>
+    <menu_item_separator />
     <menu_item_check name="Toolbar" label="Toolbar">
       <on_click function="ShowFloater" userdata="toolbar" />
       <on_check function="FloaterVisible" userdata="toolbar" />
@@ -360,9 +365,9 @@
       <on_click function="View.HighlightTransparent" userdata="" />
       <on_check function="View.CheckHighlightTransparent" />
     </menu_item_check>
-    <menu_item_check name="Beacons Always On" label="Beacons Always On">
-      <on_click function="ToggleControl" userdata="BeaconAlwaysOn" />
-      <on_check control="BeaconAlwaysOn" />
+    <menu_item_check name="Beacons Always On" label="Show Beacons">
+      <on_click function="ToggleControl" userdata="BeaconsEnabled" />
+      <on_check control="BeaconsEnabled" />
     </menu_item_check>
     <menu name="Beacons" create_jump_keys="true" label="Beacons"
           opaque="true" tear_off="true">
@@ -608,6 +613,12 @@
                 userdata="movable" />
       <on_check control="SelectMovableOnly" />
     </menu_item_check>
+    <menu_item_check name="Select Only Copyable Objects"
+                     label="Select Only Copyable Objects">
+      <on_click function="Tools.SelectOnlyCopyableObjects"
+                userdata="copyable" />
+      <on_check control="SelectCopyableOnly" />
+    </menu_item_check>
     <menu_item_check name="Select By Surrounding"
                      label="Select By Surrounding">
       <on_click function="Tools.SelectBySurrounding"
@@ -764,7 +775,7 @@
 
   <menu name="Help" create_jump_keys="true" label="Help"
         opaque="true" tear_off="true">
-    <menu_item_call name="Second Life Help" label="Second Life Help"
+    <menu_item_call name="Viewer Help" label="Viewer Help"
                     shortcut="F1">
       <on_click function="ShowFloater" userdata="help f1" />
     </menu_item_call>
@@ -772,10 +783,15 @@
       <on_click function="ShowFloater" userdata="help tutorial" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Official Linden Blog..."
-                    label="Official Linden Blog...">
+    <menu_item_call name="Imprudence Blog..."
+                    label="Imprudence Blog...">
       <on_click function="PromptShowURL"
-                userdata="WebLaunchSupportWiki,http://blog.secondlife.com/" />
+                userdata="WebLaunchImprudenceBlog,http://www.imprudenceviewer.org/" />
+    </menu_item_call>
+    <menu_item_call name="Imprudence Forums..."
+                    label="Imprudence Forums...">
+      <on_click function="PromptShowURL"
+                userdata="WebLaunchImprudenceForums,http://www.imprudenceviewer.org/forums/" />
     </menu_item_call>
     <menu_item_separator />
     <menu_item_call name="Scripting Guide..."
@@ -801,42 +817,8 @@
       <on_click function="ShowFloater" userdata="lag meter" />
     </menu_item_call>
     <menu_item_separator />
-    <menu name="Bug Reporting" create_jump_keys="true"
-          label="Bug Reporting" opaque="true" tear_off="true">
-      <menu_item_call name="Public Issue Tracker..."
-                      label="Public Issue Tracker...">
-        <on_click function="PromptShowURL"
-                  userdata="WebLaunchPublicIssue,http://jira.secondlife.com" />
-      </menu_item_call>
-      <menu_item_call name="Publc Issue Tracker Help..."
-                      label="Public Issue Tracker Help...">
-        <on_click function="PromptShowURL"
-                  userdata="WebLaunchPublicIssueHelp,http://wiki.secondlife.com/wiki/Issue_tracker" />
-      </menu_item_call>
-      <menu_item_separator />
-      <menu_item_call name="Bug Reporing 101..."
-                      label="Bug Reporting 101...">
-        <on_click function="PromptShowURL"
-                  userdata="WebLaunchBugReport101,http://wiki.secondlife.com/wiki/Bug_Reporting_101" />
-      </menu_item_call>
-      <menu_item_call name="Security Issues..."
-                      label="Security Issues...">
-        <on_click function="PromptShowURL"
-                  userdata="WebLaunchSecurityIssues,http://wiki.secondlife.com/wiki/Security_issues" />
-      </menu_item_call>
-      <menu_item_call name="QA Wiki..." label="QA Wiki...">
-        <on_click function="PromptShowURL"
-                  userdata="WebLaunchQAWiki,http://wiki.secondlife.com/wiki/QA_Portal" />
-      </menu_item_call>
-      <menu_item_separator />
-      <menu_item_call name="Report Bug..." label="Report Bug...">
-        <on_click function="PromptShowURL"
-                  userdata="WebLaunchPublicIssue,http://jira.secondlife.com" />
-      </menu_item_call>
-    </menu>
-    <menu_item_separator />
-    <menu_item_call name="About Second Life..."
-                    label="About Second Life...">
+    <menu_item_call name="About Imprudence..."
+                    label="About Imprudence...">
       <on_click function="ShowFloater" userdata="about" />
     </menu_item_call>
   </menu>

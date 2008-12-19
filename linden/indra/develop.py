@@ -503,10 +503,10 @@ class WindowsSetup(PlatformSetup):
             if self.gens[self.generator]['ver'] in [ r'8.0', r'9.0' ]:
                 config = '\"%s|Win32\"' % config
 
-            return "buildconsole Secondlife.sln /build %s" % config
+            return "buildconsole Imprudence.sln /build %s" % config
 
         # devenv.com is CLI friendly, devenv.exe... not so much.
-        return ('"%sdevenv.com" Secondlife.sln /build %s' % 
+        return ('"%sdevenv.com" Imprudence.sln /build %s' % 
                 (self.find_visual_studio(), self.build_type))
 
     # this override of run exists because the PlatformSetup version
@@ -527,9 +527,9 @@ class WindowsSetup(PlatformSetup):
             for build_dir in self.build_dirs():
                 vstool_cmd = os.path.join('tools','vstool','VSTool.exe') \
                              + ' --solution ' \
-                             + os.path.join(build_dir,'SecondLife.sln') \
+                             + os.path.join(build_dir,'Imprudence.sln') \
                              + ' --config RelWithDebInfo' \
-                             + ' --startup secondlife-bin'
+                             + ' --startup imprudence-bin'
                 print 'Running %r in %r' % (vstool_cmd, os.getcwd())
                 self.run(vstool_cmd)        
         

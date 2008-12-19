@@ -447,7 +447,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 
 	// Set the application icon.
 	SDL_Surface *bmpsurface;
-	bmpsurface = Load_BMP_Resource("ll_icon.BMP");
+	bmpsurface = Load_BMP_Resource("imprudence_icon.BMP");
 	if (bmpsurface)
 	{
 		// This attempts to give a black-keyed mask to the icon.
@@ -2530,7 +2530,7 @@ S32 OSMessageBoxSDL(const std::string& text, const std::string& caption, U32 typ
 			buttons = GTK_BUTTONS_YES_NO;
 			break;
 		}
-		win = gtk_message_dialog_new(NULL,flags, messagetype, buttons, text.c_str());
+		win = gtk_message_dialog_new(NULL,flags, messagetype, buttons, "%s", text.c_str());
 
 # if LL_X11
 		// Make GTK tell the window manager to associate this

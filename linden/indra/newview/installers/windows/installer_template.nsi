@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; secondlife setup.nsi
+;; imprudence setup.nsi
 ;; Copyright 2004-2007, Linden Research, Inc.
 ;; For info, see http://www.nullsoft.com/free/nsis/
 ;;
@@ -288,7 +288,7 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function CloseSecondLife
   Push $0
-  FindWindow $0 "Second Life" ""
+  FindWindow $0 "Imprudence" ""
   IntCmp $0 0 DONE
   MessageBox MB_OKCANCEL $(CloseSecondLifeInstMB) IDOK CLOSE IDCANCEL CANCEL_INSTALL
 
@@ -300,7 +300,7 @@ Function CloseSecondLife
     SendMessage $0 16 0 0
 
   LOOP:
-	  FindWindow $0 "Second Life" ""
+	  FindWindow $0 "Imprudence" ""
 	  IntCmp $0 0 DONE
 	  Sleep 500
 	  Goto LOOP
@@ -469,7 +469,7 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function un.CloseSecondLife
   Push $0
-  FindWindow $0 "Second Life" ""
+  FindWindow $0 "Imprudence" ""
   IntCmp $0 0 DONE
   MessageBox MB_OKCANCEL $(CloseSecondLifeUnInstMB) IDOK CLOSE IDCANCEL CANCEL_UNINSTALL
 
@@ -481,7 +481,7 @@ Function un.CloseSecondLife
     SendMessage $0 16 0 0
 
   LOOP:
-	  FindWindow $0 "Second Life" ""
+	  FindWindow $0 "Imprudence" ""
 	  IntCmp $0 0 DONE
 	  Sleep 500
 	  Goto LOOP
@@ -724,11 +724,11 @@ SectionEnd 				; end of uninstall section
 !macroend
 
 Function GetProgramName
-  !insertmacro GetParameterValue "/P=" "SecondLife"
+  !insertmacro GetParameterValue "/P=" "Imprudence"
 FunctionEnd
 
 Function un.GetProgramName
-  !insertmacro GetParameterValue "/P=" "SecondLife"
+  !insertmacro GetParameterValue "/P=" "Imprudence"
 FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

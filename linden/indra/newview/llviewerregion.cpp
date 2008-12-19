@@ -1022,6 +1022,8 @@ void LLViewerRegion::updateCoarseLocations(LLMessageSystem* msg)
 	U8 z_pos = 0;
 
 	U32 pos = 0x0;
+	
+	LLUUID agent_id = LLUUID::null;
 
 	S16 agent_index;
 	S16 target_index;
@@ -1034,6 +1036,7 @@ void LLViewerRegion::updateCoarseLocations(LLMessageSystem* msg)
 		msg->getU8Fast(_PREHASH_Location, _PREHASH_X, x_pos, i);
 		msg->getU8Fast(_PREHASH_Location, _PREHASH_Y, y_pos, i);
 		msg->getU8Fast(_PREHASH_Location, _PREHASH_Z, z_pos, i);
+		msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id, i);
 
 		//llinfos << "  object X: " << (S32)x_pos << " Y: " << (S32)y_pos
 		//		<< " Z: " << (S32)(z_pos * 4)
@@ -1059,6 +1062,7 @@ void LLViewerRegion::updateCoarseLocations(LLMessageSystem* msg)
 			pos <<= 8;
 			pos |= z_pos;
 			mMapAvatars.put(pos);
+			mMapAvatarIDs.put(agent_id);
 		}
 	}
 }

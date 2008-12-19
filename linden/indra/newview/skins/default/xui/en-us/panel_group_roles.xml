@@ -80,7 +80,7 @@ execute the Ability.
 				<column label="Last Login" name="online" width="116" />
 			</name_list>
 			<button bottom_delta="-20" font="SansSerif" halign="center" height="19"
-			     label="Invite New Person ..." left="4" name="member_invite" width="146" />
+			     label="Invite New Member ..." left="4" name="member_invite" width="146" />
 			<button bottom_delta="0" font="SansSerif" halign="center" height="19"
 			     label="Eject From Group" left="-153" name="member_eject" width="146" />
 			<string name="help_text">

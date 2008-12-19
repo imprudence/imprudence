@@ -6,17 +6,17 @@
   </object>
   <array count="31" name="allObjects">
     <object class="IBCarbonMenu" id="29">
-      <string name="title">SecondLife</string>
+      <string name="title">Imprudence</string>
       <array count="4" name="items">
         <object class="IBCarbonMenuItem" id="182">
-          <string name="title">Second Life</string>
+          <string name="title">Imprudence</string>
           <object name="submenu" class="IBCarbonMenu" id="181">
-            <string name="title">Second Life</string>
+            <string name="title">Imprudence</string>
             <array count="1" name="items">
               <object class="IBCarbonMenuItem" id="183">
                 <boolean name="disabled">TRUE</boolean>
                 <boolean name="updateSingleItem">TRUE</boolean>
-                <string name="title">About Second Life</string>
+                <string name="title">About Imprudence</string>
                 <int name="keyEquivalentModifier">0</int>
                 <ostype name="command">abou</ostype>
               </object>

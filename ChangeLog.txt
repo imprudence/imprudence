@@ -1,3 +1,581 @@
+2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/install.xml:
+	Switched OpenJPEG package to a tar.bz2.
+	The install.py script doesn't support .zip files.
+	Maybe later we could add support for that.
+
+
+	* linden/indra/newview/llworld.cpp:
+	VWR-9352: Prim falls to 256m height when moved outworld.
+	Patch by Aimee Trescothick.
+
+
+2008-12-13  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/scripts/build_version.py:
+	Version string generator now includes test label.
+	This is used for naming packages on Linux, among other things.
+
+
+	* linden/indra/llcommon/llversionviewer.h:
+	Bumped version to 1.1.0 alpha.
+
+
+2008-12-11  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloaterinspect.cpp:
+	VWR-10823: Right click > Inspect crashes viewer.
+	Backported from LL's 1.22 RC3.
+
+
+2008-12-01  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Added "Select Only Copyable Objects" menu option.
+	* linden/indra/newview/llselectmgr.cpp:
+	Ditto
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Ditto
+
+
+2008-11-24  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloatergroupinvite.cpp:
+	Add group name to group invite window.
+	* linden/indra/newview/llfloatergroupinvite.h:
+	Ditto.
+
+
+2008-11-23  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/notify.xml:
+	VWR-4826 (ability to ignore friendship offers).
+
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Beacons no longer persist between sessions.
+	That distressed users who accidentally enabled them,
+	since not even relogging would disable them.
+	* linden/indra/newview/llviewerwindow.cpp:
+	Ditto.
+	* linden/indra/newview/pipeline.cpp:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Ditto.
+
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml:
+	Moved 'Offer Teleport' in IM to be on the left side.
+
+
+	* linden/indra/newview/skins/default/xui/en-us/panel_groups.xml:
+	Switched Invite and Leave buttons in group panel.
+
+
+2008-11-22  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden\indra\newview\skins\default\colors_base.xml:
+	Added full comments to default skin colors.
+	* linden\indra\newview\skins\silver\colors_base.xml:
+	Added full comments to silver skin colors.
+
+
+2008-11-22  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* indra/newview/llcolorscheme.cpp:
+	Added minimap glyph color to colors.xml.
+	* indra/newview/llcolorscheme.h:
+	Ditto.
+	* indra/newview/llnetmap.cpp:
+	Ditto.
+	* indra/newview/llnetmap.h:
+	Ditto.
+	* indra/newview/llworldmapview.cpp:
+	Ditto.
+	* indra/newview/llworldmapview.h:
+	Ditto.
+	* indra/newview/skins/default/colors_base.xml:
+	Ditto.
+	* indra/newview/skins/silver/colors_base.xml:
+	Ditto.
+
+
+2008-11-21  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llnetmap.cpp:
+	Friends show yellow in minimap (VWR-3336).
+
+
+2008-10-18  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden\indra\newview\skins\default\xui\en-us\menu_viewer.xml:
+	Added menu option for inworld browser.
+	* linden\indra\newview\llviewermenu.cpp:
+	Ditto.
+
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Added Home button functionality to the web browser.
+	* linden/indra/newview/llfloaterhtmlhelp.cpp:
+	Ditto.
+	* linden/indra/newview/llfloaterhtmlhelp.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_media_browser.xml:
+	Ditto.
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                         1.0.0                          -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+2008-12-12  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Imprudence 1.0.0 finalized.
+
+	
+	* RELEASE_NOTES.txt:
+	Added release notes.
+	* linden/indra/newview/viewer_manifest.py:
+	Ditto.
+
+
+	* linden/indra/llcommon/llversionviewer.h:
+	Blanked the test version string. Not RC anymore.
+
+
+	* linden/install.xml:
+	Windows build uses OpenJPEG 1.3.
+	Fixes half-opaque skirts/textures issue.
+
+
+	* linden/indra/newview/viewer_manifest.py:
+	README.txt will stay that name; README-linux.txt removed.
+
+
+2008-12-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llfloaterabout.cpp:
+	Simplified release notes URL scheme.
+	Now uses e.g. "wiki/Release Notes/1.0.0-RC2",
+	which is set up as a wiki redirect.
+
+
+	* linden/indra/newview/llfloaterabout.cpp:
+	Fixed bad string comparison (rel notes url) [#28]
+	Reported by Balp Allen.
+
+
+2008-12-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llpanellogin.cpp:
+	Fix grid selector having a duplicate entry. [#24]
+	Patch by Balp Allen.
+	* linden/indra/newview/llpanellogin.h:
+	Ditto.
+	* linden/indra/newview/llstartup.cpp:
+	Ditto.
+
+
+	* linden/indra/newview/llurlhistory.cpp:
+	Better warning when url_history.xml save fails.
+
+
+	* linden/indra/newview/llviewernetwork.cpp:
+	Fixed bad string comparison (grid code name). [#22]
+	Reported by Balp Allen.
+
+
+2008-12-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* ChangeLog:
+	Added banners in ChangeLog to set versions apart.
+	
+	Entries should be placed in the section for the
+	version into which they were merged. Entries within
+	a section should be sorted chronologically.
+
+	This is important for keeping track of changes which
+	weren't merged until a later release than they were 
+	written. (Mixing them in chronologically would cause
+	confusion about which changes were included in a
+	release.)
+
+
+	* linden/indra/llmessage/llhttpclient.cpp:
+	VWR-9400b (memleak whenever an LSL script is uploaded)
+	Patch by Henri Beauchamp.
+
+
+	* linden/indra/llmessage/llhttpclient.cpp:
+	VWR-9400 (memleak whenever an LSL script is uploaded)
+	Patch by Carjay McGinnis.
+
+
+	* linden/indra/llimage/llimagetga.cpp:
+	VWR-10837 (use delete [] in LLImageTGA)
+	Patch by Aleric Inglewood.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	VWR-10759 (use delete [] in LLMediaImplGStreamer)
+	Patch by Aleric Inglewood.
+
+
+2008-12-06  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llcommon/llversionviewer.h:
+	Added test version info.
+	* linden/indra/newview/llfloaterabout.cpp:
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp:
+	Ditto.
+	* linden/indra/newview/llpanellogin.cpp:
+	Ditto.
+
+
+2008-12-05  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llcommon/llsecondlifeurls.cpp:
+	Changed Release Notes link to point to Imprudence.
+	* linden/indra/newview/llfloaterabout.cpp:
+	Ditto.
+
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_login.xml:
+	Rebranded login menu. [#23]
+
+
+	* linden/indra/newview/llurlhistory.cpp:
+	Fixed blank url_history.xml creation. (VWR-5808)
+
+
+2008-12-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/viewer_manifest.py:
+	Fixed indentation for 'skins' prefix.
+
+	* linden/indra/newview/viewer_manifest.py:
+	Doc packaging moved to platform-independent manifest.
+
+
+	* Imported license files for libraries and artwork.
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                       1.0.0 RC2                        -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+2008-12-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Imprudence 1.0.0 RC2 released.
+
+
+	* linden/indra/newview/llviewernetwork.cpp:
+	Use 127.0.0.1 for local opensim, not 0.0.0.0.
+
+
+2008-11-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/viewer_manifest.py:
+	Package up README.txt, etc. on Linux.
+
+
+	* linden/indra/llmedia/llmediamanager.cpp:
+	Disable llmozlib-dependent code when not available.
+	Patch by Stephen Zenith. [#12]
+
+
+	* linden/indra/llwindow/llwindowsdl.cpp:
+	Fixed passing nonliteral strings to *printf functions.
+	gcc 4.3 rejects that as being unsafe.
+	Patch by Stephen Zenith. [#11]
+	* linden/indra/linux_crash_logger/llcrashloggerlinux.cpp:
+	Ditto.
+	* linden/indra/lscript/lscript_compile/lscript_tree.cpp: 
+	Ditto.
+
+
+2008-11-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llpanellogin.cpp:
+	Remove preprocessor condition for grid selector.
+	The grid selector on the login screen will always show,
+	instead of only showing when the viewer was compiled
+	as LL_RELEASE_FOR_DOWNLOAD.
+
+
+	* linden/indra/newview/llappviewer.cpp:
+	Stop console window from always showing up.
+
+
+2008-11-29  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloaterdirectory.cpp:
+	Fixed search window not refreshing in RelWithDebInfo builds.
+
+
+2008-11-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llstartup.cpp:
+	Rearranged grid selectors so main grid is first.
+	* linden/indra/newview/llviewernetwork.cpp:
+	Ditto.
+	* linden/indra/newview/llviewernetwork.cpp:
+	Ditto.
+
+
+	* linden/indra/newview/llpanellogin.cpp:
+	Added "code name" field for grid selections.
+	The code name is used to fetch the proper splash page.
+	This decouples the user-visible label from the name
+	expected by the SL web server.
+	* linden/indra/newview/llviewernetwork.cpp:
+	Ditto.
+	* linden/indra/newview/llviewernetwork.h:
+	Ditto.
+
+
+2008-11-24  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llpanellogin.cpp: 
+	Changed the grid selector options at login.
+	Renamed "Agni" to "SL Main Grid", etc. and removed private
+	LL grids from the list. Also added "Local OpenSim" option.
+	* linden/indra/newview/llviewernetwork.cpp: 
+	Ditto.
+	* linden/indra/newview/llviewernetwork.h: 
+	Ditto.
+
+
+2008-11-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/lldrawable.cpp:
+	Likely fix for VWR-8920 (disappearing attachments).
+	From http://svn.secondlife.com/trac/linden/changeset/1393
+
+
+2008-11-19  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/install.xml:
+	Fixed inworld browser crash in Windows.
+
+
+2008-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llcrashlogger/llcrashlogger.cpp: 
+	Changed to Imprudence.exec_marker to match llappviewer.cpp.
+
+
+	* linden/indra/llcrashlogger/llcrashlogger.cpp: 
+	Changed app dir (for cache, etc.) to Imprudence.
+	* linden/indra/llvfs/lldir.cpp: 
+	Ditto.
+	* linden/indra/llvfs/lldir_mac.cpp: 
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp: 
+	Ditto.
+
+
+2008-11-18  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/panel_group_invite.xml:
+	VWR-9007: Group UI uses "Person" instead of "Resident".
+	* linden/indra/newview/skins/default/xui/en-us/panel_group_roles.xml:
+	Ditto.
+
+
+2008-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llrender/llrender.h:
+	Fix VWR-9507: bad typedef breaks build on gcc 4.3.
+	Suggested by Alissa Sabre.
+
+
+	* linden/indra/llrender/llgl.cpp:
+	Likely fix for VWR-9358 (palletized textures).
+	Suggested by Angus Boyd.
+
+
+2008-11-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/silver/xui/en-us/floater_tools.xml:
+	Removed floater_tools.xml from silver skin.
+	It was out of sync with the default version, and the only
+	changes that LL had made to it were tiny tweaks to button size
+	and position. It will now correctly inherit from default skin.
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                       1.0.0 RC1                        -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+2008-11-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Imprudence 1.0.0 RC1 released.
+
+
+2008-11-05  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/viewer_manifest.py:
+	Remove reference to nonexistent First Look Mac icon.
+
+
+2008-11-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/mac_crash_logger/CMakeLists.txt: 
+	Fix Mac crash logger & updater missing Info.plist.
+	Suggested by Aimee Trescothick (Aimee Walton).
+	* linden/indra/mac_updater/CMakeLists.txt: 
+	Ditto.
+
+
+2008-11-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/scripts/build_version.py: 
+	Script finds Imprudence version numbers for packaging.
+	* linden/indra/lib/python/indra/util/llversion.py:
+	Ditto.
+
+
+2008-11-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llwindow/llwindowsdl.cpp:
+	Use Imprudence icon on Linux.
+
+	* linden/indra/newview/CMakeLists.txt:
+	Package up Imprudence icons.
+	* linden/indra/newview/viewer_manifest.py:
+	Ditto.
+
+	* linden/indra/newview/res/imprudence_icon.png
+	Imported Imprudence icon graphics.
+	* linden/indra/newview/res-sdl/imprudence_icon.BMP
+	Ditto.
+
+	
+	* linden/indra/newview/viewer_manifest.py:
+	Package only our free fonts.
+
+2008-10-31  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Use Vera Mono and Liberation Sans fonts.
+
+2008-10-17  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/FMOD.cmake: 
+	Disable fmod by default.
+	You can give -DFMOD=ON at configure time to turn it on.
+
+	* linden/indra/newview/CMakeLists.txt: 
+	Use FMOD_LIBRARY variable. It's there for a reason.
+	
+	* linden/indra/newview/viewer_manifest.py: 
+	Commented out fmod from viewer manifest.
+	Commented out kdu from viewer manifest.
+	Commented out vivox / SLVoice from viewer manifest.
+
+
+	* Updated to SL source 1.21.6.
+
+2008-10-17  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden\indra\newview\skins\default\xui\en-us\menu_viewer.xml:
+	Rebranded the Help menu to point to Imprudence sites, removed issue tracker.
+	* linden\indra\newview\skins\default\xui\en-us\alerts.xml:
+	Ditto.
+	* linden\indra\newview\llappviewer.cpp:
+	Fixed windows compile bug.
+
+2008-10-14  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/installers/windows/installer_template.nsi:
+	Rebranded Windows-specific installer/support files.
+	Replaced instances of "Second Life" with "Imprudence", etc.
+	* linden/indra/newview/installers/windows/lang_de.nsi:
+	Ditto.
+	* linden/indra/newview/installers/windows/lang_en-us.nsi:
+	Ditto.
+	* linden/indra/newview/installers/windows/lang_ja.nsi:
+	Ditto.
+	* linden/indra/newview/installers/windows/lang_ko.nsi:
+	Ditto.
+	* linden/indra/newview/res/viewerRes.rc:
+	Ditto.
+	* linden/indra/copy_win_scripts/start-client.py: 
+	Ditto.
+	* linden/indra/win_updater/updater.cpp: 
+	Ditto.
+	
+
+	* linden/indra/mac_updater/mac_updater.cpp: 
+	Rebranded Mac-specific installer/support files.
+	Replaced instances of "Second Life" with "Imprudence", etc.
+	* linden/indra/newview/English.lproj/InfoPlist.strings: 
+	Ditto.
+	* linden/indra/newview/Info-SecondLife.plist: 
+	Ditto.
+	* linden/indra/newview/SecondLife.nib/objects.xib: 
+	Ditto.
+
+
+	* linden/indra/cmake/UnixInstall.cmake: 
+	Rebranded Linux-specific installer/support files.
+	Replaced instances of "Second Life" with "Imprudence", etc.
+	* linden/indra/linux_crash_logger/llcrashloggerlinux.cpp: 
+	Ditto.
+	* linden/indra/newview/linux_tools/handle_secondlifeprotocol.sh: 
+	Ditto.
+	* linden/indra/newview/linux_tools/wrapper.sh: 
+	Ditto.
+
+
+	* linden/indra/CMakeLists.txt: 
+	Rebranded platform-independent/shared installer/support files.
+	Replaced instances of "Second Life" with "Imprudence", etc.
+	* linden/indra/cmake/00-Common.cmake: 
+	Ditto.
+	* linden/indra/develop.py: 
+	Ditto.
+	* linden/indra/llcrashlogger/llcrashlogger.cpp: 
+	Ditto.
+	* linden/indra/newview/CMakeLists.txt: 
+	Ditto.
+	* linden/indra/newview/ViewerInstall.cmake: 
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp: 
+	Ditto.
+	* linden/indra/newview/viewer_manifest.py: 
+	Ditto.
+
+
+2008-10-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llcommon/llversionviewer.h: 
+	Added Imprudence-specific version numbers.
+	* linden/indra/newview/llappviewer.cpp: 
+	Ditto.
+	* linden/indra/newview/llpanellogin.cpp: 
+	Ditto.
+	* linden/indra/newview/llfloaterabout.cpp: 
+	Ditto.
+	
+
+	* linden/indra/llcommon/llversionviewer.h: 
+	Changed viewer and channel name to "Imprudence".
+	* linden/indra/newview/llappviewer.cpp: 
+	Ditto.
+	* linden/indra/cmake/Variables.cmake: 
+	Ditto.
+	* linden/indra/newview/app_settings/settings.xml: 
+	Ditto.
+
 2008-09-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llviewermenu.cpp: 
@@ -136,6 +714,36 @@
 	For convenience until we switch to CMake.
 	* linden/indra/newview/viewer_manifest.py: 
 	Ditto.
+
+2008-09-17  Nicholaz Beresford  <nicholaz@blueflash.cc>
+
+	* linden/indra/newview/llviewerjointattachment.h (LLViewerJoint): 
+	VWR-2685: Possible crash in bounding box (getBoundingBoxAgent())
+	from hud attachments.
+
+	* linden/indra/newview/llfloateractivespeakers.cpp (updateSpeakerList): 
+	VWR-2683: Possible crash accessing dead llviewerregion.
+	* linden/indra/newview/llviewerobjectlist.cpp (killObjects): 
+	Ditto.
+
+	* linden/indra/newview/lltooldraganddrop.cpp (dragOrDrop): 
+	VWR-2003: Possible crash in lltooldraganddrop.cpp.
+
+2008-09-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/lltexturecache.cpp (purgeTextureFilesTimeSliced):
+	Skip "N files scheduled for deletion" message when nothing scheduled.
+
+2008-09-16  Nicholaz Beresford  <nicholaz@blueflash.cc>
+
+	* linden/indra/newview/lltexturecache.cpp:
+	VWR-3878: Purging cache textures causes viewer to pause for many
+	seconds, with heavy disk activity.
+	* linden/indra/newview/lltexturecache.h:
+	Ditto.
+
+	* linden/indra/llmessage/llassetstorage.cpp:
+	VWR-3877: A nasty possible memory overwrite and two minor leaks.
 
 2008-09-07  McCabe Maxsted  <hakushakukun@gmail.com>
 

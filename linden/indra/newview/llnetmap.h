@@ -84,7 +84,10 @@ protected:
 
 public:
 	LLHandle<LLView>	mPopupMenuHandle;
+
 	LLColor4		mBackgroundColor;
+	LLColor4		glyph_color_avatar;
+	LLColor4		glyph_color_friend;
 
 	F32				mScale;					// Size of a region in pixels
 	F32				mPixelsPerMeter;		// world meters to map pixels

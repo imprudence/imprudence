@@ -12,9 +12,11 @@
 			<button bottom_delta="0" enabled="false" follows="left|top" height="20" label="Reload"
 			     left_delta="65" name="reload" width="70" />
 			<combo_box allow_text_entry="true" bottom_delta="0" follows="left|top|right" height="20"
-			     left_delta="75" max_chars="255" name="address" width="280" />
+			     left_delta="75" max_chars="235" name="address" width="225" />
 			<button bottom_delta="0" enabled="false" follows="right|top" height="20" label="Go"
-			     left_delta="285" name="go" width="55" />
+			     left_delta="230" name="go" width="55" />
+			<button bottom_delta="0" enabled="true" follows="right|top" height="20" label="Home"
+			     left_delta="60" name="home" width="55" />
 		</layout_panel>
 		<layout_panel auto_resize="false" bottom="0" height="20" left="0"
 		     name="parcel_owner_controls" user_resize="false" width="540">
@@ -30,6 +32,8 @@
 			<check_box bottom="5" control_name="UseExternalBrowser" follows="bottom|left" height="20"
 			     label="Always open in my web browser" left_delta="190" name="open_always"
 			     width="200" />
+			<button bottom="5" enabled="false" follows="bottom|right" height="20" label="Set Home To Here"
+			     left="-265" name="set_home" width="155" />
 			<button bottom="5" follows="bottom|right" height="20" label="Close" left="-70"
 			     name="close" width="70" />
 		</layout_panel>

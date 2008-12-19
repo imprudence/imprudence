@@ -5745,7 +5745,8 @@ BOOL LLSelectMgr::canSelectObject(LLViewerObject* object)
 	}
 
 	if ((gSavedSettings.getBOOL("SelectOwnedOnly") && !object->permYouOwner()) ||
-		(gSavedSettings.getBOOL("SelectMovableOnly") && !object->permMove()))
+		(gSavedSettings.getBOOL("SelectMovableOnly") && !object->permMove()) ||
+		(gSavedSettings.getBOOL("SelectCopyableOnly") && !object->permCopy()))
 	{
 		// only select my own objects
 		return FALSE;

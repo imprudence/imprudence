@@ -2458,14 +2458,14 @@ void login_show()
 	// UI textures have been previously loaded in doPreloadImages()
 	
 	LL_DEBUGS("AppInit") << "Setting Servers" << LL_ENDL;
-
-	LLPanelLogin::addServer(LLViewerLogin::getInstance()->getGridLabel(), LLViewerLogin::getInstance()->getGridChoice());
+	LL_INFOS("AppInit") << "getGridChoice is " << LLViewerLogin::getInstance()->getGridChoice() << LL_ENDL;
 
 	LLViewerLogin* vl = LLViewerLogin::getInstance();
-	for(int grid_index = GRID_INFO_ADITI; grid_index < GRID_INFO_OTHER; ++grid_index)
+	for(int grid_index = GRID_INFO_NONE + 1; grid_index < GRID_INFO_OTHER; ++grid_index)
 	{
 		LLPanelLogin::addServer(vl->getKnownGridLabel((EGridInfo)grid_index), grid_index);
 	}
+	LLPanelLogin::setServer(LLViewerLogin::getInstance()->getGridChoice()-1);
 }
 
 // Callback for when login screen is closed.  Option 0 = connect, option 1 = quit.

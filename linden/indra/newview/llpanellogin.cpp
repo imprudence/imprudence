@@ -134,73 +134,13 @@ void LLLoginHandler::parse(const LLSD& queryMap)
 	mLastName = queryMap["last_name"].asString();
 	
 	EGridInfo grid_choice = GRID_INFO_NONE;
-	if (queryMap["grid"].asString() == "aditi")
+	if (queryMap["grid"].asString() == "sl beta grid")
 	{
 		grid_choice = GRID_INFO_ADITI;
 	}
-	else if (queryMap["grid"].asString() == "agni")
+	else if (queryMap["grid"].asString() == "sl main grid")
 	{
 		grid_choice = GRID_INFO_AGNI;
-	}
-	else if (queryMap["grid"].asString() == "siva")
-	{
-		grid_choice = GRID_INFO_SIVA;
-	}
-	else if (queryMap["grid"].asString() == "damballah")
-	{
-		grid_choice = GRID_INFO_DAMBALLAH;
-	}
-	else if (queryMap["grid"].asString() == "durga")
-	{
-		grid_choice = GRID_INFO_DURGA;
-	}
-	else if (queryMap["grid"].asString() == "shakti")
-	{
-		grid_choice = GRID_INFO_SHAKTI;
-	}
-	else if (queryMap["grid"].asString() == "soma")
-	{
-		grid_choice = GRID_INFO_SOMA;
-	}
-	else if (queryMap["grid"].asString() == "ganga")
-	{
-		grid_choice = GRID_INFO_GANGA;
-	}
-	else if (queryMap["grid"].asString() == "vaak")
-	{
-		grid_choice = GRID_INFO_VAAK;
-	}
-	else if (queryMap["grid"].asString() == "uma")
-	{
-		grid_choice = GRID_INFO_UMA;
-	}
-	else if (queryMap["grid"].asString() == "mohini")
-	{
-		grid_choice = GRID_INFO_MOHINI;
-	}
-	else if (queryMap["grid"].asString() == "yami")
-	{
-		grid_choice = GRID_INFO_YAMI;
-	}
-	else if (queryMap["grid"].asString() == "nandi")
-	{
-		grid_choice = GRID_INFO_NANDI;
-	}
-	else if (queryMap["grid"].asString() == "mitra")
-	{
-		grid_choice = GRID_INFO_MITRA;
-	}
-	else if (queryMap["grid"].asString() == "radha")
-	{
-		grid_choice = GRID_INFO_RADHA;
-	}
-	else if (queryMap["grid"].asString() == "ravi")
-	{
-		grid_choice = GRID_INFO_RAVI;
-	}
-	else if (queryMap["grid"].asString() == "aruna")
-	{
-		grid_choice = GRID_INFO_ARUNA;
 	}
 
 	if(grid_choice != GRID_INFO_NONE)
@@ -419,15 +359,25 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 	// childSetAction("quit_btn", onClickQuit, this);
 
-	std::string channel = gSavedSettings.getString("VersionChannelName");
-	std::string version = llformat("%d.%d.%d (%d)",
+	std::string imp_channel = gSavedSettings.getString("VersionChannelName");
+	std::string imp_version = llformat("%d.%d.%d %s",
+		IMP_VERSION_MAJOR,
+		IMP_VERSION_MINOR,
+		IMP_VERSION_PATCH,
+		IMP_VERSION_TEST );
+
+	std::string ll_channel = LL_VIEWER_NAME;
+	std::string ll_version = llformat("%d.%d.%d (%d)",
 		LL_VERSION_MAJOR,
 		LL_VERSION_MINOR,
 		LL_VERSION_PATCH,
 		LL_VIEWER_BUILD );
+
 	LLTextBox* channel_text = getChild<LLTextBox>("channel_text");
-	channel_text->setTextArg("[CHANNEL]", channel);
-	channel_text->setTextArg("[VERSION]", version);
+	channel_text->setTextArg("[CHANNEL]", imp_channel);
+	channel_text->setTextArg("[VERSION]", imp_version);
+	channel_text->setTextArg("[ALT_CHANNEL]", ll_channel);
+	channel_text->setTextArg("[ALT_VERSION]", ll_version);
 	channel_text->setClickedCallback(onClickVersion);
 	channel_text->setCallbackUserData(this);
 	
@@ -762,6 +712,14 @@ void LLPanelLogin::addServer(const std::string& server, S32 domain_name)
 	combo->setCurrentByIndex(0);
 }
 
+
+// static
+void LLPanelLogin::setServer(S32 domain_name)
+{
+	LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
+	combo->setCurrentByIndex(domain_name);
+}
+
 // static
 void LLPanelLogin::getFields(std::string &firstname, std::string &lastname, std::string &password,
 							BOOL &remember)
@@ -840,12 +798,7 @@ void LLPanelLogin::refreshLocation( bool force_visible )
 	sInstance->childSetVisible("start_location_combo", show_start);
 	sInstance->childSetVisible("start_location_text", show_start);
 
-#if LL_RELEASE_FOR_DOWNLOAD
-	BOOL show_server = gSavedSettings.getBOOL("ForceShowGrid");
-	sInstance->childSetVisible("server_combo", show_server);
-#else
 	sInstance->childSetVisible("server_combo", TRUE);
-#endif
 
 #endif
 }
@@ -928,7 +881,7 @@ void LLPanelLogin::loadLoginPage()
 	curl_free(curl_version);
 
 	// Grid
-	char* curl_grid = curl_escape(LLViewerLogin::getInstance()->getGridLabel().c_str(), 0);
+	char* curl_grid = curl_escape(LLViewerLogin::getInstance()->getGridCodeName().c_str(), 0);
 	oStr << "&grid=" << curl_grid;
 	curl_free(curl_grid);
 

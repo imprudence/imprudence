@@ -69,33 +69,65 @@ class ViewerManifest(LLManifest):
 
         # Include our fonts
         if self.prefix(src="fonts"):
-            self.path("*.ttf")
+            self.path("LiberationSans-Bold.ttf")
+            self.path("LiberationSans-Regular.ttf")
+            self.path("VeraMono.ttf")
             self.path("*.txt")
             self.end_prefix("fonts")
 
-            # skins
-            if self.prefix(src="skins"):
-                    self.path("paths.xml")
-                    # include the entire textures directory recursively
-                    if self.prefix(src="*/textures"):
-                            self.path("*.tga")
-                            self.path("*.j2c")
-                            self.path("*.jpg")
-                            self.path("*.png")
-                            self.path("textures.xml")
-                            self.end_prefix("*/textures")
-                    self.path("*/xui/*/*.xml")
-                    self.path("*/*.xml")
-                    
-                    # Local HTML files (e.g. loading screen)
-                    if self.prefix(src="*/html"):
-                            self.path("*.png")
-                            self.path("*/*/*.html")
-                            self.path("*/*/*.gif")
-                            self.end_prefix("*/html")
-                    self.end_prefix("skins")
+        # skins
+        if self.prefix(src="skins"):
+            self.path("paths.xml")
+            
+            # include the entire textures directory recursively
+            if self.prefix(src="*/textures"):
+                self.path("*.tga")
+                self.path("*.j2c")
+                self.path("*.jpg")
+                self.path("*.png")
+                self.path("textures.xml")
+                self.end_prefix("*/textures")
+
+            self.path("*/xui/*/*.xml")
+            self.path("*/*.xml")
+
+            # Local HTML files (e.g. loading screen)
+            if self.prefix(src="*/html"):
+                self.path("*.png")
+                self.path("*/*/*.html")
+                self.path("*/*/*.gif")
+                self.end_prefix("*/html")
+                
+            self.end_prefix("skins")
+            
         self.path("lsl_guide.html")
         self.path("gpu_table.txt")
+
+
+    # Gather up the README file, etc.
+    def gather_documents(self):
+        # From the top level directory (imprudence)
+        if self.prefix("../../..", dst=""):
+            self.path("README.txt")
+            self.path("MANIFESTO.txt")
+            self.path("CONTRIBUTE.txt")
+            self.path("RELEASE_NOTES.txt")
+            self.path("ChangeLog.txt")
+            self.end_prefix("../../..")
+
+        # From the linden directory
+        if self.prefix("../..", dst="doc"):
+            self.path("LICENSE-source.txt")
+            self.path("LICENSE-logos.txt", "LICENSE-artwork.txt")
+            self.end_prefix("../..")
+
+        # From the linden/doc directory
+        if self.prefix("../../doc", dst="doc"):
+            self.path("contributions.txt")
+            self.path("GPL-license.txt", "GPL.txt")
+            self.path("FLOSS-exception.txt")
+            self.end_prefix("../../doc")
+
 
     def login_channel(self):
         """Channel reported for login and upgrade purposes ONLY;
@@ -139,9 +171,9 @@ class WindowsManifest(ViewerManifest):
     def final_exe(self):
         if self.default_channel():
             if self.default_grid():
-                return "SecondLife.exe"
+                return "Imprudence.exe"
             else:
-                return "SecondLifePreview.exe"
+                return "ImprudencePreview.exe"
         else:
             return ''.join(self.channel().split()) + '.exe'
 
@@ -150,16 +182,22 @@ class WindowsManifest(ViewerManifest):
         super(WindowsManifest, self).construct()
         # the final exe is complicated because we're not sure where it's coming from,
         # nor do we have a fixed name for the executable
-        self.path(self.find_existing_file('debug/secondlife-bin.exe', 'release/secondlife-bin.exe', 'relwithdebinfo/secondlife-bin.exe'), dst=self.final_exe())
+        self.path(self.find_existing_file('debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
         # need to get the kdu dll from any of the build directories as well
-        self.path(self.find_existing_file(
+        #self.path(self.find_existing_file(
                 # *FIX:Mani we need to add support for packaging specific targets.
                 #'../llkdu/debug/llkdu.dll',
-                '../llkdu/release/llkdu.dll',
-                '../llkdu/relwithdebinfo/llkdu.dll',
-                '../../libraries/i686-win32/lib/release/llkdu.dll'), 
-                  dst='llkdu.dll')
-        self.path(src="licenses-win32.txt", dst="licenses.txt")
+                #'../llkdu/release/llkdu.dll',
+                #'../llkdu/relwithdebinfo/llkdu.dll',
+                #'../../libraries/i686-win32/lib/release/llkdu.dll'), 
+                #  dst='llkdu.dll')
+
+        self.gather_documents()
+
+        if self.prefix("../..", dst="doc"):
+            self.path("LICENSE-libraries-win32.txt")
+            self.end_prefix("../..")
+
 
         self.path("featuretable.txt")
 
@@ -167,7 +205,7 @@ class WindowsManifest(ViewerManifest):
         self.path("dbghelp.dll")
 
         # For using FMOD for sound... DJS
-        self.path("fmod.dll")
+        #self.path("fmod.dll")
 
         # For textures
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
@@ -206,18 +244,18 @@ class WindowsManifest(ViewerManifest):
             self.end_prefix()
 
         # Vivox runtimes
-        if self.prefix(src="vivox-runtime/i686-win32", dst=""):
-            self.path("SLVoice.exe")
-            self.path("SLVoiceAgent.exe")
-            self.path("libeay32.dll")
-            self.path("srtp.dll")
-            self.path("ssleay32.dll")
-            self.path("tntk.dll")
-            self.path("alut.dll")
-            self.path("vivoxsdk.dll")
-            self.path("ortp.dll")
-            self.path("wrap_oal.dll")
-            self.end_prefix()
+        #if self.prefix(src="vivox-runtime/i686-win32", dst=""):
+        #    self.path("SLVoice.exe")
+        #    self.path("SLVoiceAgent.exe")
+        #    self.path("libeay32.dll")
+        #    self.path("srtp.dll")
+        #    self.path("ssleay32.dll")
+        #    self.path("tntk.dll")
+        #    self.path("alut.dll")
+        #    self.path("vivoxsdk.dll")
+        #    self.path("ortp.dll")
+        #    self.path("wrap_oal.dll")
+        #    self.end_prefix()
 
 #        # pull in the crash logger and updater from other projects
 #        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
@@ -299,36 +337,36 @@ class WindowsManifest(ViewerManifest):
         if self.default_channel():
             if self.default_grid():
                 # release viewer
-                installer_file = "Second_Life_%(version_dashes)s_Setup.exe"
+                installer_file = "Imprudence_%(version_dashes)s_Setup.exe"
                 grid_vars_template = """
                 OutFile "%(installer_file)s"
                 !define INSTFLAGS "%(flags)s"
-                !define INSTNAME   "SecondLife"
-                !define SHORTCUT   "Second Life"
-                !define URLNAME   "secondlife"
-                Caption "Second Life ${VERSION}"
+                !define INSTNAME   "Imprudence"
+                !define SHORTCUT   "Imprudence"
+                !define URLNAME   "imprudence"
+                Caption "Imprudence ${VERSION}"
                 """
             else:
                 # beta grid viewer
-                installer_file = "Second_Life_%(version_dashes)s_(%(grid_caps)s)_Setup.exe"
+                installer_file = "Imprudence_%(version_dashes)s_(%(grid_caps)s)_Setup.exe"
                 grid_vars_template = """
                 OutFile "%(installer_file)s"
                 !define INSTFLAGS "%(flags)s"
-                !define INSTNAME   "SecondLife%(grid_caps)s"
-                !define SHORTCUT   "Second Life (%(grid_caps)s)"
-                !define URLNAME   "secondlife%(grid)s"
+                !define INSTNAME   "Imprudence%(grid_caps)s"
+                !define SHORTCUT   "Imprudence (%(grid_caps)s)"
+                !define URLNAME   "imprudence%(grid)s"
                 !define UNINSTALL_SETTINGS 1
-                Caption "Second Life %(grid)s ${VERSION}"
+                Caption "Imprudence %(grid)s ${VERSION}"
                 """
         else:
             # some other channel on some grid
-            installer_file = "Second_Life_%(version_dashes)s_%(channel_oneword)s_Setup.exe"
+            installer_file = "Imprudence_%(version_dashes)s_%(channel_oneword)s_Setup.exe"
             grid_vars_template = """
             OutFile "%(installer_file)s"
             !define INSTFLAGS "%(flags)s"
-            !define INSTNAME   "SecondLife%(channel_oneword)s"
+            !define INSTNAME   "Imprudence%(channel_oneword)s"
             !define SHORTCUT   "%(channel)s"
-            !define URLNAME   "secondlife"
+            !define URLNAME   "imprudence"
             !define UNINSTALL_SETTINGS 1
             Caption "%(channel)s ${VERSION}"
             """
@@ -338,7 +376,7 @@ class WindowsManifest(ViewerManifest):
             installer_file = installer_file % substitution_strings
         substitution_strings['installer_file'] = installer_file
 
-        tempfile = "secondlife_setup_tmp.nsi"
+        tempfile = "imprudence_setup_tmp.nsi"
         # the following replaces strings in the nsi template
         # it also does python-style % substitution
         self.replace_in("installers/windows/installer_template.nsi", tempfile, {
@@ -358,7 +396,7 @@ class WindowsManifest(ViewerManifest):
 class DarwinManifest(ViewerManifest):
     def construct(self):
         # copy over the build result (this is a no-op if run within the xcode script)
-        self.path(self.args['configuration'] + "/Second Life.app", dst="")
+        self.path(self.args['configuration'] + "/Imprudence.app", dst="")
 
         if self.prefix(src="", dst="Contents"):  # everything goes in Contents
             # Expand the tar file containing the assorted mozilla bits into
@@ -384,16 +422,17 @@ class DarwinManifest(ViewerManifest):
                     self.path("*.tif")
                     self.end_prefix("cursors_mac")
 
-                self.path("licenses-mac.txt", dst="licenses.txt")
+                # From the linden directory
+                if self.prefix("../..", dst="doc"):
+                    self.path("LICENSE-libraries-mac.txt")
+                    self.end_prefix("../..")
+
+                self.gather_documents()
+
                 self.path("featuretable_mac.txt")
                 self.path("SecondLife.nib")
 
-                # If we are not using the default channel, use the 'Firstlook
-                # icon' to show that it isn't a stable release.
-                if self.default_channel() and self.default_grid():
-                    self.path("secondlife.icns")
-                else:
-                    self.path("secondlife_firstlook.icns", "secondlife.icns")
+                self.path("secondlife.icns")
                 
                 # Translations
                 self.path("English.lproj")
@@ -402,18 +441,18 @@ class DarwinManifest(ViewerManifest):
                 self.path("Korean.lproj")
 
                 # SLVoice and vivox lols
-                self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
-                self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
-                self.path("vivox-runtime/universal-darwin/libortp.dylib", "libortp.dylib")
-                self.path("vivox-runtime/universal-darwin/libvivoxsdk.dylib", "libvivoxsdk.dylib")
-                self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
-                self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
+                #self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
+                #self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
+                #self.path("vivox-runtime/universal-darwin/libortp.dylib", "libortp.dylib")
+                #self.path("vivox-runtime/universal-darwin/libvivoxsdk.dylib", "libvivoxsdk.dylib")
+                #self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
+                #self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
 
                 # llkdu dynamic library
 #                self.path("../../libraries/universal-darwin/lib_release/libllkdu.dylib", "libllkdu.dylib")
                 
                 #libfmodwrapper.dylib
-                self.path(self.args['configuration'] + "/libfmodwrapper.dylib", "libfmodwrapper.dylib")
+                #self.path(self.args['configuration'] + "/libfmodwrapper.dylib", "libfmodwrapper.dylib")
                 
                 # our apps
 #                self.path("../mac_crash_logger/" + self.args['configuration'] + "/mac-crash-logger.app", "mac-crash-logger.app")
@@ -437,16 +476,16 @@ class DarwinManifest(ViewerManifest):
 
 
     def package_finish(self):
-        channel_standin = 'Second Life'  # hah, our default channel is not usable on its own
+        channel_standin = 'Imprudence'  # hah, our default channel is not usable on its own
         if not self.default_channel():
             channel_standin = self.channel()
 
-        imagename="SecondLife_" + '_'.join(self.args['version'])
+        imagename="Imprudence_" + '_'.join(self.args['version'])
 
         # MBW -- If the mounted volume name changes, it breaks the .DS_Store's background image and icon positioning.
         #  If we really need differently named volumes, we'll need to create multiple DS_Store file images, or use some other trick.
 
-        volname="Second Life Installer"  # DO NOT CHANGE without understanding comment above
+        volname="Imprudence Installer"  # DO NOT CHANGE without understanding comment above
 
         if self.default_channel():
             if not self.default_grid():
@@ -473,7 +512,7 @@ class DarwinManifest(ViewerManifest):
         # Copy everything in to the mounted .dmg
 
         if self.default_channel() and not self.default_grid():
-            app_name = "Second Life " + self.args['grid']
+            app_name = "Imprudence " + self.args['grid']
         else:
             app_name = channel_standin.strip()
 
@@ -528,15 +567,22 @@ class DarwinManifest(ViewerManifest):
 class LinuxManifest(ViewerManifest):
     def construct(self):
         super(LinuxManifest, self).construct()
-        self.path("licenses-linux.txt","licenses.txt")
-        self.path("res/ll_icon.png","secondlife_icon.png")
+
+        self.path("res/imprudence_icon.png","imprudence_icon.png")
         if self.prefix("linux_tools", dst=""):
-            self.path("client-readme.txt","README-linux.txt")
-            self.path("client-readme-voice.txt","README-linux-voice.txt")
-            self.path("wrapper.sh","secondlife")
+            #self.path("client-readme.txt","README-linux.txt")
+            #self.path("client-readme-voice.txt","README-linux-voice.txt")
+            self.path("wrapper.sh","imprudence")
             self.path("handle_secondlifeprotocol.sh")
             self.path("register_secondlifeprotocol.sh")
             self.end_prefix("linux_tools")
+
+        self.gather_documents()
+
+        # From the linden directory
+        if self.prefix("../..", dst="doc"):
+            self.path("LICENSE-libraries-linux.txt")
+            self.end_prefix("../..")
 
         # Create an appropriate gridargs.dat for this package, denoting required grid.
         self.put_in_file(self.flags_list(), 'gridargs.dat')
@@ -553,7 +599,7 @@ class LinuxManifest(ViewerManifest):
         if 'installer_name' in self.args:
             installer_name = self.args['installer_name']
         else:
-            installer_name_components = ['SecondLife_', self.args.get('arch')]
+            installer_name_components = ['Imprudence_', self.args.get('arch')]
             installer_name_components.extend(self.args['version'])
             installer_name = "_".join(installer_name_components)
             if self.default_channel():
@@ -598,7 +644,7 @@ class LinuxManifest(ViewerManifest):
 class Linux_i686Manifest(LinuxManifest):
     def construct(self):
         super(Linux_i686Manifest, self).construct()
-        self.path("secondlife-stripped","bin/do-not-directly-run-secondlife-bin")
+        self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):
@@ -613,7 +659,7 @@ class Linux_i686Manifest(LinuxManifest):
 
         if self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
 #            self.path("libkdu_v42R.so")
-            self.path("libfmod-3.75.so")
+#            self.path("libfmod-3.75.so")
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
             self.path("libdb-4.2.so")
@@ -631,20 +677,20 @@ class Linux_i686Manifest(LinuxManifest):
             self.end_prefix("lib")
 
             # Vivox runtimes
-            if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
-                    self.path("SLVoice")
-                    self.end_prefix()
-            if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
-                    self.path("libopenal.so.1")
-                    self.path("libortp.so")
-                    self.path("libvivoxsdk.so")
-                    self.path("libalut.so")
-                    self.end_prefix("lib")
+            #if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
+            #        self.path("SLVoice")
+            #        self.end_prefix()
+            #if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
+            #        self.path("libopenal.so.1")
+            #        self.path("libortp.so")
+            #        self.path("libvivoxsdk.so")
+            #        self.path("libalut.so")
+            #        self.end_prefix("lib")
 
 class Linux_x86_64Manifest(LinuxManifest):
     def construct(self):
         super(Linux_x86_64Manifest, self).construct()
-        self.path("secondlife-stripped","bin/do-not-directly-run-secondlife-bin")
+        self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):

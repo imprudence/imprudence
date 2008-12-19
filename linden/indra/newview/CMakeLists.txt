@@ -918,6 +918,7 @@ if (WINDOWS)
         res/bitmap2.bmp
         res/circleandline.cur
         res/icon1.ico
+        res/imprudence_icon.png
         res/install_icon.BMP
         res/install_icon.ico
         res/llarrow.cur
@@ -939,7 +940,6 @@ if (WINDOWS)
         res/lltooltranslate.cur
         res/lltoolzoomin.cur
         res/lltoolzoomout.cur
-        res/ll_icon.BMP
         res/ll_icon.ico
         res/loginbackground.bmp
         res/resource.h
@@ -979,7 +979,7 @@ if (WINDOWS)
         comdlg32
         ${DINPUT_LIBRARY}
         ${DXGUID_LIBRARY}
-        fmodvc
+        ${FMOD_LIBRARY}
         gdi32
         kernel32
         odbc32
@@ -1265,15 +1265,15 @@ list(APPEND viewer_SOURCE_FILES ${viewer_HEADER_FILES})
 set_source_files_properties(${viewer_HEADER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-add_executable(secondlife-bin
+add_executable(imprudence-bin
     WIN32
     MACOSX_BUNDLE
     ${viewer_SOURCE_FILES}
     )
-check_message_template(secondlife-bin)
+check_message_template(imprudence-bin)
 
 if (LLKDU_LIBRARY)
-  add_dependencies(secondlife-bin ${LLKDU_LIBRARY})
+  add_dependencies(imprudence-bin ${LLKDU_LIBRARY})
 endif (LLKDU_LIBRARY)
 
 set(PACKAGE OFF CACHE BOOL
@@ -1281,12 +1281,12 @@ set(PACKAGE OFF CACHE BOOL
 
 if (WINDOWS)
     if(MSVC71)
-        set(release_flags "/MAP:Release/secondlife-bin.map /MAPINFO:LINES")
+        set(release_flags "/MAP:Release/imprudence-bin.map /MAPINFO:LINES")
     else(MSVC71)
-        set(release_flags "/MAP:Release/secondlife-bin.map")
+        set(release_flags "/MAP:Release/imprudence-bin.map")
     endif(MSVC71)
     
-    set_target_properties(secondlife-bin
+    set_target_properties(imprudence-bin
         PROPERTIES
         LINK_FLAGS "/debug /NODEFAULTLIB:MSVCRT /SUBSYSTEM:WINDOWS"
         LINK_FLAGS_DEBUG "/NODEFAULTLIB:LIBCMT /NODEFAULTLIB:MSVCRTD"
@@ -1296,20 +1296,20 @@ if (WINDOWS)
     # sets the 'working directory' for debugging from visual studio.
     if (NOT UNATTENDED)
         add_custom_command(
-            TARGET secondlife-bin PRE_BUILD
+            TARGET imprudence-bin PRE_BUILD
             COMMAND ${CMAKE_SOURCE_DIR}/tools/vstool/vstool.exe
             ARGS
               --solution 
               ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.sln
               --workingdir
-              secondlife-bin
+              imprudence-bin
               ${CMAKE_CURRENT_SOURCE_DIR}
-            COMMENT "Setting the secondlife-bin working directory for debugging."
+            COMMENT "Setting the imprudence-bin working directory for debugging."
             )
     endif (NOT UNATTENDED)
 
     add_custom_command(
-        TARGET secondlife-bin PRE_BUILD
+        TARGET imprudence-bin PRE_BUILD
         COMMAND ${CMAKE_COMMAND}
         ARGS
           -E
@@ -1320,7 +1320,7 @@ if (WINDOWS)
         )
 
     add_custom_command(
-        TARGET secondlife-bin PRE_BUILD
+        TARGET imprudence-bin PRE_BUILD
         COMMAND ${CMAKE_COMMAND}
         ARGS
           -E
@@ -1330,10 +1330,10 @@ if (WINDOWS)
         COMMENT "Copying message.xml to the runtime folder."
         )
        
-    add_dependencies(secondlife-bin copy_win_libs)
+    add_dependencies(imprudence-bin copy_win_libs)
 
     if (EXISTS ${CMAKE_SOURCE_DIR}/copy_win_scripts)
-      add_dependencies(secondlife-bin copy_win_scripts)
+      add_dependencies(imprudence-bin copy_win_scripts)
     endif (EXISTS ${CMAKE_SOURCE_DIR}/copy_win_scripts)
         
     add_custom_command(
@@ -1350,7 +1350,7 @@ if (WINDOWS)
               --build=${CMAKE_CURRENT_BINARY_DIR}
               --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}
               --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/touched.bat
-        DEPENDS secondlife-bin ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
+        DEPENDS imprudence-bin ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
         )
     if (PACKAGE)
       add_custom_target(package ALL DEPENDS ${CMAKE_CFG_INTDIR}/touched.bat)
@@ -1358,7 +1358,7 @@ if (WINDOWS)
     endif (PACKAGE)
 endif (WINDOWS)
 
-target_link_libraries(secondlife-bin
+target_link_libraries(imprudence-bin
     ${LLAUDIO_LIBRARIES}
     ${LLCHARACTER_LIBRARIES}
     ${LLIMAGE_LIBRARIES}
@@ -1403,13 +1403,13 @@ set(ARTWORK_DIR ${CMAKE_CURRENT_SOURCE_DIR} CACHE PATH
 
 if (LINUX)
   add_custom_command(
-      OUTPUT secondlife-stripped
+      OUTPUT imprudence-stripped
       COMMAND strip
-      ARGS --strip-debug -o secondlife-stripped secondlife-bin
-      DEPENDS secondlife-bin
+      ARGS --strip-debug -o imprudence-stripped imprudence-bin
+      DEPENDS imprudence-bin
       )
 
-  set(product SecondLife-${ARCH}-${viewer_VERSION})
+  set(product Imprudence-${ARCH}-${viewer_VERSION})
 
   add_custom_command(
       OUTPUT ${product}.tar.bz2
@@ -1426,7 +1426,7 @@ if (LINUX)
         --build=${CMAKE_CURRENT_BINARY_DIR}
         --dest=${CMAKE_CURRENT_BINARY_DIR}/packaged
         --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
-      DEPENDS secondlife-stripped ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
+      DEPENDS imprudence-stripped ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
       )
 
   if (NOT INSTALL)
@@ -1436,23 +1436,23 @@ if (LINUX)
 endif (LINUX)
 
 if (DARWIN)
-  set(product "Second Life")
+  set(product "Imprudence")
   set_target_properties(
-    secondlife-bin
+    imprudence-bin
     PROPERTIES
     OUTPUT_NAME "${product}"
     MACOSX_BUNDLE_INFO_STRING "info string - localize me"
     MACOSX_BUNDLE_ICON_FILE "secondlife.icns"
-    MACOSX_BUNDLE_GUI_IDENTIFIER "Second Life"
+    MACOSX_BUNDLE_GUI_IDENTIFIER "Imprudence"
     MACOSX_BUNDLE_LONG_VERSION_STRING "ververver"
-    MACOSX_BUNDLE_BUNDLE_NAME "Second Life"
+    MACOSX_BUNDLE_BUNDLE_NAME "Imprudence"
     MACOSX_BUNDLE_SHORT_VERSION_STRING "asdf"
     MACOSX_BUNDLE_BUNDLE_VERSION "asdf"
     MACOSX_BUNDLE_COPYRIGHT "copyright linden lab 2007 - localize me and run me through a legal wringer"
     )
 
   add_custom_command(
-    TARGET secondlife-bin POST_BUILD
+    TARGET imprudence-bin POST_BUILD
     COMMAND ${PYTHON_EXECUTABLE}
     ARGS
       ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
@@ -1463,7 +1463,7 @@ if (DARWIN)
       --artwork=${ARTWORK_DIR}
       --build=${CMAKE_CURRENT_BINARY_DIR}
       --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
-    DEPENDS secondlife-bin ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
+    DEPENDS imprudence-bin ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
     )
 
   if (PACKAGE)
@@ -1481,7 +1481,7 @@ if (DARWIN)
         --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
         --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
       DEPENDS
-        secondlife-bin
+        imprudence-bin
         ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
       )
       add_dependencies(package mac-updater mac-crash-logger)

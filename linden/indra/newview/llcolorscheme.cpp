@@ -37,8 +37,6 @@
 
 LLColor4 gTrackColor;
 LLColor4 gSelfMapColor;
-LLColor4 gAvatarMapColor;
-LLColor4 gFriendMapColor;
 LLColor4 gLandmarkMapColor;
 LLColor4 gLocationMapColor;
 LLColor4 gTelehubMapColor;
@@ -56,8 +54,7 @@ void init_colors()
 	gDisabledTrackColor.setVec(		0.5f, 0.f, 0.f, 1.f );
 
 	gSelfMapColor     = LLColor4::white;
-	gAvatarMapColor   = LLColor4::green;
-	gFriendMapColor   = LLColor4::yellow;
+
 	// fleshy color
 	//gAvatarMapColor.setVec( 255.f/255.f, 223.f/255.f, 170.f/255.f, 1.f);
 
