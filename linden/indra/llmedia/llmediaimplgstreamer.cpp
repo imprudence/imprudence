@@ -49,6 +49,7 @@ extern "C" {
 
 #include "llmediaimplgstreamer_syms.h"
 
+#include "llerror.h"
 // register this impl with media manager factory
 static LLMediaImplRegister sLLMediaImplGStreamerReg( "LLMediaImplGStreamer", new LLMediaImplGStreamerMaker() );
 
@@ -73,12 +74,13 @@ LLMediaImplGStreamer () :
 	mTextureFormatType ( LL_MEDIA_UNSIGNED_INT_8_8_8_8_REV ),
 	mPump ( NULL ),
 	mPlaybin ( NULL ),
-	mVideoSink ( NULL )
+	mVideoSink ( NULL ),
+        mState( GST_STATE_NULL )
 #ifdef LL_GST_SOUNDSINK
 	,mAudioSink ( NULL )
 #endif // LL_GST_SOUNDSINK
 {
-	DEBUGMSG("constructing media...");
+	LL_DEBUGS("MediaManager") << "constructing media..." << LL_ENDL;
 
 	setMediaDepth(4);
 
@@ -99,11 +101,12 @@ LLMediaImplGStreamer () :
 
 	if (NULL == getenv("LL_GSTREAMER_EXTERNAL")) {
 		// instantiate and connect a custom video sink
+		LL_DEBUGS("MediaManager") << "extrenal video sink..." << LL_ENDL;
 		mVideoSink =
 			GST_SLVIDEO(llgst_element_factory_make ("private-slvideo", "slvideo"));
 		if (!mVideoSink)
 		{
-			WARNMSG("Could not instantiate private-slvideo element.");
+			LL_WARNS("MediaImpl") << "Could not instantiate private-slvideo element." << LL_ENDL;
 			// todo: cleanup.
 			return; // error
 		}
@@ -111,12 +114,13 @@ LLMediaImplGStreamer () :
 		g_object_set(mPlaybin, "video-sink", mVideoSink, NULL);
 
 #ifdef LL_GST_SOUNDSINK
+		LL_DEBUGS("MediaManager") << "extrenal audio sink..." << LL_ENDL;
 		// instantiate and connect a custom audio sink
 		mAudioSink =
 			GST_SLSOUND(llgst_element_factory_make ("private-slsound", "slsound"));
 		if (!mAudioSink)
 		{
-			WARNMSG("Could not instantiate private-slsound element.");
+			LL_WARN("MediaImpl") << "Could not instantiate private-slsound element." << LL_ENDL;
 			// todo: cleanup.
 			return; // error
 		}
@@ -149,7 +153,7 @@ int LLMediaImplGStreamer::getTextureFormatInternal() const
 LLMediaImplGStreamer::
 ~LLMediaImplGStreamer ()
 {
-	DEBUGMSG("dtor of media...");
+	LL_DEBUGS("MediaImpl") << ("dtor of media...") << LL_ENDL;
 	unload();
 }
 
@@ -176,21 +180,23 @@ startup ( LLMediaManagerData* init_data )
 				    "libgstvideo-0.10.so.0",
 				    "libgstaudio-0.10.so.0") )
 		{
-			WARNMSG("Couldn't find suitable GStreamer 0.10 support on this system - video playback disabled.");
+		    	LL_WARNS("MediaImpl") << "Couldn't find suitable GStreamer 0.10 support on this system - video playback disabled." << LL_ENDL;
 			return false;
 		}
 
 		if (llgst_segtrap_set_enabled)
 			llgst_segtrap_set_enabled(FALSE);
 		else
-			WARNMSG("gst_segtrap_set_enabled() is not available; Automated crash-reporter may cease to function until next restart.");
+		{
+		    LL_WARNS("MediaImpl") << "gst_segtrap_set_enabled() is not available; Automated crash-reporter may cease to function until next restart." << LL_ENDL;
+		}
 
 		// Protect against GStreamer resetting the locale, yuck.
 		static std::string saved_locale;
 		saved_locale = setlocale(LC_ALL, NULL);
 		if (0 == llgst_init_check(NULL, NULL, NULL))
 		{
-			WARNMSG("GST init failed for unspecified reason.");
+		    LL_WARNS("MediaImpl") << "GST init failed for unspecified reason." << LL_ENDL;
 			setlocale(LC_ALL, saved_locale.c_str() );
 			return false;
 		}
@@ -222,7 +228,7 @@ closedown()
 //
 //#define LL_GST_REPORT_STATE_CHANGES
 #ifdef LL_GST_REPORT_STATE_CHANGES
-static char* get_gst_state_name(GstState state)
+static const char* get_gst_state_name(GstState state)
 {
 	switch (state) {
 	case GST_STATE_VOID_PENDING: return "VOID_PENDING";
@@ -241,17 +247,7 @@ LLMediaImplGStreamer::bus_callback (GstBus     *bus,
 				    GstMessage *message,
 				    gpointer    data)
 {
-	if (GST_MESSAGE_TYPE(message) != GST_MESSAGE_STATE_CHANGED &&
-	    GST_MESSAGE_TYPE(message) != GST_MESSAGE_BUFFERING)
-	{
-		DEBUGMSG("Got GST message type: %s",
-			LLGST_MESSAGE_TYPE_NAME (message));
-	}
-	else
-	{
-		DEBUGMSG("Got GST message type: %s",
-			 LLGST_MESSAGE_TYPE_NAME (message));
-	}
+	LL_DEBUGS("MediaCallback") << "Got GST message type: " << LLGST_MESSAGE_TYPE_NAME (message) << LL_ENDL;
 
 	LLMediaImplGStreamer *impl = (LLMediaImplGStreamer*)data;
 
@@ -262,7 +258,7 @@ LLMediaImplGStreamer::bus_callback (GstBus     *bus,
 		{
 			gint percent = 0;
 			llgst_message_parse_buffering(message, &percent);
-			DEBUGMSG("GST buffering: %d%%", percent);
+			LL_DEBUGS("MediaBuffering") << "GST buffering: " << percent << "%%" << LL_ENDL;
 			LLMediaEvent event( impl, percent );
 			impl->getEventEmitter().update( &LLMediaObserver::onUpdateProgress, event );
 
@@ -279,16 +275,18 @@ LLMediaImplGStreamer::bus_callback (GstBus     *bus,
 						&pending_state);
 #ifdef LL_GST_REPORT_STATE_CHANGES
 		// not generally very useful, and rather spammy.
-		DEBUGMSG("state change (old,<new>,pending): %s,<%s>,%s",
-			 get_gst_state_name(old_state),
-			 get_gst_state_name(new_state),
-			 get_gst_state_name(pending_state));
+		LL_DEBUGS("MediaState") << "GST state change (old,<new>,pending): "<< get_gst_state_name(old_state) << ",<" << get_gst_state_name(new_state) << ">," << get_gst_state_name(pending_state) << LL_ENDL;
 #endif // LL_GST_REPORT_STATE_CHANGES
 
 		switch (new_state) {
 		case GST_STATE_VOID_PENDING:
 			break;
 		case GST_STATE_NULL:
+			LL_DEBUGS("MediaImpl") << "State changed to NULL" << LL_ENDL;
+			if (impl->getState() == GST_STATE_PLAYING) { // We got stoped by gstremer...
+			    impl->play();
+			    LL_DEBUGS("MediaImpl") << "Trying to restart." << LL_ENDL;
+			}
 			break;
 		case GST_STATE_READY:
 			break;
@@ -309,11 +307,12 @@ LLMediaImplGStreamer::bus_callback (GstBus     *bus,
 		gchar *debug = NULL;
 
 		llgst_message_parse_error (message, &err, &debug);
-		WARNMSG("GST error: %s", err->message);
+		LL_WARNS("MediaImpl") << "GST Error: " << err->message << LL_ENDL;
 		g_error_free (err);
 		g_free (debug);
 
 		impl->addCommand(LLMediaBase::COMMAND_STOP);
+		//impl->addCommand(LLMediaBase::COMMAND_START);
 
 		break;
 	}
@@ -324,7 +323,8 @@ LLMediaImplGStreamer::bus_callback (GstBus     *bus,
 			gchar *debug = NULL;
 			
 			llgst_message_parse_info (message, &err, &debug);
-			INFOMSG("GST info: %s", err->message);
+			LL_INFOS("MediaImpl") << "GST info: " << err->message
+			    << LL_ENDL;
 			g_error_free (err);
 			g_free (debug);
 		}
@@ -335,18 +335,36 @@ LLMediaImplGStreamer::bus_callback (GstBus     *bus,
 		gchar *debug = NULL;
 
 		llgst_message_parse_warning (message, &err, &debug);
-		WARNMSG("GST warning: %s", err->message);
+		LL_WARNS("MediaImpl") << "GST warning: " <<  err->message
+		    << LL_ENDL;
 		g_error_free (err);
 		g_free (debug);
 
 		break;
 	}
+	case GST_MESSAGE_TAG: {
+#if 0
+	        GstTagList *tag_list;
+		gchar *title;
+		gchar *artist;
+		llgst_message_parse_tag(message, &tag_list);
+		gboolean hazTitle = llgst_tag_list_get_string(tag_list,
+			GST_TAG_TITLE, &title);
+		gboolean hazArtist = llgst_tag_list_get_string(tag_list,
+			GST_TAG_ARTIST, &artist);
+		if(hazTitle) 
+		    LL_INFOS("MediaInfo") << "Title is " << title << LL_ENDL;
+		if(hazArtist) 
+		    LL_INFOS("MediaInfo") << "Artist is " << artist << LL_ENDL;
+#endif
+		break;
+	}
 	case GST_MESSAGE_EOS:
 		/* end-of-stream */
-		DEBUGMSG("GST end-of-stream.");
+		LL_DEBUGS("MediaImpl") << "GST end-of-stream." << LL_ENDL;
 		if (impl->isLooping())
 		{
-			DEBUGMSG("looping media...");
+			LL_DEBUGS("MediaImpl") << "looping media..." << LL_ENDL;
 			impl->stop();
 			impl->play();
 		}
@@ -374,7 +392,8 @@ bool
 LLMediaImplGStreamer::
 navigateTo ( const std::string urlIn )
 {
-	DEBUGMSG("Setting media URI: %s", urlIn.c_str());
+	LL_DEBUGS("MediaImpl") << "Setting media URI: " << urlIn.c_str()
+	    << LL_ENDL;
 
 	if (NULL == mPump
 #ifdef LL_GST_SOUNDSINK
@@ -412,10 +431,11 @@ bool
 LLMediaImplGStreamer::
 unload ()
 {
-	DEBUGMSG("unloading media...");
+	LL_DEBUGS("MediaImpl") << "unloading media..." << LL_ENDL;
 	if (mPlaybin)
 	{
 		llgst_element_set_state (mPlaybin, GST_STATE_NULL);
+		mState = GST_STATE_NULL;
 		llgst_object_unref (GST_OBJECT (mPlaybin));
 		mPlaybin = NULL;
 	}
@@ -443,7 +463,7 @@ bool
 LLMediaImplGStreamer::
 updateMedia ()
 {
-	DEBUGMSG("updating media...");
+	//LL_DEBUGS("MediaImpl") << "updating media..." << LL_ENDL;
 	
 	// sanity check
 	if (NULL == mPump
@@ -452,7 +472,7 @@ updateMedia ()
 #endif
 	    || NULL == mPlaybin)
 	{
-		DEBUGMSG("dead media...");
+		LL_DEBUGS("MediaImpl") << "dead media..." << LL_ENDL;
 		return false;
 	}
 
@@ -460,36 +480,33 @@ updateMedia ()
 	switch (nextCommand())
 	{
 	case LLMediaBase::COMMAND_START:
-		DEBUGMSG("COMMAND_START");
+		LL_DEBUGS("MediaImpl") << "COMMAND_START" << LL_ENDL;
 		if (getStatus() == LLMediaBase::STATUS_PAUSED ||
 		    getStatus() == LLMediaBase::STATUS_NAVIGATING ||
 		    getStatus() == LLMediaBase::STATUS_STOPPED)
 		{
-			DEBUGMSG("doing COMMAND_START");
 			play();
 			setStatus(LLMediaBase::STATUS_STARTED);
 			clearCommand();
 		}
 		break;
 	case LLMediaBase::COMMAND_STOP:
-		DEBUGMSG("COMMAND_STOP");
-		DEBUGMSG("doing COMMAND_STOP");
+		LL_DEBUGS("MediaImpl") << "COMMAND_STOP" << LL_ENDL;
 		stop();
 		setStatus(LLMediaBase::STATUS_STOPPED);
 		clearCommand();
 		break;
 	case LLMediaBase::COMMAND_PAUSE:
-		DEBUGMSG("COMMAND_PAUSE");
+		LL_DEBUGS("MediaImpl") << "COMMAND_PAUSE" << LL_ENDL;
 		if (getStatus() == LLMediaBase::STATUS_STARTED)
 		{
-			DEBUGMSG("doing COMMAND_PAUSE");
 			pause();
 			setStatus(LLMediaBase::STATUS_PAUSED);
 			clearCommand();
 		}
 		break;
 	default:
-		DEBUGMSG("COMMAND_?");
+		LL_INFOS("MediaImpl") << "Unknown command" << LL_ENDL;
 		clearCommand();
 		break;
 	case LLMediaBase::COMMAND_NONE:
@@ -507,7 +524,7 @@ updateMedia ()
 	        GST_OBJECT_LOCK(mVideoSink);
 		if (mVideoSink->retained_frame_ready)
 		{
-			DEBUGMSG("NEW FRAME ");
+			LL_DEBUGS("MediaImpl") <<"NEW FRAME " << LL_ENDL;
 			if (mVideoSink->retained_frame_width != getMediaWidth() ||
 			    mVideoSink->retained_frame_height != getMediaHeight())
 				// *TODO: also check for change in format
@@ -527,8 +544,9 @@ updateMedia ()
 					mTextureFormatType = LL_MEDIA_UNSIGNED_INT_8_8_8_8_REV;
 				}
 				mMediaRowbytes = neww * newd;
-				DEBUGMSG("video container resized to %dx%d",
-					 neww, newh);
+				LL_DEBUGS("MediaImpl")
+				    << "video container resized to " <<
+				    neww <<"x"<< newh << LL_ENDL;
 				
 				delete[] mediaData;
 				mediaData = new unsigned char[mMediaRowbytes *
@@ -568,9 +586,10 @@ bool
 LLMediaImplGStreamer::
 stop ()
 {
-	DEBUGMSG("stopping media...");
+	LL_DEBUGS("MediaImpl") << "stopping media..." << LL_ENDL;
 	// todo: error-check this?
 	llgst_element_set_state(mPlaybin, GST_STATE_READY);
+	mState = GST_STATE_READY;
 	return true;
 }
 
@@ -580,9 +599,10 @@ bool
 LLMediaImplGStreamer::
 play ()
 {
-	DEBUGMSG("playing media...");
+	LL_DEBUGS("MediaImpl") << "playing media..." << LL_ENDL;
 	// todo: error-check this?
 	llgst_element_set_state(mPlaybin, GST_STATE_PLAYING);
+	mState = GST_STATE_PLAYING;
 	return true;
 }
 
@@ -592,9 +612,10 @@ bool
 LLMediaImplGStreamer::
 pause ()
 {
-	DEBUGMSG("pausing media...");
+	LL_DEBUGS("MediaImpl") <<"pausing media..." << LL_ENDL;
 	// todo: error-check this?
 	llgst_element_set_state(mPlaybin, GST_STATE_PAUSED);
+	mState = GST_STATE_PAUSED;
 	return true;
 };
 
@@ -624,8 +645,8 @@ seek( double time )
 				GST_SEEK_TYPE_SET, gint64(time*1000000000.0F),
 				GST_SEEK_TYPE_NONE, GST_CLOCK_TIME_NONE);
 	}
-	DEBUGMSG("MEDIA SEEK REQUEST to %fsec result was %d",
-		 float(time), int(success));
+	LL_DEBUGS("MediaImpl") << "MEDIA SEEK REQUEST to " << float(time)
+	    << "sec result was " << int(success) << LL_ENDL;
 	return success;
 }
 
