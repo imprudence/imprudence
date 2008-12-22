@@ -1,3 +1,13 @@
+2008-12-22  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llviewermenu.cpp:
+	Buy and Take now separated in the pie menu.
+	* linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+	Ditto.
+
+
 2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/install.xml:
