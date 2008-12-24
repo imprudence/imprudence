@@ -1,3 +1,9 @@
+2008-12-24  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloaterworldmap.cpp:
+	llMapDestination and map floater can now tp up to 4096m.
+
+
 2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/install.xml:
