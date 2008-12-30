@@ -106,4 +106,59 @@ copy_if_different(
 set(all_targets ${all_targets} ${out_targets})
 
 
+# Copy MS C runtime dlls, required for packaging.
+# *TODO - Adapt this to support VC9
+if (MSVC80)
+    FIND_PATH(debug_msvc8_redist_path msvcr80d.dll
+        PATHS
+        [HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\VisualStudio\\8.0\\Setup\\VC;ProductDir]/redist/Debug_NonRedist/x86/Microsoft.VC80.DebugCRT
+        )
+
+    if(EXISTS ${debug_msvc8_redist_path})
+        set(debug_msvc8_files
+            msvcr80d.dll
+            msvcp80d.dll
+            Microsoft.VC80.DebugCRT.manifest
+            )
+
+        copy_if_different(
+            ${debug_msvc8_redist_path} 
+            "${CMAKE_CURRENT_BINARY_DIR}/Debug"
+            out_targets 
+            ${debug_msvc8_files}
+            )
+        set(all_targets ${all_targets} ${out_targets})
+    endif (EXISTS ${debug_msvc8_redist_path})
+
+    FIND_PATH(release_msvc8_redist_path msvcr80.dll
+        PATHS
+        [HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\VisualStudio\\8.0\\Setup\\VC;ProductDir]/redist/x86/Microsoft.VC80.CRT
+        )
+
+    if(EXISTS ${release_msvc8_redist_path})
+        set(release_msvc8_files
+            msvcr80.dll
+            msvcp80.dll
+            Microsoft.VC80.CRT.manifest
+            )
+
+        copy_if_different(
+            ${release_msvc8_redist_path} 
+            "${CMAKE_CURRENT_BINARY_DIR}/Release"
+            out_targets 
+            ${release_msvc8_files}
+            )
+        set(all_targets ${all_targets} ${out_targets})
+
+        copy_if_different(
+            ${release_msvc8_redist_path} 
+            "${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo"
+            out_targets 
+            ${release_msvc8_files}
+            )
+        set(all_targets ${all_targets} ${out_targets})
+
+    endif (EXISTS ${release_msvc8_redist_path})
+endif (MSVC80)
+
 add_custom_target(copy_win_libs ALL DEPENDS ${all_targets})

@@ -1,3 +1,37 @@
+2008-12-30  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/CMakeLists.txt:
+	"Added fix for VWR-10392 as well as other fixes.
+	* linden/indra/cmake/00-Common.cmake:
+	Ditto.
+	* linden/indra/cmake/APR.cmake:
+	Ditto.
+	* linden/indra/cmake/CopyWinLibs.cmake:
+	Ditto.
+	* linden/indra/cmake/DirectX.cmake:
+	Ditto.
+	* linden/indra/cmake/FindMono.cmake:
+	Ditto.
+	* linden/indra/cmake/GooglePerfTools.cmake:
+	Ditto.
+	* linden/indra/cmake/LLXML.cmake:
+	Ditto.
+	* linden/indra/cmake/Linking.cmake:
+	Ditto.
+	* linden/indra/cmake/NDOF.cmake:
+	Ditto.
+	* linden/indra/cmake/Python.cmake:
+	Ditto.
+	* linden/indra/cmake/QuickTime.cmake:
+	Ditto.
+	* linden/indra/develop.py:
+	Ditto.
+	* linden/indra/newview/CMakeLists.txt:
+	Ditto.
+	* linden/indra/cmake/DBusGlib.cmake:
+	Ditto.
+
+
 2008-12-29  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/CMakeLists.txt:

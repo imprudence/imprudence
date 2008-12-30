@@ -49,6 +49,10 @@ if (WINDOWS)
       )
      
   if(MSVC80 OR MSVC90)
+    set(CMAKE_CXX_FLAGS_RELEASE
+      "${CMAKE_CXX_FLAGS_RELEASE} -D_SECURE_STL=0 -D_HAS_ITERATOR_DEBUGGING=0"
+      CACHE STRING "C++ compiler release options" FORCE)
+   
     add_definitions(
       /Zc:wchar_t-
       )
@@ -165,6 +169,10 @@ if (DARWIN)
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_CXX_LINK_FLAGS}")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlong-branch")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mlong-branch")
+  # NOTE: it's critical that the optimization flag is put in front.
+  # NOTE: it's critical to have both CXX_FLAGS and C_FLAGS covered.
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O0 ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O0 ${CMAKE_C_FLAGS_RELWITHDEBINFO}")
 endif (DARWIN)
 
 
