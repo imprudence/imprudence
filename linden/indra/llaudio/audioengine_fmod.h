@@ -35,6 +35,7 @@
 
 #include "audioengine.h"
 #include "listener_fmod.h"
+#include "windgen.h"
 
 #include "fmod.h"
 
@@ -47,12 +48,10 @@ public:
 	virtual ~LLAudioEngine_FMOD();
 
 	// initialization/startup/shutdown
-	virtual BOOL init(const S32 num_channels, void *user_data);
+	virtual bool init(const S32 num_channels, void *user_data);
 	virtual void allocateListener();
 
 	virtual void shutdown();
-
-	virtual void idle(F32 max_decode_time = 0.f);
 
 	// Internet stream methods
 	virtual void initInternetStream();
@@ -61,14 +60,18 @@ public:
 	virtual void stopInternetStream();
 	virtual void pauseInternetStream(int pause);
 	virtual int isInternetStreamPlaying();
-	virtual void getInternetStreamInfo(char* artist, char* title);
 	virtual void setInternetStreamGain(F32 vol);
-	virtual const std::string& getInternetStreamURL();
 
 	/*virtual*/ void initWind();
 	/*virtual*/ void cleanupWind();
 
 	/*virtual*/void updateWind(LLVector3 direction, F32 camera_height_above_water);
+
+#if LL_DARWIN
+        typedef S32 MIXBUFFERFORMAT;
+#else
+        typedef S16 MIXBUFFERFORMAT;
+#endif
 
 protected:
 	/*virtual*/ LLAudioBuffer *createBuffer(); // Get a free buffer, or flush an existing one if you have to.
@@ -79,7 +82,6 @@ protected:
 	static signed char F_CALLBACKAPI callbackMetaData(char* name, char* value, void* userdata);
 
 	LLAudioStreamFMOD *mCurrentInternetStreamp;
-	std::string mInternetStreamURL;
 	int mInternetStreamChannel;
 
 	std::list<LLAudioStreamFMOD *> mDeadStreams;
@@ -88,11 +90,12 @@ protected:
 	//F32 mMaxDistance[MAX_BUFFERS];
 
 	S32 mFadeIn;
-	BOOL mInited;
+	bool mInited;
 
 	// On Windows, userdata is the HWND of the application window.
 	void* mUserData;
 
+	LLWindGen<MIXBUFFERFORMAT> *mWindGen;
 };
 
 
@@ -106,9 +109,9 @@ protected:
 	/*virtual*/ void play();
 	/*virtual*/ void playSynced(LLAudioChannel *channelp);
 	/*virtual*/ void cleanup();
-	/*virtual*/ BOOL isPlaying();
+	/*virtual*/ bool isPlaying();
 
-	/*virtual*/ BOOL updateBuffer();
+	/*virtual*/ bool updateBuffer();
 	/*virtual*/ void update3DPosition();
 	/*virtual*/ void updateLoop();
 
@@ -124,11 +127,11 @@ public:
 	LLAudioBufferFMOD();
 	virtual ~LLAudioBufferFMOD();
 
-	/*virtual*/ BOOL loadWAV(const std::string& filename);
+	/*virtual*/ bool loadWAV(const std::string& filename);
 	/*virtual*/ U32 getLength();
 	friend class LLAudioChannelFMOD;
 
-	void set3DMode(BOOL use3d);
+	void set3DMode(bool use3d);
 protected:
 	FSOUND_SAMPLE *getSample()	{ return mSamplep; }
 protected:
@@ -140,15 +143,15 @@ class LLAudioStreamFMOD
 public:
 	LLAudioStreamFMOD(const std::string& url);
 	int	startStream();
-	BOOL stopStream(); // Returns true if the stream was successfully stopped.
-	BOOL ready();
+	bool stopStream(); // Returns true if the stream was successfully stopped.
+	bool ready();
 
 	const std::string& getURL() 	{ return mInternetStreamURL; }
 
 	int getOpenState();
 protected:
 	FSOUND_STREAM* mInternetStream;
-	BOOL mReady;
+	bool mReady;
 
 	std::string mInternetStreamURL;
 };

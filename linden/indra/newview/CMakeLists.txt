@@ -8,6 +8,8 @@ include(BuildVersion)
 include(DBusGlib)
 include(DirectX)
 include(ELFIO)
+include(FMOD)
+include(OPENAL)
 include(FindOpenGL)
 include(LLAudio)
 include(LLCharacter)
@@ -55,6 +57,7 @@ include_directories(
     ${LLXML_INCLUDE_DIRS}
     ${LSCRIPT_INCLUDE_DIRS}
     ${LSCRIPT_INCLUDE_DIRS}/lscript_compile
+    ${GSTREAMER_INCLUDE_DIRS}
     )
 
 set(viewer_SOURCE_FILES

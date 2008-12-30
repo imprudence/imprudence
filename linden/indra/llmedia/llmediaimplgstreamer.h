@@ -100,9 +100,11 @@ class LLMediaImplGStreamer:
         	GMainLoop *mPump; // event pump for this media
 	        GstElement *mPlaybin;
 		GstSLVideo *mVideoSink;
+		GstState mState;
 #ifdef LL_GST_SOUNDSINK
 		GstSLSound *mAudioSink;
 #endif // LL_GST_SOUNDSINK
+		GstState getState() const { return mState; }
 };
 
 class LLMediaImplGStreamerMaker : public LLMediaImplMaker

@@ -40,6 +40,7 @@
 # include "llmediaimplllmozlib.h"
 #endif
 
+#include "llerror.h"
 LLMediaManager* LLMediaManager::sInstance = 0;
 
 
@@ -75,6 +76,7 @@ void LLMediaManager::initClass( LLMediaManagerData* init_data )
 	if ( ! sInstance )
 		sInstance = new LLMediaManager();
 
+	LL_DEBUGS("MediaManager") << "LLMediaManager::initClass" << LL_ENDL;
 	// Initialize impl classes here - this breaks the encapsulation model
 	// but some of the initialization takes a long time and we only want to
 	// do it once at app startup before any of the impls have been created
@@ -84,10 +86,12 @@ void LLMediaManager::initClass( LLMediaManagerData* init_data )
 	LLMediaImplExample2::startup( init_data );
 
 #if LL_QUICKTIME_ENABLED
+	LL_DEBUGS("MediaManager") << "LLMediaManager::initClass: starting quicktime." << LL_ENDL;
 	LLMediaImplQuickTime::startup( init_data );
 #endif // LL_QUICKTIME_ENABLED
 
 #if LL_GSTREAMER_ENABLED
+	LL_DEBUGS("MediaManager") << "LLMediaManager::initClass: starting gstreamer" << LL_ENDL;
 	LLMediaImplGStreamer::startup( init_data );
 #endif // LL_GSTREAMER_ENABLED
 }

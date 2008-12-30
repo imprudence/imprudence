@@ -44,6 +44,16 @@ class ViewerManifest(LLManifest):
         self.exclude("*.svn*")
         self.path(src="../../scripts/messages/message_template.msg", dst="app_settings/message_template.msg")
         self.path(src="../../etc/message.xml", dst="app_settings/message.xml")
+	self.path(src="../../../ChangeLog.txt", dst="doc/ChangeLog.txt")
+	self.path(src="../../../CONTRIBUTE.txt", dst="doc/CONTRIBUTE.txt")
+	self.path(src="../../../MANIFESTO.txt", dst="doc/MANIFESTO.txt")
+	self.path(src="../../../README.txt", dst="doc/README.txt")
+	self.path(src="../../../RELEASE_NOTES.txt", dst="doc/RELEASE_NOTES.txt")
+	self.path(src="../../doc/contributions.txt", dst="doc/ll-contributions.txt")
+	self.path(src="../../doc/FLOSS-exception.txt", dst="doc/FLOSS-exception.txt")
+	self.path(src="../../doc/GPL-license.txt", dst="doc/GPL-license.txt")
+	self.path(src="../../doc/releasenotes-where.txt", dst="doc/ll-releasenotes-where.txt")
+# 
 
         if self.prefix(src="app_settings"):
             self.exclude("logcontrol.xml")
@@ -236,18 +246,20 @@ class WindowsManifest(ViewerManifest):
             self.end_prefix()
 
         # Vivox runtimes
-        #if self.prefix(src="vivox-runtime/i686-win32", dst=""):
+        if self.prefix(src="vivox-runtime/i686-win32", dst=""):
+            self.path("alut.dll")
+            self.path("wrap_oal.dll")
+
         #    self.path("SLVoice.exe")
         #    self.path("SLVoiceAgent.exe")
         #    self.path("libeay32.dll")
         #    self.path("srtp.dll")
         #    self.path("ssleay32.dll")
         #    self.path("tntk.dll")
-        #    self.path("alut.dll")
         #    self.path("vivoxsdk.dll")
         #    self.path("ortp.dll")
-        #    self.path("wrap_oal.dll")
-        #    self.end_prefix()
+
+            self.end_prefix()
 
 #        # pull in the crash logger and updater from other projects
 #        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
@@ -432,9 +444,10 @@ class DarwinManifest(ViewerManifest):
                 self.path("Japanese.lproj")
                 self.path("Korean.lproj")
 
+
                 # SLVoice and vivox lols
-                #self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
-                #self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
+                self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
+                self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
                 #self.path("vivox-runtime/universal-darwin/libortp.dylib", "libortp.dylib")
                 #self.path("vivox-runtime/universal-darwin/libvivoxsdk.dylib", "libvivoxsdk.dylib")
                 #self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
@@ -667,12 +680,13 @@ class Linux_i686Manifest(LinuxManifest):
             #if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
             #        self.path("SLVoice")
             #        self.end_prefix()
-            #if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
-            #        self.path("libopenal.so.1")
+            
+            if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
+                self.path("libopenal.so.1")
+                self.path("libalut.so")
             #        self.path("libortp.so")
             #        self.path("libvivoxsdk.so")
-            #        self.path("libalut.so")
-            #        self.end_prefix("lib")
+                self.end_prefix("lib")
 
 class Linux_x86_64Manifest(LinuxManifest):
     def construct(self):

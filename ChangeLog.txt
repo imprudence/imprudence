@@ -1,5 +1,10 @@
 2008-12-30  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Merged in balp's openal branch.
+
+
+2008-12-30  McCabe Maxsted  <hakushakukun@gmail.com>
+
 	* linden/indra/CMakeLists.txt:
 	"Added fix for VWR-10392 as well as other fixes.
 	* linden/indra/cmake/00-Common.cmake:
@@ -70,6 +75,14 @@
 
 	* linden/indra/llcommon/llversionviewer.h:
 	Bumped version to 1.1.0 alpha.
+
+
+2008-12-12  Balp Allen  <Anders@Arnholm.se>
+
+	* Bumped version to RC3
+
+	* Applied patches from Henri's CoolViewer:
+	Possible to discard much more given items.
 
 
 2008-12-11  McCabe Maxsted  <hakushakukun@gmail.com>
@@ -274,6 +287,65 @@
 	VWR-10759 (use delete [] in LLMediaImplGStreamer)
 	Patch by Aleric Inglewood.
 
+
+	* linden/indra/llaudio/audioengine.cpp:
+	Updated audio engine to LL's openal branch r1532.
+	* linden/indra/llaudio/audioengine.h:
+	Ditto.
+	* linden/indra/llaudio/audioengine_openal.cpp:
+	Ditto.
+	* linden/indra/llaudio/audioengine_openal.h:
+	Ditto.
+	* linden/indra/newview/llaudiosourcevo.cpp:
+	Ditto.
+	* linden/indra/newview/llpreviewsound.cpp:
+	Ditto.
+	* linden/indra/newview/llstartup.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermessage.cpp:
+	Ditto.
+	* linden/indra/newview/llviewertexteditor.cpp:
+	Ditto.
+	* linden/indra/newview/llvoavatar.cpp:
+	Ditto.
+
+
+2008-11-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/OPENAL.cmake:
+	Cross-platform checking for OpenAL libs.
+	* linden/indra/cmake/LLAudio.cmake:
+	Ditto.
+
+
+2008-11-20  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/OPENAL.cmake:
+	Enable OpenAL by default.
+	Configure with -DOPENAL:BOOL=OFF to disable.
+
+
+2008-11-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/viewer_manifest.py:
+	Package up OpenAL libs.
+	
+
+	* indra/llaudio/audioengine_openal.cpp:
+	VWR-2662: OpenAL support (patch by Tofu Linden)
+	* indra/llaudio/audioengine_openal.h: Ditto.
+	* indra/llaudio/listener_openal.cpp: Ditto.
+	* indra/llaudio/listener_openal.h: Ditto.
+	* indra/llaudio/windgen.h: Ditto.
+	* indra/cmake/LLAudio.cmake: Ditto.
+	* indra/llaudio/CMakeLists.txt: Ditto.
+	* indra/llaudio/audioengine.h: Ditto.
+	* indra/llaudio/audioengine_fmod.cpp: Ditto.
+	* indra/llaudio/audioengine_fmod.h: Ditto.
+	* indra/llaudio/listener_fmod.h: Ditto.
+	* indra/newview/CMakeLists.txt: Ditto.
+	* indra/newview/llappviewer.cpp: Ditto.
+	* indra/newview/llstartup.cpp: Ditto.
 
 2008-12-06  McCabe Maxsted  <hakushakukun@gmail.com>
 

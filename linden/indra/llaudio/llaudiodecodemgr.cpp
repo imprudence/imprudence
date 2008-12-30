@@ -374,16 +374,16 @@ BOOL LLVorbisDecodeState::finishDecode()
   
 		// write "data" chunk length, in little-endian format
 		S32 data_length = mWAVBuffer.size() - WAV_HEADER_SIZE;
-		mWAVBuffer[40] = (data_length) & 0x000000FF;
-		mWAVBuffer[41] = (data_length >> 8) & 0x000000FF;
-		mWAVBuffer[42] = (data_length >> 16) & 0x000000FF;
-		mWAVBuffer[43] = (data_length >> 24) & 0x000000FF;
+		mWAVBuffer[40] = (data_length - 8) & 0x000000FF;
+		mWAVBuffer[41] = ((data_length - 8)>> 8) & 0x000000FF;
+		mWAVBuffer[42] = ((data_length - 8)>> 16) & 0x000000FF;
+		mWAVBuffer[43] = ((data_length - 8)>> 24) & 0x000000FF;
+
 		// write overall "RIFF" length, in little-endian format
-		data_length += 36;
-		mWAVBuffer[4] = (data_length) & 0x000000FF;
-		mWAVBuffer[5] = (data_length >> 8) & 0x000000FF;
-		mWAVBuffer[6] = (data_length >> 16) & 0x000000FF;
-		mWAVBuffer[7] = (data_length >> 24) & 0x000000FF;
+		mWAVBuffer[4] = (data_length + 28) & 0x000000FF;
+		mWAVBuffer[5] = ((data_length + 28) >> 8) & 0x000000FF;
+		mWAVBuffer[6] = ((data_length + 28) >> 16) & 0x000000FF;
+		mWAVBuffer[7] = ((data_length + 28) >> 24) & 0x000000FF;
 
 		//
 		// FUDGECAKES!!! Vorbis encode/decode messes up loop point transitions (pop)
@@ -395,7 +395,8 @@ BOOL LLVorbisDecodeState::finishDecode()
 			S32 fade_length;
 			char pcmout[4096];		/*Flawfinder: ignore*/ 	
 
-			fade_length = llmin((S32)128,(S32)(data_length-36)/8);			
+			fade_length = llmin((S32)128,(S32)(data_length)/8);			
+
 			if((S32)mWAVBuffer.size() >= (WAV_HEADER_SIZE + 2* fade_length))
 			{
 				memcpy(pcmout, &mWAVBuffer[WAV_HEADER_SIZE], (2 * fade_length));	/*Flawfinder: ignore*/
@@ -435,7 +436,7 @@ BOOL LLVorbisDecodeState::finishDecode()
 			}
 		}
 
-		if (36 == data_length)
+		if (0 == data_length)
 		{
 			llwarns << "BAD Vorbis decode in finishDecode!" << llendl;
 			mValid = FALSE;

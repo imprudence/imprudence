@@ -35,7 +35,8 @@
 
 #include "listener.h"
 
-#include "AL/al.h"
+
+//#include "AL/al.h"
 #include "AL/alut.h"
 
 class LLListener_OpenAL  : public LLListener
@@ -54,6 +55,10 @@ class LLListener_OpenAL  : public LLListener
 	virtual void setPosition(LLVector3 pos);
 	virtual void setVelocity(LLVector3 vel);
 	virtual void orient(LLVector3 up, LLVector3 at);
+	virtual void commitDeferredChanges();
+
+	virtual void setDopplerFactor(F32 factor);
+	virtual F32 getDopplerFactor();
 };
 
 #endif

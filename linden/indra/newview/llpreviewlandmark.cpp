@@ -90,7 +90,15 @@ LLPreviewLandmark::LLPreviewLandmark(const std::string& name,
 {
 	
 	mFactoryMap["place_details_panel"] = LLCallbackMap(LLPreviewLandmark::createPlaceDetail, this);
-	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_preview_existing_landmark.xml", &getFactoryMap());
+	if (show_keep_discard)
+	{
+		LLUICtrlFactory::getInstance()->buildFloater(this, "floater_preview_new_landmark.xml", &getFactoryMap());
+		childSetAction("Discard btn",onDiscardBtn,this);
+	}
+	else
+	{
+		LLUICtrlFactory::getInstance()->buildFloater(this, "floater_preview_existing_landmark.xml", &getFactoryMap());
+	}
 
 	/*
 	childSetCommitCallback("desc_editor", LLPreview::onText, this);
