@@ -1,3 +1,19 @@
+2008-12-29  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/CMakeLists.txt:
+	Removed llkdu from cmake.
+	* linden/indra/cmake/CopyWinLibs.cmake:
+	Ditto.
+	* linden/indra/cmake/LLKDU.cmake:
+	Ditto.
+	* linden/indra/newview/CMakeLists.txt:
+	Ditto.
+	* linden/indra/newview/viewer_manifest.py:
+	Ditto.
+	* linden/install.xml:
+	Ditto.
+
+
 2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/install.xml:

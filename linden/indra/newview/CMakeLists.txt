@@ -31,7 +31,6 @@ include(NDOF)
 include(TemplateCheck)
 include(UI)
 include(UnixInstall)
-include(LLKDU)
 include(ViewerMiscLibs)
 
 if (WINDOWS)
@@ -1271,10 +1270,6 @@ add_executable(imprudence-bin
     ${viewer_SOURCE_FILES}
     )
 check_message_template(imprudence-bin)
-
-if (LLKDU_LIBRARY)
-  add_dependencies(imprudence-bin ${LLKDU_LIBRARY})
-endif (LLKDU_LIBRARY)
 
 set(PACKAGE OFF CACHE BOOL
     "Add a package target that builds an installer package.")

@@ -183,14 +183,6 @@ class WindowsManifest(ViewerManifest):
         # the final exe is complicated because we're not sure where it's coming from,
         # nor do we have a fixed name for the executable
         self.path(self.find_existing_file('debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
-        # need to get the kdu dll from any of the build directories as well
-        #self.path(self.find_existing_file(
-                # *FIX:Mani we need to add support for packaging specific targets.
-                #'../llkdu/debug/llkdu.dll',
-                #'../llkdu/release/llkdu.dll',
-                #'../llkdu/relwithdebinfo/llkdu.dll',
-                #'../../libraries/i686-win32/lib/release/llkdu.dll'), 
-                #  dst='llkdu.dll')
 
         self.gather_documents()
 
@@ -448,9 +440,6 @@ class DarwinManifest(ViewerManifest):
                 #self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
                 #self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
 
-                # llkdu dynamic library
-#                self.path("../../libraries/universal-darwin/lib_release/libllkdu.dylib", "libllkdu.dylib")
-                
                 #libfmodwrapper.dylib
                 #self.path(self.args['configuration'] + "/libfmodwrapper.dylib", "libfmodwrapper.dylib")
                 
@@ -658,7 +647,6 @@ class Linux_i686Manifest(LinuxManifest):
         self.path("app_settings/mozilla-runtime-linux-i686")
 
         if self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
-#            self.path("libkdu_v42R.so")
 #            self.path("libfmod-3.75.so")
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
@@ -673,7 +661,6 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libopenjpeg.so.2")
             #self.path("libtcmalloc.so.0") - bugged
             #self.path("libstacktrace.so.0") - probably bugged
-#            self.path("libllkdu.so", "../bin/libllkdu.so") # llkdu goes in bin for some reason
             self.end_prefix("lib")
 
             # Vivox runtimes
