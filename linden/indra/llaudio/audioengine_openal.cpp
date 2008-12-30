@@ -389,7 +389,7 @@ void LLAudioEngine_OpenAL::initWind()
 	}
 
 	mWindGen = new LLWindGen<WIND_SAMPLE_T>;
-	static const float WIND_BUFFER_SIZE_SEC = 0.05f; // 1/20th sec
+	const float WIND_BUFFER_SIZE_SEC = 0.05f; // 1/20th sec
 
 	mWindBufFreq = mWindGen->getInputSamplingRate();
 	mWindBufSamples = llceil(mWindBufFreq * WIND_BUFFER_SIZE_SEC);
