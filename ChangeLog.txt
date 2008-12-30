@@ -1,9 +1,14 @@
 2008-12-30  McCabe Maxsted  <hakushakukun@gmail.com>
 
+
+	* linden/indra/llaudio/audioengine_openal.cpp:
+	Fixed a compile problem in VS2005.
+	* linden/indra/llaudio/audioengine_openal.h:
+	Ditto.
+
+
 	* Merged in balp's openal branch.
 
-
-2008-12-30  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/CMakeLists.txt:
 	"Added fix for VWR-10392 as well as other fixes.
