@@ -1391,8 +1391,12 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("DispatchRegionInfo");
 	capabilityNames.append("EstateChangeInfo");
 	capabilityNames.append("EventQueueGet");
-	capabilityNames.append("FetchInventoryDescendents");
+	capabilityNames.append("FetchInventory");
+	capabilityNames.append("WebFetchInventoryDescendents");
+	capabilityNames.append("FetchLib");
+	capabilityNames.append("FetchLibDescendents");
 	capabilityNames.append("GroupProposalBallot");
+	capabilityNames.append("HomeLocation");
 	capabilityNames.append("MapLayer");
 	capabilityNames.append("MapLayerGod");
 	capabilityNames.append("NewFileAgentInventory");

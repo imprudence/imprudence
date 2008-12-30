@@ -1,3 +1,28 @@
+2008-12-24  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/etc/message.xml:
+	Added inventory changes for one method of inventory 
+	loss and upcoming new inv capabilities.
+	* linden/indra/llcommon/indra_constants.h:
+	Ditto.
+	* linden/indra/llinventory/llinventory.cpp:
+	Ditto.
+	* linden/indra/llmessage/lliosocket.cpp:
+	Ditto.
+	* linden/indra/llmessage/llpumpio.cpp:
+	Ditto.
+	* linden/indra/llmessage/llpumpio.h:
+	Ditto.
+	* linden/indra/newview/llinventorymodel.cpp:
+	Ditto.
+	* linden/indra/newview/llinventorymodel.h:
+	Ditto.
+	* linden/indra/newview/llstartup.cpp:
+	Ditto.
+	* linden/indra/newview/llviewerinventory.cpp:
+	Ditto.
+
+
 2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/install.xml:
