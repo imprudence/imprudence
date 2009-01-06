@@ -90,10 +90,10 @@ void LLMediaManager::initClass( LLMediaManagerData* init_data )
 	LLMediaImplQuickTime::startup( init_data );
 #endif // LL_QUICKTIME_ENABLED
 
-#if LL_GSTREAMER_ENABLED
+///#if LL_GSTREAMER_ENABLED
 	LL_DEBUGS("MediaManager") << "LLMediaManager::initClass: starting gstreamer" << LL_ENDL;
 	LLMediaImplGStreamer::startup( init_data );
-#endif // LL_GSTREAMER_ENABLED
+///#endif // LL_GSTREAMER_ENABLED
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -133,9 +133,9 @@ void LLMediaManager::cleanupClass()
 	LLMediaImplQuickTime::closedown();
 #endif // LL_QUICKTIME_ENABLED
 
-#if LL_GSTREAMER_ENABLED
+///#if LL_GSTREAMER_ENABLED
 	LLMediaImplGStreamer::closedown();
-#endif // LL_QUICKTIME_ENABLED
+///#endif // LL_QUICKTIME_ENABLED
 
 	if ( sInstance )
 		delete sInstance;

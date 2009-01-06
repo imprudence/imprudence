@@ -31,13 +31,13 @@
  */
 
 // header guard
-#ifndef llmediaimplgstreamer_h
+///#ifndef llmediaimplgstreamer_h
 #define llmediaimplgstreamer_h
 
 #include "llmediaimplcommon.h"
 #include "llmediaimplfactory.h"
 
-#if LL_GSTREAMER_ENABLED
+///#if LL_GSTREAMER_ENABLED
 
 extern "C" {
 #include <stdio.h>
@@ -46,6 +46,8 @@ extern "C" {
 #include "apr_pools.h"
 #include "apr_dso.h"
 }
+//#include <glib-object.h>
+//#include <gmain.h>
 
 #include "llmediaimplgstreamervidplug.h"
 #ifdef LL_GST_SOUNDSINK
@@ -131,6 +133,6 @@ public:
 #define WARNMSG  STDERRMSG
 /////////////////////////////////////////////////////////////////////////
 
-#endif // LL_GSTREAMER_ENABLED
+///#endif // LL_GSTREAMER_ENABLED
 
-#endif // llmediaimplgstreamer_h
+///#endif // llmediaimplgstreamer_h

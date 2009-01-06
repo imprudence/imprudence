@@ -29,6 +29,9 @@ set(llmedia_SOURCE_FILES
     llmediaimplexample2.cpp
     llmediaimplfactory.cpp
     llmediamanager.cpp
+    llmediaimplgstreamer.cpp
+    llmediaimplgstreamer_syms.cpp
+    llmediaimplgstreamervidplug.cpp
     )
     
 set(llmedia_HEADER_FILES
@@ -43,20 +46,10 @@ set(llmedia_HEADER_FILES
     llmediaimplregister.h
     llmediamanager.h
     llmediaobserver.h
+    llmediaimplgstreamer.h
+    llmediaimplgstreamervidplug.h
+    llmediaimplgstreamer_syms.h
     )
-
-if (GSTREAMER)
-  list(APPEND llmedia_SOURCE_FILES
-       llmediaimplgstreamer.cpp
-       llmediaimplgstreamer_syms.cpp
-       llmediaimplgstreamervidplug.cpp
-       )
-
-  list(APPEND llmedia_HEADER_FILES
-       llmediaimplgstreamer.h
-       llmediaimplgstreamervidplug.h
-       llmediaimplgstreamer_syms.h
-       )
 
   # Work around a bad interaction between broken gstreamer headers and
   # g++ 4.3's increased strictness.
@@ -65,7 +58,6 @@ if (GSTREAMER)
     set_source_files_properties(llmediaimplgstreamervidplug.cpp PROPERTIES
                                 COMPILE_FLAGS -Wno-error=write-strings)
   endif (${CXX_VERSION} MATCHES "4.[23]")
-endif (GSTREAMER)
 
 if (MOZLIB)
   list(APPEND llmedia_SOURCE_FILES llmediaimplllmozlib.cpp)

@@ -1,5 +1,26 @@
-2008-12-30  McCabe Maxsted  <hakushakukun@gmail.com>
+2008-01-06  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden/indra/llmedia/CMakeLists.txt:
+	Streaming music/video now works on Windows.
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer.h:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms.cpp:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms.h:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamervidplug.cpp:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamervidplug.h:
+	Ditto.
+	* linden/indra/llmedia/llmediamanager.cpp:
+	Ditto.
+	* linden/indra/llwindow/llwindowsdl.cpp:
+	Ditto.
+
+
+2008-12-30  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llaudio/audioengine_openal.cpp:
 	Fixed a compile problem in VS2005.

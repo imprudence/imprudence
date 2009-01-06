@@ -29,7 +29,7 @@
  * $/LicenseInfo$
  */
 
-#if LL_GSTREAMER_ENABLED
+///#if LL_GSTREAMER_ENABLED
 
 #include "linden_common.h"
 
@@ -68,8 +68,10 @@ static GstStaticPadTemplate sink_factory = GST_STATIC_PAD_TEMPLATE (
     GST_STATIC_CAPS (SLV_ALLCAPS)
     );
 
-GST_BOILERPLATE (GstSLVideo, gst_slvideo, GstVideoSink,
-    GST_TYPE_VIDEO_SINK);
+GST_BOILERPLATE (GstSLVideo, 
+				 gst_slvideo, 
+				 GstVideoSink, 
+				 GST_TYPE_VIDEO_SINK);
 
 static void gst_slvideo_set_property (GObject * object, guint prop_id,
 				      const GValue * value,
@@ -229,7 +231,8 @@ gst_slvideo_set_caps (GstBaseSink * bsink, GstCaps * caps)
 	}
 	llgst_caps_unref(intersection);
 	
-	int width, height;
+	int width = 0;
+	int height = 0;
 	gboolean ret;
 	const GValue *fps;
 	const GValue *par;
@@ -402,10 +405,8 @@ gst_slvideo_set_property (GObject * object, guint prop_id,
 {
 	llg_return_if_fail (GST_IS_SLVIDEO (object));
 	
-	switch (prop_id) {
-	default:
+	if (prop_id) {
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-		break;
 	}
 }
 
@@ -415,10 +416,8 @@ gst_slvideo_get_property (GObject * object, guint prop_id,
 {
 	llg_return_if_fail (GST_IS_SLVIDEO (object));
 
-	switch (prop_id) {
-	default:
+	if (prop_id) {
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-		break;
 	}
 }
 
@@ -446,10 +445,8 @@ plugin_init (GstPlugin * plugin)
    some g++ versions buggily avoid __attribute__((constructor)) functions -
    so we provide an explicit plugin init function.
  */
-void gst_slvideo_init_class (void)
-{
 #define PACKAGE "packagehack"
-	static GST_PLUGIN_DEFINE (GST_VERSION_MAJOR,
+	GST_PLUGIN_DEFINE (GST_VERSION_MAJOR,
 				  GST_VERSION_MINOR,
 				  "private-slvideoplugin", 
 				  "SL Video sink plugin",
@@ -457,8 +454,11 @@ void gst_slvideo_init_class (void)
 				  "Second Life",
 				  "http://www.secondlife.com/");
 #undef PACKAGE
+
+void gst_slvideo_init_class (void)
+{
 	ll_gst_plugin_register_static (&gst_plugin_desc);
 	//fprintf(stderr, "\n\n\nCLASS INIT\n\n\n");
 }
 
-#endif // LL_GSTREAMER_ENABLED
+///#endif // LL_GSTREAMER_ENABLED

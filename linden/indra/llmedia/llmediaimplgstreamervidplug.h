@@ -32,12 +32,13 @@
 #ifndef __GST_SLVIDEO_H__
 #define __GST_SLVIDEO_H__
 
-#if LL_GSTREAMER_ENABLED
+///#if LL_GSTREAMER_ENABLED
 
 extern "C" {
 #include <gst/gst.h>
 #include <gst/video/video.h>
 #include <gst/video/gstvideosink.h>
+#include <gthread.h>
 }
 
 G_BEGIN_DECLS
@@ -97,8 +98,11 @@ GType gst_slvideo_get_type (void);
 
 void gst_slvideo_init_class (void);
 
+bool g_once_init_enter (volatile gsize *value_location);
+void g_once_init_leave (volatile gsize *value_location, gsize initialization_value);
+
 G_END_DECLS
 
-#endif // LL_GSTREAMER_ENABLED
+///#endif // LL_GSTREAMER_ENABLED
 
 #endif /* __GST_SLVIDEO_H__ */
