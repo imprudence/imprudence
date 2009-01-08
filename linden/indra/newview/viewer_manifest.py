@@ -181,9 +181,9 @@ class WindowsManifest(ViewerManifest):
     def final_exe(self):
         if self.default_channel():
             if self.default_grid():
-                return "Imprudence.exe"
+                return "imprudence.exe"
             else:
-                return "ImprudencePreview.exe"
+                return "imprudencepreview.exe"
         else:
             return ''.join(self.channel().split()) + '.exe'
 
@@ -213,6 +213,12 @@ class WindowsManifest(ViewerManifest):
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
             self.path("openjpeg.dll")
             self.end_prefix()
+
+        # For sound
+        if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
+            self.path("openal32.dll")
+            self.path("alut.dll")
+            self.end_prefix()           
 
         # Mozilla appears to force a dependency on these files so we need to ship it (CP)
         self.path("msvcr71.dll")
@@ -247,7 +253,7 @@ class WindowsManifest(ViewerManifest):
 
         # Vivox runtimes
         if self.prefix(src="vivox-runtime/i686-win32", dst=""):
-            self.path("alut.dll")
+        #    self.path("alut.dll")
             self.path("wrap_oal.dll")
 
         #    self.path("SLVoice.exe")

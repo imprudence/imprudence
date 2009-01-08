@@ -14,7 +14,6 @@ set(vivox_files
     ssleay32.dll
     SLVoiceAgent.exe
     srtp.dll
-    alut.dll
     vivoxsdk.dll
     ortp.dll
     wrap_oal.dll
@@ -22,12 +21,15 @@ set(vivox_files
 
 set(debug_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug")
 set(debug_files
+    alut.dll
     freebl3.dll
     gksvggdiplus.dll
     js3250.dll
     nspr4.dll
     nss3.dll
     nssckbi.dll
+    openal32.dll
+    openjpegd.dll
     plc4.dll
     plds4.dll
     smime3.dll
@@ -35,9 +37,7 @@ set(debug_files
     ssl3.dll
     xpcom.dll
     xul.dll
-    openjpegd.dll
     windbgdlg.exe
-    openal32.dll
     )
 
 copy_if_different(
@@ -58,12 +58,15 @@ set(all_targets ${all_targets} ${out_targets})
 
 set(release_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release")
 set(release_files
+    alut.dll
     freebl3.dll
     gksvggdiplus.dll
     js3250.dll
     nspr4.dll
     nss3.dll
     nssckbi.dll
+    openal32.dll
+    openjpeg.dll
     plc4.dll
     plds4.dll
     smime3.dll
@@ -71,8 +74,6 @@ set(release_files
     ssl3.dll
     xpcom.dll
     xul.dll
-    openjpeg.dll
-    openal32.dll
     )
     
 copy_if_different(
