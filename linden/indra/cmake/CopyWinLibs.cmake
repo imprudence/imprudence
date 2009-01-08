@@ -37,6 +37,7 @@ set(debug_files
     xul.dll
     openjpegd.dll
     windbgdlg.exe
+    openal32.dll
     )
 
 copy_if_different(
@@ -71,6 +72,7 @@ set(release_files
     xpcom.dll
     xul.dll
     openjpeg.dll
+    openal32.dll
     )
     
 copy_if_different(
