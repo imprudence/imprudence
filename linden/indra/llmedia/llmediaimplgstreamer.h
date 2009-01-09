@@ -42,12 +42,9 @@
 extern "C" {
 #include <stdio.h>
 #include <gst/gst.h>
-
-#include "apr_pools.h"
-#include "apr_dso.h"
+#include <apr_pools.h>
+#include <apr_dso.h>
 }
-//#include <glib-object.h>
-//#include <gmain.h>
 
 #include "llmediaimplgstreamervidplug.h"
 #ifdef LL_GST_SOUNDSINK

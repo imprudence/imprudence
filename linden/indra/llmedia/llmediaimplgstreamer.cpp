@@ -230,7 +230,7 @@ bool LLMediaImplGStreamer::closedown()
 ///////////////////////////////////////////////////////////////////////////////
 //
 //#define LL_GST_REPORT_STATE_CHANGES
-///#ifdef LL_GST_REPORT_STATE_CHANGES
+#ifdef LL_GST_REPORT_STATE_CHANGES
 static const char* get_gst_state_name(GstState state)
 {
 	switch (state) 
@@ -243,7 +243,7 @@ static const char* get_gst_state_name(GstState state)
 	}
 	return "(unknown)";
 }
-///#endif // LL_GST_REPORT_STATE_CHANGES
+#endif // LL_GST_REPORT_STATE_CHANGES
 
 //static
 gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gpointer data)
@@ -276,10 +276,10 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 						&old_state,
 						&new_state,
 						&pending_state);
-///#ifdef LL_GST_REPORT_STATE_CHANGES
+#ifdef LL_GST_REPORT_STATE_CHANGES
 		// not generally very useful, and rather spammy.
 		LL_DEBUGS("MediaState") << "GST state change (old,<new>,pending): "<< get_gst_state_name(old_state) << ",<" << get_gst_state_name(new_state) << ">," << get_gst_state_name(pending_state) << LL_ENDL;
-///#endif // LL_GST_REPORT_STATE_CHANGES
+#endif // LL_GST_REPORT_STATE_CHANGES
 
 			switch (new_state) 
 			{
