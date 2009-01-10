@@ -98,9 +98,6 @@ GType gst_slvideo_get_type (void);
 
 void gst_slvideo_init_class (void);
 
-bool g_once_init_enter (volatile gsize *value_location);
-void g_once_init_leave (volatile gsize *value_location, gsize initialization_value);
-
 G_END_DECLS
 
 ///#endif // LL_GSTREAMER_ENABLED
