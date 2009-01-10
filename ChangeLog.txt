@@ -1,5 +1,11 @@
 2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden/indra/newview/llmaniptranslate.h:
+	Added openal32.dll and alut.dll to CopyWinLibs.cmake.
+
+
+2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
+
 	* linden/indra/cmake/CopyWinLibs.cmake:
 	Added openal32.dll and alut.dll to CopyWinLibs.cmake.
 	* linden/indra/newview/viewer_manifest.py:
