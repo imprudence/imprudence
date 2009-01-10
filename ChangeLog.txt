@@ -1,3 +1,11 @@
+2009-01-10  Armin  <email@unknown.com>
+
+	* linden/indra/newview/llviewermenu.cpp:
+	Added 'create landmark' to land pie menu.
+	* linden/indra/newview/skins/default/xui/en-us/menu_pie_land.xml:
+	Ditto.
+
+
 2008-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:
