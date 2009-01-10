@@ -1,7 +1,7 @@
-2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
+2009-01-10  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llmaniptranslate.h:
-	Added openal32.dll and alut.dll to CopyWinLibs.cmake.
+	Fixed bottom HUD arrow (from VWR-5518, possible memory leak).
 
 
 2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
