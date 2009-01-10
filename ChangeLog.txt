@@ -1,3 +1,17 @@
+2008-01-10  Armin  <email@unknown.com>
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Double clicking minimap tps.
+	* linden/indra/newview/llnetmap.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelgeneral.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelgeneral.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml:
+	Ditto.
+
+
 2008-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:

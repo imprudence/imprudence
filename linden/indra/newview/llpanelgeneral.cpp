@@ -199,6 +199,7 @@ void LLPanelGeneral::refresh()
 	mChatOnlineNotification = gSavedSettings.getBOOL("ChatOnlineNotification");
 	mAFKTimeout = gSavedSettings.getF32("AFKTimeout");
 	mMiniMapRotate = gSavedSettings.getBOOL("MiniMapRotate");
+	mMiniMapTeleport = gSavedSettings.getBOOL("MiniMapTeleport");
 	mNotifyMoney = gSavedSettings.getBOOL("NotifyMoneyChange");
 	mUseDefaultColor = gSavedSettings.getBOOL("UseDefaultColorPicker");
 	mEffectColor = gSavedSettings.getColor4("EffectColor");
@@ -223,6 +224,7 @@ void LLPanelGeneral::cancel()
 	gSavedSettings.setBOOL("ChatOnlineNotification", mChatOnlineNotification );
 	gSavedSettings.setF32("AFKTimeout", mAFKTimeout );
 	gSavedSettings.setBOOL("MiniMapRotate", mMiniMapRotate );
+	gSavedSettings.setBOOL("MiniMapTeleport", mMiniMapTeleport);
 	gSavedSettings.setBOOL("NotifyMoneyChange", mNotifyMoney );
 	gSavedSettings.setBOOL("UseDefaultColorPicker", mUseDefaultColor );
 	gSavedSettings.setBOOL("ShowSearchBar", mShowSearch);

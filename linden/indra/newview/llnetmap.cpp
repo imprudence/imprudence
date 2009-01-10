@@ -604,9 +604,13 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 		buffer = region->getHost().getString();
 		msg.append(buffer);
 #endif
-		// *TODO: put this under the control of XUI so it can be
-		// translated.
-		msg.append("\n(Double-click to open Map)");
+		// *TODO: 
+		//	- put this under the control of XUI so it can be translated.
+
+		if ( gSavedSettings.getBOOL( "MiniMapTeleport" ))
+			msg.append("\n(Double-click to teleport)");
+		else
+			msg.append("\n(Double-click to open Map)");
 
 		S32 SLOP = 4;
 		localPointToScreen( 
@@ -767,7 +771,14 @@ void LLNetMap::createObjectImage()
 
 BOOL LLNetMap::handleDoubleClick( S32 x, S32 y, MASK mask )
 {
-	LLFloaterWorldMap::show(NULL, FALSE);
+	if (gSavedSettings.getBOOL( "MiniMapTeleport" ))
+	{
+		gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
+		gAgent.teleportViaLocation( viewPosToGlobal(x,y) );
+	}
+	else
+		LLFloaterWorldMap::show(NULL, FALSE);
+
 	return TRUE;
 }
 

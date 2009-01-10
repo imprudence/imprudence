@@ -71,6 +71,7 @@ protected:
 	F32 mUIScaleFactor;
 	BOOL mUIAutoScale;
 	BOOL mMiniMapRotate;
+	BOOL mMiniMapTeleport;
 	S32 mOldCrashBehavior;
 	std::string mLoginLocation;
 	std::string mLanguage;
