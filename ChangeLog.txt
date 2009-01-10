@@ -1,4 +1,4 @@
-2008-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
+2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:
 	Added openal32.dll and alut.dll to CopyWinLibs.cmake.
@@ -6,7 +6,7 @@
 	Added openal32.dll and alut.dll to viewer_manifest.py.
 
 
-2008-01-06  McCabe Maxsted  <hakushakukun@gmail.com>
+2009-01-06  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llmedia/CMakeLists.txt:
 	Streaming music/video now works on Windows.
