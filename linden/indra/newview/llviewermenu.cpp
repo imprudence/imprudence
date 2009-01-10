@@ -9751,6 +9751,19 @@ class LLAdvancedLeaveAdminStatus : public view_listener_t
 	}
 };
 
+class LLAvatarReportAbuse : public view_listener_t
+{
+		bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+		{
+			LLVOAvatar* avatar = find_avatar_from_object( LLSelectMgr::getInstance()->getSelection()->getPrimaryObject() );
+			if(avatar)
+			{
+				LLFloaterReporter::showFromObject(avatar->getID());
+			}
+			return true;
+		}
+};
+
 
 
 static void addMenu(view_listener_t *menu, const char *name)
@@ -9897,6 +9910,7 @@ void initialize_menus()
 	addMenu(new LLAvatarGiveCard(), "Avatar.GiveCard");
 	addMenu(new LLAvatarEject(), "Avatar.Eject");
 	addMenu(new LLAvatarSendIM(), "Avatar.SendIM");
+	addMenu(new LLAvatarReportAbuse(), "Avatar.ReportAbuse");
 	
 	addMenu(new LLObjectEnableMute(), "Avatar.EnableMute");
 	addMenu(new LLAvatarEnableAddFriend(), "Avatar.EnableAddFriend");

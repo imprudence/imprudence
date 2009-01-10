@@ -1,3 +1,11 @@
+2009-01-10  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llviewermenu.cpp:
+	Backported 'report abuse' avatar pie menu option.
+	* linden/indra/newview/skins/default/xui/en-us/menu_pie_avatar.xml:
+	Ditto.
+
+
 2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:
