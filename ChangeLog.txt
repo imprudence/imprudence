@@ -1,3 +1,13 @@
+2009-01-06  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llviewermenu.cpp:
+	Added shortcut and message to landmark creation.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/strings.xml:
+	Ditto.
+
+
 2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:

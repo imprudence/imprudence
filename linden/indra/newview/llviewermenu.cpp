@@ -146,13 +146,14 @@
 #include "llinventorymodel.h"
 #include "llinventoryview.h"
 #include "llkeyboard.h"
-#include "llpanellogin.h"
+#include "lllineeditor.h"
 #include "llmenucommands.h"
 #include "llmenugl.h"
 #include "llmorphview.h"
 #include "llmoveview.h"
 #include "llmutelist.h"
 #include "llnotify.h"
+#include "llpanellogin.h"
 #include "llpanelobject.h"
 #include "llparcel.h"
 #include "llprimitive.h"
@@ -174,6 +175,7 @@
 #include "lltoolpie.h"
 #include "lltoolplacer.h"
 #include "lltoolselectland.h"
+#include "lltrans.h"
 #include "lluictrlfactory.h"
 #include "lluploaddialog.h"
 #include "lluserauth.h"
@@ -4874,10 +4876,17 @@ class LLWorldCreateLandmark : public view_listener_t
 			return true;
 		}
 
+		LLChat chat;
+
 		LLUUID folder_id;
 		folder_id = gInventory.findCategoryUUIDForType(LLAssetType::AT_LANDMARK);
 		std::string pos_string;
 		gAgent.buildLocationString(pos_string);
+
+		std::string log_message = LLTrans::getString("landmark_created") + " ";
+		log_message += pos_string;
+		chat.mText = log_message;
+		LLFloaterChat::addChat(chat, FALSE, FALSE);
 		
 		create_inventory_item(gAgent.getID(), gAgent.getSessionID(),
 							  folder_id, LLTransactionID::tnull,
