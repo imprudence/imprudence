@@ -4820,7 +4820,7 @@
     <key>MuteAmbient</key>
     <map>
       <key>Comment</key>
-      <string>Ambient sound effects, such as wind noise, play at 0 volume</string>
+      <string>Ambient sound effects, play at 0 volume</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -4905,6 +4905,17 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>MuteWind</key>
+    <map>
+      <key>Comment</key>
+      <string>Mute inworld wind generation</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+  </map>
     <key>NewCacheLocation</key>
     <map>
       <key>Comment</key>

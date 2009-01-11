@@ -62,7 +62,7 @@ void init_audio()
 
 // load up our initial set of sounds we'll want so they're in memory and ready to be played
 
-	BOOL mute_audio = gSavedSettings.getBOOL("MuteAudio");
+	bool mute_audio = gSavedSettings.getBOOL("MuteAudio");
 
 	if (!mute_audio && FALSE == gSavedSettings.getBOOL("NoPreload"))
 	{
@@ -114,7 +114,9 @@ void init_audio()
 void audio_update_volume(bool force_update)
 {
 	F32 master_volume = gSavedSettings.getF32("AudioLevelMaster");
-	BOOL mute_audio = gSavedSettings.getBOOL("MuteAudio");
+	bool wind_muted = gSavedSettings.getBOOL("MuteWind");
+	bool mute_audio = gSavedSettings.getBOOL("MuteAudio");
+
 	if (!gViewerWindow->getActive() && (gSavedSettings.getBOOL("MuteWhenMinimized")))
 	{
 		mute_audio = TRUE;
@@ -129,9 +131,9 @@ void audio_update_volume(bool force_update)
 		gAudiop->setDopplerFactor(gSavedSettings.getF32("AudioLevelDoppler"));
 		gAudiop->setDistanceFactor(gSavedSettings.getF32("AudioLevelDistance")); 
 		gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
-#ifdef kAUDIO_ENABLE_WIND
+
+		if(wind_muted == false)
 		gAudiop->enableWind(!mute_audio);
-#endif
 
 		gAudiop->setMuted(mute_audio);
 		
@@ -197,46 +199,50 @@ void audio_update_listener()
 
 void audio_update_wind(bool force_update)
 {
-#ifdef kAUDIO_ENABLE_WIND
-	//
-	//  Extract height above water to modulate filter by whether above/below water 
-	// 
-	LLViewerRegion* region = gAgent.getRegion();
-	if (region)
-	{
-		static F32 last_camera_water_height = -1000.f;
-		LLVector3 camera_pos = gAgent.getCameraPositionAgent();
-		F32 camera_water_height = camera_pos.mV[VZ] - region->getWaterHeight();
-		
-		//
-		//  Don't update rolloff factor unless water surface has been crossed
-		//
-		if (force_update || (last_camera_water_height * camera_water_height) < 0.f)
-		{
-			if (camera_water_height < 0.f)
-			{
-				gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff") * LL_ROLLOFF_MULTIPLIER_UNDER_WATER);
-			}
-			else 
-			{
-				gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
-			}
-		}
-		// this line rotates the wind vector to be listener (agent) relative
-		// unfortunately we have to pre-translate to undo the translation that
-		// occurs in the transform call
-		gRelativeWindVec = gAgent.getFrameAgent().rotateToLocal(gWindVec - gAgent.getVelocity());
+	bool wind_muted = gSavedSettings.getBOOL("MuteWind");
+	bool mute_audio = gSavedSettings.getBOOL("MuteAudio");
 
-		// don't use the setter setMaxWindGain() because we don't
-		// want to screw up the fade-in on startup by setting actual source gain
-		// outside the fade-in.
-		F32 ambient_volume = gSavedSettings.getF32("AudioLevelAmbient");
-		gAudiop->mMaxWindGain = gSavedSettings.getBOOL("MuteAmbient") 
-			? 0.f 
-			: ambient_volume * ambient_volume;
-		
-		last_camera_water_height = camera_water_height;
-		gAudiop->updateWind(gRelativeWindVec, camera_water_height);
+	if(!mute_audio && !wind_muted)
+	{
+		//
+		//  Extract height above water to modulate filter by whether above/below water 
+		// 
+		LLViewerRegion* region = gAgent.getRegion();
+		if (region)
+		{
+			static F32 last_camera_water_height = -1000.f;
+			LLVector3 camera_pos = gAgent.getCameraPositionAgent();
+			F32 camera_water_height = camera_pos.mV[VZ] - region->getWaterHeight();
+			
+			//
+			//  Don't update rolloff factor unless water surface has been crossed
+			//
+			if (force_update || (last_camera_water_height * camera_water_height) < 0.f)
+			{
+				if (camera_water_height < 0.f)
+				{
+					gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff") * LL_ROLLOFF_MULTIPLIER_UNDER_WATER);
+				}
+				else 
+				{
+					gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
+				}
+			}
+			// this line rotates the wind vector to be listener (agent) relative
+			// unfortunately we have to pre-translate to undo the translation that
+			// occurs in the transform call
+			gRelativeWindVec = gAgent.getFrameAgent().rotateToLocal(gWindVec - gAgent.getVelocity());
+
+			// don't use the setter setMaxWindGain() because we don't
+			// want to screw up the fade-in on startup by setting actual source gain
+			// outside the fade-in.
+			F32 ambient_volume = gSavedSettings.getF32("AudioLevelAmbient");
+			gAudiop->mMaxWindGain = gSavedSettings.getBOOL("MuteAmbient") 
+				? 0.f 
+				: ambient_volume * ambient_volume;
+			
+			last_camera_water_height = camera_water_height;
+			gAudiop->updateWind(gRelativeWindVec, camera_water_height);
+		}
 	}
-#endif
 }
