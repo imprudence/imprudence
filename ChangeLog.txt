@@ -1,3 +1,11 @@
+2009-01-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* cmake/DBusGlib.cmake:
+	Removed references to unused dbusglib.
+	* newview/CMakeLists.txt:
+	Ditto.
+
+
 2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:
