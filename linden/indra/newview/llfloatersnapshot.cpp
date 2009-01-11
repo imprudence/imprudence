@@ -921,9 +921,10 @@ LLFloaterPostcard* LLSnapshotLivePreview::savePostcard()
 		return NULL;
 	}
 	LLFloaterPostcard* floater = LLFloaterPostcard::showFromSnapshot(jpg, mViewerImage[mCurImageIndex], image_scale, mPosTakenGlobal);
-	// relinquish lifetime of viewerimage and jpeg image to postcard floater
-	mViewerImage[mCurImageIndex] = NULL;
+	// relinquish lifetime of jpeg image to postcard floater
 	mFormattedImage = NULL;
+	mDataSize = 0;
+	updateSnapshot(FALSE, FALSE);
 
 	return floater;
 }
@@ -968,11 +969,19 @@ void LLSnapshotLivePreview::saveTexture()
 	}
 
 	LLViewerStats::getInstance()->incStat(LLViewerStats::ST_SNAPSHOT_COUNT );
+	
+	mDataSize = 0;
 }
 
 BOOL LLSnapshotLivePreview::saveLocal()
 {
 	BOOL success = gViewerWindow->saveImageNumbered(mFormattedImage);
+
+	// Relinquish image memory. Save button will be disabled as a side-effect.
+	mFormattedImage = NULL;
+	mDataSize = 0;
+	updateSnapshot(FALSE, FALSE);
+
 	if(success)
 	{
 		gViewerWindow->playSnapshotAnimAndSound();
@@ -1252,14 +1261,14 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater)
 	BOOL got_bytes = previewp && previewp->getDataSize() > 0;
 	BOOL got_snap = previewp->getSnapshotUpToDate();
 
-	floater->childSetEnabled("send_btn",   shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD && got_bytes && got_snap && previewp->getDataSize() <= MAX_POSTCARD_DATASIZE);
-	floater->childSetEnabled("upload_btn", shot_type == LLSnapshotLivePreview::SNAPSHOT_TEXTURE  && got_bytes && got_snap);
-	floater->childSetEnabled("save_btn",   shot_type == LLSnapshotLivePreview::SNAPSHOT_LOCAL    && got_bytes && got_snap);
+	floater->childSetEnabled("send_btn",   shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD && got_snap && previewp->getDataSize() <= MAX_POSTCARD_DATASIZE);
+	floater->childSetEnabled("upload_btn", shot_type == LLSnapshotLivePreview::SNAPSHOT_TEXTURE  && got_snap);
+	floater->childSetEnabled("save_btn",   shot_type == LLSnapshotLivePreview::SNAPSHOT_LOCAL    && got_snap);
 
 	LLLocale locale(LLLocale::USER_LOCALE);
 	std::string bytes_string;
 	LLResMgr::getInstance()->getIntegerString(bytes_string, (previewp->getDataSize()) >> 10 );
-	floater->childSetTextArg("file_size_label", "[SIZE]", got_snap ? bytes_string : got_bytes ? floater->getString("unknown") : std::string("???"));
+	floater->childSetTextArg("file_size_label", "[SIZE]", got_snap ? bytes_string : floater->getString("unknown"));
 	floater->childSetColor("file_size_label", 
 		shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD 
 		&& got_bytes
@@ -1389,6 +1398,8 @@ void LLFloaterSnapshot::Impl::onClickKeep(void* data)
 		{
 			checkAutoSnapshot(previewp);
 		}
+
+		updateControls(view);
 	}
 }
 

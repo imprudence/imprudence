@@ -1,30 +1,43 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="script panel">
-	<text_editor type="string" length="1" name="Script Editor">
+	<text_editor length="1" name="Script Editor" type="string">
 		Loading...
 	</text_editor>
-	<button label="Salvar" label_selected="Salvar" name="Save_btn" />
+	<button label="Salvar" label_selected="Salvar" name="Save_btn"/>
+	<combo_box label="Inserir..." name="Insert..."/>
 	<menu_bar name="script_menu">
 		<menu name="File">
-			<menu_item_call label="Salvar" name="Save" />
-			<menu_item_call label="Desfazer as Mudanças" name="Revert All Changes" />
+			<menu_item_call label="Salvar" name="Save"/>
+			<menu_item_call label="Desfazer as Mudanças" name="Revert All Changes"/>
 		</menu>
 		<menu name="Edit">
-			<menu_item_call label="Desfazer" name="Undo" />
-			<menu_item_call label="Desfazer" name="Redo" />
-			<menu_item_separator label="-----------" name="separator" />
-			<menu_item_call label="Recortar" name="Cut" />
-			<menu_item_call label="Copiar" name="Copy" />
-			<menu_item_call label="Colar" name="Paste" />
-			<menu_item_separator label="-----------" name="separator2" />
-			<menu_item_call label="Selecionar Tudo" name="Select All" />
-			<menu_item_call label="Retirar seleção" name="Deselect" />
-			<menu_item_separator label="-----------" name="separator3" />
-			<menu_item_call label="Buscar / Substituir..." name="Search / Replace..." />
+			<menu_item_call label="Desfazer" name="Undo"/>
+			<menu_item_call label="Desfazer" name="Redo"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_call label="Recortar" name="Cut"/>
+			<menu_item_call label="Copiar" name="Copy"/>
+			<menu_item_call label="Colar" name="Paste"/>
+			<menu_item_separator label="-----------" name="separator2"/>
+			<menu_item_call label="Selecionar Tudo" name="Select All"/>
+			<menu_item_call label="Retirar seleção" name="Deselect"/>
+			<menu_item_separator label="-----------" name="separator3"/>
+			<menu_item_call label="Buscar / Substituir..." name="Search / Replace..."/>
 		</menu>
 		<menu name="Help">
-			<menu_item_call label="Ajuda..." name="Help..." />
-			<menu_item_call label="Ajuda LSL Wiki..." name="LSL Wiki Help..." />
+			<menu_item_call label="Ajuda..." name="Help..."/>
+			<menu_item_call label="Ajuda LSL Wiki..." name="LSL Wiki Help..."/>
 		</menu>
 	</menu_bar>
+	<string name="loading">
+		Carregando...
+	</string>
+	<string name="can_not_view">
+		Você não tem permissão de visualizar este script.
+	</string>
+	<string name="public_objects_can_not_run">
+		Objetos públicos não podem rodar scripts
+	</string>
+	<string name="script_running">
+		Funcionando
+	</string>
 </panel>

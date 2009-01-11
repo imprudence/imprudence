@@ -7,11 +7,11 @@
 		Kein Telehub verbunden.
 	</text>
 	<text name="help_text_connected">
-		Klicken Sie zum Entfernen auf &apos;Trennen&apos;.
+		Klicken Sie zum Entfernen auf „Trennen“.
 	</text>
 	<text name="help_text_not_connected" height="38" bottom_delta="-18" >
 		Wählen Sie ein Objekt und klicken Sie auf
-&apos;Mit Telehub verbinden&apos;.
+„Mit Telehub verbinden“.
 	</text>
 	<button label="Mit Telehub verbinden" name="connect_btn" width="122" />
 	<button label="Trennen" name="disconnect_btn" left="142" width="98" />
@@ -22,7 +22,7 @@
 	<button label="Spawn entfernen" name="remove_spawn_point_btn" />
 	<text name="spawn_point_help">
 		Wählen Sie ein Objekt und klicken zur
-Positionsangabe auf &apos;Hinzufügen&apos;. Anschließend
+Positionsangabe auf „Hinzufügen“. Anschließend
 können sie das Objekt verschieben oder löschen.
 Positionsangaben sind relativ zum
 Telehub-Mittelpunkt.

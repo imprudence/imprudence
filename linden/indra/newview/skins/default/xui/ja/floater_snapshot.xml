@@ -5,7 +5,7 @@
 	</text>
 	<radio_group label="スナップショット・タイプ" name="snapshot_type_radio">
 		<radio_item name="postcard">
-			電子メールで送信
+			Eメールで送信
 		</radio_item>
 		<radio_item name="texture">
 			持ち物に保存(L$10)
@@ -35,7 +35,7 @@
 		サイズ
 	</text>
 	<text name="format_label" width="75">
-		フォーマット
+		形式
 	</text>
 	<combo_box label="解像度" name="postcard_size_combo">
 		<combo_item name="CurrentWindow">
@@ -97,7 +97,7 @@
 			カスタム
 		</combo_item>
 	</combo_box>
-	<combo_box label="フォーマット" name="local_format_combo">
+	<combo_box label="形式" name="local_format_combo">
 		<combo_item name="PNG">
 			PNG
 		</combo_item>
@@ -129,7 +129,7 @@
 	<check_box label="インタフェースを表示" name="ui_check"/>
 	<check_box label="HUD オブジェクトを表示" name="hud_check"/>
 	<check_box label="保存後も開いた状態を保持" name="keep_open_check"/>
-	<check_box label="フレームをフリーズ（全画面）" name="freeze_frame_check"/>
+	<check_box label="画面全体を静止させる" name="freeze_frame_check"/>
 	<check_box label="自動更新" name="auto_snapshot_check"/>
 	<string name="unknown">
 		未知

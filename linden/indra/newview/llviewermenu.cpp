@@ -5330,6 +5330,11 @@ class LLFloaterVisible : public view_listener_t
 		{
 			new_value = LLFloaterBeacons::instanceVisible(LLSD());
 		}
+		else if (floater_name == "inventory")
+		{
+			LLInventoryView* iv = LLInventoryView::getActiveInventory(); 
+			new_value = (NULL != iv && TRUE == iv->getVisible());
+		}
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;
 	}

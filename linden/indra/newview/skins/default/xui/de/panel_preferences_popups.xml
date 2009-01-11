@@ -18,7 +18,7 @@
 	</text>
 	<check_box label="Automatisch annehmen" name="accept_new_inventory"/>
 	<check_box label="Nach Annahme automatisch anzeigen" name="show_new_inventory"/>
-	<button width="200" label="Alle Popups aktivieren..." name="reset_dialogs_btn" tool_tip="Alle optionalen Popups und &apos;Das erste Mal&apos;-Meldungen aktivieren."/>
-	<button width="200" label="Alle diese Popups deaktivieren..." name="skip_dialogs_btn" tool_tip="Alle optionalen Popups und &apos;Das erste Mal&apos;-Meldungen deaktivieren."/>
+	<button width="200" label="Alle Popups aktivieren..." name="reset_dialogs_btn" tool_tip="Alle optionalen Popups und „Das erste Mal“-Meldungen aktivieren."/>
+	<button width="200" label="Alle diese Popups deaktivieren..." name="skip_dialogs_btn" tool_tip="Alle optionalen Popups und „Das erste Mal“-Meldungen deaktivieren."/>
 	<check_box label="Neue Objekte im Inventar automatisch anzeigen" name="show_in_inventory"/>
 </panel>

@@ -1405,6 +1405,25 @@ bool LLAppViewer::cleanup()
 	return true;
 }
 
+// A callback for llerrs to call during the watchdog error.
+void watchdog_llerrs_callback(const std::string &error_string)
+{
+	gLLErrorActivated = true;
+
+#ifdef LL_WINDOWS
+	RaiseException(0,0,0,0);
+#else
+	raise(SIGQUIT);
+#endif
+}
+
+// A callback for the watchdog to call.
+void watchdog_killer_callback()
+{
+	LLError::setFatalFunction(watchdog_llerrs_callback);
+	llerrs << "Watchdog killer event" << llendl;
+}
+
 bool LLAppViewer::initThreads()
 {
 #if MEM_TRACK_MEM
@@ -1414,10 +1433,11 @@ bool LLAppViewer::initThreads()
 #endif
 
 	const S32 NEVER_SUBMIT_REPORT = 2;
-	if(TRUE == gSavedSettings.getBOOL("WatchdogEnabled") 
-		&& (gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING) != NEVER_SUBMIT_REPORT))
+	bool use_watchdog = gSavedSettings.getBOOL("WatchdogEnabled");
+	bool send_reports = gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING) != NEVER_SUBMIT_REPORT;
+	if(use_watchdog && send_reports)
 	{
-		LLWatchdog::getInstance()->init();
+		LLWatchdog::getInstance()->init(watchdog_killer_callback);
 	}
 
 	LLVFSThread::initClass(enable_threads && true);
@@ -2280,7 +2300,8 @@ void LLAppViewer::handleViewerCrash()
 	gDebugInfo["ViewerExePath"] = gDirUtilp->getExecutablePathAndName();
 	gDebugInfo["CurrentPath"] = gDirUtilp->getCurPath();
 	gDebugInfo["SessionLength"] = F32(LLFrameTimer::getElapsedSeconds());
-	
+	gDebugInfo["StartupState"] = LLStartUp::getStartupStateString();
+
 	if(gLogoutInProgress)
 	{
 		gDebugInfo["LastExecEvent"] = LAST_EXEC_LOGOUT_CRASH;

@@ -4,11 +4,11 @@
 		<radio_item name="MyHome" tool_tip="常に自宅（ホーム）にログイン">
 			自宅(ホーム)
 		</radio_item>
-		<radio_item name="MyLastLocation" tool_tip="常に最後にいたロケーションにログイン">
-			最後のロケーション
+		<radio_item name="MyLastLocation" tool_tip="常に最後にいた場所にログイン">
+			最後にログアウトした場所
 		</radio_item>
 	</radio_group>
-	<check_box label="ログイン画面に開始ロケーションを表示" name="show_location_checkbox"/>
+	<check_box label="ログイン画面にログイン位置を表示" name="show_location_checkbox"/>
 	<combo_box name="fade_out_combobox">
 		<combo_item name="Never">
 			なし
@@ -26,7 +26,7 @@
 		グループ・タイトル：
 	</text>
 	<check_box label="グループ・タイトルをすべて非表示" name="show_all_title_checkbox"/>
-	<check_box label="自分のグループ・タイトルを隠す" name="show_my_title_checkbox"/>
+	<check_box label="画面上で自分のグループ・タイトルを隠す" name="show_my_title_checkbox"/>
 	<color_swatch label="" name="effect_color_swatch" tool_tip="カラー・ピッカーをクリックして開く"/>
 	<text name="UI Size:">
 		UI サイズ：

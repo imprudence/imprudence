@@ -1,20 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Rede" name="network">
-	<text type="string" length="1" name="text_box">
+	<text length="1" name="text_box" type="string">
 		Banda Máxima:
 	</text>
-	<text type="string" length="1" name="text_box2">
+	<text length="1" name="text_box2" type="string">
 		kbps(kilobits por segundo)
 	</text>
-	<text type="string" length="1" name="cache_size_label_l">
-		Cache em Disco:
+	<text length="1" name="cache_size_label_l" type="string">
+		Tamanho do Cachê de Disco:
 	</text>
-	<button label="Limpar Cache" name="clear_cache" />
-	<text type="string" length="1" name="cache_location_label">
+	<text name="text_box5">
+		MB
+	</text>
+	<button label="Limpar Cache" name="clear_cache"/>
+	<text length="1" name="cache_location_label" type="string">
 		Local do Cache em Disco:
 	</text>
-	<button label="Ajusta" label_selected="Ajusta" name="set_cache" />
-	<button label="Inicia" label_selected="Inicia" name="reset_cache" />
-	<check_box label="Conexão de porta personalizada" name="connection_port_enabled" />
-	<spinner label="          Porta:" name="connection_port" />
+	<button label="Ajusta" label_selected="Ajusta" name="set_cache"/>
+	<button label="Inicia" label_selected="Inicia" name="reset_cache"/>
+	<check_box label="Conexão de porta personalizada" name="connection_port_enabled"/>
+	<spinner label="          Porta:" name="connection_port"/>
 </panel>

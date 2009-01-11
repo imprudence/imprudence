@@ -62,7 +62,7 @@
 		Outfits sind Ordner, die Kleider und Körperteile enthalten.
 Ziehen Sie einen Outfit-Ordner auf Ihren Avatar, um ihn anzuziehen.
  
-&quot;Neues Outfit&quot; erstellt einen neuen Ordner und speichert darin Kopien der
+„Neues Outfit“ erstellt einen neuen Ordner und speichert darin Kopien der
 Objekte, die Sie gerade tragen.
 	</text>
 	<text type="string" length="1" name="Folder name:">

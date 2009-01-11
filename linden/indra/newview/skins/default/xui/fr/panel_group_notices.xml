@@ -55,7 +55,7 @@ dossiers.
 	</panel>
 	<panel label="Voir ancienne notice" name="panel_view_past_notice">
 		<text name="lbl">
-			Anciennes notices
+			Détails
 		</text>
 		<text name="lbl2">
 			Pour envoyer une nouvelle notice, cliquez sur Créer une notice ci-dessus.

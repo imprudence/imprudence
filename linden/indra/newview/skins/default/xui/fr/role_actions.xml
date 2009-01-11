@@ -1,17 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <role_actions>
 	<action_set
 	     description="Ces pouvoirs permettent d&apos;ajouter et de supprimer des membres du groupe et permettent aux nouveaux membres de rejoindre le groupe sans recevoir d&apos;invitation."
 	     name="Membership">
 		<action description="Inviter des membres dans ce groupe"
-		     longdescription="Invitez des membres à rejoindre ce goupe en utilisant le bouton Inviter un nouveau membre à partir de l&apos;onglet Membres et rôles &gt; Membres."
+		     longdescription="Invitez des membres à rejoindre ce groupe en utilisant le bouton Inviter un nouveau membre à partir de l&apos;onglet Membres et rôles &gt; Membres."
 		     name="member invite" value="1" />
 		<action description="Expulser des membres du groupe"
-		     longdescription="Expulsez des membres de ce goupe en utilisant le bouton Expulser un membre à partir de l&apos;onglet Membres et rôles &gt; Membres. Un propriétaire ne peut pas être expulsé. Un membre peut être expulsé d&apos;un groupe uniquement s&apos;il a le rôle Invité (Everyone). Si vous n&apos;êtes pas propriétaire, vous devez d&apos;abord retirer les rôles d&apos;un membre avant de pouvoir l&apos;expulser."
+		     longdescription="Expulsez des membres de ce groupe en utilisant le bouton Expulser un membre à partir de l&apos;onglet Membres et rôles &gt; Membres. Un propriétaire ne peut pas être expulsé. Un membre peut être expulsé d&apos;un groupe uniquement s&apos;il a le rôle Tous (Everyone). Si vous n&apos;êtes pas propriétaire, vous devez d&apos;abord retirer les rôles d&apos;un membre avant de pouvoir l&apos;expulser."
 		     name="member eject" value="2" />
 		<action
 		     description="Gérer l&apos;inscription et les frais d&apos;inscription"
-		     longdescription="Choisissez l&apos;inscription libre pour permettre aux nouveaux membres de rejoindre le groupe sans invitation et modifiez les Frais d&apos;inscription à l&apos;onglet Général."
+		     longdescription="Choisissez l&apos;inscription libre pour permettre aux nouveaux membres de rejoindre le groupe sans invitation et modifiez les frais d&apos;inscription à l&apos;onglet Général."
 		     name="member options" value="3" />
 	</action_set>
 	<action_set
@@ -27,7 +27,7 @@
 		     longdescription="Modifiez les noms, titres et descriptions des rôles à l&apos;onglet Membres et rôles &gt; Rôles."
 		     name="role properties" value="6" />
 		<action description="Attribuer des rôles limités"
-		     longdescription="Affectez des membres à certains rôles à l&apos;onglet Membres et rôles &gt; Membres. Un membre ne peut attribuer que des rôles auxquels il est lui même affecté."
+		     longdescription="Affectez des membres à certains rôles à l&apos;onglet Membres et rôles &gt; Membres. Un membre ne peut attribuer que des rôles auxquels il est lui-même affecté."
 		     name="role assign member limited" value="7" />
 		<action description="Attribuer tous les rôles"
 		     longdescription="Affectez des membres à tous types de rôles à l&apos;onglet Membres et rôles &gt; Membres &gt; Rôles assignés. Attention : ce pouvoir peut conférer des rôles très importants, proches de ceux d&apos;un propriétaire. Assurez-vous de bien comprendre ce pouvoir avant de l&apos;attribuer."
@@ -44,7 +44,7 @@
 	     name="Group Identity">
 		<action
 		     description="Modifier le profil public du groupe"
-		     longdescription="Modifier la charte, le logo, l&apos;affichage dans la recherche et la liste des membres visibles à l&apos;onglet Général."
+		     longdescription="Modifiez la charte, le logo, l&apos;affichage dans la recherche et la liste des membres visibles à l&apos;onglet Général."
 		     name="group change identity" value="11" />
 	</action_set>
 	<action_set
@@ -83,10 +83,10 @@
 	     description="Ces pouvoirs permettent de définir les options de la parcelle concernant la musique, les médias, la création d&apos;objets et le relief."
 	     name="Parcel Settings">
 		<action description="Modifier la musique et les médias"
-		     longdescription="Changez la musique et les médias à partir du menu À propos du terrain, &gt; Médias."
+		     longdescription="Changez la musique et les médias à partir du menu À propos du terrain &gt; Médias."
 		     name="land change media" value="20" />
 		<action description="Changer l&apos;option Modifier le terrain"
-		     longdescription="Changez l&apos;option Modifier le terrain à partir du menu À propos du terrain &gt; Options. Attention : ce pouvoir permet de terraformer votre terrain et de placer ou déplacer des plantes Linden. Assurez-vous de bien comprendre ce pouvoir avant de l&apos;&apos;attribuer. "
+		     longdescription="Changez l&apos;option Modifier le terrain à partir du menu À propos du terrain &gt; Options. Attention : ce pouvoir permet de terraformer votre terrain et de placer ou déplacer des plantes Linden. Assurez-vous de bien comprendre ce pouvoir avant de l&apos;attribuer. "
 		     name="land edit" value="21" />
 		<action
 		     description="Changer diverses options du terrain"
@@ -162,7 +162,7 @@
 	     description="Ce pouvoir définit les contributions aux frais du groupe, la réception des dividendes et l&apos;accès aux finances du groupe."
 	     name="Accounting">
 		<action description="Contribuer aux frais du groupe et recevoir des dividendes"
-		     longdescription="Contribuez aux frais du groupe et recevez des dividendes en cas de bénéfices. Vous recevrez une partie des ventes de terrains et objets appartenant au groupe et contribuerez aux frais divers (mise en vente des terrains etc). "
+		     longdescription="Contribuez aux frais du groupe et recevez des dividendes en cas de bénéfices. Vous recevrez une partie des ventes de terrains et objets appartenant au groupe et contribuerez aux frais divers (mise en vente des terrains etc.)"
 		     name="accounting accountable" value="40" />
 	</action_set>
 	<action_set

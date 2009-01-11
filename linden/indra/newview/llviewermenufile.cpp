@@ -349,7 +349,8 @@ class LLFileEnableCloseWindow : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		bool new_value = gFloaterView->getFocusedFloater() != NULL || gSnapshotFloaterView->getFocusedFloater() != NULL;
+		bool new_value = NULL != LLFloater::getClosableFloaterFromFocus();
+
 		// horrendously opaque, this code
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
 		return true;

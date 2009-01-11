@@ -28,7 +28,7 @@
 					ジェスチャー
 				</combo_item>
 			</combo_box>
-			<check_box label="ミュートされたテキストを表示" name="show mutes"/>
+			<check_box label="無視されたテキストを表示" name="show mutes"/>
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="ここをクリックして、このIMセッションへのアクティブな参加者リストを表示。"/>
 			<panel name="chat_panel">
 				<string name="gesture_label">

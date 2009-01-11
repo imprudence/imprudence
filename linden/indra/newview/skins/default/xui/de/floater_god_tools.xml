@@ -15,7 +15,7 @@
 			<check_box label="Startbereich Einleitung" name="check prelude"
 			     tool_tip="Diese Region zu einem Startbereich machen." />
 			<check_box label="Sonne fest" name="check fixed sun"
-			     tool_tip="Fixiert den Sonnenstand (wie in &apos;Region/Grundstück&apos; &gt; &apos;Terrain&apos;." />
+			     tool_tip="Fixiert den Sonnenstand (wie in „Region/Grundstück“ &gt; „Terrain“." />
 			<check_box label="Zuhause auf Teleport &#10;zurücksetzen" name="check reset home"
 			     tool_tip="Wenn Einwohner wegteleportieren, ihr Zuhause auf Zielposition setzen." height="32" />
 			<check_box label="Sichtbar" name="check visible"

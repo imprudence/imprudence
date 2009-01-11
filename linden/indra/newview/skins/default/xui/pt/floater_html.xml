@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="htmlfloater" title="">
-	<text name="f1_help_title">
-		Second Life Help
-	</text>
-	<text name="f1_help_url">
-		http://secondlife.com/app/support/index_pt.html
-	</text>
+	<button label="Fechar" name="close_btn"/>
+	<button label="Voltar" name="back_btn"/>
+	<button label="Adiantar" name="forward_btn"/>
+	<button label="Ir" name="go_btn"/>
+	<string name="home_page_url">
+		http://www.secondlife.com
+	</string>
 	<string name="support_page_url">
-	  	http://secondlife.com/app/support/index_pt.html
+		http://support.secondlife.com
 	</string>
 </floater>

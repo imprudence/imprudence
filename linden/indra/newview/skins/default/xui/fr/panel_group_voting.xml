@@ -5,13 +5,13 @@
 	</text>
 	<button label="?" name="help_button"/>
 	<text name="proposal_header">
-		Propositions du groupe actives
+		Propositions du groupe en cours
 	</text>
 	<text name="proposal_voting_lbl">
 		Proposition                                                      Fin du vote                      Votée ?
 	</text>
 	<text name="proposals_header_view_txt">
-		Propositions du groupe actives
+		Propositions en cours
 	</text>
 	<string name="proposals_header_view_inst">
 		Double-cliquez sur la proposition pour laquelle vous aimeriez voter
@@ -78,7 +78,7 @@ sur Créer une nouvelle proposition pour en créer une nouvelle.
 	<button font="SansSerifSmall" label="Non" label_selected="Non" left_delta="66" name="btn_no" width="60"/>
 	<button font="SansSerifSmall" label="M&apos;abstenir" label_selected="M&apos;abstenir" left_delta="66" name="btn_abstain" width="70"/>
 	<text left="7" name="txt">
-		Historique des votes du groupe
+		Historique des votes
 	</text>
 	<text left="7" name="instructions" width="405">
 		Double-cliquez sur un ancien vote ou sélectionnez-en un pour voir les résultats.

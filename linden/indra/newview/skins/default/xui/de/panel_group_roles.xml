@@ -73,10 +73,10 @@ um mehrere Mitglieder auszuwählen.
 				Rollen haben einen Titel und umfassen bestimmte
 Fähigkeiten. Mitglieder können mehrere 
 Rollen innehaben. Eine Gruppe kann bis zu 10 Rollen
-definieren, darunter &apos;Jeder&apos; und &apos;Eigentümer&apos;.
+definieren, darunter „Jeder“ und „Eigentümer“.
 			</string>
 			<string name="cant_delete_role">
-				Die Rollen &apos;Jeder&apos; und &apos;Eigentümer&apos; können nicht gelöscht werden.
+				Die Rollen „Jeder“ und „Eigentümer“ können nicht gelöscht werden.
 			</string>
 		</panel>
 		<panel label="Fähigkeiten" name="actions_sub_tab">
@@ -133,7 +133,7 @@ Rechte in einer Gruppe. Es gibt viele verschiedene Fähigkeiten.
 		<text name="static5" tool_tip="Eine Liste der Fähigkeiten der aktuell ausgewählten Rolle.">
 			Zulässige Fähigkeiten
 		</text>
-		<check_box label="Mitglieder sind sichtbar" name="role_visible_in_list" tool_tip="Festlegen, ob Mitglieder in dieser Rolle auf der Registerkarte &apos;Allgemein&apos; für Personen außerhalb der Gruppe sichtbar sind."/>
+		<check_box label="Mitglieder sind sichtbar" name="role_visible_in_list" tool_tip="Festlegen, ob Mitglieder in dieser Rolle auf der Registerkarte „Allgemein“ für Personen außerhalb der Gruppe sichtbar sind."/>
 		<scroll_list name="role_allowed_actions" tool_tip="Um detaillierte Informationen zu erlaubten Fähigkeiten anzuzeigen, siehe Reiter Fähigkeiten.">
 			<column label="" name="icon"/>
 			<column label="" name="checkbox"/>
@@ -145,7 +145,7 @@ Rechte in einer Gruppe. Es gibt viele verschiedene Fähigkeiten.
 			Beschreibung
 		</text>
 		<text_editor name="action_description">
-			Diese Fähigkeit heißt &apos;Mitglieder aus dieser Gruppe werfen&apos;. Eigentümer können nur von anderen Eigentümern hinausgeworfen werden.
+			Diese Fähigkeit heißt „Mitglieder aus dieser Gruppe werfen“. Eigentümer können nur von anderen Eigentümern hinausgeworfen werden.
 		</text_editor>
 		<text name="static2">
 			Rollen mit Fähigkeit

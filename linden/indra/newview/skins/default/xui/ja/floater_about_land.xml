@@ -157,7 +157,7 @@
 				地域オブジェクトボーナス要因: [BONUS]
 			</text>
 			<text length="1" name="Simulator primitive usage:" type="string" width="500">
-				シミュレータの基本要素使用状況：
+				地域全体のプリム使用状況：
 			</text>
 			<text left="200" name="objects_available">
 				[MAX]の内[COUNT]（[AVAILABLE]利用可能）
@@ -169,13 +169,13 @@
 				[MAX]の内[COUNT]（[DELETED]を削除）
 			</string>
 			<text length="1" name="Primitives parcel supports:" type="string" width="200">
-				区画でサポートされる基本要素数：
+				区画でサポートされるプリム数：
 			</text>
 			<text left="200" length="1" name="object_contrib_text" type="string">
 				[COUNT]
 			</text>
 			<text length="1" name="Primitives on parcel:" type="string">
-				区画上の基本要素数：
+				区画上のプリム数：
 			</text>
 			<text left="200" length="1" name="total_objects_text" type="string">
 				[COUNT]
@@ -240,12 +240,12 @@
 			<check_box label="すべての住人" left="280" name="edit objects check"/>
 			<check_box label="グループ" left="380" name="edit group objects check"/>
 			<text left="138" length="1" name="allow_label3" type="string" width="144">
-				オブジェクト・エントリ：
+				オブジェクトの進入：
 			</text>
 			<check_box label="すべての住人" left="280" name="all object entry check"/>
 			<check_box label="グループ" left="380" name="group object entry check"/>
 			<text left="138" length="1" name="allow_label4" type="string" width="144">
-				スクリプト実行：
+				スクリプトの実行：
 			</text>
 			<check_box label="すべての住人" left="280" name="check other scripts"/>
 			<check_box label="グループ" left="380" name="check group scripts"/>

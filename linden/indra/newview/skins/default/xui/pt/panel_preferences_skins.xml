@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Peles" name="Skins panel">
+	<text name="muting_text">
+		Selecione uma pele (necessita reiniciar):
+	</text>
+	<radio_group name="skin_selection">
+		<radio_item name="default">
+			Padrão
+		</radio_item>
+		<radio_item name="silver">
+			Prata
+		</radio_item>
+	</radio_group>
+</panel>

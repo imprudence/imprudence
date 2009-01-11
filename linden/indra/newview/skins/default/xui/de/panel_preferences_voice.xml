@@ -18,10 +18,10 @@
 	<text_editor name="voice_chat_description" width="465" height="81" bottom_delta="-76">
 		Der Modus „Zum Sprechen drücken“ ermöglicht es Ihnen, zu kontrollieren, wann Ihre Stimme übertragen wird. Wenn Sie im Umschaltmodus sind, drücken Sie die Auslöse-Taste und lassen Sie sie wieder los, um Ihr Mikrofon an und aus zu stellen. Wenn Sie sich nicht im Umschaltmodus befinden, ist das Mikro nur aktiv, während Sie die Auslösetaste gedrückt halten.
 	</text_editor>
-	<check_box label="Viewer im &apos;Zum-Sprechen-drücken&apos;-Modus starten" name="push_to_talk_check"/>
-	<check_box label="&apos;Zum-Sprechen-drücken&apos; im Umschaltmodus verwenden" name="push_to_talk_toggle_check"/>
+	<check_box label="Viewer im „Zum-Sprechen-drücken“-Modus starten" name="push_to_talk_check"/>
+	<check_box label="„Zum-Sprechen-drücken“ im Umschaltmodus verwenden" name="push_to_talk_toggle_check"/>
 	<text name="push_to_talk_label">
-		Auslöser für &apos;Zum-Sprechen-drücken&apos;:
+		Auslöser für „Zum-Sprechen-drücken“:
 	</text>
 	<button label="Taste festlegen" name="set_voice_hotkey_button"/>
 	<button label="Mittlere Maustaste" name="set_voice_middlemouse_button"/>

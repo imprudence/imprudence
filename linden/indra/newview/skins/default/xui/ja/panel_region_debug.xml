@@ -13,7 +13,7 @@
 	<check_box label="物理作用を無効化" name="disable_physics_check" tool_tip="この地域の物理作用をすべて無効化"/>
 	<button label="?" name="disable_physics_help"/>
 	<button label="適用" name="apply_btn"/>
-	<text name="objret_text_lbl">
+	<text name="objret_text_lbl" width="120" >
 		オブジェクトの返却
 	</text>
 	<text name="resident_text_lbl">

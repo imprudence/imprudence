@@ -170,13 +170,6 @@ void LLAudioEngine::updateChannels()
 	{
 		if (mChannels[i])
 		{
-			// set secondary gain if type is available
-			LLAudioSource* source = mChannels[i]->getSource();
-			if (source)
-			{
-				mChannels[i]->setSecondaryGain(mSecondaryGain[source->getType()]);
-			}
-			
 			mChannels[i]->updateBuffer();
 			mChannels[i]->update3DPosition();
 			mChannels[i]->updateLoop();
@@ -1578,6 +1571,8 @@ void LLAudioChannel::setSource(LLAudioSource *sourcep)
 	}
 
 	mCurrentSourcep = sourcep;
+
+
 	updateBuffer();
 	update3DPosition();
 }
@@ -1590,6 +1585,12 @@ BOOL LLAudioChannel::updateBuffer()
 		// This channel isn't associated with any source, nothing
 		// to be updated
 		return FALSE;
+	}
+
+	// Initialize the channel's gain setting for this sound.
+	if(gAudiop)
+	{
+		setSecondaryGain(gAudiop->getSecondaryGain(mCurrentSourcep->getType()));
 	}
 
 	LLAudioBuffer *bufferp = mCurrentSourcep->getCurrentBuffer();

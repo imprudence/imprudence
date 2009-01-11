@@ -345,7 +345,7 @@
 			<spinner label="B" name="cut begin" />
 			<spinner label="E" name="cut end" />
 			<text name="text hollow">
-				中空（空洞）
+				中空(空洞)
 			</text>
 			<text name="text skew">
 				傾斜

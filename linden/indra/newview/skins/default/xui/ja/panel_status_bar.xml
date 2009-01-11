@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="status">
-	<text length="1" name="ParcelNameText" tool_tip="あなたが立っている土地区画の名前。 「土地情報」をクリックしてください。" type="string">
+	<text length="1" name="ParcelNameText" tool_tip="あなたが立っている土地区画の名前。 「土地情報」をクリックしてください。" type="string">
 		区画名はここです
 	</text>
 	<text length="1" name="BalanceText" tool_tip="口座残高" type="string">

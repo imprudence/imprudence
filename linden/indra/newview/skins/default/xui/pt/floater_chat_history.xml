@@ -1,6 +1,52 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="chat floater" title="Histórico de chat">
-	<button label="Chat" name="Chat" />
-	<button label="Mudo" name="Mute resident" />
-	<check_box label="Exibir texto silenciado" name="show mutes" />
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="chat floater" title="Conversa Local">
+	<string name="ringing">
+		Conectando à conversa de Voz no mundo
+	</string>
+	<string name="connected">
+		Conectado
+	</string>
+	<string name="unavailable">
+		Voz não disponível na sua localização atual
+	</string>
+	<string name="hang_up">
+		Desconectado da conversa de Voz no mundo
+	</string>
+	<string name="voice_icon">
+		icn_voice-localchat.tga
+	</string>
+	<string name="IM_logging_string">
+		-- log ativado de Mensagem Instantânea --
+	</string>
+	<string name="IM_end_log_string">
+		-- Fim do Log --
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="Gestos" name="Gesture">
+				<combo_item name="Gestures">
+					Gestos
+				</combo_item>
+			</combo_box>
+			<check_box label="Mostrar texto silenciado" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Clique aqui para mostrar uma lista dos participantes ativos desta sessão de mensagem instantânea."/>
+			<panel name="chat_panel">
+				<string name="gesture_label">
+					Gestos
+				</string>
+				<line_editor label="Clique aqui para conversar." name="Chat Editor"/>
+				<flyout_button label="Falar" name="Say" tool_tip="(Inserir)">
+					<flyout_button_item name="shout_item">
+						Gritar
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						Falar
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Sussurrar
+					</flyout_button_item>
+				</flyout_button>
+			</panel>
+		</layout_panel>
+	</layout_stack>
 </floater>

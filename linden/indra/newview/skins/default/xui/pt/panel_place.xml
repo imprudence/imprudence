@@ -1,6 +1,39 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Place" title="Lugar">
-	<button label="Teleportar" name="teleport_btn" />
-	<button label="Mostrar no mapa" name="map_btn" />
-	<button label="Ofertas..." name="auction_btn" />
+	<text name="name_label">
+		Nome:
+	</text>
+	<text name="description_label">
+		Descrição:
+	</text>
+	<text name="information_label">
+		Informação:
+	</text>
+	<text name="location_label">
+		Localidade:
+	</text>
+	<button label="Teleportar" name="teleport_btn"/>
+	<button label="Mostrar no mapa" name="map_btn"/>
+	<button label="Ofertas..." name="auction_btn"/>
+	<string name="traffic_text">
+		Tráfego: [TRAFFIC]
+	</string>
+	<string name="area_text">
+		Área: [AREA] m2.
+	</string>
+	<string name="forsale_text">
+		À venda por L$ [PRICE]
+	</string>
+	<string name="auction_text">
+		ID do leilão [ID].
+	</string>
+	<string name="server_update_text">
+		Informação do local indisponível sem a atualização do servidor.
+	</string>
+	<string name="server_error_text">
+		A informação sobre esta localidade está indisponível no momento, por favor tente novamente mais tarde.
+	</string>
+	<string name="server_forbidden_text">
+		Informações sobre esta localidade estão indisponíveis devido a restrições de acesso. Por favor, verifique suas permissões com o dono do terreno.
+	</string>
 </panel>

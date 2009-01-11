@@ -1009,9 +1009,6 @@ Voulez-vous visiter [_URL] pour plus d&apos;informations ?
 		<option name="No">
 			Non
 		</option>
-		<url>
-			http://www.secondlife.com/corporate/sysreqs.php
-		</url>
 	</alert>
 	<alert name="UnsupportedGPU">
 		<message name="message">
@@ -2049,9 +2046,6 @@ Vous n&apos;avez pas la permission d&apos;acheter de terrain pour votre groupe.
 
 Proposer à [NAME] de devenir votre ami(e) ?
 		</message>
-		<editline name="editline">
-			Voulez-vous être mon ami(e) ?
-		</editline>
 		<option name="Offer">
 			OK
 		</option>
@@ -2739,8 +2733,81 @@ Télécharger vers le dossier Applications ?
 		<message name="message">
 			Aller sur www.secondlife.com pour gérer votre compte ?
 		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture du navigateur web pour gérer votre compte
+		</ignore>
 		<option name="OK">
 			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchBugReport101">
+		<message name="message">
+			Pour apprendre à signaler correctement des bugs, consultez le Wiki de [SECOND_LIFE].
+		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture du navigateur web pour consulter le Wiki et apprendre à signaler des bugs
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchSecurityIssues">
+		<message name="message">
+			Pour apprendre à signaler un problème de sécurité, consultez le Wiki de [SECOND_LIFE].
+		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture du navigateur web pour consulter la page Wiki sur les problèmes de sécurité.
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchQAWiki">
+		<message name="message">
+			Consultez le Wiki sur l&apos;Assurance Qualité de [SECOND_LIFE].
+		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture du navigateur web pour consulter la page Wiki sur l&apos;Assurance Qualité.
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchPublicIssue">
+		<message name="message">
+			Pour signaler des bugs et autres problèmes, utilisez le JIRA de [SECOND_LIFE].
+		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture du navigateur web pour consulter le JIRA
+		</ignore>
+		<option name="Gotopage">
+			Aller sur cette page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchPublicIssueHelp">
+		<message name="message">
+			Pour apprendre à utiliser JIRA, consultez le Wiki de [SECOND_LIFE].
+		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture du navigateur web pour consulter la page Wiki sur le JIRA
+		</ignore>
+		<option name="Gotopage">
+			Aller sur cette page
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -2750,8 +2817,25 @@ Télécharger vers le dossier Applications ?
 		<message name="message">
 			Consultez la base de connaissances de [SECOND_LIFE] pour les derniers trucs &amp; astuces.
 		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture du navigateur web pour consulter la Base de connaissances
+		</ignore>
 		<option name="Gotopage">
 			Aller à la page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchSupport">
+		<message name="message">
+			Contactez le Service clientèle de [SECOND_LIFE].
+		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture du navigateur web pour contacter le Service clientèle
+		</ignore>
+		<option name="Gotopage">
+			OK
 		</option>
 		<option name="Cancel">
 			Annuler
@@ -2761,6 +2845,9 @@ Télécharger vers le dossier Applications ?
 		<message name="message">
 			Visitez le blog officiel des Lindens pour les dernières nouvelles et informations.
 		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture du navigateur web pour consulter le blog
+		</ignore>
 		<option name="Gotopage">
 			Aller à la page
 		</option>
@@ -2786,6 +2873,9 @@ Télécharger vers le dossier Applications ?
 		<message name="message">
 			Consulter le Wiki LSL pour de l&apos;aide sur les scripts ?
 		</message>
+		<ignore name="ignore">
+			Lors de l&apos;ouverture du navigateur web pour consulter le Guide sur l&apos;écriture de scripts
+		</ignore>
 		<option name="Gotopage">
 			Aller à la page
 		</option>
@@ -3871,6 +3961,20 @@ Déplacer les objets de l&apos;inventaire ?
 			Vous n&apos;êtes autorisé à copier aucun élément dans cet objet.
 		</message>
 	</alert>
+	<alert name="WebLaunchAccountHistory">
+		<message name="message">
+			Aller sur le site de Second Life pour consulter l&apos;historique de votre compte ?
+		</message>
+		<ignore name="ignore">
+			Lors du chargement de la page web contenant l&apos;historique de votre compte
+		</ignore>
+		<option name="Gotopage">
+			Aller sur cette page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
 	<alert name="ClickOpenF1Help">
 		<message name="message">
 			Visiter les pages d&apos;aide de Second Life ?
@@ -4540,9 +4644,6 @@ Voulez-vous aller sur le site de Second Life pour vérifier votre âge ?
 		<option name="No">
 			Non
 		</option>
-		<url>
-			https://secondlife.com/account/verification.php
-		</url>
 	</alert>
 	<alert name="Cannot enter parcel: no payment info on file">
 		<message name="message">
@@ -4560,9 +4661,6 @@ Voulez-vous aller sur le site de Second Life pour enregistrer ces informations 
 		<option name="No">
 			Non
 		</option>
-		<url>
-			https://secondlife.com/account/
-		</url>
 	</alert>
 	<alert name="MissingString">
 		<message name="message">

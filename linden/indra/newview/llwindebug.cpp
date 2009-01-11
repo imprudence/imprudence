@@ -430,7 +430,7 @@ LLSD WINAPI Get_Exception_Info(PEXCEPTION_POINTERS pException)
 	FILETIME	Last_Write_Time;
 	FILETIME	Local_File_Time;
 	SYSTEMTIME	T;
-	
+
 	Str = new WCHAR[DUMP_SIZE_MAX];
 	Str_Len = 0;
 	if (!Str)
@@ -440,6 +440,7 @@ LLSD WINAPI Get_Exception_Info(PEXCEPTION_POINTERS pException)
 	
 	GetModuleFileName(NULL, Str, MAX_PATH);
 	info["Process"] = ll_convert_wide_to_string(Str);
+	info["ThreadID"] = (S32)GetCurrentThreadId();
 
 	// If exception occurred.
 	if (pException)

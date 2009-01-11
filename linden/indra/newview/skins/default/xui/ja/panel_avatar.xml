@@ -95,7 +95,7 @@
 			<check_box label="ウェブ・プロフィール自動ロード" name="auto_load" tool_tip="プロフィールにあるすべてのウェブ・ページを確認なしで自動的にロードする"/>
 		</panel>
 		<panel label="興味" name="Interests">
-			<text name="I Want To:">
+			<text name="I Want To:" width="74">
 				したいこと：
 			</text>
 			<check_box label="作成" name="chk0"/>

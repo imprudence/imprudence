@@ -471,9 +471,9 @@ void LLTextEditor::updateLineStartList(S32 startpos)
 	}
 
 	// if scrolled to bottom, stay at bottom
-	// unless user is editing text
+	// unless user is selecting text
 	// do this after updating page size
-	if (mScrolledToBottom && mTrackBottom && !hasFocus())
+	if (mScrolledToBottom && mTrackBottom && !hasMouseCapture())
 	{
 		endOfDoc();
 	}

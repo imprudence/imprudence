@@ -79,29 +79,35 @@
 		<combo_item name="English">
 			English (Englisch)
 		</combo_item>
-		<combo_item name="Chinese">
-			汉语/漢語 (Chinesisch) - Beta
+		<combo_item name="Danish">
+			Danks (Dänisch) - Beta
 		</combo_item>
 		<combo_item name="Deutsch(German)">
 			Deutsch - Beta
 		</combo_item>
+		<combo_item name="Spanish">
+			Español (Spanisch) - Beta
+		</combo_item>
 		<combo_item name="French">
 			Français (Französisch) - Beta
+		</combo_item>
+		<combo_item name="Hungarian">
+			Magyar (Ungarisch) - Beta
+		</combo_item>
+		<combo_item name="Polish">
+			Polski (Polnisch) - Beta
+		</combo_item>
+		<combo_item name="Portugese">
+			Português (Portugiesisch) - Beta
+		</combo_item>
+		<combo_item name="Chinese">
+			汉语/漢語 (Chinesisch) - Beta
 		</combo_item>
 		<combo_item name="(Japanese)">
 			日本語 (Japanisch) - Beta
 		</combo_item>
 		<combo_item name="(Korean)">
 			한국어 (Koreanisch) - Beta
-		</combo_item>
-		<combo_item name="Danish">
-			Danks (Dänisch) - Beta
-		</combo_item>
-		<combo_item name="Portugese">
-			Português (Portugiesisch) - Beta
-		</combo_item>
-		<combo_item name="Spanish">
-			Español (Spanisch) - Beta
 		</combo_item>
 	</combo_box>
 	<check_box label="Objekten Sprache mitteilen" name="language_is_public" tool_tip="In-Welt-Objekten wird Ihre bevorzugte Spracheinstellung mitgeteilt."/>

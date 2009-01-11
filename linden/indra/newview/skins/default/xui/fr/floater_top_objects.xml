@@ -9,6 +9,7 @@
 		<column label="Propriétaire" name="owner"/>
 		<column label="Lieu" name="location"/>
 		<column label="Heure" name="time"/>
+		<column label="Heure Mono" name="mono_time"/>
 	</scroll_list>
 	<text name="id_text">
 		ID de l&apos;objet :
@@ -27,25 +28,28 @@
 	<button label="Désactiver" name="disable_selected_btn"/>
 	<button label="Désactiver tous" name="disable_all_btn"/>
 	<button label="Rafraîchir" name="refresh_btn"/>
-	<text name="top_scripts_title">
+	<string name="top_scripts_title">
 		Scripts principaux
-	</text>
-	<text name="top_scripts_text">
+	</string>
+	<string name="top_scripts_text">
 		[COUNT] scripts prenant un total de [TIME] ms
-	</text>
-	<text name="scripts_score_label">
+	</string>
+	<string name="scripts_score_label">
 		Heure
-	</text>
-	<text name="top_colliders_title">
+	</string>
+	<string name="scripts_mono_time_label">
+		Heure Mono
+	</string>
+	<string name="top_colliders_title">
 		Objets souvent responsables de collision
-	</text>
-	<text name="top_colliders_text">
+	</string>
+	<string name="top_colliders_text">
 		[COUNT] objets souvent responsables de collisions
-	</text>
-	<text name="colliders_score_label">
+	</string>
+	<string name="colliders_score_label">
 		Score
-	</text>
-	<text name="none_descriptor">
+	</string>
+	<string name="none_descriptor">
 		Aucun résultat.
-	</text>
+	</string>
 </floater>

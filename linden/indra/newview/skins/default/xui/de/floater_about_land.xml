@@ -104,7 +104,7 @@
 			</string>
 			<string name="no_selection_text">
 				Keine Parzelle ausgewählt.
-Öffnen Sie &quot;Welt&quot; &gt; &quot;Land-Info&quot; oder wählen Sie eine andere Parzelle aus, um Informationen darüber anzuzeigen.
+Öffnen Sie „Welt“ &gt; „Land-Info“ oder wählen Sie eine andere Parzelle aus, um Informationen darüber anzuzeigen.
 			</string>
 		</panel>
 		<panel label="Vertrag" name="land_covenant_panel">
@@ -402,7 +402,7 @@ Optionen:
 			<string name="estate_override">
 				Eine oder mehrere dieser Optionen gelten auf Grundstücksebene
 			</string>
-			<check_box label="Gruppenzugang erlauben: [GROUP]" name="GroupCheck" tool_tip="Gruppe im Register &apos;Allgemein&apos; festlegen."/>
+			<check_box label="Gruppenzugang erlauben: [GROUP]" name="GroupCheck" tool_tip="Gruppe im Register „Allgemein“ festlegen."/>
 			<check_box label="Pässe verkaufen an:" name="PassCheck" tool_tip="Ermöglicht befristeten Zugang zu dieser Parzelle"/>
 			<combo_box name="pass_combo">
 				<combo_item name="Anyone">

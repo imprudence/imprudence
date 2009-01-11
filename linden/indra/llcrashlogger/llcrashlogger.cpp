@@ -123,6 +123,33 @@ void trimSLLog(std::string& sllog)
 	}
 }
 
+std::string getStartupStateFromLog(std::string& sllog)
+{
+	std::string startup_state = "STATE_FIRST";
+	std::string startup_token = "Startup state changing from ";
+
+	int index = sllog.rfind(startup_token);
+	if (index < 0 || index + startup_token.length() > sllog.length()) {
+		return startup_state;
+	}
+
+	// find new line
+	char cur_char = sllog[index + startup_token.length()];
+	std::string::size_type newline_loc = index + startup_token.length();
+	while(cur_char != '\n' && newline_loc < sllog.length())
+	{
+		newline_loc++;
+		cur_char = sllog[newline_loc];
+	}
+	
+	// get substring and find location of " to "
+	std::string state_line = sllog.substr(index, newline_loc - index);
+	std::string::size_type state_index = state_line.find(" to ");
+	startup_state = state_line.substr(state_index + 4, state_line.length() - state_index - 4);
+
+	return startup_state;
+}
+
 void LLCrashLogger::gatherFiles()
 {
 
@@ -232,6 +259,10 @@ void LLCrashLogger::gatherFiles()
 		std::string crash_info = s.str();
 		if(itr->first == "SecondLifeLog")
 		{
+			if(!mCrashInfo["DebugLog"].has("StartupState"))
+			{
+				mCrashInfo["DebugLog"]["StartupState"] = getStartupStateFromLog(crash_info);
+			}
 			trimSLLog(crash_info);
 		}
 
