@@ -281,8 +281,10 @@
 			</combo_box>
 			<check_box label="标价 &lt;= L$" name="pricecheck" />
 			<check_box label="地区&gt;= 平方米" name="areacheck" />
-			<button label="搜索" label_selected="搜索" name="Search" />
-			<text name="land">
+			<line_editor left="245" name="priceedit" width="50"/>
+			<line_editor left="245" name="areaedit" width="50"/>
+			<button label="搜索" label_selected="搜索" name="Search" left="306" />
+			<text name="land" left="399" >
 				土地可以直接用林登元购买(L$)，也可以用林登元或美元拍卖。
 要直接购买, 进入土地，然后在点击菜单栏上的地点的名字。
 			</text>

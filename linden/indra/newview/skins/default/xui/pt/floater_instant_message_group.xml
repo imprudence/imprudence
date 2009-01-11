@@ -20,9 +20,9 @@
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="Informação do Grupo" name="group_info_btn"/>
-			<button label="Entrar numa chamada" name="start_call_btn"/>
-			<button label="Encerrar Chamada" name="end_call_btn"/>
+			<button label="Informação do Grupo" name="group_info_btn" width="130"/>
+			<button label="Entrar numa chamada" name="start_call_btn" left_delta="135" width="160"/>
+			<button label="Encerrar Chamada" name="end_call_btn" width="160" halign="center"/>
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Clique aqui para alternar a lista dos participantes ativos nesta sessão de IM ."/>
 			<button label="Enviar" name="send_btn"/>
 		</layout_panel>

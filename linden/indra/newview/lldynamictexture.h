@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -60,6 +60,9 @@ public:
 	virtual void preRender(BOOL clear_depth = TRUE);
 	virtual BOOL render();
 	virtual void postRender(BOOL success);
+
+	virtual void restoreGLTexture() ;
+	virtual void destroyGLTexture() ;
 
 	LLImageGL* getTexture(void) const { return mTexture; }
 

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -138,6 +138,8 @@ void LLViewerJointAttachment::setupDrawable(LLDrawable* drawablep)
 		{
 			childp->mDrawable->setState(LLDrawable::USE_BACKLIGHT);
 			gPipeline.markTextured(childp->mDrawable); // face may need to change draw pool to/from POOL_HUD
+			gPipeline.markMoved(childp->mDrawable);
+
 			if(mIsHUDAttachment)
 			{
 				for (S32 face_num = 0; face_num < childp->mDrawable->getNumFaces(); face_num++)

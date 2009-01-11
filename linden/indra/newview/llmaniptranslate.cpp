@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -77,7 +77,7 @@ const F32 PLANE_TICK_SIZE = 0.4f;
 const F32 MANIPULATOR_SCALE_HALF_LIFE = 0.07f;
 const F32 SNAP_ARROW_SCALE = 0.7f;
 
-static GLuint sGridTex = 0;
+static LLPointer<LLImageGL> sGridTex = NULL ;
 
 const LLManip::EManipPart MANIPULATOR_IDS[9] = 
 {
@@ -119,9 +119,29 @@ LLManipTranslate::LLManipTranslate( LLToolComposite* composite )
 	mPlaneScales(1.f, 1.f, 1.f),
 	mPlaneManipPositions(1.f, 1.f, 1.f, 1.f)
 { 
-	if (sGridTex == 0)
+	if (sGridTex.isNull())
 	{ 
 		restoreGL();
+	}
+}
+
+//static
+U32 LLManipTranslate::getGridTexName()
+{
+	if(sGridTex.isNull())
+	{
+		restoreGL() ;
+	}
+
+	return sGridTex.isNull() ? 0 : sGridTex->getTexName() ;
+}
+
+//static
+void LLManipTranslate::destroyGL()
+{
+	if (sGridTex)
+	{
+		sGridTex = NULL ;
 	}
 }
 
@@ -132,9 +152,17 @@ void LLManipTranslate::restoreGL()
 	U32 rez = 512;
 	U32 mip = 0;
 
-	GLuint* d = new GLuint[rez*rez];
-	glGenTextures(1, &sGridTex);
-	gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, sGridTex);
+	destroyGL() ;
+	sGridTex = new LLImageGL() ;
+	if(!sGridTex->createGLTexture())
+	{
+		sGridTex = NULL ;
+		return ;
+	}
+
+	GLuint* d = new GLuint[rez*rez];	
+
+	gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, sGridTex->getTexName());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
@@ -1503,7 +1531,7 @@ void LLManipTranslate::renderSnapGuides()
 				LLGLDisable stencil(GL_STENCIL_TEST);
 				{
 					LLGLDepthTest gls_depth(GL_TRUE, GL_FALSE, GL_GREATER);
-					gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, sGridTex);
+					gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, getGridTexName());
 					gGL.flush();
 					gGL.blendFunc(LLRender::BF_ZERO, LLRender::BF_ONE_MINUS_SOURCE_ALPHA);
 					renderGrid(u,v,tiles,0.9f, 0.9f, 0.9f,a*0.15f);
@@ -1518,7 +1546,7 @@ void LLManipTranslate::renderSnapGuides()
 					renderGrid(u,v,tiles,0.0f, 0.0f, 0.0f,a*0.16f);
 
 					//draw grid top
-					gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, sGridTex);
+					gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, getGridTexName());
 					renderGrid(u,v,tiles,1,1,1,a);
 
 					gGL.popMatrix();

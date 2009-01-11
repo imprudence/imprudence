@@ -823,7 +823,7 @@ Pour vous lever, cliquez sur le bouton Me lever.
 	</notify>
 	<notify name="FirstMap">
 		<message name="message">
-			Cliquez et faîtes glisser pour faire défiler la carte.
+			Cliquez et faites glisser pour faire défiler la carte.
 Double-cliquez pour vous téléporter.
 Utilisez les contrôles à droite pour trouver des choses et afficher différents arrière-plans.
 		</message>

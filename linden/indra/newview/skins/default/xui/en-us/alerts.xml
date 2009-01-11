@@ -665,7 +665,7 @@ to set its Landing Point.
 	</alert>
 	<alert modal="true" name="PromptRecipientEmail">
 		<message name="message">
-			Please enter the recipient&apos;s email address.
+			Please enter a valid email address for the recipient(s).
 		</message>
 	</alert>
 	<alert modal="true" name="PromptSelfEmail">

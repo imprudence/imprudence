@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -220,22 +220,28 @@ public:
 	BOOL					uploadPending() { return mUploadPending; }
 	BOOL					render( S32 x, S32 y, S32 width, S32 height );
 	void					readBackAndUpload(U8* baked_bump_data);
+	void                    createBumpTexture() ;
+
 	static void				onTextureUploadComplete( const LLUUID& uuid,
 													 void* userdata,
 													 S32 result, LLExtStat ext_status);
 	static void				dumpTotalByteCount();
+
+	virtual void restoreGLTexture() ;
+	virtual void destroyGLTexture() ;
 
 private:
 	void					pushProjection();
 	void					popProjection();
 
 private:
+	BOOL                    mHasBump ;
 	BOOL					mNeedsUpdate;
 	BOOL					mNeedsUpload;
 	BOOL					mUploadPending;
 	LLUUID					mUploadID;		// Identifys the current upload process (null if none).  Used to avoid overlaps (eg, when the user rapidly makes two changes outside of Face Edit)
 	LLTexLayerSet*			mTexLayerSet;
-	LLGLuint				mBumpTexName;	// zero if none
+	LLPointer<LLImageGL>	mBumpTex;	// zero if none
 
 	static S32				sGLByteCount;
 	static S32				sGLBumpByteCount;

@@ -10,8 +10,8 @@
 		<menu_item_call label="削除" name="Delete" />
 		<menu_item_call label="装着" name="Wear" />
 		<menu_item_call label="コピーを取る" name="Take Copy" />
-		<pie_menu label="HUDを添付＞" name="Object Attach HUD" />
-		<pie_menu label="添付＞" name="Object Attach" />
+		<pie_menu label="HUD装着先＞" name="Object Attach HUD" />
+		<pie_menu label="装着先＞" name="Object Attach" />
 		<menu_item_call label="返却..." name="Return..." />
 		<pie_menu label="詳細＞" name="Rate Menu">
 			<menu_item_call label="オーナーを評価..." name="Rate Owner..." />

@@ -112,7 +112,7 @@
 			English (英语)
 		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="Chinese" value="zh">
-			汉语/漢語  - 测试版
+			中文 (简体)  - 测试版
 		</combo_item>
 		<combo_item length="1" name="Danish" type="string">
 			Dansk (Danish) - 测试版

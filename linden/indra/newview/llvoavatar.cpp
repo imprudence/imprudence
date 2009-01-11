@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -1069,6 +1069,22 @@ void LLVOAvatar::deleteLayerSetCaches()
 	if( mLowerBodyLayerSet )	mLowerBodyLayerSet->deleteCaches();
 	if( mEyesLayerSet )			mEyesLayerSet->deleteCaches();
 	if( mSkirtLayerSet )		mSkirtLayerSet->deleteCaches();
+
+	if(mUpperMaskTexName)
+	{
+		glDeleteTextures(1, (GLuint*)&mUpperMaskTexName);
+		mUpperMaskTexName = 0 ;
+	}
+	if(mHeadMaskTexName)
+	{
+		glDeleteTextures(1, (GLuint*)&mHeadMaskTexName);
+		mHeadMaskTexName = 0 ;
+	}
+	if(mLowerMaskTexName)
+	{
+		glDeleteTextures(1, (GLuint*)&mLowerMaskTexName);
+		mLowerMaskTexName = 0 ;
+	}
 }
 
 // static 

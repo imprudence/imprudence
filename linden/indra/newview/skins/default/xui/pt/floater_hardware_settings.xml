@@ -7,7 +7,7 @@
 	<text name="Antialiasing:">
 		Suavização:
 	</text>
-	<combo_box label="Suavização" name="fsaa">
+	<combo_box label="Suavização" name="fsaa" width="94">
 		<combo_item name="FSAADisabled">
 			Desabilitado
 		</combo_item>
@@ -33,6 +33,6 @@
 	</text>
 	<check_box label="Habilitar Objetos com Armazenamento de Vértices" name="vbo" tool_tip="Habilitando-o em máquinas novas, ele oferece um ganho de performance. Contudo, as máquinas antigas tem freqüentemente implementações pobres de VBOs e você pode ter travamentos quando esta opção é habilitada."/>
 	<slider label="Memória de Textura (MB):" name="GrapicsCardTextureMemory" tool_tip="Quantidade de memória a se reservar para texturas. Usa por padrão, a  Memória da Placa de Vídeo. Sua redução pode aumentar a performance mas pode também deixar as texturas borradas."/>
-	<spinner label="Relação de Distância de Nevoeiro:" name="fog"/>
+	<spinner label="Relação de Distância de &#10;Nevoeiro:" name="fog"/>
 	<button label="OK" label_selected="OK" name="OK"/>
 </floater>

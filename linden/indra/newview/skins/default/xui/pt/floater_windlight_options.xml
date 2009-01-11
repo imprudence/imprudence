@@ -6,7 +6,7 @@
 	<button label="Novo" label_selected="Novo" name="WLNewPreset"/>
 	<button label="Salvar" label_selected="Salvar" name="WLSavePreset"/>
 	<button label="Deletar" label_selected="Deletar" name="WLDeletePreset"/>
-	<button label="Editor de Ciclos do Dia" label_selected="Editor de Ciclos do Dia" name="WLDayCycleMenuButton"/>
+	<button label="Editor de Ciclos do Dia" label_selected="Editor de Ciclos do Dia" name="WLDayCycleMenuButton" width="150" left_delta="95" />
 	<tab_container name="WindLight Tabs">
 		<panel label="Atmosfera" name="Atmosphere">
 			<text name="BHText">

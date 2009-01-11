@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -186,17 +186,11 @@ bool LLTexUnit::bind(const LLImageGL* texture, bool forceBind)
 		llwarns << "NULL LLTexUnit::bind texture" << llendl;
 		return false;
 	}
-
-	if (!texture->isInitialized() && !forceBind)
-	{
-		return texture->bindDefaultImage(mIndex);
-	}
-
+	
 	if (!texture->getTexName()) //if texture does not exist
 	{
 		return texture->bindDefaultImage(mIndex);
 	}
-
 	// Disabled caching of binding state.
 	activate();
 	enable(texture->getTarget());

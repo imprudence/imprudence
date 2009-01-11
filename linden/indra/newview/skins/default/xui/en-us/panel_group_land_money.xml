@@ -3,11 +3,7 @@
      left="1" mouse_opaque="true" name="land_money_tab" select="false"
      width="418">
 	<string name="help_text">
-		Parcels owned by the group are listed along with 
-contribution details. A warning appears until the
-Total Land in Use is less than or equal to the Total
-Contribution. The Plannning, Details and Sales tabs
-provide information about the group&apos;s finances.
+		Parcels owned by the group are listed along with contribution details. A warning appears until the Total Land in Use is less than or equal to the Total Contribution. The &apos;Details&apos; and &apos;Sales&apos; tabs provide information about the group&apos;s finances.
 	</string>
 	<button bottom="-24" font="SansSerif" halign="center" height="16" label="?" left="391"
 	     name="help_button" width="20" />

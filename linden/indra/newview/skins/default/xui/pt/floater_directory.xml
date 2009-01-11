@@ -8,7 +8,7 @@
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
-			<button label="voltar" name="back_btn"/>
+			<button label="Voltar" name="back_btn"/>
 			<button label="Encaminhar" name="forward_btn"/>
 			<line_editor label="Busca" name="search_editor" tool_tip="Busca Second Life"/>
 			<button label="Buscar" name="search_btn"/>
@@ -49,11 +49,12 @@
 				Nada foi encontrado.
 			</string>
 			<button label="&lt; Prev" label_selected="&lt; Prev" name="&lt; Prev"/>
-			<text name="find">
+			<text name="find" width="63">
 				Encontrar:
 			</text>
-			<check_box label="Incluir Conteúdo Adulto" name="incmature"/>
-			<combo_box name="Category">
+			<line_editor left_delta="58" name="name" width="128"/>
+			<check_box label="Incluir conteúdo adulto" name="incmature"/>
+			<combo_box name="Category" left="195" width="154">
 				<combo_item name="AnyCategory">
 					Qualquer Categoria
 				</combo_item>
@@ -85,7 +86,7 @@
 					Pessoal
 				</combo_item>
 			</combo_box>
-			<button label="Procura" label_selected="Procura" name="Browse"/>
+			<button label="Procura" label_selected="Procura" name="Browse" left_delta="162" />
 			<button label="Buscar" label_selected="Buscar" name="Search"/>
 			<button label="Colocar Anúncio" label_selected="Colocar Anúncio" name="Place an Ad..."/>
 			<button label="Apagar" label_selected="Apagar" name="Delete"/>
@@ -161,7 +162,7 @@
 					Variados
 				</combo_item>
 			</combo_box>
-			<check_box label="Conteúdo Adulto" name="incmature"/>
+			<check_box label="Incluir conteúdo &#10;adulto" name="incmature"/>
 			<button label="Buscar" label_selected="Buscar" name="Search" tool_tip="Buscar"/>
 			<button label="Apagar" label_selected="Apagar" name="Delete"/>
 			<scroll_list name="results">
@@ -182,7 +183,7 @@
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
-			<button label="voltar" name="back_btn"/>
+			<button label="Voltar" name="back_btn"/>
 			<button label="Encaminhar" name="forward_btn"/>
 			<string name="loading_text">
 				Carregando...
@@ -230,8 +231,8 @@
 			<button label="Buscar" label_selected="Buscar" name="Search"/>
 			<text name="land">
 				Lotes podem ser adquiridos diretamente através de Linden Dollares (L$) ou leilão, 
-ambos em L$, US$ ou R$. 
-Para comprar diretamente, visite o lote e clique no nome do lugar na barra título.
+ambos em L$, US$ ou R$. Para comprar diretamente, visite o lote e clique no
+nome do lugar na barra título.
 			</text>
 			<scroll_list name="results">
 				<column label="" name="icon"/>
@@ -251,11 +252,12 @@ Para comprar diretamente, visite o lote e clique no nome do lugar na barra títu
 			</string>
 			<button label="Próximo &gt;" label_selected="Próximo &gt;" name="Next &gt;"/>
 			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
-			<text name="find">
+			<text name="find" width="63">
 				Encontrar:
 			</text>
+			<line_editor left_delta="58" name="name" width="128"/>
 			<check_box label="Incluir lugares em Regiões Adultas" name="incmature"/>
-			<combo_box name="Category">
+			<combo_box name="Category" left="195" width="160">
 				<combo_item name="AnyCategory">
 					Qualquer Categoria
 				</combo_item>
@@ -296,7 +298,7 @@ Para comprar diretamente, visite o lote e clique no nome do lugar na barra títu
 					Outros
 				</combo_item>
 			</combo_box>
-			<button label="Buscar" label_selected="Buscar" name="Search"/>
+			<button label="Buscar" label_selected="Buscar" name="Search" left_delta="168"/>
 			<scroll_list name="results">
 				<column label="" name="icon"/>
 				<column label="" name="type"/>
@@ -313,9 +315,10 @@ Para comprar diretamente, visite o lote e clique no nome do lugar na barra títu
 			</string>
 			<button label="Próximo &gt;" label_selected="Próximo &gt;" name="Next &gt;"/>
 			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
-			<text name="find">
+			<text name="find" width="63">
 				Encontrar:
 			</text>
+			<line_editor left_delta="58" name="name" width="200"/>
 			<button label="Buscar" label_selected="Buscar" name="Search"/>
 			<scroll_list name="results">
 				<column label="" name="icon"/>
@@ -330,7 +333,7 @@ Para comprar diretamente, visite o lote e clique no nome do lugar na barra títu
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
-			<button label="voltar" name="back_btn"/>
+			<button label="Voltar" name="back_btn"/>
 			<button label="Encaminhar" name="forward_btn"/>
 			<line_editor label="Busca" name="search_editor" tool_tip="Busca Second Life"/>
 			<button label="Busca" name="search_btn"/>

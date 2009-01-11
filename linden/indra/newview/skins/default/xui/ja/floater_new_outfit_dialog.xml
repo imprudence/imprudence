@@ -2,7 +2,7 @@
 <floater name="modal container" title=" ">
 	<button label="保存" label_selected="保存" name="Save" />
 	<button label="取り消し" label_selected="取り消し" name="Cancel" />
-	<check_box label="形" name="checkbox_Shape" />
+	<check_box label="シェイプ(体型)" name="checkbox_Shape" />
 	<check_box label="スキン" name="checkbox_Skin" />
 	<check_box label="髪" name="checkbox_Hair" />
 	<check_box label="眼" name="checkbox_Eyes" />

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -671,9 +671,7 @@ public:
 		  mConcave(FALSE),
 		  mDirty(TRUE),
 		  mTotalOut(0),
-		  mTotal(2),
-		  mMinX(0.f),
-		  mMaxX(0.f)
+		  mTotal(2)
 	{
 	}
 
@@ -721,9 +719,6 @@ protected:
 
 	S32			  mTotalOut;
 	S32			  mTotal;
-
-	F32			  mMaxX;
-	F32			  mMinX;
 };
 
 //-------------------------------------------------------------------

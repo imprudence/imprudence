@@ -186,7 +186,7 @@
 			Portugués (Portuguese) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="Chinese" value="zh">
-			汉语/漢語 (Chinese) - Beta
+			中文 (简体) (Chinese) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="(Japanese)" value="ja">
 			日本語 (Japanese) - Beta
