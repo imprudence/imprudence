@@ -1,5 +1,9 @@
 2009-01-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/cmake/GStreamer.cmake:
+	Added more gstreamer include paths.
+
+
 	* linden/install.xml:
 	Added glib package to install.xml.
 
