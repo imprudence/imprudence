@@ -3,6 +3,15 @@
 	* linden/indra/llcommon/llversionviewer.h
 	Changed version to RC1.
 
+	* linden/indra/lib/python/indra/base/llsd.py:
+	Updated changes to LLSD.
+	* linden/indra/lib/python/indra/util/fastest_elementtree.py:
+	Ditto.
+	* linden/indra/llcommon/llkeythrottle.h:
+	Ditto.
+	* linden/indra/llinventory/llsaleinfo.cpp:
+	Ditto.
+
 	* linden/indra/llmath/llcalc.cpp:
 	Added cheat sheet help buttons in tools window.
 	* linden/indra/newview/llpanelface.cpp:
