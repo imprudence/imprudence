@@ -20,7 +20,21 @@
 	Ditto.
 
 
-2009-01-11  McCabe Maxsted  <hakushakukun@gmail.com>
+2009-01-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/GStreamer.cmake:
+	Added more gstreamer include paths.
+	* linden/install.xml:
+	Added glib package to install.xml.
+	* linden/indra/newview/CMakeLists.txt:
+	Use BOOST_SIGNALS_LIB in newview/CMakeLists.
+	* cmake/DBusGlib.cmake:
+	Removed references to unused dbusglib.
+	* newview/CMakeLists.txt:
+	Ditto.
+
+
+	McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llvieweraudio.cpp:
 	Wind disabled by default, ambient wind muting fixed, added debug setting 'MuteAudio'.
