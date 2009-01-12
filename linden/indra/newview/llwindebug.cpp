@@ -704,8 +704,8 @@ void LLWinDebug::generateCrashStacks(struct _EXCEPTION_POINTERS *exception_infop
 			ExInfo.ExceptionPointers = exception_infop;
 			ExInfo.ClientPointers = NULL;
 
-			writeDumpToFile(MiniDumpNormal, &ExInfo, "SecondLife.dmp");
-			writeDumpToFile((MINIDUMP_TYPE)(MiniDumpWithDataSegs | MiniDumpWithIndirectlyReferencedMemory), &ExInfo, "SecondLifePlus.dmp");
+			writeDumpToFile(MiniDumpNormal, &ExInfo, "Imprudence.dmp");
+			writeDumpToFile((MINIDUMP_TYPE)(MiniDumpWithDataSegs | MiniDumpWithIndirectlyReferencedMemory), &ExInfo, "ImprudencePlus.dmp");
 		}
 
 		info = Get_Exception_Info(exception_infop);

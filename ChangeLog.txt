@@ -160,6 +160,12 @@
 	Ditto.
 
 
+2008-12-24  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llwindebug.cpp:
+	Rebranded windows crash dump filenames.
+
+
 2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/install.xml:
