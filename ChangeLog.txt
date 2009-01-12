@@ -1,5 +1,9 @@
 2009-01-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/CMakeLists.txt:
+	Use BOOST_SIGNALS_LIB in newview/CMakeLists.
+
+
 	* cmake/DBusGlib.cmake:
 	Removed references to unused dbusglib.
 	* newview/CMakeLists.txt:
