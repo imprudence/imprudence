@@ -788,24 +788,12 @@ void init_client_menu(LLMenuGL* menu)
 	menu->appendMenu(sub_menu);
 
 	menu->appendSeparator();
-
-	menu->append(new LLMenuItemCheckGL( "High-res Snapshot",
-										&menu_toggle_control,
-										NULL,
-										&menu_check_control,
-										(void*)"HighResSnapshot"));
 	
 	menu->append(new LLMenuItemCheckGL( "Quiet Snapshots to Disk",
 										&menu_toggle_control,
 										NULL,
 										&menu_check_control,
 										(void*)"QuietSnapshotsToDisk"));
-
-	menu->append(new LLMenuItemCheckGL( "Compress Snapshots to Disk",
-										&menu_toggle_control,
-										NULL,
-										&menu_check_control,
-										(void*)"CompressSnapshotsToDisk"));
 
 	menu->append(new LLMenuItemCheckGL("Show Mouselook Crosshairs",
 									   &menu_toggle_control,
@@ -924,12 +912,6 @@ void init_client_menu(LLMenuGL* menu)
 									   NULL, 
 									   &menu_check_control,
 									   (void*)"LimitSelectDistance"));
-
-	menu->append(new LLMenuItemCheckGL("Disable Camera Constraints", 
-									   &menu_toggle_control,
-									   NULL, 
-									   &menu_check_control,
-									   (void*)"DisableCameraConstraints"));
 
 	menu->append(new LLMenuItemCheckGL("Mouse Smoothing",
 										&menu_toggle_control,
@@ -1381,7 +1363,7 @@ void init_debug_avatar_menu(LLMenuGL* menu)
 	menu->append(new LLMenuItemToggleGL( "Display Agent Target", &LLAgent::sDebugDisplayTarget));
 	menu->append(new LLMenuItemToggleGL( "Debug Rotation", &gDebugAvatarRotation));
 	menu->append(new LLMenuItemCallGL("Dump Attachments", handle_dump_attachments));
-	menu->append(new LLMenuItemCallGL("Rebake Textures", handle_rebake_textures, NULL, NULL, 'R', MASK_ALT | MASK_CONTROL ));
+	menu->append(new LLMenuItemCallGL("Refresh Appearance", handle_rebake_textures, NULL, NULL, 'R', MASK_ALT | MASK_CONTROL ));
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 	menu->append(new LLMenuItemCallGL("Debug Avatar Textures", handle_debug_avatar_textures, NULL, NULL, 'A', MASK_SHIFT|MASK_CONTROL|MASK_ALT));
 	menu->append(new LLMenuItemCallGL("Dump Local Textures", handle_dump_avatar_local_textures, NULL, NULL, 'M', MASK_SHIFT|MASK_ALT ));	
@@ -6268,11 +6250,6 @@ BOOL menu_ui_enabled(void *user_data)
 void menu_toggle_control( void* user_data )
 {
         BOOL checked = gSavedSettings.getBOOL( static_cast<char*>(user_data) );
-        if (std::string(static_cast<char*>(user_data)) == "HighResSnapshot" && !checked)
-        {
-                // High Res Snapshot active, must uncheck RenderUIInSnapshot
-                gSavedSettings.setBOOL( "RenderUIInSnapshot", FALSE );
-        }
         gSavedSettings.setBOOL( static_cast<char*>(user_data), !checked );
 }
 
@@ -6284,11 +6261,6 @@ class LLToggleControl : public view_listener_t
 	{
 		std::string control_name = userdata.asString();
 		BOOL checked = gSavedSettings.getBOOL( control_name );
-		if (control_name == "HighResSnapshot" && !checked)
-		{
-			// High Res Snapshot active, must uncheck RenderUIInSnapshot
-			gSavedSettings.setBOOL( "RenderUIInSnapshot", FALSE );
-		}
 		gSavedSettings.setBOOL( control_name, !checked );
 		return true;
 	}
@@ -9810,6 +9782,7 @@ void initialize_menus()
 	addMenu(new LLEditEnableDuplicate(), "Edit.EnableDuplicate");
 	addMenu(new LLEditEnableTakeOff(), "Edit.EnableTakeOff");
 	addMenu(new LLEditEnableCustomizeAvatar(), "Edit.EnableCustomizeAvatar");
+	addMenu(new LLAdvancedRebakeTextures(), "Advanced.RebakeTextures");
 
 	// View menu
 	addMenu(new LLViewMouselook(), "View.Mouselook");
@@ -10120,7 +10093,6 @@ void initialize_menus()
 	addMenu(new LLAdvancedToggleDebugAvatarRotation(), "Advanced.ToggleDebugAvatarRotation");
 	addMenu(new LLAdvancedCheckDebugAvatarRotation(), "Advanced.CheckDebugAvatarRotation");
 	addMenu(new LLAdvancedDumpAttachments(), "Advanced.DumpAttachments");
-	addMenu(new LLAdvancedRebakeTextures(), "Advanced.RebakeTextures");
 	addMenu(new LLAdvancedDebugAvatarTextures(), "Advanced.DebugAvatarTextures");
 	addMenu(new LLAdvancedDumpAvatarLocalTextures(), "Advanced.DumpAvatarLocalTextures");
 

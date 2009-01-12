@@ -204,6 +204,12 @@
                   userdata="all" />
       </menu_item_call>
     </menu>
+      <menu_item_call name="Refresh Appearance"
+                      label="Refresh Appearance"
+                      shortcut="control|alt|R">
+        <on_click function="Advanced.RebakeTextures"
+                  userdata="" />
+      </menu_item_call>
     <menu_item_separator />
     <menu_item_call name="Gestures..." label="Gestures..."
                     shortcut="control|G">
@@ -931,23 +937,12 @@
 
     <menu_item_separator />
 
-    <menu_item_check name="High-res Snapshot"
-                     label="High-res Snapshot">
-      <on_click function="ToggleControl"
-                userdata="HighResSnapshot" />
-      <on_check control="HighResSnapshot" />
-    </menu_item_check>
+
     <menu_item_check name="Quiet Snapshots to Disk"
                      label="Quiet Snapshots to Disk">
       <on_click function="ToggleControl"
                 userdata="QuietSnapshotsToDisk" />
       <on_check control="QuietSnapshotsToDisk" />
-    </menu_item_check>
-    <menu_item_check name="Compress Snapshots to Disk"
-                     label="Compress Snapshots to Disk">
-      <on_click function="ToggleControl"
-                userdata="CompressSnapshotsToDisk" />
-      <on_check control="CompressSnapshotsToDisk" />
     </menu_item_check>
     <menu_item_check name="Show Mouselook Crosshairs"
                      label="Show Mouselook Crosshairs">
@@ -1618,7 +1613,8 @@
                   userdata="" />
       </menu_item_call>
       <menu_item_check name="Show XUI Names"
-                       label="Show XUI Names">
+                       label="Show XUI Names"
+                       shortcut="control|shift|x">
         <on_click function="Advanced.ToggleXUINames"
                   userdata="" />
         <on_check function="Advanced.CheckXUINames"
@@ -1834,12 +1830,6 @@
         <on_click function="Advanced.DumpAttachments"
                   userdata="" />
       </menu_item_call>
-      <menu_item_call name="Rebake Textures"
-                      label="Rebake Textures"
-                      shortcut="control|alt|R">
-        <on_click function="Advanced.RebakeTextures"
-                  userdata="" />
-      </menu_item_call>
     </menu>
 
 
@@ -1961,12 +1951,6 @@
       <on_click function="ToggleControl"
                 userdata="LimitSelectDistance" />
       <on_check control="LimitSelectDistance" />
-    </menu_item_check>
-    <menu_item_check name="Disable Camera Constraints"
-                     label="Disable Camera Constraints">
-      <on_click function="ToggleControl"
-                userdata="DisableCameraConstraints" />
-      <on_check control="DisableCameraConstraints" />
     </menu_item_check>
     <menu_item_check name="Mouse Smoothing"
                      label="Mouse Smoothing">

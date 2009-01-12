@@ -139,6 +139,8 @@
 	<slider bottom_delta="-20" decimal_digits="0" follows="left|top" height="15"
 	     increment="1" initial_val="75" label="Image Quality" left="10"
 	     max_val="100" min_val="0" name="image_quality_slider" width="210" />
+	<check_box bottom_delta="0" follows="left|top" label="High resolution snapshot"
+	     left="10" name="high_res_check" />
 	<text bottom_delta="-28" follows="left|top" height="20" left="10"
 	     name="layer_type_label" width="50">
 		Capture:
