@@ -68,6 +68,13 @@
 	* linden/indra/newview/llpanelobject.cpp:
 	Ditto.
 	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+
+
+2009-01-10  Armin  <email@unknown.com>
+
+	* linden/indra/newview/llviewermenu.cpp:
+	Added 'create landmark' to land pie menu.
+	* linden/indra/newview/skins/default/xui/en-us/menu_pie_land.xml:
 	Ditto.
 
 

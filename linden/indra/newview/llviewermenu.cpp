@@ -9951,6 +9951,7 @@ void initialize_menus()
 	// Land pie menu
 	addMenu(new LLLandBuild(), "Land.Build");
 	addMenu(new LLLandSit(), "Land.Sit");
+	addMenu(new LLWorldCreateLandmark(),"Land.NewLandmark");
 	addMenu(new LLLandBuyPass(), "Land.BuyPass");
 	addMenu(new LLLandEdit(), "Land.Edit");
 
