@@ -100,9 +100,9 @@
 <PieMenuSelectedColor value="185, 200, 220, 120" />     <!-- Color of pie menu slice when selected -->
  
 <!-- MENU BAR -->
-<ParcelTextColor value="40, 40, 90, 255" />		<!-- Parcel name on menu bar, normal state -->
+<ParcelTextColor value="40, 40, 90, 255" />		  <!-- Parcel name on menu bar, normal state -->
 <ParcelHoverColor value="70, 70, 100, 255" />		<!-- Parcel name on menu bar, hover state -->
-<TimeTextColor value="0, 30, 60, 255" />		<!-- SL Time on menu bar -->
+<TimeTextColor value="0, 30, 60, 255" />		    <!-- SL Time on menu bar -->
 <BalanceTextColor value="0, 100, 40, 255" />		<!-- Linden dollar balance on menu bar -->
 <HealthTextColor value="110, 15, 15, 255" />		<!-- Damage meter text on menu bar -->
  
@@ -175,14 +175,6 @@
 <FilterTextColor value="255, 200, 70, 255" />                   <!-- Inventory search text -->
 <InventorySearchStatusColor value="0, 0, 0, 255" />             <!-- "Searching..." -->
  
-<!-- HELP WINDOW -->
-<HelpBgColor value="200, 209, 204, 255" />
-<HelpFgColor value="0, 0, 0, 255" />
-<HelpScrollTrackColor value="0, 0, 0, 255" />
-<HelpScrollThumbColor value="255, 255, 255, 255" />
-<HelpScrollHighlightColor value="115, 132, 155, 255" />
-<HelpScrollShadowColor value="0, 0, 0, 255" />
-
 <!-- MISC -->
 <AvatarNameColor value="251, 175, 93, 255" />           <!-- Text color of avatar nametags -->
 <FocusColor value="239, 156, 0, 255" />                 <!-- Color of the glow around UI controls with keyboard focus -->
@@ -192,5 +184,4 @@
 <ContextSilhouetteColor value="239, 156, 0, 255" />     <!-- For "context" highlighting, i.e. pie menu -->
 <GroupOverTierColor value="110, 15, 15, 255" />         <!-- Warning text in Group Info window -->
 <ConsoleBackground value="0, 0, 0, 255" />              <!-- Background for inworld chat -->
- 
 </settings>

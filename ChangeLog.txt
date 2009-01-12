@@ -199,6 +199,12 @@
 	Backported from LL's 1.22 RC3.
 
 
+2008-12-05  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llappviewer.cpp:
+	Windows defaults to settings_imprudence.xml when run from the .exe.
+
+
 2008-12-01  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/app_settings/settings.xml:
