@@ -305,8 +305,6 @@ void near_sit_object();
 void label_sit_or_stand(std::string& label, void*);
 // buy and take alias into the same UI positions, so these
 // declarations handle this mess.
-BOOL is_selection_buy_not_take();
-S32 selection_price();
 BOOL enable_take();
 void handle_take();
 void confirm_take(S32 option, void* data);
@@ -3912,7 +3910,7 @@ BOOL enable_take()
 	return FALSE;
 }
 
-class LLToolsBuyOrTake : public view_listener_t
+class LLToolsTake : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
@@ -3920,114 +3918,23 @@ class LLToolsBuyOrTake : public view_listener_t
 		{
 			return true;
 		}
-
-		if (is_selection_buy_not_take())
-		{
-			S32 total_price = selection_price();
-
-			if (total_price <= gStatusBar->getBalance() || total_price == 0)
-			{
-				handle_buy(NULL);
-			}
-			else
-			{
-				LLFloaterBuyCurrency::buyCurrency(
-					"Buying this costs", total_price);
-			}
-		}
 		else
 		{
 			handle_take();
+			return true;
 		}
-		return true;
 	}
 };
 
-class LLToolsEnableBuyOrTake : public view_listener_t
+class LLToolsEnableTake : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		bool is_buy = is_selection_buy_not_take();
-		bool new_value = is_buy ? enable_buy(NULL) : enable_take();
+		bool new_value = enable_take();
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
-
-		// Update label
-		std::string label;
-		std::string buy_text;
-		std::string take_text;
-		std::string param = userdata["data"].asString();
-		std::string::size_type offset = param.find(",");
-		if (offset != param.npos)
-		{
-			buy_text = param.substr(0, offset);
-			take_text = param.substr(offset+1);
-		}
-		if (is_buy)
-		{
-			label = buy_text;
-		}
-		else
-		{
-			label = take_text;
-		}
-		gMenuHolder->childSetText("Pie Object Take", label);
-		gMenuHolder->childSetText("Menu Object Take", label);
-
 		return true;
 	}
 };
-
-// This is a small helper function to determine if we have a buy or a
-// take in the selection. This method is to help with the aliasing
-// problems of putting buy and take in the same pie menu space. After
-// a fair amont of discussion, it was determined to prefer buy over
-// take. The reasoning follows from the fact that when users walk up
-// to buy something, they will click on one or more items. Thus, if
-// anything is for sale, it becomes a buy operation, and the server
-// will group all of the buy items, and copyable/modifiable items into
-// one package and give the end user as much as the permissions will
-// allow. If the user wanted to take something, they will select fewer
-// and fewer items until only 'takeable' items are left. The one
-// exception is if you own everything in the selection that is for
-// sale, in this case, you can't buy stuff from yourself, so you can
-// take it.
-// return value = TRUE if selection is a 'buy'.
-//                FALSE if selection is a 'take'
-BOOL is_selection_buy_not_take()
-{
-	for (LLObjectSelection::root_iterator iter = LLSelectMgr::getInstance()->getSelection()->root_begin();
-		 iter != LLSelectMgr::getInstance()->getSelection()->root_end(); iter++)
-	{
-		LLSelectNode* node = *iter;
-		LLViewerObject* obj = node->getObject();
-		if(obj && !(obj->permYouOwner()) && (node->mSaleInfo.isForSale()))
-		{
-			// you do not own the object and it is for sale, thus,
-			// it's a buy
-			return TRUE;
-		}
-	}
-	return FALSE;
-}
-
-S32 selection_price()
-{
-	S32 total_price = 0;
-	for (LLObjectSelection::root_iterator iter = LLSelectMgr::getInstance()->getSelection()->root_begin();
-		 iter != LLSelectMgr::getInstance()->getSelection()->root_end(); iter++)
-	{
-		LLSelectNode* node = *iter;
-		LLViewerObject* obj = node->getObject();
-		if(obj && !(obj->permYouOwner()) && (node->mSaleInfo.isForSale()))
-		{
-			// you do not own the object and it is for sale.
-			// Add its price.
-			total_price += node->mSaleInfo.getSalePrice();
-		}
-	}
-
-	return total_price;
-}
 
 void callback_show_buy_currency(S32 option, void*)
 {
@@ -9853,7 +9760,7 @@ void initialize_menus()
 	addMenu(new LLToolsReleaseKeys(), "Tools.ReleaseKeys");
 	addMenu(new LLToolsEnableReleaseKeys(), "Tools.EnableReleaseKeys");
 	addMenu(new LLToolsLookAtSelection(), "Tools.LookAtSelection");
-	addMenu(new LLToolsBuyOrTake(), "Tools.BuyOrTake");
+	addMenu(new LLToolsTake(), "Tools.Take");
 	addMenu(new LLToolsTakeCopy(), "Tools.TakeCopy");
 	addMenu(new LLToolsSaveToInventory(), "Tools.SaveToInventory");
 	addMenu(new LLToolsSaveToObjectInventory(), "Tools.SaveToObjectInventory");
@@ -9863,7 +9770,7 @@ void initialize_menus()
 	addMenu(new LLToolsEnableToolNotPie(), "Tools.EnableToolNotPie");
 	addMenu(new LLToolsEnableLink(), "Tools.EnableLink");
 	addMenu(new LLToolsEnableUnlink(), "Tools.EnableUnlink");
-	addMenu(new LLToolsEnableBuyOrTake(), "Tools.EnableBuyOrTake");
+	addMenu(new LLToolsEnableTake(), "Tools.EnableTake");
 	addMenu(new LLToolsEnableTakeCopy(), "Tools.EnableTakeCopy");
 	addMenu(new LLToolsEnableSaveToInventory(), "Tools.SaveToInventory");
 	addMenu(new LLToolsEnableSaveToObjectInventory(), "Tools.SaveToObjectInventory");

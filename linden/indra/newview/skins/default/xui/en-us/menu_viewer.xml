@@ -701,9 +701,9 @@
       <on_enable function="Tools.SomethingSelectedNoHUD" />
     </menu_item_call>
     <menu_item_call name="Menu Object Take" enabled="false"
-                    label="Buy Object" visible="false">
-      <on_click function="Tools.BuyOrTake" userdata="" />
-      <on_enable function="Tools.EnableBuyOrTake" userdata="Buy,Take" />
+                    label="Take" visible="false">
+      <on_click function="Tools.Take" userdata="" />
+      <on_enable function="Tools.EnableTake" />
     </menu_item_call>
     <menu_item_call name="Take Copy" enabled="false"
                     label="Take Copy">

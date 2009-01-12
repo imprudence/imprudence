@@ -1,3 +1,4 @@
+<<<<<<< HEAD:ChangeLog.txt
 2009-01-12  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llcommon/llversionviewer.h
@@ -204,6 +205,20 @@
 
 	* linden/indra/newview/llfloaterworldmap.cpp:
 	llMapDestination and map floater can now tp up to 4096m.
+
+
+2008-12-22  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llviewermenu.cpp:
+	Buy and Take now separated in the pie menu.
+	* linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
+	Moved Buy to the top level.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/menu_pie_self.xml
+	Replaced 'Go' with 'Inventory'.
+	* linden/indra/newview/skins/default/xui/en-us/menu_pie_attachment.xml
+	Added menu items useful for prim-based avatars.
 
 
 2008-12-16  McCabe Maxsted  <hakushakukun@gmail.com>
