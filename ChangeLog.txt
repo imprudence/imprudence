@@ -100,6 +100,14 @@
 	* linden/indra/llwindow/llwindowsdl.cpp:
 	Ditto.
 
+	* linden/indra/newview/llviewermenu.cpp:
+	Added shortcut and message to landmark creation.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/strings.xml:
+	Ditto.
+
+
 
 2008-12-30  McCabe Maxsted  <hakushakukun@gmail.com>
 

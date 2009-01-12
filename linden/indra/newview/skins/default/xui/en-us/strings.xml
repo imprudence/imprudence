@@ -176,5 +176,8 @@
 	<string name="whisper">whispers:</string>
 	<string name="shout">shouts:</string>
 
+  <!-- System messages -->
+  <string name="landmark_created">You created a landmark at</string>
+
 </strings>
 
