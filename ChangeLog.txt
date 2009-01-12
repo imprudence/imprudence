@@ -1,4 +1,3 @@
-<<<<<<< HEAD:ChangeLog.txt
 2009-01-12  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llcommon/llversionviewer.h
@@ -76,13 +75,13 @@
 	* linden/indra/newview/llviewermenu.cpp:
 	Added 'create landmark' to land pie menu.
 	* linden/indra/newview/skins/default/xui/en-us/menu_pie_land.xml:
-=======
-2009-01-10  McCabe Maxsted  <hakushakukun@gmail.com>
+
+
+	McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llviewermenu.cpp:
 	Backported 'report abuse' avatar pie menu option.
 	* linden/indra/newview/skins/default/xui/en-us/menu_pie_avatar.xml:
->>>>>>> pieavreportabuse:ChangeLog.txt
 	Ditto.
 
 
