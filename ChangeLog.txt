@@ -96,6 +96,9 @@
 	* linden/indra/newview/skins/default/xui/en-us/menu_pie_avatar.xml:
 	Ditto.
 
+	* linden/indra/newview/llmaniptranslate.h:
+	Fixed bottom HUD arrow (from VWR-5518, possible memory leak in linden code).
+
 
 2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
