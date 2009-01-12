@@ -1,5 +1,9 @@
 2009-01-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/install.xml:
+	Added glib package to install.xml.
+
+
 	* linden/indra/newview/CMakeLists.txt:
 	Use BOOST_SIGNALS_LIB in newview/CMakeLists.
 
