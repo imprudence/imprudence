@@ -199,6 +199,9 @@
 	* linden/indra/newview/llwindebug.cpp:
 	Rebranded windows crash dump filenames.
 
+	* linden/indra/newview/llfloaterworldmap.cpp:
+	llMapDestination and map floater can now tp up to 4096m.
+
 
 2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
