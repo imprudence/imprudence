@@ -1,12 +1,10 @@
-<<<<<<< HEAD:ChangeLog.txt
 2009-01-12  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llcommon/llversionviewer.h
 	Changed version to RC1.
 
-
 	* linden/indra/llmath/llcalc.cpp:
-	Added cheat sheet help buttons in tools window, tweaked the layout a bit.
+	Added cheat sheet help buttons in tools window.
 	* linden/indra/newview/llpanelface.cpp:
 	Ditto.
 	* linden/indra/newview/llpanelface.h:
@@ -18,7 +16,7 @@
 	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
 	Ditto.
 	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
-	Ditto.
+	Tweaked the layout a bit.
 
 
 2009-01-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
@@ -205,6 +203,28 @@
 
 	* linden/indra/newview/llfloaterworldmap.cpp:
 	llMapDestination and map floater can now tp up to 4096m.
+
+	* linden/etc/message.xml:
+	Added inventory changes for one method of inventory 
+	loss and upcoming new inv capabilities.
+	* linden/indra/llcommon/indra_constants.h:
+	Ditto.
+	* linden/indra/llinventory/llinventory.cpp:
+	Ditto.
+	* linden/indra/llmessage/lliosocket.cpp:
+	Ditto.
+	* linden/indra/llmessage/llpumpio.cpp:
+	Ditto.
+	* linden/indra/llmessage/llpumpio.h:
+	Ditto.
+	* linden/indra/newview/llinventorymodel.cpp:
+	Ditto.
+	* linden/indra/newview/llinventorymodel.h:
+	Ditto.
+	* linden/indra/newview/llstartup.cpp:
+	Ditto.
+	* linden/indra/newview/llviewerinventory.cpp:
+	Ditto.
 
 
 2008-12-22  McCabe Maxsted  <hakushakukun@gmail.com>
