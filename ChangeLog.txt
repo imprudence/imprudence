@@ -8,6 +8,33 @@
 	Ditto.
 
 
+	Aimee Trescothick  <aimee@ama-zing.co.uk>
+	* linden/indra/llmath/llcalc.cpp:
+	Ability to do simple math in build editor.
+	* linden/indra/llmath/llcalc.h:
+	Ditto.
+	* linden/indra/llmath/llcalcparser.cpp:
+	Ditto.
+	* linden/indra/llmath/llcalcparser.h:
+	Ditto.
+	* linden/indra/llmath/CMakeLists.txt:
+	Ditto.
+	* linden/indra/llui/lllineeditor.cpp:
+	Ditto.
+	* linden/indra/llui/lllineeditor.h:
+	Ditto.
+	* linden/indra/llui/llspinctrl.cpp:
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelface.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelobject.cpp:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Ditto.
+
+
 2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:

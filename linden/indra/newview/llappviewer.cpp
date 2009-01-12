@@ -109,6 +109,7 @@
 #include "llpostprocess.h"
 #include "llwlparammanager.h"
 #include "llwaterparammanager.h"
+#include "llcalc.h"
 
 #include "lldebugview.h"
 #include "llconsole.h"
@@ -1176,6 +1177,8 @@ bool LLAppViewer::cleanup()
 	LLNotifyBox::cleanup();
 
 	LLWorldMap::getInstance()->reset(); // release any images
+
+	LLCalc::cleanUp();
 	
 	llinfos << "Global stuff deleted" << llendflush;
 

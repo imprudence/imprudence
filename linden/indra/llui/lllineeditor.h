@@ -188,6 +188,7 @@ public:
 
 	void			setHandleEditKeysDirectly( BOOL b ) { mHandleEditKeysDirectly = b; }
 	void			setSelectAllonFocusReceived(BOOL b);
+	void			setSelectAllonCommit(BOOL b) { mSelectAllonCommit = b; }
 
 	void			setKeystrokeCallback(void (*keystroke_callback)(LLLineEditor* caller, void* user_data));
 
@@ -208,6 +209,8 @@ public:
 	static BOOL		prevalidateASCII(const LLWString &str);
 
 	static BOOL		postvalidateFloat(const std::string &str);
+	
+	BOOL			evaluateFloat();
 
 	// line history support:
 	void			setEnableLineHistory( BOOL enabled ) { mHaveHistory = enabled; } // switches line history on or off 
@@ -297,6 +300,7 @@ protected:
 
 	BOOL		mHandleEditKeysDirectly;  // If true, the standard edit keys (Ctrl-X, Delete, etc,) are handled here instead of routed by the menu system
 	BOOL		mSelectAllonFocusReceived;
+	BOOL		mSelectAllonCommit;
 	BOOL		mPassDelete;
 
 	BOOL		mReadOnly;
