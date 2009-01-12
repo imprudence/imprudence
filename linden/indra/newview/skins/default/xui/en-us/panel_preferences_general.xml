@@ -76,6 +76,10 @@
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Rotate Mini-Map" left="151" mouse_opaque="true"
 	     name="rotate_mini_map_checkbox" radio_style="false" width="256" />
+	<check_box bottom="-286" control_name="MiniMapTeleport" enabled="true" follows="left|top"
+		   font="SansSerifSmall" height="16" initial_value="false"
+		   label="Doubleclick Mini-Map Teleports" left="280" mouse_opaque="true"
+		   name="teleport_mini_map_checkbox" radio_style="false" width="256" />
 	<check_box bottom="-304" control_name="NotifyMoneyChange" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Notify when Linden dollars (L$) spent or received" left="151"

@@ -75,6 +75,18 @@
 	* linden/indra/newview/llviewermenu.cpp:
 	Added 'create landmark' to land pie menu.
 	* linden/indra/newview/skins/default/xui/en-us/menu_pie_land.xml:
+	Ditto.
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Double clicking minimap tps.
+	* linden/indra/newview/llnetmap.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelgeneral.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelgeneral.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml:
+	Ditto.
 
 
 	McCabe Maxsted  <hakushakukun@gmail.com>
