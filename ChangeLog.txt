@@ -1,5 +1,9 @@
 2009-01-12  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden/indra/llcommon/llversionviewer.h
+	Changed version to RC1.
+
+
 	* linden/indra/llmath/llcalc.cpp:
 	Added cheat sheet help buttons in tools window, tweaked the layout a bit.
 	* linden/indra/newview/llpanelface.cpp:
