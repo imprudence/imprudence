@@ -385,6 +385,73 @@ Go to the Second Life web site for more information on partnering?
 			Cancel
 		</option>
 	</alert>
+  <alert modal="true" name="ClickBuildConstants">
+    <message name="message">
+      The following constants are accepted in this tab:
+
+      XP  --  X-axis position
+      YP  --  Y-axis position
+      ZP  --  Z-axis position
+      XS  --  X-axis size
+      YS  --  Y-axis size
+      ZS  --  Z-axis size
+      XR  --  X-axis rotation
+      YR  --  Y-axis rotation
+      ZR  --  Z-axis rotation
+      CB  --  Path cut begin
+      CE  --  Path cut end
+      HLW  --  Hollow size
+      SKW  --  Skew
+      PB  --  Slice/Dimple/Profile cut begin
+      PE  --  Slice/Dimple/Profile cut end
+      XSH  --  X-axis top shear
+      YSH  --  Y-axis top shear
+      XHL  --  X-axis hole size
+      YHL  --  Y-axis hole size
+      XTP  --  X-axis taper
+      YTP  --  Y-axis taper
+      ROF  --  Radius offset
+      REV  --  Revolutions
+
+      *  --  Multiplication
+      \  --  Division
+      +  --  Addition
+      -  --  Subtraction
+
+      Examples:
+
+      * Enter &apos;ZP + 20&apos; in the Z-axis position field
+      to move an object up 20 meters.
+      * Enter &apos;XS - YS&apos; in the X-axis size field
+      to subtract the Y size from the X size.
+    </message>
+  </alert>
+  <alert modal="true" name="ClickTextureConstants">
+    <message name="message">
+      The following constants are accepted in this tab:
+
+      TSU  --  Repeats per face (horizontal)
+      TSV  --  Repeats per face (vertical)
+      TOU  --  Offsets per face (horizontal)
+      TOV  --  Offsets per face (vertical)
+      TRNS --  Transparency
+      TROT --  Texture rotation
+      GLOW --  Glow
+
+      *  --  Multiplication
+      \  --  Division
+      +  --  Addition
+      -  --  Subtraction
+
+      Examples:
+
+      * Enter &apos;TSU * 4&apos; in horizantal repeats field
+      to increase the amount of repeats by 4x.
+      * Enter &apos;TSV&apos; in the horizontal repeats field
+      to make the horizontal and vertical
+      repeats match.
+    </message>
+  </alert>
 	<alert modal="true" name="ClickWebProfileHelpAvatar">
 		<message name="message">
 			If this Resident has set a web profile URL then you can:

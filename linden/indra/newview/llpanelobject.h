@@ -83,6 +83,7 @@ public:
 	static BOOL     onDropSculpt(          LLUICtrl* ctrl, LLInventoryItem* item, void* ud);
 	static void     onCommitSculptType(    LLUICtrl *ctrl, void* userdata);
 		
+	static void		onClickBuildConstants(void *);
 	
 protected:
 	void			getState();

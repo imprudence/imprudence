@@ -1,3 +1,21 @@
+2009-01-12  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmath/llcalc.cpp:
+	Added cheat sheet help buttons in tools window, tweaked the layout a bit.
+	* linden/indra/newview/llpanelface.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelface.h:
+	Ditto.
+	* linden/indra/newview/llpanelobject.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelobject.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Ditto.
+
+
 2009-01-11  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llvieweraudio.cpp:

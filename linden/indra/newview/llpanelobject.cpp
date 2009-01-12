@@ -110,6 +110,9 @@ BOOL	LLPanelObject::postBuild()
 	// Top
 	//--------------------------------------------------------
 	
+	// Build constant tipsheet
+	childSetAction("build_math_constants",onClickBuildConstants,this);
+
 	// Lock checkbox
 	mCheckLock = getChild<LLCheckBoxCtrl>("checkbox locked");
 	childSetCommitCallback("checkbox locked",onCommitLock,this);
@@ -369,6 +372,7 @@ void LLPanelObject::getState( )
 	BOOL enable_scale	= objectp->permMove() && objectp->permModify();
 	BOOL enable_rotate	= objectp->permMove() && ( (objectp->permModify() && !objectp->isAttachment()) || !gSavedSettings.getBOOL("EditLinkedParts"));
 
+	childSetEnabled("build_math_constants",true);
 	LLVector3 vec;
 	if (enable_move)
 	{
@@ -1953,6 +1957,8 @@ void LLPanelObject::clearCtrls()
 	childSetEnabled( "advanced_cut", FALSE );
 	childSetEnabled( "advanced_dimple", FALSE );
 	childSetVisible("advanced_slice", FALSE);
+
+	childSetEnabled("build_math_constants",false);
 }
 
 //
@@ -2090,4 +2096,10 @@ void LLPanelObject::onCommitSculptType(LLUICtrl *ctrl, void* userdata)
 	LLPanelObject* self = (LLPanelObject*) userdata;
 
 	self->sendSculpt();
+}
+
+// static
+void LLPanelObject::onClickBuildConstants(void *)
+{
+	gViewerWindow->alertXml("ClickBuildConstants");
 }

@@ -61,6 +61,7 @@
 #include "llviewermedia.h"
 #include "llviewerobject.h"
 #include "llviewerstats.h"
+#include "llviewerwindow.h"
 #include "lluictrlfactory.h"
 
 //
@@ -180,6 +181,7 @@ BOOL	LLPanelFace::postBuild()
 	childSetCommitCallback("TexOffsetU",LLPanelFace::onCommitTextureInfo, this);
 	childSetCommitCallback("TexOffsetV",LLPanelFace::onCommitTextureInfo, this);
 	childSetAction("button align",onClickAutoFix,this);
+	childSetAction("texture_math_constants",onClickTextureConstants,this);
 
 	clearCtrls();
 
@@ -756,6 +758,7 @@ void LLPanelFace::getState()
 				childSetEnabled("button apply",enabled);
 			}
 		}
+		childSetEnabled("texture_math_constants",true);
 
 		// Set variable values for numeric expressions
 		calcp->setVar(LLCalc::TEX_U_SCALE, childGetValue("TexScaleU").asReal());
@@ -798,6 +801,8 @@ void LLPanelFace::getState()
 
 		childSetEnabled("button align",FALSE);
 		childSetEnabled("button apply",FALSE);
+
+		childSetEnabled("texture_math_constants",false);
 
 		// Set variable values for numeric expressions
 		calcp->clearVar(LLCalc::TEX_U_SCALE);
@@ -988,4 +993,10 @@ void LLPanelFace::onClickAutoFix(void* userdata)
 
 	LLPanelFaceSendFunctor sendfunc;
 	LLSelectMgr::getInstance()->getSelection()->applyToObjects(&sendfunc);
+}
+
+// static
+void LLPanelFace::onClickTextureConstants(void *)
+{
+	gViewerWindow->alertXml("ClickTextureConstants");
 }

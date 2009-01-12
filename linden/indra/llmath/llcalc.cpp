@@ -19,9 +19,9 @@
 
 
 // Variable names for use in the build floater
-const char* LLCalc::X_POS = "X";
-const char* LLCalc::Y_POS = "Y";
-const char* LLCalc::Z_POS = "Z";
+const char* LLCalc::X_POS = "XP";
+const char* LLCalc::Y_POS = "YP";
+const char* LLCalc::Z_POS = "ZP";
 const char* LLCalc::X_SCALE = "XS";
 const char* LLCalc::Y_SCALE = "YS";
 const char* LLCalc::Z_SCALE = "ZS";

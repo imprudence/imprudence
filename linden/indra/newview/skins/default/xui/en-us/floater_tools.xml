@@ -587,7 +587,10 @@
 			     mouse_opaque="true" name="edit_object" v_pad="0" width="252">
 				Edit object parameters:
 			</text>
-			<check_box bottom_delta="-26" follows="left|top" font="SansSerifSmall" height="16"
+      <button bottom_delta="-10" follows="left|top" font="SansSerif" halign="center"
+			     height="22" label="?" label_selected="?" right="-8" tool_tip="Object math constants" 
+			     mouse_opaque="true" name="build_math_constants" scale_image="true" width="22" />
+			<check_box bottom_delta="-16" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Locked" left="8" mouse_opaque="true"
 			     name="checkbox locked"
 			     tool_tip="Prevents object from being moved or deleted. Frequently useful during building to avoid unintended edits."
@@ -748,12 +751,12 @@
 				Skew
 			</text>
 			<spinner bottom_delta="-20" decimal_digits="1" follows="left|top" height="16"
-			     increment="5" initial_val="0" left="121" max_val="95" min_val="0"
-			     mouse_opaque="true" name="Scale 1" width="68" />
-			<spinner bottom_delta="0" decimal_digits="2" follows="left|top" height="16"
-			     increment="0.05" initial_val="0" left_delta="73" max_val="0.95"
-			     min_val="-0.95" mouse_opaque="true" name="Skew" width="68" />
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     increment="5" initial_val="0" left="121" max_val="95" min_val="0" 
+			     mouse_opaque="true" name="Scale 1" width="68" label=" " label_width="10"/>
+      <spinner bottom_delta="0" decimal_digits="2" follows="left|top" height="16"
+			     increment="0.05" initial_val="0" left_delta="73" max_val="0.95" label_width="10"
+			     min_val="-0.95" mouse_opaque="true" name="Skew" width="68" label=" " />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-15" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="121"
 			     mouse_opaque="true" name="Hollow Shape" v_pad="0" width="141">
@@ -872,10 +875,10 @@
 			</text>
 			<spinner bottom_delta="-19" decimal_digits="3" follows="left|top" height="16"
 			     increment="0.05" initial_val="0" left="121" max_val="1" min_val="-1"
-			     mouse_opaque="true" name="Radius Offset" width="68" />
-			<spinner bottom_delta="0" decimal_digits="2" follows="left|top" height="16"
+			     mouse_opaque="true" name="Radius Offset" width="68" label=" " label_width="10" />
+      <spinner bottom_delta="0" decimal_digits="2" follows="left|top" height="16"
 			     increment="0.1" initial_val="1" left_delta="73" max_val="4" min_val="1"
-			     mouse_opaque="true" name="Revolutions" width="68" />
+			     mouse_opaque="true" name="Revolutions" width="68" label=" " label_width="10" />
 			<texture_picker allow_no_texture="false" bottom="-211" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="141"
 			     label="Sculpt Texture" left="121" mouse_opaque="true"
@@ -1018,7 +1021,7 @@
 			</text>
 			<spinner bottom_delta="-20" decimal_digits="0" follows="left|top" height="16"
 			     increment="2" initial_val="0" left="180" max_val="100" min_val="0"
-			     mouse_opaque="true" name="ColorTrans" width="80" />
+			     mouse_opaque="true" name="ColorTrans" width="58" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-12" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10"
@@ -1027,7 +1030,7 @@
 			</text>
 			<spinner bottom_delta="-20" decimal_digits="2" follows="left|top" height="16"
 			     increment="0.1" initial_val="0" left="180" max_val="1"
-			     min_val="0" mouse_opaque="true" name="glow" width="80" />
+			     min_val="0" mouse_opaque="true" name="glow" width="58" />
 			<check_box bottom_delta="-23" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Full Bright" left="180" mouse_opaque="true"
 			     name="checkbox fullbright" width="81" />
@@ -1201,6 +1204,9 @@
 			<button bottom="-360" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" label="Align" label_selected="Align" left="112"
 			     mouse_opaque="true" name="button align" scale_image="TRUE" width="68" />
+      <button bottom="-162" follows="left|top" font="SansSerif" halign="center"
+			     height="22" label="?" label_selected="?" right="-8" tool_tip="Texture math constants"
+			     mouse_opaque="true" name="texture_math_constants" scale_image="true" width="24" />
 		</panel>
 		<panel border="true" bottom="-383" follows="left|top|right|bottom" height="367"
 		     label="Content" left="1" mouse_opaque="false" name="Contents" width="270">

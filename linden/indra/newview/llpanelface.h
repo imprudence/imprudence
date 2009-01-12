@@ -88,6 +88,7 @@ protected:
 
 	static void		onClickApply(void*);
 	static void		onClickAutoFix(void*);
+	static void		onClickTextureConstants(void *);
 	static F32      valueGlow(LLViewerObject* object, S32 face);
 };
 
