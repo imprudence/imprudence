@@ -58,6 +58,7 @@ class LLCheckBoxCtrl;
 class LLSpinCtrl;
 class LLScrollableContainerView;
 class LLTextBox;
+class LLComboBox;
 class LLIconCtrl;
 class LLSaveFolderState;
 class LLSearchEditor;
@@ -239,6 +240,8 @@ public:
 	static void onFoldersByName(void *user_data);
 	static BOOL checkFoldersByName(void *user_data);
 	static void onSearchEdit(const std::string& search_string, void* user_data );
+  static void onQuickFilterCommit(LLUICtrl* ctrl, void* user_data);
+  static void refreshQuickFilter(LLUICtrl* ctrl);
 	static void onFilterSelected(void* userdata, bool from_click);
 	static void onSelectionChange(const std::deque<LLFolderViewItem*> &items, BOOL user_action, void* data);
 
@@ -259,6 +262,7 @@ protected:
 
 protected:
 	LLSearchEditor*				mSearchEditor;
+	LLComboBox*						mQuickFilterCombo;
 	LLTabContainer*				mFilterTabs;
 	LLHandle<LLFloater>				mFinderHandle;
 	LLInventoryPanel*			mActivePanel;
@@ -342,6 +346,9 @@ void open_texture(const LLUUID& item_id, const std::string& title, BOOL show_kee
 std::string get_item_icon_name(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
 							 U32 attachment_point, 
+							 BOOL item_is_multi );
+
+std::string get_item_icon_name(LLInventoryType::NType inv_ntype,
 							 BOOL item_is_multi );
 
 LLUIImagePtr get_item_icon(LLAssetType::EType asset_type,

@@ -4522,7 +4522,7 @@ BOOL LLInventoryFilter::check(LLFolderViewItem* item)
 	}
 	LLFolderViewEventListener* listener = item->getListener();
 	mSubStringMatchOffset = mFilterSubString.size() ? item->getSearchableLabel().find(mFilterSubString) : std::string::npos;
-	BOOL passed = (0x1 << listener->getInventoryType() & mFilterOps.mFilterTypes || listener->getInventoryType() == LLInventoryType::IT_NONE)
+	BOOL passed = (listener->getNInventoryType() & mFilterOps.mFilterTypes || listener->getNInventoryType() == LLInventoryType::NIT_NONE)
 					&& (mFilterSubString.size() == 0 || mSubStringMatchOffset != std::string::npos)
 					&& ((listener->getPermissionMask() & mFilterOps.mPermissions) == mFilterOps.mPermissions)
 					&& (listener->getCreationDate() >= earliest && listener->getCreationDate() <= mFilterOps.mMaxDate);
@@ -4800,9 +4800,9 @@ void LLInventoryFilter::setModified(EFilterBehavior behavior)
 	}
 }
 
-BOOL LLInventoryFilter::isFilterWith(LLInventoryType::EType t)
+BOOL LLInventoryFilter::isFilterWith(LLInventoryType::NType t)
 {
-	return mFilterOps.mFilterTypes & (0x01 << t);
+	return mFilterOps.mFilterTypes & t;
 }
 
 std::string LLInventoryFilter::getFilterText()
@@ -4812,6 +4812,11 @@ std::string LLInventoryFilter::getFilterText()
 		return mFilterText;
 	}
 
+  return rebuildFilterText();
+}
+
+std::string LLInventoryFilter::rebuildFilterText()
+{
 	mNeedTextRebuild = FALSE;
 	std::string filtered_types;
 	std::string not_filtered_types;
@@ -4820,7 +4825,7 @@ std::string LLInventoryFilter::getFilterText()
 	S32 num_filter_types = 0;
 	mFilterText.clear();
 
-	if (isFilterWith(LLInventoryType::IT_ANIMATION))
+	if (isFilterWith(LLInventoryType::NIT_ANIMATION))
 	{
 		filtered_types += " Animations,";
 		filtered_by_type = TRUE;
@@ -4832,7 +4837,19 @@ std::string LLInventoryFilter::getFilterText()
 		filtered_by_all_types = FALSE;
 	}
 
-	if (isFilterWith(LLInventoryType::IT_CALLINGCARD))
+	if (isFilterWith(LLInventoryType::NIT_BODYPART))
+	{
+		filtered_types += " Body Parts,";
+		filtered_by_type = TRUE;
+		num_filter_types++;
+	}
+	else
+	{
+		not_filtered_types += " Body Parts,";
+		filtered_by_all_types = FALSE;
+	}
+
+	if (isFilterWith(LLInventoryType::NIT_CALLCARD))
 	{
 		filtered_types += " Calling Cards,";
 		filtered_by_type = TRUE;
@@ -4844,7 +4861,7 @@ std::string LLInventoryFilter::getFilterText()
 		filtered_by_all_types = FALSE;
 	}
 
-	if (isFilterWith(LLInventoryType::IT_WEARABLE))
+	if (isFilterWith(LLInventoryType::NIT_CLOTHING))
 	{
 		filtered_types += " Clothing,";
 		filtered_by_type = TRUE;
@@ -4856,7 +4873,7 @@ std::string LLInventoryFilter::getFilterText()
 		filtered_by_all_types = FALSE;
 	}
 
-	if (isFilterWith(LLInventoryType::IT_GESTURE))
+	if (isFilterWith(LLInventoryType::NIT_GESTURE))
 	{
 		filtered_types += " Gestures,";
 		filtered_by_type = TRUE;
@@ -4868,7 +4885,7 @@ std::string LLInventoryFilter::getFilterText()
 		filtered_by_all_types = FALSE;
 	}
 
-	if (isFilterWith(LLInventoryType::IT_LANDMARK))
+	if (isFilterWith(LLInventoryType::NIT_LANDMARK))
 	{
 		filtered_types += " Landmarks,";
 		filtered_by_type = TRUE;
@@ -4880,7 +4897,7 @@ std::string LLInventoryFilter::getFilterText()
 		filtered_by_all_types = FALSE;
 	}
 
-	if (isFilterWith(LLInventoryType::IT_NOTECARD))
+	if (isFilterWith(LLInventoryType::NIT_NOTECARD))
 	{
 		filtered_types += " Notecards,";
 		filtered_by_type = TRUE;
@@ -4892,7 +4909,7 @@ std::string LLInventoryFilter::getFilterText()
 		filtered_by_all_types = FALSE;
 	}
 	
-	if (isFilterWith(LLInventoryType::IT_OBJECT) && isFilterWith(LLInventoryType::IT_ATTACHMENT))
+	if (isFilterWith(LLInventoryType::NIT_OBJECT))
 	{
 		filtered_types += " Objects,";
 		filtered_by_type = TRUE;
@@ -4904,7 +4921,7 @@ std::string LLInventoryFilter::getFilterText()
 		filtered_by_all_types = FALSE;
 	}
 	
-	if (isFilterWith(LLInventoryType::IT_LSL))
+	if (isFilterWith(LLInventoryType::NIT_SCRIPT_LSL2))
 	{
 		filtered_types += " Scripts,";
 		filtered_by_type = TRUE;
@@ -4916,7 +4933,7 @@ std::string LLInventoryFilter::getFilterText()
 		filtered_by_all_types = FALSE;
 	}
 	
-	if (isFilterWith(LLInventoryType::IT_SOUND))
+	if (isFilterWith(LLInventoryType::NIT_SOUND))
 	{
 		filtered_types += " Sounds,";
 		filtered_by_type = TRUE;
@@ -4928,7 +4945,7 @@ std::string LLInventoryFilter::getFilterText()
 		filtered_by_all_types = FALSE;
 	}
 
-	if (isFilterWith(LLInventoryType::IT_TEXTURE))
+	if (isFilterWith(LLInventoryType::NIT_TEXTURE))
 	{
 		filtered_types += " Textures,";
 		filtered_by_type = TRUE;
@@ -4940,7 +4957,7 @@ std::string LLInventoryFilter::getFilterText()
 		filtered_by_all_types = FALSE;
 	}
 
-	if (isFilterWith(LLInventoryType::IT_SNAPSHOT))
+	if (isFilterWith(LLInventoryType::NIT_SNAPSHOT))
 	{
 		filtered_types += " Snapshots,";
 		filtered_by_type = TRUE;

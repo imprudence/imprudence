@@ -42,6 +42,7 @@
 #include "llsaleinfo.h"
 #include "llsd.h"
 #include "lluuid.h"
+#include "llwearabletype.h"
 #include "llxmlnode.h"
 
 // consts for Key field in the task inventory update message
@@ -55,6 +56,10 @@ enum
 	MAX_INVENTORY_BUFFER_SIZE = 1024
 };
 
+
+LLInventoryType::NType calc_ntype( LLInventoryType::EType inv_type,
+                                   LLAssetType::EType asset_type,
+                                   U32 flags );
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -131,6 +136,7 @@ protected:
 	std::string mDescription;
 	LLSaleInfo mSaleInfo;
 	LLInventoryType::EType mInventoryType;
+	LLInventoryType::NType mNInventoryType;
 	U32 mFlags;
 	time_t mCreationDate;	// seconds from 1/1/1970, UTC
 
@@ -236,6 +242,7 @@ public:
 	const std::string& getDescription() const;
 	const LLSaleInfo& getSaleInfo() const;
 	LLInventoryType::EType getInventoryType() const;
+	LLInventoryType::NType getNInventoryType() const;
 	U32 getFlags() const;
 	time_t getCreationDate() const;
 	U32 getCRC32() const; // really more of a checksum.
@@ -246,7 +253,9 @@ public:
 	void setDescription(const std::string& new_desc);
 	void setSaleInfo(const LLSaleInfo& sale_info);
 	void setPermissions(const LLPermissions& perm);
+	void setType(LLAssetType::EType type);
 	void setInventoryType(LLInventoryType::EType inv_type);
+	void setNInventoryType(LLInventoryType::NType inv_type);
 	void setFlags(U32 flags);
 	void setCreationDate(time_t creation_date_utc);
 
@@ -276,6 +285,9 @@ public:
 	void unpackBinaryBucket(U8* bin_bucket, S32 bin_bucket_size);
 	LLSD asLLSD() const;
 	bool fromLLSD(LLSD& sd);
+
+private:
+  void recalcNInventoryType();
 
 };
 

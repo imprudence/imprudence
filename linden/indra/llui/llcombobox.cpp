@@ -194,6 +194,11 @@ LLView* LLComboBox::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *
 
 				combo_box->add(label, LLSD(value) );
 			}
+
+      else if (child->hasName("separator"))
+			{
+				combo_box->addSeparator();
+			}
 		}
 	}
 

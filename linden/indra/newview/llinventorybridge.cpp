@@ -722,6 +722,7 @@ LLInvFVBridge* LLInvFVBridge::createBridge(LLAssetType::EType asset_type,
 	if (new_listener)
 	{
 		new_listener->mInvType = inv_type;
+		new_listener->mNInvType = calc_ntype(inv_type, asset_type, flags);
 	}
 
 	return new_listener;

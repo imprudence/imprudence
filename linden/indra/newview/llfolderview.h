@@ -103,6 +103,7 @@ public:
 	virtual BOOL isUpToDate() const = 0;
 	virtual BOOL hasChildren() const = 0;
 	virtual LLInventoryType::EType getInventoryType() const = 0;
+	virtual LLInventoryType::NType getNInventoryType() const = 0;
 	virtual void performAction(LLFolderView* folder, LLInventoryModel* model, std::string action) {}
 
 	// This method should be called when a drag begins. returns TRUE
@@ -221,6 +222,7 @@ public:
 	void clearModified() { mModified = FALSE; mFilterBehavior = FILTER_NONE; }
 	const std::string getName() const { return mName; }
 	std::string getFilterText();
+  std::string rebuildFilterText();
 
 	void setFilterCount(S32 count) { mFilterCount = count; }
 	S32 getFilterCount() { return mFilterCount; }
@@ -229,7 +231,7 @@ public:
 	void markDefault();
 	void resetDefault();
 
-	BOOL isFilterWith(LLInventoryType::EType t);
+	BOOL isFilterWith(LLInventoryType::NType t);
 
 	S32 getCurrentGeneration() const { return mFilterGeneration; }
 	S32 getMinRequiredGeneration() const { return mMinRequiredGeneration; }

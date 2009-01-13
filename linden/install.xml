@@ -390,13 +390,6 @@
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/glib-2.0-linux-20080817.tar.bz2</uri>
           </map>
-          <key>windows</key>
-          <map>
-            <key>md5sum</key>
-            <string>3d5e29d444dde4815b36082eedfc775a</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/glib-2.0-windows-20080817.tar.bz2</uri>
-          </map>
         </map>
       </map>
       <key>google</key>

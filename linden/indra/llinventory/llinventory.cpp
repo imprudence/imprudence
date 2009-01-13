@@ -73,6 +73,116 @@ const U8 TASK_INVENTORY_ASSET_KEY = 1;
 const LLUUID MAGIC_ID("3c115e51-04f4-523c-9fa6-98aff1034730");	
 	
 
+/**
+ * @brief Return the equivalent new inventory type.
+ *
+ * Takes an inventory type, asset type, and inventory flags,
+ * and returns the equivalent LLInventory::NType.
+ * 
+ * For example, an inventory type of IT_WEARABLE, asset type
+ * of AT_BODYPART, and flags indicated WT_SHAPE, would be
+ * converted to NIT_SHAPE.
+ *
+ * Returns the most specific type that can be determined,
+ * or NIT_NONE if no type could be determined.
+ *
+ */
+LLInventoryType::NType calc_ntype(
+	LLInventoryType::EType inv_type,
+	LLAssetType::EType asset_type,
+	U32 flags )
+{
+	switch( inv_type )
+	{
+
+		// WEARABLES
+		case LLInventoryType::IT_WEARABLE:
+		{
+			switch( asset_type )
+			{
+				// BODY PARTS
+				case LLAssetType::AT_BODYPART:
+					{
+						switch( flags & LLInventoryItem::II_FLAGS_WEARABLES_MASK )
+						{
+							case WT_SHAPE:       return LLInventoryType::NIT_SHAPE;
+							case WT_SKIN:        return LLInventoryType::NIT_SKIN;
+							case WT_HAIR:        return LLInventoryType::NIT_HAIR;
+							case WT_EYES:        return LLInventoryType::NIT_EYES;
+							default:             return LLInventoryType::NIT_BODYPART;
+						}
+					}
+
+					// CLOTHING
+				case LLAssetType::AT_CLOTHING:
+					{
+						switch( flags & LLInventoryItem::II_FLAGS_WEARABLES_MASK )
+						{
+							case WT_SHIRT:       return LLInventoryType::NIT_SHIRT;
+							case WT_PANTS:       return LLInventoryType::NIT_PANTS;
+							case WT_SHOES:       return LLInventoryType::NIT_SHOES;
+							case WT_SOCKS:       return LLInventoryType::NIT_SOCKS;
+							case WT_JACKET:      return LLInventoryType::NIT_JACKET;
+							case WT_GLOVES:      return LLInventoryType::NIT_GLOVES;
+							case WT_UNDERSHIRT:  return LLInventoryType::NIT_UNDERSHIRT;
+							case WT_UNDERPANTS:  return LLInventoryType::NIT_UNDERPANTS;
+							case WT_SKIRT:       return LLInventoryType::NIT_SKIRT;
+							default:             return LLInventoryType::NIT_CLOTHING;
+						}
+					}
+				default:
+					return LLInventoryType::NIT_WEARABLE;
+			}
+		}
+
+			// TEXTURES
+		case LLInventoryType::IT_TEXTURE:
+			return LLInventoryType::NIT_TEXTURE;
+
+			// SNAPSHOTS
+		case LLInventoryType::IT_SNAPSHOT:
+			return LLInventoryType::NIT_SNAPSHOT;
+
+			// CALLING CARDS
+		case LLInventoryType::IT_CALLINGCARD:
+			return LLInventoryType::NIT_CALLCARD;
+
+			// LANDMARKS
+		case LLInventoryType::IT_LANDMARK:
+			return LLInventoryType::NIT_LANDMARK;
+
+			// SOUNDS
+		case LLInventoryType::IT_SOUND:
+			return LLInventoryType::NIT_SOUND;
+
+			// ANIMATIONS
+		case LLInventoryType::IT_ANIMATION:
+			return LLInventoryType::NIT_ANIMATION;
+
+			// GESTURES
+		case LLInventoryType::IT_GESTURE:
+			return LLInventoryType::NIT_GESTURE;
+
+			// NOTECARDS
+		case LLInventoryType::IT_NOTECARD:
+			return LLInventoryType::NIT_NOTECARD;
+
+			// SCRIPTS
+		case LLInventoryType::IT_LSL:
+			return LLInventoryType::NIT_SCRIPT_LSL2;
+
+			// OBJECTS
+		case LLInventoryType::IT_OBJECT:
+		case LLInventoryType::IT_ATTACHMENT:
+			return LLInventoryType::NIT_OBJECT;
+
+			// UNKNOWN TYPE!
+		default:
+			return LLInventoryType::NIT_NONE;
+	}
+}
+
+
 ///----------------------------------------------------------------------------
 /// Class LLInventoryObject
 ///----------------------------------------------------------------------------
@@ -290,11 +400,13 @@ LLInventoryItem::LLInventoryItem(
 	mDescription(desc),
 	mSaleInfo(sale_info),
 	mInventoryType(inv_type),
+	mNInventoryType(LLInventoryType::NIT_NONE),
 	mFlags(flags),
 	mCreationDate(creation_date_utc)
 {
 	LLStringUtil::replaceNonstandardASCII(mDescription, ' ');
 	LLStringUtil::replaceChar(mDescription, '|', ' ');
+	recalcNInventoryType();
 }
 
 LLInventoryItem::LLInventoryItem() :
@@ -304,6 +416,7 @@ LLInventoryItem::LLInventoryItem() :
 	mDescription(),
 	mSaleInfo(),
 	mInventoryType(LLInventoryType::IT_NONE),
+	mNInventoryType(LLInventoryType::NIT_NONE),
 	mFlags(0),
 	mCreationDate(0)
 {
@@ -328,6 +441,7 @@ void LLInventoryItem::copyItem(const LLInventoryItem* other)
 	mDescription = other->mDescription;
 	mSaleInfo = other->mSaleInfo;
 	mInventoryType = other->mInventoryType;
+	mNInventoryType = other->mNInventoryType;
 	mFlags = other->mFlags;
 	mCreationDate = other->mCreationDate;
 }
@@ -399,6 +513,12 @@ U32 LLInventoryItem::getCRC32() const
 }
 
 
+void LLInventoryItem::recalcNInventoryType()
+{
+	setNInventoryType( calc_ntype(mInventoryType, mType, mFlags) );
+}
+
+
 void LLInventoryItem::setDescription(const std::string& d)
 {
 	std::string new_desc(d);
@@ -415,14 +535,27 @@ void LLInventoryItem::setPermissions(const LLPermissions& perm)
 	mPermissions = perm;
 }
 
+void LLInventoryItem::setType(LLAssetType::EType type)
+{
+	mType = type;
+	recalcNInventoryType();
+}
+
 void LLInventoryItem::setInventoryType(LLInventoryType::EType inv_type)
 {
 	mInventoryType = inv_type;
+	recalcNInventoryType();
+}
+
+void LLInventoryItem::setNInventoryType(LLInventoryType::NType inv_type)
+{
+	mNInventoryType = inv_type;
 }
 
 void LLInventoryItem::setFlags(U32 flags)
 {
 	mFlags = flags;
+	recalcNInventoryType();
 }
 
 void LLInventoryItem::setCreationDate(time_t creation_date_utc)
@@ -444,6 +577,11 @@ void LLInventoryItem::setSaleInfo(const LLSaleInfo& sale_info)
 LLInventoryType::EType LLInventoryItem::getInventoryType() const
 {
 	return mInventoryType;
+}
+
+LLInventoryType::NType LLInventoryItem::getNInventoryType() const
+{
+	return mNInventoryType;
 }
 
 U32 LLInventoryItem::getFlags() const

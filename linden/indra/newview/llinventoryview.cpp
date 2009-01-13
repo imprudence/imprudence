@@ -44,6 +44,7 @@
 #include "llradiogroup.h"
 #include "llspinctrl.h"
 #include "lltextbox.h"
+#include "llcombobox.h"
 #include "llui.h"
 
 #include "llfirstuse.h"
@@ -181,18 +182,19 @@ void LLInventoryViewFinder::updateElementsFromFilter()
 
 	// update the ui elements
 	LLFloater::setTitle(mFilter->getName());
-	childSetValue("check_animation", (S32) (filter_types & 0x1 << LLInventoryType::IT_ANIMATION));
 
-	childSetValue("check_calling_card", (S32) (filter_types & 0x1 << LLInventoryType::IT_CALLINGCARD));
-	childSetValue("check_clothing", (S32) (filter_types & 0x1 << LLInventoryType::IT_WEARABLE));
-	childSetValue("check_gesture", (S32) (filter_types & 0x1 << LLInventoryType::IT_GESTURE));
-	childSetValue("check_landmark", (S32) (filter_types & 0x1 << LLInventoryType::IT_LANDMARK));
-	childSetValue("check_notecard", (S32) (filter_types & 0x1 << LLInventoryType::IT_NOTECARD));
-	childSetValue("check_object", (S32) (filter_types & 0x1 << LLInventoryType::IT_OBJECT));
-	childSetValue("check_script", (S32) (filter_types & 0x1 << LLInventoryType::IT_LSL));
-	childSetValue("check_sound", (S32) (filter_types & 0x1 << LLInventoryType::IT_SOUND));
-	childSetValue("check_texture", (S32) (filter_types & 0x1 << LLInventoryType::IT_TEXTURE));
-	childSetValue("check_snapshot", (S32) (filter_types & 0x1 << LLInventoryType::IT_SNAPSHOT));
+	childSetValue("check_animation", (S32) (filter_types & LLInventoryType::NIT_ANIMATION));
+	childSetValue("check_bodypart", (S32) (filter_types & LLInventoryType::NIT_BODYPART));
+	childSetValue("check_calling_card", (S32) (filter_types & LLInventoryType::NIT_CALLCARD));
+	childSetValue("check_clothing", (S32) (filter_types & LLInventoryType::NIT_CLOTHING));
+	childSetValue("check_gesture", (S32) (filter_types & LLInventoryType::NIT_GESTURE));
+	childSetValue("check_landmark", (S32) (filter_types & LLInventoryType::NIT_LANDMARK));
+	childSetValue("check_notecard", (S32) (filter_types & LLInventoryType::NIT_NOTECARD));
+	childSetValue("check_object", (S32) (filter_types & LLInventoryType::NIT_OBJECT));
+	childSetValue("check_script", (S32) (filter_types & LLInventoryType::NIT_SCRIPT_LSL2));
+	childSetValue("check_sound", (S32) (filter_types & LLInventoryType::NIT_SOUND));
+	childSetValue("check_texture", (S32) (filter_types & LLInventoryType::NIT_TEXTURE));
+	childSetValue("check_snapshot", (S32) (filter_types & LLInventoryType::NIT_SNAPSHOT));
 	childSetValue("check_show_empty", show_folders == LLInventoryFilter::SHOW_ALL_FOLDERS);
 	childSetValue("check_since_logoff", mFilter->isSinceLogoff());
 	mSpinSinceHours->set((F32)(hours % 24));
@@ -206,26 +208,31 @@ void LLInventoryViewFinder::draw()
 
 	if (!childGetValue("check_animation"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_ANIMATION);
+		filter &= ~(LLInventoryType::NIT_ANIMATION);
 		filtered_by_all_types = FALSE;
 	}
 
+	if (!childGetValue("check_bodypart"))
+	{
+		filter &= ~(LLInventoryType::NIT_BODYPART);
+		filtered_by_all_types = FALSE;
+	}
 
 	if (!childGetValue("check_calling_card"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_CALLINGCARD);
+		filter &= ~(LLInventoryType::NIT_CALLCARD);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_clothing"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_WEARABLE);
+		filter &= ~(LLInventoryType::NIT_CLOTHING);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_gesture"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_GESTURE);
+		filter &= ~(LLInventoryType::NIT_GESTURE);
 		filtered_by_all_types = FALSE;
 	}
 
@@ -233,52 +240,53 @@ void LLInventoryViewFinder::draw()
 
 
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_LANDMARK);
+		filter &= ~(LLInventoryType::NIT_LANDMARK);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_notecard"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_NOTECARD);
+		filter &= ~(LLInventoryType::NIT_NOTECARD);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_object"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_OBJECT);
-		filter &= ~(0x1 << LLInventoryType::IT_ATTACHMENT);
+		filter &= ~(LLInventoryType::NIT_OBJECT);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_script"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_LSL);
+		filter &= ~(LLInventoryType::NIT_SCRIPT_LSL2);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_sound"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_SOUND);
+		filter &= ~(LLInventoryType::NIT_SOUND);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_texture"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_TEXTURE);
+		filter &= ~(LLInventoryType::NIT_TEXTURE);
 		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_snapshot"))
 	{
-		filter &= ~(0x1 << LLInventoryType::IT_SNAPSHOT);
+		filter &= ~(LLInventoryType::NIT_SNAPSHOT);
 		filtered_by_all_types = FALSE;
 	}
 
+  /*
 	if (!filtered_by_all_types)
 	{
 		// don't include folders in filter, unless I've selected everything
-		filter &= ~(0x1 << LLInventoryType::IT_CATEGORY);
+		filter &= ~(LLInventoryType::NIT_CATEGORY);
 	}
+  */
 
 	// update the panel, panel will update the filter
 	mInventoryView->mActivePanel->setShowFolderState(getCheckShowEmpty() ?
@@ -344,6 +352,7 @@ void LLInventoryViewFinder::selectAllTypes(void* user_data)
 	if(!self) return;
 
 	self->childSetValue("check_animation", TRUE);
+	self->childSetValue("check_bodypart", TRUE);
 	self->childSetValue("check_calling_card", TRUE);
 	self->childSetValue("check_clothing", TRUE);
 	self->childSetValue("check_gesture", TRUE);
@@ -389,6 +398,7 @@ void LLInventoryViewFinder::selectNoTypes(void* user_data)
 
 
 	self->childSetValue("check_animation", FALSE);
+	self->childSetValue("check_bodypart", FALSE);
 	self->childSetValue("check_calling_card", FALSE);
 	self->childSetValue("check_clothing", FALSE);
 	self->childSetValue("check_gesture", FALSE);
@@ -549,6 +559,12 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 		mSearchEditor->setSearchCallback(onSearchEdit, this);
 	}
 
+	mQuickFilterCombo = getChild<LLComboBox>("Quick Filter");
+	if (mQuickFilterCombo)
+	{
+		mQuickFilterCombo->setCommitCallback(onQuickFilterCommit);
+	}
+
 	sActiveViews.put(this);
 
 	gInventory.addObserver(this);
@@ -617,6 +633,11 @@ void LLInventoryView::draw()
 	{
 		mSearchEditor->setText(mActivePanel->getFilterSubString());
 	}
+	if (mActivePanel && mQuickFilterCombo)
+	{
+		refreshQuickFilter( mQuickFilterCombo );
+	}
+
 	LLFloater::draw();
 }
 
@@ -922,16 +943,9 @@ void LLInventoryView::onClearSearch(void* user_data)
 	LLInventoryView* self = (LLInventoryView*)user_data;
 	if(!self) return;
 
-	LLFloater *finder = self->getFinder();
 	if (self->mActivePanel)
 	{
 		self->mActivePanel->setFilterSubString(LLStringUtil::null);
-		self->mActivePanel->setFilterTypes(0xffffffff);
-	}
-
-	if (finder)
-	{
-		LLInventoryViewFinder::selectAllTypes(finder);
 	}
 
 	// re-open folders that were initially open
@@ -979,6 +993,241 @@ void LLInventoryView::onSearchEdit(const std::string& search_string, void* user_
 	// set new filter string
 	self->mActivePanel->setFilterSubString(uppercase_search_string);
 }
+
+
+//static
+void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
+{
+
+	LLComboBox* quickfilter = (LLComboBox*)ctrl;
+
+
+	LLInventoryView* view = (LLInventoryView*)(quickfilter->getParent());
+	if (!view->mActivePanel)
+	{
+		return;
+	}
+
+
+	std::string item_type = quickfilter->getSimple();
+	U32 filter_type;
+
+	if (view->getString("filter_type_animation") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_ANIMATION;
+	}
+
+	else if (view->getString("filter_type_bodypart") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_BODYPART;
+	}
+
+	else if (view->getString("filter_type_callingcard") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_CALLCARD;
+	}
+
+	else if (view->getString("filter_type_clothing") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_CLOTHING;
+	}
+
+	else if (view->getString("filter_type_gesture") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_GESTURE;
+	}
+
+	else if (view->getString("filter_type_landmark") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_LANDMARK;
+	}
+
+	else if (view->getString("filter_type_notecard") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_NOTECARD;
+	}
+
+	else if (view->getString("filter_type_object") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_OBJECT;
+	}
+
+	else if (view->getString("filter_type_script") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_SCRIPT_LSL2;
+	}
+
+	else if (view->getString("filter_type_sound") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_SOUND;
+	}
+
+	else if (view->getString("filter_type_texture") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_TEXTURE;
+	}
+
+	else if (view->getString("filter_type_snapshot") == item_type)
+	{
+		filter_type = LLInventoryType::NIT_SNAPSHOT;
+	}
+
+	else if (view->getString("filter_type_custom") == item_type)
+	{
+		// When they select custom, show the floater then return
+		if( !(view->filtersVisible(view)) )
+		{
+			view->toggleFindOptions();
+		}
+		return;
+	}
+
+	else if (view->getString("filter_type_all") == item_type)
+	{
+		// Show all types
+		filter_type = 0xffffffff;
+	}
+
+	else
+	{
+		llwarns << "Ignoring unknown filter: " << item_type << llendl;
+		return;
+	}
+
+	view->mActivePanel->setFilterTypes( filter_type );
+
+	// Start fetching inventory in the background, so we have
+	// some items to show the user.
+	gInventory.startBackgroundFetch();
+
+	// Update the Inventory window text
+	view->setFilterTextFromFilter();
+
+	// Force the filters window to update itself, if it's open.
+	LLInventoryViewFinder* finder = view->getFinder();
+	if( finder )
+	{
+		finder->updateElementsFromFilter();
+	}
+
+	// llinfos << "Quick Filter: " << item_type << llendl;
+
+}
+
+
+
+//static
+void LLInventoryView::refreshQuickFilter(LLUICtrl* ctrl)
+{
+
+	LLInventoryView* view = (LLInventoryView*)(ctrl->getParent());
+	if (!view->mActivePanel)
+	{
+		return;
+	}
+
+	LLComboBox* quickfilter = view->getChild<LLComboBox>("Quick Filter");
+	if (!quickfilter)
+	{
+		return;
+	}
+
+
+	U32 filter_type = view->mActivePanel->getFilterTypes();
+  filter_type &= LLInventoryType::NIT_ALL;
+
+
+  //llinfos << "filter_type: " << filter_type << llendl;
+
+	std::string selection;
+
+
+	if (filter_type == LLInventoryType::NIT_ALL)
+	{
+		selection = view->getString("filter_type_all");
+	}
+
+  else if (filter_type == LLInventoryType::NIT_NONE)
+  {
+		selection = view->getString("filter_type_custom");
+  }
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_ANIMATION))
+	{
+		selection = view->getString("filter_type_animation");
+	}
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_BODYPART))
+	{
+		selection = view->getString("filter_type_bodypart");
+	}
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_CALLCARD))
+	{
+		selection = view->getString("filter_type_callingcard");
+	}
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_CLOTHING))
+	{
+		selection = view->getString("filter_type_clothing");
+	}
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_GESTURE))
+	{
+		selection = view->getString("filter_type_gesture");
+	}
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_LANDMARK))
+	{
+		selection = view->getString("filter_type_landmark");
+	}
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_NOTECARD))
+	{
+		selection = view->getString("filter_type_notecard");
+	}
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_OBJECT))
+	{
+		selection = view->getString("filter_type_object");
+	}
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_SCRIPT_LSL2))
+	{
+		selection = view->getString("filter_type_script");
+	}
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_SOUND))
+	{
+		selection = view->getString("filter_type_sound");
+	}
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_TEXTURE))
+	{
+		selection = view->getString("filter_type_texture");
+	}
+
+	else if (filter_type == (filter_type & LLInventoryType::NIT_SNAPSHOT))
+	{
+		selection = view->getString("filter_type_snapshot");
+	}
+
+	else
+	{
+		selection = view->getString("filter_type_custom");
+	}
+
+
+	// Select the chosen item by label text
+	BOOL result = quickfilter->setSimple( (selection) );
+
+  if( !result )
+  {
+    llinfos << "The item didn't exist: " << selection << llendl;
+  }
+
+}
+
 
 
 // static
@@ -1079,124 +1328,163 @@ BOOL LLInventoryView::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 
 	return handled;
 }
+
 std::string get_item_icon_name(LLAssetType::EType asset_type,
-							 LLInventoryType::EType inventory_type,
-							 U32 attachment_point,
-							 BOOL item_is_multi )
+                               LLInventoryType::EType inv_type,
+                               U32 flags,
+                               BOOL item_is_multi )
+{
+	return get_item_icon_name( calc_ntype(inv_type, asset_type, flags),
+	                           item_is_multi );
+}
+
+std::string get_item_icon_name(LLInventoryType::NType inv_ntype,
+                               BOOL item_is_multi )
 {
 	EInventoryIcon idx = OBJECT_ICON_NAME;
-	if ( item_is_multi )
-	{
-		idx = OBJECT_MULTI_ICON_NAME;
-	}
-	
-	switch(asset_type)
-	{
-	case LLAssetType::AT_TEXTURE:
-		if(LLInventoryType::IT_SNAPSHOT == inventory_type)
-		{
-			idx = SNAPSHOT_ICON_NAME;
-		}
-		else
-		{
-			idx = TEXTURE_ICON_NAME;
-		}
-		break;
 
-	case LLAssetType::AT_SOUND:
-		idx = SOUND_ICON_NAME;
-		break;
-	case LLAssetType::AT_CALLINGCARD:
-		if(attachment_point!= 0)
-		{
-			idx = CALLINGCARD_ONLINE_ICON_NAME;
-		}
-		else
-		{
-			idx = CALLINGCARD_OFFLINE_ICON_NAME;
-		}
-		break;
-	case LLAssetType::AT_LANDMARK:
-		if(attachment_point!= 0)
-		{
-			idx = LANDMARK_VISITED_ICON_NAME;
-		}
-		else
-		{
-			idx = LANDMARK_ICON_NAME;
-		}
-		break;
-	case LLAssetType::AT_SCRIPT:
-	case LLAssetType::AT_LSL_TEXT:
-	case LLAssetType::AT_LSL_BYTECODE:
-		idx = SCRIPT_ICON_NAME;
-		break;
-	case LLAssetType::AT_CLOTHING:
-		idx = CLOTHING_ICON_NAME;
-	case LLAssetType::AT_BODYPART :
-		if(LLAssetType::AT_BODYPART == asset_type)
-		{
-			idx = BODYPART_ICON_NAME;
-		}
-		switch(attachment_point)
-		{
-		case WT_SHAPE:
+	switch( inv_ntype )
+	{
+		// BODY PARTS
+
+		case LLInventoryType::NIT_SHAPE:
 			idx = BODYPART_SHAPE_ICON_NAME;
 			break;
-		case WT_SKIN:
+		case LLInventoryType::NIT_SKIN:
 			idx = BODYPART_SKIN_ICON_NAME;
 			break;
-		case WT_HAIR:
+		case LLInventoryType::NIT_HAIR:
 			idx = BODYPART_HAIR_ICON_NAME;
 			break;
-		case WT_EYES:
+		case LLInventoryType::NIT_EYES:
 			idx = BODYPART_EYES_ICON_NAME;
 			break;
-		case WT_SHIRT:
+
+		case LLInventoryType::NIT_BODYPART:
+			idx = BODYPART_ICON_NAME;
+			break;
+
+
+		// CLOTHING
+
+		case LLInventoryType::NIT_SHIRT:
 			idx = CLOTHING_SHIRT_ICON_NAME;
 			break;
-		case WT_PANTS:
+		case LLInventoryType::NIT_PANTS:
 			idx = CLOTHING_PANTS_ICON_NAME;
 			break;
-		case WT_SHOES:
+		case LLInventoryType::NIT_SHOES:
 			idx = CLOTHING_SHOES_ICON_NAME;
 			break;
-		case WT_SOCKS:
+		case LLInventoryType::NIT_SOCKS:
 			idx = CLOTHING_SOCKS_ICON_NAME;
 			break;
-		case WT_JACKET:
+		case LLInventoryType::NIT_JACKET:
 			idx = CLOTHING_JACKET_ICON_NAME;
 			break;
-		case WT_GLOVES:
+		case LLInventoryType::NIT_GLOVES:
 			idx = CLOTHING_GLOVES_ICON_NAME;
 			break;
-		case WT_UNDERSHIRT:
+		case LLInventoryType::NIT_UNDERSHIRT:
 			idx = CLOTHING_UNDERSHIRT_ICON_NAME;
 			break;
-		case WT_UNDERPANTS:
+		case LLInventoryType::NIT_UNDERPANTS:
 			idx = CLOTHING_UNDERPANTS_ICON_NAME;
 			break;
-		case WT_SKIRT:
+		case LLInventoryType::NIT_SKIRT:
 			idx = CLOTHING_SKIRT_ICON_NAME;
 			break;
-		default:
-			// no-op, go with choice above
+
+		case LLInventoryType::NIT_CLOTHING:
+			idx = CLOTHING_ICON_NAME;
 			break;
-		}
-		break;
-	case LLAssetType::AT_NOTECARD:
-		idx = NOTECARD_ICON_NAME;
-		break;
-	case LLAssetType::AT_ANIMATION:
-		idx = ANIMATION_ICON_NAME;
-		break;
-	case LLAssetType::AT_GESTURE:
-		idx = GESTURE_ICON_NAME;
-		break;
-	default:
-		break;
+
+
+		// TEXTURES / SNAPSHOTS
+
+		case LLInventoryType::NIT_SNAPSHOT:
+			idx = SNAPSHOT_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_TEXTURE:
+		case LLInventoryType::NIT_IMAGE:
+			idx = TEXTURE_ICON_NAME;
+			break;
+
+
+		// CALLING CARDS
+
+		case LLInventoryType::NIT_CALLCARD_ON:
+			idx = CALLINGCARD_ONLINE_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_CALLCARD_OFF:
+		case LLInventoryType::NIT_CALLCARD:
+			idx = CALLINGCARD_OFFLINE_ICON_NAME;
+			break;
+
+
+		// LANDMARKS
+
+		case LLInventoryType::NIT_LANDMARK_USED:
+			idx = LANDMARK_VISITED_ICON_NAME;
+			break;
+		case LLInventoryType::NIT_LANDMARK_UNUSED:
+		case LLInventoryType::NIT_LANDMARK:
+			idx = LANDMARK_ICON_NAME;
+			break;
+
+
+		// SOUNDS
+
+		case LLInventoryType::NIT_SOUND:
+			idx = SOUND_ICON_NAME;
+			break;
+
+
+		// ANIMATIONS
+
+		case LLInventoryType::NIT_ANIMATION:
+			idx = ANIMATION_ICON_NAME;
+			break;
+
+
+		// GESTURES
+
+		case LLInventoryType::NIT_GESTURE:
+			idx = GESTURE_ICON_NAME;
+			break;
+
+
+		// NOTECARD
+
+		case LLInventoryType::NIT_NOTECARD:
+			idx = NOTECARD_ICON_NAME;
+			break;
+
+
+		// SCRIPTS
+
+		case LLInventoryType::NIT_SCRIPT_LSL2:
+			idx = SCRIPT_ICON_NAME;
+			break;
+
+
+		// OBJECTS
+
+		case LLInventoryType::NIT_OBJECT:
+			if( item_is_multi )
+			{
+				idx = OBJECT_MULTI_ICON_NAME;
+			}
+			else
+			{
+				idx = OBJECT_ICON_NAME;
+			}
+			break;
+
+		default:
+			break;
 	}
-	
+
 	return ICON_NAME[idx];
 }
 

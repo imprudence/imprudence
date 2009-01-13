@@ -71,6 +71,92 @@ public:
 		IT_NONE = -1
 	};
 
+
+	/**
+	 * @brief New enumerator for inventory types
+	 * 
+	 * This is intended as a replacement to the above EType.
+	 * EType will be phased out in favor of this enum.
+	 *
+	 * This enum acts as a bitfield, which This has several
+	 * useful properties for filtering:
+	 *
+	 *   1. The inventory item's type can be compared by either
+	 *      equality or bitwise AND. Bitwise AND allows a quick
+	 *      check to see whether the type is one of multiple
+	 *      possible types.
+	 *
+	 *   2. It allows for a fast hierarchical organization, by
+	 *      defining a broad type (e.g. NIT_BODYPART) whose
+	 *      value is the bitwise OR-ing of several more specific
+	 *      sub-types (e.g. NIT_SKIN|NIT_HAIR|...).
+	 *
+	 */
+	enum NType
+	{
+		/* No Type */
+		NIT_NONE             =  0x0000000,
+
+		/* Body Parts */
+		NIT_SHAPE            =  1 << 0,
+		NIT_SKIN             =  1 << 1,
+		NIT_HAIR             =  1 << 2,
+		NIT_EYES             =  1 << 3,
+		NIT_BODYPART         =  0x000000f,
+
+		/* Clothing */
+		NIT_SHIRT            =  1 << 4,
+		NIT_PANTS            =  1 << 5,
+		NIT_SHOES            =  1 << 6,
+		NIT_SOCKS            =  1 << 7,
+		NIT_JACKET           =  1 << 8,
+		NIT_GLOVES           =  1 << 9,
+		NIT_UNDERSHIRT       =  1 << 10,
+		NIT_UNDERPANTS       =  1 << 11,
+		NIT_SKIRT            =  1 << 12,
+		NIT_CLOTHING         =  0x0001ff0,
+
+		/* Body Parts | Clothing */
+		NIT_WEARABLE         =  0x0001fff,
+
+		/* Images */
+		NIT_TEXTURE          =  1 << 13,
+		NIT_SNAPSHOT         =  1 << 14,
+		NIT_IMAGE            =  0x0006000,
+
+		/* Calling Cards */
+		NIT_CALLCARD_OFF     =  1 << 15,
+		NIT_CALLCARD_ON      =  1 << 16,
+		NIT_CALLCARD         =  0x0018000,
+
+		/* Landmarks */
+		NIT_LANDMARK_UNUSED  =  1 << 17,
+		NIT_LANDMARK_USED    =  1 << 18,
+		NIT_LANDMARK         =  0x0060000,
+
+		/* Sounds */
+		NIT_SOUND            =  1 << 19,
+
+		/* Animations */
+		NIT_ANIMATION        =  1 << 20,
+
+		/* Gestures */
+		NIT_GESTURE          =  1 << 21,
+
+		/* Notecards */
+		NIT_NOTECARD         =  1 << 22,
+
+		/* Scripts */
+		NIT_SCRIPT_LSL2      =  1 << 23,
+
+		/* Objects */
+		NIT_OBJECT           =  1 << 24,
+
+		/* Bitwise OR-ing of all the above */
+		NIT_ALL              =  0x1ffffff,
+	};
+
+
 	// machine transation between type and strings
 	static EType lookup(const std::string& name);
 	static const char* lookup(EType type);

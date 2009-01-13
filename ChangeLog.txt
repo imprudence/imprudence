@@ -1,3 +1,13 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                         1.1.0                          -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+2009-01-13  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/install.xml
+	Removed bad Windows Glib package.
+
+
 2009-01-12  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llcommon/llversionviewer.h
@@ -37,21 +47,7 @@
 	Tweaked the layout a bit.
 
 
-2009-01-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
-
-	* linden/indra/cmake/GStreamer.cmake:
-	Added more gstreamer include paths.
-	* linden/install.xml:
-	Added glib package to install.xml.
-	* linden/indra/newview/CMakeLists.txt:
-	Use BOOST_SIGNALS_LIB in newview/CMakeLists.
-	* cmake/DBusGlib.cmake:
-	Removed references to unused dbusglib.
-	* newview/CMakeLists.txt:
-	Ditto.
-
-
-	McCabe Maxsted  <hakushakukun@gmail.com>
+2009-01-11  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llvieweraudio.cpp:
 	Wind disabled by default, ambient wind muting fixed, added debug setting 'MuteAudio'.
@@ -85,6 +81,20 @@
 	* linden/indra/newview/llpanelobject.cpp:
 	Ditto.
 	* linden/indra/newview/skins/default/xui/en-us/floater_tools.xml:
+	Ditto.
+
+
+	Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/GStreamer.cmake:
+	Added more gstreamer include paths.
+	* linden/install.xml:
+	Added glib package to install.xml.
+	* linden/indra/newview/CMakeLists.txt:
+	Use BOOST_SIGNALS_LIB in newview/CMakeLists.
+	* cmake/DBusGlib.cmake:
+	Removed references to unused dbusglib.
+	* newview/CMakeLists.txt:
 
 
 2009-01-10  Armin  <email@unknown.com>
@@ -273,6 +283,13 @@
 	Moved "Disable Camera Constraints" to Preferences > Input/Camera.
 
 
+	Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llselectmgr.cpp:
+	VWR-1582: Local ruler mode wrong for linked objects.
+	Also VWR-11103 (regression of above).
+
+
 2008-12-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/install.xml:
@@ -312,6 +329,100 @@
 	Backported from LL's 1.22 RC3.
 
 
+2008-12-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Use NType to find inventory icon name.
+	* linden/indra/newview/llinventoryview.h:
+	Ditto.
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Clearing search shouldn't clear filter type.
+
+
+2008-12-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Start fetching inventory when quick filter changes.
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Refresh filter text when quick filter changes.
+
+	* linden/indra/newview/llfolderview.cpp:
+	Refactored; added LLInventoryFilter::rebuildFilterText().
+	* linden/indra/newview/llfolderview.h:
+	Ditto.
+
+	* linden/indra/newview/llfolderview.cpp:
+	Updated Inventory window filter text generation.
+	It was putting the wrong types in the title when
+	filtering. [#25]
+
+
+2008-12-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Hooked up Body Parts quickfilter and checkbox.
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml:
+	Added Quick Filter item for Body Parts.
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory_view_finder.xml:
+	Added Show Filters checkbox for Body Parts.
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory_view_finder.xml:
+	Converted Show Filters window to relative positioning.
+
+	* linden/indra/newview/llfolderview.cpp:
+	Inventory filtering is now done by NType.
+
+	* linden/indra/newview/llinventorybridge.cpp:
+	LLInvFVBridge and derived classes have NTypes.
+	* linden/indra/newview/llinventorybridge.h:
+	Ditto.
+	* linden/indra/newview/llpanelinventory.cpp: 
+	Ditto.
+
+	* linden/indra/newview/llfolderview.h:
+	Added LLFolderViewEventListener::getNInventoryType()
+	Pure virtual method, overridden in derived classes.
+
+	* linden/indra/newview/llinventoryview.cpp:
+	LLInventoryView uses new inventory type.
+
+	* linden/indra/llinventory/llinventory.cpp:
+	Recalculate ntype when changing type or flags.
+
+	* linden/indra/llinventory/llinventory.cpp:
+	Added LLInventoryItem::recalcNInventoryType().
+	* linden/indra/llinventory/llinventory.h:
+	Ditto.	
+
+	* linden/indra/llinventory/llinventory.cpp:
+	Added calc_ntype() function.
+	* linden/indra/llinventory/llinventory.h:
+	Ditto.
+
+	* linden/indra/llinventory/llwearabletype.h:
+	Moved enum EWearableType to its own file.
+	Was in newview/llwearable.h, now in llinventory/llwearabletype.h.
+	This allows it to be used in llinventory code.
+	* linden/indra/newview/llwearable.h: 
+	Ditto.
+
+
+2008-12-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llinventory/llinventory.cpp:
+	Added LLInventoryItem::mNInventoryType (new type) field.
+	Will always by NIT_NONE so far.
+	* linden/indra/llinventory/llinventory.h:
+	Ditto.
+
+	* linden/indra/llinventory/llinventorytype.h:
+	New bitfield enumerator for inventory types.
+
+
 2008-12-05  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llappviewer.cpp:
@@ -343,7 +454,6 @@
 	* linden/indra/newview/skins/default/xui/en-us/notify.xml:
 	VWR-4826 (ability to ignore friendship offers).
 
-
 	* linden/indra/newview/app_settings/settings.xml:
 	Beacons no longer persist between sessions.
 	That distressed users who accidentally enabled them,
@@ -355,13 +465,68 @@
 	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
 	Ditto.
 
-
 	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml:
 	Moved 'Offer Teleport' in IM to be on the left side.
 
-
 	* linden/indra/newview/skins/default/xui/en-us/panel_groups.xml:
 	Switched Invite and Leave buttons in group panel.
+
+
+	Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Read filter labels from LLTrans, no hard-coding.
+
+	* linden/indra/newview/skins/default/xui/en-us/strings.xml:
+	Defined strings for filter types (to allow translation).
+
+
+2008-11-22  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory_view_finder.xml:
+	Cleaned up Show Filters floater XML.
+
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml:
+	Added separators to Quick Filter.
+
+
+	* linden/indra/llui/llcombobox.cpp:
+	Combobox widget now supports separators in XUI.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Renamed "Clothing" filter to "Clothing / Body Parts".
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml: 
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory_view_finder.xml:
+	Ditto.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Renamed "Show All Items" filter to "All Types".
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml: 
+	Ditto.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Renamed "Show All Items" to "All Types".
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml: 
+	Ditto.
+	
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Bogus quick filter strings should be ignored.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Disabled testing output when changing quick filter.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Quick Filter combo box refreshes properly.
+	* linden/indra/newview/llinventoryview.h: 
+	Ditto.
 
 
 2008-11-22  McCabe Maxsted  <hakushakukun@gmail.com>
@@ -396,6 +561,37 @@
 
 	* linden/indra/newview/llnetmap.cpp:
 	Friends show yellow in minimap (VWR-3336).
+
+
+2008-11-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Show Filters window refreshes properly.
+
+
+2008-11-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llinventoryview.cpp: 
+	Added 'Custom' filter option (opens filters window).
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml:
+	Ditto.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Quick Filter works, but is a bit rough.
+	It doesn't refresh its display when you change tabs,
+	and the Show Filters window doesn't refresh either.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Added commit callback for Quick Filter.
+	* linden/indra/newview/llinventoryview.h: 
+	Ditto.
+
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml:
+	Added XUI for the Quick Filter combo box.
+
 
 
 2008-10-18  McCabe Maxsted  <hakushakukun@gmail.com>
