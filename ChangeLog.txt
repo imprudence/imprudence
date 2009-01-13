@@ -18,6 +18,16 @@
 	Ditto.
 
 
+2009-01-11  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llvieweraudio.cpp:
+	Wind disabled by default, ambient wind muting fixed, added debug setting 'MuteAudio'.
+	* linden/indra/newview/llvieweraudio.h:
+	Ditto.
+	* linden/indra/newview/app_settings/settings.xml:
+	Ditto.
+
+
 2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:
