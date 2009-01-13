@@ -12,6 +12,15 @@
 	* linden/indra/llinventory/llsaleinfo.cpp:
 	Ditto.
 
+	* linden/indra/llmessage/llurlrequest.cpp:
+	Backported message timeout changes.
+	* linden/indra/llmessage/lliosocket.cpp:
+	Ditto.
+	* linden/indra/llmessage/llpumpio.cpp:
+	Ditto.
+	* linden/indra/llmessage/llpumpio.h:
+	Ditto.
+
 	* linden/indra/llmath/llcalc.cpp:
 	Added cheat sheet help buttons in tools window.
 	* linden/indra/newview/llpanelface.cpp:
@@ -219,12 +228,6 @@
 	* linden/indra/llcommon/indra_constants.h:
 	Ditto.
 	* linden/indra/llinventory/llinventory.cpp:
-	Ditto.
-	* linden/indra/llmessage/lliosocket.cpp:
-	Ditto.
-	* linden/indra/llmessage/llpumpio.cpp:
-	Ditto.
-	* linden/indra/llmessage/llpumpio.h:
 	Ditto.
 	* linden/indra/newview/llinventorymodel.cpp:
 	Ditto.
