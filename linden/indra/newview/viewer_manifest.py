@@ -44,6 +44,16 @@ class ViewerManifest(LLManifest):
         self.exclude("*.svn*")
         self.path(src="../../scripts/messages/message_template.msg", dst="app_settings/message_template.msg")
         self.path(src="../../etc/message.xml", dst="app_settings/message.xml")
+	self.path(src="../../../ChangeLog.txt", dst="doc/ChangeLog.txt")
+	self.path(src="../../../CONTRIBUTE.txt", dst="doc/CONTRIBUTE.txt")
+	self.path(src="../../../MANIFESTO.txt", dst="doc/MANIFESTO.txt")
+	self.path(src="../../../README.txt", dst="doc/README.txt")
+	self.path(src="../../../RELEASE_NOTES.txt", dst="doc/RELEASE_NOTES.txt")
+	self.path(src="../../doc/contributions.txt", dst="doc/ll-contributions.txt")
+	self.path(src="../../doc/FLOSS-exception.txt", dst="doc/FLOSS-exception.txt")
+	self.path(src="../../doc/GPL-license.txt", dst="doc/GPL-license.txt")
+	self.path(src="../../doc/releasenotes-where.txt", dst="doc/ll-releasenotes-where.txt")
+# 
 
         if self.prefix(src="app_settings"):
             self.exclude("logcontrol.xml")
@@ -171,9 +181,9 @@ class WindowsManifest(ViewerManifest):
     def final_exe(self):
         if self.default_channel():
             if self.default_grid():
-                return "Imprudence.exe"
+                return "imprudence.exe"
             else:
-                return "ImprudencePreview.exe"
+                return "imprudencepreview.exe"
         else:
             return ''.join(self.channel().split()) + '.exe'
 
@@ -183,14 +193,6 @@ class WindowsManifest(ViewerManifest):
         # the final exe is complicated because we're not sure where it's coming from,
         # nor do we have a fixed name for the executable
         self.path(self.find_existing_file('debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
-        # need to get the kdu dll from any of the build directories as well
-        #self.path(self.find_existing_file(
-                # *FIX:Mani we need to add support for packaging specific targets.
-                #'../llkdu/debug/llkdu.dll',
-                #'../llkdu/release/llkdu.dll',
-                #'../llkdu/relwithdebinfo/llkdu.dll',
-                #'../../libraries/i686-win32/lib/release/llkdu.dll'), 
-                #  dst='llkdu.dll')
 
         self.gather_documents()
 
@@ -211,6 +213,12 @@ class WindowsManifest(ViewerManifest):
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
             self.path("openjpeg.dll")
             self.end_prefix()
+
+        # For sound
+        if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
+            self.path("openal32.dll")
+            self.path("alut.dll")
+            self.end_prefix()           
 
         # Mozilla appears to force a dependency on these files so we need to ship it (CP)
         self.path("msvcr71.dll")
@@ -244,18 +252,20 @@ class WindowsManifest(ViewerManifest):
             self.end_prefix()
 
         # Vivox runtimes
-        #if self.prefix(src="vivox-runtime/i686-win32", dst=""):
+        if self.prefix(src="vivox-runtime/i686-win32", dst=""):
+        #    self.path("alut.dll")
+            self.path("wrap_oal.dll")
+
         #    self.path("SLVoice.exe")
         #    self.path("SLVoiceAgent.exe")
         #    self.path("libeay32.dll")
         #    self.path("srtp.dll")
         #    self.path("ssleay32.dll")
         #    self.path("tntk.dll")
-        #    self.path("alut.dll")
         #    self.path("vivoxsdk.dll")
         #    self.path("ortp.dll")
-        #    self.path("wrap_oal.dll")
-        #    self.end_prefix()
+
+            self.end_prefix()
 
 #        # pull in the crash logger and updater from other projects
 #        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
@@ -440,17 +450,15 @@ class DarwinManifest(ViewerManifest):
                 self.path("Japanese.lproj")
                 self.path("Korean.lproj")
 
+
                 # SLVoice and vivox lols
-                #self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
-                #self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
+                self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
+                self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
                 #self.path("vivox-runtime/universal-darwin/libortp.dylib", "libortp.dylib")
                 #self.path("vivox-runtime/universal-darwin/libvivoxsdk.dylib", "libvivoxsdk.dylib")
                 #self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
                 #self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
 
-                # llkdu dynamic library
-#                self.path("../../libraries/universal-darwin/lib_release/libllkdu.dylib", "libllkdu.dylib")
-                
                 #libfmodwrapper.dylib
                 #self.path(self.args['configuration'] + "/libfmodwrapper.dylib", "libfmodwrapper.dylib")
                 
@@ -658,7 +666,6 @@ class Linux_i686Manifest(LinuxManifest):
         self.path("app_settings/mozilla-runtime-linux-i686")
 
         if self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
-#            self.path("libkdu_v42R.so")
 #            self.path("libfmod-3.75.so")
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
@@ -673,19 +680,19 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libopenjpeg.so.2")
             #self.path("libtcmalloc.so.0") - bugged
             #self.path("libstacktrace.so.0") - probably bugged
-#            self.path("libllkdu.so", "../bin/libllkdu.so") # llkdu goes in bin for some reason
             self.end_prefix("lib")
 
             # Vivox runtimes
             #if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
             #        self.path("SLVoice")
             #        self.end_prefix()
-            #if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
-            #        self.path("libopenal.so.1")
+            
+            if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
+                self.path("libopenal.so.1")
+                self.path("libalut.so")
             #        self.path("libortp.so")
             #        self.path("libvivoxsdk.so")
-            #        self.path("libalut.so")
-            #        self.end_prefix("lib")
+                self.end_prefix("lib")
 
 class Linux_x86_64Manifest(LinuxManifest):
     def construct(self):

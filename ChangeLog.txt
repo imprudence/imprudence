@@ -1,3 +1,122 @@
+2009-01-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/GStreamer.cmake:
+	Added more gstreamer include paths.
+
+
+	* linden/install.xml:
+	Added glib package to install.xml.
+
+
+	* linden/indra/newview/CMakeLists.txt:
+	Use BOOST_SIGNALS_LIB in newview/CMakeLists.
+
+
+	* cmake/DBusGlib.cmake:
+	Removed references to unused dbusglib.
+	* newview/CMakeLists.txt:
+	Ditto.
+
+
+2009-01-11  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llvieweraudio.cpp:
+	Wind disabled by default, ambient wind muting fixed, added debug setting 'MuteAudio'.
+	* linden/indra/newview/llvieweraudio.h:
+	Ditto.
+	* linden/indra/newview/app_settings/settings.xml:
+	Ditto.
+
+
+2009-01-08  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/cmake/CopyWinLibs.cmake:
+	Added openal32.dll and alut.dll to CopyWinLibs.cmake.
+	* linden/indra/newview/viewer_manifest.py:
+	Added openal32.dll and alut.dll to viewer_manifest.py.
+
+
+2009-01-06  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/CMakeLists.txt:
+	Streaming music/video now works on Windows.
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer.h:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms.cpp:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms.h:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamervidplug.cpp:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamervidplug.h:
+	Ditto.
+	* linden/indra/llmedia/llmediamanager.cpp:
+	Ditto.
+	* linden/indra/llwindow/llwindowsdl.cpp:
+	Ditto.
+
+
+2008-12-30  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llaudio/audioengine_openal.cpp:
+	Fixed a compile problem in VS2005.
+	* linden/indra/llaudio/audioengine_openal.h:
+	Ditto.
+
+
+	* Merged in balp's openal branch.
+
+
+	* linden/indra/CMakeLists.txt:
+	"Added fix for VWR-10392 as well as other fixes.
+	* linden/indra/cmake/00-Common.cmake:
+	Ditto.
+	* linden/indra/cmake/APR.cmake:
+	Ditto.
+	* linden/indra/cmake/CopyWinLibs.cmake:
+	Ditto.
+	* linden/indra/cmake/DirectX.cmake:
+	Ditto.
+	* linden/indra/cmake/FindMono.cmake:
+	Ditto.
+	* linden/indra/cmake/GooglePerfTools.cmake:
+	Ditto.
+	* linden/indra/cmake/LLXML.cmake:
+	Ditto.
+	* linden/indra/cmake/Linking.cmake:
+	Ditto.
+	* linden/indra/cmake/NDOF.cmake:
+	Ditto.
+	* linden/indra/cmake/Python.cmake:
+	Ditto.
+	* linden/indra/cmake/QuickTime.cmake:
+	Ditto.
+	* linden/indra/develop.py:
+	Ditto.
+	* linden/indra/newview/CMakeLists.txt:
+	Ditto.
+	* linden/indra/cmake/DBusGlib.cmake:
+	Ditto.
+
+
+2008-12-29  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/CMakeLists.txt:
+	Removed llkdu from cmake.
+	* linden/indra/cmake/CopyWinLibs.cmake:
+	Ditto.
+	* linden/indra/cmake/LLKDU.cmake:
+	Ditto.
+	* linden/indra/newview/CMakeLists.txt:
+	Ditto.
+	* linden/indra/newview/viewer_manifest.py:
+	Ditto.
+	* linden/install.xml:
+	Ditto.
+
+
 2008-12-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llselectmgr.cpp:
@@ -27,6 +146,14 @@
 
 	* linden/indra/llcommon/llversionviewer.h:
 	Bumped version to 1.1.0 alpha.
+
+
+2008-12-12  Balp Allen  <Anders@Arnholm.se>
+
+	* Bumped version to RC3
+
+	* Applied patches from Henri's CoolViewer:
+	Possible to discard much more given items.
 
 
 2008-12-11  McCabe Maxsted  <hakushakukun@gmail.com>
@@ -430,6 +557,65 @@
 	VWR-10759 (use delete [] in LLMediaImplGStreamer)
 	Patch by Aleric Inglewood.
 
+
+	* linden/indra/llaudio/audioengine.cpp:
+	Updated audio engine to LL's openal branch r1532.
+	* linden/indra/llaudio/audioengine.h:
+	Ditto.
+	* linden/indra/llaudio/audioengine_openal.cpp:
+	Ditto.
+	* linden/indra/llaudio/audioengine_openal.h:
+	Ditto.
+	* linden/indra/newview/llaudiosourcevo.cpp:
+	Ditto.
+	* linden/indra/newview/llpreviewsound.cpp:
+	Ditto.
+	* linden/indra/newview/llstartup.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermessage.cpp:
+	Ditto.
+	* linden/indra/newview/llviewertexteditor.cpp:
+	Ditto.
+	* linden/indra/newview/llvoavatar.cpp:
+	Ditto.
+
+
+2008-11-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/OPENAL.cmake:
+	Cross-platform checking for OpenAL libs.
+	* linden/indra/cmake/LLAudio.cmake:
+	Ditto.
+
+
+2008-11-20  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/OPENAL.cmake:
+	Enable OpenAL by default.
+	Configure with -DOPENAL:BOOL=OFF to disable.
+
+
+2008-11-19  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/viewer_manifest.py:
+	Package up OpenAL libs.
+	
+
+	* indra/llaudio/audioengine_openal.cpp:
+	VWR-2662: OpenAL support (patch by Tofu Linden)
+	* indra/llaudio/audioengine_openal.h: Ditto.
+	* indra/llaudio/listener_openal.cpp: Ditto.
+	* indra/llaudio/listener_openal.h: Ditto.
+	* indra/llaudio/windgen.h: Ditto.
+	* indra/cmake/LLAudio.cmake: Ditto.
+	* indra/llaudio/CMakeLists.txt: Ditto.
+	* indra/llaudio/audioengine.h: Ditto.
+	* indra/llaudio/audioengine_fmod.cpp: Ditto.
+	* indra/llaudio/audioengine_fmod.h: Ditto.
+	* indra/llaudio/listener_fmod.h: Ditto.
+	* indra/newview/CMakeLists.txt: Ditto.
+	* indra/newview/llappviewer.cpp: Ditto.
+	* indra/newview/llstartup.cpp: Ditto.
 
 2008-12-06  McCabe Maxsted  <hakushakukun@gmail.com>
 

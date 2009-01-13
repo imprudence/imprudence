@@ -31,7 +31,7 @@
 
 #include "linden_common.h"
 
-#if LL_GSTREAMER_ENABLED
+///#if LL_GSTREAMER_ENABLED
 
 extern "C" {
 #include <gst/gst.h>
@@ -75,4 +75,4 @@ void ungrab_gst_syms();
 // more hacks
 #define LLGST_MESSAGE_TYPE_NAME(M) (llgst_message_type_get_name(GST_MESSAGE_TYPE(M)))
 
-#endif // LL_GSTREAMER_ENABLED
+///#endif // LL_GSTREAMER_ENABLED

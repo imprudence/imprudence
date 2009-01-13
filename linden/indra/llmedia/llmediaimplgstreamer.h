@@ -31,20 +31,19 @@
  */
 
 // header guard
-#ifndef llmediaimplgstreamer_h
+///#ifndef llmediaimplgstreamer_h
 #define llmediaimplgstreamer_h
 
 #include "llmediaimplcommon.h"
 #include "llmediaimplfactory.h"
 
-#if LL_GSTREAMER_ENABLED
+///#if LL_GSTREAMER_ENABLED
 
 extern "C" {
 #include <stdio.h>
 #include <gst/gst.h>
-
-#include "apr_pools.h"
-#include "apr_dso.h"
+#include <apr_pools.h>
+#include <apr_dso.h>
 }
 
 #include "llmediaimplgstreamervidplug.h"
@@ -100,9 +99,11 @@ class LLMediaImplGStreamer:
         	GMainLoop *mPump; // event pump for this media
 	        GstElement *mPlaybin;
 		GstSLVideo *mVideoSink;
+		GstState mState;
 #ifdef LL_GST_SOUNDSINK
 		GstSLSound *mAudioSink;
 #endif // LL_GST_SOUNDSINK
+		GstState getState() const { return mState; }
 };
 
 class LLMediaImplGStreamerMaker : public LLMediaImplMaker
@@ -129,6 +130,6 @@ public:
 #define WARNMSG  STDERRMSG
 /////////////////////////////////////////////////////////////////////////
 
-#endif // LL_GSTREAMER_ENABLED
+///#endif // LL_GSTREAMER_ENABLED
 
-#endif // llmediaimplgstreamer_h
+///#endif // llmediaimplgstreamer_h

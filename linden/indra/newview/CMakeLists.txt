@@ -8,6 +8,7 @@ include(BuildVersion)
 include(DirectX)
 include(ELFIO)
 include(FMOD)
+include(OPENAL)
 include(FindOpenGL)
 include(LLAudio)
 include(LLCharacter)
@@ -31,7 +32,6 @@ include(NDOF)
 include(TemplateCheck)
 include(UI)
 include(UnixInstall)
-include(LLKDU)
 include(ViewerMiscLibs)
 
 if (WINDOWS)
@@ -56,6 +56,7 @@ include_directories(
     ${LLXML_INCLUDE_DIRS}
     ${LSCRIPT_INCLUDE_DIRS}
     ${LSCRIPT_INCLUDE_DIRS}/lscript_compile
+    ${GSTREAMER_INCLUDE_DIRS}
     )
 
 set(viewer_SOURCE_FILES
@@ -429,6 +430,9 @@ set(viewer_SOURCE_FILES
     noise.cpp
     pipeline.cpp
     )
+
+set(VIEWER_BINARY_NAME "imprudence-bin" CACHE STRING
+    "The name of the viewer executable to create.")
 
 if (LINUX)
   # We can't set these flags for Darwin, because they get passed to
@@ -850,8 +854,8 @@ if (DARWIN)
     secondlife.icns
     macview.r
     gpu_table.txt
-    Info-SecondLife.plist
-    SecondLife.nib/
+    Info-Imprudence.plist
+    Imprudence.nib/
     # CMake doesn't seem to support Xcode language variants well just yet
     English.lproj/InfoPlist.strings
     English.lproj/language.txt
@@ -1239,8 +1243,13 @@ set_source_files_properties(${viewer_CHARACTER_FILES}
 
 list(APPEND viewer_SOURCE_FILES ${viewer_CHARACTER_FILES})
 
+
+if (OPENAL)
+  set(LLSTARTUP_COMPILE_FLAGS "${LLSTARTUP_COMPILE_FLAGS} -DLL_OPENAL")
+endif (OPENAL)
+
 if (FMOD)
-  set_source_files_properties(llstartup.cpp PROPERTIES COMPILE_FLAGS -DLL_FMOD)
+  set(LLSTARTUP_COMPILE_FLAGS "${LLSTARTUP_COMPILE_FLAGS} -DLL_FMOD")
 
   if (NOT WINDOWS)
     set(fmodwrapper_SOURCE_FILES fmodwrapper.cpp)
@@ -1260,6 +1269,8 @@ if (FMOD)
   endif (NOT WINDOWS)
 endif (FMOD)
 
+set_source_files_properties(llstartup.cpp PROPERTIES COMPILE_FLAGS "${LLSTARTUP_COMPILE_FLAGS}")
+
 list(APPEND viewer_SOURCE_FILES ${viewer_HEADER_FILES})
 
 set_source_files_properties(${viewer_HEADER_FILES}
@@ -1271,10 +1282,6 @@ add_executable(imprudence-bin
     ${viewer_SOURCE_FILES}
     )
 check_message_template(imprudence-bin)
-
-if (LLKDU_LIBRARY)
-  add_dependencies(imprudence-bin ${LLKDU_LIBRARY})
-endif (LLKDU_LIBRARY)
 
 set(PACKAGE OFF CACHE BOOL
     "Add a package target that builds an installer package.")
@@ -1467,24 +1474,27 @@ if (DARWIN)
     )
 
   if (PACKAGE)
-    add_custom_target(package
-      COMMAND
-        ${PYTHON_EXECUTABLE}
-        ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-        --grid=${GRID}
-        --configuration=${CMAKE_CFG_INTDIR}
-        --channel=${VIEWER_CHANNEL}
-        --login_channel=${VIEWER_CHANNEL}
-        --source=${CMAKE_CURRENT_SOURCE_DIR}
-        --artwork=${ARTWORK_DIR}
-        --build=${CMAKE_CURRENT_BINARY_DIR}
-        --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
-        --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
-      DEPENDS
-        imprudence-bin
-        ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-      )
+      add_custom_target(package ALL DEPENDS imprudence-bin) 
       add_dependencies(package mac-updater mac-crash-logger)
+
+      add_custom_command(
+        TARGET package POST_BUILD
+        COMMAND ${PYTHON_EXECUTABLE}
+        ARGS
+          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
+          --grid=${GRID}
+          --configuration=${CMAKE_CFG_INTDIR}
+          --channel=${VIEWER_CHANNEL}
+          --login_channel=${VIEWER_LOGIN_CHANNEL}
+          --source=${CMAKE_CURRENT_SOURCE_DIR}
+          --artwork=${ARTWORK_DIR}
+          --build=${CMAKE_CURRENT_BINARY_DIR}
+          --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
+          --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
+        DEPENDS
+          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
+      )
+
   endif (PACKAGE)
 endif (DARWIN)
 

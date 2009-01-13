@@ -40,6 +40,13 @@
 						</array>
 					<key>tags</key>
 						<array>
+						<string>OpenAL</string>
+						<string>AudioEngine</string>
+						<string>MediaImpl</string>
+						<string>MediaInfo</string>
+						<string>MediaCallback</string>
+						<string>MediaBuffering</string>
+						<string>MediaState</string>
 						</array>
 				</map>
 			</array>

@@ -29,7 +29,7 @@
  * $/LicenseInfo$
  */
 
-#if LL_GSTREAMER_ENABLED
+///#if LL_GSTREAMER_ENABLED
 
 extern "C" {
 #include <gst/gst.h>
@@ -185,4 +185,4 @@ void ungrab_gst_syms()
 }
 
 
-#endif // LL_GSTREAMER_ENABLED
+///#endif // LL_GSTREAMER_ENABLED

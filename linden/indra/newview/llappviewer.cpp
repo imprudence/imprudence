@@ -1179,7 +1179,8 @@ bool LLAppViewer::cleanup()
 	
 	llinfos << "Global stuff deleted" << llendflush;
 
-#if !LL_RELEASE_FOR_DOWNLOAD
+#if (!defined(LL_FMOD)) || (!LL_RELEASE_FOR_DOWNLOAD)
+        // OpenAL likes to crash on exit if we *don't* explicitly shut it down.
 	if (gAudiop)
 	{
 		gAudiop->shutdown();
