@@ -4,6 +4,11 @@
 
 2009-01-13  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml
+	Added text to IM window about inventory transfers.
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml
+	Fixed the 'Join' button being too small. 
+
 	* linden/install.xml
 	Removed bad Windows Glib package.
 
