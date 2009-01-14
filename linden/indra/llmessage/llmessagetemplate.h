@@ -34,6 +34,7 @@
 
 #include "lldarray.h"
 #include "message.h" // TODO: babbage: Remove...
+#include "llstat.h"
 #include "llstl.h"
 
 class LLMsgVarData
@@ -370,20 +371,23 @@ public:
 	{
 		if (mHandlerFunc)
 		{
+            LLPerfBlock msg_cb_time("msg_cb", mName);
 			mHandlerFunc(msgsystem, mUserData);
 			return TRUE;
 		}
 		return FALSE;
 	}
 
-	bool isBanned(bool trustedSource) const
-	{
-		return trustedSource ? mBanFromTrusted : mBanFromUntrusted;
-	}
-
 	bool isUdpBanned() const
 	{
 		return mDeprecation == MD_UDPBLACKLISTED;
+	}
+
+	void banUdp();
+
+	bool isBanned(bool trustedSource) const
+	{
+		return trustedSource ? mBanFromTrusted : mBanFromUntrusted;
 	}
 
 	friend std::ostream&	 operator<<(std::ostream& s, LLMessageTemplate &msg);

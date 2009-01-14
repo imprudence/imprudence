@@ -60,8 +60,10 @@ const U32 REGION_FLAGS_BLOCK_LAND_RESELL		= (1 << 7);
 // All content wiped once per night
 const U32 REGION_FLAGS_SANDBOX					= (1 << 8);
 const U32 REGION_FLAGS_NULL_LAYER				= (1 << 9);
-const U32 REGION_FLAGS_SKIP_AGENT_ACTION		= (1 << 10);
-const U32 REGION_FLAGS_SKIP_UPDATE_INTEREST_LIST= (1 << 11);
+// const U32 REGION_FLAGS_SKIP_AGENT_ACTION		= (1 << 10);
+const U32 REGION_FLAGS_HARD_ALLOW_LAND_TRANSFER	= (1 << 10);	// Region allows land reselling
+// const U32 REGION_FLAGS_SKIP_UPDATE_INTEREST_LIST= (1 << 11);
+const U32 REGION_FLAGS_HARD_ALLOW_POST_CLASSIFIED	= (1 << 11);	// Region allows posting of classified ads
 const U32 REGION_FLAGS_SKIP_COLLISIONS			= (1 << 12); // Pin all non agent rigid bodies
 const U32 REGION_FLAGS_SKIP_SCRIPTS				= (1 << 13);
 const U32 REGION_FLAGS_SKIP_PHYSICS				= (1 << 14); // Skip all physics
