@@ -4,6 +4,49 @@
 
 2009-01-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden/indra/llmath/llmodularmath.h:
+	Updated llmessage.
+	* linden/etc/message.xml:
+	Ditto.
+	* linden/indra/lib/python/indra/ipc/llsdhttp.py:
+	Ditto.
+	* linden/indra/lib/python/indra/ipc/mysql_pool.py:
+	Ditto. 
+	* linden/indra/lib/python/indra/ipc/servicebuilder.py:
+	Ditto.
+	* linden/indra/lib/python/indra/ipc/siesta.py:
+	Ditto.
+	* linden/indra/lib/python/indra/util/llmanifest.py:
+	Ditto. 
+	* linden/indra/lib/python/indra/util/llversion.py:
+	Ditto. 
+	* linden/indra/lib/python/indra/util/named_query.py linden/indra/llcommon/llstat.cpp:
+	Ditto. 
+	* linden/indra/llcommon/llstat.h linden/indra/llmessage/llcircuit.cpp:
+	Ditto. 
+	* linden/indra/llmessage/llcircuit.h linden/indra/llmessage/llcurl.cpp:
+	Ditto.
+	* linden/indra/llmessage/llhttpassetstorage.cpp linden/indra/llmessage/llhttpclient.cpp:
+	Ditto. 
+	* linden/indra/llmessage/llhttpclient.h linden/indra/llmessage/lliohttpserver.cpp:
+	Ditto. 
+	* linden/indra/llmessage/llmail.cpp linden/indra/llmessage/llmail.h:
+	Ditto. 
+	* linden/indra/llmessage/llmessagetemplate.cpp:
+	Ditto. 
+	* linden/indra/llmessage/llmessagetemplate.h:
+	Ditto. 
+	* linden/indra/llmessage/llmessagethrottle.cpp:
+	Ditto. 
+	* linden/indra/llmessage/llnamevalue.cpp:
+	Ditto. 
+	* linden/indra/llmessage/llnamevalue.h linden/indra/llmessage/llpumpio.cpp:
+	Ditto.
+	* linden/indra/llmessage/llregionflags.h linden/indra/llmessage/message.cpp:
+	Ditto.
+	* linden/indra/llmessage/message.h:
+	Ditto.
+
 	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml:
 	Added the 'Return to World' inventory option.
 	* linden/indra/llcommon/indra_constants.h:
