@@ -159,6 +159,7 @@ public:
 
 	virtual const std::string& getPrefix() { return LLStringUtil::null; }
 	virtual void restoreItem() {}
+	virtual void restoreToWorld() {}
 
 	// LLFolderViewEventListener functions
 	virtual const std::string& getName() const;
@@ -243,6 +244,7 @@ public:
 
 	virtual void selectItem();
 	virtual void restoreItem();
+	virtual void restoreToWorld();
 
 	virtual LLUIImagePtr getIcon() const;
 	virtual const std::string& getDisplayName() const;
@@ -282,7 +284,6 @@ public:
 	virtual BOOL isItemRenameable() const;
 	virtual void selectItem();
 	virtual void restoreItem();
-
 
 	virtual LLUIImagePtr getIcon() const;
 	virtual BOOL renameItem(const std::string& new_name);

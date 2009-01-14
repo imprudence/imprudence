@@ -2,6 +2,22 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-14  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml:
+	Added the 'Return to World' inventory option.
+	* linden/indra/llcommon/indra_constants.h:
+	Ditto.
+ 	* linden/scripts/messages/message_template.msg:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/menu_inventory.xml:
+	Ditto.
+ 	* linden/indra/lib/python/indra/base/llsd.py linden/indra/newview/llinventorybridge.cpp:
+	Ditto.
+ 	* linden/indra/newview/llinventorybridge.h:
+	Ditto.
+
+
 2009-01-13  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml
