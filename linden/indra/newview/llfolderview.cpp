@@ -4479,7 +4479,7 @@ LLInventoryFilter::LLInventoryFilter(const std::string& name) :
 	mModified(FALSE),
 	mNeedTextRebuild(TRUE)
 {
-	mFilterOps.mFilterTypes = 0xffffffff;
+	mFilterOps.mFilterTypes = LLInventoryType::NIT_ALL;
 	mFilterOps.mMinDate = time_min();
 	mFilterOps.mMaxDate = time_max();
 	mFilterOps.mHoursAgo = 0;
@@ -4552,7 +4552,7 @@ BOOL LLInventoryFilter::isNotDefault()
 
 BOOL LLInventoryFilter::isActive()
 {
-	return mFilterOps.mFilterTypes != 0xffffffff 
+	return mFilterOps.mFilterTypes != LLInventoryType::NIT_ALL 
 		|| mFilterSubString.size() 
 		|| mFilterOps.mPermissions != PERM_NONE 
 		|| mFilterOps.mMinDate != time_min()

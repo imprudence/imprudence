@@ -1,5 +1,9 @@
 2009-01-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llfolderview.cpp:
+	Fixed folders expanding when Show Filters is opened.
+
+
 	* linden/indra/newview/llinventoryview.cpp:
 	Simplified rebuildFilter() a bit.
 
