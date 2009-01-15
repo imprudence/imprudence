@@ -203,6 +203,12 @@ void LLInventoryViewFinder::updateElementsFromFilter()
 
 void LLInventoryViewFinder::draw()
 {
+	rebuildFilter();
+	LLFloater::draw();
+}
+
+void LLInventoryViewFinder::rebuildFilter()
+{
 	U32 filter = 0xffffffff;
 	BOOL filtered_by_all_types = TRUE;
 
@@ -237,8 +243,6 @@ void LLInventoryViewFinder::draw()
 	}
 
 	if (!childGetValue("check_landmark"))
-
-
 	{
 		filter &= ~(LLInventoryType::NIT_LANDMARK);
 		filtered_by_all_types = FALSE;
@@ -308,8 +312,6 @@ void LLInventoryViewFinder::draw()
 	mInventoryView->mActivePanel->setHoursAgo(hours);
 	mInventoryView->mActivePanel->setSinceLogoff(getCheckSinceLogoff());
 	mInventoryView->setFilterTextFromFilter();
-
-	LLFloater::draw();
 }
 
 void  LLInventoryViewFinder::onClose(bool app_quitting)

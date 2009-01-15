@@ -163,6 +163,7 @@ public:
 						const LLRect& rect,
 						LLInventoryView* inventory_view);
 	virtual void draw();
+	virtual void rebuildFilter();
 	virtual void onClose(bool app_quitting);
 	void changeFilter(LLInventoryFilter* filter);
 	void updateElementsFromFilter();
