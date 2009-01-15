@@ -239,11 +239,11 @@ void LLKeywords::addToken(LLKeywordToken::TOKEN_TYPE type,
 	switch(type)
 	{
 	case LLKeywordToken::WORD:
-		mWordTokenMap[key] = new LLKeywordToken(type, color, key, tool_tip, NULL);
+		mWordTokenMap[key] = new LLKeywordToken(type, color, key, tool_tip, delimiter);
 		break;
 
 	case LLKeywordToken::LINE:
-		mLineTokenList.push_front(new LLKeywordToken(type, color, key, tool_tip, NULL));
+		mLineTokenList.push_front(new LLKeywordToken(type, color, key, tool_tip, delimiter));
 		break;
 
 	case LLKeywordToken::TWO_SIDED_DELIMITER:

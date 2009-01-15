@@ -14,6 +14,11 @@
 	* linden/indra/newview/app_settings/keywords.ini:
 	Ditto.
 
+	* linden/indra/llui/llkeywords.cpp:
+	Fixed crash bug while loading keywords.
+	* linden/indra/newview/app_settings/keywords.ini:
+	Ditto.
+
 
 2009-01-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
