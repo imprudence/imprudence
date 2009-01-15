@@ -1,3 +1,11 @@
+2009-01-14  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llinventory/llinventorytype.h:
+	Added inventory ntype for folders.
+	* linden/indra/llinventory/llinventory.cpp:
+	Ditto.
+
+
 2009-01-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/cmake/GStreamer.cmake:
