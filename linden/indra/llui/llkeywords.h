@@ -45,23 +45,27 @@ class LLTextSegment;
 class LLKeywordToken
 {
 public:
-	enum TOKEN_TYPE { WORD, LINE, TWO_SIDED_DELIMITER, ONE_SIDED_DELIMITER };
+	enum TOKEN_TYPE { WORD, LINE, TWO_SIDED_DELIMITER, ONE_SIDED_DELIMITER, TWO_SIDED_DELIMITER_ESC };
 
-	LLKeywordToken( TOKEN_TYPE type, const LLColor3& color, const LLWString& token, const LLWString& tool_tip ) 
+	LLKeywordToken( TOKEN_TYPE type, const LLColor3& color, const LLWString& token, const LLWString& tool_tip, const LLWString& delimiter )
 		:
 		mType( type ),
-		mToken( token ),
+		mToken( token ),			// keyword or left delimiter
 		mColor( color ),
-		mToolTip( tool_tip )
+		mToolTip( tool_tip ),
+		mDelimiter( delimiter )		// right delimiter
 	{
 	}
 
 	S32					getLength() const		{ return mToken.size(); }
+	S32					getLength2() const		{ return mDelimiter.size(); }
 	BOOL				isHead(const llwchar* s) const;
+	BOOL				isTail(const llwchar* s) const;
 	const LLWString&	getToken() const		{ return mToken; }
 	const LLColor3&		getColor() const		{ return mColor; }
 	TOKEN_TYPE			getType()  const		{ return mType; }
 	const LLWString&	getToolTip() const		{ return mToolTip; }
+	const LLWString&	getDelimiter() const	{ return mDelimiter; }
 
 #ifdef _DEBUG
 	void		dump();
@@ -72,6 +76,7 @@ private:
 	LLWString	mToken;
 	LLColor3	mColor;
 	LLWString	mToolTip;
+	LLWString	mDelimiter;
 };
 
 class LLKeywords
@@ -89,7 +94,8 @@ public:
 	void addToken(LLKeywordToken::TOKEN_TYPE type,
 					const std::string& key,
 					const LLColor3& color,
-					const std::string& tool_tip = LLStringUtil::null);
+					const std::string& tool_tip = LLStringUtil::null,
+					const std::string& delimiter = LLStringUtil::null);
 
 	typedef std::map<LLWString, LLKeywordToken*> word_token_map_t;
 	typedef word_token_map_t::const_iterator keyword_iterator_t;

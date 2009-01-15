@@ -4,8 +4,15 @@
 
 2009-01-15  McCabe Maxsted  <hakushakukun@gmail.com>
 
-	* llinden/indra/lscript/lscript_compile/indra.l:
+	* linden/indra/lscript/lscript_compile/indra.l:
 	Added compile support for multiline comments.
+
+	* linden/indra/llui/llkeywords.cpp:
+	Added viewer support for multiline comments.
+	* linden/indra/llui/llkeywords.h:
+	Ditto.
+	* linden/indra/newview/app_settings/keywords.ini:
+	Ditto.
 
 
 2009-01-14  McCabe Maxsted  <hakushakukun@gmail.com>
