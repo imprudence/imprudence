@@ -1,8 +1,13 @@
 2009-01-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventoryview.cpp:
+	Simplified rebuildFilter() a bit.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
 	LLInventoryViewFinder::rebuildFilter().
 	Refactored from draw().
+
 	* linden/indra/newview/llinventoryview.h:
 	Ditto.
 

@@ -209,82 +209,69 @@ void LLInventoryViewFinder::draw()
 
 void LLInventoryViewFinder::rebuildFilter()
 {
-	U32 filter = 0xffffffff;
-	BOOL filtered_by_all_types = TRUE;
+	U32 filter = LLInventoryType::NIT_ALL;
 
 	if (!childGetValue("check_animation"))
 	{
 		filter &= ~(LLInventoryType::NIT_ANIMATION);
-		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_bodypart"))
 	{
 		filter &= ~(LLInventoryType::NIT_BODYPART);
-		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_calling_card"))
 	{
 		filter &= ~(LLInventoryType::NIT_CALLCARD);
-		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_clothing"))
 	{
 		filter &= ~(LLInventoryType::NIT_CLOTHING);
-		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_gesture"))
 	{
 		filter &= ~(LLInventoryType::NIT_GESTURE);
-		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_landmark"))
 	{
 		filter &= ~(LLInventoryType::NIT_LANDMARK);
-		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_notecard"))
 	{
 		filter &= ~(LLInventoryType::NIT_NOTECARD);
-		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_object"))
 	{
 		filter &= ~(LLInventoryType::NIT_OBJECT);
-		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_script"))
 	{
 		filter &= ~(LLInventoryType::NIT_SCRIPT_LSL2);
-		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_sound"))
 	{
 		filter &= ~(LLInventoryType::NIT_SOUND);
-		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_texture"))
 	{
 		filter &= ~(LLInventoryType::NIT_TEXTURE);
-		filtered_by_all_types = FALSE;
 	}
 
 	if (!childGetValue("check_snapshot"))
 	{
 		filter &= ~(LLInventoryType::NIT_SNAPSHOT);
-		filtered_by_all_types = FALSE;
 	}
 
-	if (!filtered_by_all_types)
+	if (filter != LLInventoryType::NIT_ALL)
 	{
 		// don't include folders in filter, unless I've selected everything
 		filter &= ~(LLInventoryType::NIT_FOLDER);
