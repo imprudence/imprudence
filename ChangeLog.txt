@@ -2,6 +2,12 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-15  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* llinden/indra/lscript/lscript_compile/indra.l:
+	Added compile support for multiline comments.
+
+
 2009-01-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llmath/llmodularmath.h:
