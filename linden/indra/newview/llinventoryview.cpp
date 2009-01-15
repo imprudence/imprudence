@@ -280,13 +280,11 @@ void LLInventoryViewFinder::draw()
 		filtered_by_all_types = FALSE;
 	}
 
-  /*
 	if (!filtered_by_all_types)
 	{
 		// don't include folders in filter, unless I've selected everything
-		filter &= ~(LLInventoryType::NIT_CATEGORY);
+		filter &= ~(LLInventoryType::NIT_FOLDER);
 	}
-  */
 
 	// update the panel, panel will update the filter
 	mInventoryView->mActivePanel->setShowFolderState(getCheckShowEmpty() ?

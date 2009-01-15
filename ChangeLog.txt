@@ -1,5 +1,10 @@
 2009-01-14  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llinventoryview.cpp:
+	Don't show empty folders when using filter.
+	This is the old behavior, but I had broken it.
+
+
 	* linden/indra/llinventory/llinventorytype.h:
 	Added inventory ntype for folders.
 	* linden/indra/llinventory/llinventory.cpp:
