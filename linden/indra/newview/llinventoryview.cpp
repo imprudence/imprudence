@@ -242,11 +242,6 @@ void LLInventoryViewFinder::updateElementsFromFilter()
 	mSpinSinceDays->set((F32)(hours / 24));
 }
 
-void LLInventoryViewFinder::draw()
-{
-	LLFloater::draw();
-}
-
 void LLInventoryViewFinder::rebuildFilter()
 {
 	U32 filter = LLInventoryType::NIT_ALL;
