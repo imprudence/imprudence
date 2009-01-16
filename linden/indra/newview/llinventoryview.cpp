@@ -386,20 +386,7 @@ void LLInventoryViewFinder::selectAllTypes(void* user_data)
 	self->childSetValue("check_texture", TRUE);
 	self->childSetValue("check_snapshot", TRUE);
 
-/*
-	self->mCheckCallingCard->set(TRUE);
-	self->mCheckClothing->set(TRUE);
-	self->mCheckGesture->set(TRUE);
-	self->mCheckLandmark->set(TRUE);
-	self->mCheckNotecard->set(TRUE);
-	self->mCheckObject->set(TRUE);
-	self->mCheckScript->set(TRUE);
-	self->mCheckSound->set(TRUE);
-	self->mCheckTexture->set(TRUE);
-	self->mCheckSnapshot->set(TRUE);*/
-
 	self->rebuildFilter();
-
 }
 
 //static
@@ -407,20 +394,6 @@ void LLInventoryViewFinder::selectNoTypes(void* user_data)
 {
 	LLInventoryViewFinder* self = (LLInventoryViewFinder*)user_data;
 	if(!self) return;
-
-	/*
-	self->childSetValue("check_animation", FALSE);
-	self->mCheckCallingCard->set(FALSE);
-	self->mCheckClothing->set(FALSE);
-	self->mCheckGesture->set(FALSE);
-	self->mCheckLandmark->set(FALSE);
-	self->mCheckNotecard->set(FALSE);
-	self->mCheckObject->set(FALSE);
-	self->mCheckScript->set(FALSE);
-	self->mCheckSound->set(FALSE);
-	self->mCheckTexture->set(FALSE);
-	self->mCheckSnapshot->set(FALSE);*/
-
 
 	self->childSetValue("check_animation", FALSE);
 	self->childSetValue("check_bodypart", FALSE);

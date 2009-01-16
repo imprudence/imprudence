@@ -1,6 +1,10 @@
 2009-01-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventoryview.cpp:
+	Removed some dead code in LLInventoryViewFinder.
+
+
+	* linden/indra/newview/llinventoryview.cpp:
 	Removed now-useless LLInventoryViewFinder::draw().
 	* linden/indra/newview/llinventoryview.h:
 	Ditto.
