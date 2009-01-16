@@ -118,6 +118,21 @@ LLInventoryViewFinder::LLInventoryViewFinder(const std::string& name,
 
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_inventory_view_finder.xml");
 
+
+	childSetCommitCallback("check_animation",    onCheckFilterType, this);
+	childSetCommitCallback("check_bodypart",     onCheckFilterType, this);
+	childSetCommitCallback("check_calling_card", onCheckFilterType, this);
+	childSetCommitCallback("check_clothing",     onCheckFilterType, this);
+	childSetCommitCallback("check_gesture",      onCheckFilterType, this);
+	childSetCommitCallback("check_landmark",     onCheckFilterType, this);
+	childSetCommitCallback("check_notecard",     onCheckFilterType, this);
+	childSetCommitCallback("check_object",       onCheckFilterType, this);
+	childSetCommitCallback("check_script",       onCheckFilterType, this);
+	childSetCommitCallback("check_sound",        onCheckFilterType, this);
+	childSetCommitCallback("check_texture",      onCheckFilterType, this);
+	childSetCommitCallback("check_snapshot",     onCheckFilterType, this);
+
+
 	childSetAction("All", selectAllTypes, this);
 	childSetAction("None", selectNoTypes, this);
 
@@ -127,12 +142,24 @@ LLInventoryViewFinder::LLInventoryViewFinder(const std::string& name,
 	mSpinSinceDays = getChild<LLSpinCtrl>("spin_days_ago");
 	childSetCommitCallback("spin_days_ago", onTimeAgo, this);
 
+	childSetCommitCallback("check_show_empty", onCheckShowEmptyFolders, this);
+
 //	mCheckSinceLogoff   = getChild<LLSpinCtrl>("check_since_logoff");
 	childSetCommitCallback("check_since_logoff", onCheckSinceLogoff, this);
 
 	childSetAction("Close", onCloseBtn, this);
 
 	updateElementsFromFilter();
+}
+
+
+// Callback when an inventory type checkbox is changed.
+void LLInventoryViewFinder::onCheckFilterType(LLUICtrl *ctrl, void *user_data)
+{
+	LLInventoryViewFinder *self = (LLInventoryViewFinder *)user_data;
+	if (!self) return;
+
+	self->rebuildFilter();
 }
 
 
@@ -148,6 +175,8 @@ void LLInventoryViewFinder::onCheckSinceLogoff(LLUICtrl *ctrl, void *user_data)
 	{
 		self->mSpinSinceHours->set(1.0f);
 	}	
+
+	self->rebuildFilter();
 }
 
 void LLInventoryViewFinder::onTimeAgo(LLUICtrl *ctrl, void *user_data)
@@ -161,7 +190,19 @@ void LLInventoryViewFinder::onTimeAgo(LLUICtrl *ctrl, void *user_data)
 		since_logoff = false;
 	}
 	self->childSetValue("check_since_logoff", since_logoff);
+
+	self->rebuildFilter();
 }
+
+
+void LLInventoryViewFinder::onCheckShowEmptyFolders(LLUICtrl *ctrl, void *user_data)
+{
+	LLInventoryViewFinder *self = (LLInventoryViewFinder *)user_data;
+	if (!self) return;
+
+	self->rebuildFilter();
+}
+
 
 void LLInventoryViewFinder::changeFilter(LLInventoryFilter* filter)
 {
@@ -203,7 +244,6 @@ void LLInventoryViewFinder::updateElementsFromFilter()
 
 void LLInventoryViewFinder::draw()
 {
-	rebuildFilter();
 	LLFloater::draw();
 }
 
@@ -362,6 +402,9 @@ void LLInventoryViewFinder::selectAllTypes(void* user_data)
 	self->mCheckSound->set(TRUE);
 	self->mCheckTexture->set(TRUE);
 	self->mCheckSnapshot->set(TRUE);*/
+
+	self->rebuildFilter();
+
 }
 
 //static
@@ -396,6 +439,8 @@ void LLInventoryViewFinder::selectNoTypes(void* user_data)
 	self->childSetValue("check_sound", FALSE);
 	self->childSetValue("check_texture", FALSE);
 	self->childSetValue("check_snapshot", FALSE);
+
+	self->rebuildFilter();
 }
 
 

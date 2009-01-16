@@ -1,3 +1,12 @@
+2009-01-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Use UI callbacks to initiate rebuilding filter.
+	Instead of rebuilding from draw() every frame.
+	* linden/indra/newview/llinventoryview.h:
+	Ditto.
+
+
 2009-01-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llfolderview.cpp:
