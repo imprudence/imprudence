@@ -1,3 +1,10 @@
+2009-01-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llvoavatar.cpp:
+	VWR-8012: Avatars rendered too dark.
+	Patch posted by CG Linden.
+
+
 2009-01-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/cmake/GStreamer.cmake:
