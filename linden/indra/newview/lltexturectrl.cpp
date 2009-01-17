@@ -237,11 +237,7 @@ LLFloaterTexturePicker::LLFloaterTexturePicker(
 
 	if(mInventoryPanel)
 	{
-		U32 filter_types = 0x0;
-		filter_types |= 0x1 << LLInventoryType::IT_TEXTURE;
-		filter_types |= 0x1 << LLInventoryType::IT_SNAPSHOT;
-
-		mInventoryPanel->setFilterTypes(filter_types);
+		mInventoryPanel->setFilterTypes( LLInventoryType::NIT_IMAGE );
 		//mInventoryPanel->setFilterPermMask(getFilterPermMask());  //Commented out due to no-copy texture loss.
 		mInventoryPanel->setFilterPermMask(immediate_filter_perm_mask);
 		mInventoryPanel->setSelectCallback(onSelectionChange, this);

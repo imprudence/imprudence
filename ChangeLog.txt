@@ -1,3 +1,9 @@
+2009-01-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/lltexturectrl.cpp:
+	Fixed texture picker not showing textures.
+
+
 2009-01-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llvoavatar.cpp:
