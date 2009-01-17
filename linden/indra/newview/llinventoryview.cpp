@@ -210,6 +210,7 @@ void LLInventoryViewFinder::changeFilter(LLInventoryFilter* filter)
 	updateElementsFromFilter();
 }
 
+
 void LLInventoryViewFinder::updateElementsFromFilter()
 {
 	if (!mFilter)
@@ -221,26 +222,46 @@ void LLInventoryViewFinder::updateElementsFromFilter()
 	LLInventoryFilter::EFolderShow show_folders = mFilter->getShowFolderState();
 	U32 hours = mFilter->getHoursAgo();
 
-	// update the ui elements
+	// Update floater title
 	LLFloater::setTitle(mFilter->getName());
 
-	childSetValue("check_animation", (S32) (filter_types & LLInventoryType::NIT_ANIMATION));
-	childSetValue("check_bodypart", (S32) (filter_types & LLInventoryType::NIT_BODYPART));
-	childSetValue("check_calling_card", (S32) (filter_types & LLInventoryType::NIT_CALLCARD));
-	childSetValue("check_clothing", (S32) (filter_types & LLInventoryType::NIT_CLOTHING));
-	childSetValue("check_gesture", (S32) (filter_types & LLInventoryType::NIT_GESTURE));
-	childSetValue("check_landmark", (S32) (filter_types & LLInventoryType::NIT_LANDMARK));
-	childSetValue("check_notecard", (S32) (filter_types & LLInventoryType::NIT_NOTECARD));
-	childSetValue("check_object", (S32) (filter_types & LLInventoryType::NIT_OBJECT));
-	childSetValue("check_script", (S32) (filter_types & LLInventoryType::NIT_SCRIPT_LSL2));
-	childSetValue("check_sound", (S32) (filter_types & LLInventoryType::NIT_SOUND));
-	childSetValue("check_texture", (S32) (filter_types & LLInventoryType::NIT_TEXTURE));
-	childSetValue("check_snapshot", (S32) (filter_types & LLInventoryType::NIT_SNAPSHOT));
-	childSetValue("check_show_empty", show_folders == LLInventoryFilter::SHOW_ALL_FOLDERS);
-	childSetValue("check_since_logoff", mFilter->isSinceLogoff());
-	mSpinSinceHours->set((F32)(hours % 24));
-	mSpinSinceDays->set((F32)(hours / 24));
+	// Update type check boxes
+	childSetValue("check_animation",
+	              (S32)(filter_types & LLInventoryType::NIT_ANIMATION));
+	childSetValue("check_bodypart",
+	              (S32)(filter_types & LLInventoryType::NIT_BODYPART));
+	childSetValue("check_calling_card",
+	              (S32)(filter_types & LLInventoryType::NIT_CALLCARD));
+	childSetValue("check_clothing",
+	              (S32)(filter_types & LLInventoryType::NIT_CLOTHING));
+	childSetValue("check_gesture",
+	              (S32)(filter_types & LLInventoryType::NIT_GESTURE));
+	childSetValue("check_landmark",
+	              (S32)(filter_types & LLInventoryType::NIT_LANDMARK));
+	childSetValue("check_notecard",
+	              (S32)(filter_types & LLInventoryType::NIT_NOTECARD));
+	childSetValue("check_object",
+	              (S32)(filter_types & LLInventoryType::NIT_OBJECT));
+	childSetValue("check_script",
+	              (S32)(filter_types & LLInventoryType::NIT_SCRIPT_LSL2));
+	childSetValue("check_sound",
+	              (S32)(filter_types & LLInventoryType::NIT_SOUND));
+	childSetValue("check_texture",
+	              (S32)(filter_types & LLInventoryType::NIT_TEXTURE));
+	childSetValue("check_snapshot",
+	              (S32)(filter_types & LLInventoryType::NIT_SNAPSHOT));
+
+	// Update other check boxes
+	childSetValue("check_show_empty",
+	              show_folders == LLInventoryFilter::SHOW_ALL_FOLDERS);
+	childSetValue("check_since_logoff",
+	              mFilter->isSinceLogoff());
+
+	// Update hours and days spinners
+	mSpinSinceHours->set( (F32)(hours % 24) );
+	mSpinSinceDays->set(  (F32)(hours / 24) );
 }
+
 
 void LLInventoryViewFinder::rebuildFilter()
 {
