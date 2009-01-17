@@ -1,5 +1,10 @@
 2009-01-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llgroupnotify.cpp:
+	Fixed group notice popup showing wrong item type.
+	Attachment was showing texture icon regardless of type.
+
+
 	* linden/indra/newview/llfloateravatarpicker.cpp:
 	Fixed Resident chooser not showing calling cards.
 

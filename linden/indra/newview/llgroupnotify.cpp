@@ -248,9 +248,13 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	{
 			addChild(new NoticeText(std::string("subjecttitle"),LLRect(x,y,x + LABEL_WIDTH,y - LINE_HEIGHT),std::string("Attached: "),LLFontGL::sSansSerif));
 
-			LLUIImagePtr item_icon = get_item_icon(mInventoryOffer->mType,
-													LLInventoryType::IT_TEXTURE,
-													0, FALSE);
+
+			LLAssetType::EType atype;
+			LLInventoryType::EType itype;
+			atype = mInventoryOffer->mType;
+			itype = LLInventoryType::defaultForAssetType( atype );
+
+			LLUIImagePtr item_icon = get_item_icon(atype, itype, 0, FALSE);
 
 
 			x += LABEL_WIDTH + HPAD;
