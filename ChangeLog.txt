@@ -1,3 +1,9 @@
+2009-01-17  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llfolderview.cpp:
+	Replaced some 0xffffffff's with NIT_ALL.
+
+
 2009-01-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llgroupnotify.cpp:
