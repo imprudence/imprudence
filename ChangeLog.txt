@@ -1,5 +1,9 @@
 2009-01-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llfloateravatarpicker.cpp:
+	Fixed Resident chooser not showing calling cards.
+
+
 	* linden/indra/newview/lltexturectrl.cpp:
 	Fixed texture picker not showing textures.
 
