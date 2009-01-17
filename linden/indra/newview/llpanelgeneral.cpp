@@ -109,6 +109,7 @@ LLPanelGeneral::LLPanelGeneral()
 BOOL LLPanelGeneral::postBuild()
 {
 	childSetCommitCallback("fade_out_combobox", set_render_name_fade_out);
+	childSetAction("reset_ui_size", onClickResetUISize, this);
 
 	std::string region_name_prompt = getString("region_name_prompt");
 
@@ -241,4 +242,11 @@ void LLPanelGeneral::cancel()
 void LLPanelGeneral::clickShowStartLocation(LLUICtrl*, void* user_data)
 {
 	LLPanelLogin::refreshLocation( false ); // in case LLPanelLogin is visible
+}
+
+// static
+void LLPanelGeneral::onClickResetUISize(void* user_data)
+{
+	gSavedSettings.setF32("UIScaleFactor", 1.0f);
+	gViewerWindow->reshape(gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight());
 }

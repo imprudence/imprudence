@@ -1642,7 +1642,6 @@ class LLObjectEnableOpen : public view_listener_t
 	}
 };
 
-
 class LLViewCheckBuildMode : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -3235,17 +3234,6 @@ class LLViewFullscreen : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		gViewerWindow->toggleFullscreen(TRUE);
-		return true;
-	}
-};
-
-class LLViewDefaultUISize : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gSavedSettings.setF32("UIScaleFactor", 1.0f);
-		gSavedSettings.setBOOL("UIAutoScale", FALSE);	
-		gViewerWindow->reshape(gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight());
 		return true;
 	}
 };
@@ -5086,10 +5074,6 @@ class LLShowFloater : public view_listener_t
 		{
 			LLFloaterPreference::show(NULL);
 		}
-		else if (floater_name == "toolbar")
-		{
-			LLToolBar::toggle(NULL);
-		}
 		else if (floater_name == "chat history")
 		{
 			LLFloaterChat::toggleInstance(LLSD());
@@ -5221,10 +5205,6 @@ class LLFloaterVisible : public view_listener_t
 		if (floater_name == "friends")
 		{
 			new_value = LLFloaterMyFriends::instanceVisible(0);
-		}
-		else if (floater_name == "toolbar")
-		{
-			new_value = LLToolBar::visible(NULL);
 		}
 		else if (floater_name == "chat history")
 		{
@@ -7224,25 +7204,6 @@ class LLViewCheckRenderType : public view_listener_t
 		{
 			new_value = LLPipeline::toggleRenderTypeControlNegated((void *)LLPipeline::RENDER_TYPE_PARTICLES);
 		}
-		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
-		return true;
-	}
-};
-
-class LLViewShowHUDAttachments : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLPipeline::sShowHUDAttachments = !LLPipeline::sShowHUDAttachments;
-		return true;
-	}
-};
-
-class LLViewCheckHUDAttachments : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		bool new_value = LLPipeline::sShowHUDAttachments;
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
 		return true;
 	}
@@ -9702,12 +9663,10 @@ void initialize_menus()
 	addMenu(new LLViewToggleBeacon(), "View.ToggleBeacon");
 	addMenu(new LLViewBeaconWidth(), "View.BeaconWidth");
 	addMenu(new LLViewToggleRenderType(), "View.ToggleRenderType");
-	addMenu(new LLViewShowHUDAttachments(), "View.ShowHUDAttachments");
 	addMenu(new LLViewZoomOut(), "View.ZoomOut");
 	addMenu(new LLViewZoomIn(), "View.ZoomIn");
 	addMenu(new LLViewZoomDefault(), "View.ZoomDefault");
 	addMenu(new LLViewFullscreen(), "View.Fullscreen");
-	addMenu(new LLViewDefaultUISize(), "View.DefaultUISize");
 
 	addMenu(new LLViewEnableMouselook(), "View.EnableMouselook");
 	addMenu(new LLViewEnableLastChatter(), "View.EnableLastChatter");
@@ -9718,7 +9677,6 @@ void initialize_menus()
 	addMenu(new LLViewCheckHighlightTransparent(), "View.CheckHighlightTransparent");
 	addMenu(new LLViewCheckBeaconEnabled(), "View.CheckBeaconEnabled");
 	addMenu(new LLViewCheckRenderType(), "View.CheckRenderType");
-	addMenu(new LLViewCheckHUDAttachments(), "View.CheckHUDAttachments");
 
 	// World menu
 	addMenu(new LLWorldChat(), "World.Chat");

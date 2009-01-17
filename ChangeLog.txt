@@ -2,6 +2,20 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-16  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llviewermenu.cpp:
+	Removed Toolbar and Show HUD options.
+	* linden/indra/newview/llpanelgeneral.cpp:
+	Moved Reset UI Size to Default to Preferences > General.
+	* linden/indra/newview/llpanelgeneral.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Placed Zoom options in a submenu.
+
+
 2009-01-15  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/lscript/lscript_compile/indra.l:
