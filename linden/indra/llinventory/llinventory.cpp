@@ -173,6 +173,11 @@ LLInventoryType::NType calc_ntype(
 		case LLInventoryType::IT_ATTACHMENT:
 			return LLInventoryType::NIT_OBJECT;
 
+			// FOLDERS
+		case LLInventoryType::IT_CATEGORY:
+		case LLInventoryType::IT_ROOT_CATEGORY:
+			return LLInventoryType::NIT_FOLDER;
+
 			// UNKNOWN TYPE!
 		default:
 			return LLInventoryType::NIT_NONE;

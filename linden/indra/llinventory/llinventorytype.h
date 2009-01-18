@@ -152,8 +152,11 @@ public:
 		/* Objects */
 		NIT_OBJECT           =  1 << 24,
 
+    /* Folders ("Categories" in the old type system) */
+    NIT_FOLDER           =  1 << 25,
+
 		/* Bitwise OR-ing of all the above */
-		NIT_ALL              =  0x1ffffff,
+		NIT_ALL              =  0x3ffffff,
 	};
 
 
