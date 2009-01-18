@@ -1,3 +1,10 @@
+2009-01-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llpanelinventory.cpp:
+	LLFolderViewEventListener has type NIT_FOLDER.
+	This fixes folders always showing when filtering.
+
+
 2009-01-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventoryview.cpp: 
