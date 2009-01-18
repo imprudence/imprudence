@@ -2,7 +2,50 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-2009-01-16  McCabe Maxsted  <hakushakukun@gmail.com>
+2009-01-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llpanelinventory.cpp:
+	LLFolderViewEventListener has type NIT_FOLDER.
+	This fixes folders always showing when filtering.
+
+
+2009-01-17  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llfolderview.cpp:
+	Replaced some 0xffffffff's with NIT_ALL.
+
+
+2009-01-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llgroupnotify.cpp:
+	Fixed group notice popup showing wrong item type.
+	Attachment was showing texture icon regardless of type.
+
+	* linden/indra/newview/llfloateravatarpicker.cpp:
+	Fixed Resident chooser not showing calling cards.
+
+	* linden/indra/newview/lltexturectrl.cpp:
+	Fixed texture picker not showing textures.
+
+	* linden/indra/newview/llinventoryview.cpp: 
+	Cosmetic code cleanup in LLInventoryViewFinder.
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Removed some dead code in LLInventoryViewFinder.
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Removed now-useless LLInventoryViewFinder::draw().
+	* linden/indra/newview/llinventoryview.h:
+	Ditto.
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Use UI callbacks to initiate rebuilding filter.
+	Instead of rebuilding from draw() every frame.
+	* linden/indra/newview/llinventoryview.h:
+	Ditto.
+
+
+	McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llviewermenu.cpp:
 	Removed Toolbar and Show HUD options.
@@ -31,6 +74,25 @@
 	* linden/indra/llui/llkeywords.cpp:
 	Fixed crash bug while loading keywords.
 	* linden/indra/newview/app_settings/keywords.ini:
+	Ditto.
+
+
+	Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llvoavatar.cpp:
+	VWR-8012: Avatars rendered too dark.
+	Patch posted by CG Linden.
+
+	* linden/indra/newview/llfolderview.cpp:
+	Fixed folders expanding when Show Filters is opened.
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Simplified rebuildFilter() a bit.
+
+	* linden/indra/newview/llinventoryview.cpp:
+	LLInventoryViewFinder::rebuildFilter().
+	Refactored from draw().
+	* linden/indra/newview/llinventoryview.h:
 	Ditto.
 
 
@@ -90,6 +152,18 @@
  	* linden/indra/lib/python/indra/base/llsd.py linden/indra/newview/llinventorybridge.cpp:
 	Ditto.
  	* linden/indra/newview/llinventorybridge.h:
+	Ditto.
+
+
+	Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llinventoryview.cpp:
+	Don't show empty folders when using filter.
+	This is the old behavior, but I had broken it.
+
+	* linden/indra/llinventory/llinventorytype.h:
+	Added inventory ntype for folders.
+	* linden/indra/llinventory/llinventory.cpp:
 	Ditto.
 
 

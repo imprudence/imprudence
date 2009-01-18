@@ -162,14 +162,18 @@ public:
 	LLInventoryViewFinder(const std::string& name,
 						const LLRect& rect,
 						LLInventoryView* inventory_view);
-	virtual void draw();
+	virtual void rebuildFilter();
 	virtual void onClose(bool app_quitting);
 	void changeFilter(LLInventoryFilter* filter);
 	void updateElementsFromFilter();
 	BOOL getCheckShowEmpty();
 	BOOL getCheckSinceLogoff();
 
+	/** Callback when an inventory type checkbox is changed. */
+	static void onCheckFilterType(LLUICtrl *ctrl, void *user_data);
+
 	static void onTimeAgo(LLUICtrl*, void *);
+	static void onCheckShowEmptyFolders(LLUICtrl*, void *);
 	static void onCheckSinceLogoff(LLUICtrl*, void *);
 	static void onCloseBtn(void* user_data);
 	static void selectAllTypes(void* user_data);

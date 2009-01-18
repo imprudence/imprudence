@@ -5716,7 +5716,9 @@ BOOL LLVOAvatar::loadMeshNodes()
 
 		//	llinfos << "Parsing mesh data for " << type << "..." << llendl;
 
-		mesh->setColor( 0.8f, 0.8f, 0.8f, 1.0f );
+		// If this isn't set to white (1.0), avatars will *ALWAYS* be darker than their surroundings.
+		// Do not touch!!!
+		mesh->setColor( 1.0f, 1.0f, 1.0f, 1.0f );
 
 		LLPolyMesh *poly_mesh = NULL;
 

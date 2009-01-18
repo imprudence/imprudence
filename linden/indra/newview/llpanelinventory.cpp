@@ -146,7 +146,7 @@ public:
 	virtual BOOL isUpToDate() const { return TRUE; }
 	virtual BOOL hasChildren() const { return FALSE; }
 	virtual LLInventoryType::EType getInventoryType() const { return LLInventoryType::IT_NONE; }
-	virtual LLInventoryType::NType getNInventoryType() const { return LLInventoryType::NIT_NONE; }
+	virtual LLInventoryType::NType getNInventoryType() const { return LLInventoryType::NIT_FOLDER; }
 	// LLDragAndDropBridge functionality
 	virtual BOOL startDrag(EDragAndDropType* type, LLUUID* id) const;
 	virtual BOOL dragOrDrop(MASK mask, BOOL drop,

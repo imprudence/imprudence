@@ -118,7 +118,7 @@ BOOL LLFloaterAvatarPicker::postBuild()
 	mInventoryPanel = getChild<LLInventoryPanel>("Inventory Panel");
 	if(mInventoryPanel)
 	{
-		mInventoryPanel->setFilterTypes(0x1 << LLInventoryType::IT_CALLINGCARD);
+		mInventoryPanel->setFilterTypes(LLInventoryType::NIT_CALLCARD);
 		mInventoryPanel->setFollowsAll();
 		mInventoryPanel->setShowFolderState(LLInventoryFilter::SHOW_NON_EMPTY_FOLDERS);
 		mInventoryPanel->openDefaultFolderForType(LLAssetType::AT_CALLINGCARD);
