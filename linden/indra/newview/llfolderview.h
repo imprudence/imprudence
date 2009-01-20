@@ -194,6 +194,9 @@ public:
 	
 	void setFilterSubString(const std::string& string);
 	const std::string getFilterSubString(BOOL trim = FALSE);
+	
+	void setFilterWorn(bool worn) { mFilterWorn = worn; }
+	bool getFilterWorn() const { return mFilterWorn; }
 
 	void setFilterPermissions(PermissionMask perms);
 	PermissionMask getFilterPermissions() const { return mFilterOps.mPermissions; }
@@ -257,6 +260,7 @@ protected:
 	filter_ops		mDefaultFilterOps;
 	std::string::size_type	mSubStringMatchOffset;
 	std::string		mFilterSubString;
+	bool			mFilterWorn;
 	U32				mOrder;
 	const std::string	mName;
 	S32				mFilterGeneration;
@@ -745,6 +749,7 @@ public:
 
 	LLInventoryFilter* getFilter() { return &mFilter; }
 	const std::string getFilterSubString(BOOL trim = FALSE);
+	bool getFilterWorn() const { return mFilter.getFilterWorn(); }
 	U32 getFilterTypes() const { return mFilter.getFilterTypes(); }
 	PermissionMask getFilterPermissions() const { return mFilter.getFilterPermissions(); }
 	LLInventoryFilter::EFolderShow getShowFolderState() { return mFilter.getShowFolderState(); }

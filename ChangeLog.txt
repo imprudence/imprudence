@@ -2,6 +2,21 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-20  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llfolderview.cpp:
+	VWR-508/VWR-2199: Create "Worn Items" tab in Inventory
+	Patch by Vadim Bigbear.
+	* linden/indra/newview/llfolderview.h:
+	Ditto.
+	* linden/indra/newview/llinventoryview.cpp:
+	Ditto.
+	* linden/indra/newview/llinventoryview.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml:
+	Ditto.
+
+
 2009-01-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llpanelinventory.cpp:

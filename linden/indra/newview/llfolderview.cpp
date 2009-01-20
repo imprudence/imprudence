@@ -4490,6 +4490,7 @@ LLInventoryFilter::LLInventoryFilter(const std::string& name) :
 
 	mSubStringMatchOffset = 0;
 	mFilterSubString.clear();
+	mFilterWorn = false;
 	mFilterGeneration = 0;
 	mMustPassGeneration = S32_MAX;
 	mMinRequiredGeneration = 0;
@@ -4521,9 +4522,12 @@ BOOL LLInventoryFilter::check(LLFolderViewItem* item)
 		earliest = 0;
 	}
 	LLFolderViewEventListener* listener = item->getListener();
+	const LLUUID& item_id = listener->getUUID();
 	mSubStringMatchOffset = mFilterSubString.size() ? item->getSearchableLabel().find(mFilterSubString) : std::string::npos;
 	BOOL passed = (listener->getNInventoryType() & mFilterOps.mFilterTypes || listener->getNInventoryType() == LLInventoryType::NIT_NONE)
 					&& (mFilterSubString.size() == 0 || mSubStringMatchOffset != std::string::npos)
+					&& (mFilterWorn == false || gAgent.isWearingItem(item_id) ||
+						gAgent.getAvatarObject() && gAgent.getAvatarObject()->isWearingAttachment(item_id))
 					&& ((listener->getPermissionMask() & mFilterOps.mPermissions) == mFilterOps.mPermissions)
 					&& (listener->getCreationDate() >= earliest && listener->getCreationDate() <= mFilterOps.mMaxDate);
 	return passed;
@@ -4544,6 +4548,7 @@ BOOL LLInventoryFilter::isNotDefault()
 {
 	return mFilterOps.mFilterTypes != mDefaultFilterOps.mFilterTypes 
 		|| mFilterSubString.size() 
+		|| mFilterWorn
 		|| mFilterOps.mPermissions != mDefaultFilterOps.mPermissions
 		|| mFilterOps.mMinDate != mDefaultFilterOps.mMinDate 
 		|| mFilterOps.mMaxDate != mDefaultFilterOps.mMaxDate
@@ -4554,6 +4559,7 @@ BOOL LLInventoryFilter::isActive()
 {
 	return mFilterOps.mFilterTypes != LLInventoryType::NIT_ALL
 		|| mFilterSubString.size() 
+		|| mFilterWorn
 		|| mFilterOps.mPermissions != PERM_NONE 
 		|| mFilterOps.mMinDate != time_min()
 		|| mFilterOps.mMaxDate != time_max()
@@ -4989,6 +4995,12 @@ std::string LLInventoryFilter::rebuildFilterText()
 	{
 		mFilterText += " - Since Logoff";
 	}
+	
+	if (getFilterWorn())
+	{
+		mFilterText += " - Worn";
+	}
+	
 	return mFilterText;
 }
 

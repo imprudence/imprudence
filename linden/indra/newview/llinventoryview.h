@@ -108,6 +108,9 @@ public:
 	U32 getFilterPermMask() const { return mFolders->getFilterPermissions(); }
 	void setFilterSubString(const std::string& string);
 	const std::string getFilterSubString() { return mFolders->getFilterSubString(); }
+	void setFilterWorn(bool worn);
+	bool getFilterWorn() const { return mFolders->getFilterWorn(); }
+	
 	void setSortOrder(U32 order);
 	U32 getSortOrder() { return mFolders->getSortOrder(); }
 	void setSinceLogoff(BOOL sl);
