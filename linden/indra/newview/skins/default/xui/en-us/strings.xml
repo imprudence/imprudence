@@ -178,6 +178,7 @@
 
   <!-- System messages -->
   <string name="landmark_created">You created a landmark at</string>
+  <string name="new_home_page">Your new Home Page is</string>
 
 </strings>
 

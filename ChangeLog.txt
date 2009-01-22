@@ -2,6 +2,63 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-20  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/floater_media_browser.xml:
+	Fixed browser button layout. 
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Added new setting 'HelpSupportURL' for support homepage. 
+
+	* linden/indra/newview/skins/default/xui/en-us/strings.xml:
+	Added translatable message for 'Set As Home' button.
+
+	* linden/indra/newview/llfloaterhtmlhelp.cpp:
+	Browser window now toggles from the menu, removed legacy F1 help code.
+	* linden/indra/newview/llfloaterhtmlhelp.h:
+	Ditto.
+
+	* linden/indra/newview/llfloaterhtml.cpp:
+	Deleted legacy browser window.
+	* linden/indra/newview/llfloaterhtml.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/de/floater_html.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_html.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/es/floater_html.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/fr/floater_html.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/ja/floater_html.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/ko/floater_html.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/pt/floater_html.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/zh/floater_html.xml:
+	Ditto.
+	* linden/indra/newview/CMakeLists.txt:
+	Ditto.
+
+	* linden/indra/newview/llfloaterchat.cpp:
+	Removed legacy include for llfloaterhtml.h
+	* linden/indra/newview/llwebbrowserctrl.cpp:
+	Ditto.
+	* linden/indra/newview/llimpanel.cpp:
+	Ditto.
+	* linden/indra/newview/llpanellogin.cpp:
+	Ditto.
+	* linden/indra/newview/llurldispatcher.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto.
+	* linden/indra/newview/llviewerparcelmgr.cpp:
+	Ditto.
+	* linden/indra/newview/llviewerstats.cpp:
+	Ditto.
+
+
 2009-01-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llpanelinventory.cpp:

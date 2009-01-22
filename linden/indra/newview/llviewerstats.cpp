@@ -53,7 +53,6 @@
 #include "llfasttimerview.h"
 #include "llviewerregion.h"
 #include "llvoavatar.h"
-#include "llfloaterhtml.h"
 #include "llviewerwindow.h"		// *TODO: remove, only used for width/height
 #include "llworld.h"
 #include "llfeaturemanager.h"
