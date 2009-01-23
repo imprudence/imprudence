@@ -2,6 +2,14 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-22  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llappviewer.cpp:
+	Windows version sets its own gstreamer environment variable. 
+	* linden/indra/newview/llappviewer.h:
+	Ditto. 
+
+
 2009-01-21  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:

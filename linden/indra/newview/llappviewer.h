@@ -137,6 +137,9 @@ public:
 	void pingMainloopTimeout(const std::string& state, F32 secs = -1.0f);
 
 protected:
+
+	void gst_plugin_path(); // Sets GST_PLUGIN_PATH environment variable for GStreamer.
+
 	virtual bool initWindow(); // Initialize the viewer's window.
 	virtual bool initLogging(); // Initialize log files, logging system, return false on failure.
 	virtual void initConsole() {}; // Initialize OS level debugging console.
@@ -146,7 +149,6 @@ protected:
         { return true; } // Allow platforms to specify the command line args.
 	
 	virtual std::string generateSerialNumber() = 0; // Platforms specific classes generate this.
-
 
 private:
 
