@@ -2,6 +2,12 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-23  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llui/lltexteditor.cpp:
+	Backported Qarl's fix for VWR-8773: Closing parenthesis breaks urls. 
+
+
 2009-01-22  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llappviewer.cpp:

@@ -4260,35 +4260,55 @@ S32 LLTextEditor::findHTMLToken(const std::string &line, S32 pos, BOOL reverse) 
 	std::string openers=" \t\n('\"[{<>";
 	std::string closers=" \t\n)'\"]}><;";
 
-	S32 m2 = 0;
-	S32 retval = 0;
+	S32 index = 0;
 	
 	if (reverse)
 	{
-		
-		for (retval=pos; retval >= 0; retval--)
+		for (index=pos; index >= 0; index--)
 		{
-			m2 = openers.find(line.substr(retval,1));
+			char c = line[index];
+			S32 m2 = openers.find(c);
 			if (m2 >= 0)
 			{
-				break;
+				return index+1;
 			}
 		}
-		return retval+1;
 	} 
 	else
 	{
-		
-		for (retval=pos; retval<(S32)line.length(); retval++)
+		// adjust the search slightly, to allow matching parenthesis inside the URL
+		S32 paren_count = 0;
+		for (index=pos; index<(S32)line.length(); index++)
 		{
-			m2 = closers.find(line.substr(retval,1));
-			if (m2 >= 0)
+			char c = line[index];
+
+			if (c == '(')
 			{
-				break;
+				paren_count++;
+			}
+			else if (c == ')')
+			{
+				if (paren_count <= 0)
+				{
+					return index;
+				}
+				else
+				{
+					paren_count--;
+				}
+			}
+			else
+			{
+				S32 m2 = closers.find(c);
+				if (m2 >= 0)
+				{
+					return index;
+				}
 			}
 		} 
-		return retval;
-	}
+	}		
+	
+	return index;
 }
 
 BOOL LLTextEditor::findHTML(const std::string &line, S32 *begin, S32 *end) const
