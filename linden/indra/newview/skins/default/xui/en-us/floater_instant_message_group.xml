@@ -64,6 +64,7 @@
 			     follows="left|top|right|bottom" font="SansSerif" left="4"
 			     max_length="2147483647" mouse_opaque="true" name="im_history"
 			     text_color="ChatHistoryTextColor"
+           track_bottom="true" 
 			     text_readonly_color="ChatHistoryTextColor" top="104" width="170"
 			     word_wrap="true" />
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="7"
