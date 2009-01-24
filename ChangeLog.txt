@@ -2,6 +2,27 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-23  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llui/lltexteditor.cpp:
+	Backported Qarl's fix for VWR-8773: Closing parenthesis breaks urls. 
+
+	* linden/indra/llcommon/llstring.h:
+	Backported fix for VWR-5529: group chat scrolls up when logging enabled.
+	* linden/indra/llui/lltexteditor.cpp:
+	Ditto.
+	* linden/indra/llui/lltexteditor.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_chat_history.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message_ad_hoc.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml:
+	Ditto.
+
+
 2009-01-22  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llappviewer.cpp:
