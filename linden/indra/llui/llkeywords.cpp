@@ -412,6 +412,22 @@ void LLKeywords::findSegments(std::vector<LLTextSegment *>* seg_list, const LLWS
 										break;
 									}
 								}
+								else if (cur_delimiter->isHead(cur))
+								{
+									// Is there was an odd number of backslashes, then this delimiter
+									// does not end the sequence.
+									if (num_backslashes % 2 == 1)
+									{
+										between_delimiters++;
+										cur++;
+									}
+									else
+									{
+										// This is an end delimiter.
+										break;
+									}
+								}
+
 							}
 							else
 							{
@@ -423,9 +439,25 @@ void LLKeywords::findSegments(std::vector<LLTextSegment *>* seg_list, const LLWS
 						if( *cur )
 						{
 							cur += cur_delimiter->getLength();
-							seg_end = seg_start + between_delimiters
-								+ cur_delimiter->getLength()
-								+ cur_delimiter->getLength2();
+							if (cur_delimiter->getType() == LLKeywordToken::TWO_SIDED_DELIMITER)
+							{
+								seg_end = seg_start + between_delimiters + 2 * cur_delimiter->getLength();
+							}
+							else if (cur_delimiter->getType() == LLKeywordToken::ONE_SIDED_DELIMITER)
+							{
+								while( *cur && ('\n' != *cur) )
+								{
+									between_delimiters++;
+									cur++;
+								}
+								seg_end = seg_start + between_delimiters + 2 + cur_delimiter->getLength();
+							}
+							else
+							{
+								seg_end = seg_start + between_delimiters
+									+ cur_delimiter->getLength()
+									+ cur_delimiter->getLength2();
+							}
 						}
 						else
 						{
@@ -435,7 +467,6 @@ void LLKeywords::findSegments(std::vector<LLTextSegment *>* seg_list, const LLWS
 					}
 					else
 					{
-						llassert( cur_delimiter->getType() == LLKeywordToken::ONE_SIDED_DELIMITER );
 						// Left side is the delimiter.  Right side is eol or eof.
 						while( *cur && ('\n' != *cur) )
 						{
@@ -444,7 +475,6 @@ void LLKeywords::findSegments(std::vector<LLTextSegment *>* seg_list, const LLWS
 						}
 						seg_end = seg_start + between_delimiters + cur_delimiter->getLength();
 					}
-
 
 					LLTextSegment* text_segment = new LLTextSegment( cur_delimiter->getColor(), seg_start, seg_end );
 					text_segment->setToken( cur_delimiter );
