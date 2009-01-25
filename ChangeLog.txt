@@ -2,6 +2,12 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-24  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloaterhtmlhelp.cpp:
+	Fixed 'open in external browser' button.
+
+
 2009-01-23  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llui/lltexteditor.cpp:
