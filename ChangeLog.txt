@@ -22,6 +22,9 @@
 	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml:
 	Ditto.
 
+	* linden/indra/llui/llkeywords.cpp:
+	Fixed single line comment highlighting.
+
 
 2009-01-22  McCabe Maxsted  <hakushakukun@gmail.com>
 
