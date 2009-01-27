@@ -2,6 +2,12 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/linux_tools/wrapper.sh:
+	Set GST_PLUGIN_PATH for Linux.
+
+
 2009-01-24  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llfloaterhtmlhelp.cpp:
