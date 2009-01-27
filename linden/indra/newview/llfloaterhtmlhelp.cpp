@@ -32,7 +32,6 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llfloaterhtmlhelp.h"
-#include "llfloaterhtml.h"
 
 #include "llparcel.h"
 #include "lluictrlfactory.h"
@@ -50,6 +49,13 @@
 #include "llviewerparcelmedia.h"
 #include "llcombobox.h"
 
+#include "llchat.h"
+#include "lllineeditor.h"
+#include "llfloaterchat.h"
+#include "lltrans.h"
+
+// static
+LLFloaterMediaBrowser* LLFloaterMediaBrowser::sInstance = NULL;
 
 LLFloaterMediaBrowser::LLFloaterMediaBrowser(const LLSD& media_data)
 {
@@ -118,7 +124,7 @@ void LLFloaterMediaBrowser::buildURLHistory()
 
 void LLFloaterMediaBrowser::onClose(bool app_quitting)
 {
-	//setVisible(FALSE);
+	//setVisible(FALSE)
 	destroy();
 }
 
@@ -155,20 +161,52 @@ void LLFloaterMediaBrowser::onLocationChange( const EventType& eventIn )
 
 LLFloaterMediaBrowser* LLFloaterMediaBrowser::showInstance(const LLSD& media_url)
 {
-	LLFloaterMediaBrowser* floaterp = LLUISingleton<LLFloaterMediaBrowser, VisibilityPolicy<LLFloater> >::showInstance(media_url);
+	LLFloaterMediaBrowser* sInstance = LLUISingleton<LLFloaterMediaBrowser, VisibilityPolicy<LLFloater> >::showInstance(media_url);
 
-	floaterp->openMedia(media_url.asString());
-	return floaterp;
+	sInstance->openMedia(media_url.asString());
+	return sInstance;
 }
 
-void LLFloaterMediaBrowser::show()
+//static
+void LLFloaterMediaBrowser::toggle()
 {
-	//Show home url if new session, last visited if not
-	std::string last_url = gSavedSettings.getString("BrowserLastVisited");
-	if(last_url.empty()) 
-		last_url = gSavedSettings.getString("BrowserHome");
-	showInstance(last_url);
+	bool visible = LLFloaterMediaBrowser::instanceVisible();
+	LLFloaterMediaBrowser* self = sInstance->getInstance();
+
+	if(visible && self)
+	{
+		self->close();
+	}
+	else
+	{
+		//Show home url if new session, last visited if not
+		std::string last_url = gSavedSettings.getString("BrowserLastVisited");
+		if(last_url.empty()) 
+			last_url = gSavedSettings.getString("BrowserHome");
+		showInstance(last_url);
+	}
 }
+
+//static
+void LLFloaterMediaBrowser::helpF1()
+{
+	std::string url = gSavedSettings.getString("HelpSupportURL");
+	std::string* url_copy = new std::string(url);
+ 
+    gViewerWindow->alertXml("ClickOpenF1Help", onClickF1HelpLoadURL, url_copy);
+}
+ 
+// static
+void LLFloaterMediaBrowser::onClickF1HelpLoadURL(S32 option, void* userdata)
+{
+  std::string* urlp = (std::string*)userdata;
+  if (0 == option)
+  {
+    showInstance(urlp->c_str());
+  }
+  delete urlp;
+}
+
 //static 
 void LLFloaterMediaBrowser::onEnterAddress(LLUICtrl* ctrl, void* user_data)
 {
@@ -247,8 +285,6 @@ void LLFloaterMediaBrowser::onClickAssign(void* user_data)
 	LLViewerParcelMgr::getInstance()->sendParcelPropertiesUpdate( parcel, true );
 	// now check for video
 	LLViewerParcelMedia::update( parcel );
-
-
 }
 
 void LLFloaterMediaBrowser::onClickHome(void* user_data)
@@ -270,6 +306,11 @@ void LLFloaterMediaBrowser::onClickSetHome(void* user_data)
 	std::string url = self->mCurrentURL;
 	if(!url.empty())
 	{
+		LLChat chat;
+		std::string log_message = LLTrans::getString("new_home_page") + " ";
+		log_message += url;
+		chat.mText = log_message;
+		LLFloaterChat::addChat(chat, FALSE, FALSE);
 		gSavedSettings.setString("BrowserHome", url);
 	}
 }
@@ -278,258 +319,4 @@ void LLFloaterMediaBrowser::openMedia(const std::string& media_url)
 {
 	mBrowser->setHomePageUrl(media_url);
 	mBrowser->navigateTo(media_url);
-}
-
-LLViewerHtmlHelp gViewerHtmlHelp;
-
-class LLFloaterHtmlHelp :
-	public LLFloater,
-	public LLWebBrowserCtrlObserver
-{
-public:
-	LLFloaterHtmlHelp(std::string start_url, std::string title);
-	virtual ~LLFloaterHtmlHelp();
-	
-	virtual void onClose( bool app_quitting );
-	virtual void draw();
-	
-	static void show(std::string url, std::string title);
-	static void onClickBack( void* data );
-	static void onClickHome( void* data );
-	static void onClickForward( void* data );
-	static void onClickClose( void* data );
-	
-	// browser observer impls
-	virtual void onStatusTextChange( const EventType& eventIn );
-	virtual void onLocationChange( const EventType& eventIn );
-	
-	// used for some stats logging - will be removed at some point
-	static BOOL sFloaterOpened;
-
-	static void onClickF1HelpLoadURL(S32 option, void* userdata);
-
-protected:
-	LLWebBrowserCtrl* mWebBrowser;
-	static LLFloaterHtmlHelp* sInstance;
-	LLButton* mBackButton;
-	LLButton* mForwardButton;
-	LLButton* mCloseButton;
-	LLTextBox* mStatusText;
-	std::string mStatusTextContents;
-	std::string mCurrentUrl;
-	std::string mSupportUrl;
-};
-
-LLFloaterHtmlHelp* LLFloaterHtmlHelp::sInstance = 0;
-
-BOOL LLFloaterHtmlHelp::sFloaterOpened = FALSE;
-
-////////////////////////////////////////////////////////////////////////////////
-//
-LLFloaterHtmlHelp::LLFloaterHtmlHelp(std::string start_url, std::string title)
-:	LLFloater( std::string("HTML Help") ),
-	mWebBrowser( 0 ),
-	mStatusTextContents( LLStringUtil::null ),
-	mCurrentUrl( LLStringUtil::null )
-{
-	sInstance = this;
-		
-	// create floater from its XML definition
-	LLUICtrlFactory::getInstance()->buildFloater( this, "floater_html_help.xml" );
-		
-	childSetAction("back_btn", onClickBack, this);
-	childSetAction("home_btn", onClickHome, this);
-	childSetAction("forward_btn", onClickForward, this);
-
-	if (!title.empty())
-	{
-		setTitle(title);
-	}
-
-	mWebBrowser = getChild<LLWebBrowserCtrl>("html_help_browser" );
-	if ( mWebBrowser )
-	{
-		// observe browser control events
-		mWebBrowser->addObserver( this );
-
-		if (start_url != "")
-		{
-			mWebBrowser->navigateTo( start_url );
-		}
-		else
-		{
-			// if the last page we were at before the client was closed is valid, go there and
-			// override what is in the XML file
-			// (not when the window was closed - it's only ever hidden - not closed)
-			std::string lastPageUrl = gSavedSettings.getString( "HtmlHelpLastPage" );
-			if ( lastPageUrl != "" )
-			{
-				mWebBrowser->navigateTo( lastPageUrl );
-			};
-		}
-	};
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-LLFloaterHtmlHelp::~LLFloaterHtmlHelp()
-{
-	// stop observing browser events
-	if ( mWebBrowser )
-	{
-		mWebBrowser->remObserver( this );
-	};
-
-	// save position of floater
-	gSavedSettings.setRect( "HtmlHelpRect", getRect() );
-
-	// save the location we were at when SL closed 
-	gSavedSettings.setString( "HtmlHelpLastPage", mCurrentUrl );
-
-	sInstance = 0;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// virtual 
-void LLFloaterHtmlHelp::draw()
-{
-	// enable/disable buttons depending on state
-	if ( mWebBrowser )
-	{
-		bool enable_back = mWebBrowser->canNavigateBack();	
-		childSetEnabled( "back_btn", enable_back );
-
-		bool enable_forward = mWebBrowser->canNavigateForward();	
-		childSetEnabled( "forward_btn", enable_forward );
-	};
-
-	LLFloater::draw();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-void LLFloaterHtmlHelp::show(std::string url, std::string title)
-{
-	LLFloaterHtml* floater_html = LLFloaterHtml::getInstance();
-	floater_html->setVisible(FALSE);
-
-	if(url.empty())
-	{
-		url = floater_html->getSupportUrl();
-	}
-	std::string* url_copy = new std::string(url);
-
-    gViewerWindow->alertXml("ClickOpenF1Help", onClickF1HelpLoadURL, url_copy);
-
-}
-
-// static 
-void LLFloaterHtmlHelp::onClickF1HelpLoadURL(S32 option, void* userdata)
-{
-	std::string* urlp = (std::string*)userdata;
-	if (0 == option)
-	{
-		LLWeb::loadURL(urlp->c_str());
-	}
-	delete urlp;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-void LLFloaterHtmlHelp::onClose( bool app_quitting )
-{
-	setVisible( false );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-void LLFloaterHtmlHelp::onClickClose( void* data )
-{
-	LLFloaterHtmlHelp* self = ( LLFloaterHtmlHelp* )data;
-
-	self->setVisible( false );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-void LLFloaterHtmlHelp::onClickBack( void* data )
-{
-	LLFloaterHtmlHelp* self = ( LLFloaterHtmlHelp* )data;
-	if ( self )
-	{
-		if ( self->mWebBrowser )
-		{
-			self->mWebBrowser->navigateBack();
-		};
-	};
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-void LLFloaterHtmlHelp::onClickHome( void* data )
-{
-	LLFloaterHtmlHelp* self = ( LLFloaterHtmlHelp* )data;
-	if ( self )
-	{
-		// get the home page URL (which can differ from the start URL) from XML and go there
-		LLWebBrowserCtrl* web_browser = self->getChild<LLWebBrowserCtrl>("html_help_browser" );
-		if ( web_browser )
-		{
-			web_browser->navigateHome();
-		};
-	};
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// 
-void LLFloaterHtmlHelp::onClickForward( void* data )
-{
-	LLFloaterHtmlHelp* self = ( LLFloaterHtmlHelp* )data;
-	if ( self )
-	{
-		if ( self->mWebBrowser )
-		{
-			self->mWebBrowser->navigateForward();
-		};
-	};
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-void LLFloaterHtmlHelp::onStatusTextChange( const EventType& eventIn )
-{
-	mStatusTextContents = std::string( eventIn.getStringValue() );
-
-	childSetText("status_text", mStatusTextContents);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-void LLFloaterHtmlHelp::onLocationChange( const EventType& eventIn )
-{
-	llinfos << "MOZ> Location changed to " << eventIn.getStringValue() << llendl;
-	mCurrentUrl = std::string( eventIn.getStringValue() );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-LLViewerHtmlHelp::LLViewerHtmlHelp()
-{
-	LLUI::setHtmlHelp(this);
-}
-
-LLViewerHtmlHelp::~LLViewerHtmlHelp()
-{
-	LLUI::setHtmlHelp(NULL);
-}
-
-void LLViewerHtmlHelp::show()
-{
-	LLFloaterHtmlHelp::show("", "");
-}
-
-void LLViewerHtmlHelp::show(std::string url)
-{
-	std::string title;	// empty
-	LLFloaterHtmlHelp::show(url, title);
 }

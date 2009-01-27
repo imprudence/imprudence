@@ -105,7 +105,6 @@
 #include "llfloatergroupinfo.h"
 #include "llfloatergroupinvite.h"
 #include "llfloatergroups.h"
-#include "llfloaterhtml.h"
 #include "llfloaterhtmlhelp.h"
 #include "llfloaterhud.h"
 #include "llfloaterinspect.h"
@@ -5146,7 +5145,7 @@ class LLShowFloater : public view_listener_t
 		}
 		else if (floater_name == "help f1")
 		{
-			gViewerHtmlHelp.show();
+			LLFloaterMediaBrowser::helpF1();
 		}
 		else if (floater_name == "help tutorial")
 		{
@@ -5189,7 +5188,7 @@ class LLShowFloater : public view_listener_t
 		}
 		else if (floater_name == "inworld browser")
 		{
-			LLFloaterMediaBrowser::show();
+			LLFloaterMediaBrowser::toggle();
 		}
 		return true;
 	}
@@ -6968,13 +6967,8 @@ void handle_load_from_xml(void*)
 
 void handle_slurl_test(void*)
 {
-	const bool open_links_externally = false;
-	const bool open_app_slurls = true;
-	LLFloaterHtml::getInstance()->show(
-		"http://secondlife.com/app/search/slurls.html",
-		"SLURL Test", 
-		open_links_externally, 
-		open_app_slurls);
+	std::string test_slurl = "http://secondlife.com/app/search/slurls.html";
+	LLFloaterMediaBrowser::showInstance(test_slurl);
 }
 
 void handle_rebake_textures(void*)

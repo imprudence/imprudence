@@ -70,7 +70,6 @@
 #include "llchatbar.h"
 #include "lllogchat.h"
 #include "lltexteditor.h"
-#include "llfloaterhtml.h"
 #include "llweb.h"
 #include "llstylemap.h"
 

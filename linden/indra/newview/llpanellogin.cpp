@@ -70,8 +70,6 @@
 #include "llweb.h"
 #include "llwebbrowserctrl.h"
 
-#include "llfloaterhtml.h"
-
 #include "llfloaterhtmlhelp.h"
 #include "llfloatertos.h"
 
@@ -559,7 +557,7 @@ BOOL LLPanelLogin::handleKeyHere(KEY key, MASK mask)
 	if ( KEY_F1 == key )
 	{
 		llinfos << "Spawning HTML help window" << llendl;
-		gViewerHtmlHelp.show();
+		LLFloaterMediaBrowser::helpF1();
 		return TRUE;
 	}
 

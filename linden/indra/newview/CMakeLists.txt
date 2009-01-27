@@ -150,7 +150,6 @@ set(viewer_SOURCE_FILES
     llfloatergroupinvite.cpp
     llfloatergroups.cpp
     llfloaterhardwaresettings.cpp
-    llfloaterhtml.cpp
     llfloaterhtmlhelp.cpp
     llfloaterhud.cpp
     llfloaterimagepreview.cpp
@@ -544,7 +543,6 @@ set(viewer_HEADER_FILES
     llfloatergroupinvite.h
     llfloatergroups.h
     llfloaterhardwaresettings.h
-    llfloaterhtml.h
     llfloaterhtmlhelp.h
     llfloaterhud.h
     llfloaterimagepreview.h
@@ -1047,7 +1045,6 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_god_tools.xml
     skins/default/xui/en-us/floater_group_info.xml
     skins/default/xui/en-us/floater_hardware_settings.xml
-    skins/default/xui/en-us/floater_html.xml
     skins/default/xui/en-us/floater_hud.xml
     skins/default/xui/en-us/floater_image_preview.xml
     skins/default/xui/en-us/floater_import.xml

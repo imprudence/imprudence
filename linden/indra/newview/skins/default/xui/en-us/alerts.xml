@@ -404,6 +404,8 @@ Go to the Second Life web site for more information on partnering?
       SKW  --  Skew
       PB  --  Slice/Dimple/Profile cut begin
       PE  --  Slice/Dimple/Profile cut end
+      TB  --  Twist begin
+      TE  --  Twist end
       XSH  --  X-axis top shear
       YSH  --  Y-axis top shear
       XHL  --  X-axis hole size
@@ -413,17 +415,21 @@ Go to the Second Life web site for more information on partnering?
       ROF  --  Radius offset
       REV  --  Revolutions
 
+      PI  --  pi
+      TWO_PI  --  2pi
+      PI_BY_TWO  --  pi/2
+      SQRT2  --  Square root of 2
+      DEG_TO_RAD  --  DEG_TO_RAD conversion (pi/180)
+      RAD_TO_DEG  --  RAD_TO_DEG conversion (180/pi)
+      GRAVITY  --  -9.8
+
       *  --  Multiplication
       \  --  Division
       +  --  Addition
       -  --  Subtraction
 
-      Examples:
-
-      * Enter &apos;ZP + 20&apos; in the Z-axis position field
-      to move an object up 20 meters.
-      * Enter &apos;XS - YS&apos; in the X-axis size field
-      to subtract the Y size from the X size.
+      For what these are and how to use them, read:
+      http://imprudenceviewer.org/wiki/Build_Math_Expressions
     </message>
   </alert>
   <alert modal="true" name="ClickTextureConstants">
@@ -443,16 +449,11 @@ Go to the Second Life web site for more information on partnering?
       +  --  Addition
       -  --  Subtraction
 
-      Examples:
-
-      * Enter &apos;TSU * 4&apos; in horizantal repeats field
-      to increase the amount of repeats by 4x.
-      * Enter &apos;TSV&apos; in the horizontal repeats field
-      to make the horizontal and vertical
-      repeats match.
+      For what these are and how to use them, read:
+      http://imprudenceviewer.org/wiki/Build_Math_Expressions
     </message>
   </alert>
-	<alert modal="true" name="ClickWebProfileHelpAvatar">
+  <alert modal="true" name="ClickWebProfileHelpAvatar">
 		<message name="message">
 			If this Resident has set a web profile URL then you can:
  * Click &apos;Load&apos; to see the page in this Web tab.

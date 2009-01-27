@@ -37,7 +37,6 @@
 #include "llcommandhandler.h"
 #include "llfloaterurldisplay.h"
 #include "llfloaterdirectory.h"
-#include "llfloaterhtml.h"
 #include "llfloaterworldmap.h"
 #include "llfloaterhtmlhelp.h"
 #include "llpanellogin.h"
