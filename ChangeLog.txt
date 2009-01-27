@@ -5,6 +5,11 @@
 2009-01-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml: 
+	Vetoed shortcut for Show XUI Names (Ctrl-Shift-X).
+	It's just not used often enough to justify a shortcut.
+	Partial revert of earlier commit 2dd736ab.
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml: 
 	Moved View > Show HUD Attachments to Advanced menu.
 	New location is:
 	    Advanced > Rendering > Features > HUD Attachments
