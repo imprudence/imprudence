@@ -6,6 +6,104 @@
 
 include(CMakeCopyIfDifferent)
 
+set(gst_plugin_debug_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug/gstreamer-plugins")
+set(gst_plugin_debug_files
+    libgstadder.dll
+    libgstalaw.dll
+    libgstaudioconvert.dll
+    libgstaudiorate.dll
+    libgstaudioresample.dll
+    libgstaudiotestsrc.dll
+    libgstautodetect.dll
+    libgstavi.dll
+    libgstcutter.dll
+    libgstdecodebin2.dll
+    libgstdecodebin.dll
+    libgstdirectdraw.dll
+    libgstdirectsound.dll
+    libgsteffectv.dll
+    libgstffmpeg.dll
+    libgstffmpegcolorspace.dll
+    libgstgdp.dll
+    libgstjpeg.dll
+    libgstmulaw.dll
+    libgstogg.dll
+    libgstplaybin.dll
+    libgstqtdemux.dll
+    libgstrtp.dll    
+    libgstrtsp.dll
+    libgsttheora.dll
+    libgsttypefindfunctions.dll
+    libgstudp.dll
+    libgstvideobalance.dll
+    libgstvideobox.dll
+    libgstvideocrop.dll
+    libgstvideoflip.dll
+    libgstvideomixer.dll
+    libgstvideorate.dll
+    libgstvideoscale.dll
+    libgstvideotestsrc.dll
+    libgstvolume.dll
+    libgstvorbis.dll
+    )
+
+copy_if_different(
+    ${gst_plugin_debug_dir} 
+    "${CMAKE_CURRENT_BINARY_DIR}/Debug/lib/gstreamer-plugins"
+    out_targets 
+    ${gst_plugin_debug_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
+set(gst_plugin_release_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release/gstreamer-plugins")
+set(gst_plugin_release_files
+    libgstadder.dll
+    libgstalaw.dll
+    libgstaudioconvert.dll
+    libgstaudiorate.dll
+    libgstaudioresample.dll
+    libgstaudiotestsrc.dll
+    libgstautodetect.dll
+    libgstavi.dll
+    libgstcutter.dll
+    libgstdecodebin2.dll
+    libgstdecodebin.dll
+    libgstdirectdraw.dll
+    libgstdirectsound.dll
+    libgsteffectv.dll
+    libgstffmpeg.dll
+    libgstffmpegcolorspace.dll
+    libgstgdp.dll
+    libgstjpeg.dll
+    libgstmulaw.dll
+    libgstogg.dll
+    libgstplaybin.dll
+    libgstqtdemux.dll
+    libgstrtp.dll    
+    libgstrtsp.dll
+    libgsttheora.dll
+    libgsttypefindfunctions.dll
+    libgstudp.dll
+    libgstvideobalance.dll
+    libgstvideobox.dll
+    libgstvideocrop.dll
+    libgstvideoflip.dll
+    libgstvideomixer.dll
+    libgstvideorate.dll
+    libgstvideoscale.dll
+    libgstvideotestsrc.dll
+    libgstvolume.dll
+    libgstvorbis.dll
+    )
+
+copy_if_different(
+    ${gst_plugin_release_dir} 
+    "${CMAKE_CURRENT_BINARY_DIR}/Release/lib/gstreamer-plugins"
+    out_targets 
+    ${gst_plugin_release_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
 set(vivox_src_dir "${CMAKE_SOURCE_DIR}/newview/vivox-runtime/i686-win32")
 set(vivox_files
     tntk.dll
@@ -38,6 +136,44 @@ set(debug_files
     xpcom.dll
     xul.dll
     windbgdlg.exe
+    iconv.dll
+    libxml2.dll
+    libgio-2.0-0.dll
+    libglib-2.0-0.dll
+    libgmodule-2.0-0.dll
+    libgobject-2.0-0.dll
+    libgthread-2.0-0.dll
+    avcodec-51.dll
+    avformat-52.dll
+    avutil-49.dll
+    intl.dll
+    libgstapp-0.10.dll
+    libgstaudio-0.10.dll
+    libgstbase-0.10.dll
+    libgstcdda-0.10.dll
+    libgstcontroller-0.10.dll
+    libgstdataprotocol-0.10.dll
+    libgstdshow-0.10.dll
+    libgstfft-0.10.dll
+    libgstinterfaces-0.10.dll
+    libgstnet-0.10.dll
+    libgstnetbuffer-0.10.dll
+    libgstpbutils-0.10.dll
+    libgstreamer-0.10.dll
+    libgstriff-0.10.dll
+    libgstrtp-0.10.dll
+    libgstrtsp-0.10.dll
+    libgstsdp-0.10.dll
+    libgsttag-0.10.dll
+    libgstvideo-0.10.dll
+    libjpeg.dll
+    libmms.dll
+    liboil-0.3-0.dll
+    libpng13.dll
+    xvidcore.dll
+    zlib1.dll
+    ogg.dll
+    vorbis.dll
     )
 
 copy_if_different(
@@ -74,6 +210,44 @@ set(release_files
     ssl3.dll
     xpcom.dll
     xul.dll
+    iconv.dll
+    libxml2.dll
+    libgio-2.0-0.dll
+    libglib-2.0-0.dll
+    libgmodule-2.0-0.dll
+    libgobject-2.0-0.dll
+    libgthread-2.0-0.dll
+    avcodec-51.dll
+    avformat-52.dll
+    avutil-49.dll
+    intl.dll
+    libgstapp-0.10.dll
+    libgstaudio-0.10.dll
+    libgstbase-0.10.dll
+    libgstcdda-0.10.dll
+    libgstcontroller-0.10.dll
+    libgstdataprotocol-0.10.dll
+    libgstdshow-0.10.dll
+    libgstfft-0.10.dll
+    libgstinterfaces-0.10.dll
+    libgstnet-0.10.dll
+    libgstnetbuffer-0.10.dll
+    libgstpbutils-0.10.dll
+    libgstreamer-0.10.dll
+    libgstriff-0.10.dll
+    libgstrtp-0.10.dll
+    libgstrtsp-0.10.dll
+    libgstsdp-0.10.dll
+    libgsttag-0.10.dll
+    libgstvideo-0.10.dll
+    libjpeg.dll
+    libmms.dll
+    liboil-0.3-0.dll
+    libpng13.dll
+    xvidcore.dll
+    zlib1.dll
+    ogg.dll
+    vorbis.dll
     )
     
 copy_if_different(

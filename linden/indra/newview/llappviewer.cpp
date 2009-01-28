@@ -337,7 +337,7 @@ void LLAppViewer::gst_plugin_path()
 		char plugin_path[255];
 		strcpy (plugin_path,"GST_PLUGIN_PATH=");
 		strcat (plugin_path,buffer);
-		strcat (plugin_path,"\\lib");
+		strcat (plugin_path,"\\lib\\gstreamer-plugins");
 
 		// Place GST_PLUGIN_PATH in the environment settings for imprudence.exe
 		putenv(plugin_path);

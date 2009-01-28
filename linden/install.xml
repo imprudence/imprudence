@@ -390,6 +390,13 @@
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/glib-2.0-linux-20080817.tar.bz2</uri>
           </map>
+          <key>windows</key>
+          <map>
+            <key>md5sum</key>
+            <string>B6B8B7A2CEB038C31BAD0EE4A1FBDF41</string>
+            <key>url</key>
+            <uri>http://imprudence.s3.amazonaws.com/extras/glib-2.18.3.1-windows-01262009.tar.bz2</uri>
+          </map>
         </map>
       </map>
       <key>google</key>
@@ -419,6 +426,28 @@
             <string>c829b638b6eef71ca63418cb9aea46a2</string>
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/gstreamer-linux-20080613.tar.bz2</uri>
+          </map>
+          <key>windows</key>
+          <map>
+            <key>md5sum</key>
+            <string>F4005971943595712212C4E0B9418DB5</string>
+            <key>url</key>
+            <uri>http://imprudence.s3.amazonaws.com/extras/gstreamer-0.10.21-windows-01262009.tar.bz2</uri>
+          </map>
+        </map>
+      </map>
+      <key>gstreamer-plugins</key>
+      <map>
+        <key>license</key>
+        <string>lgpl</string>
+        <key>packages</key>
+        <map>
+          <key>windows</key>
+          <map>
+            <key>md5sum</key>
+            <string>51C077A953620D9E55AFCAB0FEAE56FC</string>
+            <key>url</key>
+            <uri>http://imprudence.s3.amazonaws.com/extras/gstreamer-plugins-windows-01262009.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -478,6 +507,21 @@
             <string>b63a2f20df43c68062c6b8e77a2da455</string>
             <key>url</key>
             <uri>scp:install-packages.lindenlab.com:/local/www/install-packages/doc/havok-4.6-windows-20080611.tar.bz2</uri>
+          </map>
+        </map>
+      </map>
+      <key>iconv</key>
+      <map>
+        <key>license</key>
+        <string>gpl</string>
+        <key>packages</key>
+        <map>
+          <key>windows</key>
+          <map>
+            <key>md5sum</key>
+            <string>F20BDA1058BFD3AF7AC2C23EB3FD7F12</string>
+            <key>url</key>
+            <uri>http://imprudence.s3.amazonaws.com/extras/iconv-1.9.2-windows-01262009.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -631,6 +675,13 @@ anguage Infrstructure (CLI) international standard</string>
             <string>4b5d2dcfe8a49b73fb69f10aab441092</string>
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/libxml-2.6.24-linux-20080613.tar.bz2</uri>
+          </map>
+          <key>windows</key>
+          <map>
+            <key>md5sum</key>
+            <string>E8DACED68B2165918B82C771D3480AA2</string>
+            <key>url</key>
+            <uri>http://imprudence.s3.amazonaws.com/extras/libxml2-2.7.2-windows-01262009.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -804,9 +855,9 @@ anguage Infrstructure (CLI) international standard</string>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>a0757244e3e6688fde2ffeea35cc1f96</string>
+            <string>80C8AA77BDE113635FEABCD0E342F3C0</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openal-windows-20080924.tar.bz2</uri>
+            <uri>http://imprudence.s3.amazonaws.com/extras/openal-soft-1.6.372-windows-01262009.tar.bz2</uri>
           </map>
         </map>
       </map>

@@ -2,6 +2,20 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-26  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/cmake/CopyWinLibs.cmake:
+	Added GStreamer to Cmake.
+	* linden/indra/cmake/GStreamer.cmake:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamervidplug.h:
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp:
+	Ditto.
+	* linden/install.xml:
+	Ditto.
+
+
 2009-01-24  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llfloaterhtmlhelp.cpp:
