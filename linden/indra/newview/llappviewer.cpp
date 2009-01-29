@@ -334,14 +334,11 @@ void LLAppViewer::gst_plugin_path()
 	{
 		LL_INFOS("InitInfo") << "Imprudence is installed at " << buffer << LL_ENDL;
 		
-		char plugin_path[255];
-		strcpy (plugin_path,"GST_PLUGIN_PATH=");
-		strcat (plugin_path,buffer);
-		strcat (plugin_path,"\\lib\\gstreamer-plugins");
+		std::string plugin_path = "GST_PLUGIN_PATH=" + std::string(buffer) + "\\lib\\gstreamer-plugins";
 
 		// Place GST_PLUGIN_PATH in the environment settings for imprudence.exe
-		putenv(plugin_path);
-
+		const char* gst_plugin_path = plugin_path.c_str();
+		putenv(gst_plugin_path);
 		LL_INFOS("InitInfo") << "GST_PLUGIN_PATH set to " << getenv("GST_PLUGIN_PATH") << LL_ENDL;
 	}
 #endif //LL_WINDOWS
