@@ -2334,7 +2334,7 @@ Céder ces [AREA] m² de terrain au groupe [GROUP_NAME] ?
 	</alert>
 	<alert name="DisplaySetToRecommended">
 		<message name="message">
-			Le niveau de sécurité de vos paramètres d&apos;affichage dépend de votre configuration système.
+			Vos paramètres d&apos;affichage ont été réglés avec une marge de sécurité en fonction de votre configuration système.
 		</message>
 	</alert>
 	<alert name="UnableToConnect">

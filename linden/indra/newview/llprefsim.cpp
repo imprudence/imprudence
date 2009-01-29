@@ -73,7 +73,9 @@ protected:
 
 
 LLPrefsIMImpl::LLPrefsIMImpl()
-	: LLPanel(std::string("IM Prefs Panel"))
+	: LLPanel(std::string("IM Prefs Panel")),
+	  mGotPersonalInfo(false),
+	  mOriginalIMViaEmail(false)
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_im.xml");
 }

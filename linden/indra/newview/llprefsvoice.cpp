@@ -139,10 +139,21 @@ void LLPrefsVoice::apply()
 	gSavedSettings.setBOOL("VoiceCallsFriendsOnly", childGetValue("voice_call_friends_only_check"));
 	gSavedSettings.setBOOL("PushToTalkToggle", childGetValue("push_to_talk_toggle_check"));
 	gSavedSettings.setS32("VoiceEarLocation", childGetValue("ear_location"));
+	
+	LLFloaterVoiceDeviceSettings* voice_device_settings = LLFloaterVoiceDeviceSettings::getInstance();
+	if(voice_device_settings)
+	{
+		voice_device_settings->apply();
+	}
 }
 
 void LLPrefsVoice::cancel()
 {
+	LLFloaterVoiceDeviceSettings* voice_device_settings = LLFloaterVoiceDeviceSettings::getInstance();
+	if(voice_device_settings)
+	{
+		voice_device_settings->cancel();
+	}
 }
 
 void LLPrefsVoice::setKey(KEY key)

@@ -403,7 +403,7 @@
 	</notify>
 	<notify name="ScriptsNotRunning">
 		<message name="message">
-			この地域はスクリプトを1つも起動していません。
+			この地域ではスクリプトの使用が禁止されています
 		</message>
 	</notify>
 	<notify name="NoOutsideScripts">
@@ -441,7 +441,7 @@
 			破棄
 		</option>
 		<option name="Mute">
-			無視リスト
+			無視リストへ
 		</option>
 	</notify>
 	<notify name="ObjectGiveItemUnknownUser">
@@ -455,7 +455,7 @@
 			破棄
 		</option>
 		<option name="Mute">
-			無視リスト
+			無視リストへ
 		</option>
 	</notify>
 	<notify name="UserGiveItem">
@@ -469,7 +469,7 @@
 			破棄
 		</option>
 		<option name="Mute">
-			無視リスト
+			無視リストへ
 		</option>
 	</notify>
 	<notify name="GodMessage">
@@ -569,7 +569,7 @@
 	</notify>
 	<notify name="OfferFriendship">
 		<message name="message">
-			[NAME]は、フレンド登録を申し込んでいます。
+			[NAME]は、フレンド 登録を申し込んでいます。
  
 [MESSAGE]
  
@@ -584,7 +584,7 @@
 	</notify>
 	<notify name="OfferFriendshipNoMessage">
 		<message name="message">
-			[NAME]は、フレンド登録を申し込んでいます。
+			[NAME]は、フレンド 登録を申し込んでいます。
 
 (デフォルトでお互いのオンライン・ステータスを見ることができるようになります。)
 		</message>
@@ -597,12 +597,12 @@
 	</notify>
 	<notify name="FriendshipAccepted">
 		<message name="message">
-			[NAME]は、フレンド登録を受け入れました。
+			[NAME]は、フレンド 登録を受け入れました。
 		</message>
 	</notify>
 	<notify name="FriendshipDeclined">
 		<message name="message">
-			[NAME]は、フレンド登録を断りました。
+			[NAME]は、フレンド 登録を断りました。
 		</message>
 	</notify>
 	<notify name="OfferCallingCard">
@@ -693,7 +693,7 @@
 	</notify>
 	<notify name="AttachToYourAvatar">
 		<message name="message">
-			あなたのアバターに装着添付
+			あなたのアバターに装着
 		</message>
 	</notify>
 	<notify name="ReleaseOwnership">
@@ -740,7 +740,7 @@
 			いいえ
 		</option>
 		<option name="Mute">
-			無視リスト
+			無視リストに追加
 		</option>
 	</notify>
 	<notify name="ScriptQuestionCautionChatGranted">
@@ -799,13 +799,13 @@
 		<message name="message">
 			L$[AMOUNT]を受け取りました。
 オブジェクトおよび他のユーザーがあなたにお金を支払ったようです。
-あなたの残高は画面の右上に表示されています。
+あなたの残高は画面の右上に表示されて います。
 		</message>
 	</notify>
 	<notify name="FirstBalanceDecrease">
 		<message name="message">
 			L$[AMOUNT]を支払いました。
-あなたの残高は画面の右上に表示されています。
+あなたの残高は画面の右上に表示されて います。
 		</message>
 	</notify>
 	<notify name="FirstSit">
@@ -926,17 +926,17 @@ Mキーを押して変更します。
 	</notify>
 	<notify name="AutoUnmuteByIM">
 		<message name="message">
-			[FIRST] [LAST]にインスタント・メッセージが送信され、無視設定が自動的に解除されました。
+			[FIRST] [LAST]にインスタント・メッセージが送信され、 無視設定が自動的に解除されました。
 		</message>
 	</notify>
 	<notify name="AutoUnmuteByMoney">
 		<message name="message">
-			[FIRST] [LAST]にお金を渡したため、無視設定が自動的に解除されました。
+			[FIRST] [LAST]にお金を渡したため、 無視設定が自動的に解除されました。
 		</message>
 	</notify>
 	<notify name="AutoUnmuteByInventory">
 		<message name="message">
-			[FIRST] [LAST]に持ち物を渡したため、無視設定が自動的に解除されました。
+			[FIRST] [LAST]に持ち物を渡したため、 無視設定が自動的に解除されました。
 		</message>
 	</notify>
 	<notify name="VoiceInviteGroup">
@@ -1051,7 +1051,7 @@ Mキーを押して変更します。
 	</notify>
 	<notify name="ServerVersionChanged">
 		<message name="message">
-			入力した地域は異なるシミュレーターのバージョンで実行されています。 詳細についてはこのメッセージをクリックしてください。
+			到着した地域は異なるシミュレーターのバージョンで実行されています。 詳細についてはこのメッセージをクリックしてください。
 		</message>
 	</notify>
 	<notify name="UnableToOpenCommandURL">

@@ -797,7 +797,15 @@ void LLPanelDisplay::applyResolution()
 		gSavedSettings.setF32("FullScreenAspectRatio", mAspectRatio);
 	}
 	
-	gViewerWindow->requestResolutionUpdate(!mCtrlWindowed->get(), mCtrlFullScreen->getCurrentIndex());
+	// Screen resolution
+	S32 num_resolutions;
+	LLWindow::LLWindowResolution* supported_resolutions = 
+		gViewerWindow->getWindow()->getSupportedResolutions(num_resolutions);
+	U32 resIndex = mCtrlFullScreen->getCurrentIndex();
+	gSavedSettings.setS32("FullScreenWidth", supported_resolutions[resIndex].mWidth);
+	gSavedSettings.setS32("FullScreenHeight", supported_resolutions[resIndex].mHeight);
+
+	gViewerWindow->requestResolutionUpdate(!mCtrlWindowed->get());
 
 	send_agent_update(TRUE);
 

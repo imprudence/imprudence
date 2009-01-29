@@ -500,10 +500,10 @@ void LLViewerImageList::updateImages(F32 max_time)
 {
 	sNumImagesStat.addValue(sNumImages);
 	sNumRawImagesStat.addValue(LLImageRaw::sRawImageCount);
-	sGLTexMemStat.addValue(LLImageGL::sGlobalTextureMemory/(1024.f*1024.f));
-	sGLBoundMemStat.addValue(LLImageGL::sBoundTextureMemory/(1024.f*1024.f));
-	sRawMemStat.addValue(LLImageRaw::sGlobalRawMemory/(1024.f*1024.f));
-	sFormattedMemStat.addValue(LLImageFormatted::sGlobalFormattedMemory/(1024.f*1024.f));
+	sGLTexMemStat.addValue((F32)(LLImageGL::sGlobalTextureMemory >> 20));
+	sGLBoundMemStat.addValue((F32)(LLImageGL::sBoundTextureMemory >> 20));
+	sRawMemStat.addValue((F32)(LLImageRaw::sGlobalRawMemory >> 20));
+	sFormattedMemStat.addValue((F32)(LLImageFormatted::sGlobalFormattedMemory >> 20));
 	
 	updateImagesDecodePriorities();
 	max_time -= updateImagesFetchTextures(max_time);
@@ -588,9 +588,12 @@ void LLViewerImageList::updateImagesDecodePriorities()
 			
 			imagep->processTextureStats();
 			F32 old_priority = imagep->getDecodePriority();
+			F32 old_priority_test = llmax(old_priority, 0.0f);
 			F32 decode_priority = imagep->calcDecodePriority();
+			F32 decode_priority_test = llmax(decode_priority, 0.0f);
 			// Ignore < 20% difference
-			if ((decode_priority < old_priority * .8f || decode_priority > old_priority * 1.25f))
+			if ((decode_priority_test < old_priority_test * .8f) ||
+				(decode_priority_test > old_priority_test * 1.25f))
 			{
 				removeImageFromList(imagep);
 				imagep->setDecodePriority(decode_priority);

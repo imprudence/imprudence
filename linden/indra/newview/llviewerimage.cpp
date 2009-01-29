@@ -238,7 +238,6 @@ void LLViewerImage::init(bool firstinit)
 	mTexelsPerImage = 64.f*64.f;
 	mMaxVirtualSize = 0.f;
 	mDiscardVirtualSize = 0.f;
-	mMaxCosAngle = -1.f;
 	mRequestedDiscardLevel = -1;
 	mRequestedDownloadPriority = 0.f;
 	mFullyLoaded = FALSE;
@@ -422,19 +421,11 @@ BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
 
 //============================================================================
 
-void LLViewerImage::addTextureStats(F32 pixel_area,
-								    F32 texel_area_ratio, // = 1.0
-								    F32 cos_center_angle) const // = 1.0
+void LLViewerImage::addTextureStats(F32 virtual_size) const // = 1.0
 {
-	F32 virtual_size = pixel_area / texel_area_ratio;
 	if (virtual_size > mMaxVirtualSize)
 	{
 		mMaxVirtualSize = virtual_size;
-	}
-	cos_center_angle = llclamp(cos_center_angle, -1.f, 1.f);
-	if (cos_center_angle > mMaxCosAngle)
-	{
-		mMaxCosAngle = cos_center_angle;
 	}
 }
 
@@ -443,12 +434,10 @@ void LLViewerImage::resetTextureStats(BOOL zero)
 	if (zero)
 	{
 		mMaxVirtualSize = 0.0f;
-		mMaxCosAngle = -1.0f;
 	}
-	else if (getBoostLevel() != LLViewerImage::BOOST_SCULPTED) //don't decay sculpted prim textures
+	else
 	{
 		mMaxVirtualSize -= mMaxVirtualSize * .10f; // decay by 5%/update
-		mMaxCosAngle = -1.0f;
 	}
 }
 
@@ -548,7 +537,7 @@ void LLViewerImage::processTextureStats()
 		if ((sDesiredDiscardBias > 0.0f) &&
 			(current_discard >= 0 && mDesiredDiscardLevel >= current_discard))
 		{
-			if ( sBoundTextureMemory > sMaxBoundTextureMem*texmem_middle_bound_scale)
+			if ( (sBoundTextureMemory >> 20) > sMaxBoundTextureMem*texmem_middle_bound_scale)
 			{
 				// Limit the amount of GL memory bound each frame
 				if (mDesiredDiscardLevel > current_discard)
@@ -556,7 +545,7 @@ void LLViewerImage::processTextureStats()
 					increase_discard = TRUE;
 				}
 			}
-			if ( sTotalTextureMemory > sMaxTotalTextureMem*texmem_middle_bound_scale)
+			if ( (sTotalTextureMemory >> 20) > sMaxTotalTextureMem*texmem_middle_bound_scale)
 			{
 				// Only allow GL to have 2x the video card memory
 				if (!getBoundRecently())
@@ -598,7 +587,7 @@ F32 LLViewerImage::calcDecodePriority()
 	F32 priority;
 	S32 cur_discard = getDiscardLevel();
 	bool have_all_data = (cur_discard >= 0 && (cur_discard <= mDesiredDiscardLevel));
-	F32 pixel_priority = fsqrtf(mMaxVirtualSize) * (1.f + mMaxCosAngle);
+	F32 pixel_priority = fsqrtf(mMaxVirtualSize);
 	const S32 MIN_NOT_VISIBLE_FRAMES = 30; // NOTE: this function is not called every frame
 	mDecodeFrame++;
 	if (pixel_priority > 0.f)
@@ -638,17 +627,12 @@ F32 LLViewerImage::calcDecodePriority()
 			return mDecodePriority;
 		}
 	}
-	else if ((mBoostLevel == LLViewerImage::BOOST_SCULPTED) && !have_all_data)
-	{
-		// Sculpted images are small, treat them like they always have no data.
-		priority = 900000.f;
-	}
 	else if (cur_discard < 0)
 	{
-		// We don't have any data yet, so we don't know the size of the image, treat as 1024x1024
+		// We don't have any data yet, so we don't know the size of the image, treat as 32x32
 //		priority = 900000.f;
 		static const F64 log_2 = log(2.0);
-		F32 desired = (F32)(log(1024.0/pixel_priority) / log_2);
+		F32 desired = (F32)(log(32.0/pixel_priority) / log_2);
 		S32 ddiscard = MAX_DISCARD_LEVEL - (S32)desired + 1;
 		ddiscard = llclamp(ddiscard, 1, 9);
 		priority = ddiscard*100000.f;
@@ -702,14 +686,7 @@ F32 LLViewerImage::maxDecodePriority()
 void LLViewerImage::setDecodePriority(F32 priority)
 {
 	llassert(!mInImageList);
-	if (priority < 0.0f)
-	{
-		mDecodePriority = calcDecodePriority();
-	}
-	else
-	{
-		mDecodePriority = priority;
-	}
+	mDecodePriority = priority;
 }
 
 void LLViewerImage::setBoostLevel(S32 level)
@@ -766,6 +743,7 @@ bool LLViewerImage::updateFetch()
 	S32 current_discard = getDiscardLevel();
 	S32 desired_discard = getDesiredDiscardLevel();
 	F32 decode_priority = getDecodePriority();
+	decode_priority = llmax(decode_priority, 0.0f);
 	
 	if (mIsFetching)
 	{
@@ -783,7 +761,7 @@ bool LLViewerImage::updateFetch()
 		else
 		{
 			mFetchState = LLAppViewer::getTextureFetch()->getFetchState(mID, mDownloadProgress, mRequestedDownloadPriority,
-													   mFetchPriority, mFetchDeltaTime, mRequestDeltaTime);
+																		mFetchPriority, mFetchDeltaTime, mRequestDeltaTime);
 		}
 		
 		// We may have data ready regardless of whether or not we are finished (e.g. waiting on write)
@@ -817,7 +795,7 @@ bool LLViewerImage::updateFetch()
 		
 		if (!mIsFetching)
 		{
-			if (mRawDiscardLevel < 0 || mRawDiscardLevel == INVALID_DISCARD_LEVEL)
+			if ((decode_priority > 0) && (mRawDiscardLevel < 0 || mRawDiscardLevel == INVALID_DISCARD_LEVEL))
 			{
 				// We finished but received no data
 				if (current_discard < 0)
@@ -840,9 +818,9 @@ bool LLViewerImage::updateFetch()
 				destroyRawImage();
 			}
 		}
-		else if (mDecodePriority >= 0.f)
+		else
 		{
-			LLAppViewer::getTextureFetch()->updateRequestPriority(mID, mDecodePriority);
+			LLAppViewer::getTextureFetch()->updateRequestPriority(mID, decode_priority);
 		}
 	}
 

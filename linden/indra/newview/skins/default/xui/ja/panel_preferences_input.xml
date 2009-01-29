@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="操作とカメラ" name="Input panel">
 	<text name=" Mouselook Options:">
-		マウスルック：
+		一人称視点
+（マウスルック）：
 	</text>
 	<text name=" Mouse Sensitivity:">
 		感度：
@@ -28,7 +29,7 @@
 	<text name="text2">
 		アバター表示：
 	</text>
-	<check_box label="アバターをマウスルックで表示" name="first_person_avatar_visible"/>
+	<check_box label="アバターを一人称視点（マウスルック）で表示" name="first_person_avatar_visible"/>
 	<text name="text5">
 		ジョイスティック
 オプション：

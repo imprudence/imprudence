@@ -187,27 +187,7 @@ public:
 
 	// New methods for determining image quality/priority
 	// texel_area_ratio is ("scaled" texel area)/(original texel area), approximately.
-	void addTextureStats(F32 pixel_area) const
-	{
-		mMaxCosAngle = 1.0f;
-		if (pixel_area > mMaxVirtualSize)
-		{
-			mMaxVirtualSize = pixel_area;
-		}
-	}
-	void addTextureStats(F32 pixel_area,
-						 F32 texel_area_ratio) const
-	{
-		mMaxCosAngle = 1.0f;
-		F32 virtual_size = pixel_area / texel_area_ratio;
-		if (virtual_size > mMaxVirtualSize)
-		{
-			mMaxVirtualSize = virtual_size;
-		}
-	}
-	void addTextureStats(F32 pixel_area,
-						 F32 texel_area_ratio,
-						 F32 cos_center_angle) const;
+	void addTextureStats(F32 virtual_size) const;
 	void resetTextureStats(BOOL zero = FALSE);
 
 	// Process image stats to determine priority/quality requirements.
@@ -304,7 +284,6 @@ public:
 
 	// Data used for calculating required image priority/quality level/decimation
 	mutable F32 mMaxVirtualSize;	// The largest virtual size of the image, in pixels - how much data to we need?
-	mutable F32 mMaxCosAngle;		// The largest cos of the angle between camera X vector and the object
 
 	F32 mTexelsPerImage;			// Texels per image.
 	F32 mDiscardVirtualSize;		// Virtual size used to calculate desired discard

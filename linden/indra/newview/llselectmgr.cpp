@@ -4968,6 +4968,7 @@ LLSelectNode::LLSelectNode(LLViewerObject* object, BOOL glow)
 	mSitName = LLStringUtil::null;
 	mSilhouetteExists = FALSE;
 	mDuplicated = FALSE;
+	mCreationDate = 0;
 
 	saveColors();
 }
@@ -5005,6 +5006,7 @@ LLSelectNode::LLSelectNode(const LLSelectNode& nodep)
 	mFromTaskID = nodep.mFromTaskID;
 	mTouchName = nodep.mTouchName;
 	mSitName = nodep.mSitName;
+	mCreationDate = nodep.mCreationDate;
 
 	mSilhouetteVertices = nodep.mSilhouetteVertices;
 	mSilhouetteNormals = nodep.mSilhouetteNormals;

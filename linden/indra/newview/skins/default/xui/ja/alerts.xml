@@ -200,7 +200,7 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="GroupCreateSuccess">
 		<message name="message">
-			グループの作成が正常に終了しました。
+			グループの作成が正常に行われました。
 		</message>
 	</alert>
 	<alert name="UnableToCreateGroup">
@@ -878,7 +878,7 @@ L$が不足しているのでこのグループに参加することができま
 	</alert>
 	<alert name="GoToAuctionPage">
 		<message name="message">
-			[SECOND_LIFE]ウェブ・ページに移動し、入札あるいはオークションの詳細を確認しますか？
+			[SECOND_LIFE]ウェブ・ページに移動し、 入札あるいはオークションの詳細を確認しますか？
 		</message>
 		<option name="GotoPage">
 			OK

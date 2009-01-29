@@ -13,9 +13,10 @@ Able Whitman
 Adam Marker
 	VWR-2755
 Aimee Trescothick
-  VWR-3336
+    VWR-3336
 	VWR-3903
 	VWR-4083
+	VWR-7109
 	VWR-9255
 Alejandro Rosenthal
 	VWR-1184
@@ -327,6 +328,8 @@ Peekay Semyorka
 	VWR-19
 	VWR-49
 	VWR-79
+Peter Lameth
+  VWR-7331
 princess niven
 	VWR-5733
         CT-85
@@ -397,6 +400,8 @@ TBBle Kurosawa
 	VWR-1892
 Tharax Ferraris
 	VWR-605
+Thickbrick Sleaford
+	VWR-7109
 Thraxis Epsilon
 	SVC-371
 	VWR-383

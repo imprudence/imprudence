@@ -162,7 +162,7 @@ void LLTextureBar::draw()
 	{
 		color = LLColor4::magenta;
 	}
-	else if (mImagep->getDecodePriority() == 0.0f)
+	else if (mImagep->getDecodePriority() <= 0.0f)
 	{
 		color = LLColor4::grey; color[VALPHA] = .7f;
 	}
@@ -612,6 +612,7 @@ void LLTextureView::draw()
 			{
 				pri = imagep->getDecodePriority();
 			}
+			pri = llclamp(pri, 0.0f, HIGH_PRIORITY-1.f);
 			
 			if (sDebugImages.find(imagep) != sDebugImages.end())
 			{
