@@ -22,12 +22,12 @@
 		（待機中）
 	</text>
 	<text name="group_charter_label">
-		グループ特権
+		グループ憲章
 	</text>
 	<texture_picker label="グループ記章" name="insignia"
 	     tool_tip="写真をクリックして選択" />
 	<text_editor name="charter">
-		グループ特権
+		グループ憲章
 	</text_editor>
 	<button label="参加する（L$0）" label_selected="参加する（L$0）"
 	     name="join_button" />
@@ -45,9 +45,9 @@
 		（オーナーは太字で表示されています）
 	</text>
 	<name_list name="visible_members">
-		<column label="Member Name" name="name" />
-		<column label="Title" name="title" />
-		<column label="Last Login" name="online" />
+		<column name="name" />
+		<column name="title" />
+		<column name="online" />
 	</name_list>
 	<text name="text_group_preferences">
 		グループ環境設定
@@ -92,8 +92,7 @@
 			<text name="active_title_label">
 				私のアクティブ・タイトル
 			</text>
-			<combo_box name="active_title"
-			     tool_tip="Sets the title that appears in your avatar&apos;s name tag   when this group is active." />
+			<combo_box name="active_title" />
 		</panel>
 		<check_box label="グループ通知を受信" name="receive_notices"
 		     tool_tip="グループからの通知を受信するかどうかを指定します。 このグループがスパム行為をしている場合は、このボックスのチェックを外してください" />

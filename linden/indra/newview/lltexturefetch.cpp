@@ -1240,7 +1240,12 @@ void LLTextureFetchWorker::callbackDecoded(bool success)
 
 bool LLTextureFetchWorker::decodeImage()
 {
-	llassert_always(mImageWorker);
+	if(!mImageWorker)
+	{
+		//LLTextureFetchWorker is aborted, skip image decoding.
+		return true ;
+	}
+
 	bool res = true;
 	if (mRawImage.isNull())
 	{

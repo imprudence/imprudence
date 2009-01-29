@@ -758,7 +758,9 @@ def _get_platform():
                 # the form os/arch/compiler/compiler_version for the download
                 # and extract stage
                 #this_platform = 'linux/i686/gcc/4.1'
-                this_platform = 'linux32'
+                # NOTE: disabled linux32 as it hasn't been tested well
+                #this_platform = 'linux32'
+                this_platform = this_platform
     return this_platform
 
 def _getuser():
