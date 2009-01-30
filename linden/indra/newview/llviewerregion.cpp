@@ -1022,21 +1022,25 @@ void LLViewerRegion::updateCoarseLocations(LLMessageSystem* msg)
 	U8 z_pos = 0;
 
 	U32 pos = 0x0;
-	
-	LLUUID agent_id = LLUUID::null;
+
 
 	S16 agent_index;
 	S16 target_index;
 	msg->getS16Fast(_PREHASH_Index, _PREHASH_You, agent_index);
 	msg->getS16Fast(_PREHASH_Index, _PREHASH_Prey, target_index);
 
+	BOOL has_agent_data = msg->has(_PREHASH_AgentData);
 	S32 count = msg->getNumberOfBlocksFast(_PREHASH_Location);
 	for(S32 i = 0; i < count; i++)
 	{
 		msg->getU8Fast(_PREHASH_Location, _PREHASH_X, x_pos, i);
 		msg->getU8Fast(_PREHASH_Location, _PREHASH_Y, y_pos, i);
 		msg->getU8Fast(_PREHASH_Location, _PREHASH_Z, z_pos, i);
-		msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id, i);
+		LLUUID agent_id = LLUUID::null;
+		if(has_agent_data)
+		{
+			msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id, i);
+		}
 
 		//llinfos << "  object X: " << (S32)x_pos << " Y: " << (S32)y_pos
 		//		<< " Z: " << (S32)(z_pos * 4)
@@ -1062,7 +1066,10 @@ void LLViewerRegion::updateCoarseLocations(LLMessageSystem* msg)
 			pos <<= 8;
 			pos |= z_pos;
 			mMapAvatars.put(pos);
-			mMapAvatarIDs.put(agent_id);
+			if(has_agent_data)
+			{
+				mMapAvatarIDs.put(agent_id);
+			}
 		}
 	}
 }
