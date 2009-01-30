@@ -7,6 +7,9 @@
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Removed spammy gstreamer debug messages.
 
+	* ChangeLog.txt
+	Armin Weatherwax, not Armin. 
+
 
 2009-01-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
@@ -435,7 +438,7 @@
 	* newview/CMakeLists.txt:
 
 
-2009-01-10  Armin  <email@unknown.com>
+2009-01-10  Armin Weatherwax  <email@unknown.com>
 
 	* linden/indra/newview/llviewermenu.cpp:
 	Added 'create landmark' to land pie menu.
