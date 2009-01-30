@@ -763,22 +763,24 @@ void LLSnapshotLivePreview::onIdle( void* snapshot_preview )
 	previewp->getWindow()->incBusyCount();
 	previewp->mImageScaled[previewp->mCurImageIndex] = FALSE;
 
-	// grab the raw image and encode it into desired format
+	int res = 1;
+	res = (gSavedSettings.getBOOL("HighResSnapshot") && previewp->getSnapshotType() == SNAPSHOT_LOCAL) ? 2 : 1;
+
 	if(gViewerWindow->rawSnapshot(
-							previewp->mPreviewImage,
-							previewp->mWidth[previewp->mCurImageIndex],
-							previewp->mHeight[previewp->mCurImageIndex],
-							previewp->mKeepAspectRatio,//gSavedSettings.getBOOL("KeepAspectForSnapshot"),
-							previewp->getSnapshotType() == LLSnapshotLivePreview::SNAPSHOT_TEXTURE,
-							gSavedSettings.getBOOL("RenderUIInSnapshot"),
-							FALSE,
-							previewp->mSnapshotBufferType,
-							previewp->getMaxImageSize()))
+						previewp->mPreviewImage,
+						previewp->mWidth[previewp->mCurImageIndex]*res,
+						previewp->mHeight[previewp->mCurImageIndex]*res,
+						previewp->mKeepAspectRatio,
+						previewp->getSnapshotType() == LLSnapshotLivePreview::SNAPSHOT_TEXTURE,
+						gSavedSettings.getBOOL("RenderUIInSnapshot"),
+						FALSE,
+						previewp->mSnapshotBufferType,
+						previewp->getMaxImageSize()))
 	{
 		previewp->mPreviewImageEncoded->resize(
-			previewp->mPreviewImage->getWidth(), 
-			previewp->mPreviewImage->getHeight(), 
-			previewp->mPreviewImage->getComponents());
+				previewp->mPreviewImage->getWidth(), 
+				previewp->mPreviewImage->getHeight(), 
+				previewp->mPreviewImage->getComponents());
 
 		if(previewp->getSnapshotType() == SNAPSHOT_TEXTURE)
 		{
@@ -797,14 +799,24 @@ void LLSnapshotLivePreview::onIdle( void* snapshot_preview )
 				formatted->decode(previewp->mPreviewImageEncoded, 0);
 			}
 		}
-		else
+		else if(previewp->getSnapshotType() == SNAPSHOT_POSTCARD)
 		{
-			// delete any existing image
 			previewp->mFormattedImage = NULL;
-			// now create the new one of the appropriate format.
 			// note: postcards hardcoded to use jpeg always.
-			LLFloaterSnapshot::ESnapshotFormat format = previewp->getSnapshotType() == SNAPSHOT_POSTCARD
-				? LLFloaterSnapshot::SNAPSHOT_FORMAT_JPEG : previewp->getSnapshotFormat();
+			previewp->mFormattedImage = new LLImageJPEG(previewp->mSnapshotQuality);
+
+			if(previewp->mFormattedImage->encode(previewp->mPreviewImage, 0))
+			{
+				previewp->mDataSize = previewp->mFormattedImage->getDataSize();
+				previewp->mFormattedImage->decode(previewp->mPreviewImageEncoded, 0);
+			}
+		}
+		else //SNAPSHOT_LOCAL
+		{
+			previewp->mFormattedImage = NULL;
+			// save snapshot using the appropriate format.
+			LLFloaterSnapshot::ESnapshotFormat format = previewp->getSnapshotFormat();
+
 			switch(format)
 			{
 			case LLFloaterSnapshot::SNAPSHOT_FORMAT_PNG:
@@ -864,16 +876,16 @@ void LLSnapshotLivePreview::onIdle( void* snapshot_preview )
 			previewp->mPosTakenGlobal = gAgent.getCameraPositionGlobal();
 			previewp->mShineCountdown = 4; // wait a few frames to avoid animation glitch due to readback this frame
 		}
-	}
-	previewp->getWindow()->decBusyCount();
-	// only show fullscreen preview when in freeze frame mode
-	previewp->setVisible(gSavedSettings.getBOOL("UseFreezeFrame"));
-	previewp->mSnapshotDelayTimer.stop();
-	previewp->mSnapshotActive = FALSE;
+		previewp->getWindow()->decBusyCount();
+		// only show fullscreen preview when in freeze frame mode
+		previewp->setVisible(gSavedSettings.getBOOL("UseFreezeFrame"));
+		previewp->mSnapshotDelayTimer.stop();
+		previewp->mSnapshotActive = FALSE;
 
-	if(!previewp->getThumbnailUpToDate())
-	{
-		previewp->generateThumbnailImage() ;
+		if(!previewp->getThumbnailUpToDate())
+		{
+			previewp->generateThumbnailImage() ;
+		}
 	}
 }
 
@@ -1105,10 +1117,6 @@ void LLFloaterSnapshot::Impl::setResolution(LLFloaterSnapshot* floater, const st
 void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp)
 {
 	LLSnapshotLivePreview* previewp = getPreviewView(floaterp);
-
-	LLSnapshotLivePreview::ESnapshotType shot_type = getTypeIndex(floaterp);
-	if (shot_type != LLSnapshotLivePreview::SNAPSHOT_LOCAL)
-		gSavedSettings.setBOOL("HighResSnapshot", FALSE);
 
 	S32 delta_height = gSavedSettings.getBOOL("AdvanceSnapshot") ? 0 : floaterp->getUIWinHeightShort() - floaterp->getUIWinHeightLong() ;
 
@@ -1457,8 +1465,11 @@ void LLFloaterSnapshot::Impl::onClickHighResCheck(LLUICtrl *ctrl, void* data)
 	LLFloaterSnapshot *view = (LLFloaterSnapshot *)data;
 	if (view)
 	{
-		BOOL ui_in_snapshot = gSavedSettings.getBOOL("RenderUIInSnapshot");
-		if (ui_in_snapshot) gSavedSettings.setBOOL("RenderUIInSnapshot", FALSE);
+		if (gSavedSettings.getBOOL("RenderUIInSnapshot"))
+		{
+			gSavedSettings.setBOOL("RenderUIInSnapshot", FALSE);
+			checkAutoSnapshot(getPreviewView(view), TRUE);
+		}
 		view->childSetEnabled("ui_check", !check->get());
 		checkAutoSnapshot(getPreviewView(view), TRUE);
 	}
@@ -2031,22 +2042,53 @@ void LLFloaterSnapshot::draw()
 		}
 		
 		BOOL ui_in_snapshot = gSavedSettings.getBOOL("RenderUIInSnapshot");
+		BOOL high_res_snapshot = gSavedSettings.getBOOL("HighResSnapshot");
 
-		if (previewp->getSnapshotType() != LLSnapshotLivePreview::SNAPSHOT_LOCAL)
+		if(ui_in_snapshot && high_res_snapshot) 
 		{
+			llwarns << "Both RenderUIInSnapshot and HighResSnapshot enabled (prolly screwed with the debug settings). Resetting them." << llendl;
+			gSavedSettings.setBOOL("HighResSnapshot", FALSE);
+			gSavedSettings.setBOOL("RenderUIInSnapshot", FALSE);
 			childSetValue("high_res_check", FALSE);
+			childSetEnabled("high_res_check", TRUE);
+			childSetValue("ui_check", FALSE);
 			childSetEnabled("ui_check", TRUE);
+			ui_in_snapshot = FALSE;
+			high_res_snapshot = FALSE;
 		}
-		else
+
+		if(previewp->getSnapshotType() != LLSnapshotLivePreview::SNAPSHOT_LOCAL)
 		{
+			childSetEnabled("high_res_check",FALSE);
+			childSetVisible("high_res_check",FALSE);
+			childSetEnabled("ui_check",TRUE);
 			if (ui_in_snapshot)
 			{
 				gSavedSettings.setBOOL("HighResSnapshot", FALSE);
-				childSetEnabled("high_res_check", FALSE);
 			}
 		}
+		else
+		{
+			childSetVisible("high_res_check",TRUE);
+			if (high_res_snapshot)
+			{
+				childSetEnabled("high_res_check",TRUE);
+				childSetEnabled("ui_check",FALSE);
+			}
+			else if (ui_in_snapshot)
+			{
+				childSetEnabled("ui_check",TRUE);
+				childSetEnabled("high_res_check",FALSE);
+			}
+			else
+			{
+				childSetEnabled("ui_check",TRUE);
+				childSetEnabled("high_res_check",TRUE);
+			}
+		}
+		childSetValue("ui_check",gSavedSettings.getBOOL("RenderUIInSnapshot"));
+		childSetValue("high_res_check",gSavedSettings.getBOOL("HighResSnapshot"));
 
-		childSetValue("ui_check", ui_in_snapshot);
 		childSetToolTip("ui_check", std::string("If selected shows the UI in the snapshot"));
 	}
 
