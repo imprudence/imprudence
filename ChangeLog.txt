@@ -13,6 +13,10 @@
 	* linden/indra/newview/llappviewer.cpp:
 	Plugin path set via string.
 
+	* linden/indra/newview/llfloatersnapshot.cpp:
+	Fixed high res snapshots not working from the snapshot window
+
+
 
 2009-01-26  McCabe Maxsted  <hakushakukun@gmail.com>
 
