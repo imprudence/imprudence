@@ -71,6 +71,7 @@
 #include "llimagepng.h"
 #include "llimagebmp.h"
 #include "llimagej2c.h"
+#include "llimagetga.h"
 #include "llvfile.h"
 #include "llvfs.h"
 
@@ -825,6 +826,9 @@ void LLSnapshotLivePreview::onIdle( void* snapshot_preview )
 			case LLFloaterSnapshot::SNAPSHOT_FORMAT_JPEG:
 				previewp->mFormattedImage = new LLImageJPEG(previewp->mSnapshotQuality); 
 				break;
+			case LLFloaterSnapshot::SNAPSHOT_FORMAT_TGA:
+				previewp->mFormattedImage = new LLImageTGA(); 
+				break;
 			case LLFloaterSnapshot::SNAPSHOT_FORMAT_BMP:
 				previewp->mFormattedImage = new LLImageBMP(); 
 				break;
@@ -1080,6 +1084,8 @@ LLFloaterSnapshot::ESnapshotFormat LLFloaterSnapshot::Impl::getFormatIndex(LLFlo
 		index = SNAPSHOT_FORMAT_PNG;
 	else if (id == "JPEG")
 		index = SNAPSHOT_FORMAT_JPEG;
+	else if (id == "TGA")
+		index = SNAPSHOT_FORMAT_TGA;
 	else if (id == "BMP")
 		index = SNAPSHOT_FORMAT_BMP;
 	return index;

@@ -10,6 +10,13 @@
 	* ChangeLog.txt
 	Armin Weatherwax, not Armin. 
 
+	* linden/indra/newview/llfloatersnapshot.cpp:
+	Added TGA to snapshot options.
+	* linden/indra/newview/llfloatersnapshot.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_snapshot.xml:
+	Ditto.
+
 
 2009-01-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 

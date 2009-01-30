@@ -123,6 +123,9 @@
 		<combo_item name="JPEG">
 			JPEG
 		</combo_item>
+    <combo_item name="TGA">
+      TGA
+    </combo_item>
 		<combo_item name="BMP">
 			BMP
 		</combo_item>
