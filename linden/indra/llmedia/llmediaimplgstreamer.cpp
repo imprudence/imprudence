@@ -248,7 +248,9 @@ static const char* get_gst_state_name(GstState state)
 //static
 gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gpointer data)
 {
+#ifdef LL_GST_REPORT_STATE_CHANGES
 	LL_DEBUGS("MediaCallback") << "Got GST message type: " << LLGST_MESSAGE_TYPE_NAME (message) << LL_ENDL;
+#endif
 
 	LLMediaImplGStreamer *impl = (LLMediaImplGStreamer*)data;
 
@@ -261,7 +263,9 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 			{
 				gint percent = 0;
 				llgst_message_parse_buffering(message, &percent);
+#ifdef LL_GST_REPORT_STATE_CHANGES
 				LL_DEBUGS("MediaBuffering") << "GST buffering: " << percent << "%%" << LL_ENDL;
+#endif
 				LLMediaEvent event( impl, percent );
 				impl->getEventEmitter().update( &LLMediaObserver::onUpdateProgress, event );
 			}
@@ -286,11 +290,15 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 			case GST_STATE_VOID_PENDING:
 				break;
 			case GST_STATE_NULL:
+#ifdef LL_GST_REPORT_STATE_CHANGES
 				LL_DEBUGS("MediaImpl") << "State changed to NULL" << LL_ENDL;
+#endif
 				if (impl->getState() == GST_STATE_PLAYING) 
 				{ // We got stoped by gstremer...
 				    impl->play();
+#ifdef LL_GST_REPORT_STATE_CHANGES
 				    LL_DEBUGS("MediaImpl") << "Trying to restart." << LL_ENDL;
+#endif
 				}
 				break;
 			case GST_STATE_READY:
@@ -476,7 +484,9 @@ bool LLMediaImplGStreamer::updateMedia()
 #endif
 	    || NULL == mPlaybin)
 	{
+#ifdef LL_GST_REPORT_STATE_CHANGES
 		LL_DEBUGS("MediaImpl") << "dead media..." << LL_ENDL;
+#endif
 		return false;
 	}
 
@@ -528,7 +538,9 @@ bool LLMediaImplGStreamer::updateMedia()
 	        GST_OBJECT_LOCK(mVideoSink);
 		if (mVideoSink->retained_frame_ready)
 		{
+#ifdef LL_GST_REPORT_STATE_CHANGES
 			LL_DEBUGS("MediaImpl") <<"NEW FRAME " << LL_ENDL;
+#endif
 			if (mVideoSink->retained_frame_width != getMediaWidth() ||
 			    mVideoSink->retained_frame_height != getMediaHeight())
 				// *TODO: also check for change in format

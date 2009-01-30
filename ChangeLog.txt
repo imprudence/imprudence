@@ -2,6 +2,12 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-01-29  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Removed spammy gstreamer debug messages.
+
+
 2009-01-27  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llappviewer.cpp:
