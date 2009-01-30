@@ -8,14 +8,36 @@
 	Removed spammy gstreamer debug messages.
 
 
-2009-01-27  McCabe Maxsted  <hakushakukun@gmail.com>
+2009-01-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml: 
+	Vetoed shortcut for Show XUI Names (Ctrl-Shift-X).
+	It's just not used often enough to justify a shortcut.
+	Partial revert of earlier commit 2dd736ab.
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml: 
+	Moved View > Show HUD Attachments to Advanced menu.
+	New location is:
+	    Advanced > Rendering > Features > HUD Attachments
+	Also removed keyboard shortcut.
+
+	* linden/indra/newview/llviewermenu.cpp:
+	Restored View > Toolbar and Show HUD Attachments.
+	Partial revert of earlier commit e79a1cc5.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+	Ditto.
+
+	* linden/indra/newview/linux_tools/wrapper.sh:
+	Set GST_PLUGIN_PATH for Linux.
+
+
+	McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llappviewer.cpp:
 	Plugin path set via string.
 
 	* linden/indra/newview/llfloatersnapshot.cpp:
 	Fixed high res snapshots not working from the snapshot window
-
 
 
 2009-01-26  McCabe Maxsted  <hakushakukun@gmail.com>
@@ -130,6 +152,21 @@
 	* linden/indra/newview/llviewerparcelmgr.cpp:
 	Ditto.
 	* linden/indra/newview/llviewerstats.cpp:
+	Ditto.
+
+	
+	Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llfolderview.cpp:
+	VWR-508/VWR-2199: Create "Worn Items" tab in Inventory
+	Patch by Vadim Bigbear.
+	* linden/indra/newview/llfolderview.h:
+	Ditto.
+	* linden/indra/newview/llinventoryview.cpp:
+	Ditto.
+	* linden/indra/newview/llinventoryview.h:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml:
 	Ditto.
 
 
