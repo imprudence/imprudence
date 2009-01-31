@@ -4,6 +4,9 @@
 
 2009-01-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llpanelobject.cpp:
+	Made build math taper/hole size correct for box/etc. [#62]
+
 	* linden/indra/llaudio/audioengine_openal.cpp:
 	Disabled spammy loadWAV error for nonexistent files.
 	

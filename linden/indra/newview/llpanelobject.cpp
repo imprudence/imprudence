@@ -976,12 +976,18 @@ void LLPanelObject::getState( )
 		{
 			mSpinScaleX->set( 1.f - scale_x );
 			mSpinScaleY->set( 1.f - scale_y );
-			calcp->setVar(LLCalc::X_HOLE, 1.f - scale_x);
-			calcp->setVar(LLCalc::Y_HOLE, 1.f - scale_y);
 			mSpinScaleX->setMinValue(-1.f);
 			mSpinScaleX->setMaxValue(1.f);
 			mSpinScaleY->setMinValue(-1.f);
 			mSpinScaleY->setMaxValue(1.f);
+
+			// Torus' Hole Size is Box/Cyl/Prism's Taper
+			calcp->setVar(LLCalc::X_TAPER, 1.f - scale_x);
+			calcp->setVar(LLCalc::Y_TAPER, 1.f - scale_y);
+
+			// Box/Cyl/Prism have no hole size
+			calcp->setVar(LLCalc::X_HOLE, 0.f);
+			calcp->setVar(LLCalc::Y_HOLE, 0.f);
 		}
 		break;
 	}
