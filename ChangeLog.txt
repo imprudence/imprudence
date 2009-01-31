@@ -24,7 +24,12 @@
 
 	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
 	Updated build math cheat sheet to new variable names.
-	
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Fixed default communicate size being too small.
+	* linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml:
+	Ditto.
+
 
 2009-01-29  McCabe Maxsted  <hakushakukun@gmail.com>
 
