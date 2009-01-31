@@ -4,6 +4,10 @@
 
 2009-01-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llaudio/audioengine_openal.cpp:
+	Disabled spammy loadWAV error for nonexistent files.
+	
+
 	* linden/indra/newview/llviewerregion.cpp
 	Fix crash with two instances logged in to opensim.
 	Patch by Armin Weatherwax.

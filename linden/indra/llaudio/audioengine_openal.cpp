@@ -348,10 +348,10 @@ bool LLAudioBufferOpenAL::loadWAV(const std::string& filename)
 		else
 		{
 			// It's common for the file to not actually exist.
-			LL_DEBUGS("OpenAL") <<
-				"LLAudioBufferOpenAL::loadWAV() Error loading "
-				 << filename
-				 << " " << alutGetErrorString(error) << LL_ENDL;
+			//LL_DEBUGS("OpenAL") <<
+			//	"LLAudioBufferOpenAL::loadWAV() Error loading "
+			//	 << filename
+			//	 << " " << alutGetErrorString(error) << LL_ENDL;
 		}
 		return false;
 	}
