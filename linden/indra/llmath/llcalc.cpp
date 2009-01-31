@@ -19,15 +19,15 @@
 
 
 // Variable names for use in the build floater
-const char* LLCalc::X_POS = "XP";
-const char* LLCalc::Y_POS = "YP";
-const char* LLCalc::Z_POS = "ZP";
-const char* LLCalc::X_SCALE = "XS";
-const char* LLCalc::Y_SCALE = "YS";
-const char* LLCalc::Z_SCALE = "ZS";
-const char* LLCalc::X_ROT = "XR";
-const char* LLCalc::Y_ROT = "YR";
-const char* LLCalc::Z_ROT = "ZR";
+const char* LLCalc::X_POS = "PX";
+const char* LLCalc::Y_POS = "PY";
+const char* LLCalc::Z_POS = "PZ";
+const char* LLCalc::X_SCALE = "SX";
+const char* LLCalc::Y_SCALE = "SY";
+const char* LLCalc::Z_SCALE = "SZ";
+const char* LLCalc::X_ROT = "RX";
+const char* LLCalc::Y_ROT = "RY";
+const char* LLCalc::Z_ROT = "RZ";
 const char* LLCalc::HOLLOW = "HLW";
 const char* LLCalc::CUT_BEGIN = "CB";
 const char* LLCalc::CUT_END = "CE";
@@ -35,15 +35,15 @@ const char* LLCalc::PATH_BEGIN = "PB";
 const char* LLCalc::PATH_END = "PE";
 const char* LLCalc::TWIST_BEGIN = "TB";
 const char* LLCalc::TWIST_END = "TE";
-const char* LLCalc::X_SHEAR = "XSH";
-const char* LLCalc::Y_SHEAR = "YSH";
-const char* LLCalc::X_TAPER = "XTP";
-const char* LLCalc::Y_TAPER = "YTP";
+const char* LLCalc::X_SHEAR = "SHX";
+const char* LLCalc::Y_SHEAR = "SHY";
+const char* LLCalc::X_TAPER = "TPX";
+const char* LLCalc::Y_TAPER = "TPY";
 const char* LLCalc::RADIUS_OFFSET = "ROF";
 const char* LLCalc::REVOLUTIONS = "REV";
 const char* LLCalc::SKEW = "SKW";
-const char* LLCalc::X_HOLE = "XHL";
-const char* LLCalc::Y_HOLE = "YHL";
+const char* LLCalc::X_HOLE = "HLX";
+const char* LLCalc::Y_HOLE = "HLY";
 const char* LLCalc::TEX_U_SCALE = "TSU";
 const char* LLCalc::TEX_V_SCALE = "TSV";
 const char* LLCalc::TEX_U_OFFSET = "TOU";

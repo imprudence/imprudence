@@ -4,6 +4,10 @@
 
 2009-01-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmath/llcalc.cpp:
+	Tweaked build math variable names for consistency.
+	X/Y/Z go at end of variables, e.g. XP --> PX.
+	
 	* linden/indra/newview/llpanelobject.cpp:
 	Made build math taper/hole size correct for box/etc. [#62]
 
