@@ -389,15 +389,15 @@ Go to the Second Life web site for more information on partnering?
     <message name="message">
       The following constants are accepted in this tab:
 
-      XP  --  X-axis position
-      YP  --  Y-axis position
-      ZP  --  Z-axis position
-      XS  --  X-axis size
-      YS  --  Y-axis size
-      ZS  --  Z-axis size
-      XR  --  X-axis rotation
-      YR  --  Y-axis rotation
-      ZR  --  Z-axis rotation
+      PX  --  X-axis position
+      PY  --  Y-axis position
+      PZ  --  Z-axis position
+      SX  --  X-axis size
+      SY  --  Y-axis size
+      SZ  --  Z-axis size
+      RX  --  X-axis rotation
+      RY  --  Y-axis rotation
+      RZ  --  Z-axis rotation
       CB  --  Path cut begin
       CE  --  Path cut end
       HLW  --  Hollow size
@@ -406,12 +406,12 @@ Go to the Second Life web site for more information on partnering?
       PE  --  Slice/Dimple/Profile cut end
       TB  --  Twist begin
       TE  --  Twist end
-      XSH  --  X-axis top shear
-      YSH  --  Y-axis top shear
-      XHL  --  X-axis hole size
-      YHL  --  Y-axis hole size
-      XTP  --  X-axis taper
-      YTP  --  Y-axis taper
+      SHX  --  X-axis top shear
+      SHY  --  Y-axis top shear
+      HLX  --  X-axis hole size
+      HLY  --  Y-axis hole size
+      TPX  --  X-axis taper
+      TPY  --  Y-axis taper
       ROF  --  Radius offset
       REV  --  Revolutions
 
