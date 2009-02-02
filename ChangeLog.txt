@@ -2,6 +2,12 @@
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-02-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/viewer_manifest.py:
+	Removed redundant packaging of text files.
+
+
 2009-01-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmath/llcalc.cpp:

@@ -44,16 +44,6 @@ class ViewerManifest(LLManifest):
         self.exclude("*.svn*")
         self.path(src="../../scripts/messages/message_template.msg", dst="app_settings/message_template.msg")
         self.path(src="../../etc/message.xml", dst="app_settings/message.xml")
-	self.path(src="../../../ChangeLog.txt", dst="doc/ChangeLog.txt")
-	self.path(src="../../../CONTRIBUTE.txt", dst="doc/CONTRIBUTE.txt")
-	self.path(src="../../../MANIFESTO.txt", dst="doc/MANIFESTO.txt")
-	self.path(src="../../../README.txt", dst="doc/README.txt")
-	self.path(src="../../../RELEASE_NOTES.txt", dst="doc/RELEASE_NOTES.txt")
-	self.path(src="../../doc/contributions.txt", dst="doc/ll-contributions.txt")
-	self.path(src="../../doc/FLOSS-exception.txt", dst="doc/FLOSS-exception.txt")
-	self.path(src="../../doc/GPL-license.txt", dst="doc/GPL-license.txt")
-	self.path(src="../../doc/releasenotes-where.txt", dst="doc/ll-releasenotes-where.txt")
-# 
 
         if self.prefix(src="app_settings"):
             self.exclude("logcontrol.xml")
