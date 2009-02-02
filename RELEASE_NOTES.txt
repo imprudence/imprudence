@@ -3,6 +3,271 @@
   http://imprudenceviewer.org
 
 
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                       1.1.0 RC1                        -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   NOTICE: POTENTIALLY DISRUPTIVE UI CHANGES
+
+     This version contains many changes to the UI, including changes
+     to the names and locations of buttons and menu items. You should
+     expect the UI (especially the pie menus) to feel awkward at
+     first, while your brain and muscle memory adjust to the changes.
+     We think you will find the new layouts to be more usable in the
+     long run, once the initial re-learning period passes.
+
+     Stick with it! :)
+
+
+     In particular, please be aware of the following:
+
+     * There have been major reorganization of all pie menus!
+
+     * Some Advanced menu items have been moved to other locations:
+
+        - "Advanced > Rebake Textures" is now "Edit > Refresh
+          Appearance".
+
+        - "Advanced > Disable Camera Constraints" is now in the
+          "Input/Camera" section of Preferences.
+
+        - "Advanced > High Resolution Snapshots" is now in the
+          Snapshot window.
+
+        - "View > Show HUD Attachments" is now "Advanced > Rendering >
+          Features > HUD Attachments".
+
+     * Some rarely-used menu items have been removed:
+
+        - "Advanced > Compress Snapshots to disk"
+
+     * Some shortcuts have changed:
+
+        - Added Ctrl-B (View > Web Browser)
+
+        - Added Ctrl-D (World > Create Landmark Here)
+
+        - Removed Shift-Alt-H (View > Show HUD Attachments,
+          which has been moved; see above)
+
+     * The "Invite" and "Leave" buttons in the Groups window have
+       switched positions (to move "Leave" further away from
+       "Activate").
+
+     See the CHANGES section below for details, plus other UI and
+     non-UI changes in this version.
+
+
+   KNOWN ISSUES
+
+     * There is no Mac version! We need a volunteer Mac developer to
+       help with this!
+
+     * All platforms still lack voice chat. (But you can add it back
+       with a simple trick...)
+
+     * The sub-menus inside the "Advanced > Rendering" menu (i.e.
+       Types, Features, Info Displays, and Render Tests) sometimes get
+       hidden behind the Advanced menu when they open. This is
+       scheduled to be fixed in a future version; in the meantime, you
+       can work around it by clicking the tear-off stript at the top
+       of the Rendering menu, moving it to the left side of the
+       screen, and then opening the desired sub-menu.
+
+
+   CHANGES
+
+     This version of Imprudence includes the following changes (as
+     compared to Imprudence 1.0.0).
+
+     FEATURE HIGHLIGHTS
+
+       * Windows and Linux versions now support sound effects and
+         streaming audio and video with OpenAL and Gstreamer! Thanks
+         to Tofu Linden for his OpenAL patch, Unknown Linden(s) for
+         their Gstreamer work, and McCabe and Jacek for pounding on it
+         with hammers!
+
+       * New "Quick Filter" list in the Inventory window. Thanks for
+         adding that, Jacek!
+
+       * New "Worn Items" tab in the Inventory window (VWR-2199).
+         Thanks for the patch, Vadim Bigbear!
+
+       * New math expressions support in the Build window's Object and
+         Texture tabs (VWR-675). Thanks for the patch, Aimee
+         Trescothick! See the Build Math Expressions wiki page for
+         details and examples for using this cool feature!
+
+     MENUS
+
+       * Reorganized and improved the pie menus a lot (details below).
+         Thanks, McCabe!
+
+          - Replaced "Go" with "Inventory" in the pie menu for your
+            avatar mesh.
+
+          - Moved "Create" to "More > Build" in the pie menu for
+            objects, and moved "Buy" up to the top level. "Take" is
+            now always "Take".
+
+          - The pie menu for your own attachments is now more
+            consistent with the pie menu for your avatar mesh. This
+            helps users with prim-based avatars / lots of
+            body-covering attachments. (Attachment-specific options
+            are under "More >".)
+
+          - Renamed "Report Abuse..." label to "Abuse..." so it
+            doesn't overrun the pie menu.
+
+          - "Mute" option moved from 6 o'clock to avoid accidental
+            clicks.
+
+          - Added "Create Landmark" to the pie menu for the ground
+            (IMP-38). Thanks for the patch, Armin Weatherwax!
+
+          - Added "Report Abuse" to the pie menu for avatars besides
+            yourself (VWR-8179). Thanks for the patch, Asuka Neely!
+
+       * Moved some commonly-used "Advanced" options to more prominent
+         locations (details below) (IMP-18). Thanks for doing that,
+         McCabe!
+
+          - Moved "Rebake Textures" to "Edit > Refresh Appearance".
+
+          - Moved "Disable Camera Constraints" to be in the
+            "Input/Camera" section of Preferences.
+
+          - Moved "High Resolution Snapshots" to the Snapshot window.
+
+       * Added menu item and shortcut to open the built-in web browser
+         ("View > Web Browser", Ctrl-B). Thanks, McCabe!
+
+       * Removed "Advanced > Compress Snapshot to disk", since it's
+         useless. Thanks, McCabe!
+
+       * Added shortcut (Ctrl-D) to create a new landmark. Also, a
+         message, "You created a landmark at _____", will appear in
+         chat history when creating a landmark. Thanks, McCabe!
+
+       * Moved "View > Show HUD Attachments" to 
+         "Advanced > Rendering > Features > HUD Attachments", and
+         removed its keyboard shortcut.
+
+
+     INVENTORY
+
+       * Added "Restore to World" to right click menu on Objects in
+         inventory (if the sim supports it) (IMP-36). Thanks, Unknown
+         Linden! (This action returns the object to the location
+         in-world where it was before being taken / returned to your
+         inventory.)
+
+       * Added "Discard" buttons for incoming landmarks, and notecards
+         that you created (IMP-30). Thanks for the patches, Henri
+         Beauchamp, and thanks to Balp Allen for pointing them out!
+
+
+     BUILDING
+
+       * High-up prims no longer fall to 256m height when moved
+         outworld (VWR-9352). Thanks for the patch, Aimee Trescothick!
+
+       * Fixed Local ruler mode being oriented incorrectly for linked
+         objects (VWR-1582). Thanks, Jacek!
+
+       * Added "Tools > Select Only Copyable Objects" menu item.
+         Thanks, McCabe!
+
+
+     MAP / MINIMAP
+
+       * Friends now appear yellow on the minimap (VWR-3336). Thanks
+         for the patch, Aimee Trescothick!
+
+       * You can now double-click in the minimap to teleport to that
+         location (IMP-34). Thanks for the patch, Armin Weatherwax!
+
+       * The Map window now supports teleports up to a height of 4096m
+         (VWR-7331). Thanks for the patch, Peter Lameth!
+
+       * Minimap and Map glyph colors can now be set in colors.xml.
+         Thanks, McCabe!
+
+
+     OTHER UI
+
+       * Added syntax highlighting for C-style comments ("/* ... */")
+         in LSL scripts (SVC-2631). Thanks for the patch, Felix
+         Duesenburg!
+
+       * Added Home page functionality in the web browser ("Home", "Set
+         As Home"). Thanks, McCabe!
+
+       * Clicking "Set As Home" informs you of a successful homepage
+         change.
+
+       * Switched the positions of the "Invite" and "Leave" buttons in
+         the Groups panel, so the "Leave" button isn't right next to
+         the "Activate" button. Thanks, McCabe!
+
+       * The "Offer Teleport" button in the IM window has been moved to
+         the left, next to "Profile". Thanks, McCabe!
+
+       * Added "Drag and drop inventory item here to send" text to the
+         IM window. That functionality was already present in the SL
+         viewer, but almost no one knew about it! Thanks, McCabe!
+
+       * Added an "Ignore" button to friendship requests (VWR-4826).
+         Thanks, McCabe!
+
+       * The "invite to group" window now displays the group name in
+         the title. Thanks, McCabe!
+
+
+     MISC
+
+       * Fixed the right/bottom edit arrows on HUDs not working
+         (VWR-5518). Thanks for describing the fix, Zi Ree!
+
+       * Fixed avatars being darker than prims; this matches the
+         changes in SL 1.22 (VWR-8012). Thanks to CG Linden for
+         pointing to the fix!
+
+       * Lip sync for voice chat is enabled by default 
+         ("Advanced > Character > Enable Lip Sync"). Thanks, McCabe!
+
+       * The colors.xml files (for setting skin colors) now has helpful
+         comments describing each entry, to help skin creators. Thanks,
+         McCabe!
+
+       * Beacons no longer stay enabled between sessions, to help users
+         who accidently enable them. Thanks, McCabe!
+
+       * The wind sound is now disabled by default, and doesn't waste
+         CPU time generating white noise when it's off. You can
+         re-enable wind by changing the "MuteWind" debug setting to
+         FALSE. Thanks, McCabe!
+
+       * Added TGA as an available image format for saving snapshots.
+         Thanks, McCabe!
+
+       * llLoadUrl scripts now opens in either the built-in browser or
+         your external browser, depending on your preference. Thanks,
+         McCabe!
+
+       * The URL highlighter now includes closing parentheses ")" as
+         part of the link (VWR-8773). Thanks, Qarl Linden!
+
+       * Windows: Running straight from the .exe uses
+         "settings_imprudence.xml" file. Thanks, McCabe!
+
+       * Windows: Crash dump files are named with "Imprudence" instead
+         of "Second Life". Thanks yet again, McCabe, you busy beaver!
+
+
+
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                         1.0.0                          -=
