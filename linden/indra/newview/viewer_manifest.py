@@ -666,8 +666,81 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
             self.path("libopenjpeg.so.2")
+
+            self.path("libopenal.so") # symlink
             self.path("libopenal.so.1")
             self.path("libalut.so")
+
+            # Gstreamer libs
+            self.path("libgstbase-0.10.so") # symlink
+            self.path("libgstbase-0.10.so.0")
+            self.path("libgstreamer-0.10.so") # symlink
+            self.path("libgstreamer-0.10.so.0")
+            self.path("libgstaudio-0.10.so.0")
+            self.path("libgstbase-0.10.so.0")
+            self.path("libgstcontroller-0.10.so.0")
+            self.path("libgstdataprotocol-0.10.so.0")
+            self.path("libgstinterfaces-0.10.so.0")
+            self.path("libgstnetbuffer-0.10.so.0")
+            self.path("libgstpbutils-0.10.so.0")
+            self.path("libgstriff-0.10.so.0")
+            self.path("libgstrtp-0.10.so.0")
+            self.path("libgstrtsp-0.10.so.0")
+            self.path("libgstsdp-0.10.so.0")
+            self.path("libgsttag-0.10.so.0")
+            self.path("libgstvideo-0.10.so.0")
+
+            # Gstreamer plugin dependencies
+            self.path("libavcodec.so.52")
+            self.path("libavformat.so.52")
+            self.path("libavutil.so.49")
+            self.path("libxvidcore.so.4")
+            self.path("libfaac.so.0")
+            self.path("libfaad.so.1")
+            self.path("libmp3lame.so.0")
+            self.path("libogg.so.0")
+            self.path("libvorbis.so.0")
+            self.path("libvorbisenc.so.2")
+            self.path("libxml2.so.2")
+            self.path("libxvidcore.so.4")
+
+            # Gstreamer plugins
+            if self.prefix("gstreamer-plugins"):
+                self.path("libgstalsa.so")
+                self.path("libgstasf.so")
+                self.path("libgstaudioconvert.so")
+                self.path("libgstaudioresample.so")
+                self.path("libgstautodetect.so")
+                self.path("libgstavi.so")
+                self.path("libgstcoreelements.so")
+                self.path("libgstcoreindexers.so")
+                self.path("libgstdecodebin2.so")
+                self.path("libgstdecodebin.so")
+                self.path("libgstesd.so")
+                self.path("libgstffmpegcolorspace.so")
+                self.path("libgstffmpeg.so")
+                self.path("libgstgnomevfs.so")
+                self.path("libgsticydemux.so")
+                self.path("libgstid3demux.so")
+                self.path("libgstmpegdemux.so")
+                self.path("libgstmultifile.so")
+                self.path("libgstmultipart.so")
+                self.path("libgstogg.so")
+                self.path("libgstossaudio.so")
+                self.path("libgstplaybin.so")
+                self.path("libgstqtdemux.so")
+                self.path("libgstqueue2.so")
+                self.path("libgsttcp.so")
+                self.path("libgsttheora.so")
+                self.path("libgsttypefindfunctions.so")
+                self.path("libgstudp.so")
+                self.path("libgstvideoscale.so")
+                self.path("libgstvolume.so")
+                self.path("libgstvorbis.so")
+                self.path("libgstwavparse.so")
+                
+                self.end_prefix("gstreamer-plugins")
+            
             self.end_prefix("lib")
 
             # Vivox runtimes

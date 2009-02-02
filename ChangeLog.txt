@@ -5,6 +5,9 @@
 2009-02-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
+	Added linux gstreamer libs, dependencies, and plugins.
+
+	* linden/indra/newview/viewer_manifest.py:
 	Removed some unused libs from Linux manifest.
 
 	* linden/indra/newview/viewer_manifest.py:
