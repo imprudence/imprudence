@@ -668,6 +668,8 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
             self.path("libopenjpeg.so.2")
+            self.path("libopenal.so.1")
+            self.path("libalut.so")
             #self.path("libtcmalloc.so.0") - bugged
             #self.path("libstacktrace.so.0") - probably bugged
             self.end_prefix("lib")
@@ -677,12 +679,6 @@ class Linux_i686Manifest(LinuxManifest):
             #        self.path("SLVoice")
             #        self.end_prefix()
             
-            if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
-                self.path("libopenal.so.1")
-                self.path("libalut.so")
-            #        self.path("libortp.so")
-            #        self.path("libvivoxsdk.so")
-                self.end_prefix("lib")
 
 class Linux_x86_64Manifest(LinuxManifest):
     def construct(self):

@@ -5,6 +5,9 @@
 2009-02-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
+	Get AL libs from real libs dir, not vivox.
+
+	* linden/indra/newview/viewer_manifest.py:
 	Removed redundant packaging of text files.
 
 
