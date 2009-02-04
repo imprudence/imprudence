@@ -1,4 +1,17 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                         1.1.0 RC1                      -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+2009-02-03  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llviewermenu.cpp:
+	Fixed llSetTouchText().
+	* linden/indra/newview/skins/default/xui/en-us/menu_pie_attachment.xml:
+	Ditto.
+
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                         1.1.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
