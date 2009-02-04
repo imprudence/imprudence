@@ -9,6 +9,13 @@
 	* linden/indra/newview/skins/default/xui/en-us/menu_pie_attachment.xml:
 	Ditto.
 
+	* linden/indra/cmake/CopyWinLibs.cmake:
+	Updated CMake to RC1.
+	* linden/indra/cmake/OPENAL.cmake:
+	Ditto.
+	* linden/install.xml:
+	Ditto.
+
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
