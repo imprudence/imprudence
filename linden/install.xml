@@ -393,7 +393,7 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>B6B8B7A2CEB038C31BAD0EE4A1FBDF41</string>
+            <string>d5bfaa397dfbfc893603ad047c57604d</string>
             <key>url</key>
             <uri>http://imprudence.s3.amazonaws.com/extras/glib-2.18.3.1-windows-01262009.tar.bz2</uri>
           </map>
@@ -430,7 +430,7 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>F4005971943595712212C4E0B9418DB5</string>
+            <string>0fd4d4a96efaf8b47d6cc74e7a927800</string>
             <key>url</key>
             <uri>http://imprudence.s3.amazonaws.com/extras/gstreamer-0.10.21-windows-01262009.tar.bz2</uri>
           </map>
@@ -445,7 +445,7 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>2EF5DD08E6026325152C83E72308E282</string>
+            <string>d69f66f4698c5608c86d1a108e3a2d1f</string>
             <key>url</key>
             <uri>http://imprudence.s3.amazonaws.com/extras/gstreamer-plugins-windows-01312009.tar.bz2</uri>
           </map>
@@ -519,7 +519,7 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>F20BDA1058BFD3AF7AC2C23EB3FD7F12</string>
+            <string>055ff15814c5f5cc09b0a9891ca7c90a</string>
             <key>url</key>
             <uri>http://imprudence.s3.amazonaws.com/extras/iconv-1.9.2-windows-01262009.tar.bz2</uri>
           </map>
@@ -679,7 +679,7 @@ anguage Infrstructure (CLI) international standard</string>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>E8DACED68B2165918B82C771D3480AA2</string>
+            <string>d96f950a877836b644f5bd047eb52151</string>
             <key>url</key>
             <uri>http://imprudence.s3.amazonaws.com/extras/libxml2-2.7.2-windows-01262009.tar.bz2</uri>
           </map>
@@ -855,7 +855,7 @@ anguage Infrstructure (CLI) international standard</string>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>80C8AA77BDE113635FEABCD0E342F3C0</string>
+            <string>7c33758dc0a047c244de03133dd76c2a</string>
             <key>url</key>
             <uri>http://imprudence.s3.amazonaws.com/extras/openal-soft-1.6.372-windows-01262009.tar.bz2</uri>
           </map>

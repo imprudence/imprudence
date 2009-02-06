@@ -2,6 +2,18 @@
 =-                         1.1.0 RC1                      -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-02-04  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/cmake/CopyWinLibs.cmake:
+	develop.py should now work again under windows.
+	* linden/indra/cmake/GStreamer.cmake:
+	Ditto.
+	* linden/indra/cmake/OPENAL.cmake:
+	Ditto.
+	* linden/install.xml:
+	Ditto.
+
+
 2009-02-03  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llviewermenu.cpp:
