@@ -719,7 +719,7 @@ Pagando mais, faz com que seu anúncio apareça em posição mais alta na lista 
 	</alert>
 	<alert name="ResetShowNextTimeDialogs">
 		<message name="message">
-			Você gostaria de reabilitar todas estas popups que você indicou previamente como &apos;Não mostrar-me novamente&apos;?
+			Você gostaria de reabilitar todas estas pop ups que você indicou previamente como &apos;Não me mostrar novamente&apos;? 
 		</message>
 		<option name="OK">
 			OK
@@ -894,7 +894,7 @@ Se continuar com problemas, por favor visite: http://www.secondlife.com/support
 			Aviso: Seu sistema não é compatível com os requisitos mínimos exigidos pelo Second Life. Se você continuar usando o Second Life pode experimentar uma performance ruim. Infelizmente não podemos oferecer suporte técnico para configurações de sistema não suportado. 
 
 MINSPECS
-Do you wish to visit [_URL] for more information?
+Você deseja visitar [_URL] para maiores informações?
 		</message>
 		<ignore name="ignore">
 			Ao detectar hardware não suportado
@@ -3801,7 +3801,7 @@ Detalhe de Terreno: Ajusta a quantidade de detalhes que você gostaria de ver pa
 	</alert>
 	<alert name="EnvSettingsHelpButton">
 		<message name="message">
-			Essas configurações ajustar a forma como o ambiente parece localmente no seu computador. Sua placa de vídeo precisa suportar o sombreador atmosférico, a fim de ter acesso a todas as definições. 
+			Essas configurações ajustam a forma como o ambiente parece localmente no seu computador. Sua placa de vídeo precisa suportar o sombreador atmosférico, a fim de ter acesso a todas as definições. 
  
 Ajuste o controle gradual &quot;Hora do Dia&quot;  para alterar o dia da fase localmente sobre o espectador.
  
@@ -3809,7 +3809,7 @@ Ajuste o controle gradual de &quot;Cobertura das nuvens&quot; para controlar qua
  
 Pegue uma cor da paleta de cores do &quot;Cord a Água&quot; para mudar a cor desta. 
  
-Ajuste o controle gradual de &quot;Névoa de Água&quot; para controlar o quão denso é a névoa dentro da água.
+Ajuste o controle gradual de &quot;Névoa de Água&quot; para controlar o quão densa é a névoa dentro da água.
  
 Clique &quot;Usar Horário do Terreno&quot; para redefinir a hora do dia para a região para o horário atual do dia e permanecer ligados a ela. 
  
@@ -3822,15 +3822,15 @@ Clique &quot;Água Avançada &quot; para abrir um editor com configurações mai
 		<message name="message">
 			Este editor de dia dá a você o controle sobre o ciclo de dia/noite do Second Life. Este é o ciclo usado pelo editor básico de clima do controle gradual da hora do dia. 
 
-O editor do ciclo de dia trabalha configurado por keyframes (quadros-chave). Estes são pontos (representados pelos ícones cinza no gráfico de horário) que possui o padrão de céu associado a eles.  Conforme o dia passa, o céu de Windlight &quot; anima &quot; a intersecção entre esses keyframes (quadros-chave). 
+O editor do ciclo de dia trabalha configurado por keyframes (quadros-chave). Estes são pontos (representados pelos ícones cinza no gráfico de horário) que possuem o padrão de céu associado a eles.  Conforme o dia passa, o céu de Windlight &quot; anima &quot; a intersecção entre esses keyframes (quadros-chave). 
 
 A seta amarela acima da linha de tempo representa a sua vista atua, baseada no horário do dia. Clique e arraste para ver como o seu dia será animado. Você pode adicionar ou deletar as keyframes (quadro-chave) pressionando os botões Adicionar Chave e Deletar chave ao lado direito da linha de tempo.
 
 Você pode configurar a posição do tempo de uma keyframe (quadro-chave) arrastando-o pela linha do tempo, ou configurando manualmente no quadro de configurações do seu keyframe (quadro-chave), será possível a você associar o seu keyframe a este respectivo padrão WindLight. 
 
-A duração do ciclo determina a duração geral do &quot;dia&quot;. Configurá-la para um valor baixo (por exmplo, 2 min.) quer dizer que a linha do tempo de 24 horas será animada completamente em apenas dois minutos reais!  Assim que estiveres satisfeito com a linha do tempo e o ciclo do keyframe (quadro chave), use os botões Play e Stop para uma prévia de como ficará o resultado. Lembre-se você também pode utilizar a seta amarela indicadora do tempo acima da linha do tempo par aver o ciclo animado interativamente. Usando o botão do tempo do terreno irá sincronizá-lo a duração do seu dia ao ciclo diário do terreno.
+A duração do ciclo determina a duração geral do &quot;dia&quot;. Configurá-la para um valor baixo (por exmplo, 2 min.) quer dizer que a linha do tempo de 24 horas será animada completamente em apenas dois minutos reais!  Assim que estiveres satisfeito com a linha do tempo e o ciclo do keyframe (quadro chave), use os botões Play e Stop para uma prévia de como ficará o resultado. Lembre-se você também pode utilizar a seta amarela indicadora do tempo acima da linha do tempo para ver o ciclo animado interativamente. Usando o botão do tempo do terreno irá sincronizar a duração do seu dia ao ciclo diário do terreno.
 
-Assim que estiver satisfeito com o seu ciclo diário, pode salvá-lo ou carregar no botão de teste de dia . Note que agora nós permitimos apenas um Ciclo de dia.
+Assim que estiver satisfeito com o seu ciclo diário, pode salvá-lo ou carregar no botão de teste de dia . Note que agora nós permitimos apenas um Ciclo de dia.  
 		</message>
 	</alert>
 	<alert name="HelpBlueHorizon">
@@ -3942,7 +3942,7 @@ Similar ao azimute.
 	</alert>
 	<alert name="HelpClassicClouds">
 		<message name="message">
-			Marque esta check box para permitir a reprodução do nas nuvens classicas mais velhas do Second Life, além das nuvens WindLight.
+			Marque esta check box para permitir a reprodução das nuvens clássicas mais velhas do Second Life, além das nuvens WindLight. 
 		</message>
 	</alert>
 	<alert name="HelpWaterFogColor">

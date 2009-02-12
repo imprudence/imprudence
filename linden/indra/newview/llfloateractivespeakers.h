@@ -53,7 +53,8 @@ public:
 	typedef enum e_speaker_type
 	{
 		SPEAKER_AGENT,
-		SPEAKER_OBJECT
+		SPEAKER_OBJECT,
+		SPEAKER_EXTERNAL	// Speaker that doesn't map to an avatar or object (i.e. PSTN caller in a group)
 	} ESpeakerType;
 
 	typedef enum e_speaker_status

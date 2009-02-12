@@ -10,7 +10,7 @@
 	<text length="1" name=" Auto Fly Options:" type="string">
 		Vôo Automático:
 	</text>
-	<check_box label="Voar/Aterrizar pressionando teclar para cima/baixo" name="automatic_fly"/>
+	<check_box label="Voar/Aterrissar pressionando teclar para cima/baixo" name="automatic_fly"/>
 	<text length="1" name=" Camera Options:" type="string">
 		Opções de Câmera:
 	</text>

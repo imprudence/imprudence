@@ -1,7 +1,6 @@
 /** 
  * @file audioengine_fmod.cpp
- * @brief Implementation of LLAudioEngine class abstracting the audio
- * support as a FMOD 3D implementation
+ * @brief Implementation of LLAudioEngine class abstracting the audio support as a FMOD 3D implementation
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
@@ -46,26 +45,11 @@
 
 #include "sound_ids.h"
 
+extern "C" {
+	void * F_CALLBACKAPI windCallback(void *originalbuffer, void *newbuffer, int length, void* userdata);
+}
 
-void * F_CALLBACKAPI windCallback(void *originalbuffer, void *newbuffer, int length, void* userdata);
 FSOUND_DSPUNIT *gWindDSP = NULL;
-
-// These globals for the wind filter.  Blech!
-F64 gbuf0 = 0.0;
-F64 gbuf1 = 0.0;
-F64 gbuf2 = 0.0;
-F64 gbuf3 = 0.0;
-F64 gbuf4 = 0.0;
-F64 gbuf5 = 0.0;
-F64 gY0 = 0.0;
-F64 gY1 = 0.0;
-
-F32 gTargetGain = 0.f;
-F32 gCurrentGain = 0.f;
-F32 gTargetFreq = 100.f;
-F32 gCurrentFreq = 100.f;
-F32 gTargetPanGainR = 0.5f;
-F32 gCurrentPanGainR = 0.5f;
 
 
 // Safe strcpy
@@ -94,9 +78,10 @@ static size_t strlcpy( char* dest, const char* src, size_t dst_size )
 
 LLAudioEngine_FMOD::LLAudioEngine_FMOD()
 {
-	mInited = FALSE;
+	mInited = false;
 	mCurrentInternetStreamp = NULL;
 	mInternetStreamChannel = -1;
+	mWindGen = NULL;
 }
 
 
@@ -105,7 +90,7 @@ LLAudioEngine_FMOD::~LLAudioEngine_FMOD()
 }
 
 
-BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
+bool LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 {
 	mFadeIn = -10000;
 
@@ -124,7 +109,7 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	{
 		LL_WARNS("AppInit") << "Error : You are using the wrong FMOD version (" << version
 			<< ")!  You should be using FMOD " << FMOD_VERSION << LL_ENDL;
-		//return FALSE;
+		//return false;
 	}
 
 	U32 fmod_flags = 0x0;
@@ -139,7 +124,7 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	{
 		LL_WARNS("AppInit") << "Error setting FMOD window: "
 			<< FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	// Play audio when we don't have focus.
 	// (For example, IM client on top of us.)
@@ -167,10 +152,10 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	// on top of ALSA is ironically more reliable than raw ALSA.
 	// Ack, and ESD has more reliable failure modes - but has worse
 	// latency - than all of them, so wins for now.
-	BOOL audio_ok = FALSE;
+	bool audio_ok = false;
 
 	if (!audio_ok)
-		if (NULL == getenv("LL_BAD_ESD")) /*Flawfinder: ignore*/
+		if (NULL == getenv("LL_BAD_FMOD_ESD")) /*Flawfinder: ignore*/
 		{
 			LL_DEBUGS("AppInit") << "Trying ESD audio output..." << LL_ENDL;
 			if(FSOUND_SetOutput(FSOUND_OUTPUT_ESD) &&
@@ -178,7 +163,7 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 			{
 				LL_DEBUGS("AppInit") << "ESD audio output initialized OKAY"
 					<< LL_ENDL;
-				audio_ok = TRUE;
+				audio_ok = true;
 			} else {
 				LL_WARNS("AppInit") << "ESD audio output FAILED to initialize: "
 					<< FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
@@ -188,14 +173,14 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 		}
 
 	if (!audio_ok)
-		if (NULL == getenv("LL_BAD_OSS")) 	 /*Flawfinder: ignore*/
+		if (NULL == getenv("LL_BAD_FMOD_OSS")) 	 /*Flawfinder: ignore*/
 		{
 			LL_DEBUGS("AppInit") << "Trying OSS audio output..."	<< LL_ENDL;
 			if(FSOUND_SetOutput(FSOUND_OUTPUT_OSS) &&
 			   FSOUND_Init(44100, num_channels, fmod_flags))
 			{
 				LL_DEBUGS("AppInit") << "OSS audio output initialized OKAY" << LL_ENDL;
-				audio_ok = TRUE;
+				audio_ok = true;
 			} else {
 				LL_WARNS("AppInit") << "OSS audio output FAILED to initialize: "
 					<< FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
@@ -205,14 +190,14 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 		}
 
 	if (!audio_ok)
-		if (NULL == getenv("LL_BAD_ALSA"))		/*Flawfinder: ignore*/
+		if (NULL == getenv("LL_BAD_FMOD_ALSA"))		/*Flawfinder: ignore*/
 		{
 			LL_DEBUGS("AppInit") << "Trying ALSA audio output..." << LL_ENDL;
 			if(FSOUND_SetOutput(FSOUND_OUTPUT_ALSA) &&
 			   FSOUND_Init(44100, num_channels, fmod_flags))
 			{
 				LL_DEBUGS("AppInit") << "ALSA audio output initialized OKAY" << LL_ENDL;
-				audio_ok = TRUE;
+				audio_ok = true;
 			} else {
 				LL_WARNS("AppInit") << "ALSA audio output FAILED to initialize: "
 					<< FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
@@ -224,7 +209,7 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	if (!audio_ok)
 	{
 		LL_WARNS("AppInit") << "Overall audio init failure." << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	// On Linux, FMOD causes a SIGPIPE for some netstream error
@@ -250,7 +235,7 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	{
 		LL_WARNS("AppInit") << "Error initializing FMOD: "
 			<< FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	
 #endif
@@ -259,17 +244,23 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 
 	LL_DEBUGS("AppInit") << "LLAudioEngine_FMOD::init() FMOD initialized correctly" << LL_ENDL;
 
-	mInited = TRUE;
+	mInited = true;
 
-	return TRUE;
+	return true;
 }
 
 
-void LLAudioEngine_FMOD::idle(F32 max_decode_time)
+std::string LLAudioEngine_FMOD::getDriverName(bool verbose)
 {
-	LLAudioEngine::idle(max_decode_time);
-
-	updateInternetStream();
+	if (verbose)
+	{
+		F32 version = FSOUND_GetVersion();
+		return llformat("FMOD version %f", version);
+	}
+	else
+	{
+		return "FMOD";
+	}
 }
 
 
@@ -287,7 +278,7 @@ void LLAudioEngine_FMOD::shutdown()
 {
 	if (gWindDSP)
 	{
-		FSOUND_DSP_SetActive(gWindDSP,FALSE);
+		FSOUND_DSP_SetActive(gWindDSP,false);
 		FSOUND_DSP_Free(gWindDSP);
 	}
 
@@ -318,13 +309,15 @@ LLAudioChannel *LLAudioEngine_FMOD::createChannel()
 
 void LLAudioEngine_FMOD::initWind()
 {
+	mWindGen = new LLWindGen<MIXBUFFERFORMAT>;
+
 	if (!gWindDSP)
 	{
-		gWindDSP = FSOUND_DSP_Create(&windCallback, FSOUND_DSP_DEFAULTPRIORITY_CLEARUNIT + 20, NULL);
+		gWindDSP = FSOUND_DSP_Create(&windCallback, FSOUND_DSP_DEFAULTPRIORITY_CLEARUNIT + 20, mWindGen);
 	}
 	if (gWindDSP)
 	{
-		FSOUND_DSP_SetActive(gWindDSP, TRUE);
+		FSOUND_DSP_SetActive(gWindDSP, true);
 	}
 	mNextWindUpdate = 0.0;
 }
@@ -334,10 +327,13 @@ void LLAudioEngine_FMOD::cleanupWind()
 {
 	if (gWindDSP)
 	{
-		FSOUND_DSP_SetActive(gWindDSP, FALSE);
+		FSOUND_DSP_SetActive(gWindDSP, false);
 		FSOUND_DSP_Free(gWindDSP);
 		gWindDSP = NULL;
 	}
+
+	delete mWindGen;
+	mWindGen = NULL;
 }
 
 
@@ -367,9 +363,9 @@ void LLAudioEngine_FMOD::updateWind(LLVector3 wind_vec, F32 camera_height_above_
 		pitch = 1.0 + mapWindVecToPitch(wind_vec);
 		center_freq = 80.0 * pow(pitch,2.5*(mapWindVecToGain(wind_vec)+1.0));
 		
-		gTargetFreq = (F32)center_freq;
-		gTargetGain = (F32)mapWindVecToGain(wind_vec) * mMaxWindGain;
-		gTargetPanGainR = (F32)mapWindVecToPan(wind_vec);
+		mWindGen->mTargetFreq = (F32)center_freq;
+		mWindGen->mTargetGain = (F32)mapWindVecToGain(wind_vec) * mMaxWindGain;
+		mWindGen->mTargetPanGainR = (F32)mapWindVecToPan(wind_vec);
   	}
 }
 
@@ -457,11 +453,11 @@ LLAudioChannelFMOD::~LLAudioChannelFMOD()
 }
 
 
-BOOL LLAudioChannelFMOD::updateBuffer()
+bool LLAudioChannelFMOD::updateBuffer()
 {
 	if (LLAudioChannel::updateBuffer())
 	{
-		// Base class update returned TRUE, which means that we need to actually
+		// Base class update returned true, which means that we need to actually
 		// set up the channel for a different buffer.
 
 		LLAudioBufferFMOD *bufferp = (LLAudioBufferFMOD *)mCurrentSourcep->getCurrentBuffer();
@@ -473,13 +469,13 @@ BOOL LLAudioChannelFMOD::updateBuffer()
 			// This is bad, there should ALWAYS be a sample associated with a legit
 			// buffer.
 			llerrs << "No FMOD sample!" << llendl;
-			return FALSE;
+			return false;
 		}
 
 
 		// Actually play the sound.  Start it off paused so we can do all the necessary
 		// setup.
-		mChannelID = FSOUND_PlaySoundEx(FSOUND_FREE, samplep, FSOUND_DSP_GetSFXUnit(), TRUE);
+		mChannelID = FSOUND_PlaySoundEx(FSOUND_FREE, samplep, FSOUND_DSP_GetSFXUnit(), true);
 
 		//llinfos << "Setting up channel " << std::hex << mChannelID << std::dec << llendl;
 	}
@@ -501,7 +497,7 @@ BOOL LLAudioChannelFMOD::updateBuffer()
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 
@@ -524,12 +520,12 @@ void LLAudioChannelFMOD::update3DPosition()
 	if (mCurrentSourcep->isAmbient())
 	{
 		// Ambient sound, don't need to do any positional updates.
-		bufferp->set3DMode(FALSE);
+		bufferp->set3DMode(false);
 	}
 	else
 	{
 		// Localized sound.  Update the position and velocity of the sound.
-		bufferp->set3DMode(TRUE);
+		bufferp->set3DMode(true);
 
 		LLVector3 float_pos;
 		float_pos.setVec(mCurrentSourcep->getPositionGlobal());
@@ -550,13 +546,14 @@ void LLAudioChannelFMOD::updateLoop()
 	}
 
 	//
-	// Hack:  We keep track of whether we looped or not by seeing when the sign of the last sample
-	// flips.  This is pretty crappy.
+	// Hack:  We keep track of whether we looped or not by seeing when the
+	// sample position looks like it's going backwards.  Not reliable; may
+	// yield false negatives.
 	//
 	U32 cur_pos = FSOUND_GetCurrentPosition(mChannelID);
 	if (cur_pos < (U32)mLastSamplePos)
 	{
-		mLoopedThisFrame = TRUE;
+		mLoopedThisFrame = true;
 	}
 	mLastSamplePos = cur_pos;
 }
@@ -589,11 +586,11 @@ void LLAudioChannelFMOD::play()
 		return;
 	}
 
-	if (!FSOUND_SetPaused(mChannelID, FALSE))
+	if (!FSOUND_SetPaused(mChannelID, false))
 	{
 		llwarns << "LLAudioChannelFMOD::play error: " << FMOD_ErrorString(FSOUND_GetError()) << llendl;
 	}
-	getSource()->setPlayedOnce(TRUE);
+	getSource()->setPlayedOnce(true);
 }
 
 
@@ -618,11 +615,11 @@ void LLAudioChannelFMOD::playSynced(LLAudioChannel *channelp)
 }
 
 
-BOOL LLAudioChannelFMOD::isPlaying()
+bool LLAudioChannelFMOD::isPlaying()
 {
 	if (!mChannelID)
 	{
-		return FALSE;
+		return false;
 	}
 
 	return FSOUND_IsPlaying(mChannelID) && (!FSOUND_GetPaused(mChannelID));
@@ -652,14 +649,14 @@ LLAudioBufferFMOD::~LLAudioBufferFMOD()
 }
 
 
-BOOL LLAudioBufferFMOD::loadWAV(const std::string& filename)
+bool LLAudioBufferFMOD::loadWAV(const std::string& filename)
 {
 	// Try to open a wav file from disk.  This will eventually go away, as we don't
 	// really want to block doing this.
 	if (filename.empty())
 	{
 		// invalid filename, abort.
-		return FALSE;
+		return false;
 	}
 
 	S32 file_size = 0;
@@ -667,7 +664,7 @@ BOOL LLAudioBufferFMOD::loadWAV(const std::string& filename)
 	if (!apr_file)
 	{
 		// File not found, abort.
-		return FALSE;
+		return false;
 	}
 	apr_file_close(apr_file);
 
@@ -717,11 +714,11 @@ BOOL LLAudioBufferFMOD::loadWAV(const std::string& filename)
 		//
 		// file is probably corrupt - remove it.
 		LLFile::remove(filename);
-		return FALSE;
+		return false;
 	}
 
-	// Everything went well, return TRUE
-	return TRUE;
+	// Everything went well, return true
+	return true;
 }
 
 
@@ -736,7 +733,7 @@ U32 LLAudioBufferFMOD::getLength()
 }
 
 
-void LLAudioBufferFMOD::set3DMode(BOOL use3d)
+void LLAudioBufferFMOD::set3DMode(bool use3d)
 {
 	U16 current_mode = FSOUND_Sample_GetMode(mSamplep);
 	
@@ -765,7 +762,7 @@ void LLAudioEngine_FMOD::initInternetStream()
 {
 	// Number of milliseconds of audio to buffer for the audio card.
 	// Must be larger than the usual Second Life frame stutter time.
-    FSOUND_Stream_SetBufferSize(200);
+	FSOUND_Stream_SetBufferSize(200);
 
 	// Here's where we set the size of the network buffer and some buffering 
 	// parameters.  In this case we want a network buffer of 16k, we want it 
@@ -810,19 +807,19 @@ signed char F_CALLBACKAPI LLAudioEngine_FMOD::callbackMetaData(char *name, char 
     if (!strcmp("ARTIST", name))
     {
         strlcpy(self->mInternetStreamArtist, value, 256);
-        self->mInternetStreamNewMetaData = TRUE;
-        return TRUE;
+        self->mInternetStreamNewMetaData = true;
+        return true;
     }
 
     if (!strcmp("TITLE", name))
     {
         strlcpy(self->mInternetStreamTitle, value, 256);
-        self->mInternetStreamNewMetaData = TRUE;
-        return TRUE;
+        self->mInternetStreamNewMetaData = true;
+        return true;
     }
 	*/
 
-    return TRUE;
+    return true;
 }
 
 
@@ -867,7 +864,7 @@ void LLAudioEngine_FMOD::updateInternetStream()
 			{
 				// Reset volume to previously set volume
 				setInternetStreamGain(mInternetStreamGain);
-				FSOUND_SetPaused(mInternetStreamChannel, FALSE);
+				FSOUND_SetPaused(mInternetStreamChannel, false);
 				//FSOUND_Stream_Net_SetMetadataCallback(mInternetStream, callbackMetaData, this);
 			}
 		}
@@ -909,7 +906,7 @@ void LLAudioEngine_FMOD::stopInternetStream()
 {
 	if (mInternetStreamChannel != -1)
 	{
-		FSOUND_SetPaused(mInternetStreamChannel, TRUE);
+		FSOUND_SetPaused(mInternetStreamChannel, true);
 		FSOUND_SetPriority(mInternetStreamChannel, 0);
 		mInternetStreamChannel = -1;
 	}
@@ -971,16 +968,10 @@ int LLAudioEngine_FMOD::isInternetStreamPlaying()
 }
 
 
-void LLAudioEngine_FMOD::getInternetStreamInfo(char* artist_out, char* title_out)
-{
-	//strlcpy(artist_out, mInternetStreamArtist, 256);
-	//strlcpy(title_out, mInternetStreamTitle, 256);
-}
-
-
 void LLAudioEngine_FMOD::setInternetStreamGain(F32 vol)
 {
-	LLAudioEngine::setInternetStreamGain(vol);
+	mInternetStreamGain = vol;
+
 	if (mInternetStreamChannel != -1)
 	{
 		vol = llclamp(vol, 0.f, 1.f);
@@ -990,15 +981,9 @@ void LLAudioEngine_FMOD::setInternetStreamGain(F32 vol)
 }
 
 
-const std::string& LLAudioEngine_FMOD::getInternetStreamURL()
-{
-	return mInternetStreamURL;
-}
-
-
 LLAudioStreamFMOD::LLAudioStreamFMOD(const std::string& url) :
 	mInternetStream(NULL),
-	mReady(FALSE)
+	mReady(false)
 {
 	mInternetStreamURL = url;
 	mInternetStream = FSOUND_Stream_Open(url.c_str(), FSOUND_NORMAL | FSOUND_NONBLOCKING, 0, 0);
@@ -1007,11 +992,11 @@ LLAudioStreamFMOD::LLAudioStreamFMOD(const std::string& url) :
 		llwarns << "Couldn't open fmod stream, error "
 			<< FMOD_ErrorString(FSOUND_GetError())
 			<< llendl;
-		mReady = FALSE;
+		mReady = false;
 		return;
 	}
 
-	mReady = TRUE;
+	mReady = true;
 }
 
 int LLAudioStreamFMOD::startStream()
@@ -1026,10 +1011,10 @@ int LLAudioStreamFMOD::startStream()
 	// Make sure the stream is set to 2D mode.
 	FSOUND_Stream_SetMode(mInternetStream, FSOUND_2D);
 
-	return FSOUND_Stream_PlayEx(FSOUND_FREE, mInternetStream, NULL, TRUE);
+	return FSOUND_Stream_PlayEx(FSOUND_FREE, mInternetStream, NULL, true);
 }
 
-BOOL LLAudioStreamFMOD::stopStream()
+bool LLAudioStreamFMOD::stopStream()
 {
 	if (mInternetStream)
 	{
@@ -1039,34 +1024,34 @@ BOOL LLAudioStreamFMOD::stopStream()
 		unsigned int flags = 0x0;
 		FSOUND_Stream_Net_GetStatus(mInternetStream, &status, &read_percent, &bitrate, &flags);
 
-		BOOL close = TRUE;
+		bool close = true;
 		switch (status)
 		{
 		case FSOUND_STREAM_NET_CONNECTING:
-			close = FALSE;
+			close = false;
 			break;
 		case FSOUND_STREAM_NET_NOTCONNECTED:
 		case FSOUND_STREAM_NET_BUFFERING:
 		case FSOUND_STREAM_NET_READY:
 		case FSOUND_STREAM_NET_ERROR:
 		default:
-			close = TRUE;
+			close = true;
 		}
 
 		if (close)
 		{
 			FSOUND_Stream_Close(mInternetStream);
 			mInternetStream = NULL;
-			return TRUE;
+			return true;
 		}
 		else
 		{
-			return FALSE;
+			return false;
 		}
 	}
 	else
 	{
-		return TRUE;
+		return true;
 	}
 }
 
@@ -1076,94 +1061,35 @@ int LLAudioStreamFMOD::getOpenState()
 	return open_state;
 }
 
-/* This determines the format of the mixbuffer being passed in. change if you want to support int32 or float32 */
-#if LL_DARWIN
-	#define MIXBUFFERFORMAT S32
-#else
-	#define MIXBUFFERFORMAT S16
-#endif
-
-inline MIXBUFFERFORMAT clipSample(MIXBUFFERFORMAT sample, MIXBUFFERFORMAT min, MIXBUFFERFORMAT max)
+void * F_CALLBACKAPI windCallback(void *originalbuffer, void *newbuffer, int length, void* userdata)
 {
-	if (sample > max)
-		sample = max;
-	else if (sample < min)
-		sample = min;
-	
-	return sample;
-}
+	// originalbuffer = fmod's original mixbuffer.
+	// newbuffer = the buffer passed from the previous DSP unit.
+	// length = length in samples at this mix time.
+	// param = user parameter passed through in FSOUND_DSP_Create.
+	//
+	// modify the buffer in some fashion
 
-void * F_CALLBACKAPI windCallback(void *originalbuffer, void *newbuffer, int length, void*)
-{
-// originalbuffer = fsounds original mixbuffer.
-// newbuffer = the buffer passed from the previous DSP unit.
-// length = length in samples at this mix time.
-// param = user parameter passed through in FSOUND_DSP_Create.
-//
-// modify the buffer in some fashion
-
-	U8 *cursamplep = (U8*)newbuffer;
-	U8   wordsize = 2;
+	LLWindGen<LLAudioEngine_FMOD::MIXBUFFERFORMAT> *windgen =
+		(LLWindGen<LLAudioEngine_FMOD::MIXBUFFERFORMAT> *)userdata;
+	U8 stride;
 
 #if LL_DARWIN
-	wordsize = sizeof(MIXBUFFERFORMAT);
+	stride = sizeof(LLAudioEngine_FMOD::MIXBUFFERFORMAT);
 #else
-    int		mixertype = FSOUND_GetMixer();
-    if (mixertype == FSOUND_MIXER_BLENDMODE || mixertype == FSOUND_MIXER_QUALITY_FPU)
-    {
-		wordsize = 4;
-    }
-#endif
-
-    double bandwidth = 50;
-    double inputSamplingRate = 44100;
-	double a0,b1,b2;
- 
-	// calculate resonant filter coeffs
-    b2 = exp(-(F_TWO_PI) * (bandwidth / inputSamplingRate));
-
-	while (length--)
+	int mixertype = FSOUND_GetMixer();
+	if (mixertype == FSOUND_MIXER_BLENDMODE ||
+	    mixertype == FSOUND_MIXER_QUALITY_FPU)
 	{
-		gCurrentFreq = (float)((0.999 * gCurrentFreq) + (0.001 * gTargetFreq));
-		gCurrentGain = (float)((0.999 * gCurrentGain) + (0.001 * gTargetGain));
-		gCurrentPanGainR = (float)((0.999 * gCurrentPanGainR) + (0.001 * gTargetPanGainR));
-		b1 = (-4.0 * b2) / (1.0 + b2) * cos(F_TWO_PI * (gCurrentFreq / inputSamplingRate));
-	    a0 = (1.0 - b2) * sqrt(1.0 - (b1 * b1) / (4.0 * b2));
-		double nextSample;
-
-	    // start with white noise
-		nextSample = ll_frand(2.0f) - 1.0f;
-									 
-#if 1 // LLAE_WIND_PINK apply pinking filter
-		gbuf0 = 0.997f * gbuf0 + 0.0126502f * nextSample; 
-        gbuf1 = 0.985f * gbuf1 + 0.0139083f * nextSample;
-        gbuf2 = 0.950f * gbuf2 + 0.0205439f * nextSample;
-        gbuf3 = 0.850f * gbuf3 + 0.0387225f * nextSample;
-        gbuf4 = 0.620f * gbuf4 + 0.0465932f * nextSample;
-        gbuf5 = 0.250f * gbuf5 + 0.1093477f * nextSample;
-			  
-        nextSample = gbuf0 + gbuf1 + gbuf2 + gbuf3 + gbuf4 + gbuf5;
-#endif
-			
-#if 1 //LLAE_WIND_RESONANT // do a resonant filter on the noise
-        nextSample = (double)( a0 * nextSample - b1 * gY0 - b2 * gY1 );
-
-        gY1 = gY0;
-        gY0 = nextSample;
-#endif
-
-	    nextSample *= gCurrentGain;
-		
-		MIXBUFFERFORMAT	sample;
-
-		sample = llfloor(((F32)nextSample*32768.f*(1.0f - gCurrentPanGainR))+0.5f);
-		*(MIXBUFFERFORMAT*)cursamplep = clipSample((*(MIXBUFFERFORMAT*)cursamplep) + sample, -32768, 32767);
-		cursamplep += wordsize;
-
-		sample = llfloor(((F32)nextSample*32768.f*gCurrentPanGainR)+0.5f);
-		*(MIXBUFFERFORMAT*)cursamplep = clipSample((*(MIXBUFFERFORMAT*)cursamplep) + sample, -32768, 32767);
-		cursamplep += wordsize;
+		stride = 4;
 	}
+	else
+	{
+		stride = 2;
+	}
+#endif
+
+	newbuffer = windgen->windGenerate((LLAudioEngine_FMOD::MIXBUFFERFORMAT *)newbuffer, length, stride);
 
 	return newbuffer;
 }

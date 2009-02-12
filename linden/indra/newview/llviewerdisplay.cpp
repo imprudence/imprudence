@@ -253,8 +253,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		gViewerWindow->performPick();
 	}
 	
-	gViewerWindow->handlePerFrameHover();
-
 	LLAppViewer::instance()->pingMainloopTimeout("Display:CheckStates");
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();

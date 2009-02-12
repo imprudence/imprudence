@@ -637,7 +637,7 @@ Pour que les armes fonctionnent, les scripts doivent être autorisés.
 	</alert>
 	<alert name="PromptRecipientEmail">
 		<message name="message">
-			Veuillez saisir l&apos;adresse e-mail du destinataire.
+			Veuillez saisir une adresse e-mail valide pour le(s) destinataire(s).
 		</message>
 	</alert>
 	<alert name="PromptSelfEmail">

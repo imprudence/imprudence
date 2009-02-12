@@ -83,7 +83,7 @@
 	<notify name="UnableToLoadGesture">
 		<message name="message">
 			Impossível de carregar o gesto [NAME].
-Por favor, tente de novo.
+Por favor, tente novamente.
 		</message>
 	</notify>
 	<notify name="InventoryLoaded">
@@ -223,7 +223,7 @@ Por favor, tente de novo.
 	</notify>
 	<notify name="TeleportToLandmark">
 		<message name="message">
-			Agora que você chegou à mainland, você pode teletransportar-se para locais como &apos;[NAME]&apos; clicando no botão de Inventário, no canto direito inferior de sua tela, e selecionando a pasta Landmarks.
+			Agora que você chegou à mainland, você pode se teletransportar para locais como '[NAME]' clicando no botão de Inventário, no canto direito inferior de sua tela, e selecionando a pasta Landmarks.
 Dê um duplo-clique na landmark e clique Teletransportar para viajar para o local desejado.
 		</message>
 	</notify>
@@ -349,7 +349,7 @@ Dê um duplo-clique num cartão de visitas e em Mensagem Instantânea e digite s
 	</notify>
 	<notify name="NoVoice">
 		<message name="message">
-			O uso de voz está desabilkitado nesta terra.
+			O uso de voz está desabilitado nesta terra.
 		</message>
 	</notify>
 	<notify name="NoBuild">
@@ -580,7 +580,7 @@ Dê um duplo-clique num cartão de visitas e em Mensagem Instantânea e digite s
 Você tentou vestir um/uma [TYPE] que não carregou.
 
 Não se apavore
-Tente novamente em alguns minutes para que tudo se ajeite
+Tente novamente em alguns minutos para que tudo se ajeite
 		</message>
 	</notify>
 	<notify name="FailedToLoadWearable">
@@ -678,7 +678,7 @@ Tente novamente em alguns minutos para que tudo se ajeite.
 	</notify>
 	<notify name="ScriptQuestionCautionChatDenied">
 		<message name="message">
-			&apos;[OBJECTNAME]&apos;, um objeto de  &apos;[OWNERNAME]&apos;, localizado em [REGIONNAME] a [REGIONPOS], revogou suas permissoes para: [PERMISSIONS].
+			&apos;[OBJECTNAME]&apos;, um objeto de  &apos;[OWNERNAME]&apos;, localizado em [REGIONNAME] a [REGIONPOS], revogou suas permissões para: [PERMISSIONS].
 		</message>
 	</notify>
 	<notify name="ScriptQuestionCaution">
@@ -686,7 +686,7 @@ Tente novamente em alguns minutos para que tudo se ajeite.
 			&apos;[OBJECTNAME]&apos;, um objeto de  &apos;[NAME]&apos;, gostaria de:
  
 [QUESTIONS]
-Se você não confia neste objeto ou em seu criador, você deveria negar-lhe o pedido. Para informações adicionais clique no botão Detalhes.
+Se você não confia neste objeto ou em seu criador, você deveria negar o pedido. Para informações adicionais clique no botão Detalhes.
 
 Autorizar este pedido?
 		</message>
@@ -861,7 +861,7 @@ Clique Aceitar para jumtar-se à chamada ou Recusar para recusar o convite. Cliq
 	<notify name="InviteAdHoc">
 		<message name="message">
 			[NAME] está lhe convidando para uma conversa em conferência...
- Clique Aceitar para juntar-se à conversa, ouu Recusar para recusar o convite. Clique Mudo para calar este usuário.
+ Clique Aceitar para se juntar à conversa, ou Recusar para recusar o convite. Clique Mudo para calar este usuário.
 		</message>
 		<option name="Accept">
 			Aceitar
@@ -905,7 +905,7 @@ Clique Aceitar para jumtar-se à chamada ou Recusar para recusar o convite. Cliq
 	</notify>
 	<notify name="VoiceChannelJoinFailed">
 		<message name="message">
-			Falha na conexão com [VOICE_CHANNEL_NAME], tente novamente mais tarde. Voce será reconectado agora a Converda com voz local.
+			Falha na conexão com [VOICE_CHANNEL_NAME], tente novamente mais tarde. Voce será reconectado agora a Conversa com voz local. 
 		</message>
 	</notify>
 	<notify name="VoiceLoginRetry">
@@ -935,7 +935,7 @@ Clique Aceitar para jumtar-se à chamada ou Recusar para recusar o convite. Cliq
 	</notify>
 	<notify name="VoiceCallGenericError">
 		<message name="message">
-			Ocorreu um erro enquanto você tentava conectar-se à conversa de voz de [VOICE_CHANNEL_NAME].  Favor tentar novamente mais tarde.
+			Ocorreu um erro enquanto você tentava se conectar à conversa de voz de [VOICE_CHANNEL_NAME].  Favor tentar novamente mais tarde.
 		</message>
 	</notify>
 	<notify name="ServerVersionChanged">

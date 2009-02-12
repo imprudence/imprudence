@@ -625,7 +625,7 @@ Damit Waffen funktionieren, müssen Skripts erlaubt sein.
 	</alert>
 	<alert name="PromptRecipientEmail">
 		<message name="message">
-			Geben Sie die E-Mail-Adresse des Empfängers ein.
+			Bitte geben Sie für den/die Empfänger eine gültige Email-Adresse ein.
 		</message>
 	</alert>
 	<alert name="PromptSelfEmail">
@@ -4537,6 +4537,9 @@ Entspricht dem Azimut.
 		</message>
 	</alert>
 	<alert name="DebitPermissionDetails" title="Info zur Abfrage der Abbucherlaubnis">
+		<message name="message">
+			Wenn Sie dieser Anfrage zustimmen, erhält das Skript die Erlaubnis, regelmäßig Linden-Dollar (L$) von Ihrem Konto abzubuchen. Diese Erlaubnis kann nur zurückgezogen werden, wenn der Eigentümer das Objekt löscht oder die Skripts in dem Objekt zurücksetzt.
+		</message>
 		<option name="OK">
 			OK
 		</option>

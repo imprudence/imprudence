@@ -2,7 +2,7 @@
 <panel bg_visible="false" border="false" border_visible="false" bottom="0"
      follows="right|bottom" height="45" left="0" mouse_opaque="true"
      name="voice_remote" use_bounding_rect="true" width="130">
-	<panel bottom="1" filename="panel_bg_tab.xml" height="47" left="0" width="130" />
+	<panel bottom="1" filename="panel_bg_tab.xml" name="panel_bg_tab" height="47" left="0" width="130" />
 	<button bottom="-20" height="20" image_overlay="icn_voice-call-end.tga" label=""
 	     left="4" name="end_call_btn" tool_tip="Click to hang up" width="20" />
 	<button bottom="-21" height="22" image_disabled="icn_rounded-text-field.tga"

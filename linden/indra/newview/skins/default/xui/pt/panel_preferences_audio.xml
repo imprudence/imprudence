@@ -7,12 +7,12 @@
 		Preferências de &#10;Streaming:
 	</text>
 	<text name="audio_prefs_text">
-		Preferências de Audio:
+		Preferências de Áudio:
 	</text>
 	<panel label="Volume" name="Volume Panel"/>
 	<check_box label="Tocar música em streaming quando disponível (usa mais banda)" name="streaming_music"/>
 	<check_box label="Tocar corrente de Media quando disponível (usa mais banda)" name="streaming_video"/>
-	<check_box label="Tocar media automaticamente" name="auto_streaming_video"/>
+	<check_box label="Tocar mídia automaticamente" name="auto_streaming_video"/>
 	<check_box label="Silenciar Áudio quando minimizar janela" name="mute_when_minimized"/>
 	<slider label="Efeito Doppler" name="Doppler Effect"/>
 	<slider label="Fator Distância" name="Distance Factor"/>

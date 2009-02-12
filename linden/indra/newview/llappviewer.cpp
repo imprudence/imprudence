@@ -1156,16 +1156,24 @@ bool LLAppViewer::cleanup()
 	
 	llinfos << "Global stuff deleted" << llendflush;
 
-#if !LL_RELEASE_FOR_DOWNLOAD
 	if (gAudiop)
 	{
-		gAudiop->shutdown();
+		bool want_longname = false;
+		if (gAudiop->getDriverName(want_longname) == "FMOD")
+		{
+			// This hack exists because fmod likes to occasionally
+			// hang forever when shutting down, for no apparent
+			// reason.
+			llwarns << "Hack, skipping FMOD audio engine cleanup" << llendflush;
+		}
+		else
+		{
+			gAudiop->shutdown();
+		}
+
+		delete gAudiop;
+		gAudiop = NULL;
 	}
-#else
-	// This hack exists because fmod likes to occasionally hang forever
-	// when shutting down for no apparent reason.
-	llwarns << "Hack, skipping audio engine cleanup" << llendflush;
-#endif
 
 	// Note: this is where LLFeatureManager::getInstance()-> used to be deleted.
 
@@ -1175,9 +1183,6 @@ bool LLAppViewer::cleanup()
 	// it.
 	cleanupSavedSettings();
 	llinfos << "Settings patched up" << llendflush;
-
-	delete gAudiop;
-	gAudiop = NULL;
 
 	// delete some of the files left around in the cache.
 	removeCacheFiles("*.wav");
@@ -2301,6 +2306,7 @@ void LLAppViewer::handleViewerCrash()
 	gDebugInfo["CurrentPath"] = gDirUtilp->getCurPath();
 	gDebugInfo["SessionLength"] = F32(LLFrameTimer::getElapsedSeconds());
 	gDebugInfo["StartupState"] = LLStartUp::getStartupStateString();
+	gDebugInfo["RAMInfo"]["Allocated"] = (LLSD::Integer) getCurrentRSS() >> 10;
 
 	if(gLogoutInProgress)
 	{
@@ -3205,6 +3211,8 @@ void LLAppViewer::idle()
     {
 		return;
     }
+
+	gViewerWindow->handlePerFrameHover();
 
 	///////////////////////////////////////
 	// Agent and camera movement

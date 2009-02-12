@@ -37,11 +37,6 @@
 
 class LLListener_FMOD : public LLListener
 {
- protected:
-	 F32 mDopplerFactor;
-	 F32 mDistanceFactor;
-	 F32 mRolloffFactor;
-
  public:  
 	LLListener_FMOD();
 	virtual ~LLListener_FMOD();
@@ -59,6 +54,11 @@ class LLListener_FMOD : public LLListener
 	virtual F32 getDistanceFactor();
 	virtual void setRolloffFactor(F32 factor);
 	virtual F32 getRolloffFactor();
+
+ protected:
+	 F32 mDopplerFactor;
+	 F32 mDistanceFactor;
+	 F32 mRolloffFactor;
 };
 
 #endif

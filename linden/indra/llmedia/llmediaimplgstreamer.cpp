@@ -80,6 +80,8 @@ LLMediaImplGStreamer () :
 {
 	DEBUGMSG("constructing media...");
 
+	mVolume = 0.1234567; // minor hack to force an initial volume update
+
 	setMediaDepth(4);
 
 	// Create a pumpable main-loop for this media
@@ -639,12 +641,19 @@ bool
 LLMediaImplGStreamer::
 setVolume(float volume)
 {
+	// we try to only update volume as conservatively as
+	// possible, as many gst-plugins-base versions up to at least
+	// November 2008 have critical race-conditions in setting volume - sigh
+	if (mVolume == volume)
+		return true; // nothing to do, everything's fine
+
 	mVolume = volume;
 	if (mPlaybin)
 	{
 		g_object_set(mPlaybin, "volume", mVolume, NULL);
 		return true;
 	}
+
 	return false;
 }
 

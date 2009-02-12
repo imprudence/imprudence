@@ -40,12 +40,6 @@
 
 class LLListener_OpenAL  : public LLListener
 {
- private:
- protected:
- public:
-
- private:
- protected:
  public:  
 	LLListener_OpenAL();
 	virtual ~LLListener_OpenAL();
@@ -54,6 +48,18 @@ class LLListener_OpenAL  : public LLListener
 	virtual void setPosition(LLVector3 pos);
 	virtual void setVelocity(LLVector3 vel);
 	virtual void orient(LLVector3 up, LLVector3 at);
+	virtual void commitDeferredChanges();
+
+	virtual void setDopplerFactor(F32 factor);
+	virtual F32 getDopplerFactor();
+	virtual void setDistanceFactor(F32 factor);
+	virtual F32 getDistanceFactor();
+	virtual void setRolloffFactor(F32 factor);
+	virtual F32 getRolloffFactor();
+
+ protected:
+	F32 mDistanceFactor;
+	F32 mRolloffFactor;
 };
 
 #endif

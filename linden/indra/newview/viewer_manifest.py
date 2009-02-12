@@ -232,11 +232,6 @@ class WindowsManifest(ViewerManifest):
         # Vivox runtimes
         if self.prefix(src="vivox-runtime/i686-win32", dst=""):
             self.path("SLVoice.exe")
-            self.path("SLVoiceAgent.exe")
-            self.path("libeay32.dll")
-            self.path("srtp.dll")
-            self.path("ssleay32.dll")
-            self.path("tntk.dll")
             self.path("alut.dll")
             self.path("vivoxsdk.dll")
             self.path("ortp.dll")
@@ -432,7 +427,6 @@ class DarwinManifest(ViewerManifest):
                 self.path("vivox-runtime/universal-darwin/libortp.dylib", "libortp.dylib")
                 self.path("vivox-runtime/universal-darwin/libvivoxsdk.dylib", "libvivoxsdk.dylib")
                 self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
-                self.path("vivox-runtime/universal-darwin/SLVoiceAgent.app", "SLVoiceAgent.app")
 
                 # llkdu dynamic library
 #                self.path("../../libraries/universal-darwin/lib_release/libllkdu.dylib", "libllkdu.dylib")
@@ -565,13 +559,6 @@ class LinuxManifest(ViewerManifest):
 
 
     def package_finish(self):
-        # stripping all the libs removes a few megabytes from the end-user package
-        for s,d in self.file_list:
-            if re.search("lib/lib.+\.so.*", d):
-                self.run_command('strip -S %s' % d)
-            if re.search("app_settings/mozilla-runtime-.*/lib.+\.so.*", d):
-                self.run_command('strip %s' % d)
-
         if 'installer_name' in self.args:
             installer_name = self.args['installer_name']
         else:
@@ -642,9 +629,9 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
             self.path("libopenjpeg.so.2")
-            #self.path("libtcmalloc.so.0") - bugged
-            #self.path("libstacktrace.so.0") - probably bugged
 #            self.path("libllkdu.so", "../bin/libllkdu.so") # llkdu goes in bin for some reason
+            self.path("libalut.so")
+            self.path("libopenal.so", "libopenal.so.1")
             self.end_prefix("lib")
 
             # Vivox runtimes
@@ -652,10 +639,8 @@ class Linux_i686Manifest(LinuxManifest):
                     self.path("SLVoice")
                     self.end_prefix()
             if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
-                    self.path("libopenal.so.1")
                     self.path("libortp.so")
                     self.path("libvivoxsdk.so")
-                    self.path("libalut.so")
                     self.end_prefix("lib")
 
 class Linux_x86_64Manifest(LinuxManifest):

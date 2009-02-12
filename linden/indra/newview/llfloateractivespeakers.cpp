@@ -547,7 +547,8 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 									&& gVoiceClient->getVoiceEnabled(selected_id)
 									&& selected_id.notNull() 
 									&& selected_id != gAgent.getID() 
-									&& (selected_speakerp.notNull() && selected_speakerp->mType == LLSpeaker::SPEAKER_AGENT));
+									&& (selected_speakerp.notNull() && (selected_speakerp->mType == LLSpeaker::SPEAKER_AGENT || selected_speakerp->mType == LLSpeaker::SPEAKER_EXTERNAL)));
+
 	}
 	if (mMuteTextCtrl)
 	{
@@ -555,6 +556,7 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 		mMuteTextCtrl->setEnabled(selected_id.notNull() 
 								&& selected_id != gAgent.getID() 
 								&& selected_speakerp.notNull() 
+								&& selected_speakerp->mType != LLSpeaker::SPEAKER_EXTERNAL
 								&& !LLMuteList::getInstance()->isLinden(selected_speakerp->mDisplayName));
 	}
 	childSetValue("speaker_volume", gVoiceClient->getUserVolume(selected_id));
@@ -562,7 +564,7 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 					&& gVoiceClient->getVoiceEnabled(selected_id)
 					&& selected_id.notNull() 
 					&& selected_id != gAgent.getID() 
-					&& (selected_speakerp.notNull() && selected_speakerp->mType == LLSpeaker::SPEAKER_AGENT));
+					&& (selected_speakerp.notNull() && (selected_speakerp->mType == LLSpeaker::SPEAKER_AGENT || selected_speakerp->mType == LLSpeaker::SPEAKER_EXTERNAL)));
 
 	childSetEnabled(
 		"moderator_controls_label",
@@ -580,7 +582,7 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 
 	if (mProfileBtn)
 	{
-		mProfileBtn->setEnabled(selected_id.notNull());
+		mProfileBtn->setEnabled(selected_id.notNull() && (selected_speakerp.notNull() && selected_speakerp->mType != LLSpeaker::SPEAKER_EXTERNAL) );
 	}
 
 	// show selected user name in large font
@@ -1034,9 +1036,17 @@ void LLSpeakerMgr::update(BOOL resort_ok)
 		// speaker no longer registered in voice channel, demote to text only
 		else if (speakerp->mStatus != LLSpeaker::STATUS_NOT_IN_CHANNEL)
 		{
-			speakerp->mStatus = LLSpeaker::STATUS_TEXT_ONLY;
-			speakerp->mSpeechVolume = 0.f;
-			speakerp->mDotColor = ACTIVE_COLOR;
+			if(speakerp->mType == LLSpeaker::SPEAKER_EXTERNAL)
+			{
+				// external speakers should be timed out when they leave the voice channel (since they only exist via SLVoice)
+				speakerp->mStatus = LLSpeaker::STATUS_NOT_IN_CHANNEL;
+			}
+			else
+			{
+				speakerp->mStatus = LLSpeaker::STATUS_TEXT_ONLY;
+				speakerp->mSpeechVolume = 0.f;
+				speakerp->mDotColor = ACTIVE_COLOR;
+			}
 		}
 	}
 
@@ -1088,13 +1098,16 @@ void LLSpeakerMgr::updateSpeakerList()
 	if ((!mVoiceChannel && gVoiceClient->inProximalChannel()) || (mVoiceChannel && mVoiceChannel->isActive()))
 	{
 		LLVoiceClient::participantMap* participants = gVoiceClient->getParticipantList();
-		LLVoiceClient::participantMap::iterator participant_it;
-
-		// add new participants to our list of known speakers
-		for (participant_it = participants->begin(); participant_it != participants->end(); ++participant_it)
+		if(participants)
 		{
-			LLVoiceClient::participantState* participantp = participant_it->second;
-			setSpeaker(participantp->mAvatarID, LLStringUtil::null, LLSpeaker::STATUS_VOICE_ACTIVE);
+			LLVoiceClient::participantMap::iterator participant_it;
+
+			// add new participants to our list of known speakers
+			for (participant_it = participants->begin(); participant_it != participants->end(); ++participant_it)
+			{
+				LLVoiceClient::participantState* participantp = participant_it->second;
+				setSpeaker(participantp->mAvatarID, participantp->mDisplayName, LLSpeaker::STATUS_VOICE_ACTIVE, (participantp->mAvatarIDValid?LLSpeaker::SPEAKER_AGENT:LLSpeaker::SPEAKER_EXTERNAL));
+			}
 		}
 	}
 }
@@ -1167,6 +1180,10 @@ void LLIMSpeakerMgr::updateSpeakerList()
 {
 	// don't do normal updates which are pulled from voice channel
 	// rely on user list reported by sim
+	
+	// We need to do this to allow PSTN callers into group chats to show in the list.
+	LLSpeakerMgr::updateSpeakerList();
+	
 	return;
 }
 

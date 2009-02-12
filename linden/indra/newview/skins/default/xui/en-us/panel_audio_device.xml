@@ -42,7 +42,7 @@
 		Adjust the slider to control how loud you sound to other Residents. To test the input level, simply speak into your microphone.
 	</text_editor>
 	<volume_slider bottom_delta="-18" enabled="true" follows="left|top" height="17"
-	     increment="0.05" initial_val="0.5" left_delta="5" max_val="1" min_val="0"
+	     increment="0.05" initial_val="1.0" left_delta="5" max_val="2" min_val="0"
 	     mouse_opaque="true" name="mic_volume_slider"
 	     tool_tip="Change the volume using this slider" width="90" />
 	<text bottom_delta="-4" follows="left|top" height="20" left_delta="95"

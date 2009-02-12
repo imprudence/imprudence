@@ -3,7 +3,7 @@
 	<text length="1" name="text_box" type="string">
 		Minha situação online:
 	</text>
-	<check_box label="Apenas meus Amigos e Grupos podem ver-me online" name="online_visibility"/>
+	<check_box label="Apenas meus Amigos e Grupos podem me ver online" name="online_visibility"/>
 	<text length="1" name="text_box2" type="string">
 		Opções MI:
 	</text>

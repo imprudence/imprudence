@@ -656,7 +656,7 @@ L$が不足しているのでこのグループに参加することができま
 	</alert>
 	<alert name="PromptRecipientEmail">
 		<message name="message">
-			受信者のEメール・アドレスを入力してください。
+			受信者の有効なEメールアドレスを入力してください。
 		</message>
 	</alert>
 	<alert name="PromptSelfEmail">

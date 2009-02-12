@@ -161,7 +161,7 @@ public:
     /*virtual*/ void activate();
 	/*virtual*/ void getChannelInfo();
 
-	void setSessionHandle(const std::string& handle);
+	void setSessionHandle(const std::string& handle, const std::string &inURI);
 
 protected:
 	virtual void setState(EState state);
@@ -294,8 +294,6 @@ private:
 
 	void sendTypingState(BOOL typing);
 	
-	static LLFloaterIMPanel* sInstance;
-
 private:
 	LLLineEditor* mInputEditor;
 	LLViewerTextEditor* mHistoryEditor;

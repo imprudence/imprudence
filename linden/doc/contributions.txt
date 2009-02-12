@@ -224,11 +224,14 @@ McCabe Maxsted
 	VWR-8689
 Michelle2 Zenovka
 	VWR-2652
+	VWR-2662
 	VWR-2834
 	VWR-3749
 	VWR-4022
+	VWR-4331
 	VWR-4506
 	VWR-4981
+	VWR-5659
 	VWR-7831
 	VWR-8889
 	VWR-8310
@@ -348,6 +351,7 @@ Seg Baphomet
 	VWR-1525
 	VWR-1585
 	VWR-1586
+	VWR-2662
 	VWR-3206
 	VWR-2488
 SignpostMarv Martin
@@ -418,6 +422,7 @@ Whoops Babii
 	VWR-631
 	VWR-1640
 	VWR-3340
+	VWR-5659
 Zarkonnen Decosta
 	VWR-253
 Zi Ree
