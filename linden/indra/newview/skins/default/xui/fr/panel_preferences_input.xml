@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Contrôle et Caméra" name="Input panel">
 	<text length="1" name=" Mouselook Options:" type="string">
 		Vue subjective :
@@ -27,7 +27,7 @@
 		Effet de lissage :
 	</text>
 	<check_box label="Ajustement automatique en mode Édition" name="edit_camera_movement" tool_tip="Positionner automatiquement la caméra lors de l&apos;entrée ou de la sortie du mode Édition"/>
-	<check_box label="Ajustement automatique en mode Apparence" name="appearance_camera_movement" tool_tip="Positionner automatiquement la caméra en mode Édition"/>
+	<check_box label="Ajustement automatique en mode Édition d&apos;apparence" name="appearance_camera_movement" tool_tip="Positionner automatiquement la caméra en mode Édition"/>
 	<text name="text2">
 		Affichage de l&apos;avatar :
 	</text>

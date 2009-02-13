@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="modal container" width="585">
 	<button label="Enregistrer" label_selected="Enregistrer" left="171" name="Save" width="100"/>
 	<button label="Annuler" label_selected="Annuler" left="280" name="Cancel" width="100"/>
@@ -13,7 +13,7 @@
 	<check_box label="Chaussettes" name="checkbox_Socks"/>
 	<check_box label="Veste" name="checkbox_Jacket"/>
 	<check_box label="Gants" name="checkbox_Gloves"/>
-	<check_box label="Tricot de peau" name="checkbox_Undershirt"/>
+	<check_box label="Tricot" name="checkbox_Undershirt"/>
 	<check_box label="Sous-vêtements" name="checkbox_Underpants"/>
 	<check_box label="Jupe" name="checkbox_Skirt"/>
 	<check_box label="Poitrine" left="225" name="checkbox_Chest"/>

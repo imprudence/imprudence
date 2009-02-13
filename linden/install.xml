@@ -1443,30 +1443,23 @@ anguage Infrstructure (CLI) international standard</string>
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>649cba53ec790f15248af620252f8300</string>
+            <string>c01efc0182d6f4b665ee136767830fc1</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/vivox-2.1.3010.5556-darwin-20081125.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/vivox-2.1.3010.6135-darwin-20090210.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>8155db9c21df2f5fb5ffb52847ef0ee1</string>
+            <string>58dcd6db82b5b92611e890c954af4901</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/vivox-2.1.3010.5556-linux-20081125.tar.bz2</uri>
-          </map>
-          <key>linux32</key>
-          <map>
-            <key>md5sum</key>
-            <string>7d6e9727edba3556015edf492d35e394</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/vivox-linux-i686-gcc-4.1-20080915.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/vivox-2.1.3010.6135-linux-20090210.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>3b368e7f14db6a03af39580709bdde39</string>
+            <string>599659e6d0374533a6ac8d2e2d360c2c</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/vivox-2.1.3010.5556-windows-20081125.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/vivox-2.1.3010.6135-windows-20090210.tar.bz2</uri>
           </map>
         </map>
       </map>

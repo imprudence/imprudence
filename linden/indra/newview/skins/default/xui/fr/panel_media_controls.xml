@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="media_controls">
-	<icon name="music_icon" tool_tip="Jouez / pausez le flux musical"/>
-	<button name="music_play" tool_tip="Jouez / pausez le flux musical"/>
-	<button name="music_pause" tool_tip="Pausez le flux musical"/>
+	<icon name="music_icon" tool_tip="Jouez le flux musical"/>
+	<button name="music_play" tool_tip="Jouez le flux musical"/>
+	<button name="music_pause" tool_tip="Mettez le flux musical en pause"/>
 	<button name="music_stop" tool_tip="Arrêtez le flux musical"/>
-	<icon name="media_icon" tool_tip="Jouer / pauser le flux musical"/>
-	<button name="media_play" tool_tip="Jouez / pausez le flux musical"/>
-	<button name="media_pause" tool_tip="Pausez le flux de média"/>
+	<icon name="media_icon" tool_tip="Jouez le flux musical"/>
+	<button name="media_play" tool_tip="Jouez le flux musical"/>
+	<button name="media_pause" tool_tip="Mettez le flux de média en pause"/>
 	<button name="media_stop" tool_tip="Arrêtez le flux de média"/>
 	<volume_slider name="volume_slider" tool_tip="Volume principal"/>
 	<button name="mute_master" tool_tip="Coupez le volume principal"/>
@@ -18,7 +18,7 @@
 		Stop
 	</string>
 	<string name="pause_label">
-		Pauser
+		Mettre en pause
 	</string>
 	<string name="default_tooltip_label">
 		Aucun média spécifié
@@ -33,6 +33,6 @@
 		Cet endroit propose du contenu vidéo. Cliquez sur Jouer pour lire la vidéo.
 	</string>
 	<string name="media_play_tooltip">
-		Afficher le contenu web qui se trouve ici.
+		Affichez le contenu web.
 	</string>
 </panel>

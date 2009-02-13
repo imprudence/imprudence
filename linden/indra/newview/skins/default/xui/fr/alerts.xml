@@ -331,7 +331,7 @@ tout ou partie du contenu ci-dessus est considéré comme Adulte selon les règl
 	</alert>
 	<alert name="ClickPublishHelpLand">
 		<message name="message">
-			Sélectionner l&apos;option Publier dans la recherche 
+			Sélectionner l&apos;option Afficher dans la recherche 
 En cochant cette case, votre parcelle apparaîtra :
 - dans les résultats de recherche ;
 - dans les objets publics ;
@@ -4345,7 +4345,7 @@ La flèche jaune au dessus de la ligne du temps représente votre vue actuelle, 
 
 Vous pouvez définir la position d&apos;une clé en la faisant glisser le long de la ligne du temps ou en définissant manuellement ses valeurs dans la section Réglages des images-clés. Dans cette même section, vous pouvez associer chaque clé au préréglage WindLight respectif.
 
-La Durée du cycle contrôle la durée d&apos;une « journée ». Si vous choisissez une valeur basse (2mn par exemple), cela signigie que toutes les animations de votre journée de 24h se dérouleront en 2mn seulement ! Une fois satisfait de vos choix, utilisez les boutons Jouer et Stop ! pour prévisualiser les résultats. Pour voir l&apos;animation, vous pouvez aussi bouger la flèche jaune au dessus de la ligne du temps. Si vous sélectionnez l&apos;option Utiliser heure domaine, vous synchronisez la durée de votre journée et votre heure avec celle du cycle du jour du domaine.
+La Durée du cycle contrôle la durée d&apos;une « journée ». Si vous choisissez une valeur basse (2mn par exemple), cela signifie que toutes les animations de votre journée de 24h se dérouleront en 2mn seulement ! Une fois satisfait de vos choix, utilisez les boutons Jouer et Stop ! pour prévisualiser les résultats. Pour voir l&apos;animation, vous pouvez aussi bouger la flèche jaune au dessus de la ligne du temps. Si vous sélectionnez l&apos;option Utiliser heure domaine, vous synchronisez la durée de votre journée et votre heure avec celle du cycle du jour du domaine.
 
 Une fois que vous êtes satisfait de votre Cycle du jour, vous pouvez le sauvegarder et le charger grâce aux boutons Enregistrer jour test et Charger Jour Test. Veuillez noter que pour l&apos;instant, nous ne pouvez avoir qu&apos;un seul Cycle du jour.
 		</message>
@@ -4503,7 +4503,7 @@ Même chose que l&apos;azimut.
 	</alert>
 	<alert name="HelpWaterScaleAbove">
 		<message name="message">
-			Contrôle la quantité de lumière réfractée lorsque quelque votre avatar regarde au dessus de l&apos;eau.
+			Contrôle la quantité de lumière réfractée lorsque votre avatar regarde au dessus de l&apos;eau.
 		</message>
 	</alert>
 	<alert name="HelpWaterScaleBelow">

@@ -27,7 +27,7 @@
 				創設者：
 			</text>
 			<text name="lbl2">
-				特権：
+				理念：
 			</text>
 			<check_box label="グループ・リストに表示" name="sho" />
 			<check_box label="グループ・リストに会員を表示" name="sho_mem" />

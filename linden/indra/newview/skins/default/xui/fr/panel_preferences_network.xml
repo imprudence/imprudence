@@ -16,8 +16,8 @@
 	<text name="cache_location_label">
 		Emplacement du cache :
 	</text>
-	<button label="Définir" label_selected="Définir" name="set_cache"/>
-	<button label="Redéfinir" label_selected="Définir" name="reset_cache"/>
+	<button label="Modifier" label_selected="Modifier" name="set_cache"/>
+	<button label="Réinitialiser" label_selected="Réinitialiser" name="reset_cache"/>
 	<check_box label="Port de connexion personnalisé" name="connection_port_enabled"/>
 	<spinner label="Numéro de port :" label_width="95" name="connection_port" width="170"/>
 </panel>

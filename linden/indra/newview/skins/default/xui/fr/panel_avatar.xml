@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Panel Avatar">
 	<tab_container name="tab">
 		<panel label="2ème vie" name="2nd Life">
@@ -16,7 +16,7 @@
 				Membre originaire
 			</string>
 			<string name="AcctTypeEmployee">
-				Employé(e) de Linden Lab
+				Employé de Linden Lab
 			</string>
 			<string name="PaymentInfoUsed">
 				Infos de paiement utilisées
@@ -28,10 +28,10 @@
 				Aucune info de paiement enregistrée
 			</string>
 			<string name="AgeVerified">
-				Personne dont l&apos;âge a été vérifié
+				Âge vérifié
 			</string>
 			<string name="NotAgeVerified">
-				Personne dont l&apos;âge n&apos;a pas été vérifié
+				Âge non vérifié
 			</string>
 			<text name="Name:">
 				Nom :
@@ -87,7 +87,7 @@ objets :</text>
 					Dans un navigateur externe
 				</flyout_button_item>
 				<flyout_button_item name="home_item">
-					URL du domicile
+					URL de la page d'accueil
 				</flyout_button_item>
 			</flyout_button>
 			<button label="?" label_selected="?" name="web_profile_help"/>

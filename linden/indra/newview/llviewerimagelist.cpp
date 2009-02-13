@@ -929,8 +929,8 @@ const S32 MAX_VIDEO_RAM = 512; // 512MB max for performance reasons.
 S32 LLViewerImageList::getMinVideoRamSetting()
 {
 	S32 system_ram = (S32)(gSysMemory.getPhysicalMemoryClamped() >> 20);
-	//min texture mem sets to 128M if total physical mem is more than 1.5GB
-	return (system_ram > 1500) ? 128 : MIN_VIDEO_RAM;
+	//min texture mem sets to 64M if total physical mem is more than 1.5GB
+	return (system_ram > 1500) ? 64 : MIN_VIDEO_RAM;
 }
 
 //static
