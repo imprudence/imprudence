@@ -12,6 +12,12 @@
 	Ditto.
 
 
+	Armin Weatherwax  <email@unknown.com>
+
+	* linden/indra/newview/llpreviewlandmark.cpp:
+	Removed search for non-existant floater_preview_new_landmark.xml.
+
+
 2009-02-04  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:
