@@ -188,9 +188,6 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		
 		// Init our custom plugins - only really need do this once.
 		gst_slvideo_init_class();
-#if 0
-		gst_slsound_init_class();
-#endif
 
 		done_init = true;
 	}
@@ -338,7 +335,6 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 		}
 		case GST_MESSAGE_TAG: 
 		{
-#if 0
 	        GstTagList *tag_list;
 		gchar *title;
 		gchar *artist;
@@ -348,10 +344,9 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 		gboolean hazArtist = llgst_tag_list_get_string(tag_list,
 			GST_TAG_ARTIST, &artist);
 		if(hazTitle) 
-		    LL_INFOS("MediaInfo") << "Title is " << title << LL_ENDL;
+			LL_INFOS("MediaInfo") << "Title: " << title << LL_ENDL;
 		if(hazArtist) 
-		    LL_INFOS("MediaInfo") << "Artist is " << artist << LL_ENDL;
-#endif
+			LL_INFOS("MediaInfo") << "Artist: " << artist << LL_ENDL;
 			break;
 		}
 		case GST_MESSAGE_EOS:
