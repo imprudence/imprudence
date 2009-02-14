@@ -11,6 +11,15 @@
 	* linden/indra/llmedia/llmediaimplgstreamervidplug.cpp:
 	Ditto.
 
+	* linden/indra/newview/app_settings/settings.xml:
+	Fixed sound settings not being correctly muted.
+	* linden/indra/newview/llviewermessage.cpp:
+	Ditto.
+	* linden/indra/newview/llviewerobject.cpp:
+	Ditto.
+	* linden/indra/newview/llvoavatar.cpp:
+	Ditto.
+
 
 	Armin Weatherwax  <email@unknown.com>
 
