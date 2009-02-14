@@ -35,6 +35,7 @@
 
 #include "lltexteditor.h"
 
+#include "llerror.h"
 #include "llfontgl.h"
 #include "llrender.h"
 #include "llui.h"
@@ -57,6 +58,7 @@
 #include "llimagegl.h"
 #include "llwindow.h"
 #include <queue>
+#include <stdexcept>
 
 // 
 // Globals
@@ -3537,6 +3539,7 @@ void LLTextEditor::appendStyledText(const std::string &new_text,
 		std::string text = new_text;
 		while ( findHTML(text, &start, &end) )
 		{
+
 			LLStyleSP html(new LLStyle);
 			html->setVisible(true);
 			html->setColor(mLinkColor);
@@ -3624,10 +3627,6 @@ void LLTextEditor::appendText(const std::string &new_text, bool allow_undo, bool
 	{
 		mSelectionStart = selection_start;
 		mSelectionEnd = selection_end;
-
-
-
-
 		mIsSelecting = was_selecting;
 		setCursorPos(cursor_pos);
 	}
@@ -4272,6 +4271,7 @@ S32 LLTextEditor::findHTMLToken(const std::string &line, S32 pos, BOOL reverse) 
 				return index+1;
 			}
 		}
+		index = 0; // Can't be before first charater
 	} 
 	else
 	{
@@ -4322,21 +4322,34 @@ BOOL LLTextEditor::findHTML(const std::string &line, S32 *begin, S32 *end) const
 	{
 		*begin = findHTMLToken(line, m1, TRUE);
 		*end   = findHTMLToken(line, m1, FALSE);
+
+		// Can't start before the first char
+		if(*begin < 0) 
+		{ 
+		    //*begin = 0;
+		}
 		
 		//Load_url only handles http and https so don't hilite ftp, smb, etc.
-		m2 = line.substr(*begin,(m1 - *begin)).find("http");
-		m3 = line.substr(*begin,(m1 - *begin)).find("secondlife");
-	
-		std::string badneighbors=".,<>?';\"][}{=-+_)(*&^%$#@!~`\t\r\n\\";
-	
-		if (m2 >= 0 || m3>=0)
+		try
 		{
-			S32 bn = badneighbors.find(line.substr(m1+3,1));
-			
-			if (bn < 0)
-			{
-				matched = TRUE;
+		    m2 = line.substr(*begin,(m1 - *begin)).find("http");
+		    m3 = line.substr(*begin,(m1 - *begin)).find("secondlife");
+
+		    std::string badneighbors=".,<>?';\"][}{=-+_)(*&^%$#@!~`\t\r\n\\";
+
+		    if (m2 >= 0 || m3>=0)
+		    {
+				S32 bn = badneighbors.find(line.substr(m1+3,1));
+
+				if (bn < 0)
+				{
+					matched = TRUE;
+				}
 			}
+		} 
+		catch ( std::out_of_range outOfRange )
+		{
+		    LL_WARNS("TextEditor") << "got std::out_of_range exception \"" << line << "\"" << LL_ENDL;
 		}
 	}
 /*	matches things like secondlife.com (no http://) needs a whitelist to really be effective.
@@ -4369,41 +4382,49 @@ BOOL LLTextEditor::findHTML(const std::string &line, S32 *begin, S32 *end) const
 	{
 		S32 strpos, strpos2;
 
-		std::string url     = line.substr(*begin,*end - *begin);
-		std::string slurlID = "slurl.com/secondlife/";
-		strpos = url.find(slurlID);
-		
-		if (strpos < 0)
+		try
 		{
-			slurlID="secondlife://";
-			strpos = url.find(slurlID);
-		}
-	
-		if (strpos < 0)
-		{
-			slurlID="sl://";
-			strpos = url.find(slurlID);
-		}
-	
-		if (strpos >= 0) 
-		{
-			strpos+=slurlID.length();
-			
-			while ( ( strpos2=url.find("/",strpos) ) == -1 ) 
-			{
-				if ((*end+2) >= (S32)line.length() || line.substr(*end,1) != " " )
+		    std::string url     = line.substr(*begin,*end - *begin);
+		    std::string slurlID = "slurl.com/secondlife/";
+		    strpos = url.find(slurlID);
+
+		    if (strpos < 0)
+		    {
+				slurlID="secondlife://";
+				strpos = url.find(slurlID);
+		    }
+
+		    if (strpos < 0)
+		    {
+				slurlID="sl://";
+				strpos = url.find(slurlID);
+		    }
+
+		    if (strpos >= 0) 
+		    {
+				strpos+=slurlID.length();
+
+				while ( ( strpos2=url.find("/",strpos) ) == -1 ) 
 				{
-					matched=FALSE;
-					break;
+					if ((*end+2) >= (S32)line.length() || line.substr(*end,1) != " " )
+					{
+						matched=FALSE;
+						break;
+					}
+
+					strpos = (*end + 1) - *begin;
+
+					*end = findHTMLToken(line,(*begin + strpos),FALSE);
+					url = line.substr(*begin,*end - *begin);
 				}
-				
-				strpos = (*end + 1) - *begin;
-								
-				*end = findHTMLToken(line,(*begin + strpos),FALSE);
-				url = line.substr(*begin,*end - *begin);
-			}
+		    }
+
 		}
 
+		catch ( std::out_of_range outOfRange )
+		{
+		    LL_WARNS("TextEditor") << "got std::out_of_range exception \"" << line << "\"" << LL_ENDL;
+		}
 	}
 	
 	if (!matched)

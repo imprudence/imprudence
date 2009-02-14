@@ -18,6 +18,11 @@
 	Removed search for non-existant floater_preview_new_landmark.xml.
 
 
+	Anders Arnholm  <anders@arnholm.se>
+	* linden/indra/llui/lltexteditor.cpp:
+	Fixed crash in LLTextEditor::findHTML
+
+
 2009-02-04  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:
