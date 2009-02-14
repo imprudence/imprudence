@@ -43,10 +43,6 @@ extern "C" {
 
 #include "llmediaimplgstreamervidplug.h"
 
-#ifdef LL_GST_SOUNDSINK
-#include "llmediaimplgstreamersndplug.h"
-#endif // LL_GST_SOUNDSINK
-
 #include "llmediaimplgstreamer_syms.h"
 
 #include "llerror.h"
@@ -77,9 +73,6 @@ LLMediaImplGStreamer () :
 	mPlaybin ( NULL ),
 	mVideoSink ( NULL ),
         mState( GST_STATE_NULL )
-#ifdef LL_GST_SOUNDSINK
-	,mAudioSink ( NULL )
-#endif // LL_GST_SOUNDSINK
 {
 	LL_DEBUGS("MediaManager") << "constructing media..." << LL_ENDL;
 	mVolume = -1.0; // XXX Hack to make the vould change happend first time
@@ -115,21 +108,6 @@ LLMediaImplGStreamer () :
 		}
 
 		g_object_set(mPlaybin, "video-sink", mVideoSink, NULL);
-
-#ifdef LL_GST_SOUNDSINK
-		LL_DEBUGS("MediaManager") << "extrenal audio sink..." << LL_ENDL;
-		// instantiate and connect a custom audio sink
-		mAudioSink =
-			GST_SLSOUND(llgst_element_factory_make ("private-slsound", "slsound"));
-		if (!mAudioSink)
-		{
-			LL_WARN("MediaImpl") << "Could not instantiate private-slsound element." << LL_ENDL;
-			// todo: cleanup.
-			return; // error
-		}
-
-		g_object_set(mPlaybin, "audio-sink", mAudioSink, NULL);
-#endif
 	}
 }
 
@@ -412,9 +390,6 @@ bool LLMediaImplGStreamer::navigateTo (const std::string urlIn)
 	    << LL_ENDL;
 
 	if (NULL == mPump
-#ifdef LL_GST_SOUNDSINK
-	    || NULL == mAudioSink
-#endif
 	    || NULL == mPlaybin)
 	{
 		return false;
@@ -479,9 +454,6 @@ bool LLMediaImplGStreamer::updateMedia()
 	
 	// sanity check
 	if (NULL == mPump
-#ifdef LL_GST_SOUNDSINK
-	    || NULL == mAudioSink
-#endif
 	    || NULL == mPlaybin)
 	{
 #ifdef LL_GST_REPORT_STATE_CHANGES

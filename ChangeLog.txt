@@ -2,6 +2,16 @@
 =-                         1.1.0 RC1                      -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-02-13  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Removed junk code from GStreamer.
+	* linden/indra/llmedia/llmediaimplgstreamer.h:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamervidplug.cpp:
+	Ditto.
+
+
 2009-02-04  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:
