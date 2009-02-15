@@ -275,6 +275,7 @@ void LLOverlayBar::refresh()
 	{
 		layoutButtons();
 	}
+
 }
 
 //-----------------------------------------------------------------------
@@ -357,6 +358,12 @@ void LLOverlayBar::toggleMediaPlay(void*)
 			LLViewerParcelMedia::play(parcel);
 		}
 	}
+}
+
+//static
+void LLOverlayBar::musicFirstRun()
+{
+	gOverlayBar->mMusicState = PLAYING;
 }
 
 //static

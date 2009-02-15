@@ -1893,20 +1893,32 @@ Try selecting a single parcel.
 			Region Not Found
 		</message>
 	</alert>
-	<alert modal="true" name="ParcelCanPlayMedia">
-		<message name="message">
-			This location can play streaming media. 
-Streaming media requires a fast Internet connection.
- 
-Play streaming media when available?
-(You can change this option later under 
-Preferences &gt; Audio &amp; Video.)
-		</message>
+  <alert modal="true" name="ParcelCanPlayMusic">
+    <message name="message">
+      This location wants to play streaming music.
+      (Requires a fast Internet connection.)
+
+      Play streaming music now?
+    </message>
+    <option name="PlayMusic">
+      Yes
+    </option>
+    <option name="No">
+      No
+    </option>
+  </alert>
+  <alert modal="true" name="ParcelCanPlayMedia">
+    <message name="message">
+      This location wants to play streaming media.
+      (Requires a fast Internet connection.)
+
+      Play streaming media now?
+    </message>
 		<option name="PlayMedia">
-			Play Media
+			Yes
 		</option>
-		<option name="Disable">
-			Disable
+		<option name="No">
+			No
 		</option>
 	</alert>
 	<alert modal="true" name="CannotDeedLandWaitingForServer">

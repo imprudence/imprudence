@@ -2,6 +2,31 @@
 =-                         1.1.0 RC1                      -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+=======
+2009-02-14  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Fixed missing music prompt (streaming now enabled by default).
+	* linden/indra/newview/llviewerparcelmedia.cpp:
+	Ditto.
+	* linden/indra/newview/llviewerparcelmgr.cpp:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
+	Ditto.
+
+	* linden/indra/newview/lloverlaybar.cpp:
+	Fixed music button not toggling on first run.
+	* linden/indra/newview/lloverlaybar.h:
+	Ditto.
+	* linden/indra/newview/llviewerparcelmgr.cpp:
+	Ditto.
+
+	* linden/indra/newview/llmediaremotectrl.cpp:
+	Removed useless music pause button.
+	* linden/indra/newview/skins/default/xui/en-us/panel_media_controls.xml:
+	Ditto.
+
+
 2009-02-13  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
