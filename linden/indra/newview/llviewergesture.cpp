@@ -43,6 +43,7 @@
 #include "llinventorymodel.h"
 #include "llvoavatar.h"
 #include "llxfermanager.h"
+#include "llviewercontrol.h"
 #include "llviewermessage.h" // send_guid_sound_trigger
 #include "llviewernetwork.h"
 #include "llagent.h"
@@ -50,7 +51,7 @@
 // Globals
 LLViewerGestureList gGestureList;
 
-const F32 LLViewerGesture::SOUND_VOLUME = 1.f;
+const F32 LLViewerGesture::SOUND_VOLUME = gSavedSettings.getBOOL("MuteSounds") ?  0.f : 1.f;
 
 LLViewerGesture::LLViewerGesture()
 :	LLGesture()
