@@ -80,6 +80,9 @@ public:
 	static void musicStop(void*);
 	static void mediaStop(void*);
 
+	// hack to make sure the music button plays.
+	static void musicFirstRun();
+
 	static void toggleAudioVolumeFloater(void*);
 
 protected:	
