@@ -2,7 +2,6 @@
 =-                         1.1.0 RC1                      -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-=======
 2009-02-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/app_settings/settings.xml:
@@ -25,6 +24,9 @@
 	Removed useless music pause button.
 	* linden/indra/newview/skins/default/xui/en-us/panel_media_controls.xml:
 	Ditto.
+
+	* linden/indra/newview/llviewergesture.cpp:
+	Gestures now muted with sounds.
 
 
 2009-02-13  McCabe Maxsted  <hakushakukun@gmail.com>
