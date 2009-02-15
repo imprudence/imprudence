@@ -20,6 +20,11 @@
 	* linden/indra/newview/llviewerparcelmgr.cpp:
 	Ditto.
 
+	* linden/indra/newview/llmediaremotectrl.cpp:
+	Removed useless music pause button.
+	* linden/indra/newview/skins/default/xui/en-us/panel_media_controls.xml:
+	Ditto.
+
 
 2009-02-13  McCabe Maxsted  <hakushakukun@gmail.com>
 
