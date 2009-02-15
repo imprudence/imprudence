@@ -13,6 +13,13 @@
 	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
 	Ditto.
 
+	* linden/indra/newview/lloverlaybar.cpp:
+	Fixed music button not toggling on first run.
+	* linden/indra/newview/lloverlaybar.h:
+	Ditto.
+	* linden/indra/newview/llviewerparcelmgr.cpp:
+	Ditto.
+
 
 2009-02-13  McCabe Maxsted  <hakushakukun@gmail.com>
 

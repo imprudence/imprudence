@@ -1720,6 +1720,8 @@ void callback_start_music(S32 option, void* data)
 		// We fetch again to avoid lag while loading.
 		LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();		
 		gAudiop->startInternetStream(parcel->getMusicURL());
+
+		LLOverlayBar::musicFirstRun();
 	}
 	gSavedSettings.setWarning("FirstStreamingMusic", FALSE);
 }
