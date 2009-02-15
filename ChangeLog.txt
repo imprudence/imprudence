@@ -2,6 +2,53 @@
 =-                         1.1.0 RC1                      -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-02-14  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Fixed missing music prompt (streaming now enabled by default).
+	* linden/indra/newview/llviewerparcelmedia.cpp:
+	Ditto.
+	* linden/indra/newview/llviewerparcelmgr.cpp:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
+	Ditto.
+
+
+2009-02-13  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Removed junk code from GStreamer.
+	* linden/indra/llmedia/llmediaimplgstreamer.h:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamervidplug.cpp:
+	Ditto.
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Fixed sound settings not being correctly muted.
+	* linden/indra/newview/llviewermessage.cpp:
+	Ditto.
+	* linden/indra/newview/llviewerobject.cpp:
+	Ditto.
+	* linden/indra/newview/llvoavatar.cpp:
+	Ditto.
+
+
+	Armin Weatherwax  <email@unknown.com>
+
+	* linden/indra/newview/llpreviewlandmark.cpp:
+	Removed search for non-existant floater_preview_new_landmark.xml.
+
+
+	Anders Arnholm  <anders@arnholm.se>
+	* linden/indra/llui/lltexteditor.cpp:
+	Fixed crash in LLTextEditor::findHTML
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Added artist/title tag info support.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms_raw.inc:
+	Ditto.
+
+
 2009-02-04  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:

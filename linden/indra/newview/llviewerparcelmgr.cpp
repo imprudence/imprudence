@@ -1692,7 +1692,12 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 
 void optionally_start_music(const std::string& music_url)
 {
-	if (gSavedSettings.getBOOL("AudioStreamingMusic"))
+	// Check to see if this your first time on a music-enabled parcel.
+	if (gSavedSettings.getWarning("FirstStreamingMusic"))
+	{
+		gViewerWindow->alertXml("ParcelCanPlayMusic", callback_start_music, (void*)&music_url);
+	}
+	else if (gSavedSettings.getBOOL("AudioStreamingMusic"))
 	{
 		// Make the user click the start button on the overlay bar. JC
 		//		llinfos << "Starting parcel music " << music_url << llendl;
@@ -1704,6 +1709,19 @@ void optionally_start_music(const std::string& music_url)
 			gAudiop->startInternetStream(music_url);
 		}
 	}
+}
+
+
+void callback_start_music(S32 option, void* data)
+{
+	if (option == 0)
+	{
+		// Before the callback, we verified the url was good.
+		// We fetch again to avoid lag while loading.
+		LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();		
+		gAudiop->startInternetStream(parcel->getMusicURL());
+	}
+	gSavedSettings.setWarning("FirstStreamingMusic", FALSE);
 }
 
 // static
