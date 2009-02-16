@@ -1,3 +1,9 @@
+2009-02-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llui/llkeywords.cpp:
+	Don't assume that start and end delimiters are same length.
+
+
 2009-02-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/app_settings/settings.xml:

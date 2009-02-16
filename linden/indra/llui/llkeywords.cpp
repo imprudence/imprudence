@@ -441,7 +441,9 @@ void LLKeywords::findSegments(std::vector<LLTextSegment *>* seg_list, const LLWS
 							cur += cur_delimiter->getLength();
 							if (cur_delimiter->getType() == LLKeywordToken::TWO_SIDED_DELIMITER)
 							{
-								seg_end = seg_start + between_delimiters + 2 * cur_delimiter->getLength();
+								seg_end = seg_start + between_delimiters
+								  + cur_delimiter->getLength()
+								  + cur_delimiter->getLength2();
 							}
 							else if (cur_delimiter->getType() == LLKeywordToken::ONE_SIDED_DELIMITER)
 							{
