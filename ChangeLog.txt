@@ -1,3 +1,9 @@
+2009-02-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llui/llkeywords.cpp:
+	Fixed LSL comment coloring bleeding to next line. [#96]
+
+
 2009-02-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llui/llkeywords.cpp:
