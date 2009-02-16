@@ -6,94 +6,83 @@
 
 include(CMakeCopyIfDifferent)
 
-set(gst_plugin_debug_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug/gstreamer-plugins")
-set(gst_plugin_debug_files
-    libgstadder.dll
-    libgstalaw.dll
-    libgstaudioconvert.dll
-    libgstaudiorate.dll
-    libgstaudioresample.dll
-    libgstaudiotestsrc.dll
-    libgstautodetect.dll
-    libgstavi.dll
-    libgstcutter.dll
-    libgstdecodebin2.dll
-    libgstdecodebin.dll
-    libgstdirectdraw.dll
-    libgstdirectsound.dll
-    libgsteffectv.dll
-    libgstffmpeg.dll
-    libgstffmpegcolorspace.dll
-    libgstgdp.dll
-    libgstjpeg.dll
-    libgstmulaw.dll
-    libgstogg.dll
-    libgstplaybin.dll
-    libgstqtdemux.dll
-    libgstrtp.dll    
-    libgstrtsp.dll
-    libgsttheora.dll
-    libgsttypefindfunctions.dll
-    libgstudp.dll
-    libgstvideobalance.dll
-    libgstvideobox.dll
-    libgstvideocrop.dll
-    libgstvideoflip.dll
-    libgstvideomixer.dll
-    libgstvideorate.dll
-    libgstvideoscale.dll
-    libgstvideotestsrc.dll
-    libgstvolume.dll
-    libgstvorbis.dll
-    )
-
-copy_if_different(
-    ${gst_plugin_debug_dir} 
-    "${CMAKE_CURRENT_BINARY_DIR}/Debug/lib/gstreamer-plugins"
-    out_targets 
-    ${gst_plugin_debug_files}
-    )
-set(all_targets ${all_targets} ${out_targets})
-
-set(gst_plugin_release_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release/gstreamer-plugins")
+set(gst_plugin_release_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release/lib/gstreamer-plugins")
 set(gst_plugin_release_files
+    libdshowsrcwrapper.dll
+    libfsselector.dll
+    libfsvalve.dll
+    libgstacmenc.dll
     libgstadder.dll
     libgstalaw.dll
+    libgstalpha.dll
+    libgstalphacolor.dll
+    libgstapp.dll
+    libgstaudiochunk.dll
     libgstaudioconvert.dll
+    libgstaudiofx.dll
     libgstaudiorate.dll
     libgstaudioresample.dll
     libgstaudiotestsrc.dll
     libgstautodetect.dll
     libgstavi.dll
+    libgstcoreelements.dll
     libgstcutter.dll
     libgstdecodebin2.dll
     libgstdecodebin.dll
     libgstdirectdraw.dll
     libgstdirectsound.dll
-    libgsteffectv.dll
+    libgstdshowdecwrapper.dll
+    libgstdshowsrcwrapper.dll
+    libgstdshowvideosink.dll
+    libgstdtmf.dll
     libgstffmpeg.dll
     libgstffmpegcolorspace.dll
+    libgstflv.dll
     libgstgdp.dll
+    libgsth264parse.dll
+    libgsticydemux.dll
+    libgstid3demux.dll
     libgstjpeg.dll
+    libgstlevel.dll
+    libgstmad.dll
+    libgstmms.dll
+    libgstmpeg2dec.dll
+    libgstmpegaudioparse.dll
+    libgstmpegstream.dll
+    libgstmpegvideoparse.dll
+    libgstmscodecs.dll
     libgstmulaw.dll
+    libgstmultipart.dll
+    libgstneon.dll
     libgstogg.dll
     libgstplaybin.dll
+    libgstpng.dll
     libgstqtdemux.dll
-    libgstrtp.dll    
+    libgstqueue2.dll
+    libgstrtp.dll
+    libgstrtpmanager.dll
+    libgstrtpmuxer.dll 
     libgstrtsp.dll
+    libgstsmpte.dll
     libgsttheora.dll
     libgsttypefindfunctions.dll
     libgstudp.dll
     libgstvideobalance.dll
     libgstvideobox.dll
     libgstvideocrop.dll
-    libgstvideoflip.dll
     libgstvideomixer.dll
     libgstvideorate.dll
     libgstvideoscale.dll
+    libgstvideosignal.dll
     libgstvideotestsrc.dll
     libgstvolume.dll
+    libgstvolume.dll
     libgstvorbis.dll
+    libgstwasapi.dll
+    libgstwavparse.dll
+    libgstwininet.dll
+    libgstx264.dll
+    libgstxvid.dll
     )
 
 copy_if_different(
@@ -104,15 +93,99 @@ copy_if_different(
     )
 set(all_targets ${all_targets} ${out_targets})
 
+set(gst_plugin_debug_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug/lib/gstreamer-plugins")
+set(gst_plugin_debug_files
+    libdshowsrcwrapper.dll
+    libfsselector.dll
+    libfsvalve.dll
+    libgstacmenc.dll
+    libgstadder.dll
+    libgstalaw.dll
+    libgstalpha.dll
+    libgstalphacolor.dll
+    libgstapp.dll
+    libgstaudiochunk.dll
+    libgstaudioconvert.dll
+    libgstaudiofx.dll
+    libgstaudiorate.dll
+    libgstaudioresample.dll
+    libgstaudiotestsrc.dll
+    libgstautodetect.dll
+    libgstavi.dll
+    libgstcoreelements.dll
+    libgstcutter.dll
+    libgstdecodebin2.dll
+    libgstdecodebin.dll
+    libgstdirectdraw.dll
+    libgstdirectsound.dll
+    libgstdshowdecwrapper.dll
+    libgstdshowsrcwrapper.dll
+    libgstdshowvideosink.dll
+    libgstdtmf.dll
+    libgstffmpeg.dll
+    libgstffmpegcolorspace.dll
+    libgstflv.dll
+    libgstgdp.dll
+    libgsth264parse.dll
+    libgsticydemux.dll
+    libgstid3demux.dll
+    libgstjpeg.dll
+    libgstlevel.dll
+    libgstmad.dll
+    libgstmms.dll
+    libgstmpeg2dec.dll
+    libgstmpegaudioparse.dll
+    libgstmpegstream.dll
+    libgstmpegvideoparse.dll
+    libgstmscodecs.dll
+    libgstmulaw.dll
+    libgstmultipart.dll
+    libgstneon.dll
+    libgstogg.dll
+    libgstplaybin.dll
+    libgstpng.dll
+    libgstqtdemux.dll
+    libgstqueue2.dll
+    libgstrtp.dll
+    libgstrtpmanager.dll
+    libgstrtpmuxer.dll 
+    libgstrtsp.dll
+    libgstsmpte.dll
+    libgsttheora.dll
+    libgsttypefindfunctions.dll
+    libgstudp.dll
+    libgstvideobalance.dll
+    libgstvideobox.dll
+    libgstvideocrop.dll
+    libgstvideomixer.dll
+    libgstvideorate.dll
+    libgstvideoscale.dll
+    libgstvideosignal.dll
+    libgstvideotestsrc.dll
+    libgstvolume.dll
+    libgstvolume.dll
+    libgstvorbis.dll
+    libgstwasapi.dll
+    libgstwavparse.dll
+    libgstwininet.dll
+    libgstx264.dll
+    libgstxvid.dll
+    )
+
+copy_if_different(
+    ${gst_plugin_debug_dir} 
+    "${CMAKE_CURRENT_BINARY_DIR}/Debug/lib/gstreamer-plugins"
+    out_targets 
+    ${gst_plugin_debug_files}
+    )
+set(all_targets ${all_targets} ${out_targets})
+
 set(vivox_src_dir "${CMAKE_SOURCE_DIR}/newview/vivox-runtime/i686-win32")
 set(vivox_files
     tntk.dll
     libeay32.dll
-    SLVoice.exe
     ssleay32.dll
-    SLVoiceAgent.exe
     srtp.dll
-    vivoxsdk.dll
     ortp.dll
     wrap_oal.dll
     )

@@ -31,7 +31,7 @@
  */
 
 // header guard
-///#ifndef llmediaimplgstreamer_h
+#ifndef llmediaimplgstreamer_h
 #define llmediaimplgstreamer_h
 
 #include "llmediaimplcommon.h"
@@ -42,14 +42,12 @@
 extern "C" {
 #include <stdio.h>
 #include <gst/gst.h>
-#include <apr_pools.h>
-#include <apr_dso.h>
+
+#include "apr_pools.h"
+#include "apr_dso.h"
 }
 
 #include "llmediaimplgstreamervidplug.h"
-#ifdef LL_GST_SOUNDSINK
-#include "llmediaimplgstreamersndplug.h"
-#endif // LL_GST_SOUNDSINK
 
 class LLMediaManagerData;
 class LLMediaImplMaker;
@@ -100,9 +98,6 @@ class LLMediaImplGStreamer:
 	        GstElement *mPlaybin;
 		GstSLVideo *mVideoSink;
 		GstState mState;
-#ifdef LL_GST_SOUNDSINK
-		GstSLSound *mAudioSink;
-#endif // LL_GST_SOUNDSINK
 		GstState getState() const { return mState; }
 };
 
@@ -132,4 +127,4 @@ public:
 
 ///#endif // LL_GSTREAMER_ENABLED
 
-///#endif // llmediaimplgstreamer_h
+#endif // llmediaimplgstreamer_h

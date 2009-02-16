@@ -111,6 +111,7 @@
 #include "llui.h"			// for make_ui_sound
 #include "lluploaddialog.h"
 #include "llviewercamera.h"
+#include "llviewercontrol.h"
 #include "llviewergenericmessage.h"
 #include "llviewerinventory.h"
 #include "llviewermenu.h"
@@ -3290,6 +3291,9 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 	pos_global.mdV[VX] += pos_local.mV[VX];
 	pos_global.mdV[VY] += pos_local.mV[VY];
 	pos_global.mdV[VZ] += pos_local.mV[VZ];
+
+	// Don't play sounds if sound settings are muted.
+	if (gSavedSettings.getBOOL("MuteSounds")) return;
 
 	// Don't play a trigger sound if you can't hear it due
 	// to parcel "local audio only" settings.

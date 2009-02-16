@@ -10,6 +10,8 @@ include(Prebuilt)
 if (WINDOWS)
 
   use_prebuilt_binary(libxml)
+  use_prebuilt_binary(iconv)
+  use_prebuilt_binary(gstreamer-plugins)
   set(GSTREAMER_FOUND ON FORCE BOOL)
   set(GSTREAMER_INCLUDE_DIRS
       ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/glib

@@ -40,3 +40,7 @@ LL_GST_SYM(true, gst_element_seek, bool, GstElement *, gdouble, GstFormat, GstSe
 LL_GST_SYM(false, gst_segtrap_set_enabled, void, gboolean enabled);
 LL_GST_SYM(false, gst_message_parse_buffering, void, GstMessage *message, gint *percent);
 LL_GST_SYM(false, gst_message_parse_info, void, GstMessage *message, GError **gerror, gchar **debug);
+
+//aw tag infos (Artist, Title, ...tbc...)
+LL_GST_SYM(true, gst_message_parse_tag, void, GstMessage *message, GstTagList **tag_list);
+LL_GST_SYM(true, gst_tag_list_get_string, gboolean, const GstTagList *list, const gchar *tag, gchar **value);

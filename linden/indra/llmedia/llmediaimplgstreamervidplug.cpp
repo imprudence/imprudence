@@ -68,10 +68,8 @@ static GstStaticPadTemplate sink_factory = GST_STATIC_PAD_TEMPLATE (
     GST_STATIC_CAPS (SLV_ALLCAPS)
     );
 
-GST_BOILERPLATE (GstSLVideo, 
-				 gst_slvideo, 
-				 GstVideoSink, 
-				 GST_TYPE_VIDEO_SINK);
+GST_BOILERPLATE (GstSLVideo, gst_slvideo, GstVideoSink,
+    GST_TYPE_VIDEO_SINK);
 
 static void gst_slvideo_set_property (GObject * object, guint prop_id,
 				      const GValue * value,

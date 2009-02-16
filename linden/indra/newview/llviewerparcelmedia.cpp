@@ -384,17 +384,11 @@ void LLViewerParcelMedia::processParcelMediaUpdate( LLMessageSystem *msg, void *
 
 void callback_play_media(S32 option, void* data)
 {
-	LLParcel* parcel = (LLParcel*)data;
 	if (option == 0)
 	{
-		gSavedSettings.setBOOL("AudioStreamingVideo", TRUE);
+		LLParcel* parcel = (LLParcel*)data;
 		LLViewerParcelMedia::play(parcel);
 	}
-	else
-	{
-		gSavedSettings.setBOOL("AudioStreamingVideo", FALSE);
-	}
 	gSavedSettings.setWarning("FirstStreamingVideo", FALSE);
-
 }
 

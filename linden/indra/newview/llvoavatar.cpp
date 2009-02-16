@@ -3797,7 +3797,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 	const LLUUID AGENT_FOOTSTEP_ANIMS[] = {ANIM_AGENT_WALK, ANIM_AGENT_RUN, ANIM_AGENT_LAND};
 	const S32 NUM_AGENT_FOOTSTEP_ANIMS = sizeof(AGENT_FOOTSTEP_ANIMS) / sizeof(LLUUID);
 
-	if ( gAudiop && isAnyAnimationSignaled(AGENT_FOOTSTEP_ANIMS, NUM_AGENT_FOOTSTEP_ANIMS) )
+	if ( gAudiop && !gSavedSettings.getBOOL("MuteAmbient") && isAnyAnimationSignaled(AGENT_FOOTSTEP_ANIMS, NUM_AGENT_FOOTSTEP_ANIMS) )
 	{
 		BOOL playSound = FALSE;
 		LLVector3 foot_pos_agent;
@@ -3828,7 +3828,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 //							AUDIO_STEP_LO_SPEED, AUDIO_STEP_HI_SPEED,
 //							AUDIO_STEP_LO_GAIN, AUDIO_STEP_HI_GAIN );
 
-			const F32 STEP_VOLUME = 0.5f;
+			const F32 STEP_VOLUME = 0.2f;
 			LLUUID& step_sound_id = getStepSound();
 
 			LLVector3d foot_pos_global = gAgent.getPosGlobalFromAgent(foot_pos_agent);
@@ -4800,7 +4800,7 @@ BOOL LLVOAvatar::processSingleAnimationStateChange( const LLUUID& anim_id, BOOL 
 	{
 		if (anim_id == ANIM_AGENT_TYPE)
 		{
-			if (gAudiop)
+			if (gAudiop && !gSavedSettings.getBOOL("MuteAmbient"))
 			{
 				LLVector3d char_pos_global = gAgent.getPosGlobalFromAgent(getCharacterPosition());
 				if (LLViewerParcelMgr::getInstance()->canHearSound(char_pos_global)
@@ -4814,11 +4814,8 @@ BOOL LLVOAvatar::processSingleAnimationStateChange( const LLUUID& anim_id, BOOL 
 					//	gAudiop->triggerSound(LLUUID(gSavedSettings.getString("UISndTyping")), volume);
 					//}
 					//else
-					{
-						LLUUID sound_id = LLUUID(gSavedSettings.getString("UISndTyping"));
-						gAudiop->triggerSound(sound_id, getID(), 1.0f, LLAudioEngine::AUDIO_TYPE_SFX, char_pos_global);
-
-					}
+					LLUUID sound_id = LLUUID(gSavedSettings.getString("UISndTyping"));
+					gAudiop->triggerSound(sound_id, getID(), 1.0f, LLAudioEngine::AUDIO_TYPE_SFX, char_pos_global);
 				}
 			}
 		}

@@ -1605,6 +1605,31 @@ void label_touch(std::string& label, void*)
 	}
 }
 
+class LLAttachmentEnableTouch : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLViewerObject* obj = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
+
+		if (!obj) return false;
+		if (!obj->isAttachment()) return false;		
+
+		bool new_value = obj && obj->flagHandleTouch();
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
+		LLSelectNode* node = LLSelectMgr::getInstance()->getSelection()->getFirstRootNode();
+
+		if (node && node->mValid && !node->mTouchName.empty())
+		{
+			gMenuHolder->childSetText("Attachment Touch", node->mTouchName);
+		}
+		else
+		{
+			gMenuHolder->childSetText("Attachment Touch", userdata["data"].asString());
+		}
+		return true;
+	}
+};
+
 bool handle_object_open()
 {
 	LLViewerObject* obj = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
@@ -9822,6 +9847,7 @@ void initialize_menus()
 
 	addMenu(new LLAttachmentEnableDrop(), "Attachment.EnableDrop");
 	addMenu(new LLAttachmentEnableDetach(), "Attachment.EnableDetach");
+	addMenu(new LLAttachmentEnableTouch(), "Attachment.EnableTouch");
 
 	// Land pie menu
 	addMenu(new LLLandBuild(), "Land.Build");
