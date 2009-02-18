@@ -184,7 +184,7 @@ void LLFloaterTopObjects::handleReply(LLMessageSystem *msg, void** data)
 		{
 			have_extended_data = true;
 			msg->getU32("DataExtended", "TimeStamp", time_stamp, block);
-			msg->getF32(_PREHASH_ReportData, "MonoScore", mono_score, block);
+			msg->getF32("DataExtended", "MonoScore", mono_score, block);
 		}
 
 		LLSD element;

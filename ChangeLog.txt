@@ -1,8 +1,18 @@
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-=-                         1.1.0 RC1                      -=
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009-02-15  McCabe Maxsted  <hakushakukun@gmail.com>
 
-=======
+	* linden/indra/llcommon/llsdserialize.cpp:
+	Backported LLSD changes.
+	* linden/indra/llcommon/llsdserialize_xml.cpp:
+	Ditto.
+
+	* linden/indra/llmessage/message_prehash.cpp:
+	Added MonoScore to message_prehash.
+	* linden/indra/llmessage/message_prehash.h:
+	Ditto.
+	* linden/indra/newview/llfloatertopobjects.cpp:
+	Ditto.
+
+
 2009-02-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/app_settings/settings.xml:
@@ -59,6 +69,13 @@
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Added artist/title tag info support.
 	* linden/indra/llmedia/llmediaimplgstreamer_syms_raw.inc:
+	Ditto.
+
+2009-02-12  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloatertopobjects.cpp:
+	Backported Top Objects changes from 1.22.
+	* linden/indra/newview/skins/default/xui/en-us/floater_top_objects.xml:
 	Ditto.
 
 
