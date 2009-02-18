@@ -127,10 +127,12 @@ LLMediaImplGStreamer::
 // virtual
 std::string LLMediaImplGStreamer::getVersion()
 {
-	std::string rtn;
-	rtn = "[" + sLLMediaImplGStreamerReg.getImplName() + "] - GStreamer 0.10.x";
-	return rtn;
+	guint major, minor, micro, nano;
+	llgst_version(&major, &minor, &micro, &nano);
+	std::string version = llformat("%d.%d.%d.%d",major,minor,micro,nano);
+	return version;
 }
+
 //
 //THIS IS THE METHOD THAT'S BREAKING STUFF
 ///////////////////////////////////////////////////////////////////////////////

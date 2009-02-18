@@ -37,6 +37,7 @@ LL_GST_SYM(true, gst_value_get_fraction_numerator, gint, const GValue *value);
 LL_GST_SYM(true, gst_value_get_fraction_denominator, gint, const GValue *value);
 LL_GST_SYM(true, gst_structure_get_name, G_CONST_RETURN gchar *, const GstStructure *structure);
 LL_GST_SYM(true, gst_element_seek, bool, GstElement *, gdouble, GstFormat, GstSeekFlags, GstSeekType, gint64, GstSeekType, gint64);
+LL_GST_SYM(true, gst_version, void, guint *major, guint *minor, guint *micro, guint *nano);
 
 // optional symbols to grab
 LL_GST_SYM(false, gst_segtrap_set_enabled, void, gboolean enabled);

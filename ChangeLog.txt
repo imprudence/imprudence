@@ -1,5 +1,16 @@
 2009-02-16  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Added GStreamer version info to About > Imprudence.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms_raw.inc:
+	Ditto.
+	* linden/indra/newview/llfloaterabout.cpp:
+	Ditto.
+
+
+
+2009-02-16  McCabe Maxsted  <hakushakukun@gmail.com>
+
 	* linden/indra/llaudio/audioengine.cpp:
 	Fixed some bad comment formatting.
 
