@@ -84,6 +84,7 @@ class LLMediaImplGStreamer:
 	        bool pause();
 	        bool stop();
 	        bool play();
+			
 	        static gboolean bus_callback (GstBus     *bus,
 					      GstMessage *message,
 					      gpointer    data);

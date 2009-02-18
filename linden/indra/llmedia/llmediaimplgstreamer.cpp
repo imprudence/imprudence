@@ -73,7 +73,7 @@ LLMediaImplGStreamer () :
 	mPump ( NULL ),
 	mPlaybin ( NULL ),
 	mVideoSink ( NULL ),
-        mState( GST_STATE_NULL )
+    mState( GST_STATE_NULL )
 {
 	LL_DEBUGS("MediaManager") << "constructing media..." << LL_ENDL;
 	mVolume = -1.0; // XXX Hack to make the vould change happend first time
@@ -93,6 +93,24 @@ LLMediaImplGStreamer () :
 	{
 		// todo: cleanup pump
 		return; // error
+	}
+
+	if (NULL == getenv("LL_GSTREAMER_EXTERNAL"))
+	{
+		// instantiate and connect a custom video sink
+		LL_DEBUGS("MediaManager") << "extrenal video sink..." << LL_ENDL;
+
+		// Plays inworld instead of in external player
+		mVideoSink =
+		GST_SLVIDEO(llgst_element_factory_make ("private-slvideo", "slvideo"));
+		if (!mVideoSink)
+		{
+			LL_WARNS("MediaImpl") << "Could not instantiate private-slvideo element." << LL_ENDL;
+			// todo: cleanup.
+			return; // error
+		}
+
+		g_object_set(mPlaybin, "video-sink", mVideoSink, NULL);
 	}
 }
 
@@ -134,7 +152,7 @@ std::string LLMediaImplGStreamer::getVersion()
 }
 
 //
-//THIS IS THE METHOD THAT'S BREAKING STUFF
+// STARTUP
 ///////////////////////////////////////////////////////////////////////////////
 // (static) super-initialization - called once at application startup
 bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
@@ -148,6 +166,10 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		// Get symbols!
 #if LL_WINDOWS
 		if (! grab_gst_syms("libgstreamer-0.10.dll", "libgstvideo-0.10.dll", "libgstaudio-0.10.dll") )
+		{
+		    LL_WARNS("MediaImpl") << "Couldn't find suitable GStreamer 0.10 support on this system - video playback disabled." << LL_ENDL;
+			return false;
+		}
 #else
 		if (! grab_gst_syms("libgstreamer-0.10.so.0", "libgstvideo-0.10.so.0", "libgstaudio-0.10.so.0") )
 		{
@@ -167,7 +189,7 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		saved_locale = setlocale(LC_ALL, NULL);
 		if (0 == llgst_init_check(NULL, NULL, NULL))
 		{
-		    LL_WARNS("MediaImpl") << "GST init failed for unspecified reason." << LL_ENDL;
+		    LL_WARNS("MediaImpl") << "GStreamer library failed to initialize and load standard plugins." << LL_ENDL;
 			setlocale(LC_ALL, saved_locale.c_str() );
 			return false;
 		}
@@ -191,6 +213,7 @@ bool LLMediaImplGStreamer::closedown()
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// Uncomment the line below to enable spammy debug data.
 //#define LL_GST_REPORT_STATE_CHANGES
 #ifdef LL_GST_REPORT_STATE_CHANGES
 static const char* get_gst_state_name(GstState state)
@@ -256,7 +279,8 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 				LL_DEBUGS("MediaImpl") << "State changed to NULL" << LL_ENDL;
 #endif
 				if (impl->getState() == GST_STATE_PLAYING) 
-				{ // We got stoped by gstremer...
+				{ 
+					// Stream was probably dropped, trying to restart
 				    impl->play();
 #ifdef LL_GST_REPORT_STATE_CHANGES
 				    LL_DEBUGS("MediaImpl") << "Trying to restart." << LL_ENDL;
@@ -590,7 +614,9 @@ bool LLMediaImplGStreamer::play()
 
 	// Check to make sure playing was successful. If not, stop.
 	if (state_change == GST_STATE_CHANGE_FAILURE)
+	{
 		stop();
+	}
 
 	return true;
 }
@@ -644,7 +670,7 @@ bool LLMediaImplGStreamer::seek(double time)
 // virtual
 bool LLMediaImplGStreamer::setVolume(float volume)
 {
-        // XXX hack to make volume volume changes less othen
+    // XXX hack to make volume volume changes less othen
 	//     bug in gstreamer 0.10.21
 	if(mVolume == volume)
 	    return true;
