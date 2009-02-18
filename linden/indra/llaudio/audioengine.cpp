@@ -186,14 +186,17 @@ void LLAudioEngine::startInternetStream(const std::string& url)
 	if(!mInternetStreamMedia)
 		return;
 	
-	if (!url.empty()) {
+	if (!url.empty())
+	{
 		LL_INFOS("AudioEngine") << "Starting internet stream: " << url << llendl;
 		mInternetStreamURL = url;
 		mInternetStreamMedia->navigateTo ( url );
 		LL_INFOS("AudioEngine") << "Playing....." << llendl;		
 		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_START);
 		mInternetStreamMedia->updateMedia();
-	} else {
+	} 
+	else
+	{
 		LL_INFOS("AudioEngine") << "setting stream to NULL"<< llendl;
 		mInternetStreamURL.clear();
 		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP);
@@ -207,9 +210,10 @@ void LLAudioEngine::stopInternetStream()
 {
 	LL_INFOS("AudioEngine") << "entered stopInternetStream()" << llendl;
 	
-        if(mInternetStreamMedia)
+    if(mInternetStreamMedia)
 	{
-		if( ! mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP)){
+		if(!mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP))
+		{
 			LL_INFOS("AudioEngine") << "attempting to stop stream failed!" << llendl;
 		}
 		mInternetStreamMedia->updateMedia();
@@ -232,7 +236,9 @@ void LLAudioEngine::pauseInternetStream(int pause)
 		{
 			LL_INFOS("AudioEngine") << "attempting to pause stream failed!" << llendl;
 		}
-	} else {
+	}
+	else
+	{
 		if(! mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_START))
 		{
 			LL_INFOS("AudioEngine") << "attempting to unpause stream failed!" << llendl;

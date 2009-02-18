@@ -1,3 +1,9 @@
+2009-02-16  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llaudio/audioengine.cpp:
+	Fixed some bad comment formatting.
+
+
 2009-02-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/app_settings/settings.xml:
