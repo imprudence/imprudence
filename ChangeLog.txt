@@ -3,6 +3,11 @@
 	* linden/indra/llaudio/audioengine.cpp:
 	Fixed some bad comment formatting.
 
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Added error checking to play/stop/pause to prevent bad looping.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms_raw.inc:
+	Ditto.
+
 
 2009-02-14  McCabe Maxsted  <hakushakukun@gmail.com>
 

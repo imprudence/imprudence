@@ -7,7 +7,9 @@ LL_GST_SYM(true, gst_message_parse_error, void, GstMessage *message, GError **ge
 LL_GST_SYM(true, gst_message_parse_warning, void, GstMessage *message, GError **gerror, gchar **debug);
 LL_GST_SYM(true, gst_message_parse_state_changed, void, GstMessage *message, GstState *oldstate, GstState *newstate, GstState *pending);
 LL_GST_SYM(true, gst_element_set_state, GstStateChangeReturn, GstElement *element, GstState state);
+LL_GST_SYM(true, gst_element_get_state, GstStateChangeReturn, GstElement *element, GstState *state, GstState *pending, GstClockTime timeout);
 LL_GST_SYM(true, gst_object_unref, void, gpointer object);
+LL_GST_SYM(true, gst_object_ref, gpointer, gpointer object);
 LL_GST_SYM(true, gst_object_get_type, GType, void);
 LL_GST_SYM(true, gst_pipeline_get_type, GType, void);
 LL_GST_SYM(true, gst_pipeline_get_bus, GstBus*, GstPipeline *pipeline);

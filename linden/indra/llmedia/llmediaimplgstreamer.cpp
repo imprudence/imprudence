@@ -36,6 +36,7 @@
 
 extern "C" {
 #include <gst/gst.h>
+#include <gst/gstelement.h>
 }
 
 #include "llmediamanager.h"
@@ -92,22 +93,6 @@ LLMediaImplGStreamer () :
 	{
 		// todo: cleanup pump
 		return; // error
-	}
-
-	if (NULL == getenv("LL_GSTREAMER_EXTERNAL")) 
-	{
-		// instantiate and connect a custom video sink
-		LL_DEBUGS("MediaManager") << "extrenal video sink..." << LL_ENDL;
-		mVideoSink =
-			GST_SLVIDEO(llgst_element_factory_make ("private-slvideo", "slvideo"));
-		if (!mVideoSink)
-		{
-			LL_WARNS("MediaImpl") << "Could not instantiate private-slvideo element." << LL_ENDL;
-			// todo: cleanup.
-			return; // error
-		}
-
-		g_object_set(mPlaybin, "video-sink", mVideoSink, NULL);
 	}
 }
 
@@ -394,7 +379,6 @@ bool LLMediaImplGStreamer::navigateTo (const std::string urlIn)
 
 	// set URI
 	g_object_set (G_OBJECT (mPlaybin), "uri", urlIn.c_str(), NULL);
-	//g_object_set (G_OBJECT (mPlaybin), "uri", "file:///tmp/movie", NULL);
 
 	// get playbin's bus - perhaps this can/should be done in ctor
 	GstBus *bus = llgst_pipeline_get_bus (GST_PIPELINE (mPlaybin));
@@ -567,10 +551,19 @@ bool LLMediaImplGStreamer::updateMedia()
 //
 bool LLMediaImplGStreamer::stop()
 {
-	LL_DEBUGS("MediaImpl") << "stopping media..." << LL_ENDL;
-	// todo: error-check this?
-	llgst_element_set_state(mPlaybin, GST_STATE_READY);
+	LL_DEBUGS("MediaImpl") << "attempting to stop..." << LL_ENDL;
+
+	if (!mPlaybin) return true;
+
+	GstElement *pipeline = (GstElement *)llgst_object_ref(GST_OBJECT(mPlaybin));
+	llgst_object_unref(pipeline);
+	
+	llgst_element_set_state(pipeline, GST_STATE_READY);
 	mState = GST_STATE_READY;
+
+	GstStateChangeReturn state_change = llgst_element_get_state(mPlaybin, NULL, NULL, GST_CLOCK_TIME_NONE);
+	LL_DEBUGS("MediaImpl") << "get_state: " << state_change << LL_ENDL;
+
 	return true;
 }
 
@@ -578,10 +571,25 @@ bool LLMediaImplGStreamer::stop()
 //
 bool LLMediaImplGStreamer::play()
 {
-	LL_DEBUGS("MediaImpl") << "playing media..." << LL_ENDL;
-	// todo: error-check this?
-	llgst_element_set_state(mPlaybin, GST_STATE_PLAYING);
+	LL_DEBUGS("MediaImpl") << "attempting to play..." << LL_ENDL;
+
+	if (!mPlaybin) return true;
+
+	GstElement *pipeline = (GstElement *)llgst_object_ref(GST_OBJECT(mPlaybin));
+	llgst_object_unref(pipeline);
+	
+	llgst_element_set_state(pipeline, GST_STATE_PLAYING);
 	mState = GST_STATE_PLAYING;
+	/*llgst_element_set_state(mPlaybin, GST_STATE_PLAYING);
+	mState = GST_STATE_PLAYING;*/
+
+	GstStateChangeReturn state_change = llgst_element_get_state(mPlaybin, NULL, NULL, GST_CLOCK_TIME_NONE);
+	LL_DEBUGS("MediaImpl") << "get_state: " << state_change << LL_ENDL;
+
+	// Check to make sure playing was successful. If not, stop.
+	if (state_change == GST_STATE_CHANGE_FAILURE)
+		stop();
+
 	return true;
 }
 
@@ -589,10 +597,16 @@ bool LLMediaImplGStreamer::play()
 //
 bool LLMediaImplGStreamer::pause()
 {
-	LL_DEBUGS("MediaImpl") <<"pausing media..." << LL_ENDL;
-	// todo: error-check this?
+	LL_DEBUGS("MediaImpl") << "attempting to pause..." << LL_ENDL;
+
+	if (!mPlaybin) return true;
+
 	llgst_element_set_state(mPlaybin, GST_STATE_PAUSED);
 	mState = GST_STATE_PAUSED;
+	
+	GstStateChangeReturn state_change = llgst_element_get_state(mPlaybin, NULL, NULL, GST_CLOCK_TIME_NONE);
+	LL_DEBUGS("MediaImpl") << "get_state: " << state_change << LL_ENDL;
+
 	return true;
 };
 
