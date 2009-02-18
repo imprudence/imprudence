@@ -598,6 +598,7 @@ extern char * _PREHASH_FromAgentId;
 extern char * _PREHASH_Type;
 extern char * _PREHASH_ChatType;
 extern char * _PREHASH_ReportData;
+extern char * _PREHASH_MonoScore;
 extern char * _PREHASH_RequestBlock;
 extern char * _PREHASH_GrantData;
 extern char * _PREHASH_DetachAttachmentIntoInv;
