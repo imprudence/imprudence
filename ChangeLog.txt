@@ -1,3 +1,9 @@
+2009-02-17  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmessage/llpumpio.cpp:
+	Fixed crash in Top Scripts.
+
+
 2009-02-15  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llcommon/llsdserialize.cpp:
