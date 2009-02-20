@@ -74,7 +74,7 @@ class LLMediaImplGStreamer:
 		/* virtual */ int getTextureFormatType() const;
 		/* virtual */ int getTextureFormatInternal() const;
 		/* virtual */ bool seek( double time );
-	        /* virtual */ bool setVolume( float volume );
+	    /* virtual */ bool setVolume( float volume );
 
 	        LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
 

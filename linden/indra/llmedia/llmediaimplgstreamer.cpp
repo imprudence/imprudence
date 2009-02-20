@@ -395,8 +395,7 @@ bool LLMediaImplGStreamer::navigateTo (const std::string urlIn)
 	LL_DEBUGS("MediaImpl") << "Setting media URI: " << urlIn.c_str()
 	    << LL_ENDL;
 
-	if (NULL == mPump
-	    || NULL == mPlaybin)
+	if (mPump == NULL || mPlaybin == NULL)
 	{
 		return false;
 	}
@@ -414,6 +413,8 @@ bool LLMediaImplGStreamer::navigateTo (const std::string urlIn)
 	}
 	llgst_bus_add_watch (bus, bus_callback, this);
 	llgst_object_unref (bus);
+
+	mState = GST_STATE_READY;
 
 	// navigateTo implicitly plays, too.
 	play();
@@ -447,6 +448,8 @@ bool LLMediaImplGStreamer::unload()
 	}
 
 	mVideoSink = NULL;
+	mState = GST_STATE_NULL;
+	setStatus(LLMediaBase::STATUS_DEAD);
 
 	return true;
 }
@@ -458,14 +461,18 @@ bool LLMediaImplGStreamer::updateMedia()
 	//LL_DEBUGS("MediaImpl") << "updating media..." << LL_ENDL;
 	
 	// sanity check
-	if (NULL == mPump
-	    || NULL == mPlaybin)
+	if (mPump == NULL || mPlaybin == NULL)
 	{
 #ifdef LL_GST_REPORT_STATE_CHANGES
 		LL_DEBUGS("MediaImpl") << "dead media..." << LL_ENDL;
 #endif
+		mState = GST_STATE_NULL;
+		setStatus(LLMediaBase::STATUS_DEAD);
 		return false;
 	}
+
+	if (mState == GST_STATE_VOID_PENDING || mState == GST_STATE_NULL)
+		return false;
 
 	// process next outstanding command
 	switch (nextCommand())
@@ -579,13 +586,18 @@ bool LLMediaImplGStreamer::stop()
 {
 	LL_DEBUGS("MediaImpl") << "attempting to stop..." << LL_ENDL;
 
-	if (!mPlaybin) return true;
+	if (!mPlaybin || mState == GST_STATE_NULL)
+		return true;
 
 	GstElement *pipeline = (GstElement *)llgst_object_ref(GST_OBJECT(mPlaybin));
 	llgst_object_unref(pipeline);
 	
 	llgst_element_set_state(pipeline, GST_STATE_READY);
-	mState = GST_STATE_READY;
+
+	if (mState == GST_STATE_PLAYING)
+		mState = GST_STATE_VOID_PENDING;
+	else
+		mState = GST_STATE_READY; 
 
 	GstStateChangeReturn state_change = llgst_element_get_state(mPlaybin, NULL, NULL, GST_CLOCK_TIME_NONE);
 	LL_DEBUGS("MediaImpl") << "get_state: " << state_change << LL_ENDL;
@@ -599,7 +611,8 @@ bool LLMediaImplGStreamer::play()
 {
 	LL_DEBUGS("MediaImpl") << "attempting to play..." << LL_ENDL;
 
-	if (!mPlaybin) return true;
+	if (!mPlaybin || mState == GST_STATE_NULL)
+		return true;
 
 	GstElement *pipeline = (GstElement *)llgst_object_ref(GST_OBJECT(mPlaybin));
 	llgst_object_unref(pipeline);
@@ -615,6 +628,7 @@ bool LLMediaImplGStreamer::play()
 	// Check to make sure playing was successful. If not, stop.
 	if (state_change == GST_STATE_CHANGE_FAILURE)
 	{
+		setStatus(LLMediaBase::STATUS_STOPPED);
 		stop();
 	}
 
@@ -627,7 +641,8 @@ bool LLMediaImplGStreamer::pause()
 {
 	LL_DEBUGS("MediaImpl") << "attempting to pause..." << LL_ENDL;
 
-	if (!mPlaybin) return true;
+	if (!mPlaybin || mState == GST_STATE_NULL)
+		return true;
 
 	llgst_element_set_state(mPlaybin, GST_STATE_PAUSED);
 	mState = GST_STATE_PAUSED;
@@ -675,7 +690,7 @@ bool LLMediaImplGStreamer::setVolume(float volume)
 	if(mVolume == volume)
 	    return true;
 
-        LL_DEBUGS("MediaImpl") << "setVolume(" << volume << ") : " << getpid() << LL_ENDL;
+    LL_DEBUGS("MediaImpl") << "setVolume(" << volume << ") : " << getpid() << LL_ENDL;
 	mVolume = volume;
 	if (mPlaybin)
 	{
