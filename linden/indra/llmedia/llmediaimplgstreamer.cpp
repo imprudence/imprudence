@@ -600,7 +600,7 @@ bool LLMediaImplGStreamer::stop()
 		mState = GST_STATE_READY; 
 
 	GstStateChangeReturn state_change = llgst_element_get_state(mPlaybin, NULL, NULL, GST_CLOCK_TIME_NONE);
-	LL_DEBUGS("MediaImpl") << "get_state: " << state_change << LL_ENDL;
+	LL_DEBUGS("MediaImpl") << "get_state: " << llgst_element_state_change_return_get_name(state_change) << LL_ENDL;
 
 	return true;
 }
@@ -623,7 +623,7 @@ bool LLMediaImplGStreamer::play()
 	mState = GST_STATE_PLAYING;*/
 
 	GstStateChangeReturn state_change = llgst_element_get_state(mPlaybin, NULL, NULL, GST_CLOCK_TIME_NONE);
-	LL_DEBUGS("MediaImpl") << "get_state: " << state_change << LL_ENDL;
+	LL_DEBUGS("MediaImpl") << "get_state: " << llgst_element_state_change_return_get_name(state_change) << LL_ENDL;
 
 	// Check to make sure playing was successful. If not, stop.
 	if (state_change == GST_STATE_CHANGE_FAILURE)
@@ -648,7 +648,7 @@ bool LLMediaImplGStreamer::pause()
 	mState = GST_STATE_PAUSED;
 	
 	GstStateChangeReturn state_change = llgst_element_get_state(mPlaybin, NULL, NULL, GST_CLOCK_TIME_NONE);
-	LL_DEBUGS("MediaImpl") << "get_state: " << state_change << LL_ENDL;
+	LL_DEBUGS("MediaImpl") << "get_state: " << llgst_element_state_change_return_get_name(state_change) << LL_ENDL;
 
 	return true;
 };
