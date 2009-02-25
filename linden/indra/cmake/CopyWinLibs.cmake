@@ -9,14 +9,14 @@ include(CMakeCopyIfDifferent)
 set(gst_plugin_release_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release/lib/gstreamer-plugins")
 set(gst_plugin_release_files
     libdshowsrcwrapper.dll
-    libfsselector.dll
-    libfsvalve.dll
+    libgsta52.dll
     libgstacmenc.dll
     libgstadder.dll
     libgstalaw.dll
     libgstalpha.dll
     libgstalphacolor.dll
     libgstapp.dll
+    libgstasfdemux.dll
     libgstaudiochunk.dll
     libgstaudioconvert.dll
     libgstaudiofx.dll
@@ -27,41 +27,44 @@ set(gst_plugin_release_files
     libgstavi.dll
     libgstcoreelements.dll
     libgstcutter.dll
-    libgstdecodebin2.dll
     libgstdecodebin.dll
+    libgstdecodebin2.dll
     libgstdirectdraw.dll
     libgstdirectsound.dll
     libgstdshowdecwrapper.dll
     libgstdshowsrcwrapper.dll
     libgstdshowvideosink.dll
-    libgstdtmf.dll
+    libgstfaad.dll
     libgstffmpeg.dll
     libgstffmpegcolorspace.dll
     libgstflv.dll
+    libgstgamma.dll
     libgstgdp.dll
     libgsth264parse.dll
     libgsticydemux.dll
     libgstid3demux.dll
     libgstjpeg.dll
     libgstlevel.dll
-    libgstmad.dll
     libgstmms.dll
     libgstmpeg2dec.dll
+    libgstmpeg4videoparse.dll
     libgstmpegaudioparse.dll
     libgstmpegstream.dll
     libgstmpegvideoparse.dll
-    libgstmscodecs.dll
     libgstmulaw.dll
     libgstmultipart.dll
     libgstneon.dll
     libgstogg.dll
+    libgstpcapparse.dll
     libgstplaybin.dll
     libgstpng.dll
     libgstqtdemux.dll
     libgstqueue2.dll
+    libgstreal.dll
+    libgstrealmedia.dll
     libgstrtp.dll
     libgstrtpmanager.dll
-    libgstrtpmuxer.dll 
+    libgstrtpmuxer.dll
     libgstrtsp.dll
     libgstsmpte.dll
     libgsttheora.dll
@@ -74,13 +77,12 @@ set(gst_plugin_release_files
     libgstvideorate.dll
     libgstvideoscale.dll
     libgstvideosignal.dll
-    libgstvideotestsrc.dll
-    libgstvolume.dll
     libgstvolume.dll
     libgstvorbis.dll
     libgstwasapi.dll
     libgstwavparse.dll
     libgstwininet.dll
+    libgstwinks.dll
     libgstx264.dll
     libgstxvid.dll
     )
@@ -96,14 +98,14 @@ set(all_targets ${all_targets} ${out_targets})
 set(gst_plugin_debug_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug/lib/gstreamer-plugins")
 set(gst_plugin_debug_files
     libdshowsrcwrapper.dll
-    libfsselector.dll
-    libfsvalve.dll
+    libgsta52.dll
     libgstacmenc.dll
     libgstadder.dll
     libgstalaw.dll
     libgstalpha.dll
     libgstalphacolor.dll
     libgstapp.dll
+    libgstasfdemux.dll
     libgstaudiochunk.dll
     libgstaudioconvert.dll
     libgstaudiofx.dll
@@ -114,41 +116,44 @@ set(gst_plugin_debug_files
     libgstavi.dll
     libgstcoreelements.dll
     libgstcutter.dll
-    libgstdecodebin2.dll
     libgstdecodebin.dll
+    libgstdecodebin2.dll
     libgstdirectdraw.dll
     libgstdirectsound.dll
     libgstdshowdecwrapper.dll
     libgstdshowsrcwrapper.dll
     libgstdshowvideosink.dll
-    libgstdtmf.dll
+    libgstfaad.dll
     libgstffmpeg.dll
     libgstffmpegcolorspace.dll
     libgstflv.dll
+    libgstgamma.dll
     libgstgdp.dll
     libgsth264parse.dll
     libgsticydemux.dll
     libgstid3demux.dll
     libgstjpeg.dll
     libgstlevel.dll
-    libgstmad.dll
     libgstmms.dll
     libgstmpeg2dec.dll
+    libgstmpeg4videoparse.dll
     libgstmpegaudioparse.dll
     libgstmpegstream.dll
     libgstmpegvideoparse.dll
-    libgstmscodecs.dll
     libgstmulaw.dll
     libgstmultipart.dll
     libgstneon.dll
     libgstogg.dll
+    libgstpcapparse.dll
     libgstplaybin.dll
     libgstpng.dll
     libgstqtdemux.dll
     libgstqueue2.dll
+    libgstreal.dll
+    libgstrealmedia.dll
     libgstrtp.dll
     libgstrtpmanager.dll
-    libgstrtpmuxer.dll 
+    libgstrtpmuxer.dll
     libgstrtsp.dll
     libgstsmpte.dll
     libgsttheora.dll
@@ -161,13 +166,12 @@ set(gst_plugin_debug_files
     libgstvideorate.dll
     libgstvideoscale.dll
     libgstvideosignal.dll
-    libgstvideotestsrc.dll
-    libgstvolume.dll
     libgstvolume.dll
     libgstvorbis.dll
     libgstwasapi.dll
     libgstwavparse.dll
     libgstwininet.dll
+    libgstwinks.dll
     libgstx264.dll
     libgstxvid.dll
     )
@@ -220,6 +224,7 @@ set(debug_files
     avformat-52.dll
     avutil-49.dll
     intl.dll
+    libfaacdrm.dll
     libgstapp-0.10.dll
     libgstaudio-0.10.dll
     libgstbase-0.10.dll
@@ -243,10 +248,11 @@ set(debug_files
     libmms.dll
     liboil-0.3-0.dll
     libpng13.dll
-    xvidcore.dll
-    zlib1.dll
+    libspeex.dll
     ogg.dll
     vorbis.dll
+    xvidcore.dll
+    zlib1.dll
     )
 
 copy_if_different(
@@ -294,6 +300,7 @@ set(release_files
     avformat-52.dll
     avutil-49.dll
     intl.dll
+    libfaacdrm.dll
     libgstapp-0.10.dll
     libgstaudio-0.10.dll
     libgstbase-0.10.dll
@@ -317,10 +324,11 @@ set(release_files
     libmms.dll
     liboil-0.3-0.dll
     libpng13.dll
-    xvidcore.dll
-    zlib1.dll
+    libspeex.dll
     ogg.dll
     vorbis.dll
+    xvidcore.dll
+    zlib1.dll
     )
     
 copy_if_different(

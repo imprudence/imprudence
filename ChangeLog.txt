@@ -3,6 +3,9 @@
 	* linden/indra/newview/skins/default/xui/en-us/menu_pie_hud.xml:
 	Forgot to add touch back in to menu_pie_hud.xml.
 
+	* linden/indra/cmake/CopyWinLibs.cmake:
+	Fixed copy_win_libs.
+
 
 2009-02-24  McCabe Maxsted  <hakushakukun@gmail.com>
 
