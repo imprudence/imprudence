@@ -3444,7 +3444,7 @@ void LLSelectMgr::deselectAllIfTooFar()
 
 	// HACK: Don't deselect when we're navigating to rate an object's
 	// owner or creator.  JC
-	if (gPieObject->getVisible() || gPieRate->getVisible() )
+	if (gPieObject->getVisible())
 	{
 		return;
 	}

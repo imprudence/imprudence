@@ -1120,6 +1120,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/menu_login.xml
     skins/default/xui/en-us/menu_pie_attachment.xml
     skins/default/xui/en-us/menu_pie_avatar.xml
+    skins/default/xui/en-us/menu_pie_hud.xml
     skins/default/xui/en-us/menu_pie_land.xml
     skins/default/xui/en-us/menu_pie_object.xml
     skins/default/xui/en-us/menu_pie_self.xml

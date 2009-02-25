@@ -3,6 +3,19 @@
 	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
 	Changed the show/hide shortcuts to be linux friendly.
 
+	* linden/indra/newview/skins/default/xui/en-us/menu_pie_hud.xml:
+	Added menu_pie_hud.xml, removed legacy rate pie menu references.
+	* linden/indra/newview/CMakeLists.txt:
+	Ditto.
+	* linden/indra/newview/llselectmgr.cpp:
+	Ditto.
+	* linden/indra/newview/lltoolpie.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermenu.h:
+	Ditto.
+
 
 2009-02-17  McCabe Maxsted  <hakushakukun@gmail.com>
 

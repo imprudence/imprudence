@@ -336,9 +336,13 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 
 			gPieAvatar->show(x, y, mPieMouseButtonDown);
 		}
-		else if (object->isAttachment())
+		else if (object->isAttachment() && !object->isHUDAttachment())
 		{
 			gPieAttachment->show(x, y, mPieMouseButtonDown);
+		}
+		else if (object->isHUDAttachment())
+		{
+			gPieHUD->show(x, y, mPieMouseButtonDown);
 		}
 		else
 		{
