@@ -1,5 +1,11 @@
 2009-02-17  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Changed the show/hide shortcuts to be linux friendly.
+
+
+2009-02-17  McCabe Maxsted  <hakushakukun@gmail.com>
+
 	* linden/indra/llmessage/llpumpio.cpp:
 	Fixed crash in Top Scripts.
 

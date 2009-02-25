@@ -1064,42 +1064,42 @@
       <menu name="Features" drop_shadow="true"
             opaque="true" tear_off="true">
         <menu_item_check name="UI" label="UI"
-                         shortcut="control|alt|F1">
+                         shortcut="alt|shift|F1">
           <on_click function="Advanced.ToggleFeature"
                     userdata="ui" />
           <on_check function="Advanced.CheckFeature"
                     userdata="ui" />
         </menu_item_check>
         <menu_item_check name="Selected" label="Selected"
-                         shortcut="control|alt|F2">
+                         shortcut="alt|shift|F2">
           <on_click function="Advanced.ToggleFeature"
                     userdata="selected" />
           <on_check function="Advanced.CheckFeature"
                     userdata="selected" />
         </menu_item_check>
         <menu_item_check name="Highlighted" label="Highlighted"
-                         shortcut="control|alt|F3">
+                         shortcut="alt|shift|F3">
           <on_click function="Advanced.ToggleFeature"
                     userdata="highlighted" />
           <on_check function="Advanced.CheckFeature"
                     userdata="highlighted" />
         </menu_item_check>
         <menu_item_check name="Dynamic Textures" label="Dynamic Textures"
-                         shortcut="control|alt|F4">
+                         shortcut="alt|shift|F4">
           <on_click function="Advanced.ToggleFeature"
                     userdata="dynamic textures" />
           <on_check function="Advanced.CheckFeature"
                     userdata="dynamic textures" />
         </menu_item_check>
         <menu_item_check name="Foot Shadows" label="Foot Shadows"
-                         shortcut="control|alt|F5">
+                         shortcut="alt|shift|F5">
           <on_click function="Advanced.ToggleFeature"
                     userdata="foot shadows" />
           <on_check function="Advanced.CheckFeature"
                     userdata="foot shadows" />
         </menu_item_check>
         <menu_item_check name="Fog" label="Fog"
-                         shortcut="control|alt|F6">
+                         shortcut="alt|shift|F6">
           <on_click function="Advanced.ToggleFeature"
                     userdata="fog" />
           <on_check function="Advanced.CheckFeature"
@@ -1107,14 +1107,14 @@
         </menu_item_check>
         <menu_item_check name="Palletized Textures"
                          label="Palletized Textures"
-                         shortcut="control|alt|F7">
+                         shortcut="alt|shift|F7">
           <on_click function="Advanced.ToggleFeature"
                     userdata="palette" />
           <on_check function="Advanced.CheckFeature"
                     userdata="palette" />
         </menu_item_check>
         <menu_item_check name="Test FRInfo" label="Test FRInfo"
-                         shortcut="control|alt|F8">
+                         shortcut="alt|shift|F8">
           <on_click function="Advanced.ToggleFeature"
                     userdata="fr info" />
           <on_check function="Advanced.CheckFeature"
@@ -1122,7 +1122,7 @@
         </menu_item_check>
         <menu_item_check name="Flexible Objects"
                          label="Flexible Objects"
-                         shortcut="control|alt|F9">
+                         shortcut="alt|shift|F9">
           <on_click function="Advanced.ToggleFeature"
                     userdata="flexible" />
           <on_check function="Advanced.CheckFeature"
