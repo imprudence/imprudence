@@ -1,4 +1,4 @@
-2009-02-17  McCabe Maxsted  <hakushakukun@gmail.com>
+2009-02-24  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
 	Changed the show/hide shortcuts to be linux friendly.
@@ -23,6 +23,12 @@
 	Fixed crash in Top Scripts.
 
 
+2009-02-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llui/llkeywords.cpp:
+	Fixed LSL comment coloring bleeding to next line. [#96]
+
+
 2009-02-15  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llcommon/llsdserialize.cpp:
@@ -36,6 +42,12 @@
 	Ditto.
 	* linden/indra/newview/llfloatertopobjects.cpp:
 	Ditto.
+
+
+	Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llui/llkeywords.cpp:
+	Don't assume that start and end delimiters are same length.
 
 
 2009-02-14  McCabe Maxsted  <hakushakukun@gmail.com>
