@@ -1125,7 +1125,7 @@ void LLInventoryView::onQuickFilterCommit(LLUICtrl* ctrl, void* user_data)
 	else if (view->getString("filter_type_all") == item_type)
 	{
 		// Show all types
-		filter_type = 0xffffffff;
+		filter_type = LLInventoryType::NIT_ALL;
 	}
 
 	else
