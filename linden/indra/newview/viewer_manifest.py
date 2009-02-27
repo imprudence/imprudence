@@ -728,6 +728,7 @@ class Linux_i686Manifest(LinuxManifest):
                 self.path("libgstogg.so")
                 self.path("libgstossaudio.so")
                 self.path("libgstplaybin.so")
+                self.path("libgstpulse.so")
                 self.path("libgstqtdemux.so")
                 self.path("libgstqueue2.so")
                 self.path("libgsttcp.so")
