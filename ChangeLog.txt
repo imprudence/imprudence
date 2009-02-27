@@ -13,6 +13,11 @@
 	Fixed copy_win_libs.
 
 
+	Jacek Antonelli  <jacek.antonelli@gmail.com>
+	* linden/indra/newview/llinventoryview.cpp:
+	Likely fix for inventory folders re-opening. [#98]
+
+
 2009-02-24  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
