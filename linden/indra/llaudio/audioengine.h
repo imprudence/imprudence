@@ -45,6 +45,8 @@
 #include "llframetimer.h"
 #include "llassettype.h"
 
+#include "llmediabase.h"
+
 class LLMediaBase;
 
 const F32 LL_WIND_UPDATE_INTERVAL = 0.1f;
@@ -153,13 +155,13 @@ public:
 	// Internet stream methods
 	virtual void startInternetStream(const std::string& url);
 	virtual void stopInternetStream();
-	virtual void pauseInternetStream(int pause);
 	virtual void updateInternetStream();
 	virtual int isInternetStreamPlaying();
 	virtual void getInternetStreamInfo(char* artist, char* title);
 	// use a value from 0.0 to 1.0, inclusive
 	virtual void setInternetStreamGain(F32 vol);
 	virtual const std::string& getInternetStreamURL();
+	virtual LLMediaBase::EStatus getStatus();
 
 	// For debugging usage
 	virtual LLVector3 getListenerPos();
@@ -245,6 +247,8 @@ protected:
 	F32 mNextWindUpdate;
 
 	LLFrameTimer mWindUpdateTimer;
+
+	LLMediaBase::EStatus mStatus;
 
 private:
 	void setDefaults();

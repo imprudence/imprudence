@@ -391,14 +391,6 @@ void LLOverlayBar::toggleMusicPlay(void*)
 			}
 		}
 	}
-	//else
-	//{
-	//	gOverlayBar->mMusicState = PAUSED; // desired state
-	//	if (gAudiop)
-	//	{
-	//		gAudiop->pauseInternetStream(1);
-	//	}
-	//}
 	else
 	{
 		gOverlayBar->mMusicState = STOPPED; // desired state

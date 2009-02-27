@@ -45,6 +45,8 @@
 #include "llassetstorage.h"
 
 #include "llmediamanager.h"
+#include "llmediabase.h"
+#include "llmediaimplcommon.h"
 
 // necessary for grabbing sounds from sim (implemented in viewer)	
 extern void request_sound(const LLUUID &sound_guid);
@@ -101,6 +103,8 @@ void LLAudioEngine::setDefaults()
 
 	for (U32 i = 0; i < LLAudioEngine::AUDIO_TYPE_COUNT; i++)
 		mSecondaryGain[i] = 1.0f;
+
+	mStatus = LLMediaBase::STATUS_UNKNOWN;
 }
 
 
@@ -168,6 +172,14 @@ void LLAudioEngine::shutdown()
 }
 
 
+////////////////////////////////////////////////////////////////////////////////
+// virtual (derives from LLMediaBase)
+LLMediaBase::EStatus LLAudioEngine::getStatus()
+{
+	return mStatus;
+}
+
+
 // virtual
 void LLAudioEngine::startInternetStream(const std::string& url)
 {
@@ -179,27 +191,39 @@ void LLAudioEngine::startInternetStream(const std::string& url)
 		if (mgr)
 		{
 			mInternetStreamMedia = mgr->createSourceFromMimeType(LLURI(url).scheme(), "audio/mpeg"); // assumes that whatever media implementation supports mp3 also supports vorbis.
-			LL_INFOS("AudioEngine") << "mInternetStreamMedia is now " << mInternetStreamMedia << llendl;
+			//LL_INFOS("AudioEngine") << "mInternetStreamMedia is now " << mInternetStreamMedia << llendl;
 		}
 	}
 
 	if(!mInternetStreamMedia)
 		return;
+
+	// Check for a dead stream, just in case
+	if(getStatus() == LLMediaBase::STATUS_DEAD)
+	{
+		mInternetStreamURL.clear();
+		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP);
+		mInternetStreamMedia->updateMedia();
+		stopInternetStream();
+		return;
+	}
 	
-	if (!url.empty()) {
+	if (!url.empty())
+	{
 		LL_INFOS("AudioEngine") << "Starting internet stream: " << url << llendl;
 		mInternetStreamURL = url;
 		mInternetStreamMedia->navigateTo ( url );
 		LL_INFOS("AudioEngine") << "Playing....." << llendl;		
 		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_START);
 		mInternetStreamMedia->updateMedia();
-	} else {
+	} 
+	else
+	{
 		LL_INFOS("AudioEngine") << "setting stream to NULL"<< llendl;
 		mInternetStreamURL.clear();
 		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP);
 		mInternetStreamMedia->updateMedia();
 	}
-	//#endif
 }
 
 // virtual
@@ -207,38 +231,16 @@ void LLAudioEngine::stopInternetStream()
 {
 	LL_INFOS("AudioEngine") << "entered stopInternetStream()" << llendl;
 	
-        if(mInternetStreamMedia)
+    if(mInternetStreamMedia)
 	{
-		if( ! mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP)){
+		if(!mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP))
+		{
 			LL_INFOS("AudioEngine") << "attempting to stop stream failed!" << llendl;
 		}
 		mInternetStreamMedia->updateMedia();
 	}
 
 	mInternetStreamURL.clear();
-}
-
-// virtual
-void LLAudioEngine::pauseInternetStream(int pause)
-{
-	LL_INFOS("AudioEngine") << "entered pauseInternetStream()" << llendl;
-
-	if(!mInternetStreamMedia)
-		return;
-	
-	if(pause)
-	{
-		if(! mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_PAUSE))
-		{
-			LL_INFOS("AudioEngine") << "attempting to pause stream failed!" << llendl;
-		}
-	} else {
-		if(! mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_START))
-		{
-			LL_INFOS("AudioEngine") << "attempting to unpause stream failed!" << llendl;
-		}
-	}
-	mInternetStreamMedia->updateMedia();
 }
 
 // virtual
@@ -258,11 +260,6 @@ int LLAudioEngine::isInternetStreamPlaying()
 	{
 		return 1; // Active and playing
 	}	
-
-	if (mInternetStreamMedia->getStatus() == LLMediaBase::STATUS_PAUSED)
-	{
-		return 2; // paused
-	}
 
 	return 0; // Stopped
 }

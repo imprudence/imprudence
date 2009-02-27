@@ -153,7 +153,8 @@ class LLMediaBase
 			STATUS_STARTED		= 3,
 			STATUS_STOPPED		= 4,
 			STATUS_PAUSED		= 6,
-			STATUS_RESETTING	= 7
+			STATUS_RESETTING	= 7,
+			STATUS_DEAD			= 8
 		};
 		virtual bool addCommand( ECommand cmd ) = 0;
 		virtual bool clearCommand() = 0;

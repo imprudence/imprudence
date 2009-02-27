@@ -36,6 +36,7 @@
 
 extern "C" {
 #include <gst/gst.h>
+#include <gst/gstelement.h>
 }
 
 #include "llmediamanager.h"
@@ -72,7 +73,7 @@ LLMediaImplGStreamer () :
 	mPump ( NULL ),
 	mPlaybin ( NULL ),
 	mVideoSink ( NULL ),
-        mState( GST_STATE_NULL )
+    mState( GST_STATE_NULL )
 {
 	LL_DEBUGS("MediaManager") << "constructing media..." << LL_ENDL;
 	mVolume = -1.0; // XXX Hack to make the vould change happend first time
@@ -94,12 +95,14 @@ LLMediaImplGStreamer () :
 		return; // error
 	}
 
-	if (NULL == getenv("LL_GSTREAMER_EXTERNAL")) 
+	if (NULL == getenv("LL_GSTREAMER_EXTERNAL"))
 	{
 		// instantiate and connect a custom video sink
 		LL_DEBUGS("MediaManager") << "extrenal video sink..." << LL_ENDL;
+
+		// Plays inworld instead of in external player
 		mVideoSink =
-			GST_SLVIDEO(llgst_element_factory_make ("private-slvideo", "slvideo"));
+		GST_SLVIDEO(llgst_element_factory_make ("private-slvideo", "slvideo"));
 		if (!mVideoSink)
 		{
 			LL_WARNS("MediaImpl") << "Could not instantiate private-slvideo element." << LL_ENDL;
@@ -142,12 +145,14 @@ LLMediaImplGStreamer::
 // virtual
 std::string LLMediaImplGStreamer::getVersion()
 {
-	std::string rtn;
-	rtn = "[" + sLLMediaImplGStreamerReg.getImplName() + "] - GStreamer 0.10.x";
-	return rtn;
+	guint major, minor, micro, nano;
+	llgst_version(&major, &minor, &micro, &nano);
+	std::string version = llformat("%d.%d.%d.%d",major,minor,micro,nano);
+	return version;
 }
+
 //
-//THIS IS THE METHOD THAT'S BREAKING STUFF
+// STARTUP
 ///////////////////////////////////////////////////////////////////////////////
 // (static) super-initialization - called once at application startup
 bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
@@ -161,6 +166,10 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		// Get symbols!
 #if LL_WINDOWS
 		if (! grab_gst_syms("libgstreamer-0.10.dll", "libgstvideo-0.10.dll", "libgstaudio-0.10.dll") )
+		{
+		    LL_WARNS("MediaImpl") << "Couldn't find suitable GStreamer 0.10 support on this system - video playback disabled." << LL_ENDL;
+			return false;
+		}
 #else
 		if (! grab_gst_syms("libgstreamer-0.10.so.0", "libgstvideo-0.10.so.0", "libgstaudio-0.10.so.0") )
 		{
@@ -180,7 +189,7 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		saved_locale = setlocale(LC_ALL, NULL);
 		if (0 == llgst_init_check(NULL, NULL, NULL))
 		{
-		    LL_WARNS("MediaImpl") << "GST init failed for unspecified reason." << LL_ENDL;
+		    LL_WARNS("MediaImpl") << "GStreamer library failed to initialize and load standard plugins." << LL_ENDL;
 			setlocale(LC_ALL, saved_locale.c_str() );
 			return false;
 		}
@@ -204,6 +213,7 @@ bool LLMediaImplGStreamer::closedown()
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// Uncomment the line below to enable spammy debug data.
 //#define LL_GST_REPORT_STATE_CHANGES
 #ifdef LL_GST_REPORT_STATE_CHANGES
 static const char* get_gst_state_name(GstState state)
@@ -269,7 +279,8 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 				LL_DEBUGS("MediaImpl") << "State changed to NULL" << LL_ENDL;
 #endif
 				if (impl->getState() == GST_STATE_PLAYING) 
-				{ // We got stoped by gstremer...
+				{ 
+					// Stream was probably dropped, trying to restart
 				    impl->play();
 #ifdef LL_GST_REPORT_STATE_CHANGES
 				    LL_DEBUGS("MediaImpl") << "Trying to restart." << LL_ENDL;
@@ -384,8 +395,7 @@ bool LLMediaImplGStreamer::navigateTo (const std::string urlIn)
 	LL_DEBUGS("MediaImpl") << "Setting media URI: " << urlIn.c_str()
 	    << LL_ENDL;
 
-	if (NULL == mPump
-	    || NULL == mPlaybin)
+	if (mPump == NULL || mPlaybin == NULL)
 	{
 		return false;
 	}
@@ -394,7 +404,6 @@ bool LLMediaImplGStreamer::navigateTo (const std::string urlIn)
 
 	// set URI
 	g_object_set (G_OBJECT (mPlaybin), "uri", urlIn.c_str(), NULL);
-	//g_object_set (G_OBJECT (mPlaybin), "uri", "file:///tmp/movie", NULL);
 
 	// get playbin's bus - perhaps this can/should be done in ctor
 	GstBus *bus = llgst_pipeline_get_bus (GST_PIPELINE (mPlaybin));
@@ -404,6 +413,8 @@ bool LLMediaImplGStreamer::navigateTo (const std::string urlIn)
 	}
 	llgst_bus_add_watch (bus, bus_callback, this);
 	llgst_object_unref (bus);
+
+	mState = GST_STATE_READY;
 
 	// navigateTo implicitly plays, too.
 	play();
@@ -437,6 +448,8 @@ bool LLMediaImplGStreamer::unload()
 	}
 
 	mVideoSink = NULL;
+	mState = GST_STATE_NULL;
+	setStatus(LLMediaBase::STATUS_DEAD);
 
 	return true;
 }
@@ -448,14 +461,18 @@ bool LLMediaImplGStreamer::updateMedia()
 	//LL_DEBUGS("MediaImpl") << "updating media..." << LL_ENDL;
 	
 	// sanity check
-	if (NULL == mPump
-	    || NULL == mPlaybin)
+	if (mPump == NULL || mPlaybin == NULL)
 	{
 #ifdef LL_GST_REPORT_STATE_CHANGES
 		LL_DEBUGS("MediaImpl") << "dead media..." << LL_ENDL;
 #endif
+		mState = GST_STATE_NULL;
+		setStatus(LLMediaBase::STATUS_DEAD);
 		return false;
 	}
+
+	if (mState == GST_STATE_VOID_PENDING || mState == GST_STATE_NULL)
+		return false;
 
 	// process next outstanding command
 	switch (nextCommand())
@@ -567,10 +584,24 @@ bool LLMediaImplGStreamer::updateMedia()
 //
 bool LLMediaImplGStreamer::stop()
 {
-	LL_DEBUGS("MediaImpl") << "stopping media..." << LL_ENDL;
-	// todo: error-check this?
-	llgst_element_set_state(mPlaybin, GST_STATE_READY);
-	mState = GST_STATE_READY;
+	LL_DEBUGS("MediaImpl") << "attempting to stop..." << LL_ENDL;
+
+	if (!mPlaybin || mState == GST_STATE_NULL)
+		return true;
+
+	GstElement *pipeline = (GstElement *)llgst_object_ref(GST_OBJECT(mPlaybin));
+	llgst_object_unref(pipeline);
+	
+	llgst_element_set_state(pipeline, GST_STATE_READY);
+
+	if (mState == GST_STATE_PLAYING)
+		mState = GST_STATE_VOID_PENDING;
+	else
+		mState = GST_STATE_READY; 
+
+	GstStateChangeReturn state_change = llgst_element_get_state(mPlaybin, NULL, NULL, GST_CLOCK_TIME_NONE);
+	LL_DEBUGS("MediaImpl") << "get_state: " << llgst_element_state_change_return_get_name(state_change) << LL_ENDL;
+
 	return true;
 }
 
@@ -578,10 +609,29 @@ bool LLMediaImplGStreamer::stop()
 //
 bool LLMediaImplGStreamer::play()
 {
-	LL_DEBUGS("MediaImpl") << "playing media..." << LL_ENDL;
-	// todo: error-check this?
-	llgst_element_set_state(mPlaybin, GST_STATE_PLAYING);
+	LL_DEBUGS("MediaImpl") << "attempting to play..." << LL_ENDL;
+
+	if (!mPlaybin || mState == GST_STATE_NULL)
+		return true;
+
+	GstElement *pipeline = (GstElement *)llgst_object_ref(GST_OBJECT(mPlaybin));
+	llgst_object_unref(pipeline);
+	
+	llgst_element_set_state(pipeline, GST_STATE_PLAYING);
 	mState = GST_STATE_PLAYING;
+	/*llgst_element_set_state(mPlaybin, GST_STATE_PLAYING);
+	mState = GST_STATE_PLAYING;*/
+
+	GstStateChangeReturn state_change = llgst_element_get_state(mPlaybin, NULL, NULL, GST_CLOCK_TIME_NONE);
+	LL_DEBUGS("MediaImpl") << "get_state: " << llgst_element_state_change_return_get_name(state_change) << LL_ENDL;
+
+	// Check to make sure playing was successful. If not, stop.
+	if (state_change == GST_STATE_CHANGE_FAILURE)
+	{
+		setStatus(LLMediaBase::STATUS_STOPPED);
+		stop();
+	}
+
 	return true;
 }
 
@@ -589,10 +639,17 @@ bool LLMediaImplGStreamer::play()
 //
 bool LLMediaImplGStreamer::pause()
 {
-	LL_DEBUGS("MediaImpl") <<"pausing media..." << LL_ENDL;
-	// todo: error-check this?
+	LL_DEBUGS("MediaImpl") << "attempting to pause..." << LL_ENDL;
+
+	if (!mPlaybin || mState == GST_STATE_NULL)
+		return true;
+
 	llgst_element_set_state(mPlaybin, GST_STATE_PAUSED);
 	mState = GST_STATE_PAUSED;
+	
+	GstStateChangeReturn state_change = llgst_element_get_state(mPlaybin, NULL, NULL, GST_CLOCK_TIME_NONE);
+	LL_DEBUGS("MediaImpl") << "get_state: " << llgst_element_state_change_return_get_name(state_change) << LL_ENDL;
+
 	return true;
 };
 
@@ -628,12 +685,12 @@ bool LLMediaImplGStreamer::seek(double time)
 // virtual
 bool LLMediaImplGStreamer::setVolume(float volume)
 {
-        // XXX hack to make volume volume changes less othen
+    // XXX hack to make volume volume changes less othen
 	//     bug in gstreamer 0.10.21
 	if(mVolume == volume)
 	    return true;
 
-        LL_DEBUGS("MediaImpl") << "setVolume(" << volume << ") : " << getpid() << LL_ENDL;
+    LL_DEBUGS("MediaImpl") << "setVolume(" << volume << ") : " << getpid() << LL_ENDL;
 	mVolume = volume;
 	if (mPlaybin)
 	{

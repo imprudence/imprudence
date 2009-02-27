@@ -38,6 +38,24 @@
 	Fixed LSL comment coloring bleeding to next line. [#96]
 
 
+	McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Added GStreamer version info to About > Imprudence.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms_raw.inc:
+	Ditto.
+	* linden/indra/newview/llfloaterabout.cpp:
+	Ditto.
+
+	* linden/indra/llaudio/audioengine.cpp:
+	Fixed some bad comment formatting.
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Added error checking to play/stop/pause to prevent bad looping.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms_raw.inc:
+	Ditto.
+
+
 2009-02-15  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llcommon/llsdserialize.cpp:

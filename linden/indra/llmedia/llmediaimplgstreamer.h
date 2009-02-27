@@ -74,7 +74,7 @@ class LLMediaImplGStreamer:
 		/* virtual */ int getTextureFormatType() const;
 		/* virtual */ int getTextureFormatInternal() const;
 		/* virtual */ bool seek( double time );
-	        /* virtual */ bool setVolume( float volume );
+	    /* virtual */ bool setVolume( float volume );
 
 	        LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
 
@@ -84,6 +84,7 @@ class LLMediaImplGStreamer:
 	        bool pause();
 	        bool stop();
 	        bool play();
+			
 	        static gboolean bus_callback (GstBus     *bus,
 					      GstMessage *message,
 					      gpointer    data);
