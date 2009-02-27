@@ -1,3 +1,9 @@
+2009-02-27  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/install.xml:
+	Updated GStreamer libs to RC2.
+
+
 2009-02-26  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llpreviewlandmark.cpp:

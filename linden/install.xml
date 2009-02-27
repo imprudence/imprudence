@@ -430,9 +430,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>0fd4d4a96efaf8b47d6cc74e7a927800</string>
+            <string>d3097ea059923e4f4ab5dc0b95d62a67</string>
             <key>url</key>
-            <uri>http://imprudence.s3.amazonaws.com/extras/gstreamer-0.10.21-windows-01262009.tar.bz2</uri>
+            <uri>http://imprudence.s3.amazonaws.com/extras/gstreamer-0.10.21-windows-02132009.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -445,9 +445,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>d69f66f4698c5608c86d1a108e3a2d1f</string>
+            <string>0a69a8ca39b54b3e1a838a508d2f72d0</string>
             <key>url</key>
-            <uri>http://imprudence.s3.amazonaws.com/extras/gstreamer-plugins-windows-01312009.tar.bz2</uri>
+            <uri>http://imprudence.s3.amazonaws.com/extras/gstreamer-plugins-windows-02132009.tar.bz2</uri>
           </map>
         </map>
       </map>
