@@ -201,6 +201,7 @@ void LLAudioEngine::startInternetStream(const std::string& url)
 	// Check for a dead stream, just in case
 	if(getStatus() == LLMediaBase::STATUS_DEAD)
 	{
+		LL_INFOS("AudioEngine") << "don't play dead stream urls"<< llendl;
 		mInternetStreamURL.clear();
 		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP);
 		mInternetStreamMedia->updateMedia();

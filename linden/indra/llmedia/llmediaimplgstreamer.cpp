@@ -449,7 +449,7 @@ bool LLMediaImplGStreamer::unload()
 
 	mVideoSink = NULL;
 	mState = GST_STATE_NULL;
-	setStatus(LLMediaBase::STATUS_DEAD);
+	setStatus(LLMediaBase::STATUS_UNKNOWN);
 
 	return true;
 }
