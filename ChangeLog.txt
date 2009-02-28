@@ -167,15 +167,16 @@
 	* linden/indra/newview/llpreviewlandmark.cpp:
 	Removed search for non-existant floater_preview_new_landmark.xml.
 
-
-	Anders Arnholm  <anders@arnholm.se>
-	* linden/indra/llui/lltexteditor.cpp:
-	Fixed crash in LLTextEditor::findHTML
-
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Added artist/title tag info support.
 	* linden/indra/llmedia/llmediaimplgstreamer_syms_raw.inc:
 	Ditto.
+
+	
+	Anders Arnholm  <anders@arnholm.se>
+	
+	* linden/indra/llui/lltexteditor.cpp:
+	Fixed crash in LLTextEditor::findHTML
 
 
 2009-02-12  McCabe Maxsted  <hakushakukun@gmail.com>
