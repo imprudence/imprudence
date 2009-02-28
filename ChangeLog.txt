@@ -1,5 +1,8 @@
 2009-02-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llui/CMakeLists.txt:
+	LLUI's CMakeList needs LLMedia cmake stuff.
+
 	* linden/indra/newview/viewer_manifest.py:
 	Added libgstpulse.so (PulseAudio) to Linux manifest.
 

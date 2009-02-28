@@ -7,6 +7,7 @@ include(LLAudio)
 include(LLCommon)
 include(LLImage)
 include(LLMath)
+include(LLMedia)
 include(LLMessage)
 include(LLRender)
 include(LLWindow)
@@ -18,6 +19,7 @@ include_directories(
     ${LLCOMMON_INCLUDE_DIRS}
     ${LLIMAGE_INCLUDE_DIRS}
     ${LLMATH_INCLUDE_DIRS}
+    ${LLMEDIA_INCLUDE_DIRS}
     ${LLMESSAGE_INCLUDE_DIRS}
     ${LLRENDER_INCLUDE_DIRS}
     ${LLWINDOW_INCLUDE_DIRS}
