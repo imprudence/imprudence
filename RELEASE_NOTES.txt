@@ -4,6 +4,95 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                       1.1.0 RC2                        -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   KNOWN ISSUES
+
+     * Mac version is still forthcoming.
+
+     * Viewer freezes permanently when playing streaming media if the
+       parcel's media type doesn't match the actual stream type.
+
+     * Viewer may freeze for a few moments when starting or changing
+       music or media stream, especially for slow or dead URLs.
+
+     * Streaming music and media may not work for some Vista users.
+       Cause is unknown.
+
+     * Local Chat (aka. Chat History) stops automatically scrolling
+       down to show new chat if you click it at the same time as a new
+       line of chat arrives. Manually scrolling down to the bottom
+       will start it autoscrolling again.
+
+
+   CHANGES
+
+     This version of Imprudence includes the following changes (as
+     compared to Imprudence 1.1.0 RC1).
+
+
+     BUG FIXES
+
+       * Fixed a nasty crash when receiving an IM, when the IM history
+         had certain kinds of links in them. Thanks so much for
+         finding and fixing that, Anders Arnholm (Balp Allen)!
+
+       * Fixed the viewer crashing when opening the Top Scripts window
+         (in the Estate tools). Thanks, McCabe!
+
+       * Fixed certain types of sounds (footsteps/bumps, gestures,
+         typing, and others) not being affected by volume controls.
+         Thanks, McCabe!
+
+       * Fixed inventory folders repeatedly expanding after using
+         Quick Filter. Thanks, Jacek!
+
+       * Fixed the pie menu not showing correct Touch text on scripted
+         objects that had used llSetTouchText. Thanks, McCabe!
+
+       * Fixed LSL script syntax highlighting for single line comments
+         ("//" style). Thanks, Jacek!
+
+       * Fixed the viewer not asking if you'd like to play streaming
+         music. Thanks, McCabe!
+
+       * Streaming media should now work for Linux users running the
+         PulseAudio sound server (e.g. Ubuntu users). Thanks, Jacek!
+
+
+     UI
+
+       * HUD attachments now have a separate pie menu from regular
+         attachments, with a layout similar to the pre-1.1.0
+         attachments pie menu. Thanks, McCabe!
+
+       * Items in Advanced > Rendering > Features use "Alt-Shift-F#"
+         instead of "Ctrl-Alt-F#", to avoid conflicts with Linux
+         system keyboard commands. Muchos gracias, McCabe!
+
+       * Removed the Pause button in the music control tab, since it
+         had the same effect as Stop anyway. Thanks, McCabe!
+
+
+     MISC
+
+       * A lot of cleaning and polishing GStreamer stuff under the
+         hood. Thanks for all the effort, McCabe!
+
+       * Song title and artist are printed to the debug console when
+         music streams change songs. That information will be
+         displayed in the UI in a future version. Thanks, Armin
+         Weatherwax!
+
+       * The Help > About Imprudence window now lists your version of
+         Gstreamer. How handy, McCabe!
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                       1.1.0 RC1                        -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
