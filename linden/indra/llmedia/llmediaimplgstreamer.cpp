@@ -75,6 +75,8 @@ LLMediaImplGStreamer () :
 	mVideoSink ( NULL ),
     mState( GST_STATE_NULL )
 {
+	startup( NULL );  // Startup gstreamer if it hasn't been already.
+
 	LL_DEBUGS("MediaManager") << "constructing media..." << LL_ENDL;
 	mVolume = -1.0; // XXX Hack to make the vould change happend first time
 

@@ -1,5 +1,9 @@
 2009-02-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Initialize gstreamer (if needed) when making LLMediaImplGStreamer.
+	Lets us find gstreamer version for "About Imprudence" before login.
+
 	* linden/indra/newview/llfloaterabout.cpp:
 	Get gstreamer reference from media manager.
 	Eliminates the need to include llmediaimplgstreamer.h,
