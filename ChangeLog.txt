@@ -1,3 +1,9 @@
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                       1.1.0 RC2                        -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
 2009-02-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llcommon/llversionviewer.h:
