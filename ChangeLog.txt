@@ -1,5 +1,11 @@
 2009-02-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llfloaterabout.cpp:
+	Get gstreamer reference from media manager.
+	Eliminates the need to include llmediaimplgstreamer.h,
+	which causes problems on Linux due to name clash between
+	libxml2 and expat's XMLCALLs.
+
 	* linden/indra/llui/CMakeLists.txt:
 	LLUI's CMakeList needs LLMedia cmake stuff.
 

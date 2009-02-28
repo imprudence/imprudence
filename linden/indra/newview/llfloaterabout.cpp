@@ -42,7 +42,6 @@
 #include "llcurl.h"
 #include "llimagej2c.h"
 #include "audioengine.h"
-#include "llmediaimplgstreamer.h"
 
 #include "llviewertexteditor.h"
 #include "llviewercontrol.h"
@@ -209,14 +208,13 @@ LLFloaterAbout::LLFloaterAbout()
 	LLMediaManager *mgr = LLMediaManager::getInstance();
 	if (mgr)
 	{
-		LLMediaBase *gstreamer = new LLMediaImplGStreamer();
+		LLMediaBase *gstreamer = mgr->createSourceFromMimeType("http", "audio/mpeg");
 		if (gstreamer)
 		{
 			support.append("GStreamer Version: ");
 			support.append( gstreamer->getVersion() );
 			support.append("\n");
 		} 
-		delete gstreamer;
 
 		LLMediaBase *media_source = mgr->createSourceFromMimeType("http", "text/html");
 		if (media_source)
