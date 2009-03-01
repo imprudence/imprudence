@@ -5963,8 +5963,9 @@ void queue_actions(LLFloaterScriptQueue* q, const std::string& noscriptmsg, cons
 {
 	// Apply until an object fails
 	QueueObjects func(q);
-	const bool firstonly = true;
-	bool fail = LLSelectMgr::getInstance()->getSelection()->applyToObjects(&func, firstonly);
+	LLSelectMgr *mgr = LLSelectMgr::getInstance();
+	LLObjectSelectionHandle selectHandle = mgr->getSelection();
+	bool fail = selectHandle->applyToObjects(&func);
 	if(fail)
 	{
 		if ( !func.scripted )

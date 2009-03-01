@@ -28,6 +28,12 @@
 	Backported fix for VWR-3871 (prim position appears to be off) from 1.22.
 
 
+	* linden/indra/newview/llcompilequeue.cpp:
+	Backported fix for SVC-2771 (script resetting can fail) from 1.22.
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto.
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.1.0 RC2                        -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
