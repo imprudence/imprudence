@@ -24,6 +24,9 @@
 	* linden/indra/llui/llfloater.cpp:
 	Backported possible crash fix in llfloater.cpp from 1.22.
 
+	* linden/indra/newview/lldrawable.cpp:
+	Backported fix for VWR-3871 (prim position appears to be off) from 1.22.
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.1.0 RC2                        -=
