@@ -21,6 +21,9 @@
 	* linden/indra/newview/pipeline.cpp:
 	Backported possible crash fix while changing graphics settings from 1.22.
 
+	* linden/indra/llui/llfloater.cpp:
+	Backported possible crash fix in llfloater.cpp from 1.22.
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.1.0 RC2                        -=

@@ -1580,6 +1580,7 @@ void LLFloater::updateButtons()
 	S32 button_count = 0;
 	for (S32 i = 0; i < BUTTON_COUNT; i++)
 	{
+ 		if(!mButtons[i]) continue;
 		mButtons[i]->setEnabled(mButtonsEnabled[i]);
 
 		if (mButtonsEnabled[i] 
