@@ -18,6 +18,9 @@
 	Applied patch for VWR-5575 (crash in the file picker dealing
 	with accented characters and bad locale) by Alissa Sabre.
 
+	* linden/indra/newview/pipeline.cpp:
+	Backported possible crash fix while changing graphics settings from 1.22.
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.1.0 RC2                        -=
