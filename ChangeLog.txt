@@ -1,3 +1,11 @@
+2009-03-01  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloaterchat.cpp:
+	Backported fix for VWR-6744 (No way to hide IMs in chat console).
+	* linden/indra/newview/skins/default/xui/en-us/panel_preferences_im.xml:
+	Ditto.
+
+
 2009-02-28  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/skins/default/textures/textures.xml:
