@@ -2,7 +2,6 @@
 <panel name="media_controls">
 	<icon name="music_icon" tool_tip="Jouer/pauser le flux musical" />
 	<button name="music_play" tool_tip="Jouer/pauser le flux musical" />
-	<button name="music_pause" tool_tip="Pauser le flux musical" />
 	<button name="music_stop" tool_tip="Arrêter le flux musical" />
 	<icon name="media_icon" tool_tip="Jouer/pauser le flux musical" />
 	<button name="media_play" tool_tip="Jouer/pauser le flux musical" />

@@ -1,3 +1,19 @@
+2009-02-28  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/textures/textures.xml:
+	Fixed pause button texture showing up in certain instances.
+	* linden/indra/newview/skins/default/xui/de/panel_media_controls.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/fr/panel_media_controls.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/ja/panel_media_controls.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/ko/panel_media_controls.xml:
+	Ditto.
+	* linden/indra/newview/skins/silver/xui/en-us/panel_media_controls.xml:
+	Ditto.
+
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.1.0 RC2                        -=
