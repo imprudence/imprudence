@@ -14,6 +14,10 @@
 	Ditto.
 
 
+	* linden/indra/newview/llfilepicker.cpp:
+	Applied patch for VWR-5575 (crash in the file picker dealing
+	with accented characters and bad locale) by Alissa Sabre.
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.1.0 RC2                        -=

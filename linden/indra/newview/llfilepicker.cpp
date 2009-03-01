@@ -899,12 +899,41 @@ BOOL LLFilePicker::getSaveFile(ESaveFilter filter, const std::string& filename)
 // static
 void LLFilePicker::add_to_selectedfiles(gpointer data, gpointer user_data)
 {
-	LLFilePicker* picker = (LLFilePicker*) user_data;
+	// We need to run g_filename_to_utf8 in the user's locale
+	std::string old_locale(setlocale(LC_ALL, NULL));
+	setlocale(LC_ALL, "");
+
+ 	LLFilePicker* picker = (LLFilePicker*) user_data;
+	GError *error = NULL;
 	gchar* filename_utf8 = g_filename_to_utf8((gchar*)data,
-						  -1, NULL, NULL, NULL);
-	picker->mFiles.push_back(std::string(filename_utf8));
-	lldebugs << "ADDED FILE " << filename_utf8 << llendl;
-	g_free(filename_utf8);
+						  -1, NULL, NULL, &error);
+	if (error)
+	{
+		// This condition should really be notified to the user, e.g.,
+		// through a message box.  Just logging it is inapropriate.
+		// FIXME.
+		
+		// Ghhhh.  g_filename_display_name is new to glib 2.6, and it
+		// is too new for SL! (Note that the latest glib as of this
+		// writing is 2.22. *sigh*) LL supplied *makeASCII family are
+		// also unsuitable since they allow control characters...
+
+		std::string display_name;
+		for (const gchar *str = (const gchar *)data; *str; str++)
+		{
+			display_name += (char)((*str >= 0x20 && *str <= 0x7E) ? *str : '?');
+		}
+		llwarns << "g_filename_to_utf8 failed on \"" << display_name << "\": " << error->message << llendl;
+	}
+
+	if (filename_utf8)
+	{
+		picker->mFiles.push_back(std::string(filename_utf8));
+		lldebugs << "ADDED FILE " << filename_utf8 << llendl;
+		g_free(filename_utf8);
+	}
+
+	setlocale(LC_ALL, old_locale.c_str());
 }
 
 // static
