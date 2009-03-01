@@ -13,7 +13,6 @@
 	* linden/indra/newview/skins/silver/xui/en-us/panel_media_controls.xml:
 	Ditto.
 
-
 	* linden/indra/newview/llfilepicker.cpp:
 	Applied patch for VWR-5575 (crash in the file picker dealing
 	with accented characters and bad locale) by Alissa Sabre.
@@ -27,11 +26,13 @@
 	* linden/indra/newview/lldrawable.cpp:
 	Backported fix for VWR-3871 (prim position appears to be off) from 1.22.
 
-
 	* linden/indra/newview/llcompilequeue.cpp:
 	Backported fix for SVC-2771 (script resetting can fail) from 1.22.
 	* linden/indra/newview/llviewermenu.cpp:
 	Ditto.
+
+	* linden/indra/llcharacter/llbvhloader.cpp:
+	Backported fix for VWR-996 (wrong visualisation of animations) from 1.22.
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
