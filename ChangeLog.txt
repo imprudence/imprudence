@@ -34,6 +34,10 @@
 	* linden/indra/llcharacter/llbvhloader.cpp:
 	Backported fix for VWR-996 (wrong visualisation of animations) from 1.22.
 
+	* linden/indra/newview/app_settings/keywords.ini:
+	Applied my patch for VWR-8454 (PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS
+	not highlighted in script editor).
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.1.0 RC2                        -=
