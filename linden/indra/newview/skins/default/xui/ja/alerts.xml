@@ -2797,10 +2797,10 @@ F1キーを押してください。
 	</alert>
 	<alert name="WebLaunchExternalTarget">
 		<message name="message">
-			お使いのシステムのウェブ・ブラウザーを開いて、この内容を表示しますか?
+			お使いのシステムのウェブ・ブラウザを開いて、この内容を表示しますか?
 		</message>
 		<ignore name="ignore">
-			お使いのシステムのブラウザーを開いてウェブ・ページを表示しようとしたとき
+			お使いのシステムのブラウザを開いてウェブ・ページを表示しようとしたとき
 		</ignore>
 		<option name="Open">
 			OK
@@ -2814,7 +2814,7 @@ F1キーを押してください。
 			www.secondlife.comに移動してアカウントを管理しますか？
 		</message>
 		<ignore name="ignore">
-			口座を管理するため、ウェブ・ブラウザーを起動するとき
+			アカウントを管理するため、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="OK">
 			OK
@@ -2853,10 +2853,10 @@ F1キーを押してください。
 	</alert>
 	<alert name="WebLaunchQAWiki">
 		<message name="message">
-			[SECOND_LIFE] QA Wikiをご覧ください。
+			[SECOND_LIFE] 品質保証関連Wikiをご覧ください。
 		</message>
 		<ignore name="ignore">
-			QA Wikiを閲覧するためにウェブ・ブラウザを起動するにあたって
+			品質保証関連Wikiを閲覧するためにウェブ・ブラウザを起動するにあたって
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -2895,10 +2895,10 @@ F1キーを押してください。
 	</alert>
 	<alert name="WebLaunchForums">
 		<message name="message">
-			最新のヒントおよびトリックについては、[SECOND_LIFE]の知識ベースを検索してください。
+			最新のヒントおよびトリックについては、[SECOND_LIFE]のナレッジベースを検索してください。
 		</message>
 		<ignore name="ignore">
-			知識ベースを表示するため、ウェブ・ブラウザーを起動するとき
+			ナレッジベースを表示するため、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -2912,7 +2912,7 @@ F1キーを押してください。
 			[SECOND_LIFE]サポートにコンタクト
 		</message>
 		<ignore name="ignore">
-			サポートに連絡するため、ウェブ・ブラウザーを起動するとき
+			サポートに連絡するため、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -2926,7 +2926,7 @@ F1キーを押してください。
 			Linden公式ブログで、最新のニュースや情報を入手してください。
 		</message>
 		<ignore name="ignore">
-			ブログを表示するため、ウェブ・ブラウザーを起動するとき
+			ブログを表示するため、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -2940,7 +2940,7 @@ F1キーを押してください。
 			スクリプトガイドを開いて、スクリプトのヘルプを参照しますか？
 		</message>
 		<ignore name="ignore">
-			LSLガイドを表示するため、ウェブ・ブラウザーを起動するとき
+			LSLガイドを表示するため、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -2954,7 +2954,7 @@ F1キーを押してください。
 			LSLポータルを開いてスクリプトのヘルプを参照しますか？
 		</message>
 		<ignore name="ignore">
-			LSLポータルを表示するために、ウェブ・ブラウザーを起動するとき
+			LSLポータルを表示するために、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="Gotopage">
 			ページに移動
@@ -4154,7 +4154,7 @@ Linden社所有のメインランドの不動産での太陽の位置に
 			SecondLifeウェブ・ページを開いてアカウント履歴を確認しますか？
 		</message>
 		<ignore name="ignore">
-			口座履歴のウェブ・ページをロードするとき
+			アカウント履歴のウェブ・ページをロードするとき
 		</ignore>
 		<option name="Gotopage">
 			ページに移動

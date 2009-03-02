@@ -502,16 +502,19 @@ static	void updatePosition(void);
 		// Note: if you change this list, please make corresponding changes to LLVoiceClient::state2string().
 		enum state
 		{
+			stateDisableCleanup,
 			stateDisabled,				// Voice is turned off.
 			stateStart,					// Class is initialized, socket is created
 			stateDaemonLaunched,		// Daemon has been launched
 			stateConnecting,			// connect() call has been issued
+			stateConnected,				// connection to the daemon has been made, send some initial setup commands.
 			stateIdle,					// socket is connected, ready for messaging
-			stateNeedsProvision,		// Need to do a ProvisionVoiceAccountRequest
+			stateMicTuningStart,
+			stateMicTuningRunning,		
+			stateMicTuningStop,
 			stateConnectorStart,		// connector needs to be started
 			stateConnectorStarting,		// waiting for connector handle
 			stateConnectorStarted,		// connector handle received
-			stateMicTuningNoLogin,		// mic tuning before login
 			stateLoginRetry,			// need to retry login (failed due to changing password)
 			stateLoginRetryWait,		// waiting for retry timer
 			stateNeedsLogin,			// send login request
@@ -519,9 +522,6 @@ static	void updatePosition(void);
 			stateLoggedIn,				// account handle received
 			stateCreatingSessionGroup,	// Creating the main session group
 			stateNoChannel,				// 
-			stateMicTuningStart,
-			stateMicTuningRunning,		
-			stateMicTuningStop,
 			stateJoiningSession,		// waiting for session handle
 			stateSessionJoined,			// session handle received
 			stateRunning,				// in session, steady state

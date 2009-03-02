@@ -1362,10 +1362,13 @@ void LLVoiceClient::login(
 	mVoiceSIPURIHostName = voice_sip_uri_hostname;
 	mVoiceAccountServerURI = voice_account_server_uri;
 
-	if((getState() >= stateLoggingIn) && (getState() < stateLoggedOut))
+	if(!mAccountHandle.empty())
 	{
-		// Already logged in.  This is an internal error.
-		LL_ERRS("Voice") << "Can't login again. Called from wrong state." << LL_ENDL;
+		// Already logged in.
+		LL_WARNS("Voice") << "Called while already logged in." << LL_ENDL;
+		
+		// Don't process another login.
+		return;
 	}
 	else if ( account_name != mAccountName )
 	{
@@ -1431,12 +1434,16 @@ std::string LLVoiceClient::state2string(LLVoiceClient::state inState)
 
 	switch(inState)
 	{
+		CASE(stateDisableCleanup);
 		CASE(stateDisabled);
 		CASE(stateStart);
 		CASE(stateDaemonLaunched);
 		CASE(stateConnecting);
+		CASE(stateConnected);
 		CASE(stateIdle);
-		CASE(stateNeedsProvision);
+		CASE(stateMicTuningStart);
+		CASE(stateMicTuningRunning);
+		CASE(stateMicTuningStop);
 		CASE(stateConnectorStart);
 		CASE(stateConnectorStarting);
 		CASE(stateConnectorStarted);
@@ -1447,9 +1454,6 @@ std::string LLVoiceClient::state2string(LLVoiceClient::state inState)
 		CASE(stateLoggedIn);
 		CASE(stateCreatingSessionGroup);
 		CASE(stateNoChannel);
-		CASE(stateMicTuningStart);
-		CASE(stateMicTuningRunning);
-		CASE(stateMicTuningStop);
 		CASE(stateJoiningSession);
 		CASE(stateSessionJoined);
 		CASE(stateRunning);
@@ -1466,7 +1470,6 @@ std::string LLVoiceClient::state2string(LLVoiceClient::state inState)
 		CASE(stateJoinSessionFailed);
 		CASE(stateJoinSessionFailedWaiting);
 		CASE(stateJail);
-		CASE(stateMicTuningNoLogin);
 	}
 
 #undef CASE
@@ -1522,9 +1525,13 @@ void LLVoiceClient::stateMachine()
 	{
 		updatePosition();
 	}
+	else if(mTuningMode)
+	{
+		// Tuning mode is special -- it needs to launch SLVoice even if voice is disabled.
+	}
 	else
 	{
-		if(getState() != stateDisabled)
+		if((getState() != stateDisabled) && (getState() != stateDisableCleanup))
 		{
 			// User turned off voice support.  Send the cleanup messages, close the socket, and reset.
 			if(!mConnected)
@@ -1534,16 +1541,10 @@ void LLVoiceClient::stateMachine()
 				killGateway();
 			}
 			
-//			leaveAudioSession();
 			logout();
-			// As of SDK version 4885, this should no longer be necessary.  It will linger after the socket close if it needs to.
-			// ms_sleep(2000);
 			connectorShutdown();
-			closeSocket();
-			deleteAllSessions();
-			deleteAllBuddies();
 			
-			setState(stateDisabled);
+			setState(stateDisableCleanup);
 		}
 	}
 	
@@ -1579,9 +1580,24 @@ void LLVoiceClient::stateMachine()
 
 	switch(getState())
 	{
+		//MARK: stateDisableCleanup
+		case stateDisableCleanup:
+			// Clean up and reset everything. 
+			closeSocket();
+			deleteAllSessions();
+			deleteAllBuddies();		
+			
+			mConnectorHandle.clear();
+			mAccountHandle.clear();
+			mAccountPassword.clear();
+			mVoiceAccountServerURI.clear();
+			
+			setState(stateDisabled);	
+		break;
+		
 		//MARK: stateDisabled
 		case stateDisabled:
-			if(mVoiceEnabled && (!mAccountName.empty() || mTuningMode))
+			if(mTuningMode || (mVoiceEnabled && !mAccountName.empty()))
 			{
 				setState(stateStart);
 			}
@@ -1780,29 +1796,34 @@ void LLVoiceClient::stateMachine()
 
 			mPump->addChain(readChain, NEVER_CHAIN_EXPIRY_SECS);
 
-			setState(stateIdle);
+			setState(stateConnected);
 		}
 
 		break;
 		
-		//MARK: stateIdle
-		case stateIdle:
+		//MARK: stateConnected
+		case stateConnected:
 			// Initial devices query
 			getCaptureDevicesSendMessage();
 			getRenderDevicesSendMessage();
 
 			mLoginRetryCount = 0;
-			
-			setState(stateNeedsProvision);
-				
+
+			setState(stateIdle);
 		break;
-		
-		//MARK: stateNeedsProvision
-		case stateNeedsProvision:
-			if(!mVoiceEnabled)
+
+		//MARK: stateIdle
+		case stateIdle:
+			// This is the idle state where we're connected to the daemon but haven't set up a connector yet.
+			if(mTuningMode)
 			{
-				// We were never logged in.  This will shut down the connector.
-				setState(stateLoggedOut);
+				mTuningExitState = stateIdle;
+				setState(stateMicTuningStart);
+			}
+			else if(!mVoiceEnabled)
+			{
+				// We never started up the connector.  This will shut down the daemon.
+				setState(stateConnectorStopped);
 			}
 			else if(!mAccountName.empty())
 			{
@@ -1820,50 +1841,8 @@ void LLVoiceClient::stateMachine()
 					}
 				}
 			}
-			else if(mTuningMode)
-			{
-				mTuningExitState = stateNeedsProvision;
-				setState(stateMicTuningStart);
-			}
 		break;
-		
-		//MARK: stateConnectorStart
-		case stateConnectorStart:
-			if(!mVoiceEnabled)
-			{
-				// We were never logged in.  This will shut down the connector.
-				setState(stateLoggedOut);
-			}
-			else if(!mVoiceAccountServerURI.empty())
-			{
-				connectorCreate();
-			}
-			else if(mTuningMode)
-			{
-				mTuningExitState = stateConnectorStart;
-				setState(stateMicTuningStart);
-			}
-		break;
-		
-		//MARK: stateConnectorStarting
-		case stateConnectorStarting:	// waiting for connector handle
-			// connectorCreateResponse() will transition from here to stateConnectorStarted.
-		break;
-		
-		//MARK: stateConnectorStarted
-		case stateConnectorStarted:		// connector handle received
-			if(!mVoiceEnabled)
-			{
-				// We were never logged in.  This will shut down the connector.
-				setState(stateLoggedOut);
-			}
-			else
-			{
-				// The connector is started.  Send a login message.
-				setState(stateNeedsLogin);
-			}
-		break;
-				
+
 		//MARK: stateMicTuningStart
 		case stateMicTuningStart:
 			if(mUpdateTimer.hasExpired())
@@ -1898,7 +1877,7 @@ void LLVoiceClient::stateMachine()
 		
 		//MARK: stateMicTuningRunning
 		case stateMicTuningRunning:
-			if(!mTuningMode || !mVoiceEnabled || mSessionTerminateRequested || mCaptureDeviceDirty || mRenderDeviceDirty)
+			if(!mTuningMode || mCaptureDeviceDirty || mRenderDeviceDirty)
 			{
 				// All of these conditions make us leave tuning mode.
 				setState(stateMicTuningStop);
@@ -1952,7 +1931,39 @@ void LLVoiceClient::stateMachine()
 			
 		}
 		break;
-								
+												
+		//MARK: stateConnectorStart
+		case stateConnectorStart:
+			if(!mVoiceEnabled)
+			{
+				// We were never logged in.  This will shut down the connector.
+				setState(stateLoggedOut);
+			}
+			else if(!mVoiceAccountServerURI.empty())
+			{
+				connectorCreate();
+			}
+		break;
+		
+		//MARK: stateConnectorStarting
+		case stateConnectorStarting:	// waiting for connector handle
+			// connectorCreateResponse() will transition from here to stateConnectorStarted.
+		break;
+		
+		//MARK: stateConnectorStarted
+		case stateConnectorStarted:		// connector handle received
+			if(!mVoiceEnabled)
+			{
+				// We were never logged in.  This will shut down the connector.
+				setState(stateLoggedOut);
+			}
+			else
+			{
+				// The connector is started.  Send a login message.
+				setState(stateNeedsLogin);
+			}
+		break;
+				
 		//MARK: stateLoginRetry
 		case stateLoginRetry:
 			if(mLoginRetryCount == 0)
@@ -2311,11 +2322,7 @@ void LLVoiceClient::stateMachine()
 
 		//MARK: stateConnectorStopped
 		case stateConnectorStopped:		// connector stop received
-			// Clean up and reset everything. 
-			closeSocket();
-			deleteAllSessions();
-			deleteAllBuddies();
-			setState(stateDisabled);
+			setState(stateDisableCleanup);
 		break;
 
 		//MARK: stateConnectorFailed
@@ -2366,11 +2373,6 @@ void LLVoiceClient::stateMachine()
 			// We have given up.  Do nothing.
 		break;
 
-		//MARK: stateMicTuningNoLogin
-		case stateMicTuningNoLogin:
-		// *TODO: Implement me.
-		LL_WARNS("Voice") << "stateMicTuningNoLogin not handled" << LL_ENDL;
-		break;
 	}
 	
 	if(mAudioSession && mAudioSession->mParticipantsChanged)
@@ -2943,12 +2945,8 @@ void LLVoiceClient::daemonDied()
 	// The daemon died, so the connection is gone.  Reset everything and start over.
 	LL_WARNS("Voice") << "Connection to vivox daemon lost.  Resetting state."<< LL_ENDL;
 
-	closeSocket();
-	deleteAllSessions();
-	deleteAllBuddies();
-	
 	// Try to relaunch the daemon
-	setState(stateDisabled);
+	setState(stateDisableCleanup);
 }
 
 void LLVoiceClient::giveUp()
@@ -5631,8 +5629,8 @@ void LLVoiceClient::setVoiceEnabled(bool enabled)
 		}
 		else
 		{
-			// for now, leave active channel, to auto join when turning voice back on
-			//LLVoiceChannel::getCurrentVoiceChannel->deactivate();
+			// Turning voice off looses your current channel -- this makes sure the UI isn't out of sync when you re-enable it.
+			LLVoiceChannel::getCurrentVoiceChannel()->deactivate();
 		}
 	}
 }
