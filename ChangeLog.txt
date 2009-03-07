@@ -1,3 +1,9 @@
+2009-03-07  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llimagej2coj/llimagej2coj.cpp:
+	Backported fix for VWR-4070 from 1.22.
+
+
 2009-03-01  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llfloaterchat.cpp:
