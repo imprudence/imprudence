@@ -42,6 +42,7 @@
 #include "llresmgr.h"
 #include "imageids.h"
 #include "llvelocitybar.h"
+#include "llviewercontrol.h"
 #include "llviewerwindow.h"
 #include "llfloaterstats.h"
 
@@ -100,11 +101,8 @@ LLDebugView::LLDebugView(const std::string& name, const LLRect &rect)
 	//
 	// Debug statistics
 	//
-	r.set(rect.getWidth() - 250,
-		  rect.getHeight() - 50,
-		  rect.getWidth(),
-		  rect.getHeight() - 450);
-	mFloaterStatsp = new LLFloaterStats(r);
+	LLRect statsrect = gSavedSettings.getRect("FloaterStatsRect");
+	mFloaterStatsp = new LLFloaterStats(statsrect);
 
 	mFloaterStatsp->setFollowsTop();
 	mFloaterStatsp->setFollowsRight();

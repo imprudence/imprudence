@@ -11,6 +11,14 @@
 	* linden/indra/llmessage/llhttpclient.cpp:
 	Applied memleak patch from VWR-9400 by Henri and Carjay.
 
+	* linden/indra/newview/app_settings/settings.xml:
+	Applied remember stats position and size patch
+	from Latif Khalifa (VWR-9540).
+	* linden/indra/newview/lldebugview.cpp:
+	Ditto.
+	* linden/indra/newview/llfloaterstats.cpp:
+	Ditto.
+
 
 2009-03-01  McCabe Maxsted  <hakushakukun@gmail.com>
 
