@@ -38,6 +38,9 @@
 	* linden/indra/newview/llviewermessage.cpp:
 	Ditto.
 
+	* linden/indra/newview/llvoavatar.cpp:
+	Use std::string for nametags, removed bizarre name stacking option. 
+
 
 2009-03-01  McCabe Maxsted  <hakushakukun@gmail.com>
 
