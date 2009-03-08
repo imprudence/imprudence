@@ -22,6 +22,22 @@
 	* linden/indra/newview/llappviewer.cpp:
 	Backported fix for VWR-8783, original patch by Gigs Taggart. 
 
+	* linden/indra/newview/llfloaterurldisplay.cpp:
+	Applied patch to correct landmark colors not changing
+	(VWR-7896) by Zi Ree.
+	* linden/indra/newview/llinventorybridge.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelinventory.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelplace.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelplace.h:
+	Ditto.
+	* linden/indra/newview/llpreviewlandmark.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermessage.cpp:
+	Ditto.
+
 
 2009-03-01  McCabe Maxsted  <hakushakukun@gmail.com>
 

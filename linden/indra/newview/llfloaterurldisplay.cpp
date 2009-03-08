@@ -75,7 +75,8 @@ void LLFloaterURLDisplay::displayParcelInfo(U64 region_handle, const LLVector3& 
 
 	LLUUID region_id;			// don't know this
 	LLUUID landmark_asset_id;	// don't know this either
-	mPlacePanel->displayParcelInfo(pos_local, landmark_asset_id, region_id, pos_global);
+	LLUUID landmark_item_id;	// don't know this either
+	mPlacePanel->displayParcelInfo(pos_local, landmark_asset_id, landmark_item_id, region_id, pos_global);
 
 	this->setVisible(true);
 	this->setFrontmost(true);

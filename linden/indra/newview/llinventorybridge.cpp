@@ -2606,7 +2606,7 @@ void LLLandmarkBridge::performAction(LLFolderView* folder, LLInventoryModel* mod
 			// because you'll probably arrive at a telehub instead
 			if( gFloaterWorldMap )
 			{
-				gFloaterWorldMap->trackLandmark( item->getAssetUUID() );
+				gFloaterWorldMap->trackLandmark(item->getUUID());  // remember this must be the item UUID, not the asset UUID
 			}
 		}
 	}
@@ -2651,20 +2651,19 @@ void open_landmark(LLViewerInventoryItem* inv_item,
 
 static void open_landmark_callback(S32 option, void* data)
 {
-	LLUUID* asset_idp = (LLUUID*)data;
+	LLInventoryItem* itemp = (LLInventoryItem*)data;
 	if (option == 0)
 	{
 		// HACK: This is to demonstrate teleport on double click for landmarks
-		gAgent.teleportViaLandmark( *asset_idp );
+		gAgent.teleportViaLandmark( itemp->getAssetUUID() );
 
 		// we now automatically track the landmark you're teleporting to
 		// because you'll probably arrive at a telehub instead
 		if( gFloaterWorldMap )
 		{
-			gFloaterWorldMap->trackLandmark( *asset_idp );
+			gFloaterWorldMap->trackLandmark( itemp->getUUID() );  // remember this is the item UUID not the asset UUID
 		}
 	}
-	delete asset_idp;
 }
 
 void LLLandmarkBridge::openItem()
@@ -2675,9 +2674,9 @@ void LLLandmarkBridge::openItem()
 		// Opening (double-clicking) a landmark immediately teleports,
 		// but warns you the first time.
 		// open_landmark(item, std::string("  ") + getPrefix() + item->getName(), FALSE);
-		LLUUID* asset_idp = new LLUUID(item->getAssetUUID());
 		LLAlertDialog::showXml("TeleportFromLandmark",
-			open_landmark_callback, (void*)asset_idp);
+			// send the full inventory item so the callback can use both asset UUID and inventory item id
+			open_landmark_callback, (void*)item);
 	}
 }
 
