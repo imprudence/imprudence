@@ -19,6 +19,9 @@
 	* linden/indra/newview/llfloaterstats.cpp:
 	Ditto.
 
+	* linden/indra/newview/llappviewer.cpp:
+	Backported fix for VWR-8783, original patch by Gigs Taggart. 
+
 
 2009-03-01  McCabe Maxsted  <hakushakukun@gmail.com>
 
