@@ -1,3 +1,11 @@
+2009-03-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/Info-SecondLife.plist:
+	Moved Info-SecondLife.plist to Info-Imprudence.plist.
+	* linden/indra/newview/viewer_manifest.py:
+	Ditto.
+
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.1.0 RC2                        -=

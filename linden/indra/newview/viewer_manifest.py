@@ -403,7 +403,7 @@ class DarwinManifest(ViewerManifest):
             #  <bundle>/Contents/MacOS/
             self.contents_of_tar(self.args['source']+'/mozilla-universal-darwin.tgz', 'MacOS')
 
-            self.path("Info-SecondLife.plist", dst="Info.plist")
+            self.path("Info-Imprudence.plist", dst="Info.plist")
 
             # copy additional libs in <bundle>/Contents/MacOS/
             self.path("../../libraries/universal-darwin/lib_release/libndofdev.dylib", dst="MacOS/libndofdev.dylib")
