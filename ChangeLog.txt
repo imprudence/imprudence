@@ -8,6 +8,9 @@
 	* linden/indra/newview/llviewermessage.cpp:
 	Ditto.
 
+	* linden/indra/llmessage/llhttpclient.cpp:
+	Applied memleak patch from VWR-9400 by Henri and Carjay.
+
 
 2009-03-01  McCabe Maxsted  <hakushakukun@gmail.com>
 
