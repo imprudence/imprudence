@@ -1,3 +1,9 @@
+2009-03-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/GStreamer.cmake:
+	Tweaked GStreamer.cmake to work on Mac.
+
+
 2009-03-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/Info-SecondLife.plist:
