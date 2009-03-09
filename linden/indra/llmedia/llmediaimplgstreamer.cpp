@@ -166,19 +166,26 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		g_type_init();
 
 		// Get symbols!
+		if (
 #if LL_WINDOWS
-		if (! grab_gst_syms("libgstreamer-0.10.dll", "libgstvideo-0.10.dll", "libgstaudio-0.10.dll") )
+			  ! grab_gst_syms("libgstreamer-0.10.dll",
+				                "libgstvideo-0.10.dll",
+				                "libgstaudio-0.10.dll")
+#elif LL_DARWIN
+			  ! grab_gst_syms("libgstreamer-0.10.dylib",
+				                "libgstvideo-0.10.dylib",
+				                "libgstaudio-0.10.dylib")
+#else
+			  ! grab_gst_syms("libgstreamer-0.10.so.0",
+				                "libgstvideo-0.10.so.0",
+				                "libgstaudio-0.10.so.0")
+#endif
+				)
 		{
 		    LL_WARNS("MediaImpl") << "Couldn't find suitable GStreamer 0.10 support on this system - video playback disabled." << LL_ENDL;
 			return false;
 		}
-#else
-		if (! grab_gst_syms("libgstreamer-0.10.so.0", "libgstvideo-0.10.so.0", "libgstaudio-0.10.so.0") )
-		{
-		    	LL_WARNS("MediaImpl") << "Couldn't find suitable GStreamer 0.10 support on this system - video playback disabled." << LL_ENDL;
-			return false;
-		}
-#endif
+
 		if (llgst_segtrap_set_enabled)
 			llgst_segtrap_set_enabled(FALSE);
 		else

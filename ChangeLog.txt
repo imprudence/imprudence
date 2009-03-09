@@ -1,5 +1,9 @@
 2009-03-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Load the proper gstreamer lib type (dylib) on Mac.
+
+
 	* linden/indra/cmake/GStreamer.cmake:
 	Tweaked GStreamer.cmake to work on Mac.
 
