@@ -1,3 +1,9 @@
+2009-03-10  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llaudio/audioengine.cpp:
+	Changed startinternetstream() a bit to be clearer.
+
+
 2009-03-07  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llimagej2coj/llimagej2coj.cpp:
