@@ -406,7 +406,39 @@ class DarwinManifest(ViewerManifest):
             self.path("Info-Imprudence.plist", dst="Info.plist")
 
             # copy additional libs in <bundle>/Contents/MacOS/
-            self.path("../../libraries/universal-darwin/lib_release/libndofdev.dylib", dst="MacOS/libndofdev.dylib")
+            if self.prefix(src="../../libraries/universal-darwin/lib_release", dst="MacOS/"):
+
+                self.path("libndofdev.dylib")
+                
+                self.path("libopenal.1.dylib")
+                self.path("libalut.0.dylib")
+
+                self.path("libglib-2.0.dylib")
+                self.path("libgmodule-2.0.dylib")
+                self.path("libgobject-2.0.dylib")
+                self.path("libgthread-2.0.dylib")
+                self.path("libintl.3.dylib")
+                
+                self.path("libgstreamer-0.10.dylib")
+                self.path("libgstapp-0.10.dylib")
+                self.path("libgstaudio-0.10.dylib")
+                self.path("libgstbase-0.10.dylib")
+                self.path("libgstcdda-0.10.dylib")
+                self.path("libgstcontroller-0.10.dylib")
+                self.path("libgstdataprotocol-0.10.dylib")
+                self.path("libgstfft-0.10.dylib")
+                self.path("libgstinterfaces-0.10.dylib")
+                self.path("libgstnet-0.10.dylib")
+                self.path("libgstnetbuffer-0.10.dylib")
+                self.path("libgstpbutils-0.10.dylib")
+                self.path("libgstriff-0.10.dylib")
+                self.path("libgstrtp-0.10.dylib")
+                self.path("libgstrtsp-0.10.dylib")
+                self.path("libgstsdp-0.10.dylib")
+                self.path("libgsttag-0.10.dylib")
+                self.path("libgstvideo-0.10.dylib")
+
+                self.end_prefix("../../libraries/universal-darwin/lib_release")
 
             # replace the default theme with our custom theme (so scrollbars work).
             if self.prefix(src="mozilla-theme", dst="MacOS/chrome"):
@@ -442,8 +474,8 @@ class DarwinManifest(ViewerManifest):
 
 
                 # SLVoice and vivox lols
-                self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
-                self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
+                #self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
+                #self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
                 #self.path("vivox-runtime/universal-darwin/libortp.dylib", "libortp.dylib")
                 #self.path("vivox-runtime/universal-darwin/libvivoxsdk.dylib", "libvivoxsdk.dylib")
                 #self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")

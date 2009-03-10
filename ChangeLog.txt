@@ -1,12 +1,14 @@
 2009-03-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/viewer_manifest.py:
+	Manifest includes openal and gstreamer libs in Mac package.
+
 	* linden/indra/newview/CMakeLists.txt: 
 	Mac app icon will be called viewer.icns instead of secondlife.icns.
 	* linden/indra/newview/Info-Imprudence.plist: 
 	Ditto.
 	* linden/indra/newview/viewer_manifest.py:
 	Ditto.
-
 
 2009-03-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
