@@ -432,7 +432,7 @@ class DarwinManifest(ViewerManifest):
                 self.path("featuretable_mac.txt")
                 self.path("SecondLife.nib")
 
-                self.path("secondlife.icns")
+                self.path("viewer.icns")
                 
                 # Translations
                 self.path("English.lproj")

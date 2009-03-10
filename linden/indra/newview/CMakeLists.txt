@@ -849,7 +849,7 @@ if (DARWIN)
 
   # Add resource files to the project.
   set(viewer_RESOURCE_FILES
-    secondlife.icns
+    viewer.icns
     macview.r
     gpu_table.txt
     Info-Imprudence.plist
@@ -1447,7 +1447,7 @@ if (DARWIN)
     PROPERTIES
     OUTPUT_NAME "${product}"
     MACOSX_BUNDLE_INFO_STRING "info string - localize me"
-    MACOSX_BUNDLE_ICON_FILE "secondlife.icns"
+    MACOSX_BUNDLE_ICON_FILE "viewer.icns"
     MACOSX_BUNDLE_GUI_IDENTIFIER "Imprudence"
     MACOSX_BUNDLE_LONG_VERSION_STRING "ververver"
     MACOSX_BUNDLE_BUNDLE_NAME "Imprudence"
