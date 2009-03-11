@@ -1,5 +1,8 @@
 2009-03-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/viewer_manifest.py:
+	Added Mac gstreamer plugins to viewer manifest.
+
 	* linden/indra/llaudio/CMakeLists.txt:
 	LLAudio's CMakeLists should include OPENAL.
 
