@@ -1,5 +1,8 @@
 2009-03-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llaudio/CMakeLists.txt:
+	LLAudio's CMakeLists should include OPENAL.
+
 	* linden/indra/cmake/LLMedia.cmake:
 	Removed Quicktime-related cmake code.
 	* linden/indra/cmake/LLMedia.cmake:
