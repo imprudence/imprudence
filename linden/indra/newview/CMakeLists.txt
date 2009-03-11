@@ -1393,7 +1393,6 @@ target_link_libraries(imprudence-bin
     ${SMARTHEAP_LIBRARY}
     ${UI_LIBRARIES}
     ${NDOF_LIBRARY}
-    ${QUICKTIME_LIBRARY}
     ${WINDOWS_LIBRARIES}
     ${XMLRPCEPI_LIBRARIES}
     ${ZLIB_LIBRARIES}
