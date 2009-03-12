@@ -15,10 +15,7 @@ if (OPENAL)
       PATHS ${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release
       )
   else (WINDOWS)
-   find_library(OPENAL_LIB
-     NAMES openal
-     PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
-     )
+    set(OPENAL_LIB openal)    
   endif (WINDOWS)
   
   if (NOT OPENAL_LIB)
@@ -52,10 +49,7 @@ if (OPENAL)
      PATHS ${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release
      )
   else (WINDOWS) 
-    find_library(ALUT_LIB
-      NAMES alut
-      PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
-      )
+    set(ALUT_LIB alut)
   endif (WINDOWS)
 
   if (NOT ALUT_LIB)

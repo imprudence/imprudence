@@ -1,3 +1,10 @@
+2009-03-12  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/OPENAL.cmake:
+	Don't find specific OpenAL lib locations on Mac/Linux.
+	Linking that way is bad. Just use -lopenal -lalut instead.
+
+
 2009-03-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/cmake/OPENAL.cmake:
