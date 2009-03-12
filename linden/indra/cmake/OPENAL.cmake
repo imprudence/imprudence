@@ -10,16 +10,15 @@ if (OPENAL)
   # OPENAL_LIB
 
   if (WINDOWS)
-  find_library(OPENAL_LIB
-    NAMES openal openal32 OpenAL OpenAL32 wrap_oal
-    PATHS ${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release
-    )
-
+    find_library(OPENAL_LIB
+      NAMES openal openal32 OpenAL OpenAL32 wrap_oal
+      PATHS ${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release
+      )
   else (WINDOWS)
-  find_library(OPENAL_LIB
-    NAMES openal openal32 OpenAL OpenAL32 wrap_oal
-    PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
-    )
+   find_library(OPENAL_LIB
+     NAMES openal openal32 OpenAL OpenAL32 wrap_oal
+     PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
+     )
   endif (WINDOWS)
   
   if (NOT OPENAL_LIB)
@@ -49,15 +48,14 @@ if (OPENAL)
 
   if (WINDOWS)
    find_library(ALUT_LIB
-   NAMES alut freealut
-   PATHS ${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release
-   )
-  
+     NAMES alut freealut
+     PATHS ${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release
+     )
   else (WINDOWS) 
-  find_library(ALUT_LIB
-    NAMES alut freealut
-    PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
-    )
+    find_library(ALUT_LIB
+      NAMES alut freealut
+      PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
+      )
   endif (WINDOWS)
 
   if (NOT ALUT_LIB)
