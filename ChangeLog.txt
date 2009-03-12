@@ -1,5 +1,8 @@
 2009-03-11  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/cmake/OPENAL.cmake:
+	Removed redundant/unnecessary OpenAL lib names and paths.
+
 	* linden/indra/newview/viewer_manifest.py:
 	Added Mac gstreamer plugins to viewer manifest.
 
