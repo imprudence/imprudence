@@ -1,3 +1,9 @@
+2009-03-13  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llaudio/audioengine_openal.cpp:
+	Added error checking when generating an OpenAL source.
+
+
 2009-03-12  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/cmake/OPENAL.cmake:
