@@ -1009,7 +1009,7 @@ void LLTextEditor::indentSelectedLines( S32 spaces )
 		}
 		else
 		{
-			while( (text[right] != '\n') && (right <= getLength() ) )
+			while( right < getLength() && (text[right] != '\n') )
 			{
 				right++;
 			}
