@@ -1,6 +1,9 @@
 2009-03-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
+	Symlinks for Mac glib dylibs (2.0.0 -> 2.0).
+
+	* linden/indra/newview/viewer_manifest.py:
 	Added more Mac dylibs to manifest.
 
 
