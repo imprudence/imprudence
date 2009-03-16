@@ -1,3 +1,9 @@
+2009-03-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/viewer_manifest.py:
+	Added more Mac dylibs to manifest.
+
+
 2009-03-13  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llaudio/audioengine_openal.cpp:

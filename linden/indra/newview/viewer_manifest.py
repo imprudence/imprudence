@@ -417,7 +417,6 @@ class DarwinManifest(ViewerManifest):
                 self.path("libgmodule-2.0.dylib")
                 self.path("libgobject-2.0.dylib")
                 self.path("libgthread-2.0.dylib")
-                self.path("libintl.3.dylib")
                 
                 self.path("libgstreamer-0.10.dylib")
                 self.path("libgstapp-0.10.dylib")
@@ -437,6 +436,16 @@ class DarwinManifest(ViewerManifest):
                 self.path("libgstsdp-0.10.dylib")
                 self.path("libgsttag-0.10.dylib")
                 self.path("libgstvideo-0.10.dylib")
+
+                self.path("libintl.3.dylib")
+                self.path("libjpeg.62.dylib")
+                self.path("libogg.0.dylib")
+                self.path("liboil-0.3.0.dylib")
+                self.path("libpango-1.0.0.dylib")
+                self.path("libpangoft2-1.0.0.dylib")
+                self.path("libtheora.0.dylib")
+                self.path("libvorbis.0.dylib")
+                self.path("libvorbisenc.2.dylib")
 
                 self.end_prefix("../../libraries/universal-darwin/lib_release")
 
