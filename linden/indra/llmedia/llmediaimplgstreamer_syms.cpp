@@ -31,6 +31,13 @@
 
 ///#if LL_GSTREAMER_ENABLED
 
+#if LL_WINDOWS
+	// GStreamer 0.10.22 - gstutils.h - conversion from 'guint64' to 'guint8'. 
+	// This was an intentional change to make GStreamer more threadsafe, and
+	// is okay. Delete this bit if GStreamer ever gets more VS-friendly -- McCabe
+	#pragma warning(disable : 4244)
+#endif
+
 extern "C" {
 #include <gst/gst.h>
 
@@ -39,6 +46,10 @@ extern "C" {
 }
 
 #include "llmediaimplgstreamer.h"
+
+#if LL_WINDOWS
+	#pragma warning(default : 4244)
+#endif
 
 #define LL_GST_SYM(REQ, GSTSYM, RTN, ...) RTN (*ll##GSTSYM)(__VA_ARGS__) = NULL
 #include "llmediaimplgstreamer_syms_raw.inc"
@@ -183,6 +194,5 @@ void ungrab_gst_syms()
 
 	sSymsGrabbed = false;
 }
-
 
 ///#endif // LL_GSTREAMER_ENABLED

@@ -30,14 +30,25 @@
  * $/LicenseInfo$
  */
 
-#include "llmediaimplgstreamer.h"
-
 ///#if LL_GSTREAMER_ENABLED
+
+#if LL_WINDOWS
+	// GStreamer 0.10.22 - gstutils.h - conversion from 'guint64' to 'guint8'. 
+	// This was an intentional change to make GStreamer more threadsafe, and
+	// is okay. Delete this bit if GStreamer ever gets more VS-friendly -- McCabe
+	#pragma warning(disable : 4244)
+#endif
+
+#include "llmediaimplgstreamer.h"
 
 extern "C" {
 #include <gst/gst.h>
 #include <gst/gstelement.h>
 }
+
+#if LL_WINDOWS
+	#pragma warning(default : 4244)
+#endif
 
 #include "llmediamanager.h"
 #include "llmediaimplregister.h"

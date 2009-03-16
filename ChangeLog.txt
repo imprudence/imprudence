@@ -1,3 +1,15 @@
+2009-03-16  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Visual Studio now ignores C4244 warnings in GStreamer.
+	Since the change was intentional, I thought it best to
+	continue using "treat warnings as errors" and ignore it.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms.cpp:
+	Ditto.
+	* linden/indra/llmedia/llmediamanager.cpp:
+	Ditto.
+
+
 2009-03-10  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llaudio/audioengine.cpp:
