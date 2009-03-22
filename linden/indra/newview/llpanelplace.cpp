@@ -333,7 +333,6 @@ void LLPanelPlace::processParcelInfoReply(LLMessageSystem *msg, void **)
 
 void LLPanelPlace::displayParcelInfo(const LLVector3& pos_region,
 									 const LLUUID& landmark_asset_id,
-									 const LLUUID& landmark_item_id,   // item_id to be able to send map correct id
 									 const LLUUID& region_id,
 									 const LLVector3d& pos_global)
 {
@@ -341,7 +340,6 @@ void LLPanelPlace::displayParcelInfo(const LLVector3& pos_region,
 	mPosRegion = pos_region;
 	mPosGlobal = pos_global;
 	mLandmarkAssetID = landmark_asset_id;
-	mLandmarkItemID = landmark_item_id;
 	std::string url = gAgent.getRegion()->getCapability("RemoteParcelRequest");
 	if (!url.empty())
 	{
@@ -381,8 +379,8 @@ void LLPanelPlace::onClickTeleport(void* data)
 	if(self->mLandmarkAssetID.notNull())
 	{
 		gAgent.teleportViaLandmark(self->mLandmarkAssetID);
-		// remember this must be an inventory item id, not an asset UUID
-		gFloaterWorldMap->trackLandmark(self->mLandmarkItemID); 
+		gFloaterWorldMap->trackLandmark(self->mLandmarkAssetID);
+
 	}
 	else if (!self->mPosGlobal.isExactlyZero())
 	{

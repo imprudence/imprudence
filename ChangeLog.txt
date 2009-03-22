@@ -10,6 +10,21 @@
 	* linden/indra/newview/llfloaterstats.cpp:
 	Ditto.
 
+	* linden/indra/newview/llfloaterurldisplay.cpp:
+	Removed slviewer-0-v12160-VisitedLandmarks.patch.
+	* linden/indra/newview/llinventorybridge.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelinventory.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelplace.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelplace.h:
+	Ditto.
+	* linden/indra/newview/llpreviewlandmark.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermessage.cpp:
+	Ditto.
+
 
 2009-03-16  McCabe Maxsted  <hakushakukun@gmail.com>
 

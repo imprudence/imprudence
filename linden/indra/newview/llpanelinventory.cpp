@@ -1080,11 +1080,7 @@ LLTaskLandmarkBridge::LLTaskLandmarkBridge(
 
 LLUIImagePtr LLTaskLandmarkBridge::getIcon() const
 {
-	LLInventoryItem* item = findItem();
-	BOOL visited = FALSE;
-	if(item->getFlags() & LLInventoryItem::II_FLAGS_LANDMARK_VISITED) visited=TRUE;
-	// attachment point parameter in get_item_icon is used for visited/unvisited landmark
-	return get_item_icon(LLAssetType::AT_LANDMARK, LLInventoryType::IT_LANDMARK, visited, FALSE);
+	return get_item_icon(LLAssetType::AT_LANDMARK, LLInventoryType::IT_LANDMARK, 0, FALSE);
 }
 
 

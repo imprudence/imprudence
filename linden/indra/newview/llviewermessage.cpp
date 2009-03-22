@@ -2768,11 +2768,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 		LLVector3 beacon_dir(agent_pos.mV[VX] - (F32)fmod(beacon_pos.mdV[VX], 256.0), agent_pos.mV[VY] - (F32)fmod(beacon_pos.mdV[VY], 256.0), 0);
 		if (beacon_dir.magVecSquared() < 25.f)
 		{
-			// do not stop tracking landmarks here, so they can properly be marked as visited in LLTracker()
-			if(LLTracker::getTrackingStatus()!=LLTracker::TRACKING_LANDMARK)
-			{
-				LLTracker::stopTracking(NULL);
-			}
+			LLTracker::stopTracking(NULL);
 		}
 		else if ( is_teleport )
 		{

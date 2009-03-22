@@ -70,7 +70,6 @@ public:
 	void sendParcelInfoRequest();
 	void displayParcelInfo(const LLVector3& pos_region,
 			const LLUUID& landmark_asset_id,
-			const LLUUID& landmark_item_id,   // so we can send map floater the correct inventory item id
 			const LLUUID& region_id,
 			const LLVector3d& pos_global);
 	static void processParcelInfoReply(LLMessageSystem* msg, void**);
@@ -91,7 +90,6 @@ protected:
 	LLUUID			mRequestedID;
 	LLUUID			mRegionID;
 	LLUUID			mLandmarkAssetID;
-	LLUUID			mLandmarkItemID;
 	// Absolute position of the location for teleport, may not
 	// be available (hence zero)
 	LLVector3d		mPosGlobal;
