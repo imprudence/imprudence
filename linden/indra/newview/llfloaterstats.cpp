@@ -38,7 +38,6 @@
 #include "llfloater.h"
 #include "llstatview.h"
 #include "llscrollcontainer.h"
-#include "llviewercontrol.h"
 
 const S32 LL_SCROLL_BORDER = 1;
 
@@ -65,8 +64,6 @@ LLFloaterStats::LLFloaterStats(const LLRect& rect)
 
 LLFloaterStats::~LLFloaterStats()
 {
-	// save position of floater
-	gSavedSettings.setRect("FloaterStatsRect", getRect());
 }
 
 void LLFloaterStats::reshape(S32 width, S32 height, BOOL called_from_parent)

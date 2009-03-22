@@ -1,3 +1,16 @@
+2009-03-22  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llappviewer.cpp:
+	Removed slviewer-0-v12160-LostConnectionOnLogin.patch.
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Removed slviewer-0-v12160-RememberStatsPosAndSize.patch.
+	* linden/indra/newview/lldebugview.cpp:
+	Ditto.
+	* linden/indra/newview/llfloaterstats.cpp:
+	Ditto.
+
+
 2009-03-16  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:

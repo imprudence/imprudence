@@ -3159,22 +3159,6 @@
         <integer>400</integer>
       </array>
     </map>
-    <key>FloaterStatsRect</key>
-    <map>
-      <key>Comment</key>
-      <string>Rectangle for statistics bar</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Rect</string>
-      <key>Value</key>
-      <array>
-        <integer>0</integer>
-        <integer>450</integer>
-        <integer>250</integer>
-        <integer>50</integer>
-      </array>
-    </map>
     <key>FloaterViewBottom</key>
     <map>
       <key>Comment</key>
