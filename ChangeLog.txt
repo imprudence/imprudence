@@ -1,5 +1,17 @@
 2009-03-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmedia/llmediaimplgstreamer_syms.cpp:
+	Removed obsolete gstreamer_syms files.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms.h:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms_raw.inc:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms_rawa.inc:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms_rawv.inc:
+	Ditto.
+
+	
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Removed all that llgst and symbol grabbing silliness.
 	Some symbols require gstreamer >= 0.10.11.
