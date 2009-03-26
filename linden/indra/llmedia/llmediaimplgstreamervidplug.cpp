@@ -435,25 +435,19 @@ plugin_init (GstPlugin * plugin)
 				       GST_RANK_NONE, GST_TYPE_SLVIDEO);
 }
 
-/* this is the structure that gstreamer looks for to register plugins
- */
-/* NOTE: Can't rely upon GST_PLUGIN_DEFINE_STATIC to self-register, since
-   some g++ versions buggily avoid __attribute__((constructor)) functions -
-   so we provide an explicit plugin init function.
- */
-#define PACKAGE "packagehack"
-	GST_PLUGIN_DEFINE (GST_VERSION_MAJOR,
-				  GST_VERSION_MINOR,
-				  "private-slvideoplugin", 
-				  "SL Video sink plugin",
-				  plugin_init, "0.1", GST_LICENSE_UNKNOWN,
-				  "Second Life",
-				  "http://www.secondlife.com/");
-#undef PACKAGE
 
 void gst_slvideo_init_class (void)
 {
-	//fprintf(stderr, "\n\n\nCLASS INIT\n\n\n");
+	gst_plugin_register_static( GST_VERSION_MAJOR,
+	                            GST_VERSION_MINOR,
+	                            "private-slvideoplugin", 
+	                            "SL Video sink plugin",
+	                            plugin_init,
+	                            "0.1",
+	                            GST_LICENSE_UNKNOWN,
+	                            "Second Life",
+	                            "Second Life",
+	                            "http://www.secondlife.com/" );
 }
 
 ///#endif // LL_GSTREAMER_ENABLED

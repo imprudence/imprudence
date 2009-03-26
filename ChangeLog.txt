@@ -1,5 +1,9 @@
 2009-03-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmedia/llmediaimplgstreamervidplug.cpp:
+	Fixed/improved how slvideo gst plugin is registered.
+
+
 	* linden/indra/llmedia/llmediaimplgstreamer_syms.cpp:
 	Removed obsolete gstreamer_syms files.
 	* linden/indra/llmedia/llmediaimplgstreamer_syms.h:
