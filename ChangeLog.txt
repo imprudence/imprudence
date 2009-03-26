@@ -1,3 +1,34 @@
+2009-03-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamervidplug.cpp:
+	Fixed/improved how slvideo gst plugin is registered.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer_syms.cpp:
+	Removed obsolete gstreamer_syms files.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms.h:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms_raw.inc:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms_rawa.inc:
+	Ditto.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms_rawv.inc:
+	Ditto.
+
+	
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Removed all that llgst and symbol grabbing silliness.
+	Some symbols require gstreamer >= 0.10.11.
+	* linden/indra/llmedia/llmediaimplgstreamervidplug.cpp:
+	Ditto.
+	* linden/indra/llmedia/CMakeLists.txt:
+	Ditto.
+
+
+	* linden/indra/cmake/GStreamer.cmake:
+	Link with some gstreamer core libs on Linux.
+
+
 2009-03-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
@@ -69,7 +100,6 @@
 	Moved Info-SecondLife.plist to Info-Imprudence.plist.
 	* linden/indra/newview/viewer_manifest.py:
 	Ditto.
-
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
