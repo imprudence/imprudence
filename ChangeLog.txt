@@ -1,3 +1,8 @@
+2009-03-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/cmake/GStreamer.cmake:
+	Link with some gstreamer core libs on Linux.
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.1.0 RC2                        -=
