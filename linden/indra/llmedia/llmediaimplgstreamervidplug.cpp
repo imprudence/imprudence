@@ -37,8 +37,6 @@
 #include <gst/video/video.h>
 #include <gst/video/gstvideosink.h>
 
-#include "llmediaimplgstreamer_syms.h"
-
 #include "llthread.h"
 
 #include "llmediaimplgstreamervidplug.h"
@@ -88,9 +86,9 @@ gst_slvideo_base_init (gpointer gclass)
 	};
 	GstElementClass *element_class = GST_ELEMENT_CLASS (gclass);
 	
-	llgst_element_class_add_pad_template (element_class,
-			      llgst_static_pad_template_get (&sink_factory));
-	llgst_element_class_set_details (element_class, &element_details);
+	gst_element_class_add_pad_template (element_class,
+			      gst_static_pad_template_get (&sink_factory));
+	gst_element_class_set_details (element_class, &element_details);
 }
 
 
@@ -101,7 +99,7 @@ gst_slvideo_finalize (GObject * object)
 	slvideo = GST_SLVIDEO (object);
 	if (slvideo->caps)
 	{
-		llgst_caps_unref(slvideo->caps);
+		gst_caps_unref(slvideo->caps);
 	}
 
 	G_OBJECT_CLASS(parent_class)->finalize (object);
@@ -112,7 +110,7 @@ static GstFlowReturn
 gst_slvideo_show_frame (GstBaseSink * bsink, GstBuffer * buf)
 {
 	GstSLVideo *slvideo;
-	llg_return_val_if_fail (buf != NULL, GST_FLOW_ERROR);
+	g_return_val_if_fail (buf != NULL, GST_FLOW_ERROR);
 	
 	slvideo = GST_SLVIDEO(bsink);
 	
@@ -205,7 +203,7 @@ gst_slvideo_get_caps (GstBaseSink * bsink)
 	GstSLVideo *slvideo;
 	slvideo = GST_SLVIDEO(bsink);
 	
-	return llgst_caps_ref (slvideo->caps);
+	return gst_caps_ref (slvideo->caps);
 }
 
 
@@ -221,36 +219,36 @@ gst_slvideo_set_caps (GstBaseSink * bsink, GstCaps * caps)
 	
 	filter = GST_SLVIDEO(bsink);
 	
-	intersection = llgst_caps_intersect (filter->caps, caps);
-	if (llgst_caps_is_empty (intersection))
+	intersection = gst_caps_intersect (filter->caps, caps);
+	if (gst_caps_is_empty (intersection))
 	{
 		// no overlap between our caps and requested caps
 		return FALSE;
 	}
-	llgst_caps_unref(intersection);
+	gst_caps_unref(intersection);
 	
 	int width = 0;
 	int height = 0;
 	gboolean ret;
 	const GValue *fps;
 	const GValue *par;
-	structure = llgst_caps_get_structure (caps, 0);
-	ret = llgst_structure_get_int (structure, "width", &width);
-	ret = ret && llgst_structure_get_int (structure, "height", &height);
-	fps = llgst_structure_get_value (structure, "framerate");
+	structure = gst_caps_get_structure (caps, 0);
+	ret = gst_structure_get_int (structure, "width", &width);
+	ret = ret && gst_structure_get_int (structure, "height", &height);
+	fps = gst_structure_get_value (structure, "framerate");
 	ret = ret && (fps != NULL);
-	par = llgst_structure_get_value (structure, "pixel-aspect-ratio");
+	par = gst_structure_get_value (structure, "pixel-aspect-ratio");
 	if (!ret)
 		return FALSE;
 
 	filter->width = width;
 	filter->height = height;
-	filter->fps_n = llgst_value_get_fraction_numerator(fps);
-	filter->fps_d = llgst_value_get_fraction_denominator(fps);
+	filter->fps_n = gst_value_get_fraction_numerator(fps);
+	filter->fps_d = gst_value_get_fraction_denominator(fps);
 	if (par)
 	{
-		filter->par_n = llgst_value_get_fraction_numerator(par);
-		filter->par_d = llgst_value_get_fraction_denominator(par);
+		filter->par_n = gst_value_get_fraction_numerator(par);
+		filter->par_d = gst_value_get_fraction_denominator(par);
 	}
 	else
 	{
@@ -261,15 +259,15 @@ gst_slvideo_set_caps (GstBaseSink * bsink, GstCaps * caps)
 	GST_VIDEO_SINK_HEIGHT(filter) = height;
 	
 	filter->format = SLV_PF_UNKNOWN;
-	if (0 == strcmp(llgst_structure_get_name(structure),
+	if (0 == strcmp(gst_structure_get_name(structure),
 			"video/x-raw-rgb"))
 	{
 		int red_mask;
 		int green_mask;
 		int blue_mask;
-		llgst_structure_get_int(structure, "red_mask", &red_mask);
-		llgst_structure_get_int(structure, "green_mask", &green_mask);
-		llgst_structure_get_int(structure, "blue_mask", &blue_mask);
+		gst_structure_get_int(structure, "red_mask", &red_mask);
+		gst_structure_get_int(structure, "green_mask", &green_mask);
+		gst_structure_get_int(structure, "blue_mask", &blue_mask);
 		if ((unsigned int)red_mask   == 0xFF000000 &&
 		    (unsigned int)green_mask == 0x00FF0000 &&
 		    (unsigned int)blue_mask  == 0x0000FF00)
@@ -366,9 +364,9 @@ gst_slvideo_update_caps (GstSLVideo * slvideo)
 	// GStreamer will automatically convert colourspace if necessary.
 	// GStreamer will automatically resize media to one of these enumerated
 	// powers-of-two that we ask for (yay GStreamer!)
-	caps = llgst_caps_from_string (SLV_ALLCAPS);
+	caps = gst_caps_from_string (SLV_ALLCAPS);
 	
-	llgst_caps_replace (&slvideo->caps, caps);
+	gst_caps_replace (&slvideo->caps, caps);
 }
 
 
@@ -401,7 +399,7 @@ static void
 gst_slvideo_set_property (GObject * object, guint prop_id,
 			  const GValue * value, GParamSpec * pspec)
 {
-	llg_return_if_fail (GST_IS_SLVIDEO (object));
+	g_return_if_fail (GST_IS_SLVIDEO (object));
 	
 	if (prop_id) {
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -412,7 +410,7 @@ static void
 gst_slvideo_get_property (GObject * object, guint prop_id,
 			  GValue * value, GParamSpec * pspec)
 {
-	llg_return_if_fail (GST_IS_SLVIDEO (object));
+	g_return_if_fail (GST_IS_SLVIDEO (object));
 
 	if (prop_id) {
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -433,7 +431,7 @@ plugin_init (GstPlugin * plugin)
 	GST_DEBUG_CATEGORY_INIT (gst_slvideo_debug, "private-slvideo-plugin",
 				 0, "Second Life Video Sink");
 
-	return llgst_element_register (plugin, "private-slvideo",
+	return gst_element_register (plugin, "private-slvideo",
 				       GST_RANK_NONE, GST_TYPE_SLVIDEO);
 }
 
@@ -455,7 +453,6 @@ plugin_init (GstPlugin * plugin)
 
 void gst_slvideo_init_class (void)
 {
-	ll_gst_plugin_register_static (&gst_plugin_desc);
 	//fprintf(stderr, "\n\n\nCLASS INIT\n\n\n");
 }
 

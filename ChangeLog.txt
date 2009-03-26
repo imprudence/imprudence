@@ -1,5 +1,14 @@
 2009-03-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Removed all that llgst and symbol grabbing silliness.
+	Some symbols require gstreamer >= 0.10.11.
+	* linden/indra/llmedia/llmediaimplgstreamervidplug.cpp:
+	Ditto.
+	* linden/indra/llmedia/CMakeLists.txt:
+	Ditto.
+
+
 	* linden/indra/cmake/GStreamer.cmake:
 	Link with some gstreamer core libs on Linux.
 
