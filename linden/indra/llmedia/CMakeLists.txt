@@ -30,7 +30,6 @@ set(llmedia_SOURCE_FILES
     llmediaimplfactory.cpp
     llmediamanager.cpp
     llmediaimplgstreamer.cpp
-    llmediaimplgstreamer_syms.cpp
     llmediaimplgstreamervidplug.cpp
     )
     
@@ -48,7 +47,6 @@ set(llmedia_HEADER_FILES
     llmediaobserver.h
     llmediaimplgstreamer.h
     llmediaimplgstreamervidplug.h
-    llmediaimplgstreamer_syms.h
     )
 
   # Work around a bad interaction between broken gstreamer headers and
