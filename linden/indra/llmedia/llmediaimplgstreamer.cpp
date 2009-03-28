@@ -178,6 +178,21 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		// Init our custom plugins - only really need do this once.
 		gst_slvideo_init_class();
 
+
+		// List the plugins GStreamer can find
+		LL_DEBUGS("MediaImpl") << "Found GStreamer plugins:" << LL_ENDL;
+		GList *list;
+		GstRegistry *registry = gst_registry_get_default();
+		for (list = gst_registry_get_plugin_list(registry);
+		     list != NULL;
+		     list = g_list_next(list))
+		{	 
+			GstPlugin *list_plugin = (GstPlugin *)list->data;
+			LL_DEBUGS("MediaImpl") << gst_plugin_get_name(list_plugin) << LL_ENDL;
+		}
+		gst_plugin_list_free(list);
+
+
 		done_init = true;
 	}
 	return true;
