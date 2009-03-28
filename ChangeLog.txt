@@ -1,6 +1,18 @@
 2009-03-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Moved Windows GST_PLUGIN_PATH setup to LLMediaImplGStreamer.
+	LLAppViewer::gst_plugin_path -->
+	   LLMediaImplGStreamer::set_gst_plugin_path
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Ditto.
+	* linden/indra/newview/llappviewer.h:
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp:
+	Ditto.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Print out the plugins gstreamer finds, for debugging.
 
 

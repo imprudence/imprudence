@@ -66,6 +66,9 @@ class LLMediaImplGStreamer:
 		static bool startup( LLMediaManagerData* init_data );
 		static bool closedown();
 
+		// Sets GST_PLUGIN_PATH env var for GStreamer.
+		static void set_gst_plugin_path();
+
 		/* virtual */ std::string getVersion();
 		/* virtual */ bool navigateTo( const std::string url );
 		/* virtual */ bool updateMedia();
@@ -79,6 +82,7 @@ class LLMediaImplGStreamer:
 	        LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
 
 	private:
+
         	// misc
 	        bool unload();
 	        bool pause();

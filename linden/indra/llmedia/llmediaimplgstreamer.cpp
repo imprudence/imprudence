@@ -164,6 +164,8 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		// Init the glib type system - we need it.
 		g_type_init();
 
+		set_gst_plugin_path();
+
 		// Protect against GStreamer resetting the locale, yuck.
 		static std::string saved_locale;
 		saved_locale = setlocale(LC_ALL, NULL);
@@ -196,6 +198,31 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		done_init = true;
 	}
 	return true;
+}
+
+
+void LLMediaImplGStreamer::set_gst_plugin_path()
+{
+#ifdef LL_WINDOWS
+	char* buffer;
+
+	// Get the current working directory: 
+	if((buffer = _getcwd(NULL,0)) == NULL)
+	{
+		LL_INFOS("InitInfo") << "_getcwd error" << LL_ENDL;
+	}
+	else
+	{
+		LL_INFOS("InitInfo") << "Imprudence is installed at " << buffer << LL_ENDL;
+		
+		std::string plugin_path = "GST_PLUGIN_PATH=" + std::string(buffer) + "\\lib\\gstreamer-plugins";
+
+		// Place GST_PLUGIN_PATH in the environment settings for imprudence.exe
+		const char* gst_plugin_path = plugin_path.c_str();
+		putenv(gst_plugin_path);
+		LL_INFOS("InitInfo") << "GST_PLUGIN_PATH set to " << getenv("GST_PLUGIN_PATH") << LL_ENDL;
+	}
+#endif //LL_WINDOWS
 }
 
 
