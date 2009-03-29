@@ -4659,6 +4659,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>MediaDebugLevel</key>
+    <map>
+      <key>Comment</key>
+      <string>How spammy media (GStreamer) debug output should be. (0-4)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>U32</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>MemoryLogFrequency</key>
         <map>
         <key>Comment</key>
