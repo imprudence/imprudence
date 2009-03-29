@@ -14,8 +14,14 @@ if (OPENAL)
       NAMES openal32
       PATHS ${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release
       )
+  elseif (DARWIN)
+    # Look for for system's OpenAL.framework
+    find_library(OPENAL_LIB
+      NAMES OpenAL openal
+      PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
+      )
   else (WINDOWS)
-    set(OPENAL_LIB openal)    
+    set(OPENAL_LIB openal)
   endif (WINDOWS)
   
   if (NOT OPENAL_LIB)

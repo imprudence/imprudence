@@ -1,6 +1,10 @@
 2009-03-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/cmake/GStreamer.cmake:
+	Using OpenAL framework on Mac after all. Maybe.
+
+
+	* linden/indra/cmake/GStreamer.cmake:
 	Tweaked the list of linked-in gstreamer libs for Mac.
 
 
