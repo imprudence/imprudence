@@ -220,7 +220,7 @@ void LLMediaImplGStreamer::set_gst_plugin_path()
 	else
 	{
 		LL_DEBUGS("LLMediaImpl") << "Imprudence is installed at "
-		                         << buffer << LL_ENDL;
+		                         << imp_cwd << LL_ENDL;
 
 		// Grab the current path, if it's set.
 		std::string old_plugin_path = "";
@@ -245,7 +245,7 @@ void LLMediaImplGStreamer::set_gst_plugin_path()
 		  std::string(imp_cwd) + "\\lib\\gstreamer-plugins";
 
 		// Place GST_PLUGIN_PATH in the environment settings for imprudence.exe
-		putenv( plugin_path.c_str() );
+		putenv( (char*)plugin_path.c_str() );
 
 		LL_DEBUGS("LLMediaImpl") << "GST_PLUGIN_PATH set to "
 		                         << getenv("GST_PLUGIN_PATH") << LL_ENDL;
