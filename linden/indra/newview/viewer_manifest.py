@@ -413,12 +413,6 @@ class DarwinManifest(ViewerManifest):
                 self.path("libopenal.1.dylib")
                 self.path("libalut.0.dylib")
 
-                self.path("libglib-2.0.0.dylib")
-                self.path("libgmodule-2.0.0.dylib")
-                self.path("libgobject-2.0.0.dylib")
-                self.path("libgthread-2.0.0.dylib")
-
-                # Symlinks to satisfy different name dependencies.
                 self.path("libglib-2.0.dylib")
                 self.path("libgmodule-2.0.dylib")
                 self.path("libgobject-2.0.dylib")
