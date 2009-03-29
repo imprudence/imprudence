@@ -65,12 +65,15 @@ else (WINDOWS)
   if (DARWIN)
 
     set(GSTREAMER_LIBRARIES
-        xml2
-        glib-2.0
+        gstvideo-0.10
+        gstaudio-0.10
+        gstbase-0.10
+        gstreamer-0.10
         gobject-2.0
         gmodule-2.0
         gthread-2.0
-        gstreamer-0.10
+        glib-2.0
+        xml2
         )
 
   else (DARWIN)

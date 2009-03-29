@@ -1,5 +1,9 @@
 2009-03-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/cmake/GStreamer.cmake:
+	Tweaked the list of linked-in gstreamer libs for Mac.
+
+
 	* linden/indra/newview/viewer_manifest.py:
 	Removed the "2.0.0" named glib libs. Only using "2.0" now.
 
