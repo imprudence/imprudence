@@ -203,25 +203,54 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 
 void LLMediaImplGStreamer::set_gst_plugin_path()
 {
+	// Only needed for Windows.
+	// Linux sets in wrapper.sh, Mac sets in Info-Imprudence.plist
 #ifdef LL_WINDOWS
-	char* buffer;
+
+	char* imp_cwd;
 
 	// Get the current working directory: 
-	if((buffer = _getcwd(NULL,0)) == NULL)
+	imp_cwd = _getcwd(NULL,0);
+
+	if(imp_cwd == NULL)
 	{
-		LL_INFOS("InitInfo") << "_getcwd error" << LL_ENDL;
+		LL_DEBUGS("LLMediaImpl") << "_getcwd failed, not setting GST_PLUGIN_PATH."
+		                         << LL_ENDL;
 	}
 	else
 	{
-		LL_INFOS("InitInfo") << "Imprudence is installed at " << buffer << LL_ENDL;
-		
-		std::string plugin_path = "GST_PLUGIN_PATH=" + std::string(buffer) + "\\lib\\gstreamer-plugins";
+		LL_DEBUGS("LLMediaImpl") << "Imprudence is installed at "
+		                         << buffer << LL_ENDL;
+
+		// Grab the current path, if it's set.
+		std::string old_plugin_path = "";
+		char *old_path = getenv("GST_PLUGIN_PATH");
+		if(old_path == NULL)
+		{
+			LL_DEBUGS("LLMediaImpl") << "Did not find user-set GST_PLUGIN_PATH."
+			                         << LL_ENDL;
+		}
+		else
+		{
+			old_plugin_path = std::string( old_path ) + ":";
+		}
+
+
+		// Search both Imprudence and Imprudence\lib\gstreamer-plugins.
+		// But we also want to first search the path the user has set, if any.
+		std::string plugin_path =
+		  "GST_PLUGIN_PATH=" +
+		  old_plugin_path +
+		  std::string(imp_cwd) + ":" + 
+		  std::string(imp_cwd) + "\\lib\\gstreamer-plugins";
 
 		// Place GST_PLUGIN_PATH in the environment settings for imprudence.exe
-		const char* gst_plugin_path = plugin_path.c_str();
-		putenv(gst_plugin_path);
-		LL_INFOS("InitInfo") << "GST_PLUGIN_PATH set to " << getenv("GST_PLUGIN_PATH") << LL_ENDL;
+		putenv( plugin_path.c_str() );
+
+		LL_DEBUGS("LLMediaImpl") << "GST_PLUGIN_PATH set to "
+		                         << getenv("GST_PLUGIN_PATH") << LL_ENDL;
 	}
+
 #endif //LL_WINDOWS
 }
 
