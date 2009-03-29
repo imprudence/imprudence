@@ -164,6 +164,8 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		// Init the glib type system - we need it.
 		g_type_init();
 
+		set_gst_plugin_path();
+
 		// Protect against GStreamer resetting the locale, yuck.
 		static std::string saved_locale;
 		saved_locale = setlocale(LC_ALL, NULL);
@@ -178,9 +180,78 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		// Init our custom plugins - only really need do this once.
 		gst_slvideo_init_class();
 
+
+		// List the plugins GStreamer can find
+		LL_DEBUGS("MediaImpl") << "Found GStreamer plugins:" << LL_ENDL;
+		GList *list;
+		GstRegistry *registry = gst_registry_get_default();
+		for (list = gst_registry_get_plugin_list(registry);
+		     list != NULL;
+		     list = g_list_next(list))
+		{	 
+			GstPlugin *list_plugin = (GstPlugin *)list->data;
+			LL_DEBUGS("MediaImpl") << gst_plugin_get_name(list_plugin) << LL_ENDL;
+		}
+		gst_plugin_list_free(list);
+
+
 		done_init = true;
 	}
 	return true;
+}
+
+
+void LLMediaImplGStreamer::set_gst_plugin_path()
+{
+	// Only needed for Windows.
+	// Linux sets in wrapper.sh, Mac sets in Info-Imprudence.plist
+#ifdef LL_WINDOWS
+
+	char* imp_cwd;
+
+	// Get the current working directory: 
+	imp_cwd = _getcwd(NULL,0);
+
+	if(imp_cwd == NULL)
+	{
+		LL_DEBUGS("LLMediaImpl") << "_getcwd failed, not setting GST_PLUGIN_PATH."
+		                         << LL_ENDL;
+	}
+	else
+	{
+		LL_DEBUGS("LLMediaImpl") << "Imprudence is installed at "
+		                         << imp_cwd << LL_ENDL;
+
+		// Grab the current path, if it's set.
+		std::string old_plugin_path = "";
+		char *old_path = getenv("GST_PLUGIN_PATH");
+		if(old_path == NULL)
+		{
+			LL_DEBUGS("LLMediaImpl") << "Did not find user-set GST_PLUGIN_PATH."
+			                         << LL_ENDL;
+		}
+		else
+		{
+			old_plugin_path = std::string( old_path ) + ":";
+		}
+
+
+		// Search both Imprudence and Imprudence\lib\gstreamer-plugins.
+		// But we also want to first search the path the user has set, if any.
+		std::string plugin_path =
+		  "GST_PLUGIN_PATH=" +
+		  old_plugin_path +
+		  std::string(imp_cwd) + ":" + 
+		  std::string(imp_cwd) + "\\lib\\gstreamer-plugins";
+
+		// Place GST_PLUGIN_PATH in the environment settings for imprudence.exe
+		putenv( (char*)plugin_path.c_str() );
+
+		LL_DEBUGS("LLMediaImpl") << "GST_PLUGIN_PATH set to "
+		                         << getenv("GST_PLUGIN_PATH") << LL_ENDL;
+	}
+
+#endif //LL_WINDOWS
 }
 
 

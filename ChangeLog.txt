@@ -12,6 +12,31 @@
 	Removed the "2.0.0" named glib libs. Only using "2.0" now.
 
 
+2009-03-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Improved set_gst_plugin_path, more comprehensive path.
+	Also tried to tidy up a bit.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Moved Windows GST_PLUGIN_PATH setup to LLMediaImplGStreamer.
+	LLAppViewer::gst_plugin_path -->
+	   LLMediaImplGStreamer::set_gst_plugin_path
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Ditto.
+	* linden/indra/newview/llappviewer.h:
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp:
+	Ditto.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Print out the plugins gstreamer finds, for debugging.
+
+
 2009-03-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamervidplug.cpp:
