@@ -9,6 +9,7 @@
 
 	* linden/indra/cmake/00-Common.cmake
 	Added VS optimizations to cmake
+	Added flag for multi-core compiling in VS2005
 
 
 2009-03-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
