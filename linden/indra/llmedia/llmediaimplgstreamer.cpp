@@ -653,20 +653,23 @@ bool LLMediaImplGStreamer::stop()
 	if (!mPlaybin || mState == GST_STATE_NULL)
 		return true;
 
-	GstElement *pipeline = (GstElement *)gst_object_ref(GST_OBJECT(mPlaybin));
-	gst_object_unref(pipeline);
-	
-	gst_element_set_state(pipeline, GST_STATE_READY);
+	GstStateChangeReturn state_change;
 
-	if (mState == GST_STATE_PLAYING)
-		mState = GST_STATE_VOID_PENDING;
+	state_change = gst_element_set_state(mPlaybin, GST_STATE_READY);
+
+	LL_DEBUGS("MediaImpl") << "result: " 
+							<< gst_element_state_change_return_get_name(state_change) << LL_ENDL;
+
+	if (state_change == GST_STATE_CHANGE_FAILURE)
+	{
+		LL_WARNS("MediaImpl") << "could not stop stream!" << LL_ENDL;
+		return false;
+	}
 	else
-		mState = GST_STATE_READY; 
-
-	GstStateChangeReturn state_change = gst_element_get_state(mPlaybin, NULL, NULL, GST_MSECOND*5);
-	LL_DEBUGS("MediaImpl") << "get_state: " << gst_element_state_change_return_get_name(state_change) << LL_ENDL;
-
-	return true;
+	{
+		mState = GST_STATE_READY;
+		return true;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -678,25 +681,28 @@ bool LLMediaImplGStreamer::play()
 	if (!mPlaybin || mState == GST_STATE_NULL)
 		return true;
 
-	GstElement *pipeline = (GstElement *)gst_object_ref(GST_OBJECT(mPlaybin));
-	gst_object_unref(pipeline);
-	
-	gst_element_set_state(pipeline, GST_STATE_PLAYING);
-	mState = GST_STATE_PLAYING;
-	/*gst_element_set_state(mPlaybin, GST_STATE_PLAYING);
-	mState = GST_STATE_PLAYING;*/
+	GstStateChangeReturn state_change;
 
-	GstStateChangeReturn state_change = gst_element_get_state(mPlaybin, NULL, NULL, GST_MSECOND*5);
-	LL_DEBUGS("MediaImpl") << "get_state: " << gst_element_state_change_return_get_name(state_change) << LL_ENDL;
+	state_change = gst_element_set_state(mPlaybin, GST_STATE_PLAYING);
+
+	LL_DEBUGS("MediaImpl") << "result: " 
+							<< gst_element_state_change_return_get_name(state_change) << LL_ENDL;
 
 	// Check to make sure playing was successful. If not, stop.
+	// NOTE: state_change is almost always GST_STATE_CHANGE_ASYNC
 	if (state_change == GST_STATE_CHANGE_FAILURE)
 	{
-		setStatus(LLMediaBase::STATUS_STOPPED);
+		// If failing from a bad stream, go into pending state
+		// (this is stopped at the callback)
+		mState = GST_STATE_VOID_PENDING;
 		stop();
+		return false;
 	}
-
-	return true;
+	else
+	{
+		mState = GST_STATE_PLAYING;
+		return true;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -708,13 +714,23 @@ bool LLMediaImplGStreamer::pause()
 	if (!mPlaybin || mState == GST_STATE_NULL)
 		return true;
 
-	gst_element_set_state(mPlaybin, GST_STATE_PAUSED);
-	mState = GST_STATE_PAUSED;
-	
-	GstStateChangeReturn state_change = gst_element_get_state(mPlaybin, NULL, NULL, GST_MSECOND*5);
-	LL_DEBUGS("MediaImpl") << "get_state: " << gst_element_state_change_return_get_name(state_change) << LL_ENDL;
+	GstStateChangeReturn state_change;
 
-	return true;
+	state_change = gst_element_set_state(mPlaybin, GST_STATE_PAUSED);
+
+	LL_DEBUGS("MediaImpl") << "result: " 
+							<< gst_element_state_change_return_get_name(state_change) << LL_ENDL;
+
+	if (state_change == GST_STATE_CHANGE_FAILURE)
+	{
+		LL_WARNS("MediaImpl") << "could not pause stream!" << LL_ENDL;
+		return false;
+	}
+	else
+	{
+		mState = GST_STATE_PAUSED;
+		return true;
+	}
 };
 
 
