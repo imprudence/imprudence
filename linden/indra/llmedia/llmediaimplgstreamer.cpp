@@ -47,6 +47,10 @@ extern "C" {
 #include "llerror.h"
 #include "linden_common.h"
 
+#if LL_DARWIN
+#include <CoreFoundation/CoreFoundation.h>  // For CF functions used in set_gst_plugin_path
+#endif
+
 // register this impl with media manager factory
 static LLMediaImplRegister sLLMediaImplGStreamerReg( "LLMediaImplGStreamer", new LLMediaImplGStreamerMaker() );
 
@@ -203,55 +207,82 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 
 void LLMediaImplGStreamer::set_gst_plugin_path()
 {
-	// Only needed for Windows.
-	// Linux sets in wrapper.sh, Mac sets in Info-Imprudence.plist
-#ifdef LL_WINDOWS
+	// Linux sets GST_PLUGIN_PATH in wrapper.sh, not here.
+#if LL_WINDOWS || LL_DARWIN
 
-	char* imp_cwd;
+	std::string imp_dir = "";
 
 	// Get the current working directory: 
-	imp_cwd = _getcwd(NULL,0);
-
-	if(imp_cwd == NULL)
+#if LL_WINDOWS
+	char* raw_dir;
+	raw_dir = _getcwd(NULL,0);
+	if( raw_dir != NULL )
 	{
-		LL_DEBUGS("LLMediaImpl") << "_getcwd failed, not setting GST_PLUGIN_PATH."
-		                         << LL_ENDL;
+		imp_dir = std::string( raw_dir );
+	}
+#elif LL_DARWIN
+	CFBundleRef main_bundle = CFBundleGetMainBundle();
+	if( main_bundle != NULL )
+	{
+		CFURLRef bundle_url = CFBundleCopyBundleURL( main_bundle );
+		if( bundle_url != NULL )
+		{
+			#ifndef MAXPATHLEN
+			#define MAXPATHLEN 1024
+			#endif
+			char raw_dir[MAXPATHLEN];
+			if( CFURLGetFileSystemRepresentation( bundle_url, true, (UInt8 *)raw_dir, MAXPATHLEN) )
+			{
+				imp_dir = std::string( raw_dir ) + "/Contents/MacOS/";
+			}
+			CFRelease(bundle_url);
+		}
+	}
+#endif
+
+	if( imp_dir == "" )
+	{
+		LL_DEBUGS("MediaImpl") << "Could not get application directory, not setting GST_PLUGIN_PATH."
+		                       << LL_ENDL;
+		return;
+	}
+
+	LL_DEBUGS("MediaImpl") << "Imprudence is installed at "
+	                       << imp_dir << LL_ENDL;
+
+	// Grab the current path, if it's set.
+	std::string old_plugin_path = "";
+	char *old_path = getenv("GST_PLUGIN_PATH");
+	if(old_path == NULL)
+	{
+		LL_DEBUGS("MediaImpl") << "Did not find user-set GST_PLUGIN_PATH."
+		                       << LL_ENDL;
 	}
 	else
 	{
-		LL_DEBUGS("LLMediaImpl") << "Imprudence is installed at "
-		                         << imp_cwd << LL_ENDL;
-
-		// Grab the current path, if it's set.
-		std::string old_plugin_path = "";
-		char *old_path = getenv("GST_PLUGIN_PATH");
-		if(old_path == NULL)
-		{
-			LL_DEBUGS("LLMediaImpl") << "Did not find user-set GST_PLUGIN_PATH."
-			                         << LL_ENDL;
-		}
-		else
-		{
-			old_plugin_path = std::string( old_path ) + ":";
-		}
-
-
-		// Search both Imprudence and Imprudence\lib\gstreamer-plugins.
-		// But we also want to first search the path the user has set, if any.
-		std::string plugin_path =
-		  "GST_PLUGIN_PATH=" +
-		  old_plugin_path +
-		  std::string(imp_cwd) + ":" + 
-		  std::string(imp_cwd) + "\\lib\\gstreamer-plugins";
-
-		// Place GST_PLUGIN_PATH in the environment settings for imprudence.exe
-		putenv( (char*)plugin_path.c_str() );
-
-		LL_DEBUGS("LLMediaImpl") << "GST_PLUGIN_PATH set to "
-		                         << getenv("GST_PLUGIN_PATH") << LL_ENDL;
+		old_plugin_path = std::string( old_path ) + ":";
 	}
 
-#endif //LL_WINDOWS
+
+	// Search both Imprudence and Imprudence\lib\gstreamer-plugins.
+	// But we also want to first search the path the user has set, if any.
+	std::string plugin_path =
+		"GST_PLUGIN_PATH=" +
+		old_plugin_path +
+		imp_dir + ":" + 
+#if LL_WINDOWS
+		imp_dir + "\\lib\\gstreamer-plugins";
+#elif LL_DARWIN
+		imp_dir + "/../Resources/lib/gstreamer-plugins";
+#endif
+
+	// Place GST_PLUGIN_PATH in the environment settings
+	putenv( (char*)plugin_path.c_str() );
+
+	LL_DEBUGS("MediaImpl") << "GST_PLUGIN_PATH set to "
+	                       << getenv("GST_PLUGIN_PATH") << LL_ENDL;
+
+#endif // LL_WINDOWS || LL_DARWIN
 }
 
 

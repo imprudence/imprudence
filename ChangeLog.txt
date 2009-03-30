@@ -1,5 +1,9 @@
 2009-03-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Improved set_gst_plugin_path, now sets path on Mac too.
+
+
 	* linden/indra/cmake/GStreamer.cmake:
 	Using OpenAL framework on Mac after all. Maybe.
 
