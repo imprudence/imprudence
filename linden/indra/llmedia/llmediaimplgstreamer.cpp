@@ -48,6 +48,8 @@ extern "C" {
 
 #if LL_WINDOWS
 	#pragma warning(default : 4244)
+#include <direct.h>
+#include <stdlib.h>
 #endif
 
 #include "llmediamanager.h"
@@ -196,12 +198,14 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		LL_DEBUGS("MediaImpl") << "Found GStreamer plugins:" << LL_ENDL;
 		GList *list;
 		GstRegistry *registry = gst_registry_get_default();
+		std::string loaded = "";
 		for (list = gst_registry_get_plugin_list(registry);
 		     list != NULL;
 		     list = g_list_next(list))
 		{	 
 			GstPlugin *list_plugin = (GstPlugin *)list->data;
-			LL_DEBUGS("MediaImpl") << gst_plugin_get_name(list_plugin) << LL_ENDL;
+			(bool)gst_plugin_is_loaded(list_plugin) ? loaded = "Yes" : loaded = "No";
+			LL_DEBUGS("MediaImpl") << gst_plugin_get_name(list_plugin) << ", loaded? " << loaded << LL_ENDL;
 		}
 		gst_plugin_list_free(list);
 
@@ -225,12 +229,12 @@ void LLMediaImplGStreamer::set_gst_plugin_path()
 
 	if(imp_cwd == NULL)
 	{
-		LL_DEBUGS("LLMediaImpl") << "_getcwd failed, not setting GST_PLUGIN_PATH."
+		LL_DEBUGS("MediaImpl") << "_getcwd failed, not setting GST_PLUGIN_PATH."
 		                         << LL_ENDL;
 	}
 	else
 	{
-		LL_DEBUGS("LLMediaImpl") << "Imprudence is installed at "
+		LL_DEBUGS("MediaImpl") << "Imprudence is installed at "
 		                         << imp_cwd << LL_ENDL;
 
 		// Grab the current path, if it's set.
@@ -238,28 +242,34 @@ void LLMediaImplGStreamer::set_gst_plugin_path()
 		char *old_path = getenv("GST_PLUGIN_PATH");
 		if(old_path == NULL)
 		{
-			LL_DEBUGS("LLMediaImpl") << "Did not find user-set GST_PLUGIN_PATH."
+			LL_DEBUGS("MediaImpl") << "Did not find user-set GST_PLUGIN_PATH."
 			                         << LL_ENDL;
 		}
 		else
 		{
-			old_plugin_path = std::string( old_path ) + ":";
+			old_plugin_path = ";" + std::string( old_path );
 		}
 
 
 		// Search both Imprudence and Imprudence\lib\gstreamer-plugins.
-		// But we also want to first search the path the user has set, if any.
+		// If those fail, search the path the user has set, if any.
 		std::string plugin_path =
 		  "GST_PLUGIN_PATH=" +
-		  old_plugin_path +
-		  std::string(imp_cwd) + ":" + 
-		  std::string(imp_cwd) + "\\lib\\gstreamer-plugins";
+		  std::string(imp_cwd) + "\\lib\\gstreamer-plugins;" +
+		  std::string(imp_cwd) +
+		  old_plugin_path;
 
 		// Place GST_PLUGIN_PATH in the environment settings for imprudence.exe
-		putenv( (char*)plugin_path.c_str() );
-
-		LL_DEBUGS("LLMediaImpl") << "GST_PLUGIN_PATH set to "
-		                         << getenv("GST_PLUGIN_PATH") << LL_ENDL;
+		// Returns 0 on success
+		if(_putenv( (char*)plugin_path.c_str() ))
+		{	
+			LL_WARNS("MediaImpl") << "Setting environment variable failed!" << LL_ENDL;
+		}
+		else
+		{
+			LL_DEBUGS("MediaImpl") << "GST_PLUGIN_PATH set to "
+									 << getenv("GST_PLUGIN_PATH") << LL_ENDL;
+		}
 	}
 
 #endif //LL_WINDOWS

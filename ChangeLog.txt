@@ -1,3 +1,12 @@
+2009-03-29  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Added loading status to the log's plugin list.
+	set_gst_plugin_path now compiles for windows.
+	* linden/indra/newview/llappviewer.cpp:
+	Removed unnecessary headers.
+
+
 2009-03-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:

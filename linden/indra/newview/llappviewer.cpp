@@ -75,9 +75,6 @@
 
 #if LL_WINDOWS
 	#include "llwindebug.h"
-	#include <direct.h>
-	#include <errno.h>
-	#include <stdlib.h>
 #endif
 
 #if LL_WINDOWS
