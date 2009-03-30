@@ -57,6 +57,13 @@ if (WINDOWS)
       /Zc:wchar_t-
       )
   endif (MSVC80 OR MSVC90)
+
+  # VS optimization flags
+  if(MSVC80)
+    set(CMAKE_CXX_FLAGS_RELEASE
+      "${CMAKE_CXX_FLAGS_RELEASE} /Ob2 /Oi /Ot /GT"
+      CACHE STRING "C++ compiler release options" FORCE)
+  endif (MSVC80)
   
   # Are we using the crummy Visual Studio KDU build workaround?
   if (NOT VS_DISABLE_FATAL_WARNINGS)

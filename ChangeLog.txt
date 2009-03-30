@@ -7,6 +7,10 @@
 	Removed unnecessary headers.
 
 
+	* linden/indra/cmake/00-Common.cmake
+	Added VS optimizations to cmake
+
+
 2009-03-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
