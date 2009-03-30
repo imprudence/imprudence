@@ -48,6 +48,8 @@ extern "C" {
 
 #if LL_WINDOWS
 	#pragma warning(default : 4244)
+#include <direct.h>
+#include <stdlib.h>
 #endif
 
 #include "llmediamanager.h"
@@ -175,6 +177,8 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		// Init the glib type system - we need it.
 		g_type_init();
 
+		set_gst_plugin_path();
+
 		// Protect against GStreamer resetting the locale, yuck.
 		static std::string saved_locale;
 		saved_locale = setlocale(LC_ALL, NULL);
@@ -189,9 +193,86 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 		// Init our custom plugins - only really need do this once.
 		gst_slvideo_init_class();
 
+
+		// List the plugins GStreamer can find
+		LL_DEBUGS("MediaImpl") << "Found GStreamer plugins:" << LL_ENDL;
+		GList *list;
+		GstRegistry *registry = gst_registry_get_default();
+		std::string loaded = "";
+		for (list = gst_registry_get_plugin_list(registry);
+		     list != NULL;
+		     list = g_list_next(list))
+		{	 
+			GstPlugin *list_plugin = (GstPlugin *)list->data;
+			(bool)gst_plugin_is_loaded(list_plugin) ? loaded = "Yes" : loaded = "No";
+			LL_DEBUGS("MediaImpl") << gst_plugin_get_name(list_plugin) << ", loaded? " << loaded << LL_ENDL;
+		}
+		gst_plugin_list_free(list);
+
+
 		done_init = true;
 	}
 	return true;
+}
+
+
+void LLMediaImplGStreamer::set_gst_plugin_path()
+{
+	// Only needed for Windows.
+	// Linux sets in wrapper.sh, Mac sets in Info-Imprudence.plist
+#ifdef LL_WINDOWS
+
+	char* imp_cwd;
+
+	// Get the current working directory: 
+	imp_cwd = _getcwd(NULL,0);
+
+	if(imp_cwd == NULL)
+	{
+		LL_DEBUGS("MediaImpl") << "_getcwd failed, not setting GST_PLUGIN_PATH."
+		                         << LL_ENDL;
+	}
+	else
+	{
+		LL_DEBUGS("MediaImpl") << "Imprudence is installed at "
+		                         << imp_cwd << LL_ENDL;
+
+		// Grab the current path, if it's set.
+		std::string old_plugin_path = "";
+		char *old_path = getenv("GST_PLUGIN_PATH");
+		if(old_path == NULL)
+		{
+			LL_DEBUGS("MediaImpl") << "Did not find user-set GST_PLUGIN_PATH."
+			                         << LL_ENDL;
+		}
+		else
+		{
+			old_plugin_path = ";" + std::string( old_path );
+		}
+
+
+		// Search both Imprudence and Imprudence\lib\gstreamer-plugins.
+		// If those fail, search the path the user has set, if any.
+		std::string plugin_path =
+		  "GST_PLUGIN_PATH=" +
+		  std::string(imp_cwd) + "\\lib\\gstreamer-plugins;" +
+		  std::string(imp_cwd) +
+		  old_plugin_path;
+
+		// Place GST_PLUGIN_PATH in the environment settings for imprudence.exe
+		// Returns 0 on success
+		if(_putenv( (char*)plugin_path.c_str() ))
+		{	
+			LL_WARNS("MediaImpl") << "Setting environment variable failed!" << LL_ENDL;
+		}
+		else
+		{
+			LL_DEBUGS("MediaImpl") << "GST_PLUGIN_PATH set to "
+									 << getenv("GST_PLUGIN_PATH") << LL_ENDL;
+		}
+	}
+
+#endif //LL_WINDOWS
 }
 
 
@@ -572,20 +653,23 @@ bool LLMediaImplGStreamer::stop()
 	if (!mPlaybin || mState == GST_STATE_NULL)
 		return true;
 
-	GstElement *pipeline = (GstElement *)gst_object_ref(GST_OBJECT(mPlaybin));
-	gst_object_unref(pipeline);
-	
-	gst_element_set_state(pipeline, GST_STATE_READY);
+	GstStateChangeReturn state_change;
 
-	if (mState == GST_STATE_PLAYING)
-		mState = GST_STATE_VOID_PENDING;
+	state_change = gst_element_set_state(mPlaybin, GST_STATE_READY);
+
+	LL_DEBUGS("MediaImpl") << "result: " 
+							<< gst_element_state_change_return_get_name(state_change) << LL_ENDL;
+
+	if (state_change == GST_STATE_CHANGE_FAILURE)
+	{
+		LL_WARNS("MediaImpl") << "could not stop stream!" << LL_ENDL;
+		return false;
+	}
 	else
-		mState = GST_STATE_READY; 
-
-	GstStateChangeReturn state_change = gst_element_get_state(mPlaybin, NULL, NULL, GST_MSECOND*5);
-	LL_DEBUGS("MediaImpl") << "get_state: " << gst_element_state_change_return_get_name(state_change) << LL_ENDL;
-
-	return true;
+	{
+		mState = GST_STATE_READY;
+		return true;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -597,25 +681,28 @@ bool LLMediaImplGStreamer::play()
 	if (!mPlaybin || mState == GST_STATE_NULL)
 		return true;
 
-	GstElement *pipeline = (GstElement *)gst_object_ref(GST_OBJECT(mPlaybin));
-	gst_object_unref(pipeline);
-	
-	gst_element_set_state(pipeline, GST_STATE_PLAYING);
-	mState = GST_STATE_PLAYING;
-	/*gst_element_set_state(mPlaybin, GST_STATE_PLAYING);
-	mState = GST_STATE_PLAYING;*/
+	GstStateChangeReturn state_change;
 
-	GstStateChangeReturn state_change = gst_element_get_state(mPlaybin, NULL, NULL, GST_MSECOND*5);
-	LL_DEBUGS("MediaImpl") << "get_state: " << gst_element_state_change_return_get_name(state_change) << LL_ENDL;
+	state_change = gst_element_set_state(mPlaybin, GST_STATE_PLAYING);
+
+	LL_DEBUGS("MediaImpl") << "result: " 
+							<< gst_element_state_change_return_get_name(state_change) << LL_ENDL;
 
 	// Check to make sure playing was successful. If not, stop.
+	// NOTE: state_change is almost always GST_STATE_CHANGE_ASYNC
 	if (state_change == GST_STATE_CHANGE_FAILURE)
 	{
-		setStatus(LLMediaBase::STATUS_STOPPED);
+		// If failing from a bad stream, go into pending state
+		// (this is stopped at the callback)
+		mState = GST_STATE_VOID_PENDING;
 		stop();
+		return false;
 	}
-
-	return true;
+	else
+	{
+		mState = GST_STATE_PLAYING;
+		return true;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -627,13 +714,23 @@ bool LLMediaImplGStreamer::pause()
 	if (!mPlaybin || mState == GST_STATE_NULL)
 		return true;
 
-	gst_element_set_state(mPlaybin, GST_STATE_PAUSED);
-	mState = GST_STATE_PAUSED;
-	
-	GstStateChangeReturn state_change = gst_element_get_state(mPlaybin, NULL, NULL, GST_MSECOND*5);
-	LL_DEBUGS("MediaImpl") << "get_state: " << gst_element_state_change_return_get_name(state_change) << LL_ENDL;
+	GstStateChangeReturn state_change;
 
-	return true;
+	state_change = gst_element_set_state(mPlaybin, GST_STATE_PAUSED);
+
+	LL_DEBUGS("MediaImpl") << "result: " 
+							<< gst_element_state_change_return_get_name(state_change) << LL_ENDL;
+
+	if (state_change == GST_STATE_CHANGE_FAILURE)
+	{
+		LL_WARNS("MediaImpl") << "could not pause stream!" << LL_ENDL;
+		return false;
+	}
+	else
+	{
+		mState = GST_STATE_PAUSED;
+		return true;
+	}
 };
 
 

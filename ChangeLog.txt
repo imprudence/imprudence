@@ -1,3 +1,42 @@
+2009-03-29  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Added loading status to the log's plugin list.
+	set_gst_plugin_path now compiles for windows.
+	* linden/indra/newview/llappviewer.cpp:
+	Removed unnecessary headers.
+
+
+	* linden/indra/cmake/00-Common.cmake
+	Added VS optimizations to cmake
+	Added flag for multi-core compiling in VS2005
+
+
+2009-03-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Improved set_gst_plugin_path, more comprehensive path.
+	Also tried to tidy up a bit.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Moved Windows GST_PLUGIN_PATH setup to LLMediaImplGStreamer.
+	LLAppViewer::gst_plugin_path -->
+	   LLMediaImplGStreamer::set_gst_plugin_path
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Ditto.
+	* linden/indra/newview/llappviewer.h:
+	Ditto.
+	* linden/indra/newview/llappviewer.cpp:
+	Ditto.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Print out the plugins gstreamer finds, for debugging.
+
+
 2009-03-27  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
