@@ -1,6 +1,12 @@
 2009-03-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	set_gst_plugin_path now sets GST_PLUGIN_SYSTEM_PATH="".
+	This prevents GStreamer from looking for system-installed plugins,
+	which can have conflicts with our packaged ones.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Improved set_gst_plugin_path, now sets path on Mac too.
 
 

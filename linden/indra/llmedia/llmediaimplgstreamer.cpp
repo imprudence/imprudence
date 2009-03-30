@@ -282,6 +282,9 @@ void LLMediaImplGStreamer::set_gst_plugin_path()
 	LL_DEBUGS("MediaImpl") << "GST_PLUGIN_PATH set to "
 	                       << getenv("GST_PLUGIN_PATH") << LL_ENDL;
 
+	// Disable loading system plugins. We only want to use ours, to avoid conflicts.
+	putenv( "GST_PLUGIN_SYSTEM_PATH=\"\"" );
+
 #endif // LL_WINDOWS || LL_DARWIN
 }
 
