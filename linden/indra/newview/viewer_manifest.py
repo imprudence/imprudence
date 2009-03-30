@@ -496,6 +496,7 @@ class DarwinManifest(ViewerManifest):
                     self.path("libgstcoreelements.so")
                     self.path("libgstcoreindexers.so")
                     self.path("libgstdebug.so")
+                    self.path("libgstdecodebin.so")
                     self.path("libgstdecodebin2.so")
                     self.path("libgstdeinterlace2.so")
                     self.path("libgstequalizer.so")
