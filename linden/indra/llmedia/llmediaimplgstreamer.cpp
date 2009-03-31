@@ -657,8 +657,7 @@ bool LLMediaImplGStreamer::stop()
 
 	state_change = gst_element_set_state(mPlaybin, GST_STATE_READY);
 
-	LL_DEBUGS("MediaImpl") << "result: " 
-							<< gst_element_state_change_return_get_name(state_change) << LL_ENDL;
+	LL_DEBUGS("MediaImpl") << gst_element_state_change_return_get_name(state_change) << LL_ENDL;
 
 	if (state_change == GST_STATE_CHANGE_FAILURE)
 	{
@@ -667,7 +666,8 @@ bool LLMediaImplGStreamer::stop()
 	}
 	else
 	{
-		mState = GST_STATE_READY;
+		// Going into pending after play keeps dead streams from looping
+		(mState == GST_STATE_PLAYING) ? (mState = GST_STATE_VOID_PENDING) : (mState = GST_STATE_READY);
 		return true;
 	}
 }
@@ -684,23 +684,23 @@ bool LLMediaImplGStreamer::play()
 	GstStateChangeReturn state_change;
 
 	state_change = gst_element_set_state(mPlaybin, GST_STATE_PLAYING);
+	mState = GST_STATE_PLAYING;
 
-	LL_DEBUGS("MediaImpl") << "result: " 
-							<< gst_element_state_change_return_get_name(state_change) << LL_ENDL;
+	LL_DEBUGS("MediaImpl") << gst_element_state_change_return_get_name(state_change) << LL_ENDL;
 
 	// Check to make sure playing was successful. If not, stop.
 	// NOTE: state_change is almost always GST_STATE_CHANGE_ASYNC
 	if (state_change == GST_STATE_CHANGE_FAILURE)
 	{
-		// If failing from a bad stream, go into pending state
-		// (this is stopped at the callback)
-		mState = GST_STATE_VOID_PENDING;
+		// If failing from a bad stream, go into an unknown
+		// state to stop bus_callback from looping back. 
+		// We also force a stop in case the operations don't sync
+		setStatus(LLMediaBase::STATUS_UNKNOWN);
 		stop();
 		return false;
 	}
 	else
 	{
-		mState = GST_STATE_PLAYING;
 		return true;
 	}
 }
@@ -718,8 +718,7 @@ bool LLMediaImplGStreamer::pause()
 
 	state_change = gst_element_set_state(mPlaybin, GST_STATE_PAUSED);
 
-	LL_DEBUGS("MediaImpl") << "result: " 
-							<< gst_element_state_change_return_get_name(state_change) << LL_ENDL;
+	LL_DEBUGS("MediaImpl") << gst_element_state_change_return_get_name(state_change) << LL_ENDL;
 
 	if (state_change == GST_STATE_CHANGE_FAILURE)
 	{
