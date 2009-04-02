@@ -71,6 +71,21 @@ class LLMediaImplGStreamer:
 
 		/* virtual */ bool setDebugLevel( LLMediaBase::EDebugLevel level );
 
+		// Function given to GStreamer for handling debug messages
+		static void gstreamer_log(GstDebugCategory *category,
+		                          GstDebugLevel level,
+		                          const gchar *file,
+		                          const gchar *function,
+		                          gint line,
+		                          GObject *object,
+		                          GstDebugMessage *message,
+		                          gpointer data)
+#if __GNUC__
+		                          // recommended by the gstreamer docs
+		                          G_GNUC_NO_INSTRUMENT
+#endif
+		                          ;
+
 		/* virtual */ std::string getVersion();
 		/* virtual */ bool navigateTo( const std::string url );
 		/* virtual */ bool updateMedia();

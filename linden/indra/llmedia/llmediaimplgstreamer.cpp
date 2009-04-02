@@ -255,6 +255,46 @@ void LLMediaImplGStreamer::set_gst_plugin_path()
 }
 
 
+void LLMediaImplGStreamer::gstreamer_log(GstDebugCategory *category,
+                                         GstDebugLevel level,
+                                         const gchar *file,
+                                         const gchar *function,
+                                         gint line,
+                                         GObject *object,
+                                         GstDebugMessage *message,
+                                         gpointer data)
+{
+	std::stringstream log(std::stringstream::out);
+
+	// Log format example:
+	// 
+	// GST_ELEMENT_PADS: removing pad 'sink' (in gstelement.c:757:gst_element_remove_pad)
+	// 
+	log << gst_debug_category_get_name( category ) << ": "
+	    << gst_debug_message_get(message) << " "
+	    << "(in " << file << ":" << line << ":" << function << ")";
+
+	switch( level )
+	{
+		case GST_LEVEL_ERROR:
+			LL_ERRS("MediaImpl") << log.str() << LL_ENDL;
+			break;
+		case GST_LEVEL_WARNING:
+			LL_WARNS("MediaImpl") << log.str() << LL_ENDL;
+			break;
+		case GST_LEVEL_DEBUG:
+			LL_DEBUGS("MediaImpl") << log.str() << LL_ENDL;
+			break;
+		case GST_LEVEL_INFO:
+			LL_INFOS("MediaImpl") << log.str() << LL_ENDL;
+			break;
+		default:
+			// Do nothing.
+			break;
+	}
+}
+
+
 bool LLMediaImplGStreamer::closedown()
 {
 	return true;
