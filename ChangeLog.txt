@@ -1,5 +1,11 @@
 2009-04-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmedia/llmediaimplcommon.cpp: 
+	Added LLMediaImplCommon::setDebugLevel().
+	* linden/indra/llmedia/llmediaimplcommon.h:
+	Ditto.
+
+
 	* linden/indra/llmedia/llmediabase.h:
 	Added LLMediaBase::EDebugLevel and setDebugLevel prototype.
 

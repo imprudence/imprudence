@@ -54,6 +54,7 @@ class LLMediaImplCommon :
 		// housekeeping
 		virtual bool init();
 		virtual bool reset();
+		virtual bool setDebugLevel( LLMediaBase::EDebugLevel level );
 		virtual bool setMimeType( const std::string url );
 		virtual std::string getMimeType() const;
 		virtual std::string getMediaURL() const;
@@ -156,6 +157,7 @@ class LLMediaImplCommon :
 		LLMediaBase::ECommand mCommand;
 		LLMediaBase::EStatus mStatus;
 		bool mLooping;
+		LLMediaBase::EDebugLevel mDebugLevel;
 };
 
 #endif	// LLMEDIAIMPLCOMMON_H
