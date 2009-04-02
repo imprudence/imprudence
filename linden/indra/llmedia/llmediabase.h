@@ -61,6 +61,21 @@ class LLMediaBase
 		// undoes everything init() didm called by the media manager when destroying a source
 		virtual bool reset() = 0;
 
+
+		/* Mirrors GStreamer debug levels. */
+		enum EDebugLevel {
+		  DEBUG_LEVEL_NONE = 0,
+		  DEBUG_LEVEL_ERROR,
+		  DEBUG_LEVEL_WARNING,
+		  DEBUG_LEVEL_INFO,
+		  DEBUG_LEVEL_DEBUG,
+		  DEBUG_LEVEL_LOG,
+		  DEBUG_LEVEL_COUNT,
+		};
+
+    /* Set the debug verbosity level. Only implemented for GStreamer. */
+    virtual bool setDebugLevel( EDebugLevel level ) = 0;
+
 		// accessor for MIME type
 		virtual bool setMimeType( const std::string mime_type ) = 0;
 		virtual std::string getMimeType() const = 0;

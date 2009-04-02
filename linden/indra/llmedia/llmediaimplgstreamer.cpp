@@ -189,7 +189,11 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 			return false;
 		}
 		setlocale(LC_ALL, saved_locale.c_str() );
-		
+
+		// Set up logging facilities
+		gst_debug_remove_log_function( gst_debug_log_default );
+		gst_debug_add_log_function( gstreamer_log, NULL );
+
 		// Init our custom plugins - only really need do this once.
 		gst_slvideo_init_class();
 
@@ -276,8 +280,60 @@ void LLMediaImplGStreamer::set_gst_plugin_path()
 }
 
 
+void LLMediaImplGStreamer::gstreamer_log(GstDebugCategory *category,
+                                         GstDebugLevel level,
+                                         const gchar *file,
+                                         const gchar *function,
+                                         gint line,
+                                         GObject *object,
+                                         GstDebugMessage *message,
+                                         gpointer data)
+{
+	std::stringstream log(std::stringstream::out);
+
+	// Log format example:
+	// 
+	// GST_ELEMENT_PADS: removing pad 'sink' (in gstelement.c:757:gst_element_remove_pad)
+	// 
+	log << gst_debug_category_get_name( category ) << ": "
+	    << gst_debug_message_get(message) << " "
+	    << "(in " << file << ":" << line << ":" << function << ")";
+
+	switch( level )
+	{
+		case GST_LEVEL_ERROR:
+			LL_ERRS("MediaImpl") << log.str() << LL_ENDL;
+			break;
+		case GST_LEVEL_WARNING:
+			LL_WARNS("MediaImpl") << log.str() << LL_ENDL;
+			break;
+		case GST_LEVEL_DEBUG:
+			LL_DEBUGS("MediaImpl") << log.str() << LL_ENDL;
+			break;
+		case GST_LEVEL_INFO:
+			LL_INFOS("MediaImpl") << log.str() << LL_ENDL;
+			break;
+		default:
+			// Do nothing.
+			break;
+	}
+}
+
+
 bool LLMediaImplGStreamer::closedown()
 {
+	return true;
+}
+
+
+bool LLMediaImplGStreamer::setDebugLevel( LLMediaBase::EDebugLevel level )
+{
+	// Do parent class stuff.
+	LLMediaImplCommon::setDebugLevel(level);
+
+	// Set GStreamer verbosity.
+	gst_debug_set_default_threshold( (GstDebugLevel)level );
+
 	return true;
 }
 

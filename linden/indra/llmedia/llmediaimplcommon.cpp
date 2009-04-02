@@ -66,7 +66,8 @@ LLMediaImplCommon::LLMediaImplCommon() :
 	mCommand( LLMediaBase::COMMAND_NONE ),
 	mStatus( LLMediaBase::STATUS_UNKNOWN ),
 	mVolume( 0 ),
-	mLooping( false )
+	mLooping( false ),
+	mDebugLevel( LLMediaBase::DEBUG_LEVEL_NONE )
 {
 }
 
@@ -88,6 +89,15 @@ bool LLMediaImplCommon::init()
 bool LLMediaImplCommon::reset()
 {
 	return false;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// virtual (derives from LLMediaBase)
+bool LLMediaImplCommon::setDebugLevel( LLMediaBase::EDebugLevel level )
+{
+	mDebugLevel = level;
+
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
