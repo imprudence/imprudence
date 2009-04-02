@@ -1,5 +1,9 @@
 2009-04-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llviewermedia.cpp:
+	Apply saved MediaDebugLevel at media init time.
+
+
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Plugged in LLMediaImplGStreamer::gstreamer_log().
 
