@@ -69,6 +69,8 @@ class LLMediaImplGStreamer:
 		// Sets GST_PLUGIN_PATH env var for GStreamer.
 		static void set_gst_plugin_path();
 
+		/* virtual */ bool setDebugLevel( LLMediaBase::EDebugLevel level );
+
 		/* virtual */ std::string getVersion();
 		/* virtual */ bool navigateTo( const std::string url );
 		/* virtual */ bool updateMedia();

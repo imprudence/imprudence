@@ -261,6 +261,18 @@ bool LLMediaImplGStreamer::closedown()
 }
 
 
+bool LLMediaImplGStreamer::setDebugLevel( LLMediaBase::EDebugLevel level )
+{
+	// Do parent class stuff.
+	LLMediaImplCommon::setDebugLevel(level);
+
+	// Set GStreamer verbosity.
+	gst_debug_set_default_threshold( (GstDebugLevel)level );
+
+	return true;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // Uncomment the line below to enable spammy debug data.
