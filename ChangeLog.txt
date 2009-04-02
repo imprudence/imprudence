@@ -1,6 +1,10 @@
 2009-04-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Plugged in LLMediaImplGStreamer::gstreamer_log().
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Implemented LLMediaImplGStreamer::gstreamer_log().
 	* linden/indra/llmedia/llmediaimplgstreamer.h:
 	Ditto.

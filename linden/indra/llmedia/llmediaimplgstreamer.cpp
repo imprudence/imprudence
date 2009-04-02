@@ -176,7 +176,11 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 			return false;
 		}
 		setlocale(LC_ALL, saved_locale.c_str() );
-		
+
+		// Set up logging facilities
+		gst_debug_remove_log_function( gst_debug_log_default );
+		gst_debug_add_log_function( gstreamer_log, NULL );
+
 		// Init our custom plugins - only really need do this once.
 		gst_slvideo_init_class();
 
