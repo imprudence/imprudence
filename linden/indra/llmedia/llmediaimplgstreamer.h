@@ -96,6 +96,9 @@ class LLMediaImplGStreamer:
 		/* virtual */ bool seek( double time );
 	    /* virtual */ bool setVolume( float volume );
 
+		void startPlay();
+
+
 	        LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
 
 	private:

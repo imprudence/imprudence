@@ -713,13 +713,18 @@ bool LLMediaImplGStreamer::play()
 	if (!mPlaybin || mState == GST_STATE_NULL)
 		return true;
 
+	startPlay();
+
+	return true;
+}
+
+void LLMediaImplGStreamer::startPlay()
+{
 	GstElement *pipeline = (GstElement *)gst_object_ref(GST_OBJECT(mPlaybin));
 	gst_object_unref(pipeline);
 	
 	gst_element_set_state(pipeline, GST_STATE_PLAYING);
 	mState = GST_STATE_PLAYING;
-	/*gst_element_set_state(mPlaybin, GST_STATE_PLAYING);
-	mState = GST_STATE_PLAYING;*/
 
 	GstStateChangeReturn state_change = gst_element_get_state(mPlaybin, NULL, NULL, GST_CLOCK_TIME_NONE);
 	LL_DEBUGS("MediaImpl") << "get_state: " << gst_element_state_change_return_get_name(state_change) << LL_ENDL;
@@ -730,8 +735,6 @@ bool LLMediaImplGStreamer::play()
 		setStatus(LLMediaBase::STATUS_STOPPED);
 		stop();
 	}
-
-	return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
