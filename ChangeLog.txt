@@ -1,3 +1,13 @@
+2009-04-05  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llmedia/llgstplaythread.cpp: 
+	Added LLGstPlayThread class.
+	* linden/indra/llmedia/llgstplaythread.h: 
+	Ditto.
+	* linden/indra/llmedia/CMakeLists.txt: 
+	Ditto.
+
+
 2009-04-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
