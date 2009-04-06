@@ -2,7 +2,6 @@
 <panel name="media_controls">
 	<icon name="music_icon" tool_tip="스트리밍 음악 재생/일시 정지" />
 	<button name="music_play" tool_tip="스트리밍 음악 재생/일시 정지" />
-	<button name="music_pause" tool_tip="스트리밍 음악 일시 정지" />
 	<button name="music_stop" tool_tip="스트리밍 음악 중지" />
 	<icon name="media_icon" tool_tip="스트리밍 음악 재생/일시 정지" />
 	<button name="media_play" tool_tip="스트리밍 음악 재생/일시 정지" />

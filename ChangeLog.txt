@@ -40,6 +40,28 @@
 	Added LLMediaBase::EDebugLevel and setDebugLevel prototype.
 
 
+2009-03-30  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Cleaned up logic for bad streams.
+
+
+2009-03-29  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Added loading status to the log's plugin list.
+	set_gst_plugin_path now compiles for windows.
+
+
+	* linden/indra/newview/llappviewer.cpp:
+	Removed unnecessary headers.
+
+
+	* linden/indra/cmake/00-Common.cmake
+	Added VS optimizations to cmake
+	Added flag for multi-core compiling in VS2005
+
+
 2009-03-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
@@ -63,6 +85,12 @@
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Print out the plugins gstreamer finds, for debugging.
+
+
+2009-03-27  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Fixed video streams freezing the viewer.
 
 
 2009-03-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
@@ -94,6 +122,145 @@
 
 	* linden/indra/cmake/GStreamer.cmake:
 	Link with some gstreamer core libs on Linux.
+
+
+2009-03-22  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llappviewer.cpp:
+	Removed slviewer-0-v12160-LostConnectionOnLogin.patch.
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Removed slviewer-0-v12160-RememberStatsPosAndSize.patch.
+	* linden/indra/newview/lldebugview.cpp:
+	Ditto.
+	* linden/indra/newview/llfloaterstats.cpp:
+	Ditto.
+
+	* linden/indra/newview/llfloaterurldisplay.cpp:
+	Removed slviewer-0-v12160-VisitedLandmarks.patch.
+	* linden/indra/newview/llinventorybridge.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelinventory.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelplace.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelplace.h:
+	Ditto.
+	* linden/indra/newview/llpreviewlandmark.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermessage.cpp:
+	Ditto.
+
+
+2009-03-16  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Visual Studio now ignores C4244 warnings in GStreamer.
+	Since the change was intentional, I thought it best to
+	continue using "treat warnings as errors" and ignore it.
+	* linden/indra/llmedia/llmediaimplgstreamer_syms.cpp:
+	Ditto.
+	* linden/indra/llmedia/llmediamanager.cpp:
+	Ditto.
+
+
+2009-03-10  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llaudio/audioengine.cpp:
+	Changed startinternetstream() a bit to be clearer.
+
+
+2009-03-07  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llimagej2coj/llimagej2coj.cpp:
+	Backported fix for VWR-4070 from 1.22.
+
+	* linden/indra/llaudio/audioengine.cpp:
+	Applied patch by Zwagoth Klaar for muting sounds before decoding.
+	* linden/indra/newview/llviewermessage.cpp:
+	Ditto.
+
+	* linden/indra/llmessage/llhttpclient.cpp:
+	Applied memleak patch from VWR-9400 by Henri and Carjay.
+
+	* linden/indra/newview/app_settings/settings.xml:
+	Applied remember stats position and size patch
+	from Latif Khalifa (VWR-9540).
+	* linden/indra/newview/lldebugview.cpp:
+	Ditto.
+	* linden/indra/newview/llfloaterstats.cpp:
+	Ditto.
+
+	* linden/indra/newview/llappviewer.cpp:
+	Backported fix for VWR-8783, original patch by Gigs Taggart. 
+
+	* linden/indra/newview/llfloaterurldisplay.cpp:
+	Applied patch to correct landmark colors not changing
+	(VWR-7896) by Zi Ree.
+	* linden/indra/newview/llinventorybridge.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelinventory.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelplace.cpp:
+	Ditto.
+	* linden/indra/newview/llpanelplace.h:
+	Ditto.
+	* linden/indra/newview/llpreviewlandmark.cpp:
+	Ditto.
+	* linden/indra/newview/llviewermessage.cpp:
+	Ditto.
+
+	* linden/indra/newview/llvoavatar.cpp:
+	Use std::string for nametags, removed bizarre name stacking option. 
+
+
+2009-03-01  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloaterchat.cpp:
+	Backported fix for VWR-6744 (No way to hide IMs in chat console).
+	* linden/indra/newview/skins/default/xui/en-us/panel_preferences_im.xml:
+	Ditto.
+
+
+2009-02-28  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/skins/default/textures/textures.xml:
+	Fixed pause button texture showing up in certain instances.
+	* linden/indra/newview/skins/default/xui/de/panel_media_controls.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/fr/panel_media_controls.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/ja/panel_media_controls.xml:
+	Ditto.
+	* linden/indra/newview/skins/default/xui/ko/panel_media_controls.xml:
+	Ditto.
+	* linden/indra/newview/skins/silver/xui/en-us/panel_media_controls.xml:
+	Ditto.
+
+	* linden/indra/newview/llfilepicker.cpp:
+	Applied patch for VWR-5575 (crash in the file picker dealing
+	with accented characters and bad locale) by Alissa Sabre.
+
+	* linden/indra/newview/pipeline.cpp:
+	Backported possible crash fix while changing graphics settings from 1.22.
+
+	* linden/indra/llui/llfloater.cpp:
+	Backported possible crash fix in llfloater.cpp from 1.22.
+
+	* linden/indra/newview/lldrawable.cpp:
+	Backported fix for VWR-3871 (prim position appears to be off) from 1.22.
+
+	* linden/indra/newview/llcompilequeue.cpp:
+	Backported fix for SVC-2771 (script resetting can fail) from 1.22.
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto.
+
+	* linden/indra/llcharacter/llbvhloader.cpp:
+	Backported fix for VWR-996 (wrong visualisation of animations) from 1.22.
+
+	* linden/indra/newview/app_settings/keywords.ini:
+	Applied my patch for VWR-8454 (PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS
+	not highlighted in script editor).
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

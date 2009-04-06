@@ -191,39 +191,43 @@ void LLAudioEngine::startInternetStream(const std::string& url)
 		if (mgr)
 		{
 			mInternetStreamMedia = mgr->createSourceFromMimeType(LLURI(url).scheme(), "audio/mpeg"); // assumes that whatever media implementation supports mp3 also supports vorbis.
-			//LL_INFOS("AudioEngine") << "mInternetStreamMedia is now " << mInternetStreamMedia << llendl;
+			LL_INFOS("AudioEngine") << "mInternetStreamMedia is now " << mInternetStreamMedia << llendl;
 		}
 	}
 
 	if(!mInternetStreamMedia)
+	{
 		return;
-
-	// Check for a dead stream, just in case
-	if(getStatus() == LLMediaBase::STATUS_DEAD)
+	}
+	// Check for a dead stream from gstreamer, just in case
+	else if(getStatus() == LLMediaBase::STATUS_DEAD)
 	{
 		LL_INFOS("AudioEngine") << "don't play dead stream urls"<< llendl;
 		mInternetStreamURL.clear();
 		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP);
 		mInternetStreamMedia->updateMedia();
 		stopInternetStream();
-		return;
 	}
-	
-	if (!url.empty())
+	else if (url.empty())
 	{
-		LL_INFOS("AudioEngine") << "Starting internet stream: " << url << llendl;
-		mInternetStreamURL = url;
-		mInternetStreamMedia->navigateTo ( url );
-		LL_INFOS("AudioEngine") << "Playing....." << llendl;		
-		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_START);
-		mInternetStreamMedia->updateMedia();
-	} 
-	else
-	{
-		LL_INFOS("AudioEngine") << "setting stream to NULL"<< llendl;
+		LL_INFOS("AudioEngine") << "url is emptly. Setting stream to NULL"<< llendl;
 		mInternetStreamURL.clear();
 		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP);
 		mInternetStreamMedia->updateMedia();
+	}
+	// Stream appears to be good, attempting to play
+	else
+	{
+		// stop any other stream first
+		stopInternetStream();
+
+		LL_INFOS("AudioEngine") << "Starting internet stream: " << url << llendl;
+		mInternetStreamURL = url;
+		mInternetStreamMedia->navigateTo(url);
+		//LL_INFOS("AudioEngine") << "Playing....." << llendl;		
+		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_START);
+		mInternetStreamMedia->updateMedia();
+		mStatus = LLMediaBase::STATUS_STARTED;
 	}
 }
 
@@ -231,7 +235,8 @@ void LLAudioEngine::startInternetStream(const std::string& url)
 void LLAudioEngine::stopInternetStream()
 {
 	LL_INFOS("AudioEngine") << "entered stopInternetStream()" << llendl;
-	
+	mInternetStreamURL.clear();
+
     if(mInternetStreamMedia)
 	{
 		if(!mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP))
@@ -240,8 +245,6 @@ void LLAudioEngine::stopInternetStream()
 		}
 		mInternetStreamMedia->updateMedia();
 	}
-
-	mInternetStreamURL.clear();
 }
 
 // virtual
@@ -879,7 +882,8 @@ void LLAudioEngine::triggerSound(const LLUUID &audio_uuid, const LLUUID& owner_i
 	// Create a new source (since this can't be associated with an existing source.
 	//LL_INFOS("AudioEngine") << "Localized: " << audio_uuid << llendl;
 
-	if (mMuted)
+	//If we cannot hear it, dont even try to load the sound.
+	if (mMuted || gain == 0.0)
 	{
 		return;
 	}
