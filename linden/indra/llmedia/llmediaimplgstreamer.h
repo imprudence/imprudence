@@ -48,6 +48,7 @@ extern "C" {
 }
 
 #include "llmediaimplgstreamervidplug.h"
+#include "llgstplaythread.h"
 
 class LLMediaManagerData;
 class LLMediaImplMaker;
@@ -124,6 +125,8 @@ class LLMediaImplGStreamer:
 		GstSLVideo *mVideoSink;
 		GstState mState;
 		GstState getState() const { return mState; }
+
+		LLGstPlayThread *mPlayThread;
 };
 
 class LLMediaImplGStreamerMaker : public LLMediaImplMaker

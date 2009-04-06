@@ -30,9 +30,11 @@
  * $/LicenseInfo$
  */
 
-#include "llmediaimplgstreamer.h"
-
 ///#if LL_GSTREAMER_ENABLED
+
+#include "linden_common.h"
+
+#include "llmediaimplgstreamer.h"
 
 extern "C" {
 #include <gst/gst.h>
@@ -43,9 +45,8 @@ extern "C" {
 #include "llmediaimplregister.h"
 
 #include "llmediaimplgstreamervidplug.h"
+#include "llgstplaythread.h"
 
-#include "llerror.h"
-#include "linden_common.h"
 
 // register this impl with media manager factory
 static LLMediaImplRegister sLLMediaImplGStreamerReg( "LLMediaImplGStreamer", new LLMediaImplGStreamerMaker() );
@@ -72,7 +73,8 @@ LLMediaImplGStreamer () :
 	mPump ( NULL ),
 	mPlaybin ( NULL ),
 	mVideoSink ( NULL ),
-    mState( GST_STATE_NULL )
+	mState( GST_STATE_NULL ),
+	mPlayThread ( NULL )
 {
 	startup( NULL );  // Startup gstreamer if it hasn't been already.
 
@@ -713,7 +715,20 @@ bool LLMediaImplGStreamer::play()
 	if (!mPlaybin || mState == GST_STATE_NULL)
 		return true;
 
-	startPlay();
+	// Clean up the existing thread, if any.
+	if( mPlayThread != NULL && mPlayThread->isStopped())
+	{
+		delete mPlayThread;
+		mPlayThread = NULL;
+	}
+
+	if( mPlayThread == NULL )
+	{
+		// Make a new thread to start playing. This keeps the viewer
+		// responsive while the stream is resolved and buffered.
+		mPlayThread = new LLGstPlayThread( (LLMediaImplCommon *)this, "GstPlayThread", NULL);
+		mPlayThread->start();
+	}
 
 	return true;
 }
