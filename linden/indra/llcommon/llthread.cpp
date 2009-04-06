@@ -84,7 +84,7 @@ void *APR_THREAD_FUNC LLThread::staticRun(apr_thread_t *apr_threadp, void *datap
 
 
 LLThread::LLThread(const std::string& name, apr_pool_t *poolp) :
-	mPaused(FALSE),
+	mPaused(false),
 	mName(name),
 	mAPRThreadp(NULL),
 	mStatus(STOPPED)
@@ -92,12 +92,12 @@ LLThread::LLThread(const std::string& name, apr_pool_t *poolp) :
 	// Thread creation probably CAN be paranoid about APR being initialized, if necessary
 	if (poolp)
 	{
-		mIsLocalPool = FALSE;
+		mIsLocalPool = false;
 		mAPRPoolp = poolp;
 	}
 	else
 	{
-		mIsLocalPool = TRUE;
+		mIsLocalPool = true;
 		apr_pool_create(&mAPRPoolp, NULL); // Create a subpool for this thread
 	}
 	mRunCondition = new LLCondition(mAPRPoolp);
@@ -268,12 +268,12 @@ LLMutex::LLMutex(apr_pool_t *poolp) :
 {
 	//if (poolp)
 	//{
-	//	mIsLocalPool = FALSE;
+	//	mIsLocalPool = false;
 	//	mAPRPoolp = poolp;
 	//}
 	//else
 	{
-		mIsLocalPool = TRUE;
+		mIsLocalPool = true;
 		apr_pool_create(&mAPRPoolp, NULL); // Create a subpool for this thread
 	}
 	apr_thread_mutex_create(&mAPRMutexp, APR_THREAD_MUTEX_UNNESTED, mAPRPoolp);

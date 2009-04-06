@@ -1,3 +1,11 @@
+2009-04-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llcommon/llthread.cpp:
+	Converted BOOLs to bools in llthread.
+	* linden/indra/llcommon/llthread.h: 
+	Ditto.
+
+
 2009-04-05  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
