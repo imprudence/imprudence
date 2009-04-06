@@ -48,6 +48,7 @@ extern "C" {
 }
 
 #include "llmediaimplgstreamervidplug.h"
+#include "llgstplaythread.h"
 
 class LLMediaManagerData;
 class LLMediaImplMaker;
@@ -96,6 +97,9 @@ class LLMediaImplGStreamer:
 		/* virtual */ bool seek( double time );
 	    /* virtual */ bool setVolume( float volume );
 
+		void startPlay();
+
+
 	        LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
 
 	private:
@@ -121,6 +125,8 @@ class LLMediaImplGStreamer:
 		GstSLVideo *mVideoSink;
 		GstState mState;
 		GstState getState() const { return mState; }
+
+		LLGstPlayThread *mPlayThread;
 };
 
 class LLMediaImplGStreamerMaker : public LLMediaImplMaker
