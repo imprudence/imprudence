@@ -496,6 +496,13 @@ void LLViewerMedia::initClass()
 		const LLMIMETypes::LLMIMEInfo& info = it->second;
 		mm->addMimeTypeImplNameMap( mime_type, info.mImpl );
 	}
+
+	LLMediaBase *impl = mm->createSourceFromMimeType("http", "audio/mpeg");
+	if (impl)
+	{
+		U32 level = gSavedSettings.getU32("MediaDebugLevel");
+		impl->setDebugLevel( (LLMediaBase::EDebugLevel)level );
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

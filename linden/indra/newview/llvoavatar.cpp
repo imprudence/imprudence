@@ -3096,69 +3096,62 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				(is_away != mNameAway || is_busy != mNameBusy || is_muted != mNameMute)
 				|| is_appearance != mNameAppearance)
 			{
-				char line[MAX_STRING];		/* Flawfinder: ignore */
-				if (!sRenderGroupTitles)
+				std::string line;
+				if (title && title->getString() && title->getString()[0] != '\0')
 				{
-					// If all group titles are turned off, stack first name
-					// on a line above last name
-					strncpy(line, firstname->getString(), MAX_STRING -1 );		/* Flawfinder: ignore */
-					line[MAX_STRING -1] = '\0';
-					strcat(line, "\n");
-				}
-				else if (title && title->getString() && title->getString()[0] != '\0')
-				{
-					strncpy(line, title->getString(), MAX_STRING -1 );		/* Flawfinder: ignore */
-					line[MAX_STRING -1] = '\0';
-					strcat(line, "\n");		/* Flawfinder: ignore */
-					strncat(line, firstname->getString(), MAX_STRING - strlen(line) -1 );		/* Flawfinder: ignore */
+					line += title->getString();
+					LLStringFn::replace_nonprintable(line,LL_UNKNOWN_CHAR);
+					line += "\n";
+					line += firstname->getString();
 				}
 				else
 				{
-					strncpy(line, firstname->getString(), MAX_STRING -1 );		/* Flawfinder: ignore */
-					line[MAX_STRING -1] = '\0';
+					line += firstname->getString();
 				}
 
-				strcat(line, " ");		/* Flawfinder: ignore */
-				strncat(line, lastname->getString(), MAX_STRING - strlen(line) -1);		/* Flawfinder: ignore */
+				line += " ";
+				line += lastname->getString();
 				BOOL need_comma = FALSE;
 
 				if (is_away || is_muted || is_busy)
 				{
-					strcat(line, " (");		/* Flawfinder: ignore */
+					line += " (";
 					if (is_away)
 					{
-						strcat(line, "Away");		/* Flawfinder: ignore */
+						line += "Away";
 						need_comma = TRUE;
 					}
 					if (is_busy)
 					{
 						if (need_comma)
 						{
-							strcat(line, ", ");		/* Flawfinder: ignore */
+							line += ", ";
 						}
-						strcat(line, "Busy");		/* Flawfinder: ignore */
+						line += "Busy";
 						need_comma = TRUE;
 					}
 					if (is_muted)
 					{
 						if (need_comma)
 						{
-							strcat(line, ", ");		/* Flawfinder: ignore */
+							line += ", ";
 						}
-						strcat(line, "Muted");		/* Flawfinder: ignore */
+						line += "Muted";
 						need_comma = TRUE;
 					}
-					strcat(line,")");		/* Flawfinder: ignore */
+					line += ")";
 				}
 				if (is_appearance)
 				{
-					strcat(line, "\n(Editing Appearance)");		/* Flawfinder: ignore */
+					line += "\n";
+					line += "(Editing Appearance)";
 				}
 				mNameAway = is_away;
 				mNameBusy = is_busy;
 				mNameMute = is_muted;
 				mNameAppearance = is_appearance;
 				mTitle = title ? title->getString() : "";
+				LLStringFn::replace_nonprintable(mTitle,LL_UNKNOWN_CHAR);
 				mNameString = utf8str_to_wstring(line);
 				new_name = TRUE;
 			}

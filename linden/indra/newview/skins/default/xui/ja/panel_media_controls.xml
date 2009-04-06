@@ -4,8 +4,6 @@
 	     tool_tip="ストリーミング・ミュージックの再生/一時停止" />
 	<button name="music_play"
 	     tool_tip="ストリーミング・ミュージックの再生/一時停止" />
-	<button name="music_pause"
-	     tool_tip="ストリーミング・ミュージックの一時停止" />
 	<button name="music_stop"
 	     tool_tip="ストリーミング・ミュージックの停止" />
 	<icon name="media_icon"

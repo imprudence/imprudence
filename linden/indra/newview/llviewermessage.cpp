@@ -3286,6 +3286,10 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 	msg->getVector3Fast(_PREHASH_SoundData, _PREHASH_Position, pos_local);
 	msg->getF32Fast(_PREHASH_SoundData, _PREHASH_Gain, gain);
 
+	//If we have sounds muted, don't even try to load or trigger the sound.
+	if(gSavedSettings.getBOOL("MuteSounds") || gain == 0.0)
+		return;
+
 	// adjust sound location to true global coords
 	LLVector3d	pos_global = from_region_handle(region_handle);
 	pos_global.mdV[VX] += pos_local.mV[VX];
@@ -3317,7 +3321,7 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 
 void process_preload_sound(LLMessageSystem *msg, void **user_data)
 {
-	if (!gAudiop)
+	if (!gAudiop || gSavedSettings.getBOOL("MuteSounds"))
 	{
 		return;
 	}
@@ -3362,6 +3366,9 @@ void process_attached_sound(LLMessageSystem *msg, void **user_data)
 	msg->getUUIDFast(_PREHASH_DataBlock, _PREHASH_OwnerID, owner_id);
 	msg->getF32Fast(_PREHASH_DataBlock, _PREHASH_Gain, gain);
 	msg->getU8Fast(_PREHASH_DataBlock, _PREHASH_Flags, flags);
+
+	if(gSavedSettings.getBOOL("MuteSounds") || gain == 0.0)
+		return;
 
 	LLViewerObject *objectp = gObjectList.findObject(object_id);
 	if (!objectp)
