@@ -403,10 +403,51 @@ class DarwinManifest(ViewerManifest):
             #  <bundle>/Contents/MacOS/
             self.contents_of_tar(self.args['source']+'/mozilla-universal-darwin.tgz', 'MacOS')
 
-            self.path("Info-SecondLife.plist", dst="Info.plist")
+            self.path("Info-Imprudence.plist", dst="Info.plist")
 
             # copy additional libs in <bundle>/Contents/MacOS/
-            self.path("../../libraries/universal-darwin/lib_release/libndofdev.dylib", dst="MacOS/libndofdev.dylib")
+            if self.prefix(src="../../libraries/universal-darwin/lib_release", dst="MacOS/"):
+
+                self.path("libndofdev.dylib")
+                
+                self.path("libopenal.1.dylib")
+                self.path("libalut.0.dylib")
+
+                self.path("libglib-2.0.dylib")
+                self.path("libgmodule-2.0.dylib")
+                self.path("libgobject-2.0.dylib")
+                self.path("libgthread-2.0.dylib")
+                
+                self.path("libgstreamer-0.10.dylib")
+                self.path("libgstapp-0.10.dylib")
+                self.path("libgstaudio-0.10.dylib")
+                self.path("libgstbase-0.10.dylib")
+                self.path("libgstcdda-0.10.dylib")
+                self.path("libgstcontroller-0.10.dylib")
+                self.path("libgstdataprotocol-0.10.dylib")
+                self.path("libgstfft-0.10.dylib")
+                self.path("libgstinterfaces-0.10.dylib")
+                self.path("libgstnet-0.10.dylib")
+                self.path("libgstnetbuffer-0.10.dylib")
+                self.path("libgstpbutils-0.10.dylib")
+                self.path("libgstriff-0.10.dylib")
+                self.path("libgstrtp-0.10.dylib")
+                self.path("libgstrtsp-0.10.dylib")
+                self.path("libgstsdp-0.10.dylib")
+                self.path("libgsttag-0.10.dylib")
+                self.path("libgstvideo-0.10.dylib")
+
+                self.path("libintl.3.dylib")
+                self.path("libjpeg.62.dylib")
+                self.path("libogg.0.dylib")
+                self.path("liboil-0.3.0.dylib")
+                self.path("libpango-1.0.0.dylib")
+                self.path("libpangoft2-1.0.0.dylib")
+                self.path("libtheora.0.dylib")
+                self.path("libvorbis.0.dylib")
+                self.path("libvorbisenc.2.dylib")
+
+                self.end_prefix("../../libraries/universal-darwin/lib_release")
 
             # replace the default theme with our custom theme (so scrollbars work).
             if self.prefix(src="mozilla-theme", dst="MacOS/chrome"):
@@ -432,7 +473,7 @@ class DarwinManifest(ViewerManifest):
                 self.path("featuretable_mac.txt")
                 self.path("SecondLife.nib")
 
-                self.path("secondlife.icns")
+                self.path("viewer.icns")
                 
                 # Translations
                 self.path("English.lproj")
@@ -441,9 +482,72 @@ class DarwinManifest(ViewerManifest):
                 self.path("Korean.lproj")
 
 
+                if self.prefix(src="../../libraries/universal-darwin/lib_release/gstreamer-plugins", dst="lib/gstreamer-plugins"):
+                    self.path("libgstaacparse.so")
+                    self.path("libgstadder.so")
+                    self.path("libgstaiffparse.so")
+                    self.path("libgstamrparse.so")
+                    self.path("libgstapp.so")
+                    self.path("libgstaudioconvert.so")
+                    self.path("libgstaudiorate.so")
+                    self.path("libgstaudioresample.so")
+                    self.path("libgstautodetect.so")
+                    self.path("libgstavi.so")
+                    self.path("libgstcoreelements.so")
+                    self.path("libgstcoreindexers.so")
+                    self.path("libgstdebug.so")
+                    self.path("libgstdecodebin.so")
+                    self.path("libgstdecodebin2.so")
+                    self.path("libgstdeinterlace2.so")
+                    self.path("libgstequalizer.so")
+                    self.path("libgstffmpeg.so")
+                    self.path("libgstffmpegcolorspace.so")
+                    self.path("libgstffmpegscale.so")
+                    self.path("libgstflac.so")
+                    self.path("libgstflv.so")
+                    self.path("libgstgdp.so")
+                    self.path("libgsth264parse.so")
+                    self.path("libgsticydemux.so")
+                    self.path("libgstid3demux.so")
+                    self.path("libgstinterleave.so")
+                    self.path("libgstjpeg.so")
+                    self.path("libgstlevel.so")
+                    self.path("libgstmetadata.so")
+                    self.path("libgstmpeg4videoparse.so")
+                    self.path("libgstmpegdemux.so")
+                    self.path("libgstmpegvideoparse.so")
+                    self.path("libgstmultipart.so")
+                    self.path("libgstneonhttpsrc.so")
+                    self.path("libgstogg.so")
+                    self.path("libgstosxaudio.so")
+                    self.path("libgstosxvideosink.so")
+                    self.path("libgstpango.so")
+                    self.path("libgstplaybin.so")
+                    self.path("libgstpng.so")
+                    self.path("libgstpostproc.so")
+                    self.path("libgstqtdemux.so")
+                    self.path("libgstqueue2.so")
+                    self.path("libgstreal.so")
+                    self.path("libgstrtp.so")
+                    self.path("libgstrtpmanager.so")
+                    self.path("libgstrtsp.so")
+                    self.path("libgstsdpelem.so")
+                    self.path("libgstselector.so")
+                    self.path("libgsttcp.so")
+                    self.path("libgsttheora.so")
+                    self.path("libgsttypefindfunctions.so")
+                    self.path("libgstudp.so")
+                    self.path("libgstvideoscale.so")
+                    self.path("libgstvolume.so")
+                    self.path("libgstvorbis.so")
+                    self.path("libgstwavparse.so")
+                    
+                    self.end_prefix("../../libraries/universal-darwin/lib_release/gstreamer-plugins")
+
+
                 # SLVoice and vivox lols
-                self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
-                self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
+                #self.path("vivox-runtime/universal-darwin/libalut.dylib", "libalut.dylib")
+                #self.path("vivox-runtime/universal-darwin/libopenal.dylib", "libopenal.dylib")
                 #self.path("vivox-runtime/universal-darwin/libortp.dylib", "libortp.dylib")
                 #self.path("vivox-runtime/universal-darwin/libvivoxsdk.dylib", "libvivoxsdk.dylib")
                 #self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")

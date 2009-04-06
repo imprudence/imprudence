@@ -172,6 +172,17 @@ LLAudioChannelOpenAL::LLAudioChannelOpenAL()
 	mLastSamplePos(0)
 {
 	alGenSources(1, &mALSource);
+
+	if( mALSource == AL_NONE )
+	{
+		ALenum error = alGetError();
+		if( error == AL_NO_ERROR )
+		{
+			LL_WARNS("OpenAL") << "LLAudioChannelOpenAL::LLAudioChannelOpenAL() Could not generate mALSource, but no error is indicated!" << LL_ENDL;
+		}
+		LL_WARNS("OpenAL") << "LLAudioChannelOpenAL::LLAudioChannelOpenAL() Could not generate mALSource: (" << error << ") " << alGetString( error ) << LL_ENDL;
+	}
+
 }
 
 LLAudioChannelOpenAL::~LLAudioChannelOpenAL()
