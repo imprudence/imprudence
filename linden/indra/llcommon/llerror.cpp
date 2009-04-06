@@ -902,7 +902,7 @@ namespace {
 			return;
 		}
 		
-		const int MAX_RETRIES = 5;
+		const int MAX_RETRIES = 10;
 		for (int attempts = 0; attempts < MAX_RETRIES; ++attempts)
 		{
 			apr_status_t s = apr_thread_mutex_trylock(gLogMutexp);
@@ -914,9 +914,7 @@ namespace {
 			}
 
 			ms_sleep(1);
-			//apr_thread_yield();
-				// Just yielding won't necessarily work, I had problems with
-				// this on Linux - doug 12/02/04
+			apr_thread_yield();
 		}
 
 		// We're hosed, we can't get the mutex.  Blah.
