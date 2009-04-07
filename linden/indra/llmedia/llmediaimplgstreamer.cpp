@@ -357,7 +357,7 @@ void LLMediaImplGStreamer::gstreamer_log(GstDebugCategory *category,
 	switch( level )
 	{
 		case GST_LEVEL_ERROR:
-			LL_ERRS("MediaImpl") << log.str() << LL_ENDL;
+			LL_WARNS("MediaImpl") << "(ERROR) " << log.str() << LL_ENDL;
 			break;
 		case GST_LEVEL_WARNING:
 			LL_WARNS("MediaImpl") << log.str() << LL_ENDL;

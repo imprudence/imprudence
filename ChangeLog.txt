@@ -1,5 +1,9 @@
 2009-04-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Don't use LL_ERRS, it makes the viewer abort!
+
+
 	* linden/indra/llcommon/llerror.cpp:
 	Made LogLock mutex less likely to fail, hopefully.
 
