@@ -1,3 +1,10 @@
+2009-04-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/viewer_manifest.py:
+	Tweaked Mac lib manifest.
+	Removed pango, commented out libopenal, added libxml2.
+
+
 2009-04-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:

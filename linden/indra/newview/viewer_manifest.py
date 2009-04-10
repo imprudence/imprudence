@@ -410,7 +410,7 @@ class DarwinManifest(ViewerManifest):
 
                 self.path("libndofdev.dylib")
                 
-                self.path("libopenal.1.dylib")
+                # self.path("libopenal.1.dylib")
                 self.path("libalut.0.dylib")
 
                 self.path("libglib-2.0.dylib")
@@ -437,12 +437,11 @@ class DarwinManifest(ViewerManifest):
                 self.path("libgsttag-0.10.dylib")
                 self.path("libgstvideo-0.10.dylib")
 
+                self.path("libxml2.2.dylib")
                 self.path("libintl.3.dylib")
                 self.path("libjpeg.62.dylib")
                 self.path("libogg.0.dylib")
                 self.path("liboil-0.3.0.dylib")
-                self.path("libpango-1.0.0.dylib")
-                self.path("libpangoft2-1.0.0.dylib")
                 self.path("libtheora.0.dylib")
                 self.path("libvorbis.0.dylib")
                 self.path("libvorbisenc.2.dylib")
@@ -521,7 +520,6 @@ class DarwinManifest(ViewerManifest):
                     self.path("libgstogg.so")
                     self.path("libgstosxaudio.so")
                     self.path("libgstosxvideosink.so")
-                    self.path("libgstpango.so")
                     self.path("libgstplaybin.so")
                     self.path("libgstpng.so")
                     self.path("libgstpostproc.so")
