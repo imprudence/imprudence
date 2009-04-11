@@ -440,6 +440,7 @@ class DarwinManifest(ViewerManifest):
                 self.path("libxml2.2.dylib")
                 self.path("libintl.3.dylib")
                 self.path("libjpeg.62.dylib")
+                self.path("libneon.27.dylib")
                 self.path("libogg.0.dylib")
                 self.path("liboil-0.3.0.dylib")
                 self.path("libtheora.0.dylib")
