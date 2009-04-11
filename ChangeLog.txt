@@ -1,5 +1,9 @@
 2009-04-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/cmake/GStreamer.cmake:
+	Help Mac find the right libxml2.2.dylib.
+
+
 	* linden/indra/newview/viewer_manifest.py:
 	Tweaked Mac lib manifest.
 	Removed pango, commented out libopenal, added libxml2.
