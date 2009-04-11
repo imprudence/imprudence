@@ -1,5 +1,8 @@
 # -*- cmake -*-
 
+include(Variables)
+include(Linking)
+
 set(OPENAL ON CACHE BOOL "Enable OpenAL")
 
 
@@ -54,7 +57,13 @@ if (OPENAL)
      NAMES alut freealut
      PATHS ${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release
      )
-  else (WINDOWS) 
+  elseif (DARWIN)
+    find_library( ALUT_LIB
+      NAMES alut.0
+      PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
+      NO_DEFAULT_PATH
+      )
+  else (WINDOWS)
     set(ALUT_LIB alut)
   endif (WINDOWS)
 
