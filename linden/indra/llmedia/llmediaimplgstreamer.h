@@ -97,9 +97,9 @@ class LLMediaImplGStreamer:
 		/* virtual */ int getTextureFormatType() const;
 		/* virtual */ int getTextureFormatInternal() const;
 		/* virtual */ bool seek( double time );
-	    /* virtual */ bool setVolume( float volume );
+		/* virtual */ bool setVolume( float volume );
 
-	        LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
+		LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
 
 	protected:
 
@@ -108,24 +108,24 @@ class LLMediaImplGStreamer:
 
 	private:
 
-        	// misc
-	        bool unload();
-	        bool pause();
-	        bool stop();
-	        bool play();
-			
-	        static gboolean bus_callback (GstBus     *bus,
-					      GstMessage *message,
-					      gpointer    data);
+		// misc
+		bool unload();
+		bool pause();
+		bool stop();
+		bool play();
+
+		static gboolean bus_callback (GstBus     *bus,
+		                              GstMessage *message,
+		                              gpointer    data);
+
 		unsigned char* mediaData;
-        	int mMediaRowbytes;
+		int mMediaRowbytes;
+		int mTextureFormatPrimary;
+		int mTextureFormatType;
 
-	        int mTextureFormatPrimary;
-	        int mTextureFormatType;
-
-	        // GStreamer-specific
-        	GMainLoop *mPump; // event pump for this media
-	        GstElement *mPlaybin;
+		// GStreamer-specific
+		GMainLoop *mPump; // event pump for this media
+		GstElement *mPlaybin;
 		GstSLVideo *mVideoSink;
 		GstState mState;
 		GstState getState() const { return mState; }
@@ -135,12 +135,12 @@ class LLMediaImplGStreamer:
 
 class LLMediaImplGStreamerMaker : public LLMediaImplMaker
 {
-public: 
-	LLMediaImplGStreamerMaker();
-	LLMediaImplGStreamer* create()
-	{
-		return new LLMediaImplGStreamer();
-	}
+	public: 
+		LLMediaImplGStreamerMaker();
+		LLMediaImplGStreamer* create()
+		{
+			return new LLMediaImplGStreamer();
+		}
 };
 
 /////////////////////////////////////////////////////////////////////////
