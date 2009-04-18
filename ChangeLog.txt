@@ -3020,7 +3020,6 @@ modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
 	Removed pango, commented out libopenal, added libxml2.
 
 
-
 2009-04-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:

@@ -788,9 +788,9 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>c781cd9846cf20afb90ac40ad1a0ce9d</string>
+            <string>200bdf3c5a5489210fcee965f639a3f9</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/libpng-1.2.35-windows-20090917.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/libpng-1.2.34-1-windows-04172009.tar.bz2</uri>
           </map>
         </map>
       </map>
