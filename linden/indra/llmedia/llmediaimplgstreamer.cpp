@@ -291,10 +291,10 @@ void LLMediaImplGStreamer::set_gst_plugin_path()
 	// But we also want to search the path the user has set, if any.
 	std::string plugin_path =	
 		"GST_PLUGIN_PATH=" +
-		imp_dir + separator +
 #if LL_WINDOWS
 		imp_dir + "\\lib\\gstreamer-plugins" +
 #elif LL_DARWIN
+		imp_dir + separator +
 		imp_dir + "/../Resources/lib/gstreamer-plugins" +
 #endif
 		old_plugin_path;

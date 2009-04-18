@@ -1,3 +1,9 @@
+2009-04-17  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	GST_PLUGIN_PATH should only search plugin directories for Windows.
+
+
 2009-04-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
