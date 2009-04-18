@@ -60,6 +60,10 @@ extern "C" {
 #include "llgstplaythread.h"
 
 
+#if LL_DARWIN
+#include <CoreFoundation/CoreFoundation.h>  // For CF functions used in set_gst_plugin_path
+#endif
+
 // register this impl with media manager factory
 static LLMediaImplRegister sLLMediaImplGStreamerReg( "LLMediaImplGStreamer", new LLMediaImplGStreamerMaker() );
 
@@ -223,61 +227,111 @@ bool LLMediaImplGStreamer::startup (LLMediaManagerData* init_data)
 
 void LLMediaImplGStreamer::set_gst_plugin_path()
 {
-	// Only needed for Windows.
-	// Linux sets in wrapper.sh, Mac sets in Info-Imprudence.plist
-#ifdef LL_WINDOWS
+	// Linux sets GST_PLUGIN_PATH in wrapper.sh, not here.
+#if LL_WINDOWS || LL_DARWIN
 
-	char* imp_cwd;
+	std::string imp_dir = "";
 
 	// Get the current working directory: 
-	imp_cwd = _getcwd(NULL,0);
-
-	if(imp_cwd == NULL)
+#if LL_WINDOWS
+	char* raw_dir;
+	raw_dir = _getcwd(NULL,0);
+	if( raw_dir != NULL )
 	{
-		LL_DEBUGS("MediaImpl") << "_getcwd failed, not setting GST_PLUGIN_PATH."
-		                         << LL_ENDL;
+		imp_dir = std::string( raw_dir );
+	}
+#elif LL_DARWIN
+	CFBundleRef main_bundle = CFBundleGetMainBundle();
+	if( main_bundle != NULL )
+	{
+		CFURLRef bundle_url = CFBundleCopyBundleURL( main_bundle );
+		if( bundle_url != NULL )
+		{
+			#ifndef MAXPATHLEN
+			#define MAXPATHLEN 1024
+			#endif
+			char raw_dir[MAXPATHLEN];
+			if( CFURLGetFileSystemRepresentation( bundle_url, true, (UInt8 *)raw_dir, MAXPATHLEN) )
+			{
+				imp_dir = std::string( raw_dir ) + "/Contents/MacOS/";
+			}
+			CFRelease(bundle_url);
+		}
+	}
+#endif
+
+	if( imp_dir == "" )
+	{
+		LL_WARNS("MediaImpl") << "Could not get application directory, not setting GST_PLUGIN_PATH."
+		                      << LL_ENDL;
+		return;
+	}
+
+	LL_DEBUGS("MediaImpl") << "Imprudence is installed at "
+	                       << imp_dir << LL_ENDL;
+
+	// ":" on Mac and 'Nix, ";" on Windows
+	std::string separator = G_SEARCHPATH_SEPARATOR_S;
+
+	// Grab the current path, if it's set.
+	std::string old_plugin_path = "";
+	char *old_path = getenv("GST_PLUGIN_PATH");
+	if(old_path == NULL)
+	{
+		LL_DEBUGS("MediaImpl") << "Did not find user-set GST_PLUGIN_PATH."
+		                       << LL_ENDL;
 	}
 	else
 	{
-		LL_DEBUGS("MediaImpl") << "Imprudence is installed at "
-		                         << imp_cwd << LL_ENDL;
-
-		// Grab the current path, if it's set.
-		std::string old_plugin_path = "";
-		char *old_path = getenv("GST_PLUGIN_PATH");
-		if(old_path == NULL)
-		{
-			LL_DEBUGS("MediaImpl") << "Did not find user-set GST_PLUGIN_PATH."
-			                         << LL_ENDL;
-		}
-		else
-		{
-			old_plugin_path = ";" + std::string( old_path );
-		}
-
-
-		// Search both Imprudence and Imprudence\lib\gstreamer-plugins.
-		// If those fail, search the path the user has set, if any.
-		std::string plugin_path =
-		  "GST_PLUGIN_PATH=" +
-		  std::string(imp_cwd) + "\\lib\\gstreamer-plugins;" +
-		  std::string(imp_cwd) +
-		  old_plugin_path;
-
-		// Place GST_PLUGIN_PATH in the environment settings for imprudence.exe
-		// Returns 0 on success
-		if(_putenv( (char*)plugin_path.c_str() ))
-		{	
-			LL_WARNS("MediaImpl") << "Setting environment variable failed!" << LL_ENDL;
-		}
-		else
-		{
-			LL_DEBUGS("MediaImpl") << "GST_PLUGIN_PATH set to "
-									 << getenv("GST_PLUGIN_PATH") << LL_ENDL;
-		}
+		old_plugin_path = separator + std::string( old_path );
 	}
 
-#endif //LL_WINDOWS
+
+	// Search both Imprudence and Imprudence\lib\gstreamer-plugins.
+	// But we also want to search the path the user has set, if any.
+	std::string plugin_path =	
+		"GST_PLUGIN_PATH=" +
+		imp_dir + separator +
+#if LL_WINDOWS
+		imp_dir + "\\lib\\gstreamer-plugins" +
+#elif LL_DARWIN
+		imp_dir + "/../Resources/lib/gstreamer-plugins" +
+#endif
+		old_plugin_path;
+
+	int put_result;
+
+	// Place GST_PLUGIN_PATH in the environment settings
+#if LL_WINDOWS
+	put_result = _putenv( (char*)plugin_path.c_str() );
+#elif LL_DARWIN
+	put_result = putenv( (char*)plugin_path.c_str() );
+#endif
+
+	if( put_result == -1 )
+	{
+		LL_WARNS("MediaImpl") << "Setting GST_PLUGIN_PATH failed!" << LL_ENDL;
+	}
+	else
+	{
+		LL_DEBUGS("MediaImpl") << "GST_PLUGIN_PATH set to "
+		                       << getenv("GST_PLUGIN_PATH") << LL_ENDL;
+	}
+		
+	// Don't load system plugins. We only want to use ours, to avoid conflicts.
+#if LL_WINDOWS
+	put_result = _putenv( "GST_PLUGIN_SYSTEM_PATH=\"\"" );
+#elif LL_DARWIN
+	put_result = putenv( "GST_PLUGIN_SYSTEM_PATH=\"\"" );
+#endif
+
+	if( put_result == -1 )
+	{
+		LL_WARNS("MediaImpl") << "Setting GST_PLUGIN_SYSTEM_PATH=\"\" failed!"
+		                      << LL_ENDL;
+	}
+		
+#endif // LL_WINDOWS || LL_DARWIN
 }
 
 
@@ -303,7 +357,7 @@ void LLMediaImplGStreamer::gstreamer_log(GstDebugCategory *category,
 	switch( level )
 	{
 		case GST_LEVEL_ERROR:
-			LL_ERRS("MediaImpl") << log.str() << LL_ENDL;
+			LL_WARNS("MediaImpl") << "(ERROR) " << log.str() << LL_ENDL;
 			break;
 		case GST_LEVEL_WARNING:
 			LL_WARNS("MediaImpl") << log.str() << LL_ENDL;

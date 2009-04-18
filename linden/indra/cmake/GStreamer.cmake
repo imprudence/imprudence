@@ -62,18 +62,36 @@ else (WINDOWS)
       ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/libxml2
       )
 
-  set(GSTREAMER_LIBRARIES
-      gstvideo-0.10
-      gstaudio-0.10
-      gstbase-0.10
-      gstreamer-0.10
-      gobject-2.0
-      gmodule-2.0
-      dl
-      gthread-2.0
-      rt
-      glib-2.0
-      )
+  if (DARWIN)
+
+    set(GSTREAMER_LIBRARIES
+        gstvideo-0.10
+        gstaudio-0.10
+        gstbase-0.10
+        gstreamer-0.10
+        gobject-2.0
+        gmodule-2.0
+        gthread-2.0
+        glib-2.0
+        xml2
+        )
+
+  else (DARWIN)
+
+    set(GSTREAMER_LIBRARIES
+        gstvideo-0.10
+        gstaudio-0.10
+        gstbase-0.10
+        gstreamer-0.10
+        gobject-2.0
+        gmodule-2.0
+        dl
+        gthread-2.0
+        rt
+        glib-2.0
+        )
+
+  endif (DARWIN)
 
 endif (WINDOWS)
 

@@ -4,6 +4,7 @@ project(llaudio)
 
 include(00-Common)
 include(Audio)
+include(OPENAL)
 include(FMOD)
 include(LLCommon)
 include(LLMath)
