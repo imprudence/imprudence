@@ -9,6 +9,7 @@
 	Updated Windows GStreamer plugin url.
 	Updated Windows GLib url.
 	Updated Windows GStreamer url.
+	Updated Windows libpng url.
 
 
 2009-04-06  Jacek Antonelli  <jacek.antonelli@gmail.com>

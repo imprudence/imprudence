@@ -619,9 +619,9 @@ anguage Infrstructure (CLI) international standard</string>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>96ad03239a2b1d50584dcaf66162e03e</string>
+            <string>200bdf3c5a5489210fcee965f639a3f9</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/libpng-1.2.18-windows-20080613.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/libpng-1.2.34-1-windows-04172009.tar.bz2</uri>
           </map>
         </map>
       </map>
