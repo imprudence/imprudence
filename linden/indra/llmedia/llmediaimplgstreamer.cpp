@@ -792,6 +792,13 @@ bool LLMediaImplGStreamer::play()
 	if (!mPlaybin || mState == GST_STATE_NULL)
 		return true;
 
+
+	if( getState() == GST_STATE_PLAYING )
+	{
+		LL_DEBUGS("MediaImpl") << "... but already playing." << LL_ENDL;
+		return true;
+	}
+
 	// Clean up the existing thread, if any.
 	if( mPlayThread != NULL && mPlayThread->isStopped())
 	{

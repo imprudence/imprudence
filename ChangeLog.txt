@@ -1,6 +1,10 @@
 2009-04-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	LLMediaImplGStreamer::play() is no-op if already playing.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Removed some useless code from LLMediaImplGStreamer::startPlay().
 
 
