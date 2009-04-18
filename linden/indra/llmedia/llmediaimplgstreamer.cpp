@@ -591,9 +591,6 @@ bool LLMediaImplGStreamer::navigateTo (const std::string urlIn)
 
 	mState = GST_STATE_READY;
 
-	// navigateTo implicitly plays, too.
-	play();
-
 	return true;
 }
 
