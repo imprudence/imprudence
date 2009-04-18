@@ -5,7 +5,8 @@
 	
 	
 	* linden/install.xml:
-	Removed 'https' from install.xml
+	Removed 'https' from install.xml.
+	Updated GStreamer plugin url.
 
 
 2009-04-06  Jacek Antonelli  <jacek.antonelli@gmail.com>

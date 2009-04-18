@@ -445,9 +445,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>0a69a8ca39b54b3e1a838a508d2f72d0</string>
+            <string>4623b4a4c8ac4219d94abf7913612bb7</string>
             <key>url</key>
-            <uri>http://imprudence.s3.amazonaws.com/extras/gstreamer-plugins-windows-02132009.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-windows-04172009.tar.bz2</uri>
           </map>
         </map>
       </map>
