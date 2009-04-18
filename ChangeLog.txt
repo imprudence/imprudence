@@ -8,6 +8,7 @@
 	Removed 'https' from install.xml.
 	Updated Windows GStreamer plugin url.
 	Updated Windows GLib url.
+	Updated Windows GStreamer url.
 
 
 2009-04-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
