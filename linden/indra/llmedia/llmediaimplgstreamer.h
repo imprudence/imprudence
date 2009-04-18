@@ -57,6 +57,8 @@ class LLMediaImplMaker;
 class LLMediaImplGStreamer:
 	public LLMediaImplCommon
 {
+	friend class LLGstPlayThread;
+
 	public:
 		LLMediaImplGStreamer ();
 		virtual ~LLMediaImplGStreamer ();
@@ -97,10 +99,12 @@ class LLMediaImplGStreamer:
 		/* virtual */ bool seek( double time );
 	    /* virtual */ bool setVolume( float volume );
 
+	        LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
+
+	protected:
+
 		void startPlay();
 
-
-	        LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
 
 	private:
 

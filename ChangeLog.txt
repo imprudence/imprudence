@@ -1,5 +1,8 @@
 2009-04-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llmedia/llmediaimplgstreamer.h:
+	LLMediaImplGStreamer::startPlay() is protected, LLGstPlayThread friend.
+
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Removed redundant play() from LLMediaImplGStreamer::navigateTo().
 
