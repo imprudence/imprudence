@@ -39,6 +39,7 @@
 	#pragma warning(disable : 4244)
 #endif
 
+#include "linden_common.h"
 #include "llmediaimplgstreamer.h"
 
 extern "C" {
@@ -56,9 +57,8 @@ extern "C" {
 #include "llmediaimplregister.h"
 
 #include "llmediaimplgstreamervidplug.h"
+#include "llgstplaythread.h"
 
-#include "llerror.h"
-#include "linden_common.h"
 
 // register this impl with media manager factory
 static LLMediaImplRegister sLLMediaImplGStreamerReg( "LLMediaImplGStreamer", new LLMediaImplGStreamerMaker() );
@@ -85,7 +85,8 @@ LLMediaImplGStreamer () :
 	mPump ( NULL ),
 	mPlaybin ( NULL ),
 	mVideoSink ( NULL ),
-    mState( GST_STATE_NULL )
+	mState( GST_STATE_NULL ),
+	mPlayThread ( NULL )
 {
 	startup( NULL );  // Startup gstreamer if it hasn't been already.
 
@@ -737,6 +738,30 @@ bool LLMediaImplGStreamer::play()
 	if (!mPlaybin || mState == GST_STATE_NULL)
 		return true;
 
+	// Clean up the existing thread, if any.
+	if( mPlayThread != NULL && mPlayThread->isStopped())
+	{
+		delete mPlayThread;
+		mPlayThread = NULL;
+	}
+
+	if( mPlayThread == NULL )
+	{
+		// Make a new thread to start playing. This keeps the viewer
+		// responsive while the stream is resolved and buffered.
+		mPlayThread = new LLGstPlayThread( (LLMediaImplCommon *)this, "GstPlayThread", NULL);
+		mPlayThread->start();
+	}
+
+	return true;
+}
+
+
+void LLMediaImplGStreamer::startPlay()
+{
+	GstElement *pipeline = (GstElement *)gst_object_ref(GST_OBJECT(mPlaybin));
+	gst_object_unref(pipeline);
+	
 	GstStateChangeReturn state_change;
 
 	state_change = gst_element_set_state(mPlaybin, GST_STATE_PLAYING);
@@ -753,11 +778,6 @@ bool LLMediaImplGStreamer::play()
 		// We also force a stop in case the operations don't sync
 		setStatus(LLMediaBase::STATUS_UNKNOWN);
 		stop();
-		return false;
-	}
-	else
-	{
-		return true;
 	}
 }
 
