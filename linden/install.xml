@@ -393,9 +393,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>d5bfaa397dfbfc893603ad047c57604d</string>
+            <string>b1e0e16472c0e5d3b6291870e3f20b0c</string>
             <key>url</key>
-            <uri>http://imprudence.s3.amazonaws.com/extras/glib-2.18.3.1-windows-01262009.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/glib-2.18.4-windows-03162009.tar.bz2</uri>
           </map>
         </map>
       </map>
