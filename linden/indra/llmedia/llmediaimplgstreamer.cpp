@@ -813,9 +813,6 @@ bool LLMediaImplGStreamer::play()
 
 void LLMediaImplGStreamer::startPlay()
 {
-	GstElement *pipeline = (GstElement *)gst_object_ref(GST_OBJECT(mPlaybin));
-	gst_object_unref(pipeline);
-	
 	GstStateChangeReturn state_change;
 
 	state_change = gst_element_set_state(mPlaybin, GST_STATE_PLAYING);
