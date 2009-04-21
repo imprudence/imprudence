@@ -591,9 +591,6 @@ bool LLMediaImplGStreamer::navigateTo (const std::string urlIn)
 
 	mState = GST_STATE_READY;
 
-	// navigateTo implicitly plays, too.
-	play();
-
 	return true;
 }
 
@@ -792,6 +789,13 @@ bool LLMediaImplGStreamer::play()
 	if (!mPlaybin || mState == GST_STATE_NULL)
 		return true;
 
+
+	if( getState() == GST_STATE_PLAYING )
+	{
+		LL_DEBUGS("MediaImpl") << "... but already playing." << LL_ENDL;
+		return true;
+	}
+
 	// Clean up the existing thread, if any.
 	if( mPlayThread != NULL && mPlayThread->isStopped())
 	{
@@ -813,9 +817,6 @@ bool LLMediaImplGStreamer::play()
 
 void LLMediaImplGStreamer::startPlay()
 {
-	GstElement *pipeline = (GstElement *)gst_object_ref(GST_OBJECT(mPlaybin));
-	gst_object_unref(pipeline);
-	
 	GstStateChangeReturn state_change;
 
 	state_change = gst_element_set_state(mPlaybin, GST_STATE_PLAYING);

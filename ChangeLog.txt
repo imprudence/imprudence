@@ -18,6 +18,23 @@
 	Mac viewer uses Thomas Shikami's OpenAL libs.
 
 
+2009-04-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.h:
+	LLMediaImplGStreamer::startPlay() is protected, LLGstPlayThread friend.
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Removed redundant play() from LLMediaImplGStreamer::navigateTo().
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	LLMediaImplGStreamer::play() is no-op if already playing.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Removed some useless code from LLMediaImplGStreamer::startPlay().
+
+
 2009-04-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
