@@ -1,5 +1,9 @@
 2009-04-20  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/cmake/OPENAL.cmake:
+	Help (force) Mac find the right OpenAL lib and header dir.
+
+
 	* linden/install.xml:
 	Mac viewer uses Thomas Shikami's OpenAL libs.
 
