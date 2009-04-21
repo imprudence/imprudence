@@ -1,5 +1,11 @@
 2009-04-20  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/llaudio/audioengine_openal.cpp:
+	Imported GreenLife Emerald Viewer's OpenAL code. It works!
+	* linden/indra/llaudio/audioengine_openal.h:
+	Ditto.
+
+
 	* linden/indra/newview/viewer_manifest.py:
 	We'll use libopenal.1.dylib after all (yet again).
 
