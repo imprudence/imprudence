@@ -1,3 +1,9 @@
+2009-04-20  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/install.xml:
+	Mac viewer uses Thomas Shikami's OpenAL libs.
+
+
 2009-04-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
