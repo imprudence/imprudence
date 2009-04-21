@@ -410,7 +410,7 @@ class DarwinManifest(ViewerManifest):
 
                 self.path("libndofdev.dylib")
                 
-                # self.path("libopenal.1.dylib")
+                self.path("libopenal.1.dylib")
                 self.path("libalut.0.dylib")
 
                 self.path("libglib-2.0.dylib")
