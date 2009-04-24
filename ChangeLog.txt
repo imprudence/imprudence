@@ -4,7 +4,6 @@
 
 2009-04-22  McCabe Maxsted  <hakushakukun@gmail.com>
 
-
 	Started 1.2.0 branch.
 	
 	
