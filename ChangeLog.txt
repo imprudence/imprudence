@@ -2,8 +2,19 @@
 =-                        1.2.0                           -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-2009-04-22  McCabe Maxsted  <hakushakukun@gmail.com>
+2009-04-24  McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* linden/indra/newview/llfloaterchatterbox.cpp: 
+	Communicate window now shows the number of unread IMs.
+	* linden/indra/newview/llfloaterchatterbox.h: 
+	Ditto.
+	* linden/indra/newview/llimpanel.cpp: 
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_chatterbox.xml: 
+	Ditto.
+
+
+2009-04-22  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	Started 1.2.0 branch.
 	
