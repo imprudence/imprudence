@@ -509,8 +509,8 @@
     <menu_item_call name="Set Busy" label="Set Busy">
       <on_click function="World.SetBusy" userdata="" />
     </menu_item_call>
-    <menu_item_call name="Stop All Animations" enabled="false"
-                    label="Stop All Animations">
+    <menu_item_call name="Stop Animating My Avatar" enabled="false"
+                    label="Stop Animating My Avatar">
       <on_click function="Tools.StopAllAnimations" userdata="" />
     </menu_item_call>
     <menu_item_call name="Release Keys" enabled="false" label="Release Keys">
