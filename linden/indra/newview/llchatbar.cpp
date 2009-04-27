@@ -48,6 +48,7 @@
 #include "llcommandhandler.h"	// secondlife:///app/chat/ support
 #include "llviewercontrol.h"
 #include "llfloaterchat.h"
+#include "llfloatergesture.h"
 #include "llgesturemgr.h"
 #include "llkeyboard.h"
 #include "lllineeditor.h"
@@ -644,8 +645,9 @@ void LLChatBar::onCommitGesture(LLUICtrl* ctrl, void* data)
 	if (gestures)
 	{
 		S32 index = gestures->getFirstSelectedIndex();
-		if (index == 0)
+		if (index <= 0)
 		{
+			LLFloaterGesture::toggleVisibility();
 			return;
 		}
 		const std::string& trigger = gestures->getSelectedValue().asString();
@@ -655,7 +657,6 @@ void LLChatBar::onCommitGesture(LLUICtrl* ctrl, void* data)
 		std::string text(trigger);
 		std::string revised_text;
 		gGestureManager.triggerAndReviseString(text, &revised_text);
-
 		revised_text = utf8str_trim(revised_text);
 		if (!revised_text.empty())
 		{

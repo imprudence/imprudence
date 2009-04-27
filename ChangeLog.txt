@@ -2,6 +2,14 @@
 =-                        1.2.0                           -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-04-27  Armin Weatherwax  <email@unknown.com>
+
+	* linden/indra/newview/llchatbar.cpp: 
+	Applied Armin's gesture manager patch.
+	* linden/indra/newview/skins/default/xui/en-us/panel_chat_bar.xml: 
+	Ditto.
+
+
 2009-04-22  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	Started 1.2.0 branch.
