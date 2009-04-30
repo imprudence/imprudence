@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -95,7 +96,6 @@ public:
 	/*virtual*/  void draw();
 
 	void dirty();
-	void showMore(BOOL show_more);
 	void showPanel(EInfoPanel panel);
 
 	void setStatusText(const std::string& text);
@@ -168,11 +168,10 @@ public:
 	LLCheckBoxCtrl	*mRadioDozerSmooth;
 	LLCheckBoxCtrl	*mRadioDozerNoise;
 	LLCheckBoxCtrl	*mRadioDozerRevert;
+	LLSlider		*mSliderDozerSize;
 	LLSlider		*mSliderDozerForce;
 
-	LLComboBox		*mComboDozerSize;
 	LLButton		*mBtnApplyToSelection;
-	LLCheckBoxCtrl	*mCheckShowOwners;
 
 	std::vector<LLButton*>	mButtons;//[ 15 ];
 
@@ -191,8 +190,6 @@ public:
 
 private:
 	BOOL					mDirty;
-	S32						mSmallHeight;
-	S32						mLargeHeight;
 
 	std::map<std::string, std::string> mStatusText;
 };

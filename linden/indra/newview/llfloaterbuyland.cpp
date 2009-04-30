@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -213,7 +214,7 @@ void LLFloaterBuyLand::buyLand(
 {
 	if(is_for_group && !gAgent.hasPowerInActiveGroup(GP_LAND_DEED))
 	{
-		gViewerWindow->alertXml("OnlyOfficerCanBuyLand");
+		LLNotifications::instance().add("OnlyOfficerCanBuyLand");
 		return;
 	}
 
@@ -528,6 +529,12 @@ void LLFloaterBuyLandUI::updateCovenantInfo()
 		region_name->setText(region->getName());
 	}
 
+	LLTextBox* region_type = getChild<LLTextBox>("region_type_text");
+	if (region_type)
+	{
+		region_type->setText(region->getSimProductName());
+	}
+	
 	LLTextBox* resellable_clause = getChild<LLTextBox>("resellable_clause");
 	if (resellable_clause)
 	{
@@ -976,7 +983,7 @@ BOOL LLFloaterBuyLandUI::canClose()
 	if (!can_close)
 	{
 		// explain to user why they can't do this, see DEV-9605
-		gViewerWindow->alertXml("CannotCloseFloaterBuyLand");
+		LLNotifications::instance().add("CannotCloseFloaterBuyLand");
 	}
 	return can_close;
 }
@@ -1020,14 +1027,24 @@ void LLFloaterBuyLandUI::refreshUI()
 		
 			childSetText("info_size", getString("meters_supports_object", string_args));
 
+			F32 cost_per_sqm = 0.0f;
+			if (mParcelActualArea > 0)
+			{
+				cost_per_sqm = (F32)mParcelPrice / (F32)mParcelActualArea;
+			}
 
-			childSetText("info_price",
-				llformat(
-					"L$ %d%s",
-					mParcelPrice,
-					mParcelSoldWithObjects
-						? "\nsold with objects"
-						: ""));
+			LLStringUtil::format_map_t info_price_args;
+			info_price_args["[PRICE]"] = llformat("%d", mParcelPrice);
+			info_price_args["[PRICE_PER_SQM]"] = llformat("%.1f", cost_per_sqm);
+			if (mParcelSoldWithObjects)
+			{
+				info_price_args["[SOLD_WITH_OBJECTS]"] = getString("sold_with_objects");
+			}
+			else
+			{
+				info_price_args["[SOLD_WITH_OBJECTS]"] = getString("sold_without_objects");
+			}
+			childSetText("info_price", getString("info_price_string", info_price_args));
 			childSetVisible("info_price", mParcelIsForSale);
 		}
 		else
@@ -1157,7 +1174,7 @@ void LLFloaterBuyLandUI::refreshUI()
 		else if (mParcelBillableArea == mParcelActualArea)
 		{
 			LLStringUtil::format_map_t string_args;
-			string_args["[AMOUNT]"] = llformat("%d", mParcelActualArea);
+			string_args["[AMOUNT]"] = llformat("%d ", mParcelActualArea);
 			message += getString("parcel_meters", string_args);
 		}
 		else
@@ -1166,13 +1183,13 @@ void LLFloaterBuyLandUI::refreshUI()
 			if (mParcelBillableArea > mParcelActualArea)
 			{	
 				LLStringUtil::format_map_t string_args;
-				string_args["[AMOUNT]"] = llformat("%d", mParcelBillableArea);
+				string_args["[AMOUNT]"] = llformat("%d ", mParcelBillableArea);
 				message += getString("premium_land", string_args);
 			}
 			else
 			{
 				LLStringUtil::format_map_t string_args;
-				string_args["[AMOUNT]"] = llformat("%d", mParcelBillableArea);
+				string_args["[AMOUNT]"] = llformat("%d ", mParcelBillableArea);
 				message += getString("discounted_land", string_args);
 			}
 		}

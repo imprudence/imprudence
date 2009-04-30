@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -37,6 +38,8 @@
 #include "llmap.h"
 #include "llstring.h"
 #include "llrect.h"
+
+#include "llcontrolgroupreader.h"
 
 #include <vector>
 
@@ -92,7 +95,8 @@ private:
 	std::string		mName;
 	std::string		mComment;
 	eControlType	mType;
-	bool mPersist;
+	bool			mPersist;
+	bool			mHideFromSettingsEditor;
 	std::vector<LLSD> mValues;
 	
 	signal_t mSignal;
@@ -100,7 +104,7 @@ private:
 public:
 	LLControlVariable(const std::string& name, eControlType type,
 					  LLSD initial, const std::string& comment,
-					  bool persist = true);
+					  bool persist = true, bool hidefromsettingseditor = false);
 
 	virtual ~LLControlVariable();
 	
@@ -117,6 +121,7 @@ public:
 	bool isDefault() { return (mValues.size() == 1); }
 	bool isSaveValueDefault();
 	bool isPersisted() { return mPersist; }
+	bool isHiddenFromSettingsEditor() { return mHideFromSettingsEditor; }
 	LLSD get()			const	{ return getValue(); }
 	LLSD getValue()		const	{ return mValues.back(); }
 	LLSD getDefault()	const	{ return mValues.front(); }
@@ -126,6 +131,7 @@ public:
 	void setValue(const LLSD& value, bool saved_value = TRUE);
 	void setDefaultValue(const LLSD& value);
 	void setPersist(bool state);
+	void setHiddenFromSettingsEditor(bool hide);
 	void setComment(const std::string& comment);
 
 	void firePropertyChanged()
@@ -139,7 +145,7 @@ private:
 };
 
 //const U32 STRING_CACHE_SIZE = 10000;
-class LLControlGroup
+class LLControlGroup : public LLControlGroupReader
 {
 protected:
 	typedef std::map<std::string, LLPointer<LLControlVariable> > ctrl_name_table_t;
@@ -163,7 +169,7 @@ public:
 	};
 	void applyToAll(ApplyFunctor* func);
 	
-	BOOL declareControl(const std::string& name, eControlType type, const LLSD initial_val, const std::string& comment, BOOL persist);
+	BOOL declareControl(const std::string& name, eControlType type, const LLSD initial_val, const std::string& comment, BOOL persist, BOOL hidefromsettingseditor = FALSE);
 	BOOL declareU32(const std::string& name, U32 initial_val, const std::string& comment, BOOL persist = TRUE);
 	BOOL declareS32(const std::string& name, S32 initial_val, const std::string& comment, BOOL persist = TRUE);
 	BOOL declareF32(const std::string& name, F32 initial_val, const std::string& comment, BOOL persist = TRUE);

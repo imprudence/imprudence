@@ -1,171 +1,425 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!-- This file contains strings that used to be hardcoded in the source.
+     It is only for those strings which don&apos;t belong in a floater.
+     For example, the strings used in avatar chat bubbles, and strings 
+     that are returned from one component and may appear in many places-->
 <!-- 该文件包括从前写死在代码中的字符串。
      仅用于不属于浮动框的那些。
      例如在化身聊天气泡中的字符串，
      以及从一个部件返回而在许多地方可能会出现的那些。-->
 <strings>
-	<!--登录-->
-		<string name="LoginInProgress">正在登录。 [APP_NAME] 可能会看上去没有反应。 请稍候。</string>
-	<string name="LoginAuthenticating">认证中</string>
-	<string name="LoginMaintenance">正在进行帐户维护...</string>
-	<string name="LoginAttempt">上次登录尝试失败。正在登录，第 [NUMBER] 次尝试</string>
-	<string name="LoginPrecaching">世界加载中...</string>
-	<string name="LoginInitializingBrowser">正在初始化内置浏览器...</string>
-	<string name="LoginInitializingMultimedia">正在初始化多媒体...</string>
-	<string name="LoginVerifyingCache">正在验证缓存文件 (可能需要 60-90 秒)...</string>
-	<string name="LoginProcessingResponse">处理回复...</string>
-	<string name="LoginInitializingWorld">正在初始化世界...</string>
-	<string name="LoginDecodingImages">正在解码图像...</string>
-	<string name="LoginInitializingQuicktime">正在初始化 QuickTime...</string>
-	<string name="LoginQuicktimeNotFound">没有找到 QuickTime - 不能初始化。</string>
-	<string name="LoginQuicktimeOK">QuickTime 初始化成功。</string>
-	<string name="LoginWaitingForRegionHandshake">等待区域握手信号……...</string>
-	<string name="LoginConnectingToRegion">正在连接到区域...</string>
-	<string name="LoginDownloadingClothing">下载装束中...</string>
-	<string name="LoginFailedNoNetwork">网络错误： 无法建立连接，请检查您的网络连接。</string>
-
-	<!-- 断开连接 -->
-	<string name="AgentLostConnection">
-	该区域可能存在问题。请检查您到互联网的连接。
+	<string name="LoginInProgress">
+		正在登录。 [APP_NAME] 可能会看上去没有反应。 请稍候。
 	</string>
-	<!-- 工具提示, llhoverview.cpp.  -->
-	<string name="TooltipNoName">(没有名字)</string> <!-- 物体没有名字 -->
-	<string name="TooltipOwner">主人:</string> <!-- 接着是拥有者的名字 -->
-	<string name="TooltipPublic">公共</string> <!-- 对象的公共权限 -->
-	<string name="TooltipIsGroup">(社团)</string> <!-- 该文字前是社团名称 -->
-	<string name="TooltipFlagScript">脚本</string>
-	<string name="TooltipFlagPhysics">物理</string>
-	<string name="TooltipFlagTouch">触摸</string>
-	<string name="TooltipFlagL$">L$</string>
-	<string name="TooltipFlagDropInventory">放置物体</string>
-	<string name="TooltipFlagPhantom">幻影</string>
-	<string name="TooltipFlagTemporary">暂时</string>
-	<string name="TooltipFlagRightClickMenu">(点击右键, 打开菜单)</string>
-	<string name="TooltipFreeToCopy">可任意复制</string>
-	<string name="TooltipForSaleL$">待售: L$[AMOUNT]</string> <!-- L$ version -->
-	<string name="TooltipForSaleMsg">待售: [MESSAGE]</string> <!-- Message (RetrievingData) -->
-	<string name="TooltipFlagGroupBuild">社团可建造</string>
-	<string name="TooltipFlagNoBuild">不可建造</string>
-	<string name="TooltipFlagNoEdit">社团可建造</string>
-	<string name="TooltipFlagNotSafe">不安全</string><!-- damage area -->
-	<string name="TooltipFlagNoFly">不可飞行</string>
-	<string name="TooltipFlagGroupScripts">仅社团脚本</string>
-	<string name="TooltipFlagNoScripts">无脚本</string>
-	<string name="TooltipMustSingleDrop">仅可以拖动单个物品到这里</string>
-	<string name="TooltipLand">土地: </string>
-
-	<!-- Indicates that an avatar's name or other similar datum is being retrieved. General usage. -->
-	<string name="RetrievingData">获取中...</string>
-	<string name="ReleaseNotes">更新注释</string>
-	<!-- Indicates something is being loaded. Maybe should be merged with RetrievingData -->
-	<string name="LoadingData">加载中...</string>
-	
-	
-	<!-- namecache -->
-	<!-- 化身名称: 为 LLUUID::null 显示的字符串 -->
-	<string name="AvatarNameNobody">(没有人)</string>
-	
-	<!-- 化身名称: 取得名称时显示的文字-->
-	<string name="AvatarNameWaiting">(等待中)</string>
-
-	<!-- 化身名称:  替代 AvatarNameFetching 显示的文字, 彩蛋。 -->
-	<string name="AvatarNameHippos">(是河马)</string>
-	
-	<!-- 社团名称:  为 LLUUID::null 显示的字符串 -->
-	<string name="GroupNameNone">(无社团)</string>
-
-	<!-- Asset errors. Used in llassetstorage.cpp, translation from error code to error message. -->
-	<string name="AssetErrorNone">没有错误</string>
-	<string name="AssetErrorRequestFailed">资产请求: 失败</string>
-	<string name="AssetErrorNonexistentFile">资产请求: 不存在的文件</string>
-	<string name="AssetErrorNotInDatabase">资产请求: 数据库中未找到资产</string>
-	<string name="AssetErrorEOF">文件末端</string>
-	<string name="AssetErrorCannotOpenFile">无法打开文件</string>
-	<string name="AssetErrorFileNotFound">文件未找到</string>
-	<string name="AssetErrorTCPTimeout">文件传输超时</string>
-	<string name="AssetErrorCircuitGone">通路没有了</string>
-	<string name="AssetErrorUnknownStatus">未知状态</string>
-
-	<!-- llvoavatar. 显示在化身的聊天气球中 -->
-	<string name="AvatarEditingApparance">(正在编辑外观)</string>
-	<string name="AvatarAway">离开</string>
-	<string name="AvatarBusy">忙碌</string>
-	<string name="AvatarMuted">已屏蔽</string>
-
-	<!-- animations -->
-	<string name="anim_express_afraid">害怕</string>
-	<string name="anim_express_anger">生气</string>
-	<string name="anim_away">离开</string>
-	<string name="anim_backflip">后空翻</string>
-	<string name="anim_express_laugh">Belly Laugh</string>
-	<string name="anim_express_toothsmile">BigSmile</string>
-	<string name="anim_blowkiss">飞吻</string>
-	<string name="anim_express_bored">无聊</string>
-	<string name="anim_bow">鞠躬</string>
-	<string name="anim_clap">鼓掌</string>
-	<string name="anim_courtbow">宫廷式鞠躬</string>
-	<string name="anim_express_cry">哭泣</string>
-	<string name="anim_dance1">舞蹈 1</string>
-	<string name="anim_dance2">舞蹈 2</string>
-	<string name="anim_dance3">舞蹈 3</string>
-	<string name="anim_dance4">舞蹈 4</string>
-	<string name="anim_dance5">舞蹈 5</string>
-	<string name="anim_dance6">舞蹈 6</string>
-	<string name="anim_dance7">舞蹈 7</string>
-	<string name="anim_dance8">舞蹈 8</string>
-	<string name="anim_express_disdain">Disdain</string>
-	<string name="anim_drink">喝</string>
-	<string name="anim_express_embarrased">害羞</string>
-	<string name="anim_angry_fingerwag">摇手指</string>
-	<string name="anim_fist_pump">Fist Pump</string>
-	<string name="anim_yoga_float">浮空瑜伽</string>
-	<string name="anim_express_frown">皱眉</string>
-	<string name="anim_impatient">不耐烦</string>
-	<string name="anim_jumpforjoy">高兴得跳起来</string>
-	<string name="anim_kissmybutt">亲我的屁股吧</string>
-	<string name="anim_express_kiss">亲吻</string>
-	<string name="anim_laugh_short">大笑</string>
-	<string name="anim_musclebeach">肌肉海滩</string>
-	<string name="anim_no_unhappy">不要 (不高兴地)</string>
-	<string name="anim_no_head">不要</string>
-	<string name="anim_nyanya">喵~喵~喵~</string>
-	<string name="anim_punch_onetwo">One-Two Punch</string>
-	<string name="anim_express_open_mouth">张开嘴</string>
-	<string name="anim_peace">和平</string>
-	<string name="anim_point_you">指别人</string>
-	<string name="anim_point_me">指自己</string>
-	<string name="anim_punch_l">左拳</string>
-	<string name="anim_punch_r">右拳</string>
-	<string name="anim_rps_countdown">RPS 计数</string>
-	<string name="anim_rps_paper">RPS 布</string>
-	<string name="anim_rps_rock">RPS 石头</string>
-	<string name="anim_rps_scissors">RPS 剪刀</string>
-	<string name="anim_express_repulsed">Repulsed</string>
-	<string name="anim_kick_roundhouse_r">Roundhouse Kick</string>
-	<string name="anim_express_sad">伤心</string>
-	<string name="anim_salute">敬礼</string>
-	<string name="anim_shout">喊叫</string>
-	<string name="anim_express_shrug">耸肩</string>
-	<string name="anim_express_smile">微笑</string>
-	<string name="anim_smoke_idle">吸烟 空闲</string>
-	<string name="anim_smoke_inhale">吸烟 吸气</string>
-	<string name="anim_smoke_throw_down">吸烟 扔下去</string>
-	<string name="anim_express_surprise">吃惊</string>
-	<string name="anim_sword_strike_r">剑刺</string>
-	<string name="anim_angry_tantrum">Tantrum</string>
-	<string name="anim_express_tongue_out">伸舌头</string>
-	<string name="anim_hello">招手</string>
-	<string name="anim_whisper">悄悄话</string>
-	<string name="anim_whistle">吹口哨</string>
-	<string name="anim_express_wink">眨眼</string>
-	<string name="anim_wink_hollywood">眨眼 (好莱坞式)</string>
-	<string name="anim_express_worry">担心</string>
-	<string name="anim_yes_happy">是的 (高兴地)</string>
-	<string name="anim_yes_head">是的</string>
-	<string name="texture_loading">加载中...</string>
-	<string name="worldmap_offline">脱机</string>
-
-	<!-- Chat -->
-	<string name="whisper">小声说:</string>
-	<string name="shout">大喊:</string>
+	<string name="LoginAuthenticating">
+		认证中
+	</string>
+	<string name="LoginMaintenance">
+		正在进行帐户维护...
+	</string>
+	<string name="LoginAttempt">
+		上次登录尝试失败。正在登录，第 [NUMBER] 次尝试
+	</string>
+	<string name="LoginPrecaching">
+		世界加载中...
+	</string>
+	<string name="LoginInitializingBrowser">
+		正在初始化内置浏览器...
+	</string>
+	<string name="LoginInitializingMultimedia">
+		正在初始化多媒体...
+	</string>
+	<string name="LoginVerifyingCache">
+		正在验证缓存文件 (可能需要 60-90 秒)...
+	</string>
+	<string name="LoginProcessingResponse">
+		处理回复...
+	</string>
+	<string name="LoginInitializingWorld">
+		正在初始化世界...
+	</string>
+	<string name="LoginDecodingImages">
+		正在解码图像...
+	</string>
+	<string name="LoginInitializingQuicktime">
+		正在初始化 QuickTime...
+	</string>
+	<string name="LoginQuicktimeNotFound">
+		没有找到 QuickTime - 不能初始化。
+	</string>
+	<string name="LoginQuicktimeOK">
+		QuickTime 初始化成功。
+	</string>
+	<string name="LoginWaitingForRegionHandshake">
+		等待区域握手信号……...
+	</string>
+	<string name="LoginConnectingToRegion">
+		正在连接到区域...
+	</string>
+	<string name="LoginDownloadingClothing">
+		下载装束中...
+	</string>
+	<string name="LoginFailedNoNetwork">
+		网络错误： 无法建立连接，请检查您的网络连接。
+	</string>
+	<string name="AgentLostConnection">
+		该区域可能存在问题。请检查您到互联网的连接。
+	</string>
+	<string name="TooltipPerson">
+		人物
+	</string>
+	<string name="TooltipNoName">
+		(没有名字)
+	</string>
+	<string name="TooltipOwner">
+		主人:
+	</string>
+	<string name="TooltipPublic">
+		公共
+	</string>
+	<string name="TooltipIsGroup">
+		(社团)
+	</string>
+	<string name="TooltipFlagScript">
+		脚本
+	</string>
+	<string name="TooltipFlagPhysics">
+		物理
+	</string>
+	<string name="TooltipFlagTouch">
+		触摸
+	</string>
+	<string name="TooltipFlagL$">
+		L$
+	</string>
+	<string name="TooltipFlagDropInventory">
+		放置物体
+	</string>
+	<string name="TooltipFlagPhantom">
+		幻影
+	</string>
+	<string name="TooltipFlagTemporary">
+		暂时
+	</string>
+	<string name="TooltipFlagRightClickMenu">
+		(点击右键, 打开菜单)
+	</string>
+	<string name="TooltipFreeToCopy">
+		可任意复制
+	</string>
+	<string name="TooltipForSaleL$">
+		待售: L$[AMOUNT]
+	</string>
+	<string name="TooltipForSaleMsg">
+		待售: [MESSAGE]
+	</string>
+	<string name="TooltipFlagGroupBuild">
+		社团可建造
+	</string>
+	<string name="TooltipFlagNoBuild">
+		不可建造
+	</string>
+	<string name="TooltipFlagNoEdit">
+		社团可建造
+	</string>
+	<string name="TooltipFlagNotSafe">
+		不安全
+	</string>
+	<string name="TooltipFlagNoFly">
+		不可飞行
+	</string>
+	<string name="TooltipFlagGroupScripts">
+		仅社团脚本
+	</string>
+	<string name="TooltipFlagNoScripts">
+		无脚本
+	</string>
+	<string name="TooltipLand">
+		土地:
+	</string>
+	<string name="TooltipMustSingleDrop">
+		仅可以拖动单个物品到这里
+	</string>
+	<string name="RetrievingData">
+		获取中...
+	</string>
+	<string name="ReleaseNotes">
+		更新注释
+	</string>
+	<string name="LoadingData">
+		加载中...
+	</string>
+	<string name="AvatarNameNobody">
+		(没有人)
+	</string>
+	<string name="AvatarNameWaiting">
+		(等待中)
+	</string>
+	<string name="AvatarNameHippos">
+		(是河马)
+	</string>
+	<string name="GroupNameNone">
+		(无社团)
+	</string>
+	<string name="AssetErrorNone">
+		没有错误
+	</string>
+	<string name="AssetErrorRequestFailed">
+		资产请求: 失败
+	</string>
+	<string name="AssetErrorNonexistentFile">
+		资产请求: 不存在的文件
+	</string>
+	<string name="AssetErrorNotInDatabase">
+		资产请求: 数据库中未找到资产
+	</string>
+	<string name="AssetErrorEOF">
+		文件末端
+	</string>
+	<string name="AssetErrorCannotOpenFile">
+		无法打开文件
+	</string>
+	<string name="AssetErrorFileNotFound">
+		文件未找到
+	</string>
+	<string name="AssetErrorTCPTimeout">
+		文件传输超时
+	</string>
+	<string name="AssetErrorCircuitGone">
+		通路没有了
+	</string>
+	<string name="AssetErrorUnknownStatus">
+		未知状态
+	</string>
+	<string name="AvatarEditingApparance">
+		(正在编辑外观)
+	</string>
+	<string name="AvatarAway">
+		离开
+	</string>
+	<string name="AvatarBusy">
+		忙碌
+	</string>
+	<string name="AvatarMuted">
+		已屏蔽
+	</string>
+	<string name="anim_express_afraid">
+		害怕
+	</string>
+	<string name="anim_express_anger">
+		生气
+	</string>
+	<string name="anim_away">
+		离开
+	</string>
+	<string name="anim_backflip">
+		后空翻
+	</string>
+	<string name="anim_express_laugh">
+		Belly Laugh
+	</string>
+	<string name="anim_express_toothsmile">
+		BigSmile
+	</string>
+	<string name="anim_blowkiss">
+		飞吻
+	</string>
+	<string name="anim_express_bored">
+		无聊
+	</string>
+	<string name="anim_bow">
+		鞠躬
+	</string>
+	<string name="anim_clap">
+		鼓掌
+	</string>
+	<string name="anim_courtbow">
+		宫廷式鞠躬
+	</string>
+	<string name="anim_express_cry">
+		哭泣
+	</string>
+	<string name="anim_dance1">
+		舞蹈 1
+	</string>
+	<string name="anim_dance2">
+		舞蹈 2
+	</string>
+	<string name="anim_dance3">
+		舞蹈 3
+	</string>
+	<string name="anim_dance4">
+		舞蹈 4
+	</string>
+	<string name="anim_dance5">
+		舞蹈 5
+	</string>
+	<string name="anim_dance6">
+		舞蹈 6
+	</string>
+	<string name="anim_dance7">
+		舞蹈 7
+	</string>
+	<string name="anim_dance8">
+		舞蹈 8
+	</string>
+	<string name="anim_express_disdain">
+		Disdain
+	</string>
+	<string name="anim_drink">
+		喝
+	</string>
+	<string name="anim_express_embarrased">
+		害羞
+	</string>
+	<string name="anim_angry_fingerwag">
+		摇手指
+	</string>
+	<string name="anim_fist_pump">
+		Fist Pump
+	</string>
+	<string name="anim_yoga_float">
+		浮空瑜伽
+	</string>
+	<string name="anim_express_frown">
+		皱眉
+	</string>
+	<string name="anim_impatient">
+		不耐烦
+	</string>
+	<string name="anim_jumpforjoy">
+		高兴得跳起来
+	</string>
+	<string name="anim_kissmybutt">
+		亲我的屁股吧
+	</string>
+	<string name="anim_express_kiss">
+		亲吻
+	</string>
+	<string name="anim_laugh_short">
+		大笑
+	</string>
+	<string name="anim_musclebeach">
+		肌肉海滩
+	</string>
+	<string name="anim_no_unhappy">
+		不要 (不高兴地)
+	</string>
+	<string name="anim_no_head">
+		不要
+	</string>
+	<string name="anim_nyanya">
+		喵~喵~喵~
+	</string>
+	<string name="anim_punch_onetwo">
+		One-Two Punch
+	</string>
+	<string name="anim_express_open_mouth">
+		张开嘴
+	</string>
+	<string name="anim_peace">
+		和平
+	</string>
+	<string name="anim_point_you">
+		指别人
+	</string>
+	<string name="anim_point_me">
+		指自己
+	</string>
+	<string name="anim_punch_l">
+		左拳
+	</string>
+	<string name="anim_punch_r">
+		右拳
+	</string>
+	<string name="anim_rps_countdown">
+		RPS 计数
+	</string>
+	<string name="anim_rps_paper">
+		RPS 布
+	</string>
+	<string name="anim_rps_rock">
+		RPS 石头
+	</string>
+	<string name="anim_rps_scissors">
+		RPS 剪刀
+	</string>
+	<string name="anim_express_repulsed">
+		Repulsed
+	</string>
+	<string name="anim_kick_roundhouse_r">
+		Roundhouse Kick
+	</string>
+	<string name="anim_express_sad">
+		伤心
+	</string>
+	<string name="anim_salute">
+		敬礼
+	</string>
+	<string name="anim_shout">
+		喊叫
+	</string>
+	<string name="anim_express_shrug">
+		耸肩
+	</string>
+	<string name="anim_express_smile">
+		微笑
+	</string>
+	<string name="anim_smoke_idle">
+		吸烟 空闲
+	</string>
+	<string name="anim_smoke_inhale">
+		吸烟 吸气
+	</string>
+	<string name="anim_smoke_throw_down">
+		吸烟 扔下去
+	</string>
+	<string name="anim_express_surprise">
+		吃惊
+	</string>
+	<string name="anim_sword_strike_r">
+		剑刺
+	</string>
+	<string name="anim_angry_tantrum">
+		Tantrum
+	</string>
+	<string name="anim_express_tongue_out">
+		伸舌头
+	</string>
+	<string name="anim_hello">
+		招手
+	</string>
+	<string name="anim_whisper">
+		悄悄话
+	</string>
+	<string name="anim_whistle">
+		吹口哨
+	</string>
+	<string name="anim_express_wink">
+		眨眼
+	</string>
+	<string name="anim_wink_hollywood">
+		眨眼 (好莱坞式)
+	</string>
+	<string name="anim_express_worry">
+		担心
+	</string>
+	<string name="anim_yes_happy">
+		是的 (高兴地)
+	</string>
+	<string name="anim_yes_head">
+		是的
+	</string>
+	<string name="texture_loading">
+		加载中...
+	</string>
+	<string name="worldmap_offline">
+		脱机
+	</string>
+	<string name="whisper">
+		小声说:
+	</string>
+	<string name="shout">
+		大喊:
+	</string>
 </strings>

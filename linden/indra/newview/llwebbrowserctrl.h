@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -217,7 +218,7 @@ class LLWebBrowserCtrl :
 		// Javascript or some other mechanism.  However, we need the search
 		// floater and login page to handle these URLs.  Those are safe
 		// because we control the page content.  See DEV-9530.  JC.
-		void setOpenAppSLURLs( bool valIn );
+		void setTrusted( bool valIn );
 
 		void setHomePageUrl( const std::string urlIn );
 		std::string getHomePageUrl();
@@ -271,7 +272,7 @@ class LLWebBrowserCtrl :
 		void convertInputCoords(S32& x, S32& y);
 
 	private:
-		static void onClickLinkExternalTarget( S32 option, void* userdata );
+		static bool onClickLinkExternalTarget( const LLSD&, const LLSD& );
 
 		LLWebBrowserCtrlEventEmitter< LLWebBrowserCtrlObserver > mEventEmitter;
 		const S32 mTextureDepthBytes;
@@ -282,7 +283,7 @@ class LLWebBrowserCtrl :
 		bool mForceUpdate;
 		bool mOpenLinksInExternalBrowser;
 		bool mOpenLinksInInternalBrowser;
-		bool mOpenAppSLURLs;
+		bool mTrusted;
 		std::string mHomePageUrl;
 		std::string mExternalUrl;
 		std::string mCurrentNavUrl;

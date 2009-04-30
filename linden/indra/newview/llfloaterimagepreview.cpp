@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -134,6 +135,8 @@ BOOL LLFloaterImagePreview::postBuild()
 //-----------------------------------------------------------------------------
 LLFloaterImagePreview::~LLFloaterImagePreview()
 {
+	clearAllPreviewTextures();
+
 	mRawImagep = NULL;
 	delete mAvatarPreview;
 	delete mSculptedPreview;
@@ -201,6 +204,21 @@ void	LLFloaterImagePreview::onPreviewTypeCommit(LLUICtrl* ctrl, void* userdata)
 	fp->mSculptedPreview->refresh();
 }
 
+
+//-----------------------------------------------------------------------------
+// clearAllPreviewTextures()
+//-----------------------------------------------------------------------------
+void LLFloaterImagePreview::clearAllPreviewTextures()
+{
+	mAvatarPreview->clearPreviewTexture("mHairMesh0");
+	mAvatarPreview->clearPreviewTexture("mUpperBodyMesh0");
+	mAvatarPreview->clearPreviewTexture("mLowerBodyMesh0");
+	mAvatarPreview->clearPreviewTexture("mHeadMesh0");
+	mAvatarPreview->clearPreviewTexture("mUpperBodyMesh0");
+	mAvatarPreview->clearPreviewTexture("mLowerBodyMesh0");
+	mAvatarPreview->clearPreviewTexture("mSkirtMesh0");
+}
+
 //-----------------------------------------------------------------------------
 // draw()
 //-----------------------------------------------------------------------------
@@ -233,8 +251,7 @@ void LLFloaterImagePreview::draw()
 				gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mImagep->getTexName());
 				stop_glerror();
 
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				gGL.getTexUnit(0)->setTextureFilteringOption(LLTexUnit::TFO_BILINEAR);
 				
 				gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 				if (mAvatarPreview)
@@ -643,6 +660,19 @@ void LLImagePreviewAvatar::setPreviewTarget(const std::string& joint_name, const
 	mCameraPitch = 0.f;
 	mCameraYaw = 0.f;
 	mCameraOffset.clearVec();
+}
+
+//-----------------------------------------------------------------------------
+// clearPreviewTexture()
+//-----------------------------------------------------------------------------
+void LLImagePreviewAvatar::clearPreviewTexture(const std::string& mesh_name)
+{
+	LLViewerJointMesh *mesh = (LLViewerJointMesh*)mDummyAvatar->mRoot.findJoint(mesh_name);
+	// clear out existing test mesh
+	if (mesh)
+	{
+		mesh->setTestTexture(0);
+	}
 }
 
 //-----------------------------------------------------------------------------

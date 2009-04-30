@@ -2,10 +2,12 @@
 <menu_bar name="Main Menu">
 	<menu label="파일" name="File">
 		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
+		<menu label="업로드" name="upload">
 		<menu_item_call label="이미지 업로드(L$[COST])" name="Upload Image" />
 		<menu_item_call label="사운드 업로드(L$[COST])" name="Upload Sound" />
 		<menu_item_call label="애니메이션 업로드(L$[COST])" name="Upload Animation" />
 		<menu_item_call label="한꺼번에 업로드(파일당 L$[COST])" name="Bulk Upload" />
+		</menu>
 		<menu_item_separator label="-----------" name="separator" />
 		<menu_item_call label="창 닫기" name="Close Window" />
 		<menu_item_call label="모든 창 닫기" name="Close All Windows" />

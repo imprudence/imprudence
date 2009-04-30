@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="overlay">
-	<button label="MI recibido" label_selected="MI recibido" name="IM Received"
-	     tool_tip="Usted tiene un mensaje instantáneo pendiente. Haga clic para mostrar MIs." />
-	<button label="Definir como no ocupado" label_selected="Definir como no ocupado"
-	     name="Set Not Busy"
-	     tool_tip="El chat y el MI están ocultos para usted. Haga clic aquí para definirse como no ocupado." />
-	<button label="Liberar teclas" label_selected="Liberar teclas" name="Release Keys"
-	     tool_tip="Un script asumió el control de sus teclas. Haga clic aquí para liberarlas." />
-	<button label="Visión del ratón" label_selected="Visión del ratón" name="Mouselook"
-	     tool_tip="Usar ratón para controlar su visión. Si usted tiene un arma, hacer clic irá a dispararla." />
-	<button label="Levantarse" label_selected="Levantarse" name="Stand Up"
-	     tool_tip="Haga clic aquí para levantarse." />
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
+				<layout_panel name="state_buttons">
+					<button label="Recibido un MI" label_selected="Recibido un MI" name="IM Received" tool_tip="Tiene pendiente un mensaje instantáneo. Pulse para ver los MI."/>
+					<button label="Salir de &apos;ocupado&apos;" label_selected="Salir de &apos;ocupado&apos;" name="Set Not Busy" tool_tip="El chat y los MI están escondidos para usted. Pulse aquí para salir del estado ocupado."/>
+					<button label="Vista subjetiva" label_selected="Vista subjetiva" name="Mouselook" tool_tip="Use el ratón para orientar su punto de vista. Si tiene un arma, al pulsarlo disparará."/>
+					<button label="Levantarse" label_selected="Levantarse" name="Stand Up" tool_tip="Pulse aquí para levantarse."/>
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+	</layout_stack>
 </panel>

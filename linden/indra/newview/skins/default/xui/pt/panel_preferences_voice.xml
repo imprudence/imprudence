@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel label="Voice Chat" name="chat">
-	<button label="Configurações do dispositivo" name="device_settings_btn" width="180" />
-	<text_editor name="device_settings_text" height="48" bottom_delta="-45">
-		NOTA: Executar o Configurações do dispositivo vai desligá-lo temporariamente do Bate- papo de voz, e as mudanças que você fizer serão imediatamente aplicadas.
+<panel label="Bate-papo por Voz" name="chat">
+	<text_editor name="voice_unavailable">
+		Bate-papo de Voz nâo está disponível
+	</text_editor>
+	<check_box label="Habilitar bate-papo de Voz" name="enable_voice_check"/>
+	<radio_group name="ear_location">
+		<radio_item name="0">
+			Ouvir o bate-papo de voz pela posição de câmera.
+		</radio_item>
+		<radio_item name="1">
+			Ouvir o bate-papo de voz pela posição do avatar.
+		</radio_item>
+	</radio_group>
+	<text name="push_to_talk_heading">
+		Pressione para falar
+	</text>
+	<text_editor name="voice_chat_description">
+		O  modo Pressione-para-falar permite que você controle quando a sua voz é transmitida. Quando quiser alternar o modo, pressione e solte o botão pressione-para-falar para mudar o seu microfone de ligado para desligado. Quando não estiver em modo alternado, o microfone estará ativo apenas quando o botão estiver mantido para baixo.
+	</text_editor>
+	<check_box label="Use Pressione-para-falar em modo alternado" name="push_to_talk_toggle_check"/>
+	<text name="push_to_talk_label">
+		gatilho do Pressione-para-Falar:
+	</text>
+	<button label="Definir tecla" name="set_voice_hotkey_button"/>
+	<button label="Botão do meio do mouse" name="set_voice_middlemouse_button"/>
+	<text name="privacy_heading">
+		Opções de privacidade
+	</text>
+	<check_box label="Apenas aceitar chamadas de voz das pessoas da minha Lista de amigos" name="voice_call_friends_only_check"/>
+	<button label="Configurações do dispositivo" name="device_settings_btn" width="180"/>
+	<text_editor bottom_delta="-45" height="48" name="device_settings_text">
+		NOTA: Executar as configurações do dispositivo vai desligá-lo temporariamente do Bate- papo de voz e as mudanças que você fizer serão imediatamente aplicadas.
 	</text_editor>
 </panel>

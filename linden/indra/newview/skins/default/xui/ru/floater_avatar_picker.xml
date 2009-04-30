@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="avatarpicker" title="Выбрать Резидента">
+	<text name="instruct_search_resident_name">
+		Введите часть имени Резидента:
+	</text>
+	<button label="Найти" label_selected="Найти" name="Find" />
+	<text name="Or select their calling card:">
+		Или выберите визитку:
+	</text>
+	<button label="Закрыть" label_selected="Закрыть" name="Close" />
+	<button label="Выбор" label_selected="Выбрать" name="Select" />
+	<text name="NotFound">
+		&apos;[TEXT]&apos; не найдено
+	</text>
+</floater>

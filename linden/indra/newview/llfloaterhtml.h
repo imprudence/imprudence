@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -49,12 +50,12 @@ class LLFloaterHtml :
 		virtual void onClose( bool app_quitting );
 		
 		// Pass string like "in-world_help" or "additional help"
-		void show( std::string content_id, bool open_link_external, bool open_app_slurls );
+		void show( std::string content_id, bool open_link_external, bool trusted_browser );
 
 		// Pass raw URL and window title
 		// Can be set to handle secondlife:///app/ URLs, but this should
 		// usually be false.
-		void show( std::string start_url, std::string title, bool open_link_external, bool open_app_slurls );
+		void show( std::string start_url, std::string title, bool open_link_external, bool trusted_browser );
 
 		std::string getSupportUrl(); 
 		

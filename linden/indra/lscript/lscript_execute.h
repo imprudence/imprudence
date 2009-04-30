@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -402,6 +403,8 @@ public:
 	virtual U32 getBytecodeSize() const = 0;
 	virtual bool isMono() const = 0;
 	virtual void error() {;} // Processing that must be performed when error flag is set and so run is not called.
+
+	virtual U32 getUsedMemory() = 0;
 	
 	// Run current event handler for a maximum of time_slice seconds.
 	// Updates current handler and current events registers.
@@ -431,6 +434,13 @@ public:
 						  F32 quanta,
 						  U32& events_processed, LLTimer& timer);
 
+	// NOTE: babbage: this must be used on occasions where another script may already be executing. Only 2 levels of nesting are allowed.
+	// Provided to support bizarre detach behaviour only. Do not use.
+	virtual F32 runNested(BOOL b_print, const LLUUID &id,
+						  const char **errorstr, 
+						  F32 quanta,
+						  U32& events_processed, LLTimer& timer);
+
 	// Run smallest possible amount of code: an instruction for LSL2, a segment
 	// between save tests for Mono
 	void runInstructions(BOOL b_print, const LLUUID &id,
@@ -449,9 +459,16 @@ public:
 	// Called when the script is scheduled to be stopped from newsim/LLScriptData
 	virtual void stopRunning() = 0;
 	
+	// A timer is regularly checked to see if script takes too long, but we
+	// don't do it every opcode due to performance hits.
+	static void		setTimerCheckSkip( S32 value )			{ sTimerCheckSkip = value;		}
+	static S32		getTimerCheckSkip()						{ return sTimerCheckSkip;		}
+
 private:
 
 	BOOL mReset;
+
+	static	S32		sTimerCheckSkip;		// Number of times to skip the timer check for performance reasons
 };
 
 class LLScriptExecuteLSL2 : public LLScriptExecute
@@ -493,7 +510,7 @@ public:
 	virtual const U8* getBytecode() const {return mBytecode;}
 	virtual U32 getBytecodeSize() const {return mBytecodeSize;}
 	virtual bool isMono() const {return false;}
-
+	virtual U32 getUsedMemory();
 	// Run current event handler for a maximum of time_slice seconds.
 	// Updates current handler and current events registers.
 	virtual void resumeEventHandler(BOOL b_print, const LLUUID &id, F32 time_slice);

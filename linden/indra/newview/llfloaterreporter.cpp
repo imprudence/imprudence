@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -64,7 +65,6 @@
 #include "llviewerregion.h"
 #include "llcombobox.h"
 #include "lltooldraganddrop.h"
-#include "llfloatermap.h"
 #include "lluiconstants.h"
 #include "lluploaddialog.h"
 #include "llcallingcard.h"
@@ -207,10 +207,10 @@ void LLFloaterReporter::processRegionInfo(LLMessageSystem* msg)
 	{
 		if ( gEmailToEstateOwner )
 		{
-			gViewerWindow->alertXml("HelpReportAbuseEmailEO");
+			LLNotifications::instance().add("HelpReportAbuseEmailEO");
 		}
 		else
-			gViewerWindow->alertXml("HelpReportAbuseEmailLL");
+			LLNotifications::instance().add("HelpReportAbuseEmailLL");
 	};
 }
 
@@ -406,7 +406,7 @@ void LLFloaterReporter::onClickSend(void *userdata)
 					category_value == IP_CONTENT_REMOVAL ||
 					category_value == IP_PERMISSONS_EXPLOIT)
 				{
-					gViewerWindow->alertXml("HelpReportAbuseContainsCopyright");
+					LLNotifications::instance().add("HelpReportAbuseContainsCopyright");
 					self->mCopyrightWarningSeen = TRUE;
 					return;
 				}
@@ -415,7 +415,7 @@ void LLFloaterReporter::onClickSend(void *userdata)
 			{
 				// IP_CONTENT_REMOVAL *always* shows the dialog - 
 				// ergo you can never send that abuse report type.
-				gViewerWindow->alertXml("HelpReportAbuseContainsCopyright");
+				LLNotifications::instance().add("HelpReportAbuseContainsCopyright");
 				return;
 			}
 		}
@@ -524,7 +524,7 @@ void LLFloaterReporter::showFromMenu(EReportType report_type)
 
 		if (report_type == BUG_REPORT)
 		{
- 			gViewerWindow->alertXml("HelpReportBug");
+ 			LLNotifications::instance().add("HelpReportBug");
 		}
 		else
 		{
@@ -610,11 +610,11 @@ bool LLFloaterReporter::validateReport()
 	{
 		if ( mReportType != BUG_REPORT )
 		{
-			gViewerWindow->alertXml("HelpReportAbuseSelectCategory");
+			LLNotifications::instance().add("HelpReportAbuseSelectCategory");
 		}
 		else
 		{
-			gViewerWindow->alertXml("HelpReportBugSelectCategory");
+			LLNotifications::instance().add("HelpReportBugSelectCategory");
 		}
 		return false;
 	}
@@ -623,13 +623,13 @@ bool LLFloaterReporter::validateReport()
 	{
 	  if ( childGetText("abuser_name_edit").empty() )
 	  {
-		  gViewerWindow->alertXml("HelpReportAbuseAbuserNameEmpty");
+		  LLNotifications::instance().add("HelpReportAbuseAbuserNameEmpty");
 		  return false;
 	  };
   
 	  if ( childGetText("abuse_location_edit").empty() )
 	  {
-		  gViewerWindow->alertXml("HelpReportAbuseAbuserLocationEmpty");
+		  LLNotifications::instance().add("HelpReportAbuseAbuserLocationEmpty");
 		  return false;
 	  };
 	};
@@ -638,11 +638,11 @@ bool LLFloaterReporter::validateReport()
 	{
 		if ( mReportType != BUG_REPORT )
 		{
-			gViewerWindow->alertXml("HelpReportAbuseSummaryEmpty");
+			LLNotifications::instance().add("HelpReportAbuseSummaryEmpty");
 		}
 		else
 		{
-			gViewerWindow->alertXml("HelpReportBugSummaryEmpty");
+			LLNotifications::instance().add("HelpReportBugSummaryEmpty");
 		}
 		return false;
 	};
@@ -651,11 +651,11 @@ bool LLFloaterReporter::validateReport()
 	{
 		if ( mReportType != BUG_REPORT )
 		{
-			gViewerWindow->alertXml("HelpReportAbuseDetailsEmpty");
+			LLNotifications::instance().add("HelpReportAbuseDetailsEmpty");
 		}
 		else
 		{
-			gViewerWindow->alertXml("HelpReportBugDetailsEmpty");
+			LLNotifications::instance().add("HelpReportBugDetailsEmpty");
 		}
 		return false;
 	};
@@ -692,6 +692,9 @@ LLSD LLFloaterReporter::gatherReport()
 #elif LL_LINUX
 	const char* platform = "Lnx";
 	const char* short_platform = "O:L";
+#elif LL_SOLARIS
+	const char* platform = "Sol";
+	const char* short_platform = "O:S";
 #else
 	const char* platform = "???";
 	const char* short_platform = "O:?";
@@ -884,6 +887,8 @@ void LLFloaterReporter::takeScreenshot()
 
 	// create a resource data
 	mResourceDatap->mInventoryType = LLInventoryType::IT_NONE;
+	mResourceDatap->mNextOwnerPerm = 0; // not used
+	mResourceDatap->mExpectedUploadCost = 0; // we expect that abuse screenshots are free
 	mResourceDatap->mAssetInfo.mTransactionID.generate();
 	mResourceDatap->mAssetInfo.mUuid = mResourceDatap->mAssetInfo.mTransactionID.makeAssetID(gAgent.getSecureSessionID());
 	if (BUG_REPORT == mReportType)
@@ -951,13 +956,12 @@ void LLFloaterReporter::uploadDoneCallback(const LLUUID &uuid, void *user_data, 
 
 	if(result < 0)
 	{
-		LLStringUtil::format_map_t args;
-		std::string reason = std::string(LLAssetStorage::getErrorString(result));
-		args["[REASON]"] = reason;
-		gViewerWindow->alertXml("ErrorUploadingReportScreenshot", args);
+		LLSD args;
+		args["REASON"] = std::string(LLAssetStorage::getErrorString(result));
+		LLNotifications::instance().add("ErrorUploadingReportScreenshot", args);
 
 		std::string err_msg("There was a problem uploading a report screenshot");
-		err_msg += " due to the following reason: " + reason;
+		err_msg += " due to the following reason: " + args["REASON"].asString();
 		llwarns << err_msg << llendl;
 		return;
 	}

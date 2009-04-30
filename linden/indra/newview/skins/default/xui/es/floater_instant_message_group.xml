@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(desconocido)" name="im_floater" title="(desconocido)">
+	<string name="ringing">
+		Entrando al chat de voz...
+	</string>
+	<string name="connected">
+		Conectado, pulse Colgar para acabar
+	</string>
+	<string name="hang_up">
+		Salir del chat de voz
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="live_help_dialog">
+		*** Bienvenido a la Petición de Ayuda *** 
+Por favor, en primer lugar revise nuestras páginas de ayuda de SL pulsando F1, o acceda a la Knowledge Base http://secondlife.com/knowledgebase/ 
+Si no encuentra allí la respuesta que busca, por favor, empiece el proceso escribiendo su pregunta, y espere unos momentos a que responda algunos de los ayudantes disponibles.
+-=-=- El tiempo de respuesta puede variar, especialmente durante las horas punta -=-=-
+	</string>
+	<string name="title_string">
+		Mensaje instantáneo a [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] está escribiendo...
+	</string>
+	<string name="session_start_string">
+		Iniciando una sesión con [NAME]; por favor, espere.
+	</string>
+	<string name="moderated_chat_label">
+		(Moderado: por defecto, desactivada la voz)
+	</string>
+	<string name="default_text_label">
+		Pulse aquí para enviar un mensaje instantáneo.
+	</string>
+	<string name="muted_text_label">
+		Un moderador del grupo le ha desactivado el chat de texto
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Información del grupo" name="group_info_btn"/>
+			<button label="Llamar" name="start_call_btn"/>
+			<button label="Colgar" name="end_call_btn"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Pulse aquí para moverse por la lista de participantes activos en esta sesión de MI."/>
+			<button label="Enviar" name="send_btn"/>
+		</layout_panel>
+	</layout_stack>
+</floater>

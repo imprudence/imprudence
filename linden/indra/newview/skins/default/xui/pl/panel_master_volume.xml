@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="master_volume">
+	<button label="" name="volume"
+	     tool_tip="Główne Ustawienie Głośności, kliknij żeby zmienić" />
+	<volume_slider name="volume_slider"
+	     tool_tip="Zmień ustawienie gLośności używając tego potencjomeru" />
+	<button label="" name="mute_master" />
+</panel>

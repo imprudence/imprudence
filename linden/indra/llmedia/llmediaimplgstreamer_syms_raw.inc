@@ -19,8 +19,6 @@ LL_GST_SYM(true, gst_element_class_add_pad_template, void, GstElementClass *klas
 LL_GST_SYM(true, gst_element_class_set_details, void, GstElementClass *klass, const GstElementDetails *details);
 LL_GST_SYM(true, gst_caps_unref, void, GstCaps* caps);
 LL_GST_SYM(true, gst_caps_ref, GstCaps *, GstCaps* caps);
-LL_GST_SYM(true, _gst_debug_register_funcptr, void, GstDebugFuncPtr func, gchar* ptrname);
-LL_GST_SYM(true, _gst_debug_category_new, GstDebugCategory *, gchar *name, guint color, gchar *description);
 LL_GST_SYM(true, gst_caps_is_empty, gboolean, const GstCaps *caps);
 LL_GST_SYM(true, gst_caps_from_string, GstCaps *, const gchar *string);
 LL_GST_SYM(true, gst_caps_replace, void, GstCaps **caps, GstCaps *newcaps);
@@ -37,6 +35,12 @@ LL_GST_SYM(true, gst_structure_get_name, G_CONST_RETURN gchar *, const GstStruct
 LL_GST_SYM(true, gst_element_seek, bool, GstElement *, gdouble, GstFormat, GstSeekFlags, GstSeekType, gint64, GstSeekType, gint64);
 
 // optional symbols to grab
+LL_GST_SYM(false, gst_registry_fork_set_enabled, void, gboolean enabled);
 LL_GST_SYM(false, gst_segtrap_set_enabled, void, gboolean enabled);
 LL_GST_SYM(false, gst_message_parse_buffering, void, GstMessage *message, gint *percent);
 LL_GST_SYM(false, gst_message_parse_info, void, GstMessage *message, GError **gerror, gchar **debug);
+LL_GST_SYM(false, gst_element_query_position, gboolean, GstElement *element, GstFormat *format, gint64 *cur);
+
+// GStreamer 'internal' symbols which may not be visible in some runtimes but are still used in expanded GStreamer header macros - yuck!  We'll substitute our own stubs for these.
+//LL_GST_SYM(true, _gst_debug_register_funcptr, void, GstDebugFuncPtr func, gchar* ptrname);
+//LL_GST_SYM(true, _gst_debug_category_new, GstDebugCategory *, gchar *name, guint color, gchar *description);

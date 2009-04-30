@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Мережа" name="network">
+	<text type="string" length="1" name="text_box">
+		Макс.ширина каналу:
+	</text>
+	<text type="string" length="1" name="text_box2">
+		kbps (кілобіт в секунду)
+	</text>
+	<text type="string" length="1" name="cache_size_label_l">
+		Розмір кеша на диску (Mb):
+	</text>
+	<button label="Очистити кеш" name="clear_cache" />
+	<text type="string" length="1" name="cache_location_label">
+		Шлях до кеша на диску:
+	</text>
+	<button label="Установити" label_selected="Установити"
+	     name="set_cache" />
+	<button label="Скинути" label_selected="Установити" name="reset_cache" />
+	<check_box label="З&apos;єднання на заданий порт"
+	     name="connection_port_enabled" />
+	<spinner label="Номер порту:" name="connection_port" />
+</panel>

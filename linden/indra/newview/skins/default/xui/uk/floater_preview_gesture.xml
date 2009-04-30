@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="gesture_preview">
+	<string name="stop_txt">
+		Стоп
+	</string>
+	<string name="preview_txt">
+		Перегляд
+	</string>
+	<string name="none_text">
+		-- Нічого --
+	</string>
+	<text name="desc_label">
+		Опис:
+	</text>
+	<text name="trigger_label">
+		Запустити:
+	</text>
+</floater>

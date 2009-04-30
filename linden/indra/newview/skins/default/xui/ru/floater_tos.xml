@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container" title="">
+	<button label="Продолжить" label_selected="Продолжить"
+	     name="Continue" />
+	<button label="Отмена" label_selected="Отмена" name="Cancel" />
+	<radio_group name="tos_agreement">
+		<radio_item name="radio_disagree">
+			Я не согласен с Условиями предоставления услуг
+		</radio_item>
+		<radio_item name="radio_agree">
+			Я согласен с Условиями предоставления услуг
+		</radio_item>
+	</radio_group>
+	<text name="tos_title">
+		Условия предоставления услуг
+	</text>
+	<text name="tos_heading">
+		Пожалуйста тщательно прочтите следующие условия обслуживания.
+Чтобы продолжить загрузку Second Life, вы должны принять это соглашение
+	</text>
+	<text_editor name="tos_text">
+		Текст_TOS
+	</text_editor>
+	<string name="real_url">
+		http://secondlife.com/app/tos/
+	</string>
+</floater>

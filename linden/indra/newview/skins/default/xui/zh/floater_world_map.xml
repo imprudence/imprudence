@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="worldmap" title="世界地图">
 	<tab_container name="maptab">
-		<panel label="物体" name="objects_mapview" />
-		<panel label="地形" name="terrain_mapview" />
+		<panel label="物体" name="objects_mapview"/>
+		<panel label="地形" name="terrain_mapview"/>
 	</tab_container>
 	<text name="land_for_sale_label">
 		待售土地
@@ -16,40 +16,28 @@
 	<text name="home_label">
 		家
 	</text>
-	<button label="回家" label_selected="回家" name="Go Home"
-	     tool_tip="瞬间移动到你的起始位置" />
-	<text name="classifieds_label">
-		分类广告
-	</text>
-	<check_box label=" " name="class_chk" />
+	<button label="回家" label_selected="回家" name="Go Home" tool_tip="瞬间移动到你的起始位置"/>
 	<text name="person_label">
 		人
 	</text>
-	<check_box label=" " name="people_chk" />
+	<check_box label="" name="people_chk"/>
 	<text name="infohub_label">
 		信息中心
 	</text>
-	<check_box label=" " name="infohub_chk" />
+	<check_box label="" name="infohub_chk"/>
 	<text name="telehub_label">
 		瞬移枢纽
 	</text>
-	<check_box label=" " name="telehubchk" />
-	<text name="popular_label">
-		流行
-	</text>
-	<check_box label=" " name="popular_chk" />
+	<check_box label="" name="telehubchk"/>
 	<text name="land_for_sale_label2">
 		待售土地
 	</text>
-	<check_box label=" " name="land_for_sale_chk" />
+	<check_box label="" name="land_for_sale_chk"/>
 	<text name="events_label">
 		事件
 	</text>
-	<check_box label=" " name="event_chk" />
-	<text name="events_mature_label">
-		事件(成人)
-	</text>
-	<check_box label=" " name="event_mature_chk" />
+	<check_box label="" name="event_chk"/>
+	<check_box label="" name="event_mature_chk"/>
 	<combo_box label="在线好友" name="friend combo" tool_tip="要在地图上显示的好友">
 		<combo_item name="none_selected">
 			在线好友
@@ -60,35 +48,25 @@
 			我的地标
 		</combo_item>
 	</combo_box>
-	<line_editor name="location" tool_tip="键入地区的名称">
-		按地区名搜索
-	</line_editor>
-	<button label="搜索" label_selected="&gt;" name="DoSearch" tool_tip="寻找地区" />
+	<line_editor label="通过区域名称查找" name="location" tool_tip="键入地区的名称"/>
+	<button label="搜索" label_selected="&gt;" name="DoSearch" tool_tip="寻找地区"/>
 	<text name="search_label">
 		查询结果:
 	</text>
 	<scroll_list name="search_results">
-		<column label="" name="icon" />
-		<column label="" name="sim_name" />
+		<column label="" name="icon"/>
+		<column label="" name="sim_name"/>
 	</scroll_list>
 	<text name="location_label">
 		位置:
 	</text>
-	<spinner name="spin x" tool_tip="地图中显示地点的X坐标" />
-	<spinner name="spin y" tool_tip="地图中显示地点的Y坐标" />
-	<spinner name="spin z" tool_tip="地图中显示地点的Z坐标" />
-	<button label="瞬间移动" label_selected="瞬间移动" name="Teleport"
-	     tool_tip="瞬间移动到指定地点" />
-	<button label="显示目的地" label_selected="显示目的地"
-	     name="Show Destination" tool_tip="居中显示指定地点" />
-	<button label="清除" label_selected="清除" name="Clear"
-	     tool_tip="停止追踪/跟踪" />
-	<button label="显示我的位置" label_selected="显示我的位置"
-	     name="Show My Location"
-	     tool_tip="居中显示你的化身的位置" />
-	<button
-		 label="复制 SLURL 到剪贴板"
-		 name="copy_slurl"
-		 tool_tip="将当前位置复制为 SLURL 以供网上使用" />
-	<slider label="缩放" name="zoom slider" />
+	<spinner name="spin x" tool_tip="地图中显示地点的X坐标"/>
+	<spinner name="spin y" tool_tip="地图中显示地点的Y坐标"/>
+	<spinner name="spin z" tool_tip="地图中显示地点的Z坐标"/>
+	<button label="瞬间移动" label_selected="瞬间移动" name="Teleport" tool_tip="瞬间移动到指定地点"/>
+	<button label="显示目的地" label_selected="显示目的地" name="Show Destination" tool_tip="居中显示指定地点"/>
+	<button label="清除" label_selected="清除" name="Clear" tool_tip="停止追踪/跟踪"/>
+	<button label="显示我的位置" label_selected="显示我的位置" name="Show My Location" tool_tip="居中显示你的化身的位置"/>
+	<button label="复制 SLURL 到剪贴板" name="copy_slurl" tool_tip="将当前位置复制为 SLURL 以供网上使用"/>
+	<slider label="缩放" name="zoom slider"/>
 </floater>

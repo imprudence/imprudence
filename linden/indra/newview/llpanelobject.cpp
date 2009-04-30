@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -328,7 +329,7 @@ void LLPanelObject::getState( )
 		// *FIX: shouldn't we just keep the child?
 		if (objectp)
 		{
-			LLViewerObject* parentp = objectp->getSubParent();
+			LLViewerObject* parentp = objectp->getRootEdit();
 
 			if (parentp)
 			{
@@ -849,6 +850,7 @@ void LLPanelObject::getState( )
 	F32	 twist_inc					= OBJECT_TWIST_LINEAR_INC;
 
 	BOOL advanced_is_dimple = FALSE;
+	BOOL advanced_is_slice = FALSE;
 	BOOL size_is_hole = FALSE;
 
 	// Tune based on overall volume type
@@ -902,8 +904,20 @@ void LLPanelObject::getState( )
 		break;
 		
 	case MI_BOX:
+		advanced_cut_visible	= TRUE;
+		advanced_is_slice		= TRUE;
+		break;
+
 	case MI_CYLINDER:
+		advanced_cut_visible	= TRUE;
+		advanced_is_slice		= TRUE;
+		break;
+
 	case MI_PRISM:
+		advanced_cut_visible	= TRUE;
+		advanced_is_slice		= TRUE;
+		break;
+
 	default:
 		break;
 	}
@@ -995,12 +1009,20 @@ void LLPanelObject::getState( )
 
 	childSetVisible("advanced_cut", FALSE);
 	childSetVisible("advanced_dimple", FALSE);
+	childSetVisible("advanced_slice", FALSE);
+
 	if (advanced_cut_visible)
 	{
 		if (advanced_is_dimple)
 		{
 			childSetVisible("advanced_dimple", TRUE);
 			childSetEnabled("advanced_dimple", enabled);
+		}
+
+		else if (advanced_is_slice)
+		{
+			childSetVisible("advanced_slice", TRUE);
+			childSetEnabled("advanced_slice", enabled);
 		}
 		else
 		{
@@ -1895,8 +1917,9 @@ void LLPanelObject::clearCtrls()
 	
 	childSetEnabled("scale_hole", FALSE);
 	childSetEnabled("scale_taper", FALSE);
-	childSetEnabled( "advanced_cut", FALSE );
-	childSetEnabled( "advanced_dimple", FALSE );
+	childSetEnabled("advanced_cut", FALSE);
+	childSetEnabled("advanced_dimple", FALSE);
+	childSetVisible("advanced_slice", FALSE);
 }
 
 //

@@ -6,7 +6,7 @@
 	 name="landmarkpicker"
 	 title="整理: 地标">
 	<check_box
-		 initial_value="true"
+		 
 		 label="显示文件夹"
 		 name="show_folders_check" />
 	<button

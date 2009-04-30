@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -56,6 +57,7 @@
 #include "llcontrol.h"
 #include "llimagegl.h"
 #include "llwindow.h"
+#include "lltextparser.h"
 #include <queue>
 
 // 
@@ -299,7 +301,7 @@ LLTextEditor::LLTextEditor(
 	}
 	else
 	{
-		mGLFont = LLFontGL::sSansSerif;
+		mGLFont = LLFontGL::getFontSansSerif();
 	}
 
 	updateTextRect();
@@ -382,7 +384,7 @@ void LLTextEditor::updateLineStartList(S32 startpos)
 {
 	updateSegments();
 	
-	bindEmbeddedChars( const_cast<LLFontGL*>(mGLFont) );
+	bindEmbeddedChars(mGLFont);
 
 	S32 seg_num = mSegments.size();
 	S32 seg_idx = 0;
@@ -460,7 +462,7 @@ void LLTextEditor::updateLineStartList(S32 startpos)
 		}
 	}
 	
-	unbindEmbeddedChars(const_cast<LLFontGL*>(mGLFont));
+	unbindEmbeddedChars(mGLFont);
 
 	mScrollbar->setDocSize( getLineCount() );
 
@@ -851,13 +853,13 @@ S32 LLTextEditor::getCursorPosFromLocalCoord( S32 local_x, S32 local_y, BOOL rou
 		if (mAllowEmbeddedItems)
 		{
 			// Figure out which character we're nearest to.
-			bindEmbeddedChars(const_cast<LLFontGL*>(mGLFont));
+			bindEmbeddedChars(mGLFont);
 			pos = mGLFont->charFromPixelOffset(mWText.c_str(), line_start,
 											   (F32)(local_x - mTextRect.mLeft),
 											   (F32)(mTextRect.getWidth()),
 											   line_len,
 											   round, TRUE);
-			unbindEmbeddedChars(const_cast<LLFontGL*>(mGLFont));
+			unbindEmbeddedChars(mGLFont);
 		}
 		else
 		{
@@ -1009,7 +1011,7 @@ void LLTextEditor::indentSelectedLines( S32 spaces )
 		}
 		else
 		{
-			while( right < getLength() && (text[right] != '\n') )
+			while( (text[right] != '\n') && (right <= getLength() ) )
 			{
 				right++;
 			}
@@ -1321,6 +1323,8 @@ BOOL LLTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 			
 			setCursorAtLocalPos( x, y, TRUE );
 			endSelection();
+
+			updateScrollFromCursor();
 		}
 		
 		if( !hasSelection() )
@@ -2928,7 +2932,7 @@ void LLTextEditor::drawText()
 		// draw the line numbers
 		if( mShowLineNumbers && !cur_line_is_continuation) 
 		{
-			const LLFontGL *num_font = LLFontGL::sMonospace;
+			const LLFontGL *num_font = LLFontGL::getFontMonospace();
 			F32 y_top = text_y + ((F32)llround(num_font->getLineHeight()) / 2);
 			const LLWString ltext = utf8str_to_wstring(llformat("%*d", UI_TEXTEDITOR_LINE_NUMBER_DIGITS, cur_line_num ));
 			BOOL is_cur_line = getCurrentLine() == cur_line_num;
@@ -3113,7 +3117,7 @@ void LLTextEditor::draw()
 	{
 		LLLocalClipRect clip(LLRect(0, getRect().getHeight(), getRect().getWidth() - (mScrollbar->getVisible() ? SCROLLBAR_SIZE : 0), 0));
 
-			bindEmbeddedChars( const_cast<LLFontGL*>(mGLFont) );
+			bindEmbeddedChars(mGLFont);
 
 			drawBackground();
 			drawSelectionBackground();
@@ -3121,7 +3125,7 @@ void LLTextEditor::draw()
 			drawText();
 			drawCursor();
 
-			unbindEmbeddedChars( const_cast<LLFontGL*>(mGLFont) );
+			unbindEmbeddedChars(mGLFont);
 
 		//RN: the decision was made to always show the orange border for keyboard focus but do not put an insertion caret
 		// when in readonly mode
@@ -3242,7 +3246,7 @@ void LLTextEditor::changePage( S32 delta )
 
 void LLTextEditor::changeLine( S32 delta )
 {
-	bindEmbeddedChars( const_cast<LLFontGL*>(mGLFont) );
+	bindEmbeddedChars(mGLFont);
 
 	S32 line, offset;
 	getLineAndOffset( mCursorPos, &line, &offset );
@@ -3269,7 +3273,7 @@ void LLTextEditor::changeLine( S32 delta )
 	}
 	else
 	{
-		unbindEmbeddedChars( const_cast<LLFontGL*>(mGLFont) );
+		unbindEmbeddedChars(mGLFont);
 		return;
 	}
 
@@ -3294,7 +3298,7 @@ void LLTextEditor::changeLine( S32 delta )
 
 	// put desired position into remember-buffer after setCursorPos()
 	mDesiredXPixel = desired_x_pixel;
-	unbindEmbeddedChars( const_cast<LLFontGL*>(mGLFont) );
+	unbindEmbeddedChars(mGLFont);
 }
 
 BOOL LLTextEditor::isScrolledToTop() 
@@ -3384,7 +3388,9 @@ void LLTextEditor::endOfLine()
 
 void LLTextEditor::endOfDoc()
 {
-	mScrollbar->setDocPos( mScrollbar->getDocPosMax() );
+	mScrollbar->setDocPos(mScrollbar->getDocPosMax());
+	mScrolledToBottom = true;
+
 	S32 len = getLength();
 	if( len )
 	{
@@ -3514,18 +3520,26 @@ void LLTextEditor::appendColoredText(const std::string &new_text,
 									 const LLColor4 &color,
 									 const std::string& font_name)
 {
+	LLColor4 lcolor=color;
+	if (mParseHighlights)
+	{
+		LLTextParser* highlight = LLTextParser::getInstance();
+		highlight->parseFullLineHighlights(new_text, &lcolor);
+	}
+	
 	LLStyleSP style(new LLStyle);
 	style->setVisible(true);
-	style->setColor(color);
+	style->setColor(lcolor);
 	style->setFontName(font_name);
-	appendStyledText(new_text, allow_undo, prepend_newline, &style);
+	appendStyledText(new_text, allow_undo, prepend_newline, style);
 }
 
 void LLTextEditor::appendStyledText(const std::string &new_text, 
 									 bool allow_undo, 
 									 bool prepend_newline,
-									 const LLStyleSP *stylep)
+									 LLStyleSP stylep)
 {
+	S32 part = (S32)LLTextParser::WHOLE;
 	if(mParseHTML)
 	{
 
@@ -3538,34 +3552,80 @@ void LLTextEditor::appendStyledText(const std::string &new_text,
 			html->setColor(mLinkColor);
 			if (stylep)
 			{
-				html->setFontName((*stylep)->getFontString());
+				html->setFontName(stylep->getFontString());
 			}
 			html->mUnderline = TRUE;
 
-			if (start > 0) appendText(text.substr(0,start),allow_undo, prepend_newline, stylep);
+			if (start > 0)
+			{
+				if (part == (S32)LLTextParser::WHOLE ||
+					part == (S32)LLTextParser::START)
+				{
+					part = (S32)LLTextParser::START;
+				}
+				else
+				{
+					part = (S32)LLTextParser::MIDDLE;
+				}
+				std::string subtext=text.substr(0,start);
+				appendHighlightedText(subtext,allow_undo, prepend_newline, part, stylep); 
+			}
+			
 			html->setLinkHREF(text.substr(start,end-start));
-			appendText(text.substr(start, end-start),allow_undo, prepend_newline, &html);
+			appendText(text.substr(start, end-start),allow_undo, prepend_newline, html);
 			if (end < (S32)text.length()) 
 			{
 				text = text.substr(end,text.length() - end);
 				end=0;
+				part=(S32)LLTextParser::END;
 			}
 			else
 			{
 				break;
 			}
 		}
-		if (end < (S32)text.length()) appendText(text,allow_undo, prepend_newline, stylep);
+		if (part != (S32)LLTextParser::WHOLE) part=(S32)LLTextParser::END;
+		if (end < (S32)text.length()) appendHighlightedText(text,allow_undo, prepend_newline, part, stylep);		
 	}
 	else
 	{
-		appendText(new_text, allow_undo, prepend_newline, stylep);
+		appendHighlightedText(new_text, allow_undo, prepend_newline, part, stylep);
 	}
+}
+
+void LLTextEditor::appendHighlightedText(const std::string &new_text, 
+										 bool allow_undo, 
+										 bool prepend_newline,
+										 S32  highlight_part,
+										 LLStyleSP stylep)
+{
+	if (mParseHighlights) 
+	{
+		LLTextParser* highlight = LLTextParser::getInstance();
+		
+		if (highlight && stylep)
+		{
+			LLSD pieces = highlight->parsePartialLineHighlights(new_text, stylep->getColor(), highlight_part);
+			bool lprepend=prepend_newline;
+			for (S32 i=0;i<pieces.size();i++)
+			{
+				LLSD color_llsd = pieces[i]["color"];
+				LLColor4 lcolor;
+				lcolor.setValue(color_llsd);
+				LLStyleSP lstylep(new LLStyle(*stylep));
+				lstylep->setColor(lcolor);
+				if (i != 0 && (pieces.size() > 1) ) lprepend=FALSE;
+				appendText((std::string)pieces[i]["text"], allow_undo, lprepend, lstylep);
+			}
+			return;
+		}
+	}
+	appendText(new_text, allow_undo, prepend_newline, stylep);
 }
 
 // Appends new text to end of document
 void LLTextEditor::appendText(const std::string &new_text, bool allow_undo, bool prepend_newline,
-							  const LLStyleSP *stylep)
+							  const LLStyleSP stylep)
 {
 	// Save old state
 	BOOL was_scrolled_to_bottom = (mScrollbar->getDocPos() == mScrollbar->getDocPosMax());
@@ -3597,7 +3657,7 @@ void LLTextEditor::appendText(const std::string &new_text, bool allow_undo, bool
 	{
 		S32 segment_start = old_length;
 		S32 segment_end = getLength();
-		LLTextSegment* segment = new LLTextSegment(*stylep, segment_start, segment_end );
+		LLTextSegment* segment = new LLTextSegment(stylep, segment_start, segment_end );
 		mSegments.push_back(segment);
 	}
 	
@@ -4270,7 +4330,6 @@ S32 LLTextEditor::findHTMLToken(const std::string &line, S32 pos, BOOL reverse) 
 	} 
 	else
 	{
-		
 		for (int index=pos; index<(S32)line.length(); index++)
 		{
 			char c = line[index];

@@ -27,5 +27,5 @@
 	<check_box label="Mostrar a hora no registro da Conversa local" name="log_chat_timestamp"/>
 	<check_box label="Mostrar MIs recebidas no registro de Conversa local" name="log_chat_IM"/>
 	<check_box label="Incluir data e hora" name="log_date_timestamp"/>
-	<button label="Alt. Caminho" label_selected="Alt. Caminho" name="log_path_button"/>
+	<button label="Alterar Caminho" label_selected="Alterar Caminho" name="log_path_button"/>
 </panel>

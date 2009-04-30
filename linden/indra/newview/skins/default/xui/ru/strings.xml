@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<strings>
+	<string name="LoginInProgress">
+		Входим. [APP_NAME] может казаться зависшим. Пожалуйста подождите.
+	</string>
+	<string name="LoginAuthenticating">
+		Аутентификация
+	</string>
+	<string name="LoginMaintenance">
+		Выполняется тех.обслуживание аккаунта...
+	</string>
+	<string name="LoginAttempt">
+		Предыдущая попытка входа потерпела крах. Входим, попытка [NUMBER]
+	</string>
+	<string name="LoginPrecaching">
+		Загружаем мир...
+	</string>
+	<string name="LoginInitializingBrowser">
+		Инициализация встроенного веб-браузера...
+	</string>
+	<string name="LoginVerifyingCache">
+		Проверка кэш-файлов (может занять 60-90 секунд)...
+	</string>
+	<string name="LoginProcessingResponse">
+		Ожидаем Ответа...
+	</string>
+	<string name="LoginInitializingWorld">
+		Инициализация Мира...
+	</string>
+	<string name="LoginDecodingImages">
+		Раскодировка изображений...
+	</string>
+	<string name="LoginInitializingQuicktime">
+		Инициализация QuickTime...
+	</string>
+	<string name="LoginQuicktimeNotFound">
+		QuickTime не найден - невозможно инициализировать.
+	</string>
+	<string name="LoginQuicktimeOK">
+		QuickTime успешно инициализирован.
+	</string>
+	<string name="LoginWaitingForRegionHandshake">
+		Ожидаем ответа от региона...
+	</string>
+	<string name="LoginConnectingToRegion">
+		Соединяемся с регионом...
+	</string>
+	<string name="LoginDownloadingClothing">
+		Закачка одежды...
+	</string>
+	<string name="TooltipPerson">
+		Персона
+	</string>
+	<string name="TooltipNoName">
+		(нет имени)
+	</string>
+	<string name="TooltipOwner">
+		Владелец:
+	</string>
+	<string name="TooltipPublic">
+		Публичный
+	</string>
+	<string name="TooltipIsGroup">
+		(Группа)
+	</string>
+	<string name="TooltipFlagScript">
+		Скрипт
+	</string>
+	<string name="TooltipFlagPhysics">
+		Физика
+	</string>
+	<string name="TooltipFlagTouch">
+		Дотронуться
+	</string>
+	<string name="TooltipFlagL$">
+		L$
+	</string>
+	<string name="TooltipFlagDropInventory">
+		Удалить Инвентарь
+	</string>
+	<string name="TooltipFlagPhantom">
+		Фантом
+	</string>
+	<string name="TooltipFlagTemporary">
+		Временный
+	</string>
+	<string name="TooltipFlagRightClickMenu">
+		(Правый клик для меню)
+	</string>
+	<string name="TooltipFreeToCopy">
+		Свободно для копирования
+	</string>
+	<string name="TooltipForSaleL$">
+		Для продажи: L$[AMOUNT]
+	</string>
+	<string name="TooltipForSaleMsg">
+		Для продажи: [MESSAGE]
+	</string>
+	<string name="TooltipFlagGroupBuild">
+		Строительство Группы
+	</string>
+	<string name="TooltipFlagNoBuild">
+		Нет Строительства
+	</string>
+	<string name="TooltipFlagNoEdit">
+		Строительство Группы
+	</string>
+	<string name="TooltipFlagNotSafe">
+		Не безопасно
+	</string>
+	<string name="TooltipFlagNoFly">
+		Полеты запрещены
+	</string>
+	<string name="TooltipFlagGroupScripts">
+		Скрипты Группы
+	</string>
+	<string name="TooltipFlagNoScripts">
+		Нет скриптов
+	</string>
+	<string name="TooltipLand">
+		Земля:
+	</string>
+	<string name="RetrievingData">
+		Получаем...
+	</string>
+	<string name="LoadingData">
+		Загрузка...
+	</string>
+	<string name="AvatarNameNobody">
+		(никто)
+	</string>
+	<string name="AvatarNameWaiting">
+		(ожидаем)
+	</string>
+	<string name="AvatarNameHippos">
+		(гиппопотамы)
+	</string>
+	<string name="GroupNameNone">
+		(нет)
+	</string>
+	<string name="AssetErrorNone">
+		<string name="AssetErrorRequestFailed">
+			Запрос актива: потерпел крах
+		</string>
+		<string name="AssetErrorNonexistentFile">
+			Запрос актива: несуществующий файл
+		</string>
+		<string name="AssetErrorNotInDatabase">
+			Запрос актива: актив не найден в базе данных
+		</string>
+		<string name="AssetErrorEOF">
+			Конец файла
+		</string>
+		<string name="AssetErrorCannotOpenFile">
+			Невозможно открыть файл
+		</string>
+		<string name="AssetErrorFileNotFound">
+			Файл не найден
+		</string>
+		<string name="AssetErrorTCPTimeout">
+			Время для передачи файла вышло
+		</string>
+		<string name="AssetErrorCircuitGone">
+			Цепь разорвана
+		</string>
+		<string name="AssetErrorUnknownStatus">
+			Неизвестный статус
+		</string>
+		<string name="AvatarEditingApparance">
+			(Редактирует Внешний Вид)
+		</string>
+		<string name="AvatarAway">
+			Отошел
+		</string>
+		<string name="AvatarBusy">
+			Занят
+		</string>
+		<string name="AvatarMuted">
+			Заглушен
+		</string>
+		<string name="anim_express_afraid">
+			Страх
+		</string>
+		<string name="anim_express_anger">
+			Злость
+		</string>
+		<string name="anim_away">
+			Отошел
+		</string>
+		<string name="anim_backflip">
+			Обратный ход
+		</string>
+		<string name="anim_express_laugh">
+			Смех
+		</string>
+		<string name="anim_express_toothsmile">
+			Большая Улыбка
+		</string>
+		<string name="anim_blowkiss">
+			Поцелуй
+		</string>
+		<string name="anim_express_bored">
+			Нудно
+		</string>
+		<string name="anim_bow">
+			Поклониться
+		</string>
+		<string name="anim_clap">
+			Хлопать
+		</string>
+		<string name="anim_courtbow">
+			Формальный поклон
+		</string>
+		<string name="anim_express_cry">
+			Плакать
+		</string>
+		<string name="anim_dance1">
+			Танец 1
+		</string>
+		<string name="anim_dance2">
+			Танец 2
+		</string>
+		<string name="anim_dance3">
+			Танец 3
+		</string>
+		<string name="anim_dance4">
+			Танец 4
+		</string>
+		<string name="anim_dance5">
+			Танец 5
+		</string>
+		<string name="anim_dance6">
+			Танец 6
+		</string>
+		<string name="anim_dance7">
+			Танец 7
+		</string>
+		<string name="anim_dance8">
+			Танец 8
+		</string>
+		<string name="anim_express_disdain">
+			Презрение
+		</string>
+		<string name="anim_drink">
+			Пить
+		</string>
+		<string name="anim_express_embarrased">
+			Смущение
+		</string>
+		<string name="anim_angry_fingerwag">
+			Махать пальцами
+		</string>
+		<string name="anim_fist_pump">
+			Трясти кулаком
+		</string>
+		<string name="anim_yoga_float">
+			Плавающий Йог
+		</string>
+		<string name="anim_express_frown">
+			Хмуриться
+		</string>
+		<string name="anim_impatient">
+			Нетерпение
+		</string>
+		<string name="anim_jumpforjoy">
+			Прыгать от радости
+		</string>
+		<string name="anim_kissmybutt">
+			Поцелуй Мой Зад
+		</string>
+		<string name="anim_express_kiss">
+			Поцелуй
+		</string>
+		<string name="anim_laugh_short">
+			Смех
+		</string>
+		<string name="anim_musclebeach">
+			Мускулы
+		</string>
+		<string name="anim_no_unhappy">
+			Нет (Несчастливый)
+		</string>
+		<string name="anim_no_head">
+			Нет
+		</string>
+		<string name="anim_nyanya">
+			Ня-Ня-Ня
+		</string>
+		<string name="anim_punch_onetwo">
+			Один-Два удар
+		</string>
+		<string name="anim_express_open_mouth">
+			Открыть рот
+		</string>
+		<string name="anim_peace">
+			Мир
+		</string>
+		<string name="anim_point_you">
+			Указать на другого
+		</string>
+		<string name="anim_point_me">
+			Указать на себя
+		</string>
+		<string name="anim_punch_l">
+			Удар слева
+		</string>
+		<string name="anim_punch_r">
+			Удар справа
+		</string>
+		<string name="anim_rps_countdown">
+			RPS счет
+		</string>
+		<string name="anim_rps_paper">
+			RPS бумага
+		</string>
+		<string name="anim_rps_rock">
+			RPS камень
+		</string>
+		<string name="anim_rps_scissors">
+			RPS ножницы
+		</string>
+		<string name="anim_express_repulsed">
+			Оттолкнуть
+		</string>
+		<string name="anim_kick_roundhouse_r">
+			Удар
+		</string>
+		<string name="anim_express_sad">
+			Грусть
+		</string>
+		<string name="anim_salute">
+			Приветствие
+		</string>
+		<string name="anim_shout">
+			Крик
+		</string>
+		<string name="anim_express_shrug">
+			Пожать плечами
+		</string>
+		<string name="anim_express_smile">
+			Улыбка
+		</string>
+		<string name="anim_smoke_idle">
+			Дым
+		</string>
+		<string name="anim_smoke_inhale">
+			Вдыхать дым
+		</string>
+		<string name="anim_smoke_throw_down">
+			Выдыхать дым
+		</string>
+		<string name="anim_express_surprise">
+			Сюрприз
+		</string>
+		<string name="anim_sword_strike_r">
+			Удар мечом
+		</string>
+		<string name="anim_angry_tantrum">
+			Гнев
+		</string>
+		<string name="anim_express_tongue_out">
+			Показать язык
+		</string>
+		<string name="anim_hello">
+			Махать
+		</string>
+		<string name="anim_whisper">
+			Шепот
+		</string>
+		<string name="anim_whistle">
+			Свист
+		</string>
+		<string name="anim_express_wink">
+			Подмигивание
+		</string>
+		<string name="anim_wink_hollywood">
+			Подмигивание (Голливуд)
+		</string>
+		<string name="anim_express_worry">
+			Беспокойство
+		</string>
+		<string name="anim_yes_happy">
+			Да (Счастливый)
+		</string>
+		<string name="anim_yes_head">
+			Да
+		</string>
+		Нет ошибок/string&gt;
+	</string>
+	
+</strings>

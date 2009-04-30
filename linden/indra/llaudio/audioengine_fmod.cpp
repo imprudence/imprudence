@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -659,15 +660,12 @@ bool LLAudioBufferFMOD::loadWAV(const std::string& filename)
 		return false;
 	}
 
-	S32 file_size = 0;
-	apr_file_t* apr_file = ll_apr_file_open(filename, LL_APR_RPB, &file_size);
-	if (!apr_file)
+	if (!LLAPRFile::isExist(filename, NULL, LL_APR_RPB))
 	{
 		// File not found, abort.
 		return false;
 	}
-	apr_file_close(apr_file);
-
+	
 	if (mSamplep)
 	{
 		// If there's already something loaded in this buffer, clean it up.

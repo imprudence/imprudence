@@ -1,26 +1,36 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Entrada &amp; Cámara" name="Input panel">
-	<text type="string" length="1" name=" Mouselook Options:">
-		Opciones de visión del ratón:
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Dispositivos y Cámara" name="Input panel">
+	<text length="1" name=" Mouselook Options:" type="string">
+		Opciones de la vista subjetiva:
 	</text>
-	<text type="string" length="1" name=" Mouse Sensitivity:">
+	<text length="1" name=" Mouse Sensitivity:" type="string">
 		Sensibilidad del ratón:
 	</text>
-	<check_box label="Invertir ratón" name="invert mouse" />
-	<text type="string" length="1" name=" Auto Fly Options:">
-		Opciones de autovuelo:
+	<check_box label="Invertir el ratón" name="invert_mouse"/>
+	<text length="1" name=" Auto Fly Options:" type="string">
+		Opciones del vuelo:
 	</text>
-	<check_box label="Volar/aterrizar en un terreno" name="automatic fly" />
-	<text type="string" length="1" name=" Camera Options:">
-		Opciones de cámara:
+	<check_box label="Despegar/Aterrizar pulsando RePág/AvPág" name="automatic_fly"/>
+	<text length="1" name=" Camera Options:" type="string">
+		Opciones de la cámara:
 	</text>
-	<text type="string" length="1" name="Camera Springiness:">
-		Flexibidad de la cámara:
+	<text name="Camera Follow Distance:">
+		Distancia a la que sigue la cámara:
 	</text>
-	<check_box label="Edición automática con movimiento de la cámara"
-	     name="edit camera movement"
-	     tool_tip="Usar posicionamiento automático de la cámara cuando entre o salga del modo de edición" />
-	<check_box label="Apariencia automática con movimiento de la cámara"
-	     name="appearance camera movement"
-	     tool_tip="Usar posicionamiento automático de la cámara durante el modo de edición" />
+	<text name="Camera Transition Time:">
+		Tiempo de transición de la cámara:
+	</text>
+	<text name="Camera Smoothing:">
+		Difuminado de la cámara:
+	</text>
+	<check_box label="Reorientar la cámara al editar" name="edit_camera_movement" tool_tip="Usar la reorientación automática de la cámara al entrar y salir del modo de edición"/>
+	<check_box label="Reorientar la cámara al modificar la apariencia" name="appearance_camera_movement" tool_tip="Usar la reorientación automática de la cámara mientras se modifica la apariencia"/>
+	<text name="text2">
+		Opciones de visualización del avatar:
+	</text>
+	<check_box label="Ver el avatar en vista subjetiva" name="first_person_avatar_visible"/>
+	<text name="text5">
+		Opciones del joystick:
+	</text>
+	<button label="Configurar el joystick" name="joystick_setup_button"/>
 </panel>

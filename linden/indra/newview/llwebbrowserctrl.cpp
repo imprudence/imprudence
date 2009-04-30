@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -43,7 +44,7 @@
 #include "llviewborder.h"
 #include "llviewercontrol.h"
 #include "llviewerwindow.h"
-#include "llnotify.h"
+#include "llnotifications.h"
 #include "llweb.h"
 #include "llrender.h"
 
@@ -69,7 +70,7 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 	mForceUpdate( false ),
 	mOpenLinksInExternalBrowser( false ),
 	mOpenLinksInInternalBrowser( false ),
-	mOpenAppSLURLs( false ),
+	mTrusted( false ),
 	mHomePageUrl( "" ),
 	mIgnoreUIScale( true ),
 	mAlwaysRefresh( false ),
@@ -187,10 +188,10 @@ void LLWebBrowserCtrl::setOpenInInternalBrowser( bool valIn )
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-void LLWebBrowserCtrl::setOpenAppSLURLs( bool valIn )
+void LLWebBrowserCtrl::setTrusted( bool valIn )
 {
-	mOpenAppSLURLs = valIn;
-};
+	mTrusted = valIn;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -670,16 +671,6 @@ void LLWebBrowserCtrl::onStatusTextChange( const EventType& eventIn )
 // virtual
 void LLWebBrowserCtrl::onLocationChange( const EventType& eventIn )
 {
-	const LLURI url(eventIn.getStringValue());
-	LLSD queryMap(url.queryMap());
-	std::string redirect_http_hack = queryMap["redirect-http-hack"].asString();
-	if (!redirect_http_hack.empty())
-	{
-		const bool from_external_browser = false;
-		LLURLDispatcher::dispatch(redirect_http_hack, from_external_browser);
-		return;
-	}
-	
 	// chain this event on to observers of an instance of LLWebBrowserCtrl
 	LLWebBrowserCtrlEvent event( eventIn.getStringValue() );
 	mEventEmitter.update( &LLWebBrowserCtrlObserver::onLocationChange, event );
@@ -698,14 +689,16 @@ void LLWebBrowserCtrl::onMediaContentsChange( const EventType& event_in )
 
 ////////////////////////////////////////////////////////////////////////////////
 // static 
-void LLWebBrowserCtrl::onClickLinkExternalTarget( S32 option, void* userdata )
+bool LLWebBrowserCtrl::onClickLinkExternalTarget(const LLSD& notification, const LLSD& response )
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if ( 0 == option )
 	{
 		// open in external browser because we don't support 
 		// creation of our own secondary browser windows
-		LLWeb::loadURLExternal( ((LLWebBrowserCtrl*)userdata)->mExternalUrl );
-	};
+		LLWeb::loadURLExternal( notification["payload"]["external_url"].asString() );
+	}
+	return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -716,12 +709,15 @@ void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 	if ( eventIn.getStringValueEx().length() )
 	{
 		// if the target = "_new"
-		if ( eventIn.getStringValueEx() == "_external" )		{
+		if ( eventIn.getStringValueEx() == "_external" )		
+		{
 			mExternalUrl = eventIn.getStringValue();
-			gViewerWindow->alertXml( "WebLaunchExternalTarget", onClickLinkExternalTarget, (void*)this );
+			LLSD payload;
+			payload["external_url"] = mExternalUrl;
+			LLNotifications::instance().add( "WebLaunchExternalTarget", LLSD(), payload, onClickLinkExternalTarget);
 			return;
-		};
-	};
+		}
+	}
 
 	const std::string protocol1( "http://" );
 	const std::string protocol2( "https://" );
@@ -733,8 +729,8 @@ void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 				 LLStringUtil::compareInsensitive( eventIn.getStringValue().substr( 0, protocol2.length() ), protocol2 ) == 0 )
 			{
 				LLWeb::loadURLExternal( eventIn.getStringValue() );
-			};
-		};
+			}
+		}
 	}
 	else
 	if( mOpenLinksInInternalBrowser )
@@ -745,17 +741,17 @@ void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 				 LLStringUtil::compareInsensitive( eventIn.getStringValue().substr( 0, protocol2.length() ), protocol2 ) == 0 )
 			{
 				// If we spawn a new LLFloaterHTML, assume we want it to
-				// follow this LLWebBrowserCtrl's setting for whether or
+				// follow this LLWebBrowserCtrl's trust for whether or
 				// not to open secondlife:///app/ links. JC.
 				const bool open_links_externally = false;
 				LLFloaterHtml::getInstance()->show( 
 					eventIn.getStringValue(), 
 						"Second Life Browser",
 							open_links_externally,
-								mOpenAppSLURLs);
-			};
-		};
-	};
+								mTrusted);
+			}
+		}
+	}
 
 	// chain this event on to observers of an instance of LLWebBrowserCtrl
 	LLWebBrowserCtrlEvent event( eventIn.getStringValue(), eventIn.getStringValueEx() );
@@ -768,16 +764,14 @@ void LLWebBrowserCtrl::onClickLinkNoFollow( const EventType& eventIn )
 {
 	std::string url = eventIn.getStringValue();
 	if (LLURLDispatcher::isSLURLCommand(url)
-		&& !mOpenAppSLURLs)
+		&& !mTrusted)
 	{
 		// block handling of this secondlife:///app/ URL
-		LLNotifyBox::showXml("UnableToOpenCommandURL");
-
+		LLNotifications::instance().add("UnableToOpenCommandURL");
 		return;
 	}
 
-	const bool from_external_browser = false;
-	LLURLDispatcher::dispatch(url, from_external_browser);
+	LLURLDispatcher::dispatch(url, this, mTrusted);
 
 	// chain this event on to observers of an instance of LLWebBrowserCtrl
 	LLWebBrowserCtrlEvent event( eventIn.getStringValue() );

@@ -12,15 +12,7 @@
 	<text name="event_category">
 		(nenhum)
 	</text>
-	<text name="event_mature_label">
-		Índice:
-	</text>
-	<text name="event_mature_yes">
-		sim
-	</text>
-	<text name="event_mature_no">
-		Não
-	</text>
+
 	<text name="event_date_label">
 		Data:
 	</text>
@@ -34,7 +26,7 @@
 		(nenhum)
 	</text>
 	<text name="event_runby_label">
-		Funcionar:
+		Executado por:
 	</text>
 	<text name="event_runby">
 		(nenhum)
@@ -46,7 +38,7 @@
 		(nenhum)
 	</text>
 	<text name="event_cover_label">
-		Carga:
+		Taxa de Cobertura:
 	</text>
 	<text name="event_cover">
 		(nenhum)

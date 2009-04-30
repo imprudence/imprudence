@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -52,6 +53,7 @@
 #include "lltextbox.h"
 #include "llbutton.h"
 #include "llcombobox.h"
+#include "llfloaterbulkpermission.h"
 
 #include "llagent.h"
 #include "llviewerwindow.h"
@@ -82,6 +84,7 @@ BOOL LLPanelContents::postBuild()
 	setMouseOpaque(FALSE);
 
 	childSetAction("button new script",&LLPanelContents::onClickNewScript, this);
+	childSetAction("button permissions",&LLPanelContents::onClickPermissions, this);
 
 	return TRUE;
 }
@@ -104,7 +107,6 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 	if( !objectp )
 	{
 		childSetEnabled("button new script",FALSE);
-		//mBtnNewScript->setEnabled( FALSE );
 		return;
 	}
 
@@ -117,21 +119,12 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 					       && ( objectp->permYouOwner() || ( !group_id.isNull() && gAgent.isInGroup(group_id) )));  // solves SL-23488
 	BOOL all_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME );
 
-	// Edit script button - ok if object is editable and there's an
-	// unambiguous destination for the object.
-	if(	editable &&
+	// Edit script button - ok if object is editable and there's an unambiguous destination for the object.
+	childSetEnabled("button new script",
+		editable &&
 		all_volume &&
 		((LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() == 1)
-					|| (LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1)))
-	{
-		//mBtnNewScript->setEnabled(TRUE);
-		childSetEnabled("button new script",TRUE);
-	}
-	else
-	{
-		//mBtnNewScript->setEnabled(FALSE);
-		childSetEnabled("button new script",FALSE);
-	}
+			|| (LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1)));
 }
 
 
@@ -209,4 +202,12 @@ void LLPanelContents::onClickNewScript(void *userdata)
 		gFloaterView->adjustToFitScreen(editor, FALSE);
 #endif
 	}
+}
+
+
+// static
+void LLPanelContents::onClickPermissions(void *userdata)
+{
+	LLPanelContents* self = (LLPanelContents*)userdata;
+	gFloaterView->getParentFloater(self)->addDependentFloater(LLFloaterBulkPermission::showInstance());
 }

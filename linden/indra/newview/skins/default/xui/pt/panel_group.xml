@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="GroupInfo" title="Grupo">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="GroupInfo" title="Informações do Grupo">
 	<text name="default_needs_apply_text">
-		Existem mudanças na versão atual
+		Existem mudanças não aplicadas na aba atual.
 	</text>
 	<text name="want_apply_text">
 		Deseja fazer as mudanças?
 	</text>
-	<button label="Aplicar" label_selected="Aplicar" name="btn_apply" />
-	<button label="Cancelar" label_selected="Cancelar" name="btn_cancel" />
-	<button label="OK" label_selected="OK" name="btn_ok" />
-	<button label="Atualizar do servidor." label_selected="Atualizar do servidor"
-	     name="btn_refresh" />
+	<button label="Aplicar" label_selected="Aplicar" name="btn_apply"/>
+	<button label="Cancelar" label_selected="Cancelar" name="btn_cancel"/>
+	<button label="OK" label_selected="OK" name="btn_ok"/>
+	<button label="Atualizar" label_selected="Atualizar" name="btn_refresh"/>
 </panel>

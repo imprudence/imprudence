@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Общие" name="general_panel">
+	<combo_box name="location_combobox">
+		<combo_item name="MyHome">
+			Мой Дом
+		</combo_item>
+		<combo_item name="MyLastLocation">
+			Мое последнее расположение
+		</combo_item>
+	</combo_box>
+	<check_box
+	     label="Показывать стартовую позицию на Экране Логина"
+	     name="show_location_checkbox" />
+	<combo_box name="fade_out_combobox">
+		<combo_item name="Never">
+			Никогда
+		</combo_item>
+		<combo_item name="Show Temporarily">
+			Временно
+		</combo_item>
+		<combo_item name="Always">
+			Всегда
+		</combo_item>
+	</combo_box>
+	<check_box label="Маленькие имена аватаров"
+	     name="small_avatar_names_checkbox" />
+	<check_box label="Спрятать мое имя на моем экране"
+	     name="show_my_name_checkbox" />
+	<text type="string" length="1" name="group_titles_textbox">
+		Титулы Группы:
+	</text>
+	<check_box label="Спрятать все Титулы Группы"
+	     name="show_all_title_checkbox" />
+	<check_box label="Спрятать мой Титул Группы"
+	     name="show_my_title_checkbox" />
+	<color_swatch label="" name="effect_color_swatch"
+	     tool_tip="Кликните, чтобы выбрать цвет" />
+	<text type="string" length="1" name="UI Size:">
+		Размер UI:
+	</text>
+	<check_box label="Использовать независимый масштаб"
+	     name="ui_auto_scale" />
+	<spinner label="Отключение через:" name="afk_timeout_spinner" />
+	<check_box label="Уведомлять о друзьях в онлайне"
+	     name="friends_online_notify_checkbox" />
+	<check_box label="Поворачивать мини-карту"
+	     name="rotate_mini_map_checkbox" />
+	<check_box label="Уведомить о приходе или расходе (L$)"
+	     name="notify_money_change_checkbox" />
+	<check_box label="Использовать выбор цвета по умолчанию"
+	     name="use_system_color_picker_checkbox"
+	     tool_tip="Использовать системный выбор цвета по умолчанию вместо встроенного в Second Life." />
+	<check_box
+	     label="Показывать панель поиска в верхней полосе"
+	     name="show_search_panel"
+	     tool_tip="Показывать встроенную поисковую панель." />
+	<text type="string" length="1" name="start_location_textbox">
+		Стартовая позиция:
+	</text>
+	<text type="string" length="1" name="show_names_textbox">
+		Показывать имена:
+	</text>
+	<text type="string" length="1" name="effects_color_textbox">
+		Цвет моих эффектов:
+	</text>
+	<text type="string" length="1" name="seconds_textbox">
+		секунд
+	</text>
+	<text type="string" length="1" name="crash_report_textbox">
+		Отчет об ошибках
+	</text>
+	<text type="string" length="1" name="language_textbox">
+		Язык
+	</text>
+	<text type="string" length="1" name="language_textbox2">
+		(Требуется перезапуск)
+	</text>
+	<string name="region_name_prompt">
+		&lt;Введите название региона&gt;
+	</string>
+	<combo_box name="crash_behavior_combobox">
+		<combo_item type="string" length="1" name="Askbeforesending">
+			Спрашивать перед отправкой
+		</combo_item>
+		<combo_item type="string" length="1" name="Alwayssend">
+			Отправлять всегда
+		</combo_item>
+		<combo_item type="string" length="1" name="Neversend">
+			Не отправлять
+		</combo_item>
+	</combo_box>
+	<combo_box name="language_combobox">
+		<combo_item type="string" length="1" name="System Default Language">
+			По умолчанию
+		</combo_item>
+	</combo_box>
+</panel>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -413,32 +414,14 @@ void LLXMLRPCTransaction::Impl::setStatus(Status status,
 				
 			default:
 				// Usually this means that there's a problem with the login server,
-				// not with the client.  Direct user to status page. JC
+				// not with the client.  Direct user to status page.
 				mStatusMessage =
 					"Despite our best efforts, something unexpected has gone wrong. \n"
 					" \n"
-					"Please check www.secondlife.com/status \n"
+					"Please check secondlife.com/status \n"
 					"to see if there is a known problem with the service.";
 
 				mStatusURI = "http://secondlife.com/status/";
-				/*
-				mStatusMessage =
-					"Despite our best efforts, something unexpected has gone wrong.\n"
-					"Please go to the Support section of the SecondLife.com web site\n"
-					"and report the problem.  If possible, include your SecondLife.log\n"
-					"file from:\n"
-#if LL_WINDOWS
-					"C:\\Documents and Settings\\<name>\\Application Data\\SecondLife\\logs\n"
-#elif LL_DARWIN
-					"~/Library/Application Support/SecondLife/logs\n"
-#elif LL_LINUX
-					"~/.secondlife/logs\n"
-#else
-#error "Need platform here."
-#endif
-					"Thank you.";
-				mStatusURI = "http://secondlife.com/community/support.php";
-				*/
 		}
 	}
 }

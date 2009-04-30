@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -35,14 +36,9 @@
 #include "v4color.h"
 
 extern LLColor4 gTrackColor;
-extern LLColor4 gSelfMapColor;
-extern LLColor4 gAvatarMapColor;
-extern LLColor4 gFriendMapColor;
 extern LLColor4 gLandmarkMapColor;
 extern LLColor4 gLocationMapColor;
 extern LLColor4 gTelehubMapColor;
-extern LLColor4 gFrustumMapColor;
-extern LLColor4 gRotatingFrustumMapColor;
 extern LLColor4 gEventColor;
 extern LLColor4 gPopularColor;
 extern LLColor4 gPickColor;

@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="price_for_listing" title="Publicar anuncio clasificado">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="price_for_listing" title="Publicar un anuncio clasificado">
 	<text name="explanation_text">
-		Su anuncio se quedará por una semana desde 
-la fecha en la que es publicado. 
-			 
-La posición de su anuncio&apos; en los listados clasificados 
-es determinada por la cuantía que usted decidió pagar.
-El pago más alto irá para la cima de la lista, 
-y aparecerá más en las búsquedas.
+		Su anuncio clasificado aparecerá durante una semana desde 
+la fecha de publicación. 
+ 
+La posición de su anuncio en la lista 
+depende de cuánto elija pagar..
+Los anuncios por los que se paga más aparecen en el principio de la lista
+y más alto en las búsquedas.
 	</text>
 	<text name="price_text">
 		Precio por el anuncio (L$):
 	</text>
-	<button label="Definir precio" name="set_price_btn" />
-	<button label="Cancelar" name="cancel_btn" />
+	<button label="Marcar precio" name="set_price_btn"/>
+	<button label="Cancelar" name="cancel_btn"/>
 </floater>

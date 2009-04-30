@@ -8,25 +8,29 @@
 	</text>
 	<check_box label="Inverter o  Mouse" name="invert_mouse"/>
 	<text length="1" name=" Auto Fly Options:" type="string">
-		Vôo Automático:
+		Opções de vôo Automático:
 	</text>
-	<check_box label="Voar/Aterrissar pressionando teclar para cima/baixo" name="automatic_fly"/>
+	<check_box label="Voar/Aterrissar pressionando teclas para cima/baixo" name="automatic_fly"/>
 	<text length="1" name=" Camera Options:" type="string">
 		Opções de Câmera:
 	</text>
 	<text name="Camera Follow Distance:" width="178">
 		Distância de Acompanhamento da Camêra:
 	</text>
-	<slider left="325" name="dynamic_camera_strength" />
+	<slider left="325" name="dynamic_camera_strength"/>
 	<text name="Camera Transition Time:" width="178">
 		Tempo de transição da câmera :
 	</text>
-	<slider left="325" name="zoom_time" />
-	<slider left="325" name="camera_position_smoothing" />
-	<check_box label="Movimento automático da câmera de edição" name="edit_camera_movement" tool_tip="Usar posicionamento automático da câmera quando entrar e sair do modo de edição"/>
+	<slider left="325" name="zoom_time"/>
+	<text name="Camera Smoothing:">
+		Suavização de Câmera:
+	</text>
+	<slider left="325" name="camera_position_smoothing"/>
+	<check_box label="Edição automática do movimento da câmera" name="edit_camera_movement" tool_tip="Usar posicionamento automático da câmera quando entrar e sair do modo de edição"/>
 	<check_box label="Movimento Automático da Câmera na edição de aparência" name="appearance_camera_movement" tool_tip="Usar posicionamento automático da câmera em  modo de edição"/>
 	<text name="text2">
-		Opções de Exibição &#10;do Avatar:
+		Opções de Exibição 
+do Avatar:
 	</text>
 	<check_box label="Mostra o avatar em primeira pessoa" name="first_person_avatar_visible"/>
 	<text name="text5">

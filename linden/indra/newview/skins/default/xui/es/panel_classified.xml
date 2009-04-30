@@ -1,14 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="Classified" title="Clasificado">
-	<line_editor name="given_name_editor"
-	     tool_tip="El nombre debe empezar con una letra o número, pero no puede ser una puntuación." />
-	<line_editor name="location_editor"
-	     tool_tip="Ajuste el local de este clasificado para su posición actual." />
-	<button label="Definir" name="set_location_btn" />
-	<button label="Teletransportar" name="classified_teleport_btn" />
-	<button label="Mostrar en el mapa" name="classified_map_btn" />
-	<button label="Perfil" name="classified_profile_btn" />
-	<check_box label="Adulto" name="classified_mature_check" />
-	<combo_box label="" name="classified_category_combo" />
-	<button label="Actualizar" name="classified_update_btn" />
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Clasificados">
+	<line_editor name="given_name_editor" tool_tip="El nombre debe empezar o con un número o con una letra, no con un signo de puntuación.."/>
+	<line_editor name="location_editor" tool_tip="Marque como localización de este anuncio su posición actual."/>
+	<button label="Definir" name="set_location_btn"/>
+	<button label="Teleportar" name="classified_teleport_btn"/>
+	<button label="Mostrar en el mapa" name="classified_map_btn"/>
+	<button label="Perfil" name="classified_profile_btn"/>
+
+	<combo_box label="" name="classified_category_combo"/>
+	<button label="Actualizar" name="classified_update_btn"/>
+	<string name="ad_placed_paid">
+		Anuncio colocado: [DATE], pagados [AMT] L$ por su listado.
+	</string>
+	<string name="update_txt">
+		Actualizar
+	</string>
+	<string name="publish_txt">
+		Publicar...
+	</string>
 </panel>

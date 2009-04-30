@@ -1,11 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="price_for_listing" title="Classificados">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="price_for_listing" title="Publicar Anúncio Classificado">
 	<text name="explanation_text">
-		Seu anúncio classificado irá rodar por uma semana a partir da data de publicação. A posição dos seus anúncios nas listas classificadas é determinada por quando você escolheu pagar. O anúncio de maior valor pago aparecerá no topo da lista e aparece em primeiro nas buscas.
+		Seu anúncio classificado irá rodar por uma semana
+a partir da data de publicação.
+A posição do seu anúncio nas listas classificadas é
+determinada por quando você escolheu pagar.
+O anúncio de maior valor pago aparecerá no topo da
+lista e aparece em primeiro nas buscas.
 	</text>
 	<text name="price_text">
 		Preço por Anúncio (L$):
 	</text>
-	<button label="Ajustar Preço" name="set_price_btn" />
-	<button label="Cancelar" name="cancel_btn" />
+	<button label="Ajustar Preço" name="set_price_btn"/>
+	<button label="Cancelar" name="cancel_btn"/>
 </floater>

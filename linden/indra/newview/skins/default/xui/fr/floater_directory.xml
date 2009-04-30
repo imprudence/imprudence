@@ -8,10 +8,13 @@
 			<string name="not_found_text">
 				Aucun résultat.
 			</string>
-			<button label="Précédente" name="back_btn"/>
-			<button label="Suivante" name="forward_btn"/>
+			<text name="find" width="63">
+				Trouver :
+			</text>
+			<button label="Précédente" name="back_btn" width="82"/>
+			<button label="Suivante" name="forward_btn" left="316" width="77" />
 			<line_editor label="Rechercher" name="search_editor" tool_tip="Rechercher dans Second Life"/>
-			<button label="Rechercher" name="search_btn" width="80"/>
+			<button label="Rechercher" name="search_btn" />
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Toutes catégories
@@ -32,7 +35,6 @@
 					Wiki
 				</combo_item>
 			</combo_box>
-			<check_box label="Inclure le contenu pour adultes" name="mature_check"/>
 			<string name="loading_text">
 				Chargement en cours...
 			</string>
@@ -65,9 +67,8 @@
 			<text name="find" width="63">
 				Trouver :
 			</text>
-			<line_editor left_delta="51" name="name" width="128"/>
-			<check_box label="Inclure le contenu pour adultes" name="incmature"/>
-			<combo_box left="195" name="Category">
+			<line_editor name="name" />
+			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Toutes catégories
 				</combo_item>
@@ -100,7 +101,7 @@
 				</combo_item>
 			</combo_box>
 			<button label="Rechercher" label_selected="Rechercher" name="Search" width="85"/>
-			<button label="Passer une annonce…" label_selected="Passer une annonce…" name="Place an Ad..." width="135"/>
+			<button label="Passer une annonce…" label_selected="Passer une annonce…" name="Place an Ad..." />
 			<button label="Supprimer" label_selected="Supprimer" name="Delete"/>
 		</panel>
 		<panel label="Événements" name="events_panel">
@@ -133,14 +134,15 @@
 				6/6
 			</text>
 			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;" tool_tip="Avancer d&apos;un jour"/>
-			<button label="Aujourd&apos;hui" label_selected="Aujourd&apos;hui" name="Today" tool_tip="Afficher les événements qui ont lieu aujourd&apos;hui"/>
+			<button label="Aujourd&apos;hui" label_selected="Aujourd&apos;hui" name="Today" tool_tip="Afficher les événements qui ont lieu aujourd&apos;hui" bottom="-62" left_delta="-72" width="95"/>
 			<text name="text">
 				Catégorie :
 			</text>
 			<text name="text2">
-				Nom/Descr. :
+				Trouver :
 			</text>
-			<combo_box left="370" name="category combo" width="175">
+			<line_editor name="event_search_text" />
+			<combo_box name="category combo" width="175">
 				<combo_item name="All">
 					Tout
 				</combo_item>
@@ -178,9 +180,7 @@
 					Divers
 				</combo_item>
 			</combo_box>
-			<line_editor left="370" name="event_search_text" width="175"/>
-			<check_box label="Inclure le contenu &#10;pour adultes" left="551" name="incmature"/>
-			<button label="Rechercher" label_selected="Rechercher" left_delta="129" name="Search" tool_tip="Rechercher"/>
+			<button label="Rechercher" label_selected="Rechercher" name="Search" tool_tip="Rechercher"/>
 			<button label="Supprimer" label_selected="Supprimer" name="Delete"/>
 		</panel>
 		<panel label="À la Une" name="showcase_panel">
@@ -190,8 +190,8 @@
 			<string name="not_found_text">
 				Aucun résultat.
 			</string>
-			<button label="Précédente" name="back_btn"/>
-			<button label="Suivante" name="forward_btn"/>
+			<button label="Précédente" name="back_btn" width="82"/>
+			<button label="Suivante" name="forward_btn" width="82" left_delta="87"/>
 			<string name="loading_text">
 				Chargement en cours...
 			</string>
@@ -212,6 +212,9 @@
 			<string name="not_found_text">
 				Aucun résultat.
 			</string>
+			<text name="find" >
+				Trouver :
+			</text>
 			<scroll_list name="results">
 				<column label="" name="icon"/>
 				<column label="" name="type"/>
@@ -222,7 +225,7 @@
 			</scroll_list>
 			<button label="&lt; Préc" label_selected="&lt; Préc" name="&lt; Prev"/>
 			<button label="Suivante &gt;" label_selected="Suivante &gt;" name="Next &gt;"/>
-			<combo_box name="type" width="150">
+			<combo_box name="type" width="135" left="298">
 				<combo_item name="AllTypes">
 					Tous types
 				</combo_item>
@@ -236,23 +239,18 @@
 					À vendre - Domaine
 				</combo_item>
 			</combo_box>
-			<combo_box name="rating" width="150">
-				<combo_item name="PG&amp;Mature">
-					Tout public et Adulte
-				</combo_item>
-				<combo_item name="PGonly">
-					Tout public uniquement
-				</combo_item>
-				<combo_item name="Matureonly">
-					Adulte uniquement
-				</combo_item>
-			</combo_box>
-			<check_box label="Prix &lt;= L$" left="157" name="pricecheck"/>
-			<check_box label="Surface &gt;= m²" left="157" name="areacheck"/>
-			<line_editor left="251" name="priceedit" width="50"/>
-			<line_editor left="251" name="areaedit" width="50"/>
-			<button label="Rechercher" label_selected="Rechercher" left="306" name="Search" width="85"/>
-			<text left="399" name="land" width="379">
+			<check_box label="Prix &#8804; " name="pricecheck"/>
+			<text name="pricecheck_symbol" left="186" >
+				L$
+			</text>
+			<check_box label="Surface &#8805; " name="areacheck" width="90" />
+			<text name="areacheck_symbol" left="186">
+				m²
+			</text>
+			<line_editor name="priceedit" left="130"/>
+			<line_editor name="areaedit" left="130"/>
+			<button label="Rechercher" label_selected="Rechercher" name="Search" width="85"/>
+			<text name="land" >
 				Vous pouvez acheter un terrain directement en dollars Linden (L$) ou
 aux enchères (en L$ ou US$). Pour acheter directement, visitez le terrain
 et cliquez sur le nom de l&apos;endroit dans la barre de titre.
@@ -273,21 +271,18 @@ et cliquez sur le nom de l&apos;endroit dans la barre de titre.
 			</scroll_list>
 			<button label="&lt; Préc" label_selected="&lt; Préc" name="&lt; Prev"/>
 			<button label="Suivante &gt;" label_selected="Suivante &gt;" name="Next &gt;"/>
-			<text name="find" width="63">
+			<text name="find">
 				Trouver :
 			</text>
-			<line_editor left_delta="51" name="name" width="128"/>
-			<check_box label="Inclure les parcelles avec du contenu Adulte" name="incmature"/>
-			<combo_box left="195" name="Category" width="170">
+			<line_editor name="name" />
+			<combo_box name="Category" >
 				<combo_item name="AnyCategory">
 					Toutes catégories
 				</combo_item>
 				<combo_item name="LindenLocation">
 					Appartenant aux Lindens
 				</combo_item>
-				<combo_item name="Adult">
-					Adulte
-				</combo_item>
+
 				<combo_item name="Arts&amp;Culture">
 					Art et Culture
 				</combo_item>
@@ -319,7 +314,7 @@ et cliquez sur le nom de l&apos;endroit dans la barre de titre.
 					Autre
 				</combo_item>
 			</combo_box>
-			<button label="Rechercher" label_selected="Rechercher" left_delta="178" name="Search" width="80"/>
+			<button label="Rechercher" label_selected="Rechercher" name="Search" />
 		</panel>
 		<panel label="Résidents" name="people_panel">
 			<string name="searching_text">
@@ -335,11 +330,11 @@ et cliquez sur le nom de l&apos;endroit dans la barre de titre.
 			</scroll_list>
 			<button label="&lt; Préc" label_selected="&lt; Préc" name="&lt; Prev"/>
 			<button label="Suivante &gt;" label_selected="Suivante &gt;" name="Next &gt;"/>
-			<text name="find" width="63">
+			<text name="find" >
 				Trouver :
 			</text>
-			<line_editor left_delta="51" name="name" width="200"/>
-			<button label="Rechercher" label_selected="Rechercher" name="Search" width="80"/>
+			<line_editor name="name" />
+			<button label="Rechercher" label_selected="Rechercher" name="Search" />
 		</panel>
 		<panel label="Groupes" name="groups_panel">
 			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev"/>
@@ -350,11 +345,10 @@ et cliquez sur le nom de l&apos;endroit dans la barre de titre.
 			<string name="not_found_text">
 				Aucun résultat.
 			</string>
-			<button label="Précédente" name="back_btn"/>
-			<button label="Suivante" name="forward_btn"/>
+			<button label="Précédente" name="back_btn" width="82" />
+			<button label="Suivante" name="forward_btn" width="77" left="316" />
 			<line_editor label="Rechercher" name="search_editor" tool_tip="Rechercher dans Second Life"/>
-			<button label="Rechercher" name="search_btn" width="80"/>
-			<check_box label="Inclure le contenu pour adultes" name="mature_check"/>
+			<button label="Rechercher" name="search_btn" />
 			<string name="loading_text">
 				Chargement en cours...
 			</string>

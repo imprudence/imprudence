@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -147,8 +148,8 @@ public:
 	// return true if there are no embedded items.
 	bool empty();
 	
-	void	bindEmbeddedChars(LLFontGL* font) const;
-	void	unbindEmbeddedChars(LLFontGL* font) const;
+	void	bindEmbeddedChars(const LLFontGL* font) const;
+	void	unbindEmbeddedChars(const LLFontGL* font) const;
 
 	BOOL	insertEmbeddedItem(LLInventoryItem* item, llwchar* value, bool is_new);
 	BOOL	removeEmbeddedItem( llwchar ext_char );
@@ -368,7 +369,7 @@ BOOL LLEmbeddedItems::hasEmbeddedItem(llwchar ext_char)
 	return FALSE;
 }
 
-void LLEmbeddedItems::bindEmbeddedChars( LLFontGL* font ) const
+void LLEmbeddedItems::bindEmbeddedChars( const LLFontGL* font ) const
 {
 	if( sEntries.empty() )
 	{
@@ -438,7 +439,7 @@ void LLEmbeddedItems::bindEmbeddedChars( LLFontGL* font ) const
 	}
 }
 
-void LLEmbeddedItems::unbindEmbeddedChars( LLFontGL* font ) const
+void LLEmbeddedItems::unbindEmbeddedChars( const LLFontGL* font ) const
 {
 	if( sEntries.empty() )
 	{
@@ -1285,12 +1286,12 @@ llwchar LLViewerTextEditor::pasteEmbeddedItem(llwchar ext_char)
 	return LL_UNKNOWN_CHAR; // item not found or list full
 }
 
-void LLViewerTextEditor::bindEmbeddedChars(LLFontGL* font) const
+void LLViewerTextEditor::bindEmbeddedChars(const LLFontGL* font) const
 {
 	mEmbeddedItemList->bindEmbeddedChars( font );
 }
 
-void LLViewerTextEditor::unbindEmbeddedChars(LLFontGL* font) const
+void LLViewerTextEditor::unbindEmbeddedChars(const LLFontGL* font) const
 {
 	mEmbeddedItemList->unbindEmbeddedChars( font );
 }
@@ -1420,58 +1421,50 @@ void LLViewerTextEditor::openEmbeddedLandmark( LLInventoryItem* item )
 
 void LLViewerTextEditor::openEmbeddedNotecard( LLInventoryItem* item )
 {
-	//if (saved)
-	//{
-		// An LLInventoryItem needs to be in an inventory to be opened.
-		// This will give the item to the viewer's agent.
-		// The callback will attempt to open it if its not already opened.
 	copyInventory(item, gInventoryCallbacks.registerCB(mInventoryCallback));
-
-	//}
-	//else
-	//{
-	//	LLNotecardCopyInfo *info = new LLNotecardCopyInfo(this, item);
-	//	gViewerWindow->alertXml("ConfirmNotecardSave",		
-	//							LLViewerTextEditor::onNotecardDialog, (void*)info);
-	//}
 }
 
 void LLViewerTextEditor::showUnsavedAlertDialog( LLInventoryItem* item )
 {
-	LLNotecardCopyInfo *info = new LLNotecardCopyInfo(this, item);
-	gViewerWindow->alertXml( "ConfirmNotecardSave",
-		LLViewerTextEditor::onNotecardDialog, (void*)info);
+	LLSD payload;
+	payload["item_id"] = item->getUUID();
+	payload["notecard_id"] = mNotecardInventoryID;
+	LLNotifications::instance().add( "ConfirmNotecardSave", LLSD(), payload, LLViewerTextEditor::onNotecardDialog);
 }
+
 // static
-void LLViewerTextEditor::onNotecardDialog( S32 option, void* userdata )
+bool LLViewerTextEditor::onNotecardDialog(const LLSD& notification, const LLSD& response )
 {
-	LLNotecardCopyInfo *info = (LLNotecardCopyInfo *)userdata;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if( option == 0 )
 	{
 		// itemptr is deleted by LLPreview::save
-		LLPointer<LLInventoryItem>* itemptr = new LLPointer<LLInventoryItem>(info->mItem);
-		LLPreview::save( info->mTextEd->mNotecardInventoryID, itemptr);
+		LLPointer<LLInventoryItem>* itemptr = new LLPointer<LLInventoryItem>(gInventory.getItem(notification["payload"]["item_id"].asUUID()));
+		LLPreview::save( notification["payload"]["notecard_id"].asUUID() , itemptr);
 	}
+	return false;
 }
 
 
 
 void LLViewerTextEditor::showCopyToInvDialog( LLInventoryItem* item )
 {
-	LLNotecardCopyInfo *info = new LLNotecardCopyInfo(this, item);
-	gViewerWindow->alertXml( "ConfirmItemCopy",
-		LLViewerTextEditor::onCopyToInvDialog, (void*)info);
+	LLSD payload;
+	payload["item_id"] = item->getUUID();
+	payload["notecard_id"] = mNotecardInventoryID;
+	LLNotifications::instance().add( "ConfirmItemCopy", LLSD(), payload,
+		boost::bind(&LLViewerTextEditor::onCopyToInvDialog, this, _1, _2));
 }
 
-// static
-void LLViewerTextEditor::onCopyToInvDialog( S32 option, void* userdata )
+bool LLViewerTextEditor::onCopyToInvDialog(const LLSD& notification, const LLSD& response)
 {
-	LLNotecardCopyInfo *info = (LLNotecardCopyInfo *)userdata;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if( 0 == option )
 	{
-		info->mTextEd->copyInventory(info->mItem);
+		LLInventoryItem* itemp = gInventory.getItem(notification["payload"]["item_id"].asUUID());
+		copyInventory(itemp);
 	}
-	delete info;
+	return false;
 }
 
 
@@ -1596,6 +1589,7 @@ LLView* LLViewerTextEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlF
 	BOOL parse_html = text_editor->mParseHTML;
 	node->getAttributeBOOL("allow_html", parse_html);
 	text_editor->setParseHTML(parse_html);
+	text_editor->setParseHighlights(TRUE);
 
 	text_editor->initFromXML(node, parent);
 

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -117,7 +118,7 @@ public:
 	static void onDoubleClickGroup(void* userdata);
 	static void onClickPublishHelp(void *userdata);
 	static void onClickPartnerHelp(void *userdata);
-	static void onClickPartnerHelpLoadURL(S32 option, void* userdata);
+	static bool onClickPartnerHelpLoadURL(const LLSD& notification, const LLSD& response);
 	static void onClickPartnerInfo(void *userdata);
 
 	// Clear out the controls anticipating new network data.
@@ -231,8 +232,8 @@ private:
 	static void onClickNew(void* data);
 	static void onClickDelete(void* data);
 
-	static void callbackDelete(S32 option, void* data);
-	static void callbackNew(S32 option, void* data);
+	bool callbackDelete(const LLSD& notification, const LLSD& response);
+	bool callbackNew(const LLSD& notification, const LLSD& response);
 };
 
 
@@ -257,7 +258,7 @@ private:
 	static void onClickNew(void* data);
 	static void onClickDelete(void* data);
 
-	static void callbackDelete(S32 option, void* data);
+	bool callbackDelete(const LLSD& notification, const LLSD& response);
 };
 
 
@@ -325,9 +326,9 @@ public:
 private:
 	void enableOKIfReady();
 
-	static void finishKick(S32 option, const std::string& text, void* userdata);
-	static void finishFreeze(S32 option, const std::string& text, void* userdata);
-	static void finishUnfreeze(S32 option, const std::string& text, void* userdata);
+	static bool finishKick(const LLSD& notification, const LLSD& response);
+	static bool finishFreeze(const LLSD& notification, const LLSD& response);
+	static bool finishUnfreeze(const LLSD& notification, const LLSD& response);
 
 	static void showProfileCallback(S32 option, void *userdata);
 

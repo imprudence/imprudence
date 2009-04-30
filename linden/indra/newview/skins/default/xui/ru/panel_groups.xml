@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="groups">
+	<scroll_list name="group list">
+		<column label="" name="name" />
+	</scroll_list>
+	<text type="string" length="1" name="groupdesc">
+		Активная группа выдел. жирным шрифтом.
+	</text>
+	<text type="string" length="1" name="groupcount">
+		Вы состоите в [COUNT] группах (из максимум [MAX]).
+	</text>
+	<button label="IM/Звонок" name="IM" tool_tip="Открыть IM-сессию" />
+	<button label="Инфо" name="Info" />
+	<button label="Активировать" name="Activate" />
+	<button label="Покинуть" name="Leave" />
+	<button label="Создать..." name="Create" />
+	<button label="Поиск..." name="Search..." />
+</panel>

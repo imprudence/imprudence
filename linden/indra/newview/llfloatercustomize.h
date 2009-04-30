@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -81,6 +82,8 @@ public:
 	// Inherted methods from LLFloater (and above)
 	virtual void	onClose(bool app_quitting);
 	virtual void	draw();
+	/*virtual*/ void open();
+
 
 	// New methods
 	void			clearScrollingPanelList();
@@ -88,8 +91,6 @@ public:
 											 param_map& params);
 
 	const std::string& getEditGroup();
-	void			addVisualParamToUndoBuffer( LLViewerVisualParam* param, F32 current_weight );
-
 	void 			updateScrollingPanelList(BOOL allow_modify);
 
 	void			setWearable(EWearableType type, LLWearable* wearable, U32 perm_mask, BOOL is_complete);
@@ -97,9 +98,7 @@ public:
 
 	virtual BOOL	isDirty() const;
 
-	void			askToSaveAllIfDirty( void(*next_step_callback)(BOOL proceed, void* userdata), void* userdata );
-
-	void			spawnWearableAppearance( EWearableType type );
+	void			askToSaveIfDirty( void(*next_step_callback)(BOOL proceed, void* userdata), void* userdata );
 
 	void			switchToDefaultSubpart();
 
@@ -107,13 +106,14 @@ public:
 	static EWearableType getCurrentWearableType()					{ return sCurrentWearableType; }
 
 	// Callbacks
-	static void		onBtnSaveAll( void* userdata );
-	static void		onBtnSnapshot( void* userdata );
+	static void		onBtnOk( void* userdata );
 	static void		onBtnMakeOutfit( void* userdata );
 	static void		onMakeOutfitCommit( LLMakeOutfitDialog* dialog, void* userdata );
 
 	static void		onTabChanged( void* userdata, bool from_click );
-	static void		onSaveAllDialog( S32 option, void* userdata );
+	static void		onTabPrecommit( void* userdata, bool from_click );
+	bool			onSaveDialog(const LLSD& notification, const LLSD& response);
+	static void		onCommitChangeTab(BOOL proceed, void* userdata);
 
 	void fetchInventory();
 	void updateInventoryUI();
@@ -126,13 +126,12 @@ protected:
 
 	LLScrollingPanelList*	mScrollingPanelList;
 	LLScrollableContainerView* mScrollContainer;
-	LLGenePool*				mGenePool;
 	LLVisualParamReset*		mResetParams;
 
 	LLInventoryObserver* mInventoryObserver;
 
-	void					(*mNextStepAfterSaveAllCallback)(BOOL proceed, void* userdata);
-	void*					mNextStepAfterSaveAllUserdata;
+	void					(*mNextStepAfterSaveCallback)(BOOL proceed, void* userdata);
+	void*					mNextStepAfterSaveUserdata;
 
 
 protected:

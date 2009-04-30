@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -313,6 +314,7 @@ extern char * _PREHASH_TextColor;
 extern char * _PREHASH_SlaveID;
 extern char * _PREHASH_Charter;
 extern char * _PREHASH_AlertData;
+extern char * _PREHASH_AlertInfo;
 extern char * _PREHASH_TargetBlock;
 extern char * _PREHASH_CheckParcelAuctions;
 extern char * _PREHASH_ParcelAuctions;
@@ -1374,5 +1376,6 @@ extern char * _PREHASH_AgeVerificationBlock;
 extern char * _PREHASH_UCoord;
 extern char * _PREHASH_VCoord;
 extern char * _PREHASH_FaceIndex;
-
+extern char * _PREHASH_StatusData;
+extern char * _PREHASH_ProductSKU;
 #endif

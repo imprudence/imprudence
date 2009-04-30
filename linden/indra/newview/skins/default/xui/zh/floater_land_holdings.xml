@@ -1,21 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="land holdings floater" title="我的土地">
 	<scroll_list name="parcel list">
-		<column label="名称" name="name" />
-		<column label="地点" name="location" />
-		<column label="面积" name="area" />
-		<column label="" name="hidden" />
+		<column label="名称" name="name"/>
+		<column label="地点" name="location"/>
+		<column label="面积" name="area"/>
+		<column label="" name="hidden"/>
 	</scroll_list>
-	<button label="瞬间移动" label_selected="瞬间移动" name="Teleport"
-	     tool_tip="瞬间移动到该地的中心。" />
-	<button label="在地图中显示" label_selected="在地图中显示"
-	     name="Show on Map" tool_tip="将该地在世界地图上显示出来。" />
+	<button label="瞬间移动" label_selected="瞬间移动" name="Teleport" tool_tip="瞬间移动到该地的中心。"/>
+	<button label="在地图中显示" label_selected="在地图中显示" name="Show on Map" tool_tip="将该地在世界地图上显示出来。"/>
 	<text name="contrib_label">
 		对你的社团的配额贡献:
 	</text>
 	<scroll_list name="grant list">
-		<column label="社团" name="group" />
-		<column label="面积" name="area" />
+		<column label="社团" name="group"/>
+		<column label="面积" name="area"/>
 	</scroll_list>
 	<text name="allowed_label">
 		当前支付方案下允许的土地持有量:
@@ -35,4 +33,7 @@
 	<text name="available_text">
 		[AREA] 平方米
 	</text>
+	<string name="area_string">
+		[AREA] 平方米
+	</string>
 </floater>

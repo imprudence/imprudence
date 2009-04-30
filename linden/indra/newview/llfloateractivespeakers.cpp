@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -47,6 +48,7 @@
 #include "llsdutil.h"
 #include "llimview.h"
 #include "llviewerwindow.h"
+#include "llworld.h"
 #include "llappviewer.h"
 
 const F32 SPEAKER_TIMEOUT = 10.f; // seconds of not being on voice channel before removed from list of active speakers
@@ -1106,7 +1108,7 @@ void LLSpeakerMgr::updateSpeakerList()
 			for (participant_it = participants->begin(); participant_it != participants->end(); ++participant_it)
 			{
 				LLVoiceClient::participantState* participantp = participant_it->second;
-				setSpeaker(participantp->mAvatarID, participantp->mDisplayName, LLSpeaker::STATUS_VOICE_ACTIVE, (participantp->mAvatarIDValid?LLSpeaker::SPEAKER_AGENT:LLSpeaker::SPEAKER_EXTERNAL));
+				setSpeaker(participantp->mAvatarID, participantp->mDisplayName, LLSpeaker::STATUS_VOICE_ACTIVE, (participantp->isAvatar()?LLSpeaker::SPEAKER_AGENT:LLSpeaker::SPEAKER_EXTERNAL));
 			}
 		}
 	}
@@ -1381,15 +1383,13 @@ void LLLocalSpeakerMgr::updateSpeakerList()
 		return ;
 	}
 
-	// add non-voice speakers in chat range
-	std::vector< LLCharacter* >::iterator avatar_it;
-	for(avatar_it = LLCharacter::sInstances.begin(); avatar_it != LLCharacter::sInstances.end(); ++avatar_it)
+	// pick up non-voice speakers in chat range
+	std::vector<LLUUID> avatar_ids;
+	std::vector<LLVector3d> positions;
+	LLWorld::getInstance()->getAvatars(&avatar_ids, &positions, gAgent.getPositionGlobal(), CHAT_NORMAL_RADIUS);
+	for(U32 i=0; i<avatar_ids.size(); i++)
 	{
-		LLVOAvatar* avatarp = (LLVOAvatar*)*avatar_it;
-		if (dist_vec(avatarp->getPositionAgent(), gAgent.getPositionAgent()) <= CHAT_NORMAL_RADIUS)
-		{
-			setSpeaker(avatarp->getID());
-		}
+		setSpeaker(avatar_ids[i]);
 	}
 
 	// check if text only speakers have moved out of chat range

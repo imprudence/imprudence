@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="chat_bar">
+	<button label="Чат" name="History"
+	     tool_tip="Натисніть для перегляду сказаного" />
+	<line_editor label="Для чату натисніть тут" name="Chat Editor"
+	     tool_tip="Натисніть Enter -- сказати, Ctrl+Enter -- крикнути" />
+	<flyout_button label="Сказати" name="Say" tool_tip="(Enter)" />
+	<combo_box label="Жести" name="Gesture">
+		<combo_item name="Gestures">
+			Жести
+		</combo_item>
+	</combo_box>
+</panel>

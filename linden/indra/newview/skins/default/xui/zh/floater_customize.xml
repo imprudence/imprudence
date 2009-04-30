@@ -1,467 +1,441 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="floater customize" title="外表">
 	<tab_container name="customize tab container">
-		<panel label="身体部位" />
+		<panel label="身体部位" name="body_parts_placeholder"/>
 		<panel label="体型" name="Shape">
-			<button label="创建新的体型" label_selected="创建新的体型"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<button label="身体" label_selected="身体" name="Body" />
-			<button label="头部" label_selected="头部" name="Head" />
-			<button label="眼睛" label_selected="眼睛" name="Eyes" />
-			<button label="耳朵" label_selected="耳朵" name="Ears" />
-			<button label="鼻子" label_selected="鼻子" name="Nose" />
-			<button label="嘴部" label_selected="嘴部" name="Mouth" />
-			<button label="下巴" label_selected="下巴" name="Chin" />
-			<button label="腹部" label_selected="腹部" name="Torso" />
-			<button label="腿部" label_selected="腿部" name="Legs" />
+			<button label="恢复" label_selected="恢复" name="Revert"/>
+			<button label="身体" label_selected="身体" name="Body"/>
+			<button label="头部" label_selected="头部" name="Head"/>
+			<button label="眼睛" label_selected="眼睛" name="Eyes"/>
+			<button label="耳朵" label_selected="耳朵" name="Ears"/>
+			<button label="鼻子" label_selected="鼻子" name="Nose"/>
+			<button label="嘴部" label_selected="嘴部" name="Mouth"/>
+			<button label="下巴" label_selected="下巴" name="Chin"/>
+			<button label="腹部" label_selected="腹部" name="Torso"/>
+			<button label="腿部" label_selected="腿部" name="Legs"/>
 			<radio_group name="sex radio">
-				<radio_item type="string" length="1" name="radio">
+				<radio_item length="1" name="radio" type="string">
 					女性
 				</radio_item>
-				<radio_item type="string" length="1" name="radio2">
+				<radio_item length="1" name="radio2" type="string">
 					男性
 				</radio_item>
 			</radio_group>
-			<button label="随机排列" label_selected="随机排列" name="Randomize" />
-			<text type="string" length="1" name="title">
+			<button label="随机排列" label_selected="随机排列" name="Randomize"/>
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的体型，需从你的库存中拖拽一个新的体型至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件穿着的权利。
 			</text>
-
+			<button label="创建新的体型" label_selected="创建新的体型" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
 		</panel>
 		<panel label="皮肤" name="Skin">
-			<button label="创建新的皮肤" label_selected="创建新的皮肤"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<button label="皮肤颜色" label_selected="皮肤颜色" name="Skin Color" />
-			<button label="面部细节" label_selected="面部细节" name="Face Detail" />
-			<button label="化妆" label_selected="化妆" name="Makeup" />
-			<button label="身体细节" label_selected="身体细节" name="Body Detail" />
-			<button label="随机排列" label_selected="随机排列" name="Randomize" />
-			<text type="string" length="1" name="title">
+			<button label="皮肤颜色" label_selected="皮肤颜色" name="Skin Color"/>
+			<button label="面部细节" label_selected="面部细节" name="Face Detail"/>
+			<button label="化妆" label_selected="化妆" name="Makeup"/>
+			<button label="身体细节" label_selected="身体细节" name="Body Detail"/>
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于 [PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的皮肤，需从你的库存中拖拽一个新的皮肤至你的
 化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
-			<texture_picker label="头部纹身" name="Head Tattoos" tool_tip="点击这里来选择图片" />
-			<texture_picker label="上身的纹身" name="Upper Tattoos"
-			     tool_tip="点击这里来选择图片" />
-			<texture_picker label="下身纹身" name="Lower Tattoos"
-			     tool_tip="点击这里来选择图片" />
+			<texture_picker label="头部纹身" name="Head Tattoos" tool_tip="点击这里来选择图片"/>
+			<texture_picker label="上身的纹身" name="Upper Tattoos" tool_tip="点击这里来选择图片"/>
+			<texture_picker label="下身纹身" name="Lower Tattoos" tool_tip="点击这里来选择图片"/>
+			<button label="随机排列" label_selected="随机排列" name="Randomize"/>
+			<button label="创建新的皮肤" label_selected="创建新的皮肤" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="头发" name="Hair">
-			<button label="创建新的头发" label_selected="传建新的头发"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<button label="颜色" label_selected="颜色" name="Color" />
-			<button label="风格" label_selected="风格" name="Style" />
-			<button label="眉毛" label_selected="眉毛" name="Eyebrows" />
-			<button label="胡须" label_selected="胡须" name="Facial" />
-			<button label="随机排列" label_selected="随机排列" name="Randomize" />
-			<text type="string" length="1" name="title">
+			<button label="颜色" label_selected="颜色" name="Color"/>
+			<button label="风格" label_selected="风格" name="Style"/>
+			<button label="眉毛" label_selected="眉毛" name="Eyebrows"/>
+			<button label="胡须" label_selected="胡须" name="Facial"/>
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的发型，需从你的库存中拖拽一个新的发型至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
-			<texture_picker label="材质" name="Texture" tool_tip="点击这里来选择图片" />
+			<texture_picker label="材质" name="Texture" tool_tip="点击这里来选择图片"/>
+			<button label="随机排列" label_selected="随机排列" name="Randomize"/>
+			<button label="创建新的头发" label_selected="传建新的头发" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="眼睛" name="Eyes">
-			<button label="创建新的眼睛" label_selected="创建新的眼睛"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<button label="随机排列" label_selected="随机排列" name="Randomize" />
-			<text type="string" length="1" name="title">
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的眼睛，需从你的库存中拖拽一个新的眼睛至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
-			<texture_picker label="瞳孔" name="Iris" tool_tip="点击这里来选择图片" />
+			<texture_picker label="瞳孔" name="Iris" tool_tip="点击这里来选择图片"/>
+			<button label="随机排列" label_selected="随机排列" name="Randomize"/>
+			<button label="创建新的眼睛" label_selected="创建新的眼睛" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
-		<panel label="服饰" />
+		<panel label="服装" name="clothes_placeholder"/>
 		<panel label="衬衣" name="Shirt">
-			<button label="创建新的衬衫" label_selected="创建新的衬衫"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<text type="string" length="1" name="title">
+			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
+			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
+			<button label="创建新的衬衫" label_selected="创建新的衬衫" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的衬衫，需从你的库存中拖拽一个新的衬衫至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
-			<color_swatch label="颜色/配色" name="Color/Tint"
-			     tool_tip="点击这里来打开色彩选择器" />
-			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片" />
 		</panel>
 		<panel label="裤子" name="Pants">
-			<button label="创建新的裤子" label_selected="创建新的裤子"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<text type="string" length="1" name="title">
+			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
+			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
+			<button label="创建新的裤子" label_selected="创建新的裤子" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的裤子，需从你的库存中拖拽一个新的裤子至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
-			<color_swatch label="颜色/配色" name="Color/Tint"
-			     tool_tip="点击这里来打开色彩选择器" />
-			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片" />
 		</panel>
 		<panel label="鞋子" name="Shoes">
-			<button label="创建新的鞋子" label_selected="创建新的鞋子"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<text type="string" length="1" name="title">
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的鞋子，需从你的库存中拖拽一个新的鞋子至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
-				你没有修改这件服饰的权利。			</text>
-			<color_swatch label="颜色/配色" name="Color/Tint"
-			     tool_tip="点击这里来打开色彩选择器" />
-			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片" />
+			<text length="1" name="no modify instructions" type="string">
+				你没有修改这件服饰的权利。
+			</text>
+			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
+			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
+			<button label="创建新的鞋子" label_selected="创建新的鞋子" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="袜子" name="Socks">
-			<button label="创建新的袜子" label_selected="创建新的袜子"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<text type="string" length="1" name="title">
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的袜子，需从你的库存中拖拽一个新的袜子至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
-			<color_swatch label="颜色/配色" name="Color/Tint"
-			     tool_tip="点击这里来打开色彩选择器" />
-			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片" />
+			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
+			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
+			<button label="创建新的袜子" label_selected="创建新的袜子" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="夹克" name="Jacket">
-			<button label="创建新的夹克" label_selected="创建新的夹克"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<text type="string" length="1" name="title">
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的夹克，需从你的库存中拖拽一个新的夹克至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
-			<color_swatch label="颜色/配色" name="Color/Tint"
-			     tool_tip="点击这里来打开色彩选择器" />
-				 <texture_picker label="上身材质" name="Upper Fabric"
-			     tool_tip="点击这里来选择图片" />
-			<texture_picker label="下身材质" name="Lower Fabric"
-			     tool_tip="点击这里来选择图片" />
+			<texture_picker label="上身材质" name="Upper Fabric" tool_tip="点击这里来选择图片"/>
+			<texture_picker label="下身材质" name="Lower Fabric" tool_tip="点击这里来选择图片"/>
+			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
+			<button label="创建新的夹克" label_selected="创建新的夹克" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="手套" name="Gloves">
-			<button label="传建新的手套" label_selected="传建新的手套"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<text type="string" length="1" name="title">
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的手套，需从你的库存中拖拽一个新的手套至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
-			<color_swatch label="颜色/配色" name="Color/Tint"
-			     tool_tip="点击这里来打开色彩选择器" />
-			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片" />
+			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
+			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
+			<button label="传建新的手套" label_selected="传建新的手套" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="内衣" name="Undershirt">
-			<button label="创建新的内衣" label_selected="创建新的内衣"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<text type="string" length="1" name="title">
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的内衣，需从你的库存中拖拽一个新的内衣至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
-			<color_swatch label="颜色/配色" name="Color/Tint"
-			     tool_tip="点击这里来打开色彩选择器" />
-			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片" />
+			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
+			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
+			<button label="创建新的内衣" label_selected="创建新的内衣" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="内裤" name="Underpants">
-			<button label="创建新的内裤" label_selected="创建新的内裤"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<text type="string" length="1" name="title">
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的内裤，需从你的库存中拖拽一个新的内裤至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
-			<color_swatch label="颜色/配色" name="Color/Tint"
-			     tool_tip="点击这里来打开色彩选择器" />
-			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片" />
+			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
+			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
+			<button label="创建新的内裤" label_selected="创建新的内裤" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="裙子" name="Skirt">
-			<button label="创建新的裙子" label_selected="创建新的短裙"
-			     name="Create New" />
-			<button label="脱掉" label_selected="脱掉" name="Take Off" />
-			<button label="存储" label_selected="存储" name="Save" />
-			<button label="另存为" label_selected="另存为" name="Save As" />
-			<button label="恢复" label_selected="恢复" name="Revert" />
-			<text type="string" length="1" name="title">
+			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
-			<text type="string" length="1" name="title_no_modify">
+			<text length="1" name="title_no_modify" type="string">
 				[DESC]: 无法修改
 			</text>
-			<text type="string" length="1" name="title_loading">
+			<text length="1" name="title_loading" type="string">
 				[DESC]: 载入中...
 			</text>
-			<text type="string" length="1" name="title_not_worn">
+			<text length="1" name="title_not_worn" type="string">
 				[DESC]: 没有被穿着
 			</text>
-			<text type="string" length="1" name="path">
+			<text length="1" name="path" type="string">
 				位于[PATH]
 			</text>
-			<text type="string" length="1" name="not worn instructions">
+			<text length="1" name="not worn instructions" type="string">
 				要使用新的裙子，需从你的库存中拖拽一个新的裙子至你的化身上。
 或者，你也可以从新创建一个，并穿上它。
 			</text>
-			<text type="string" length="1" name="no modify instructions">
+			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
-			<color_swatch label="颜色/配色" name="Color/Tint"
-			     tool_tip="点击这里来打开色彩选择器" />
-			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片" />
+			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
+			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
+			<button label="创建新的裙子" label_selected="创建新的短裙" name="Create New"/>
+			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
+			<button label="存储" label_selected="存储" name="Save"/>
+			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 	</tab_container>
-	<button label="保存为装束" label_selected="保存为装束" name="Make Outfit" />
-	<button label="储存全部" label_selected="储存全部" name="Save All" />
-	<button label="关闭" label_selected="关闭" name="Close" />
+	<button label="关闭" label_selected="关闭" name="Close"/>
+	<button label="储存全部" label_selected="储存全部" name="Save All"/>
+	<button label="保存为装束" label_selected="保存为装束" name="Make Outfit"/>
 </floater>

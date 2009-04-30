@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true"
+	follows="right|top"
+    width="250"
+    height="392"
+	min_width="100"
+	min_height="100"
+    mouse_opaque="false"
+	name="stats floater"
+    can_resize="true"
+	rect_control="FloaterStatisticsRect"
+    title="Statistics"
+	>
+</floater>

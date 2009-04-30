@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Текстовый чат" name="chat">
+	<text type="string" length="1" name="text_box">
+		Размер шрифта:
+	</text>
+	<radio_group name="chat font size">
+		<radio_item type="string" length="1" name="radio">
+			Маленький
+		</radio_item>
+		<radio_item type="string" length="1" name="radio2">
+			Средний
+		</radio_item>
+		<radio_item type="string" length="1" name="radio3">
+			Большой
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="text_box2">
+		Цвет чата:
+	</text>
+	<color_swatch label="Чат" name="users" />
+	<color_swatch label="IM" name="im" />
+	<color_swatch label="Систем." name="system" />
+	<color_swatch label="Объекты" name="objects" />
+	<color_swatch label="Влад." name="owner" />
+	<color_swatch label="Фон" name="background" />
+	<color_swatch label="URL-ы" name="links" />
+	<text type="string" length="1" name="text_box3">
+		Консоль чата:
+	</text>
+	<spinner label="Закрыть после" name="fade_chat_time" />
+	<text type="string" length="1" name="text_box4">
+		(секунд)
+	</text>
+	<text type="string" length="1" name="text_box5">
+		(строк)
+	</text>
+	<slider label="Прозрачность" name="console_opacity" />
+	<text type="string" length="1" name="text_box6">
+		Опции чата:
+	</text>
+	<check_box
+	     label="Полноэкранный режим чата(после перезагрузки)"
+	     name="chat_full_width_check" />
+	<check_box label="Закрыть чат после отсылки"
+	     name="close_chat_on_return_check" />
+	<check_box label="Стрелки двигают аватара в чате"
+	     name="arrow_keys_move_avatar_check" />
+	<check_box label="Показывать время в чате"
+	     name="show_timestamps_check" />
+	<text type="string" length="1" name="text_box7">
+		Чат в пузырьках:
+	</text>
+	<check_box label="Показывать чат в пузыре" name="bubble_text_chat" />
+	<slider label="Прозрачность" name="bubble_chat_opacity" />
+	<text type="string" length="1" name="text_box8">
+		Ошибки скрипта:
+	</text>
+	<check_box
+	     label="Показывать ошибки и предупреждения в окне чата"
+	     name="script_errors_as_chat" />
+	<color_swatch label="Цвет" name="script_error" />
+</panel>

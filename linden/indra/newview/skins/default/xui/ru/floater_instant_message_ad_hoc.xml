@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(неизвестно)" name="im_floater" title="(неизвестно)">
+	<string name="ringing">
+		Присоединяемся к Голосовому Чату...
+	</string>
+	<string name="connected">
+		Соединились. Кликните тут, чтобы закончить.
+	</string>
+	<string name="hang_up">
+		Покинуть Голосовой Чат
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="title_string">
+		Мгновенные сообщения с [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] печатает...
+	</string>
+	<string name="session_start_string">
+		Начало сессии с [NAME], подождите пожалуйста.
+	</string>
+	<string name="default_text_label">
+		Нажмите здесь для Мгновенных Сообщений.
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Звонок" name="start_call_btn" />
+			<button label="Закончить Звонок" name="end_call_btn" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Кликните сюда для показа активных участников IM сессии." />
+			<line_editor label="Нажмите сюда для IM" name="chat_editor" />
+			<button label="Отправить" name="send_btn" />
+		</layout_panel>
+	</layout_stack>
+	<string name="live_help_dialog">
+		*** Добро пожаловать в Запрос Помощи *** 
+Прожалуйста, просмотрите сначала страницы помощи по SL, нажав F1, или обратитесь к Базе Знаний http://secondlife.com/knowledgebase/ 
+Если Вашего ответа здесь нет, то напишите свой вопрос, и потом подождите несколько минут пока доступный помощник не ответит Вам.
+ -=-=- Время ответа может быть различным, особенно, в часы пик -=-=-
+	</string>
+</floater>

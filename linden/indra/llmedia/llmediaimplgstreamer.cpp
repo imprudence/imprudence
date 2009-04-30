@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -43,10 +44,6 @@ extern "C" {
 
 #include "llmediaimplgstreamervidplug.h"
 
-#ifdef LL_GST_SOUNDSINK
-#include "llmediaimplgstreamersndplug.h"
-#endif // LL_GST_SOUNDSINK
-
 #include "llmediaimplgstreamer_syms.h"
 
 // register this impl with media manager factory
@@ -67,6 +64,7 @@ LLMediaImplGStreamerMaker::LLMediaImplGStreamerMaker()
 //
 LLMediaImplGStreamer::
 LLMediaImplGStreamer () :
+	mBusWatchID ( 0 ),
 	mediaData ( NULL ),
 	mMediaRowbytes ( 1 ),
 	mTextureFormatPrimary ( LL_MEDIA_BGRA ),
@@ -74,10 +72,10 @@ LLMediaImplGStreamer () :
 	mPump ( NULL ),
 	mPlaybin ( NULL ),
 	mVideoSink ( NULL )
-#ifdef LL_GST_SOUNDSINK
-	,mAudioSink ( NULL )
-#endif // LL_GST_SOUNDSINK
 {
+	if (!mDoneInit)
+		return; // error
+
 	DEBUGMSG("constructing media...");
 
 	mVolume = 0.1234567; // minor hack to force an initial volume update
@@ -95,9 +93,19 @@ LLMediaImplGStreamer () :
 	mPlaybin = llgst_element_factory_make ("playbin", "play");
 	if (!mPlaybin)
 	{
-		// todo: cleanup pump
 		return; // error
 	}
+
+	// get playbin's bus
+	GstBus *bus = llgst_pipeline_get_bus (GST_PIPELINE (mPlaybin));
+	if (!bus)
+	{
+		return; // error
+	}
+	mBusWatchID = llgst_bus_add_watch (bus,
+					   llmediaimplgstreamer_bus_callback,
+					   this);
+	llgst_object_unref (bus);
 
 	if (NULL == getenv("LL_GSTREAMER_EXTERNAL")) {
 		// instantiate and connect a custom video sink
@@ -111,20 +119,6 @@ LLMediaImplGStreamer () :
 		}
 
 		g_object_set(mPlaybin, "video-sink", mVideoSink, NULL);
-
-#ifdef LL_GST_SOUNDSINK
-		// instantiate and connect a custom audio sink
-		mAudioSink =
-			GST_SLSOUND(llgst_element_factory_make ("private-slsound", "slsound"));
-		if (!mAudioSink)
-		{
-			WARNMSG("Could not instantiate private-slsound element.");
-			// todo: cleanup.
-			return; // error
-		}
-
-		g_object_set(mPlaybin, "audio-sink", mAudioSink, NULL);
-#endif
 	}
 }
 
@@ -166,48 +160,96 @@ std::string LLMediaImplGStreamer::getVersion()
 
 ///////////////////////////////////////////////////////////////////////////////
 // (static) super-initialization - called once at application startup
+
+//static
+bool LLMediaImplGStreamer::mDoneInit = false;
+
+//static
 bool
 LLMediaImplGStreamer::
 startup ( LLMediaManagerData* init_data )
 {
-	static bool done_init = false;
-	if (!done_init)
+	// first - check if GStreamer is explicitly disabled
+	if (NULL != getenv("LL_DISABLE_GSTREAMER"))
+		return false;
+
+	// only do global GStreamer initialization once.
+	if (!mDoneInit)
 	{
 		// Init the glib type system - we need it.
 		g_type_init();
 
 		// Get symbols!
 		if (! grab_gst_syms("libgstreamer-0.10.so.0",
-				    "libgstvideo-0.10.so.0",
-				    "libgstaudio-0.10.so.0") )
+				    "libgstvideo-0.10.so.0") )
 		{
 			WARNMSG("Couldn't find suitable GStreamer 0.10 support on this system - video playback disabled.");
 			return false;
 		}
 
 		if (llgst_segtrap_set_enabled)
+		{
 			llgst_segtrap_set_enabled(FALSE);
+		}
 		else
+		{
 			WARNMSG("gst_segtrap_set_enabled() is not available; Automated crash-reporter may cease to function until next restart.");
+		}
+
+#if LL_LINUX
+		// Gstreamer tries a fork during init, waitpid-ing on it,
+		// which conflicts with any installed SIGCHLD handler...
+		struct sigaction tmpact, oldact;
+		if (llgst_registry_fork_set_enabled) {
+			// if we can disable SIGCHLD-using forking behaviour,
+			// do it.
+			llgst_registry_fork_set_enabled(false);
+		}
+		else {
+			// else temporarily install default SIGCHLD handler
+			// while GStreamer initialises
+			tmpact.sa_handler = SIG_DFL;
+			sigemptyset( &tmpact.sa_mask );
+			tmpact.sa_flags = SA_SIGINFO;
+			sigaction(SIGCHLD, &tmpact, &oldact);
+		}
+#endif // LL_LINUX
 
 		// Protect against GStreamer resetting the locale, yuck.
 		static std::string saved_locale;
 		saved_locale = setlocale(LC_ALL, NULL);
-		if (0 == llgst_init_check(NULL, NULL, NULL))
+
+		// finally, try to initialize GStreamer!
+		GError *err = NULL;
+		gboolean init_gst_success = llgst_init_check(NULL, NULL, &err);
+
+		// restore old locale
+		setlocale(LC_ALL, saved_locale.c_str() );
+
+#if LL_LINUX
+		// restore old SIGCHLD handler
+		if (!llgst_registry_fork_set_enabled)
+			sigaction(SIGCHLD, &oldact, NULL);
+#endif // LL_LINUX
+
+		if (!init_gst_success) // fail
 		{
-			WARNMSG("GST init failed for unspecified reason.");
-			setlocale(LC_ALL, saved_locale.c_str() );
+			if (err)
+			{
+				WARNMSG("GST init failed: %s", err->message);
+				g_error_free(err);
+			}
+			else
+			{
+				WARNMSG("GST init failed for unspecified reason.");
+			}
 			return false;
 		}
-		setlocale(LC_ALL, saved_locale.c_str() );
 		
 		// Init our custom plugins - only really need do this once.
 		gst_slvideo_init_class();
-#if 0
-		gst_slsound_init_class();
-#endif
 
-		done_init = true;
+		mDoneInit = true;
 	}
 
 	return true;
@@ -217,6 +259,9 @@ startup ( LLMediaManagerData* init_data )
 bool LLMediaImplGStreamer::
 closedown()
 {
+	if (!mDoneInit)
+		return false; // error
+
 	ungrab_gst_syms();
 
 	return true;
@@ -240,12 +285,15 @@ static char* get_gst_state_name(GstState state)
 }
 #endif // LL_GST_REPORT_STATE_CHANGES
 
-//static
+extern "C" {
 gboolean
-LLMediaImplGStreamer::bus_callback (GstBus     *bus,
-				    GstMessage *message,
-				    gpointer    data)
+llmediaimplgstreamer_bus_callback (GstBus     *bus,
+				   GstMessage *message,
+				   gpointer    data)
 {
+	if (!message) 
+		return TRUE; // shield against GStreamer bug
+
 	if (GST_MESSAGE_TYPE(message) != GST_MESSAGE_STATE_CHANGED &&
 	    GST_MESSAGE_TYPE(message) != GST_MESSAGE_BUFFERING)
 	{
@@ -352,10 +400,35 @@ LLMediaImplGStreamer::bus_callback (GstBus     *bus,
 		if (impl->isLooping())
 		{
 			DEBUGMSG("looping media...");
-			impl->stop();
-			impl->play();
+			double eos_pos_sec = 0.0F;
+			bool got_eos_position = impl->getTimePos(eos_pos_sec);
+
+			if (got_eos_position && eos_pos_sec < impl->MIN_LOOP_SEC)
+			{
+				// if we know that the movie is really short, don't
+				// loop it else it can easily become a time-hog
+				// because of GStreamer spin-up overhead
+				DEBUGMSG("really short movie (%0.3fsec) - not gonna loop this, pausing instead.", eos_pos_sec);
+				// inject a COMMAND_PAUSE
+				impl->addCommand(LLMediaBase::COMMAND_PAUSE);
+			}
+			else
+			{
+				// first try looping by an explicit rewind
+				bool seeksuccess = impl->seek(0.0);
+				if (seeksuccess)
+				{
+					impl->play();
+				}
+				else // use clumsy stop-start to loop
+				{
+					DEBUGMSG("couldn't loop by rewinding - stopping and starting instead...");
+					impl->stop();
+					impl->play();
+				}
+			}
 		}
-		else
+		else // not a looping media
 		{
 			// inject a COMMAND_STOP
 			impl->addCommand(LLMediaBase::COMMAND_STOP);
@@ -372,6 +445,7 @@ LLMediaImplGStreamer::bus_callback (GstBus     *bus,
 	 */
 	return TRUE;
 }
+} // extern "C"
 
 ///////////////////////////////////////////////////////////
 // virtual
@@ -379,15 +453,15 @@ bool
 LLMediaImplGStreamer::
 navigateTo ( const std::string urlIn )
 {
+	if (!mDoneInit)
+		return false; // error
+
 	DEBUGMSG("Setting media URI: %s", urlIn.c_str());
 
-	if (NULL == mPump
-#ifdef LL_GST_SOUNDSINK
-	    || NULL == mAudioSink
-#endif
-	    || NULL == mPlaybin)
+	if (NULL == mPump ||
+	    NULL == mPlaybin)
 	{
-		return false;
+		return false; // error
 	}
 
 	setStatus( LLMediaBase::STATUS_NAVIGATING );
@@ -395,15 +469,6 @@ navigateTo ( const std::string urlIn )
 	// set URI
 	g_object_set (G_OBJECT (mPlaybin), "uri", urlIn.c_str(), NULL);
 	//g_object_set (G_OBJECT (mPlaybin), "uri", "file:///tmp/movie", NULL);
-
-	// get playbin's bus - perhaps this can/should be done in ctor
-	GstBus *bus = llgst_pipeline_get_bus (GST_PIPELINE (mPlaybin));
-	if (!bus)
-	{
-		return false;
-	}
-	llgst_bus_add_watch (bus, bus_callback, this);
-	llgst_object_unref (bus);
 
 	// navigateTo implicitly plays, too.
 	play();
@@ -417,7 +482,14 @@ bool
 LLMediaImplGStreamer::
 unload ()
 {
+	if (!mDoneInit)
+		return false; // error
+
 	DEBUGMSG("unloading media...");
+	
+	// stop getting callbacks for this bus
+	g_source_remove(mBusWatchID);
+
 	if (mPlaybin)
 	{
 		llgst_element_set_state (mPlaybin, GST_STATE_NULL);
@@ -433,7 +505,7 @@ unload ()
 
 	if (mediaData)
 	{
-		delete mediaData;
+		delete [] mediaData;
 		mediaData = NULL;
 	}
 
@@ -448,14 +520,14 @@ bool
 LLMediaImplGStreamer::
 updateMedia ()
 {
+	if (!mDoneInit)
+		return false; // error
+
 	DEBUGMSG("updating media...");
 	
 	// sanity check
-	if (NULL == mPump
-#ifdef LL_GST_SOUNDSINK
-	    || NULL == mAudioSink
-#endif
-	    || NULL == mPlaybin)
+	if (NULL == mPump ||
+	    NULL == mPlaybin)
 	{
 		DEBUGMSG("dead media...");
 		return false;
@@ -517,7 +589,7 @@ updateMedia ()
 			    mVideoSink->retained_frame_height != getMediaHeight())
 				// *TODO: also check for change in format
 			{
-				// just resize containe
+				// just resize container
 				int neww = mVideoSink->retained_frame_width;
 				int newh = mVideoSink->retained_frame_height;
 				int newd = SLVPixelFormatBytes[mVideoSink->retained_frame_format];
@@ -621,12 +693,12 @@ LLMediaImplGStreamer::
 seek( double time )
 {
 	bool success = false;
-	if (mPlaybin)
+	if (mDoneInit && mPlaybin)
 	{
 		success = llgst_element_seek(mPlaybin, 1.0F, GST_FORMAT_TIME,
 				GstSeekFlags(GST_SEEK_FLAG_FLUSH |
 					     GST_SEEK_FLAG_KEY_UNIT),
-				GST_SEEK_TYPE_SET, gint64(time*1000000000.0F),
+				GST_SEEK_TYPE_SET, gint64(time*GST_SECOND),
 				GST_SEEK_TYPE_NONE, GST_CLOCK_TIME_NONE);
 	}
 	DEBUGMSG("MEDIA SEEK REQUEST to %fsec result was %d",
@@ -634,6 +706,49 @@ seek( double time )
 	return success;
 }
 
+bool
+LLMediaImplGStreamer::
+getTimePos(double &sec_out)
+{
+	bool got_position = false;
+	if (mPlaybin)
+	{
+		gint64 pos;
+		GstFormat timefmt = GST_FORMAT_TIME;
+		got_position =
+			llgst_element_query_position &&
+			llgst_element_query_position(mPlaybin,
+						     &timefmt,
+						     &pos);
+		got_position = got_position
+			&& (timefmt == GST_FORMAT_TIME);
+		// GStreamer may have other ideas, but we consider the current position
+		// undefined if not PLAYING or PAUSED
+		got_position = got_position &&
+			(GST_STATE(mPlaybin) == GST_STATE_PLAYING ||
+			 GST_STATE(mPlaybin) == GST_STATE_PAUSED);
+		if (got_position && !GST_CLOCK_TIME_IS_VALID(pos))
+		{
+			if (GST_STATE(mPlaybin) == GST_STATE_PLAYING)
+			{
+				// if we're playing then we treat an invalid clock time
+				// as 0, for complicated reasons (insert reason here)
+				pos = 0;
+			}
+			else
+			{
+				got_position = false;
+			}
+			
+		}
+		// If all the preconditions succeeded... we can trust the result.
+		if (got_position)
+		{
+			sec_out = double(pos) / double(GST_SECOND); // gst to sec
+		}
+	}
+	return got_position;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // virtual
@@ -648,7 +763,7 @@ setVolume(float volume)
 		return true; // nothing to do, everything's fine
 
 	mVolume = volume;
-	if (mPlaybin)
+	if (mDoneInit && mPlaybin)
 	{
 		g_object_set(mPlaybin, "volume", mVolume, NULL);
 		return true;

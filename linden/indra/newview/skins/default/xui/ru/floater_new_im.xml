@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="Новое IM-сообщение" name="New IM"
+     title="Новое IM-сообщение">
+	<button label="Старт" label_selected="Старт" name="start_btn" />
+	<button label="Закрыть" label_selected="Закрыть" name="close_btn" />
+	<text name="name_format">
+		[LAST] [FIRST]
+	</text>
+	<text name="online_descriptor">
+		(онлайн)
+	</text>
+</floater>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -68,6 +69,22 @@ public:
 	LLNewAgentInventoryResponder(const LLSD& post_data, const std::string& file_name,
 											   LLAssetType::EType asset_type);
 	virtual void uploadComplete(const LLSD& content);
+};
+
+class LLBakedUploadData;
+class LLSendTexLayerResponder : public LLAssetUploadResponder
+{
+public:
+	LLSendTexLayerResponder(const LLSD& post_data,
+							const LLUUID& vfile_id,
+							LLAssetType::EType asset_type,
+							LLBakedUploadData * baked_upload_data);
+
+	~LLSendTexLayerResponder();
+
+	virtual void uploadComplete(const LLSD& content);
+
+	LLBakedUploadData * mBakedUploadData;
 };
 
 class LLUpdateAgentInventoryResponder : public LLAssetUploadResponder

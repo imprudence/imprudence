@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -46,7 +47,6 @@
 #include "llviewercontrol.h"
 #include "llfirstuse.h"
 #include "llfloaterchat.h"
-#include "llfloaterclothing.h"
 #include "llfloaterdirectory.h"
 #include "llfloatermap.h"
 #include "llfloaterworldmap.h"
@@ -95,7 +95,7 @@ void handle_map(void*)
 
 void handle_mini_map(void*)
 {
-	LLFloaterMap::toggle(NULL);
+	LLFloaterMap::toggleInstance();
 }
 
 
@@ -118,12 +118,6 @@ void handle_inventory(void*)
 	LLFirstUse::useInventory();
 
 	LLInventoryView::toggleVisibility(NULL);
-}
-
-
-void handle_clothing(void*)
-{
-	LLFloaterClothing::toggleVisibility();
 }
 
 

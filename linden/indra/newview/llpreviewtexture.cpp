@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -241,7 +242,7 @@ void LLPreviewTexture::draw()
 			if( mLoadingFullImage )
 			{
 				// *TODO: Translate
-				LLFontGL::sSansSerif->renderUTF8(std::string("Receiving:"), 0,
+				LLFontGL::getFontSansSerif()->renderUTF8(std::string("Receiving:"), 0,
 					interior.mLeft + 4, 
 					interior.mBottom + 4,
 					LLColor4::white, LLFontGL::LEFT, LLFontGL::BOTTOM,
@@ -278,7 +279,7 @@ void LLPreviewTexture::draw()
 			if( !mSavedFileTimer.hasExpired() )
 			{
 				// *TODO: Translate
-				LLFontGL::sSansSerif->renderUTF8(std::string("File Saved"), 0,
+				LLFontGL::getFontSansSerif()->renderUTF8(std::string("File Saved"), 0,
 					interior.mLeft + 4,
 					interior.mBottom + 4,
 					LLColor4::white, LLFontGL::LEFT, LLFontGL::BOTTOM,
@@ -350,15 +351,15 @@ void LLPreviewTexture::onFileLoadedForSave(BOOL success,
 		LLPointer<LLImageTGA> image_tga = new LLImageTGA;
 		if( !image_tga->encode( src ) )
 		{
-			LLStringUtil::format_map_t args;
-			args["[FILE]"] = self->mSaveFileName;
-			gViewerWindow->alertXml("CannotEncodeFile", args);
+			LLSD args;
+			args["FILE"] = self->mSaveFileName;
+			LLNotifications::instance().add("CannotEncodeFile", args);
 		}
 		else if( !image_tga->save( self->mSaveFileName ) )
 		{
-			LLStringUtil::format_map_t args;
-			args["[FILE]"] = self->mSaveFileName;
-			gViewerWindow->alertXml("CannotWriteFile", args);
+			LLSD args;
+			args["FILE"] = self->mSaveFileName;
+			LLNotifications::instance().add("CannotWriteFile", args);
 		}
 		else
 		{
@@ -371,7 +372,7 @@ void LLPreviewTexture::onFileLoadedForSave(BOOL success,
 
 	if( self && !success )
 	{
-		gViewerWindow->alertXml("CannotDownloadFile");
+		LLNotifications::instance().add("CannotDownloadFile");
 	}
 }
 

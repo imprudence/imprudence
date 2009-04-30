@@ -7,13 +7,14 @@
 # The "cmake -E touch" command was released with 2.4.8.
 cmake_minimum_required(VERSION 2.4.8 FATAL_ERROR)
 
-# This makes cmake 2.6 not complain about a version
-# 2.4 compatibility mode
-if(COMMAND cmake_policy)
+# This makes cmake 2.6 not complain about version 2.4 compatibility.
+if (COMMAND cmake_policy)
   cmake_policy(SET CMP0003 OLD)
-endif(COMMAND cmake_policy)
+endif (COMMAND cmake_policy)
 
-project(SecondLife)
+set(ROOT_PROJECT_NAME "SecondLife" CACHE STRING
+    "The root project/makefile/solution name. Defaults to SecondLife.")
+project(${ROOT_PROJECT_NAME})
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
@@ -66,14 +67,19 @@ if (VIEWER)
 
   if (LINUX)
     add_subdirectory(${VIEWER_PREFIX}linux_crash_logger)
-    add_dependencies(viewer linux-crash-logger)
+    add_dependencies(viewer linux-crash-logger-strip-target)
   elseif (DARWIN)
     add_subdirectory(${VIEWER_PREFIX}mac_crash_logger)
     add_subdirectory(${VIEWER_PREFIX}mac_updater)
     add_dependencies(viewer mac-updater mac-crash-logger)
   elseif (WINDOWS)
     add_subdirectory(${VIEWER_PREFIX}win_crash_logger)
+    # cmake EXISTS requires an absolute path, see indra/cmake/Variables.cmake
+    if (EXISTS ${VIEWER_DIR}win_setup)
+      add_subdirectory(${VIEWER_DIR}win_setup)
+    endif (EXISTS ${VIEWER_DIR}win_setup)
     add_subdirectory(${VIEWER_PREFIX}win_updater)
+    # add_dependencies(viewer windows-updater windows-setup windows-crash-logger)
     add_dependencies(viewer windows-updater windows-crash-logger)
   elseif (SOLARIS)
     add_subdirectory(solaris_crash_logger)

@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -41,6 +42,7 @@
 #include "llpanelgroup.h"
 #include "llviewermessage.h" // for inventory_offer_callback
 //#include "llviewerwindow.h"
+#include "llnotifications.h"
 
 #include "llcachename.h"
 
@@ -55,9 +57,10 @@ std::map<LLUUID, LLFloaterGroupInfo*> LLFloaterGroupInfo::sInstances;
 class LLGroupHandler : public LLCommandHandler
 {
 public:
-	// don't allow from external browsers
-	LLGroupHandler() : LLCommandHandler("group", false) { }
-	bool handle(const LLSD& tokens, const LLSD& queryMap)
+	// requires trusted browser to trigger
+	LLGroupHandler() : LLCommandHandler("group", true) { }
+	bool handle(const LLSD& tokens, const LLSD& query_map,
+				LLWebBrowserCtrl* web)
 	{
 		if (tokens.size() < 1)
 		{
@@ -244,7 +247,7 @@ void LLFloaterGroupInfo::showNotice(const std::string& subject,
 		// We need to clean up that inventory offer.
 		if (inventory_offer)
 		{
-			inventory_offer_callback( IOR_DECLINE , inventory_offer); 
+			inventory_offer->forceResponse(IOR_DECLINE);
 		}
 		return;
 	}
@@ -256,7 +259,7 @@ void LLFloaterGroupInfo::showNotice(const std::string& subject,
 		// We need to clean up that inventory offer.
 		if (inventory_offer)
 		{
-			inventory_offer_callback( IOR_DECLINE , inventory_offer); 
+			inventory_offer->forceResponse(IOR_DECLINE);
 		}
 		return;
 	}

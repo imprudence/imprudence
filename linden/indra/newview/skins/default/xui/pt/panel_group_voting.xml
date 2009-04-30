@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Propostas" name="voting_tab">
 	<string name="help_text">
-		As propostas do grupo poderá mostrar para os outros como esse determinado grupo se sente sobre determinado assunto.Se vocÊ possuir poder de propriedade você poderá abrir novas propostas, votar em propostas abertas e visualizar propostas antigas.
+		As Propostas ao Grupo podem ser usadas para se ter noção do que o grupo quer fazer ou como o grupo se manifesta sobre alguma coisa. Se você tem as credenciais corretas, você pode criar propostas, votar em propostas abertas e ver propostas antigas.
 	</string>
 	<button label="?" name="help_button"/>
 	<text name="proposal_header">
-		Abrir propostas do grupo
+		Abrir propostas ao grupo
 	</text>
 	<text name="proposal_instructions">
-		Clique duas vezes sobre a proposta que desejar votar.
+		Clique duas vezes sobre a proposta que desejar votar ou pressione Criar Proposta para criar uma proposta nova
 	</text>
 	<text name="proposal_lbl">
 		Descrição da Proposta
@@ -22,9 +22,9 @@
 	<text name="quorum_lbl">
 		Quantidade:
 	</text>
-	<spinner name="quorum" tool_tip="# do número de votos necessário para eleger a proposta"/>
+	<spinner name="quorum" tool_tip="# do número total de membros votantes necessária para eleger a proposta."/>
 	<text name="quorum_text">
-		de [MEMBERS] membros precisam votar.
+		[MEMBERS] membros precisam votar.
 	</text>
 	<text name="duration_lbl">
 		Duração:
@@ -33,14 +33,16 @@
 	<text name="duration_text">
 		dias
 	</text>
-	<radio_group name="majority" tool_tip="A maioria de 2/3 dos votos é necessário para ganhar">
-		Simples maioria 2/3 maioria unanime
+	<radio_group name="majority" tool_tip="Maioria do total de votos para se ganhar.">
+		Maioria simples
+		Maioria de 2/3
+		Unânime
 	</radio_group>
 	<text name="start_lbl">
-		Iniciar voto:
+		Votação inicia:
 	</text>
 	<text name="end_lbl">
-		Voto final:
+		Votação termina:
 	</text>
 	<button label="Submeter a proposta" label_selected="Submeter a proposta" name="btn_submit"/>
 	<button label="Cancelar" label_selected="Cancelar" name="btn_cancel"/>
@@ -51,7 +53,7 @@
 		Histórico de votos do grupo
 	</text>
 	<text name="instructions">
-		Selecione a sua opção e dê um duplo clique para votar.
+		Duplo clique num Voto Feito ou selecione um e clique Visualizar Item para ver os resultados.
 	</text>
 	<text name="history_list_lbl">
 		Após o voto                                                    Voto finalizado
@@ -65,23 +67,27 @@
 		Abrir propostas do grupo
 	</string>
 	<string name="proposals_header_view_inst">
-		Dê um duplo click na proposta a qual você gostaria de votar ou pressione Criar Proposto para criar uma nova proposta 
+		Dê um duplo click na proposta a qual você gostaria de votar ou pressione Criar Proposta para criar uma nova proposta.
 	</string>
 	<string name="proposals_header_create_txt">
 		Criar proposta
+	</string>
+	<string name="proposals_header_create_inst">
+		Digite a descrição de proposta para a nova proposta. Você pode alterar o 
+quórum, duração e maioria necessária para passar a proposta.
 	</string>
 	<string name="proposals_header_vote_txt">
 		Votar na proposta
 	</string>
 	<string name="proposals_header_vote_inst">
 		Pressione o botão Sim ou Não para votar na proposta,
-Ou escolha de abster nesta proposta.
+Ou escolha abster-se nesta proposta.
 	</string>
 	<string name="proposals_header_voted_inst">
 		Você já votou: [VOTE]
 	</string>
 	<string name="empty_proposal_txt">
-		A proposta que você está tentando criar encontra-se vazia.
+		A proposta que você está tentando criar encontra-se vazia. Por favor, preencha a proposta antes de criá-la.
 	</string>
 	<string name="proposals_submit_yes_txt">
 		Submeter Sim à proposta...
@@ -90,7 +96,7 @@ Ou escolha de abster nesta proposta.
 		Submeter Não à proposta...
 	</string>
 	<string name="proposals_submit_abstain_txt">
-		Submetendo abster a Proposta...
+		Submetendo Abster da Proposta...
 	</string>
 	<string name="proposals_submit_new_txt">
 		Submetendo nova proposta...
@@ -99,6 +105,6 @@ Ou escolha de abster nesta proposta.
 		Seu voto foi recebido.
 	</string>
 	<string name="vote_previously_recorded">
-		Você já votou antes. Você só pode votar uma vez durante uma eleição
+		Você já votou antes. Você só pode votar uma vez durante uma eleição.
 	</string>
 </panel>

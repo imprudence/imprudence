@@ -66,7 +66,6 @@
 	     mouse_opaque="true" name="radio spin" radio_style="true" width="114" />
 
 <!-- Edit panel -->
-
 	<check_box bottom="-70" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Position" left="4" mouse_opaque="true"
 	     name="radio position" radio_style="true" width="114" />
@@ -87,10 +86,10 @@
 	     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="6"
 	     mouse_opaque="true" name="text ruler mode" v_pad="0" width="68">
-		Ruler mode:
+		Ruler:
 	</text>
 	<combo_box allow_text_entry="false" bottom_delta="-4" follows="left|top" height="20"
-	     left_delta="74" max_chars="20" mouse_opaque="true"
+	     left_delta="40" max_chars="20" mouse_opaque="true"
 	     name="combobox grid mode" width="86">
 		<combo_item name="World" value="World">
 			World
@@ -106,15 +105,16 @@
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Stretch Both Sides" left="143" mouse_opaque="true"
 	     name="checkbox uniform" width="134" />
-	<check_box bottom_delta="-15" control_name="ScaleStretchTextures" follows="left|top"
+	<check_box bottom_delta="-17" control_name="ScaleStretchTextures" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="true"
 	     label="Stretch Textures" left_delta="0" mouse_opaque="true"
 	     name="checkbox stretch textures" width="134" />
-	<check_box bottom_delta="-19" control_name="SnapEnabled" follows="left|top"
+	<check_box bottom_delta="-17" control_name="SnapEnabled" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="true" label="Use Grid"
 	     left_delta="0" mouse_opaque="true" name="checkbox snap to grid" width="134" />
-	<button bottom_delta="-14" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="16" label="Options..." label_selected="Options..." left_delta="20"
+	<button bottom_delta="-19" follows="left|top" font="SansSerifSmall"
+       halign="center" valign="center"
+	     height="20" label="Options..." label_selected="Options..." left_delta="20"
 	     mouse_opaque="true" name="Options..." scale_image="TRUE" width="80" />
 
 <!-- Help text -->
@@ -153,21 +153,21 @@
 	     image_disabled_selected="object_tetrahedron_active.tga"
 	     image_selected="object_tetrahedron_active.tga"
 	     image_unselected="object_tetrahedron.tga" label="" label_selected=""
-	     left_delta="23" mouse_opaque="true" name="ToolTetrahedron"
+	     left_delta="28" mouse_opaque="true" name="ToolTetrahedron"
 	     scale_image="TRUE" tool_tip="Tetrahedron" width="30" />
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
 	     height="30" image_disabled="object_cylinder.tga"
 	     image_disabled_selected="object_cylinder_active.tga"
 	     image_selected="object_cylinder_active.tga"
 	     image_unselected="object_cylinder.tga" label="" label_selected=""
-	     left_delta="23" mouse_opaque="true" tool_tip="Cylinder" name="ToolCylinder" scale_image="TRUE"
+	     left_delta="28" mouse_opaque="true" tool_tip="Cylinder" name="ToolCylinder" scale_image="TRUE"
 	     width="30" />
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
 	     height="30" image_disabled="object_hemi_cylinder.tga"
 	     image_disabled_selected="object_hemi_cylinder_active.tga"
 	     image_selected="object_hemi_cylinder_active.tga"
 	     image_unselected="object_hemi_cylinder.tga" label="" label_selected=""
-	     left_delta="23" mouse_opaque="true" name="ToolHemiCylinder"
+	     left_delta="28" mouse_opaque="true" name="ToolHemiCylinder"
 	     scale_image="TRUE" tool_tip="Hemicylinder" width="30" />
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
 	     height="30" image_disabled="object_cone.tga"
@@ -229,79 +229,83 @@
 	     tool_tip="Grass" width="30" />
 	<check_box bottom="-120" control_name="CreateToolKeepSelected" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Keep Tool Selected" left="4" mouse_opaque="true"
+	     label="Keep selected" left="4" mouse_opaque="true"
 	     name="checkbox sticky" width="128" />
 	<check_box bottom_delta="-15" control_name="CreateToolCopySelection" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Copy Selection" left_delta="0" mouse_opaque="true"
+	     label="Copy selected" left_delta="0" mouse_opaque="true"
 	     name="checkbox copy selection" width="134" />
-	<check_box bottom_delta="-15" control_name="CreateToolCopyCenters" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="true" label="Center Copy"
-	     left_delta="20" mouse_opaque="true" name="checkbox copy centers"
+	<check_box bottom_delta="-16" control_name="CreateToolCopyCenters" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="true" label="Center"
+	     left_delta="18" mouse_opaque="true" name="checkbox copy centers"
 	     width="134" />
-	<check_box bottom_delta="-15" control_name="CreateToolCopyRotates" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false" label="Rotate Copy"
+	<check_box bottom_delta="-16" control_name="CreateToolCopyRotates" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false" label="Rotate"
 	     left_delta="0" mouse_opaque="true" name="checkbox copy rotates" width="134" />
 
 <!-- Land panel -->
 
-	<check_box bottom="-70" follows="left|top" font="SansSerifSmall" height="16"
+	<check_box bottom="-69" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Select Land" left="4" mouse_opaque="true"
 	     name="radio select land" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Flatten Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Flatten" left="4" mouse_opaque="true"
 	     name="radio flatten" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Raise Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Raise" left="4" mouse_opaque="true"
 	     name="radio raise" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Lower Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Lower" left="4" mouse_opaque="true"
 	     name="radio lower" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Smooth Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Smooth" left="4" mouse_opaque="true"
 	     name="radio smooth" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Roughen Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Roughen" left="4" mouse_opaque="true"
 	     name="radio noise" radio_style="true" width="114" />
-	<check_box bottom_delta="-14" follows="left|top" font="SansSerifSmall" height="16"
-	     initial_value="false" label="Revert Land" left="4" mouse_opaque="true"
+	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Revert" left="4" mouse_opaque="true"
 	     name="radio revert" radio_style="true" width="114" />
-	<combo_box allow_text_entry="false" bottom="-85" follows="left|top" height="18" left="118"
-	     max_chars="20" mouse_opaque="true" name="combobox brush size" width="134">
-		<combo_item name="Small" value="Small">
-			Small
-		</combo_item>
-		<combo_item name="Medium" value="Medium">
-			Medium
-		</combo_item>
-		<combo_item name="Large" value="Large">
-			Large
-		</combo_item>
-	</combo_box>
-	<volume_slider bottom_delta="-19" follows="left|top" height="16" hidden="false" increment="0.1"
-         initial_val="0.00" left="176" max_val="2.0" min_val="-1.0"
-	     mouse_opaque="true" name="slider force" width="70" />	
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="4" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
-	     left="126" mouse_opaque="true" name="Strength:" v_pad="0" width="128">
-	          Strength:
-	</text>    
-	<button bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="16" label="Apply to selection" label_selected="Apply to selection"
-	     left="118" mouse_opaque="true" name="button apply to selection"
-	     scale_image="TRUE" tool_tip="Modify Selected Land" width="134" />
-	<check_box bottom_delta="-20" control_name="ShowParcelOwners" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false" label="Show Owners"
-	     left="118" mouse_opaque="true" name="checkbox show owners" width="134" />
-	<button bottom="-163" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="20" label="More &gt;&gt;" left="186" mouse_opaque="true"
-	     name="button more" scale_image="TRUE" tool_tip="Advanced Options"
-	     width="80" />
-	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="20" label="&lt;&lt; Less" left_delta="0" mouse_opaque="true"
-	     name="button less" scale_image="TRUE" tool_tip="Advanced Options"
-	     width="80" />
+	<button bottom="-72" follows="left|top" font="SansSerifSmall" halign="center"
+	     height="20" label="Apply" label_selected="Apply"
+	     left="116" mouse_opaque="true" name="button apply to selection"
+	     scale_image="TRUE" tool_tip="Modify Selected Land" width="78" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
+	     border_visible="false" bottom_delta="-16" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="12" left="118"
+	     hidden="false" mouse_opaque="true" name="Bulldozer:" v_pad="0" width="100">
+	          Bulldozer:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
+	     border_visible="false" bottom_delta="-18" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="12" left="132"
+	     hidden="false" mouse_opaque="true" name="Dozer Size:" v_pad="0" width="100">
+	          Size
+	</text>
+	<volume_slider bottom_delta="-4" follows="left|top" height="16" hidden="false"
+         increment="0.1" initial_val="2.0" left="178" max_val="11.0" min_val="1.0"
+	     mouse_opaque="true" name="slider brush size" width="80" />	
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
+	     border_visible="false" bottom_delta="-18" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="12" left="132"
+	      hidden="false" mouse_opaque="true" name="Strength:" v_pad="0" width="100">
+	          Strength
+	</text>
+	<volume_slider bottom_delta="-4" follows="left|top" height="16" hidden="false"
+	     increment="0.1" initial_val="0.00" left="178" max_val="2.0" min_val="-1.0"
+	     mouse_opaque="true" name="slider force" width="80" />
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+         bottom="-151" left="118" drop_shadow_visible="true" follows="left|top"
+         font="SansSerifSmall" h_pad="0" halign="right" height="16"
+         mouse_opaque="true" name="obj_count" v_pad="0" width="143">
+    Selected objects: [COUNT]
+  </text>
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom="-163" left="118" drop_shadow_visible="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="right" height="16"
+       mouse_opaque="true" name="prim_count" v_pad="0" width="143">
+    primitives: [COUNT]
+  </text>
 
 <!-- Sub-tabs -->
 
@@ -343,7 +347,7 @@
 				Thrax Linden
 			</text>
 			<button bottom="-66" follows="top|right" font="SansSerifSmall" halign="center"
-			     height="16" label="Profile..." label_selected="Profile..." left_delta="94"
+			     height="20" label="Profile..." label_selected="Profile..." left_delta="94"
 			     mouse_opaque="true" name="button creator profile" scale_image="TRUE"
 			     width="78" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -359,7 +363,7 @@
 				Thrax Linden
 			</text>
 			<button bottom="-86" follows="top|right" font="SansSerifSmall" halign="center"
-			     height="16" label="Profile..." label_selected="Profile..." left_delta="94"
+			     height="20" label="Profile..." label_selected="Profile..." left_delta="94"
 			     mouse_opaque="true" name="button owner profile" scale_image="TRUE"
 			     width="78" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -376,14 +380,8 @@
 				The Lindens
 			</text>
 			<button bottom="-106" follows="top|right" font="SansSerifSmall" halign="center"
-			     height="16" label="Set..." label_selected="Set..." left_delta="94"
+			     height="20" label="Set..." label_selected="Set..." left_delta="94"
 			     mouse_opaque="true" name="button set group" scale_image="TRUE" width="78" />
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-126" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
-			     mouse_opaque="true" name="prim info" v_pad="0" width="166">
-				1 Object, 1 Primitive
-			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
@@ -408,7 +406,7 @@
 				Deed
 			</string>
 			<button bottom="-186" follows="top|right" font="SansSerifSmall" halign="center"
-			     height="16" label="Deed..." label_selected="Deed..." left_delta="172"
+			     height="20" label="Deed..." label_selected="Deed..." left_delta="172"
 			     mouse_opaque="true" name="button deed" scale_image="TRUE"
 			     tool_tip="Group shared objects can be deeded by a group officer."
 			     width="78" />
@@ -496,37 +494,37 @@
 				</combo_item>
 			</combo_box>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-135" drop_shadow_visible="true" follows="left|top"
+			     bottom="-115" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="88"
 			     mouse_opaque="true" name="B:" v_pad="0" width="174">
 				B:
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-135" drop_shadow_visible="true" follows="left|top"
+			     bottom="-115" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="50"
 			     mouse_opaque="true" name="O:" v_pad="0" width="124">
 				O;
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-135" drop_shadow_visible="true" follows="left|top"
+			     bottom="-115" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="50"
 			     mouse_opaque="true" name="G:" v_pad="0" width="74">
 				G:
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-147" drop_shadow_visible="true" follows="left|top"
+			     bottom="-127" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="88"
 			     mouse_opaque="true" name="E:" v_pad="0" width="174">
 				E:
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-147" drop_shadow_visible="true" follows="left|top"
+			     bottom="-127" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="50"
 			     mouse_opaque="true" name="N:" v_pad="0" width="124">
 				N:
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-147" drop_shadow_visible="true" follows="left|top"
+			     bottom="-127" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="50"
 			     mouse_opaque="true" name="F:" v_pad="0" width="74">
 				F:
@@ -722,10 +720,10 @@
 				Path Cut Begin and End
 			</text>
 			<spinner bottom_delta="-22" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.05" initial_val="0" label="B" label_width="10" left="121"
+			     increment="0.025" initial_val="0" label="B" label_width="10" left="121"
 			     max_val="0.98" min_val="0" mouse_opaque="true" name="cut begin" width="68" />
 			<spinner bottom_delta="0" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.05" initial_val="1" label="E" label_width="10" left_delta="73"
+			     increment="0.025" initial_val="1" label="E" label_width="10" left_delta="73"
 			     max_val="1" min_val="0.02" mouse_opaque="true" name="cut end" width="68" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-14" drop_shadow_visible="true" follows="left|top"
@@ -824,12 +822,18 @@
 			     mouse_opaque="true" name="advanced_dimple" v_pad="0" width="141">
 				Dimple Begin and End
 			</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="0"
+			     mouse_opaque="true" name="advanced_slice" v_pad="0" width="141">
+				Slice Begin and End
+			</text>
 			<spinner bottom_delta="-19" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.05" initial_val="0" label="B" label_width="10" left="121"
+			     increment="0.025" initial_val="0" label="B" label_width="10" left="121"
 			     max_val="0.95" min_val="0" mouse_opaque="true" name="Path Limit Begin"
 			     width="68" />
 			<spinner bottom_delta="0" decimal_digits="3" follows="left|top" height="16"
-			     increment="0.05" initial_val="1" label="E" label_width="10" left_delta="73"
+			     increment="0.025" initial_val="1" label="E" label_width="10" left_delta="73"
 			     max_val="1" min_val="0.05" mouse_opaque="true" name="Path Limit End"
 			     width="68" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -867,16 +871,16 @@
 			     label="Sculpt Texture" left="121" mouse_opaque="true"
 			     name="sculpt texture control" tool_tip="Click to choose a picture"
 			     visible="false" width="141" />
-			<check_box bottom_delta="-24" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Mirror" left="121" mouse_opaque="true"
-			     name="sculpt mirror control" visible="false"
-			     tool_tip="Flips sculpted prim along the X axis."
-			     width="121" />
-			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Inside-out" left="121" mouse_opaque="true"
-			     name="sculpt invert control" visible="false"
-			     tool_tip="Inverts the sculpted prims normals, making it appear inside-out."
-			     width="121" />
+            <check_box bottom_delta="-24" follows="left|top" font="SansSerifSmall" height="16"
+                 initial_value="false" label="Mirror" left="121" mouse_opaque="true"
+                 name="sculpt mirror control" visible="false"
+                 tool_tip="Flips sculpted prim along the X axis."
+                 width="121" />
+            <check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+                 initial_value="false" label="Inside-out" left="121" mouse_opaque="true"
+                 name="sculpt invert control" visible="false"
+                 tool_tip="Inverts the sculpted prims normals, making it appear inside-out."
+                 width="121" />
 			<text align="left" bg_visible="false" border_drop_shadow_visible="false"
 			     border_visible="false" bottom_delta="-20" drop_shadow_visible="true"
 			     follows="left|top" font="SansSerifSmall" h_pad="0" height="10" left="121"
@@ -1162,7 +1166,7 @@
 			     initial_val="1" left="112" max_val="10" min_val="0.1" mouse_opaque="true"
 			     name="rptctrl" width="68" />
 			<button bottom="-256" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="16" label="Apply" label_selected="Apply" left_delta="78"
+			     height="20" label="Apply" label_selected="Apply" left_delta="78"
 			     mouse_opaque="true" name="button apply" scale_image="TRUE" width="75" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-288" drop_shadow_visible="true" follows="left|top"
@@ -1185,15 +1189,18 @@
 (must load first)
 			</text>
 			<button bottom="-360" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="16" label="Align" label_selected="Align" left="112"
+			     height="20" label="Align" label_selected="Align" left="112"
 			     mouse_opaque="true" name="button align" scale_image="TRUE" width="68" />
 		</panel>
 		<panel border="true" bottom="-383" follows="left|top|right|bottom" height="367"
 		     label="Content" left="1" mouse_opaque="false" name="Contents" width="270">
-			<button bottom="-30" follows="left|top" font="SansSerif" halign="center" height="20"
-			      label="New Script..." label_selected="New Script..."
+      <button bottom="-30" follows="left|top" font="SansSerif" halign="center" height="20"
+			      label="New Script" label_selected="New Script..."
 			     left="10" mouse_opaque="true" name="button new script" scale_image="TRUE"
-			     width="130" />
+			     width="100" />
+      <button bottom_delta="0" left_delta="110" width="100" height="20" follows="left|top"
+            label="Permissions..." name="button permissions" font="SansSerif" halign="center"
+            mouse_opaque="true" scale_image="TRUE" />
 			<panel bottom_delta="-330" follows="left|top" height="325"  left="10"
 			     mouse_opaque="true" name="ContentsInventory" width="252" />
 		</panel>
@@ -1203,35 +1210,63 @@
 
 	<panel bottom="-550" follows="left|top" height="384" left="0" mouse_opaque="true"
 	     name="land info panel" width="272">
+	<!-- Parcel Information -->
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-		     bottom="-18" drop_shadow_visible="true" follows="left|top"
-		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
+		     bottom="-40" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="40"
+		     mouse_opaque="true" name="label_parcel_info" v_pad="0" width="150">
+			Parcel Information
+		</text>
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="48"
 		     mouse_opaque="true" name="label_area_price" v_pad="0" width="150">
 			Price: L$[PRICE] for [AREA] sq. m.
 		</text>
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
-		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
-		     mouse_opaque="true" name="label_area" v_pad="0" width="128">
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="48"
+		     mouse_opaque="true" name="label_area" v_pad="0" width="150">
 			Area: [AREA] sq. m.
 		</text>
-		<button bottom_delta="-38" follows="left|top" font="SansSerif" halign="center"
-		     height="20" label="Buy Land..." label_selected="Buy Land..." left="76"
-		     mouse_opaque="true" name="button buy land" scale_image="TRUE" width="102" />
+		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
+		     height="20" label="About Land..." label_selected="About Land..." left="48"
+		     mouse_opaque="true" name="button about land" scale_image="TRUE" width="112" />
+		<check_box bottom_delta="-24" control_name="ShowParcelOwners" follows="left|top"
+		     tool_tip="Colour parcels according to their ownership" font="SansSerifSmall"
+		     height="16" initial_value="false" label="Show owners" left="48" 
+		     mouse_opaque="true" name="checkbox show owners" width="100" />
+			<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+			     height="18" label="?" label_selected="?" left_delta="94"
+			     mouse_opaque="true" name="button show owners help" width="18" />
+	<!-- Modify Parcel -->
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom_delta="-56" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="40"
+		     mouse_opaque="true" name="label_parcel_modify" v_pad="0" width="150">
+			Modify Parcel
+		</text>
+		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
+		     height="20" label="Subdivide..." label_selected="Subdivide..." left="48"
+		     mouse_opaque="true" name="button subdivide land" scale_image="TRUE"
+		     width="112" />
+		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
+		     height="20" label="Join..." label_selected="Join..." left="48"
+		     mouse_opaque="true" name="button join land" scale_image="TRUE" width="112" />
+	<!-- Land Transactions -->
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom_delta="-56" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="40"
+		     mouse_opaque="true" name="label_parcel_trans" v_pad="0" width="150">
+			Land Transactions
+		</text>
+		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
+		     height="20" label="Buy Land..." label_selected="Buy Land..." left="48"
+		     mouse_opaque="true" name="button buy land" scale_image="TRUE" width="112" />
 		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
 		     height="20" label="Abandon Land..." label_selected="Abandon Land..."
-		     left="76" mouse_opaque="true" name="button abandon land" scale_image="TRUE"
-		     width="102" />
-		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
-		     height="20" label="Subdivide..." label_selected="Subdivide..." left="76"
-		     mouse_opaque="true" name="button subdivide land" scale_image="TRUE"
-		     width="102" />
-		<button bottom_delta="-24" follows="left|top" font="SansSerif" halign="center"
-		     height="20" label="Join..." label_selected="Join..." left="76"
-		     mouse_opaque="true" name="button join land" scale_image="TRUE" width="102" />
-		<button bottom_delta="-40" follows="left|top" font="SansSerif" halign="center"
-		     height="20" label="About Land..." label_selected="About Land..." left="76"
-		     mouse_opaque="true" name="button about land" scale_image="TRUE" width="102" />
+		     left="48" mouse_opaque="true" name="button abandon land" scale_image="TRUE"
+		     width="112" />
 	</panel>
 	<string name="status_rotate">
 		Drag colored bands to rotate object
@@ -1249,10 +1284,10 @@
 		Click and drag to change view
 	</string>
 	<string name="status_grab">
-		Drag to move objects, Ctrl to lift, Ctrl-Shift to spin
+		Drag to move, Ctrl to lift, Ctrl-Shift to rotate
 	</string>
 	<string name="status_place">
-		Click in the world to create, shift-click to select
+		Click inworld to build
 	</string>
 	<string name="status_selectland">
 		Click and drag to select land

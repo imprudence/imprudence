@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -116,6 +117,9 @@ public:
 	static void processDirLandReply(LLMessageSystem *msg, void**);
 
 	std::string filterShortWords( const std::string source_string, int shortest_word_length, bool& was_filtered );
+	
+	// Logic to control maturity checkboxes in Classified/Events/Places/'Land for Sale' tabs.
+	void updateMaturityCheckbox();
 
 protected:
 	void updateResultCount();
@@ -166,6 +170,12 @@ const S32 CLASSIFIED_CODE = 5;
 const S32 FOR_SALE_CODE = 6;	// for sale place
 const S32 AUCTION_CODE = 7;		// for auction place
 const S32 POPULAR_CODE = 8;		// popular by dwell
+
+// mask values for search flags
+const S32 SEARCH_NONE = 0;	// should try not to send this to the search engine
+const S32 SEARCH_PG = 1;
+const S32 SEARCH_MATURE = 2;
+const S32 SEARCH_ADULT = 4;
 
 extern LLMap< const LLUUID, LLPanelDirBrowser* > gDirBrowserInstances;
 

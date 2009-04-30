@@ -34,8 +34,7 @@
 			<check_box label="Publicar na Web." name="allow_publish"
 			     tool_tip="Publicar as informações do seu perfil na web." />
 			<button label="?" label_selected="?" name="publish_help_btn" />
-			<check_box label="Adulto" name="mature"
-			     tool_tip="As informações do seu perfil são consideradas conteúdo adulto." />
+			<check_box name="mature" />
 		</panel>
 		<panel label="Títulos" name="tit">
 			<text name="txt">

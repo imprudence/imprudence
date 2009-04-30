@@ -16,7 +16,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -231,8 +232,7 @@ void LLViewBorder::drawTextures()
 	//gGL.color4fv(UI_VERTEX_COLOR.mV);
 
 	//gGL.getTexUnit(0)->bind(mTexture);
-	//glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-	//glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+	//gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_WRAP);
 
 	//drawTextureTrapezoid(   0.f, mBorderWidth, getRect().getWidth(),  0,					0 );
 	//drawTextureTrapezoid(  90.f, mBorderWidth, getRect().getHeight(), (F32)getRect().getWidth(),0 );

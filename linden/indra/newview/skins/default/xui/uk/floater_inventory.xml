@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Inventory" title="Інвентар">
+	<search_editor label="Введіть тут для пошуку"
+	     name="inventory search editor" />
+	<tab_container name="inventory filter tabs">
+		<inventory_panel label="Всі предмети" name="All Items" />
+		<inventory_panel label="Недавні предмети" name="Recent Items" />
+	</tab_container>
+	<menu_bar name="Inventory Menu">
+		<menu label="Файл" name="File">
+			<menu_item_call label="Відкрити" name="Open" />
+			<menu_item_call label="Нове вікно" name="New Window" />
+			<menu_item_call label="Показати Фільтри" name="Show Filters" />
+			<menu_item_call label="Скинути Фільтри" name="Reset Current" />
+			<menu_item_call label="Закрити всі папки" name="Close All Folders" />
+			<menu_item_call label="Очистити кошик" name="Empty Trash" />
+		</menu>
+		<menu label="Створити" name="Create">
+			<menu_item_call label="Нова папка" name="New Folder" />
+			<menu_item_call label="Новий скрипт" name="New Script" />
+			<menu_item_call label="Нова замітка" name="New Note" />
+			<menu_item_call label="Новий Жест" name="New Gesture" />
+			<menu label="Нов.Одяг" name="New Clothes">
+				<menu_item_call label="Нов.сорочка" name="New Shirt" />
+				<menu_item_call label="Нов.штани" name="New Pants" />
+				<menu_item_call label="Нов.взуття" name="New Shoes" />
+				<menu_item_call label="Нов.шкарпетки" name="New Socks" />
+				<menu_item_call label="Нов.піджак" name="New Jacket" />
+				<menu_item_call label="Нов.спідниця" name="New Skirt" />
+				<menu_item_call label="Нов.рукавиці" name="New Gloves" />
+				<menu_item_call label="Нов.майка" name="New Undershirt" />
+				<menu_item_call label="Нов.труси" name="New Underpants" />
+			</menu>
+			<menu label="Нов.Част.Тіла" name="New Body Parts">
+				<menu_item_call label="Нов.форма" name="New Shape" />
+				<menu_item_call label="Нов.шкіра" name="New Skin" />
+				<menu_item_call label="Нов.волосся" name="New Hair" />
+				<menu_item_call label="Нов.очі" name="New Eyes" />
+			</menu>
+		</menu>
+		<menu label="Сортувати" name="Sort">
+			<menu_item_check label="По імені" name="By Name" />
+			<menu_item_check label="По даті" name="By Date" />
+			<menu_item_check label="Папки завжди по імені" name="Folders Always By Name" />
+			<menu_item_check label="Системні папки наверх" name="System Folders To Top" />
+		</menu>
+	</menu_bar>
+</floater>

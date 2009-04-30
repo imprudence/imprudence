@@ -21,6 +21,45 @@
 	<string name="IM_end_log_string">
 		-- ログ記録終了 --
 	</string>
+	<string name="ScriptQuestionCautionChatGranted">
+		[REGIONNAME]の[REGIONPOS]という場所にある「[OWNERNAME]」所有の「[OBJECTNAME]」というオブジェクトは、次の権限を許可しました： [PERMISSIONS]
+	</string>
+	<string name="ScriptQuestionCautionChatDenied">
+		[REGIONNAME]の[REGIONPOS]という場所にある「[OWNERNAME]」所有の「[OBJECTNAME]」というオブジェクトは、次の権限を拒否しました： [PERMISSIONS]
+	</string>
+	<string name="ScriptTakeMoney">
+		リンデンドル（L$）を支払う
+	</string>
+	<string name="ActOnControlInputs">
+		制御入力に基づいて行動
+	</string>
+	<string name="RemapControlInputs">
+		制御入力のリマップ
+	</string>
+	<string name="AnimateYourAvatar">
+		アバターへのアニメーション動作
+	</string>
+	<string name="AttachToYourAvatar">
+		アバターに装着
+	</string>
+	<string name="ReleaseOwnership">
+		所有権を解放し公のものとする
+	</string>
+	<string name="LinkAndDelink">
+		他のオブジェクトのリンクとリンク解除
+	</string>
+	<string name="AddAndRemoveJoints">
+		他のオブジェクトとのジョイントの追加と削除
+	</string>
+	<string name="ChangePermissions">
+		権限の変更
+	</string>
+	<string name="TrackYourCamera">
+		カメラ追従
+	</string>
+	<string name="ControlYourCamera">
+		カメラのコントロール
+	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<combo_box label="ジェスチャー" name="Gesture">
@@ -29,13 +68,13 @@
 				</combo_item>
 			</combo_box>
 			<check_box label="無視されたテキストを表示" name="show mutes"/>
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="ここをクリックして、このIMセッションへのアクティブな参加者リストを表示。"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="ここをクリックするとこのIMセッションの参加者を表示します。"/>
 			<panel name="chat_panel">
 				<string name="gesture_label">
 					ジェスチャー
 				</string>
-				<line_editor label="チャットを開始するには、ここをクリックします。" name="Chat Editor"/>
-				<flyout_button label="発言" name="Say" tool_tip="（Enter）">
+				<line_editor label="ここをクリックして発言" name="Chat Editor"/>
+				<flyout_button label="発言" name="Say" tool_tip="（入力）">
 					<flyout_button_item name="shout_item">
 						叫ぶ
 					</flyout_button_item>

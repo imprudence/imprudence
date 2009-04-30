@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_report_abuse" title="Поскаржитися">
+	<texture_picker label="" name="screenshot" />
+	<check_box label="Включити скріншот" name="screen_check" />
+	<text name="reporter_title">
+		Автор:
+	</text>
+	<text name="reporter_field">
+		Loremipsum Dolorsitamut
+	</text>
+	<text name="sim_title">
+		Регіон:
+	</text>
+	<text name="sim_field">
+		Назва регіона
+	</text>
+	<text name="pos_title">
+		Координати:
+	</text>
+	<text name="pos_field">
+		{128.1, 128.1, 15.4}
+	</text>
+	<text name="select_object_label">
+		Натисніть кнопку, потім об&apos;єкт
+	</text>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="Вибір об&apos;єкта - укажіть об&apos;єкт як предмет скарги" />
+	<text name="object_name_label">
+		Ім&apos;я:
+	</text>
+	<text name="object_name">
+		Чий:
+	</text>
+	<text name="owner_name_label">
+		Власник:
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
+	</text>
+	<combo_box name="category_combo"
+	     tool_tip="Категорія -- виберіть категорію, що найбільше підходить по типу порушення">
+		<combo_item name="Selectcategory">
+			Виберіть категорію
+		</combo_item>
+		<combo_item name="Intolerance">
+			Нетерпимість
+		</combo_item>
+		<combo_item name="Harassment">
+			Переслідування
+		</combo_item>
+		<combo_item name="Assault">
+			Напад
+		</combo_item>
+		<combo_item name="Disclosure">
+			Викриття
+		</combo_item>
+		<combo_item name="Indecency">
+			Непристойність
+		</combo_item>
+		<combo_item name="Age">
+			Вік
+		</combo_item>
+		<combo_item name="Parcel">
+			Ділянка
+		</combo_item>
+		<combo_item name="Other">
+			Інше
+		</combo_item>
+	</combo_box>
+	<text name="abuser_name_title">
+		Ім&apos;я порушника
+	</text>
+	<button label="Вибрати резидента" label_selected=""
+	     name="select_abuser"
+	     tool_tip="Виберіть ім&apos;я порушника зі списку" />
+	<text name="abuser_name_title2">
+		Розміщення скарги:
+	</text>
+	<text name="sum_title">
+		Разом:
+	</text>
+	<text name="dscr_title">
+		Деталі:
+	</text>
+	<text name="bug_aviso">
+		Укажіть, будь ласка, дату, місце, суть порушення,
+процитуйте чат або IM, укажіть об&apos;єкт, якщо можливо.
+	</text>
+	<text name="incomplete_title">
+		Примітка: Неповні заяви не будуть розглядатися
+	</text>
+	<button label="Відмінити" label_selected="Відмінити"
+	     name="cancel_btn" />
+	<button label="Поскаржитися" label_selected="Поскаржитися"
+	     name="send_btn" />
+</floater>

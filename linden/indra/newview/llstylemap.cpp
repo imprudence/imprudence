@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -47,13 +48,13 @@ LLStyleMap::~LLStyleMap()
 
 LLStyleMap &LLStyleMap::instance()
 {
-	static LLStyleMap mStyleMap;
-	return mStyleMap;
+	static LLStyleMap style_map;
+	return style_map;
 }
 
 // This is similar to the [] accessor except that if the entry doesn't already exist,
 // then this will create the entry.
-const LLStyleSP &LLStyleMap::lookup(const LLUUID &source)
+const LLStyleSP &LLStyleMap::lookupAgent(const LLUUID &source)
 {
 	// Find this style in the map or add it if not.  This map holds links to residents' profiles.
 	if (find(source) == end())
@@ -75,6 +76,37 @@ const LLStyleSP &LLStyleMap::lookup(const LLUUID &source)
 		(*this)[source] = style;
 	}
 	return (*this)[source];
+}
+
+// This is similar to lookupAgent for any generic URL encoded style.
+const LLStyleSP &LLStyleMap::lookup(const LLUUID& id, const std::string& link)
+{
+	// Find this style in the map or add it if not.
+	iterator iter = find(id);
+	if (iter == end())
+	{
+		LLStyleSP style(new LLStyle);
+		style->setVisible(true);
+		style->setFontName(LLStringUtil::null);
+		if (id != LLUUID::null && !link.empty())
+		{
+			style->setColor(gSavedSettings.getColor4("HTMLLinkColor"));
+			style->setLinkHREF(link);
+		}
+		else
+			style->setColor(LLColor4::white);
+		(*this)[id] = style;
+	}
+	else 
+	{
+		LLStyleSP style = (*iter).second;
+		if ( style->getLinkHREF() != link )
+		{
+			style->setLinkHREF(link);
+		}
+	}
+
+	return (*this)[id];
 }
 
 void LLStyleMap::update()

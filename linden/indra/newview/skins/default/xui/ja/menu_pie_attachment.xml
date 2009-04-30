@@ -1,6 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <pie_menu name="Attachment Pie">
-	<menu_item_call label="ドロップ" name="Drop" />
-	<menu_item_call label="取り外す" name="Detach" />
-	<menu_item_call label="編集" name="Edit" />
+	<menu_item_call label="プロフィール..." name="Profile..."/>
+	<menu_item_call label="グループ..." name="Groups..."/>
+	<menu_item_call label="触る" name="Object Touch"/>
+	<menu_item_call label="立ち上がる" name="Stand Up"/>
+	<menu_item_call label="フレンド" name="Friends..."/>
+	<menu_item_call label="ジェスチャー..." name="Gestures..."/>
+	<pie_menu label="詳細＞" name="More &gt;">
+		<menu_item_call label="取り外す" name="Detach"/>
+		<menu_item_call label="取り外す" name="Drop"/>
+		<menu_item_call label="編集..." name="Edit..."/>
+	</pie_menu>
+	<menu_item_call label="容姿..." name="Appearance..."/>
 </pie_menu>

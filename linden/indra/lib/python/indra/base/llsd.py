@@ -28,6 +28,7 @@ $/LicenseInfo$
 
 import datetime
 import base64
+import string
 import struct
 import time
 import types
@@ -36,10 +37,13 @@ import re
 from indra.util.fastest_elementtree import ElementTreeError, fromstring
 from indra.base import lluuid
 
-try:
-    import cllsd
-except ImportError:
-    cllsd = None
+# cllsd.c in server/server-1.25 has memory leaks,
+#   so disabling cllsd for now
+#try:
+#    import cllsd
+#except ImportError:
+#    cllsd = None
+cllsd = None
 
 int_regex = re.compile(r"[-+]?\d+")
 real_regex = re.compile(r"[-+]?(\d+(\.\d*)?|\d*\.\d+)([eE][-+]?\d+)?")
@@ -126,6 +130,7 @@ def date_to_python(node):
     if not val:
         val = "1970-01-01T00:00:00Z"
     return parse_datestr(val)
+    
 
 def uri_to_python(node):
     val = node.text or ''
@@ -936,6 +941,7 @@ def parse_notation(something):
 
 def parse(something):
     try:
+        something = string.lstrip(something)   #remove any pre-trailing whitespace
         if something.startswith('<?llsd/binary?>'):
             return parse_binary(something)
         # This should be better.

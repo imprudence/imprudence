@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -403,7 +404,7 @@ void LLViewerInventoryCategory::updateServer(BOOL is_new) const
 	// communicate that change with the server.
 	if(LLAssetType::AT_NONE != mPreferredType)
 	{
-		LLNotifyBox::showXml("CannotModifyProtectedCategories");
+		LLNotifications::instance().add("CannotModifyProtectedCategories");
 		return;
 	}
 
@@ -427,7 +428,7 @@ void LLViewerInventoryCategory::removeFromServer( void )
 	// communicate that change with the server.
 	if(LLAssetType::AT_NONE != mPreferredType)
 	{
-		LLNotifyBox::showXml("CannotRemoveProtectedCategories");
+		LLNotifications::instance().add("CannotRemoveProtectedCategories");
 		return;
 	}
 

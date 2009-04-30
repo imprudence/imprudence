@@ -1,50 +1,55 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="top_objects" title="请稍等...">
 	<text name="title_text">
 		请等待...
 	</text>
 	<scroll_list name="objects_list">
-		<column label="得分" name="score" />
-		<column label="名称" name="name" />
-		<column label="拥有者" name="owner" />
-		<column label="位置" name="location" />
+		<column label="得分" name="score"/>
+		<column label="名称" name="name"/>
+		<column label="拥有者" name="owner"/>
+		<column label="位置" name="location"/>
+		<column label="时间" name="time"/>
+		<column label="Mono 时间" name="mono_time"/>
 	</scroll_list>
 	<text name="id_text">
 		物体 ID:
 	</text>
-	<button label="显示信标" name="show_beacon_btn" />
+	<button label="显示信标" name="show_beacon_btn"/>
 	<text name="obj_name_text">
 		物体名称:
 	</text>
-	<button label="过滤" name="filter_object_btn" />
+	<button label="过滤" name="filter_object_btn"/>
 	<text name="owner_name_text">
 		主人姓名:
 	</text>
-	<button label="过滤" name="filter_owner_btn" />
-	<button label="归还所选项" name="return_selected_btn" />
-	<button label="全部归还" name="return_all_btn" />
-	<button label="禁用所选项" name="disable_selected_btn" />
-	<button label="全部禁用" name="disable_all_btn" />
-	<button label="刷新" name="refresh_btn" />
-	<text name="top_scripts_title">
+	<button label="过滤" name="filter_owner_btn"/>
+	<button label="归还所选项" name="return_selected_btn"/>
+	<button label="全部归还" name="return_all_btn"/>
+	<button label="禁用所选项" name="disable_selected_btn"/>
+	<button label="全部禁用" name="disable_all_btn"/>
+	<button label="刷新" name="refresh_btn"/>
+	<string name="top_scripts_title">
 		首要脚本
-	</text>
-	<text name="top_scripts_text">
+	</string>
+	<string name="top_scripts_text">
 		[COUNT] 个脚本共占用 [TIME] 毫秒
-	</text>
-	<text name="scripts_score_label">
+	</string>
+	<string name="scripts_score_label">
 		时间
-	</text>
-	<text name="top_colliders_title">
+	</string>
+	<string name="scripts_mono_time_label">
+		Mono 时间
+	</string>
+	<string name="top_colliders_title">
 		首要碰撞源
-	</text>
-	<text name="top_colliders_text">
+	</string>
+	<string name="top_colliders_text">
 		首要 [COUNT] 个物体存在很多潜在的冲突
-	</text>
-	<text name="colliders_score_label">
+	</string>
+	<string name="colliders_score_label">
 		得分
-	</text>
-	<text name="none_descriptor">
+	</string>
+	<string name="none_descriptor">
 		什么也没找到
-	</text>
+	</string>
 </floater>

@@ -12,18 +12,8 @@
 	<text name="event_category" left="150">
 		（なし）
 	</text>
-	<text name="event_mature_label">
-		成人向けコンテンツ：
-	</text>
-	<text name="event_mature" left="150">
-		（不明）
-	</text>
-	<text name="event_mature_yes" left="150">
-		はい
-	</text>
-	<text name="event_mature_no" left="150">
-		いいえ
-	</text>
+
+
 	<text name="event_date_label">
 		日付：
 	</text>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -50,8 +51,10 @@ public:
 	virtual LLRect getRequiredRect();	// Return the height of this object, given the set options.
 */
 
-	LLStatBar *addStat(const std::string& name, LLStat *statp);
+	LLStatBar *addStat(const std::string& name, LLStat *statp,
+					   const std::string& setting = std::string(), BOOL default_bar = FALSE, BOOL default_history = FALSE);
 	LLStatBar *getStatBar(const std::string& name);
+	LLStatView *addStatView(const std::string& name, const std::string& label, const std::string& setting, const LLRect& rect);
 
 protected:
 	typedef std::vector<LLStatBar *> sb_vector_t;
@@ -59,4 +62,4 @@ protected:
 	U32 mNumStatBars;
 	std::string mSetting;
 };
-#endif // LL_STATVIEW_
+#endif // LL_STATVIEW_H

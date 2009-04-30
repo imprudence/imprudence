@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Повідомлення" name="popups" title="Повідомлення">
+	<text name="dont_show_label">
+		Не показувати Повідомлень:
+	</text>
+	<button label="Увім. це Повідомл." name="enable_popup" />
+	<text name="show_label">
+		Показувати Повідом.:
+	</text>
+	<text type="string" length="1" name="text_box2">
+		Дозволи для текстур, текстур і закладок:
+	</text>
+	<check_box label="Приймати автоматично" name="accept_new_inventory" />
+	<check_box label="Автоматичний перегляд при отриманні"
+	     name="show_new_inventory" />
+	<button label="Показати &apos;Показувані&apos; Повідом..."
+	     name="reset_dialogs_btn"
+	     tool_tip="Увімкнути всі показувані &apos;вперше&apos; повідомл." />
+	<button label="Скинути &apos;Показувані&apos; Повідом..."
+	     name="skip_dialogs_btn"
+	     tool_tip="Вимкнути всі показувані &apos;вперше&apos; повідомлення." />
+</panel>

@@ -19,7 +19,7 @@
 		Tráfego: [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Área: [AREA] m2
+		Área: [AREA] m²
 	</string>
 	<string name="forsale_text">
 		À venda por L$ [PRICE]
@@ -34,6 +34,6 @@
 		Informações sobre esta localidade estão indisponíveis no momento, por favor tente novamente mais tarde.
 	</string>
 	<string name="server_forbidden_text">
-		Informações sobre esta localidade estão indisponíveis. Por favor, verifique suas permissões com o dono do terreno.
+		Informações sobre esta localidade estão indisponíveis. Por favor, verifique suas permissões com o dono do lote.
 	</string>
 </panel>

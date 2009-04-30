@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="voice_controls">
+	<button label="" name="speakers_btn"
+	     tool_tip="Pokaż listę Rezydentów używających Rozmów w Twoim otoczeniu" />
+	<button label="Mów" name="push_to_talk" tool_tip="Naciśnij klawisz żeby mówić" />
+	<button label="" name="ptt_lock" tool_tip="Naciśnij żeby włączyć tryb mówienia" />
+	<button label="" name="show_channel"
+	     tool_tip="Nacisnij żeby zobaczyć aktywny kanał głosu" />
+</panel>

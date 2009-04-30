@@ -5,13 +5,11 @@
 	<combo_box
 		 name="boolean_combo">
 		<combo_item
-			 name="TRUE"
-			 value="true">
+			 name="TRUE">
 			TRUE
 		</combo_item>
 		<combo_item
-			 name="FALSE"
-			 value="">
+			 name="FALSE">
 			FALSE
 		</combo_item>
 	</combo_box>

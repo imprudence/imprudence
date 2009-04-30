@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -50,9 +51,9 @@
 // llinfos << mMessage.getString() << llendl; // outputs "Welcome Steve to Second Life"
 // mMessage.setArg("[USERNAME]", "Joe");
 // llinfos << mMessage.getString() << llendl; // outputs "Welcome Joe to Second Life"
-// mMessage = "Recepción a la [SECONDLIFE] [USERNAME]"
+// mMessage = "Recepciï¿³n a la [SECONDLIFE] [USERNAME]"
 // mMessage.setArg("[SECONDLIFE]", "Segunda Vida");
-// llinfos << mMessage.getString() << llendl; // outputs "Recepción a la Segunda Vida Joe"
+// llinfos << mMessage.getString() << llendl; // outputs "Recepciï¿³n a la Segunda Vida Joe"
 
 // Implementation Notes:
 // Attempting to have operator[](const std::string& s) return mArgs[s] fails because we have
@@ -71,6 +72,8 @@ public:
 	LLUIString& operator=(const std::string& s) { assign(s); return *this; }
 
 	void setArgList(const LLStringUtil::format_map_t& args);
+	void setArgs(const LLStringUtil::format_map_t& args) { setArgList(args); }
+	void setArgs(const class LLSD& sd);
 	void setArg(const std::string& key, const std::string& replacement);
 
 	const std::string& getString() const { return mResult; }

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -36,7 +37,6 @@
 #include "llsd.h"
 
 class LLChainIOFactory;
-
 
 /**
  * These classes represent the HTTP framework: The URL tree, and the LLSD
@@ -88,6 +88,9 @@ public:
 	virtual LLSD post(const LLSD& input) const;
 	virtual LLSD del(const LLSD& context) const;
 
+	/**
+	* @brief Abstract Base Class declaring Response interface.
+	*/
 	class Response : public LLRefCount
 	{
 	protected:
@@ -95,9 +98,14 @@ public:
 
 	public:
 		/**
-		 * @brief Return the LLSD content and a 200 OK.
-		 */
+		* @brief Return the LLSD content and a 200 OK.
+		*/
 		virtual void result(const LLSD&) = 0;
+
+		/**
+		 * @brief return status code and message with headers.
+		 */
+		virtual void extendedResult(S32 code, const std::string& message, const LLSD& headers) = 0;
 
 		/**
 		 * @brief return status code and reason string on http header,
@@ -106,41 +114,40 @@ public:
 		virtual void status(S32 code, const std::string& message) = 0;
 
 		/**
-		 * @brief Return no body, just status code and 'UNKNOWN ERROR'.
-		 */
-		void status(S32 code);
+		* @brief Return no body, just status code and 'UNKNOWN ERROR'.
+		*/
+		virtual void status(S32 code);
 
-		void notFound(const std::string& message);
-		void notFound();
-		void methodNotAllowed();
+		virtual void notFound(const std::string& message);
+		virtual void notFound();
+		virtual void methodNotAllowed();
 
 		/**
-		 * @breif Add a name: value http header.
-		 *
-		 * No effort is made to ensure the response is a valid http
-		 * header.
-		 * The headers are stored as a map of header name : value.
-		 * Though HTTP allows the same header name to be transmitted
-		 * more than once, this implementation only stores a header
-		 * name once.
-		 * @param name The name of the header, eg, "Content-Encoding"
-		 * @param value The value of the header, eg, "gzip"
-		 */
-		void addHeader(const std::string& name, const std::string& value);
+		* @breif Add a name: value http header.
+		*
+		* No effort is made to ensure the response is a valid http
+		* header.
+		* The headers are stored as a map of header name : value.
+		* Though HTTP allows the same header name to be transmitted
+		* more than once, this implementation only stores a header
+		* name once.
+		* @param name The name of the header, eg, "Content-Encoding"
+		* @param value The value of the header, eg, "gzip"
+		*/
+		virtual void addHeader(const std::string& name, const std::string& value);
 
 	protected:
 		/**
-		 * @brief Headers to be sent back with the HTTP response.
-		 *
-		 * Protected class membership since derived classes are
-		 * expected to use it and there is no use case yet for other
-		 * uses. If such a use case arises, I suggest making a
-		 * headers() public method, and moving this member data into
-		 * private.
-		 */
+		* @brief Headers to be sent back with the HTTP response.
+		*
+		* Protected class membership since derived classes are
+		* expected to use it and there is no use case yet for other
+		* uses. If such a use case arises, I suggest making a
+		* headers() public method, and moving this member data into
+		* private.
+		*/
 		LLSD mHeaders;
 	};
-
 
 	typedef LLPointer<Response> ResponsePtr;
 
@@ -217,6 +224,14 @@ public:
 	const LLHTTPNode* rootNode() const;
 	const LLHTTPNode* findNode(const std::string& name) const;
 
+
+	enum EHTTPNodeContentType
+	{
+		CONTENT_TYPE_LLSD,
+		CONTENT_TYPE_TEXT
+	};
+
+	virtual EHTTPNodeContentType getContentType() const { return CONTENT_TYPE_LLSD; }
 	//@}
 
 	/* @name Description system
@@ -276,6 +291,7 @@ public:
 	static LLPointer<LLSimpleResponse> create();
 	
 	void result(const LLSD& result);
+	void extendedResult(S32 code, const std::string& body, const LLSD& headers);
 	void status(S32 code, const std::string& message);
 
 	void print(std::ostream& out) const;

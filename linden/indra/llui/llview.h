@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -51,6 +52,7 @@
 #include "llxmlnode.h"
 #include "stdenums.h"
 #include "lluistring.h"
+#include "llcursortypes.h"
 
 const U32	FOLLOWS_NONE	= 0x00;
 const U32	FOLLOWS_LEFT	= 0x01;
@@ -484,7 +486,7 @@ public:
 			// did we find *something* with that name?
 			if (child)
 			{
-				llwarns << "Found child named " << name << " but of wrong type" << llendl;
+				llwarns << "Found child named " << name << " but of wrong type " << typeid(child).name() << ", expecting " << typeid(T).name() << llendl;
 			}
 			if (create_if_missing)
 			{
@@ -493,6 +495,11 @@ public:
 			}
 		}
 		return result;
+	}
+
+	template <class T> T& getChildRef(const std::string& name, BOOL recurse = TRUE) const
+	{
+		return *getChild<T>(name, recurse, TRUE);
 	}
 
 	virtual LLView* getChildView(const std::string& name, BOOL recurse = TRUE, BOOL create_if_missing = TRUE) const;
@@ -649,6 +656,8 @@ private:
 	mutable dummy_widget_map_t mDummyWidgets;
 
 	boost::signals::connection mControlConnection;
+
+	ECursorType mHoverCursor;
 	
 public:
 	static BOOL	sDebugRects;	// Draw debug rects behind everything.

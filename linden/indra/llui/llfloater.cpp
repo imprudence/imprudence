@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -147,6 +148,7 @@ LLFloater::LLFloater() :
 	}
 	mDragHandle = NULL;
 	mHandle.bind(this);
+	mNotificationContext = new LLFloaterNotificationContext(getHandle());
 }
 
 LLFloater::LLFloater(const std::string& name)
@@ -220,6 +222,7 @@ void LLFloater::initFloater(const std::string& title,
 					 BOOL drag_on_left, BOOL minimizable, BOOL close_btn)
 {
 	mHandle.bind(this);
+	mNotificationContext = new LLFloaterNotificationContext(getHandle());
 
 	// Init function can be called more than once, so clear out old data.
 	for (S32 i = 0; i < BUTTON_COUNT; i++)
@@ -429,6 +432,9 @@ void LLFloater::initFloater(const std::string& title,
 // virtual
 LLFloater::~LLFloater()
 {
+	delete mNotificationContext;
+	mNotificationContext = NULL;
+
 	control_map_t::iterator itor;
 	for (itor = mFloaterControls.begin(); itor != mFloaterControls.end(); ++itor)
 	{
@@ -774,7 +780,7 @@ void LLFloater::snappedTo(const LLView* snap_view)
 
 void LLFloater::userSetShape(const LLRect& new_rect)
 {
-	const LLRect& old_rect = getRect();
+	const LLRect old_rect = getRect();
 	LLView::userSetShape(new_rect);
 
 	// if not minimized, adjust all snapped dependents to new shape
@@ -1697,7 +1703,7 @@ void LLFloater::buildButtons()
 			LLStringUtil::null,
 			sButtonCallbacks[i],
 			this,
-			LLFontGL::sSansSerif);
+			LLFontGL::getFontSansSerif());
 
 		buttonp->setTabStop(FALSE);
 		buttonp->setFollowsTop();

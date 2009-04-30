@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(неизвестно)" name="im_floater" title="(неизвестно)">
+	<string name="ringing">
+		Присоединяемся к Голосовому Чату...
+	</string>
+	<string name="connected">
+		Подключено, нажмите Закончить для того, чтобы закончить связь
+	</string>
+	<string name="hang_up">
+		Покинуть Голосовой Чат
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="live_help_dialog">
+		*** Добро пожаловать в Запрос Помощи *** 
+Пожалуйста, проверьте сначала страницы помощи по SL, нажав F1, или обратитесь к Базе Знаний http://secondlife.com/knowledgebase/ 
+Если Вашего ответа здесь нет, то напишите свой вопрос, и потом подождите несколько минут пока доступный помощник не ответит Вам.
+ -=-=- Время ответа может быть разным , особенно, в часы пик -=-=-
+	</string>
+	<string name="title_string">
+		Мгновенное сообщение с [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] печатает...
+	</string>
+	<string name="session_start_string">
+		Начало сессии с [NAME], подождите.
+	</string>
+	<string name="moderated_chat_label">
+		(Модерируется)
+	</string>
+	<string name="default_text_label">
+		Кликните сюда для IM
+	</string>
+	<string name="muted_text_label">
+		Текстовый чат отключен модератором группы.
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Инфо о Группе" name="group_info_btn" />
+			<button label="Присоед." name="start_call_btn" />
+			<button label="Закончить Звонок" name="end_call_btn" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Кликните сюда для показа активных участников IM сессии." />
+			<button label="Отправить" name="send_btn" />
+		</layout_panel>
+	</layout_stack>
+</floater>

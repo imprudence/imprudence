@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -48,9 +49,6 @@ extern "C" {
 }
 
 #include "llmediaimplgstreamervidplug.h"
-#ifdef LL_GST_SOUNDSINK
-#include "llmediaimplgstreamersndplug.h"
-#endif // LL_GST_SOUNDSINK
 
 class LLMediaManagerData;
 class LLMediaImplMaker;
@@ -81,29 +79,37 @@ class LLMediaImplGStreamer:
 
 	        LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
 
-	private:
         	// misc
-	        bool unload();
 	        bool pause();
 	        bool stop();
 	        bool play();
-	        static gboolean bus_callback (GstBus     *bus,
-					      GstMessage *message,
-					      gpointer    data);
+        	bool getTimePos(double &sec_out);
+        	static const double MIN_LOOP_SEC = 1.0F;
+
+	private:
+	        bool unload();
+
+        	static bool mDoneInit;
+
+	        guint mBusWatchID;
+
 		unsigned char* mediaData;
         	int mMediaRowbytes;
 
 	        int mTextureFormatPrimary;
 	        int mTextureFormatType;
 
-	        // GStreamer-specific
+	        // Very GStreamer-specific
         	GMainLoop *mPump; // event pump for this media
 	        GstElement *mPlaybin;
 		GstSLVideo *mVideoSink;
-#ifdef LL_GST_SOUNDSINK
-		GstSLSound *mAudioSink;
-#endif // LL_GST_SOUNDSINK
 };
+
+extern "C" {
+gboolean llmediaimplgstreamer_bus_callback (GstBus     *bus,
+					    GstMessage *message,
+					    gpointer    data);
+}
 
 class LLMediaImplGStreamerMaker : public LLMediaImplMaker
 {

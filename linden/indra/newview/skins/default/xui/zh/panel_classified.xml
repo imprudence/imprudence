@@ -1,14 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Classified" title="分类的">
-	<line_editor name="given_name_editor"
-	     tool_tip="名字必须以字母或数字开始，不可用标点。" />
-	<line_editor name="location_editor"
-	     tool_tip="设置分类广告的位置到你当前的位置。" />
-	<button label="调节位置" name="set_location_btn" />
-	<button label="瞬间移动" name="classified_teleport_btn" />
-	<button label="在地图中显示" name="classified_map_btn" />
-	<button label="档案" name="classified_profile_btn" />
-	<check_box label="成人" name="classified_mature_check" />
-	<combo_box label="" name="classified_category_combo" />
-	<button label="更新" name="classified_update_btn" />
+	<line_editor name="given_name_editor" tool_tip="名字必须以字母或数字开始，不可用标点。"/>
+	<line_editor name="location_editor" tool_tip="设置分类广告的位置到你当前的位置。"/>
+	<button label="调节位置" name="set_location_btn"/>
+	<button label="瞬间移动" name="classified_teleport_btn"/>
+	<button label="在地图中显示" name="classified_map_btn"/>
+	<button label="档案" name="classified_profile_btn"/>
+
+	<combo_box label="" name="classified_category_combo"/>
+	<button label="更新" name="classified_update_btn"/>
+	<string name="ad_placed_paid">
+		广告地址：[DATE],发布付款 L$[AMT]
+	</string>
+	<string name="update_txt">
+		更新
+	</string>
+	<string name="publish_txt">
+		发布...
+	</string>
 </panel>

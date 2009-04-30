@@ -1,308 +1,200 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <menu_bar name="Main Menu">
 	<menu label="文件" name="File">
-		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-		<menu_item_call label="上传图像 (L$[COST])..." name="Upload Image" />
-		<menu_item_call label="上传声音 (L$[COST])..." name="Upload Sound" />
-		<menu_item_call label="上传动画 (L$[COST])..." name="Upload Animation" />
-		<menu_item_call label="大宗文件上传(每个文件需L$[COST])..." name="Bulk Upload" />
-		<menu_item_separator label="-----------" name="separator" />
-		<menu_item_call label="关闭窗口" name="Close Window" />
-		<menu_item_call
-			 label="关闭所有窗口"
-			 name="Close All Windows" />
-		<menu_item_separator label="-----------" name="separator2" />
-		<menu_item_call label="保存材质为..." name="Save Texture As..." />
-		<menu_item_separator label="-----------" name="separator3" />
-		<menu_item_call label="拍摄快照" name="Take Snapshot" />
-		<menu_item_call label="快照存至硬盘" name="Snapshot to Disk" />
-		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="播放/暂停保存影片到硬盘" name="Start/Stop Movie to Disk" />
-		<menu label="设置窗口大小" name="Set Window Size">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-			<menu_item_call label="320x240" name="320x240" />
-			<menu_item_call label="640x480" name="640x480" />
-			<menu_item_call label="800x600" name="800x600" />
-			<menu_item_separator label="-----------" name="separator" />
-			<menu_item_call label="720x480 (NTSC)" name="720x480 (NTSC)" />
-			<menu_item_call label="768x576 (PAL)" name="768x576 (PAL)" />
+		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
+		<menu label="上传" name="upload">
+			<menu_item_call label="上传图像 (L$[COST])..." name="Upload Image" />
+			<menu_item_call label="上传声音 (L$[COST])..." name="Upload Sound" />
+			<menu_item_call label="上传动画 (L$[COST])..." name="Upload Animation" />
+			<menu_item_call label="大宗文件上传(每个文件需L$[COST])..." name="Bulk Upload" />
 		</menu>
-		<menu_item_separator label="-----------" name="separator5" />
-		<menu_item_call label="退出" name="Quit" />
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="关闭窗口" name="Close Window"/>
+		<menu_item_call label="关闭所有窗口" name="Close All Windows"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="保存材质为..." name="Save Texture As..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="拍摄快照" name="Take Snapshot"/>
+		<menu_item_call label="快照存至硬盘" name="Snapshot to Disk"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="退出" name="Quit"/>
 	</menu>
 	<menu label="编辑" name="Edit">
-		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-		<menu_item_call label="撤销" name="Undo" />
-		<menu_item_call label="重做" name="Redo" />
-		<menu_item_separator label="-----------" name="separator" />
-		<menu_item_call label="剪贴" name="Cut" />
-		<menu_item_call label="复制" name="Copy" />
-		<menu_item_call label="粘贴" name="Paste" />
-		<menu_item_call label="删除" name="Delete" />
-		<menu_item_separator label="-----------" name="separator2" />
-		<menu_item_call label="搜索..." name="Search..." />
-		<menu_item_separator label="-----------" name="separator3" />
-		<menu_item_call label="全选" name="Select All" />
-		<menu_item_call label="取消选定" name="Deselect" />
-		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="创建副本" name="Duplicate" />
-		<menu_item_separator label="-----------" name="separator5" />
-		<menu label="穿上物体" name="Attach Object" />
-		<menu label="卸下物体" name="Detach Object" />
+		<menu_item_call label="撤销" name="Undo"/>
+		<menu_item_call label="重做" name="Redo"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="剪贴" name="Cut"/>
+		<menu_item_call label="复制" name="Copy"/>
+		<menu_item_call label="粘贴" name="Paste"/>
+		<menu_item_call label="删除" name="Delete"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="搜索..." name="Search..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="全选" name="Select All"/>
+		<menu_item_call label="取消选定" name="Deselect"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="创建副本" name="Duplicate"/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu label="穿上物体" name="Attach Object"/>
+		<menu label="卸下物体" name="Detach Object"/>
 		<menu label="脱下衣着" name="Take Off Clothing">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-			<menu_item_call label="衬衣" name="Shirt" />
-			<menu_item_call label="裤子" name="Pants" />
-			<menu_item_call label="鞋子" name="Shoes" />
-			<menu_item_call label="袜子" name="Socks" />
-			<menu_item_call label="夹克" name="Jacket" />
-			<menu_item_call label="手套" name="Gloves" />
-			<menu_item_call label="内衣" name="Menu Undershirt" />
-			<menu_item_call label="内裤" name="Menu Underpants" />
-			<menu_item_call label="裙子" name="Skirt" />
-			<menu_item_call label="所有服饰" name="All Clothes" />
+			<menu_item_call label="衬衣" name="Shirt"/>
+			<menu_item_call label="裤子" name="Pants"/>
+			<menu_item_call label="鞋子" name="Shoes"/>
+			<menu_item_call label="袜子" name="Socks"/>
+			<menu_item_call label="夹克" name="Jacket"/>
+			<menu_item_call label="手套" name="Gloves"/>
+			<menu_item_call label="内衣" name="Menu Undershirt"/>
+			<menu_item_call label="内裤" name="Menu Underpants"/>
+			<menu_item_call label="裙子" name="Skirt"/>
+			<menu_item_call label="所有服饰" name="All Clothes"/>
 		</menu>
-		<menu_item_separator label="-----------" name="separator6" />
-		<menu_item_call label="动作..." name="Gestures..." />
-		<menu_item_call label="档案..." name="Profile..." />
-		<menu_item_call label="外观..." name="Appearance..." />
-		<menu_item_separator label="-----------" name="separator7" />
-		<menu_item_check label="朋友..." name="Friends..." />
-		<menu_item_call label="社团..." name="Groups..." />
-		<menu_item_separator label="-----------" name="separator8" />
-		<menu_item_call label="参数设置..." name="Preferences..." />
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="动作..." name="Gestures..."/>
+		<menu_item_call label="档案..." name="Profile..."/>
+		<menu_item_call label="外观..." name="Appearance..."/>
+		<menu_item_separator label="-----------" name="separator7"/>
+		<menu_item_check label="朋友..." name="Friends..."/>
+		<menu_item_call label="社团..." name="Groups..."/>
+		<menu_item_separator label="-----------" name="separator8"/>
+		<menu_item_call label="参数设置..." name="Preferences..."/>
 	</menu>
 	<menu label="查看" name="View">
-		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-		<menu_item_call label="第一人称视角" name="Mouselook" />
-		<menu_item_check label="建造" name="Build" />
-		<menu_item_call label="重新设置视角" name="Reset View" />
-		<menu_item_call label="查看最后一次聊天者" name="Look at Last Chatter" />
-		<menu_item_separator label="-----------" name="separator" />
-		<menu_item_check label="工具栏" name="Toolbar" />
-		<menu_item_check label="聊天记录" name="Chat History" />
-		<menu_item_check label="即时消息" name="Instant Message" />
-		<menu_item_call label="库存" name="Inventory" />
-		<menu_item_check
-			 label="活跃的说话人"
-			 name="Active Speakers" />
-		<menu_item_check label="屏蔽名单" name="Mute List" />
-		<menu_item_separator label="-----------" name="separator2" />
-		<menu_item_check label="摄像头控制" name="Camera Controls" />
-		<menu_item_check label="移动控制" name="Movement Controls" />
-		<menu_item_check label="世界地图" name="World Map" />
-		<menu_item_check label="迷你地图" name="Mini-Map" />
-		<menu_item_separator label="-----------" name="separator3" />
-		<menu_item_check label="统计条" name="Statistics Bar" />
-		<menu_item_check label="地块边线" name="Property Lines" />
-		<menu_item_check label="土地所有者" name="Land Owners" />
-		<menu_item_separator label="-----------" name="separator4" />
+		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
+		<menu_item_call label="第一人称视角" name="Mouselook"/>
+		<menu_item_check label="建造" name="Build"/>
+		<menu_item_check label="三维浏览手柄" name="Joystick Flycam"/>
+		<menu_item_call label="重新设置视角" name="Reset View"/>
+		<menu_item_call label="查看最后一次聊天者" name="Look at Last Chatter"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_check label="工具栏" name="Toolbar"/>
+		<menu_item_check label="聊天记录" name="Chat History"/>
+		<menu_item_check label="即时消息" name="Instant Message"/>
+		<menu_item_check label="库存" name="Inventory"/>
+		<menu_item_check label="活跃的说话人" name="Active Speakers"/>
+		<menu_item_check label="屏蔽名单" name="Mute List"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_check label="摄像头控制" name="Camera Controls"/>
+		<menu_item_check label="移动控制" name="Movement Controls"/>
+		<menu_item_check label="世界地图" name="World Map"/>
+		<menu_item_check label="迷你地图" name="Mini-Map"/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_check label="统计条" name="Statistics Bar"/>
+		<menu_item_check label="地块边线" name="Property Lines"/>
+		<menu_item_check label="土地所有者" name="Land Owners"/>
+		<menu_item_separator label="-----------" name="separator4"/>
 		<menu label="悬停提示" name="Hover Tips">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-			<menu_item_check label="显示提示" name="Show Tips" />
-			<menu_item_separator label="-----------" name="separator" />
-			<menu_item_check label="关于土地的提示" name="Land Tips" />
-			<menu_item_check label="所有物体的提示" name="Tips On All Objects" />
+			<menu_item_check label="显示提示" name="Show Tips"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_check label="关于土地的提示" name="Land Tips"/>
+			<menu_item_check label="所有物体的提示" name="Tips On All Objects"/>
 		</menu>
-		<menu_item_check label="Alt键显示物理" name="Alt Shows Physical" />
-		<menu_item_check label="高亮透明物体" name="Highlight Transparent" />
+		<menu_item_check label="高亮透明物体" name="Highlight Transparent"/>
 		<menu_item_check label="信标" name="beacons"/>
 		<menu_item_check label="隐藏粒子" name="Hide Particles"/>
-		<menu_item_check label="显示界面附件" name="Show HUD Attachments" />
-		<menu_item_separator label="-----------" name="separator5" />
-		<menu_item_call label="缩小" name="Zoom In" />
-		<menu_item_call label="默认缩放" name="Zoom Default" />
-		<menu_item_call label="放大" name="Zoom Out" />
-		<menu_item_separator label="-----------" name="separator6" />
-		<menu_item_call label="切换全屏状态" name="Toggle Fullscreen" />
-			<menu_item_call label="设置用户界面尺寸为默认值" name="Set UI Size to Default" />
+		<menu_item_check label="显示界面附件" name="Show HUD Attachments"/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu_item_call label="缩小" name="Zoom In"/>
+		<menu_item_call label="默认缩放" name="Zoom Default"/>
+		<menu_item_call label="放大" name="Zoom Out"/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="切换全屏状态" name="Toggle Fullscreen"/>
+		<menu_item_call label="设置用户界面尺寸为默认值" name="Set UI Size to Default"/>
 	</menu>
 	<menu label="世界" name="World">
-		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-		<menu_item_call label="聊天" name="Chat" />
-		<menu_item_call label="开始动作" name="Start Gesture" />
-		<menu_item_check label="总是奔跑" name="Always Run" />
-		<menu_item_check label="飞翔" name="Fly" />
-		<menu_item_separator label="-----------" name="separator" />
-		<menu_item_call label="在这里创建地标" name="Create Landmark Here" />
-		<menu_item_call label="将家设置到这里" name="Set Home to Here" />
-		<menu_item_separator label="-----------" name="separator2" />
-		<menu_item_call label="瞬间移动回家" name="Teleport Home" />
-		<menu_item_separator label="-----------" name="separator3" />
-		<menu_item_call label="设成离开状态" name="Set Away" />
-		<menu_item_call label="设成繁忙状态" name="Set Busy" />
-		<menu_item_call
-			 label="释放按键"
-			 name="Release Keys">
-			<on_click />
-			<on_enable />
-		</menu_item_call>
-		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="帐户历史纪录..." name="Account History..." />
-		<menu_item_call label="管理我的帐户..." name="Manage My Account..." />
-		<menu_item_call label="购买 L$..." name="Buy and Sell L$..." />
-		<menu_item_separator label="-----------" name="separator5" />
-		<menu_item_call label="我的土地..." name="My Land..." />
-		<menu_item_call label="关于土地..." name="About Land..." />
-		<menu_item_call label="购买土地..." name="Buy Land..." />
-		<menu_item_call label="地区/地产..." name="Region/Estate..." />
-		<menu_item_separator label="-----------" name="separator6" />
-		<menu
-			 label="环境设置"
-			 name="Environment Settings">
-			<menu_item_call
-				 label="日出"
-				 name="Sunrise" />
-			<menu_item_call
-				 label="中午"
-				 name="Noon" />
-			<menu_item_call
-				 label="日落"
-				 name="Sunset"
-				 shortcut="control|shift|N" />
-			<menu_item_call
-				 label="半夜"
-				 name="Midnight" />
-			<menu_item_call
-				 label="恢复地区默认值"
-				 name="Revert to Region Default" />	
-			<menu_item_call
-				 label="环境编辑器"
-				 name="Environment Editor" />
+		<menu_item_call label="聊天" name="Chat"/>
+		<menu_item_check label="总是奔跑" name="Always Run"/>
+		<menu_item_check label="飞翔" name="Fly"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="在这里创建地标" name="Create Landmark Here"/>
+		<menu_item_call label="将家设置到这里" name="Set Home to Here"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="瞬间移动回家" name="Teleport Home"/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="设成离开状态" name="Set Away"/>
+		<menu_item_call label="设成繁忙状态" name="Set Busy"/>
+		<menu_item_call label="停止所有动画" name="Stop All Animations"/>
+		<menu_item_call label="释放按键" name="Release Keys"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="帐户历史纪录..." name="Account History..."/>
+		<menu_item_call label="管理我的帐户..." name="Manage My Account..."/>
+		<menu_item_call label="购买 L$..." name="Buy and Sell L$..."/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu_item_call label="我的土地..." name="My Land..."/>
+		<menu_item_call label="关于土地..." name="About Land..."/>
+		<menu_item_call label="购买土地..." name="Buy Land..."/>
+		<menu_item_call label="地区/地产..." name="Region/Estate..."/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu label="环境设置" name="Environment Settings">
+			<menu_item_call label="日出" name="Sunrise"/>
+			<menu_item_call label="中午" name="Noon"/>
+			<menu_item_call label="日落" name="Sunset" shortcut="control|shift|N"/>
+			<menu_item_call label="半夜" name="Midnight"/>
+			<menu_item_call label="恢复地区默认值" name="Revert to Region Default"/>
+			<menu_item_call label="环境编辑器" name="Environment Editor"/>
 		</menu>
-
-<!--		<menu label="强制太阳位置" name="Force Sun">
-		</menu>
--->
 	</menu>
 	<menu label="工具" name="Tools">
-		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
 		<menu label="选择工具" name="Select Tool">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-			<menu_item_call label="焦点" name="Focus" />
-			<menu_item_call label="移动" name="Move" />
-			<menu_item_call label="编辑" name="Edit" />
-			<menu_item_call label="创造" name="Create" />
-			<menu_item_call label="土地" name="Land" />
+			<menu_item_call label="焦点" name="Focus"/>
+			<menu_item_call label="移动" name="Move"/>
+			<menu_item_call label="编辑" name="Edit"/>
+			<menu_item_call label="创造" name="Create"/>
+			<menu_item_call label="土地" name="Land"/>
 		</menu>
-		<menu_item_separator label="-----------" name="separator" />
-		<menu_item_check label="只选择我的物体" name="Select Only My Objects" />
-		<menu_item_check label="只选择可移动的物体" name="Select Only Movable Objects" />
-		<menu_item_check label="选中包围区域" name="Select By Surrounding" />
-		<menu_item_check label="显示隐藏的选中项" name="Show Hidden Selection" />
-		<menu_item_check label="显示选择项的光照半径" name="Show Light Radius for Selection" />
-		<menu_item_check label="显示选择导引" name="Show Selection Beam" />
-		<menu_item_separator label="-----------" name="separator2" />
-		<menu_item_check label="对齐到网格" name="Snap to Grid" />
-		<menu_item_call label="在 XY 面上对齐网格" name="Snap Object XY to Grid" />
-		<menu_item_call label="以选项作为网格" name="Use Selection for Grid" />
-		<menu_item_call label="网格选项..." name="Grid Options..." />
-		<menu_item_separator label="-----------" name="separator3" />
-		<!--Is left uncorrected because I feel it looks nicer-->
-		<menu_item_check
-			 label="编辑链接部件"
-			 name="Edit Linked Parts"
-			 shortcut="">
-		</menu_item_check>
-		<menu_item_call label="链接" name="Link" />
-		<menu_item_call label="解除链接" name="Unlink" />
-		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="停止所有动画" name="Stop All Animations" />
-		<menu_item_separator label="-----------" name="separator5" />
-		<menu_item_call label="聚焦于所选物体" name="Focus on Selection" />
-		<menu_item_call label="缩放到所选物体" name="Zoom to Selection" />
-		<menu_item_call label="购买物体" name="Menu Object Take" />
-		<menu_item_call label="拿走副本" name="Take Copy" />
-		<menu_item_call label="将物体存回至我的库存" name="Save Object Back to My Inventory" />
-		<menu_item_call label="将物体存回至物体内容" name="Save Object Back to Object Contents" />
-		<menu_item_separator label="-----------" name="separator6" />
-		<menu_item_call label="显示脚本警告/错误窗口" name="Show Script Warning/Error Window" />
-		<menu label="重新编译所选项中脚本为" name="Recompile Scripts in Selection" />
-		<menu_item_call label="重置所选项中脚本" name="Reset Scripts in Selection" />
-		<menu_item_call label="设置所选项中脚本运行"
-		     name="Set Scripts to Running in Selection" />
-		<menu_item_call label="设置所选项中脚本不运行"
-		     name="Set Scripts to Not Running in Selection" />
-		<menu_item_separator
-			 label="-----------"
-			 name="separator7" />
-			 
-
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_check label="只选择我的物体" name="Select Only My Objects"/>
+		<menu_item_check label="只选择可移动的物体" name="Select Only Movable Objects"/>
+		<menu_item_check label="选中包围区域" name="Select By Surrounding"/>
+		<menu_item_check label="显示隐藏的选中项" name="Show Hidden Selection"/>
+		<menu_item_check label="显示选择项的光照半径" name="Show Light Radius for Selection"/>
+		<menu_item_check label="显示选择导引" name="Show Selection Beam"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_check label="对齐到网格" name="Snap to Grid"/>
+		<menu_item_call label="在 XY 面上对齐网格" name="Snap Object XY to Grid"/>
+		<menu_item_call label="以选项作为网格" name="Use Selection for Grid"/>
+		<menu_item_call label="网格选项..." name="Grid Options..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_check label="编辑链接部件" name="Edit Linked Parts" shortcut=""/>
+		<menu_item_call label="链接" name="Link"/>
+		<menu_item_call label="解除链接" name="Unlink"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="聚焦于所选物体" name="Focus on Selection"/>
+		<menu_item_call label="缩放到所选物体" name="Zoom to Selection"/>
+		<menu_item_call label="购买物体" name="Menu Object Take"/>
+		<menu_item_call label="拿走副本" name="Take Copy"/>
+		<menu_item_call label="将物体存回至我的库存" name="Save Object Back to My Inventory"/>
+		<menu_item_call label="将物体存回至物体内容" name="Save Object Back to Object Contents"/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="显示脚本警告/错误窗口" name="Show Script Warning/Error Window"/>
+		<menu label="重新编译所选项中脚本为" name="Recompile Scripts in Selection">
+			<menu_item_call label="Mono" name="Mono"/>
+			<menu_item_call label="LSL" name="LSL"/>
+		</menu>
+		<menu_item_call label="重置所选项中脚本" name="Reset Scripts in Selection"/>
+		<menu_item_call label="设置所选项中脚本运行" name="Set Scripts to Running in Selection"/>
+		<menu_item_call label="设置所选项中脚本不运行" name="Set Scripts to Not Running in Selection"/>
 	</menu>
 	<menu label="帮助" name="Help">
-		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-		<menu_item_call label="第二人生帮助" name="Second Life Help" />
-		<!--TODO-->
-		<menu_item_call
-			 label="世界中帮助"
-			 name="In-World Help" />
-		<menu_item_call
-			 label="教程"
-			 name="Tutorial">
-			<on_click />
-		</menu_item_call>
-		<menu_item_call
-			 label="额外帮助"
-			 name="Additional Help" />
-<!--		<menu_item_call label="基础信息..." name="Knowledge Base..." />
-		<menu_item_call label="演示帮助..." name="Live Help..." />-->
-		<menu_item_separator label="-----------" name="separator" />
-		<menu_item_call label="官方林登博客..." name="Official Linden Blog..." />
-		<menu_item_separator label="-----------" name="separator2" />
-		<menu_item_call
-			 label="脚本 Wiki 门户..."
-			 name="Scripting Portal..." />
-		<!--<menu_item_call label="编辑维基脚本..." name="Scripting Wiki..." />-->
-		<menu_item_separator label="-----------" name="separator3" />
-		<!--TODO-->
-		<menu_item_call label="今日消息..." name="Message of the Day..." />
-		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="报告不良行为..." name="Report Abuse..." />
-		<menu_item_call label="颠簸，推动和碰撞..." name="Bumps, Pushes &amp;amp; Hits..." />
-		<menu_item_call
-			 label="延迟计量器"
-			 name="Lag Meter" />
-		<menu
-			 drop_shadow="true"
-			 label="错误汇报"
-			 name="Bug Reporting"
-			 opaque="true"
-			 tear_off="true"
-			 create_jump_keys="true">
-			<!--TODO-->
-			<menu_item_call
-				 label="公开 Issue Tracker..."
-				 name="Public Issue Tracker...">
-			<on_click />
-			</menu_item_call>
-			<menu_item_call
-				 label="公开 Issue Tracker 帮助..."
-				 name="Publc Issue Tracker Help..." />
-			<menu_item_separator
-				 label="-----------"
-				 name="separator7" />
-			<menu_item_call
-				 label="错误回报基础..."
-				 name="Bug Reporting 101..." />
-			<menu_item_call
-				 label="安全问题..."
-				 name="Security Issues..." />
-			<menu_item_call
-				 label="质量保证 Wiki..."
-				 name="QA Wiki..." />
-			<menu_item_separator
-				 label="-----------"
-				 name="separator7" />
-			<menu_item_call
-				 label="汇报错误..."
-				 name="Report Bug...">
-			<on_click />
-			</menu_item_call>
+		<menu_item_call label="第二人生帮助" name="Second Life Help"/>
+		<menu_item_call label="教程" name="Tutorial"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="官方林登博客..." name="Official Linden Blog..."/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="脚本 Wiki 门户..." name="Scripting Portal..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="报告不良行为..." name="Report Abuse..."/>
+		<menu_item_call label="颠簸，推动和碰撞..." name="Bumps, Pushes &amp;amp; Hits..."/>
+		<menu_item_call label="延迟计量器" name="Lag Meter"/>
+		<menu create_jump_keys="true" drop_shadow="true" label="错误汇报" name="Bug Reporting" opaque="true" tear_off="true">
+			<menu_item_call label="公开 Issue Tracker..." name="Public Issue Tracker..."/>
+			<menu_item_call label="公开 Issue Tracker 帮助..." name="Publc Issue Tracker Help..."/>
+			<menu_item_separator label="-----------" name="separator7"/>
+			<menu_item_call label="Bug报告 101..." name="Bug Reporing 101..."/>
+			<menu_item_call label="安全问题..." name="Security Issues..."/>
+			<menu_item_call label="质量保证 Wiki..." name="QA Wiki..."/>
+			<menu_item_call label="汇报错误..." name="Report Bug..."/>
 		</menu>
-		<menu_item_separator label="-----------" name="separator5" />
-		<menu_item_call label="发行说明..." name="Release Notes..." />
-		<menu_item_separator label="-----------" name="separator6" />
-		<menu_item_call label="关于第二人生..." name="About Second Life..." />
+		<menu_item_call label="关于第二人生..." name="About Second Life..."/>
 	</menu>
 </menu_bar>
-<!--Translated for Second Life 1.19.0 (79185)-->

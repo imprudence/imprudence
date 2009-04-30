@@ -1,18 +1,47 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater label="(desconocido)" name="im_floater" title="(desconocido)">
-	<line_editor label="Click here to instant message" name="chat_editor" />
-	<button label="Perfil..." label_selected="Perfil..." name="profile_btn" />
-	<button label="Cerrar" label_selected="Cerrar" name="close_btn" />
-	<text name="live_help_dialog">
-		*** Welcome to Help Request *** 
-Please first check our SL Help Pages by pressing F1, or by accessing the Knowledge Base http://secondlife.com/knowledgebase/ 
-If your answer is not there, please enter your question to begin, then allow a few moments for available helpers to respond.
--=-=- Response times will vary, especially during peak times -=-=-
-	</text>
-	<text name="title_string">
-		Instant Message with [NAME]
-	</text>
-	<text name="typing_start_string">
-		[NAME] is typing...
-	</text>
+	<string name="ringing">
+		Llamando...
+	</string>
+	<string name="answering">
+		Conectando...
+	</string>
+	<string name="connected">
+		Conectado, pulse Colgar para acabar
+	</string>
+	<string name="hang_up">
+		Llamada finalizada
+	</string>
+	<string name="inventory_item_offered">
+		Ofrecido un ítem del inventario
+	</string>
+	<string name="voice_icon">
+		icn_voice-pvtfocus.tga
+	</string>
+	<string name="title_string">
+		Mensaje instantáneo a [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] está escribiendo...
+	</string>
+	<string name="session_start_string">
+		Iniciando una sesión con [NAME]; por favor, espere.
+	</string>
+	<string name="default_text_label">
+		Pulse aquí para enviar un mensaje instantáneo.
+	</string>
+	<button label="Perfil..." name="profile_callee_btn"/>
+	<button label="Llamar" name="start_call_btn"/>
+	<button label="Colgar" name="end_call_btn"/>
+	<panel name="speaker_controls">
+		<button label="" name="mute_btn" tool_tip="Silenciar la voz"/>
+	</panel>
+	<line_editor label="Pulse aquí para enviar un mensaje instantáneo" name="chat_editor"/>
+	<button label="Enviar" name="send_btn"/>
+	<string name="live_help_dialog">
+		*** Bienvenido a la Petición de Ayuda *** 
+Por favor, en primer lugar revise nuestras páginas de ayuda de SL pulsando F1, o acceda a la Knowledge Base http://secondlife.com/knowledgebase/ 
+Si no encuentra allí la respuesta que busca, por favor, empiece el proceso escribiendo su pregunta, y espere unos momentos a que responda algún ayudante que esté disponible.
+-=-=- El tiempo de respuesta puede variar, especialmente durante las horas punta -=-=-
+	</string>
 </floater>

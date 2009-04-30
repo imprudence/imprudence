@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Введ. і Камера" name="Input panel">
+	<text type="string" length="1" name=" Mouselook Options:">
+		Опції виду мишкою:
+	</text>
+	<text type="string" length="1" name=" Mouse Sensitivity:">
+		Чутл. миші:
+	</text>
+	<check_box label="Інвертувати мишу" name="invert mouse" />
+	<text type="string" length="1" name=" Auto Fly Options:">
+		Опція авто-польоту:
+	</text>
+	<check_box
+	     label="Злітати/приземлятися при утриманні вгору/вниз"
+	     name="automatic fly" />
+	<text type="string" length="1" name=" Camera Options:">
+		Опції Камери:
+	</text>
+	<text type="string" length="1" name="Camera Follow Distance:">
+		Від.слідов.камери:
+	</text>
+	<text type="string" length="1" name="Camera Transition Time:">
+		Час перекл.камери:
+	</text>
+	<text type="string" length="1" name="Camera Smoothing:">
+		Згладжування камери:
+	</text>
+	<check_box label="Автоматичний рух камери при правці"
+	     name="edit camera movement"
+	     tool_tip="Автопозиціонування камери при вході і виході з режима правки" />
+	<check_box
+	     label="Автоматичний рух камери при ред.зовнішності"
+	     name="appearance camera movement"
+	     tool_tip="Автопозиціонування камери в режимі правки" />
+	<text type="string" length="1" name="text2">
+		Опції Показу Аватара:
+	</text>
+	<check_box
+	     label="Показувати Аватара в режимі перегляду мишкою"
+	     name="avfp" />
+	<button label="Настройка Джойстика" name="joystic_setup_button" />
+</panel>

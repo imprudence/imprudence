@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_voice_wizard" title="Настройка голосу">
+	<panel name="content_panel">
+		<button label="Попередній" name="back_btn" />
+		<button label="Наступний" name="next_btn" />
+		<button label="Кінець" name="ok_btn" />
+		<button label="Відміна" name="cancel_btn" />
+	</panel>
+</floater>

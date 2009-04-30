@@ -16,7 +16,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -65,6 +66,9 @@ public:
 	//
 	void	generate();					// Generate a new UUID
 	void	generate(const std::string& stream); //Generate a new UUID based on hash of input stream
+
+	static LLUUID generateNewID(std::string stream = "");	//static version of above for use in initializer expressions such as constructor params, etc. 
+
 	BOOL	set(const char *in_string, BOOL emit = TRUE);	// Convert from string, if emit is FALSE, do not emit warnings
 	BOOL	set(const std::string& in_string, BOOL emit = TRUE);	// Convert from string, if emit is FALSE, do not emit warnings
 	void	setNull();					// Faster than setting to LLUUID::null.
@@ -124,7 +128,7 @@ public:
 	static S32 getNodeID(unsigned char * node_id);
 
 	static BOOL parseUUID(const std::string& buf, LLUUID* value);
-	
+
 	U8 mData[UUID_BYTES];
 };
 

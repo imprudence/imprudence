@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="landmarkpicker" title="Organize: Landmarks">
+<floater name="landmarkpicker" title="Organizar: Landmarks">
 	<check_box label="Mostrar Pastas" name="show_folders_check"/>
 	<button label="Novo" label_selected="Novo" name="New"/>
 	<button label="Renomear" label_selected="Renomear" name="Rename"/>

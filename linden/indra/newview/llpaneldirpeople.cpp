@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -86,16 +87,16 @@ void LLPanelDirPeople::performQuery()
 	// possible we threw away all the short words in the query so check length
 	if ( query_string.length() < mMinSearchChars )
 	{
-		gViewerWindow->alertXml("SeachFilteredOnShortWordsEmpty");
+		LLNotifications::instance().add("SeachFilteredOnShortWordsEmpty");
 		return;
 	};
 
 	// if we filtered something out, display a popup
 	if ( query_was_filtered )
 	{
-		LLStringUtil::format_map_t args;
-		args["[FINALQUERY]"] = query_string;
-		gViewerWindow->alertXml("SeachFilteredOnShortWords", args);
+		LLSD args;
+		args["FINALQUERY"] = query_string;
+		LLNotifications::instance().add("SeachFilteredOnShortWords", args);
 	};
 
 	setupNewSearch();

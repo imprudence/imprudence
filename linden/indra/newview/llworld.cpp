@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -110,7 +111,7 @@ LLWorld::LLWorld() :
 	
 	mDefaultWaterTexturep = new LLViewerImage(raw, FALSE);
 	gGL.getTexUnit(0)->bind(mDefaultWaterTexturep.get());
-	mDefaultWaterTexturep->setClamp(TRUE, TRUE);
+	mDefaultWaterTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 
 }
 
@@ -871,7 +872,7 @@ void LLWorld::updateWaterObjects()
 													 y + rwidth/2,
 													 256.f+DEFAULT_WATER_HEIGHT));
 				waterp->setScale(LLVector3((F32)rwidth, (F32)rwidth, 512.f));
-				gPipeline.addObject(waterp);
+				gPipeline.createObject(waterp);
 				mHoleWaterObjects.push_back(waterp);
 			}
 		}
@@ -922,7 +923,7 @@ void LLWorld::updateWaterObjects()
 			waterp = mEdgeWaterObjects[dir];
 			waterp->setUseTexture(FALSE);
 			waterp->setIsEdgePatch(TRUE);
-			gPipeline.addObject(waterp);
+			gPipeline.createObject(waterp);
 		}
 
 		waterp->setRegion(gAgent.getRegion());
@@ -946,7 +947,7 @@ void LLWorld::updateWaterObjects()
 
 void LLWorld::shiftRegions(const LLVector3& offset)
 {
-	for (region_list_t::iterator i = getRegionList().begin(); i != getRegionList().end(); ++i)
+	for (region_list_t::const_iterator i = getRegionList().begin(); i != getRegionList().end(); ++i)
 	{
 		LLViewerRegion* region = *i;
 		region->updateRenderMatrix();
@@ -1132,8 +1133,8 @@ void send_agent_pause()
 	gAgentPauseSerialNum++;
 	gMessageSystem->addU32Fast(_PREHASH_SerialNum, gAgentPauseSerialNum);
 
-	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->mActiveRegionList.begin();
-		 iter != LLWorld::getInstance()->mActiveRegionList.end(); ++iter)
+	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin();
+		 iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 	{
 		LLViewerRegion* regionp = *iter;
 		gMessageSystem->sendReliable(regionp->getHost());
@@ -1162,8 +1163,8 @@ void send_agent_resume()
 	gMessageSystem->addU32Fast(_PREHASH_SerialNum, gAgentPauseSerialNum);
 	
 
-	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->mActiveRegionList.begin();
-		 iter != LLWorld::getInstance()->mActiveRegionList.end(); ++iter)
+	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin();
+		 iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 	{
 		LLViewerRegion* regionp = *iter;
 		gMessageSystem->sendReliable(regionp->getHost());
@@ -1173,6 +1174,62 @@ void send_agent_resume()
 	LLViewerStats::getInstance()->mFPSStat.start();
 
 	LLAppViewer::instance()->resumeMainloopTimeout();
+}
+
+static LLVector3d unpackLocalToGlobalPosition(U32 compact_local, const LLVector3d& region_origin)
+{
+	LLVector3d pos_global;
+	LLVector3 pos_local;
+	U8 bits;
+
+	bits = compact_local & 0xFF;
+	pos_local.mV[VZ] = F32(bits) * 4.f;
+	compact_local >>= 8;
+
+	bits = compact_local & 0xFF;
+	pos_local.mV[VY] = (F32)bits;
+	compact_local >>= 8;
+
+	bits = compact_local & 0xFF;
+	pos_local.mV[VX] = (F32)bits;
+
+	pos_global.setVec( pos_local );
+	pos_global += region_origin;
+	return pos_global;
+}
+
+void LLWorld::getAvatars(std::vector<LLUUID>* avatar_ids, std::vector<LLVector3d>* positions, const LLVector3d& relative_to, F32 radius) const
+{
+	if(avatar_ids != NULL)
+	{
+		avatar_ids->clear();
+	}
+	if(positions != NULL)
+	{
+		positions->clear();
+	}
+	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin();
+		iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
+	{
+		LLViewerRegion* regionp = *iter;
+		const LLVector3d& origin_global = regionp->getOriginGlobal();
+		S32 count = regionp->mMapAvatars.count();
+		for (S32 i = 0; i < count; i++)
+		{
+			LLVector3d pos_global = unpackLocalToGlobalPosition(regionp->mMapAvatars.get(i), origin_global);
+			if(dist_vec(pos_global, relative_to) <= radius)
+			{
+				if(positions != NULL)
+				{
+					positions->push_back(pos_global);
+				}
+				if(avatar_ids != NULL)
+				{
+					avatar_ids->push_back(regionp->mMapAvatarIDs.get(i));
+				}
+			}
+		}
+	}
 }
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="directory" title="Busca Second Life">
+<floater name="directory" title="Busca no Second Life">
 	<tab_container name="Directory Tabs">
 		<panel label="Todos" name="find_all_panel">
 			<string name="searching_text">
@@ -8,9 +8,12 @@
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
+			<text name="find">
+				Encontrar:
+			</text>
 			<button label="Voltar" name="back_btn"/>
-			<button label="Encaminhar" name="forward_btn"/>
-			<line_editor label="Busca" name="search_editor" tool_tip="Busca Second Life"/>
+			<button label="Adiantar" name="forward_btn"/>
+			<line_editor label="Buscar" name="search_editor" tool_tip="Busca no Second Life"/>
 			<button label="Buscar" name="search_btn"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
@@ -32,7 +35,7 @@
 					Wiki
 				</combo_item>
 			</combo_box>
-			<check_box label="Incluir conteúdo adulto" name="mature_check"/>
+
 			<string name="loading_text">
 				Carregando...
 			</string>
@@ -40,7 +43,7 @@
 				Feito
 			</string>
 		</panel>
-		<panel label="Anúncios" name="classified_panel">
+		<panel label="Classificados" name="classified_panel">
 			<button label="Próximo &gt;" label_selected="Próximo &gt;" name="Next &gt;"/>
 			<string name="searching_text">
 				Buscando...
@@ -52,11 +55,11 @@
 			<text name="find" width="63">
 				Encontrar:
 			</text>
-			<line_editor left_delta="58" name="name" width="128"/>
-			<check_box label="Incluir conteúdo adulto" name="incmature"/>
-			<combo_box name="Category" left="195" width="154">
+			<line_editor left_delta="58" name="name" />
+
+			<combo_box name="Category" >
 				<combo_item name="AnyCategory">
-					Qualquer Categoria
+					Qualquer categoria
 				</combo_item>
 				<combo_item name="Shopping">
 					Shopping
@@ -86,13 +89,11 @@
 					Pessoal
 				</combo_item>
 			</combo_box>
-			<button label="Procura" label_selected="Procura" name="Browse" left_delta="162" />
+			<button label="Procura" label_selected="Procura" name="Browse"/>
 			<button label="Buscar" label_selected="Buscar" name="Search"/>
-			<button label="Colocar Anúncio" label_selected="Colocar Anúncio" name="Place an Ad..."/>
+			<button label="Colocar Anúncio..." label_selected="Colocar Anúncio..." name="Place an Ad..."/>
 			<button label="Apagar" label_selected="Apagar" name="Delete"/>
 			<scroll_list name="results">
-				<column label="" name="icon"/>
-				<column label="" name="type"/>
 				<column label="Nome" name="name"/>
 				<column label="Preço" name="price"/>
 			</scroll_list>
@@ -117,12 +118,12 @@
 				6/6
 			</text>
 			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;" tool_tip="Avançar um dia"/>
-			<button label="Hoje" label_selected="Hoje" name="Today" tool_tip="Exibir dias dos eventos"/>
+			<button label="Hoje" label_selected="Hoje" name="Today" tool_tip="Exibir eventos de hoje"/>
 			<text name="text">
 				Categoria:
 			</text>
 			<text name="text2">
-				Nome/Desc:
+				Encontrar:
 			</text>
 			<combo_box name="category combo">
 				<combo_item name="All">
@@ -162,21 +163,18 @@
 					Variados
 				</combo_item>
 			</combo_box>
-			<check_box label="Incluir conteúdo &#10;adulto" name="incmature"/>
+
 			<button label="Buscar" label_selected="Buscar" name="Search" tool_tip="Buscar"/>
 			<button label="Apagar" label_selected="Apagar" name="Delete"/>
 			<scroll_list name="results">
-				<column label="" name="icon"/>
-				<column label="" name="type"/>
 				<column label="Nome" name="name"/>
 				<column label="Tempo (PDT)" name="date"/>
-				<column label="" name="event_id"/>
 				<column label="Tempo" name="time"/>
 			</scroll_list>
 			<button label="Próximo &gt;" label_selected="Próximo &gt;" name="Next &gt;"/>
 			<button label="&lt; Prev" label_selected="&lt; Prev" name="&lt; Prev"/>
 		</panel>
-		<panel label="Showcase (Mostruário)" name="showcase_panel">
+		<panel label="Mostruário" name="showcase_panel">
 			<string name="searching_text">
 				Buscando...
 			</string>
@@ -184,7 +182,7 @@
 				Nada foi encontrado.
 			</string>
 			<button label="Voltar" name="back_btn"/>
-			<button label="Encaminhar" name="forward_btn"/>
+			<button label="Adiantar" name="forward_btn"/>
 			<string name="loading_text">
 				Carregando...
 			</string>
@@ -199,6 +197,9 @@
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
+			<text name="find" >
+				Encontrar:
+			</text>
 			<button label="Próximo &gt;" label_selected="Próximo &gt;" name="Next &gt;"/>
 			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
 			<combo_box name="type">
@@ -209,36 +210,30 @@
 					Leilão
 				</combo_item>
 				<combo_item name="MainlandSales">
-					Mainland - à venda
+					À venda - Mainland
 				</combo_item>
 				<combo_item name="EstateSales">
-					À venda - Região
+					À venda - Propriedade
 				</combo_item>
 			</combo_box>
-			<combo_box name="rating">
-				<combo_item name="PG&amp;Mature">
-					PG &amp; Adulto
-				</combo_item>
-				<combo_item name="PGonly">
-					PG somente
-				</combo_item>
-				<combo_item name="Matureonly">
-					Adulto somente
-				</combo_item>
-			</combo_box>
-			<check_box label="Preço &lt;= L$" name="pricecheck"/>
-			<check_box label="Área &gt;= m²" name="areacheck"/>
+			<check_box label="Preço &#8804; " name="pricecheck"/>
+			<check_box label="Área &#8805; " name="areacheck"/>
+			<text name="pricecheck_symbol" left="186" >
+				L$
+			</text>
+			<text name="areacheck_symbol" left="186">
+				m²
+			</text>
+			<line_editor name="priceedit" />
+			<line_editor name="areaedit" />
 			<button label="Buscar" label_selected="Buscar" name="Search"/>
 			<text name="land">
-				Lotes podem ser adquiridos diretamente através de Linden Dollares (L$) ou leilão, 
-ambos em L$, US$ ou R$. Para comprar diretamente, visite o lote e clique no
-nome do lugar na barra título.
+				Terras podem ser adquiridas diretamente através de Linden Dollares (L$) ou em leilão, 
+por L$ ou US$. Para comprar diretamente, visite a terra e clique no nome do lugar na barra de título.
 			</text>
 			<scroll_list name="results">
-				<column label="" name="icon"/>
-				<column label="" name="type"/>
 				<column label="Nome" name="name"/>
-				<column label="L$ Preço" name="price"/>
+				<column label="Preço em L$" name="price"/>
 				<column label="Área" name="area"/>
 				<column label="L$/m²" name="per_meter"/>
 			</scroll_list>
@@ -252,21 +247,19 @@ nome do lugar na barra título.
 			</string>
 			<button label="Próximo &gt;" label_selected="Próximo &gt;" name="Next &gt;"/>
 			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
-			<text name="find" width="63">
+			<text name="find" >
 				Encontrar:
 			</text>
-			<line_editor left_delta="58" name="name" width="128"/>
-			<check_box label="Incluir lugares em Regiões Adultas" name="incmature"/>
-			<combo_box name="Category" left="195" width="160">
+			<line_editor name="name" />
+
+			<combo_box name="Category" >
 				<combo_item name="AnyCategory">
 					Qualquer Categoria
 				</combo_item>
 				<combo_item name="LindenLocation">
-					Localização de Lindens
+					Localidade da Linden
 				</combo_item>
-				<combo_item name="Adult">
-					Adulto
-				</combo_item>
+
 				<combo_item name="Arts&amp;Culture">
 					Artes &amp; Cultura
 				</combo_item>
@@ -283,7 +276,7 @@ nome do lugar na barra título.
 					Recreação
 				</combo_item>
 				<combo_item name="NewcomerFriendly">
-					Bem-vindo Iniciante
+					Amigável a Iniciantes
 				</combo_item>
 				<combo_item name="Parks&amp;Nature">
 					Parques &amp; Natureza
@@ -298,31 +291,27 @@ nome do lugar na barra título.
 					Outros
 				</combo_item>
 			</combo_box>
-			<button label="Buscar" label_selected="Buscar" name="Search" left_delta="168"/>
+			<button label="Buscar" label_selected="Buscar" name="Search"/>
 			<scroll_list name="results">
-				<column label="" name="icon"/>
-				<column label="" name="type"/>
 				<column label="Nome" name="name"/>
 				<column label="Tráfego" name="dwell"/>
 			</scroll_list>
 		</panel>
 		<panel label="Pessoas" name="people_panel">
 			<string name="searching_text">
-				buscando...
+				Buscando...
 			</string>
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
 			<button label="Próximo &gt;" label_selected="Próximo &gt;" name="Next &gt;"/>
 			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
-			<text name="find" width="63">
+			<text name="find" >
 				Encontrar:
 			</text>
-			<line_editor left_delta="58" name="name" width="200"/>
+			<line_editor name="name" />
 			<button label="Buscar" label_selected="Buscar" name="Search"/>
 			<scroll_list name="results">
-				<column label="" name="icon"/>
-				<column label="" name="type"/>
 				<column label="Nome" name="name"/>
 			</scroll_list>
 		</panel>
@@ -333,11 +322,14 @@ nome do lugar na barra título.
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
+			<text name="find" >
+				Encontrar:
+			</text>
 			<button label="Voltar" name="back_btn"/>
-			<button label="Encaminhar" name="forward_btn"/>
-			<line_editor label="Busca" name="search_editor" tool_tip="Busca Second Life"/>
-			<button label="Busca" name="search_btn"/>
-			<check_box label="Incluir conteúdo adulto" name="mature_check"/>
+			<button label="Adiantar" name="forward_btn"/>
+			<line_editor label="Buscar" name="search_editor" tool_tip="Busca no Second Life"/>
+			<button label="Buscar" name="search_btn"/>
+
 			<string name="loading_text">
 				carregando...
 			</string>

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="网络" name="network">
-	<text  name="text_box">
+	<text name="text_box">
 		最大带宽:
 	</text>
 	<text name="text_box2">
@@ -9,22 +9,15 @@
 	<text name="cache_size_label_l">
 		磁盘高速缓存大小:
 	</text>
-
-	<button label="清除缓存" name="clear_cache" />
-	
+	<text name="text_box5">
+		兆字节
+	</text>
+	<button label="清除缓存" name="clear_cache"/>
 	<text name="cache_location_label">
 		磁盘缓存位置:
 	</text>
-	<button 
-	     label="设置" label_selected="设置"
-	     name="set_cache"/>
-	<button 
-	     label="重置" label_selected="设置" 
-	     name="reset_cache" />
-	<check_box 
-		label="自定义连接端口"
-        name="connection_port_enabled" /> 
-	<spinner 
-		label="端口号:"
-        name="connection_port" />
+	<button label="设置" label_selected="设置" name="set_cache"/>
+	<button label="重置" label_selected="设置" name="reset_cache"/>
+	<check_box label="自定义连接端口" name="connection_port_enabled"/>
+	<spinner label="端口号:" name="connection_port"/>
 </panel>

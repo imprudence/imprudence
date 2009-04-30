@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -36,8 +37,11 @@
 
 #include "apr_time.h"
 
+#include <time.h>
 #include <iomanip>
 #include <sstream>
+
+#include "lltimer.h"
 
 static const F64 DATE_EPOCH = 0.0;
 
@@ -122,7 +126,7 @@ void LLDate::toHTTPDateStream(std::ostream& s) const
       << " GMT";
 
     // RFC 1123 date does not use microseconds
-    llinfos << "Date in RFC 1123 format is " << s << llendl;
+    //llinfos << "Date in RFC 1123 format is " << s << llendl;
 }
 
 void LLDate::toStream(std::ostream& s) const
@@ -234,6 +238,17 @@ void LLDate::secondsSinceEpoch(F64 seconds)
 	mSecondsSinceEpoch = seconds;
 }
 
+/* static */ LLDate LLDate::now()
+{
+	// time() returns seconds, we want fractions of a second, which LLTimer provides --RN
+	return LLDate(LLTimer::getTotalSeconds());
+}
+
+bool LLDate::operator<(const LLDate& rhs) const
+{
+    return mSecondsSinceEpoch < rhs.mSecondsSinceEpoch;
+}
+
 std::ostream& operator<<(std::ostream& s, const LLDate& date)
 {
 	date.toStream(s);
@@ -245,3 +260,4 @@ std::istream& operator>>(std::istream& s, LLDate& date)
 	date.fromStream(s);
 	return s;
 }
+

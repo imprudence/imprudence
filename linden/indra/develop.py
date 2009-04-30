@@ -19,7 +19,8 @@
 # There are special exceptions to the terms and conditions of the GPL as
 # it is applied to this Source Code. View the full text of the exception
 # in the file doc/FLOSS-exception.txt in this software distribution, or
-# online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+# online at
+# http://secondlifegrid.net/programs/open_source/licensing/flossexception
 # 
 # By copying, modifying or distributing this software, you acknowledge
 # that you have read and understood your obligations described above,
@@ -75,6 +76,7 @@ class PlatformSetup(object):
     build_type = build_types['relwithdebinfo']
     standalone = 'OFF'
     unattended = 'OFF'
+    project_name = 'SecondLife'
     distcc = True
     cmake_opts = []
 
@@ -126,24 +128,6 @@ class PlatformSetup(object):
                 '-DSTANDALONE:BOOL=%(standalone)s '
                 '-DUNATTENDED:BOOL=%(unattended)s '
                 '-G %(generator)r %(opts)s %(dir)r' % args)
-
-    def run(self, command, name=None):
-        '''Run a program.  If the program fails, raise an exception.'''
-        ret = os.system(command)
-        if ret:
-            if name is None:
-                name = command.split(None, 1)[0]
-            if os.WIFEXITED(ret):
-                event = 'exited'
-                status = 'status %d' % os.WEXITSTATUS(ret)
-            elif os.WIFSIGNALED(ret):
-                event = 'was killed'
-                status = 'signal %d' % os.WTERMSIG(ret)
-            else:
-                event = 'died unexpectedly (!?)'
-                status = '16-bit status %d' % ret
-            raise CommandError('the command %r %s with %s' %
-                               (name, event, status))
 
     def run_cmake(self, args=[]):
         '''Run cmake.'''
@@ -206,9 +190,27 @@ class PlatformSetup(object):
 
         return os.path.isdir(os.path.join(self.script_dir, 'newsim'))
 
+    def find_in_path(self, name, defval=None, basename=False):
+        for ext in self.exe_suffixes:
+            name_ext = name + ext
+            if os.sep in name_ext:
+                path = os.path.abspath(name_ext)
+                if os.access(path, os.X_OK):
+                    return [basename and os.path.basename(path) or path]
+            for p in os.getenv('PATH', self.search_path).split(os.pathsep):
+                path = os.path.join(p, name_ext)
+                if os.access(path, os.X_OK):
+                    return [basename and os.path.basename(path) or path]
+        if defval:
+            return [defval]
+        return []
+
 
 class UnixSetup(PlatformSetup):
     '''Generic Unixy build instructions.'''
+
+    search_path = '/usr/bin:/usr/local/bin'
+    exe_suffixes = ('',)
 
     def __init__(self):
         super(UnixSetup, self).__init__()
@@ -228,6 +230,25 @@ class UnixSetup(PlatformSetup):
         elif cpu == 'Power Macintosh':
             cpu = 'ppc'
         return cpu
+
+    def run(self, command, name=None):
+        '''Run a program.  If the program fails, raise an exception.'''
+        ret = os.system(command)
+        if ret:
+            if name is None:
+                name = command.split(None, 1)[0]
+            if os.WIFEXITED(ret):
+                st = os.WEXITSTATUS(ret)
+                if st == 127:
+                    event = 'was not found'
+                else:
+                    event = 'exited with status %d' % st
+            elif os.WIFSIGNALED(ret):
+                event = 'was killed by signal %d' % os.WTERMSIG(ret)
+            else:
+                event = 'died unexpectedly (!?) with 16-bit status %d' % ret
+            raise CommandError('the command %r %s' %
+                               (name, event))
 
 
 class LinuxSetup(UnixSetup):
@@ -256,15 +277,6 @@ class LinuxSetup(UnixSetup):
         else:
             return ['viewer-' + platform_build]
 
-    def find_in_path(self, name, defval=None, basename=False):
-        for p in os.getenv('PATH', '/usr/bin').split(':'):
-            path = os.path.join(p, name)
-            if os.access(path, os.X_OK):
-                return [basename and os.path.basename(path) or path]
-        if defval:
-            return [defval]
-        return []
-
     def cmake_commandline(self, src_dir, build_dir, opts, simple):
         args = dict(
             dir=src_dir,
@@ -272,7 +284,8 @@ class LinuxSetup(UnixSetup):
             opts=quote(opts),
             standalone=self.standalone,
             unattended=self.unattended,
-            type=self.build_type.upper()
+            type=self.build_type.upper(),
+            project_name=self.project_name
             )
         if not self.is_internal_tree():
             args.update({'cxx':'g++', 'server':'OFF', 'viewer':'ON'})
@@ -298,6 +311,7 @@ class LinuxSetup(UnixSetup):
                 '-G %(generator)r -DSERVER:BOOL=%(server)s '
                 '-DVIEWER:BOOL=%(viewer)s -DSTANDALONE:BOOL=%(standalone)s '
                 '-DUNATTENDED:BOOL=%(unattended)s '
+                '-DROOT_PROJECT_NAME:STRING=%(project_name)s '
                 '%(opts)s %(dir)r')
                % args)
         if 'CXX' not in os.environ:
@@ -400,6 +414,7 @@ class DarwinSetup(UnixSetup):
             opts=quote(opts),
             standalone=self.standalone,
             unattended=self.unattended,
+            project_name=self.project_name,
             universal='',
             type=self.build_type.upper()
             )
@@ -411,6 +426,7 @@ class DarwinSetup(UnixSetup):
                 '-DCMAKE_BUILD_TYPE:STRING=%(type)s '
                 '-DSTANDALONE:BOOL=%(standalone)s '
                 '-DUNATTENDED:BOOL=%(unattended)s '
+                '-DROOT_PROJECT_NAME:STRING=%(project_name)s '
                 '%(universal)s '
                 '%(opts)s %(dir)r' % args)
 
@@ -451,6 +467,9 @@ class WindowsSetup(PlatformSetup):
     gens['vs2005'] = gens['vc80']
     gens['vs2008'] = gens['vc90']
 
+    search_path = r'C:\windows'
+    exe_suffixes = ('.exe', '.bat', '.com')
+
     def __init__(self):
         super(WindowsSetup, self).__init__()
         self._generator = None
@@ -486,12 +505,14 @@ class WindowsSetup(PlatformSetup):
             opts=quote(opts),
             standalone=self.standalone,
             unattended=self.unattended,
+            project_name=self.project_name
             )
         #if simple:
         #    return 'cmake %(opts)s "%(dir)s"' % args
         return ('cmake -G "%(generator)s" '
                 '-DSTANDALONE:BOOL=%(standalone)s '
                 '-DUNATTENDED:BOOL=%(unattended)s '
+                '-DROOT_PROJECT_NAME:STRING=%(project_name)s '
                 '%(opts)s "%(dir)s"' % args)
 
     def find_visual_studio(self, gen=None):
@@ -522,21 +543,24 @@ class WindowsSetup(PlatformSetup):
             if self.gens[self.generator]['ver'] in [ r'8.0', r'9.0' ]:
                 config = '\"%s|Win32\"' % config
 
-            return "buildconsole Secondlife.sln /build %s" % config
+            return "buildconsole %s.sln /build %s" % (self.project_name, config)
 
         # devenv.com is CLI friendly, devenv.exe... not so much.
-        return ('"%sdevenv.com" Secondlife.sln /build %s' % 
-                (self.find_visual_studio(), self.build_type))
+        return ('"%sdevenv.com" %s.sln /build %s' % 
+                (self.find_visual_studio(), self.project_name, self.build_type))
 
-    # this override of run exists because the PlatformSetup version
-    # uses Unix/Mac only calls. Freakin' os module!
     def run(self, command, name=None):
         '''Run a program.  If the program fails, raise an exception.'''
         ret = os.system(command)
         if ret:
             if name is None:
                 name = command.split(None, 1)[0]
-            raise CommandError('the command %r exited with %s' %
+            path = self.find_in_path(name)
+            if not path:
+                ret = 'was not found'
+            else:
+                ret = 'exited with status %d' % ret
+            raise CommandError('the command %r %s' %
                                (name, ret))
 
     def run_cmake(self, args=[]):
@@ -596,12 +620,14 @@ class CygwinSetup(WindowsSetup):
             opts=quote(opts),
             standalone=self.standalone,
             unattended=self.unattended,
+            project_name=self.project_name
             )
         #if simple:
         #    return 'cmake %(opts)s "%(dir)s"' % args
         return ('cmake -G "%(generator)s" '
                 '-DUNATTENDED:BOOl=%(unattended)s '
                 '-DSTANDALONE:BOOL=%(standalone)s '
+                '-DROOT_PROJECT_NAME:STRING=%(project_name)s '
                 '%(opts)s "%(dir)s"' % args)
 
 setup_platform = {
@@ -613,7 +639,7 @@ setup_platform = {
 
 
 usage_msg = '''
-Usage:   develop.py [options] command [command-options]
+Usage:   develop.py [options] [command [command-options]]
 
 Options:
   -h | --help           print this help message
@@ -623,21 +649,29 @@ Options:
   -t | --type=NAME      build type ("Debug", "Release", or "RelWithDebInfo")
   -N | --no-distcc      disable use of distcc
   -G | --generator=NAME generator name
-                        Windows: VC71 or VS2003 (default), VC80 (VS2005) or VC90 (VS2008)
+                        Windows: VC71 or VS2003 (default), VC80 (VS2005) or 
+                          VC90 (VS2008)
                         Mac OS X: Xcode (default), Unix Makefiles
                         Linux: Unix Makefiles (default), KDevelop3
+  -p | --project=NAME   set the root project name. (Doesn't effect makefiles)
+                        
 Commands:
-  build       configure and build default target
-  clean       delete all build directories (does not affect sources)
-  configure   configure project by running cmake
+  build      configure and build default target
+  clean      delete all build directories, does not affect sources
+  configure  configure project by running cmake (default command if none given)
 
-If you do not specify a command, the default is "configure".
+Command-options for "configure":
+  We use cmake variables to change the build configuration.
+  -DSERVER:BOOL=OFF        Don't configure simulator/dataserver/etc
+  -DVIEWER:BOOL=OFF        Don't configure the viewer
+  -DPACKAGE:BOOL=ON        Create "package" target to make installers
+  -DLOCALIZESETUP:BOOL=ON  Create one win_setup target per supported language
 
 Examples:
   Set up a viewer-only project for your system:
     develop.py configure -DSERVER:BOOL=OFF
   
-  Set up a Visual Studio 2005 project with package target (to build installer):
+  Set up a Visual Studio 2005 project with "package" target:
     develop.py -G vc80 configure -DPACKAGE:BOOL=ON
 '''
 
@@ -646,13 +680,14 @@ def main(arguments):
     try:
         opts, args = getopt.getopt(
             arguments,
-            '?hNt:G:',
-            ['help', 'standalone', 'no-distcc', 'unattended', 'type=', 'incredibuild', 'generator='])
+            '?hNt:p:G:',
+            ['help', 'standalone', 'no-distcc', 'unattended', 'type=', 'incredibuild', 'generator=', 'project='])
     except getopt.GetoptError, err:
         print >> sys.stderr, 'Error:', err
         print >> sys.stderr, """
 Note: You must pass -D options to cmake after the "configure" command
 For example: develop.py configure -DSERVER:BOOL=OFF"""
+        print >> sys.stderr, usage_msg.strip()
         sys.exit(1)
 
     for o, a in opts:
@@ -678,6 +713,8 @@ For example: develop.py configure -DSERVER:BOOL=OFF"""
             setup.generator = a
         elif o in ('-N', '--no-distcc'):
             setup.distcc = False
+        elif o in ('-p', '--project'):
+            setup.project_name = a
         elif o in ('--incredibuild'):
             setup.incredibuild = True
         else:

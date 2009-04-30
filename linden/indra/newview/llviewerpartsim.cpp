@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -151,7 +152,9 @@ LLViewerPartGroup::LLViewerPartGroup(const LLVector3 &center_agent, const F32 bo
 	mVOPartGroupp->setPositionAgent(getCenterAgent());
 	F32 scale = box_side * 0.5f;
 	mVOPartGroupp->setScale(LLVector3(scale,scale,scale));
-	gPipeline.addObject(mVOPartGroupp);
+	
+	//gPipeline.addObject(mVOPartGroupp);
+	gPipeline.createObject(mVOPartGroupp);
 
 	LLSpatialGroup* group = mVOPartGroupp->mDrawable->getSpatialGroup();
 

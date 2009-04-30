@@ -1,4 +1,4 @@
- /** 
+/** 
  * @file llhttpclient.cpp
  * @brief Implementation of classes for making HTTP requests.
  *
@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -310,9 +311,13 @@ void LLHTTPClient::getByteRange(
     request(url,LLURLRequest::HTTP_GET, NULL, responder, timeout, headers);
 }
 
-void LLHTTPClient::head(const std::string& url, ResponderPtr responder, const F32 timeout)
+void LLHTTPClient::head(
+	const std::string& url,
+	ResponderPtr responder,
+	const LLSD& headers,
+	const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_HEAD, NULL, responder, timeout);
+	request(url, LLURLRequest::HTTP_HEAD, NULL, responder, timeout, headers);
 }
 
 void LLHTTPClient::get(const std::string& url, ResponderPtr responder, const LLSD& headers, const F32 timeout)
@@ -397,6 +402,14 @@ LLSD LLHTTPClient::blockingGet(const std::string& url)
 	curl_easy_setopt(curlp, CURLOPT_ERRORBUFFER, curl_error_buffer);
 	curl_easy_setopt(curlp, CURLOPT_FAILONERROR, 1);
 
+	struct curl_slist *header_list = NULL;
+	header_list = curl_slist_append(header_list, "Accept: application/llsd+xml");
+	CURLcode curl_result = curl_easy_setopt(curlp, CURLOPT_HTTPHEADER, header_list);
+	if ( curl_result != CURLE_OK )
+	{
+		llinfos << "Curl is hosed - can't add Accept header for llsd+xml" << llendl;
+	}
+
 	LLSD response = LLSD::emptyMap();
 
 	S32 curl_success = curl_easy_perform(curlp);
@@ -418,44 +431,77 @@ LLSD LLHTTPClient::blockingGet(const std::string& url)
 		response["body"] = http_buffer.asLLSD();
 	}
 	
+	if(header_list)
+	{	// free the header list  
+		curl_slist_free_all(header_list); 
+		header_list = NULL;
+	}
+
 	curl_easy_cleanup(curlp);
 
 	return response;
 }
 
-void LLHTTPClient::put(const std::string& url, const LLSD& body, ResponderPtr responder, const F32 timeout)
+void LLHTTPClient::put(
+	const std::string& url,
+	const LLSD& body,
+	ResponderPtr responder,
+	const LLSD& headers,
+	const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_PUT, new LLSDInjector(body), responder, timeout);
+	request(url, LLURLRequest::HTTP_PUT, new LLSDInjector(body), responder, timeout, headers);
 }
 
-void LLHTTPClient::post(const std::string& url, const LLSD& body, ResponderPtr responder, const F32 timeout)
+void LLHTTPClient::post(
+	const std::string& url,
+	const LLSD& body,
+	ResponderPtr responder,
+	const LLSD& headers,
+	const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_POST, new LLSDInjector(body), responder, timeout);
+	request(url, LLURLRequest::HTTP_POST, new LLSDInjector(body), responder, timeout, headers);
 }
 
-void LLHTTPClient::postRaw(const std::string& url, const U8* data, S32 size, ResponderPtr responder, const F32 timeout)
+void LLHTTPClient::postRaw(
+	const std::string& url,
+	const U8* data,
+	S32 size,
+	ResponderPtr responder,
+	const LLSD& headers,
+	const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_POST, new RawInjector(data, size), responder, timeout);
+	request(url, LLURLRequest::HTTP_POST, new RawInjector(data, size), responder, timeout, headers);
 }
 
-void LLHTTPClient::postFile(const std::string& url, const std::string& filename, ResponderPtr responder, const F32 timeout)
+void LLHTTPClient::postFile(
+	const std::string& url,
+	const std::string& filename,
+	ResponderPtr responder,
+	const LLSD& headers,
+	const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_POST, new FileInjector(filename), responder, timeout);
+	request(url, LLURLRequest::HTTP_POST, new FileInjector(filename), responder, timeout, headers);
 }
 
-void LLHTTPClient::postFile(const std::string& url, const LLUUID& uuid,
-							LLAssetType::EType asset_type, ResponderPtr responder, const F32 timeout)
+void LLHTTPClient::postFile(
+	const std::string& url,
+	const LLUUID& uuid,
+	LLAssetType::EType asset_type,
+	ResponderPtr responder,
+	const LLSD& headers,
+	const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_POST, new VFileInjector(uuid, asset_type), responder, timeout);
+	request(url, LLURLRequest::HTTP_POST, new VFileInjector(uuid, asset_type), responder, timeout, headers);
 }
 
 // static
 void LLHTTPClient::del(
 	const std::string& url,
 	ResponderPtr responder,
+	const LLSD& headers,
 	const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_DELETE, NULL, responder, timeout);
+	request(url, LLURLRequest::HTTP_DELETE, NULL, responder, timeout, headers);
 }
 
 // static
@@ -463,9 +509,10 @@ void LLHTTPClient::move(
 	const std::string& url,
 	const std::string& destination,
 	ResponderPtr responder,
+	const LLSD& hdrs,
 	const F32 timeout)
 {
-	LLSD headers;
+	LLSD headers = hdrs;
 	headers["Destination"] = destination;
 	request(url, LLURLRequest::HTTP_MOVE, NULL, responder, timeout, headers);
 }

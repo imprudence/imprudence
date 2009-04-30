@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -92,8 +93,8 @@ LLHUDText::LLHUDText(const U8 type) :
 			mVisibleOffScreen(FALSE),
 			mWidth(0.f),
 			mHeight(0.f),
-			mFontp(LLFontGL::sSansSerifSmall),
-			mBoldFontp(LLFontGL::sSansSerifBold),
+			mFontp(LLFontGL::getFontSansSerifSmall()),
+			mBoldFontp(LLFontGL::getFontSansSerifBold()),
 			mMass(1.f),
 			mMaxLines(10),
 			mOffsetY(0),
@@ -736,11 +737,12 @@ void LLHUDText::updateVisibility()
 	dir_from_camera.normVec();
 
 	if (dir_from_camera * LLViewerCamera::getInstance()->getAtAxis() <= 0.f)
-	{
-		mPositionAgent -= projected_vec(vec_from_camera, LLViewerCamera::getInstance()->getAtAxis()) * 1.f;
-		mPositionAgent += LLViewerCamera::getInstance()->getAtAxis() * (LLViewerCamera::getInstance()->getNear() + 0.1f);
+	{ //text is behind camera, don't render
+		mVisible = FALSE;
+		return;
 	}
-	else if (vec_from_camera * LLViewerCamera::getInstance()->getAtAxis() <= LLViewerCamera::getInstance()->getNear() + 0.1f + mSourceObject->getVObjRadius())
+		
+	if (vec_from_camera * LLViewerCamera::getInstance()->getAtAxis() <= LLViewerCamera::getInstance()->getNear() + 0.1f + mSourceObject->getVObjRadius())
 	{
 		mPositionAgent = LLViewerCamera::getInstance()->getOrigin() + vec_from_camera * ((LLViewerCamera::getInstance()->getNear() + 0.1f) / (vec_from_camera * LLViewerCamera::getInstance()->getAtAxis()));
 	}
@@ -1067,15 +1069,27 @@ void LLHUDText::markDead()
 
 void LLHUDText::renderAllHUD()
 {
-	LLGLEnable color_mat(GL_COLOR_MATERIAL);
-	LLGLDepthTest depth(GL_FALSE, GL_FALSE);
-	
-	VisibleTextObjectIterator text_it;
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
+	LLGLState::checkClientArrays();
 
-	for (text_it = sVisibleHUDTextObjects.begin(); text_it != sVisibleHUDTextObjects.end(); ++text_it)
 	{
-		(*text_it)->renderText(FALSE);
+		LLGLEnable color_mat(GL_COLOR_MATERIAL);
+		LLGLDepthTest depth(GL_FALSE, GL_FALSE);
+		
+		VisibleTextObjectIterator text_it;
+
+		for (text_it = sVisibleHUDTextObjects.begin(); text_it != sVisibleHUDTextObjects.end(); ++text_it)
+		{
+			(*text_it)->renderText(FALSE);
+		}
 	}
+	
+	LLVertexBuffer::unbind();
+
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
+	LLGLState::checkClientArrays();
 }
 
 void LLHUDText::shiftAll(const LLVector3& offset)

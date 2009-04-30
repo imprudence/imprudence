@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container" title="">
+	<button label="Далі" label_selected="Далі" name="Continue" />
+	<button label="Відміна" label_selected="Відміна" name="Cancel" />
+	<text name="tos_heading">
+		Будь ласка уважно прочитайте наступне повідомлення.
+	</text>
+	<text_editor name="tos_text">
+		TOS_TEXT
+	</text_editor>
+</floater>

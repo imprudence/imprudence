@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_auction"
+     title="Запустить Продажу Земли Линденами">
+	<check_box label="Включая желтую границу выбора"
+	     name="fence_check" />
+	<button label="Скриншот" label_selected="Скриншот" name="snapshot_btn" />
+	<button label="Принять" label_selected="Принять" name="ok_btn" />
+	<text name="already for sale">
+		Вы не можете выставить на аукцион землю, которая уже выставлена на продажу.
+	</text>
+</floater>

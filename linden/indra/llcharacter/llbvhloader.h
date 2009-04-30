@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -36,9 +37,9 @@
 #include "m3math.h"
 #include "llmath.h"
 #include "llapr.h"
+#include "llbvhconsts.h"
 
 const S32 BVH_PARSER_LINE_SIZE = 2048;
-const F32 MAX_ANIM_DURATION = 30.f;
 class LLDataPacker;
 
 //------------------------------------------------------------------------
@@ -130,12 +131,6 @@ struct Joint
 	S32				mPriority;
 };
 
-
-typedef enum e_constraint_type
-{
-	CONSTRAINT_TYPE_POINT,
-	CONSTRAINT_TYPE_PLANE
-} EConstraintType;
 
 struct Constraint
 {

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -56,7 +57,7 @@ public:
 	LLColor3();							// Initializes LLColor3 to (0, 0, 0)
 	LLColor3(F32 r, F32 g, F32 b);		// Initializes LLColor3 to (r, g, b)
 	LLColor3(const F32 *vec);			// Initializes LLColor3 to (vec[0]. vec[1], vec[2])
-	LLColor3(char *color_string);       // html format color ie "#FFDDEE"
+	LLColor3(const char *color_string);       // html format color ie "#FFDDEE"
 	explicit LLColor3(const LLColor4& color4);  // "explicit" to avoid automatic conversion
 	explicit LLColor3(const LLVector4& vector4);  // "explicit" to avoid automatic conversion
 	LLColor3(const LLSD& sd);
@@ -160,7 +161,7 @@ void LLColor3::clamp()
 
 // Non-member functions 
 F32		distVec(const LLColor3 &a, const LLColor3 &b);		// Returns distance between a and b
-F32		distVec_squared(const LLColor3 &a, const LLColor3 &b);// Returns distance sqaured between a and b
+F32		distVec_squared(const LLColor3 &a, const LLColor3 &b);// Returns distance squared between a and b
 
 inline LLColor3::LLColor3(void)
 {
@@ -188,7 +189,7 @@ inline LLColor3::LLColor3(const F32 *vec)
 # pragma warning( disable : 4996 ) // strncpy teh sux0r
 #endif
 
-inline LLColor3::LLColor3(char* color_string) // takes a string of format "RRGGBB" where RR is hex 00..FF 
+inline LLColor3::LLColor3(const char* color_string) // takes a string of format "RRGGBB" where RR is hex 00..FF 
 {
 	if (strlen(color_string) <  6)		/* Flawfinder: ignore */
 	{
@@ -198,7 +199,7 @@ inline LLColor3::LLColor3(char* color_string) // takes a string of format "RRGGB
 		return;
 	}
 
-	static char tempstr[7];		/* Flawfinder: ignore */
+	char tempstr[7];
 	strncpy(tempstr,color_string,6);		/* Flawfinder: ignore */
 	tempstr[6] = '\0';
 	mV[VZ] = (F32)strtol(&tempstr[4],NULL,16)/255.f;

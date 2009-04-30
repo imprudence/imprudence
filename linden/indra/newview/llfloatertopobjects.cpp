@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -171,6 +172,7 @@ void LLFloaterTopObjects::handleReply(LLMessageSystem *msg, void** data)
 		std::string owner_buf;
 		F32 mono_score = 0.f;
 		bool have_extended_data = false;
+		S32 public_urls = 0;
 
 		msg->getU32Fast(_PREHASH_ReportData, _PREHASH_TaskLocalID, task_local_id, block);
 		msg->getUUIDFast(_PREHASH_ReportData, _PREHASH_TaskID, task_id, block);
@@ -184,7 +186,8 @@ void LLFloaterTopObjects::handleReply(LLMessageSystem *msg, void** data)
 		{
 			have_extended_data = true;
 			msg->getU32("DataExtended", "TimeStamp", time_stamp, block);
-			msg->getF32(_PREHASH_ReportData, "MonoScore", mono_score, block);
+			msg->getF32("DataExtended", "MonoScore", mono_score, block);
+			msg->getS32(_PREHASH_ReportData,"PublicURLs",public_urls,block);
 		}
 
 		LLSD element;
@@ -215,6 +218,10 @@ void LLFloaterTopObjects::handleReply(LLMessageSystem *msg, void** data)
 			element["columns"][5]["column"] = "mono_time";
 			element["columns"][5]["value"] = llformat("%0.3f", mono_score);
 			element["columns"][5]["font"] = "SANSSERIF";
+
+			element["columns"][6]["column"] = "URLs";
+			element["columns"][6]["value"] = llformat("%d", public_urls);
+			element["columns"][6]["font"] = "SANSSERIF";
 		}
 		
 		list->addElement(element);
@@ -353,17 +360,19 @@ void LLFloaterTopObjects::doToObjects(int action, bool all)
 }
 
 //static
-void LLFloaterTopObjects::callbackReturnAll(S32 option, void* userdata)
+bool LLFloaterTopObjects::callbackReturnAll(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
 		sInstance->doToObjects(ACTION_RETURN, true);
 	}
+	return false;
 }
 
 void LLFloaterTopObjects::onReturnAll(void* data)
 {	
-	gViewerWindow->alertXml("ReturnAllTopObjects", callbackReturnAll, NULL);
+	LLNotifications::instance().add("ReturnAllTopObjects", LLSD(), LLSD(), &callbackReturnAll);
 }
 
 
@@ -374,17 +383,19 @@ void LLFloaterTopObjects::onReturnSelected(void* data)
 
 
 //static
-void LLFloaterTopObjects::callbackDisableAll(S32 option, void* userdata)
+bool LLFloaterTopObjects::callbackDisableAll(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
 		sInstance->doToObjects(ACTION_DISABLE, true);
 	}
+	return false;
 }
 
 void LLFloaterTopObjects::onDisableAll(void* data)
 {
-	gViewerWindow->alertXml("DisableAllTopObjects", callbackDisableAll, NULL);
+	LLNotifications::instance().add("DisableAllTopObjects", LLSD(), LLSD(), callbackDisableAll);
 }
 
 void LLFloaterTopObjects::onDisableSelected(void* data)

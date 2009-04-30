@@ -35,7 +35,7 @@
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Automatically view after accepting" left="40" mouse_opaque="true"
 	     name="show_new_inventory" radio_style="false" width="270" />
-	<check_box bottom_delta="-20" control_name="ShowInInventory" enabled="true"
+   	<check_box bottom_delta="-20" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Automatically show newly accepted objects in inventory" left="18" mouse_opaque="true"
 	     name="show_in_inventory" radio_style="false" width="270" />

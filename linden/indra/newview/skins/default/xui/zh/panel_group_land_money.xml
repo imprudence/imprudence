@@ -1,26 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="土地和 L$" name="land_money_tab">
-	<text name="help_text">
-		以下列出的是社团所持有的土地以及贡献细节。如果“使用中总的土地”小于或者等于“总土地贡献”，系统会发出警告。在计划，细节和销售标签页中会提供关于社团资产情况的信息。
-	</text>
-	<button label="?" name="help_button" />
-	<text name="cant_view_group_land_text">
+	<string name="help_text">
+		社团所拥有的土地在捐献清单中详细列出. 当使用土地总量少于或者等于总捐献量时，将有警告提示。
+               &apos;详细&apos; 和 &apos;在售&apos; 栏提供社团的财政状况。
+	</string>
+	<button label="?" name="help_button"/>
+	<string name="cant_view_group_land_text">
 		你没有查看这个社团所拥有土地的权限。
-	</text>
-	<text name="cant_view_group_accounting_text">
+	</string>
+	<string name="cant_view_group_accounting_text">
 		你没有查看这个社团账户信息的权限。
-	</text>
+	</string>
+	<string name="loading_txt">
+		载入...
+	</string>
 	<text name="group_land_heading">
 		社团所持有土地
 	</text>
 	<scroll_list name="group_parcel_list">
-		<column label="地块名称" name="name" />
-		<column label="区域" name="location" />
-		<column label="面积" name="area" />
-		<column label="" name="hidden" />
+		<column label="地块名称" name="name"/>
+		<column label="区域" name="location"/>
+		<column label="面积" name="area"/>
+		<column label="" name="hidden"/>
 	</scroll_list>
-	<button label="在地图中显示" label_selected="在地图中显示"
-	     name="map_button" />
+	<button label="在地图中显示" label_selected="在地图中显示" name="map_button"/>
 	<text name="total_contributed_land_label">
 		总贡献额:
 	</text>
@@ -42,11 +45,11 @@
 	<text name="your_contribution_label">
 		你的贡献:
 	</text>
-	<text name="your_contribution_max_value_append">
-		平方米
-	</text>
+	<string name="land_contrib_error">
+		无法设置您的土地捐献.
+	</string>
 	<text name="your_contribution_max_value">
-		平方米 (最多[AMOUNT] )
+		平方米 (最多[AMOUNT])
 	</text>
 	<text name="group_over_limit_text">
 		社团成员必须贡献更多的土地额度，来支持土地的使用。
@@ -55,28 +58,19 @@
 		社团资产 L$
 	</text>
 	<tab_container name="group_money_tab_container">
-		<panel label="计划" name="group_money_planning_tab">
-			<text_editor name="group_money_planning_text">
-				计算中...
-			</text_editor>
-		</panel>
 		<panel label="细节" name="group_money_details_tab">
 			<text_editor name="group_money_details_text">
 				计算中...
 			</text_editor>
-			<button label="&lt;较早" label_selected="&lt;较早" name="earlier_details_button"
-			     tool_tip="时间返回" />
-			<button label="较近 &gt;" label_selected="较近 &gt;" name="later_details_button"
-			     tool_tip="时间前进" />
+			<button label="&lt;较早" label_selected="&lt;较早" name="earlier_details_button" tool_tip="时间返回"/>
+			<button label="较近 &gt;" label_selected="较近 &gt;" name="later_details_button" tool_tip="时间前进"/>
 		</panel>
 		<panel label="销售" name="group_money_sales_tab">
 			<text_editor name="group_money_sales_text">
 				计算中...
 			</text_editor>
-			<button label="&lt;较早" label_selected="&lt;较早" name="earlier_sales_button"
-			     tool_tip="时间返回" />
-			<button label="较近 &gt;" label_selected="较近 &gt;" name="later_sales_button"
-			     tool_tip="时间前进" />
+			<button label="&lt;较早" label_selected="&lt;较早" name="earlier_sales_button" tool_tip="时间返回"/>
+			<button label="较近 &gt;" label_selected="较近 &gt;" name="later_sales_button" tool_tip="时间前进"/>
 		</panel>
 	</tab_container>
 </panel>

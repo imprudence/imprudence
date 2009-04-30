@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -40,6 +41,7 @@
 #include "llfocusmgr.h"
 #include "llparcel.h"
 #include "message.h"
+#include "lluserauth.h"
 
 #include "llagent.h"
 #include "llfloateravatarpicker.h"
@@ -64,6 +66,7 @@
 #include "lltexturectrl.h"
 #include "lluiconstants.h"
 #include "lluictrlfactory.h"
+#include "llviewerimagelist.h"		// LLUIImageList
 #include "llviewermessage.h"
 #include "llviewerparcelmgr.h"
 #include "llviewerregion.h"
@@ -84,8 +87,6 @@ static const BOOL BUY_PERSONAL_LAND = FALSE;
 // Statics
 LLParcelSelectionObserver* LLFloaterLand::sObserver = NULL;
 S32 LLFloaterLand::sLastTab = 0;
-
-LLHandle<LLFloater> LLPanelLandGeneral::sBuyPassDialogHandle;
 
 // Local classes
 class LLParcelSelectionObserver : public LLParcelObserver
@@ -194,8 +195,6 @@ void LLFloaterLand::onClose(bool app_quitting)
 LLFloaterLand::LLFloaterLand(const LLSD& seed)
 :	LLFloater(std::string("floaterland"), std::string("FloaterLandRect5"), std::string("About Land"))
 {
-
-
 	LLCallbackMap::map_t factory_map;
 	factory_map["land_general_panel"] = LLCallbackMap(createPanelLandGeneral, this);
 
@@ -306,7 +305,6 @@ LLPanelLandGeneral::LLPanelLandGeneral(LLParcelSelectionHandle& parcel)
 
 BOOL LLPanelLandGeneral::postBuild()
 {
-
 	mEditName = getChild<LLLineEditor>("Name");
 	mEditName->setCommitCallback(onCommitAny);	
 	childSetPrevalidate("Name", LLLineEditor::prevalidatePrintableNotPipe);
@@ -322,7 +320,9 @@ BOOL LLPanelLandGeneral::postBuild()
 	mTextSalePending = getChild<LLTextBox>("SalePending");
 	mTextOwnerLabel = getChild<LLTextBox>("Owner:");
 	mTextOwner = getChild<LLTextBox>("OwnerText");
-
+	
+	mContentRating = getChild<LLTextBox>("ContentRatingText");
+	mLandType = getChild<LLTextBox>("LandTypeText");
 	
 	mBtnProfile = getChild<LLButton>("Profile...");
 	mBtnProfile->setClickedCallback(onClickProfile, this);
@@ -336,7 +336,6 @@ BOOL LLPanelLandGeneral::postBuild()
 	mBtnSetGroup->setClickedCallback(onClickSetGroup, this);
 
 	
-
 	mCheckDeedToGroup = getChild<LLCheckBoxCtrl>( "check deed");
 	childSetCommitCallback("check deed", onCommitAny, this);
 
@@ -449,6 +448,8 @@ void LLPanelLandGeneral::refresh()
 		mCheckContributeWithDeed->setEnabled(FALSE);
 
 		mTextOwner->setText(LLStringUtil::null);
+		mContentRating->setText(LLStringUtil::null);
+		mLandType->setText(LLStringUtil::null);
 		mBtnProfile->setLabel(getString("profile_text"));
 		mBtnProfile->setEnabled(FALSE);
 
@@ -482,6 +483,12 @@ void LLPanelLandGeneral::refresh()
 		   && !(regionp->getRegionFlags() & REGION_FLAGS_BLOCK_LAND_RESELL))
 		{
 			region_xfer = TRUE;
+		}
+		
+		if (regionp)
+		{
+			mContentRating->setText(regionp->getSimAccessString());
+			mLandType->setText(regionp->getSimProductName());
 		}
 
 		// estate owner/manager cannot edit other parts of the parcel
@@ -604,6 +611,25 @@ void LLPanelLandGeneral::refresh()
 		mBtnSellLand->setVisible(FALSE);
 		mBtnStopSellLand->setVisible(FALSE);
 		
+		// show pricing information
+		S32 area;
+		S32 claim_price;
+		S32 rent_price;
+		F32 dwell;
+		LLViewerParcelMgr::getInstance()->getDisplayInfo(&area,
+								 &claim_price,
+								 &rent_price,
+								 &for_sale,
+								 &dwell);
+
+		// Area
+		LLUIString price = getString("area_size_text");
+		price.setArg("[AREA]", llformat("%d",area));    
+		mTextPriceLabel->setText(getString("area_text"));
+		mTextPrice->setText(price.getString());
+
+		mTextDwell->setText(llformat("%.0f", dwell));
+
 		if (for_sale)
 		{
 			mSaleInfoForSale1->setVisible(TRUE);
@@ -619,7 +645,15 @@ void LLPanelLandGeneral::refresh()
 				mSaleInfoForSaleNoObjects->setVisible(TRUE);
 			}
 			mSaleInfoNotForSale->setVisible(FALSE);
+
+			F32 cost_per_sqm = 0.0f;
+			if (area > 0)
+			{
+				cost_per_sqm = (F32)parcel->getSalePrice() / (F32)area;
+			}
+
 			mSaleInfoForSale1->setTextArg("[PRICE]", llformat("%d", parcel->getSalePrice()));
+			mSaleInfoForSale1->setTextArg("[PRICE_PER_SQM]", llformat("%.1f", cost_per_sqm));
 			if (can_be_sold)
 			{
 				mBtnStopSellLand->setVisible(TRUE);
@@ -644,25 +678,6 @@ void LLPanelLandGeneral::refresh()
 			LLViewerParcelMgr::getInstance()->canAgentBuyParcel(parcel, false));
 		mBtnBuyGroupLand->setEnabled(
 			LLViewerParcelMgr::getInstance()->canAgentBuyParcel(parcel, true));
-
-		// show pricing information
-		S32 area;
-		S32 claim_price;
-		S32 rent_price;
-		F32 dwell;
-		LLViewerParcelMgr::getInstance()->getDisplayInfo(&area,
-								   &claim_price,
-								   &rent_price,
-								   &for_sale,
-								   &dwell);
-
-		// Area
-		LLUIString price = getString("area_size_text");
-		price.setArg("[AREA]", llformat("%d",area));	
-		mTextPriceLabel->setText(getString("area_text"));
-		mTextPrice->setText(price.getString());
-		
-		mTextDwell->setText(llformat("%.0f", dwell));
 
 		if(region_owner)
 		{
@@ -864,12 +879,12 @@ void LLPanelLandGeneral::onClickBuyPass(void* data)
 	cost = llformat("%d", pass_price);
 	time = llformat("%.2f", pass_hours);
 
-	LLStringUtil::format_map_t args;
-	args["[COST]"] = cost;
-	args["[PARCEL_NAME]"] = parcel_name;
-	args["[TIME]"] = time;
+	LLSD args;
+	args["COST"] = cost;
+	args["PARCEL_NAME"] = parcel_name;
+	args["TIME"] = time;
 	
-	sBuyPassDialogHandle = gViewerWindow->alertXml("LandBuyPass", args, cbBuyPass)->getHandle();
+	LLNotifications::instance().add("LandBuyPass", args, LLSD(), cbBuyPass);
 }
 
 // static
@@ -881,7 +896,7 @@ void LLPanelLandGeneral::onClickStartAuction(void* data)
 	{
 		if(parcelp->getForSale())
 		{
-			gViewerWindow->alertXml("CannotStartAuctionAlreadForSale");
+			LLNotifications::instance().add("CannotStartAuctionAlreadyForSale");
 		}
 		else
 		{
@@ -891,19 +906,15 @@ void LLPanelLandGeneral::onClickStartAuction(void* data)
 }
 
 // static
-void LLPanelLandGeneral::cbBuyPass(S32 option, void* data)
+bool LLPanelLandGeneral::cbBuyPass(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
 		// User clicked OK
 		LLViewerParcelMgr::getInstance()->buyPass();
 	}
-}
-
-//static 
-BOOL LLPanelLandGeneral::buyPassDialogVisible()
-{
-	return sBuyPassDialogHandle.get() != NULL;
+	return false;
 }
 
 // static
@@ -1241,28 +1252,27 @@ void send_return_objects_message(S32 parcel_local_id, S32 return_type,
 	msg->sendReliable(region->getHost());
 }
 
-// static
-void LLPanelLandObjects::callbackReturnOwnerObjects(S32 option, void* userdata)
+bool LLPanelLandObjects::callbackReturnOwnerObjects(const LLSD& notification, const LLSD& response)
 {
-	LLPanelLandObjects	*lop = (LLPanelLandObjects *)userdata;
-	LLParcel *parcel = lop->mParcel->getParcel();
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	LLParcel *parcel = mParcel->getParcel();
 	if (0 == option)
 	{
 		if (parcel)
 		{
 			LLUUID owner_id = parcel->getOwnerID();	
-			LLStringUtil::format_map_t args;
+			LLSD args;
 			if (owner_id == gAgentID)
 			{
-				LLNotifyBox::showXml("OwnedObjectsReturned");
+				LLNotifications::instance().add("OwnedObjectsReturned");
 			}
 			else
 			{
 				std::string first, last;
 				gCacheName->getName(owner_id, first, last);
-				args["[FIRST]"] = first;
-				args["[LAST]"] = last;
-				LLNotifyBox::showXml("OtherObjectsReturned", args);
+				args["FIRST"] = first;
+				args["LAST"] = last;
+				LLNotifications::instance().add("OtherObjectsReturned", args);
 			}
 			send_return_objects_message(parcel->getLocalID(), RT_OWNER);
 		}
@@ -1270,81 +1280,82 @@ void LLPanelLandObjects::callbackReturnOwnerObjects(S32 option, void* userdata)
 
 	LLSelectMgr::getInstance()->unhighlightAll();
 	LLViewerParcelMgr::getInstance()->sendParcelPropertiesUpdate( parcel );
-	lop->refresh();
+	refresh();
+	return false;
 }
 
-// static
-void LLPanelLandObjects::callbackReturnGroupObjects(S32 option, void* userdata)
+bool LLPanelLandObjects::callbackReturnGroupObjects(const LLSD& notification, const LLSD& response)
 {
-	LLPanelLandObjects	*lop = (LLPanelLandObjects *)userdata;
-	LLParcel *parcel = lop->mParcel->getParcel();
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	LLParcel *parcel = mParcel->getParcel();
 	if (0 == option)
 	{
 		if (parcel)
 		{
 			std::string group_name;
 			gCacheName->getGroupName(parcel->getGroupID(), group_name);
-			LLStringUtil::format_map_t args;
-			args["[GROUPNAME]"] = group_name;
-			LLNotifyBox::showXml("GroupObjectsReturned", args);
+			LLSD args;
+			args["GROUPNAME"] = group_name;
+			LLNotifications::instance().add("GroupObjectsReturned", args);
 			send_return_objects_message(parcel->getLocalID(), RT_GROUP);
 		}
 	}
 	LLSelectMgr::getInstance()->unhighlightAll();
 	LLViewerParcelMgr::getInstance()->sendParcelPropertiesUpdate( parcel );
-	lop->refresh();
+	refresh();
+	return false;
 }
 
-// static
-void LLPanelLandObjects::callbackReturnOtherObjects(S32 option, void* userdata)
+bool LLPanelLandObjects::callbackReturnOtherObjects(const LLSD& notification, const LLSD& response)
 {
-	LLPanelLandObjects	*lop = (LLPanelLandObjects *)userdata;
-	LLParcel *parcel = lop->mParcel->getParcel();
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	LLParcel *parcel = mParcel->getParcel();
 	if (0 == option)
 	{
 		if (parcel)
 		{
-			LLNotifyBox::showXml("UnOwnedObjectsReturned");
+			LLNotifications::instance().add("UnOwnedObjectsReturned");
 			send_return_objects_message(parcel->getLocalID(), RT_OTHER);
 		}
 	}
 	LLSelectMgr::getInstance()->unhighlightAll();
 	LLViewerParcelMgr::getInstance()->sendParcelPropertiesUpdate( parcel );
-	lop->refresh();
+	refresh();
+	return false;
 }
 
-// static
-void LLPanelLandObjects::callbackReturnOwnerList(S32 option, void* userdata)
+bool LLPanelLandObjects::callbackReturnOwnerList(const LLSD& notification, const LLSD& response)
 {
-	LLPanelLandObjects	*self = (LLPanelLandObjects *)userdata;
-	LLParcel *parcel = self->mParcel->getParcel();
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	LLParcel *parcel = mParcel->getParcel();
 	if (0 == option)
 	{
 		if (parcel)
 		{
 			// Make sure we have something selected.
-			uuid_list_t::iterator selected = self->mSelectedOwners.begin();
-			if (selected != self->mSelectedOwners.end())
+			uuid_list_t::iterator selected = mSelectedOwners.begin();
+			if (selected != mSelectedOwners.end())
 			{
-				LLStringUtil::format_map_t args;
-				if (self->mSelectedIsGroup)
+				LLSD args;
+				if (mSelectedIsGroup)
 				{
-					args["[GROUPNAME]"] = self->mSelectedName;
-					LLNotifyBox::showXml("GroupObjectsReturned", args);
+					args["GROUPNAME"] = mSelectedName;
+					LLNotifications::instance().add("GroupObjectsReturned", args);
 				}
 				else
 				{
-					args["[NAME]"] = self->mSelectedName;
-					LLNotifyBox::showXml("OtherObjectsReturned2", args);
+					args["NAME"] = mSelectedName;
+					LLNotifications::instance().add("OtherObjectsReturned2", args);
 				}
 
-				send_return_objects_message(parcel->getLocalID(), RT_LIST, &(self->mSelectedOwners));
+				send_return_objects_message(parcel->getLocalID(), RT_LIST, &(mSelectedOwners));
 			}
 		}
 	}
 	LLSelectMgr::getInstance()->unhighlightAll();
 	LLViewerParcelMgr::getInstance()->sendParcelPropertiesUpdate( parcel );
-	self->refresh();
+	refresh();
+	return false;
 }
 
 
@@ -1366,16 +1377,16 @@ void LLPanelLandObjects::onClickReturnOwnerList(void* userdata)
 
 	send_parcel_select_objects(parcelp->getLocalID(), RT_LIST, &(self->mSelectedOwners));
 
-	LLStringUtil::format_map_t args;
-	args["[NAME]"] = self->mSelectedName;
-	args["[N]"] = llformat("%d",self->mSelectedCount);
+	LLSD args;
+	args["NAME"] = self->mSelectedName;
+	args["N"] = llformat("%d",self->mSelectedCount);
 	if (self->mSelectedIsGroup)
 	{
-		gViewerWindow->alertXml("ReturnObjectsDeededToGroup", args, callbackReturnOwnerList, userdata);	
+		LLNotifications::instance().add("ReturnObjectsDeededToGroup", args, LLSD(), boost::bind(&LLPanelLandObjects::callbackReturnOwnerList, self, _1, _2));	
 	}
 	else 
 	{
-		gViewerWindow->alertXml("ReturnObjectsOwnedByUser", args, callbackReturnOwnerList, userdata);	
+		LLNotifications::instance().add("ReturnObjectsOwnedByUser", args, LLSD(), boost::bind(&LLPanelLandObjects::callbackReturnOwnerList, self, _1, _2));	
 	}
 }
 
@@ -1422,7 +1433,7 @@ void LLPanelLandObjects::processParcelObjectOwnersReply(LLMessageSystem *msg, vo
 		return;
 	}
 	
-	const LLFontGL* FONT = LLFontGL::sSansSerif;
+	const LLFontGL* FONT = LLFontGL::getFontSansSerif();
 
 	// Extract all of the owners.
 	S32 rows = msg->getNumberOfBlocksFast(_PREHASH_Data);
@@ -1583,19 +1594,19 @@ void LLPanelLandObjects::onClickReturnOwnerObjects(void* userdata)
 
 	LLUUID owner_id = parcel->getOwnerID();
 	
-	LLStringUtil::format_map_t args;
-	args["[N]"] = llformat("%d",owned);
+	LLSD args;
+	args["N"] = llformat("%d",owned);
 
 	if (owner_id == gAgent.getID())
 	{
-		gViewerWindow->alertXml("ReturnObjectsOwnedBySelf", args, callbackReturnOwnerObjects, userdata);
+		LLNotifications::instance().add("ReturnObjectsOwnedBySelf", args, LLSD(), boost::bind(&LLPanelLandObjects::callbackReturnOwnerObjects, panelp, _1, _2));
 	}
 	else
 	{
 		std::string name;
 		gCacheName->getFullName(owner_id, name);
-		args["[NAME]"] = name;
-		gViewerWindow->alertXml("ReturnObjectsOwnedByUser", args, callbackReturnOwnerObjects, userdata);
+		args["NAME"] = name;
+		LLNotifications::instance().add("ReturnObjectsOwnedByUser", args, LLSD(), boost::bind(&LLPanelLandObjects::callbackReturnOwnerObjects, panelp, _1, _2));
 	}
 }
 
@@ -1611,12 +1622,12 @@ void LLPanelLandObjects::onClickReturnGroupObjects(void* userdata)
 	std::string group_name;
 	gCacheName->getGroupName(parcel->getGroupID(), group_name);
 	
-	LLStringUtil::format_map_t args;
-	args["[NAME]"] = group_name;
-	args["[N]"] = llformat("%d", parcel->getGroupPrimCount());
+	LLSD args;
+	args["NAME"] = group_name;
+	args["N"] = llformat("%d", parcel->getGroupPrimCount());
 
 	// create and show confirmation textbox
-	gViewerWindow->alertXml("ReturnObjectsDeededToGroup", args, callbackReturnGroupObjects, userdata);
+	LLNotifications::instance().add("ReturnObjectsDeededToGroup", args, LLSD(), boost::bind(&LLPanelLandObjects::callbackReturnGroupObjects, panelp, _1, _2));
 }
 
 // static
@@ -1632,16 +1643,16 @@ void LLPanelLandObjects::onClickReturnOtherObjects(void* userdata)
 
 	send_parcel_select_objects(parcel->getLocalID(), RT_OTHER);
 
-	LLStringUtil::format_map_t args;
-	args["[N]"] = llformat("%d", other);
+	LLSD args;
+	args["N"] = llformat("%d", other);
 	
 	if (parcel->getIsGroupOwned())
 	{
 		std::string group_name;
 		gCacheName->getGroupName(parcel->getGroupID(), group_name);
-		args["[NAME]"] = group_name;
+		args["NAME"] = group_name;
 
-		gViewerWindow->alertXml("ReturnObjectsNotOwnedByGroup", args, callbackReturnOtherObjects, userdata);
+		LLNotifications::instance().add("ReturnObjectsNotOwnedByGroup", args, LLSD(), boost::bind(&LLPanelLandObjects::callbackReturnOtherObjects, panelp, _1, _2));
 	}
 	else
 	{
@@ -1649,15 +1660,15 @@ void LLPanelLandObjects::onClickReturnOtherObjects(void* userdata)
 
 		if (owner_id == gAgent.getID())
 		{
-			gViewerWindow->alertXml("ReturnObjectsNotOwnedBySelf", args, callbackReturnOtherObjects, userdata);
+			LLNotifications::instance().add("ReturnObjectsNotOwnedBySelf", args, LLSD(), boost::bind(&LLPanelLandObjects::callbackReturnOtherObjects, panelp, _1, _2));
 		}
 		else
 		{
 			std::string name;
 			gCacheName->getFullName(owner_id, name);
-			args["[NAME]"] = name;
+			args["NAME"] = name;
 
-			gViewerWindow->alertXml("ReturnObjectsNotOwnedByUser", args, callbackReturnOtherObjects, userdata);
+			LLNotifications::instance().add("ReturnObjectsNotOwnedByUser", args, LLSD(), boost::bind(&LLPanelLandObjects::callbackReturnOtherObjects, panelp, _1, _2));
 		}
 	}
 }
@@ -1716,8 +1727,6 @@ LLPanelLandOptions::LLPanelLandOptions(LLParcelSelectionHandle& parcel)
 
 BOOL LLPanelLandOptions::postBuild()
 {
-
-	
 	mCheckEditObjects = getChild<LLCheckBoxCtrl>( "edit objects check");
 	childSetCommitCallback("edit objects check", onCommitAny, this);
 	
@@ -1761,8 +1770,24 @@ BOOL LLPanelLandOptions::postBuild()
 	childSetCommitCallback("ShowDirectoryCheck", onCommitAny, this);
 
 	
-	mCategoryCombo = getChild<LLComboBox>( "land category");
-	childSetCommitCallback("land category", onCommitAny, this);
+	if (gAgent.getAgentAccess().isInTransition())
+	{
+		// during the AO transition, this combo has an Adult item.
+		// Post-transition, it goes away. We can remove this conditional
+		// after the transition and just use the "else" clause.
+		mCategoryCombo = getChild<LLComboBox>( "land category with adult");
+		childSetCommitCallback("land category with adult", onCommitAny, this);
+	}
+	else
+	{
+		// this is the code that should be preserved post-transition
+		// you could also change the XML to set visibility and enabled true.
+		mCategoryCombo = getChild<LLComboBox>( "land category");
+		childSetCommitCallback("land category", onCommitAny, this);
+	}
+	mCategoryCombo->setVisible(true);
+	mCategoryCombo->setEnabled(true);
+	
 
 	mMatureCtrl = getChild<LLCheckBoxCtrl>( "MatureCheck");
 	childSetCommitCallback("MatureCheck", onCommitAny, this);
@@ -1770,8 +1795,7 @@ BOOL LLPanelLandOptions::postBuild()
 	mPublishHelpButton = getChild<LLButton>("?");
 	mPublishHelpButton->setClickedCallback(onClickPublishHelp, this);
 
-
-	if (gAgent.isTeen())
+	if (gAgent.wantsPGOnly())
 	{
 		// Disable these buttons if they are PG (Teen) users
 		mPublishHelpButton->setVisible(FALSE);
@@ -1779,27 +1803,7 @@ BOOL LLPanelLandOptions::postBuild()
 		mMatureCtrl->setVisible(FALSE);
 		mMatureCtrl->setEnabled(FALSE);
 	}
-
-		// Load up the category list
-	//now in xml file
-	/*
-	S32 i;
-	for (i = 0; i < LLParcel::C_COUNT; i++)
-	{
-		LLParcel::ECategory cat = (LLParcel::ECategory)i;
-
-		// Selecting Linden Location when you're not a god
-		// is also blocked on the server.
-		BOOL enabled = TRUE;
-		if (!gAgent.isGodlike()
-			&& i == LLParcel::C_LINDEN) 
-		{
-			enabled = FALSE;
-		}
-
-		mCategoryCombo->add( LLParcel::getCategoryUIString(cat), ADD_BOTTOM, enabled );
-	}*/
-
+	
 	
 	mSnapshotCtrl = getChild<LLTextureCtrl>("snapshot_ctrl");
 	if (mSnapshotCtrl)
@@ -1829,6 +1833,8 @@ BOOL LLPanelLandOptions::postBuild()
 	mLandingTypeCombo = getChild<LLComboBox>( "landing type");
 	childSetCommitCallback("landing type", onCommitAny, this);
 
+	getChild<LLTextureCtrl>("snapshot_ctrl")->setFallbackImageName("default_land_picture.j2c");
+
 	return TRUE;
 }
 
@@ -1838,11 +1844,12 @@ LLPanelLandOptions::~LLPanelLandOptions()
 { }
 
 
-// public
+// virtual
 void LLPanelLandOptions::refresh()
 {
+	refreshSearch();
+
 	LLParcel *parcel = mParcel->getParcel();
-	
 	if (!parcel)
 	{
 		mCheckEditObjects	->set(FALSE);
@@ -1875,16 +1882,8 @@ void LLPanelLandOptions::refresh()
 		mCheckOtherScripts	->set(FALSE);
 		mCheckOtherScripts	->setEnabled(FALSE);
 
-		mCheckShowDirectory	->set(FALSE);
-		mCheckShowDirectory	->setEnabled(FALSE);
-
 		mPushRestrictionCtrl->set(FALSE);
 		mPushRestrictionCtrl->setEnabled(FALSE);
-
-		// *TODO:Translate
-		const std::string& none_string = LLParcel::getCategoryUIString(LLParcel::C_NONE);
-		mCategoryCombo->setSimple(none_string);
-		mCategoryCombo->setEnabled(FALSE);
 
 		mLandingTypeCombo->setCurrentByIndex(0);
 		mLandingTypeCombo->setEnabled(FALSE);
@@ -1949,20 +1948,14 @@ void LLPanelLandOptions::refresh()
 			mPushRestrictionCtrl->setEnabled(can_change_options);
 		}
 
-		BOOL can_change_identity = 
-			LLViewerParcelMgr::isParcelModifiableByAgent(parcel, GP_LAND_CHANGE_IDENTITY);
-		// Set by string in case the order in UI doesn't match the order by index.
-		// *TODO:Translate
-		LLParcel::ECategory cat = parcel->getCategory();
-		const std::string& category_string = LLParcel::getCategoryUIString(cat);
-		mCategoryCombo->setSimple(category_string);
-		mCategoryCombo->setEnabled( can_change_identity );
-
 		BOOL can_change_landing_point = LLViewerParcelMgr::isParcelModifiableByAgent(parcel, 
 														GP_LAND_SET_LANDING_POINT);
 		mLandingTypeCombo->setCurrentByIndex((S32)parcel->getLandingType());
 		mLandingTypeCombo->setEnabled( can_change_landing_point );
 
+		bool can_change_identity =
+				LLViewerParcelMgr::isParcelModifiableByAgent(
+					parcel, GP_LAND_CHANGE_IDENTITY);
 		mSnapshotCtrl->setImageAssetID(parcel->getSnapshotID());
 		mSnapshotCtrl->setEnabled( can_change_identity );
 
@@ -1982,11 +1975,9 @@ void LLPanelLandOptions::refresh()
 		mSetBtn->setEnabled( can_change_landing_point );
 		mClearBtn->setEnabled( can_change_landing_point );
 
-		mMatureCtrl->set(parcel->getMaturePublish());
-		mMatureCtrl->setEnabled( can_change_identity );
 		mPublishHelpButton->setEnabled( can_change_identity );
 
-		if (gAgent.isTeen())
+		if (gAgent.wantsPGOnly())
 		{
 			// Disable these buttons if they are PG (Teen) users
 			mPublishHelpButton->setVisible(FALSE);
@@ -1994,42 +1985,145 @@ void LLPanelLandOptions::refresh()
 			mMatureCtrl->setVisible(FALSE);
 			mMatureCtrl->setEnabled(FALSE);
 		}
+		else
+		{
+			// not teen so fill in the data for the maturity control
+			mMatureCtrl->setVisible(TRUE);
+			mMatureCtrl->setLabel(getString("mature_check_mature"));
+			mMatureCtrl->setToolTip(getString("mature_check_mature_tooltip"));
+			// they can see the checkbox, but its disposition depends on the 
+			// state of the region
+			LLViewerRegion* regionp = LLViewerParcelMgr::getInstance()->getSelectionRegion();
+			if (regionp)
+			{
+				if (regionp->getSimAccess() == SIM_ACCESS_PG)
+				{
+					mMatureCtrl->setEnabled(FALSE);
+					mMatureCtrl->set(FALSE);
+				}
+				else if (regionp->getSimAccess() == SIM_ACCESS_MATURE)
+				{
+					mMatureCtrl->setEnabled(can_change_identity);
+					mMatureCtrl->set(parcel->getMaturePublish());
+				}
+				else if (regionp->getSimAccess() == SIM_ACCESS_ADULT)
+				{
+					mMatureCtrl->setEnabled(FALSE);
+					mMatureCtrl->set(TRUE);
+					mMatureCtrl->setLabel(getString("mature_check_adult"));
+					mMatureCtrl->setToolTip(getString("mature_check_adult_tooltip"));
+				}
+			}
+		}
 	}
 }
 
 // virtual
 void LLPanelLandOptions::draw()
 {
-	LLParcel *parcel = LLViewerParcelMgr::getInstance()->getFloatingParcelSelection()->getParcel();
-	
-	if(parcel)
+	refreshSearch();	// Is this necessary?  JC
+	LLPanel::draw();
+}
+
+
+// private
+void LLPanelLandOptions::refreshSearch()
+{
+	LLParcel *parcel = mParcel->getParcel();
+	if (!parcel)
 	{
-		LLViewerRegion* region;
-		region = LLViewerParcelMgr::getInstance()->getSelectionRegion();
-		llassert(region); // Region should never be null.
+		mCheckShowDirectory->set(FALSE);
+		mCheckShowDirectory->setEnabled(FALSE);
 
-		BOOL can_change_identity = region ? 
-			LLViewerParcelMgr::isParcelModifiableByAgent(parcel, GP_LAND_CHANGE_IDENTITY) &&
-			! (region->getRegionFlags() & REGION_FLAGS_BLOCK_PARCEL_SEARCH) : false;
-
-		// There is a bug with this panel whereby the Show Directory bit can be 
-		// slammed off by the Region based on an override.  Since this data is cached
-		// locally the change will not reflect in the panel, which could cause confusion
-		// A workaround for this is to flip the bit off in the locally cached version
-		// when we detect a mismatch case.
-		if(! can_change_identity && parcel->getParcelFlag(PF_SHOW_DIRECTORY))
-		{
-			parcel->setParcelFlag(PF_SHOW_DIRECTORY, FALSE);
-		}
-		mCheckShowDirectory	->set(parcel->getParcelFlag(PF_SHOW_DIRECTORY));
-		mCheckShowDirectory	->setEnabled(can_change_identity);
-		mCategoryCombo->setEnabled(can_change_identity);
+		// *TODO:Translate
+		const std::string& none_string = LLParcel::getCategoryUIString(LLParcel::C_NONE);
+		mCategoryCombo->setSimple(none_string);
+		mCategoryCombo->setEnabled(FALSE);
+		return;
 	}
 
-	LLPanel::draw();
+	LLViewerRegion* region =
+			LLViewerParcelMgr::getInstance()->getSelectionRegion();
 
+	bool can_change =
+			LLViewerParcelMgr::isParcelModifiableByAgent(
+				parcel, GP_LAND_CHANGE_IDENTITY)
+			&& region
+			&& !(region->getRegionFlags() & REGION_FLAGS_BLOCK_PARCEL_SEARCH);
 
+	// There is a bug with this panel whereby the Show Directory bit can be 
+	// slammed off by the Region based on an override.  Since this data is cached
+	// locally the change will not reflect in the panel, which could cause confusion
+	// A workaround for this is to flip the bit off in the locally cached version
+	// when we detect a mismatch case.
+	if(!can_change && parcel->getParcelFlag(PF_SHOW_DIRECTORY))
+	{
+		parcel->setParcelFlag(PF_SHOW_DIRECTORY, FALSE);
+	}
+	BOOL show_directory = parcel->getParcelFlag(PF_SHOW_DIRECTORY);
+	mCheckShowDirectory	->set(show_directory);
+
+	// Set by string in case the order in UI doesn't match the order by index.
+	// *TODO:Translate
+	LLParcel::ECategory cat = parcel->getCategory();
+	const std::string& category_string = LLParcel::getCategoryUIString(cat);
+	mCategoryCombo->setSimple(category_string);
+
+	std::string tooltip;
+	bool enable_show_directory = false;
+	// Parcels <= 128 square meters cannot be listed in search, in an
+	// effort to reduce search spam from small parcels.  See also
+	// the search crawler "grid-crawl.py" in secondlife.com/doc/app/search/ JC
+	const S32 MIN_PARCEL_AREA_FOR_SEARCH = 128;
+	bool large_enough = parcel->getArea() > MIN_PARCEL_AREA_FOR_SEARCH;
+	if (large_enough)
+	{
+		if (can_change)
+		{
+			tooltip = getString("search_enabled_tooltip");
+			enable_show_directory = true;
+		}
+		else
+		{
+			tooltip = getString("search_disabled_permissions_tooltip");
+			enable_show_directory = false;
+		}
+	}
+	else
+	{
+		// not large enough to include in search
+		if (can_change)
+		{
+			if (show_directory)
+			{
+				// parcels that are too small, but are still in search for
+				// legacy reasons, need to have the check box enabled so
+				// the owner can delist the parcel. JC
+				tooltip = getString("search_enabled_tooltip");
+				enable_show_directory = true;
+			}
+			else
+			{
+				tooltip = getString("search_disabled_small_tooltip");
+				enable_show_directory = false;
+			}
+		}
+		else
+		{
+			// both too small and don't have permission, so just
+			// show the permissions as the reason (which is probably
+			// the more common case) JC
+			tooltip = getString("search_disabled_permissions_tooltip");
+			enable_show_directory = false;
+		}
+	}
+	mCheckShowDirectory->setToolTip(tooltip);
+	mCategoryCombo->setToolTip(tooltip);
+	mCheckShowDirectory->setEnabled(enable_show_directory);
+	mCategoryCombo->setEnabled(enable_show_directory);
 }
+
+
 // static
 void LLPanelLandOptions::onCommitAny(LLUICtrl *ctrl, void *userdata)
 {
@@ -2056,7 +2150,8 @@ void LLPanelLandOptions::onCommitAny(LLUICtrl *ctrl, void *userdata)
 	BOOL mature_publish		= self->mMatureCtrl->get();
 	BOOL push_restriction	= self->mPushRestrictionCtrl->get();
 	BOOL show_directory		= self->mCheckShowDirectory->get();
-	S32  category_index		= self->mCategoryCombo->getCurrentIndex();
+	// we have to get the index from a lookup, not from the position in the dropdown!
+	S32  category_index		= LLParcel::getCategoryFromString(self->mCategoryCombo->getSelectedValue());
 	S32  landing_type_index	= self->mLandingTypeCombo->getCurrentIndex();
 	LLUUID snapshot_id		= self->mSnapshotCtrl->getImageAssetID();
 	LLViewerRegion* region;
@@ -2065,7 +2160,7 @@ void LLPanelLandOptions::onCommitAny(LLUICtrl *ctrl, void *userdata)
 	if (!allow_other_scripts && region && region->getAllowDamage())
 	{
 
-		gViewerWindow->alertXml("UnableToDisableOutsideScripts");
+		LLNotifications::instance().add("UnableToDisableOutsideScripts");
 		return;
 	}
 
@@ -2109,7 +2204,7 @@ void LLPanelLandOptions::onClickSet(void* userdata)
 
 	if (agent_parcel->getLocalID() != selected_parcel->getLocalID())
 	{
-		gViewerWindow->alertXml("MustBeInParcel");
+		LLNotifications::instance().add("MustBeInParcel");
 		return;
 	}
 
@@ -2152,11 +2247,11 @@ void LLPanelLandOptions::onClickPublishHelp(void*)
 
 	if(! can_change_identity)
 	{
-		gViewerWindow->alertXml("ClickPublishHelpLandDisabled");
+		LLNotifications::instance().add("ClickPublishHelpLandDisabled");
 	}
 	else
 	{
-		gViewerWindow->alertXml("ClickPublishHelpLand");
+		LLNotifications::instance().add("ClickPublishHelpLand");
 	}
 }
 
@@ -2689,6 +2784,18 @@ void LLPanelLandCovenant::refresh()
 		region_name->setText(region->getName());
 	}
 
+	LLTextBox* region_landtype = getChild<LLTextBox>("region_landtype_text");
+	if (region_landtype)
+	{
+		region_landtype->setText(region->getSimProductName());
+	}
+	
+	LLTextBox* region_maturity = getChild<LLTextBox>("region_maturity_text");
+	if (region_maturity)
+	{
+		region_maturity->setText(region->getSimAccessString());
+	}
+	
 	LLTextBox* resellable_clause = getChild<LLTextBox>("resellable_clause");
 	if (resellable_clause)
 	{

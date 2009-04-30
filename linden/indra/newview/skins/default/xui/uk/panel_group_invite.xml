@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Запросити учасника" name="invite_panel">
+	<text name="help_text">
+		Ви можете запр. в Групу одразу
+дек. учасн., натисніть Вибір Персон.
+	</text>
+	<button label="Відкрити вибір персон" name="add_button" tool_tip="" />
+	<name_list name="invitee_list"
+	     tool_tip="Щоб вибрати декількох резидентів, натискайте по ним, утримуючи кнопку Ctrl" />
+	<button label="Видалити вибраних зі списку"
+	     name="remove_button"
+	     tool_tip="Видалити вибраних резидентів зі списку запрошень." />
+	<text name="role_text">
+		Виберіть яку Роль їм призначити:
+	</text>
+	<combo_box name="role_name"
+	     tool_tip="Виберіть зі списку Ролей ті, які Ви можете призначити Учасникам." />
+	<button label="Відправити запрошення" name="ok_button" />
+	<button label="Відміна" name="cancel_button" />
+	<string name="confirm_invite_owner_str">
+		Ви впевнені, що хочете запросити нових власників? Цю дію неможна відмінити.
+	</string>
+	<string name="loading">
+		(завантаження...)
+	</string>
+</panel>

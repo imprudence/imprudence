@@ -16,7 +16,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -79,9 +80,9 @@ private:
 	static void doSelectAgent(void *userdata);
 	static void doCancel(void *userdata);
 	static void doSellLand(void *userdata);
-	static void onConfirmSale(S32 option, void *userdata);
+	bool onConfirmSale(const LLSD& notification, const LLSD& response);
 	static void doShowObjects(void *userdata);
-	static void callbackHighlightTransferable(S32 option, void* userdata);
+	static bool callbackHighlightTransferable(const LLSD& notification, const LLSD& response);
 
 	static void callbackAvatarPick(const std::vector<std::string>& names, const std::vector<LLUUID>& ids, void* data);
 
@@ -443,15 +444,16 @@ void LLFloaterSellLandUI::doShowObjects(void *userdata)
 
 	send_parcel_select_objects(parcel->getLocalID(), RT_SELL);
 
-	LLNotifyBox::showXml("TransferObjectsHighlighted",
-						 callbackHighlightTransferable,
-						 userdata);
+	LLNotifications::instance().add("TransferObjectsHighlighted",
+						LLSD(), LLSD(),
+						&LLFloaterSellLandUI::callbackHighlightTransferable);
 }
 
 // static
-void LLFloaterSellLandUI::callbackHighlightTransferable(S32 option, void* userdata)
+bool LLFloaterSellLandUI::callbackHighlightTransferable(const LLSD& notification, const LLSD& data)
 {
 	LLSelectMgr::getInstance()->unhighlightAll();
+	return false;
 }
 
 // static
@@ -462,83 +464,89 @@ void LLFloaterSellLandUI::doSellLand(void *userdata)
 	LLParcel* parcel = self->mParcelSelection->getParcel();
 
 	// Do a confirmation
-	if (!parcel->getForSale())
+	S32 sale_price = self->childGetValue("price");
+	S32 area = parcel->getArea();
+	std::string authorizedBuyerName = "Anyone";
+	bool sell_to_anyone = true;
+	if ("user" == self->childGetValue("sell_to").asString())
 	{
-		S32 sale_price = self->childGetValue("price");
-		S32 area = parcel->getArea();
-		std::string authorizedBuyerName = "Anyone";
-		bool sell_to_anyone = true;
-		if ("user" == self->childGetValue("sell_to").asString())
-		{
-			authorizedBuyerName = self->childGetText("sell_to_agent");
-			sell_to_anyone = false;
-		}
+		authorizedBuyerName = self->childGetText("sell_to_agent");
+		sell_to_anyone = false;
+	}
 
-		// must sell to someone if indicating sale to anyone
-		if ((sale_price == 0) && sell_to_anyone)
-		{
-			gViewerWindow->alertXml("SalePriceRestriction");
-			return;
-		}
+	// must sell to someone if indicating sale to anyone
+	if (!parcel->getForSale() 
+		&& (sale_price == 0) 
+		&& sell_to_anyone)
+	{
+		LLNotifications::instance().add("SalePriceRestriction");
+		return;
+	}
 
-		LLStringUtil::format_map_t args;
-		args["[LAND_SIZE]"] = llformat("%d",area);
-		args["[SALE_PRICE]"] = llformat("%d",sale_price);
-		args["[NAME]"] = authorizedBuyerName;
+	LLSD args;
+	args["LAND_SIZE"] = llformat("%d",area);
+	args["SALE_PRICE"] = llformat("%d",sale_price);
+	args["NAME"] = authorizedBuyerName;
 
-		if (sell_to_anyone)
-		{
-			gViewerWindow->alertXml("ConfirmLandSaleToAnyoneChange", args, onConfirmSale, self);
-		}
-		else
-		{
-			gViewerWindow->alertXml("ConfirmLandSaleChange", args, onConfirmSale, self);
-		}
+	LLNotification::Params params("ConfirmLandSaleChange");
+	params.substitutions(args)
+		.functor(boost::bind(&LLFloaterSellLandUI::onConfirmSale, self, _1, _2));
+
+	if (sell_to_anyone)
+	{
+		params.name("ConfirmLandSaleToAnyoneChange");
+	}
+	
+	if (parcel->getForSale())
+	{
+		// parcel already for sale, so ignore this question
+		LLNotifications::instance().forceResponse(params, -1);
 	}
 	else
 	{
-		onConfirmSale(-1, self);
+		// ask away
+		LLNotifications::instance().add(params);
 	}
+
 }
 
-// static
-void LLFloaterSellLandUI::onConfirmSale(S32 option, void *userdata)
+bool LLFloaterSellLandUI::onConfirmSale(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option != 0)
 	{
-		return;
+		return false;
 	}
-	LLFloaterSellLandUI* self = (LLFloaterSellLandUI*)userdata;
-	S32  sale_price	= self->childGetValue("price");
+	S32  sale_price	= childGetValue("price");
 
 	// Valid extracted data
 	if (sale_price < 0)
 	{
 		// TomY TODO: Throw an error
-		return;
+		return false;
 	}
 
-	LLParcel* parcel = self->mParcelSelection->getParcel();
-	if (!parcel) return;
+	LLParcel* parcel = mParcelSelection->getParcel();
+	if (!parcel) return false;
 
 	// can_agent_modify_parcel deprecated by GROUPS
 // 	if (!can_agent_modify_parcel(parcel))
 // 	{
-// 		self->close();
+// 		close();
 // 		return;
 // 	}
 
 	parcel->setParcelFlag(PF_FOR_SALE, TRUE);
 	parcel->setSalePrice(sale_price);
 	bool sell_with_objects = false;
-	if ("yes" == self->childGetValue("sell_objects").asString())
+	if ("yes" == childGetValue("sell_objects").asString())
 	{
 		sell_with_objects = true;
 	}
 	parcel->setSellWithObjects(sell_with_objects);
-	if ("user" == self->childGetValue("sell_to").asString())
+	if ("user" == childGetValue("sell_to").asString())
 	{
-		parcel->setAuthorizedBuyerID(self->mAuthorizedBuyer);
+		parcel->setAuthorizedBuyerID(mAuthorizedBuyer);
 	}
 	else
 	{
@@ -548,5 +556,6 @@ void LLFloaterSellLandUI::onConfirmSale(S32 option, void *userdata)
 	// Send update to server
 	LLViewerParcelMgr::getInstance()->sendParcelPropertiesUpdate( parcel );
 
-	self->close();
+	close();
+	return false;
 }

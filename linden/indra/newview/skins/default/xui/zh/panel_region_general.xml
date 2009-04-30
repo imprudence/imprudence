@@ -31,14 +31,9 @@
 	<text label="成人内容" name="access_text">
 		成人内容:
 	</text>
-	<combo_box label="成人" name="access_combo">
-		<combo_item name="PG">
-			非限制级
-		</combo_item>
-		<combo_item name="Mature">
-			限制级
-		</combo_item>
-	</combo_box>
+
+
+
 	<button label="?" name="access_help" />
 	<button label="应用" name="apply_btn" />
 	<button label="瞬间移动用户回家..." name="kick_btn" />

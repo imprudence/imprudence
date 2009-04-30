@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater label="(desconhecido)" name="im_floater" title="(unknown)">
+<floater label="(desconhecido)" name="im_floater" title="(desconhecido)">
 	<string name="ringing">
 		Chamando...
 	</string>
@@ -25,7 +25,7 @@
 		[NAME] está digitando...
 	</string>
 	<string name="session_start_string">
-		Iniciando uma sessaão com [NAME] por favor aguarde.
+		Iniciando uma sessão com [NAME]. Por favor, aguarde.
 	</string>
 	<string name="default_text_label">
 		Clique aqui para uma mensagem instantânea.
@@ -39,6 +39,9 @@
 	<line_editor label="Clique aqui para mensagens instantâneas" name="chat_editor"/>
 	<button label="Enviar" name="send_btn"/>
 	<string name="live_help_dialog">
-		*** Bem Vindo a Solicitação de Ajuda *** Por favor, cheque primeiro suas páginas de Ajuda do Second Life precionando F1 ou acessando a Base de Conhecimento em http://secondlife.com/knowledgebase/ Se suas respostas não estiverem ali, or favor entre com sua pergunta e aguarde alguns minutos para que algum Ajudante responsa.-=-=- O tempo de resposta pode variar, especialmente em horários de pico -=-=-
+		*** Bem Vindo a Solicitação de Ajuda *** 
+Por favor, cheque primeiro nossas páginas de ajuda, pressionando F1 ou acessando a Base de Conhecimento em 
+http://secondlife.com/knowledgebase/ . Se sua resposta não está ali, por favor entre com sua pergunta e aguarde que um Ajudante responda.
+-=-=- O tempo de resposta pode variar, especialmente em horários de pico -=-=-
 	</string>
 </floater>

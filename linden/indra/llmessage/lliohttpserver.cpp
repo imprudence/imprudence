@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -56,15 +57,15 @@
 #include <boost/tokenizer.hpp>
 
 static const char HTTP_VERSION_STR[] = "HTTP/1.0";
-static const std::string CONTEXT_REQUEST("request");
-static const std::string CONTEXT_RESPONSE("response");
-static const std::string CONTEXT_VERB("verb");
-static const std::string CONTEXT_HEADERS("headers");
-static const std::string HTTP_VERB_GET("GET");
-static const std::string HTTP_VERB_PUT("PUT");
-static const std::string HTTP_VERB_POST("POST");
-static const std::string HTTP_VERB_DELETE("DELETE");
-static const std::string HTTP_VERB_OPTIONS("OPTIONS");
+const std::string CONTEXT_REQUEST("request");
+const std::string CONTEXT_RESPONSE("response");
+const std::string CONTEXT_VERB("verb");
+const std::string CONTEXT_HEADERS("headers");
+const std::string HTTP_VERB_GET("GET");
+const std::string HTTP_VERB_PUT("PUT");
+const std::string HTTP_VERB_POST("POST");
+const std::string HTTP_VERB_DELETE("DELETE");
+const std::string HTTP_VERB_OPTIONS("OPTIONS");
 
 static LLIOHTTPServer::timing_callback_t sTimingCallback = NULL;
 static void* sTimingCallbackData = NULL;
@@ -103,6 +104,7 @@ private:
 
 		// from LLHTTPNode::Response
 		virtual void result(const LLSD&);
+		virtual void extendedResult(S32 code, const std::string& body, const LLSD& headers);
 		virtual void status(S32 code, const std::string& message);
 
 		void nullPipe();
@@ -121,7 +123,8 @@ private:
 		STATE_DELAYED,
 		STATE_LOCKED,
 		STATE_GOOD_RESULT,
-		STATE_STATUS_RESULT
+		STATE_STATUS_RESULT,
+		STATE_EXTENDED_RESULT
 	};
 	State mState;
 
@@ -179,14 +182,32 @@ LLIOPipe::EStatus LLHTTPPipe::process_impl(
 		{
             LLPerfBlock putblock("http_put");
 			LLSD input;
-			LLSDSerialize::fromXML(input, istr);
+			if (mNode.getContentType() == LLHTTPNode::CONTENT_TYPE_LLSD)
+			{
+				LLSDSerialize::fromXML(input, istr);
+			}
+			else if (mNode.getContentType() == LLHTTPNode::CONTENT_TYPE_TEXT)
+			{
+				std::stringstream strstrm;
+				strstrm << istr.rdbuf();
+				input = strstrm.str();
+			}
 			mNode.put(LLHTTPNode::ResponsePtr(mResponse), context, input);
 		}
 		else if(verb == HTTP_VERB_POST)
 		{
             LLPerfBlock postblock("http_post");
 			LLSD input;
-			LLSDSerialize::fromXML(input, istr);
+			if (mNode.getContentType() == LLHTTPNode::CONTENT_TYPE_LLSD)
+			{
+				LLSDSerialize::fromXML(input, istr);
+			}
+			else if (mNode.getContentType() == LLHTTPNode::CONTENT_TYPE_TEXT)
+			{
+				std::stringstream strstrm;
+				strstrm << istr.rdbuf();
+				input = strstrm.str();
+			}
 			mNode.post(LLHTTPNode::ResponsePtr(mResponse), context, input);
 		}
 		else if(verb == HTTP_VERB_DELETE)
@@ -261,7 +282,16 @@ LLIOPipe::EStatus LLHTTPPipe::process_impl(
 			context[CONTEXT_RESPONSE]["statusCode"] = mStatusCode;
 			context[CONTEXT_RESPONSE]["statusMessage"] = mStatusMessage;
 			LLBufferStream ostr(channels, buffer.get());
-			ostr << mStatusMessage << std::ends;
+			ostr << mStatusMessage;
+
+			return STATUS_DONE;
+		}
+		case STATE_EXTENDED_RESULT:
+		{
+			context[CONTEXT_RESPONSE][CONTEXT_HEADERS] = mHeaders;
+			context[CONTEXT_RESPONSE]["statusCode"] = mStatusCode;
+			LLBufferStream ostr(channels, buffer.get());
+			ostr << mStatusMessage;
 
 			return STATUS_DONE;
 		}
@@ -306,6 +336,21 @@ void LLHTTPPipe::Response::result(const LLSD& r)
 	mPipe->mState = STATE_GOOD_RESULT;
 	mPipe->mHeaders = mHeaders;
 	mPipe->unlockChain();	
+}
+
+void LLHTTPPipe::Response::extendedResult(S32 code, const std::string& body, const LLSD& headers)
+{
+	if(! mPipe)
+	{
+		llwarns << "LLHTTPPipe::Response::status: NULL pipe" << llendl;
+		return;
+	}
+
+	mPipe->mStatusCode = code;
+	mPipe->mStatusMessage = body;
+	mPipe->mHeaders = headers;
+	mPipe->mState = STATE_EXTENDED_RESULT;
+	mPipe->unlockChain();
 }
 
 // virtual
@@ -408,6 +453,7 @@ LLIOPipe::EStatus LLHTTPResponseHeader::process_impl(
 		}
 		
 		ostr << HTTP_VERSION_STR << " " << code << " " << message << "\r\n";
+
 		S32 content_length = buffer->countAfter(channels.in(), NULL);
 		if(0 < content_length)
 		{
@@ -798,6 +844,7 @@ LLIOPipe::EStatus LLHTTPResponder::process_impl(
 				= node->getProtocolHandler();
 			if (protocolHandler)
 			{
+				lldebugs << "HTTP context: " << context << llendl;
 				protocolHandler->build(chain, context);
 			}
 			else

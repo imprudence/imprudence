@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -43,6 +44,7 @@
 #include "llviewerimage.h"
 #include "llviewerimagelist.h"
 #include "llviewerwindow.h"
+#include "lltextparser.h"
 #include "llsd.h"
 #include "llfontgl.h"
 #include "llmath.h"
@@ -84,7 +86,8 @@ void LLConsole::setLinePersistTime(F32 seconds)
 void LLConsole::reshape(S32 width, S32 height, BOOL called_from_parent)
 {
 	S32 new_width = llmax(MIN_CONSOLE_WIDTH, llmin(getRect().getWidth(), gViewerWindow->getWindowWidth()));
-	S32 new_height = llmax(llfloor(mFont->getLineHeight()) + 15, llmin(getRect().getHeight(), gViewerWindow->getWindowHeight()));
+	S32 line_height = mFont ? llfloor(mFont->getLineHeight()) : 0;
+    S32 new_height = llclamp(line_height + 15, getRect().getHeight(), gViewerWindow->getWindowHeight());
 
 	if (   mConsoleWidth == new_width
 		&& mConsoleHeight == new_height )
@@ -107,19 +110,19 @@ void LLConsole::setFontSize(S32 size_index)
 {
 	if (-1 == size_index)
 	{
-		mFont = LLFontGL::sMonospace;
+		mFont = LLFontGL::getFontMonospace();
 	}
 	else if (0 == size_index)
 	{
-		mFont = LLFontGL::sSansSerif;
+		mFont = LLFontGL::getFontSansSerif();
 	}
 	else if (1 == size_index)
 	{
-		mFont = LLFontGL::sSansSerifBig;
+		mFont = LLFontGL::getFontSansSerifBig();
 	}
 	else
 	{
-		mFont = LLFontGL::sSansSerifHuge;
+		mFont = LLFontGL::getFontSansSerifHuge();
 	}
 	
 	for(paragraph_t::iterator paragraph_it = mParagraphs.begin(); paragraph_it != mParagraphs.end(); paragraph_it++)
@@ -137,6 +140,8 @@ void LLConsole::draw()
 	
 	F32 skip_time = cur_time - mLinePersistTime;
 	F32 fade_time = cur_time - mFadeTime;
+
+	updateBuffer() ;
 
 	if (mParagraphs.empty()) 	//No text to draw.
 	{
@@ -279,13 +284,15 @@ void LLConsole::addLine(const std::string& utf8line, F32 size, const LLColor4 &c
 //Generate highlight color segments for this paragraph.  Pass in default color of paragraph.
 void LLConsole::Paragraph::makeParagraphColorSegments (const LLColor4 &color) 
 {
+	LLTextParser* highlight = LLTextParser::getInstance();
 	LLSD paragraph_color_segments;
 	LLColor4 lcolor=color;
 	
-	paragraph_color_segments[0]["text"] =wstring_to_utf8str(mParagraphText);
-	LLSD color_sd = color.getValue();
-	paragraph_color_segments[0]["color"]=color_sd;
-
+	highlight->parseFullLineHighlights(wstring_to_utf8str(mParagraphText), &lcolor);
+	paragraph_color_segments = highlight->parsePartialLineHighlights(
+											wstring_to_utf8str(mParagraphText), 
+											lcolor);
+	
 	for(LLSD::array_const_iterator color_segment_it = paragraph_color_segments.beginArray();
 		color_segment_it != paragraph_color_segments.endArray();
 		++color_segment_it)
@@ -418,4 +425,33 @@ void LLConsole::addLine(const LLWString& wline, F32 size, const LLColor4 &color)
 	// add to LCD screen
 	AddNewDebugConsoleToLCD(wline);
 #endif	
+}
+
+//
+//check if there are some messages stored in the buffer
+//if yes, output them.
+//
+void LLConsole::updateBuffer()
+{
+	BOOL need_clear = FALSE ;
+
+	mMutex.lock() ;
+	if(!mLines.empty())
+	{				
+		S32 end = mLines.size() ;
+		LLColor4 color(1.f, 1.f, 1.f, 1.f) ;
+		for(S32 i = 0 ; i < end ; i++)
+		{
+			Paragraph paragraph(mLines[i], color, mAddTimes[i], mFont,  (F32)getRect().getWidth() );
+			mParagraphs.push_back ( paragraph );
+		}		
+
+		need_clear = TRUE ;		
+	}
+	mMutex.unlock() ;
+
+	if(need_clear)
+	{
+		clear() ;
+	}
 }

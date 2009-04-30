@@ -58,6 +58,8 @@
 <TextEmbeddedItemReadOnlyColor value="58, 147, 242, 255" />	<!-- i.e. About Land name that you don't own -->
 <TextEmbeddedItemColor value="0, 0, 128, 255" />
 <TextDefaultColor value="0, 20, 0, 255"/>
+<TextLinkColor value="0, 20, 255, 255"/>
+<TextLinkHoverColor value="0, 50, 255, 255"/>
   
 <!-- LISTBOXES -->
 <ScrollBgReadOnlyColor value="255, 255, 255, 140" />
@@ -132,6 +134,10 @@
 <IconEnabledColor value="255, 255, 255, 255"/>
 <IconDisabledColor value="147, 169, 213, 200"/>
 
+<!-- MAP -->
+<MapAvatar value="0, 255, 0, 255" />
+<MapFriend value="255, 255, 0, 255" />
+
 <!-- MINI-MAP -->
 <NetMapBackgroundColor value="0, 0, 0, 77" />
 <NetMapYouOwnAboveWater value="0, 255, 255, 255" />
@@ -140,6 +146,11 @@
 <NetMapGroupOwnBelowWater value="200, 0, 200, 255" />
 <NetMapOtherOwnAboveWater value="60, 60, 60, 255" />
 <NetMapOtherOwnBelowWater value="30, 30, 30, 255" />
+<NetMapThisRegion value="255, 255, 255, 255" />
+<NetMapLiveRegion value="204, 204, 204, 255" />
+<NetMapDeadRegion value="255, 128, 128, 255" />
+<NetMapFrustum value="255, 255, 255, 20" />
+<NetMapFrustumRotating value="255, 255, 255, 51" />
 
 <!-- HELP WINDOW -->
 <HelpBgColor value="200, 209, 204, 255" />

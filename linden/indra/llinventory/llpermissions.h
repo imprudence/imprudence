@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -222,6 +223,11 @@ public:
 	// has inventory and is then itself rolled up into an inventory
 	// item.
 	BOOL setOwnerAndGroup(const LLUUID& agent, const LLUUID& owner, const LLUUID& group, bool is_atomic);	
+
+	// only call this if you know what you're doing
+	// there are usually perm-bit consequences when the 
+	// ownerhsip changes
+	void yesReallySetOwner(const LLUUID& owner, bool group_owned);
 
 	// saves last owner, sets owner to uuid null, sets group
 	// owned. group_id must be the group of the object (that's who it

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
      height="440" min_height="140" min_width="467" name="floater_about"
-     rect_control="FloaterMediaRect" title="Media Browser" width="560">
-	<layout_stack name="stack1" bottom="0" follows="left|right|top|bottom" left="10" top="-20" width="540">
+     rect_control="FloaterMediaRect" title="Media Browser" width="820">
+	<layout_stack name="stack1" bottom="0" follows="left|right|top|bottom" left="10" top="-20" width="800">
 		<layout_panel auto_resize="false" bottom="0" height="20" left="0" name="nav_controls" user_resize="false"
-		     width="540">
+		     width="800">
 			<button bottom="0" follows="left|top" height="20" label="Back" left="0" name="back"
 			     width="55" />
 			<button bottom_delta="0" follows="left|top" height="20" label="Forward" left_delta="55"
@@ -12,9 +12,9 @@
 			<button bottom_delta="0" enabled="false" follows="left|top" height="20" label="Reload"
 			     left_delta="65" name="reload" width="70" />
 			<combo_box allow_text_entry="true" bottom_delta="0" follows="left|top|right" height="20"
-			     left_delta="75" max_chars="255" name="address" width="280" />
+			     left_delta="75" max_chars="255" name="address" width="540" />
 			<button bottom_delta="0" enabled="false" follows="right|top" height="20" label="Go"
-			     left_delta="285" name="go" width="55" />
+			     left_delta="545" name="go" width="55" />
 		</layout_panel>
 		<layout_panel auto_resize="false" bottom="0" height="20" left="0"
 		     name="parcel_owner_controls" user_resize="false" width="540">

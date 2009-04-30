@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="overlay">
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
+				<layout_panel name="state_buttons">
+					<button label="Получено IM" label_selected="Получено IM"
+					     name="IM Received"
+					     tool_tip="У Вас есть непрочитанные IM-сообщения. Чтобы их увидеть кликните IM." />
+					<button label="Не занят" label_selected="Не занят" name="Set Not Busy"
+					     tool_tip="Общение по чату и IM скрыто от Вас. Кликните здесь чтобы снять этот статус." />
+					<button label="Разблок. клав." label_selected="Разблок. клав."
+					     name="Release Keys"
+					     tool_tip="Скрипт взял контроль над Вашими клавишами. Кликните здесь чтобы разблокировать" />
+					<button label="Вид мышью" label_selected="Вид мышью" name="Mouselook"
+					     tool_tip="Используйте мышь для того, чтобы оглядется. Для оружия клик означает выстрел." />
+					<button label="Встать" label_selected="Встать" name="Stand Up"
+					     tool_tip="Кликните, чтобы встать." />
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+	</layout_stack>
+</panel>

@@ -10,7 +10,9 @@ include(LLMath)
 include(LLMessage)
 include(LLVFS)
 include(LLXML)
+include(LScript)
 include(Linking)
+include(Tut)
 
 include_directories(
     ${LLCOMMON_INCLUDE_DIRS}
@@ -20,13 +22,14 @@ include_directories(
     ${LLINVENTORY_INCLUDE_DIRS}
     ${LLVFS_INCLUDE_DIRS}
     ${LLXML_INCLUDE_DIRS}
+    ${LSCRIPT_INCLUDE_DIRS}
     )
 
 set(test_SOURCE_FILES
     common.cpp
     inventory.cpp
     io.cpp
-    llapp_tut.cpp
+#    llapp_tut.cpp						# Temporarily removed until thread issues can be solved
     llbase64_tut.cpp
     llblowfish_tut.cpp
     llbuffer_tut.cpp
@@ -48,6 +51,7 @@ set(test_SOURCE_FILES
     llquaternion_tut.cpp
     llrandom_tut.cpp
     llsaleinfo_tut.cpp
+    llscriptresource_tut.cpp
     llsdmessagebuilder_tut.cpp
     llsdmessagereader_tut.cpp
     llsd_new_tut.cpp
@@ -57,7 +61,9 @@ set(test_SOURCE_FILES
     llstreamtools_tut.cpp
     llstring_tut.cpp
     lltemplatemessagebuilder_tut.cpp
+    lltimestampcache_tut.cpp
     lltiming_tut.cpp
+    lltranscode_tut.cpp
     lltut.cpp
     lluri_tut.cpp
     lluuidhashmap_tut.cpp
@@ -108,7 +114,9 @@ target_link_libraries(test
     ${LLMATH_LIBRARIES}
     ${LLVFS_LIBRARIES}
     ${LLXML_LIBRARIES}
+    ${LSCRIPT_LIBRARIES}
     ${LLCOMMON_LIBRARIES}
+    ${APRICONV_LIBRARIES}
     ${PTHREAD_LIBRARY}
     ${WINDOWS_LIBRARIES}
     ${DL_LIBRARY}
@@ -117,8 +125,8 @@ target_link_libraries(test
 if (WINDOWS)
   set_target_properties(test
           PROPERTIES 
-          LINK_FLAGS "/NODEFAULTLIB:MSVCRT"
-          LINK_FLAGS_DEBUG "/NODEFAULTLIB:LIBCMT"
+          LINK_FLAGS "/NODEFAULTLIB:LIBCMT"
+          LINK_FLAGS_DEBUG "/NODEFAULTLIB:\"LIBCMT;LIBCMTD;MSVCRT\""
           )
 endif (WINDOWS)
 

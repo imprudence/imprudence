@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -37,7 +38,8 @@
 #include <vector>
 
 #include "llfloater.h"
-#include "llviewerimagelist.h"
+//#include "llviewerimagelist.h"
+#include "llmemory.h"	// LLPointer<>
 
 typedef std::set<LLUUID, lluuid_less> uuid_list_t;
 const F32 CACHE_REFRESH_TIME	= 2.5f;
@@ -55,6 +57,7 @@ class LLTabContainer;
 class LLTextBox;
 class LLTextEditor;
 class LLTextureCtrl;
+class LLUIImage;
 class LLViewerTextEditor;
 class LLParcelSelection;
 
@@ -89,8 +92,7 @@ protected:
 	LLFloaterLand(const LLSD& seed);
 	virtual ~LLFloaterLand();
 
-	void refresh();
-
+	/*virtual*/ void refresh();
 
 	static void* createPanelLandGeneral(void* data);
 	static void* createPanelLandCovenant(void* data);
@@ -130,7 +132,7 @@ class LLPanelLandGeneral
 public:
 	LLPanelLandGeneral(LLSafeHandle<LLParcelSelection>& parcelp);
 	virtual ~LLPanelLandGeneral();
-	void refresh();
+	/*virtual*/ void refresh();
 	void refreshNames();
 	virtual void draw();
 
@@ -151,8 +153,7 @@ public:
 	static void finalizeSetSellChange(void * userdata);
 	static void onSalePriceChange(LLUICtrl *ctrl, void * userdata);
 
-	static void cbBuyPass(S32 option, void*);
-	static BOOL buyPassDialogVisible();
+	static bool cbBuyPass(const LLSD& notification, const LLSD& response);
 
 	static void onClickSellLand(void* data);
 	static void onClickStopSellLand(void* data);
@@ -185,6 +186,9 @@ protected:
 	LLTextBox*		mTextOwnerLabel;
 	LLTextBox*		mTextOwner;
 	LLButton*		mBtnProfile;
+	
+	LLTextBox*		mContentRating;
+	LLTextBox*		mLandType;
 
 	LLTextBox*		mTextGroup;
 	LLTextBox*		mTextGroupLabel;
@@ -231,13 +235,13 @@ class LLPanelLandObjects
 public:
 	LLPanelLandObjects(LLSafeHandle<LLParcelSelection>& parcelp);
 	virtual ~LLPanelLandObjects();
-	void refresh();
+	/*virtual*/ void refresh();
 	virtual void draw();
 
-	static void callbackReturnOwnerObjects(S32, void*);
-	static void callbackReturnGroupObjects(S32, void*);
-	static void callbackReturnOtherObjects(S32, void*);
-	static void callbackReturnOwnerList(S32, void*);
+	bool callbackReturnOwnerObjects(const LLSD& notification, const LLSD& response);
+	bool callbackReturnGroupObjects(const LLSD& notification, const LLSD& response);
+	bool callbackReturnOtherObjects(const LLSD& notification, const LLSD& response);
+	bool callbackReturnOwnerList(const LLSD& notification, const LLSD& response);
 
 	static void clickShowCore(LLPanelLandObjects* panelp, S32 return_type, uuid_list_t* list = 0);
 	static void onClickShowOwnerObjects(void*);
@@ -281,9 +285,9 @@ protected:
 	LLButton		*mBtnReturnOwnerList;
 	LLNameListCtrl	*mOwnerList;
 
-	LLUIImagePtr	mIconAvatarOnline;
-	LLUIImagePtr	mIconAvatarOffline;
-	LLUIImagePtr	mIconGroup;
+	LLPointer<LLUIImage>	mIconAvatarOnline;
+	LLPointer<LLUIImage>	mIconAvatarOffline;
+	LLPointer<LLUIImage>	mIconGroup;
 
 	BOOL			mFirstReply;
 
@@ -302,18 +306,20 @@ class LLPanelLandOptions
 public:
 	LLPanelLandOptions(LLSafeHandle<LLParcelSelection>& parcelp);
 	virtual ~LLPanelLandOptions();
-	void refresh();
+	/*virtual*/ BOOL postBuild();
+	/*virtual*/ void draw();
+	/*virtual*/ void refresh();
 
+private:
+	// Refresh the "show in search" checkbox and category selector.
+	void refreshSearch();
 
 	static void onCommitAny(LLUICtrl* ctrl, void *userdata);
 	static void onClickSet(void* userdata);
 	static void onClickClear(void* userdata);
 	static void onClickPublishHelp(void*);
 
-	virtual BOOL postBuild();
-	virtual void draw();
-
-protected:
+private:
 	LLCheckBoxCtrl*	mCheckEditObjects;
 	LLCheckBoxCtrl*	mCheckEditGroupObjects;
 	LLCheckBoxCtrl*	mCheckAllObjectEntry;

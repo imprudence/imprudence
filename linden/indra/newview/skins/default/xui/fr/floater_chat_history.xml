@@ -21,6 +21,45 @@
 	<string name="IM_end_log_string">
 		- Fin de l&apos;archivage --
 	</string>
+	<string name="ScriptQuestionCautionChatGranted">
+		&apos;[OBJECTNAME]&apos;, un objet appartenant à [OWNERNAME], situé dans [REGIONNAME] à [REGIONPOS], a reçu la permission de : [PERMISSIONS].
+	</string>
+	<string name="ScriptQuestionCautionChatDenied">
+		&apos;[OBJECTNAME]&apos;, un objet appartenant à [OWNERNAME], situé dans [REGIONNAME] à [REGIONPOS], n&apos;a pas reçu la permission de : [PERMISSIONS].
+	</string>
+	<string name="ScriptTakeMoney">
+		Débiter vos Linden dollars (L$)
+	</string>
+	<string name="ActOnControlInputs">
+		Utiliser vos touches de commandes
+	</string>
+	<string name="RemapControlInputs">
+		Reconfigurer vos touches de commandes
+	</string>
+	<string name="AnimateYourAvatar">
+		Animer votre avatar
+	</string>
+	<string name="AttachToYourAvatar">
+		Attacher à votre avatar
+	</string>
+	<string name="ReleaseOwnership">
+		Passer l&apos;objet dans le domaine public (sans propriétaire)
+	</string>
+	<string name="LinkAndDelink">
+		Lier et délier d&apos;autres objets
+	</string>
+	<string name="AddAndRemoveJoints">
+		Créer et supprimer des liens avec d&apos;autres objets
+	</string>
+	<string name="ChangePermissions">
+		Modifier ses permissions
+	</string>
+	<string name="TrackYourCamera">
+		Suivre votre caméra
+	</string>
+	<string name="ControlYourCamera">
+		Contrôler votre caméra
+	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<combo_box label="Gestes" name="Gesture">
@@ -29,12 +68,12 @@
 				</combo_item>
 			</combo_box>
 			<check_box label="Afficher le texte ignoré" name="show mutes"/>
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Affichez/masquez la liste des intervenants actifs dans cette session IM."/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Cliquez ici pour voir la liste des participants actifs dans cette session IM."/>
 			<panel name="chat_panel">
 				<string name="gesture_label">
 					Gestes
 				</string>
-				<line_editor label="Cliquez ici pour chatter." name="Chat Editor"/>
+				<line_editor label="Cliquer ici pour chatter." name="Chat Editor"/>
 				<flyout_button label="Dire" name="Say" tool_tip="(Entrée)">
 					<flyout_button_item name="shout_item">
 						Crier

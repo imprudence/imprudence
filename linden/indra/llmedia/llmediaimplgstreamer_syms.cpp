@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -42,21 +43,28 @@ extern "C" {
 
 #define LL_GST_SYM(REQ, GSTSYM, RTN, ...) RTN (*ll##GSTSYM)(__VA_ARGS__) = NULL
 #include "llmediaimplgstreamer_syms_raw.inc"
-#include "llmediaimplgstreamer_syms_rawa.inc"
 #include "llmediaimplgstreamer_syms_rawv.inc"
 #undef LL_GST_SYM
 
+// a couple of stubs for disgusting reasons
+GstDebugCategory*
+ll_gst_debug_category_new(gchar *name, guint color, gchar *description)
+{
+	static GstDebugCategory dummy;
+	return &dummy;
+}
+void ll_gst_debug_register_funcptr(GstDebugFuncPtr func, gchar* ptrname)
+{
+}
 
 static bool sSymsGrabbed = false;
 static apr_pool_t *sSymGSTDSOMemoryPool = NULL;
 static apr_dso_handle_t *sSymGSTDSOHandleG = NULL;
 static apr_dso_handle_t *sSymGSTDSOHandleV = NULL;
-static apr_dso_handle_t *sSymGSTDSOHandleA = NULL;
 
 
 bool grab_gst_syms(std::string gst_dso_name,
-		   std::string gst_dso_name_vid,
-		   std::string gst_dso_name_aud)
+		   std::string gst_dso_name_vid)
 {
 	if (sSymsGrabbed)
 	{
@@ -87,40 +95,20 @@ bool grab_gst_syms(std::string gst_dso_name,
 			sSymGSTDSOHandle = NULL;
 		}
       
-		if ( APR_SUCCESS == (rv = apr_dso_load(&sSymGSTDSOHandle,
-					            gst_dso_name_aud.c_str(),
-						       sSymGSTDSOMemoryPool) ))
+		if ( APR_SUCCESS ==
+		     (rv = apr_dso_load(&sSymGSTDSOHandle,
+					gst_dso_name_vid.c_str(),
+					sSymGSTDSOMemoryPool) ))
 		{
-			INFOMSG("Found DSO: %s", gst_dso_name_aud.c_str());
-#include "llmediaimplgstreamer_syms_rawa.inc"
-			
-			if ( sSymGSTDSOHandle )
-			{
-				sSymGSTDSOHandleA = sSymGSTDSOHandle;
-				sSymGSTDSOHandle = NULL;
-			}
-	  
-			if ( APR_SUCCESS ==
-			     (rv = apr_dso_load(&sSymGSTDSOHandle,
-						gst_dso_name_vid.c_str(),
-						sSymGSTDSOMemoryPool) ))
-			{
-				INFOMSG("Found DSO: %s", gst_dso_name_vid.c_str());
+			INFOMSG("Found DSO: %s", gst_dso_name_vid.c_str());
 #include "llmediaimplgstreamer_syms_rawv.inc"
-			}
-			else
-			{
-				INFOMSG("Couldn't load DSO: %s", gst_dso_name_vid.c_str());
-				rtn = false; // failure
-			}
+			rtn = !sym_error;
 		}
 		else
 		{
-			INFOMSG("Couldn't load DSO: %s", gst_dso_name_aud.c_str());
+			INFOMSG("Couldn't load DSO: %s", gst_dso_name_vid.c_str());
 			rtn = false; // failure
 		}
-		
-		rtn = !sym_error;
 	}
 	else
 	{
@@ -156,12 +144,6 @@ void ungrab_gst_syms()
 		sSymGSTDSOHandleG = NULL;
 	}
 	
-	if ( sSymGSTDSOHandleA )
-	{
-		apr_dso_unload(sSymGSTDSOHandleA);
-		sSymGSTDSOHandleA = NULL;
-	}
-	
 	if ( sSymGSTDSOHandleV )
 	{
 		apr_dso_unload(sSymGSTDSOHandleV);
@@ -177,7 +159,6 @@ void ungrab_gst_syms()
 	// NULL-out all of the symbols we'd grabbed
 #define LL_GST_SYM(REQ, GSTSYM, RTN, ...) do{ll##GSTSYM = NULL;}while(0)
 #include "llmediaimplgstreamer_syms_raw.inc"
-#include "llmediaimplgstreamer_syms_rawa.inc"
 #include "llmediaimplgstreamer_syms_rawv.inc"
 #undef LL_GST_SYM
 

@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floaterland" title="О земле">
+	<tab_container name="landtab">
+		<panel label="Общие" name="land_general_panel">
+			<text type="string" length="1" name="Name:">
+				Название:
+			</text>
+			<text type="string" length="1" name="Description:">
+				Описание:
+			</text>
+			<text type="string" length="1" name="Owner:">
+				Владелец:
+			</text>
+			<text type="string" length="1" name="OwnerText">
+				Leyla Linden
+			</text>
+			<button label="Профиль..." label_selected="Профиль..." name="Profile..." />
+			<text type="string" length="1" name="Group:">
+				Группа:
+			</text>
+			<button label="Установить..." label_selected="Установить..."
+			     name="Set..." />
+			<check_box label="Разрешить Дело для группы" name="check deed"
+			     tool_tip="Офицер группы может передать эту землю для применения, если группой поддерживается выделение земли. " />
+			<button label="Дело..." label_selected="Дело..." name="Deed..."
+			     tool_tip="Вы можете передать землю для применения только если Вы - офицер выбранной группы." />
+			<check_box label="Создатель делает вклад в дело"
+			     name="check contrib"
+			     tool_tip="Когда земля применяется группой, владелец вкладывает достаточно земли для ее поддержки." />
+			<text type="string" length="1" name="For Sale:">
+				На продажу:
+			</text>
+			<text type="string" length="1" name="Not for sale.">
+				Не на продажу.
+			</text>
+			<text type="string" length="1" name="For Sale: Price L$[PRICE].">
+				Цена: L$[PRICE].
+			</text>
+			<button label="Продать Землю..."
+			     label_selected="Продать Землю..." name="Sell Land..." />
+			<text type="string" length="1" name="For sale to">
+				Для продажи (кому): [BUYER]
+			</text>
+			<text type="string" length="1" name="Sell with landowners objects in parcel.">
+				Объекты для продажи.
+			</text>
+			<text type="string" length="1" name="Selling with no objects in parcel.">
+				Объекты не для продажи.
+			</text>
+			<button label="Отменить продажу Земли"
+			     label_selected="Отменить продажу земли"
+			     name="Cancel Land Sale" />
+			<text type="string" length="1" name="Claimed:">
+				Дата:
+			</text>
+			<text type="string" length="1" name="DateClaimText">
+				Tue Aug 15 13:47:25 2006
+			</text>
+			<text type="string" length="1" name="PriceLabel">
+				Площадь:
+			</text>
+			<text type="string" length="1" name="PriceText">
+				4048 кв. м.
+			</text>
+			<text type="string" length="1" name="Traffic:">
+				Трафик:
+			</text>
+			<text type="string" length="1" name="DwellText">
+				0
+			</text>
+			<button label="Купить землю..." label_selected="Купить землю..."
+			     name="Buy Land..." />
+			<button label="Купить для Группы..."
+			     label_selected="Купить для Группы..."
+			     name="Buy For Group..." />
+			<button label="Куп.пропуск..." label_selected="Куп.пропуск..."
+			     name="Buy Pass..."
+			     tool_tip="Пропуск предоставляет вам временный доступ к этой земле." />
+			<button label="Покинуть Землю..."
+			     label_selected="Покинуть Землю..." name="Abandon Land..." />
+			<button label="Восстановить землю..."
+			     label_selected="Восстановить землю..."
+			     name="Reclaim Land..." />
+			<button label="Linden продают..." label_selected="Linden продают..."
+			     name="Linden Sale..."
+			     tool_tip="Земля должна иметь владельца, содержание, и не быть в продаже с аукциона." />
+			<string name="new users only">
+				Только для новых пользователей
+			</string>
+			<string name="anyone">
+				Всем
+			</string>
+			<string name="area_text">
+				Площадь
+			</string>
+			<string name="area_size_text">
+				[AREA] кв. м.
+			</string>
+			<string name="auction_id_text">
+				ID аукциона: [ID]
+			</string>
+			<string name="need_tier_to_modify">
+				Вы должны подтвердить покупку, чтобы править эту землю..
+			</string>
+			<string name="group_owned_text">
+				(Собств. Группы)
+			</string>
+			<string name="profile_text">
+				Профиль...
+			</string>
+			<string name="info_text">
+				Инфо...
+			</string>
+			<string name="public_text">
+				(публ.)
+			</string>
+			<string name="none_text">
+				(нет)
+			</string>
+			<string name="sale_pending_text">
+				(Ожидает продажи)
+			</string>
+		</panel>
+		<panel label="Соглашение" name="land_covenant_panel">
+			<text type="string" length="1" name="covenant_timestamp_text">
+				Последнее изменение Wed Dec 31 16:00:00 1969
+			</text>
+			<text type="string" length="1" name="region_name_lbl">
+				Регион:
+			</text>
+			<text type="string" length="1" name="region_name_text">
+				leyla
+			</text>
+			<text type="string" length="1" name="estate_name_lbl">
+				Поместье:
+			</text>
+			<text type="string" length="1" name="estate_name_text">
+				материк
+			</text>
+			<text type="string" length="1" name="estate_owner_lbl">
+				Владелец:
+			</text>
+			<text type="string" length="1" name="estate_owner_text">
+				(нет)
+			</text>
+			<text type="string" length="1" name="resellable_clause">
+				Земля в этом регионе не может быть перепродана.
+			</text>
+			<text type="string" length="1" name="changeable_clause">
+				Купленная в этой области земля не может быть присоединена/разделена.
+			</text>
+			<text_editor type="string" length="1" name="covenant_editor">
+				Для этого участка не предусмотрено никакого Соглашения.
+			</text_editor>
+			<string name="can_resell">
+				Купленная земля в этой области может быть перепродана.
+			</string>
+			<string name="can_not_resell">
+				Купленная земля в этой области не может быть перепродана.
+			</string>
+			<string name="can_change">
+				Купленная земля в этой области может присоед. или разд.
+			</string>
+			<string name="can_not_change">
+				Купленная земля в этой области не может присоед. или разд.
+			</string>
+		</panel>
+		<panel label="Объекты" name="land_objects_panel">
+			<text type="string" length="1" name="parcel_object_bonus">
+				Бонус региона: [BONUS]
+			</text>
+			<text type="string" length="1" name="Simulator primitive usage:">
+				Сим использует примов:
+			</text>
+			<text type="string" length="1" name="objects_available">
+				[COUNT] из [MAX] ([AVAILABLE] доступно)
+			</text>
+			<string name="objects_available_text">
+				[COUNT] из [MAX] ([AVAILABLE] доступно)
+			</string>
+			<string name="objects_deleted_text">
+				[COUNT] из [MAX] ([DELETED] будет удалено)
+			</string>
+			<text type="string" length="1" name="Primitives parcel supports:">
+				Участок поддерж. примов:
+			</text>
+			<text type="string" length="1" name="object_contrib_text">
+				[COUNT]
+			</text>
+			<text type="string" length="1" name="Primitives on parcel:">
+				Примитивов на участке:
+			</text>
+			<text type="string" length="1" name="total_objects_text">
+				[COUNT]
+			</text>
+			<text type="string" length="1" name="Owned by parcel owner:">
+				Владелец участка:
+			</text>
+			<text type="string" length="1" name="owner_objects_text">
+				[COUNT]
+			</text>
+			<button label="Показ." label_selected="Показ." name="ShowOwner" />
+			<button label="Вернуть..." label_selected="Вернуть..."
+			     name="ReturnOwner..."
+			     tool_tip="Вернуть объекты своим владельцам." />
+			<text type="string" length="1" name="Set to group:">
+				Присвоено группе:
+			</text>
+			<text type="string" length="1" name="group_objects_text">
+				[COUNT]
+			</text>
+			<button label="Показ." label_selected="Показ." name="ShowGroup" />
+			<button label="Вернуть..." label_selected="Вернуть..."
+			     name="ReturnGroup..."
+			     tool_tip="Вернуть объекты своим владельцам." />
+			<text type="string" length="1" name="Owned by others:">
+				Принадлежит другим:
+			</text>
+			<text type="string" length="1" name="other_objects_text">
+				[COUNT]
+			</text>
+			<button label="Показ." label_selected="Показ." name="ShowOther" />
+			<button label="Вернуть..." label_selected="Вернуть..."
+			     name="ReturnOther..."
+			     tool_tip="Вернуть объекты их владельцам." />
+			<text type="string" length="1" name="Selected / sat upon:">
+				Выбран/находиться на:
+			</text>
+			<text type="string" length="1" name="selected_objects_text">
+				[COUNT]
+			</text>
+			<text type="string" length="1" name="Autoreturn">
+				Автовозврат резидентов/объектов (мин,0 - откл.):
+			</text>
+			<text type="string" length="1" name="Object Owners:">
+				Влад. объектов:
+			</text>
+			<button label="Обнов. список" label_selected="Обнов. список"
+			     name="Refresh List" />
+			<button label="Вернуть объекты..."
+			     label_selected="Вернуть объекты..." name="Return objects..." />
+			<name_list name="owner list">
+				<column label="Тип" name="type" />
+				<column label="Название" name="name" />
+				<column label="Кол-во" name="count" />
+			</name_list>
+		</panel>
+		<panel label="Опции" name="land_options_panel">
+			<text type="string" length="1" name="allow_label">
+				Позволить другим резидентам:
+			</text>
+			<check_box label="Редакт. Ландшафт" name="edit land check" />
+			<check_box label="Создавать Закладки" name="check landmark" />
+			<check_box label="Летать" name="check fly" />
+			<text type="string" length="1" name="allow_label2">
+				Созд. объекты:
+			</text>
+			<check_box label="Все" name="edit objects check" />
+			<check_box label="Группа" name="edit group objects check" />
+			<text type="string" length="1" name="allow_label3">
+				Созд. объекты:
+			</text>
+			<check_box label="Все" name="all object entry check" />
+			<check_box label="Группа" name="group object entry check" />
+			<text type="string" length="1" name="allow_label4">
+				Зап. скрипты:
+			</text>
+			<check_box label="Все" name="check other scripts" />
+			<check_box label="Группа" name="check group scripts" />
+			<text type="string" length="1" name="land_options_label">
+				Свойства Земли:
+			</text>
+			<check_box label="Безопасная" name="check safe" />
+			<check_box label="Запрет толчков" name="PushRestrictCheck"
+			     tool_tip="Функция llPushObject будет работать только в скриптах владельцев участков или в скриптах, где толкаемый - владелец скрипта." />
+			<check_box label="Показывать в поиске (L$30/неделя):"
+			     name="ShowDirectoryCheck"
+			     tool_tip="Показывать участок в результатах поиска." />
+			<combo_box name="land category">
+				<combo_item name="AnyCategory">
+					Любая категория
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Linden Места
+				</combo_item>
+
+				<combo_item name="Arts&amp;Culture">
+					Искусство и Культура
+				</combo_item>
+				<combo_item name="Business">
+					Бизнес
+				</combo_item>
+				<combo_item name="Educational">
+					Образование
+				</combo_item>
+				<combo_item name="Gaming">
+					Игры
+				</combo_item>
+				<combo_item name="Hangout">
+					Место встреч
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Для новичков
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Парки и Природа
+				</combo_item>
+				<combo_item name="Residential">
+					Жилье
+				</combo_item>
+				<combo_item name="Shopping">
+					Магазины
+				</combo_item>
+				<combo_item name="Other">
+					Другое
+				</combo_item>
+			</combo_box>
+			<button label="?" label_selected="?" name="?" />
+			<check_box name="MatureCheck" />
+			<text type="string" length="1" name="Snapshot:">
+				Скриншот:
+			</text>
+			<texture_picker label="" name="snapshot_ctrl"
+			     tool_tip="Кликните, для выбора картинки" />
+			<text type="string" length="1" name="landing_point">
+				Пункт приземления:
+			</text>
+			<string name="landing_point_none">
+				(нет)
+			</string>
+			<button label="Уст." label_selected="Уст." name="Set"
+			     tool_tip="Установите точку посадки Вашего аватара внутри Вашего участка Земли." />
+			<button label="Очист." label_selected="Очист." name="Clear"
+			     tool_tip="Очистить место приземления" />
+			<text type="string" length="1" name="Teleport Routing: ">
+				Маршрут телепорт.:
+			</text>
+			<combo_box name="landing type"
+			     tool_tip="Пути Телепортаций -- укажите точки, в которые гости будут попадать при входе на Вашу Землю.">
+				<combo_item type="string" length="1" name="Blocked">
+					Блокировано
+				</combo_item>
+				<combo_item type="string" length="1" name="LandingPoint">
+					Пункт приземления
+				</combo_item>
+				<combo_item type="string" length="1" name="Anywhere">
+					Где угодно
+				</combo_item>
+			</combo_box>
+			<string name="push_restrict_text">
+				Запретить толчки
+			</string>
+			<string name="push_restrict_region_text">
+				Запретить толчки (на весь регион)
+			</string>
+		</panel>
+		<panel label="Медиа" name="land_media_panel">
+			<text type="string" length="1" name="with media:">
+				Тип медиа:
+			</text>
+			<combo_box name="media type"
+			     tool_tip="Установка URL для фильма, вебстраницы или другого медиа." />
+			<text type="string" length="1" name="at URL:">
+				URL медиа:
+			</text>
+			<button label="Уст..." label_selected="Уст..." name="set_media_url" />
+			<text type="string" length="1" name="Description:">
+				Описание:
+			</text>
+			<line_editor name="url_description"
+			     tool_tip="Текст, отображаемый при нажатии играть/стоп." />
+			<text type="string" length="1" name="Media texture:">
+				Заменить
+Текстура:
+			</text>
+			<texture_picker label="" name="media texture"
+			     tool_tip="Кликните, для выбора картинки" />
+			<text type="string" length="1" name="replace_texture_help">
+				(объекты использующие эту текстуру покажут медиа 
+после включения фильма.)
+			</text>
+			<text type="string" length="1" name="Options:">
+				Медиа
+Опции:
+			</text>
+			<check_box label="Автомасштабирование" name="media_auto_scale"
+			     tool_tip="Установка этой опции автоматически масштабирует содержимое для всего участка. Это выполняется немного медленнее и понизит качество картинки, но не требует масштабирования текстуры или ее выравнивания." />
+			<check_box label="Цикл" name="media_loop"
+			     tool_tip="Играть медиа в цикле. Когда оно закончится, начнется снова." />
+			<check_box label="Скрыть медиа URL" name="hide_media_url"
+			     tool_tip="Установка опции скроет медиа URL от всех неавторизованных просмотрщиков. Это недоступно для HTML типов." />
+			<check_box label="Скрыть URL музыки" name="hide_music_url"
+			     tool_tip="Установка опции скроет URL музыки от всех неавторизованных просмотрщиков." />
+			<text type="string" length="1" name="media_size"
+			     tool_tip="Размер отображения Web медиа, по умолчанию 0">
+				Размер:
+			</text>
+			<spinner name="media_size_width"
+			     tool_tip="Размер отображения Web медиа, по умолчанию 0" />
+			<spinner name="media_size_height"
+			     tool_tip="Размер отображения Web медиа, по умолчанию 0" />
+			<text type="string" length="1" name="pixels">
+				пикселов
+			</text>
+			<text type="string" length="1" name="MusicURL:">
+				URL музыки:
+			</text>
+			<text type="string" length="1" name="Sound:">
+				Звук:
+			</text>
+			<check_box label="Ограничить 3D-звук этим участком"
+			     name="check sound local" />
+			<text type="string" length="1" name="Voice settings:">
+				Голос
+			</text>
+			<radio_group name="parcel_voice_channel">
+				<radio_item type="string" length="1" name="Estate">
+					Использовать канал поместья
+				</radio_item>
+				<radio_item type="string" length="1" name="Private">
+					Использовать приватный канал
+				</radio_item>
+				<radio_item type="string" length="1" name="Disabled">
+					Запретить 3D-звук на этом участке
+				</radio_item>
+			</radio_group>
+		</panel>
+		<panel label="Доступ" name="land_access_panel">
+			<text type="string" length="1" name="Limit access to this parcel to:">
+				Ограниченный доступ к этому участку:
+			</text>
+			<check_box label="Доступ для всех" name="public_access" />
+			<text type="string" length="1" name="Only Allow">
+				Блокировать доступ для:
+			</text>
+			<check_box
+			     label="Резидентов, не заполнившых платежную информацию для Linden Lab"
+			     name="limit_payment"
+			     tool_tip="Банить нераспознанных резидентов." />
+			<check_box
+			     label="Резидентам, не достигшим совершеннолетия."
+			     name="limit_age_verified"
+			     tool_tip="Банить резидентов, не прошедших проверку возраста. Подробнее на support.secondlife.com" />
+			<string name="estate_override">
+				Одна или больше опций ставится на уровне поместья
+			</string>
+			<check_box label="Разрешить доступ группе: [GROUP]" name="GroupCheck"
+			     tool_tip="Установка группы в Главной вкладке." />
+			<check_box label="Продать доступ:" name="PassCheck"
+			     tool_tip="Позволить временный доступ к участку." />
+			<combo_box name="pass_combo">
+				<combo_item name="Anyone">
+					Любому
+				</combo_item>
+				<combo_item name="Group">
+					Группе
+				</combo_item>
+			</combo_box>
+			<spinner label="Цена в L$:" name="PriceSpin" />
+			<spinner label="Часы доступа:" name="HoursSpin" />
+			<text label="Всегда можно" name="AllowedText">
+				Допустимые резиденты
+			</text>
+			<name_list name="AccessList" tool_tip="([LISTED] в списке, макс. [MAX])" />
+			<button label="Добавить..." label_selected="Добавить..."
+			     name="add_allowed" />
+			<button label="Удалить" label_selected="Удалить" name="remove_allowed" />
+			<text label="Банить" name="BanCheck">
+				Забаненные резиденты
+			</text>
+			<name_list name="BannedList" tool_tip="([LISTED] в списке, макс. [MAX])" />
+			<button label="Добавить..." label_selected="Добавить..."
+			     name="add_banned" />
+			<button label="Удалить" label_selected="Удалить" name="remove_banned" />
+		</panel>
+	</tab_container>
+</floater>

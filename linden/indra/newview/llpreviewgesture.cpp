@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -235,14 +236,14 @@ BOOL LLPreviewGesture::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 					LLScrollListItem* line = NULL;
 					if (cargo_type == DAD_ANIMATION)
 					{
-						line = addStep("Animation");
+						line = addStep( STEP_ANIMATION );
 						LLGestureStepAnimation* anim = (LLGestureStepAnimation*)line->getUserdata();
 						anim->mAnimAssetID = item->getAssetUUID();
 						anim->mAnimName = item->getName();
 					}
 					else if (cargo_type == DAD_SOUND)
 					{
-						line = addStep("Sound");
+						line = addStep( STEP_SOUND );
 						LLGestureStepSound* sound = (LLGestureStepSound*)line->getUserdata();
 						sound->mSoundAssetID = item->getAssetUUID();
 						sound->mSoundName = item->getName();
@@ -284,9 +285,8 @@ BOOL LLPreviewGesture::canClose()
 	else
 	{
 		// Bring up view-modal dialog: Save changes? Yes, No, Cancel
-		gViewerWindow->alertXml("SaveChanges",
-								  handleSaveChangesDialog,
-								  this );
+		LLNotifications::instance().add("SaveChanges", LLSD(), LLSD(),
+			boost::bind(&LLPreviewGesture::handleSaveChangesDialog, this, _1, _2) );
 		return FALSE;
 	}
 }
@@ -320,22 +320,21 @@ void LLPreviewGesture::setMinimized(BOOL minimize)
 }
 
 
-// static
-void LLPreviewGesture::handleSaveChangesDialog(S32 option, void* data)
+bool LLPreviewGesture::handleSaveChangesDialog(const LLSD& notification, const LLSD& response)
 {
-	LLPreviewGesture* self = (LLPreviewGesture*)data;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	switch(option)
 	{
 	case 0:  // "Yes"
-		gGestureManager.stopGesture(self->mPreviewGesture);
-		self->mCloseAfterSave = TRUE;
-		onClickSave(data);
+		gGestureManager.stopGesture(mPreviewGesture);
+		mCloseAfterSave = TRUE;
+		onClickSave(this);
 		break;
 
 	case 1:  // "No"
-		gGestureManager.stopGesture(self->mPreviewGesture);
-		self->mDirty = FALSE; // Force the dirty flag because user has clicked NO on confirm save dialog...
-		self->close();
+		gGestureManager.stopGesture(mPreviewGesture);
+		mDirty = FALSE; // Force the dirty flag because user has clicked NO on confirm save dialog...
+		close();
 		break;
 
 	case 2: // "Cancel"
@@ -344,6 +343,7 @@ void LLPreviewGesture::handleSaveChangesDialog(S32 option, void* data)
 		LLAppViewer::instance()->abortQuit();
 		break;
 	}
+	return false;
 }
 
 
@@ -847,18 +847,18 @@ void LLPreviewGesture::refresh()
 void LLPreviewGesture::initDefaultGesture()
 {
 	LLScrollListItem* item;
-	item = addStep("Animation");
+	item = addStep( STEP_ANIMATION );
 	LLGestureStepAnimation* anim = (LLGestureStepAnimation*)item->getUserdata();
 	anim->mAnimAssetID = ANIM_AGENT_HELLO;
 	anim->mAnimName = "Wave";
 	updateLabel(item);
 
-	item = addStep("Wait");
+	item = addStep( STEP_WAIT );
 	LLGestureStepWait* wait = (LLGestureStepWait*)item->getUserdata();
 	wait->mFlags = WAIT_FLAG_ALL_ANIM;
 	updateLabel(item);
 
-	item = addStep("Chat");
+	item = addStep( STEP_CHAT );
 	LLGestureStepChat* chat_step = (LLGestureStepChat*)item->getUserdata();
 	chat_step->mChatText = "Hello, avatar!";
 	updateLabel(item);
@@ -1114,14 +1114,14 @@ void LLPreviewGesture::saveIfNeeded()
 
 	if (dp.getCurrentSize() > 1000)
 	{
-		gViewerWindow->alertXml("GestureSaveFailedTooManySteps");
+		LLNotifications::instance().add("GestureSaveFailedTooManySteps");
 
 		delete gesture;
 		gesture = NULL;
 	}
 	else if (!ok)
 	{
-		gViewerWindow->alertXml("GestureSaveFailedTryAgain");
+		LLNotifications::instance().add("GestureSaveFailedTryAgain");
 		delete gesture;
 		gesture = NULL;
 	}
@@ -1260,7 +1260,7 @@ void LLPreviewGesture::onSaveComplete(const LLUUID& asset_uuid, void* user_data,
 			}
 			else
 			{
-				gViewerWindow->alertXml("GestureSaveFailedObjectNotFound");
+				LLNotifications::instance().add("GestureSaveFailedObjectNotFound");
 			}
 		}
 
@@ -1274,9 +1274,9 @@ void LLPreviewGesture::onSaveComplete(const LLUUID& asset_uuid, void* user_data,
 	else
 	{
 		llwarns << "Problem saving gesture: " << status << llendl;
-		LLStringUtil::format_map_t args;
-		args["[REASON]"] = std::string(LLAssetStorage::getErrorString(status));
-		gViewerWindow->alertXml("GestureSaveFailedReason",args);
+		LLSD args;
+		args["REASON"] = std::string(LLAssetStorage::getErrorString(status));
+		LLNotifications::instance().add("GestureSaveFailedReason", args);
 	}
 	delete info;
 	info = NULL;
@@ -1597,38 +1597,44 @@ void LLPreviewGesture::onClickAdd(void* data)
 	LLScrollListItem* library_item = self->mLibraryList->getFirstSelected();
 	if (!library_item) return;
 
+	S32 library_item_index = self->mLibraryList->getFirstSelectedIndex();
+
 	const LLScrollListCell* library_cell = library_item->getColumn(0);
 	const std::string& library_text = library_cell->getValue().asString();
 
-	self->addStep(library_text);
+	if( library_item_index >= STEP_EOF )
+	{
+		llerrs << "Unknown step type: " << library_text << llendl;
+		return;
+	}
 
+	self->addStep( (EStepType)library_item_index );
 	self->mDirty = TRUE;
 	self->refresh();
 }
 
-LLScrollListItem* LLPreviewGesture::addStep(const std::string& library_text)
+LLScrollListItem* LLPreviewGesture::addStep( const EStepType step_type )
 {
+	// Order of enum EStepType MUST match the library_list element in floater_preview_gesture.xml
+
 	LLGestureStep* step = NULL;
-	if (!LLStringUtil::compareInsensitive(library_text, "Animation"))
+	switch( step_type)
 	{
-		step = new LLGestureStepAnimation();
-	}
-	else if (!LLStringUtil::compareInsensitive(library_text, "Sound"))
-	{
-		step = new LLGestureStepSound();
-	}
-	else if (!LLStringUtil::compareInsensitive(library_text, "Chat"))
-	{
-		step = new LLGestureStepChat();
-	}
-	else if (!LLStringUtil::compareInsensitive(library_text, "Wait"))
-	{
-		step = new LLGestureStepWait();
-	}
-	else
-	{
-		llerrs << "Unknown step type: " << library_text << llendl;;
-		return NULL;
+		case STEP_ANIMATION:
+			step = new LLGestureStepAnimation();
+			break;
+		case STEP_SOUND:
+			step = new LLGestureStepSound();
+			break;
+		case STEP_CHAT:
+			step = new LLGestureStepChat();
+			break;
+		case STEP_WAIT:
+			step = new LLGestureStepWait();
+			break;
+		default:
+			llerrs << "Unknown step type: " << (S32)step_type << llendl;
+			return NULL;
 	}
 
 	// Create an enabled item with this step

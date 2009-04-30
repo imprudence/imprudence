@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -631,18 +632,18 @@ void LLPanelGroupVoting::handleResponse(
 		
 		if (response == BALLOT)
 		{
-			LLStringUtil::format_map_t args;
+			LLSD args;
 	
 			if (success)
 			{
-				args["[MESSAGE]"] = self->mPanel.getString("vote_recorded");
+				args["MESSAGE"] = self->mPanel.getString("vote_recorded");
 			}
 			else
 			{
-				args["[MESSAGE]"] = self->mPanel.getString("vote_previously_recorded");
+				args["MESSAGE"] = self->mPanel.getString("vote_previously_recorded");
 			}
 
-			LLNotifyBox::showXml("SystemMessage", args);
+			LLNotifications::instance().add("SystemMessage", args);
 
 			self->sendGroupVoteHistoryRequest(self->mGroupID);
 		}
@@ -1321,9 +1322,9 @@ void LLPanelGroupVoting::impl::onClickSubmitProposal(void *userdata)
 		if ( self->mProposalText->getText().empty() )
 		{
 			//throw up an error dialog
-			LLStringUtil::format_map_t args;
-			args["[MESSAGE]"] = self->mPanel.getString("empty_proposal_txt");
-			gViewerWindow->alertXml("GenericAlert", args);
+			LLSD args;
+			args["MESSAGE"] = self->mPanel.getString("empty_proposal_txt");
+			LLNotifications::instance().add("GenericAlert", args);
 			return;
 		}
 
@@ -1366,7 +1367,7 @@ void LLPanelGroupVoting::impl::onClickViewProposalItem(void *userdata)
 		}
 		else
 		{
-			gViewerWindow->alertXml("SelectProposalToView");
+			LLNotifications::instance().add("SelectProposalToView");
 		}
 	}
 }
@@ -1406,7 +1407,7 @@ void LLPanelGroupVoting::impl::onClickViewHistoryItem(void *userdata)
 		}
 		else
 		{
-			gViewerWindow->alertXml("SelectHistoryItemToView");
+			LLNotifications::instance().add("SelectHistoryItemToView");
 		}
 	}
 }

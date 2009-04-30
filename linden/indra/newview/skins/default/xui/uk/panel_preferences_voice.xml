@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Голосовий Чат" name="chat">
+	<text_editor type="string" length="1" name="voice_unavailable">
+		Голосовий Чат недоступний
+	</text_editor>
+	<check_box label="Увімкнути Голосовий Чат" name="enable_voice_check" />
+	<radio_group name="ear_location">
+		<radio_item type="string" length="1" name="0">
+			Чути Голосовий Чат з позиції камери
+		</radio_item>
+		<radio_item type="string" length="1" name="1">
+			Чути Голосовий Чат з позиції аватара
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="push_to_talk_heading">
+		Натиснути для Розмови (Push To Talk - PTT)
+	</text>
+	<text_editor type="string" length="1" name="voice_chat_description">
+		Режим Натисни для Розмови дозволяє контролювати час, коли Ваш голос буде передаватися. Коли увімк., натисніть і відпустіть кнопку, що відповідає за увімкнення режиму, щоб увімк. або вимкнути Ваш мікрофон. Коли вимкнено, мікрофон активний тільки, коли натиснута кнопка.
+	</text_editor>
+	<check_box
+	     label="Використовувати Натисни для Розмови в увімк. режимі"
+	     name="push_to_talk_toggle_check" />
+	<text type="string" length="1" name="push_to_talk_label">
+		Кнопка режиму Натисни для Розмови:
+	</text>
+	<button label="Вик.кнопку" name="set_voice_hotkey_button" />
+	<button label="Серед. кнопка миші" name="set_voice_middlemouse_button" />
+	<text name="privacy_heading">
+		Опції приватності
+	</text>
+	<check_box
+	     label="Приймати голосові повідомлення тільки від моїх Друзів"
+	     name="voice_call_friends_only_check" />
+	<text_editor type="string" length="1" name="device_settings_text">
+		ПРИМІТКА: В режимі Настроєк Пристрою Ви тимчасово будете відключені від Голосового Чату.
+	</text_editor>
+	<button label="Настройки Пристрою" name="device_settings_btn" />
+</panel>

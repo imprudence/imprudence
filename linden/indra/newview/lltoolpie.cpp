@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -178,8 +179,7 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 		switch(mClickAction)
 		{
 		case CLICK_ACTION_TOUCH:
-		default:
-			// nothing
+			// touch behavior down below...
 			break;
 		case CLICK_ACTION_SIT:
 			if ((gAgent.getAvatarObject() != NULL) && (!gAgent.getAvatarObject()->mIsSitting)) // agent not already sitting
@@ -195,18 +195,33 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 				// pay event goes to object actually clicked on
 				mClickActionObject = object;
 				mLeftClickSelection = LLToolSelect::handleObjectSelection(mPick, FALSE, TRUE);
+				if (LLSelectMgr::getInstance()->selectGetAllValid())
+				{
+					// call this right away, since we have all the info we need to continue the action
+					selectionPropertiesReceived();
+				}
 				return TRUE;
 			}
 			break;
 		case CLICK_ACTION_BUY:
 			mClickActionObject = parent;
 			mLeftClickSelection = LLToolSelect::handleObjectSelection(mPick, FALSE, TRUE, TRUE);
+			if (LLSelectMgr::getInstance()->selectGetAllValid())
+			{
+				// call this right away, since we have all the info we need to continue the action
+				selectionPropertiesReceived();
+			}
 			return TRUE;
 		case CLICK_ACTION_OPEN:
 			if (parent && parent->allowOpen())
 			{
 				mClickActionObject = parent;
 				mLeftClickSelection = LLToolSelect::handleObjectSelection(mPick, FALSE, TRUE, TRUE);
+				if (LLSelectMgr::getInstance()->selectGetAllValid())
+				{
+					// call this right away, since we have all the info we need to continue the action
+					selectionPropertiesReceived();
+				}
 			}
 			return TRUE;
 		case CLICK_ACTION_PLAY:
@@ -216,6 +231,9 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 			// mClickActionObject = object;
 			handle_click_action_open_media(object);
 			return TRUE;
+		default:
+			// nothing
+			break;
 		}
 	}
 

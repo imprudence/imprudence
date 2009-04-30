@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_report_abuse" title="Пожаловаться">
+	<texture_picker label="" name="screenshot" />
+	<check_box label="Включить скриншот" name="screen_check" />
+	<text name="reporter_title">
+		Автор:
+	</text>
+	<text name="reporter_field">
+		Loremipsum Dolorsitamut
+	</text>
+	<text name="sim_title">
+		Регион:
+	</text>
+	<text name="sim_field">
+		Название региона
+	</text>
+	<text name="pos_title">
+		Координаты:
+	</text>
+	<text name="pos_field">
+		{128.1, 128.1, 15.4}
+	</text>
+	<text name="select_object_label">
+		Нажмите кнопку, затем объект
+	</text>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="Выбор объекта - укажите объект как предмет жалобы" />
+	<text name="object_name_label">
+		Имя:
+	</text>
+	<text name="object_name">
+		Чей:
+	</text>
+	<text name="owner_name_label">
+		Владелец:
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
+	</text>
+	<combo_box name="category_combo"
+	     tool_tip="Категория -- выберите категорию, наиболее подходящую по типу нарушения">
+		<combo_item name="Selectcategory">
+			Выберите категорию
+		</combo_item>
+		<combo_item name="Intolerance">
+			Нетерпимость
+		</combo_item>
+		<combo_item name="Harassment">
+			Преследование
+		</combo_item>
+		<combo_item name="Assault">
+			Нападение
+		</combo_item>
+		<combo_item name="Disclosure">
+			Разоблачение
+		</combo_item>
+		<combo_item name="Indecency">
+			Непристойность
+		</combo_item>
+		<combo_item name="Age">
+			Возраст
+		</combo_item>
+		<combo_item name="Parcel">
+			Участок
+		</combo_item>
+		<combo_item name="Other">
+			Другое
+		</combo_item>
+	</combo_box>
+	<text name="abuser_name_title">
+		Имя нарушителя
+	</text>
+	<button label="Выбрать резидента" label_selected=""
+	     name="select_abuser"
+	     tool_tip="Выберите имя нарушителя из списка" />
+	<text name="abuser_name_title2">
+		Расположение жалобы:
+	</text>
+	<text name="sum_title">
+		Итого:
+	</text>
+	<text name="dscr_title">
+		Детали:
+	</text>
+	<text name="bug_aviso">
+		Укажите, пожалуйста, дату, место, суть нарушения,
+процитируйте чат или IM, укажите объект, если возможно.
+	</text>
+	<text name="incomplete_title">
+		Примечание: Неполные заявления не будут рассматриваться
+	</text>
+	<button label="Отменить" label_selected="Отменить" name="cancel_btn" />
+	<button label="Пожаловаться" label_selected="Пожаловаться"
+	     name="send_btn" />
+</floater>

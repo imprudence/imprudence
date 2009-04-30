@@ -1,23 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <pie_menu name="Object Pie">
-	<menu_item_call label="Abrir" name="Open" />
-	<menu_item_call label="Crear" name="Create" />
-	<menu_item_call label="Tocar" name="Object Touch" />
-	<menu_item_call label="Sentar aquí" name="Object Sit" />
-	<menu_item_call label="Coger" name="Pie Object Take" />
-	<menu_item_call label="Pagar..." name="Pay..." />
+	<menu_item_call label="Abrir" name="Open"/>
+	<menu_item_call label="Crear" name="Create"/>
+	<menu_item_call label="Tocar" name="Object Touch"/>
+	<menu_item_call label="Sentarse aquí" name="Object Sit"/>
+	<menu_item_call label="Tomar" name="Pie Object Take"/>
+	<menu_item_call label="Pagar..." name="Pay..."/>
 	<pie_menu label="Más &gt;" name="More &gt;">
-		<menu_item_call label="Borrar" name="Delete" />
-		<menu_item_call label="Vestirse" name="Wear" />
-		<menu_item_call label="Hacer copia" name="Take Copy" />
-		<pie_menu label="Anexar HUD &gt;" name="Object Attach HUD" />
-		<pie_menu label="Anexar &gt;" name="Object Attach" />
-		<menu_item_call label="Retornar..." name="Return..." />
+		<menu_item_call label="Borrar" name="Delete"/>
+		<menu_item_call label="Ponerse" name="Wear"/>
+		<menu_item_call label="Coger una copia" name="Take Copy"/>
+		<pie_menu label="Anexar como HUD &gt;" name="Object Attach HUD"/>
+		<pie_menu label="Anexar &gt;" name="Object Attach"/>
+		<menu_item_call label="Devolver..." name="Return..."/>
 		<pie_menu label="Más &gt;" name="Rate Menu">
-			<menu_item_call label="Denunciar abuso..." name="Report Abuse..." />
-			<menu_item_call label="Silencioso" name="Object Mute" />
+			<menu_item_call label="Denunciar una infracción..." name="Report Abuse..."/>
+			<menu_item_call label="Ignorar" name="Object Mute"/>
+			<menu_item_call label="Examinar" name="Object Inspect"/>
 		</pie_menu>
-		<menu_item_call label="Comprar..." name="Buy..." />
+		<menu_item_call label="Comprar..." name="Buy..."/>
 	</pie_menu>
-	<menu_item_call label="Editar..." name="Edit..." />
+	<menu_item_call label="Editar..." name="Edit..."/>
 </pie_menu>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -37,10 +38,13 @@
 
 #include "llagent.h"
 #include "llbutton.h"
+#include "llcheckboxctrl.h"
 #include "llfloaterland.h"
 #include "lltextbox.h"
+#include "llviewercontrol.h"
 #include "llviewerparcelmgr.h"
 #include "llviewerregion.h"
+#include "llviewerwindow.h"
 #include "roles_constants.h"
 
 #include "lluictrlfactory.h"
@@ -65,6 +69,10 @@ BOOL	LLPanelLandInfo::postBuild()
 	childSetAction("button subdivide land",onClickDivide,this);
 	childSetAction("button join land",onClickJoin,this);
 	childSetAction("button about land",onClickAbout,this);
+	childSetAction("button show owners help", onShowOwnersHelp, this);
+
+	mCheckShowOwners = getChild<LLCheckBoxCtrl>("checkbox show owners");
+	childSetValue("checkbox show owners", gSavedSettings.getBOOL("ShowParcelOwners"));
 
 	return TRUE;
 }
@@ -72,7 +80,8 @@ BOOL	LLPanelLandInfo::postBuild()
 // Methods
 //
 LLPanelLandInfo::LLPanelLandInfo(const std::string& name)
-:	LLPanel(name)
+:	LLPanel(name),
+	mCheckShowOwners(NULL)
 {
 	if (!sInstance)
 	{
@@ -254,4 +263,9 @@ void LLPanelLandInfo::onClickAbout(void*)
 	}
 
 	LLFloaterLand::showInstance();
+}
+
+void LLPanelLandInfo::onShowOwnersHelp(void* user_data)
+{
+	LLNotifications::instance().add("ShowOwnersHelp");
 }

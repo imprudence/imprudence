@@ -1,6 +1,11 @@
 /** 
  * @file llworld.h
- * @brief Initial test structure to organize viewer regions
+ * @brief Collection of viewer regions in the vacinity of the user.
+ *
+ * Represents the whole world, so far as 3D functionality is conserned.
+ * Always contains the region that the user's avatar is in along with
+ * neighboring regions. As the user crosses region boundaries, new
+ * regions are added to the world and distant ones are rolled up.
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
@@ -17,7 +22,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -146,12 +152,18 @@ public:
 
 public:
 	typedef std::list<LLViewerRegion*> region_list_t;
-	
-	region_list_t	mActiveRegionList;
+	const region_list_t& getRegionList() const { return mActiveRegionList; }
 
-	region_list_t& getRegionList() { return mActiveRegionList; }
+	// Returns lists of avatar IDs and their world-space positions within a given distance of a point.
+	// All arguments are optional. Given containers will be emptied and then filled.
+	// Not supplying origin or radius input returns data on all avatars in the known regions.
+	void getAvatars(
+		std::vector<LLUUID>* avatar_ids = NULL,
+		std::vector<LLVector3d>* positions = NULL, 
+		const LLVector3d& relative_to = LLVector3d(), F32 radius = FLT_MAX) const;
 
 private:
+	region_list_t	mActiveRegionList;
 	region_list_t	mRegionList;
 	region_list_t	mVisibleRegionList;
 	region_list_t	mCulledRegionList;

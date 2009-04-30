@@ -36,6 +36,7 @@ set(llui_SOURCE_FILES
     lleditmenuhandler.cpp
     llfloater.cpp
     llfocusmgr.cpp
+    llfunctorregistry.cpp
     lliconctrl.cpp
     llkeywords.cpp
     lllineeditor.cpp
@@ -43,7 +44,9 @@ set(llui_SOURCE_FILES
     llmodaldialog.cpp
     llmultislider.cpp
     llmultisliderctrl.cpp
+    llnotifications.cpp
     llpanel.cpp
+    llprogressbar.cpp
     llradiogroup.cpp
     llresizebar.cpp
     llresizehandle.cpp
@@ -61,10 +64,12 @@ set(llui_SOURCE_FILES
     lltabcontainervertical.cpp
     lltextbox.cpp
     lltexteditor.cpp
+    lltextparser.cpp
     llui.cpp
     lluictrl.cpp
     lluictrlfactory.cpp
     lluistring.cpp
+    lluitrans.cpp
     llundo.cpp
     llviewborder.cpp
     llview.cpp
@@ -85,6 +90,7 @@ set(llui_HEADER_FILES
     lleditmenuhandler.h
     llfloater.h
     llfocusmgr.h
+    llfunctorregistry.h
     llhtmlhelp.h
     lliconctrl.h
     llkeywords.h
@@ -94,7 +100,9 @@ set(llui_HEADER_FILES
     llmodaldialog.h
     llmultisliderctrl.h
     llmultislider.h
+    llnotifications.h
     llpanel.h
+    llprogressbar.h
     llradiogroup.h
     llresizebar.h
     llresizehandle.h
@@ -112,12 +120,14 @@ set(llui_HEADER_FILES
     lltabcontainervertical.h
     lltextbox.h
     lltexteditor.h
+    lltextparser.h
     lluiconstants.h
     lluictrlfactory.h
     lluictrl.h
     lluifwd.h
     llui.h
     lluistring.h
+    lluitrans.h
     lluixmltags.h
     llundo.h
     llviewborder.h

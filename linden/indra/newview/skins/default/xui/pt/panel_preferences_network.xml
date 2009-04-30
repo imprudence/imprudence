@@ -17,7 +17,7 @@
 		Local do Cache em Disco:
 	</text>
 	<button label="Ajusta" label_selected="Ajusta" name="set_cache"/>
-	<button label="Inicia" label_selected="Inicia" name="reset_cache"/>
+	<button label="Reinicia" label_selected="Inicia" name="reset_cache"/>
 	<check_box label="Conexão de porta personalizada" name="connection_port_enabled"/>
-	<spinner label="          Porta:" name="connection_port"/>
+	<spinner label="Número da Porta:" name="connection_port"/>
 </panel>

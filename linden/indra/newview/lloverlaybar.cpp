@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -50,6 +51,7 @@
 #include "llui.h"
 #include "llviewercontrol.h"
 #include "llviewerimagelist.h"
+#include "llviewerjoystick.h"
 #include "llviewermedia.h"
 #include "llviewermenu.h"	// handle_reset_view()
 #include "llviewermedia.h"
@@ -122,6 +124,7 @@ BOOL LLOverlayBar::postBuild()
 	childSetAction("Set Not Busy",onClickSetNotBusy,this);
 	childSetAction("Mouselook",onClickMouselook,this);
 	childSetAction("Stand Up",onClickStandUp,this);
+ 	childSetAction("Flycam",onClickFlycam,this);
 	childSetVisible("chat_bar", gSavedSettings.getBOOL("ChatVisible"));
 
 	setFocusRoot(TRUE);
@@ -209,6 +212,16 @@ void LLOverlayBar::refresh()
 		buttons_changed = TRUE;
 	}
 
+	BOOL flycam = LLViewerJoystick::getInstance()->getOverrideCamera();
+	button = getChild<LLButton>("Flycam");
+	if (button && button->getVisible() != flycam)
+	{
+		button->setVisible(flycam);
+		sendChildToFront(button);
+		moveChildToBackOfTabGroup(button);
+		buttons_changed = TRUE;
+	}		
+
 	BOOL mouselook_grabbed;
 	mouselook_grabbed = gAgent.isControlGrabbed(CONTROL_ML_LBUTTON_DOWN_INDEX)
 		|| gAgent.isControlGrabbed(CONTROL_ML_LBUTTON_UP_INDEX);
@@ -282,6 +295,12 @@ void LLOverlayBar::onClickSetNotBusy(void*)
 	gAgent.clearBusy();
 }
 
+
+// static
+void LLOverlayBar::onClickFlycam(void*)
+{
+	LLViewerJoystick::getInstance()->toggleFlycam();
+}
 
 // static
 void LLOverlayBar::onClickResetView(void* data)

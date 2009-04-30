@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -38,13 +39,11 @@ extern "C" {
 }
 
 bool grab_gst_syms(std::string gst_dso_name,
-		   std::string gst_dso_name_vid,
-		   std::string gst_dso_name_aud);
+		   std::string gst_dso_name_vid);
 void ungrab_gst_syms();
 
 #define LL_GST_SYM(REQ, GSTSYM, RTN, ...) extern RTN (*ll##GSTSYM)(__VA_ARGS__)
 #include "llmediaimplgstreamer_syms_raw.inc"
-#include "llmediaimplgstreamer_syms_rawa.inc"
 #include "llmediaimplgstreamer_syms_rawv.inc"
 #undef LL_GST_SYM
 
@@ -61,12 +60,13 @@ void ungrab_gst_syms();
 #define GST_TYPE_PIPELINE (llgst_pipeline_get_type())
 #undef GST_TYPE_ELEMENT
 #define GST_TYPE_ELEMENT (llgst_element_get_type())
-#undef GST_TYPE_AUDIO_SINK
-#define GST_TYPE_AUDIO_SINK (llgst_audio_sink_get_type())
 #undef GST_TYPE_VIDEO_SINK
 #define GST_TYPE_VIDEO_SINK (llgst_video_sink_get_type())
+// more regrettable hacks to stub-out these .h-exposed GStreamer internals
+void ll_gst_debug_register_funcptr(GstDebugFuncPtr func, gchar* ptrname);
 #undef _gst_debug_register_funcptr
 #define _gst_debug_register_funcptr ll_gst_debug_register_funcptr
+GstDebugCategory* ll_gst_debug_category_new(gchar *name, guint color, gchar *description);
 #undef _gst_debug_category_new
 #define _gst_debug_category_new ll_gst_debug_category_new
 #undef __gst_debug_enabled

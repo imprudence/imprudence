@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -553,9 +554,9 @@ void LLPanelFriends::onSelectName(LLUICtrl* ctrl, void* user_data)
 //static
 void LLPanelFriends::onMaximumSelect(void* user_data)
 {
-	LLStringUtil::format_map_t args;
-	args["[MAX_SELECT]"] = llformat("%d", MAX_FRIEND_SELECT);
-	LLNotifyBox::showXml("MaxListSelectMessage", args);
+	LLSD args;
+	args["MAX_SELECT"] = llformat("%d", MAX_FRIEND_SELECT);
+	LLNotifications::instance().add("MaxListSelectMessage", args);
 };
 
 // static
@@ -615,27 +616,22 @@ void LLPanelFriends::requestFriendship(const LLUUID& target_id, const std::strin
 					 calling_card_folder_id);
 }
 
-struct LLAddFriendData
-{
-	LLUUID mID;
-	std::string mName;
-};
-
 // static
-void LLPanelFriends::callbackAddFriendWithMessage(S32 option, const std::string& text, void* data)
+bool LLPanelFriends::callbackAddFriendWithMessage(const LLSD& notification, const LLSD& response)
 {
-	LLAddFriendData* add = (LLAddFriendData*)data;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
-		requestFriendship(add->mID, add->mName, text);
+		requestFriendship(notification["payload"]["id"].asUUID(), 
+		    notification["payload"]["name"].asString(),
+		    response["message"].asString());
 	}
-	delete add;
+	return false;
 }
 
-// static
-void LLPanelFriends::callbackAddFriend(S32 option, void* data)
+bool LLPanelFriends::callbackAddFriend(const LLSD& notification, const LLSD& response)
 {
-	LLAddFriendData* add = (LLAddFriendData*)data;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
 		// Servers older than 1.25 require the text of the message to be the
@@ -643,9 +639,11 @@ void LLPanelFriends::callbackAddFriend(S32 option, void* data)
 		LLUUID calling_card_folder_id = 
 			gInventory.findCategoryUUIDForType(LLAssetType::AT_CALLINGCARD);
 		std::string message = calling_card_folder_id.asString();
-		requestFriendship(add->mID, add->mName, message);
+		requestFriendship(notification["payload"]["id"].asUUID(), 
+		    notification["payload"]["name"].asString(),
+		    message);
 	}
-	delete add;
+    return false;
 }
 
 // static
@@ -664,27 +662,25 @@ void LLPanelFriends::requestFriendshipDialog(const LLUUID& id,
 {
 	if(id == gAgentID)
 	{
-		LLNotifyBox::showXml("AddSelfFriend");
+		LLNotifications::instance().add("AddSelfFriend");
 		return;
 	}
 
-	LLAddFriendData* data = new LLAddFriendData();
-	data->mID = id;
-	data->mName = name;
-	
-	LLStringUtil::format_map_t args;
-	args["[NAME]"] = name;
-
-	// Look for server versions like: Second Life Server 1.24.4.95600
+	LLSD args;
+	args["NAME"] = name;
+	LLSD payload;
+	payload["id"] = id;
+	payload["name"] = name;
+    // Look for server versions like: Second Life Server 1.24.4.95600
 	if (gLastVersionChannel.find(" 1.24.") != std::string::npos)
 	{
 		// Old and busted server version, doesn't support friend
 		// requests with messages.
-		gViewerWindow->alertXml("AddFriend", args, callbackAddFriend, data);
+    	LLNotifications::instance().add("AddFriend", args, payload, &callbackAddFriend);
 	}
 	else
 	{
-		gViewerWindow->alertXmlEditText("AddFriendWithMessage", args, NULL, NULL, callbackAddFriendWithMessage, data);
+    	LLNotifications::instance().add("AddFriendWithMessage", args, payload, &callbackAddFriendWithMessage);
 	}
 }
 
@@ -707,7 +703,7 @@ void LLPanelFriends::onClickRemove(void* user_data)
 
 	//llinfos << "LLPanelFriends::onClickRemove()" << llendl;
 	LLDynamicArray<LLUUID> ids = panelp->getSelectedIDs();
-	LLStringUtil::format_map_t args;
+	LLSD args;
 	if(ids.size() > 0)
 	{
 		std::string msgType = "RemoveFromFriends";
@@ -717,18 +713,27 @@ void LLPanelFriends::onClickRemove(void* user_data)
 			std::string first, last;
 			if(gCacheName->getName(agent_id, first, last))
 			{
-				args["[FIRST_NAME]"] = first;
-				args["[LAST_NAME]"] = last;	
+				args["FIRST_NAME"] = first;
+				args["LAST_NAME"] = last;	
 			}
 		}
 		else
 		{
 			msgType = "RemoveMultipleFromFriends";
 		}
-		gViewerWindow->alertXml(msgType,
+		LLSD payload;
+
+		for (LLDynamicArray<LLUUID>::iterator it = ids.begin();
+			it != ids.end();
+			++it)
+		{
+			payload["ids"].append(*it);
+		}
+
+		LLNotifications::instance().add(msgType,
 			args,
-			&handleRemove,
-			(void*)new LLDynamicArray<LLUUID>(ids));
+			payload,
+			&handleRemove);
 	}
 }
 
@@ -760,13 +765,10 @@ void LLPanelFriends::confirmModifyRights(rights_map_t& ids, EGrantRevoke command
 {
 	if (ids.empty()) return;
 	
-	LLStringUtil::format_map_t args;
+	LLSD args;
 	if(ids.size() > 0)
 	{
-		// copy map of ids onto heap
-		rights_map_t* rights = new rights_map_t(ids); 
-		// package with panel pointer
-		std::pair<LLPanelFriends*, rights_map_t*>* user_data = new std::pair<LLPanelFriends*, rights_map_t*>(this, rights);
+		rights_map_t* rights = new rights_map_t(ids);
 
 		// for single friend, show their name
 		if(ids.size() == 1)
@@ -775,62 +777,65 @@ void LLPanelFriends::confirmModifyRights(rights_map_t& ids, EGrantRevoke command
 			std::string first, last;
 			if(gCacheName->getName(agent_id, first, last))
 			{
-				args["[FIRST_NAME]"] = first;
-				args["[LAST_NAME]"] = last;	
+				args["FIRST_NAME"] = first;
+				args["LAST_NAME"] = last;	
 			}
 			if (command == GRANT)
 			{
-				gViewerWindow->alertXml("GrantModifyRights", args, modifyRightsConfirmation, user_data);
+				LLNotifications::instance().add("GrantModifyRights", 
+					args, 
+					LLSD(), 
+					boost::bind(&LLPanelFriends::modifyRightsConfirmation, this, _1, _2, rights));
 			}
 			else
 			{
-				gViewerWindow->alertXml("RevokeModifyRights", args, modifyRightsConfirmation, user_data);
+				LLNotifications::instance().add("RevokeModifyRights", 
+					args, 
+					LLSD(), 
+					boost::bind(&LLPanelFriends::modifyRightsConfirmation, this, _1, _2, rights));
 			}
 		}
 		else
 		{
 			if (command == GRANT)
 			{
-				gViewerWindow->alertXml("GrantModifyRightsMultiple", args, modifyRightsConfirmation, user_data);
+				LLNotifications::instance().add("GrantModifyRightsMultiple", 
+					args, 
+					LLSD(), 
+					boost::bind(&LLPanelFriends::modifyRightsConfirmation, this, _1, _2, rights));
 			}
 			else
 			{
-				gViewerWindow->alertXml("RevokeModifyRightsMultiple", args, modifyRightsConfirmation, user_data);
+				LLNotifications::instance().add("RevokeModifyRightsMultiple", 
+					args, 
+					LLSD(), 
+					boost::bind(&LLPanelFriends::modifyRightsConfirmation, this, _1, _2, rights));
 			}
 		}
 	}
 }
 
-// static
-void LLPanelFriends::modifyRightsConfirmation(S32 option, void* user_data)
+bool LLPanelFriends::modifyRightsConfirmation(const LLSD& notification, const LLSD& response, rights_map_t* rights)
 {
-	std::pair<LLPanelFriends*, rights_map_t*>* data = (std::pair<LLPanelFriends*, rights_map_t*>*)user_data;
-	LLPanelFriends* panelp = data->first;
-
-	if(panelp)
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if(0 == option)
 	{
-		if(0 == option)
-		{
-			panelp->sendRightsGrant(*(data->second));
-		}
-		else
-		{
-			// need to resync view with model, since user cancelled operation
-			rights_map_t* rights = data->second;
-			rights_map_t::iterator rights_it;
-			for (rights_it = rights->begin(); rights_it != rights->end(); ++rights_it)
-			{
-				const LLRelationship* info = LLAvatarTracker::instance().getBuddyInfo(rights_it->first);
-				panelp->updateFriendItem(rights_it->first, info);
-				// Might have changed the column the user is sorted on.
-				panelp->mFriendsList->sortItems();
-			}
-		}
-		panelp->refreshUI();
+		sendRightsGrant(*rights);
 	}
+	else
+	{
+		// need to resync view with model, since user cancelled operation
+		rights_map_t::iterator rights_it;
+		for (rights_it = rights->begin(); rights_it != rights->end(); ++rights_it)
+		{
+			const LLRelationship* info = LLAvatarTracker::instance().getBuddyInfo(rights_it->first);
+			updateFriendItem(rights_it->first, info);
+		}
+	}
+	refreshUI();
 
-	delete data->second;
-	delete data;
+	delete rights;
+	return false;
 }
 
 void LLPanelFriends::applyRightsToFriends()
@@ -954,12 +959,14 @@ void LLPanelFriends::sendRightsGrant(rights_map_t& ids)
 
 
 // static
-void LLPanelFriends::handleRemove(S32 option, void* user_data)
+bool LLPanelFriends::handleRemove(const LLSD& notification, const LLSD& response)
 {
-	LLDynamicArray<LLUUID>* ids = static_cast<LLDynamicArray<LLUUID>*>(user_data);
-	for(LLDynamicArray<LLUUID>::iterator itr = ids->begin(); itr != ids->end(); ++itr)
+	S32 option = LLNotification::getSelectedOption(notification, response);
+
+	const LLSD& ids = notification["payload"]["ids"];
+	for(LLSD::array_const_iterator itr = ids.beginArray(); itr != ids.endArray(); ++itr)
 	{
-		LLUUID id = (*itr);
+		LLUUID id = itr->asUUID();
 		const LLRelationship* ip = LLAvatarTracker::instance().getBuddyInfo(id);
 		if(ip)
 		{			
@@ -985,5 +992,5 @@ void LLPanelFriends::handleRemove(S32 option, void* user_data)
 		}
 		
 	}
-	delete ids;
+	return false;
 }

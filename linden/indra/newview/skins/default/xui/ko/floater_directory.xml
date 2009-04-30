@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="directory" title="검색">
 	<tab_container name="Directory Tabs">
-		<panel label="모두" name="all_panel">
-			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
-			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
-			<text name="find">
-				찾기:
-			</text>
-			<button label="검색" label_selected="검색" name="Search" />
-			<check_box label="성인용 컨텐츠 포함" name="incmature" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="이름" name="name" />
-				<column label="가격" name="price" />
-				<column label="시간(PT)" name="date" />
-				<column label="시간" name="time" />
-				<column label="통행량" name="dwell" />
-				<column label="면적" name="area" />
-				<column label="L$/sq. m." name="per_meter" />
-				<column label="온라인" name="online" />
-				<column label="회원" name="members" />
-			</scroll_list>
-		</panel>
 		<panel label="전체" name="find_all_panel">
 			<string name="searching_text">
 				검색...
@@ -29,6 +8,9 @@
 			<string name="not_found_text">
 				발견되지 않음.
 			</string>
+			<text name="find">
+				찾기:
+			</text>
 			<button label="뒤로" name="back_btn" />
 			<button label="앞으로" name="forward_btn" />
 			<line_editor label="검색" name="search_editor" tool_tip="검색" />
@@ -56,7 +38,6 @@
 					위키
 				</combo_item>
 			</combo_box>
-			<check_box label="성인용 컨텐츠 포함" name="mature_check" />
 			<text name="loading_text">
 				로딩 중
 			</text>
@@ -79,7 +60,6 @@
 			<text name="find">
 				찾기:
 			</text>
-			<check_box label="성인용 컨텐츠 포함" name="incmature" />
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					모든 카테고리
@@ -152,7 +132,7 @@
 				카테고리:
 			</text>
 			<text name="text2">
-				이름/설명:
+				찾기:
 			</text>
 			<combo_box name="category combo">
 				<combo_item name="All">
@@ -192,7 +172,6 @@
 					다목적
 				</combo_item>
 			</combo_box>
-			<check_box label="성인용 포함" name="incmature" />
 			<button label="검색" label_selected="검색" name="Search" tool_tip="검색" />
 			<button label="삭제" label_selected="삭제" name="Delete" />
 			<scroll_list name="results">
@@ -216,7 +195,6 @@
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
 			<check_box label="사진이 있는 장소만 보기" name="incpictures" />
-			<check_box label="성인 컨텐츠가 있는 구획 포함" name="incmature" />
 			<text
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
 				본 장소들은 통행량에 따른 가장 인기 있는 장소들입니다
@@ -268,19 +246,16 @@
 					사유지 매물
 				</combo_item>
 			</combo_box>
-			<combo_box name="rating">
-				<combo_item name="PG&amp;Mature">
-					미성인 &amp; 성인
-				</combo_item>
-				<combo_item name="PGonly">
-					미성인 전용
-				</combo_item>
-				<combo_item name="Matureonly">
-					성인 전용
-				</combo_item>
-			</combo_box>
-			<check_box label="가격&lt;=L$" name="pricecheck" />
-			<check_box label="면적&gt;=sq.m." name="areacheck" />
+			<check_box label="가격 &#8804; " name="pricecheck" />
+			<check_box label="면적 &#8805; " name="areacheck" />
+			<text name="pricecheck_symbol" >
+				L$
+			</text>
+			<text name="areacheck_symbol" >
+				m²
+			</text>
+			<line_editor name="priceedit" />
+			<line_editor name="areaedit" />
 			<button label="검색" label_selected="검색" name="Search" />
 			<text name="land">
 				토지는 L$로 직접 구매하거나, L$ 혹은 US$로 경매하여 구매할 수 있습니다.
@@ -292,7 +267,7 @@
 				<column label="이름" name="name" />
 				<column label="L$ 가격" name="price" />
 				<column label="면적" name="area" />
-				<column label="L$/sq.m." name="per_meter" />
+				<column label="L$/m²" name="per_meter" />
 			</scroll_list>
 		</panel>
 		<panel label="장소" name="places_panel">
@@ -307,16 +282,12 @@
 			<text name="find">
 				찾기:
 			</text>
-			<check_box label="성인용 컨텐츠 구획 포함" name="incmature" />
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					모든 카테고리
 				</combo_item>
 				<combo_item name="LindenLocation">
 					린든랩 관련
-				</combo_item>
-				<combo_item name="Adult">
-					성인 전용
 				</combo_item>
 				<combo_item name="Arts&amp;Culture">
 					예술 &amp; 문화
@@ -389,7 +360,6 @@
 				찾기:
 			</text>
 			<button label="검색" label_selected="검색" name="Search" />
-			<check_box label="성인 그룹 포함" name="incmature" />
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
@@ -401,7 +371,6 @@
 			<button label="앞으로" name="forward_btn" />
 			<line_editor label="검색" name="search_editor" tool_tip="세컨드라이프 검색" />
 			<button label="검색" name="search_btn" />
-			<check_box label="성인용 컨텐츠 포함" name="mature_check" />
 			<string name="loading_text">
 				로딩 중
 			</string>
@@ -422,7 +391,6 @@
 				찾기:
 			</text>
 			<button label="검색" label_selected="검색" name="Search" />
-			<check_box label="성인용 컨텐츠 포함" name="incmature" />
 			<scroll_list name="results">
 				<column label="이름" name="name" />
 				<column label="가격" name="price" />

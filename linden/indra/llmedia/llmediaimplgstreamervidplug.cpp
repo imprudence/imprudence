@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -81,10 +82,10 @@ static void
 gst_slvideo_base_init (gpointer gclass)
 {
 	static GstElementDetails element_details = {
-		"PluginTemplate",
-		"Generic/PluginTemplate",
-		"Generic Template Element",
-		"Linden Lab"
+		(gchar*)"PluginTemplate",
+		(gchar*)"Generic/PluginTemplate",
+		(gchar*)"Generic Template Element",
+		(gchar*)"Linden Lab"
 	};
 	GstElementClass *element_class = GST_ELEMENT_CLASS (gclass);
 	
@@ -317,14 +318,6 @@ gst_slvideo_stop (GstBaseSink * bsink)
 }
 
 
-static gboolean
-gst_slvideo_unlock (GstBaseSink * bsink)
-{
-	// nothing really to do here.
-	return TRUE;
-}
-
-
 /* initialize the plugin's class */
 static void
 gst_slvideo_class_init (GstSLVideoClass * klass)
@@ -343,17 +336,19 @@ gst_slvideo_class_init (GstSLVideoClass * klass)
 	
 	gstelement_class->change_state = gst_slvideo_change_state;
 	
-	gstbasesink_class->get_caps = GST_DEBUG_FUNCPTR (gst_slvideo_get_caps);
-	gstbasesink_class->set_caps = GST_DEBUG_FUNCPTR( gst_slvideo_set_caps);
-	//gstbasesink_class->buffer_alloc=GST_DEBUG_FUNCPTR(gst_slvideo_buffer_alloc);
-	//gstbasesink_class->get_times = GST_DEBUG_FUNCPTR (gst_slvideo_get_times);
-	gstbasesink_class->preroll = GST_DEBUG_FUNCPTR (gst_slvideo_show_frame);
-	gstbasesink_class->render = GST_DEBUG_FUNCPTR (gst_slvideo_show_frame);
+#define LLGST_DEBUG_FUNCPTR(p) (p)
+	gstbasesink_class->get_caps = LLGST_DEBUG_FUNCPTR (gst_slvideo_get_caps);
+	gstbasesink_class->set_caps = LLGST_DEBUG_FUNCPTR( gst_slvideo_set_caps);
+	//gstbasesink_class->buffer_alloc=LLGST_DEBUG_FUNCPTR(gst_slvideo_buffer_alloc);
+	//gstbasesink_class->get_times = LLGST_DEBUG_FUNCPTR (gst_slvideo_get_times);
+	gstbasesink_class->preroll = LLGST_DEBUG_FUNCPTR (gst_slvideo_show_frame);
+	gstbasesink_class->render = LLGST_DEBUG_FUNCPTR (gst_slvideo_show_frame);
 	
-	gstbasesink_class->start = GST_DEBUG_FUNCPTR (gst_slvideo_start);
-	gstbasesink_class->stop = GST_DEBUG_FUNCPTR (gst_slvideo_stop);
+	gstbasesink_class->start = LLGST_DEBUG_FUNCPTR (gst_slvideo_start);
+	gstbasesink_class->stop = LLGST_DEBUG_FUNCPTR (gst_slvideo_stop);
 	
-	gstbasesink_class->unlock = GST_DEBUG_FUNCPTR (gst_slvideo_unlock);
+	//	gstbasesink_class->unlock = LLGST_DEBUG_FUNCPTR (gst_slvideo_unlock);
+#undef LLGST_DEBUG_FUNCPTR
 }
 
 
@@ -433,8 +428,8 @@ plugin_init (GstPlugin * plugin)
 {
 	//fprintf(stderr, "\n\n\nPLUGIN INIT\n\n\n");
 
-	GST_DEBUG_CATEGORY_INIT (gst_slvideo_debug, "private-slvideo-plugin",
-				 0, "Second Life Video Sink");
+	GST_DEBUG_CATEGORY_INIT (gst_slvideo_debug, (gchar*)"private-slvideo-plugin",
+				 0, (gchar*)"Second Life Video Sink");
 
 	return llgst_element_register (plugin, "private-slvideo",
 				       GST_RANK_NONE, GST_TYPE_SLVIDEO);

@@ -8,17 +8,7 @@
 	<button label="Teleportieren" name="classified_teleport_btn" />
 	<button label="Auf Karte" name="classified_map_btn" />
 	<button label="Profil" name="classified_profile_btn" />
-	<check_box label="Ab 18" name="classified_mature_check">
-		<combo_item name="select_mature">
-			- Jugendfreigabe wählen -
-		</combo_item>
-		<combo_item name="mature">
-			Ab-18-Inhalt
-		</combo_item>
-		<combo_item name="not_mature">
-			Jugendfreier Inhalt
-		</combo_item>
-	</check_box>
+
 	<combo_box label="" name="classified_category_combo" />
 	<button label="Aktualisieren" name="classified_update_btn" />
 	<string name="ad_placed_paid">

@@ -19,7 +19,8 @@
 # There are special exceptions to the terms and conditions of the GPL as
 # it is applied to this Source Code. View the full text of the exception
 # in the file doc/FLOSS-exception.txt in this software distribution, or
-# online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+# online at
+# http://secondlifegrid.net/programs/open_source/licensing/flossexception
 # 
 # By copying, modifying or distributing this software, you acknowledge
 # that you have read and understood your obligations described above,
@@ -164,10 +165,14 @@ class WindowsManifest(ViewerManifest):
         # nor do we have a fixed name for the executable
         self.path(self.find_existing_file('debug/secondlife-bin.exe', 'release/secondlife-bin.exe', 'relwithdebinfo/secondlife-bin.exe'), dst=self.final_exe())
         # need to get the kdu dll from any of the build directories as well
-        self.path(self.find_existing_file(
-                '../llkdu/%s/llkdu.dll' % self.args['configuration'],
+        try:
+            self.path(self.find_existing_file('../llkdu/%s/llkdu.dll' % self.args['configuration'],
                 '../../libraries/i686-win32/lib/release/llkdu.dll'), 
                   dst='llkdu.dll')
+            pass
+        except:
+            print "Skipping llkdu.dll"
+            pass
         self.path(src="licenses-win32.txt", dst="licenses.txt")
 
         self.path("featuretable.txt")
@@ -200,7 +205,6 @@ class WindowsManifest(ViewerManifest):
         # Mozilla runtime DLLs (CP)
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
             self.path("freebl3.dll")
-            self.path("gksvggdiplus.dll")
             self.path("js3250.dll")
             self.path("nspr4.dll")
             self.path("nss3.dll")
@@ -249,6 +253,12 @@ class WindowsManifest(ViewerManifest):
                 "../win_updater/release/windows-updater.exe",
                 "../win_updater/relwithdebinfo/windows-updater.exe"),
                   dst="updater.exe")
+
+        # For google-perftools tcmalloc allocator.
+        #if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
+        #        self.path("libtcmalloc_minimal.dll")
+        #        self.end_prefix()
+
 
     def nsi_file_commands(self, install=True):
         def wpath(path):
@@ -367,9 +377,17 @@ class WindowsManifest(ViewerManifest):
                 "%%INSTALL_FILES%%":self.nsi_file_commands(True),
                 "%%DELETE_FILES%%":self.nsi_file_commands(False)})
 
+        # We use the Unicode version of NSIS, available from
+        # http://www.scratchpaper.com/
         NSIS_path = 'C:\\Program Files\\NSIS\\Unicode\\makensis.exe'
         self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
         # self.remove(self.dst_path_of(tempfile))
+        # If we're on a build machine, sign the code using our Authenticode certificate. JC
+        sign_py = 'C:\\buildscripts\\code-signing\\sign.py'
+        if os.path.exists(sign_py):
+            self.run_command(sign_py + ' ' + self.dst_path_of(installer_file))
+        else:
+            print "Skipping code signing,", sign_py, "does not exist"
         self.created_path(self.dst_path_of(installer_file))
         self.package_file = installer_file
 
@@ -549,6 +567,7 @@ class LinuxManifest(ViewerManifest):
         if self.prefix("linux_tools", dst=""):
             self.path("client-readme.txt","README-linux.txt")
             self.path("client-readme-voice.txt","README-linux-voice.txt")
+            self.path("client-readme-joystick.txt","README-linux-joystick.txt")
             self.path("wrapper.sh","secondlife")
             self.path("handle_secondlifeprotocol.sh")
             self.path("register_secondlifeprotocol.sh")
@@ -571,8 +590,8 @@ class LinuxManifest(ViewerManifest):
             else:
                 installer_name += '_' + self.channel_oneword().upper()
 
-                # Fix access permissions
-                self.run_command("""
+        # Fix access permissions
+        self.run_command("""
                 find %(dst)s -type d | xargs --no-run-if-empty chmod 755;
                 find %(dst)s -type f -perm 0700 | xargs --no-run-if-empty chmod 0755;
                 find %(dst)s -type f -perm 0500 | xargs --no-run-if-empty chmod 0555;
@@ -602,6 +621,19 @@ class LinuxManifest(ViewerManifest):
 class Linux_i686Manifest(LinuxManifest):
     def construct(self):
         super(Linux_i686Manifest, self).construct()
+
+#        # install either the libllkdu we just built, or a prebuilt one, in
+        # decreasing order of preference.  for linux package, this goes to bin/
+        try:
+#            self.path(self.find_existing_file('../llkdu/libllkdu.so',
+#                '../../libraries/i686-linux/lib_release_client/libllkdu.so'), 
+#                  dst='bin/libllkdu.so')
+            # keep this one to preserve syntax, open source mangling removes previous lines
+            pass
+        except:
+#            print "Skipping libllkdu.so - not found"
+            pass
+
         self.path("secondlife-stripped","bin/do-not-directly-run-secondlife-bin")
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
         self.path("linux_tools/launch_url.sh","launch_url.sh")
@@ -616,7 +648,7 @@ class Linux_i686Manifest(LinuxManifest):
         self.path("app_settings/mozilla-runtime-linux-i686")
 
         if self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
-#            self.path("libkdu_v42R.so")
+#            self.path("libkdu_v42R.so", "libkdu.so")
             self.path("libfmod-3.75.so")
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
@@ -624,12 +656,10 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libcrypto.so.0.9.7")
             self.path("libexpat.so.1")
             self.path("libssl.so.0.9.7")
-#            self.path("libstdc++.so.6")
             self.path("libuuid.so", "libuuid.so.1")
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
-            self.path("libopenjpeg.so.2")
-#            self.path("libllkdu.so", "../bin/libllkdu.so") # llkdu goes in bin for some reason
+            self.path("libopenjpeg.so.1.3.0", "libopenjpeg.so.1.3")
             self.path("libalut.so")
             self.path("libopenal.so", "libopenal.so.1")
             self.end_prefix("lib")

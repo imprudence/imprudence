@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="clothing" title="服">
-	<scroll_list name="clothing_list">
-		<column label="" name="icon" />
-		<column label="Name" name="name" />
-	</scroll_list>
-	<button label="取り外す" name="take_off_btn" />
-	<button label="装着" name="wear_btn" />
-</floater>

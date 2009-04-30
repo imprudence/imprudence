@@ -1,30 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Classified" title="分类的">
-	<line_editor name="given_name_editor"
-	     tool_tip="名字必须以字母或数字开始，不可用标点。" />
-	<line_editor name="location_editor"
-	     tool_tip="设置分类广告的位置到你当前的位置。" />
-	<button label="调节位置" name="set_location_btn" width="80" left="10"/>
-	<button label="瞬间移动" name="classified_teleport_btn" width="80" left_delta="90"/>
-	<button label="在地图中显示" name="classified_map_btn" width="110" left_delta="90"/>
+	<line_editor name="given_name_editor" tool_tip="名字必须以字母或数字开始，不可用标点。"/>
+	<line_editor name="location_editor" tool_tip="设置分类广告的位置到你当前的位置。"/>
+	<button label="调节位置" left="10" name="set_location_btn" width="80"/>
+	<button label="瞬间移动" left_delta="90" name="classified_teleport_btn" width="80"/>
+	<button label="在地图中显示" left_delta="90" name="classified_map_btn" width="110"/>
+	<combo_box label="" name="classified_category_combo"/>
 
-	<combo_box label="" name="classified_category_combo" />
-	<check_box label="成人" name="classified_mature_check" />
-	<text name="classified_info_text"
-	     tool_tip="你选择为你的广告付费越多, 您的广告在广告栏里出现的位置就会越高.">
+	<text name="classified_info_text" tool_tip="你选择为你的广告付费越多, 您的广告在广告栏里出现的位置就会越高.">
 		广告发布: 还没有发布
 	</text>
 	<text name="click_through_text" tool_tip="分类广告发布后的点击数.">
 		点击数:
 	</text>
-	<button label="发布..." name="classified_update_btn" />
-	<check_box label="每周自动更新" name="auto_renew_check" />
-	<text name="ad_placed_paid">
+	<button label="发布..." name="classified_update_btn"/>
+	<check_box label="每周自动更新" name="auto_renew_check"/>
+	<string name="ad_placed_paid">
 		广告发布: [DATE]，为此付出了 L$[AMT]。
-	</text>	
-	<text
-		 name="update_txt" >更新</text>
-	<text
-		 name="publish_txt" >发布...</text>
-
+	</string>
+	<string name="update_txt">
+		更新
+	</string>
+	<string name="publish_txt">
+		发布...
+	</string>
 </panel>

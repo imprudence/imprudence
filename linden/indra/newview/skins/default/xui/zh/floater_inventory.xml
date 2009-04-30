@@ -1,62 +1,47 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="Inventory" title="库存">
-	<search_editor
-		 name="inventory search editor"
-		 label="在这里输入要查找的物体" />
+	<search_editor label="在这里输入要查找的物体" name="inventory search editor"/>
 	<tab_container name="inventory filter tabs">
-		<inventory_panel label="所有物体" name="All Items" />
-		<inventory_panel label="最近使用的物体" name="Recent Items" />
+		<inventory_panel label="所有物体" name="All Items"/>
+		<inventory_panel label="最近使用的物体" name="Recent Items"/>
 	</tab_container>
 	<menu_bar name="Inventory Menu">
 		<menu label="文件 " name="File">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-			<menu_item_call label="打开" name="Open" />
-			<menu_item_call label="新建窗口" name="New Window" />
-			<menu_item_call label="显示搜索过滤器" name="Show Filters" />
-			<menu_item_call
-				 label="清空过滤器"
-				 name="Reset Current" />
-			<menu_item_call label="关闭所有文件夹" name="Close All Folders" />
-			<menu_item_call label="清空回收站" name="Empty Trash" />
+			<menu_item_call label="打开" name="Open"/>
+			<menu_item_call label="新建窗口" name="New Window"/>
+			<menu_item_call label="显示搜索过滤器" name="Show Filters"/>
+			<menu_item_call label="清空过滤器" name="Reset Current"/>
+			<menu_item_call label="关闭所有文件夹" name="Close All Folders"/>
+			<menu_item_call label="清空回收站" name="Empty Trash"/>
 		</menu>
 		<menu label="创建" name="Create">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-			<menu_item_call label="新的文件夹" name="New Folder" />
-			<menu_item_call label="新的脚本" name="New Script" />
-			<menu_item_call label="新的记事卡" name="New Note" />
-			<menu_item_call label="新的动作" name="New Gesture" />
-			<menu name="新建衣物">
-				<menu_item_call label="新的衬衫" name="New Shirt" />
-				<menu_item_call label="新的裤子" name="New Pants" />
-				<menu_item_call label="新的鞋子" name="New Shoes" />
-				<menu_item_call label="新的袜子" name="New Socks" />
-				<menu_item_call label="新的夹克" name="New Jacket" />
-				<menu_item_call label="新的短裙" name="New Skirt" />
-				<menu_item_call label="新的手套" name="New Gloves" />
-				<menu_item_call label="新的内衣" name="New Undershirt" />
-				<menu_item_call label="新的内裤" name="New Underpants" />
+			<menu_item_call label="新的文件夹" name="New Folder"/>
+			<menu_item_call label="新的脚本" name="New Script"/>
+			<menu_item_call label="新的记事卡" name="New Note"/>
+			<menu_item_call label="新的动作" name="New Gesture"/>
+			<menu name="New Clothes">
+				<menu_item_call label="新建衬衫" name="New Shirt"/>
+				<menu_item_call label="新建裤子" name="New Pants"/>
+				<menu_item_call label="新建鞋子" name="New Shoes"/>
+				<menu_item_call label="新建袜子" name="New Socks"/>
+				<menu_item_call label="新建夹克" name="New Jacket"/>
+				<menu_item_call label="新建裙子" name="New Skirt"/>
+				<menu_item_call label="新建手套" name="New Gloves"/>
+				<menu_item_call label="新建汗衫" name="New Undershirt"/>
+				<menu_item_call label="新见内衣" name="New Underpants"/>
 			</menu>
-			<menu name="新建身体部位">
-				<menu_item_call label="新的身材" name="New Shape" />
-				<menu_item_call label="新的皮肤" name="New Skin" />
-				<menu_item_call label="新的头发" name="New Hair" />
-				<menu_item_call label="新的眼睛" name="New Eyes" />
+			<menu name="New Body Parts">
+				<menu_item_call label="新建外形" name="New Shape"/>
+				<menu_item_call label="新建皮肤" name="New Skin"/>
+				<menu_item_call label="新建头发" name="New Hair"/>
+				<menu_item_call label="新建眼睛" name="New Eyes"/>
 			</menu>
 		</menu>
 		<menu label="排序" name="Sort">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-			<menu_item_check label="按名称" name="By Name" />
-			<menu_item_check label="按日期" name="By Date" />
-			<menu_item_check label="文件夹总是按名称排列" name="Folders Always By Name" />
-			<menu_item_check
-				 label="系统文件夹置顶"
-				 name="System Folders To Top" />
-
+			<menu_item_check label="按名称" name="By Name"/>
+			<menu_item_check label="按日期" name="By Date"/>
+			<menu_item_check label="文件夹总是按名称排列" name="Folders Always By Name"/>
+			<menu_item_check label="系统文件夹置顶" name="System Folders To Top"/>
 		</menu>
-<!-- 		<menu label="Filters" name="Filters">
-			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
-			<menu_item_check label="修改流量" name="Modify Current" />
-			<menu_item_call label="重新设置流量" name="Reset Current" />
-		</menu> -->
 	</menu_bar>
 </floater>

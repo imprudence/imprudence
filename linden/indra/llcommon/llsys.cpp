@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -58,6 +59,17 @@
 #	include <sys/sysinfo.h>
 const char MEMINFO_FILE[] = "/proc/meminfo";
 const char CPUINFO_FILE[] = "/proc/cpuinfo";
+#elif LL_SOLARIS
+#	include <stdio.h>
+#	include <unistd.h>
+#	include <sys/utsname.h>
+#	define _STRUCTURED_PROC 1
+#	include <sys/procfs.h>
+#	include <sys/types.h>
+#	include <sys/stat.h>
+#	include <fcntl.h>
+#	include <errno.h>
+extern int errno;
 #endif
 
 
@@ -288,19 +300,22 @@ U32 LLOSInfo::getProcessVirtualSizeKB()
 #endif
 #if LL_LINUX
 	LLFILE* status_filep = LLFile::fopen("/proc/self/status", "rb");
-	S32 numRead = 0;		
-	char buff[STATUS_SIZE];		/* Flawfinder: ignore */
-
-	size_t nbytes = fread(buff, 1, STATUS_SIZE-1, status_filep);
-	buff[nbytes] = '\0';
-
-	// All these guys return numbers in KB
-	char *memp = strstr(buff, "VmSize:");
-	if (memp)
+	if (status_filep)
 	{
-		numRead += sscanf(memp, "%*s %u", &virtual_size);
+		S32 numRead = 0;		
+		char buff[STATUS_SIZE];		/* Flawfinder: ignore */
+
+		size_t nbytes = fread(buff, 1, STATUS_SIZE-1, status_filep);
+		buff[nbytes] = '\0';
+
+		// All these guys return numbers in KB
+		char *memp = strstr(buff, "VmSize:");
+		if (memp)
+		{
+			numRead += sscanf(memp, "%*s %u", &virtual_size);
+		}
+		fclose(status_filep);
 	}
-	fclose(status_filep);
 #elif LL_SOLARIS
 	char proc_ps[LL_MAX_PATH];
 	sprintf(proc_ps, "/proc/%d/psinfo", (int)getpid());

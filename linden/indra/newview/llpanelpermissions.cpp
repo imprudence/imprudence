@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -190,9 +191,6 @@ void LLPanelPermissions::refresh()
 		childSetEnabled("Description:",false);
 		childSetText("Object Description",LLStringUtil::null);
 		childSetEnabled("Object Description",false);
- 
-		childSetText("prim info",LLStringUtil::null);
-		childSetEnabled("prim info",false);
 
 		childSetEnabled("Permissions:",false);
 		
@@ -357,17 +355,19 @@ void LLPanelPermissions::refresh()
 	{
 		edit_name_desc = TRUE;
 	}
+
+	childSetEnabled("Name:",true);
+	LLLineEditor* LineEditorObjectName = getChild<LLLineEditor>("Object Name");
+	childSetEnabled("Description:",true);
+	LLLineEditor*	LineEditorObjectDesc = getChild<LLLineEditor>("Object Description");
+
 	if(is_one_object)
 	{
-		childSetEnabled("Name:",true);
-		LLLineEditor* LineEditorObjectName = getChild<LLLineEditor>("Object Name");
 		if(keyboard_focus_view != LineEditorObjectName)
 		{
 			childSetText("Object Name",nodep->mName);
 		}
 
-		childSetEnabled("Description:",true);
-		LLLineEditor*	LineEditorObjectDesc = getChild<LLLineEditor>("Object Description");
 		if(LineEditorObjectDesc)
 		{
 			if(keyboard_focus_view != LineEditorObjectDesc)
@@ -375,6 +375,11 @@ void LLPanelPermissions::refresh()
 				LineEditorObjectDesc->setText(nodep->mDescription);
 			}
 		}
+	}
+	else
+	{
+		childSetText("Object Name",LLStringUtil::null);
+		LineEditorObjectDesc->setText(LLStringUtil::null);
 	}
 
 	if(edit_name_desc)
@@ -387,33 +392,6 @@ void LLPanelPermissions::refresh()
 		childSetEnabled("Object Name",false);
 		childSetEnabled("Object Description",false);
 	}
-
-
-	// Pre-compute object info string
-	S32 prim_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
-	S32 obj_count = LLSelectMgr::getInstance()->getSelection()->getRootObjectCount();
-
-	std::string object_info_string;
-	if (1 == obj_count)
-	{
-		object_info_string.assign("1 Object, ");
-	}
-	else
-	{
-		object_info_string = llformat( "%d Objects, ", obj_count);
-	}
-	if (1 == prim_count)
-	{
-		object_info_string.append("1 Primitive");
-	}
-	else
-	{
-		std::string buffer;
-		buffer = llformat( "%d Primitives", prim_count);
-		object_info_string.append(buffer);
-	}
-	childSetText("prim info",object_info_string);
-	childSetEnabled("prim info",true);
 
 	S32 total_sale_price = 0;
 	S32 individual_sale_price = 0;
@@ -899,8 +877,9 @@ void LLPanelPermissions::cbGroupID(LLUUID group_id, void* userdata)
 	LLSelectMgr::getInstance()->sendGroup(group_id);
 }
 
-void callback_deed_to_group(S32 option, void*)
+bool callback_deed_to_group(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
 		LLUUID group_id;
@@ -911,12 +890,12 @@ void callback_deed_to_group(S32 option, void*)
 //			LLViewerStats::getInstance()->incStat(LLViewerStats::ST_RELEASE_COUNT);
 		}
 	}
+	return false;
 }
 
 void LLPanelPermissions::onClickDeedToGroup(void* data)
 {
-			gViewerWindow->alertXml( "DeedObjectToGroup",
-			callback_deed_to_group, NULL);
+	LLNotifications::instance().add( "DeedObjectToGroup", LLSD(), LLSD(), callback_deed_to_group);
 }
 
 ///----------------------------------------------------------------------------
@@ -1115,7 +1094,7 @@ void LLPanelPermissions::onCommitClickAction(LLUICtrl* ctrl, void*)
 		LLSelectMgr::getInstance()->selectGetSaleInfo(sale_info);
 		if (!sale_info.isForSale())
 		{
-			gViewerWindow->alertXml("CantSetBuyObject");
+			LLNotifications::instance().add("CantSetBuyObject");
 
 			// Set click action back to its old value
 			U8 click_action = 0;
@@ -1133,7 +1112,7 @@ void LLPanelPermissions::onCommitClickAction(LLUICtrl* ctrl, void*)
 		if (!can_pay)
 		{
 			// Warn, but do it anyway.
-			gViewerWindow->alertXml("ClickActionNotPayable");
+			LLNotifications::instance().add("ClickActionNotPayable");
 		}
 	}
 	LLSelectMgr::getInstance()->selectionSetClickAction(click_action);

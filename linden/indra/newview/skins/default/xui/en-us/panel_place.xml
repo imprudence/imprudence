@@ -35,10 +35,10 @@
 		Traffic: [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Area: [AREA] sq. m.
+		Area: [AREA] m². 
 	</string>
 	<string name="forsale_text">
-		For Sale for L$ [PRICE]
+		For Sale for L$[PRICE]
 	</string>
 	<string name="auction_text">
 		Auction ID [ID].

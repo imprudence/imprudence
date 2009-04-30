@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Pick" title="Pick">
-	<button label="Ajustar Localização" name="set_location_btn" />
-	<button label="Tele-Transporte" name="pick_teleport_btn" />
-	<button label="Mostrar no Mapa" name="pick_map_btn" />
+	<button label="Ajustar Localização" name="set_location_btn"/>
+	<button label="Teletransporte" name="pick_teleport_btn"/>
+	<button label="Mostrar no Mapa" name="pick_map_btn"/>
 	<text name="sort_order_text">
 		Sorte
 	</text>
-	<check_box label="Permitido" name="enabled_check" />
+	<check_box label="Permitido" name="enabled_check"/>
 </panel>

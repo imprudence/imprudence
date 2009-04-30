@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="content_panel">
+	<text_editor name="voice_intro_text1">
+		¡Bienvenido al chat de voz de Second Life! El chat de voz le permite hablar con otros residentes. Este asistente le guiará por los pasos necesarios para configurar el chat de voz. Para usar el chat de voz necesita altavoces y, si quiere hablar con otros, un micrófono o unos auriculares que lo lleven.
+	</text_editor>
+	<text_editor name="voice_intro_text2">
+		Por defecto, el chat de voz está activado. ¿Quiere seguir usándolo?
+	</text_editor>
+	<radio_group name="voice_enable">
+		<radio_item name="1">
+			Sí, seguir usando el chat de voz.
+		</radio_item>
+		<radio_item name="0">
+			No, desactivar el chat de voz.
+		</radio_item>
+	</radio_group>
+	<text_editor name="voice_intro_text3">
+		Puede activar el chat de voz en cualquier momento yendo a la pestaña Chat de voz en las Preferencias.
+	</text_editor>
+	<text_editor name="voice_intro_text4">
+		Pulse el botón Siguiente para configurar las preferencias del chat de voz, o pulse Acabar para seguir usando Second Life.
+	</text_editor>
+</panel>

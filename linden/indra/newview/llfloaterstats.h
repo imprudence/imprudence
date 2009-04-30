@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -39,16 +40,23 @@ class LLContainerView;
 class LLStatView;
 class LLScrollableContainerView;
 
-class LLFloaterStats : public LLFloater
+class LLFloaterStats
+: public LLFloater,
+	public LLFloaterSingleton<LLFloaterStats>
+
 {
+	friend class LLUISingleton<LLFloaterStats, VisibilityPolicy<LLFloater> >;
+	
  public:
-	LLFloaterStats(const LLRect& rect);
+	LLFloaterStats(const LLSD& val);
 	virtual ~LLFloaterStats();
 	void addStatView(LLStatView* stat);
 	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	void onOpen();
 	void onClose(bool app_quitting);
 	
  private:
+	void buildStats();
 	LLContainerView* mStatsContainer;
 	LLScrollableContainerView* mScrollContainer;
 };

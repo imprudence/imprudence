@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -37,6 +38,7 @@
 #include <typeinfo>
 
 #include "llerrorlegacy.h"
+#include "stdtypes.h"
 
 
 /* Error Logging Facility
@@ -134,6 +136,7 @@ namespace LLError
 	public:
 		static bool shouldLog(CallSite&);
 		static std::ostringstream* out();
+		static void flush(std::ostringstream* out, char* message)  ;
 		static void flush(std::ostringstream*, const CallSite&);
 	};
 	
@@ -178,9 +181,41 @@ namespace LLError
 		
 	class NoClassInfo { };
 		// used to indicate no class info known for logging
+
+   //LLCallStacks keeps track of call stacks and output the call stacks to log file
+   //when LLAppViewer::handleViewerCrash() is triggered.
+   //
+   //Note: to be simple, efficient and necessary to keep track of correct call stacks, 
+	//LLCallStacks is designed not to be thread-safe.
+   //so try not to use it in multiple parallel threads at same time.
+   //Used in a single thread at a time is fine.
+   class LLCallStacks
+   {
+   private:
+       static char**  sBuffer ;
+	   static S32     sIndex ;
+          
+   public:   
+	   static void push(const char* function, const int line) ;
+	   static std::ostringstream* insert(const char* function, const int line) ;
+       static void print() ;
+       static void clear() ;
+	   static void end(std::ostringstream* _out) ;
+   }; 
 }
 
-
+//this is cheaper than llcallstacks if no need to output other variables to call stacks. 
+#define llpushcallstacks LLError::LLCallStacks::push(__FUNCTION__, __LINE__)
+#define llcallstacks \
+	{\
+       std::ostringstream* _out = LLError::LLCallStacks::insert(__FUNCTION__, __LINE__) ; \
+       (*_out)
+#define llcallstacksendl \
+		LLError::End(); \
+		LLError::LLCallStacks::end(_out) ; \
+	}
+#define llclearcallstacks LLError::LLCallStacks::clear()
+#define llprintcallstacks LLError::LLCallStacks::print() 
 
 /*
 	Class type information for logging

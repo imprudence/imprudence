@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -77,6 +78,14 @@ enum LAND_STAT_REPORT_TYPE
 
 const U32 STAT_FILTER_MASK	= 0x1FFFFFFF;
 
+// Region absolute limits
+static const S32		REGION_AGENT_COUNT_MIN = 1;
+static const S32		REGION_AGENT_COUNT_MAX = 200;			// Must fit in U8 for the moment (RegionInfo msg)
+static const S32		REGION_PRIM_COUNT_MIN = 0;
+static const S32		REGION_PRIM_COUNT_MAX = 40000;
+static const F32		REGION_PRIM_BONUS_MIN = 1.0;
+static const F32		REGION_PRIM_BONUS_MAX = 10.0;
+
 // Default maximum number of tasks/prims per region.
 const U32 DEFAULT_MAX_REGION_WIDE_PRIM_COUNT = 15000;
 
@@ -109,6 +118,7 @@ const	char* const	DEFAULT_AGNI_DATA_SERVER	= "63.211.139.100";
 const	char* const	DEFAULT_AGNI_ASSET_SERVER	= "http://asset.agni.lindenlab.com:80";
 
 // Information about what ports are for what services is in the wiki Name Space Ports page
+// https://wiki.lindenlab.com/wiki/Name_Space_Ports
 const	char* const DEFAULT_LOCAL_ASSET_SERVER	= "http://localhost:12041/asset/tmp";
 const	char* const	LOCAL_ASSET_URL_FORMAT		= "http://%s:12041/asset";
 
@@ -128,6 +138,10 @@ const   U32		DEFAULT_LOCAL_ASSET_PORT		= 12041;
 const   U32		DEFAULT_CAP_PROXY_PORT			= 12043;
 const   U32		DEFAULT_INV_DATA_SERVER_PORT	= 12044;
 const	U32		DEFAULT_CGI_SERVICES_PORT		= 12045;
+
+// Mapserver uses ports 12124 - 12139 to allow multiple mapservers to run
+// on a single host for map tile generation. JC
+const	U32		DEFAULT_MAPSERVER_PORT			= 12124;
 
 // For automatic port discovery when running multiple viewers on one host
 const	U32		PORT_DISCOVERY_RANGE_MIN		= 13000;
@@ -229,12 +243,12 @@ const S32 KEY_COUNT = 256;
 const F32 DEFAULT_WATER_HEIGHT 	= 20.0f;
 
 // Maturity ratings for simulators
-const U8 SIM_ACCESS_MIN 	= 0;
-const U8 SIM_ACCESS_TRIAL	= 7;
+const U8 SIM_ACCESS_MIN 	= 0;		// Treated as 'unknown', usually ends up being SIM_ACCESS_PG
 const U8 SIM_ACCESS_PG		= 13;
 const U8 SIM_ACCESS_MATURE	= 21;
+const U8 SIM_ACCESS_ADULT	= 42;		// Seriously Adult Only
 const U8 SIM_ACCESS_DOWN	= 254;
-const U8 SIM_ACCESS_MAX 	= SIM_ACCESS_MATURE;
+const U8 SIM_ACCESS_MAX 	= SIM_ACCESS_ADULT;
 
 // group constants
 const S32 MAX_AGENT_GROUPS = 25;
@@ -345,6 +359,8 @@ const U32 MAP_ITEM_POPULAR = 0x04;
 const U32 MAP_ITEM_AGENT_LOCATIONS = 0x06;
 const U32 MAP_ITEM_LAND_FOR_SALE = 0x07;
 const U32 MAP_ITEM_CLASSIFIED = 0x08;
+const U32 MAP_ITEM_ADULT_EVENT = 0x09;
+const U32 MAP_ITEM_LAND_FOR_SALE_ADULT = 0x0a;
 
 // Crash reporter behavior
 const char* const CRASH_SETTINGS_FILE = "settings_crash_behavior.xml";

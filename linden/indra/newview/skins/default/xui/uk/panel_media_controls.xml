@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="media_controls">
+	<icon label="" name="music_icon"
+	     tool_tip="Увімкн/пауз. потокова музика" />
+	<button label="" name="music_play"
+	     tool_tip="Увімкн/пауз. потокова музика" />
+	<button label="" name="music_pause" tool_tip="Пауза" />
+	<button label="" name="music_stop" tool_tip="Стоп" />
+	<icon label="" name="media_icon"
+	     tool_tip="Увімкн/пауз. потокова музика" />
+	<button label="" name="media_play"
+	     tool_tip="Увімкн/пауз. потокове медіа" />
+	<button label="" name="media_pause" tool_tip="Пауза" />
+	<button label="" name="media_stop" tool_tip="Стоп" />
+	<volume_slider name="volume_slider" tool_tip="Основний звук" />
+	<button label="" name="mute_master" tool_tip="Основна глушилка" />
+	<button label="" name="expand"
+	     tool_tip="Застосув. індивідуальні настройки звуку" />
+	<string name="play_label">
+		Грати
+	</string>
+	<string name="stop_label">
+		Стоп
+	</string>
+	<string name="pause_label">
+		Пауза
+	</string>
+	<string name="default_tooltip_label">
+		Медіа не указано
+	</string>
+	<string name="media_hidden_label">
+		(URL схований власником)
+	</string>
+	<string name="media_icon_tooltip_web">
+		Ця локація відображає зміст Інтернета. Натисніть Грати, щоб побачити його.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		Ця локація може показати відео. Натисніть Грати, щоб побачити його.
+	</string>
+	<string name="media_play_tooltip">
+		Показати вебзміст в цій локації.
+	</string>
+</panel>

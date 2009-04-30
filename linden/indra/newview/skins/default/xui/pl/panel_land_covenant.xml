@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Covenant" title="Umowa">
+	<text name="region_name_lbl">
+		Region:
+	</text>
+	<text name="region_name_text">
+		(nieznany)
+	</text>
+	<text name="estate_name_lbl">
+		Posiadłość:
+	</text>
+	<text name="estate_name_text">
+		(unknown)
+	</text>
+	<text name="estate_owner_lbl">
+		Właściciel Posiadłości:
+	</text>
+	<text name="estate_owner_text">
+		(unknown)
+	</text>
+	<text name="resellable_clause">
+		Posiadłość zakupiona w tym regiona może lub nie może być odsprzedawana.
+	</text>
+	<text name="changeable_clause">
+		Posiadłość zakupiona w tym regionie może lub nie może być dzielona/łączona.
+	</text>
+	<string name="can_resell">
+		szereg posiadłości może być odsprzedany w tym regionie.
+	</string>
+	<string name="can_not_resell">
+		Posiadłość zakupiona w tym regiona może być odsprzedawana.
+	</string>
+	<string name="can_change">
+		Posiadłość zakupiona w tym regionie może być dzielona/łączona.
+	</string>
+	<string name="can_not_change">
+		Posiadłość zakupiona w tym regionie nie może być dzielona/łączona.
+	</string>
+</panel>

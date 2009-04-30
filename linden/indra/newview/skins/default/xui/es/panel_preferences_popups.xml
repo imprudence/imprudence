@@ -1,14 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Popups" name="popups">
-	<text type="string" length="1" name="text_box">
-		No exhibir popups:
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Ventanas emergentes" name="popups" title="Ventanas emergentes">
+	<text name="dont_show_label">
+		No mostrar estas ventanas emergentes:
 	</text>
-	<button label="Activar esta popup" label_selected="Activar esta popup"
-	     name="enable_popup" />
-	<text type="string" length="1" name="text_box2">
-		Mostrar popups:
+	<button label="Activar esta ventana emergente" label_selected="Activar esta popup" name="enable_popup"/>
+	<button label="Activar todas las ventanas emergentes..." label_selected="Restaurar cajas de diálogo &apos;Mostrar en la próxima vez&apos;..." name="reset_dialogs_btn" tool_tip="Activar todas las ventanas emergentes y los avisos de &apos;primera vez que se usa&apos;."/>
+	<text name="show_label">
+		Mostrar estas ventanas emergentes:
 	</text>
-	<button label="Restaurar cajas de diálogo &apos;Mostrar en la próxima vez&apos;..."
-	     label_selected="Restaurar cajas de diálogo &apos;Mostrar en la próxima vez&apos;..."
-	     name="reset_dialogs_btn" />
+	<button label="Desactivar todas estas ventanas emergentes..." name="skip_dialogs_btn" tool_tip="Desactivar todas las ventanas emergentes y los avisos de &apos;primera vez que se usa&apos;."/>
+	<text length="1" name="text_box2" type="string">
+		Oferta de notas, texturas e hitos:
+	</text>
+	<check_box label="Aceptar automáticamente" name="accept_new_inventory"/>
+	<check_box label="Ver automáticamente tras aceptar" name="show_new_inventory"/>
+	<check_box label="Mostrar automáticamente los objetos aceptados recientemente en el inventario" name="show_in_inventory"/>
 </panel>

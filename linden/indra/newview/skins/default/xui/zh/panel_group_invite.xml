@@ -1,18 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="邀请会员" name="invite_panel">
-	<text>
-		您可以选择多个居民，邀请他们加入您的社团。点击 ‘打开人物选择器’ 开始邀请。
+	<text name="help_text">
+		您可以同时选择多人并邀请加入到您的社团。点击‘打开个人选择’开始。
 	</text>
-	<button label="打开人物选择器" name="add_button" tool_tip="" />
-	<name_list name="invitee_list"
-	     tool_tip="按住Ctrl键然后点击居民名字来选择多个项目。" />
-	<button label="从名单中移除所选项" name="remove_button"
-	     tool_tip="将此居民从您的邀请列表中清除。" />
-	<text>
-		选择哪个角色分配给他们：
+	<button label="打开人物选择器" name="add_button" tool_tip=""/>
+	<name_list name="invitee_list" tool_tip="按住Ctrl键然后点击居民名字来选择多个项目。"/>
+	<button label="从名单中移除所选项" name="remove_button" tool_tip="将此居民从您的邀请列表中清除。"/>
+	<text name="role_text">
+		为他们选择什么角色:
 	</text>
-	<combo_box name="role_name"
-	     tool_tip="从这个列表中选择你可以为会员分配的角色。" />
-	<button label="发送邀请" name="ok_button" />
-	<button label="取消" name="cancel_button" />
+	<combo_box name="role_name" tool_tip="从这个列表中选择你可以为会员分配的角色。"/>
+	<button label="发送邀请" name="ok_button"/>
+	<button label="取消" name="cancel_button"/>
+	<string name="confirm_invite_owner_str">
+		您确定要邀请新的所有者么? 该操作是永久性的！
+	</string>
+	<string name="loading">
+		(载入中...)
+	</string>
 </panel>

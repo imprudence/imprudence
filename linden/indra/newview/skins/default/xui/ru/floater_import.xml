@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Import" title="">
+	<text name="name_label">
+		Название:
+	</text>
+	<text name="description_label">
+		Описание:
+	</text>
+	<text name="preview_label">
+		Файлы для загрузки:
+	</text>
+	<button label="Отмена" name="cancel_btn" />
+	<button label="Загрузить(L$10)" name="ok_btn" />
+	<text name="preview_label2">
+		Предпросмотр картинки:
+	</text>
+</floater>

@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -31,7 +32,7 @@
  * $/LicenseInfo$
  */
  
-#include <tut/tut.h>
+#include <tut/tut.hpp>
 #include "linden_common.h"
 #include "lltut.h"
 #include "llquaternion.h"
@@ -510,7 +511,7 @@ namespace tut
 	void v3dmath_object::test<24>()
 	{
 #if LL_WINDOWS && _MSC_VER < 1400
-		skip_fail("This fails on VS2003!");
+		skip("This fails on VS2003!");
 #else
 		F64 x = 10., y = 20., z = -15.;
 		F64 angle1, angle2;

@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="Pick" title="Coger">
-	<button label="Definir local" name="set_location_btn" />
-	<button label="Teletransportar" name="pick_teleport_btn" />
-	<button label="Mostrar en el mapa" name="pick_map_btn" />
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Pick" title="Elegir">
+	<button label="Marcar esta posición" name="set_location_btn"/>
+	<button label="Teleportar" name="pick_teleport_btn"/>
+	<button label="Mostrar en el mapa" name="pick_map_btn"/>
 	<text name="sort_order_text">
-		Clasificar:
+		Ordenar:
 	</text>
-	<check_box label="Activado" name="enabled_check" />
+	<check_box label="Permitido" name="enabled_check"/>
 </panel>

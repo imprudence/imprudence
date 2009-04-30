@@ -61,7 +61,8 @@
 			&lt;Type region name&gt;
 		</combo_item>
 	</combo_box>
-	<check_box bottom="10" follows="left|bottom" font="SansSerifSmall" height="16"
+	<check_box bottom="10" control_name="RememberPassword" 
+         follows="left|bottom" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Remember password"
 	     left_delta="163" mouse_opaque="true" name="remember_check" width="138" />
 	<button bottom="28" follows="left|bottom" font="SansSerif" halign="center"
@@ -90,6 +91,6 @@
 	     font="SansSerifSmall" h_pad="0" halign="right" height="16"
 	     left="-310" mouse_opaque="true" name="channel_text" v_pad="0" width="300"
 	     hover="true" hover_color="50 115 185">
-		[CHANNEL] [VERSION]
+		[VERSION]
 	</text>
 </panel>

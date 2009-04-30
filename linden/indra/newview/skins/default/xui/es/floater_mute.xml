@@ -1,12 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="mute floater" title="Residentes &amp; Objetos sin sonido" short_title="Residentes &amp; Objetos sin sonido">
-	<scroll_list name="mutes" />
-	<button label="Desactivar sonido de residente..."
-	     label_selected="Desactivar sonido de residente..." name="Mute resident..."
-	     tool_tip="Dejar un residente sin sonido" />
-	<button label="Desactivar sonido de objeto por el nombre..."
-	     label_selected="Desactivar sonido de objeto por el nombre..."
-	     name="Mute object by name..." />
-	<button label="Reactivar sonido" label_selected="Reactivar sonido" name="Unmute"
-	     tool_tip="Remover residente o objeto de la lista de sin sonido" />
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="mute floater" short_title="Lista de ignorados" title="Residentes y Objetos ignorados">
+	<scroll_list name="mutes" tool_tip="Lista de los residentes ignorados actualmente"/>
+	<button label="Ignorar al residente..." label_selected="Ignorar al residente..." name="Mute resident..." tool_tip="Elija un residente para ignorarle"/>
+	<button label="Ignorar un objeto según su nombre..." label_selected="Ignorar un objeto según su nombre..." name="Mute object by name..."/>
+	<button label="No ignorar" label_selected="No ignorar" name="Unmute" tool_tip="Quitar residentes u objetos de la lista de ignorados"/>
 </floater>

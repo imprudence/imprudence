@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -30,6 +31,7 @@
  */
 
 // Utilities functions the user interface needs
+
 #include "linden_common.h"
 
 #include <string>
@@ -65,6 +67,7 @@ std::map<std::string, std::string> gTranslation;
 std::list<std::string> gUntranslated;
 
 LLControlGroup* LLUI::sConfigGroup = NULL;
+LLControlGroup* LLUI::sIgnoresGroup = NULL;
 LLControlGroup* LLUI::sColorsGroup = NULL;
 LLImageProviderInterface* LLUI::sImageProvider = NULL;
 LLUIAudioCallback LLUI::sAudioCallback = NULL;
@@ -90,7 +93,7 @@ void make_ui_sound(const char* namep)
 		LLUUID uuid(LLUI::sConfigGroup->getString(name));		
 		if (uuid.isNull())
 		{
-			if ("00000000-0000-0000-0000-000000000000" == LLUI::sConfigGroup->getString(name))
+			if (LLUI::sConfigGroup->getString(name) == LLUUID::null.asString())
 			{
 				if (LLUI::sConfigGroup->getBOOL("UISndDebugSpamToggle"))
 				{
@@ -1552,6 +1555,7 @@ bool handleShowXUINamesChanged(const LLSD& newvalue)
 }
 
 void LLUI::initClass(LLControlGroup* config, 
+					 LLControlGroup* ignores, 
 					 LLControlGroup* colors, 
 					 LLImageProviderInterface* image_provider,
 					 LLUIAudioCallback audio_callback,
@@ -1559,7 +1563,16 @@ void LLUI::initClass(LLControlGroup* config,
 					 const std::string& language)
 {
 	sConfigGroup = config;
+	sIgnoresGroup = ignores;
 	sColorsGroup = colors;
+
+	if (sConfigGroup == NULL
+		|| sIgnoresGroup == NULL
+		|| sColorsGroup == NULL)
+	{
+		llerrs << "Failure to initialize configuration groups" << llendl;
+	}
+
 	sImageProvider = image_provider;
 	sAudioCallback = audio_callback;
 	sGLScaleFactor = (scale_factor == NULL) ? LLVector2(1.f, 1.f) : *scale_factor;
@@ -1567,7 +1580,7 @@ void LLUI::initClass(LLControlGroup* config,
 	LLFontGL::sShadowColor = colors->getColor("ColorDropShadow");
 
 	LLUI::sShowXUINames = LLUI::sConfigGroup->getBOOL("ShowXUINames");
-	LLUI::sConfigGroup->getControl("ShowXUINames")->getSignal()->connect(boost::bind(&handleShowXUINamesChanged, _1));
+	LLUI::sConfigGroup->getControl("ShowXUINames")->getSignal()->connect(&handleShowXUINamesChanged);
 }
 
 void LLUI::cleanupClass()
@@ -1643,6 +1656,18 @@ void LLUI::setCursorPositionLocal(const LLView* viewp, S32 x, S32 y)
 	viewp->localPointToScreen(x, y, &screen_x, &screen_y);
 
 	setCursorPositionScreen(screen_x, screen_y);
+}
+
+//static 
+void LLUI::getCursorPositionLocal(const LLView* viewp, S32 *x, S32 *y)
+{
+	LLCoordWindow cursor_pos_window;
+	LLView::getWindow()->getCursorPosition(&cursor_pos_window);
+	LLCoordGL cursor_pos_gl;
+	LLView::getWindow()->convertCoords(cursor_pos_window, &cursor_pos_gl);
+	cursor_pos_gl.mX = llround((F32)cursor_pos_gl.mX / LLUI::sGLScaleFactor.mV[VX]);
+	cursor_pos_gl.mY = llround((F32)cursor_pos_gl.mY / LLUI::sGLScaleFactor.mV[VY]);
+	viewp->screenPointToLocal(cursor_pos_gl.mX, cursor_pos_gl.mY, x, y);
 }
 
 // On Windows, the user typically sets the language when they install the

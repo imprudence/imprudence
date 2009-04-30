@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -40,7 +41,7 @@
 #include "v3math.h"
 #include "v4math.h"
 
-LLTemplateMessageBuilder::LLTemplateMessageBuilder(message_template_name_map_t& name_template_map) :
+LLTemplateMessageBuilder::LLTemplateMessageBuilder(const message_template_name_map_t& name_template_map) :
 	mCurrentSMessageData(NULL),
 	mCurrentSMessageTemplate(NULL),
 	mCurrentSDataBlock(NULL),
@@ -74,14 +75,14 @@ void LLTemplateMessageBuilder::newMessage(const char *name)
 	char* namep = (char*)name; 
 	if (mMessageTemplates.count(namep) > 0)
 	{
-		mCurrentSMessageTemplate = mMessageTemplates[namep];
+		mCurrentSMessageTemplate = mMessageTemplates.find(name)->second;
 		mCurrentSMessageData = new LLMsgData(namep);
 		mCurrentSMessageName = namep;
 		mCurrentSDataBlock = NULL;
 		mCurrentSBlockName = NULL;
 
 		// add at one of each block
-		const LLMessageTemplate* msg_template = mMessageTemplates[namep];
+		const LLMessageTemplate* msg_template = mMessageTemplates.find(name)->second;
 
 		if (msg_template->getDeprecation() != MD_NOTDEPRECATED)
 		{

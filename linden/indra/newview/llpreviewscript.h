@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -80,10 +81,12 @@ public:
 
 	BOOL			canClose();
 
-	static void		handleSaveChangesDialog(S32 option, void* userdata);
-	static void		handleReloadFromServerDialog(S32 option, void* userdata);
+	void            setScriptText(const std::string& text, BOOL is_valid);
 
-	static void		onHelpWebDialog(S32 option, void* userdata);
+	bool			handleSaveChangesDialog(const LLSD& notification, const LLSD& response);
+	bool			handleReloadFromServerDialog(const LLSD& notification, const LLSD& response);
+
+	static bool		onHelpWebDialog(const LLSD& notification, const LLSD& response);
 	static void		onBtnHelp(void* userdata);
 	static void		onBtnDynamicHelp(void* userdata);
 	static void		onCheckLock(LLUICtrl*, void*);
@@ -149,6 +152,7 @@ private:
 	LLFrameTimer	mLiveHelpTimer;
 	S32				mLiveHelpHistorySize;
 	BOOL			mEnableSave;
+	BOOL			mHasScriptData;
 };
 
 

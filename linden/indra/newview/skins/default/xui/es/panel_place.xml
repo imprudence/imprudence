@@ -1,6 +1,39 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="Place" title="Poner">
-	<button label="Teletransportar" name="teleport_btn" />
-	<button label="Mostrar en el mapa" name="map_btn" />
-	<button label="Ofertas..." name="auction_btn" />
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Place" title="Lugar">
+	<text name="name_label">
+		Nombre:
+	</text>
+	<text name="description_label">
+		Descripción:
+	</text>
+	<text name="information_label">
+		Información:
+	</text>
+	<text name="location_label">
+		Localización:
+	</text>
+	<button label="Teleportar" name="teleport_btn"/>
+	<button label="Mostrar en el mapa" name="map_btn"/>
+	<button label="Pujas..." name="auction_btn"/>
+	<string name="traffic_text">
+		Tráfico: [TRAFFIC]
+	</string>
+	<string name="area_text">
+		Superficie: [AREA] m²
+	</string>
+	<string name="forsale_text">
+		En venta for L$ [PRICE]
+	</string>
+	<string name="auction_text">
+		ID de la subasta: [ID].
+	</string>
+	<string name="server_update_text">
+		No está disponible la información del lugar sin una actualización del servidor.
+	</string>
+	<string name="server_error_text">
+		En estos momentos no está disponible la información sobre esta localización. Por favor, reinténtelo más tarde..
+	</string>
+	<string name="server_forbidden_text">
+		Por restricciones en el acceso a esta localización, su información no está disponible. Por favor, compruebe sus permisos con el propietario de la parcela..
+	</string>
 </panel>

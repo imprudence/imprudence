@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Self Pie">
+	<menu_item_call label="Профіль..." name="Profile..." />
+	<menu_item_call label="Групи..." name="Groups..." />
+	<menu_item_call label="Перейти..." name="Go..." />
+	<menu_item_call label="Встати" name="Stand Up" />
+	<menu_item_call label="Друзі..." name="Friends..." />
+	<menu_item_call label="Жести..." name="Gestures..." />
+	<pie_menu label="Зняти &gt;" name="Take Off &gt;">
+		<pie_menu label="Одяг &gt;" name="Clothes &gt;">
+			<menu_item_call label="Сорочка" name="Shirt" />
+			<menu_item_call label="Штани" name="Pants" />
+			<menu_item_call label="Взуття" name="Shoes" />
+			<menu_item_call label="Шкарпетки" name="Socks" />
+			<menu_item_call label="Піджак" name="Jacket" />
+			<menu_item_call label="Рукавиці" name="Gloves" />
+			<pie_menu label="Ще &gt;" name="More &gt;">
+				<menu_item_call label="Майка" name="Self Undershirt" />
+				<menu_item_call label="Весь одежда" name="All Clothes" />
+				<menu_item_call label="Труси" name="Self Underpants" />
+			</pie_menu>
+			<menu_item_call label="Юбка" name="Skirt" />
+		</pie_menu>
+		<pie_menu label="HUD &gt;" name="Object Detach HUD" />
+		<pie_menu label="Відкріпити &gt;" name="Object Detach" />
+		<menu_item_call label="Відкріпити Все" name="Detach All" />
+	</pie_menu>
+	<menu_item_call label="Зовнішніть..." name="Appearance..." />
+</pie_menu>

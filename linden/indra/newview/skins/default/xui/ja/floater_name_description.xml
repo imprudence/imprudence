@@ -7,5 +7,5 @@
 		説明：
 	</text>
 	<button label="取り消し" name="cancel_btn" />
-	<button label="アップロード（L$10）" name="ok_btn" />
+	<button label="アップロード　（L$[AMOUNT]）" name="ok_btn"/>
 </floater>

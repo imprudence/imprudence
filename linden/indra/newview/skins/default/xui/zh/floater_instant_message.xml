@@ -1,76 +1,43 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater
-	 label="(unknown)"
-	 min_height="155"
-	 min_width="345"
-	 name="im_floater"
-	 title="(unknown)">
-	 	<string
-		 name="ringing">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(unknown)" min_height="155" min_width="345" name="im_floater" title="(unknown)">
+	<string name="ringing">
 		正在加入语音聊天...
 	</string>
-	<string
-		 name="connected">
-		已连接，点击结束通话来挂断
-	</string>
-	<string
-		 name="hang_up">
-		连接已结束
-	</string>
-	<string
-		 name="title_string">
-		与 [NAME] 的即时通信
-	</string>
-	<string
-		 name="typing_start_string">
-		[NAME] 正在输入...
-	</string>
-	<string
-		 name="session_start_string">
-		正在开始和 [NAME] 的会话，请稍候。
-	</string>
-	<string
-		 name="default_text_label">
-		点击这里开始即时聊天。
-	</string>
-	<string
-		 name="answering">
+	<string name="answering">
 		正在连接...
 	</string>
-	<string
-		 name="default_text_label">
+	<string name="connected">
+		已连接，点击结束通话来挂断
+	</string>
+	<string name="hang_up">
+		连接已结束
+	</string>
+	<string name="inventory_item_offered">
+		库存物品已发送
+	</string>
+	<string name="title_string">
+		与 [NAME] 的即时通信
+	</string>
+	<string name="typing_start_string">
+		[NAME] 正在输入...
+	</string>
+	<string name="session_start_string">
+		正在开始和 [NAME] 的会话，请稍候。
+	</string>
+	<string name="default_text_label">
 		点击这里开始即时聊天。
 	</string>
-	<button
-		 label="档案..."
-		 name="profile_callee_btn" />
-	<button
-		 label="呼叫"
-		 name="start_call_btn" />
-	<button
-		 label="结束呼叫"
-		 name="end_call_btn"
-		 pad_right="10"
-		 visible="false" />
-	<panel
-		 name="speaker_controls">
-		<volume_slider
-			 name="speaker_volume" />
-		<button
-			 label=""
-			 name="mute_btn"
-			 tool_tip="静音" />
+	<button label="档案..." name="profile_callee_btn"/>
+	<button label="呼叫" name="start_call_btn"/>
+	<button label="结束呼叫" name="end_call_btn" pad_right="10" visible="false"/>
+	<panel name="speaker_controls">
+		<volume_slider name="speaker_volume"/>
+		<button label="" name="mute_btn" tool_tip="静音"/>
 	</panel>
-	<text_editor
-		 name="im_history" />
-	<line_editor
-		 label="点击这里开始即时聊天。"
-		 name="chat_editor" />
-	<button
-		 label="发送"
-		 name="send_btn" />
-	<string
-		 name="live_help_dialog">
+	<text_editor name="im_history"/>
+	<line_editor label="点击这里开始即时聊天。" name="chat_editor"/>
+	<button label="发送" name="send_btn"/>
+	<string name="live_help_dialog">
 		*** 欢迎来到帮助请求 *** 
     请首先按 F1 参阅我们的第二人生帮助页面，或访问知识库 http://secondlife.com/knowledgebase/ 
 若你找不到所需的答案，请输入你的问题，然后等待可用的工作人员的回复。

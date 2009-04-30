@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfoFinder" title="Інф.про Групу">
+	<text name="default_needs_apply_text">
+		Тут є незастосовані зміни
+	</text>
+	<text name="want_apply_text">
+		Ви хочете застосувати ці зміни?
+	</text>
+</panel>

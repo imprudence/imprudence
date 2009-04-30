@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -79,6 +80,7 @@ S32 LLViewerImage::sBoundTextureMemory = 0;
 S32 LLViewerImage::sTotalTextureMemory = 0;
 S32 LLViewerImage::sMaxBoundTextureMem = 0;
 S32 LLViewerImage::sMaxTotalTextureMem = 0;
+S32 LLViewerImage::sMaxDesiredTextureMem = 0 ;
 BOOL LLViewerImage::sDontLoadVolumeTextures = FALSE;
 
 // static
@@ -124,6 +126,7 @@ void LLViewerImage::initClass()
  	sDefaultImagep = gImageList.getImage(IMG_DEFAULT, TRUE, TRUE);
 #endif
  	sSmokeImagep = gImageList.getImage(IMG_SMOKE, TRUE, TRUE);
+	sSmokeImagep->setNoDelete() ;
 
 }
 
@@ -149,6 +152,7 @@ F32 texmem_middle_bound_scale = 0.925f;
 //static
 void LLViewerImage::updateClass(const F32 velocity, const F32 angular_velocity)
 {
+	llpushcallstacks ;
 	sBoundTextureMemory = LLImageGL::sBoundTextureMemory;//in bytes
 	sTotalTextureMemory = LLImageGL::sGlobalTextureMemory;//in bytes
 	sMaxBoundTextureMem = gImageList.getMaxResidentTexMem();//in MB	
@@ -157,6 +161,8 @@ void LLViewerImage::updateClass(const F32 velocity, const F32 angular_velocity)
 	if ((sBoundTextureMemory >> 20) >= sMaxBoundTextureMem ||
 		(sTotalTextureMemory >> 20) >= sMaxTotalTextureMem)
 	{
+	sMaxDesiredTextureMem = llmin((S32)(sMaxTotalTextureMem * 0.75f) , 0x20000000) ;//512 MB
+	
 		// If we are using more texture memory than we should,
 		// scale up the desired discard level
 		if (sEvaluationTimer.getElapsedTimeF32() > discard_delta_time)
@@ -342,6 +348,20 @@ void LLViewerImage::reinit(BOOL usemipmaps /* = TRUE */)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+// ONLY called from LLViewerImageList
+void LLViewerImage::destroyTexture() 
+{
+	if(sGlobalTextureMemory < sMaxDesiredTextureMem)//not ready to release unused memory.
+	{
+		return ;
+	}
+	if (mNeedsCreateTexture)//return if in the process of generating a new texture.
+	{
+		return ;
+	}
+	
+	destroyGLTexture() ;
+}
 
 // ONLY called from LLViewerImageList
 BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
@@ -695,6 +715,11 @@ void LLViewerImage::setBoostLevel(S32 level)
 	if (level >= LLViewerImage::BOOST_HIGH)
 	{
 		processTextureStats();
+	}
+
+	if(mBoostLevel != LLViewerImage::BOOST_NONE)
+	{
+		setNoDelete() ;		
 	}
 }
 
@@ -1231,6 +1256,24 @@ bool LLViewerImage::bindDefaultImage(S32 stage) const
 	}
 	stop_glerror();
 	return res;
+}
+
+//virtual
+void LLViewerImage::forceImmediateUpdate()
+{
+	//only immediately update a deleted texture which is now being re-used.
+	if(!isDeleted())
+	{
+		return ;
+	}
+	//if already called forceImmediateUpdate()
+	if(mInImageList && mDecodePriority == LLViewerImage::maxDecodePriority())
+	{
+		return ;
+	}
+
+	gImageList.forceImmediateUpdate(this) ;
+	return ;
 }
 
 // Was in LLImageGL

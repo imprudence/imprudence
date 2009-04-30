@@ -16,49 +16,49 @@
 	<check_box label="Anágua" name="checkbox_Undershirt"/>
 	<check_box label="Roupas de Baixo" name="checkbox_Underpants"/>
 	<check_box label="Saia" name="checkbox_Skirt"/>
-	<check_box label="Peito" name="checkbox_Chest" left="225" />
-	<check_box label="Crânio" name="checkbox_Skull" left="225" />
-	<check_box label="Ombro Esquerdo" name="checkbox_Left Shoulder" left="225" />
-	<check_box label="Ombro Direito" name="checkbox_Right Shoulder" left="225" />
-	<check_box label="Mão Esquerda" name="checkbox_Left Hand" left="225" />
-	<check_box label="Mão Direita" name="checkbox_Right Hand" left="225" />
-	<check_box label="Pé Esquerdo" name="checkbox_Left Foot" left="225" />
-	<check_box label="Pé Direito" name="checkbox_Right Foot" left="225" />
-	<check_box label="Espinha" name="checkbox_Spine" left="225" />
-	<check_box label="Pelvis" name="checkbox_Pelvis" left="225" />
-	<check_box label="Boca" name="checkbox_Mouth" left="225" />
-	<check_box label="Queixo" name="checkbox_Chin" left="225" />
-	<check_box label="Orelha Esquerda" name="checkbox_Left Ear" left="225" />
-	<check_box label="Orelha Direita" name="checkbox_Right Ear" left="325"/>
-	<check_box label="Olho Esquerdo" name="checkbox_Left Eyeball" left="325"/>
-	<check_box label="Olho Direito" name="checkbox_Right Eyeball" left="325"/>
-	<check_box label="Nariz" name="checkbox_Nose" left="325"/>
-	<check_box label="Antebraço Direito" name="checkbox_R Upper Arm" left="325"/>
-	<check_box label="Braço Direito" name="checkbox_R Forearm" left="325"/>
-	<check_box label="Antebraço Esquerdo" name="checkbox_L Upper Arm" left="325"/>
-	<check_box label="Braço Esquerdo" name="checkbox_L Forearm" left="325"/>
-	<check_box label="Nádega Direita" name="checkbox_Right Hip" left="325"/>
-	<check_box label="Coxa Direita" name="checkbox_R Upper Leg" left="325"/>
-	<check_box label="Canela Direita" name="checkbox_R Lower Leg" left="325"/>
-	<check_box label="Nádega Esquerda" name="checkbox_Left Hip" left="325"/>
-	<check_box label="Coxa Esquerda" name="checkbox_L Upper Leg" left="325"/>
-	<check_box label="Canela Esquerda" name="checkbox_L Lower Leg" left="460"/>
-	<check_box label="Estomago" name="checkbox_Stomach" left="460"/>
-	<check_box label="Peito Esquerdo" name="checkbox_Left Pec" left="460"/>
-	<check_box label="Peito Direito" name="checkbox_Right Pec" left="460"/>
-	<check_box label="Centro 2" name="checkbox_Center 2" left="460"/>
-	<check_box label="Superior Direita" name="checkbox_Top Right" left="460"/>
-	<check_box label="Superior" name="checkbox_Top" left="460"/>
-	<check_box label="Superior Esquerda" name="checkbox_Top Left" left="460"/>
-	<check_box label="Centro" name="checkbox_Center" left="460"/>
-	<check_box label="Inferior Esquerda" name="checkbox_Bottom Left" left="460"/>
-	<check_box label="Inferior" name="checkbox_Bottom" left="460"/>
-	<check_box label="Inferior Direita" name="checkbox_Bottom Right" left="460"/>
+	<check_box label="Peito" left="225" name="checkbox_Chest"/>
+	<check_box label="Crânio" left="225" name="checkbox_Skull"/>
+	<check_box label="Ombro Esquerdo" left="225" name="checkbox_Left Shoulder"/>
+	<check_box label="Ombro Direito" left="225" name="checkbox_Right Shoulder"/>
+	<check_box label="Mão Esquerda" left="225" name="checkbox_Left Hand"/>
+	<check_box label="Mão Direita" left="225" name="checkbox_Right Hand"/>
+	<check_box label="Pé Esquerdo" left="225" name="checkbox_Left Foot"/>
+	<check_box label="Pé Direito" left="225" name="checkbox_Right Foot"/>
+	<check_box label="Espinha" left="225" name="checkbox_Spine"/>
+	<check_box label="Pélvis" left="225" name="checkbox_Pelvis"/>
+	<check_box label="Boca" left="225" name="checkbox_Mouth"/>
+	<check_box label="Queixo" left="225" name="checkbox_Chin"/>
+	<check_box label="Orelha Esquerda" left="225" name="checkbox_Left Ear"/>
+	<check_box label="Orelha Direita" left="325" name="checkbox_Right Ear"/>
+	<check_box label="Olho Esquerdo" left="325" name="checkbox_Left Eyeball"/>
+	<check_box label="Olho Direito" left="325" name="checkbox_Right Eyeball"/>
+	<check_box label="Nariz" left="325" name="checkbox_Nose"/>
+	<check_box label="Antebraço Direito" left="325" name="checkbox_R Upper Arm"/>
+	<check_box label="Braço Direito" left="325" name="checkbox_R Forearm"/>
+	<check_box label="Antebraço Esquerdo" left="325" name="checkbox_L Upper Arm"/>
+	<check_box label="Braço Esquerdo" left="325" name="checkbox_L Forearm"/>
+	<check_box label="Nádega Direita" left="325" name="checkbox_Right Hip"/>
+	<check_box label="Coxa Direita" left="325" name="checkbox_R Upper Leg"/>
+	<check_box label="Canela Direita" left="325" name="checkbox_R Lower Leg"/>
+	<check_box label="Nádega Esquerda" left="325" name="checkbox_Left Hip"/>
+	<check_box label="Coxa Esquerda" left="325" name="checkbox_L Upper Leg"/>
+	<check_box label="Canela Esquerda" left="460" name="checkbox_L Lower Leg"/>
+	<check_box label="Estomago" left="460" name="checkbox_Stomach"/>
+	<check_box label="Peito Esquerdo" left="460" name="checkbox_Left Pec"/>
+	<check_box label="Peito Direito" left="460" name="checkbox_Right Pec"/>
+	<check_box label="Centro 2" left="460" name="checkbox_Center 2"/>
+	<check_box label="Superior Direita" left="460" name="checkbox_Top Right"/>
+	<check_box label="Superior" left="460" name="checkbox_Top"/>
+	<check_box label="Superior Esquerda" left="460" name="checkbox_Top Left"/>
+	<check_box label="Centro" left="460" name="checkbox_Center"/>
+	<check_box label="Inferior Esquerda" left="460" name="checkbox_Bottom Left"/>
+	<check_box label="Inferior" left="460" name="checkbox_Bottom"/>
+	<check_box label="Inferior Direita" left="460" name="checkbox_Bottom Right"/>
 	<text length="1" name="Make New Outfit" type="string">
 		Fazer Nova Aparencia
 	</text>
 	<text length="1" name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it." type="string">
-		Aparencias são pastas que contem roupas e partes do corpo.
+		Aparências são pastas que contém roupas e partes do corpo.
 Arraste uma Aparencia até seu avatar para vestí-la.
 
 Fazer Nova Aparencia cria uma nova pasta e salva cópias dos itens que você

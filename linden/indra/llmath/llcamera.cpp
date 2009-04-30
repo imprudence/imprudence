@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -50,33 +51,38 @@ LLCamera::LLCamera() :
 } 
 
 
-LLCamera::LLCamera(F32 z_field_of_view, F32 aspect_ratio, S32 view_height_in_pixels, F32 near_plane, F32 far_plane) :
+LLCamera::LLCamera(F32 vertical_fov_rads, F32 aspect_ratio, S32 view_height_in_pixels, F32 near_plane, F32 far_plane) :
 	LLCoordFrame(),
-	mView(z_field_of_view),
-	mAspect(aspect_ratio),
 	mViewHeightInPixels(view_height_in_pixels),
-	mNearPlane(near_plane),
-	mFarPlane(far_plane),
 	mFixedDistance(-1.f),
 	mPlaneCount(6)
 {
-	if (mView < MIN_FIELD_OF_VIEW) 			{ mView = MIN_FIELD_OF_VIEW; }
-	else if (mView > MAX_FIELD_OF_VIEW)		{ mView = MAX_FIELD_OF_VIEW; }
+	mAspect = llclamp(aspect_ratio, MIN_ASPECT_RATIO, MAX_ASPECT_RATIO);
+	mNearPlane = llclamp(near_plane, MIN_NEAR_PLANE, MAX_NEAR_PLANE);
+	if(far_plane < 0) far_plane = DEFAULT_FAR_PLANE;
+	mFarPlane = llclamp(far_plane, MIN_FAR_PLANE, MAX_FAR_PLANE);
 
-	if (mAspect < MIN_ASPECT_RATIO)			{ mAspect = MIN_ASPECT_RATIO; }
-	else if (mAspect > MAX_ASPECT_RATIO)	{ mAspect = MAX_ASPECT_RATIO; }
-
-	if (mNearPlane < MIN_NEAR_PLANE)		{ mNearPlane = MIN_NEAR_PLANE; }
-	else if (mNearPlane > MAX_NEAR_PLANE)	{ mNearPlane = MAX_NEAR_PLANE; }
-
-	if (mFarPlane < 0) 						{ mFarPlane = DEFAULT_FAR_PLANE; }
-	else if (mFarPlane < MIN_FAR_PLANE)		{ mFarPlane = MIN_FAR_PLANE; }
-	else if (mFarPlane > MAX_FAR_PLANE)		{ mFarPlane = MAX_FAR_PLANE; }
-
-	calculateFrustumPlanes();
+	setView(vertical_fov_rads);
 } 
 
 
+// ---------------- LLCamera::getFoo() member functions ----------------
+
+F32 LLCamera::getMinView() const 
+{
+	// minimum vertical fov needs to be constrained in narrow windows.
+	return mAspect > 1
+		? MIN_FIELD_OF_VIEW // wide views
+		: MIN_FIELD_OF_VIEW * 1/mAspect; // clamps minimum width in narrow views
+}
+
+F32 LLCamera::getMaxView() const 
+{
+	// maximum vertical fov needs to be constrained in wide windows.
+	return mAspect > 1 
+		? MAX_FIELD_OF_VIEW / mAspect  // clamps maximum width in wide views
+		: MAX_FIELD_OF_VIEW; // narrow views
+}
 
 // ---------------- LLCamera::setFoo() member functions ----------------
 
@@ -92,11 +98,9 @@ void LLCamera::disableUserClipPlane()
 	mPlaneCount = 6;
 }
 
-void LLCamera::setView(F32 field_of_view) 
+void LLCamera::setView(F32 vertical_fov_rads) 
 {
-	mView = field_of_view;
-	if (mView < MIN_FIELD_OF_VIEW) 			{ mView = MIN_FIELD_OF_VIEW; }
-	else if (mView > MAX_FIELD_OF_VIEW)		{ mView = MAX_FIELD_OF_VIEW; }
+	mView = llclamp(vertical_fov_rads, MIN_FIELD_OF_VIEW, MAX_FIELD_OF_VIEW);
 	calculateFrustumPlanes();
 }
 
@@ -110,27 +114,21 @@ void LLCamera::setViewHeightInPixels(S32 height)
 
 void LLCamera::setAspect(F32 aspect_ratio) 
 {
-	mAspect = aspect_ratio;
-	if (mAspect < MIN_ASPECT_RATIO)			{ mAspect = MIN_ASPECT_RATIO; }
-	else if (mAspect > MAX_ASPECT_RATIO)	{ mAspect = MAX_ASPECT_RATIO; }
+	mAspect = llclamp(aspect_ratio, MIN_ASPECT_RATIO, MAX_ASPECT_RATIO);
 	calculateFrustumPlanes();
 }
 
 
 void LLCamera::setNear(F32 near_plane) 
 {
-	mNearPlane = near_plane;
-	if (mNearPlane < MIN_NEAR_PLANE)		{ mNearPlane = MIN_NEAR_PLANE; }
-	else if (mNearPlane > MAX_NEAR_PLANE)	{ mNearPlane = MAX_NEAR_PLANE; }
+	mNearPlane = llclamp(near_plane, MIN_NEAR_PLANE, MAX_NEAR_PLANE);
 	calculateFrustumPlanes();
 }
 
 
 void LLCamera::setFar(F32 far_plane) 
 {
-	mFarPlane = far_plane;
-	if (mFarPlane < MIN_FAR_PLANE)			{ mFarPlane = MIN_FAR_PLANE; }
-	else if (mFarPlane > MAX_FAR_PLANE)		{ mFarPlane = MAX_FAR_PLANE; }
+	mFarPlane = llclamp(far_plane, MIN_FAR_PLANE, MAX_FAR_PLANE);
 	calculateFrustumPlanes();
 }
 
@@ -180,28 +178,95 @@ S32 LLCamera::AABBInFrustum(const LLVector3 &center, const LLVector3& radius)
 	U8 mask = 0;
 	S32 result = 2;
 
-	for (U32 i = 0; i < mPlaneCount; i++)
-	{
-		mask = mAgentPlanes[i].mask;
-		LLPlane p = mAgentPlanes[i].p;
-		LLVector3 n = LLVector3(p);
-		float d = p.mV[3];
-		LLVector3 rscale = radius.scaledVec(scaler[mask]);
+	if (radius.magVecSquared() > mFrustumCornerDist * mFrustumCornerDist)
+	{ //box is larger than frustum, check frustum quads against box planes
 
-		LLVector3 minp = center - rscale;
-		LLVector3 maxp = center + rscale;
-
-		if (n * minp > -d) 
+		static const LLVector3 dir[] = 
 		{
-			return 0;
+			LLVector3(1, 0, 0),
+			LLVector3(-1, 0, 0),
+			LLVector3(0, 1, 0),
+			LLVector3(0, -1, 0),
+			LLVector3(0, 0, 1),
+			LLVector3(0, 0, -1)
+		};
+
+		U32 quads[] = 
+		{
+			0, 1, 2, 3,
+			0, 1, 5, 4,
+			2, 3, 7, 6,
+			3, 0, 7, 4,
+			1, 2, 6, 4,
+			4, 5, 6, 7
+		};
+
+		result = 0;
+
+		BOOL total_inside = TRUE;
+		for (U32 i = 0; i < 6; i++)
+		{ 
+			LLVector3 p = center + radius.scaledVec(dir[i]);
+			F32 d = -p*dir[i];
+
+			for (U32 j = 0; j <	6; j++)
+			{ //for each quad
+				F32 dist = mAgentFrustum[quads[j*4+0]]*dir[i] + d;
+				if (dist > 0)
+				{ //at least one frustum point is outside the AABB
+					total_inside = FALSE;
+					for (U32 k = 1; k < 4; k++)
+					{ //for each other point on quad
+						if ( mAgentFrustum[quads[j*4+k]]*dir[i]+d  <= 0.f)
+						{ //quad is straddling some plane of AABB
+							return 1;
+						}
+					}
+				}
+				else
+				{
+					for (U32 k = 1; k < 4; k++)
+					{
+						if (mAgentFrustum[quads[j*4+k]]*dir[i]+d > 0.f)
+						{
+							return 1;
+						}
+					}
+				}
+			}
 		}
-	
-		if (n * maxp > -d)
+
+		if (total_inside)
 		{
 			result = 1;
 		}
 	}
+	else
+	{
+		for (U32 i = 0; i < mPlaneCount; i++)
+		{
+			mask = mAgentPlanes[i].mask;
+			LLPlane p = mAgentPlanes[i].p;
+			LLVector3 n = LLVector3(p);
+			float d = p.mV[3];
+			LLVector3 rscale = radius.scaledVec(scaler[mask]);
 
+			LLVector3 minp = center - rscale;
+			LLVector3 maxp = center + rscale;
+
+			if (n * minp > -d) 
+			{
+				return 0;
+			}
+		
+			if (n * maxp > -d)
+			{
+				result = 1;
+			}
+		}
+	}
+
+	
 	return result;
 }
 

@@ -87,7 +87,7 @@
 				면적:
 			</text>
 			<text name="area_size_text">
-				[AREA]sq. m.
+				[AREA]제곱미터
 			</text>
 			<text name="auction_id_text">
 				경매 ID: [ID]
@@ -283,9 +283,7 @@
 				<combo_item name="LindenLocation">
 					린든랩 관련
 				</combo_item>
-				<combo_item name="Adult">
-					성인 전용
-				</combo_item>
+
 				<combo_item name="Arts&amp;Culture">
 					예술 &amp; 문화
 				</combo_item>
@@ -317,8 +315,7 @@
 					기타
 				</combo_item>
 			</combo_box>
-			<check_box label="성인용 컨텐츠" name="MatureCheck"
-			     tool_tip="사용자의 구획 정보 또는 컨텐츠는 성인 전용으로 간주됩니다." />
+			<check_box name="MatureCheck" />
 			<check_box label="웹에 게시" name="PublishCheck"
 			     tool_tip="내 구획 정보를 웹에 게시." />
 			<button label="?" label_selected="?" name="?" />

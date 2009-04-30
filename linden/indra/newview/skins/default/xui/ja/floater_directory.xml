@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="directory" title="検索">
 	<tab_container name="Directory Tabs">
-		<panel label="すべて" name="all_panel">
-			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
-			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
-			<text name="find">
-				検索：
-			</text>
-			<button label="検索" label_selected="検索" name="Search" />
-			<check_box label="成人向けコンテンツを含める" name="incmature" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="名前" name="name" />
-				<column label="価格" name="price" />
-				<column label="時間 (PT)" name="date" />
-				<column label="時間" name="time" />
-				<column label="ﾄﾗﾌｨｯｸ" name="dwell" />
-				<column label="面積" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
-				<column label="オンライン" name="online" />
-				<column label="メンバー" name="members" />
-			</scroll_list>
-		</panel>
 		<panel label="全て" name="find_all_panel">
 			<string name="searching_text">
 				検索中...
@@ -29,6 +8,9 @@
 			<string name="not_found_text">
 				何も見つかりませんでした
 			</string>
+			<text name="find">
+				検索：
+			</text>
 			<button label="戻る" name="back_btn" />
 			<button label="進む" name="forward_btn" />
 			<line_editor label="検索" name="search_editor" tool_tip="Second Lifeを検索" />
@@ -56,7 +38,7 @@
 					Wiki
 				</combo_item>
 			</combo_box>
-			<check_box label="成人向けコンテンツを含む" name="mature_check" />
+
 			<text name="loading_text">
 				ローディング中...
 			</text>
@@ -79,7 +61,7 @@
 			<text name="find">
 				検索：
 			</text>
-			<check_box label="成人向けコンテンツを含める" name="incmature" />
+
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					全カテゴリー
@@ -152,9 +134,9 @@
 				カテゴリー：
 			</text>
 			<text name="text2">
-				名前／説明:
+				検索：
 			</text>
-			<combo_box name="category combo">
+			<combo_box name="category combo" width="212">
 				<combo_item name="All">
 					すべて
 				</combo_item>
@@ -192,7 +174,7 @@
 					その他
 				</combo_item>
 			</combo_box>
-			<check_box label="成人を表示" name="incmature" />
+
 			<button label="検索" label_selected="検索" name="Search" tool_tip="検索" />
 			<button label="削除" label_selected="削除" name="Delete" />
 			<scroll_list name="results">
@@ -216,7 +198,7 @@
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<check_box label="写真のある場所だけ表示" name="incpictures" />
-			<check_box label="成人向けコンテンツがある区画を含める" name="incmature" />
+
 			<text
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
 				交通量や人々の滞在時間から見て、これらは世界でも
@@ -252,9 +234,12 @@
 			<string name="not_found_text">
 				何も見つかりませんでした
 			</string>
+			<text name="find">
+				検索：
+			</text>
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
-			<combo_box name="type">
+			<combo_box name="type" bottom="-64" width="168" left="224">
 				<combo_item name="AllTypes">
 					全種類
 				</combo_item>
@@ -268,33 +253,29 @@
 					売り出し – 不動産
 				</combo_item>
 			</combo_box>
-			<combo_box name="rating">
-				<combo_item name="PG&amp;Mature">
-					PGと成人
-				</combo_item>
-				<combo_item name="PGonly">
-					PGのみ
-				</combo_item>
-				<combo_item name="Matureonly">
-					成人専用
-				</combo_item>
-			</combo_box>
-			<check_box label="価格 &lt;= L$" name="pricecheck" />
-			<check_box bottom_delta="-22" label="面積 &gt;= 平方メートル" name="areacheck" />
-			<line_editor bottom_delta="-20" left="275" name="areaedit" width="50" />
-			<button label="検索" label_selected="検索" left="330" name="Search" width="63" />
-			<text left="406" name="land">
+			<check_box label="価格 &#8804; " name="pricecheck" />
+			<check_box label="面積 &#8805; " name="areacheck" />
+			<text name="pricecheck_symbol" >
+				L$
+			</text>
+			<text name="areacheck_symbol" width="75" left="190">
+				平方メートル
+			</text>
+			<line_editor name="priceedit" left="135"/>
+			<line_editor name="areaedit" left="135"/>
+			<button label="検索" label_selected="検索" name="Search" width="80" bottom="-66" left="140"/>
+			<text name="land">
 				土地はL$で直接買うか、L$建またはUS$建のオークションで買え
 ます。直接購買は土地に行きタイトル・バーの土地の名前をクリ
 ックしてください。
 			</text>
-			<scroll_list name="results">
+			<scroll_list name="results" height="438" >
 				<column label="" name="icon" />
 				<column label="" name="type" />
 				<column label="名前" name="name" />
 				<column label="L$ 価格" name="price" />
 				<column label="面積" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
+				<column label="L$/平方メートル" name="per_meter" />
 			</scroll_list>
 		</panel>
 		<panel label="場所" name="places_panel">
@@ -309,7 +290,7 @@
 			<text name="find">
 				検索：
 			</text>
-			<check_box label="成人向けコンテンツのある区画を含める" name="incmature" />
+
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					全カテゴリー
@@ -317,9 +298,7 @@
 				<combo_item name="LindenLocation">
 					Linden所在地
 				</combo_item>
-				<combo_item name="Adult">
-					成人
-				</combo_item>
+
 				<combo_item name="Arts&amp;Culture">
 					アート&amp;カルチャー
 				</combo_item>
@@ -369,7 +348,7 @@
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<text name="find">
-				検索:
+				検索：
 			</text>
 			<button label="検索" label_selected="検索" name="Search" />
 			<scroll_list name="results">
@@ -391,7 +370,7 @@
 				検索：
 			</text>
 			<button label="検索" label_selected="検索" name="Search" />
-			<check_box label="成人向けグループを含める" name="incmature" />
+
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
@@ -403,7 +382,7 @@
 			<button label="進む" name="forward_btn" />
 			<line_editor label="検索" name="search_editor" tool_tip="Second Lifeを検索" />
 			<button label="検索" name="search_btn" />
-			<check_box label="成人向けコンテンツを含める" name="mature_check" />
+
 			<string name="loading_text">
 				ロード中...
 			</string>
@@ -424,7 +403,7 @@
 				検索
 			</text>
 			<button label="検索" label_selected="検索" name="Search" />
-			<check_box label="成人向けコンテンツを含む" name="incmature" />
+
 			<scroll_list name="results">
 				<column label="名前" name="name" />
 				<column label="価格" name="price" />

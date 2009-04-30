@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="200"  left="367" width="480" height="340" 
+     name="floaterbulkperms" title="Bulk change content permissions"
+     can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" can_tear_off="false" enabled="true" mouse_opaque="true" >
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerif" h_pad="0" halign="left" height="10" left="10"
+       mouse_opaque="true" name="applyto" v_pad="0" width="206">Content Types</text>
+
+  <icon bottom="270" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	     image_name="inv_item_animation.tga" left="12" mouse_opaque="true"
+	     name="icon_animation" width="16" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" initial_value="false" label="Animation" left_delta="18"
+	     mouse_opaque="true" name="check_animation" control_name="BulkChangeIncludeAnimations" width="126" />
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	     image_name="inv_folder_bodypart.tga" left="12" mouse_opaque="true"
+	     name="icon_bodypart" width="16" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" initial_value="false" label="Body Parts" left_delta="18"
+	     mouse_opaque="true" name="check_bodypart" control_name="BulkChangeIncludeBodyParts" width="126" />
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	     image_name="inv_item_shirt.tga" left="12" mouse_opaque="true"
+	     name="icon_clothing" width="16" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" initial_value="false" label="Clothing" left_delta="18"
+	     mouse_opaque="true" name="check_clothing" control_name="BulkChangeIncludeClothing" width="126" />
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	     image_name="inv_item_gesture.tga" left="12" mouse_opaque="true"
+	     name="icon_gesture" width="16" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" initial_value="false" label="Gestures" left_delta="18"
+	     mouse_opaque="true" name="check_gesture" control_name="BulkChangeIncludeGestures" width="126" />
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	     image_name="inv_item_landmark_visited.tga" left="12" mouse_opaque="true"
+	     name="icon_landmark" width="16" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" initial_value="false" label="Landmarks" left_delta="18"
+	     mouse_opaque="true" name="check_landmark" control_name="BulkChangeIncludeLandmarks" width="126" />
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	     image_name="inv_item_notecard.tga" left="12" mouse_opaque="true"
+	     name="icon_notecard" width="16" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" initial_value="false" label="Notecards" left_delta="18"
+	     mouse_opaque="true" name="check_notecard" control_name="BulkChangeIncludeNotecards" width="126" />
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	     image_name="inv_item_object.tga" left="12" mouse_opaque="true"
+	     name="icon_object" width="16" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" initial_value="false" label="Objects" left_delta="18"
+	     mouse_opaque="true" name="check_object" control_name="BulkChangeIncludeObjects" width="126" />
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	     image_name="inv_item_script.tga" left="12" mouse_opaque="true"
+	     name="icon_script" width="16" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" initial_value="false" label="Scripts" left_delta="18"
+	     mouse_opaque="true" name="check_script" control_name="BulkChangeIncludeScripts" width="126" />
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	     image_name="inv_item_sound.tga" left="12" mouse_opaque="true"
+	     name="icon_sound" width="16" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" initial_value="false" label="Sounds" left_delta="18"
+	     mouse_opaque="true" name="check_sound" control_name="BulkChangeIncludeSounds" width="126" />
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	     image_name="inv_item_texture.tga" left="12" mouse_opaque="true"
+	     name="icon_texture" width="16" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" initial_value="false" label="Textures" left_delta="18"
+	     mouse_opaque="true" name="check_texture" control_name="BulkChangeIncludeTextures" width="126" />
+
+  <button bottom_delta="-27" enabled="true" follows="left|top" font="SansSerif"
+	     halign="center" height="20" label="Check All" label_selected="All" left="8"
+	     mouse_opaque="true" name="check_all" scale_image="true" width="100" />
+  <button bottom_delta="-24" enabled="true" follows="left|top" font="SansSerif"
+	     halign="center" height="20" label="Uncheck All" label_selected="None" left="8"
+	     mouse_opaque="true" name="check_none" scale_image="true" width="100" />
+
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerif" h_pad="0" halign="left" height="10" left="165"
+       mouse_opaque="true" name="newperms" v_pad="0" width="206">New Permissions</text>
+
+  <check_box bottom="270" follows="left|top" width="106" height="16" left="170"
+       initial_value="false" label="Share with group"
+       mouse_opaque="true" radio_style="false" font="SansSerifSmall"
+       name="share_with_group" control_name="BulkChangeShareWithGroup" />
+  <check_box bottom_delta="-32" follows="left|top" width="130" height="16"
+       initial_value="false" label="Allow anyone to copy" left="170"
+       mouse_opaque="true" radio_style="false" font="SansSerifSmall"
+       name="everyone_copy" control_name="BulkChangeEveryoneCopy" />
+  <text bottom_delta="-26" bg_visible="false" border_drop_shadow_visible="false"
+       drop_shadow_visible="true" follows="left|top" border_visible="false"
+       font="SansSerifSmall" h_pad="0" halign="left" left="170"
+       mouse_opaque="true" name="NextOwnerLabel" v_pad="0" width="88" height="10" >
+    Next owner can:
+  </text>
+  <check_box bottom_delta="-30" follows="left|top" width="78" height="16" left="170"
+       radio_style="false" font="SansSerifSmall"
+       initial_value="false" label="Modify" mouse_opaque="true"
+       name="next_owner_modify" control_name="BulkChangeNextOwnerModify" />
+  <check_box bottom_delta="0" follows="left|top" width="88" height="16"
+       left_delta="78" radio_style="false" font="SansSerifSmall"
+       initial_value="false" label="Copy" mouse_opaque="true"
+       name="next_owner_copy" control_name="BulkChangeNextOwnerCopy" />
+  <check_box bottom_delta="0" follows="left|top" width="106" height="16"
+       left_delta="88" radio_style="false" font="SansSerifSmall"
+       initial_value="true" label="Resell/Give away" mouse_opaque="true" enabled="false" 
+       name="next_owner_transfer" control_name="BulkChangeNextOwnerTransfer" />
+
+  <scroll_list bottom="40" width="335" height="130" left="130"
+       background_visible="true" column_padding="5" draw_border="true"
+	     draw_heading="false" draw_stripes="true" enabled="false"
+	     follows="left|top|right|bottom" mouse_opaque="true"
+	     multi_select="false" name="queue output" />
+
+  <button bottom="10" left="265" width="100" height="20" follows="left|top"
+       label="Apply" name="apply" enabled="true"
+       mouse_opaque="true" font="SansSerif" scale_image="true" halign="center" />
+  <button bottom_delta="0" left_delta="105" width="100" height="20" follows="left|top"
+       label="Close" name="close" enabled="true"
+       mouse_opaque="true" font="SansSerif" scale_image="true" halign="center" />
+
+  <string name="nothing_to_modify_text">Selection contains no editable contents.</string>
+  <string name="status_text">Setting permissions on [NAME]</string>
+  
+  
+  <string name="start_text">Starting permission change requests...</string>
+  <string name="done_text">Finished permission change requests.</string>
+
+</floater>

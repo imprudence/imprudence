@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -42,8 +43,10 @@
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-LLStatBar::LLStatBar(const std::string& name, const LLRect& rect)
-		:	LLView(name, rect, TRUE)
+LLStatBar::LLStatBar(const std::string& name, const LLRect& rect, const std::string& setting,
+					 BOOL default_bar, BOOL default_history)
+	:	LLView(name, rect, TRUE),
+		mSetting(setting)
 {
 	mMinBar = 0.f;
 	mMaxBar = 50.f;
@@ -55,9 +58,25 @@ LLStatBar::LLStatBar(const std::string& name, const LLRect& rect)
 	mLabel = name;
 	mPerSec = TRUE;
 	mValue = 0.f;
-	mDisplayBar = TRUE;
-	mDisplayHistory = FALSE;
 	mDisplayMean = TRUE;
+
+	S32 mode = -1;
+	if (mSetting.length() > 0)
+	{
+		mode = gSavedSettings.getS32(mSetting);
+
+	}
+
+	if (mode != -1)
+	{
+		mDisplayBar     = (mode & STAT_BAR_FLAG) ? TRUE : FALSE;
+		mDisplayHistory = (mode & STAT_HISTORY_FLAG) ? TRUE : FALSE;
+	}
+	else
+	{
+		mDisplayBar     = default_bar;
+		mDisplayHistory = default_history;
+	}
 }
 
 BOOL LLStatBar::handleMouseDown(S32 x, S32 y, MASK mask)
@@ -82,7 +101,24 @@ BOOL LLStatBar::handleMouseDown(S32 x, S32 y, MASK mask)
 	LLView* parent = getParent();
 	parent->reshape(parent->getRect().getWidth(), parent->getRect().getHeight(), FALSE);
 
-	return FALSE;
+	// save view mode
+	if (mSetting.length() > 0)
+	{
+		S32 mode = 0;
+		if (mDisplayBar)
+		{
+			mode |= STAT_BAR_FLAG;
+		}
+		if (mDisplayHistory)
+		{
+			mode |= STAT_HISTORY_FLAG;
+		}
+
+		gSavedSettings.setS32(mSetting, mode);
+	}
+	
+	
+	return TRUE;
 }
 
 void LLStatBar::draw()
@@ -134,7 +170,7 @@ void LLStatBar::draw()
 
 	F32 value_scale = max_width/(mMaxBar - mMinBar);
 
-	LLFontGL::sMonospace->renderUTF8(mLabel, 0, 0, getRect().getHeight(), LLColor4(1.f, 1.f, 1.f, 1.f),
+	LLFontGL::getFontMonospace()->renderUTF8(mLabel, 0, 0, getRect().getHeight(), LLColor4(1.f, 1.f, 1.f, 1.f),
 							LLFontGL::LEFT, LLFontGL::TOP);
 
 	std::string value_format;
@@ -151,7 +187,7 @@ void LLStatBar::draw()
 	}
 
 	// Draw the value.
-	LLFontGL::sMonospace->renderUTF8(value_str, 0, width, getRect().getHeight(), 
+	LLFontGL::getFontMonospace()->renderUTF8(value_str, 0, width, getRect().getHeight(), 
 		LLColor4(1.f, 1.f, 1.f, 0.5f),
 		LLFontGL::RIGHT, LLFontGL::TOP);
 
@@ -184,7 +220,7 @@ void LLStatBar::draw()
 
 			tick_label = llformat( value_format.c_str(), tick_value);
 			// draw labels for the tick marks
-			LLFontGL::sMonospace->renderUTF8(tick_label, 0, left - 1, bar_top - bar_height - tick_height,
+			LLFontGL::getFontMonospace()->renderUTF8(tick_label, 0, left - 1, bar_top - bar_height - tick_height,
 											 LLColor4(1.f, 1.f, 1.f, 0.5f),
 											 LLFontGL::LEFT, LLFontGL::TOP);
 		}

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -50,7 +51,7 @@ S32 LLViewerParcelMedia::sMediaParcelLocalID = 0;
 LLUUID LLViewerParcelMedia::sMediaRegionID;
 
 // Local functions
-void callback_play_media(S32 option, void* data);
+bool callback_play_media(const LLSD& notification, const LLSD& response, LLParcel* parcel);
 
 // Move this to its own file.
 // helper class that tries to download a URL from a web site and calls a method
@@ -167,8 +168,8 @@ void LLViewerParcelMedia::update(LLParcel* parcel)
 				// First use warning
 				if(	gSavedSettings.getWarning("FirstStreamingVideo") )
 				{
-					gViewerWindow->alertXml("ParcelCanPlayMedia",
-						callback_play_media, (void*)parcel);
+					LLNotifications::instance().add("ParcelCanPlayMedia", LLSD(), LLSD(),
+						boost::bind(callback_play_media, _1, _2, parcel));
 
 				}
 
@@ -192,7 +193,7 @@ void LLViewerParcelMedia::update(LLParcel* parcel)
 				{
 					gSavedSettings.setWarning("QuickTimeInstalled", FALSE);
 
-					LLNotifyBox::showXml("NoQuickTime" );
+					LLNotifications::instance().add("NoQuickTime" );
 				};
 			}
 		}
@@ -382,9 +383,9 @@ void LLViewerParcelMedia::processParcelMediaUpdate( LLMessageSystem *msg, void *
 	}
 }
 
-void callback_play_media(S32 option, void* data)
+bool callback_play_media(const LLSD& notification, const LLSD& response, LLParcel* parcel)
 {
-	LLParcel* parcel = (LLParcel*)data;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
 		gSavedSettings.setBOOL("AudioStreamingVideo", TRUE);
@@ -395,6 +396,6 @@ void callback_play_media(S32 option, void* data)
 		gSavedSettings.setBOOL("AudioStreamingVideo", FALSE);
 	}
 	gSavedSettings.setWarning("FirstStreamingVideo", FALSE);
-
+	return false;
 }
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Связь" name="im">
+	<text type="string" length="1" name="text_box">
+		Онлайн-стат. в Проф.:
+	</text>
+	<check_box
+	     label="Мой онлайн-стат. видим только Друзьям и Группам"
+	     name="online_visibility" />
+	<text type="string" length="1" name="text_box2">
+		Опции IM:
+	</text>
+	<string name="log_in_to_change">
+		войти в систему для изменения
+	</string>
+	<check_box label="Посылать IM на Email ([EMAIL])" name="send_im_to_email" />
+	<check_box label="Включить IM в Историю Чата"
+	     name="include_im_in_chat_history" />
+	<check_box label="Показывать время в IM" name="show_timestamps_check" />
+	<text type="string" length="1" name="text_box3">
+		Ответ в реж. &apos;Занят&apos;:
+	</text>
+	<text type="string" length="1" name="text_box4">
+		Опции журнала:
+	</text>
+	<check_box label="Записывать Мгновенные Сообщения"
+	     name="log_instant_messages" />
+	<check_box label="Показывать время в IM-логах"
+	     name="log_instant_messages_timestamp" />
+	<check_box
+	     label="Показывать конец последнего IM-разговора"
+	     name="log_show_history" />
+	<check_box label="Запись Чата" name="log_chat" />
+	<check_box label="Показывать время в Чат-логах"
+	     name="log_chat_timestamp" />
+	<check_box label="Показывать входящие IM в Чат-логах"
+	     name="log_chat_IM" />
+	<check_box label="Показывать дату со временем"
+	     name="log_date_timestamp" />
+	<button label="Путь" label_selected="Изменить Путь"
+	     name="log_path_button" />
+</panel>

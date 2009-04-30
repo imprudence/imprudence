@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -34,13 +35,13 @@
 #ifndef LL_LLTUT_H
 #define LL_LLTUT_H
 
-#include <tut/tut.h>
+#include "is_approx_equal_fraction.h" // instead of llmath.h
 
-#include "lldate.h"
-#include "lluri.h"
-#include "llmath.h"
+#include <tut/tut.hpp>
 
+class LLDate;
 class LLSD;
+class LLURI;
 
 namespace tut
 {
@@ -108,19 +109,15 @@ namespace tut
 		const Q& actual,const T& expected)
 		{ ensure_equals(msg.c_str(), actual, expected); }
 
-	template<>
 	void ensure_equals(const char* msg,
 		const LLDate& actual, const LLDate& expected);
 
-	template<>
 	void ensure_equals(const char* msg,
 		const LLURI& actual, const LLURI& expected);
 		
-	template<>
 	void ensure_equals(const char* msg,
 		const std::vector<U8>& actual, const std::vector<U8>& expected);
 
-	template<>
 	void ensure_equals(const char* msg,
 		const LLSD& actual, const LLSD& expected);
 	

@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="通知" name="notices_tab">
-	<text name="help_text">
+	<string name="help_text">
 		通知是社团中快速交流联系的方法。通知会向社团中发布一条消息，并且可以附加一条物品。通知仅会到达社团中被授予具有接受通知能力角色的会员那里。你可以在一般控制桌面上关掉通知。
-	</text>
-	<text name="no_notices_text">
+	</string>
+	<string name="no_notices_text">
 		这里没有过去的通知。
-	</text>
-	<button label="?" label_selected="?" name="help_button" />
+	</string>
+	<button label="?" label_selected="?" name="help_button"/>
 	<text name="lbl">
 		社团通知存档
 	</text>
@@ -15,17 +15,16 @@
 有新的通知。通知每天每社团限发送 200 条。
 	</text>
 	<scroll_list name="notice_list">
-		<column label="" name="icon" />
-		<column label="主题" name="subject" />
-		<column label="来自" name="from" />
-		<column label="日期" name="date" />
+		<column label="" name="icon"/>
+		<column label="主题" name="subject"/>
+		<column label="来自" name="from"/>
+		<column label="日期" name="date"/>
 	</scroll_list>
 	<text name="notice_list_none_found">
 		没有找到。
 	</text>
-	<button label="创建新的通知" label_selected="创建新的通知"
-	     name="create_new_notice" />
-	<button label="刷新" label_selected="刷新" name="refresh_notices" />
+	<button label="创建新的通知" label_selected="创建新的通知" name="create_new_notice"/>
+	<button label="刷新" label_selected="刷新" name="refresh_notices"/>
 	<panel label="创建新的通知" name="panel_create_new_notice">
 		<text name="lbl">
 			创建一条通知
@@ -44,10 +43,10 @@
 		<text name="lbl5">
 			附件:
 		</text>
-		<button label="移除附件" label_selected="移除附件" name="remove_attachment" />
-		<button label="发送通知" label_selected="发送通知" name="send_notice" />
-		<panel name="drop_target2"
-		     tool_tip="将库存条目拖动到消息框上和通知一起送出去。要将物体和通知一起送出，您必须有复制和转让物体的权限。" />
+		<button label="移除附件" label_selected="移除附件" name="remove_attachment"/>
+		<button label="发送通知" label_selected="发送通知" name="send_notice"/>
+		<panel name="drop_target2" tool_tip="将库存条目拖动到消息框上和通知一起送出去。要将物体和通知一起送出，您必须有复制和转让物体的权限。"/>
+		<panel name="drop_target" tool_tip="拖动一个库存物体到消息内并以通知方式发送. 注意您必须有拷贝和发送物体的权限才能发送通知。"/>
 	</panel>
 	<panel label="查看过去的通知" name="panel_view_past_notice">
 		<text name="lbl">
@@ -62,6 +61,6 @@
 		<text name="lbl4">
 			消息:
 		</text>
-		<button label="打开附件" label_selected="打开附件" name="open_attachment" />
+		<button label="打开附件" label_selected="打开附件" name="open_attachment"/>
 	</panel>
 </panel>

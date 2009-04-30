@@ -4,7 +4,7 @@
 		我的在线状态: 
 	</text>
 	<check_box
-		 initial_value="false"
+		 
 		 label="仅我的好友和社团才能看见我的在线状况"
 		 name="online_visibility" />
 
@@ -36,15 +36,15 @@
 		 label="在私聊中显示时间"
 		 name="log_instant_messages_timestamp" />
 	<check_box
-		 initial_value="false"
+		 
 		 label="在聊天记录中显示时间"
 		 name="log_chat_timestamp" />
 	<check_box
-		 initial_value="false"
+		 
 		 label="聊天记录中显示即时信息"
 		 name="log_chat_IM" />
 	<check_box
-		 initial_value="false"
+		 
 		 label="显示时间时包括日期"
 		 name="log_date_timestamp" />
 

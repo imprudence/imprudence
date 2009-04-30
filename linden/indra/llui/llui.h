@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -42,6 +43,7 @@
 #include "llgl.h"			// *TODO: break this dependency
 #include <stack>
 //#include "llimagegl.h"
+#include <boost/signal.hpp>
 
 // LLUIFactory
 #include "llsd.h"
@@ -150,11 +152,13 @@ typedef	void (*LLUIAudioCallback)(const LLUUID& uuid);
 
 class LLUI
 {
+	LOG_CLASS(LLUI);
 public:
 	//
 	// Methods
 	//
 	static void initClass(LLControlGroup* config, 
+						  LLControlGroup* ignores,
 						  LLControlGroup* colors, 
 						  LLImageProviderInterface* image_provider,
 						  LLUIAudioCallback audio_callback = NULL,
@@ -175,6 +179,7 @@ public:
 	static std::string locateSkin(const std::string& filename);
 	static void setCursorPositionScreen(S32 x, S32 y);
 	static void setCursorPositionLocal(const LLView* viewp, S32 x, S32 y);
+	static void getCursorPositionLocal(const LLView* viewp, S32 *x, S32 *y);
 	static void setScaleFactor(const LLVector2& scale_factor);
 	static void setLineWidth(F32 width);
 	static LLUIImage* getUIImage(const std::string& name);
@@ -189,6 +194,7 @@ public:
 	// Data
 	//
 	static LLControlGroup* sConfigGroup;
+	static LLControlGroup* sIgnoresGroup;
 	static LLControlGroup* sColorsGroup;
 	static LLImageProviderInterface* sImageProvider;
 	static LLUIAudioCallback sAudioCallback;
@@ -595,5 +601,238 @@ public:
 	virtual LLUIImagePtr getUIImageByID(const LLUUID& id) = 0;
 	virtual void cleanUp() = 0;
 };
+
+// This mix-in class adds support for tracking all instances of the specificed class parameter T
+// The (optional) key associates a value of type KEY with a given instance of T, for quick lookup
+// If KEY is not provided, then instances are stored in a simple list
+template<typename T, typename KEY = T*>
+class LLInstanceTracker : boost::noncopyable
+{
+public:
+	typedef typename std::map<KEY, T*>::iterator instance_iter;
+	typedef typename std::map<KEY, T*>::const_iterator instance_const_iter;
+
+	static T* getInstance(KEY k) { instance_iter found = sInstances.find(k); return (found == sInstances.end()) ? NULL : found->second; }
+
+	static instance_iter beginInstances() { return sInstances.begin(); }
+	static instance_iter endInstances() { return sInstances.end(); }
+	static S32 instanceCount() { return sInstances.size(); }
+protected:
+	LLInstanceTracker(KEY key) { add(key); }
+	virtual ~LLInstanceTracker() { remove(); }
+	virtual void setKey(KEY key) { remove(); add(key); }
+	virtual const KEY& getKey() const { return mKey; }
+
+private:
+	void add(KEY key) 
+	{ 
+		mKey = key; 
+		sInstances[key] = static_cast<T*>(this); 
+	}
+	void remove() { sInstances.erase(mKey); }
+
+private:
+
+	KEY mKey;
+	static std::map<KEY, T*> sInstances;
+};
+
+template<typename T>
+class LLInstanceTracker<T, T*> : boost::noncopyable
+{
+public:
+	typedef typename std::set<T*>::iterator instance_iter;
+	typedef typename std::set<T*>::const_iterator instance_const_iter;
+
+	static instance_iter instancesBegin() { return sInstances.begin(); }
+	static instance_iter instancesEnd() { return sInstances.end(); }
+	static S32 instanceCount() { return sInstances.size(); }
+
+protected:
+	LLInstanceTracker() { sInstances.insert(static_cast<T*>(this)); }
+	virtual ~LLInstanceTracker() { sInstances.erase(static_cast<T*>(this)); }
+
+	static std::set<T*> sInstances;
+};
+
+template <typename T, typename KEY> std::map<KEY, T*> LLInstanceTracker<T, KEY>::sInstances;
+template <typename T> std::set<T*> LLInstanceTracker<T, T*>::sInstances;
+
+class LLCallbackRegistry
+{
+public:
+	typedef boost::signal<void()> callback_signal_t;
+	
+	void registerCallback(const callback_signal_t::slot_type& slot)
+	{
+		mCallbacks.connect(slot);
+	}
+
+	void fireCallbacks()
+	{
+		mCallbacks();
+	}
+
+private:
+	callback_signal_t mCallbacks;
+};
+
+class LLInitClassList : 
+	public LLCallbackRegistry, 
+	public LLSingleton<LLInitClassList>
+{
+	friend class LLSingleton<LLInitClassList>;
+private:
+	LLInitClassList() {}
+};
+
+class LLDestroyClassList : 
+	public LLCallbackRegistry, 
+	public LLSingleton<LLDestroyClassList>
+{
+	friend class LLSingleton<LLDestroyClassList>;
+private:
+	LLDestroyClassList() {}
+};
+
+template<typename T>
+class LLRegisterWith
+{
+public:
+	LLRegisterWith(boost::function<void ()> func)
+	{
+		T::instance().registerCallback(func);
+	}
+
+	// this avoids a MSVC bug where non-referenced static members are "optimized" away
+	// even if their constructors have side effects
+	void reference()
+	{
+		S32 dummy;
+		dummy = 0;
+	}
+};
+
+template<typename T>
+class LLInitClass
+{
+public:
+	LLInitClass() { sRegister.reference(); }
+
+	static LLRegisterWith<LLInitClassList> sRegister;
+private:
+
+	static void initClass()
+	{
+		llerrs << "No static initClass() method defined for " << typeid(T).name() << llendl;
+	}
+};
+
+template<typename T>
+class LLDestroyClass
+{
+public:
+	LLDestroyClass() { sRegister.reference(); }
+
+	static LLRegisterWith<LLDestroyClassList> sRegister;
+private:
+
+	static void destroyClass()
+	{
+		llerrs << "No static destroyClass() method defined for " << typeid(T).name() << llendl;
+	}
+};
+
+template <typename T> LLRegisterWith<LLInitClassList> LLInitClass<T>::sRegister(&T::initClass);
+template <typename T> LLRegisterWith<LLDestroyClassList> LLDestroyClass<T>::sRegister(&T::destroyClass);
+
+
+template <typename DERIVED>
+class LLParamBlock
+{
+protected:
+	LLParamBlock() { sBlock = (DERIVED*)this; }
+
+	typedef typename boost::add_const<DERIVED>::type Tconst;
+
+	template <typename T>
+	class LLMandatoryParam
+	{
+	public:
+		typedef typename boost::add_const<T>::type T_const;
+
+		LLMandatoryParam(T_const initial_val) : mVal(initial_val), mBlock(sBlock) {}
+		LLMandatoryParam(const LLMandatoryParam<T>& other) : mVal(other.mVal) {}
+
+		DERIVED& operator ()(T_const set_value) { mVal = set_value; return *mBlock; }
+		operator T() const { return mVal; } 
+		T operator=(T_const set_value) { mVal = set_value; return mVal; }
+
+	private: 
+		T	mVal;
+		DERIVED* mBlock;
+	};
+
+	template <typename T>
+	class LLOptionalParam
+	{
+	public:
+		typedef typename boost::add_const<T>::type T_const;
+
+		LLOptionalParam(T_const initial_val) : mVal(initial_val), mBlock(sBlock) {}
+		LLOptionalParam() : mBlock(sBlock) {}
+		LLOptionalParam(const LLOptionalParam<T>& other) : mVal(other.mVal) {}
+
+		DERIVED& operator ()(T_const set_value) { mVal = set_value; return *mBlock; }
+		operator T() const { return mVal; } 
+		T operator=(T_const set_value) { mVal = set_value; return mVal; }
+
+	private:
+		T	mVal;
+		DERIVED* mBlock;
+	};
+
+	// specialization that requires initialization for reference types 
+	template <typename T>
+	class LLOptionalParam <T&>
+	{
+	public:
+		typedef typename boost::add_const<T&>::type T_const;
+
+		LLOptionalParam(T_const initial_val) : mVal(initial_val), mBlock(sBlock) {}
+		LLOptionalParam(const LLOptionalParam<T&>& other) : mVal(other.mVal) {}
+
+		DERIVED& operator ()(T_const set_value) { mVal = set_value; return *mBlock; }
+		operator T&() const { return mVal; } 
+		T& operator=(T_const set_value) { mVal = set_value; return mVal; }
+
+	private:
+		T&	mVal;
+		DERIVED* mBlock;
+	};
+
+	// specialization that initializes pointer params to NULL
+	template<typename T> 
+	class LLOptionalParam<T*>
+	{
+	public:
+		typedef typename boost::add_const<T*>::type T_const;
+
+		LLOptionalParam(T_const initial_val) : mVal(initial_val), mBlock(sBlock) {}
+		LLOptionalParam() : mVal((T*)NULL), mBlock(sBlock)  {}
+		LLOptionalParam(const LLOptionalParam<T*>& other) : mVal(other.mVal) {}
+
+		DERIVED& operator ()(T_const set_value) { mVal = set_value; return *mBlock; }
+		operator T*() const { return mVal; } 
+		T* operator=(T_const set_value) { mVal = set_value; return mVal; }
+	private:
+		T*	mVal;
+		DERIVED* mBlock;
+	};
+
+	static DERIVED* sBlock;
+};
+
+template <typename T> T* LLParamBlock<T>::sBlock = NULL;
 
 #endif

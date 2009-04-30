@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -34,13 +35,21 @@
 
 #include "llview.h"
 #include "llframetimer.h"
+#include "llviewercontrol.h"
 
 class LLStat;
 
 class LLStatBar : public LLView
 {
+	enum STAT_MODE_FLAG
+	{
+		STAT_BAR_FLAG = 1,
+		STAT_HISTORY_FLAG = 2
+	};
+	
 public:
-	LLStatBar(const std::string& name, const LLRect& rect);
+	LLStatBar(const std::string& name, const LLRect& rect, const std::string& setting = std::string(),
+			  BOOL default_bar = FALSE, BOOL default_history = FALSE);
 
 	virtual void draw();
 	virtual BOOL handleMouseDown(S32 x, S32 y, MASK mask);
@@ -67,6 +76,7 @@ private:
 	std::string mLabel;
 	std::string mUnitLabel;
 	F32 mValue;
+	std::string mSetting;
 };
 
 #endif

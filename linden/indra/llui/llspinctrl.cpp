@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -98,7 +99,7 @@ LLSpinCtrl::LLSpinCtrl(	const std::string& name, const LLRect& rect, const std::
 								   out_id,
 								   in_id,
 								   LLStringUtil::null,
-								   &LLSpinCtrl::onUpBtn, this, LLFontGL::sSansSerif );
+								   &LLSpinCtrl::onUpBtn, this, LLFontGL::getFontSansSerif() );
 	mUpBtn->setFollowsLeft();
 	mUpBtn->setFollowsBottom();
 	mUpBtn->setHeldDownCallback( &LLSpinCtrl::onUpBtn );
@@ -112,7 +113,7 @@ LLSpinCtrl::LLSpinCtrl(	const std::string& name, const LLRect& rect, const std::
 							out_id,
 							in_id,
 							LLStringUtil::null,
-							&LLSpinCtrl::onDownBtn, this, LLFontGL::sSansSerif );
+							&LLSpinCtrl::onDownBtn, this, LLFontGL::getFontSansSerif() );
 	mDownBtn->setFollowsLeft();
 	mDownBtn->setFollowsBottom();
 	mDownBtn->setHeldDownCallback( &LLSpinCtrl::onDownBtn );

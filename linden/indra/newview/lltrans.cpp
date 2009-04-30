@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -89,15 +90,12 @@ std::string LLTrans::getString(const std::string &xml_desc, const LLStringUtil::
 	}
 	else
 	{
-		LLStringUtil::format_map_t args;
-		args["[STRING_NAME]"] = xml_desc;
-		llwarns << "Missing String: [" << xml_desc << "]" << llendl;
-		LLAlertDialog* dialogp = LLAlertDialog::showXml("MissingString", args);
-		if (dialogp == NULL)
-		{
-			llerrs << "Bad or missing alerts.xml!" << llendl;
-		}
-		return "";
+		LLSD args;
+		args["STRING_NAME"] = xml_desc;
+		LL_WARNS_ONCE("configuration") << "Missing String in strings.xml: [" << xml_desc << "]" << LL_ENDL;
+		LLNotifications::instance().add("MissingString", args);
+		
+		return xml_desc;
 	}
 }
 

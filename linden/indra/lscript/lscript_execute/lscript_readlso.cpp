@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -621,6 +622,16 @@ void LLScriptLSOParse::printStates(LLFILE *fp)
 						fprintf(fp, "\t\tinteger %s\n", name);
 						bytestream2char(name, mRawData, event_offset, sizeof(name));
 						fprintf(fp, "\t\tlist %s\n", name);
+						bytestream2char(name, mRawData, event_offset, sizeof(name));
+						fprintf(fp, "\t\tstring %s\n", name);
+						break;
+					case LSTT_HTTP_REQUEST:	// LSTT_HTTP_REQUEST
+						bytestream2char(name, mRawData, event_offset, sizeof(name));
+						fprintf(fp, "%s\n", name);
+						bytestream2char(name, mRawData, event_offset, sizeof(name));
+						fprintf(fp, "\t\tkey %s\n", name);
+						bytestream2char(name, mRawData, event_offset, sizeof(name));
+						fprintf(fp, "\t\tstring %s\n", name);
 						bytestream2char(name, mRawData, event_offset, sizeof(name));
 						fprintf(fp, "\t\tstring %s\n", name);
 						break;

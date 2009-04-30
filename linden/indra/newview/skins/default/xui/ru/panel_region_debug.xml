@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Отладка" name="Debug">
+	<text name="region_text_lbl">
+		Регион:
+	</text>
+	<text name="region_text">
+		(неизвестно)
+	</text>
+	<check_box label="Выключить Скрипты" name="disable_scripts_check"
+	     tool_tip="Выключить все скрипты в этом регионе" />
+	<button label="?" name="disable_scripts_help" />
+	<check_box label="Блок. столкновения" name="disable_collisions_check"
+	     tool_tip="Блокировать столкновения неаватаров в этом регионе." />
+	<button label="?" name="disable_collisions_help" />
+	<check_box label="Выключить физику" name="disable_physics_check"
+	     tool_tip="Выключить всю физику в этом регионе" />
+	<button label="?" name="disable_physics_help" />
+	<button label="Применить" name="apply_btn" />
+	<button label="Выбор Аватара..." name="choose_avatar_btn" />
+	<button
+	     label="Вернуть скрипт. объекты аватаров с чужих земель"
+	     name="return_scripted_other_land_btn" />
+	<button
+	     label="Вернуть ВСЕ скриптованные объекты аватаров"
+	     name="return_scripted_all_btn" />
+	<button label="ТОП столкновений..." name="top_colliders_btn"
+	     tool_tip="Список объектов, испытывающие большинство потенциальных столкновений" />
+	<button label="?" name="top_colliders_help" />
+	<button label="ТОП скриптов..." name="top_scripts_btn"
+	     tool_tip="Список объектов, больше всех нагружающих сим скриптами" />
+	<button label="?" name="top_scripts_help" />
+	<button label="Перезапуск" name="restart_btn"
+	     tool_tip="2 мин. на обратный отсчет и перезапуск региона" />
+	<button label="?" name="restart_help" />
+	<button label="Отл. перезап." name="cancel_restart_btn"
+	     tool_tip="Отложить перезапуск региона на 1 час" />
+</panel>

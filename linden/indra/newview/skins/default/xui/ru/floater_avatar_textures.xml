@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="avatar_texture_debug" title="Текстуры Аватара">
+	<text name="">
+		Сброс Текстур
+	</text>
+	<text name="">
+		Составные текстуры
+	</text>
+	<texture_picker label="Голова" name="baked_head" />
+	<texture_picker label="Косметика" name="head_bodypaint" />
+	<texture_picker label="Волосы" name="hair" />
+	<button label="Свалка" label_selected="Свалка" name="Dump" />
+	<texture_picker label="Глаза" name="baked_eyes" />
+	<texture_picker label="Глаз" name="eye_texture" />
+	<texture_picker label="Тело верх" name="baked_upper_body" />
+	<texture_picker label="Тату верх" name="upper_bodypaint" />
+	<texture_picker label="Майка" name="undershirt" />
+	<texture_picker label="Перчатки" name="gloves" />
+	<texture_picker label="Рубашка" name="shirt" />
+	<texture_picker label="Пиджак верх" name="upper_jacket" />
+	<texture_picker label="Тело низ" name="baked_lower_body" />
+	<texture_picker label="Тату низ" name="lower_bodypaint" />
+	<texture_picker label="Трусы" name="underpants" />
+	<texture_picker label="Носки" name="socks" />
+	<texture_picker label="Обувь" name="shoes" />
+	<texture_picker label="Брюки" name="pants" />
+	<texture_picker label="Пиджак" name="jacket" />
+	<texture_picker label="Юбка" name="baked_skirt" />
+	<texture_picker label="Юбка" name="skirt_texture" />
+</floater>

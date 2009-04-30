@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -274,20 +275,21 @@ class LLEmptyTrash : public inventory_panel_listener_t
 	{
 		LLInventoryModel* model = mPtr->getModel();
 		if(!model) return false;
-		gViewerWindow->alertXml("ConfirmEmptyTrash", callback_empty_trash, this);
+		LLNotifications::instance().add("ConfirmEmptyTrash", LLSD(), LLSD(), boost::bind(&LLEmptyTrash::callback_empty_trash, this, _1, _2));
 		return true;
 	}
 
-	static void callback_empty_trash(S32 option, void* userdata)
+	bool callback_empty_trash(const LLSD& notification, const LLSD& response)
 	{
-		LLEmptyTrash* empty_trash = (LLEmptyTrash*)userdata;
+		S32 option = LLNotification::getSelectedOption(notification, response);
 		if (option == 0) // YES
 		{
-			LLInventoryModel* model = empty_trash->mPtr->getModel();
+			LLInventoryModel* model = mPtr->getModel();
 			LLUUID trash_id = model->findCategoryUUIDForType(LLAssetType::AT_TRASH);
 			model->purgeDescendentsOf(trash_id);
 			model->notifyObservers();
 		}
+		return false;
 	}
 };
 
@@ -297,20 +299,21 @@ class LLEmptyLostAndFound : public inventory_panel_listener_t
 	{
 		LLInventoryModel* model = mPtr->getModel();
 		if(!model) return false;
-		gViewerWindow->alertXml("ConfirmEmptyLostAndFound", callback_empty_lost_and_found, this);
+		LLNotifications::instance().add("ConfirmEmptyLostAndFound", LLSD(), LLSD(), boost::bind(&LLEmptyLostAndFound::callback_empty_lost_and_found, this, _1, _2));
 		return true;
 	}
 
-	static void callback_empty_lost_and_found(S32 option, void* userdata)
+	bool callback_empty_lost_and_found(const LLSD& notification, const LLSD& response)
 	{
-		LLEmptyLostAndFound* empty_lost_and_found = (LLEmptyLostAndFound*)userdata;
+		S32 option = LLNotification::getSelectedOption(notification, response);
 		if (option == 0) // YES
 		{
-			LLInventoryModel* model = empty_lost_and_found->mPtr->getModel();
+			LLInventoryModel* model = mPtr->getModel();
 			LLUUID lost_and_found_id = model->findCategoryUUIDForType(LLAssetType::AT_LOST_AND_FOUND);
 			model->purgeDescendentsOf(lost_and_found_id);
 			model->notifyObservers();
 		}
+		return false;
 	}
 };
 

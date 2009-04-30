@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -180,10 +181,11 @@ public:
 
 	/*virtual*/ bool bindError(const S32 stage = 0) const;
 	/*virtual*/ bool bindDefaultImage(const S32 stage = 0) const;
+	/*virtual*/ void forceImmediateUpdate() ;
 	
 	void reinit(BOOL usemipmaps = TRUE);
 
-	const LLUUID& getID() { return mID; }
+	const LLUUID& getID() const { return mID; }
 
 	// New methods for determining image quality/priority
 	// texel_area_ratio is ("scaled" texel area)/(original texel area), approximately.
@@ -201,6 +203,7 @@ public:
 
 	 // ONLY call from LLViewerImageList
 	BOOL createTexture(S32 usename = 0);
+	void destroyTexture() ;
 
 	BOOL needsAux() const							{ return mNeedsAux; }
 
@@ -361,6 +364,7 @@ public:
 	static S32 sTotalTextureMemory;
 	static S32 sMaxBoundTextureMem;
 	static S32 sMaxTotalTextureMem;
+	static S32 sMaxDesiredTextureMem ;
 	static BOOL sDontLoadVolumeTextures;
 };
 

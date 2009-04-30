@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -77,9 +78,6 @@
 #include "llweb.h"
 #include "llinventorymodel.h"
 #include "roles_constants.h"
-
-#define	kArraySize( _kArray ) ( sizeof( (_kArray) ) / sizeof( _kArray[0] ) )
-
 #include "lluictrlfactory.h"
 
 // Statics
@@ -140,79 +138,15 @@ BOOL LLDropTarget::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 									 EAcceptance* accept,
 									 std::string& tooltip_msg)
 {
-	BOOL handled = FALSE;
 	if(getParent())
 	{
-		// check if inside
-		//LLRect parent_rect = mParentView->getRect();
-		//getRect().set(0, parent_rect.getHeight(), parent_rect.getWidth(), 0);
-		handled = TRUE;
+		LLToolDragAndDrop::handleGiveDragAndDrop(mAgentID, LLUUID::null, drop,
+												 cargo_type, cargo_data, accept);
 
-		// check the type
-		switch(cargo_type)
-		{
-		case DAD_TEXTURE:
-		case DAD_SOUND:
-		case DAD_LANDMARK:
-		case DAD_SCRIPT:
-		case DAD_OBJECT:
-		case DAD_NOTECARD:
-		case DAD_CLOTHING:
-		case DAD_BODYPART:
-		case DAD_ANIMATION:
-		case DAD_GESTURE:
-		{
-			LLViewerInventoryItem* inv_item = (LLViewerInventoryItem*)cargo_data;
-			if(gInventory.getItem(inv_item->getUUID())
-				&& LLToolDragAndDrop::isInventoryGiveAcceptable(inv_item))
-			{
-				// *TODO: get multiple object transfers working
-				*accept = ACCEPT_YES_COPY_SINGLE;
-				if(drop)
-				{
-					LLToolDragAndDrop::giveInventory(mAgentID, inv_item);
-				}
-			}
-			else
-			{
-				// It's not in the user's inventory (it's probably
-				// in an object's contents), so disallow dragging
-				// it here.  You can't give something you don't
-				// yet have.
-				*accept = ACCEPT_NO;
-			}
-			break;
-		}
-		case DAD_CATEGORY:
-		{
-			LLViewerInventoryCategory* inv_cat = (LLViewerInventoryCategory*)cargo_data;
-			if( gInventory.getCategory( inv_cat->getUUID() ) )
-			{
-				// *TODO: get multiple object transfers working
-				*accept = ACCEPT_YES_COPY_SINGLE;
-				if(drop)
-				{
-					LLToolDragAndDrop::giveInventoryCategory(mAgentID,
-																inv_cat);
-				}
-			}
-			else
-			{
-				// It's not in the user's inventory (it's probably
-				// in an object's contents), so disallow dragging
-				// it here.  You can't give something you don't
-				// yet have.
-				*accept = ACCEPT_NO;
-			}
-			break;
-		}
-		case DAD_CALLINGCARD:
-		default:
-			*accept = ACCEPT_NO;
-			break;
-		}
+		return TRUE;
 	}
-	return handled;
+
+	return FALSE;
 }
 
 
@@ -352,20 +286,24 @@ void LLPanelAvatarSecondLife::onDoubleClickGroup(void* data)
 // static
 void LLPanelAvatarSecondLife::onClickPublishHelp(void *)
 {
-	gViewerWindow->alertXml("ClickPublishHelpAvatar");
+	LLNotifications::instance().add("ClickPublishHelpAvatar");
 }
 
 // static
 void LLPanelAvatarSecondLife::onClickPartnerHelp(void *)
 {
-    gViewerWindow->alertXml("ClickPartnerHelpAvatar", onClickPartnerHelpLoadURL, (void*) NULL);
+	LLNotifications::instance().add("ClickPartnerHelpAvatar", LLSD(), LLSD(), onClickPartnerHelpLoadURL);
 }
 
 // static 
-void LLPanelAvatarSecondLife::onClickPartnerHelpLoadURL(S32 option, void* userdata)
+bool LLPanelAvatarSecondLife::onClickPartnerHelpLoadURL(const LLSD& notification, const LLSD& response)
 {
-  if (option == 0)
-    LLWeb::loadURL("http://secondlife.com/partner");
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if (option == 0)
+	{
+		LLWeb::loadURL("http://secondlife.com/partner");
+	}
+	return false;
 }
 
 // static
@@ -388,7 +326,6 @@ LLPanelAvatarFirstLife::LLPanelAvatarFirstLife(const std::string& name,
 :	LLPanelAvatarTab(name, rect, panel_avatar)
 {
 }
-
 
 void LLPanelAvatarFirstLife::enableControls(BOOL self)
 {
@@ -438,6 +375,8 @@ BOOL LLPanelAvatarSecondLife::postBuild(void)
 
 	childSetDoubleClickCallback("groups", onDoubleClickGroup, this );
 
+	getChild<LLTextureCtrl>("img")->setFallbackImageName("default_profile_picture.j2c");
+
 	return TRUE;
 }
 
@@ -445,6 +384,9 @@ BOOL LLPanelAvatarFirstLife::postBuild(void)
 {
 	BOOL own_avatar = (getPanelAvatar()->getAvatarID() == gAgent.getID() );
 	enableControls(own_avatar);
+
+	getChild<LLTextureCtrl>("img")->setFallbackImageName("default_profile_picture.j2c");
+
 	return TRUE;
 }
 
@@ -495,17 +437,17 @@ BOOL LLPanelAvatarPicks::postBuild(void)
 
 BOOL LLPanelAvatarAdvanced::postBuild()
 {
-	for(size_t ii = 0; ii < kArraySize(mWantToCheck); ++ii)
+	for(size_t ii = 0; ii < LL_ARRAY_SIZE(mWantToCheck); ++ii)
 		mWantToCheck[ii] = NULL;
-	for(size_t ii = 0; ii < kArraySize(mSkillsCheck); ++ii)
+	for(size_t ii = 0; ii < LL_ARRAY_SIZE(mSkillsCheck); ++ii)
 		mSkillsCheck[ii] = NULL;
-	mWantToCount = (8>kArraySize(mWantToCheck))?kArraySize(mWantToCheck):8;
+	mWantToCount = (8>LL_ARRAY_SIZE(mWantToCheck))?LL_ARRAY_SIZE(mWantToCheck):8;
 	for(S32 tt=0; tt < mWantToCount; ++tt)
 	{	
 		std::string ctlname = llformat("chk%d", tt);
 		mWantToCheck[tt] = getChild<LLCheckBoxCtrl>(ctlname);
 	}	
-	mSkillsCount = (6>kArraySize(mSkillsCheck))?kArraySize(mSkillsCheck):6;
+	mSkillsCount = (6>LL_ARRAY_SIZE(mSkillsCheck))?LL_ARRAY_SIZE(mSkillsCheck):6;
 
 	for(S32 tt=0; tt < mSkillsCount; ++tt)
 	{
@@ -589,7 +531,7 @@ void LLPanelAvatarWeb::onCommitURL(LLUICtrl* ctrl, void* data)
 // static
 void LLPanelAvatarWeb::onClickWebProfileHelp(void *)
 {
-	gViewerWindow->alertXml("ClickWebProfileHelpAvatar");
+	LLNotifications::instance().add("ClickWebProfileHelpAvatar");
 }
 
 void LLPanelAvatarWeb::load(std::string url)
@@ -926,26 +868,25 @@ void LLPanelAvatarClassified::onClickNew(void* data)
 {
 	LLPanelAvatarClassified* self = (LLPanelAvatarClassified*)data;
 
-	gViewerWindow->alertXml("AddClassified",callbackNew,self);
+	LLNotifications::instance().add("AddClassified", LLSD(), LLSD(), boost::bind(&LLPanelAvatarClassified::callbackNew, self, _1, _2));
 		
 }
 
-// static
-void LLPanelAvatarClassified::callbackNew(S32 option, void* data)
+bool LLPanelAvatarClassified::callbackNew(const LLSD& notification, const LLSD& response)
 {
-	LLPanelAvatarClassified* self = (LLPanelAvatarClassified*)data;
-
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
 		LLPanelClassified* panel_classified = new LLPanelClassified(false, false);
 		panel_classified->initNewClassified();
-		LLTabContainer*	tabs = self->getChild<LLTabContainer>("classified tab");
+		LLTabContainer*	tabs = getChild<LLTabContainer>("classified tab");
 		if(tabs)
 		{
 			tabs->addTabPanel(panel_classified, panel_classified->getClassifiedName());
 			tabs->selectLastTab();
 		}
 	}
+	return false;
 }
 
 
@@ -962,18 +903,17 @@ void LLPanelAvatarClassified::onClickDelete(void* data)
 	}
 	if (!panel_classified) return;
 
-	LLStringUtil::format_map_t args;
-	args["[NAME]"] = panel_classified->getClassifiedName();
-	gViewerWindow->alertXml("DeleteClassified", args, callbackDelete, self);
+	LLSD args;
+	args["NAME"] = panel_classified->getClassifiedName();
+	LLNotifications::instance().add("DeleteClassified", args, LLSD(), boost::bind(&LLPanelAvatarClassified::callbackDelete, self, _1, _2));
 		
 }
 
 
-// static
-void LLPanelAvatarClassified::callbackDelete(S32 option, void* data)
+bool  LLPanelAvatarClassified::callbackDelete(const LLSD& notification, const LLSD& response)
 {
-	LLPanelAvatarClassified* self = (LLPanelAvatarClassified*)data;
-	LLTabContainer*	tabs = self->getChild<LLTabContainer>("classified tab");
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	LLTabContainer*	tabs = getChild<LLTabContainer>("classified tab");
 	LLPanelClassified* panel_classified=NULL;
 	if(tabs)
 	{
@@ -982,7 +922,7 @@ void LLPanelAvatarClassified::callbackDelete(S32 option, void* data)
 	
 	LLMessageSystem* msg = gMessageSystem;
 
-	if (!panel_classified) return;
+	if (!panel_classified) return false;
 
 	if (0 == option)
 	{
@@ -1001,6 +941,7 @@ void LLPanelAvatarClassified::callbackDelete(S32 option, void* data)
 		delete panel_classified;
 		panel_classified = NULL;
 	}
+	return false;
 }
 
 
@@ -1120,24 +1061,23 @@ void LLPanelAvatarPicks::onClickDelete(void* data)
 
 	if (!panel_pick) return;
 
-	LLStringUtil::format_map_t args;
-	args["[PICK]"] = panel_pick->getPickName();
+	LLSD args;
+	args["PICK"] = panel_pick->getPickName();
 
-	gViewerWindow->alertXml("DeleteAvatarPick", args,
-		callbackDelete,
-		self);
+	LLNotifications::instance().add("DeleteAvatarPick", args, LLSD(),
+									boost::bind(&LLPanelAvatarPicks::callbackDelete, self, _1, _2));
 }
 
 
 // static
-void LLPanelAvatarPicks::callbackDelete(S32 option, void* data)
+bool LLPanelAvatarPicks::callbackDelete(const LLSD& notification, const LLSD& response)
 {
-	LLPanelAvatarPicks* self = (LLPanelAvatarPicks*)data;
-	LLTabContainer* tabs = self->getChild<LLTabContainer>("picks tab");
-	LLPanelPick* panel_pick = tabs?(LLPanelPick*)tabs->getCurrentPanel():NULL;
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	LLTabContainer* tabs = getChild<LLTabContainer>("picks tab");
+	LLPanelPick* panel_pick = tabs ? (LLPanelPick*)tabs->getCurrentPanel() : NULL;
 	LLMessageSystem* msg = gMessageSystem;
 
-	if (!panel_pick) return;
+	if (!panel_pick) return false;
 
 	if (0 == option)
 	{
@@ -1173,6 +1113,7 @@ void LLPanelAvatarPicks::callbackDelete(S32 option, void* data)
 		delete panel_pick;
 		panel_pick = NULL;
 	}
+	return false;
 }
 
 
@@ -1778,7 +1719,7 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		msg->getStringFast(_PREHASH_PropertiesData, _PREHASH_BornOn, born_on);
 		msg->getString("PropertiesData","ProfileURL", profile_url);
 		msg->getU32Fast(_PREHASH_PropertiesData, _PREHASH_Flags, flags);
-		
+
 		identified = (flags & AVATAR_IDENTIFIED);
 		transacted = (flags & AVATAR_TRANSACTED);
 		age_verified = (flags & AVATAR_AGEVERIFIED); // Not currently getting set in dataserver/lldataavatar.cpp for privacy considerations
@@ -1809,7 +1750,7 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 				"AcctTypeCharterMember",
 				"AcctTypeEmployee"
 			};
-			caption_index = llclamp(caption_index, (U8)0, (U8)(sizeof(ACCT_TYPE)/sizeof(ACCT_TYPE[0])-1));
+			caption_index = llclamp(caption_index, (U8)0, (U8)(LL_ARRAY_SIZE(ACCT_TYPE)-1));
 			args["[ACCTTYPE]"] = self->mPanelSecondLife->getString(ACCT_TYPE[caption_index]);
 
 			std::string payment_text = " ";
@@ -1831,7 +1772,7 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 				args["[PAYMENTINFO]"] = self->mPanelSecondLife->getString(payment_text);
 				std::string age_text = age_verified ? "AgeVerified" : "NotAgeVerified";
 				// Do not display age verification status at this time
-				//args["[AGEVERIFICATION]"] = self->mPanelSecondLife->getString(age_text);
+				//args["[[AGEVERIFICATION]]"] = self->mPanelSecondLife->getString(age_text);
 				args["[AGEVERIFICATION]"] = " ";
 			}
 			else
@@ -2183,85 +2124,93 @@ void LLPanelAvatar::onClickKick(void* userdata)
 	gFloaterView->getNewFloaterPosition(&left, &top);
 	LLRect rect(left, top, left+400, top-300);
 
-	gViewerWindow->alertXmlEditText("KickUser", LLStringUtil::format_map_t(),
-									NULL, NULL,
-									LLPanelAvatar::finishKick, self);
+	LLSD payload;
+	payload["avatar_id"] = self->mAvatarID;
+	LLNotifications::instance().add("KickUser", LLSD(), payload, finishKick);
 }
 
-// static
-void LLPanelAvatar::finishKick(S32 option, const std::string& text, void* userdata)
+//static
+bool LLPanelAvatar::finishKick(const LLSD& notification, const LLSD& response)
 {
-	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 
 	if (option == 0)
 	{
+		LLUUID avatar_id = notification["payload"]["avatar_id"].asUUID();
 		LLMessageSystem* msg = gMessageSystem;
 
 		msg->newMessageFast(_PREHASH_GodKickUser);
 		msg->nextBlockFast(_PREHASH_UserInfo);
 		msg->addUUIDFast(_PREHASH_GodID,		gAgent.getID() );
 		msg->addUUIDFast(_PREHASH_GodSessionID, gAgent.getSessionID());
-		msg->addUUIDFast(_PREHASH_AgentID,   self->mAvatarID );
+		msg->addUUIDFast(_PREHASH_AgentID,   avatar_id );
 		msg->addU32("KickFlags", KICK_FLAGS_DEFAULT );
-		msg->addStringFast(_PREHASH_Reason,    text );
+		msg->addStringFast(_PREHASH_Reason,    response["message"].asString() );
 		gAgent.sendReliableMessage();
 	}
+	return false;
 }
 
 // static
 void LLPanelAvatar::onClickFreeze(void* userdata)
 {
-	gViewerWindow->alertXmlEditText("FreezeUser", LLStringUtil::format_map_t(),
-									NULL, NULL,
-									LLPanelAvatar::finishFreeze, userdata);
+	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
+	LLSD payload;
+	payload["avatar_id"] = self->mAvatarID;
+	LLNotifications::instance().add("FreezeUser", LLSD(), payload, LLPanelAvatar::finishFreeze);
 }
 
 // static
-void LLPanelAvatar::finishFreeze(S32 option, const std::string& text, void* userdata)
+bool LLPanelAvatar::finishFreeze(const LLSD& notification, const LLSD& response)
 {
-	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 
 	if (option == 0)
 	{
+		LLUUID avatar_id = notification["payload"]["avatar_id"].asUUID();
 		LLMessageSystem* msg = gMessageSystem;
 
 		msg->newMessageFast(_PREHASH_GodKickUser);
 		msg->nextBlockFast(_PREHASH_UserInfo);
 		msg->addUUIDFast(_PREHASH_GodID,		gAgent.getID() );
 		msg->addUUIDFast(_PREHASH_GodSessionID, gAgent.getSessionID());
-		msg->addUUIDFast(_PREHASH_AgentID,   self->mAvatarID );
+		msg->addUUIDFast(_PREHASH_AgentID,   avatar_id );
 		msg->addU32("KickFlags", KICK_FLAGS_FREEZE );
-		msg->addStringFast(_PREHASH_Reason,    text );
+		msg->addStringFast(_PREHASH_Reason, response["message"].asString() );
 		gAgent.sendReliableMessage();
 	}
+	return false;
 }
 
 // static
 void LLPanelAvatar::onClickUnfreeze(void* userdata)
 {
-	gViewerWindow->alertXmlEditText("UnFreezeUser", LLStringUtil::format_map_t(),
-									NULL, NULL,
-									LLPanelAvatar::finishUnfreeze, userdata);
+	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
+	LLSD payload;
+	payload["avatar_id"] = self->mAvatarID;
+	LLNotifications::instance().add("UnFreezeUser", LLSD(), payload, LLPanelAvatar::finishUnfreeze);
 }
 
 // static
-void LLPanelAvatar::finishUnfreeze(S32 option, const std::string& text, void* userdata)
+bool LLPanelAvatar::finishUnfreeze(const LLSD& notification, const LLSD& response)
 {
-	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
-
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	std::string text = response["message"].asString();
 	if (option == 0)
 	{
+		LLUUID avatar_id = notification["payload"]["avatar_id"].asUUID();
 		LLMessageSystem* msg = gMessageSystem;
 
 		msg->newMessageFast(_PREHASH_GodKickUser);
 		msg->nextBlockFast(_PREHASH_UserInfo);
 		msg->addUUIDFast(_PREHASH_GodID,		gAgent.getID() );
 		msg->addUUIDFast(_PREHASH_GodSessionID, gAgent.getSessionID());
-		msg->addUUIDFast(_PREHASH_AgentID,   self->mAvatarID );
+		msg->addUUIDFast(_PREHASH_AgentID,   avatar_id );
 		msg->addU32("KickFlags", KICK_FLAGS_UNFREEZE );
 		msg->addStringFast(_PREHASH_Reason,    text );
 		gAgent.sendReliableMessage();
 	}
+	return false;
 }
 
 // static

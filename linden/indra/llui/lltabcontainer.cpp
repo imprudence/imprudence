@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -70,6 +71,7 @@ LLTabContainer::LLTabContainer(const std::string& name, const LLRect& rect, TabP
 	: 
 	LLPanel(name, rect, bordered),
 	mCurrentTabIdx(-1),
+	mNextTabIdx(-1),
 	mTabsHidden(FALSE),
 	mScrolled(FALSE),
 	mScrollPos(0),
@@ -1149,9 +1151,37 @@ BOOL LLTabContainer::selectTab(S32 which)
 	{
 		return FALSE;
 	}
-	
+
+	if (!selected_tuple->mPrecommitChangeCallback)
+	{
+		return setTab(which);
+	}
+
+	mNextTabIdx = which;
+	selected_tuple->mPrecommitChangeCallback(selected_tuple->mUserData, false);
+	return TRUE;
+}
+
+BOOL LLTabContainer::setTab(S32 which)
+{
+	if (which == -1)
+	{
+		if (mNextTabIdx == -1)
+		{
+			return FALSE;
+		}
+		which = mNextTabIdx;
+		mNextTabIdx = -1;
+	}
+
+	LLTabTuple* selected_tuple = getTab(which);
+	if (!selected_tuple)
+	{
+		return FALSE;
+	}
+
 	BOOL is_visible = FALSE;
-	if (getTab(which)->mButton->getEnabled())
+	if (selected_tuple->mButton->getEnabled())
 	{
 		setCurrentPanelIndex(which);
 
@@ -1331,6 +1361,15 @@ void LLTabContainer::setTabChangeCallback(LLPanel* tab, void (*on_tab_clicked)(v
 	}
 }
 
+void LLTabContainer::setTabPrecommitChangeCallback(LLPanel* tab, void (*on_precommit)(void*, bool))
+{
+	LLTabTuple* tuplep = getTabByPanel(tab);
+	if (tuplep)
+	{
+		tuplep->mPrecommitChangeCallback = on_precommit;
+	}
+}
+
 void LLTabContainer::setTabUserData(LLPanel* tab, void* userdata)
 {
 	LLTabTuple* tuplep = getTabByPanel(tab);
@@ -1370,11 +1409,6 @@ void LLTabContainer::onTabBtn( void* userdata )
 	LLTabTuple* tuple = (LLTabTuple*) userdata;
 	LLTabContainer* self = tuple->mTabContainer;
 	self->selectTabPanel( tuple->mTabPanel );
-	
-	if( tuple->mOnChangeCallback )
-	{
-		tuple->mOnChangeCallback( tuple->mUserData, true );
-	}
 
 	tuple->mTabPanel->setFocus(TRUE);
 }
@@ -1624,14 +1658,14 @@ void LLTabContainer::initButtons()
 		in_id = "UIImgBtnJumpLeftInUUID";
 		mJumpPrevArrowBtn = new LLButton(std::string("Jump Left Arrow"), jump_left_arrow_btn_rect,
 										 out_id, in_id, LLStringUtil::null,
-										 &LLTabContainer::onJumpFirstBtn, this, LLFontGL::sSansSerif );
+										 &LLTabContainer::onJumpFirstBtn, this, LLFontGL::getFontSansSerif() );
 		mJumpPrevArrowBtn->setFollowsLeft();
 
 		out_id = "UIImgBtnScrollLeftOutUUID";
 		in_id = "UIImgBtnScrollLeftInUUID";
 		mPrevArrowBtn = new LLButton(std::string("Left Arrow"), left_arrow_btn_rect,
 									 out_id, in_id, LLStringUtil::null,
-									 &LLTabContainer::onPrevBtn, this, LLFontGL::sSansSerif );
+									 &LLTabContainer::onPrevBtn, this, LLFontGL::getFontSansSerif() );
 		mPrevArrowBtn->setHeldDownCallback(onPrevBtnHeld);
 		mPrevArrowBtn->setFollowsLeft();
 	
@@ -1640,7 +1674,7 @@ void LLTabContainer::initButtons()
 		mJumpNextArrowBtn = new LLButton(std::string("Jump Right Arrow"), jump_right_arrow_btn_rect,
 										 out_id, in_id, LLStringUtil::null,
 										 &LLTabContainer::onJumpLastBtn, this,
-										 LLFontGL::sSansSerif);
+										 LLFontGL::getFontSansSerif());
 		mJumpNextArrowBtn->setFollowsRight();
 
 		out_id = "UIImgBtnScrollRightOutUUID";
@@ -1648,7 +1682,7 @@ void LLTabContainer::initButtons()
 		mNextArrowBtn = new LLButton(std::string("Right Arrow"), right_arrow_btn_rect,
 									 out_id, in_id, LLStringUtil::null,
 									 &LLTabContainer::onNextBtn, this,
-									 LLFontGL::sSansSerif);
+									 LLFontGL::getFontSansSerif());
 		mNextArrowBtn->setFollowsRight();
 
 		if( getTabPosition() == TOP )

@@ -12,18 +12,8 @@
 	<text name="event_category">
 		(keiner)
 	</text>
-	<text name="event_mature_label">
-		Ab-18-Inhalt:
-	</text>
-	<text name="event_mature">
-		(unbekannt)
-	</text>
-	<text name="event_mature_yes">
-		Ja
-	</text>
-	<text name="event_mature_no">
-		Nein
-	</text>
+
+
 	<text name="event_date_label">
 		Datum:
 	</text>

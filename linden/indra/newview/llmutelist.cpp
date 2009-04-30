@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -66,7 +67,8 @@
 #include "llfloaterchat.h"
 #include "llimpanel.h"
 #include "llimview.h"
-#include "llnotify.h"
+#include "lltrans.h"
+#include "llnotifications.h"
 #include "lluistring.h"
 #include "llviewerobject.h" 
 #include "llviewerobjectlist.h"
@@ -302,7 +304,7 @@ BOOL LLMuteList::add(const LLMute& mute, U32 flags)
 	if ((mute.mType == LLMute::AGENT)
 		&& isLinden(mute.mName) && (flags & LLMute::flagTextChat || flags == 0))
 	{
-		gViewerWindow->alertXml("MuteLinden");
+		LLNotifications::instance().add("MuteLinden");
 		return FALSE;
 	}
 	
@@ -504,35 +506,35 @@ void notify_automute_callback(const LLUUID& agent_id, const std::string& first_n
 {
 	U32 temp_data = (U32) (uintptr_t) user_data;
 	LLMuteList::EAutoReason reason = (LLMuteList::EAutoReason)temp_data;
-	LLUIString auto_message;
-
+	
+	std::string auto_message;
 	switch (reason)
 	{
 	default:
 	case LLMuteList::AR_IM:
-		auto_message = LLNotifyBox::getTemplateMessage("AutoUnmuteByIM");
+		auto_message = LLTrans::getString("AutoUnmuteByIM");
 		break;
 	case LLMuteList::AR_INVENTORY:
-		auto_message = LLNotifyBox::getTemplateMessage("AutoUnmuteByInventory");
+		auto_message = LLTrans::getString("AutoUnmuteByInventory");
 		break;
 	case LLMuteList::AR_MONEY:
-		auto_message = LLNotifyBox::getTemplateMessage("AutoUnmuteByMoney");
+		auto_message = LLTrans::getString("AutoUnmuteByMoney");
 		break;
 	}
 
-	auto_message.setArg("[FIRST]", first_name);
-	auto_message.setArg("[LAST]", last_name);
+	std::string message = LLNotification::format(auto_message, 
+							   LLSD().insert("FIRST", first_name).insert("LAST", last_name));
 
 	if (reason == LLMuteList::AR_IM)
 	{
 		LLFloaterIMPanel *timp = gIMMgr->findFloaterBySession(agent_id);
 		if (timp)
 		{
-			timp->addHistoryLine(auto_message.getString());
+			timp->addHistoryLine(message);
 		}
 	}
 
-	LLChat auto_chat(auto_message.getString());
+	LLChat auto_chat(message);
 	LLFloaterChat::addChat(auto_chat, FALSE, FALSE);
 }
 
@@ -786,8 +788,9 @@ void LLMuteList::processMuteListUpdate(LLMessageSystem* msg, void**)
 		llwarns << "Got an mute list update for the wrong agent." << llendl;
 		return;
 	}
-	std::string filename;
-	msg->getStringFast(_PREHASH_MuteData, _PREHASH_Filename, filename);
+	std::string unclean_filename;
+	msg->getStringFast(_PREHASH_MuteData, _PREHASH_Filename, unclean_filename);
+	std::string filename = LLDir::getScrubbedFileName(unclean_filename);
 	
 	std::string *local_filename_and_path = new std::string(gDirUtilp->getExpandedFilename( LL_PATH_CACHE, filename ));
 	gXferManager->requestFile(*local_filename_and_path,

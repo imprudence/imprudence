@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -41,6 +42,10 @@
 #include "lscript_heapruntime.h"
 #include "lscript_alloc.h"
 
+// Static
+const	S32	DEFAULT_SCRIPT_TIMER_CHECK_SKIP = 4;
+S32		LLScriptExecute::sTimerCheckSkip = DEFAULT_SCRIPT_TIMER_CHECK_SKIP;
+
 void (*binary_operations[LST_EOF][LST_EOF])(U8 *buffer, LSCRIPTOpCodesEnum opcode);
 void (*unary_operations[LST_EOF])(U8 *buffer, LSCRIPTOpCodesEnum opcode);
 
@@ -62,6 +67,12 @@ const char* LSCRIPTRunTimeFaultStrings[LSRF_EOF] =		/*Flawfinder: ignore*/
 
 void LLScriptExecuteLSL2::startRunning() {}
 void LLScriptExecuteLSL2::stopRunning() {}
+
+const char* URL_REQUEST_GRANTED = "URL_REQUEST_GRANTED";
+const char* URL_REQUEST_DENIED = "URL_REQUEST_DENIED";
+
+// HTTP Requests to LSL scripts will time out after 25 seconds.
+const U64 LSL_HTTP_REQUEST_TIMEOUT = 25 * USEC_PER_SEC; 
 
 LLScriptExecuteLSL2::LLScriptExecuteLSL2(LLFILE *fp)
 {
@@ -744,6 +755,11 @@ S32 LLScriptExecuteLSL2::getMajorVersion() const
 	return major_version;
 }
 
+U32 LLScriptExecuteLSL2::getUsedMemory()
+{
+	return getBytecodeSize();
+}
+
 LLScriptExecute::LLScriptExecute() :
 	mReset(FALSE)
 {
@@ -891,14 +907,13 @@ void LLScriptExecute::runInstructions(BOOL b_print, const LLUUID &id,
 			b_done = TRUE;
 		}
 
-		while (!b_done)
+		if (!b_done)
 		{
 			// Call handler for next queued event.
 			if(getEventCount() > 0)
 			{
 				++events_processed;
 				callNextQueuedEventHandler(event_register, id, quanta);
-				b_done = TRUE;
 			}
 			else
 			{
@@ -910,8 +925,8 @@ void LLScriptExecute::runInstructions(BOOL b_print, const LLUUID &id,
 					++events_processed;
 					callEventHandler(event, id, quanta);
 				}
-				b_done = TRUE;
 			}
+			b_done = TRUE;
 		}
 	}
 }
@@ -919,7 +934,7 @@ void LLScriptExecute::runInstructions(BOOL b_print, const LLUUID &id,
 // Run for a single timeslice, or until a yield or state transition is due
 F32 LLScriptExecute::runQuanta(BOOL b_print, const LLUUID &id, const char **errorstr, F32 quanta, U32& events_processed, LLTimer& timer)
 {
-	U32 timer_checks = 0;
+	S32 timer_checks = 0;
 	F32 inloop = 0;
 
 	// Loop while not finished, yield not due and time remaining
@@ -931,12 +946,11 @@ F32 LLScriptExecute::runQuanta(BOOL b_print, const LLUUID &id, const char **erro
 		runInstructions(b_print, id, errorstr,
 						events_processed, quanta);
 		
-		static const S32 lsl_timer_check_skip = 4;
 		if(isYieldDue())
 		{
 			break;
 		}
-		else if(timer_checks++ == lsl_timer_check_skip)
+		else if(timer_checks++ >= LLScriptExecute::sTimerCheckSkip)
 		{
 			inloop = timer.getElapsedTimeF32();
 			if(inloop > quanta)
@@ -946,7 +960,16 @@ F32 LLScriptExecute::runQuanta(BOOL b_print, const LLUUID &id, const char **erro
 			timer_checks = 0;
 		}
 	}
+	if (inloop == 0.0f)
+	{
+		inloop = timer.getElapsedTimeF32();
+	}
 	return inloop;
+}
+
+F32 LLScriptExecute::runNested(BOOL b_print, const LLUUID &id, const char **errorstr, F32 quanta, U32& events_processed, LLTimer& timer)
+{
+	return LLScriptExecute::runQuanta(b_print, id, errorstr, quanta, events_processed, timer);
 }
 
 BOOL run_noop(U8 *buffer, S32 &offset, BOOL b_print, const LLUUID &id)

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -33,6 +34,7 @@
 #define LL_LLPREVIEWGESTURE_H
 
 #include "llpreview.h"
+#include "llmultigesture.h"
 
 class LLMultiGesture;
 class LLLineEditor;
@@ -101,14 +103,14 @@ protected:
 							   void* user_data,
 							   S32 status, LLExtStat ext_status);
 
-	static void handleSaveChangesDialog(S32 option, void* userdata);
+	bool handleSaveChangesDialog(const LLSD& notification, const LLSD& response);
 
 	// Write UI back into gesture
 	LLMultiGesture* createGesture();
 
 	// Add a step.  Pass the name of the step, like "Animation",
 	// "Sound", "Chat", or "Wait"
-	LLScrollListItem* addStep(const std::string& step_name);
+	LLScrollListItem* addStep(const enum EStepType step_type);
 
 	static void updateLabel(LLScrollListItem* item);
 

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -161,8 +162,14 @@ static struct ft_display_info ft_display_table[] =
 //	{ LLFastTimer::FTM_REBUILD_TREE_VB,		"     Tree",		&LLColor4::cyan1, 0 },
 	{ LLFastTimer::FTM_REBUILD_PARTICLE_VB,	"     Particle",	&LLColor4::cyan2, 0 },
 //	{ LLFastTimer::FTM_REBUILD_CLOUD_VB,	"     Cloud",		&LLColor4::cyan3, 0 },
-//	{ LLFastTimer::FTM_REBUILD_GRASS_VB,	"     Grass",		&LLColor4::cyan4, 0 },
- 	{ LLFastTimer::FTM_RENDER_GEOMETRY,		"  Geometry",		&LLColor4::green2, 1 },
+	{ LLFastTimer::FTM_REBUILD_GRASS_VB,	"     Grass",		&LLColor4::cyan4, 0 },
+ 	{ LLFastTimer::FTM_SHADOW_RENDER,		"  Shadow",			&LLColor4::green5, 1 },
+	{ LLFastTimer::FTM_SHADOW_SIMPLE,		"   Simple",		&LLColor4::yellow2, 1 },
+	{ LLFastTimer::FTM_SHADOW_ALPHA,		"   Alpha",			&LLColor4::yellow6, 1 },
+	{ LLFastTimer::FTM_SHADOW_TERRAIN,		"   Terrain",		&LLColor4::green6, 1 },
+	{ LLFastTimer::FTM_SHADOW_AVATAR,		"   Avatar",		&LLColor4::yellow1, 1 },
+	{ LLFastTimer::FTM_SHADOW_TREE,			"   Tree",			&LLColor4::yellow8, 1 },
+	{ LLFastTimer::FTM_RENDER_GEOMETRY,		"  Geometry",		&LLColor4::green2, 1 },
 	{ LLFastTimer::FTM_POOLS,				"   Pools",			&LLColor4::green3, 1 },
 	{ LLFastTimer::FTM_POOLRENDER,			"    RenderPool",	&LLColor4::green4, 1 },
 	{ LLFastTimer::FTM_RENDER_TERRAIN,		"     Terrain",		&LLColor4::green6, 0 },
@@ -204,7 +211,7 @@ static struct ft_display_info ft_display_table[] =
 	{ LLFastTimer::FTM_OTHER,				" Other",			&red0 }
 };
 static int ft_display_didcalc = 0;
-static const int FTV_DISPLAY_NUM  = (sizeof(ft_display_table)/sizeof(ft_display_table[0]));
+static const int FTV_DISPLAY_NUM  = LL_ARRAY_SIZE(ft_display_table);
 
 S32 ft_display_idx[FTV_DISPLAY_NUM]; // line of table entry for display purposes (for collapse)
 
@@ -285,7 +292,7 @@ BOOL LLFastTimerView::handleRightMouseDown(S32 x, S32 y, MASK mask)
 
 S32 LLFastTimerView::getLegendIndex(S32 y)
 {
-	S32 idx = (getRect().getHeight() - y) / ((S32) LLFontGL::sMonospace->getLineHeight()+2) - 5;
+	S32 idx = (getRect().getHeight() - y) / ((S32) LLFontGL::getFontMonospace()->getLineHeight()+2) - 5;
 	if (idx >= 0 && idx < FTV_DISPLAY_NUM)
 	{
 		return ft_display_idx[idx];
@@ -476,7 +483,7 @@ void LLFastTimerView::draw()
 		
 		x = xleft;
 		y = height - ytop;
-		texth = (S32)LLFontGL::sMonospace->getLineHeight();
+		texth = (S32)LLFontGL::getFontMonospace()->getLineHeight();
 
 		char modedesc[][32] = {
 			"2 x Average ",
@@ -491,16 +498,16 @@ void LLFastTimerView::draw()
 		};
 
 		tdesc = llformat("Full bar = %s [Click to pause/reset] [SHIFT-Click to toggle]",modedesc[mDisplayMode]);
-		LLFontGL::sMonospace->renderUTF8(tdesc, 0, x, y, LLColor4::white, LLFontGL::LEFT, LLFontGL::TOP);
+		LLFontGL::getFontMonospace()->renderUTF8(tdesc, 0, x, y, LLColor4::white, LLFontGL::LEFT, LLFontGL::TOP);
 
-		textw = LLFontGL::sMonospace->getWidth(tdesc);
+		textw = LLFontGL::getFontMonospace()->getWidth(tdesc);
 
 		x = xleft, y -= (texth + 2);
 		tdesc = llformat("Justification = %s [CTRL-Click to toggle]",centerdesc[mDisplayCenter]);
-		LLFontGL::sMonospace->renderUTF8(tdesc, 0, x, y, LLColor4::white, LLFontGL::LEFT, LLFontGL::TOP);
+		LLFontGL::getFontMonospace()->renderUTF8(tdesc, 0, x, y, LLColor4::white, LLFontGL::LEFT, LLFontGL::TOP);
 		y -= (texth + 2);
 
-		LLFontGL::sMonospace->renderUTF8(std::string("[Right-Click log selected] [ALT-Click toggle counts] [ALT-SHIFT-Click sub hidden]"),
+		LLFontGL::getFontMonospace()->renderUTF8(std::string("[Right-Click log selected] [ALT-Click toggle counts] [ALT-SHIFT-Click sub hidden]"),
 										 0, x, y, LLColor4::white, LLFontGL::LEFT, LLFontGL::TOP);
 		y -= (texth + 2);
 	}
@@ -625,15 +632,15 @@ void LLFastTimerView::draw()
 
 		if (is_child_of_hover_item)
 		{
-			LLFontGL::sMonospace->renderUTF8(tdesc, 0, x, y, color, LLFontGL::LEFT, LLFontGL::TOP, LLFontGL::BOLD);
+			LLFontGL::getFontMonospace()->renderUTF8(tdesc, 0, x, y, color, LLFontGL::LEFT, LLFontGL::TOP, LLFontGL::BOLD);
 		}
 		else
 		{
-			LLFontGL::sMonospace->renderUTF8(tdesc, 0, x, y, color, LLFontGL::LEFT, LLFontGL::TOP);
+			LLFontGL::getFontMonospace()->renderUTF8(tdesc, 0, x, y, color, LLFontGL::LEFT, LLFontGL::TOP);
 		}
 		y -= (texth + 2);
 
-		textw = dx + LLFontGL::sMonospace->getWidth(std::string(ft_display_table[i].desc)) + 40;
+		textw = dx + LLFontGL::getFontMonospace()->getWidth(std::string(ft_display_table[i].desc)) + 40;
 		if (textw > legendwidth)
 			legendwidth = textw;
 	}
@@ -647,7 +654,7 @@ void LLFastTimerView::draw()
 	// update rectangle that includes timer bars
 	mBarRect.mLeft = xleft;
 	mBarRect.mRight = getRect().mRight - xleft;
-	mBarRect.mTop = ytop - ((S32)LLFontGL::sMonospace->getLineHeight() + 4);
+	mBarRect.mTop = ytop - ((S32)LLFontGL::getFontMonospace()->getLineHeight() + 4);
 	mBarRect.mBottom = margin + LINE_GRAPH_HEIGHT;
 
 	y = ytop;
@@ -733,23 +740,23 @@ void LLFastTimerView::draw()
 			U32 ms = (U32)((F64)totalticks * iclock_freq) ;
 
 			tdesc = llformat("%.1f ms |", (F32)ms*.25f);
-			x = xleft + barw/4 - LLFontGL::sMonospace->getWidth(tdesc);
-			LLFontGL::sMonospace->renderUTF8(tdesc, 0, x, y, LLColor4::white,
+			x = xleft + barw/4 - LLFontGL::getFontMonospace()->getWidth(tdesc);
+			LLFontGL::getFontMonospace()->renderUTF8(tdesc, 0, x, y, LLColor4::white,
 										 LLFontGL::LEFT, LLFontGL::TOP);
 			
 			tdesc = llformat("%.1f ms |", (F32)ms*.50f);
-			x = xleft + barw/2 - LLFontGL::sMonospace->getWidth(tdesc);
-			LLFontGL::sMonospace->renderUTF8(tdesc, 0, x, y, LLColor4::white,
+			x = xleft + barw/2 - LLFontGL::getFontMonospace()->getWidth(tdesc);
+			LLFontGL::getFontMonospace()->renderUTF8(tdesc, 0, x, y, LLColor4::white,
 										 LLFontGL::LEFT, LLFontGL::TOP);
 			
 			tdesc = llformat("%.1f ms |", (F32)ms*.75f);
-			x = xleft + (barw*3)/4 - LLFontGL::sMonospace->getWidth(tdesc);
-			LLFontGL::sMonospace->renderUTF8(tdesc, 0, x, y, LLColor4::white,
+			x = xleft + (barw*3)/4 - LLFontGL::getFontMonospace()->getWidth(tdesc);
+			LLFontGL::getFontMonospace()->renderUTF8(tdesc, 0, x, y, LLColor4::white,
 										 LLFontGL::LEFT, LLFontGL::TOP);
 			
 			tdesc = llformat( "%d ms |", ms);
-			x = xleft + barw - LLFontGL::sMonospace->getWidth(tdesc);
-			LLFontGL::sMonospace->renderUTF8(tdesc, 0, x, y, LLColor4::white,
+			x = xleft + barw - LLFontGL::getFontMonospace()->getWidth(tdesc);
+			LLFontGL::getFontMonospace()->renderUTF8(tdesc, 0, x, y, LLColor4::white,
 										 LLFontGL::LEFT, LLFontGL::TOP);
 		}
 
@@ -761,7 +768,7 @@ void LLFastTimerView::draw()
 
 			S32 by = y + 2;
 			
-			y -= ((S32)LLFontGL::sMonospace->getLineHeight() + 4);
+			y -= ((S32)LLFontGL::getFontMonospace()->getLineHeight() + 4);
 
 			//heading
 			gl_rect_2d(xleft-5, by, getRect().getWidth()-5, y+5, FALSE);
@@ -955,10 +962,10 @@ void LLFastTimerView::draw()
 			else
 				tdesc = llformat("%4.2f ms", ms);
 							
-			x = graph_rect.mRight - LLFontGL::sMonospace->getWidth(tdesc)-5;
-			y = graph_rect.mTop - ((S32)LLFontGL::sMonospace->getLineHeight());
+			x = graph_rect.mRight - LLFontGL::getFontMonospace()->getWidth(tdesc)-5;
+			y = graph_rect.mTop - ((S32)LLFontGL::getFontMonospace()->getLineHeight());
  
-			LLFontGL::sMonospace->renderUTF8(tdesc, 0, x, y, LLColor4::white,
+			LLFontGL::getFontMonospace()->renderUTF8(tdesc, 0, x, y, LLColor4::white,
 										 LLFontGL::LEFT, LLFontGL::TOP);
 
 			//highlight visible range
@@ -1066,7 +1073,7 @@ void LLFastTimerView::draw()
 				x = (graph_rect.mRight + graph_rect.mLeft)/2;
 				y = graph_rect.mBottom + 8;
 
-				LLFontGL::sMonospace->renderUTF8(std::string(ft_display_table[mHoverIndex].desc), 0, x, y, LLColor4::white,
+				LLFontGL::getFontMonospace()->renderUTF8(std::string(ft_display_table[mHoverIndex].desc), 0, x, y, LLColor4::white,
 					LLFontGL::LEFT, LLFontGL::BOTTOM);
 			}					
 		}

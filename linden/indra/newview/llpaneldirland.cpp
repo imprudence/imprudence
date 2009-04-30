@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -50,7 +51,7 @@
 #include "lltextbox.h"
 #include "llviewercontrol.h"
 #include "llviewermessage.h"
-
+#include "llnotify.h"
 //-----------------------------------------------------------------------------
 // Constants
 //-----------------------------------------------------------------------------
@@ -59,10 +60,6 @@ static const char FIND_ALL[] = "All Types";
 static const char FIND_AUCTION[] = "Auction";
 static const char FIND_MAINLANDSALES[] = "Mainland Sales";
 static const char FIND_ESTATESALES[] = "Estate Sales";
-
-const char PG_ONLY[]     = "PG only";
-const char MATURE_ONLY[] = "Mature only";
-const char PG_MATURE[]   = "PG & Mature";
 
 LLPanelDirLand::LLPanelDirLand(const std::string& name, LLFloaterDirectory* floater)
 	:	LLPanelDirBrowser(name, floater)
@@ -75,10 +72,18 @@ BOOL LLPanelDirLand::postBuild()
 
 	childSetValue("type", gSavedSettings.getString("FindLandType"));
 
-	if (gAgent.isTeen())
+	bool adult_enabled = gAgent.canAccessAdult();
+	bool mature_enabled = gAgent.canAccessMature();
+	childSetVisible("incpg", true);
+	if (!mature_enabled)
 	{
-		childSetValue("rating", PG_ONLY);
-		childDisable("rating");
+		childSetValue("incmature", FALSE);
+		childDisable("incmature");
+	}
+	if (!adult_enabled)
+	{
+		childSetValue("incadult", FALSE);
+		childDisable("incadult");
 	}
 
 	childSetCommitCallback("pricecheck", onCommitPrice, this);
@@ -111,6 +116,13 @@ LLPanelDirLand::~LLPanelDirLand()
 	// Children all cleaned up by default view destructor.
 }
 
+// virtual
+void LLPanelDirLand::draw()
+{
+	updateMaturityCheckbox();
+
+	LLPanelDirBrowser::draw();
+}
 
 void LLPanelDirLand::onClickSort(void* data)
 {
@@ -141,6 +153,15 @@ void LLPanelDirLand::onCommitArea(LLUICtrl* ctrl, void* data)
 
 void LLPanelDirLand::performQuery()
 {
+	BOOL inc_pg = childGetValue("incpg").asBoolean();
+	BOOL inc_mature = childGetValue("incmature").asBoolean();
+	BOOL inc_adult = childGetValue("incadult").asBoolean();
+	if (!(inc_pg || inc_mature || inc_adult))
+	{
+		LLNotifications::instance().add("NoContentToSearch");
+		return;
+	}
+
 	LLMessageSystem* msg = gMessageSystem;
 
 	setupNewSearch();
@@ -156,16 +177,35 @@ void LLPanelDirLand::performQuery()
 	}
 
 	U32 query_flags = 0x0;
-	if (gAgent.isTeen()) query_flags |= DFQ_PG_SIMS_ONLY;
+	if (gAgent.wantsPGOnly()) query_flags |= DFQ_PG_SIMS_ONLY;
 
-	const std::string& rating = childGetValue("rating").asString();
-	if (rating == PG_ONLY)
+	bool adult_enabled = gAgent.canAccessAdult();
+	bool mature_enabled = gAgent.canAccessMature();
+
+	if (inc_pg)
+	{
+		query_flags |= DFQ_INC_PG;
+	}
+
+	if (inc_mature && mature_enabled)
+	{
+		query_flags |= DFQ_INC_MATURE;
+	}
+
+	if (inc_adult && adult_enabled)
+	{
+		query_flags |= DFQ_INC_ADULT;
+	}
+	
+	// Add old flags in case we are talking to an old dataserver
+	if (inc_pg && !inc_mature)
 	{
 		query_flags |= DFQ_PG_SIMS_ONLY;
 	}
-	else if (rating == MATURE_ONLY)
+
+	if (!inc_pg && inc_mature)
 	{
-		query_flags |= DFQ_MATURE_SIMS_ONLY;
+		query_flags |= DFQ_MATURE_SIMS_ONLY; 
 	}
 
 	LLScrollListCtrl* list = getChild<LLScrollListCtrl>("results");

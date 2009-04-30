@@ -15,14 +15,11 @@
 	<text name=" Camera Options:">
 		カメラ・オプション：
 	</text>
+	<text name="camera_fov_label">
+		カメラ視野角：
+	</text>
 	<text name="Camera Follow Distance:">
 		カメラ追従距離：
-	</text>
-	<text name="Camera Transition Time:">
-		カメラ移動時間：
-	</text>
-	<text name="Camera Smoothing:">
-		カメラ・スムージング：
 	</text>
 	<check_box label="編集カメラの自動移動" name="edit_camera_movement" tool_tip="編集モードの開始、終了時はカメラ自動位置調整を使用"/>
 	<check_box label="容姿カメラの自動移動" name="appearance_camera_movement" tool_tip="編集モードでは、カメラ自動位置調整を使用"/>
@@ -30,9 +27,5 @@
 		アバター表示：
 	</text>
 	<check_box label="アバターを一人称視点（マウスルック）で表示" name="first_person_avatar_visible"/>
-	<text name="text5">
-		ジョイスティック
-オプション：
-	</text>
 	<button label="ジョイスティック設定" name="joystick_setup_button"/>
 </panel>

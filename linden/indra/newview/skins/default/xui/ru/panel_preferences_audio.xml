@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Аудио и Видео" name="Media panel">
+	<text type="string" length="1" name="muting_text">
+		Громкость:
+	</text>
+	<text type="string" length="1" name="streaming_prefs_text">
+		Настройки потока:
+	</text>
+	<text type="string" length="1" name="audio_prefs_text">
+		Настройки звука:
+	</text>
+	<panel label="Громкость" name="Volume Panel" />
+	<check_box
+	     label="Играть потоковое аудио, если доступно (медленнее)"
+	     name="streaming_music" />
+	<check_box
+	     label="Играть потоковое медиа, если доступно (медленнее)"
+	     name="streaming_video" />
+	<check_box label="Автоматически играть медиа"
+	     name="auto_streaming_video" />
+	<check_box label="Отключать звук при сворачивании окна"
+	     name="mute_when_minimized" />
+	<slider label="Эффект допплера:" name="Doppler Effect" />
+	<slider label="Фактор расстояния:" name="Distance Factor" />
+	<slider label="Фактор рассеивания:" name="Rolloff Factor" />
+	<spinner label="Порог изменения L$" name="L$ Change Threshold" />
+	<spinner label="Порог изм. здоровья" name="Health Change Threshold" />
+</panel>

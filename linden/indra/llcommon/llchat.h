@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -77,7 +78,8 @@ public:
 		mAudible(CHAT_AUDIBLE_FULLY),
 		mMuted(FALSE),
 		mTime(0.0),
-		mPosAgent()
+		mPosAgent(),
+		mURL()
 	{ }
 	
 	std::string		mText;		// UTF-8 line of text
@@ -89,6 +91,7 @@ public:
 	BOOL			mMuted;		// pass muted chat to maintain list of chatters
 	F64				mTime;		// viewer only, seconds from viewer start
 	LLVector3		mPosAgent;
+	std::string		mURL;
 };
 
 #endif

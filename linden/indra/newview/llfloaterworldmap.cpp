@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -49,10 +50,8 @@
 #include "lldraghandle.h"
 #include "llfirstuse.h"
 #include "llfocusmgr.h"
-#include "llinventorymodel.h"
 #include "lllandmarklist.h"
 #include "lllineeditor.h"
-#include "llnetmap.h"
 #include "llpreviewlandmark.h"
 #include "llregionhandle.h"
 #include "llscrolllistctrl.h"
@@ -430,9 +429,19 @@ void LLFloaterWorldMap::reshape( S32 width, S32 height, BOOL called_from_parent 
 void LLFloaterWorldMap::draw()
 {
 	// Hide/Show Mature Events controls
-	childSetVisible("events_mature_icon", !gAgent.isTeen());
-	childSetVisible("events_mature_label", !gAgent.isTeen());
-	childSetVisible("event_mature_chk", !gAgent.isTeen());
+	childSetVisible("events_mature_icon", gAgent.canAccessMature());
+	childSetVisible("events_mature_label", gAgent.canAccessMature());
+	childSetVisible("event_mature_chk", gAgent.canAccessMature());
+
+	childSetVisible("events_adult_icon", gAgent.canAccessMature());
+	childSetVisible("events_adult_label", gAgent.canAccessMature());
+	childSetVisible("event_adult_chk", gAgent.canAccessMature());
+	bool adult_enabled = gAgent.canAccessAdult();
+	if (!adult_enabled)
+	{
+		childSetValue("event_adult_chk", FALSE);
+	}
+	childSetEnabled("event_adult_chk", adult_enabled);
 
 	// On orientation island, users don't have a home location yet, so don't
 	// let them teleport "home".  It dumps them in an often-crowed welcome
@@ -1305,10 +1314,10 @@ void LLFloaterWorldMap::onCopySLURL(void* data)
 	LLFloaterWorldMap* self = (LLFloaterWorldMap*)data;
 	gViewerWindow->mWindow->copyTextToClipboard(utf8str_to_wstring(self->mSLURL));
 	
-	LLStringUtil::format_map_t args;
-	args["[SLURL]"] = self->mSLURL;
+	LLSD args;
+	args["SLURL"] = self->mSLURL;
 
-	LLAlertDialog::showXml("CopySLURL", args);
+	LLNotifications::instance().add("CopySLURL", args);
 }
 
 void LLFloaterWorldMap::onCheckEvents(LLUICtrl*, void* data)
@@ -1316,6 +1325,7 @@ void LLFloaterWorldMap::onCheckEvents(LLUICtrl*, void* data)
 	LLFloaterWorldMap* self = (LLFloaterWorldMap*)data;
 	if(!self) return;
 	self->childSetEnabled("event_mature_chk", self->childGetValue("event_chk"));
+	self->childSetEnabled("event_adult_chk", self->childGetValue("event_chk"));
 }
 
 // protected

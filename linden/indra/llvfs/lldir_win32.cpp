@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -58,14 +59,18 @@ LLDir_Win32::LLDir_Win32()
 
 	mOSUserDir = utf16str_to_utf8str(llutf16string(w_str));
 
-	// Local Settings\Application Data is where cache files should
-	// go, they don't get copied to the server if the user moves his
-	// profile around on the network. JC
+	// We want cache files to go on the local disk, even if the
+	// user is on a network with a "roaming profile".
 	//
-	// TODO: patch the installer to remove old cache files on update, then
-	// enable this code.
-	//SHGetSpecialFolderPath(NULL, w_str, CSIDL_LOCAL_APPDATA, TRUE);
-	//mOSUserCacheDir = utf16str_to_utf8str(llutf16string(w_str));
+	// On XP this is:
+	//   C:\Docments and Settings\James\Local Settings\Application Data
+	// On Vista this is:
+	//   C:\Users\James\AppData\Local
+	//
+	// We used to store the cache in AppData\Roaming, and the installer
+	// cleans up that version on upgrade.  JC
+	SHGetSpecialFolderPath(NULL, w_str, CSIDL_LOCAL_APPDATA, TRUE);
+	mOSCacheDir = utf16str_to_utf8str(llutf16string(w_str));
 
 	if (GetTempPath(MAX_PATH, w_str))
 	{
@@ -124,6 +129,20 @@ LLDir_Win32::LLDir_Win32()
 		mAppRODataDir = getCurPath();
 	else
 		mAppRODataDir = mExecutableDir;
+
+
+	// Build the default cache directory
+	mDefaultCacheDir = buildSLOSCacheDir();
+	
+	// Make sure it exists
+	int res = LLFile::mkdir(mDefaultCacheDir);
+	if (res == -1)
+	{
+		if (errno != EEXIST)
+		{
+			llwarns << "Couldn't create LL_PATH_CACHE dir " << mDefaultCacheDir << llendl;
+		}
+	}
 }
 
 LLDir_Win32::~LLDir_Win32()

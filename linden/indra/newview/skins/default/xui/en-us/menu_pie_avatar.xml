@@ -10,7 +10,9 @@
 	<menu_item_call enabled="false" label="Go To" mouse_opaque="true" name="Go To">
 		<on_click function="GoToObject" />
 	</menu_item_call>
-	<menu_item_separator />
+  <menu_item_call enabled="true" label="Report..." mouse_opaque="true" name="abuse">
+    <on_click function="Avatar.ReportAbuse" />
+  </menu_item_call>
 	<menu_item_call enabled="false" label="Add Friend..." mouse_opaque="true" name="Add Friend">
 		<on_click function="Avatar.AddFriend" />
 		<on_enable function="Avatar.EnableAddFriend" />

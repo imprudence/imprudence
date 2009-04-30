@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Panel Avatar">
+	<tab_container name="tab">
+		<panel label="2е Життя" name="2nd Life">
+			<string name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+			<string name="AcctTypeResident">
+				Резидент
+			</string>
+			<string name="AcctTypeTrial">
+				Тріальний
+			</string>
+			<string name="AcctTypeCharterMember">
+				Засновник
+			</string>
+			<string name="AcctTypeEmployee">
+				Працівник Linden lab
+			</string>
+			<string name="PaymentInfoUsed">
+				Плат.інфо є
+			</string>
+			<string name="PaymentInfoOnFile">
+				Плат.інфо в файлі
+			</string>
+			<string name="NoPaymentInfoOnFile">
+				Немає плат.інфо
+			</string>
+			<string name="AgeVerified">
+				Вік перевірено
+			</string>
+			<string name="NotAgeVerified">
+				Вік неперевірено
+			</string>
+			<text name="Name:">
+				Ім&apos;я:
+			</text>
+			<text name="online_yes">
+				Зараз онлайн
+			</text>
+			<text name="label">
+				Народ.:
+			</text>
+			<text name="label2">
+				Аккаунт:
+			</text>
+			<text name="partner_label"
+			     tool_tip="Партнер Second Life. Для інформації, як ним стати, див. www.secondlife.com/partner">
+				Партнер
+			</text>
+			<button label="i" label_selected="i" name="partner_info"
+			     tool_tip="Натисніть для перегляду профіля партнера" />
+			<button label="?" label_selected="?" name="partner_help" />
+			<line_editor name="partner_edit"
+			     tool_tip="Партнер Second Life. Для інформації, як ним стати, див. www.secondlife.com/partner">
+				[FIRST] [LAST]
+			</line_editor>
+			<text name="Photo:">
+				Фото:
+			</text>
+			<texture_picker label="" name="img"
+			     tool_tip="натисніть для вибору картинки" />
+			<text name="Groups:">
+				Групи:
+			</text>
+			<text name="About:">
+				Про себе:
+			</text>
+			<text name="(500 chars)">
+				(500 симв.)
+			</text>
+			<text name="Give item:">
+				Дати річ:
+			</text>
+			<text name="Give inventory"
+			     tool_tip="Киньте предмети інвентаря сюди, щоб віддати їх цій персоні.">
+				Кинути предмет інвентаря сюди.
+			</text>
+			<check_box label="Показувати в пошуку" name="allow_publish"
+			     tool_tip="Публікувати додаткову інформацію, таку як опис і картинки, в Пошуку." />
+			<button label="?" label_selected="?" name="?" />
+			<button label="На карті" label_selected="На карті" name="Find on Map" />
+			<button label="Запр.телепорт..."
+			     label_selected="Запр.телепорт..." name="Offer Teleport..." />
+			<button label="Додати Друга..." label_selected="Додати Друга..."
+			     name="Add Friend..." />
+			<button label="Платити..." label_selected="Платити..." name="Pay..." />
+			<button label="Миттєв. повідом..."
+			     label_selected="Миттєве повідомлення..."
+			     name="Instant Message..."
+			     tool_tip="Миттєве повідомлення (IM)" />
+			<button label="Заглушити" label_selected="Заглушити" name="Mute" />
+		</panel>
+		<panel label="Web" name="WebProfile">
+			<button label="Домой" label_selected="Домой" name="home" />
+			<button label="Завантаження" label_selected="Завантаження"
+			     name="load"
+			     tool_tip="Завантажити сторінку профіля вбудованим браузером." />
+			<button label="Відкрити..." label_selected="Відкрити..." name="open"
+			     tool_tip="Завантажити сторінку профіля зовнішнім браузером." />
+			<button label="?" label_selected="?" name="web_profile_help" />
+			<check_box label="Автозавантаж. профіля в Web" name="auto_load"
+			     tool_tip="Автоматично завантажувати ВСІ Інтернет-профілі без запиту." />
+		</panel>
+		<panel label="Інтереси" name="Interests">
+			<text name="I Want To:">
+				Я хочу:
+			</text>
+			<check_box label="Будувати" name="chk0" />
+			<check_box label="Досліджувати" name="chk1" />
+			<check_box label="Зустрічатися" name="chk2" />
+			<check_box label="Працювати" name="chk6" />
+			<check_box label="Бути в Групі" name="chk3" />
+			<check_box label="Купувати" name="chk4" />
+			<check_box label="Продавати" name="chk5" />
+			<check_box label="Наймати" name="chk7" />
+			<text name="Skills:">
+				Вмію:
+			</text>
+			<check_box label="Текстури" name="schk0" />
+			<check_box label="Архітектура" name="schk1" />
+			<check_box label="Планування подій" name="schk2" />
+			<check_box label="Моделюв." name="schk3" />
+			<check_box label="Програмув." name="schk4" />
+			<check_box label="Створення Персонажів" name="schk5" />
+			<text name="Languages:">
+				Мови:
+			</text>
+		</panel>
+		<panel label="Вибране" name="Picks">
+			<text name="Tell everyone about your favorite places in Second Life.">
+				Розповісти усім про Ваші улюблені місця в SL
+			</text>
+			<button label="Новий..." label_selected="Новий..." name="New..." />
+			<button label="Видалити..." label_selected="Видалити..."
+			     name="Delete..." />
+			<text name="loading_text">
+				Завантаження...
+			</text>
+		</panel>
+		<panel label="Реклама" name="Classified">
+			<text name="Place an ad in Second Life&apos;s classified listings.">
+				Розмістити рекламу в Second Life.
+			</text>
+			<button label="Новий..." label_selected="Новий..." name="New..." />
+			<button label="Видалити..." label_selected="Видалити..."
+			     name="Delete..." />
+			<text name="loading_text">
+				Завантаження...
+			</text>
+		</panel>
+		<panel label="1е Життя" name="1st Life">
+			<text name="Photo:">
+				Фото:
+			</text>
+			<texture_picker label="" name="img"
+			     tool_tip="натисніть для вибору картинки" />
+			<text name="Info:">
+				Інфо:
+			</text>
+			<text name="(250 chars)">
+				(250 симв.)
+			</text>
+		</panel>
+		<panel label="Мої замітки" name="My Notes">
+			<string name="Loading">
+				Завантаження...
+			</string>
+			<text name="label">
+				Використуйте це місце для запису Ваших заміток про цю персону. 
+Ведіть щоденник торгівлі, успішних проектів і т.д. 
+Жодна персона чи інші люди ніколи не побачать цих заміток.
+			</text>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="Відміна" label_selected="Відміна" name="Cancel" />
+	<button label="Викинути" label_selected="Викинути" name="Kick" />
+	<button label="Заморозити" label_selected="Заморозити"
+	     name="Freeze"
+	     tool_tip="Зупинити переміщення резидента і його чат." />
+	<button label="Розморозити" label_selected="Розморозити"
+	     name="Unfreeze" tool_tip="Розморозити резидента" />
+	<button label="CSR" label_selected="CSR" name="csr_btn"
+	     tool_tip="Відкрити сервіс підтримки для резидента" />
+	<string name="ShowOnMapNonFriend">
+		Місцезнаходження на карті.
+Вимкнено тому що Ви не оформили
+дружби з ним.
+	</string>
+	<string name="ShowOnMapFriendOffline">
+		Місцезнаходження на карті.
+Вимкнено тому що вони в офлайні.
+	</string>
+	<string name="ShowOnMapFriendOnline">
+		Місцезнаходження на карті.
+	</string>
+	<string name="TeleportGod">
+		Застосув. телепорт до Вашого розміщення.
+	</string>
+	<string name="TeleportPrelude">
+		Дозволити телепорт до Вашого розміщення.
+Вимкнено, доки Ви не покинете Orientation Island.
+	</string>
+	<string name="TeleportNormal">
+		Дозволити телепорт до Вашого розміщення.
+	</string>
+	<string name="Loading">
+		Завантаження...
+	</string>
+</panel>

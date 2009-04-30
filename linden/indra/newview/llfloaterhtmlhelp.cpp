@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -270,7 +271,7 @@ public:
 	// used for some stats logging - will be removed at some point
 	static BOOL sFloaterOpened;
 
-	static void onClickF1HelpLoadURL(S32 option, void* userdata);
+	static bool onClickF1HelpLoadURL(const LLSD& notification, const LLSD& response);
 
 protected:
 	LLWebBrowserCtrl* mWebBrowser;
@@ -376,26 +377,35 @@ void LLFloaterHtmlHelp::show(std::string url, std::string title)
 {
 	LLFloaterHtml* floater_html = LLFloaterHtml::getInstance();
 	floater_html->setVisible(FALSE);
-
-	if(url.empty())
+	
+	if (url.empty())
 	{
 		url = floater_html->getSupportUrl();
 	}
-	std::string* url_copy = new std::string(url);
 
-    gViewerWindow->alertXml("ClickOpenF1Help", onClickF1HelpLoadURL, url_copy);
-
+	if (gSavedSettings.getBOOL("UseExternalBrowser"))
+	{
+        LLSD payload;
+        payload["url"] = url;
+		
+	    LLNotifications::instance().add("ClickOpenF1Help", LLSD(), payload, onClickF1HelpLoadURL);	    
+	}
+	else
+	{
+	    // don't wait, just do it
+        LLWeb::loadURL(url);
+	}
 }
 
 // static 
-void LLFloaterHtmlHelp::onClickF1HelpLoadURL(S32 option, void* userdata)
+bool LLFloaterHtmlHelp::onClickF1HelpLoadURL(const LLSD& notification, const LLSD& response)
 {
-	std::string* urlp = (std::string*)userdata;
-	if (0 == option)
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if (option == 0)
 	{
-		LLWeb::loadURL(urlp->c_str());
+		LLWeb::loadURL(notification["payload"]["url"].asString());
 	}
-	delete urlp;
+	return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

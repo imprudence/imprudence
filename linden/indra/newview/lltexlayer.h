@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -532,18 +533,18 @@ public:
 	S32 mTGABytes;
 };
 
-
 // Used by LLTexLayerSetBuffer for a callback.
 class LLBakedUploadData
 {
 public:
-	LLBakedUploadData( LLVOAvatar* avatar, LLTexLayerSetBuffer* layerset_buffer );
+	LLBakedUploadData( LLVOAvatar* avatar, LLTexLayerSetBuffer* layerset_buffer, const LLUUID & id);
 	~LLBakedUploadData() {}
 
 	LLUUID					mID;
 	LLVOAvatar*				mAvatar;	 // just backlink, don't LLPointer 
 	LLTexLayerSetBuffer*	mLayerSetBuffer;
 	LLUUID					mWearableAssets[WT_COUNT];
+	U64						mStartTime;		// Used to measure time baked texture upload requires
 };
 
 extern LLTexStaticImageList gTexStaticImageList;

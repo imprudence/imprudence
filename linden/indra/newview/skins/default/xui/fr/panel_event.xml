@@ -12,18 +12,6 @@
 	<text name="event_category">
 		(aucun)
 	</text>
-	<text name="event_mature_label">
-		Pour adultes :
-	</text>
-	<text name="event_mature">
-		(inconnu)
-	</text>
-	<text name="event_mature_yes">
-		Oui
-	</text>
-	<text name="event_mature_no">
-		Non
-	</text>
 	<text name="event_date_label">
 		Date :
 	</text>

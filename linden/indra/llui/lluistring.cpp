@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -31,6 +32,7 @@
 
 #include "linden_common.h"
 #include "lluistring.h"
+#include "llsd.h"
 
 const LLStringUtil::format_map_t LLUIString::sNullArgs;
 
@@ -51,6 +53,18 @@ void LLUIString::assign(const std::string& s)
 void LLUIString::setArgList(const LLStringUtil::format_map_t& args)
 {
 	mArgs = args;
+	format();
+}
+
+void LLUIString::setArgs(const LLSD& sd)
+{
+	if (!sd.isMap()) return;
+	for(LLSD::map_const_iterator sd_it = sd.beginMap();
+		sd_it != sd.endMap();
+		++sd_it)
+	{
+		setArg(sd_it->first, sd_it->second.asString());
+	}
 	format();
 }
 

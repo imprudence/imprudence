@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -61,8 +62,8 @@ public:
 	virtual void navigateToDefaultPage();
 	void focus();
 
-	static std::string buildSearchURL(const std::string& search_text, const std::string& collection, bool mature_in);
-	static std::string getSearchURLSuffix(bool mature_in);
+	static std::string buildSearchURL(const std::string& search_text, const std::string& collection, bool inc_pg, bool inc_mature, bool inc_adult);
+	static std::string getSearchURLSuffix(bool inc_pg, bool inc_mature, bool inc_adult);
 
 private:
 	static void onClickBack( void* data );
@@ -70,6 +71,7 @@ private:
 	static void onClickHome( void* data );
 	static void onClickSearch( void* data );
 	static void onCommitSearch(LLUICtrl*, void* data);
+	static void onClickHelp( void* data );
 
 	/*virtual*/ void onNavigateBegin( const EventType& eventIn );
 	/*virtual*/ void onNavigateComplete( const EventType& eventIn );

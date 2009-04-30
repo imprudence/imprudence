@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="content_panel">
+	<text_editor type="string" length="1" name="voice_intro_text1">
+		Witamy w Rozmowach w Second Life! Rozmowy umożliwiają używanie głosu w kontaktach z innymi Rezydentami. Ten wizard pomoże Ci skonfigurowc Rozmowy. Aby używać Rozmów Twój komputer musi posiadać głośniki i mikrofon albo słuchawki z mikrofonem.
+	</text_editor>
+	<text_editor type="string" length="1" name="voice_intro_text2">
+		Rozmowy są włączone. Czy chcesz ich używać?
+	</text_editor>
+	<radio_group name="voice_enable">
+		<radio_item type="string" length="1" name="1">
+			Tak, chcę używać Rozmów.
+		</radio_item>
+		<radio_item type="string" length="1" name="0">
+			Nie, wyłącz Rozmowy.
+		</radio_item>
+	</radio_group>
+	<text_editor length="1" name="voice_intro_text3">
+		Zawsze możesz włączyć Rozmowy wybierając opcję Głos w Ustawieniach.
+	</text_editor>
+	<text_editor length="1" name="voice_intro_text4">
+		Naciśnij Dalej aby skonfigurować Rozmowy albo naciśnij Zastosuj żeby zacząć używać Second Life.
+	</text_editor>
+</panel>

@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="directory" title="Suchen">
 	<tab_container name="Directory Tabs">
-		<panel label="Alle" name="all_panel">
-			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
-			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<text left_delta="38" name="find">
-				Suchen:
-			</text>
-			<line_editor left_delta="48" name="name" />
-			<button label="Suchen" label_selected="Suchen" name="Search" />
-			<check_box label="Ab-18-Inhalte einschließen" name="incmature" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="Name" name="name" />
-				<column label="Price" name="price" />
-				<column label="Time (PT)" name="date" />
-				<column label="Time" name="time" />
-				<column label="Traffic" name="dwell" />
-				<column label="Area" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
-				<column label="Online" name="online" />
-				<column label="Members" name="members" />
-			</scroll_list>
-		</panel>
 		<panel label="Alle" name="find_all_panel">
 			<string name="searching_text">
 				Suchen...
@@ -30,6 +8,9 @@
 			<string name="not_found_text">
 				Nicht gefunden.
 			</string>
+			<text name="find">
+				Suchen:
+			</text>
 			<button label="Zurück" name="back_btn" />
 			<button label="Weiter" name="forward_btn" />
 			<line_editor label="Suchen" name="search_editor" tool_tip="Second Life durchsuchen" />
@@ -57,7 +38,7 @@
 					Wiki
 				</combo_item>
 			</combo_box>
-			<check_box label="Ab-18-Inhalte einschließen" name="mature_check" />
+
 			<text name="loading_text">
 				Wird geladen...
 			</text>
@@ -77,14 +58,11 @@
 			</string>
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<text left_delta="38" name="find">
+			<text name="find">
 				Suchen:
 			</text>
-			<line_editor left_delta="48" name="name" width="116" />
-			<check_box bottom_delta="-18" control_name="ShowMatureClassifieds" follows="left|top"
-			     font="SansSerifSmall" height="16" initial_value="true"
-			     label="Ab-18-Inhalte einschließen" left="49" mouse_opaque="true"
-			     name="incmature" width="156" />
+			<line_editor name="name" />
+
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Alle Kategorien
@@ -153,13 +131,13 @@
 			     tool_tip="Einen Tag weiter" />
 			<button label="Heute" label_selected="Heute" name="Today"
 			     tool_tip="Heutige Events anzeigen" />
-			<text name="text" width="90">
+			<text name="text" >
 				Kategorie:
 			</text>
-			<text name="text2" width="90">
-				Name/Beschr.:
+			<text name="text2" >
+				Suchen:
 			</text>
-			<combo_box left="374" name="category combo" width="185">
+			<combo_box name="category combo" width="205">
 				<combo_item name="All">
 					Alle
 				</combo_item>
@@ -197,8 +175,8 @@
 					Sonstiges
 				</combo_item>
 			</combo_box>
-			<line_editor left="374" name="event_search_text" width="185" />
-			<check_box label="Ab 18 anzeigen" name="incmature" />
+			<line_editor name="event_search_text" />
+
 			<button label="Suchen" label_selected="Suchen" name="Search" tool_tip="Suchen" />
 			<button label="Löschen" label_selected="Löschen" name="Delete" />
 			<scroll_list name="results">
@@ -222,8 +200,6 @@
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<check_box label="Nur Orte mit Bildern anzeigen" name="incpictures" />
-			<check_box label="Parzellen mit zugangsbeschränkten Inhalten einschließen"
-			     name="incmature" />
 			<text
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
 				Das sind die beliebtesten Orte der Second Life-Welt, nach Traffic sowie 
@@ -259,9 +235,12 @@ Zeit gemessen, die Benutzer dort verbringen.
 			<string name="not_found_text">
 				Nicht gefunden.
 			</string>
+			<text name="find" >
+				Suchen:
+			</text>
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<combo_box name="type">
+			<combo_box name="type" width="135">
 				<combo_item name="AllTypes">
 					Alle Typen
 				</combo_item>
@@ -275,19 +254,16 @@ Zeit gemessen, die Benutzer dort verbringen.
 					Verkauf - Immobilien
 				</combo_item>
 			</combo_box>
-			<combo_box name="rating">
-				<combo_item name="PG&amp;Mature">
-					Jugendfrei &amp; Ab 18
-				</combo_item>
-				<combo_item name="PGonly">
-					Nur Jugendfrei
-				</combo_item>
-				<combo_item name="Matureonly">
-					Nur ab 18
-				</combo_item>
-			</combo_box>
-			<check_box label="Preis &lt;= L$" name="pricecheck" />
-			<check_box label="Gebiet &gt;= qm" name="areacheck" />
+			<check_box label="Preis &#8804; " name="pricecheck" />
+			<text name="pricecheck_symbol" left="186" >
+				L$
+			</text>
+			<check_box label="Gebiet &#8805; " name="areacheck" />
+			<text name="areacheck_symbol" left="186">
+				m²
+			</text>
+			<line_editor name="priceedit" left="130"/>
+			<line_editor name="areaedit" left="130"/>
 			<button label="Suchen" label_selected="Suchen" name="Search" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="left|top"
@@ -315,11 +291,11 @@ Namen des Landes in der Titelleiste
 			</string>
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<text left_delta="38" name="find">
+			<text name="find">
 				Suchen:
 			</text>
-			<line_editor left_delta="48" name="name" width="118" />
-			<check_box label="Parzellen mit Ab-18-Inhalten einschließen" name="incmature" />
+			<line_editor name="name" />
+
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Alle Kategorien
@@ -327,9 +303,7 @@ Namen des Landes in der Titelleiste
 				<combo_item name="LindenLocation">
 					Lindenort
 				</combo_item>
-				<combo_item name="Adult">
-					Ab 18
-				</combo_item>
+
 				<combo_item name="Arts&amp;Culture">
 					Kunst und Kultur
 				</combo_item>
@@ -403,7 +377,7 @@ Namen des Landes in der Titelleiste
 			</text>
 			<line_editor left_delta="48" name="name" />
 			<button label="Suchen" label_selected="Suchen" name="Search" />
-			<check_box label="Ab-18-Gruppen einschließen" name="incmature" />
+
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
@@ -415,7 +389,7 @@ Namen des Landes in der Titelleiste
 			<button label="Weiter" name="forward_btn" />
 			<line_editor label="Suchen" name="search_editor" tool_tip="Second Life durchsuchen" />
 			<button label="Suchen" name="search_btn" />
-			<check_box label="Ab-18-Inhalte einschließen" name="mature_check" />
+
 			<string name="loading_text">
 				Wird geladen...
 			</string>
@@ -437,7 +411,7 @@ Namen des Landes in der Titelleiste
 			</text>
 			<line_editor left_delta="48" name="name" />
 			<button label="Suchen" label_selected="Suchen" name="Search" />
-			<check_box label="Ab-18-Inhalte einschließen" name="incmature" />
+
 			<scroll_list name="results">
 				<column label="Name" name="name" />
 				<column label="Preis" name="price" />

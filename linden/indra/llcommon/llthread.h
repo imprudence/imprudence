@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -82,7 +83,8 @@ public:
 	void start(void);
 
 	apr_pool_t *getAPRPool() { return mAPRPoolp; }
-	
+	LLVolatileAPRPool* getLocalAPRFilePool() { return mLocalAPRFilePoolp ; }
+
 private:
 	BOOL				mPaused;
 	
@@ -97,6 +99,11 @@ protected:
 	apr_pool_t			*mAPRPoolp;
 	BOOL				mIsLocalPool;
 	EThreadStatus		mStatus;
+
+	//a local apr_pool for APRFile operations in this thread. If it exists, LLAPRFile::sAPRFilePoolp should not be used.
+	//Note: this pool is used by APRFile ONLY, do NOT use it for any other purposes.
+	//      otherwise it will cause severe memory leaking!!! --bao
+	LLVolatileAPRPool  *mLocalAPRFilePoolp ; 
 
 	void setQuitting();
 	

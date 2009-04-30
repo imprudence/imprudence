@@ -8,17 +8,7 @@
 	<button label="テレポート" name="classified_teleport_btn" />
 	<button label="地図" name="classified_map_btn" />
 	<combo_box label="" name="classified_category_combo" />
-	<check_box label="成人" name="classified_mature_check">
-		<combo_item name="select_mature">
-			-成熟度を選択-
-		</combo_item>
-		<combo_item name="mature">
-			成人向けコンテンツ
-		</combo_item>
-		<combo_item name="not_mature">
-			非成人向けコンテンツ
-		</combo_item>
-	</check_box>
+
 	<text name="classified_info_text"
 	     tool_tip="広告料を多く払うほど、広告の掲載順は上がります。">
 		広告掲載：未発行

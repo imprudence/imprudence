@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview_sound">
+	<text type="string" length="1" name="desc txt">
+		Описание:
+	</text>
+	<button label="Играть локально"
+	     label_selected="Играть локально" name="Sound audition btn"
+	     tool_tip="Воспроизвести так, чтобы это услышали только Вы" />
+	<button label="Играть в Мире" label_selected="Играть в Мире"
+	     name="Sound play btn"
+	     tool_tip="Воспроизвести так, чтобы было слышно всем" />
+</floater>

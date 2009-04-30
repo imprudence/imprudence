@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -33,9 +34,9 @@
 #define LL_LLVERSIONSERVER_H
 
 const S32 LL_VERSION_MAJOR = 1;
-const S32 LL_VERSION_MINOR = 24;
-const S32 LL_VERSION_PATCH = 9;
-const S32 LL_VERSION_BUILD = 98650;
+const S32 LL_VERSION_MINOR = 27;
+const S32 LL_VERSION_PATCH = 0;
+const S32 LL_VERSION_BUILD = 112940;
 
 const char * const LL_CHANNEL = "Second Life Server";
 

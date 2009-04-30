@@ -1,143 +1,114 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="一般选项" name="general_panel">
-	<radio_group
-		 draw_border="false"
-		 name="default_start_location">
-		<radio_item
-			name="MyHome"
-			tool_tip="默认登录到我的家。">
+	<radio_group draw_border="false" name="default_start_location">
+		<radio_item name="MyHome" tool_tip="默认登录到我的家。">
 			我的家
 		</radio_item>
-		<radio_item
-			name="MyLastLocation"
-			tool_tip="默认登录到我最后的位置。">
+		<radio_item name="MyLastLocation" tool_tip="默认登录到我最后的位置。">
 			我最后在的位置
 		</radio_item>
 	</radio_group>
-
-	
-	<check_box label="在登陆界面上显示起始位置" name="show_location_checkbox" />
-	
-	<combo_box name="fade_out_combobox" >
-		<combo_item name="Never" >
+	<check_box label="在登陆界面上显示起始位置" name="show_location_checkbox"/>
+	<combo_box name="fade_out_combobox">
+		<combo_item name="Never">
 			从不显示
 		</combo_item>
-		<combo_item name="Show Temporarily" >
+		<combo_item name="Show Temporarily">
 			暂时显示
 		</combo_item>
 		<combo_item name="Always">
 			总是显示
 		</combo_item>
 	</combo_box>
-	
-	<check_box label="在我的屏幕上隐藏我的名字" name="show_my_name_checkbox" />
-	<text
-		 name="group_titles_textbox">
+	<check_box label="化身名字使用小号字体" name="small_avatar_names_checkbox"/>
+	<check_box label="在我的屏幕上隐藏我的名字" name="show_my_name_checkbox"/>
+	<text name="group_titles_textbox">
 		社团头衔:
 	</text>
-
-	<check_box label="隐藏所有社团头衔" name="show_all_title_checkbox" />
-	<check_box label="隐藏我的社团头衔" name="show_my_title_checkbox" />
-	<check_box label="化身名字使用小号字体" name="small_avatar_names_checkbox" />
-	
-	<color_swatch label="" name="effect_color_swatch"
-	     tool_tip="点击这里来打开色彩选择器" />
-		 
-	<!-- UI Sizing -->
+	<check_box label="隐藏所有社团头衔" name="show_all_title_checkbox"/>
+	<check_box label="隐藏我的社团头衔" name="show_my_title_checkbox"/>
+	<color_swatch label="" name="effect_color_swatch" tool_tip="点击这里来打开色彩选择器"/>
 	<text name="UI Size:">
 		界面尺寸:
-	</text>		 
-	<check_box bottom="-236" control_name="UIAutoScale" enabled="true" follows="left|top"
-		font="SansSerifSmall" height="16" hidden="false" initial_value="false"
-		label="使用分辨率无关尺寸" left="148" mouse_opaque="true"
-		name="ui_auto_scale" radio_style="false" width="256" />
-	
-	<spinner label="离开休息计时:" name="afk_timeout_spinner" />
-	
-	<check_box label="显示在线好友通知" name="friends_online_notify_checkbox" />
-	<check_box label="旋转迷你地图" name="rotate_mini_map_checkbox" />
-	<check_box label="在付出或收到林登币 (L$) 时提醒我"
-	     name="notify_money_change_checkbox" />
-	<check_box label="下次启动时自动检测图像显示硬件"
-	     name="probe_hardware_checkbox"
-	     tool_tip="第二人生会根据您的硬件配置自动对一些图像设置进行调配。 如果您安装了新的硬件， 您应该让第二人生重新调配。" />
-	<check_box label="使用系统默认色彩选择器"
-	     name="use_system_color_picker_checkbox"
-	     tool_tip="使用系统默认色彩撷取器，代替在第二人生中建设的色彩撷取器。" />
-	<text type="string" length="1" name="start_location_textbox">
+	</text>
+	<check_box bottom="-236" label="使用分辨率无关尺寸" left="148" name="ui_auto_scale" width="256"/>
+	<spinner label="离开休息计时:" name="afk_timeout_spinner"/>
+	<check_box label="旋转迷你地图" name="rotate_mini_map_checkbox"/>
+	<check_box label="在付出或收到林登币 (L$) 时提醒我" name="notify_money_change_checkbox"/>
+	<check_box label="使用系统默认色彩选择器" name="use_system_color_picker_checkbox" tool_tip="使用系统默认色彩撷取器，代替在第二人生中建设的色彩撷取器。"/>
+	<check_box label="在覆盖栏中显示搜索面板" mouse_opaque="true" name="show_search_panel" tool_tip="显示嵌入的搜索面板。"/>
+	<text length="1" name="start_location_textbox" type="string">
 		起始位置:
 	</text>
-	<text type="string" length="1" name="show_names_textbox">
+	<text length="1" name="show_names_textbox" type="string">
 		显示名字:
 	</text>
-	<text type="string" length="1" name="effects_color_textbox">
+	<text length="1" name="effects_color_textbox" type="string">
 		我的效果颜色:
 	</text>
-	<text type="string" length="1" name="seconds_textbox">
+	<text length="1" name="seconds_textbox" type="string">
 		秒
 	</text>
-	<text type="string" length="1" name="crash_report_textbox">
+	<text length="1" name="crash_report_textbox" type="string">
 		崩溃报告:
 	</text>
-	<text type="string" length="1" name="language_textbox">
+	<text length="1" name="language_textbox" type="string">
 		语言:
 	</text>
-	<text type="string" length="1" name="language_textbox2">
+	<text length="1" name="language_textbox2" type="string">
 		(要使更改完全生效，需重新启动程序)
 	</text>
-<check_box 
-	     label="在覆盖栏中显示搜索面板"  mouse_opaque="true"
-	     name="show_search_panel" 
-	     tool_tip="显示嵌入的搜索面板。"/>
-	
-	<text name="region_name_prompt">
+	<string name="region_name_prompt">
 		&lt;输入地域名&gt;
-	</text>
+	</string>
 	<combo_box name="crash_behavior_combobox">
-		<combo_item type="string" length="1" name="Askbeforesending">
+		<combo_item length="1" name="Askbeforesending" type="string">
 			在发送之前询问
 		</combo_item>
-		<combo_item type="string" length="1" name="Alwayssend">
+		<combo_item length="1" name="Alwayssend" type="string">
 			总是发送
 		</combo_item>
-		<combo_item type="string" length="1" name="Neversend">
+		<combo_item length="1" name="Neversend" type="string">
 			从不发送
 		</combo_item>
 	</combo_box>
 	<combo_box name="language_combobox">
-		<combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">
+		<combo_item name="System Default Language" >
 			系统默认值
 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="English" value="en-us">
+		<combo_item name="English" >
 			English (英语)
 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Chinese" value="zh">
-			中文 (简体)  - 测试版
+		<combo_item name="Danish" >
+			Dansk （丹麦）- Beta
 		</combo_item>
-		<combo_item length="1" name="Danish" type="string">
-			Dansk (Danish) - 测试版
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Deutsch(German)" value="de">
+		<combo_item name="Deutsch(German)" >
 			Deutsch (德语) - 测试版
 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="French" value="fr">
-			Français (法语) - 测试版
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="(Japanese)" value="ja">
-			日本語 (日语) - 测试版
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="(Korean)" value="ko">
-			한국어 (朝鲜语) - 测试版
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Portugese" value="pt">
-			Português (葡萄牙语) - 测试版
-		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Spanish" value="es">
+		<combo_item name="Spanish" >
 			Español (西班牙语) - 测试版
 		</combo_item>
+		<combo_item name="French" >
+			Français (法语) - 测试版
+		</combo_item>
+		<combo_item name="Hungarian">
+			Magyar 马札儿语（匈牙利）- Beta
+		</combo_item>
+		<combo_item name="Polish">
+			Polski （波兰）- Beta
+		</combo_item>
+		<combo_item name="Portugese" >
+			Português (葡萄牙语) - 测试版
+		</combo_item>
+		<combo_item name="Chinese" >
+			中文 (简体)  - 测试版
+		</combo_item>
+		<combo_item name="(Japanese)" >
+			日本語 (日语) - 测试版
+		</combo_item>
+		<combo_item name="(Korean)" >
+			한국어 (朝鲜语) - 测试版
+		</combo_item>
 	</combo_box>
-	<check_box
-		 label="与物体共享语言"
-		 name="language_is_public"
-		 tool_tip="这使得世界内的物体可以知道你偏好的语言。" />
+	<check_box label="与物体共享语言" name="language_is_public" tool_tip="这使得世界内的物体可以知道你偏好的语言。"/>
 </panel>

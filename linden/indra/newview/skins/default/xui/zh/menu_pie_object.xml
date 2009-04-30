@@ -1,23 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <pie_menu name="Object Pie">
-	<menu_item_call label="打开" name="Open" />
-	<menu_item_call label="创造" name="Create" />
-	<menu_item_call label="触摸" name="Object Touch" />
-	<menu_item_call label="坐在这里" name="Object Sit" />
-	<menu_item_call label="拿走" name="Pie Object Take" />
-	<menu_item_call label="付款..." name="Pay..." />
+	<menu_item_call label="打开" name="Open"/>
+	<menu_item_call label="创造" name="Create"/>
+	<menu_item_call label="触摸" name="Object Touch"/>
+	<menu_item_call label="坐在这里" name="Object Sit"/>
+	<menu_item_call label="拿走" name="Pie Object Take"/>
+	<menu_item_call label="付款..." name="Pay..."/>
 	<pie_menu label="更多 &gt;" name="More &gt;">
-		<menu_item_call label="删除" name="Delete" />
-		<menu_item_call label="穿上" name="Wear" />
-		<menu_item_call label="拿走副本" name="Take Copy" />
-		<pie_menu label="装上到HUD &gt;" name="Object Attach HUD" />
-		<pie_menu label="装备到&gt;" name="Object Attach" />
-		<menu_item_call label="归还..." name="Return..." />
+		<menu_item_call label="删除" name="Delete"/>
+		<menu_item_call label="穿上" name="Wear"/>
+		<menu_item_call label="拿走副本" name="Take Copy"/>
+		<pie_menu label="装上到HUD &gt;" name="Object Attach HUD"/>
+		<pie_menu label="装备到&gt;" name="Object Attach"/>
+		<menu_item_call label="归还..." name="Return..."/>
 		<pie_menu label="更多 &gt;" name="Rate Menu">
-			<menu_item_call label="报告不良行为..." name="Report Abuse..." />
-			<menu_item_call label="屏蔽" name="Object Mute" />
+			<menu_item_call label="报告不良行为..." name="Report Abuse..."/>
+			<menu_item_call label="屏蔽" name="Object Mute"/>
+			<menu_item_call label="审查" name="Object Inspect"/>
 		</pie_menu>
-		<menu_item_call label="购买..." name="Buy..." />
+		<menu_item_call label="购买..." name="Buy..."/>
 	</pie_menu>
-	<menu_item_call label="编辑..." name="Edit..." />
+	<menu_item_call label="编辑..." name="Edit..."/>
 </pie_menu>

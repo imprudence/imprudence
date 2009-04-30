@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -119,7 +120,7 @@ BOOL LLMessageThrottle::addViewerAlert(const LLUUID& to, const std::string& mesg
 	full_mesg << to << mesg;
 
 	// Create an entry for this message.
-	size_t hash = llhash<const char*> (full_mesg.str().c_str());
+	size_t hash = llhash(full_mesg.str().c_str());
 	LLMessageThrottleEntry entry(hash, LLFrameTimer::getTotalTime());
 
 	// Check if this message is already in the list.
@@ -153,7 +154,7 @@ BOOL LLMessageThrottle::addAgentAlert(const LLUUID& agent, const LLUUID& task, c
 	full_mesg << agent << task << mesg;
 
 	// Create an entry for this message.
-	size_t hash = llhash<const char*> (full_mesg.str().c_str());
+	size_t hash = llhash(full_mesg.str().c_str());
 	LLMessageThrottleEntry entry(hash, LLFrameTimer::getTotalTime());
 
 	// Check if this message is already in the list.

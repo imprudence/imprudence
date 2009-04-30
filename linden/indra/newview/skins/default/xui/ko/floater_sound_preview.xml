@@ -7,7 +7,7 @@
 		설명:
 	</text>
 	<button label="취소" label_selected="취소" name="cancel_btn" />
-	<button label="업로드(L$10)" label_selected="업로드(L$10)" name="ok_btn" />
+	<button label="업로드(L$[AMOUNT])" label_selected="업로드(L$[AMOUNT])" name="ok_btn" />
 	<text name="text">
 		비트율(kbps):
 	</text>

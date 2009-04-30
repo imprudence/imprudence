@@ -34,8 +34,7 @@
 			<check_box label="ウェブ上で公開" name="allow_publish"
 			     tool_tip="自分のプロファイル情報をウェブ上で公開します。" />
 			<button label="?" label_selected="?" name="publish_help_btn" />
-			<check_box label="成人" name="mature"
-			     tool_tip="あなたのプロファイル情報は成人向けと見なされています。" />
+			<check_box name="mature" />
 		</panel>
 		<panel label="肩書き" name="tit">
 			<text name="txt">

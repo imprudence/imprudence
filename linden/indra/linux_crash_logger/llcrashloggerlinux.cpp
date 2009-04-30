@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -90,7 +91,7 @@ static BOOL do_ask_dialog(void)
 
 	win = gtk_message_dialog_new(NULL,
 				     flags, messagetype, buttons,
-				     dialog_text);
+				     "%s", dialog_text);
 	gtk_window_set_type_hint(GTK_WINDOW(win),
 				 GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_title(GTK_WINDOW(win), dialog_title);

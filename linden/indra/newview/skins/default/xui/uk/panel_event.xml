@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Event" title="Подія">
+	<text name="event_name_label">
+		Назва:
+	</text>
+	<text name="event_name">
+		(немає)
+	</text>
+	<text name="event_category_label">
+		Тип:
+	</text>
+	<text name="event_category">
+		(немає)
+	</text>
+
+	<text name="event_date_label">
+		Дата:
+	</text>
+	<text name="event_date">
+		(немає)
+	</text>
+	<text name="event_duration_label">
+		Тривалість події:
+	</text>
+	<text name="event_duration">
+		(немає)
+	</text>
+	<text name="event_runby_label">
+		Початок:
+	</text>
+	<text name="event_runby">
+		(немає)
+	</text>
+	<text name="event_location_label">
+		Місце:
+	</text>
+	<text name="event_location">
+		(немає)
+	</text>
+	<text name="event_cover_label">
+		Обкладинка:
+	</text>
+	<text name="event_cover">
+		(немає)
+	</text>
+	<text name="event_desc_label">
+		Опис:
+	</text>
+	<button label="Телепорт" name="teleport_btn" />
+	<button label="Показати на карті" name="map_btn" />
+	<button label="Повідомлення" name="notify_btn" />
+	<button label="Створити подію..." name="create_event_btn" />
+	<string name="none">
+		немає
+	</string>
+	<string name="notify">
+		Повідомити
+	</string>
+	<string name="dont_notify">
+		Не повідомляти
+	</string>
+</panel>

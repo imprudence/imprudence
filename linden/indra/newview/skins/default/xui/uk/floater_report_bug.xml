@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="bug_reporter" title="Відправити звіт">
+	<texture_picker label="" name="screenshot" />
+	<check_box label="Прикласти скріншот" name="screen_check" />
+	<text name="reporter_title">
+		Автор:
+	</text>
+	<text name="sim_title">
+		Регіон:
+	</text>
+	<text name="pos_title">
+		Координати:
+	</text>
+	<text name="select_object_label">
+		Натисніть кнопку, потім об&apos;єкт:
+	</text>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="Виберіть об&apos;єкт, з яким пов&apos;язана помилка" />
+	<text name="object_name_label">
+		Назва об&apos;єкта:
+	</text>
+	<text name="object_name">
+		Consetetur Sadipscing
+	</text>
+	<text name="owner_name_label">
+		Власник:
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
+	</text>
+	<combo_box name="category_combo"
+	     tool_tip="Виберіть категорію, под яку більше всього підходить ця помилка">
+		<combo_item name="Selectcategory">
+			Виберіть категорію
+		</combo_item>
+		<combo_item name="Building">
+			Будівля
+		</combo_item>
+		<combo_item name="Character">
+			Персонаж
+		</combo_item>
+		<combo_item name="Chat/IM">
+			Чат/IM
+		</combo_item>
+		<combo_item name="Documentation">
+			Документація
+		</combo_item>
+		<combo_item name="Exploit">
+			Дія
+		</combo_item>
+		<combo_item name="Graphics">
+			Графіка
+		</combo_item>
+		<combo_item name="Inventory">
+			Інвентар
+		</combo_item>
+		<combo_item name="Lag">
+			Лаги
+		</combo_item>
+		<combo_item name="MissingContent">
+			Відсутній зміст
+		</combo_item>
+		<combo_item name="LindenDollars(L$)">
+			Гроші (L$)
+		</combo_item>
+		<combo_item name="Permissions">
+			Дозволи
+		</combo_item>
+		<combo_item name="Physics">
+			Фізика
+		</combo_item>
+		<combo_item name="Script">
+			Скрипт
+		</combo_item>
+		<combo_item name="Sound">
+			Звук
+		</combo_item>
+		<combo_item name="Stipends">
+			Стипендія
+		</combo_item>
+		<combo_item name="Userinterface">
+			Інтерфейс
+		</combo_item>
+		<combo_item name="Miscellaneous">
+			Різне
+		</combo_item>
+	</combo_box>
+	<text name="sum_title">
+		Коротко:
+	</text>
+	<text name="dscr_title">
+		Деталі: (будь ласка, укажіть по можливості більше інформації)
+	</text>
+	<text_editor name="details_edit">
+		Кроки отримання помилки:
+
+Результати, що спостерігаються:
+
+Очікувані результати:
+	</text_editor>
+	<text name="bug_aviso">
+		Примітка: Неповні звіти не розглядаються
+Якщо помилка дозволяє Вам робити щось, чого Ви не повинні, особливо якщо це загрожує
+производительности або безопасности, будь ласка 
+обирайте категорію &apos;Дія&apos; Дякуємо!
+	</text>
+	<button label="Відмінити" label_selected="Відмінити"
+	     name="cancel_btn" />
+	<button label="Сообщить про ошибке"
+	     label_selected="Сообщить про ошибке" name="send_btn" />
+</floater>

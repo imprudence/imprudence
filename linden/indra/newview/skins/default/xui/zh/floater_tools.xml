@@ -1,125 +1,68 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="toolbox floater" title="">
-	<button label="" label_selected="" name="button focus" 
-		tool_tip="聚焦" />
-	<button label="" label_selected="" name="button move" 
-		tool_tip="移动"/>
-	<button label="" label_selected="" name="button edit" 
-		tool_tip="编辑" />
-	<button label="" label_selected="" name="button create" 
-		tool_tip="创造"/>
-	<button label="" label_selected="" name="button land" 
-		tool_tip="土地"/>
-		
-<!-- Focus panel/聚焦面板 -->
-
-	<check_box label="缩放" name="radio zoom" />
-	<check_box label="环绕(Ctrl)" name="radio orbit" />
-	<check_box label="平移(Ctrl-Shift)" name="radio pan" />
-	
-<!-- Move panel/移动面板 -->
-
-	<check_box label="移动" name="radio move" />
-	<check_box label="举起 (Ctrl)" name="radio lift" />
-	<check_box label="旋转 (Ctrl-Shift)" name="radio spin" />
-	
-<!-- Edit panel/编辑面板 -->
-
-	<check_box label="位置" name="radio position" />
-	<check_box label="旋转(Ctrl)" name="radio rotate" />
-	<check_box label="拉伸(Ctrl-Shift)" name="radio stretch" />
-	<check_box label="选择材质" name="radio select face" />
-	<check_box label="编辑连接部件" name="checkbox edit linked parts" />
-	<text
-		 name="text ruler mode">
+	<button label="" label_selected="" name="button focus" tool_tip="聚焦"/>
+	<button label="" label_selected="" name="button move" tool_tip="移动"/>
+	<button label="" label_selected="" name="button edit" tool_tip="编辑"/>
+	<button label="" label_selected="" name="button create" tool_tip="创造"/>
+	<button label="" label_selected="" name="button land" tool_tip="土地"/>
+	<check_box label="缩放" name="radio zoom"/>
+	<check_box label="环绕(Ctrl)" name="radio orbit"/>
+	<check_box label="平移(Ctrl-Shift)" name="radio pan"/>
+	<check_box label="移动" name="radio move"/>
+	<check_box label="举起 (Ctrl)" name="radio lift"/>
+	<check_box label="旋转 (Ctrl-Shift)" name="radio spin"/>
+	<check_box label="位置" name="radio position"/>
+	<check_box label="旋转(Ctrl)" name="radio rotate"/>
+	<check_box label="拉伸(Ctrl-Shift)" name="radio stretch"/>
+	<check_box label="选择材质" name="radio select face"/>
+	<check_box label="编辑连接部件" name="checkbox edit linked parts"/>
+	<text name="text ruler mode">
 		标尺模式:
 	</text>
-	<combo_box
-		 name="combobox grid mode">
-		<combo_item
-			 name="World">
+	<combo_box name="combobox grid mode">
+		<combo_item name="World">
 			世界
 		</combo_item>
-		<combo_item
-			 name="Local">
+		<combo_item name="Local">
 			本地
 		</combo_item>
-		<combo_item
-			 name="Reference" >
+		<combo_item name="Reference">
 			参照物
 		</combo_item>
 	</combo_box>
-	<check_box label="使用网格" name="checkbox snap to grid" />
-	<button label="选项..." label_selected="选项..." name="Options..." />
-	<check_box label="同时拉伸两边" name="checkbox uniform" />
-	<check_box label="拉伸材质" name="checkbox stretch textures" />
+	<check_box label="同时拉伸两边" name="checkbox uniform"/>
+	<check_box label="拉伸材质" name="checkbox stretch textures"/>
+	<check_box label="使用网格" name="checkbox snap to grid"/>
+	<button label="选项..." label_selected="选项..." name="Options..."/>
 	<text name="text status">
 		拖动来移动物体, 按住 Shift 拖动来复制
 	</text>
-	<button label="" label_selected="" name="ToolCube" tool_tip="立方体" />
-	<button label="" label_selected="" name="ToolPrism" 
-		tool_tip="棱柱" />
-	<button label="" label_selected="" name="ToolPyramid" 
-		tool_tip="棱锥" />
-	<button label="" label_selected="" name="ToolTetrahedron" 
-		tool_tip="四面体" />
-	<button label="" label_selected="" name="ToolCylinder" 
-		tool_tip="圆柱体" />
-	<button label="" label_selected="" name="ToolHemiCylinder" 
-		tool_tip="半圆柱体" />
-	<button label="" label_selected="" name="ToolCone" 
-		tool_tip="圆锥" />
-	<button label="" label_selected="" name="ToolHemiCone" 
-		tool_tip="半圆锥" />
-	<button label="" label_selected="" name="ToolSphere" 
-		tool_tip="球体" />
-	<button label="" label_selected="" name="ToolHemiSphere" 
-		tool_tip="半球体" />
-	<button
-		 name="ToolTorus"
-		 tool_tip="圆环" />
-	<button
-		 image_disabled="object_tube.tga"
-		 image_disabled_selected="object_tube_active.tga"
-		 label=""
-		 label_selected=""
-		 name="ToolTube"
-		 tool_tip="圆管" />
-	<button
-		 image_disabled="object_ring.tga"
-		 image_disabled_selected="object_ring_active.tga"
-		 label=""
-		 label_selected=""
-		 name="ToolRing"
-		 tool_tip="环" />
-	<button
-		 image_disabled="object_tree.tga"
-		 image_disabled_selected="object_tree_active.tga"
-		 label=""
-		 label_selected=""
-		 name="ToolTree"
-		 tool_tip="树木" />
-	<button
-		 image_disabled="object_grass.tga"
-		 image_disabled_selected="object_grass_active.tga"
-		 label=""
-		 label_selected=""
-		 name="ToolGrass"
-		 tool_tip="草地" />
-	<check_box label="复制选择项" name="checkbox copy selection" />
-	<check_box label="保持选定工具" name="checkbox sticky" />
-	<check_box label="居中附件" name="checkbox copy centers" />
-	<check_box label="旋转附件" name="checkbox copy rotates" />
-	
-<!-- Land panel/土地面板 -->
-
-	<check_box label="选择土地" name="radio select land" />
-	<check_box label="磨平土地" name="radio flatten" />
-	<check_box label="抬高土地" name="radio raise" />
-	<check_box label="降低土地" name="radio lower" />
-	<check_box label="使土地光滑" name="radio smooth" />
-	<check_box label="粗糙化土地" name="radio noise" />
-	<check_box label="恢复土地" name="radio revert" />
+	<button label="" label_selected="" name="ToolCube" tool_tip="立方体"/>
+	<button label="" label_selected="" name="ToolPrism" tool_tip="棱柱"/>
+	<button label="" label_selected="" name="ToolPyramid" tool_tip="棱锥"/>
+	<button label="" label_selected="" name="ToolTetrahedron" tool_tip="四面体"/>
+	<button label="" label_selected="" name="ToolCylinder" tool_tip="圆柱体"/>
+	<button label="" label_selected="" name="ToolHemiCylinder" tool_tip="半圆柱体"/>
+	<button label="" label_selected="" name="ToolCone" tool_tip="圆锥"/>
+	<button label="" label_selected="" name="ToolHemiCone" tool_tip="半圆锥"/>
+	<button label="" label_selected="" name="ToolSphere" tool_tip="球体"/>
+	<button label="" label_selected="" name="ToolHemiSphere" tool_tip="半球体"/>
+	<button label="" label_selected="" name="ToolTorus" tool_tip="圆环"/>
+	<button image_disabled="object_tube.tga" image_disabled_selected="object_tube_active.tga" label="" label_selected="" name="ToolTube" tool_tip="圆管"/>
+	<button image_disabled="object_ring.tga" image_disabled_selected="object_ring_active.tga" label="" label_selected="" name="ToolRing" tool_tip="环"/>
+	<button image_disabled="object_tree.tga" image_disabled_selected="object_tree_active.tga" label="" label_selected="" name="ToolTree" tool_tip="树木"/>
+	<button image_disabled="object_grass.tga" image_disabled_selected="object_grass_active.tga" label="" label_selected="" name="ToolGrass" tool_tip="草地"/>
+	<check_box label="保持选定工具" name="checkbox sticky"/>
+	<check_box label="复制选择项" name="checkbox copy selection"/>
+	<check_box label="居中附件" name="checkbox copy centers"/>
+	<check_box label="旋转附件" name="checkbox copy rotates"/>
+	<check_box label="选择土地" name="radio select land"/>
+	<check_box label="磨平土地" name="radio flatten"/>
+	<check_box label="抬高土地" name="radio raise"/>
+	<check_box label="降低土地" name="radio lower"/>
+	<check_box label="使土地光滑" name="radio smooth"/>
+	<check_box label="粗糙化土地" name="radio noise"/>
+	<check_box label="恢复土地" name="radio revert"/>
 	<combo_box name="combobox brush size">
 		<combo_item name="Small">
 			小
@@ -131,17 +74,13 @@
 			大
 		</combo_item>
 	</combo_box>
-	<text type="string" name="Strength:">
-	          强度:
+	<text name="Strength:" type="string">
+		强度:
 	</text>
-	<button label="应用到所选项目" label_selected="应用到所选项目"
-	     name="button apply to selection" tool_tip="更改所选土地" />
-	<check_box label="显示物品主人" name="checkbox show owners" />
-	<button label="更多 &gt;&gt;" name="button more" tool_tip="高级选项" />
-	<button label="&lt;&lt; 更少" name="button less" tool_tip="高级选项" />
-	
-<!-- Sub-tabs/子标签页 -->
-	
+	<button label="应用到所选项目" label_selected="应用到所选项目" name="button apply to selection" tool_tip="更改所选土地"/>
+	<check_box label="显示物品主人" name="checkbox show owners"/>
+	<button label="更多 &gt;&gt;" name="button more" tool_tip="高级选项"/>
+	<button label="&lt;&lt; 更少" name="button less" tool_tip="高级选项"/>
 	<tab_container name="Object Info Tabs">
 		<panel label="一般" name="General">
 			<text name="Name:">
@@ -156,21 +95,21 @@
 			<text name="Creator Name">
 				斯雷萨斯·林登
 			</text>
-			<button label="档案..." label_selected="档案..." name="button creator profile" />
+			<button label="档案..." label_selected="档案..." name="button creator profile"/>
 			<text name="Owner:">
 				主人:
 			</text>
 			<text name="Owner Name">
 				斯雷萨斯·林登
 			</text>
-			<button label="档案..." label_selected="档案..." name="button owner profile" />
+			<button label="档案..." label_selected="档案..." name="button owner profile"/>
 			<text name="Group:">
 				社团:
 			</text>
 			<text name="Group Name Proxy">
 				The Lindens
 			</text>
-			<button label="设置..." label_selected="设置..." name="button set group" />
+			<button label="设置..." label_selected="设置..." name="button set group"/>
 			<text name="prim info">
 				1个物体, 1个元件
 			</text>
@@ -180,25 +119,20 @@
 			<text name="perm_modify">
 				你可以修改这件物体。
 			</text>
-			<check_box label="与社团分享" name="checkbox share with group"
-			     tool_tip="允许社团成员来移动，改进，复制以及删除" />
-			<text name="text deed continued">
+			<check_box label="与社团分享" name="checkbox share with group" tool_tip="允许社团成员来移动，改进，复制以及删除"/>
+			<string name="text deed continued">
 				契约...
-			</text>
-			<text name="text deed">
+			</string>
+			<string name="text deed">
 				转让
-			</text>
-			<button label="契约..." label_selected="契约..." name="button deed"
-			     tool_tip="社团共享的物体可被社团官员认可。" />
-			<check_box label="允许任何人移动" name="checkbox allow everyone move" />
-			<check_box label="允许任何人复制" name="checkbox allow everyone copy" />
-			<check_box label="出售" name="checkbox for sale" />
-			<check_box
-				 label="在搜索中显示"
-				 name="search_check"
-				 tool_tip="让别人可以在搜索结果中看到这件物体。" />
-			<text name="Price:  L$">
-				价格：L$
+			</string>
+			<button label="契约..." label_selected="契约..." name="button deed" tool_tip="社团共享的物体可被社团官员认可。"/>
+			<check_box label="允许任何人移动" name="checkbox allow everyone move"/>
+			<check_box label="允许任何人复制" name="checkbox allow everyone copy"/>
+			<check_box label="在搜索中显示" name="search_check" tool_tip="让别人可以在搜索结果中看到这件物体。"/>
+			<check_box label="出售" name="checkbox for sale"/>
+			<text name="Cost">
+				价格:   L$
 			</text>
 			<radio_group name="sale type">
 				<radio_item name="Original">
@@ -214,15 +148,13 @@
 			<text name="Next owner can:">
 				下个拥有者可以:
 			</text>
-			<check_box label="修改" name="checkbox next owner can modify" />
-			<check_box label="复制" name="checkbox next owner can copy" />
-			<check_box label="转卖/赠送" name="checkbox next owner can transfer" />
+			<check_box label="修改" name="checkbox next owner can modify"/>
+			<check_box label="复制" name="checkbox next owner can copy"/>
+			<check_box label="转卖/赠送" name="checkbox next owner can transfer"/>
 			<text name="label click action">
 				当点击鼠标左键时:
 			</text>
 			<combo_box name="clickaction">
-			<!-- Do not reorder these items, the index numbers are
-					used internally. JC -->
 				<combo_item name="Touch/grab(default)">
 					触摸/抓取 (默认)
 				</combo_item>
@@ -244,9 +176,7 @@
 				<combo_item name="Opemmedia">
 					打开地块媒体
 				</combo_item>
-
 			</combo_box>
-			
 			<text name="B:">
 				基:
 			</text>
@@ -265,7 +195,6 @@
 			<text name="F:">
 				友:
 			</text>
-			
 			<string name="text modify info 1">
 				你可以修改这件物品。
 			</string>
@@ -282,27 +211,21 @@
 				必须选择一个完整的物体来设置许可。
 			</string>
 			<string name="Cost Default">
-			价格:      L$
+				价格:      L$
 			</string>
-			<string
-				 name="Cost Total">
-			总价格:     L$
+			<string name="Cost Total">
+				总价格:     L$
 			</string>
 			<string name="Cost Per Unit">
-			每个的价格:  L$
+				每个的价格:  L$
 			</string>
-			<string
-				 name="Cost Mixed">
-			混合价格 <!--XXX-->
+			<string name="Cost Mixed">
+				混合价格
 			</string>
 			<string name="Sale Mixed">
-			混合销售 <!--XXX-->
+				混合销售
 			</string>
-
 		</panel>
-		
-<!-- Object sub-tab/物体子标签 -->
-		
 		<panel label="物体" name="Object">
 			<text name="select_single">
 				一次只能编辑一个元件的参数。请选择单个元件。
@@ -310,32 +233,28 @@
 			<text name="edit_object">
 				编辑物体参数:
 			</text>
-			<check_box label="锁定" name="checkbox locked"
-			     tool_tip="使物体避免被移动或删除。此项通常被使用在建造过程中用以避免意外的修改。" />
-			<check_box label="物理的" name="Physical Checkbox Ctrl"
-			     tool_tip="允许物体被推动以及受重力影响。" />
-			<check_box label="暂时的" name="Temporary Checkbox Ctrl"
-			     tool_tip="使物体在被创建后 1 分钟被删除" />
-			<check_box label="幻影" name="Phantom Checkbox Ctrl"
-			     tool_tip="使物体不与其它物体或化身碰撞" />
+			<check_box label="锁定" name="checkbox locked" tool_tip="使物体避免被移动或删除。此项通常被使用在建造过程中用以避免意外的修改。"/>
+			<check_box label="物理的" name="Physical Checkbox Ctrl" tool_tip="允许物体被推动以及受重力影响。"/>
+			<check_box label="暂时的" name="Temporary Checkbox Ctrl" tool_tip="使物体在被创建后 1 分钟被删除"/>
+			<check_box label="幻影" name="Phantom Checkbox Ctrl" tool_tip="使物体不与其它物体或化身碰撞"/>
 			<text name="label position">
 				位置 (米)
 			</text>
-			<spinner label="X" name="Pos X" />
-			<spinner label="Y" name="Pos Y" />
-			<spinner label="Z" name="Pos Z" />
+			<spinner label="X" name="Pos X"/>
+			<spinner label="Y" name="Pos Y"/>
+			<spinner label="Z" name="Pos Z"/>
 			<text name="label size">
 				尺寸 (米)
 			</text>
-			<spinner label="X" name="Scale X" />
-			<spinner label="Y" name="Scale Y" />
-			<spinner label="Z" name="Scale Z" />
+			<spinner label="X" name="Scale X"/>
+			<spinner label="Y" name="Scale Y"/>
+			<spinner label="Z" name="Scale Z"/>
 			<text name="label rotation">
 				旋转 (角度)
 			</text>
-			<spinner label="X" name="Rot X" />
-			<spinner label="Y" name="Rot Y" />
-			<spinner label="Z" name="Rot Z" />
+			<spinner label="X" name="Rot X"/>
+			<spinner label="Y" name="Rot Y"/>
+			<spinner label="Z" name="Rot Z"/>
 			<text name="label material">
 				材料
 			</text>
@@ -387,12 +306,15 @@
 				<combo_item name="Ring">
 					环形
 				</combo_item>
+				<combo_item name="Sculpted">
+					雕刻
+				</combo_item>
 			</combo_box>
 			<text name="text cut">
 				路径截断开始和结束
 			</text>
-			<spinner label="B" name="cut begin" />
-			<spinner label="E" name="cut end" />
+			<spinner label="B" name="cut begin"/>
+			<spinner label="E" name="cut end"/>
 			<text name="text hollow">
 				窟窿
 			</text>
@@ -419,89 +341,63 @@
 			<text name="text twist">
 				扭曲开始和结束
 			</text>
-			<spinner label="B" name="Twist Begin" />
-			<spinner label="E" name="Twist End" />
+			<spinner label="B" name="Twist Begin"/>
+			<spinner label="E" name="Twist End"/>
 			<text name="scale_taper">
 				锥形
 			</text>
 			<text name="scale_hole">
 				洞的尺寸
 			</text>
-			<spinner label="X" name="Taper Scale X" />
-			<spinner label="Y" name="Taper Scale Y" />
+			<spinner label="X" name="Taper Scale X"/>
+			<spinner label="Y" name="Taper Scale Y"/>
 			<text name="text topshear">
 				顶面倾斜
 			</text>
-			<spinner label="X" name="Shear X" />
-			<spinner label="Y" name="Shear Y" />
+			<spinner label="X" name="Shear X"/>
+			<spinner label="Y" name="Shear Y"/>
 			<text name="advanced_cut">
 				剖面截断开始和结束
 			</text>
 			<text name="advanced_dimple">
 				凹陷开始和结束
 			</text>
-			<spinner label="B" name="Path Limit Begin" />
-			<spinner label="E" name="Path Limit End" />
+			<spinner label="B" name="Path Limit Begin"/>
+			<spinner label="E" name="Path Limit End"/>
 			<text name="text taper2">
 				锥形
 			</text>
-			<spinner label="X" name="Taper X" />
-			<spinner label="Y" name="Taper Y" />
+			<spinner label="X" name="Taper X"/>
+			<spinner label="Y" name="Taper Y"/>
 			<text name="text radius delta">
 				半径变化
 			</text>
 			<text name="text revolutions">
 				旋转次数
 			</text>
-			<texture_picker
-				 label="雕塑材质"
-				 name="sculpt texture control"
-				 tool_tip="点这里选择图片"
-			 />
-	        	<check_box
-				 label="镜像"
-				 name="sculpt mirror control"
-				 tool_tip="将雕塑元件沿着X轴翻转。" />
-        		<check_box
-				 label="里朝外"
-				 name="sculpt invert control"
-				 tool_tip="反转雕塑元件的法向量，使其看上去像是从里面被翻出来了一样。" />
-
-			<text
-				 align="left"
-				 name="label sculpt type"
-				 visible="false">
-			     	缝合类型
+			<texture_picker label="雕塑材质" name="sculpt texture control" tool_tip="点这里选择图片"/>
+			<check_box label="镜像" name="sculpt mirror control" tool_tip="将雕塑元件沿着X轴翻转。"/>
+			<check_box label="里朝外" name="sculpt invert control" tool_tip="反转雕塑元件的法向量，使其看上去像是从里面被翻出来了一样。"/>
+			<text align="left" name="label sculpt type" visible="false">
+				缝合类型
 			</text>
-						<combo_box
-				 allow_text_entry="false"
-				 max_chars="20"
-				 name="sculpt type control"
-				 visible="false">
-			  <combo_item
-					 name="None">
-			    (无)
-			  </combo_item>
-			  <combo_item
-					 name="Sphere">
-			    球体
-			  </combo_item>
-			  <combo_item
-					 name="Torus">
-			    圆环
-			  </combo_item>
-			  <combo_item
-					 name="Plane">
-			    平面
-			  </combo_item>
-			  <combo_item
-					 name="Cylinder">
-			    Cylinder
-			  </combo_item>
+			<combo_box allow_text_entry="false" max_chars="20" name="sculpt type control" visible="false">
+				<combo_item name="None">
+					(无)
+				</combo_item>
+				<combo_item name="Sphere">
+					球体
+				</combo_item>
+				<combo_item name="Torus">
+					圆环
+				</combo_item>
+				<combo_item name="Plane">
+					平面
+				</combo_item>
+				<combo_item name="Cylinder">
+					Cylinder
+				</combo_item>
 			</combo_box>
-		
-		<!-- Features sub-tab -->
-		
 		</panel>
 		<panel label="特征" name="Features">
 			<text name="select_single">
@@ -510,36 +406,34 @@
 			<text name="edit_object">
 				编辑物体特征:
 			</text>
-			<check_box label="活动路径" name="Flexible1D Checkbox Ctrl"
-			     tool_tip="允许物体沿Z-轴活动（仅客户端有效）" />
-			<spinner label="柔软度" name="FlexNumSections" />
-			<spinner label="重力" name="FlexGravity" />
-			<spinner label="阻力" name="FlexFriction" />
-			<spinner label="风力" name="FlexWind" />
-			<spinner label="应力" name="FlexTension" />
-			<spinner label="X方向施力" name="FlexForceX" />
-			<spinner label="Y方向施力" name="FlexForceY" />
-			<spinner label="Z方向施力" name="FlexForceZ" />
-			
-			<check_box label="光源" name="Light Checkbox Ctrl" tool_tip="使物体发射出光线" />
+			<check_box label="活动路径" name="Flexible1D Checkbox Ctrl" tool_tip="允许物体沿Z-轴活动（仅客户端有效）"/>
+			<spinner label="柔软度" name="FlexNumSections"/>
+			<spinner label="重力" name="FlexGravity"/>
+			<spinner label="阻力" name="FlexFriction"/>
+			<spinner label="风力" name="FlexWind"/>
+			<spinner label="应力" name="FlexTension"/>
+			<spinner label="X方向施力" name="FlexForceX"/>
+			<spinner label="Y方向施力" name="FlexForceY"/>
+			<spinner label="Z方向施力" name="FlexForceZ"/>
+			<check_box label="光源" name="Light Checkbox Ctrl" tool_tip="使物体发射出光线"/>
 			<text name="label color">
 				颜色
 			</text>
-			<color_swatch label="" name="colorswatch" tool_tip="点击这里来打开色彩选择器" />
-			<spinner label="强度" name="Light Intensity" />
-			<spinner label="半径" name="Light Radius" />
-			<spinner label="衰减" name="Light Falloff" />
+			<color_swatch label="" name="colorswatch" tool_tip="点击这里来打开色彩选择器"/>
+			<spinner label="强度" name="Light Intensity"/>
+			<spinner label="半径" name="Light Radius"/>
+			<spinner label="衰减" name="Light Falloff"/>
 		</panel>
-		
 		<panel label="材质" name="Texture">
-			<texture_picker label="材质" name="texture control" 
-				tool_tip="点击这里来选择图片" />
-			<color_swatch label="颜色" name="colorswatch"
-			     tool_tip="打开色彩选择器" />
+			<texture_picker label="材质" name="texture control" tool_tip="点击这里来选择图片"/>
+			<color_swatch label="颜色" name="colorswatch" tool_tip="打开色彩选择器"/>
 			<text name="color trans">
 				透明度 %
 			</text>
-			<check_box label="最亮状态" name="checkbox fullbright" />
+			<text name="glow label">
+				发光
+			</text>
+			<check_box label="最亮状态" name="checkbox fullbright"/>
 			<text name="tex gen">
 				材质映射
 			</text>
@@ -630,43 +524,38 @@
 			<text name="tex scale">
 				每面重复次数
 			</text>
-			<spinner label="水平(U)" name="TexScaleU" />
-			<check_box label="翻转" name="checkbox flip s" />
-			<spinner label="垂直 (V)" name="TexScaleV" />
-			<check_box label="翻转" name="checkbox flip t" />
+			<spinner label="水平(U)" name="TexScaleU"/>
+			<check_box label="翻转" name="checkbox flip s"/>
+			<spinner label="垂直 (V)" name="TexScaleV"/>
+			<check_box label="翻转" name="checkbox flip t"/>
 			<text name="tex rotate">
 				旋转 (度)
 			</text>
-			<text
-				 name="string repeats per meter">
+			<string name="string repeats per meter">
 				每米重复次数
-			</text>
-			<text
-				 name="string repeats per face">
+			</string>
+			<string name="string repeats per face">
 				每面重复次数
-			</text>
-			<text
-				 name="rpt">
+			</string>
+			<text name="rpt">
 				每米重复次数
 			</text>
-
-			<button label="应用" label_selected="应用" name="button apply" />
+			<button label="应用" label_selected="应用" name="button apply"/>
 			<text name="tex offset">
 				位移
 			</text>
-			<spinner label="水平(U)" name="TexOffsetU" />
-			<spinner label="垂直(V)" name="TexOffsetV" />
+			<spinner label="水平(U)" name="TexOffsetU"/>
+			<spinner label="垂直(V)" name="TexOffsetV"/>
 			<text name="textbox autofix">
 				对齐媒体材质
 (必须首先上传)
 			</text>
-			<button label="对齐" label_selected="对齐" name="button align" />
+			<button label="对齐" label_selected="对齐" name="button align"/>
 		</panel>
 		<panel label="内容" name="Contents">
-			<button label="新脚本..." label_selected="新脚本..." name="button new script" />
+			<button label="新脚本..." label_selected="新脚本..." name="button new script"/>
 		</panel>
 	</tab_container>
-	<!-- Land Info sub-tab -->
 	<panel name="land info panel">
 		<text name="label_area_price">
 			价格: L$[PRICE] 每 [AREA]平方米.
@@ -674,27 +563,49 @@
 		<text name="label_area">
 			面积: [AREA] 平方米.
 		</text>
-		<button label="购买土地..." label_selected="购买土地..." name="button buy land" />
-		<button label="放弃土地..." label_selected="放弃土地..."
-		     name="button abandon land" />
-		<button label="再划分为..." label_selected="再划分为..."
-		     name="button subdivide land" />
-		<button label="加入..." label_selected="加入..." name="button join land" />
-		<button label="关于土地..." label_selected="关于土地..."
-		     name="button about land" />
+		<button label="购买土地..." label_selected="购买土地..." name="button buy land"/>
+		<button label="放弃土地..." label_selected="放弃土地..." name="button abandon land"/>
+		<button label="再划分为..." label_selected="再划分为..." name="button subdivide land"/>
+		<button label="加入..." label_selected="加入..." name="button join land"/>
+		<button label="关于土地..." label_selected="关于土地..." name="button about land"/>
 	</panel>
-	<text name="status_rotate">拖动彩带来旋转物体</text>
-	<text name="status_scale">点击并拖动来拉伸选中面</text>
-	<text name="status_move">拖动来移动物体，按住 Shift 拖动来复制</text>
-	<text name="status_modifyland">点击并拖动以修改土地</text>
-	<text name="status_camera">点击并拖动来更改视角</text>
-	<text name="status_grab">拖动以移动，按住 Ctrl 抬起，Ctrl+Shift 旋转</text>
-	<text name="status_place">在世界中点击以创建，按着 Shift 点击来选择</text>
-	<text name="status_selectland">点击并拖动以选择土地</text>
-	<text name="grid_screen_text">屏幕</text>
-	<text name="grid_local_text">本地</text>
-	<text name="grid_world_text">世界</text>
-	<text name="grid_reference_text">参考物</text>
-	<text name="grid_attachment_text">附件</text>
+	<string name="status_rotate">
+		拖动彩带来旋转物体
+	</string>
+	<string name="status_scale">
+		点击并拖动来拉伸选中面
+	</string>
+	<string name="status_move">
+		拖动来移动物体，按住 Shift 拖动来复制
+	</string>
+	<string name="status_modifyland">
+		点击并拖动以修改土地
+	</string>
+	<string name="status_camera">
+		点击并拖动来更改视角
+	</string>
+	<string name="status_grab">
+		拖动以移动，按住 Ctrl 抬起，Ctrl+Shift 旋转
+	</string>
+	<string name="status_place">
+		在世界中点击以创建，按着 Shift 点击来选择
+	</string>
+	<string name="status_selectland">
+		点击并拖动以选择土地
+	</string>
+	<string name="grid_screen_text">
+		屏幕
+	</string>
+	<string name="grid_local_text">
+		本地
+	</string>
+	<string name="grid_world_text">
+		世界
+	</string>
+	<string name="grid_reference_text">
+		参考物
+	</string>
+	<string name="grid_attachment_text">
+		附件
+	</string>
 </floater>
-<!-- Translated for Second Life 1.19.0 (80267) -->

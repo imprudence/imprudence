@@ -3,100 +3,100 @@
      can_resize="false" can_tear_off="true" enabled="true" height="408"
      left="457" min_height="408" min_width="160" mouse_opaque="true"
      name="Inventory Finder" title="inventory_recent_items" width="160">
-	<icon bottom="-36" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	<icon bottom="370" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_animation.tga" left="8" mouse_opaque="true"
 	     name="icon_animation" width="16" />
-	<check_box bottom="-36" enabled="true" follows="left|top" font="SansSerifSmall"
+	<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Animation" left="26"
 	     mouse_opaque="true" name="check_animation" radio_style="false" width="126" />
-	<icon bottom="-56" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+	<icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_callingcard_online.tga" left="8" mouse_opaque="true"
 	     name="icon_calling_card" width="16" />
-	<check_box bottom="-56" enabled="true" follows="left|top" font="SansSerifSmall"
+	<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Calling Cards" left="26"
 	     mouse_opaque="true" name="check_calling_card" radio_style="false"
 	     width="126" />
-	<icon bottom="-76" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_shirt.tga" left="8" mouse_opaque="true"
 	     name="icon_clothing" width="16" />
-	<check_box bottom="-76" enabled="true" follows="left|top" font="SansSerifSmall"
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Clothing" left="26"
 	     mouse_opaque="true" name="check_clothing" radio_style="false" width="126" />
-	<icon bottom="-96" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_gesture.tga" left="8" mouse_opaque="true"
 	     name="icon_gesture" width="16" />
-	<check_box bottom="-96" enabled="true" follows="left|top" font="SansSerifSmall"
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Gestures" left="26"
 	     mouse_opaque="true" name="check_gesture" radio_style="false" width="126" />
-	<icon bottom="-116" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_landmark_visited.tga" left="8" mouse_opaque="true"
 	     name="icon_landmark" width="16" />
-	<check_box bottom="-116" enabled="true" follows="left|top" font="SansSerifSmall"
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Landmarks" left="26"
 	     mouse_opaque="true" name="check_landmark" radio_style="false" width="126" />
-	<icon bottom="-136" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_notecard.tga" left="8" mouse_opaque="true"
 	     name="icon_notecard" width="16" />
-	<check_box bottom="-136" enabled="true" follows="left|top" font="SansSerifSmall"
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Notecards" left="26"
 	     mouse_opaque="true" name="check_notecard" radio_style="false" width="126" />
-	<icon bottom="-156" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_object.tga" left="8" mouse_opaque="true"
 	     name="icon_object" width="16" />
-	<check_box bottom="-156" enabled="true" follows="left|top" font="SansSerifSmall"
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Objects" left="26"
 	     mouse_opaque="true" name="check_object" radio_style="false" width="126" />
-	<icon bottom="-176" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_script.tga" left="8" mouse_opaque="true"
 	     name="icon_script" width="16" />
-	<check_box bottom="-176" enabled="true" follows="left|top" font="SansSerifSmall"
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Scripts" left="26"
 	     mouse_opaque="true" name="check_script" radio_style="false" width="126" />
-	<icon bottom="-196" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_sound.tga" left="8" mouse_opaque="true"
 	     name="icon_sound" width="16" />
-	<check_box bottom="-196" enabled="true" follows="left|top" font="SansSerifSmall"
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Sounds" left="26"
 	     mouse_opaque="true" name="check_sound" radio_style="false" width="126" />
-	<icon bottom="-216" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_texture.tga" left="8" mouse_opaque="true"
 	     name="icon_texture" width="16" />
-	<check_box bottom="-216" enabled="true" follows="left|top" font="SansSerifSmall"
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Textures" left="26"
 	     mouse_opaque="true" name="check_texture" radio_style="false" width="126" />
-	<icon bottom="-236" color="1 1 1 1" enabled="true" follows="left|top" height="16"
+  <icon bottom_delta="-20" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     image_name="inv_item_snapshot.tga" left="8" mouse_opaque="true"
 	     name="icon_snapshot" width="16" />
-	<check_box bottom="-236" enabled="true" follows="left|top" font="SansSerifSmall"
+  <check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Snapshots" left="26"
 	     mouse_opaque="true" name="check_snapshot" radio_style="false" width="126" />
-	<button bottom="-260" enabled="true" follows="left|top" font="SansSerif"
+	<button bottom_delta="-24" enabled="true" follows="left|top" font="SansSerif"
 	     halign="center" height="20" label="All" label_selected="All" left="8"
 	     mouse_opaque="true" name="All" scale_image="true" width="100" />
-	<button bottom="-284" enabled="true" follows="left|top" font="SansSerif"
+	<button bottom_delta="-24" enabled="true" follows="left|top" font="SansSerif"
 	     halign="center" height="20" label="None" label_selected="None" left="8"
 	     mouse_opaque="true" name="None" scale_image="true" width="100" />
-	<check_box bottom="-304" enabled="true" follows="left|top" font="SansSerifSmall"
+	<check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Always show folders" left="8"
 	     mouse_opaque="true" name="check_show_empty" radio_style="false" width="144" />
-	<check_box bottom="-324" enabled="true" follows="left|top" font="SansSerifSmall"
+	<check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false" label="Since Logoff" left="8"
 	     mouse_opaque="true" name="check_since_logoff" radio_style="false"
 	     width="144" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-336" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom_delta="-12" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="center" height="12" left="8"
 	     mouse_opaque="true" name="- OR -" v_pad="0" width="144">
 		- OR -
 	</text>
-	<spinner bottom="-356" enabled="true" follows="left|top" height="16" increment="1"
+	<spinner bottom_delta="-20" enabled="true" follows="left|top" height="16" increment="1"
 	     initial_val="0" label="Hours Ago" label_width="64" left="8"
 	     max_val="240000" min_val="0" mouse_opaque="true" name="spin_hours_ago"
 	     width="144" />
-	<spinner bottom="-376" enabled="true" follows="left|top" height="16" increment="1"
+	<spinner bottom_delta="-20" enabled="true" follows="left|top" height="16" increment="1"
 	     initial_val="0" label="Days Ago" label_width="64" left="8" max_val="10000"
 	     min_val="0" mouse_opaque="true" name="spin_days_ago" width="144" />
-	<button bottom="-400" enabled="true" follows="top|right" font="SansSerif"
+	<button bottom_delta="-24" enabled="true" follows="top|right" font="SansSerif"
 	     halign="center" height="20" label="Close" label_selected="Close"
 	     mouse_opaque="true" name="Close" right="-6" scale_image="true" width="76" />
 </floater>

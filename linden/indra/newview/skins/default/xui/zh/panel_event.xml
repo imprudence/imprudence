@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Event" title="事件">
 	<text name="event_name_label">
 		名称:
@@ -12,22 +12,7 @@
 	<text name="event_category">
 		(无)
 	</text>
-	<text name="event_mature_label">
-		成人内容:
-	</text>
-	<text name="event_mature">
-		(未知)
-	</text>
-	<text
-		 name="event_mature_yes"
-		 visible="false">
-		是
-	</text>
-	<text
-		 name="event_mature_no"
-		 visible="false">
-		否
-	</text>
+
 	<text name="event_date_label">
 		日期:
 	</text>
@@ -61,10 +46,13 @@
 	<text name="event_desc_label">
 		描述:
 	</text>
-	<button label="瞬间移动" name="teleport_btn" />
-	<button label="在地图中显示" name="map_btn" />
-	<button label="提醒" name="notify_btn" />
-	<button label="创建事件..." name="create_event_btn" />
+	<button label="瞬间移动" name="teleport_btn"/>
+	<button label="在地图中显示" name="map_btn"/>
+	<button label="提醒" name="notify_btn"/>
+	<button label="创建事件..." name="create_event_btn"/>
+	<string name="none">
+		没有
+	</string>
 	<string name="notify">
 		提醒
 	</string>

@@ -47,11 +47,6 @@
 	     initial_val="1" label="Doppler Effect" label_width="100" left="148"
 	     max_val="2" min_val="0" mouse_opaque="true" name="Doppler Effect"
 	     show_text="true" width="250" />
-	<slider bottom_delta="-20" control_name="AudioLevelDistance" edit_text="true"
-	     enabled="true" follows="left|top" height="15" increment="0.1"
-	     initial_val="1" label="Distance Factor" label_width="100" left="148"
-	     max_val="2" min_val="0" mouse_opaque="true" name="Distance Factor"
-	     show_text="true" width="250" />
 	<slider bottom_delta="-20" control_name="AudioLevelRolloff" edit_text="true"
 	     enabled="true" follows="left|top" height="15" increment="0.1"
 	     initial_val="1" label="Rolloff Factor" label_width="100" left="148"

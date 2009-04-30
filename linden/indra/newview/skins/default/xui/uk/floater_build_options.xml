@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="build options floater" title="Опції сітки">
+	<spinner label="Одиниця сітки, м" name="GridResolution" />
+	<spinner label="Простір сітки, м" name="GridDrawSize" />
+	<check_box label="Включити посадку елементів" name="GridSubUnit" />
+	<check_box label="Показати лінії перетинів" name="GridCrossSection" />
+	<slider label="Непрозорість сітки" name="GridOpacity" />
+</floater>

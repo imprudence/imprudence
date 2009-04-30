@@ -1,73 +1,65 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <menu name="Popup">
-	<menu_item_call label="购买" name="Task Buy" />
-	<menu_item_call label="打开" name="Task Open" />
-	<menu_item_call label="播放" name="Task Play" />
-	<menu_item_call label="属性" name="Task Properties" />
-	<menu_item_call label="重命名" name="Task Rename" />
-	<menu_item_call label="删除" name="Task Remove" />
-	<menu_item_call label="清空回收站" name="Empty Trash" />
-	<menu_item_call
-		 label="清空失物招领" name="Empty Lost And Found"/>
-	<menu_item_call label="新建文件夹" name="New Folder" />
-	<menu_item_call label="新建脚本" name="New Script" />
-	<menu_item_call label="新建记事卡" name="New Note" />
-	<menu_item_call label="新建动作" name="New Gesture" />
+	<menu_item_call label="购买" name="Task Buy"/>
+	<menu_item_call label="打开" name="Task Open"/>
+	<menu_item_call label="播放" name="Task Play"/>
+	<menu_item_call label="属性" name="Task Properties"/>
+	<menu_item_call label="重命名" name="Task Rename"/>
+	<menu_item_call label="删除" name="Task Remove"/>
+	<menu_item_call label="清空回收站" name="Empty Trash"/>
+	<menu_item_call label="清空失物招领" name="Empty Lost And Found"/>
+	<menu_item_call label="新建文件夹" name="New Folder"/>
+	<menu_item_call label="新建脚本" name="New Script"/>
+	<menu_item_call label="新建记事卡" name="New Note"/>
+	<menu_item_call label="新建动作" name="New Gesture"/>
 	<menu name="New Clothes">
-		<menu_item_call label="新建衬衫" name="New Shirt" />
-		<menu_item_call label="新建裤子" name="New Pants" />
-		<menu_item_call label="新建鞋子" name="New Shoes" />
-		<menu_item_call label="新建袜子" name="New Socks" />
-		<menu_item_call label="新建夹克" name="New Jacket" />
-		<menu_item_call label="新建短裙" name="New Skirt" />
-		<menu_item_call label="新建手套" name="New Gloves" />
-		<menu_item_call label="新建内衣" name="New Undershirt" />
-		<menu_item_call label="新建内裤" name="New Underpants" />
+		<menu_item_call label="新建衬衫" name="New Shirt"/>
+		<menu_item_call label="新建裤子" name="New Pants"/>
+		<menu_item_call label="新建鞋子" name="New Shoes"/>
+		<menu_item_call label="新建袜子" name="New Socks"/>
+		<menu_item_call label="新建夹克" name="New Jacket"/>
+		<menu_item_call label="新建短裙" name="New Skirt"/>
+		<menu_item_call label="新建手套" name="New Gloves"/>
+		<menu_item_call label="新建内衣" name="New Undershirt"/>
+		<menu_item_call label="新建内裤" name="New Underpants"/>
 	</menu>
 	<menu name="New Body Parts">
-		<menu_item_call label="新建体型" name="New Shape" />
-		<menu_item_call label="新建皮肤" name="New Skin" />
-		<menu_item_call label="新建头发" name="New Hair" />
-		<menu_item_call label="新建眼睛" name="New Eyes" />
+		<menu_item_call label="新建体型" name="New Shape"/>
+		<menu_item_call label="新建皮肤" name="New Skin"/>
+		<menu_item_call label="新建头发" name="New Hair"/>
+		<menu_item_call label="新建眼睛" name="New Eyes"/>
 	</menu>
-	<menu_item_call label="瞬间移动" name="Landmark Open" />
-	<menu_item_call label="打开" name="Animation Open" />
-	<menu_item_call label="打开" name="Sound Open" />
-	<menu_item_call label="清除物体" name="Purge Item" />
-	<menu_item_call label="恢复物体" name="Restore Item" />
-	<menu_item_call label="打开" name="Open" />
-	<menu_item_call label="属性" name="Properties" />
-	<menu_item_call label="重命名" name="Rename" />
-	<menu_item_call label="复制资产UUID" name="Copy Asset UUID" />
-	<menu_item_call label="复制" name="Copy" />
-	<menu_item_call label="粘贴" name="Paste" />
-	<menu_item_call label="删除" name="Delete" />
-	<menu_item_call label="添加至装束" name="Add To Outfit" />
-	<menu_item_call label="替换装束" name="Replace Outfit" />
-	<menu_item_call label="脱下物品" name="Take Off Items" />
-	<menu_item_call
-		 label="开始会话"
-		 name="Conference Chat Folder" />
-	<menu_item_call label="与文件夹内在线的联系人即时聊天"
-	     name="IM Online Contacts In Folder" />
-	<menu_item_call label="与文件夹内所有联系人即时聊天"
-	     name="IM All Contacts In Folder" />
-	<menu_item_call label="播放" name="Sound Play" />
-	<menu_item_call
-		 label="关于地标"
-		 name="Teleport To Landmark" />
-	<menu_item_call label="在世界中播放" name="Animation Play" />
-	<menu_item_call label="本地播放" name="Animation Audition" />
-	<menu_item_call label="发送即时消息" name="Send Instant Message" />
-	<menu_item_call label="邀请瞬间移动..." name="Offer Teleport..." />
-	<menu_item_call label="激活" name="Activate" />
-	<menu_item_call label="解除激活" name="Deactivate" />
-	<menu_item_call label="从自己身上卸下" name="Detach From Yourself" />
-	<menu_item_call label="穿上" name="Object Wear" />
-	<menu label="装备至" name="Attach To" />
-	<menu label="装备到HUD" name="Attach To HUD" />
-	<menu_item_call label="穿上" name="Wearable Wear" />
-	<menu_item_call label="编辑" name="Wearable Edit" />
-	<menu_item_call label="脱掉" name="Take Off" />
-	<menu_item_call label="--无可用选项--" name="--no options--" />
+	<menu_item_call label="瞬间移动" name="Landmark Open"/>
+	<menu_item_call label="打开" name="Animation Open"/>
+	<menu_item_call label="打开" name="Sound Open"/>
+	<menu_item_call label="清除物体" name="Purge Item"/>
+	<menu_item_call label="恢复物体" name="Restore Item"/>
+	<menu_item_call label="打开" name="Open"/>
+	<menu_item_call label="属性" name="Properties"/>
+	<menu_item_call label="重命名" name="Rename"/>
+	<menu_item_call label="复制资产UUID" name="Copy Asset UUID"/>
+	<menu_item_call label="复制" name="Copy"/>
+	<menu_item_call label="粘贴" name="Paste"/>
+	<menu_item_call label="删除" name="Delete"/>
+	<menu_item_call label="脱下物品" name="Take Off Items"/>
+	<menu_item_call label="添加至装束" name="Add To Outfit"/>
+	<menu_item_call label="替换装束" name="Replace Outfit"/>
+	<menu_item_call label="开始会话" name="Conference Chat Folder"/>
+	<menu_item_call label="播放" name="Sound Play"/>
+	<menu_item_call label="关于地标" name="Teleport To Landmark"/>
+	<menu_item_call label="在世界中播放" name="Animation Play"/>
+	<menu_item_call label="本地播放" name="Animation Audition"/>
+	<menu_item_call label="发送即时消息" name="Send Instant Message"/>
+	<menu_item_call label="邀请瞬间移动..." name="Offer Teleport..."/>
+	<menu_item_call label="开始会议聊天" name="Conference Chat"/>
+	<menu_item_call label="激活" name="Activate"/>
+	<menu_item_call label="解除激活" name="Deactivate"/>
+	<menu_item_call label="从自己身上卸下" name="Detach From Yourself"/>
+	<menu_item_call label="穿上" name="Object Wear"/>
+	<menu label="装备至" name="Attach To"/>
+	<menu label="装备到HUD" name="Attach To HUD"/>
+	<menu_item_call label="编辑" name="Wearable Edit"/>
+	<menu_item_call label="穿上" name="Wearable Wear"/>
+	<menu_item_call label="脱掉" name="Take Off"/>
+	<menu_item_call label="--无可用选项--" name="--no options--"/>
 </menu>

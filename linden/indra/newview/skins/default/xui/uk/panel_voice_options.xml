@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="content_panel">
+	<text_editor type="string" length="1" name="voice_intro_text1">
+		Використовуйте опції нижче, щоб настроїти Ваш Голосовий Чат.
+	</text_editor>
+	<radio_group name="ear_location">
+		<radio_item type="string" length="1" name="0">
+			Чути Голосовий Чат з позиції камери
+		</radio_item>
+		<radio_item type="string" length="1" name="1">
+			Чути Голосовий Чат з позиції аватара
+		</radio_item>
+	</radio_group>
+	<check_box
+	     label="Дозволити починати Голосовий Чат зі мною тільки Друзям"
+	     name="friends_only_check" />
+	<check_box
+	     label="Використовувати Натисни для Розмови в увімк. режимі"
+	     name="push_to_talk_toggle_check" />
+	<text type="string" length="1" name="push_to_talk_label">
+		Кнопка Натисни для Розмови:
+	</text>
+	<button label="Уст. кнопку" name="set_voice_hotkey_button" />
+	<button label="Середня кнопка миші"
+	     name="set_voice_middlemouse_button" />
+</panel>

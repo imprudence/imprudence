@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -159,6 +160,7 @@ public:
 
 	virtual const std::string& getPrefix() { return LLStringUtil::null; }
 	virtual void restoreItem() {}
+	virtual void restoreToWorld() {}
 
 	// LLFolderViewEventListener functions
 	virtual const std::string& getName() const;
@@ -234,6 +236,7 @@ public:
 
 	virtual void selectItem();
 	virtual void restoreItem();
+	virtual void restoreToWorld();
 
 	virtual LLUIImagePtr getIcon() const;
 	virtual const std::string& getDisplayName() const;
@@ -273,7 +276,6 @@ public:
 	virtual BOOL isItemRenameable() const;
 	virtual void selectItem();
 	virtual void restoreItem();
-
 
 	virtual LLUIImagePtr getIcon() const;
 	virtual BOOL renameItem(const std::string& new_name);

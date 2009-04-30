@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -95,11 +96,14 @@ protected:
 	F32 mStartingZ;
 	S32 mMouseX;
 	S32 mMouseY;
-	S32 mBrushIndex;
+	F32 mBrushSize;
 	BOOL mGotHover;
 	BOOL mBrushSelected;
 	// Order doesn't matter and we do check for existance of regions, so use a set
 	region_list_t mLastAffectedRegions;
+
+private:
+	U8 getBrushIndex();
 };
 
 

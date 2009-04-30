@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Covenant" title="Угода">
+	<text name="region_name_lbl">
+		Регіон:
+	</text>
+	<text name="region_name_text">
+		(невідомо)
+	</text>
+	<text name="estate_name_lbl">
+		Маєток:
+	</text>
+	<text name="estate_name_text">
+		(невідомо)
+	</text>
+	<text name="estate_owner_lbl">
+		Власник маєтку:
+	</text>
+	<text name="estate_owner_text">
+		(невідомо)
+	</text>
+	<text name="resellable_clause">
+		Придбана в цьому регіоні земля може або не може бути перепродана.
+	</text>
+	<text name="changeable_clause">
+		Придбана земля в цьому регіоні може або не може бути приєднана або розділена.
+	</text>
+	<string name="can_resell">
+		Придбана в цьому регіоні земля може бути перепродана.
+	</string>
+	<string name="can_not_resell">
+		Придбана в цьому регіоні земля не може бути перепродана.
+	</string>
+	<string name="can_change">
+		Придбана в цьому регіоні земля може бути приєднана або розділена.
+	</string>
+	<string name="can_not_change">
+		Придбана в цьому регіоні земля не може бути приєднана або розділена.
+	</string>
+</panel>

@@ -68,8 +68,8 @@ Name ${INSTNAME}
 SubCaption 0 $(LicenseSubTitleSetup)	; override "license agreement" text
 
 BrandingText " "						; bottom of window text
-Icon %%SOURCE%%\res\install_icon.ico	; our custom icon
-UninstallIcon %%SOURCE%%\res\uninstall_icon.ico    ; our custom icon
+Icon          %%SOURCE%%\installers\windows\install_icon.ico
+UninstallIcon %%SOURCE%%\installers\windows\uninstall_icon.ico
 WindowIcon on							; show our icon in left corner
 BGGradient off							; no big background window
 CRCCheck on								; make sure CRC is OK
@@ -81,7 +81,6 @@ AutoCloseWindow true					; after all files install, close window
 InstallDir "$PROGRAMFILES\${INSTNAME}"
 InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\${INSTNAME}" ""
 DirText $(DirectoryChooseTitle) $(DirectoryChooseSetup)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Variables
@@ -229,13 +228,18 @@ FunctionEnd
 Function CheckNetworkConnection
     Push $0
     Push $1
+    Push $2	# Option value for GetOptions
     DetailPrint $(CheckNetworkConnectionDP)
+    ; Look for a tag value from the stub installer, used for statistics
+    ; to correlate installs.  Default to "" if not found on command line.
+    StrCpy $2 ""
+    ${GetOptions} $COMMANDLINE "/STUBTAG=" $2
     GetTempFileName $0
     !define HTTP_TIMEOUT 5000 ; milliseconds
     ; Don't show secondary progress bar, this will be quick.
     NSISdl::download_quiet \
         /TIMEOUT=${HTTP_TIMEOUT} \
-        "http://join.secondlife.com/installer-check/?v=${VERSION_LONG}" \
+        "http://install.secondlife.com/check/?stubtag=$2&version=${VERSION_LONG}" \
         $0
     Pop $1 ; Return value, either "success", "cancel" or an error message
     ; MessageBox MB_OK "Download result: $1"
@@ -243,6 +247,7 @@ Function CheckNetworkConnection
 	; StrCmp $1 "success" +2
 	;	DetailPrint "Connection failed: $1"
     Delete $0 ; temporary file
+    Pop $2
     Pop $1
     Pop $0
     Return
@@ -372,9 +377,11 @@ Push $2
     StrCmp $INSTFLAGS "" RM_ALL RM_CACHE
       RM_ALL:
         RMDir /r "$2\Application Data\SecondLife"
-        GoTo CONTINUE
       RM_CACHE:
-        RMDir /r "$2\Application Data\SecondLife\Cache"
+        # Local Settings directory is the cache, there is no "cache" subdir
+        RMDir /r "$2\Local Settings\Application Data\SecondLife"
+        # Vista version of the same
+        RMDir /r "$2\AppData\Local\SecondLife"
         Delete "$2\Application Data\SecondLife\user_settings\settings_windlight.xml"
 
   CONTINUE:
@@ -694,7 +701,6 @@ Function un.onInit
 lbl_end:
     Return
 FunctionEnd
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; MAIN SECTION

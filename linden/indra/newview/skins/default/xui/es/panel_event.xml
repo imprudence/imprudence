@@ -1,58 +1,61 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Event" title="Evento">
 	<text name="event_name_label">
 		Nombre:
 	</text>
 	<text name="event_name">
-		(ningún)
+		(ninguno)
 	</text>
 	<text name="event_category_label">
 		Tipo:
 	</text>
 	<text name="event_category">
-		(ningún)
-	</text>
-	<text name="event_mature_label">
-		Contenido adulto:
-	</text>
-	<text name="event_mature">
-		(desconocido)
+		(ninguno)
 	</text>
 	<text name="event_date_label">
 		Fecha:
 	</text>
 	<text name="event_date">
-		(ningún)
+		(ninguna)
 	</text>
 	<text name="event_duration_label">
-		Duración de los eventos:
+		Duración del evento:
 	</text>
 	<text name="event_duration">
-		(ningún)
+		(ninguna)
 	</text>
 	<text name="event_runby_label">
-		Ejecutado por:
+		Auspiciado por:
 	</text>
 	<text name="event_runby">
-		(ningún)
+		(nadie)
 	</text>
 	<text name="event_location_label">
-		Local:
+		Localización:
 	</text>
 	<text name="event_location">
-		(ningún)
+		(ninguna)
 	</text>
 	<text name="event_cover_label">
-		Cargar disfraz:
+		Cuota de participación:
 	</text>
 	<text name="event_cover">
-		(ningún)
+		(ninguna)
 	</text>
 	<text name="event_desc_label">
 		Descripción:
 	</text>
-	<button label="Teletransportar" name="teleport_btn" />
-	<button label="Mostrar en el mapa" name="map_btn" />
-	<button label="Notificar" name="notify_btn" />
-	<button label="Crear evento..." name="create_event_btn" />
+	<button label="Teleportar" name="teleport_btn"/>
+	<button label="Mostrar en el mapa" name="map_btn"/>
+	<button label="Notificar" name="notify_btn"/>
+	<button label="Crear un evento..." name="create_event_btn"/>
+	<string name="none">
+		ninguno
+	</string>
+	<string name="notify">
+		Notificar
+	</string>
+	<string name="dont_notify">
+		No notificar
+	</string>
 </panel>

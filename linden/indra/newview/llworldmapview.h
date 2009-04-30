@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -126,8 +127,9 @@ public:
 	static void		clearLastClick() { sHandledLastClick = FALSE; }
 
 	// if the view changes, download additional sim info as needed
-	void			updateBlock(S32 block_x, S32 block_y);
-	void			updateVisibleBlocks();
+	// return value is number of blocks newly requested.
+	U32				updateBlock(S32 block_x, S32 block_y);
+	U32				updateVisibleBlocks();
 
 protected:
 	void			setDirectionPos( LLTextBox* text_box, F32 rotation );
@@ -146,10 +148,12 @@ public:
 	static LLUIImagePtr	sHomeImage;
 	static LLUIImagePtr	sEventImage;
 	static LLUIImagePtr	sEventMatureImage;
+	static LLUIImagePtr	sEventAdultImage;
 	static LLUIImagePtr	sTrackCircleImage;
 	static LLUIImagePtr	sTrackArrowImage;
 	static LLUIImagePtr	sClassifiedsImage;
 	static LLUIImagePtr	sForSaleImage;
+	static LLUIImagePtr	sForSaleAdultImage;
 
 	static F32		sThresholdA;
 	static F32		sThresholdB;
