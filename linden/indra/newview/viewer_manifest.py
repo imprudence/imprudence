@@ -525,6 +525,7 @@ class DarwinManifest(ViewerManifest):
                     self.path("libgstpng.so")
                     self.path("libgstpostproc.so")
                     self.path("libgstqtdemux.so")
+                    self.path("libgstqtwrapper.so")
                     self.path("libgstqueue2.so")
                     self.path("libgstreal.so")
                     self.path("libgstrtp.so")
