@@ -14,7 +14,7 @@
 		オークション
 	</text>
 	<icon left="1123" name="square"/>
-	<text name="land_for_sale_label" left_delta="20">
+	<text left_delta="20" name="land_for_sale_label">
 		売出し中の土地
 	</text>
 	<button label="ホームへ" label_selected="ホームへ" name="Go Home" tool_tip="自分のホームにテレポート"/>
@@ -28,12 +28,12 @@
 	<check_box label="PG" name="event_chk"/>
 	<check_box label="Mature" name="event_mature_chk"/>
 	<check_box label="Adult" name="event_adult_chk"/>
-	<combo_box label="オンラインのフレンド" name="friend combo" >
+	<combo_box label="オンラインのフレンド" name="friend combo" tool_tip="地図に表示されたフレンド">
 		<combo_item name="none_selected">
 			オンラインのフレンド
 		</combo_item>
 	</combo_box>
-	<combo_box label="ランドマーク" name="landmark combo" >
+	<combo_box label="ランドマーク" name="landmark combo" tool_tip="地図に表示されたランドマーク">
 		<combo_item name="none_selected">
 			ランドマーク
 		</combo_item>

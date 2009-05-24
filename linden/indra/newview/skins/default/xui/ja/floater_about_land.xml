@@ -117,11 +117,11 @@
 			</string>
 			<string name="no_selection_text">
 				区画が選定されていません。
-[世界]メニュー&gt;[土地情報]に進むか、別の区画を選択して、詳細を表示します。
+「世界」メニュー＞「土地情報」に進むか、別の区画を選択して、詳細を表示します。
 			</string>
 		</panel>
 		<panel label="約款" name="land_covenant_panel">
-			<text name="estate_section_lbl" font="SansSerifLarge">
+			<text font="SansSerifLarge" name="estate_section_lbl">
 				不動産：
 			</text>
 			<text length="1" name="estate_name_lbl" type="string">
@@ -142,7 +142,7 @@
 			<text length="1" name="covenant_timestamp_text" type="string">
 				最後の更新1969年12月31日水曜日16：00：00
 			</text>
-			<text name="region_section_lbl" font="SansSerifLarge">
+			<text font="SansSerifLarge" name="region_section_lbl">
 				地域：
 			</text>
 			<text length="1" name="region_name_lbl" type="string">
@@ -173,7 +173,8 @@
 				再分割：
 			</text>
 			<text length="1" name="changeable_clause" type="string">
-				この地域（リージョン）にある土地は統合または分割ができません。
+				この地域（リージョン）にある土地は統合または分割ができ
+ません。
 			</text>
 			<string name="can_resell">
 				この地域で購入した土地は、再販できます。
@@ -185,7 +186,8 @@
 				この地域で購入した土地は、統合または再分割できます。
 			</string>
 			<string name="can_not_change">
-				この地域で購入した土地は、統合／再分割できないことがあります。
+				この地域で購入した土地は、統合／再分割できないことが
+あります。
 			</string>
 		</panel>
 		<panel label="オブジェクト" name="land_objects_panel">
@@ -381,12 +383,18 @@
 				</combo_item>
 			</combo_box>
 			<button label="?" label_selected="?" name="?"/>
-			<check_box label="Matureコンテンツ" name="MatureCheck" tool_tip="あなたの区画情報及びコンテンツはMatureとされています。"/>
+			<check_box label="Matureコンテンツ" name="MatureCheck" tool_tip=""/>
 			<string name="mature_check_mature">
 				Matureコンテンツ
 			</string>
 			<string name="mature_check_adult">
 				Adultコンテンツ
+			</string>
+			<string name="mature_check_mature_tooltip">
+				あなたの区画情報及びコンテンツはMatureとされています。
+			</string>
+			<string name="mature_check_adult_tooltip">
+				あなたの区画情報及びコンテンツはAdultとされています。
 			</string>
 			<text length="1" name="Snapshot:" type="string">
 				スナップショット：
@@ -467,7 +475,7 @@
 				サウンド：
 			</text>
 			<check_box label="ジェスチャーとオブジェクトの音をこの区画だけに限定" name="check sound local"/>
-			<button label="?" label_selected="?" name="?" left="408"/>
+			<button label="?" label_selected="?" left="408" name="?"/>
 			<text name="Voice settings:">
 				ボイス：
 			</text>

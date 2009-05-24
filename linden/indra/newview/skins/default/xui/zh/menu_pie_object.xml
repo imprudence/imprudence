@@ -2,9 +2,15 @@
 <pie_menu name="Object Pie">
 	<menu_item_call label="打开" name="Open"/>
 	<menu_item_call label="创造" name="Create"/>
-	<menu_item_call label="触摸" name="Object Touch"/>
-	<menu_item_call label="坐在这里" name="Object Sit"/>
-	<menu_item_call label="拿走" name="Pie Object Take"/>
+	<menu_item_call label="触摸" name="Object Touch">
+		<on_enable userdata="触摸" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="坐在这里" name="Object Sit">
+		<on_enable userdata="坐在这里,起身" name="EnableSitOrStand"/>
+	</menu_item_call>
+	<menu_item_call label="拿走" name="Pie Object Take">
+		<on_enable userdata="购买,拿走" name="EnableBuyOrTake"/>
+	</menu_item_call>
 	<menu_item_call label="付款..." name="Pay..."/>
 	<pie_menu label="更多 &gt;" name="More &gt;">
 		<menu_item_call label="删除" name="Delete"/>

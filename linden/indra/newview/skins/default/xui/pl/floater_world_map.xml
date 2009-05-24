@@ -7,6 +7,7 @@
 	<text name="you_label">
 		Ty
 	</text>
+	<icon left="1058" name="home"/>
 	<text name="home_label">
 		Start
 	</text>
@@ -16,17 +17,18 @@
 	<text name="land_for_sale_label">
 		Na Sprzedaż
 	</text>
-	<button label="Start" label_selected="Start" name="Go Home" tool_tip="Teleportuj się do miejsca startowego"/>
+	<button width="122" left="1116" label="Teleportuj do Start" label_selected="Teleportuj do Start" name="Go Home" tool_tip="Teleportuj się do miejsca startowego"/>
 	<check_box label="Rezydent" name="people_chk"/>
 	<check_box label="Infohub" name="infohub_chk"/>
 	<check_box label="Telehub" name="telehubchk"/>
-	<check_box label="Posiadłość na sprzedaż" name="land_for_sale_chk"/>
+	<check_box label="Posiadłość na &#10;sprzedaż" name="land_for_sale_chk"/>
 	<text name="events_label">
 		Wydarzenia:
 	</text>
 	<check_box label="&apos;PG&apos;" name="event_chk"/>
 	<check_box label="&apos;Mature&apos;" name="event_mature_chk"/>
 	<check_box label="&apos;Adult&apos;" name="event_adult_chk"/>
+	<icon bottom="-196" name="avatar_icon"/>
 	<combo_box label="Dostępni Znajomi" name="friend combo" tool_tip="Znajomi na mapie">
 		<combo_item name="none_selected">
 			Dostępni Znajomi
@@ -42,7 +44,7 @@
 	<text name="search_label">
 		Wyniki wyszukiwania:
 	</text>
-	<scroll_list name="search_results">
+	<scroll_list name="search_results" bottom_delta="-310" height="304" >
 		<column label="" name="icon"/>
 		<column label="" name="sim_name"/>
 	</scroll_list>

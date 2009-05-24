@@ -16,7 +16,7 @@
 			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
 			     mouse_opaque="true" name="icon" width="16" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 			<button bottom="-81" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" label="Body" label_selected="Body" left="8" mouse_opaque="true"
@@ -108,13 +108,13 @@ scratch and wear it.
       </text>
       <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Shape" label_selected="Create New Shape" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
     </panel>
     <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Skin" left="102" mouse_opaque="true" name="Skin" width="389">
@@ -199,15 +199,15 @@ scratch and wear it.
 			     tool_tip="Click to choose a picture" width="74" />
       <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Skin" label_selected="Create New Skin" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
     </panel>
     <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
@@ -285,15 +285,15 @@ scratch and wear it.
 			     tool_tip="Click to choose a picture" width="64" />
 			<button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Hair" label_selected="Create New Hair" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
@@ -359,15 +359,15 @@ scratch and wear it.
 			     tool_tip="Click to choose a picture" width="64" />
       <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Eyes" label_selected="Create New Eyes" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
     </panel>
     <panel label="Clothes" placeholder="true" name="clothes_placeholder" />
@@ -388,7 +388,7 @@ scratch and wear it.
 			     tool_tip="Click to open Color Picker" width="64" />
       <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Shirt" label_selected="Create New Shirt" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
       <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
 			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
@@ -396,10 +396,10 @@ scratch and wear it.
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
@@ -469,7 +469,7 @@ scratch and wear it.
 			     tool_tip="Click to open Color Picker" width="64" />
       <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Pants" label_selected="Create New Pants" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
       <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
 			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
@@ -477,10 +477,10 @@ scratch and wear it.
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
       <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
@@ -600,7 +600,7 @@ scratch and wear it.
 			     tool_tip="Click to open Color Picker" width="64" />
 			<button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Shoes" label_selected="Create New Shoes" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
       <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
 			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
@@ -608,10 +608,10 @@ scratch and wear it.
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
@@ -681,7 +681,7 @@ scratch and wear it.
 			     tool_tip="Click to open Color Picker" width="64" />
       <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Socks" label_selected="Create New Socks" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
       <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
 			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
@@ -689,10 +689,10 @@ scratch and wear it.
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
     </panel>
     <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
@@ -755,18 +755,18 @@ scratch and wear it.
       <texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80"
 			     label="Upper Fabric" left="8" mouse_opaque="true" name="Upper Fabric"
-			     tool_tip="Click to choose a picture" width="64" />
+			     tool_tip="Click to choose a picture" width="66" />
       <texture_picker allow_no_texture="false" bottom="-225" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80"
 			     label="Lower Fabric" left="8" mouse_opaque="true" name="Lower Fabric"
-			     tool_tip="Click to choose a picture" width="64" />
+			     tool_tip="Click to choose a picture" width="66" />
       <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-305"
 			     can_apply_immediately="true" color="1 1 1 1" follows="left|top" height="80"
 			     label="Color/Tint" left="8" mouse_opaque="true" name="Color/Tint"
-			     tool_tip="Click to open Color Picker" width="64" />
+			     tool_tip="Click to open Color Picker" width="66" />
       <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Jacket" label_selected="Create New Jacket" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="140" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
       <button bottom="-330" follows="left|top" font="SansSerif" halign="center"
 			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
@@ -774,10 +774,10 @@ scratch and wear it.
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
     </panel>
     <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
@@ -847,7 +847,7 @@ scratch and wear it.
 			     tool_tip="Click to open Color Picker" width="64" />
       <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Gloves" label_selected="Create New Gloves" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="130" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
       <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
 			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
@@ -855,10 +855,10 @@ scratch and wear it.
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
     </panel>
     <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
@@ -930,7 +930,7 @@ scratch and wear it.
       <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Undershirt" label_selected="Create New Undershirt"
 			     left="8" mouse_opaque="true" name="Create New" scale_image="true"
-			     width="160" />
+			     width="170" />
       <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
 			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
@@ -938,10 +938,10 @@ scratch and wear it.
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
       <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
     </panel>
     <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
@@ -1013,7 +1013,7 @@ scratch and wear it.
 			<button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Underpants" label_selected="Create New Underpants"
 			     left="8" mouse_opaque="true" name="Create New" scale_image="true"
-			     width="160" />
+			     width="170" />
       <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
 			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
@@ -1021,10 +1021,10 @@ scratch and wear it.
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
@@ -1094,7 +1094,7 @@ scratch and wear it.
 			     tool_tip="Click to open Color Picker" width="64" />
 			<button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Skirt" label_selected="Create New Skirt" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
       <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
 			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
@@ -1102,10 +1102,10 @@ scratch and wear it.
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As..." label_selected="Save As..." left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 		</panel>
 	</tab_container>

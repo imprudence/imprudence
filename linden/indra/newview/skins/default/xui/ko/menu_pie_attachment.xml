@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <pie_menu name="Attachment Pie">
+	<menu_item_call label="프로필…" name="Profile..."/>
 	<menu_item_call label="놓기" name="Drop" />
+	<menu_item_call label="그룹…" name="Groups..."/>
+	<menu_item_call label="만지기" name="Attachment Object Touch">
+		<on_enable userdata="만지기" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="서기" name="Stand Up"/>
 	<menu_item_call label="분리" name="Detach" />
-	<menu_item_call label="편집" name="Edit" />
+	<menu_item_call label="친구…" name="Friends..."/>
+	<menu_item_call label="제스처…" name="Gestures..."/>
+	<menu_item_call label="내 모습…" name="Appearance..."/>
+	<menu_item_call label="편집…" name="Edit..." />
 </pie_menu>

@@ -6,8 +6,8 @@
 	<button name="music_stop" tool_tip="Arrêtez le flux musical"/>
 	<icon name="media_icon" tool_tip="Jouez le flux musical"/>
 	<button name="media_play" tool_tip="Jouez le flux musical"/>
-	<button name="media_pause" tool_tip="Mettez le flux de média en pause"/>
-	<button name="media_stop" tool_tip="Arrêtez le flux de média"/>
+	<button name="media_pause" tool_tip="Mettez le flux média en pause"/>
+	<button name="media_stop" tool_tip="Arrêtez le flux média"/>
 	<volume_slider name="volume_slider" tool_tip="Volume principal"/>
 	<button name="mute_master" tool_tip="Coupez le volume principal"/>
 	<button name="expand" tool_tip="Ajustez les niveaux de volume individuels"/>

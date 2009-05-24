@@ -74,12 +74,12 @@
 					Gesten
 				</string>
 				<line_editor label="Zum Chatten hier klicken." name="Chat Editor" right="-75"/>
-				<flyout_button label="Reden" left="-70" name="Say" tool_tip="(Eingabe)" width="75">
+				<flyout_button label="Sagen" left="-70" name="Say" tool_tip="(Eingabe)" width="75">
 					<flyout_button_item name="shout_item">
 						Rufen
 					</flyout_button_item>
 					<flyout_button_item name="say_item">
-						Reden
+						Sagen
 					</flyout_button_item>
 					<flyout_button_item name="whisper_item">
 						Flüstern

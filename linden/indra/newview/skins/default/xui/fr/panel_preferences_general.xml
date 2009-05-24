@@ -36,7 +36,7 @@
 	<spinner label="Absent(e) après :" name="afk_timeout_spinner"/>
 	<check_box label="M&apos;avertir lorsque je dépense ou reçois des L$" name="notify_money_change_checkbox"/>
 	<text name="maturity_desired_label">
-		Catégorie :
+		Catégorie de contenu :
 	</text>
 	<text name="maturity_desired_prompt">
 		Je veux accéder au contenu classé :
@@ -52,7 +52,7 @@
 			PG uniquement
 		</combo_item>
 	</combo_box>
-	<text name="maturity_desired_textbox">
+	<text name="maturity_desired_textbox" left="340">
 		PG uniquement
 	</text>
 	<text length="1" name="start_location_textbox" type="string">

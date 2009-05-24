@@ -55,15 +55,17 @@
 	<check_box label="Dolny Środek" name="checkbox_Bottom" />
 	<check_box label="Dolna P Strona" name="checkbox_Bottom Right" />
 	<text type="string" length="1" name="Make New Outfit">
-		Stwórz Nowy Ubiór
+		Stwórz Nowe Ubranie
 	</text>
 	<text type="string" length="1"
 	     name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
-		Ubiór to foldery zawierające ubrania oraz części ciała.
-Przeciągnij folder z ubraniami na swojego awatara by je założyć.
+		Folder o nazwie &apos;Clothing&apos; zawiera podfoldery z Twoimi ubraniami.
+Folder o nazwie &apos;Body Parts&apos; zawiera podfoldery z Twoimi częściami ciała.
+Jeżeli chcesz założyć nowe ubranie lub zmienić część ciała możesz także skorzystać
+z opcji przeciągnięcia danego folderu na swojego awatara.
  
-&quot;Stwórz nowy ubiór&quot; - opcja ta pozwala tworzyć nowy folder
-oraz zapisywać kopie na ubrania, które masz na sobie teraz.
+&apos;Stwórz nowy ubiór&apos; - opcja ta pozwala automatycznie zapisywać ubranie, które masz na sobie
+do nowego folderu.
 	</text>
 	<text type="string" length="1" name="Folder name:">
 		Nazwa Folderu:
@@ -83,9 +85,8 @@ oraz zapisywać kopie na ubrania, które masz na sobie teraz.
 	<text type="string" length="1" name="Options:">
 		Opcje:
 	</text>
-	<!-- The following string cannot be translated at this time without causing an inventory bug. See VWR-1843.
+	<!-- The following string cannot be translated at this time without causing an inventory bug. See VWR-1843.-->
 	<line_editor name="name ed">
-		Nowy Ubiór
+		Nowy Ubior
 	</line_editor>
-	-->
 </floater>

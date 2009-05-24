@@ -41,7 +41,7 @@
 		Inicjalizacja QuickTime...
 	</string>
 	<string name="LoginQuicktimeNotFound">
-		QuickTime nie znaleźony - inicjalizacja przerwana.
+		QuickTime nie został znaleziony - inicjalizacja przerwana.
 	</string>
 	<string name="LoginQuicktimeOK">
 		QuickTime zainicjalizowany.
@@ -149,7 +149,7 @@
 		(ładowanie)
 	</string>
 	<string name="AvatarNameHippos">
-		(Twój avatar ulegnie samozniszczeniu za 5 sec. Pożegnaj się z SL!)
+		(hippos)
 	</string>
 	<string name="GroupNameNone">
 		(brak danych)

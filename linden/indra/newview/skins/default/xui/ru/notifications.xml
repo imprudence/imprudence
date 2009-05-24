@@ -2818,7 +2818,7 @@ X и Y задает их позицию. D (плотность) определя
 
 От объекта: [OBJECTNAME], владелец: [NAME]?
 		<form name="form">
-			<button name="Gotopage" text="Перейти к странице"/>
+			<button name="Gotopage" text="Загрузить"/>
 			<button name="Cancel" text="Отмена"/>
 		</form>
 	</notification>

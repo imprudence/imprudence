@@ -9,6 +9,9 @@
 	<text name="information_label">
 		Informações:
 	</text>
+	<text name="land_type_label">
+		Tipo de Terra:
+	</text>
 	<text name="location_label">
 		Localidade:
 	</text>
@@ -19,10 +22,10 @@
 		Tráfego: [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Área: [AREA] m²
+		Área: [AREA] m².
 	</string>
 	<string name="forsale_text">
-		À venda por L$ [PRICE]
+		À venda por L$[PRICE]
 	</string>
 	<string name="auction_text">
 		ID do Leilão [ID].

@@ -52,7 +52,7 @@ Alterseinstufung zugreifen:
 			Nur PG
 		</combo_item>
 	</combo_box>
-	<text name="maturity_desired_textbox">
+	<text name="maturity_desired_textbox" bottom="-324" left="336">
 		Nur PG
 	</text>
 	<text name="start_location_textbox">

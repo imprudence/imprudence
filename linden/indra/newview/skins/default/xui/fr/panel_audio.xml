@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel label="Audio et Vidéo" name="Media panel">
+<panel label="Audio et vidéo" name="Media panel">
 	<slider label="Principal" label_width="65" name="System Volume"/>
 	<slider label="Musique" label_width="65" name="Music Volume"/>
 	<slider label="Média" label_width="65" name="Media Volume"/>

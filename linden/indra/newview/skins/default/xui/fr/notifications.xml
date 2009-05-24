@@ -95,23 +95,17 @@ Détails de l&apos;erreur : L&apos;alerte, appelée &apos;[_NAME]&apos; est int
 	</notification>
 	<notification name="BadInstallation">
 		Une erreur est survenue lors de la mise à jour de Second Life. Veuillez télécharger la dernière version depuis secondlife.com.
-    <usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="LoginFailedNoNetwork">
 		Erreur réseau : impossible d&apos;établir une connexion. 
 &apos;[DIAGNOSTIC]&apos;
 Veuillez vérifier votre connexion.
-	<usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="MessageTemplateNotFound">
 		Le modèle de message [PATH] est introuvable.
-	<usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="WearableSave">
 		Enregistrer les changements dans la partie du corps/les habits actuels ?
@@ -203,22 +197,16 @@ En cochant cette case, votre parcelle apparaîtra :
 	<notification name="ClickSoundHelpLand">
 		La musique et le média ne peuvent être utilisés que sur cette parcelle. Les options Son et Voix peuvent être limités à la parcelle ou seront entendus par les résidents en dehors de la parcelle, en fonction de leur catégorie d&apos;accès. Souhaitez-vous en savoir plus sur le paramétrage de ces options ?
 		<url name="url">
-			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=5046
+			http://wiki.secondlife.com/wiki/M%C3%A9dias_sur_la_parcelle_(KB)
 		</url>
-    <usetemplate
-     name="okcancelbuttons"
-     yestext="Consulter les pages d&apos;aide"
-	 notext="Fermer" />
+		<usetemplate name="okcancelbuttons" notext="Fermer" yestext="Consulter les pages d&apos;aide"/>
 	</notification>
 	<notification name="ClickSearchHelpAll">
 		Les résultats de recherche sont organisés en fonction de l&apos;onglet dans lequel vous vous trouvez, votre catégorie d&apos;accès, la catégorie choisie, ainsi que d&apos;autres facteurs. Pour plus de détails, veuillez consulter les pages d&apos;aide.
 		<url name="url">
-			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=4722
+			http://wiki.secondlife.com/wiki/FAQ_sur_la_recherche_(KB)
 		</url>
-    <usetemplate
-     name="okcancelbuttons"
-     yestext="Consulter les pages d&apos;aide"
-	 notext="Fermer" />
+		<usetemplate name="okcancelbuttons" notext="Fermer" yestext="Consulter les pages d&apos;aide"/>
 	</notification>
 	<notification name="ClickPublishHelpLandDisabled">
 		Cette parcelle ne peut pas apparaître dans la recherche car elle est dans une région où cela n&apos;est pas autorisé.
@@ -235,7 +223,7 @@ Aller sur le site de Second Life pour avoir plus d&apos;informations sur les par
 		<usetemplate name="okcancelbuttons" notext="Annuler" yestext="Aller sur cette page"/>
 	</notification>
 	<notification name="ClickUploadHelpPermissions">
-		Il est possible que vos permissions par défaut ne fonctionnent pas dans les anciennes régions.
+		Il est possible que vos droits par défaut ne fonctionnent pas dans les anciennes régions.
 	</notification>
 	<notification name="ClickWebProfileHelpAvatar">
 		Si ce résident a défini une URL de profil web, vous pouvez :
@@ -580,7 +568,7 @@ Vous pouvez lier un maximum de [MAX] objets.
 		Vous ne pouvez lier que des ensembles d&apos;objets complets et vous devez choisir un minimum de deux objets.
 	</notification>
 	<notification name="CannotLinkModify">
-		Impossible de lier car vous n&apos;avez pas la permission de modifier tous les objets.
+		Impossible de lier car vous n&apos;avez pas le droit de modifier tous les objets.
 
 Assurez-vous que vous êtes le propriétaire de tous les objets et qu&apos;aucun d&apos;eux n&apos;est verrouillé.
 	</notification>
@@ -708,6 +696,46 @@ Recherche effectuée : [FINALQUERY]
 		Impossible de téléporter.
 [REASON]
 	</notification>
+	<notification name="invalid_tport">
+		Nous avons rencontré des problèmes en essayant de vous téléporter. Vous devrez peut-être vous reconnecter avant de pouvoir être téléporté. Si vous continuez à recevoir ce message, veuillez consulter le Support à la page suivante :
+www.secondlife.com/support
+	</notification>
+	<notification name="invalid_region_handoff">
+		Nous avons rencontré des problèmes en essayant de vous téléporter. Vous devrez peut-être vous reconnecter avant de pouvoir être téléporté. Si vous continuez à recevoir ce message, veuillez consulter le Support à la page suivante :
+www.secondlife.com/support
+	</notification>
+	<notification name="blocked_tport">
+		Désolé, la téléportation est bloquée actuellement. Veuillez réessayer dans un moment.
+Si vous ne parvenez toujours pas à être téléporté, déconnectez-vous puis reconnectez-vous pour résoudre le problème.
+	</notification>
+	<notification name="nolandmark_tport">
+		Désolé, le système n&apos;a pas réussi à localiser la destination de votre repère.
+	</notification>
+	<notification name="timeout_tport">
+		Désolé, la connexion vers votre lieu de téléportation n&apos;a pas abouti.
+Veuillez réessayer dans un moment.
+	</notification>
+	<notification name="noaccess_tport">
+		Désolé, vous n&apos;avez pas accès à cette destination.
+	</notification>
+	<notification name="missing_attach_tport">
+		Vos pieces-jointes ne sont pas encore arrivées. Attendez quelques secondes de plus ou déconnectez-vous puis reconnectez-vous avant d&apos;essayer de vous téléporter.
+	</notification>
+	<notification name="too_many_uploads_tport">
+		Le trafic vers cette région est bouché en ce moment. Votre téléportation ne pourra pas avoir lieu immédiatement. Veuillez réessayer dans quelques minutes ou bien aller dans une zone moins fréquentée.
+	</notification>
+	<notification name="expired_tport">
+		Désolé, votre demande de téléportation n&apos;a pas abouti assez rapidement. Veuillez réessayer dans quelques minutes.
+	</notification>
+	<notification name="expired_region_handoff">
+		Désolé, votre demande pour passer dans une autre région n&apos;a pas abouti assez rapidement. Veuillez réessayer dans quelques minutes.
+	</notification>
+	<notification name="no_host">
+		Impossible de trouver la destination de la téléportation. Il est possible que cette destination soit temporairement indisponible ou qu&apos;elle n&apos;existe plus. Veuillez réessayer dans quelques minutes.
+	</notification>
+	<notification name="no_inventory_host">
+		L&apos;inventaire est temporairement indisponible.
+	</notification>
 	<notification name="CannotSetLandOwnerNothingSelected">
 		Impossible de définir le propriétaire foncier :
 aucune parcelle sélectionnée.
@@ -766,11 +794,11 @@ plusieurs parcelles sélectionnées.
 Essayez de ne sélectionner qu&apos;une seule parcelle.
 	</notification>
 	<notification name="ParcelCanPlayMedia">
-		Cette parcelle propose des flux de média.
-Pour jouer des flux de média, il faut avoir une connexion internet rapide.
+		Cette parcelle propose des flux média.
+Pour jouer des flux média, il faut avoir une connexion internet rapide.
 
-Jouer les flux de média lorsqu&apos;ils sont disponibles ?
-(Vous pourrez modifier cette option ultérieurement sous Préférences &gt; Audio et Vidéo.)
+Jouer les flux média lorsqu&apos;ils sont disponibles ?
+(Vous pourrez modifier cette option ultérieurement sous Préférences &gt; Audio et vidéo.)
 		<usetemplate name="okcancelbuttons" notext="Désactiver" yestext="Jouer le média"/>
 	</notification>
 	<notification name="CannotDeedLandWaitingForServer">
@@ -797,7 +825,7 @@ Veuillez sélectionner une seule parcelle.
 	</notification>
 	<notification name="CannotReleaseLandDontOwn">
 		Impossible d&apos;abandonner le terrain :
-vous n&apos;avez pas la permission de libérer cette parcelle.
+vous n&apos;avez pas le droit de libérer cette parcelle.
 Les parcelles qui vous appartiennent sont en vert.
 	</notification>
 	<notification name="CannotReleaseLandRegionNotFound">
@@ -880,7 +908,7 @@ Fusionner le terrain ?
 La couleur des parcelles indique le type de propriété.
 
 Vert = votre terrain
-Aqua = le terrain de votre groupe
+Turquoise = le terrain de votre groupe
 Rouge = appartenant à d&apos;autres
 Jaune = en vente
 Mauve = aux enchères
@@ -920,7 +948,7 @@ Vous pouvez afficher vos messages instantanés et votre chat en cliquant sur Aff
 	</notification>
 	<notification name="OnlyOfficerCanBuyLand">
 		Impossible d&apos;acheter du terrain pour le groupe :
-Vous n&apos;avez pas la permission d&apos;acheter de terrain pour votre groupe.
+Vous n&apos;avez pas le droit d&apos;acheter de terrain pour votre groupe.
 	</notification>
 	<notification label="Devenir amis" name="AddFriend">
 		Vous pouvez suivre les déplacements de vos amis sur la carte et voir lorsqu&apos;ils se connectent.
@@ -975,7 +1003,7 @@ Veuillez saisir un montant plus élevé.
 		<usetemplate name="okcancelbuttons" notext="Annuler" yestext="OK"/>
 	</notification>
 	<notification name="ConfirmObjectDeleteNoCopy">
-		Au moins un des objets que vous avez sélectionnés n&apos;est pas reproductible.
+		Au moins un des objets que vous avez sélectionnés n&apos;est pas copiable.
 
 Êtes-vous certain de vouloir supprimer ces objets ?
 		<usetemplate name="okcancelbuttons" notext="Annuler" yestext="OK"/>
@@ -988,7 +1016,7 @@ Veuillez saisir un montant plus élevé.
 	</notification>
 	<notification name="ConfirmObjectDeleteLockNoCopy">
 		Au moins un des objets est verrouillé.
-Au moins un des objets n&apos;est pas reproductible.
+Au moins un des objets n&apos;est pas copiable.
 
 Êtes-vous certain de vouloir supprimer ces objets ?
 		<usetemplate name="okcancelbuttons" notext="Annuler" yestext="OK"/>
@@ -1001,7 +1029,7 @@ Au moins un des objets ne vous appartient pas.
 		<usetemplate name="okcancelbuttons" notext="Annuler" yestext="OK"/>
 	</notification>
 	<notification name="ConfirmObjectDeleteNoCopyNoOwn">
-		Au moins un des objets n&apos;est pas reproductible.
+		Au moins un des objets n&apos;est pas copiable.
 Au moins un des objets ne vous appartient pas.
 
 Êtes-vous certain de vouloir supprimer ces objets ?
@@ -1009,7 +1037,7 @@ Au moins un des objets ne vous appartient pas.
 	</notification>
 	<notification name="ConfirmObjectDeleteLockNoCopyNoOwn">
 		Au moins un des objets est verrouillé.
-Au moins un des objets n&apos;est pas reproductible.
+Au moins un des objets n&apos;est pas copiable.
 Au moins un des objets ne vous appartient pas.
 
 Êtes-vous certain de vouloir supprimer ces objets ?
@@ -1023,7 +1051,7 @@ Au moins un des objets ne vous appartient pas.
 	</notification>
 	<notification name="ConfirmObjectTakeNoOwn">
 		Vous n&apos;êtes pas le propriétaire de tous les objets que vous prenez.
-Si vous continuez, les permissions accordées au prochain propriétaire entreront en vigueur et vous risquez de ne plus pouvoir modifier ou copier les objets.
+Si vous continuez, les droits accordés au prochain propriétaire seront activés et vous risquez de ne plus pouvoir modifier ou copier les objets.
 
 Êtes-vous certain de vouloir prendre ces objets ?
 		<usetemplate name="okcancelbuttons" notext="Annuler" yestext="OK"/>
@@ -1031,7 +1059,7 @@ Si vous continuez, les permissions accordées au prochain propriétaire entreron
 	<notification name="ConfirmObjectTakeLockNoOwn">
 		Au moins un des objets est verrouillé.
 Vous n&apos;êtes pas le propriétaire de tous les objets que vous prenez.
-Si vous continuez, les permissions accordées au prochain propriétaire entreront en vigueur et vous risquez de ne plus pouvoir modifier ou copier les objets.
+Si vous continuez, les droits accordés au prochain propriétaire seront activés et vous risquez de ne plus pouvoir modifier ou copier les objets.
 Par contre, vous pouvez prendre les objets sélectionnés.
 
 Êtes-vous certain de vouloir prendre ces objets ?
@@ -1107,10 +1135,10 @@ Vous pourrez revenir sur votre décision plus tard.
 		[NAME] [PRICE] L$ Vous n&apos;avez pas suffisamment de L$ pour faire cela.
 	</notification>
 	<notification name="GrantedModifyRights">
-		Vous avez reçu la permission de modifier les objets de [FIRST_NAME] [LAST_NAME].
+		Vous avez reçu le droit de modifier les objets de [FIRST_NAME] [LAST_NAME].
 	</notification>
 	<notification name="RevokedModifyRights">
-		Vous n&apos;avez plus la permission de modifier les objets de [FIRST_NAME] [LAST_NAME].
+		Vous n&apos;avez plus le droit de modifier les objets de [FIRST_NAME] [LAST_NAME].
 	</notification>
 	<notification name="FlushMapVisibilityCaches">
 		Cela videra le cache cartographique de cette région.
@@ -1315,7 +1343,7 @@ Quitter le groupe ?
 	</notification>
 	<notification name="BusyModeSet">
 		Mode occupé activé.
-Les chats et les messages instantanés ne s&apos;afficheront pas. Les messages instantanés génèreront la réponse en mode occupé que vous avez créée. Toutes les offres de téléportation seront refusées. Toutes les offres d&apos;inventaire iront dans la corbeille.
+Les chats et les messages instantanés ne s&apos;afficheront pas. Vous répondrez aux messages instantanés en utilisant la réponse automatique que vous avez créée. Toutes les propositions de téléportation seront refusées. Tous objets envoyés iront dans la corbeille.
 		<usetemplate ignoretext="Lors de l&apos;utilisation du mode Occupé" name="okignore" yestext="OK"/>
 	</notification>
 	<notification name="JoinedTooManyGroupsMember">
@@ -1453,94 +1481,88 @@ Cette action modifiera des milliers de régions et sera difficile à digérer po
 		<usetemplate name="okcancelbuttons" notext="Annuler" yestext="OK"/>
 	</notification>
 	<notification name="RegionEntryAccessBlocked">
-		Votre catégorie d&apos;accès ne vous autorise pas à pénétrer dans cette région. Cela vient peut-être du fait qu&apos;il manquait des informations pour valider votre âge. Vérifiez que vous avez la toute dernière version du client et consultez les pages d&apos;aide pour savoir comment accéder aux zones ayant ce niveau d&apos;accès.
-    <usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		Votre catégorie d&apos;accès ne vous autorise pas à pénétrer dans cette région. Cela vient peut-être du fait qu&apos;il manquait des informations pour valider votre âge.
+
+Vérifiez que vous avez la toute dernière version du client et consultez les pages d&apos;aide pour savoir comment accéder aux zones ayant ce niveau d&apos;accès.
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="RegionEntryAccessBlocked_KB">
-		Votre catégorie d&apos;accès ne vous permet pas de pénétrer dans cette région. 
+		Votre catégorie d&apos;accès ne vous permet pas de pénétrer dans cette région.
+
 Souhaitez-vous en savoir plus sur les différentes catégories d&apos;accès ?
 		<url name="url">
-			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+			http://wiki.secondlife.com/wiki/Pr%C3%A9sentation_des_cat%C3%A9gories_de_contenu_(KB)
 		</url>
-    <usetemplate
-     name="okcancelignore"
-     yestext="Consulter les pages d&apos;aide"
-	 notext="Fermer"
-	 ignoretext="Lorsque l&apos;accès à une région est bloqué à cause de la catégorie d&apos;accès"/>
+		<usetemplate ignoretext="Lorsque l&apos;accès à une région est bloqué à cause de la catégorie d&apos;accès" name="okcancelignore" notext="Fermer" yestext="Consulter les pages d&apos;aide"/>
 	</notification>
 	<notification name="RegionEntryAccessBlocked_Notify">
 		Votre catégorie d&apos;accès ne vous permet pas de pénétrer dans cette région.
 	</notification>
 	<notification name="RegionEntryAccessBlocked_Change">
-		Votre catégorie d&apos;accès ne vous permet pas de pénétrer dans cette région. 
-En cliquant sur Modifier les préférences, vous pourrez changer votre catégorie d&apos;accès et pénétrer dans la région. Vous pouvez désormais accéder au contenu [REGIONMATURITY] ; vous pouvez changer à nouveau votre catégorie d&apos;accès à partir de la section Préférences, onglet Général.
-    <usetemplate
-     name="okcancelignore"
-     yestext="Modifier les Préférences"
-	 notext="Fermer"
-	 ignoretext="Lorsque l&apos;accès à une région est bloqué à cause des préférences concernant la catégorie d&apos;accès"/>
+		Votre catégorie d&apos;accès ne vous permet pas de pénétrer dans cette région.
+
+En cliquant sur Modifier les préférences, vous pourrez changer votre catégorie d&apos;accès et pénétrer dans la région. À partir de maintenant, vous pouvez rechercher et accéder au contenu [REGIONMATURITY]. Vous pouvez modifier ce paramètre à partir du menu Édition &gt; Préférences... &gt; Général.
+	<form name="form">
+      <button
+       name="OK"
+       text="Modifier les Préférences"/>
+      <button
+       default="true"
+       name="Cancel"
+       text="Fermer"/>
+       <ignore name="ignore" text="Lorsque l&apos;accès à une région est bloqué à cause des préférences concernant la catégorie d&apos;accès"/>
+    </form>
 	</notification>
 	<notification name="LandClaimAccessBlocked">
-		Votre catégorie d&apos;accès ne vous permet pas de réclamer cette région. Cela vient peut-être du fait qu&apos;il manquait des informations pour valider votre âge. Vérifiez que vous avez la toute dernière version du client et consultez les pages d&apos;aide pour savoir comment accéder aux zones ayant ce niveau d&apos;accès.
-    <usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		Votre catégorie d&apos;accès ne vous permet pas de réclamer cette région. Cela vient peut-être du fait qu&apos;il manquait des informations pour valider votre âge.
+
+Vérifiez que vous avez la toute dernière version du client et consultez les pages d&apos;aide pour savoir comment accéder aux zones ayant ce niveau d&apos;accès.
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="LandClaimAccessBlocked_KB">
-		Votre catégorie d&apos;accès ne vous permet pas de réclamer cette région. 
+		Votre catégorie d&apos;accès ne vous permet pas de réclamer cette région.
+
 Souhaitez-vous en savoir plus sur les différentes catégories d&apos;accès ?
 		<url name="url">
-			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+			http://wiki.secondlife.com/wiki/Pr%C3%A9sentation_des_cat%C3%A9gories_de_contenu_(KB)
 		</url>
-    <usetemplate
-     name="okcancelignore"
-     yestext="Consulter les pages d&apos;aide"
-	 notext="Fermer"
-	 ignoretext="Lorsqu&apos;une région ne peut pas être réclamée à cause de la catégorie d&apos;accès"/>
+		<usetemplate ignoretext="Lorsqu&apos;une région ne peut pas être réclamée à cause de la catégorie d&apos;accès" name="okcancelignore" notext="Fermer" yestext="Consulter les pages d&apos;aide"/>
 	</notification>
 	<notification name="LandClaimAccessBlocked_Notify">
 		Votre catégorie d&apos;accès ne vous autorise pas à réclamer cette région.
 	</notification>
 	<notification name="LandClaimAccessBlocked_Change">
-		Votre catégorie d&apos;accès ne vous permet pas de réclamer cette région. 
-En cliquant sur Modifier les préférences, vous pourrez changer votre catégorie d&apos;accès et pénétrer dans la région. Vous pouvez désormais accéder au contenu [REGIONMATURITY] ; vous pouvez changer à nouveau votre catégorie d&apos;accès à partir de la section Préférences, onglet Général.
-    <usetemplate
-     name="okcancelignore"
-     yestext="Modifier les Préférences"
-	 notext="Fermer"
-	 ignoretext="Lorsqu&apos;une région ne peut pas être réclamée à cause des préférences concernant la catégorie d&apos;accès"/>
+		Votre catégorie d&apos;accès ne vous permet pas de réclamer cette région.
+
+En cliquant sur Modifier les préférences, vous pourrez changer votre catégorie d&apos;accès et pénétrer dans la région. À partir de maintenant, vous pouvez rechercher et accéder au contenu [REGIONMATURITY]. Vous pouvez modifier ce paramètre à partir du menu Édition &gt; Préférences... &gt; Général.
+		<usetemplate ignoretext="Lorsqu&apos;une région ne peut pas être réclamée à cause des préférences concernant la catégorie d&apos;accès" name="okcancelignore" notext="Fermer" yestext="Modifier les Préférences"/>
 	</notification>
 	<notification name="LandBuyAccessBlocked">
-		Votre catégorie d&apos;accès ne vous permet pas d&apos;acheter cette région. Cela vient peut-être du fait qu&apos;il manquait des informations pour valider votre âge. Vérifiez que vous avez la toute dernière version du client et consultez les pages d&apos;aide pour savoir comment accéder aux zones ayant ce niveau d&apos;accès.
-    <usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		Votre catégorie d&apos;accès ne vous permet pas d&apos;acheter cette région. Cela vient peut-être du fait qu&apos;il manquait des informations pour valider votre âge.
+
+Vérifiez que vous avez la toute dernière version du client et consultez les pages d&apos;aide pour savoir comment accéder aux zones ayant ce niveau d&apos;accès.
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="LandBuyAccessBlocked_KB">
-		Votre catégorie d&apos;accès ne vous autorise pas à acheter cette région. 
+		Votre catégorie d&apos;accès ne vous permet pas d&apos;acheter cette région.
+
 Souhaitez-vous en savoir plus sur les différentes catégories d&apos;accès ?
 		<url name="url">
-			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+			http://wiki.secondlife.com/wiki/Pr%C3%A9sentation_des_cat%C3%A9gories_de_contenu_(KB)
 		</url>
-    <usetemplate
-     name="okcancelignore"
-     yestext="Consulter les pages d&apos;aide"
-	 notext="Fermer"
-	 ignoretext="Lorsqu&apos;une région ne peut pas être achetée à cause de la catégorie d&apos;accès"/>
+		<usetemplate ignoretext="Lorsqu&apos;une région ne peut pas être achetée à cause de la catégorie d&apos;accès" name="okcancelignore" notext="Fermer" yestext="Consulter les pages d&apos;aide"/>
 	</notification>
 	<notification name="LandBuyAccessBlocked_Notify">
 		Votre catégorie d&apos;accès ne vous permet pas d&apos;acheter cette région.
 	</notification>
 	<notification name="LandBuyAccessBlocked_Change">
-		Votre catégorie d&apos;accès ne vous autorise pas à acheter cette région. 
-En cliquant sur Modifier les préférences, vous pourrez changer votre catégorie d&apos;accès et pénétrer dans la région. Vous pouvez désormais accéder au contenu [REGIONMATURITY] ; vous pouvez changer à nouveau votre catégorie d&apos;accès à partir de la section Préférences, onglet Général.
-    <usetemplate
-     name="okcancelignore"
-     yestext="Modifier les Préférences"
-	 notext="Fermer"
-	 ignoretext="Lorsqu&apos;une région ne peut pas être achetée à cause des préférences concernant la catégorie d&apos;accès"/>
+		Votre catégorie d&apos;accès ne vous autorise pas à acheter cette région.
+
+En cliquant sur Modifier les préférences, vous pourrez changer votre catégorie d&apos;accès et pénétrer dans la région. À partir de maintenant, vous pouvez rechercher et accéder au contenu [REGIONMATURITY]. Vous pouvez modifier ce paramètre à partir du menu Édition &gt; Préférences... &gt; Général.
+		<usetemplate ignoretext="Lorsqu&apos;une région ne peut pas être achetée à cause des préférences concernant la catégorie d&apos;accès" name="okcancelignore" notext="Fermer" yestext="Modifier les Préférences"/>
+	</notification>
+	<notification name="TooManyPrimsSelected">
+		&quot;Vous avez sélectionné trop de prims. Veuillez sélectionner au maximum [MAX_PRIM_COUNT] prims et réessayer.&quot;
 	</notification>
 	<notification name="ProblemImportingEstateCovenant">
 		Problème lors de l&apos;importation du règlement du domaine.
@@ -1571,57 +1593,64 @@ Publier cette petite annonce maintenant pour [AMOUNT] L$ ?
 	</notification>
 	<notification name="SetClassifiedMature">
 		Cette petite annonce contient-elle du contenu Mature ?
-    <usetemplate
-     canceltext="Annuler"
-     name="yesnocancelbuttons"
-     notext="Non"
-     yestext="Oui"/>
+		<usetemplate canceltext="Annuler" name="yesnocancelbuttons" notext="Non" yestext="Oui"/>
 	</notification>
 	<notification name="SetGroupMature">
 		Ce groupe contient-il du contenu Mature ?
-    <usetemplate
-     canceltext="Annuler"
-     name="yesnocancelbuttons"
-     notext="Non"
-     yestext="Oui"/>
+		<usetemplate canceltext="Annuler" name="yesnocancelbuttons" notext="Non" yestext="Oui"/>
 	</notification>
 	<notification label="Confirmer le redémarrage" name="ConfirmRestart">
 		Souhaitez-vous vraiment redémarrer cette région dans 2 minutes ?
 		<usetemplate name="okcancelbuttons" notext="Annuler" yestext="OK"/>
 	</notification>
-	<notification label="Envoyer un message à tout le monde dans cette région" name="MessageRegion">
-		Saisissez une message court qui sera envoyé à tous les résidents se trouvant actuellement dans cette région.
+	<notification label="Envoyer un message à la région" name="MessageRegion">
+		Saisissez une message qui sera envoyé à tous les résidents présents dans cette région.
 		<form name="form">
 			<input name="message" type="text"/>
 			<button name="OK" text="OK"/>
 			<button name="Cancel" text="Annuler"/>
 		</form>
 	</notification>
-	<notification label="Bloquer le terraformage" name="HelpRegionBlockTerraform">
-		Si vous cochez cette case, les propriétaires ne pourront plus terraformer leur terrain, quels que soient leurs paramètres à la section Modifier le terrain.
+	<notification label="Interdire le terraformage" name="HelpRegionBlockTerraform">
+		Si vous cochez cette case, les propriétaires ne pourront plus terraformer leur terrain, quel que soit le paramétrage individuel des parcelles.
 
-Défaut : désactivé
+Valeur par défaut : désactivé
 	</notification>
 	<notification label="Interdire le vol" name="HelpRegionBlockFly">
-		Si vous cochez cette case, les résidents ne pourront plus voler dans cette région, quels que soient leurs paramètres.
+		Si vous cochez cette case, les résidents ne pourront plus voler dans cette région, quel que soit le paramétrage individuel des parcelles.
 
-Défaut : désactivé
+Valeur par défaut : désactivé
+	</notification>
+	<notification label="Modifications groupées des droits relatifs au contenu" name="HelpBulkPermission">
+		L&apos;outil Modifications groupées des droits vous permet de modifier rapidement et simultanément les droits dans les contenus des objets séléctionnés. Notez toutefois que vous paramétrez uniquement les droits des objets dans les Contenus des objets sélectionnés, et non les droits sur les objets eux-mêmes.  
+
+Notez aussi que les droits ne s&apos;appliquent pas aux contenus imbriqués dans les objets contenus. Votre requête ne porte que sur les objets de premier niveau.
+
+Vous pouvez sélectionner quels types d&apos;objets modifier à la section Types de contenu. Les photos sont incluses quand vous sélectionnez Textures.
+
+* Cet outil ne vous permettra de changer que les droits des objets que vous êtes autorisés à modifier.
+* Vous ne pouvez pas accorder de droits que vous n&apos;avez pas au prochain propriétaire.
+* Les droits accordés au prochain propriétaire de sont que des requêtes. Si un objet ne peut recevoir tous les nouveaux droits, aucun de ses droits ne changera.
+
+Lorsque vous êtes prêt à modifier tous les droits, cliquez sur Appliquer et attendez de voir s&apos;afficher les résultats.
+
+Si vous fermez la fenêtre des modifications groupées alors que les droits sont en train d&apos;être modifiés, vous suspendez l&apos;opération.
 	</notification>
 	<notification label="Autoriser les dégâts" name="HelpRegionAllowDamage">
-		Si vous cochez cette case, l&apos;alerte santé est désactivée sur toutes les parcelles quels que soient les paramètres individuels de la parcelle. Si la case n&apos;est pas cochée, les propriétaires de parcelles peuvent quand même activer l&apos;alerte santé de manière individuelle sur leurs parcelles.
+		Si vous cochez cette case, les résidents peuvent subir des dégâts dans toute la région quel que soit le paramétrage individuel des parcelles. Si la case n&apos;est pas cochée, les propriétaires sont libres d&apos;activer ou non cette option sur leur parcelle.
 
-Défaut : désactivé
+Valeur par défaut : désactivé
 	</notification>
-	<notification label="Nombre limite d&apos;avatars" name="HelpRegionAgentLimit">
+	<notification label="Nombre maximum d&apos;avatars" name="HelpRegionAgentLimit">
 		Définit le nombre maximum d&apos;avatars autorisés dans cette région.
 La performance peut varier en fonction du nombre d&apos;avatars présents.
 
-Défaut : 40
+Valeur par défaut : 40
 	</notification>
 	<notification label="Bonus objet" name="HelpRegionObjectBonus">
-		Le bonus objet est le multiplicateur de prims autorisés sur une parcelle donnée. L&apos;échelle autorisée est comprise entre 1 et 10. Lorsque ce chiffre est de 1, chaque parcelle de 512 m² peut contenir 117 objets. S&apos;il est de 2, chaque parcelle peut contenir 234 objets, ou deux fois plus, et ainsi de suite. Le nombre maximum d&apos;objets autorisés dans une région est de 15 000, quel que soit le bonus objet. Attention : si vous définissez un bonus objet et décidez ensuite de le diminuer, cela peut entraîner la suppression ou le renvoi d&apos;objets.
+		Le bonus objet est le multiplicateur de prims autorisées sur une parcelle donnée. L&apos;échelle autorisée est comprise entre 1 et 10. Lorsque ce chiffre est de 1, chaque parcelle de 512 m² peut contenir 117 prims. S&apos;il est de 2, chaque parcelle peut contenir 234 prims, ou deux fois plus, et ainsi de suite. Le nombre maximum de prims autorisées dans une région est de 15 000, quel que soit le bonus objet. Attention : si vous définissez un bonus objet et décidez ensuite de le diminuer, cela peut entraîner la suppression ou le renvoi d&apos;objets.
 
-Défaut : 1.0
+Valeur par défaut : 1.0
 	</notification>
 	<notification label="Accès" name="HelpRegionMaturity">
 		Définit la catégorie d&apos;accès de la région, telle qu&apos;affichée dans la barre de menu en haut du client et dans les infobulles de la carte lorsque vous passez votre curseur au-dessus de cette région. Ce paramètre affecte aussi l&apos;accès à cette région et les résultats de recherche. Les autres résidents ne peuvent pénétrer que dans les régions ou n&apos;afficher que les résultats de recherche ayant la même catégorie d&apos;accès que celle indiquée dans leurs Préférences.
@@ -1630,118 +1659,118 @@ Ce changement n&apos;apparaîtra pas immédiatement sur la carte.
 	</notification>
 	<notification label="Interdire les bousculades" name="HelpRegionRestrictPushObject">
 		Cette case permet de restreindre les bousculades dans toute une région.
-Lorsqu&apos;elle est cochée, les résidents ne peuvent être bousculés que par eux-mêmes ou par le propriétaire de la région.
+Lorsqu&apos;elle est cochée, les résidents ne peuvent être bousculés que par d&apos;autres résidents ou par le propriétaire de la parcelle.
 (Bousculer fait référence à la fonction LSL llPushObjet().)
 
-Défaut : Désactivé
+Valeur par défaut : désactivé
 	</notification>
 	<notification label="Fusionner/Diviser des parcelles" name="HelpParcelChanges">
 		Cette case permet de choisir si les parcelles n&apos;appartenant pas au gérant du domaine peuvent ou pas être fusionnées ou divisées.
 Si cette case n&apos;est pas cochée :
  * Seuls les propriétaires ou gérants de domaine peuvent fusionner ou diviser des parcelles.
  * Ils ne peuvent fusionner ou diviser que les parcelles du propriétaire,
-   ou celles d&apos;un groupe dans lequel il ont les pouvoirs nécessaires.
-Si cette case est cochée :
+   ou celles d&apos;un groupe dans lequel ils ont les pouvoirs nécessaires.
+   Si cette case est cochée :
  * Tous les propriétaires peuvent fusionner ou diviser leurs parcelles.
- * Pour les parcelles du groupe, les résidents avec les pouvoirs nécessaires
-   peuvent fusionner ou diviser les parcelles.
+ * Pour les parcelles appartenant à un groupe, les membres avec les pouvoirs nécessaires peuvent fusionner ou diviser les parcelles.
 
-Défaut : Cochée
+Valeur par défaut : activée
 	</notification>
-	<notification label="Ne pas montrer dans les résultats de recherche" name="HelpRegionSearch">
+	<notification label="Ne pas afficher dans la recherche" name="HelpRegionSearch">
 		Si vous cochez cette option, les propriétaires ne pourront pas faire apparaître leurs parcelles dans les résultats de recherche.
-Défaut : Désactivé
+Valeur par défaut : désactivé
 	</notification>
-	<notification label="Maturité de la région modifiée" name="RegionMaturityChange">
-		Le niveau de maturité de cette région a été mis à jour.
+	<notification label="Catégorie de la région modifiée" name="RegionMaturityChange">
+		La catégorie d&apos;accès de cette région a été mise à jour.
 Ce changement n&apos;apparaîtra pas immédiatement sur la carte.
 	</notification>
 	<notification label="Revente de terrain" name="HelpRegionLandResell">
-		Les propriétaires et gérants de domaine peuvent vendre n&apos;importe quel terrain appartenant à un propriétaire de domaine.
-Si cette option n&apos;est pas cochée, les acheteurs ne peuvent pas revendre leur terrain dans cette région.
-Si cette option est cochée, les acheteurs peuvent revendre leur terrain dans cette région.
+		Les propriétaires et gérants de domaine peuvent vendre n&apos;importe quel terrain appartenant au propriétaire du domaine.
+Si cette option n&apos;est pas cochée, les propriétaires ne peuvent pas revendre leur parcelle.
+Si cette option est cochée, les propriétaires sont libres de revendre leur parcelle.
 
-Défaut : Ne pas autoriser
+Valeur par défaut : désactivé
 	</notification>
 	<notification label="Désactiver les scripts" name="HelpRegionDisableScripts">
-		Lorsque la performance d&apos;une sim est faible, cela vient peut-être d&apos;un script. Ouvrez la section Statistiques (Ctrl-Maj-1). Consultez le Simulateur de propriétés physiques FPS.
-S&apos;il est en dessous de 45, ouvrez le panel Heure situé en bas de la barre de statistiques. Si le script Heure indique 25mn ou moins, cliquez sur le bouton Afficher les scripts fréquemment utilisés. Vous verrez le nom et l&apos;emplacement des scripts qui sont peut-être à l&apos;origine du problème.
+		Lorsque la performance d&apos;une région est faible, cela peut venir d&apos;un script. Ouvrez la section Statistiques (Ctrl-Maj-1) et vérifiez le FPS Physique (Physics FPS) de la section Simulateur.
+Si le FPS est en dessous de 45, ouvrez la section Time située en fin de liste. Si le Script Time est au dessus de 25ms, cliquez sur le bouton Afficher les objets scriptés les plus consommateurs. Vous verrez le nom et l&apos;emplacement des scripts éventuellement à l&apos;origine du problème.
 
-Si vous cochez la case Désactiver les scripts et que vous appuyez sur Appliquer, tous les scripts de cette région seront temporairement désactivés. Vous devrez peut-être faire cela pour aller dans un endroit où se trouve un script fréquemment utilisé. Une fois arrivé, cherchez à savoir si le script est bien à l&apos;origine du problème. Pour cela, vous devrez peut-être contacter le propriétaire du script ou bien supprimer ou renvoyer l&apos;objet.
+Si vous cochez la case Désactiver les scripts et que vous appuyez sur Appliquer, tous les scripts de cette région seront temporairement désactivés. Vous devrez peut-être faire cela le temps d&apos;arriver à l&apos;endroit su script en cause. Une fois sur place, assurez-vous que le script est bien à l&apos;origine du problème. Pour cela, vous devrez peut-être contacter le propriétaire du script ou bien supprimer ou renvoyer l&apos;objet.
 Décochez la case Désactiver le script, puis cliquez sur Appliquer pour réactiver tous les scripts dans la région.
 
-Défaut : désactivé
+Valeur par défaut : désactivé
 	</notification>
 	<notification label="Désactiver les collisions" name="HelpRegionDisableCollisions">
-		Lorsque la performance d&apos;une sim est faible, cela vient peut-être des objets physiques.
-Ouvrez la barre de statistiques (Ctrl-Maj-1). Consultez le Simulateur de propriétés physiques FPS. S&apos;il est en dessous de 45, ouvrez le panel Heure situé en bas de la barre de statistiques. Si le script Heure indique 25mn ou moins, cliquez sur le bouton Afficher les objets souvent responsables de collision.
-Vous verrez le nom et l&apos;emplacement des objets physiques qui sont peut-être à l&apos;origine du problème.
+		Des objets physiques peuvent fortement réduire les performances d&apos;une région.
+Ouvrez la barre de statistiques (Ctrl-Maj-1) et vérifiez le FPS Physique (Physics FPS) de la section Simulateur.
+Si le FPS est en dessous de 45, ouvrez la section Time située en fin de liste. Si le Script Time est au dessus de 25ms, cliquez sur le bouton Afficher les collisions les plus consommatrices.
+Vous verrez le nom et l&apos;emplacement des objets physiques éventuellement à l&apos;origine du problème.
 
-Si vous décochez la case Désactiver les collisions et que vous appuyez sur Appliquer, toutes les collisions entre objets seront désactivées. Vous devrez peut-être faire cela pour aller dans un endroit où se trouve un objet souvent responsable de collision. Une fois arrivé, cherchez à savoir si l&apos;objet est sans cesse en collision avec d&apos;autres objets. Pour cela, vous devrez peut-être contacter le propriétaire de l&apos;objet ou bien supprimer ou renvoyer l&apos;objet.
-Décochez la case Désactiver les collision, puis cliquez sur Appliquer pour réactiver les collisions dans la région.
+Si vous décochez la case Désactiver les collisions et que vous cliquez sur Appliquer, toutes les collisions entre objets seront désactivées. Vous pourrez avoir besoin de cette fonction le temps d&apos;arriver à l&apos;emplacement des objets en cause. Une fois sur place, vérifiez que l&apos;&apos;objet est bien responsable du problème (entre-t-il sans cesse en collision avec d&apos;autres objets ?) Pour cela, vous devrez peut-être contacter le propriétaire de l&apos;objet ou bien supprimer ou renvoyer l&apos;objet.
+Décochez la case Désactiver les collisions, puis cliquez sur le bouton Appliquer pour réactiver les collisions dans la région.
 
-Défaut : désactivé
+Valeur par défaut : désactivé
 	</notification>
-	<notification label="Désactiver les propriétés physiques" name="HelpRegionDisablePhysics">
-		L&apos;option Désactiver les propriétés physiques est similaire à l&apos;option Désactiver les collisions sauf qu&apos;elle englobe toutes les simulations physiques.  Cela signifie que les objets n&apos;entreront plus en collision et que les avatars ne pourront plus bouger.
+	<notification label="Désactiver la physique" name="HelpRegionDisablePhysics">
+		L&apos;option Désactiver la physique est similaire à l&apos;option Désactiver les collisions sauf qu&apos;elle englobe tous les effets liés à la physique. Cela signifie que les objets n&apos;entreront plus en collision et que les avatars ne pourront plus bouger.
 
-Vous ne devriez utiliser cette option que lorsque l&apos;option Désactiver les collisions ne rend pas sufisamment de performance à la région pour résoudre un problème de physique ou trouver les objets souvent responsables de collisions.
+Vous ne devriez utiliser cette option que lorsque l&apos;option Désactiver les collisions n&apos;améliore pas sufisamment la performance de la région pour résoudre un problème de physique ou trouver les objets entrant en collision.
 
-Une fois que vous avez fini, n&apos;oubliez pas de réactiver les propriétés physiques sinon vos avatars ne pourront pas bouger.
+Une fois que vous avez fini, n&apos;oubliez pas de réactiver les propriétés physiques sinon les avatars ne pourront pas bouger.
 
-Défaut : désactivé
+Valeur par défaut : désactivé
 	</notification>
-	<notification label="Objets souvent responsables de collision" name="HelpRegionTopColliders">
-		Montre une liste des objets qui ont le plus de chances d&apos;entrer en collision avec d&apos;autres objets. Ces objets peuvent ralentir votre performance. Sélectionnez Affichage &gt; Statistiques et regardez sous Simulator &gt; Time &gt; Sim Time (Physics) pour voir si les propriétés physiques prennent plus de 20 ms.
+	<notification label="Afficher les collisions les plus consommatrices" name="HelpRegionTopColliders">
+		Montre une liste des objets générant le plus de collisions avec d&apos;autres objets. Ces objets peuvent ralentir les performances de votre région. Sélectionnez Affichage &gt; Statistiques et regardez sous Simulator &gt; Time &gt; Sim Time (Physics) pour voir si le temps du moteur physique est au dessus de 20 ms.
 	</notification>
-	<notification label="Scripts souvent utilisés" name="HelpRegionTopScripts">
-		Dresse une liste des objets qui passent le plus de temps à exécuter des scripts LSL. Ces objets peuvent ralentir votre performance.
-Sélectionnez Affichage &gt; Statistiques et regardez sous Simulator &gt; Time &gt; Script Time pour voir si les scripts prennent plus de 25 ms.
+	<notification label="Afficher les objets scriptés les plus consommateurs" name="HelpRegionTopScripts">
+		Dresse une liste des objets dont les scripts consomment le plus de ressources. Ces objets peuvent ralentir la performance de votre région.
+Sélectionnez Affichage &gt; Statistiques et regardez sous Simulator &gt; Time &gt; Script Time pour voir si le temps des scripts est au dessus de 25 ms.
 	</notification>
 	<notification label="Redémarrer la région" name="HelpRegionRestart">
-		Redémarre le serveur en charge de la région après un avertissement de deux minutes. Tous les résidents dans cette région seront déconnectés. Les données de la région seront sauvegardées et réapparaîtront au bout de 90 secondes.
+		Redémarre le serveur en charge de la région après deux minutes d&apos;avertissement. Tous les résidents dans cette région seront déconnectés. Les données de la région seront sauvegardées et réapparaîtront au bout de 90 secondes.
 
-Le redémarrage la région ne permet pas de résoudre la plupart des problèmes de performance. Les redémarrages ne doivent avoir lieu que si cela est vraiment nécessaire.
+Le redémarrage de la région ne permet pas de résoudre la plupart des problèmes de performance. Les redémarrages ne doivent avoir lieu qu&apos;en dernier recours.
 	</notification>
 	<notification label="Niveau de l&apos;eau" name="HelpRegionWaterHeight">
 		Il s&apos;agit de la hauteur de l&apos;eau en mètres.
 Si ce paramètre est différent de 20 et que vous avez de l&apos;eau adjacente au bord du monde ou de l&apos;eau « vide », il y aura un espace vide visible.
 
 
-Défaut : 20
+Valeur par défaut : 20
 	</notification>
 	<notification label="Surélévation du terrain" name="HelpRegionTerrainRaise">
 		Il s&apos;agit de la distance (en mètres) à laquelle les propriétaires de parcelle peuvent surélever leur terrain, par rapport au terrain « figé » dont la hauteur est fixée par défaut.
 
-Défaut : 4
+Valeur par défaut : 4
 	</notification>
 	<notification label="Abaisser le terrain" name="HelpRegionTerrainLower">
 		Il s&apos;agit de la distance (en mètres) à laquelle les propriétaires de parcelle peuvent abaisser leur terrain, par rapport au terrain « figé » dont la hauteur est fixée par défaut.
 
-Défaut : -4
+Valeur par défaut : -4
 	</notification>
 	<notification label="Charger le terrain au format RAW" name="HelpRegionUploadRaw">
 		Ce bouton permet de charger un fichier .RAW dans la région où vous vous trouvez.
 Ce fichier doit avoir les bonnes dimensions (RGB, 256 x 256) et 13 canaux. Le meilleur moyen de créer un fichier terrain est de télécharger le fichier RAW existant. Un bon moyen est de modifier le canal rouge (hauteur terrain) et de le charger.
 
-Le chargement peut prendre jusqu&apos;à 45 secondes. Veuillez noter que le chargement d&apos;un fichier terrain ne déplacera pas les objets qui se trouvent sur le terrain, mais seulement le terrain et les permissions associées aux parcelles. Certains objets risquent d&apos;aller sous la terre.
+Le chargement peut prendre jusqu&apos;à 45 secondes. Veuillez noter que le chargement d&apos;un fichier terrain ne déplacera pas les objets qui se trouvent sur le terrain, mais seulement le terrain et les droits associés aux parcelles. Certains objets risquent d&apos;aller sous la terre.
 
 Pour en savoir plus sur la modification de la hauteur des terrains d&apos;une région, consultez l&apos;Aide F1.
 	</notification>
 	<notification label="Télécharger le terrain au format RAW" name="HelpRegionDownloadRaw">
-		Ce bouton permet de télécharger un fichier contenant les données relatives à la hauteur du terrain, dimensions de la parcelle, les mises en vente ainsi que certaines permissions relatives à la parcelle pour cette région. Lorsque vous ouvrez le fichier avec un programme tel que Photoshop, vous devez indiquer les dimensions du document qui sont les suivantes : RGB, 256 x 256 avec 13 canaux. Le fichier terrain ne peut pas être ouvert différemment.
+		Ce bouton permet de télécharger un fichier contenant les données relatives à la hauteur du terrain, dimensions de la parcelle, les mises en vente ainsi que certains droits relatifs à la parcelle pour cette région. Lorsque vous ouvrez le fichier avec un programme tel que Photoshop, vous devez indiquer les dimensions du document qui sont les suivantes : RGB, 256 x 256 avec 13 canaux. Le fichier terrain ne peut pas être ouvert différemment.
 
 Pour en savoir plus sur la modification de la hauteur des terrains d&apos;une région, consultez l&apos;Aide F1.
 	</notification>
 	<notification label="Utiliser le soleil du domaine" name="HelpRegionUseEstateSun">
 		Si vous cochez cette case, la position du soleil dans cette région sera la même que dans le reste du domaine.
 
-Défaut : activé
+Valeur par défaut : activé
 	</notification>
 	<notification label="Soleil fixe" name="HelpRegionFixedSun">
 		Si vous cochez cette case, la position du soleil se fixe sur celle du curseur Phase et le soleil arrête de bouger.
 
-Défaut : désactivé
+Valeur par défaut : désactivé
 	</notification>
 	<notification label="Figer le terrain" name="HelpRegionBakeTerrain">
 		Ce bouton permet d&apos;enregistrer la forme actuelle du terrain comme nouvelle forme par défaut pour la région. Une fois figé, le terrain peut reprendre la forme enregistrée à partir de l&apos;option Rétablir le terrain à la section Modifer le terrain. Le terrain figé est aussi le point de référence pour les limites de surélévation et d&apos;abaissement.
@@ -1754,7 +1783,7 @@ Seuls les propriétaires de domaine peuvent ajouter ou supprimer des gérants de
 	<notification label="Utiliser le temps universel" name="HelpEstateUseGlobalTime">
 		Cette case permet au soleil de votre domaine de suivre la position du soleil sur les domaines Linden du continent.
 
-Défaut : activé
+Valeur par défaut : activé
 	</notification>
 	<notification label="Soleil fixe" name="HelpEstateFixedSun">
 		Si vous cochez cette case, la position du soleil se fixe sur celle du curseur Phase et le soleil arrête de bouger.
@@ -1762,12 +1791,12 @@ Défaut : activé
 	<notification label="Accès public" name="HelpEstateExternallyVisible">
 		Cette option vous permet de choisir quels résidents d&apos;autres domaines peuvent pénétrer sur votre domaine sans devoir être ajoutés à la liste d&apos;accès.
 
-Défaut : activé
+Valeur par défaut : activé
 	</notification>
 	<notification label="Autoriser la téléportation directe" name="HelpEstateAllowDirectTeleport">
 		Lorsqu&apos;elle est cochée, cette option permet aux résidents d&apos;être téléportés à n&apos;importe quel endroit sur votre domaine.  Lorsque cette option n&apos;est pas cochée, les résidents sont téléportés au téléhub le plus proche.
 
-Défaut : désactivé
+Valeur par défaut : désactivé
 	</notification>
 	<notification label="Autoriser l&apos;accès" name="HelpEstateAllowResident">
 		L&apos;accès à ce domaine sera réservé aux résidents figurant dans cette liste et aux groupes ci-dessous.
@@ -1786,7 +1815,7 @@ Si vous laissez ce champ vide, les rapports d&apos;infraction seront envoyés à
 	<notification label="Autoriser les chats vocaux" name="HelpEstateVoiceChat">
 		Les parcelles de ce domaine peuvent avoir leurs propres canaux vocaux, ce qui permet aux résidents de communiquer avec leurs voisins.
 
-Défaut : désactivé
+Valeur par défaut : désactivé
 	</notification>
 	<notification label="Versions de voix non compatibles" name="VoiceVersionMismatch">
 		Cette version de Second Life n&apos;est pas compatible avec la fonctionnalité de chat vocal dans cette région. Vous devez mettre à jour Second Life pour que le chat vocal fonctionne correctement.
@@ -1876,22 +1905,22 @@ Veuillez saisir à nouveau votre mot de passe et cliquer sur OK.
 	</notification>
 	<notification name="SetPickLocation">
 		Remarque :
-Vous avez mis à jour l&apos;emplacement de ce favori mais les autres détails resteront inchangés.
+vous avez mis à jour l&apos;emplacement de ce favori mais les autres détails resteront inchangés.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="MoveInventoryFromObject">
-		Vous avez sélectionné des objets de l&apos;inventaire qui ne peuvent pas être copiés.
-Ces objets seront déplacés vers votre inventaire, et non pas copiés.
+		Vous avez sélectionné des objets non copiables.
+Ces objets seront déplacés dans votre inventaire et non pas copiés.
 
 Déplacer les objets de l&apos;inventaire ?
-		<usetemplate ignoretext="Lors du transfert d&apos;un inventaire non reproductible depuis des objets" name="okcancelignore" notext="Annuler" yestext="OK"/>
+		<usetemplate ignoretext="Lors du transfert d&apos;un inventaire non copiable depuis des objets" name="okcancelignore" notext="Annuler" yestext="OK"/>
 	</notification>
 	<notification name="MoveInventoryFromScriptedObject">
 		Vous avez sélectionné des objets de l&apos;inventaire qui ne peuvent pas être copiés. Ces objets seront déplacés vers votre inventaire, et non pas copiés.
-Étant donné que l&apos;objet est scripté, déplacer ces objets vers votre inventaire risque de causer des problèmes au niveau du script.
+L&apos;objet les contenant est scripté, déplacer ces objets peut causer des problèmes au niveau du script.
 
 Déplacer les objets de l&apos;inventaire ?
-		<usetemplate ignoretext="Lors du transfert d&apos;un inventaire non reproductible depuis des objets scriptés" name="okcancelignore" notext="Annuler" yestext="OK"/>
+		<usetemplate ignoretext="Lors du transfert d&apos;un inventaire non copiable depuis des objets scriptés" name="okcancelignore" notext="Annuler" yestext="OK"/>
 	</notification>
 	<notification name="ClickActionNotPayable">
 		Avertissement : l&apos;action du clic Payer l&apos;objet a été défini mais ne fonctionnera que si un script est ajouté avec l&apos;event money().
@@ -1985,11 +2014,11 @@ Les descriptions précises nous permettent de résoudre les bugs plus rapidement
 
 Il semble que vous souhaitiez reporter une infraction à des droits de propriété intellectuelle. Pour signaler correctement cette infraction :
 
-(1) Remplissez un rapport d&apos;infraction. Vous pouvez soumettre un rapport d&apos;infraction si vous pensez qu&apos;un résident exploite le système de permissions de Second Life, par exemple en utilisant un CopyBot ou des outils similaires pour enfreindre des droits de propriété intellectuelle. Notre équipe chargée des infractions mènera une enquête et prendra les mesures nécessaires à l&apos;encontre du résident non respectueux des Conditions d&apos;utilisation ou des règles de la communauté. Sachez toutefois que l&apos;équipe chargée des infractions ne supprimera pas de contenu à l&apos;intérieur de Second Life.
+(1) Remplissez un rapport d&apos;infraction. Vous pouvez soumettre un rapport d&apos;infraction si vous pensez qu&apos;un résident exploite le système de droits de Second Life, par exemple en utilisant un CopyBot ou des outils similaires pour enfreindre des droits de propriété intellectuelle. Notre équipe chargée des infractions mènera une enquête et prendra les mesures nécessaires à l&apos;encontre du résident non respectueux des Conditions d&apos;utilisation ou des règles de la communauté. Sachez toutefois que l&apos;équipe chargée des infractions ne supprimera pas de contenu à l&apos;intérieur de Second Life.
 
 (2) Demandez à ce que du contenu à l&apos;intérieur de Second Life soit supprimé. Pour demander à ce que du contenu soit supprimé de Second Life, vous devez soumettre un rapport d&apos;infraction valide, tel que fourni dans notre Règlement contre les violations des droit d&apos;auteurs (DMCA), à http://secondlife.com/corporate/dmca.php.
 
-Si vous souhaitez toujours reporter cette infraction, veuillez fermer cette fenêtre et soumettre votre rapport.  Vous devrez peut-être sélectionner la catégorie CopyBot ou exploitation abusive des permissions.
+Si vous souhaitez toujours reporter cette infraction, veuillez fermer cette fenêtre et soumettre votre rapport.  Vous devrez peut-être sélectionner la catégorie CopyBot ou exploitation abusive des droits.
 
 Merci,
 
@@ -2039,7 +2068,7 @@ Souhaitez-vous quitter le mode occupé avant de terminer cette transaction ?
 		<usetemplate ignoretext="Losque vous videz le dossier Objets trouvés dans votre inventaire" name="okcancelignore" notext="Non" yestext="Oui"/>
 	</notification>
 	<notification name="CopySLURL">
-		La SLURL suivante a été copiée dans votre presse-papier :
+		La SLURL suivante a été copiée dans votre presse-papiers :
  [SLURL]
 
 Mettez-la dans une page web pour permettre aux autres résidents d&apos;accéder facilement à cet endroit ou bien collez-la dans la barre d&apos;adresse de votre navigateur.
@@ -2095,7 +2124,7 @@ Rendu du terrain : définit le niveau de détail que vous souhaitez utiliser dan
 	<notification name="EnvSettingsHelpButton">
 		Ces paramètres permettent de modifier l&apos;environnement local sur votre ordinateur. Pour que vous ayez accès à tous les paramètres, votre carte graphique doit prendre en charge les effets atmosphériques.
 
-Pour changer les différentes phases de la journée sur votre visualisateur, utilisez le curseur Heure de la journée.
+Pour changer les différentes phases de la journée dans le client, utilisez le curseur Heure de la journée.
 
 Le curseur Couverture nuageuse permet de contrôler le nombre de nuages dans le ciel.
 
@@ -2280,8 +2309,8 @@ Même chose que l&apos;azimut.
 	<notification name="Cannot_Purchase_an_Attachment">
 		Les objets qui font partie d&apos;une pièce-jointe ne peuvent pas être achetés.
 	</notification>
-	<notification label="À propos des requêtes pour les permissions de débit" name="DebitPermissionDetails">
-		Accepter cette requête donne au script la permission de prélever des dollars Linden (L$) sur votre compte de manière continue. Pour révoquer cette permission, le propriétaire de l&apos;objet doit supprimer l&apos;objet ou bien réinitialiser les scripts dans l&apos;objet.
+	<notification label="À propos des requêtes pour les autorisations de débit" name="DebitPermissionDetails">
+		Accepter cette requête donne au script l&apos;autorisation de prélever des dollars Linden (L$) sur votre compte de manière continue. Pour révoquer cette autorisation, le propriétaire de l&apos;objet doit supprimer l&apos;objet ou bien réinitialiser les scripts dans l&apos;objet.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="AutoWearNewClothing">
@@ -2426,7 +2455,7 @@ Merci de réessayer.
 		Désactivation du mode divin : niveau [LEVEL]
 	</notification>
 	<notification name="CopyFailed">
-		Copie impossible, permissions insuffisantes.
+		Copie impossible, droits insuffisants.
 	</notification>
 	<notification name="InventoryAccepted">
 		[NAME] a accepté votre envoi.
@@ -2549,7 +2578,9 @@ Aucun script n&apos;est exécuté à part ceux du propriétaire du terrain.
 		Vous ne pouvez réclamer qu&apos;un terrain public dans la région où vous vous trouvez actuellement.
 	</notification>
 	<notification name="RegionTPAccessBlocked">
-		Votre catégorie d&apos;accès ne vous autorise pas à pénétrer dans cette région. Vous devez sans doute procéder à la vérification de votre âge ou installer une version plus récente du client. Pour savoir comment accéder aux zones ayant un tel niveau d&apos;accès, veuillez consulter les pages d&apos;aide.
+		Votre catégorie d&apos;accès ne vous autorise pas à pénétrer dans cette région. Vous devez sans doute procéder à la vérification de votre âge ou installer une version plus récente du client.
+
+Pour savoir comment accéder aux zones ayant un tel niveau d&apos;accès, veuillez consulter les pages d&apos;aide.
 	</notification>
 	<notification name="URBannedFromRegion">
 		Vous avez été banni de cette région.
@@ -2629,7 +2660,7 @@ Veuillez réessayer dans quelques minutes.
 		Aucune parcelle valide n&apos;a été trouvée.
 	</notification>
 	<notification name="ObjectGiveItem">
-		Un objet appelé [OBJECTFROMNAME] appartenant à [FIRST] [LAST] vous a donné un [OBJECTTYPE] appelé [OBJECTNAME].
+		Un objet appelé [OBJECTFROMNAME] appartenant à [FIRST] [LAST] vous a donné : [OBJECTTYPE] appelé(e) [OBJECTNAME].
 		<form name="form">
 			<button name="Keep" text="Garder"/>
 			<button name="Discard" text="Jeter"/>
@@ -2730,7 +2761,7 @@ Si vous restez dans cette région, vous serez déconnecté(e).
 
 Venant de l&apos;objet : [OBJECTNAME], appartenant à : [NAME]?
 		<form name="form">
-			<button name="Gotopage" text="Aller sur cette page"/>
+			<button name="Gotopage" text="Charger"/>
 			<button name="Cancel" text="Annuler"/>
 		</form>
 	</notification>
@@ -2784,11 +2815,11 @@ Accepter cette requête ?
 	<notification name="FirstBalanceIncrease">
 		Vous venez de recevoir [AMOUNT] L$.
 Des objets et des utilisateurs peuvent vous donner des L$.
-Votre solde est affiché dans le coin en haut à droite de l&apos;écran.
+Votre solde est affiché dans le coin supérieur droit de votre écran.
 	</notification>
 	<notification name="FirstBalanceDecrease">
 		Vous venez de payer [AMOUNT] L$.
-Votre solde est affiché dans le coin en haut à droite de l&apos;écran.
+Votre solde est affiché dans le coin supérieur droit de votre écran.
 	</notification>
 	<notification name="FirstSit">
 		Vous êtes assis(e).
@@ -2802,13 +2833,13 @@ Utilisez les contrôles à droite pour trouver des choses et afficher différent
 	</notification>
 	<notification name="FirstBuild">
 		Vous pouvez construire des objets dans certaines zones de [SECOND_LIFE].
-Utilisez les outils en haut à gauche pour construire, et gardez la touche Ctrl ou Alt enfoncée pour passer rapidement d&apos;un outil à l&apos;autre.
+Utilisez les outils en haut à gauche pour construire et gardez la touche Ctrl ou Alt enfoncée pour passer rapidement d&apos;un outil à l&apos;autre.
 Appuyez sur la touche Esc pour arrêter de construire.
 	</notification>
 	<notification name="FirstLeftClickNoHit">
-		Cliquer à gauche permet d&apos;interagir avec certains objets.
+		Un clic gauche permet d&apos;interagir avec certains objets.
 Si le pointeur de la souris se transforme en main, vous pouvez interagir avec l&apos;objet.
-Cliquer à droite fait toujours apparaître un menu des choses que vous pouvez faire.
+Un clic droit fait toujours apparaître un menu des choses que vous pouvez faire.
 	</notification>
 	<notification name="FirstTeleport">
 		Cette région n&apos;autorise pas la téléportation de point à point. Vous avez donc été transporté au téléhub le plus proche.
@@ -2850,11 +2881,11 @@ Pour activer/désactiver ce menu sous Windows, appuyez sur Ctrl-Alt-D. Sur un Ma
 	</notification>
 	<notification name="FirstSculptedPrim">
 		Vous êtes en train d&apos;éditer un sculptie.
-Pour spécifier la forme d&apos;un sculptie, vous devez utiliser une texture spécifique.
+Pour modifier la forme d&apos;un sculptie, vous devez utiliser une texture spécifique.
 Vous trouverez des textures dans la bibliothèque de votre inventaire.
 	</notification>
 	<notification name="FirstMedia">
-		Vous avez lancé la lecture d&apos;un média. Dans le menu Préférences, à l&apos;onglet Audio/Vidéo, vous pouvez choisir de lire automatiquement les médias. Notez que cela peut être risqué lorsque les médias viennent de sites que vous ne connaissez pas.
+		Vous avez lancé la lecture d&apos;un média. Dans le menu Préférences, à l&apos;onglet Audio et vidéo, vous pouvez choisir de lire automatiquement les médias. Notez que cela peut être risqué lorsque les médias viennent de sites que vous ne connaissez pas.
 	</notification>
 	<notification name="MaxListSelectMessage">
 		Vous ne pouvez sélectionner que [MAX_SELECT] objets maximum dans cette liste.

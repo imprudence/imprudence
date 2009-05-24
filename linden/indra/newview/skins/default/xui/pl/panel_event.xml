@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel name="Event" title="Event">
+<panel name="Event" title="Wydarzenie"> 
 	<text name="event_name_label">
 		Nazwa:
 	</text>

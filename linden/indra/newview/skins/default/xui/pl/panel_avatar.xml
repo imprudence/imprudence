@@ -32,7 +32,7 @@
 				Wiek Zweryfikowany
 			</string>
 			<string name="NotAgeVerified">
-				Wiek nie Zweryfikowany
+				Brak Weryfikacji Wieku
 			</string>
 			<text name="Name:">
 				Imię:
@@ -50,7 +50,7 @@
 			</text>
 			<view_border name="acct_border"/>
 			<text name="acct"/>
-			<text name="partner_label" tool_tip="Partner w Second Life. Więcej informacji pod www.secondlife.com/partner">
+			<text name="partner_label" tool_tip="Partner w Second Life. Więcej informacji na www.secondlife.com/partner">
 				Partner:
 			</text>
 			<button label="i" label_selected="i" name="partner_info" tool_tip="Kliknij żeby zobaczyć profil partnera"/>
@@ -101,7 +101,7 @@
 				</flyout_button_item>
 			</flyout_button>
 			<button label="?" label_selected="?" name="web_profile_help"/>
-			<check_box label="Auto-ładuj profile z Internetu" name="auto_load" tool_tip="Automatycznie ładuj strony profili."/>
+			<check_box label="Automatyczne ładowanie profilu z Internetu" name="auto_load" tool_tip="Automatycznie ładuj stronę profilu."/>
 			<web_browser name="profile_html"/>
 			<text name="status_text"/>
 		</panel>

@@ -306,9 +306,9 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 			url.replace(where, substring.length(), collection);
 		}
 
-		llinfos << "url " << url << llendl;
 	}
 	url += getSearchURLSuffix(inc_pg, inc_mature, inc_adult);
+	llinfos << "search url " << url << llendl;
 	return url;
 }
 // static

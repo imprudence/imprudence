@@ -308,6 +308,11 @@ LLNotifyBox::LLNotifyBox(LLNotificationPtr notification,
 		
 		sNotifyBoxCount++;
 
+		if (sNotifyBoxCount <= 0)
+		{
+			llwarns << "A notification was mishandled. sNotifyBoxCount = " << sNotifyBoxCount << llendl;
+		}
+		
 		// If this is the only notify box, don't show the next button
 		if (sNotifyBoxCount == 1
 			&& mNextBtn)
@@ -723,8 +728,6 @@ void LLNotifyBox::onClickButton(void* data)
 		response[button_name] = true;
 	}
 	self->mNotification->respond(response);
-
-	self->close();
 }
 
 

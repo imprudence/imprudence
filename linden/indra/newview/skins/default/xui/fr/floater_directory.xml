@@ -243,14 +243,14 @@ Pour acheter directement, visitez le terrain et cliquez sur le nom de l&apos;end
 					À vendre - Continent
 				</combo_item>
 				<combo_item name="EstateSales">
-					À vendre - Domaine
+					À vendre - Région privée
 				</combo_item>
 			</combo_box>
-			<check_box label="Prix ≤ " name="pricecheck"/>
+			<check_box label="Prix &#8804; " name="pricecheck"/>
 			<text left="186" name="pricecheck_symbol">
 				L$
 			</text>
-			<check_box label="Surface ≥ " name="areacheck" width="90"/>
+			<check_box label="Surface &#8805; " name="areacheck" width="90"/>
 			<text left="186" name="areacheck_symbol">
 				m²
 			</text>
@@ -384,13 +384,13 @@ Pour acheter directement, visitez le terrain et cliquez sur le nom de l&apos;end
 			</text>
 			<line_editor name="name"/>
 			<button label="Rechercher" label_selected="Rechercher" name="Search"/>
-			<scroll_list name="results">
+			<scroll_list name="results" width="286">
 				<column label="" name="icon"/>
 				<column label="" name="type"/>
-				<column label="Nom" name="name"/>
+				<column label="Nom" name="name" width="234"/>
 			</scroll_list>
-			<button label="Suivante &gt;" label_selected="Suivante &gt;" name="Next &gt;"/>
-			<button label="&lt; Préc" label_selected="&lt; Préc" name="&lt; Prev"/>
+			<button right="290" label="Suivante &gt;" label_selected="Suivante &gt;" name="Next &gt;"/>
+			<button right="204" label="&lt; Préc" label_selected="&lt; Préc" name="&lt; Prev"/>
 		</panel>
 		<panel label="Groupes" name="groups_panel">
 			<string name="searching_text">
@@ -423,4 +423,5 @@ Pour acheter directement, visitez le terrain et cliquez sur le nom de l&apos;end
 			</string>
 		</panel>
 	</tab_container>
+	<panel left="310" name="Panel Avatar" width="470" />
 </floater>

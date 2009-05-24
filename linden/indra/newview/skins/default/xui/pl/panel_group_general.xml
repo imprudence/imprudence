@@ -26,7 +26,7 @@ ustawienia grupy oraz opcje członkostwa.
 	<text_editor name="charter">
 		Status Grupy
 	</text_editor>
-	<button label="Dośącz (L$0)" label_selected="Dołącz (L$0)" name="join_button"/>
+	<button label="Dołącz (L$0)" label_selected="Dołącz (L$0)" name="join_button"/>
 	<button label="Szczegóły" label_selected="Szczegóły" name="info_button"/>
 	<text name="text_owners_and_visible_members">
 		Właściciele i widoczni członkowie
@@ -47,7 +47,7 @@ ustawienia grupy oraz opcje członkostwa.
 		<check_box label="Wolny Wstęp" name="open_enrollement" tool_tip="Sprawdź czy grupa oferuje wolny wstęp i nie wymaga zaproszenia."/>
 		<check_box label="Opłata Wstępu: L$" name="check_enrollment_fee" tool_tip="Ustaw opłatę za przyłączenie się do grupy."/>
 		<spinner name="spin_enrollment_fee" tool_tip="Nowi członkowie grupy muszą zapłacić wymaganą opłatę by dołączyć do grupy."/>
-		<combo_box name="group_mature_check" tool_tip="Wybierz jeżeli uwżasz, iż Twoja grupa klasyfikowana jest jako &apos;Mature&apos;.">
+		<combo_box name="group_mature_check" tool_tip="Wybierz jeżeli uważasz, iż Twoja grupa klasyfikowana jest jako &apos;Mature&apos;.">
 			<combo_item name="select_mature">
 				- Wybierz Treść -
 			</combo_item>
@@ -73,6 +73,6 @@ ustawienia grupy oraz opcje członkostwa.
 	<string name="confirm_group_create_str">
 		Koszt utworzenia tej grupy wynosi L$100. 
 Czy napewno jesteś PEWNY,że chcesz zapłacić L$100 by utworzyć grupę?
-Pamiętaj, jeżeli w ciągu 48h od utworzenia grupy nikt do niej nie dołączy, informacje o grupie zostaną usunięte z bazy, a nazwa grupy zablokowana do użycia w przyszśości.
+Pamiętaj, jeżeli w ciągu 48h od utworzenia grupy nikt do niej nie dołączy, informacje o grupie zostaną usunięte z bazy, a nazwa grupy zablokowana do użycia w przyszłości.
 	</string>
 </panel>

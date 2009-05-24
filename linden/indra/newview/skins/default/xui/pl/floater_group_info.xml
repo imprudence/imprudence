@@ -95,7 +95,7 @@
 						Kworum:
 					</text>
 					<spinner name="quorum"
-					     tool_tip="Totalna liczba głosujących członków, potrzebna by elekcja mogła się rozpocząć." />
+					     tool_tip="Łączna liczba głosujących członków, potrzebna by elekcja mogła się rozpocząć." />
 					<text name="quorum_text">
 						z 111 - totalnej liczby członków grupy.
 					</text>
@@ -150,14 +150,14 @@
 						Kworum:
 					</text>
 					<spinner name="quorum"
-					     tool_tip="Totalna liczba głosujących członków, potrzebna by elekcja mogła się rozpocząć." />
+					      tool_tip="Całkowita liczba głosujących członków, potrzebna by elekcja mogła się rozpocząć." />
 					<text name="quorum_text">
 						out of 111 total group members.
 					</text>
 					<text name="majority_lbl">
 						Większość:
 					</text>
-					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+					<radio_group name="majority" tool_tip="Większość z łącznej liczby głosów niezbędna do wygranej.">
 						<radio_item name="radio">
 							Większość Zwykła
 						</radio_item>
@@ -190,7 +190,7 @@
 						You may view past group vote results by selecting the vote and.
 					</text>
 					<text name="instructions2">
-						wybierz Zobacz Propozycje View Item.
+						Wybierz Zobacz Propozycje
 					</text>
 					<text name="history_list_lbl">
 						Przszłe Głosowania:
@@ -236,11 +236,11 @@
 				Posiadłość Należąca do Grupy
 			</text>
 			<text name="lbl">
-				Totalne Udziały Grupy w Posiadłościach:
+				Łączne Udziały Grupy w Posiadłościach:
 			</text>
 			<button label="Mapa..." label_selected="Mapa..." name="map_btn" />
 			<text name="lbl2">
-				Total Liczba Używanych Posiadłości:
+				Łączna Powierzchnia Używanych Posiadłości:
 			</text>
 			<text name="lbl3">
 				Dostępna Posiadlość:
@@ -257,13 +257,13 @@
 					<button label="Wcześniej" label_selected="Wcześniej" name="&lt; Earlier"
 					     tool_tip="Cofnij w czasie" />
 					<button label="Później" label_selected="Później" name="Later &gt;"
-					     tool_tip="Idź do przodu w czasie" />
+					     tool_tip="Przeglądaj" />
 				</panel>
 				<panel label="Sprzedaże" name="money panel3">
 					<button label="Wcześniej" label_selected="Wcześniej" name="&lt; Earlier"
 					     tool_tip="Cofnij w czasie" />
 					<button label="Później" label_selected="Później" name="Later &gt;"
-					     tool_tip="Idź do przodu w czasie" />
+					     tool_tip="Przeglądaj" />
 				</panel>
 			</tab_container>
 		</panel>

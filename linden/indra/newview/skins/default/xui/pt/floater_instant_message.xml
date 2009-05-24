@@ -30,11 +30,14 @@
 	<string name="default_text_label">
 		Clique aqui para uma mensagem instantânea.
 	</string>
+	<string name="unavailable_text_label">
+		Conversa por texto não está disponível para esta chamada.
+	</string>
 	<button label="Perfil..." name="profile_callee_btn"/>
 	<button label="Chamar" name="start_call_btn"/>
 	<button label="Terminar Chamada" name="end_call_btn"/>
 	<panel name="speaker_controls">
-		<button label="" name="mute_btn" tool_tip="Emudecer voz"/>
+		<button label="" name="mute_btn" tool_tip="Emudecer a voz para este residente"/>
 	</panel>
 	<line_editor label="Clique aqui para mensagens instantâneas" name="chat_editor"/>
 	<button label="Enviar" name="send_btn"/>

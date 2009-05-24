@@ -114,7 +114,7 @@
 			<text name="perm_modify">
 				Sie können dieses Objekt ändern.
 			</text>
-			<check_box label="Mit Gruppe teilen" left="6" name="checkbox share with group" tool_tip="Gruppenmitgliedern Verschieben, Ändern, Kopieren und Löschen gestatten."/>
+			<check_box label="Mit Gruppe teilen" left="6" name="checkbox share with group" tool_tip="Allen Mitgliedern der zugeordneten Gruppe die Erlaubnis erteilen, Ihre Berechtigungen für dieses Objekt zu teilen und zu verwenden. Sie müssen Übereignen, um Rollenbeschränkungen zu aktivieren."/>
 			<string name="text deed continued">
 				Übertragung...
 			</string>
@@ -571,7 +571,7 @@ Primitiv" name="sculpt texture control" tool_tip="Klicken Sie hier, um ein Bild 
 		</text>
 		<button label="Info zu Land..." label_selected="Info zu Land..." name="button about land" width="110"/>
 		<check_box label="Eigentümer anzeigen" name="checkbox show owners" tool_tip="Parzellen nach Eigentümer farbig kennzeichnen"/>
-		<button label="?" label_selected="?" name="button show owners help" left_delta="118"/>
+		<button label="?" label_selected="?" name="button show owners help" left_delta="130"/>
 		<text name="label_parcel_modify">
 			Parzelle ändern
 		</text>

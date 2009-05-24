@@ -15,19 +15,22 @@
 	<text name="estate_owner_text">
 		(aucun)
 	</text>
+	<text name="estate_cov_lbl">
+		Règlement :
+	</text>
 	<text name="covenant_timestamp_text">
 		Dernière modification le mercredi 31 décembre 1969 16:00:00
 	</text>
 	<button label="?" name="covenant_help"/>
-	<text_editor name="covenant_editor" height="178" bottom="-263">
+	<text_editor bottom="-263" height="178" name="covenant_editor">
 		Il n&apos;y a aucun règlement pour ce domaine.
 	</text_editor>
-	<button label="Redéfinir" name="reset_covenant"/>
+	<button label="Réinitialiser" name="reset_covenant"/>
 	<text name="covenant_help_text">
 		Les changements apportés au règlement apparaîtront sur toutes
       les parcelles du domaine.
 	</text>
-	<text name="covenant_instructions" bottom_delta="-31">
+	<text bottom_delta="-31" name="covenant_instructions">
 		Faire glisser une note pour changer le règlement de ce domaine.
 	</text>
 	<text name="region_section_lbl">

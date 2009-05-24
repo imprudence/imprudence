@@ -10,15 +10,15 @@
 	</menu_item_call>
 	<menu_item_call enabled="false" label="Touch" mouse_opaque="true" name="Object Touch">
 		<on_click function="Object.Touch" />
-		<on_enable function="Object.EnableTouch" userdata="Touch" />
+		<on_enable function="Object.EnableTouch" userdata="Touch" name="EnableTouch"/>
 	</menu_item_call>
 	<menu_item_call enabled="false" label="Sit Here" mouse_opaque="true" name="Object Sit">
 		<on_click function="Object.SitOrStand" />
-		<on_enable function="Object.EnableSitOrStand" userdata="Sit Here,Stand Up" />
+		<on_enable function="Object.EnableSitOrStand" userdata="Sit Here,Stand Up" name="EnableSitOrStand"/>
 	</menu_item_call>
 	<menu_item_call enabled="false" label="Take" mouse_opaque="true" name="Pie Object Take">
 		<on_click function="Tools.BuyOrTake" />
-		<on_enable function="Tools.EnableBuyOrTake" userdata="Buy,Take" />
+		<on_enable function="Tools.EnableBuyOrTake" userdata="Buy,Take" name="EnableBuyOrTake"/>
 	</menu_item_call>
 	<menu_item_call enabled="false" label="Pay..." mouse_opaque="true" name="Pay...">
 		<on_click function="PayObject" />

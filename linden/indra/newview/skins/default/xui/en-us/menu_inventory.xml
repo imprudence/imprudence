@@ -223,10 +223,13 @@
 	     mouse_opaque="true" name="Detach From Yourself" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="detach" />
 	</menu_item_call>
+	<!-- COMMENTED OUT for DEV-32347 -->
+	<!--
 	<menu_item_call bottom_delta="-18" height="18" label="Restore to Last Position" left="0" mouse_opaque="true"
 	     name="Restore to Last Position" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="restoreToWorld" />
 	</menu_item_call>
+	-->
 	<menu_item_call bottom_delta="-18" height="18" label="Wear" left="0" mouse_opaque="true"
 	     name="Object Wear" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="attach" />

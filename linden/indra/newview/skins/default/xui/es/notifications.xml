@@ -1616,6 +1616,10 @@ Puede pulsar &apos;Cambiar preferencia&apos; para aumentar su nivel de calificac
 	 notext="Cerrar"
 	 ignoretext="Cuando la compra de terreno está bloqueada por la preferencia del nivel de calificación"/>
 	</notification>
+	<notification name="TooManyPrimsSelected">
+		&quot;Hay seleccionadas demasiadas primitivas. Por favor, seleccione [MAX_PRIM_COUNT] o menos, y reinténtelo.&quot;
+		<usetemplate name="okbutton" yestext="OK"/>
+	</notification>
 	<notification name="ProblemImportingEstateCovenant">
 		Hay problemas al importar el contrato del estado.
 		<usetemplate name="okbutton" yestext="OK"/>
@@ -1683,6 +1687,21 @@ Por defecto: off
 		Si se marca esta casilla, estará prohibido volar en la región, independientemente de lo que esté configurado en cada parcela.
 
 Por defecto: off
+	</notification>
+	<notification label="Cambio múltiple de permisos del contenido" name="HelpBulkPermission">
+		La herramienta de cambio múltiple de permisos le ayuda a cambiar con rapidez los permisos de varios de los objetos contenidos en el objeto u objetos que seleccione. Pero fíjese que sólo configurará los permisos de los ítems que están en el contenido de los objetos seleccionados, no los de esos objetos que los contienen.  
+
+Note también que los permisos no se aplicarán a los contenidos que puedan tener cada uno de los ítems. Lo que haga sólo afectará a los ítems que estén exactamente en el primer nivel de contenidos.
+
+Puede elegir qué clase de ítems modificar usando la lista &apos;Tipos de contenido&apos; here. Las imágenes se consideran incluidas si selecciona Texturas.
+
+* Esta herramienta sólo puede cambiar los permisos de aquellos ítems de los que usted esté autorizado a cambiarlos.
+* No puede otorgar al siguiente propietario permisos que usted no tenga ya.
+* Los permisos para el nuevo propietario son, en principio, una solicitud. Si alguno de los ítems no puede coger todos esos permisos solicitados, no cambiará ninguno de los permisos que tenga.
+
+Cuando esté listo para efectuar el cambio múltiple de permisos, pulse &apos;Aplicar&apos; y espere a que se muestren los resultados.
+
+SSi cierra la ventana de Cambio múltiple de permisos mientras se están cambiando, se cancelará la operación.
 	</notification>
 	<notification label="Permitir el daño" name="HelpRegionAllowDamage">
 		Si se marca la casilla, el sistema de &apos;vida&apos; afecta a todas las parcelas independientemente de lo que tenga marcado cada una.
@@ -2810,7 +2829,7 @@ Si permanece en esta región, será desconectado.
 
 Del objeto: [OBJECTNAME]; propiedad de: [NAME]?
 		<form name="form">
-			<button name="Gotopage" text="Ir a la página"/>
+			<button name="Gotopage" text="Cargar"/>
 			<button name="Cancel" text="Cancelar"/>
 		</form>
 	</notification>

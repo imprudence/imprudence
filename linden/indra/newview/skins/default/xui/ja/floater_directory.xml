@@ -235,11 +235,11 @@
 					売り出し – 不動産
 				</combo_item>
 			</combo_box>
-			<check_box label="価格 ≤ " name="pricecheck"/>
+			<check_box label="価格 &#8804; " name="pricecheck"/>
 			<text name="pricecheck_symbol">
 				L$
 			</text>
-			<check_box label="面積 ≥ " name="areacheck"/>
+			<check_box label="面積 &#8805; " name="areacheck"/>
 			<text left="190" name="areacheck_symbol" width="75">
 				平方メートル
 			</text>
@@ -371,13 +371,13 @@
 				検索：
 			</text>
 			<button label="検索" label_selected="検索" name="Search"/>
-			<scroll_list name="results">
+			<scroll_list name="results" width="286">
 				<column label="" name="icon"/>
 				<column label="" name="type"/>
-				<column label="名前" name="name"/>
+				<column label="名前" name="name" width="234"/>
 			</scroll_list>
-			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;"/>
-			<button label="＜以前" label_selected="＜以前" name="&lt; Prev"/>
+			<button right="290" label="次へ＞" label_selected="次へ＞" name="Next &gt;"/>
+			<button right="204" label="＜以前" label_selected="＜以前" name="&lt; Prev"/>
 		</panel>
 		<panel label="グループ" name="groups_panel">
 			<string name="searching_text">
@@ -404,4 +404,5 @@
 			</string>
 		</panel>
 	</tab_container>
+	<panel left="310" name="Panel Avatar" width="470" />
 </floater>

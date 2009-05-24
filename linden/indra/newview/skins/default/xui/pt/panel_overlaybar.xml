@@ -6,6 +6,7 @@
 				<layout_panel name="state_buttons">
 					<button label="MI recebida" label_selected="MI recebida" name="IM Received" tool_tip="Você tem uma mensagem instantânea pendente. Clique para mostrar as MIs."/>
 					<button label="Ajustar para desocupado" label_selected="Ajustar para desocupado" name="Set Not Busy" tool_tip="Conversa e MI estão ocultas para você. Clique aqui para se colocar desocupado."/>
+					<button label="Vista aérea" label_selected="Vista aérea" name="Flycam" tool_tip="Sua cãmera está sob controle do joystick. Clique aqui para liberá-la."/>
 					<button label="Olhar com mouse" label_selected="Olhar com mouse" name="Mouselook" tool_tip="Use o mouse para pilotar sua visão. Se você tiver uma arma, clicando, ela dispara."/>
 					<button label="Levantar" label_selected="Levantar" name="Stand Up" tool_tip="Clique aqui para levantar."/>
 				</layout_panel>

@@ -1035,7 +1035,8 @@ void init_debug_ui_menu(LLMenuGL* menu)
 	menu->appendSeparator();
 
 	menu->append(new LLMenuItemCallGL("Web Browser Test", &handle_web_browser_test));
-	menu->append(new LLMenuItemCallGL("Buy Currency Test", &handle_buy_currency_test));
+	// commented out until work is complete: DEV-32268
+	// menu->append(new LLMenuItemCallGL("Buy Currency Test", &handle_buy_currency_test));
 	menu->append(new LLMenuItemCallGL("Editable UI", &edit_ui));
 	menu->append(new LLMenuItemCallGL( "Dump SelectMgr", &dump_select_mgr));
 	menu->append(new LLMenuItemCallGL( "Dump Inventory", &dump_inventory));
@@ -1600,14 +1601,19 @@ class LLObjectEnableTouch : public view_listener_t
 
 		// Update label based on the node touch name if available.
 		LLSelectNode* node = LLSelectMgr::getInstance()->getSelection()->getFirstRootNode();
+
+		std::string touch_text;
 		if (node && node->mValid && !node->mTouchName.empty())
 		{
-			gMenuHolder->childSetText("Object Touch", node->mTouchName);
+			touch_text =  node->mTouchName;
 		}
 		else
 		{
-			gMenuHolder->childSetText("Object Touch", userdata["data"].asString());
+			touch_text = userdata["data"].asString();
 		}
+
+		gMenuHolder->childSetText("Object Touch", touch_text);
+		gMenuHolder->childSetText("Attachment Object Touch", touch_text);
 
 		return true;
 	}
@@ -2878,7 +2884,9 @@ class LLEditEnableCustomizeAvatar : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		bool new_value = gAgent.areWearablesLoaded();
+		bool new_value = (gAgent.getAvatarObject() && 
+						  gAgent.getAvatarObject()->isFullyLoaded() &&
+						  gAgent.areWearablesLoaded());
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
 		return true;
 	}

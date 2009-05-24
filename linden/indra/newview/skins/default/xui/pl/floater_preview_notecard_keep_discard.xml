@@ -9,7 +9,7 @@
 	<button label="Zachowaj" label_selected="Zachowaj" name="Keep" />
 	<button label="Wyrzuć" label_selected="Wyrzuć" name="Discard" />
 	<string name="no_object">
-		Nie można znaleść obiektu zawierającego tą notkę.:
+		Nie można znaleźć obiektu zawierającego tą notkę:
 	</string>
 	<string name="not_allowed">
 		Nie masz pozwolenia na zobaczenie tej notki.

@@ -34,10 +34,11 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
-				新しいシェイプ(体型)を持ち物からアバターにドラッグして装着しましょう。完全に新規の状態から作成して装着することもできます。
+				新しいシェイプ(体型)を持ち物からアバターにドラッグして装着しま
+しょう。完全に新規の状態から作成して装着することもできます。
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				あなたはこの服の修正を許されていません。
@@ -67,7 +68,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しいスキンを持ち物からアバターにドラッグして装着しましょう。
@@ -105,7 +106,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しい髪型を持ち物からアバターにドラッグして装着しましょう。
@@ -137,7 +138,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しい眼を持ち物からアバターにドラッグして装着しましょう。
@@ -177,7 +178,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しいシャツを持ち物からアバターにドラッグして装着しましょう。
@@ -211,7 +212,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しいズボンを持ち物からアバターにドラッグして装着しましょう。
@@ -238,7 +239,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しい靴を持ち物からアバターにドラッグして装着しましょう。
@@ -272,7 +273,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しい靴下を持ち物からアバターにドラッグして装着しましょう。
@@ -306,7 +307,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しい上着を持ち物からアバターにドラッグして装着しましょう。
@@ -341,7 +342,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しい手袋を持ち物からアバターにドラッグして装着しましょう。
@@ -375,7 +376,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しい下着を持ち物からアバターにドラッグして装着しましょう。
@@ -409,7 +410,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しいパンツを持ち物からアバターにドラッグして装着しましょう。
@@ -443,7 +444,7 @@
 				[DESC]: 未装着。
 			</text>
 			<text length="1" name="path" type="string">
-				[PATH]に所在
+				[PATH] に所在
 			</text>
 			<text length="1" name="not worn instructions" type="string">
 				新しいスカートを持物からアバターにドラッグして装着しましょう。

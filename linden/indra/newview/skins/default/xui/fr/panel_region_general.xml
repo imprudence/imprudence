@@ -18,7 +18,7 @@
 	<text name="region_type">
 		(inconnu)
 	</text>
-	<check_box label="Bloquer le terraformage" name="block_terraform_check"/>
+	<check_box label="Interdire le terraformage" name="block_terraform_check"/>
 	<button label="?" name="terraform_help"/>
 	<check_box label="Interdire le vol" name="block_fly_check"/>
 	<button label="?" name="fly_help"/>
@@ -32,7 +32,7 @@
 	<button label="?" name="parcel_changes_help"/>
 	<check_box label="Ne pas afficher dans la recherche" name="block_parcel_search_check" tool_tip="Afficher cette région et ses parcelles dans les résultats de recherche"/>
 	<button label="?" name="parcel_search_help"/>
-	<spinner label="Nombre limite d&apos;avatars" label_width="127" name="agent_limit_spin" width="190"/>
+	<spinner label="Nombre maximum d&apos;avatars" label_width="127" name="agent_limit_spin" width="190"/>
 	<button label="?" name="agent_limit_help"/>
 	<spinner label="Bonus objet" label_width="127" name="object_bonus_spin" width="190"/>
 	<button label="?" name="object_bonus_help"/>

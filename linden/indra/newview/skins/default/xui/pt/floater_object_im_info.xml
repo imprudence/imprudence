@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="object im info" title="Informações do Objeto">
+	<text name="LabelItemNameTitle">
+		Objeto:
+	</text>
+	<text name="LabelSlurlTitle">
+		Local:
+	</text>
+	<text name="Unknown_Slurl">
+		(Info do Local Não Disponível)
+	</text>
+	<text name="LabelOwnerNameTitle">
+		Dono:
+	</text>
+	<button label="Calar Dono" label_selected="Calar Dono" name="Mute"/>
+</floater>

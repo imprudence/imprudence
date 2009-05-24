@@ -31,7 +31,7 @@
 		Informacje o tym miejscu nie będą dostępne bez aktualizacji serwera.
 	</string>
 	<string name="server_error_text">
-		Informacje o tym miejscu są obecnie niedostępne, spróbuj pózniej.
+		Informacje o tym miejscu są obecnie niedostępne, spróbuj później.
 	</string>
 	<string name="server_forbidden_text">
 		Dostęp do informacji o tym miejscu jest ograniczony. Zweryfikuj swoje przywileje z właścicielem posiadłości.

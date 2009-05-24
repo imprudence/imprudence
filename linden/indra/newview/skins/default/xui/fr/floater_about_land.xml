@@ -65,7 +65,7 @@
 				Tue Aug 15 13:47:25 2006
 			</text>
 			<text length="1" name="PriceLabel" type="string">
-				Surface :
+				Superficie :
 			</text>
 			<text length="1" name="PriceText" type="string">
 				4048 m²
@@ -230,7 +230,7 @@ ou divisé.
 			<button label="Afficher" label_selected="Afficher" name="ShowOwner" right="-135" width="60"/>
 			<button label="Renvoyer..." label_selected="Renvoyer..." name="ReturnOwner..." right="-10" tool_tip="Renvoyer les objets à leurs propriétaires." width="119"/>
 			<text left="14" length="1" name="Set to group:" type="string" width="180">
-				Donnés au groupe :
+				Données au groupe :
 			</text>
 			<text left="214" length="1" name="group_objects_text" type="string" width="48">
 				[COUNT]
@@ -246,13 +246,13 @@ ou divisé.
 			<button label="Afficher" label_selected="Afficher" name="ShowOther" right="-135" width="60"/>
 			<button label="Renvoyer..." label_selected="Renvoyer..." name="ReturnOther..." right="-10" tool_tip="Renvoyer les objets à leurs propriétaires." width="119"/>
 			<text left="14" length="1" name="Selected / sat upon:" type="string" width="193">
-				Sélectionnés/où quelqu&apos;un est assis :
+				Sélectionnées/où quelqu&apos;un est assis :
 			</text>
 			<text left="214" length="1" name="selected_objects_text" type="string" width="48">
 				[COUNT]
 			</text>
 			<text left="4" name="Autoreturn" width="412">
-				Renvoi automatique des objets d&apos;autres résidents (minutes, 0 pour désactiver) :
+				Renvoi automatique des objets des autres résidents (min., 0 pour désactiver) :
 			</text>
 			<line_editor name="clean other time" right="-6" width="36"/>
 			<text length="1" name="Object Owners:" type="string">
@@ -386,12 +386,18 @@ Seules les parcelles de grande taille peuvent apparaître dans la recherche.
 				</combo_item>
 			</combo_box>
 			<button bottom="-160" label="?" label_selected="?" left="436" name="?"/>
-			<check_box bottom="-180" label="Contenu Mature" name="MatureCheck" tool_tip="Les informations ou contenu de votre parcelle sont classés Mature."/>
+			<check_box bottom="-180" label="Contenu Mature" name="MatureCheck" tool_tip=""/>
 			<string name="mature_check_mature">
 				Contenu Mature
 			</string>
 			<string name="mature_check_adult">
 				Contenu Adult
+			</string>
+			<string name="mature_check_mature_tooltip">
+				Les informations ou contenu de votre parcelle sont classés Mature.
+			</string>
+			<string name="mature_check_adult_tooltip">
+				Les informations ou contenu de votre parcelle sont classés Adult.
 			</string>
 			<text bottom="-200" length="1" name="Snapshot:" type="string">
 				Photo :
@@ -475,13 +481,13 @@ musique :
 				Son :
 			</text>
 			<check_box label="Limiter les gestes et sons d&apos;objet à cette parcelle" left="97" name="check sound local"/>
-			<button label="?" label_selected="?" name="?"/>
+			<button label="?" label_selected="?" left="378" name="?"/>
 			<text name="Voice settings:">
 				Voix :
 			</text>
-			<check_box label="Activer le chat vocal" name="parcel_enable_voice_channel"/>
-			<check_box label="Activer la voix (contrôlé par le domaine)" name="parcel_enable_voice_channel_is_estate_disabled"/>
-			<check_box label="Limiter le chat vocal à cette parcelle" name="parcel_enable_voice_channel_parcel"/>
+			<check_box label="Activer le chat vocal" left="97" name="parcel_enable_voice_channel"/>
+			<check_box label="Activer le chat vocal (contrôlé par le domaine)" left="97" name="parcel_enable_voice_channel_is_estate_disabled"/>
+			<check_box label="Limiter le chat vocal à cette parcelle" left="117" name="parcel_enable_voice_channel_parcel"/>
 		</panel>
 		<panel label="Accès" name="land_access_panel">
 			<text length="1" name="Limit access to this parcel to:" type="string">

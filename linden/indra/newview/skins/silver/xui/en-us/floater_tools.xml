@@ -397,7 +397,7 @@
 			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Share with group" left="10"
 			     mouse_opaque="true" name="checkbox share with group"
-			     tool_tip="Allow group members to move, modify, copy and delete."
+			     tool_tip="Allow all members of the set group to share and use your permissions for this object. You must Deed to enable role restrictions."
 			     width="166" />
 			<string name="text deed continued">
 				Deed...

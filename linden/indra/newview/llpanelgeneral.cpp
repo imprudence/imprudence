@@ -79,30 +79,30 @@ BOOL LLPanelGeneral::postBuild()
 	
 	// if we have no agent, we can't let them choose anything
 	// if we have an agent, then we only let them choose if they have a choice
-	bool canChoose = gAgent.getID().notNull() &&
+	bool can_choose = gAgent.getID().notNull() &&
 					 (gAgent.isMature() || gAgent.isGodlike());
 	
-	if (canChoose)
+	if (can_choose)
 	{
 
 		// if they're not adult or a god, they shouldn't see the adult selection, so delete it
 		if (!gAgent.isAdult() && !gAgent.isGodlike())
 		{
-			LLComboBox* pMaturityCombo = getChild<LLComboBox>("maturity_desired_combobox");
+			LLComboBox* maturity_combo = getChild<LLComboBox>("maturity_desired_combobox");
 			// we're going to remove the adult entry from the combo. This obviously depends
 			// on the order of items in the XML file, but there doesn't seem to be a reasonable
 			// way to depend on the field in XML called 'name'.
-			pMaturityCombo->remove(0);
+			maturity_combo->remove(0);
 		}
 	}
 	
-	U32 preferredMaturity = gSavedSettings.getU32("PreferredMaturity");
-	childSetValue("maturity_desired_combobox", int(preferredMaturity));
-	std::string selectedItemLabel = getChild<LLComboBox>("maturity_desired_combobox")->getSelectedItemLabel();
-	childSetValue("maturity_desired_textbox", selectedItemLabel);
+	U32 preferred_maturity = gSavedSettings.getU32("PreferredMaturity");
+	childSetValue("maturity_desired_combobox", int(preferred_maturity));
+	std::string selected_item_label = getChild<LLComboBox>("maturity_desired_combobox")->getSelectedItemLabel();
+	childSetValue("maturity_desired_textbox", selected_item_label);
 	
-	childSetVisible("maturity_desired_combobox", canChoose);
-	childSetVisible("maturity_desired_textbox",	!canChoose);
+	childSetVisible("maturity_desired_combobox", can_choose);
+	childSetVisible("maturity_desired_textbox",	!can_choose);
 			
 	return TRUE;
 }
@@ -138,17 +138,17 @@ void LLPanelGeneral::apply()
 	
 	// if we have no agent, we can't let them choose anything
 	// if we have an agent, then we only let them choose if they have a choice
-	bool canChoose = gAgent.getID().notNull() &&
+	bool can_choose = gAgent.getID().notNull() &&
 					(gAgent.isMature() || gAgent.isGodlike());
 	
-	if (canChoose)
+	if (can_choose)
 	{
-		int preferredMaturity = childGetValue("maturity_desired_combobox").asInteger();
+		int preferred_maturity = childGetValue("maturity_desired_combobox").asInteger();
 		
-		if (preferredMaturity != gSavedSettings.getU32("PreferredMaturity"))
+		if (preferred_maturity != gSavedSettings.getU32("PreferredMaturity"))
 		{
-			gSavedSettings.setU32("PreferredMaturity", preferredMaturity);
-			gAgent.sendMaturityPreferenceToServer(preferredMaturity);
+			gSavedSettings.setU32("PreferredMaturity", preferred_maturity);
+			gAgent.sendMaturityPreferenceToServer(preferred_maturity);
 		}
 	}
 }

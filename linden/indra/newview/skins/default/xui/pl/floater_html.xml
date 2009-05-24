@@ -2,8 +2,9 @@
 <floater name="htmlfloater" title="">
 	<button label="Zamknij" name="close_btn" />
 	<button label="Wróć" name="back_btn" />
-	<button label="Prześlij dalej" name="forward_btn" />
-	<button label="Idź" name="go_btn" />
+	<button label="Prześlij dalej" name="forward_btn" width="85"/>
+	<line_editor left_delta="100" name="url_edit" width="420" />
+	<button label="Idź" name="go_btn" left_delta="425" />
 	<string name="home_page_url">
 		http://www.secondlife.com
 	</string>

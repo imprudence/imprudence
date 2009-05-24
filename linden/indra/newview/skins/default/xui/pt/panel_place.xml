@@ -22,7 +22,7 @@
 		Área: [AREA] m².
 	</string>
 	<string name="forsale_text">
-		À venda por L$ [PRICE]
+		À venda por L$[PRICE]
 	</string>
 	<string name="auction_text">
 		ID do leilão [ID].

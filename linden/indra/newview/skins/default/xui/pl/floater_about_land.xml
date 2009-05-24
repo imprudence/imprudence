@@ -28,7 +28,7 @@
 			</text>
 			<button label="Profile..." label_selected="Profile..." name="Profile..."/>
 			<text length="1" name="Group:" type="string">
-				Groupa:
+				Grupa:
 			</text>
 			<button label="Ustaw..." label_selected="Ustaw..." name="Set..."/>
 			<check_box label="Udostępnij przypisywanie na grupę" name="check deed" tool_tip="Oficer grupy ma prawo przepisać prawo własności posiadłości na grupę. Posiadłość wspierana jest przez przydziały pochodzące od członków grupy."/>
@@ -126,19 +126,19 @@ Idź do Świat &gt; O Posiadłości albo wybierz inną posiadłość żeby pokaz
 			<text length="1" name="estate_name_lbl" type="string">
 				Nazwa:
 			</text>
-			<text length="1" name="estate_name_text" type="string">
+			<text length="1" name="estate_name_text" type="string" left="115">
 				Główne
 			</text>
 			<text length="1" name="estate_owner_lbl" type="string">
 				Właściciel:
 			</text>
-			<text length="1" name="estate_owner_text" type="string">
+			<text length="1" name="estate_owner_text" type="string" left="115">
 				(brak)
 			</text>
-			<text_editor length="1" name="covenant_editor" type="string">
+			<text_editor length="1" name="covenant_editor" type="string" left="115">
 				Ta posiadłość nie wymaga żadej umowy.
 			</text_editor>
-			<text length="1" name="covenant_timestamp_text" type="string">
+			<text length="1" name="covenant_timestamp_text" type="string" left="115">
 				Ostatnia Modyfikacja Wed Dec 31 16:00:00 1969
 			</text>
 			<text name="region_section_lbl">
@@ -147,32 +147,33 @@ Idź do Świat &gt; O Posiadłości albo wybierz inną posiadłość żeby pokaz
 			<text length="1" name="region_name_lbl" type="string">
 				Nazwa:
 			</text>
-			<text length="1" name="region_name_text" type="string">
+			<text length="1" name="region_name_text" type="string" left="115">
 				leyla
 			</text>
 			<text name="region_landtype_lbl">
 				Typ:
 			</text>
-			<text name="region_landtype_text">
+			<text name="region_landtype_text" left="115">
 				Region Główny / Ziemia
 			</text>
 			<text name="region_maturity_lbl">
 				Rodzaj:
 			</text>
-			<text name="region_maturity_text">
+			<text name="region_maturity_text" left="115">
 				&apos;Adult&apos;
 			</text>
 			<text name="resellable_lbl">
 				Odsprzedaj:
 			</text>
-			<text length="1" name="resellable_clause" type="string">
+			<text length="1" name="resellable_clause" type="string" width="338" left="115">
 				Posiadłość zakupiona w tym regionie nie może być odsprzedana.
 			</text>
 			<text name="changeable_lbl">
 				Podziel:
 			</text>
-			<text length="1" name="changeable_clause" type="string">
-				Posiadłość zakupiona w tym regionie nie może być łączona/dzielona
+			<text length="1" name="changeable_clause" type="string" width="338" left="115">
+				Posiadłość zakupiona w tym regionie nie może być
+łączona/dzielona.
 			</text>
 			<string name="can_resell">
 				Posiadłość zakupiona w tym regionie może być odsprzedana.
@@ -181,10 +182,11 @@ Idź do Świat &gt; O Posiadłości albo wybierz inną posiadłość żeby pokaz
 				Posiadłość zakupiona w tym regionie nie może być odsprzedana.
 			</string>
 			<string name="can_change">
-				Posiadłość zakupiona w tym regionie może być łączona/dzielona
+				Posiadłość zakupiona w tym regionie może być łączona/dzielona.
 			</string>
 			<string name="can_not_change">
-				Posiadłość zakupiona w tym regionie nie może być łączona/dzielona
+				Posiadłość zakupiona w tym regionie nie może być
+łączona/dzielona.
 			</string>
 		</panel>
 		<panel label="Obiekty" name="land_objects_panel">
@@ -277,7 +279,7 @@ Idź do Świat &gt; O Posiadłości albo wybierz inną posiadłość żeby pokaz
 				Nowe Obiekty:
 			</text>
 			<check_box label="Wszyscy" name="all object entry check"/>
-			<check_box label="Gropa" name="group object entry check"/>
+			<check_box label="Grupa" name="group object entry check"/>
 			<text length="1" name="allow_label4" type="string">
 				Skrypty:
 			</text>
@@ -390,7 +392,7 @@ Jedynie większe posiadłości mogą być umieszczone w bazie wyszukiwarki.
 				Twoja posiadłość bądź treść jaką zawiera klasyfikowana jest jako &apos;Mature&apos;.
 			</string>
 			<string name="mature_check_adult_tooltip">
-				Informacje o Twojej posiadłości i treści jaką zawiera klasyfikowane są jako &apos;Mature&apos;.
+				Informacje o Twojej posiadłości i treści jaką zawiera klasyfikowane są jako &apos;Adult&apos;.
 			</string>
 			<text length="1" name="Snapshot:" type="string">
 				Zdjęcie:
@@ -471,7 +473,7 @@ Mediów:
 				Dźwięk:
 			</text>
 			<check_box label="Restrykcja obiektów oraz gestur dozwolonych w tej posiadłości" name="check sound local"/>
-			<button label="?" label_selected="?" name="?"/>
+			<button label="?" label_selected="?" name="?" left="432"/>
 			<text length="1" name="Voice settings:" type="string">
 				Głos:
 			</text>

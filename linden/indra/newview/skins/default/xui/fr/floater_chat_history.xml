@@ -22,10 +22,10 @@
 		- Fin de l&apos;archivage --
 	</string>
 	<string name="ScriptQuestionCautionChatGranted">
-		&apos;[OBJECTNAME]&apos;, un objet appartenant à [OWNERNAME], situé dans [REGIONNAME] à [REGIONPOS], a reçu la permission de : [PERMISSIONS].
+		&apos;[OBJECTNAME]&apos;, un objet appartenant à [OWNERNAME], situé dans [REGIONNAME] à [REGIONPOS], a reçu le droit de : [PERMISSIONS].
 	</string>
 	<string name="ScriptQuestionCautionChatDenied">
-		&apos;[OBJECTNAME]&apos;, un objet appartenant à [OWNERNAME], situé dans [REGIONNAME] à [REGIONPOS], n&apos;a pas reçu la permission de : [PERMISSIONS].
+		&apos;[OBJECTNAME]&apos;, un objet appartenant à [OWNERNAME], situé dans [REGIONNAME] à [REGIONPOS], n&apos;a pas reçu le droit de : [PERMISSIONS].
 	</string>
 	<string name="ScriptTakeMoney">
 		Débiter vos Linden dollars (L$)
@@ -52,7 +52,7 @@
 		Créer et supprimer des liens avec d&apos;autres objets
 	</string>
 	<string name="ChangePermissions">
-		Modifier ses permissions
+		Modifier ses droits
 	</string>
 	<string name="TrackYourCamera">
 		Suivre votre caméra

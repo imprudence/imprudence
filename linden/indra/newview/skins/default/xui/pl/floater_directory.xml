@@ -177,7 +177,7 @@
 			</combo_box>
 			<check_box label="Treść &apos;PG&apos;" name="incpg"/>
 			<check_box label="Treść &apos;Mature&apos;" name="incmature"/>
-			<check_box label="Treść &apos;Mature&apos;" name="incadult"/>
+			<check_box label="Treść &apos;Adult&apos;" name="incadult"/>
 			<button label="Szukaj" label_selected="Szukaj" name="Search" tool_tip="Szukaj"/>
 			<button label="Usuń" label_selected="Usuń" name="Delete"/>
 			<scroll_list name="results">
@@ -227,9 +227,9 @@ By zakupić posiadłość bezpośrednio, odwiedź ją oraz kliknij na nazwę pos
 			<text name="find">
 				Znajdź:
 			</text>
-			<check_box label="Treść &apos;PG&apos;" name="incpg"/>
-			<check_box label="Treść &apos;Mature&apos;" name="incmature"/>
-			<check_box label="Treść &apos;Adult&apos;" name="incadult"/>
+			<check_box left="490" label="Treść &apos;PG&apos;" name="incpg"/>
+			<check_box left="490" label="Treść &apos;Mature&apos;" name="incmature"/>
+			<check_box left="490" label="Treść &apos;Adult&apos;" name="incadult"/>
 			<combo_box name="type" width="195">
 				<combo_item name="AllTypes">
 					Wszystko
@@ -279,7 +279,7 @@ By zakupić posiadłość bezpośrednio, odwiedź ją oraz kliknij na nazwę pos
 			</text>
 			<check_box label="Treść &apos;PG&apos;" name="incpg"/>
 			<check_box label="Treść &apos;Mature&apos;" name="incmature"/>
-			<check_box label="Treść &apos;Mature&apos;" name="incadult"/>
+			<check_box label="Treść &apos;Adult&apos;" name="incadult"/>
 			<combo_box name="Category" width="170">
 				<combo_item name="AnyCategory">
 					Wszystko

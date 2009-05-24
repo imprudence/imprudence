@@ -5,23 +5,23 @@
 	<texture_picker bottom_delta="-175" enabled="false" follows="top|left" height="135" left="244"
 	     name="info_image" right="424" width="180" />
 	<text bottom_delta="144" follows="top|left" font="SansSerifSmall" left="16"
-	     name="info_parcel_label"  width="48">
+	     name="info_parcel_label"  width="64">
 		Parcel:
 	</text>
-	<text bottom_delta="-5" follows="top|left" font="SansSerif" height="16" left="56"
+	<text bottom_delta="-5" follows="top|left" font="SansSerif" height="16" left="72"
 	     name="info_parcel" right="-20" >
 		PARCEL NAME
 	</text>
 	<text follows="top|left" font="SansSerifSmall" left="16" name="info_size_label"
-	      width="48">
+	      width="64">
 		Size:
 	</text>
-	<text bottom_delta="-21" follows="top|left" font="SansSerif" height="32" left="56"
+	<text bottom_delta="-21" follows="top|left" font="SansSerif" height="32" left="72"
 	     name="info_size" right="-20" >
-		[AREA] sq. m.
+		[AREA] sq.m.
 	</text>
 	<text bottom_delta="-94" follows="top|left" font="SansSerifHuge" height="24"
-	     left="16" name="info_action" text_color="white" width="200">
+	     left="16" name="info_action" text_color="white" width="210">
 		To sell this parcel:
 	</text>
 	<icon bottom_delta="-66" follows="top|left" height="64" image_name="badge_note.j2c"
@@ -65,7 +65,7 @@
 	<line_editor bottom_delta="-20" enabled="false" follows="top|right" height="16"
 	     name="sell_to_agent"  width="150" />
 	<button bottom_delta="0" height="16" label="Select..." left_delta="155"
-	     name="sell_to_select_agent" width="60" />
+	     name="sell_to_select_agent" width="110" />
 	<icon follows="top|left" height="64" image_name="badge_note.j2c" left="0"
 	     name="step_sell_objects" width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72"
@@ -93,7 +93,7 @@
 		REMEMBER: All sales are final.
 	</text>
 	<button bottom="-479" follows="bottom|left" height="20" label="Set Land For Sale"
-	     left="72" name="sell_btn" width="130" />
+	     left="72" name="sell_btn" width="160" />
 	<button bottom_delta="0" follows="bottom|right" height="20" label="Cancel"
 	     name="cancel_btn" right="444" width="90" />
 </floater>

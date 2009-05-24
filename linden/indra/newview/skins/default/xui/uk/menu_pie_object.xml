@@ -2,9 +2,15 @@
 <pie_menu name="Object Pie">
 	<menu_item_call label="Відкрити" name="Open" />
 	<menu_item_call label="Створити" name="Create" />
-	<menu_item_call label="Торкнутися" name="Object Touch" />
-	<menu_item_call label="Сісти тут" name="Object Sit" />
-	<menu_item_call label="Взяти" name="Pie Object Take" />
+	<menu_item_call label="Торкнутися" name="Object Touch">
+		<on_enable userdata="Торкнутися" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="Сісти тут" name="Object Sit">
+		<on_enable userdata="Сісти тут,Встати" name="EnableSitOrStand"/>
+	</menu_item_call>
+	<menu_item_call label="Взяти" name="Pie Object Take">
+		<on_enable userdata="Купити,Взяти" name="EnableBuyOrTake"/>
+	</menu_item_call>
 	<menu_item_call label="Платити..." name="Pay..." />
 	<pie_menu label="Ще &gt;" name="More &gt;">
 		<menu_item_call label="Видалити" name="Delete" />

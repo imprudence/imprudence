@@ -114,7 +114,7 @@
 			<text name="perm_modify">
 				Puede modificar este objeto.
 			</text>
-			<check_box label="Compartir con el grupo" name="checkbox share with group" tool_tip="Permitir a los miembros del grupo mover, modificar, copiar, y borrar."/>
+			<check_box label="Compartir con el grupo" name="checkbox share with group" tool_tip="Permitir que todos los miembros del grupo compartan y utilicen sus permisos sobre este objeto. Debe transferirlo para activar las restricciones según los roles."/>
 			<string name="text deed continued">
 				Transferir...
 			</string>

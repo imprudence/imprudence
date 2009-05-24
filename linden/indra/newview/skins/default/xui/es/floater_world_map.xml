@@ -18,7 +18,7 @@
 	</text>
 	<button label="Ir a la Base" label_selected="Ir a la Base" name="Go Home" tool_tip="Teleportar a su Base"/>
 	<check_box label="Residente" name="people_chk"/>
-	<check_box label="Punto de Información" name="infohub_chk"/>
+	<check_box label="Punto de Info" name="infohub_chk"/>
 	<check_box label="Punto de Teleporte" name="telehubchk"/>
 	<check_box label="Terreno en venta" name="land_for_sale_chk"/>
 	<text name="events_label">

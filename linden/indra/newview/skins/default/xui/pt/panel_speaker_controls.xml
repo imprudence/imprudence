@@ -23,7 +23,7 @@
 					Rumplstiltskin Califragilistic
 				</text>
 				<button label="" name="mute_btn" tool_tip="Emudecer a voz para este residente"/>
-				<check_box label="Emudecer Texto" name="mute_text_btn"/>
+				<check_box label="Silenciar texto" name="mute_text_btn"/>
 			</panel>
 		</layout_panel>
 		<layout_panel name="moderator_controls">

@@ -6,7 +6,17 @@
 	<button label="Tele-transporte" name="classified_teleport_btn"/>
 	<button label="Mostrar no mapa" name="classified_map_btn"/>
 	<button label="Perfil" name="classified_profile_btn"/>
-
+	<combo_box name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Selecionar Maturidade -
+		</combo_item>
+		<combo_item name="mature">
+			Conteúdo Mature
+		</combo_item>
+		<combo_item name="pg">
+			Conteúdo PG
+		</combo_item>
+	</combo_box>
 	<button label="Update" name="classified_update_btn"/>
 	<string name="ad_placed_paid">
 		Anúncio colocado: [DATE], Pagos L$[AMT] para constar na lista.

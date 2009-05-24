@@ -95,23 +95,17 @@ Fehlerdetails: Der Warnhinweis „[_NAME]“ wurde in notifications.xml nicht ge
 	</notification>
 	<notification name="BadInstallation">
 		Beim Aktualisieren von Second Life ist ein Fehler aufgetreten. Bitte laden Sie die aktuellste Version von secondlife.com herunter.
-    <usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="LoginFailedNoNetwork">
 		Netzwerk Fehler: Eine Verbindung konnte nicht hergestellt werden. 
 „[DIAGNOSTIC]“
 Bitte überprüfen Sie Ihre Netzwerkverbindung.
-	<usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="MessageTemplateNotFound">
 		Meldungsvorlage [PATH] nicht gefunden.
-	<usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="WearableSave">
 		Änderung an aktueller Kleidung/Körperteil speichern?
@@ -210,22 +204,16 @@ Dieses Kontrollkästchen zeigt Folgendes an:
 	<notification name="ClickSoundHelpLand">
 		Medien und Musik können nur innerhalb der Parzelle abgespielt werden. Sound- und Voice-Chat-Optionen können auf die Parzelle beschränkt werden oder von Einwohnern außerhalb der Parzelle, entsprechend ihrer Alterseinstufung, gehört werden. Möchten Sie unsere Knowledgebase besuchen, um mehr darüber zu erfahren, wie diese Optionen eingestellt werden können?
 		<url name="url">
-			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=5046
+			http://wiki.secondlife.com/wiki/Medien_auf_Parzellen_(KB)
 		</url>
-    <usetemplate
-     name="okcancelbuttons"
-     yestext="Zur Knowledgbase"
-	 notext="Schließen" />
+		<usetemplate name="okcancelbuttons" notext="Schließen" yestext="Zur Knowledgbase"/>
 	</notification>
 	<notification name="ClickSearchHelpAll">
 		Die Suchergebnisse wurde aufgrund der entsprechenden Registerkarte, Ihrer Alterseinstufung, der gewählten Kategorie und anderen Faktoren geordnet. Bitte besuchen Sie unsere Knowledgebase, um weitere Informationen zu erhalten.
 		<url name="url">
-			https://support.secondlife.com/ics/support/default.asp?deptID=4802&amp;task=knowledge&amp;questionID=5087
+			http://wiki.secondlife.com/wiki/FAQ_zur_Suchfunktion_(KB)
 		</url>
-    <usetemplate
-     name="okcancelbuttons"
-     yestext="Zur Knowledgbase"
-	 notext="Schließen" />
+		<usetemplate name="okcancelbuttons" notext="Schließen" yestext="Zur Knowledgbase"/>
 	</notification>
 	<notification name="ClickPublishHelpLandDisabled">
 		Diese Parzelle kann nicht in der Suche angezeigt werden, da sie sich in einer Region befindet, die das verbietet.
@@ -429,6 +417,9 @@ Hinweis: Der Cache wird dabei gelöscht/geleert.
 	</notification>
 	<notification name="ChangeConnectionPort">
 		Die Port-Einstellungen werden nach einem Neustart von [SECOND_LIFE] wirksam.
+	</notification>
+	<notification name="ChangeSkin">
+		Die neue Benutzeroberfläche wird nach einem Neustart von [SECOND_LIFE] angewendet.
 	</notification>
 	<notification name="GoToAuctionPage">
 		Zur [SECOND_LIFE]-Webseite, um Auktionen anzuzeigen oder ein Gebot abzugeben?
@@ -711,6 +702,47 @@ Es wurde keine Suche durchgeführt.
 	<notification name="CouldNotTeleportReason">
 		Teleport fehlgeschlagen.
 [REASON]
+	</notification>
+	<notification name="invalid_tport">
+		Bei der Bearbeitung Ihrer Teleport-Anfrage ist ein Problem aufgetreten. Sie müssen sich zum Teleportieren eventuell neu anmelden. Wenn Sie diese Nachricht weiterhin erhalten, konsultieren Sie bitte die Tech-Support-FAQ unter:
+www.secondlife.com/support
+	</notification>
+	<notification name="invalid_region_handoff">
+		Bei der Bearbeitung Ihres Regionswechsels ist ein Problem aufgetreten. Sie müssen sich zum Wechsel der Region eventuell neu anmelden. Wenn Sie diese Nachricht weiterhin erhalten, konsultieren Sie bitte die Tech-Support-FAQ unter:
+www.secondlife.com/support
+	</notification>
+	<notification name="blocked_tport">
+		Teleportieren ist zurzeit leider nicht möglich. Versuchen Sie es später noch einmal.
+Wenn der Teleport dann immer noch nicht funktioniert, melden Sie sich bitte ab und wieder an.
+	</notification>
+	<notification name="nolandmark_tport">
+		Das System konnte das Landmarken-Ziel nicht finden.
+	</notification>
+	<notification name="timeout_tport">
+		Das System konnte keine Teleport-Verbindung herstellen.
+Versuchen Sie es später noch einmal.
+	</notification>
+	<notification name="noaccess_tport">
+		Sie haben leider keinen Zugang zu diesem Teleport-Ziel.
+	</notification>
+	<notification name="missing_attach_tport">
+		Ihre Anhänge sind noch nicht eingetroffen. Warten Sie kurz oder melden Sie sich ab und wieder an, bevor Sie einen neuen Teleport-Versuch unternehmen.
+	</notification>
+	<notification name="too_many_uploads_tport">
+		Die Asset-Warteschlange in dieser Region ist zurzeit überlastet.
+Ihre Teleport-Anfrage kann nicht sofort bearbeitet werden. Versuchen Sie es in einigen Minuten erneut oder besuchen Sie eine weniger überfüllte Region.
+	</notification>
+	<notification name="expired_tport">
+		Das System konnte Ihre Teleport-Anfrage nicht rechtzeitig bearbeiten. Versuchen Sie es in einigen Minuten erneut.
+	</notification>
+	<notification name="expired_region_handoff">
+		Das System konnte Ihre Anfrage zum Regionswechsel nicht rechtzeitig bearbeiten. Versuchen Sie es in einigen Minuten erneut.
+	</notification>
+	<notification name="no_host">
+		Teleport-Ziel wurde nicht gefunden. Das Ziel ist entweder im Moment nicht verfügbar oder existiert nicht mehr. Versuchen Sie es in einigen Minuten erneut.
+	</notification>
+	<notification name="no_inventory_host">
+		Das Inventarsystem ist zurzeit nicht verfügbar.
 	</notification>
 	<notification name="CannotSetLandOwnerNothingSelected">
 		Landeigentümer kann nicht festgelegt werden:
@@ -1466,104 +1498,87 @@ Tausende Regionen werden verändert und der Spaceserver wird dadurch stark belas
 		<usetemplate name="okcancelbuttons" notext="Abbrechen" yestext="OK"/>
 	</notification>
 	<notification name="RegionEntryAccessBlocked">
-		Sie dürfen diese Region aufgrund Ihrer Alterseinstufung nicht betreten. Der Grund hierfür ist möglicherweise, dass Sie nicht altersüberprüft sind. Bitte vergewissern Sie sich, dass Sie den aktuellsten Viewer installiert haben und besuchen Sie unsere Knowledgebase, um mehr über Regionen mit dieser Altereinstufung zu erfahren.
-    <usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		Sie dürfen diese Region aufgrund Ihrer Alterseinstufung nicht betreten. Der Grund hierfür ist möglicherweise, dass Sie nicht altersüberprüft sind.
+
+Bitte vergewissern Sie sich, dass Sie den aktuellsten Viewer installiert haben und besuchen Sie unsere Knowledgebase, um mehr über Regionen mit dieser Altereinstufung zu erfahren.
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="RegionEntryAccessBlocked_KB">
-		Sie dürfen diese Region aufgrund Ihrer Alterseinstufung nicht betreten. 
+		Sie dürfen diese Region aufgrund Ihrer Alterseinstufung nicht betreten.
 
 Möchten Sie unsere Knowledgebase besuchen, um mehr Informationen über Altereinstufung zu erhalten?
 		<url name="url">
-			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+			http://wiki.secondlife.com/wiki/Alterseinstufung:_Ein_%C3%9Cberblick_(KB)
 		</url>
-    <usetemplate
-     name="okcancelignore"
-     yestext="Zur Knowledgbase"
-	 notext="Schließen"
-	 ignoretext="Wenn Regionzugang aufgrund von Alterseinstufung gesperrt ist"/>
+		<usetemplate ignoretext="Wenn Regionzugang aufgrund von Alterseinstufung gesperrt ist" name="okcancelignore" notext="Schließen" yestext="Zur Knowledgbase"/>
 	</notification>
 	<notification name="RegionEntryAccessBlocked_Notify">
 		Aufgrund Ihrer Alterseinstufung dürfen Sie diese Region nicht betreten.
 	</notification>
 	<notification name="RegionEntryAccessBlocked_Change">
-		Sie dürfen diese Region aufgrund der Einstellung Ihrer Alterseinstufung nicht betreten. 
+		Sie dürfen diese Region aufgrund der Einstellung Ihrer Alterseinstufung nicht betreten.
 
-Klicken Sie auf „Einstellung ändern“, um Ihre Einstellung für Altereinstufung zu ändern und Zugang zu erhalten. Sie können von jetzt an auf [REGIONMATURITY]-Inhalte zugreifen. Falls Sie diese Einstellung rückgängig machen möchten, öffnen Sie im Fenster „Einstellungen“ die Registerkarte „Allgemein“.
-	<form>
+Klicken Sie auf „Einstellung ändern“, um Ihre Einstellung für Altereinstufung sofort zu ändern und Zugang zu erhalten. Sie können ab sofort [REGIONMATURITY]-Inhalt suchen und auf diesen zugreifen. Falls Sie diese Einstellung später rückgängig machen möchten, gehen Sie zu Bearbeiten &gt; Einstellungen... &gt; Allgemein.
+	<form name="form">
       <button
        name="OK"
        text="Einstellung ändern"/>
       <button
        name="Cancel"
        text="Schließen"/>
-       <ignore text="Wenn Regionzugang aufgrund von Einstellung für Alterseinstufung gesperrt ist."/>
+       <ignore name="ignore" text="Wenn Regionzugang aufgrund von Einstellung für Alterseinstufung gesperrt ist"/>
     </form>
 	</notification>
 	<notification name="LandClaimAccessBlocked">
-		Sie haben aufgrund Ihrer Alterseinstufung keinen Anspruch auf dieses Land. Der Grund hierfür ist möglicherweise, dass Sie nicht altersüberprüft sind. Bitte vergewissern Sie sich, dass Sie den aktuellsten Viewer installiert haben und besuchen Sie unsere Knowledgebase, um mehr über Regionen mit dieser Altereinstufung zu erfahren.
-    <usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		Sie haben aufgrund Ihrer Alterseinstufung keinen Anspruch auf dieses Land. Der Grund hierfür ist möglicherweise, dass Sie nicht altersüberprüft sind.
+
+Bitte vergewissern Sie sich, dass Sie den aktuellsten Viewer installiert haben und besuchen Sie unsere Knowledgebase, um mehr über Regionen mit dieser Altereinstufung zu erfahren.
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="LandClaimAccessBlocked_KB">
-		Sie haben aufgrund Ihrer Alterseinstufung keinen Anspruch auf dieses Land. 
+		Sie haben aufgrund Ihrer Alterseinstufung keinen Anspruch auf dieses Land.
 
 Möchten Sie unsere Knowledgebase besuchen, um mehr Informationen über Altereinstufung zu erhalten?
 		<url name="url">
-			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+			http://wiki.secondlife.com/wiki/Alterseinstufung:_Ein_%C3%9Cberblick_(KB)
 		</url>
-    <usetemplate
-     name="okcancelignore"
-     yestext="Zur Knowledgbase"
-	 notext="Schließen"
-	 ignoretext="Wenn Landanspruch aufgrund von Alterseinstufung gesperrt ist"/>
+		<usetemplate ignoretext="Wenn Landanspruch aufgrund von Alterseinstufung gesperrt ist" name="okcancelignore" notext="Schließen" yestext="Zur Knowledgbase"/>
 	</notification>
 	<notification name="LandClaimAccessBlocked_Notify">
 		Sie haben aufgrund Ihrer Alterseinstufung keinen Anspruch auf dieses Land.
 	</notification>
 	<notification name="LandClaimAccessBlocked_Change">
-		Sie haben aufgrund der Einstellung Ihrer Alterseinstufung keinen Anspruch auf dieses Land. 
+		Sie haben aufgrund der Einstellung Ihrer Alterseinstufung keinen Anspruch auf dieses Land.
 
-Klicken Sie auf „Einstellung ändern“, um Ihre Einstellung für Altereinstufung zu ändern und Zugang zu erhalten. Sie können von jetzt an auf [REGIONMATURITY]-Inhalte zugreifen. Falls Sie diese Einstellung rückgängig machen möchten, öffnen Sie im Fenster „Einstellungen“ die Registerkarte „Allgemein“.
-    <usetemplate
-     name="okcancelignore"
-     yestext="Einstellung ändern"
-	 notext="Schließen"
-	 ignoretext="Wenn Landanspruch aufgrund von Einstellung der Alterseinstufung gesperrt ist"/>
+Klicken Sie auf „Einstellung ändern“, um Ihre Einstellung für Altereinstufung sofort zu ändern und Zugang zu erhalten. Sie können ab sofort [REGIONMATURITY]-Inhalt suchen und auf diesen zugreifen. Falls Sie diese Einstellung später rückgängig machen möchten, gehen Sie zu Bearbeiten &gt; Einstellungen... &gt; Allgemein.
+		<usetemplate ignoretext="Wenn Landanspruch aufgrund von Einstellung der Alterseinstufung gesperrt ist" name="okcancelignore" notext="Schließen" yestext="Einstellung ändern"/>
 	</notification>
 	<notification name="LandBuyAccessBlocked">
-		Sie können aufgrund Ihrer Alterseinstufung dieses Land nicht kaufen. Der Grund hierfür ist möglicherweise, dass Sie nicht altersüberprüft sind. Bitte vergewissern Sie sich, dass Sie den aktuellsten Viewer installiert haben und besuchen Sie unsere Knowledgebase, um mehr über Regionen mit dieser Altereinstufung zu erfahren.
-    <usetemplate
-     name="okbutton"
-     yestext="OK"/>
+		Sie können aufgrund Ihrer Alterseinstufung dieses Land nicht kaufen. Der Grund hierfür ist möglicherweise, dass Sie nicht altersüberprüft sind.
+
+Bitte vergewissern Sie sich, dass Sie den aktuellsten Viewer installiert haben und besuchen Sie unsere Knowledgebase, um mehr über Regionen mit dieser Altereinstufung zu erfahren.
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="LandBuyAccessBlocked_KB">
-		Sie können aufgrund Ihrer Alterseinstufung dieses Land nicht kaufen. 
+		Sie können aufgrund Ihrer Alterseinstufung dieses Land nicht kaufen.
 
 Möchten Sie unsere Knowledgebase besuchen, um mehr Informationen über Altereinstufung zu erhalten?
 		<url name="url">
-			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+			http://wiki.secondlife.com/wiki/Alterseinstufung:_Ein_%C3%9Cberblick_(KB)
 		</url>
-    <usetemplate
-     name="okcancelignore"
-     yestext="Zur Knowledgbase"
-	 notext="Schließen"
-	 ignoretext="Wenn Landkauf aufgrund von Alterseinstufung gesperrt ist"/>
+		<usetemplate ignoretext="Wenn Landkauf aufgrund von Alterseinstufung gesperrt ist" name="okcancelignore" notext="Schließen" yestext="Zur Knowledgbase"/>
 	</notification>
 	<notification name="LandBuyAccessBlocked_Notify">
 		Sie können aufgrund Ihrer Alterseinstufung dieses Land nicht kaufen.
 	</notification>
 	<notification name="LandBuyAccessBlocked_Change">
-		Sie können aufgrund Ihrer Einstellung für Alterseinstufung dieses Land nicht kaufen. 
+		Sie können aufgrund Ihrer Einstellung für Alterseinstufung dieses Land nicht kaufen.
 
-Klicken Sie auf „Einstellung ändern“, um Ihre Einstellung für Altereinstufung zu ändern und Zugang zu erhalten. Sie können von jetzt an auf [REGIONMATURITY]-Inhalte zugreifen. Falls Sie diese Einstellung rückgängig machen möchten, öffnen Sie im Fenster „Einstellungen“ die Registerkarte „Allgemein“.
-    <usetemplate
-     name="okcancelignore"
-     yestext="Einstellung ändern"
-	 notext="Schließen"
-	 ignoretext="Wenn Landkauf aufgrund von Einstellung für Alterseinstufung gesperrt ist"/>
+Klicken Sie auf „Einstellung ändern“, um Ihre Einstellung für Altereinstufung sofort zu ändern und Zugang zu erhalten. Sie können ab sofort [REGIONMATURITY]-Inhalt suchen und auf diesen zugreifen. Falls Sie diese Einstellung später rückgängig machen möchten, gehen Sie zu Bearbeiten &gt; Einstellungen... &gt; Allgemein.
+		<usetemplate ignoretext="Wenn Landkauf aufgrund von Einstellung für Alterseinstufung gesperrt ist" name="okcancelignore" notext="Schließen" yestext="Einstellung ändern"/>
+	</notification>
+	<notification name="TooManyPrimsSelected">
+		&quot;Zu viele Prims wurden ausgewählt.  Bitte wählen Sie höchstens [MAX_PRIM_COUNT] Prims aus und versuchen Sie es erneut.&quot;
 	</notification>
 	<notification name="ProblemImportingEstateCovenant">
 		Problem beim Import des Grundstückvertrags.
@@ -1595,19 +1610,11 @@ Anzeige für [AMOUNT] L$ veröffentlichen?
 	</notification>
 	<notification name="SetClassifiedMature">
 		Enthält diese Anzeige Mature-Inhalte?
-    <usetemplate
-     canceltext="Abbrechen"
-     name="yesnocancelbuttons"
-     notext="Nein"
-     yestext="Ja"/>
+		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Nein" yestext="Ja"/>
 	</notification>
 	<notification name="SetGroupMature">
 		Beschäftigt sich diese Gruppe mit Mature-Inhalten?
-    <usetemplate
-     canceltext="Abbrechen"
-     name="yesnocancelbuttons"
-     notext="Nein"
-     yestext="Ja"/>
+		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Nein" yestext="Ja"/>
 	</notification>
 	<notification label="Neustart bestätigen" name="ConfirmRestart">
 		Möchten Sie diese Region in 2 Minuten neu starten?
@@ -1630,6 +1637,21 @@ Standard: deaktiviert
 		Wenn diese Option aktiviert ist, ist Fliegen in dieser Region nicht möglich, auch wenn für die Parzelle eine andere Einstellung aktiv ist.
 
 Standard: deaktiviert
+	</notification>
+	<notification label="Mehrere Inhaltsberechtigungen ändern" name="HelpBulkPermission">
+		Mit dem Werkzeug „Mehrere Berechtigungen“ können Sie Berechtigungen für mehrere Objekte in den Inhalten des ausgewählten Objekts schnell ändern.  Bitte beachten Sie, dass Sie nur Berechtigungen an den Objekten im Inhalt der ausgewählten Objekte einstellen, nicht Berechtigungen an dem/den Container-Objekt(en=) selbst.  
+
+Bitte beachten Sie auch, dass die Berechtigungen nicht auf eingebettete Inhalte der enthaltenen Objekte angewandt werden.  Ihre Auftrag wird nur an Objekten ausgeführt, die sie sich in diesem Level befinden.
+
+Sie können auswählen, welche Objektarten Sie ändern möchten, indem Sie diese in der Liste unter „Inhaltsarten“ auswählen. Wenn Sie Texturen auswählen, sind Fotos mit eingeschlossen.
+
+* Mit diesem Werkzeug können Sie nur an Objekten, die Sie ändern dürfen, Änderungen vornehmen.
+* Sie können dem nächsten Eigentümer keine Berechtigungen geben, die Sie nicht besitzen.
+* Die Berechtigungen für den nächsten Eigentümer sind nur Anfragen. Wenn ein Objekt nicht alle Berechtigungen annehmen kann, dann werden keine seiner Berechtigungen geändert.
+
+Wenn Sie bereit sind, die Berechtigungen mehrfach zu ändern, klicken Sie auf Übernehmen und warten Sie, bis die Ergebnisse angezeigt werden.
+
+Wenn Sie das Fenster „Mehrfach-Berechtigungen“ schließen, während die Berechtigungen geändert werden, wird der Vorgang gestoppt.
 	</notification>
 	<notification label="Schaden zulassen" name="HelpRegionAllowDamage">
 		Wenn diese Option aktiviert ist, ist das Gesundheitssystem auf allen Parzellen aktiviert, unabhängig von den Parzelleneinstellungen. Ist die Option links deaktiviert, können die Parzelleneigentümer das Gesundheitssystem individuell einschalten.
@@ -2559,7 +2581,9 @@ Nur Skripts, die dem Landeigentümer gehören, funktionieren.
 		Öffentliches Land kann nur in der Region in Besitz genommen werden, in der Sie sich befinden.
 	</notification>
 	<notification name="RegionTPAccessBlocked">
-		Sie dürfen diese Region aufgrund Ihrer Alterseinstufung nicht betreten. Sie müssen eventuell eine Altersüberprüfung vornehmen und/oder den aktuellsten Viewer installieren. Bitte besuchen Sie unsere Knowledgebase, um mehr Details über Zugang zu Regionen mit dieser Alterseinstufung zu erhalten.
+		Sie dürfen diese Region aufgrund Ihrer Alterseinstufung nicht betreten. Sie müssen eventuell eine Altersüberprüfung vornehmen und/oder den aktuellsten Viewer installieren.
+
+Bitte besuchen Sie unsere Knowledgebase, um mehr Details über Zugang zu Regionen mit dieser Alterseinstufung zu erhalten.
 	</notification>
 	<notification name="URBannedFromRegion">
 		Sie dürfen diese Region nicht betreten.
@@ -2740,7 +2764,7 @@ Wenn Sie in dieser Region bleiben, werden Sie abgemeldet.
 
 Von Objekt: [OBJECTNAME], Eigentümer: [NAME]?
 		<form name="form">
-			<button name="Gotopage" text="Gehe zu Seite"/>
+			<button name="Gotopage" text="Zur Seite"/>
 			<button name="Cancel" text="Abbrechen"/>
 		</form>
 	</notification>

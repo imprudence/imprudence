@@ -22,7 +22,7 @@
 			<panel name="speaker_controls">
 				<button label="" name="profile_btn" />
 				<text name="resident_name">
-					Grzegorz Brzeczyszczykiewicz
+					Dane Rezydenta
 				</text>
 				<button label="" name="mute_btn" tool_tip="Wycisz głos tego Rezydenta" />
 				<check_box label="Wyłącz Tekst" name="mute_text_btn" />

@@ -21,7 +21,7 @@
 		{128.1, 128.1, 15.4}
 	</text>
 	<text name="select_object_label">
-		Kliknij na przycisk, a pózniej na obiekt:
+		Kliknij na przycisk, a później na obiekt:
 	</text>
 	<button label="" label_selected="" name="pick_btn" tool_tip="Wybór obiektu - wybierz obiekt, którego dotyczy raport"/>
 	<text name="object_name_label">

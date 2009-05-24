@@ -754,6 +754,7 @@ void LLPanelClassified::refresh()
 		mDescEditor->setEnabled(is_self);
 		//mPriceEditor->setEnabled(is_self);
 		mCategoryCombo->setEnabled(is_self);
+		mMatureCombo->setEnabled(is_self);
 
 		if( is_self )
 		{							
@@ -764,10 +765,6 @@ void LLPanelClassified::refresh()
 								
 				setDefaultAccessCombo();
 			}
-		}
-		else
-		{
-			mMatureCombo->setEnabled( FALSE );
 		}
 		
 		if (mAutoRenewCheck)

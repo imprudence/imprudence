@@ -520,7 +520,7 @@ Na pewno chcesz podarować ten obiekt?
 		Podarowanie obiektu nie powiodło się.
 	</notification>
 	<notification name="TransactionCancelled">
-		Tranzakcja anulowana.
+		Transakcja anulowana
 	</notification>
 	<notification name="TooManyItems">
 		Jednorazowo możesz podarować maksymalnie 42 obiekty z szafy.
@@ -696,18 +696,18 @@ Nowe zapytanie: [FINALQUERY]
 	</notification>
 
   <notification name="invalid_tport">
-Mamy problem z teleportacją. Może relog by pomógl?
-Jeżeli cały czas nie możesz się telportować sprawdź Pomoc Techniczną na:
-www.secondlife.com/support
+Wystąpił problem z teleportacją. Wyloguj się i zaloguj ponownie.
+Jeśli nadal otrzymujesz ten komunikat sprawdź Pomoc Techniczną na stronie:
+www.secondlife.com/support.
   </notification>
   <notification name="invalid_region_handoff">
-Mamy problem ze zmianą regionu. Może relog by pomógl?
-Jeżeli cały czas nie możesz zmienić regionu sprawdź Pomoc Techniczną na:
-www.secondlife.com/support
+Wystąpił problem ze zmianą regionu. Wyloguj się i zaloguj ponownie.
+Jeśli nadal otrzymujesz ten komunikat sprawdź Pomoc Techniczną na stronie:
+www.secondlife.com/support.
   </notification>
   <notification name="blocked_tport">
-Przepraszamy, ale teleportacja jest chwilowo niedostępna - problemy z nową technologią. 
-Spróbuj jeszcze raz. Hmm - cały czas nie działa - może relog by pomógl?
+Przepraszamy, teleportacja jest chwilowo niedostępna. Spróbuj jeszcze raz.
+Jeśli nadal nie możesz się teleportować wyloguj się i ponownie zaloguj.
   </notification>
   <notification name="nolandmark_tport">
 Przepraszamy, ale nie możemy znaleźć miejsca docelowego.
@@ -1016,7 +1016,7 @@ Na pewno chcesz usunąć te obiekty?
 		<usetemplate name="okcancelbuttons" notext="Anuluj" yestext="OK"/>
 	</notification>
 	<notification name="ConfirmObjectDeleteNoCopy">
-		Przynajmniej jeden z wybranych obiektów jest niekopiwalny.
+		Przynajmniej jeden z wybranych obiektów jest niekopiowalny.
 
 Na pewno chcesz usunąć te obiekty?
 		<usetemplate name="okcancelbuttons" notext="Anuluj" yestext="OK"/>
@@ -1042,7 +1042,7 @@ Na pewno chcesz usunąć te obiekty?
 		<usetemplate name="okcancelbuttons" notext="Anuluj" yestext="OK"/>
 	</notification>
 	<notification name="ConfirmObjectDeleteNoCopyNoOwn">
-		Przynajmniej jeden z wybranych obiektów jest niekopiwalny.
+		Przynajmniej jeden z wybranych obiektów jest niekopiowalny.
 Przynajmniej jeden z wybranych obiektów nie należy do Ciebie.
 
 Na pewno chcesz usunąć te obiekty?
@@ -1191,10 +1191,10 @@ Zamień teksturę [TEXTURE_NUM] na 24-o bitową teksturę o wymiarze 512x512 lub
 		<usetemplate name="okcancelbuttons" notext="Anuluj" yestext="OK"/>
 	</notification>
 	<notification name="MaxAllowedAgentOnRegion">
-		Maksimalna liczba gości wynosi [MAX_AGENTS].
+		Maksymalna liczba gości wynosi [MAX_AGENTS].
 	</notification>
 	<notification name="MaxBannedAgentsOnRegion">
-		Maksimalna liczba nieporządanych Rezydentów (banów) wynosi [MAX_BANNED].
+		Maksymalna liczba nieporządanych Rezydentów (banów) wynosi [MAX_BANNED].
 	</notification>
 	<notification name="MaxAgentOnRegionBatch">
 		Próba dodania [NUM_ADDED] osób nie powidła się:
@@ -1300,7 +1300,7 @@ Załadować do foldera Aplikacji?
 		<usetemplate ignoretext="Otwierając przeglądarkę żeby zobaczyć Wiki katalogu publicznych problemów" name="okcancelignore" notext="Anuluj" yestext="OK"/>
 	</notification>
 	<notification name="WebLaunchSupportWiki">
-		Otwórz oficjalny blog Lindenów żeby zobaczyć nowe widaomości i informacje.
+		Otwórz oficjalny blog Lindenów żeby zobaczyć nowe wiadomości i informacje.
 		<usetemplate ignoretext="Otwierając przeglądarkę żeby zobaczyć blog" name="okcancelignore" notext="Anuluj" yestext="OK"/>
 	</notification>
 	<notification name="WebLaunchLSLGuide">
@@ -1352,7 +1352,7 @@ Chcesz opuścić grupę?
 	<notification name="BusyModeSet">
 		Tryb Pracy jest włączony.
 Czat i IMy bedą ukryte. Wysłane IMy będą otrzymywały Twoją odpowiedź Trybu Pracy. Propozycje teleportacji będą odrzucone.
-Podarowane obiekty trafią do Twojego śmietnika.
+Dodatkowo, wszystkie podarowane dla Ciebie obiekty będą automatycznie zapisywane w folderze "Kosz" w Twojej szafie.
 		<usetemplate ignoretext="Włączając Tryb Pracy" name="okignore" yestext="OK"/>
 	</notification>
 	<notification name="JoinedTooManyGroupsMember">
@@ -1373,7 +1373,7 @@ Musisz opuścić przynajmniej jedną grupę żeby przyjąć członkostwo w tej g
 		</form>
 	</notification>
 	<notification name="KickAllUsers">
-		Z jakim komunikatem wyrzucić wszystkich użytkowników z sieci?
+		Z jakim komunikatem wyrzucić wszystkich użytkowników z regionu?
 		<form name="form">
 			<input name="message" type="text">
 				Administrator wylogował Cię.
@@ -1435,18 +1435,20 @@ Musisz opuścić przynajmniej jedną grupę żeby przyjąć członkostwo w tej g
 		</form>
 	</notification>
 	<notification label="Zmiana Majątku Lindenów" name="ChangeLindenEstate">
-		Zmieniasz majątek należący do Lindenów (główny obszar, sieć nastolatków, przedszkole, itd).
-
-Jest to BARDZO NIEBEZPIECZNE ponieważ może drastycznie zmienić percepcję użytkowników. W głównym obszarze tysiące regionów zostanie zmienione i spowoduje chwilowe problemy serwera przestrzeni.
+		Dokonujesz zmiany w Regionie Głównym należącym do Lindenów (Regiony Główne, Teen Grid, Orientacja).
+		
+Żądana operacja jest wyjątkowo niebezpieczna dla wszystkich Rezydentów przebywających w regionie. Dodatkowo, zmiany dokonane w Regionie Głównym mogą spowodować problemy przestrzeni serwerowej innych regionów.
 
 Kontynuować?
 		<usetemplate name="okcancelbuttons" notext="Anuluj" yestext="OK"/>
 	</notification>
 	<notification label="Zmiana Dostępu do Majątku Lindenów" name="ChangeLindenAccess">
-		Zmieniasz listę dostępu do majątku należącego do Lindenów (główny obszar, sieć nastolatków, przedszkole, itd).
+		Dokonujesz zmiany w liście dostępu Regionu Głównego należącego do Lindenów (Regiony Główne, Teen Grid, Orientacja).
 
-Jest to NIEBEZPIECZNE i powinno być używane wyłącznie w celu uruchomienia opcji pozwalającej na przeniesienie obiektów/L$ do/z sieci.
-Tysiące regionów zostanie zmienione i spowoduje chwilowe problemy serwera przestrzeni.
+Żądana operacja jest wyjątkowo niebezpieczna dla wszystkich Rezydentów przebywających w regionie i powinna być używana wyłącznie w celu zablokowania opcji pozwalającej na przeniesienie obiektów/L$ do/z sieci.
+Dodatkowo, zmiany dokonane w Regionie Głównym mogą spowodować problemy przestrzeni serwerowej innych regionów.
+
+Kontynuować?
 		<usetemplate name="okcancelbuttons" notext="Anuluj" yestext="OK"/>
 	</notification>
 	<notification label="Wybierz Majątek" name="EstateAllowedAgentAdd">
@@ -1517,7 +1519,7 @@ Skorzystaj z Second Life:Pomoc by uzyskać więcej informacji na temat dostępu 
 		W związku ze statusem ustawień Twojego wieku, nie jesteś uprawniony do przebywania w tym regionie.
 
 Możeszy wybrać &apos;Zmień Ustawienia&apos; by dokonać zmian w ustawieniach Twojego wieku by uzyskać dostęp do regionu. Wówczas będziesz w stanie znaleźć oraz mieć dostęp do [REGIONMATURITY] treści. Jeżeli zdecydujesz się na powrót do poprzednich ustawień, wybierz Edycja &gt; Ustawienia... &gt; Główne.
-	 <form>
+	 <form name="form">
       <button
        name="OK"
        text="Zmień Ustawienia"/>
@@ -1525,7 +1527,7 @@ Możeszy wybrać &apos;Zmień Ustawienia&apos; by dokonać zmian w ustawieniach 
        default="true"
        name="Cancel"
        text="Zamknij"/>
-       <ignore text="Dostęp do posiadłości jest zablokowany ze względu na ustawienia rodzaju treści jaką zawiera"/>
+       <ignore name="ignore" text="Dostęp do posiadłości jest zablokowany ze względu na ustawienia rodzaju treści jaką zawiera"/>
     </form>
 	</notification>
 	<notification name="LandClaimAccessBlocked">
@@ -2097,7 +2099,7 @@ Zamieść go na stronie Internetowej żeby umożliwić innym łatwy dostęp do t
 	<notification name="GraphicsPreferencesHelp">
 		Ten panel kontroluje wymiary i rozdzielczość okna oraz jakość grafiki klienta. Panel Ustawienia &gt; Grafika pozwala na wybór jednego z czterech poziomów jakości grafiki: Niska, Średnia, Wysoka i Super. Możesz również dostosować grafikę do własnych potrzeb wybierając opcję Zaawansowane i zmieniając następujące ustawienia:
 
-Shadery: Włącza i wyłącza różne rodzaje shaderów piksli.
+Shadery: Opcja ta pozwala włączyć i wyłączyć różne rodzaje shaderów pikseli.
 
 Ustawienia Odbić: Określa rodzaje obiektów które mogą odbijać się w wodzie.
 
@@ -2606,7 +2608,7 @@ Skorzystaj z Second Life:Pomoc by uzyskać więcej informacji na temat dostępu 
 		Zostałeś zbanowany w regionie.
 	</notification>
 	<notification name="NoTeenGridAccess">
-		Twoje konto nie może zostać połączone z podanym regionem tenn grid.
+		Twoje konto nie może zostać połączone z podanym regionem Teen Grid.
 	</notification>
 	<notification name="NoHelpIslandTP">
 		Brak możliwości ponownej teleportacji do Help Island.
@@ -2781,7 +2783,7 @@ Nastąpi wylogowanie jeżeli zostaniesz w tym regionie.
 
 Obiekt: [OBJECTNAME], właściciel: [NAME]?
 		<form name="form">
-			<button name="Gotopage" text="Idź na stronę"/>
+			<button name="Gotopage" text="Załaduj"/>
 			<button name="Cancel" text="Anuluj"/>
 		</form>
 	</notification>

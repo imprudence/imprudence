@@ -375,13 +375,13 @@ Um direkt zu kaufen, klicken Sie auf dem betreffenden Land in der Titelleiste au
 			</text>
 			<line_editor left_delta="48" name="name"/>
 			<button label="Suchen" label_selected="Suchen" name="Search"/>
-			<scroll_list name="results">
+			<scroll_list name="results" width="286">
 				<column label="" name="icon"/>
 				<column label="" name="type"/>
-				<column label="Name" name="name"/>
+				<column label="Name" name="name" width="234"/>
 			</scroll_list>
-			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;"/>
-			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev"/>
+			<button right="290" label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;"/>
+			<button right="204" label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev"/>
 		</panel>
 		<panel label="Gruppen" name="groups_panel">
 			<string name="searching_text">
@@ -408,4 +408,5 @@ Um direkt zu kaufen, klicken Sie auf dem betreffenden Land in der Titelleiste au
 			</string>
 		</panel>
 	</tab_container>
+	<panel left="310" name="Panel Avatar" width="470" />
 </floater>

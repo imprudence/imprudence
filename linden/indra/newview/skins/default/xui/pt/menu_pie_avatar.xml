@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <pie_menu name="Avatar Pie">
 	<menu_item_call label="Perfil.." name="Profile..."/>
-	<menu_item_call label="Mudo" name="Avatar Mute"/>
+	<menu_item_call label="Silenciar" name="Avatar Mute"/>
 	<menu_item_call label="Ir para" name="Go To"/>
+	<menu_item_call label="Reportar..." name="abuse"/>
 	<menu_item_call label="Adicionar amigo..." name="Add Friend"/>
 	<menu_item_call label="Pagar..." name="Pay..."/>
 	<pie_menu label="Mais &gt;" name="More &gt;">

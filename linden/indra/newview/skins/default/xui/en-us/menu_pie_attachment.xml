@@ -3,39 +3,31 @@
 	<menu_item_call enabled="true" label="Profile..." name="Profile...">
 		<on_click function="ShowAgentProfile" userdata="agent" />
 	</menu_item_call>
-	<menu_item_call enabled="true" label="Groups..." name="Groups...">
-		<on_click function="ShowAgentGroups" userdata="agent" />
+	<menu_item_call enabled="false" label="Drop" mouse_opaque="true" name="Drop">
+		<on_click function="Attachment.Drop" />
+		<on_enable function="Attachment.EnableDrop" />
 	</menu_item_call>
-	<menu_item_call enabled="false" label="Touch" mouse_opaque="true" name="Object Touch">
-			<on_click function="Object.Touch" />
-			<on_enable function="Object.EnableTouch" userdata="Touch" />
+	<menu_item_call enabled="false" label="Touch" mouse_opaque="true" name="Attachment Object Touch">
+		<on_click function="Object.Touch" />
+		<on_enable function="Object.EnableTouch" userdata="Touch" name="EnableTouch"/>
 		</menu_item_call>
 	<menu_item_call enabled="true" label="Stand Up" name="Stand Up">
 		<on_click function="Self.StandUp" userdata="" />
 		<on_enable function="Self.EnableStandUp" />
 	</menu_item_call>
-	<menu_item_call enabled="true" label="Friends..." name="Friends...">
-		<on_click function="ShowFloater" userdata="friends" />
+	<menu_item_call enabled="false" label="Detach" mouse_opaque="true" name="Detach">
+		<on_click function="Attachment.Detach" />
+		<on_enable function="Attachment.EnableDetach" />
 	</menu_item_call>
 	<menu_item_call enabled="true" label="Gestures..." name="Gestures...">
 		<on_click function="ShowFloater" userdata="gestures" />
 	</menu_item_call>
-	<pie_menu label="More &gt;" name="More &gt;">
-		<menu_item_call enabled="false" label="Detach" mouse_opaque="true" name="Detach">
-			<on_click function="Attachment.Detach" />
-			<on_enable function="Attachment.EnableDetach" />
-		</menu_item_call>
-		<menu_item_call enabled="false" label="Drop" mouse_opaque="true" name="Drop">
-			<on_click function="Attachment.Drop" />
-			<on_enable function="Attachment.EnableDrop" />
-		</menu_item_call>
-		<menu_item_call enabled="false" label="Edit..." mouse_opaque="true" name="Edit...">
-			<on_click function="Object.Edit" />
-			<on_enable function="EnableEdit" />
-		</menu_item_call>
-	</pie_menu>
 	<menu_item_call enabled="true" label="Appearance..." name="Appearance...">
 		<on_click function="ShowFloater" userdata="appearance" />
 		<on_enable function="Edit.EnableCustomizeAvatar" />
+	</menu_item_call>
+	<menu_item_call enabled="false" label="Edit..." mouse_opaque="true" name="Edit...">
+		<on_click function="Object.Edit" />
+		<on_enable function="EnableEdit" />
 	</menu_item_call>
 </pie_menu>

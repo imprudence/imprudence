@@ -5267,6 +5267,7 @@ void process_script_dialog(LLMessageSystem* msg, void**)
 	S32 button_count = msg->getNumberOfBlocks("Buttons");
 	if (button_count > SCRIPT_DIALOG_MAX_BUTTONS)
 	{
+		llwarns << "Too many script dialog buttons - omitting some" << llendl;
 		button_count = SCRIPT_DIALOG_MAX_BUTTONS;
 	}
 

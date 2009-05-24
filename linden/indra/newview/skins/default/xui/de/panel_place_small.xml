@@ -19,10 +19,10 @@
 	<button label="Auf Karte" name="map_btn"/>
 	<button label="Gebote..." name="auction_btn"/>
 	<string name="traffic_text">
-		Traffic: [TRAFFIC]
+		Traffic: [TRAFFIC] 
 	</string>
 	<string name="area_text">
-		Gebiet: [AREA] qm.
+		Gebiet: [AREA] qm. 
 	</string>
 	<string name="forsale_text">
 		Zum Verkauf für [PRICE] L$

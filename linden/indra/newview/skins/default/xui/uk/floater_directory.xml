@@ -380,13 +380,13 @@
 				Знайти:
 			</text>
 			<button label="Пошук" label_selected="Пошук" name="Search"/>
-			<scroll_list name="results">
+			<scroll_list name="results" width="266">
 				<column label="" name="icon"/>
 				<column label="" name="type"/>
-				<column label="Назва" name="name"/>
+				<column label="Назва" name="name" width="214"/>
 			</scroll_list>
-			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
-			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
+			<button right="270" label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
+			<button right="184" label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
 		</panel>
 		<panel label="Групи" name="groups_panel">
 			<string name="searching_text">
@@ -419,4 +419,5 @@
 			</string>
 		</panel>
 	</tab_container>
+	<panel left="280" name="Panel Avatar" width="500" />
 </floater>

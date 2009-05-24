@@ -33,7 +33,7 @@
 			<button label="Einstellen..." label_selected="Einstellen..." name="Set..."/>
 			<check_box label="Übertragung an Gruppe zulassen" name="check deed" tool_tip="Ein Gruppen-Officer kann dieses Land der Gruppe übertragen. Das Land wird dann über die Landzuteilung der Gruppe verwaltet."/>
 			<button label="Übertragen..." label_selected="Übertragen..." name="Deed..." tool_tip="Sie können Land nur übertragen, wenn Sie in der ausgewählten Gruppe Officer sind."/>
-			<check_box label="Eigentümer leistet Beitrag durch &#10;Übertragung" name="check contrib" tool_tip="Wenn das Land an die Gruppe übertragen wird, trägt der frühere Eigentümer ausreichend Landnutzungsrechte bei, um es zu halten."/>
+			<check_box label="Eigentümer leistet Beitrag durch Übertragung" name="check contrib" tool_tip="Wenn das Land an die Gruppe übertragen wird, trägt der frühere Eigentümer ausreichend Landnutzungsrechte bei, um es zu halten."/>
 			<text name="For Sale:">
 				Zum Verkauf:
 			</text>
@@ -43,7 +43,8 @@
 			<text name="For Sale: Price L$[PRICE].">
 				Preis: [PRICE] L$ ([PRICE_PER_SQM] L$/qm.).
 			</text>
-			<button bottom="-200" label="Land verkaufen..." label_selected="Land verkaufen..." name="Sell Land..."/>
+			<text name="SalePending"/>
+			<button bottom="-222" label="Land verkaufen..." label_selected="Land verkaufen..." name="Sell Land..."/>
 			<text name="For sale to">
 				Zum Verkauf an: [BUYER]
 			</text>
@@ -53,7 +54,7 @@
 			<text name="Selling with no objects in parcel." width="237">
 				Objekte sind im Verkauf nicht eingeschlossen.
 			</text>
-			<button bottom="-204" label="Landverkauf abbrechen" label_selected="Landverkauf abbrechen" name="Cancel Land Sale"/>
+			<button bottom="-222" label="Landverkauf abbrechen" label_selected="Landverkauf abbrechen" name="Cancel Land Sale"/>
 			<text name="Claimed:">
 				Gekauft am:
 			</text>
@@ -172,7 +173,8 @@
 				Unterteilen:
 			</text>
 			<text name="changeable_clause">
-				Land in dieser Region kann nicht zusammengelegt/geteilt werden.
+				Land in dieser Region kann nicht zusammengelegt/geteilt
+werden.
 			</text>
 			<string name="can_resell">
 				Gekauftes Land in dieser Region kann wiederverkauft werden.
@@ -381,12 +383,18 @@ Nur große Parzellen können in der Suche aufgeführt werden.
 				</combo_item>
 			</combo_box>
 			<button label="?" label_selected="?" name="?"/>
-			<check_box label="Mature-Inhalt" name="MatureCheck" tool_tip="Die Informationen oder Inhalte Ihrer Parzelle sind „Mature“."/>
+			<check_box label="Mature-Inhalt" name="MatureCheck" tool_tip=""/>
 			<string name="mature_check_mature">
 				Mature-Inhalt
 			</string>
 			<string name="mature_check_adult">
 				Adult-Inhalt
+			</string>
+			<string name="mature_check_mature_tooltip">
+				Die Informationen oder Inhalte Ihrer Parzelle sind „Mature“.
+			</string>
+			<string name="mature_check_adult_tooltip">
+				Die Informationen oder Inhalte Ihrer Parzelle sind „Adult“.
 			</string>
 			<text name="Snapshot:">
 				Foto:
@@ -466,7 +474,7 @@ Optionen:
 				Sound:
 			</text>
 			<check_box label="Gesten- und Objektgeräusche auf diese Parzelle beschränken" name="check sound local"/>
-			<button label="?" label_selected="?" name="?" left="408"/>
+			<button label="?" label_selected="?" left="418" name="?"/>
 			<text name="Voice settings:">
 				Voice:
 			</text>

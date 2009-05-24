@@ -16,9 +16,9 @@
 		Mode Appuyer pour parler
 	</text>
 	<text_editor name="voice_chat_description">
-		Avec ce mode, vous contrôlez quand vous parlez en appuyant sur le bouton Parler de l&apos;interface. Vous pouvez définir une touche de contrôle supplémentaire en cochant l&apos;option ci-dessous. Pour laisser votre micro constamment ouvert, verrouillez le petit cadenas de l&apos;interface en cliquant dessus.
+		Ce mode vous permet de contrôler l&apos;ouverture du micro. En mode bascule, cliquez sur la touche de contrôle ou le bouton Parler pour ouvrir et fermer le micro. Si vous n&apos;êtes pas en mode bascule, le micro n&apos;est ouvert que si vous cliquez et maintenez enfoncés la touche de contrôle ou le bouton Parler.
 	</text_editor>
-	<check_box label="Attribuer une touche de contrôle" name="push_to_talk_toggle_check"/>
+	<check_box label="Utiliser Appuyer pour Parler en mode bascule" name="push_to_talk_toggle_check"/>
 	<text name="push_to_talk_label">
 		Touche de contrôle :
 	</text>

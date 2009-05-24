@@ -64,7 +64,7 @@ sprzedaż z obiektami
 		Zakup tej Posiadłości spowoduje:
 	</text>
 	<text name="error_message">
-		Coś się nie zgadza.
+		Wystąpił błąd.
 	</text>
 	<button label="Idź na stronę www" name="error_web"/>
 	<text name="account_action">
@@ -92,10 +92,10 @@ sprzedaż z obiektami
 Posiadłość ta zawiera 512 m² ziemi.
 	</text>
 	<text name="purchase_action">
-		Zapłać Rezydentowi Jasiowi 4000L$ za Posiadłość
+		Pay Joe Resident L$ 4000 for the land
 	</text>
 	<text name="currency_reason">
-		Masz 2,100L$.
+		You have L$ 2,100.
 	</text>
 	<text name="currency_action">
 		Kup więcej L$
@@ -177,7 +177,7 @@ Spróbuj wybrać inny obszar.
 		Nie jest na sprzedaż:
 	</string>
 	<string name="none_needed">
-		wszystko w porządku
+		Poprawność danych.
 	</string>
 	<string name="must_upgrade">
 		Musisz mieć konto Premium żebyś mógł mieć Posiadłości.
@@ -198,10 +198,10 @@ Spróbuj wybrać inny obszar.
 		Podana posiadłość to [AMOUNT] m² ziemi.
 	</string>
 	<string name="premium_land">
-		Podana posiadłość jest premium, opłata wyniesie jak za [AMOUNT] m².
+		Podana posiadłość jest w cenie premium adekwatnie jak za [AMOUNT] m².
 	</string>
 	<string name="discounted_land">
-		Podana posiadłość jest na zniżce, opłata wyniesie jak za [AMOUNT] m².
+		Wybrana posiadłość jest w cenie zniżkowej adekwatnie jak za [AMOUNT] m².
 	</string>
 	<string name="meters_supports_object">
 		[AMOUNT] m²

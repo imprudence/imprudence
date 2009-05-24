@@ -39,7 +39,7 @@
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nowy kształt poprzez przeciągnięcie go ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własny kształt 
-z plików roboczych. --&gt; (Kliknij na Nowy Kształt)
+z plików roboczych. 
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tego kształtu.
@@ -74,7 +74,7 @@ z plików roboczych. --&gt; (Kliknij na Nowy Kształt)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nową skórkę poprzez przeciągnięcie jej ze swojej szafy
 na awatara. Alternatywnie, możesz także stworzyć własną skórkę 
-z plików roboczych. --&gt; (Kliknij na Nowa Skórka)
+z plików roboczych.
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tej skórki.
@@ -113,7 +113,7 @@ z plików roboczych. --&gt; (Kliknij na Nowa Skórka)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nowe włosy poprzez przeciągnięcie ich ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własne włosy 
-z plików roboczych. --&gt; (Kliknij na Nowe Włosy)
+z plików roboczych.
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tych włosów.
@@ -146,7 +146,7 @@ z plików roboczych. --&gt; (Kliknij na Nowe Włosy)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nowe oczy poprzez przeciągnięcie ich ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własne oczy 
-z plików roboczych. --&gt; (Kliknij na Nowe Oczy)
+z plików roboczych.
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tych oczów.
@@ -187,7 +187,7 @@ z plików roboczych. --&gt; (Kliknij na Nowe Oczy)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nową koszulę poprzez przeciągnięcie jej ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własną koszulę 
-z plików roboczych. --&gt; (Kliknij na Nowa Koszula)
+z plików roboczych.
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tej koszuli.
@@ -222,7 +222,7 @@ z plików roboczych. --&gt; (Kliknij na Nowa Koszula)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nowe spodnie poprzez przeciągnięcie ich ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własne spodnie 
-z plików roboczych. --&gt; (Kliknij na Nowe Spodnie)
+z plików roboczych.
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tych spodni.
@@ -250,7 +250,7 @@ z plików roboczych. --&gt; (Kliknij na Nowe Spodnie)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nowe buty poprzez przeciągnięcie ich ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własne buty 
-z plików roboczych. --&gt; (Kliknij na Nowe Buty)
+z plików roboczych.
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tych butów.
@@ -285,7 +285,7 @@ z plików roboczych. --&gt; (Kliknij na Nowe Buty)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nowe skarpety poprzez przeciągnięcie ich ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własne skarpety 
-z plików roboczych. --&gt; (Kliknij na Nowe Skarpety)
+z plików roboczych.
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tych skarpet.
@@ -320,7 +320,7 @@ z plików roboczych. --&gt; (Kliknij na Nowe Skarpety)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nową kurtkę poprzez przeciągnięcie jej ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własną kurtkę 
-z plików roboczych. --&gt; (Kliknij na Nowa Kurtka)
+z plików roboczych. 
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tej kurtki.
@@ -356,7 +356,7 @@ z plików roboczych. --&gt; (Kliknij na Nowa Kurtka)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nowe rękawiczki poprzez przeciągnięcie ich ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własne rękawiczki 
-z plików roboczych. --&gt; (Kliknij na Nowe Rękawiczki)
+z plików roboczych.
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tych rękawiczek
@@ -391,7 +391,7 @@ z plików roboczych. --&gt; (Kliknij na Nowe Rękawiczki)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nowy podkoszulek poprzez przeciągnięcie ich ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własny podkoszulek 
-z plików roboczych. --&gt; (Kliknij na Nowy Podkoszulek)
+z plików roboczych.
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tego podkoszulka.
@@ -426,7 +426,7 @@ z plików roboczych. --&gt; (Kliknij na Nowy Podkoszulek)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nową bieliznę poprzez przeciągnięcie jej ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własną bieliznę 
-z plików roboczych. --&gt; (Kliknij na Nowa Bielizna)
+z plików roboczych. 
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tej bielizny.
@@ -461,7 +461,7 @@ z plików roboczych. --&gt; (Kliknij na Nowa Bielizna)
 			<text length="1" name="not worn instructions" type="string">
 				Załóż nową spódnicę poprzez przeciągnięcie jej ze swojej szafy 
 na awatara. Alternatywnie, możesz także stworzyć własną spódnicę 
-z plików roboczych. --&gt; (Kliknij na Nowa Spódnica)
+z plików roboczych. 
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				Nie posiadasz prawa do modyfikowania tej spódnicy.
@@ -480,5 +480,5 @@ z plików roboczych. --&gt; (Kliknij na Nowa Spódnica)
 	</tab_container>
 	<button label="Anuluj" label_selected="Anuluj" name="Cancel"/>
 	<button label="OK" label_selected="OK" name="Ok"/>
-	<button label="Stwórz Ubranie..." label_selected="Stwórz Ubranie..." name="Make Outfit"/>
+	<button label="Stwórz Ubranie..." label_selected="Stwórz Ubranie..." name="Make Outfit" width="115"/>
 </floater>

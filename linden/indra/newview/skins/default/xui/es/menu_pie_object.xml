@@ -2,9 +2,15 @@
 <pie_menu name="Object Pie">
 	<menu_item_call label="Abrir" name="Open"/>
 	<menu_item_call label="Crear" name="Create"/>
-	<menu_item_call label="Tocar" name="Object Touch"/>
-	<menu_item_call label="Sentarse aquí" name="Object Sit"/>
-	<menu_item_call label="Tomar" name="Pie Object Take"/>
+	<menu_item_call label="Tocar" name="Object Touch">
+		<on_enable userdata="Tocar" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="Sentarse aquí" name="Object Sit">
+		<on_enable userdata="Sentarse aquí,Levantarse" name="EnableSitOrStand"/>
+	</menu_item_call>
+	<menu_item_call label="Tomar" name="Pie Object Take">
+		<on_enable userdata="Comprar,Tomar" name="EnableBuyOrTake"/>
+	</menu_item_call>
 	<menu_item_call label="Pagar..." name="Pay..."/>
 	<pie_menu label="Más &gt;" name="More &gt;">
 		<menu_item_call label="Borrar" name="Delete"/>

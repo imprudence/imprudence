@@ -12,7 +12,15 @@
 	<text name="event_category">
 		(nenhum)
 	</text>
-
+	<text name="event_mature_label">
+		Conteúdo Mature:
+	</text>
+	<text name="event_mature_yes">
+		Sim
+	</text>
+	<text name="event_mature_no">
+		Não
+	</text>
 	<text name="event_date_label">
 		Data:
 	</text>

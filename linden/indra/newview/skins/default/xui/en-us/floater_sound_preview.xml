@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="false" height="190" min_height="140" min_width="300"
-     name="Name/Description" title="sound.wav" width="300">
+     name="Sound Preview" title="sound.wav" width="300">
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-35" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="15" left="10"

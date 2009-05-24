@@ -15,7 +15,7 @@ Katalog Osobisty&apos; by rozpocząć.
 	<button label="Wyślij Zaproszenia" name="ok_button" />
 	<button label="Anuluj" name="cancel_button" />
 	<string name="confirm_invite_owner_str">
-		Jesteś pewny, że chcesz wybrać nowych właśccieli grupy? Ta decyzja jest ostateczna!
+		Jesteś pewny, że chcesz wybrać nowych właścieli grupy? Ta decyzja jest ostateczna!
 	</string>
 	<string name="loading">
 		(loading...)

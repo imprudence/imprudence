@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="(nieznany)" name="im_floater" title="(nieznany)">
 	<string name="ringing">
-		Dołańczanie do czatu głosowego...
+		Dołączanie do czatu głosowego...
 	</string>
 	<string name="connected">
 		Połączenie uzyskane, kliknij Skończ żeby się rozłączyć

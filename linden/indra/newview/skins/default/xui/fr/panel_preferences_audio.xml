@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel label="Audio et Vidéo" name="Media panel">
+<panel label="Audio et vidéo" name="Media panel">
 	<text length="1" name="muting_text" type="string">
 		Volume :
 	</text>

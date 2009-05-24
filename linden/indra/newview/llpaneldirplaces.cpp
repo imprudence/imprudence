@@ -182,7 +182,8 @@ void LLPanelDirPlaces::performQuery()
 	bool adult_enabled = gAgent.canAccessAdult();
 	bool mature_enabled = gAgent.canAccessMature();
 
-	if( gSavedSettings.getBOOL("ShowPGSims"))
+	if (gSavedSettings.getBOOL("ShowPGSims") ||
+	    (!adult_enabled && !mature_enabled)) // if they can't have either of the others checked, force this one true 
 	{
 		flags |= DFQ_INC_PG;
 	}

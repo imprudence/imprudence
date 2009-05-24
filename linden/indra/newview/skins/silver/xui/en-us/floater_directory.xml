@@ -340,7 +340,7 @@
     </panel>
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="Land Sales" left="1" mouse_opaque="false" name="land_sales_panel"
-		     width="778">
+		     width="778" default_tab_group="1">
 			<string name="searching_text">
 				Searching...
 			</string>
@@ -360,17 +360,17 @@ To buy direct, visit the land and click on the place name in the title bar.
 			<check_box bottom="-22" control_name="ShowPGLand" follows="right|top"
 			     font="SansSerifSmall" height="16" initial_value="true"
 			     label="PG content" left="420" mouse_opaque="true"
-			     name="incpg" width="156" />
+			     name="incpg" tab_group="7" width="156" />
 			<check_box bottom="-40" control_name="ShowMatureLand" follows="right|top"
 			     font="SansSerifSmall" height="16" initial_value="true"
 			     label="Mature content" left="420" mouse_opaque="true"
-			     name="incmature" width="156" />
+			     name="incmature" tab_group="8" width="156" />
 			<check_box bottom="-58" control_name="ShowAdultLand" follows="right|top"
 			     font="SansSerifSmall" height="16" initial_value="false"
 			     label="Adult content" left="420" mouse_opaque="true"
-			     name="incadult" width="156" />
+			     name="incadult" tab_group="9" width="156" />
 			<combo_box allow_text_entry="false" bottom="-46" follows="left|top|right" height="18" left="282"
-			     max_chars="20" mouse_opaque="true" name="type" width="128">
+			     max_chars="20" mouse_opaque="true" name="type" tab_group="6" width="128">
 				<combo_item name="AllTypes" value="All Types">
 					All Types
 				</combo_item>
@@ -387,7 +387,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			<check_box bottom="-24" control_name="FindLandPrice" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="true"
 			     label="Price &#8804; " left="56" mouse_opaque="true" name="pricecheck"
-			     width="88" />
+			     tab_group="1" width="88" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false" follows="left|top"
 			     bottom="-24" font="SansSerifSmall" halign="left" height="16" left="116" mouse_opaque="true"
 			     name="pricecheck_symbol" width="15">
@@ -396,7 +396,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			<check_box bottom_delta="-18" control_name="FindLandArea" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="true"
 			     label="Area &#8805; " left="56" mouse_opaque="true" name="areacheck"
-			     width="80" />
+			     tab_group="3" width="80" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false" follows="left|top"
 			     bottom="-42" font="SansSerifSmall" halign="left" height="16" left="170" mouse_opaque="true"
 			     name="areacheck_symbol" width="15">
@@ -404,16 +404,16 @@ To buy direct, visit the land and click on the place name in the title bar.
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-22"
 			     follows="left|top" font="SansSerifSmall" height="16" left="132"
-			     max_length="10" mouse_opaque="true" name="priceedit" width="50" />
+			     max_length="10" mouse_opaque="true" name="priceedit" tab_group="2" width="50" />
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-18"
 			     follows="left|top" font="SansSerifSmall" height="16" left="117"
-			     max_length="10" mouse_opaque="true" name="areaedit" width="50" />
+			     max_length="10" mouse_opaque="true" name="areaedit" tab_group="4" width="50" />
 			<button bottom="-48" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Search" label_selected="Search" left="208" mouse_opaque="true"
-			     name="Search" width="70" />
+			     name="Search" tab_group="5" width="70" />
 			<scroll_list background_visible="true" bottom="-510" column_padding="0" draw_border="true" draw_heading="true" 
 			     follows="left|top|right|bottom" height="450" left="4" mouse_opaque="true"
-			     multi_select="false" name="results" search_column="2" width="387">
+			     multi_select="false" name="results" search_column="2" tab_group="10" width="387">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
 				<column dynamicwidth="true" label="Name" name="name" />

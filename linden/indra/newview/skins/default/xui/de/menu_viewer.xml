@@ -23,7 +23,7 @@
 	</menu>
 	<menu label="Bearbeiten" name="Edit">
 		<menu_item_call label="Rückgängig" name="Undo"/>
-		<menu_item_call label="Neu" name="Redo"/>
+		<menu_item_call label="Wiederherstellen" name="Redo"/>
 		<menu_item_separator label="-----------" name="separator"/>
 		<menu_item_call label="Ausschneiden" name="Cut"/>
 		<menu_item_call label="Kopieren" name="Copy"/>
@@ -188,7 +188,9 @@
 		<menu_item_separator label="-----------" name="separator"/>
 		<menu_item_call label="Offizielles Linden-Blog..." name="Official Linden Blog..."/>
 		<menu_item_separator label="-----------" name="separator2"/>
-		<menu_item_call label="Scripting-Portal..." name="Scripting Portal..."/>
+		<menu_item_call label="Scripting-Portal..." name="Scripting Portal...">
+			<on_click name="ScriptingPortal_url" userdata="WebLaunchLSLWiki,http://wiki.secondlife.com/wiki/LSL_Portal/de" />
+		</menu_item_call>
 		<menu_item_separator label="-----------" name="separator3"/>
 		<menu_item_call label="Missbrauch melden..." name="Report Abuse..."/>
 		<menu_item_call label="Rempler, Stöße und Schläge..." name="Bumps, Pushes &amp;amp; Hits..."/>
@@ -196,10 +198,12 @@
 		<menu_item_separator label="-----------" name="separator7"/>
 		<menu label="Fehlermeldungen" name="Bug Reporting">
 			<menu_item_call label="Allgemeiner Probleme-Tracker..." name="Public Issue Tracker..."/>
-			<menu_item_call label="Hilfe zum Allgemeinen Probleme-Tracker..." name="Publc Issue Tracker Help..."/>
+			<menu_item_call label="Hilfe zum Allgemeinen Probleme-Tracker..." name="Publc Issue Tracker Help...">
+				<on_click name="PublicIssueTrackerHelp_url" userdata="WebLaunchPublicIssueHelp,http://wiki.secondlife.com/wiki/Issue_tracker/de" />
+			</menu_item_call>
 			<menu_item_separator label="-----------" name="separator7"/>
 			<menu_item_call label="Fehlermeldungs-1x1..." name="Bug Reporing 101...">
-				<on_click function="PromptShowURL" name="BugReporting101_url" userdata="WebLaunchBugReport101,http://wiki.secondlife.com/wiki/Bug_Reporting_101"/>
+				<on_click name="BugReporting101_url" userdata="WebLaunchBugReport101,http://wiki.secondlife.com/wiki/Bug_Reporting_101/de"/>
 			</menu_item_call>
 			<menu_item_call label="Sicherheitsfragen..." name="Security Issues...">
 				<on_click name="SecurityIssues_url" userdata="WebLaunchSecurityIssues,http://wiki.secondlife.com/wiki/Security_issues/de"/>

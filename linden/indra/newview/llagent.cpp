@@ -1320,9 +1320,10 @@ LLVector3 LLAgent::calcFocusOffset(LLViewerObject *object, LLVector3 original_fo
 	BOOL is_avatar = object->isAvatar();
 	// since the animation system allows the avatars facing and position to deviate from its nominal LLViewerObject/LLDrawable transform
 	// calculate the focus-specific orientation for avatars based off the pelvis joint
-	LLMatrix4 obj_matrix = is_avatar  ? ((LLVOAvatar*)object)->mPelvisp->getWorldMatrix() : object->getRenderMatrix();
-	LLQuaternion obj_rot = is_avatar  ? ((LLVOAvatar*)object)->mPelvisp->getWorldRotation() : object->getRenderRotation();
-	LLVector3 obj_pos = is_avatar ? ((LLVOAvatar*)object)->mPelvisp->getWorldPosition() : object->getRenderPosition();
+	// NOTE: pelvis no longer good candidate, removed.  DEV-30589
+	LLMatrix4 obj_matrix = object->getRenderMatrix();
+	LLQuaternion obj_rot = object->getRenderRotation();
+	LLVector3 obj_pos = object->getRenderPosition();
 	LLQuaternion inv_obj_rot = ~obj_rot; // get inverse of rotation
 	LLVector3 object_extents = object->getScale();
 	// make sure they object extents are non-zero

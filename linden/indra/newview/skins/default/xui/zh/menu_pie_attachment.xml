@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <pie_menu name="Attachment Pie">
+	<menu_item_call label="档案..." name="Profile..."/>
 	<menu_item_call label="丢下" name="Drop" />
+	<menu_item_call label="社团..." name="Groups..."/>
+	<menu_item_call label="触摸" name="Attachment Object Touch">
+		<on_enable userdata="触摸" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="起身" name="Stand Up"/>
 	<menu_item_call label="卸下" name="Detach" />
-	<menu_item_call label="编辑" name="Edit" />
+	<menu_item_call label="朋友..." name="Friends..."/>
+	<menu_item_call label="动作..." name="Gestures..."/>
+	<menu_item_call label="外观..." name="Appearance..."/>
+	<menu_item_call label="编辑..." name="Edit..."/>
 </pie_menu>

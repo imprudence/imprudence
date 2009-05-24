@@ -7,13 +7,13 @@
 	<button label="" label_selected="" name="button land" tool_tip="土地"/>
 	<check_box label="ズーム" name="radio zoom"/>
 	<check_box label="軌跡（Ctrl）" name="radio orbit"/>
-	<check_box label="パン（Ctrl＋Shift）" name="radio pan"/>
+	<check_box label="パン（Ctrl+Shift）" name="radio pan"/>
 	<check_box label="移動" name="radio move"/>
 	<check_box label="持ち上げる（Ctrl）" name="radio lift"/>
-	<check_box label="スピン（Ctrl＋Shift）" name="radio spin"/>
+	<check_box label="スピン（Ctrl+Shift）" name="radio spin"/>
 	<check_box label="位置" name="radio position"/>
 	<check_box label="回転（Ctrl）" name="radio rotate"/>
-	<check_box label="引伸ばす（Ctrl＋Shift）" name="radio stretch"/>
+	<check_box label="引伸ばす（Ctrl+Shift）" name="radio stretch"/>
 	<check_box label="テクスチャーを選択" name="radio select face"/>
 	<check_box label="リンク部位を編集" name="checkbox edit linked parts"/>
 	<text name="text ruler mode" width="88">
@@ -32,7 +32,7 @@
 	</combo_box>
 	<check_box label="両側を引伸ばす" left="116" name="checkbox uniform"/>
 	<check_box label="テクスチャーを引伸ばす" name="checkbox stretch textures"/>
-	<check_box label="ｸﾞﾘｯﾄﾞ使用" left_delta="27" name="checkbox snap to grid"/>
+	<check_box label="グリッド使用" left_delta="27" name="checkbox snap to grid"/>
 	<button label="オプション" label_selected="オプション" name="Options..."/>
 	<text name="text status">
 		移動するにはドラッグ、コピーするにはShiftキーを押しながらドラッグ
@@ -74,10 +74,10 @@
 		強度
 	</text>
 	<text name="obj_count">
-		選択したオブジェクト： [COUNT]
+		選択オブジェクト:[COUNT]
 	</text>
 	<text name="prim_count">
-		プリム： [COUNT]
+		プリム:[COUNT]
 	</text>
 	<tab_container name="Object Info Tabs" tab_max_width="150" tab_min_width="30">
 		<panel label="一般" name="General">
@@ -114,7 +114,7 @@
 			<text name="perm_modify">
 				このオブジェクトは修正できます。
 			</text>
-			<check_box label="グループで共同管理" name="checkbox share with group" tool_tip="グループ・メンバーに対して移動、修正、コピー、削除を許可"/>
+			<check_box label="グループで共同管理" name="checkbox share with group" tool_tip="設定したグループに属するすべてのメンバーとこのオブジェクトの権限を共有します。 役割制限を有効にするには、譲渡する必要があります。"/>
 			<string name="text deed continued">
 				譲渡...
 			</string>
@@ -405,22 +405,22 @@
 				オブジェクトの特徴を編集：
 			</text>
 			<check_box label="フレキシブル・パス" name="Flexible1D Checkbox Ctrl" tool_tip="Z軸を中心とするオブジェクトの折れ曲がりを有効にする （クライアント側のみ）"/>
-			<spinner label="柔軟性" name="FlexNumSections"/>
-			<spinner label="重力" name="FlexGravity"/>
-			<spinner label="ドラッグ" name="FlexFriction"/>
-			<spinner label="風" name="FlexWind"/>
-			<spinner label="緊張" name="FlexTension"/>
-			<spinner label="X軸方向の力" name="FlexForceX"/>
-			<spinner label="Y軸方向の力" name="FlexForceY"/>
-			<spinner label="Z軸方向の力" name="FlexForceZ"/>
+			<spinner label="柔軟性" name="FlexNumSections" width="135" label_width="72"/>
+			<spinner label="重力" name="FlexGravity" width="135" label_width="72"/>
+			<spinner label="ドラッグ" name="FlexFriction" width="135" label_width="72"/>
+			<spinner label="風" name="FlexWind" width="135" label_width="72"/>
+			<spinner label="緊張" name="FlexTension" width="135" label_width="72"/>
+			<spinner label="X軸方向の力" name="FlexForceX" width="135" label_width="72"/>
+			<spinner label="Y軸方向の力" name="FlexForceY" width="135" label_width="72"/>
+			<spinner label="Z軸方向の力" name="FlexForceZ" width="135" label_width="72"/>
 			<check_box label="光" name="Light Checkbox Ctrl" tool_tip="オブジェクトが発光"/>
 			<text name="label color">
 				色
 			</text>
-			<color_swatch label="" name="colorswatch" tool_tip="カラー・ピッカーをクリックして開く"/>
-			<spinner label="輝度" name="Light Intensity"/>
-			<spinner label="半径" name="Light Radius"/>
-			<spinner label="弱まる" name="Light Falloff"/>
+			<color_swatch label="" name="colorswatch" tool_tip="カラー・ピッカーをクリックして開く" left_delta="74"/>
+			<spinner label="輝度" name="Light Intensity" width="135" label_width="72"/>
+			<spinner label="半径" name="Light Radius" width="135" label_width="72"/>
+			<spinner label="弱まる" name="Light Falloff" width="135" label_width="72"/>
 		</panel>
 		<panel label="材質" name="Texture">
 			<texture_picker label="テクスチャー" name="texture control" tool_tip="写真をクリックして選択"/>
@@ -548,7 +548,7 @@
 				メディア・テクスチャーを揃える
 （最初にロードすること）
 			</text>
-			<button bottom="-361" label="揃える" label_selected="揃える" left="155" name="button align"/>
+			<button bottom="-365" label="揃える" label_selected="揃える" left="155" name="button align"/>
 		</panel>
 		<panel label="中身" name="Contents">
 			<button label="新しいスクリプト" label_selected="新しいスクリプト" name="button new script" width="120"/>
@@ -595,7 +595,7 @@
 		クリックしドラッグして視界を調整
 	</string>
 	<string name="status_grab">
-		移動：ﾄﾞﾗｯｸﾞ、持ち上げ：Ctrl、回転：Ctrl-Shift
+		移動：ﾄﾞﾗｯｸﾞ、持ち上げ：Ctrl、回転：Ctrl+Shift
 	</string>
 	<string name="status_place">
 		インワールドでクリックして作成

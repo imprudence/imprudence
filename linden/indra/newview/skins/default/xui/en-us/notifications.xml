@@ -3226,7 +3226,7 @@ You are not allowed in that region due to your maturity Rating.
 You are not allowed in that Region due to your maturity Rating preference.
 
 You can click &apos;Change Preference&apos; to raise your maturity Rating preference now and allow you to enter. You will be able to search and access [REGIONMATURITY] content from now on. If you later want to change this setting back, go to Edit &gt; Preferences... &gt; General.
-	 <form>
+	 <form name="form">
       <button
        index="0"
        name="OK"
@@ -3236,7 +3236,7 @@ You can click &apos;Change Preference&apos; to raise your maturity Rating prefer
        index="1"
        name="Cancel"
        text="Close"/>
-       <ignore text="When Region entry is blocked due to maturity Rating preference"/>
+       <ignore name="ignore" text="When Region entry is blocked due to maturity Rating preference"/>
     </form>
   </notification>
 
@@ -3506,7 +3506,7 @@ You can selectively choose which types of items to modify by using the checklist
 
 * This tool will only succeed at changing permissions on items you are allowed to change.
 * You cannot grant any Next owner permissions which you do not already have.
-* The Next owner permissions are merely requests. If any item cannot take all of the new permissions, none its permissions will change.
+* The Next owner permissions are merely requests. If any item cannot take all of the new permissions, none of its permissions will change.
 
 When you are ready to change the permissions in bulk, click &apos;Apply&apos; and wait for the results to display.
 

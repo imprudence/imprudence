@@ -15,11 +15,14 @@
 	<text name="estate_owner_text">
 		(keiner)
 	</text>
+	<text name="estate_cov_lbl">
+		Vertrag:
+	</text>
 	<text name="covenant_timestamp_text">
 		Letzte Änderung am Mittwoch, den 31. Dez. 1969, 16:00:00
 	</text>
 	<button label="?" name="covenant_help"/>
-	<text_editor name="covenant_editor" height="162" bottom="-247">
+	<text_editor bottom="-247" height="162" name="covenant_editor">
 		Für dieses Grundstück fehlt der Vertrag.
 	</text_editor>
 	<button label="Zurücksetzen" name="reset_covenant"/>
@@ -27,11 +30,11 @@
 		Änderungen am Vertrag werden für alle Parzellen auf dem 
       Grundstück übernommen.
 	</text>
-	<text name="covenant_instructions" bottom_delta="-36">
+	<text bottom_delta="-36" name="covenant_instructions">
 		Ziehen Sie eine Notizkarte an diese Stelle, um den Vertrag für dieses
       Grundstück zu ändern.
 	</text>
-	<text name="region_section_lbl" bottom_delta="-36">
+	<text bottom_delta="-36" name="region_section_lbl">
 		Region:
 	</text>
 	<text name="region_name_lbl">

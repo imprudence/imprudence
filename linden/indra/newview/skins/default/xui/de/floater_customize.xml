@@ -44,12 +44,12 @@ und diese anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Form:
 			</text>
 			<button label="Neue Form/Gestalt" label_selected="Neue Form/Gestalt" name="Create New"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 		</panel>
 		<panel label="Haut" name="Skin">
 			<button label="Hautfarbe" label_selected="Hautfarbe" left="2" name="Skin Color" width="92"/>
@@ -79,7 +79,7 @@ und diese anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Haut:
 			</text>
 			<texture_picker label="Kopftattoo" name="Head Tattoos" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
@@ -87,7 +87,7 @@ und diese anziehen.
 			<texture_picker label="Untere Tattoos" name="Lower Tattoos" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<button label="Neue Haut" label_selected="Neue Haut" name="Create New"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 		</panel>
 		<panel label="Haar" name="Hair">
@@ -118,13 +118,13 @@ und diese anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Haare:
 			</text>
 			<texture_picker label="Textur" name="Texture" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<button label="Neue Haare" label_selected="Neue Haare" name="Create New"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 		</panel>
 		<panel label="Augen" name="Eyes">
@@ -151,13 +151,13 @@ und diese anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Augen:
 			</text>
 			<texture_picker label="Iris" name="Iris" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<button label="Neue Augen" label_selected="Neue Augen" name="Create New"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 		</panel>
 		<panel label="Kleidung" name="clothes_placeholder"/>
@@ -165,9 +165,9 @@ und diese anziehen.
 			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
 			<button label="Neues Hemd" label_selected="Neues Hemd" name="Create New"/>
-			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" left="19" name="Take Off"/>
+			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 			<text length="1" name="title" type="string">
 				[DESC]
@@ -192,7 +192,7 @@ und dieses anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Hemd:
 			</text>
 		</panel>
@@ -200,9 +200,9 @@ und dieses anziehen.
 			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
 			<button label="Neue Hose" label_selected="Neue Hose" name="Create New"/>
-			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" left="19" name="Take Off"/>
+			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 			<text length="1" name="title" type="string">
 				[DESC]
@@ -227,7 +227,7 @@ und diese anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Hose:
 			</text>
 		</panel>
@@ -255,15 +255,15 @@ und diese anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Schuhe:
 			</text>
 			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
 			<button label="Neue Schuhe" label_selected="Neue Schuhe" name="Create New"/>
-			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" left="19" name="Take Off"/>
+			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 		</panel>
 		<panel label="Socken" name="Socks">
@@ -290,15 +290,15 @@ und diese anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Socken:
 			</text>
 			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
 			<button label="Neue Socken" label_selected="Neue Socken" name="Create New"/>
-			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" left="19" name="Take Off"/>
+			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 		</panel>
 		<panel label="Jacke" name="Jacket">
@@ -325,16 +325,16 @@ und diese anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Jacke:
 			</text>
 			<texture_picker label="Oberstoff" name="Upper Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<texture_picker label="Unterstoff" name="Lower Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
 			<button label="Neue Jacke" label_selected="Neue Jacke" name="Create New"/>
-			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" left="19" name="Take Off"/>
+			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 		</panel>
 		<panel label="Handschuhe" name="Gloves">
@@ -361,15 +361,15 @@ und diese anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Handschuhe:
 			</text>
 			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
 			<button label="Neue Handschuhe" label_selected="Neue Handschuhe" name="Create New"/>
-			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" left="19" name="Take Off"/>
+			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 		</panel>
 		<panel label="Unterhemd" name="Undershirt">
@@ -396,15 +396,15 @@ und dieses anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Unterhemd:
 			</text>
 			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
 			<button label="Neues Unterhemd" label_selected="Neues Unterhemd" name="Create New"/>
-			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" left="19" name="Take Off"/>
+			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 		</panel>
 		<panel label="Unterhose" name="Underpants">
@@ -431,15 +431,15 @@ und diese anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Unterhose:
 			</text>
 			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
 			<button label="Neue Unterhose" label_selected="Neue Unterhose" name="Create New"/>
-			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" left="19" name="Take Off"/>
+			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 		</panel>
 		<panel label="Rock" name="Skirt">
@@ -466,19 +466,19 @@ und diesen anziehen.
 			<text length="1" name="no modify instructions" type="string">
 				Sie sind nicht berechtigt, diese Kleidung zu bearbeiten.
 			</text>
-			<text name="Item Action Label">
+			<text name="Item Action Label" right="100">
 				Rock:
 			</text>
 			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 			<color_swatch label="Farbe/Ton" name="Color/Tint" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen"/>
 			<button label="Neuer Rock" label_selected="Neuer Rock" name="Create New"/>
-			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" left="19" name="Take Off"/>
+			<button font="SansSerifSmall" label="Ausziehen" label_selected="Ausziehen" name="Take Off"/>
 			<button font="SansSerifSmall" label="Speichern" label_selected="Speichern" left="107" name="Save"/>
-			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="100"/>
+			<button font="SansSerifSmall" label="Speichern unter..." label_selected="Speichern unter..." left="194" name="Save As" width="105"/>
 			<button font="SansSerifSmall" label="Zurücksetzen" label_selected="Zurücksetzen" name="Revert"/>
 		</panel>
 	</tab_container>
 	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel"/>
 	<button label="OK" label_selected="OK" name="Ok"/>
-	<button label="Outfit erstellen..." label_selected="Outfit erstellen..." name="Make Outfit"/>
+	<button label="Outfit erstellen..." label_selected="Outfit erstellen..." name="Make Outfit" width="115"/>
 </floater>

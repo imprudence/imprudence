@@ -5,7 +5,17 @@
 	<button label="Definir Posição" name="set_location_btn"/>
 	<button label="Teletransporte" name="classified_teleport_btn"/>
 	<button label="Mapa" name="classified_map_btn"/>
-
+	<combo_box label="" name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Selecionar Maturidade -
+		</combo_item>
+		<combo_item name="mature">
+			Conteúdo Mature
+		</combo_item>
+		<combo_item name="pg">
+			Conteúdo PG
+		</combo_item>
+	</combo_box>
 	<text name="classified_info_text" tool_tip="Quando mais você escolhe pagar pelo seu anúncio, melhor será sua visualizaçã na lista.">
 		Lugar do Anúncio: Ainda não publicado
 	</text>

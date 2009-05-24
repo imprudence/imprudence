@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Posiadłości i L$" name="land_money_tab">
 	<string name="help_text">
-		Posiadłości, ktore są własnością grupy zawierają dane poszczególnych kontrybucji ich członków. W przypadku kiedy całkowita ilość metrów przypisanej danej posiadłości przez grupę jest mniejsza lub równa całkowietej liczbie kontrybucji dla przypisanej ilości metrów pojawia się ostrzeżenie. Zakładki: Planowanie, Szczegóły oraz Sprzedaże udostępniają informacje na temat statusu finansowego grupy.
+		Posiadłości, które są własnością grupy zawierają dane poszczególnych kontrybucji ich członków. W przypadku kiedy całkowita ilość metrów przypisanej danej posiadłości przez grupę jest mniejsza lub równa całkowitej liczbie kontrybucji dla przypisanej ilości metrów pojawia się ostrzeżenie. Zakładki: Planowanie, Szczegóły oraz Sprzedaże udostępniają informacje na temat statusu finansowego grupy.
 	</string>
 	<button label="?" name="help_button"/>
 	<string name="cant_view_group_land_text">

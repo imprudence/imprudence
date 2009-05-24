@@ -2193,13 +2193,12 @@ void LLMenuGL::arrange( void )
 							mSpilloverMenu->appendNoArrange(itemp); // *NOTE:Mani Favor addChild() in merge with skinning
 						}
 						mSpilloverMenu->arrange(); // *NOTE: Mani Remove line in merge with skinning/viewer2.0 branch
+						mSpilloverMenu->updateParent(LLMenuGL::sMenuContainer); // *NOTE: Mani Remove line in merge with skinning/viewer2.0 branch
 						mItems.erase(item_iter, mItems.end());
-						
 						mItems.push_back(mSpilloverBranch);
 						addChild(mSpilloverBranch);
 						height = llmax(height, mSpilloverBranch->getNominalHeight());
 						width += mSpilloverBranch->getNominalWidth();
-
 						break;
 					}
 					else
@@ -2233,12 +2232,12 @@ void LLMenuGL::arrange( void )
 							mSpilloverMenu->appendNoArrange(itemp);  // *NOTE:Mani Favor addChild() in merge with skinning
 						}
 						mSpilloverMenu->arrange(); // *NOTE: Mani Remove line in merge with skinning/viewer2.0 branch
+						mSpilloverMenu->updateParent(LLMenuGL::sMenuContainer); // *NOTE: Mani Remove line in merge with skinning/viewer2.0 branch
 						mItems.erase(item_iter, mItems.end());
 						mItems.push_back(mSpilloverBranch);
 						addChild(mSpilloverBranch);
 						height += mSpilloverBranch->getNominalHeight();
 						width = llmax( width, mSpilloverBranch->getNominalWidth() );
-
 						break;
 					}
 					else

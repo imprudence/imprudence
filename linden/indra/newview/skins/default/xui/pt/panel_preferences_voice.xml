@@ -28,6 +28,7 @@
 		Opções de privacidade
 	</text>
 	<check_box label="Apenas aceitar chamadas de voz das pessoas da minha Lista de amigos" name="voice_call_friends_only_check"/>
+	<check_box label="Desligar o microfone quando terminar chamadas por MI" name="auto_disengage_mic_check"/>
 	<button label="Configurações do dispositivo" name="device_settings_btn" width="180"/>
 	<text_editor bottom_delta="-45" height="48" name="device_settings_text">
 		NOTA: Executar as configurações do dispositivo vai desligá-lo temporariamente do Bate- papo de voz e as mudanças que você fizer serão imediatamente aplicadas.

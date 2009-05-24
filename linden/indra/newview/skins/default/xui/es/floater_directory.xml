@@ -380,13 +380,13 @@ subasta. Para comprarlo directamente, visítelo y pulse su nombre en la barra su
 				Buscar:
 			</text>
 			<button label="Buscar" label_selected="Buscar" name="Search"/>
-			<scroll_list name="results">
+			<scroll_list name="results" width="286">
 				<column label="" name="icon"/>
 				<column label="" name="type"/>
-				<column label="Nombre" name="name"/>
+				<column label="Nombre" name="name" width="234"/>
 			</scroll_list>
-			<button label="Siguiente &gt;" label_selected="Siguiente &gt;" name="Next &gt;"/>
-			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
+			<button right="290" label="Siguiente &gt;" label_selected="Siguiente &gt;" name="Next &gt;"/>
+			<button right="204" label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
 		</panel>
 		<panel label="Grupos" name="groups_panel">
 			<string name="searching_text">
@@ -419,4 +419,5 @@ subasta. Para comprarlo directamente, visítelo y pulse su nombre en la barra su
 			</string>
 		</panel>
 	</tab_container>
+	<panel left="310" name="Panel Avatar" width="470" />
 </floater>

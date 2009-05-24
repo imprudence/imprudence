@@ -43,7 +43,7 @@
 			<text length="1" name="For Sale: Price L$[PRICE]." type="string">
 				Ціна: L$[PRICE] (L$[PRICE_PER_SQM]/м²).
 			</text>
-			<button label="Продати Землю..." label_selected="Продати Землю..." name="Sell Land..."/>
+			<button bottom="-222" label="Продати Землю..." label_selected="Продати Землю..." name="Sell Land..."/>
 			<text length="1" name="For sale to" type="string">
 				Для продажу (кому): [BUYER]
 			</text>
@@ -53,7 +53,7 @@
 			<text length="1" name="Selling with no objects in parcel." type="string">
 				Об&apos;єкти не для продажу.
 			</text>
-			<button label="Відмінити продаж землі" label_selected="Відмінити продаж землі" name="Cancel Land Sale"/>
+			<button bottom="-222" font="SansSerifSmall" left="275" width="165" label="Відмінити продаж землі" label_selected="Відмінити продаж землі" name="Cancel Land Sale"/>
 			<text length="1" name="Claimed:" type="string">
 				Дата:
 			</text>
@@ -72,9 +72,9 @@
 			<text length="1" name="DwellText" type="string">
 				0
 			</text>
-			<button label="Купити землю..." label_selected="Купити землю..." name="Buy Land..."/>
+			<button left="130" width="125" label="Купити землю..." label_selected="Купити землю..." name="Buy Land..."/>
 			<button label="Купити для Групи..." label_selected="Купити для Групи..." name="Buy For Group..."/>
-			<button label="Куп.пропуск..." label_selected="Куп.пропуск..." name="Buy Pass..." tool_tip="Пропуск надає вам тимчасовий доступ до цієї землі."/>
+			<button left="130" width="125" label="Купити пропуск..." label_selected="Куп.пропуск..." name="Buy Pass..." tool_tip="Пропуск надає вам тимчасовий доступ до цієї землі."/>
 			<button label="Покинути Землю..." label_selected="Покинути Землю..." name="Abandon Land..."/>
 			<button label="Відновити землю..." label_selected="Відновити землю..." name="Reclaim Land..."/>
 			<button label="Linden продають..." label_selected="Linden продають..." name="Linden Sale..." tool_tip="Земля повинна мати власника, зміст, і не бути на продажу з аукціону."/>
@@ -172,7 +172,8 @@
 				Розділити:
 			</text>
 			<text length="1" name="changeable_clause" type="string">
-				Земля в цьому регіоні не може бути об&apos;єднана/розділена.
+				Земля в цьому регіоні не може бути об&apos;єднана/
+розділена.
 			</text>
 			<string name="can_resell">
 				Куплена земля в цій області може бути перепродана.
@@ -194,7 +195,7 @@
 			<text length="1" name="Simulator primitive usage:" type="string">
 				Сім використов. примів:
 			</text>
-			<text length="1" name="objects_available" type="string">
+			<text length="1" name="objects_available" type="string" left="214" width="230" >
 				[COUNT] з [MAX] ([AVAILABLE] доступно)
 			</text>
 			<string name="objects_available_text">
@@ -203,50 +204,50 @@
 			<string name="objects_deleted_text">
 				[COUNT] з [MAX] ([DELETED] буде видалено)
 			</string>
-			<text length="1" name="Primitives parcel supports:" type="string">
+			<text length="1" name="Primitives parcel supports:" type="string" width="200">
 				Ділянка підтрим. примів:
 			</text>
-			<text length="1" name="object_contrib_text" type="string">
+			<text length="1" name="object_contrib_text" type="string" left="214" width="152">
 				[COUNT]
 			</text>
 			<text length="1" name="Primitives on parcel:" type="string">
 				Примітивів на ділянці:
 			</text>
-			<text length="1" name="total_objects_text" type="string">
+			<text length="1" name="total_objects_text" type="string" left="214"  width="48">
 				[COUNT]
 			</text>
-			<text length="1" name="Owned by parcel owner:" type="string">
+			<text length="1" name="Owned by parcel owner:" type="string" left="14" width="180" >
 				Власник ділянки:
 			</text>
-			<text length="1" name="owner_objects_text" type="string">
+			<text length="1" name="owner_objects_text" type="string" left="214"  width="48">
 				[COUNT]
 			</text>
-			<button label="Показ." label_selected="Показ." name="ShowOwner"/>
-			<button label="Повернути..." label_selected="Повернути..." name="ReturnOwner..." tool_tip="Повернути об&apos;єкти своїм власникам."/>
-			<text length="1" name="Set to group:" type="string">
+			<button label="Показ." label_selected="Показ." name="ShowOwner" right="-135" width="60"/>
+			<button label="Повернути..." label_selected="Повернути..." name="ReturnOwner..." tool_tip="Повернути об&apos;єкти своїм власникам." right="-10" width="119"/>
+			<text length="1" name="Set to group:" type="string" left="14"  width="180">
 				Присвоєно групі:
 			</text>
-			<text length="1" name="group_objects_text" type="string">
+			<text length="1" name="group_objects_text" type="string" left="214"  width="48">
 				[COUNT]
 			</text>
-			<button label="Показ." label_selected="Показ." name="ShowGroup"/>
-			<button label="Повернути..." label_selected="Повернути..." name="ReturnGroup..." tool_tip="Повернути об&apos;єкти своїм власникам."/>
-			<text length="1" name="Owned by others:" type="string">
+			<button label="Показ." label_selected="Показ." name="ShowGroup" right="-135" width="60"/>
+			<button label="Повернути..." label_selected="Повернути..." name="ReturnGroup..." tool_tip="Повернути об&apos;єкти своїм власникам." right="-10" width="119"/>
+			<text length="1" name="Owned by others:" type="string" left="14"  width="180">
 				Належить іншим:
 			</text>
-			<text length="1" name="other_objects_text" type="string">
+			<text length="1" name="other_objects_text" type="string" left="214"  width="48">
 				[COUNT]
 			</text>
-			<button label="Показ." label_selected="Показ." name="ShowOther"/>
-			<button label="Повернути..." label_selected="Повернути..." name="ReturnOther..." tool_tip="Повернути об&apos;єкти їх власникам."/>
-			<text length="1" name="Selected / sat upon:" type="string">
+			<button label="Показ." label_selected="Показ." name="ShowOther" right="-135" width="60"/>
+			<button label="Повернути..." label_selected="Повернути..." name="ReturnOther..." tool_tip="Повернути об&apos;єкти їх власникам." right="-10" width="119"/>
+			<text length="1" name="Selected / sat upon:" type="string" left="14" width="193">
 				Вибраний/знаход. на:
 			</text>
-			<text length="1" name="selected_objects_text" type="string">
+			<text length="1" name="selected_objects_text" type="string" left="214"  width="48">
 				[COUNT]
 			</text>
 			<text length="1" name="Autoreturn" type="string">
-				Автоповерн. резидентів/об&apos;єктів (мін,0 - вимк.):
+				Автоповерн. резидентів/об&apos;єктів (мін, 0 - вимк.):
 			</text>
 			<text length="1" name="Object Owners:" type="string">
 				Влас. об&apos;єктів:
@@ -267,20 +268,20 @@
 			<check_box label="Редаг. Ландшафт" name="edit land check" tool_tip="Якщо відмічено, будь-хто може змінювати рель&apos;єф землі. Краще за все залишити поле невідміченим, т.я. Ви завжди можете редагувати власну землю."/>
 			<check_box label="Створювати Закладки" name="check landmark"/>
 			<check_box label="Летать" name="check fly" tool_tip="Якщо відмічено, Резиденти можуть літати на Вашій землі."/>
-			<text length="1" name="allow_label2" type="string">
-				Ств. об&apos;єкти:
+			<text length="1" name="allow_label2" type="string" width="124">
+				Створювати об&apos;єкти:
 			</text>
-			<check_box label="Всі" name="edit objects check"/>
+			<check_box label="Всі" name="edit objects check" left="310"/>
 			<check_box label="Група" name="edit group objects check"/>
-			<text length="1" name="allow_label3" type="string">
-				Ств. об&apos;єкти:
+			<text length="1" name="allow_label3" type="string" width="124">
+				Об&apos;єкти Entry:
 			</text>
-			<check_box label="Всі" name="all object entry check"/>
+			<check_box label="Всі" name="all object entry check" left="310"/>
 			<check_box label="Група" name="group object entry check"/>
-			<text length="1" name="allow_label4" type="string">
+			<text length="1" name="allow_label4" type="string" width="124">
 				Зап. скрипты:
 			</text>
-			<check_box label="Всі" name="check other scripts"/>
+			<check_box label="Всі" name="check other scripts" left="310"/>
 			<check_box label="Група" name="check group scripts"/>
 			<text length="1" name="land_options_label" type="string">
 				Властив. землі:
@@ -396,17 +397,17 @@
 			</text>
 			<texture_picker label="" name="snapshot_ctrl" tool_tip="Натисніть, для вибору картинки"/>
 			<text length="1" name="landing_point" type="string">
-				Пункт приземлення:
+				Пункт приземлення: [LANDING]
 			</text>
 			<string name="landing_point_none">
 				(нет)
 			</string>
-			<button label="Уст." label_selected="Уст." name="Set" tool_tip="Встановлює точку, де з&apos;являються відвідувачі. Відмічає розташування Вашого аватара на ділянці."/>
-			<button label="Очист." label_selected="Очист." name="Clear" tool_tip="Очистити місце приземлення"/>
+			<button width="60" label="Уст." label_selected="Уст." name="Set" tool_tip="Встановлює точку, де з&apos;являються відвідувачі. Відмічає розташування Вашого аватара на ділянці."/>
+			<button width="60" left="301" label="Очист." label_selected="Очист." name="Clear" tool_tip="Очистити місце приземлення"/>
 			<text length="1" name="Teleport Routing: " type="string">
 				Маршрут телепорт.:
 			</text>
-			<combo_box name="landing type" tool_tip="Шляхи Телепортацій -- укажіть точки, в які гості будуть потрапляти при вході на Вашу Землю.">
+			<combo_box width="150" name="landing type" tool_tip="Шляхи Телепортацій -- укажіть точки, в які гості будуть потрапляти при вході на Вашу Землю.">
 				<combo_item length="1" name="Blocked" type="string">
 					Блоковано
 				</combo_item>
@@ -452,7 +453,7 @@
 			</text>
 			<check_box label="Автомасштабування" name="media_auto_scale" tool_tip="Установка цієї опції автоматично масштабує зміст для всієї ділянки. Це виконується повільніше і знизить якість картинки, але не потребує масштабування текстури або її вирівнювання."/>
 			<check_box label="Цикл" name="media_loop" tool_tip="Грати медіа в циклі. Коли воно закінчиться, почнеться знову."/>
-			<check_box label="Сховати медіа URL" name="hide_media_url" tool_tip="Установка опції сховає медіа URL від всіх неавторизованих клієнтів. Це недоступно для HTML типів."/>
+			<check_box label="Сховати URL медіа" name="hide_media_url" tool_tip="Установка опції сховає медіа URL від всіх неавторизованих клієнтів. Це недоступно для HTML типів."/>
 			<check_box label="Сховати URL музики" name="hide_music_url" tool_tip="Установка опції сховає URL музики від усіх неавторизованих клієнтів."/>
 			<text length="1" name="media_size" tool_tip="Розмір відображення Web медіа, за замовчуванням 0" type="string">
 				Розмір:
@@ -469,9 +470,9 @@
 				Звук:
 			</text>
 			<check_box label="Заборонити жести і звукові об&apos;єкти на цій ділянці" name="check sound local"/>
-			<button label="?" label_selected="?" name="?"/>
+			<button label="?" label_selected="?" name="?" left="420"/>
 			<text length="1" name="Voice settings:" type="string">
-				Голос
+				Голос:
 			</text>
 			<check_box label="Увімкнути голос" name="parcel_enable_voice_channel"/>
 			<check_box label="Увімкнути голос (встановлено Маєтком)" name="parcel_enable_voice_channel_is_estate_disabled"/>

@@ -50,7 +50,7 @@
 			<view_border name="acct_border" width="161" />
 			<text name="acct" width="161" />
 			<text name="partner_label" tool_tip="Second Lifeパートナーです。 設定方法の詳細については、www.secondlife.com/partnerを参照してください。">
-				ﾊﾟｰﾄﾅｰ：
+				パートナー：
 			</text>
 			<button label="i" label_selected="i" name="partner_info" tool_tip="クリックして、パートナーのプロフィールを開けてください。" left_delta="64"/>
 			<button label="?" label_selected="?" name="partner_help"/>
@@ -83,10 +83,10 @@
 			<check_box label="検索に表示" name="allow_publish" tool_tip="検索で、詳細やイメージなどさらなるプロフィール情報を公開する。"/>
 			<button label="?" label_selected="?" name="?"/>
 			<button label="地図上で検索" label_selected="地図上で検索" name="Find on Map"/>
-			<button label="テレポートを贈る" label_selected="テレポートを贈る" name="Offer Teleport..." left_delta="117"/>
-			<button label="フレンドを追加" label_selected="フレンドを追加" name="Add Friend..." left_delta="157"/>
+			<button label="テレポートを送る" label_selected="テレポートを送る" name="Offer Teleport..." left_delta="117"/>
+			<button label="フレンドに追加" label_selected="フレンドに追加" name="Add Friend..." left_delta="157"/>
 			<button label="支払う" label_selected="支払う" name="Pay..."/>
-			<button label="ｲﾝｽﾀﾝﾄ･ﾒｯｾｰｼﾞ" label_selected="ｲﾝｽﾀﾝﾄ･ﾒｯｾｰｼﾞ" name="Instant Message..." tool_tip="インスタント・メッセージ (IM)" left_delta="117"/>
+			<button label="IMを送る" label_selected="IMを送る" name="Instant Message..." tool_tip="インスタント・メッセージ (IM)" left_delta="117"/>
 			<button label="無視する" label_selected="無視する" name="Mute" left_delta="157"/>
 		</panel>
 		<panel label="ウェブ" name="WebProfile" width="458">
@@ -142,7 +142,7 @@
 				ロード中．．．
 			</text>
 		</panel>
-		<panel label="クラシファイド広告" name="Classified" width="458">
+		<panel label="広告" name="Classified" width="458">
 			<tab_container name="classified tab" width="452" />
 			<text name="Place an ad in Second Life&apos;s classified listings.">
 				SecondLifeのクラシファイドリストに広告を載せます。
@@ -166,7 +166,7 @@
 				(250字)
 			</text>
 		</panel>
-		<panel label="私の記録" name="My Notes" width="458">
+		<panel label="メモ" name="My Notes" width="458">
 			<text_editor name="notes edit" width="430"/>
 			<string name="Loading">
 				ロード中．．．
@@ -181,7 +181,7 @@
 	<button label="取り消し" label_selected="取り消し" name="Cancel"/>
 	<button label="キック" label_selected="キック" name="Kick"/>
 	<button label="フリーズ" label_selected="フリーズ" name="Freeze" tool_tip="この住人の動きと会話を停止します。"/>
-	<button label="解凍" label_selected="解凍" name="Unfreeze" tool_tip="住人のフリーズを解除"/>
+	<button label="解除" label_selected="解除" name="Unfreeze" tool_tip="住人のフリーズを解除"/>
 	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="この住人のカスタマー・サービス・ツールを開きます。"/>
 	<string name="ShowOnMapNonFriend">
 		地図上でロケーションを表示します。
@@ -198,11 +198,11 @@
 		あなたのロケーションに強制テレポート
 	</string>
 	<string name="TeleportPrelude">
-		あなたのロケーションへのテレポートを贈ります。
+		あなたのロケーションへのテレポートを送ります。
 あなたがオリエンテーション・アイランドを去るまで無効です。
 	</string>
 	<string name="TeleportNormal">
-		あなたのロケーションへのテレポートを贈ります。
+		あなたのロケーションへのテレポートを送ります。
 	</string>
 	<string name="Loading">
 		ローディング．．．

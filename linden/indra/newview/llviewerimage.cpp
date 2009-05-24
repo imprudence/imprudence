@@ -398,20 +398,34 @@ BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
 			mOrigHeight = mFullHeight;
 		}
 
-
-		if (LLImageGL::checkSize(mRawImage->getWidth(), mRawImage->getHeight()))
+		bool size_okay = true;
+		
+		U32 raw_width = mRawImage->getWidth() << mRawDiscardLevel;
+		U32 raw_height = mRawImage->getHeight() << mRawDiscardLevel;
+		if( raw_width > MAX_IMAGE_SIZE || raw_height > MAX_IMAGE_SIZE )
 		{
-			res = LLImageGL::createGLTexture(mRawDiscardLevel, mRawImage, usename);
+			llinfos << "Width or height is greater than " << MAX_IMAGE_SIZE << ": (" << raw_width << "," << raw_height << ")" << llendl;
+			size_okay = false;
 		}
-		else
+		
+		if (!LLImageGL::checkSize(mRawImage->getWidth(), mRawImage->getHeight()))
 		{
 			// A non power-of-two image was uploaded (through a non standard client)
+			llinfos << "Non power of two width or height: (" << mRawImage->getWidth() << "," << mRawImage->getHeight() << ")" << llendl;
+			size_okay = false;
+		}
+		
+		if( !size_okay )
+		{
+			// An inappropriately-sized image was uploaded (through a non standard client)
 			// We treat these images as missing assets which causes them to
 			// be renderd as 'missing image' and to stop requesting data
 			setIsMissingAsset();
 			destroyRawImage();
 			return FALSE;
 		}
+		
+		res = LLImageGL::createGLTexture(mRawDiscardLevel, mRawImage, usename);
 	}
 
 	//

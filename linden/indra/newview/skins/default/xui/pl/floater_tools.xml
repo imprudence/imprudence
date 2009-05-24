@@ -53,7 +53,7 @@
 	<button label="" label_selected="" name="ToolRing" tool_tip="Pierścień"/>
 	<button label="" label_selected="" name="ToolTree" tool_tip="Drzewo"/>
 	<button label="" label_selected="" name="ToolGrass" tool_tip="Trawa"/>
-	<check_box label="Trzymaj zaznaczonoe" name="checkbox sticky"/>
+	<check_box label="Trzymaj zaznaczone" name="checkbox sticky"/>
 	<check_box label="Kopiuj zaznaczone" name="checkbox copy selection"/>
 	<check_box label="Środek" name="checkbox copy centers"/>
 	<check_box label="Obróć" name="checkbox copy rotates"/>
@@ -515,7 +515,7 @@
 					Skamieliny
 				</combo_item>
 				<combo_item name="siding">
-					Sidingu
+					Brzegu
 				</combo_item>
 				<combo_item name="stonetile">
 					Płytki Kamiennej
@@ -580,14 +580,14 @@
 		</text>
 		<button label="O Posiadłości..." label_selected="O Posiadłości..." name="button about land"/>
 		<check_box label="Pokaż Właścicieli" name="checkbox show owners" tool_tip="Pokoloruj posiadłości zgodnie z przynależnością do właściciela"/>
-		<button label="?" label_selected="?" name="button show owners help"/>
+		<button label="?" label_selected="?" name="button show owners help" left_delta="120"/>
 		<text name="label_parcel_modify">
 			Modyfikuj Posiadłość
 		</text>
 		<button label="Podziel..." label_selected="Podziel..." name="button subdivide land"/>
 		<button label="Złącz..." label_selected="Złącz..." name="button join land"/>
 		<text name="label_parcel_trans">
-			Transkacje na landzie
+			Transakcje na posiadłości
 		</text>
 		<button label="Kup..." label_selected="Kup..." name="button buy land"/>
 		<button label="Anuluj..." label_selected="Anuluj..." name="button abandon land"/>

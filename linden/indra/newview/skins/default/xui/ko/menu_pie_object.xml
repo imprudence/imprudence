@@ -2,9 +2,15 @@
 <pie_menu name="Object Pie">
 	<menu_item_call label="열기" name="Open" />
 	<menu_item_call label="만들기" name="Create" />
-	<menu_item_call label="만지기" name="Object Touch" />
-	<menu_item_call label="앉기" name="Object Sit" />
-	<menu_item_call label="가지기" name="Pie Object Take" />
+	<menu_item_call label="만지기" name="Object Touch">
+		<on_enable userdata="만지기" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="앉기" name="Object Sit">
+		<on_enable userdata="앉기,서기" name="EnableSitOrStand"/>
+	</menu_item_call>
+	<menu_item_call label="가지기" name="Pie Object Take">
+		<on_enable userdata="구매,가지기" name="EnableBuyOrTake"/>
+	</menu_item_call>
 	<menu_item_call label="지불…" name="Pay..." />
 	<pie_menu label="더 보기&gt;" name="More &gt;">
 		<menu_item_call label="삭제" name="Delete" />

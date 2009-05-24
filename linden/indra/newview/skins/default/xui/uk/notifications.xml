@@ -2801,7 +2801,7 @@ X і Y задає їх позицію. D (щільність) визначає �
 
 Від об&apos;єкта: [OBJECTNAME], власник: [NAME]?
 		<form name="form">
-			<button name="Gotopage" text="Перейти до сторінки"/>
+			<button name="Gotopage" text="Завантажити"/>
 			<button name="Cancel" text="Відміна"/>
 		</form>
 	</notification>
