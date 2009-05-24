@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="login_progress_panel">
+  <layout_stack name="stack1">
+    <layout_panel name="panel2">
+      <layout_stack name="stack2">
+        <layout_panel name="panel4">
+          <text name="title_text" font="SansSerifHuge"/>
+          <text name="progress_text" />
+          <text name="message_text" />
+        </layout_panel>
+      </layout_stack>
+    </layout_panel>
+  </layout_stack>
+</panel>
+

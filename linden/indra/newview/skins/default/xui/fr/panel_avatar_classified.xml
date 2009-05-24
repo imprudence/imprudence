@@ -6,8 +6,17 @@
 	<button label="Téléporter" name="classified_teleport_btn"/>
 	<button label="Carte" name="classified_map_btn"/>
 	<combo_box label="" name="classified_category_combo"/>
-
-
+	<combo_box label="" name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Type de public -
+		</combo_item>
+		<combo_item name="mature">
+			Contenu Mature
+		</combo_item>
+		<combo_item name="pg">
+			Contenu PG
+		</combo_item>
+	</combo_box>
 	<text name="classified_info_text" tool_tip="Plus vous payez cher pour votre annonce, mieux elle est placée dans la liste.">
 		Annonce passée, pas encore publiée
 	</text>
@@ -16,9 +25,9 @@
 	</text>
 	<button label="Publier..." name="classified_update_btn"/>
 	<check_box label="Publier chaque semaine" name="auto_renew_check"/>
-	<text name="ad_placed_paid">
+	<string name="ad_placed_paid">
 		Annonce passée le : [DATE]. Prix : [AMT] L$.
-	</text>
+	</string>
 	<string name="update_txt">
 		Mise à jour
 	</string>

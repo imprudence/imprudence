@@ -14,17 +14,11 @@
 	<text length="1" name=" Camera Options:" type="string">
 		Kameraoptionen:
 	</text>
-	<text length="1" name="Camera Springiness:" type="string">
-		Kamerafederung:
+	<text name="camera_fov_label">
+		Kamera-Sichtwinkel:
 	</text>
 	<text name="Camera Follow Distance:">
 		Kameraabstand:
-	</text>
-	<text name="Camera Transition Time:">
-		Zeit für Kamerawechsel:
-	</text>
-	<text name="Camera Smoothing:">
-		Bewegungsglättung:
 	</text>
 	<check_box label="Automatischer Kameraschwenk im Bearbeiten-Modus" name="edit_camera_movement" tool_tip="Automatische Kamerapositionierung bei Wechsel in und aus dem Bearbeitungsmodus verwenden"/>
 	<check_box label="Automatischer Kameraschwenk im Aussehen-Modus" name="appearance_camera_movement" tool_tip="Automatische Kamerapositionierung im Bearbeitenmodus verwenden"/>
@@ -32,8 +26,5 @@
 		Avatar-Anzeigeoptionen:
 	</text>
 	<check_box label="Avatar in Mouselook anzeigen" name="first_person_avatar_visible"/>
-	<text name="text5">
-		Joystick-Optionen:
-	</text>
 	<button label="Joystick-Einrichtung" name="joystick_setup_button"/>
 </panel>

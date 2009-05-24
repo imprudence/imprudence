@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Event" title="Событие">
 	<text name="event_name_label">
 		Название:
@@ -12,7 +12,15 @@
 	<text name="event_category">
 		(нет)
 	</text>
-
+	<text name="event_mature_label">
+		Mature контент:
+	</text>
+	<text name="event_mature_yes">
+		Да
+	</text>
+	<text name="event_mature_no">
+		Нет
+	</text>
 	<text name="event_date_label">
 		Дата:
 	</text>
@@ -46,10 +54,10 @@
 	<text name="event_desc_label">
 		Описание:
 	</text>
-	<button label="Телепорт" name="teleport_btn" />
-	<button label="Показать на карте" name="map_btn" />
-	<button label="Уведомление" name="notify_btn" />
-	<button label="Создать событие..." name="create_event_btn" />
+	<button label="Телепорт" name="teleport_btn"/>
+	<button label="Показать на карте" name="map_btn"/>
+	<button label="Уведомление" name="notify_btn"/>
+	<button label="Создать событие..." name="create_event_btn"/>
 	<string name="none">
 		нет
 	</string>

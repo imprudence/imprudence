@@ -26,12 +26,12 @@
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="Звонок" name="start_call_btn" />
-			<button label="Закончить Звонок" name="end_call_btn" />
+			<button label="Звонок" name="start_call_btn" width="145"/>
+			<button label="Закончить Звонок" name="end_call_btn" width="145" halign="right" />
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
 			     tool_tip="Кликните сюда для показа активных участников IM сессии." />
-			<line_editor label="Нажмите сюда для IM" name="chat_editor" />
-			<button label="Отправить" name="send_btn" />
+			<line_editor label="Нажмите сюда для IM" name="chat_editor" width="406" />
+			<button label="Отправить" name="send_btn" left="416" width="80"/>
 		</layout_panel>
 	</layout_stack>
 	<string name="live_help_dialog">

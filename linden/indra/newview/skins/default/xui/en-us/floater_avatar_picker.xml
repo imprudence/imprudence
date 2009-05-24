@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-380" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="true" height="350" left="400" min_height="200" min_width="250"
-     mouse_opaque="true" name="avatarpicker" title="Choose Resident" width="250">
+     can_resize="true" height="350" left="400" min_height="200" min_width="265"
+     mouse_opaque="true" name="avatarpicker" title="Choose Resident" width="265">
 
 	<tab_container bottom="30" follows="left|right|top|bottom" height="300" left="4"
-	     name="ResidentChooserTabs" tab_position="top" tab_width="65" width="240">
+	     name="ResidentChooserTabs" tab_position="top" tab_width="65" width="255">
 		<panel name="SearchPanel" label="Search"
-			border="true" bottom="0" height="150" left="6" width="120"
+			border="true" bottom="0" height="150" left="6" width="135"
 			mouse_opaque="true">
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top"
@@ -22,15 +22,15 @@
 			     width="132" />
 			<button bottom_delta="-3" follows="top|right" font="SansSerif" halign="center"
 			     height="20" label="Find" label_selected="Find" left_delta="20" right="-10"
-			     mouse_opaque="true" name="Find" scale_image="TRUE" width="80" />
+			     mouse_opaque="true" name="Find" scale_image="TRUE" width="95" />
 			<scroll_list background_visible="true" bottom_delta="-95" column_padding="5"
 			     draw_border="true" draw_heading="false" draw_stripes="true"
 			     follows="left|top|right|bottom" height="90" left="10" mouse_opaque="true"
-			     multi_select="false" name="SearchResults" width="100" />
+			     multi_select="false" name="SearchResults" width="115" />
 		</panel>
 
 		<panel name="CallingCardsPanel" label="Calling Cards"
-			border="true" bottom="0" height="150" left="0" width="120" 
+			border="true" bottom="0" height="150" left="0" width="135" 
 			mouse_opaque="true">
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top"
@@ -41,11 +41,11 @@
 			</text>
 			<inventory_panel allow_multi_select="false" border="true" bottom_delta="-117"
 			     follows="left|top|right|bottom" height="110" left="10" mouse_opaque="true"
-			     name="InventoryPanel" sort_order="AvatarPickerSortOrder" width="100" />
+			     name="InventoryPanel" sort_order="AvatarPickerSortOrder" width="115" />
 		</panel>
 
     <panel name="NearMePanel" label="Near Me"
-      border="true" bottom="0" height="240" left="6" width="120" mouse_opaque="true">
+      border="true" bottom="0" height="240" left="6" width="135" mouse_opaque="true">
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
            bottom="-24" drop_shadow_visible="true" follows="left|top"
            font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
@@ -53,7 +53,7 @@
            width="220">
         Select nearby resident:
       </text>
-      <button bottom_delta="-3" left_delta="10" width="90" height="20" follows="top|right" 
+      <button bottom_delta="-3" left_delta="25" width="90" height="20" follows="top|right" 
            label="Refresh List" label_selected="Refresh List" halign="center"
            font="SansSerif" mouse_opaque="true" name="Refresh" scale_image="TRUE" />
       <slider bottom_delta="-20" left="10" follows="left|top" width="175" height="15"
@@ -66,7 +66,7 @@
            width="40">
         Meters
       </text>
-      <scroll_list bottom_delta="-185" width="100" height="175" left="10" 
+      <scroll_list bottom_delta="-185" width="115" height="175" left="10" 
            follows="left|top|right|bottom" draw_border="true" draw_heading="false" 
            draw_stripes="true" column_padding="5" sort_column="0" mouse_opaque="true"
            background_visible="true" multi_select="false" name="NearMe"  />
@@ -75,10 +75,10 @@
 	</tab_container>
 
   <button bottom="6" left="10" follows="left|bottom" font="SansSerif" halign="center"
-	     width="75" height="20" label="Select" label_selected="Select" mouse_opaque="true"
+	     width="95" height="20" label="Select" label_selected="Select" mouse_opaque="true"
 	     name="Select" scale_image="TRUE" />
-	<button bottom_delta="0" right="230" follows="left|bottom" font="SansSerif" halign="center"
-	     width="75" height="20" label="Cancel" label_selected="Cancel" mouse_opaque="true"
+	<button bottom_delta="0" right="240" follows="left|bottom" font="SansSerif" halign="center"
+	     width="95" height="20" label="Cancel" label_selected="Cancel" mouse_opaque="true"
 	     name="Cancel" scale_image="TRUE" />
 
 	<string name="not_found">

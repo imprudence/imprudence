@@ -15,6 +15,9 @@
 	<check_box label="Textures" name="check_texture"/>
 	<button label="Tout cocher" label_selected="Tout" name="check_all"/>
 	<button label="Tout décocher" label_selected="Aucun" name="check_none"/>
+	<text name="newperms">
+		Nouvelles permissions
+	</text>
 	<check_box label="Partager avec le groupe" name="share_with_group"/>
 	<check_box label="Autoriser tout le monde à copier" name="everyone_copy"/>
 	<text name="NextOwnerLabel">

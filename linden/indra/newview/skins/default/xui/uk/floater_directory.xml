@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="directory" title="Пошук в SL">
 	<tab_container name="Directory Tabs">
 		<panel label="Все" name="find_all_panel">
@@ -11,10 +11,10 @@
 			<text name="find">
 				Знайти:
 			</text>
-			<button label="&lt; Назад" name="back_btn" />
-			<button label="Вперед &gt;" name="forward_btn" />
-			<line_editor label="Пошук" name="search_editor" tool_tip="Пошук в SL" />
-			<button label="Пошук" name="search_btn" />
+			<line_editor label="Пошук" name="search_editor" tool_tip="Пошук в SL"/>
+			<button label="&lt; Назад" name="back_btn"/>
+			<button label="Вперед &gt;" name="forward_btn"/>
+			<button label="Пошук" name="search_btn"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Будь-яка категорія
@@ -35,7 +35,10 @@
 					Вікі
 				</combo_item>
 			</combo_box>
-
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
+			<button label="?" label_selected="?" name="?"/>
 			<string name="loading_text">
 				Завантаження...
 			</string>
@@ -50,18 +53,18 @@
 			</string>
 		</panel>
 		<panel label="Оголошення" name="classified_panel">
-			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;" />
 			<string name="searching_text">
 				Пошук...
 			</string>
 			<string name="not_found_text">
 				Не знайдено.
 			</string>
-			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev" />
 			<text name="find">
 				Знайти:
 			</text>
-
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Всі категорії
@@ -94,17 +97,18 @@
 					Особисте
 				</combo_item>
 			</combo_box>
-			<button label="Огляд" label_selected="Огляд" name="Browse" />
-			<button label="Пошук" label_selected="Пошук" name="Search" />
-			<button label="Розм.рекламу..." label_selected="Розм.рекламу..."
-			     name="Place an Ad..." />
-			<button label="Видалити" label_selected="Видалити" name="Delete" />
+			<button label="Огляд" label_selected="Огляд" name="Browse"/>
+			<button label="Пошук" label_selected="Пошук" name="Search"/>
+			<button label="Розм.рекламу..." label_selected="Розм.рекламу..." name="Place an Ad..."/>
+			<button label="Видалити" label_selected="Видалити" name="Delete"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Назва" name="name" />
-				<column label="Ціна" name="price" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Назва" name="name"/>
+				<column label="Ціна" name="price"/>
 			</scroll_list>
+			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
+			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
 		</panel>
 		<panel label="Події" name="events_panel">
 			<string name="searching_text">
@@ -113,6 +117,9 @@
 			<string name="not_found_text">
 				Не знайдено.
 			</string>
+			<text name="text2">
+				Знайти:
+			</text>
 			<radio_group name="date_mode">
 				<radio_item name="current">
 					Поточні і майбутні
@@ -121,24 +128,18 @@
 					Дата
 				</radio_item>
 			</radio_group>
-			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;"
-			     tool_tip="На день назад" />
+			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;" tool_tip="На день назад"/>
 			<text name="date_text">
 				6/6
 			</text>
-			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;"
-			     tool_tip="На день вперед" />
-			<button label="Сьогодні" label_selected="Сьогодні" name="Today"
-			     tool_tip="Показати поточні події" bottom="-62" left_delta="-72" width="95"/>
+			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;" tool_tip="На день вперед"/>
+			<button bottom="-62" label="Сьогодні" label_selected="Сьогодні" left_delta="-72" name="Today" tool_tip="Показати поточні події" width="95"/>
 			<text name="text">
 				Категорія:
 			</text>
-			<text name="text2">
-				Знайти:
-			</text>
 			<combo_box name="category combo">
 				<combo_item name="All">
-					Всі
+					Будь-яка Категорія
 				</combo_item>
 				<combo_item name="Discussion">
 					Обговорення
@@ -174,19 +175,21 @@
 					Різне
 				</combo_item>
 			</combo_box>
-			<button label="Пошук" label_selected="Пошук" name="Search"
-			     tool_tip="Пошук" />
-			<button label="Видалити" label_selected="Видалити" name="Delete" />
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
+			<button label="Пошук" label_selected="Пошук" name="Search" tool_tip="Пошук"/>
+			<button label="Видалити" label_selected="Видалити" name="Delete"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Назва" name="name" />
-				<column label="Час (PT)" name="date" />
-				<column label="" name="event_id" />
-				<column label="Час" name="time" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Назва" name="name"/>
+				<column label="Час (PT)" name="date"/>
+				<column label="" name="event_id"/>
+				<column label="Час" name="time"/>
 			</scroll_list>
-			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;" />
-			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev" />
+			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
+			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
 		</panel>
 		<panel label="Вітрина" name="showcase_panel">
 			<string name="searching_text">
@@ -195,8 +198,8 @@
 			<string name="not_found_text">
 				Не знайдено.
 			</string>
-			<button label="&lt; Назад" name="back_btn" />
-			<button label="Вперед &gt;" name="forward_btn" />
+			<button label="&lt; Назад" name="back_btn"/>
+			<button label="Вперед &gt;" name="forward_btn"/>
 			<string name="loading_text">
 				Завантаження...
 			</string>
@@ -217,12 +220,17 @@
 			<string name="not_found_text">
 				Не знайдено.
 			</string>
+			<string name="land_help_text">
+				Земля може бути куплена напряму за Лінден Долари (L$) або на аукціоні за L$ або US$.
+Щоб купити напряму, відвідайте землю і натисніть на назву місця у стрічці заголовку.
+			</string>
 			<text name="find">
 				Знайти:
 			</text>
-			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;" />
-			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev" />
-			<combo_box name="type" bottom="-64" width="175" left="224">
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
+			<combo_box bottom="-64" left="224" name="type" width="175">
 				<combo_item name="AllTypes">
 					Усі типи
 				</combo_item>
@@ -236,29 +244,28 @@
 					Продається Маєток
 				</combo_item>
 			</combo_box>
-			<check_box label="Ціна &#8804; " name="pricecheck" />
-			<check_box label="Площ. &#8805; " name="areacheck" />
-			<text name="pricecheck_symbol" left="120" >
+			<check_box label="Ціна &#8804; " name="pricecheck"/>
+			<text left="120" name="pricecheck_symbol">
 				L$
 			</text>
-			<text name="areacheck_symbol" left="190" width="30">
-				кв.м.
+			<check_box label="Площ. &#8805; " name="areacheck"/>
+			<text left="190" name="areacheck_symbol" width="30">
+				м²
 			</text>
-			<line_editor name="priceedit" left="135" />
-			<line_editor name="areaedit" left="135" />
-			<button label="Пошук" label_selected="Пошук" name="Search"  width="80" bottom="-66" left="140"/>
-			<text name="land">
-				Земля може бути куплена за Лінден-долары (L$) або на аукціоні за L$ або US$.
-Щоб купити землю, відвідайте її і натисніть мишкою по її назві.
-			</text>
-			<scroll_list name="results" height="438" >
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Назва" name="name" />
-				<column label="L$" name="price" />
-				<column label="Площ." name="area" />
-				<column label="L$/кв.м" name="per_meter" />
+			<line_editor left="135" name="priceedit"/>
+			<line_editor left="135" name="areaedit"/>
+			<button bottom="-66" label="Пошук" label_selected="Пошук" left="140" name="Search" width="80"/>
+			<scroll_list height="438" name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Назва" name="name"/>
+				<column label="Тип" name="landtype"/>
+				<column label="L$" name="price"/>
+				<column label="Площ." name="area"/>
+				<column label="L$/м²" name="per_meter"/>
 			</scroll_list>
+			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
+			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
 		</panel>
 		<panel label="Місця" name="places_panel">
 			<string name="searching_text">
@@ -267,12 +274,12 @@
 			<string name="not_found_text">
 				Не знайдено.
 			</string>
-			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;" />
-			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev" />
 			<text name="find">
 				Знайти:
 			</text>
-
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Всі категорії
@@ -311,13 +318,56 @@
 					Інше
 				</combo_item>
 			</combo_box>
-			<button label="Пошук" label_selected="Пошук" name="Search" />
+			<combo_box name="Category_Adult">
+				<combo_item name="AnyCategory">
+					Будь-яка Категорія
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Локації Linden
+				</combo_item>
+				<combo_item name="Adult">
+					Adult
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Мистецтво &amp; Культура
+				</combo_item>
+				<combo_item name="Business">
+					Бізнес
+				</combo_item>
+				<combo_item name="Educational">
+					Освіта
+				</combo_item>
+				<combo_item name="Gaming">
+					Ігри
+				</combo_item>
+				<combo_item name="Hangout">
+					Місце зустрічей
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Для новачків
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Парки &amp; Природа
+				</combo_item>
+				<combo_item name="Residential">
+					Резиденція
+				</combo_item>
+				<combo_item name="Shopping">
+					Покупки
+				</combo_item>
+				<combo_item name="Other">
+					Інше
+				</combo_item>
+			</combo_box>
+			<button label="Пошук" label_selected="Пошук" name="Search"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Назва" name="name" />
-				<column label="Трафік" name="dwell" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Назва" name="name"/>
+				<column label="Трафік" name="dwell"/>
 			</scroll_list>
+			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
+			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
 		</panel>
 		<panel label="Люди" name="people_panel">
 			<string name="searching_text">
@@ -326,17 +376,17 @@
 			<string name="not_found_text">
 				Не знайдено.
 			</string>
-			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;" />
-			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev" />
 			<text name="find">
 				Знайти:
 			</text>
-			<button label="Пошук" label_selected="Пошук" name="Search" />
+			<button label="Пошук" label_selected="Пошук" name="Search"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Назва" name="name" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Назва" name="name"/>
 			</scroll_list>
+			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
+			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
 		</panel>
 		<panel label="Групи" name="groups_panel">
 			<string name="searching_text">
@@ -348,11 +398,13 @@
 			<text name="find">
 				Знайти:
 			</text>
-			<button label="&lt; Назад" name="back_btn" />
-			<button label="Вперед &gt;" name="forward_btn" />
-			<line_editor label="Пошук" name="search_editor" tool_tip="Пошук в SL" />
-			<button label="Пошук" name="search_btn" />
-
+			<line_editor label="Пошук" name="search_editor" tool_tip="Пошук в SL"/>
+			<button label="&lt; Назад" name="back_btn"/>
+			<button label="Вперед &gt;" name="forward_btn"/>
+			<button label="Пошук" name="search_btn"/>
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
 			<string name="loading_text">
 				Завантаження...
 			</string>

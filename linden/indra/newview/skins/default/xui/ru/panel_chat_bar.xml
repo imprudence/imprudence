@@ -1,13 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="chat_bar">
-	<button label="Местный Чат" name="History"
-	     tool_tip="Кликните для просмотра сказанного" />
-	<line_editor label="Для чата нажмите сюда" name="Chat Editor"
-	     tool_tip="Нажмите Enter -- сказать, Ctrl+Enter -- крикнуть" />
-	<flyout_button label="Сказать" name="Say" tool_tip="(Enter)" />
-	<combo_box label="Жесты" name="Gesture">
-		<combo_item name="Gestures">
-			Жесты
-		</combo_item>
-	</combo_box>
+	<button label="Местный Чат" name="History" tool_tip="Кликните для просмотра сказанного"/>
+	<line_editor label="Для чата нажмите сюда" name="Chat Editor" tool_tip="Нажмите Enter -- сказать, Ctrl+Enter -- крикнуть"/>
+	<flyout_button label="Сказать" name="Say" tool_tip="(Enter)">
+		<flyout_button_item name="shout_item">
+			Крикнуть
+		</flyout_button_item>
+		<flyout_button_item name="say_item">
+			Сказать
+		</flyout_button_item>
+		<flyout_button_item name="whisper_item">
+			Прошептать
+		</flyout_button_item>
+	</flyout_button>
+	<combo_box label="Жесты" name="Gesture"/>
+	<string name="gesture_label">
+		Жесты
+	</string>
 </panel>

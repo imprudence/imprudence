@@ -1,10 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="buy land" title="Покупка землі">
 	<text name="region_name_label">
 		Регіон:
 	</text>
 	<text name="region_name_text">
 		(невідомо)
+	</text>
+	<text name="region_type_label">
+		Тип:
+	</text>
+	<text name="region_type_text">
+		(невідоме)
 	</text>
 	<text name="estate_name_label">
 		Маєток:
@@ -22,10 +28,10 @@
 		Куплена в цьому регіоні земля:
 	</text>
 	<text name="resellable_clause">
-		Чи може куплена в цьому регіоні земля бути перепродана.
+		Може або не може бути перепродана.
 	</text>
 	<text name="changeable_clause">
-		Може або не може бути об&apos;єднана або роз&apos;єднана.
+		Може або не може бути об&apos;єднана або розділена.
 	</text>
 	<text name="covenant_text">
 		Ви маєте погодитися з Правилами Маєтку:
@@ -33,8 +39,7 @@
 	<text_editor name="covenant_editor">
 		Завантаж...
 	</text_editor>
-	<check_box label="Я Погоджуюсь з Угодою, визначеною вище."
-	     name="agree_covenant" />
+	<check_box label="Я Погоджуюсь з Угодою, визначеною вище." name="agree_covenant"/>
 	<text name="info_parcel_label">
 		Ділянка:
 	</text>
@@ -45,13 +50,15 @@
 		Розмір:
 	</text>
 	<text name="info_size">
-		1024 кв. м.
+		1024 м²
 	</text>
 	<text name="info_price_label">
 		Ціна:
 	</text>
 	<text name="info_price">
-		L$ 1500, об&apos;єкти включені
+		L$ 1500
+(L$ 1.1/м²)
+продано з об&apos;єктами
 	</text>
 	<text name="info_action">
 		Покупка цієї землі буде:
@@ -59,7 +66,7 @@
 	<text name="error_message">
 		Щось
 	</text>
-	<button label="Перейти на вебсайт" name="error_web" />
+	<button label="Перейти на вебсайт" name="error_web"/>
 	<text name="account_action">
 		Вдосконалити Ваш аккаунт до Premium.
 	</text>
@@ -81,14 +88,14 @@
 		Збільшити Вашу щомісячну ренту до US$ 40/місяць.
 	</text>
 	<text name="land_use_reason">
-		Ви володієте 1,309 кв. м. землі.
-Ця ділянка складає 512 кв. м. землі
+		Ви утримуєте 1309 м² землі. 
+Це ділянка 512 м² землі.
 	</text>
 	<text name="purchase_action">
-		Заплатити Joe Resident L$4000 за Землю
+		Заплатити Резиденту Joe L$ 4000 за землю
 	</text>
 	<text name="currency_reason">
-		Ви маєте L$2,100.
+		У Вас L$ 2,100.
 	</text>
 	<text name="currency_action">
 		Купити додаткові L$
@@ -100,13 +107,11 @@
 		приблизно US$ [AMOUNT2]
 	</text>
 	<text name="currency_balance">
-		Ви маєте L$2,100.
+		У Вас L$ 2,100.
 	</text>
-	<check_box
-	     label="Видалити право групи на закупку [AMOUNT] кв. м."
-	     name="remove_contribution" />
-	<button label="Покупка" name="buy_btn" />
-	<button label="Відміна" name="cancel_btn" />
+	<check_box label="Видалити право групи на закупку [AMOUNT] кв. м." name="remove_contribution"/>
+	<button label="Покупка" name="buy_btn"/>
+	<button label="Відміна" name="cancel_btn"/>
 	<string name="can_resell">
 		Может бути перепродана.
 	</string>
@@ -163,7 +168,7 @@
 		Закупка цієї землі буде:
 	</string>
 	<string name="buying_for_group">
-		Закупка землі для Групи:
+		Покупка землі для групи:
 	</string>
 	<string name="cannot_buy_now">
 		Зараз купити неможна:
@@ -181,33 +186,40 @@
 		Ваш аккаунт дозволяє володіти землею.
 	</string>
 	<string name="land_holdings">
-		Ви утримуєте [BUYER] кв. м. землі.
+		Ви утримуєте [BUYER] м² землі.
 	</string>
 	<string name="pay_to_for_land">
 		Заплатити L$ [AMOUNT] [SELLER] за цю землю
 	</string>
 	<string name="buy_for_US">
-		Купити L$ [AMOUNT] приблиз. US$ [AMOUNT2] ,
+		Купити L$ [AMOUNT] за приблиз. US$ [AMOUNT2],
 	</string>
 	<string name="parcel_meters">
-		Ця ділянка складає [AMOUNT] кв. м.
+		Це ділянка [AMOUNT] м².
 	</string>
 	<string name="premium_land">
-		Ця ділянка преміальна і додасть Вам [AMOUNT] кв. м.
+		Ця земля - преміум-класу, і буде зарахована як [AMOUNT] м².
 	</string>
 	<string name="discounted_land">
-		Ця ділянка уцененный і додасть Вам [AMOUNT] кв. м.
+		Ця земля зі знижкою, і буде зарахована як [AMOUNT] m².
 	</string>
 	<string name="meters_supports_object">
-		[AMOUNT] кв. м.
+		[AMOUNT] м²
 підтримує [AMOUNT2] об&apos;єктів
 	</string>
 	<string name="sold_with_objects">
 		продается з об&apos;єктами
 	</string>
+	<string name="sold_without_objects">
+		Об&apos;єкти не входять в комплект
+	</string>
+	<string name="info_price_string">
+		L$ [PRICE]
+(L$ [PRICE_PER_SQM]/м²)
+[SOLD_WITH_OBJECTS]
+	</string>
 	<string name="insufficient_land_credits">
-		Група [GROUP] повинна мати достатні кошти для придбання 
-цієї ділянки до здійснення операції купівлі-продажу.
+		Групі [GROUP] необхідно достатньо прав на використання землі, щоб покрити цю ділянку перед тим, як покупку буде завершено.
 	</string>
 	<string name="have_enough_lindens">
 		Ви маєте L$ [AMOUNT] і їх достатньо для купівлі цієї землі.

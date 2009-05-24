@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Place" title="Platzieren">
 	<text name="name_label">
 		Name:
@@ -9,31 +9,34 @@
 	<text name="information_label">
 		Information:
 	</text>
+	<text name="land_type_label">
+		Landart:
+	</text>
 	<text name="location_label">
 		Standort:
 	</text>
-	<button label="Teleportieren" name="teleport_btn" />
-	<button label="Auf Karte" name="map_btn" />
-	<button label="Gebote..." name="auction_btn" />
+	<button label="Teleportieren" name="teleport_btn"/>
+	<button label="Auf Karte" name="map_btn"/>
+	<button label="Gebote..." name="auction_btn"/>
 	<string name="traffic_text">
 		Traffic: [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Gebiet: [AREA] qm
+		Gebiet: [AREA] qm.
 	</string>
 	<string name="forsale_text">
-		zu verkaufen für [PRICE]L$
+		Zum Verkauf für [PRICE] L$
 	</string>
 	<string name="auction_text">
 		Auktions-ID [ID].
 	</string>
-	<text name="server_update_text">
+	<string name="server_update_text">
 		Ohne Serverupdate sind keine Ortsinformationen verfügbar.
-	</text>
-	<text name="server_error_text">
+	</string>
+	<string name="server_error_text">
 		Zur Zeit gibt es keine Informationen zu diesem Standort. Bitte versuchen Sie es später.
-	</text>
-	<text name="server_forbidden_text">
+	</string>
+	<string name="server_forbidden_text">
 		Die Informationen über diesen Standort sind zugriffsbeschränkt.  Bitte wenden Sie sich bezüglich Ihrer Berechtigungen an den Eigentümer der Parzelle.
-	</text>
+	</string>
 </panel>

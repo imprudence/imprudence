@@ -418,6 +418,24 @@
 	<string name="shout">
 		crie :
 	</string>
+	<string name="SIM_ACCESS_PG">
+		PG
+	</string>
+	<string name="SIM_ACCESS_MATURE">
+		Mature
+	</string>
+	<string name="SIM_ACCESS_ADULT">
+		Adult
+	</string>
+	<string name="SIM_ACCESS_DOWN">
+		Hors ligne
+	</string>
+	<string name="SIM_ACCESS_MIN">
+		Inconnu
+	</string>
+	<string name="land_type_unknown">
+		(inconnu)
+	</string>
 	<string name="all_files">
 		Tous fichiers
 	</string>

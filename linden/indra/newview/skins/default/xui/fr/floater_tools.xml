@@ -64,7 +64,7 @@
 	<check_box label="Lisser" name="radio smooth"/>
 	<check_box label="Bosseler" name="radio noise"/>
 	<check_box label="Annuler modification" name="radio revert"/>
-	<button label="Appliquer" label_selected="Appliquer" name="button apply to selection" tool_tip="Modifier le terrain sélectionné"/>
+	<button label="Appliquer" label_selected="Appliquer" name="button apply to selection" tool_tip="Modifier le terrain sélectionné" left="176"/>
 	<text name="Bulldozer:">
 		Bulldozer :
 	</text>
@@ -568,19 +568,19 @@
 		<text name="label_area">
 			Surface : [AREA] m²
 		</text>
-		<button label="À propos du terrain..." label_selected="À propos du terrain..." name="button about land" width="132"/>
+		<button label="À propos du terrain..." label_selected="À propos du terrain..." name="button about land" width="142"/>
 		<check_box label="Afficher les propriétaires" name="checkbox show owners" tool_tip="Colorie les parcelles en fonction de leur propriétaire"/>
-		<button label="?" label_selected="?" name="button show owners help"/>
+		<button label="?" label_selected="?" name="button show owners help" left_delta="154"/>
 		<text name="label_parcel_modify">
 			Modifier la parcelle
 		</text>
-		<button label="Diviser..." label_selected="Diviser..." name="button subdivide land" width="132"/>
-		<button label="Fusionner..." label_selected="Fusionner..." name="button join land" width="132"/>
+		<button label="Diviser..." label_selected="Diviser..." name="button subdivide land" width="142"/>
+		<button label="Fusionner..." label_selected="Fusionner..." name="button join land" width="142"/>
 		<text name="label_parcel_trans">
 			Transactions
 		</text>
-		<button label="Acheter le terrain..." label_selected="Acheter le terrain..." name="button buy land" width="132"/>
-		<button label="Abandonner le terrain..." label_selected="Abandonner le terrain..." name="button abandon land" width="132"/>
+		<button label="Acheter le terrain..." label_selected="Acheter le terrain..." name="button buy land" width="142"/>
+		<button label="Abandonner le terrain..." label_selected="Abandonner le terrain..." name="button abandon land" width="142"/>
 	</panel>
 	<string name="status_rotate">
 		Pour faire tourner l&apos;objet, faîtes glisser les bandes de couleur.

@@ -297,12 +297,12 @@ LLNotifyBox::LLNotifyBox(LLNotificationPtr notification,
 				continue;
 			}
 
-			addButton(form_element["name"].asString(), TRUE, form_element["default"].asBoolean());
+			addButton(form_element["name"].asString(), form_element["text"].asString(), TRUE, form_element["default"].asBoolean());
 		}
 
 		if (mNumButtons == 0)
 		{
-			addButton("OK", FALSE, TRUE);
+			addButton("OK", "OK", FALSE, TRUE);
 			mAddedDefaultBtn = TRUE;
 		}
 		
@@ -324,7 +324,7 @@ LLNotifyBox::~LLNotifyBox()
 }
 
 // virtual
-LLButton* LLNotifyBox::addButton(const std::string& name, BOOL is_option, BOOL is_default)
+LLButton* LLNotifyBox::addButton(const std::string& name, const std::string& label, BOOL is_option, BOOL is_default)
 {
 	// make caution notification buttons slightly narrower
 	// so that 3 of them can fit without overlapping the "next" button
@@ -365,6 +365,7 @@ LLButton* LLNotifyBox::addButton(const std::string& name, BOOL is_option, BOOL i
 
 
 	btn = new LLButton(name, btn_rect, "", onClickButton, userdata);
+	btn->setLabel(label);
 	btn->setFont(font);
 
 	if (mIsCaution)

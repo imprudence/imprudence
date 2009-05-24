@@ -93,7 +93,7 @@
   <text bottom_delta="-26" bg_visible="false" border_drop_shadow_visible="false"
        drop_shadow_visible="true" follows="left|top" border_visible="false"
        font="SansSerifSmall" h_pad="0" halign="left" left="170"
-       mouse_opaque="true" name="NextOwnerLabel" v_pad="0" width="88" height="10" >
+       mouse_opaque="true" name="NextOwnerLabel" v_pad="0" width="206" height="10" >
     Next owner can:
   </text>
   <check_box bottom_delta="-30" follows="left|top" width="78" height="16" left="170"
@@ -114,6 +114,10 @@
 	     draw_heading="false" draw_stripes="true" enabled="false"
 	     follows="left|top|right|bottom" mouse_opaque="true"
 	     multi_select="false" name="queue output" />
+
+  <button bottom="10" left="10" width="90" height="20" follows="left|top"
+       label="Help" name="help" enabled="true"
+       mouse_opaque="true" font="SansSerif" scale_image="true" halign="center" />
 
   <button bottom="10" left="265" width="100" height="20" follows="left|top"
        label="Apply" name="apply" enabled="true"

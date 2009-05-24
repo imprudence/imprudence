@@ -6,7 +6,17 @@
 	<button label="Teleportar" name="classified_teleport_btn"/>
 	<button label="Mostrar en el mapa" name="classified_map_btn"/>
 	<button label="Perfil" name="classified_profile_btn"/>
-
+	<combo_box name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Elegir Calificación -
+		</combo_item>
+		<combo_item name="mature">
+			Contenido &apos;Mature&apos;
+		</combo_item>
+		<combo_item name="pg">
+			Contenido &apos;PG&apos;
+		</combo_item>
+	</combo_box>
 	<combo_box label="" name="classified_category_combo"/>
 	<button label="Actualizar" name="classified_update_btn"/>
 	<string name="ad_placed_paid">

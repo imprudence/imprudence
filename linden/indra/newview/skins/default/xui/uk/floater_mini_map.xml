@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="minimap">
+	<panel label="Міні-карта" name="mini_mapview" tool_tip="(Подвійний клік, щоб відкрити Карту)"/>
+</floater>

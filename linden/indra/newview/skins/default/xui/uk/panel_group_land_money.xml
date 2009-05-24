@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Земля &amp; L$" name="land_money_tab">
 	<string name="help_text">
-		Ділянки, що належать групі, вказані з деталями внесків. 
-Повідомлення буде відображатися доки сумма внесків менше або рівна повному внеску. 
-
-Вкладки Планування, Деталі і Продажі відображають 
-інформацію про стан фінансів групи.
+		Ділянки, якими володіє група, вказані разом з деталями вкладу. Якщо у користуванні знаходиться меньша або рівна Загальному Вкладу кількість Всієї землі, з&apos;явиться попередження. Вкладки Планування, Деталі і Продаж надають інформацію про фінанси групи.
 	</string>
-	<button label="?" name="help_button" />
+	<button label="?" name="help_button"/>
 	<string name="cant_view_group_land_text">
 		Ви не маєте прав для перегляду землі, що належить групі
 	</string>
@@ -21,12 +17,13 @@
 		Земля групи
 	</text>
 	<scroll_list name="group_parcel_list">
-		<column label="Назва ділянки" name="name" />
-		<column label="Регіон" name="location" />
-		<column label="Площ." name="area" />
-		<column label="" name="hidden" />
+		<column label="Назва ділянки" name="name"/>
+		<column label="Регіон" name="location"/>
+		<column label="Тип" name="type"/>
+		<column label="Площ." name="area"/>
+		<column label="" name="hidden"/>
 	</scroll_list>
-	<button label="На карті" label_selected="На карті" name="map_button" />
+	<button label="На карті" label_selected="На карті" name="map_button"/>
 	<text name="total_contributed_land_label">
 		Всього внесків:
 	</text>
@@ -70,19 +67,15 @@
 			<text_editor name="group_money_details_text">
 				Розрахунок...
 			</text_editor>
-			<button label="&lt; Раніше" label_selected="&lt; Раніше"
-			     name="earlier_details_button" tool_tip="Раніше" />
-			<button label="Пізніше &gt;" label_selected="Пізніше &gt;"
-			     name="later_details_button" tool_tip="Пізніше" />
+			<button label="&lt; Раніше" label_selected="&lt; Раніше" name="earlier_details_button" tool_tip="Раніше"/>
+			<button label="Пізніше &gt;" label_selected="Пізніше &gt;" name="later_details_button" tool_tip="Пізніше"/>
 		</panel>
 		<panel label="Продажі" name="group_money_sales_tab">
 			<text_editor name="group_money_sales_text">
 				Розрахунок...
 			</text_editor>
-			<button label="&lt; Раніше" label_selected="&lt; Раніше"
-			     name="earlier_sales_button" tool_tip="Раніше" />
-			<button label="Пізніше &gt;" label_selected="Пізніше &gt;"
-			     name="later_sales_button" tool_tip="Пізніше" />
+			<button label="&lt; Раніше" label_selected="&lt; Раніше" name="earlier_sales_button" tool_tip="Раніше"/>
+			<button label="Пізніше &gt;" label_selected="Пізніше &gt;" name="later_sales_button" tool_tip="Пізніше"/>
 		</panel>
 	</tab_container>
 </panel>

@@ -170,6 +170,8 @@ Eddy Stryker
 EponymousDylan Ra
 	VWR-1289
 	VWR-1465
+Eva Nowicka
+	CT-324
 Farallon Greyskin
 	VWR-2036
 Feep Larsson
@@ -238,7 +240,11 @@ Hoze Menges
 	VWR-255
 Ian Kas
 	VWR-8780 (Russian localization)
-        [NO JIRA] (Ukranian localization)
+	[NO JIRA] (Ukranian localization)
+	CT-322
+	CT-325
+Irene Muni
+	CT-324
 Iskar Ariantho
 	VWR-1223
 	VWR-11759
@@ -278,6 +284,10 @@ Lockhart Cordoso
 	VWR-108
 maciek marksman
 	CT-86
+Magnus Balczo
+	CT-138
+Malwina Dollinger
+	CT-138
 march Korda
 	SVC-1020
 Matthew Dowd
@@ -524,6 +534,8 @@ Thraxis Epsilon
 	VWR-383
 tiamat bingyi
 	CT-246
+TraductoresAnonimos Alter
+	CT-324
 Tue Torok
 	CT-68
 	CT-69

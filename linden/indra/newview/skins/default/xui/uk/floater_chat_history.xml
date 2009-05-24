@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="chat floater" title="Місцевий Чат">
 	<string name="ringing">
 		З&apos;єднання з Голосовим Чатом
@@ -21,45 +21,45 @@
 	<string name="IM_end_log_string">
 		-- Кінець Лога --
 	</string>
-  <string name="ScriptQuestionCautionChatGranted">
-	&apos;[OBJECTNAME]&apos;, об&apos;єкт , що належить &apos;[OWNERNAME]&apos; і знаходиться в [REGIONNAME] at [REGIONPOS], отримав дозволи: [PERMISSIONS].
-  </string>
-  <string name="ScriptQuestionCautionChatDenied">
-	&apos;[OBJECTNAME]&apos;, об&apos;єкт , що належить &apos;[OWNERNAME]&apos;, і знаходиться в [REGIONNAME] at [REGIONPOS], втратив дозволи: [PERMISSIONS].
-  </string>
-  <string name="ScriptTakeMoney">
-	Отримати з Вас Лінден-долари (L$)
-  </string>
-  <string name="ActOnControlInputs">
-	Працювати на Ваших кнопках
-  </string>
-  <string name="RemapControlInputs">
-	Перенастроїти управління
-  </string>
-  <string name="AnimateYourAvatar">
-	Анімувати Ваш аватар
-  </string>
-  <string name="AttachToYourAvatar">
-	Прикріпити до Вашого аватара
-  </string>
-  <string name="ReleaseOwnership">
-	Прибрати з власності і зробити публічним
-  </string>
-  <string name="LinkAndDelink">
-	Під&apos;єднати/від&apos;єднати від інших об&apos;єктів
-  </string>
-  <string name="AddAndRemoveJoints">
-	Додайте і видаліть з&apos;єднання з іншими об&apos;єктами
-  </string>
-  <string name="ChangePermissions">
-	Змінити його права
-  </string>
-  <string name="TrackYourCamera">
-	Стеження за Вашою камерою
-  </string>
-  <string name="ControlYourCamera">
-	Управління Вашою камерою
-  </string>
+	<string name="ScriptQuestionCautionChatGranted">
+		&apos;[OBJECTNAME]&apos;, об&apos;єкт , що належить &apos;[OWNERNAME]&apos; і знаходиться в [REGIONNAME] at [REGIONPOS], отримав дозволи: [PERMISSIONS].
+	</string>
+	<string name="ScriptQuestionCautionChatDenied">
+		&apos;[OBJECTNAME]&apos;, об&apos;єкт , що належить &apos;[OWNERNAME]&apos;, і знаходиться в [REGIONNAME] at [REGIONPOS], втратив дозволи: [PERMISSIONS].
+	</string>
+	<string name="ScriptTakeMoney">
+		Отримати з Вас Лінден-долари (L$)
+	</string>
+	<string name="ActOnControlInputs">
+		Працювати на Ваших кнопках
+	</string>
+	<string name="RemapControlInputs">
+		Перенастроїти управління
+	</string>
+	<string name="AnimateYourAvatar">
+		Анімувати Ваш аватар
+	</string>
+	<string name="AttachToYourAvatar">
+		Прикріпити до Вашого аватара
+	</string>
+	<string name="ReleaseOwnership">
+		Прибрати з власності і зробити публічним
+	</string>
+	<string name="LinkAndDelink">
+		Під&apos;єднати/від&apos;єднати від інших об&apos;єктів
+	</string>
+	<string name="AddAndRemoveJoints">
+		Додайте і видаліть з&apos;єднання з іншими об&apos;єктами
+	</string>
+	<string name="ChangePermissions">
+		Змінити його права
+	</string>
+	<string name="TrackYourCamera">
+		Стеження за Вашою камерою
+	</string>
+	<string name="ControlYourCamera">
+		Управління Вашою камерою
+	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<combo_box label="Жести" name="Gesture">
@@ -67,13 +67,24 @@
 					Жести
 				</combo_item>
 			</combo_box>
-			<check_box label="Показати заглуш. текст" name="show mutes" />
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
-			     tool_tip="Натисніть сюди для показу активних учасників IM сесії." />
+			<check_box label="Показати заглуш. текст" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Натисніть сюди для показу активних учасників IM сесії."/>
 			<panel name="chat_panel">
-				<line_editor label="Натисніть сюди, щоб відкрити Чат."
-				     name="Chat Editor" />
-				<flyout_button label="Сказати" name="Say" tool_tip="(Введ.)" />
+				<string name="gesture_label">
+					Жести
+				</string>
+				<line_editor label="Натисніть сюди, щоб відкрити Чат." name="Chat Editor" right="-90"/>
+				<flyout_button label="Сказати" left="-85" name="Say" tool_tip="(Введ.)" width="90">
+					<flyout_button_item name="shout_item">
+						Крикнути
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						Сказати
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Прошептати
+					</flyout_button_item>
+				</flyout_button>
 			</panel>
 		</layout_panel>
 	</layout_stack>

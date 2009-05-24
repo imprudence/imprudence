@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater label="(неизвестно)" name="im_floater" title="(неизвестно)">
 	<string name="ringing">
 		Вызов...
@@ -11,6 +11,9 @@
 	</string>
 	<string name="hang_up">
 		Звонок завершен
+	</string>
+	<string name="inventory_item_offered">
+		Вам предложили объект Инвентаря
 	</string>
 	<string name="voice_icon">
 		icn_voice-pvtfocus.tga
@@ -27,16 +30,17 @@
 	<string name="default_text_label">
 		Нажмите сюда для мгновенного сообщения
 	</string>
-	<button label="Профиль..." name="profile_callee_btn" />
-	<button label="Звонок" name="start_call_btn" />
-	<button label="Конец звонка" name="end_call_btn" />
+	<string name="unavailable_text_label">
+		Текстовый чат недоступен для этого вызова.
+	</string>
+	<button label="Профиль..." name="profile_callee_btn"/>
+	<button label="Звонок" name="start_call_btn"/>
+	<button label="Конец звонка" name="end_call_btn"/>
 	<panel name="speaker_controls">
-		<button label="" name="mute_btn" tool_tip="Глушить голоса" />
+		<button label="" name="mute_btn" tool_tip="Глушить голоса"/>
 	</panel>
-	<line_editor
-	     label="Нажмите сюда для мгновенного сообщения"
-	     name="chat_editor" />
-	<button label="Отправить" name="send_btn" />
+	<line_editor label="Нажмите сюда для мгновенного сообщения" name="chat_editor" width="403"/>
+	<button label="Отправить" left="413" name="send_btn" width="80"/>
 	<string name="live_help_dialog">
 		*** Добро пожаловать в Запрос Помощи *** 
 Прожалуйста, проверьте сначала страницы помощи по SL, нажав F1, или обратитесь к Базе Знаний http://secondlife.com/knowledgebase/ 

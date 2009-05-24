@@ -6,7 +6,17 @@
 	<button label="Teleportar" name="classified_teleport_btn"/>
 	<button label="Mapa" name="classified_map_btn"/>
 	<combo_box label="" name="classified_category_combo"/>
-
+	<combo_box label="" name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Elegir Calificación -
+		</combo_item>
+		<combo_item name="mature">
+			Contenido &apos;Mature&apos;
+		</combo_item>
+		<combo_item name="pg">
+			Contenido &apos;PG&apos;
+		</combo_item>
+	</combo_box>
 	<text name="classified_info_text" tool_tip="Cuando más pague por su anuncio, más alto aparecerá en la lista.">
 		Anuncio colocado: aun sin publicar
 	</text>

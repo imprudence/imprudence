@@ -184,7 +184,9 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	static const LLStyleSP datestyle(new LLStyle(true,LLColor4::black,"serif"));
 
 	text->appendStyledText(subject + "\n",false,false,headerstyle);
-	text->appendStyledText(time_stamp.asRFC1123(),false,false,datestyle);
+
+	LLDate notice_date = time_stamp.notNull() ? time_stamp : LLDate::now();
+	text->appendStyledText(notice_date.asRFC1123(),false,false,datestyle);
 	// Sadly, our LLTextEditor can't handle both styled and unstyled text
 	// at the same time.  Hence this space must be styled. JC
 	text->appendColoredText(std::string(" "),false,false,LLColor4::grey4);

@@ -6,9 +6,19 @@
 	<button label="Téléporter" name="classified_teleport_btn"/>
 	<button label="Voir sur la carte" name="classified_map_btn" width="115"/>
 	<button label="Profil" left="245" name="classified_profile_btn"/>
-	<combo_box name="classified_mature_check" width="190"/>
+	<combo_box name="classified_mature_check" width="190">
+		<combo_item name="select_mature">
+			- Type de public -
+		</combo_item>
+		<combo_item name="mature">
+			Contenu Mature
+		</combo_item>
+		<combo_item name="pg">
+			Contenu PG
+		</combo_item>
+	</combo_box>
 	<combo_box label="" name="classified_category_combo"/>
-	<button label="Mise à jour" name="classified_update_btn" width="80" />
+	<button label="Mise à jour" name="classified_update_btn" width="80"/>
 	<string name="ad_placed_paid">
 		Annonce passée le : [DATE]. Prix : [AMT] L$.
 	</string>

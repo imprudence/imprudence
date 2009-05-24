@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="Joystick" title="Настройки Джойстика">
 	<check_box name="enable_joystick">
 		Увімкнути Джойстик:
 	</check_box>
-	<spinner label="Вісь X" name="JoystickAxis1" />
-	<spinner label="Вісь Y" name="JoystickAxis2" />
-	<spinner label="Вісь Z" name="JoystickAxis0" />
-	<spinner label="Крок" name="JoystickAxis4" />
-	<spinner label="Відхилення" name="JoystickAxis5" />
-	<spinner label="Прокрутка" name="JoystickAxis3" />
-	<spinner label="Масштаб." name="JoystickAxis6" />
-	<check_box label="Пряме масштаб." name="ZoomDirect" />
-	<check_box label="3D курсор" name="Cursor3D" />
-	<check_box label="Авто Рівень" name="AutoLeveling" />
-	<text type="string" length="1" name="Control Modes:">
+	<spinner label="Вісь X" name="JoystickAxis1"/>
+	<spinner label="Вісь Y" name="JoystickAxis2"/>
+	<spinner label="Вісь Z" name="JoystickAxis0"/>
+	<spinner label="Крок" name="JoystickAxis4"/>
+	<spinner label="Відхилення" name="JoystickAxis5"/>
+	<spinner label="Прокрутка" name="JoystickAxis3"/>
+	<spinner label="Масштаб." name="JoystickAxis6"/>
+	<check_box label="Пряме масштаб." name="ZoomDirect"/>
+	<check_box label="3D курсор" name="Cursor3D"/>
+	<check_box label="Авто Рівень" name="AutoLeveling"/>
+	<text length="1" name="Control Modes:" type="string">
 		Режими управл.:
 	</text>
 	<check_box name="JoystickAvatarEnabled">
@@ -64,18 +64,20 @@
 	<text name="Feathering">
 		Розтяжка
 	</text>
-	<slider label="" name="AvatarFeathering" />
-	<slider label="" name="BuildFeathering" />
-	<slider label="" name="FlycamFeathering" />
+	<slider label="" name="AvatarFeathering"/>
+	<slider label="" name="BuildFeathering"/>
+	<slider label="" name="FlycamFeathering"/>
 	<text name="ZoomScale2">
 		Шкала Масштаб.
 	</text>
-	<spinner label="" name="FlycamAxisScale6" />
+	<spinner label="" name="FlycamAxisScale6"/>
 	<text name="ZoomDeadZone">
 		Мер.Зона Масштаб.
 	</text>
-	<spinner label="" name="FlycamAxisDeadZone6" />
-	<button label="За замовчуванням" name="SpaceNavigatorDefaults" />
+	<spinner label="" name="FlycamAxisDeadZone6"/>
+	<button label="За замовчуванням" name="SpaceNavigatorDefaults"/>
+	<button label="OK" label_selected="OK" name="ok_btn"/>
+	<button label="Відміна" label_selected="Відміна" name="cancel_btn"/>
 	<string name="JoystickMonitor">
 		Моніторинг Джойстика
 	</string>

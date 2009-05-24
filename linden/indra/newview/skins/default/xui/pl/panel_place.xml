@@ -19,10 +19,10 @@
 		Ruch: [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Obszar: [AREA] m
+		Obszar: [AREA] m².
 	</string>
 	<string name="forsale_text">
-		Na Sprzedaż za [PRICE]L$
+		Na Sprzedaż za L$[PRICE]
 	</string>
 	<string name="auction_text">
 		ID Aukcji: [ID]

@@ -19,10 +19,10 @@
 		Traffic: [TRAFFIC]
 	</text>
 	<text name="area_text">
-		Gebiet: [AREA] qm
+		Gebiet: [AREA] qm.
 	</text>
 	<text name="forsale_text">
-		Steht zum Verkauf für [PRICE] L$
+		Zum Verkauf für [PRICE] L$
 	</text>
 	<text name="auction_text">
 		Auktions-ID [ID].

@@ -1,52 +1,82 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Угода" name="Covenant">
-	<text name="covenant_help_text">
-		Зміни інформації в Угоді буде застосов. на всіх ділянках
-		в маєток
-	</text>
-	<text name="region_name_lbl">
-		Регіон:
-	</text>
-	<text name="region_name_text">
-		(невідомо)
-	</text>
-	<text name="estate_name_lbl">
+	<text name="estate_section_lbl">
 		Маєток:
 	</text>
+	<text name="estate_name_lbl">
+		Назва:
+	</text>
 	<text name="estate_name_text">
-		(невідомо)
+		материк
 	</text>
 	<text name="estate_owner_lbl">
-		Власник маєтку:
+		Власник:
 	</text>
 	<text name="estate_owner_text">
-		(невідомо)
+		(нічого)
+	</text>
+	<text name="estate_cov_lbl">
+		Угода:
+	</text>
+	<text name="covenant_timestamp_text">
+		Редагувалось Ср Гру 31 16:00:00 1969
+	</text>
+	<button label="?" name="covenant_help"/>
+	<text_editor name="covenant_editor">
+		Немає Угоди для цього Маєтку.
+	</text_editor>
+	<button label="Сброс" name="reset_covenant"/>
+	<text name="covenant_help_text">
+		Зміни в угоді будуть показані на усіх ділянках цього маєтку.
+	</text>
+	<text name="covenant_instructions">
+		Перетягніть сюди замітку, щоб змінити Угоду для цього Маєтку.
+	</text>
+	<text name="region_section_lbl">
+		Регіон:
+	</text>
+	<text name="region_name_lbl">
+		Назва:
+	</text>
+	<text name="region_name_text">
+		leyla
+	</text>
+	<text name="region_landtype_lbl">
+		Тип:
+	</text>
+	<text name="region_landtype_text">
+		Материк / Маєток
+	</text>
+	<text name="region_maturity_lbl">
+		Рейтинг:
+	</text>
+	<text name="region_maturity_text">
+		Adult
+	</text>
+	<text name="resellable_lbl">
+		Перепродаж:
 	</text>
 	<text name="resellable_clause">
-		Придбана земля в цьому регіоні може або не може бути перепродана.
+		Земля у цьому регіоні не може бути перепродана.
+	</text>
+	<text name="changeable_lbl">
+		Розділити:
 	</text>
 	<text name="changeable_clause">
-		Придбана земля в цьому регіоні може або не може бути об&apos;єднана або розділена.
+		Земля у цьому регіоні не може бути об&apos;єднана/розділена.
 	</text>
-	<text name="covenent_instructions">
-		Перетягніть і киньте сюди замітку, щоб змінити Угоду
-		для цього Маєтку.
-	</text>
-	<text_editor name="covenant_editor">
-		Завантаж...
-	</text_editor>
-	<button label="Сброс" name="reset_covenant" />
-	<text name="can_resell">
+	<string name="can_resell">
 		Придбана земля в цьому регіоні може бути перепродана.
-	</text>
-	<text name="can_not_resell">
+	</string>
+	<string name="can_not_resell">
 		Придбана земля в цьому регіоні не може бути перепродана.
-	</text>
-	<text name="can_change">
-		Придбану в цьому регіоні землю можна об&apos;єднати або розділити.
-	</text>
-	<text name="can_not_change">
-		Придбану в цьому регіоні землю неможна об&apos;єднати або розділити.
-	</text>
-	<button label="?" name="covenant_help" />
+	</string>
+	<string name="can_change">
+		Придбану в цьому регіоні землю можна об&apos;єднати або
+розділити.
+	</string>
+	<string name="can_not_change">
+		Придбану в цьому регіоні землю неможна об&apos;єднати або
+розділити.
+	</string>
 </panel>

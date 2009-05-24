@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <!-- This file contains strings that used to be hardcoded in the source.
-     It is only for those strings which don't belong in a floater.
+     It is only for those strings which do not belong in a floater.
      For example, the strings used in avatar chat bubbles, and strings 
      that are returned from one component and may appear in many places-->
 <strings>
@@ -57,7 +57,7 @@
 	<string name="TooltipMustSingleDrop">Only a single item can be dragged here</string>	
 
 	
-	<!-- Indicates that an avatar's name or other similar datum is being retrieved. General usage. -->
+	<!-- Indicates that an avatar name or other similar datum is being retrieved. General usage. -->
 	<string name="RetrievingData">Retrieving...</string>
 
 	<string name="ReleaseNotes">Release Notes</string>
@@ -92,7 +92,7 @@
 	<string name="AssetErrorPriceMismatch">Viewer and server do not agree on price</string>
 	<string name="AssetErrorUnknownStatus">Unknown status</string>
 	
-	<!-- llvoavatar. Displayed in the avatar's chat bubble -->
+	<!-- llvoavatar. Displayed in the avatar chat bubble -->
 	<string name="AvatarEditingApparance">(Editing Appearance)</string>
 	<string name="AvatarAway">Away</string>
 	<string name="AvatarBusy">Busy</string>
@@ -185,6 +185,10 @@
 	
 	<!-- For use when we do not have land type back from the server -->
 	<string name="land_type_unknown">(unknown)</string>
+	
+	<!-- Covenant info -->
+	<string name="covenant_never_modified">Last Modified: (never)</string>
+	<string name="covenant_modified">Last Modified: </string>
 
 	<!-- File load/save dialogs -->
 	<string name="all_files">All Files</string>

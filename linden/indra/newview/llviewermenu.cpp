@@ -212,6 +212,7 @@
 #include "llwlanimator.h"
 #include "llwlparammanager.h"
 #include "llwaterparammanager.h"
+#include "llfloaternotificationsconsole.h"
 
 #include "lltexlayer.h"
 
@@ -297,6 +298,8 @@ void handle_dump_group_info(void *);
 void handle_dump_capabilities_info(void *);
 void handle_dump_focus(void*);
 
+// Advanced->Consoles menu
+void handle_show_notifications_console(void*);
 void handle_region_dump_settings(void*);
 void handle_region_dump_temp_asset_data(void*);
 void handle_region_clear_temp_asset_data(void*);
@@ -746,7 +749,16 @@ void init_client_menu(LLMenuGL* menu)
 										(void*)gDebugView->mMemoryView,
 										  '0', MASK_CONTROL|MASK_SHIFT ) );
 #endif
+		
 		sub->appendSeparator();
+		
+		// Debugging view for unified notifications
+		sub->append(new LLMenuItemCallGL("Notifications Console...",
+						 &handle_show_notifications_console, NULL, NULL, '5', MASK_CONTROL|MASK_SHIFT ));
+		
+
+		sub->appendSeparator();
+
 		sub->append(new LLMenuItemCallGL("Region Info to Debug Console", 
 			&handle_region_dump_settings, NULL));
 		sub->append(new LLMenuItemCallGL("Group Info to Debug Console",
@@ -2599,6 +2611,11 @@ void handle_region_dump_settings(void*)
 		llinfos << "AllowP2P:  " << (regionp->getAllowDirectTeleport() ? "on" : "off") << llendl;
 		llinfos << "Water:     " << (regionp->getWaterHeight()) << llendl;
 	}
+}
+
+void handle_show_notifications_console(void *)
+{
+	LLFloaterNotificationConsole::showInstance();
 }
 
 void handle_dump_group_info(void *)

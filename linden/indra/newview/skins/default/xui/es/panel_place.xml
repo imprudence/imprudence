@@ -19,10 +19,10 @@
 		Tráfico: [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Superficie: [AREA] m²
+		Área: [AREA] m².
 	</string>
 	<string name="forsale_text">
-		En venta for L$ [PRICE]
+		En venta por [PRICE] L$
 	</string>
 	<string name="auction_text">
 		ID de la subasta: [ID].

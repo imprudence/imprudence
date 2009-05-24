@@ -50,9 +50,9 @@
 	#include "GL/gl.h"
 #endif
 
-#if LL_LINUX
+#if defined(LL_LINUX) || defined(WIN32)
  #include <locale.h>
-#endif
+#endif // defined(LL_LINUX) || defined(WIN32)
 
 #include <iostream>
 
@@ -90,23 +90,23 @@ LLMediaImplLLMozLib::LLMediaImplLLMozLib() :
 // (static) super-initialization - called once at application startup
 bool LLMediaImplLLMozLib::startup( LLMediaManagerData* init_data )
 {
-#if LL_LINUX
+#if defined(LL_LINUX) || defined(WIN32)
 	// Yuck, Mozilla's GTK callbacks play with the locale - push/pop
 	// the locale to protect it, as exotic/non-C locales
 	// causes our code lots of general critical weirdness
 	// and crashness. (SL-35450)
 	static std::string saved_locale;
 	saved_locale = setlocale(LC_ALL, NULL);
-#endif // LL_LINUX
+#endif // defined(LL_LINUX) || defined(WIN32)
 
 	bool result = LLMozLib::getInstance()->init( init_data->getBrowserApplicationDir(),
 											init_data->getBrowserComponentDir(),
 											  init_data->getBrowserProfileDir(),
 												init_data->getBrowserParentWindow() );
 
-#if LL_LINUX
+#if defined(LL_LINUX) || defined(WIN32)
 	setlocale(LC_ALL, saved_locale.c_str() );
-#endif // LL_LINUX
+#endif // defined(LL_LINUX) || defined(WIN32)
 
 	return result;
 }
@@ -139,10 +139,10 @@ bool LLMediaImplLLMozLib::init()
 	if ( mWindowId )
 		return false;
 
-#if LL_LINUX
+#if defined(LL_LINUX) || defined(WIN32)
 	static std::string saved_locale;
 	saved_locale = setlocale(LC_ALL, NULL);
-#endif // LL_LINUX
+#endif // defined(LL_LINUX) || defined(WIN32)
 
 	mWindowId = LLMozLib::getInstance()->createBrowserWindow( mBrowserWindowWidth, mBrowserWindowHeight );
 
@@ -162,9 +162,9 @@ bool LLMediaImplLLMozLib::init()
 	// set media depth now we have created a browser window and know what it is
 	setMediaDepth( LLMozLib::getInstance()->getBrowserDepth( mWindowId ) );
 
-#if LL_LINUX
+#if defined(LL_LINUX) || defined(WIN32)
 	setlocale(LC_ALL, saved_locale.c_str() );
-#endif // LL_LINUX
+#endif // defined(LL_LINUX) || defined(WIN32)
 
 	return true;
 }

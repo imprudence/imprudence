@@ -72,7 +72,7 @@ protected:
 
 	/*virtual*/ ~LLNotifyBox();
 
-	LLButton* addButton(std::string const &name, BOOL is_option, BOOL is_default);
+	LLButton* addButton(std::string const &name, const std::string& label, BOOL is_option, BOOL is_default);
 	
 	/*virtual*/ BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL handleRightMouseDown(S32 x, S32 y, MASK mask);

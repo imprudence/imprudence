@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="directory" title="Suchen">
 	<tab_container name="Directory Tabs">
 		<panel label="Alle" name="find_all_panel">
@@ -11,16 +11,13 @@
 			<text name="find">
 				Suchen:
 			</text>
-			<button label="Zurück" name="back_btn" />
-			<button label="Weiter" name="forward_btn" />
-			<line_editor label="Suchen" name="search_editor" tool_tip="Second Life durchsuchen" />
-			<button label="Suchen" name="search_btn" />
+			<line_editor label="Suchen" name="search_editor" tool_tip="Second Life durchsuchen"/>
+			<button label="Zurück" name="back_btn"/>
+			<button label="Weiter" name="forward_btn"/>
+			<button label="Suchen" name="search_btn"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Alle Kategorien
-				</combo_item>
-				<combo_item name="Classifieds">
-					Anzeigen
 				</combo_item>
 				<combo_item name="Events">
 					Events
@@ -38,16 +35,19 @@
 					Wiki
 				</combo_item>
 			</combo_box>
-
-			<text name="loading_text">
+			<check_box label="PG-Inhalt" name="incpg"/>
+			<check_box label="Mature-Inhalt" name="incmature"/>
+			<check_box label="Adult-Inhalt" name="incadult"/>
+			<button label="?" label_selected="?" name="?"/>
+			<string name="loading_text">
 				Wird geladen...
-			</text>
-			<text name="done_text">
+			</string>
+			<string name="done_text">
 				Fertig
-			</text>
-			<text name="redirect_404_url">
+			</string>
+			<string name="redirect_404_url">
 				http://secondlife.com/app/search/notfound.html
-			</text>
+			</string>
 		</panel>
 		<panel label="Anzeigen" name="classified_panel">
 			<string name="searching_text">
@@ -56,13 +56,13 @@
 			<string name="not_found_text">
 				Nicht gefunden.
 			</string>
-			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
-			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<text name="find">
 				Suchen:
 			</text>
-			<line_editor name="name" />
-
+			<line_editor name="name"/>
+			<check_box label="PG-Inhalt" name="incpg"/>
+			<check_box label="Mature-Inhalt" name="incmature"/>
+			<check_box label="Adult-Inhalt" name="incadult"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Alle Kategorien
@@ -95,17 +95,18 @@
 					Persönlich
 				</combo_item>
 			</combo_box>
-			<button label="Durchsuchen" label_selected="Durchsuchen" name="Browse" />
-			<button label="Suchen" label_selected="Suchen" name="Search" />
-			<button label="Anzeige aufgeben..." label_selected="Anzeige aufgeben..."
-			     name="Place an Ad..." />
-			<button label="Löschen" label_selected="Löschen" name="Delete" />
+			<button label="Durchsuchen" label_selected="Durchsuchen" name="Browse"/>
+			<button label="Suchen" label_selected="Suchen" name="Search"/>
+			<button label="Anzeige aufgeben..." label_selected="Anzeige aufgeben..." name="Place an Ad..."/>
+			<button label="Löschen" label_selected="Löschen" name="Delete"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Price" name="price" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Name" name="name"/>
+				<column label="Price" name="price"/>
 			</scroll_list>
+			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;"/>
+			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev"/>
 		</panel>
 		<panel label="Events" name="events_panel">
 			<string name="searching_text">
@@ -114,6 +115,10 @@
 			<string name="not_found_text">
 				Nicht gefunden.
 			</string>
+			<text name="text2">
+				Suchen:
+			</text>
+			<line_editor name="event_search_text"/>
 			<radio_group name="date_mode">
 				<radio_item name="current">
 					Stattfindend und anstehend
@@ -122,24 +127,18 @@
 					Datum
 				</radio_item>
 			</radio_group>
-			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;"
-			     tool_tip="Einen Tag zurück" />
+			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;" tool_tip="Einen Tag zurück"/>
 			<text name="date_text">
 				6/6
 			</text>
-			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;"
-			     tool_tip="Einen Tag weiter" />
-			<button label="Heute" label_selected="Heute" name="Today"
-			     tool_tip="Heutige Events anzeigen" />
-			<text name="text" >
+			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;" tool_tip="Einen Tag weiter"/>
+			<button label="Heute" label_selected="Heute" name="Today" tool_tip="Heutige Events anzeigen"/>
+			<text name="text">
 				Kategorie:
 			</text>
-			<text name="text2" >
-				Suchen:
-			</text>
-			<combo_box name="category combo" width="205">
+			<combo_box name="category combo" width="191">
 				<combo_item name="All">
-					Alle
+					Alle Kategorien
 				</combo_item>
 				<combo_item name="Discussion">
 					Diskussion
@@ -175,42 +174,21 @@
 					Sonstiges
 				</combo_item>
 			</combo_box>
-			<line_editor name="event_search_text" />
-
-			<button label="Suchen" label_selected="Suchen" name="Search" tool_tip="Suchen" />
-			<button label="Löschen" label_selected="Löschen" name="Delete" />
+			<check_box label="PG-Inhalt" name="incpg"/>
+			<check_box label="Mature-Inhalt" name="incmature"/>
+			<check_box label="Adult-Inhalt" name="incadult"/>
+			<button label="Suchen" label_selected="Suchen" name="Search" tool_tip="Suchen"/>
+			<button label="Löschen" label_selected="Löschen" name="Delete"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Time (PT)" name="date" />
-				<column label="" name="event_id" />
-				<column label="Time" name="time" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Name" name="name"/>
+				<column label="Time (PT)" name="date"/>
+				<column label="" name="event_id"/>
+				<column label="Time" name="time"/>
 			</scroll_list>
-			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
-			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-		</panel>
-		<panel label="Beliebte Orte" name="popular_panel">
-			<string name="searching_text">
-				Suchen...
-			</string>
-			<string name="not_found_text">
-				Nicht gefunden.
-			</string>
-			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
-			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<check_box label="Nur Orte mit Bildern anzeigen" name="incpictures" />
-			<text
-			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
-				Das sind die beliebtesten Orte der Second Life-Welt, nach Traffic sowie 
-Zeit gemessen, die Benutzer dort verbringen.
-			</text>
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Traffic" name="dwell" />
-			</scroll_list>
+			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;"/>
+			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev"/>
 		</panel>
 		<panel label="Showcase" name="showcase_panel">
 			<string name="searching_text">
@@ -219,8 +197,8 @@ Zeit gemessen, die Benutzer dort verbringen.
 			<string name="not_found_text">
 				Nicht gefunden.
 			</string>
-			<button label="Zurück" name="back_btn" />
-			<button label="Weiter" name="forward_btn" />
+			<button label="Zurück" name="back_btn"/>
+			<button label="Weiter" name="forward_btn"/>
 			<string name="loading_text">
 				Wird geladen...
 			</string>
@@ -235,11 +213,16 @@ Zeit gemessen, die Benutzer dort verbringen.
 			<string name="not_found_text">
 				Nicht gefunden.
 			</string>
-			<text name="find" >
+			<string name="land_help_text">
+				Land kann direkt für Linden Dollar (L$) oder bei einer Auktion für L$ oder US$ erworben werden.
+Um direkt zu kaufen, klicken Sie auf dem betreffenden Land in der Titelleiste auf den Namen.
+			</string>
+			<text name="find">
 				Suchen:
 			</text>
-			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
-			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
+			<check_box label="PG-Inhalt" name="incpg"/>
+			<check_box label="Mature-Inhalt" name="incmature"/>
+			<check_box label="Adult-Inhalt" name="incadult"/>
 			<combo_box name="type" width="135">
 				<combo_item name="AllTypes">
 					Alle Typen
@@ -254,33 +237,28 @@ Zeit gemessen, die Benutzer dort verbringen.
 					Verkauf - Immobilien
 				</combo_item>
 			</combo_box>
-			<check_box label="Preis &#8804; " name="pricecheck" />
-			<text name="pricecheck_symbol" left="186" >
+			<check_box label="Preis &#8804; " name="pricecheck"/>
+			<text left="183" name="pricecheck_symbol">
 				L$
 			</text>
-			<check_box label="Gebiet &#8805; " name="areacheck" />
-			<text name="areacheck_symbol" left="186">
-				m²
+			<check_box label="Gebiet &#8805; " name="areacheck"/>
+			<text left="183" name="areacheck_symbol">
+				qm
 			</text>
-			<line_editor name="priceedit" left="130"/>
-			<line_editor name="areaedit" left="130"/>
-			<button label="Suchen" label_selected="Suchen" name="Search" />
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-38" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="374"
-			     mouse_opaque="true" name="land" v_pad="0" width="430">
-				Land kann direkt für Linden Dollar (L$) oder bei einer Auktion für L$
-oder US$ erworben werden. Um direkt zu kaufen, klicken sie auf den
-Namen des Landes in der Titelleiste
-			</text>
+			<line_editor left="130" name="priceedit"/>
+			<line_editor left="130" name="areaedit"/>
+			<button label="Suchen" label_selected="Suchen" name="Search"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="L$ Price" name="price" />
-				<column label="Area" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Name" name="name"/>
+				<column label="Typ" name="landtype"/>
+				<column label="L$ Price" name="price"/>
+				<column label="Area" name="area"/>
+				<column label="L$/qm" name="per_meter"/>
 			</scroll_list>
+			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;"/>
+			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev"/>
 		</panel>
 		<panel label="Orte" name="places_panel">
 			<string name="searching_text">
@@ -289,13 +267,13 @@ Namen des Landes in der Titelleiste
 			<string name="not_found_text">
 				Nicht gefunden.
 			</string>
-			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
-			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<text name="find">
 				Suchen:
 			</text>
-			<line_editor name="name" />
-
+			<line_editor name="name"/>
+			<check_box label="PG-Inhalt" name="incpg"/>
+			<check_box label="Mature-Inhalt" name="incmature"/>
+			<check_box label="Adult-Inhalt" name="incadult"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Alle Kategorien
@@ -303,7 +281,6 @@ Namen des Landes in der Titelleiste
 				<combo_item name="LindenLocation">
 					Lindenort
 				</combo_item>
-
 				<combo_item name="Arts&amp;Culture">
 					Kunst und Kultur
 				</combo_item>
@@ -335,13 +312,56 @@ Namen des Landes in der Titelleiste
 					Sonstige
 				</combo_item>
 			</combo_box>
-			<button label="Suchen" label_selected="Suchen" name="Search" />
+			<combo_box name="Category_Adult">
+				<combo_item name="AnyCategory">
+					Alle Kategorien
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Lindenort
+				</combo_item>
+				<combo_item name="Adult">
+					Adult
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Kunst &amp; Kultur
+				</combo_item>
+				<combo_item name="Business">
+					Business
+				</combo_item>
+				<combo_item name="Educational">
+					Bildung
+				</combo_item>
+				<combo_item name="Gaming">
+					Spielen
+				</combo_item>
+				<combo_item name="Hangout">
+					Treffpunkt
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Anfängergerecht
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Parks und Natur
+				</combo_item>
+				<combo_item name="Residential">
+					Wohngebiet
+				</combo_item>
+				<combo_item name="Shopping">
+					Shopping
+				</combo_item>
+				<combo_item name="Other">
+					Sonstige
+				</combo_item>
+			</combo_box>
+			<button label="Suchen" label_selected="Suchen" name="Search"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Traffic" name="dwell" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Name" name="name"/>
+				<column label="Traffic" name="dwell"/>
 			</scroll_list>
+			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;"/>
+			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev"/>
 		</panel>
 		<panel label="Leute" name="people_panel">
 			<string name="searching_text">
@@ -350,18 +370,18 @@ Namen des Landes in der Titelleiste
 			<string name="not_found_text">
 				Nicht gefunden.
 			</string>
-			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
-			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<text left_delta="38" name="find">
 				Suchen:
 			</text>
-			<line_editor left_delta="48" name="name" />
-			<button label="Suchen" label_selected="Suchen" name="Search" />
+			<line_editor left_delta="48" name="name"/>
+			<button label="Suchen" label_selected="Suchen" name="Search"/>
 			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Name" name="name"/>
 			</scroll_list>
+			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;"/>
+			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev"/>
 		</panel>
 		<panel label="Gruppen" name="groups_panel">
 			<string name="searching_text">
@@ -370,59 +390,22 @@ Namen des Landes in der Titelleiste
 			<string name="not_found_text">
 				Nicht gefunden.
 			</string>
-			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
-			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<text left_delta="38" name="find">
 				Suchen:
 			</text>
-			<line_editor left_delta="48" name="name" />
-			<button label="Suchen" label_selected="Suchen" name="Search" />
-
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Members" name="members" />
-				<column label="" name="score" />
-			</scroll_list>
-			<button label="Zurück" name="back_btn" />
-			<button label="Weiter" name="forward_btn" />
-			<line_editor label="Suchen" name="search_editor" tool_tip="Second Life durchsuchen" />
-			<button label="Suchen" name="search_btn" />
-
+			<line_editor label="Suchen" name="search_editor" tool_tip="Second Life durchsuchen"/>
+			<button label="Zurück" name="back_btn"/>
+			<button label="Weiter" name="forward_btn"/>
+			<button label="Suchen" name="search_btn"/>
+			<check_box label="PG-Inhalt" name="incpg"/>
+			<check_box label="Mature-Inhalt" name="incmature"/>
+			<check_box label="Adult-Inhalt" name="incadult"/>
 			<string name="loading_text">
 				Wird geladen...
 			</string>
 			<string name="done_text">
 				Fertig
 			</string>
-		</panel>
-		<panel label="Alle (alt)" name="find_all_old_panel">
-			<string name="searching_text">
-				Suchen...
-			</string>
-			<string name="not_found_text">
-				Nicht gefunden.
-			</string>
-			<button label="&lt; Vorherige/s" label_selected="&lt; Vorherige/s" name="&lt; Prev" />
-			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<text left_delta="38" name="find">
-				Suchen:
-			</text>
-			<line_editor left_delta="48" name="name" />
-			<button label="Suchen" label_selected="Suchen" name="Search" />
-
-			<scroll_list name="results">
-				<column label="Name" name="name" />
-				<column label="Preis" name="price" />
-				<column label="Zeit (PT)" name="date" />
-				<column label="Zeit" name="time" />
-				<column label="Traffic" name="dwell" />
-				<column label="Gebiet" name="area" />
-				<column label="L$/qm" name="per_meter" />
-				<column label="Online" name="online" />
-				<column label="Mitglieder" name="members" />
-			</scroll_list>
 		</panel>
 	</tab_container>
 </floater>

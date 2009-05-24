@@ -65,6 +65,6 @@
 	<text name="nag_message_label">
 		注意：返品や交換はできません
 	</text>
-	<button label="売り地の設定" name="sell_btn"  bottom="-505"/>
+	<button label="販売を決定" name="sell_btn"  bottom="-505"/>
 	<button label="取り消し" name="cancel_btn" />
 </floater>

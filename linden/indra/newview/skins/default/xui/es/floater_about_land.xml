@@ -8,6 +8,18 @@
 			<text length="1" name="Description:" type="string">
 				Descripción:
 			</text>
+			<text name="LandType">
+				Tipo:
+			</text>
+			<text name="LandTypeText">
+				Mainland / Homestead
+			</text>
+			<text name="ContentRating">
+				Calificación:
+			</text>
+			<text name="ContentRatingText">
+				&apos;Adult&apos;
+			</text>
 			<text length="1" name="Owner:" type="string">
 				Propietario:
 			</text>
@@ -29,7 +41,7 @@
 				No está en venta.
 			</text>
 			<text length="1" name="For Sale: Price L$[PRICE]." type="string">
-				Precio: [PRICE] L$
+				Precio: [PRICE] L$ ([PRICE_PER_SQM] L$/m²).
 			</text>
 			<button label="Vender el terreno..." label_selected="Vender el terreno..." name="Sell Land..."/>
 			<text length="1" name="For sale to" type="string">
@@ -108,36 +120,60 @@ Vaya al menú Mundo &gt; Acerca del terreno o seleccione otra parcela para ver s
 			</string>
 		</panel>
 		<panel label="Contrato" name="land_covenant_panel">
-			<text length="1" name="covenant_timestamp_text" type="string">
-				Última modificación, Dic Miér 31 16:00:00 1969
-			</text>
-			<text length="1" name="region_name_lbl" type="string">
-				Región:
-			</text>
-			<text length="1" name="region_name_text" type="string">
-				leyla
+			<text name="estate_section_lbl">
+				Estado:
 			</text>
 			<text length="1" name="estate_name_lbl" type="string">
-				Estado:
+				Nombre:
 			</text>
 			<text length="1" name="estate_name_text" type="string">
 				mainland
 			</text>
 			<text length="1" name="estate_owner_lbl" type="string">
-				Propietario del estado:
+				Propietario:
 			</text>
 			<text length="1" name="estate_owner_text" type="string">
 				(nadie)
 			</text>
-			<text length="1" name="resellable_clause" type="string">
-				El terreno comprado en esta región no se podrá revender.
-			</text>
-			<text length="1" name="changeable_clause" type="string">
-				El terreno comprado en esta región no se podrá unir/dividir.
-			</text>
 			<text_editor length="1" name="covenant_editor" type="string">
 				No se ha aportado un contrato para este estado.
 			</text_editor>
+			<text length="1" name="covenant_timestamp_text" type="string">
+				Última modificación, Dic Miér 31 16:00:00 1969
+			</text>
+			<text name="region_section_lbl">
+				Región:
+			</text>
+			<text length="1" name="region_name_lbl" type="string">
+				Nombre:
+			</text>
+			<text length="1" name="region_name_text" type="string">
+				leyla
+			</text>
+			<text name="region_landtype_lbl">
+				Tipo:
+			</text>
+			<text name="region_landtype_text">
+				Mainland / Homestead
+			</text>
+			<text name="region_maturity_lbl">
+				Calificación:
+			</text>
+			<text name="region_maturity_text">
+				&apos;Adult&apos;
+			</text>
+			<text name="resellable_lbl">
+				Revender:
+			</text>
+			<text length="1" name="resellable_clause" type="string">
+				El terreno de esta región no se podrá revender.
+			</text>
+			<text name="changeable_lbl">
+				Dividir:
+			</text>
+			<text length="1" name="changeable_clause" type="string">
+				El terreno de esta región no se podrá unir/dividir.
+			</text>
 			<string name="can_resell">
 				El terreno comprado en esta región se podrá revender.
 			</string>
@@ -252,6 +288,57 @@ Vaya al menú Mundo &gt; Acerca del terreno o seleccione otra parcela para ver s
 			<check_box label="Seguro (sin daño)" name="check safe" tool_tip="Si se marca, convierte el terreno en &apos;seguro&apos;, desactivando el daño en combate. Si no, se activa el daño en combate."/>
 			<check_box label="Sin &apos;empujones&apos;" name="PushRestrictCheck" tool_tip="Previene scripts que empujen. Marcando esta opción prevendrá que en su terreno haya comportamientos destructivos."/>
 			<check_box label="Mostrar la parcela en Buscar (30 L$/semana) en" name="ShowDirectoryCheck" tool_tip="Let people see this parcel in search results"/>
+			<string name="search_enabled_tooltip">
+				Permitir que aparezca esta parcela en los resultados de la búsqueda
+			</string>
+			<string name="search_disabled_small_tooltip">
+				Esta opción está desactivada porque la parcela tiene 128 m² o menos.
+Sólo las parcelas más grandes pueden listarse en la búsqueda.
+			</string>
+			<string name="search_disabled_permissions_tooltip">
+				Esta opción no esta activada porque usted no puede modificar las opciones de la parcela.
+			</string>
+			<combo_box name="land category with adult">
+				<combo_item name="AnyCategory">
+					Cualquier categoría
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Localización Linden
+				</combo_item>
+				<combo_item name="Adult">
+					&apos;Adult&apos;
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Arte y Cultura
+				</combo_item>
+				<combo_item name="Business">
+					Negocios
+				</combo_item>
+				<combo_item name="Educational">
+					Educativo
+				</combo_item>
+				<combo_item name="Gaming">
+					Juegos de azar
+				</combo_item>
+				<combo_item name="Hangout">
+					Entretenimiento
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Para recién llegados
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Parques y Naturaleza
+				</combo_item>
+				<combo_item name="Residential">
+					Residencial
+				</combo_item>
+				<combo_item name="Shopping">
+					Compras
+				</combo_item>
+				<combo_item name="Other">
+					Otra
+				</combo_item>
+			</combo_box>
 			<combo_box name="land category">
 				<combo_item name="AnyCategory">
 					Cualquier categoría
@@ -259,7 +346,6 @@ Vaya al menú Mundo &gt; Acerca del terreno o seleccione otra parcela para ver s
 				<combo_item name="LindenLocation">
 					Localización Linden
 				</combo_item>
-
 				<combo_item name="Arts&amp;Culture">
 					Arte y Cultura
 				</combo_item>
@@ -292,7 +378,19 @@ Vaya al menú Mundo &gt; Acerca del terreno o seleccione otra parcela para ver s
 				</combo_item>
 			</combo_box>
 			<button label="?" label_selected="?" name="?"/>
-			<check_box name="MatureCheck" />
+			<check_box label="Contenido &apos;Mature&apos;" name="MatureCheck" tool_tip=""/>
+			<string name="mature_check_mature">
+				Contenido &apos;Mature&apos;
+			</string>
+			<string name="mature_check_adult">
+				Contenido &apos;Adult&apos;
+			</string>
+			<string name="mature_check_mature_tooltip">
+				La información o el contenido de su parcela se considera &apos;mature&apos;.
+			</string>
+			<string name="mature_check_adult_tooltip">
+				La información o el contenido de su parcela se considera &apos;adult&apos;.
+			</string>
 			<text length="1" name="Snapshot:" type="string">
 				Foto:
 			</text>
@@ -370,21 +468,14 @@ los media:
 			<text name="Sound:">
 				Sonido:
 			</text>
-			<check_box label="Limitar el sonido a sólo esta parcela" name="check sound local"/>
+			<check_box label="Limitar los gestos y los sonidos de objetos a esta parcela" name="check sound local"/>
+			<button label="?" label_selected="?" name="?"/>
 			<text name="Voice settings:">
 				Voz:
 			</text>
-			<radio_group name="parcel_voice_channel">
-				<radio_item name="Estate">
-					Usar el canal del estado
-				</radio_item>
-				<radio_item name="Private">
-					Usar un canal privado
-				</radio_item>
-				<radio_item name="Disabled">
-					Desactivar el audio ambiental en esta parcela
-				</radio_item>
-			</radio_group>
+			<check_box label="Activar la voz" name="parcel_enable_voice_channel"/>
+			<check_box label="Activar la voz (establecido por el Estado)" name="parcel_enable_voice_channel_is_estate_disabled"/>
+			<check_box label="Limitar la voz a esta parcela" name="parcel_enable_voice_channel_parcel"/>
 		</panel>
 		<panel label="Acceso" name="land_access_panel">
 			<text length="1" name="Limit access to this parcel to:" type="string">

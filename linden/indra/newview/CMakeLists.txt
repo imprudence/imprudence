@@ -1200,6 +1200,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/panel_preferences_input.xml
     skins/default/xui/en-us/panel_preferences_network.xml
     skins/default/xui/en-us/panel_preferences_popups.xml
+    skins/default/xui/en-us/panel_preferences_skins.xml
     skins/default/xui/en-us/panel_preferences_voice.xml
     skins/default/xui/en-us/panel_preferences_web.xml
     skins/default/xui/en-us/panel_progress.xml

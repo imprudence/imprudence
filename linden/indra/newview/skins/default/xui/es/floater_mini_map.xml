@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="minimap">
+	<panel label="Minimapa" name="mini_mapview" tool_tip="(Pulse 2 veces para abrir el mapa)"/>
+</floater>

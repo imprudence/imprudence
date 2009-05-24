@@ -31,8 +31,7 @@
 	     tool_tip="Строительство/создание объектов запрещено" />
 	<button label="" label_selected="" name="no_scripts"
 	     tool_tip="Скрипты запрещены" />
-	<button label="" label_selected="" name="restrictpush"
-	     tool_tip="Толкание запрещено" />
+	<button label="" label_selected="" name="restrictpush" tool_tip="Не толкать"/>
 	<button label="" label_selected="" name="status_no_voice"
 	     tool_tip="Голос здесь недоступен" />
 	<button label="" label_selected="" name="buyland"

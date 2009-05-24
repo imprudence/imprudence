@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Event" title="Подія">
 	<text name="event_name_label">
 		Назва:
@@ -12,7 +12,15 @@
 	<text name="event_category">
 		(немає)
 	</text>
-
+	<text name="event_mature_label">
+		Mature контент:
+	</text>
+	<text name="event_mature_yes">
+		Так
+	</text>
+	<text name="event_mature_no">
+		Немає
+	</text>
 	<text name="event_date_label">
 		Дата:
 	</text>
@@ -46,10 +54,10 @@
 	<text name="event_desc_label">
 		Опис:
 	</text>
-	<button label="Телепорт" name="teleport_btn" />
-	<button label="Показати на карті" name="map_btn" />
-	<button label="Повідомлення" name="notify_btn" />
-	<button label="Створити подію..." name="create_event_btn" />
+	<button label="Телепорт" name="teleport_btn"/>
+	<button label="Показати на карті" name="map_btn"/>
+	<button label="Повідомлення" name="notify_btn"/>
+	<button label="Створити подію..." name="create_event_btn"/>
 	<string name="none">
 		немає
 	</string>

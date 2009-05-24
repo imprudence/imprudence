@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater label="(inconnue)" name="im_floater" title="(inconnue)">
-	<button label="Profil..." label_selected="Profil..." name="profile_btn"/>
-	<button label="Fermer" label_selected="Fermer" name="close_btn"/>
 	<string name="ringing">
 		Appel en cours...
 	</string>
@@ -20,30 +18,33 @@
 	<string name="voice_icon">
 		icn_voice-pvtfocus.tga
 	</string>
+	<string name="title_string">
+		Envoyer un message instantané à [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] est en train d&apos;écrire…
+	</string>
 	<string name="session_start_string">
 		Début de la session avec [NAME], veuillez patienter.
 	</string>
 	<string name="default_text_label">
 		Cliquez ici pour envoyer un message instantané.
 	</string>
+	<string name="unavailable_text_label">
+		Le chat écrit n&apos;est pas disponible pour cet appel.
+	</string>
 	<button label="Profil..." name="profile_callee_btn"/>
 	<button label="Appeler" name="start_call_btn"/>
 	<button label="Raccrocher" name="end_call_btn"/>
 	<panel name="speaker_controls">
-		<button name="mute_btn" tool_tip="Ignorez"/>
+		<button label="" name="mute_btn" tool_tip="Ignorez"/>
 	</panel>
 	<line_editor label="Cliquez ici pour envoyer un message instantané" name="chat_editor"/>
 	<button label="Envoyer" name="send_btn"/>
-	<text name="live_help_dialog">
+	<string name="live_help_dialog">
 		*** Bienvenue sur la page Demande d&apos;aide *** 
 Veuillez au préalable consulter les pages d&apos;aide de Second Life en appuyant sur la touche F1, ou en accédant à la base de connaissances http://secondlife.com/knowledgebase/ 
 Si vous ne trouvez pas ce que vous cherchez, saisissez votre question et attendez quelques instants pour que quelqu&apos;un vous réponde. 
 -=-=- Les temps de réponse varient, surtout pendant les périodes de pointe -=-=-
-	</text>
-	<text name="title_string">
-		Envoyer un message instantané à [NAME]
-	</text>
-	<text name="typing_start_string">
-		[NAME] est en train d&apos;écrire…
-	</text>
+	</string>
 </floater>

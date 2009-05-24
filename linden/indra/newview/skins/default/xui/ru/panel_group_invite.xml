@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="Пригласить участника" name="invite_panel">
 	<text name="help_text">
-		Вы можете пригл. в Группу сразу
-неск. участн., нажмите Выбор Персон.
+		Вы можете выбрать несколько резидентов 
+для приглашения в группу. Нажмите &apos;Открыть 
+Выбор Резидентов&apos;, чтобы начать.
 	</text>
-	<button label="Открыть выбор персон" name="add_button" tool_tip="" />
+	<button label="Открыть Выбор Резидентов" name="add_button" tool_tip=""/>
 	<name_list name="invitee_list"
 	     tool_tip="Чтобы выбрать нескольких резидентов, щелкайте по ним, удерживая клавишу Ctrl" />
 	<button label="Удалить выбранных из списка"

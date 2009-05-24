@@ -10,6 +10,10 @@
 		Informations :
 	</text>
 	<text left="103" name="info_editor" width="338"/>
+	<text name="land_type_label">
+		Type de terrain :
+	</text>
+	<text left="103" name="land_type_display" width="338" />
 	<text name="location_label">
 		Lieu :
 	</text>
@@ -21,7 +25,7 @@
 		Trafic : [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Surface : [AREA] m²
+		Surface : [AREA] m² 
 	</string>
 	<string name="forsale_text">
 		En vente pour [PRICE] L$

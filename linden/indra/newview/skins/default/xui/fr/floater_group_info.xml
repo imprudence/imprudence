@@ -33,7 +33,7 @@
 			<check_box label="Afficher les membres dans la liste du groupe" name="sho_mem"/>
 			<check_box label="Publier sur le web." name="allow_publish" tool_tip="Publiez votre profil sur le web."/>
 			<button label="?" label_selected="?" name="publish_help_btn"/>
-			<check_box name="mature" />
+			<check_box label="Mature" name="mature" tool_tip="Les informations de votre profil sont considérées comme « mature »."/>
 		</panel>
 		<panel label="Titres" name="tit">
 			<text name="txt">

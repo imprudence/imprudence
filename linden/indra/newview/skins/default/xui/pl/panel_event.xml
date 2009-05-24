@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Event" title="Event">
 	<text name="event_name_label">
 		Nazwa:
@@ -12,7 +12,15 @@
 	<text name="event_category">
 		(brak)
 	</text>
-
+	<text name="event_mature_label">
+		Treść &apos;Mature&apos;:
+	</text>
+	<text name="event_mature_yes">
+		Tak
+	</text>
+	<text name="event_mature_no">
+		Nie
+	</text>
 	<text name="event_date_label">
 		Data:
 	</text>
@@ -46,10 +54,10 @@
 	<text name="event_desc_label">
 		Opis:
 	</text>
-	<button label="Teleportuj" name="teleport_btn" />
-	<button label="Pokaż na Mapie" name="map_btn" />
-	<button label="Zawiadom" name="notify_btn" />
-	<button label="Stwórz Impreze..." name="create_event_btn" />
+	<button label="Teleportuj" name="teleport_btn"/>
+	<button label="Pokaż na Mapie" name="map_btn"/>
+	<button label="Zawiadom" name="notify_btn"/>
+	<button label="Stwórz Impreze..." name="create_event_btn"/>
 	<string name="none">
 		brak
 	</string>

@@ -14,7 +14,7 @@
 		<pie_menu label="Attacher &gt;" name="Object Attach" />
 		<menu_item_call label="Renvoyer..." name="Return..." />
 		<pie_menu label="Plus &gt;" name="Rate Menu">
-			<menu_item_call label="Signaler une infraction..." name="Report Abuse..." />
+			<menu_item_call label="Signaler..." name="Report Abuse..."/>
 			<menu_item_call label="Ignorer" name="Object Mute" />
 			<menu_item_call label="Inspecter" name="Object Inspect" />
 		</pie_menu>

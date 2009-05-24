@@ -15,26 +15,17 @@
 	<text length="1" name=" Camera Options:" type="string">
 		Ustawienia Kamery:
 	</text>
+	<text name="camera_fov_label">
+		Kąt Widoku Kamery:
+	</text>
 	<text length="1" name="Camera Follow Distance:" type="string">
 		Dystans Kamery:
 	</text>
-	<slider name="dynamic_camera_strength"/>
-	<text length="1" name="Camera Transition Time:" type="string">
-		Czas Transformacji:
-	</text>
-	<slider name="zoom_time"/>
-	<text length="1" name="Camera Smoothing:" type="string">
-		Płynność Kamery:
-	</text>
-	<slider name="camera_position_smoothing"/>
 	<check_box label="Edycja - Automatyczny Ruch Kamery" name="edit_camera_movement" tool_tip="Używaj automatycznego ustawienia kamery podczas włączania i wyłączania trybu edycji"/>
 	<check_box label="Wygląd - Automatyczny Ruch Kamery" name="appearance_camera_movement" tool_tip="Używaj automatycznego ustawienia kamery w trybu edycji"/>
 	<text length="1" name="text2" type="string">
 		Wyświetlanie Awatara:
 	</text>
 	<check_box label="Awatar Widoczny w Trybie Panoramicznym" name="first_person_avatar_visible"/>
-	<text name="text5">
-		Opcje Joysticka:
-	</text>
 	<button label="Ustawienia Joysticka" name="joystick_setup_button"/>
 </panel>

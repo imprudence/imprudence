@@ -19,10 +19,10 @@
 		Трафік: [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Площа: [AREA] кв.м.
+		Площа: [AREA] м².
 	</string>
 	<string name="forsale_text">
-		Вартість L$ [PRICE]
+		Продається за L$[PRICE]
 	</string>
 	<string name="auction_text">
 		ID аукціона [ID].

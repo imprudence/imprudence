@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Place" title="場所">
 	<text name="name_label">
 		名前：
@@ -9,14 +9,17 @@
 	<text name="information_label">
 		情報：
 	</text>
-	<text left="55" name="info_editor" width="367" font="SansSerifSmall" />
+	<text font="SansSerifSmall" left="55" name="info_editor" width="367"/>
+	<text name="land_type_label">
+		土地の種類：
+	</text>
 	<text name="location_label">
 		ロケーション：
 	</text>
-	<text left="110" name="location_editor" width="327" />
-	<button label="テレポート" name="teleport_btn" />
-	<button label="地図上に表示" name="map_btn" />
-	<button label="賭ける..." name="auction_btn" />
+	<text left="110" name="location_editor" width="327"/>
+	<button label="テレポート" name="teleport_btn"/>
+	<button label="地図上に表示" name="map_btn"/>
+	<button label="賭ける..." name="auction_btn"/>
 	<string name="traffic_text">
 		交通量：[TRAFFIC]
 	</string>
@@ -29,13 +32,13 @@
 	<string name="auction_text">
 		オークションID [ID]
 	</string>
-	<text name="server_update_text">
+	<string name="server_update_text">
 		土地情報のご利用には、サーバーのアップデートが必要です。
-	</text>
-	<text name="server_error_text">
+	</string>
+	<string name="server_error_text">
 		このロケーションの情報は現在ご利用できません。時間をおいて再度お試しください。
-	</text>
-	<text name="server_forbidden_text">
+	</string>
+	<string name="server_forbidden_text">
 		現在の所在地についての情報は、アクセス制限のためご利用できません。区画所有者の許可があるかどうかご確認ください。
-	</text>
+	</string>
 </panel>

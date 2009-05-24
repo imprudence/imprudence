@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<panel name="Panel Avatar">
-	<tab_container name="tab">
-		<panel label="セカンドライフ" name="2nd Life">
+<panel name="Panel Avatar" width="470">
+	<tab_container name="tab" width="459">
+		<panel label="セカンドライフ" name="2nd Life" width="458">
 			<string name="CaptionTextAcctInfo">
 				[ACCTTYPE]
 [PAYMENTINFO]
@@ -37,21 +37,24 @@
 			<text name="Name:">
 				名前：
 			</text>
-			<text name="online_yes">
+			<text name="online_yes" width="151">
 				現在オンライン中
 			</text>
 			<text name="label">
 				生年月日：
 			</text>
+			<line_editor name="born" width="161" />
 			<text name="label2">
 				アカウント：
 			</text>
+			<view_border name="acct_border" width="161" />
+			<text name="acct" width="161" />
 			<text name="partner_label" tool_tip="Second Lifeパートナーです。 設定方法の詳細については、www.secondlife.com/partnerを参照してください。">
 				ﾊﾟｰﾄﾅｰ：
 			</text>
-			<button label="i" label_selected="i" name="partner_info" tool_tip="クリックして、パートナーのプロフィールを開けてください。"/>
+			<button label="i" label_selected="i" name="partner_info" tool_tip="クリックして、パートナーのプロフィールを開けてください。" left_delta="64"/>
 			<button label="?" label_selected="?" name="partner_help"/>
-			<line_editor name="partner_edit" tool_tip="Second Lifeパートナーです。 設定方法の詳細については、www.secondlife.com/partnerを参照してください。">
+			<line_editor name="partner_edit" tool_tip="Second Lifeパートナーです。 設定方法の詳細については、www.secondlife.com/partnerを参照してください。" width="161">
 				[FIRST] [LAST]
 			</line_editor>
 			<text name="Photo:">
@@ -61,28 +64,33 @@
 			<text name="Groups:">
 				グループ：
 			</text>
+			<scroll_list name="groups" width="361" />
 			<text name="About:">
 				情報：
 			</text>
 			<text name="(500 chars)">
 				(500字)
 			</text>
+			<text_editor name="about" width="361"/>
 			<text name="Give item:">
 				品目を贈る：
 			</text>
-			<text name="Give inventory" tool_tip="ここに物品目をドロップしてこの人に贈ります">
+			<view_border name="drop_target_rect" width="449" />
+			<view_border name="drop_target_rect_vis" width="361" />
+			<text name="Give inventory" tool_tip="ここに物品目をドロップしてこの人に贈ります" width="361">
 				持ち物アイテムをここにドロップします
 			</text>
 			<check_box label="検索に表示" name="allow_publish" tool_tip="検索で、詳細やイメージなどさらなるプロフィール情報を公開する。"/>
 			<button label="?" label_selected="?" name="?"/>
 			<button label="地図上で検索" label_selected="地図上で検索" name="Find on Map"/>
-			<button label="テレポートを贈る" label_selected="テレポートを贈る" name="Offer Teleport..."/>
-			<button label="フレンドを追加" label_selected="フレンドを追加" name="Add Friend..."/>
+			<button label="テレポートを贈る" label_selected="テレポートを贈る" name="Offer Teleport..." left_delta="117"/>
+			<button label="フレンドを追加" label_selected="フレンドを追加" name="Add Friend..." left_delta="157"/>
 			<button label="支払う" label_selected="支払う" name="Pay..."/>
-			<button label="ｲﾝｽﾀﾝﾄ･ﾒｯｾｰｼﾞ" label_selected="ｲﾝｽﾀﾝﾄ･ﾒｯｾｰｼﾞ" name="Instant Message..." tool_tip="インスタント・メッセージ (IM)"/>
-			<button label="無視する" label_selected="無視する" name="Mute"/>
+			<button label="ｲﾝｽﾀﾝﾄ･ﾒｯｾｰｼﾞ" label_selected="ｲﾝｽﾀﾝﾄ･ﾒｯｾｰｼﾞ" name="Instant Message..." tool_tip="インスタント・メッセージ (IM)" left_delta="117"/>
+			<button label="無視する" label_selected="無視する" name="Mute" left_delta="157"/>
 		</panel>
-		<panel label="ウェブ" name="WebProfile">
+		<panel label="ウェブ" name="WebProfile" width="458">
+		  <line_editor name="url_edit" width="440" />
 			<flyout_button label="ロード" label_selected="ロード" name="load" tool_tip="プロファイル・ページを内蔵ブラウザーでロードします。">
 				<flyout_button_item name="open_item">
 					内蔵ブラウザ
@@ -93,8 +101,9 @@
 			</flyout_button>
 			<button label="?" label_selected="?" name="web_profile_help"/>
 			<check_box label="ウェブ・プロフィール自動ロード" name="auto_load" tool_tip="プロフィールにあるすべてのウェブ・ページを確認なしで自動的にロードする"/>
+			<web_browser name="profile_html" width="440" />
 		</panel>
-		<panel label="興味" name="Interests">
+		<panel label="興味" name="Interests" width="458">
 			<text name="I Want To:" width="74">
 				したいこと：
 			</text>
@@ -106,6 +115,7 @@
 			<check_box label="購入" name="chk4"/>
 			<check_box label="販売" name="chk5"/>
 			<check_box label="雇用" name="chk7"/>
+			<line_editor name="want_to_edit" width="360" />
 			<text name="Skills:">
 				スキル：
 			</text>
@@ -115,11 +125,14 @@
 			<check_box label="モデル" name="schk3"/>
 			<check_box label="スクリプト" name="schk4"/>
 			<check_box label="キャラクターのカスタム" name="schk5"/>
+			<line_editor name="skills_edit" width="360" />
 			<text name="Languages:">
 				言語：
 			</text>
+			<line_editor name="languages_edit" width="360" />
 		</panel>
-		<panel label="ピック" name="Picks">
+		<panel label="ピック" name="Picks" width="458">
+			<tab_container name="picks tab" width="452" />
 			<text name="Tell everyone about your favorite places in Second Life.">
 				Second Lifeのお気入りの場所を皆に教えてください
 			</text>
@@ -129,7 +142,8 @@
 				ロード中．．．
 			</text>
 		</panel>
-		<panel label="クラシファイド広告" name="Classified">
+		<panel label="クラシファイド広告" name="Classified" width="458">
+			<tab_container name="classified tab" width="452" />
 			<text name="Place an ad in Second Life&apos;s classified listings.">
 				SecondLifeのクラシファイドリストに広告を載せます。
 			</text>
@@ -139,7 +153,8 @@
 				ロード中．．．
 			</text>
 		</panel>
-		<panel label="リアルライフ" name="1st Life">
+		<panel label="リアルライフ" name="1st Life" width="458">
+			<text_editor name="about" width="370" />
 			<text name="Photo:">
 				写真：
 			</text>
@@ -151,11 +166,12 @@
 				(250字)
 			</text>
 		</panel>
-		<panel label="私の記録" name="My Notes">
+		<panel label="私の記録" name="My Notes" width="458">
+			<text_editor name="notes edit" width="430"/>
 			<string name="Loading">
 				ロード中．．．
 			</string>
-			<text name="label">
+			<text name="label" width="452">
 				このスペースには、進行中の取引、共同プロジェクトなどこの人物に関
 わるメモを記録してください。 本人を含めた他人には見ることのできな
 い、あなただけのメモ帳です。</text>

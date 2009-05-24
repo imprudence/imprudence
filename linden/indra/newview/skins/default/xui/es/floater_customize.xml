@@ -21,7 +21,6 @@
 					Varón
 				</radio_item>
 			</radio_group>
-			<button label="Aleatoria" label_selected="Aleatoria" name="Randomize"/>
 			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
@@ -43,10 +42,12 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Forma:
+			</text>
 			<button label="Crear una forma nueva" label_selected="Crear una forma nueva" name="Create New"/>
-			<button label="Quitarla" label_selected="Quitarla" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 		</panel>
 		<panel label="Piel" name="Skin">
 			<button label="Color de piel" label_selected="Color de piel" name="Skin Color"/>
@@ -74,14 +75,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Piel:
+			</text>
 			<texture_picker label="Tatuajes de la cabeza" name="Head Tattoos" tool_tip="Pulse para elegir una imagen"/>
 			<texture_picker label="Tatuajes superiores" name="Upper Tattoos" tool_tip="Pulse para elegir una imagen"/>
 			<texture_picker label="Tatuajes inferiores" name="Lower Tattoos" tool_tip="Pulse para elegir una imagen"/>
-			<button label="Aleatoria" label_selected="Aleatoria" name="Randomize"/>
 			<button label="Crear una piel nueva" label_selected="Crear una piel nueva" name="Create New"/>
-			<button label="Quitarla" label_selected="Quitarla" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 		</panel>
 		<panel label="Pelo" name="Hair">
@@ -110,12 +112,13 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Pelo:
+			</text>
 			<texture_picker label="Textura" name="Texture" tool_tip="Pulse para elegir una imagen"/>
-			<button label="Aleatorio" label_selected="Aleatorio" name="Randomize"/>
 			<button label="Crear un pelo nuevo" label_selected="Crear un pelo nuevo" name="Create New"/>
-			<button label="Quitarlo" label_selected="Quitarlo" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 		</panel>
 		<panel label="Ojos" name="Eyes">
@@ -140,12 +143,13 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Ojos:
+			</text>
 			<texture_picker label="Iris" name="Iris" tool_tip="Pulse para elegir una imagen"/>
-			<button label="Aleatorios" label_selected="Aleatorios" name="Randomize"/>
 			<button label="Crear unos ojos nuevos" label_selected="Crear unos ojos nuevos" name="Create New"/>
-			<button label="Quitarlos" label_selected="Quitarlos" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 		</panel>
 		<panel label="Ropa" name="clothes_placeholder"/>
@@ -155,7 +159,7 @@
 			<button label="Crear una falda nueva" label_selected="Crear una falda nueva" name="Create New"/>
 			<button label="Quitarla" label_selected="Quitarla" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 			<text length="1" name="title" type="string">
 				[DESC]
@@ -178,6 +182,9 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Camiseta:
+			</text>
 		</panel>
 		<panel label="Pantalones" name="Pants">
 			<texture_picker label="Tela" name="Fabric" tool_tip="Pulse para elegir una imagen"/>
@@ -185,7 +192,7 @@
 			<button label="Crear unos pantalones nuevos" label_selected="Crear unos pantalones nuevos" name="Create New"/>
 			<button label="Quitarlos" label_selected="Quitarlos" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 			<text length="1" name="title" type="string">
 				[DESC]
@@ -207,6 +214,9 @@
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
+			</text>
+			<text name="Item Action Label">
+				Pantalones:
 			</text>
 		</panel>
 		<panel label="Shoes" name="Shoes">
@@ -231,12 +241,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Zapatos:
+			</text>
 			<texture_picker label="Tela" name="Fabric" tool_tip="Pulse para elegir una imagen"/>
 			<color_swatch label="Color/Tinte" name="Color/Tint" tool_tip="Pulse para abrir el selector de color"/>
 			<button label="Crear unos zapatos nuevos" label_selected="Crear unos zapatos nuevos" name="Create New"/>
 			<button label="Quitarlos" label_selected="Quitarlos" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 		</panel>
 		<panel label="Calcetines" name="Socks">
@@ -261,12 +274,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Calcetines:
+			</text>
 			<texture_picker label="Tela" name="Fabric" tool_tip="Pulse para elegir una imagen"/>
 			<color_swatch label="Color/Tinte" name="Color/Tint" tool_tip="Pulse para abrir el selector de color"/>
 			<button label="Crear unos calcetines nuevos" label_selected="Crear unos calcetines nuevos" name="Create New"/>
 			<button label="Quitarlos" label_selected="Quitarlos" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 		</panel>
 		<panel label="Chaqueta" name="Jacket">
@@ -291,13 +307,16 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Chaqueta:
+			</text>
 			<texture_picker label="Tela superior" name="Upper Fabric" tool_tip="Pulse para elegir una imagen"/>
 			<texture_picker label="Tela inferior" name="Lower Fabric" tool_tip="Pulse para elegir una imagen"/>
 			<color_swatch label="Color/Tinte" name="Color/Tint" tool_tip="Pulse para abrir el selector de color"/>
 			<button label="Crear una chaqueta nueva" label_selected="Crear una chaqueta nueva" name="Create New"/>
 			<button label="Quitarla" label_selected="Quitarla" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 		</panel>
 		<panel label="Guantes" name="Gloves">
@@ -322,12 +341,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Guantes:
+			</text>
 			<texture_picker label="Tela" name="Fabric" tool_tip="Pulse para elegir una imagen"/>
 			<color_swatch label="Color/Tinte" name="Color/Tint" tool_tip="Pulse para abrir el selector de color"/>
 			<button label="Crear unos guantes nuevos" label_selected="Crear unos guantes nuevos" name="Create New"/>
 			<button label="Quitarlos" label_selected="Quitarlos" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 		</panel>
 		<panel label="Camiseta" name="Undershirt">
@@ -352,12 +374,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Camiseta:
+			</text>
 			<texture_picker label="Tela" name="Fabric" tool_tip="Pulse para elegir una imagen"/>
 			<color_swatch label="Color/Tinte" name="Color/Tint" tool_tip="Pulse para abrir el selector de color"/>
 			<button label="Crear una camiseta nueva" label_selected="Crear una camiseta nueva" name="Create New"/>
 			<button label="Quitarla" label_selected="Quitarla" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 		</panel>
 		<panel label="Ropa interior" name="Underpants">
@@ -382,12 +407,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Ropa interior:
+			</text>
 			<texture_picker label="Tela" name="Fabric" tool_tip="Pulse para elegir una imagen"/>
 			<color_swatch label="Color/Tinte" name="Color/Tint" tool_tip="Pulse para abrir el selector de color"/>
 			<button label="Crear una ropa interior nueva" label_selected="Crear una ropa interior nueva" name="Create New"/>
 			<button label="Quitarla" label_selected="Quitarla" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 		</panel>
 		<panel label="Falda" name="Skirt">
@@ -412,16 +440,19 @@
 			<text length="1" name="no modify instructions" type="string">
 				No tiene permiso para modificar este ítem.
 			</text>
+			<text name="Item Action Label">
+				Falda:
+			</text>
 			<texture_picker label="Tela" name="Fabric" tool_tip="Pulse para elegir una imagen"/>
 			<color_swatch label="Color/Tinte" name="Color/Tint" tool_tip="Pulse para abrir el selector de color"/>
 			<button label="Crear una falda nueva" label_selected="Crear una falda nueva" name="Create New"/>
 			<button label="Quitarla" label_selected="Quitarla" name="Take Off"/>
 			<button label="Guardar" label_selected="Guardar" name="Save"/>
-			<button label="Guardar como" label_selected="Guardar como" name="Save As"/>
+			<button label="Guardar como..." label_selected="Guardar como..." name="Save As"/>
 			<button label="Restablecer" label_selected="Restablecer" name="Revert"/>
 		</panel>
 	</tab_container>
-	<button label="Cerrar" label_selected="Cerrar" name="Close"/>
-	<button label="Guardar todo" label_selected="Guardar todo" name="Save All"/>
-	<button label="Hacer un vestuario" label_selected="Hacer un vestuario" name="Make Outfit"/>
+	<button label="Cancelar" label_selected="Cancelar" name="Cancel"/>
+	<button label="OK" label_selected="OK" name="Ok"/>
+	<button label="Hacer un vestuario..." label_selected="Hacer un vestuario..." name="Make Outfit"/>
 </floater>

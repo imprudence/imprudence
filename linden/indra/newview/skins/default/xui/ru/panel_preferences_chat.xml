@@ -1,62 +1,54 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Текстовый чат" name="chat">
-	<text type="string" length="1" name="text_box">
+	<text length="1" name="text_box" type="string">
 		Размер шрифта:
 	</text>
-	<radio_group name="chat font size">
-		<radio_item type="string" length="1" name="radio">
+	<radio_group name="chat_font_size">
+		<radio_item name="radio">
 			Маленький
 		</radio_item>
-		<radio_item type="string" length="1" name="radio2">
+		<radio_item name="radio2">
 			Средний
 		</radio_item>
-		<radio_item type="string" length="1" name="radio3">
+		<radio_item name="radio3">
 			Большой
 		</radio_item>
 	</radio_group>
-	<text type="string" length="1" name="text_box2">
+	<text length="1" name="text_box2" type="string">
 		Цвет чата:
 	</text>
-	<color_swatch label="Чат" name="users" />
-	<color_swatch label="IM" name="im" />
-	<color_swatch label="Систем." name="system" />
-	<color_swatch label="Объекты" name="objects" />
-	<color_swatch label="Влад." name="owner" />
-	<color_swatch label="Фон" name="background" />
-	<color_swatch label="URL-ы" name="links" />
-	<text type="string" length="1" name="text_box3">
+	<color_swatch label="Вы" name="user"/>
+	<color_swatch label="Другие" name="agent"/>
+	<color_swatch label="IM" name="im"/>
+	<color_swatch label="Систем." name="system"/>
+	<color_swatch label="Ошибки" name="script_error"/>
+	<color_swatch label="Объекты" name="objects"/>
+	<color_swatch label="Влад." name="owner"/>
+	<color_swatch label="Фон" name="background"/>
+	<color_swatch label="URL-ы" name="links"/>
+	<text length="1" name="text_box3" type="string">
 		Консоль чата:
 	</text>
-	<spinner label="Закрыть после" name="fade_chat_time" />
-	<text type="string" length="1" name="text_box4">
+	<spinner label="Закрыть после" name="fade_chat_time"/>
+	<text length="1" name="text_box4" type="string">
 		(секунд)
 	</text>
-	<text type="string" length="1" name="text_box5">
+	<text length="1" name="text_box5" type="string">
 		(строк)
 	</text>
-	<slider label="Прозрачность" name="console_opacity" />
-	<text type="string" length="1" name="text_box6">
+	<slider label="Прозрачность" name="console_opacity"/>
+	<check_box label="Полный экран (Требует перезагрузки)" name="chat_full_width_check"/>
+	<text length="1" name="text_box6" type="string">
 		Опции чата:
 	</text>
-	<check_box
-	     label="Полноэкранный режим чата(после перезагрузки)"
-	     name="chat_full_width_check" />
-	<check_box label="Закрыть чат после отсылки"
-	     name="close_chat_on_return_check" />
-	<check_box label="Стрелки двигают аватара в чате"
-	     name="arrow_keys_move_avatar_check" />
-	<check_box label="Показывать время в чате"
-	     name="show_timestamps_check" />
-	<text type="string" length="1" name="text_box7">
+	<check_box label="Закрыть строку чата после нажатия Enter" name="close_chat_on_return_check"/>
+	<check_box label="Стрелки двигают аватара в чате" name="arrow_keys_move_avatar_check"/>
+	<check_box label="Показывать время в Общем Чате" name="show_timestamps_check"/>
+	<check_box label="Показывать ошибки и предупреждения в окне чата" name="script_errors_as_chat"/>
+	<check_box label="Играть анимацию печати во время чата" name="play_typing_animation"/>
+	<text length="1" name="text_box7" type="string">
 		Чат в пузырьках:
 	</text>
-	<check_box label="Показывать чат в пузыре" name="bubble_text_chat" />
-	<slider label="Прозрачность" name="bubble_chat_opacity" />
-	<text type="string" length="1" name="text_box8">
-		Ошибки скрипта:
-	</text>
-	<check_box
-	     label="Показывать ошибки и предупреждения в окне чата"
-	     name="script_errors_as_chat" />
-	<color_swatch label="Цвет" name="script_error" />
+	<check_box label="Показывать чат в пузыре" name="bubble_text_chat"/>
+	<slider label="Прозрачность" name="bubble_chat_opacity"/>
 </panel>

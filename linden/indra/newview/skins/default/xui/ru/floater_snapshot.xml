@@ -1,31 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="Snapshot" title="Просмотр скриншота">
 	<text name="type_label">
-		Что вы хотели бы сделать?
+		Куда сохранить скриншот
 	</text>
 	<radio_group label="Тип скриншота" name="snapshot_type_radio">
 		<radio_item name="postcard">
-			Послать Открытку
+			Отправить по email
 		</radio_item>
 		<radio_item name="texture">
-			Загрузить скриншот (L$[AMOUNT])
+			Сохранить в инвентарь (L$[AMOUNT])
 		</radio_item>
 		<radio_item name="local">
-			Сохранить скриншот на диск
+			Сохранить на жесткий диск
 		</radio_item>
 	</radio_group>
 	<text name="file_size_label">
 		Размер файла: [SIZE] KB
 	</text>
-	<button label="Обновить Скриншот" name="new_snapshot_btn" />
-	<button label="Отправить" name="send_btn" />
-	<button label="Загруз.(L$[AMOUNT])" name="upload_btn" />
-	<button label="Сохранить" name="save_btn" />
-	<button label="Отмена" name="discard_btn" />
-	<button label="Больше &gt;&gt;" name="more_btn" tool_tip="Доп. опции" />
-	<button label="&lt;&lt; Меньше" name="less_btn" tool_tip="Доп. опции" />
+	<button label="Обновить Скриншот" name="new_snapshot_btn"/>
+	<button label="Отправить" name="send_btn"/>
+	<button label="Загруз.(L$[AMOUNT])" name="upload_btn"/>
+	<flyout_button label="Сохранить" name="save_btn" tool_tip="Сохранить в файл">
+		<flyout_button_item name="save_item">
+			Сохранить
+		</flyout_button_item>
+		<flyout_button_item name="saveas_item">
+			Сохранить как...
+		</flyout_button_item>
+	</flyout_button>
+	<button label="Отмена" name="discard_btn"/>
+	<button label="Больше &gt;&gt;" name="more_btn" tool_tip="Доп. опции"/>
+	<button label="&lt;&lt; Меньше" name="less_btn" tool_tip="Доп. опции"/>
 	<text name="type_label2">
-		Размер изображения
+		Размер
+	</text>
+	<text name="format_label">
+		Формат
 	</text>
 	<combo_box label="Разрешение" name="postcard_size_combo">
 		<combo_item name="CurrentWindow">
@@ -87,10 +97,21 @@
 			Пользовательский
 		</combo_item>
 	</combo_box>
-	<spinner label="Шир." name="snapshot_width" />
-	<spinner label="Выс." name="snapshot_height" />
-	<check_box label="Сохранить пропорции" name="keep_aspect_check" />
-	<slider label="Качество изображения" name="image_quality_slider" />
+	<combo_box label="Формат" name="local_format_combo">
+		<combo_item name="PNG">
+			PNG
+		</combo_item>
+		<combo_item name="JPEG">
+			JPEG
+		</combo_item>
+		<combo_item name="BMP">
+			BMP
+		</combo_item>
+	</combo_box>
+	<spinner label="Шир." name="snapshot_width"/>
+	<spinner label="Выс." name="snapshot_height"/>
+	<check_box label="Сохранить пропорции" name="keep_aspect_check"/>
+	<slider label="Качество изображения" name="image_quality_slider"/>
 	<text name="layer_type_label">
 		Захв.:
 	</text>
@@ -105,12 +126,11 @@
 			Маски объектов
 		</combo_item>
 	</combo_box>
-	<check_box label="Показывать интерфейс" name="ui_check" />
-	<check_box label="Показывать HUD" name="hud_check" />
-	<check_box label="Оставить открытым" name="keep_open_check" />
-	<check_box label="Полноэкранный предпросмотр"
-	     name="freeze_frame_check" />
-	<check_box label="Автообновление" name="auto_snapshot_check" />
+	<check_box label="Показывать интерфейс" name="ui_check"/>
+	<check_box label="Показывать HUD" name="hud_check"/>
+	<check_box label="Оставить открытым" name="keep_open_check"/>
+	<check_box label="Полноэкранный предпросмотр" name="freeze_frame_check"/>
+	<check_box label="Автообновление" name="auto_snapshot_check"/>
 	<string name="unknown">
 		неизвестный
 	</string>

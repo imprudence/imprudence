@@ -51,7 +51,7 @@
 				<column label="Внесок" name="donated" />
 				<column label="Останній вхід" name="online" />
 			</name_list>
-			<button label="Запросити нового..." name="member_invite" />
+			<button label="Запросити учасника..." name="member_invite"/>
 			<button label="Виключити з групи" name="member_eject" />
 			<string name="help_text">
 				Ви можете додавати або прибирати ролі учасників.. 

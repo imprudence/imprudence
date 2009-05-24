@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater label="(nieznany)" name="im_floater" title="(nieznany)">
 	<string name="ringing">
 		Dzwonię...
@@ -30,14 +30,17 @@
 	<string name="default_text_label">
 		Wpisz treść wiadomości
 	</string>
-	<button label="Profil..." name="profile_callee_btn" />
-	<button label="Dzwoń" name="start_call_btn" />
-	<button label="Skończ" name="end_call_btn" />
+	<string name="unavailable_text_label">
+		Czat nie jest dostępny dla tej rozmowy
+	</string>
+	<button label="Profil..." name="profile_callee_btn"/>
+	<button label="Dzwoń" name="start_call_btn"/>
+	<button label="Skończ" name="end_call_btn"/>
 	<panel name="speaker_controls">
-		<button label="" name="mute_btn" tool_tip="Wycisz głos" />
+		<button label="" name="mute_btn" tool_tip="Wycisz głos"/>
 	</panel>
-	<line_editor label="Wpisz treść wiadomości" name="chat_editor" />
-	<button label="Wyślij" name="send_btn" />
+	<line_editor label="Wpisz treść wiadomości" name="chat_editor"/>
+	<button label="Wyślij" name="send_btn"/>
 	<string name="live_help_dialog">
 		*** Witamy w Serwisie Pomocy *** 
 Proszę o zapoznanie się ze stroną pomocy Second Life poprzez wciśnięcie klawisza F1 lub skorzystanie z Bazy Wiedzy (Knowledge Base) na http://secondlife.com/knowledgebase/ 

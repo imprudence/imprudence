@@ -7,10 +7,10 @@
 		<layout_panel name="moderation_mode_panel">
 			<combo_box name="moderation_mode">
 				<combo_item name="OpenVoice">
-					Відкритий Голос (за замовч.)
+					Голоси увімкнені за замовчуванням
 				</combo_item>
 				<combo_item name="ModeratedVoice">
-					Модерований Голос
+					Голоси вимкнені за замовчуванням
 				</combo_item>
 			</combo_box>
 		</layout_panel>

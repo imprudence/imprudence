@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="groupinfo" title="Die Lindens - Gruppeninfo">
 	<tab_container name="tab">
 		<panel label="Allgemein" name="gen">
@@ -29,12 +29,11 @@
 			<text name="lbl2">
 				Charta:
 			</text>
-			<check_box label="In Gruppenliste anzeigen" name="sho" />
-			<check_box label="Mitglieder in Gruppenliste anzeigen" name="sho_mem" />
-			<check_box label="Im Web veröffentlichen." name="allow_publish"
-			     tool_tip="Veröffentlicht Ihre Profilinformationen im Web." />
-			<button label="?" label_selected="?" name="publish_help_btn" />
-			<check_box name="mature" />
+			<check_box label="In Gruppenliste anzeigen" name="sho"/>
+			<check_box label="Mitglieder in Gruppenliste anzeigen" name="sho_mem"/>
+			<check_box label="Im Web veröffentlichen." name="allow_publish" tool_tip="Veröffentlicht Ihre Profilinformationen im Web."/>
+			<button label="?" label_selected="?" name="publish_help_btn"/>
+			<check_box label="Mature" name="mature" tool_tip="Ihre Profilinformationen sind als „Mature“ gekennzeichnet."/>
 		</panel>
 		<panel label="Titel" name="tit">
 			<text name="txt">
@@ -55,7 +54,7 @@
 			<text name="lbl3">
 				Ziehen Sie für die Gruppeninsignien eine Textur aus Ihrem Inventar.
 			</text>
-			<texture_picker name="insig" tool_tip="Klicken Sie hier, um ein Bild auszuwählen" />
+			<texture_picker name="insig" tool_tip="Klicken Sie hier, um ein Bild auszuwählen"/>
 		</panel>
 		<panel label="Mitglieder" name="mem">
 			<text name="txt">
@@ -73,8 +72,7 @@
 			<text name="members_label">
 				Mitglieder:
 			</text>
-			<button label="Mitglied ausschließen" label_selected="Mitglied ausschließen"
-			     name="eject_member_btn" />
+			<button label="Mitglied ausschließen" label_selected="Mitglied ausschließen" name="eject_member_btn"/>
 		</panel>
 		<panel label="Abstimmung" name="voting">
 			<tab_container name="tab">
@@ -89,14 +87,13 @@ Zu den Kandidaten gehören alle Mitglieder, die keine Officer sind.
 					<text name="lbl">
 						Kandidaten:
 					</text>
-					<button label="Abstimmen" label_selected="Abstimmen" name="btn_vote" />
-					<button label="Enthalten" label_selected="Enthalten" name="btn_abstain" />
-					<button label="Wahl starten" label_selected="Wahl starten" name="btn_start_election" />
+					<button label="Abstimmen" label_selected="Abstimmen" name="btn_vote"/>
+					<button label="Enthalten" label_selected="Enthalten" name="btn_abstain"/>
+					<button label="Wahl starten" label_selected="Wahl starten" name="btn_start_election"/>
 					<text name="lbl2">
 						Quorum:
 					</text>
-					<spinner name="quorum"
-					     tool_tip="# abstimmende Mitglieder für einen bindenden Wahlbeschluss." />
+					<spinner name="quorum" tool_tip="# abstimmende Mitglieder für einen bindenden Wahlbeschluss."/>
 					<text name="quorum_text">
 						von insgesamt 111 Gruppenmitgliedern.
 					</text>
@@ -117,7 +114,7 @@ Zu den Kandidaten gehören alle Mitglieder, die keine Officer sind.
 					<text name="duration_lbl">
 						Dauer:
 					</text>
-					<spinner name="duration" tool_tip="# Tage bis zum Ende der Wahl." />
+					<spinner name="duration" tool_tip="# Tage bis zum Ende der Wahl."/>
 					<text name="duration_days">
 						Tage
 					</text>
@@ -139,18 +136,17 @@ um eine neue Anfrage zu erstellen.
 					<text name="proposal_lbl">
 						Angebote:
 					</text>
-					<button label="Ja" label_selected="Ja" name="btn_yes" />
-					<button label="Nein" label_selected="Nein" name="btn_no" />
-					<button label="Enthalten" label_selected="Enthalten" name="btn_abstain" />
-					<button label="Liste anzeigen" label_selected="Liste anzeigen" name="btn_view_list" />
-					<button label="Objekt anzeigen" label_selected="Objekt anzeigen" name="btn_view_item" />
-					<button label="Neue Anfrage" label_selected="Neue Anfrage" name="btn_proposal" />
-					<button label="Senden" label_selected="Senden" name="btn_submit" />
+					<button label="Ja" label_selected="Ja" name="btn_yes"/>
+					<button label="Nein" label_selected="Nein" name="btn_no"/>
+					<button label="Enthalten" label_selected="Enthalten" name="btn_abstain"/>
+					<button label="Liste anzeigen" label_selected="Liste anzeigen" name="btn_view_list"/>
+					<button label="Objekt anzeigen" label_selected="Objekt anzeigen" name="btn_view_item"/>
+					<button label="Neue Anfrage" label_selected="Neue Anfrage" name="btn_proposal"/>
+					<button label="Senden" label_selected="Senden" name="btn_submit"/>
 					<text name="quorum_lbl">
 						Quorum:
 					</text>
-					<spinner name="quorum"
-					     tool_tip="# abstimmende Mitglieder für einen bindenden Wahlbeschluss." />
+					<spinner name="quorum" tool_tip="# abstimmende Mitglieder für einen bindenden Wahlbeschluss."/>
 					<text name="quorum_text">
 						von insgesamt 111 Gruppenmitgliedern.
 					</text>
@@ -171,7 +167,7 @@ um eine neue Anfrage zu erstellen.
 					<text name="duration_lbl">
 						Dauer:
 					</text>
-					<spinner name="duration" tool_tip="# Tage bis zum Ende der Wahl." />
+					<spinner name="duration" tool_tip="# Tage bis zum Ende der Wahl."/>
 					<text name="duration_text">
 						Tage
 					</text>
@@ -198,8 +194,8 @@ um eine neue Anfrage zu erstellen.
 					<text name="vote_text_lbl">
 						Ergebnis:
 					</text>
-					<button label="Liste anzeigen" label_selected="Liste anzeigen" name="btn_view_list" />
-					<button label="Objekt anzeigen" label_selected="Objekt anzeigen" name="btn_view_item" />
+					<button label="Liste anzeigen" label_selected="Liste anzeigen" name="btn_view_list"/>
+					<button label="Objekt anzeigen" label_selected="Objekt anzeigen" name="btn_view_item"/>
 				</panel>
 			</tab_container>
 		</panel>
@@ -216,21 +212,17 @@ um eine neue Anfrage zu erstellen.
 			<text name="lbl">
 				Officers:
 			</text>
-			<button label="Officer hinzufügen..." label_selected="Officer hinzufügen..."
-			     name="add_officer_btn" />
-			<button label="Auswahl entfernen" label_selected="Auswahl entfernen"
-			     name="remove_officer_btn" />
+			<button label="Officer hinzufügen..." label_selected="Officer hinzufügen..." name="add_officer_btn"/>
+			<button label="Auswahl entfernen" label_selected="Auswahl entfernen" name="remove_officer_btn"/>
 			<text name="lbl2">
 				Mitglieder:
 			</text>
-			<button label="Mitglied hinzufügen..." label_selected="Mitglied hinzufügen..."
-			     name="add_member_btn" />
-			<button label="Auswahl entfernen" label_selected="Auswahl entfernen"
-			     name="remove_member_btn" />
+			<button label="Mitglied hinzufügen..." label_selected="Mitglied hinzufügen..." name="add_member_btn"/>
+			<button label="Auswahl entfernen" label_selected="Auswahl entfernen" name="remove_member_btn"/>
 			<text name="lbl3">
 				Beitrittsgebühr:
 			</text>
-			<check_box label="Freier Beitritt (kein Einladung nötig)" name="open" />
+			<check_box label="Freier Beitritt (kein Einladung nötig)" name="open"/>
 		</panel>
 		<panel label="Land" name="land">
 			<text name="txt">
@@ -239,37 +231,32 @@ um eine neue Anfrage zu erstellen.
 			<text name="lbl">
 				Insgesamt beigetragenes Land:
 			</text>
-			<button label="Karte..." label_selected="Karte..." name="map_btn" />
+			<button label="Karte..." label_selected="Karte..." name="map_btn"/>
 			<text name="lbl2">
 				Insgesamt verwendetes Land:
 			</text>
 			<text name="lbl3">
 				Land verfügbar:
 			</text>
-			<button label="Beitrag festlegen" label_selected="Beitrag festlegen"
-			     name="set_contrib_btn" />
+			<button label="Beitrag festlegen" label_selected="Beitrag festlegen" name="set_contrib_btn"/>
 			<text name="warning_label">
 				ACHTUNG: Die Gruppe verwaltet zu viel Land. Die Gruppenmitglieder müssen ihren Beitrag erhöhen.
 			</text>
 		</panel>
 		<panel label="Geld" name="mon">
 			<tab_container name="group money history tab">
-				<panel label="Planung" name="money panel" />
+				<panel label="Planung" name="money panel"/>
 				<panel label="Details" name="money panel2">
-					<button label="&lt; Früher" label_selected="&lt; Früher" name="&lt; Earlier"
-					     tool_tip="Zurück in der Zeit" />
-					<button label="Später &gt;" label_selected="Später &gt;" name="Later &gt;"
-					     tool_tip="Weiter in der Zeit" />
+					<button label="&lt; Früher" label_selected="&lt; Früher" name="&lt; Earlier" tool_tip="Zurück in der Zeit"/>
+					<button label="Später &gt;" label_selected="Später &gt;" name="Later &gt;" tool_tip="Weiter in der Zeit"/>
 				</panel>
 				<panel label="Verkäufe" name="money panel3">
-					<button label="&lt; Früher" label_selected="&lt; Früher" name="&lt; Earlier"
-					     tool_tip="Zurück in der Zeit" />
-					<button label="Später &gt;" label_selected="Später &gt;" name="Later &gt;"
-					     tool_tip="Weiter in der Zeit" />
+					<button label="&lt; Früher" label_selected="&lt; Früher" name="&lt; Earlier" tool_tip="Zurück in der Zeit"/>
+					<button label="Später &gt;" label_selected="Später &gt;" name="Later &gt;" tool_tip="Weiter in der Zeit"/>
 				</panel>
 			</tab_container>
 		</panel>
 	</tab_container>
-	<button label="OK" label_selected="OK" name="OK" />
-	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel" />
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel"/>
 </floater>

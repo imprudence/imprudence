@@ -28,6 +28,7 @@
 		Ustawienia Prywatności
 	</text>
 	<check_box label="Akceptuj rozmowy tylko od znajomych" name="voice_call_friends_only_check"/>
+	<check_box label="Wyłącz mikrofon po zakończeniu konferencji głosowej na IM" name="auto_disengage_mic_check"/>
 	<button label="Ustawienia Sprzętowe" name="device_settings_btn"/>
 	<text_editor length="1" name="device_settings_text" type="string">
 		UWAGA: Uruchomienie Ustawień Sprzętowych spowoduje utratę połączenia z rozmowami głosowem. Wszelkie zmiany usawień zostaną automatycznie zastosowane, a połączenie wznowione.

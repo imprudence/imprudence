@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater label="(невідомо)" name="im_floater" title="(невідомо)">
+<floater label="(невідомо)" name="im_floater" title="(невідомо)" min_width="460" width="501">
 	<string name="ringing">
 		Приєднуємося до Голосового Чату...
 	</string>
@@ -25,25 +25,26 @@
 		[NAME] друкує...
 	</string>
 	<string name="session_start_string">
-		Початок сесії з [NAME], зачекайте.
+		Починаємо сесію з [NAME], будь ласка зачекайте.
 	</string>
 	<string name="moderated_chat_label">
-		(Модерується)
+		(Модеровано: Голоси вимкнені за замовчуванням)
 	</string>
 	<string name="default_text_label">
 		Натисніть сюди для IM
 	</string>
 	<string name="muted_text_label">
-		Текстовий чат вимкнено модератором групи.
+		Ваш текстовий чат вимкнений Модератором Групи.
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="Інфо про Групу" name="group_info_btn" />
-			<button label="Приєд." name="start_call_btn" />
-			<button label="Закінчити Дзвінок" name="end_call_btn" />
+			<button label="Інфо про Групу" name="group_info_btn" width="120"/>
+			<button label="Приєд." left_delta="125" name="start_call_btn" width="145" halign="center" />
+			<button label="Закінчити Дзвінок" name="end_call_btn"  width="145" halign="right" />
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
 			     tool_tip="Натисніть сюди для показу активних учасників IM сесії." />
-			<button label="Відправити" name="send_btn" />
+			<line_editor name="chat_editor" width="86" />
+			<button label="Відправити" name="send_btn" width="80" left="96"  />
 		</layout_panel>
 	</layout_stack>
 </floater>

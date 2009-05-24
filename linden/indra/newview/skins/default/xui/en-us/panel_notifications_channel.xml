@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="notifications_panel" width="100" height="100" user_resize="true" >
-  <layout_stack left="0" bottom="2" width="100" height="78" follows="left|right|top|bottom" orientation="horizontal" >
+  <layout_stack name="stack1" left="0" bottom="2" width="100" height="78" follows="left|right|top|bottom" orientation="horizontal" >
     <scroll_list user_resize="true"  draw_heading="true" left="0" bottom="0" width="100" height="78" follows="left|right|top|bottom" name="notifications_list" sort_column="2" sort_ascending="false">
       <column label="Name" name="name" width="100" user_resize="true"/>
       <column label="Content" name="content" width="150" user_resize="true" dynamicwidth="true"/>

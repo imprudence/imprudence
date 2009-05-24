@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Postcard" title="Отправить Открытку">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Postcard" title="Скриншот на Email">
 	<text name="to_label">
 		E-mail получат.:
 	</text>
@@ -12,7 +12,7 @@
 	<text name="subject_label">
 		Тема:
 	</text>
-	<line_editor label="Введите тему здесь." name="subject_form" />
+	<line_editor label="Введите тему здесь." name="subject_form"/>
 	<text name="msg_label">
 		Сообщение:
 	</text>
@@ -22,12 +22,15 @@
 	<text name="fine_print">
 		Если получатель Вашей открытки присоединится к SL, Вы получите бонус.
 	</text>
-	<button label="Отмена" name="cancel_btn" />
-	<button label="Отправить" name="send_btn" />
+	<button label="Отмена" name="cancel_btn"/>
+	<button label="Отправить" name="send_btn"/>
 	<string name="default_subject">
 		Открытка из Second Life.
 	</string>
 	<string name="default_message">
 		Проверить!
+	</string>
+	<string name="upload_message">
+		&quot;Отправляем...&quot;
 	</string>
 </floater>

@@ -8,9 +8,12 @@
 			<string name="not_found_text">
 				Nada encontrado.
 			</string>
+			<text name="find">
+				Buscar:
+			</text>
+			<line_editor label="Buscar" name="search_editor" tool_tip="Buscar en Second Life"/>
 			<button label="Atrás" name="back_btn"/>
 			<button label="Adelante" name="forward_btn"/>
-			<line_editor label="Buscar" name="search_editor" tool_tip="Buscar en Second Life"/>
 			<button label="Buscar" name="search_btn"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
@@ -32,7 +35,10 @@
 					Wiki
 				</combo_item>
 			</combo_box>
-
+			<check_box label="Contenido &apos;PG&apos;" name="incpg"/>
+			<check_box label="Contenido &apos;Mature&apos;" name="incmature"/>
+			<check_box label="Contenido &apos;Adult&apos;" name="incadult"/>
+			<button label="?" label_selected="?" name="?"/>
 			<string name="loading_text">
 				Cargando...
 			</string>
@@ -47,18 +53,18 @@
 			</string>
 		</panel>
 		<panel label="Clasificados" name="classified_panel">
-			<button label="Siguiente &gt;" label_selected="Siguiente &gt;" name="Next &gt;"/>
 			<string name="searching_text">
 				Buscando...
 			</string>
 			<string name="not_found_text">
 				Nada encontrado.
 			</string>
-			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
 			<text name="find">
 				Buscar:
 			</text>
-
+			<check_box label="Contenido &apos;PG&apos;" name="incpg"/>
+			<check_box label="Contenido &apos;Mature&apos;" name="incmature"/>
+			<check_box label="Contenido &apos;Adult&apos;" name="incadult"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Cualquier categoría
@@ -101,6 +107,8 @@
 				<column label="Nombre" name="name"/>
 				<column label="Precio" name="price"/>
 			</scroll_list>
+			<button label="Siguiente &gt;" label_selected="Siguiente &gt;" name="Next &gt;"/>
+			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
 		</panel>
 		<panel label="Eventos" name="events_panel">
 			<string name="searching_text">
@@ -109,6 +117,9 @@
 			<string name="not_found_text">
 				Nada encontrado.
 			</string>
+			<text name="text2">
+				Buscar:
+			</text>
 			<radio_group name="date_mode">
 				<radio_item name="current">
 					En curso y próximos
@@ -128,7 +139,7 @@
 			</text>
 			<combo_box name="category combo">
 				<combo_item name="All">
-					Todo
+					Cualquier categoría
 				</combo_item>
 				<combo_item name="Discussion">
 					Debate
@@ -164,7 +175,9 @@
 					Miscelánea
 				</combo_item>
 			</combo_box>
-
+			<check_box label="Contenido &apos;PG&apos;" name="incpg"/>
+			<check_box label="Contenido &apos;Mature&apos;" name="incmature"/>
+			<check_box label="Contenido &apos;Adult&apos;" name="incadult"/>
 			<button label="Buscar" label_selected="Buscar" name="Search" tool_tip="Buscar"/>
 			<button label="Borrar" label_selected="Borrar" name="Delete"/>
 			<scroll_list name="results">
@@ -207,11 +220,16 @@
 			<string name="not_found_text">
 				Ninguno encontrado.
 			</string>
-			<text name="find" >
+			<string name="land_help_text">
+				El terreno puede comprarse directamente con dólares Linden (L$), o con L$ o US$ en una
+subasta. Para comprarlo directamente, visítelo y pulse su nombre en la barra superior del visor.
+			</string>
+			<text name="find">
 				Buscar:
 			</text>
-			<button label="Siguiente &gt;" label_selected="Siguiente &gt;" name="Next &gt;"/>
-			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
+			<check_box label="Contenido &apos;PG&apos;" name="incpg"/>
+			<check_box label="Contenido &apos;Mature&apos;" name="incmature"/>
+			<check_box label="Contenido &apos;Adult&apos;" name="incadult"/>
 			<combo_box name="type">
 				<combo_item name="AllTypes">
 					Todos los tipos
@@ -227,28 +245,27 @@
 				</combo_item>
 			</combo_box>
 			<check_box label="Precio &#8804; " name="pricecheck"/>
-			<check_box label="Superficie &#8805; " name="areacheck" width="100"/>
-			<text name="pricecheck_symbol" left="126">
+			<text left="126" name="pricecheck_symbol">
 				L$
 			</text>
-			<text name="areacheck_symbol" left="196">
+			<check_box label="Superficie &#8805; " name="areacheck" width="100"/>
+			<text left="196" name="areacheck_symbol">
 				m²
 			</text>
-			<line_editor name="priceedit" left="142"/>
-			<line_editor name="areaedit" left="142"/>
+			<line_editor left="142" name="priceedit"/>
+			<line_editor left="142" name="areaedit"/>
 			<button label="Buscar" label_selected="Buscar" name="Search"/>
-			<text name="land">
-				El terreno puede comprarse directamente en dólares Linden (L$), o, si se trata de una subasta, en L$ o US$.
-Para comprar directamente, vaya al terreno y pulse su nombre en la barra superior.
-			</text>
 			<scroll_list name="results">
 				<column label="" name="icon"/>
 				<column label="" name="type"/>
 				<column label="Nombre" name="name"/>
+				<column label="Tipo" name="landtype"/>
 				<column label="Precio L$" name="price"/>
 				<column label="Superficie" name="area"/>
 				<column label="L$/m²" name="per_meter"/>
 			</scroll_list>
+			<button label="Siguiente &gt;" label_selected="Siguiente &gt;" name="Next &gt;"/>
+			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
 		</panel>
 		<panel label="Lugares" name="places_panel">
 			<string name="searching_text">
@@ -257,12 +274,12 @@ Para comprar directamente, vaya al terreno y pulse su nombre en la barra superio
 			<string name="not_found_text">
 				Ninguno encontrado.
 			</string>
-			<button label="Siguiente &gt;" label_selected="Siguiente &gt;" name="Next &gt;"/>
-			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
 			<text name="find">
 				Buscar:
 			</text>
-
+			<check_box label="Contenido &apos;PG&apos;" name="incpg"/>
+			<check_box label="Contenido &apos;Mature&apos;" name="incmature"/>
+			<check_box label="Contenido &apos;Adult&apos;" name="incadult"/>
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					Cualquier categoría
@@ -270,7 +287,47 @@ Para comprar directamente, vaya al terreno y pulse su nombre en la barra superio
 				<combo_item name="LindenLocation">
 					Localización Linden
 				</combo_item>
-
+				<combo_item name="Arts&amp;Culture">
+					Arte y Cultura
+				</combo_item>
+				<combo_item name="Business">
+					Negocios
+				</combo_item>
+				<combo_item name="Educational">
+					Educativo
+				</combo_item>
+				<combo_item name="Gaming">
+					Juegos de azar
+				</combo_item>
+				<combo_item name="Hangout">
+					Entretenimiento
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Para recién llegados
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Parques y Naturaleza
+				</combo_item>
+				<combo_item name="Residential">
+					Residencial
+				</combo_item>
+				<combo_item name="Shopping">
+					Compras
+				</combo_item>
+				<combo_item name="Other">
+					Otra
+				</combo_item>
+			</combo_box>
+			<combo_box name="Category_Adult">
+				<combo_item name="AnyCategory">
+					Cualquier categoría
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Localización Linden
+				</combo_item>
+				<combo_item name="Adult">
+					&apos;Adult&apos;
+				</combo_item>
 				<combo_item name="Arts&amp;Culture">
 					Arte y Cultura
 				</combo_item>
@@ -309,6 +366,8 @@ Para comprar directamente, vaya al terreno y pulse su nombre en la barra superio
 				<column label="Nombre" name="name"/>
 				<column label="Tráfico" name="dwell"/>
 			</scroll_list>
+			<button label="Siguiente &gt;" label_selected="Siguiente &gt;" name="Next &gt;"/>
+			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
 		</panel>
 		<panel label="Gente" name="people_panel">
 			<string name="searching_text">
@@ -317,8 +376,6 @@ Para comprar directamente, vaya al terreno y pulse su nombre en la barra superio
 			<string name="not_found_text">
 				Nadie encontrado.
 			</string>
-			<button label="Siguiente &gt;" label_selected="Siguiente &gt;" name="Next &gt;"/>
-			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
 			<text name="find">
 				Buscar:
 			</text>
@@ -328,6 +385,8 @@ Para comprar directamente, vaya al terreno y pulse su nombre en la barra superio
 				<column label="" name="type"/>
 				<column label="Nombre" name="name"/>
 			</scroll_list>
+			<button label="Siguiente &gt;" label_selected="Siguiente &gt;" name="Next &gt;"/>
+			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
 		</panel>
 		<panel label="Grupos" name="groups_panel">
 			<string name="searching_text">
@@ -336,11 +395,16 @@ Para comprar directamente, vaya al terreno y pulse su nombre en la barra superio
 			<string name="not_found_text">
 				Ninguno encontrado.
 			</string>
+			<text name="find">
+				Buscar:
+			</text>
+			<line_editor label="Buscar" name="search_editor" tool_tip="Buscar en Second Life"/>
 			<button label="Atrás" name="back_btn"/>
 			<button label="Adelante" name="forward_btn"/>
-			<line_editor label="Buscar" name="search_editor" tool_tip="Buscar en Second Life"/>
 			<button label="Buscar" name="search_btn"/>
-
+			<check_box label="Contenido &apos;PG&apos;" name="incpg"/>
+			<check_box label="Contenido &apos;Mature&apos;" name="incmature"/>
+			<check_box label="Contenido &apos;Adult&apos;" name="incadult"/>
 			<string name="loading_text">
 				Cargando...
 			</string>

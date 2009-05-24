@@ -1,91 +1,61 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="worldmap" title="Карта мира">
 	<tab_container name="maptab">
-		<panel label="Объекты" name="objects_mapview" />
-		<panel label="Местность" name="terrain_mapview" />
+		<panel label="Объекты" name="objects_mapview"/>
+		<panel label="Местность" name="terrain_mapview"/>
 	</tab_container>
-	<text name="land_for_sale_label">
-		Земля прод.
-	</text>
-	<text name="auction_label">
-		Аукцион
-	</text>
 	<text name="you_label">
 		Вы
 	</text>
 	<text name="home_label">
 		Дом
 	</text>
-	<button label="Домой" label_selected="Домой" name="Go Home"
-	     tool_tip="Телепортироваться Домой" />
-	<text name="classifieds_label">
-		Реклама
+	<text name="auction_label">
+		Аукцион
 	</text>
-	<check_box label="" name="class_chk" />
-	<text name="person_label">
-		Человек
-	</text>
-	<check_box label="" name="people_chk" />
-	<text name="infohub_label">
-		Инфохаб
-	</text>
-	<check_box label="" name="infohub_chk" />
-	<text name="telehub_label">
-		Телехаб
-	</text>
-	<check_box label="" name="telehubchk" />
-	<text name="land_for_sale_label2">
+	<text name="land_for_sale_label">
 		Земля прод.
 	</text>
-	<check_box label="" name="land_for_sale_chk" />
+	<button label="Домой" label_selected="Домой" name="Go Home" tool_tip="Телепортироваться Домой"/>
+	<check_box label="Резидент" name="people_chk"/>
+	<check_box label="Инфохаб" name="infohub_chk"/>
+	<check_box label="Телехаб" name="telehubchk"/>
+	<check_box label="Земля на продажу" name="land_for_sale_chk"/>
 	<text name="events_label">
-		События
+		События:
 	</text>
-	<check_box label="" name="event_chk" />
-
-	<check_box label="" name="event_mature_chk" />
-	<combo_box label="Друзья онлайн" name="friend combo"
-	     tool_tip="Показывать друзей на карте">
+	<check_box label="PG" name="event_chk"/>
+	<check_box label="Mature" name="event_mature_chk"/>
+	<check_box label="Adult" name="event_adult_chk"/>
+	<combo_box label="Друзья онлайн" name="friend combo" tool_tip="Показывать друзей на карте">
 		<combo_item name="none_selected">
 			Друзья онлайн
 		</combo_item>
 	</combo_box>
-	<combo_box label="Мои закладки" name="landmark combo"
-	     tool_tip="Показывать закладки на карте">
+	<combo_box label="Мои закладки" name="landmark combo" tool_tip="Показывать закладки на карте">
 		<combo_item name="none_selected">
 			Мои закладки
 		</combo_item>
 	</combo_box>
-	<line_editor label="Поиск по названию региона" name="location"
-	     tool_tip="Введите название региона" />
-	<button label="Поиск" name="DoSearch" tool_tip="Поиск по региону" />
+	<line_editor label="Поиск по названию региона" name="location" tool_tip="Введите название региона"/>
+	<button label="Поиск" name="DoSearch" tool_tip="Поиск по региону"/>
 	<text name="search_label">
 		Результаты поиска:
 	</text>
 	<scroll_list name="search_results">
-		<column label="" name="icon" />
-		<column label="" name="sim_name" />
+		<column label="" name="icon"/>
+		<column label="" name="sim_name"/>
 	</scroll_list>
 	<text name="location_label">
 		Расположение:
 	</text>
-	<spinner name="spin x"
-	     tool_tip="Показать X координату на карте" />
-	<spinner name="spin y"
-	     tool_tip="Показать Y координату на карте" />
-	<spinner name="spin z"
-	     tool_tip="Показать Z координату на карте" />
-	<button label="Телепорт" label_selected="Телепорт" name="Teleport"
-	     tool_tip="Телепортироваться в выбранное место" />
-	<button label="Показать место"
-	     label_selected="Показать место" name="Show Destination"
-	     tool_tip="Центрировать карту на выбранное место" />
-	<button label="Очистить" label_selected="Очистить" name="Clear"
-	     tool_tip="Остановить поиск" />
-	<button label="Мое располож." label_selected="Мое располож."
-	     name="Show My Location"
-	     tool_tip="Центрировать карту на позицию аватара" />
-	<button label="Копировать SLURL в буфер" name="copy_slurl"
-	     tool_tip="Копировать текущую локацию как SLURL для использования в Интернет" />
-	<slider label="Масштаб" name="zoom slider" />
+	<spinner name="spin x" tool_tip="Показать X координату на карте"/>
+	<spinner name="spin y" tool_tip="Показать Y координату на карте"/>
+	<spinner name="spin z" tool_tip="Показать Z координату на карте"/>
+	<button label="Телепорт" label_selected="Телепорт" name="Teleport" tool_tip="Телепортироваться в выбранное место"/>
+	<button label="Показать место" label_selected="Показать место" name="Show Destination" tool_tip="Центрировать карту на выбранное место"/>
+	<button label="Очистить" label_selected="Очистить" name="Clear" tool_tip="Остановить поиск"/>
+	<button label="Мое располож." label_selected="Мое располож." name="Show My Location" tool_tip="Центрировать карту на позицию аватара"/>
+	<button label="Копировать SLURL в буфер" name="copy_slurl" tool_tip="Копировать текущую локацию как SLURL для использования в Интернет"/>
+	<slider label="Масштаб" name="zoom slider"/>
 </floater>

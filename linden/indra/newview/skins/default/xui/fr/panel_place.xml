@@ -21,7 +21,7 @@
 		Trafic : [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Surface : [AREA] m²
+		Surface : [AREA] m² 
 	</string>
 	<string name="forsale_text">
 		En vente pour [PRICE] L$

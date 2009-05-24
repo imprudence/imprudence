@@ -18,7 +18,7 @@
     	<text bottom_delta="-26" bg_visible="false" border_drop_shadow_visible="false" 
     	     drop_shadow_visible="true" follows="left|top" border_visible="false"
     	     font="SansSerifSmall" h_pad="0" halign="left" left="10"
-    	     mouse_opaque="true" name="NextOwnerLabel" v_pad="0" width="88" height="10" >
+    	     mouse_opaque="true" name="NextOwnerLabel" v_pad="0" width="190" height="10" >
     		Next owner can:
     	</text>
     	<check_box bottom_delta="-30" follows="left|top" width="78" height="16"

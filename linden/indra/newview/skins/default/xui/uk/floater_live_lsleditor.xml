@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="script ed float" title="Скрипт: Новий скрипт">
-	<button label="Скинути" label_selected="Скинути" name="Reset" />
-	<check_box label="Виконання" name="running" />
+	<button label="Скинути" label_selected="Скинути" name="Reset"/>
+	<check_box label="Виконання" name="running"/>
+	<check_box label="Моно" name="mono"/>
 	<string name="not_allowed">
 		Ви не маєте права бачити цей скрипт.
 	</string>

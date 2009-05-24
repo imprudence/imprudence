@@ -3,7 +3,7 @@
 	<text length="1" name="muting_text" type="string">
 		Volume :
 	</text>
-	<panel left="159" name="Volume Panel" width="249"/>
+	<panel name="Volume Panel" width="249"/>
 	<check_box label="Couper le son" name="disable audio"/>
 	<text bottom="-195" name="streaming_prefs_text" width="145">
 		Média :
@@ -12,15 +12,15 @@
 		Audio :
 	</text>
 	<panel label="Volume" name="Volume Panel"/>
-	<check_box label="Couper le son lorsque la fenêtre est minimisée" left="159" name="mute_when_minimized"/>
-	<check_box bottom="-200" height="32" label="Jouer la musique disponible&#10;
-(consommateur en bande passante)" left="159" name="streaming_music"/>
-	<check_box bottom_delta="-32" height="32" label="Jouer le média disponible&#10;
-(consommateur en bande passante)" left="159" name="streaming_video"/>
-	<check_box bottom_delta="-32" label="Lire automatiquement le média" left="179" name="auto_streaming_video"/>
-	<slider label="Effet Doppler" label_width="115" left="165" name="Doppler Effect"/>
-	<slider label="Facteur d&apos;éloignement" label_width="115" left="165" name="Distance Factor"/>
-	<slider label="Facteur d&apos;atténuation" label_width="115" left="165" name="Rolloff Factor"/>
-	<spinner label="Alerte L$" left="165" name="L$ Change Threshold"/>
-	<spinner label="Alerte santé" left="165" name="Health Change Threshold"/>
+	<check_box label="Couper le son lorsque la fenêtre est minimisée" name="mute_when_minimized"/>
+	<check_box bottom="-200" height="32" label="Jouer la musique disponible &#10;
+(consommateur en bande passante)" name="streaming_music"/>
+	<check_box bottom_delta="-32" height="32" label="Jouer le média disponible &#10;
+(consommateur en bande passante)" name="streaming_video"/>
+	<check_box bottom_delta="-32" label="Lire automatiquement le média" name="auto_streaming_video"/>
+	<slider label="Effet Doppler" label_width="115" name="Doppler Effect"/>
+	<slider label="Facteur d&apos;éloignement" label_width="115" name="Distance Factor"/>
+	<slider label="Facteur d&apos;atténuation" label_width="115" name="Rolloff Factor"/>
+	<spinner label="Alerte L$" name="L$ Change Threshold"/>
+	<spinner label="Alerte santé" name="Health Change Threshold"/>
 </panel>

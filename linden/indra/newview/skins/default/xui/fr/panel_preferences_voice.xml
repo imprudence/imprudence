@@ -15,7 +15,7 @@
 	<text name="push_to_talk_heading">
 		Mode Appuyer pour parler
 	</text>
-	<text_editor name="voice_chat_description" width="465">
+	<text_editor name="voice_chat_description">
 		Avec ce mode, vous contrôlez quand vous parlez en appuyant sur le bouton Parler de l&apos;interface. Vous pouvez définir une touche de contrôle supplémentaire en cochant l&apos;option ci-dessous. Pour laisser votre micro constamment ouvert, verrouillez le petit cadenas de l&apos;interface en cliquant dessus.
 	</text_editor>
 	<check_box label="Attribuer une touche de contrôle" name="push_to_talk_toggle_check"/>
@@ -28,8 +28,9 @@
 		Options de confidentialité
 	</text>
 	<check_box label="N&apos;accepter que les appels de mes amis" name="voice_call_friends_only_check"/>
-	<text_editor name="device_settings_text" height="48" bottom_delta="-45">
+	<check_box label="Fermer le micro à la fin d&apos;un appel privé" name="auto_disengage_mic_check"/>
+	<button label="Paramètres du matériel" name="device_settings_btn"/>
+	<text_editor bottom_delta="-45" height="48" name="device_settings_text">
 		Remarque : si vous cliquez sur Paramètres du matériel, vous serez temporairement déconnecté du Chat vocal. Tous les changements que vous faites seront immédiatement appliqués.
 	</text_editor>
-	<button label="Paramètres du matériel" name="device_settings_btn"/>
 </panel>

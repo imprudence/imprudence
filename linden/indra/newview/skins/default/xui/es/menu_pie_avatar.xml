@@ -3,6 +3,7 @@
 	<menu_item_call label="Perfil..." name="Profile..."/>
 	<menu_item_call label="Ignorar" name="Avatar Mute"/>
 	<menu_item_call label="Ir a" name="Go To"/>
+	<menu_item_call label="Denunciar..." name="abuse"/>
 	<menu_item_call label="Añadir como amigo..." name="Add Friend"/>
 	<menu_item_call label="Pagar..." name="Pay..."/>
 	<pie_menu label="Más &gt;" name="More &gt;">

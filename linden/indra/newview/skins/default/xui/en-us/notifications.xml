@@ -1452,12 +1452,93 @@ Searched for: [FINALQUERY]
 Your search terms were too short so no search was performed.
   </notification>
 
+  <!-- Generic Teleport failure modes - strings will be inserted from
+       teleport_strings.xml if available. -->
   <notification
    icon="alertmodal.tga"
    name="CouldNotTeleportReason"
    type="alertmodal">
 Could not teleport.
 [REASON]
+  </notification>
+
+  <!-- Teleport failure modes not delivered via the generic mechanism
+       above (for example, delivered as an AlertMessage on
+       region-crossing :( ) - these paths should really be merged
+       in the future. -->
+  <notification
+   icon="alertmodal.tga"
+   name="invalid_tport"
+   type="alertmodal">
+Problem encountered processing your teleport request. You may need to log back in before you can teleport. If you continue to get this message, please check the Tech Support FAQ at:
+www.secondlife.com/support
+  </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="invalid_region_handoff"
+   type="alertmodal">
+Problem encountered processing your region crossing. You may need to log back in before you can cross regions. If you continue to get this message, please check the Tech Support FAQ at:
+www.secondlife.com/support
+  </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="blocked_tport"
+   type="alertmodal">
+Sorry, teleport is currently blocked. Try again in a moment.  If you still cannot teleport, please log out and log back in to resolve the problem.
+  </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="nolandmark_tport"
+   type="alertmodal">
+Sorry, but system was unable to locate landmark destination.
+  </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="timeout_tport"
+   type="alertmodal">
+Sorry, but system was unable to complete the teleport connection.  Try again in a moment.
+  </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="noaccess_tport"
+   type="alertmodal">
+Sorry, you do not have access to that teleport destination.
+  </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="missing_attach_tport"
+   type="alertmodal">
+Your attachments have not arrived yet. Try waiting for a few more seconds or log out and back in again before attempting to teleport.
+  </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="too_many_uploads_tport"
+   type="alertmodal">
+The asset queue in this region is currently clogged so your teleport request will not be able to succeed in a timely manner. Please try again in a few minutes or go to a less busy area.
+  </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="expired_tport"
+   type="alertmodal">
+Sorry, but the system was unable to complete your teleport request in a timely fashion. Please try again in a few minutes.
+  </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="expired_region_handoff"
+   type="alertmodal">
+Sorry, but the system was unable to complete your region crossing in a timely fashion. Please try again in a few minutes.
+  </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="no_host"
+   type="alertmodal">
+Unable to find teleport destination. The destination may be temporarily unavailable or no longer exists. Please try again in a few minutes.
+  </notification>
+  <notification
+   icon="alertmodal.tga"
+   name="no_inventory_host"
+   type="alertmodal">
+The inventory system is currently unavailable.
   </notification>
 
   <notification
@@ -3106,7 +3187,9 @@ Are you sure you want to change the Estate Covenant?
    icon="alertmodal.tga"
    name="RegionEntryAccessBlocked"
    type="alertmodal">
-You are not allowed in that Region due to your maturity Rating. This may be a result of a lack of information validating your age. Please verify you have the latest Viewer installed, and go to the Knowledge Base for details on accessing areas with this maturity rating.
+You are not allowed in that Region due to your maturity Rating. This may be a result of a lack of information validating your age.
+
+Please verify you have the latest Viewer installed, and go to the Knowledge Base for details on accessing areas with this maturity rating.
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -3116,7 +3199,8 @@ You are not allowed in that Region due to your maturity Rating. This may be a re
    icon="alertmodal.tga"
    name="RegionEntryAccessBlocked_KB"
    type="alertmodal">
-You are not allowed in that region due to your maturity Rating. 
+You are not allowed in that region due to your maturity Rating.
+
 Go to the Knowledge Base for more information about maturity Ratings?
     <url option="0" name="url">
 		https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
@@ -3125,7 +3209,7 @@ Go to the Knowledge Base for more information about maturity Ratings?
      name="okcancelignore"
      yestext="Go to Knowledge Base"
 	 notext="Close"
-	 ignoretext="Region entry blocked due to maturity Rating"/>
+	 ignoretext="When Region entry is blocked due to maturity Rating"/>
   </notification>
 
   <notification
@@ -3139,8 +3223,9 @@ You are not allowed in that region due to your maturity Rating.
    icon="alertmodal.tga"
    name="RegionEntryAccessBlocked_Change"
    type="alertmodal">
-You are not allowed in that Region due to your maturity Rating preference. 
-Clicking Change Preference will set your maturity Rating preference and allow you to enter. You will be able to access [REGIONMATURITY] content from now on; if you would like to change this setting back, open the Preferences window to the General tab.
+You are not allowed in that Region due to your maturity Rating preference.
+
+You can click &apos;Change Preference&apos; to raise your maturity Rating preference now and allow you to enter. You will be able to search and access [REGIONMATURITY] content from now on. If you later want to change this setting back, go to Edit &gt; Preferences... &gt; General.
 	 <form>
       <button
        index="0"
@@ -3151,7 +3236,7 @@ Clicking Change Preference will set your maturity Rating preference and allow yo
        index="1"
        name="Cancel"
        text="Close"/>
-       <ignore text="Region entry blocked due to maturity Rating preference"/>
+       <ignore text="When Region entry is blocked due to maturity Rating preference"/>
     </form>
   </notification>
 
@@ -3159,7 +3244,9 @@ Clicking Change Preference will set your maturity Rating preference and allow yo
    icon="alertmodal.tga"
    name="LandClaimAccessBlocked"
    type="alertmodal">
-You cannot claim this land due to your maturity Rating. This may be a result of a lack of information validating your age. Please verify you have the latest Viewer installed, and go to the Knowledge Base for details on accessing areas with this maturity rating.
+You cannot claim this land due to your maturity Rating. This may be a result of a lack of information validating your age.
+
+Please verify you have the latest Viewer installed, and go to the Knowledge Base for details on accessing areas with this maturity rating.
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -3169,7 +3256,8 @@ You cannot claim this land due to your maturity Rating. This may be a result of 
    icon="alertmodal.tga"
    name="LandClaimAccessBlocked_KB"
    type="alertmodal">
-You cannot claim this land due to your maturity Rating. 
+You cannot claim this land due to your maturity Rating.
+
 Go to the Knowledge Base for more information about maturity Ratings?
     <url option="0" name="url">
 		https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
@@ -3178,7 +3266,7 @@ Go to the Knowledge Base for more information about maturity Ratings?
      name="okcancelignore"
      yestext="Go to Knowledge Base"
 	 notext="Close"
-	 ignoretext="Land claim blocked due to maturity Rating"/>
+	 ignoretext="When claiming land is blocked due to maturity Rating"/>
   </notification>
 
   <notification
@@ -3192,20 +3280,23 @@ You cannot claim this land due to your maturity Rating.
    icon="alertmodal.tga"
    name="LandClaimAccessBlocked_Change"
    type="alertmodal">
-You cannot claim this land due to your maturity Rating preference. 
-Clicking Change Preference will set your maturity Rating preference and allow you to enter. You will be able to access [REGIONMATURITY] content from now on; if you would like to change this setting back, open the Preferences window to the General tab.
+You cannot claim this land due to your maturity Rating preference.
+
+You can click &apos;Change Preference&apos; to raise your maturity Rating preference now and allow you to enter. You will be able to search and access [REGIONMATURITY] content from now on. If you later want to change this setting back, go to Edit &gt; Preferences... &gt; General.
     <usetemplate
      name="okcancelignore"
      yestext="Change Preference"
 	 notext="Close"
-	 ignoretext="Land claim blocked due to maturity Rating preference"/>
+	 ignoretext="When claiming land is blocked due to maturity Rating preference"/>
   </notification>
 
   <notification
    icon="alertmodal.tga"
    name="LandBuyAccessBlocked"
    type="alertmodal">
-You cannot buy this land due to your maturity Rating. This may be a result of a lack of information validating your age. Please verify you have the latest Viewer installed, and go to the Knowledge Base for details on accessing areas with this maturity rating.
+You cannot buy this land due to your maturity Rating. This may be a result of a lack of information validating your age.
+
+Please verify you have the latest Viewer installed, and go to the Knowledge Base for details on accessing areas with this maturity rating.
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -3215,7 +3306,8 @@ You cannot buy this land due to your maturity Rating. This may be a result of a 
    icon="alertmodal.tga"
    name="LandBuyAccessBlocked_KB"
    type="alertmodal">
-You cannot buy this land due to your maturity Rating. 
+You cannot buy this land due to your maturity Rating.
+
 Go to the Knowledge Base for more information about maturity Ratings?
     <url option="0" name="url">
 		https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
@@ -3224,7 +3316,7 @@ Go to the Knowledge Base for more information about maturity Ratings?
      name="okcancelignore"
      yestext="Go to Knowledge Base"
 	 notext="Close"
-	 ignoretext="Land purchase blocked due to maturity Rating"/>
+	 ignoretext="When a Land purchase is blocked due to maturity Rating"/>
   </notification>
 
   <notification
@@ -3238,16 +3330,27 @@ You cannot buy this land due to your maturity Rating.
    icon="alertmodal.tga"
    name="LandBuyAccessBlocked_Change"
    type="alertmodal">
-You cannot buy this land due to your maturity Rating preference. 
-Clicking Change Preference will set your maturity Rating preference and allow you to enter. You will be able to access [REGIONMATURITY] content from now on; if you would like to change this setting back, open the Preferences window to the General tab.
+You cannot buy this land due to your maturity Rating preference.
+
+You can click &apos;Change Preference&apos; to raise your maturity Rating preference now and allow you to enter. You will be able to search and access [REGIONMATURITY] content from now on. If you later want to change this setting back, go to Edit &gt; Preferences... &gt; General.
     <usetemplate
      name="okcancelignore"
      yestext="Change Preference"
 	 notext="Close"
-	 ignoretext="Land purchase blocked due to maturity Rating preference"/>
+	 ignoretext="When a Land purchase is blocked due to maturity Rating preference"/>
   </notification>
 
-  <notification
+	<notification
+	  icon="alertmodal.tga"
+	  name="TooManyPrimsSelected"
+	  type="alertmodal">
+		"There are too many prims selected.  Please select [MAX_PRIM_COUNT] or fewer prims and try again"
+		<usetemplate
+		 name="okbutton"
+		 yestext="OK"/>
+	</notification>
+
+	<notification
    icon="alertmodal.tga"
    name="ProblemImportingEstateCovenant"
    type="alertmodal">
@@ -3388,6 +3491,26 @@ Default: off
 If this box is checked, people will not be able to fly in this region regardless of the per-parcel &apos;Fly&apos; setting.
 
 Default: off
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   label="Bulk Change Content Permissions"
+   name="HelpBulkPermission"
+   type="alertmodal">
+The Bulk Permissions tool helps you to quickly change the permissions on multiple items in the contents of the selected object(s).  However, please note that you are only setting permissions on the items in the Contents of the selected objects -- not permissions on the container object(s) themselves.  
+
+Also note, the permissions are not applied to the nested contents of any of the contained items.  Your request only operates on items exactly one level deep.
+
+You can selectively choose which types of items to modify by using the checklist under &apos;Content Types&apos; here. Snapshots are included when you select Textures.
+
+* This tool will only succeed at changing permissions on items you are allowed to change.
+* You cannot grant any Next owner permissions which you do not already have.
+* The Next owner permissions are merely requests. If any item cannot take all of the new permissions, none its permissions will change.
+
+When you are ready to change the permissions in bulk, click &apos;Apply&apos; and wait for the results to display.
+
+If you close the Bulk Permissions window while permissions are being changed, it will halt the operation.
   </notification>
 
   <notification
@@ -5336,7 +5459,9 @@ Can only claim public land in region you&apos;re in.
    icon="notify.tga"
    name="RegionTPAccessBlocked"
    type="notify">
-You aren&apos;t allowed in that Region due to your maturity Rating. You may need to validate your age and/or install the latest Viewer. Please go to the Knowledge Base for details on accessing areas with this maturity Rating.  
+You aren&apos;t allowed in that Region due to your maturity Rating. You may need to validate your age and/or install the latest Viewer.
+
+Please go to the Knowledge Base for details on accessing areas with this maturity Rating.  
   </notification>
 
   <notification

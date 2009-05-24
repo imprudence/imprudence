@@ -1,15 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="avatarpicker" title="Вибрати Резидента">
-	<text name="instruct_search_resident_name">
-		Введіть частину імені Резидента:
-	</text>
-	<button label="Знайти" label_selected="Знайти" name="Find" />
-	<text name="Or select their calling card:">
-		Або виберіть візитку:
-	</text>
-	<button label="Закрити" label_selected="Закрити" name="Close" />
-	<button label="Вибір" label_selected="Вибрати" name="Select" />
-	<text name="NotFound">
+	<tab_container name="ResidentChooserTabs">
+		<panel label="Пошук" name="SearchPanel">
+			<text name="InstructSearchResidentName">
+				Введіть частину імені резидента:
+			</text>
+			<button label="Знайти" label_selected="Знайти" name="Find"/>
+		</panel>
+		<panel label="Картки Виклику" name="CallingCardsPanel">
+			<text name="InstructSelectCallingCard">
+				Вибрати картку виклику:
+			</text>
+		</panel>
+		<panel label="Коло мене" name="NearMePanel">
+			<text name="InstructSelectResident">
+				Обрати резидента поруч:
+			</text>
+			<button label="Обновити" label_selected="Обновити" name="Refresh"/>
+			<slider label="Відстань" name="near_me_range"/>
+			<text name="meters">
+				Метрів
+			</text>
+		</panel>
+	</tab_container>
+	<button label="Вибір" label_selected="Вибрати" name="Select"/>
+	<button label="Відміна" label_selected="Відміна" name="Cancel"/>
+	<string name="not_found">
 		&apos;[TEXT]&apos; не знайдено
-	</text>
+	</string>
+	<string name="no_one_near">
+		Нікого поруч
+	</string>
+	<string name="no_results">
+		Немає результатів
+	</string>
+	<string name="searching">
+		Шукаємо...
+	</string>
 </floater>

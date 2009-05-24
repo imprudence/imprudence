@@ -16,10 +16,10 @@
 	<check_box label="引伸ばす（Ctrl＋Shift）" name="radio stretch"/>
 	<check_box label="テクスチャーを選択" name="radio select face"/>
 	<check_box label="リンク部位を編集" name="checkbox edit linked parts"/>
-	<text name="text ruler mode" width="120">
+	<text name="text ruler mode" width="88">
 		ルーラー：
 	</text>
-	<combo_box left_delta="110" name="combobox grid mode" width="60">
+	<combo_box left_delta="60" name="combobox grid mode" width="76">
 		<combo_item name="World">
 			世界
 		</combo_item>
@@ -93,14 +93,14 @@
 			<text name="Creator Name">
 				Thrax Linden
 			</text>
-			<button label="ﾌﾟﾛﾌｨｰﾙ..." label_selected="ﾌﾟﾛﾌｨｰﾙ..." name="button creator profile"/>
+			<button label="情報..." label_selected="情報..." name="button creator profile"/>
 			<text name="Owner:">
 				オーナー：
 			</text>
 			<text name="Owner Name">
 				Thrax Linden
 			</text>
-			<button label="ﾌﾟﾛﾌｨｰﾙ..." label_selected="ﾌﾟﾛﾌｨｰﾙ..." name="button owner profile"/>
+			<button label="情報..." label_selected="情報..." name="button owner profile"/>
 			<text name="Group:">
 				グループ：
 			</text>
@@ -206,7 +206,7 @@
 				権限を設定するには、オブジェクト全体を選択する必要があります。
 			</string>
 			<string name="Cost Default">
-				価格：           L$
+				価格：        L$
 			</string>
 			<string name="Cost Total">
 				合計価格：  L$
@@ -221,7 +221,7 @@
 				混合販売
 			</string>
 		</panel>
-		<panel label="オブジェクト" name="Object">
+		<panel label="形状" name="Object">
 			<text name="select_single">
 				プリムを1つだけ選択して編集してください
 			</text>
@@ -422,7 +422,7 @@
 			<spinner label="半径" name="Light Radius"/>
 			<spinner label="弱まる" name="Light Falloff"/>
 		</panel>
-		<panel label="テクスチャー" name="Texture">
+		<panel label="材質" name="Texture">
 			<texture_picker label="テクスチャー" name="texture control" tool_tip="写真をクリックして選択"/>
 			<color_swatch label="色" name="colorswatch" tool_tip="カラー・ピッカーをクリックして開く"/>
 			<text name="color trans">
@@ -550,9 +550,9 @@
 			</text>
 			<button bottom="-361" label="揃える" label_selected="揃える" left="155" name="button align"/>
 		</panel>
-		<panel label="コンテンツ" name="Contents">
-			<button label="新しいスクリプト" label_selected="新しいスクリプト..." name="button new script"/>
-			<button label="権限..." name="button permissions"/>
+		<panel label="中身" name="Contents">
+			<button label="新しいスクリプト" label_selected="新しいスクリプト" name="button new script" width="120"/>
+			<button label="権限..." name="button permissions" left_delta="130" width="80"/>
 		</panel>
 	</tab_container>
 	<panel name="land info panel">
@@ -567,7 +567,7 @@
 		</text>
 		<button label="土地情報..." label_selected="土地情報..." name="button about land"/>
 		<check_box label="オーナーを表示" name="checkbox show owners" tool_tip="所有権別に区画を色分けします"/>
-		<button label="?" label_selected="?" name="button show owners help"/>
+		<button label="?" label_selected="?" name="button show owners help" left_delta="114"/>
 		<text name="label_parcel_modify">
 			区画の編集
 		</text>
@@ -586,7 +586,7 @@
 		選択した側をクリックし、ドラッグして引き伸ばす
 	</string>
 	<string name="status_move">
-		ﾄﾞﾗｯｸﾞし移動､ｼﾌﾄｷｰを押しながらﾄﾞﾗｯｸﾞしｺﾋﾟｰ
+		移動：ﾄﾞﾗｯｸﾞ、コピー：Shiftを押しながらﾄﾞﾗｯｸﾞ
 	</string>
 	<string name="status_modifyland">
 		土地をクリックし、ボタンを押したまま入力して修正変更
@@ -595,7 +595,7 @@
 		クリックしドラッグして視界を調整
 	</string>
 	<string name="status_grab">
-		ドラッグで移動、Ctrlで持ち上げ、Ctrl-Shiftで回転
+		移動：ﾄﾞﾗｯｸﾞ、持ち上げ：Ctrl、回転：Ctrl-Shift
 	</string>
 	<string name="status_place">
 		インワールドでクリックして作成

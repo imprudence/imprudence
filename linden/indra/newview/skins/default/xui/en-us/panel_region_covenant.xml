@@ -31,23 +31,29 @@
 	     mouse_opaque="false" name="estate_owner_text" v_pad="0" width="150">
 		(none)
 	</text>
-	<text_editor type="string" length="1" bottom="-269" embedded_items="false" enabled="false"
-	     follows="left|top" font="SansSerifSmall" height="204"
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-85" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="10"
+	     mouse_opaque="false" name="estate_cov_lbl" v_pad="0" width="100">
+		Covenant:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-85" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="120"
+	     mouse_opaque="false" name="covenant_timestamp_text" v_pad="0" width="300">
+		Last Modified Wed Dec 31 16:00:00 1969
+	</text>
+	<button bottom="-82" follows="right|top" font="SansSerifSmall" height="18" label="?"
+	     name="covenant_help" right="462" width="18" />
+	<text_editor type="string" length="1" bottom="-279" embedded_items="false" enabled="false"
+	     follows="left|top" font="SansSerifSmall" height="194"
 	     left="120" max_length="65535" mouse_opaque="true" name="covenant_editor"
 	     width="340" word_wrap="true">
 		There is no Covenant provided for this Estate.
 	</text_editor>
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-29" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="120"
-	     mouse_opaque="false" name="covenant_timestamp_text" v_pad="0" width="250">
-		Last Modified Wed Dec 31 16:00:00 1969
-	</text>
-	<button bottom_delta="4" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     name="covenant_help" right="366" width="18" />
-	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18"
+	<button bottom_delta="-25" follows="left|top" font="SansSerifSmall" height="18"
 	     label="Reset" name="reset_covenant" right="460" width="90" />
-	<text bottom_delta="-30" follows="left|top" font="SansSerifSmall" height="20" left="120"
+	<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16" left="120"
 	     name="covenant_help_text" width="460">
 		Changes to the covenant will show on all parcels in the estate.
 	</text>
@@ -112,7 +118,7 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="10"
-	     mouse_opaque="false" name="changeable_lbl" v_pad="0" width="200">
+	     mouse_opaque="false" name="changeable_lbl" v_pad="0" width="100">
 		Subdivide:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"

@@ -4,14 +4,6 @@
 		<panel label="Objets" name="objects_mapview" width="953"/>
 		<panel label="Terrain" name="terrain_mapview" width="953"/>
 	</tab_container>
-	<icon left="973" name="square"/>
-	<text name="land_for_sale_label">
-		Terrain à vendre
-	</text>
-	<icon left="1113" name="square2"/>
-	<text name="auction_label">
-		Terrain aux enchères
-	</text>
 	<icon left="973" name="self"/>
 	<text name="you_label">
 		Vous
@@ -20,38 +12,31 @@
 	<text name="home_label">
 		Domicile
 	</text>
-	<button label="Aller chez moi" label_selected="Aller chez moi" name="Go Home" tool_tip="Vous téléporte à votre domicile"/>
-	<text name="classifieds_label">
-		Petites annonces
+	<icon left="1113" name="square2"/>
+	<text name="auction_label">
+		Terrain aux enchères
 	</text>
-	<icon left="977" name="person"/>
-	<text name="person_label">
-		Résident
-	</text>
-	<check_box label=" " left_delta="60" name="people_chk"/>
-	<icon left="973" name="infohub"/>
-	<text name="infohub_label">
-		Infohub
-	</text>
-	<check_box label=" " left_delta="60" name="infohub_chk"/>
-	<icon left="973" name="telehub"/>
-	<text name="telehub_label">
-		Téléhub
-	</text>
-	<check_box label=" " left_delta="60" name="telehubchk"/>
-	<icon left="1113" name="landforsale"/>
-	<text name="land_for_sale_label2">
+	<icon left="973" name="square"/>
+	<text name="land_for_sale_label">
 		Terrain à vendre
 	</text>
-	<check_box label=" " name="land_for_sale_chk"/>
-	<icon left="1113" name="event"/>
+	<button label="Aller chez moi" label_selected="Aller chez moi" name="Go Home" tool_tip="Vous téléporte à votre domicile"/>
+	<icon left="977" name="person"/>
+	<check_box label="Résident" left_delta="60" name="people_chk"/>
+	<icon left="973" name="infohub"/>
+	<check_box label="Infohub" left_delta="60" name="infohub_chk"/>
+	<icon left="973" name="telehub"/>
+	<check_box label="Téléhub" left_delta="60" name="telehubchk"/>
+	<icon left="1113" name="landforsale"/>
+	<check_box label="Terrain à vendre" name="land_for_sale_chk"/>
 	<text name="events_label">
-		Événements
+		Événements :
 	</text>
-	<check_box label=" " name="event_chk"/>
+	<icon left="1113" name="event"/>
+	<check_box label="PG" name="event_chk"/>
 	<icon left="1113" name="events_mature_icon"/>
-
-	<check_box name="event_mature_chk"/>
+	<check_box label="Mature" name="event_mature_chk"/>
+	<check_box label="Adult" name="event_adult_chk"/>
 	<icon left="973" name="avatar_icon"/>
 	<combo_box label="Amis connectés" name="friend combo" tool_tip="Ami à afficher sur la carte" width="232">
 		<combo_item name="none_selected">

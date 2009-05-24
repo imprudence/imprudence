@@ -28,13 +28,13 @@
 		Вы не модератор сессии
 	</string>
 	<string name="muted_error">
-		Вас заглушили
+		Модератор группы отключил Ваш текстовый чат.
 	</string>
 	<string name="add_session_event">
-		добавить агентов в сессию чата с
+		Невозможно добавить пользователей в чат с [RECIPIENT].
 	</string>
 	<string name="message_session_event">
-		сообщения сессии чата с
+		Невозможно отправить Ваше сообщение [RECIPIENT].
 	</string>
 	<string name="mute_agent_event">
 		заглушить агента в
@@ -43,6 +43,6 @@
 		Вас исключили из группы
 	</string>
 	<string name="close_on_no_ability">
-		Вы более не можете находиться в этой чат-сессии
+		У Вас больше нет возможности находиться в этой чат сессии.
 	</string>
 </multi_floater>

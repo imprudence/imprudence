@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Place" title="Місце">
 	<text name="name_label">
 		Назв.:
@@ -9,20 +9,23 @@
 	<text name="information_label">
 		Інфо:
 	</text>
+	<text name="land_type_label">
+		Тип землі:
+	</text>
 	<text name="location_label">
 		Располож.:
 	</text>
-	<button label="Телепорт" name="teleport_btn" />
-	<button label="Показ.на карті" name="map_btn" />
-	<button label="Заявки..." name="auction_btn" />
+	<button label="Телепорт" name="teleport_btn"/>
+	<button label="Показ.на карті" name="map_btn"/>
+	<button label="Заявки..." name="auction_btn"/>
 	<string name="traffic_text">
 		Трафік: [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Площа: [AREA] кв.м.
+		Площа: [AREA] м².
 	</string>
 	<string name="forsale_text">
-		Вартість L$ [PRICE]
+		Продається за L$[PRICE]
 	</string>
 	<string name="auction_text">
 		ID аукціона [ID].

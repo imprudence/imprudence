@@ -12,6 +12,15 @@
 	<text name="event_category">
 		(ninguno)
 	</text>
+	<text name="event_mature_label">
+		Contenido &apos;Mature&apos;:
+	</text>
+	<text name="event_mature_yes">
+		Sí
+	</text>
+	<text name="event_mature_no">
+		No
+	</text>
 	<text name="event_date_label">
 		Fecha:
 	</text>

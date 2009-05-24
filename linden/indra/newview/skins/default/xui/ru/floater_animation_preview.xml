@@ -154,8 +154,8 @@
 	<slider label="" name="playback_slider" />
 	<text name="bad_animation_text">
 		Невозможно прочитать файл анимации
-	
-	Мы рекомендуем файл формата BVH, экспортированный из Poser 4.
+
+Мы рекомендуем файл формата BVH, экспортированный из Poser 4.
 	</text>
 	<button label="Отмена" name="cancel_btn" />
 	<button label="Загрузить (L$[AMOUNT])" name="ok_btn" />

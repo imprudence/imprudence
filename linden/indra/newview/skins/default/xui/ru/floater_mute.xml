@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="mute floater" title="Список заглушенных">
+<floater name="mute floater" title="Список заглушенных" short_title="Список заглушенных">
 	<scroll_list name="mutes"
 	     tool_tip="Текущий список заглушенных резидентов" />
 	<button label="Заглушить резидента..."

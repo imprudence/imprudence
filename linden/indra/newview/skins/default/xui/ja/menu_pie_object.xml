@@ -15,7 +15,7 @@
 		<menu_item_call label="返却..." name="Return..." />
 		<pie_menu label="詳細＞" name="Rate Menu">
 			<menu_item_call label="オーナーを評価..." name="Rate Owner..." />
-			<menu_item_call label="嫌がらせの報告..." name="Report Abuse..." />
+			<menu_item_call label="報告..." name="Report Abuse..."/>
 			<menu_item_call label="クリエーターを評価..." name="Rate Creator..." />
 			<menu_item_call label="無視" name="Object Mute" />
 			<menu_item_call label="検査" name="Object Inspect" />

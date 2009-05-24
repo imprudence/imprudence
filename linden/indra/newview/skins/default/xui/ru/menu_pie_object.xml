@@ -14,7 +14,7 @@
 		<pie_menu label="Прикрепить &gt;" name="Object Attach" />
 		<menu_item_call label="Назад..." name="Return..." />
 		<pie_menu label="Еще &gt;" name="Rate Menu">
-			<menu_item_call label="Жалоба..." name="Report Abuse..." />
+			<menu_item_call label="Сообщить..." name="Report Abuse..."/>
 			<menu_item_call label="Заглушить" name="Object Mute" />
 			<menu_item_call label="Осмотреть" name="Object Inspect" />
 		</pie_menu>

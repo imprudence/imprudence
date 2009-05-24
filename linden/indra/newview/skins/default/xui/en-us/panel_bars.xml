@@ -11,9 +11,9 @@
 		     follows="left|right|top|bottom" height="768" left="0" mouse_opaque="false"
 		     name="spacer" user_resize="false" width="1024" />
 		<layout_panel auto_resize="false" name="overlay" use_bounding_rect="true" user_resize="false"
-		     width="1024" />
+		     width="1024" min_height="200" />
 		<layout_panel auto_resize="false" filename="panel_toolbar.xml" name="toolbar"
-		     use_bounding_rect="true" user_resize="false" width="1024" />
+		     use_bounding_rect="true" user_resize="false" width="1024" min_height="28" />
 	</layout_stack>
 	<panel auto_resize="true" background_visible="false" bottom="50"
 	     follows="left|right|top|bottom" height="728" left="0" mouse_opaque="false"

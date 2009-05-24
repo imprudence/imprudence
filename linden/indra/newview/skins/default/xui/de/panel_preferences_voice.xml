@@ -15,10 +15,9 @@
 	<text name="push_to_talk_heading">
 		Zum Sprechen drücken
 	</text>
-	<text_editor name="voice_chat_description" width="465" height="81" bottom_delta="-76">
+	<text_editor bottom_delta="-76" height="81" name="voice_chat_description" width="465">
 		Der Modus „Zum Sprechen drücken“ ermöglicht es Ihnen, zu kontrollieren, wann Ihre Stimme übertragen wird. Wenn Sie im Umschaltmodus sind, drücken Sie die Auslöse-Taste und lassen Sie sie wieder los, um Ihr Mikrofon an und aus zu stellen. Wenn Sie sich nicht im Umschaltmodus befinden, ist das Mikro nur aktiv, während Sie die Auslösetaste gedrückt halten.
 	</text_editor>
-	<check_box label="Viewer im „Zum-Sprechen-drücken“-Modus starten" name="push_to_talk_check"/>
 	<check_box label="„Zum-Sprechen-drücken“ im Umschaltmodus verwenden" name="push_to_talk_toggle_check"/>
 	<text name="push_to_talk_label">
 		Auslöser für „Zum-Sprechen-drücken“:
@@ -29,9 +28,9 @@
 		Privatsphäre
 	</text>
 	<check_box label="Anrufe nur von Personen auf meiner Freundesliste annehmen" name="voice_call_friends_only_check"/>
+	<check_box label="Nach Beendigung von IM-Anrufen Mikrofon abschalten." name="auto_disengage_mic_check"/>
+	<button label="Geräte-Einstellungen" name="device_settings_btn"/>
 	<text_editor name="device_settings_text">
 		HINWEIS: Beim Öffnen der Geräte-Einstellungen werden Sie vorübergehend vom Voice-Chat getrennt. Vorgenommene Änderungen werden sofort gültig.
 	</text_editor>
-	<button label="Geräte-Einstellungen" name="device_settings_btn"/>
-	<button label="Voice-Chat-Einrichtung" name="launch_voice_wizard_button"/>
 </panel>

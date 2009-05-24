@@ -21,6 +21,45 @@
 	<string name="IM_end_log_string">
 		-- Ende des Protokolls --
 	</string>
+	<string name="ScriptQuestionCautionChatGranted">
+		Dem Objekt „[OBJECTNAME]“, ein Objekt von „[OWNERNAME]“, in [REGIONNAME] [REGIONPOS], wurde folgende Berechtigung erteilt: [PERMISSIONS].
+	</string>
+	<string name="ScriptQuestionCautionChatDenied">
+		Dem Objekt „[OBJECTNAME]“, ein Objekt von „[OWNERNAME]“, in [REGIONNAME] [REGIONPOS], wurde folgende Berechtigung verweigert: [PERMISSIONS].
+	</string>
+	<string name="ScriptTakeMoney">
+		Linden-Dollar (L$) von Ihnen nehmen
+	</string>
+	<string name="ActOnControlInputs">
+		Steuerung festlegen
+	</string>
+	<string name="RemapControlInputs">
+		Steuerung neu zuweisen
+	</string>
+	<string name="AnimateYourAvatar">
+		Avatar animieren
+	</string>
+	<string name="AttachToYourAvatar">
+		An Avatar anhängen
+	</string>
+	<string name="ReleaseOwnership">
+		Eigentum aufgeben und öffentlich machen
+	</string>
+	<string name="LinkAndDelink">
+		Mit Objekten verknüpfen und davon trennen
+	</string>
+	<string name="AddAndRemoveJoints">
+		Verbindungen zu anderen Objekten hinzufügen und entfernen
+	</string>
+	<string name="ChangePermissions">
+		Berechtigungen ändern
+	</string>
+	<string name="TrackYourCamera">
+		Kameraverfolgung
+	</string>
+	<string name="ControlYourCamera">
+		Kamerasteuerung
+	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<combo_box label="Gesten" name="Gesture">
@@ -34,8 +73,8 @@
 				<string name="gesture_label">
 					Gesten
 				</string>
-				<line_editor label="Zum Chatten hier klicken." name="Chat Editor" right="-75" />
-				<flyout_button label="Reden" name="Say" tool_tip="(Eingabe)" width="75" left="-70">
+				<line_editor label="Zum Chatten hier klicken." name="Chat Editor" right="-75"/>
+				<flyout_button label="Reden" left="-70" name="Say" tool_tip="(Eingabe)" width="75">
 					<flyout_button_item name="shout_item">
 						Rufen
 					</flyout_button_item>

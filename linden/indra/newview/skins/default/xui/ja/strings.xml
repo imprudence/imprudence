@@ -418,6 +418,24 @@
 	<string name="shout">
 		の叫び:
 	</string>
+	<string name="SIM_ACCESS_PG">
+		PG
+	</string>
+	<string name="SIM_ACCESS_MATURE">
+		Mature
+	</string>
+	<string name="SIM_ACCESS_ADULT">
+		Adult
+	</string>
+	<string name="SIM_ACCESS_DOWN">
+		オフライン
+	</string>
+	<string name="SIM_ACCESS_MIN">
+		不明
+	</string>
+	<string name="land_type_unknown">
+		（不明）
+	</string>
 	<string name="all_files">
 		全てのファイル
 	</string>

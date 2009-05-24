@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="contents" title="Тест шрифтів">
+	<text name="linea">
+		OverrideTest, має з&apos;явиться тут у Times. (Из default/xui/en-us)
+	</text>
+</floater>

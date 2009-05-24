@@ -14,7 +14,7 @@
 		<pie_menu label="Dołącz Obiekt" name="Object Attach" />
 		<menu_item_call label="Zwróć..." name="Return..." />
 		<pie_menu label="Więcej &gt;" name="Rate Menu">
-			<menu_item_call label="Zgłoś Nadużycie..." name="Report Abuse..." />
+			<menu_item_call label="Raport..." name="Report Abuse..."/>
 			<menu_item_call label="Wycisz" name="Object Mute" />
 			<menu_item_call label="Sprawdź" name="Object Inspect" />
 		</pie_menu>

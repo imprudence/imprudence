@@ -150,9 +150,9 @@
 	<button label="" name="stop_btn" tool_tip="Stop animation playback" />
 	<slider label="" name="playback_slider" />
 	<text name="bad_animation_text">
-		Niemożliwość odczytania pliku animacji do wyświetlenia/
-	
-	Sugerujemy pliki BVH eksportowane z pozycji.
+		Brak możliwości wczytania pliku animacji.
+
+Doradzamy eksport plików BVH z Poser 4.
 	</text>
 	<button label="Anuluj" name="cancel_btn" />
 	<button label="Upload (L$[AMOUNT])" name="ok_btn" />

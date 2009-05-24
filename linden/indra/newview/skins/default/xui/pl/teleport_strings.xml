@@ -2,12 +2,12 @@
 <teleport_messages>
 	<message_set name="errors">
 		<message name="invalid_tport">
-			Huston / LL - Mamy problem z teleportacją. Może relog by pomógl?
+			Mamy problem z teleportacją. Może relog by pomógl?
 Jeżeli cały czas nie możesz się telportować sprawdź Pomoc Techniczną na:
 www.secondlife.com/support
 		</message>
 		<message name="invalid_region_handoff">
-			Huston / LL - Mamy problem ze zmianą regionu. Może relog by pomógl?
+			Mamy problem ze zmianą regionu. Może relog by pomógl?
 Jeżeli cały czas nie możesz zmienić regionu sprawdź Pomoc Techniczną na:
 www.secondlife.com/support
 		</message>

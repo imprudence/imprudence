@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="popup">
+	<menu_item_call label="Близько" name="Zoom Close"/>
+	<menu_item_call label="Середнє" name="Zoom Medium"/>
+	<menu_item_call label="Далеко" name="Zoom Far"/>
+	<menu_item_call label="Зупинити перегляд" name="Stop Tracking"/>
+	<menu_item_call label="Профіль..." name="Profile"/>
+</menu>
