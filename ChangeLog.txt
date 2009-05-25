@@ -1,5 +1,12 @@
 2009-05-24  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llagent.cpp:
+	Moved LLAgent::teleportHome() definition.
+	Was in llagent.h for no good reason, now in llagent.cpp.
+	* linden/indra/newview/llagent.h: 
+	Ditto.
+
+
 	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
 	Added ConfirmTeleportHome alert text.
 

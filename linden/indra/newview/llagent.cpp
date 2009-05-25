@@ -5926,6 +5926,13 @@ void LLAgent::teleportViaLocation(const LLVector3d& pos_global)
 	}
 }
 
+
+void LLAgent::teleportHome()
+{
+	teleportViaLandmark(LLUUID::null);
+}
+
+
 void LLAgent::setTeleportState(ETeleportState state)
 {
 	mTeleportState = state;
