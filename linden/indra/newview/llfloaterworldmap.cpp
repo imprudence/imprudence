@@ -1052,8 +1052,7 @@ void LLFloaterWorldMap::onPanBtn( void* userdata )
 // static
 void LLFloaterWorldMap::onGoHome(void*)
 {
-	gAgent.teleportHome();
-	gFloaterWorldMap->close();
+	gAgent.teleportHomeConfirm();
 }
 
 
