@@ -1,5 +1,12 @@
 2009-05-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llpanellogin.cpp:
+	User-initiated Toggle Fullscreen has a confirmation dialog now.
+	That's in the View menu and also Alt+Enter at login screen.
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto.
+
+
 	* linden/indra/newview/llviewerwindow.cpp:
 	Added Toggle Fullscreen confirmation and callback methods.
 	  LLViewerWindow::toggleFullscreenConfirm()

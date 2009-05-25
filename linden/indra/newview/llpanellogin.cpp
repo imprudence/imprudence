@@ -538,7 +538,7 @@ BOOL LLPanelLogin::handleKeyHere(KEY key, MASK mask)
 {
 	if (( KEY_RETURN == key ) && (MASK_ALT == mask))
 	{
-		gViewerWindow->toggleFullscreen(FALSE);
+		gViewerWindow->toggleFullscreenConfirm();
 		return TRUE;
 	}
 
