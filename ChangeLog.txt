@@ -1,6 +1,14 @@
 2009-05-24  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llagent.cpp:
+	Added Teleport Home confirmation and callback methods.
+	  LLAgent::teleportHomeConfirm()
+	  LLAgent::teleportHomeCallback()
+	* linden/indra/newview/llagent.h: 
+	Ditto.
+
+
+	* linden/indra/newview/llagent.cpp:
 	Moved LLAgent::teleportHome() definition.
 	Was in llagent.h for no good reason, now in llagent.cpp.
 	* linden/indra/newview/llagent.h: 

@@ -463,6 +463,8 @@ public:
 
 	// go home
 	void teleportHome();
+	void teleportHomeConfirm();
+	static void teleportHomeCallback(S32 option, void *userdata);
 
 	// to an invited location
 	void teleportViaLure(const LLUUID& lure_id, BOOL godlike);
