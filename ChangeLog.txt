@@ -1,3 +1,9 @@
+2009-05-24  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
+	Added ConfirmTeleportHome alert text.
+
+
 2009-04-20  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llaudio/audioengine_openal.cpp:

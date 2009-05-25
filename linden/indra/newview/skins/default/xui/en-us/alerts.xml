@@ -5060,5 +5060,21 @@ Would you like to visit the Second Life website to set this up?
 			The string [STRING_NAME] is missing from strings.xml
 		</message>
 	</alert>
+
+	<alert modal="true" name="ConfirmTeleportHome">
+		<message name="message">
+			Are you sure you want to teleport home?
+		</message>
+		<ignore name="ignore">
+			When teleporting home
+		</ignore>
+		<option name="Teleport">
+			Teleport
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+
 </alerts>
 
