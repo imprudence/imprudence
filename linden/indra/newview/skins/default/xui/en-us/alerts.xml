@@ -5076,5 +5076,20 @@ Would you like to visit the Second Life website to set this up?
 		</option>
 	</alert>
 
+	<alert modal="true" name="ConfirmToggleFullscreen">
+		<message name="message">
+			Are you sure you want to toggle fullscreen mode?
+		</message>
+		<ignore name="ignore">
+			When toggling fullscreen mode
+		</ignore>
+		<option name="Toggle">
+			Toggle
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+
 </alerts>
 

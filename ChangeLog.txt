@@ -1,13 +1,17 @@
 2009-05-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
+	Added ConfirmToggleFullscreen alert text.
+
+
+2009-05-24  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
 	* linden/indra/newview/llfloaterworldmap.cpp:
 	User-initiated Teleport Home has confirmation dialog.
 	That's in the World menu and on the world map.
 	* linden/indra/newview/llviewermenu.cpp:
 	Ditto.
 
-
-2009-05-24  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llagent.cpp:
 	Added Teleport Home confirmation and callback methods.
