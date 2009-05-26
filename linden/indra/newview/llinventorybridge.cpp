@@ -3439,6 +3439,7 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 				items.push_back(std::string("Object Wear"));
 				items.push_back(std::string("Attach To"));
 				items.push_back(std::string("Attach To HUD"));
+				items.push_back(std::string("RestoreToWorld Separator"));
 				items.push_back(std::string("Restore to Last Position"));
 
 				LLMenuGL* attach_menu = menu.getChildMenuByName("Attach To", TRUE);

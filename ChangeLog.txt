@@ -1,5 +1,11 @@
 2009-05-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llinventorybridge.cpp (buildContextMenu): 
+	Added a separator between Wear and Restore to Last Position.
+	* linden/indra/newview/skins/default/xui/en-us/menu_inventory.xml:
+	Ditto.
+
+
 	* linden/indra/newview/llinventorybridge.cpp:
 	Restore to Last Position has a confirmation dialog now.
 
