@@ -5091,5 +5091,29 @@ Would you like to visit the Second Life website to set this up?
 		</option>
 	</alert>
 
+	<alert modal="true" name="ConfirmRestoreToWorld">
+		<message name="message">
+			Are you sure you want to restore the object to its last position?
+
+WARNING: Don't restore if you aren't sure where the object will go!
+		</message>
+		<ignore name="ignore">
+			When restoring objects to their last positions
+		</ignore>
+		<option name="Restore">
+			Restore
+		</option>
+		<option name="MoreInfo">
+			More Info
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+		<url option="1">
+      http://imprudenceviewer.org/wiki/Restore_to_Last_Position
+    </url>
+
+	</alert>
+
 </alerts>
 

@@ -1,5 +1,9 @@
 2009-05-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
+	Added ConfirmRestoreToWorld alert text.
+
+
 	* linden/indra/newview/llpanellogin.cpp:
 	User-initiated Toggle Fullscreen has a confirmation dialog now.
 	That's in the View menu and also Alt+Enter at login screen.
