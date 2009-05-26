@@ -1,5 +1,13 @@
 2009-05-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* linden/indra/newview/llinventorybridge.cpp:
+	Added Restore to Last Position confirmation and callback methods.
+	  LLItemBridge::restoreToWorldConfirm()
+	  LLItemBridge::restoreToWorldCallback()
+	* linden/indra/newview/llinventorybridge.h: 
+	Ditto.
+
+
 	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
 	Added ConfirmRestoreToWorld alert text.
 

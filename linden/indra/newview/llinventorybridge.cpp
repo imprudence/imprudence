@@ -816,6 +816,24 @@ void LLItemBridge::restoreItem()
 	}
 }
 
+
+// virtual
+void LLItemBridge::restoreToWorldConfirm()
+{
+	gViewerWindow->alertXml("ConfirmRestoreToWorld", LLItemBridge::restoreToWorldCallback, (void *)this);
+}
+
+// static
+void LLItemBridge::restoreToWorldCallback(S32 option, void *userdata)
+{
+	if( option == 0 )
+	{
+		// They confirmed it. Here we go!
+		((LLItemBridge *) userdata)->restoreToWorld();
+	}
+}
+
+// virtual
 void LLItemBridge::restoreToWorld()
 {
 	LLViewerInventoryItem* itemp = (LLViewerInventoryItem*)getItem();
