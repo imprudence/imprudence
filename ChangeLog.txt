@@ -1,6 +1,10 @@
 2009-05-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventorybridge.cpp:
+	Restore to Last Position has a confirmation dialog now.
+
+
+	* linden/indra/newview/llinventorybridge.cpp:
 	Added Restore to Last Position confirmation and callback methods.
 	  LLItemBridge::restoreToWorldConfirm()
 	  LLItemBridge::restoreToWorldCallback()

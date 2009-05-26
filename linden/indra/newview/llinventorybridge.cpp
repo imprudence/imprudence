@@ -758,7 +758,7 @@ void LLItemBridge::performAction(LLFolderView* folder, LLInventoryModel* model, 
 	}
 	else if ("restoreToWorld" == action)
 	{
-		restoreToWorld();
+		restoreToWorldConfirm();
 	}
 	else if ("restore" == action)
 	{
