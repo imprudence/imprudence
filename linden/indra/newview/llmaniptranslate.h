@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -55,6 +55,8 @@ public:
 	LLManipTranslate( LLToolComposite* composite );
 	virtual ~LLManipTranslate();
 
+	static  U32     getGridTexName() ;
+	static  void    destroyGL();
 	static	void	restoreGL();
 	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);

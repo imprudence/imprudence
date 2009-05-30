@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2007-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -32,6 +32,14 @@
 #ifndef LL_LLAPPVIEWERLINUX_H
 #define LL_LLAPPVIEWERLINUX_H
 
+#if LL_DBUS_ENABLED
+extern "C" {
+# include <glib.h>
+# include <glib-object.h>
+# include <dbus/dbus-glib.h>
+}
+#endif
+
 #ifndef LL_LLAPPVIEWER_H
 #include "llappviewer.h"
 #endif
@@ -49,15 +57,37 @@ public:
 	//
 	virtual bool init();			// Override to do application initialization
 	std::string generateSerialNumber();
+	bool setupSLURLHandler();
 
 protected:
 	virtual bool beingDebugged();
-
-	virtual void handleCrashReporting();
+	
+	virtual bool restoreErrorTrap();
+	virtual void handleCrashReporting(bool reportFreeze);
 	virtual void handleSyncCrashTrace();
 
 	virtual bool initLogging();
 	virtual bool initParseCommandLine(LLCommandLineParser& clp);
+
+	virtual bool initSLURLHandler();
+	virtual bool sendURLToOtherInstance(const std::string& url);
 };
+
+#if LL_DBUS_ENABLED
+typedef struct
+{
+        GObject parent;
+        DBusGConnection *connection;
+} ViewerAppAPI;
+
+extern "C" {
+	gboolean viewer_app_api_GoSLURL(ViewerAppAPI *obj, gchar *slurl, gboolean **success_rtn, GError **error);
+}
+
+#define VIEWERAPI_SERVICE "com.secondlife.ViewerAppAPIService"
+#define VIEWERAPI_PATH "/com/secondlife/ViewerAppAPI"
+#define VIEWERAPI_INTERFACE "com.secondlife.ViewerAppAPI"
+
+#endif // LL_DBUS_ENABLED
 
 #endif // LL_LLAPPVIEWERLINUX_H

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2008, Linden Research, Inc.
+ * Copyright (c) 2004-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -165,7 +165,7 @@ createUI ()
 		}
 	}
 	mRGBImage = new LLImageGL ( (LLImageRaw*)raw, FALSE );
-	mRGBImage->bind();
+	gGL.getTexUnit(0)->bind(mRGBImage);
 	mRGBImage->setClamp(TRUE, TRUE);
 	
 	// create palette
@@ -543,9 +543,9 @@ void LLFloaterColorPicker::draw()
 	LLRect local_rect = getLocalRect();
 	if (gFocusMgr.childHasKeyboardFocus(this) && mSwatch->isInVisibleChain() && mContextConeOpacity > 0.001f)
 	{
-		LLGLSNoTexture no_texture;
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		LLGLEnable(GL_CULL_FACE);
-		gGL.begin(LLVertexBuffer::QUADS);
+		gGL.begin(LLRender::QUADS);
 		{
 			gGL.color4f(0.f, 0.f, 0.f, CONTEXT_CONE_IN_ALPHA * mContextConeOpacity);
 			gGL.vertex2i(swatch_rect.mLeft, swatch_rect.mTop);

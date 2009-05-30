@@ -541,7 +541,7 @@ Do you wish to proceed?
 	<alert modal="true" name="JoinGroupCannotAfford">
 		<message name="message">
 			Joining this group costs L$[COST].
-You do not have a sufficient balance to join this group.
+You do not have enough L$ to join this group.
 		</message>
 	</alert>
 	<alert modal="true" name="LandBuyPass">
@@ -733,7 +733,7 @@ to set its Landing Point.
 	</alert>
 	<alert modal="true" name="PromptRecipientEmail">
 		<message name="message">
-			Please enter the recipient&apos;s email address.
+			Please enter a valid email address for the recipient(s).
 		</message>
 	</alert>
 	<alert modal="true" name="PromptSelfEmail">
@@ -793,21 +793,13 @@ The outfit folder contains no clothing, body parts, or attachments.
 			You can not wear that item because it has not yet loaded. Please try again in a minute.
 		</message>
 	</alert>
-	<alert modal="true" name="MustHaveAccountToLogInNoLinks">
-		<message name="message">
-			You must have an account to connect to [SECOND_LIFE].
-		</message>
-		<option name="OK">
-			Close
-		</option>
-	</alert>
 	<alert modal="true" name="MustHaveAccountToLogIn">
 		<message name="message">
 Oops! Something was left blank.
 You need to enter both the First and Last name of your avatar.
 
 You need an account to enter [SECOND_LIFE]. Would you like to create one now?
-</message>
+		</message>
 		<option name="OK">
 			Create a new account
 		</option>
@@ -1478,7 +1470,29 @@ chat, or interact with the world.
 			Cancel
 		</option>
 	</alert>
-	<alert modal="true" name="InvalidUUID">
+    <alert modal="true" name="EjectAvatarNoBan">
+        <message name="message">
+            Eject this avatar from your land?
+        </message>
+        <option name="Eject">
+            Eject
+        </option>
+        <option name="Cancel">
+            Cancel
+        </option>
+    </alert>
+    <alert modal="true" name="EjectAvatarFullnameNoBan">
+        <message name="message">
+            Eject [AVATAR_NAME] from your land?
+        </message>
+        <option name="Eject">
+            Eject
+        </option>
+        <option name="Cancel">
+            Cancel
+        </option>
+    </alert>
+    <alert modal="true" name="InvalidUUID">
 		<message name="message">
 			Not a valid UUID.
 		</message>
@@ -1660,12 +1674,12 @@ Expected [VALIDS]
 	</alert>
 	<alert modal="true" name="InsufficientFundsToUploadFile">
 		<message name="message">
-			Insufficient L$ to upload file: the price is L$[COST], your balance is L$[BALANCE]
+			Not enough L$ to upload file: the price is L$[COST], your balance is L$[BALANCE]
 		</message>
 	</alert>
 	<alert modal="true" name="InsufficientFundsToFinishUpload">
 		<message name="message">
-			Insufficient L$ to finish uploading [FILE]: the price is L$[COST], your balance is L$[BALANCE]
+			Not enough L$ to finish uploading [FILE]: the price is L$[COST], your balance is L$[BALANCE]
 		</message>
 	</alert>
 	<alert modal="true" name="CannotUploadReason">
@@ -2652,7 +2666,7 @@ You can change your mind later.
 	</alert>
 	<alert modal="true" name="NotEnoughCurrency">
 		<message name="message">
-			[NAME] L$ [PRICE] You don&apos;t have enough currency to do that.
+			[NAME] L$ [PRICE] You don&apos;t have enough L$ to do that.
 		</message>
 	</alert>
 	<alert modal="true" name="GrantedModifyRights">
@@ -4369,9 +4383,9 @@ http://secondlife.com/corporate/cs.php
 
 All reported abuses of the Terms of Service and Community Standards 
 are investigated and resolved. You can view the incident 
-resolution on the Police Blotter at:
+resolution on the Incident Report at:
 
-http://secondlife.com/community/blotter.php
+http://secondlife.com/support/incidentreport.php
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportAbuseEmailEO">
@@ -4466,7 +4480,7 @@ Entering an accurate description helps us file and process bug reports.
 	<alert modal="true" name="HelpReportAbuseContainsCopyright">
 		<message name="message">
 			Dear Resident,
-
+ 
 You appear to be reporting intellectual property infringement. Please make sure you are reporting it correctly:
 
 (1) The Abuse Process. You may submit an abuse report if you believe a Resident is exploiting the Second Life permissions system, for example, by using CopyBot or similar copying tools, to infringe intellectual property rights. The Abuse Team investigates and issues appropriate disciplinary action for behavior that violates the Second Life Community Standards or Terms of Service. However, the Abuse Team does not handle and will not respond to requests to remove content from the Second Life world.
@@ -4476,8 +4490,9 @@ You appear to be reporting intellectual property infringement. Please make sure 
 If you still wish to continue with the abuse process, please close this window and finish submitting your report.  You may need to select the specific category 'CopyBot or Permissions Exploit'.
 
 Thank you,
-
-Linden Lab</message>
+ 
+Linden Lab
+		</message>
 	</alert>
 	<alert modal="true" name="FailedRequirementsCheck">
 		<message name="message">

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Voice Chat" name="chat">
+	<button label="Configurações do dispositivo" name="device_settings_btn" width="180" />
+	<text_editor name="device_settings_text" height="48" bottom_delta="-45">
+		NOTA: Executar o Configurações do dispositivo vai desligá-lo temporariamente do Bate- papo de voz, e as mudanças que você fizer serão imediatamente aplicadas.
+	</text_editor>
+</panel>

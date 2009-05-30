@@ -30,8 +30,8 @@
 	     width="128">
 		Cookies:
 	</text>
-	<check_box bottom_delta="-7" control_name="CookiesEnabled" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	<check_box bottom_delta="-7" enabled="true" follows="left|top" 
+		 font="SansSerifSmall" height="16" initial_value="false"
 	     label="Accept cookies from sites" left="140" mouse_opaque="true"
 	     name="cookies_enabled" radio_style="false" width="256" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -41,7 +41,7 @@
 	     width="128">
 		Web Proxy:
 	</text>
-	<check_box bottom_delta="-7" control_name="BrowserProxyEnabled" enabled="true"
+	<check_box bottom_delta="-7" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Enable Web Proxy" left="140" mouse_opaque="true"
 	     name="web_proxy_enabled" radio_style="false" width="256" />
@@ -56,7 +56,7 @@
 	     height="20" left="217" name="web_proxy_editor"
 	     tool_tip="The name or IP address of the proxy you would like to use"
 	     width="200" />
-	<spinner bottom_delta="-25" control_name="BrowserProxyPort" decimal_digits="0"
+	<spinner bottom_delta="-25" decimal_digits="0"
 	     enabled="true" follows="left|top" height="16" increment="1"
 	     initial_val="80" label="Port Number:" label_width="75" left="140"
 	     max_val="12000" min_val="10" mouse_opaque="true" name="web_proxy_port"

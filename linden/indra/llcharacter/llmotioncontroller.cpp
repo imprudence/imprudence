@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -783,6 +783,11 @@ void LLMotionController::updateLoadingMotions()
 			llinfos << "Motion " << motionp->getID() << " init failed." << llendl;
 			sRegistry.markBad(motionp->getID());
 			mLoadingMotions.erase(curiter);
+			motion_set_t::iterator found_it = mDeprecatedMotions.find(motionp);
+			if (found_it != mDeprecatedMotions.end())
+			{
+				mDeprecatedMotions.erase(found_it);
+			}
 			mAllMotions.erase(motionp->getID());
 			delete motionp;
 		}

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2008, Linden Research, Inc.
+ * Copyright (c) 2004-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -75,7 +75,7 @@ LLFloaterImagePreview::LLFloaterImagePreview(const std::string& filename) :
 {
 	mLastMouseX = 0;
 	mLastMouseY = 0;
-	mGLName = 0;
+	mImagep = NULL ;
 	loadImage(mFilenameAndPath);
 }
 
@@ -138,10 +138,7 @@ LLFloaterImagePreview::~LLFloaterImagePreview()
 	delete mAvatarPreview;
 	delete mSculptedPreview;
 	
-	if (mGLName)
-	{
-		glDeleteTextures(1, &mGLName );
-	}
+	mImagep = NULL ;
 }
 
 //static 
@@ -224,44 +221,31 @@ void LLFloaterImagePreview::draw()
 			gl_rect_2d_checkerboard(mPreviewRect);
 			LLGLDisable gls_alpha(GL_ALPHA_TEST);
 
-			GLenum format_options[4] = { GL_LUMINANCE, GL_LUMINANCE_ALPHA, GL_RGB, GL_RGBA };
-			GLenum format = format_options[mRawImagep->getComponents()-1];
-
-			GLenum internal_format_options[4] = { GL_LUMINANCE8, GL_LUMINANCE8_ALPHA8, GL_RGB8, GL_RGBA8 };
-			GLenum internal_format = internal_format_options[mRawImagep->getComponents()-1];
-		
-			if (mGLName)
+			if(mImagep.notNull())
 			{
-				LLImageGL::bindExternalTexture( mGLName, 0, GL_TEXTURE_2D ); 
+				gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mImagep->getTexName());
 			}
 			else
 			{
-				glGenTextures(1, &mGLName );
-				stop_glerror();
-
-				LLImageGL::bindExternalTexture( mGLName, 0, GL_TEXTURE_2D ); 
-				stop_glerror();
-
-				glTexImage2D(
-					GL_TEXTURE_2D, 0, internal_format, 
-					mRawImagep->getWidth(), mRawImagep->getHeight(),
-					0, format, GL_UNSIGNED_BYTE, mRawImagep->getData());
+				mImagep = new LLImageGL(mRawImagep, FALSE) ;
+				
+				gGL.getTexUnit(0)->unbind(mImagep->getTarget()) ;
+				gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mImagep->getTexName());
 				stop_glerror();
 
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 				
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+				gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 				if (mAvatarPreview)
 				{
-					mAvatarPreview->setTexture(mGLName);
-					mSculptedPreview->setTexture(mGLName);
+					mAvatarPreview->setTexture(mImagep->getTexName());
+					mSculptedPreview->setTexture(mImagep->getTexName());
 				}
 			}
 
 			gGL.color3f(1.f, 1.f, 1.f);
-			gGL.begin( LLVertexBuffer::QUADS );
+			gGL.begin( LLRender::QUADS );
 			{
 				gGL.texCoord2f(mPreviewImageRect.mLeft, mPreviewImageRect.mTop);
 				gGL.vertex2i(PREVIEW_HPAD, PREVIEW_TEXTURE_HEIGHT);
@@ -274,7 +258,7 @@ void LLFloaterImagePreview::draw()
 			}
 			gGL.end();
 
-			LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 			stop_glerror();
 		}
@@ -285,11 +269,15 @@ void LLFloaterImagePreview::draw()
 				gGL.color3f(1.f, 1.f, 1.f);
 
 				if (selected == 9)
-					mSculptedPreview->bindTexture();
+				{
+					gGL.getTexUnit(0)->bind(mSculptedPreview->getTexture());
+				}
 				else
-					mAvatarPreview->bindTexture();
+				{
+					gGL.getTexUnit(0)->bind(mAvatarPreview->getTexture());
+				}
 
-				gGL.begin( LLVertexBuffer::QUADS );
+				gGL.begin( LLRender::QUADS );
 				{
 					gGL.texCoord2f(0.f, 1.f);
 					gGL.vertex2i(PREVIEW_HPAD, PREVIEW_TEXTURE_HEIGHT);
@@ -302,10 +290,7 @@ void LLFloaterImagePreview::draw()
 				}
 				gGL.end();
 
-				if (selected == 9)
-					mSculptedPreview->unbindTexture();
-				else
-					mAvatarPreview->unbindTexture();
+				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			}
 		}
 	}
@@ -774,7 +759,9 @@ LLImagePreviewSculpted::LLImagePreviewSculpted(S32 width, S32 height) : LLDynami
 	LLVolumeParams volume_params;
 	volume_params.setType(LL_PCODE_PROFILE_CIRCLE, LL_PCODE_PATH_CIRCLE);
 	volume_params.setSculptID(LLUUID::null, LL_SCULPT_TYPE_SPHERE);
-	mVolume = new LLVolume(volume_params, (F32) MAX_LOD);
+	
+	F32 const HIGHEST_LOD = 4.0f;
+	mVolume = new LLVolume(volume_params,  HIGHEST_LOD);
 
 	/*
 	mDummyAvatar = new LLVOAvatar(LLUUID::null, LL_PCODE_LEGACY_AVATAR, gAgent.getRegion());
@@ -811,7 +798,36 @@ void LLImagePreviewSculpted::setPreviewTarget(LLImageRaw* imagep, F32 distance)
 	{
 		mVolume->sculpt(imagep->getWidth(), imagep->getHeight(), imagep->getComponents(), imagep->getData(), 0);
 	}
-	
+
+	const LLVolumeFace &vf = mVolume->getVolumeFace(0);
+	U32 num_indices = vf.mIndices.size();
+	U32 num_vertices = vf.mVertices.size();
+
+	mVertexBuffer = new LLVertexBuffer(LLVertexBuffer::MAP_VERTEX | LLVertexBuffer::MAP_NORMAL, 0);
+	mVertexBuffer->allocateBuffer(num_vertices, num_indices, TRUE);
+
+	LLStrider<LLVector3> vertex_strider;
+	LLStrider<LLVector3> normal_strider;
+	LLStrider<U16> index_strider;
+
+	mVertexBuffer->getVertexStrider(vertex_strider);
+	mVertexBuffer->getNormalStrider(normal_strider);
+	mVertexBuffer->getIndexStrider(index_strider);
+
+	// build vertices and normals
+	for (U32 i = 0; (S32)i < num_vertices; i++)
+	{
+		*(vertex_strider++) = vf.mVertices[i].mPosition;
+		LLVector3 normal = vf.mVertices[i].mNormal;
+		normal.normalize();
+		*(normal_strider++) = normal;
+	}
+
+	// build indices
+	for (U16 i = 0; i < num_indices; i++)
+	{
+		*(index_strider++) = vf.mIndices[i];
+	}
 }
 
 
@@ -846,7 +862,7 @@ BOOL LLImagePreviewSculpted::render()
 	glMatrixMode(GL_MODELVIEW);
 	gGL.popMatrix();
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT);
 	
 	LLVector3 target_pos(0, 0, 0);
 
@@ -865,55 +881,21 @@ BOOL LLImagePreviewSculpted::render()
 	LLViewerCamera::getInstance()->setView(LLViewerCamera::getInstance()->getDefaultFOV() / mCameraZoom);
 	LLViewerCamera::getInstance()->setPerspective(FALSE, mOrigin.mX, mOrigin.mY, mWidth, mHeight, FALSE);
 
-	gPipeline.enableLightsAvatar();
-		
-	gGL.pushMatrix();
-	glScalef(0.5, 0.5, 0.5);
-	
 	const LLVolumeFace &vf = mVolume->getVolumeFace(0);
 	U32 num_indices = vf.mIndices.size();
-	U32 num_vertices = vf.mVertices.size();
+	
+	mVertexBuffer->setBuffer(LLVertexBuffer::MAP_VERTEX | LLVertexBuffer::MAP_NORMAL);
 
-	if (num_vertices > 0 && num_indices > 0)
-	{
-		glEnableClientState(GL_NORMAL_ARRAY);
-		// build vertices and normals
-		F32* vertices = new F32[num_vertices * 3];
-		F32* normals = new F32[num_vertices * 3];
+	gPipeline.enableLightsAvatar();
+	gGL.pushMatrix();
+	const F32 SCALE = 1.25f;
+	gGL.scalef(SCALE, SCALE, SCALE);
+	const F32 BRIGHTNESS = 0.9f;
+	gGL.color3f(BRIGHTNESS, BRIGHTNESS, BRIGHTNESS);
+	mVertexBuffer->draw(LLRender::TRIANGLES, num_indices, 0);
 
-		for (U32 i = 0; (S32)i < num_vertices; i++)
-		{
-			LLVector3 position = vf.mVertices[i].mPosition;
-			vertices[i*3]   = position.mV[VX];
-			vertices[i*3+1] = position.mV[VY];
-			vertices[i*3+2] = position.mV[VZ];
-			
-			LLVector3 normal = vf.mVertices[i].mNormal;
-			normals[i*3]   = normal.mV[VX];
-			normals[i*3+1] = normal.mV[VY];
-			normals[i*3+2] = normal.mV[VZ];
-		}
-
-		// build indices
-		U16* indices = new U16[num_indices];
-		for (U16 i = 0; i < num_indices; i++)
-		{
-			indices[i] = vf.mIndices[i];
-		}
-
-		gGL.color3f(0.4f, 0.4f, 0.4f);
-		glVertexPointer(3, GL_FLOAT, 0, (void *)vertices);
-		glNormalPointer(GL_FLOAT, 0, (void *)normals);
-		glDrawRangeElements(GL_TRIANGLES, 0, num_vertices-1, num_indices, GL_UNSIGNED_SHORT, (void *)indices);
+	gGL.popMatrix();
 		
-		gGL.popMatrix();
-		glDisableClientState(GL_NORMAL_ARRAY);
-
-		delete [] indices;
-		delete [] vertices;
-		delete [] normals;
-	}
-
 	return TRUE;
 }
 

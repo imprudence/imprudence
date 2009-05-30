@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -553,15 +553,17 @@ void LLChatBar::onInputEditorGainFocus( LLFocusableElement* caller, void* userda
 // static
 void LLChatBar::onClickSay( LLUICtrl* ctrl, void* userdata )
 {
-	LLChatBar* self = (LLChatBar*) userdata;
+	e_chat_type chat_type = CHAT_TYPE_NORMAL;
 	if (ctrl->getValue().asString() == "shout")
 	{
-		self->sendChat( CHAT_TYPE_SHOUT );
+		chat_type = CHAT_TYPE_SHOUT;
 	}
-	else
+	else if (ctrl->getValue().asString() == "whisper")
 	{
-		self->sendChat( CHAT_TYPE_NORMAL );
+		chat_type = CHAT_TYPE_WHISPER;
 	}
+	LLChatBar* self = (LLChatBar*) userdata;
+	self->sendChat(chat_type);
 }
 
 void LLChatBar::sendChatFromViewer(const std::string &utf8text, EChatType type, BOOL animate)

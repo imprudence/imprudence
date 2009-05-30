@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="avatar_texture_debug" title="Avatar Textures">
+<floater name="avatar_texture_debug" title="化身材质">
 	<text name="">
-		Baked Textures
+		烘烤的材质
 	</text>
 	<text name="">
-		Composite Textures
+		复合材质
 	</text>
 	<texture_picker label="头部" name="baked_head" />
 	<texture_picker label="化妆" name="head_bodypaint" />
 	<texture_picker label="头发" name="hair" />
-	<button label="Dump" label_selected="Dump" name="Dump" />
-	<texture_picker label="眼睛" name="baked_eyes" />
-	<texture_picker label="Eye" name="eye_texture" />
-	<texture_picker label="Upper Body" name="baked_upper_body" />
-	<texture_picker label="Upper Body Tattoo" name="upper_bodypaint" />
+	<button label="转储" label_selected="转储" name="Dump" />
+	<texture_picker label="双眼" name="baked_eyes" />
+	<texture_picker label="眼睛" name="eye_texture" />
+	<texture_picker label="上身" name="baked_upper_body" />
+	<texture_picker label="上身纹身" name="upper_bodypaint" />
 	<texture_picker label="内衣" name="undershirt" />
 	<texture_picker label="手套" name="gloves" />
 	<texture_picker label="衬衣" name="shirt" />
-	<texture_picker label="Upper Jacket" name="upper_jacket" />
-	<texture_picker label="Lower Body" name="baked_lower_body" />
-	<texture_picker label="Lower Body Tattoo" name="lower_bodypaint" />
+	<texture_picker label="上身外衣" name="upper_jacket" />
+	<texture_picker label="下身" name="baked_lower_body" />
+	<texture_picker label="下身纹身" name="lower_bodypaint" />
 	<texture_picker label="内裤" name="underpants" />
 	<texture_picker label="袜子" name="socks" />
 	<texture_picker label="鞋子" name="shoes" />

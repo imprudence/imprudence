@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="mute floater"
-     title="ミュートされた住人およびオブジェクト">
+     title="無視された住人およびオブジェクト" short_title="無視リスト">
 	<scroll_list name="mutes" tool_tip="List of currently muted residents" />
-	<button label="住人をミュートする..."
-	     label_selected="住人をミュートする..." name="Mute resident..."
-	     tool_tip="ミュートする住人を選択" />
-	<button label="オブジェクトを名前でミュート..."
-	     label_selected="オブジェクトを名前でミュート..."
+	<button label="住人を無視する"
+	     label_selected="住人を無視する" name="Mute resident..."
+	     tool_tip="無視する住人を選択" />
+	<button label="オブジェクト名で無視"
+	     label_selected="オブジェクト名で無視"
 	     name="Mute object by name..." />
-	<button label="ミュートしない" label_selected="ミュートしない"
+	<button label="無視の解除" label_selected="無視の解除"
 	     name="Unmute"
-	     tool_tip="住人またはオブジェクトをミュート・リストから削除" />
+	     tool_tip="住人またはオブジェクトを無視リストから削除" />
 </floater>

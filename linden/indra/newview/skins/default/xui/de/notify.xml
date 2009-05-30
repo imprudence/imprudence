@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <notifications>
 	<notify name="SystemMessageTip">
 		<message name="message">
@@ -106,8 +106,7 @@ Bitte versuchen Sie es erneut.
 	<notify name="CapsKeyOn">
 		<message name="message">
 			Die Feststelltaste ist aktiv.
-Da dies Auswirkung auf die Kennworteingabe hat,
-sollten Sie die Taste besser ausschalten.
+Da dies Auswirkung auf die Kennworteingabe hat, sollten Sie die Taste besser ausschalten.
 		</message>
 	</notify>
 	<notify name="NotecardMissing">
@@ -148,9 +147,7 @@ Bitte versuchen Sie es erneut.
 	</notify>
 	<notify name="IncompleteInventory">
 		<message name="message">
-			Die von Ihnen angebotenen Inhalte sind noch nicht
-vollständig lokal verfügbar. Warten Sie kurz und wiederholen Sie
-dann das Angebot.
+			Die von Ihnen angebotenen Inhalte sind noch nicht vollständig lokal verfügbar. Warten Sie kurz und wiederholen Sie dann das Angebot.
 		</message>
 	</notify>
 	<notify name="CannotModifyProtectedCategories">
@@ -238,14 +235,14 @@ Wählen Sie ein einzelnes Objekt aus.
 	</notify>
 	<notify name="TeleportToLandmark">
 		<message name="message">
-			Jetzt, nachdem Sie das Mainland erreicht haben, können Sie sich an Positionen wie &apos;[NAME]&apos; teleportieren, indem Sie unten rechts im Fenster auf &apos;Inventar&apos; klicken und den Ordner &apos;Landmarken&apos; auswählen.
-Klicken Sie eine Landmarke doppelt an und wählen Sie &apos;Teleportieren&apos;, um an diesen Ort zu gelangen.
+			Jetzt, nachdem Sie das Mainland erreicht haben, können Sie sich an Positionen wie „[NAME]“ teleportieren, indem Sie unten rechts im Fenster auf „Inventar“ klicken und den Ordner „Landmarken“ auswählen.
+Klicken Sie eine Landmarke doppelt an und wählen Sie „Teleportieren“, um an diesen Ort zu gelangen.
 		</message>
 	</notify>
 	<notify name="TeleportToPerson">
 		<message name="message">
-			Jetzt, nachdem Sie das Mainland erreicht haben, können Sie mit Einwohnern wie &apos;[NAME]&apos; Kontakt aufnehmen, indem Sie unten rechts im Fenster auf &apos;Inventar&apos; klicken und den Ordner &apos;Visitenkarten&apos; auswählen.
-Klicken Sie die Karte doppelt an, wählen Sie &apos;Instant Message&apos; und geben Sie eine Nachricht ein.
+			Jetzt, nachdem Sie das Mainland erreicht haben, können Sie mit Einwohnern wie „[NAME]“ Kontakt aufnehmen, indem Sie unten rechts im Fenster auf „Inventar“ klicken und den Ordner „Visitenkarten“ auswählen.
+Klicken Sie die Karte doppelt an, wählen Sie „Instant Message“ und geben Sie eine Nachricht ein.
 		</message>
 	</notify>
 	<notify name="CantSelectLandFromMultipleRegions">
@@ -307,8 +304,7 @@ Wählen Sie eine kleinere Landfläche.
 	</notify>
 	<notify name="TransferObjectsHighlighted">
 		<message name="message">
-			Alle Objekte auf dieser Parzelle, die an den Käufer
-der Parzelle übertragen werden, sind jetzt markiert.
+			Alle Objekte auf dieser Parzelle, die an den Käufer der Parzelle übertragen werden, sind jetzt markiert.
  
 * Übertragene Bäume und Gräser sind nicht markiert.
 		</message>
@@ -335,22 +331,18 @@ Laden Sie QuickTime von der QuickTime-Webseite (http://www.apple.com/de/quicktim
 	</notify>
 	<notify name="OwnedObjectsReturned">
 		<message name="message">
-			Ihre Objekte auf der ausgewählten Parzelle 
-wurden in Ihr Inventar transferiert.
+			Ihre Objekte auf der ausgewählten Parzelle wurden in Ihr Inventar transferiert.
 		</message>
 	</notify>
 	<notify name="OtherObjectsReturned">
 		<message name="message">
-			Die Objekte von [FIRST] [LAST] auf dieser
-Parzelle wurden in das Inventar
-dieser Person transferiert.
+			Die Objekte von [FIRST] [LAST] auf dieser Parzelle wurden in das Inventar dieser Person transferiert.
 		</message>
 	</notify>
 	<notify name="OtherObjectsReturned2">
 		<message name="message">
 			Die Objekte von [FIRST] [LAST] auf dieser 
-Parzelle von &apos;[NAME]&apos;
-wurden an ihren Eigentümer zurückgegeben.
+Parzelle von „[NAME]“ wurden an ihren Eigentümer zurückgegeben.
 		</message>
 	</notify>
 	<notify name="GroupObjectsReturned">
@@ -367,19 +359,19 @@ Nicht transferierbare an die Gruppe übertragene Objekte wurden gelöscht.
 	</notify>
 	<notify name="NotSafe">
 		<message name="message">
-			Auf diesem Land ist Schaden aktiviert (&apos;Unsicher&apos;).
+			Auf diesem Land ist Schaden aktiviert („Unsicher“).
 Verletzungen sind möglich. Wenn Sie sterben, werden Sie zu Ihrem Heimatstandort teleportiert.
 		</message>
 	</notify>
 	<notify name="NoFly">
 		<message name="message">
-			Auf diesem Land ist Fliegen deaktiviert (&apos;Fliegen aus&apos;).
+			Auf diesem Land ist Fliegen deaktiviert („Fliegen aus“).
 Fliegen ist hier nicht möglich.
 		</message>
 	</notify>
 	<notify name="PushRestricted">
 		<message name="message">
-			Dieses Land ist &apos;llPushObject-beschränkt&apos;.
+			Auf diesem Land gilt „Kein Stoßen“.
 Sie können keine anderen Personen stoßen, außer Ihnen gehört das Land.
 		</message>
 	</notify>
@@ -395,7 +387,7 @@ Sie können keine anderen Personen stoßen, außer Ihnen gehört das Land.
 	</notify>
 	<notify name="NoBuild">
 		<message name="message">
-			Auf diesem Land ist Bauen deaktiviert (&apos;Bauen aus&apos;).
+			Auf diesem Land ist Bauen deaktiviert („Bauen aus“).
 Sie können hier keine Objekte erstellen.
 		</message>
 	</notify>
@@ -412,7 +404,7 @@ Sie können hier keine Objekte erstellen.
 	<notify name="NoOutsideScripts">
 		<message name="message">
 			Auf diesem Land sind externe Skripts deaktiviert
-(&apos;Externe Skripts aus&apos;).
+(„Externe Skripts aus“).
 Nur Skripts, die dem Landeigentümer gehören, funktionieren.
 		</message>
 	</notify>
@@ -463,7 +455,7 @@ Nur Skripts, die dem Landeigentümer gehören, funktionieren.
 	</notify>
 	<notify name="UserGiveItem">
 		<message name="message">
-			[NAME] hat Ihnen ein [OBJECTTYPE] namens &apos;[OBJECTNAME]&apos; gegeben.
+			[NAME] hat Ihnen ein [OBJECTTYPE] namens „[OBJECTNAME]“ gegeben.
 		</message>
 		<option name="Keep">
 			Behalten
@@ -497,8 +489,7 @@ Nur Skripts, die dem Landeigentümer gehören, funktionieren.
 	</notify>
 	<notify name="JoinGroupOfficerNoFee">
 		<message name="message">
-			[NAME] hat Sie eingeladen
-einer Gruppe als Officer beizutreten.
+			[NAME] hat Sie eingeladen einer Gruppe als Officer beizutreten.
 Der Beitritt ist kostenlos.
  
 [MESSAGE]
@@ -515,8 +506,7 @@ Der Beitritt ist kostenlos.
 	</notify>
 	<notify name="JoinGroupMember">
 		<message name="message">
-			[NAME] hat Sie eingeladen
-einer Gruppe beizutreten.
+			[NAME] hat Sie eingeladen einer Gruppe beizutreten.
 Die Beitrittsgebühr beträgt [COST] L$
  
 [MESSAGE]
@@ -593,8 +583,7 @@ Der Beitritt ist kostenlos.
 		<message name="message">
 			[NAME] bietet Ihnen die Freundschaft an.
 
-(Sie werden dadurch den gegenseitigen 
-Online-Status sehen können.)
+(Sie werden dadurch den gegenseitigen Online-Status sehen können.)
 		</message>
 		<option name="Accept">
 			Akzeptieren
@@ -616,8 +605,7 @@ Online-Status sehen können.)
 	<notify name="OfferCallingCard">
 		<message name="message">
 			[FIRST] [LAST] bietet Ihnen eine Visitenkarte an.
-Dies erstellt ein Lesezeichen in Ihrem Inventar,
-damit Sie diesen Einwohner jederzeit über IM erreichen.
+Dies erstellt ein Lesezeichen in Ihrem Inventar, damit Sie diesen Einwohner jederzeit über IM erreichen.
 		</message>
 		<option name="Accept">
 			Akzeptieren
@@ -738,7 +726,7 @@ Versuchen Sie es in einer Minute erneut, dann wird es schon klappen.
 	</notify>
 	<notify name="ScriptQuestion">
 		<message name="message">
-			Das Objekt &apos;[OBJECTNAME]&apos;, Eigentum von &apos;[NAME]&apos;, möchte:
+			Das Objekt „[OBJECTNAME]“, Eigentum von „[NAME]“, möchte:
  
 [QUESTIONS]
 Ist das OK?
@@ -755,12 +743,12 @@ Ist das OK?
 	</notify>
 	<notify name="ScriptQuestionCautionChatGranted">
 		<message name="message">
-			Dem Objekt &apos;[OBJECTNAME]&apos;, Eigentum von &apos;[OWNERNAME]&apos;, in [REGIONNAME] auf [REGIONPOS], wurde folgende Erlaubnis gewährt: [PERMISSIONS].
+			Dem Objekt „[OBJECTNAME]“, Eigentum von „[OWNERNAME]“, in [REGIONNAME] auf [REGIONPOS], wurde folgende Erlaubnis gewährt: [PERMISSIONS].
 		</message>
 	</notify>
 	<notify name="ScriptQuestionCautionChatDenied">
 		<message name="message">
-			Dem Objekt &apos;[OBJECTNAME]&apos;, Eigentum von &apos;[OWNERNAME]&apos;, in [REGIONNAME] auf [REGIONPOS], wurde folgende Erlaubnis verweigert: [PERMISSIONS].
+			Dem Objekt „[OBJECTNAME]“, Eigentum von „[OWNERNAME]“, in [REGIONNAME] auf [REGIONPOS], wurde folgende Erlaubnis verweigert: [PERMISSIONS].
 		</message>
 	</notify>
 	<notify name="ScriptQuestionCautionWarn">
@@ -770,10 +758,10 @@ Ist das OK?
 	</notify>
 	<notify name="ScriptQuestionCaution">
 		<message name="message">
-			Das Objekt &apos;[OBJECTNAME]&apos;, Eigentum von &apos;[NAME]&apos;, möchte:
+			Das Objekt „[OBJECTNAME]“, Eigentum von „[NAME]“, möchte:
  
 [QUESTIONS]
-Wenn Sie diesem Objekt und seinem Ersteller nicht vertrauen, sollten Sie diese Anfrage ablehnen. Klicken Sie für weitere Informationen auf &apos;Details&apos;.
+Wenn Sie diesem Objekt und seinem Ersteller nicht vertrauen, sollten Sie diese Anfrage ablehnen. Klicken Sie für weitere Informationen auf „Details“.
 
 Anfrage gestatten?
 		</message>
@@ -789,7 +777,7 @@ Anfrage gestatten?
 	</notify>
 	<notify name="ScriptDialog">
 		<message name="message">
-			[FIRST] [LAST]s &apos;[TITLE]&apos;
+			[FIRST] [LAST]s „[TITLE]“
 [MESSAGE]
 		</message>
 		<option name="Ignore">
@@ -798,7 +786,7 @@ Anfrage gestatten?
 	</notify>
 	<notify name="ScriptDialogGroup">
 		<message name="message">
-			[GROUPNAME]s &apos;[TITLE]&apos;
+			[GROUPNAME]s „[TITLE]“
 [MESSAGE]
 		</message>
 		<option name="Ignore">
@@ -809,30 +797,27 @@ Anfrage gestatten?
 		<message name="message">
 			Sie haben gerade [AMOUNT] L$ erhalten.
 Objekte und andere Benutzer können Ihnen L$ geben.
-Ihren Kontostand sehen Sie in der
-oberen rechten Ecke des Bildschirms.
+Ihren Kontostand sehen Sie in der oberen rechten Ecke des Bildschirms.
 		</message>
 	</notify>
 	<notify name="FirstBalanceDecrease">
 		<message name="message">
 			Sie haben gerade [AMOUNT] L$ bezahlt.
-Ihren Kontostand sehen Sie in der oberen 
-rechten Ecke des Bildschirms.
+Ihren Kontostand sehen Sie in der oberen rechten Ecke des Bildschirms.
 		</message>
 	</notify>
 	<notify name="FirstSit">
 		<message name="message">
 			Sie sitzen.
-Benutzen Sie die Pfeiltasten (oder AWSD), um die Ansicht zu ändern.
-Klicken Sie auf &apos;Aufstehen&apos;, um aufzustehen.
+Benutzen Sie die Pfeil- oder WASD-Tasten, um die Ansicht zu ändern.
+Klicken Sie auf „Aufstehen“, um aufzustehen.
 		</message>
 	</notify>
 	<notify name="FirstMap">
 		<message name="message">
 			Zum Verschieben der Karte klicken und ziehen.
 Zum Teleportieren doppelklicken.
-Nutzen Sie die Optionen links, um Dinge zu finden
-und um verschiedene Hintergründe anzuzeigen.
+Nutzen Sie die Optionen links, um Dinge zu finden und um verschiedene Hintergründe anzuzeigen.
 		</message>
 	</notify>
 	<notify name="FirstBuild">
@@ -854,24 +839,22 @@ Die rechte Maustaste zeigt immer ein Aktionsmenü an.
 	<notify name="FirstTeleport">
 		<message name="message">
 			Diese Region unterstützt keine direkten Teleports. Sie wurden zum nächstgelegenen Telehub transportiert. 
-Ihr Ziel ist mit einem großen roten Strahl markiert. 
-Folgen Sie dem roten Pfeil zum Strahl oder klicken Sie auf den Pfeil, um den Strahl zu entfernen.
+Ihr Ziel ist mit einem großen roten Strahl markiert. Folgen Sie dem roten Pfeil zum Strahl oder klicken Sie auf den Pfeil, um den Strahl zu entfernen.
 		</message>
 	</notify>
 	<notify name="FirstOverrideKeys">
 		<message name="message">
 			Ihre Bewegungstasten werden jetzt von einem Objekt gesteuert.  
-Probieren Sie die Pfeiltasten oder AWSD aus.  
+Probieren Sie die Pfeil- oder WASD-Tasten aus.
 Manche Objekte (wie Waffen) müssen per Mouselook gesteuert werden. 
-Drücken Sie dazu &apos;M&apos;.
+Drücken Sie dazu „M“.
 		</message>
 	</notify>
 	<notify name="FirstAppearance">
 		<message name="message">
 			Sie bearbeiten gerade Ihr Aussehen.  
 Benutzen Sie die Pfeiltasten zum Drehen und Zoomen. 
-Klicken Sie auf &apos;Alles speichern&apos;, wenn Sie fertig sind, 
-um Ihr Aussehen zu speichern.  
+Klicken Sie auf „Alles speichern“, wenn Sie fertig sind, um Ihr Aussehen zu speichern.  
 Sie können Ihr Aussehen jederzeit verändern.
 		</message>
 	</notify>
@@ -886,8 +869,7 @@ Sie können Ihr Aussehen jederzeit verändern.
 	<notify name="FirstSandbox">
 		<message name="message">
 			Dies ist eine Sandkastenregion.
-Objekte, die Sie hier bauen, können gelöscht werden,
-wenn Sie das Gebiet verlassen. Sandkästen werden regelmäßig gereinigt. Weitere Informationen hierzu finden Sie oben im Bild neben dem Regionsnamen.
+Objekte, die Sie hier bauen, können gelöscht werden, wenn Sie das Gebiet verlassen. Sandkästen werden regelmäßig gereinigt. Weitere Informationen hierzu finden Sie oben im Bild neben dem Regionsnamen.
  
 Sandkastenregionen kommen selten vor und sind entsprechend gekennzeichnet.
 		</message>
@@ -895,13 +877,12 @@ Sandkastenregionen kommen selten vor und sind entsprechend gekennzeichnet.
 	<notify name="FirstFlexible">
 		<message name="message">
 			Dieses Objekt ist flexibel. 
-Ein flexibles Objekt ist ein Phantom und nicht physisch, 
-bis die Option &apos;Flexibel&apos; deaktiviert wurde.
+Ein flexibles Objekt ist ein Phantom und nicht physisch, bis die Option „Flexibel“ deaktiviert wurde.
 		</message>
 	</notify>
 	<notify name="FirstDebugMenus">
 		<message name="message">
-			Sie haben das Erweitert-Menü aktiviert. 
+			Sie haben das Advanced-Menü aktiviert. 
 Dieses Menü enthält nützliche Funktionen zum Debuggen von Second Life.
 Drücken Sie in Windows Strg-Alt-D (Mac: Befehl-Opt-Umschalt-D) zum Ein- und Ausschalten dieses Menüs.
 		</message>
@@ -915,7 +896,7 @@ Beispiele für Formtexturen finden Sie in der Inventarbibliothek.
 	</notify>
 	<notify name="FirstMedia">
 		<message name="message">
-			Sie haben die Medienwiedergabe gestartet.  Unter &apos;Audio und Video&apos; im Fenster &apos;Einstellungen&apos; können Sie festlegen, dass Medien automatisch wiedergegeben werden. Beachten Sie, dass dies bei nicht vertrauenswürdigen Medienseiten ein Sicherheitsrisiko darstellen kann.
+			Sie haben die Medienwiedergabe gestartet.  Unter „Audio und Video“ im Fenster „Einstellungen“ können Sie festlegen, dass Medien automatisch wiedergegeben werden. Beachten Sie, dass dies bei nicht vertrauenswürdigen Medienseiten ein Sicherheitsrisiko darstellen kann.
 		</message>
 	</notify>
 	<notify name="MaxListSelectMessage">
@@ -927,7 +908,7 @@ von der Liste auswählen.
 	<notify name="VoiceInviteP2P">
 		<message name="message">
 			[NAME] lädt Sie zu einem Voice-Chat ein. 
-Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf &apos;Ablehnen&apos;, um die Einladung auszuschlagen. Klicken Sie auf &apos;Stummschalten&apos;, um diesen Anrufer stumm zu schalten.
+Klicken Sie auf „Akzeptieren“, um dem Gespräch beizutreten, oder auf „Ablehnen“, um die Einladung auszuschlagen. Klicken Sie auf „Stummschalten“, um diesen Anrufer stumm zu schalten.
 		</message>
 		<option name="Accept">
 			Akzeptieren
@@ -957,7 +938,7 @@ Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf 
 	<notify name="VoiceInviteGroup">
 		<message name="message">
 			[NAME] ist einem Voice-Chat mit der Gruppe [GROUP] beigetreten. 
-Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf &apos;Ablehnen&apos;, um die Einladung auszuschlagen. Klicken Sie auf &apos;Stummschalten&apos;, um diesen Anrufer stumm zu schalten.
+Klicken Sie auf „Akzeptieren“, um dem Gespräch beizutreten, oder auf „Ablehnen“, um die Einladung auszuschlagen. Klicken Sie auf „Stummschalten“, um diesen Anrufer stumm zu schalten.
 		</message>
 		<option name="Accept">
 			Akzeptieren
@@ -972,7 +953,7 @@ Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf 
 	<notify name="VoiceInviteAdHoc">
 		<message name="message">
 			[NAME] ist einem Voice-Konferenz-Chat beigetreten. 
-Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf &apos;Ablehnen&apos;, um die Einladung auszuschlagen. Klicken Sie auf &apos;Stummschalten&apos;, um diesen Benutzer stumm zu schalten.
+Klicken Sie auf „Akzeptieren“, um dem Gespräch beizutreten, oder auf „Ablehnen“, um die Einladung auszuschlagen. Klicken Sie auf „Stummschalten“, um diesen Benutzer stumm zu schalten.
 		</message>
 		<option name="Accept">
 			Akzeptieren
@@ -987,7 +968,7 @@ Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf 
 	<notify name="InviteAdHoc">
 		<message name="message">
 			[NAME] lädt Sie zu einem Konferenz-Chat ein. 
-Klicken Sie auf &apos;Akzeptieren&apos;, um dem Chat beizutreten, oder auf &apos;Ablehnen&apos;, um die Einladung auszuschlagen. Klicken Sie auf &apos;Stummschalten&apos;, um diesen Benutzer stumm zu schalten.
+Klicken Sie auf „Akzeptieren“, um dem Chat beizutreten, oder auf „Ablehnen“, um die Einladung auszuschlagen. Klicken Sie auf „Stummschalten“, um diesen Benutzer stumm zu schalten.
 		</message>
 		<option name="Accept">
 			Akzeptieren

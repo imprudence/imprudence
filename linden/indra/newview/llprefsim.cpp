@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -55,73 +55,33 @@ public:
 	/*virtual*/ BOOL postBuild();
 
 	void apply();
-	void refresh();
 	void cancel();
-	void setPersonalInfo(
-		const std::string& visibility,
-		bool im_via_email,
-		const std::string& email);
+	void setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email);
 	void enableHistory();
+
 	static void onClickLogPath(void* user_data);
-	static void onCommitLogging( LLUICtrl* ctrl, void* user_data);
+	static void onCommitLogging(LLUICtrl* ctrl, void* user_data);
 
 protected:
-	BOOL mIMInChatHistory;
-	BOOL mLogInstantMessages;
-	BOOL mLogChat;
-	BOOL mLogShowHistory;
-	BOOL mShowTimestamps;
-	BOOL mIMLogTimestamp;
-	BOOL mLogChatTimestamp;
-	BOOL mLogIMChat;
-	BOOL mLogTimestampDate;
-
-	std::string mIMBusyResponse;
-	std::string mLogPath;
-
+ 
 	bool mGotPersonalInfo;
 	bool mOriginalIMViaEmail;
 
-	// online status info
 	bool mOriginalHideOnlineStatus;
 	std::string mDirectoryVisibility;
 };
 
 
 LLPrefsIMImpl::LLPrefsIMImpl()
-	: LLPanel(std::string("IM Prefs Panel"))
+	: LLPanel(std::string("IM Prefs Panel")),
+	  mGotPersonalInfo(false),
+	  mOriginalIMViaEmail(false)
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_im.xml");
 }
 
-void LLPrefsIMImpl::refresh()
-{
-	mIMInChatHistory   = gSavedSettings.getBOOL("IMInChatHistory");
-	mShowTimestamps    = gSavedSettings.getBOOL("IMShowTimestamps");
-	mIMBusyResponse    = gSavedPerAccountSettings.getString("BusyModeResponse");
-	mLogPath           = gSavedPerAccountSettings.getString("InstantMessageLogPath");
-	mLogInstantMessages= gSavedPerAccountSettings.getBOOL("LogInstantMessages");
-	mLogChat           = gSavedPerAccountSettings.getBOOL("LogChat");
-	mLogShowHistory    = gSavedPerAccountSettings.getBOOL("LogShowHistory");
-	mIMLogTimestamp	   = gSavedPerAccountSettings.getBOOL("IMLogTimestamp");
-	mLogChatTimestamp  = gSavedPerAccountSettings.getBOOL("LogChatTimestamp");
-	mLogIMChat         = gSavedPerAccountSettings.getBOOL("LogChatIM");
-	mLogTimestampDate  = gSavedPerAccountSettings.getBOOL("LogTimestampDate");
-}
-
 void LLPrefsIMImpl::cancel()
 {
-	gSavedSettings.setBOOL("IMInChatHistory", mIMInChatHistory);
-	gSavedSettings.setBOOL("IMShowTimestamps", mShowTimestamps);
-	gSavedPerAccountSettings.setString("BusyModeResponse", mIMBusyResponse);
-	gSavedPerAccountSettings.setString("InstantMessageLogPath",mLogPath);
-	gSavedPerAccountSettings.setBOOL("LogInstantMessages",mLogInstantMessages);
-	gSavedPerAccountSettings.setBOOL("LogChat",mLogChat);
-	gSavedPerAccountSettings.setBOOL("LogShowHistory",mLogShowHistory);
-	gSavedPerAccountSettings.setBOOL("IMLogTimestamp",mIMLogTimestamp);
-	gSavedPerAccountSettings.setBOOL("LogChatTimestamp",mLogChatTimestamp);
-	gSavedPerAccountSettings.setBOOL("LogChatIM",mLogIMChat);
-	gSavedPerAccountSettings.setBOOL("LogTimestampDate",mLogTimestampDate);
 }
 
 BOOL LLPrefsIMImpl::postBuild()
@@ -133,12 +93,13 @@ BOOL LLPrefsIMImpl::postBuild()
 		return FALSE;
 	}
 
-	mGotPersonalInfo = false;
-	mOriginalIMViaEmail = false;
-	mOriginalHideOnlineStatus = true;
 	childSetLabelArg("send_im_to_email", "[EMAIL]", getString("log_in_to_change"));
 
 	// Don't enable this until we get personal data
+	childDisable("include_im_in_chat_history");
+	childDisable("show_timestamps_check");
+	childDisable("friends_online_notify_checkbox");
+	
 	childDisable("online_visibility");
 	childDisable("send_im_to_email");
 	childDisable("log_instant_messages");
@@ -152,17 +113,20 @@ BOOL LLPrefsIMImpl::postBuild()
 	childDisable("log_date_timestamp");
 
 	childSetText("busy_response", getString("log_in_to_change"));
-	
-	refresh(); 
 
-	childSetText("log_path_string", mLogPath);
-	childSetValue("log_instant_messages", mLogInstantMessages); 
-	childSetValue("log_chat", mLogChat); 
-	childSetValue("log_show_history", mLogShowHistory);
-	childSetValue("log_instant_messages_timestamp", mIMLogTimestamp);
-	childSetValue("log_chat_timestamp", mLogChatTimestamp);
-	childSetValue("log_chat_IM", mLogIMChat);
-	childSetValue("log_date_timestamp",mLogTimestampDate);
+	childSetValue("include_im_in_chat_history", gSavedSettings.getBOOL("IMInChatHistory"));
+	childSetValue("show_timestamps_check", gSavedSettings.getBOOL("IMShowTimestamps"));
+	childSetValue("friends_online_notify_checkbox", gSavedSettings.getBOOL("ChatOnlineNotification"));
+
+	childSetText("log_path_string", gSavedPerAccountSettings.getString("InstantMessageLogPath"));
+	childSetValue("log_instant_messages", gSavedPerAccountSettings.getBOOL("LogInstantMessages")); 
+	childSetValue("log_chat", gSavedPerAccountSettings.getBOOL("LogChat")); 
+	childSetValue("log_show_history", gSavedPerAccountSettings.getBOOL("LogShowHistory"));
+	childSetValue("log_instant_messages_timestamp", gSavedPerAccountSettings.getBOOL("IMLogTimestamp"));
+	childSetValue("log_chat_timestamp", gSavedPerAccountSettings.getBOOL("LogChatTimestamp"));
+	childSetValue("log_chat_IM", gSavedPerAccountSettings.getBOOL("LogChatIM"));
+	childSetValue("log_date_timestamp", gSavedPerAccountSettings.getBOOL("LogTimestampDate"));
+
 	childSetAction("log_path_button", onClickLogPath, this);
 	childSetCommitCallback("log_chat",onCommitLogging,this);
 	childSetCommitCallback("log_instant_messages",onCommitLogging,this);
@@ -199,6 +163,10 @@ void LLPrefsIMImpl::apply()
 
 		gSavedPerAccountSettings.setString("BusyModeResponse", std::string(wstring_to_utf8str(busy_response)));
 
+		gSavedSettings.setBOOL("IMInChatHistory", childGetValue("include_im_in_chat_history").asBoolean());
+		gSavedSettings.setBOOL("IMShowTimestamps", childGetValue("show_timestamps_check").asBoolean());
+		gSavedSettings.setBOOL("ChatOnlineNotification", childGetValue("friends_online_notify_checkbox").asBoolean());
+		
 		gSavedPerAccountSettings.setString("InstantMessageLogPath", childGetText("log_path_string"));
 		gSavedPerAccountSettings.setBOOL("LogInstantMessages",childGetValue("log_instant_messages").asBoolean());
 		gSavedPerAccountSettings.setBOOL("LogChat",childGetValue("log_chat").asBoolean());
@@ -245,14 +213,12 @@ void LLPrefsIMImpl::apply()
 	}
 }
 
-void LLPrefsIMImpl::setPersonalInfo(
-	const std::string& visibility,
-	bool im_via_email,
-	const std::string& email)
+void LLPrefsIMImpl::setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email)
 {
 	mGotPersonalInfo = true;
 	mOriginalIMViaEmail = im_via_email;
 	mDirectoryVisibility = visibility;
+	
 	if(visibility == VISIBILITY_DEFAULT)
 	{
 		mOriginalHideOnlineStatus = false;
@@ -267,6 +233,11 @@ void LLPrefsIMImpl::setPersonalInfo(
 	{
 		mOriginalHideOnlineStatus = true;
 	}
+
+	childEnable("include_im_in_chat_history");
+	childEnable("show_timestamps_check");
+	childEnable("friends_online_notify_checkbox");
+
 	childSetValue("online_visibility", mOriginalHideOnlineStatus); 	 
 	childSetLabelArg("online_visibility", "[DIR_VIS]", mDirectoryVisibility);
 	childEnable("send_im_to_email");
@@ -308,7 +279,7 @@ void LLPrefsIMImpl::onClickLogPath(void* user_data)
 	std::string proposed_name(self->childGetText("log_path_string"));	 
 	
 	LLDirPicker& picker = LLDirPicker::instance();
-	if (! picker.getDir(&proposed_name ) )
+	if (!picker.getDir(&proposed_name ) )
 	{
 		return; //Canceled!
 	}

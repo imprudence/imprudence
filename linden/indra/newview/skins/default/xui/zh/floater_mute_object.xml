@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 min_height="140"
+	 min_width="375"
+	 name="mute by name"
+	 title="按名称屏蔽物体">
+	<text
+		 name="message"
+		 right="380">
+		按名称屏蔽只影响物体的公开聊天和私聊，而不会影响到声音。
+你必须准确地输入物体的名称。
+	</text>
+	<line_editor
+		 name="object_name">
+		物体名称
+	</line_editor>
+	<button
+		 label="确定"
+		 name="OK" />
+	<button
+		 label="取消"
+		 name="Cancel" />
+</floater>
+
+<!--Translated for Second Life 1.19.1 RC3 -->

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="active_speakers_panel">
 	<string name="moderator_label">
 		(Modérateur)
@@ -7,23 +7,23 @@
 		<layout_panel name="moderation_mode_panel">
 			<combo_box name="moderation_mode">
 				<combo_item name="OpenVoice">
-					Voix activées par défaut)
+					Voix activées par défaut
 				</combo_item>
 				<combo_item name="ModeratedVoice">
-					Voix désactivées par défaut)
+					Voix désactivées par défaut
 				</combo_item>
 			</combo_box>
 		</layout_panel>
 		<layout_panel name="moderate_chat_panel">
 			<scroll_list name="speakers_list">
-				<column label="Nom" name="speaker_name" />
+				<column label="Nom" name="speaker_name"/>
 			</scroll_list>
 			<panel name="speaker_controls">
 				<text name="resident_name">
 					Rumplstiltskin Califragilistic
 				</text>
-				<button name="mute_btn" tool_tip="Rendre ce résident muet" />
-				<check_box label="Ignorer le texte" name="mute_text_btn" />
+				<button name="mute_btn" tool_tip="Ignorer ce résident"/>
+				<check_box label="Ignorer les messages" name="mute_text_btn"/>
 			</panel>
 		</layout_panel>
 		<layout_panel name="moderator_controls">

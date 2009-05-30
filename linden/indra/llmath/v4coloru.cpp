@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -120,6 +120,6 @@ BOOL LLColor4U::parseColor4U(const std::string& buf, LLColor4U* value)
 		}
 	}
 
-	value->setVec( U8(v[0]), U8(v[1]), U8(v[2]), U8(v[3]) );
+	value->set( U8(v[0]), U8(v[1]), U8(v[2]), U8(v[3]) );
 	return TRUE;
 }

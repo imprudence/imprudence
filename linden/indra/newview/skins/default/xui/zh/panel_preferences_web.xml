@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+     height="408" hidden="false" label="Web" left="102" mouse_opaque="true"
+     name="web" width="517">
+	<text name="cache_size_label_l">
+		浏览器缓存:
+	</text>
+	<button 
+	     label="现在清除"
+	     name="clear_cache" />
+	<text type="string" name="cookie_label" >
+		Cookie:
+	</text>
+	<check_box label="从网站接受 cookie"
+             name="cookies_enabled" /> 
+	<button 
+	     label="现在清除" 
+	     name="clear_cookies" />
+	<text name="proxy_label">
+		代理服务器:
+	</text>
+	<check_box 
+		 label="启用网页代理服务器"
+         name="web_proxy_enabled" /> 
+	<text name="proxy_text_label">
+		地址:
+	</text>
+	<line_editor 
+		 name="web_proxy_editor"
+		 tool_tip="你想使用的代理服务器的名称或者 IP 地址" />
+	<spinner 
+			 label="端口号:"
+             name="web_proxy_port" />
+	<radio_group name="use_external_browser">
+		 <radio_item
+			 name="external"
+			 tool_tip="使用系统默认网络浏览器打开帮助、网页链接, 等等。\n若全屏显示则不推荐使用。">
+			使用外部浏览器(Firefox, Safari, Internet Explorer)
+		</radio_item>
+		<radio_item
+			 name="internal"
+			 tool_tip="使用内部浏览器打开帮助、网页链接, 等等。这个浏览器会在第二人生中打开一个新窗口。">
+			使用内建浏览器
+		</radio_item>
+	</radio_group>
+	<text>
+		浏览器主页:
+	</text>
+	<line_editor name="home_page" tool_tip="首次打开第二人生浏览器时的浏览页面" />
+	<text>
+		代理服务器配置:
+	</text>
+	<check_box label="内部浏览器使用代理服务器" name="proxy_enabled"
+	     tool_tip="请为因特网网络浏览器指定代理服务器配置。" />
+	<text>
+		代理服务器:
+	</text>
+	<line_editor name="proxy_address" tool_tip="请输入代理服务器的名称或IP地址" />
+	<text>
+		端口：
+	</text>
+	<line_editor name="proxy_port" />
+	<text>
+		袜子：
+	</text>
+	<radio_group name="socks_4_5">
+		<radio_item>
+			Socks v4
+		</radio_item>
+		<radio_item>
+			Socks v5
+		</radio_item>
+	</radio_group>
+	<text>
+		对以下内容不使用代理:
+	</text>
+	<line_editor name="proxy_exclusions"
+	     tool_tip="请输入不想使用代理服务器替换的名称或IP地址" />
+	<check_box label="在元件上显示网页 (实验性功能, 需要重启)"
+	     name="web_pages_on_prims_check" />
+	<text>
+		安全地址：
+（登陆察看）
+	</text>
+	<button label="添加" name="add_trusted" />
+	<line_editor name="trusted_site_entry" tool_tip="添加到安全名单中的网络地址" />
+	<button label="移除" name="rem_trusted" />
+</panel>

@@ -99,7 +99,7 @@
 			English (영어)
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			汉语/漢語(중국어) - 베타
+			中文 (简体) (중국어) - 베타
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
 			Deutsch (독일어) - 베타

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2007-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -183,14 +183,16 @@ public:
 
 	};
 	
-	GLuint sceneRenderTexture;
-	GLuint noiseTexture;
-	GLuint tempBloomTexture;
 	bool initialized;
 	PostProcessTweaks tweaks;
 
 	// the map of all availible effects
 	LLSD mAllEffects;
+
+private:
+	LLPointer<LLImageGL> mSceneRenderTexture ;
+	LLPointer<LLImageGL> mNoiseTexture ;
+	LLPointer<LLImageGL> mTempBloomTexture ;
 
 public:
 	LLPostProcess(void);
@@ -198,6 +200,7 @@ public:
 	~LLPostProcess(void);
 
 	void apply(unsigned int width, unsigned int height);
+	void invalidate() ;
 
 	/// Perform global initialization for this class.
 	static void initClass(void);
@@ -251,9 +254,9 @@ private:
 
 	/// OpenGL Helper Functions
 	void getShaderUniforms(glslUniforms & uniforms, GLhandleARB & prog);
-	void createTexture(GLuint & texture, unsigned int width, unsigned int height);
+	void createTexture(LLPointer<LLImageGL>& texture, unsigned int width, unsigned int height);
 	void copyFrameBuffer(GLuint & texture, unsigned int width, unsigned int height);
-	void createNoiseTexture(GLuint & texture);
+	void createNoiseTexture(LLPointer<LLImageGL>& texture);
 	bool checkError(void);
 	void checkShaderError(GLhandleARB shader);
 	void drawOrthoQuad(unsigned int width, unsigned int height, QuadType type);

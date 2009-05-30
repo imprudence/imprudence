@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="弹出程序" name="popups">
-	<text type="string" length="1" name="text_box">
-		不显示弹出程序:
+<panel
+	 label="弹出窗口"
+	 name="popups"
+	 title="弹出窗口">
+	<text name="dont_show_label">
+		不显示这些弹出窗口:
 	</text>
-	<button label="Enable this popup" label_selected="Enable this popup"
-	     name="enable_popup" />
-	<text type="string" length="1" name="text_box2">
-		显示弹出程序:
+	<scroll_list
+		 name="disabled_popups" />
+	<button
+		 label="启用该弹出窗口"
+		 name="enable_popup" />
+	<text name="show_label">
+		显示这些弹出窗口:
 	</text>
-	<button label="重置 &apos;下次显示&apos;对话..."
-	     label_selected="重置 &apos;下次显示&apos;对话..."
-	     name="reset_dialogs_btn" />
+	<scroll_list
+		 name="enabled_popups" />
+	<text
+		 name="text_box2">
+		其他人给与的记事卡、材质和地标:
+	</text>
+	<check_box
+		 label="自动接受"
+		 name="accept_new_inventory" />
+	<check_box
+		 label="接受后自动打开"
+		 name="show_new_inventory" />
+	<check_box label="在库存中自动显示新接收的物体" 
+	     name="show_in_inventory" />
+	<button  width="225"
+		 label="显示所有的“下次不再显示”对话框..."
+		 name="reset_dialogs_btn"
+		 tool_tip="启用所有可选的弹出窗口及“首次使用”提示。" />
+	<button  width="225"
+		 label="隐藏所有的“下次不再显示”对话框..."
+		 name="skip_dialogs_btn"
+		 tool_tip="禁用所有可选的弹出窗口及“首次使用”提示。" />
 </panel>

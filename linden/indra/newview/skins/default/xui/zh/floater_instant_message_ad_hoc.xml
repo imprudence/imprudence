@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 default_tab_group="1"
+	 label="(unknown)"
+	 min_height="225"
+	 min_width="265"
+	 name="im_floater"
+	 title="(unknown)">
+	<string
+		 name="ringing">
+		正在加入语音聊天...
+	</string>
+	<string
+		 name="connected">
+		已连接，点击结束通话来挂断
+	</string>
+	<string
+		 name="hang_up">
+		离开了语音聊天
+	</string>
+	<string
+		 name="title_string">
+		与 [NAME] 的即时通信
+	</string>
+	<string
+		 name="typing_start_string">
+		[NAME] 正在输入...
+	</string>
+	<string
+		 name="session_start_string">
+		正在开始和 [NAME] 的会话，请稍候。
+	</string>
+	<string
+		 name="default_text_label">
+		点击这里开始即时聊天。
+	</string>
+	<layout_stack>
+		<layout_panel
+			 name="im_contents_panel">
+			<button
+				 label="呼叫"
+				 name="start_call_btn" />
+			<button
+				 label="结束呼叫"
+				 name="end_call_btn" />
+			<button
+				 name="toggle_active_speakers_btn"
+				 tool_tip="显示在该即时通信会话中活动的参与者。" />
+			<line_editor
+				 label="点击这里开始即时聊天。"
+				 name="chat_editor" />
+			<button
+				 label="发送"
+				 name="send_btn" />
+		</layout_panel>
+	</layout_stack>
+	<string
+		 name="live_help_dialog">
+		*** 欢迎来到帮助请求 *** 
+    请首先按 F1 参阅我们的第二人生帮助页面，或访问知识库 http://secondlife.com/knowledgebase/ 
+若你找不到所需的答案，请输入你的问题，然后等待可用的工作人员的回复。
+    -=-=- 反应时间不固定，特别在高峰时期 -=-=-
+	</string>
+</floater>
+
+<!--Translated for Second Life 1.19.1 RC3 -->

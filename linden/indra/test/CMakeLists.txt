@@ -41,6 +41,7 @@ set(test_SOURCE_FILES
     lljoint_tut.cpp
     llmime_tut.cpp
     llmessageconfig_tut.cpp
+    llmodularmath_tut.cpp
     llnamevalue_tut.cpp
     llpermissions_tut.cpp
     llpipeutil.cpp
@@ -88,6 +89,11 @@ if (NOT WINDOWS)
        )
 endif (NOT WINDOWS)
 
+if (NOT DARWIN)
+  list(APPEND test_SOURCE_FILES
+    )
+endif (NOT DARWIN)
+
 set_source_files_properties(${test_HEADER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
@@ -105,6 +111,7 @@ target_link_libraries(test
     ${LLCOMMON_LIBRARIES}
     ${PTHREAD_LIBRARY}
     ${WINDOWS_LIBRARIES}
+    ${DL_LIBRARY}
     )
 
 if (WINDOWS)
@@ -142,6 +149,7 @@ if (EXISTS /etc/debian_version_FAIL)
       --mode=static
       --output=${CMAKE_CURRENT_BINARY_DIR}/py_test_results.txt
       --touch=${CMAKE_CURRENT_BINARY_DIR}/py_tests_ok.txt
+      --mode=static
     DEPENDS test.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Python unit tests"

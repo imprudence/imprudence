@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
- * Copyright (c) 2000-2008, Linden Research, Inc.
+ * Copyright (c) 2000-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -98,11 +98,11 @@ void LLAudioEngine::setDefaults()
 	mInternetStreamGain = 0.125f;
 	mNextWindUpdate = 0.f;
 
-	mInternetStreamMedia = NULL;
-	mInternetStreamURL.clear();
-
 	for (U32 i = 0; i < LLAudioEngine::AUDIO_TYPE_COUNT; i++)
 		mSecondaryGain[i] = 1.0f;
+
+	mInternetStreamMedia = NULL;
+	mInternetStreamURL.clear();
 
 	mStatus = LLMediaBase::STATUS_UNKNOWN;
 }
@@ -120,7 +120,7 @@ bool LLAudioEngine::init(const S32 num_channels, void* userdata)
 	// Initialize the decode manager
 	gAudioDecodeMgrp = new LLAudioDecodeMgr;
 
-	LL_INFOS("AudioEngine") << "LLAudioEngine::init() AudioEngine successfully initialized" << llendl;
+	llinfos << "LLAudioEngine::init() AudioEngine successfully initialized" << llendl;
 
 	return true;
 }
@@ -183,7 +183,7 @@ LLMediaBase::EStatus LLAudioEngine::getStatus()
 // virtual
 void LLAudioEngine::startInternetStream(const std::string& url)
 {
-	LL_INFOS("AudioEngine") << "entered startInternetStream()" << llendl;
+	llinfos << "entered startInternetStream()" << llendl;
 
 	if (!mInternetStreamMedia)
 	{
@@ -191,7 +191,7 @@ void LLAudioEngine::startInternetStream(const std::string& url)
 		if (mgr)
 		{
 			mInternetStreamMedia = mgr->createSourceFromMimeType(LLURI(url).scheme(), "audio/mpeg"); // assumes that whatever media implementation supports mp3 also supports vorbis.
-			LL_INFOS("AudioEngine") << "mInternetStreamMedia is now " << mInternetStreamMedia << llendl;
+			llinfos << "mInternetStreamMedia is now " << mInternetStreamMedia << llendl;
 		}
 	}
 
@@ -202,7 +202,7 @@ void LLAudioEngine::startInternetStream(const std::string& url)
 	// Check for a dead stream from gstreamer, just in case
 	else if(getStatus() == LLMediaBase::STATUS_DEAD)
 	{
-		LL_INFOS("AudioEngine") << "don't play dead stream urls"<< llendl;
+		llinfos << "don't play dead stream urls"<< llendl;
 		mInternetStreamURL.clear();
 		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP);
 		mInternetStreamMedia->updateMedia();
@@ -210,7 +210,7 @@ void LLAudioEngine::startInternetStream(const std::string& url)
 	}
 	else if (url.empty())
 	{
-		LL_INFOS("AudioEngine") << "url is emptly. Setting stream to NULL"<< llendl;
+		llinfos << "url is emptly. Setting stream to NULL"<< llendl;
 		mInternetStreamURL.clear();
 		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP);
 		mInternetStreamMedia->updateMedia();
@@ -221,10 +221,10 @@ void LLAudioEngine::startInternetStream(const std::string& url)
 		// stop any other stream first
 		stopInternetStream();
 
-		LL_INFOS("AudioEngine") << "Starting internet stream: " << url << llendl;
+		llinfos << "Starting internet stream: " << url << llendl;
 		mInternetStreamURL = url;
 		mInternetStreamMedia->navigateTo(url);
-		//LL_INFOS("AudioEngine") << "Playing....." << llendl;		
+		//llinfos << "Playing....." << llendl;		
 		mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_START);
 		mInternetStreamMedia->updateMedia();
 		mStatus = LLMediaBase::STATUS_STARTED;
@@ -234,17 +234,42 @@ void LLAudioEngine::startInternetStream(const std::string& url)
 // virtual
 void LLAudioEngine::stopInternetStream()
 {
-	LL_INFOS("AudioEngine") << "entered stopInternetStream()" << llendl;
+	llinfos << "entered stopInternetStream()" << llendl;
 	mInternetStreamURL.clear();
 
     if(mInternetStreamMedia)
 	{
 		if(!mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_STOP))
 		{
-			LL_INFOS("AudioEngine") << "attempting to stop stream failed!" << llendl;
+			llinfos << "attempting to stop stream failed!" << llendl;
 		}
 		mInternetStreamMedia->updateMedia();
 	}
+
+	mInternetStreamURL.clear();
+}
+
+// virtual
+void LLAudioEngine::pauseInternetStream(int pause)
+{
+	llinfos << "entered pauseInternetStream()" << llendl;
+
+	if(!mInternetStreamMedia)
+		return;
+	
+	if(pause)
+	{
+		if(! mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_PAUSE))
+		{
+			llinfos << "attempting to pause stream failed!" << llendl;
+		}
+	} else {
+		if(! mInternetStreamMedia->addCommand(LLMediaBase::COMMAND_START))
+		{
+			llinfos << "attempting to unpause stream failed!" << llendl;
+		}
+	}
+	mInternetStreamMedia->updateMedia();
 }
 
 // virtual
@@ -264,6 +289,11 @@ int LLAudioEngine::isInternetStreamPlaying()
 	{
 		return 1; // Active and playing
 	}	
+
+	if (mInternetStreamMedia->getStatus() == LLMediaBase::STATUS_PAUSED)
+	{
+		return 2; // paused
+	}
 
 	return 0; // Stopped
 }
@@ -1526,7 +1556,7 @@ bool LLAudioSource::isDone()
 		{
 			// We don't have a channel assigned, and it's been
 			// over 5 seconds since we tried to play it.  Don't bother.
-			//LL_INFOS("AudioEngine") << "No channel assigned, source is done" << llendl;
+			//llinfos << "No channel assigned, source is done" << llendl;
 			return true;
 		}
 		else
@@ -1716,6 +1746,8 @@ void LLAudioChannel::setSource(LLAudioSource *sourcep)
 	}
 
 	mCurrentSourcep = sourcep;
+
+
 	updateBuffer();
 	update3DPosition();
 }
@@ -1728,6 +1760,12 @@ bool LLAudioChannel::updateBuffer()
 		// This channel isn't associated with any source, nothing
 		// to be updated
 		return false;
+	}
+
+	// Initialize the channel's gain setting for this sound.
+	if(gAudiop)
+	{
+		setSecondaryGain(gAudiop->getSecondaryGain(mCurrentSourcep->getType()));
 	}
 
 	LLAudioBuffer *bufferp = mCurrentSourcep->getCurrentBuffer();
@@ -1804,7 +1842,7 @@ bool LLAudioData::load()
 	if (mBufferp)
 	{
 		// We already have this sound in a buffer, don't do anything.
-		LL_INFOS("AudioEngine") << "Already have a buffer for this sound, don't bother loading!" << llendl;
+		llinfos << "Already have a buffer for this sound, don't bother loading!" << llendl;
 		return true;
 	}
 	
@@ -1812,7 +1850,7 @@ bool LLAudioData::load()
 	if (!mBufferp)
 	{
 		// No free buffers, abort.
-		LL_INFOS("AudioEngine") << "Not able to allocate a new audio buffer, aborting." << llendl;
+		llinfos << "Not able to allocate a new audio buffer, aborting." << llendl;
 		return false;
 	}
 

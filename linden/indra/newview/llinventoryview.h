@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -87,6 +87,7 @@ public:
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
 	// LLView methods
+	void draw();
 	BOOL handleHover(S32 x, S32 y, MASK mask);
 	BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 								   EDragAndDropType cargo_type,
@@ -154,7 +155,8 @@ protected:
 	LLFolderView*				mFolders;
 	LLScrollableContainerView*	mScroller;
 	BOOL 						mAllowMultiSelect;
-	const std::string				mSortOrderSetting;
+	const std::string			mSortOrderSetting;
+	LLUUID						mSelectThisID; // if non null, select this item
 };
 
 class LLInventoryView;

@@ -1,43 +1,245 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="图像" name="Display panel">
+
+	<!-- render size section -->
+	<button label="?" name="GraphicsPreferencesHelpButton" />
+
+	<text name="DisplayResLabel">
+		显示器分辨率:
+	</text>
+	<combo_box name="fullscreen combo" />
+	<check_box label="在窗口中运行" name="windowed mode" />
+		<text_editor name="FullScreenInfo">
+		若不选中，查看器在登入时将全屏显示。
+	</text_editor>
+	<text
+		 name="WindowSizeLabel">
+		窗口尺寸:
+	</text>
+
+	<text name="AspectRatioLabel1">
+		全屏宽高比:
+	</text>
+	<text name="AspectRatioLabel2">
+		(宽 / 高)
+	</text>
 	<combo_box name="aspect_ratio">
-		<combo_item type="string" length="1" name="4:3(StandardCRT)">
+		<combo_item name="4:3(StandardCRT)" >
 			4:3 (标准显示器)
 		</combo_item>
-		<combo_item type="string" length="1" name="5:4(1280x1024LCD)">
-			5:4 (1280x1024液晶屏)
+		<combo_item name="5:4(1280x1024LCD)" >
+			5:4 (1280x1024 液晶显示器)
 		</combo_item>
-		<combo_item type="string" length="1" name="16:9(Widescreen)">
-			16:9 (宽屏)
+		<combo_item name="16:9(Widescreen)" >
+			16:9 (宽屏幕)
 		</combo_item>
 	</combo_box>
-	<text type="string" length="1" name="text">
-		限制决议:
+	<check_box label="自动检测"
+		name="aspect_auto_detect"/>
+
+	<!-- performance/quality text-->
+	<text name="HigherText">
+		质量和
 	</text>
-	<text type="string" length="1" name="Fullscreen Aspect Ratio:">
-		全屏显示放大比率:
+	<text name="QualityText"
+		width="95">
+		性能:
 	</text>
-	<text type="string" length="1" name="(width / height)">
-		(宽度 /高度)
+
+	<!-- May want to axe these explanatations for locale problems -->
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		bottom="-86" drop_shadow_visible="true" enabled="true" follows="left|top"
+		font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+		left="115" mouse_opaque="true" name="FasterText" v_pad="0"
+		width="80">
+		更快
 	</text>
-	<text type="string" length="1" name="UI Size:">
-		UI尺寸:
+
+	<!-- radio box names -->
+	<text name="ShadersPrefText">
+		低
 	</text>
-	<text type="string" length="1" name="(meters, lower is faster)">
-		(米数,越低越快)
+	<text name="ShadersPrefText2" >
+		中
 	</text>
-	<text type="string" length="1" name="text2">
-		显示设置选项:
+	<text name="ShadersPrefText3">
+		高
 	</text>
-	<check_box label="在窗口中中运行" name="windowed mode" />
-	<check_box label="自动检测" name="aspect_auto_detect" />
-	<check_box label="使用决议自由规模" name="ui_auto_scale" />
-	<check_box label="从第一视角显示玩家" name="avfp" />
-	<spinner label="拖带距离:" name="draw_distance" />
-	<text name="resolution_format">
+	<text name="ShadersPrefText4">
+		最高
+	</text>
+	
+
+	<!-- May want to axe these explanatations for locale problems -->
+	<text name="HigherText2">
+		更高
+	</text>
+	<text name="QualityText2">
+		质量
+	</text>
+
+	<slider label="" name="QualityPerformanceSelection" />
+	<check_box label="自定义" name="CustomSettings" />
+
+	<!-- performance settings -->
+	<view_border name="GraphicsBorder" />
+
+	<!-- Shaders -->
+	<text name="ShadersText">
+		着色器:
+	</text>
+
+	<check_box 
+		label="凹凸贴图和光泽" 
+		name="BumpShiny" />
+	<check_box 
+		label="基本着色器"
+		name="BasicShaders" 
+		tool_tip="禁用该选项也许可以防止某些显卡驱动程序崩溃。"
+		width="315" />
+	<check_box 
+		label="大气着色器" 
+		name="WindLightUseAtmosShaders"/>
+	<check_box 
+		label="水面反射" name="Reflections"/>
+
+	<!-- Reflection Detail -->
+	<text name="ReflectionDetailText">
+		反射细节:
+	</text>
+	<radio_group name="ReflectionDetailRadio">
+		<radio_item name="0">
+			地面和树木
+		</radio_item>
+		<radio_item name="1">
+			所有静态物体
+		</radio_item>
+		<!--这里应不应该写成“东东”?-->
+		<radio_item name="2">
+			所有化身和物体
+		</radio_item>
+		<radio_item name="3">
+			一切东西
+		</radio_item>
+	</radio_group>
+
+	<!-- avatar rendering -->
+	<text name="AvatarRenderingText" width="128">
+		化身渲染:
+	</text>
+	<check_box 
+		label="化身替身" 
+		name="AvatarImpostors" width="256" />
+	<check_box 
+		label="硬件 Skinning" 
+		name="AvatarVertexProgram" width="256" />
+	<check_box 
+		label="化身衣物效果" 
+		name="AvatarCloth" width="256" />
+
+	<!-- performance sliders -->
+	<text  name="DrawDistanceMeterText1"
+	    width="128">
+		m
+	</text>
+	<text name="DrawDistanceMeterText2">
+		m
+	</text>
+
+	<slider label="描绘距离:" name="DrawDistance" />
+	<slider label="最大粒子数:" name="MaxParticleCount"/>
+	<slider label="后期处理质量:" name="RenderPostProcess"/>
+
+	<text name="MeshDetailText" 
+	     width="128">
+		 模型细节:
+	</text>
+
+	<slider 
+		label="  物体:" label_width="140"
+		name="ObjectMeshDetail"
+		width="223" />
+	<slider 
+		label="  活动元件:" label_width="140"
+		name="FlexibleMeshDetail"
+		width="223" />
+	<slider 
+		label="  树木:" label_width="140"
+		name="TreeMeshDetail"
+		width="223" />	
+	<slider 
+		label="  化身:" label_width="140"
+		name="AvatarMeshDetail"
+		width="223" />
+	<slider 
+		label="  地面:" 
+		name="TerrainMeshDetail"
+		width="223" />
+	<slider 
+		label="  天空:" label_width="140"
+		name="SkyMeshDetail"
+		width="223" />
+
+	<!-- Low/Mid/High boxes -->
+	<text name="PostProcessText" >
+		低
+	</text>
+	<text name="ObjectMeshDetailText" >
+		低
+	</text>
+	<text name="FlexibleMeshDetailText">
+		低
+	</text>
+	<text name="TreeMeshDetailText" >
+		低
+	</text>
+	<text name="AvatarMeshDetailText" >
+		低
+	</text>	
+	<text name="TerrainMeshDetailText">
+		低
+	</text>
+	<text name="SkyMeshDetailText">
+		低
+	</text>	
+
+
+	<!-- Lighting detail -->
+	<text name="LightingDetailText" >
+		光照细节:
+	</text>
+	<radio_group name="LightingDetailRadio">
+		<radio_item name="SunMoon">
+			仅有日月光效
+		</radio_item>
+		<radio_item name="LocalLights" >
+			附近的灯光
+		</radio_item>
+	</radio_group>
+
+	<!-- Terrain Detail -->
+	<text name="TerrainDetailText">
+		地面细节:
+	</text>
+	<radio_group name="TerrainDetailRadio">
+		<radio_item name="0" >
+			低
+		</radio_item>
+		<radio_item name="2" >
+			高
+		</radio_item>
+	</radio_group>
+
+	<button label="建议设置"
+		name="Defaults" />
+
+	<button label="硬件选项"
+		name="GraphicsHardwareButton" />
+
+	<text hidden="true" name="resolution_format">
 		[RES_X] x [RES_Y]
 	</text>
-	<text name="aspect_ratio_text">
+	<text hidden="true" name="aspect_ratio_text">
 		[NUM]:[DEN]
 	</text>
 </panel>

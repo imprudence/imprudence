@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Postcard" title="发送明信片">
+<floater name="Postcard" title="发送快照">
 	<text name="to_label">
-		接收员的邮件:
+		收件人电子邮件地址:
 	</text>
 	<text name="from_label">
-		你的电子邮箱:
+		你的电子邮件地址:
 	</text>
 	<text name="name_label">
 		你的姓名:
@@ -13,16 +13,31 @@
 		主题:
 	</text>
 	<text name="msg_label">
-		信息:
+		正文:
 	</text>
+	<text_editor
+		 name="msg_form">
+		在这里键入你的信息。
+	</text_editor>
 	<check_box label="在网上公布" name="allow_publish_check"
 	     tool_tip="将此明信片发布到网络上" />
 	<check_box label="成人内容" name="mature_check"
 	     tool_tip="这张明信片包含成人内容." />
 	<button label="?" name="publish_help_btn" />
+	<string
+		 name="default_subject">
+		来自第二人生的明信片
+	</string>
+	<string
+		 name="default_message">
+		瞧瞧这个!
+	</string>
 	<text name="fine_print">
-		如果你的明信片收到者加入SL，你会得到一份额外的奖励。
+		如果你的收件人加入SL，你会得到一份介绍奖励。
 	</text>
 	<button label="取消" name="cancel_btn" />
 	<button label="发送" name="send_btn" />
+	<string name="upload_message">
+	 发送中……
+	</string>
 </floater>

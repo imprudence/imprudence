@@ -4,7 +4,7 @@
 *
 * $LicenseInfo:firstyear=2003&license=viewergpl$
 * 
-* Copyright (c) 2003-2008, Linden Research, Inc.
+* Copyright (c) 2003-2009, Linden Research, Inc.
 * 
 * Second Life Viewer Source Code
 * The source code in this file ("Source Code") is provided by Linden Lab
@@ -322,7 +322,7 @@ bool LLCrashLoggerWindows::mainLoop()
 	{
 		gHwndReport = CreateDialog(hInst, MAKEINTRESOURCE(IDD_PREVREPORTBOX), 0, NULL);
 		// Ignore result
-		(void) SendDlgItemMessage(gHwndReport, IDC_CHECK_AUTO, BM_SETCHECK, 1, 0);
+		(void) SendDlgItemMessage(gHwndReport, IDC_CHECK_AUTO, BM_SETCHECK, 0, 0);
 		// Include the product name in the caption and various dialog items.
 		ProcessCaption(gHwndReport);
 		ProcessDlgItemText(gHwndReport, IDC_STATIC_MSG);

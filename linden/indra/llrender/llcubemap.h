@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -53,6 +53,7 @@ public:
 	
 	void enableTexture(S32 stage);
 	void enableTextureCoords(S32 stage);
+	S32	 getStage(void) { return mTextureStage; }
 	
 	void disable(void);
 	void disableTexture(void);
@@ -77,6 +78,7 @@ public:
 	static bool sUseCubeMaps;
 
 protected:
+	friend class LLTexUnit;
 	~LLCubeMap();
 	LLGLenum mTargets[6];
 	LLPointer<LLImageGL> mImages[6];

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="content_panel">
+
+	<text_editor name="voice_intro_text1" word_wrap="true">
+		欢迎使用 Second Life 语音聊天! 语音聊天让你可以与其他居民进行口头交流。该向导会帮助你完成设置语音聊天的各个步骤。请注意语音聊天需要带麦克风的立体声耳机；点击帮助按钮了解更多信息。
+	</text_editor>
+
+	<text_editor name="voice_intro_text2" word_wrap="true">
+		您现在想要启用语音聊天吗？
+	</text_editor>
+	<radio_group name="voice_enable">
+		<radio_item name="1">当然，启用语音聊天。</radio_item>
+		<radio_item name="0">不要就是不要，现在不启用语音聊天</radio_item>
+	</radio_group>
+
+		<text_editor
+		 name="voice_intro_text3"
+		 word_wrap="true">你可以在任何时候，在偏好设置的语音聊天选项卡中启用启用语音聊天。</text_editor>
+
+		<text_editor
+		 name="voice_intro_text4"
+		 word_wrap="true">点击继续按钮来设置语音聊天选项，或者点击完成继续使用 Second Life。</text_editor>
+
+	</panel>

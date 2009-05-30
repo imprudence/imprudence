@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2008, Linden Research, Inc.
+ * Copyright (c) 2006-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -32,7 +32,7 @@
 #ifndef LL_LLAGENTLANGUAGE_H
 #define LL_LLAGENTLANGUAGE_H
 
-#include "llmemory.h"
+#include "llmemory.h"	// LLSingleton<>
 #include "llevent.h"
 
 class LLAgentLanguage: public LLSingleton<LLAgentLanguage>, public LLSimpleListener

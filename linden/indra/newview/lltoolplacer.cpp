@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -224,8 +224,8 @@ BOOL LLToolPlacer::addObject( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 	// Play creation sound
 	if (gAudiop)
 	{
-		F32 volume = gSavedSettings.getBOOL("MuteUI") ? 0.f : gSavedSettings.getF32("AudioLevelUI");
-		gAudiop->triggerSound( LLUUID(gSavedSettings.getString("UISndObjectCreate")), gAgent.getID(), volume);
+		gAudiop->triggerSound( LLUUID(gSavedSettings.getString("UISndObjectCreate")),
+							   gAgent.getID(), 1.0f, LLAudioEngine::AUDIO_TYPE_UI);
 	}
 
 	gMessageSystem->newMessageFast(_PREHASH_ObjectAdd);

@@ -10,13 +10,13 @@
 		[FIRST] [LAST]
 	</text>
 	<text type="string" length="1" name="object_name_label">
-		通过东东:
+		通过物体:
 	</text>
 	<text type="string" length="1" name="object_name_text">
 		...
 	</text>
 	<text type="string" length="1" name="fastpay text">
-		快速支付通道:
+		快速支付:
 	</text>
 	<text type="string" length="1" name="amount text">
 		数量:

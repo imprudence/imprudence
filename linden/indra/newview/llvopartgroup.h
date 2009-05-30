@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -80,6 +80,23 @@ protected:
 	~LLVOPartGroup();
 
 	LLViewerPartGroup *mViewerPartGroupp;
+
+	virtual LLVector3 getCameraPosition() const;
+
+};
+
+
+class LLVOHUDPartGroup : public LLVOPartGroup
+{
+public:
+	LLVOHUDPartGroup(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp) : 
+	  LLVOPartGroup(id, pcode, regionp)   
+	{
+	}
+protected:
+	LLDrawable* createDrawable(LLPipeline *pipeline);
+	U32 getPartitionType() const;
+	virtual LLVector3 getCameraPosition() const;
 };
 
 #endif // LL_LLVOPARTGROUP_H

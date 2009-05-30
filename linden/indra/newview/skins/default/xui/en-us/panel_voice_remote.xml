@@ -3,6 +3,6 @@
      enabled="true" follows="right|bottom" height="20" left="0"
      mouse_opaque="true" name="voice_remote" use_bounding_rect="true"
      width="130">
-	<panel bottom="1" filename="panel_bg_tab.xml" height="22" left="0" width="130" />
-	<panel bottom="3" filename="panel_voice_controls.xml" height="20" left="1" width="130" />
+	<panel bottom="1" filename="panel_bg_tab.xml" name="panel_bg_tab" height="22" left="0" width="130" />
+	<panel bottom="3" filename="panel_voice_controls.xml" name="panel_voice_controls" height="20" left="1" width="130" />
 </panel>

@@ -1,36 +1,87 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="directory" title="搜索">
 	<tab_container name="Directory Tabs">
-		<panel label="全部" name="all_panel">
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="Name" name="name" />
-				<column label="Price" name="price" />
-				<column label="Time (PDT)" name="date" />
-				<column label="Time" name="time" />
-				<column label="Traffic" name="dwell" />
-				<column label="Area" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
-				<column label="Online" name="online" />
-				<column label="Members" name="members" />
-			</scroll_list>
-			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
-			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
-			<text name="find">
-				寻找:
-			</text>
-			<button label="搜索" label_selected="搜索" name="Search" />
-			<check_box label="包含成人内容" name="incmature" />
-		</panel>
-		<panel label="分类目录" name="classified_panel">
+		<panel
+			 label="All"
+			 name="find_all_panel">
+			<string name="searching_text">
+				查找中……
+			</string>
+			<string name="not_found_text">
+				什么也没找到。
+			</string>
+			<button
+				 label="后退"
+				 name="back_btn" />
+			<button
+				 label="前进"
+				 name="forward_btn" />
+			<line_editor
+				 label="搜索"
+				 name="search_editor"
+				 tool_tip="搜索第二人生" />
+			<button
+				 label="搜索"
+				 name="search_btn" />
+			<combo_box
+				 name="Category">
+				<combo_item
+					 name="AnyCategory"
+					 value="All">
+					所有分类
+				</combo_item>
+				<combo_item
+					 name="Events">
+					事件
+				</combo_item>
+				<combo_item
+					 name="Groups"
+					 value="Groups">
+					社团
+				</combo_item>
+				<combo_item
+					 name="People"
+					 value="People">
+					居民
+				</combo_item>
+				<combo_item
+					 name="Places"
+					 value="Places">
+					地点
+				</combo_item>
+				<combo_item
+					 name="Wiki"
+					 value="Wiki">
+					Wiki
+				</combo_item>
+			</combo_box>
+			<check_box
+				 initial_value="false"
+				 label="包括成人内容"
+				 name="mature_check" />
+			<text
+				 name="loading_text">加载中...</text>
+			<text
+				 name="done_text">完成</text>
+<!--			<text
+				 name="redirect_404_url">http://secondlife.com/app/search/notfound.html</text>
+-->		</panel>
+	
+		<panel label="分类广告" name="classified_panel">
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
 				<column label="Name" name="name" />
 				<column label="Price" name="price" />
 			</scroll_list>
-			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
-			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<button label="&lt; 上一页" label_selected="&lt; 上一页" name="&lt; Prev" />
+			<button label="下一页 &gt;" label_selected="下一页 &gt;" name="Next &gt;" />
+			<string name="searching_text">
+				查找中……
+			</string>
+			<string name="not_found_text">
+				什么也没找到。
+			</string>
 			<text name="find">
 				寻找:
 			</text>
@@ -52,13 +103,13 @@
 					特殊吸引力
 				</combo_item>
 				<combo_item name="NewProducts">
-					新物品
+					新产品
 				</combo_item>
 				<combo_item name="Employment">
 					职业
 				</combo_item>
 				<combo_item name="Wanted">
-					通缉
+					需求
 				</combo_item>
 				<combo_item name="Service">
 					服务
@@ -67,28 +118,39 @@
 					私人的
 				</combo_item>
 			</combo_box>
+			<button
+				 label="浏览"
+				 label_selected="浏览"
+				 name="Browse" />
 			<button label="搜索" label_selected="搜索" name="Search" />
-			<button label="地点和广告..." label_selected="地点和广告..."
+			<button label="投放广告..." label_selected="投放广告..."
 			     name="Place an Ad..." />
 			<button label="删除" label_selected="删除" name="Delete" />
 		</panel>
-		<panel label="事件或活动" name="events_panel">
+		
+		<panel label="事件" name="events_panel">
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Time (PDT)" name="date" />
+				<column label="名称" name="name" />
+				<column label="时间 (PT)" name="date" />
 				<column label="" name="event_id" />
-				<column label="Time" name="time" />
+				<column label="时间" name="time" />
 			</scroll_list>
-			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
-			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<button label="&lt; 上一页" label_selected="&lt; 上一页" name="&lt; Prev" />
+			<button label="下一页 &gt;" label_selected="下一页 &gt;" name="Next &gt;" />
+			<string name="searching_text">
+				查找中……
+			</string>
+			<string name="not_found_text">
+				什么也没找到。
+			</string>
 			<radio_group name="date_mode">
 				<radio_item name="current">
-					In-Progress and Upcoming
+					当前和近期事件
 				</radio_item>
 				<radio_item name="date">
-					Date
+					日期
 				</radio_item>
 			</radio_group>
 			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;"
@@ -104,7 +166,7 @@
 				种类列表:
 			</text>
 			<text name="text2">
-				Name/Desc:
+				名称/描述:
 			</text>
 			<combo_box name="category combo">
 				<combo_item name="All">
@@ -120,7 +182,7 @@
 					现场音乐
 				</combo_item>
 				<combo_item name="Commercial">
-					生意
+					商业
 				</combo_item>
 				<combo_item name="Nightlife/Entertainment">
 					夜生活/娱乐
@@ -141,40 +203,51 @@
 					慈善机构
 				</combo_item>
 				<combo_item name="Miscellaneous">
-					混色
+					其他
 				</combo_item>
 			</combo_box>
 			<check_box label="显示成人内容" name="incmature" />
 			<button label="搜索" label_selected="搜索" name="Search" tool_tip="搜索" />
 			<button label="删除" label_selected="删除" name="Delete" />
 		</panel>
-		<panel label="Popular Places" name="popular_panel">
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Traffic" name="dwell" />
-			</scroll_list>
-			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
-			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
-			<check_box label="只显示有图像的地点" name="incpictures" />
-			<check_box label="包含成人区中的地点" name="incmature" />
-			<text
-			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
-				这里有在第二人生世界里最流行的场所，由交通状况，和人们在那里花费的时间长短来衡量。
-			</text>
+		
+		<panel label="热门地点" name="showcase_panel">
+			<button label="&lt; 上一页" label_selected="&lt; 上一页" name="&lt; Prev" />
+			<button label="下一页 &gt;" label_selected="下一页 &gt;" name="Next &gt;" />
+			<string name="searching_text">
+				查找中……
+			</string>
+			<string name="not_found_text">
+				什么也没找到。
+			</string>
+			<button
+				 label="后退"
+				 name="back_btn" />
+			<button
+				 label="前进"
+				 name="forward_btn" />
+			<string 
+				 name="loading_text">加载中...</string>
+			<string
+				 name="done_text">完成</string>
 		</panel>
-		<panel label="Land Sales" name="land_sales_panel">
+		<panel label="土地出售" name="land_sales_panel">
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="L$ Price" name="price" />
-				<column label="Area" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
+				<column label="名称" name="name" />
+				<column label="L$ 价格" name="price" />
+				<column label="面积" name="area" />
+				<column label="L$/平米" name="per_meter" />
 			</scroll_list>
 			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
-			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<button label="下一页&gt;" label_selected="下一页&gt;" name="Next &gt;" />
+			<string name="searching_text">
+				查找中……
+			</string>
+			<string name="not_found_text">
+				什么也没找到。
+			</string>
 			<combo_box name="type">
 				<combo_item name="AllTypes">
 					所有类型
@@ -185,22 +258,22 @@
 				<combo_item name="ForSale">
 					代售
 				</combo_item>
-				<combo_item name="FirstLand">
-					首次着陆
-				</combo_item>
+				<!--<combo_item name="FirstLand">
+					初次订阅土地
+				</combo_item>-->
 				<combo_item name="MainlandSales">
 					出售 - 大陆
 				</combo_item>
 				<combo_item name="EstateSales">
-					出售 - 土地
+					出售 - 地产
 				</combo_item>
 			</combo_box>
 			<combo_box name="rating">
 				<combo_item name="PG&amp;Mature">
-					成年人和在家长指导下的未成年人
+					限制级和指导级
 				</combo_item>
 				<combo_item name="PGonly">
-					仅在家长指导下观看
+					仅指导级
 				</combo_item>
 				<combo_item name="Matureonly">
 					仅成人
@@ -208,31 +281,40 @@
 			</combo_box>
 			<check_box label="标价 &lt;= L$" name="pricecheck" />
 			<check_box label="地区&gt;= 平方米" name="areacheck" />
-			<button label="搜索" label_selected="搜索" name="Search" />
-			<text name="land">
+			<line_editor left="245" name="priceedit" width="50"/>
+			<line_editor left="245" name="areaedit" width="50"/>
+			<button label="搜索" label_selected="搜索" name="Search" left="306" />
+			<text name="land" left="399" >
 				土地可以直接用林登元购买(L$)，也可以用林登元或美元拍卖。
-想直接购买, 进入土地，在标题条上点击地点的名字。
+要直接购买, 进入土地，然后在点击菜单栏上的地点的名字。
 			</text>
 		</panel>
-		<panel label="Places" name="places_panel">
+		
+		<panel label="地点" name="places_panel">
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Traffic" name="dwell" />
+				<column label="名称" name="name" />
+				<column label="流量" name="dwell" />
 			</scroll_list>
-			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
-			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<button label="&lt; 上一页" label_selected="&lt; 上一页" name="&lt; Prev" />
+			<button label="下一页 &gt;" label_selected="下一页 &gt;" name="Next &gt;" />
+			<string name="searching_text">
+				查找中……
+			</string>
+			<string name="not_found_text">
+				什么也没找到。
+			</string>
 			<text name="find">
-				寻找:
+				查找:
 			</text>
-			<check_box label="包含成人区中的地点" name="incmature" />
+			<check_box label="包含有限制级内容的地块" name="incmature" />
 			<combo_box name="Category">
 				<combo_item name="AnyCategory">
 					任意分类
 				</combo_item>
 				<combo_item name="LindenLocation">
-					林登家的地点
+					林登实验室的地点
 				</combo_item>
 				<combo_item name="Adult">
 					成人
@@ -241,25 +323,25 @@
 					艺术和文化
 				</combo_item>
 				<combo_item name="Business">
-					生意
+					商业
 				</combo_item>
 				<combo_item name="Educational">
-					教育的
+					教育
 				</combo_item>
 				<combo_item name="Gaming">
-					博彩游戏
+					博彩/游戏
 				</combo_item>
 				<combo_item name="Hangout">
-					临时住所
+					聚会
 				</combo_item>
 				<combo_item name="NewcomerFriendly">
-					友好的初来者
+					初行者友好
 				</combo_item>
 				<combo_item name="Parks&amp;Nature">
-					公园和大自然
+					公园和自然
 				</combo_item>
 				<combo_item name="Residential">
-					土木建筑
+					居住区
 				</combo_item>
 				<combo_item name="Shopping">
 					购物
@@ -270,34 +352,56 @@
 			</combo_box>
 			<button label="搜索" label_selected="搜索" name="Search" />
 		</panel>
-		<panel label="People" name="people_panel">
+		
+		<panel label="居民" name="people_panel">
 			<scroll_list name="results">
 				<column label="" name="icon" />
 				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Online" name="online" />
+				<column label="名字" name="name" />
+				<column label="在线" name="online" />
 			</scroll_list>
-			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
-			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<button label="&lt; 上一页" label_selected="&lt; 上一页" name="&lt; Prev" />
+			<button label="下一页 &gt;" label_selected="下一页 &gt;" name="Next &gt;" />
+			<string name="searching_text">
+				查找中……
+			</string>
+			<string name="not_found_text">
+				什么也没找到。
+			</string>
 			<text name="find">
-				寻找:
+				查找:
 			</text>
 			<check_box label="在线" name="online check" />
 			<button label="搜索" label_selected="搜索" name="Search" />
 		</panel>
+		
 		<panel label="社团" name="groups_panel">
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Members" name="members" />
-			</scroll_list>
-			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
-			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+		
+			<string name="searching_text">
+				查找中……
+			</string>
+			<string name="not_found_text">
+				什么也没找到。
+			</string>
+			<button
+				 label="后退"
+				 name="back_btn" />
+			<button
+				 label="前进"
+				 name="forward_btn" />
+			<string 
+				 name="loading_text">加载中...</string>
+			<string
+				 name="done_text">完成</string>
 			<text name="find">
 				寻找:
 			</text>
-			<button label="搜索" label_selected="搜索" name="Search" />
+			<button label="搜索" label_selected="搜索" name="search_btn" />
+			<check_box
+				 label="包括成人社团"
+				 name="mature_check" />
 		</panel>
+
 	</tab_container>
 </floater>
+<!--Translated for Second Life 1.19.0 (79185)-->

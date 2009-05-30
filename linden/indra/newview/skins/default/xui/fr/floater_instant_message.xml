@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater label="(inconnue)" name="im_floater" title="(inconnue)">
-	<button label="Profil..." label_selected="Profil..." name="profile_btn" />
-	<button label="Fermer" label_selected="Fermer" name="close_btn" />
+	<button label="Profil..." label_selected="Profil..." name="profile_btn"/>
+	<button label="Fermer" label_selected="Fermer" name="close_btn"/>
 	<string name="ringing">
 		Appel en cours...
 	</string>
@@ -26,14 +26,14 @@
 	<string name="default_text_label">
 		Cliquez ici pour envoyer un message instantané.
 	</string>
-	<button label="Profil..." name="profile_callee_btn" />
-	<button label="Appeler" name="start_call_btn" />
-	<button label="Raccrocher" name="end_call_btn" />
+	<button label="Profil..." name="profile_callee_btn"/>
+	<button label="Appeler" name="start_call_btn"/>
+	<button label="Raccrocher" name="end_call_btn"/>
 	<panel name="speaker_controls">
-		<button name="mute_btn" tool_tip="Ignorer" />
+		<button name="mute_btn" tool_tip="Ignorez"/>
 	</panel>
-	<line_editor label="Cliquez ici pour envoyer un message instantané" name="chat_editor" />
-	<button label="Envoyer" name="send_btn" />
+	<line_editor label="Cliquez ici pour envoyer un message instantané" name="chat_editor"/>
+	<button label="Envoyer" name="send_btn"/>
 	<text name="live_help_dialog">
 		*** Bienvenue sur la page Demande d&apos;aide *** 
 Veuillez au préalable consulter les pages d&apos;aide de Second Life en appuyant sur la touche F1, ou en accédant à la base de connaissances http://secondlife.com/knowledgebase/ 

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -328,13 +328,13 @@ void LLHUDEffectPointAt::render()
 	update();
 	if (sDebugPointAt && mTargetType != POINTAT_TARGET_NONE)
 	{
-		LLGLSNoTexture gls_no_texture;
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 		LLVector3 target = mTargetPos + mSourceObject->getRenderPosition();
 		gGL.pushMatrix();
 		gGL.translatef(target.mV[VX], target.mV[VY], target.mV[VZ]);
 		glScalef(0.3f, 0.3f, 0.3f);
-		gGL.begin(LLVertexBuffer::LINES);
+		gGL.begin(LLRender::LINES);
 		{
 			gGL.color3f(1.f, 0.f, 0.f);
 			gGL.vertex3f(-1.f, 0.f, 0.f);
@@ -441,8 +441,10 @@ bool LLHUDEffectPointAt::calcTargetPosition()
 
 	mTargetPos -= mSourceObject->getRenderPosition();
 
-	if (!mTargetPos.isFinite())
+	if (!llfinite(mTargetPos.lengthSquared()))
+	{
 		return false;
+	}
 
 	if (mSourceObject->isAvatar())
 	{

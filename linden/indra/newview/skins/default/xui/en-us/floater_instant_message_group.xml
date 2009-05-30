@@ -49,7 +49,7 @@
 			<button bottom_delta="0" enabled="false" follows="left|top" halign="right" height="20"
 			     image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left"
 			     label="Join Call" left_delta="85" name="start_call_btn" pad_right="12"
-			     width="92" />
+			     width="80" />
 			<button bottom_delta="0" follows="left|top" halign="right" height="20"
 			     image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left"
 			     label="End Call" left_delta="0" name="end_call_btn" pad_right="12"

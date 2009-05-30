@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="script ed float"
+	 title="LSL Wiki">
+	<check_box
+		 label="跟随光标"
+		 name="lock_check" />
+	<combo_box
+		 label="锁定"
+		 name="history_combo" />
+	<button
+		 label="后退"
+		 name="back_btn" />
+	<button
+		 label="前进"
+		 name="fwd_btn" />
+</floater>
+
+<!--Translated for Second Life 1.19.1 RC3 -->

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 can_resize="false"
+	 can_minimize="true"
+	 name="floater_voice_wizard"
+	 title="语音设置">
+     <tab_container
+		 name="wizard_tabs"
+		 hide_tabs="true"
+		 top="-20"
+		 right="-2"
+		 tab_position="bottom">
+	<panel
+			 filename="panel_voice_enable.xml"
+			 right="0" />
+	<panel
+			 filename="panel_voice_options.xml"
+			 right="0" />
+	<panel
+			 name="device_settings"
+			 filename="panel_audio_device.xml"
+			 right="0" />
+     </tab_container>
+     <panel
+		 name="content_panel">
+       <!--<button
+			 label="Help"
+			 name="help_btn" />-->
+       <button
+			 label="返回"
+			 name="back_btn" />
+       <button
+			 label="继续"
+			 name="next_btn" />
+       <button
+			 label="完成"
+			 name="ok_btn" />
+       <button
+			 label="取消"
+			 name="cancel_btn" />
+     </panel>
+</floater>
+
+

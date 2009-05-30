@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="chat floater" title="ローカル・チャット">
 	<string name="ringing">
 		インワールドボイスチャットに接続中．．．
@@ -28,7 +28,7 @@
 					ジェスチャー
 				</combo_item>
 			</combo_box>
-			<check_box label="ミュートされたテキストを表示" name="show mutes"/>
+			<check_box label="無視されたテキストを表示" name="show mutes"/>
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="ここをクリックして、このIMセッションへのアクティブな参加者リストを表示。"/>
 			<panel name="chat_panel">
 				<string name="gesture_label">
@@ -41,6 +41,9 @@
 					</flyout_button_item>
 					<flyout_button_item name="say_item">
 						発言
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						ささやく
 					</flyout_button_item>
 				</flyout_button>
 			</panel>

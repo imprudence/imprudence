@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="url_entry"
+	 title="">
+	<text
+		 name="media_label">
+		媒体 URL:
+	</text>
+	<combo_box
+		 allow_text_entry="true"
+		 name="media_entry" />
+	<button
+		 label="确定"
+		 name="ok_btn" />
+	<button
+		 label="取消"
+		 name="cancel_btn" />
+	<button
+		 label="清除"
+		 name="clear_btn" />
+	<text
+		 name="loading_label"
+		 visible="false">
+		请稍候...
+	</text>
+</floater>
+

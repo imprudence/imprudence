@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
- * Copyright (c) 2000-2008, Linden Research, Inc.
+ * Copyright (c) 2000-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -89,7 +89,8 @@ LLStat LLViewerImageList::sFormattedMemStat(32, TRUE);
 LLViewerImageList::LLViewerImageList() 
 	: mForceResetTextureStats(FALSE),
 	mUpdateStats(FALSE),
-	mMaxResidentTexMem(0)
+	mMaxResidentTexMem(0),
+	mMaxTotalTextureMem(0)
 {
 }
 
@@ -97,6 +98,7 @@ void LLViewerImageList::init()
 {
 	sNumImages = 0;
 	mMaxResidentTexMem = 0;
+	mMaxTotalTextureMem = 0 ;
 	
 	if (gNoRender)
 	{
@@ -498,10 +500,10 @@ void LLViewerImageList::updateImages(F32 max_time)
 {
 	sNumImagesStat.addValue(sNumImages);
 	sNumRawImagesStat.addValue(LLImageRaw::sRawImageCount);
-	sGLTexMemStat.addValue(LLImageGL::sGlobalTextureMemory/(1024.f*1024.f));
-	sGLBoundMemStat.addValue(LLImageGL::sBoundTextureMemory/(1024.f*1024.f));
-	sRawMemStat.addValue(LLImageRaw::sGlobalRawMemory/(1024.f*1024.f));
-	sFormattedMemStat.addValue(LLImageFormatted::sGlobalFormattedMemory/(1024.f*1024.f));
+	sGLTexMemStat.addValue((F32)(LLImageGL::sGlobalTextureMemory >> 20));
+	sGLBoundMemStat.addValue((F32)(LLImageGL::sBoundTextureMemory >> 20));
+	sRawMemStat.addValue((F32)(LLImageRaw::sGlobalRawMemory >> 20));
+	sFormattedMemStat.addValue((F32)(LLImageFormatted::sGlobalFormattedMemory >> 20));
 	
 	updateImagesDecodePriorities();
 	max_time -= updateImagesFetchTextures(max_time);
@@ -586,9 +588,12 @@ void LLViewerImageList::updateImagesDecodePriorities()
 			
 			imagep->processTextureStats();
 			F32 old_priority = imagep->getDecodePriority();
+			F32 old_priority_test = llmax(old_priority, 0.0f);
 			F32 decode_priority = imagep->calcDecodePriority();
+			F32 decode_priority_test = llmax(decode_priority, 0.0f);
 			// Ignore < 20% difference
-			if ((decode_priority < old_priority * .8f || decode_priority > old_priority * 1.25f))
+			if ((decode_priority_test < old_priority_test * .8f) ||
+				(decode_priority_test > old_priority_test * 1.25f))
 			{
 				removeImageFromList(imagep);
 				imagep->setDecodePriority(decode_priority);
@@ -918,12 +923,14 @@ LLPointer<LLImageJ2C> LLViewerImageList::convertToUploadFile(LLPointer<LLImageRa
 }
 
 const S32 MIN_VIDEO_RAM = 32;
-const S32 MAX_VIDEO_RAM = 2048;
+const S32 MAX_VIDEO_RAM = 512; // 512MB max for performance reasons.
 	
 // Returns min setting for TextureMemory (in MB)
 S32 LLViewerImageList::getMinVideoRamSetting()
 {
-	return MIN_VIDEO_RAM;
+	S32 system_ram = (S32)(gSysMemory.getPhysicalMemoryClamped() >> 20);
+	//min texture mem sets to 64M if total physical mem is more than 1.5GB
+	return (system_ram > 1500) ? 64 : MIN_VIDEO_RAM;
 }
 
 //static
@@ -956,8 +963,8 @@ S32 LLViewerImageList::getMaxVideoRamSetting(bool get_recommended)
 		max_texmem = llmin(max_texmem, (S32)(system_ram/2));
 	else
 		max_texmem = llmin(max_texmem, (S32)(system_ram));
-	
-	max_texmem = llclamp(max_texmem, MIN_VIDEO_RAM, MAX_VIDEO_RAM);
+		
+	max_texmem = llclamp(max_texmem, getMinVideoRamSetting(), MAX_VIDEO_RAM); 
 	
 	return max_texmem;
 }
@@ -994,7 +1001,18 @@ void LLViewerImageList::updateMaxResidentTexMem(S32 mem)
 	
 	S32 vb_mem = mem;
 	S32 fb_mem = llmax(VIDEO_CARD_FRAMEBUFFER_MEM, vb_mem/4);
-	mMaxResidentTexMem = (vb_mem - fb_mem)<<20;
+	mMaxResidentTexMem = (vb_mem - fb_mem) ; //in MB
+	
+	mMaxTotalTextureMem = mMaxResidentTexMem * 2;
+	if (mMaxResidentTexMem > 640)
+	{
+		mMaxTotalTextureMem -= (mMaxResidentTexMem >> 2);
+	}
+	
+	if (mMaxTotalTextureMem > (S32)(gSysMemory.getPhysicalMemoryClamped() >> 20) - 128)
+	{
+		mMaxTotalTextureMem = (gSysMemory.getPhysicalMemoryClamped() >> 20) - 128 ;
+	}
 	
 	llinfos << "Total Video Memory set to: " << vb_mem << " MB" << llendl;
 	llinfos << "Available Texture Memory set to: " << (vb_mem - fb_mem) << " MB" << llendl;

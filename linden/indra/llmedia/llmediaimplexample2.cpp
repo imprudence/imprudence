@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2007-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -45,7 +45,7 @@ static LLMediaImplRegister sLLMediaImplExample2Reg( "LLMediaImplExample2", new L
 LLMediaImplExample2Maker::LLMediaImplExample2Maker()
 {
 	// Register to handle the scheme
-	mSchema.push_back( "example2" );
+	mSchema.push_back( "example2." );
 }
 
 ///////////////////////////////////////////////////////////////////////////////

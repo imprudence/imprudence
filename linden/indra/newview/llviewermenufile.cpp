@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -349,7 +349,8 @@ class LLFileEnableCloseWindow : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		bool new_value = gFloaterView->getFocusedFloater() != NULL || gSnapshotFloaterView->getFocusedFloater() != NULL;
+		bool new_value = NULL != LLFloater::getClosableFloaterFromFocus();
+
 		// horrendously opaque, this code
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
 		return true;
@@ -503,7 +504,7 @@ void handle_compress_image(void*)
 			}
 			else
 			{
-				llinfos << "Compression failed: " << LLImageBase::getLastError() << llendl;
+				llinfos << "Compression failed: " << LLImage::getLastError() << llendl;
 			}
 
 			infile = picker.getNextFile();
@@ -554,9 +555,9 @@ void upload_new_resource(const std::string& src_filename, std::string name,
 												 IMG_CODEC_BMP ))
 		{
 			error_message = llformat( "Problem with file %s:\n\n%s\n",
-					src_filename.c_str(), LLImageBase::getLastError().c_str());
+					 src_filename.c_str(), LLImage::getLastError().c_str());
 			args["[FILE]"] = src_filename;
-			args["[ERROR]"] = LLImageBase::getLastError();
+			args["[ERROR]"] = LLImage::getLastError();
 			upload_error(error_message, "ProblemWithFile", filename, args);
 			return;
 		}
@@ -569,9 +570,9 @@ void upload_new_resource(const std::string& src_filename, std::string name,
 												 IMG_CODEC_TGA ))
 		{
 			error_message = llformat("Problem with file %s:\n\n%s\n",
-					src_filename.c_str(), LLImageBase::getLastError().c_str());
+					src_filename.c_str(), LLImage::getLastError().c_str());
 			args["[FILE]"] = src_filename;
-			args["[ERROR]"] = LLImageBase::getLastError();
+			args["[ERROR]"] = LLImage::getLastError();
 			upload_error(error_message, "ProblemWithFile", filename, args);
 			return;
 		}
@@ -584,9 +585,9 @@ void upload_new_resource(const std::string& src_filename, std::string name,
 												 IMG_CODEC_JPEG ))
 		{
 			error_message = llformat("Problem with file %s:\n\n%s\n",
-					src_filename.c_str(), LLImageBase::getLastError().c_str());
+					src_filename.c_str(), LLImage::getLastError().c_str());
 			args["[FILE]"] = src_filename;
-			args["[ERROR]"] = LLImageBase::getLastError();
+			args["[ERROR]"] = LLImage::getLastError();
 			upload_error(error_message, "ProblemWithFile", filename, args);
 			return;
 		}
@@ -599,9 +600,9 @@ void upload_new_resource(const std::string& src_filename, std::string name,
  												 IMG_CODEC_PNG ))
  		{
  			error_message = llformat("Problem with file %s:\n\n%s\n",
- 					src_filename.c_str(), LLImageBase::getLastError().c_str());
+ 					src_filename.c_str(), LLImage::getLastError().c_str());
  			args["[FILE]"] = src_filename;
- 			args["[ERROR]"] = LLImageBase::getLastError();
+ 			args["[ERROR]"] = LLImage::getLastError();
  			upload_error(error_message, "ProblemWithFile", filename, args);
  			return;
  		}
@@ -930,6 +931,11 @@ void upload_new_resource(const LLTransactionID &tid, LLAssetType::EType asset_ty
 						 LLAssetStorage::LLStoreAssetCallback callback,
 						 void *userdata)
 {
+	if(gDisconnected)
+	{
+		return ;
+	}
+
 	LLAssetID uuid = tid.makeAssetID(gAgent.getSecureSessionID());
 	
 	if( LLAssetType::AT_SOUND == asset_type )

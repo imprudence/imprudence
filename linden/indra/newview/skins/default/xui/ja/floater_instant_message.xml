@@ -21,7 +21,7 @@
 	<string name="default_text_label">
 		ここをクリックしてIM
 	</string>
-	<button label="プロフィール..." name="profile_callee_btn"  width="100"/>
+	<button label="プロフィール" name="profile_callee_btn"  width="100"/>
 	<button label="コール" name="start_call_btn"  left_delta="105" width="100"/>
 	<button label="呼出終了" name="end_call_btn" width="100" />
 	<panel name="speaker_controls" left_delta="96">

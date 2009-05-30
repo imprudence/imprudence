@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <notifications>
 	<notify name="SystemMessageTip">
 		<message name="message">
@@ -37,7 +37,7 @@
 	</notify>
 	<notify name="AddSelfFriend">
 		<message name="message">
-			Vous ne pouvez pas vous ajouter comme ami.
+			Vous ne pouvez pas devenir ami avec vous-même.
 		</message>
 	</notify>
 	<notify name="UploadingAuctionSnapshot">
@@ -48,7 +48,7 @@
 	</notify>
 	<notify name="UploadPayment">
 		<message name="message">
-			Le chargement a coûté [AMOUNT] $L.
+			Le chargement a coûté [AMOUNT] L$.
 		</message>
 	</notify>
 	<notify name="UploadingSnapshot">
@@ -100,7 +100,7 @@ Merci de réessayer.
 	</notify>
 	<notify name="UnableToLoadLandmark">
 		<message name="message">
-			Impossible de charger le repère.  Merci de réessayer.
+			Impossible de charger le repère. Merci de réessayer.
 		</message>
 	</notify>
 	<notify name="CapsKeyOn">
@@ -143,7 +143,7 @@ Merci de réessayer.
 	</notify>
 	<notify name="UnableToLoadScript">
 		<message name="message">
-			Impossible de charger le script.  Merci de réessayer.
+			Impossible de charger le script. Merci de réessayer.
 		</message>
 	</notify>
 	<notify name="IncompleteInventory">
@@ -198,12 +198,12 @@ propriétaires différents. Veuillez sélectionner un seul objet.
 	</notify>
 	<notify name="EnteringGodMode">
 		<message name="message">
-			Activation du mode admin : niveau [LEVEL]
+			Activation du mode divin : niveau [LEVEL]
 		</message>
 	</notify>
 	<notify name="LeavingGodMode">
 		<message name="message">
-			Désactivation du mode admin : niveau [LEVEL]
+			Désactivation du mode divin : niveau [LEVEL]
 		</message>
 	</notify>
 	<notify name="CopyFailed">
@@ -307,7 +307,7 @@ Veuillez sélectionner un terrain plus petit.
 	</notify>
 	<notify name="TransferObjectsHighlighted">
 		<message name="message">
-			Tous les objets sur cette parcelle qui seront
+			Tous les objets de cette parcelle qui seront
 transférés à l&apos;acheteur sont maintenant mis en surbrillance.
  
 * Les arbres et la pelouse qui seront transférés ne sont pas mis en surbrillance.
@@ -348,7 +348,7 @@ ont été renvoyés dans votre inventaire.
 	</notify>
 	<notify name="OtherObjectsReturned2">
 		<message name="message">
-			Les objets sur la parcelle de terrain
+			Les objets sur la parcelle
 appartenant à « [NAME] »
 ont étés renvoyés à leur propriétaire.
 		</message>
@@ -368,7 +368,7 @@ Les objets non transférables donnés au groupe ont étés supprimés.
 	<notify name="NotSafe">
 		<message name="message">
 			Les dégâts sont autorisés sur ce terrain (« non sécurisé »).
-Vous pouvez être blessé ici.  Si vous décédez, vous serez téléporté à votre domicile.
+Vous pouvez être blessé ici. Si vous décédez, vous serez téléporté à votre domicile.
 		</message>
 	</notify>
 	<notify name="NoFly">
@@ -379,7 +379,7 @@ Vous ne pouvez pas voler ici.
 	</notify>
 	<notify name="PushRestricted">
 		<message name="message">
-			Ce terrain est « llPushObject Restricted ».
+			Les bousculades sont interdites sur ce terrain.
 Vous ne pouvez pas pousser les autres à moins que vous soyez propriétaire de ce terrain.
 		</message>
 	</notify>
@@ -494,7 +494,7 @@ Aucun script n&apos;est exécuté à part ceux du propriétaire du terrain.
 		<message name="message">
 			[NAME] vous invite à
 rejoindre un groupe comme officier.
-L&apos;adhésion est gratuite.
+L&apos;inscription est gratuite.
  
 [MESSAGE]
 		</message>
@@ -512,7 +512,7 @@ L&apos;adhésion est gratuite.
 		<message name="message">
 			[NAME] vous invite à
 rejoindre un groupe.
-L&apos;adhésion coûte [COST] $L.
+L&apos;inscription coûte [COST] L$.
  
 [MESSAGE]
 		</message>
@@ -530,7 +530,7 @@ L&apos;adhésion coûte [COST] $L.
 		<message name="message">
 			[NAME] vous invite à
 rejoindre un groupe.
-L&apos;adhésion est gratuite.
+L&apos;inscription est gratuite.
  
 [MESSAGE]
 		</message>
@@ -576,7 +576,7 @@ le/la rejoindre par téléportation :
  
 [MESSAGE]
  
-(Par défaut, vous pourrez voir chacun si l&apos;autre est connecté.)
+(Par défaut, vous pourrez voir lorsque vous êtes tous deux connectés.)
 		</message>
 		<option name="Accept">
 			Accepter
@@ -625,13 +625,13 @@ vous permet d&apos;envoyer rapidement un IM à ce résident.
 	<notify name="RegionRestartMinutes">
 		<message name="message">
 			La région va redémarrer dans [MINUTES] minutes.
-Si vous restez dans cette région, vous serez déconnecté.
+Si vous restez dans cette région, vous serez déconnecté(e).
 		</message>
 	</notify>
 	<notify name="RegionRestartSeconds">
 		<message name="message">
 			La région va redémarrer dans [SECONDS] secondes.
-Si vous restez dans cette région, vous serez déconnecté.
+Si vous restez dans cette région, vous serez déconnecté(e).
 		</message>
 	</notify>
 	<notify name="LoadWebPage">
@@ -640,7 +640,7 @@ Si vous restez dans cette région, vous serez déconnecté.
  
 [MESSAGE]
  
-Venant de l&apos;objet :  [OBJECTNAME], appartenant à :  [NAME]?
+Venant de l&apos;objet : [OBJECTNAME], appartenant à : [NAME]?
 		</message>
 		<option name="Gotopage">
 			Aller sur cette page
@@ -679,7 +679,7 @@ Réessayez dans une minute le temps de résoudre le problème.
 	</notify>
 	<notify name="ScriptTakeMoney">
 		<message name="message">
-			Débite vos dollars Linden ($L)
+			Débite vos dollars Linden (L$)
 		</message>
 	</notify>
 	<notify name="ActOnControlInputs">
@@ -751,22 +751,22 @@ Acceptez-vous ?
 	</notify>
 	<notify name="ScriptQuestionCautionChatGranted">
 		<message name="message">
-			&apos;[OBJECTNAME]&apos;, un objet appartenant à &apos;[OWNERNAME]&apos;, situé dans [REGIONNAME] à [REGIONPOS], a reçu la permission de : [PERMISSIONS].
+			&apos;[OBJECTNAME]&apos;, un objet appartenant à [OWNERNAME], situé dans [REGIONNAME] à [REGIONPOS], a reçu la permission de : [PERMISSIONS].
 		</message>
 	</notify>
 	<notify name="ScriptQuestionCautionChatDenied">
 		<message name="message">
-			&apos;[OBJECTNAME]&apos;, un objet appartenant à &apos;[OWNERNAME]&apos;, situé dans [REGIONNAME] à [REGIONPOS], n&apos;a pas reçu la permission de : [PERMISSIONS].
+			&apos;[OBJECTNAME]&apos;, un objet appartenant à [OWNERNAME], situé dans [REGIONNAME] à [REGIONPOS], n&apos;a pas reçu la permission de : [PERMISSIONS].
 		</message>
 	</notify>
 	<notify name="ScriptQuestionCautionWarn">
 		<message name="message">
-			Un objet demande la permission de prélever des dollars Linden ($L) sur votre compte.
+			Un objet demande la permission de prélever des dollars Linden (L$) sur votre compte.
 		</message>
 	</notify>
 	<notify name="ScriptQuestionCaution">
 		<message name="message">
-			&apos;[OBJECTNAME]&apos;, un objet appartenant à &apos;[NAME]&apos;, aimerait :
+			[OBJECTNAME], un objet appartenant à [NAME], aimerait :
  
 [QUESTIONS]
 Si vous n&apos;avez pas confiance en cet objet ni en son créateur, vous devriez refuser cette requête. Pour plus d&apos;informations, cliquez sur le bouton Détails.
@@ -803,14 +803,14 @@ Accepter cette requête ?
 	</notify>
 	<notify name="FirstBalanceIncrease">
 		<message name="message">
-			Vous venez de recevoir [AMOUNT] $L.
-Des objets et des utilisateurs peuvent vous donner des $L.
+			Vous venez de recevoir [AMOUNT] L$.
+Des objets et des utilisateurs peuvent vous donner des L$.
 Votre solde est affiché dans le coin en haut à droite de l&apos;écran.
 		</message>
 	</notify>
 	<notify name="FirstBalanceDecrease">
 		<message name="message">
-			Vous venez de payer [AMOUNT] $L.
+			Vous venez de payer [AMOUNT] L$.
 Votre solde est affiché dans le coin en haut à droite de l&apos;écran.
 		</message>
 	</notify>
@@ -823,7 +823,7 @@ Pour vous lever, cliquez sur le bouton Me lever.
 	</notify>
 	<notify name="FirstMap">
 		<message name="message">
-			Cliquez et faîtes glisser pour faire défiler la carte.
+			Cliquez et faites glisser pour faire défiler la carte.
 Double-cliquez pour vous téléporter.
 Utilisez les contrôles à droite pour trouver des choses et afficher différents arrière-plans.
 		</message>
@@ -867,10 +867,10 @@ Vous pouvez modifier votre apparence aussi souvent que vous le souhaitez.
 	</notify>
 	<notify name="FirstInventory">
 		<message name="message">
-			Il s&apos;agit de votre inventaire qui contient des objets, notes, vêtements, et autres choses que vous possédez. 
+			Il s&apos;agit de votre inventaire qui contient des objets, notes, vêtements, et autres possessions. 
 * Pour porter un objet ou le dossier contenant un ensemble complet, faites-le glisser sur vous-même.
 * Pour mettre un objet dans le monde, faites-le glisser sur le sol.
-* Pour lire une notice, double-cliquez dessus.
+* Pour lire une note, double-cliquez dessus.
 		</message>
 	</notify>
 	<notify name="FirstSandbox">
@@ -896,9 +896,9 @@ Pour activer/désactiver ce menu sous Windows, appuyez sur Ctrl-Alt-D. Sur un Ma
 	</notify>
 	<notify name="FirstSculptedPrim">
 		<message name="message">
-			Vous êtes en train d&apos;éditer un prim sculpté.  
-Pour spécifier la forme d&apos;un prim sculpté, vous devez utiliser une texture spécifique.  
-Vous trouverez des exemples de textures sculptées dans la bibliothèque de l&apos;inventaire.
+			Vous êtes en train d&apos;éditer un sculptie.  
+Pour spécifier la forme d&apos;un sculptie, vous devez utiliser une texture spécifique.  
+Vous trouverez des textures dans la bibliothèque de votre inventaire.
 		</message>
 	</notify>
 	<notify name="FirstMedia">
@@ -944,7 +944,7 @@ Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignore
 	</notify>
 	<notify name="VoiceInviteGroup">
 		<message name="message">
-			[NAME] a rejoint un chat oral avec le groupe [GROUP]. 
+			[NAME] a rejoint un chat vocal avec le groupe [GROUP]. 
 Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignorer cette personne, cliquez sur Ignorer.
 		</message>
 		<option name="Accept">
@@ -994,7 +994,7 @@ Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignore
 	</notify>
 	<notify name="ProximalVoiceChannelFull">
 		<message name="message">
-			Nous sommes désolés.  Le nombre maximum de conversations orales a été atteint dans cette zone.  Veuillez trouver un autre endroit pour discuter.
+			Nous sommes désolés. Le nombre maximum de conversations vocales a été atteint dans cette zone. Veuillez trouver un autre endroit pour discuter.
 		</message>
 	</notify>
 	<notify name="VoiceChannelDisconnected">
@@ -1044,7 +1044,7 @@ Pour y participer, cliquez sur Accepter. Sinon, cliquez sur Refuser. Pour ignore
 	</notify>
 	<notify name="VoiceNotAllowed">
 		<message name="message">
-			Vous n&apos;êtes pas autorisé à vous connecter au chat oral pour [VOICE_CHANNEL_NAME].
+			Vous n&apos;êtes pas autorisé à vous connecter au chat vocal pour [VOICE_CHANNEL_NAME].
 		</message>
 	</notify>
 	<notify name="VoiceCallGenericError">

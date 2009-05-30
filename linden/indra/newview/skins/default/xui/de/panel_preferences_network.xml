@@ -1,20 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Netzwerk" name="network">
-	<text type="string" length="1" name="text_box">
+	<text name="text_box">
 		Maximale Bandbreite:
 	</text>
-	<text type="string" length="1" name="text_box2">
+	<text name="text_box2">
 		kbit/s (Kilobit pro Sekunde)
 	</text>
-	<text type="string" length="1" name="cache_size_label_l">
+	<text name="cache_size_label_l">
 		Größe Festplatten-Cache:
 	</text>
-	<button label="Cache leeren" name="clear_cache" />
-	<text type="string" length="1" name="cache_location_label">
+	<text name="text_box5">
+		MB
+	</text>
+	<button label="Cache leeren" name="clear_cache"/>
+	<text name="cache_location_label">
 		Festplatten-Cache-Verzeichnis:
 	</text>
-	<button label="Festlegen" label_selected="Festlegen" name="set_cache" />
-	<button label="Zurücksetzen" label_selected="Festlegen" name="reset_cache" />
-	<check_box label="Benutzerdefinierter Port" name="connection_port_enabled" />
-	<spinner label="Port-Nummer:" name="connection_port" />
+	<button label="Festlegen" label_selected="Festlegen" name="set_cache"/>
+	<button label="Zurücksetzen" label_selected="Festlegen" name="reset_cache"/>
+	<check_box label="Benutzerdefinierter Port" name="connection_port_enabled"/>
+	<spinner label="Port-Nummer:" name="connection_port"/>
 </panel>

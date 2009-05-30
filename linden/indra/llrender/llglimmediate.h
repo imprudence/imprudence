@@ -12,7 +12,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -76,12 +76,12 @@ public:
 	void color3fv(const GLfloat* c);
 	void color4ubv(const GLubyte* c);
 	
-	typedef struct Vertex
+	typedef struct
 	{
 		GLfloat v[3];
 		GLubyte c[4];
 		GLfloat uv[2];
-	};
+	} Vertex;
 
 private:
 	U32 mCount;

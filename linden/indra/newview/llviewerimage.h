@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
- * Copyright (c) 2000-2008, Linden Research, Inc.
+ * Copyright (c) 2000-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -86,17 +86,6 @@ public:
 	static LLViewerImage * getImage(const LLUUID &image_id);
 		// lightweight wrapper for gImageList.getImage()
 
-	static BOOL bindTexture(LLImageGL* image, const U32 stage = 0)
-	{
-		if (image)
-		{
-			return image->bind(stage);
-		}
-		else
-		{
-			return sDefaultImagep->bind(stage);
-		}
-	}
 
 	struct Compare
 	{
@@ -189,7 +178,8 @@ public:
 
 	/*virtual*/ void dump();	// debug info to llinfos
 
-	/*virtual*/ BOOL bind(const S32 stage = 0) const;
+	/*virtual*/ bool bindError(const S32 stage = 0) const;
+	/*virtual*/ bool bindDefaultImage(const S32 stage = 0) const;
 	
 	void reinit(BOOL usemipmaps = TRUE);
 
@@ -197,27 +187,7 @@ public:
 
 	// New methods for determining image quality/priority
 	// texel_area_ratio is ("scaled" texel area)/(original texel area), approximately.
-	void addTextureStats(F32 pixel_area) const
-	{
-		mMaxCosAngle = 1.0f;
-		if (pixel_area > mMaxVirtualSize)
-		{
-			mMaxVirtualSize = pixel_area;
-		}
-	}
-	void addTextureStats(F32 pixel_area,
-						 F32 texel_area_ratio) const
-	{
-		mMaxCosAngle = 1.0f;
-		F32 virtual_size = pixel_area / texel_area_ratio;
-		if (virtual_size > mMaxVirtualSize)
-		{
-			mMaxVirtualSize = virtual_size;
-		}
-	}
-	void addTextureStats(F32 pixel_area,
-						 F32 texel_area_ratio,
-						 F32 cos_center_angle) const;
+	void addTextureStats(F32 virtual_size) const;
 	void resetTextureStats(BOOL zero = FALSE);
 
 	// Process image stats to determine priority/quality requirements.
@@ -314,7 +284,6 @@ public:
 
 	// Data used for calculating required image priority/quality level/decimation
 	mutable F32 mMaxVirtualSize;	// The largest virtual size of the image, in pixels - how much data to we need?
-	mutable F32 mMaxCosAngle;		// The largest cos of the angle between camera X vector and the object
 
 	F32 mTexelsPerImage;			// Texels per image.
 	F32 mDiscardVirtualSize;		// Virtual size used to calculate desired discard

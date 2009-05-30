@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="floater_my_friends"
+	 title="联系人">
+	<tab_container
+		 name="friends_and_groups"
+		 tab_position="top"
+		 tab_width="80">
+		<panel
+			 filename="panel_friends.xml"
+			 label="好友"
+			 name="friends_panel" />
+		<panel
+			 filename="panel_groups.xml"
+			 label="社团"
+			 name="groups_panel" />
+	</tab_container>
+</floater>
+<!--Translated for Second Life 1.19.0 (79185)-->

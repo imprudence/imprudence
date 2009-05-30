@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -1657,6 +1657,16 @@ LLView* LLInventoryPanel::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFac
 	return panel;
 }
 
+void LLInventoryPanel::draw()
+{
+	// select the desired item (in case it wasn't loaded when the selection was requested)
+	if (mSelectThisID.notNull())
+	{
+		setSelection(mSelectThisID, false);
+	}
+	LLPanel::draw();
+}
+
 void LLInventoryPanel::setFilterTypes(U32 filter_types)
 {
 	mFolders->getFilter()->setFilterTypes(filter_types);
@@ -2034,15 +2044,21 @@ void LLInventoryPanel::setSelection(const LLUUID& obj_id, BOOL take_keyboard_foc
 	LLFolderViewItem* itemp = mFolders->getItemByID(obj_id);
 	if(itemp && itemp->getListener())
 	{
-		itemp->getListener()->arrangeAndSet(itemp,
-											  TRUE,
-											  take_keyboard_focus);
+		itemp->getListener()->arrangeAndSet(itemp, TRUE, take_keyboard_focus);
+		mSelectThisID.setNull();
+		return;
+	}
+	else
+	{
+		// save the desired item to be selected later (if/when ready)
+		mSelectThisID = obj_id;
 	}
 }
 
 void LLInventoryPanel::clearSelection()
 {
 	mFolders->clearSelection();
+	mSelectThisID.setNull();
 }
 
 void LLInventoryPanel::createNewItem(const std::string& name,

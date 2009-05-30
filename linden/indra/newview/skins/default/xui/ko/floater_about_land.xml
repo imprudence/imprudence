@@ -169,9 +169,6 @@
 			<text type="string" length="1" name="Simulator primitive usage:">
 				시뮬레이터 프림 사용률:
 			</text>
-			<text type="string" length="1" name="0 out of 0 available">
-				14055개 중 0개(14055개 사용 가능)
-			</text>
 			<text name="objects_available">
 				[MAX] 중  [COUNT]   ([AVAILABLE] 사용 가능)
 			</text>

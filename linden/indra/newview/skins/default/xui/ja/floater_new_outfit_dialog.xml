@@ -2,7 +2,7 @@
 <floater name="modal container" title=" ">
 	<button label="保存" label_selected="保存" name="Save" />
 	<button label="取り消し" label_selected="取り消し" name="Cancel" />
-	<check_box label="形" name="checkbox_Shape" />
+	<check_box label="シェイプ(体型)" name="checkbox_Shape" />
 	<check_box label="スキン" name="checkbox_Skin" />
 	<check_box label="髪" name="checkbox_Hair" />
 	<check_box label="眼" name="checkbox_Eyes" />
@@ -31,7 +31,7 @@
 	<check_box label="左耳" name="checkbox_Left Ear" left="212" />
 	<check_box label="右耳" name="checkbox_Right Ear" left="312" />
 	<check_box label="左目眼球" name="checkbox_Left Eyeball" left="312"/>
-	<check_box label="右眼眼球" name="checkbox_Right Eyeball" left="312" />
+	<check_box label="右目眼球" name="checkbox_Right Eyeball" left="312" />
 	<check_box label="鼻" name="checkbox_Nose" left="312" />
 	<check_box label="右上腕" name="checkbox_R Upper Arm" left="312" />
 	<check_box label="右前腕" name="checkbox_R Forearm" left="312" />
@@ -59,10 +59,10 @@
 	</text>
 	<text type="string" length="1"
 	     name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
-		服装フォルダには、服と身体部位が含まれます。
-服などを装着するには、服装フォルダをアバターにドラッグします。
+		服装とは服や身体部位が入ったフォルダです。
+服装フォルダをアバターにドラッグし、中身を装着します。
  
-[新しい服装を作成]では、新しいフォルダを作成し、
+[服装を作成]では、新しいフォルダを作成し、
 現在装着しているアイテムのコピーを保存します。
 	</text>
 	<text type="string" length="1" name="Folder name:">
@@ -78,7 +78,7 @@
 		服：
 	</text>
 	<text type="string" length="1" name="Attachments:" left="212">
-		添付物：
+		装着物：
 	</text>
 	<text type="string" length="1" name="Options:">
 		オプション：

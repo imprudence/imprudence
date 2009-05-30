@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="avatarpicker" title="选择人物">
-	<text name="Type part of the person&apos;s name:">
+
+<floater
+	 min_height="340"
+	 min_width="200"
+	 name="avatarpicker"
+	 title="选择居民">
+	<text
+		 name="instruct_search_resident_name">
 		键入这个人的部分姓名:
 	</text>
 	<button label="寻找" label_selected="寻找" name="Find" />
-	<text name="Or select a calling card:">
+	<text
+		 name="Or select their calling card:">
 		或者选择一张通话卡:
 	</text>
 	<button label="选择" label_selected="选择" name="Select" />
 	<button label="关闭" label_selected="关闭" name="Close" />
-	<text name="NotFound">
-		&apos;[TEXT]&apos;没有找到
-	</text>
+	<string name="NotFound">
+		没有找到 &apos;[TEXT]&apos;
+	</string>
 </floater>

@@ -6,6 +6,7 @@ include(00-Common)
 include(Audio)
 include(OPENAL)
 include(FMOD)
+include(OPENAL)
 include(LLCommon)
 include(LLMath)
 include(LLMessage)
@@ -76,7 +77,6 @@ if (OPENAL)
     audioengine_openal.h
     listener_openal.h
     )
-  
 endif (OPENAL)
 
 set_source_files_properties(${llaudio_HEADER_FILES}
@@ -85,3 +85,11 @@ set_source_files_properties(${llaudio_HEADER_FILES}
 list(APPEND llaudio_SOURCE_FILES ${llaudio_HEADER_FILES})
 
 add_library (llaudio ${llaudio_SOURCE_FILES})
+
+target_link_libraries(
+    llaudio
+    ${VORBISENC_LIBRARIES}
+    ${VORBISFILE_LIBRARIES}
+    ${VORBIS_LIBRARIES}
+    ${OGG_LIBRARIES}
+    )

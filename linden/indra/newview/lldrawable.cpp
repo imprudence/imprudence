@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -362,6 +362,7 @@ void LLDrawable::makeActive()
 		if (pcode == LLViewerObject::LL_VO_WATER ||
 			pcode == LLViewerObject::LL_VO_SURFACE_PATCH ||
 			pcode == LLViewerObject::LL_VO_PART_GROUP ||
+			pcode == LLViewerObject::LL_VO_HUD_PART_GROUP ||
 			pcode == LLViewerObject::LL_VO_CLOUDS ||
 			pcode == LLViewerObject::LL_VO_GROUND ||
 			pcode == LLViewerObject::LL_VO_SKY)
@@ -1392,7 +1393,10 @@ BOOL LLDrawable::isAnimating() const
 	{
 		return TRUE;
 	}
-
+	if (mVObjp->getPCode() == LLViewerObject::LL_VO_HUD_PART_GROUP)
+	{
+		return TRUE;
+	}
 	if (mVObjp->getPCode() == LLViewerObject::LL_VO_CLOUDS)
 	{
 		return TRUE;

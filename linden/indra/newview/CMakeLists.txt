@@ -5,6 +5,7 @@ project(viewer)
 include(00-Common)
 include(Boost)
 include(BuildVersion)
+include(DBusGlib)
 include(DirectX)
 include(ELFIO)
 include(FMOD)
@@ -124,6 +125,7 @@ set(viewer_SOURCE_FILES
     llfloateravatarinfo.cpp
     llfloateravatarpicker.cpp
     llfloateravatartextures.cpp
+    llfloaterbeacons.cpp
     llfloaterbuildoptions.cpp
     llfloaterbulkpermission.cpp
     llfloaterbump.cpp
@@ -199,6 +201,7 @@ set(viewer_SOURCE_FILES
     llglsandbox.cpp
     llgroupmgr.cpp
     llgroupnotify.cpp
+    llhomelocationresponder.cpp
     llhoverview.cpp
     llhudeffectbeam.cpp
     llhudeffect.cpp
@@ -517,6 +520,7 @@ set(viewer_HEADER_FILES
     llfloateravatarinfo.h
     llfloateravatarpicker.h
     llfloateravatartextures.h
+    llfloaterbeacons.h
     llfloaterbuildoptions.h
     llfloaterbulkpermission.h
     llfloaterbump.h
@@ -591,6 +595,7 @@ set(viewer_HEADER_FILES
     llgivemoney.h
     llgroupmgr.h
     llgroupnotify.h
+    llhomelocationresponder.h
     llhoverview.h
     llhudeffect.h
     llhudeffectbeam.h
@@ -873,6 +878,7 @@ endif (DARWIN)
 
 if (LINUX)
     LIST(APPEND viewer_SOURCE_FILES llappviewerlinux.cpp)
+    LIST(APPEND viewer_SOURCE_FILES llappviewerlinux_api_dbus.cpp)
     LIST(APPEND CMAKE_EXE_LINKER_FLAGS -Wl,--as-needed)
 
     set(viewer_LIBRARIES
@@ -1022,6 +1028,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_audio_volume.xml
     skins/default/xui/en-us/floater_avatar_picker.xml
     skins/default/xui/en-us/floater_avatar_textures.xml
+    skins/default/xui/en-us/floater_beacons.xml
     skins/default/xui/en-us/floater_build_options.xml
     skins/default/xui/en-us/floater_bulk_perms.xml
     skins/default/xui/en-us/floater_bumps.xml
@@ -1241,6 +1248,16 @@ set_source_files_properties(${viewer_CHARACTER_FILES}
 
 list(APPEND viewer_SOURCE_FILES ${viewer_CHARACTER_FILES})
 
+if (WINDOWS)
+  file(GLOB viewer_INSTALLER_FILES installers/windows/*.nsi)
+
+  source_group("Installer Files" FILES ${viewer_INSTALLER_FILES})
+
+  set_source_files_properties(${viewer_INSTALLER_FILES}
+                              PROPERTIES HEADER_FILE_ONLY TRUE)
+
+  list(APPEND viewer_SOURCE_FILES ${viewer_INSTALLER_FILES})
+endif (WINDOWS)
 
 if (OPENAL)
   set(LLSTARTUP_COMPILE_FLAGS "${LLSTARTUP_COMPILE_FLAGS} -DLL_OPENAL")
@@ -1260,6 +1277,7 @@ if (FMOD)
         PROPERTIES
         BUILD_WITH_INSTALL_RPATH 1
         INSTALL_NAME_DIR "@executable_path/../Resources"
+        LINK_FLAGS "-unexported_symbols_list ../newview/fmod_hidden_symbols.exp"
         )
     endif (DARWIN)
     set(FMODWRAPPER_LIBRARY fmodwrapper)
@@ -1274,24 +1292,24 @@ list(APPEND viewer_SOURCE_FILES ${viewer_HEADER_FILES})
 set_source_files_properties(${viewer_HEADER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-add_executable(imprudence-bin
+add_executable(${VIEWER_BINARY_NAME}
     WIN32
     MACOSX_BUNDLE
     ${viewer_SOURCE_FILES}
     )
-check_message_template(imprudence-bin)
+check_message_template(${VIEWER_BINARY_NAME})
 
 set(PACKAGE OFF CACHE BOOL
     "Add a package target that builds an installer package.")
 
 if (WINDOWS)
     if(MSVC71)
-        set(release_flags "/MAP:Release/imprudence-bin.map /MAPINFO:LINES")
+        set(release_flags "/MAP:Release/${VIEWER_BINARY_NAME}.map /MAPINFO:LINES")
     else(MSVC71)
-        set(release_flags "/MAP:Release/imprudence-bin.map")
+        set(release_flags "/MAP:Release/${VIEWER_BINARY_NAME}.map")
     endif(MSVC71)
     
-    set_target_properties(imprudence-bin
+    set_target_properties(${VIEWER_BINARY_NAME}
         PROPERTIES
         LINK_FLAGS "/debug /NODEFAULTLIB:MSVCRT /SUBSYSTEM:WINDOWS"
         LINK_FLAGS_DEBUG "/NODEFAULTLIB:LIBCMT /NODEFAULTLIB:MSVCRTD"
@@ -1301,20 +1319,20 @@ if (WINDOWS)
     # sets the 'working directory' for debugging from visual studio.
     if (NOT UNATTENDED)
         add_custom_command(
-            TARGET imprudence-bin PRE_BUILD
+            TARGET ${VIEWER_BINARY_NAME} PRE_BUILD
             COMMAND ${CMAKE_SOURCE_DIR}/tools/vstool/vstool.exe
             ARGS
               --solution 
               ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.sln
               --workingdir
-              imprudence-bin
+              ${VIEWER_BINARY_NAME}
               ${CMAKE_CURRENT_SOURCE_DIR}
-            COMMENT "Setting the imprudence-bin working directory for debugging."
+            COMMENT "Setting the ${VIEWER_BINARY_NAME} working directory for debugging."
             )
     endif (NOT UNATTENDED)
 
     add_custom_command(
-        TARGET imprudence-bin PRE_BUILD
+        TARGET ${VIEWER_BINARY_NAME} PRE_BUILD
         COMMAND ${CMAKE_COMMAND}
         ARGS
           -E
@@ -1325,7 +1343,7 @@ if (WINDOWS)
         )
 
     add_custom_command(
-        TARGET imprudence-bin PRE_BUILD
+        TARGET ${VIEWER_BINARY_NAME} PRE_BUILD
         COMMAND ${CMAKE_COMMAND}
         ARGS
           -E
@@ -1335,10 +1353,10 @@ if (WINDOWS)
         COMMENT "Copying message.xml to the runtime folder."
         )
        
-    add_dependencies(imprudence-bin copy_win_libs)
+    add_dependencies(${VIEWER_BINARY_NAME} copy_win_libs)
 
     if (EXISTS ${CMAKE_SOURCE_DIR}/copy_win_scripts)
-      add_dependencies(imprudence-bin copy_win_scripts)
+      add_dependencies(${VIEWER_BINARY_NAME} copy_win_scripts)
     endif (EXISTS ${CMAKE_SOURCE_DIR}/copy_win_scripts)
         
     add_custom_command(
@@ -1348,14 +1366,14 @@ if (WINDOWS)
           ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
           --configuration=${CMAKE_CFG_INTDIR}
           --channel=${VIEWER_CHANNEL}
-          --login_channel=${VIEWER_CHANNEL}
+          --login_channel=${VIEWER_LOGIN_CHANNEL}
           --grid=${GRID}
           --source=${CMAKE_CURRENT_SOURCE_DIR}
               --artwork=${ARTWORK_DIR}
               --build=${CMAKE_CURRENT_BINARY_DIR}
               --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}
               --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/touched.bat
-        DEPENDS imprudence-bin ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
+        DEPENDS ${VIEWER_BINARY_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
         )
     if (PACKAGE)
       add_custom_target(package ALL DEPENDS ${CMAKE_CFG_INTDIR}/touched.bat)
@@ -1363,7 +1381,7 @@ if (WINDOWS)
     endif (PACKAGE)
 endif (WINDOWS)
 
-target_link_libraries(imprudence-bin
+target_link_libraries(${VIEWER_BINARY_NAME}
     ${LLAUDIO_LIBRARIES}
     ${LLCHARACTER_LIBRARIES}
     ${LLIMAGE_LIBRARIES}
@@ -1385,6 +1403,7 @@ target_link_libraries(imprudence-bin
     ${BOOST_PROGRAM_OPTIONS_LIBRARY}
     ${BOOST_REGEX_LIBRARY}
     ${BOOST_SIGNALS_LIBRARY}
+    ${DBUSGLIB_LIBRARIES}
     ${OPENGL_LIBRARIES}
     ${FMODWRAPPER_LIBRARY}
     ${OPENGL_LIBRARIES}
@@ -1395,7 +1414,6 @@ target_link_libraries(imprudence-bin
     ${NDOF_LIBRARY}
     ${WINDOWS_LIBRARIES}
     ${XMLRPCEPI_LIBRARIES}
-    ${ZLIB_LIBRARIES}
     ${ELFIO_LIBRARIES}
     )
 
@@ -1409,7 +1427,7 @@ if (LINUX)
   add_custom_command(
       OUTPUT imprudence-stripped
       COMMAND strip
-      ARGS --strip-debug -o imprudence-stripped imprudence-bin
+      ARGS --strip-debug -o imprudence-stripped ${VIEWER_BINARY_NAME}
       DEPENDS imprudence-bin
       )
 
@@ -1422,7 +1440,7 @@ if (LINUX)
         ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
         --grid=${GRID}
         --channel=${VIEWER_CHANNEL}
-        --login_channel=${VIEWER_CHANNEL}
+        --login_channel=${VIEWER_LOGIN_CHANNEL}
         --installer_name=${product}
         --arch=${ARCH}
         --source=${CMAKE_CURRENT_SOURCE_DIR}
@@ -1442,7 +1460,7 @@ endif (LINUX)
 if (DARWIN)
   set(product "Imprudence")
   set_target_properties(
-    imprudence-bin
+    ${VIEWER_BINARY_NAME}
     PROPERTIES
     OUTPUT_NAME "${product}"
     MACOSX_BUNDLE_INFO_STRING "info string - localize me"
@@ -1456,7 +1474,7 @@ if (DARWIN)
     )
 
   add_custom_command(
-    TARGET imprudence-bin POST_BUILD
+    TARGET ${VIEWER_BINARY_NAME} POST_BUILD
     COMMAND ${PYTHON_EXECUTABLE}
     ARGS
       ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
@@ -1467,11 +1485,11 @@ if (DARWIN)
       --artwork=${ARTWORK_DIR}
       --build=${CMAKE_CURRENT_BINARY_DIR}
       --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
-    DEPENDS imprudence-bin ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
+    DEPENDS ${VIEWER_BINARY_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
     )
 
   if (PACKAGE)
-      add_custom_target(package ALL DEPENDS imprudence-bin) 
+      add_custom_target(package ALL DEPENDS ${VIEWER_BINARY_NAME}) 
       add_dependencies(package mac-updater mac-crash-logger)
 
       add_custom_command(

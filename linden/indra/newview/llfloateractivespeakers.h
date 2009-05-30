@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2005&license=viewergpl$
  * 
- * Copyright (c) 2005-2008, Linden Research, Inc.
+ * Copyright (c) 2005-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -53,7 +53,8 @@ public:
 	typedef enum e_speaker_type
 	{
 		SPEAKER_AGENT,
-		SPEAKER_OBJECT
+		SPEAKER_OBJECT,
+		SPEAKER_EXTERNAL	// Speaker that doesn't map to an avatar or object (i.e. PSTN caller in a group)
 	} ESpeakerType;
 
 	typedef enum e_speaker_status

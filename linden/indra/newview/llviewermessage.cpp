@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -204,7 +204,7 @@ struct LLFriendshipOffer
 void give_money(const LLUUID& uuid, LLViewerRegion* region, S32 amount, BOOL is_group,
 				S32 trx_type, const std::string& desc)
 {
-	if(0 == amount) return;
+	if(0 == amount || !region) return;
 	amount = abs(amount);
 	LL_INFOS("Messaging") << "give_money(" << uuid << "," << amount << ")"<< LL_ENDL;
 	if(can_afford_transaction(amount))
@@ -357,7 +357,7 @@ void process_layer_data(LLMessageSystem *mesgsys, void **user_data)
 // 		size_t nread = fread(buffer, 1, length, fXML);
 // 		if (nread < (size_t) length)
 // 		{
-// 			llwarns << "Short read" << llendl;
+// 			LL_WARNS("Messaging") << "Short read" << LL_ENDL;
 // 		}
 // 		buffer[nread] = '\0';
 // 		fclose(fXML);
@@ -3516,6 +3516,15 @@ void process_sim_stats(LLMessageSystem *msg, void **user_data)
 		case LL_SIM_STAT_SIMPHYSICSMEMORY:
 			LLViewerStats::getInstance()->mPhysicsMemoryAllocated.addValue(stat_value);
 			break;
+		case LL_SIM_STAT_SIMSPARETIME:
+			LLViewerStats::getInstance()->mSimSpareMsec.addValue(stat_value);
+			break;
+		case LL_SIM_STAT_SIMSLEEPTIME:
+			LLViewerStats::getInstance()->mSimSleepMsec.addValue(stat_value);
+			break;
+		case LL_SIM_STAT_IOPUMPTIME:
+			LLViewerStats::getInstance()->mSimPumpIOMsec.addValue(stat_value);
+			break;
 		default:
 			// Used to be a commented out warning.
  			LL_DEBUGS("Messaging") << "Unknown stat id" << stat_id << LL_ENDL;
@@ -4728,7 +4737,7 @@ void process_teleport_local(LLMessageSystem *msg,void**)
 	gAgent.slamLookAt(look_at);
 
 	// likewise make sure the camera is behind the avatar
-	gAgent.resetView(TRUE);
+	gAgent.resetView(TRUE, TRUE);
 
 	// send camera update to new region
 	gAgent.updateCamera();

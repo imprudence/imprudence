@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="ボイスチャット" name="chat">
 	<text_editor name="voice_unavailable">
 		ボイスチャットを利用できません
 	</text_editor>
-	<check_box label="ボイスチャットを有効にする" name="enable_voice_check" />
+	<check_box label="ボイスチャットを有効にする" name="enable_voice_check"/>
 	<radio_group name="ear_location">
 		<radio_item name="0">
 			カメラの位置からボイスチャットを聞く。
@@ -18,24 +18,20 @@
 	<text_editor name="voice_chat_description">
 		メモ： 「機器の設定」または「ボイス・チャットの設定」を実行すると、一時的にボイス・チャットから切断されます。
 	</text_editor>
-	<check_box label="プッシュ・トゥ・トークモードでビュアーを起動"
-	     name="push_to_talk_check" />
-	<check_box label="切り替えモードで、プッシュ・トゥ・トークを使用"
-	     name="push_to_talk_toggle_check" />
+	<check_box label="プッシュ・トゥ・トークモードでビュアーを起動" name="push_to_talk_check"/>
+	<check_box label="切り替えモードで、プッシュ・トゥ・トークを使用" name="push_to_talk_toggle_check"/>
 	<text name="push_to_talk_label">
 		プッシュ・トゥ・トークトリガー：
 	</text>
-	<button label="セットキー" name="set_voice_hotkey_button" />
-	<button label="ミドルマウスボタン" name="set_voice_middlemouse_button" />
+	<button label="キー設定" name="set_voice_hotkey_button"/>
+	<button label="ミドルマウスボタン" name="set_voice_middlemouse_button"/>
 	<text name="privacy_heading">
 		プライバシーオプション
 	</text>
-	<check_box
-	     label="自分のフレンドリストにある人からのみ、ボイスコールを受け付ける"
-	     name="voice_call_friends_only_check" />
+	<check_box label="自分のフレンドリストにある人からのみ、ボイスコールを受け付ける" name="voice_call_friends_only_check"/>
 	<text_editor name="device_settings_text">
-		注意：「機器の設定」を実行すると、一時的にボイス・チャットから切断されます。
+		注意：「機器の設定」を実行すると、一時的にボイス・チャットから切断されます。変更は即座に適用されます。
 	</text_editor>
-	<button label="機器の設定" name="device_settings_btn" />
-	<button label="ボイス・チャットの設定" name="launch_voice_wizard_button" />
+	<button label="機器の設定" name="device_settings_btn"/>
+	<button label="ボイス・チャットの設定" name="launch_voice_wizard_button"/>
 </panel>

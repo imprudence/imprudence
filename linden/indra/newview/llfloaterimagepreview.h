@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2008, Linden Research, Inc.
+ * Copyright (c) 2004-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -41,6 +41,7 @@ class LLJoint;
 class LLViewerJointMesh;
 class LLVOAvatar;
 class LLTextBox;
+class LLVertexBuffer;
 
 class LLImagePreviewSculpted : public LLDynamicTexture
 {
@@ -67,6 +68,7 @@ class LLImagePreviewSculpted : public LLDynamicTexture
 	F32			mCameraZoom;
 	LLVector3	mCameraOffset;
 	LLPointer<LLVolume> mVolume;
+	LLPointer<LLVertexBuffer> mVertexBuffer;
 };
 
 
@@ -127,7 +129,7 @@ protected:
 	S32				mLastMouseY;
 	LLRect			mPreviewRect;
 	LLRectf			mPreviewImageRect;
-	GLuint			mGLName;
+	LLPointer<LLImageGL> mImagep ;
 
 	static S32		sUploadAmount;
 };

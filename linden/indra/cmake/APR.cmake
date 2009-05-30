@@ -23,6 +23,10 @@ else (STANDALONE)
       debug ${ARCH_PREBUILT_DIRS_DEBUG}/aprutil-1.lib
       optimized ${ARCH_PREBUILT_DIRS_RELEASE}/aprutil-1.lib
       )
+    set(APRICONV_LIBRARIES 
+      debug ${ARCH_PREBUILT_DIRS_DEBUG}/apriconv-1.lib
+      optimized ${ARCH_PREBUILT_DIRS_RELEASE}/apriconv-1.lib
+      )
     # Doesn't need to link with iconv.dll
     set(APRICONV_LIBRARIES "")
   elseif (DARWIN)

@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2008, Linden Research, Inc.
+ * Copyright (c) 2004-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -148,7 +148,7 @@ void LLFloaterAuction::draw()
 		if (childGetRect("snapshot_icon", rect))
 		{
 			{
-				LLGLSNoTexture gls_no_texture;
+				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				gl_rect_2d(rect, LLColor4(0.f, 0.f, 0.f, 1.f));
 				rect.stretch(-1);
 			}
@@ -205,7 +205,7 @@ void LLFloaterAuction::onClickSnapshot(void* data)
 		LLVFile::writeFile(j2c->getData(), j2c->getDataSize(), gVFS, self->mImageID, LLAssetType::AT_TEXTURE);
 
 		self->mImage = new LLImageGL((LLImageRaw*)raw, FALSE);
-		self->mImage->bind();
+		gGL.getTexUnit(0)->bind(self->mImage);
 		self->mImage->setClamp(TRUE, TRUE);
 	}
 	else

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="voice_controls">
+	<!-- WARNING: separate formatting and translations of these same strings (for using the Silver skin) is controlled by a different file in \skins\silver\xui\de\panel_voice_controls.xml You must make changes to translations in both files.-->
 	<button name="speakers_btn"
 	     tool_tip="Liste der Einwohner in der Umgebung anzeigen, die Voice-Chat verwenden" />
 	<button label="Reden" name="push_to_talk" 
 	     tool_tip="Zum Sprechen Taste gedrückt halten" width="70" left_delta="37"/>
 	<button name="ptt_lock"
 	     tool_tip="Klicken Sie auf das Schloss, um in den Gesprächsmodus zu wechseln" left_delta="2"/>
-	<icon bottom="-19" height="16" image_name="icn_voice_ptt-off.tga" left_delta="49"
-	     name="voice_volume" width="16" />
+	<icon left_delta="49" name="voice_volume" width="16" />
 	<button name="show_channel" tool_tip="Klicken, um den aktuellen Voice-Kanal anzuzeigen" left_delta="16"/>
 </panel>

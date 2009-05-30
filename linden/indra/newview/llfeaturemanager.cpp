@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -29,10 +29,10 @@
  * $/LicenseInfo$
  */
 
+#include "llviewerprecompiledheaders.h"
+
 #include <iostream>
 #include <fstream>
-
-#include "llviewerprecompiledheaders.h"
 
 #include <boost/regex.hpp>
 
@@ -447,8 +447,6 @@ void LLFeatureManager::applyRecommendedSettings()
 	{
 		gSavedSettings.setF32("RenderFarClip", 128.0f);
 	}
-
-
 }
 
 void LLFeatureManager::applyFeatures(bool skipFeatures)

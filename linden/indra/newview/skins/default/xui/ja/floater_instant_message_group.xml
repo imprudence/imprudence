@@ -2,7 +2,7 @@
 <floater label="(不明）" name="im_floater" title="(不明）">
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="グループインフォ" name="group_info_btn" width="120"/>
+			<button label="グループ情報" name="group_info_btn" width="120"/>
 			<button label="コールに参加" name="start_call_btn"  left_delta="125" width="120"/>
 			<button label="コールの終了" name="end_call_btn" width="120" />
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="このIMセッションのアクティブな参加者のリスト表示を切り替えるにはここをクリックします"/>
@@ -33,7 +33,7 @@
 					Rumplstiltskin Califragilistic
 				</text>
 				<text name="Mute:">
-					ミュート:
+					無視:
 				</text>
 				<check_box label="テキスト" name="mute_text_btn"/>
 				<check_box label="ボイス" name="mute_btn"/>

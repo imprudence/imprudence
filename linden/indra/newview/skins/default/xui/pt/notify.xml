@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <notifications>
 	<notify name="SystemMessageTip">
 		<message name="message">
@@ -77,12 +77,13 @@
 	</notify>
 	<notify name="GestureMissing">
 		<message name="message">
-			A animação foi perdida.
+			O Gesto [NAME] não se encontra na base de dados
 		</message>
 	</notify>
 	<notify name="UnableToLoadGesture">
 		<message name="message">
-			Impossível fazer o download da imagem. Por favor, tente de novo.
+			Impossível de carregar o gesto [NAME].
+Por favor, tente novamente.
 		</message>
 	</notify>
 	<notify name="InventoryLoaded">
@@ -113,6 +114,11 @@
 	<notify name="NotecardNoPermissions">
 		<message name="message">
 			Permissões insuficientes para visualizar o notecard
+		</message>
+	</notify>
+	<notify name="RezItemNoPermissions">
+		<message name="message">
+			Sem permissões suficientes para criar objetos.
 		</message>
 	</notify>
 	<notify name="UnableToLoadNotecard">
@@ -153,11 +159,6 @@
 	<notify name="OfferedCard">
 		<message name="message">
 			Você deve oferecer um chamado a [FIRST] [LAST]
-		</message>
-	</notify>
-	<notify name="OfferedFriendship">
-		<message name="message">
-			Você ofereceu um pedido de amizade a  [FIRST] [LAST]
 		</message>
 	</notify>
 	<notify name="UnableToBuyWhileDownloading">
@@ -222,12 +223,14 @@
 	</notify>
 	<notify name="TeleportToLandmark">
 		<message name="message">
-			Agora que você alcançou o mainland, você pode teleport a qualquer ponto do mapa. Clicando na opção  do inventário na direita de sua tela, e selecione.Dois clicks no lugar escolhido e você será teletransportado para este local.
+			Agora que você chegou à mainland, você pode se teletransportar para locais como '[NAME]' clicando no botão de Inventário, no canto direito inferior de sua tela, e selecionando a pasta Landmarks.
+Dê um duplo-clique na landmark e clique Teletransportar para viajar para o local desejado.
 		</message>
 	</notify>
 	<notify name="TeleportToPerson">
 		<message name="message">
-			Agora  que você alcançou o mainland, você pode contatar os  residentes [NAME] .Clique no inventário da direita do  sua tela, e dê dois cliques no calling card. Clique sobre sobre o calling card, que aparece  a mensagem instantânea.
+			Agora que você chegou à mainland, você pode contatar residentes como &apos;[NAME]&apos;  clicando no botão de Inventário, canto direito inferior de sua tela, e selecionando a pasta Cartões de Visita
+Dê um duplo-clique num cartão de visitas e em Mensagem Instantânea e digite sua mensagem
 		</message>
 	</notify>
 	<notify name="CantSelectLandFromMultipleRegions">
@@ -341,7 +344,12 @@
 	</notify>
 	<notify name="PushRestricted">
 		<message name="message">
-			Esta terra tem propriedades especificas. Você não pode fazer nenhuma ação grave nela.
+			Esta terra é “Não empurre”. Você não pode empurrar os outros, a não ser que seja o proprietário da terra.
+		</message>
+	</notify>
+	<notify name="NoVoice">
+		<message name="message">
+			O uso de voz está desabilitado nesta terra.
 		</message>
 	</notify>
 	<notify name="NoBuild">
@@ -437,6 +445,9 @@
 		<option name="Decline">
 			Saia
 		</option>
+		<option name="Info">
+			Informações
+		</option>
 	</notify>
 	<notify name="JoinGroupOfficerNoFee">
 		<message name="message">
@@ -495,13 +506,30 @@
 	</notify>
 	<notify name="OfferFriendship">
 		<message name="message">
-			[NAME] está te oferecendo um convite de amizade.
+			[NAME] está lhe oferecendo sua amizade
+ 
+[MESSAGE]
+ 
+(Por definição vocês serão capazes de ver um ao outro online)
 		</message>
 		<option name="Accept">
 			Aceitar
 		</option>
 		<option name="Decline">
 			Negar
+		</option>
+	</notify>
+	<notify name="OfferFriendshipNoMessage">
+		<message name="message">
+			[NAME] está lhe oferecendo sua amizade.
+
+(Por definição vocês poderão ver se o outro está online.)
+		</message>
+		<option name="Accept">
+			Aceitar
+		</option>
+		<option name="Decline">
+			Recusar
 		</option>
 	</notify>
 	<notify name="FriendshipAccepted">
@@ -548,12 +576,20 @@
 	</notify>
 	<notify name="FailedToLoadWearableUnnamed">
 		<message name="message">
-			Falha ao carregar a página [TYPE].Por favor, notifique o vendedor que lhe vendeu este produto
+			Opa!
+Você tentou vestir um/uma [TYPE] que não carregou.
+
+Não se apavore
+Tente novamente em alguns minutos para que tudo se ajeite
 		</message>
 	</notify>
 	<notify name="FailedToLoadWearable">
 		<message name="message">
-			Falha ao carregar [TYPE] nomeado [DESC].Por favor, notifique o vendedor que lhe vendeu os objetos
+			Opa!
+Você tentou vestir um/uma [TYPE] chamado/a [DESC] que não carregou
+
+Não se apavore
+Tente novamente em alguns minutos para que tudo se ajeite.
 		</message>
 	</notify>
 	<notify name="FailedToFindWearableUnnamed">
@@ -631,6 +667,38 @@
 		<option name="No">
 			Não
 		</option>
+		<option name="Mute">
+			Mudo
+		</option>
+	</notify>
+	<notify name="ScriptQuestionCautionChatGranted">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;Um objeto de  &apos;[OWNERNAME]&apos;, localizado em[REGIONNAME] a [REGIONPOS], está lhe dando permissão para: [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCautionChatDenied">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, um objeto de  &apos;[OWNERNAME]&apos;, localizado em [REGIONNAME] a [REGIONPOS], revogou suas permissões para: [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCaution">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, um objeto de  &apos;[NAME]&apos;, gostaria de:
+ 
+[QUESTIONS]
+Se você não confia neste objeto ou em seu criador, você deveria negar o pedido. Para informações adicionais clique no botão Detalhes.
+
+Autorizar este pedido?
+		</message>
+		<option name="Grant">
+			Autorizar
+		</option>
+		<option name="Deny">
+			Negar
+		</option>
+		<option name="Details">
+			Detalhes...
+		</option>
 	</notify>
 	<notify name="ScriptDialog">
 		<message name="message">
@@ -662,7 +730,6 @@
 		<message name="message">
 			Você está sentado. Use as setas  (or AWSD) para mudar a visão.Clique em &apos;Stand Up&apos; para levantar.
 		</message>
-		Você foi teleportado
 	</notify>
 	<notify name="FirstMap">
 		<message name="message">
@@ -681,7 +748,9 @@
 	</notify>
 	<notify name="FirstTeleport">
 		<message name="message">
-			Você foi teleportado
+			Esta região não permite teletransporte ponto-a-ponto, assim você foi teletransportado para o telehub mais próximo. 
+Seu destino está assinalado com um farol. 
+Siga a flecha vermelha até o farol, ou clique nela para apagar o farol.
 		</message>
 	</notify>
 	<notify name="FirstOverrideKeys">
@@ -709,9 +778,174 @@
 			Este objeto tem a propriedade flexível
 		</message>
 	</notify>
+	<notify name="FirstDebugMenus">
+		<message name="message">
+			Você ativou o menu Avançado. Este menu contém funcionalidades úteis para desenvolvedores debugarem o Second Life. Para mostrar esse menu no Windows pressione Ctrl-Alt-D. No Mac pressione Cmd-Opt-Shift-D.
+		</message>
+	</notify>
+	<notify name="FirstSculptedPrim">
+		<message name="message">
+			Você está editando um sculpted prim. Sculpted prims requerem uma textura especial para especificar suas formas. Você encontrará exemplos dessas texturas na Biblioteca do Inventário.
+		</message>
+	</notify>
+	<notify name="FirstMedia">
+		<message name="message">
+			Você começou a tocar uma mídia. Mídias podem ser autorizadas a iniciar automaticamente se você assim escolher na janela de Preferências, sob Audio/Vídeo. Atente para o risco de segurança que pode haver ao acessar websites de mídia que você não confia.
+		</message>
+	</notify>
 	<notify name="MaxListSelectMessage">
 		<message name="message">
 			Você pode selecionar este objeto [MAX_SELECT] da  lista
+		</message>
+	</notify>
+	<notify name="VoiceInviteP2P">
+		<message name="message">
+			[NAME] está lhe convidando para uma conversa com voz. 
+Clique Aceitar para atender, ou Recusar para recusar o convite. Clique Mudo para calar quem está chamando
+		</message>
+		<option name="Accept">
+			Aceitar
+		</option>
+		<option name="Decline">
+			Recusar
+		</option>
+		<option name="Mute">
+			Mudo
+		</option>
+	</notify>
+	<notify name="AutoUnmuteByIM">
+		<message name="message">
+			[FIRST] [LAST] recebeu uma Mensagem Instantânea sua e automáticamente não está mais no modo mudo.
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByMoney">
+		<message name="message">
+			[FIRST] [LAST] recebeu pagamento seu e automaticamente não está mais no modo mudo.
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByInventory">
+		<message name="message">
+			[FIRST] [LAST] recebeu inventário seu e automaticamente não está mais mudo.
+		</message>
+	</notify>
+	<notify name="VoiceInviteGroup">
+		<message name="message">
+			[NAME] juntou-se a uma conversa com voz do grupo [GROUP]. 
+Clique Aceitar para atender, ou Recusar para recusar o convite. Clique Mudo para calar quem está chamando.
+		</message>
+		<option name="Accept">
+			Aceitar
+		</option>
+		<option name="Decline">
+			Recusar
+		</option>
+		<option name="Mute">
+			Mudo
+		</option>
+	</notify>
+	<notify name="VoiceInviteAdHoc">
+		<message name="message">
+			[NAME] juntou-se a uma chamada de Conferência com voz...
+Clique Aceitar para jumtar-se à chamada ou Recusar para recusar o convite. Clique Mudo para calar este usuário.
+		</message>
+		<option name="Accept">
+			Aceitar
+		</option>
+		<option name="Decline">
+			Recusar
+		</option>
+		<option name="Mute">
+			Mudo
+		</option>
+	</notify>
+	<notify name="InviteAdHoc">
+		<message name="message">
+			[NAME] está lhe convidando para uma conversa em conferência...
+ Clique Aceitar para se juntar à conversa, ou Recusar para recusar o convite. Clique Mudo para calar este usuário.
+		</message>
+		<option name="Accept">
+			Aceitar
+		</option>
+		<option name="Decline">
+			Recusar
+		</option>
+		<option name="Mute">
+			Mudo
+		</option>
+	</notify>
+	<notify name="VoiceChannelFull">
+		<message name="message">
+			A chamada de voz a qual você está tentando juntar-se, [VOICE_CHANNEL_NAME],  atingiu sua máxima capacidade. Favor tentar novamente mais tarde.
+		</message>
+	</notify>
+	<notify name="ProximalVoiceChannelFull">
+		<message name="message">
+			Desculpe-nos. Esta área atingiu seu limite de capacidade para conversas com voz. Favor tentar o usar voz em outra área.
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnected">
+		<message name="message">
+			Você foi desconectado de [VOICE_CHANNEL_NAME].  Voce será reconectado agora a Conversa com voz local.
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnectedP2P">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] desligou a chamada. Voce será reconectado agora a Conversa com voz local.
+		</message>
+	</notify>
+	<notify name="P2PCallDeclined">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] recusou sua chamada.  Voce será reconectado agora a Conversa com voz local.
+		</message>
+	</notify>
+	<notify name="P2PCallNoAnswer">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] não está disponível para aceitar sua chamada. Voce será reconectado agora a Conversa com voz local.
+		</message>
+	</notify>
+	<notify name="VoiceChannelJoinFailed">
+		<message name="message">
+			Falha na conexão com [VOICE_CHANNEL_NAME], tente novamente mais tarde. Voce será reconectado agora a Conversa com voz local. 
+		</message>
+	</notify>
+	<notify name="VoiceLoginRetry">
+		<message name="message">
+			Estamos criando uma canal de voz para você. Isto pode levar até um minuto.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: not a group member">
+		<message name="message">
+			Você não pode entrar nessa terra, você não é membro do grupo autorizado.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: banned">
+		<message name="message">
+			Você não pode entrar nessa terra, você foi banido.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: not on access list">
+		<message name="message">
+			Você não pode entrar nessa terra, você não está na lista de acesso.
+		</message>
+	</notify>
+	<notify name="VoiceNotAllowed">
+		<message name="message">
+			Você não tem permissão para se conectar à conversa com voz de [VOICE_CHANNEL_NAME].
+		</message>
+	</notify>
+	<notify name="VoiceCallGenericError">
+		<message name="message">
+			Ocorreu um erro enquanto você tentava se conectar à conversa de voz de [VOICE_CHANNEL_NAME].  Favor tentar novamente mais tarde.
+		</message>
+	</notify>
+	<notify name="ServerVersionChanged">
+		<message name="message">
+			A região que você entrou está rodando uma versão do simulador diferente da sua. Clique aqui para mais detalhes.
+		</message>
+	</notify>
+	<notify name="UnableToOpenCommandURL">
+		<message name="message">
+			A URL que vocÊ clicou não pôde ser aberta no navegador web.
 		</message>
 	</notify>
 </notifications>

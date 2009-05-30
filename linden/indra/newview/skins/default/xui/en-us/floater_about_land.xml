@@ -467,7 +467,7 @@ Go to World menu > About Land or select another parcel to show its details.
 				<column name="online_status" width="-1" />
 				<column name="name" dynamicwidth="true" label="Name" />
 				<column name="count" label="Count" width="70" />
-				<column label="Most Recent" width="160" />
+				<column name="mostrecent" label="Most Recent" width="160" />
 			</name_list>
 		</panel>
 		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
@@ -481,13 +481,17 @@ Go to World menu > About Land or select another parcel to show its details.
 			</text>
 			<check_box bottom="-40" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" initial_value="false" label="Edit Terrain" left="14"
-			     mouse_opaque="true" name="edit land check" radio_style="false" width="268" />
+			     mouse_opaque="true" name="edit land check" radio_style="false"
+                             tool_tip="If checked, anyone can terraform your land. It is best to leave this unchecked, as you can always edit your own land."
+                             width="268" />
 			<check_box bottom="-60" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" initial_value="false" label="Create Landmarks" left="14"
 			     mouse_opaque="true" name="check landmark" radio_style="false" width="268" />
 			<check_box bottom="-80" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" initial_value="false" label="Fly" left="14" mouse_opaque="true"
-			     name="check fly" radio_style="false" width="268" />
+			     name="check fly" radio_style="false"
+                             tool_tip="If checked, Residents can fly on your land. If unchecked, they can only fly into and over your land."
+                             width="268" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="178"
@@ -538,11 +542,13 @@ Go to World menu > About Land or select another parcel to show its details.
 			</text>
 			<check_box bottom="-120" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" initial_value="false" label="Safe (no damage)" left="14"
-			     mouse_opaque="true" name="check safe" radio_style="false" width="268" />
+			     mouse_opaque="true" name="check safe" radio_style="false"
+                             tool_tip="If checked, sets the land to Safe, disabling damage combat. If cleared, damage combat is enabled."
+                             width="268" />
 			<check_box bottom="-120" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="16" initial_value="false" label="Restrict Pushing" left="178"
+			     height="16" initial_value="false" label="No Pushing" left="178"
 			     mouse_opaque="true" name="PushRestrictCheck" radio_style="false"
-			     tool_tip="llPushObject will only work through parcel owner scripts or on scripts where the pushee is the script owner."
+			     tool_tip="Prevents scripts from pushing. Checking this option may be useful for preventing disruptive behavior on your land."
 			     width="119" />
 			<check_box bottom="-140" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" initial_value="false"
@@ -622,7 +628,7 @@ Go to World menu > About Land or select another parcel to show its details.
 			<button bottom="-303" enabled="true" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" label="Set" label_selected="Set" left="236"
 			     mouse_opaque="true" name="Set" scale_image="true"
-			     tool_tip="Set the landing point to your avatar&apos;s location. It must be inside this land parcel."
+			     tool_tip="Sets the landing point where visitors arrive. Sets to your avatar&apos;s location inside this parcel."
 			     width="50" />
 			<button bottom="-303" enabled="true" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" label="Clear" label_selected="Clear" left="291"
@@ -650,10 +656,10 @@ Go to World menu > About Land or select another parcel to show its details.
 				</combo_item>
 			</combo_box>
 			<string name="push_restrict_text">
-				Restrict Pushing
+				No Pushing
 			</string>
 			<string name="push_restrict_region_text">
-				Restrict Pushing (Region Override)
+				No Pushing (Region Override)
 			</string>
 		</panel>
 		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"

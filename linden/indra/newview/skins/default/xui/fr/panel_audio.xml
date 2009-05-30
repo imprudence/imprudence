@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Audio et Vidéo" name="Media panel">
-	<slider label="Master" name="System Volume" label_width="65" />
-	<slider label="Musique" name="Music Volume" label_width="65" />
-	<slider label="Média" name="Media Volume" label_width="65" />
-	<slider label="Voix" name="Voice Volume" label_width="65" />
-	<slider label="Sons" name="SFX Volume" label_width="65"/>
-	<slider label="Son ambiant" name="Wind Volume" label_width="65"  />
-	<slider label="UI" name="UI Volume" label_width="65"/>
+	<slider label="Principal" label_width="65" name="System Volume"/>
+	<slider label="Musique" label_width="65" name="Music Volume"/>
+	<slider label="Média" label_width="65" name="Media Volume"/>
+	<slider label="Voix" label_width="65" name="Voice Volume"/>
+	<slider label="Sons" label_width="65" name="SFX Volume"/>
+	<slider label="Son ambiant" label_width="65" name="Wind Volume"/>
+	<slider label="Interface" label_width="65" name="UI Volume"/>
 </panel>

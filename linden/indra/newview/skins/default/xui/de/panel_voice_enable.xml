@@ -15,9 +15,9 @@
 		</radio_item>
 	</radio_group>
 	<text_editor name="voice_intro_text3">
-		Sie können den Voice-Chat jederzeit in den Einstellungen auf der Registerkarte &apos;Voice-Chat&apos; aktivieren.
+		Sie können den Voice-Chat jederzeit in den Einstellungen auf der Registerkarte „Voice-Chat“ aktivieren.
 	</text_editor>
 	<text_editor name="voice_intro_text4">
-		Klicken Sie auf &apos;Weiter&apos;, um den Voice-Chat jetzt zu konfigurieren oder klicken Sie auf &apos;Fertig stellen&apos;, um zu Second Life zu wechseln.
+		Klicken Sie auf „Weiter“, um den Voice-Chat jetzt zu konfigurieren oder klicken Sie auf „Fertig stellen“, um zu Second Life zu wechseln.
 	</text_editor>
 </panel>

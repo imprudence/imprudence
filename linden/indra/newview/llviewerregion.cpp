@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
- * Copyright (c) 2000-2008, Linden Research, Inc.
+ * Copyright (c) 2000-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -215,6 +215,7 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	mObjectPartition.push_back(new LLGrassPartition());		//PARTITION_GRASS
 	mObjectPartition.push_back(new LLVolumePartition());	//PARTITION_VOLUME
 	mObjectPartition.push_back(new LLBridgePartition());	//PARTITION_BRIDGE
+	mObjectPartition.push_back(new LLHUDParticlePartition());//PARTITION_HUD_PARTICLE
 	mObjectPartition.push_back(NULL);						//PARTITION_NONE
 	
 }

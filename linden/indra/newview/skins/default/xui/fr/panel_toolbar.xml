@@ -1,22 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="toolbar">
 	<string name="Redock Windows">
 		Rétablir les fenêtres
 	</string>
 	<layout_stack name="toolbar_stack">
-		<button label="" name="chat_btn" tool_tip="Afficher la barre de chat. (Entrée)" />
-		<flyout_button label="Communiquer" name="communicate_btn"
-		     tool_tip="Communiquer avec vos amis et vos groupes." />
-		<button label="Voler" label_selected="Atterrir" name="fly_btn"
-		     tool_tip="Commencer à voler. Utilisez E/C ou PgHaut/PageBas pour voler vers le haut et vers le bas." />
-		<button label="Photo" name="snapshot_btn"
-		     tool_tip="Enregistrer une photo sur le disque ou dans l&apos;inventaire." />
-		<button label="Rechercher" name="directory_btn"
-		     tool_tip="Rechercher des endroits, des événements, des personnes, et plus encore." />
-		<button label="Construire" name="build_btn" tool_tip="Créer de nouveaux objets." />
-		<button label="Mini-carte" name="radar_btn"
-		     tool_tip="Carte de la zone autour de vous. (Ctrl-Maj-M)" />
-		<button label="Carte" name="map_btn" tool_tip="Carte du monde. (Ctrl-M)" />
-		<button label="Inventaire" name="inventory_btn" tool_tip="Vos objets. (Ctrl-I)" />
+		<button label="" name="chat_btn" tool_tip="Affichez la barre de chat. (Entrée)"/>
+		<flyout_button label="Communiquer" name="communicate_btn" tool_tip="Communiquez avec vos amis et vos groupes."/>
+		<button label="Voler" label_selected="Atterrir" name="fly_btn" tool_tip="Commencez à voler. Utilisez E/C ou PgHaut/PageBas pour voler vers le haut et vers le bas."/>
+		<button label="Photo" name="snapshot_btn" tool_tip="Enregistrez une photo sur le disque ou dans l&apos;inventaire."/>
+		<button label="Rechercher" name="directory_btn" tool_tip="Recherchez des endroits, des événements, des résidents, et plus encore."/>
+		<button label="Construire" name="build_btn" tool_tip="Créez de nouveaux objets."/>
+		<button label="Mini-carte" name="radar_btn" tool_tip="Affichez la carte de la zone autour de vous. (Ctrl-Maj-M)"/>
+		<button label="Carte" name="map_btn" tool_tip="Affichez la carte du Monde. (Ctrl-M)"/>
+		<button label="Inventaire" name="inventory_btn" tool_tip="Vos objets (Ctrl-I)"/>
 	</layout_stack>
 </panel>

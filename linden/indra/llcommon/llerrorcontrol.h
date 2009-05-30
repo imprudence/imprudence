@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2007-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -82,9 +82,9 @@ namespace LLError
 		Control functions.
 	*/
 
-	typedef void (*FatalFunction)(const std::string& message);
+	typedef void(*FatalFunction)(const std::string& message);
 	void crashAndLoop(const std::string& message);
-		// Default fatal funtion: divides by zero and loops forever
+		// Default fatal funtion: access null pointer and loops forever
 
 	void setFatalFunction(FatalFunction);
 		// The fatal function will be called when an message of LEVEL_ERROR

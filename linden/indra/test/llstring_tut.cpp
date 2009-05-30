@@ -6,7 +6,7 @@
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2007-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -344,13 +344,8 @@ namespace tut
 		str_val = "0";
 		ensure("2: convertToU32 failed", LLStringUtil::convertToU32(str_val, value) && value == 0);
 
-#ifndef LL_DARWIN
-		str_val = "-1"; 
-		ensure("3: convertToU32 failed", LLStringUtil::convertToU32(str_val, value) && value == 4294967295UL);
-#endif
-		
 		str_val = "4294967296"; 
-		ensure("4: convertToU32 failed", !LLStringUtil::convertToU32(str_val, value));
+		ensure("3: convertToU32 failed", !LLStringUtil::convertToU32(str_val, value));
 	}
 
 	template<> template<>

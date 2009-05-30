@@ -237,7 +237,7 @@
 				何も見つかりませんでした。
 			</string>
 			<button label="戻る" name="back_btn" />
-			<button label="転送" name="forward_btn" />
+			<button label="進む" name="forward_btn" />
 			<string name="loading_text">
 				ロード中...
 			</string>
@@ -400,7 +400,7 @@
 				<column label="" name="score" />
 			</scroll_list>
 			<button label="戻る" name="back_btn" />
-			<button label="転送" name="forward_btn" />
+			<button label="進む" name="forward_btn" />
 			<line_editor label="検索" name="search_editor" tool_tip="Second Lifeを検索" />
 			<button label="検索" name="search_btn" />
 			<check_box label="成人向けコンテンツを含める" name="mature_check" />

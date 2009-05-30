@@ -6,7 +6,7 @@
 #
 # $LicenseInfo:firstyear=2006&license=viewergpl$
 # 
-# Copyright (c) 2006-2008, Linden Research, Inc.
+# Copyright (c) 2006-2009, Linden Research, Inc.
 # 
 # Second Life Viewer Source Code
 # The source code in this file ("Source Code") is provided by Linden Lab
@@ -51,7 +51,6 @@ class ViewerManifest(LLManifest):
             self.path("*.pem")
             self.path("*.ini")
             self.path("*.xml")
-            self.path("*.vp")
             self.path("*.db2")
 
             # include the entire shaders directory recursively
@@ -65,7 +64,6 @@ class ViewerManifest(LLManifest):
             self.path("*.xml")
             self.path("*.tga")
             self.end_prefix("character")
-
 
         # Include our fonts
         if self.prefix(src="fonts"):
@@ -100,7 +98,6 @@ class ViewerManifest(LLManifest):
                 
             self.end_prefix("skins")
             
-        self.path("lsl_guide.html")
         self.path("gpu_table.txt")
 
 
@@ -137,6 +134,8 @@ class ViewerManifest(LLManifest):
         # whether or not this is present
         return self.args.get('login_channel')
 
+    def grid(self):
+        return self.args['grid']
     def channel(self):
         return self.args['channel']
     def channel_unique(self):
@@ -149,22 +148,33 @@ class ViewerManifest(LLManifest):
     def flags_list(self):
         """ Convenience function that returns the command-line flags
         for the grid"""
-        channel_flags = ''
+
+        # Set command line flags relating to the target grid
         grid_flags = ''
         if not self.default_grid():
-            if self.default_channel():
-                # beta grid viewer
-                channel_flags = '--settings settings_beta.xml'
-            grid_flags = "--grid %(grid)s --helperuri http://preview-%(grid)s.secondlife.com/helpers/" % {'grid':self.args['grid']}
+            grid_flags = "--grid %(grid)s "\
+                         "--helperuri http://preview-%(grid)s.secondlife.com/helpers/" %\
+                           {'grid':self.grid()}
 
-        if not self.default_channel():
-            # some channel on some grid
-            channel_flags = '--settings settings_%s.xml --channel "%s"' % (self.channel_lowerword(), self.channel())
-        elif self.login_channel():
+        # set command line flags for channel
+        channel_flags = ''
+        if self.login_channel() and self.login_channel() != self.channel():
             # Report a special channel during login, but use default
             channel_flags = '--channel "%s"' % (self.login_channel())
-                        
-        return " ".join((channel_flags, grid_flags)).strip()
+        elif not self.default_channel():
+            channel_flags = '--channel "%s"' % self.channel()
+
+        # Deal with settings 
+        setting_flags = ''
+        if not self.default_channel() or not self.default_grid():
+            if self.default_grid():
+                setting_flags = '--settings settings_%s.xml'\
+                                % self.channel_lowerword()
+            else:
+                setting_flags = '--settings settings_%s_%s.xml'\
+                                % (self.grid(), self.channel_lowerword())
+                                                
+        return " ".join((channel_flags, grid_flags, setting_flags)).strip()
 
 
 class WindowsManifest(ViewerManifest):
@@ -210,9 +220,19 @@ class WindowsManifest(ViewerManifest):
             self.path("alut.dll")
             self.end_prefix()           
 
-        # Mozilla appears to force a dependency on these files so we need to ship it (CP)
-        self.path("msvcr71.dll")
-        self.path("msvcp71.dll")
+        # Mozilla appears to force a dependency on these files so we need to ship it (CP) - updated to vc8 versions (nyx)
+        # These need to be installed as a SxS assembly, currently a 'private' assembly.
+        # See http://msdn.microsoft.com/en-us/library/ms235291(VS.80).aspx
+        if self.prefix(src=self.args['configuration'], dst=""):
+            if self.args['configuration'] == 'Debug':
+                self.path("msvcr80d.dll")
+                self.path("msvcp80d.dll")
+                self.path("Microsoft.VC80.DebugCRT.manifest")
+            else:
+                self.path("msvcr80.dll")
+                self.path("msvcp80.dll")
+                self.path("Microsoft.VC80.CRT.manifest")
+            self.end_prefix()
 
         # Mozilla runtime DLLs (CP)
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
@@ -240,6 +260,11 @@ class WindowsManifest(ViewerManifest):
             self.path("res/*.*")
             self.path("res/*/*")
             self.end_prefix()
+
+        # Mozilla hack to get it to accept newer versions of msvc*80.dll than are listed in manifest
+        # necessary as llmozlib2-vc80.lib refers to an old version of msvc*80.dll - can be removed when new version of llmozlib is built - Nyx
+        # The config file name needs to match the exe's name.
+        self.path("SecondLife.exe.config", dst=self.final_exe() + ".config")
 
         # Vivox runtimes
         if self.prefix(src="vivox-runtime/i686-win32", dst=""):
@@ -386,7 +411,7 @@ class WindowsManifest(ViewerManifest):
                 "%%INSTALL_FILES%%":self.nsi_file_commands(True),
                 "%%DELETE_FILES%%":self.nsi_file_commands(False)})
 
-        NSIS_path = 'C:\\Program Files\\NSIS\\makensis.exe'
+        NSIS_path = 'C:\\Program Files\\NSIS\\Unicode\\makensis.exe'
         self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
         # self.remove(self.dst_path_of(tempfile))
         self.created_path(self.dst_path_of(installer_file))
@@ -632,9 +657,6 @@ class DarwinManifest(ViewerManifest):
         if not os.path.exists (self.src_path_of(dmg_template)):
             dmg_template = os.path.join ('installers', 'darwin', 'release-dmg')
 
-        # To reinstate the linden scripting guide, add this to the list below:
-        #            "lsl_guide.html":"Linden Scripting Language Guide.html",
-
         for s,d in {self.get_dst_prefix():app_name + ".app",
                     os.path.join(dmg_template, "_VolumeIcon.icns"): ".VolumeIcon.icns",
                     os.path.join(dmg_template, "background.jpg"): "background.jpg",
@@ -690,13 +712,6 @@ class LinuxManifest(ViewerManifest):
 
 
     def package_finish(self):
-        # stripping all the libs removes a few megabytes from the end-user package
-        for s,d in self.file_list:
-            if re.search("lib/lib.+\.so.*", d):
-                self.run_command('strip -S %s' % d)
-            if re.search("app_settings/mozilla-runtime-.*/lib.+\.so.*", d):
-                self.run_command('strip %s' % d)
-
         if 'installer_name' in self.args:
             installer_name = self.args['installer_name']
         else:

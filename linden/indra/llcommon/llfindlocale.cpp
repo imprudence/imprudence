@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2008&license=viewergpl$
  * 
- * Copyright (c) 2008, Linden Research, Inc.
+ * Copyright (c) 2008-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -180,10 +180,10 @@ canonise_fl(FL_Locale *l) {
 #define ML(pn,sn) MAKELANGID(LANG_##pn, SUBLANG_##pn##_##sn)
 #define MLN(pn) MAKELANGID(LANG_##pn, SUBLANG_DEFAULT)
 #define RML(pn,sn) MAKELANGID(LANG_##pn, SUBLANG_##sn)
-typedef struct {
+struct IDToCode {
   LANGID id;
   char*  code;
-} IDToCode;
+};
 static const IDToCode both_to_code[] = {
   {ML(ENGLISH,US),           "en_US.ISO_8859-1"},
   {ML(ENGLISH,CAN),          "en_CA"}, /* english / canadian */

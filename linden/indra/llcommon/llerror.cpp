@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2008, Linden Research, Inc.
+ * Copyright (c) 2006-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -1168,6 +1168,10 @@ namespace LLError
 		return s.shouldLogCallCounter;
 	}
 
+#if LL_WINDOWS
+		// VC80 was optimizing the error away.
+		#pragma optimize("", off)
+#endif
 	void crashAndLoop(const std::string& message)
 	{
 		// Now, we go kaboom!
@@ -1180,6 +1184,9 @@ namespace LLError
 			// Loop forever, in case the crash didn't work?
 		}
 	}
+#if LL_WINDOWS
+		#pragma optimize("", on)
+#endif
 
 	std::string utcTime()
 	{

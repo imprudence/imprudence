@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
- * Copyright (c) 2000-2008, Linden Research, Inc.
+ * Copyright (c) 2000-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -155,6 +155,7 @@ public:
 	// Internet stream methods
 	virtual void startInternetStream(const std::string& url);
 	virtual void stopInternetStream();
+	virtual void pauseInternetStream(int pause);
 	virtual void updateInternetStream();
 	virtual int isInternetStreamPlaying();
 	virtual void getInternetStreamInfo(char* artist, char* title);

@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -71,6 +71,24 @@
 #include "llviewerobject.h" 
 #include "llviewerobjectlist.h"
 
+namespace 
+{
+	// This method is used to return an object to mute given an object id.
+	// Its used by the LLMute constructor and LLMuteList::isMuted.
+	LLViewerObject* get_object_to_mute_from_id(LLUUID object_id)
+	{
+		LLViewerObject *objectp = gObjectList.findObject(object_id);
+		if ((objectp) && (!objectp->isAvatar()))
+		{
+			LLViewerObject *parentp = (LLViewerObject *)objectp->getParent();
+			if (parentp && parentp->getID() != gAgent.getID())
+			{
+				objectp = parentp;
+			}
+		}
+		return objectp;
+	}
+}
 
 // "emptymutelist"
 class LLDispatchEmptyMuteList : public LLDispatchHandler
@@ -96,6 +114,32 @@ const char BY_NAME_SUFFIX[] = " (by name)";
 const char AGENT_SUFFIX[] = " (resident)";
 const char OBJECT_SUFFIX[] = " (object)";
 const char GROUP_SUFFIX[] = " (group)";
+
+
+LLMute::LLMute(const LLUUID& id, const std::string& name, EType type, U32 flags)
+  : mID(id),
+	mName(name),
+	mType(type),
+	mFlags(flags)
+{
+	// muting is done by root objects only - try to find this objects root
+	LLViewerObject* mute_object = get_object_to_mute_from_id(id);
+	if(mute_object && mute_object->getID() != id)
+	{
+		mID = mute_object->getID();
+		LLNameValue* firstname = mute_object->getNVPair("FirstName");
+		LLNameValue* lastname = mute_object->getNVPair("LastName");
+		if (firstname && lastname)
+		{
+			mName.assign( firstname->getString() );
+			mName.append(" ");
+			mName.append( lastname->getString() );
+		}
+		mType = mute_object->isAvatar() ? AGENT : OBJECT;
+	}
+
+}
+
 
 std::string LLMute::getDisplayName() const
 {
@@ -216,17 +260,24 @@ void LLMuteList::loadUserVolumes()
 //-----------------------------------------------------------------------------
 LLMuteList::~LLMuteList()
 {
-	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "volume_settings.xml");
-	LLSD settings_llsd;
-
-	for(user_volume_map_t::iterator iter = mUserVolumeSettings.begin(); iter != mUserVolumeSettings.end(); ++iter)
+	// If we quit from the login screen we will not have an SL account
+	// name.  Don't try to save, otherwise we'll dump a file in
+	// C:\Program Files\SecondLife\  JC
+	std::string user_dir = gDirUtilp->getLindenUserDir();
+	if (!user_dir.empty())
 	{
-		settings_llsd[iter->first.asString()] = iter->second;
-	}
+		std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "volume_settings.xml");
+		LLSD settings_llsd;
 
-	llofstream file;
-	file.open(filename);
-	LLSDSerialize::toPrettyXML(settings_llsd, file);
+		for(user_volume_map_t::iterator iter = mUserVolumeSettings.begin(); iter != mUserVolumeSettings.end(); ++iter)
+		{
+			settings_llsd[iter->first.asString()] = iter->second;
+		}
+
+		llofstream file;
+		file.open(filename);
+		LLSDSerialize::toPrettyXML(settings_llsd, file);
+	}
 }
 
 BOOL LLMuteList::isLinden(const std::string& name) const
@@ -635,19 +686,10 @@ BOOL LLMuteList::saveToFile(const std::string& filename)
 
 BOOL LLMuteList::isMuted(const LLUUID& id, const std::string& name, U32 flags) const
 {
-	LLUUID id_to_check = id;
-	
 	// for objects, check for muting on their parent prim
-	LLViewerObject *objectp = gObjectList.findObject(id);
-	if ((objectp) && (!objectp->isAvatar()))
-	{
-		LLViewerObject *parentp = (LLViewerObject *)objectp->getParent();
-		if (parentp)
-		{
-			id_to_check = parentp->getID();
-		}
-	}
-	
+	LLViewerObject* mute_object = get_object_to_mute_from_id(id);
+	LLUUID id_to_check  = (mute_object) ? mute_object->getID() : id;
+
 	// don't need name or type for lookup
 	LLMute mute(id_to_check);
 	mute_set_t::const_iterator mute_it = mMutes.find(mute);

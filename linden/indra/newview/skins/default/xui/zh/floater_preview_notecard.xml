@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="preview notecard" title="注意:">
-	<button label="存储" label_selected="存储" name="Save" />
+	<button label="保存" label_selected="保存" name="Save" />
 	<text type="string" length="1" name="desc txt">
 		描述:
 	</text>
 	<text_editor type="string" length="1" name="Notecard Editor">
 		请等待...
 	</text_editor>
+	<string
+		 name="no_object">
+		无法找到包含这个记事卡的物体。
+	</string>
+	<string
+		 name="not_allowed">
+		你没有查看该记事卡的权利。
+	</string>
 </floater>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater label="(inconnu)" name="im_floater" title="(inconnu)">
 	<string name="ringing">
 		En train de rejoindre le chat vocal...
@@ -27,11 +27,10 @@
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<button label="Appeler" name="start_call_btn" width="95"/>
-			<button label="Raccrocher" name="end_call_btn" width="95" halign="right"/>
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
-			     tool_tip="Cliquez ici pour mettre la liste des intervenants actifs dans cette session IM en mode bascule." />
-			<line_editor label="Cliquez ici pour envoyer un message instantané" name="chat_editor" />
-			<button label="Envoyer" name="send_btn" />
+			<button halign="right" label="Raccrocher" name="end_call_btn" width="95"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Affichez/masquez la liste des intervenants actifs dans cette session IM."/>
+			<line_editor label="Cliquez ici pour envoyer un message instantané" name="chat_editor"/>
+			<button label="Envoyer" name="send_btn"/>
 		</layout_panel>
 	</layout_stack>
 	<string name="live_help_dialog">

@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -308,6 +308,16 @@ public:
 	U32 renderTransparent();
 	void renderCollisionVolumes();
 	
+	/*virtual*/ BOOL lineSegmentIntersect(const LLVector3& start, const LLVector3& end,
+									  S32 face = -1,                          // which face to check, -1 = ALL_SIDES
+									  BOOL pick_transparent = FALSE,
+									  S32* face_hit = NULL,                   // which face was hit
+									  LLVector3* intersection = NULL,         // return the intersection point
+									  LLVector2* tex_coord = NULL,            // return the texture coordinates of the intersection point
+									  LLVector3* normal = NULL,               // return the surface normal at the intersection point
+									  LLVector3* bi_normal = NULL             // return the surface bi-normal at the intersection point
+		);
+
 	/*virtual*/ void updateTextures(LLAgent &agent);
 	// If setting a baked texture, need to request it from a non-local sim.
 	/*virtual*/ S32 setTETexture(const U8 te, const LLUUID& uuid);
@@ -903,6 +913,11 @@ public:
 	static BOOL		sJointDebug;
 	static ETextureIndex sBakedTextureIndices[BAKED_TEXTURE_COUNT];
 
+	static F32 		sUnbakedTime; // Total seconds with >=1 unbaked avatars
+	static F32 		sUnbakedUpdateTime; // Last time stats were updated (to prevent multiple updates per frame) 
+	static F32 		sGreyTime; // Total seconds with >=1 grey avatars
+	static F32 		sGreyUpdateTime; // Last time stats were updated (to prevent multiple updates per frame) 
+	
 	//--------------------------------------------------------------------
 	// Texture Layer Sets and Global Colors
 	//--------------------------------------------------------------------	
@@ -967,6 +982,7 @@ protected:
 	F32					mLastFadeDistance;
 	F32					mMinPixelArea; // debug
 	F32					mMaxPixelArea; // debug
+	BOOL				mHasGrey; // debug
 	
 	//--------------------------------------------------------------------
 	// Global Colors
@@ -1002,7 +1018,7 @@ protected:
 	
 	BOOL			isFullyBaked();
 	void			deleteLayerSetCaches();
-	static BOOL		areAllNearbyInstancesBaked();
+	static BOOL		areAllNearbyInstancesBaked(S32& grey_avatars);
 
 	static void		onBakedTextureMasksLoaded(BOOL success, LLViewerImage *src_vi, LLImageRaw* src, LLImageRaw* aux_src, S32 discard_level, BOOL final, void* userdata);
 

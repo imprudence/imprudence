@@ -164,10 +164,10 @@ Die betreffende Person oder andere können sie nicht sehen.
 	</tab_container>
 	<button label="OK" label_selected="OK" name="OK"/>
 	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel"/>
-	<button label="Hinauswerfen" label_selected="Hinauswerfen" name="Kick"/>
-	<button label="Einfrieren" label_selected="Einfrieren" name="Freeze" tool_tip="Bewegungen und Chat dieses Einwohners abschalten."/>
-	<button label="Auftauen" label_selected="Auftauen" name="Unfreeze" tool_tip="Einwohner auftauen"/>
-	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="Öffnet das Kundendiensttool für diesen Einwohner"/>
+	<button label="Hinauswerfen" label_selected="Hinauswerfen" name="Kick" font="SansSerifSmall" width="82" />
+	<button label="Einfrieren" label_selected="Einfrieren" name="Freeze" tool_tip="Bewegungen und Chat dieses Einwohners abschalten." width="82"/>
+	<button label="Auftauen" label_selected="Auftauen" name="Unfreeze" tool_tip="Einwohner auftauen" width="82" />
+	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="Öffnet das Kundendiensttool für diesen Einwohner" width="82"/>
 	<string name="ShowOnMapNonFriend">
 		Position auf Karte zeigen.
 Deaktiviert, weil zwischen Ihnen

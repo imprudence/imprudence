@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="status">
-	<text type="string" length="1" name="ParcelNameText"
-	     tool_tip="Name of land parcel on which you are standing. Click for About Land.">
+	<text name="ParcelNameText"
+	     tool_tip="你现在所在的地块的名称。点击打开 ‘关于土地’ 窗口。">
 		土地的名称在此
 	</text>
-	<text type="string" length="1" name="BalanceText" tool_tip="帐户余额。">
-		L$
+	<text name="BalanceText" tool_tip="帐户余额。">
+		请稍候...
 	</text>
-	<button label="" label_selected="" name="buycurrency" tool_tip="购买货币" />
-	<text type="string" length="12" name="TimeText" tool_tip="当前时间（太平洋时区）">
+	<button name="buycurrency" tool_tip="购买货币" />
+	<text name="TimeText" tool_tip="当前时间（太平洋时区）">
 		12:00 AM
 	</text>
-	<button label="" label_selected="" name="scriptout" tool_tip="脚本警告及错误。" />
-	<button label="" label_selected="" name="health" tool_tip="健康" />
-	<text type="string" length="1" name="HealthText" tool_tip="健康">
+	<string name="StatBarDaysOfWeek">
+		星期日:星期一:星期二:星期三:星期四:星期五:星期六
+	</string>
+	<string name="StatBarMonthsOfYear">
+		一月:二月:三月:四月:五月:六月:七月:八月:九月:十月:十一月:十二月
+	</string>
+	<button name="scriptout" tool_tip="脚本警告及错误。" />
+	<button name="health" tool_tip="健康" />
+	<text name="HealthText" tool_tip="健康">
 		100%
 	</text>
-	<button label="" label_selected="" name="fly" tool_tip="无法飞行" />
-	<button label="" label_selected="" name="build" tool_tip="无建筑" />
-	<button label="" label_selected="" name="scripts" tool_tip="无脚本" />
-	<button label="" label_selected="" name="restrictpush" tool_tip="限制 llPushObject" />
-	<button label="" label_selected="" name="buyland" tool_tip="购买这块土地" />
+	<button name="fly" tool_tip="不允许飞行" />
+	<button name="build" tool_tip="不允许建造" />
+	<button name="scripts" tool_tip="不允许脚本" />
+	<button name="restrictpush" tool_tip="不允许推动" />
+	<button name="status_no_voice" tool_tip="此处语音不可用" />
+	<button name="buyland" tool_tip="购买这块土地" />
+	<line_editor label="搜索" name="search_editor" tool_tip="搜索 Second Life" />
+	<button name="search_btn" tool_tip="搜索 Second Life" />
 	<text name="packet_loss_tooltip">
-		损失打包
+		封包丢失率
 	</text>
 	<text name="bandwidth_tooltip">
 		带宽

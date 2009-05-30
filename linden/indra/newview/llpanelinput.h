@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2008, Linden Research, Inc.
+ * Copyright (c) 2004-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -34,11 +34,6 @@
 
 #include "llpanel.h"
 
-class LLCheckBoxCtrl;
-class LLSlider;
-class LLSliderCtrl;
-class LLSpinCtrl;
-
 class LLPanelInput : public LLPanel
 {
 public:
@@ -46,23 +41,11 @@ public:
 	virtual ~LLPanelInput();
 
 	virtual BOOL postBuild();
-	virtual void refresh();
 	void apply();
 	void cancel();
 
 private:
 	static void onClickJoystickSetup(void* user_data);
-
-protected:
-	F32 mMouseSensitivityVal;
-	BOOL mAutomaticFly;
-	BOOL mInvertMouse;
-	BOOL mEditCameraMovement;
-	BOOL mAppearanceCameraMovement;
-	BOOL mFirstPersonAvatarVisible;
-	F32 mDynamicCameraStrengthVal;
-	S32 mNumpadControlVal;
-
 };
 
 #endif

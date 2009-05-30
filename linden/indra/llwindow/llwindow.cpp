@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -319,6 +319,12 @@ std::string LLWindow::getFontListSans()
 #else
 	return "";
 #endif
+}
+
+//virtual
+void LLWindow::processMiscNativeEvents()
+{
+	// do nothing unless subclassed
 }
 
 #define UTF16_IS_HIGH_SURROGATE(U) ((U16)((U) - 0xD800) < 0x0400)

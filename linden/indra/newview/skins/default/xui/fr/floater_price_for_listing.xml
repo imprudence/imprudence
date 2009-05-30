@@ -1,14 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="price_for_listing" title="Publier la petite annonce">
 	<text name="explanation_text">
-		Votre petite annonce restera en ligne pendant une semaine à compter de sa date de publication. 
- 
-La position de votre annonce dans les listes dépend du montant que vous décidez de payer.
-Les annonces les plus chères paraissent en tête de liste et sont plus visibles dans les résultats de recherche.
+		Votre petite annonce restera en ligne pendant une
+semaine à compter de sa date de publication. 
+
+La position de votre annonce dans les listes
+dépend du montant que vous décidez de payer.
+Les annonces les plus chères paraissent en tête de
+liste et sont plus visibles dans les résultats de
+recherche.
 	</text>
-	<text name="price_text">
-		Coût de l&apos;annonce ($L) :
+	<text name="price_text" width="133">
+		Coût de l&apos;annonce (L$) :
 	</text>
-	<button label="Fixer le prix" name="set_price_btn" />
-	<button label="Annuler" name="cancel_btn" />
+	<line_editor left="155" name="price_edit" />
+	<button label="Fixer le prix" name="set_price_btn"/>
+	<button label="Annuler" name="cancel_btn"/>
 </floater>

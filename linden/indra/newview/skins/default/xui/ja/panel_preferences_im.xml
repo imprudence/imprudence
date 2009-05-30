@@ -8,7 +8,7 @@
 		IMオプション：
 	</text>
 	<text name="log_in_to_change">
-		変更時にログイン
+		ログインして変更してください
 	</text>
 	<check_box label="IMを電子メール（[EMAIL]）へ送信" name="send_im_to_email"/>
 	<check_box label="ローカルチャットにIMを含める" name="include_im_in_chat_history"/>
@@ -26,6 +26,7 @@
 	<check_box label="タイムスタンプに日付を加える" name="log_date_timestamp"/>
 	<button label="パス変更" label_selected="パス変更" name="log_path_button"/>
 	<text length="1" name="text_box3" type="string">
-		ログインオプション：
+		取り込み中
+応答メッセージ：
 	</text>
 </panel>

@@ -58,9 +58,9 @@
 	     left="10" name="top_colliders_btn"
 	     tool_tip="List of objects experiencing the most potential collisions"
 	     width="150" />
-	<button bottom_delta="-3" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="170" name="top_colliders_help" width="18" />
-	<button bottom_delta="-20" follows="left|top" height="20" label="Get Top Scripts..."
+	<button bottom_delta="-23" follows="left|top" height="20" label="Get Top Scripts..."
 	     left="10" name="top_scripts_btn"
 	     tool_tip="List of objects spending the most time running scripts"
 	     width="150" />
@@ -69,9 +69,9 @@
 	<button bottom_delta="-50" follows="left|top" height="20" label="Restart Region"
 	     left="10" name="restart_btn"
 	     tool_tip="Give 2 minute countdown and restart region" width="130" />
-	<button bottom_delta="-3" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="150" name="restart_help" width="18" />
-	<button bottom_delta="-20" follows="left|top" height="20" label="Delay Restart"
+	<button bottom_delta="-23" follows="left|top" height="20" label="Delay Restart"
 	     left="10" name="cancel_restart_btn"
 	     tool_tip="Delay region restart by one hour" width="130" />
 </panel>

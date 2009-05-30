@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -32,7 +32,6 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "lldynamictexture.h"
-#include "llimagegl.h"
 #include "llglheaders.h"
 #include "llviewerwindow.h"
 #include "llviewercamera.h"
@@ -105,7 +104,7 @@ void LLDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum prima
 	}
 	releaseGLTexture();
 	LLPointer<LLImageRaw> raw_image = new LLImageRaw(mWidth, mHeight, mComponents);
-	mTexture = new LLImageGL(mWidth, mHeight, mComponents, FALSE);
+	mTexture = new LLViewerImage(mWidth, mHeight, mComponents, FALSE);
 	if (internal_format >= 0)
 	{
 		mTexture->setExplicitFormat(internal_format, primary_format, type_format, swap_bytes);
@@ -113,6 +112,7 @@ void LLDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum prima
 // 	llinfos << "ALLOCATING " << (mWidth*mHeight*mComponents)/1024 << "K" << llendl;
 	mTexture->createGLTexture(0, raw_image);
 	mTexture->setClamp(mClamp, mClamp);
+	mTexture->setGLTextureCreated(false);
 }
 
 //-----------------------------------------------------------------------------
@@ -144,7 +144,7 @@ void LLDynamicTexture::preRender(BOOL clear_depth)
 			mOrigin.mY = llmax(mOrigin.mY, 0) ;
 		}
 
-		LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	}
 	// Set up camera
 	mCamera.setOrigin(*LLViewerCamera::getInstance());
@@ -184,19 +184,6 @@ void LLDynamicTexture::postRender(BOOL success)
 }
 
 //-----------------------------------------------------------------------------
-// bindTexture()
-//-----------------------------------------------------------------------------
-void LLDynamicTexture::bindTexture()
-{
-	LLViewerImage::bindTexture(mTexture,0);
-}
-
-void LLDynamicTexture::unbindTexture()
-{
-	LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
-}
-
-//-----------------------------------------------------------------------------
 // static
 // updateDynamicTextures()
 // Calls update on each dynamic texture.  Calls each group in order: "first," then "middle," then "last."
@@ -210,6 +197,7 @@ BOOL LLDynamicTexture::updateAllInstances()
 	}
 
 	BOOL result = FALSE;
+	BOOL ret = FALSE ;
 	for( S32 order = 0; order < ORDER_COUNT; order++ )
 	{
 		for (instance_list_t::iterator iter = LLDynamicTexture::sInstances[order].begin();
@@ -224,9 +212,10 @@ BOOL LLDynamicTexture::updateAllInstances()
 				
 				gGL.color4f(1,1,1,1);
 				dynamicTexture->preRender();	// Must be called outside of startRender()
-
+				result = FALSE;
 				if (dynamicTexture->render())
 				{
+					ret = TRUE ;
 					result = TRUE;
 					sNumRenders++;
 				}
@@ -238,7 +227,19 @@ BOOL LLDynamicTexture::updateAllInstances()
 		}
 	}
 
-	return result;
+	return ret;
+}
+
+//virtual
+void LLDynamicTexture::restoreGLTexture() 
+{
+	generateGLTexture() ;
+}
+
+//virtual
+void LLDynamicTexture::destroyGLTexture() 
+{
+	releaseGLTexture() ;
 }
 
 //-----------------------------------------------------------------------------
@@ -247,6 +248,15 @@ BOOL LLDynamicTexture::updateAllInstances()
 //-----------------------------------------------------------------------------
 void LLDynamicTexture::destroyGL()
 {
+	for( S32 order = 0; order < ORDER_COUNT; order++ )
+	{
+		for (instance_list_t::iterator iter = LLDynamicTexture::sInstances[order].begin();
+			 iter != LLDynamicTexture::sInstances[order].end(); ++iter)
+		{
+			LLDynamicTexture *dynamicTexture = *iter;
+			dynamicTexture->destroyGLTexture() ;
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -255,4 +265,18 @@ void LLDynamicTexture::destroyGL()
 //-----------------------------------------------------------------------------
 void LLDynamicTexture::restoreGL()
 {
+	if (gGLManager.mIsDisabled)
+	{
+		return ;
+	}			
+	
+	for( S32 order = 0; order < ORDER_COUNT; order++ )
+	{
+		for (instance_list_t::iterator iter = LLDynamicTexture::sInstances[order].begin();
+			 iter != LLDynamicTexture::sInstances[order].end(); ++iter)
+		{
+			LLDynamicTexture *dynamicTexture = *iter;
+			dynamicTexture->restoreGLTexture() ;
+		}
+	}
 }

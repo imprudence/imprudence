@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -202,7 +202,9 @@ LLFloaterAbout::LLFloaterAbout()
 	support.append("\n");
 
 	support.append("Audio Driver Version: ");
-	support.append( gAudiop ? gAudiop->getDriverName(true) : "(none)" );
+	bool want_fullname = true;
+	support.append( gAudiop ? gAudiop->getDriverName(want_fullname) : "(none)" );
+
 	support.append("\n");
 
 	LLMediaManager *mgr = LLMediaManager::getInstance();

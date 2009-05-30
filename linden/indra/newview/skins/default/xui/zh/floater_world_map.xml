@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="worldmap" title="全部地图">
+<floater name="worldmap" title="世界地图">
 	<tab_container name="maptab">
-		<panel label="东东" name="objects_mapview" />
+		<panel label="物体" name="objects_mapview" />
 		<panel label="地形" name="terrain_mapview" />
 	</tab_container>
 	<text name="land_for_sale_label">
@@ -11,15 +11,15 @@
 		拍卖
 	</text>
 	<text name="you_label">
-		你
+		您
 	</text>
 	<text name="home_label">
 		家
 	</text>
 	<button label="回家" label_selected="回家" name="Go Home"
-	     tool_tip="将你的房屋闪电传运" />
+	     tool_tip="瞬间移动到你的起始位置" />
 	<text name="classifieds_label">
-		分类目录
+		分类广告
 	</text>
 	<check_box label=" " name="class_chk" />
 	<text name="person_label">
@@ -27,11 +27,11 @@
 	</text>
 	<check_box label=" " name="people_chk" />
 	<text name="infohub_label">
-		消息中心
+		信息中心
 	</text>
 	<check_box label=" " name="infohub_chk" />
 	<text name="telehub_label">
-		闪电传送集合地
+		瞬移枢纽
 	</text>
 	<check_box label=" " name="telehubchk" />
 	<text name="popular_label">
@@ -43,19 +43,19 @@
 	</text>
 	<check_box label=" " name="land_for_sale_chk" />
 	<text name="events_label">
-		事件或活动
+		事件
 	</text>
 	<check_box label=" " name="event_chk" />
 	<text name="events_mature_label">
-		事件(M)
+		事件(成人)
 	</text>
 	<check_box label=" " name="event_mature_chk" />
-	<combo_box label="我的朋友" name="friend combo" tool_tip="Friend to Show on Map">
+	<combo_box label="在线好友" name="friend combo" tool_tip="要在地图上显示的好友">
 		<combo_item name="none_selected">
-			我的朋友
+			在线好友
 		</combo_item>
 	</combo_box>
-	<combo_box label="我的地标" name="landmark combo" tool_tip="Landmark to Show on Map">
+	<combo_box label="我的地标" name="landmark combo" tool_tip="要在地图上显示的地标">
 		<combo_item name="none_selected">
 			我的地标
 		</combo_item>
@@ -63,7 +63,7 @@
 	<line_editor name="location" tool_tip="键入地区的名称">
 		按地区名搜索
 	</line_editor>
-	<button label="搜索" label_selected="&gt;" name="DoSearch" tool_tip="寻找地域" />
+	<button label="搜索" label_selected="&gt;" name="DoSearch" tool_tip="寻找地区" />
 	<text name="search_label">
 		查询结果:
 	</text>
@@ -74,17 +74,21 @@
 	<text name="location_label">
 		位置:
 	</text>
-	<spinner name="spin x" tool_tip="地点的X坐标在地图中显示可见。" />
-	<spinner name="spin y" tool_tip="地点的Y坐标在地图中显示可见。" />
-	<spinner name="spin z" tool_tip="地点的Z坐标在地图中显示可见。" />
-	<button label="闪电传送" label_selected="闪电传送" name="Teleport"
-	     tool_tip="闪电传输到指定地点" />
+	<spinner name="spin x" tool_tip="地图中显示地点的X坐标" />
+	<spinner name="spin y" tool_tip="地图中显示地点的Y坐标" />
+	<spinner name="spin z" tool_tip="地图中显示地点的Z坐标" />
+	<button label="瞬间移动" label_selected="瞬间移动" name="Teleport"
+	     tool_tip="瞬间移动到指定地点" />
 	<button label="显示目的地" label_selected="显示目的地"
-	     name="Show Destination" tool_tip="所选地区的中心地图。" />
+	     name="Show Destination" tool_tip="居中显示指定地点" />
 	<button label="清除" label_selected="清除" name="Clear"
 	     tool_tip="停止追踪/跟踪" />
 	<button label="显示我的位置" label_selected="显示我的位置"
 	     name="Show My Location"
-	     tool_tip="你的化身所在地区的中心地图。" />
-	<slider label="Zoom" name="zoom slider" />
+	     tool_tip="居中显示你的化身的位置" />
+	<button
+		 label="复制 SLURL 到剪贴板"
+		 name="copy_slurl"
+		 tool_tip="将当前位置复制为 SLURL 以供网上使用" />
+	<slider label="缩放" name="zoom slider" />
 </floater>
