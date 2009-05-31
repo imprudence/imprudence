@@ -1879,8 +1879,8 @@
     <menu_item_check name="Output Debug Minidump"
                      label="Output Debug Minidump">
       <on_click function="ToggleControl"
-                userdata="SaveMiniDump" />
-      <on_check control="SaveMiniDump" />
+                userdata="SaveMinidump" />
+      <on_check control="SaveMinidump" />
     </menu_item_check>
     <menu_item_check name="Clothing..."
                      label="Clothing...">
