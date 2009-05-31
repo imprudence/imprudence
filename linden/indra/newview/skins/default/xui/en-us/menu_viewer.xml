@@ -729,11 +729,6 @@
                 userdata="WebLaunchImprudenceForums,http://www.imprudenceviewer.org/forums/" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Scripting Guide..."
-                    label="Scripting Guide...">
-      <on_click function="PromptShowFile"
-                userdata="WebLaunchLSLGuide,lsl_guide.html" />
-    </menu_item_call>
     <menu_item_call name="Scripting Portal..."
                     label="Scripting Portal...">
       <on_click function="PromptShowURL" name="ScriptingPortal_url"
