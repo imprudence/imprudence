@@ -1380,13 +1380,6 @@
         -->
       </menu_item_call>
 
-      <menu_item_check name="Async Keystrokes"
-                       label="Async Keystrokes">
-        <on_click function="Advanced.ToggleAsyncKeystrokes"
-                  userdata="" />
-        <on_check function="Advanced.CheckAsyncKeystrokes"
-                  userdata="" />
-      </menu_item_check>
       <menu_item_call name="Dump SelectMgr" label="Dump SelectMgr">
         <on_click function="Advanced.DumpSelectMgr" userdata="" />
       </menu_item_call>
