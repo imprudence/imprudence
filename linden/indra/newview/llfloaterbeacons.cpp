@@ -69,18 +69,18 @@ BOOL LLFloaterBeacons::postBuild()
 }
 
 // Needed to make the floater visibility toggle the beacons.
-// Too bad we can't just add control_name="BeaconAlwaysOn" to the XML.
+// Too bad we can't just add control_name="BeaconsEnabled" to the XML.
 void LLFloaterBeacons::open()
 {
 	LLFloater::open();
-	gSavedSettings.setBOOL( "BeaconAlwaysOn", TRUE);
+	gSavedSettings.setBOOL( "BeaconsEnabled", TRUE);
 }
 void LLFloaterBeacons::close(bool app_quitting)
 {
 	LLFloater::close(app_quitting);
 	if(!app_quitting)
 	{
-		gSavedSettings.setBOOL( "BeaconAlwaysOn", FALSE);
+		gSavedSettings.setBOOL( "BeaconsEnabled", FALSE);
 	}
 }
 

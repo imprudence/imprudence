@@ -2,7 +2,7 @@
 <floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="false"
      width="250" height="225"
      name="beacons" title="Beacons"
-     rect_control="FloaterBeaconsRect" control_name="BeaconAlwaysOn">
+     rect_control="FloaterBeaconsRect" control_name="BeaconsEnabled">
 	<panel bottom="10" follows="left|top|right|bottom" left="10" width="230" height="200" name="beacons_panel">
   	<check_box bottom_delta="-33" follows="left|top" left="0" name="touch_only" label="Scripted Objects with Touch Only" control_name="scripttouchbeacon" />
     <check_box bottom_delta="-20" follows="left|top" left="0" name="scripted" label="Scripted Objects" control_name="scriptsbeacon" />
