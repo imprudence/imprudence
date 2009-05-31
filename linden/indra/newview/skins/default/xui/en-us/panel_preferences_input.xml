@@ -90,7 +90,7 @@
 	     mouse_opaque="true" name="text2" v_pad="0" width="128">
 		Avatar Display Options:
 	</text>
-	<check_box bottom="-232" enabled="true"
+	<check_box bottom_delta="-4" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show Avatar in Mouselook" left="148" mouse_opaque="true" name="first_person_avatar_visible"
 	     radio_style="false" width="256" />
