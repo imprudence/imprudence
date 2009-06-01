@@ -1,3 +1,12 @@
+2009-05-31  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Added a confirmation dialog for Take Off All Clothes.
+
+	    modified:   linden/indra/newview/llagent.cpp
+	    modified:   linden/indra/newview/llagent.h
+	    modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+
+
 2009-05-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/llinventorybridge.cpp (buildContextMenu): 

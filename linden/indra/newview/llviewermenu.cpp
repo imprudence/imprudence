@@ -7352,7 +7352,7 @@ class LLEditTakeOff : public view_listener_t
 		}
 		else if (clothing == "all")
 		{
-			LLAgent::userRemoveAllClothes(NULL);
+			LLAgent::userRemoveAllClothesConfirm();
 		}
 		return true;
 	}

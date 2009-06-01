@@ -5115,5 +5115,20 @@ WARNING: Don't restore if you aren't sure where the object will go!
 
 	</alert>
 
+	<alert modal="true" name="ConfirmRemoveAllClothes">
+		<message name="message">
+			Are you sure you want to take off all clothes?
+		</message>
+		<ignore name="ignore">
+			When taking off all clothes
+		</ignore>
+		<option name="Take Off">
+			Take Off
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+
 </alerts>
 

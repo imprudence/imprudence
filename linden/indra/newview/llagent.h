@@ -668,8 +668,12 @@ public:
 	static void		stopFidget();
 	static void		processAgentInitialWearablesUpdate(LLMessageSystem* mesgsys, void** user_data);
 	static void		userRemoveWearable( void* userdata );	// userdata is EWearableType
-	static void		userRemoveAllClothes( void* userdata );	// userdata is NULL
-	static void		userRemoveAllClothesStep2(BOOL proceed, void* userdata ); // userdata is NULL
+
+  static void   userRemoveAllClothesConfirm();
+	static void   userRemoveAllClothesCallback(S32 option, void *userdata);
+	static void   userRemoveAllClothes( void* userdata );	// userdata is NULL
+	static void   userRemoveAllClothesStep2(BOOL proceed, void* userdata ); // userdata is NULL
+
 	static void		userRemoveAllAttachments( void* userdata);	// userdata is NULL
 	static BOOL		selfHasWearable( void* userdata );			// userdata is EWearableType
 

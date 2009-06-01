@@ -7432,6 +7432,25 @@ void LLAgent::userRemoveWearable( void* userdata )
 	}
 }
 
+
+// static
+void LLAgent::userRemoveAllClothesConfirm()
+{
+	gViewerWindow->alertXml("ConfirmRemoveAllClothes",
+	                        LLAgent::userRemoveAllClothesCallback, NULL);
+}
+
+// static
+void LLAgent::userRemoveAllClothesCallback(S32 option, void *userdata)
+{
+	if( option == 0 )
+	{
+		// They confirmed it. Here we go!
+		LLAgent::userRemoveAllClothes(NULL);
+	}
+}
+
+
 void LLAgent::userRemoveAllClothes( void* userdata )
 {
 	// We have to do this up front to avoid having to deal with the case of multiple wearables being dirty.
