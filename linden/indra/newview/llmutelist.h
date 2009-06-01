@@ -102,6 +102,11 @@ public:
 	void addObserver(LLMuteListObserver* observer);
 	void removeObserver(LLMuteListObserver* observer);
 
+
+  void        addMuteAgentConfirm( const LLMute &mute );
+  void        addMuteObjectConfirm( const LLMute &mute );
+  static void addMuteCallback(S32 option, void *userdata);
+
 	// Add either a normal or a BY_NAME mute, for any or all properties.
 	BOOL add(const LLMute& mute, U32 flags = 0);
 

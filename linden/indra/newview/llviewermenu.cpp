@@ -2087,10 +2087,16 @@ class LLObjectMute : public view_listener_t
 		}
 		else
 		{
-			LLMuteList::getInstance()->add(mute);
-			LLFloaterMute::showInstance();
+			if( LLMute::AGENT == type )
+			{
+				LLMuteList::getInstance()->addMuteAgentConfirm(mute);
+			}
+			else
+			{
+				// must be an object.
+				LLMuteList::getInstance()->addMuteObjectConfirm(mute);
+			}
 		}
-		
 		return true;
 	}
 };

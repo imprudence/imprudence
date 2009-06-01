@@ -5130,5 +5130,35 @@ WARNING: Don't restore if you aren't sure where the object will go!
 		</option>
 	</alert>
 
+	<alert modal="true" name="ConfirmMuteAgent">
+		<message name="message">
+			Are you sure you want to mute [NAME] (resident)?
+		</message>
+		<ignore name="ignore">
+			When muting a Resident
+		</ignore>
+		<option name="Mute">
+			Mute
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+
+	<alert modal="true" name="ConfirmMuteObject">
+		<message name="message">
+			Are you sure you want to mute [NAME] (object)?
+		</message>
+		<ignore name="ignore">
+			When muting an object
+		</ignore>
+		<option name="Mute">
+			Mute
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+
 </alerts>
 

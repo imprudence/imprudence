@@ -1,3 +1,14 @@
+2009-06-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Added confirmation dialogs for Mute from pie menu.
+	  Dialog is for muting avatars and objects from the pie menu only.
+
+	    modified:   linden/indra/newview/llmutelist.cpp
+	    modified:   linden/indra/newview/llmutelist.h
+	    modified:   linden/indra/newview/llviewermenu.cpp
+	    modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+
+
 2009-05-31  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Added a confirmation dialog for Take Off All Clothes.
