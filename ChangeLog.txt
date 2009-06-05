@@ -1,5 +1,10 @@
 2009-06-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Mute in Profile window triggers confirmation dialog too.
+	
+	    modified:   linden/indra/newview/llpanelavatar.cpp
+
+
 	* Added confirmation dialogs for Mute from pie menu.
 	  Dialog is for muting avatars and objects from the pie menu only.
 
