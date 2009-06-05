@@ -101,6 +101,16 @@
 	No longer World > Create Landmark Here.
 
 
+2009-04-28  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/install.xml:
+	Fixed gstreamer plugins windows library.
+
+
+	* linden/indra/cmake/CopyWinLibs.cmake:
+	Updated copy_win_libs for 1.1 RC3.
+
+
 2009-04-20  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/llaudio/audioengine_openal.cpp:
@@ -138,6 +148,20 @@
 	Removed some useless code from LLMediaImplGStreamer::startPlay().
 
 
+2009-04-17  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	GST_PLUGIN_PATH should only search plugin directories for Windows.
+	
+	
+	* linden/install.xml:
+	Removed 'https' from install.xml.
+	Updated Windows GStreamer plugin url.
+	Updated Windows GLib url.
+	Updated Windows GStreamer url.
+	Updated Windows libpng url.
+
+
 2009-04-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/viewer_manifest.py:
@@ -155,6 +179,7 @@
 	* linden/indra/newview/viewer_manifest.py:
 	Tweaked Mac lib manifest.
 	Removed pango, commented out libopenal, added libxml2.
+
 
 
 2009-04-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
