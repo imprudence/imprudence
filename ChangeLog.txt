@@ -2,8 +2,8 @@
 
 	* linden/indra/newview/llfloatersnapshot.cpp:
 	Fixed high res checkbox not hiding.
-	
-	
+
+
 	* linden/indra/newview/llselectmgr.cpp:
 	Redid pie menus based on feedback from VWR-8080.
 	* linden/indra/newview/lltoolpie.cpp:
@@ -20,20 +20,16 @@
 	Ditto.
 	* linden/indra/newview/skins/default/xui/en-us/menu_pie_self.xml:
 	Ditto.
-	
-	
-	Merged in Armin's gesture manager patch to compensate 
-	for removing 'Gestures' from the pie.
-	
-	
+
+
 	* linden/indra/newview/llviewernetwork.cpp:
 	Menu bar now only changes color for Aditi.
-	
+
 
 2009-06-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Mute in Profile window triggers confirmation dialog too.
-	
+
 	    modified:   linden/indra/newview/llpanelavatar.cpp
 
 
@@ -168,7 +164,7 @@
 
 	* linden/indra/cmake/CopyWinLibs.cmake:
 	Updated copy_win_libs for 1.1 RC3.
-	
+
 
 2009-04-27  Armin Weatherwax  <email@unknown.com>
 
@@ -203,6 +199,7 @@
 	* linden/indra/llmedia/llmediaimplgstreamer.h:
 	LLMediaImplGStreamer::startPlay() is protected, LLGstPlayThread friend.
 
+
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Removed redundant play() from LLMediaImplGStreamer::navigateTo().
 
@@ -219,8 +216,8 @@
 
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	GST_PLUGIN_PATH should only search plugin directories for Windows.
-	
-	
+
+
 	* linden/install.xml:
 	Removed 'https' from install.xml.
 	Updated Windows GStreamer plugin url.
@@ -393,9 +390,7 @@
 	Moved Windows GST_PLUGIN_PATH setup to LLMediaImplGStreamer.
 	LLAppViewer::gst_plugin_path -->
 	   LLMediaImplGStreamer::set_gst_plugin_path
-
-
-	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	* linden/indra/llmedia/llmediaimplgstreamer.h:
 	Ditto.
 	* linden/indra/newview/llappviewer.h:
 	Ditto.
@@ -436,7 +431,7 @@
 	* linden/indra/llmedia/llmediaimplgstreamer_syms_rawv.inc:
 	Ditto.
 
-	
+
 	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
 	Removed all that llgst and symbol grabbing silliness.
 	Some symbols require gstreamer >= 0.10.11.
@@ -448,34 +443,6 @@
 
 	* linden/indra/cmake/GStreamer.cmake:
 	Link with some gstreamer core libs on Linux.
-
-
-2009-03-22  McCabe Maxsted  <hakushakukun@gmail.com>
-
-	* linden/indra/newview/llappviewer.cpp:
-	Removed slviewer-0-v12160-LostConnectionOnLogin.patch.
-
-	* linden/indra/newview/app_settings/settings.xml:
-	Removed slviewer-0-v12160-RememberStatsPosAndSize.patch.
-	* linden/indra/newview/lldebugview.cpp:
-	Ditto.
-	* linden/indra/newview/llfloaterstats.cpp:
-	Ditto.
-
-	* linden/indra/newview/llfloaterurldisplay.cpp:
-	Removed slviewer-0-v12160-VisitedLandmarks.patch.
-	* linden/indra/newview/llinventorybridge.cpp:
-	Ditto.
-	* linden/indra/newview/llpanelinventory.cpp:
-	Ditto.
-	* linden/indra/newview/llpanelplace.cpp:
-	Ditto.
-	* linden/indra/newview/llpanelplace.h:
-	Ditto.
-	* linden/indra/newview/llpreviewlandmark.cpp:
-	Ditto.
-	* linden/indra/newview/llviewermessage.cpp:
-	Ditto.
 
 
 2009-03-16  McCabe Maxsted  <hakushakukun@gmail.com>
@@ -517,11 +484,14 @@
 	* linden/indra/cmake/OPENAL.cmake:
 	Removed redundant/unnecessary OpenAL lib names and paths.
 
+
 	* linden/indra/newview/viewer_manifest.py:
 	Added Mac gstreamer plugins to viewer manifest.
 
+
 	* linden/indra/llaudio/CMakeLists.txt:
 	LLAudio's CMakeLists should include OPENAL.
+
 
 	* linden/indra/cmake/LLMedia.cmake:
 	Removed Quicktime-related cmake code.
@@ -543,6 +513,7 @@
 
 	* linden/indra/newview/viewer_manifest.py:
 	Manifest includes openal and gstreamer libs in Mac package.
+
 
 	* linden/indra/newview/CMakeLists.txt: 
 	Mac app icon will be called viewer.icns instead of secondlife.icns.
@@ -575,40 +546,16 @@
 	* linden/indra/llimagej2coj/llimagej2coj.cpp:
 	Backported fix for VWR-4070 from 1.22.
 
+
 	* linden/indra/llaudio/audioengine.cpp:
 	Applied patch by Zwagoth Klaar for muting sounds before decoding.
 	* linden/indra/newview/llviewermessage.cpp:
 	Ditto.
 
+
 	* linden/indra/llmessage/llhttpclient.cpp:
 	Applied memleak patch from VWR-9400 by Henri and Carjay.
 
-	* linden/indra/newview/app_settings/settings.xml:
-	Applied remember stats position and size patch
-	from Latif Khalifa (VWR-9540).
-	* linden/indra/newview/lldebugview.cpp:
-	Ditto.
-	* linden/indra/newview/llfloaterstats.cpp:
-	Ditto.
-
-	* linden/indra/newview/llappviewer.cpp:
-	Backported fix for VWR-8783, original patch by Gigs Taggart. 
-
-	* linden/indra/newview/llfloaterurldisplay.cpp:
-	Applied patch to correct landmark colors not changing
-	(VWR-7896) by Zi Ree.
-	* linden/indra/newview/llinventorybridge.cpp:
-	Ditto.
-	* linden/indra/newview/llpanelinventory.cpp:
-	Ditto.
-	* linden/indra/newview/llpanelplace.cpp:
-	Ditto.
-	* linden/indra/newview/llpanelplace.h:
-	Ditto.
-	* linden/indra/newview/llpreviewlandmark.cpp:
-	Ditto.
-	* linden/indra/newview/llviewermessage.cpp:
-	Ditto.
 
 	* linden/indra/newview/llvoavatar.cpp:
 	Use std::string for nametags, removed bizarre name stacking option. 
@@ -617,7 +564,7 @@
 2009-03-01  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llfloaterchat.cpp:
-	Backported fix for VWR-6744 (No way to hide IMs in chat console).
+	Backported fix for VWR-3060 (No way to hide IMs in chat console).
 	* linden/indra/newview/skins/default/xui/en-us/panel_preferences_im.xml:
 	Ditto.
 
@@ -637,26 +584,33 @@
 	* linden/indra/newview/skins/silver/xui/en-us/panel_media_controls.xml:
 	Ditto.
 
+
 	* linden/indra/newview/llfilepicker.cpp:
 	Applied patch for VWR-5575 (crash in the file picker dealing
 	with accented characters and bad locale) by Alissa Sabre.
 
+
 	* linden/indra/newview/pipeline.cpp:
 	Backported possible crash fix while changing graphics settings from 1.22.
+
 
 	* linden/indra/llui/llfloater.cpp:
 	Backported possible crash fix in llfloater.cpp from 1.22.
 
+
 	* linden/indra/newview/lldrawable.cpp:
 	Backported fix for VWR-3871 (prim position appears to be off) from 1.22.
+
 
 	* linden/indra/newview/llcompilequeue.cpp:
 	Backported fix for SVC-2771 (script resetting can fail) from 1.22.
 	* linden/indra/newview/llviewermenu.cpp:
 	Ditto.
 
+
 	* linden/indra/llcharacter/llbvhloader.cpp:
 	Backported fix for VWR-996 (wrong visualisation of animations) from 1.22.
+
 
 	* linden/indra/newview/app_settings/keywords.ini:
 	Applied my patch for VWR-8454 (PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS
