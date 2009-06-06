@@ -21,6 +21,10 @@
 	* linden/indra/newview/skins/default/xui/en-us/menu_pie_self.xml:
 	Ditto.
 	
+	
+	Merged in Armin's gesture manager patch to compensate 
+	for removing 'Gestures' from the pie.
+	
 
 2009-04-28  McCabe Maxsted  <hakushakukun@gmail.com>
 
@@ -32,6 +36,14 @@
 
 	* linden/indra/cmake/CopyWinLibs.cmake:
 	Updated copy_win_libs for 1.1 RC3.
+	
+
+2009-04-27  Armin Weatherwax  <email@unknown.com>
+
+	* linden/indra/newview/llchatbar.cpp: 
+	Applied Armin's gesture manager patch.
+	* linden/indra/newview/skins/default/xui/en-us/panel_chat_bar.xml: 
+	Ditto.
 
 
 2009-04-17  McCabe Maxsted  <hakushakukun@gmail.com>
