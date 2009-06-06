@@ -2066,7 +2066,6 @@ void LLFloaterSnapshot::draw()
 		if(previewp->getSnapshotType() != LLSnapshotLivePreview::SNAPSHOT_LOCAL)
 		{
 			childSetEnabled("high_res_check",FALSE);
-			childSetVisible("high_res_check",FALSE);
 			childSetEnabled("ui_check",TRUE);
 			if (ui_in_snapshot)
 			{
@@ -2075,7 +2074,6 @@ void LLFloaterSnapshot::draw()
 		}
 		else
 		{
-			childSetVisible("high_res_check",TRUE);
 			if (high_res_snapshot)
 			{
 				childSetEnabled("high_res_check",TRUE);

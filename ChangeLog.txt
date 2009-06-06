@@ -1,3 +1,9 @@
+2009-06-05  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloatersnapshot.cpp:
+	Fixed high res checkbox not hiding.
+	
+
 2009-04-28  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/install.xml:
