@@ -253,10 +253,13 @@ bool LLViewerLogin::isInProductionGrid()
 	std::vector<std::string> uris;
 	getLoginURIs(uris);
 	LLStringUtil::toLower(uris[0]);
-	if((uris[0].find("agni") != std::string::npos))
+
+	// Returns true for every grid but Aditi now,
+	// because opensim grids have feelings too! -- McCabe
+	if((uris[0].find("aditi") != std::string::npos))
 	{
-		return true;
+		return false;
 	}
 
-	return false;
+	return true;
 }

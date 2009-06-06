@@ -25,6 +25,10 @@
 	Merged in Armin's gesture manager patch to compensate 
 	for removing 'Gestures' from the pie.
 	
+	
+	* linden/indra/newview/llviewernetwork.cpp:
+	Menu bar now only changes color for Aditi.
+	
 
 2009-04-28  McCabe Maxsted  <hakushakukun@gmail.com>
 
