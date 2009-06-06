@@ -126,11 +126,38 @@
 	Added ConfirmTeleportHome alert text.
 
 
+2009-05-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/viewer_manifest.py:
+	Changed the list of installed Mac gstreamer plugins.
+
+	Commented out libgstqtwrapper.so, since it causes issues with
+	MP3s (and perhaps other types).
+
+	Added:
+	    libgstfilter.so
+	    libgstmultifile.so
+	    libgststereo.so
+	    libgstvideobalance.so
+	    libgstvideobox.so
+	    libgstvideocrop.so
+	    libgstvideoflip.so
+	    libgstvideomixer.so
+	    libgstvideorate.so
+	    libgstvideosignal.so
+
+
 2009-05-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
 	Reverted Ctrl-D shortcut back to Edit > Duplicate.
 	No longer World > Create Landmark Here.
+
+
+2009-05-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/viewer_manifest.py:
+	Added libgstqtwrapper.so to Mac manifest.
 
 
 2009-04-28  McCabe Maxsted  <hakushakukun@gmail.com>
