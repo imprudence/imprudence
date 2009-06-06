@@ -5926,6 +5926,28 @@ void LLAgent::teleportViaLocation(const LLVector3d& pos_global)
 	}
 }
 
+
+void LLAgent::teleportHome()
+{
+	teleportViaLandmark(LLUUID::null);
+}
+
+void LLAgent::teleportHomeConfirm()
+{
+	gViewerWindow->alertXml("ConfirmTeleportHome", LLAgent::teleportHomeCallback, (void *)this);
+}
+
+// static
+void LLAgent::teleportHomeCallback(S32 option, void *userdata)
+{
+	if( option == 0 )
+	{
+		// They confirmed it. Here we go!
+		((LLAgent *) userdata)->teleportHome();
+	}
+}
+
+
 void LLAgent::setTeleportState(ETeleportState state)
 {
 	mTeleportState = state;
@@ -7409,6 +7431,25 @@ void LLAgent::userRemoveWearable( void* userdata )
 		gAgent.removeWearable( type );
 	}
 }
+
+
+// static
+void LLAgent::userRemoveAllClothesConfirm()
+{
+	gViewerWindow->alertXml("ConfirmRemoveAllClothes",
+	                        LLAgent::userRemoveAllClothesCallback, NULL);
+}
+
+// static
+void LLAgent::userRemoveAllClothesCallback(S32 option, void *userdata)
+{
+	if( option == 0 )
+	{
+		// They confirmed it. Here we go!
+		LLAgent::userRemoveAllClothes(NULL);
+	}
+}
+
 
 void LLAgent::userRemoveAllClothes( void* userdata )
 {

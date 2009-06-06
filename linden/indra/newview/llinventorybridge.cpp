@@ -758,7 +758,7 @@ void LLItemBridge::performAction(LLFolderView* folder, LLInventoryModel* model, 
 	}
 	else if ("restoreToWorld" == action)
 	{
-		restoreToWorld();
+		restoreToWorldConfirm();
 	}
 	else if ("restore" == action)
 	{
@@ -816,6 +816,24 @@ void LLItemBridge::restoreItem()
 	}
 }
 
+
+// virtual
+void LLItemBridge::restoreToWorldConfirm()
+{
+	gViewerWindow->alertXml("ConfirmRestoreToWorld", LLItemBridge::restoreToWorldCallback, (void *)this);
+}
+
+// static
+void LLItemBridge::restoreToWorldCallback(S32 option, void *userdata)
+{
+	if( option == 0 )
+	{
+		// They confirmed it. Here we go!
+		((LLItemBridge *) userdata)->restoreToWorld();
+	}
+}
+
+// virtual
 void LLItemBridge::restoreToWorld()
 {
 	LLViewerInventoryItem* itemp = (LLViewerInventoryItem*)getItem();
@@ -3421,6 +3439,7 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 				items.push_back(std::string("Object Wear"));
 				items.push_back(std::string("Attach To"));
 				items.push_back(std::string("Attach To HUD"));
+				items.push_back(std::string("RestoreToWorld Separator"));
 				items.push_back(std::string("Restore to Last Position"));
 
 				LLMenuGL* attach_menu = menu.getChildMenuByName("Attach To", TRUE);

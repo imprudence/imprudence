@@ -841,9 +841,9 @@ anguage Infrstructure (CLI) international standard</string>
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>a0757244e3e6688fde2ffeea35cc1f96</string>
+            <string>f30b851e089108978c8218295a405159</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openal-darwin-20080924.tar.bz2</uri>
+            <uri>http://thomas.shikami.mooo.com/install_pkgs/openal-darwin-20090418.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>

@@ -1,5 +1,8 @@
 # -*- cmake -*-
 
+include(Variables)
+include(Linking)
+
 set(OPENAL ON CACHE BOOL "Enable OpenAL")
 
 
@@ -17,8 +20,9 @@ if (OPENAL)
   elseif (DARWIN)
     # Look for for system's OpenAL.framework
     find_library(OPENAL_LIB
-      NAMES OpenAL openal
+      NAMES openal.1
       PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
+      NO_DEFAULT_PATH
       )
   else (WINDOWS)
     set(OPENAL_LIB openal)
@@ -34,10 +38,14 @@ if (OPENAL)
 
   # OPENAL_INCLUDE_DIR
 
-  find_path(OPENAL_INCLUDE_DIR
-    NAMES al.h
-    PATHS ${LIBS_PREBUILT_DIR}/include/AL
-    )
+  if (DARWIN)
+    set(OPENAL_INCLUDE_DIR "${LIBS_PREBUILT_DIR}/include/AL")        
+  else (DARWIN)
+    find_path(OPENAL_INCLUDE_DIR
+      NAMES al.h
+      PATHS ${LIBS_PREBUILT_DIR}/include/AL
+      )
+  endif (DARWIN)
 
   if (NOT OPENAL_INCLUDE_DIR)
     message(FATAL_ERROR "al.h not found!")
@@ -54,7 +62,13 @@ if (OPENAL)
      NAMES alut freealut
      PATHS ${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/release
      )
-  else (WINDOWS) 
+  elseif (DARWIN)
+    find_library( ALUT_LIB
+      NAMES alut.0
+      PATHS ${ARCH_PREBUILT_DIRS_RELEASE}
+      NO_DEFAULT_PATH
+      )
+  else (WINDOWS)
     set(ALUT_LIB alut)
   endif (WINDOWS)
 

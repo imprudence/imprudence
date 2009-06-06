@@ -6,7 +6,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -38,6 +38,11 @@
 #include "audioengine.h"
 #include "listener_openal.h"
 #include "windgen.h"
+
+#if 1
+#define WIND_BUFFER_SIZE_SEC 0.05f
+#endif
+
 
 class LLAudioEngine_OpenAL : public LLAudioEngine
 {
@@ -72,6 +77,9 @@ class LLAudioEngine_OpenAL : public LLAudioEngine
 	        int mNumEmptyWindALBuffers;
 
         	static const int MAX_NUM_WIND_BUFFERS = 80;
+#if 0
+        	static const float WIND_BUFFER_SIZE_SEC = 0.05f; // 1/20th sec
+#endif
 };
 
 class LLAudioChannelOpenAL : public LLAudioChannel

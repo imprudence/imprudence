@@ -2087,10 +2087,16 @@ class LLObjectMute : public view_listener_t
 		}
 		else
 		{
-			LLMuteList::getInstance()->add(mute);
-			LLFloaterMute::showInstance();
+			if( LLMute::AGENT == type )
+			{
+				LLMuteList::getInstance()->addMuteAgentConfirm(mute);
+			}
+			else
+			{
+				// must be an object.
+				LLMuteList::getInstance()->addMuteObjectConfirm(mute);
+			}
 		}
-		
 		return true;
 	}
 };
@@ -3262,7 +3268,7 @@ class LLViewFullscreen : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		gViewerWindow->toggleFullscreen(TRUE);
+		gViewerWindow->toggleFullscreenConfirm();
 		return true;
 	}
 };
@@ -4686,7 +4692,7 @@ class LLWorldTeleportHome : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		gAgent.teleportHome();
+		gAgent.teleportHomeConfirm();
 		return true;
 	}
 };
@@ -7352,7 +7358,7 @@ class LLEditTakeOff : public view_listener_t
 		}
 		else if (clothing == "all")
 		{
-			LLAgent::userRemoveAllClothes(NULL);
+			LLAgent::userRemoveAllClothesConfirm();
 		}
 		return true;
 	}

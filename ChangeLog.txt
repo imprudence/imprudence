@@ -30,13 +30,114 @@
 	Menu bar now only changes color for Aditi.
 	
 
+2009-06-01  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Mute in Profile window triggers confirmation dialog too.
+	
+	    modified:   linden/indra/newview/llpanelavatar.cpp
+
+
+	* Added confirmation dialogs for Mute from pie menu.
+	  Dialog is for muting avatars and objects from the pie menu only.
+
+	    modified:   linden/indra/newview/llmutelist.cpp
+	    modified:   linden/indra/newview/llmutelist.h
+	    modified:   linden/indra/newview/llviewermenu.cpp
+	    modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+
+
+2009-05-31  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Added a confirmation dialog for Take Off All Clothes.
+
+	    modified:   linden/indra/newview/llagent.cpp
+	    modified:   linden/indra/newview/llagent.h
+	    modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+
+
+2009-05-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llinventorybridge.cpp (buildContextMenu): 
+	Added a separator between Wear and Restore to Last Position.
+	* linden/indra/newview/skins/default/xui/en-us/menu_inventory.xml:
+	Ditto.
+
+
+	* linden/indra/newview/llinventorybridge.cpp:
+	Restore to Last Position has a confirmation dialog now.
+
+
+	* linden/indra/newview/llinventorybridge.cpp:
+	Added Restore to Last Position confirmation and callback methods.
+	  LLItemBridge::restoreToWorldConfirm()
+	  LLItemBridge::restoreToWorldCallback()
+	* linden/indra/newview/llinventorybridge.h: 
+	Ditto.
+
+
+	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
+	Added ConfirmRestoreToWorld alert text.
+
+
+	* linden/indra/newview/llpanellogin.cpp:
+	User-initiated Toggle Fullscreen has a confirmation dialog now.
+	That's in the View menu and also Alt+Enter at login screen.
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto.
+
+
+	* linden/indra/newview/llviewerwindow.cpp:
+	Added Toggle Fullscreen confirmation and callback methods.
+	  LLViewerWindow::toggleFullscreenConfirm()
+	  LLViewerWindow::toggleFullscreenCallback()
+	* linden/indra/newview/llviewerwindow.h (LLWindowCallbacks): 
+	Ditto.
+
+
+	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
+	Added ConfirmToggleFullscreen alert text.
+
+
+2009-05-24  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/llfloaterworldmap.cpp:
+	User-initiated Teleport Home has confirmation dialog.
+	That's in the World menu and on the world map.
+	* linden/indra/newview/llviewermenu.cpp:
+	Ditto.
+
+
+	* linden/indra/newview/llagent.cpp:
+	Added Teleport Home confirmation and callback methods.
+	  LLAgent::teleportHomeConfirm()
+	  LLAgent::teleportHomeCallback()
+	* linden/indra/newview/llagent.h: 
+	Ditto.
+
+
+	* linden/indra/newview/llagent.cpp:
+	Moved LLAgent::teleportHome() definition.
+	Was in llagent.h for no good reason, now in llagent.cpp.
+	* linden/indra/newview/llagent.h: 
+	Ditto.
+
+
+	* linden/indra/newview/skins/default/xui/en-us/alerts.xml:
+	Added ConfirmTeleportHome alert text.
+
+
+2009-05-16  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml:
+	Reverted Ctrl-D shortcut back to Edit > Duplicate.
+	No longer World > Create Landmark Here.
+
+
 2009-04-28  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/install.xml:
 	Fixed gstreamer plugins windows library.
 
-
-2009-04-28  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/cmake/CopyWinLibs.cmake:
 	Updated copy_win_libs for 1.1 RC3.
@@ -48,6 +149,43 @@
 	Applied Armin's gesture manager patch.
 	* linden/indra/newview/skins/default/xui/en-us/panel_chat_bar.xml: 
 	Ditto.
+
+
+2009-04-20  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llaudio/audioengine_openal.cpp:
+	Imported GreenLife Emerald Viewer's OpenAL code. It works!
+	* linden/indra/llaudio/audioengine_openal.h:
+	Ditto.
+
+
+	* linden/indra/newview/viewer_manifest.py:
+	We'll use libopenal.1.dylib after all (yet again).
+
+
+	* linden/indra/cmake/OPENAL.cmake:
+	Help (force) Mac find the right OpenAL lib and header dir.
+
+
+	* linden/install.xml:
+	Mac viewer uses Thomas Shikami's OpenAL libs.
+
+
+2009-04-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/llmedia/llmediaimplgstreamer.h:
+	LLMediaImplGStreamer::startPlay() is protected, LLGstPlayThread friend.
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Removed redundant play() from LLMediaImplGStreamer::navigateTo().
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	LLMediaImplGStreamer::play() is no-op if already playing.
+
+
+	* linden/indra/llmedia/llmediaimplgstreamer.cpp:
+	Removed some useless code from LLMediaImplGStreamer::startPlay().
 
 
 2009-04-17  McCabe Maxsted  <hakushakukun@gmail.com>
@@ -62,6 +200,26 @@
 	Updated Windows GLib url.
 	Updated Windows GStreamer url.
 	Updated Windows libpng url.
+
+
+2009-04-10  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* linden/indra/newview/viewer_manifest.py:
+	Added libneon to Mac manifest.
+
+
+	* linden/indra/cmake/OPENAL.cmake:
+	Help Mac find the right libalut.0.dylib.
+
+
+	* linden/indra/cmake/GStreamer.cmake:
+	Help Mac find the right libxml2.2.dylib.
+
+
+	* linden/indra/newview/viewer_manifest.py:
+	Tweaked Mac lib manifest.
+	Removed pango, commented out libopenal, added libxml2.
+
 
 
 2009-04-06  Jacek Antonelli  <jacek.antonelli@gmail.com>

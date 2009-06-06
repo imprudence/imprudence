@@ -4612,6 +4612,27 @@ void LLViewerWindow::initFonts(F32 zoom_factor)
 				    gDirUtilp->getAppRODataDir()
 				    );
 }
+
+
+void LLViewerWindow::toggleFullscreenConfirm()
+{
+	gViewerWindow->alertXml("ConfirmToggleFullscreen",
+	                        LLViewerWindow::toggleFullscreenCallback,
+	                        (void *)this);
+}
+
+
+// static
+void LLViewerWindow::toggleFullscreenCallback(S32 option, void *userdata)
+{
+	if( option == 0 )
+	{
+		// User confirmed it. Here we go!
+		((LLViewerWindow *)userdata)->toggleFullscreen( TRUE );
+	}
+}
+
+
 void LLViewerWindow::toggleFullscreen(BOOL show_progress)
 {
 	if (mWindow)

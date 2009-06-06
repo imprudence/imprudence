@@ -338,6 +338,8 @@ public:
 
 	// Request display setting changes	
 	void			toggleFullscreen(BOOL show_progress);
+	void			toggleFullscreenConfirm();
+	static void	toggleFullscreenCallback(S32 option, void *userdata);
 
 	// handle shutting down GL and bringing it back up
 	BOOL			checkSettings();

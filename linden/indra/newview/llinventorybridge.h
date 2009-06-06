@@ -244,7 +244,11 @@ public:
 
 	virtual void selectItem();
 	virtual void restoreItem();
+
 	virtual void restoreToWorld();
+	virtual void restoreToWorldConfirm();
+	static  void restoreToWorldCallback(S32 option, void *userdata);
+
 
 	virtual LLUIImagePtr getIcon() const;
 	virtual const std::string& getDisplayName() const;
