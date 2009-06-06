@@ -1,3 +1,11 @@
+2009-06-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed "Take" on the object pie menu not working.
+
+	    modified: linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml:
+
+
+
 2009-06-05  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* linden/indra/newview/llfloatersnapshot.cpp:
