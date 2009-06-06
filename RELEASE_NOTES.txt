@@ -4,6 +4,146 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                         1.1.0                          -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   KNOWN ISSUES
+
+     * Mac users may have problems playing some music or video
+       streams.
+
+     * Local Chat (aka. Chat History) still stops automatically
+       scrolling down to show new chat if you click it at the same
+       time as a new line of chat arrives. Manually scrolling down to
+       the bottom will start it autoscrolling again.
+
+     * If you come within range of a looped sound while your volume is
+       muted, the sound won't play when you unmute your volume. As a
+       workaround, move out of range of the sound and then back again
+       to trigger it to play.
+
+
+   CHANGES
+
+     This version of Imprudence includes the following changes (as
+     compared to Imprudence 1.1.0 RC2).
+
+
+     VERSION HIGHLIGHTS
+
+       * Mac Version! Thanks, Jacek!
+         (And Thomas Shikami for his OpenAL help!)
+
+       * Improved pie menus! (Again.) Thanks, McCabe!
+
+       * Improved sound, music, and video support!
+         Thanks, McCabe and Jacek!
+
+
+     UI
+
+       * The Pie Menus have been reorganized again in response to user
+         feedback. Thanks, McCabe!
+
+          - Check out the Pie Menus wiki page for pictures and
+            descriptions of all the changes! 
+            <http://imprudenceviewer.org/wiki/Pie_Menus>
+
+       * Ctrl-D has been reverted to Edit > Duplicate. (It had been
+         assigned to World > Create Landmark Here since 1.1.0 RC1.)
+         Thanks, Jacek!
+
+       * Added several optional confirmation dialogs (i.e. "Are you
+         sure?" popups). Thanks, Jacek!
+
+          - Teleport Home (via keyboard shortcut, the World menu, or
+            Map window)
+
+          - Toggle Fullscreen (via keyboard shortcut or the View menu)
+
+          - Take Off All Clothes (via the Edit menu or the pie menu)
+
+          - Restore to Last Position (via the inventory context menu)
+
+          - Mute avatars or objects (via the pie menu or the avatar's
+            Profile)
+
+          - Note: All of these can be disabled by checking the
+            appropriate box the first time they appear.
+
+       * Added a separator bar between "Wear" and "Restore to Last
+         Position" on the inventory context menu. Thanks, Jacek!
+
+       * You can now access the Gestures manager window from the chat
+         bar. (IMP-116). Thanks, Armin Weatherwax!
+
+       * The top menu bar no longer turns red when connecting to
+         third-party grids. Thanks, McCabe!
+
+       * The login screen now shows pretty pictures like the SL viewer
+         does. It will display something Imprudence-specific in the
+         future. Thanks, Jacek!
+
+
+     BUG FIXES
+
+       * Fixed PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS not being
+         highlighted in the script editor (VWR-8454). Thanks, McCabe!
+
+       * Fixed a crash when uploading files with non-ASCII characters
+         in path on Linux (VWR-5575). Thanks for the patch, Alissa
+         Sabre!
+
+       * Fixed two small memory leaks when uploading LSL scripts
+         (VWR-9400). Thanks for the patches, Carjay McGinnis and Henri
+         Beauchamp!
+
+       * Fixed the "Pay Object" mouse cursor for Linux (it had been
+         showing the "Play Media" cursor) (VWR-10829). Thanks, Jacek!
+
+       * Fixed the "High Resolution Snapshot" checkbox being visible
+         in cases where it shouldn't have been. Thanks, McCabe!
+
+       * Backported several bug fixes from the SL 1.22 viewer. Thanks,
+         McCabe!
+
+          - Fixed: Wrong visualisation of animations (VWR-996).
+            Thanks, Unknown Linden!
+
+          - Fixed: Reset Scripts in Selection failed if the parent
+            object had no scripts (SVC-2771). Thanks, Si Linden!
+
+          - Fixed: Prim position appears to be wrong (VWR-3871).
+            Thanks, Unknown Linden!
+
+          - Fixed: Possible crash in llfloater.cpp.
+            Thanks, Unknown Linden!
+
+          - Fixed: Possible crash while changing graphics settings.
+            Thanks, Unknown Linden!
+
+          - Fixed: No way to hide IMs in chat console (VWR-3060).
+            Thanks for the patch, Henri Beauchamp!
+
+          - Fixed: Texture decoder would try to decode more texture
+            channels than the texture had (VWR-4070). Thanks for the
+            patch, Carjay McGinnis!
+
+
+     MISC.
+
+       * Sounds are no longer downloaded if the volume slider is muted
+         or zero, to conserve bandwidth, etc. (VWR-11674). Thanks for
+         the patch, Zwagoth Klaar!
+
+       * Tons of work under the hood on GStreamer and OpenAL. You
+         deserve gold medals, McCabe and Jacek!
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                       1.1.0 RC2                        -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
