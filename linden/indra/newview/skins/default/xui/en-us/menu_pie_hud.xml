@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<pie_menu name="Hud Pie">
-	<menu_item_call enabled="false" label="Detach" mouse_opaque="true" name="Detach">
-		<on_click function="Attachment.Detach" />
-		<on_enable function="Attachment.EnableDetach" />
-	</menu_item_call>
-   <menu_item_separator />
-  <menu_item_call enabled="false" label="Touch" mouse_opaque="true" name="Attachment Touch">
-    <on_click function="Object.Touch" />
-    <on_enable function="Attachment.EnableTouch" userdata="Touch" />
+<pie_menu name="HUD Pie">
+  <menu_item_call enabled="false" label="Drop" mouse_opaque="true" name="Drop">
+      <on_click function="Attachment.Drop" />
+      <on_enable function="Attachment.EnableDrop" />
   </menu_item_call>
-   <menu_item_separator />
-   <menu_item_separator />
-   <menu_item_separator />
-	<menu_item_call enabled="false" label="Edit..." mouse_opaque="true" name="Edit...">
-		<on_click function="Object.Edit" />
-		<on_enable function="EnableEdit" />
-	</menu_item_call>
-   <menu_item_call enabled="false" label="Drop" mouse_opaque="true" name="Drop">
-     <on_click function="Attachment.Drop" />
-     <on_enable function="Attachment.EnableDrop" />
-   </menu_item_call>
+  <menu_item_separator />
+  <menu_item_call enabled="false" label="Touch" mouse_opaque="true" name="Object Touch">
+      <on_click function="Object.Touch" />
+      <on_enable function="Object.EnableTouch" userdata="Touch" />
+  </menu_item_call>
+  <menu_item_separator />
+  <menu_item_call enabled="true" label="Inspect" mouse_opaque="true" name="Object Inspect">
+      <on_click function="Object.Inspect" />
+      <on_enable function="Object.EnableInspect" />
+  </menu_item_call>
+  <menu_item_separator />
+  <menu_item_call enabled="false" label="Detach" mouse_opaque="true" name="Detach">
+      <on_click function="Attachment.Detach" />
+      <on_enable function="Attachment.EnableDetach" />
+  </menu_item_call>
+  <menu_item_call enabled="false" label="Edit..." mouse_opaque="true" name="Edit...">
+      <on_click function="Object.Edit" />
+      <on_enable function="EnableEdit" />
+  </menu_item_call>
 </pie_menu>

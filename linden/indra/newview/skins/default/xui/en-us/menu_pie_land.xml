@@ -20,12 +20,12 @@
 		<on_click function="Land.BuyPass" />
 		<on_enable function="Land.EnableBuyPass" />
 	</menu_item_call>
+  <menu_item_call enabled="false" label="Buy Land..." mouse_opaque="true" name="Land Buy">
+    <on_click function="ShowFloater" userdata="buy land" />
+    <on_enable function="World.EnableBuyLand" />
+  </menu_item_call>
 	<menu_item_call enabled="false" label="Edit Terrain" mouse_opaque="true" name="Edit Terrain">
 		<on_click function="Land.Edit" />
 		<on_enable function="EnableEdit" />
-	</menu_item_call>
-	<menu_item_call enabled="false" label="Buy Land..." mouse_opaque="true" name="Land Buy">
-		<on_click function="ShowFloater" userdata="buy land" />
-		<on_enable function="World.EnableBuyLand" />
 	</menu_item_call>
 </pie_menu>
