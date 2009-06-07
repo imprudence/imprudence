@@ -1,5 +1,11 @@
 2009-06-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Updated version/copyright info for Mac version.
+
+	    modified: linden/indra/newview/English.lproj/InfoPlist.strings
+	    modified: linden/indra/newview/Info-Imprudence.plist
+
+
 	* Set version to 1.1.0 (not RC).
 
 	    modified: linden/indra/llcommon/llversionviewer.h
