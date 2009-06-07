@@ -1,3 +1,8 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                         1.1.0                          -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
 2009-06-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Updated version/copyright info for Mac version.
