@@ -26,10 +26,16 @@ def get_version(filename):
     vals['minor'] = m.group(1)
     m = re.search('const S32 IMP_VERSION_PATCH = (\d+);', data)
     vals['patch'] = m.group(1)
-    m = re.search('const char \* const IMP_VERSION_TEST = "(.+)";', data)
+    m = re.search('const char \* const IMP_VERSION_TEST = "(.*)";', data)
     vals['test'] = m.group(1)
 
-    return "%(major)s.%(minor)s.%(patch)s-%(test)s" % vals
+    version = "%(major)s.%(minor)s.%(patch)s" % vals
+
+    if len(vals['test']) > 0:
+        version += "-%(test)s" % vals
+
+    return version
+
 
 if __name__ == '__main__':
     import sys

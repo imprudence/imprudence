@@ -1,5 +1,11 @@
 2009-06-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Improved regex and formatting in build_version.py.
+	  Handles empty test version strings better.
+
+	    modified: linden/scripts/build_version.py
+
+
 	* Pie menu for HUD and Attachment should use "Attachment Touch".
 
 	    modified: linden/indra/newview/skins/default/xui/en-us/menu_pie_attachment.xml
