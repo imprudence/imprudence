@@ -1,5 +1,11 @@
 2009-06-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Pie menu for HUD and Attachment should use "Attachment Touch".
+
+	    modified: linden/indra/newview/skins/default/xui/en-us/menu_pie_attachment.xml
+	    modified: linden/indra/newview/skins/default/xui/en-us/menu_hud_attachment.xml
+
+
 	* Fixed "Take" on the object pie menu not working.
 
 	    modified: linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml:
