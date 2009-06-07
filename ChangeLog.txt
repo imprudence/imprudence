@@ -1,5 +1,10 @@
 2009-06-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Set version to 1.1.0 (not RC).
+
+	    modified: linden/indra/llcommon/llversionviewer.h
+
+
 	* Improved regex and formatting in build_version.py.
 	  Handles empty test version strings better.
 
