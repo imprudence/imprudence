@@ -1207,25 +1207,11 @@ anguage Infrstructure (CLI) international standard</string>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.2-darwin-20080812.tar.bz2</uri>
           </map>
           <key>linux</key>
-          <map>
-            <key>md5sum</key>
-            <string>c333219c88462b8b22c815cd2b700218</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.2-linux-20080812.tar.bz2</uri>
-          </map>
-          <key>linux32</key>
-          <map>
-            <key>md5sum</key>
-            <string>dc1f50c6570cef2d45d40ccc7ac76013</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.2.0-linux-i686-gcc-4.1-20080919.tar.bz2</uri>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>44f1bc9d47e4a54fc274c213f2cb565f</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.2.0-linux64-20080909.tar.bz2</uri>
+	  <map>
+		  <key>md5sum</key>
+		  <string>02af0dad64803e0d821bc09e6038682c</string>
+		  <key>url</key>
+		<uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.3-linux-20081124b.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
