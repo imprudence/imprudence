@@ -64,7 +64,6 @@ LLTool::~LLTool()
 	}
 }
 
-
 BOOL LLTool::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (gDebugClicks)
@@ -122,6 +121,20 @@ BOOL LLTool::handleRightMouseUp(S32 x, S32 y, MASK mask)
 {
 	// by default, didn't handle it
 	// llinfos << "LLTool::handleRightMouseDown" << llendl;
+	return FALSE;
+}
+ 
+BOOL LLTool::handleMiddleMouseDown(S32 x,S32 y,MASK mask)
+{
+	// by default, didn't handle it
+	// llinfos << "LLTool::handleMiddleMouseDown" << llendl;
+	return FALSE;
+}
+
+BOOL LLTool::handleMiddleMouseUp(S32 x, S32 y, MASK mask)
+{
+	// by default, didn't handle it
+	// llinfos << "LLTool::handleMiddleMouseUp" << llendl;
 	return FALSE;
 }
 
