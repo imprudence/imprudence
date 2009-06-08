@@ -4211,12 +4211,7 @@ class LLToolsStopAllAnimations : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLVOAvatar* avatarp = gAgent.getAvatarObject();		
-		if (avatarp)
-		{
-			avatarp->deactivateAllMotions();	
-			avatarp->startDefaultMotions();
-		}
+		gAgent.stopCurrentAnimations();
 		return true;
 	}
 };

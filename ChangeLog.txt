@@ -40,6 +40,18 @@
 		
 		modified:   linden/indra/cmake/CopyWinLibs.cmake
 		modified:   linden/install.xml
+		
+		
+2009-04-22  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llagent.cpp: 
+	Backported fix from 1.23 for stop animations only being local (VWR-2850).
+	* linden/indra/newview/llagent.h: 
+	Ditto.
+	* linden/indra/newview/llviewermenu.cpp: 
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml: 
+	Ditto.
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
