@@ -40,6 +40,18 @@
 		
 		modified:   linden/indra/cmake/CopyWinLibs.cmake
 		modified:   linden/install.xml
+
+
+2009-04-26  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* linden/indra/newview/llfloaterbuyland.cpp: 
+	Backported L$/sq meter info from 1.23.
+	* linden/indra/newview/llfloaterland.cpp: 
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_about_land.xml: 
+	Ditto.
+	* linden/indra/newview/skins/default/xui/en-us/floater_buy_land.xml: 
+	Ditto.
 		
 		
 2009-04-22  McCabe Maxsted  <hakushakukun@gmail.com>

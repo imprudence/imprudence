@@ -86,13 +86,15 @@
 	</text>
 	<text bottom_delta="-5" follows="top|left" font="SansSerif" height="16" left_delta="50"
 	     name="info_price" right="400" >
-		L$ 1500, objects included
+		L$ 1500
+		(L$ 1.1/sq.m.)
+		sold with objects
 	</text>
 	<text bottom="-180" follows="top|left" font="SansSerifHuge" height="24" left="16"
 	     name="info_action" width="200">
 		Buying this land will:
 	</text>
-	<pad height="10" />
+	<pad height="6" />
 	<icon follows="top|left" height="64" image_name="badge_note.j2c" left="0"
 	     name="step_error" width="64" />
 	<text bottom_delta="-110" follows="top|left" height="160" left="72"
@@ -266,6 +268,14 @@ supports [AMOUNT2] objects
 	</string>
 	<string name="sold_with_objects">
 		sold with objects
+	</string>
+	<string name="sold_without_objects">
+		objects not included
+	</string>
+	<string name="info_price_string">
+		L$ [PRICE]
+(L$ [PRICE_PER_SQM]/sq.m.)
+[SOLD_WITH_OBJECTS]
 	</string>
 	<string name="insufficient_land_credits">
 		The group [GROUP] will need sufficient contributed land use 
