@@ -692,9 +692,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>055ff15814c5f5cc09b0a9891ca7c90a</string>
+            <string>dfd86beda3a27a8bfe9f9c0a3ed0bd80</string>
             <key>url</key>
-            <uri>http://imprudence.s3.amazonaws.com/extras/iconv-1.9.2-windows-01262009.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/iconv-1.9.2-windows-20090608.tar.bz2</uri>
           </map>
         </map>
       </map>

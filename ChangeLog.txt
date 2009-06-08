@@ -26,6 +26,7 @@
 		
 	* Removed old linden glib entry that was interfering.
 	* Updated windows zlib archive.
+	* Updated windows iconv archive.
 		
 		modified:   linden/install.xml
 
