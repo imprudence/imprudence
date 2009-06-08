@@ -3,6 +3,13 @@
 	* Updated Imprudence to be based on SL 1.22.11.
 
 
+	McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed CopyWinLibs.CMake errors.
+	
+		modified:   linden/indra/cmake/CopyWinLibs.cmake
+		modified:   linden/install.xml
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                         1.1.0                          -=

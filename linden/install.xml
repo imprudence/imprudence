@@ -1390,13 +1390,6 @@ anguage Infrstructure (CLI) international standard</string>
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/vivox-2.1.3010.6151-linux-20090218.tar.bz2</uri>
           </map>
-          <key>windows</key>
-          <map>
-            <key>md5sum</key>
-            <string>311bedab0abbd3a0ddf07216711af0ea</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/vivox-2.1.3010.6151-windows-20090218.tar.bz2</uri>
-          </map>
         </map>
       </map>
       <key>xmlrpc-epi</key>

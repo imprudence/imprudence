@@ -172,15 +172,6 @@ copy_if_different(
     )
 set(all_targets ${all_targets} ${out_targets})
 
-set(vivox_src_dir "${CMAKE_SOURCE_DIR}/newview/vivox-runtime/i686-win32")
-set(vivox_files
-    SLVoice.exe
-    alut.dll
-    vivoxsdk.dll
-    ortp.dll
-    wrap_oal.dll
-    )
-
 set(debug_src_dir "${CMAKE_SOURCE_DIR}/../libraries/i686-win32/lib/debug")
 set(debug_files
     alut.dll
@@ -253,14 +244,6 @@ copy_if_different(
     "${CMAKE_CURRENT_BINARY_DIR}/Debug"
     out_targets 
     ${debug_files}
-    )
-set(all_targets ${all_targets} ${out_targets})
-
-copy_if_different(
-    ${vivox_src_dir} 
-    "${CMAKE_CURRENT_BINARY_DIR}/Debug"
-    out_targets 
-    ${vivox_files}
     )
 set(all_targets ${all_targets} ${out_targets})
 
@@ -339,14 +322,6 @@ copy_if_different(
 set(all_targets ${all_targets} ${out_targets})
 
 copy_if_different(
-    ${vivox_src_dir} 
-    "${CMAKE_CURRENT_BINARY_DIR}/Release"
-    out_targets 
-    ${vivox_files}
-    )
-set(all_targets ${all_targets} ${out_targets})
-
-copy_if_different(
     ${release_src_dir} 
     "${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo"
     out_targets 
@@ -354,43 +329,6 @@ copy_if_different(
     )
 set(all_targets ${all_targets} ${out_targets})
 
-copy_if_different(
-    ${vivox_src_dir} 
-    "${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo"
-    out_targets 
-    ${vivox_files}
-    )
-set(all_targets ${all_targets} ${out_targets})
-
-
-# Copy MS C runtime dlls, required for packaging.
-# *TODO - Adapt this to support VC9
-if (MSVC80)
-    FIND_PATH(debug_msvc8_redist_path msvcr80d.dll
-        PATHS
-        [HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\VisualStudio\\8.0\\Setup\\VC;ProductDir]/redist/Debug_NonRedist/x86/Microsoft.VC80.DebugCRT
-        )
-
-    if(EXISTS ${debug_msvc8_redist_path})
-        set(debug_msvc8_files
-            msvcr80d.dll
-            msvcp80d.dll
-            Microsoft.VC80.DebugCRT.manifest
-            )
-
-        copy_if_different(
-            ${debug_msvc8_redist_path} 
-            "${CMAKE_CURRENT_BINARY_DIR}/Debug"
-            out_targets 
-            ${debug_msvc8_files}
-            )
-        set(all_targets ${all_targets} ${out_targets})
-    endif (EXISTS ${debug_msvc8_redist_path})
-
-    FIND_PATH(release_msvc8_redist_path msvcr80.dll
-        PATHS
-        [HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\VisualStudio\\8.0\\Setup\\VC;ProductDir]/redist/x86/Microsoft.VC80.CRT
-        )
 
 # Copy MS C runtime dlls, required for packaging.
 # *TODO - Adapt this to support VC9
