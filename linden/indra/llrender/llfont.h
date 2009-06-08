@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -72,6 +72,7 @@ public:
 	S32 mHeight;		// In pixels
 	F32 mXAdvance;		// In pixels
 	F32 mYAdvance;		// In pixels
+	BOOL mMetricsValid; // We have up-to-date metrics for this glyph
 
 	// Information for actually rendering
 	BOOL mIsRendered;	// We actually have rendered this glyph

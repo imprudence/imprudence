@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <notifications>
 	<notify name="SystemMessageTip">
 		<message name="message">
@@ -74,7 +74,7 @@
 	</notify>
 	<notify name="InMaxGroups">
 		<message name="message">
-			あなたはすでに最大限の数のグループに属しています。 1つのグループから抜けないと新しいグループを作ることはできません。
+			あなたは所属できる最大数のグループにすでに属しています。 グループをどれか1つ抜けないと新しいグループを作ることはできません。
 		</message>
 	</notify>
 	<notify name="GestureMissing">
@@ -148,9 +148,8 @@
 	</notify>
 	<notify name="IncompleteInventory">
 		<message name="message">
-			あなたの提供するコンテンツは、この場所ではまだ
-全部揃いません。 少ししてから、もう一度
-試してください。
+			あなたの提供するコンテンツは、この場所ではまだ全部揃いません。 
+少ししてからもう一度試してください。
 		</message>
 	</notify>
 	<notify name="CannotModifyProtectedCategories">
@@ -165,12 +164,12 @@
 	</notify>
 	<notify name="OfferedCard">
 		<message name="message">
-			あなたは[FIRST] [LAST]にコーリング・カードを贈りました。
+			あなたは[FIRST] [LAST]にコーリング・カードを送りました。
 		</message>
 	</notify>
 	<notify name="OfferedFriendship">
 		<message name="message">
-			あなたは[FIRST] [LAST]にフレンドシップを贈りました。
+			あなたは[FIRST] [LAST]にフレンドシップを送りました。
 		</message>
 	</notify>
 	<notify name="UnableToBuyWhileDownloading">
@@ -342,15 +341,13 @@
 	<notify name="OtherObjectsReturned">
 		<message name="message">
 			選択されている土地の区画上にあった
- [FIRST] [LAST]が所有するオブジェクトは 
-オーナーの持ち物に返却されました。
+ [FIRST] [LAST]が所有するオブジェクトはオーナーの持ち物に返却されました。
 		</message>
 	</notify>
 	<notify name="OtherObjectsReturned2">
 		<message name="message">
 			選択された土地の区画上にあり、住人の
-[NAME]の所有だったオブジェクトは
-オーナーに返却されました。
+[NAME]の所有だったオブジェクトはオーナーに返却されました。
 		</message>
 	</notify>
 	<notify name="GroupObjectsReturned">
@@ -379,8 +376,8 @@
 	</notify>
 	<notify name="PushRestricted">
 		<message name="message">
-			この土地は「llPushObjectを制限」です。
-土地所有者でない限り、ここで他人をプッシュすることはできません。
+			この土地では「プッシング禁止」です。 
+土地所有者以外はここで他人をプッシュすることはできません。
 		</message>
 	</notify>
 	<notify name="VoiceAvailablity">
@@ -395,7 +392,7 @@
 	</notify>
 	<notify name="NoBuild">
 		<message name="message">
-			この土地は建造無効（「建造不可」）に設定されています。
+			この土地はオブジェクトの作成禁止に設定されています。
 ここでオブジェクトを作ることはできません。
 		</message>
 	</notify>
@@ -406,7 +403,7 @@
 	</notify>
 	<notify name="ScriptsNotRunning">
 		<message name="message">
-			この地域はスクリプトを1つも起動していません。
+			この地域ではスクリプトの使用が禁止されています
 		</message>
 	</notify>
 	<notify name="NoOutsideScripts">
@@ -435,44 +432,44 @@
 	</notify>
 	<notify name="ObjectGiveItem">
 		<message name="message">
-			[FIRST] [LAST]が所有している[OBJECTFROMNAME]と名付けられたオブジェクトが、あなたに[OBJECTNAME]という[OBJECTTYPE]を与えました。
+			[FIRST] [LAST]所有の[OBJECTFROMNAME]から、[OBJECTNAME]という[OBJECTTYPE]が送られてきました。
 		</message>
 		<option name="Keep">
-			維持
+			受け取る
 		</option>
 		<option name="Discard">
 			破棄
 		</option>
 		<option name="Mute">
-			ミュート
+			無視リストへ
 		</option>
 	</notify>
 	<notify name="ObjectGiveItemUnknownUser">
 		<message name="message">
-			(未知のユーザー) が所有している[OBJECTFROMNAME]と名付けられたオブジェクトが、あなたに[OBJECTNAME]という[OBJECTTYPE]を与えました。
+			(未知のユーザー) 所有の[OBJECTFROMNAME]から、あなたに[OBJECTNAME]という[OBJECTTYPE]が送られてきました。
 		</message>
 		<option name="Keep">
-			維持
+			受け取る
 		</option>
 		<option name="Discard">
 			破棄
 		</option>
 		<option name="Mute">
-			ミュート
+			無視リストへ
 		</option>
 	</notify>
 	<notify name="UserGiveItem">
 		<message name="message">
-			[NAME]は、あなたに[OBJECTNAME]という名前の[OBJECTTYPE]を与えました。
+			[NAME]は、あなたに[OBJECTNAME]という名前の[OBJECTTYPE]を渡しました。
 		</message>
 		<option name="Keep">
-			維持
+			受け取る
 		</option>
 		<option name="Discard">
 			破棄
 		</option>
 		<option name="Mute">
-			ミュート
+			無視リストへ
 		</option>
 	</notify>
 	<notify name="GodMessage">
@@ -492,13 +489,12 @@
 			辞退
 		</option>
 		<option name="Info">
-			インフォ
+			情報
 		</option>
 	</notify>
 	<notify name="JoinGroupOfficerNoFee">
 		<message name="message">
-			[NAME]は、あなたをオフィサー
-としてグループに招待しています。
+			[NAME]は、あなたをオフィサーとしてグループに招待しています。
 参加費用はかかりません。
  
 [MESSAGE]
@@ -510,14 +506,13 @@
 			辞退
 		</option>
 		<option name="Info">
-			インフォ
+			情報
 		</option>
 	</notify>
 	<notify name="JoinGroupMember">
 		<message name="message">
 			[NAME]は、あなたを一般メンバーとしてグループに招待しています。
-グループへの参加費用はL$[COST]
-です。
+グループへの参加費用はL$[COST]です。
 [MESSAGE]
 		</message>
 		<option name="Join">
@@ -527,7 +522,7 @@
 			辞退
 		</option>
 		<option name="Info">
-			インフォ
+			情報
 		</option>
 	</notify>
 	<notify name="JoinGroupMemberNoFee">
@@ -544,13 +539,12 @@
 			辞退
 		</option>
 		<option name="Info">
-			インフォ
+			情報
 		</option>
 	</notify>
 	<notify name="OfferTeleport">
 		<message name="message">
-			[NAME]はあなたをテレポート
-で呼び寄せようとしています：
+			[NAME]はあなたをテレポートで呼び寄せようとしています：
  
 [MESSAGE]
 		</message>
@@ -575,7 +569,7 @@
 	</notify>
 	<notify name="OfferFriendship">
 		<message name="message">
-			[NAME]は、フレンドを贈っています。
+			[NAME]は、フレンド 登録を申し込んでいます。
  
 [MESSAGE]
  
@@ -590,7 +584,7 @@
 	</notify>
 	<notify name="OfferFriendshipNoMessage">
 		<message name="message">
-			[NAME]は、フレンドシップを贈っています。
+			[NAME]は、フレンド 登録を申し込んでいます。
 
 (デフォルトでお互いのオンライン・ステータスを見ることができるようになります。)
 		</message>
@@ -603,17 +597,17 @@
 	</notify>
 	<notify name="FriendshipAccepted">
 		<message name="message">
-			[NAME]は、フレンドシップを受け入れました。
+			[NAME]は、フレンド 登録を受け入れました。
 		</message>
 	</notify>
 	<notify name="FriendshipDeclined">
 		<message name="message">
-			[NAME]は、フレンドシップを断りました。
+			[NAME]は、フレンド 登録を断りました。
 		</message>
 	</notify>
 	<notify name="OfferCallingCard">
 		<message name="message">
-			[FIRST] [LAST]がコーリング・カードを贈っています。
+			[FIRST] [LAST]がコーリング・カードを送ってきています。
 これにより、あなたの持ち物にブックマークが追加され、
 この住人にすばやくIMすることができます。
 		</message>
@@ -626,14 +620,14 @@
 	</notify>
 	<notify name="RegionRestartMinutes">
 		<message name="message">
-			この地域は[MINUTES]分後にリスタートされます。
-この地域の外に出ないと、強制ログアウトになります。
+			この地域は[MINUTES]分後に再起動されます。
+強制ログアウトとなりますので、この地域の外に出てください。
 		</message>
 	</notify>
 	<notify name="RegionRestartSeconds">
 		<message name="message">
-			この地域は[SECONDS]秒後にリスタートされます。
-この地域の外に出ないと、強制ログアウトになります。
+			この地域は[SECONDS]秒後に再起動されます。
+強制ログアウトとなりますので、この地域の外に出てください。
 		</message>
 	</notify>
 	<notify name="LoadWebPage">
@@ -699,7 +693,7 @@
 	</notify>
 	<notify name="AttachToYourAvatar">
 		<message name="message">
-			あなたのアバターに添付
+			あなたのアバターに装着
 		</message>
 	</notify>
 	<notify name="ReleaseOwnership">
@@ -746,7 +740,7 @@
 			いいえ
 		</option>
 		<option name="Mute">
-			ミュート
+			無視リストに追加
 		</option>
 	</notify>
 	<notify name="ScriptQuestionCautionChatGranted">
@@ -769,7 +763,7 @@
 			&apos;[OBJECTNAME]&apos;が所有するオブジェクト&apos;[NAME]&apos;は、次のことを求めています：
  
 [QUESTIONS]
-このオブジェクトと制作者を、あなたが信用しない場合は、リクエストを拒否してください。追加情報は、詳細ボタンをクリックしてください。
+このオブジェクトと制作者が信用できない場合は、リクエストを拒否してください。追加情報は、詳細ボタンをクリックしてください。
 
 このリクエストを許可しますか？
 		</message>
@@ -803,17 +797,15 @@
 	</notify>
 	<notify name="FirstBalanceIncrease">
 		<message name="message">
-			今、L$[AMOUNT]を受け取りました。
-オブジェクトと他のユーザーがあなたにお金を払う
-かもしれません。あなたの残高は
-画面の右上に表示されています。
+			L$[AMOUNT]を受け取りました。
+オブジェクトおよび他のユーザーがあなたにお金を支払ったようです。
+あなたの残高は画面の右上に表示されて います。
 		</message>
 	</notify>
 	<notify name="FirstBalanceDecrease">
 		<message name="message">
-			今、L$[AMOUNT]を支払いました。
-あなたの残高は画面の右上に
-表示されています。
+			L$[AMOUNT]を支払いました。
+あなたの残高は画面の右上に表示されて います。
 		</message>
 	</notify>
 	<notify name="FirstSit">
@@ -850,49 +842,47 @@
 	<notify name="FirstTeleport">
 		<message name="message">
 			この地域では、ポイント間のテレポートが認められていませんので、最も近いテレハブ周辺に移動しました。 
-あなたの目的地は、大きなビーコンで標されています。赤い矢印に続いて進むとビーコンへ辿り着きます。
-矢印をクリックするとビーコンを消せます
+あなたの目的地は、大きな標識（ビーコン）で表示されています。赤い矢印に向かって進むと標識（ビーコン）へ辿り着きます。
+矢印をクリックすると標識（ビーコン）を消せます
 		</message>
 	</notify>
 	<notify name="FirstOverrideKeys">
 		<message name="message">
 			あなたの移動キーをオブジェクトが操作しています。  
 矢印かAWSDのキーで動作を確認してください。  
-銃などのオブジェクトだと、マウスルックに移行する必要があります。 
-Mキーを押して移行します。
+銃などのオブジェクトだと、一人称視点（マウスルック）に変更する必要があります。 
+Mキーを押して変更します。
 		</message>
 	</notify>
 	<notify name="FirstAppearance">
 		<message name="message">
 			あなたは容姿を編集中です。  
 回転、ズームするには矢印キーを使います。 
-編集が終わったら[全てを保存]をクリックして
-容姿を保存し、終了します。  
+編集が終わったら[すべて保存]をクリックして容姿を保存し、終了します。  
 容姿の編集は何度でも行えます。
 		</message>
 	</notify>
 	<notify name="FirstInventory">
 		<message name="message">
-			これは、オブジェクト、ノートカード、服、その他の所有物がすべて入った持ち物です。
-*オブジェクトや服装フォルダを装着するには、マウスでアバターにドラッグします。
-*オブジェクトを世界に持ち込むには、地面の上にドラッグします。
+			これは、オブジェクト、ノートカード、服、その他あなたの所有物がすべて入った「持ち物」です。
+*マウスでアバターにオブジェクトや服装フォルダをドラッグして装着します。
+*オブジェクトを地面の上にドラッグすると、周囲の世界に表示させます。（Rez）
 *ノートカードを読むには、ダブルクリックします。
 		</message>
 	</notify>
 	<notify name="FirstSandbox">
 		<message name="message">
 			ここはサンドボックスです。
-あなたがここで作ったオブジェクトはあなたが
-立ち去った後、削除されるかもしれません。サンドボックスは定期的に清掃されます。詳細については、画面上部、地域名の隣の情報を参照してください。
+あなたがここで作ったオブジェクトはあなたが立ち去った後、削除されるかもしれません。サンドボックスは定期的に清掃されます。詳細については、画面上部、地域名の隣の情報を参照してください。
  
-サンドボックスは一般的でなく、目印のサインがついています。.
+サンドボックスは特別なエリアで、目印のサインがついています。
 		</message>
 	</notify>
 	<notify name="FirstFlexible">
 		<message name="message">
 			このオブジェクトは フレキシブルです。 
-フレキシブル・チェックボックスのチェックが外されるまでは、オブジェクトは
-物理的でなくファントムでなければなりません。
+フレキシブル・チェックボックスのチェックが外されるまでは、
+オブジェクトは物理的でなくファントムでなければなりません。
 		</message>
 	</notify>
 	<notify name="FirstDebugMenus">
@@ -904,9 +894,9 @@ Mキーを押して移行します。
 	</notify>
 	<notify name="FirstSculptedPrim">
 		<message name="message">
-			変形されたプリムを編集しています。  
-変形されたプリムは、形状を指定するための特別なテクスチャーが必要です。  
-持ち物ライブラリで、変形されたテクスチャーのサンプルを参照できます。
+			スカルプトプリムを編集しています。  
+スカルプトプリムは、形状を指定するための特別なテクスチャーが必要です。  
+持ち物ライブラリで、スカルプトテクスチャーのサンプルを参照できます。
 		</message>
 	</notify>
 	<notify name="FirstMedia">
@@ -916,8 +906,7 @@ Mキーを押して移行します。
 	</notify>
 	<notify name="MaxListSelectMessage">
 		<message name="message">
-			このリストから、 [MAX_SELECT] 個までのアイテムを
-選択できます。
+			このリストから、 [MAX_SELECT] 個までのアイテムを選択できます。
 		</message>
 	</notify>
 	<notify name="VoiceInviteP2P">
@@ -937,17 +926,17 @@ Mキーを押して移行します。
 	</notify>
 	<notify name="AutoUnmuteByIM">
 		<message name="message">
-			[FIRST] [LAST]にインスタント・メッセージが送信され、ミュートが自動的に解除されました。
+			[FIRST] [LAST]にインスタント・メッセージが送信され、 無視設定が自動的に解除されました。
 		</message>
 	</notify>
 	<notify name="AutoUnmuteByMoney">
 		<message name="message">
-			[FIRST] [LAST]にお金が与えられ、ミュートが自動的に解除されました。
+			[FIRST] [LAST]にお金を渡したため、 無視設定が自動的に解除されました。
 		</message>
 	</notify>
 	<notify name="AutoUnmuteByInventory">
 		<message name="message">
-			[FIRST] [LAST]に持ち物が与えられ、ミュートが自動的に解除されました。
+			[FIRST] [LAST]に持ち物を渡したため、 無視設定が自動的に解除されました。
 		</message>
 	</notify>
 	<notify name="VoiceInviteGroup">
@@ -1062,7 +1051,7 @@ Mキーを押して移行します。
 	</notify>
 	<notify name="ServerVersionChanged">
 		<message name="message">
-			入力した地域は異なるシミュレーターのバージョンで実行されています。 詳細についてはこのメッセージをクリックしてください。
+			到着した地域は異なるシミュレーターのバージョンで実行されています。 詳細についてはこのメッセージをクリックしてください。
 		</message>
 	</notify>
 	<notify name="UnableToOpenCommandURL">

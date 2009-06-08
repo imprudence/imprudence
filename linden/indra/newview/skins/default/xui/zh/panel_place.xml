@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="Place" title="地方">
-	<button label="闪电传送" name="teleport_btn" />
-	<button label="在地图中显示" name="map_btn" />
-	<button label="投标..." name="auction_btn" />
+<panel
+	 name="Place"
+	 title="Place">
+	<text
+		 name="name_label">
+		名称:
+	</text>
+	<text
+		 name="description_label">
+		描述:
+	</text>
+	<text
+		 name="information_label">
+		信息:
+	</text>
+	<text
+		 name="location_label">
+		位置:
+	</text>
+	<button
+		 label="瞬间移动"
+		 name="teleport_btn" />
+	<button
+		 label="在地图上显示"
+		 name="map_btn" />
+	<button
+		 label="投标..."
+		 name="auction_btn" />
+	<string
+		 name="traffic_text">
+		流量: [TRAFFIC]
+	</string>
+	<string
+		 name="area_text">
+		面积: [AREA] 平方米
+	</string>
+	<string
+		 name="forsale_text">
+		以 L$ [PRICE] 的价格出售
+	</string>
+	<string
+		 name="auction_text">
+		拍卖 ID [ID].
+	</string>
+	<string
+		 name="server_update_text">
+		如果服务器不更新的话，就没有地点信息。
+	</string>
+	<string
+		 name="server_error_text">
+		关于这个地点的信息现在暂时不可用，请稍候再试。
+	</string>
+	<string
+		 name="server_forbidden_text">
+		由于访问限制，关于这个地点的信息不可用。请与地块的持有人确认你的权限。
+	</string>
 </panel>
+
+

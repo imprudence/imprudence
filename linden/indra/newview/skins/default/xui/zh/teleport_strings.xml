@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<teleport_messages>
+	<message_set
+		 name="errors">
+		<message
+			 name="invalid_tport">
+			处理您的瞬间移动请求时发生错误。您可能需要重新登入以后才能
+瞬间移动。如果您仍继续遇到这条消息，请到以下地址参考技术支持
+常见问题:
+www.secondlife.com/support
+		</message>
+		<message
+			 name="invalid_region_handoff">
+			处理您的区域变换时发生错误。您可能需要重新登入以后才能
+瞬间移动。如果您仍继续遇到这条消息，请到以下地址参考技术支持
+常见问题:
+www.secondlife.com/support
+		</message>
+		<message
+			 name="blocked_tport">
+			抱歉，当前不允许瞬间移动。请稍候再试。
+如果您仍然不能瞬间移动，请登出后重新登录解决问题。
+		</message>
+		<message
+			 name="nolandmark_tport">
+			抱歉，系统无法找到地标目的地。
+		</message>
+		<message
+			 name="timeout_tport">
+			抱歉，系统无法完成瞬间移动连接。
+请稍候再试。
+		</message>
+		<message
+			 name="noaccess_tport">
+			抱歉，您不能访问瞬间移动目标。
+		</message>
+		<message
+			 name="missing_attach_tport">
+			您的装备还没有到齐。请再等几秒钟，或者登出后重新登录以后
+再试着瞬间移动。
+		</message>
+		<message
+			 name="too_many_uploads_tport">
+			该区域内的资产队列当前堵塞，所以您的瞬间移动请求将不能按时完成。
+请稍候再试，或前往较空闲的区域再试。
+		</message>
+		<message
+			 name="expired_tport">
+			抱歉，系统无法按时地完成您的瞬间移动请求。请稍候再试。
+		</message>
+		<message
+			 name="expired_region_handoff">
+			抱歉，系统无法按时地完成您的区域变换请求。请稍候再试。
+		</message>
+		<message
+			 name="no_host">
+			无法找到瞬间移动目标。目标可能暂时不可用，或者已不存在。请稍后再试。
+		</message>
+		<message
+			 name="no_inventory_host">
+			库存系统当前不可用。
+		</message>
+	</message_set>
+	<message_set
+		 name="progress">
+		<message
+			 name="sending_dest">
+			正在发送到目标地点。
+		</message>
+		<message
+			 name="redirecting">
+			正在重定向到新的地点。
+		</message>
+		<message
+			 name="relaying">
+			正在转达到目标地点。
+		</message>
+		<message
+			 name="sending_home">
+			发送家位置请求。
+		</message>
+		<message
+			 name="sending_landmark">
+			正在发送地标位置请求。
+		</message>
+		<message
+			 name="completing">
+			正在完成瞬间移动。
+		</message>
+		<message
+			 name="resolving">
+			正在解析目标。
+		</message>
+		<message
+			 name="contacting">
+			正在联系新的区域。
+		</message>
+		<message
+			 name="arriving">
+			正在抵达……
+		</message>
+		<message
+			 name="requesting">
+			正在请求瞬间移动……
+		</message>
+	</message_set>
+</teleport_messages>
+
+

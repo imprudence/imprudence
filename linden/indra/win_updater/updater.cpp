@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -30,7 +30,7 @@
  */
 
 //
-// Usage: updater -url <url> [-name <window_title>] [-program <program_name>] [-silent]
+// Usage: updater -url <url>
 //
 
 #include "linden_common.h"
@@ -45,9 +45,6 @@ DWORD gTotalBytes = -1;
 HWND gWindow = NULL;
 WCHAR gProgress[256];
 char* gUpdateURL;
-char* gProgramName;
-char* gProductName;
-bool gIsSilent;
 
 #if _DEBUG
 FILE* logfile = 0;
@@ -217,7 +214,7 @@ int WINAPI get_url_into_file(WCHAR *uri, char *path, int *cancelled)
 		fprintf(logfile,"Calling PeekMessage\n");
 		fflush(logfile);
 #endif	
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
@@ -279,26 +276,14 @@ int parse_args(int argc, char **argv)
 
 	for (j = 1; j < argc; j++) 
 	{
-		if ((!strcmp(argv[j], "-name")) && (++j < argc)) 
-		{
-			gProductName = argv[j];
-		}
-		else if ((!strcmp(argv[j], "-url")) && (++j < argc)) 
+		if ((!strcmp(argv[j], "-url")) && (++j < argc)) 
 		{
 			gUpdateURL = argv[j];
-		}
-		else if ((!strcmp(argv[j], "-program")) && (++j < argc)) 
-		{
-			gProgramName = argv[j];
-		}
-		else if (!strcmp(argv[j], "-silent"))
-		{
-			gIsSilent = true;
 		}
 	}
 
 	// If nothing was set, let the caller know.
-	if (!gProductName && !gProgramName && !gIsSilent && !gUpdateURL)
+	if (!gUpdateURL)
 	{
 		return 1;
 	}
@@ -350,9 +335,6 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	}
 
 	gUpdateURL = NULL;
-	gProgramName = NULL;
-	gProductName = NULL;
-	gIsSilent = false;
 
 	/////////////////////////////////////////
 	//
@@ -382,7 +364,6 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	WNDCLASSEX wndclassex = { 0 };
 	DEVMODE dev_mode = { 0 };
 	char update_exec_path[MAX_PATH];		/* Flawfinder: ignore */
-	char *ptr;
 
 	const int WINDOW_WIDTH = 250;
 	const int WINDOW_HEIGHT = 100;
@@ -403,7 +384,7 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dev_mode);
 	
 	gWindow = CreateWindowEx(NULL, win_class_name, 
-		window_title,
+		L"Second Life Updater",
 		WS_OVERLAPPEDWINDOW, 
 		CW_USEDEFAULT, 
 		CW_USEDEFAULT, 
@@ -437,24 +418,13 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 			L"Error", MB_OK);
 		return 1;
 	}
-	if (0 == GetTempFileNameA(update_exec_path, NULL, 0, update_exec_path))
-	{
-		MessageBox(gWindow, L"Problem with GetTempFileName()",
-			L"Error", MB_OK);
-		return 1;
-	}
-	// Hack hack hack
-	ptr = strrchr(update_exec_path, '.');
-	*(ptr + 1) = 'e';
-	*(ptr + 2) = 'x';
-	*(ptr + 3) = 'e';
-	*(ptr + 4) = 0;
+	strcat(update_exec_path, "Second_Life_Updater.exe");
 
 	WCHAR update_uri[4096];
 	mbstowcs(update_uri, gUpdateURL, 4096);
 
-	int success;
-	int cancelled;
+	int success = 0;
+	int cancelled = 0;
 
 	// Actually do the download
 #if _DEBUG
@@ -493,47 +463,24 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 		return 1;
 	}
 
-	// Construct some parameters.
-	char params[2048];		/* Flawfinder: ignore */
-	if (gIsSilent && gProgramName)
-	{
-		_snprintf(params, sizeof(params), "/S /P=\"%s\"", gProgramName);		/* Flawfinder: ignore */
-		params[2047] = '\0';
-	}
-	else if (gProgramName)
-	{
-		_snprintf(params, sizeof(params), "/P=\"%s\"", gProgramName);		/* Flawfinder: ignore */
-		params[2047] = '\0';
-	}
-	else if (gIsSilent)
-	{
-		sprintf(params, "/S");		/* Flawfinder: ignore */
-	}
-	else
-	{
-		params[0] = '\0';
-	}
+	// TODO: Make updates silent (with /S to NSIS)
+	//char params[256];		/* Flawfinder: ignore */
+	//sprintf(params, "/S");	/* Flawfinder: ignore */
+	//MessageBox(gWindow, 
+	//	L"Updating Second Life.\n\nSecond Life will automatically start once the update is complete.  This may take a minute...",
+	//	L"Download Complete",
+	//	MB_OK);
 		
-	if (32 >= (int) ShellExecuteA(gWindow, "open", update_exec_path, params, 
+	if (32 >= (int) ShellExecuteA(gWindow, "open", update_exec_path, NULL, 
 		"C:\\", SW_SHOWDEFAULT))
 	{
-		// No shit: less than or equal to 32 means failure
-		MessageBox(gWindow, L"ShellExecute failed.  Please try again later.", NULL, MB_OK);
+		// Less than or equal to 32 means failure
+		MessageBox(gWindow, L"Update failed.  Please try again later.", NULL, MB_OK);
 		return 1;
 	}
 
-	if (gIsSilent && gProductName)
-	{
-		WCHAR message[2048];
-		WCHAR wproduct[2048];
-		mbstowcs(wproduct, gProductName, 2048);
-
-		wsprintf(message, 
-				L"Updating %s.  %s will automatically start once the update is complete.  This may take a minute...",
-				wproduct, wproduct);
-				
-		MessageBox(gWindow, message, L"Download Complete", MB_OK);
-	}
+	// Give installer some time to open a window
+	Sleep(1000);
 
 	return 0;
 }

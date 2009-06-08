@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -77,7 +77,7 @@ const F32 PLANE_TICK_SIZE = 0.4f;
 const F32 MANIPULATOR_SCALE_HALF_LIFE = 0.07f;
 const F32 SNAP_ARROW_SCALE = 0.7f;
 
-static GLuint sGridTex = 0;
+static LLPointer<LLImageGL> sGridTex = NULL ;
 
 const LLManip::EManipPart MANIPULATOR_IDS[9] = 
 {
@@ -119,9 +119,29 @@ LLManipTranslate::LLManipTranslate( LLToolComposite* composite )
 	mPlaneScales(1.f, 1.f, 1.f),
 	mPlaneManipPositions(1.f, 1.f, 1.f, 1.f)
 { 
-	if (sGridTex == 0)
+	if (sGridTex.isNull())
 	{ 
 		restoreGL();
+	}
+}
+
+//static
+U32 LLManipTranslate::getGridTexName()
+{
+	if(sGridTex.isNull())
+	{
+		restoreGL() ;
+	}
+
+	return sGridTex.isNull() ? 0 : sGridTex->getTexName() ;
+}
+
+//static
+void LLManipTranslate::destroyGL()
+{
+	if (sGridTex)
+	{
+		sGridTex = NULL ;
 	}
 }
 
@@ -132,9 +152,17 @@ void LLManipTranslate::restoreGL()
 	U32 rez = 512;
 	U32 mip = 0;
 
-	GLuint* d = new GLuint[rez*rez];
-	glGenTextures(1, &sGridTex);
-	glBindTexture(GL_TEXTURE_2D, sGridTex);
+	destroyGL() ;
+	sGridTex = new LLImageGL() ;
+	if(!sGridTex->createGLTexture())
+	{
+		sGridTex = NULL ;
+		return ;
+	}
+
+	GLuint* d = new GLuint[rez*rez];	
+
+	gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, sGridTex->getTexName());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
@@ -1052,7 +1080,7 @@ void LLManipTranslate::renderSnapGuides()
 	F32 max_subdivisions = sGridMaxSubdivisionLevel;//(F32)gSavedSettings.getS32("GridSubdivision");
 	F32 line_alpha = gSavedSettings.getF32("GridOpacity");
 
-	LLGLSNoTexture gls_no_texture;
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	LLGLDepthTest gls_depth(GL_TRUE);
 	LLGLDisable gls_cull(GL_CULL_FACE);
 	LLVector3 translate_axis;
@@ -1223,7 +1251,7 @@ void LLManipTranslate::renderSnapGuides()
 		{
 			LLColor4 line_color = setupSnapGuideRenderPass(pass);
 
-			gGL.begin(LLVertexBuffer::LINES);
+			gGL.begin(LLRender::LINES);
 			{
 				LLVector3 line_start = selection_center + (mSnapOffsetMeters * mSnapOffsetAxis) + (translate_axis * (guide_size_meters * 0.5f + offset_nearest_grid_unit));
 				LLVector3 line_end = selection_center + (mSnapOffsetMeters * mSnapOffsetAxis) - (translate_axis * (guide_size_meters * 0.5f + offset_nearest_grid_unit));
@@ -1299,7 +1327,7 @@ void LLManipTranslate::renderSnapGuides()
 				LLVector3 line_start = selection_center - mSnapOffsetAxis * mSnapOffsetMeters;
 				LLVector3 line_end = selection_center + mSnapOffsetAxis * mSnapOffsetMeters;
 
-				gGL.begin(LLVertexBuffer::LINES);
+				gGL.begin(LLRender::LINES);
 				{
 					gGL.color4f(line_color.mV[VX], line_color.mV[VY], line_color.mV[VZ], line_color.mV[VW]);
 
@@ -1309,7 +1337,7 @@ void LLManipTranslate::renderSnapGuides()
 				gGL.end();
 
 				// draw snap guide arrow
-				gGL.begin(LLVertexBuffer::TRIANGLES);
+				gGL.begin(LLRender::TRIANGLES);
 				{
 					gGL.color4f(line_color.mV[VX], line_color.mV[VY], line_color.mV[VZ], line_color.mV[VW]);
 
@@ -1463,7 +1491,7 @@ void LLManipTranslate::renderSnapGuides()
 			break;
 		}
 
-		LLImageGL::unbindTexture(0);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		highlightIntersection(normal, selection_center, grid_rotation, inner_color);
 
 		gGL.pushMatrix();
@@ -1503,7 +1531,7 @@ void LLManipTranslate::renderSnapGuides()
 				LLGLDisable stencil(GL_STENCIL_TEST);
 				{
 					LLGLDepthTest gls_depth(GL_TRUE, GL_FALSE, GL_GREATER);
-					glBindTexture(GL_TEXTURE_2D, sGridTex);
+					gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, getGridTexName());
 					gGL.flush();
 					gGL.blendFunc(LLRender::BF_ZERO, LLRender::BF_ONE_MINUS_SOURCE_ALPHA);
 					renderGrid(u,v,tiles,0.9f, 0.9f, 0.9f,a*0.15f);
@@ -1514,11 +1542,11 @@ void LLManipTranslate::renderSnapGuides()
 				{
 					LLGLDisable alpha_test(GL_ALPHA_TEST);
 					//draw black overlay
-					LLImageGL::unbindTexture(0);
+					gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 					renderGrid(u,v,tiles,0.0f, 0.0f, 0.0f,a*0.16f);
 
 					//draw grid top
-					glBindTexture(GL_TEXTURE_2D, sGridTex);
+					gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, getGridTexName());
 					renderGrid(u,v,tiles,1,1,1,a);
 
 					gGL.popMatrix();
@@ -1564,7 +1592,7 @@ void LLManipTranslate::renderGrid(F32 x, F32 y, F32 size, F32 r, F32 g, F32 b, F
 
 	for (F32 xx = -size-d; xx < size+d; xx += d)
 	{
-		gGL.begin(LLVertexBuffer::TRIANGLE_STRIP);
+		gGL.begin(LLRender::TRIANGLE_STRIP);
 		for (F32 yy = -size-d; yy < size+d; yy += d)
 		{
 			float dx, dy, da;
@@ -1620,7 +1648,7 @@ void LLManipTranslate::highlightIntersection(LLVector3 normal,
 		LLGLDepthTest depth (GL_TRUE, GL_FALSE, GL_ALWAYS);
 		glStencilFunc(GL_ALWAYS, 0, stencil_mask);
 		gGL.setColorMask(false, false);
-		LLImageGL::unbindTexture(0);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		glColor4f(1,1,1,1);
 
 		//setup clip plane
@@ -1686,7 +1714,7 @@ void LLManipTranslate::highlightIntersection(LLVector3 normal,
 
 	//draw volume/plane intersections
 	{
-		LLImageGL::unbindTexture(0);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		LLGLDepthTest depth(GL_FALSE);
 		LLGLEnable stencil(GL_STENCIL_TEST);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
@@ -1834,7 +1862,7 @@ void LLManipTranslate::renderTranslationHandles()
 		relative_camera_dir.normVec();
 
 		{
-			LLGLSNoTexture gls_ui_no_texture;
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			LLGLDisable cull_face(GL_CULL_FACE);
 
 			LLColor4 color1;
@@ -1877,7 +1905,7 @@ void LLManipTranslate::renderTranslationHandles()
 					color1.setVec(0.f, 1.f, 0.f, 0.6f);
 					color2.setVec(0.f, 0.f, 1.f, 0.6f);
 				}
-				gGL.begin(LLVertexBuffer::TRIANGLES);
+				gGL.begin(LLRender::TRIANGLES);
 				{
 					gGL.color4fv(color1.mV);
 					gGL.vertex3f(0.f, mPlaneManipOffsetMeters * (-PLANE_TICK_SIZE * 0.25f), mPlaneManipOffsetMeters * (-PLANE_TICK_SIZE * 0.25f));
@@ -1892,7 +1920,7 @@ void LLManipTranslate::renderTranslationHandles()
 				gGL.end();
 
 				LLUI::setLineWidth(3.0f);
-				gGL.begin(LLVertexBuffer::LINES);
+				gGL.begin(LLRender::LINES);
 				{
 					gGL.color4f(0.f, 0.f, 0.f, 0.3f);
 					gGL.vertex3f(0.f, mPlaneManipOffsetMeters * -PLANE_TICK_SIZE * 0.25f,  mPlaneManipOffsetMeters * -PLANE_TICK_SIZE * 0.25f);
@@ -1932,7 +1960,7 @@ void LLManipTranslate::renderTranslationHandles()
 					color2.setVec(1.f, 0.f, 0.f, 0.6f);
 				}
 
-				gGL.begin(LLVertexBuffer::TRIANGLES);
+				gGL.begin(LLRender::TRIANGLES);
 				{
 					gGL.color4fv(color1.mV);
 					gGL.vertex3f(mPlaneManipOffsetMeters * (PLANE_TICK_SIZE * 0.25f), 0.f, mPlaneManipOffsetMeters * (PLANE_TICK_SIZE * 0.25f));
@@ -1947,7 +1975,7 @@ void LLManipTranslate::renderTranslationHandles()
 				gGL.end();
 
 				LLUI::setLineWidth(3.0f);
-				gGL.begin(LLVertexBuffer::LINES);
+				gGL.begin(LLRender::LINES);
 				{
 					gGL.color4f(0.f, 0.f, 0.f, 0.3f);
 					gGL.vertex3f(mPlaneManipOffsetMeters * -PLANE_TICK_SIZE * 0.25f,  0.f, mPlaneManipOffsetMeters * -PLANE_TICK_SIZE * 0.25f);
@@ -2011,7 +2039,7 @@ void LLManipTranslate::renderTranslationHandles()
 						color2.setVec(0.f, 0.8f, 0.f, 0.6f);
 					}
 				
-					gGL.begin(LLVertexBuffer::TRIANGLES);
+					gGL.begin(LLRender::TRIANGLES);
 					{
 						gGL.color4fv(color1.mV);
 						gGL.vertex3fv(v0.mV);
@@ -2026,7 +2054,7 @@ void LLManipTranslate::renderTranslationHandles()
 					gGL.end();
 
 					LLUI::setLineWidth(3.0f);
-					gGL.begin(LLVertexBuffer::LINES);
+					gGL.begin(LLRender::LINES);
 					{
 						gGL.color4f(0.f, 0.f, 0.f, 0.3f);
 						LLVector3 v12 = (v1 + v2) * .5f;
@@ -2052,7 +2080,7 @@ void LLManipTranslate::renderTranslationHandles()
 			}
 		}
 		{
-			LLGLSNoTexture gls_ui_no_texture;
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 			// Since we draw handles with depth testing off, we need to draw them in the 
 			// proper depth order.
@@ -2126,7 +2154,7 @@ void LLManipTranslate::renderTranslationHandles()
 
 void LLManipTranslate::renderArrow(S32 which_arrow, S32 selected_arrow, F32 box_size, F32 arrow_size, F32 handle_size, BOOL reverse_direction)
 {
-	LLGLSNoTexture gls_ui_no_texture;
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	LLGLEnable gls_blend(GL_BLEND);
 	LLGLEnable gls_color_material(GL_COLOR_MATERIAL);
 
@@ -2160,7 +2188,7 @@ void LLManipTranslate::renderArrow(S32 which_arrow, S32 selected_arrow, F32 box_
 
 		{
 			LLUI::setLineWidth(2.0f);
-			gGL.begin(LLVertexBuffer::LINES);
+			gGL.begin(LLRender::LINES);
 				vec.mV[index] = box_size;
 				gGL.vertex3f(vec.mV[0], vec.mV[1], vec.mV[2]);
 

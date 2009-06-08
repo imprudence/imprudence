@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <pie_menu name="Self Pie">
 	<menu_item_call label="Profil..." name="Profile..." />
 	<menu_item_call label="Groupes..." name="Groups..." />
@@ -15,7 +15,7 @@
 			<menu_item_call label="Veste" name="Jacket" />
 			<menu_item_call label="Gants" name="Gloves" />
 			<pie_menu label="Plus &gt;" name="More &gt;">
-				<menu_item_call label="Tricot de peau" name="Self Undershirt" />
+				<menu_item_call label="Tricot" name="Self Undershirt" />
 				<menu_item_call label="Tous les habits" name="All Clothes" />
 				<menu_item_call label="Sous-vêtements" name="Self Underpants" />
 			</pie_menu>

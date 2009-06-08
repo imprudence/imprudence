@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -240,6 +240,7 @@ BOOL LLVisualParamHint::render()
 	}
 	avatarp->setVisualParamWeight(mVisualParam, mLastParamWeight);
 	gGL.color4f(1,1,1,1);
+	mTexture->setGLTextureCreated(true);
 	return TRUE;
 }
 
@@ -251,12 +252,12 @@ void LLVisualParamHint::draw()
 {
 	if (!mIsVisible) return;
 
-	bindTexture();
+	gGL.getTexUnit(0)->bind(getTexture());
 
 	gGL.color4f(1.f, 1.f, 1.f, 1.f);
 
 	LLGLSUIDefault gls_ui;
-	gGL.begin(LLVertexBuffer::QUADS);
+	gGL.begin(LLRender::QUADS);
 	{
 		gGL.texCoord2i(0, 1);
 		gGL.vertex2i(0, mHeight);
@@ -269,7 +270,7 @@ void LLVisualParamHint::draw()
 	}
 	gGL.end();
 
-	LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 }
 
 //-----------------------------------------------------------------------------

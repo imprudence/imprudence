@@ -19,7 +19,7 @@ erstellen, darüber abstimmen und alte Anfragen anzeigen.
 	</text>
 	<text name="proposals_header_view_inst">
 		Doppelklicken Sie auf die Anfrage, für die Sie abstimmen möchten,
-oder klicken Sie auf &apos;Neue Anfrage&apos;, um eine neue zu erstellen.
+oder klicken Sie auf „Neue Anfrage“, um eine neue zu erstellen.
 	</text>
 	<text name="proposals_header_create_txt">
 		Neue Anfrage
@@ -32,7 +32,7 @@ Quorum, die Dauer und die erforderliche Mehrheit angeben.
 		Abstimmung
 	</text>
 	<text name="proposals_header_vote_inst">
-		Klicken Sie zum Abstimmen auf &apos;Ja&apos; oder &apos;Nein&apos; oder
+		Klicken Sie zum Abstimmen auf „Ja“ oder „Nein“ oder
 enthalten Sie sich der Stimme.
 	</text>
 	<text name="proposals_header_voted_inst">
@@ -42,7 +42,7 @@ enthalten Sie sich der Stimme.
 		Das Angebot, das Sie erstellen möchten, enthält keine Angaben.  Füllen Sie das Angebot aus, bevor Sie es erstellen.
 	</text>
 	<text name="proposal_instructions">
-		Doppelklicken Sie zum Abstimmen auf eine Anfrage oder klicken Sie auf &apos;Neue Anfrage&apos;, um eine neue zu erstellen.
+		Doppelklicken Sie zum Abstimmen auf eine Anfrage oder klicken Sie auf „Neue Anfrage“, um eine neue zu erstellen.
 	</text>
 	<text name="proposal_lbl">
 		Beschreibung der Anfrage
@@ -89,7 +89,7 @@ enthalten Sie sich der Stimme.
 	</text>
 	<text name="instructions">
 		Doppelklicken Sie auf eine alte Abstimmung oder wählen Sie eine aus und
-klicken Sie für das Ergebnis auf &apos;Objekt anzeigen&apos;.
+klicken Sie für das Ergebnis auf „Objekt anzeigen“.
 	</text>
 	<text name="history_list_lbl">
 		Alte Abstimmung                                            Ende der Abstimmung
@@ -102,10 +102,10 @@ klicken Sie für das Ergebnis auf &apos;Objekt anzeigen&apos;.
 	<button label="Liste anzeigen" label_selected="Liste anzeigen"
 	     name="btn_view_history_list" />
 	<text name="proposals_submit_yes_txt">
-		Mit &apos;Ja&apos; abgestimmt...
+		Mit „Ja“ abgestimmt...
 	</text>
 	<text name="proposals_submit_no_txt">
-		Mit &apos;Nein&apos; abgestimmt...
+		Mit „Nein“ abgestimmt...
 	</text>
 	<text name="proposals_submit_abstain_txt">
 		Enthaltung...

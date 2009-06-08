@@ -75,7 +75,7 @@
 	     halign="center" height="18" image_selected="status_no_push.tga"
 	     image_unselected="status_no_push.tga" label="" label_selected="" left="521"
 	     mouse_opaque="true" name="restrictpush" scale_image="false"
-	     tool_tip="llPushObject restricted" visible="false" width="24" />
+	     tool_tip="No Pushing" visible="false" width="24" />
 	<button bottom="-22" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="18" image_selected="status_no_voice.tga"
 	     image_unselected="status_no_voice.tga" label="" label_selected=""

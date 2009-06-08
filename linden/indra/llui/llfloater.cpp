@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -127,6 +127,7 @@ LLFloaterView* gFloaterView = NULL;
 
 LLFloater::LLFloater() :
 	//FIXME: we should initialize *all* member variables here
+	LLPanel(), mAutoFocus(TRUE),
 	mResizable(FALSE),
 	mDragOnLeft(FALSE),
 	mMinWidth(0),
@@ -139,6 +140,11 @@ LLFloater::LLFloater() :
 		mButtonsEnabled[i] = FALSE;
 		mButtons[i] = NULL;
 	}
+	for (S32 i = 0; i < 4; i++) 
+	{
+		mResizeBar[i] = NULL; 
+		mResizeHandle[i] = NULL;
+	}
 	mDragHandle = NULL;
 	mHandle.bind(this);
 }
@@ -150,6 +156,11 @@ LLFloater::LLFloater(const std::string& name)
 	{
 		mButtonsEnabled[i] = FALSE;
 		mButtons[i] = NULL;
+	}
+	for (S32 i = 0; i < 4; i++) 
+	{
+		mResizeBar[i] = NULL; 
+		mResizeHandle[i] = NULL;
 	}
 	std::string title; // null string
 	initFloater(title, FALSE, DEFAULT_MIN_WIDTH, DEFAULT_MIN_HEIGHT, FALSE, TRUE, TRUE); // defaults
@@ -171,6 +182,11 @@ LLFloater::LLFloater(const std::string& name, const LLRect& rect, const std::str
 		mButtonsEnabled[i] = FALSE;
 		mButtons[i] = NULL;
 	}
+	for (S32 i = 0; i < 4; i++) 
+	{
+		mResizeBar[i] = NULL; 
+		mResizeHandle[i] = NULL;
+	}
 	initFloater( title, resizable, min_width, min_height, drag_on_left, minimizable, close_btn);
 }
 
@@ -188,6 +204,11 @@ LLFloater::LLFloater(const std::string& name, const std::string& rect_control, c
 	{
 		mButtonsEnabled[i] = FALSE;
 		mButtons[i] = NULL;
+	}
+	for (S32 i = 0; i < 4; i++) 
+	{
+		mResizeBar[i] = NULL; 
+		mResizeHandle[i] = NULL;
 	}
 	initFloater( title, resizable, min_width, min_height, drag_on_left, minimizable, close_btn);
 }
@@ -523,6 +544,7 @@ void LLFloater::close(bool app_quitting)
 		if (getHost())
 		{
 			((LLMultiFloater*)getHost())->removeFloater(this);
+			gFloaterView->addChild(this);
 		}
 
 		if (getSoundFlags() != SILENT
@@ -1297,8 +1319,8 @@ void LLFloater::onClickEdit(void *userdata)
 	self->mEditing = self->mEditing ? FALSE : TRUE;
 }
 
-// static
-void LLFloater::closeFocusedFloater()
+// static 
+LLFloater* LLFloater::getClosableFloaterFromFocus()
 {
 	LLFloater* focused_floater = NULL;
 
@@ -1315,10 +1337,32 @@ void LLFloater::closeFocusedFloater()
 	if (iter == sFloaterMap.end())
 	{
 		// nothing found, return
-		return;
+		return NULL;
 	}
 
-	focused_floater->close();
+	// The focused floater may not be closable,
+	// Find and close a parental floater that is closeable, if any.
+	for(LLFloater* floater_to_close = focused_floater; 
+		NULL != floater_to_close; 
+		floater_to_close = gFloaterView->getParentFloater(floater_to_close))
+	{
+		if(floater_to_close->isCloseable())
+		{
+			return floater_to_close;
+		}
+	}
+
+	return NULL;
+}
+
+// static
+void LLFloater::closeFocusedFloater()
+{
+	LLFloater* floater_to_close = LLFloater::getClosableFloaterFromFocus();
+	if(floater_to_close)
+	{
+		floater_to_close->close();
+	}
 
 	// if nothing took focus after closing focused floater
 	// give it to next floater (to allow closing multiple windows via keyboard in rapid succession)
@@ -1580,7 +1624,7 @@ void LLFloater::updateButtons()
 	S32 button_count = 0;
 	for (S32 i = 0; i < BUTTON_COUNT; i++)
 	{
- 		if(!mButtons[i]) continue;
+		if(!mButtons[i]) continue;
 		mButtons[i]->setEnabled(mButtonsEnabled[i]);
 
 		if (mButtonsEnabled[i] 

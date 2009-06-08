@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -65,7 +65,7 @@ public:
 		const std::string& name,
 		const LLRect& rect,
 		const std::string& sample,
-		const std::string& help,
+		const std::string& help_url,
 		const LLHandle<LLFloater>& floater_handle,
 		void (*load_callback)(void* userdata),
 		void (*save_callback)(void* userdata, BOOL close_after_save),
@@ -132,7 +132,7 @@ protected:
 
 private:
 	std::string		mSampleText;
-	std::string		mHelpFile;
+	std::string		mHelpURL;
 	LLTextEditor*	mEditor;
 	void			(*mLoadCallback)(void* userdata);
 	void			(*mSaveCallback)(void* userdata, BOOL close_after_save);

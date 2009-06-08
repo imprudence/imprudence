@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(unknown)" name="im_floater" title="(unknown)">
+	<string name="title_string">
+		Mensagem Instantânea com [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] está digitando...
+	</string>
+	<string name="session_start_string">
+		Iniciando sessão com [NAME], por favor aguarde.
+	</string>
+	<string name="moderated_chat_label">
+		(Moderado: Vozes desligada por default)
+	</string>
+	<string name="default_text_label">
+		Clique aqui para mensagem instantânea.
+	</string>
+	<string name="muted_text_label">
+		Sua conversa de texto foi desabilitada por um Moderador do Grupo.
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Informação do Grupo" name="group_info_btn" width="130"/>
+			<button label="Entrar numa chamada" name="start_call_btn" left_delta="135" width="160"/>
+			<button label="Encerrar Chamada" name="end_call_btn" width="160" halign="center"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Clique aqui para alternar a lista dos participantes ativos nesta sessão de IM ."/>
+			<button label="Enviar" name="send_btn"/>
+		</layout_panel>
+	</layout_stack>
+</floater>

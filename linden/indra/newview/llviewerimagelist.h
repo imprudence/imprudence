@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
- * Copyright (c) 2000-2008, Linden Research, Inc.
+ * Copyright (c) 2000-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -129,6 +129,7 @@ public:
 	void setUpdateStats(BOOL b)			{ mUpdateStats = b; }
 
 	S32	getMaxResidentTexMem() const	{ return mMaxResidentTexMem; }
+	S32 getMaxTotalTextureMem() const   { return mMaxTotalTextureMem;}
 	S32 getNumImages()					{ return mImageList.size(); }
 
 	void updateMaxResidentTexMem(S32 mem);
@@ -170,6 +171,7 @@ private:
 
 	BOOL mUpdateStats;
 	S32	mMaxResidentTexMem;
+	S32 mMaxTotalTextureMem;
 	LLFrameTimer mForceDecodeTimer;
 	
 public:

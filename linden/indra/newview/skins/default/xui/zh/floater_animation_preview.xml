@@ -6,36 +6,18 @@
 	<text name="description_label">
 		描述:
 	</text>
-	<spinner label="优先" name="priority"
-	     tool_tip="可在不顾及此动画的模式下控制其它动画。" />
-	<text name="preview_label">
-		预览
-	</text>
-	<combo_box label="" name="preview_base_anim"
-	     tool_tip="Use this to test your animation behavior while your avatar performs common actions.">
-		<combo_item name="Standing">
-			站立
-		</combo_item>
-		<combo_item name="Walking">
-			步行
-		</combo_item>
-		<combo_item name="Sitting">
-			坐下
-		</combo_item>
-		<combo_item name="Flying">
-			起飞
-		</combo_item>
-	</combo_box>
-	<check_box label="绕圈飞行" name="loop_check" tool_tip="使此动画循环播放." />
-	<spinner label="In(%)" name="loop_in_point"
-	     tool_tip="在动画设置一点用以返还循环到此点。" />
-	<spinner label="出局(%)" name="loop_out_point"
-	     tool_tip="在动画设置一点用以停止循环。" />
+	<spinner label="优先级" name="priority"
+	     tool_tip="控制哪些动画可以被该动画覆盖。" />
+	<check_box label="循环" name="loop_check" tool_tip="使此动画循环播放." />
+	<spinner label="始 (%)" name="loop_in_point"
+	     tool_tip="选择循环后返回的点。" />
+	<spinner label="终 (%)" name="loop_out_point"
+	     tool_tip="选择循环结束的点。" />
 	<text name="hand_label">
 		手势
 	</text>
 	<combo_box label="" name="hand_pose_combo"
-	     tool_tip="Controls what hands do during animation.">
+	     tool_tip="控制动画中手的动作。">
 		<combo_item name="Spread">
 			伸展
 		</combo_item>
@@ -43,49 +25,48 @@
 			放松
 		</combo_item>
 		<combo_item name="PointBoth">
-			两者都指
+			两手都指
 		</combo_item>
 		<combo_item name="Fist">
-			手部
+			握拳
 		</combo_item>
 		<combo_item name="RelaxedLeft">
-			放松左边
+			左手放松
 		</combo_item>
 		<combo_item name="PointLeft">
-			指左边
+			左手指
 		</combo_item>
 		<combo_item name="FistLeft">
-			左手
+			左手握拳
 		</combo_item>
 		<combo_item name="RelaxedRight">
-			放松右边
+			右手放松
 		</combo_item>
 		<combo_item name="PointRight">
-			指右边
+			右手指
 		</combo_item>
 		<combo_item name="FistRight">
-			右手
+			右手握拳
 		</combo_item>
 		<combo_item name="SaluteRight">
-			向右敬礼
+			右手敬礼
 		</combo_item>
 		<combo_item name="Typing">
-			T键入
+			打字中
 		</combo_item>
 		<combo_item name="PeaceRight">
-			和平权利
+			右手和平
 		</combo_item>
 	</combo_box>
 	<text name="emote_label">
 		表情
 	</text>
-	<combo_box label="" name="emote_combo"
-	     tool_tip="Controls what face does during animation.">
+	<combo_box label="" name="emote_combo" >
 		<combo_item name="[None]">
 			[None]
 		</combo_item>
 		<combo_item name="Aaaaah">
-			啊
+			啊啊啊
 		</combo_item>
 		<combo_item name="Afraid">
 			害怕
@@ -118,7 +99,7 @@
 			大笑
 		</combo_item>
 		<combo_item name="Plllppt">
-			Plllppt
+			呸
 		</combo_item>
 		<combo_item name="Repulsed">
 			拒绝
@@ -142,18 +123,52 @@
 			担心
 		</combo_item>
 	</combo_box>
-	<spinner label="Ease In (sec)" name="ease_in_time"
+
+	<text name="preview_label">
+		预览
+	</text>
+	<combo_box label="" name="preview_base_anim"
+	     tool_tip="测试在化身做常见动作同时您的动画的行为">
+		<combo_item name="Standing">
+			站立
+		</combo_item>
+		<combo_item name="Walking">
+			步行
+		</combo_item>
+		<combo_item name="Sitting">
+			坐下
+		</combo_item>
+		<combo_item name="Flying">
+			起飞
+		</combo_item>
+	</combo_box>
+
+
+	<spinner label="渐入 (秒)" name="ease_in_time"
 	     tool_tip="动画渐入的所需时间（秒）" />
-	<spinner label="Ease Out (sec)" name="ease_out_time"
+	<spinner label="渐出 (秒)" name="ease_out_time"
 	     tool_tip="动画渐出的所需时间（秒）" />
-	<button label="" name="play_btn" tool_tip="播放/停止你现有的动画." />
-	<button label="" name="stop_btn" tool_tip="停止动画回播" />
+	<button label="" name="play_btn" tool_tip="播放/暂停你现有的动画." />
+	<button label="" name="stop_btn" tool_tip="停止动画播放" />
 	<slider label="" name="playback_slider" />
 	<text name="bad_animation_text">
 		不能读取动画文件。
-	
-	推荐Poser 4产生的BVH格式文件。
+
+推荐Poser 4产生的BVH格式文件。
 	</text>
 	<button label="取消" name="cancel_btn" />
 	<button label="上传(L$[AMOUNT])" name="ok_btn" />
+	<string name="failed_to_initialize">
+		初始化动作失败。
+	</string>
+	<string name="anim_too_long">
+		动画文件长度为 [LENGTH] 秒。
+
+最长允许的长度为 [MAX_LENGTH] 秒。
+	</string>
+	<string name="failed_file_read">
+		无法读取动画文件。
+
+[STATUS]
+	</string>
 </floater>

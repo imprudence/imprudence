@@ -1643,7 +1643,7 @@ Intente seleccionar una área menor.
 			Este local puede reproducir música en streaming. 
  
 Música requiere una conexión con internet
-de 768 Kbps o más rápida.
+de 768 kbps o más rápida.
  
 ¿Reproducir música cuando disponible?
 		</message>
@@ -1658,7 +1658,7 @@ de 768 Kbps o más rápida.
 		<message name="message">
 			Este local puede reproducir vídeo en streaming. 
 Vídeo en streaming requiere una conexión con internet
-de 768 Kbps o más rápida.
+de 768 kbps o más rápida.
  
 ¿Reproducir vídeo en streaming cuando disponible?
  
@@ -3977,31 +3977,6 @@ para ver los detalles de la transacción?
 		<option name="Cancel">
 			Cancelar
 		</option>
-	</alert>
-	<alert name="HelpReportAbuse">
-		<message name="message">
-			Use this tool to report violations of the Terms of Service and Community Standards. See: 
-http://secondlife.com/corporate/tos.php 
-http://secondlife.com/corporate/cs.php 
- 
-All reported abuses of the Terms of Service and Community Standards 
-are investigated and resolved. You will receive an email informing you
-of the resolution when it occurs. 
-You can also view the incident resolution on the Police Blotter at: 
- 
-http://secondlife.com/community/blotter.php
-		</message>
-	</alert>
-	<alert name="HelpReportBug">
-		<message name="message">
-			Use this tool to report technical features that do not perform 
-as described or expected. All bug reports are investigated and 
-resolved. No email response will be sent, you may reply to the 
-auto-response email to add more details to your report. 
-If you are having a technical difficulty, please contact Support at: 
- 
-http://secondlife.com/community/support.php
-		</message>
 	</alert>
 	<alert name="HelpReportAbuseSelectCategory">
 		<message name="message">

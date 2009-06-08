@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -49,6 +49,7 @@ public:
 
 	// initialization/startup/shutdown
 	virtual bool init(const S32 num_channels, void *user_data);
+	virtual std::string getDriverName(bool verbose);
 	virtual void allocateListener();
 
 	virtual void shutdown();

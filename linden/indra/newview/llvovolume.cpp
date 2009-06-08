@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -68,8 +68,7 @@
 const S32 MIN_QUIET_FRAMES_COALESCE = 30;
 const F32 FORCE_SIMPLE_RENDER_AREA = 512.f;
 const F32 FORCE_CULL_AREA = 8.f;
-// sadly - we can't lower sculptie rez below b/c residents have a LOT of content that depends on the 128
-const S32 SCULPT_REZ = 128;
+const S32 MAX_SCULPT_REZ = 128;
 
 BOOL gAnimateTextures = TRUE;
 extern BOOL gHideSelectedObjects;
@@ -90,7 +89,7 @@ LLVOVolume::LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *re
 	mLOD = MIN_LOD;
 	mSculptLevel = -2;
 	mTextureAnimp = NULL;
-	mVObjRadius = LLVector3(1,1,0.5f).magVec();
+	mVObjRadius = LLVector3(1,1,0.5f).length();
 	mNumFaces = 0;
 	mLODChanged = FALSE;
 	mSculptChanged = FALSE;
@@ -498,6 +497,7 @@ void LLVOVolume::updateTextures()
 		else if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_TEXTURE_PRIORITY))
 		{
 			F32 pri = imagep->getDecodePriority();
+			pri = llmax(pri, 0.0f);
 			if (pri < min_vsize) min_vsize = pri;
 			if (pri > max_vsize) max_vsize = pri;
 		}
@@ -516,7 +516,10 @@ void LLVOVolume::updateTextures()
 		mSculptTexture = gImageList.getImage(id);
 		if (mSculptTexture.notNull())
 		{
-			mSculptTexture->addTextureStats(SCULPT_REZ * SCULPT_REZ);
+			S32 lod = llmin(mLOD, 3);
+			F32 lodf = ((F32)(lod + 1.0f)/4.f); 
+			F32 tex_size = lodf * MAX_SCULPT_REZ;
+			mSculptTexture->addTextureStats(2.f * tex_size * tex_size);
 			mSculptTexture->setBoostLevel(llmax((S32)mSculptTexture->getBoostLevel(),
 												(S32)LLViewerImage::BOOST_SCULPTED));
 		}
@@ -577,7 +580,7 @@ F32 LLVOVolume::getTextureVirtualSize(LLFace* face)
 
 	//get area of circle in texture space
 	LLVector2 tdim = face->mTexExtents[1] - face->mTexExtents[0];
-	F32 texel_area = (tdim * 0.5f).magVecSquared()*3.14159f;
+	F32 texel_area = (tdim * 0.5f).lengthSquared()*3.14159f;
 	if (texel_area <= 0)
 	{
 		// Probably animated, use default
@@ -605,7 +608,7 @@ BOOL LLVOVolume::setMaterial(const U8 material)
 void LLVOVolume::setTexture(const S32 face)
 {
 	llassert(face < getNumTEs());
-	LLViewerImage::bindTexture(getTEImage(face));
+	gGL.getTexUnit(0)->bind(getTEImage(face));
 }
 
 void LLVOVolume::setScale(const LLVector3 &scale, BOOL damped)
@@ -759,10 +762,10 @@ void LLVOVolume::sculpt()
 			// corrupted volume... don't update the sculpty
 			return;
 		}
-		else if (current_discard > max_discard)
+		else if (current_discard > MAX_DISCARD_LEVEL)
 		{
 			llwarns << "WARNING!!: Current discard of sculpty at " << current_discard 
-				<< " is more than than allowed max of " << max_discard << llendl;
+				<< " is more than than allowed max of " << MAX_DISCARD_LEVEL << llendl;
 			
 			// corrupted volume... don't update the sculpty			
 			return;
@@ -828,7 +831,7 @@ BOOL LLVOVolume::calcLOD()
 
 	S32 cur_detail = 0;
 	
-	F32 radius = getVolume()->mLODScaleBias.scaledVec(getScale()).magVec();
+	F32 radius = getVolume()->mLODScaleBias.scaledVec(getScale()).length();
 	F32 distance = mDrawable->mDistanceWRTCamera;
 	distance *= sDistanceFactor;
 			
@@ -1687,7 +1690,7 @@ void LLVOVolume::generateSilhouette(LLSelectNode* nodep, const LLVector3& view_p
 
 		//transform view vector into volume space
 		view_vector -= getRenderPosition();
-		mDrawable->mDistanceWRTCamera = view_vector.magVec();
+		mDrawable->mDistanceWRTCamera = view_vector.length();
 		LLQuaternion worldRot = getRenderRotation();
 		view_vector = view_vector * ~worldRot;
 		if (!isVolumeGlobal())
@@ -1728,7 +1731,7 @@ void LLVOVolume::updateRadius()
 		return;
 	}
 	
-	mVObjRadius = getScale().magVec();
+	mVObjRadius = getScale().length();
 	mDrawable->setRadius(mVObjRadius);
 }
 
@@ -1841,7 +1844,7 @@ F32 LLVOVolume::getBinRadius()
 	}
 	else if (shrink_wrap)
 	{
-		radius = (ext[1]-ext[0]).magVec()*0.5f;
+		radius = (ext[1]-ext[0]).length()*0.5f;
 	}
 	else if (mDrawable->isStatic())
 	{
@@ -1934,10 +1937,20 @@ LLVector3 LLVOVolume::volumeDirectionToAgent(const LLVector3& dir) const
 }
 
 
-BOOL LLVOVolume::lineSegmentIntersect(const LLVector3& start, const LLVector3& end, S32 face, S32 *face_hitp,
+BOOL LLVOVolume::lineSegmentIntersect(const LLVector3& start, const LLVector3& end, S32 face, BOOL pick_transparent, S32 *face_hitp,
 									  LLVector3* intersection,LLVector2* tex_coord, LLVector3* normal, LLVector3* bi_normal)
 	
 {
+	if (!mbCanSelect ||
+		(gHideSelectedObjects && isSelected()) ||
+			mDrawable->isDead() || 
+			!gPipeline.hasRenderType(mDrawable->getRenderType()))
+	{
+		return FALSE;
+	}
+
+	BOOL ret = FALSE;
+
 	LLVolume* volume = getVolume();
 	if (volume)
 	{	
@@ -1946,38 +1959,91 @@ BOOL LLVOVolume::lineSegmentIntersect(const LLVector3& start, const LLVector3& e
 		v_start = agentPositionToVolume(start);
 		v_end = agentPositionToVolume(end);
 		
-		S32 face_hit = volume->lineSegmentIntersect(v_start, v_end, face,
-													intersection, tex_coord, normal, bi_normal);
-		if (face_hit >= 0)
+		LLVector3 p;
+		LLVector3 n;
+		LLVector2 tc;
+		LLVector3 bn;
+
+		if (intersection != NULL)
 		{
-			if (face_hitp != NULL)
-			{
-				*face_hitp = face_hit;
-			}
+			p = *intersection;
+		}
+
+		if (tex_coord != NULL)
+		{
+			tc = *tex_coord;
+		}
+
+		if (normal != NULL)
+		{
+			n = *normal;
+		}
+
+		if (bi_normal != NULL)
+		{
+			bn = *bi_normal;
+		}
+
+		S32 face_hit = -1;
+
+		S32 start_face, end_face;
+		if (face == -1)
+		{
+			start_face = 0;
+			end_face = volume->getNumFaces();
+		}
+		else
+		{
+			start_face = face;
+			end_face = face+1;
+		}
+
+		for (S32 i = start_face; i < end_face; ++i)
+		{
+			face_hit = volume->lineSegmentIntersect(v_start, v_end, i,
+													&p, &tc, &n, &bn);
 			
-			if (intersection != NULL)
+			if (face_hit >= 0 && mDrawable->getNumFaces() > face_hit)
 			{
-				*intersection = volumePositionToAgent(*intersection);  // must map back to agent space
-			}
-
-			if (normal != NULL)
-			{
-				*normal = volumeDirectionToAgent(*normal);
-				(*normal).normVec();
-			}
-
-			if (bi_normal != NULL)
-			{
-				*bi_normal = volumeDirectionToAgent(*bi_normal);
-				(*bi_normal).normVec();
-			}
-
+				LLFace* face = mDrawable->getFace(face_hit);
 			
-			return TRUE;
+				if (pick_transparent || !face->getTexture() || face->getTexture()->getMask(face->surfaceToTexture(tc, p, n)))
+				{
+					v_end = p;
+					if (face_hitp != NULL)
+					{
+						*face_hitp = face_hit;
+					}
+					
+					if (intersection != NULL)
+					{
+						*intersection = volumePositionToAgent(p);  // must map back to agent space
+					}
+
+					if (normal != NULL)
+					{
+						*normal = volumeDirectionToAgent(n);
+						(*normal).normVec();
+					}
+
+					if (bi_normal != NULL)
+					{
+						*bi_normal = volumeDirectionToAgent(bn);
+						(*bi_normal).normVec();
+					}
+
+					if (tex_coord != NULL)
+					{
+						*tex_coord = tc;
+					}
+					
+					ret = TRUE;
+				}
+			}
 		}
 	}
-	
-	return FALSE;
+		
+	return ret;
 }
 
 U32 LLVOVolume::getPartitionType() const

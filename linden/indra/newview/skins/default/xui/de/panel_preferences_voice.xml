@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Voice-Chat" name="chat">
 	<text_editor name="voice_unavailable">
 		Voice-Chat ist nicht verfügbar
 	</text_editor>
-	<check_box label="Voice-Chat aktivieren" name="enable_voice_check" />
+	<check_box label="Voice-Chat aktivieren" name="enable_voice_check"/>
 	<radio_group name="ear_location">
 		<radio_item name="0">
 			Voice-Chat von Kameraposition aus hören.
@@ -15,26 +15,23 @@
 	<text name="push_to_talk_heading">
 		Zum Sprechen drücken
 	</text>
-	<text_editor name="voice_chat_description">
-		HINWEIS: Beim Öffnen der Geräte-Einstellungen oder der Voice-Chat-Einrichtung werden Sie vorübergehend vom Voice-Chat getrennt.
+	<text_editor name="voice_chat_description" width="465" height="81" bottom_delta="-76">
+		Der Modus „Zum Sprechen drücken“ ermöglicht es Ihnen, zu kontrollieren, wann Ihre Stimme übertragen wird. Wenn Sie im Umschaltmodus sind, drücken Sie die Auslöse-Taste und lassen Sie sie wieder los, um Ihr Mikrofon an und aus zu stellen. Wenn Sie sich nicht im Umschaltmodus befinden, ist das Mikro nur aktiv, während Sie die Auslösetaste gedrückt halten.
 	</text_editor>
-	<check_box label="Viewer im &apos;Zum-Sprechen-drücken&apos;-Modus starten"
-	     name="push_to_talk_check" />
-	<check_box label="&apos;Zum-Sprechen-drücken&apos; im Umschaltmodus verwenden"
-	     name="push_to_talk_toggle_check" />
+	<check_box label="Viewer im „Zum-Sprechen-drücken“-Modus starten" name="push_to_talk_check"/>
+	<check_box label="„Zum-Sprechen-drücken“ im Umschaltmodus verwenden" name="push_to_talk_toggle_check"/>
 	<text name="push_to_talk_label">
-		Auslöser für &apos;Zum-Sprechen-drücken&apos;:
+		Auslöser für „Zum-Sprechen-drücken“:
 	</text>
-	<button label="Taste festlegen" name="set_voice_hotkey_button" />
-	<button label="Mittlere Maustaste" name="set_voice_middlemouse_button" />
+	<button label="Taste festlegen" name="set_voice_hotkey_button"/>
+	<button label="Mittlere Maustaste" name="set_voice_middlemouse_button"/>
 	<text name="privacy_heading">
 		Privatsphäre
 	</text>
-	<check_box label="Anrufe nur von Personen auf meiner Freundesliste annehmen"
-	     name="voice_call_friends_only_check" />
+	<check_box label="Anrufe nur von Personen auf meiner Freundesliste annehmen" name="voice_call_friends_only_check"/>
 	<text_editor name="device_settings_text">
-		HINWEIS: Beim Öffnen der Geräte-Einstellungen werden Sie vorübergehend vom Voice-Chat getrennt.
+		HINWEIS: Beim Öffnen der Geräte-Einstellungen werden Sie vorübergehend vom Voice-Chat getrennt. Vorgenommene Änderungen werden sofort gültig.
 	</text_editor>
-	<button label="Geräte-Einstellungen" name="device_settings_btn" />
-	<button label="Voice-Chat-Einrichtung" name="launch_voice_wizard_button" />
+	<button label="Geräte-Einstellungen" name="device_settings_btn"/>
+	<button label="Voice-Chat-Einrichtung" name="launch_voice_wizard_button"/>
 </panel>

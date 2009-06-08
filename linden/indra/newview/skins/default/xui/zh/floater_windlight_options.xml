@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 min_height="180"
+	 min_width="400"
+	 name="WindLight floater"
+	 title="高级天空编辑器">
+	<text
+		 name="KeyFramePresetsText">
+		天空预设:
+	</text>
+
+	<button
+		 label="新建"
+		 label_selected="新建"
+		 name="WLNewPreset" />
+	<button
+		 label="保存"
+		 label_selected="保存"
+		 name="WLSavePreset" />
+	<button
+		 label="删除"
+		 label_selected="删除"
+		 name="WLDeletePreset" />
+	<button
+		 label="日夜循环编辑器"
+		 label_selected="日夜循环编辑器"
+		 name="WLDayCycleMenuButton" />
+	<tab_container
+		 name="WindLight Tabs"
+		 tab_position="top">
+		<panel
+			 label="大气"
+			 name="Atmosphere">
+			<text
+				 name="BHText">
+				蓝色地平
+			</text>
+			<button
+				 label="?"
+				 name="WLBlueHorizonHelp" />
+			<text
+				 name="BHText2" width="14">
+				红
+			</text>
+			<text
+				 name="BHText3" width="14">
+				绿
+			</text>
+			<text
+				 name="BHText4" width="14">
+				蓝
+			</text>
+			<text
+				 name="BHText5" width="14">
+				亮
+			</text>
+			<text
+				 name="BDensText">
+			云雾地平
+			</text>
+			<button
+				 label="?"
+				 name="WLHazeHorizonHelp" />
+			<text
+				 name="BDensText2">
+				蓝色浓度
+			</text>
+			<button
+				 label="?"
+				 name="WLBlueDensityHelp" />
+			<text
+				 name="BHText6" width="14">
+				红
+			</text>
+			<text
+				 name="BHText7" width="14">
+				绿
+			</text>
+			<text
+				 name="BHText8" width="14">
+				蓝
+			</text>
+			<text
+				 name="BHText9" width="14">
+				亮
+			</text>
+			<text
+				 name="HDText">
+				云雾浓度
+			</text>
+			<button
+				 label="?"
+				 name="WLHazeDensityHelp" />
+			<text
+				 name="DensMultText">
+				浓度乘数
+			</text>
+			<button
+				 label="?"
+				 name="WLDensityMultHelp" />
+			<slider
+				 label=""
+				 name="WLDensityMult"
+				 value="1.0" />
+			<text
+				 name="WLDistanceMultText">
+				距离乘数
+			</text>
+			<button
+				 label="?"
+				 name="WLDistanceMultHelp" />
+			<slider
+				 label=""
+				 name="WLDistanceMult"
+				 value="0.0" />
+			<text
+				 name="MaxAltText">
+					最大高度
+			</text>
+			<button
+				 label="?"
+				 name="WLMaxAltitudeHelp" />
+			<slider
+				 label=""
+				 name="WLMaxAltitude"
+				 value="4000" />
+		</panel>
+		<panel
+			 label="光照"
+			 name="Lighting">
+			<text
+				 name="SLCText">
+				日月颜色
+			</text>
+			<button
+				 label="?"
+				 name="WLSunlightColorHelp" />
+			<text
+				 name="BHText" width="14">
+				红
+			</text>
+			<text
+				 name="BHText2" width="14">
+				绿
+			</text>
+			<text
+				 name="BHText3" width="14">
+				蓝
+			</text>
+			<text
+				 name="BHText4" width="14">
+				亮
+			</text>
+			<text
+				 name="TODText">
+				日月位置
+			</text>
+			<text
+				 name="WLAmbientText">
+				环境
+			</text>
+			<button
+				 label="?"
+				 name="WLAmbientHelp" />
+			<text
+				 name="BHText5" width="14">
+				红
+			</text>
+			<text
+				 name="BHText6" width="14">
+				绿
+			</text>
+			<text
+				 name="BHText7" width="14">
+				蓝
+			</text>
+			<text
+				 name="BHText8" width="14">
+				亮
+			</text>
+			<text
+				 name="WLEastAngleText">
+				东向角度
+			</text>
+			<text
+				 name="SunGlowText">
+				太阳辉光
+			</text>
+			<slider
+				 label="聚焦"
+				 name="WLGlowB"
+				 value="1.0" />
+			<slider
+				 label="尺寸"
+				 name="WLGlowR"
+				 value="1.0" />
+			<text
+				 name="SceneGammaText">
+				场景γ
+			</text>
+			<button
+				 label="?"
+				 name="WLSceneGammaHelp" />
+			<slider
+				 label=""
+				 name="WLGamma"
+				 value="2.0" />
+			<text
+				 name="WLStarText">
+				星空亮度
+			</text>
+		</panel>
+		<panel
+			 label="云层"
+			 name="Clouds">
+			<text
+				 name="WLCloudColorText">
+				云层颜色
+			</text>
+			<button
+				 label="?"
+				 name="WLCloudColorHelp" />
+			<text
+				 name="BHText" width="14">
+				红
+			</text>
+			<text
+				 name="BHText2" width="14">
+				绿
+			</text>
+			<text
+				 name="BHText3" width="14">
+				蓝
+			</text>
+			<text
+				 name="BHText4" width="14">
+				亮
+			</text>
+			<text
+				 name="WLCloudColorText2">
+				云层 XY/密度
+			</text>
+			<text
+				 name="BHText5">
+				X
+			</text>
+			<text
+				 name="BHText6">
+				Y
+			</text>
+			<text
+				 name="BHText7">
+				D
+			</text>
+			<text
+				 name="WLCloudCoverageText">
+				云层覆盖
+			</text>
+			<text
+				 name="WLCloudScaleText">
+				云层尺寸
+			</text>
+			<text
+				 name="WLCloudDetailText">
+				云层细节 (XY/密度)
+			</text>
+			<button
+				 label="?"
+				 name="WLCloudDetailHelp" />
+			<text
+				 name="BHText8">
+				X
+			</text>
+			<text
+				 name="BHText9">
+				Y
+			</text>
+			<text
+				 name="BHText10">
+				D
+			</text>
+			<slider
+				 label=""
+				 name="WLCloudDetailX"
+				 value="0.5" />
+			<slider
+				 label=""
+				 name="WLCloudDetailY"
+				 value="0.5" />
+			<slider
+				 label=""
+				 name="WLCloudDetailDensity"
+				 value="1.0" />
+			<text
+				 name="WLCloudScrollXText">
+				卷动 X
+			</text>
+			<button
+				 label="?"
+				 name="WLCloudScrollXHelp" />
+			<check_box
+				 initial_value="false"
+				 label="Lock"
+				 name="WLCloudLockX" />
+			<slider
+				 label=""
+				 name="WLCloudScrollX"
+				 value="0.0" />
+			<text
+				 name="WLCloudScrollYText">
+				卷动 Y
+			</text>
+			<check_box
+				 initial_value="false"
+				 label="渲染旧云层"
+				 name="DrawClassicClouds" />
+			<button
+				 label="?"
+				 name="WLClassicCloudsHelp" />
+		</panel>
+	</tab_container>
+	<string
+		 name="WLDefaultSkyNames">
+		A-12AM:A-12PM:A-3AM:A-3PM:A-4.30PM:A-6AM:A-6PM:A-9AM:A-9PM:Barcelona:Blizzard:Blue Midday:Coastal Afternoon:Coastal Sunset:Default:Desert Sunset:Fine Day:Fluffy Big Clouds:Foggy:Funky Funky:Funky Funky Funky:Gelatto:Ghost:Incongruent Truths:Midday 1:Midday 2:Midday 3:Midday 4:Night:Pirate:Purple:Sailor's Delight:Sheer Sensuality
+	</string>
+</floater>
+

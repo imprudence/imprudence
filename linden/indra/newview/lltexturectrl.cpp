@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -479,9 +479,9 @@ void LLFloaterTexturePicker::draw()
 		LLRect local_rect = getLocalRect();
 		if (gFocusMgr.childHasKeyboardFocus(this) && mOwner->isInVisibleChain() && mContextConeOpacity > 0.001f)
 		{
-			LLGLSNoTexture no_texture;
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			LLGLEnable(GL_CULL_FACE);
-			gGL.begin(LLVertexBuffer::QUADS);
+			gGL.begin(LLRender::QUADS);
 			{
 				gGL.color4f(0.f, 0.f, 0.f, CONTEXT_CONE_IN_ALPHA * mContextConeOpacity);
 				gGL.vertex2i(owner_rect.mLeft, owner_rect.mTop);

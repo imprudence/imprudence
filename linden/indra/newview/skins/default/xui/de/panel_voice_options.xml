@@ -12,12 +12,12 @@
 		</radio_item>
 	</radio_group>
 	<check_box label="Voice-Anrufe nur meinen Freunden erlauben" name="friends_only_check" />
-	<check_box label="Viewer im &apos;Zum-Sprechen-drücken&apos;-Modus starten"
+	<check_box label="Viewer im „Zum-Sprechen-drücken“-Modus starten"
 	     name="push_to_talk_check" />
-	<check_box label="&apos;Zum-Sprechen-drücken&apos; im Umschaltmodus verwenden"
+	<check_box label="„Zum-Sprechen-drücken“ im Umschaltmodus verwenden"
 	     name="push_to_talk_toggle_check" />
 	<text name="push_to_talk_label">
-		Auslöser für &apos;Zum-Sprechen-drücken&apos;:
+		Auslöser für „Zum-Sprechen-drücken“:
 	</text>
 	<button label="Taste festlegen" name="set_voice_hotkey_button" />
 	<button label="Mittlere Maustaste" name="set_voice_middlemouse_button" />

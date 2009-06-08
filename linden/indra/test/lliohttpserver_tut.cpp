@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2008, Linden Research, Inc.
+ * Copyright (c) 2006-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -191,7 +191,7 @@ namespace tut
 			"HTTP/1.0 200 OK\r\n");
 						
 		ensure_contains("web/hello content type", result,
-			"Content-Type: application/xml\r\n");
+			"Content-Type: application/llsd+xml\r\n");
 
 		ensure_contains("web/hello content length", result,
 			"Content-Length: 36\r\n");
@@ -232,7 +232,7 @@ namespace tut
 			"HTTP/1.0 200 OK\r\n");
 						
 		ensure_contains("web/echo content type", result,
-			"Content-Type: application/xml\r\n");
+			"Content-Type: application/llsd+xml\r\n");
 
 		ensure_contains("web/echo content length", result,
 			"Content-Length: 35\r\n");

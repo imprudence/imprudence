@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -98,7 +98,7 @@ void LLFrameStatView::draw()
 	S32 j;
 	LLStat *statp;
 
-	LLGLSNoTexture gls_no_texture;
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 	statp = mStats[0];
 	if (!statp)
@@ -159,7 +159,7 @@ void LLFrameStatView::draw()
 	for (i = 0; i < mNumStats; i++)
 	{
 		// Draw the color key.
-		LLGLSNoTexture gls_no_texture;
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		gl_rect_2d(left, top - 2, left + 10, top - 12, mColors[i]);
 
 		left = left + 15;
@@ -203,7 +203,7 @@ void LLFrameStatView::draw()
 	bottom = bottom - 4;
 	for (tick_value = 0; tick_value <= 100; tick_value += 20)
 	{
-		LLGLSNoTexture gls_no_texture;
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		left = 10 + llfloor(tick_value*(total_width/100.f));
 		right = left + 1;
 		gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.2f));
@@ -253,7 +253,7 @@ void LLFrameStatView::draw()
 		bottom = top - graph_height - 4;
 		for (tick_value = 0; tick_value <= 100; tick_value += 20)
 		{
-			LLGLSNoTexture gls_no_texture;
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			left = 10 + llfloor(tick_value*(total_width/100.f));
 			right = left + 1;
 			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.25f));
@@ -278,7 +278,7 @@ void LLFrameStatView::draw()
 		bottom = top - graph_height - 4;
 		for (tick_value = 0; tick_value <= mTotalTime; tick_value += mLabelSpacing)
 		{
-			LLGLSNoTexture gls_no_texture;
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			left = 10 + llfloor(tick_value*time_scale);
 			right = left + 1;
 			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.25f));

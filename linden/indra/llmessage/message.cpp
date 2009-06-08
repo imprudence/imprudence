@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -763,7 +763,7 @@ BOOL LLMessageSystem::checkMessages( S64 frame_count )
 				clearReceiveState();
 				valid_packet = FALSE;
 			}
-			
+
 			if( valid_packet )
 			{
 				logValidMsg(cdp, host, recv_reliable, recv_resent, (BOOL)(acks>0) );

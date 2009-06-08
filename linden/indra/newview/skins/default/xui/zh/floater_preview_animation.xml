@@ -3,7 +3,7 @@
 	<text type="string" length="1" name="desc txt">
 		描述:
 	</text>
-	<button label="在全世界播放" label_selected="停止" name="Anim play btn"
+	<button label="在世界中播放" label_selected="停止" name="Anim play btn"
 	     tool_tip="播放这段动画且其他人也可以观看。" />
 	<button label="本地播放" label_selected="停止" name="Anim audition btn"
 	     tool_tip="播放这段动画且仅有您可以观看。" />

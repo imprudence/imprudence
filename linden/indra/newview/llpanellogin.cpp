@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -63,7 +63,6 @@
 #include "llviewernetwork.h"
 #include "llviewerwindow.h"			// to link into child list
 #include "llnotify.h"
-#include "llappviewer.h"					// for gHideLinks
 #include "llurlsimstring.h"
 #include "lluictrlfactory.h"
 #include "llhttpclient.h"
@@ -259,6 +258,11 @@ namespace {
 	boost::intrusive_ptr< LLIamHereLogin > gResponsePtr = 0;
 };
 
+void set_start_location(LLUICtrl* ctrl, void* data)
+{
+    LLURLSimString::setString(ctrl->getValue().asString());
+}
+
 //---------------------------------------------------------------------------
 // Public methods
 //---------------------------------------------------------------------------
@@ -345,7 +349,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 		combo->setCurrentByIndex( 0 );
 	}
 
-	combo->setCommitCallback( &LLPanelGeneral::set_start_location );
+	combo->setCommitCallback( &set_start_location );
 
 	LLComboBox* server_choice_combo = sInstance->getChild<LLComboBox>("server_combo");
 	server_choice_combo->setCommitCallback(onSelectServer);
@@ -852,11 +856,7 @@ void LLPanelLogin::loadLoginPage()
 	}
 
 	// Language
-	std::string language(gSavedSettings.getString("Language"));
-	if(language == "default")
-	{
-		language = gSavedSettings.getString("SystemLanguage");
-	}
+	std::string language = LLUI::getLanguage();
 	oStr << first_query_delimiter<<"lang=" << language;
 	
 	// First Login?
@@ -1017,15 +1017,8 @@ void LLPanelLogin::onClickConnect(void *)
 		}
 		else
 		{
-			if (gHideLinks)
-			{
-				gViewerWindow->alertXml("MustHaveAccountToLogInNoLinks");
-			}
-			else
-			{
-				gViewerWindow->alertXml("MustHaveAccountToLogIn",
-										LLPanelLogin::newAccountAlertCallback);
-			}
+			gViewerWindow->alertXml("MustHaveAccountToLogIn",
+									LLPanelLogin::newAccountAlertCallback);
 		}
 	}
 }

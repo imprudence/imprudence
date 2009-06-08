@@ -6,7 +6,7 @@
 #
 # $LicenseInfo:firstyear=2007&license=viewergpl$
 # 
-# Copyright (c) 2007-2008, Linden Research, Inc.
+# Copyright (c) 2007-2009, Linden Research, Inc.
 # 
 # Second Life Viewer Source Code
 # The source code in this file ("Source Code") is provided by Linden Lab
@@ -277,7 +277,7 @@ class LinuxSetup(UnixSetup):
             project_name=self.project_name
             )
         if not self.is_internal_tree():
-            args.update({'cxx':'g++', 'server':'FALSE', 'viewer':'TRUE'})
+            args.update({'cxx':'g++', 'server':'OFF', 'viewer':'ON'})
         else:
             if self.distcc:
                 distcc = self.find_in_path('distcc')
@@ -289,12 +289,13 @@ class LinuxSetup(UnixSetup):
                 gcc = distcc + self.find_in_path(
                     self.debian_sarge and 'g++-3.3' or 'g++-4.1',
                     'g++', baseonly)
-                args.update({'cxx': ' '.join(gcc), 'server': 'TRUE',
-                             'viewer': 'FALSE'})
+                args.update({'cxx': ' '.join(gcc), 'server': 'ON',
+                             'viewer': 'OFF'})
             else:
                 gcc41 = distcc + self.find_in_path('g++-4.1', 'g++', baseonly)
-                args.update({'cxx': ' '.join(gcc41), 'server':'FALSE',
-                             'viewer':'TRUE'})
+                args.update({'cxx': ' '.join(gcc41),
+                             'server': 'OFF',
+                             'viewer': 'ON'})
         cmd = (('cmake -DCMAKE_BUILD_TYPE:STRING=%(type)s '
                 '-G %(generator)r -DSERVER:BOOL=%(server)s '
                 '-DVIEWER:BOOL=%(viewer)s -DSTANDALONE:BOOL=%(standalone)s '
@@ -390,7 +391,7 @@ class DarwinSetup(UnixSetup):
         return 'darwin'
 
     def arch(self):
-        if self.unattended == 'TRUE':
+        if self.unattended == 'ON':
             return 'universal'
         else:
             return UnixSetup.arch(self)
@@ -406,7 +407,7 @@ class DarwinSetup(UnixSetup):
             universal='',
             type=self.build_type.upper()
             )
-        if self.unattended == 'TRUE':
+        if self.unattended == 'ON':
             args['universal'] = '-DCMAKE_OSX_ARCHITECTURES:STRING=\'i386;ppc\''
         #if simple:
         #    return 'cmake %(opts)s %(dir)r' % args
@@ -548,7 +549,7 @@ class WindowsSetup(PlatformSetup):
     def run_cmake(self, args=[]):
         '''Override to add the vstool.exe call after running cmake.'''
         PlatformSetup.run_cmake(self, args)
-        if self.unattended == 'FALSE':
+        if self.unattended == 'OFF':
             self.run_vstool()
 
     def run_vstool(self):
@@ -558,6 +559,9 @@ class WindowsSetup(PlatformSetup):
                 prev_build = open(stamp).read().strip()
             except IOError:
                 prev_build = ''
+            if prev_build == self.build_type:
+                # Only run vstool if the build type has changed.
+                continue
             vstool_cmd = (os.path.join('tools','vstool','VSTool.exe') +
                           ' --solution ' +
                           os.path.join(build_dir,'Imprudence.sln') +
@@ -589,7 +593,7 @@ class WindowsSetup(PlatformSetup):
 class CygwinSetup(WindowsSetup):
     def __init__(self):
         super(CygwinSetup, self).__init__()
-        self.generator = 'vc71'
+        self.generator = 'vc80'
 
     def cmake_commandline(self, src_dir, build_dir, opts, simple):
         dos_dir = commands.getoutput("cygpath -w %s" % src_dir)
@@ -638,6 +642,8 @@ Commands:
   clean       delete all build directories (does not affect sources)
   configure   configure project by running cmake
 
+If you do not specify a command, the default is "configure".
+
 Command-options for "configure":
   We use cmake variables to change the build configuration.
   -DSERVER:BOOL=OFF        Don't configure simulator/dataserver/etc
@@ -649,7 +655,7 @@ Examples:
   Set up a viewer-only project for your system:
     develop.py configure -DSERVER:BOOL=OFF
   
-  Set up a Visual Studio 2005 project with "package" target:
+  Set up a Visual Studio 2005 project with package target (to build installer):
     develop.py -G vc80 configure -DPACKAGE:BOOL=ON
 '''
 
@@ -673,9 +679,9 @@ For example: develop.py configure -DSERVER:BOOL=OFF"""
             print usage_msg.strip()
             sys.exit(0)
         elif o in ('--standalone',):
-            setup.standalone = 'TRUE'
+            setup.standalone = 'ON'
         elif o in ('--unattended',):
-            setup.unattended = 'TRUE'
+            setup.unattended = 'ON'
         elif o in ('-t', '--type'):
             try:
                 setup.build_type = setup.build_types[a.lower()]

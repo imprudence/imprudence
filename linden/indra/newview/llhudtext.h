@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -122,6 +122,8 @@ public:
 	void setHidden( BOOL hide ) { mHidden = hide; }
 	void setOnHUDAttachment(BOOL on_hud) { mOnHUDAttachment = on_hud; }
 	void shift(const LLVector3& offset);
+
+	BOOL lineSegmentIntersect(const LLVector3& start, const LLVector3& end, LLVector3& intersection, BOOL debug_render = FALSE);
 
 	static void shiftAll(const LLVector3& offset);
 	static void renderAllHUD();

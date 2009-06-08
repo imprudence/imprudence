@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="mute floater" title="Stummgeschaltete Einwohner und Objekte">
+<floater name="mute floater" title="Stummgeschaltete Einwohner und Objekte" short_title="Stummschalten-Liste">
 	<scroll_list name="mutes" tool_tip="List of currently muted residents" />
 	<button label="Einwohner stummschalten..." label_selected="Einwohner stummschalten..."
 	     name="Mute resident..."

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -33,6 +33,7 @@
 #define LL_LLGLSLSHADER_H
 
 #include "llgl.h"
+#include "llrender.h"
 
 class LLShaderFeatures
 {
@@ -111,8 +112,8 @@ public:
 	//if given texture uniform is active in the shader, 
 	//the corresponding channel will be active upon return
 	//returns channel texture is enabled in from [0-MAX)
-	S32 enableTexture(S32 uniform, S32 mode = GL_TEXTURE_2D);
-	S32 disableTexture(S32 uniform, S32 mode = GL_TEXTURE_2D); 
+	S32 enableTexture(S32 uniform, LLTexUnit::eTextureType mode = LLTexUnit::TT_TEXTURE);
+	S32 disableTexture(S32 uniform, LLTexUnit::eTextureType mode = LLTexUnit::TT_TEXTURE); 
 	
     BOOL link(BOOL suppress_errors = FALSE);
 	void bind();

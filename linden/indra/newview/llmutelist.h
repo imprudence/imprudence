@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -60,8 +60,7 @@ public:
 		flagAll				= 0x0000000F		// Mask of all currently defined flags
 	};
 	
-	LLMute(const LLUUID& id, const std::string& name = std::string(), EType type = BY_NAME, U32 flags = 0) 
-	: mID(id), mName(name), mType(type),mFlags(flags) { }
+	LLMute(const LLUUID& id, const std::string& name = std::string(), EType type = BY_NAME, U32 flags = 0);
 
 	// Returns name + suffix based on type
 	// For example:  "James Tester (resident)"

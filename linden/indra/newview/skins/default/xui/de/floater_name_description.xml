@@ -6,6 +6,6 @@
 	<text name="description_label">
 		Beschreibung:
 	</text>
-	<button label="Abbrechen" name="cancel_btn" />
-	<button label="Hochladen (10 L$)" name="ok_btn" />
+	<button label="Abbrechen" name="cancel_btn" width="80" />
+	<button label="Hochladen (10 L$)" name="ok_btn" width="120" />
 </floater>

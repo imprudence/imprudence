@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="content_panel">
+	<text_editor name="voice_intro_text1">
+		Bem-vindo ao Bate-Papo em voz do Second Life! O Bate-papo em Voz lhe permite falar com outros residentes. Este assistente irá guiá-lo através dos passos necessários para configurar o Bate-papo em voz. Utilizá-lo exige falantes e áudio, se quiser falar com outras pessoas, use um microfone ou headset estéreo com microfone.
+	</text_editor>
+	<text_editor name="voice_intro_text2">
+		Bate-papo em voz é ativado por padrão. Quer continuar usando a conversa em voz?
+	</text_editor>
+	<radio_group name="voice_enable">
+		<radio_item name="1">
+			Sim, continue com o Bate-papo em Voz.
+		</radio_item>
+		<radio_item name="0">
+			Não, desative o Bate-papo em Voz.
+		</radio_item>
+	</radio_group>
+</panel>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Event" title="Evento">
 	<text name="event_name_label">
 		Nome:
@@ -15,8 +15,11 @@
 	<text name="event_mature_label">
 		Índice:
 	</text>
-	<text name="event_mature">
-		(desconhecido)
+	<text name="event_mature_yes">
+		sim
+	</text>
+	<text name="event_mature_no">
+		Não
 	</text>
 	<text name="event_date_label">
 		Data:
@@ -51,8 +54,17 @@
 	<text name="event_desc_label">
 		Descrição:
 	</text>
-	<button label="Tele-transportar" name="teleport_btn" />
-	<button label="Mostrar no mapa" name="map_btn" />
-	<button label="Notificar" name="notify_btn" />
-	<button label="Criar Evento..." name="create_event_btn" />
+	<button label="Tele-transportar" name="teleport_btn"/>
+	<button label="Mostrar no mapa" name="map_btn"/>
+	<button label="Notificar" name="notify_btn"/>
+	<button label="Criar Evento..." name="create_event_btn"/>
+	<string name="none">
+		nenhum
+	</string>
+	<string name="notify">
+		Avisar
+	</string>
+	<string name="dont_notify">
+		Não avisar
+	</string>
 </panel>

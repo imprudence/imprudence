@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -33,8 +33,8 @@
 #define LL_LLVERSIONVIEWER_H
 
 const S32 LL_VERSION_MAJOR = 1;
-const S32 LL_VERSION_MINOR = 21;
-const S32 LL_VERSION_PATCH = 6;
+const S32 LL_VERSION_MINOR = 22;
+const S32 LL_VERSION_PATCH = 11;
 const S32 LL_VERSION_BUILD = 0;
 
 const char * const LL_CHANNEL = "Imprudence";

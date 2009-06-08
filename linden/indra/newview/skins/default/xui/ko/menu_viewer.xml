@@ -144,8 +144,12 @@
 		<menu_item_call label="모든 애니메이션 중지" name="Stop All Animations" />
 		<menu_item_call label="키 해제" name="Release Keys" />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="계정 기록" name="Account History..." />
-		<menu_item_call label="내 계정 관리" name="Manage My Account..." />
+		<menu_item_call label="계정 기록" name="Account History..." >
+			<on_click name="AccountHistory_url" userdata="WebLaunchAccountHistory,http://secondlife.com/account/transactions.php?lang=ko" />
+		</menu_item_call>
+		<menu_item_call label="내 계정 관리" name="Manage My Account..." >
+			<on_click name="ManageMyAccount_url" userdata="WebLaunchJoinNow,http://secondlife.com/account/index.php?lang=ko" />
+		</menu_item_call>
 		<menu_item_call label="린든달러(L$) 구매" name="Buy and Sell L$..." />
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="내 토지" name="My Land..." />

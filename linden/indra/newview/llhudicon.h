@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2008, Linden Research, Inc.
+ * Copyright (c) 2006-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -67,6 +67,7 @@ public:
 
 	static S32 generatePickIDs(S32 start_id, S32 step_size);
 	static LLHUDIcon* handlePick(S32 pick_id);
+	static LLHUDIcon* lineSegmentIntersectAll(const LLVector3& start, const LLVector3& end, LLVector3* intersection);
 
 	static void updateAll();
 	static void cleanupDeadIcons();
@@ -76,6 +77,8 @@ public:
 
 	BOOL getHidden() const { return mHidden; }
 	void setHidden( BOOL hide ) { mHidden = hide; }
+
+	BOOL lineSegmentIntersect(const LLVector3& start, const LLVector3& end, LLVector3* intersection);
 
 protected:
 	LLHUDIcon(const U8 type);

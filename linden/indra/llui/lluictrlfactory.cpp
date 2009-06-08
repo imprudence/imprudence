@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -130,15 +130,7 @@ void LLUICtrlFactory::setupPaths()
 		for (path = root->getFirstChild(); path.notNull(); path = path->getNextSibling())
 		{
 			LLUIString path_val_ui(path->getValue());
-			std::string language = "en-us";
-			if (LLUI::sConfigGroup)
-			{
-				language = LLUI::sConfigGroup->getString("Language");
-				if(language == "default")
-				{
-					language = LLUI::sConfigGroup->getString("SystemLanguage");
-				}
-			}
+			std::string language = LLUI::getLanguage();
 			path_val_ui.setArg("[LANGUAGE]", language);
 
 			if (std::find(sXUIPaths.begin(), sXUIPaths.end(), path_val_ui.getString()) == sXUIPaths.end())

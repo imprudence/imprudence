@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <alerts>
 	<global name="skipnexttime">
 		Nicht mehr anzeigen
@@ -58,8 +58,7 @@
 			Verbindung mit [SECOND_LIFE] nicht möglich.
 Möglicherweise handelt es sich um einen Systemausfall.
 
-Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
-für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
+Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie für Unterstützung und einen Link auf die Systemstatus-Webseite auf „Hilfe“.
 		</message>
 		<option name="OK">
 			OK
@@ -141,9 +140,7 @@ Sie finden es in der Webpage Studio-Ausstellung.
 	</alert>
 	<alert name="GrantModifyRights">
 		<message name="message">
-			Die Gewährung von Änderungsrechten an andere Einwohner ermöglicht es diesen,
-JEDES BELIEBIGE Objekt zu ändern oder an sich zu nehmen, das Sie in der Second Life-Welt besitzen. Seien Sie SEHR vorsichtig beim Erteilen
-dieser Erlaubnis.
+			Die Gewährung von Änderungsrechten an andere Einwohner ermöglicht es diesen, JEDES BELIEBIGE Objekt zu ändern oder an sich zu nehmen, das Sie in der Second Life-Welt besitzen. Seien Sie SEHR vorsichtig beim Erteilen dieser Erlaubnis.
 Möchten Sie [FIRST_NAME] [LAST_NAME] Änderungsrechte gewähren?
 		</message>
 		<option name="Yes">
@@ -155,9 +152,7 @@ Möchten Sie [FIRST_NAME] [LAST_NAME] Änderungsrechte gewähren?
 	</alert>
 	<alert name="GrantModifyRightsMultiple">
 		<message name="message">
-			Die Gewährung von Änderungsrechten an andere Einwohner ermöglicht es diesen, 
-JEDES BELIEBIGE Objekt zu ändern, das Sie in der Second Life-Welt besitzen. Seien Sie SEHR vorsichtig beim Erteilen 
-dieser Erlaubnis.
+			Die Gewährung von Änderungsrechten an andere Einwohner ermöglicht es diesen, JEDES BELIEBIGE Objekt zu ändern, das Sie in der Second Life-Welt besitzen. Seien Sie SEHR vorsichtig beim Erteilen dieser Erlaubnis.
 Möchten Sie den ausgewählten Einwohnern Änderungsrechte gewähren?
 		</message>
 		<option name="Yes">
@@ -232,8 +227,7 @@ Möchten Sie den ausgewählten Einwohnern Änderungsrechte gewähren?
 	<alert name="CreateGroupCanAfford">
 		<message name="message">
 			Das Erstellen einer Gruppe kostet [COST] L$.
-Damit die Gruppe länger als drei Tage bestehen bleibt,
-muss sie aus mindestens zwei Mitgliedern bestehen.
+Damit die Gruppe länger als drei Tage bestehen bleibt, muss sie aus mindestens zwei Mitgliedern bestehen.
  
 Gruppe gründen?
 		</message>
@@ -257,8 +251,7 @@ Sie haben nicht genug L$, um eine Gruppe zu erstellen.
 	</alert>
 	<alert name="GroupNameUsesReservedWord">
 		<message name="message">
-			Der Gruppenname enthält ein unerwünschtes Wort. Bitte
-wählen Sie einen anderen Namen.
+			Der Gruppenname enthält ein unerwünschtes Wort. Bitte wählen Sie einen anderen Namen.
 		</message>
 	</alert>
 	<alert name="MustSpecifyGroupNoticeSubject">
@@ -294,8 +287,7 @@ Möchten Sie fortfahren?
 	</alert>
 	<alert name="AssignDangerousActionWarning">
 		<message name="message">
-			Sie sind im Begriff, der Rolle &apos;[ROLE_NAME]&apos; die Fähigkeit 
-&apos;[ACTION_NAME]&apos; zuzuweisen.
+			Sie sind im Begriff, der Rolle „[ROLE_NAME]“ die Fähigkeit „[ACTION_NAME]“ zuzuweisen.
  
  *ACHTUNG*
  Mitglieder in einer Rolle mit dieser Fähigkeit können sich selbst -
@@ -304,7 +296,7 @@ Möchten Sie fortfahren?
  Eigentümerrechte erreichen. Überlegen Sie sich, wem Sie diese Fähigkeit
  verleihen.
  
-Der Rolle &apos;[ROLE_NAME]&apos; diese Fähigkeit zuweisen?
+Der Rolle „[ROLE_NAME]“ diese Fähigkeit zuweisen?
 		</message>
 		<option name="Yes">
 			Ja
@@ -315,15 +307,14 @@ Der Rolle &apos;[ROLE_NAME]&apos; diese Fähigkeit zuweisen?
 	</alert>
 	<alert name="AssignDangerousAbilityWarning">
 		<message name="message">
-			Sie sind im Begriff, der Rolle &apos;[ROLE_NAME]&apos; die Fähigkeit 
-&apos;[ACTION_NAME]&apos; zuzuweisen.
+			Sie sind im Begriff, der Rolle „[ROLE_NAME]“ die Fähigkeit „[ACTION_NAME]“ zuzuweisen.
  
  *ACHTUNG*
  Mitglieder in einer Rolle mit dieser Fähigkeit können sich selbst -
  und allen anderen Mitgliedern – alle Fähigkeiten zuweisen und
  damit fast Eigentümerrechte erreichen.
  
-Der Rolle &apos;[ROLE_NAME]&apos; diese Fähigkeit zuweisen?
+Der Rolle „[ROLE_NAME]“ diese Fähigkeit zuweisen?
 		</message>
 		<option name="Yes">
 			Ja
@@ -332,20 +323,19 @@ Der Rolle &apos;[ROLE_NAME]&apos; diese Fähigkeit zuweisen?
 			Nein
 		</option>
 	</alert>
-	<alert name="ClickPublishHelpGroup">
-		<message name="message">
-			Im Web veröffentlichen
-		</message>
-	</alert>
+	<alert name="ClickPublishHelpGroup"/>
 	<alert name="ClickPublishHelpLand">
 		<message name="message">
-			In Suche veröffentlichen
+			Auswahl von „In Suche veröffentlichen“  
+Dieses Kontrollkästchen zeigt Folgendes an:
+- diese Parzelle in den Suchergebnissen
+- die öffentlichen Objekte dieser Parzelle
+- diese Parzelle in der Websuche
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpLandDisabled">
 		<message name="message">
-			Diese Parzelle kann nicht in der Suche angezeigt werden, da sie sich in
-einer Region befindet, die das verbietet.
+			Diese Parzelle kann nicht in der Suche angezeigt werden, da sie sich in einer Region befindet, die das verbietet.
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpPostcard">
@@ -355,7 +345,9 @@ einer Region befindet, die das verbietet.
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
 		<message name="message">
-			In Suche anzeigen
+			Auswahl von „In Suche anzeigen“ zeigt Folgendes an:
+- Ihr Profil in den Suchergebnissen
+- einen Link auf Ihr Profil in den öffentlichen Gruppenseiten
 		</message>
 	</alert>
 	<alert name="ClickPartnerHelpAvatar">
@@ -373,22 +365,22 @@ Die Second Life Website für weitere Informationen über Partnerschaften öffnen
 	</alert>
 	<alert name="ClickWebProfileHelpAvatar">
 		<message name="message">
-			Wenn dieser Einwohner eine Webprofil-URL angegeben hat, können Sie:
-* Auf &apos;Laden&apos; klicken und die Seite im integrierten Browser anzuzeigen.
-* Auf Laden &gt; &apos;In externem Browser&apos; klicken, um die Seite extern anzeigen zu lassen.
-* Auf Laden &gt; &apos;Start URL&apos; klicken, um zum Webprofil des Benutzers zurückzukehren.
+			Wenn dieser Einwohner einen Webprofil-URL angegeben hat, können Sie:
+ * Auf „Laden“ klicken und die Seite in dieser Web-Registerkarte anzeigen.
+ * Auf Laden &gt; „In externem Browser“ klicken und die Seite im Standard-Browser anzeigen.
+ * Auf Laden &gt; „Start-URL“ klicken und zum Webprofil des Bewohners zurückkehren.
  
-In Ihrem eigenen Profil können Sie jede beliebige URL als Ihr Webprofil eingeben und mit OK übernehmen.
-Wenn andere Einwohner Ihr Profil betrachten, können sie diese URL besuchen.
+In Ihrem eigenen Profil können Sie jeden beliebigen URL als Ihr Webprofil eingeben und mit OK übernehmen.
+Wenn sich andere Einwohner Ihr Profil ansehen, können sie diesen URL besuchen.
 		</message>
 	</alert>
 	<alert name="ClickWebProfileNoWebHelpAvatar">
 		<message name="message">
 			Wenn dieser Einwohner einen Webprofil-URL angegeben hat, können Sie:
- * Auf &apos;Öffnen&apos; klicken und die Seite im externen Browser anzeigen.
+ * Auf Laden klicken und die Seite im Standard-Browser anzeigen.
  
-In Ihrem Profil können Sie jeden URL als Webprofil festlegen.
-Bei Anzeige ihres Profils kann jeder Einwohner diesen URL öffnen.
+In Ihrem eigenen Profil können Sie jeden beliebigen URL als Ihr Webprofil eingeben und mit OK übernehmen.
+Wenn sich andere Einwohner Ihr Profil ansehen, können sie diesen URL besuchen.
 		</message>
 	</alert>
 	<alert name="ReputationMinGreaterThanMax">
@@ -459,12 +451,12 @@ Fortfahren?
 	<alert name="JoinGroupCannotAfford">
 		<message name="message">
 			Der Beitritt zu dieser Gruppe kostet [COST] L$.
-Sie haben nicht genug Geld, um dieser Gruppe beizutreten.
+Sie haben nicht genug L$, um dieser Gruppe beizutreten.
 		</message>
 	</alert>
 	<alert name="LandBuyPass">
 		<message name="message">
-			Sie können dieses Land (&apos;[PARCEL_NAME]&apos;) für [COST] L$
+			Sie können dieses Land („[PARCEL_NAME]“) für [COST] L$
 [TIME] Stunden lang betreten.  Pass kaufen?
 		</message>
 		<option name="OK">
@@ -476,9 +468,7 @@ Sie haben nicht genug Geld, um dieser Gruppe beizutreten.
 	</alert>
 	<alert name="CannotStartAuctionAlreadyForSale">
 		<message name="message">
-			Eine Parzelle, die bereits zum Verkauf freigegeben
-ist, kann nicht auktioniert werden. Brechen Sie zuerst den Landverkauf ab,
-wenn Sie eine Auktion starten möchten.
+			Eine Parzelle, die bereits zum Verkauf freigegeben ist, kann nicht auktioniert werden. Brechen Sie zuerst den Landverkauf ab, wenn Sie eine Auktion starten möchten.
 		</message>
 	</alert>
 	<alert name="SalePriceRestriction">
@@ -501,7 +491,7 @@ Der Verkaufspreis beträgt [SALE_PRICE] L$ und wird automatisch für den Verkauf
 	</alert>
 	<alert name="ConfirmLandSaleToAnyoneChange">
 		<message name="message">
-			ACHTUNG: Wenn Sie auf &apos;An jeden verkaufen&apos; klicken, kann jeder in Second Life Ihr Land kaufen, auch Einwohner in anderen Regionen.
+			ACHTUNG: Wenn Sie auf „An jeden verkaufen“ klicken, kann jeder in Second Life Ihr Land kaufen, auch Einwohner in anderen Regionen.
 
 Die ausgewählten [LAND_SIZE] qm Land werden zum Verkauf freigegeben.
 Der Verkaufspreis beträgt [SALE_PRICE] L$ und wird automatisch für den Verkauf an [NAME] autorisiert.
@@ -515,12 +505,9 @@ Der Verkaufspreis beträgt [SALE_PRICE] L$ und wird automatisch für den Verkauf
 	</alert>
 	<alert name="ReturnObjectsDeededToGroup">
 		<message name="message">
-			Möchten Sie alle Ihre Objekte auf dieser Parzelle,
-die der Gruppe &apos;[NAME]&apos; gehören,
-zurück in das jeweilige Inventar ihrer vorherigen Eigentümer transferieren?
+			Möchten Sie alle Ihre Objekte auf dieser Parzelle, die der Gruppe „[NAME]“ gehören, zurück in das jeweilige Inventar ihrer vorherigen Eigentümer transferieren?
  
-*WARNUNG* Alle nicht transferierbaren Objekte, die der
-Gruppe übertragen wurden, werden dabei gelöscht!
+*WARNUNG* Alle nicht transferierbaren Objekte, die der Gruppe übertragen wurden, werden dabei gelöscht!
  
 Objekte: [N]
 		</message>
@@ -533,9 +520,7 @@ Objekte: [N]
 	</alert>
 	<alert name="ReturnObjectsOwnedByUser">
 		<message name="message">
-			Möchten Sie alle Objekte auf dieser Parzelle,
-die dem Einwohner &apos;[NAME]&apos; gehören,
-in das jeweilige Inventar ihrer Eigentümer transferieren?
+			Möchten Sie alle Objekte auf dieser Parzelle, die dem Einwohner „[NAME]“ gehören, in das jeweilige Inventar ihrer Eigentümer transferieren?
  
 Objekte: [N]
 		</message>
@@ -548,9 +533,7 @@ Objekte: [N]
 	</alert>
 	<alert name="ReturnObjectsOwnedBySelf">
 		<message name="message">
-			Möchten Sie alle Objekte
-auf dieser Parzelle, die Ihnen gehören, zurück in Ihr Inventar
-transferieren?
+			Möchten Sie alle Objekte auf dieser Parzelle, die Ihnen gehören, zurück in Ihr Inventar transferieren?
  
 Objekte: [N]
 		</message>
@@ -563,13 +546,10 @@ Objekte: [N]
 	</alert>
 	<alert name="ReturnObjectsNotOwnedBySelf">
 		<message name="message">
-			Möchten Sie alle Objekte auf dieser Parzelle, die NICHT
-Ihnen gehören, in das Inventar ihrer Eigentümer transferieren?
-Transferierbare Objekte, die an eine Gruppe übertragen wurden,
-werden ihren vorherigen Eigentümern zurückgegeben.
+			Möchten Sie alle Objekte auf dieser Parzelle, die NICHT Ihnen gehören, in das Inventar ihrer Eigentümer transferieren?
+Transferierbare Objekte, die an eine Gruppe übertragen wurden, werden ihren vorherigen Eigentümern zurückgegeben.
  
-*WARNUNG* Alle nicht transferierbaren Objekte, die der
-Gruppe übertragen wurden, werden dabei gelöscht!
+*WARNUNG* Alle nicht transferierbaren Objekte, die der Gruppe übertragen wurden, werden dabei gelöscht!
  
 Objekte: [N]
 		</message>
@@ -582,13 +562,10 @@ Objekte: [N]
 	</alert>
 	<alert name="ReturnObjectsNotOwnedByUser">
 		<message name="message">
-			Möchten Sie alle Objekte auf dieser Parzelle, die NICHT
-[NAME] gehören, in das Inventar ihrer Eigentümer transferieren?
-Transferierbare Objekte, die an eine Gruppe übertragen wurden,
-werden ihren vorherigen Eigentümern zurückgegeben.
+			Möchten Sie alle Objekte auf dieser Parzelle, die NICHT [NAME] gehören, in das Inventar ihrer Eigentümer transferieren?
+Transferierbare Objekte, die an eine Gruppe übertragen wurden, werden ihren vorherigen Eigentümern zurückgegeben.
  
-*WARNUNG* Alle nicht transferierbaren Objekte, die der
-Gruppe übertragen wurden, werden dabei gelöscht!
+*WARNUNG* Alle nicht transferierbaren Objekte, die der Gruppe übertragen wurden, werden dabei gelöscht!
  
 Objekte: [N]
 		</message>
@@ -623,9 +600,7 @@ Objekte: [N]
 	</alert>
 	<alert name="ReturnObjectsNotOwnedByGroup">
 		<message name="message">
-			Objekte auf dieser Parzelle, die von der
-Gruppe [NAME] nicht gemeinsam genutzt werden,
-an ihre Eigentümer zurückgeben?
+			Objekte auf dieser Parzelle, die von der Gruppe [NAME] nicht gemeinsam genutzt werden, an ihre Eigentümer zurückgeben?
  
 Objekte: [N]
 		</message>
@@ -645,13 +620,12 @@ Damit Waffen funktionieren, müssen Skripts erlaubt sein.
 	</alert>
 	<alert name="MustBeInParcel">
 		<message name="message">
-			Sie müssen auf einer Landparzelle stehen,
-um ihren Landepunkt festzulegen.
+			Sie müssen auf einer Landparzelle stehen, um ihren Landepunkt festzulegen.
 		</message>
 	</alert>
 	<alert name="PromptRecipientEmail">
 		<message name="message">
-			Geben Sie die E-Mail-Adresse des Empfängers ein.
+			Bitte geben Sie für den/die Empfänger eine gültige Email-Adresse ein.
 		</message>
 	</alert>
 	<alert name="PromptSelfEmail">
@@ -711,14 +685,6 @@ Der Outfit-Ordner enthält keine Kleidung, Körperteile oder Anhänge.
 			Sie können das Objekt nicht anziehen, weil es noch nicht geladen wurde. Warten Sie kurz und versuchen Sie es dann noch einmal.
 		</message>
 	</alert>
-	<alert name="MustHaveAccountToLogInNoLinks">
-		<message name="message">
-			Sie benötigen ein Konto, um sich in [SECOND_LIFE] anmelden zu können.
-		</message>
-		<option name="OK">
-			Schließen
-		</option>
-	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
 			Hoppla! Da fehlt noch etwas.
@@ -735,13 +701,7 @@ Sie benötigen ein Benutzerkonto, um [SECOND_LIFE] betreten zu können. Möchten
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			Anzeigen erscheinen für eine Woche unter &apos;Anzeigen&apos;
-im Suchverzeichnis.
-Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum
-Verzeichnis hinzuzufügen.
-Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf &apos;Veröffentlichen&apos; klicken.
-Wenn Sie mehr bezahlen oder ein Benutzer nach Ihren Suchbegriffen sucht,
-erscheint Ihre Anzeige weiter oben in der Liste.
+			Anzeigen erscheinen für eine Woche unter „Anzeigen“ im Suchverzeichnis. Füllen Sie Ihre Anzeige aus und klicken Sie auf „Veröffentlichen...“, um sie zum Verzeichnis hinzuzufügen. Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf „Veröffentlichen“ klicken. Wenn Sie mehr bezahlen oder ein Benutzer nach Ihren Suchbegriffen sucht, erscheint Ihre Anzeige weiter oben in der Liste.
 		</message>
 		<option name="OK">
 			OK
@@ -755,7 +715,7 @@ erscheint Ihre Anzeige weiter oben in der Liste.
 	</alert>
 	<alert name="DeleteClassified">
 		<message name="message">
-			Anzeige &apos;[NAME]&apos; löschen?
+			Anzeige „[NAME]“ löschen?
 Gebühren werden nicht rückerstattet.
 		</message>
 		<option name="Delete">
@@ -792,9 +752,7 @@ Gebühren werden nicht rückerstattet.
 	</alert>
 	<alert name="DisplayChangeRestart">
 		<message name="message">
-			Einige Änderungen der Bildschirmeinstellungen erfordern einen
-sofortigen Neustart von [SECOND_LIFE], wodurch
-alle laufenden Arbeiten verloren gehen.
+			Einige Änderungen der Bildschirmeinstellungen erfordern einen sofortigen Neustart von [SECOND_LIFE], wodurch alle laufenden Arbeiten verloren gehen.
 
 Die Änderungen übernehmen und das Programm beenden?
 		</message>
@@ -838,7 +796,7 @@ Die Änderungen übernehmen und das Programm beenden?
 	</alert>
 	<alert name="ResetShowNextTimeDialogs">
 		<message name="message">
-			Möchten Sie alle Popups wieder aktivieren, die Sie zuvor auf &apos;Nicht mehr anzeigen&apos; gesetzt haben?
+			Möchten Sie alle Popups wieder aktivieren, die Sie zuvor auf „Nicht mehr anzeigen“ gesetzt haben?
 		</message>
 		<option name="OK">
 			OK
@@ -881,8 +839,7 @@ Hinweis: Der Cache wird dabei gelöscht/geleert.
 	</alert>
 	<alert name="GoToAuctionPage">
 		<message name="message">
-			Zur [SECOND_LIFE]-Webseite, um Auktionen anzuzeigen oder
-ein Gebot abzugeben?
+			Zur [SECOND_LIFE]-Webseite, um Auktionen anzuzeigen oder ein Gebot abzugeben?
 		</message>
 		<option name="GotoPage">
 			OK
@@ -1008,8 +965,7 @@ Möchten Sie diese Objekte löschen?
 	</alert>
 	<alert name="DisplaySettingsSafe">
 		<message name="message">
-			Es wurden sichere Anzeige-Einstellungen gewählt,
-da die Option -safe verwendet wurde.
+			Es wurden sichere Anzeige-Einstellungen gewählt, da die Option -safe verwendet wurde.
 		</message>
 	</alert>
 	<alert name="UnsupportedGLRequirements">
@@ -1023,9 +979,8 @@ Sollte das Problem fortbestehen, finden Sie weitere Hilfestellung unter: http://
 		<message name="message">
 			Achtung: Ihr System erfüllt nicht die Mindestanforderungen von Second Life. Dies kann eine schlechte Darstellungsleistung in Second Life zur Folge haben. Für nicht unterstützte Systemkonfigurationen bieten wir keinen technischen Support. 
 
-MINDESTANF.
-Die Seite [_URL] für
-weitere Informationen öffnen?
+MINSPECS
+Die Seite [_URL] für weitere Informationen öffnen?
 		</message>
 		<ignore name="ignore">
 			Bei Entdeckung nicht unterstützter Hardware
@@ -1069,8 +1024,7 @@ weitere Informationen öffnen?
 		<message name="message">
 			Ihr System verwendet eine uns zurzeit unbekannte Grafikkarte.  
 Dies ist häufig der Fall bei neuer Hardware, die wir noch nicht testen konnten. 
-Second Life funktioniert aller Voraussicht nach normal, möglicherweise 
-müssen Sie aber die Grafikeinstellungen anpassen.
+Second Life funktioniert aller Voraussicht nach normal, möglicherweise müssen Sie aber die Grafikeinstellungen anpassen.
 (Bearbeiten &gt; Einstellungen &gt; Grafik).
 		</message>
 		<ignore name="ignore">
@@ -1079,8 +1033,7 @@ müssen Sie aber die Grafikeinstellungen anpassen.
 	</alert>
 	<alert name="DisplaySettingsRecommended">
 		<message name="message">
-			Es wurden die für Ihre Systemkonfiguration empfohlenen
-Anzeige-Einstellungen gewählt.
+			Es wurden die für Ihre Systemkonfiguration empfohlenen Anzeige-Einstellungen gewählt.
 		</message>
 		<option name="OK">
 			OK
@@ -1092,7 +1045,7 @@ Anzeige-Einstellungen gewählt.
 Die Grafikqualität wird auf eine niedrige Stufe zurückgesetzt, um einige typische Treiberfehler zu vermeiden.
 Einige Grafikfunktionen werden ausgeschaltet.
 Wir empfehlen die Aktualisierung Ihrer Grafikkartentreiber.
-Sie können die Grafikqualität unter &apos;Einstellungen&apos; &gt; &apos;Grafik&apos; wieder erhöhen.
+Sie können die Grafikqualität unter „Einstellungen“ &gt; „Grafik“ wieder erhöhen.
 		</message>
 	</alert>
 	<alert name="CannotRequestDomain">
@@ -1104,10 +1057,8 @@ Folgende Domäne konnte nicht aufgelöst werden: [HOST]
 	<alert name="CannotFindDomain">
 		<message name="message">
 			Der Server-Domänenname konnte nicht gefunden werden.
-Mögliche Ursachen sind der Verlust der Netzwerkverbindung
-oder ein Serverproblem.
-Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
-für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
+Mögliche Ursachen sind der Verlust der Netzwerkverbindung oder ein Serverproblem.
+Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie für Unterstützung und einen Link auf die Systemstatus-Webseite auf „Hilfe“.
 		</message>
 		<option name="OK">
 			OK
@@ -1138,9 +1089,7 @@ falls der Fehler wiederholt auftritt.
 Die Ursache hierfür ist oft eine falsch eingestellte Uhrzeit auf Ihrem Computer.
 
 Bitte vergewissern Sie sich, dass Datum und Uhrzeit korrekt eingestellt sind.
-Bitte melden Sie das Problem unter
-www.secondlife.com/support,
-sollte der Fehler wiederholt auftreten.
+Bitte melden Sie das Problem unter www.secondlife.com/support, sollte der Fehler wiederholt auftreten.
 		</message>
 	</alert>
 	<alert name="CannotConnectVerificationError">
@@ -1148,9 +1097,7 @@ sollte der Fehler wiederholt auftreten.
 			Verbindung mit [SECOND_LIFE] nicht möglich.
 Der Anmeldeserver konnte sich nicht per SSL verifizieren.
 
-Bitte melden Sie das Problem unter
-www.secondlife.com/support,
-sollte der Fehler wiederholt auftreten.
+Bitte melden Sie das Problem unter www.secondlife.com/support, sollte der Fehler wiederholt auftreten.
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorWindows">
@@ -1158,9 +1105,7 @@ sollte der Fehler wiederholt auftreten.
 			Verbindung mit [SECOND_LIFE] nicht möglich.
 Trotz all unserer Bemühungen ist ein unerwarteter Fehler aufgetreten.
 
-Bitte melden Sie das Problem auf
-www.secondlife.com/support und fügen Sie dem Bericht die Datei SecondLife.log
-an, die Sie hier finden: C:\Dokumente und Einstellungen\(Name)\Anwendungsdaten\SecondLife\logs
+Bitte melden Sie das Problem auf www.secondlife.com/support und fügen Sie dem Bericht die Datei SecondLife.log an, die Sie hier finden: C:\Dokumente und Einstellungen\(Name)\Anwendungsdaten\SecondLife\logs
 Vielen Dank.
 		</message>
 	</alert>
@@ -1169,9 +1114,7 @@ Vielen Dank.
 			Verbindung mit [SECOND_LIFE] nicht möglich.
 Trotz all unserer Bemühungen ist ein unerwarteter Fehler aufgetreten.
 
-Bitte melden Sie das Problem auf
-www.secondlife.com/support  und fügen Sie dem Bericht die Datei SecondLife.log
-an, die Sie hier finden: ~/Library/Application Support/SecondLife/logs
+Bitte melden Sie das Problem auf www.secondlife.com/support  und fügen Sie dem Bericht die Datei SecondLife.log an, die Sie hier finden: ~/Library/Application Support/SecondLife/logs
 Vielen Dank.
 		</message>
 	</alert>
@@ -1180,16 +1123,14 @@ Vielen Dank.
 			Bei der Prüfung Ihres Authentifizierungs-
 Token ist ein Problem aufgetreten. Bitte melden Sie sich erneut an. 
 
-Wenden Sie sich an www.secondlife.com/support,
-sollte dieser Fehler wiederholt auftreten.
+Wenden Sie sich an www.secondlife.com/support, sollte dieser Fehler wiederholt auftreten.
 		</message>
 	</alert>
 	<alert name="CannotConnectNoMessage">
 		<message name="message">
 			Unbekanntes Verbindungsproblem.
 
-Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
-für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
+Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie für Unterstützung und einen Link auf die Systemstatus-Webseite auf „Hilfe“.
 		</message>
 		<option name="OK">
 			OK
@@ -1202,8 +1143,7 @@ für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe
 		<message name="message">
 			Verbindung nicht möglich.  Keine Anmeldebestätigung von Simulator.
  
-Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
-für Unterstützung und einen Link zur Systemstatus-Webseite auf &apos;Hilfe&apos;.
+Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie für Unterstützung und einen Link zur Systemstatus-Webseite auf „Hilfe“.
 		</message>
 		<option name="OK">
 			OK
@@ -1221,8 +1161,7 @@ für Unterstützung und einen Link zur Systemstatus-Webseite auf &apos;Hilfe&apo
 		<message name="message">
 			Die Installation von [SECOND_LIFE] ist abgeschlossen.
 
-Wenn Sie [SECOND_LIFE] das erste Mal verwenden, müssen Sie ein Konto anlegen,
-bevor Sie sich anmelden können.
+Wenn Sie [SECOND_LIFE] das erste Mal verwenden, müssen Sie ein Konto anlegen, bevor Sie sich anmelden können.
 Möchten Sie auf www.secondlife.com ein Konto erstellen?
 		</message>
 		<option name="NewAccount...">
@@ -1235,8 +1174,7 @@ Möchten Sie auf www.secondlife.com ein Konto erstellen?
 	<alert name="ClothingStillDownloading">
 		<message name="message">
 			Ihr Avatar wird noch heruntergeladen.
-Sie können [SECOND_LIFE] normal verwenden und andere
-Einwohner können Sie sehen.
+Sie können [SECOND_LIFE] normal verwenden und andere Einwohner können Sie sehen.
 		</message>
 	</alert>
 	<alert name="CannotResolveDomain">
@@ -1283,10 +1221,7 @@ Bitte wählen Sie einen männlichen oder weiblichen Avatar.
 	</alert>
 	<alert name="CannotCopyWarning">
 		<message name="message">
-			Sie sind nicht berechtigt, dieses
-Objekt zu kopieren und verlieren es
-aus Ihrem Inventar, wenn Sie es weggeben. Möchten
-Sie dieses Objekt anbieten?
+			Sie sind nicht berechtigt, dieses Objekt zu kopieren und verlieren es aus Ihrem Inventar, wenn Sie es weggeben. Möchten Sie dieses Objekt anbieten?
 		</message>
 		<option name="Yes">
 			Ja
@@ -1317,9 +1252,7 @@ Sie dieses Objekt anbieten?
 	</alert>
 	<alert name="CannotCopyCountItems">
 		<message name="message">
-			Sie sind nicht berechtigt, [COUNT] der ausgewählten
-Objekte zu kopieren. Diese Objekte werden aus
-Ihrem Inventar gelöscht.
+			Sie sind nicht berechtigt, [COUNT] der ausgewählten Objekte zu kopieren. Diese Objekte werden aus Ihrem Inventar gelöscht.
 Möchten Sie diese Objekte weggeben?
 		</message>
 		<option name="Yes">
@@ -1331,15 +1264,13 @@ Möchten Sie diese Objekte weggeben?
 	</alert>
 	<alert name="CannotGiveCategory">
 		<message name="message">
-			Sie sind nicht berechtigt, den ausgewählten
-Ordner zu kopieren.
+			Sie sind nicht berechtigt, den ausgewählten Ordner zu kopieren.
 		</message>
 	</alert>
 	<alert name="FreezeAvatar">
 		<message name="message">
 			Diesen Avatar einfrieren?
-Der Avatar wird außer Gefecht gesetzt und kann
-sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
+Der Avatar wird außer Gefecht gesetzt und kann sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
 		</message>
 		<option name="Freeze">
 			Einfrieren
@@ -1354,8 +1285,7 @@ sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
 	<alert name="FreezeAvatarFullname">
 		<message name="message">
 			[AVATAR_NAME] einfrieren?
-Der Avatar wird außer Gefecht gesetzt und kann
-sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
+Der Avatar wird außer Gefecht gesetzt und kann sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
 		</message>
 		<option name="Freeze">
 			Einfrieren
@@ -1395,6 +1325,28 @@ sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
 			Abbrechen
 		</option>
 	</alert>
+	<alert name="EjectAvatarNoBan">
+		<message name="message">
+			Diesen Avatar aus Ihrem Land werfen?
+		</message>
+		<option name="Eject">
+			Hinauswerfen
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullnameNoBan">
+		<message name="message">
+			[AVATAR_NAME] aus Ihrem Land werfen?
+		</message>
+		<option name="Eject">
+			Hinauswerfen
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
 	<alert name="InvalidUUID">
 		<message name="message">
 			Ungültige UUID.
@@ -1408,16 +1360,13 @@ sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
 	<alert name="AcquireErrorObjectSpan">
 		<message name="message">
 			FEHLER: Die Objekte überspannen mehrere Regionen.
-Verschieben Sie alle betreffenden Objekte in dieselbe
-Region.
+Verschieben Sie alle betreffenden Objekte in dieselbe Region.
 		</message>
 	</alert>
 	<alert name="TakeLockedOrNotOwnedBy">
 		<message name="message">
 			Mindestens ein Objekt ist gesperrt oder gehört Ihnen nicht.
-Wenn Ihnen ein Objekt nicht gehört und Sie es nehmen, 
-werden die Rechte für den nächsten Eigentümer angewandt und Sie
-können es möglicherweise nicht bearbeiten oder kopieren.
+Wenn Ihnen ein Objekt nicht gehört und Sie es nehmen, werden die Rechte für den nächsten Eigentümer angewandt und Sie können es möglicherweise nicht bearbeiten oder kopieren.
 
 Möchten Sie diese Objekte nehmen?
 		</message>
@@ -1449,29 +1398,26 @@ Sie können maximal [MAX] Objekte verknüpfen.
 	</alert>
 	<alert name="CannotLinkIncompleteSet">
 		<message name="message">
-			Sie können nur vollständige Objektsätze verknüpfen und
-Sie müssen mehr als ein Objekt auswählen.
+			Sie können nur vollständige Objektsätze verknüpfen und Sie müssen mehr als ein Objekt auswählen.
 		</message>
 	</alert>
 	<alert name="CannotLinkModify">
 		<message name="message">
-			Verknüpfung nicht möglich, da Sie nicht alle Objekte bearbeiten
-dürfen.  
+			Verknüpfung nicht möglich, da Sie nicht alle Objekte bearbeiten dürfen.  
 
 Stellen Sie sicher, dass kein Objekt gesperrt ist und alle Objekte Ihnen gehören.
 		</message>
 	</alert>
 	<alert name="CannotLinkDifferentOwners">
 		<message name="message">
-			Verknüpfung nicht möglich, da nicht alle Objekte denselben
-Eigentümer haben. 
+			Verknüpfung nicht möglich, da nicht alle Objekte denselben Eigentümer haben. 
 
 Stellen Sie sicher, dass alle ausgewählten Objekte Ihnen gehören.
 		</message>
 	</alert>
 	<alert name="NoFileExtension">
 		<message name="message">
-			Kein Dateityp für Datei: &apos;[FILE]&apos;
+			Kein Dateityp für Datei: „[FILE]“
 
 Vergewissern Sie sich, dass die Datei den richtigen Dateityp hat.
 		</message>
@@ -1523,7 +1469,7 @@ Erwartet wurde [VALIDS]
 	</alert>
 	<alert name="SoundFileInvalidHeader">
 		<message name="message">
-			&apos;Daten&apos;-Chunk in WAV-Header nicht gefunden: 
+			„Daten“-Chunk in WAV-Header nicht gefunden: 
 [FILE]
 		</message>
 	</alert>
@@ -1593,67 +1539,62 @@ Bitte versuchen Sie es erneut.
 	</alert>
 	<alert name="CannotCreateLandmarkNotOwner">
 		<message name="message">
-			Sie können hier keine Landmarke erstellen,
-da der Landeigentümer dies verboten hat.
+			Sie können hier keine Landmarke erstellen, da der Landeigentümer dies verboten hat.
 		</message>
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoScripts">
 		<message name="message">
-			&apos;Rekompilieren&apos; nicht möglich.
+			„Rekompilieren“ nicht möglich.
 Objekt mit Skript wählen.
 		</message>
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoPermission">
 		<message name="message">
-			&apos;Rekompilieren&apos; nicht möglich.
+			„Rekompilieren“ nicht möglich.
 
-Wählen Sie Objekte mit Skripts, die
-Sie bearbeiten dürfen.
+Wählen Sie Objekte mit Skripts, die Sie bearbeiten dürfen.
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoScripts">
 		<message name="message">
-			&apos;Zurücksetzen&apos; nicht möglich.
+			„Zurücksetzen“ nicht möglich.
 
 Wählen Sie Objekte mit Skripts.
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoPermission">
 		<message name="message">
-			&apos;Zurücksetzen&apos; nicht möglich.
+			„Zurücksetzen“ nicht möglich.
 
-Wählen Sie Objekte mit Skripts, die
-Sie bearbeiten dürfen.
+Wählen Sie Objekte mit Skripts, die Sie bearbeiten dürfen.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoScripts">
 		<message name="message">
-			&apos;Ausführen&apos; von Skripts nicht möglich.
+			„Ausführen“ von Skripts nicht möglich.
 
 Wählen Sie Objekte mit Skripts.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoPermission">
 		<message name="message">
-			&apos;Ausführen&apos; von Skripts nicht möglich.
+			„Ausführen“ von Skripts nicht möglich.
 
-Wählen Sie Objekte mit Skripts, die
-Sie bearbeiten dürfen.
+Wählen Sie Objekte mit Skripts, die Sie bearbeiten dürfen.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoScripts">
 		<message name="message">
-			&apos;Deaktivieren&apos; von Skripts nicht möglich.
+			„Deaktivieren“ von Skripts nicht möglich.
 
 Wählen Sie Objekte mit Skripts.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoPermission">
 		<message name="message">
-			&apos;Deaktivieren&apos; von Skripts nicht möglich.
+			„Deaktivieren“ von Skripts nicht möglich.
 
-Wählen Sie Objekte mit Skripts, die
-Sie bearbeiten dürfen.
+Wählen Sie Objekte mit Skripts, die Sie bearbeiten dürfen.
 		</message>
 	</alert>
 	<alert name="NoFrontmostFloater">
@@ -1719,15 +1660,12 @@ Keine Parzelle ausgewählt.
 	</alert>
 	<alert name="CannotSetLandOwnerMultipleRegions">
 		<message name="message">
-			Eine erzwungene Landübertragung ist nicht möglich, da die Auswahl
-mehrere Regionen umfasst. Wählen Sie ein kleineres Gebiet und versuchen Sie es erneut.
+			Eine erzwungene Landübertragung ist nicht möglich, da die Auswahl mehrere Regionen umfasst. Wählen Sie ein kleineres Gebiet und versuchen Sie es erneut.
 		</message>
 	</alert>
 	<alert name="ForceOwnerAuctionWarning">
 		<message name="message">
-			Diese Parzelle steht zur Auktion. Eine zwangsweise Eigentumsübertragung
-beendet die Auktion und verärgert womöglich Einwohner,
-die bereits ein Gebot abgegeben haben. Eigentumsübertragung erzwingen?
+			Diese Parzelle steht zur Auktion. Eine zwangsweise Eigentumsübertragung beendet die Auktion und verärgert womöglich Einwohner, die bereits ein Gebot abgegeben haben. Eigentumsübertragung erzwingen?
 		</message>
 		<option name="Force">
 			OK
@@ -1774,7 +1712,7 @@ Kann die Region nicht finden, in der sich dieses Land befindet.
 	</alert>
 	<alert name="CannotCloseFloaterBuyLand">
 		<message name="message">
-			Das Fenster &apos;Land kaufen&apos; kann erst geschlossen werden,
+			Das Fenster „Land kaufen“ kann erst geschlossen werden,
 nachdem Second Life den Transaktionspreis geschätzt hat.
 		</message>
 	</alert>
@@ -1794,7 +1732,7 @@ Keine Gruppe ausgewählt.
 		<message name="message">
 			Land kann nicht übertragen werden:
 Kann die Region nicht finden, in der sich dieses Land befindet.
-Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
+Bitte melden Sie dies über „Hilfe“ &gt; „Fehler melden“.
 		</message>
 	</alert>
 	<alert name="CannotDeedLandMultipleSelected">
@@ -1816,8 +1754,7 @@ Wählen Sie eine einzelne Parzelle.
 Streaming-Medien erfordern eine schnelle Internet-Verbindung.
  
 Streaming-Medien abspielen, wenn verfügbar?
-(Sie können diese Option später unter
-&apos;Einstellungen&apos; &gt; &apos;Audio &amp; Video&apos; ändern.)
+(Sie können diese Option später unter „Einstellungen“ &gt; „Audio &amp; Video“ ändern.)
 		</message>
 		<option name="PlayMedia">
 			Medien wiedergeben
@@ -1868,7 +1805,7 @@ Parzellen, die Ihnen gehören, werden grün dargestellt.
 			Land kann nicht aufgegeben werden:
 Kann die Region nicht finden, in der sich dieses Land befindet.
 
-Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
+Bitte melden Sie dies über „Hilfe“ &gt; „Fehler melden“.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNoTransfer">
@@ -1888,8 +1825,7 @@ Wählen Sie eine ganze Parzelle oder teilen Sie Ihre Parzelle.
 	<alert name="ReleaseLandWarning">
 		<message name="message">
 			Sie sind im Begriff, [AREA] qm Land aufzugeben.
-Wenn Sie diese Parzelle aufgeben, wird sie ohne
-L$-Erstattung von Ihrem Landbesitz entfernt.
+Wenn Sie diese Parzelle aufgeben, wird sie ohne L$-Erstattung von Ihrem Landbesitz entfernt.
 
 Dieses Land aufgeben?
 		</message>
@@ -1917,9 +1853,7 @@ Wählen Sie einen Parzellenabschnitt aus.
 	</alert>
 	<alert name="LandDivideWarning">
 		<message name="message">
-			Wenn Sie dieses Land teilen, wird diese Parzelle in zwei
-geteilt, jede mit ihren eigenen Einstellungen. Einige dieser
-Einstellungen werden aufgrund dieses Vorgangs zurückgesetzt.
+			Wenn Sie dieses Land teilen, wird diese Parzelle in zwei geteilt, jede mit ihren eigenen Einstellungen. Einige dieser Einstellungen werden aufgrund dieses Vorgangs zurückgesetzt.
  
 Land teilen?
 		</message>
@@ -1935,7 +1869,7 @@ Land teilen?
 			Land kann nicht aufgeteilt werden:
 Kann die Region nicht finden, in der sich dieses Land befindet.
 
-Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
+Bitte melden Sie dies über „Hilfe“ &gt; „Fehler melden“.
 		</message>
 	</alert>
 	<alert name="CannotJoinLandNoRegion">
@@ -1943,7 +1877,7 @@ Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
 			Land kann nicht zusammengelegt werden:
 Kann die Region nicht finden, in der sich dieses Land befindet.
 
-Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
+Bitte melden Sie dies über „Hilfe“ &gt; „Fehler melden“.
 		</message>
 	</alert>
 	<alert name="CannotJoinLandNothingSelected">
@@ -1972,8 +1906,7 @@ Wählen Sie Land auf beiden Parzellen aus.
 		<message name="message">
 			Beim Zusammenlegen entsteht aus den vom Auswahlrechteck 
 erfassten Parzellen eine große Parzelle. 
-Sie müssen der neuen Parzelle einen Namen geben und 
-ihre Optionen festlegen.
+Sie müssen der neuen Parzelle einen Namen geben und ihre Optionen festlegen.
  
 Land zusammenlegen?
 		</message>
@@ -2034,21 +1967,15 @@ Land zusammenlegen?
 	</alert>
 	<alert name="CannotSaveWearableOutOfSpace">
 		<message name="message">
-			&apos;[NAME]&apos; konnte nicht in Kleidungsdatei gespeichert werden.  Geben Sie Speicherplatz
-auf dem Computer frei und speichern Sie das
-Kleidungsstück erneut.
+			„[NAME]“ konnte nicht in Kleidungsdatei gespeichert werden.  Geben Sie Speicherplatz auf dem Computer frei und speichern Sie das Kleidungsstück erneut.
 		</message>
 	</alert>
 	<alert name="CannotSaveToAssetStore">
 		<message name="message">
 			[NAME] kann nicht in Zentral-Asset-Speicher geladen werden.
-Dies ist ein temporärer Fehler. Bitte
-passen Sie das Kleidungsstück in einigen
-Minuten noch einmal an und speichern Sie es erneut. 
+Dies ist ein temporärer Fehler. Bitte passen Sie das Kleidungsstück in einigen Minuten noch einmal an und speichern Sie es erneut. 
 
-Tritt dieses Problem wiederholt auf,
-klicken Sie auf das Pulldown-Menü &apos;Hilfe | Fehler melden&apos;
-und geben Sie Details zu Ihrem Netzwerk-Setup an.
+Tritt dieses Problem wiederholt auf, klicken Sie auf das Pulldown-Menü „Hilfe“ &gt; „Fehler melden“ und geben Sie Details zu Ihrem Netzwerk-Setup an.
 		</message>
 	</alert>
 	<alert name="AppEarlyExit">
@@ -2057,8 +1984,7 @@ und geben Sie Details zu Ihrem Netzwerk-Setup an.
  
 Dieses Problem kann nicht behoben werden. 
 
-Deinstallieren und reinstallieren Sie das Programm. Sollte dieses
-Problem fortbestehen, finden Sie weitere Hilfe in der Tech-Support-FAQ auf:
+Deinstallieren und reinstallieren Sie das Programm. Sollte dieses Problem fortbestehen, finden Sie weitere Hilfe in der Tech-Support-FAQ auf:
 www.secondlife.com/support.
 		</message>
 		<option name="Quit">
@@ -2069,7 +1995,7 @@ www.secondlife.com/support.
 		<message name="message">
 			Sie wurden von [SECOND_LIFE] abgemeldet:
             [MESSAGE]
-Klicken Sie auf &apos;IM &amp; Chat anzeigen&apos;, um vorhandene Nachrichten und Chat weiterhin anzuzeigen. Klicken Sie andernfalls auf &apos;Beenden&apos;, um [SECOND_LIFE] sofort zu beenden.
+Klicken Sie auf „IM &amp; Chat anzeigen“, um vorhandene Nachrichten und Chat weiterhin anzuzeigen. Klicken Sie andernfalls auf „Beenden“, um [SECOND_LIFE] sofort zu beenden.
 		</message>
 		<option name="Continue">
 			IM &amp; Chat anzeigen
@@ -2086,11 +2012,13 @@ Sie sind nicht berechtigt, Land für die aktive Gruppe zu kaufen.
 	</alert>
 	<alert name="AddFriend" title="Freund hinzufügen">
 		<message name="message">
-			Freunde können sich gegenseitig die Berechtigung
-erteilen, sich auf der Karte zu verfolgen und Online-Status Benachrichtigungen zu empfangen.
+			Freunde können sich gegenseitig die Berechtigung erteilen, sich auf der Karte zu verfolgen und Online-Status Benachrichtigungen zu empfangen.
 
 [NAME] Freundschaft anbieten?
 		</message>
+		<editline name="editline">
+			Wollen wir Freunde sein?
+		</editline>
 		<option name="Offer">
 			OK
 		</option>
@@ -2100,13 +2028,12 @@ erteilen, sich auf der Karte zu verfolgen und Online-Status Benachrichtigungen z
 	</alert>
 	<alert name="AddFriendWithMessage" title="Freund hinzufügen">
 		<message name="message">
-			Freunde können sich gegenseitig die Berechtigung
-erteilen, sich auf der Karte zu verfolgen und Online-Status Benachrichtigungen zu empfangen.
+			Freunde können sich gegenseitig die Berechtigung erteilen, sich auf der Karte zu verfolgen und Online-Status Benachrichtigungen zu empfangen.
 
 [NAME] Freundschaft anbieten?
 		</message>
 		<editline name="editline">
-			Möchtest du mein Freunde sein?
+			Wollen wir Freunde sein?
 		</editline>
 		<option name="Offer">
 			OK
@@ -2165,8 +2092,7 @@ auf ALLEN LÄNDERN in diesem Sim LÖSCHEN?
 	</alert>
 	<alert name="GodDeleteAllObjectsByUser">
 		<message name="message">
-			Möchten Sie ALLE Objekte (einschließlich geskriptete)
-von
+			Möchten Sie ALLE Objekte (einschließlich geskriptete) von
 ** [AVATAR_NAME] **
 auf ALLEN LÄNDERN in diesem Sim LÖSCHEN?
 		</message>
@@ -2178,9 +2104,6 @@ auf ALLEN LÄNDERN in diesem Sim LÖSCHEN?
 		</option>
 	</alert>
 	<alert name="PublishGroupInfoToWeb">
-		<message name="message">
-			Im Web veröffentlichen
-		</message>
 	</alert>
 	<alert name="BlankClassifiedName">
 		<message name="message">
@@ -2311,8 +2234,7 @@ Möchten Sie diese Objekte nehmen?
 	<alert name="ConfirmObjectTakeNoOwn">
 		<message name="message">
 			Nicht alle Objekte, die Sie aufgenommen haben, gehören Ihnen.
-Wenn Sie fortfahren, werden die Rechte für den nächsten Eigentümer angewandt und Sie können die Objekte
-möglicherweise nicht bearbeiten oder kopieren.
+Wenn Sie fortfahren, werden die Rechte für den nächsten Eigentümer angewandt und Sie können die Objekte möglicherweise nicht bearbeiten oder kopieren.
 
 Möchten Sie diese Objekte nehmen?
 		</message>
@@ -2327,9 +2249,7 @@ Möchten Sie diese Objekte nehmen?
 		<message name="message">
 			Mindestens ein Objekt ist gesperrt.
 Nicht alle Objekte, die Sie aufgenommen haben, gehören Ihnen.
-Wenn Sie fortfahren, werden die Rechte für den nächsten Eigentümer
-abgefragt und Sie können die Objekte
-möglicherweise nicht bearbeiten oder kopieren.
+Wenn Sie fortfahren, werden die Rechte für den nächsten Eigentümer abgefragt und Sie können die Objekte möglicherweise nicht bearbeiten oder kopieren.
 Die aktuelle Auswahl können Sie jedoch aufnehmen.
 
 Möchten Sie diese Objekte nehmen?
@@ -2350,13 +2270,10 @@ Wählen Sie ein kleineres Gebiet und versuchen Sie es erneut.
 	</alert>
 	<alert name="DeedLandToGroup">
 		<message name="message">
-			Die Schenkung dieser Parzelle setzt voraus, dass die Gruppe
-über ausreichende Landnutzungsrechte verfügt.
-Dem Eigentümer wird der Kaufpreis für das Land nicht
-rückerstattet. Bei Verkauf der übertragenen Parzelle
-wird der Erlös zwischen den Gruppenmitgliedern aufgeteilt.
+			Die Schenkung dieser Parzelle setzt voraus, dass die Gruppe über ausreichende Landnutzungsrechte verfügt.
+Dem Eigentümer wird der Kaufpreis für das Land nicht rückerstattet. Bei Verkauf der übertragenen Parzelle wird der Erlös zwischen den Gruppenmitgliedern aufgeteilt.
 
-Der Gruppe &apos;[GROUP_NAME]&apos;
+Der Gruppe „[GROUP_NAME]“
  [AREA] m2 Land schenken?
 		</message>
 		<option name="Deed">
@@ -2368,15 +2285,11 @@ Der Gruppe &apos;[GROUP_NAME]&apos;
 	</alert>
 	<alert name="DeedLandToGroupWithContribution">
 		<message name="message">
-			Die Schenkung dieser Parzelle setzt voraus, dass die Gruppe
-über ausreichende Landnutzungsrechte verfügt.
-Die Schenkung beinhaltet eine Landübertragung
-an die Gruppe von &apos;[FIRST_NAME] [LAST_NAME]&apos;.
-Dem Eigentümer wird der Kaufpreis für das Land nicht
-rückerstattet. Bei Verkauf der übertragenen Parzelle
-wird der Erlös zwischen den Gruppenmitgliedern aufgeteilt.
+			Die Schenkung dieser Parzelle setzt voraus, dass die Gruppe über ausreichende Landnutzungsrechte verfügt.
+Die Schenkung beinhaltet eine Landübertragung an die Gruppe von „[FIRST_NAME] [LAST_NAME]“.
+Dem Eigentümer wird der Kaufpreis für das Land nicht rückerstattet. Bei Verkauf der übertragenen Parzelle wird der Erlös zwischen den Gruppenmitgliedern aufgeteilt.
  
-Der Gruppe &apos;[GROUP_NAME]&apos;
+Der Gruppe „[GROUP_NAME]“
  [AREA] m2 Land schenken?
 		</message>
 		<option name="Deed">
@@ -2388,14 +2301,12 @@ Der Gruppe &apos;[GROUP_NAME]&apos;
 	</alert>
 	<alert name="DisplaySetToSafe">
 		<message name="message">
-			Es wurden sichere Anzeige-Einstellungen gewählt,
-da die Option -safe verwendet wurde.
+			Es wurden sichere Anzeige-Einstellungen gewählt, da die Option -safe verwendet wurde.
 		</message>
 	</alert>
 	<alert name="DisplaySetToRecommended">
 		<message name="message">
-			Es wurden die für Ihre Systemkonfiguration empfohlenen
-Anzeige-Einstellungen gewählt.
+			Es wurden die für Ihre Systemkonfiguration empfohlenen Anzeige-Einstellungen gewählt.
 		</message>
 	</alert>
 	<alert name="UnableToConnect">
@@ -2407,11 +2318,9 @@ Folgende Domäne konnte nicht aufgelöst werden: [HOST_NAME]
 	<alert name="CanNotFindServer">
 		<message name="message">
 			Der Server-Domänenname konnte nicht gefunden werden.
-Mögliche Ursachen sind der Verlust der Netzwerkverbindung
-oder ein Serverproblem.
+Mögliche Ursachen sind der Verlust der Netzwerkverbindung oder ein Serverproblem.
 
-Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
-für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
+Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie für Unterstützung und einen Link auf die Systemstatus-Webseite auf „Hilfe“.
 		</message>
 		<option name="OK">
 			OK
@@ -2431,8 +2340,7 @@ Verbindung mit [IP_ADDRESS] nicht möglich
 			Verbindung mit [SECOND_LIFE] nicht möglich.
 Möglicherweise handelt es sich um einen Systemausfall.
 
-Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
-für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
+Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie für Unterstützung und einen Link auf die Systemstatus-Webseite auf „Hilfe“.
 		</message>
 		<option name="OK">
 			OK
@@ -2451,8 +2359,7 @@ für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe
 			QuickTime wurde deaktiviert, weil Sie eine alte Version verwenden
 		</ignore>
 		<message name="message">
-			Streaming-Video wurde deaktiviert, weil die QuickTime-Version 
-auf Ihrem Computer nicht mehr aktuell ist. 
+			Streaming-Video wurde deaktiviert, weil die QuickTime-Version auf Ihrem Computer nicht mehr aktuell ist. 
 
 Laden Sie ein Update von http://www.apple.com/quicktime/ herunter.
 		</message>
@@ -2476,8 +2383,7 @@ Sie können [SECOND_LIFE] normal verwenden. Andere Benutzer können Sie korrekt 
 		<message name="message">
 			Die Installation von [SECOND_LIFE] ist abgeschlossen.
 
-Wenn Sie [SECOND_LIFE] das erste Mal verwenden, müssen Sie ein Konto anlegen,
-bevor Sie sich anmelden können.
+Wenn Sie [SECOND_LIFE] das erste Mal verwenden, müssen Sie ein Konto anlegen, bevor Sie sich anmelden können.
 Möchten Sie auf www.secondlife.com ein Konto erstellen?
 		</message>
 		<option name="NewAccount...">
@@ -2499,7 +2405,7 @@ Bitte überprüfen Sie Ihre Netzwerkverbindung.
 		<message name="message">
 			Die Verbindung kann nicht hergestellt werden. Möglicherweise besteht ein Problem mit Ihrer Internetverbindung oder den Second Life-Servern.
 
-Überprüfen Sie Ihre Internetverbindung und versuchen Sie es dann erneut, oder klicken Sie auf &apos;Hilfe&apos;, um zu unserer Supportseite zu gelangen, oder klicken Sie auf &apos;Teleportieren&apos;, um nach Hause zu teleportieren.
+Überprüfen Sie Ihre Internetverbindung und versuchen Sie es dann erneut, oder klicken Sie auf „Hilfe“, um zu unserer Supportseite zu gelangen, oder klicken Sie auf „Teleportieren“, um nach Hause zu teleportieren.
 		</message>
 		<option name="OK">
 			OK
@@ -2516,8 +2422,7 @@ Bitte überprüfen Sie Ihre Netzwerkverbindung.
 			Ihr Avatar erscheint jeden Moment.
 
 Benutzen Sie die Pfeiltasten, um sich fortzubewegen.
-Drücken Sie F1 für Hilfe oder für weitere
-Informationen über [SECOND_LIFE].
+Drücken Sie F1 für Hilfe oder für weitere Informationen über [SECOND_LIFE].
 		</message>
 	</alert>
 	<alert name="WelcomeChooseSex">
@@ -2525,8 +2430,7 @@ Informationen über [SECOND_LIFE].
 			Ihr Avatar erscheint jeden Moment.
 
 Benutzen Sie die Pfeiltasten, um sich fortzubewegen.
-Drücken Sie F1 für Hilfe oder für weitere
-Informationen über [SECOND_LIFE].
+Drücken Sie F1 für Hilfe oder für weitere Informationen über [SECOND_LIFE].
 Bitte wählen Sie einen männlichen oder weiblichen Avatar.
 Sie können sich später noch umentscheiden.
 		</message>
@@ -2539,7 +2443,7 @@ Sie können sich später noch umentscheiden.
 	</alert>
 	<alert name="NotEnoughCurrency">
 		<message name="message">
-			[NAME] L$ [PRICE] Sie haben nicht genügend Geld.
+			[NAME] [PRICE] L$  Sie haben nicht genügend L$, um diese Aktion auszuführen.
 		</message>
 	</alert>
 	<alert name="GrantedModifyRights">
@@ -2556,8 +2460,7 @@ Sie können sich später noch umentscheiden.
 		<message name="message">
 			Der Kartencache dieser Region wird geleert.
 Diese Aktion ist nur beim Debugging sinnvoll. 
-(Auf dem Produktionssystem warten Sie einfach 5 Minuten. Die Karten werden 
-nach erneuter Anmeldung automatisch aktualisiert.)
+(Auf dem Produktionssystem warten Sie einfach 5 Minuten. Die Karten werden nach erneuter Anmeldung automatisch aktualisiert.)
 		</message>
 		<option name="OK">
 			OK
@@ -2605,8 +2508,7 @@ Wählen Sie ein einzelnes Objekt aus und versuchen Sie es erneut.
 			Die Regionstexturen konnten nicht festgelegt werden: 
 Die Terraintextur [TEXTURE_NUM] hat eine ungültige Bit-Tiefe [TEXTURE_BIT_DEPTH].
 
-Ersetzen Sie die Textur [TEXTURE_NUM] mit einer Bilddatei von maximal 512x512 und 24 Bit und
-klicken Sie dann erneut auf &quot;Übernehmen&quot;.
+Ersetzen Sie die Textur [TEXTURE_NUM] mit einer Bilddatei von maximal 512x512 und 24 Bit und klicken Sie dann erneut auf „Übernehmen“.
 		</message>
 	</alert>
 	<alert name="InvalidTerrainSize">
@@ -2614,21 +2516,17 @@ klicken Sie dann erneut auf &quot;Übernehmen&quot;.
 			Die Regionstexturen konnten nicht festgelegt werden: 
 Die Terraintextur [TEXTURE_NUM] ist mit [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y] zu groß. 
 
-Ersetzen Sie die Textur [TEXTURE_NUM] mit einer Bilddatei von maximal 512x512 und 24 Bit und
-klicken Sie dann erneut auf &quot;Übernehmen&quot;.
+Ersetzen Sie die Textur [TEXTURE_NUM] mit einer Bilddatei von maximal 512x512 und 24 Bit und klicken Sie dann erneut auf „Übernehmen“.
 		</message>
 	</alert>
 	<alert name="RawUploadStarted">
 		<message name="message">
-			Hochladen gestartet. Je nach Verbindungsgeschwindigkeit 
-kann der Vorgang bis zu 2 Minuten dauern.
+			Hochladen gestartet. Je nach Verbindungsgeschwindigkeit kann der Vorgang bis zu 2 Minuten dauern.
 		</message>
 	</alert>
 	<alert name="ConfirmBakeTerrain">
 		<message name="message">
-			Möchten Sie das aktuelle Terrain formen, 
-es zum Mittelpunkt der oberen und unteren Terraingrenzen 
-und zum Standard des &apos;Zurücksetzen&apos;-Tools machen?
+			Möchten Sie das aktuelle Terrain formen, es zum Mittelpunkt der oberen und unteren Terraingrenzen und zum Standard des „Zurücksetzen“-Tools machen?
 		</message>
 		<option name="Bake">
 			OK
@@ -2671,7 +2569,7 @@ und zum Standard des &apos;Zurücksetzen&apos;-Tools machen?
 	</alert>
 	<alert name="OwnerCanNotBeDenied">
 		<message name="message">
-			Der Eigentümer des Grundstücks kann nicht zur Liste der &apos;Verbannten Einwohner&apos; hinzugefügt werden.
+			Der Eigentümer des Grundstücks kann nicht zur Liste der „Verbannten Einwohner“ hinzugefügt werden.
 		</message>
 	</alert>
 	<alert name="CanNotChangeAppearanceUntilLoaded">
@@ -2681,13 +2579,12 @@ und zum Standard des &apos;Zurücksetzen&apos;-Tools machen?
 	</alert>
 	<alert name="ClassifiedMustBeAlphanumeric">
 		<message name="message">
-			Der Name der Anzeige muss mit einem Buchstaben von 
-A bis Z oder einer Ziffer beginnen.  Satzzeichen sind nicht erlaubt.
+			Der Name der Anzeige muss mit einem Buchstaben von A bis Z oder einer Ziffer beginnen.  Satzzeichen sind nicht erlaubt.
 		</message>
 	</alert>
 	<alert name="CantSetBuyObject">
 		<message name="message">
-			&apos;Objekt kaufen&apos; nicht möglich, da das Objekt nicht zum Verkauf freigegeben ist. 
+			„Objekt kaufen“ nicht möglich, da das Objekt nicht zum Verkauf freigegeben ist. 
 Geben Sie das Objekt zum Verkauf frei und versuchen Sie es erneut.
 		</message>
 	</alert>
@@ -2966,9 +2863,7 @@ In Ihren Anwendungsordner herunterladen?
 	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
-			Möchten Sie die ausgewählten Objekte
-an ihre Eigentümer zurückgeben? Transferierbare übertragene
-Objekte werden ihren früheren Eigentümern zurückgegeben.
+			Möchten Sie die ausgewählten Objekte an ihre Eigentümer zurückgeben? Transferierbare übertragene Objekte werden ihren früheren Eigentümern zurückgegeben.
 
 *WARNUNG* Nicht transferierbare übertragene Objekte werden dabei gelöscht!
 		</message>
@@ -3019,7 +2914,7 @@ Diese Gruppe verlassen?
 	</alert>
 	<alert name="MuteLinden">
 		<message name="message">
-			Linden können nicht stummgeschaltet werden.
+			Lindens können nicht stummgeschaltet werden.
 		</message>
 		<option name="OK">
 			OK
@@ -3035,8 +2930,7 @@ Diese Gruppe verlassen?
 	</alert>
 	<alert name="RemoveItemWarn">
 		<message name="message">
-			Diese Aktion ist zwar erlaubt, aber beim Löschen von
-Inhalten wird das Objekt beschädigt. Möchten Sie dieses Element löschen?
+			Diese Aktion ist zwar erlaubt, aber beim Löschen von Inhalten wird das Objekt beschädigt. Möchten Sie dieses Element löschen?
 		</message>
 		<option name="Yes">
 			OK
@@ -3080,10 +2974,7 @@ Inhalten wird das Objekt beschädigt. Möchten Sie dieses Element löschen?
 	<alert name="BusyModeSet">
 		<message name="message">
 			Beschäftigt-Modus aktiviert.
-Chat und Instant Messages werden ausgeblendet. Instant
-Messages erhalten Ihre Beschäftigt-Antwort. Alle Teleport-
-Angebote werden ausgeschlagen. Alle Inventar-Angebote werden in den
-Papierkorb verschoben.
+Chat und Instant Messages werden ausgeblendet. Instant Messages erhalten Ihre Beschäftigt-Antwort. Alle Teleport-Angebote werden ausgeschlagen. Alle Inventar-Angebote werden in den Papierkorb verschoben.
 		</message>
 		<ignore name="ignore">
 			Beim Aktivieren des Beschäftigt-Modus
@@ -3102,8 +2993,7 @@ Papierkorb verschoben.
 	</alert>
 	<alert name="NotecardAttachPermFail">
 		<message name="message">
-			An Notizkarten lassen sich nur Objekte mit uneingeschränkten
-&apos;Nächster Eigentümer&apos;-Rechten anfügen.
+			An Notizkarten lassen sich nur Objekte mit uneingeschränkten „Nächster Eigentümer“-Rechten anfügen.
 		</message>
 		<option name="OK">
 			OK
@@ -3111,11 +3001,8 @@ Papierkorb verschoben.
 	</alert>
 	<alert name="JoinedTooManyGroupsMember">
 		<message name="message">
-			Sie sind bereits in zu vielen Gruppen Mitglied
-und können keiner weiteren beitreten. Bitte verlassen Sie eine Gruppe,
-bevor Sie dieser beitreten oder lehnen Sie das Angebot ab.
-Die Option zum Austritt aus einer Gruppe finden Sie unter
-&apos;Bearbeiten&apos; &gt; &apos;Gruppen...&apos;.
+			Sie sind bereits in zu vielen Gruppen Mitglied und können keiner weiteren beitreten. Bitte verlassen Sie eine Gruppe, bevor Sie dieser beitreten oder lehnen Sie das Angebot ab.
+Die Option zum Austritt aus einer Gruppe finden Sie unter „Bearbeiten“ &gt; „Gruppen...“.
 [NAME] hat Sie eingeladen, einer Gruppe beizutreten.
 [INVITE]
 		</message>
@@ -3128,11 +3015,8 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter
 	</alert>
 	<alert name="JoinedTooManyGroupsOfficer">
 		<message name="message">
-			Sie sind bereits in zu vielen Gruppen Mitglied
-und können keiner weiteren beitreten. Bitte verlassen Sie eine Gruppe,
-bevor Sie dieser beitreten oder lehnen Sie das Angebot ab.
-Die Option zum Austritt aus einer Gruppe finden Sie unter
-&apos;Bearbeiten&apos; &gt; &apos;Gruppen...&apos;.
+			Sie sind bereits in zu vielen Gruppen Mitglied und können keiner weiteren beitreten. Bitte verlassen Sie eine Gruppe, bevor Sie dieser beitreten oder lehnen Sie das Angebot ab.
+Die Option zum Austritt aus einer Gruppe finden Sie unter „Bearbeiten“ &gt; „Gruppen...“.
 [NAME] hat Sie eingeladen, einer Gruppe als Officer beizutreten.
 [INVITE]
 		</message>
@@ -3254,8 +3138,7 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter
 	</alert>
 	<alert name="MessageEstate" title="Nachricht an alle auf diesem Grundstück">
 		<message name="message">
-			Geben Sie eine kurze Nachricht ein, die
-an jede Person auf Ihrem Grundstück gesendet wird.
+			Geben Sie eine kurze Nachricht ein, die an jede Person auf Ihrem Grundstück gesendet wird.
 		</message>
 		<option name="OK">
 			OK
@@ -3266,12 +3149,9 @@ an jede Person auf Ihrem Grundstück gesendet wird.
 	</alert>
 	<alert name="ChangeLindenEstate" title="Linden-Grundstück ändern">
 		<message name="message">
-			Sie sind im Begriff, ein Grundstück in Linden-Besitz (Mainland, 
-Teen-Raster, Orientierung usw.) zu verändern. 
+			Sie sind im Begriff, ein Grundstück in Linden-Besitz (Mainland, Teen-Raster, Orientierung usw.) zu verändern. 
 
-Dies ist ÄUSSERST GEFÄHRLICH, da es grundlegende Auswirkungen 
-auf das Benutzererlebnis hat.  Auf dem Mainland werden tausende 
-Regionen geändert, was den Spaceserver stark belastet.
+Dies ist ÄUSSERST GEFÄHRLICH, da es grundlegende Auswirkungen auf das Benutzererlebnis hat.  Auf dem Mainland werden tausende Regionen geändert, was den Spaceserver stark belastet.
  
 Fortfahren?
 		</message>
@@ -3284,14 +3164,10 @@ Fortfahren?
 	</alert>
 	<alert name="ChangeLindenAccess" title="Zugang zu Linden-Grundstück ändern">
 		<message name="message">
-			Sie sind im Begriff, die Zugangsliste für ein Grundstück in Linden-Besitz 
-(Mainland, Teen-Raster, Orientierung usw.) zu verändern. 
+			Sie sind im Begriff, die Zugangsliste für ein Grundstück in Linden-Besitz (Mainland, Teen-Raster, Orientierung usw.) zu verändern. 
 
-Dies ist GEFÄHRLICH und sollte nur erfolgen, um Objekte/L$ 
-per Hack in und aus dem Raster zu 
-entfernen. 
-Tausende Regionen werden verändert und der 
-Spaceserver wird dadurch stark belastet.
+Dies ist GEFÄHRLICH und sollte nur erfolgen, um Objekte/L$ per Hack in und aus dem Raster zu entfernen. 
+Tausende Regionen werden verändert und der Spaceserver wird dadurch stark belastet.
 		</message>
 		<option name="ChangeEstate">
 			OK
@@ -3544,8 +3420,7 @@ Anzeige für [AMOUNT] L$ veröffentlichen?
 	</alert>
 	<alert name="MessageRegion" title="Nachricht an alle in dieser Region">
 		<message name="message">
-			Geben Sie eine kurze Nachricht ein, die
-an jede Person in dieser Region gesendet wird.
+			Geben Sie eine kurze Nachricht ein, die an jede Person in dieser Region gesendet wird.
 		</message>
 		<option name="OK">
 			OK
@@ -3556,90 +3431,74 @@ an jede Person in dieser Region gesendet wird.
 	</alert>
 	<alert name="HelpRegionBlockTerraform" title="Terraformen blockieren">
 		<message name="message">
-			Wenn diese Option aktiviert ist, können Landeigentümer Ihr Land nicht
-terraformen. Ausgenommen davon ist die parzelleneigene Einstellung &apos; Terrain bearbeiten&apos;.
+			Wenn diese Option aktiviert ist, können Landeigentümer Ihr Land nicht terraformen. Ausgenommen davon ist die parzelleneigene Einstellung „Terrain bearbeiten“.
 
-Standard: aus
+Standard: deaktiviert
 		</message>
 	</alert>
 	<alert name="HelpRegionBlockFly" title="Fliegen blockieren">
 		<message name="message">
-			Wenn diese Option aktiviert ist, ist Fliegen in dieser Region nicht möglich,
-auch wenn für die Parzelle eine andere Einstellung aktiv ist.
+			Wenn diese Option aktiviert ist, ist Fliegen in dieser Region nicht möglich, auch wenn für die Parzelle eine andere Einstellung aktiv ist.
  
-Standard: aus
+Standard: deaktiviert
 		</message>
 	</alert>
 	<alert name="HelpRegionAllowDamage" title="Schaden zulassen">
 		<message name="message">
-			Wenn diese Option aktiviert ist, ist das Gesundheitssystem auf
-allen Parzellen aktiviert, unabhängig von den Parzelleneinstellungen. Ist die Option links
-deaktiviert, können die Parzelleneigentümer das Gesundheitssystem 
-individuell einschalten.
+			Wenn diese Option aktiviert ist, ist das Gesundheitssystem auf allen Parzellen aktiviert, unabhängig von den Parzelleneinstellungen. Ist die Option links deaktiviert, können die Parzelleneigentümer das Gesundheitssystem individuell einschalten.
  
-Standard: aus
+Standard: deaktiviert
 		</message>
 	</alert>
 	<alert name="HelpRegionAgentLimit" title="Avatar-Limit">
 		<message name="message">
 			Legt die maximale Anzahl an Avataren für diese Region fest.
-Die Leistung hängt von der Anzahl der
-Avatare in der Region ab.
+Die Leistung hängt von der Anzahl der Avatare in der Region ab.
  
 Standard: 40
 		</message>
 	</alert>
 	<alert name="HelpRegionObjectBonus" title="Objektbonus">
 		<message name="message">
-			Der Objektbonus ist ein Multiplikator für die Anzahl an zulässigen Primitiven
-auf einer Parzelle. Gültig sind Werte zwischen 1 und 10. &apos;1&apos; erlaubt auf einer 512 qm
-großen Parzelle 117 Objekte. &apos;2&apos; erlaubt auf einer 512 qm großen Parzelle
-234 Objekte, also die doppelte Menge. Die maximale Objektanzahl
-in einer Region beträgt unabhängig vom Objektbonus 15.000.
-Eine nachträglich Senkung des Objektbonus führt dazu, dass Objekte zurückgegeben
-oder gelöscht werden. 
+			Der Objektbonus ist ein Multiplikator für die Anzahl an zulässigen Primitiven auf einer Parzelle. Gültig sind Werte zwischen 1 und 10. „1“ erlaubt auf einer 512 qm großen Parzelle 117 Objekte. „2“ erlaubt auf einer 512 qm großen Parzelle 234 Objekte, also die doppelte Menge. Die maximale Objektanzahl in einer Region beträgt unabhängig vom Objektbonus 15.000.
+Eine nachträglich Senkung des Objektbonus führt dazu, dass Objekte zurückgegeben oder gelöscht werden. 
  
 Standard: 1.0
 		</message>
 	</alert>
 	<alert name="HelpRegionMaturity" title="Alterseinstufung">
 		<message name="message">
-			Legt die Alterseinstufung für diese Region fest, wie oben
-			im Bildschirm und in den Popup-Tipps auf der Karte gezeigt. Diese Einstellung
-hat auch Auswirkungen auf die Suchergebnisse – Einwohner können
-entscheiden, dass Ab-18-Regionen nicht angezeigt werden.
+			Legt die Alterseinstufung für diese Region fest, wie oben im Bildschirm und in den Popup-Tipps auf der Karte gezeigt. Diese Einstellung hat auch Auswirkungen auf die Suchergebnisse – Einwohner können entscheiden, dass Ab-18-Regionen nicht angezeigt werden.
  
-Es kann eine Weile dauern, bis sich diese Änderung auf 
-die Karte auswirkt.
+Es kann eine Weile dauern, bis sich diese Änderung auf die Karte auswirkt.
  
 Standard: Jugendfrei
 		</message>
 	</alert>
 	<alert name="HelpRegionRestrictPushObject" title="Stoßen beschränken">
 		<message name="message">
-			Aktivieren sie diese Option, um in der gesamten Region das Stoßen zu
-beschränken. Wenn aktiviert, können Einwohner nur von sich selbst
-oder vom Parzelleneigentümer gestoßen werden.
+			Aktivieren sie diese Option, um in der gesamten Region das Stoßen zu beschränken. Wenn aktiviert, können Einwohner nur von sich selbst oder vom Parzelleneigentümer gestoßen werden.
 (Stoßen meint die LSL-Funktion llPushObject().)
  
-Standard: aus
+Standard: deaktiviert
 		</message>
 	</alert>
 	<alert name="HelpParcelChanges" title="Parzelle zusammenlegen/teilen">
 		<message name="message">
-			Dieses Kontrollkästchen steuert, ob Parzellen des Grundstückseigentümers
-zusammengelegt bzw. unterteilt werden können. Wenn deaktiviert:
+			Dieses Kontrollkästchen steuert, ob Parzellen des Grundstückseigentümers zusammengelegt bzw. unterteilt werden können. Wenn deaktiviert:
  * Nur Grundstückseigentümer bzw. –verwalter können Parzellen zusammenlegen/teilen.  * Sie können nur Parzellen zusammenlegen/teilen, die dem Eigentümer oder einer Gruppe gehören, bei der sie entsprechende Gruppenrechte innehaben.
 Wenn aktiviert:
- * Die Parzelleneigentümer können ihre Parzellen selbst zusammenlegen/teilen.  * Parzellen in Gruppeneigentum können von Mitgliedern mit den
-       entsprechenden Rechten zusammengelegt bzw. unterteilt werden.
- Standard: aktiviert
+ * Die Parzelleneigentümer können ihre Parzellen selbst zusammenlegen/teilen.
+ * Parzellen in Gruppeneigentum können von Mitgliedern mit den entsprechenden Rechten zusammengelegt bzw. unterteilt werden.
+ 
+Standard: aktiviert
 		</message>
 	</alert>
 	<alert name="HelpRegionSearch" title="Nicht in Suche anzeigen">
 		<message name="message">
 			Wenn Sie diese Option auswählen, können Parzelleneigentümer ihre Parzellen nicht in der Suche anzeigen lassen
-Standard: aus
+
+Standard: deaktiviert
 		</message>
 	</alert>
 	<alert name="HelpParcelSearch" title="Nicht in Suche anzeigen">
@@ -3652,8 +3511,7 @@ Standard: aus
 	<alert name="RegionMaturityChange" title="Alterseinstufung der Region ändern">
 		<message name="message">
 			Die Alterseinstufung dieser Region wurde aktualisiert. 
-Es kann eine Weile dauern, bis sich die Änderung auf 
-die Karte auswirkt.
+Es kann eine Weile dauern, bis sich die Änderung auf die Karte auswirkt.
 		</message>
 	</alert>
 	<alert name="HelpRegionLandResell" title="Landwiederverkauf">
@@ -3667,112 +3525,79 @@ Standard: deaktiviert
 	</alert>
 	<alert name="HelpEstateCovenantID" title="Vertrag-Asset-ID">
 		<message name="message">
-			Legt die Notizkarten-Asset-ID für den Grundstücksvertrag dieses Grundstücks
-fest. 
+			Legt die Notizkarten-Asset-ID für den Grundstücksvertrag dieses Grundstücks fest. 
  
 Standard: 00000000-0000-0000-0000-000000000000 oder leer
 		</message>
 	</alert>
 	<alert name="HelpRegionDisableScripts" title="Skripts deaktivieren">
 		<message name="message">
-			Schlechte Sim-Performance ist oftmals auf ein Skript zurückzuführen. Öffnen Sie
-die Statistikleiste (Strg-Umschalt-1). Sehen Sie sich den Wert für &apos;Simulator Physics FPS&apos; (Simulator Physik-FPS) an.
-Wenn der Wert unter 45 liegt, öffnen Sie den Bereich &apos;Time&apos; (Zeit) ganz unten in der Statistikleiste. Wenn der Wert für &quot;Script Time&quot; (Skriptzeit) 25 ms oder höher ist, klicken Sie auf &apos;Top-Skripts&apos;. Der Name und die Position der Skripts, die für die schlechte Performance verantwortlich sind, werden angezeigt.
- Wenn Sie das Kontrollkästchen &apos;Skripts deaktivieren&apos; aktivieren und auf &apos;Übernehmen&apos; klicken, werden alle Skripts in der Region zeitweilig deaktiviert. Dieser Schritt ist eventuell notwendig, damit Sie an die Position des gemeldeten &apos;Top-Skripts&apos; reisen können. Sobald Sie dort angekommen sind, sollten Sie das Skript auf die Ursache des Problems hin untersuchen. Möglicherweise müssen Sie sich an den Skript-Eigentümer wenden oder das Objekt löschen bzw. zurückgeben. Um die Skripte in der Region wieder zu aktivieren, deaktivieren Sie &apos;Skript deaktivieren&apos; und klicken Sie auf &apos;Übernehmen&apos;.
- Standard: aus
+			Schlechte Sim-Performance ist oftmals auf ein Skript zurückzuführen. Öffnen Sie die Statistikleiste (Strg-Umschalt-1). Sehen Sie sich den Wert für „Simulator Physics FPS“ (Simulator Physik-FPS) an.
+Wenn der Wert unter 45 liegt, öffnen Sie den Bereich „Time“ (Zeit) ganz unten in der Statistikleiste. Wenn der Wert für „Script Time“ (Skriptzeit) 25 ms oder höher ist, klicken Sie auf „Top-Skripts“. Der Name und die Position der Skripts, die für die schlechte Performance verantwortlich sind, werden angezeigt.
+Wenn Sie das Kontrollkästchen „Skripts deaktivieren“ aktivieren und auf „Übernehmen“ klicken, werden alle Skripts in der Region zeitweilig deaktiviert. Dieser Schritt ist eventuell notwendig, damit Sie an die Position des gemeldeten „Top-Skripts“ reisen können. Sobald Sie dort angekommen sind, sollten Sie das Skript auf die Ursache des Problems hin untersuchen. Möglicherweise müssen Sie sich an den Skript-Eigentümer wenden oder das Objekt löschen bzw. zurückgeben. Um die Skripte in der Region wieder zu aktivieren, deaktivieren Sie „Skript deaktivieren“ und klicken Sie auf „Übernehmen“.
+
+Standard: deaktiviert
 		</message>
 	</alert>
 	<alert name="HelpRegionDisableCollisions" title="Kollisionen deaktivieren">
 		<message name="message">
 			Schlechte Sim-Performance ist oftmals auf physische Objekte zurückzuführen. 
-Öffnen Sie die Statistikleiste (Strg-Umschalt-1). Sehen Sie sich den Wert &apos;Simulator 
-Physics FPS&apos; an. Liegt dieser unter 45, öffnen Sie unten in der 
-Statistikleiste den &apos;Time&apos;-Bereich. Liegt die &apos;Sim Time (Physics)&apos; 
-bei 20 ms oder darüber, klicken Sie auf &apos;Top-Kollisionsobjekte&apos;. 
-Der Name und der Standort der physischen Objekte, die das  
-Problem verursachen, werden angezeigt.
+Öffnen Sie die Statistikleiste (Strg-Umschalt-1). Sehen Sie sich den Wert „Simulator Physics FPS“ an. Liegt dieser unter 45, öffnen Sie unten in der Statistikleiste den „Time“-Bereich. Liegt die „Sim Time (Physics)“ bei 20 ms oder darüber, klicken Sie auf „Top-Kollisionsobjekte“. 
+Der Name und der Standort der physischen Objekte, die das Problem verursachen, werden angezeigt.
  
-Wenn Sie das Kontrollkästchen &apos;Kollisionen deaktivieren&apos; aktivieren und auf
-&apos;Übernehmen&apos; klicken, werden alle Objekt-Objekt-Kollisionen in der Region zeitweilig deaktiviert. Dieser Schritt 
-ist eventuell notwendig, damit Sie an die Position des gemeldeten 
-&apos;Top-Kollisionsobjekts&apos; reisen können. Überprüfen Sie das Objekt an der angegebenen Position. 
-Kollidiert es ständig mit anderen Objekten? Wenden Sie sich 
-eventuell an den Eigentümer des Objekts, löschen Sie es oder geben Sie es zurück. 
-Deaktivieren Sie die Option &apos;Kollisionen deaktivieren&apos; und klicken Sie auf &apos;Übernehmen&apos;, 
-um Kollisionen in dieser Region wieder zu aktivieren.
+Wenn Sie das Kontrollkästchen „Kollisionen deaktivieren“ aktivieren und auf „Übernehmen“ klicken, werden alle Objekt-Objekt-Kollisionen in der Region zeitweilig deaktiviert. Dieser Schritt ist eventuell notwendig, damit Sie an die Position des gemeldeten „Top-Kollisionsobjekts“ reisen können. Überprüfen Sie das Objekt an der angegebenen Position. 
+Kollidiert es ständig mit anderen Objekten? Wenden Sie sich eventuell an den Eigentümer des Objekts, löschen Sie es oder geben Sie es zurück. 
+Deaktivieren Sie die Option „Kollisionen deaktivieren“ und klicken Sie auf „Übernehmen“, um Kollisionen in dieser Region wieder zu aktivieren.
  
-Standard: aus
+Standard: deaktiviert
 		</message>
 	</alert>
 	<alert name="HelpRegionDisablePhysics" title="Physik deaktivieren">
 		<message name="message">
-			Das Deaktivieren der Physik ähnelt dem Deaktivieren von Kollisionen, 
-außer dass die gesamte Physiksimulation ausgeschaltet wird.  Das hat nicht nur zur Folge, dass 
-Objekte nicht mehr kollidieren, sondern dass Avatare sich nicht mehr bewegen können. 
+			Das Deaktivieren der Physik ähnelt dem Deaktivieren von Kollisionen, außer dass die gesamte Physiksimulation ausgeschaltet wird.  Das hat nicht nur zur Folge, dass Objekte nicht mehr kollidieren, sondern dass Avatare sich nicht mehr bewegen können. 
  
-Diese Option sollte nur verwendet werden, wenn das Deaktivieren 
-von Kollisionen keine ausreichende Leistungssteigerung bringt, 
-um Physikprobleme in der Region oder die Top-Kollisionsobjekte zu erkennen.
+Diese Option sollte nur verwendet werden, wenn das Deaktivieren von Kollisionen keine ausreichende Leistungssteigerung bringt, um Physikprobleme in der Region oder die Top-Kollisionsobjekte zu erkennen.
  
-Schalten Sie die Physiksimulation hinterher wieder ein. Andernfalls 
-können sich Avatare nicht mehr bewegen. 
+Schalten Sie die Physiksimulation hinterher wieder ein. Andernfalls können sich Avatare nicht mehr bewegen. 
  
-Standard: aus
+Standard: deaktiviert
 		</message>
 	</alert>
 	<alert name="HelpRegionTopColliders" title="Top-Kollisionsobjekte">
 		<message name="message">
-			Zeigt eine Liste der Objekte mit den potenziell meisten 
-Objekt-Objekt-Kollisionen an.  Diese Objekte können 
-die Leistung beeinträchtigen.  Wählen Sie &apos;Ansicht&apos; &gt; &apos;Statistikleiste&apos; aus und 
-sehen Sie unter &apos;Simulator&apos; &gt; &apos;Time&apos; &gt; &apos;Sim Time (Physics)&apos; nach, 
-ob die Physikberechnung länger als 20 ms dauert.
+			Zeigt eine Liste der Objekte mit den potenziell meisten Objekt-Objekt-Kollisionen an.  Diese Objekte können die Leistung beeinträchtigen.  Wählen Sie „Ansicht“ &gt; „Statistikleiste“ aus und sehen Sie unter „Simulator“ &gt; „Time“ &gt; „Sim Time (Physics)“ nach, ob die Physikberechnung länger als 20 ms dauert.
 		</message>
 	</alert>
 	<alert name="HelpRegionTopScripts" title="Top-Skripts">
 		<message name="message">
-			Zeigt eine Liste der Objekte an, die die meiste Zeit benötigen um 
-LSL-Skripts auszuführen.  Diese Objekte können die Leistung beeinträchtigen. 
-Wählen Sie &apos;Ansicht&apos; &gt; &apos;Statistikleiste&apos; und 
-sehen Sie unter &apos;Simulator&apos; &gt; &apos;Time&apos; &gt; &apos;Script Time&apos; nach, 
-ob mehr als 25 ms für Skripts benötigt werden.
+			Zeigt eine Liste der Objekte an, die die meiste Zeit benötigen, um LSL-Skripts auszuführen.  Diese Objekte können die Leistung beeinträchtigen. 
+Wählen Sie „Ansicht“ &gt; „Statistikleiste“ und sehen Sie unter „Simulator“ &gt; „Time“ &gt; „Script Time“ nach, ob mehr als 25 ms für Skripts benötigt werden.
 		</message>
 	</alert>
 	<alert name="HelpRegionRestart" title="Region neu starten">
 		<message name="message">
-			Starten Sie den Serverprozess für diese Region nach der 
-2-Minuten-Warnung neu.   Die Verbindung aller Einwohner in dieser Region wird 
-getrennt.  Die Region wird gespeichert und sollte nach 
-90 Sekunden wieder verfügbar sein. 
+			Starten Sie den Serverprozess für diese Region nach der 2-Minuten-Warnung neu. Die Verbindung aller Einwohner in dieser Region wird getrennt.  Die Region wird gespeichert und sollte nach 90 Sekunden wieder verfügbar sein. 
  
-Der Neustart der Region behebt die meisten Leistungs- 
-probleme, sollte aber nur nach Anweisung erfolgen.
+Der Neustart der Region behebt die meisten Leistungs-probleme, sollte aber nur nach Anweisung erfolgen.
 		</message>
 	</alert>
 	<alert name="HelpRegionWaterHeight" title="Wasserhöhe">
 		<message name="message">
-			Die Höhe der Wasserlinie in Metern. Liegt 
-dieser Wert unter 20 und haben Sie Wasser nahe am Rand der 
-Welt oder &apos;offenes&apos; Wasser definiert, wird eine 
-deutliche Lücke sichtbar. 
+			Die Höhe der Wasserlinie in Metern. Liegt dieser Wert unter 20 und haben Sie Wasser nahe am Rand der Welt oder „offenes“ Wasser definiert, wird eine deutliche Lücke sichtbar. 
  
 Standard: 20
 		</message>
 	</alert>
 	<alert name="HelpRegionTerrainRaise" title="Obere Terraingrenze">
 		<message name="message">
-			Der maximale Betrag in Metern, um den Parzelleneigentümer 
-ihr Terrain über die Standardhöhe des &apos;geformten&apos; Terrains 
-erhöhen können. 
+			Der maximale Betrag in Metern, um den Parzelleneigentümer ihr Terrain über die Standardhöhe des „geformten“ Terrains erhöhen können. 
  
 Standard: 4
 		</message>
 	</alert>
 	<alert name="HelpRegionTerrainLower" title="Untere Terraingrenze">
 		<message name="message">
-			Der maximale Betrag in Metern, um den Parzelleneigentümer 
-ihr Terrain unter die Standardhöhe des &apos;geformten&apos; Terrains 
-absenken können. 
+			Der maximale Betrag in Metern, um den Parzelleneigentümer ihr Terrain unter die Standardhöhe des „geformten“ Terrains absenken können. 
  
 Standard: -4
 		</message>
@@ -3784,124 +3609,89 @@ Standard: -4
 	</alert>
 	<alert name="HelpRegionDownloadRaw" title="RAW-Terrain herunterladen">
 		<message name="message">
-			Mit dieser Schaltfläche laden Sie eine Datei herunter, welche 
-die Höhendaten, Maße, den Verkaufsstatus der Parzelle und einige 
-Parzellenrechte für diese Region enthält. Wenn Sie diese Datei in einem Programm wie 
-Photoshop öffnen, müssen Sie die Bilddaten eingeben. Diese 
-sind: RGB, 256x256 mit 13 Kanälen. Anders lässt sich diese 
-Terraindatei nicht öffnen. 
+			Mit dieser Schaltfläche laden Sie eine Datei herunter, welche die Höhendaten, Maße, den Verkaufsstatus der Parzelle und einige Parzellenrechte für diese Region enthält. Wenn Sie diese Datei in einem Programm wie Photoshop öffnen, müssen Sie die Bilddaten eingeben. Diese sind: RGB, 256x256 mit 13 Kanälen. Anders lässt sich diese Terraindatei nicht öffnen. 
  
 Weitere Informationen zur Bearbeitung der Höhendaten der Region enthält die F1-Hilfe.
 		</message>
 	</alert>
 	<alert name="HelpRegionUseEstateSun" title="Grundstücksonne verwenden">
 		<message name="message">
-			Aktivieren Sie diese Option, um in dieser Region denselben 
-Sonnenstand wie auf dem restlichen Grundstück einzustellen. 
+			Aktivieren Sie diese Option, um in dieser Region denselben Sonnenstand wie auf dem restlichen Grundstück einzustellen. 
  
-Standard: ein
+Standard: aktiviert
 		</message>
 	</alert>
 	<alert name="HelpRegionFixedSun" title="Sonne fest">
 		<message name="message">
-			Aktivieren Sie diese Option, um den Sonnenstand auf 
-die im Regler definierte Position festzulegen und die Animation auszuschalten. 
+			Aktivieren Sie diese Option, um den Sonnenstand auf die im Regler definierte Position festzulegen und die Animation auszuschalten. 
  
-Standard: aus
+Standard: deaktiviert
 		</message>
 	</alert>
 	<alert name="HelpRegionBakeTerrain" title="Terrain formen">
 		<message name="message">
-			Mit dieser Schaltfläche speichern Sie die aktuelle Terrain-Form 
-als neuen Standard für die Region. Nach der Formung können Sie und andere 
-das Land mit der Option &apos;Terrain bearbeiten&apos; &gt; &apos;Zurücksetzen&apos;
-in den ursprünglichen Zustand zurückversetzen. Das geformte Terrain ist auch das Zentrum 
-für die oberen und unteren Terraingrenzen.
+			Mit dieser Schaltfläche speichern Sie die aktuelle Terrain-Form als neuen Standard für die Region. Nach der Formung können Sie und andere das Land mit der Option „Terrain bearbeiten“ &gt; „Zurücksetzen“ in den ursprünglichen Zustand zurückversetzen. Das geformte Terrain ist auch das Zentrum für die oberen und unteren Terraingrenzen.
 		</message>
 	</alert>
 	<alert name="HelpEstateEstateManager" title="Grundstücksverwalter">
 		<message name="message">
-			Ein Grundstücksverwalter ist ein Einwohner, dem Sie die Kontrolle 
-über die Regions- und Grundstückseinstellungen übertragen haben.  Ein Grundstücksverwalter 
-kann alle Einstellungen ändern, außer das Hochladen, 
-Herunterladen und Formen von Terrain.  Vor allem kann er Einwohner 
-auf dem Grundstück erlauben und davon verbannen.  
+			Ein Grundstücksverwalter ist ein Einwohner, dem Sie die Kontrolle über die Regions- und Grundstückseinstellungen übertragen haben.  Ein Grundstücksverwalter kann alle Einstellungen ändern, außer das Hochladen, Herunterladen und Formen von Terrain.  Vor allem kann er Einwohner auf dem Grundstück erlauben und davon verbannen.  
  
-Nur der Eigentümer kann den Grundstücksverwalter 
-bestimmen und entlassen. Der Verwalter hat dieses Recht nicht.  Wählen Sie nur vertrauenswürdige 
-Einwohner als Grundstücksverwalter, da Sie letztlich für 
-deren Handlungen verantwortlich sind.
+Nur der Eigentümer kann den Grundstücksverwalter bestimmen und entlassen. Der Verwalter hat dieses Recht nicht.  Wählen Sie nur vertrauenswürdige Einwohner als Grundstücksverwalter, da Sie letztlich für deren Handlungen verantwortlich sind.
 		</message>
 	</alert>
 	<alert name="HelpEstateUseGlobalTime" title="Globale Zeit verwenden">
 		<message name="message">
-			Aktivieren Sie diese Option, um auf Ihrem Grundstück 
-denselben Sonnenstand wie auf dem Linden-&apos;Mainland&apos; 
-einzustellen. 
+			Aktivieren Sie diese Option, um auf Ihrem Grundstück denselben Sonnenstand wie auf dem Linden-„Mainland“ einzustellen. 
  
-Standard: ein
+Standard: aktiviert
 		</message>
 	</alert>
 	<alert name="HelpEstateFixedSun" title="Sonne fest">
 		<message name="message">
-			Aktivieren Sie diese Option, um den Sonnenstand auf 
-die im Regler definierte Position festzulegen und die Animation auszuschalten.
+			Aktivieren Sie diese Option, um den Sonnenstand auf die im Regler definierte Position festzulegen und die Animation auszuschalten.
 		</message>
 	</alert>
 	<alert name="HelpEstateExternallyVisible" title="Öffentlich">
 		<message name="message">
-			Aktivieren Sie diese Option, um Einwohnern den Zugang zu diesem Grundstück zu
-erlauben, ohne auf der Zugangsliste zu stehen.
+			Aktivieren Sie diese Option, um Einwohnern den Zugang zu diesem Grundstück zu erlauben, ohne auf der Zugangsliste zu stehen.
  
-Standard: ein
+Standard: aktiviert
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowDirectTeleport" title="Direktteleport zulassen">
 		<message name="message">
-			Wenn aktiviert, können sich Einwohner an jede Stelle auf 
-Ihrem Grundstück teleportieren.  Wenn deaktiviert, werden Einwohner 
-zum nächstgelegenen Telehub teleportiert. 
+			Wenn aktiviert, können sich Einwohner an jede Stelle auf Ihrem Grundstück teleportieren.  Wenn deaktiviert, werden Einwohner zum nächstgelegenen Telehub teleportiert. 
  
-Standard: aus
+Standard: deaktiviert
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowResident" title="Zugang erlauben">
 		<message name="message">
-			Der Zugang zu diesem Grundstück wird auf die hier 
-aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
-nur verfügbar, wenn &apos;Öffentlich&apos; 
-deaktiviert ist.
+			Der Zugang zu diesem Grundstück wird auf die hier aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist nur verfügbar, wenn „Öffentlich“ deaktiviert ist.
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowGroup" title="Gruppenzugang erlauben">
 		<message name="message">
-			Der Zugang zu diesem Grundstück wird auf die hier 
-aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
-nur verfügbar, wenn &apos;Öffentlich&apos; 
-deaktiviert ist.
+			Der Zugang zu diesem Grundstück wird auf die hier aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist nur verfügbar, wenn „Öffentlich“ deaktiviert ist.
 		</message>
 	</alert>
 	<alert name="HelpEstateAbuseEmailAddress" title="E-Mail-Adresse für Missbrauchsmeldungen">
 		<message name="message">
-			Geben Sie hier eine E-Mail-Adresse ein, an die 
-Missbrauchsmeldungen von diesem Grundstück gesendet werden. 
-Wenn dieses Feld leer ist, werden Missbrauchsmeldungen
-nur an Linden Lab gesendet.
+			Geben Sie hier eine E-Mail-Adresse ein, an die Missbrauchsmeldungen von diesem Grundstück gesendet werden. 
+Wenn dieses Feld leer ist, werden Missbrauchsmeldungen nur an Linden Lab gesendet.
 		</message>
 	</alert>
 	<alert name="HelpEstateBanResident" title="Zugang verweigern">
 		<message name="message">
-			Einwohnern auf dieser Liste wird der Zugang zum Grundstück verwehrt, 
-unabhängig von etwaigen anderen Einstellungen.
+			Einwohnern auf dieser Liste wird der Zugang zum Grundstück verwehrt, unabhängig von etwaigen anderen Einstellungen.
 		</message>
 	</alert>
 	<alert name="HelpEstateVoiceChat" title="Voice-Chat erlauben">
 		<message name="message">
-			Die Parzellen auf diesem Grundstück können über eigene Voice-
-Channel verfügen, die es Einwohnern ermöglichen, sich mit
-anderen Personen in der Nähe zu unterhalten.
+			Die Parzellen auf diesem Grundstück können über eigene Voice-Channel verfügen, die es Einwohnern ermöglichen, sich mit anderen Personen in der Nähe zu unterhalten.
 
-Standard: aus
+Standard: deaktiviert
 		</message>
 	</alert>
 	<alert name="VoiceVersionMismatch" title="Falsche Voice-Version">
@@ -3911,7 +3701,7 @@ Standard: aus
 	</alert>
 	<alert name="HelpEstateCovenant" title="Grunstücksvertrag">
 		<message name="message">
-			Ein Grundstücksvertrag ermöglicht es Ihnen, Grundstücksparzellen zu verkaufen. Ohne Vertrag können Sie kein Land verkaufen. Wenn Sie keine Regeln festlegen oder Käufern vor dem Kauf keine anderen Informationen über das Land bereitstellen möchten, können Sie die Vertrags-Notizkarte auch leer lassen.  Ein Vertrag kann Regeln und Richtlinien, kulturelle Informationen oder einfach nur Ihre eigenen Erwartungen bezüglich der Landnutzung durch den Käufer enthalten. Das kann Zoning, Baubeschränkungen, Zahloptionen und alle möglichen anderen Informationen betreffen, die der neue Eigentümer Ihrer Meinung nach kennen und akzeptieren sollte.  Der Käufer muss dem Vertrag durch Auswahl dieses Kontrollkästchens zustimmen, bevor der Kauf abgeschlossen werden kann. Grundstücksverträge sind jederzeit unter &apos;Land-Info&apos; für jede Parzelle einsehbar, für die ein Vertrag definiert wurde.
+			Ein Grundstücksvertrag ermöglicht es Ihnen, Grundstücksparzellen zu verkaufen. Ohne Vertrag können Sie kein Land verkaufen. Wenn Sie keine Regeln festlegen oder Käufern vor dem Kauf keine anderen Informationen über das Land bereitstellen möchten, können Sie die Vertrags-Notizkarte auch leer lassen.  Ein Vertrag kann Regeln und Richtlinien, kulturelle Informationen oder einfach nur Ihre eigenen Erwartungen bezüglich der Landnutzung durch den Käufer enthalten. Das kann Zoning, Baubeschränkungen, Zahloptionen und alle möglichen anderen Informationen betreffen, die der neue Eigentümer Ihrer Meinung nach kennen und akzeptieren sollte.  Der Käufer muss dem Vertrag durch Auswahl dieses Kontrollkästchens zustimmen, bevor der Kauf abgeschlossen werden kann. Grundstücksverträge sind jederzeit unter „Land-Info“ für jede Parzelle einsehbar, für die ein Vertrag definiert wurde.
 		</message>
 	</alert>
 	<alert name="BuyObjectOneOnly" title="Objekte können nicht gekauft werden">
@@ -4068,9 +3858,7 @@ Geben Sie Ihr Kennwort erneut ein und klicken Sie auf OK.
 	<alert name="SetPickLocation">
 		<message name="message">
 			Hinweis:
-Sie haben die Position dieser
-Auswahl aktualisiert, aber die anderen
-Daten behalten ihre ursprünglichen Werte.
+Sie haben die Position dieser Auswahl aktualisiert, aber die anderen Daten behalten ihre ursprünglichen Werte.
 		</message>
 		<option name="OK">
 			OK
@@ -4078,7 +3866,7 @@ Daten behalten ihre ursprünglichen Werte.
 	</alert>
 	<alert name="MoveInventoryFromObject">
 		<message name="message">
-			Sie haben &apos;nicht kopierfähige&apos; Inventarobjekte ausgewählt.
+			Sie haben „nicht kopierfähige“ Inventarobjekte ausgewählt.
 Diese Objekte werden nicht kopiert, sondern in Ihr Inventar verschoben.
  
 Inventarobjekt(e) verschieben?
@@ -4095,10 +3883,8 @@ Inventarobjekt(e) verschieben?
 	</alert>
 	<alert name="MoveInventoryFromScriptedObject">
 		<message name="message">
-			Sie haben &apos;nicht kopierfähige&apos; Inventarobjekte ausgewählt.  Diese Objekte 
-werden nicht kopiert, sondern in Ihr Inventar verschoben.
-Da es sich um ein geskriptetes Objekt handelt, geht 
-die Skriptfunktion beim Verschieben in das Inventar möglicherweise verloren. 
+			Sie haben „nicht kopierfähige“ Inventarobjekte ausgewählt.  Diese Objekte werden nicht kopiert, sondern in Ihr Inventar verschoben.
+Da es sich um ein geskriptetes Objekt handelt, geht die Skriptfunktion beim Verschieben in das Inventar möglicherweise verloren. 
  
 Inventarobjekt(e) verschieben?
 		</message>
@@ -4114,11 +3900,10 @@ Inventarobjekt(e) verschieben?
 	</alert>
 	<alert name="ClickActionNotPayable">
 		<message name="message">
-			Achtung: Die Klick-Aktion &apos;Objekt bezahlen&apos; wurde definiert, sie 
-funktioniert aber nur, wenn ein Skript mit einem money() Ereignis hinzugefügt wird.
+			Achtung: Die Klick-Aktion „Objekt bezahlen“ wurde definiert, sie funktioniert aber nur, wenn ein Skript mit einem money() Ereignis hinzugefügt wird.
 		</message>
 		<ignore name="ignore">
-			Beim Einrichten von Events mit &apos;Objektbezahlung&apos; ohne Geld
+			Beim Einrichten von Events mit „Objektbezahlung“ ohne Geld
 		</ignore>
 	</alert>
 	<alert name="OpenObjectCannotCopy">
@@ -4184,34 +3969,28 @@ funktioniert aber nur, wenn ein Skript mit einem money() Ereignis hinzugefügt w
 	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
-			Verwenden Sie dieses Tool, um Verletzungen der Servicebedingungen 
-und Community-Standards zu melden. Siehe:
+			Verwenden Sie dieses Tool, um Verletzungen der Servicebedingungen und Community-Standards zu melden. Siehe:
 
 http://secondlife.com/corporate/tos.php 
 http://secondlife.com/corporate/cs.php
 
-Alle gemeldeten Verletzungen der Servicebedingungen und Community-Standards 
-werden geprüft und geklärt. Sie können den Prozess im 
-Police Blotter verfolgen:
+Alle gemeldeten Verletzungen der Servicebedingungen und Community-Standards werden geprüft und geklärt Sie können den Prozess im Incident Report (Vorfallsbericht) verfolgen:
 
-http://secondlife.com/community/blotter.php
+http://secondlife.com/support/incidentreport.php
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseEmailEO">
 		<message name="message">
 			WICHTIG: Diese Meldung wird an den Eigentümer der Region gesendet, in der Sie sich gerade befinden, nicht an Linden Lab.
 -
-Als besonderen Service für Einwohner und Besucher übernimmt der Eigentümer dieser Region die Bearbeitung aller anfallenden Meldungen. Von diesem Standort aus eingereichte Meldungen werden nicht von Linden Lab bearbeitet. Der Eigentümer der Region bearbeitet Meldungen auf Grundlage der Richtlinien, die im für diese Region geltenden Grundstücksvertrag festgelegt sind. (Den Vertrag können Sie unter &apos;Welt&apos; &gt; &apos;Land-Info&apos; einsehen.)
+Als besonderen Service für Einwohner und Besucher übernimmt der Eigentümer dieser Region die Bearbeitung aller anfallenden Meldungen. Von diesem Standort aus eingereichte Meldungen werden nicht von Linden Lab bearbeitet. Der Eigentümer der Region bearbeitet Meldungen auf Grundlage der Richtlinien, die im für diese Region geltenden Grundstücksvertrag festgelegt sind. (Den Vertrag können Sie unter „Welt“ &gt; „Land-Info“ einsehen.)
 -
 Das Resultat, das sich aus dieser Meldung ergibt, betrifft nur diese Region; der Einwohnerzugang zu anderen Bereichen von Second Life ist davon nicht betroffen. Nur Linden Lab kann den Zugang zu Second Life beschränken.
 		</message>
 	</alert>
 	<alert name="HelpReportBug">
 		<message name="message">
-			Verwenden Sie dieses Tool *nur*, um technische Features zu melden,
-die nicht wie beschrieben oder erwartet funktionieren. Bitte machen
-Sie so viele Angaben wie möglich. Sie können auf die automatische
-Antwort-E-Mail antworten, um Ihre Meldung noch zu ergänzen.
+			Verwenden Sie dieses Tool *nur*, um technische Features zu melden, die nicht wie beschrieben oder erwartet funktionieren. Bitte machen Sie so viele Angaben wie möglich. Sie können auf die automatische Antwort-E-Mail antworten, um Ihre Meldung noch zu ergänzen.
 Alle gemeldeten Fehler werden geprüft und bewertet. Sie erhalten keine persönliche Antwort auf Ihre E-Mail.
 -
 Bei technischen Problemen wenden Sie sich bitte an den Support unter: 
@@ -4259,33 +4038,29 @@ Eine genaue Zusammenfassung hilft uns, Fehler schneller zu beseitigen.
 	<alert name="HelpReportAbuseDetailsEmpty">
 		<message name="message">
 			Bitte geben Sie eine ausführliche Beschreibung des Vorfalls ein.
-Eine möglichst genaue Beschreibung mit Namen und
-Einzelheiten
-hilft uns, Fälle von Missbrauch zu ahnden.
+Eine möglichst genaue Beschreibung mit Namen und Einzelheiten hilft uns, Fälle von Missbrauch zu ahnden.
 		</message>
 	</alert>
 	<alert name="HelpReportBugDetailsEmpty">
 		<message name="message">
 			Bitte geben Sie eine ausführliche Fehlerbeschreibung ein.
-Eine möglichst genaue Beschreibung mit Schritten zur Reproduktion des Fehlers
-hilft uns,
-Fehler schneller zu beseitigen.
+Eine möglichst genaue Beschreibung mit Schritten zur Reproduktion des Fehlers hilft uns, Fehler schneller zu beseitigen.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
 			Sehr geehrte(r) Einwohner(in),
+ 
+Sie melden eine Urheberrechtsverletzung. Sind Sie wirklich sicher, dass Sie eine Verletzung des Urheberrechts melden möchten?
 
-achten Sie bei der Meldung einer Urheberrechtsverletzung darauf, dass Sie dabei korrekt vorgehen:
+1. Missbrauch melden. Wenn Sie der Meinung sind, ein Einwohner nutzt das Berechtigungssystem von Second Life auf unerlaubte Weise zu seinem Vorteil aus, indem er zum Beispiel einen CopyBot oder ähnliche Kopiertools verwendet und damit eine Urheberrechtsverletzung begeht, können Sie diesen Missbrauch melden. Das Missbrauchsteam untersucht etwaige Verstöße gegen die Second Life Community Standards oder die Nutzungsbedingungen und verhängt entsprechende Strafen. Das Missbrauchsteam ist jedoch nicht dafür zuständig, Inhalte aus der Second Life-Welt zu entfernen und reagiert auch nicht auf entsprechende Anfragen.
 
-1. Missbrauch melden. Wenn Sie der Meinung sind, ein Einwohner nutzt das Berechtigungssystem von Second Life auf unerlaubte Weise zu seinem Vorteil aus, indem er zum Beispiel einen CopyBot oder verwandte Kopiertools verwendet und damit eine Urheberrechtsverletzung begeht, können Sie diesen Missbrauch melden.Das Missbrauchsteam untersucht etwaige Verstöße gegen die Second Life Community Standards oder die Nutzungsbedingungen und verhängt entsprechende Strafen.Das Missbrauchsteam ist jedoch nicht dafür zuständig, Inhalte aus der Second Life-Welt zu entfernen und reagiert auch nicht auf entsprechende Anfragen.
+2. Der DMCA oder das Entfernen von Inhalten. Sie können das Entfernen von Inhalten aus Second Life beantragen. Dazu MÜSSEN Sie eine Urheberrechtsverletzung gemäß den in unserer DMCA-Richtlinie unter http://secondlife.com/corporate/dmca.php dargelegten Anweisungen einreichen.
 
-2. Die DMCA oder Inhaltsentfernungs-Vorgehensweise. Sie können das Entfernen von Inhalten aus Second Life beantragen. Dazu müssen Sie eine Urheberrechtsverletzung gemäß den in unserer DMCA-Richtlinie unter http://secondlife.com/corporate/dmca.php dargelegten Anweisungen einreichen.
-
-Wenn Sie jetzt mit der Missbrauchmeldung fortfahren möchten, schließen Sie bitte dieses Fenster und senden Sie Ihren Bericht ein.
+Wenn Sie mit der Missbrauchmeldung jetzt fortfahren möchten, schließen Sie bitte dieses Fenster und senden Sie Ihren Bericht ein.  Möglicherweise müssen Sie Kategorie „CopyBot oder Berechtigungs-Exploit“ auswählen.
 
 Vielen Dank,
-
+ 
 Linden Lab
 		</message>
 	</alert>
@@ -4312,12 +4087,9 @@ Möchten Sie es mit dem ausgewählten Objekt ersetzen?
 	</alert>
 	<alert name="BusyModePay" title="Beschäftigt-Modus-Warnung">
 		<message name="message">
-			Sie sind im Beschäftigt-Modus, sodass
-Sie im Austausch für diese Zahlung keine
-Objekte erhalten können.
+			Sie sind im Beschäftigt-Modus, sodass Sie im Austausch für diese Zahlung keine Objekte erhalten können.
  
-Möchten Sie den Bechäftigt-Modus verlassen,
-bevor Sie diese Transaktion abschließen?
+Möchten Sie den Bechäftigt-Modus verlassen, bevor Sie diese Transaktion abschließen?
 		</message>
 		<ignore name="ignore">
 			Beim Bezahlen einer Person oder eines Objekts im Beschäftigt-Modus
@@ -4331,8 +4103,7 @@ bevor Sie diese Transaktion abschließen?
 	</alert>
 	<alert name="ConfirmEmptyTrash">
 		<message name="message">
-			Möchten Sie den Inhalt Ihres Papierkorbs
-wirklich löschen?
+			Möchten Sie den Inhalt Ihres Papierkorbs wirklich löschen?
 		</message>
 		<ignore name="ignore">
 			Beim Leeren des Inventar-Papierkorbs
@@ -4379,8 +4150,7 @@ wirklich löschen?
 	</alert>
 	<alert name="ConfirmEmptyLostAndFound">
 		<message name="message">
-			Möchten Sie den Inhalt Ihres Fundstücke-Ordners
-wirklich permanent löschen?
+			Möchten Sie den Inhalt Ihres Fundstücke-Ordners wirklich permanent löschen?
 		</message>
 		<ignore name="ignore">
 			Beim Leeren von Inventar und Fundstückeordner-
@@ -4397,8 +4167,7 @@ wirklich permanent löschen?
 			Die folgende SLURL wurde in die Zwischenablage kopiert:
  [SLURL] 
 
-Veröffentlichen Sie sie auf einer Website, um anderen den Zugang zu diesem Ort
-zu erleichtern, oder testen Sie sie, indem Sie sie in die Adressleiste Ihres Browsers kopieren.
+Veröffentlichen Sie sie auf einer Website, um anderen den Zugang zu diesem Ort zu erleichtern, oder testen Sie sie, indem Sie sie in die Adressleiste Ihres Browsers kopieren.
 		</message>
 		<ignore name="ignore">
 			Beim Kopieren einer SLURL in die Zwischenablage
@@ -4406,7 +4175,7 @@ zu erleichtern, oder testen Sie sie, indem Sie sie in die Adressleiste Ihres Bro
 	</alert>
 	<alert name="GraphicsPreferencesHelp">
 		<message name="message">
-			Die Optionen in diesem Dialog steuern Fenstergröße und Auflösung sowie die Qualität der Grafikdarstellung im Client.  Im Fenster &apos;Einstellungen&apos; &gt; &apos;Grafik&apos; stehen vier Grafikeinstellungen zur Wahl: Niedrig, Mittel, Hoch und Ultra. Die Grafikeinstellungen lassen sich auch individuell anpassen; aktivieren Sie das Kontrollkästchen &apos;Benutzerdefiniert&apos;, um die folgenden Einstellungen zu bearbeiten:
+			Die Optionen in diesem Dialog steuern Fenstergröße und Auflösung sowie die Qualität der Grafikdarstellung im Client.  Im Fenster „Einstellungen“ &gt; „Grafik“ stehen vier Grafikeinstellungen zur Wahl: Niedrig, Mittel, Hoch und Ultra. Die Grafikeinstellungen lassen sich auch individuell anpassen; aktivieren Sie das Kontrollkästchen „Benutzerdefiniert“, um die folgenden Einstellungen zu bearbeiten:
 
 Shader: Aktivieren oder deaktivieren Sie die verschiedenen Pixel-Shader. 
 
@@ -4484,34 +4253,34 @@ Terraindetails: Legt den Detailgrad bei der Berechnung der Terraintextur fest.
 		<message name="message">
 			Diese Einstellungen haben Auswirkung auf die lokale Darstellung der Umwelt auf Ihrem Computer. Zugriff auf alle Einstellungen haben Sie nur, wenn Ihre Grafikkarte Atmosphären-Shader unterstützt.
  
-Mit dem Regler &quot;Tageszeit&quot; stellen Sie die lokal in Ihrem Viewer dargestellte Tageszeit ein.
+Mit dem Regler „Tageszeit“ stellen Sie die lokal in Ihrem Viewer dargestellte Tageszeit ein.
  
-Mit dem Regler &quot;Wolkendecke&quot; steuern Sie die Wolkendichte am Himmel.
+Mit dem Regler „Wolkendecke“ steuern Sie die Wolkendichte am Himmel.
  
-Unter &quot;Wasserfarbe&quot; können Sie eine Farbe für die Wasserdarstellung auswählen.
+Unter „Wasserfarbe“ können Sie eine Farbe für die Wasserdarstellung auswählen.
  
-Mit dem Regler &quot;Wassertrübung&quot; steuern Sie die Sichtweite unter Wasser.
+Mit dem Regler „Wassertrübung“ steuern Sie die Sichtweite unter Wasser.
  
-Klicken Sie auf &quot;Grundstückszeit verw.&quot;, um die aktuelle Zeit in der Region fest als Tageszeit einzustellen.  
+Klicken Sie auf „Grundstückszeit verw.“, um die aktuelle Zeit in der Region fest als Tageszeit einzustellen.  
  
-Klicken Sie auf &quot;Himmel (erweitert)&quot;, um einen Editor mit erweiterten Einstellungen für die Himmeldarstellung anzuzeigen. 
+Klicken Sie auf „Himmel (erweitert)“, um einen Editor mit erweiterten Einstellungen für die Himmeldarstellung anzuzeigen. 
  
-Klicken Sie auf &quot;Wasser (erweitert)&quot;, um einen Editor mit erweiterten Einstellungen für die Wasserdarstellung anzuzeigen.
+Klicken Sie auf „Wasser (erweitert)“, um einen Editor mit erweiterten Einstellungen für die Wasserdarstellung anzuzeigen.
 		</message>
 	</alert>
 	<alert name="HelpDayCycle">
 		<message name="message">
 			Im Tageszyklus-Editor steuern Sie den Tag-/Nachtzyklus am Second Life Himmel. Dabei handelt es sich um den Zyklus, der mit dem Tageszeit-Regler im Umwelt-Basiseditor gesteuert wird.
 
-Der Tageszyklus-Editor verwendet sogenannte Keyframes zur Steuerung des Tag-/Nachtablaufs. Dabei handelt es sich um &quot;Schlüsselbilder&quot; (die grauen Kreise auf der Zeitskala), für die bestimmte Himmelseinstellungen definiert wurden. Bei voranschreitender Tageszeit interpoliert WindLight den Übergang zwischen diesen Keyframes und erzeugt eine entsprechende Himmelsanimation. 
+Der Tageszyklus-Editor verwendet sogenannte Keyframes zur Steuerung des Tag-/Nachtablaufs. Dabei handelt es sich um „Schlüsselbilder“ (die grauen Kreise auf der Zeitskala), für die bestimmte Himmelseinstellungen definiert wurden. Bei voranschreitender Tageszeit interpoliert WindLight den Übergang zwischen diesen Keyframes und erzeugt eine entsprechende Himmelsanimation. 
 
-Der gelbe Pfeil über der Zeitskala repräsentiert die aktuelle Tageszeit-Darstellung. Ziehen Sie den Pfeil, um die Tagesanimation anzuzeigen. Mit &quot;Key hinzu&quot; und &quot;Key löschen&quot; rechts neben der Zeitskala können Sie neue Keys einfügen und vorhandene löschen.
+Der gelbe Pfeil über der Zeitskala repräsentiert die aktuelle Tageszeit-Darstellung. Ziehen Sie den Pfeil, um die Tagesanimation anzuzeigen. Mit „Key hinzu“ und „Key löschen“ rechts neben der Zeitskala können Sie neue Keys einfügen und vorhandene löschen.
 
-Keyframes lassen sich einfach entlang der Zeitskala verschieben, oder Sie geben die Werte manuell unter &quot;Keyframe-Einstellungen&quot; ein. Hier wählen Sie auch eine WindLight-Voreinstellung für den Keyframe aus.
+Keyframes lassen sich einfach entlang der Zeitskala verschieben, oder Sie geben die Werte manuell unter „Keyframe-Einstellungen“ ein. Hier wählen Sie auch eine WindLight-Voreinstellung für den Keyframe aus.
 
-&quot;Zykluslänge&quot; bestimmt die Gesamtlänge eines &quot;Tages&quot;. Ein niedriger Wert (z.B. 2 Minuten) führt dazu, dass ein ganzer 24-Stunden-Tag innerhalb von zwei Minuten Echtzeit abgespult wird! Wenn Sie alle Einstellungen auf der Zeitskala und für die einzelnen Keyframes vorgenommen haben, können Sie mit &quot;Start&quot; und &quot;Stopp&quot; die Animation anzeigen. Das funktioniert natürlich genauso interaktiv, indem Sie den gelben Pfeil über der Zeitskala verschieben. Mit der Schaltfläche &quot;Grundstückszeit verw.&quot; synchronisieren Sie die Tageszeit und -länge mit den auf dem Grundstück geltenden Einstellungen.
+„Zykluslänge“ bestimmt die Gesamtlänge eines „Tages“. Ein niedriger Wert (z.B. 2 Minuten) führt dazu, dass ein ganzer 24-Stunden-Tag innerhalb von zwei Minuten Echtzeit abgespult wird! Wenn Sie alle Einstellungen auf der Zeitskala und für die einzelnen Keyframes vorgenommen haben, können Sie mit „Start“ und „Stopp“ die Animation anzeigen. Das funktioniert natürlich genauso interaktiv, indem Sie den gelben Pfeil über der Zeitskala verschieben. Mit der Schaltfläche „Grundstückszeit verw.“ synchronisieren Sie die Tageszeit und -länge mit den auf dem Grundstück geltenden Einstellungen.
 
-Ihre Tageszyklus-Einstellungen lassen sich mit den Schaltflächen &quot;Testtag speichern&quot; und &quot;Testtag laden&quot; speichern bzw. laden. Bis dato kann nur ein Tageszyklus gleichzeitig in Verwendung sein.
+Ihre Tageszyklus-Einstellungen lassen sich mit den Schaltflächen „Testtag speichern“ und „Testtag laden“ speichern bzw. laden. Bis dato kann nur ein Tageszyklus gleichzeitig in Verwendung sein.
 		</message>
 	</alert>
 	<alert name="HelpBlueHorizon">
@@ -4521,11 +4290,7 @@ Ihre Tageszyklus-Einstellungen lassen sich mit den Schaltflächen &quot;Testtag 
 	</alert>
 	<alert name="HelpHazeHorizon">
 		<message name="message">
-			Horizonttrübung ist einer der wichtigsten Parameter, um 
-die Gesamtlichtsituation in der Szene zu steuern.  Damit
-lassen sich viele Belichtungseinstellungen simulieren,
-z.B. ein Überstrahlen durch die Sonne oder 
-starker Dunst.
+			Horizonttrübung ist einer der wichtigsten Parameter, um die Gesamtlichtsituation in der Szene zu steuern.  Damit lassen sich viele Belichtungseinstellungen simulieren, z.B. ein Überstrahlen durch die Sonne oder starker Dunst.
 		</message>
 	</alert>
 	<alert name="HelpBlueDensity">
@@ -4535,32 +4300,22 @@ starker Dunst.
 	</alert>
 	<alert name="HelpHazeDensity">
 		<message name="message">
-			Trübungsintensität steuert die Stärke des grauen
-Dunsts in der Atmosphäre.  Damit lassen sich 
-zum Beispiel starker Rauch oder Luftverschmutzung
-simulieren.  Auch für Nebel und
-Sprühregen geeignet.
+			Trübungsintensität steuert die Stärke des grauen Dunsts in der Atmosphäre.  Damit lassen sich zum Beispiel starker Rauch oder Luftverschmutzung simulieren.  Auch für Nebel und Sprühregen geeignet.
 		</message>
 	</alert>
 	<alert name="HelpDensityMult">
 		<message name="message">
-			Der Dichtemultiplikator beeinflusst die Gesamtdichte der Atmosphäre. Niedrige Einstellungen erzeugen die Anmutung &quot;dünner, sauberer Luft&quot;, hohe Einstellungen erzeugen den Eindruck schweren Smogs.
+			Der Dichtemultiplikator beeinflusst die Gesamtdichte der Atmosphäre. Niedrige Einstellungen erzeugen den Eindruck dünner, sauberer Luft, hohe Einstellungen erzeugen den Eindruck schweren Smogs.
 		</message>
 	</alert>
 	<alert name="HelpDistanceMult">
 		<message name="message">
-			Steuert die Entfernungswirkung von WindLight.  Ein Wert von
-Null schaltet den Einfluss von WindLight auf Terrain und
-Objekte praktisch aus.  Werte über 1 simulieren
-größere Entfernungen und verstärken den Atmosphäreneffekt.
+			Steuert die Entfernungswirkung von WindLight.  Ein Wert von Null schaltet den Einfluss von WindLight auf Terrain und Objekte praktisch aus.  Werte über 1 simulieren größere Entfernungen und verstärken den Atmosphäreneffekt.
 		</message>
 	</alert>
 	<alert name="HelpMaxAltitude">
 		<message name="message">
-			Max. Höhe steuert die Höhenberechnungen von WindLight
-bei der Berechnung der atmosphärischen Beleuchtung.  Zu
-späteren Tageszeiten lässt sich damit zum Beispiel
-die &quot;Intensität&quot; des Sonnenuntergangs beeinflussen.
+			Max. Höhe steuert die Höhenberechnungen von WindLight bei der Berechnung der atmosphärischen Beleuchtung. Zu späteren Tageszeiten lässt sich damit zum Beispiel die „Intensität“ des Sonnenuntergangs beeinflussen.
 		</message>
 	</alert>
 	<alert name="HelpSunlightColor">
@@ -4575,9 +4330,8 @@ die &quot;Intensität&quot; des Sonnenuntergangs beeinflussen.
 	</alert>
 	<alert name="HelpSunGlow">
 		<message name="message">
-			Der Regler &quot;Größe&quot; steuert die Größe der Sonne.
-Der Regler &quot;Fokus&quot; steuert, wie unscharf die Sonne 
-am Himmel erscheint.
+			Der Regler „Größe“ steuert die Größe der Sonne.
+Der Regler „Fokus“ steuert, wie unscharf die Sonne am Himmel erscheint.
 		</message>
 	</alert>
 	<alert name="HelpSceneGamma">
@@ -4604,24 +4358,17 @@ Entspricht dem Azimut.
 	</alert>
 	<alert name="HelpCloudColor">
 		<message name="message">
-			Steuert die Wolkenfarbe.  Generell empfiehlt
-sich hier ein Weißton, aber hey,
-warum nicht ein bisschen Spaß haben?
+			Steuert die Wolkenfarbe. Generell empfiehlt sich hier ein Weißton, aber hey, warum nicht ein bisschen Spaß haben?
 		</message>
 	</alert>
 	<alert name="HelpCloudDetail">
 		<message name="message">
-			Steuert das Detailbild, welches über das Wolken-
-Hauptbild gelegt wird.  X und Y bestimmen
-seine Position.  D (Dichte) regelt, wie ausgebeult oder 
-zerrissen die Wolken wirken.
+			Steuert das Detailbild, welches über das Wolken-Hauptbild gelegt wird.  X und Y bestimmen seine Position.  D (Dichte) regelt, wie ausgebeult oder zerrissen die Wolken wirken.
 		</message>
 	</alert>
 	<alert name="HelpCloudDensity">
 		<message name="message">
-			Mit den X- und Y-Reglern steuern Sie die
-Position der Wolken, mit dem Regler D die
-Wolkendichte.
+			Mit den X- und Y-Reglern steuern Sie die Position der Wolken, mit dem Regler D die Wolkendichte.
 		</message>
 	</alert>
 	<alert name="HelpCloudCoverage">
@@ -4786,13 +4533,12 @@ Wolkendichte.
 	</alert>
 	<alert name="Cannot_Purchase_an_Attachment">
 		<message name="message">
-			Objekte können nicht gekauft werden,
-solange sie Teil eines Anhangs sind.
+			Objekte können nicht gekauft werden, solange sie Teil eines Anhangs sind.
 		</message>
 	</alert>
 	<alert name="DebitPermissionDetails" title="Info zur Abfrage der Abbucherlaubnis">
 		<message name="message">
-			Granting this request gives a script ongoing permission to take Linden dollars (L$) from your account. To revoke this permission, the object&apos;s owner must delete the object or reset the scripts in the object.
+			Wenn Sie dieser Anfrage zustimmen, erhält das Skript die Erlaubnis, regelmäßig Linden-Dollar (L$) von Ihrem Konto abzubuchen. Diese Erlaubnis kann nur zurückgezogen werden, wenn der Eigentümer das Objekt löscht oder die Skripts in dem Objekt zurücksetzt.
 		</message>
 		<option name="OK">
 			OK
@@ -4818,8 +4564,7 @@ solange sie Teil eines Anhangs sind.
  [SLURL]
 Die meisten Links ähneln dem Folgenden:
 
-secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-
-fd37083abc4c/about
+secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about
 
 Überprüfen Sie die Schreibweise und versuchen Sie es erneut.
 		</message>

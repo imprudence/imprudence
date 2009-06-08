@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -470,6 +470,7 @@ const U8 LSCRIPTTypeHi4Bits[LST_EOF] =
 	LST_VECTOR << 4,
 	LST_QUATERNION << 4,
 	LST_LIST << 4,
+	LST_UNDEFINED << 4,
 };
 
 const char * const LSCRIPTTypeNames[LST_EOF] = 	/*Flawfinder: ignore*/

@@ -11,7 +11,7 @@ https://wiki.lindenlab.com/wiki/User:Phoenix/Library_Installation
 
 $LicenseInfo:firstyear=2007&license=mit$
 
-Copyright (c) 2007-2008, Linden Research, Inc.
+Copyright (c) 2007-2009, Linden Research, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,7 @@ import copy
 import md5
 import optparse
 import os
+import platform
 import pprint
 import shutil
 import sys
@@ -308,6 +309,13 @@ class Installer(object):
         "Return a list of installed packages."
         return self._installed.keys()
 
+    def detail_installed(self, name):
+        "Return file list for specific installed package."
+        filelist = []
+        for url in self._installed[name]._installed.keys():
+            filelist.extend(self._installed[name].files_in(url))
+        return filelist
+
     def _update_field(self, description, field, value, multiline=False):
         """Given a block and a field name, add or update it.
         @param description a dict containing all the details of a description.
@@ -458,7 +466,12 @@ windows/i686/vs/2003 -- specify a windows visual studio 2003 package"""
             if not self._dryrun:
                 if os.path.exists(filename):
                     remove_dir_set.add(os.path.dirname(filename))
-                    os.remove(filename)
+                    try:
+                        os.remove(filename)
+                    except OSError:
+                        # This is just for cleanup, so we don't care
+                        # about normal failures.
+                        pass
         for dirname in remove_dir_set:
             try:
                 os.removedirs(dirname)
@@ -730,7 +743,25 @@ def _get_platform():
         'cygwin' : 'windows',
         'solaris' : 'solaris'
         }
-    return platform_map[sys.platform]
+    this_platform = platform_map[sys.platform]
+    if this_platform == 'linux':
+        if platform.architecture()[0] == '64bit':
+            # TODO -- someday when install.py accepts a platform of the form 
+            # os/arch/compiler/compiler_version then we can replace the 
+            # 'linux64' platform with 'linux/x86_64/gcc/4.1'
+            this_platform = 'linux64'
+        else:
+            gcc_version = os.popen("g++ -dumpversion", 'r').read()[:-3]
+            if gcc_version == '4.1':
+                # the 'linux32' platform is a HACK until we can figure
+                # out how to make the install.py script accept a platform of
+                # the form os/arch/compiler/compiler_version for the download
+                # and extract stage
+                #this_platform = 'linux/i686/gcc/4.1'
+                # NOTE: disabled linux32 as it hasn't been tested well
+                #this_platform = 'linux32'
+                this_platform = this_platform
+    return this_platform
 
 def _getuser():
     "Get the user"
@@ -971,6 +1002,12 @@ Ignored if --add-installable or --add-installable-package is not specified.""")
         dest='detail_installable',
         help="Get detailed information on specified installable and exit.")
     parser.add_option(
+        '--detail-installed', 
+        type='string',
+        default=None,
+        dest='detail_installed',
+        help="Get list of files for specified installed installable and exit.")
+    parser.add_option(
         '--uninstall', 
         action='store_true',
         default=False,
@@ -1010,6 +1047,17 @@ def main():
             pprint.pprint(detail)
         except KeyError:
             print "Installable '"+options.detail_installable+"' not found in",
+            print "install file."
+        return 0
+    if options.detail_installed:
+        try:
+            detail = installer.detail_installed(options.detail_installed)
+            #print "Detail on installed",options.detail_installed+":"
+            for line in detail:
+                print line
+        except:
+            raise
+            print "Installable '"+options.detail_installed+"' not found in ",
             print "install file."
         return 0
     if options.list_licenses:

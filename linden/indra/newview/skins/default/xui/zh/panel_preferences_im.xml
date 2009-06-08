@@ -1,19 +1,52 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="即时通" name="im">
+<panel label="即时消息" name="im">
 	<text type="string" length="1" name="text_box">
-		即时通选项:
+		我的在线状态: 
 	</text>
+	<check_box
+		 initial_value="false"
+		 label="仅我的好友和社团才能看见我的在线状况"
+		 name="online_visibility" />
+
 	<text name="log_in_to_change">
 		登陆后更改
 	</text>
 	<check_box label="发送即时消息至电子邮件([EMAIL])" name="send_im_to_email" />
-	<check_box label="聊天记录中包含即时通信息" name="include_im_in_chat_history" />
+	<check_box label="本地聊天中包含即时通信息" name="include_im_in_chat_history" />
 	<check_box label="在即时消息中显示时间" name="show_timestamps_check" />
-	<check_box label="Log Instant Messages" name="log_instant_messages" />
-	<check_box label="Log Chat" name="log_chat" />
-	<check_box label="Show end of last IM conversation" name="log_show_history" />
-	<button label="Change Path" label_selected="Change Path" name="log_path_button" />
-	<text type="string" length="1" name="text_box2">
+    <check_box
+		 label="显示好友上线通知"
+		 name="friends_online_notify_checkbox" />
+	<check_box label="保存即时通信记录到我的电脑上" name="log_instant_messages" />
+	<check_box label="保存对话记录到我的电脑上" name="log_chat" />
+	<check_box label="显示上次即时通信的结尾" name="log_show_history" />
+	<button label="更改路径" label_selected="更改路径" name="log_path_button" />
+	<text
+		 name="text_box3">
 		忙碌模式的自动回复:
 	</text>
+	<text
+		 name="text_box4">
+		聊天记录选项:
+	</text>
+	<text type="string" length="1" name="text_box2">
+		即时通信选项:
+	</text>
+	<check_box
+		 label="在私聊中显示时间"
+		 name="log_instant_messages_timestamp" />
+	<check_box
+		 initial_value="false"
+		 label="在聊天记录中显示时间"
+		 name="log_chat_timestamp" />
+	<check_box
+		 initial_value="false"
+		 label="聊天记录中显示即时信息"
+		 name="log_chat_IM" />
+	<check_box
+		 initial_value="false"
+		 label="显示时间时包括日期"
+		 name="log_date_timestamp" />
+
+
 </panel>

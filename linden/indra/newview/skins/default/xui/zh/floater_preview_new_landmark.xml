@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Linden Land, Da Boom (155, 136, 35)"
+     title="  Linden Land, Da Boom (155, 136, 35)">
+	<button label="瞬间移动" label_selected="" name="Teleport btn" />
+	<button label="在地图中显示" label_selected="" name="Show on Map btn" />
+	<button label="放弃" label_selected="" name="Discard btn" />
+	<text type="string" length="1" name="desc txt">
+		描述:
+	</text>
+</floater>

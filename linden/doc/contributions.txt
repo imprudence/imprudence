@@ -1,3 +1,4 @@
+
 Linden Lab would like to acknowledge source code contributions from the
 following residents.   The Second Life resident name is given below,
 along with the issue identifier corresponding to the patches we've
@@ -10,13 +11,16 @@ Able Whitman
 	VWR-1691
 	VWR-1735
 Adam Marker
-    VWR-2755
+	VWR-2755
 Aimee Trescothick
+    VWR-3336
 	VWR-3903
 	VWR-3336
 	VWR-4083
+	VWR-7109
 	VWR-8341
 	VWR-8430
+	VWR-9255
 Alejandro Rosenthal
 	VWR-1184
 Alissa Sabre
@@ -57,10 +61,13 @@ Alissa Sabre
         VWR-7168
         VWR-7087
         VWR-7086
+	VWR-10728
 Angus Boyd
 	VWR-592
 Argent Stonecutter
 	VWR-68
+Asuka Neely
+  VWR-3434
 Balp Allen
     VWR-4157
 Benja Kepler
@@ -82,6 +89,7 @@ bushing Spatula
 	VWR-424
 Carjay McGinnis
 	VWR-3737
+	VWR-4070
 	VWR-6154
 Catherine Pfeffer
 	VWR-1282
@@ -130,6 +138,9 @@ Fluf Fredriksson
 	VWR-3450
 Fremont Cunningham
 	VWR-1147
+Geneko Nemeth
+	CT-117
+	VWR-11069
 Gudmund Shepherd
 	VWR-1873
 Gigs Taggart
@@ -187,10 +198,12 @@ Jacek Antonelli
 	VWR-188
 	VWR-427
 	VWR-597
+	VWR-2054
 	VWR-2448
 	VWR-3605
 JB Kraft
   VWR-5283
+  VWR-7802
 Joghert LeSabre
 	VWR-64
 Kage Pixel
@@ -198,6 +211,8 @@ Kage Pixel
 Kunnis Basiat
 	VWR-82
 	VWR-102
+maciek marksman
+	CT-86
 march Korda
 	SVC-1020
 Matthew Dowd
@@ -208,14 +223,21 @@ Matthew Dowd
 	VWR-1761
 McCabe Maxsted
 	VWR-1318
-        VWR-7893
+	VWR-7893
 	VWR-8689
 Michelle2 Zenovka
 	VWR-2652
+	VWR-2662
 	VWR-2834
 	VWR-3749
+	VWR-4022
+	VWR-4331
 	VWR-4506
+	VWR-4981
+	VWR-5659
 	VWR-7831
+	VWR-8889
+	VWR-8310
 	VWR-4022
 Mm Alder
 	VWR-3777
@@ -312,6 +334,11 @@ Peekay Semyorka
 	VWR-19
 	VWR-49
 	VWR-79
+Peter Lameth
+  VWR-7331
+princess niven
+	VWR-5733
+        CT-85
 Renault Clio
 	VWR-1976
 Robin Cornelius
@@ -327,6 +354,7 @@ Seg Baphomet
 	VWR-1525
 	VWR-1585
 	VWR-1586
+	VWR-2662
 	VWR-3206
 	VWR-2488
 SignpostMarv Martin
@@ -379,15 +407,25 @@ TBBle Kurosawa
 	VWR-1892
 Tharax Ferraris
 	VWR-605
+Thickbrick Sleaford
+	VWR-7109
 Thraxis Epsilon
 	SVC-371
 	VWR-383
+Tue Torok
+	CT-68
+	CT-69
+	CT-70
+	CT-72
+	CT-73
+	CT-74
 Wilton Lundquist
 	VWR-7682
 Whoops Babii
 	VWR-631
 	VWR-1640
 	VWR-3340
+	VWR-5659
 Zarkonnen Decosta
 	VWR-253
 Zi Ree

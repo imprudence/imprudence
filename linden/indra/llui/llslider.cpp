@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -253,7 +253,7 @@ void LLSlider::draw()
 	// Draw background and thumb.
 
 	// drawing solids requires texturing be disabled
-	LLGLSNoTexture no_texture;
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 	F32 opacity = getEnabled() ? 1.f : 0.3f;
 	LLColor4 center_color = (mThumbCenterColor % opacity);

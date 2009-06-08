@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2005&license=viewergpl$
  * 
- * Copyright (c) 2005-2008, Linden Research, Inc.
+ * Copyright (c) 2005-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -33,39 +33,22 @@
 #define LL_LLPANELWEB_H
 
 #include "llpanel.h"
-#include "llviewerthrottle.h"
-
-class LLCheckBoxCtrl;
-class LLButton;
 
 class LLPanelWeb : public LLPanel
 {
 public:
 	LLPanelWeb();
-	virtual ~LLPanelWeb();
+	~LLPanelWeb();
 
-	virtual BOOL postBuild();
-	virtual void refresh();
-	virtual void apply();	// Apply the changed values.
-	virtual void cancel();	// Cancel the changed values.
+	BOOL postBuild();
+
+	void apply();
+	void cancel();
 
 private:
-	static void onClickClearCache(void*);
-	static void onClickClearCookies(void*);
+	static void onClickClearCache(void* data);
 	static void callback_clear_browser_cache(S32 option, void* userdata);
-	static void callback_clear_cookies(S32 option, void* userdata);
-	static void onCommitCookies(LLUICtrl* ctrl, void* data);
 	static void onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data);
-	static void onCommitWebProxyAddress(LLUICtrl *ctrl, void *userdata);
-	static void onCommitWebProxyPort(LLUICtrl *ctrl, void *userdata);
-	static void onSelectBrowser(LLUICtrl* ctrl, void* data);
-
-private:
-	BOOL mCookiesEnabled;
-	BOOL mWebProxyEnabled;
-	std::string mWebProxyAddress;
-	S32 mWebProxyPort;
-	BOOL mExternalBrowser;
 };
 
 #endif

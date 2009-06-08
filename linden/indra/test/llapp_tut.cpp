@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2008, Linden Research, Inc.
+ * Copyright (c) 2006-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -69,7 +69,7 @@ namespace tut
 		LLSD defaults;
 		defaults["template"] = "../../../scripts/messages/message_template.msg";
 		defaults["configdir"] = ".";
-		defaults["db_host"] = "mysql.mitra.lindenlab.com";
+		defaults["db_host"] = "mysql.shakti.lindenlab.com";
 		defaults["db_user"] = "linden";
 		defaults["db_password"] = "gomez";
 		defaults["datadir"] = "data";

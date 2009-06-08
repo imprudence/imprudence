@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -92,18 +92,18 @@ LLFontManager::~LLFontManager()
 
 
 LLFontGlyphInfo::LLFontGlyphInfo(U32 index)
-{
-	mGlyphIndex = index;
-	mXBitmapOffset = 0; // Offset to the origin in the bitmap
-	mYBitmapOffset = 0; // Offset to the origin in the bitmap
-	mXBearing = 0;		// Distance from baseline to left in pixels
-	mYBearing = 0;		// Distance from baseline to top in pixels
-	mWidth = 0;			// In pixels
-	mHeight = 0;		// In pixels
-	mXAdvance = 0.f;	// In pixels
-	mYAdvance = 0.f;	// In pixels
-	mIsRendered = FALSE;
-}
+:	mGlyphIndex(index),
+	mXBitmapOffset(0), 	// Offset to the origin in the bitmap
+	mYBitmapOffset(0), 	// Offset to the origin in the bitmap
+	mXBearing(0),		// Distance from baseline to left in pixels
+	mYBearing(0),		// Distance from baseline to top in pixels
+	mWidth(0),			// In pixels
+	mHeight(0),			// In pixels
+	mXAdvance(0.f),		// In pixels
+	mYAdvance(0.f),		// In pixels
+	mIsRendered(FALSE),
+	mMetricsValid(FALSE)
+{}
 
 LLFontList::LLFontList()
 {
@@ -303,6 +303,9 @@ void LLFont::resetBitmap()
 		 iter != mCharGlyphInfoMap.end(); ++iter)
 	{
 		iter->second->mIsRendered = FALSE;
+		//FIXME: this is only strictly necessary when resetting the entire font, 
+		//not just flushing the bitmap
+		iter->second->mMetricsValid = FALSE;
 	}
 	mRawImagep->clear(255, 0);
 	mCurrentOffsetX = 1;
@@ -439,6 +442,7 @@ BOOL LLFont::addGlyphFromFont(LLFont *fontp, const llwchar wch, const U32 glyph_
 	gi->mXAdvance = fontp->mFTFace->glyph->advance.x / 64.f;
 	gi->mYAdvance = fontp->mFTFace->glyph->advance.y / 64.f;
 	gi->mIsRendered = TRUE;
+	gi->mMetricsValid = TRUE;
 
 	insertGlyphInfo(wch, gi);
 
@@ -528,7 +532,7 @@ F32 LLFont::getXAdvance(const llwchar wch) const
 
 	// Return existing info only if it is current
 	LLFontGlyphInfo* gi = getGlyphInfo(wch);
-	if (gi && gi->mIsRendered)
+	if (gi && gi->mMetricsValid)
 	{
 		return gi->mXAdvance;
 	}
@@ -573,6 +577,7 @@ F32 LLFont::getXAdvance(const llwchar wch) const
 		// Convert these from 26.6 units to float pixels.
 		gi->mXAdvance = fontp->mFTFace->glyph->advance.x / 64.f;
 		gi->mYAdvance = fontp->mFTFace->glyph->advance.y / 64.f;
+		gi->mMetricsValid = TRUE;
 		return gi->mXAdvance;
 	}
 	else

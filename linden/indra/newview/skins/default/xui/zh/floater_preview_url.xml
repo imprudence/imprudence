@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="url_preview"
+	 title="地点信息">
+	<panel
+		 name="place_details_panel" />
+</floater>
+

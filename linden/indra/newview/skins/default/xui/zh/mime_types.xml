@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<mimetypes name="default">
+	<defaultlabel>
+		(未知)
+	</defaultlabel>
+	<defaultwidget>
+		无
+	</defaultwidget>
+	<defaultimpl>
+		LLMediaImplLLMozLib
+	</defaultimpl>
+	<widgetset name="web">
+		<label name="web_label">
+			网页内容
+		</label>
+		<tooltip name="web_tooltip">
+			该区域有网页内容
+		</tooltip>
+		<playtip name="web_playtip">
+			显示网页内容
+		</playtip>
+	</widgetset>
+	<widgetset name="movie">
+		<label name="movie_label">
+			影片
+		</label>
+		<tooltip name="movie_tooltip">
+			这里可以播放影片
+		</tooltip>
+		<playtip name="movie_playtip">
+			播放影片
+		</playtip>
+	</widgetset>
+	<widgetset name="none">
+		<label name="none_label">
+			无内容
+		</label>
+		<tooltip name="none_tooltip">
+			这里没有媒体
+		</tooltip>
+		<playtip name="none_playtip" />
+	</widgetset>
+	<widgetset name="image">
+		<label name="image_label">
+			图像
+		</label>
+		<tooltip name="image_tooltip">
+			这里有图像
+		</tooltip>
+		<playtip name="image_playtip">
+			显示该位置的图像
+		</playtip>
+	</widgetset>
+	<widgetset name="audio">
+		<label name="audio_label">
+			音频
+		</label>
+			audio/*
+		<tooltip name="audio_tooltip">
+			这里可以播放音频
+		</tooltip>
+		<playtip name="audio_playtip">
+			播放该位置的音频
+		</playtip>
+	</widgetset>
+	<scheme name="rtsp">
+		<label name="rtsp_label">
+			实时流媒体 (RTSP)
+		</label>
+	</scheme>
+	<mimetype name="blank">
+		<label name="blank_label">
+			- 无 -
+		</label>
+	</mimetype>
+	<mimetype name="none/none">
+		<label name="none/none_label">
+			- 无 -
+		</label>
+	</mimetype>
+	<mimetype name="audio/*">
+		<label name="audio2_label">
+			音频
+		</label>
+	</mimetype>
+	<mimetype name="video/*">
+		<label name="video2_label">
+			视频
+		</label>
+	</mimetype>
+	<mimetype name="image/*">
+		<label name="image2_label">
+			图像
+		</label>
+	</mimetype>
+	<mimetype name="video/vnd.secondlife.qt.legacy">
+		<label name="vnd.secondlife.qt.legacy_label">
+			影片 (QuickTime)
+		</label>
+	</mimetype>
+	<mimetype name="application/javascript">
+		<label name="application/javascript_label">
+			Javascript
+		</label>
+	</mimetype>
+	<mimetype name="application/ogg">
+		<label name="application/ogg_label">
+			Ogg 音频/视频
+		</label>
+	</mimetype>
+	<mimetype name="application/pdf">
+		<label name="application/pdf_label">
+			PDF 文档
+		</label>
+	</mimetype>
+	<mimetype name="application/postscript">
+		<label name="application/postscript_label">
+			Postscript 文档
+		</label>
+	</mimetype>
+	<mimetype name="application/rtf">
+		<label name="application/rtf_label">
+			带格式化的文本 (RTF)
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+	</mimetype>
+	<mimetype name="application/smil">
+		<label name="application/smil_label">
+		    同步多媒体集成语言 (SMIL)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+	</mimetype>
+	<mimetype name="application/xhtml+xml">
+		<label name="application/xhtml+xml_label">
+			网页 (XHTML)
+		</label>
+	</mimetype>
+	<mimetype name="application/x-director">
+		<label name="application/x-director_label">
+			Macromedia Director
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+	</mimetype>
+	<mimetype name="application/x-shockwave-flash">
+		<label name="application/x-shockwave-flash_label">
+			Flash
+		</label>
+	</mimetype>
+	<mimetype name="audio/mid">
+		<label name="audio/mid_label">
+			音频 (MIDI)
+		</label>
+	</mimetype>
+	<mimetype name="audio/mpeg">
+		<label name="audio/mpeg_label">
+			音频 (MP3)
+		</label>
+	</mimetype>
+	<mimetype name="audio/x-aiff">
+		<label name="audio/x-aiff_label">
+			音频 (AIFF)
+		</label>
+	</mimetype>
+	<mimetype name="audio/x-wav">
+		<label name="audio/x-wav_label">
+			音频 (WAV)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="image/bmp">
+		<label name="image/bmp_label">
+			图像 (BMP)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="image/gif">
+		<label name="image/gif_label">
+			图像 (GIF)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="image/jpeg">
+		<label name="image/jpeg_label">
+			图像 (JPEG)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="image/png">
+		<label name="image/png_label">
+			图像 (PNG)
+		</label>
+	</mimetype>
+	<mimetype name="image/svg+xml">
+		<label name="image/svg+xml_label">
+			图像 (SVG)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="image/tiff">
+		<label name="image/tiff_label">
+			图像 (TIFF)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="text/html">
+		<label name="text/html_label">
+			网页
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="text/plain">
+		<label name="text/plain_label">
+			文本
+		</label>
+	</mimetype>
+	<mimetype name="text/xml">
+		<label name="text/xml_label">
+			XML
+		</label>
+		<widgettype>
+			text
+		</widgettype>
+		<impl>
+			LLMediaImplLLMozLib
+		</impl>
+	</mimetype>
+	<mimetype menu="1" name="video/mpeg">
+		<label name="video/mpeg_label">
+			影片 (MPEG)
+		</label>
+	</mimetype>
+	<mimetype name="video/mp4">
+		<label name="video/mp4_label">
+			影片 (MP4)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="video/quicktime">
+		<label name="video/quicktime_label">
+			影片 (QuickTime)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+		<impl>
+			LLMediaImplQuickTime
+		</impl>
+	</mimetype>
+	<mimetype name="video/x-ms-asf">
+		<label name="video/x-ms-asf_label">
+			影片 (Windows Media ASF)
+		</label>
+	</mimetype>
+	<mimetype name="video/x-ms-wmv">
+		<label name="video/x-ms-wmv_label">
+			影片 (Windows Media WMV)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="video/x-msvideo">
+		<label name="video/x-msvideo_label">
+			影片 (AVI)
+		</label>
+	</mimetype>
+</mimetypes>

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -155,7 +155,7 @@ bool LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	bool audio_ok = false;
 
 	if (!audio_ok)
-		if (NULL == getenv("LL_BAD_ESD")) /*Flawfinder: ignore*/
+		if (NULL == getenv("LL_BAD_FMOD_ESD")) /*Flawfinder: ignore*/
 		{
 			LL_DEBUGS("AppInit") << "Trying ESD audio output..." << LL_ENDL;
 			if(FSOUND_SetOutput(FSOUND_OUTPUT_ESD) &&
@@ -173,7 +173,7 @@ bool LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 		}
 
 	if (!audio_ok)
-		if (NULL == getenv("LL_BAD_OSS")) 	 /*Flawfinder: ignore*/
+		if (NULL == getenv("LL_BAD_FMOD_OSS")) 	 /*Flawfinder: ignore*/
 		{
 			LL_DEBUGS("AppInit") << "Trying OSS audio output..."	<< LL_ENDL;
 			if(FSOUND_SetOutput(FSOUND_OUTPUT_OSS) &&
@@ -190,7 +190,7 @@ bool LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 		}
 
 	if (!audio_ok)
-		if (NULL == getenv("LL_BAD_ALSA"))		/*Flawfinder: ignore*/
+		if (NULL == getenv("LL_BAD_FMOD_ALSA"))		/*Flawfinder: ignore*/
 		{
 			LL_DEBUGS("AppInit") << "Trying ALSA audio output..." << LL_ENDL;
 			if(FSOUND_SetOutput(FSOUND_OUTPUT_ALSA) &&
@@ -247,6 +247,20 @@ bool LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	mInited = true;
 
 	return true;
+}
+
+
+std::string LLAudioEngine_FMOD::getDriverName(bool verbose)
+{
+	if (verbose)
+	{
+		F32 version = FSOUND_GetVersion();
+		return llformat("FMOD version %f", version);
+	}
+	else
+	{
+		return "FMOD";
+	}
 }
 
 
@@ -470,7 +484,7 @@ bool LLAudioChannelFMOD::updateBuffer()
 	if (mCurrentSourcep)
 	{
 		// SJB: warnings can spam and hurt framerate, disabling
-		if (!FSOUND_SetVolume(mChannelID, llround(mCurrentSourcep->getGain() * 255.0f)))
+		if (!FSOUND_SetVolume(mChannelID, llround(getSecondaryGain() * mCurrentSourcep->getGain() * 255.0f)))
 		{
 // 			llwarns << "LLAudioChannelFMOD::updateBuffer error: " << FMOD_ErrorString(FSOUND_GetError()) << llendl;
 		}
@@ -532,8 +546,9 @@ void LLAudioChannelFMOD::updateLoop()
 	}
 
 	//
-	// Hack:  We keep track of whether we looped or not by seeing when the sign of the last sample
-	// flips.  This is pretty crappy.
+	// Hack:  We keep track of whether we looped or not by seeing when the
+	// sample position looks like it's going backwards.  Not reliable; may
+	// yield false negatives.
 	//
 	U32 cur_pos = FSOUND_GetCurrentPosition(mChannelID);
 	if (cur_pos < (U32)mLastSamplePos)

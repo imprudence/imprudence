@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="MemLeak"
+	 title="内存泄漏模拟">
+	<spinner
+		 label="泄漏速度 (字节每秒):"
+		 name="leak_speed" />
+	<spinner
+		 label="最大泄漏内存 (MB):"
+		 name="max_leak" />
+	<text
+		 name="total_leaked_label">
+		当前泄漏的内存: [SIZE] KB
+	</text>	
+	<text
+		 name="note_label_1">
+		[NOTE1]
+	</text>
+	<text
+		 name="note_label_2">
+		[NOTE2]
+	</text>	
+	<button
+		 label="开始"
+		 name="start_btn" />
+	<button
+		 label="结束"
+		 name="stop_btn" />
+	<button
+		 label="释放"
+		 name="release_btn" />
+	<button
+		 label="关闭"
+		 name="close_btn" />
+</floater>
+

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -251,7 +251,7 @@ void LLHUDEffectBeam::render()
 	}
 
 	LLGLSPipelineAlpha gls_pipeline_alpha;
-	LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 
 	// Interpolate the global fade alpha

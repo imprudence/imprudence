@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2008, Linden Research, Inc.
+ * Copyright (c) 2004-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -113,7 +113,6 @@ void render_ui_3d();
 void render_ui_2d();
 void render_disconnected_background();
 void render_hud_elements();
-void process_keystrokes_async();
 
 void display_startup()
 {
@@ -248,10 +247,12 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 	gViewerWindow->checkSettings();
 	
-	LLAppViewer::instance()->pingMainloopTimeout("Display:Pick");
-	gViewerWindow->performPick();
+	{
+		LLFastTimer ftm(LLFastTimer::FTM_PICK);
+		LLAppViewer::instance()->pingMainloopTimeout("Display:Pick");
+		gViewerWindow->performPick();
+	}
 	
-
 	LLAppViewer::instance()->pingMainloopTimeout("Display:CheckStates");
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
@@ -373,6 +374,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			gAgent.setTeleportMessage(
 				LLAgent::sTeleportProgressMessages["arriving"]);
 			gImageList.mForceResetTextureStats = TRUE;
+			gAgent.resetView(TRUE, TRUE);
 			break;
 
 		case LLAgent::TELEPORT_ARRIVING:
@@ -680,7 +682,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		}
 
-		LLAppViewer::instance()->pingMainloopTimeout("Display:Render");
+		LLAppViewer::instance()->pingMainloopTimeout("Display:RenderStart");
 		
 		//// render frontmost floater opaque for occlusion culling purposes
 		//LLFloater* frontmost_floaterp = gFloaterView->getFrontmost();
@@ -690,7 +692,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		//	glMatrixMode(GL_MODELVIEW);
 		//	glPushMatrix();
 		//	{
-		//		LLGLSNoTexture gls_no_texture;
+		//		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 		//		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_TRUE);
 		//		glLoadIdentity();
@@ -726,10 +728,13 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			gGL.setColorMask(true, false);
 		}
-
+		
+		LLAppViewer::instance()->pingMainloopTimeout("Display:RenderGeom");
+		
 		if (!(LLAppViewer::instance()->logoutRequestSent() && LLAppViewer::instance()->hasSavedFinalSnapshot())
 				&& !gRestoreGL)
 		{
+
 			gGL.setColorMask(true, false);
 			LLPipeline::sUnderWaterRender = LLViewerCamera::getInstance()->cameraUnderWater() ? TRUE : FALSE;
 			gPipeline.renderGeom(*LLViewerCamera::getInstance(), TRUE);
@@ -744,9 +749,12 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			}
 			stop_glerror();
 		}
+
+		LLAppViewer::instance()->pingMainloopTimeout("Display:RenderFlush");		
 		
 		if (to_texture)
 		{
+
 			gPipeline.mScreen.flush();
 		}
 
@@ -755,23 +763,20 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		/// Using render to texture would be faster/better, but I don't have a 
 		/// grasp of their full display stack just yet.
 		// gPostProcess->apply(gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight());
-
+		
+		LLAppViewer::instance()->pingMainloopTimeout("Display:RenderUI");
+		
 		if (!for_snapshot)
 		{
+			gFrameStats.start(LLFrameStats::RENDER_UI);
 			render_ui();
 		}
 
 		LLSpatialGroup::sNoDelete = FALSE;
 	}
-	gFrameStats.start(LLFrameStats::RENDER_UI);
-
-	if (gHandleKeysAsync)
-	{
-		LLAppViewer::instance()->pingMainloopTimeout("Display:Keystrokes");
-		process_keystrokes_async();
-		stop_glerror();
-	}
-
+	
+	LLAppViewer::instance()->pingMainloopTimeout("Display:FrameStats");
+	
 	gFrameStats.start(LLFrameStats::MISC_END);
 	stop_glerror();
 
@@ -997,8 +1002,8 @@ void render_ui()
 
 void renderCoordinateAxes()
 {
-	LLGLSNoTexture gls_no_texture;
-	gGL.begin(LLVertexBuffer::LINES);
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+	gGL.begin(LLRender::LINES);
 		gGL.color3f(1.0f, 0.0f, 0.0f);   // i direction = X-Axis = red
 		gGL.vertex3f(0.0f, 0.0f, 0.0f);
 		gGL.vertex3f(2.0f, 0.0f, 0.0f);
@@ -1048,10 +1053,10 @@ void renderCoordinateAxes()
 void draw_axes() 
 {
 	LLGLSUIDefault gls_ui;
-	LLGLSNoTexture gls_no_texture;
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	// A vertical white line at origin
 	LLVector3 v = gAgent.getPositionAgent();
-	gGL.begin(LLVertexBuffer::LINES);
+	gGL.begin(LLRender::LINES);
 		gGL.color3f(1.0f, 1.0f, 1.0f); 
 		gGL.vertex3f(0.0f, 0.0f, 0.0f);
 		gGL.vertex3f(0.0f, 0.0f, 40.0f);
@@ -1194,7 +1199,7 @@ void render_disconnected_background()
 		raw->expandToPowerOfTwo();
 		gDisconnectedImagep->createGLTexture(0, raw);
 		gStartImageGL = gDisconnectedImagep;
-		LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	}
 
 	// Make sure the progress view always fills the entire window.
@@ -1213,10 +1218,10 @@ void render_disconnected_background()
 			const LLVector2& display_scale = gViewerWindow->getDisplayScale();
 			glScalef(display_scale.mV[VX], display_scale.mV[VY], 1.f);
 
-			LLViewerImage::bindTexture(gDisconnectedImagep);
+			gGL.getTexUnit(0)->bind(gDisconnectedImagep);
 			gGL.color4f(1.f, 1.f, 1.f, 1.f);
 			gl_rect_2d_simple_tex(width, height);
-			LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		}
 		glPopMatrix();
 	}
@@ -1226,44 +1231,4 @@ void render_disconnected_background()
 void display_cleanup()
 {
 	gDisconnectedImagep = NULL;
-}
-
-void process_keystrokes_async()
-{
-#if LL_WINDOWS
-	MSG			msg;
-	// look through all input messages, leaving them in the event queue
-	while( PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE | PM_NOYIELD))
-	{
-		// on first mouse message, break out
-		if (msg.message >= WM_MOUSEFIRST && 
-			msg.message <= WM_MOUSELAST ||
-			msg.message == WM_QUIT)
-		{
-			break;
-		}
-
-		// this is a message we want to handle now, so remove it from the event queue
-		PeekMessage(&msg, NULL, msg.message, msg.message, PM_REMOVE | PM_NOYIELD);
-		//		if (msg.message == WM_KEYDOWN)
-		//		{
-		//			llinfos << "Process async key down " << (U32)msg.wParam << llendl;
-		//		}
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-	}
-
-	// Scan keyboard for movement keys.  Command keys and typing
-	// are handled by windows callbacks.  Don't do this until we're
-	// done initializing.  JC
-	if (gViewerWindow->mWindow->getVisible() 
-		&& gViewerWindow->getActive()
-		&& !gViewerWindow->mWindow->getMinimized()
-		&& LLStartUp::getStartupState() == STATE_STARTED
-		&& !gViewerWindow->getShowProgress()
-		&& !gFocusMgr.focusLocked())
-	{
-		gKeyboard->scanKeyboard();
-	}
-#endif
 }

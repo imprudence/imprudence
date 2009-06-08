@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -87,7 +87,8 @@ class LLViewerPartGroup
 {
 public:
 	LLViewerPartGroup(const LLVector3 &center,
-					  const F32 box_radius);
+					  const F32 box_radius,
+					  bool hud);
 	virtual ~LLViewerPartGroup();
 
 	void cleanup();
@@ -115,6 +116,7 @@ public:
 	U32 mID;
 
 	F32 mSkippedTime;
+	bool mHud;
 
 protected:
 	LLVector3 mCenterAgent;
@@ -178,7 +180,7 @@ public:
 	U32 mID;
 
 protected:
-	LLViewerPartGroup *createViewerPartGroup(const LLVector3 &pos_agent, const F32 desired_size);
+	LLViewerPartGroup *createViewerPartGroup(const LLVector3 &pos_agent, const F32 desired_size, bool hud);
 	LLViewerPartGroup *put(LLViewerPart* part);
 
 	group_list_t mViewerPartGroups;
@@ -195,6 +197,12 @@ protected:
 	static const F32 PART_THROTTLE_RESCALE;
 	static const F32 PART_ADAPT_RATE_MULT;
 	static const F32 PART_ADAPT_RATE_MULT_RECIP;
+
+//debug use only
+public:
+	static S32 sParticleCount2;
+
+	static void checkParticleCount(U32 size = 0) ;
 };
 
 #endif // LL_LLVIEWERPARTSIM_H

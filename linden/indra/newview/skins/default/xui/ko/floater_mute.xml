@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="mute floater" title="주민 및 오브젝트 차단">
+<floater name="mute floater" title="주민 및 오브젝트 차단" short_title="차단 목록">
 	<scroll_list name="mutes" tool_tip="현재 차단된 주민들" />
 	<button label="차단할 주민" label_selected="차단할 주민"
 	     name="Mute resident..." tool_tip="차단할 주민 선택" />

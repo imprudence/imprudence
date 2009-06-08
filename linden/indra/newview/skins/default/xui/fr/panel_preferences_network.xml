@@ -1,24 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Réseau" name="network">
-	<text type="string" length="1" name="text_box">
-		Bande passante maximum :
+	<text length="1" name="text_box" type="string">
+		Bande passante maximale :
 	</text>
-	<text type="string" length="1" name="text_box2">
+	<text length="1" name="text_box2" type="string">
 		kbps (kilobits par seconde)
 	</text>
 	<text name="cache_size_label_l" width="210">
-		Taille de la mémoire cache du disque :
+		Taille de la mémoire :
 	</text>
-	<text type="string" length="1" name="text_box5">
+	<text length="1" name="text_box5" type="string">
 		Mo
 	</text>
-	<button label="Vider la mémoire cache" label_selected="Vider le cache"
-	     name="clear_cache" width="150"/>
+	<button label="Vider la mémoire cache" label_selected="Vider le cache" name="clear_cache" width="150"/>
 	<text name="cache_location_label">
 		Emplacement du cache :
 	</text>
-	<button label="Définir" label_selected="Définir" name="set_cache" />
-	<button label="Redéfinir" label_selected="Définir" name="reset_cache" />
-	<check_box label="Port de connexion personnalisé" name="connection_port_enabled" />
-	<spinner label="Numéro de port :" name="connection_port" label_width="95" width="170"/>
+	<button label="Modifier" label_selected="Modifier" name="set_cache"/>
+	<button label="Réinitialiser" label_selected="Réinitialiser" name="reset_cache"/>
+	<check_box label="Port de connexion personnalisé" name="connection_port_enabled"/>
+	<spinner label="Numéro de port :" label_width="95" name="connection_port" width="170"/>
 </panel>

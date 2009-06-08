@@ -84,7 +84,7 @@
 						Gruppenwahl
 					</text>
 					<text name="instructions">
-						Klicken Sie auf &apos;Wahl starten&apos;, um eine neue Wahl zu starten. 
+						Klicken Sie auf „Wahl starten“, um eine neue Wahl zu starten. 
 Zu den Kandidaten gehören alle Mitglieder, die keine Officer sind.
 					</text>
 					<text name="lbl">
@@ -134,7 +134,7 @@ Zu den Kandidaten gehören alle Mitglieder, die keine Officer sind.
 						Gruppenanfragen
 					</text>
 					<text name="instructions">
-						Keine aktiven Anfragen.  Klicken Sie auf &apos;Neue Anfrage&apos;,
+						Keine aktiven Anfragen.  Klicken Sie auf „Neue Anfrage“,
 um eine neue Anfrage zu erstellen.
 					</text>
 					<text name="proposal_lbl">
@@ -191,7 +191,7 @@ um eine neue Anfrage zu erstellen.
 						Sie können die Abstimmergebisse anzeigen, indem Sie die Abstimmung auswählen und auf
 					</text>
 					<text name="instructions2">
-						&apos;Objekt anzeigen&apos; klicken.
+						„Objekt anzeigen“ klicken.
 					</text>
 					<text name="history_list_lbl">
 						Alte Abstimmungen:
@@ -212,7 +212,7 @@ um eine neue Anfrage zu erstellen.
 				Einladungen werden als Instant Message gesendet.
 			</text>
 			<text name="txt3">
-				Klicken Sie auf &apos;Hinzufügen&apos;, um Benutzer zur Liste hinzuzufügen.
+				Klicken Sie auf „Hinzufügen“, um Benutzer zur Liste hinzuzufügen.
 			</text>
 			<text name="lbl">
 				Officers:

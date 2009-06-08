@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="build options floater" title="格子选项">
-	<spinner label="格子单位 (米)&quot;" name="GridResolution" />
-	<spinner label="格子宽度 (米)" name="GridDrawSize" />
-	<check_box label="Enable Sub-Unit Snapping" name="GridSubUnit" />
+<floater name="build options floater" title="网格选项">
+	<spinner label="网格单位 (米)" name="GridResolution" />
+	<spinner label="网格宽度 (米)" name="GridDrawSize" />
+	<check_box
+		 initial_value="false"
+		 label="启用子单位对齐"
+		 name="GridSubUnit" />
+	<check_box
+		 initial_value="false"
+		 label="显示剖面"
+		 name="GridCrossSection" />
 	<slider label="格子不透明度" name="GridOpacity" />
 </floater>

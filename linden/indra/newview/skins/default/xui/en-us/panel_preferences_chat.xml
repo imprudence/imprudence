@@ -8,9 +8,9 @@
 	     mouse_opaque="false" name="text_box" v_pad="0" width="128">
 		Chat Font Size:
 	</text>
-	<radio_group bottom="-40" control_name="ChatFontSize" draw_border="true" enabled="true"
+	<radio_group bottom="-40" draw_border="true" enabled="true"
 	     follows="left|top" height="30" left="148" mouse_opaque="true"
-	     name="chat font size" width="331">
+	     name="chat_font_size" width="331">
 		<radio_item type="string" length="1" bottom="-24" enabled="true" height="16" left="0" mouse_opaque="true"
 		     name="radio" width="98">
 			Small
@@ -39,12 +39,12 @@
 	     enabled="true" follows="left|top" height="56" label="Others" left_delta="48"
 	     mouse_opaque="true" name="agent" width="44" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
-	     can_apply_immediately="true" color="0.6 0.6 1 1" control_name="IMChatColor"
+	     can_apply_immediately="true" color="0.6 0.6 1 1"
 	     enabled="true" follows="left|top" height="56" label="IM" left_delta="48"
 	     mouse_opaque="true" name="im" width="44" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="0.8 1 1 1"
-	     control_name="SystemChatColor" enabled="true" follows="left|top"
+	     enabled="true" follows="left|top"
 	     height="56" label="System" left_delta="48" mouse_opaque="true"
 	     name="system" width="44" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
@@ -59,17 +59,17 @@
 	     name="objects" width="44" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
-	     control_name="llOwnerSayChatColor" enabled="true" follows="left|top"
+	     enabled="true" follows="left|top"
 	     height="56" label="Owner" left_delta="48" mouse_opaque="true" name="owner"
 	     width="44" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0 0 0 1"
-	     control_name="BackgroundChatColor" enabled="true" follows="left|top"
+	     enabled="true" follows="left|top"
 	     height="56" label="Bubble" left_delta="48" mouse_opaque="true"
 	     name="background" width="44" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0.6 0.6 1 1"
-	     control_name="HTMLLinkColor" enabled="true" follows="left|top" height="56"
+	     enabled="true" follows="left|top" height="56"
 	     label="URLs" left_delta="48" mouse_opaque="true" name="links" width="44" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-185" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -100,7 +100,7 @@
 	     width="80">
 		(seconds)
 	</text>
-	<spinner bottom_delta="-6" control_name="ConsoleMaxLines" decimal_digits="0"
+	<spinner bottom_delta="-6" decimal_digits="0"
 	     enabled="true" follows="left|top" height="16" increment="1"
 	     initial_val="10" left="340" max_val="50" min_val="1" mouse_opaque="true"
 	     name="max_chat_count" width="60" />
@@ -127,20 +127,20 @@
 	     mouse_opaque="false" name="text_box6" v_pad="0" width="135">
 		Chat Options:
 	</text>
-	<check_box bottom_delta="-10" control_name="CloseChatOnReturn" enabled="true"
+	<check_box bottom_delta="-10" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Close chat bar after hitting return" left="148" mouse_opaque="true"
 	     name="close_chat_on_return_check" radio_style="false" width="237" />
-	<check_box bottom_delta="-20" control_name="ArrowKeysMoveAvatar" enabled="true"
+	<check_box bottom_delta="-20" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Arrow keys always move avatar when chatting" left="148"
 	     mouse_opaque="true" name="arrow_keys_move_avatar_check" radio_style="false"
 	     width="237" />
-	<check_box bottom_delta="-20" control_name="ChatShowTimestamps" enabled="true"
+	<check_box bottom_delta="-20" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show timestamps in Local Chat" left="148" mouse_opaque="true"
 	     name="show_timestamps_check" radio_style="false" width="237" />
-	<check_box bottom_delta="-20" control_name="PlayTypingAnim" enabled="true"
+	<check_box bottom_delta="-20" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Play typing animation when chatting" left="148" mouse_opaque="true"
 	     name="play_typing_animation" radio_style="false" width="237" />

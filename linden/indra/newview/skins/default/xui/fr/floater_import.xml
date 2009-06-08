@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="Import" title="">
 	<text name="name_label">
 		Nom :
@@ -9,8 +9,8 @@
 	<text name="preview_label">
 		Fichiers à charger :
 	</text>
-	<button label="Annuler" name="cancel_btn" />
-	<button label="Charger (10 $L)" name="ok_btn" />
+	<button label="Annuler" name="cancel_btn"/>
+	<button label="Charger (10 L$)" name="ok_btn"/>
 	<text name="preview_label2">
 		Prévisualisation de l&apos;image :
 	</text>

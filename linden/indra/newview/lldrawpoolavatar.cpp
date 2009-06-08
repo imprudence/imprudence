@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -396,7 +396,7 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 	{
 		
 		/* // debug code to draw a cube in place of avatar
-		LLGLSNoTexture gls_no_texture;
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		LLVector3 pos = avatarp->getPositionAgent();
 
 		gGL.color4f(1.0f, 0.0f, 0.0f, 0.8f);
@@ -495,17 +495,17 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 	{
 		if (LLVOAvatar::sShowCollisionVolumes)
 		{
-			LLGLSNoTexture no_texture;
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			avatarp->renderCollisionVolumes();
 		}
 
 		if (avatarp->mIsSelf && LLAgent::sDebugDisplayTarget)
 		{
-			LLGLSNoTexture gls_no_texture;
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			LLVector3 pos = avatarp->getPositionAgent();
 
 			gGL.color4f(1.0f, 0.0f, 0.0f, 0.8f);
-			gGL.begin(LLVertexBuffer::LINES);
+			gGL.begin(LLRender::LINES);
 			{
 				gGL.vertex3fv((pos - LLVector3(0.2f, 0.f, 0.f)).mV);
 				gGL.vertex3fv((pos + LLVector3(0.2f, 0.f, 0.f)).mV);
@@ -517,7 +517,7 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 
 			pos = avatarp->mDrawable->getPositionAgent();
 			gGL.color4f(1.0f, 0.0f, 0.0f, 0.8f);
-			gGL.begin(LLVertexBuffer::LINES);
+			gGL.begin(LLRender::LINES);
 			{
 				gGL.vertex3fv((pos - LLVector3(0.2f, 0.f, 0.f)).mV);
 				gGL.vertex3fv((pos + LLVector3(0.2f, 0.f, 0.f)).mV);
@@ -529,7 +529,7 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 
 			pos = avatarp->mRoot.getWorldPosition();
 			gGL.color4f(1.0f, 1.0f, 1.0f, 0.8f);
-			gGL.begin(LLVertexBuffer::LINES);
+			gGL.begin(LLRender::LINES);
 			{
 				gGL.vertex3fv((pos - LLVector3(0.2f, 0.f, 0.f)).mV);
 				gGL.vertex3fv((pos + LLVector3(0.2f, 0.f, 0.f)).mV);
@@ -541,7 +541,7 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 
 			pos = avatarp->mPelvisp->getWorldPosition();
 			gGL.color4f(0.0f, 0.0f, 1.0f, 0.8f);
-			gGL.begin(LLVertexBuffer::LINES);
+			gGL.begin(LLRender::LINES);
 			{
 				gGL.vertex3fv((pos - LLVector3(0.2f, 0.f, 0.f)).mV);
 				gGL.vertex3fv((pos + LLVector3(0.2f, 0.f, 0.f)).mV);

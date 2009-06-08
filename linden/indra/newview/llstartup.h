@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2008, Linden Research, Inc.
+ * Copyright (c) 2004-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -87,6 +87,7 @@ public:
 	// Always use this to set gStartupState so changes are logged
 	static void setStartupState( EStartupState state );
 	static EStartupState getStartupState() { return gStartupState; };
+	static std::string getStartupStateString() { return startupStateToString(gStartupState); };
 
 	static void multimediaInit();
 		// Initialize LLViewerMedia multimedia engine.

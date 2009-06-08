@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2005&license=viewergpl$
  * 
- * Copyright (c) 2005-2008, Linden Research, Inc.
+ * Copyright (c) 2005-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -38,9 +38,9 @@
 #include <set>
 
 #if LL_RELEASE_WITH_DEBUG_INFO || LL_DEBUG
-#define OCT_ERRS LL_WARNS("OctreeErrors")
-#else
 #define OCT_ERRS LL_ERRS("OctreeErrors")
+#else
+#define OCT_ERRS LL_WARNS("OctreeErrors")
 #endif
 
 #define LL_OCTREE_PARANOIA_CHECK 0

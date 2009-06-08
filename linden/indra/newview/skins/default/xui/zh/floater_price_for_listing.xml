@@ -12,6 +12,6 @@
 	<text name="price_text">
 		广告价格(L$):
 	</text>
-	<button label="调节价格" name="set_price_btn" />
+	<button label="设置价格" name="set_price_btn" />
 	<button label="取消" name="cancel_btn" />
 </floater>

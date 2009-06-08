@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -1398,7 +1398,7 @@ void LLParcel::unpackMessage(LLMessageSystem* msg)
 
 	// New Media Data
 	// Note: the message has been converted to TCP
-	if(msg->getNumberOfBlocks("MediaData") > 0)
+	if(msg->has("MediaData"))
 	{
 		msg->getString("MediaData", "MediaDesc", buffer);
 		setMediaDesc(buffer);
@@ -1761,7 +1761,11 @@ void LLParcel::startSale(const LLUUID& buyer_id, BOOL is_buyer_group)
 	setCleanOtherTime(0);
 }
 
-void LLParcel::expireSale(U32& type, U8& flags, LLUUID& from_id, LLUUID& to_id)
+void LLParcel::expireSale(
+	U32& type,
+	U8& flags,
+	LLUUID& from_id,
+	LLUUID& to_id)
 {
     mSaleTimerExpires.setTimerExpirySec(0.0);
     mSaleTimerExpires.stop();
@@ -1777,8 +1781,10 @@ void LLParcel::expireSale(U32& type, U8& flags, LLUUID& from_id, LLUUID& to_id)
     to_id.setNull();
 }
 
-void LLParcel::completeSale(U32& type, U8& flags,
-                            LLUUID& to_id)
+void LLParcel::completeSale(
+	U32& type,
+	U8& flags,
+	LLUUID& to_id)
 {
 	mSaleTimerExpires.setTimerExpirySec(0.0);
 	mSaleTimerExpires.stop();

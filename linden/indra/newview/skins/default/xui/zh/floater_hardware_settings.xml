@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<floater
+	 name="Hardware Settings Floater"
+	 title="硬件设置">
+
+	<text
+		 name="Filtering:">
+		过滤:
+	</text>
+	<check_box
+		 initial_value="false"
+		 label="各向异性过滤 (打开会减低速度)"
+		 name="ani" />
+	<text
+		 name="Antialiasing:">
+    反锯齿:
+  </text>
+  <combo_box
+		 initial_value="false"
+		 label="Antialiasing"
+		 name="fsaa">
+    <combo_item
+			 name="FSAADisabled"
+			 value="0">
+      关闭
+    </combo_item>
+    <combo_item
+			 name="2x"
+			 value="2">
+      2×
+    </combo_item>
+    <combo_item
+			 name="4x"
+			 value="4">
+      4×
+    </combo_item>
+    <combo_item
+			 name="8x"
+			 value="8">
+      8×
+    </combo_item>
+    <combo_item
+			 name="16x"
+			 value="16">
+      16×
+    </combo_item>
+	</combo_box>
+	<spinner
+		 label="Gamma:"
+		 name="gamma" />
+	<text
+		 name="(brightness, lower is brighter)">
+		(亮度，越低越亮, 0=使用默认值)
+	</text>
+	<spinner
+		 label="夜间亮度:"
+		 name="nighttime_brightness" />
+	<text name="(higher is brighter, 1.0 is default)">(越高越亮，默认为1.0)</text>
+	<text name="Enable VBO:">启用 VBO:</text>
+	<check_box
+		 initial_value="true"
+		 label="启用 OpenGL 顶点缓存对象(Vertex Buffer Objects)"
+		 name="vbo"
+		 tool_tip="较新的硬件上打开这个选项将可使性能提升。不过，较旧的硬件通常对VBO支持不佳，打开的话您可能会遇到程序崩溃。" />
+
+	<slider
+		 label="材质内存 (MB):"
+		 name="GrapicsCardTextureMemory"
+		 tool_tip="分配给图像的内存的数量。默认为全部显卡内存。减少该选项也许可以改进性能，但也许也同时会使材质变得模糊。" />
+
+	<spinner
+		 label="雾距离比率:"
+		 name="fog" />
+
+	<button
+		 label="确定"
+		 label_selected="确定"
+		 name="OK"
+		 scale_image="true" />
+
+</floater>

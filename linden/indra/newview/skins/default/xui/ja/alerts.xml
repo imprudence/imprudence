@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <alerts>
 	<global name="skipnexttime">
 		今後は表示しない
@@ -200,7 +200,7 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="GroupCreateSuccess">
 		<message name="message">
-			グループの作成が正常に終了しました。
+			グループの作成が正常に行われました。
 		</message>
 	</alert>
 	<alert name="UnableToCreateGroup">
@@ -383,22 +383,22 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="ClickWebProfileHelpAvatar">
 		<message name="message">
-			この住人がウェブプロフィールURLを設定している場合は、以下のことが可能です。
- * そのページを内蔵ブラウザーで表示するには、 [ロード]をクリックします。
- * そのページを外部ブラウザーで表示するには、 [ロード]-[開く]をクリックします。
- * 別のページにアクセスしてしまい、 住人のウェブ・プロフィールに戻りたい時は、 [ロード]-[ホームURL]をクリックします。
+			この住人がウェブ・プロフィールURLを設定している場合は、以下のことが可能です。
+ * [ロード]をクリックし、このウェブ・タブ内でページを表示
+ * [ロード] &gt; &apos;外部ブラウザ&apos; をクリックし、ディフォルトのウェブ・ブラウザでページを表示
+ * [ロード] &gt; &apos;ホームURL&apos; をクリックし、他のページからこの住人のウェブ・プロフィールに戻る
  
-自分のプロフィールを表示しているときは、任意のURLをウェブプロフィールとして入力し、[OK]をクリックして設定できます。
-プロフィールを見た他の住人は、そのURLにアクセスすることができます。
+自分のプロフィールに任意のURLを入力しOKをクリックして、ウェブ・プロフィールとして設定することができます。
+それを見た他の住人がそのサイトを訪れることができます。
 		</message>
 	</alert>
 	<alert name="ClickWebProfileNoWebHelpAvatar">
 		<message name="message">
-			この住人がウェブ・プロフィールURLを設定している場合は、以下のことが可能です:
-*そのページをデフォルトの外部ウェブ・ブラウザーで表示するには、[開く]をクリックします。
+			この住人がウェブ・プロフィールURLを設定している場合は、以下のことが可能です。
+ * Openをクリックし、ディフォルトのウェブ・ブラウザでページを表示
  
-自分のプロフィールを表示しているときは、任意のURLをウェブ・プロフィールとして入力できます。
-プロフィールを見た住人は、そのURLにアクセスすることができます。
+自分のプロフィールに任意のURLを入力しOKをクリックして、ウェブ・プロフィールとして設定することができます。
+それを見た他の住人がそのサイトを訪れることができます。
 		</message>
 	</alert>
 	<alert name="ReputationMinGreaterThanMax">
@@ -468,8 +468,8 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="JoinGroupCannotAfford">
 		<message name="message">
-			このグループに参加するにはL$[COST]かかります。
-残金不足のため、このグループに参加できません。
+			このグループに加入するには、L$[COST]必要です。
+L$が不足しているのでこのグループに参加することができません。
 		</message>
 	</alert>
 	<alert name="LandBuyPass">
@@ -656,12 +656,12 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="PromptRecipientEmail">
 		<message name="message">
-			受信者の電子メール・アドレスを入力してください。
+			受信者の有効なEメールアドレスを入力してください。
 		</message>
 	</alert>
 	<alert name="PromptSelfEmail">
 		<message name="message">
-			あなたの電子メール・アドレスを入力してください。
+			あなたのEメール・アドレスを入力してください。
 		</message>
 	</alert>
 	<alert name="PromptMissingSubjMsg">
@@ -715,14 +715,6 @@ Studio exhibitのウェブ・ページで確認してください。
 		<message name="message">
 			まだ読み込まれていないため、そのアイテムを装着できません。後でやり直してください。
 		</message>
-	</alert>
-	<alert name="MustHaveAccountToLogInNoLinks">
-		<message name="message">
-			[SECOND_LIFE]への接続にはアカウントが必要です。
-		</message>
-		<option name="OK">
-			閉じる
-		</option>
 	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
@@ -886,8 +878,7 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="GoToAuctionPage">
 		<message name="message">
-			オークションの詳細を見たり、
-入札をするために[SECOND_LIFE]ウェブ・ページに移動しますか？
+			[SECOND_LIFE]ウェブ・ページに移動し、 入札あるいはオークションの詳細を確認しますか？
 		</message>
 		<option name="GotoPage">
 			OK
@@ -1026,10 +1017,10 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="UnsupportedHardware">
 		<message name="message">
-			警告： あなたのシステムは Second Life を使用するために必要な必須動作環境の条件をを満たしていません。 Second Life をこのままご使用になると、不十分なパフォーマンスしか得られないおそれがあります。 また、サポート外のシステム構成でご使用の場合、テクニカルサポートをご利用いただくことができません。 
+			警告： あなたのシステムは Second Life を使用するために必要な必須動作環境の条件を満たしていません。 Second Life をこのままご使用になると、不十分なパフォーマンスしか得られないおそれがあります。 また、サポート外のシステム構成でご使用の場合、テクニカルサポートをご利用いただくことができません。 
 
  必須動作環境の条件
-［_URL］ にアクセスして、さらに詳しい情報をご覧になりますか?
+[_URL] にアクセスして、さらに詳しい情報をご覧になりますか?
 		</message>
 		<ignore name="ignore">
 			サポート外のハードウェアの検出時
@@ -1394,6 +1385,28 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 			キャンセル
 		</option>
 	</alert>
+	<alert name="EjectAvatarNoBan">
+		<message name="message">
+			このアバターをあなたの土地から追放しますか？
+		</message>
+		<option name="Eject">
+			追放
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullnameNoBan">
+		<message name="message">
+			[AVATAR_NAME] をあなたの土地から追放しますか？
+		</message>
+		<option name="Eject">
+			追放
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
 	<alert name="InvalidUUID">
 		<message name="message">
 			UUIDが無効です。
@@ -1573,12 +1586,12 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 	</alert>
 	<alert name="InsufficientFundsToUploadFile">
 		<message name="message">
-			ファイルをアップロードするには資金不足です:価格はL$[COST]ですが、残金はL$[BALANCE]です。
+			L$不足のため、ファイルのアップロードができません。 必要金額はL$[COST], 残高はL$[BALANCE]です。
 		</message>
 	</alert>
 	<alert name="InsufficientFundsToFinishUpload">
 		<message name="message">
-			ファイル[FILE]のアップロードを完了するには資金不足です:価格はL$[COST]ですが、残金はL$[BALANCE]です。
+			L$不足のため、[FILE]のアップロードができません。 必要金額はL$[COST], 残高はL$[BALANCE]です。
 		</message>
 	</alert>
 	<alert name="CannotUploadReason">
@@ -2074,10 +2087,13 @@ L$は贈与されません。
 	</alert>
 	<alert name="AddFriend" title="フレンドを追加">
 		<message name="message">
-			フレンド同士はお互いの現在地を地図に表示することを許可し、オンラインステータスの更新ができます
+			フレンドとして追加すると、お互いの現在地の地図への表示許可、オンラインステータス表示の設定をすることができます。
 
 [NAME] にフレンドシップを送りますか？
 		</message>
+		<editline name="editline">
+			フレンドとして登録してくれますか？
+		</editline>
 		<option name="Offer">
 			OK
 		</option>
@@ -2087,12 +2103,12 @@ L$は贈与されません。
 	</alert>
 	<alert name="AddFriendWithMessage" title="フレンドを追加">
 		<message name="message">
-			フレンド同士はお互いの現在地を地図に表示することを許可し、オンラインステータスの更新ができます
+			フレンドとして追加すると、お互いの現在地の地図への表示許可、オンラインステータス表示の設定をすることができます。
 
 [NAME] にフレンドシップのオファーをしますか？
 		</message>
 		<editline name="editline">
-			私のフレンドになっていただけますか？
+			フレンドとして登録してくれますか？
 		</editline>
 		<option name="Offer">
 			OK
@@ -2444,8 +2460,8 @@ http://www.apple.com/quicktime/で、最新版をダウンロードしてくだ�
 	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
-			[TYPE]のロケーションは現在利用できません。 [HELP] 
-あなたは近くの地域に移されました。
+			あなたが訪れたい[TYPE]のロケーションは現在ご利用できません。 [HELP] 
+近くの地域に移動しました。
 		</message>
 	</alert>
 	<alert name="ClothingLoading">
@@ -2523,7 +2539,7 @@ F1キーを押してください。
 	</alert>
 	<alert name="NotEnoughCurrency">
 		<message name="message">
-			[NAME] L$ [PRICE] 残金が足りません。
+			[NAME] L$ [PRICE] 残高不足のため実行不可です。
 		</message>
 	</alert>
 	<alert name="GrantedModifyRights">
@@ -2781,10 +2797,10 @@ F1キーを押してください。
 	</alert>
 	<alert name="WebLaunchExternalTarget">
 		<message name="message">
-			お使いのシステムのウェブ・ブラウザーを開いて、この内容を表示しますか?
+			お使いのシステムのウェブ・ブラウザを開いて、この内容を表示しますか?
 		</message>
 		<ignore name="ignore">
-			お使いのシステムのブラウザーを開いてウェブ・ページを表示しようとしたとき
+			お使いのシステムのブラウザを開いてウェブ・ページを表示しようとしたとき
 		</ignore>
 		<option name="Open">
 			OK
@@ -2798,7 +2814,7 @@ F1キーを押してください。
 			www.secondlife.comに移動してアカウントを管理しますか？
 		</message>
 		<ignore name="ignore">
-			口座を管理するため、ウェブ・ブラウザーを起動するとき
+			アカウントを管理するため、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="OK">
 			OK
@@ -2837,10 +2853,10 @@ F1キーを押してください。
 	</alert>
 	<alert name="WebLaunchQAWiki">
 		<message name="message">
-			[SECOND_LIFE] QA Wikiをご覧ください。
+			[SECOND_LIFE] 品質保証関連Wikiをご覧ください。
 		</message>
 		<ignore name="ignore">
-			QA Wikiを閲覧するためにウェブ・ブラウザを起動するにあたって
+			品質保証関連Wikiを閲覧するためにウェブ・ブラウザを起動するにあたって
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -2879,10 +2895,10 @@ F1キーを押してください。
 	</alert>
 	<alert name="WebLaunchForums">
 		<message name="message">
-			最新のヒントおよびトリックについては、[SECOND_LIFE]の知識ベースを検索してください。
+			最新のヒントおよびトリックについては、[SECOND_LIFE]のナレッジベースを検索してください。
 		</message>
 		<ignore name="ignore">
-			知識ベースを表示するため、ウェブ・ブラウザーを起動するとき
+			ナレッジベースを表示するため、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -2896,7 +2912,7 @@ F1キーを押してください。
 			[SECOND_LIFE]サポートにコンタクト
 		</message>
 		<ignore name="ignore">
-			サポートに連絡するため、ウェブ・ブラウザーを起動するとき
+			サポートに連絡するため、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -2910,7 +2926,7 @@ F1キーを押してください。
 			Linden公式ブログで、最新のニュースや情報を入手してください。
 		</message>
 		<ignore name="ignore">
-			ブログを表示するため、ウェブ・ブラウザーを起動するとき
+			ブログを表示するため、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -2924,7 +2940,7 @@ F1キーを押してください。
 			スクリプトガイドを開いて、スクリプトのヘルプを参照しますか？
 		</message>
 		<ignore name="ignore">
-			LSLガイドを表示するため、ウェブ・ブラウザーを起動するとき
+			LSLガイドを表示するため、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -2938,7 +2954,7 @@ F1キーを押してください。
 			LSLポータルを開いてスクリプトのヘルプを参照しますか？
 		</message>
 		<ignore name="ignore">
-			LSLポータルを表示するために、ウェブ・ブラウザーを起動するとき
+			LSLポータルを表示するために、ウェブ・ブラウザを起動するとき
 		</ignore>
 		<option name="Gotopage">
 			ページに移動
@@ -3062,14 +3078,13 @@ F1キーを押してください。
 	</alert>
 	<alert name="BusyModeSet">
 		<message name="message">
-			ビジーモードに設定されました。
-チャットとＩＭが隠れます。 ＩＭ
-は、ビジーモードの応答を受け取ります。 全てのテレポート
-のオファーは拒否されます。 全ての持ち物のオファーはゴミ箱に
-送られます。
+			取り込み中に設定されました。
+チャットとインスタント・メッセージ（IM）が隠れます。 
+相手は「取り込み中応答メッセージ」をIMで受け取ります。 
+テレポートのオファーは全て拒否され、持ち物のオファーは全てゴミ箱に送られます。
 		</message>
 		<ignore name="ignore">
-			ビジー・モードを設定するとき
+			取り込み中の設定をするとき
 		</ignore>
 		<option name="OK">
 			OK
@@ -3195,10 +3210,10 @@ F1キーを押してください。
 	</alert>
 	<alert name="OfferTeleport">
 		<message name="message">
-			あなたのロケーションへのテレポートを次のメッセージと共に贈りますか？
+			次のメッセージを添えてあなたが今いる場所へのテレポートを送りますか？
 		</message>
 		<editline name="editline">
-			[REGION]に参加希望
+			[REGION]に来ませんか？
 		</editline>
 		<option name="OK">
 			OK
@@ -3212,7 +3227,7 @@ F1キーを押してください。
 			ユーザーをゴッド・コールで呼び寄せますか？
 		</message>
 		<editline name="editline">
-			[REGION]に参加希望
+			[REGION]に来ませんか？
 		</editline>
 		<option name="OK">
 			OK
@@ -3240,6 +3255,7 @@ F1キーを押してください。
 			今あなたの不動産にいる人全員に送る
 短いメッセージを入力してください。.
 		</message>
+		<editline name="editline"/>
 		<option name="OK">
 			OK
 		</option>
@@ -3527,6 +3543,7 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ公開しますか�
 			この地域にいる人全員に送る
 短いメッセージを入力してください。
 		</message>
+		<editline name="editline"/>
 		<option name="OK">
 			OK
 		</option>
@@ -4137,7 +4154,7 @@ Linden社所有のメインランドの不動産での太陽の位置に
 			SecondLifeウェブ・ページを開いてアカウント履歴を確認しますか？
 		</message>
 		<ignore name="ignore">
-			口座履歴のウェブ・ページをロードするとき
+			アカウント履歴のウェブ・ページをロードするとき
 		</ignore>
 		<option name="Gotopage">
 			ページに移動
@@ -4190,17 +4207,15 @@ Linden社所有のメインランドの不動産での太陽の位置に
 	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
-			このツールは利用規約違反とコミュニティースタンダード違反の 
-報告に使用してください。 参照:
+			利用規約違反とコミュニティースタンダード違反の報告にこのツールをご使用ください。 参照：
 
 http://secondlife.com/corporate/tos.php 
 http://secondlife.com/corporate/cs.php
 
-利用規約違反とコミュニティースタンダード違反に関する全てのレポートは 
-調査され、解決されます。 以下のPolice Blotterで 
-解決の確認をすることができます:
+利用規約違反とコミュニティースタンダード違反に関する全てのレポートは、調査され、解決されます。 
+以下のリンク先のIncident Reportにてその確認をすることができます。
 
-http://secondlife.com/community/blotter.php
+http://secondlife.com/support/incidentreport.php
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseEmailEO">
@@ -4220,7 +4235,7 @@ http://secondlife.com/community/blotter.php
 使用してください。できるだけ詳しい情報を提供してください。
 自動返答メールに、より詳しい情報を付け加えて返信することも
 できます。
-バグレポートは全て調査され解決されます。これによって電子メールで返答が送られてくることはありません。
+バグレポートは全て調査され解決されます。これによってEメールで返答が送られてくることはありません。
 -
 テクニカルな問題が生じた場合は、次のサポートに連絡してください:  
 http://secondlife.com/community/support.php
@@ -4282,18 +4297,22 @@ http://secondlife.com/community/support.php
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
-			親愛なる住人の皆様へ
+			Dear Resident,
+ 
+知的財産の侵害に関する報告を行う際には、以下の点に注意してください。
 
-知的所有権の侵害を報告する場合は、以下のとおり正確に報告してください。
+(1) 嫌がらせの報告のプロセス。Second Lifeの権限システムを悪用している住人を見つけたら、嫌がらせの報告を行ってください。
+例えばコピーBotの使用、それに似たツールの使用による知的財産権の侵害があります。
+アビューズチームは調査に基づきSecond Lifeのコミュニティースタンダードや利用規約に違反する行為と判断された場合には適切な処置を行っています。
+ただし、コンテンツをSecond Lifeから撤去してほしい、といった要望にはアビューズチームは応えることができません。
 
-(1) 嫌がらせの処理。 住人がSecond Lifeの許可システムを不当に使用し、知的所有権が侵害されていると考えられる場合は、嫌がらせ報告を提出することができます。許可システムを不当に使用する手段としては、たとえば、CopyBotまたは類似したコピー・ツールがあります。 嫌がらせ対応担当チームが調査を行い、Second Lifeのコミュニティ・スタンダードまたは利用規約に違反する態度に対しては適切な懲罰処分が行われます。 ただし、嫌がらせ対応担当チームでは、コンテンツをSecond Lifeワールドから削除するリクエストに対する処理または回答は行いません。
+(2) DMCA（デジタルミレニアム著作権法）及びコンテンツ撤去プロセス。 Second Lifeからのコンテンツの撤去をリクエストするには、著作権侵害通知の提出を行う必要があります。
+参照：http://secondlife.com/corporate/dmca.php
 
-(2) DMCAまたはコンテンツの削除処理。 Second Lifeからのコンテンツの削除をリクエストするには、http://secondlife.com/corporate/dmca.phpのDMCAポリシーにある、侵害に関する有効な通知を提出する必要があります。
+この件に関する嫌がらせの報告を続ける際は、このウィンドウを閉じてください。選択すべきカテゴリは「知的財産の侵害 &gt; コピーBot及び権限の悪用」が適しているかもしれませんのでご確認ください。
 
-嫌がらせの処理を継続する場合は、このウインドウを閉じ、報告を提出してください。
-
-ご協力ありがとうございます。
-
+Thank you,
+ 
 Linden Lab
 		</message>
 	</alert>
@@ -4318,17 +4337,16 @@ Linden Lab
 			キャンセル
 		</option>
 	</alert>
-	<alert name="BusyModePay" title="ビジー・モードの警告">
+	<alert name="BusyModePay" title="取り込み中の警告">
 		<message name="message">
-			現在、ビジー・モードのため、この支払いと
+			現在、取り込み中のため、この支払いと
 引き換えのアイテムを受け取ることが
 できません。
  
-この取引を完了する前に、ビジー・
-モードを外しますか？
+この取引を完了する前に、取り込み中の設定を解除しますか？
 		</message>
 		<ignore name="ignore">
-			ビジー・モードの人またはオブジェクトに支払うとき
+			取り込み中の人またはオブジェクトに支払うとき
 		</ignore>
 		<option name="Yes">
 			OK
@@ -4412,7 +4430,7 @@ Linden Lab
 	</alert>
 	<alert name="GraphicsPreferencesHelp">
 		<message name="message">
-			このパネルはウィンドウのサイズと解像度、およびクライアントのグラフィックの品質を制御します。  [環境設定]&gt;[グラフィック]のインタフェースでは、次の 4 つの中からグラフィック・レベルを選択できます。低、中、高、超高。 また、[カスタム]チェックボックスをクリックし、次の設定を操作することで、グラフィックスの設定をカスタマイズすることもできます。
+			このパネルでは、ウィンドウのサイズと解像度、およびクライアントのグラフィックの品質を設定することができます。[環境設定]&gt;[表示]のインタフェースでは、低、中、高、超高の4つの中からグラフィック・レベルを選択できます。また、[カスタム]チェックボックスをクリックし、以下のグラフィックスの設定をカスタマイズすることもできます。
 
 シェーダー:ピクセル・シェーダーのさまざまな種類を有効または無効にします。 
 

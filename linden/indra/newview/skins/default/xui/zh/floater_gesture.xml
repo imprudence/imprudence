@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="gestures" title="表演动作">
+<floater name="gestures" title="活动的动作">
 	<text name="help_label">
-		使用激活命令或按命令键播放动画文件和
-声效。
+		点击动作或按快捷键来播放动画和音效。
 	</text>
 	<scroll_list name="gesture_list">
-		<column label="Trigger" name="trigger" />
-		<column label="Key" name="shortcut" />
+		<column label="命令" name="trigger" />
+		<column label="按键" name="shortcut" />
 		<column label="" name="key" />
-		<column label="Name" name="name" />
+		<column label="名称" name="name" />
 	</scroll_list>
 	<button label="新建" name="new_gesture_btn" />
 	<button label="库存" name="inventory_btn" />

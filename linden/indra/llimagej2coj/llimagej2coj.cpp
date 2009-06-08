@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2008, Linden Research, Inc.
+ * Copyright (c) 2006-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -183,6 +183,17 @@ BOOL LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 		return TRUE;
 	}
 	
+	if(image->numcomps <= first_channel)
+	{
+		llwarns << "trying to decode more channels than are present in image: numcomps: " << image->numcomps << " first_channel: " << first_channel << llendl;
+		if (image)
+		{
+			opj_image_destroy(image);
+		}
+			
+		return TRUE;
+	}
+
 	// Copy image data into our raw image format (instead of the separate channel format
 
 	S32 img_components = image->numcomps;

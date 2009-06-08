@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -495,6 +495,29 @@ std::string LLDir::getTempFilename() const
 	temp_filename += ".tmp";
 
 	return temp_filename;
+}
+
+// static
+std::string LLDir::getScrubbedFileName(const std::string uncleanFileName)
+{
+	std::string name(uncleanFileName);
+	const std::string illegalChars(getForbiddenFileChars());
+	// replace any illegal file chars with and underscore '_'
+	for( unsigned int i = 0; i < illegalChars.length(); i++ )
+	{
+		int j = -1;
+		while((j = name.find(illegalChars[i])) > -1)
+		{
+			name[j] = '_';
+		}
+	}
+	return name;
+}
+
+// static
+std::string LLDir::getForbiddenFileChars()
+{
+	return "\\/:*?\"<>|";
 }
 
 void LLDir::setLindenUserDir(const std::string &first, const std::string &last)

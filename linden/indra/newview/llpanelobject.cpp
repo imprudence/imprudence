@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -373,6 +373,18 @@ void LLPanelObject::getState( )
 	BOOL enable_rotate	= objectp->permMove() && ( (objectp->permModify() && !objectp->isAttachment()) || !gSavedSettings.getBOOL("EditLinkedParts"));
 
 	childSetEnabled("build_math_constants",true);
+
+	S32 selected_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
+	BOOL single_volume = (LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME ))
+						 && (selected_count == 1);
+
+	if (LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() > 1)
+	{
+		enable_move = FALSE;
+		enable_scale = FALSE;
+		enable_rotate = FALSE;
+	}
+
 	LLVector3 vec;
 	if (enable_move)
 	{
@@ -464,9 +476,6 @@ void LLPanelObject::getState( )
 	// BUG? Check for all objects being editable?
 	S32 roots_selected = LLSelectMgr::getInstance()->getSelection()->getRootObjectCount();
 	BOOL editable = root_objectp->permModify();
-	S32 selected_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
-	BOOL single_volume = (LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME ))
-						 && (selected_count == 1);
 
 	// Select Single Message
 	childSetVisible("select_single", FALSE);

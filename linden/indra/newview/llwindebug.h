@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2008, Linden Research, Inc.
+ * Copyright (c) 2004-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -39,7 +39,6 @@ class LLWinDebug
 {
 public:
 
-
 	/** 
 	* @brief initialize the llwindebug exception filter callback
 	* 
@@ -66,6 +65,8 @@ public:
 	static bool checkExceptionHandler();
 
 	static void generateCrashStacks(struct _EXCEPTION_POINTERS *pExceptionInfo = NULL);
+	static void clearCrashStacks(); // Delete the crash stack file(s).
+
 	static void writeDumpToFile(MINIDUMP_TYPE type, MINIDUMP_EXCEPTION_INFORMATION *ExInfop, const std::string& filename);
 private:
 };

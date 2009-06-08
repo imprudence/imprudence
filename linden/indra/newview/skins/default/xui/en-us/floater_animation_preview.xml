@@ -182,8 +182,8 @@
 	     name="playback_slider" right="290" show_text="false" />
 	<text bottom="250" follows="top|left" left="10" name="bad_animation_text">
 		Unable to read animation file.
-	
-	We recommend BVH files exported from Poser 4.
+
+We recommend BVH files exported from Poser 4.
 	</text>
 	<button bottom="10" follows="bottom|right" height="20" label="Cancel" name="cancel_btn"
 	     right="290" width="123" />

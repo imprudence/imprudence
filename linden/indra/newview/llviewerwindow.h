@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -310,9 +310,13 @@ public:
 	LLPickInfo		pickImmediate(S32 x, S32 y, BOOL pick_transparent);
 	static void     hoverPickCallback(const LLPickInfo& pick_info);
 	
+	LLHUDIcon* cursorIntersectIcon(S32 mouse_x, S32 mouse_y, F32 depth,
+										   LLVector3* intersection);
+
 	LLViewerObject* cursorIntersect(S32 mouse_x = -1, S32 mouse_y = -1, F32 depth = 512.f,
 									LLViewerObject *this_object = NULL,
 									S32 this_face = -1,
+									BOOL pick_transparent = FALSE,
 									S32* face_hit = NULL,
 									LLVector3 *intersection = NULL,
 									LLVector2 *uv = NULL,
@@ -342,6 +346,7 @@ public:
 	static void	toggleFullscreenCallback(S32 option, void *userdata);
 
 	// handle shutting down GL and bringing it back up
+	void			requestResolutionUpdate(bool fullscreen_checked);
 	BOOL			checkSettings();
 	void			restartDisplay(BOOL show_progress_bar);
 	BOOL			changeDisplaySettings(BOOL fullscreen, LLCoordScreen size, BOOL disable_vsync, BOOL show_progress_bar);
@@ -423,6 +428,11 @@ protected:
 	std::string		mInitAlert;			// Window / GL initialization requires an alert
 	
 	class LLDebugText* mDebugText; // Internal class for debug text
+	
+	bool			mResDirty;
+	bool			mStatesDirty;
+	bool			mIsFullscreenChecked; // Did the user check the fullscreen checkbox in the display settings
+	U32			mCurrResolutionIndex;
 
 protected:
 	static std::string sSnapshotBaseName;
@@ -475,6 +485,7 @@ extern LLVector3        gDebugRaycastIntersection;
 extern LLVector2        gDebugRaycastTexCoord;
 extern LLVector3        gDebugRaycastNormal;
 extern LLVector3        gDebugRaycastBinormal;
+extern S32				gDebugRaycastFaceHit;
 
 extern S32 CHAT_BAR_HEIGHT; 
 

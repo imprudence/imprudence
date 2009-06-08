@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="mute floater" title="Residentes e Objetos silenciados">
+<floater name="mute floater" title="Residentes e Objetos silenciados" short_title="Lista de pessoas silenciadas">
 	<scroll_list name="mutes" tool_tip="Lista dos residentes sílenciados." />
 	<button label="Silênciar residente..." label_selected="Silênciar residente..."
 	     name="Mute resident..." tool_tip="Sílenciar residente..." />

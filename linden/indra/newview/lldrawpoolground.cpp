@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -63,13 +63,14 @@ void LLDrawPoolGround::prerender()
 
 void LLDrawPoolGround::render(S32 pass)
 {
-	if (mDrawFace.empty())
+	if (mDrawFace.empty() || !gSavedSettings.getBOOL("RenderGround"))
 	{
 		return;
 	}	
 	
 	LLGLSPipelineSkyBox gls_skybox;
-	LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+
 	LLGLDepthTest gls_depth(GL_TRUE, GL_FALSE);
 
 	LLGLClampToFarClip far_clip(glh_get_current_projection());

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -146,7 +146,7 @@ void LLMemoryView::draw()
 	S32 height = getRect().getHeight();
 	
 	LLGLSUIDefault gls_ui;
-	LLGLSNoTexture gls_no_tex;
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	gl_rect_2d(0, height, width, 0, LLColor4(0.f, 0.f, 0.f, 0.25f));
 	
 #if MEM_TRACK_TYPE

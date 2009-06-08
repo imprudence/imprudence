@@ -3,7 +3,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2008, Linden Research, Inc.
+ * Copyright (c) 2006-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -46,7 +46,7 @@ void LLCommon::initClass()
 		sAprInitialized = TRUE;
 	}
 	LLTimer::initClass();
-	LLThreadSafeRefCount::initClass();
+	LLThreadSafeRefCount::initThreadSafeRefCount();
 // 	LLWorkerThread::initClass();
 // 	LLFrameCallbackManager::initClass();
 }
@@ -56,7 +56,7 @@ void LLCommon::cleanupClass()
 {
 // 	LLFrameCallbackManager::cleanupClass();
 // 	LLWorkerThread::cleanupClass();
-	LLThreadSafeRefCount::cleanupClass();
+	LLThreadSafeRefCount::cleanupThreadSafeRefCount();
 	LLTimer::cleanupClass();
 	if (sAprInitialized)
 	{

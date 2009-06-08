@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="Pick" title="拣起">
-	<button label="调节位置" name="set_location_btn" />
-	<button label="闪电传送" name="pick_teleport_btn" />
-	<button label="在地图中显示" name="pick_map_btn" />
+<panel name="Pick" title="收藏">
+	<button label="瞬间移动" name="pick_teleport_btn" width="80" left="10"/>
+	<button label="在地图中显示" name="pick_map_btn" width="110" left="100"/>
+	<button label="调节位置" name="set_location_btn" width="80" left="220"/>
 	<text name="sort_order_text">
 		种类:
 	</text>
-	<check_box label="Enabled" name="enabled_check" />
+	<check_box label="启用" name="enabled_check" />
 </panel>
+<!--Translated for Second Life 1.19.0 (80044)-->

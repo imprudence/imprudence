@@ -57,7 +57,7 @@
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-120" drop_shadow_visible="true" follows="left|top"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left="85"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left="110"
 	     mouse_opaque="true" name="server_text" right="-10" v_pad="0">
 		Normal
 	</text>

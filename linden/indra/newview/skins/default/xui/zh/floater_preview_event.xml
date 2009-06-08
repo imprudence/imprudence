@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="event_preview"
+	 title="事件信息">
+	<panel
+		 name="event_details_panel" />
+</floater>
+

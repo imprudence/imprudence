@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -206,6 +206,11 @@ public:
 
 	LLHandle<LLFloater> getHandle() const { return mHandle; }
 
+	// Return a closeable floater, if any, given the current focus.
+	static LLFloater* getClosableFloaterFromFocus(); 
+
+	// Close the floater returned by getClosableFloaterFromFocus() and 
+	// handle refocusing.
 	static void		closeFocusedFloater();
 
 	static void		onClickClose(void *userdata);

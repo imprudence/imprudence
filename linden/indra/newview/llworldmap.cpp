@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -498,7 +498,8 @@ void LLWorldMap::processMapLayerReply(LLMessageSystem* msg, void**)
 		new_layer.LayerDefined = TRUE;
 		msg->getUUIDFast(_PREHASH_LayerData, _PREHASH_ImageID, new_layer.LayerImageID, block);
 		new_layer.LayerImage = gImageList.getImage(new_layer.LayerImageID, MIPMAP_TRUE, FALSE);
-		new_layer.LayerImage->bindTexture(0);
+		
+		gGL.getTexUnit(0)->bind(new_layer.LayerImage.get());
 		new_layer.LayerImage->setClamp(TRUE, TRUE);
 		
 		U32 left, right, top, bottom;
@@ -610,7 +611,7 @@ void LLWorldMap::processMapBlockReply(LLMessageSystem* msg, void**)
 			siminfo->mWaterHeight = (F32) water_height;
 			siminfo->mMapImageID[agent_flags] = image_id;
 			siminfo->mCurrentImage = gImageList.getImage(siminfo->mMapImageID[LLWorldMap::getInstance()->mCurrentMap], MIPMAP_TRUE, FALSE);
-			siminfo->mCurrentImage->bindTexture(0);
+			gGL.getTexUnit(0)->bind(siminfo->mCurrentImage.get());
 			siminfo->mCurrentImage->setClamp(TRUE, TRUE);
 			
 			if (siminfo->mMapImageID[2].notNull())

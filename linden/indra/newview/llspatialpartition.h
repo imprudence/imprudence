@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -52,6 +52,7 @@ class LLSpatialBridge;
 class LLSpatialGroup;
 
 S32 AABBSphereIntersect(const LLVector3& min, const LLVector3& max, const LLVector3 &origin, const F32 &rad);
+S32 AABBSphereIntersectR2(const LLVector3& min, const LLVector3& max, const LLVector3 &origin, const F32 &radius_squared);
 
 class LLDrawInfo : public LLRefCount 
 {
@@ -301,6 +302,7 @@ public:
 	BOOL remove(LLDrawable *drawablep, LLSpatialGroup *curp);
 	
 	LLDrawable* lineSegmentIntersect(const LLVector3& start, const LLVector3& end,
+									 BOOL pick_transparent, 
 									 S32* face_hit,                          // return the face hit
 									 LLVector3* intersection = NULL,         // return the intersection point
 									 LLVector2* tex_coord = NULL,            // return the texture coordinates of the intersection point
@@ -480,6 +482,12 @@ public:
 	virtual F32 calcPixelArea(LLSpatialGroup* group, LLCamera& camera);
 protected:
 	U32 mRenderPass;
+};
+
+class LLHUDParticlePartition : public LLParticlePartition
+{
+public:
+	LLHUDParticlePartition();
 };
 
 //spatial partition for grass (implemented in LLVOGrass.cpp)

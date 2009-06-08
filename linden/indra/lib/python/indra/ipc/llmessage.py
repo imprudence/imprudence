@@ -4,7 +4,7 @@
 
 $LicenseInfo:firstyear=2007&license=mit$
 
-Copyright (c) 2007-2008, Linden Research, Inc.
+Copyright (c) 2007-2009, Linden Research, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -88,7 +88,7 @@ class Message:
     UDPDEPRECATED = "UDPDeprecated"
     UDPBLACKLISTED = "UDPBlackListed"
     deprecations = [ NOTDEPRECATED, UDPDEPRECATED, UDPBLACKLISTED, DEPRECATED ]
-        # in order of increasing deprecation
+    # in order of increasing deprecation
     
     def __init__(self, name, number, priority, trust, coding):
         self.name = name

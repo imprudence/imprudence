@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <pie_menu name="Avatar Pie">
 	<menu_item_call label="プロフィール..." name="Profile..." />
-	<menu_item_call label="ミュート" name="Avatar Mute" />
+	<menu_item_call label="無視" name="Avatar Mute" />
 	<menu_item_call label="移動先" name="Go To" />
 	<menu_item_call label="評価" name="Rate" />
 	<menu_item_call label="フレンドを追加..." name="Add Friend" />

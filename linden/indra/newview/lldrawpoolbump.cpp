@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -73,7 +73,6 @@ const U32 VERTEX_MASK_SHINY = LLVertexBuffer::MAP_VERTEX | LLVertexBuffer::MAP_N
 const U32 VERTEX_MASK_BUMP = LLVertexBuffer::MAP_VERTEX |LLVertexBuffer::MAP_TEXCOORD | LLVertexBuffer::MAP_TEXCOORD2;
 
 U32 LLDrawPoolBump::sVertexMask = VERTEX_MASK_SHINY;
-static LLPointer<LLCubeMap> sCubeMap;
 
 static LLGLSLShader* shader = NULL;
 static S32 cube_channel = -1;
@@ -349,27 +348,29 @@ void LLDrawPoolBump::beginShiny(bool invisible)
 				cube_map->setMatrix(1);
 				// Make sure that texture coord generation happens for tex unit 1, as that's the one we use for 
 				// the cube map in the one pass shiny shaders
-				cube_channel = shader->enableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB);
+				cube_channel = shader->enableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, LLTexUnit::TT_CUBE_MAP);
 				cube_map->enableTexture(cube_channel);
 				cube_map->enableTextureCoords(1);
 				diffuse_channel = shader->enableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
 			}
 			else
 			{
-				cube_channel = 0;
+				cube_channel = shader->enableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, LLTexUnit::TT_CUBE_MAP);
 				diffuse_channel = -1;
 				cube_map->setMatrix(0);
-				cube_map->enable(shader->enableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB));
+				cube_map->enable(cube_channel);
 			}			
-			cube_map->bind();
+			gGL.getTexUnit(cube_channel)->bind(cube_map);
+			gGL.getTexUnit(0)->activate();
 		}
 		else
 		{
 			cube_channel = 0;
 			diffuse_channel = -1;
+			gGL.getTexUnit(0)->disable();
 			cube_map->enable(0);
 			cube_map->setMatrix(0);
-			cube_map->bind();
+			gGL.getTexUnit(0)->bind(cube_map);
 
 			gGL.getTexUnit(0)->setTextureColorBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_TEX_COLOR);
 			gGL.getTexUnit(0)->setTextureAlphaBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_VERT_ALPHA);
@@ -385,8 +386,6 @@ void LLDrawPoolBump::renderShiny(bool invisible)
 	{
 		return;
 	}
-
-	sCubeMap = NULL;
 
 	if( gSky.mVOSkyp->getCubeMap() )
 	{
@@ -423,7 +422,7 @@ void LLDrawPoolBump::endShiny(bool invisible)
 
 		if (!invisible && mVertexShaderLevel > 1)
 		{
-			shader->disableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB);
+			shader->disableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, LLTexUnit::TT_CUBE_MAP);
 					
 			if (LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_OBJECT) > 0)
 			{
@@ -435,18 +434,20 @@ void LLDrawPoolBump::endShiny(bool invisible)
 
 			shader->unbind();
 			gGL.getTexUnit(0)->activate();
-			glEnable(GL_TEXTURE_2D);
+			gGL.getTexUnit(0)->enable(LLTexUnit::TT_TEXTURE);
 		}
 		if (cube_channel >= 0)
 		{
+			gGL.getTexUnit(cube_channel)->enable(LLTexUnit::TT_TEXTURE);
 			gGL.getTexUnit(cube_channel)->setTextureBlendType(LLTexUnit::TB_MULT);
 		}
 	}
-	
-	gGL.getTexUnit(0)->activate();
-	LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+	gGL.getTexUnit(diffuse_channel)->disable();
+	gGL.getTexUnit(cube_channel)->disable();
+
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
-	
+
 	diffuse_channel = -1;
 	cube_channel = 0;
 	mShiny = FALSE;
@@ -489,12 +490,14 @@ void LLDrawPoolBump::beginFullbrightShiny()
 		cube_map->setMatrix(1);
 		// Make sure that texture coord generation happens for tex unit 1, as that's the one we use for 
 		// the cube map in the one pass shiny shaders
-		cube_channel = shader->enableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB);
+		gGL.getTexUnit(1)->disable();
+		cube_channel = shader->enableTexture(LLViewerShaderMgr::ENVIRONMENT_MAP, LLTexUnit::TT_CUBE_MAP);
 		cube_map->enableTexture(cube_channel);
 		cube_map->enableTextureCoords(1);
 		diffuse_channel = shader->enableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
 
-		cube_map->bind();
+		gGL.getTexUnit(cube_channel)->bind(cube_map);
+		gGL.getTexUnit(0)->activate();
 	}
 	mShiny = TRUE;
 }
@@ -506,8 +509,6 @@ void LLDrawPoolBump::renderFullbrightShiny()
 	{
 		return;
 	}
-
-	sCubeMap = NULL;
 
 	if( gSky.mVOSkyp->getCubeMap() )
 	{
@@ -535,14 +536,13 @@ void LLDrawPoolBump::endFullbrightShiny()
 			shader->disableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
 		}
 		gGL.getTexUnit(0)->activate();
-		glEnable(GL_TEXTURE_2D);
+		gGL.getTexUnit(0)->enable(LLTexUnit::TT_TEXTURE);
 
 		shader->unbind();
-
 		gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 	}
 	
-	LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 
 	diffuse_channel = -1;
@@ -561,7 +561,7 @@ void LLDrawPoolBump::renderGroup(LLSpatialGroup* group, U32 type, U32 mask, BOOL
 		applyModelMatrix(params);
 
 		params.mVertexBuffer->setBuffer(mask);
-		params.mVertexBuffer->drawRange(LLVertexBuffer::TRIANGLES, params.mStart, params.mEnd, params.mCount, params.mOffset);
+		params.mVertexBuffer->drawRange(LLRender::TRIANGLES, params.mStart, params.mEnd, params.mCount, params.mOffset);
 		gPipeline.addTrianglesDrawn(params.mCount/3);
 	}
 }
@@ -592,15 +592,15 @@ BOOL LLDrawPoolBump::bindBumpMap(LLDrawInfo& params)
 		if( bump_code < LLStandardBumpmap::sStandardBumpmapCount )
 		{
 			bump = gStandardBumpmapList[bump_code].mImage;
-			gBumpImageList.addTextureStats(bump_code, tex->getID(), params.mVSize, 1, 1);
+			gBumpImageList.addTextureStats(bump_code, tex->getID(), params.mVSize);
 		}
 		break;
 	}
 
 	if (bump)
 	{
-		bump->bind(1);
-		bump->bind(0);
+		gGL.getTexUnit(1)->bind(bump);
+		gGL.getTexUnit(0)->bind(bump);
 		return TRUE;
 	}
 	return FALSE;
@@ -629,7 +629,7 @@ void LLDrawPoolBump::beginBump()
 	// TEXTURE UNIT 1
 	gGL.getTexUnit(1)->activate();
  
-	glEnable(GL_TEXTURE_2D); // Texture unit 1
+	gGL.getTexUnit(1)->enable(LLTexUnit::TT_TEXTURE);
 
 	gGL.getTexUnit(1)->setTextureColorBlend(LLTexUnit::TBO_ADD_SIGNED, LLTexUnit::TBS_PREV_COLOR, LLTexUnit::TBS_ONE_MINUS_TEX_ALPHA);
 	gGL.getTexUnit(1)->setTextureAlphaBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_TEX_ALPHA);
@@ -648,7 +648,7 @@ void LLDrawPoolBump::beginBump()
 	gGL.getTexUnit(0)->activate();
 	stop_glerror();
 
-	LLViewerImage::unbindTexture(1, GL_TEXTURE_2D);
+	gGL.getTexUnit(1)->unbind(LLTexUnit::TT_TEXTURE);
 }
 
 //static
@@ -680,7 +680,7 @@ void LLDrawPoolBump::endBump()
 
 	// Disable texture unit 1
 	gGL.getTexUnit(1)->activate();
-	glDisable(GL_TEXTURE_2D); // Texture unit 1
+	gGL.getTexUnit(1)->disable();
 	gGL.getTexUnit(1)->setTextureBlendType(LLTexUnit::TB_MULT);
 
 	// Disable texture unit 0
@@ -734,14 +734,13 @@ LLBumpImageList::~LLBumpImageList()
 
 
 // Note: Does nothing for entries in gStandardBumpmapList that are not actually standard bump images (e.g. none, brightness, and darkness)
-void LLBumpImageList::addTextureStats(U8 bump, const LLUUID& base_image_id,
-									  F32 pixel_area, F32 texel_area_ratio, F32 cos_center_angle)
+void LLBumpImageList::addTextureStats(U8 bump, const LLUUID& base_image_id, F32 virtual_size)
 {
 	bump &= TEM_BUMP_MASK;
 	LLViewerImage* bump_image = gStandardBumpmapList[bump].mImage;
 	if( bump_image )
 	{
-		bump_image->addTextureStats(pixel_area, texel_area_ratio, cos_center_angle);
+		bump_image->addTextureStats(virtual_size);
 	}
 }
 
@@ -1083,17 +1082,17 @@ void LLDrawPoolBump::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture)
 	{
 		if (params.mTexture.notNull())
 		{
-			params.mTexture->bind(diffuse_channel);
+			gGL.getTexUnit(diffuse_channel)->bind(params.mTexture.get());
 			params.mTexture->addTextureStats(params.mVSize);
 		}
 		else
 		{
-			LLImageGL::unbindTexture(0);
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		}
 	}
 	
 	params.mVertexBuffer->setBuffer(mask);
-	params.mVertexBuffer->drawRange(LLVertexBuffer::TRIANGLES, params.mStart, params.mEnd, params.mCount, params.mOffset);
+	params.mVertexBuffer->drawRange(LLRender::TRIANGLES, params.mStart, params.mEnd, params.mCount, params.mOffset);
 	gPipeline.addTrianglesDrawn(params.mCount/3);
 	if (params.mTextureMatrix)
 	{

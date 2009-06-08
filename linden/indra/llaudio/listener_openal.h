@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
- * Copyright (c) 2000-2008, Linden Research, Inc.
+ * Copyright (c) 2000-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -41,12 +41,6 @@
 
 class LLListener_OpenAL  : public LLListener
 {
- private:
- protected:
- public:
-
- private:
- protected:
  public:  
 	LLListener_OpenAL();
 	virtual ~LLListener_OpenAL();
@@ -59,6 +53,14 @@ class LLListener_OpenAL  : public LLListener
 
 	virtual void setDopplerFactor(F32 factor);
 	virtual F32 getDopplerFactor();
+	virtual void setDistanceFactor(F32 factor);
+	virtual F32 getDistanceFactor();
+	virtual void setRolloffFactor(F32 factor);
+	virtual F32 getRolloffFactor();
+
+ protected:
+	F32 mDistanceFactor;
+	F32 mRolloffFactor;
 };
 
 #endif

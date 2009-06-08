@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="move floater"
+	 title="">
+	<!-- 图标是代码中的自定按钮(写死的) -->
+	<string name="rotate_tooltip">围绕焦点旋转摄像机</string>
+	<string name="zoom_tooltip">朝着焦点缩放摄像机</string>
+	<string name="move_tooltip">上下左右移动摄像机</string>
+</floater>
+
+

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="htmlfloater"
+	 title="">
+	<button
+		 label="关闭"
+		 name="close_btn"/>
+	<web_browser
+		 name="html_floater_browser"/>
+	<button
+		 label="后退"
+		 name="back_btn" />
+	<button
+		 label="前进"
+		 name="forward_btn" />
+	<button
+		 label="转到"
+		 name="go_btn" />
+</floater>
+

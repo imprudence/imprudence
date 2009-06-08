@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2008, Linden Research, Inc.
+ * Copyright (c) 2004-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -41,6 +41,7 @@
 
 #pragma warning(disable: 4200)	//nonstandard extension used : zero-sized array in struct/union
 #pragma warning(disable: 4100)	//unreferenced formal parameter
+
 
 /*
 LLSD Block for Windows Dump Information
@@ -120,8 +121,18 @@ MODULE32_NEST	Module32Next_;
 #define	CALL_TRACE_MAX	((DUMP_SIZE_MAX - 2000) / (MAX_PATH + 40))	//max number of traced calls
 #define	NL				L"\r\n"	//new line
 
-BOOL WINAPI Get_Module_By_Ret_Addr(PBYTE Ret_Addr, LPWSTR Module_Name, PBYTE & Module_Addr);
 
+typedef struct STACK
+{
+	STACK *	Ebp;
+	PBYTE	Ret_Addr;
+	DWORD	Param[0];
+} STACK, * PSTACK;
+
+BOOL WINAPI Get_Module_By_Ret_Addr(PBYTE Ret_Addr, LPWSTR Module_Name, PBYTE & Module_Addr);
+void WINAPI Get_Call_Stack(const EXCEPTION_RECORD* exception_record, 
+						   const CONTEXT* context_record, 
+						   LLSD& info);
 
 void printError( CHAR* msg )
 {
@@ -184,69 +195,6 @@ BOOL GetProcessThreadIDs(DWORD process_id, std::vector<DWORD>& thread_ids)
   return( TRUE );
 }
 
-void WINAPI GetCallStackData(const CONTEXT* context_struct, LLSD& info)
-{	
-    // Fill Str with call stack info.
-    // pException can be either GetExceptionInformation() or NULL.
-    // If pException = NULL - get current call stack.
-
-    LPWSTR	Module_Name = new WCHAR[MAX_PATH];
-	PBYTE	Module_Addr = 0;
-	
-	typedef struct STACK
-	{
-		STACK *	Ebp;
-		PBYTE	Ret_Addr;
-		DWORD	Param[0];
-	} STACK, * PSTACK;
-
-	PSTACK	Ebp;
-
-    if(context_struct)
-    {
-        Ebp = (PSTACK)context_struct->Ebp;
-    }
-    else
-    {
-        // The context struct is NULL, 
-        // so we will use the current stack.
-        Ebp = (PSTACK)&context_struct - 1;
-
-        // Skip frame of GetCallStackData().
-		if (!IsBadReadPtr(Ebp, sizeof(PSTACK)))
-			Ebp = Ebp->Ebp;		//caller ebp
-    }
-
-	// Trace CALL_TRACE_MAX calls maximum - not to exceed DUMP_SIZE_MAX.
-	// Break trace on wrong stack frame.
-	for (int Ret_Addr_I = 0, i = 0;
-		(Ret_Addr_I < CALL_TRACE_MAX) && !IsBadReadPtr(Ebp, sizeof(PSTACK)) && !IsBadCodePtr(FARPROC(Ebp->Ret_Addr));
-		Ret_Addr_I++, Ebp = Ebp->Ebp, ++i)
-	{
-		// If module with Ebp->Ret_Addr found.
-
-		if (Get_Module_By_Ret_Addr(Ebp->Ret_Addr, Module_Name, Module_Addr))
-		{
-			// Save module's address and full path.
-			info["CallStack"][i]["ModuleName"] = ll_convert_wide_to_string(Module_Name);
-			info["CallStack"][i]["ModuleAddress"] = (int)Module_Addr;
-			info["CallStack"][i]["CallOffset"] = (int)(Ebp->Ret_Addr - Module_Addr);
-
-			LLSD params;
-			// Save 5 params of the call. We don't know the real number of params.
-			if (!IsBadReadPtr(Ebp, sizeof(PSTACK) + 5 * sizeof(DWORD)))
-			{
-				for(int j = 0; j < 5; ++j)
-				{
-					params[j] = (int)Ebp->Param[j];
-				}
-			}
-			info["CallStack"][i]["Parameters"] = params;
-		}
-		info["CallStack"][i]["ReturnAddress"] = (int)Ebp->Ret_Addr;			
-	}
-}
-
 BOOL GetThreadCallStack(DWORD thread_id, LLSD& info)
 {
     if(GetCurrentThreadId() == thread_id)
@@ -271,7 +219,7 @@ BOOL GetThreadCallStack(DWORD thread_id, LLSD& info)
         context_struct.ContextFlags = CONTEXT_FULL;
         if(GetThreadContext(thread_handle, &context_struct))
         {
-            GetCallStackData(&context_struct, info);
+            Get_Call_Stack(NULL, &context_struct, info);
             result = true;
         }
         ResumeThread(thread_handle);
@@ -326,35 +274,143 @@ BOOL WINAPI Get_Module_By_Ret_Addr(PBYTE Ret_Addr, LPWSTR Module_Name, PBYTE & M
 	return found;
 } //Get_Module_By_Ret_Addr
 
+bool has_valid_call_before(PDWORD cur_stack_loc)
+{
+	PBYTE p_first_byte = (PBYTE)(*cur_stack_loc - 1);
+	PBYTE p_second_byte = (PBYTE)(*cur_stack_loc -2);
+	PBYTE p_fifth_byte = (PBYTE)(*cur_stack_loc - 5);
+	PBYTE p_sixth_byte = (PBYTE)(*cur_stack_loc - 6);
+
+	// make sure we can read it
+	if(IsBadReadPtr(p_sixth_byte, 6 * sizeof(BYTE)))
+	{
+		return false;
+	}
+
+	// check for 9a + 4 bytes
+	if(*p_fifth_byte == 0x9A)
+	{
+		return true;
+	}
+
+	// Check for E8 + 4 bytes and last byte is 00 or FF
+	if(*p_fifth_byte == 0xE8 && (*p_first_byte == 0x00 || *p_first_byte == 0xFF))
+	{
+		return true;
+	}
+	
+	// the other is six bytes
+	if(*p_sixth_byte == 0xFF || *p_second_byte == 0xFF)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+PBYTE get_valid_frame(PBYTE esp)
+{
+	PDWORD cur_stack_loc = NULL;
+	const int max_search = 400;
+	WCHAR	module_name[MAX_PATH];
+	PBYTE	module_addr = 0;
+
+	// round to highest multiple of four
+	esp = (esp + (4 - ((int)esp % 4)) % 4);
+
+	// scroll through stack a few hundred places.
+	for (cur_stack_loc = (PDWORD) esp; cur_stack_loc < (PDWORD)esp + max_search; cur_stack_loc += 1)
+	{
+		// if you can read the pointer,
+		if (IsBadReadPtr(cur_stack_loc, sizeof(PDWORD)))
+		{
+			continue;
+		}
+
+		//  check if it's in a module
+		if (!Get_Module_By_Ret_Addr((PBYTE)*cur_stack_loc, module_name, module_addr))
+		{
+			continue;
+		}
+
+		// check if the code before the instruction ptr is a call 
+		if(!has_valid_call_before(cur_stack_loc))
+		{
+			continue;
+		}
+		
+		// if these all pass, return that ebp, otherwise continue till we're dead
+		return (PBYTE)(cur_stack_loc - 1);
+	}
+
+	return NULL;
+}
+
+bool shouldUseStackWalker(PSTACK Ebp, int max_depth)
+{
+	WCHAR	Module_Name[MAX_PATH];
+	PBYTE	Module_Addr = 0;
+	int depth = 0;
+
+	while (depth < max_depth) 
+	{
+		if (IsBadReadPtr(Ebp, sizeof(PSTACK)) || 
+			IsBadReadPtr(Ebp->Ebp, sizeof(PSTACK)) ||
+			Ebp->Ebp < Ebp ||
+			Ebp->Ebp - Ebp > 0xFFFFFF ||
+			IsBadCodePtr(FARPROC(Ebp->Ebp->Ret_Addr)) ||
+			!Get_Module_By_Ret_Addr(Ebp->Ebp->Ret_Addr, Module_Name, Module_Addr))
+		{
+			return true;
+		}
+		depth++;
+		Ebp = Ebp->Ebp;
+	}
+
+	return false;
+}
+
 //******************************************************************
-void WINAPI Get_Call_Stack(PEXCEPTION_POINTERS pException, LLSD& info)
+void WINAPI Get_Call_Stack(const EXCEPTION_RECORD* exception_record, 
+						   const CONTEXT* context_record, 
+						   LLSD& info)
 //******************************************************************
 // Fill Str with call stack info.
 // pException can be either GetExceptionInformation() or NULL.
 // If pException = NULL - get current call stack.
-{	
+{
 	LPWSTR	Module_Name = new WCHAR[MAX_PATH];
 	PBYTE	Module_Addr = 0;
-	
-	typedef struct STACK
-	{
-		STACK *	Ebp;
-		PBYTE	Ret_Addr;
-		DWORD	Param[0];
-	} STACK, * PSTACK;
+	LLSD params;
+	PBYTE	Esp = NULL;
+	LLSD tmp_info;
+
+	bool fake_frame = false;
+	bool ebp_used = false;
+	const int HEURISTIC_MAX_WALK = 20;
+	int heuristic_walk_i = 0;
+	int Ret_Addr_I = 0;
 
 	STACK	Stack = {0, 0};
 	PSTACK	Ebp;
 
-	if (pException)		//fake frame for exception address
+	if (exception_record && context_record)		//fake frame for exception address
 	{
-		Stack.Ebp = (PSTACK)pException->ContextRecord->Ebp;
-		Stack.Ret_Addr = (PBYTE)pException->ExceptionRecord->ExceptionAddress;
+		Stack.Ebp = (PSTACK)(context_record->Ebp);
+		Stack.Ret_Addr = (PBYTE)exception_record->ExceptionAddress;
 		Ebp = &Stack;
+		Esp = (PBYTE) context_record->Esp;
+		fake_frame = true;
+	}
+	else if(context_record)
+	{
+        Ebp = (PSTACK)(context_record->Ebp);
+		Esp = (PBYTE)(context_record->Esp);
 	}
 	else
 	{
-		Ebp = (PSTACK)&pException - 1;	//frame addr of Get_Call_Stack()
+		Ebp = (PSTACK)&exception_record - 1;	//frame addr of Get_Call_Stack()
+		Esp = (PBYTE)&exception_record;
 
 		// Skip frame of Get_Call_Stack().
 		if (!IsBadReadPtr(Ebp, sizeof(PSTACK)))
@@ -363,22 +419,21 @@ void WINAPI Get_Call_Stack(PEXCEPTION_POINTERS pException, LLSD& info)
 
 	// Trace CALL_TRACE_MAX calls maximum - not to exceed DUMP_SIZE_MAX.
 	// Break trace on wrong stack frame.
-	for (int Ret_Addr_I = 0, i = 0;
-		(Ret_Addr_I < CALL_TRACE_MAX) && !IsBadReadPtr(Ebp, sizeof(PSTACK)) && !IsBadCodePtr(FARPROC(Ebp->Ret_Addr));
-		Ret_Addr_I++, Ebp = Ebp->Ebp, ++i)
+	for (Ret_Addr_I = 0;
+		heuristic_walk_i < HEURISTIC_MAX_WALK && 
+		Ret_Addr_I < CALL_TRACE_MAX && !IsBadReadPtr(Ebp, sizeof(PSTACK)) && !IsBadCodePtr(FARPROC(Ebp->Ret_Addr));
+		Ret_Addr_I++)
 	{
 		// If module with Ebp->Ret_Addr found.
-
 		if (Get_Module_By_Ret_Addr(Ebp->Ret_Addr, Module_Name, Module_Addr))
 		{
 			// Save module's address and full path.
-			info["CallStack"][i]["ModuleName"] = ll_convert_wide_to_string(Module_Name);
-			info["CallStack"][i]["ModuleAddress"] = (int)Module_Addr;
-			info["CallStack"][i]["CallOffset"] = (int)(Ebp->Ret_Addr - Module_Addr);
+			tmp_info["CallStack"][Ret_Addr_I]["ModuleName"] = ll_convert_wide_to_string(Module_Name);
+			tmp_info["CallStack"][Ret_Addr_I]["ModuleAddress"] = (int)Module_Addr;
+			tmp_info["CallStack"][Ret_Addr_I]["CallOffset"] = (int)(Ebp->Ret_Addr - Module_Addr);
 
-			LLSD params;
 			// Save 5 params of the call. We don't know the real number of params.
-			if (pException && !Ret_Addr_I)	//fake frame for exception address
+			if (fake_frame && !Ret_Addr_I)	//fake frame for exception address
 				params[0] = "Exception Offset";
 			else if (!IsBadReadPtr(Ebp, sizeof(PSTACK) + 5 * sizeof(DWORD)))
 			{
@@ -387,10 +442,64 @@ void WINAPI Get_Call_Stack(PEXCEPTION_POINTERS pException, LLSD& info)
 					params[j] = (int)Ebp->Param[j];
 				}
 			}
-			info["CallStack"][i]["Parameters"] = params;
+			tmp_info["CallStack"][Ret_Addr_I]["Parameters"] = params;
 		}
-		info["CallStack"][i]["ReturnAddress"] = (int)Ebp->Ret_Addr;			
+
+		tmp_info["CallStack"][Ret_Addr_I]["ReturnAddress"] = (int)Ebp->Ret_Addr;
+
+		// get ready for next frame
+		// Set ESP to just after return address.  Not the real esp, but just enough after the return address
+		if(!fake_frame) {
+			Esp = (PBYTE)Ebp + 8;
+		} 
+		else
+		{
+			fake_frame = false;
+		}
+
+		// is next ebp valid?
+		// only run if we've never found a good ebp
+		// and make sure the one after is valid as well
+		if(	!ebp_used && 
+			shouldUseStackWalker(Ebp, 2))
+		{
+			heuristic_walk_i++;
+			PBYTE new_ebp = get_valid_frame(Esp);
+			if (new_ebp != NULL)
+			{
+				Ebp = (PSTACK)new_ebp;
+			}
+		}
+		else
+		{
+			ebp_used = true;
+			Ebp = Ebp->Ebp;
+		}
 	}
+/* TODO remove or turn this code back on to edit the stack after i see a few raw ones. -Palmer
+	// Now go back through and edit out heuristic stacks that could very well be bogus.
+	// Leave the top and the last 3 stack chosen by the heuristic, however.
+	if(heuristic_walk_i > 2)
+	{
+		info["CallStack"][0] = tmp_info["CallStack"][0];
+		std::string ttest = info["CallStack"][0]["ModuleName"];
+		for(int cur_frame = 1; 
+			(cur_frame + heuristic_walk_i - 2 < Ret_Addr_I); 
+			++cur_frame)
+		{
+			// edit out the middle heuristic found frames
+			info["CallStack"][cur_frame] = tmp_info["CallStack"][cur_frame + heuristic_walk_i - 2];
+		}
+	}
+	else
+	{
+		info = tmp_info;
+	}
+*/
+	info = tmp_info;
+	info["HeuristicWalkI"] = heuristic_walk_i;
+	info["EbpUsed"] = ebp_used;
+
 } //Get_Call_Stack
 
 //***********************************
@@ -429,7 +538,7 @@ LLSD WINAPI Get_Exception_Info(PEXCEPTION_POINTERS pException)
 	FILETIME	Last_Write_Time;
 	FILETIME	Local_File_Time;
 	SYSTEMTIME	T;
-	
+
 	Str = new WCHAR[DUMP_SIZE_MAX];
 	Str_Len = 0;
 	if (!Str)
@@ -439,6 +548,7 @@ LLSD WINAPI Get_Exception_Info(PEXCEPTION_POINTERS pException)
 	
 	GetModuleFileName(NULL, Str, MAX_PATH);
 	info["Process"] = ll_convert_wide_to_string(Str);
+	info["ThreadID"] = (S32)GetCurrentThreadId();
 
 	// If exception occurred.
 	if (pException)
@@ -506,7 +616,7 @@ LLSD WINAPI Get_Exception_Info(PEXCEPTION_POINTERS pException)
 	} //if (pException)
 	
 	// Save call stack info.
-	Get_Call_Stack(pException, info);
+	Get_Call_Stack(pException->ExceptionRecord, pException->ContextRecord, info);
 
 	return info;
 } //Get_Exception_Info
@@ -551,6 +661,58 @@ void LLMemoryReserve::release()
 };
 
 static LLMemoryReserve gEmergencyMemoryReserve;
+
+#ifndef _M_IX86
+	#error "The following code only works for x86!"
+#endif
+LPTOP_LEVEL_EXCEPTION_FILTER WINAPI MyDummySetUnhandledExceptionFilter(
+	LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter)
+{
+	if(lpTopLevelExceptionFilter ==  gFilterFunc)
+		return gFilterFunc;
+
+	llinfos << "Someone tried to set the exception filter. Listing call stack modules" << llendl;
+	LLSD cs_info;
+	Get_Call_Stack(NULL, NULL, cs_info);
+	
+	if(cs_info.has("CallStack") && cs_info["CallStack"].isArray())
+	{
+		LLSD cs = cs_info["CallStack"];
+		for(LLSD::array_iterator i = cs.beginArray(); 
+			i != cs.endArray(); 
+			++i)
+		{
+			llinfos << "Module: " << (*i)["ModuleName"] << llendl;
+		}
+	}
+	
+	return gFilterFunc;
+}
+
+BOOL PreventSetUnhandledExceptionFilter()
+{
+	HMODULE hKernel32 = LoadLibrary(_T("kernel32.dll"));
+	if (hKernel32 == NULL) 
+		return FALSE;
+
+	void *pOrgEntry = GetProcAddress(hKernel32, "SetUnhandledExceptionFilter");
+	if(pOrgEntry == NULL) 
+		return FALSE;
+	
+	unsigned char newJump[ 100 ];
+	DWORD dwOrgEntryAddr = (DWORD)pOrgEntry;
+	dwOrgEntryAddr += 5; // add 5 for 5 op-codes for jmp far
+	void *pNewFunc = &MyDummySetUnhandledExceptionFilter;
+	DWORD dwNewEntryAddr = (DWORD) pNewFunc;
+	DWORD dwRelativeAddr = dwNewEntryAddr - dwOrgEntryAddr;
+
+	newJump[ 0 ] = 0xE9;  // JMP absolute
+	memcpy(&newJump[ 1 ], &dwRelativeAddr, sizeof(pNewFunc));
+	SIZE_T bytesWritten;
+	BOOL bRet = WriteProcessMemory(GetCurrentProcess(),
+	pOrgEntry, newJump, sizeof(pNewFunc) + 1, &bytesWritten);
+	return bRet;
+}
 
 // static
 void  LLWinDebug::initExceptionHandler(LPTOP_LEVEL_EXCEPTION_FILTER filter_func)
@@ -601,6 +763,9 @@ void  LLWinDebug::initExceptionHandler(LPTOP_LEVEL_EXCEPTION_FILTER filter_func)
 
     LPTOP_LEVEL_EXCEPTION_FILTER prev_filter;
 	prev_filter = SetUnhandledExceptionFilter(filter_func);
+
+	// *REMOVE:Mani
+	//PreventSetUnhandledExceptionFilter();
 
 	if(prev_filter != gFilterFunc)
 	{
@@ -736,4 +901,11 @@ void LLWinDebug::generateCrashStacks(struct _EXCEPTION_POINTERS *exception_infop
 	llofstream out_file(log_path);
 	LLSDSerialize::toPrettyXML(info, out_file);
 	out_file.close();
+}
+
+void LLWinDebug::clearCrashStacks()
+{
+	LLSD info;
+	std::string dump_path = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "SecondLifeException.log");
+	LLFile::remove(dump_path);
 }

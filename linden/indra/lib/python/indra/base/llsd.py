@@ -4,7 +4,7 @@
 
 $LicenseInfo:firstyear=2006&license=mit$
 
-Copyright (c) 2006-2008, Linden Research, Inc.
+Copyright (c) 2006-2009, Linden Research, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -36,13 +36,10 @@ import re
 from indra.util.fastest_elementtree import ElementTreeError, fromstring
 from indra.base import lluuid
 
-# cllsd.c in server/server-1.25 has memory leaks,
-#   so disabling cllsd for now
-#try:
-#    import cllsd
-#except ImportError:
-#    cllsd = None
-cllsd = None
+try:
+    import cllsd
+except ImportError:
+    cllsd = None
 
 int_regex = re.compile(r"[-+]?\d+")
 real_regex = re.compile(r"[-+]?(\d+(\.\d*)?|\d*\.\d+)([eE][-+]?\d+)?")
