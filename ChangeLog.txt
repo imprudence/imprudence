@@ -29,6 +29,11 @@
 	* Updated windows iconv archive.
 		
 		modified:   linden/install.xml
+		
+	* Placed the gstreamer plugins in newview where they belong.
+		
+		modified:   linden/indra/cmake/CopyWinLibs.cmake
+		modified:   linden/install.xml
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
