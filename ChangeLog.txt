@@ -3,7 +3,7 @@
 	* Updated Imprudence to be based on SL 1.22.11.
 
 
-	McCabe Maxsted  <hakushakukun@gmail.com>
+  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed CopyWinLibs.CMake errors.
 	
@@ -15,6 +15,10 @@
 		
 		modified:   linden/indra/llaudio/audioengine_openal.cpp
 		modified:   linden/indra/llaudio/audioengine_openal.h
+		
+	* Fixed VC++ warning C4305: '=' : truncation from 'double' to 'float' for mVolume.
+		
+		modified:   linden/indra/llmedia/llmediaimplgstreamer.cpp
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

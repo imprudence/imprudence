@@ -97,8 +97,6 @@ LLMediaImplGStreamer () :
 	LL_DEBUGS("MediaManager") << "constructing media..." << LL_ENDL;
 	mVolume = -1.0; // XXX Hack to make the vould change happend first time
 
-	mVolume = 0.1234567; // minor hack to force an initial volume update
-
 	setMediaDepth(4);
 
 	// Create a pumpable main-loop for this media
