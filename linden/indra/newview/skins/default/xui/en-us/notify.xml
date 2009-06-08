@@ -374,7 +374,7 @@ You cannot fly here.
 	</notify>
 	<notify name="PushRestricted" tip="false" unique="true">
 		<message name="message">
-			This land is &apos;llPushObject Restricted&apos;.
+			This land is &apos;No Pushing&apos;.
 You cannot push others here unless you own the land.
 		</message>
 	</notify>

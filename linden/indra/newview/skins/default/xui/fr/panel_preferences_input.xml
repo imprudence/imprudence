@@ -1,25 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Entrée et Caméra" name="Input panel">
-	<text type="string" length="1" name=" Mouselook Options:">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Contrôle et Caméra" name="Input panel">
+	<text length="1" name=" Mouselook Options:" type="string">
 		Vue subjective :
 	</text>
-	<text type="string" length="1" name=" Mouse Sensitivity:">
+	<text length="1" name=" Mouse Sensitivity:" type="string">
 		Sensibilité de la souris :
 	</text>
-	<text type="string" length="1" name=" Auto Fly Options:">
+	<text length="1" name=" Auto Fly Options:" type="string">
 		Vol automatique :
 	</text>
-	<text type="string" length="1" name=" Camera Options:">
+	<text length="1" name=" Camera Options:" type="string">
 		Options de la caméra :
 	</text>
-	<text type="string" length="1" name="Camera Springiness:">
+	<text length="1" name="Camera Springiness:" type="string">
 		Réactivité :
 	</text>
-	<check_box label="Inverser la souris" name="invert mouse" />
-	<check_box label="Voler/atterrir en appuyant sur la flèche du haut/bas"
-	     name="automatic fly" />
+	<check_box label="Inverser la souris" name="invert_mouse"/>
+	<check_box label="Voler/atterrir en appuyant sur la flèche du haut/bas" name="automatic_fly"/>
 	<text name="Camera Follow Distance:">
-		Distance de la caméra :
+		Distance :
 	</text>
 	<text name="Camera Transition Time:">
 		Temps de transition :
@@ -27,18 +26,14 @@
 	<text name="Camera Smoothing:">
 		Effet de lissage :
 	</text>
-	<check_box label="Ajustement automatique de la caméra en mode Édition"
-	     name="edit camera movement"
-	     tool_tip="Positionner automatiquement la caméra lors de l&apos;entrée ou de la sortie du mode Édition" />
-	<check_box label="Ajustement automatique de la caméra en mode Apparence"
-	     name="appearance camera movement"
-	     tool_tip="Positionner automatiquement la caméra en mode Édition" />
+	<check_box label="Ajustement automatique en mode Édition" name="edit_camera_movement" tool_tip="Positionner automatiquement la caméra lors de l&apos;entrée ou de la sortie du mode Édition"/>
+	<check_box label="Ajustement automatique en mode Édition d&apos;apparence" name="appearance_camera_movement" tool_tip="Positionner automatiquement la caméra en mode Édition"/>
 	<text name="text2">
 		Affichage de l&apos;avatar :
 	</text>
-	<check_box label="Montrer l&apos;avatar dans la vue subjective" name="avfp" />
+	<check_box label="Montrer l&apos;avatar en vue subjective" name="first_person_avatar_visible"/>
 	<text name="text5">
 		Options du joystick :
 	</text>
-	<button label="Configuration du joystick" name="joystic_setup_button" width="175" />
+	<button label="Configuration du joystick" name="joystick_setup_button" width="175"/>
 </panel>

@@ -39,7 +39,7 @@
 	<slider label="遠隔要因" name="Distance Factor" />
 	<slider label="ロールオフ係数" name="Rolloff Factor" />
 	<spinner label="L$変更基準点" name="L$ Change Threshold" />
-	<spinner label="健康変化基準点" name="Health Change Threshold" />
+	<spinner label="ヘルス変化基準点" name="Health Change Threshold" />
 	<text type="string" length="1" name="doppler_effect_text">
 		オーディオ環境設定：
 	</text>

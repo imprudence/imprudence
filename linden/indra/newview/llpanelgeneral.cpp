@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -31,75 +31,15 @@
 
 #include "llviewerprecompiledheaders.h"
 
+//file include
 #include "llpanelgeneral.h"
 
-// linden library includes
-#include "llerror.h"
-#include "llrect.h"
-#include "llfontgl.h"
-#include "message.h"
-#include "lluictrlfactory.h"
-
 // project includes
-#include "llagent.h"
-#include "llviewerwindow.h"
 #include "llcolorswatch.h"
 #include "llcombobox.h"
-#include "llconsole.h"
-#include "lllineeditor.h"
-#include "llpanellogin.h"
-#include "llnetmap.h"
-#include "llresmgr.h"
-#include "llspinctrl.h"
-#include "lltextbox.h"
-#include "llui.h"
+#include "lluictrlfactory.h"
 #include "llurlsimstring.h"
 #include "llviewercontrol.h"
-#include "llurlsimstring.h"
-
-#include "llcheckboxctrl.h"
-#include "llradiogroup.h"
-//
-// Imported globals
-//
-
-void set_crash_behavior(LLUICtrl* ctrl, void* data);
-void set_start_location(LLUICtrl* ctrl, void* data);
-
-
-//
-// Globals
-//
-
-//
-// Static functions
-//
-static void set_render_name_fade_out(LLUICtrl* ctrl, void* data)
-{
-	LLComboBox* combo = (LLComboBox*)ctrl;
-	if (!combo) return;
-	gSavedSettings.setS32("RenderName", combo->getCurrentIndex() );
-}
-
-void set_crash_behavior(LLUICtrl* ctrl, void* data)
-{
-	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, ((LLComboBox*) ctrl)->getCurrentIndex());
-}
-
-void set_language(LLUICtrl* ctrl, void* data)
-{
-    gSavedSettings.setString("Language", ctrl->getValue().asString());
-}
-
-void LLPanelGeneral::set_start_location(LLUICtrl* ctrl, void* data)
-{
-    LLURLSimString::setString(ctrl->getValue().asString());
-}
-
-void LLPanelGeneral::set_specific_start_location(LLLineEditor* line_editor, void* data)
-{
-    LLURLSimString::setString(line_editor->getValue().asString());
-}
 
 LLPanelGeneral::LLPanelGeneral()
 {
@@ -108,50 +48,32 @@ LLPanelGeneral::LLPanelGeneral()
 
 BOOL LLPanelGeneral::postBuild()
 {
-	childSetCommitCallback("fade_out_combobox", set_render_name_fade_out);
-	childSetAction("reset_ui_size", onClickResetUISize, this);
+	LLComboBox* fade_out_combobox = getChild<LLComboBox>("fade_out_combobox");
+	fade_out_combobox->setCurrentByIndex(gSavedSettings.getS32("RenderName"));
 
-	std::string region_name_prompt = getString("region_name_prompt");
+	childSetValue("default_start_location", gSavedSettings.getBOOL("LoginLastLocation") ? "MyLastLocation" : "MyHome");
+	childSetValue("show_location_checkbox", gSavedSettings.getBOOL("ShowStartLocation"));
+	childSetValue("show_all_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitleAll"));
+	childSetValue("language_is_public", gSavedSettings.getBOOL("LanguageIsPublic"));
 
+	childSetValue("show_my_name_checkbox", gSavedSettings.getBOOL("RenderNameHideSelf"));
+	childSetValue("small_avatar_names_checkbox", gSavedSettings.getBOOL("SmallAvatarNames"));
+	childSetValue("show_my_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitle"));
+	childSetValue("afk_timeout_spinner", gSavedSettings.getF32("AFKTimeout"));
+	childSetValue("rotate_mini_map_checkbox", gSavedSettings.getBOOL("MiniMapRotate"));
+	childSetValue("notify_money_change_checkbox", gSavedSettings.getBOOL("NotifyMoneyChange"));
+	childSetValue("use_system_color_picker_checkbox", gSavedSettings.getBOOL("UseDefaultColorPicker"));
+	childSetValue("show_search_panel", gSavedSettings.getBOOL("ShowSearchBar"));
 
-	// location combobox
-	LLComboBox* combo = getChild<LLComboBox>( "location_combobox");
-	if (combo)
-	{
-		if (!LLURLSimString::sInstance.mSimString.empty())
-		{
-			combo->setTextEntry(LLURLSimString::sInstance.mSimString);
-		}
+	getChild<LLColorSwatchCtrl>("effect_color_swatch")->set(gSavedSettings.getColor4("EffectColor"));
+
+	childSetValue("ui_scale_slider", gSavedSettings.getF32("UIScaleFactor"));
+	childSetValue("ui_auto_scale", gSavedSettings.getBOOL("UIAutoScale"));
+
+	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
+	crash_behavior_combobox->setCurrentByIndex(gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING));
 	
-		BOOL login_last = gSavedSettings.getBOOL("LoginLastLocation");
-		if (!LLURLSimString::sInstance.mSimString.empty())
-		{
-			combo->add( LLURLSimString::sInstance.mSimString );
-			combo->setCurrentByIndex( 2 );
-		}
-		else
-		{
-			combo->add( region_name_prompt );
-			combo->setCurrentByIndex( login_last ? 1 : 0 );
-		}
-		combo->setCommitCallback( &set_start_location );
-		combo->setTextEntryCallback( &set_specific_start_location );
-	}
-	
-	// Show location on login screen
-	childSetCommitCallback("show_location_checkbox", &LLPanelGeneral::clickShowStartLocation);
-
-	combo = getChild<LLComboBox>( "crash_behavior_combobox");
-	if (combo)
-	{
-		combo->setCurrentByIndex( gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING) );
-		combo->setCommitCallback( &set_crash_behavior );
-	}
-	
-	childSetCommitCallback("language_combobox", set_language );
 	childSetValue("language_combobox", 	gSavedSettings.getString("Language"));
-
-	refresh();
 
 	return TRUE;
 }
@@ -161,92 +83,34 @@ LLPanelGeneral::~LLPanelGeneral()
 	// Children all cleaned up by default view destructor.
 }
 
-void LLPanelGeneral::refresh()
-{
-	LLPanel::refresh();
-	BOOL login_last = gSavedSettings.getBOOL("LoginLastLocation");
-	LLComboBox* combo = getChild<LLComboBox>( "location_combobox");
-	if (combo)
-	{
-		if (!LLURLSimString::sInstance.mSimString.empty())
-		{
-			combo->setCurrentByIndex( 2 );
-		}
-		else
-		{
-			combo->setCurrentByIndex( login_last ? 1 : 0 );
-		}
-		//save current settings in case cancel is clicked
-		mLoginLocation = combo->getValue().asString();
-	}
-	
-	mOldCrashBehavior = gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING);
-	combo = getChild<LLComboBox>( "crash_behavior_combobox");
-	if (combo)
-	{
-		combo->setCurrentByIndex( mOldCrashBehavior );
-	}
-	
-	mRenderName = gSavedSettings.getS32("RenderName");
-	combo = getChild<LLComboBox>("fade_out_combobox");
-	if (combo)
-	{
-		combo->setCurrentByIndex( mRenderName );
-	}
-
-	mRenderNameHideSelf = gSavedSettings.getBOOL("RenderNameHideSelf");
-	mSmallAvatarNames = gSavedSettings.getBOOL("SmallAvatarNames");
-	mRenderHideGroupTitle = gSavedSettings.getBOOL("RenderHideGroupTitle");
-	mChatOnlineNotification = gSavedSettings.getBOOL("ChatOnlineNotification");
-	mAFKTimeout = gSavedSettings.getF32("AFKTimeout");
-	mMiniMapRotate = gSavedSettings.getBOOL("MiniMapRotate");
-	mMiniMapTeleport = gSavedSettings.getBOOL("MiniMapTeleport");
-	mNotifyMoney = gSavedSettings.getBOOL("NotifyMoneyChange");
-	mUseDefaultColor = gSavedSettings.getBOOL("UseDefaultColorPicker");
-	mEffectColor = gSavedSettings.getColor4("EffectColor");
-	mShowSearch = gSavedSettings.getBOOL("ShowSearchBar");
-
-	mUIScaleFactor = gSavedSettings.getF32("UIScaleFactor");
-	mUIAutoScale = gSavedSettings.getBOOL("UIAutoScale");
-
-	mLanguage = gSavedSettings.getString("Language");
-}
-
 void LLPanelGeneral::apply()
 {
+	LLComboBox* fade_out_combobox = getChild<LLComboBox>("fade_out_combobox");
+	gSavedSettings.setS32("RenderName", fade_out_combobox->getCurrentIndex());
+	
+	gSavedSettings.setBOOL("LoginLastLocation", childGetValue("default_start_location").asString() == "MyLastLocation");
+	gSavedSettings.setBOOL("ShowStartLocation", childGetValue("show_location_checkbox"));
+	gSavedSettings.setBOOL("RenderHideGroupTitleAll", childGetValue("show_all_title_checkbox"));
+	gSavedSettings.setBOOL("LanguageIsPublic", childGetValue("language_is_public"));
+	gSavedSettings.setBOOL("RenderNameHideSelf", childGetValue("show_my_name_checkbox"));
+	gSavedSettings.setBOOL("SmallAvatarNames", childGetValue("small_avatar_names_checkbox"));
+	gSavedSettings.setBOOL("RenderHideGroupTitle", childGetValue("show_my_title_checkbox"));
+	gSavedSettings.setF32("AFKTimeout", childGetValue("afk_timeout_spinner").asReal());
+	gSavedSettings.setBOOL("MiniMapRotate", childGetValue("rotate_mini_map_checkbox"));
+	gSavedSettings.setBOOL("NotifyMoneyChange", childGetValue("notify_money_change_checkbox"));
+	gSavedSettings.setBOOL("UseDefaultColorPicker", childGetValue("use_system_color_picker_checkbox"));
+	gSavedSettings.setBOOL("ShowSearchBar", childGetValue("show_search_panel"));
+	gSavedSettings.setColor4("EffectColor", childGetValue("effect_color_swatch"));
+	gSavedSettings.setF32("UIScaleFactor", childGetValue("ui_scale_slider").asReal());
+	gSavedSettings.setBOOL("UIAutoScale", childGetValue("ui_auto_scale"));
+	gSavedSettings.setString("Language", childGetValue("language_combobox"));
+
+	LLURLSimString::setString(childGetValue("location_combobox"));
+
+	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
+	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, crash_behavior_combobox->getCurrentIndex());
 }
 
 void LLPanelGeneral::cancel()
 {
-	gSavedSettings.setS32("RenderName", mRenderName);
-	gSavedSettings.setBOOL("RenderNameHideSelf", mRenderNameHideSelf );
-	gSavedSettings.setBOOL("SmallAvatarNames", mSmallAvatarNames );
-	gSavedSettings.setBOOL("RenderHideGroupTitle", mRenderHideGroupTitle );
-	gSavedSettings.setBOOL("ChatOnlineNotification", mChatOnlineNotification );
-	gSavedSettings.setF32("AFKTimeout", mAFKTimeout );
-	gSavedSettings.setBOOL("MiniMapRotate", mMiniMapRotate );
-	gSavedSettings.setBOOL("MiniMapTeleport", mMiniMapTeleport);
-	gSavedSettings.setBOOL("NotifyMoneyChange", mNotifyMoney );
-	gSavedSettings.setBOOL("UseDefaultColorPicker", mUseDefaultColor );
-	gSavedSettings.setBOOL("ShowSearchBar", mShowSearch);
-	gSavedSettings.setColor4("EffectColor", mEffectColor );
-	gSavedSettings.setF32("UIScaleFactor", mUIScaleFactor);
-	gSavedSettings.setBOOL("UIAutoScale", mUIAutoScale);
-	gSavedSettings.setString("Language", mLanguage);
-	
-	LLURLSimString::setString(mLoginLocation);
-
-	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, mOldCrashBehavior);
-}
-
-void LLPanelGeneral::clickShowStartLocation(LLUICtrl*, void* user_data)
-{
-	LLPanelLogin::refreshLocation( false ); // in case LLPanelLogin is visible
-}
-
-// static
-void LLPanelGeneral::onClickResetUISize(void* user_data)
-{
-	gSavedSettings.setF32("UIScaleFactor", 1.0f);
-	gViewerWindow->reshape(gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight());
 }

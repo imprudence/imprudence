@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2007-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -46,7 +46,7 @@
 #include "llviewerjoystick.h"
 
 LLFloaterJoystick::LLFloaterJoystick(const LLSD& data)
-	: LLFloater(std::string("floater_joystick"))
+	: LLFloater("floater_joystick")
 {
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_joystick.xml");
 	center();

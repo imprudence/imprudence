@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -60,8 +60,6 @@
 // SJB: We really always want to use the GL cache;
 // let GL page textures in and out of video RAM instead of trying to do so by hand.
 
-LLGradientPaletteList gGradientPaletteList;
-
 // static
 S32 LLTexLayerSetBuffer::sGLByteCount = 0;
 S32 LLTexLayerSetBuffer::sGLBumpByteCount = 0;
@@ -95,48 +93,73 @@ LLTexLayerSetBuffer::LLTexLayerSetBuffer( LLTexLayerSet* owner, S32 width, S32 h
 	mNeedsUpdate( TRUE ),
 	mNeedsUpload( FALSE ),
 	mUploadPending( FALSE ), // Not used for any logic here, just to sync sending of updates
-	mTexLayerSet( owner ),
-	mInitialized( FALSE ),
-	mBumpTexName(0)
+	mTexLayerSet( owner )	
 {
 	LLTexLayerSetBuffer::sGLByteCount += getSize();
+	mHasBump = has_bump ;
+	mBumpTex = NULL ;
 
-	if( has_bump )
-	{
-		LLGLSUIDefault gls_ui;
-		glGenTextures(1, (GLuint*) &mBumpTexName);
-
-		LLImageGL::bindExternalTexture(mBumpTexName, 0, GL_TEXTURE_2D); 
-		stop_glerror();
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-		stop_glerror();
-
-		LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
-
-		LLImageGL::sGlobalTextureMemory += mWidth * mHeight * 4;
-		LLTexLayerSetBuffer::sGLBumpByteCount += mWidth * mHeight * 4;
-	}
+	createBumpTexture() ;
 }
 
 LLTexLayerSetBuffer::~LLTexLayerSetBuffer()
 {
 	LLTexLayerSetBuffer::sGLByteCount -= getSize();
 
-	if( mBumpTexName )
+	if( mBumpTex.notNull())
 	{
-		glDeleteTextures(1, (GLuint*) &mBumpTexName);
-		stop_glerror();
-		mBumpTexName = 0;
-
+		mBumpTex = NULL ;
 		LLImageGL::sGlobalTextureMemory -= mWidth * mHeight * 4;
 		LLTexLayerSetBuffer::sGLBumpByteCount -= mWidth * mHeight * 4;
+	}
+}
+//virtual 
+void LLTexLayerSetBuffer::restoreGLTexture() 
+{	
+	createBumpTexture() ;
+	LLDynamicTexture::restoreGLTexture() ;
+}
+
+//virtual 
+void LLTexLayerSetBuffer::destroyGLTexture() 
+{
+	if( mBumpTex.notNull() )
+	{
+		mBumpTex = NULL ;
+		LLImageGL::sGlobalTextureMemory -= mWidth * mHeight * 4;
+		LLTexLayerSetBuffer::sGLBumpByteCount -= mWidth * mHeight * 4;
+	}
+
+	LLDynamicTexture::destroyGLTexture() ;
+}
+
+void LLTexLayerSetBuffer::createBumpTexture()
+{
+	if( mHasBump )
+	{
+		LLGLSUIDefault gls_ui;
+		mBumpTex = new LLImageGL(FALSE) ;
+		if(!mBumpTex->createGLTexture())
+		{
+			mBumpTex = NULL ;
+			return ;
+		}
+
+		gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mBumpTex->getTexName());
+		stop_glerror();
+
+		gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, mWidth, mHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+		stop_glerror();
+
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+
+		LLImageGL::sGlobalTextureMemory += mWidth * mHeight * 4;
+		LLTexLayerSetBuffer::sGLBumpByteCount += mWidth * mHeight * 4;
 	}
 }
 
@@ -248,7 +271,7 @@ BOOL LLTexLayerSetBuffer::render()
 	BOOL success = TRUE;
 
 	// Composite bump
-	if( mBumpTexName )
+	if( mBumpTex.notNull() )
 	{
 		// Composite the bump data
 		success &= mTexLayerSet->renderBump( mOrigin.mX, mOrigin.mY, mWidth, mHeight );
@@ -259,7 +282,7 @@ BOOL LLTexLayerSetBuffer::render()
 			LLGLSUIDefault gls_ui;
 
 			// read back into texture (this is done externally for the color data)
-			LLImageGL::bindExternalTexture( mBumpTexName, 0, GL_TEXTURE_2D ); 
+			gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mBumpTex->getTexName());
 			stop_glerror();
 
 			glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mOrigin.mX, mOrigin.mY, mWidth, mHeight);
@@ -299,10 +322,15 @@ BOOL LLTexLayerSetBuffer::render()
 	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 
 	// we have valid texture data now
-	mInitialized = TRUE;
+	mTexture->setGLTextureCreated(true);
 	mNeedsUpdate = FALSE;
 
 	return success;
+}
+
+bool LLTexLayerSetBuffer::isInitialized(void) const
+{
+	return mTexture.notNull() && mTexture->isGLTextureCreated();
 }
 
 BOOL LLTexLayerSetBuffer::updateImmediate()
@@ -350,11 +378,11 @@ void LLTexLayerSetBuffer::readBackAndUpload(U8* baked_bump_data)
 	// writes into baked_color_data
 	const char* comment_text = NULL;
 
-	S32 baked_image_components = mBumpTexName ? 5 : 4; // red green blue [bump] clothing
+	S32 baked_image_components = mBumpTex.notNull() ? 5 : 4; // red green blue [bump] clothing
 	LLPointer<LLImageRaw> baked_image = new LLImageRaw( mWidth, mHeight, baked_image_components );
 	U8* baked_image_data = baked_image->getData();
 	
-	if( mBumpTexName )
+	if( mBumpTex.notNull() )
 	{
 		comment_text = LINDEN_J2C_COMMENT_PREFIX "RGBHM"; // 5 channels: rgb, heightfield/alpha, mask
 
@@ -551,24 +579,12 @@ void LLTexLayerSetBuffer::onTextureUploadComplete(const LLUUID& uuid, void* user
 	delete baked_upload_data;
 }
 
-
-void LLTexLayerSetBuffer::bindTexture()
-{
-	if( mInitialized )
-	{
-		LLDynamicTexture::bindTexture();
-	}
-	else
-	{
-		gImageList.getImage(IMG_DEFAULT)->bind();
-	}
-}
-
 void LLTexLayerSetBuffer::bindBumpTexture( U32 stage )
 {
-	if( mBumpTexName ) 
+	if( mBumpTex.notNull() ) 
 	{
-		LLImageGL::bindExternalTexture(mBumpTexName, stage, GL_TEXTURE_2D); 
+		gGL.getTexUnit(stage)->bindManual(LLTexUnit::TT_TEXTURE, mBumpTex->getTexName());
+		gGL.getTexUnit(0)->activate();
 	
 		if( mLastBindTime != LLImageGL::sLastFrameTime )
 		{
@@ -578,7 +594,8 @@ void LLTexLayerSetBuffer::bindBumpTexture( U32 stage )
 	}
 	else
 	{
-		LLImageGL::unbindTexture(stage, GL_TEXTURE_2D);
+		gGL.getTexUnit(stage)->unbind(LLTexUnit::TT_TEXTURE);
+		gGL.getTexUnit(0)->activate();
 	}
 }
 
@@ -786,7 +803,7 @@ BOOL LLTexLayerSet::render( S32 x, S32 y, S32 width, S32 height )
 			if( image_gl )
 			{
 				LLGLSUIDefault gls_ui;
-				image_gl->bind();
+				gGL.getTexUnit(0)->bind(image_gl);
 				gl_rect_2d_simple_tex( width, height );
 			}
 			else
@@ -794,7 +811,7 @@ BOOL LLTexLayerSet::render( S32 x, S32 y, S32 width, S32 height )
 				success = FALSE;
 			}
 		}
-		LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 		gGL.flush();
 		gGL.setColorMask(true, true);
@@ -804,7 +821,8 @@ BOOL LLTexLayerSet::render( S32 x, S32 y, S32 width, S32 height )
 	if( getInfo()->mClearAlpha )
 	{
 		// Set the alpha channel to one (clean up after previous blending)
-		LLGLSNoTextureNoAlphaTest gls_no_alpha;
+		LLGLDisable no_alpha(GL_ALPHA_TEST);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		gGL.color4f( 0.f, 0.f, 0.f, 1.f );
 		gGL.flush();
 		gGL.setColorMask(false, true);
@@ -838,7 +856,8 @@ BOOL LLTexLayerSet::renderBump( S32 x, S32 y, S32 width, S32 height )
 	}
 
 	// Set the alpha channel to one (clean up after previous blending)
-	LLGLSNoTextureNoAlphaTest gls_no_texture_no_alpha;
+	LLGLDisable no_alpha(GL_ALPHA_TEST);
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	gGL.color4f( 0.f, 0.f, 0.f, 1.f );
 	gGL.setColorMask(false, true);
 
@@ -1358,13 +1377,13 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 					BOOL old_clamps = image_gl->getClampS();
 					BOOL old_clampt = image_gl->getClampT();
 					
-					image_gl->bind();
+					gGL.getTexUnit(0)->bind(image_gl);
 					image_gl->setClamp(TRUE, TRUE);
 
 					gl_rect_2d_simple_tex( width, height );
 
 					image_gl->setClamp(old_clamps, old_clampt);
-					image_gl->unbindTexture(0, GL_TEXTURE_2D);
+					gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				}
 			}
 			else
@@ -1380,9 +1399,9 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 			LLImageGL* image_gl = gTexStaticImageList.getImageGL( getInfo()->mStaticImageFileName, getInfo()->mStaticImageIsMask );
 			if( image_gl )
 			{
-				image_gl->bind();
+				gGL.getTexUnit(0)->bind(image_gl);
 				gl_rect_2d_simple_tex( width, height );
-				image_gl->unbindTexture(0, GL_TEXTURE_2D);
+				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			}
 			else
 			{
@@ -1396,7 +1415,8 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 		getInfo()->mStaticImageFileName.empty() &&
 		color_specified )
 	{
-		LLGLSNoTextureNoAlphaTest gls;
+		LLGLDisable no_alpha(GL_ALPHA_TEST);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		gGL.color4fv( net_color.mV);
 		gl_rect_2d_simple( width, height );
 	}
@@ -1518,7 +1538,8 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 	// Note: if the first param is a mulitply, multiply against the current buffer's alpha
 	if( !first_param || !first_param->getMultiplyBlend() )
 	{
-		LLGLSNoTextureNoAlphaTest gls_no_texture_no_alpha_test;
+		LLGLDisable no_alpha(GL_ALPHA_TEST);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	
 		// Clear the alpha
 		gGL.flush();
@@ -1555,13 +1576,13 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 
 					BOOL old_clamps = image_gl->getClampS();
 					BOOL old_clampt = image_gl->getClampT();					
-					image_gl->bind();
+					gGL.getTexUnit(0)->bind(image_gl);
 					image_gl->setClamp(TRUE, TRUE);
 
 					gl_rect_2d_simple_tex( width, height );
 
 					image_gl->setClamp(old_clamps, old_clampt);
-					image_gl->unbindTexture(0, GL_TEXTURE_2D);
+					gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				}
 			}
 			else
@@ -1581,9 +1602,9 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 					( (image_gl->getComponents() == 1) && getInfo()->mStaticImageIsMask ) )
 				{
 					LLGLSNoAlphaTest gls_no_alpha_test;
-					image_gl->bind();
+					gGL.getTexUnit(0)->bind(image_gl);
 					gl_rect_2d_simple_tex( width, height );
-					image_gl->unbindTexture(0, GL_TEXTURE_2D);
+					gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				}
 			}
 			else
@@ -1597,7 +1618,8 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 	// Note: we're still using gGL.blendFunc( GL_DST_ALPHA, GL_ZERO );
 	if( colorp->mV[VW] != 1.f )
 	{
-		LLGLSNoTextureNoAlphaTest gls_no_texture_no_alpha_test;
+		LLGLDisable no_alpha(GL_ALPHA_TEST);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		gGL.color4fv( colorp->mV );
 		gl_rect_2d_simple( width, height );
 	}
@@ -1700,7 +1722,7 @@ BOOL LLTexLayer::renderImageRaw( U8* in_data, S32 in_width, S32 in_height, S32 i
 		glGenTextures(1, &name );
 		stop_glerror();
 
-		LLImageGL::bindExternalTexture( name, 0, GL_TEXTURE_2D ); 
+		gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, name);
 		stop_glerror();
 
 		glTexImage2D(
@@ -1712,12 +1734,11 @@ BOOL LLTexLayer::renderImageRaw( U8* in_data, S32 in_width, S32 in_height, S32 i
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 
 		gl_rect_2d_simple_tex( width, height );
 
-		LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 		glDeleteTextures(1, &name );
 		stop_glerror();
@@ -1736,7 +1757,7 @@ BOOL LLTexLayer::renderImageRaw( U8* in_data, S32 in_width, S32 in_height, S32 i
 
 		gl_rect_2d_simple_tex( width, height );
 
-		LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	}
 
 	return TRUE;
@@ -1799,8 +1820,6 @@ BOOL LLTexLayerParamAlphaInfo::parseXml(LLXmlTreeNode* node)
 
 	static LLStdStringHandle domain_string = LLXmlTree::addAttributeString("domain");
 	param_alpha_node->getFastAttributeF32( domain_string, mDomain );
-
-	gGradientPaletteList.initPalette(mDomain);
 
 	return TRUE;
 }
@@ -1996,7 +2015,7 @@ BOOL LLTexLayerParamAlpha::render( S32 x, S32 y, S32 width, S32 height )
 		if(	!mCachedProcessedImageGL ||
 			(mCachedProcessedImageGL->getWidth() != image_tga_width) ||
 			(mCachedProcessedImageGL->getHeight() != image_tga_height) ||
-			(weight_changed && !(gGLManager.mHasPalettedTextures && gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_PALETTE))) )
+			(weight_changed ))
 		{
 //			llinfos << "Building Cached Alpha: " << mName << ": (" << mStaticImageRaw->getWidth() << ", " << mStaticImageRaw->getHeight() << ") " << effective_weight << llendl;
 			mCachedEffectiveWeight = effective_weight;
@@ -2008,71 +2027,34 @@ BOOL LLTexLayerParamAlpha::render( S32 x, S32 y, S32 width, S32 height )
 				// We now have something in one of our caches
 				LLTexLayerSet::sHasCaches |= mCachedProcessedImageGL ? TRUE : FALSE;
 
-				if (gGLManager.mHasPalettedTextures && gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_PALETTE))
-				{
-					// interpret luminance values as color index table
-					mCachedProcessedImageGL->setExplicitFormat( GL_COLOR_INDEX8_EXT, GL_COLOR_INDEX ); 
-				}
-				else
-				{
-					mCachedProcessedImageGL->setExplicitFormat( GL_ALPHA8, GL_ALPHA );
-				}
+
+				mCachedProcessedImageGL->setExplicitFormat( GL_ALPHA8, GL_ALPHA );
 			}
 
 			// Applies domain and effective weight to data as it is decoded. Also resizes the raw image if needed.
-			if (gGLManager.mHasPalettedTextures && gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_PALETTE))
-			{
-				mStaticImageRaw = NULL;
-				mStaticImageRaw = new LLImageRaw;
-				mStaticImageTGA->decode(mStaticImageRaw);
-				mNeedsCreateTexture = TRUE;
-			}
-			else
-			{
-				mStaticImageRaw = NULL;
-				mStaticImageRaw = new LLImageRaw;
-				mStaticImageTGA->decodeAndProcess( mStaticImageRaw, getInfo()->mDomain, effective_weight );
-				mNeedsCreateTexture = TRUE;
-			}
+			mStaticImageRaw = NULL;
+			mStaticImageRaw = new LLImageRaw;
+			mStaticImageTGA->decodeAndProcess( mStaticImageRaw, getInfo()->mDomain, effective_weight );
+			mNeedsCreateTexture = TRUE;
 		}
 
 		if( mCachedProcessedImageGL )
 		{
 			{
-				if (gGLManager.mHasPalettedTextures && gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_PALETTE))
+				// Create the GL texture, and then hang onto it for future use.
+				if( mNeedsCreateTexture )
 				{
-					if( mNeedsCreateTexture )
-					{
-						mCachedProcessedImageGL->createGLTexture(0, mStaticImageRaw);
-						mNeedsCreateTexture = FALSE;
-						
-						mCachedProcessedImageGL->bind();
-						mCachedProcessedImageGL->setClamp(TRUE, TRUE);
-					}
+					mCachedProcessedImageGL->createGLTexture(0, mStaticImageRaw);
+					mNeedsCreateTexture = FALSE;
+					
+					gGL.getTexUnit(0)->bind(mCachedProcessedImageGL);
+					mCachedProcessedImageGL->setClamp(TRUE, TRUE);
+				}
 
-					LLGLSNoAlphaTest gls_no_alpha_test;
-					mCachedProcessedImageGL->bind();
-					gGradientPaletteList.setHardwarePalette( getInfo()->mDomain, effective_weight );
-					gl_rect_2d_simple_tex( width, height );
-					mCachedProcessedImageGL->unbindTexture(0, GL_TEXTURE_2D);
-				}
-				else
-				{
-					// Create the GL texture, and then hang onto it for future use.
-					if( mNeedsCreateTexture )
-					{
-						mCachedProcessedImageGL->createGLTexture(0, mStaticImageRaw);
-						mNeedsCreateTexture = FALSE;
-						
-						mCachedProcessedImageGL->bind();
-						mCachedProcessedImageGL->setClamp(TRUE, TRUE);
-					}
-				
-					LLGLSNoAlphaTest gls_no_alpha_test;
-					mCachedProcessedImageGL->bind();
-					gl_rect_2d_simple_tex( width, height );
-					mCachedProcessedImageGL->unbindTexture(0, GL_TEXTURE_2D);
-				}
+				LLGLSNoAlphaTest gls_no_alpha_test;
+				gGL.getTexUnit(0)->bind(mCachedProcessedImageGL);
+				gl_rect_2d_simple_tex( width, height );
+				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				stop_glerror();
 			}
 		}
@@ -2086,7 +2068,8 @@ BOOL LLTexLayerParamAlpha::render( S32 x, S32 y, S32 width, S32 height )
 	}
 	else
 	{
-		LLGLSNoTextureNoAlphaTest gls_no_texture_no_alpha_test;
+		LLGLDisable no_alpha(GL_ALPHA_TEST);
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		gGL.color4f( 0.f, 0.f, 0.f, effective_weight );
 		gl_rect_2d_simple( width, height );
 	}
@@ -2519,7 +2502,7 @@ LLImageGL* LLTexStaticImageList::getImageGL(const std::string& file_name, BOOL i
 			}
 			image_gl->createGLTexture(0, image_raw);
 
-			image_gl->bind();
+			gGL.getTexUnit(0)->bind(image_gl);
 			image_gl->setClamp(TRUE, TRUE);
 
 			mStaticImageListGL [ namekey ] = image_gl;
@@ -2559,68 +2542,3 @@ LLMaskedMorph::LLMaskedMorph( LLPolyMorphTarget *morph_target, BOOL invert ) : m
 	morph_target->addPendingMorphMask();
 }
 
-
-//-----------------------------------------------------------------------------
-// LLGradientPaletteList
-//-----------------------------------------------------------------------------
-
-LLGradientPaletteList::~LLGradientPaletteList()
-{
-	// Note: can't just call deleteAllData() because the data values are arrays.
-	for( palette_map_t::iterator iter = mPaletteMap.begin();
-		 iter != mPaletteMap.end(); iter++ )
-	{
-		U8* data = iter->second;
-		delete []data;
-	}
-}
-
-void LLGradientPaletteList::initPalette(F32 domain)
-{
-	palette_map_t::iterator iter = mPaletteMap.find( domain );
-	if( iter == mPaletteMap.end() )
-	{
-		U8 *palette = new U8[512 * 4];
-		mPaletteMap[domain] = palette;
-		S32 ramp_start = 255 - llfloor(domain * 255.f);
-		S32 ramp_end = 255;
-		F32 ramp_factor = (ramp_end == ramp_start) ? 0.f : (255.f / ((F32)ramp_end - (F32)ramp_start));
-
-		// *TODO: move conditionals outside of loop, since this really
-		// is just a sequential process.
-		for (S32 i = 0; i < 512; i++)
-		{
-			palette[(i * 4) + 1] = 0;
-			palette[(i * 4) + 2] = 0;
-			if (i <= ramp_start)
-			{
-				palette[(i * 4)] = 0;
-				palette[(i * 4) + 3] = 0;
-			}
-			else if (i < ramp_end)
-			{
-				palette[(i * 4)] = llfloor(((F32)i - (F32)ramp_start) * ramp_factor);
-				palette[(i * 4) + 3] = llfloor(((F32)i - (F32)ramp_start) * ramp_factor);
-			}
-			else
-			{
-				palette[(i * 4)] = 255;
-				palette[(i * 4) + 3] = 255;
-			}
-		}
-	}
-}
-
-void LLGradientPaletteList::setHardwarePalette( F32 domain, F32 effective_weight )
-{
-	palette_map_t::iterator iter = mPaletteMap.find( domain );
-	if( iter != mPaletteMap.end() )
-	{
-		U8* palette = iter->second;
-		set_palette( palette + llfloor(effective_weight * (255.f * (1.f - domain))) * 4);
-	}
-	else
-	{
-		llwarns << "LLGradientPaletteList::setHardwarePalette() missing domain " << domain << llendl;
-	}
-}

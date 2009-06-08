@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel
+	 name="media_controls">
+	<icon
+		 label=""
+		 name="music_icon"
+		 tool_tip="播放或暂停音乐流" />
+	<button
+		 label=""
+		 name="music_play"
+		 tool_tip="播放或暂停音乐流" />
+  <button
+		 label=""
+		 name="music_pause"
+		 tool_tip="暂停音乐流" />
+  <button
+		 label=""
+		 name="music_stop"
+		 tool_tip="停止音乐流" />
+  <icon
+		 label=""
+		 name="media_icon"
+		 tool_tip="播放或暂停音乐流" />
+  <button
+		 image_disabled="flyout_btn_left_disabled.tga"
+		 label=""
+		 name="media_play"
+		 tool_tip="播放或暂停音乐流" />
+  <button
+		 image_disabled="flyout_btn_left_disabled.tga"
+		 label=""
+		 name="media_pause"
+		 tool_tip="暂停媒体流" />
+	<button
+		 label=""
+		 name="media_stop"
+		 tool_tip="停止媒体流" />
+	<volume_slider
+		 name="volume_slider"
+		 tool_tip="主音量" />
+	<button
+		 label=""
+		 name="mute_master"
+		 tool_tip="全部禁音" />
+	<button
+		 name="expand"
+		 tool_tip="单独调节音量大小" />
+ 
+	<string
+		 name="play_label">
+		播放
+	</string>
+	<string
+		 name="stop_label">
+		停止
+	</string>
+	<string
+		 name="pause_label">
+		暂停
+	</string>
+	<string
+		 name="default_tooltip_label">
+		没有设定媒体
+	</string>
+	<string
+		 name="media_hidden_label">
+		(URL 被地块拥有者隐藏)
+	</string>
+	<string
+		 name="media_icon_tooltip_web">
+		该地点显示 World Wide Web 上的内容。点击播放按钮显示网络内容。
+	</string>
+	<string
+		 name="media_icon_tooltip_movie">
+		该地点显示视频内容。点击播放按钮播放视频。
+	</string>
+	<string
+		 name="media_play_tooltip">
+		在该地点显示网络内容。
+	</string>
+</panel>
+
+

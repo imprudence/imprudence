@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 min_height="180"
+	 min_width="400"
+	 name="Day Cycle Floater"
+	 title="日夜周期编辑器">
+	<tab_container
+		 name="Day Cycle Tabs"
+		 tab_position="top">
+		<panel
+			 label="日夜周期"
+			 name="Day Cycle">
+			<button
+				 label="?"
+				 name="WLDayCycleHelp" />
+			<text
+				 name="WL12am">
+				 上午12时
+			</text>
+			<text
+				 name="WL3am">
+				上午3时
+			</text>
+			<text
+				 name="WL6am">
+				上午6时
+			</text>
+			<text
+				 name="WL9amHash">
+				上午9时
+			</text>
+			<text
+				 name="WL12pmHash">
+				下午12时
+			</text>
+			<text
+				 name="WL3pm">
+				下午3时
+			</text>
+			<text
+				 name="WL6pm">
+				下午6时
+			</text>
+			<text
+				 name="WL9pm">
+				下午9时
+			</text>
+			<text
+				 name="WL12am2">
+				 上午12时
+			</text>
+			<button
+				 label="添加键"
+				 label_selected="Add Key"
+				 name="WLAddKey" />
+			<button
+				 label="删除键"
+				 label_selected="Delete Key"
+				 name="WLDeleteKey" />
+			<text
+				 name="WLCurKeyFrameText">
+				关键帧设定:
+			</text>
+			<text
+				 name="WLCurKeyTimeText">
+				键时间:
+			</text>
+			<spinner
+				 label="时"
+				 name="WLCurKeyHour" />
+			<spinner
+				 label="分"
+				 name="WLCurKeyMin" />
+			<text
+				 name="WLCurKeyTimeText2">
+				键预设:
+			</text>
+			<combo_box
+				 allow_text_entry="false"
+				 label="Preset"
+				 max_chars="20"
+				 name="WLKeyPresets" />
+			<view_border />
+			<text
+				 name="DayCycleText">
+				捕捉:
+			</text>
+			<combo_box
+				 allow_text_entry="false"
+				 label="5 min"
+				 max_chars="20"
+				 name="WLSnapOptions" />
+			<text
+				 name="DayCycleText2">
+				周期长度:
+			</text>
+			<spinner
+				 label="时"
+				 name="WLLengthOfDayHour" />
+			<spinner
+				 label="分"
+				 name="WLLengthOfDayMin" />
+			<spinner
+				 label="秒"
+				 name="WLLengthOfDaySec" />
+			<text
+				 name="DayCycleText3">
+				预览:
+			</text>
+			<button
+				 label="播放"
+				 label_selected="Play"
+				 name="WLAnimSky" />
+			<button
+				 label="停止!"
+				 label_selected="Stop"
+				 name="WLStopAnimSky" />
+			<button
+				 label="使用地产时间"
+				 label_selected="使用地产时间"
+				 name="WLUseLindenTime" />
+			<button
+				 label="保存测试日"
+				 label_selected="Save Test Day"
+				 name="WLSaveDayCycle" />
+			<button
+				 label="读取测试日"
+				 label_selected="Load Test Day"
+				 name="WLLoadDayCycle" />
+		</panel>
+	</tab_container>
+</floater>
+

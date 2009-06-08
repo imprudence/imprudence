@@ -1,5 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater label="(desconhecido)" name="im_floater">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(desconhecido)" name="im_floater" title="(desconhecido)">
+	<string name="ringing">
+		Juntar-se à Conversa por Voz...
+	</string>
+	<string name="connected">
+		Conectado, clique Encerrar Chamada para deixar em espera
+	</string>
+	<string name="hang_up">
+		Deixar a Conversa por Voz
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
 	<string name="title_string">
 		Mensagem Instantânea com [NAME]
 	</string>
@@ -10,11 +22,15 @@
 		Iniciando uma sessaão com [NAME] por favor aguarde.
 	</string>
 	<string name="default_text_label">
-		Clique aqui para mensagens instantâneas.
+		Clique aqui para mensagem instantânea.
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<line_editor label="Clique aqui para mensagens instantâneas" name="chat_editor" />
+			<button label="Chamar" name="start_call_btn"/>
+			<button label="Encerrar Chamada" name="end_call_btn"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Clique aqui para trocar uma lista de participantes ativos nesta sessão de MI."/>
+			<line_editor label="Clique aqui para mensagem instantânea" name="chat_editor"/>
+			<button label="Enviar" name="send_btn"/>
 		</layout_panel>
 	</layout_stack>
 	<string name="live_help_dialog">

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -35,6 +35,7 @@
  
 #include "lllineeditor.h"
 
+#include "lltexteditor.h"
 #include "audioengine.h"
 #include "llmath.h"
 #include "llfontgl.h"
@@ -455,19 +456,19 @@ BOOL LLLineEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 		BOOL doSelectAll = TRUE;
 
 		// Select the word we're on
-		if( isPartOfWord( wtext[mCursorPos] ) )
+		if( LLTextEditor::isPartOfWord( wtext[mCursorPos] ) )
 		{
 			S32 old_selection_start = mLastSelectionStart;
 			S32 old_selection_end = mLastSelectionEnd;
 
 			// Select word the cursor is over
-			while ((mCursorPos > 0) && isPartOfWord( wtext[mCursorPos-1] ))
+			while ((mCursorPos > 0) && LLTextEditor::isPartOfWord( wtext[mCursorPos-1] ))
 			{	// Find the start of the word
 				mCursorPos--;
 			}
 			startSelection();	
 
-			while ((mCursorPos < (S32)wtext.length()) && isPartOfWord( wtext[mCursorPos] ) )
+			while ((mCursorPos < (S32)wtext.length()) && LLTextEditor::isPartOfWord( wtext[mCursorPos] ) )
 			{	// Find the end of the word
 				mCursorPos++;
 			}
@@ -769,7 +770,7 @@ S32 LLLineEditor::prevWordPos(S32 cursorPos) const
 	{
 		cursorPos--;
 	}
-	while( (cursorPos > 0) && isPartOfWord( wtext[cursorPos-1] ) )
+	while( (cursorPos > 0) && LLTextEditor::isPartOfWord( wtext[cursorPos-1] ) )
 	{
 		cursorPos--;
 	}
@@ -779,7 +780,7 @@ S32 LLLineEditor::prevWordPos(S32 cursorPos) const
 S32 LLLineEditor::nextWordPos(S32 cursorPos) const
 {
 	const LLWString& wtext = mText.getWString();
-	while( (cursorPos < getLength()) && isPartOfWord( wtext[cursorPos] ) )
+	while( (cursorPos < getLength()) && LLTextEditor::isPartOfWord( wtext[cursorPos] ) )
 	{
 		cursorPos++;
 	} 
@@ -1427,7 +1428,7 @@ void LLLineEditor::draw()
 #else // the old programmer art.
 	// drawing solids requires texturing be disabled
 	{
-		LLGLSNoTexture no_texture;
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		// draw background for text
 		if( !mReadOnly )
 		{
@@ -1822,9 +1823,6 @@ BOOL LLLineEditor::prevalidateFloat(const LLWString &str)
 	return success;
 }
 
-//static
-BOOL LLLineEditor::isPartOfWord(llwchar c) { return (c == '_') || isalnum(c); }
-
 // static
 BOOL LLLineEditor::postvalidateFloat(const std::string &str)
 {
@@ -1998,7 +1996,7 @@ BOOL LLLineEditor::prevalidateAlphaNum(const LLWString &str)
 	if(len == 0) return rv;
 	while(len--)
 	{
-		if( !isalnum(str[len]) )
+		if( !LLStringOps::isAlnum((char)str[len]) )
 		{
 			rv = FALSE;
 			break;
@@ -2017,7 +2015,7 @@ BOOL LLLineEditor::prevalidateAlphaNumSpace(const LLWString &str)
 	if(len == 0) return rv;
 	while(len--)
 	{
-		if(!(isalnum(str[len]) || (' ' == str[len])))
+		if(!(LLStringOps::isAlnum((char)str[len]) || (' ' == str[len])))
 		{
 			rv = FALSE;
 			break;
@@ -2039,7 +2037,7 @@ BOOL LLLineEditor::prevalidatePrintableNotPipe(const LLWString &str)
 			rv = FALSE;
 			break;
 		}
-		if(!((' ' == str[len]) || isalnum(str[len]) || ispunct(str[len])))
+		if(!((' ' == str[len]) || LLStringOps::isAlnum((char)str[len]) || LLStringOps::isPunct((char)str[len])))
 		{
 			rv = FALSE;
 			break;
@@ -2057,12 +2055,13 @@ BOOL LLLineEditor::prevalidatePrintableNoSpace(const LLWString &str)
 	if(len == 0) return rv;
 	while(len--)
 	{
-		if(iswspace(str[len]))
+		if(LLStringOps::isSpace(str[len]))
 		{
 			rv = FALSE;
 			break;
 		}
-		if( !(isalnum(str[len]) || ispunct(str[len]) ) )
+		if( !(LLStringOps::isAlnum((char)str[len]) ||
+		      LLStringOps::isPunct((char)str[len]) ) )
 		{
 			rv = FALSE;
 			break;
@@ -2313,7 +2312,7 @@ LLView* LLLineEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory
 }
 
 //static
-void LLLineEditor::cleanupClass()
+void LLLineEditor::cleanupLineEditor()
 {
 	sImage = NULL;
 }

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -141,6 +141,14 @@ void audio_update_volume(bool force_update)
 		{
 			audio_update_wind(true);
 		}
+
+		// handle secondary gains
+		gAudiop->setSecondaryGain(LLAudioEngine::AUDIO_TYPE_SFX,
+								  gSavedSettings.getBOOL("MuteSounds") ? 0.f : gSavedSettings.getF32("AudioLevelSFX"));
+		gAudiop->setSecondaryGain(LLAudioEngine::AUDIO_TYPE_UI,
+								  gSavedSettings.getBOOL("MuteUI") ? 0.f : gSavedSettings.getF32("AudioLevelUI"));
+		gAudiop->setSecondaryGain(LLAudioEngine::AUDIO_TYPE_AMBIENT,
+								  gSavedSettings.getBOOL("MuteAmbient") ? 0.f : gSavedSettings.getF32("AudioLevelAmbient"));
 	}
 
 	// Streaming Music

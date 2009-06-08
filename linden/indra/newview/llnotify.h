@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -179,6 +179,9 @@ public:
 	// Walks the list and removes any stacked messages for which the given matcher returns TRUE.
 	// Useful when muting people and things in order to clear out any similar previously queued messages.
 	void purgeMessagesMatching(const Matcher& matcher);
+
+private:
+	bool isGroupNotifyBox(const LLView* view) const ;
 };
 
 // This view contains the stack of notification windows.

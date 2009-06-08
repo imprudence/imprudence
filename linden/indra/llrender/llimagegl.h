@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -37,6 +37,9 @@
 
 #include "llgltypes.h"
 #include "llmemory.h"
+#include "v2math.h"
+
+#include "llrender.h"
 
 //============================================================================
 
@@ -48,11 +51,7 @@ public:
 	static S32 dataFormatBytes(S32 dataformat, S32 width, S32 height);
 	static S32 dataFormatComponents(S32 dataformat);
 
-	// Wrapper for glBindTexture that keeps LLImageGL in sync.
-	// Usually you want stage = 0 and bind_target = GL_TEXTURE_2D
-	static void bindExternalTexture( LLGLuint gl_name, S32 stage, LLGLenum bind_target);
-	static void unbindTexture(S32 stage, LLGLenum target);
-	static void unbindTexture(S32 stage); // Uses GL_TEXTURE_2D (not a default arg to avoid gl.h dependency)
+	void updateBindStats(void) const;
 
 	// needs to be called every frame
 	static void updateStats(F32 current_time);
@@ -79,7 +78,6 @@ public:
 	
 protected:
 	virtual ~LLImageGL();
-	BOOL bindTextureInternal(const S32 stage = 0) const;
 
 private:
 	void glClamp (BOOL clamps, BOOL clampt);
@@ -87,10 +85,12 @@ private:
 
 public:
 	virtual void dump();	// debugging info to llinfos
-	virtual BOOL bind(const S32 stage = 0) const;
+	virtual bool bindError(const S32 stage = 0) const;
+	virtual bool bindDefaultImage(const S32 stage = 0) const;
 
 	void setSize(S32 width, S32 height, S32 ncomponents);
 
+	BOOL createGLTexture() ;
 	BOOL createGLTexture(S32 discard_level, const LLImageRaw* imageraw, S32 usename = 0);
 	BOOL createGLTexture(S32 discard_level, const U8* data, BOOL data_hasmips = FALSE, S32 usename = 0);
 	void setImage(const LLImageRaw* imageraw);
@@ -114,6 +114,8 @@ public:
 	S32	 getDiscardLevel() const		{ return mCurrentDiscardLevel; }
 	S32	 getMaxDiscardLevel() const		{ return mMaxDiscardLevel; }
 
+	S32  getCurrentWidth() const { return mWidth ;}
+	S32  getCurrentHeight() const { return mHeight ;}
 	S32	 getWidth(S32 discard_level = -1) const;
 	S32	 getHeight(S32 discard_level = -1) const;
 	U8	 getComponents() const { return mComponents; }
@@ -132,7 +134,11 @@ public:
 
 	BOOL getIsResident(BOOL test_now = FALSE); // not const
 
-	void setTarget(const LLGLenum target, const LLGLenum bind_target);
+	void setTarget(const LLGLenum target, const LLTexUnit::eTextureType bind_target);
+
+	LLTexUnit::eTextureType getTarget(void) const { return mBindTarget; }
+	bool isGLTextureCreated(void) const { return mGLTextureCreated ; }
+	void setGLTextureCreated (bool initialized) { mGLTextureCreated = initialized; }
 
 	BOOL getUseMipMaps() const { return mUseMipMaps; }
 	void setUseMipMaps(BOOL usemips) { mUseMipMaps = usemips; }
@@ -140,6 +146,11 @@ public:
 	BOOL getDontDiscard() const { return mDontDiscard; }
 
 	BOOL isValidForSculpt(S32 discard_level, S32 image_width, S32 image_height, S32 ncomponents) ;
+
+	void updatePickMask(S32 width, S32 height, const U8* data_in);
+	BOOL getMask(const LLVector2 &tc);
+
+	void checkTexSize() const ;
 
 protected:
 	void init(BOOL usemipmaps);
@@ -152,25 +163,26 @@ public:
 
 private:
 	LLPointer<LLImageRaw> mSaveData; // used for destroyGL/restoreGL
+	U8* mPickMask;  //downsampled bitmap approximation of alpha channel.  NULL if no alpha channel
 	S8 mUseMipMaps;
 	S8 mHasMipMaps;
 	S8 mHasExplicitFormat; // If false (default), GL format is f(mComponents)
 	S8 mAutoGenMips;
 	
+	bool     mGLTextureCreated ;
+	LLGLuint mTexName;
+	U16      mWidth;
+	U16      mHeight;	
+	S8       mCurrentDiscardLevel;
+
 protected:
 	LLGLenum mTarget;		// Normally GL_TEXTURE2D, sometimes something else (ex. cube maps)
-	LLGLenum mBindTarget;	// NOrmally GL_TEXTURE2D, sometimes something else (ex. cube maps)
-
-	LLGLuint mTexName;
-
+	LLTexUnit::eTextureType mBindTarget;	// Normally TT_TEXTURE, sometimes something else (ex. cube maps)
+	
 	LLGLboolean mIsResident;
-
-	U16 mWidth;
-	U16 mHeight;
 	
 	S8 mComponents;
-	S8 mMaxDiscardLevel;
-	S8 mCurrentDiscardLevel;
+	S8 mMaxDiscardLevel;	
 	S8 mDontDiscard;			// Keep full res version of this image (for UI, etc)
 
 	S8 mClampS;					// Need to save clamp state
@@ -200,7 +212,6 @@ public:
 	static U32 sBindCount;					// Tracks number of texture binds for current frame
 	static U32 sUniqueCount;				// Tracks number of unique texture binds for current frame
 	static BOOL sGlobalUseAnisotropic;
-
 #if DEBUG_MISS
 	BOOL mMissed; // Missed on last bind?
 	BOOL getMissed() const { return mMissed; };

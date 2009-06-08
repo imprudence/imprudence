@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="media_remote">
+	<panel label="Áudio &amp; Vídeo" name="Volume Panel"/>
+	<string name="play_label">
+		Executar
+	</string>
+	<string name="stop_label">
+		Parar
+	</string>
+	<string name="pause_label">
+		Pausar
+	</string>
+	<string name="default_tooltip_label">
+		Nenhuma Mídia Especificada
+	</string>
+	<string name="media_hidden_label">
+		(URL escondida pelo dono do terreno)
+	</string>
+	<string name="media_icon_tooltip_web">
+		Esta localidade mostra conteúdo da World Wide Web. Clique no botão Executar para mostrar o conteúdo Web.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		Esta localidade mostra conteúdo de Vídeo. Clique no botão Executar para executar o vídeo.
+	</string>
+	<string name="media_play_tooltip">
+		Mostra conteúdo Web nesta localidade.
+	</string>
+</panel>

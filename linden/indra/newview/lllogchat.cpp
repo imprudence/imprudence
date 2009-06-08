@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -106,7 +106,8 @@ void LLLogChat::loadHistory(std::string filename , void (*callback)(ELogLineType
 {
 	if(!filename.size())
 	{
-		llerrs << "Filename is Empty!" << llendl;
+		llwarns << "Filename is Empty!" << llendl;
+		return ;
 	}
 
 	LLFILE* fptr = LLFile::fopen(makeLogFileName(filename), "r");		/*Flawfinder: ignore*/

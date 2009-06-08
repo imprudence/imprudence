@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -473,9 +473,9 @@ void LLTextEditor::updateLineStartList(S32 startpos)
 	}
 
 	// if scrolled to bottom, stay at bottom
-	// unless user is editing text
+	// unless user is selecting text
 	// do this after updating page size
-	if (mScrolledToBottom && mTrackBottom && !hasFocus())
+	if (mScrolledToBottom && mTrackBottom && !hasMouseCapture())
 	{
 		endOfDoc();
 	}
@@ -1011,7 +1011,7 @@ void LLTextEditor::indentSelectedLines( S32 spaces )
 		}
 		else
 		{
-			while( (text[right] != '\n') && (right <= getLength() ) )
+			while( right < getLength() && (text[right] != '\n') )
 			{
 				right++;
 			}
@@ -1323,8 +1323,6 @@ BOOL LLTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 			
 			setCursorAtLocalPos( x, y, TRUE );
 			endSelection();
-
-			updateScrollFromCursor();
 		}
 		
 		if( !hasSelection() )
@@ -2594,7 +2592,7 @@ void LLTextEditor::drawSelectionBackground()
 		BOOL selection_visible = (left_visible_pos <= selection_right) && (selection_left <= right_visible_pos);
 		if( selection_visible )
 		{
-			LLGLSNoTexture no_texture;
+			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			const LLColor4& color = mReadOnly ? mReadOnlyBgColor : mWriteableBgColor;
 			F32 alpha = hasFocus() ? 1.f : 0.5f;
 			gGL.color4f( 1.f - color.mV[0], 1.f - color.mV[1], 1.f - color.mV[2], alpha );
@@ -2729,7 +2727,7 @@ void LLTextEditor::drawCursor()
 					}
 				}
 				
-				LLGLSNoTexture no_texture;
+				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 				gGL.color4fv( mCursorColor.mV );
 				
@@ -4259,7 +4257,7 @@ S32 LLTextEditor::findHTMLToken(const std::string &line, S32 pos, BOOL reverse) 
 	std::string closers=" \t\n)'\"]}><;";
 
 	S32 index = 0;
-	
+
 	if (reverse)
 	{
 		for (index=pos; index >= 0; index--)

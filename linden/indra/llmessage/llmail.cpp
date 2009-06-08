@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -344,7 +344,7 @@ bool LLMail::send(
 			<< "when sending messages larger than " << LL_MAX_KNOWN_GOOD_MAIL_SIZE
 			<< " bytes. The next log about success is potentially a lie." << llendl;
 	}
-	llinfos << "send_mail success: "
+	lldebugs << "send_mail success: "
 		<< "to=<" << to_address
 		<< ">, from=<" << from_address << ">"
 		<< ", bytes=" << original_size

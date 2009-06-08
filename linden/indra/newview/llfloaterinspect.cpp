@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2008, Linden Research, Inc.
+ * Copyright (c) 2006-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -206,14 +206,19 @@ void LLFloaterInspect::refresh()
 	mObjectList->operateOnAll(LLScrollListCtrl::OP_DELETE);
 	//List all transient objects, then all linked objects
 
-	//Crash fix for VWR-10823
-	for (LLObjectSelection::valid_iterator iter = mObjectSelection->valid_begin(); 
-				iter != mObjectSelection->valid_end(); iter++) 
+	for (LLObjectSelection::valid_iterator iter = mObjectSelection->valid_begin();
+	     iter != mObjectSelection->valid_end(); iter++)
 	{
 		LLSelectNode* obj = *iter;
 		LLSD row;
 		char time[MAX_STRING];
 		std::string owner_name, creator_name;
+
+		if (obj->mCreationDate == 0)
+		{	// Don't have valid information from the server, so skip this one
+			continue;
+		}
+
 		time_t timestamp = (time_t) (obj->mCreationDate/1000000);
 		LLStringUtil::copy(time, ctime(&timestamp), MAX_STRING);
 		time[24] = '\0';

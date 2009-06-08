@@ -33,10 +33,10 @@
             <string>Color4</string>
         <key>Value</key>
             <array>
-                <real>0.0196078431372</real>
-                <real>0.6862745098039</real>
-                <real>0.9803921568627</real>
-                <real>1</real>
+                <real>1.0</real>
+                <real>1.0</real>
+                <real>1.0</real>
+                <real>1.0</real>
             </array>
         </map>
     <key>AgentChatColor</key>
@@ -164,17 +164,6 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
-    </map>
-    <key>AsyncKeyboard</key>
-    <map>
-      <key>Comment</key>
-      <string>Improves responsiveness to keyboard input when at low framerates</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
     </map>
     <key>AuctionShowFence</key>
     <map>
@@ -2599,7 +2588,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>0</integer>
+      <integer>1</integer>
     </map>
     <key>FloaterActiveSpeakersSortColumn</key>
     <map>
@@ -2660,6 +2649,22 @@
         <integer>0</integer>
       </array>
     </map>
+    <key>FloaterBeaconsRect</key>
+    <map>
+        <key>Comment</key>
+        <string>Rectangle for beacon and highlight controls</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Rect</string>
+        <key>Value</key>
+        <array>
+            <integer>200</integer>
+            <integer>250</integer>
+            <integer>250</integer>
+            <integer>200</integer>
+    </array>
+  </map>
     <key>FloaterBuildOptionsRect</key>
     <map>
       <key>Comment</key>
@@ -3579,6 +3584,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>ForceMandatoryUpdate</key>
+    <map>
+      <key>Comment</key>
+      <string>For QA: On next startup, forces the auto-updater to run</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>ForwardBtnRect</key>
     <map>
       <key>Comment</key>
@@ -3950,7 +3966,18 @@
       <key>Value</key>
       <real>0.0</real>
     </map>
-    <key>InventoryAutoOpenDelay</key>
+	<key>InstallLanguage</key>
+	<map>
+		<key>Comment</key>
+		<string>Language passed from installer (for UI)</string>
+		<key>Persist</key>
+		<integer>1</integer>
+		<key>Type</key>
+		<string>String</string>
+		<key>Value</key>
+		<string>default</string>
+	</map>
+	<key>InventoryAutoOpenDelay</key>
     <map>
       <key>Comment</key>
       <string>Seconds before automatically opening inventory when mouse is over inventory button when performing inventory drag and drop</string>
@@ -4173,7 +4200,7 @@
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>https://wiki.secondlife.com/wiki/[LSL_STRING]</string>
+      <string>http://wiki.secondlife.com/wiki/[LSL_STRING]</string>
     </map>
     <key>LagMeterShrunk</key>
     <map>
@@ -4200,7 +4227,7 @@
     <key>Language</key>
     <map>
       <key>Comment</key>
-      <string>Language specifier (for XUI)</string>
+      <string>Language specifier (for UI)</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -4274,16 +4301,72 @@
       <key>Value</key>
       <string>0.0.0</string>
     </map>
-    <key>LastSnapshotHeight</key>
+  
+    <key>LastSnapshotToEmailHeight</key>
     <map>
       <key>Comment</key>
-      <string>The height of the last snapshot, in px</string>
+      <string>The height of the last email snapshot, in px</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>S32</string>
       <key>Value</key>
       <integer>768</integer>
+    </map>
+    <key>LastSnapshotToEmailWidth</key>
+    <map>
+      <key>Comment</key>
+      <string>The width of the last email snapshot, in px</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>1024</integer>
+    </map>
+    <key>LastSnapshotToDiskHeight</key>
+    <map>
+      <key>Comment</key>
+      <string>The height of the last disk snapshot, in px</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>768</integer>
+    </map>
+    <key>LastSnapshotToDiskWidth</key>
+    <map>
+      <key>Comment</key>
+      <string>The width of the last disk snapshot, in px</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>1024</integer>
+    </map>
+    <key>LastSnapshotToInventoryHeight</key>
+    <map>
+      <key>Comment</key>
+      <string>The height of the last texture snapshot, in px</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>512</integer>
+    </map>
+    <key>LastSnapshotToInventoryWidth</key>
+    <map>
+      <key>Comment</key>
+      <string>The width of the last texture snapshot, in px</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>512</integer>
     </map>
     <key>LastSnapshotType</key>
     <map>
@@ -4295,17 +4378,6 @@
       <string>S32</string>
       <key>Value</key>
       <integer>0</integer>
-    </map>
-    <key>LastSnapshotWidth</key>
-    <map>
-      <key>Comment</key>
-      <string>The width of the last snapshot, in px</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>1024</integer>
     </map>
     <key>LeftClickShowMenu</key>
     <map>
@@ -4483,17 +4555,6 @@
       <key>Value</key>
       <real>20.0</real>
     </map>
-    <key>MainloopTimeoutDefault</key>
-        <map>
-        <key>Comment</key>
-            <string>Timeout duration for mainloop lock detection, in seconds.</string>
-        <key>Persist</key>
-            <integer>1</integer>
-        <key>Type</key>
-            <string>F32</string>
-        <key>Value</key>
-            <real>10.0</real>
-        </map>
     <key>MapOverlayIndex</key>
     <map>
       <key>Comment</key>
@@ -6094,6 +6155,17 @@
       <key>Value</key>
       <real>1.3</real>
     </map>
+    <key>RenderGround</key>
+    <map>
+      <key>Comment</key>
+	  <string>Determines whether we can render the ground pool or not</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>RenderHUDInSnapshot</key>
     <map>
       <key>Comment</key>
@@ -7648,7 +7720,7 @@
     <key>SystemLanguage</key>
     <map>
       <key>Comment</key>
-      <string>Language indicated by system settings (for XUI)</string>
+      <string>Language indicated by system settings (for UI)</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -9596,16 +9668,27 @@
       <key>Value</key>
       <string>-1</string>
     </map>
-    <key>VivoxDebugServerName</key>
+    <key>VivoxDebugSIPURIHostName</key>
     <map>
       <key>Comment</key>
-      <string>Hostname of the vivox account server to use for voice when not connected to Agni.</string>
+      <string>Hostname portion of vivox SIP URIs (empty string for the default).</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>bhd.vivox.com</string>
+      <string></string>
+    </map>
+    <key>VivoxDebugVoiceAccountServerURI</key>
+    <map>
+      <key>Comment</key>
+      <string>URI to the vivox account management server (empty string for the default).</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>String</string>
+      <key>Value</key>
+      <string></string>
     </map>
     <key>VoiceCallsFriendsOnly</key>
     <map>
@@ -9748,7 +9831,7 @@
       <key>Type</key>
       <string>U32</string>
       <key>Value</key>
-      <integer>44124</integer>
+      <integer>44125</integer>
     </map>
     <key>WLSkyDetail</key>
     <map>

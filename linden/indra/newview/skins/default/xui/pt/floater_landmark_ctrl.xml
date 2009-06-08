@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="landmarkpicker" title="Organize: Landmarks">
+	<check_box label="Mostrar Pastas" name="show_folders_check"/>
+	<button label="Novo" label_selected="Novo" name="New"/>
+	<button label="Renomear" label_selected="Renomear" name="Rename"/>
+	<button label="Nova Pasta" label_selected="Nova Pasta" name="NewFolder"/>
+	<button label="Editar" label_selected="Editar" name="Edit"/>
+	<button label="Apagar" label_selected="Apagar" name="Delete"/>
+	<button label="Fechar" label_selected="Fechar" name="Close"/>
+</floater>

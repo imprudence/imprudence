@@ -10,7 +10,7 @@
 	<combo_box label="" name="classified_category_combo" />
 	<check_box label="Ab 18" name="classified_mature_check">
 		<combo_item name="select_mature">
-			- Jugendfreigabe wählen -
+			- Jugendfreigabe -
 		</combo_item>
 		<combo_item name="mature">
 			Ab-18-Inhalt

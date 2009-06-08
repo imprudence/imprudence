@@ -3,9 +3,9 @@
 	<line_editor name="given_name_editor"
 	     tool_tip="名字必须以字母或数字开始，不可用标点。" />
 	<line_editor name="location_editor"
-	     tool_tip="设置这块分类广告相对于你所在位置的位置。" />
-	<button label="调节" name="set_location_btn" />
-	<button label="闪电传送" name="classified_teleport_btn" />
+	     tool_tip="设置分类广告的位置到你当前的位置。" />
+	<button label="调节位置" name="set_location_btn" />
+	<button label="瞬间移动" name="classified_teleport_btn" />
 	<button label="在地图中显示" name="classified_map_btn" />
 	<button label="档案" name="classified_profile_btn" />
 	<check_box label="成人" name="classified_mature_check" />

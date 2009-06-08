@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2008&license=viewergpl$
  * 
- * Copyright (c) 2008, Linden Research, Inc.
+ * Copyright (c) 2008-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -36,11 +36,11 @@ typedef const char* FL_Lang;
 typedef const char* FL_Country;
 typedef const char* FL_Variant;
 
-typedef struct {
+struct FL_Locale {
   FL_Lang    lang;
   FL_Country country;
   FL_Variant variant;
-} FL_Locale;
+};
 
 typedef enum {
   /* for some reason we failed to even guess: this should never happen */

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="item properties" title="库存财产条目">
+<floater name="item properties" title="物品属性">
 	<text name="LabelItemNameTitle">
 		名字:
 	</text>
@@ -10,64 +10,68 @@
 		创造者:
 	</text>
 	<text name="LabelCreatorName">
-		妮可儿 林登
+		Nicole Linden
 	</text>
 	<button label="档案..." label_selected="" name="BtnCreator" />
 	<text name="LabelOwnerTitle">
 		主人:
 	</text>
 	<text name="LabelOwnerName">
-		斯雷萨斯 林登
+		Thrax Linden
 	</text>
 	<button label="档案..." label_selected="" name="BtnOwner" />
 	<text name="LabelAcquiredTitle">
-		获得:
+		获得时间:
 	</text>
 	<text name="LabelAcquiredDate">
-		星期三 5月24日12:50:46 2006
+		2006年 5月 24日 星期三 12:50:46 
 	</text>
 	<text name="OwnerLabel">
 		你可以：
 	</text>
-	<check_box label="修饰" name="CheckOwnerModify" />
+	<check_box label="修改" name="CheckOwnerModify" />
 	<check_box label="复制" name="CheckOwnerCopy" />
-	<check_box label="转卖/抛弃" name="CheckOwnerTransfer" />
-	<text name="BaseMaskDebug">
-		B:
+	<check_box label="转卖/赠与" name="CheckOwnerTransfer" />
+	<!--<text name="BaseMaskDebug">
+		基:
 	</text>
 	<text name="OwnerMaskDebug">
-		O:
+		主:
 	</text>
 	<text name="GroupMaskDebug">
-		G:
+		团:
 	</text>
 	<text name="EveryoneMaskDebug">
-		E:
+		众:
 	</text>
 	<text name="NextMaskDebug">
-		N:
-	</text>
+		受:
+	</text>-->
 	<check_box label="与社团分享" name="CheckShareWithGroup" />
 	<check_box label="允许任何人复制" name="CheckEveryoneCopy" />
 	<text name="NextOwnerLabel">
 		下个拥有者可以:
 	</text>
-	<check_box label="修饰" name="CheckNextOwnerModify" />
+	<check_box label="修改" name="CheckNextOwnerModify" />
 	<check_box label="复制" name="CheckNextOwnerCopy" />
-	<check_box label="转卖/抛弃" name="CheckNextOwnerTransfer" />
+	<check_box label="转卖/赠与" name="CheckNextOwnerTransfer" />
 	<text name="SaleLabel">
-		标记项目:
+		标记项目为:
 	</text>
-	<check_box label="代售" name="CheckPurchase" />
+	<check_box label="可出售" name="CheckPurchase" />
 	<radio_group name="RadioSaleType">
 		<radio_item name="radio">
-			Original
+			原件
 		</radio_item>
 		<radio_item name="radio2">
-			复制
+			复制品
 		</radio_item>
 	</radio_group>
 	<text name="TextPrice">
 		价格：L$
 	</text>
+	<text name="unknown">(未知)</text>
+	<text name="public">(公共的)</text>
+	<text name="you_can">你可以:</text>
+	<text name="owner_can">拥有者可以:</text>
 </floater>

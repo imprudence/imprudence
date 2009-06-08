@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <alerts>
+	<global name="skipnexttime">
+		下次不要再让我看这个了
+	</global>
+	<global name="alwayschoose">
+		总是选择该选项
+	</global>
 	<alert name="MissingAlert">
 		<message name="message">
-			[ALERT_NAME]从alerts.xml中遗失!
+			alerts.xml 中找不到 [ALERT_NAME]!
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="FloaterNotFound">
 		<message name="message">
-			处理错误: 无法找到以下调节:
+			浮动框错误: 无法找到以下控件:
  
 [CONTROLS]
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
-	<alert name="MOTD" title="通知天数">
+	<alert name="TutorialNotFound">
 		<message name="message">
-			[MOTD]
+			现在还没有可用的教程。
 		</message>
+		<option name="OK">
+			确定
+		</option>
 	</alert>
 	<alert name="GenericAlert">
 		<message name="message">
@@ -46,41 +55,28 @@
 	</alert>
 	<alert name="ConnectTimeout">
 		<message name="message">
-			无法连接到[SECOND_LIFE].
+			无法连接到 [SECOND_LIFE].
 系统可能出现故障。
-请几分钟后再试, 或点击帮助
+
+请稍候再试, 或点击帮助
 获得建议和到达系统状态的网页链接。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Help">
 			帮助
 		</option>
 	</alert>
-	<alert name="RemoveWearableSave">
+	<alert name="WearableSave">
 		<message name="message">
-			保存目前对衣物/身体部位的更改?
+			保存对当前衣物/身体部位的更改？
 		</message>
 		<option name="Save">
-			存储
+			保存
 		</option>
 		<option name="Don&apos;tSave">
-			禁止储存
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
-	<alert name="SetWearableSave">
-		<message name="message">
-			保存目前对衣物/身体部位的更改?
-		</message>
-		<option name="Save">
-			存储
-		</option>
-		<option name="Don&apos;tSave">
-			禁止储存
+			不保存
 		</option>
 		<option name="Cancel">
 			取消
@@ -93,12 +89,12 @@
 	</alert>
 	<alert name="CompileQueueSaveBytecode">
 		<message name="message">
-			上传汇编脚本时出错，出于以下原因: [REASON]。请稍候再试。
+			上传已编译脚本代码时出错，出于以下原因: [REASON]。请稍候再试。
 		</message>
 	</alert>
 	<alert name="WriteAnimationFail">
 		<message name="message">
-			无法写入动画数据
+			无法写入动画数据。请稍候再试。
 		</message>
 	</alert>
 	<alert name="UploadAuctionSnapshotFail">
@@ -108,62 +104,65 @@
 	</alert>
 	<alert name="UnableToViewContentsMoreThanOne">
 		<message name="message">
-			一次不能浏览一个以上的物品.
-请只选择一个东东重试.
+			一次不能浏览一个以上物品的内容。
+请只选择一个物体后重试。
 		</message>
 	</alert>
 	<alert name="MustSupplyVoteProposal">
 		<message name="message">
-			你必须为选举给出提名人。.
+			你必须为投票给出提议。
 键入一条社团目标的简短描述。
 		</message>
 	</alert>
 	<alert name="InsufficientFunds">
 		<message name="message">
-			资金充足。
+			资金不足。
 		</message>
 	</alert>
 	<alert name="CharacterSnapshotSaved">
 		<message name="message">
-			你的形象快照已经保存。
- 
+			你的角色的快照已经保存。
 查看形象请访问网络工作室的陈列馆。
 		</message>
 	</alert>
 	<alert name="SaveClothingBodyChanges">
 		<message name="message">
-			保存所有对衣物/身体部位的更改?
+			保存所有对衣物/身体部位的更改？
 		</message>
 		<option name="SaveAll">
-			储存全部
+			全部保存
 		</option>
 		<option name="Don&apos;tSave">
-			禁止储存
+			不保存
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="AlterModifyRights">
-		<message name="message">
-			你是否要[ACTION]更改权利[DERECTION] [FIRST_NAME] [LAST_NAME]?
-		</message>
-		<option name="Yes">
-			是
-		</option>
-		<option name="No">
-			否
-		</option>
-	</alert>
 	<alert name="GrantModifyRights">
 		<message name="message">
-			授予另外一名居民修改的权利，则意味着允许他们修改任何你再第二人生世界里可能拥有的物品。请在执行这项许可的时候格外小心。               你真的希望授予[FIRST_NAME] [LAST_NAME]修改权利吗？
+			授予另外一名居民修改的权利，意味着允许他们修改、删除或拿走
+任何你在世界里可能拥有的物品。请在执行这项许可的时候格外小心。               
+你真的希望授予[FIRST_NAME] [LAST_NAME]修改权利吗？
 		</message>
 		<option name="Yes">
 			是的，我愿意
 		</option>
 		<option name="No">
-			不是，我想再考虑一下
+			不，我想再考虑一下
+		</option>
+	</alert>
+	<alert name="GrantModifyRightsMultiple">
+		<message name="message">
+			授予另外一名居民修改的权利，意味着允许他们修改、删除或拿走
+任何你在世界里可能拥有的物品。请在执行这项许可的时候格外小心。               
+你真的希望授予所选择的居民修改权利吗？
+		</message>
+		<option name="Yes">
+			是的，我愿意
+		</option>
+		<option name="No">
+			不，我想再考虑一下
 		</option>
 	</alert>
 	<alert name="RevokeModifyRights">
@@ -174,12 +173,23 @@
 			是的，我愿意
 		</option>
 		<option name="No">
-			不是，我想再考虑一下
+			不，我想再考虑一下
+		</option>
+	</alert>
+	<alert name="RevokeModifyRightsMultiple">
+		<message name="message">
+			你真的希望撤回所选居民的修改权利吗？
+		</message>
+		<option name="Yes">
+			是的，我愿意
+		</option>
+		<option name="No">
+			不，我想再考虑一下
 		</option>
 	</alert>
 	<alert name="RemoveFriend">
 		<message name="message">
-			你是否要将[FIRST_NAME] [LAST_NAME]移出你的朋友圈?
+			你是否要将[FIRST_NAME] [LAST_NAME]从你的朋友列表中去除？
 		</message>
 		<option name="Remove">
 			移除
@@ -199,7 +209,7 @@
 [MESSAGE]
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="PanelGroupApply">
@@ -211,7 +221,7 @@
 			应用更改
 		</option>
 		<option name="IgnoreChanges">
-			忽视更改
+			忽略更改
 		</option>
 		<option name="Cancel">
 			取消
@@ -221,13 +231,13 @@
 		<message name="message">
 			创建一个新社团需花费 L$[COST].
  
-要想保持一个新社团超过三天,你的社团总人数必须达到三人获三人以上。
+要想保持一个新社团超过三天，你的社团总人数必须达到三人或三人以上。
 
  
 是否创建新社团?
 		</message>
 		<option name="Create">
-			创造
+			创建
 		</option>
 		<option name="Cancel">
 			取消
@@ -235,18 +245,18 @@
 	</alert>
 	<alert name="CreateGroupCannotAfford">
 		<message name="message">
-			建立社团将花费 L$[花费].
-你没有足够的钱来建立此社团。
+			建立社团将花费 L$[COST].
+你没有足够的 L$ 来建立此社团。
 		</message>
 	</alert>
 	<alert name="GroupNameTooShort">
 		<message name="message">
-			社团名必须包含至少4个字母。
+			社团名必须至少4个字母长。
 		</message>
 	</alert>
 	<alert name="GroupNameUsesReservedWord">
 		<message name="message">
-			社团名已被预订。 请另外
+			社团名中带有不能使用的词。 请另外
 选择一个名字。
 		</message>
 	</alert>
@@ -255,18 +265,25 @@
 			你必须为发送给社团的通知拟定一个主题.
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="MustSupplyGroupCharter">
 		<message name="message">
 			请为社团制定一个规章。
+简短地描述社团的目标。
 		</message>
 	</alert>
 	<alert name="AddGroupOwnerWarning">
 		<message name="message">
-			你将添加社团会员至角色[ROLE_NAME]中。会员不能从该角色中被移除。会员必须自己从角色中辞职。你真的愿意继续吗？
+			你将添加社团会员至角色 [ROLE_NAME] 中。
+会员不能从该角色中被移除。
+会员必须自己从角色中辞职。
+你真的愿意继续吗？
 		</message>
+		<ignore name="ignore">
+			当添加社团会员到团长角色时
+		</ignore>
 		<option name="Yes">
 			是
 		</option>
@@ -276,12 +293,15 @@
 	</alert>
 	<alert name="AssignDangerousActionWarning">
 		<message name="message">
-			你将添加能力&apos;[ACTION_NAME]&apos;至角色&apos;[ROLE_NAME]&apos;中。
+			你将为角色 ‘[ROLE_NAME]’ 添加 ‘[ACTION_NAME]’ 的能力。
  
  *警告*
- 任何角色中的会员拥有这项能力后，都可以分配给他们自己，或者任何其他的会员各种角色，这些角色的权利可能比他们目前所拥有的大得多，并很可能提拔他们自己到最靠近主人权利的位置上。请在分配这项能力之前确定自己这么做将带来的后果。
+任何具有该角色的会员拥有这项能力后，都可以给他们自己——以及
+任何其他的会员各种角色——分配权利比他们目前所拥有的权利大得多
+的角色，并可能提拔他们自己到相近于团长权利的位置上。
+请在分配这项能力之前确定自己这么做将带来的后果。
  
-你是否愿意添加这个能力至&apos;[ROLE_NAME]&apos;?
+你是否愿意添加这个能力至 ‘[ROLE_NAME]’?
 		</message>
 		<option name="Yes">
 			是
@@ -295,7 +315,7 @@
 			你将添加能力&apos;[ACTION_NAME]&apos;至角色 &apos;[ROLE_NAME]&apos;中。
  
  *警告*
- 任何角色中的会员拥有这项能力后，都可以分配给他们自己，或者其他会员所有的能力，甚至可以提拔他们自己到最靠近主人的权利的位置上。
+任何具有该角色的会员拥有这项能力后，都可以给他们自己——或者其他会员——分配所有的能力，甚至可以提拔他们自己到相近于团长权利	的位置上。
  
 你是否愿意添加这项能力至 &apos;[ROLE_NAME]&apos;?
 		</message>
@@ -313,82 +333,107 @@
 	</alert>
 	<alert name="ClickPublishHelpLand">
 		<message name="message">
-			选择 &quot;在网络上发布&quot;选项将允许我们发布土地的名称，描述，快照和地点至[SECOND_LIFE]网站。如果你发布的内容，根据社区标准规定，涉及到成人内容，你有责任对此作出声明。
+			选择 &quot;在搜索中发布&quot;
+这个选项将会:
+- 在搜索结果中显示该地块
+- 显示该地块的公开物体
+- 在网页搜索中显示这个地块
+		</message>
+	</alert>
+	<alert name="ClickPublishHelpLandDisabled">
+		<message name="message">
+			你不能让这个地块显示在搜索中，因为它所在的地区禁止这样做。
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpPostcard">
 		<message name="message">
-			选择 &quot;在网络上发布&quot;选项将允许我们发布摄影师在[SECOND_LIFE]的名字，工作，地点，信息和快照至[SECOND_LIFE]网站。如果你发布的任何快照内容，根据社区标准规定，涉及到成人内容，你有责任对此作出声明。
+			选择 &quot;在网络上发布&quot;选项将允许我们发布摄影师在[SECOND_LIFE]的名字、主题、地点、信息和快照至[SECOND_LIFE]网站。如果你发布的任何快照内容，根据社区标准规定，涉及到成人内容，你有责任对此作出声明。
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
 		<message name="message">
-			选择 &quot;在网络上发布&quot;选项将允许我们发布你的名字，图像，和‘关于自己’的文本至[SECOND_LIFE]网站。
+			选择 &quot;在搜索中显示&quot; 将会:
+			- 在搜索结果中显示我的档案
+			- 在公开社团的页面中显示到我的档案的链接
 		</message>
+	</alert>
+	<alert name="ClickPartnerHelpAvatar">
+		<message name="message">
+			你可以通过[SECOND_LIFE] 网站邀请另一位居民成为你的搭档，或者解除现存的关系。
+
+到[SECOND_LIFE]网站查询关于搭档的信息吗？
+		</message>
+		<option name="GotoPage">
+			打开网页
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
 	</alert>
 	<alert name="ClickWebProfileHelpAvatar">
 		<message name="message">
-			If this resident has a web profile URL set then you can:
- * Click Load to load the page with the embedded web browser.
- * Click Open to view externally in your default web browser.
+			如果该居民设置了网络档案URL的话你可以:
+ * 选择“加载“来用内部浏览器打开这个档案页面。
+ * 选择 加载 &gt; “在外部浏览器中打开” 来在外部浏览。
+ * 如果您浏览到了其他的地方，点击加载 &gt; “返回原来页面” 来回到居民的 Web 档案。
  
-When viewing your profile you can enter any URL as your Web Profile.
-Residents can visit the URL you specify when they view your profile.
+在你的档案中你可以输入任何URL作为你的网络档案然后按确认来设置。
+其他居民在观看你的档案的时候可以访问你所指定的URL。
 		</message>
 	</alert>
 	<alert name="ClickWebProfileNoWebHelpAvatar">
 		<message name="message">
-			If this resident has a web profile URL set then you can:
- * Click Open to view externally in your default web browser.
+			如果该居民设置了网络档案URL的话你可以:
+ * 用你的默认浏览器打开这个档案页面。
  
-When viewing your profile you can enter any URL as your Web Profile.
-Residents can visit the URL you specify when they view your profile.
+在你的档案中你可以输入任何URL作为你的网络档案。
+其他居民在观看你的档案的时候可以访问你所指定的URL。
 		</message>
 	</alert>
 	<alert name="ReputationMinGreaterThanMax">
 		<message name="message">
 			声望最小值比最大值大。
-降低最小值或提高最大值。
+请降低最小值或提高最大值。
 		</message>
 	</alert>
 	<alert name="MoneyMinGreaterThanMax">
 		<message name="message">
 			钱的最小限度比最大限度大。
-可以降低最小值或者提高最大值。
+请降低最小值或者提高最大值。
 		</message>
 	</alert>
 	<alert name="OfficerTitleTooLong">
 		<message name="message">
-			官员头衔最多可以包含20个词。
-请选择一个较短头衔。
+			官员头衔最多可以包含20个字。
+请选择一个较短的头衔。
 		</message>
 	</alert>
 	<alert name="MemberTitleTooLong">
 		<message name="message">
-			成员头衔最多可以包含20个词。
+			成员头衔最多可以包含20个字。
 请选择一个较短的头衔。
 		</message>
 	</alert>
 	<alert name="RunningLocally">
 		<message name="message">
-			本地运行...
-没有找到你的数据.
+			在本地运行...
+将不会给你任何的数据。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="EjectNoMemberSelected">
 		<message name="message">
-			没有选定要驱逐成员。
+			没有选定要驱逐的成员。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="ConfirmEject">
 		<message name="message">
-			这将会把[MEMBER]驱逐出社团
+			这将会把 [MEMBER] 驱逐出社团。
 你确定要继续吗?
 		</message>
 		<option name="Eject">
@@ -413,16 +458,16 @@ Residents can visit the URL you specify when they view your profile.
 	<alert name="JoinGroupCannotAfford">
 		<message name="message">
 			加入该社团需花费 L$[COST].
-加入该社团后，你并不是一定要留有结余。
+您拥有的 L$ 不够。
 		</message>
 	</alert>
 	<alert name="LandBuyPass">
 		<message name="message">
-			花费L$[COST]你就可以进入这块土地(&apos;[PARCEL_NAME]&apos;)
+			花费 L$[COST] 你就可以进入这块土地(&apos;[PARCEL_NAME]&apos;)
 [TIME]小时。是否购买通行证?
 		</message>
 		<option name="OK">
-			OK
+			购买
 		</option>
 		<option name="Cancel">
 			取消
@@ -431,25 +476,37 @@ Residents can visit the URL you specify when they view your profile.
 	<alert name="CannotStartAuctionAlreadyForSale">
 		<message name="message">
 			你不能对已经设置为代售的土地进行
-拍卖. 如果你执意开始拍卖，必须种植该土地
-的销售.
+拍卖。如果你执意开始拍卖，必须中止该土地
+的销售。
 		</message>
 	</alert>
 	<alert name="SalePriceRestriction">
 		<message name="message">
-			不管出售给何人，出售价格必须 &gt; L$0。
+			如果出售给任何人，出售价格必须 &gt; L$0。
 如果售价为L$0，请选定一个用户来售出。
 		</message>
 	</alert>
 	<alert name="ConfirmLandSaleChange">
 		<message name="message">
-			所选的[LAND_SIZE]平方米土地正被设置为代售。
-你的售价应当为 L$[SALE_PRICE]并将被审定为售给[NAME]。
- 
-你愿意继续改变吗?
+			所选的 [LAND_SIZE]平方米土地正被设置为代售。
+你的售价将是为 L$[SALE_PRICE]并将被授权售给[NAME]。
 		</message>
 		<option name="Continue">
-			继续
+			确定
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="ConfirmLandSaleToAnyoneChange">
+		<message name="message">
+			请注意: 点击 &apos;售出给任何人&apos; 将使你的土地对整个第二人生社区开放，包括当前不在这个地区中的人。
+
+所选的 [LAND_SIZE]平方米土地正被设置为代售。
+你的售价将是为 L$[SALE_PRICE]并将被授权售给[NAME]。
+		</message>
+		<option name="Continue">
+			确定
 		</option>
 		<option name="Cancel">
 			取消
@@ -457,15 +514,15 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="ReturnObjectsDeededToGroup">
 		<message name="message">
-			你是否确定愿意归还在这块土地上由社团[NAME]分享的东东至它们原先主人的库存?
-已经转让给别的社团的，可移动的东东将被归还至它们原先的主人处。
+			你是否确定返还在这块土地上由社团 &apos;[NAME]&apos;
+分享的物体至它们原先主人的库存?
  
-*警告* 这项操作将删除已转让至别的社团的不可移动的东东。
+*警告* 这项操作将删除该社团所分享的不可转让的物体！
  
-东东: [N]
+物体: [N]个
 		</message>
 		<option name="Return">
-			返回
+			返还
 		</option>
 		<option name="Cancel">
 			取消
@@ -473,14 +530,13 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="ReturnObjectsOwnedByUser">
 		<message name="message">
-			Are you sure you want to return all objects owned by the
-resident &apos;[NAME]&apos; on this parcel of land
-back to their inventory?
+			你是否确定返还居民 &apos;[NAME]&apos;
+在这地块上拥有的所有物体到他的库存？
  
-Objects: [N]
+物体: [N]个
 		</message>
 		<option name="Return">
-			返回
+			返还
 		</option>
 		<option name="Cancel">
 			取消
@@ -488,12 +544,13 @@ Objects: [N]
 	</alert>
 	<alert name="ReturnObjectsOwnedBySelf">
 		<message name="message">
-			你是否确定愿意归还你在这块土地上拥有的所有东东至你的库存？
+			你是否确定愿意返还你在这块土地上
+拥有的所有物体至你的库存？
  
-东东: [N]
+物体: [N]个
 		</message>
 		<option name="Return">
-			返回
+			返还
 		</option>
 		<option name="Cancel">
 			取消
@@ -501,15 +558,16 @@ Objects: [N]
 	</alert>
 	<alert name="ReturnObjectsNotOwnedBySelf">
 		<message name="message">
-			你是否确定愿意归还在这块土地上所有不属于你自己的东东至它们主人的库存?
-已经转让给别的社团的，可移动的东东将被归还至它们原先的主人处。
+			你是否确定返还在这块土地上所有不属于你自己的物体至
+它们主人的库存?已经转让给别的社团的，可转让的物体将
+被归还至它们原先的主人处。
  
-*警告* 这项操作将删除已转让至别的社团的不可移动的东东。
+*警告* 这项操作将删除该社团所分享的不可转让的物体！
  
-东东: [N]
+物体: [N]个
 		</message>
 		<option name="Return">
-			返回
+			返还
 		</option>
 		<option name="Cancel">
 			取消
@@ -517,18 +575,17 @@ Objects: [N]
 	</alert>
 	<alert name="ReturnObjectsNotOwnedByUser">
 		<message name="message">
-			Are you sure you want to return all objects NOT owned
-by [NAME] on this parcel of land back to their owner&apos;s inventory?
-Transferable objects deeded to a group will be
-returned to their previous owners.
+			你是否确定返还在这块土地上所有*不*属于居民 [NAME]  的物体至
+它们主人的库存? 已经转让给别的社团的，可转让的物体将
+被归还至它们原先的主人处。
  
-*WARNING* This will delete the non-transferable objects
-deeded to the group!
+*警告* 这项操作将删除该社团所分享的不可转让的物体！
+
  
-Objects: [N]
+物体: [N]个
 		</message>
 		<option name="Return">
-			返回
+			返还
 		</option>
 		<option name="Cancel">
 			取消
@@ -536,11 +593,10 @@ Objects: [N]
 	</alert>
 	<alert name="ReturnAllTopObjects">
 		<message name="message">
-			Are you sure you want to return all objects
-in this region back to their owner&apos;s inventory?
+			你确定要返还所有该区域中的物体至他们原先主人的库存中吗？
 		</message>
 		<option name="Return">
-			返回
+			返还
 		</option>
 		<option name="Cancel">
 			取消
@@ -548,7 +604,7 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="DisableAllTopObjects">
 		<message name="message">
-			Are you sure you want to disable all objects in this region?
+			你确定要禁止该区域中的所有物体吗？
 		</message>
 		<option name="Disable">
 			禁止
@@ -559,12 +615,14 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="ReturnObjectsNotOwnedByGroup">
 		<message name="message">
-			是否归还这块土地上不由社团[NAME]分享的东东至它们的主人处？
+			是否归还这块土地上不由
+社团 [NAME] 分享的物体
+至它们的主人处？
 
-对象: [N]
+物体: [N]个
 		</message>
 		<option name="Return">
-			返回
+			返还
 		</option>
 		<option name="Cancel">
 			取消
@@ -572,9 +630,9 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="UnableToDisableOutsideScripts">
 		<message name="message">
-			无法废除外部脚本。
-这整块区域都是正常状态(不安全).
-脚本必须被允许运行，枪才能够工作。
+			无法禁用外部脚本。
+整块区域都是已启用伤害(不安全)。
+脚本必须被允许运行，才能使用武器。
 		</message>
 	</alert>
 	<alert name="MustBeInParcel">
@@ -585,7 +643,7 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="PromptRecipientEmail">
 		<message name="message">
-			请键入接受者的电子邮件地址。
+			请键入收件人的电子邮件地址。
 		</message>
 	</alert>
 	<alert name="PromptSelfEmail">
@@ -593,41 +651,30 @@ in this region back to their owner&apos;s inventory?
 			请键入你的电子邮件地址。
 		</message>
 	</alert>
-	<alert name="ErrorProcessingSnapshot">
+	<alert name="PromptMissingSubjMsg">
 		<message name="message">
-			处理快照数据错误
+			以默认标题或内容用电子邮件发送快照吗？
 		</message>
-	</alert>
-	<alert name="ConfirmNotecardSave">
-		<message name="message">
-			只有保存这张提示卡之后，此项物品才可以复制或查看。是否保存提示卡？
-		</message>
-		<option name="Save">
-			是的，请保存
-		</option>
-		<option name="Cancel">
-			取消保存
-		</option>
-	</alert>
-	<alert name="RemoveMultipleFromFriends">
-		<message name="message">
-			你希望从好友列表中移除若干好友吗？
-		</message>
-		<option name="Remove">
-			是的，我要移除
+		<option name="OK">
+			确定
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
+	<alert name="ErrorProcessingSnapshot">
+		<message name="message">
+			处理快照数据错误
+		</message>
+	</alert>
 	<alert name="ErrorEncodingSnapshot">
 		<message name="message">
-			编码快照错误!
+			编码快照时发生错误
 		</message>
 	</alert>
 	<alert name="ErrorUploadingPostcard">
 		<message name="message">
-			上传明信片时出错，出于以下原因: [REASON]。
+			发送快照时出现问题，出于以下原因: [REASON]。
 		</message>
 	</alert>
 	<alert name="ErrorUploadingReportScreenshot">
@@ -637,96 +684,61 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="MustAgreeToLogIn">
 		<message name="message">
-			你必须同意服务协议才能继续登陆至[SECOND_LIFE]。
+			你必须同意服务协议才能继续登陆至 [SECOND_LIFE]。
 		</message>
 	</alert>
 	<alert name="CouldNotPutOnOutfit">
 		<message name="message">
-			无法装载配置。
-配置文件夹不包含衣物，
+			无法装载装束。
+装束文件夹中没有衣物、身体部位、或附件。
 		</message>
 	</alert>
 	<alert name="CannotWearTrash">
 		<message name="message">
-			无法使用垃圾栏内的衣物或身体部位。
+			无法使用垃圾箱内的衣物或身体部位。
 		</message>
 	</alert>
 	<alert name="CannotWearInfoNotComplete">
 		<message name="message">
-			无法使用该物品，因为其完整信息显示其暂不可用。请稍候再试。
+			无法穿上该物品，因为它还没有加载完。请稍候再试。
 		</message>
-	</alert>
-	<alert name="MustHaveAccountToLogInNoLinks">
-		<message name="message">
-			你必须先创建一个新帐户才能登陆到[SECOND_LIFE].
-		</message>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
 	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
-			你必须先创建一个新帐户才能登陆到[SECOND_LIFE].
- 
-现在到www.secondlife.com注册新帐户?
+			哎呀！有什么地方没填上。
+您必须输入您的化身的名和姓。
+
+您需要一个帐户才能进入[SECOND_LIFE]。您希望现在创建一个吗？
 		</message>
 		<option name="OK">
-			OK
+			创建新帐户
 		</option>
 		<option name="Cancel">
-			取消
+			再试一次吧…
 		</option>
-	</alert>
-	<alert name="GrantedModifyRights">
-		<message name="message">
-			你已经被授予特权，你可以任意修改[FIRST_NAME] [LAST_NAME]的东东。
-		</message>
-	</alert>
-	<alert name="RevokedModifyRights">
-		<message name="message">
-			你的特权已经被撤回，你不可以再任意修改[FIRST_NAME] [LAST_NAME]的东东。
-		</message>
-	</alert>
-	<alert name="InvalidTerrainBitDepth">
-		<message name="message">
-			无法设定区域的质地: 
- 
-目标质地 [TEXTURE_NUM] 的色彩格式[TEXTURE_BIT_DEPTH]无效.
- 
-请把目前的目标质地[TEXTURE_NUM]更替为24比特 512x512分辨率，或者更小的显示图片，然后点击 &quot;设置&quot;.
-		</message>
-	</alert>
-	<alert name="InvalidTerrainSize">
-		<message name="message">
-			无法设置区域的质地: 
- 
-目标质地[TEXTURE_NUM]的尺寸 [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]过大. 
- 
-请把目前的目标质地[TEXTURE_NUM]替换成24比特 512x512分辨率或者更小的显示图片，然后点击 &quot;设置&quot;.
-		</message>
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			分类广告会在查找名录的&apos;Classified&apos;栏目里保留一周时间。
+			分类广告会在查找名录的 &apos;分类广告&apos; 栏目里保留一周时间。
 
  
-填写你的广告,然后点击&apos;发布...&apos;，既添加广告至广告名录中。
-当点击发布时，你将被要求支付发布广告费用. 大额支付意味着你的广告会在名单较前的地方出现，并且当用关键词查找时，你的广告也出现在查询结果较高的位置上。
+填写你的广告，然后点击 &apos;发布...&apos;，即会添加广告至广告名录中。
+当点击发布时，你将被要求支付发布广告费用。 大额支付意味着你的广告会在名单较前的地方出现，并且当用关键词查找时，你的广告也出现在查询结果较高的位置上。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
+		<ignore name="ignore">
+			添加新分类广告时
+		</ignore>
 	</alert>
 	<alert name="DeleteClassified">
 		<message name="message">
-			Delete分类 &apos;[名称]&apos;?
-付款后不会退费。
+			删除分类广告 &apos;[名称]&apos;?
+将不会退还已付的费用。
 		</message>
 		<option name="Delete">
 			删除
@@ -735,9 +747,23 @@ in this region back to their owner&apos;s inventory?
 			取消
 		</option>
 	</alert>
+	<alert name="ClassifiedSave">
+		<message name="message">
+			保存对分类广告 [NAME] 的修改?
+		</message>
+		<option name="Save">
+			保存
+		</option>
+		<option name="Don&apos;tSave">
+			不要保存
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
 	<alert name="DeleteAvatarPick">
 		<message name="message">
-			删除挑选 [挑选]?
+			删除收藏 [PICK]?
 		</message>
 		<option name="Delete">
 			删除
@@ -749,10 +775,10 @@ in this region back to their owner&apos;s inventory?
 	<alert name="DisplayChangeRestart">
 		<message name="message">
 			有一些你执行的显示设置的改变
-会要求[SECOND_LIFE]立即关闭，
-这会导致进程中的所有工作丢失。
+需要 [SECOND_LIFE] 立即关闭，
+这会导致进行中的所有工作丢失。
  
-应用改变并退出
+应用更改并退出？
 		</message>
 		<option name="ApplyandQuit">
 			应用并退出
@@ -763,10 +789,10 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="PromptGoToEventsPage">
 		<message name="message">
-			是否跳至[SECOND_LIFE]事件网页?
+			是否转到 [SECOND_LIFE] 事件网页?
 		</message>
 		<option name="GotoPage">
-			回主页
+			打开网页
 		</option>
 		<option name="Cancel">
 			取消
@@ -779,25 +805,36 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="SelectItemToView">
 		<message name="message">
-			请选择一个物品兰来查看。
+			请选择需要查看的提案。
 		</message>
 	</alert>
 	<alert name="SelectProposalToView">
 		<message name="message">
-			选择查看一个提案.
+			请选择需要查看的提案。
 		</message>
 	</alert>
 	<alert name="SelectHistoryItemToView">
 		<message name="message">
-			请选择一个历史物品来查看。
+			请选择一个历史项目来查看。
 		</message>
 	</alert>
 	<alert name="ResetShowNextTimeDialogs">
 		<message name="message">
-			Reset all &apos;Show next time&apos; dialogs?
+			您希望重新启用这些之前希望 ‘不再显示’ 的对话框吗？
 		</message>
 		<option name="OK">
-			OK
+			确定
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="SkipShowNextTimeDialogs">
+		<message name="message">
+			您希望禁用所有可以被略过的对话框吗？
+		</message>
+		<option name="OK">
+			确定
 		</option>
 		<option name="Cancel">
 			取消
@@ -805,16 +842,32 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="CacheWillClear">
 		<message name="message">
-			重启[SECOND_LIFE]后将清除缓存。
+			缓存将在重新启动 [SECOND_LIFE] 后清除。
+		</message>
+	</alert>
+	<alert name="CacheWillBeMoved">
+		<message name="message">
+			缓存将在重新启动 [SECOND_LIFE] 后移动。
+注意: 这样将会清除缓存。
+		</message>
+	</alert>
+	<alert name="ChangeConnectionPort">
+		<message name="message">
+			端口设定将在重新启动 [SECOND_LIFE] 后生效。
+		</message>
+	</alert>
+	<alert name="ChangeSkin">
+		<message name="message">
+			新皮肤将在 [SECOND_LIFE] 重新启动后应用。
 		</message>
 	</alert>
 	<alert name="GoToAuctionPage">
 		<message name="message">
-			是否跳至[SECOND_LIFE]网页查看有声信息
+			是否跳至[SECOND_LIFE]网页查看拍卖信息
 或者参与投标?
 		</message>
 		<option name="GotoPage">
-			回主页
+			打开网页
 		</option>
 		<option name="Cancel">
 			取消
@@ -825,10 +878,10 @@ in this region back to their owner&apos;s inventory?
 			保存更改?
 		</message>
 		<option name="Save">
-			存储
+			保存
 		</option>
 		<option name="Don&apos;tSave">
-			禁止储存
+			不要保存
 		</option>
 		<option name="Cancel">
 			取消
@@ -848,31 +901,31 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="GestureSaveFailedObjectNotFound">
 		<message name="message">
-			无法保存动作，因为找不到目标或相关目标。
-目标可能在范围之外或已被删除。
+			无法保存动作，因为找不到物体或相关物体的内容。
+物体可能在范围之外或已被删除。
 		</message>
 	</alert>
 	<alert name="GestureSaveFailedReason">
 		<message name="message">
-			保存动作时出错，出于以下原因: [REASON].请稍候尝试重新保存动作。
+			保存动作时出错，出于以下原因: [REASON]。请稍候尝试重新保存动作。
 		</message>
 	</alert>
 	<alert name="SaveNotecardFailObjectNotFound">
 		<message name="message">
-			无法保存名片，因为无法找到目标或相关目标库存。
-目标可能在范围之外或被删除。
+			无法保存记事卡，因为找不到物体或相关物体的内容。
+物体可能在范围之外或已被删除。
 		</message>
 	</alert>
 	<alert name="SaveNotecardFailReason">
 		<message name="message">
-			保存注释卡时出错，出于以下原因: [REASON]。请稍候尝试重新保存注释卡。
+			保存记事卡时出错，出于以下原因: [REASON]。请稍候尝试重新保存记事卡。
 		</message>
 	</alert>
 	<alert name="ScriptCannotUndo">
 		<message name="message">
 			无法撤销对你的脚本版本的所有更改.
 你是否愿意载入服务器上次保存的版本?
-(提示: 此次操作无法撤销.)
+(***警告***: 此次操作无法撤销.)
 		</message>
 		<option name="Yes">
 			是
@@ -888,19 +941,19 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="SaveScriptFailObjectNotFound">
 		<message name="message">
-			无法保留脚本，因为没有找到原本东东。
-东东可能在范围之外或被删除。
+			无法保存脚本，因为找不到其所在的物体。
+该物体可能在范围之外或已被删除。
 		</message>
 	</alert>
 	<alert name="SaveBytecodeFailReason">
 		<message name="message">
-			保存汇编脚本时出错，出于以下原因: [REASON].请稍候尝试重新保存脚本。
+			保存汇编脚本时出错，出于以下原因: [REASON]。请稍候尝试重新保存脚本。
 		</message>
 	</alert>
 	<alert name="CouldNotStartStopScript">
 		<message name="message">
-			无法开始或停脚本，因为没有找到原本东东。
-东东可能在范围之外或被删除。
+			无法开始或停止脚本，因为找不到其所在的物体。
+该物体可能在范围之外或已被删除。
 		</message>
 	</alert>
 	<alert name="CannotDownloadFile">
@@ -910,23 +963,23 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="CannotWriteEncode">
 		<message name="message">
-			无法解密文件 [[FILE]]
+			无法编码文件 [[FILE]]
 		</message>
 	</alert>
 	<alert name="CannotWriteFile">
 		<message name="message">
-			无法写入文件[[FILE]]
+			无法写入文件 [[FILE]]
 		</message>
 	</alert>
 	<alert name="CannotLoadWearable">
 		<message name="message">
-			对不起，不能载入衣服。
+			对不起，载入衣服失败。
 		</message>
 	</alert>
 	<alert name="ConfirmDeleteComplicated">
 		<message name="message">
-			至少有一件所选东东被锁定，不可复制,或属于其他人。
-你确定要删除所有物品吗?
+			您选择的物品中至少有一件被锁定，不可复制，或者属于其他人。
+您确定要删除所有物品吗?
 		</message>
 		<option name="Yes">
 			是
@@ -937,22 +990,83 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="DisplaySettingsSafe">
 		<message name="message">
-			基于您的特殊安全要求，显示设置
-已经被设成安全水平模式。
+			显示设置已调整为安全水平，因为您指定了 -safe 选项。
 		</message>
+	</alert>
+	<alert name="UnsupportedGLRequirements">
+		<message name="message">
+			您似乎没有满足第二人生的系统需求的硬件。第二人生需要支持多重材质 (multitexture)
+的 OpenGL 显示卡。如果您满足这个条件的话，也许您需要确认已经
+安装了您的显示卡的最新驱动程序、以及操作系统的 Service Pack 和补丁。
+
+如果您还是遇到问题，请访问: http://www.secondlife.com/support
+		</message>
+	</alert>
+	<alert name="UnsupportedHardware">
+		<message name="message">
+			警告: 您的系统没有满足第二人生的最低系统需求。如果您继续使用第二人生，您可能会得到糟糕的性能体验。不幸的是，我们无法为不支持的系统配备提供技术支持。
+
+MINSPECS
+您希望访问 [_URL] 得到更多信息吗？
+		</message>
+		<ignore name="ignore">
+			检测到不支持的硬件时
+		</ignore>
+		<option name="Yes">
+			是
+		</option>
+		<option name="No">
+			否
+		</option>
+	</alert>
+	<alert name="UnsupportedGPU">
+		<message name="message">
+			- 您的显示卡没有达到最低需求。
+		</message>
+	</alert>
+	<alert name="UnsupportedCPU">
+		<message name="message">
+			- 您的 CPU(中央处理器)速度没有达到最低需求。
+		</message>
+	</alert>
+	<alert name="UnsupportedRAM">
+		<message name="message">
+			- 您的系统内存没有达到最低需求。
+		</message>
+	</alert>
+	<alert name="UnknownGPU">
+		<message name="message">
+			您的系统中安装了一个我们所不知道的显卡。
+这经常发生于我们还没有来得及测试的新硬件上。
+第二人生将很可能正常运行，但您也许要
+调节您的图形设定到更合适的水平上。
+(编辑 &gt; 首选项 &gt; 图像).
+		</message>
+		<ignore name="ignore">
+			检测到未知的显示卡时
+		</ignore>
 	</alert>
 	<alert name="DisplaySettingsRecommended">
 		<message name="message">
-			显示设置已经被设置在推荐的水平上，推荐水平是基于您计算机的系统配置得出的。
+			基于您计算机的系统配置，显示设置已经被设置在推荐的水平上。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
+	</alert>
+	<alert name="DisplaySettingsNoShaders">
+		<message name="message">
+			[SECOND_LIFE] 在初始化图形驱动程序时崩溃了。
+图形质量将被设为“低”以避免常见的驱动程序错误。
+这将禁用某些图形特性。
+我们建议更新您的显示卡驱动程序。
+图形质量可以在首选项 → 图像中提高。
+		</message>
 	</alert>
 	<alert name="CannotRequestDomain">
 		<message name="message">
-			无法连接到服务器.
-无法请求连接域名: [HOST]
+			无法连接到服务器。
+无法请求域名: [HOST]
 		</message>
 	</alert>
 	<alert name="CannotFindDomain">
@@ -961,11 +1075,11 @@ in this region back to their owner&apos;s inventory?
 这可能是网络连接故障或服务器出错
 所引发的结果。
  
-请几分钟后再试, 或点击帮助
-获得建议和到达系统状态的网页链接。
+请稍后再试, 或点击帮助
+获得建议和到系统状态网页的链接。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Help">
 			帮助
@@ -973,74 +1087,82 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="PromptSelectServer">
 		<message name="message">
-			请选择一个服务器.
+			请选择一个服务器。
 无法连接至服务器[SERVER]
 		</message>
 	</alert>
 	<alert name="CannotConnectDNSError">
 		<message name="message">
 			无法连接到[SECOND_LIFE].
-DNS服务器无法解读。
+域名服务器无法解析主机名称。
+
 请确定可以连接主页 www.secondlife.com。
-如果可以，但一直收到错误信息，
-请到技术部门并报告此项错误。
+如果可以，但一直收到该错误信息，
+请到 www.secondlife.com/support 报告此项错误。
 		</message>
 	</alert>
 	<alert name="CannotConnectSecurityError">
 		<message name="message">
 			无法与登陆服务器建立安全连接。
 通常这意味着计算机时钟的设置不正确。
-请到控制面板选项察看时间设置，并确定时间
-和日期设定正确。
- 
-如果一直收到这个错误信息，请登陆
-SecondLife.com网站，与技术支持部门联系，
-并向他们报告问题。
+
+请确定时间和日期设定正确。 
+如果仍然收到这个错误信息，请到 
+www.secondlife.com/support 
+报告此项错误。
 		</message>
 	</alert>
 	<alert name="CannotConnectVerificationError">
 		<message name="message">
-			无法连接到[SECOND_LIFE].
+			无法连接到 [SECOND_LIFE]。
 登陆服务器无法识别自身。
+
+如果一直收到这个错误信息，请到 
+www.secondlife.com/support 
+报告此项错误。
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorWindows">
 		<message name="message">
 			无法连接至[SECOND_LIFE].
-尽管我们尽了最大努力, 一些不可知的错误导致了这次连接失败.
-请尝试登陆SecondLife.com网站的技术支持部门，并报告问题，如果可能，请附上你的SecondLife.log文件，文件路径为: C:\Documents and Settings\(name)\Application Data\SecondLife\logs
+尽管我们尽了最大努力, 一些不可知的错误导致了
+这次连接失败。请尝试登陆SecondLife.com网站的
+技术支持部门，并报告问题，如果可能，请附上你的
+SecondLife.log文件，文件路径为: 
+C:\Documents and Settings\(用户名)\Application Data\SecondLife\logs
 非常感谢.
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorDarwin">
 		<message name="message">
-			无法连接到[SECOND_LIFE].
-尽管我们做了最大努力, 仍有一些不可预知的错误发生。
-请登陆the SecondLife.com 网站，与技术支持部门
-联系并报告问题。如果有可能，请附上你的
-位于: C:Documents and Settings(name)Application DataSecondLifelogs的
-SecondLife.log文件。谢谢。
+			无法连接到 [SECOND_LIFE]。
+尽管我们尽了最大努力, 一些不可知的错误导致了
+这次连接失败。请尝试登陆SecondLife.com网站的
+技术支持部门，并报告问题，如果可能，请附上你的
+SecondLife.log文件，文件路径为: 
+~/Library/Application Support/SecondLife/logs 
+谢谢。
 		</message>
 	</alert>
 	<alert name="CannotResolveLoginToken">
 		<message name="message">
-			处理你的注册证明时出错。
-请尝试重新注册一遍。
+			处理你的登陆令牌时出错。
+请尝试重新登陆一遍。
+
 如果持续收到这个错误，
-请登陆SecondLife.com 网站上的
-支持中心。
+请登陆 www.secondlife.com/support .
 		</message>
 	</alert>
 	<alert name="CannotConnectNoMessage">
 		<message name="message">
-			未知问题出现.
-（从服务器收到空白错误信息.）
+			连接时发生未知的问题。
+（从服务器收到空白错误信息。）
  
-请几分钟后再试,或者点击帮助
-获得建议和到达系统状态的网页链接。
+请稍后再试, 或点击帮助
+获得建议和到系统状态网页的链接。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Help">
 			帮助
@@ -1048,13 +1170,13 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="CannotConnectNoReplyFromLogin">
 		<message name="message">
-			无法连接。 登陆数据库没有回复。
+			无法连接。 模拟器没有登陆回应。
  
 请几分钟后再试, 或点击帮助
-获得建议和到达系统状态的网页链接。
+获得建议和到系统状态网页的链接。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Help">
 			帮助
@@ -1062,17 +1184,17 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="CannotConnectLoginTimeout">
 		<message name="message">
-			等待你在世界中注册位置的时间已过。请重新尝试。
+			等待你在世界中注册位置超时。请重新尝试。
 		</message>
 	</alert>
 	<alert name="FirstRunDialog">
 		<message name="message">
 			[SECOND_LIFE] 安装已完成。
  
-这是你第一次使用[SECOND_LIFE], 登陆前你
+如果这是你第一次使用[SECOND_LIFE], 登陆前你
 需要创建一个新帐户。
  
-返回www.secondlife.com创建账户?
+返回 www.secondlife.com 创建账户?
 		</message>
 		<option name="NewAccount...">
 			新帐户...
@@ -1083,41 +1205,27 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="ClothingStillDownloading">
 		<message name="message">
-			你的装束仍在下载中。
-你现在可以按正常的使用这个世界，
-其他用户也可以看见你。
+			你的化身仍在下载中。
+你现在可以正常地使用 [SECOND_LIFE]，
+其他用户也可以正常地看见你。
 		</message>
 	</alert>
 	<alert name="CannotResolveDomain">
 		<message name="message">
-			无法连接到服务器.
+			无法连接到服务器。
 无法找到域名: [DOMAIN]
+
 请检查你的网络连接。
 		</message>
-	</alert>
-	<alert name="CannotConnectLoginPacket">
-		<message name="message">
-			无法连接。登陆服务器未收到任何登陆
-信息.
- 
-请几分钟后再试, 或点击帮助
-获得建议和到达系统状态的网页链接。
-		</message>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Help">
-			帮助
-		</option>
 	</alert>
 	<alert name="WelcomeToSecondLife">
 		<message name="message">
 			欢迎来到[SECOND_LIFE]! 
  
-使用箭头键来行走.
+使用方向键来行走。
  
-请选择男性或女性角色. 
-随后可更改选择.
+请选择男性或女性角色。
+随后可更改选择。
 		</message>
 		<option name="Male">
 			男性
@@ -1130,9 +1238,9 @@ SecondLife.log文件。谢谢。
 		<message name="message">
 			欢迎来到[SECOND_LIFE]! 
  
-使用箭头键来行走.
+使用方向键来行走。
  
-请选择男性或女性角色.
+请选择男性或女性角色。
 		</message>
 		<option name="Male">
 			男性
@@ -1141,40 +1249,16 @@ SecondLife.log文件。谢谢。
 			女性
 		</option>
 	</alert>
-	<alert name="WebLaunchSupport">
-		<message name="message">
-			联系[SECOND_LIFE]支持中心.
-		</message>
-		<option name="Gotopage">
-			翻页
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
-	<alert name="ConfirmQuit">
-		<message name="message">
-			确定退出?
-		</message>
-		<option name="Yes">
-			是
-		</option>
-		<option name="No">
-			否
-		</option>
-	</alert>
 	<alert name="RegionNoTerraforming">
 		<message name="message">
-			地区[REGION]不允许改变地形。
-你将需要在世界的别处购买土地
-来改变它的地形。
+			[REGION] 地区不允许改变地形。
 		</message>
 	</alert>
 	<alert name="CannotCopyWarning">
 		<message name="message">
-			你没有拿到复制此项物品的许可。
+			你没有复制此项物品的许可。
 如果送出它，你将彻底失去
-此项物品.你是否真的要
+此项物品。你是否真的要
 提供这项物品?
 		</message>
 		<option name="Yes">
@@ -1186,7 +1270,7 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="CannotGiveItem">
 		<message name="message">
-			无法提供库存的目录内容。
+			无法给与库存物品。
 		</message>
 	</alert>
 	<alert name="TransactionCancelled">
@@ -1196,20 +1280,20 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="TooManyItems">
 		<message name="message">
-			一次库存转移无法包括这么多物品。
+			一次库存转移中不能给与多于 42 件物品。
 		</message>
 	</alert>
 	<alert name="NoItems">
 		<message name="message">
-			你不能提供任何物品。
+			你没有权利传送所选的物品。
 		</message>
 	</alert>
 	<alert name="CannotCopyCountItems">
 		<message name="message">
-			你没有复制所选条目 [COUNT]次的许可。
-这些条目将从你的库存中被
-除去。
-你真的要给出这些条目吗
+			你没有复制所选物品中的 [COUNT]件的许可。
+这些条目将从你的库存中被除去。
+
+你真的要给出这些物品吗？
 		</message>
 		<option name="Yes">
 			是
@@ -1220,20 +1304,36 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="CannotGiveCategory">
 		<message name="message">
-			无法提供库存的目录分类内容.
+			你没有权利传送所选的文件夹。
 		</message>
 	</alert>
 	<alert name="FreezeAvatar">
 		<message name="message">
-			冻结此化身?
-他或她将暂时无法移动,交谈
+			冻结此化身？
+他或她将暂时无法移动、交谈
 或与世界互动。
 		</message>
 		<option name="Freeze">
 			锁定
 		</option>
 		<option name="Unfreeze">
-			解锁定
+			解锁
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="FreezeAvatarFullname">
+		<message name="message">
+			冻结 [AVATAR_NAME]?
+他或她将暂时无法移动、交谈
+或与世界互动。
+		</message>
+		<option name="Freeze">
+			锁定
+		</option>
+		<option name="Unfreeze">
+			解锁
 		</option>
 		<option name="Cancel">
 			取消
@@ -1241,13 +1341,27 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="EjectAvatar">
 		<message name="message">
-			将这个化身逐出你的地盘?
+			将这个化身逐出你的土地?
 		</message>
 		<option name="Eject">
 			驱除
 		</option>
 		<option name="EjectandBan">
-			驱除并禁止
+			驱除并封禁
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullname">
+		<message name="message">
+			将 [AVATAR_NAME] 逐出你的土地?
+		</message>
+		<option name="Eject">
+			驱除
+		</option>
+		<option name="EjectandBan">
+			驱除并封禁
 		</option>
 		<option name="Cancel">
 			取消
@@ -1255,29 +1369,28 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="InvalidUUID">
 		<message name="message">
-			Not a valid uuid
+			不是有效的 UUID
 		</message>
 	</alert>
 	<alert name="AcquireErrorTooManyObjects">
 		<message name="message">
-			获取错误: 选择的东东太多。
+			获取错误: 选择的物体太多。
 		</message>
 	</alert>
 	<alert name="AcquireErrorObjectSpan">
 		<message name="message">
-			获取错误: 东东跨区。
-请将所有待获得东东移至
+			获取错误: 物体处在不只一个区域内。
+请将所有待获得物体移至
 同一区域。
 		</message>
 	</alert>
 	<alert name="TakeLockedOrNotOwnedBy">
 		<message name="message">
-			最少有一件东东被锁定或不属于你。
-如果有某件东东本不属于你而你却拿走了它, 
-东东使用下一个主人许可证时，有可能会
-禁止你在未来修改或复制它的
-能力。
-然而,你还是可以执行目前的选择。
+			最少有一件物体被锁定或不属于你。
+如果有某件物体本不属于你而你却拿走了它, 
+下个拥有者权利将对该物体适用并可能限制
+你复制或修改它的权利。
+
 你确定要拿走物品栏里的东西吗?
 		</message>
 		<option name="Yes">
@@ -1291,11 +1404,10 @@ SecondLife.log文件。谢谢。
 		<message name="message">
 			[EXTRA]
  
- 
-登陆[URL]获得更多购买现钞的机会?
+登陆 [URL] 查询购买货币的资料？
 		</message>
 		<option name="GotoPage">
-			回主页
+			打开网页
 		</option>
 		<option name="Cancel">
 			取消
@@ -1303,61 +1415,61 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="UnableToLinkObjects">
 		<message name="message">
-			无法连接数量为[COUNT]的东东.
-你只能连接最多数量为[MAX]的东东.
-请尝试选择数量较少的东东.
+			无法链接 [COUNT] 个物体。
+您最多可以链接 [MAX]个物体。
 		</message>
 	</alert>
 	<alert name="CannotLinkIncompleteSet">
 		<message name="message">
-			你只能对完整东东进行连接,
-并且一次必须选定多个东东.
+			你只能对完整的物体进行链接，
+并且一次必须选定多个物体。
 		</message>
 	</alert>
 	<alert name="CannotLinkModify">
 		<message name="message">
-			无法到达链接，因为你没有更改所有东东的许可设置。
-请确定没有东东被锁定，并且所有东东都
-归你所有。
+			无法进行链接，因为你并不在全部所选物体上
+都有更改权利。
+
+请确定没有物体被锁定，并且所有物体都归你所有。
 		</message>
 	</alert>
 	<alert name="CannotLinkDifferentOwners">
 		<message name="message">
-			无法到达链接，因为所有东东不属于同一个人。
-请确定所选定东东全部归你所有。
+			无法进行链接，因为并不是所有物体都属于同一个人。
+请确定所有物体都归你所有。
 		</message>
 	</alert>
 	<alert name="NoFileExtension">
 		<message name="message">
 			此文件没有文件拓展名: &apos;[FILE]&apos;
+			
 请确保文件有其正确的拓展名。
 		</message>
 	</alert>
 	<alert name="InvalidFileExtension">
 		<message name="message">
-			文件拓展名[EXTENSION]不可用。
-期望使用[VALIDS]
+			无效的文件拓展名 [EXTENSION]
+期待的 [VALIDS]
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="CannotUploadSoundFile">
 		<message name="message">
-			由于读取文件:[FILE]，所以不能
-打开上传的声音文件。
+			不能打开上传的声音文件 [FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileNotRIFF">
 		<message name="message">
-			文件无法以 RIFF WAVE file: 
-[FILE]形式打开
+			文件不像是 RIFF WAVE 格式: 
+[FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileNotPCM">
 		<message name="message">
-			文件无法以 PCM WAVE 有声文件: 
-[FILE]形式打开
+			文件不像是 PCM WAVE 格式:
+[FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidChannelCount">
@@ -1368,48 +1480,50 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="SoundFileInvalidSampleRate">
 		<message name="message">
-			文件中的速率不是支持样本速率(应该为44.1k): 
+			文件的频率不是支持采样频率 (必须为 44.1k): 
 [FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidWordSize">
 		<message name="message">
-			文件中的文字尺寸不是支持文字尺寸 (应改为8 or 16比特): 
+			文件不像是支持的字长 (应该为 8 或 16 位): 
 [FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidHeader">
 		<message name="message">
-			在WAV标题文件：[文件]中无法找到 
- &apos;data&apos; 模块
+			在 WAV 文件头中无法找到 &apos;data&apos; 模块:
+[文件]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidTooLong">
 		<message name="message">
-			声音文件过长(最长10秒): 
+			声音文件过长 (最长 10 秒): 
 [FILE]
 		</message>
 	</alert>
 	<alert name="ProblemWithFile">
 		<message name="message">
-			出错文件[FILE]:
+			文件 [FILE] 有问题:
  
 [ERROR]
 		</message>
 	</alert>
 	<alert name="CannotOpenTemporarySoundFile">
 		<message name="message">
-			由于写入文件: [FILE]则不能打开暂时压缩声音文件。
+			无法写入压缩的声音临时文件:
+		[FILE]
 		</message>
 	</alert>
 	<alert name="UnknownVorbisEncodeFailure">
 		<message name="message">
-			未知代码错误的文件: [FILE]
+			对文件进行 Vorbis 编码时发生错误：
+			[FILE]
 		</message>
 	</alert>
 	<alert name="CorruptResourceFile">
 		<message name="message">
-			误用的资源文件: [FILE]
+			崩坏的的资源文件: [FILE]
 		</message>
 	</alert>
 	<alert name="UnknownResourceFileVersion">
@@ -1419,155 +1533,171 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="UnableToCreateOutputFile">
 		<message name="message">
-			无法创造输出文件：: [FILE]
+			无法创建输出文件: [FILE]
 		</message>
 	</alert>
 	<alert name="DoNotSupportBulkAnimationUpload">
 		<message name="message">
-			我们现在不支持大量上传动画文件.
+			我们现在不支持大宗上传动画文件。
 		</message>
 	</alert>
 	<alert name="CannotAccessOutputFile">
 		<message name="message">
-			无法到达输出文件: [FILE]
+			无法访问输出文件: [FILE]
 		</message>
 	</alert>
 	<alert name="InsufficientFundsToUploadFile">
 		<message name="message">
-			有足够的资金以完成[FILE]的上传:花费为 L$[COST], 结余为L$[结余]
+			上传需要的 L$ 不够: 花费为 L$[COST], 您的结余为 L$[BALANCE]
 		</message>
 	</alert>
 	<alert name="InsufficientFundsToFinishUpload">
 		<message name="message">
-			没有足够的资金以完成[FILE]的上传:花费为 L$[COST], 结余为L$[结余]
+			没有足够的 L$ 以完成[FILE]的上传: 花费为 L$[COST], 您的结余为 L$[BALANCE]
 		</message>
 	</alert>
 	<alert name="CannotUploadReason">
 		<message name="message">
-			无法上传文件[FILE]，导致原因为: [REASON]
+			无法上传文件[FILE]，原因为: [REASON]
 请随后重试。
 		</message>
 	</alert>
 	<alert name="CannotCreateLandmarkNotOwner">
 		<message name="message">
-			你不能在此设定路标，因为
-地主不允许这样做。
-请移动一段距离再加以设定。
+			你不能在此设定地标，因为
+土地所有人不允许这样做。
 		</message>
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoScripts">
 		<message name="message">
-			无法实现编辑。
-选择有可用脚本的东东。
+			无法重新编译。
+			
+请选择有脚本的物体。
 		</message>
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoPermission">
 		<message name="message">
-			无法实现编辑。
-选择被你允许修改脚本的
-东东。
+			无法重新编译。
+			
+请选择你能够修改的有脚本的物体。
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoScripts">
 		<message name="message">
-			无法实现重置。
-选择有可用脚本的东东。
+			无法重置脚本。
+			
+请选择有脚本的物体。
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoPermission">
 		<message name="message">
-			无法实现重置。
-选择被你允许修改脚本的
-东东。
+			无法重置脚本。
+			
+请选择你能够修改的有脚本的物体。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoScripts">
 		<message name="message">
 			无法设置任何脚本为运行。
-选择具有可用脚本的东东。
+			
+请选择有脚本的物体。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoPermission">
 		<message name="message">
 			无法设置任何脚本为运行。
-选择被你允许可以修改脚本的
-东东。
+			
+请选择你能够修改的有脚本的物体。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoScripts">
 		<message name="message">
 			无法设置任何脚本为不运行。
-选择具有可用脚本的东东。
+
+请选择有脚本的物体。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoPermission">
 		<message name="message">
 			无法设置任何脚本为不运行。
-选择被你允许可以修改脚本的
-东东。
+			
+请选择你能够修改的有脚本的物体。
 		</message>
 	</alert>
 	<alert name="NoFrontmostFloater">
 		<message name="message">
-			No frontmost floater to save
+			没有可保存的前置浮动框
+		</message>
+	</alert>
+	<alert name="SeachFilteredOnShortWords">
+		<message name="message">
+			您的查询已被更改，其中过短的词被去除。
+
+最后搜索了: [FINALQUERY]
+		</message>
+	</alert>
+	<alert name="SeachFilteredOnShortWordsEmpty">
+		<message name="message">
+			您的搜索用字太短
+所以最后并没有执行查找。
 		</message>
 	</alert>
 	<alert name="ColladaExportFailedUnknownServerError">
 		<message name="message">
-			克拉达输出失败:未知服务器错误。
+			Collada 文件输出失败: 未知服务器错误。
 		</message>
 	</alert>
 	<alert name="ColladaExportFailedInvalidPermissions">
 		<message name="message">
-			克拉达输出失败: 许可证无效或东东锁定!
+			Collada 文件输出失败: 无效权限或物体已锁定！
 		</message>
 	</alert>
 	<alert name="ColladaExportFailedUnknownError">
 		<message name="message">
-			克拉达输出失败:未知错误。
+			Collada 文件输出失败: 未知错误。
 		</message>
 	</alert>
 	<alert name="ObjectImportFailedTransfer">
 		<message name="message">
-			输入东东失败。无法传递文件。
+			导入物体失败。无法传送文件。
 		</message>
 	</alert>
 	<alert name="ObjectImportFailedBadFormat">
 		<message name="message">
-			输入东东失败。文件不是SL接受的文件形式。
+			导入物体失败。文件不是可接受的 SLObject 格式。
 		</message>
 	</alert>
 	<alert name="ObjectImportFailedUnknownError">
 		<message name="message">
-			东东输入失败。未知错误。
+			导入物体失败。未知错误。
 		</message>
 	</alert>
 	<alert name="CouldNotTeleportReason">
 		<message name="message">
-			不能闪电传送。
+			没能瞬间移动。
 [REASON]
 		</message>
 	</alert>
 	<alert name="CannotSetLandOwnerNothingSelected">
 		<message name="message">
-			法设定土地拥有者：
-未选择任何对象。
+			无法设定土地拥有者：
+未选择任何地块。
 		</message>
 	</alert>
 	<alert name="CannotSetLandOwnerMultipleRegions">
 		<message name="message">
-			无法强制土地所属，因为因为选项跨越数个
-区域。请选择一个面积较小的区域并重试。
+			无法强制土地所有权，因为选项跨越数个
+区域。请选择较小的区域并重试。
 		</message>
 	</alert>
 	<alert name="ForceOwnerAuctionWarning">
 		<message name="message">
 			这块单位土地正在拍卖。如果投标已经开始，
-强制拥有将会使拍卖流产，并且很有可能
-使其他居民不快。是否强制拥有?
+强制所有权将会使拍卖流标，并且很有可能
+使其他居民不快。是否强制所有权?
 		</message>
 		<option name="Force">
-			强迫
+			强制
 		</option>
 		<option name="Cancel">
 			取消
@@ -1587,7 +1717,7 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="CannotReleaseLandNothingSelected">
 		<message name="message">
-			无法放弃土地:
+			无法放弃土地: 
 未选中任何对象。
 		</message>
 	</alert>
@@ -1609,16 +1739,22 @@ SecondLife.log文件。谢谢。
 无法找到该土地所在区域。
 		</message>
 	</alert>
+	<alert name="CannotCloseFloaterBuyLand">
+		<message name="message">
+			在第二人生完成对这次交易的估价前，
+你不能关闭“购买土地”窗口。
+		</message>
+	</alert>
 	<alert name="CannotDeedLandNothingSelected">
 		<message name="message">
 			无法转让土地:
-未选中任何对象.
+没有选择地块。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNoGroup">
 		<message name="message">
 			无法转让土地:
-没有社团.
+没有选择社团。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNoRegion">
@@ -1628,28 +1764,9 @@ SecondLife.log文件。谢谢。
 请使用帮助 -&gt; 报告漏洞来报告此项错误。
 		</message>
 	</alert>
-	<alert name="CannotSetLandOwnerNothingSelected">
-		<message name="message">
-			法设定土地拥有者：
-未选择任何对象。
-		</message>
-	</alert>
-	<alert name="CannotBuyLandMultipleRegions">
-		<message name="message">
-			无法购买土地，因为选项跨越的区域太多。
-请选择一个小一点的面积，并重试。
-		</message>
-	</alert>
 	<alert name="CannotBuyLandMultipleSelected">
 		<message name="message">
 			无法购买土地:
-选中的不同单位土地数量太多。
-请选择一块较小的面积。
-		</message>
-	</alert>
-	<alert name="CannotDeedLandMultipleSelected">
-		<message name="message">
-			无法转让土地:
 选中的不同单位土地数量太多。
 请选择一块较小的面积。
 		</message>
@@ -1659,47 +1776,21 @@ SecondLife.log文件。谢谢。
 			没有找到此地区
 		</message>
 	</alert>
-	<alert name="ParcelCanPlayMusic">
-		<message name="message">
-			这个地方可以播放流动音乐。 
- 
-音乐要求 768 kbps 或者更快的
-网络连接速度。
- 
-如果网络可用，是否播放音乐?
-		</message>
-		<option name="PlayMusic">
-			播放音乐
-		</option>
-		<option name="Disable">
-			禁止
-		</option>
-	</alert>
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
-			T这个地方可以播放流动视频。 
+			这个地方可以播放流媒体。 
+流媒体需要较快的网络连接。
  
-流动视频要求768 kbps或者
-更快的网络连接速度。
- 
-如果网络可用，是否播放流动视频?
- 
-(你可以稍候在参数选择 &gt;音频 &amp;视频
-下改变选项。)
+如果网络可用，是否播放流媒体?
+(你可以稍后在 首选项 &gt; 音频和视频 中
+更改这个选项。)
 		</message>
-		<option name="PlayMedia">
-			播放多媒体
+		<option name="PlayMusic">
+			播放媒体
 		</option>
 		<option name="Disable">
 			禁止
 		</option>
-	</alert>
-	<alert name="CannotBuyLandWaitingForServer">
-		<message name="message">
-			无法购买土地:
-等到服务器报告花费。
-请稍候再试。
-		</message>
 	</alert>
 	<alert name="CannotDeedLandWaitingForServer">
 		<message name="message">
@@ -1708,109 +1799,67 @@ SecondLife.log文件。谢谢。
 请稍候再试。
 		</message>
 	</alert>
-	<alert name="CannotBuyLandNoPublic">
-		<message name="message">
-			无法购买土地:
-选择中不包含任何公共土地。
-		</message>
-	</alert>
-	<alert name="CannotBuyLandLandOwned">
-		<message name="message">
-			无法购买土地:
-所选的土地属于另外一个用户。
-请重新选择一个较小的面积。
-		</message>
-	</alert>
-	<alert name="CannotButLandRegionNotFound">
-		<message name="message">
-			无法购买土地:
-无法找到该土地所在区域。
-请使用帮助 -&gt; 报告漏洞来向我们报告这项错误。
-		</message>
-	</alert>
-	<alert name="CannotBuyLandNoTransfer">
-		<message name="message">
-			无法购买土地:
-区域[REGION]不允许转移土地。
-		</message>
-	</alert>
 	<alert name="CannotDeedLandNoTransfer">
 		<message name="message">
 			无法转让土地:
-区域[REGION]不允许转移土地。
-		</message>
-	</alert>
-	<alert name="CannotBuyLandForGroupNotOfficer">
-		<message name="message">
-			无法为这个社团购买土地:
-你在目前的社团里不是社团官员
-激活另一个社团请使用编辑 -&gt; 社团...
-		</message>
-	</alert>
-	<alert name="CannotBuyLandInsufficientFunds">
-		<message name="message">
-			购买面积为[面积]平方米的土地需要L$[价格].
-你只有 L$[资产表]。
-		</message>
-	</alert>
-	<alert name="CannotReleaseLandNothingSelected">
-		<message name="message">
-			无法放弃土地:
-未选中任何对象。
+区域 [REGION] 不允许转移土地。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandWatingForServer">
 		<message name="message">
 			无法放弃土地:
-等待服务器报告花费。
+正等待服务器更新地块信息。
+			
 几秒钟后请再尝试一次。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandSelected">
 		<message name="message">
 			无法放弃土地:
-选中的单位土地数量太多。
-请选择一块较小的面积。
+你并不拥有所有选中的地块。
+
+请选择单个地块。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandDontOwn">
 		<message name="message">
 			无法放弃土地:
-你没有让出这块土地的许可证.
-你拥有的土地在游戏世界中是绿色.
+你没有让出这块土地的许可。
+你拥有的土地在世界中是绿色。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandRegionNotFound">
 		<message name="message">
 			无法放弃土地:
 无法找到此土地所属的区域。
+
 请使用帮助 -&gt; 报告漏洞来报告这个错误。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNoTransfer">
 		<message name="message">
 			无法放弃土地:
-区域[REGION]内不允许转移土地。
+区域 [REGION] 内不允许转移土地。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandPartialSelection">
 		<message name="message">
 			无法放弃土地:
-你必须选中全部单位土地才能使用此功能。
-尝试双击来选中全部单位土地,或者 
-分割你的单位土地。
+你必须选中整个地块才能使用此功能。
+尝试双击来选中全部地块,或者 
+先分割你的地块。
 		</message>
 	</alert>
 	<alert name="ReleaseLandWarning">
 		<message name="message">
-			你将放弃面积为[AREA]平方米的土地。
+			你将放弃面积为 [AREA] 平方米的土地。
 放弃该土地会将他从你拥有的土地中
-移走, 不会兑换成任何现金.
+移走, 不会兑换成任何 L$。
  
 是否放弃土地?
 		</message>
 		<option name="Release">
-			启动
+			确定
 		</option>
 		<option name="Cancel">
 			取消
@@ -1825,15 +1874,15 @@ SecondLife.log文件。谢谢。
 	<alert name="CannotDivideLandPartialSelection">
 		<message name="message">
 			无法划分土地:
-你选择了一整块单位土地。
-请使用点击，拖带的方法选用一块面积较小
-的土地。
+			
+你选择了整块地块。
+请选择该地块的一部分。
 		</message>
 	</alert>
 	<alert name="LandDivideWarning">
 		<message name="message">
-			分割次此土地会造成单位土地一分为二，
-且每块单位土地会保留原配置。操作成功后，
+			分割此土地会将地块一分为二，
+且每块地块会保留原配置。操作成功后，
 一些设置会被重置为默认值。
  
 是否分割土地?
@@ -1855,8 +1904,8 @@ SecondLife.log文件。谢谢。
 	<alert name="CannotJoinLandNoRegion">
 		<message name="message">
 			无法连接土地:
-无法找到该土地所属的区域.
-请使用帮助 -&gt; 报告程序漏洞,让我们知道问题所在.
+无法找到该土地所属的区域。
+请使用帮助 -&gt; 报告程序漏洞，让我们知道问题所在。
 		</message>
 	</alert>
 	<alert name="CannotJoinLandNothingSelected">
@@ -1868,39 +1917,49 @@ SecondLife.log文件。谢谢。
 	<alert name="CannotJoinLandEntireParcelSelected">
 		<message name="message">
 			无法合并土地:
-你已经选中一块完整的单位土地。
-请尝试点击并拖动，选择一块面积较大
-的区域。
+您只选择了单个地块。
+
+请选择跨两个地块的区域。
 		</message>
 	</alert>
 	<alert name="CannotJoinLandSelection">
 		<message name="message">
 			无法合并土地:
-你必须选择一块以上的单位土地.
-请尝试点击并拖动，选择一块面积较大
-的区域。
+您必须选择一个以上的地块。
+
+请选择跨两个地块的区域。
 		</message>
 	</alert>
 	<alert name="JoinLandWarning">
 		<message name="message">
-			连接土地需要在与所选矩形相交的所有
-单位土地外创建新的更大的单位土地。
+			合并土地将从与所选矩形相交的所有
+地块创建新的地块。
  
-你必须重置新单位土地的名称和买卖
-特权。 
+你必须重置这一新地块的名称和选项。
  
-是否连接土地?
+是否合并土地?
 		</message>
 		<option name="Join">
-			加入
+			合并
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
+	<alert name="ConfirmNotecardSave">
+		<message name="message">
+			只有保存这张记事卡之后，此项物品才可以复制或查看。是否保存记事卡？
+		</message>
+		<option name="Save">
+			是的，请保存
+		</option>
+		<option name="Cancel">
+			取消保存
+		</option>
+	</alert>
 	<alert name="ConfirmLandmarkCopy">
 		<message name="message">
-			复制此物品至你的库存?
+			复制此地标至你的库存？
 		</message>
 		<option name="Copy">
 			复制
@@ -1911,7 +1970,7 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="ConfirmItemCopy">
 		<message name="message">
-			复制此物品至你的库存?
+			复制此物品至你的库存？
 		</message>
 		<option name="Copy">
 			复制
@@ -1922,41 +1981,42 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="ResolutionSwitchFail">
 		<message name="message">
-			无法用[RESY]置换[RESX]
+			切换分辨率到 [RESX] × [RESY] 失败
 		</message>
 	</alert>
 	<alert name="ErrorUndefinedGrasses">
 		<message name="message">
-			错误: 为定义草坪: [种类]
+			错误: 未定义草坪: [SPECIES]
 		</message>
 	</alert>
 	<alert name="ErrorUndefinedTrees">
 		<message name="message">
-			错误:为定义树木: [种类]
+			错误: 未定义树木: [SPECIES]
 		</message>
 	</alert>
 	<alert name="CannotSaveWearableOutOfSpace">
 		<message name="message">
-			无法储存&apos;[NAME]&apos;至衣物文档.你可能需要
-释放部分电脑存储空间后重新储存
-至衣物文档.
+			无法储存 &apos;[NAME]&apos; 到装束文件。你可能需要
+释放部分电脑存储空间后重新储存。
 		</message>
 	</alert>
 	<alert name="CannotSaveToAssetStore">
 		<message name="message">
-			无法储存[NAME]至终属资产存储.
-这通常是暂时性功能障碍。请用户化后再次保存。
+			无法储存 [NAME] 至中央资料服务器。
+这通常只是临时的问题。请自定义后再次保存。
+
 如果问题依然存在，请点击
 帮助/报告漏洞并提供
-客户网络设置的具体信息。
+您的网络设置的具体信息。
 		</message>
 	</alert>
 	<alert name="AppEarlyExit">
 		<message name="message">
 			[MESSAGE]
  
-我们无法修复该错误。请
-请卸载并重新安装，并再次尝试。如果错误仍存在，
+我们无法修复该错误。
+
+请卸载并重新安装，然后再次尝试。如果错误仍存在，
 请登陆www.secondlife.com/support 
 寻求技术支持。
 		</message>
@@ -1966,16 +2026,15 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="YouHaveBeenLoggedOut">
 		<message name="message">
-			你已经退出登陆[SECOND_LIFE]:
+			你已经退出[SECOND_LIFE]:
  
 [MESSAGE]
  
-点击继续可以查看历史即时通记录和聊天记录。
-你将不能使用其他任何功能进行其它操作。
-点击退出，马上退出SECOND_LIFE]。
+您仍可以查看历史即时通记录和聊天记录。
+否则点击退出将立即关闭 [SECOND_LIFE]。
 		</message>
 		<option name="Continue">
-			继续
+			查看聊天记录
 		</option>
 		<option name="Quit">
 			退出
@@ -1984,18 +2043,37 @@ SecondLife.log文件。谢谢。
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
 			无法为社团购买土地:
-你没有为你的活动社团购买土地的许可证.
-请激活另一社团，使用编辑 -&gt; 社团...
+你没有为你的活动社团购买土地的许可。
 		</message>
 	</alert>
 	<alert name="AddFriend" title="添加朋友">
 		<message name="message">
-			好友们可以在地图上互相追踪，并可以在线接受更新信息. 
+			好友可以互相允许对方
+在地图上找到自己，
+以及接受上线通知。
  
-是否发送友谊卡给[NAME]?
+是否提议 [NAME] 成为好友？
 		</message>
 		<option name="Offer">
-			接收
+			提议
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="AddFriendWithMessage" title="添加朋友">
+		<message name="message">
+			好友可以互相允许对方
+在地图上找到自己，
+以及接受上线通知。
+ 
+是否提议 [NAME] 成为好友？
+		</message>
+		<editline name="editline">
+			我们做朋友好吗?
+		</editline>
+		<option name="Offer">
+			提议
 		</option>
 		<option name="Cancel">
 			取消
@@ -2003,7 +2081,7 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="RemoveFromFriends">
 		<message name="message">
-			你是否要将[FIRST_NAME] [LAST_NAME] 移出你的朋友圈?
+			你是否要将[FIRST_NAME] [LAST_NAME] 从好友列表中去除？
 		</message>
 		<option name="Remove">
 			移除
@@ -2012,17 +2090,26 @@ SecondLife.log文件。谢谢。
 			取消
 		</option>
 	</alert>
-	<alert name="GodDeleteAllScriptedPublicObjectsByUser">
+	<alert name="RemoveMultipleFromFriends">
 		<message name="message">
-			你是否确定愿意删除以下用户
-
- 
+			你希望从好友列表中移除若干好友吗？
+		</message>
+		<option name="Remove">
+			是的，移除
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="GodDeleteAllScriptedPublicObectsByUser">
+		<message name="message">
+			你是否确定删除用户
 ** [AVATAR_NAME] **
  
-在其他土地上所拥有的所有副本东东？
+在所有他人所有的土地上带有脚本的所有物体？
 		</message>
 		<option name="DELETE!!">
-			删除!!
+			全部删掉!!
 		</option>
 		<option name="Cancel">
 			取消
@@ -2030,15 +2117,12 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="GodDeleteAllScriptedObjectsByUser">
 		<message name="message">
-			你是否确定愿意删除以下用户
-
- 
+			你是否确定删除用户
 ** [AVATAR_NAME] **
- 
-在所有土地上所拥有的所有东东(无论是否有副本)？
+在该模拟器中 &lt;所有土地&gt; 上带有脚本的所有物体？
 		</message>
 		<option name="!!DELETEALL!!">
-			!!DELETE ALL!!
+			全部删掉!!
 		</option>
 		<option name="Cancel">
 			取消
@@ -2046,15 +2130,13 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="GodDeleteAllObjectsByUser">
 		<message name="message">
-			你是否确定愿意删除以下用户
-
- 
+			你是否确定删除用户
 ** [AVATAR_NAME] **
- 
-在所有土地上所拥有的所有东东(无论是否有副本)？
+在该模拟器中 &lt;所有土地&gt; 上的所有物体
+(无论是否带有脚本)？
 		</message>
 		<option name="!!DELETEALL!!">
-			!!DELETE ALL!!
+			全部删掉!!
 		</option>
 		<option name="Cancel">
 			取消
@@ -2062,36 +2144,36 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="PublishGroupInfoToWeb">
 		<message name="message">
-			选择 &quot;在网络上发布&quot;选项将允许我们发布社团的名称，徽章，规章制度，头衔和创始人至[SECOND_LIFE]网站。如果你发布的内容，根据社区标准规定，涉及到成人内容，你有责任对此作出声明。
+			选择 &quot;在网络上发布&quot;选项将允许我们发布社团的名称，徽章，规章制度，头衔和创始人至 [SECOND_LIFE] 网站。如果你发布的内容，根据社区标准规定，涉及到成人内容，你有责任对此作出声明。
 		</message>
 	</alert>
 	<alert name="ErrorEncodingSnapshot">
 		<message name="message">
-			编码快照错误!
+			快照编码错误!
 		</message>
 	</alert>
 	<alert name="BlankClassifiedName">
 		<message name="message">
-			你必须为你的分类设定一个不是空白的名字。
+			你必须给分类广告设定一个名字。
 		</message>
 	</alert>
 	<alert name="MinClassifiedPrice">
 		<message name="message">
-			Price to pay for listing must be at least L$[MIN_PRICE].
+			广告刊登出价必须大于 L$[MIN_PRICE]。
  
-Please enter a higher price.
+请输入一个更高的价格。
 		</message>
 	</alert>
 	<alert name="CantLoadVertexShaders">
 		<message name="message">
-			无法无法载入Vertex Shaders.
+			无法载入顶点着色器。
 		</message>
 	</alert>
 	<alert name="ConfirmObjectDeleteLock">
 		<message name="message">
-			至少一件东东被锁定。
-然而，你可以删除当前选项。
-你确定将这些选项删除吗?
+			您选择的物品中至少有一件被锁定。
+			
+您确定要删除这些物体吗?
 		</message>
 		<option name="Yes">
 			是
@@ -2102,9 +2184,9 @@ Please enter a higher price.
 	</alert>
 	<alert name="ConfirmObjectDeleteNoCopy">
 		<message name="message">
-			至少一件东东不可复制。
-然而，你可以删除当前选项。
-你确定将这些选项删除吗?
+			您选择的物品中至少有一件不可复制。
+			
+您确定要删除这些物体吗?
 		</message>
 		<option name="Yes">
 			是
@@ -2115,9 +2197,9 @@ Please enter a higher price.
 	</alert>
 	<alert name="ConfirmObjectDeleteNoOwn">
 		<message name="message">
-			你并没有任何一件东东。
-但是，你可以删除目前的选择内容。
-确定删除所有选项吗?
+			您选择的物品中至少有一件不是你的。
+			
+您确定要删除这些物体吗?
 		</message>
 		<option name="Yes">
 			是
@@ -2128,10 +2210,10 @@ Please enter a higher price.
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoCopy">
 		<message name="message">
-			至少一件东东被锁定。
-至少一件东东不可复制。
-然而，你可以删除目前选项。
-你确定要删除目前选项吗?
+			您选择的物品中至少有一件被锁定，
+并且至少有一件不可复制。
+			
+您确定要删除这些物体吗?
 		</message>
 		<option name="Yes">
 			是
@@ -2142,10 +2224,10 @@ Please enter a higher price.
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoOwn">
 		<message name="message">
-			至少有一件东东被锁定。
-你并不是至少拥有一件东东。
-然而，你可以删除当前选项。
-你确定将这些选项删除吗?
+			您选择的物品中至少有一件被锁定，
+并且至少有一件不是你的。
+			
+您确定要删除这些物体吗?
 		</message>
 		<option name="Yes">
 			是
@@ -2156,10 +2238,10 @@ Please enter a higher price.
 	</alert>
 	<alert name="ConfirmObjectDeleteNoCopyNoOwn">
 		<message name="message">
-			至少一件东东不可复制。
-你并非至少拥有一件东东。
-然而，你可以删除当前选项。
-你确定将这些选项删除吗?
+			您选择的物品中至少有一件不可复制，
+并且至少有一件不是你的。
+			
+您确定要删除这些物体吗?
 		</message>
 		<option name="Yes">
 			是
@@ -2170,11 +2252,11 @@ Please enter a higher price.
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoCopyNoOwn">
 		<message name="message">
-			至少一件东东被锁定。
-至少一件东东不可复制。
-你并非至少拥有一件东东。
-然而，你可以删除当前选项。
-你确定将这些选项删除吗?
+			您选择的物品中至少有一件被锁定，
+			至少有一件不可复制，并且
+			至少有一件不是你的。
+			
+您确定要删除这些物体吗?
 		</message>
 		<option name="Yes">
 			是
@@ -2185,9 +2267,9 @@ Please enter a higher price.
 	</alert>
 	<alert name="ConfirmObjectTakeLock">
 		<message name="message">
-			至少一件东东被锁定。
-然而，你还是可以选择当前选项。
-你确定选择这些选项吗?
+			您选择的物品中至少有一件被锁定。
+			
+您确定要拿走这些物体吗？
 		</message>
 		<option name="Yes">
 			是
@@ -2198,12 +2280,12 @@ Please enter a higher price.
 	</alert>
 	<alert name="ConfirmObjectTakeNoOwn">
 		<message name="message">
-			你携带的东东并不完全是你所拥有。
-如果继续，下一个拥有者许可证的应用
-于东东将有可能限制你在未来
-修改或复制东东的能力。
-但是，你可以携带目前所选的东东。
-确定继续携带这些东东?
+			您选择的物品中至少有一件不是你的。
+如果有某件物体本不属于你而你却拿走了它, 
+下个拥有者权利将对该物体适用并可能限制
+你复制或修改它的权利。
+
+您确定要拿走这些物体吗？
 		</message>
 		<option name="Yes">
 			是
@@ -2214,13 +2296,13 @@ Please enter a higher price.
 	</alert>
 	<alert name="ConfirmObjectTakeLockNoOwn">
 		<message name="message">
-			至少有一件东东被锁定。
-你所拿走的东东并不完全属于你。
-如果继续，东东使用下一个主人许可时，有可能会
-禁止你在未来修改或复制它的
-能力。
-然而,你还是可以执行目前的选择。
-你确定要拿走物品栏里的东西吗?
+			您选择的物品中至少有一件被锁定，
+如果有某件物体本不属于你而你却拿走了它, 
+下个拥有者权利将对该物体适用并可能限制
+你复制或修改它的权利。
+但是你仍旧可以拿走当前所选项。
+		
+您确定要拿走这些物体吗？
 		</message>
 		<option name="Yes">
 			是
@@ -2237,15 +2319,15 @@ Please enter a higher price.
 	</alert>
 	<alert name="DeedLandToGroup">
 		<message name="message">
-			转让这块单位土地后, 社团需要拥有并
-保留足够的土地使用信用额。
+			转让这块地块后, 社团需要拥有并
+保留足够的土地使用额度。
  
-土地的消费价格不会退还给地主。
-若所转让的单位土地被售出，售出价
+土地的购买价格不会退还给所有人。
+若所转让的地块被售出，售出价
 将被平均分给所有组员。
  
-转让这块面积为[面积]平方米的土地至社团
-&apos;[社团名称]&apos;?
+转让这块面积为 [AREA]平方米的土地至社团
+&apos;[GROUP_NAME]&apos;?
 		</message>
 		<option name="Deed">
 			转让
@@ -2256,18 +2338,18 @@ Please enter a higher price.
 	</alert>
 	<alert name="DeedLandToGroupWithContribution">
 		<message name="message">
-			转让这块单位土地后, 社团需要拥有并
-保留足够的土地使用信用额。
+			转让这块地块后, 社团需要拥有并
+保留足够的土地使用额度。
  
-转让将同时包括土地从个人
- &apos;[FIRST_NAME] [LAST_NAME]&apos;贡献到社团处。
+转让将同时包括
+ &apos;[FIRST_NAME] [LAST_NAME]&apos; 对社团的土地贡献。
  
-土地的消费价格不会退还给地主。
-若所转让的单位土地被售出，售出价
+土地的购买价格不会退还给所有人。
+若所转让的地块被售出，售出价
 将被平均分给所有组员。
  
-转让这块面积为[面积]平方米的土地至社团
-&apos;[社团名称]&apos;?
+转让这块面积为 [AREA]平方米的土地至社团
+&apos;[GROUP_NAME]&apos;?
 		</message>
 		<option name="Deed">
 			转让
@@ -2278,19 +2360,18 @@ Please enter a higher price.
 	</alert>
 	<alert name="DisplaySetToSafe">
 		<message name="message">
-			基于您的特殊安全要求，显示设置
-已经被设成安全水平模式。
+			显示设置已调整为安全水平，因为您指定了 -safe 选项。
 		</message>
 	</alert>
 	<alert name="DisplaySetToRecommended">
 		<message name="message">
-			显示设置已经被设置在推荐的水平上，推荐水平是基于您计算机的系统配置得出的。
+			基于您计算机的系统配置，显示设置已经被设置在推荐的水平上。
 		</message>
 	</alert>
 	<alert name="UnableToConnect">
 		<message name="message">
 			无法连接到服务器.
-无法请求连接域名: [HOST_NAME]
+无法请求域名: [HOST_NAME]
 		</message>
 	</alert>
 	<alert name="CanNotFindServer">
@@ -2300,10 +2381,10 @@ Please enter a higher price.
 所引发的结果。
  
 请几分钟后再试, 或点击帮助
-获得建议和到达系统状态的网页链接。
+获得建议和到系统状态网页的链接。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Help">
 			帮助
@@ -2320,10 +2401,10 @@ Please enter a higher price.
 			无法连接到[SECOND_LIFE]
 可能是系统故障。
 请几分钟后再试,或者点击帮助
-获得建议和到达系统状态的网页链接。
+获得建议和到系统状态网页的链接。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Help">
 			帮助
@@ -2334,11 +2415,21 @@ Please enter a higher price.
 			[ERROR_MESSAGE]
 		</message>
 	</alert>
+	<alert name="QuickTimeOutOfDate">
+		<ignore name="ignore">
+			QuickTime 由于过期而被禁用
+		</ignore>
+		<message name="message">
+			由于您的系统上安装的QuickTime版本过期，视频播放已被禁用。
+
+请访问 http://www.apple.com/quicktime/ 并下载更新。
+		</message>
+	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
-			Your [TYPE] location is not currently available.
+			您 [TYPE] 位置当前不可用。
 [HELP] 
-You have been moved into a nearby region.
+您已被移动至附近的区域。
 		</message>
 	</alert>
 	<alert name="ClothingLoading">
@@ -2347,15 +2438,18 @@ You have been moved into a nearby region.
 你现在可以按正常的使用这个世界，
 其他用户也可以看见你。
 		</message>
+		<ignore name="ignore">
+			装束下载时间太长
+		</ignore>
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
 			[SECOND_LIFE] 安装已完成。
  
-这是你第一次使用[SECOND_LIFE], 登陆前你
+如果这是你第一次使用[SECOND_LIFE], 登陆前你
 需要创建一个新帐户。
  
-返回www.secondlife.com创建账户?
+返回 www.secondlife.com 创建账户?
 		</message>
 		<option name="NewAccount...">
 			新帐户...
@@ -2367,43 +2461,43 @@ You have been moved into a nearby region.
 	<alert name="SetByHostFail">
 		<message name="message">
 			无法连接到服务器.
-无法找到域名: [HOST_NAME]
+无法解析域名: [HOST_NAME]
+
 请检查你的网络连接.
 		</message>
 	</alert>
 	<alert name="LoginPacketNeverReceived">
 		<message name="message">
-			无法连接。登陆服务器未收到任何登陆
-信息.
+			我们遇到了一些连接上的麻烦。问题可能出在您的互联网连接，也可能出在第二人生的服务器。
  
-请几分钟后再试, 或点击帮助
-获得建议和到达系统状态的网页链接。
+请几分钟后再试, 或点击帮助连接我们的支持页面，或选择 “瞬间移动” 来尝试瞬间移动回家。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Help">
 			帮助
+		</option>
+		<option name="Teleport">
+			瞬间移动
 		</option>
 	</alert>
 	<alert name="WelcomeNoClothes">
 		<message name="message">
 			你的角色将在数秒后出现。
-使用箭头键走动。
- 
-任何时候都可以按F1键获取帮助，或学习更多关于[SECOND_LIFE]的信息.
+			
+使用方向键来行走。
+任何时候都可以按 F1 键，来获取帮助或学习更多关于 [SECOND_LIFE] 的信息.
 		</message>
 	</alert>
 	<alert name="WelcomeChooseSex">
 		<message name="message">
 			你的角色将在数秒后出现。
  
-使用方向箭头键控制走路。
- 
-任何时间都可以按F1键获取帮助，或者学习更多关于[SECOND_LIFE]. 
- 
-请选择一个男性或女性的角色。
-你可以之后改变你的选择。
+使用方向键来行走。
+任何时候都可以按 F1 键，来获取帮助或学习更多关于 [SECOND_LIFE] 的信息。
+请选择男性或女性角色。
+以后还是可以改变主意的。
 		</message>
 		<option name="Male">
 			男性
@@ -2414,41 +2508,27 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="NotEnoughCurrency">
 		<message name="message">
-			[NAME] L$ [PRICE] You don&apos;t have enough currency to do that.
+			[NAME] L$ [PRICE] 您没有足够的 L$ 来这样做。
 		</message>
 	</alert>
-	<alert name="GrantModRights">
+	<alert name="GrantedModifyRights">
 		<message name="message">
-			你是否同意更改对[FIRST_NAME] [LAST_NAME]的权利?
+			你已经被授予特权，你可以任意修改[FIRST_NAME] [LAST_NAME]的物体。
 		</message>
-		<option name="Yes">
-			是
-		</option>
-		<option name="No">
-			否
-		</option>
 	</alert>
-	<alert name="RevokeModRights">
+	<alert name="RevokedModifyRights">
 		<message name="message">
-			你是否撤回更改[FIRST_NAME][LAST_NAME]的权利?
+			你的特权已经被撤回，你不可以再任意修改[FIRST_NAME] [LAST_NAME]的物体。
 		</message>
-		<option name="Yes">
-			是
-		</option>
-		<option name="No">
-			否
-		</option>
 	</alert>
 	<alert name="FlushMapVisibilityCaches">
 		<message name="message">
-			这样将不停跳出地图快照缓存文件.
- 
-这样实际上只对调试有用. 
- 
-(在此过程中,等待5分钟, 知道每个人的地图缓存在他们重新登陆后上传成功。
+			这样将会清空该区域的地图缓存。
+这实际上只对调试有用。
+(在正式环境中，等待 5 分钟，然后所有人的地图将在他们重新登录后更新。)
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
@@ -2456,8 +2536,8 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="OnlyCopyContentsOfSingleItem">
 		<message name="message">
-			无法同时复制一个以上的条目.
-请仅选择一项对象，并重新尝试.
+			无法同时复制一个以上物品的内容。
+请仅选择一项物体，并重新尝试。
 		</message>
 		<option name="OK">
 			好的
@@ -2468,96 +2548,58 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="KickUsersFromRegion">
 		<message name="message">
-			是否使此区域内所有用户闪电传运回家?
+			是否将此区域内所有用户瞬间移动回家?
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="ReturnScriptedOnOthersLand">
+	<alert name="EstateObjectReturn">
 		<message name="message">
-			你是否确定愿意归还主人为
-** [USER_NAME] **
-且只在在自己领地内的副本东东？
+			您是否要返还
+[USER_NAME]
+拥有的物体？
 		</message>
 		<option name="Return">
-			返回
+			返还
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="ReturnScriptedOnAllLand">
+	<alert name="InvalidTerrainBitDepth">
 		<message name="message">
-			你是否确定不删除以下用户
-** [USER_NAME] **在区域内所有土地上的副本东东?
-		</message>
-		<option name="Return">
-			返回
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
-	<alert name="InvalidTerrainBitDepthSmall">
-		<message name="message">
-			无法设置区域的材质: 
+			无法设定区域的材质: 
+地面材质 [TEXTURE_NUM] 的色彩深度 [TEXTURE_BIT_DEPTH] 无效。
  
-基本材质[TEXTURE_NUM]的像素[TEXTURE_BIT_DEPTH]无效. 
- 
-替换基础材质[TEXTURE_NUM]为128x128像素24位图片, 然后再次点击&quot;设置&quot;.
+请把目前的地面材质 [TEXTURE_NUM] 替换为 24 位 
+512×512 分辨率或者更小的图片，然后再次点击 ‘应用’.
 		</message>
 	</alert>
-	<alert name="InvalidTerrainSizeSmall">
+	<alert name="InvalidTerrainSize">
 		<message name="message">
-			无法设置区域内的材质: 
+			无法设置区域的质地: 
  
-基础材质[TEXTURE_NUM]的尺寸[TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]无效. 
+地面材质 [TEXTURE_NUM] 的尺寸 [TEXTURE_SIZE_X]×[TEXTURE_SIZE_Y] 过大。
  
-替换基础材质[TEXTURE_NUM]为128x128像素24位图片, 然后再次点击&quot;设置&quot;.
-		</message>
-	</alert>
-	<alert name="InvalidTerrainBitDepthLarge">
-		<message name="message">
-			无法设置区域的材质: 
- 
-基本材质[TEXTURE_NUM]的像素[TEXTURE_BIT_DEPTH]无效. 
- 
-替换基础材质[TEXTURE_NUM]为512512x512像素或更小的24位图片, 然后再次点击&quot;设置&quot;.
-		</message>
-	</alert>
-	<alert name="InvalidTerrainWidthLarge">
-		<message name="message">
-			无法设置区域内的材质: 
- 
-基础材质[TEXTURE_NUM]的尺寸[TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]太宽以至无效. 
- 
-替换基础材质[TEXTURE_NUM]为512x512像素或更小的24位图片, 然后再次点击&quot;设置&quot;.
-		</message>
-	</alert>
-	<alert name="InvalidTerrainHeightLarge">
-		<message name="message">
-			无法设置区域内的材质: 
- 
-基础材质[TEXTURE_NUM]的尺寸[TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]太高以至无效. 
- 
-替换基础材质[TEXTURE_NUM]为512x512像素或更小的24位图片, 然后再次点击&quot;设置&quot;.
+请把目前的地面材质 [TEXTURE_NUM] 替换为 24 位 
+512×512 分辨率或者更小的图片，然后再次点击 ‘应用’.
 		</message>
 	</alert>
 	<alert name="RawUploadStarted">
 		<message name="message">
-			上载开始. 这个过程可能持续2分钟, 具体时间取决于你的网络连接速度.
+			上载开始。这个过程可能持续2分钟, 具体时间取决于你的网络连接速度.
 		</message>
 	</alert>
 	<alert name="ConfirmBakeTerrain">
 		<message name="message">
-			是你否真的愿意烧硬当前的地形, 使得它成为地形上升或下降极值的中间值，并且默认&apos;恢复&apos;工具?
+			是你否真的愿意烘烤当前的地形, 使得它成为地形上升或下降限制的中间值，以及‘恢复’工具的默认值?
 		</message>
 		<option name="Bake">
-			变硬
+			烘烤
 		</option>
 		<option name="Cancel">
 			取消
@@ -2565,38 +2607,44 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="MaxAllowedAgentOnRegion">
 		<message name="message">
-			你只能有[MAX_AGENTS]允许的居民。
+			你最多只能列出 [MAX_AGENTS]名允许的居民。
 		</message>
 	</alert>
 	<alert name="MaxAllowedGroupsOnRegion">
 		<message name="message">
-			你只能有[MAX_GROUPS]允许的社团。
+			你只能有[MAX_GROUPS]个允许的社团。
 		</message>
 		<option name="Bake">
-			执行
+			烘烤
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
+	<alert name="MaxAgentOnRegionBatch">
+		<message name="message">
+			尝试添加 [NUM_ADDED] 名代表时失败:
+超出 [LIST_TYPE] [MAX_AGENTS]名的限制 [NUM_EXCESS]名。
+		</message>
+	</alert>
 	<alert name="MaxBannedAgentsOnRegion">
 		<message name="message">
-			你只能有[MAX_BANNED]禁止的居民。
+			你最多只能列出 [MAX_BANNED] 名禁止的居民。
 		</message>
 	</alert>
 	<alert name="MaxManagersOnRegion">
 		<message name="message">
-			你只能有[MAX_MANAGER]禁止的居民。
+			您最多只能有 [MAX_MANAGER]位地产管理人。
 		</message>
 	</alert>
 	<alert name="OwnerCanNotBeDenied">
 		<message name="message">
-			不能添加不动产主人至&apos;拒绝进入&apos; 名单.
+			不能添加地产主人至 ‘拒绝进入’ 名单.
 		</message>
 	</alert>
 	<alert name="CanNotChangeAppearanceUntilLoaded">
 		<message name="message">
-			衣服和身体载入之前不能更改外形。
+			衣服和身体载入之前不能更改外表。
 		</message>
 	</alert>
 	<alert name="ClassifiedMustBeAlphanumeric">
@@ -2606,8 +2654,8 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="CantSetBuyObject">
 		<message name="message">
-			无法购买东东, 因为此东东是非卖品. 
-请把东东设置为待售状态并重试.
+			不能设置购买物体, 因为此物体是非卖品。
+请把物体设置为待售状态并重试。
 		</message>
 	</alert>
 	<alert name="FinishedRawDownload">
@@ -2618,10 +2666,10 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="DownloadWindowsMandatory">
 		<message name="message">
-			[SECOND_LIFE]有新版本可用。
+			[SECOND_LIFE] 有新版本可用。
 [MESSAGE]
  
-你必须下载此更新才能运行系统。
+你必须下载此更新才能使用 [SECOND_LIFE]。
 		</message>
 		<option name="Download">
 			下载
@@ -2632,10 +2680,10 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="DownloadWindows">
 		<message name="message">
-			[SECOND_LIFE]有新版本可用。
+			[SECOND_LIFE] 有新版本可用。
 [MESSAGE]
  
-这个更新不是必须的,但我们建议下载并安装此更新，以改善画面质量和稳定性.
+这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。
 		</message>
 		<option name="Download">
 			下载
@@ -2646,10 +2694,10 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="DownloadWindowsReleaseForDownload">
 		<message name="message">
-			[SECOND_LIFE]有新版本可用。
+			[SECOND_LIFE] 有新版本可用。
 [MESSAGE]
  
-这个更新不是必须的,但我们建议下载并安装此更新，以改善画面质量和稳定性.
+这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。
 		</message>
 		<option name="Download">
 			下载
@@ -2663,8 +2711,8 @@ You have been moved into a nearby region.
 			[SECOND_LIFE]有新版本可用。
 [MESSAGE]
  
-你必须下再次更新才能运行系统。
-是否下载更新至应用软件文件夹?
+你必须下载此更新才能使用 [SECOND_LIFE]。
+是否下载更新至应用程序文件夹?
 		</message>
 		<option name="Download">
 			下载
@@ -2678,9 +2726,9 @@ You have been moved into a nearby region.
 			[SECOND_LIFE]有新版本可用。
 [MESSAGE]
  
-这个更新不是必须的,但我们建议下载并安装此更新，以改善画面质量和稳定性.
+这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。
  
-是否立刻下载至应用程序文件夹？
+是否下载更新至应用程序文件夹?
 		</message>
 		<option name="Download">
 			下载
@@ -2694,9 +2742,9 @@ You have been moved into a nearby region.
 			[SECOND_LIFE]有新版本可用。
 [MESSAGE]
  
-这个更新不是必须的,但我们建议下载并安装此更新，以改善画面质量和稳定性.
+这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。
  
-是否立刻下载至应用程序文件夹？
+是否下载更新至应用程序文件夹?
 		</message>
 		<option name="Download">
 			下载
@@ -2707,8 +2755,8 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="DeedObjectToGroup">
 		<message name="message">
-			转让此东东会导致社团:
-* 收到买出东东所得的钱。
+			转让此物体会导致社团:
+* 收到付给该物体的L$。
 		</message>
 		<option name="Deed">
 			转让
@@ -2716,76 +2764,103 @@ You have been moved into a nearby region.
 		<option name="Cancel">
 			取消
 		</option>
+		<ignore name="ignore">
+			转让物体到社团
+		</ignore>
 	</alert>
-	<alert name="AddClassified">
+	<alert name="WebLaunchExternalTarget">
 		<message name="message">
-			分类广告在‘查找一周内目录的’ 
-&apos;分类&apos;部分出现。
- 
-填入你的广告, 然后点击 &apos;发布...&apos; ，添加广告至
-目录。
- 
-点击发布时，你会被要求付款。
-付的多可以使你的广在出现在名单的较高位置, 并且
-当人们按关键词检索时，你的广告也会出现在较高位置。
+			打开你系统的浏览器来查看该内容？
 		</message>
-		<option name="OK">
-			OK
+		<ignore name="ignore">
+			打开默认浏览器查看网页
+		</ignore>
+		<option name="Open">
+			打开
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
-	</alert>
-	<alert name="WebLaunchGraphicsDriver">
-		<message name="message">
-			你在这台计算机上的[VENDOR_LABLE] [CARD_NAME]图像驱动已经过期。
- 
-这是控制你的图像卡的软件的一部分。旧的驱动可以导致3D图像程序，例如[SECOND_LIFE]运行缓慢或崩溃。
-我们强烈推荐升级 &quot;[DRIVER_NAME]&quot; 驱动, 免费的驱动下载在 [VENDOR_LABLE].
- 
-你是否愿意登陆[SECOND_LIFE]驱动网页?
-		</message>
-		<option name="Gotopage">
-			回主页
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
-	<alert name="WebLaunchGraphicsDriverIntelExtreme">
-		<message name="message">
-			你计算机上的图片处理驱动程序已经过期。
- 
-这是一款控制图形卡的软件。
-旧的驱动版本可能会使3D画面的程序，例如 [SECOND_LIFE]运行缓慢甚至崩溃。
- 
-我们强烈建议升级到最新版本的驱动, 可以在因特网上找到免费下载的版本。
- 
-你愿意登陆[SECOND_LIFE]驱动程序网页吗?
-		</message>
-		<option name="Gotopage">
-			回主页
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
-	<alert name="RunningInPCI">
-		<message name="message">
-			GL 表明系统的图像驱动正在运行PCI模式，
-该模式会减慢绘图速度。如果你正在使用PCI视频卡,
-则可以忽略这条消息。如果你正在使用 AGP视频卡，你可以
-更新你的木板驱动，获得更好的图像性能和其他一些
-3D应用程序。如果你正在使用PCI快速图像卡，你就可以使
-AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
-		</message>
 	</alert>
 	<alert name="WebLaunchJoinNow">
 		<message name="message">
-			是否跳至 www.secondlife.com管理帐号?
+			是否转至 www.secondlife.com 管理帐户?
 		</message>
 		<option name="OK">
-			OK
+			确定
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+		<ignore name="ignore">
+			打开浏览器管理您的帐户
+		</ignore>
+	</alert>
+	<alert name="WebLaunchBugReport101">
+		<message name="message">
+			访问 [SECOND_LIFE] Wiki 学习怎样正确地报告错误。
+		</message>
+		<ignore name="ignore">
+			打开浏览器查看错误报告基础 Wiki
+		</ignore>
+		<option name="Gotopage">
+			确定
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="WebLaunchSecurityIssues">
+		<message name="message">
+			访问 [SECOND_LIFE] Wiki 学习如何正确地报告安全事件。
+		</message>
+		<ignore name="ignore">
+			打开浏览器查看安全事件 Wiki
+		</ignore>
+		<option name="Gotopage">
+			确定
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="WebLaunchQAWiki">
+		<message name="message">
+			访问 [SECOND_LIFE] 质量保证 Wiki.
+		</message>
+		<ignore name="ignore">
+			打开浏览器查看质量保证 Wiki
+		</ignore>
+		<option name="Gotopage">
+			确定
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="WebLaunchPublicIssue">
+		<message name="message">
+			访问 [SECOND_LIFE] 公开事件跟踪器，你可以在那里报告程序错误和其他事件。
+		</message>
+		<ignore name="ignore">
+			打开浏览器查看公开事件跟踪器
+		</ignore>
+		<option name="Gotopage">
+			打开页面
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="WebLaunchPublicIssueHelp">
+		<message name="message">
+			访问 [SECOND_LIFE] Wiki 了解如何使用公开事件跟踪器。
+		</message>
+		<ignore name="ignore">
+			打开浏览器查看公开事件跟踪器 Wiki
+		</ignore>
+		<option name="Gotopage">
+			打开页面
 		</option>
 		<option name="Cancel">
 			取消
@@ -2793,10 +2868,27 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="WebLaunchForums">
 		<message name="message">
-			在[SECOND_LIFE]基础知识中查找最新的小贴士和小技巧。
+			在 [SECOND_LIFE] 知识库中查找最新的提示和技巧。
 		</message>
+		<ignore name="ignore">
+			打开浏览器查看知识库
+		</ignore>
 		<option name="Gotopage">
-			回主页
+			打开页面
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="WebLaunchSupport">
+		<message name="message">
+			联系 [SECOND_LIFE] 支持中心。
+		</message>
+		<ignore name="ignore">
+			打开浏览器联系支持中心
+		</ignore>
+		<option name="Gotopage">
+			打开网页
 		</option>
 		<option name="Cancel">
 			取消
@@ -2804,10 +2896,13 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="WebLaunchSupportWiki">
 		<message name="message">
-			进入林登官方博客, 获取最新的新闻和咨讯.
+			进入林登官方博客，获取最新的新闻和信息。
 		</message>
+		<ignore name="ignore">
+			打开浏览器查看官方博客
+		</ignore>
 		<option name="Gotopage">
-			回主页
+			打开页面
 		</option>
 		<option name="Cancel">
 			取消
@@ -2815,10 +2910,13 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="WebLaunchLSLGuide">
 		<message name="message">
-			是否跳至林登脚本语言向导以获得脚本编辑帮助?
+			是否转至林登脚本语言向导查阅脚本编辑帮助？
 		</message>
+		<ignore name="ignore">
+			打开浏览器查阅脚本编辑帮助
+		</ignore>
 		<option name="Gotopage">
-			回主页
+			打开页面
 		</option>
 		<option name="Cancel">
 			取消
@@ -2826,10 +2924,10 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="WebLaunchLSLWiki">
 		<message name="message">
-			是否跳至林登脚本语言维基词典以获得编辑脚本帮助?
+			是否跳至LSL语言首页以获得脚本编辑帮助?
 		</message>
 		<option name="Gotopage">
-			回主页
+			打开页面
 		</option>
 		<option name="Cancel">
 			取消
@@ -2837,15 +2935,42 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
-			你确定要将所选东东归还至
-它们的主人?可转移的已转让
-东东会被归还至他们原先的主人处。
-(所有归还的东东会被归还至他们上一次被保存的文件夹内。)
+			你确定要将所选物体归还至
+它们的主人？可转移的已转让给社团的
+物体会被归还至他们原先的主人处。
  
-*警告* 不可转移的已转让东东会被删除!
+*警告* 不可转让的转让给社团的物体会被删除!
 		</message>
 		<option name="Return">
-			返回
+			返还
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="ViewReleaseNotes">
+		<message name="message">
+			是否查看第二人生发布通告？
+		</message>
+		<ignore name="ignore">
+			查看发布通告
+		</ignore>
+		<option name="Gotopage">
+			打开页面
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="WebLaunchReleaseNotes">
+		<message name="message">
+			是否查看 [SECOND_LIFE]  发布通告？
+		</message>
+		<ignore name="ignore">
+			打开浏览器查看发布通告时
+		</ignore>
+		<option name="Gotopage">
+			确定
 		</option>
 		<option name="Cancel">
 			取消
@@ -2853,8 +2978,8 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="GroupLeaveConfirmOfficer">
 		<message name="message">
-			你目前是社团[GROUP]的官员.
-是否离开社团?
+			你目前是社团[GROUP]的官员。
+是否离开社团？
 		</message>
 		<option name="Leave">
 			离开
@@ -2865,8 +2990,8 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="GroupLeaveConfirmMember">
 		<message name="message">
-			你目前是社团[GROUP]的成员.
-是否离开社团?
+			你目前是社团[GROUP]的成员。
+是否离开社团？
 		</message>
 		<option name="Leave">
 			离开
@@ -2877,66 +3002,57 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="ConfirmKick">
 		<message name="message">
-			你真的要踢走所有用户吗?
+			你*真的*要将所有用户踢下线吗？
 		</message>
-	</alert>
-	<alert name="MuteLinden">
-		<message name="message">
-			对不起,你不能屏蔽林登家的人。
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
-	<alert name="MuteByName" title="通过名称屏蔽东东">
-		<message name="message">
-			通过名字屏蔽声音只会影响对象聊天和即时消息, 不会影效果声音。 
-你必须准确键入对象的名字.
-		</message>
-		<editline name="editline">
-			东东名称
-		</editline>
-		<option name="OK">
-			OK
+		<option name="Kick">
+			踢下所有用户
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="MuteByNameFailed" title="通过名称屏蔽东东失败">
+	<alert name="MuteLinden">
 		<message name="message">
-			你已经屏蔽了这个名字.
+			对不起，你不能屏蔽林登家的人。
 		</message>
 		<option name="OK">
-			OK
+			确定
+		</option>
+	</alert>
+	<alert name="MuteByNameFailed" title="按名称屏蔽物体失败">
+		<message name="message">
+			你已经屏蔽了这个名字。
+		</message>
+		<option name="OK">
+			确定
 		</option>
 	</alert>
 	<alert name="RemoveItemWarn">
 		<message name="message">
-			尽管被准许, 删除库存可能会造成东东的
-损坏。你确定要删除库存中的物品吗?
+			尽管允许, 删除内容可能会造成物体的
+损坏。你确定要删除该物品吗？
 		</message>
 		<option name="Yes">
-			是
+			删除
 		</option>
 		<option name="No">
-			否
+			取消
 		</option>
 	</alert>
 	<alert name="CantRateOwnedByGroup">
 		<message name="message">
-			无法鉴定东东主人,东东由社团拥有。
+			无法为物体主人评分，物体由社团拥有。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="CantOfferCallingCard">
 		<message name="message">
-			目前无法提供召集卡。请稍候再试。
+			目前无法提供名片。请稍候再试。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="CantOfferFriendship">
@@ -2944,64 +3060,50 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 			目前无法建立朋友关系。请稍候再试。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="CantSetHome">
 		<message name="message">
-			无法在此建住宅。
-你的住宅必须建在由你或你所在社团拥有的土地上。
+			无法把家设在这里。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="BusyModeSet">
 		<message name="message">
-			忙碌模式调节。
-隐藏聊天场景和即时消息。即时通
-会受到你的忙碌模式回复。拒绝所有的
-闪电传送邀请和库存邀请。
+			已设置为忙碌模式。
+将隐藏聊天和即时消息。即时通会收到
+你的忙碌模式回复。所有瞬间移动邀请
+都会被拒绝。所有给与的物品都会放入
+你的垃圾箱。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
+		<ignore name="ignore">
+			设置忙碌状态
+		</ignore>
 	</alert>
 	<alert name="NoPVPDetected">
 		<message name="message">
-			没有发现用户与用户之间(PvP)弊端。
+			没有发现用户与用户之间(PvP)的冲突。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="NotecardAttachPermFail">
 		<message name="message">
-			只有具有无限制&apos;下一个主人&apos;许可证的
-才可以被附在注释卡上。
+			只有具有无限制 ‘下个拥有者’
+权利的物品才可以被附在注释卡上。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="JoinedTooManyGroupsMember">
-		<message name="message">
-			You are a member of too many groups to join
-another one. Please leave at least one group
-before joining this one, or decline the offer.
-To leave a group select the &apos;My Groups..&apos; option
-from the &apos;Edit&apos; menu.
-[NAME] has invited you to join a group as a member.
-[INVITE]
-		</message>
-		<option name="Join">
-			加入
-		</option>
-		<option name="Decline">
-			谢绝
-		</option>
-	</alert>
-	<alert name="JoinedTooManyGroupsOfficer">
 		<message name="message">
 			你已经加入了太多的社团，无法再加入
 新的社团。加入此社团之前，请至少离开
@@ -3018,15 +3120,32 @@ from the &apos;Edit&apos; menu.
 			谢绝
 		</option>
 	</alert>
+	<alert name="JoinedTooManyGroupsOfficer">
+		<message name="message">
+			你已经加入了太多的社团，无法再加入
+新的社团。加入此社团之前，请至少离开
+一个旧社团, 或者拒绝新社团邀请。
+离开社团请选择&apos;编辑&apos;菜单下的
+&apos;我的社团..&apos;选项。
+[NAME]邀请你成为该社团官员。
+[INVITE]
+		</message>
+		<option name="Join">
+			加入
+		</option>
+		<option name="Decline">
+			谢绝
+		</option>
+	</alert>
 	<alert name="KickUser">
 		<message name="message">
-			以哪句消息踢走此人?
+			发送下列消息并踢走此人？
 		</message>
 		<editline name="editline">
 			管理员已经迫使您下线。
 		</editline>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
@@ -3034,13 +3153,13 @@ from the &apos;Edit&apos; menu.
 	</alert>
 	<alert name="KickAllUsers">
 		<message name="message">
-			以哪句消息踢走目前在此的每个人?
+			发送下列消息并踢走目前连接到网格的每个人?
 		</message>
 		<editline name="editline">
 			管理员已经迫使您下线。
 		</editline>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
@@ -3048,13 +3167,13 @@ from the &apos;Edit&apos; menu.
 	</alert>
 	<alert name="FreezeUser">
 		<message name="message">
-			用哪一条通知冻结化身?
+			用哪一条消息通知冻结的化身?
 		</message>
 		<editline name="editline">
-			你已经被冻结。你不能移动或聊天。管理员会通过即时信息联系你。
+			您已经被冻结。您不能移动或聊天。管理员会通过即时信息联系您。
 		</editline>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
@@ -3062,13 +3181,13 @@ from the &apos;Edit&apos; menu.
 	</alert>
 	<alert name="UnFreezeUser">
 		<message name="message">
-			发送何种信息封锁该用户?
+			用哪一条消息通知解冻的化身?
 		</message>
 		<editline name="editline">
-			你已经被解冻
+			您已经被解冻。
 		</editline>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
@@ -3076,10 +3195,10 @@ from the &apos;Edit&apos; menu.
 	</alert>
 	<alert name="ExpungeUser">
 		<message name="message">
-			输入用户的代理身份
+			输入用户的 agent id
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
@@ -3087,13 +3206,13 @@ from the &apos;Edit&apos; menu.
 	</alert>
 	<alert name="OfferTeleport">
 		<message name="message">
-			用以下消息提供到你所在地的闪电传送?
+			发送下列消息并邀请瞬间移动？
 		</message>
 		<editline name="editline">
-			我要加入 [REGION]
+			和我一起到 [REGION] 来吧！
 		</editline>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
@@ -3101,38 +3220,52 @@ from the &apos;Edit&apos; menu.
 	</alert>
 	<alert name="OfferTeleportFromGod">
 		<message name="message">
-			是否神明召唤用户去你的位置?
+			是否神明召唤用户来你的位置？
 		</message>
 		<editline name="editline">
-			我要加入 [REGION]
+			和我一起到 [REGION] 来吧！
 		</editline>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="MessageEstate" title="通知在这块不动产上的每个人">
+	<alert name="TeleportFromLandmark">
+		<message name="message">
+			你确定要瞬间移动吗？
+		</message>
+		<ignore name="ignore">
+			使用库存中的地标瞬间移动
+		</ignore>
+		<option name="Teleport">
+			瞬间移动
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="MessageEstate" title="通知在这块地产上的每个人">
 		<message name="message">
 			输入一条简短的通知，该声明将
-会分发给目前在你领地内的所有居民。
+会发送给目前在你地产内的所有居民。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="ChangeLindenEstate" title="更改林登拥有的不动产">
+	<alert name="ChangeLindenEstate" title="更改林登地产">
 		<message name="message">
-			你将要更改林登所有的私人财产(大陆, 
-格子,方位, 等等.). 
+			你将要更改林登所有的地产(大陆、
+少年网格、方位岛，等等)。 
  
-这个动作极度危险，因为它可能会影响到 
- 这块大陆上, 它将改变
-上千的区域，并会使空间服务器报警。
+ 这个动作极度危险，因为它可能会在基础的层次上
+影响到用户体验。在大陆上, 它将改变
+上千的区域，并会使空间服务器噎着。
  
 是否继续?
 		</message>
@@ -3143,19 +3276,17 @@ from the &apos;Edit&apos; menu.
 			取消
 		</option>
 	</alert>
-	<alert name="ChangeLindenAccess" title="更改进入林登拥有的不动产的通道">
+	<alert name="ChangeLindenAccess" title="更改林登地产准入列表">
 		<message name="message">
-			即将改变林登私人财产
-(大陆,格子, 方向,等等.)的准入名单. 
+			你将要更改林登所有的地产的准入列表(大陆、
+少年网格、方位岛，等等)。 
  
-该操作非常危险， 应该仅在防止黑客把东东和 
-金钱转移进或出地区的时候才能够被
-执行。 
+该操作非常危险， 应该仅在利用把物体/金钱
+转移进或出某个网格的对付活儿 (hack) 时候
+才应该被执行。 它将改变上千的区域，并会
+使空间服务器噎着。
  
-这可能会更改上千地区，并使得 
-空间服务器报警。 
- 
-Proceed?
+是否继续？
 		</message>
 		<option name="ChangeEstate">
 			更改不动产
@@ -3164,127 +3295,127 @@ Proceed?
 			取消
 		</option>
 	</alert>
-	<alert name="EstateAllowedAgentAdd" title="选择不动产">
+	<alert name="EstateAllowedAgentAdd" title="选择地产">
 		<message name="message">
-			仅将此独立领地还是将[所有独立领地]列入允许名单?
+			仅列入此地产还是[ALL_ESTATES]的允许名单?
 		</message>
 		<option name="ThisEstate">
-			该领地
+			该地产
 		</option>
 		<option name="AllEstates">
-			所有不动产
+			所有地产
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="EstateAllowedAgentRemove" title="选择不动产">
+	<alert name="EstateAllowedAgentRemove" title="选择地产">
 		<message name="message">
-			从允许名单中移除仅这块领地还是[ALL_ESTATES]?
+			仅移出此地产还是[ALL_ESTATES]的允许名单?
 		</message>
 		<option name="ThisEstate">
-			该领地
+			该地产
 		</option>
 		<option name="AllEstates">
-			所有不动产
+			所有地产
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="EstateAllowedGroupAdd" title="选择不动产">
+	<alert name="EstateAllowedGroupAdd" title="选择地产">
 		<message name="message">
-			仅将此独立领地还是将[所有独立领地]列入社团允许名单?
+			仅列入此地产还是[ALL_ESTATES]的社团允许名单?
 		</message>
 		<option name="ThisEstate">
-			该领地
+			该地产
 		</option>
 		<option name="AllEstates">
-			所有不动产
+			所有地产
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="EstateAllowedGroupRemove" title="选择不动产">
+	<alert name="EstateAllowedGroupRemove" title="选择地产">
 		<message name="message">
-			从社团允许名单中移除仅这块领地还是[ALL_ESTATES]?
+			仅移出此地产还是[ALL_ESTATES]的社团允许名单?
 		</message>
 		<option name="ThisEstate">
-			该领地
+			该地产
 		</option>
 		<option name="AllEstates">
-			所有不动产
+			所有地产
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="EstateBannedAgentAdd" title="选择不动产">
+	<alert name="EstateBannedAgentAdd" title="选择地产">
 		<message name="message">
-			拒绝访问仅此领地或[所有_领地]?
+			拒绝访问仅此领地还是[ALL_ESTATES]?
 		</message>
 		<option name="ThisEstate">
-			该领地
+			该地产
 		</option>
 		<option name="AllEstates">
-			所有不动产
+			所有地产
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="EstateBannedAgentRemove" title="选择不动产">
+	<alert name="EstateBannedAgentRemove" title="选择地产">
 		<message name="message">
-			停止拒绝进入仅这一个领地还是[ALL_ESTATES]?
+			停止拒绝该居民进入仅这一个地产还是[ALL_ESTATES]?
 		</message>
 		<option name="ThisEstate">
-			该领地
+			该地产
 		</option>
 		<option name="AllEstates">
-			所有不动产
+			所有地产
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="EstateManagerAdd" title="选择不动产">
+	<alert name="EstateManagerAdd" title="选择地产">
 		<message name="message">
-			仅为这一个独立领地还是为所有独立领地添加独立领地经理?
+			仅为这一个地产还是为[ALL_ESTATES]添加地产经理?
 		</message>
 		<option name="ThisEstate">
-			该领地
+			该地产
 		</option>
 		<option name="AllEstates">
-			所有不动产
+			所有地产
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="EstateManagerRemove" title="选择不动产">
+	<alert name="EstateManagerRemove" title="选择地产">
 		<message name="message">
-			仅开除此处领地的领地经理还是开除你所有领地的领地经理。
+			仅将领地经理从这个开除从[ALL_ESTATES]开除？
 		</message>
 		<option name="ThisEstate">
-			该领地
+			该地产
 		</option>
 		<option name="AllEstates">
-			所有不动产
+			所有地产
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="EstateCovenantChange" title="选择不动产">
+	<alert name="EstateCovenantChange" title="选择地产">
 		<message name="message">
-			只改变此处不动产的合同消息还是改变[ALL_ESTATES]的合同消息?
+			只改变此处地产的契约消息还是改变[ALL_ESTATES]的契约消息?
 		</message>
 		<option name="ThisEstate">
-			该领地
+			该地产
 		</option>
 		<option name="AllEstates">
-			所有不动产
+			所有地产
 		</option>
 		<option name="Cancel">
 			取消
@@ -3292,7 +3423,7 @@ Proceed?
 	</alert>
 	<alert name="EstateKickUser" title="确定踢出">
 		<message name="message">
-			将[EVIL_USER]踢出此处领地?
+			将 [EVIL_USER] 踢出此处地产?
 		</message>
 		<option name="Kick">
 			踢人
@@ -3303,7 +3434,7 @@ Proceed?
 	</alert>
 	<alert name="EstateChangeCovenant">
 		<message name="message">
-			你是否确定改变不动产合同?
+			你是否确定改变地产契约?
 		</message>
 		<option name="Change">
 			更改
@@ -3314,41 +3445,51 @@ Proceed?
 	</alert>
 	<alert name="ProblemImportingEstateCovenant">
 		<message name="message">
-			Problem importing estate covenant.
+			导入地产契约时出错。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
+	</alert>
+	<alert name="ProblemAddingEstateManager">
+		<message name="message">
+			添加地产管理人时遇到问题。  一个或多个地产的管理人列表可能已满。
+		</message>
+	</alert>
+	<alert name="ProblemAddingEstateGeneric">
+		<message name="message">
+			添加到地产列表时遇到问题。 一个或多个地产的列表可能已满。
+		</message>
 	</alert>
 	<alert name="UnableToLoadNotecard">
 		<message name="message">
-			这次尝试无法载入注释卡所属的资产.
+			现在暂时无法载入记事卡相关的资产。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="NotAllowedToViewNotecard">
 		<message name="message">
-			缺乏许可证，不能查看要求查看的和资产ID相关的注释卡
+			缺乏权限，不能查看与要求的资产 ID 相关的记事卡
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="MissingNotecardAssetID">
 		<message name="message">
-			资产ID的注释信息已经从数据库中遗失 .
+			记事卡的资产 ID 已经从数据库中遗失。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="PublishClassified">
 		<message name="message">
 			请遵记: 分类广告费用不会退还。
  
-是否消费L$[AMOUNT]发布广告?
+是否以L$[AMOUNT]发布广告?
 		</message>
 		<option name="Publish">
 			发布
@@ -3357,9 +3498,37 @@ Proceed?
 			取消
 		</option>
 	</alert>
+	<alert name="SetClassifiedMature">
+		<message name="message">
+			分类广告包含成人内容吗？
+		</message>
+		<option name="Mature">
+			包含
+		</option>
+		<option name="Not Mature">
+			不包含
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="SetGroupMature">
+		<message name="message">
+			社团包含成人内容吗？
+		</message>
+		<option name="Mature">
+			包含
+		</option>
+		<option name="Not Mature">
+			不包含
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
 	<alert name="ConfirmRestart" title="确定重新启动">
 		<message name="message">
-			你真的要在2分钟后重新进入区域吗?
+			你真的要在2分钟后重新启动区域吗?
 		</message>
 		<option name="Restart">
 			重启
@@ -3374,33 +3543,31 @@ Proceed?
 会分发给目前在此区域内的所有居民。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="HelpRegionBlockTerraform" title="锁定外形">
+	<alert name="HelpRegionBlockTerraform" title="锁定地形">
 		<message name="message">
-			如果此项被选择并执行, 无论每单元土地的&apos;编辑地形&apos; 如何设置，土地所有者可能无法编辑他们自己的土地。
+			如果选择此项, 无论每地块的&apos;编辑地形&apos; 如何设置，土地所有者都无法编辑他们自己的土地。
  
 默认: 关
 		</message>
 	</alert>
 	<alert name="HelpRegionBlockFly" title="锁定飞翔">
 		<message name="message">
-			如果此框被选中,无论每单位土地设置如何，
-人们都不能在此区域内飞翔。
+			如果选择此项,无论每个地块设置如何，
+人们都不能在此区域内飞行。
  
 默认:关
 		</message>
 	</alert>
-	<alert name="HelpRegionAllowDamage" title="允许损害">
+	<alert name="HelpRegionAllowDamage" title="允许伤害">
 		<message name="message">
-			忽略个别单位土地的设置，选定框使健康系统
-应用于所有单位土地。如果有遗留框
-没被查看, 个别单位土地的地主仍可以
-他们土地上的健康系统。
+			选定框将使健康系统应用于所有地块。如果不选中这项， 个别地块
+的持有人仍可以打开他们土地上的健康系统。
  
 默认:关
 		</message>
@@ -3408,76 +3575,85 @@ Proceed?
 	<alert name="HelpRegionAgentLimit" title="代理限制">
 		<message name="message">
 			设置此片区域内的化身数量最大值。
-注意，区域内的化身数量越多，表现的性能
+注意，区域内的化身数量越多，性能
 可能就越差。
  
-Default: 30
+默认:40
 		</message>
 	</alert>
-	<alert name="HelpRegionObjectBonus" title="奖励东东">
+	<alert name="HelpRegionObjectBonus" title="额外物体因数">
 		<message name="message">
-			奖励的东东是原始东东的复制品，它允许小批地打包 。
-包裹的数量范围是1到10。 每512m2设定‘1’个包裹
-允许打包117 个东东。 每512m2设定‘2’个包裹允许打包
-234个东东, 也就是前者的两倍,剩下的以此类推。 无论包裹数的
-设定值为多少，每一个区域允许的奖励东东的数量最大为
-15，000个。 一旦奖励东东的数量被设定, 就不能减少，除非
-你可以确定减少东东不会导致包裹内东东的
-删除或归还。
+			额外物体因数是对单个地块内所允许的元件数量的倍数。
+允许的范围是1 到 10。‘1’ 代表每个 512 平方米的地块允许 117
+个物体。‘2’ 代表每个 512 平方米的地块允许 234 个物体，也就是
+2 倍，以此类推。无论额外物体是多少，每个区域所允许的物体仍是
+15,000。一旦额外物体被设置，请注意减少该设置将可能导致物体
+被返还或删除。
  
 默认: 1.0
 		</message>
 	</alert>
 	<alert name="HelpRegionMaturity" title="成人内容">
 		<message name="message">
-			设置区域内的成人内容, 操作参照右上角
-的屏幕以及地图上弹出的小贴士。成人内容
-也会影响搜索结果 - 居民们可以选择不搜索
-成人区域内的内容。
+			设置区域是否包含成人内容，这会显示在
+屏幕上方以及地图的提示中。该设定也会影响搜索
+结果 — 居民们可以选择不搜索成人区域内的内容。
  
-地图上弹出的小贴士5分钟内不会改变, 因为 
-系统只是定时性的上传地图信息。 
+改变这一设定可能要过一会儿才会反映到地图上。
  
 默认:非成人级别
 		</message>
 	</alert>
 	<alert name="HelpRegionRestrictPushObject" title="限制推动">
 		<message name="message">
-			设定所有区域为限制推动区。代理商只能推动自己，或者由土地主人所设的脚本代码推动，或者由社团所属土地的脚本代码推动，这里假设土地有社团转让设置。
+			设定所有区域为限制推动区。居民只能推动自己，或者由土地主人的脚本代码推动。
 
-推动功能和llPushObject() LSL功能有关.
+(推动功能和llPushObject() LSL函数有关。)
  
 默认: 关
 		</message>
 	</alert>
-	<alert name="HelpParcelChanges" title="土地连接/划分">
+	<alert name="HelpParcelChanges" title="土地合并/划分">
 		<message name="message">
-			设置成无论土地是否归不动产主人所有，都可以被连接或再划分。 
-如果该选项未被执行:
- * 只有不动产主人和经理人有权利连接或再划分土地. 
- * 他们只能连接或再划分属于这个主人的土地,或属于具有合适权利的社团的土地。 
+			该设置决定不属于地产所有人的地块是否可被合并或划分。
+如果该选项未被选择:
+ * 只有不动产主人和经理人有权利连接或再划分土地。
+ * 他们只能连接或再划分属于这个主人的土地, 或属于具有合适权利的社团的土地。 
     
-如果选项已被执行:
+如果选项被选择:
  * 所有土地的主人都可以连接或再划分他们所拥有的土地. 
  * 对于社团所拥有的土地, 拥有合适权利的社团可以连接或再划分土地。
     
  
-默认: 执行
+默认: 选择
+		</message>
+	</alert>
+	<alert name="HelpRegionSearch" title="Do Not Show In Search">
+		<message name="message">
+			打开该选项将阻止地块拥有者在搜索中列出他们的地块。
+默认：关
+		</message>
+	</alert>
+	<alert name="HelpParcelSearch" title="Do Not Show In Search">
+		<message name="message">
+			这个选项将会:
+- 在搜索结果中显示该地块
+- 显示该地块的公开物体
 		</message>
 	</alert>
 	<alert name="RegionMaturityChange" title="更改区域的成人指数设定">
 		<message name="message">
 			此区域内的成人内容等级已经更新。
  
-但是,世界地图更新时间需要大约5分钟，
-因为系统只能定期更新地图
-信息。
+但是，世界地图更新时间需要大约5分钟，
+因为系统只能定期更新地图信息。
 		</message>
 	</alert>
 	<alert name="HelpRegionLandResell" title="土地重新出售">
 		<message name="message">
 			不动产主人和经理人有权利出售任何不动产主人的土地。 
-如果选项没有被执行,买主不能重新出售该区域内的土地。如果选项被执行，买主则可以重新出售该区域内土地。 
+如果选项没有被执行, 买主不能再出售该区域内的土地。如果选项被执行，
+买主则可以再出售该区域内土地。 
  
  
 默认: 不允许
@@ -3485,196 +3661,181 @@ Default: 30
 	</alert>
 	<alert name="HelpEstateCovenantID" title="契约合同的资产ID">
 		<message name="message">
-			设置这个属于这项不动产的不动产契约协议的注释卡资产ID。
-默认: 00000000-0000-0000-0000-000000000000或没有
+			设置该地产的地产契约记事卡资产 ID。
+默认: 00000000-0000-0000-0000-000000000000 或没有
 		</message>
 	</alert>
 	<alert name="HelpRegionDisableScripts" title="无效脚本">
 		<message name="message">
-			如果模拟表现平庸,可能是脚本问题。打开
-统计条 (Ctrl-Shift-1)。 找到模拟器物理FPS。
-如果低于45，打开位于系统条底部的
-‘时间’板。 如果脚本时间设定为每秒读25祯甚至更高, 则点击 
-‘获取首要脚本&apos;按钮。你会得到可能导致不良模拟表现的 
-脚本的名称及位置。
+			如果模拟性能平庸，可能是脚本问题。
+打开统计条 (Ctrl-Shift-1)。 找到模拟器物理FPS。如果低于 
+45，打开位于系统条底部的‘时间’ 板。 如果脚本时间为 25 毫秒
+甚至更高, 则点击 ‘获取首要脚本’ 按钮。你会得到可能导致不良
+模拟表现的脚本的名称及位置。
  
-检查‘无效脚本&apos;盒子然后点击 ‘应用&apos; 
-按钮，这可以暂时使该区域内所有脚本失效。 你可能 
-如是做以达到标出的‘首要脚本’的位置。
- 一旦你到达那里, 就可以分析 
-是否是这些脚本导致了问题。 你也许想
-联系脚本的主人或删除或归还东东。 
-不检查 &apos;无效脚本&apos; 盒子并点击 &apos;应用&apos;，可以再次 
-激活该区域内脚本。
+打开 ‘禁用脚本’ 选项然后点击 ‘应用’按钮，可以暂时使该区域内
+所有脚本失效。 你可能需要这样做以到达标出的 ‘首要脚本’ 的
+位置。一旦你到达那里, 就可以分析 是否是这些脚本导致了问题。 你也许想联系脚本的主人或删除或归还物体。关闭 ‘禁用脚本’ 选项
+并点击 ‘应用’，可以再次激活该区域内脚本。
  
 默认: 关
 		</message>
 	</alert>
-	<alert name="HelpRegionDisableCollisions" title="无效冲突">
+	<alert name="HelpRegionDisableCollisions" title="无效碰撞">
 		<message name="message">
-			如果模拟效果不好, 物理东东也可能是原因。 
-打开统计条(Ctrl-Shift-1)。找到第一人称物理 
-视角模拟器。 如果它小于45，打开位于系统条底部的 
-系统条。 如果模拟物理时间读取速度为 
-20 祯每秒或更快, 点击&apos;获得首要Colliders&apos; 按钮。 
-你就可以获得导致模拟表现不好的东东的名称和 
-物理地址。
+			如果模拟性能平庸，可能是物理物体问题。
+打开统计条(Ctrl-Shift-1)。找到模拟器物理FPS。如果它小于45，
+打开位于统计条底部的时间一栏。 如果 ‘模拟物理时间’ 在
+20 毫秒或以上，点击 &apos;获得首要碰撞者&apos; 按钮。
+你将得到可能导致模拟表现不好的物体的名称和位置。
  
-检查 &apos;无效冲突&apos; 盒子 并按下 &apos;应用&apos; 
-按钮，这样可以暂时消除东东与东东之间的冲突。要找到 
-标注出的‘首要冲突源’的位置，你可能必须照上述方法 
-来做。 一旦你到达该位置, 你应该调查 
-该东东是否一直在与其他东东产生冲突? 你可能想 
-联系东东的主人，或者删除或归还此东东。 
-不检查 &apos;无效冲突&apos;盒子然后&apos;应用&apos; 以重新激活 
-该区域内的冲突。
+打开 ‘禁用碰撞’ 选项然后点击 ‘应用’按钮，这样可以暂时关闭
+物体对物体的碰撞。 你可能需要这样做以到达标出的 ‘首要碰撞者’ 
+的位置。一旦你到达该位置，你应该调查该物体是否在与其他物体
+一直碰撞。你也许想联系脚本的主人或删除或归还物体。 
+关闭 ‘禁用碰撞’ 选项并点击 ‘应用’，可以再次激活该区域内脚本。
  
 默认: 关
 		</message>
 	</alert>
 	<alert name="HelpRegionDisablePhysics" title="无效物理">
 		<message name="message">
-			无效物理和无效冲突类似, 除了所有 
-物理模拟都是无效的。这意味着不仅所有东东将不会停止 
-相互冲突, 且化身们也将无法移动。 
+			无效物理和无效碰撞类似, 除了所有物理模拟
+都是无效的。这意味着不仅所有物体将会
+停止相互碰撞，且化身们也将无法移动。 
  
-仅当无效冲突没有向地区反馈回足够的
-表现，以致无法调查物理问题或者 
-&apos;首要冲突源&apos;时，才能使用无效物理。
+仅当无效碰撞没有向地区反馈回足够的表现，
+以致无法调查物理问题或者
+ ‘首要碰撞源’ 时，才能使用无效物理。
  
-完成后请确认恢复物理, 否则化身们 
-还将无法移动。
+完成后请确认恢复物理, 否则化身们还将无法移动。
  
 默认:关
 		</message>
 	</alert>
 	<alert name="HelpRegionTopColliders" title="首要冲击源">
 		<message name="message">
-			列出正在经受大量潜在的物物冲突的
-东东的名单。这些东东可能会减慢 
-模拟性能。如果模拟物理的时间超过20秒， 
- 选择查看 &gt; 统计条和模拟器 &gt; 时间 &gt; 模拟时间 (物理)  
-来查看。
+			列出正在经受大量潜在的物物碰撞的
+物体的名单。这些物体可能会减慢
+模拟性能。选择查看 &gt; 统计条
+然后模拟器 &gt; 时间 &gt; 模拟时间 (物理)
+来参考是否有至少 20 毫秒花在物理上了。
 		</message>
 	</alert>
 	<alert name="HelpRegionTopScripts" title="首要脚本">
 		<message name="message">
-			显示花费很多时间运行林登脚本语言的东东
-的名单。  这些东东可能会减慢模拟性能。 
-如果脚本花费时间超过25秒，选择查看 &gt;  
-统计条和模拟器 &gt; 时间 &gt;脚本时间
-来查看。
+			显示花费很多时间运行林登脚本语言的物体
+的名单。  这些物体可能会减慢模拟性能。 
+选择查看 &gt; 统计条
+然后模拟器 &gt; 时间 &gt; 模拟时间 (物理)
+来参考是否有至少 25 毫秒花在脚本上了。
 		</message>
 	</alert>
-	<alert name="HelpRegionRestart" title="重新进入地区">
+	<alert name="HelpRegionRestart" title="重新启动地区">
 		<message name="message">
-			两分钟的警告之后，将会重新启动这片区域运行 
-的服务器处理过程。区域内的所有居民将会 
-断线。区域内的数据将会保留,并且应会在 
-90秒钟以内恢复正常。 
+			两分钟的警告之后，将会重新启动这片区域的服务器进程。
+区域内的所有居民将会断线。区域内的数据将会保留，
+并且应会在 90 秒钟以内恢复正常。 
  
-重新启动不会带来太多的性能问题，
-并且应该只有在收到指示时才用到。
+重新启动不会解决太多的性能问题，
+所以应该只有在收到指示时才用到。
 		</message>
 	</alert>
 	<alert name="HelpRegionWaterHeight" title="水深">
 		<message name="message">
-			这时水域的深度。 如果设置值是 
-除去20外的任何值，并且你拥有的是临近世界 
-边缘的水域，或者 &apos;无用&apos; 
-水,那么所看见的就是一个沟渠。 
+			这是水面出现的深度。如果该值不是 20，
+并且你拥有临近世界边缘的水域或者 
+‘空洞’ 水，那么将会可以看到水面断开。
  
 默认: 20
 		</message>
 	</alert>
 	<alert name="HelpRegionTerrainRaise" title="地形升高">
 		<message name="message">
-			这个市单位土地主人能够抬高他们的 
-地形，使得其高于 &apos;baked&apos; 地形的默认 
-高度。 
+			这是地块拥有人可以将他们的
+土地升高至 ‘烘烤的’ 土地
+默认高度之上的最高值。
  
 默认: 4
 		</message>
 	</alert>
 	<alert name="HelpRegionTerrainLower" title="地形降低">
 		<message name="message">
-			这个是单位土地的主人能够使 
-他们的地形比 &apos;baked&apos; 地形高度低的默认 
-距离。
+			这是地块拥有人可以将他们的
+土地降低至 ‘烘烤的’ 土地
+默认高度之下的最低值。
  
 默认: -4
 		</message>
 	</alert>
 	<alert name="HelpRegionUploadRaw" title="上传后缀为 RAW的地形">
 		<message name="message">
-			点击这个按钮可以把后缀为.RAW的文件上传到你所在的地区。 
-文件必须包含正确的尺寸和通道数: 
-RGB, 256x256 and 13 通路.  创建地形文件最好的 
-方法就是下载已有的 RAW 文件。一个好的
-首要步骤是修复第一个通路 (陆地高度), 
-并将它上传。 
+			点击这个按钮可以把后缀为 .RAW 的文件上传到你所在的地区。 
+文件必须包含正确的尺寸和通道数: RGB, 256×256 和 13 个通道。
+创建地形文件最好的方法就是下载已有的 RAW 文件。一个好的
+首要步骤是修复第一个通道 (陆地高度)，并将它上传。 
  
-上传过程需时45秒。请注意，上传地形文件 
-时 *不能* 移动地上的东东, 
-只有地形本身还有允许的包裹可以移动。 
-这会导致东东沉入地下。 
+上传过程需时 45 秒。请注意，上传地形文件 *不会* 移动
+地上的物体, 只会移动地形本身和地块相关的权限。
+这可能导致物体沉入地下。 
  
-更多关于编辑高地区域的信息, 请登陆: 
-http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
+更多编辑区域高度图的信息，请按 F1 键寻求帮助。
 		</message>
 	</alert>
 	<alert name="HelpRegionDownloadRaw" title="下载后缀为RAW的地形">
 		<message name="message">
-			点击此按钮可以下载包含土地高度数据,单位土地尺寸，
-代售单位土地状况，和此区域内单位土地许可证 
-等信息的文件。当用如同Photoshop这类程序打开文件时，
- 你必须指定文件的尺寸为：
- RGB, 256x256 ，13个通路。这种地形文件只能以
-这种方式打开，而不能用别的。 
- 
-获取更多关于区域内田地高度的信息, 请登陆: 
-http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
+			点击此按钮可以下载包含土地高度数据，地块尺寸，
+地块出售情况，和此区域内单位土地许可证等信息
+的文件。当用如同 Photoshop 这类程序打开文件时，
+你必须指定文件的尺寸为： RGB, 256×256 ，13 
+个通道。这种地形文件只能以这种方式打开，
+而不能用别的。  
+
+更多编辑区域高度图的信息，请按 F1 键寻求帮助。
 		</message>
 	</alert>
-	<alert name="HelpRegionUseEstateSun" title="使用领地太阳">
+	<alert name="HelpRegionUseEstateSun" title="使用地产太阳">
 		<message name="message">
 			这个选定框可以使这片区域内太阳的位置 
-与领地内其他区域内太阳的位置相同。 
+与地产内其他区域内太阳的位置相同。 
  
 默认:开
 		</message>
 	</alert>
 	<alert name="HelpRegionFixedSun" title="太阳固定">
 		<message name="message">
-			这个选择框设置太阳的位置固定在太阳
-滑动到此阶段时的位置，并且使得太阳无法移动。 
+			这个选择框设置太阳的位置到滑块
+所指定的位置，并且停止太阳移动。 
 
 默认: 关
 		</message>
 	</alert>
-	<alert name="HelpRegionBakeTerrain" title="硬地">
+	<alert name="HelpRegionBakeTerrain" title="烘烤地形">
 		<message name="message">
-			这个按钮把当前地形保存为区域内心的默认模式。一旦烤干，土地将恢复成保存的形态，无论何时你或者他人使用编辑‘恢复’选贤/工具。烤干的地形同样是地形上升或下降极限的中点。
+			这个按钮把当前地形保存为区域地形的默认值。
+			一旦烤干，你或者他人使用编辑土地的 ‘恢复’选项时
+			土地将恢复成保存的形态。
+			烤干的地形也是地形上升或下降极限的中点。
 		</message>
 	</alert>
 	<alert name="HelpEstateEstateManager" title="不动产经理">
 		<message name="message">
-			领地经理是你委派的负责区域控制 
-和领地调节的居民。 领地经理 
-有权改变控制板内任何调解项, 除了上传, 
-下载,和压缩地形。特别的, 他们有权允许
-或禁止居民进入你的领地。  
+			地产经理是你委派的负责区域控制 
+和地产调节的居民。 地产经理 
+有权改变控制板内任何调节项, 除了上传, 
+下载, 和压缩地形。特别的, 他们有权允许
+或禁止居民进入你的地产。  
  
-领地经理只能被领地主人雇佣或辞退 
+地产经理只能被地产主人雇佣或辞退 
 , 不能互相之间委派。请选择你信任的
-居民作为你的领地经理, 因为他们的
+居民作为你的地产经理, 因为他们的
 行为最终将由你负责。
 		</message>
 	</alert>
 	<alert name="HelpEstateUseGlobalTime" title="使用国际时间">
 		<message name="message">
-			这个选定框可以使你的领地的太阳位置 
-与林登所属的&apos;大陆&apos;领地的太阳位置 
+			这个选定框可以使你的地产的太阳位置 
+与林登所有的 ‘大陆’ 地产的太阳位置 
 一致。
  
 默认: 开
@@ -3682,101 +3843,112 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="HelpEstateFixedSun" title="太阳固定">
 		<message name="message">
-			这个选择框设置太阳的位置固定在太阳
-滑动到此阶段时的位置，并且使得太阳无法移动。
+			这个选择框设置太阳的位置到滑块
+所指定的位置，并且停止太阳移动。
 		</message>
 	</alert>
-	<alert name="HelpEstateMainlandVisible" title="从此处可以看见整个大陆">
+	<alert name="HelpEstateMainlandVisible" title="从此处可以看见大陆">
 		<message name="message">
-			设置此处领地内的居民是否能从地图上 
-看见林登所拥有的 &apos;大陆&apos; 领地。 
+			设置此处地产内的居民是否能从地图上 
+看见林登所拥有的 ‘大陆’ 地产。 
  
 默认:可以
 		</message>
 	</alert>
 	<alert name="HelpEstateExternallyVisible" title="从大陆可视">
 		<message name="message">
-			设置在林登所拥有的&apos;大陆&apos;领地内的居民 
-是否能从地图上看到你的领地。 
+			设置在在其他地产上的居民是否可以
+			进入该地产而不需要在访问列表上列出。
  
-默认:可以
+默认: 可以
 		</message>
 	</alert>
-	<alert name="HelpEstateAllowDirectTeleport" title="允许直接闪电传送">
+	<alert name="HelpEstateAllowDirectTeleport" title="允许直接瞬间移动">
 		<message name="message">
-			通过验证后，用户可被闪电传运至自己领地的
-任何一个点。 未通过验证时, 居民只能被闪电 
-传运至最近的集合点。 
+			打开该选项后，用户可瞬间移动到你的领地的
+任何一个点。 关闭该选项时, 居民只能瞬间
+移动至最近的瞬间移动枢纽。 
  
 默认: 关
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowResident" title="允许进入通道">
 		<message name="message">
-			一旦任何居民被列于此,前往这块领地的通道 
-将对该名单上的居民下面名单上的社团进行限制。 
- 
-(如果此领地可以从大陆上看见,通道就不能对 
-名单上的居民或社团进行限制,且这些控制都是无效的。
-只有 &apos;拒绝的通道&apos; 名单可用。
+			对该地产的访问将仅限于以下列出的居民和社团。
+该设置仅在 “允许公众访问”关闭时有效。
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowGroup" title="允许社团进入通道">
 		<message name="message">
-			一旦任何社团被列于此,前往这块领地的通道
-将对名单上的社团进行限制，and residents specifically 
-allowed above. 
- 
-(如果此领地可以从大陆上看见,通道就不能对 
-居民或社团名单进行限制,且这些控制都是无效的。 
-只有 &apos;拒绝的通道&apos; 名单可用。)
+			对该地产的访问将仅限列出的社团和以上列出的居民。
+该设置仅在 “允许公众访问”关闭时有效。
 		</message>
 	</alert>
-	<alert name="HelpEstateBanResident" title="拒绝通过">
+	<alert name="HelpEstateBanResident" title="拒绝访问">
 		<message name="message">
 			不管以上社团的设置为什么情况， 
-名单上的居民被拒绝到达您的领地。
- 
-添加一位居民上此名单将把他从允许名单
-中删除。
+名单上的居民将被拒绝到达您的地产。
+		</message>
+	</alert>
+	<alert name="HelpEstateAbuseEmailAddress" title="不良行为报告电子邮件地址">
+		<message name="message">
+			将这一项设为有效的电子邮件地址会让
+该地产上的不良行为报告送到这个地址。
+留空该项会使得不良行为报告仅发送给
+林登实验室。
+		</message>
+	</alert>
+	<alert name="HelpEstateVoiceChat" title="允许语音聊天">
+		<message name="message">
+			允许该地产中的地块拥有自己的语音聊天频道，
+			可以让居民与临近的其他人交谈。
+
+
+默认：关
+		</message>
+	</alert>
+	<alert name="VoiceVersionMismatch" title="语音聊天版本不符合">
+		<message name="message">
+			该版本的第二人生与该地区的语音聊天不兼容。
+为了正常使用语音聊天你需要更新第二人生。
 		</message>
 	</alert>
 	<alert name="HelpEstateCovenant" title="不动产契约合同">
 		<message name="message">
-			设置不动产的契约合同使你可以连不动产一起出售土地。如果在不动产契约合同中没有设置，你则不能出售土地，而只能单独出售不动产。如果在买主购买之前，你不想在土地上设置任何相关的给买主的意见和规定，则这张你契约合同的注释卡可能是空的。
+			设置不动产的契约合同使你可以出售地产中的土地。如果不动产契约合同没有设置，你则不能出售土地。如果在买主购买之前，你不想在土地上设置任何相关的给买主的意见和规定，你的契约合同的注释卡可以是空的。
  
 一个不动产契约合同可以被用来制定规定和指导方针，表明文化信息或仅仅是你自己对未来买家的期望。它可以包含分区制度，建筑规范，支付方式选择以及任何你认为重要，并希望新主人在购买之前看到，并同意的条款。
  
 买主必须遵守契约合同上所标出的规定，在完成消费前，买主要在是否同意的方格里画钩。不动产契约合同总是在任何设置为此的土地中关于土地对话框中可见。
 		</message>
 	</alert>
-	<alert name="BuyObjectOneOnly" title="不能购买东东">
+	<alert name="BuyObjectOneOnly" title="不能购买物体">
 		<message name="message">
-			一次可以购买的东东不得多于一件。 
-请仅选择一件东东并再试一遍。
+			一次无法购买一个以上的物体。
+请仅选择一件物体并再试一遍。
 		</message>
 	</alert>
-	<alert name="BuyObjectOneOwner" title="不能购买东东">
+	<alert name="BuyObjectOneOwner" title="不能购买物体">
 		<message name="message">
-			一次无法从不同主人处购买东东。 
-请仅选择一件东东，再试一次。
+			一次无法从不同主人处购买物体。 
+请仅选择一件物体，再试一次。
 		</message>
 	</alert>
 	<alert name="BuyContentsOneOnly" title="不能购买内容">
 		<message name="message">
-			一次可以购买的东东不得多于一件。 
-请仅选择一件东东并再试一遍。
+			一次无法购买一个以上的物体的内容。 
+请仅选择一件物体，并再试一遍。
 		</message>
 	</alert>
 	<alert name="BuyContentsOneOwner" title="不能购买内容">
 		<message name="message">
-			一次无法从不同主人处购买东东。 
-请仅选择一件东东，再试一次。
+			一次无法从不同主人处购买物体。 
+请仅选择一件物体，再试一次。
 		</message>
 	</alert>
 	<alert name="PermYes">
 		<message name="message">
-			是
+			可
 		</message>
 	</alert>
 	<alert name="PermNo">
@@ -3786,12 +3958,12 @@ allowed above.
 	</alert>
 	<alert name="BuyOriginal">
 		<message name="message">
-			是否消费L$[PRICE]购买初始东东?
-你将成为东东的主人。
+			是否以 L$[PRICE] 购买原物体?
+你将成为物体的主人。
 你将可以：
-修饰: [MODIFYPERM]
+ 修改: [MODIFYPERM]
  复制: [COPYPERM]
- 重新出售或馈赠他人: [RESELLPERM]
+ 转卖或赠送: [RESELLPERM]
 		</message>
 		<option name="Buy">
 			购买
@@ -3802,12 +3974,12 @@ allowed above.
 	</alert>
 	<alert name="BuyOriginalNoOwner">
 		<message name="message">
-			是否消费L$[PRICE]购买初始东东?
-你将成为东东的主人。
+			是否以 L$[PRICE] 购买原物体?
+你将成为物体的主人。
 你将可以：
-修饰: [MODIFYPERM]
+ 修改: [MODIFYPERM]
  复制: [COPYPERM]
- 重新出售或馈赠他人: [RESELLPERM]
+ 转卖或赠送: [RESELLPERM]
 		</message>
 		<option name="Buy">
 			购买
@@ -3818,12 +3990,12 @@ allowed above.
 	</alert>
 	<alert name="BuyCopy">
 		<message name="message">
-			是否消费L$[PRICE]从[OWNER]处购买一件拷贝?
-这件东东将从你的库存中.
-你可以做的有:
+			是否以 L$[PRICE] 从 [OWNER] 购买物体的副本?
+这件物体将被复制到你的库存。
+你将可以：
  修改: [MODIFYPERM]
  复制: [COPYPERM]
- 重新出售或馈赠他人: [RESELLPERM]
+ 转卖或赠送: [RESELLPERM]
 		</message>
 		<option name="Buy">
 			购买
@@ -3834,11 +4006,12 @@ allowed above.
 	</alert>
 	<alert name="BuyCopyNoOwner">
 		<message name="message">
-			是否消费L$[PRICE]购买东东拷贝?
-这件东东将被复制至你的库存中.你将可以：
-修饰: [MODIFYPERM]
+			是否以 L$[PRICE] 购买物体的副本?
+这件物体将被复制到你的库存。
+你将可以：
+ 修改: [MODIFYPERM]
  复制: [COPYPERM]
- 重新出售或馈赠他人: [RESELLPERM]
+ 转卖或赠送: [RESELLPERM]
 		</message>
 		<option name="Buy">
 			购买
@@ -3849,8 +4022,8 @@ allowed above.
 	</alert>
 	<alert name="BuyContents">
 		<message name="message">
-			是否消费L$[PRICE]从[OWNER]处购买内容?
-它们将被拷贝到你的库存。
+			是否以 L$[PRICE] 从 [OWNER] 购买内容?
+它们将被复制到你的库存。
 		</message>
 		<option name="Buy">
 			购买
@@ -3861,8 +4034,8 @@ allowed above.
 	</alert>
 	<alert name="BuyContentsNoOwner">
 		<message name="message">
-			是否消费L$[PRICE]购买内容?
-它们将被拷贝到你的库存。
+			是否以 L$[PRICE] 购买内容?
+它们将被复制到你的库存。
 		</message>
 		<option name="Buy">
 			购买
@@ -3873,11 +4046,10 @@ allowed above.
 	</alert>
 	<alert name="ConfirmPurchase">
 		<message name="message">
-			此项处理将:
+			此项交易将:
+ [ACTION]
  
-[ACTION]
- 
-你确定你愿意把交易进行下去吗?
+你确定要继续购买吗？
 		</message>
 		<option name="Confirm">
 			确认
@@ -3888,11 +4060,10 @@ allowed above.
 	</alert>
 	<alert name="ConfirmPurchasePassword">
 		<message name="message">
-			此项处理将要:
+			此项交易将:
+ [ACTION]
  
-[ACTION]
- 
-你确定愿意把交易进行下去吗?
+你确定要继续购买吗？
 请你再次键入密码并点击确定。
 		</message>
 		<option name="ConfirmPurchase">
@@ -3905,177 +4076,228 @@ allowed above.
 	<alert name="SetPickLocation">
 		<message name="message">
 			注意:
-你只上传了位置，其他细节还将保持原值.
+您已经更新了该收藏的
+地址，但其他的细节仍
+会保留其原来的值。
 		</message>
 		<option name="OK">
-			OK
+			确定
 		</option>
 	</alert>
 	<alert name="MoveInventoryFromObject">
 		<message name="message">
-			你已经选择 &apos;不可复制&apos;的库存东东。
-这些东东将被移出库存，不能被复制。
+			你已经选择 ‘不可复制’ 的物品条目。
+这些物体将被移入库存，而不是被复制。
  
-确定移动库存东东吗?
+确定移动物体吗?
 		</message>
+		<ignore name="ignore">
+			从物体内容中移动不可复制的条目
+		</ignore>
 		<option name="Move">
 			移动
 		</option>
 		<option name="Don&apos;tMove">
-			禁止移动
+			不要移动
 		</option>
 	</alert>
 	<alert name="MoveInventoryFromScriptedObject">
 		<message name="message">
-			你已经选择 &apos;不可复制&apos;的库存东东。
-这些东东将被移出库存，不能被复制。
+			你已经选择 ‘不可复制’ 的物品条目。
+这些物体将被移入库存，而不是被复制。
  
-因为此东东已经被记录,移动它至你的 
-目录可能会导致脚本故障。 
- 
-确定移动库存东东?
+由于此物体带有脚本，将这些条目移动到
+你的库存可能造成脚本故障。
+
+确定移动物体吗?
 		</message>
 		<option name="Move">
 			移动
 		</option>
 		<option name="Don&apos;tMove">
-			禁止移动
+			不要移动
 		</option>
 	</alert>
 	<alert name="ClickActionNotPayable">
 		<message name="message">
-			警告：购买东东选项已设定,但它仅在 
-脚本被添加到金钱支付()情节时才能使用. 
-这是因为居民通常希望钱一旦支付,
-购买的东东就可以使用.
+			警告：向物体付款的动作已经设定，但它仅在 
+添加了带有 money() 事件的脚本后才能工作。
 		</message>
+		<ignore name="ignore">
+			在物体上设置付款动作但没有 money() 事件时
+		</ignore>
 	</alert>
 	<alert name="OpenObjectCannotCopy">
 		<message name="message">
-			在你允许复制的对象中没有找到项目。
+			这个物体中没有你能够复制的项目。
 		</message>
 	</alert>
-	<alert name="LoadAccountTransactions">
+	<alert name="WebLaunchAccountHistory">
 		<message name="message">
-			是否跳至[URL] 
-查看处理细节?
+			是否前往第二人生网站查看你的帐户记录？
 		</message>
-		<option name="OK">
-			OK
+		<ignore name="ignore">
+			打开浏览器查看帐户记录
+		</ignore>
+		<option name="Gotopage">
+			打开网页
 		</option>
 		<option name="Cancel">
 			取消
 		</option>
 	</alert>
-	<alert name="HelpReportAbuse">
+	<alert name="ClickOpenF1Help">
 		<message name="message">
-			Use this tool to report violations of the Terms of Service and Community Standards. See: 
-http://secondlife.com/corporate/tos.php 
-http://secondlife.com/corporate/cs.php 
- 
-All reported abuses of the Terms of Service and Community Standards 
-are investigated and resolved. You will receive an email informing you
-of the resolution when it occurs. 
-You can also view the incident resolution on the Police Blotter at: 
- 
-http://secondlife.com/community/blotter.php
+			访问第二人生帮助网站吗？
 		</message>
+		<ignore name="ignore">
+			访问第二人生帮助网站时
+		</ignore>
+		<option name="Gotopage">
+			打开页面
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="RetryFetchInventoryDescendents">
+		<message name="message">
+			从服务器获取库存超时。再试一次吗？
+		</message>
+		<ignore name="ignore">
+			重试读取库存
+		</ignore>
+		<option name="Retry">
+			重试
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="ConfirmQuit">
+		<message name="message">
+			确定退出?
+		</message>
+		<ignore name="ignore">
+			退出第二人生时
+		</ignore>
+		<option name="Quit">
+			退出
+		</option>
+		<option name="Continue">
+			继续
+		</option>
 	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
-			使用这个工具可以报告违反服务和社区标准条例的操作。详情请见： 
+			使用这个工具可以报告违反服务条例和社区标准条例的操作。详情请见： 
 -
 http://secondlife.com/corporate/tos.php 
 http://secondlife.com/corporate/cs.php 
 -
-所有对违反服务和社区标准条例的报告都会被调查并解决。你会收到一封邮件提示你解决的进展情况。同时，你可以在线查看秩序本，及时获得事件的解决情况。在线秩序本的地址是:
+所有对违反服务和社区标准条例的报告都会被调查并解决。你会
+收到一封邮件提示你解决的进展情况。同时，你可以在线查看事
+件报告，及时获得事件的解决情况。在线秩序本的地址是:
 - 
-http://secondlife.com/community/blotter.php
+http://secondlife.com/support/incidentreport.php
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseEmailEO">
 		<message name="message">
-			重要提示: 这个报告将不会到达林登实验室处，而会发送给你目前所在区域的主人。
+			重要提示: 这个报告将不会到达林登实验室处，而会发送给你
+目前所在区域的主人。
 -
-作为一项针对于居民和游客的服务，你所在这块区域的主人有责任接受所有来自这块区域的问题报告，并有责任解决它们。林登实验室将不会调查你从所在地点提交的问题报告。这块区域的主人将遵守土地契约，解决一些基于此块区域的本地规则的报告。（查看土地土地契约，可以进入游戏
+作为一项针对于居民和游客的服务，你所在这块区域的主人有责任
+接受所有来自这块区域的问题报告，并有责任解决它们。
+林登实验室将不会调查你从所在地点提交的问题报告。
+
+这块区域的主人将遵守基于土地契约所概述的当地规则，解决报告。
+(你可以从世界菜单中选择 “关于土地” 来查看契约。)
+
+该报告的解决结果仅对该区域有效；居民对第二人生其他地方的使用
+将不会受该报告结果的影响。只有林登实验室能够限制访问整个
+第二人生。
 		</message>
 	</alert>
 	<alert name="HelpReportBug">
 		<message name="message">
-			Use this tool to report technical features that do not perform 
-as described or expected. All bug reports are investigated and 
-resolved. No email response will be sent, you may reply to the 
-auto-response email to add more details to your report. 
-If you are having a technical difficulty, please contact Support at: 
- 
+			这个工具只用来报告与描述或预期工作不一致的技术功能。请尽能提供详细资料。
+你也可以回复自动确认电子邮件来为你的报告添加更多细节。
+
+所有的错误都会被追查并评估。不会有任何电子邮件回复。
+
+如果你遇到了技术障碍，请与支持取得联系：
+
 http://secondlife.com/community/support.php
+
+注意：不完整的报告将不会被调查。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSelectCategory">
 		<message name="message">
-			请为次辱骂事件报告选择一项分类。
- 
-选择一个分类可以帮助我们归档和处理辱骂事件。
+			请为此次不良行为报告选择一项分类。
+ 选择一个分类可以帮助我们归档和处理不良行为报告。
 		</message>
 	</alert>
 	<alert name="HelpReportBugSelectCategory">
 		<message name="message">
-			Please select a category for this bug.
- 
-Selecting a category helps us file and process bug reports.
+			请为此次错误报告选择一项分类。
+ 选择一个分类可以帮助我们归档和处理错误报告。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserNameEmpty">
 		<message name="message">
-			请输入辱骂者的名字.
- 
-输入正确的描述可以帮助我们归档和处理辱骂事件。
+			请输入辱骂者的名字。
+输入正确的描述可以帮助我们归档和处理不良行为报告。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserLocationEmpty">
 		<message name="message">
-			请输入辱骂事件发生的地址。
+			请输入不良行为发生的地址。
  
-输入正确的描述可以帮助我们归档和处理辱骂事件。
+输入正确的描述可以帮助我们归档和处理不良行为报告。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSummaryEmpty">
 		<message name="message">
-			请输入已发生的辱骂事件的概括。
+			请输入不良行为的概况。
  
-输入对事件的正确描述可以帮助我们归档和处理辱骂事件。
+输入对事件的正确描述可以帮助我们归档和处理不良行为报告。
 		</message>
 	</alert>
 	<alert name="HelpReportBugSummaryEmpty">
 		<message name="message">
-			Please enter a summary of the bug.
+			请输入错误概况。
  
-Entering an accurate summary helps us file and process bug reports.
+输入对事件的正确描述可以帮助我们归档和处理错误报告。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseDetailsEmpty">
 		<message name="message">
-			请键入已发生的辱骂事件的详细描述.请尽量详细描述，包括你报告事件的名称和细节。
+			请键入不良行为的详细描述。请尽量具体地描述，包括名字和报告事件细节。
 
  输入对事件的正确描述可以帮助我们归档和处理辱骂事件。
 		</message>
 	</alert>
 	<alert name="HelpReportBugDetailsEmpty">
 		<message name="message">
-			Please enter a detailed description of the bug.
-Be as specific as you can, including steps to reproduce the bug
-if possible.
+			请键入错误的详细描述。
+请尽量具体地描述，可能的话包括如何再现错误的步骤。
  
-Entering an accurate description helps us file and process bug reports.
+输入对事件的正确描述可以帮助我们归档和处理错误报告。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
 			亲爱的居民,
+如果您将要报告知识产权侵犯，请确认您通过正确的方式报告:
+
+(1) 不良行为报告手续。您可以提交一份不良行为报告，如果您相信某位居民正在利用第二人生许可系统的漏洞，例如使用 CopyBot 或者类似的复制工具，来侵犯知识产权。不良行为调查小组负责对于违反第二人生社区标准或服务条款的行为进行调查以及实行相应的惩罚措施。但是，不良行为调查小组不负责从世界中移除内容，并且不会对这类请求作出回应。
  
-关于版权侵害的报告只能通过下列网页上http://secondlife.com/corporate/dmca.php描述的方式提交.
+(2) DMCA (数字千年版权协定) 或者说内容移除手续。 要请求从第二人生中去除内容，您*必须*提交一份按我们 DMCA 条例 http://secondlife.com/corporate/dmca.php 中所指出的，有效的侵权通知。
  
-关于版权侵害的报告，如果通过&apos;辱骂报告&apos;方式提交，将被系统自动忽视。如果您的报告和版权侵害无关，请关闭此窗口，并完成提交您的报告。
+如果您仍希望继续不良行为的报告，请关闭此窗口，并完成提交您的报告。
+您可能需要选择 ‘CopyBot 或利用漏洞’ 这一特定分类。
 
 感谢您的合作,
  
@@ -4084,46 +4306,87 @@ Entering an accurate description helps us file and process bug reports.
 	</alert>
 	<alert name="FailedRequirementsCheck">
 		<message name="message">
-			以下要求的内容是丢失于[FLOATER]:
+			以下必须的部件丢失于 [FLOATER]:
 [COMPONENTS]
 		</message>
 	</alert>
 	<alert name="ReplaceAttachment" title="替换已经存在的附件">
 		<message name="message">
-			这里已经有一件东东附在了你的身体上。                        你是否要用所选东东替代它？
+			已经有一个物体附在身体的这个部位上了。                  你是否要用所选物体替代它？
 		</message>
-		<option ignore="自动换位" name="Yes">
+		<ignore name="ignore">
+			替换已有的附件时
+		</ignore>
+		<option ignore="自动替换" name="Yes">
 			是
 		</option>
-		<option ignore="永远不换位" name="No">
+		<option ignore="永远不替换" name="No">
 			否
 		</option>
 	</alert>
-	<alert name="BusyModePay" title="繁忙模式警告">
+	<alert name="BusyModePay" title="忙碌模式警告">
 		<message name="message">
 			你在忙碌模式中, 这意味着你将不能
-收到这次交易中以找零形式
-提供的任何物品。
+收到这次交易中对方提供的任何物品。
  
-你是否愿意在完成处理前
-退出繁忙模式?
+你是否愿意在完成交易前
+退出忙碌模式?
 		</message>
-		<option ignore="总使用忙碌模式" name="Yes">
+		<ignore name="ignore">
+			忙碌模式中付款给他人或物体时
+		</ignore>
+		<option ignore="总离开忙碌模式" name="Yes">
 			是
 		</option>
-		<option ignore="从不使用忙碌模式" name="No">
+		<option ignore="从不离开忙碌模式" name="No">
 			否
 		</option>
 	</alert>
 	<alert name="ConfirmEmptyTrash">
 		<message name="message">
-			你确定要永久性删除垃圾文件夹里的内容吗？
+			你确定要永久性删除垃圾箱里的内容吗？
 		</message>
+		<ignore name="ignore">
+			清空库存垃圾箱文件夹时
+		</ignore>
 		<option name="Yes">
-			使得，我要删除
+			是的，删除
 		</option>
 		<option name="No">
 			不是
+		</option>
+	</alert>
+	<alert name="ConfirmClearBrowserCache">
+		<message name="message">
+			确实要清除浏览器缓存吗？
+		</message>
+		<option name="Yes">
+			清除
+		</option>
+		<option name="No">
+			取消
+		</option>
+	</alert>
+	<alert name="ConfirmClearCookies">
+		<message name="message">
+			确实要清除 Cookies 吗？
+		</message>
+		<option name="Yes">
+			清除
+		</option>
+		<option name="No">
+			取消
+		</option>
+	</alert>
+	<alert name="ConfirmClearMediaUrlList">
+		<message name="message">
+			确实要清除保存的 URL 列表吗？
+		</message>
+		<option name="Yes">
+			清除
+		</option>
+		<option name="No">
+			取消
 		</option>
 	</alert>
 	<alert name="CopySLURL">
@@ -4132,7 +4395,469 @@ Entering an accurate description helps us file and process bug reports.
    
     [SLURL] 
    
-  把它加入到网页里，可以让别人更容易的进入这个地点，或者直接拉入浏览器的地址栏中，让自己进入这个地点。
+  把它加入到网页里，让别人更容易的访问这个地点，
+  或者直接粘贴到浏览器的地址栏中自己尝试一下。
+		</message>
+	</alert>
+	<alert name="ConfirmEmptyLostAndFound">
+		<message name="message">
+			你确定要永久性删除失物招领文件夹里的内容吗？
+		</message>
+		<ignore name="ignore">
+			清空库存失物招领文件夹时
+		</ignore>
+		<option name="Yes">
+			Yes
+		</option>
+		<option name="No">
+			No
+		</option>
+	</alert>
+	<alert name="GraphicsPreferencesHelp">
+		<message name="message">
+			该面板控制窗口尺寸和分辨率，以及客户端图形质量。你可以选择四种图像等级：低、中、高和极高。你也可以选择自定义，来更改以下的设置：
+
+着色器：启用或禁用各种像素着色器。
+
+反射细节：设置可以反射的物体类型。
+
+化身渲染：设置影响客户端渲染化身的选项。
+
+描绘距离: 影响离你的视角多远的物体将会被渲染在场景中。
+
+最大粒子数:设置你在屏幕上同时可见粒子的最大数目。
+
+后期处理质量：设置光辉渲染的分辨率。
+
+模型细节: 设置渲染各类物体时的细节，或者说使用三角形的数目。较高的值渲染时间较长，但会令物体显得更具细节。
+
+光照细节: 选择你想要渲染什么类型的灯光。
+
+地面细节: 选择地面材质细节量。
+		</message>
+	</alert>
+	<alert name="WLSavePresetAlert">
+		<message name="message">
+			你希望覆盖保存的预设吗？
+		</message>
+		<option name="Save">
+			保存
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="WLDeletePresetAlert">
+		<message name="message">
+			你希望删除 [SKY] 吗?
+		</message>
+		<option name="Delete">
+			删除
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="WLNoEditDefault">
+		<message name="message">
+			你不能编辑或删除默认预设。
+		</message>
+	</alert>
+	<alert name="WLMissingSky">
+		<message name="message">
+			该日期循环文件参考了一个不存在的天空文件: [SKY].
+		</message>
+	</alert>
+	<alert name="PPSaveEffectAlert">
+		<message name="message">
+			后处理效果已存在。还是想要覆盖它吗？
+		</message>
+		<option name="Save">
+			是
+		</option>
+		<option name="Cancel">
+			否
+		</option>
+	</alert>
+	<alert name="HelpEditSky">
+		<message name="message">
+			编辑 WindLight 滑动条创建和保存天空设定。
+		</message>
+	</alert>
+	<alert name="HelpEditDayCycle">
+		<message name="message">
+			选择一天之内出现哪些天空。
+		</message>
+	</alert>
+	<alert name="EnvSettingsHelpButton">
+		<message name="message">
+			这些设置调节环境在您的电脑上看起来怎么样。您的显卡需要支持大气染色器才能利用全部的设置。
+ 
+调节 &quot;时间&quot; 滑块来在本地改变一日的时间。
+ 
+调节 &quot;云层覆盖&quot; 滑块来控制云彩的多少。
+ 
+选择 &quot;水色&quot; 改变水的颜色。
+ 
+调节 &quot;水雾&quot; 控制水下的雾的浓淡。
+ 
+点击 &quot;使用地产时间&quot; 使时间返回到区域的时间并与之同步。
+ 
+点击 &quot;高级天空选项&quot; 来打开较高级天空设置的编辑器。
+ 
+点击 &quot;高级水面选项&quot; 来打开较高级水面设置的编辑器。
+		</message>
+	</alert>
+	<alert name="HelpDayCycle">
+		<message name="message">
+			日夜周期编辑器给予你对第二人生日夜循环中天空的控制。这也是基础环境编辑器的时间滑块所使用的周期。
+
+日夜周期编辑器的基础是关键帧。它们是带有天空预设的节点 (在时间图上以灰色的点表示)。当时间流逝，WindLight 的天空 也会通过过在这些关键帧之间插值而产生变化。
+
+在时间线之上的黄色箭头表示您当前所看到天空的时间。拖动它可以看到您的天空将如何变化。您可以按右边的添加键和删除键按钮来添加或删除关键帧。
+
+您可以通过在时间线上拖动关键帧来改变其时间位置，也可以直接在关键帧设置中直接设置它的值。在关键帧设置中，您可以将关键帧与其相应的 WindLight 预设联系起来。
+
+周期长度决定一天的时间长短。将这个值设得较低 (例如，2 分钟) 意味着您整个 24 小时的时间线完成变化的时间将只有实际的两分钟！一旦您对时间线和关键帧周期满意，使用播放和停止按钮来预览结果。切记 — 您也可以拖动黄色的时间指示箭头观看天空变化。使用使用地产时间按钮将使您的全天长度与时间和地产的日夜周期同步。
+
+当您对您的日夜周期满意时，您可以使用保存测试日和读取测试日按钮将其保存。请注意，我们现在只允许一个日夜周期。
+		</message>
+	</alert>
+	<alert name="HelpBlueHorizon">
+		<message name="message">
+			使用 红色/绿色/蓝色 (RGB) 滑块来编辑天空的颜色。您可以用强度 (I) 滑块来同时移动红绿蓝滑块。
+		</message>
+	</alert>
+	<alert name="HelpHazeHorizon">
+		<message name="message">
+			云雾地平是调节整个场景曝光最有用的参数。它可以有效地模仿多种曝光设定，
+例如雪天白茫茫一片的场景以及曝光不足较阴暗的场景。
+		</message>
+	</alert>
+	<alert name="HelpBlueDensity">
+		<message name="message">
+			蓝色浓度影响整个天空和雾的饱和度。如果您将强度 (I) 滑块向右移动，颜色将变得更亮、更鲜艳。如果您将其移动到最左边，颜色将变得暗淡，直到最后成为黑白。如果您想要精细的调节天空的颜色平衡，您可以使用红色/绿色/蓝色 (RGB) 滑块单独控制各个颜色的饱和度。
+		</message>
+	</alert>
+	<alert name="HelpHazeDensity">
+		<message name="message">
+			云雾浓度控制大气中灰蒙蒙雾霾的量。在模拟含有大量烟雾和人造污染物的场景时很有效。也适于模拟雾和霭。
+		</message>
+	</alert>
+	<alert name="HelpDensityMult">
+		<message name="message">
+			浓度乘数可以用来影响整个的大气浓度。在较低的设定上，它可以表现出 “稀薄空气” 的感受，而较高的设定将会创造厚重而浓的效果。
+		</message>
+	</alert>
+	<alert name="HelpDistanceMult">
+		<message name="message">
+			调节 WindLight 的距离效果。设置为零将等同于关闭 WindLight 对地面和物体的作用。大于 1 的值模拟比实际更深的距离，产生更浓的气象效果。
+		</message>
+	</alert>
+	<alert name="HelpMaxAltitude">
+		<message name="message">
+			最大高度调节 WindLight 进行气象计算时所作的高度计算。  在傍晚时分时，用它来调节日落的 ‘深度’ 很有作用。
+		</message>
+	</alert>
+	<alert name="HelpSunlightColor">
+		<message name="message">
+			调节场景中的直射光源的亮度和颜色。
+		</message>
+	</alert>
+	<alert name="HelpSunAmbient">
+		<message name="message">
+			调节场景中的环境光亮度和颜色。
+		</message>
+	</alert>
+	<alert name="HelpSunGlow">
+		<message name="message">
+			尺寸滑块控制太阳的尺寸。
+聚焦滑块调节太阳在天空中模糊的程度。
+		</message>
+	</alert>
+	<alert name="HelpSceneGamma">
+		<message name="message">
+			调节屏幕的明暗分布。
+		</message>
+	</alert>
+	<alert name="HelpStarBrightness">
+		<message name="message">
+			调节天空中星星的亮度。
+		</message>
+	</alert>
+	<alert name="HelpTimeOfDay">
+		<message name="message">
+			调节太阳在天空中的位置。
+类似高度。
+		</message>
+	</alert>
+	<alert name="HelpEastAngle">
+		<message name="message">
+			调节太阳在天空中的位置。
+类似方位角。
+		</message>
+	</alert>
+	<alert name="HelpCloudColor">
+		<message name="message">
+			编辑云的颜色。一般来说，
+建议还是白一点好，不过嘛，
+想要有点乐趣当然也没问题。
+		</message>
+	</alert>
+	<alert name="HelpCloudDetail">
+		<message name="message">
+			控制覆盖在在主云层图像之上的细节图。X 和 Y 控制它的位置。 D (密度) 控制云看起来是蓬松还是离散。
+		</message>
+	</alert>
+	<alert name="HelpCloudDensity">
+		<message name="message">
+			可以用 X 和 Y 滑块控制云层的位置，D (密度) 控制云层的密度。
+		</message>
+	</alert>
+	<alert name="HelpCloudCoverage">
+		<message name="message">
+			控制云覆盖天空的量。
+		</message>
+	</alert>
+	<alert name="HelpCloudScale">
+		<message name="message">
+			控制云层在穹顶上的大小。
+		</message>
+	</alert>
+	<alert name="HelpCloudScrollX">
+		<message name="message">
+			控制云层在 X 轴移动的速度。
+		</message>
+	</alert>
+	<alert name="HelpCloudScrollY">
+		<message name="message">
+			控制云层在 Y 轴移动的速度。
+		</message>
+	</alert>
+	<alert name="HelpClassicClouds">
+		<message name="message">
+			选取该框以在渲染 WindLight 的云层同时渲染第二人生的旧云层。
+		</message>
+	</alert>
+	<alert name="HelpWaterFogColor">
+		<message name="message">
+			控制水雾颜色。
+		</message>
+	</alert>
+	<alert name="HelpWaterFogDensity">
+		<message name="message">
+			控制水雾浓度及水下视野范围。
+		</message>
+	</alert>
+	<alert name="HelpUnderWaterFogMod">
+		<message name="message">
+			修饰水雾浓度指数的效果，控制水下视野范围。
+		</message>
+	</alert>
+	<alert name="HelpWaterGlow">
+		<message name="message">
+			控制水面发光的范围。
+		</message>
+	</alert>
+	<alert name="HelpWaterNormalScale">
+		<message name="message">
+			控制组成水面的三个小波的缩放。
+		</message>
+	</alert>
+	<alert name="HelpWaterFresnelScale">
+		<message name="message">
+			控制不同角度反射的光量多少。
+		</message>
+	</alert>
+	<alert name="HelpWaterFresnelOffset">
+		<message name="message">
+			控制反光强度。
+		</message>
+	</alert>
+	<alert name="HelpWaterScaleAbove">
+		<message name="message">
+			控制水面上放折射光量的大小。
+		</message>
+	</alert>
+	<alert name="HelpWaterScaleBelow">
+		<message name="message">
+			控制水面下方折射光量的大小。
+		</message>
+	</alert>
+	<alert name="HelpWaterBlurMultiplier">
+		<message name="message">
+			控制水波和折射混合的方式。
+		</message>
+	</alert>
+	<alert name="HelpWaterNormalMap">
+		<message name="message">
+			改变决定水面反射/折射的法向贴图。
+		</message>
+	</alert>
+	<alert name="HelpWaterWave1">
+		<message name="message">
+			控制较大尺寸的法向贴图在 X 和 Y 方向上移动的速度。
+		</message>
+	</alert>
+	<alert name="HelpWaterWave2">
+		<message name="message">
+			控制较小尺寸的法向贴图在 X 和 Y 方向上移动的速度。
+		</message>
+	</alert>
+	<alert name="NewSkyPreset">
+		<message name="message">
+			给新的天空取一个名字。
+		</message>
+		<editline name="editline">
+			新设定
+		</editline>
+		<option name="OK">
+			确定
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="ExistsSkyPresetAlert">
+		<message name="message">
+			预设已存在！
+		</message>
+	</alert>
+	<alert name="NewWaterPreset">
+		<message name="message">
+			给新的水面取一个名字。
+		</message>
+		<editline name="editline">
+			新设定
+		</editline>
+		<option name="OK">
+			确定
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
+	<alert name="ExistsWaterPresetAlert">
+		<message name="message">
+			预设已存在！
+		</message>
+	</alert>
+	<alert name="WaterNoEditDefault">
+		<message name="message">
+			您不能更改或删除默认预设。
+		</message>
+	</alert>
+	<alert name="ChatterBoxSessionStartError">
+		<message name="message">
+			无法与 [RECIPIENT] 开始会话。
+[REASON]
+		</message>
+		<option name="OK">
+			确定
+		</option>
+	</alert>
+	<alert name="ChatterBoxSessionStartNotVerified">
+		<message name="message">
+			启动与 [RECIPIENT] 的聊天会话时出错。
+[REASON]
+		</message>
+		<option name="OK">
+			确定
+		</option>
+	</alert>
+	<alert name="ChatterBoxSessionEventError">
+		<message name="message">
+			[EVENT]
+[REASON]
+		</message>
+		<option name="OK">
+			确定
+		</option>
+	</alert>
+	<alert name="ForceCloseChatterBoxSession">
+		<message name="message">
+			您与 [NAME] 的聊天会话必须关闭。
+[REASON]
+		</message>
+		<option name="OK">
+			确定
+		</option>
+	</alert>
+	<alert name="Cannot_Purchase_an_Attachment">
+		<message name="message">
+			物品作为附件时无法购买。
+		</message>
+	</alert>
+	<alert name="DebitPermissionDetails" title="About Requests for the Debit Permission">
+		<message name="message">
+			授予该请求将给予脚本持续的从您的帐户中提取林登币 (L$) 的许可。要取消这项许可，物体的拥有者必须删除物体或重置物体中的脚本。
+		</message>
+		<option name="OK">
+			确定
+		</option>
+	</alert>
+	<alert name="AutoWearNewClothing">
+		<message name="message">
+			希望自动穿着您创建的衣物吗？
+		</message>
+		<ignore name="ignore">
+			自动穿着新衣物
+		</ignore>
+		<option name="Yes">
+			是
+		</option>
+		<option name="No">
+			否
+		</option>
+	</alert>
+	<alert name="BadURL">
+		<message name="message">
+			第二人生不知道怎么处理这个链接:
+ [SLURL]
+大部分链接像是这样的:
+
+secondlife:///app/agent/ae1c96b8-9bca-4e5b-9418-80e5397a2b41/about
+
+请检查拼写再试一次。
+		</message>
+	</alert>
+	<alert name="NotAgeVerified">
+		<message name="message">
+			您需要验证年龄才能进入这个地块。
+您希望访问第二人生网站验证您的年龄吗？
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			警告没有验证年龄时
+		</ignore>
+		<option name="Yes">
+			是
+		</option>
+		<option name="No">
+			否
+		</option>
+	</alert>
+	<alert name="无法进入地块: 支付信息不在案">
+		<message name="message">
+			这个地块需要你登记支付信息然后才能访问它。
+您要访问第二人生网站来登记吗？
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			警告缺少支付信息
+		</ignore>
+		<option name="Yes">
+			是
+		</option>
+		<option name="No">
+			否
+		</option>
+	</alert>
+	<alert name="MissingString">
+		<message name="message">
+			strings.xml 中找不到字符串 [STRING_NAME]
 		</message>
 	</alert>
 </alerts>

@@ -2,7 +2,7 @@
 <floater name="modal container" title=" ">
 	<button label="存储" label_selected="存储" name="Save" />
 	<button label="取消" label_selected="取消" name="Cancel" />
-	<check_box label="外形" name="checkbox_Shape" />
+	<check_box label="体型" name="checkbox_Shape" />
 	<check_box label="皮肤" name="checkbox_Skin" />
 	<check_box label="头发" name="checkbox_Hair" />
 	<check_box label="眼睛" name="checkbox_Eyes" />
@@ -17,7 +17,7 @@
 	<check_box label="内裤" name="checkbox_Underpants" />
 	<check_box label="裙子" name="checkbox_Skirt" />
 	<check_box label="胸部" name="checkbox_Chest" />
-	<check_box label="头型" name="checkbox_Skull" />
+	<check_box label="头部" name="checkbox_Skull" />
 	<check_box label="左肩" name="checkbox_Left Shoulder" />
 	<check_box label="右肩" name="checkbox_Right Shoulder" />
 	<check_box label="左手" name="checkbox_Left Hand" />
@@ -30,54 +30,54 @@
 	<check_box label="下巴" name="checkbox_Chin" />
 	<check_box label="左耳" name="checkbox_Left Ear" />
 	<check_box label="右耳" name="checkbox_Right Ear" />
-	<check_box label="左眼珠" name="checkbox_Left Eyeball" />
-	<check_box label="右眼珠" name="checkbox_Right Eyeball" />
+	<check_box label="左眼" name="checkbox_Left Eyeball" />
+	<check_box label="右眼" name="checkbox_Right Eyeball" />
 	<check_box label="鼻子" name="checkbox_Nose" />
-	<check_box label="R 提高胳膊位置" name="checkbox_R Upper Arm" />
-	<check_box label="R预备" name="checkbox_R Forearm" />
-	<check_box label="L 增加臂长" name="checkbox_L Upper Arm" />
-	<check_box label="L 预备" name="checkbox_L Forearm" />
+	<check_box label="右上臂" name="checkbox_R Upper Arm" />
+	<check_box label="右前臂" name="checkbox_R Forearm" />
+	<check_box label="左上臂" name="checkbox_L Upper Arm" />
+	<check_box label="左前臂" name="checkbox_L Forearm" />
 	<check_box label="右胯" name="checkbox_Right Hip" />
-	<check_box label="R 提高腿部位置" name="checkbox_R Upper Leg" />
-	<check_box label="R 增加腿长" name="checkbox_R Lower Leg" />
+	<check_box label="右大腿" name="checkbox_R Upper Leg" />
+	<check_box label="右小腿" name="checkbox_R Lower Leg" />
 	<check_box label="左胯" name="checkbox_Left Hip" />
-	<check_box label="L 增加腿长" name="checkbox_L Upper Leg" />
-	<check_box label="L 缩短腿长" name="checkbox_L Lower Leg" />
+	<check_box label="左大腿" name="checkbox_L Upper Leg" />
+	<check_box label="左小腿" name="checkbox_L Lower Leg" />
 	<check_box label="肚子" name="checkbox_Stomach" />
 	<check_box label="左胸肌" name="checkbox_Left Pec" />
 	<check_box label="右胸肌" name="checkbox_Right Pec" />
-	<check_box label="中心2" name="checkbox_Center 2" />
-	<check_box label="上端右侧" name="checkbox_Top Right" />
-	<check_box label="上端" name="checkbox_Top" />
-	<check_box label="上端左侧" name="checkbox_Top Left" />
-	<check_box label="Center中心" name="checkbox_Center" />
-	<check_box label="底部左侧" name="checkbox_Bottom Left" />
-	<check_box label="底部" name="checkbox_Bottom" />
-	<check_box label="底部右侧" name="checkbox_Bottom Right" />
+	<check_box label="中央2" name="checkbox_Center 2" />
+	<check_box label="右上方" name="checkbox_Top Right" />
+	<check_box label="上方" name="checkbox_Top" />
+	<check_box label="左上方" name="checkbox_Top Left" />
+	<check_box label="中央" name="checkbox_Center" />
+	<check_box label="左下方" name="checkbox_Bottom Left" />
+	<check_box label="下方" name="checkbox_Bottom" />
+	<check_box label="右下方" name="checkbox_Bottom Right" />
 	<text type="string" length="1" name="Make New Outfit">
-		制作新的装备
+		制作新的装束
 	</text>
 	<text type="string" length="1"
 	     name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
-		装备是一些文件夹，这些文件夹中包含服饰和一些身体躯干。
-拖拽一项装备文件夹至你的化身身上，并松开鼠标，将其保留在化身身体上。
+		装束是包含服饰和一些身体躯干的文件夹。
+将装束文件夹拖动到化身身上来穿上它。
  
-&quot;制造新的装备&quot;会创建新的文件夹，并保存你正在使用或穿着的物品的副本在新的文件夹中。
+&quot;制造新的装束&quot;会创建新的文件夹，并保存你正在使用或穿着的物品的副本在新的文件夹中。
 	</text>
 	<text type="string" length="1" name="Folder name:">
 		文件夹名称:
 	</text>
 	<text type="string" length="1" name="Items to include in outfit:">
-		包括装备中的物品条目:
+		装束中包括的物品:
 	</text>
 	<text type="string" length="1" name="Body Parts:">
-		躯干
+		体形
 	</text>
 	<text type="string" length="1" name="Clothes:">
 		服饰:
 	</text>
 	<text type="string" length="1" name="Attachments:">
-		附属:
+		附件:
 	</text>
 	<text type="string" length="1" name="Options:">
 		选项:

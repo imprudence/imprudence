@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
- * Copyright (c) 2000-2008, Linden Research, Inc.
+ * Copyright (c) 2000-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -32,6 +32,8 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llsurface.h"
+
+#include "llrender.h"
 
 #include "llviewerimagelist.h"
 #include "llpatchvertexarray.h"
@@ -249,7 +251,7 @@ void LLSurface::createSTexture()
 
 		mSTexturep = new LLViewerImage(raw, FALSE);
 		mSTexturep->dontDiscard();
-		mSTexturep->bind();
+		gGL.getTexUnit(0)->bind(mSTexturep.get());
 		mSTexturep->setClamp(TRUE, TRUE);
 		gImageList.addImage(mSTexturep);
 	}
@@ -274,7 +276,7 @@ void LLSurface::createWaterTexture()
 		}
 		mWaterTexturep = new LLViewerImage(raw, FALSE);
 		mWaterTexturep->dontDiscard();
-		mWaterTexturep->bind();
+		gGL.getTexUnit(0)->bind(mWaterTexturep.get());
 		mWaterTexturep->setClamp(TRUE, TRUE);
 		gImageList.addImage(mWaterTexturep);
 	}

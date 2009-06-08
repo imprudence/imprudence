@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="preview texture" title="材质: 灰色金属涂抹">
+<floater name="preview_texture" title="材质: 灰色金属涂抹">
 	<text type="string" length="1" name="desc txt">
 		描述:
 	</text>

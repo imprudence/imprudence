@@ -3,15 +3,24 @@
 	<text type="string" length="1" name="Multiple">
 		多项
 	</text>
+	<string name="choose_picture">
+		点击选择材质
+	</string>
 	<text type="string" length="1" name="unknown">
-		尺寸: 512 x 512
+		尺寸: [DIMENSIONS]
 	</text>
+	<search_editor
+		 label="在这里输入查找材质"
+		 name="inventory search editor" />
 	<button label="默认" label_selected="默认" name="Default" />
-	<button label="都不" label_selected="都不" name="None" />
+	<button label="无材质" label_selected="无材质" name="None" />
 	<button label="空白" label_selected="空白" name="Blank" />
 	<check_box label="显示文件夹" name="show_folders_check" />
 	<check_box label="立即应用" name="apply_immediate_check" />
 	<button label="" label_selected="" name="Pipette" />
 	<button label="取消" label_selected="取消" name="Cancel" />
 	<button label="选择" label_selected="选择" name="Select" />
+	<string name="pick title">
+		选择:
+	</string>
 </floater>

@@ -6,11 +6,11 @@
 	<text name=" Mouse Sensitivity:">
 		마우스 민감성:
 	</text>
-	<check_box label="마우스 반전" name="invert mouse"/>
+	<check_box label="마우스 반전" name="invert_mouse"/>
 	<text name=" Auto Fly Options:">
 		자동 비행 옵션:
 	</text>
-	<check_box label="PageUp/Down 키로 이착륙" name="automatic fly"/>
+	<check_box label="PageUp/Down 키로 이착륙" name="automatic_fly"/>
 	<text name=" Camera Options:">
 		카메라 옵션:
 	</text>
@@ -23,14 +23,14 @@
 	<text name="Camera Smoothing:">
 		카메라 스무딩:
 	</text>
-	<check_box label="자동편집 카메라 설정" name="edit camera movement" tool_tip="편집 모드를 시작하거나 종료할 때 카메라 자동 위치 설정 사용"/>
-	<check_box label="내 모습 변경시 카메라 자동 설정" name="appearance camera movement" tool_tip="편집 모드일 때 카메라 자동 위치 설정 사용"/>
+	<check_box label="자동편집 카메라 설정" name="edit_camera_movement" tool_tip="편집 모드를 시작하거나 종료할 때 카메라 자동 위치 설정 사용"/>
+	<check_box label="내 모습 변경시 카메라 자동 설정" name="appearance_camera_movement" tool_tip="편집 모드일 때 카메라 자동 위치 설정 사용"/>
 	<text name="text2">
 		아바타 디스플레이 옵션:
 	</text>
-	<check_box label="1인칭 시점으로 시작" name="avfp"/>
+	<check_box label="1인칭 시점으로 시작" name="first_person_avatar_visible"/>
 	<text name="text5">
 		조이스틱 설정:
 	</text>
-	<button label="조이스틱 설치" name="joystic_setup_button"/>
+	<button label="조이스틱 설치" name="joystick_setup_button"/>
 </panel>

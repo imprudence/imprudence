@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2008&license=viewergpl$
  * 
- * Copyright (c) 2008, Linden Research, Inc.
+ * Copyright (c) 2008-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -84,12 +84,7 @@ LLFloaterHUD::LLFloaterHUD()
 		// arrow keys during tutorial).
 		mWebBrowser->setTakeFocusOnClick(false);
 
-		std::string language(gSavedSettings.getString("Language"));
-		if(language == "default")
-		{
-			language = gSavedSettings.getString("SystemLanguage");
-		}
-	
+		std::string language = LLUI::getLanguage();
 		std::string base_url = gSavedSettings.getString("TutorialURL");
 
 		std::string url = base_url + language + "/";

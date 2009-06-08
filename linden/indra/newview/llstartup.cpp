@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2008, Linden Research, Inc.
+ * Copyright (c) 2004-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -93,6 +93,7 @@
 #include "llfeaturemanager.h"
 #include "llfirstuse.h"
 #include "llfloateractivespeakers.h"
+#include "llfloaterbeacons.h"
 #include "llfloatercamera.h"
 #include "llfloaterchat.h"
 #include "llfloatergesture.h"
@@ -248,6 +249,7 @@ void callback_choose_gender(S32 option, void* userdata);
 void init_start_screen(S32 location_id);
 void release_start_screen();
 void reset_login();
+void apply_udp_blacklist(const std::string& csv);
 
 void callback_cache_name(const LLUUID& id, const std::string& firstname, const std::string& lastname, BOOL is_group, void* data)
 {
@@ -876,6 +878,20 @@ bool idle_startup()
 		LLFile::mkdir(gDirUtilp->getChatLogsDir());
 		LLFile::mkdir(gDirUtilp->getPerAccountChatLogsDir());
 
+		//good as place as any to create user windlight directories
+		std::string user_windlight_path_name(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight", ""));
+		LLFile::mkdir(user_windlight_path_name.c_str());		
+
+		std::string user_windlight_skies_path_name(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/skies", ""));
+		LLFile::mkdir(user_windlight_skies_path_name.c_str());
+
+		std::string user_windlight_water_path_name(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/water", ""));
+		LLFile::mkdir(user_windlight_water_path_name.c_str());
+
+		std::string user_windlight_days_path_name(gDirUtilp->getExpandedFilename( LL_PATH_USER_SETTINGS , "windlight/days", ""));
+		LLFile::mkdir(user_windlight_days_path_name.c_str());
+
+
 		if (show_connect_box)
 		{
 			if ( LLPanelLogin::isGridComboDirty() )
@@ -1128,6 +1144,7 @@ bool idle_startup()
 		LL_DEBUGS("AppInit") << "STATE_LOGIN_PROCESS_RESPONSE" << LL_ENDL;
 		std::ostringstream emsg;
 		bool quit = false;
+		bool update = false;
 		std::string login_response;
 		std::string reason_response;
 		std::string message_response;
@@ -1171,11 +1188,7 @@ bool idle_startup()
 				reason_response = LLUserAuth::getInstance()->getResponse("reason");
 				message_response = LLUserAuth::getInstance()->getResponse("message");
 
-				if (gHideLinks && reason_response == "disabled")
-				{
-					emsg << gDisabledMessage;
-				}
-				else if (!message_response.empty())
+				if (!message_response.empty())
 				{
 					// XUI: fix translation for strings returned during login
 					// We need a generic table for translations
@@ -1233,16 +1246,7 @@ bool idle_startup()
 				if(reason_response == "update")
 				{
 					auth_message = LLUserAuth::getInstance()->getResponse("message");
-					if (show_connect_box)
-					{
-						update_app(TRUE, auth_message);
-						LLStartUp::setStartupState( STATE_UPDATE_CHECK );
-						return false;
-					}
-					else
-					{
-						quit = true;
-					}
+					update = true;
 				}
 				if(reason_response == "optional")
 				{
@@ -1280,6 +1284,21 @@ bool idle_startup()
 			break;
 		}
 
+		if (update || gSavedSettings.getBOOL("ForceMandatoryUpdate"))
+		{
+			gSavedSettings.setBOOL("ForceMandatoryUpdate", FALSE);
+			if (show_connect_box)
+			{
+				update_app(TRUE, auth_message);
+				LLStartUp::setStartupState( STATE_UPDATE_CHECK );
+				return false;
+			}
+			else
+			{
+				quit = true;
+			}
+		}
+
 		// Version update and we're not showing the dialog
 		if(quit)
 		{
@@ -1290,8 +1309,14 @@ bool idle_startup()
 
 		if(successful_login)
 		{
-			// unpack login data needed by the application
 			std::string text;
+			text = LLUserAuth::getInstance()->getResponse("udp_blacklist");
+			if(!text.empty())
+			{
+				apply_udp_blacklist(text);
+			}
+
+			// unpack login data needed by the application
 			text = LLUserAuth::getInstance()->getResponse("agent_id");
 			if(!text.empty()) gAgentID.set(text);
 			gDebugInfo["AgentID"] = text;
@@ -1662,6 +1687,11 @@ bool idle_startup()
 		if (gSavedSettings.getBOOL("ShowActiveSpeakers"))
 		{
 			LLFloaterActiveSpeakers::showInstance();
+		}
+
+		if (gSavedSettings.getBOOL("BeaconsEnabled"))
+		{
+			LLFloaterBeacons::showInstance();
 		}
 
 		if (!gNoRender)
@@ -2465,7 +2495,7 @@ bool idle_startup()
 		gDebugView->mFastTimerView->setVisible(TRUE);
 #endif
 
-		LLAppViewer::instance()->initMainloopTimeout("Mainloop Init");
+		LLAppViewer::instance()->handleLoginComplete();
 
 		return TRUE;
 	}
@@ -2781,7 +2811,6 @@ void update_app(BOOL mandatory, const std::string& auth_msg)
 
 void update_dialog_callback(S32 option, void *userdata)
 {
-	std::string update_exe_path;
 	bool mandatory = userdata != NULL;
 
 #if !LL_RELEASE_FOR_DOWNLOAD
@@ -2824,29 +2853,41 @@ void update_dialog_callback(S32 option, void *userdata)
 	// *TODO constantize this guy
 	LLURI update_url = LLURI::buildHTTP("secondlife.com", 80, "update.php", query_map);
 	
-#if LL_WINDOWS
-	update_exe_path = gDirUtilp->getTempFilename();
-	if (update_exe_path.empty())
+	if(LLAppViewer::sUpdaterInfo)
 	{
+		delete LLAppViewer::sUpdaterInfo ;
+	}
+	LLAppViewer::sUpdaterInfo = new LLAppViewer::LLUpdaterInfo() ;
+	
+#if LL_WINDOWS
+	LLAppViewer::sUpdaterInfo->mUpdateExePath = gDirUtilp->getTempFilename();
+	if (LLAppViewer::sUpdaterInfo->mUpdateExePath.empty())
+	{
+		delete LLAppViewer::sUpdaterInfo ;
+		LLAppViewer::sUpdaterInfo = NULL ;
+
 		// We're hosed, bail
 		LL_WARNS("AppInit") << "LLDir::getTempFilename() failed" << LL_ENDL;
 		LLAppViewer::instance()->forceQuit();
 		return;
 	}
 
-	update_exe_path += ".exe";
+	LLAppViewer::sUpdaterInfo->mUpdateExePath += ".exe";
 
 	std::string updater_source = gDirUtilp->getAppRODataDir();
 	updater_source += gDirUtilp->getDirDelimiter();
 	updater_source += "updater.exe";
 
 	LL_DEBUGS("AppInit") << "Calling CopyFile source: " << updater_source
-			<< " dest: " << update_exe_path
+			<< " dest: " << LLAppViewer::sUpdaterInfo->mUpdateExePath
 			<< LL_ENDL;
 
 
-	if (!CopyFileA(updater_source.c_str(), update_exe_path.c_str(), FALSE))
+	if (!CopyFileA(updater_source.c_str(), LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str(), FALSE))
 	{
+		delete LLAppViewer::sUpdaterInfo ;
+		LLAppViewer::sUpdaterInfo = NULL ;
+
 		LL_WARNS("AppInit") << "Unable to copy the updater!" << LL_ENDL;
 		LLAppViewer::instance()->forceQuit();
 		return;
@@ -2859,41 +2900,13 @@ void update_dialog_callback(S32 option, void *userdata)
 		gSavedSettings.setString( "NextLoginLocation", LLURLSimString::sInstance.mSimString ); 
 	};
 
-	std::ostringstream params;
-	params << "-url \"" << update_url.asString() << "\"";
-	if (gHideLinks)
-	{
-		// Figure out the program name.
-		const std::string& data_dir = gDirUtilp->getAppRODataDir();
-		// Roll back from the end, stopping at the first '\'
-		const char* program_name = data_dir.c_str() + data_dir.size();		/* Flawfinder: ignore */
-		while ( (data_dir != --program_name) &&
-				*(program_name) != '\\');
-		
-		if ( *(program_name) == '\\')
-		{
-			// We found a '\'.
-			program_name++;
-		}
-		else
-		{
-			// Oops.
-			program_name = "SecondLife";
-		}
+	LLAppViewer::sUpdaterInfo->mParams << "-url \"" << update_url.asString() << "\"";
 
-		params << " -silent -name \"" << LLAppViewer::instance()->getSecondLifeTitle() << "\"";
-		params << " -program \"" << program_name << "\"";
-	}
-
-	LL_DEBUGS("AppInit") << "Calling updater: " << update_exe_path << " " << params.str() << LL_ENDL;
+	LL_DEBUGS("AppInit") << "Calling updater: " << LLAppViewer::sUpdaterInfo->mUpdateExePath << " " << LLAppViewer::sUpdaterInfo->mParams.str() << LL_ENDL;
 
 	//Explicitly remove the marker file, otherwise we pass the lock onto the child process and things get weird.
 	LLAppViewer::instance()->removeMarkerFile(); // In case updater fails
 	
-	// Use spawn() to run asynchronously
-	int retval = _spawnl(_P_NOWAIT, update_exe_path.c_str(), update_exe_path.c_str(), params.str().c_str(), NULL);
-	LL_DEBUGS("AppInit") << "Spawn returned " << retval << LL_ENDL;
-
 #elif LL_DARWIN
 	// if a sim name was passed in via command line parameter (typically through a SLURL)
 	if ( LLURLSimString::sInstance.mSimString.length() )
@@ -2902,19 +2915,19 @@ void update_dialog_callback(S32 option, void *userdata)
 		gSavedSettings.setString( "NextLoginLocation", LLURLSimString::sInstance.mSimString ); 
 	};
 	
-	update_exe_path = "'";
-	update_exe_path += gDirUtilp->getAppRODataDir();
-	update_exe_path += "/mac-updater.app/Contents/MacOS/mac-updater' -url \"";
-	update_exe_path += update_url.asString();
-	update_exe_path += "\" -name \"";
-	update_exe_path += LLAppViewer::instance()->getSecondLifeTitle();
-	update_exe_path += "\" &";
+	LLAppViewer::sUpdaterInfo->mUpdateExePath = "'";
+	LLAppViewer::sUpdaterInfo->mUpdateExePath += gDirUtilp->getAppRODataDir();
+	LLAppViewer::sUpdaterInfo->mUpdateExePath += "/mac-updater.app/Contents/MacOS/mac-updater' -url \"";
+	LLAppViewer::sUpdaterInfo->mUpdateExePath += update_url.asString();
+	LLAppViewer::sUpdaterInfo->mUpdateExePath += "\" -name \"";
+	LLAppViewer::sUpdaterInfo->mUpdateExePath += LLAppViewer::instance()->getSecondLifeTitle();
+	LLAppViewer::sUpdaterInfo->mUpdateExePath += "\" &";
 
-	LL_DEBUGS("AppInit") << "Calling updater: " << update_exe_path << LL_ENDL;
-	
+	LL_DEBUGS("AppInit") << "Calling updater: " << LLAppViewer::sUpdaterInfo->mUpdateExePath << LL_ENDL;
+
 	// Run the auto-updater.
-	system(update_exe_path.c_str());		/* Flawfinder: ignore */
-	
+	system(LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str()); /* Flawfinder: ignore */
+
 #elif LL_LINUX
 	OSMessageBox("Automatic updating is not yet implemented for Linux.\n"
 		"Please download the latest version from www.secondlife.com.",
@@ -3570,7 +3583,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_time_viewp->addStat("Sim Time (Physics)", &(LLViewerStats::getInstance()->mSimSimPhysicsMsec));
+	stat_barp = sim_time_viewp->addStat("Physics Time", &(LLViewerStats::getInstance()->mSimSimPhysicsMsec));
 	stat_barp->setUnitLabel("ms");
 	stat_barp->mPrecision = 1;
 	stat_barp->mMinBar = 0.f;
@@ -3581,45 +3594,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	LLStatView *physics_time_viewp;
-	physics_time_viewp = new LLStatView("physics perf view", "Physics Details (ms)", "", rect);
-	sim_time_viewp->addChildAtEnd(physics_time_viewp);
-	{
-		stat_barp = physics_time_viewp->addStat("Physics Step", &(LLViewerStats::getInstance()->mSimSimPhysicsStepMsec));
-		stat_barp->setUnitLabel("ms");
-		stat_barp->mPrecision = 1;
-		stat_barp->mMinBar = 0.f;
-		stat_barp->mMaxBar = 40.f;
-		stat_barp->mTickSpacing = 10.f;
-		stat_barp->mLabelSpacing = 20.f;
-		stat_barp->mPerSec = FALSE;
-		stat_barp->mDisplayBar = FALSE;
-		stat_barp->mDisplayMean = FALSE;
-
-		stat_barp = physics_time_viewp->addStat("Update Shapes", &(LLViewerStats::getInstance()->mSimSimPhysicsShapeUpdateMsec));
-		stat_barp->setUnitLabel("ms");
-		stat_barp->mPrecision = 1;
-		stat_barp->mMinBar = 0.f;
-		stat_barp->mMaxBar = 40.f;
-		stat_barp->mTickSpacing = 10.f;
-		stat_barp->mLabelSpacing = 20.f;
-		stat_barp->mPerSec = FALSE;
-		stat_barp->mDisplayBar = FALSE;
-		stat_barp->mDisplayMean = FALSE;
-
-		stat_barp = physics_time_viewp->addStat("Other", &(LLViewerStats::getInstance()->mSimSimPhysicsOtherMsec));
-		stat_barp->setUnitLabel("ms");
-		stat_barp->mPrecision = 1;
-		stat_barp->mMinBar = 0.f;
-		stat_barp->mMaxBar = 40.f;
-		stat_barp->mTickSpacing = 10.f;
-		stat_barp->mLabelSpacing = 20.f;
-		stat_barp->mPerSec = FALSE;
-		stat_barp->mDisplayBar = FALSE;
-		stat_barp->mDisplayMean = FALSE;
-	}
-
-	stat_barp = sim_time_viewp->addStat("Sim Time (Other)", &(LLViewerStats::getInstance()->mSimSimOtherMsec));
+	stat_barp = sim_time_viewp->addStat("Simulation Time", &(LLViewerStats::getInstance()->mSimSimOtherMsec));
 	stat_barp->setUnitLabel("ms");
 	stat_barp->mPrecision = 1;
 	stat_barp->mMinBar = 0.f;
@@ -3662,6 +3637,79 @@ void init_stat_view()
 	stat_barp->mPerSec = FALSE;
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
+
+	stat_barp = sim_time_viewp->addStat("Spare Time", &(LLViewerStats::getInstance()->mSimSpareMsec));
+	stat_barp->setUnitLabel("ms");
+	stat_barp->mPrecision = 1;
+	stat_barp->mMinBar = 0.f;
+	stat_barp->mMaxBar = 40.f;
+	stat_barp->mTickSpacing = 10.f;
+	stat_barp->mLabelSpacing = 20.f;
+	stat_barp->mPerSec = FALSE;
+	stat_barp->mDisplayBar = FALSE;
+	stat_barp->mDisplayMean = FALSE;
+
+	
+	// 2nd level time blocks under 'Details' second
+	LLStatView *detailed_time_viewp;
+	detailed_time_viewp = new LLStatView("sim perf view", "Time Details (ms)", "", rect);
+	sim_time_viewp->addChildAtEnd(detailed_time_viewp);
+	{
+		stat_barp = detailed_time_viewp->addStat("  Physics Step", &(LLViewerStats::getInstance()->mSimSimPhysicsStepMsec));
+		stat_barp->setUnitLabel("ms");
+		stat_barp->mPrecision = 1;
+		stat_barp->mMinBar = 0.f;
+		stat_barp->mMaxBar = 40.f;
+		stat_barp->mTickSpacing = 10.f;
+		stat_barp->mLabelSpacing = 20.f;
+		stat_barp->mPerSec = FALSE;
+		stat_barp->mDisplayBar = FALSE;
+		stat_barp->mDisplayMean = FALSE;
+
+		stat_barp = detailed_time_viewp->addStat("  Update Physics Shapes", &(LLViewerStats::getInstance()->mSimSimPhysicsShapeUpdateMsec));
+		stat_barp->setUnitLabel("ms");
+		stat_barp->mPrecision = 1;
+		stat_barp->mMinBar = 0.f;
+		stat_barp->mMaxBar = 40.f;
+		stat_barp->mTickSpacing = 10.f;
+		stat_barp->mLabelSpacing = 20.f;
+		stat_barp->mPerSec = FALSE;
+		stat_barp->mDisplayBar = FALSE;
+		stat_barp->mDisplayMean = FALSE;
+
+		stat_barp = detailed_time_viewp->addStat("  Physics Other", &(LLViewerStats::getInstance()->mSimSimPhysicsOtherMsec));
+		stat_barp->setUnitLabel("ms");
+		stat_barp->mPrecision = 1;
+		stat_barp->mMinBar = 0.f;
+		stat_barp->mMaxBar = 40.f;
+		stat_barp->mTickSpacing = 10.f;
+		stat_barp->mLabelSpacing = 20.f;
+		stat_barp->mPerSec = FALSE;
+		stat_barp->mDisplayBar = FALSE;
+		stat_barp->mDisplayMean = FALSE;
+
+		stat_barp = detailed_time_viewp->addStat("  Sleep Time", &(LLViewerStats::getInstance()->mSimSleepMsec));
+		stat_barp->setUnitLabel("ms");
+		stat_barp->mPrecision = 1;
+		stat_barp->mMinBar = 0.f;
+		stat_barp->mMaxBar = 40.f;
+		stat_barp->mTickSpacing = 10.f;
+		stat_barp->mLabelSpacing = 20.f;
+		stat_barp->mPerSec = FALSE;
+		stat_barp->mDisplayBar = FALSE;
+		stat_barp->mDisplayMean = FALSE;
+
+		stat_barp = detailed_time_viewp->addStat("  Pump IO", &(LLViewerStats::getInstance()->mSimPumpIOMsec));
+		stat_barp->setUnitLabel("ms");
+		stat_barp->mPrecision = 1;
+		stat_barp->mMinBar = 0.f;
+		stat_barp->mMaxBar = 40.f;
+		stat_barp->mTickSpacing = 10.f;
+		stat_barp->mLabelSpacing = 20.f;
+		stat_barp->mPerSec = FALSE;
+		stat_barp->mDisplayBar = FALSE;
+		stat_barp->mDisplayMean = FALSE;
+	}
 
 	LLRect r = gDebugView->mFloaterStatsp->getRect();
 
@@ -3922,5 +3970,30 @@ bool LLStartUp::dispatchURL()
 void login_alert_done(S32 option, void* user_data)
 {
 	LLPanelLogin::giveFocus();
+}
+
+
+void apply_udp_blacklist(const std::string& csv)
+{
+
+	std::string::size_type start = 0;
+	std::string::size_type comma = 0;
+	do 
+	{
+		comma = csv.find(",", start);
+		if (comma == std::string::npos)
+		{
+			comma = csv.length();
+		}
+		std::string item(csv, start, comma-start);
+
+		lldebugs << "udp_blacklist " << item << llendl;
+		gMessageSystem->banUdpMessage(item);
+		
+		start = comma + 1;
+
+	}
+	while(comma < csv.length());
+	
 }
 

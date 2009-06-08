@@ -291,11 +291,11 @@ Zeit gemessen, die Benutzer dort verbringen.
 			<button label="Suchen" label_selected="Suchen" name="Search" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="354"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="374"
 			     mouse_opaque="true" name="land" v_pad="0" width="430">
 				Land kann direkt für Linden Dollar (L$) oder bei einer Auktion für L$
-oder US$ erworben werden. Um direkt zu kaufen, klicken Sie auf dem betreffenden
-Land in der Titelleiste auf den Namen.
+oder US$ erworben werden. Um direkt zu kaufen, klicken sie auf den
+Namen des Landes in der Titelleiste
 			</text>
 			<scroll_list name="results">
 				<column label="" name="icon" />

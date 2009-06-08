@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2008, Linden Research, Inc.
+ * Copyright (c) 2006-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -483,13 +483,7 @@ void LLWebBrowserCtrl::navigateTo( std::string urlIn )
 
 void LLWebBrowserCtrl::navigateToLocalPage( const std::string& subdir, const std::string& filename_in )
 {
-	std::string language = gSavedSettings.getString("Language");
-	
-	if(language == "default")
-	{
-		language = gSavedSettings.getString("SystemLanguage");
-	}
-
+	std::string language = LLUI::getLanguage();
 	std::string delim = gDirUtilp->getDirDelimiter();
 	std::string filename;
 
@@ -596,14 +590,14 @@ void LLWebBrowserCtrl::draw()
 		}
 
 		// scale texture to fit the space using texture coords
-		mWebBrowserImage->bindTexture();
+		gGL.getTexUnit(0)->bind(mWebBrowserImage->getTexture());
 		gGL.color4fv( LLColor4::white.mV );
 		F32 max_u = ( F32 )mWebBrowserImage->getBrowserWidth() / ( F32 )mWebBrowserImage->getWidth();
 		F32 max_v = ( F32 )mWebBrowserImage->getBrowserHeight() / ( F32 )mWebBrowserImage->getHeight();
 
 		// draw the browser
 		gGL.setSceneBlendType(LLRender::BT_REPLACE);
-		gGL.begin( LLVertexBuffer::QUADS );
+		gGL.begin( LLRender::QUADS );
 		{
 			// render using web browser reported width and height, instead of trying to invert GL scale
 			gGL.texCoord2f( max_u, max_v );

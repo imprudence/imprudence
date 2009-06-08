@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="content_panel">
+	<check_box label="Permitir somente amigos de iniciar chamadas de voz comigo." name="friends_only_check"/>
+</panel>

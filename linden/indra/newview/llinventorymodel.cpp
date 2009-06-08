@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -1348,9 +1348,6 @@ void LLInventoryModel::bulkFetch(std::string url)
 		return; // just bail if we are disconnected.
 	}	
 
-	//HACK.  This is inelegant.  We're shuffling a dequeue to a map to get rid of 
-	//redundant requests.  When we get rid of the old code entirely, we can change
-	//the dequeue to a map.  In the new model, there is no benefit to queue order.
 	U32 folder_count=0;
 	U32 max_batch_size=5;
 
@@ -1502,7 +1499,7 @@ void LLInventoryModel::stopBackgroundFetch()
 //static 
 void LLInventoryModel::backgroundFetch(void*)
 {
-	if (sBackgroundFetchActive)
+	if (sBackgroundFetchActive && gAgent.getRegion())
 	{
 		//If we'll be using the capability, we'll be sending batches and the background thing isn't as important.
 		std::string url = gAgent.getRegion()->getCapability("WebFetchInventoryDescendents");   

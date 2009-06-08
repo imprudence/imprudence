@@ -6,8 +6,8 @@
 				<layout_panel name="state_buttons">
 					<button label="IM erhalten" label_selected="IM erhalten" name="IM Received"
 					     tool_tip="Sie haben eine unbeantwortete Instant Message. Klicken Sie, um IMs anzuzeigen." />
-					<button label="Als nicht beschäftigt anzeigen" 
-					     label_selected="Als nicht beschäftigt anzeigen" name="Set Not Busy" font="SansSerifSmall"
+					<button label="Beschäftigt aus" 
+					     label_selected="Beschäftigt aus" name="Set Not Busy" font="SansSerifSmall"
 					     tool_tip="Chat und IM sind ausgeblendet. Klicken Sie hier, um den Beschäftigt-Modus zu verlassen." />
 					<button label="Tasten freigeben" label_selected="Tasten freigeben" name="Release Keys" font="SansSerifSmall"
 					     tool_tip="Ein Skript hat die Steuerung übernommen. Klicken Sie hier, um die Steuerung wieder freizugeben." />

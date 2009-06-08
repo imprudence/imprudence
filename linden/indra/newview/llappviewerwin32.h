@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2007-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -49,14 +49,20 @@ public:
 	virtual bool cleanup();
 
 protected:
+	virtual bool initLogging(); // Override to clean stack_trace info.
 	virtual void initConsole(); // Initialize OS level debugging console.
 	virtual bool initHardwareTest(); // Win32 uses DX9 to test hardware.
 	virtual bool initParseCommandLine(LLCommandLineParser& clp);
 
-	virtual void handleCrashReporting(); 
+	virtual bool restoreErrorTrap();
+	virtual void handleCrashReporting(bool reportFreeze); 
 	virtual void handleSyncCrashTrace();
 
+	virtual bool sendURLToOtherInstance(const std::string& url);
+
 	std::string generateSerialNumber();
+
+	static const std::string sWindowClass;
 
 private:
 	void disableWinErrorReporting();

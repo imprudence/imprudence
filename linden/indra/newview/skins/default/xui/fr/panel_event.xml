@@ -43,7 +43,7 @@
 		(personne)
 	</text>
 	<text name="event_location_label">
-		Emplacement :
+		Lieu :
 	</text>
 	<text name="event_location">
 		(aucun)

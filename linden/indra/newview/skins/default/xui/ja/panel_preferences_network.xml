@@ -1,20 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="ネットワーク" name="network">
-	<text type="string" length="1" name="text_box">
+	<text length="1" name="text_box" type="string">
 		最大帯域幅：
 	</text>
-	<text type="string" length="1" name="text_box2">
-		Kbps
+	<text length="1" name="text_box2" type="string">
+		kbps
 	</text>
-	<text type="string" length="1" name="cache_size_label_l">
+	<text length="1" name="cache_size_label_l" type="string">
 		キャッシュ：
 	</text>
-	<button label="クリア" name="clear_cache" />
-	<text type="string" length="1" name="cache_location_label">
+	<text name="text_box5">
+		MB
+	</text>
+	<button label="クリア" name="clear_cache"/>
+	<text length="1" name="cache_location_label" type="string">
 		キャッシュの場所：
 	</text>
-	<button label="設定" label_selected="設定" name="set_cache" />
-	<button label="ﾘｾｯﾄ" label_selected="設定" name="reset_cache" />
-	<check_box label="カスタム・ポート接続" name="connection_port_enabled" />
-	<spinner label="ポート番号：" name="connection_port" />
+	<button label="設定" label_selected="設定" name="set_cache"/>
+	<button label="ﾘｾｯﾄ" label_selected="設定" name="reset_cache"/>
+	<check_box label="カスタム・ポート接続" name="connection_port_enabled"/>
+	<spinner label="ポート番号：" name="connection_port"/>
 </panel>

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -73,7 +73,7 @@ public:
 	void setColor(const LLColor4 &color);
 	void setColor(const F32 r, const F32 g, const F32 b, const F32 a);
 	void setAlpha(const F32 alpha)					{ mColor.mV[VALPHA] = alpha; }
-	void setNormal(const LLVector3 &normal)		{ sNormal = normal; sNormal.normVec();}
+	void setNormal(const LLVector3 &normal)		{ sNormal = normal; sNormal.normalize();}
 
 	F32 getAlpha();
 

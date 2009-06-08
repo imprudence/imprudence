@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="preview texture" title="最上层泥土">
+<floater name="preview_texture" title="最上层泥土">
 	<button label="复制至库存" label_selected="复制至库存"
 	     name="Copy To Inventory" />
 	<text type="string" length="1" name="dimensions">

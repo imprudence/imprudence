@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="telehub" title="闪电传送集合地">
+<floater name="telehub" title="瞬间移动枢纽">
 	<text name="status_text_connected">
-		闪电传运连接点和东东连接[OBJECT]
+		连接到物体 [OBJECT] 的瞬移枢纽
 	</text>
 	<text name="status_text_not_connected">
-		没有着陆点连接
+		没有连接到瞬移枢纽。
 	</text>
 	<text name="help_text_connected">
-		移除，请点击断开连接
+		要移除，请点击断开连接
 	</text>
 	<text name="help_text_not_connected">
-		选择一个对象，并点击闪电传运连接点。
+		选择一个对象，然后点击“连接瞬移枢纽”。
 	</text>
-	<button label="连接闪电传送集合点" name="connect_btn" />
+	<button label="连接瞬移枢纽" name="connect_btn" />
 	<button label="断开连接" name="disconnect_btn" />
 	<text name="spawn_points_text">
-		着陆点 (地点, 不是东东):
+		着陆点 (地点, 不是物体):
 	</text>
-	<button label="Add Spawn" name="add_spawn_point_btn" />
+	<button label="添加着陆点" name="add_spawn_point_btn" />
 	<button label="移除着陆点" name="remove_spawn_point_btn" />
 	<text name="spawn_point_help">
-		选择对象东东，并点击添加至确定位置。
-接下来你可以移动或者删除该东东。
-位置和电子传送集合点的中心有关。
+		选择目标物体，然后点击添加，来指定位置。
+接下来你可以移动或者删除该物体。
+位置是与瞬间移动枢纽的相对位置。
 选择列表中的选项来显示它在世界中的位置。
 	</text>
 </floater>

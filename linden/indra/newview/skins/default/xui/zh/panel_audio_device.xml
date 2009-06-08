@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel
+	 name="device_settings">
+	<text
+		 name="Audio Devices">
+		音频设备
+	</text>
+
+		<text
+		 name="Input device (microphone):">
+			输入设备( 麦克风) :
+		</text>
+
+		<text
+		 name="Output device (speakers):">
+			输出设备 (扬声器):
+		</text>
+		<combo_box
+		 allow_text_entry="false"
+		 max_chars="128"
+		 name="voice_output_device" />
+		 
+	<text
+		 name="Input level:">
+		输入音量
+	</text>
+
+		<text_editor
+		 name="voice_intro_text1">调节滑块来控制你说的话的音量。  要测试输入音量的话，只要对着你的麦克风说话就可以了。</text_editor>
+
+	<volume_slider
+		 name="mic_volume_slider"
+		 tool_tip="用这个滑块调节音量。" />
+
+	<text
+		 name="wait_text">
+		请稍候
+	</text>
+	
+
+	<text
+		 name="default_text" >"默认"</text>
+
+	</panel>

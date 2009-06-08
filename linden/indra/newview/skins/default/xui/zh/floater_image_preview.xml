@@ -11,7 +11,7 @@
 	</text>
 	<combo_box label="衣服款式" name="clothing_type_combo">
 		<combo_item name="Image">
-			头像
+			图像
 		</combo_item>
 		<combo_item name="Hair">
 			头发
@@ -37,12 +37,19 @@
 		<combo_item name="Skirt">
 			裙子
 		</combo_item>
+		<combo_item
+			 name="SculptedPrim">
+			Sculpted 元件
+		</combo_item>
 	</combo_box>
 	<text name="bad_image_text">
 		不能读取图像。
-	
-	尝试将图像按24 bit Targa方式储存。
+
+尝试将图像按24 bit Targa方式储存。
 	</text>
+		<check_box
+		 label="使用无损压缩"
+		 name="lossless_check" />
 	<button label="取消" name="cancel_btn" />
 	<button label="上传(L$[AMOUNT])" name="ok_btn" />
 </floater>

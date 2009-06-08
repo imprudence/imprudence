@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -50,7 +50,6 @@ void cleanup_menus();
 void show_debug_menus(); // checks for if menus should be shown first.
 void show_context_menu( S32 x, S32 y, MASK mask );
 void show_build_mode_context_menu(S32 x, S32 y, MASK mask);
-void load_url_local_file(const std::string& file_name);
 BOOL enable_save_into_inventory(void*);
 void handle_reset_view();
 void handle_cut(void*);

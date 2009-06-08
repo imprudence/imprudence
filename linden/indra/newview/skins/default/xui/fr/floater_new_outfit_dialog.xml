@@ -1,86 +1,85 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="modal container" width="585">
-	<button label="Enregistrer" label_selected="Enregistrer" left="171" name="Save"
-	     width="100" />
-	<button label="Annuler" label_selected="Annuler" left="280" name="Cancel" width="100" />
-	<check_box label="Silhouette" name="checkbox_Shape" />
-	<check_box label="Peau" name="checkbox_Skin" />
-	<check_box label="Cheveux" name="checkbox_Hair" />
-	<check_box label="Yeux" name="checkbox_Eyes" />
-	<check_box label="Donner un nom de &#10;dossier à l&apos;ensemble" name="rename" />
-	<check_box label="Chemise" name="checkbox_Shirt" />
-	<check_box label="Pantalon" name="checkbox_Pants" />
-	<check_box label="Chaussures" name="checkbox_Shoes" />
-	<check_box label="Chaussettes" name="checkbox_Socks" />
-	<check_box label="Veste" name="checkbox_Jacket" />
-	<check_box label="Gants" name="checkbox_Gloves" />
-	<check_box label="Tricot de peau" name="checkbox_Undershirt" />
-	<check_box label="Sous-vêtements" name="checkbox_Underpants" />
-	<check_box label="Jupe" name="checkbox_Skirt" />
-	<check_box label="Poitrine" left="225" name="checkbox_Chest" />
-	<check_box label="Crâne" left="225" name="checkbox_Skull" />
-	<check_box label="Épaule gauche" left="225" name="checkbox_Left Shoulder" />
-	<check_box label="Épaule droite" left="225" name="checkbox_Right Shoulder" />
-	<check_box label="Main gauche" left="225" name="checkbox_Left Hand" />
-	<check_box label="Main droite" left="225" name="checkbox_Right Hand" />
-	<check_box label="Pied gauche" left="225" name="checkbox_Left Foot" />
-	<check_box label="Pied droit" left="225" name="checkbox_Right Foot" />
-	<check_box label="Colonne" left="225" name="checkbox_Spine" />
-	<check_box label="Bassin" left="225" name="checkbox_Pelvis" />
-	<check_box label="Bouche" left="225" name="checkbox_Mouth" />
-	<check_box label="Menton" left="225" name="checkbox_Chin" />
-	<check_box label="Oreille gauche" left="225" name="checkbox_Left Ear" />
-	<check_box label="Oreille droite" left="325" name="checkbox_Right Ear" />
-	<check_box label="Globe oculaire gauche" left="325" name="checkbox_Left Eyeball" />
-	<check_box label="Globe oculaire droit" left="325" name="checkbox_Right Eyeball" />
-	<check_box label="Nez" left="325" name="checkbox_Nose" />
-	<check_box label="Bras droit" left="325" name="checkbox_R Upper Arm" />
-	<check_box label="Avant-bras droit" left="325" name="checkbox_R Forearm" />
-	<check_box label="Bras gauche" left="325" name="checkbox_L Upper Arm" />
-	<check_box label="Avant-bras gauche" left="325" name="checkbox_L Forearm" />
-	<check_box label="Hanche droite" left="325" name="checkbox_Right Hip" />
-	<check_box label="Cuisse droite" left="325" name="checkbox_R Upper Leg" />
-	<check_box label="Jambe droite" left="325" name="checkbox_R Lower Leg" />
-	<check_box label="Hanche gauche" left="325" name="checkbox_Left Hip" />
-	<check_box label="Cuisse gauche" left="325" name="checkbox_L Upper Leg" />
-	<check_box label="Jambe gauche" left="460" name="checkbox_L Lower Leg" />
-	<check_box label="Estomac" left="460" name="checkbox_Stomach" />
-	<check_box label="Pectoral gauche" left="460" name="checkbox_Left Pec" />
-	<check_box label="Pectoral droit" left="460" name="checkbox_Right Pec" />
-	<check_box label="Centre 2" left="460" name="checkbox_Center 2" />
-	<check_box label="En haut à droite" left="460" name="checkbox_Top Right" />
-	<check_box label="En haut" left="460" name="checkbox_Top" />
-	<check_box label="En haut à gauche" left="460" name="checkbox_Top Left" />
-	<check_box label="Centre" left="460" name="checkbox_Center" />
-	<check_box label="En bas à gauche" left="460" name="checkbox_Bottom Left" />
-	<check_box label="En bas" left="460" name="checkbox_Bottom" />
-	<check_box label="En bas à droite" left="460" name="checkbox_Bottom Right" />
-	<text type="string" length="1" name="Make New Outfit">
+	<button label="Enregistrer" label_selected="Enregistrer" left="171" name="Save" width="100"/>
+	<button label="Annuler" label_selected="Annuler" left="280" name="Cancel" width="100"/>
+	<check_box label="Silhouette" name="checkbox_Shape"/>
+	<check_box label="Peau" name="checkbox_Skin"/>
+	<check_box label="Cheveux" name="checkbox_Hair"/>
+	<check_box label="Yeux" name="checkbox_Eyes"/>
+	<check_box label="Donner le nom du dossier &#10;à l&apos;ensemble" name="rename"/>
+	<check_box label="Chemise" name="checkbox_Shirt"/>
+	<check_box label="Pantalon" name="checkbox_Pants"/>
+	<check_box label="Chaussures" name="checkbox_Shoes"/>
+	<check_box label="Chaussettes" name="checkbox_Socks"/>
+	<check_box label="Veste" name="checkbox_Jacket"/>
+	<check_box label="Gants" name="checkbox_Gloves"/>
+	<check_box label="Tricot" name="checkbox_Undershirt"/>
+	<check_box label="Sous-vêtements" name="checkbox_Underpants"/>
+	<check_box label="Jupe" name="checkbox_Skirt"/>
+	<check_box label="Poitrine" left="225" name="checkbox_Chest"/>
+	<check_box label="Crâne" left="225" name="checkbox_Skull"/>
+	<check_box label="Épaule gauche" left="225" name="checkbox_Left Shoulder"/>
+	<check_box label="Épaule droite" left="225" name="checkbox_Right Shoulder"/>
+	<check_box label="Main gauche" left="225" name="checkbox_Left Hand"/>
+	<check_box label="Main droite" left="225" name="checkbox_Right Hand"/>
+	<check_box label="Pied gauche" left="225" name="checkbox_Left Foot"/>
+	<check_box label="Pied droit" left="225" name="checkbox_Right Foot"/>
+	<check_box label="Colonne" left="225" name="checkbox_Spine"/>
+	<check_box label="Bassin" left="225" name="checkbox_Pelvis"/>
+	<check_box label="Bouche" left="225" name="checkbox_Mouth"/>
+	<check_box label="Menton" left="225" name="checkbox_Chin"/>
+	<check_box label="Oreille gauche" left="225" name="checkbox_Left Ear"/>
+	<check_box label="Oreille droite" left="325" name="checkbox_Right Ear"/>
+	<check_box label="Œil gauche" left="325" name="checkbox_Left Eyeball"/>
+	<check_box label="Œil droit" left="325" name="checkbox_Right Eyeball"/>
+	<check_box label="Nez" left="325" name="checkbox_Nose"/>
+	<check_box label="Bras droit" left="325" name="checkbox_R Upper Arm"/>
+	<check_box label="Avant-bras droit" left="325" name="checkbox_R Forearm"/>
+	<check_box label="Bras gauche" left="325" name="checkbox_L Upper Arm"/>
+	<check_box label="Avant-bras gauche" left="325" name="checkbox_L Forearm"/>
+	<check_box label="Hanche droite" left="325" name="checkbox_Right Hip"/>
+	<check_box label="Cuisse droite" left="325" name="checkbox_R Upper Leg"/>
+	<check_box label="Jambe droite" left="325" name="checkbox_R Lower Leg"/>
+	<check_box label="Hanche gauche" left="325" name="checkbox_Left Hip"/>
+	<check_box label="Cuisse gauche" left="325" name="checkbox_L Upper Leg"/>
+	<check_box label="Jambe gauche" left="460" name="checkbox_L Lower Leg"/>
+	<check_box label="Estomac" left="460" name="checkbox_Stomach"/>
+	<check_box label="Pectoral gauche" left="460" name="checkbox_Left Pec"/>
+	<check_box label="Pectoral droit" left="460" name="checkbox_Right Pec"/>
+	<check_box label="Centre 2" left="460" name="checkbox_Center 2"/>
+	<check_box label="En haut à droite" left="460" name="checkbox_Top Right"/>
+	<check_box label="En haut" left="460" name="checkbox_Top"/>
+	<check_box label="En haut à gauche" left="460" name="checkbox_Top Left"/>
+	<check_box label="Centre" left="460" name="checkbox_Center"/>
+	<check_box label="En bas à gauche" left="460" name="checkbox_Bottom Left"/>
+	<check_box label="En bas" left="460" name="checkbox_Bottom"/>
+	<check_box label="En bas à droite" left="460" name="checkbox_Bottom Right"/>
+	<text length="1" name="Make New Outfit" type="string">
 		Créer un ensemble
 	</text>
-	<text type="string" length="1"
-	     name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
+	<text length="1" name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it." type="string">
 		Les ensembles sont des dossiers qui contiennent des habits et des parties du corps.
 Faites glisser le dossier contenant un ensemble vers votre avatar pour lui faire porter.
  
-Le bouton Créer un ensemble vous permet de créer un dossier et d&apos;y sauvegarder les copies des articles que vous portez maintenant.
+Le bouton Créer un ensemble vous permet de créer un dossier et d&apos;y sauvegarder les copies
+des articles que vous portez maintenant.
 	</text>
-	<text type="string" length="1" name="Folder name:">
+	<text length="1" name="Folder name:" type="string">
 		Nom du dossier :
 	</text>
-	<text type="string" length="1" name="Items to include in outfit:">
+	<text length="1" name="Items to include in outfit:" type="string">
 		Articles à inclure à l&apos;ensemble :
 	</text>
-	<text type="string" length="1" name="Body Parts:">
+	<text length="1" name="Body Parts:" type="string">
 		Parties du corps :
 	</text>
-	<text type="string" length="1" left="115" name="Clothes:">
+	<text left="115" length="1" name="Clothes:" type="string">
 		Habits :
 	</text>
-	<text type="string" length="1" left="227" name="Attachments:">
+	<text left="227" length="1" name="Attachments:" type="string">
 		Attachements :
 	</text>
-	<text type="string" length="1" name="Options:">
+	<text length="1" name="Options:" type="string">
 		Options :
 	</text>
 	<line_editor name="name ed">

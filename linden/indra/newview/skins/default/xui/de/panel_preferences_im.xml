@@ -15,10 +15,8 @@
 	<check_box label="Zeitstempel in IM anzeigen" name="show_timestamps_check"/>
 	<check_box label="Online-Freundbenachrichtigungen anzeigen" name="friends_online_notify_checkbox"/>
 	<text length="1" name="text_box3" type="string">
-		Protokolloptionen:
-	</text>
-	<text length="1" name="text_box3" type="string">
-		Protokolloptionen:
+		Antwort für 
+Beschäftigt-Modus:
 	</text>
 	<text name="text_box4">
 		Protokolloptionen:

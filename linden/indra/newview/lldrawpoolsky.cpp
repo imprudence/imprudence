@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -186,7 +186,7 @@ void LLDrawPoolSky::renderHeavenlyBody(U8 hb, LLFace* face)
 	if (! face->getGeomCount()) return;
 
 	LLImageGL* tex = face->getTexture();
-	tex->bind();
+	gGL.getTexUnit(0)->bind(tex);
 	LLColor4 color(mHB[hb]->getInterpColor());
 	LLOverrideFaceColor override(this, color);
 	face->renderIndexed();
@@ -200,7 +200,7 @@ void LLDrawPoolSky::renderSunHalo(LLFace* face)
 	if (! face->getGeomCount()) return;
 
 	LLImageGL* tex = face->getTexture();
-	tex->bind();
+	gGL.getTexUnit(0)->bind(tex);
 	LLColor4 color(mHB[0]->getInterpColor());
 	color.mV[3] = llclamp(mHB[0]->getHaloBrighness(), 0.f, 1.f);
 

@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2007-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -96,6 +96,8 @@ LLMediaImplGStreamer () :
 
 	LL_DEBUGS("MediaManager") << "constructing media..." << LL_ENDL;
 	mVolume = -1.0; // XXX Hack to make the vould change happend first time
+
+	mVolume = 0.1234567; // minor hack to force an initial volume update
 
 	setMediaDepth(4);
 
@@ -895,18 +897,19 @@ bool LLMediaImplGStreamer::seek(double time)
 // virtual
 bool LLMediaImplGStreamer::setVolume(float volume)
 {
-    // XXX hack to make volume volume changes less othen
-	//     bug in gstreamer 0.10.21
-	if(mVolume == volume)
-	    return true;
+	// we try to only update volume as conservatively as
+	// possible, as many gst-plugins-base versions up to at least
+	// November 2008 have critical race-conditions in setting volume - sigh
+	if (mVolume == volume)
+		return true; // nothing to do, everything's fine
 
-    LL_DEBUGS("MediaImpl") << "setVolume(" << volume << ") : " << getpid() << LL_ENDL;
 	mVolume = volume;
 	if (mPlaybin)
 	{
 		g_object_set(mPlaybin, "volume", mVolume, NULL);
 		return true;
 	}
+
 	return false;
 }
 

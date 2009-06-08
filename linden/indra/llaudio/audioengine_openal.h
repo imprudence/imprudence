@@ -39,10 +39,6 @@
 #include "listener_openal.h"
 #include "windgen.h"
 
-#if 1
-#define WIND_BUFFER_SIZE_SEC 0.05f
-#endif
-
 
 class LLAudioEngine_OpenAL : public LLAudioEngine
 {
@@ -77,9 +73,7 @@ class LLAudioEngine_OpenAL : public LLAudioEngine
 	        int mNumEmptyWindALBuffers;
 
         	static const int MAX_NUM_WIND_BUFFERS = 80;
-#if 0
         	static const float WIND_BUFFER_SIZE_SEC = 0.05f; // 1/20th sec
-#endif
 };
 
 class LLAudioChannelOpenAL : public LLAudioChannel

@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -36,6 +36,8 @@
 #include "lltexteditor.h"
 #include "llviewercontrol.h"
 #include "lluictrlfactory.h"
+#include "llcolorswatch.h"
+#include "llradiogroup.h"
 #include "llstylemap.h"
 
 class LLPrefsChatImpl : public LLPanel
@@ -43,8 +45,6 @@ class LLPrefsChatImpl : public LLPanel
 public:
 	LLPrefsChatImpl();
 	/*virtual*/ ~LLPrefsChatImpl(){};
-	
-	virtual void refresh();
 
 	void apply();
 	void cancel();
@@ -79,12 +79,30 @@ LLPrefsChatImpl::LLPrefsChatImpl()
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_chat.xml");
 
-	refresh();
-}
+	getChild<LLRadioGroup>("chat_font_size")->setSelectedIndex(gSavedSettings.getS32("ChatFontSize"));
+	childSetValue("fade_chat_time", gSavedSettings.getF32("ChatPersistTime"));
+	childSetValue("max_chat_count", gSavedSettings.getS32("ConsoleMaxLines"));
+
+	getChild<LLColorSwatchCtrl>("system")->set(gSavedSettings.getColor4("SystemChatColor"));
+	getChild<LLColorSwatchCtrl>("user")->set(gSavedSettings.getColor4("UserChatColor"));
+	getChild<LLColorSwatchCtrl>("agent")->set(gSavedSettings.getColor4("AgentChatColor"));
+	getChild<LLColorSwatchCtrl>("im")->set(gSavedSettings.getColor4("IMChatColor"));
+	getChild<LLColorSwatchCtrl>("script_error")->set(gSavedSettings.getColor4("ScriptErrorColor"));
+	getChild<LLColorSwatchCtrl>("objects")->set(gSavedSettings.getColor4("ObjectChatColor"));
+	getChild<LLColorSwatchCtrl>("owner")->set(gSavedSettings.getColor4("llOwnerSayChatColor"));
+	getChild<LLColorSwatchCtrl>("background")->set(gSavedSettings.getColor4("BackgroundChatColor"));
+	getChild<LLColorSwatchCtrl>("links")->set(gSavedSettings.getColor4("HTMLLinkColor"));
+
+	childSetValue("arrow_keys_move_avatar_check", gSavedSettings.getBOOL("ArrowKeysMoveAvatar"));
+	childSetValue("show_timestamps_check", gSavedSettings.getBOOL("ChatShowTimestamps"));
+	childSetValue("script_errors_as_chat", gSavedSettings.getBOOL("ScriptErrorsAsChat"));
  
-void LLPrefsChatImpl::refresh()
-{
-	LLPanel::refresh();
+	childSetValue("bubble_text_chat", gSavedSettings.getBOOL("UseChatBubbles"));
+	childSetValue("chat_full_width_check", gSavedSettings.getBOOL("ChatFullWidth"));
+	childSetValue("close_chat_on_return_check", gSavedSettings.getBOOL("CloseChatOnReturn"));
+	childSetValue("play_typing_animation", gSavedSettings.getBOOL("PlayTypingAnim"));
+	childSetValue("console_opacity", gSavedSettings.getF32("ConsoleBackgroundOpacity"));
+	childSetValue("bubble_chat_opacity", gSavedSettings.getF32("ChatBubbleOpacity"));
 
 	//set values
 	mChatSize = gSavedSettings.getS32("ChatFontSize");
@@ -137,7 +155,32 @@ void LLPrefsChatImpl::cancel()
 
 void LLPrefsChatImpl::apply()
 {
-		
+	gSavedSettings.setS32("ChatFontSize", getChild<LLRadioGroup>("chat_font_size")->getSelectedIndex());
+	gSavedSettings.setF32("ChatPersistTime", childGetValue("fade_chat_time").asReal());
+	gSavedSettings.setS32("ConsoleMaxLines", childGetValue("max_chat_count"));
+
+	gSavedSettings.setColor4("SystemChatColor", childGetValue("system"));
+	gSavedSettings.setColor4("UserChatColor", childGetValue("user"));
+	gSavedSettings.setColor4("AgentChatColor", childGetValue("agent"));
+	gSavedSettings.setColor4("IMChatColor", childGetValue("im"));
+	gSavedSettings.setColor4("ScriptErrorColor", childGetValue("script_error"));
+	gSavedSettings.setColor4("ObjectChatColor", childGetValue("objects"));
+	gSavedSettings.setColor4("llOwnerSayChatColor", childGetValue("owner"));
+	gSavedSettings.setColor4("BackgroundChatColor", childGetValue("background"));
+
+	gSavedSettings.setColor4("HTMLLinkColor", childGetValue("links"));
+	LLTextEditor::setLinkColor(childGetValue("links"));
+
+	gSavedSettings.setBOOL("ArrowKeysMoveAvatar", childGetValue("arrow_keys_move_avatar_check"));
+	gSavedSettings.setBOOL("ChatShowTimestamps", childGetValue("show_timestamps_check"));
+	gSavedSettings.setBOOL("ScriptErrorsAsChat", childGetValue("script_errors_as_chat"));
+	gSavedSettings.setBOOL("UseChatBubbles", childGetValue("bubble_text_chat"));
+	gSavedSettings.setBOOL("ChatFullWidth", childGetValue("chat_full_width_check"));
+	gSavedSettings.setBOOL("CloseChatOnReturn", childGetValue("close_chat_on_return_check"));
+	gSavedSettings.setBOOL("PlayTypingAnim", childGetValue("play_typing_animation"));
+
+	gSavedSettings.setF32("ConsoleBackgroundOpacity", childGetValue("console_opacity").asReal());
+	gSavedSettings.setF32("ChatBubbleOpacity", childGetValue("bubble_chat_opacity").asReal());
 }
 
 //---------------------------------------------------------------------------
@@ -154,7 +197,6 @@ LLPrefsChat::~LLPrefsChat()
 void LLPrefsChat::apply()
 {
 	impl.apply();
-	LLTextEditor::setLinkColor( gSavedSettings.getColor4("HTMLLinkColor") );
 	LLStyleMap::instance().update();
 }
 

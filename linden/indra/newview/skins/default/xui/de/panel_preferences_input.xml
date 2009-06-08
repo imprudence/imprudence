@@ -6,11 +6,11 @@
 	<text length="1" name=" Mouse Sensitivity:" type="string">
 		Mausempfindlichkeit:
 	</text>
-	<check_box label="Maus umkehren" name="invert mouse"/>
+	<check_box label="Maus umkehren" name="invert_mouse"/>
 	<text length="1" name=" Auto Fly Options:" type="string">
 		Auto-Flug-Optionen:
 	</text>
-	<check_box label="Zum Fliegen/Landen nach oben/unten halten" name="automatic fly"/>
+	<check_box label="Zum Fliegen/Landen nach oben/unten halten" name="automatic_fly"/>
 	<text length="1" name=" Camera Options:" type="string">
 		Kameraoptionen:
 	</text>
@@ -26,14 +26,14 @@
 	<text name="Camera Smoothing:">
 		Bewegungsglättung:
 	</text>
-	<check_box label="Automatischer Kameraschwenk im Bearbeiten-Modus" name="edit camera movement" tool_tip="Automatische Kamerapositionierung bei Wechsel in und aus dem Bearbeitungsmodus verwenden"/>
-	<check_box label="Automatischer Kameraschwenk im Aussehen-Modus" name="appearance camera movement" tool_tip="Automatische Kamerapositionierung im Bearbeitenmodus verwenden"/>
+	<check_box label="Automatischer Kameraschwenk im Bearbeiten-Modus" name="edit_camera_movement" tool_tip="Automatische Kamerapositionierung bei Wechsel in und aus dem Bearbeitungsmodus verwenden"/>
+	<check_box label="Automatischer Kameraschwenk im Aussehen-Modus" name="appearance_camera_movement" tool_tip="Automatische Kamerapositionierung im Bearbeitenmodus verwenden"/>
 	<text name="text2">
 		Avatar-Anzeigeoptionen:
 	</text>
-	<check_box label="Avatar in Mouselook anzeigen" name="avfp"/>
+	<check_box label="Avatar in Mouselook anzeigen" name="first_person_avatar_visible"/>
 	<text name="text5">
 		Joystick-Optionen:
 	</text>
-	<button label="Joystick-Einrichtung" name="joystic_setup_button"/>
+	<button label="Joystick-Einrichtung" name="joystick_setup_button"/>
 </panel>

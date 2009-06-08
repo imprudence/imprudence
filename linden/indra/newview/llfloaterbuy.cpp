@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2008, Linden Research, Inc.
+ * Copyright (c) 2004-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -289,11 +289,6 @@ void LLFloaterBuy::inventoryChanged(LLViewerObject* obj,
 	removeVOInventoryListener();
 }
 
-void LLFloaterBuy::close(bool app_quitting)
-{
-	LLSelectMgr::getInstance()->deselectAll();
-	LLFloater::close(app_quitting);
-}
 
 // static
 void LLFloaterBuy::onClickBuy(void*)
@@ -324,4 +319,11 @@ void LLFloaterBuy::onClickCancel(void*)
 	{
 		sInstance->close();
 	}
+}
+
+void LLFloaterBuy::onClose(bool app_quitting)
+{
+	// drop reference to current selection so selection goes away
+	mObjectSelection = NULL;
+	LLFloater::onClose(app_quitting);
 }

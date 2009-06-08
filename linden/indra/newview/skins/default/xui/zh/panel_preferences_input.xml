@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Input &amp; Camera" name="Input panel">
+<panel label="输入和摄像头" name="Input panel">
 	<text type="string" length="1" name=" Mouselook Options:">
 		第一人称视角选项设置:
 	</text>
@@ -10,15 +10,36 @@
 		自动飞翔选项:
 	</text>
 	<text type="string" length="1" name=" Camera Options:">
-		摄像头选项:
+		摄像机选项:
 	</text>
 	<text type="string" length="1" name="Camera Springiness:">
-		摄像头弹性:
+		摄像机弹性:
 	</text>
-	<check_box label="转化鼠标操作模式" name="invert mouse" />
-	<check_box label="起飞/着陆通过键盘up/down控制" name="automatic fly" />
-	<check_box label="自动编辑摄像头移动情况" name="edit camera movement"
-	     tool_tip="当进入和离开编辑模式时，选用摄像头自动定位" />
-	<check_box label="摄像头移动时自动成像" name="appearance camera movement"
-	     tool_tip="在编辑模式下，选用摄像头自动定位" />
+	<text
+		 name="Camera Follow Distance:">
+		摄像机跟随距离:
+	</text>
+	<text
+		 name="Camera Transition Time:">
+		摄像机转换时间:
+	</text>
+	<text
+		 name="Camera Smoothing:">
+		摄像头平滑:
+	</text>
+
+	<check_box label="反转鼠标操作模式" name="invert_mouse" />
+	<check_box label="起飞/着陆通过键盘上/下键控制" name="automatic_fly" />
+	<check_box label="编辑物体时使用自动视角" name="edit_camera_movement"
+	     tool_tip="当进入和离开编辑模式时，自动移动摄像头" />
+	<check_box label="编辑外观时使用自动视角" name="appearance_camera_movement"
+	     tool_tip="在编辑外观时，摄像头自动定位" />
+	<text name="text2">
+		化身显示选项:
+	</text>
+	<check_box label="第一人称视角中，显示自己的化身" name="first_person_avatar_visible" />
+	<button
+		 label="游戏杆设置"
+		 name="joystick_setup_button" />
+
 </panel>

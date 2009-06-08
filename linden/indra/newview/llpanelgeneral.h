@@ -5,7 +5,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -35,47 +35,16 @@
 
 #include "llpanel.h"
 
-class LLCheckBoxCtrl;
-class LLRadioGroup;
-class LLColorSwatchCtrl;
-class LLSpinCtrl;
-class LLTextBox;
-class LLComboBox;
-
 class LLPanelGeneral : public LLPanel
 {
 public:
 	LLPanelGeneral();
-	virtual ~LLPanelGeneral();
+	/*virtual*/ ~LLPanelGeneral();
 
-	virtual BOOL postBuild();
-	void refresh();
+	BOOL postBuild();
+
 	void apply();
 	void cancel();
-
-	static void clickShowStartLocation(LLUICtrl*, void* user_data);
-	static void set_start_location(LLUICtrl* ctrl, void* data);
-	static void set_specific_start_location(LLLineEditor* line_editor, void* data);
-	static void onClickResetUISize(void*);
-
-protected:
-	S32 mRenderName;
-	BOOL mRenderNameHideSelf;
-	BOOL mSmallAvatarNames;
-	BOOL mRenderHideGroupTitle;
-	BOOL mChatOnlineNotification;
-	BOOL mShowSearch;
-	F32 mAFKTimeout;
-	BOOL mNotifyMoney;
-	BOOL mUseDefaultColor;
-	LLColor4 mEffectColor;
-	F32 mUIScaleFactor;
-	BOOL mUIAutoScale;
-	BOOL mMiniMapRotate;
-	BOOL mMiniMapTeleport;
-	S32 mOldCrashBehavior;
-	std::string mLoginLocation;
-	std::string mLanguage;
 };
 
 #endif

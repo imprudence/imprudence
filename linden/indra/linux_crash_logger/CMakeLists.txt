@@ -3,7 +3,6 @@
 project(linux_crash_logger)
 
 include(00-Common)
-include(Boost)
 include(LLCommon)
 include(LLCrashLogger)
 include(LLMath)
@@ -52,17 +51,15 @@ target_link_libraries(linux-crash-logger
     ${LLMATH_LIBRARIES}
     ${LLCOMMON_LIBRARIES}
     ${UI_LIBRARIES}
-    ${BOOST_SIGNALS_LIBRARY}
     ${DB_LIBRARIES}
     )
 
 add_custom_command(
     OUTPUT linux-crash-logger-stripped
     COMMAND strip
-    ARGS --strip-debug -o linux-crash-logger-stripped
-         linux-crash-logger
+    ARGS --strip-debug -o linux-crash-logger-stripped linux-crash-logger
     DEPENDS linux-crash-logger
     )
 
-add_custom_target(linux-crash-logger-stripped ALL
+add_custom_target(linux-crash-logger-strip-target ALL
                   DEPENDS linux-crash-logger-stripped)

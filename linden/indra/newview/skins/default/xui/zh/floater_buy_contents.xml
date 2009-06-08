@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="floater_buy_contents" title="购买内容">
 	<text name="contains_text">
-		[NAME]包括:
+		[NAME] 包括:
 	</text>
 	<text name="buy_text">
-		购买L$[AMOUNT]于[NAME]?
+		以 L$[AMOUNT] 从 [NAME] 处购买?
 	</text>
 	<button label="取消" label_selected="取消" name="cancel_btn" />
 	<button label="购买" label_selected="购买" name="buy_btn" />
 	<check_box label="马上穿上衣服" name="wear_check" />
+	<string
+		 name="no_copy_text">
+		(不可复制)
+	</string>
+	<string
+		 name="no_modify_text">
+		(不可更改)
+	</string>
+	<string
+		 name="no_transfer_text">
+		(不可转让)
+	</string>
 </floater>

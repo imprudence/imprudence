@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="mute floater" title="屏蔽居民和东东">
-	<scroll_list name="mutes" tool_tip="List of currently muted residents" />
+<floater
+	 name="mute floater"
+	 short_title="屏蔽列表"
+	 title="屏蔽居民和物体">
+<scroll_list name="mutes" tool_tip="当前屏蔽的居民列表" />
 	<button label="屏蔽居民..." label_selected="屏蔽居民..."
-	     name="Mute resident..." tool_tip="选择一个住户并屏蔽此人" />
-	<button label="屏蔽名字为…的东东"
-	     label_selected="屏蔽名字为…的东东" name="Mute object by name..." />
+	     name="Mute resident..." tool_tip="选择一个居民并屏蔽此人" />
+	<button label="按名称屏蔽物体..."
+	     label_selected="按名称屏蔽物体..." name="Mute object by name..." />
 	<button label="解除屏蔽" label_selected="解除屏蔽" name="Unmute"
-	     tool_tip="从消声栏中将居民或东东删除。" />
+	     tool_tip="从消声栏中将居民或物体删除。" />
 </floater>

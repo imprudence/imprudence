@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -509,7 +509,7 @@ void LLNotifyBox::drawBackground() const
 	LLUIImagePtr imagep = LLUI::getUIImage("rounded_square.tga");
 	if (imagep)
 	{
-		LLViewerImage::bindTexture(imagep->getImage());
+		gGL.getTexUnit(0)->bind(imagep->getImage());
 		// set proper background color depending on whether notify box is a caution or not
 		LLColor4 color = mIsCaution? gColors.getColor("NotifyCautionBoxColor") : gColors.getColor("NotifyBoxColor");
 		if(gFocusMgr.childHasKeyboardFocus( this ))
@@ -971,10 +971,12 @@ LLNotifyBox * LLNotifyBoxView::getFirstNontipBox() const
 			iter++)
 	{
 		// hack! *TODO: Integrate llnotify and llgroupnotify
-		LLView* view = *iter;
-		if (view->getName() == "groupnotify")
+		if(isGroupNotifyBox(*iter))
+		{
 			continue;
-		LLNotifyBox* box = static_cast<LLNotifyBox*>(view);
+		}
+		
+		LLNotifyBox* box = (LLNotifyBox*)(*iter);
 		if(!box->isTip() && !box->isDead())
 		{
 			return box;
@@ -988,13 +990,23 @@ void LLNotifyBoxView::showOnly(LLView * view)
 	if(view) 
 	{
 		// assumes that the argument is actually a child
-		LLNotifyBox * shown = static_cast<LLNotifyBox*>(view);
+		LLNotifyBox * shown = dynamic_cast<LLNotifyBox*>(view);
+		if(!shown)
+		{
+			return ;
+		}
+
 		// make every other notification invisible
 		for(child_list_const_iter_t iter = getChildList()->begin();
 			iter != getChildList()->end();
 			iter++)
 		{
-			LLNotifyBox * box = static_cast<LLNotifyBox*>(*iter);
+			if(isGroupNotifyBox(*iter))
+			{
+				continue;
+			}
+
+			LLNotifyBox * box = (LLNotifyBox*)(*iter);
 			if(box != view && box->getVisible() && !box->isTip())
 			{
 				box->setVisible(FALSE);
@@ -1014,6 +1026,11 @@ void LLNotifyBoxView::purgeMessagesMatching(const Matcher& matcher)
 		iter != notification_queue.end();
 		iter++)
 	{
+		if(isGroupNotifyBox(*iter))
+		{
+			continue;
+		}
+
 		LLNotifyBox* notification = (LLNotifyBox*)*iter;
 		if(matcher.matches(notification->getNotifyCallback(), notification->getUserData()))
 		{
@@ -1021,3 +1038,14 @@ void LLNotifyBoxView::purgeMessagesMatching(const Matcher& matcher)
 		}
 	}
 }
+
+bool LLNotifyBoxView::isGroupNotifyBox(const LLView* view) const
+{
+	if (view->getName() == "groupnotify")
+	{
+		return TRUE ;
+	}
+
+	return FALSE ;
+}
+

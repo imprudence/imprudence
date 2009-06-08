@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 name="floater_lagmeter"
+	 title="延迟计量器">
+	<button
+		 label=""
+		 label_selected=""
+		 name="client_lagmeter"
+		 tool_tip="客户端延迟状况" />
+	<text
+		 name="client">
+		客户端:
+	</text>
+	<text
+		 name="client_text"
+		 right="-10">
+		正常
+	</text>
+	<text
+		 name="client_lag_cause"
+		 right="-32" />
+	<button
+		 label=""
+		 label_selected=""
+		 name="network_lagmeter"
+		 tool_tip="网络延迟状况" />
+	<text
+		 name="network">
+		网络:
+	</text>
+	<text
+		 name="network_text"
+		 right="-10">
+		正常
+	</text>
+	<button
+		 label=""
+		 label_selected=""
+		 name="server_lagmeter"
+		 tool_tip="服务器延迟状况" />
+	<text
+		 name="server">
+		服务器:
+	</text>
+	<text
+		 name="server_text"
+		 right="-10">
+		正常
+	</text>
+	<string
+		 name="max_title_msg">
+		延迟计量器
+	</string>
+
+	<string
+		 name="min_title_msg">
+		延迟
+	</string>
+
+	<string
+		 name="client_text_msg">
+		客户端
+	</string>
+	<string
+		 name="client_frame_time_window_bg_msg">
+		正常，窗口处于后台状态
+	</string>
+	<string
+		 name="client_frame_time_critical_msg">
+		客户端每秒帧数在 [CLIENT_FRAME_RATE_CRITICAL] 以下
+	</string>
+	<string
+		 name="client_frame_time_warning_msg">
+		客户端每秒帧数在 [CLIENT_FRAME_RATE_CRITICAL] 到 [CLIENT_FRAME_RATE_WARNING] 之间
+	</string>
+	<string
+		 name="client_frame_time_normal_msg">
+		正常
+	</string>
+	<string
+		 name="client_draw_distance_cause_msg">
+		可能原因：描绘距离设置过高
+	</string>
+	<string
+		 name="client_texture_loading_cause_msg">
+		可能原因：图像加载中
+	</string>
+	<string
+		 name="client_texture_memory_cause_msg">
+		可能原因：内存中图像过多
+	</string>
+	<string
+		 name="client_complex_objects_cause_msg">
+		可能原因：场景中复杂物体过多
+	</string>
+	<string
+		 name="network_text_msg">
+		网络
+	</string>
+	<string
+		 name="network_packet_loss_critical_msg">
+		网络连接正在丢弃 [NETWORK_PACKET_LOSS_CRITICAL]% 以上的数据包
+	</string>
+	<string
+		 name="network_packet_loss_warning_msg">
+		网络连接正在丢弃 [NETWORK_PACKET_LOSS_WARNING]%-[NETWORK_PACKET_LOSS_CRITICAL]% 的数据包
+	</string>
+	<string
+		 name="network_performance_normal_msg">
+		正常
+	</string>
+	<string
+		 name="network_ping_critical_ms">
+		600
+	</string>
+	<string
+		 name="network_ping_warning_ms">
+		300
+	</string>
+	<string
+		 name="network_ping_critical_msg">
+		连接响应时间大于 [NETWORK_PING_CRITICAL] 毫秒
+	</string>
+	<string
+		 name="network_ping_warning_msg">
+		连接响应时间介于 [NETWORK_PING_WARNING]-[NETWORK_PING_CRITICAL] 毫秒
+	</string>
+	<string
+		 name="network_packet_loss_cause_msg">
+		有可能是连接问题，或“带宽”设置过高。
+	</string>
+	<string
+		 name="network_ping_cause_msg">
+		有可能是连接问题，或正使用文件共享下载程序。
+	</string>
+	<string
+		 name="server_text_msg">
+		服务器
+	</string>
+	<string
+		 name="server_single_process_max_time_ms">
+		20
+	</string>
+	<string
+		 name="server_frame_time_critical_msg">
+		模拟器每秒帧数在 [SERVER_FRAME_RATE_CRITICAL] 以下
+	</string>
+	<string
+		 name="server_frame_time_warning_msg">
+		模拟器每秒帧数在 [SERVER_FRAME_RATE_CRITICAL] 和 [SERVER_FRAME_RATE_WARNING] 之间
+	</string>
+	<string
+		 name="server_frame_time_normal_msg">
+		正常
+	</string>
+	<string
+		 name="server_physics_cause_msg">
+		可能原因：物理物体过多
+	</string>
+	<string
+		 name="server_scripts_cause_msg">
+		可能原因：有脚本的物体过多
+	</string>
+	<string
+		 name="server_net_cause_msg">
+		可能原因：网络流量过大
+	</string>
+	<string
+		 name="server_agent_cause_msg">
+		可能原因：区域中移动的人太多
+	</string>
+	<string
+		 name="server_images_cause_msg">
+		可能原因：图像计算过多
+	</string>
+	<string
+		 name="server_generic_cause_msg">
+		可能原因：模拟器负载过大
+	</string>
+</floater>
+
+<!--Translated for Second Life 1.19.1 RC3 -->

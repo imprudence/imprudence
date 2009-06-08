@@ -71,3 +71,9 @@ set_source_files_properties(${llmedia_HEADER_FILES}
 list(APPEND llmedia_SOURCE_FILES ${llmedia_HEADER_FILES})
 
 add_library (llmedia ${llmedia_SOURCE_FILES})
+target_link_libraries(
+    llmedia
+    ${GSTREAMER_LIBRARIES}
+    ${GSTREAMER_PLUGINS_BASE_LIBRARIES}
+    ${QUICKTIME_LIBRARY}
+    )

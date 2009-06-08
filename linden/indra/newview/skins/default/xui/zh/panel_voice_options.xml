@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="content_panel">
+	<text_editor
+		 name="voice_intro_text1"
+		 word_wrap="true">
+		使用以下的选项设置你的语音聊天体验。
+	</text_editor>
+	<radio_group
+		 draw_border="false"
+		 name="ear_location" >
+		<radio_item
+			 name="0">
+			从摄像机的位置听语音聊天。
+		</radio_item>
+		<radio_item
+			 name="1" >
+			从化身的位置听语音聊天。
+		</radio_item>
+	</radio_group>
+	<check_box
+		 initial_value="false"
+		 label="只接受我的朋友列表上的人的语音呼叫"
+		 name="push_to_talk_check" />
+	<check_box
+		 initial_value="false"
+		 label="在查看器启动时，使用即按即说"
+		 name="push_to_talk_check" />
+	<check_box
+		 initial_value="false"
+		 label="以切换模式使用即按即说"
+		 name="push_to_talk_toggle_check" />
+	<text
+		 name="push_to_talk_label"
+		 word_wrap="true">
+		即按即说切换键:
+	</text>
+	<line_editor
+		 name="modifier_combo" />
+	<button
+		 label="设置按键"
+		 name="set_voice_hotkey_button" />
+	<button
+		 label="使用鼠标中键"
+		 name="set_voice_middlemouse_button" />
+</panel>

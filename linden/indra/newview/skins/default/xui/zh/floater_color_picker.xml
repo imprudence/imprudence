@@ -10,10 +10,10 @@
 		蓝色:
 	</text>
 	<text name="h_val_text">
-		颜色:
+		色调:
 	</text>
 	<text name="s_val_text">
-		坐过:
+		饱和度:
 	</text>
 	<text name="l_val_text">
 		亮度:
@@ -26,6 +26,6 @@
 		当前颜色:
 	</text>
 	<text name="(Drag below to save.)">
-		(拖动下列内容以储存.)
+		(拖动到下方储存。)
 	</text>
 </floater>

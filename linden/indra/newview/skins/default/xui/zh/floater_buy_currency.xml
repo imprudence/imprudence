@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="buy currency" title="购买现钞">
+<floater name="buy currency" title="购买货币">
 	<text name="info_buying">
-		购买现钞:
+		购买货币:
 	</text>
 	<text name="info_cannot_buy">
 		现在无法购买:
@@ -10,14 +10,14 @@
 		你需要更多的货币:
 	</text>
 	<text name="error_message">
-		出错
+		事情好像不大对头。
 	</text>
 	<button label="去网页" name="error_web" />
 	<text name="contacting">
-		联系林登X...
+		正在连接 LindeX...
 	</text>
 	<text name="buy_action_unknown">
-		购买L$按照LindeX货币兑换比率
+		在 LindeX 货币交换所购买 L$
 	</text>
 	<text name="buy_action">
 		[NAME] L$ [PRICE]
@@ -50,12 +50,15 @@
 		L$ [AMT]
 	</text>
 	<text name="purchase_warning_repurchase">
-		请确认只购买现钞.
+		确认此次操作只会购买现钞。
 你需要重试该操作。
 	</text>
 	<text name="purchase_warning_notenough">
-		你没有购买足够的货币，不足以购买。
+		你没有购买足够的货币。请增加购买的额度。
 	</text>
 	<button label="购买" name="buy_btn" />
 	<button label="取消" name="cancel_btn" />
+		<string name="buy_currency">
+		以大约 US$ [USD] 购买 L$ [LINDENS]
+	</string>
 </floater>

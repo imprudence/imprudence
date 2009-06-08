@@ -2099,6 +2099,9 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 
 [NAME]에게 친구 추가를 요청하시겠습니까?
 		</message>
+		<editline name="editline">
+			저와 친구가 되시겠습니까?
+		</editline>
 		<option name="Offer">
 			제공
 		</option>

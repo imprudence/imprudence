@@ -208,8 +208,7 @@ void LLFloaterBulkPermission::doApply()
 	q=(LLFloaterBulkPermission*)this;
 
 	BulkQueueObjects func(q);
-	const bool firstonly = false;
-	bool fail = LLSelectMgr::getInstance()->getSelection()->applyToObjects(&func, firstonly);
+	bool fail = LLSelectMgr::getInstance()->getSelection()->applyToObjects(&func);
 	if(fail)
 	{
 		if ( !func.modifiable )

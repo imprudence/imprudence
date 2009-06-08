@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2008, Linden Research, Inc.
+ * Copyright (c) 2006-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -705,12 +705,13 @@ BOOL LLPanelGroupLandMoney::postBuild()
 	textp = getChild<LLTextEditor>("group_money_planning_text", true);
 	panelp = getChild<LLPanel>("group_money_planning_tab", true);
 
-	if ( !can_view )
+	if ( 1 ) //!can_view
 	{
 		textp->setText(mImplementationp->mCantViewAccountsText);
 	}
 	else
 	{
+		//Temporally disabled for DEV-11287.
 		mImplementationp->mMoneyPlanningTabEHp = 
 			new LLGroupMoneyPlanningTabEventHandler(textp,
 													tabcp,

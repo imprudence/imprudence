@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -651,11 +651,11 @@ void LLJoystickCameraRotate::drawRotatedImage( const LLImageGL* image, S32 rotat
 		{ 1.f, 0.f }
 	};
 
-	image->bind();
+	gGL.getTexUnit(0)->bind(image);
 
 	gGL.color4fv(UI_VERTEX_COLOR.mV);
 	
-	gGL.begin(LLVertexBuffer::QUADS);
+	gGL.begin(LLRender::QUADS);
 	{
 		gGL.texCoord2fv( uv[ (rotations + 0) % 4]);
 		gGL.vertex2i(width, height );

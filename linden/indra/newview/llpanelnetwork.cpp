@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -31,29 +31,14 @@
 
 #include "llviewerprecompiledheaders.h"
 
-// file include
+//file include
 #include "llpanelnetwork.h"
 
-// linden library includes
-#include "llerror.h"
-#include "llrect.h"
-#include "llstring.h"
-
 // project includes
-#include "llbutton.h"
-#include "lldirpicker.h"
-#include "llui.h"
-#include "lluictrlfactory.h"
-#include "llresmgr.h"
-#include "llsliderctrl.h"
-#include "llspinctrl.h"
 #include "llcheckboxctrl.h"
-#include "lltextbox.h"
-#include "llviewerregion.h"
-#include "llviewerthrottle.h"
-#include "llworld.h"
-#include "llviewercontrol.h"
+#include "lldirpicker.h"
 #include "lluictrlfactory.h"
+#include "llviewercontrol.h"
 #include "llviewerwindow.h"
 
 LLPanelNetwork::LLPanelNetwork()
@@ -70,12 +55,13 @@ BOOL LLPanelNetwork::postBuild()
 	childSetAction("set_cache", onClickSetCache, this);
 	childSetAction("reset_cache", onClickResetCache, this);
 	
-	childSetEnabled("connection_port", 
-			gSavedSettings.getBOOL("ConnectionPortEnabled"));
+	childSetEnabled("connection_port", gSavedSettings.getBOOL("ConnectionPortEnabled"));
 	childSetCommitCallback("connection_port_enabled", onCommitPort, this);
 
-
-	refresh();
+	childSetValue("cache_size", (F32)gSavedSettings.getU32("CacheSize"));
+	childSetValue("max_bandwidth", gSavedSettings.getF32("ThrottleBandwidthKBPS"));
+	childSetValue("connection_port_enabled", gSavedSettings.getBOOL("ConnectionPortEnabled"));
+	childSetValue("connection_port", (F32)gSavedSettings.getU32("ConnectionPort"));
 
 	return TRUE;
 }
@@ -88,24 +74,14 @@ LLPanelNetwork::~LLPanelNetwork()
 
 void LLPanelNetwork::apply()
 {
-}
-
-void LLPanelNetwork::refresh()
-{
-	LLPanel::refresh();
-
-	mCacheSetting = gSavedSettings.getU32("CacheSize");
-	mBandwidthBPS = gSavedSettings.getF32("ThrottleBandwidthKBPS")*1024;
-	mConnectionPortEnabled = gSavedSettings.getBOOL("ConnectionPortEnabled");
-	mConnectionPort = gSavedSettings.getU32("ConnectionPort");
+	gSavedSettings.setU32("CacheSize", childGetValue("cache_size").asInteger());
+	gSavedSettings.setF32("ThrottleBandwidthKBPS", childGetValue("max_bandwidth").asReal());
+	gSavedSettings.setBOOL("ConnectionPortEnabled", childGetValue("connection_port_enabled"));
+	gSavedSettings.setU32("ConnectionPort", childGetValue("connection_port").asInteger());
 }
 
 void LLPanelNetwork::cancel()
 {
-	gSavedSettings.setU32("CacheSize", mCacheSetting);
-	gSavedSettings.setF32("ThrottleBandwidthKBPS", mBandwidthBPS/1024);
-	gSavedSettings.setBOOL("ConnectionPortEnabled", mConnectionPortEnabled);
-	gSavedSettings.setU32("ConnectionPort", mConnectionPort);
 }
 
 // static

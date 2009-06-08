@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2003&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2003-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -39,17 +39,6 @@
 #include "lluictrlfactory.h"
 #include "llfirstuse.h"
 
-class LLPopupData
-{
-public:
-	LLPopupData() : mShowNewInventory(FALSE), mAutoAcceptNewInventory(FALSE) { }
-
-	BOOL mShowNewInventory;
-	BOOL mAutoAcceptNewInventory;
-};
-
-LLPopupData sPopupData;
-
 //-----------------------------------------------------------------------------
 LLPanelMsgs::LLPanelMsgs() : 
 	LLPanel(std::string("Messages Panel")),
@@ -75,8 +64,9 @@ BOOL LLPanelMsgs::postBuild()
 	childSetAction("skip_dialogs_btn", onClickSkipDialogs, this);
 	buildLists();
 
-	sPopupData.mAutoAcceptNewInventory = gSavedSettings.getBOOL("AutoAcceptNewInventory");
-	sPopupData.mShowNewInventory = gSavedSettings.getBOOL("ShowNewInventory");
+	childSetValue("accept_new_inventory", gSavedSettings.getBOOL("AutoAcceptNewInventory"));
+	childSetValue("show_new_inventory", gSavedSettings.getBOOL("ShowNewInventory"));
+	childSetValue("show_in_inventory", gSavedSettings.getBOOL("ShowInInventory"));
 
 	return TRUE;
 }
@@ -159,13 +149,13 @@ void LLPanelMsgs::draw()
 
 void LLPanelMsgs::apply()
 {
+	gSavedSettings.setBOOL("AutoAcceptNewInventory", childGetValue("accept_new_inventory"));
+	gSavedSettings.setBOOL("ShowNewInventory", childGetValue("show_new_inventory"));
+	gSavedSettings.setBOOL("ShowInInventory", childGetValue("show_in_inventory"));
 }
-
 
 void LLPanelMsgs::cancel()
 {
-	gSavedSettings.setBOOL("ShowNewInventory", sPopupData.mShowNewInventory);
-	gSavedSettings.setBOOL("AutoAcceptNewInventory", sPopupData.mAutoAcceptNewInventory);
 }
 
 void LLPanelMsgs::resetAllIgnored()

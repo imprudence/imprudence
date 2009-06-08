@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="Name/Description" title="">
 	<text name="name_label">
 		Nom :
@@ -6,6 +6,6 @@
 	<text name="description_label">
 		Description :
 	</text>
-	<button label="Annuler" name="cancel_btn" />
-	<button label="Charger (10 $L)" name="ok_btn" />
+	<button label="Annuler" name="cancel_btn"/>
+	<button label="Charger (10 L$)" name="ok_btn"/>
 </floater>

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2007-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -31,6 +31,8 @@
 
 #ifndef LL_LLTHREADWATCHDOG_H
 #define LL_LLTHREADWATCHDOG_H
+
+#include <boost/function.hpp>
 
 #ifndef LL_TIMER_H					
 	#include "lltimer.h"
@@ -85,7 +87,9 @@ public:
 	void add(LLWatchdogEntry* e);
 	void remove(LLWatchdogEntry* e);
 
-	void init();
+	typedef boost::function<void (void)> killer_event_callback;
+
+	void init(killer_event_callback func = NULL);
 	void run();
 	void cleanup();
     
@@ -98,6 +102,8 @@ private:
 	LLMutex* mSuspectsAccessMutex;
 	LLWatchdogTimerThread* mTimer;
 	U64 mLastClockCount;
+
+	killer_event_callback mKillerCallback;
 };
 
 #endif // LL_LLTHREADWATCHDOG_H

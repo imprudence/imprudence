@@ -6,29 +6,62 @@
 	<text name="region_text">
 		未知
 	</text>
-	<check_box label="无效脚本" name="disable_scripts_check"
-	     tool_tip="关闭此区域内的所有脚本文件。" />
-	<button label="?" name="disable_scripts_help" />
-	<check_box label="无效冲突" name="disable_collisions_check"
-	     tool_tip="在此区域你关闭非化身的冲突模式。" />
-	<button label="?" name="disable_collisions_help" />
-	<check_box label="无效物理" name="disable_physics_check"
-	     tool_tip="在此区域内关闭所有的物理模式。" />
-	<button label="?" name="disable_physics_help" />
+	<check_box label="禁用脚本" name="disable_scripts_check"
+	     tool_tip="关闭此区域内的所有脚本。" />
+
+	<check_box label="禁用碰撞" name="disable_collisions_check"
+	     tool_tip="关闭此区域除化身以外所有的碰撞。" />
+
+	<check_box label="禁用物理" name="disable_physics_check"
+	     tool_tip="关闭此区域内所有的物理计算。" />
 	<button label="应用" name="apply_btn" />
-	<button label="选择化身..." name="choose_avatar_btn" />
+	<text
+		 name="objret_text_lbl">
+	  归还物体
+	</text>
+	<text
+		 name="resident_text_lbl">
+	  居民:
+	</text>
+	<line_editor
+		 name="target_avatar_name">
+	  (无)
+    </line_editor>
+
+	<button label="选择..." name="choose_avatar_btn" />
+	<text
+		 name="options_text_lbl">
+	选项:
+	</text>
+
+    <check_box
+		 label="仅归还有脚本的物体"
+		 name="return_scripts"
+		 tool_tip="只归还那些包含脚本的物体。" />
+    <check_box
+		 label="仅归还在他人土地上的物体"
+		 name="return_other_land"
+		 tool_tip="只归还在属于别人土地上的物体。" />
+    <check_box
+		 label="归还该地产所有区域中的物体"
+		 name="return_estate_wide"
+		 tool_tip="在所有组成这个地产的区域中归还物体。" />
+	<button
+		 label="返还"
+		 name="return_btn" />
+
 	<button label="归还化身的脚本东东至他人土地"
 	     name="return_scripted_other_land_btn" />
 	<button label="归还化身所有的脚本东东" name="return_scripted_all_btn" />
-	<button label="得到首要冲突源..." name="top_colliders_btn"
-	     tool_tip="最有可能面临潜在冲突的东东的列表。" />
+	<button label="得到首要碰撞源..." name="top_colliders_btn"
+	     tool_tip="存在潜在碰撞最多物体的列表。" />
 	<button label="?" name="top_colliders_help" />
 	<button label="得到首要脚本..." name="top_scripts_btn"
-	     tool_tip="最耗时间运行脚本文档的东东的列表。" />
+	     tool_tip="脚本运行最费时间物体的列表。" />
 	<button label="?" name="top_scripts_help" />
-	<button label="重新进入地区" name="restart_btn"
-	     tool_tip="实施2分钟倒计时，并且重新启动此区域。" />
+	<button label="重新启动区域" name="restart_btn"
+	     tool_tip="2 分钟倒计时后，重新启动此区域。" />
 	<button label="?" name="restart_help" />
-	<button label="取消重新启动" name="cancel_restart_btn"
-	     tool_tip="撤销区域重起模式" />
+	<button label="延迟重新启动" name="cancel_restart_btn"
+	     tool_tip="延迟区域重新启动一小时。" />
 </panel>

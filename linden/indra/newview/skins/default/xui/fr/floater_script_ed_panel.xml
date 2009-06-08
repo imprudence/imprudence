@@ -2,7 +2,7 @@
 <panel name="script panel">
 	<button label="Enregistrer" label_selected="Enregistrer" name="Save_btn" />
 	<text_editor type="string" length="1" name="Script Editor">
-		Chargement en cours...
+		Chargement...
 	</text_editor>
 	<combo_box label="Insérer..." name="Insert..." />
 	<menu_bar name="script_menu">
@@ -29,7 +29,7 @@
 		</menu>
 	</menu_bar>
 	<string name="loading">
-		Chargement en cours...
+		Chargement...
 	</string>
 	<string name="can_not_view">
 		Vous n&apos;êtes pas autorisé à afficher ce script.

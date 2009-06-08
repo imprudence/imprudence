@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+	 min_height="150"
+	 min_width="600"
+	 name="Environment Editor Floater"
+	 title="Environment Editor">
+	<text
+		 name="EnvTimeText">
+		时间
+	</text>
+	<text
+		 name="EnvTimeText2">
+		12:00 PM
+	</text>
+	<icon
+		 name="EnvDayCycle" />
+	<slider
+		 label=""
+		 name="EnvTimeSlider"
+		 value="0.0" />
+	<text
+		 name="EnvCloudText">
+		云层覆盖
+	</text>
+	<slider
+		 label=""
+		 name="EnvCloudSlider"
+		 value="0.7" />
+	<text
+		 name="EnvWaterColorText">
+		水色
+	</text>
+	<color_swatch
+		 label=""
+		 name="EnvWaterColor"
+		 tool_tip="Click to open Color Picker" />
+	<text
+		 name="EnvWaterFogText">
+		水雾
+	</text>
+	<button
+		 label="使用地产时间"
+		 name="EnvUseEstateTimeButton" />
+	<button
+		 label="高级天空选项"
+		 name="EnvAdvancedSkyButton" />
+	<button
+		 label="高级水面选项"
+		 name="EnvAdvancedWaterButton" />
+	<button
+		 label="?"
+		 name="EnvSettingsHelpButton" />
+</floater>
+

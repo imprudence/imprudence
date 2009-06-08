@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -150,6 +150,8 @@ LLViewerObject *LLViewerObject::createObject(const LLUUID &id, const LLPCode pco
 	  res = new LLVOGround(id, pcode, regionp); break;
 	case LL_VO_PART_GROUP:
 	  res = new LLVOPartGroup(id, pcode, regionp); break;
+	case LL_VO_HUD_PART_GROUP:
+	  res = new LLVOHUDPartGroup(id, pcode, regionp); break;
 	case LL_VO_WL_SKY:
 	  res = new LLVOWLSky(id, pcode, regionp); break;
 	default:
@@ -159,7 +161,7 @@ LLViewerObject *LLViewerObject::createObject(const LLUUID &id, const LLPCode pco
 	return res;
 }
 
-LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
+LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp, BOOL is_global)
 :	LLPrimitive(),
 	mChildList(),
 	mID(id),
@@ -201,7 +203,10 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mMedia(NULL),
 	mClickAction(0)
 {
-	llassert(mRegionp);
+	if(!is_global)
+	{
+		llassert(mRegionp);
+	}
 
 	LLPrimitive::init_primitive(pcode);
 
@@ -209,7 +214,11 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mLastInterpUpdateSecs = LLFrameTimer::getElapsedSeconds();
 
 	mPositionRegion = LLVector3(0.f, 0.f, 0.f);
-	mPositionAgent = mRegionp->getOriginAgent();
+
+	if(!is_global)
+	{
+		mPositionAgent = mRegionp->getOriginAgent();
+	}
 
 	LLViewerObject::sNumObjects++;
 }
@@ -2763,12 +2772,6 @@ void LLViewerObject::setPixelAreaAndAngle(LLAgent &agent)
 
 BOOL LLViewerObject::updateLOD()
 {
-	// Update volume of looping sounds
-	if (mAudioSourcep && mAudioSourcep->isLoop())
-	{
-		F32 volume = mAudioGain * gSavedSettings.getF32("AudioLevelSFX");
-		mAudioSourcep->setGain(volume);
-	}
 	return FALSE;
 }
 
@@ -3055,28 +3058,38 @@ LLNameValue *LLViewerObject::getNVPair(const std::string& name) const
 
 void LLViewerObject::updatePositionCaches() const
 {
-	if (!isRoot())
+	if(mRegionp)
 	{
-		mPositionRegion = ((LLViewerObject *)getParent())->getPositionRegion() + getPosition() * getParent()->getRotation();
-		mPositionAgent = mRegionp->getPosAgentFromRegion(mPositionRegion);
-	}
-	else
-	{
-		mPositionRegion = getPosition();
-		mPositionAgent = mRegionp->getPosAgentFromRegion(mPositionRegion);
+		if (!isRoot())
+		{
+			mPositionRegion = ((LLViewerObject *)getParent())->getPositionRegion() + getPosition() * getParent()->getRotation();
+			mPositionAgent = mRegionp->getPosAgentFromRegion(mPositionRegion);
+		}
+		else
+		{
+			mPositionRegion = getPosition();
+			mPositionAgent = mRegionp->getPosAgentFromRegion(mPositionRegion);
+		}
 	}
 }
 
 const LLVector3d LLViewerObject::getPositionGlobal() const
-{
-	LLVector3d position_global = mRegionp->getPosGlobalFromRegion(getPositionRegion());
-
-	if (isAttachment())
+{	
+	if(mRegionp)
 	{
-		position_global = gAgent.getPosGlobalFromAgent(getRenderPosition());
-	}
+		LLVector3d position_global = mRegionp->getPosGlobalFromRegion(getPositionRegion());
 
-	return position_global;
+		if (isAttachment())
+		{
+			position_global = gAgent.getPosGlobalFromAgent(getRenderPosition());
+		}		
+		return position_global;
+	}
+	else
+	{
+		LLVector3d position_global(getPosition());
+		return position_global;
+	}	
 }
 
 const LLVector3 &LLViewerObject::getPositionAgent() const
@@ -3398,6 +3411,7 @@ LLViewerObject* LLViewerObject::getRootEdit() const
 
 BOOL LLViewerObject::lineSegmentIntersect(const LLVector3& start, const LLVector3& end,
 										  S32 face,
+										  BOOL pick_transparent,
 										  S32* face_hit,
 										  LLVector3* intersection,
 										  LLVector2* tex_coord,
@@ -3407,6 +3421,20 @@ BOOL LLViewerObject::lineSegmentIntersect(const LLVector3& start, const LLVector
 	return false;
 }
 
+BOOL LLViewerObject::lineSegmentBoundingBox(const LLVector3& start, const LLVector3& end)
+{
+	if (mDrawable.isNull() || mDrawable->isDead())
+	{
+		return FALSE;
+	}
+
+	const LLVector3* ext = mDrawable->getSpatialExtents();
+
+	LLVector3 center = (ext[1]+ext[0])*0.5f;
+	LLVector3 size = (ext[1]-ext[0])*0.5f;
+
+	return LLLineSegmentBoxIntersect(start, end, center, size);
+}
 
 U8 LLViewerObject::getMediaType() const
 {
@@ -4331,8 +4359,7 @@ void LLViewerObject::setAttachedSound(const LLUUID &audio_uuid, const LLUUID& ow
 	{
 		BOOL queue = flags & LL_SOUND_FLAG_QUEUE;
 		mAudioGain = gain;
-		F32 volume = gain * gSavedSettings.getF32("AudioLevelSFX");
-		mAudioSourcep->setGain(volume);
+		mAudioSourcep->setGain(gain);
 		mAudioSourcep->setLoop(flags & LL_SOUND_FLAG_LOOP);
 		mAudioSourcep->setSyncMaster(flags & LL_SOUND_FLAG_SYNC_MASTER);
 		mAudioSourcep->setSyncSlave(flags & LL_SOUND_FLAG_SYNC_SLAVE);
@@ -4370,8 +4397,7 @@ void LLViewerObject::adjustAudioGain(const F32 gain)
 	if (mAudioSourcep)
 	{
 		mAudioGain = gain;
-		F32 volume = mAudioGain * gSavedSettings.getF32("AudioLevelSFX");
-		mAudioSourcep->setGain(volume);
+		mAudioSourcep->setGain(mAudioGain);
 	}
 }
 

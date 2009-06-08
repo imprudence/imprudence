@@ -103,7 +103,7 @@ Erwartete Ergebnisse:
 		Hinweis: Unvollständige Meldungen werden nicht bearbeitet.
 Sollte Ihnen dieser Fehler unerlaubte Aktionen ermöglichen, 
 die sich eventuell nachteilig auf Leistung oder Sicherheit auswirken, 
-wählen Sie die Kategorie &apos;Exploit&apos;. Vielen Dank!
+wählen Sie die Kategorie „Exploit“. Vielen Dank!
 	</text>
 	<button label="Fehler melden" label_selected="Fehler melden" name="send_btn" />
 	<button label="Abbrechen" label_selected="Abbrechen" name="cancel_btn" />
