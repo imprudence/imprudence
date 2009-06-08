@@ -59,6 +59,7 @@ set(debug_files
 	libogg-0.dll
 	liboil-0.3-0.dll
 	libopenjpeg-2.dll
+    libpng12-0.dll
 	libschroedinger-1.0-0.dll
 	libspeex-1.dll
 	libtheora-0.dll
@@ -66,7 +67,7 @@ set(debug_files
 	libvorbisenc-2.dll
 	libxml2-2.dll
     xvidcore.dll
-    libpng12-0.dll
+    zlib1.dll
     )
 
 copy_if_different(
@@ -129,6 +130,7 @@ set(release_files
 	libogg-0.dll
 	liboil-0.3-0.dll
 	libopenjpeg-2.dll
+    libpng12-0.dll
 	libschroedinger-1.0-0.dll
 	libspeex-1.dll
 	libtheora-0.dll
@@ -136,7 +138,7 @@ set(release_files
 	libvorbisenc-2.dll
 	libxml2-2.dll
     xvidcore.dll
-    libpng12-0.dll
+    zlib1.dll
     )
     
 copy_if_different(

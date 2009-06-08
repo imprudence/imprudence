@@ -10,25 +10,31 @@
 		modified:   linden/indra/cmake/CopyWinLibs.cmake
 		modified:   linden/install.xml
 		
+		
 	* Fixed VC++ error C2864: 'LLAudioEngine_OpenAL::WIND_BUFFER_SIZE_SEC' : 
 		only static const integral data members can be initialized within a class.
 		
 		modified:   linden/indra/llaudio/audioengine_openal.cpp
 		modified:   linden/indra/llaudio/audioengine_openal.h
 		
+		
 	* Fixed VC++ warning C4305: '=' : truncation from 'double' to 'float' for mVolume.
 		
 		modified:   linden/indra/llmedia/llmediaimplgstreamer.cpp
 		
+		
 	* Removed bad entries from copy_win_libs.
+	* Restored zlib1.dll (not a bad entry).
 		
 		modified:   linden/indra/cmake/CopyWinLibs.cmake
+		
 		
 	* Removed old linden glib entry that was interfering.
 	* Updated windows zlib archive.
 	* Updated windows iconv archive.
 		
 		modified:   linden/install.xml
+		
 		
 	* Placed the gstreamer plugins in newview where they belong.
 		
