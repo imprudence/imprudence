@@ -19,6 +19,14 @@
 	* Fixed VC++ warning C4305: '=' : truncation from 'double' to 'float' for mVolume.
 		
 		modified:   linden/indra/llmedia/llmediaimplgstreamer.cpp
+		
+	* Removed bad entries from copy_win_libs.
+		
+		modified:   linden/indra/cmake/CopyWinLibs.cmake
+		
+	* Removed old linden glib entry that was interfering.
+		
+		modified:   linden/install.xml
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
