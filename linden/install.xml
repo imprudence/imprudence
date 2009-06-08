@@ -1473,9 +1473,9 @@ anguage Infrstructure (CLI) international standard</string>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>bebeba689d2a8d19cfde150582a4f85a</string>
+            <string>9cb8990204da692fd2a9b6530091d9a8</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/zlib-1.1.4-windows-20080618.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/zlib-1.1.4-windows-20090608.tar.bz2</uri>
           </map>
         </map>
       </map>

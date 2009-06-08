@@ -5,7 +5,7 @@
 
   McCabe Maxsted  <hakushakukun@gmail.com>
 
-	* Fixed CopyWinLibs.CMake errors.
+	* Fixed CopyWinLibs.CMake errors (removed vivox).
 	
 		modified:   linden/indra/cmake/CopyWinLibs.cmake
 		modified:   linden/install.xml
@@ -25,6 +25,7 @@
 		modified:   linden/indra/cmake/CopyWinLibs.cmake
 		
 	* Removed old linden glib entry that was interfering.
+	* Updated windows zlib archive.
 		
 		modified:   linden/install.xml
 
