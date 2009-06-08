@@ -49,6 +49,7 @@
 #include "llconsole.h"
 #include "llfloater.h"
 #include "llfloatergroupinfo.h"
+#include "llfloaterchatterbox.h"
 #include "llimview.h"
 #include "llinventory.h"
 #include "llinventorymodel.h"
@@ -1170,6 +1171,7 @@ void LLFloaterIMPanel::init(const std::string& session_label)
 								FALSE);
 
 	setTitle(mSessionLabel);
+
 	mInputEditor->setMaxTextLength(1023);
 	// enable line history support for instant message bar
 	mInputEditor->setEnableLineHistory(TRUE);
@@ -1498,7 +1500,21 @@ void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4
 			&& hostp 
 			&& source != gAgent.getID())
 		{
-			hostp->setFloaterFlashing(this, TRUE);
+			// Only start flashing on first update so we can
+			// get the proper unread number of unread tabs here
+			if (!hostp->isFloaterFlashing(this))
+			{
+				hostp->setFloaterFlashing(this, TRUE);
+				LLFloaterChatterBox::markAsUnread(true);
+			}
+
+			//// Only increment the number of unread IMs if they're from individuals
+			//// We increment the first received for the rest during new IM creation.
+			//if (mDialog == IM_SESSION_P2P_INVITE ||
+			//	mDialog == IM_NOTHING_SPECIAL)
+			//{
+			//	LLFloaterChatterBox::markAsUnread(true);
+			//}
 		}
 	}
 
@@ -1566,13 +1582,17 @@ void LLFloaterIMPanel::setVisible(BOOL b)
 	LLMultiFloater* hostp = getHost();
 	if( b && hostp )
 	{
-		hostp->setFloaterFlashing(this, FALSE);
+		if (hostp->isFloaterFlashing(this))
+		{
+			hostp->setFloaterFlashing(this, FALSE);
+			LLFloaterChatterBox::markAsUnread(false);
 
-		/* Don't change containing floater title - leave it "Instant Message" JC
-		LLUIString title = sTitleString;
-		title.setArg("[NAME]", mSessionLabel);
-		hostp->setTitle( title );
-		*/
+			/* Don't change containing floater title - leave it "Instant Message" JC
+			LLUIString title = sTitleString;
+			title.setArg("[NAME]", mSessionLabel);
+			hostp->setTitle( title );
+			*/
+		}
 	}
 }
 

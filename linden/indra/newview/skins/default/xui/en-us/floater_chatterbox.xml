@@ -8,5 +8,11 @@
 	     mouse_opaque="false" name="chatterbox_tab_container" width="391"></icon>
     <tab_container bottom="2" follows="left|right|top|bottom" height="370" left="0"
 	     name="chatterbox_tabs" tab_position="bottom" tab_width="80" width="395" />
+  <string name="unread_count_string_singular">
+    Unread IM
+  </string>
+  <string name="unread_count_string_plural">
+    Unread IMs
+  </string>
 </multi_floater>
 
