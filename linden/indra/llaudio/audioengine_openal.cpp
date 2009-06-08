@@ -416,7 +416,7 @@ void LLAudioEngine_OpenAL::initWind()
 	mWindGen = new LLWindGen<WIND_SAMPLE_T>;
 
 	mWindBufFreq = mWindGen->getInputSamplingRate();
-	mWindBufSamples = llceil(mWindBufFreq * WIND_BUFFER_SIZE_SEC);
+	mWindBufSamples = llceil(mWindBufFreq * 0.05f); // 1/20th sec - WIND_BUFFER_SIZE_SEC
 	mWindBufBytes = mWindBufSamples * 2 /*stereo*/ * sizeof(WIND_SAMPLE_T);
 
 	mWindBuf = new WIND_SAMPLE_T [mWindBufSamples * 2 /*stereo*/];

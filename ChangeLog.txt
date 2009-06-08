@@ -9,6 +9,12 @@
 	
 		modified:   linden/indra/cmake/CopyWinLibs.cmake
 		modified:   linden/install.xml
+		
+	* Fixed VC++ error C2864: 'LLAudioEngine_OpenAL::WIND_BUFFER_SIZE_SEC' : 
+		only static const integral data members can be initialized within a class.
+		
+		modified:   linden/indra/llaudio/audioengine_openal.cpp
+		modified:   linden/indra/llaudio/audioengine_openal.h
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
