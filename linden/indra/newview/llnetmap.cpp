@@ -257,8 +257,8 @@ void LLNetMap::draw()
 		// figure out where agent is
 		S32 region_width = llround(LLWorld::getInstance()->getRegionWidthInMeters());
 
-		for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->mActiveRegionList.begin();
-			 iter != LLWorld::getInstance()->mActiveRegionList.end(); ++iter)
+		for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+				iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 		{
 			LLViewerRegion* regionp = *iter;
 			// Find x and y position relative to camera's center.
@@ -374,8 +374,8 @@ void LLNetMap::draw()
 		LLVector3 pos_map;
 
 		// Draw avatars
-		for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->mActiveRegionList.begin();
-			 iter != LLWorld::getInstance()->mActiveRegionList.end(); ++iter)
+		for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+				iter != LLWorld::getInstance()->getRegionList().end(); ++iter) 
 		{
 			LLViewerRegion* regionp = *iter;
 			const LLVector3d& origin_global = regionp->getOriginGlobal();

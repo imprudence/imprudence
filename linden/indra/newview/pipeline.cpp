@@ -608,7 +608,7 @@ void LLPipeline::restoreGL()
 		LLViewerShaderMgr::instance()->setShaders();
 	}
 
-	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
 			iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 	{
 		LLViewerRegion* region = *iter;
@@ -758,7 +758,7 @@ void LLPipeline::dirtyPoolObjectTextures(const std::set<LLViewerImage*>& texture
 	}
 	
 	LLOctreeDirtyTexture dirty(textures);
-	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
 			iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 	{
 		LLViewerRegion* region = *iter;
@@ -1149,7 +1149,7 @@ void LLPipeline::updateMove()
 	{
  		LLFastTimer ot(LLFastTimer::FTM_OCTREE_BALANCE);
 
-		for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+		for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
 			iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 		{
 			LLViewerRegion* region = *iter;
@@ -1226,7 +1226,7 @@ void LLPipeline::updateCull(LLCamera& camera, LLCullResult& result, S32 water_cl
 	gGL.setColorMask(false, false);
 	LLGLDepthTest depth(GL_TRUE, GL_FALSE);
 
-	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
 			iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 	{
 		LLViewerRegion* region = *iter;
@@ -1609,7 +1609,7 @@ void LLPipeline::shiftObjects(const LLVector3 &offset)
 	}
 	mShiftList.resize(0);
 
-	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
 			iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 	{
 		LLViewerRegion* region = *iter;
@@ -2591,7 +2591,7 @@ void LLPipeline::renderDebug()
 	gGL.setColorMask(true, false);
 
 	// Debug stuff.
-	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
 			iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 	{
 		LLViewerRegion* region = *iter;
@@ -4037,7 +4037,7 @@ LLViewerObject* LLPipeline::lineSegmentIntersectInWorld(const LLVector3& start, 
 
 	sPickAvatar = FALSE; //LLToolMgr::getInstance()->inBuildMode() ? FALSE : TRUE;
 	
-	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
 			iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 	{
 		LLViewerRegion* region = *iter;
@@ -4094,7 +4094,7 @@ LLViewerObject* LLPipeline::lineSegmentIntersectInWorld(const LLVector3& start, 
 
 		//check against avatars
 		sPickAvatar = TRUE;
-		for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+		for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
 				iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 		{
 			LLViewerRegion* region = *iter;
@@ -4171,7 +4171,7 @@ LLViewerObject* LLPipeline::lineSegmentIntersectInHUD(const LLVector3& start, co
 {
 	LLDrawable* drawable = NULL;
 
-	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
 			iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 	{
 		LLViewerRegion* region = *iter;
@@ -4234,7 +4234,7 @@ void LLPipeline::resetVertexBuffers()
 {
 	sRenderBump = gSavedSettings.getBOOL("RenderObjectBump");
 
-	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
+	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
 			iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 	{
 		LLViewerRegion* region = *iter;

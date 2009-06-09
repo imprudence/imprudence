@@ -4982,7 +4982,18 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
-  </map>
+    </map>
+    <key>NearMeRange</key>
+	    <map>
+	      <key>Comment</key>
+	      <string>Search radius for nearby avatars</string>
+	      <key>Persist</key>
+	      <integer>1</integer>
+	      <key>Type</key>
+	      <string>F32</string>
+	      <key>Value</key>
+	      <integer>20</integer>
+    </map>
     <key>NewCacheLocation</key>
     <map>
       <key>Comment</key>

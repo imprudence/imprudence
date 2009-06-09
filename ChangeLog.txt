@@ -8,6 +8,21 @@
 		modified:   linden/indra/newview/lloverlaybar.cpp
 		modified:   linden/indra/newview/lloverlaybar.h
 		modified:   linden/indra/newview/skins/default/xui/en-us/panel_overlaybar.xml
+		
+		
+	*Backported LL's version of VWR-2681 from 1.23.
+		
+		modified:   indra/newview/app_settings/settings.xml
+		modified:   indra/newview/llfloateravatarpicker.cpp
+		modified:   indra/newview/llfloateravatarpicker.h
+		modified:   indra/newview/llfloatergodtools.cpp
+		modified:   indra/newview/llglsandbox.cpp
+		modified:   indra/newview/llnetmap.cpp
+		modified:   indra/newview/llviewerobjectlist.cpp
+		modified:   indra/newview/llworld.cpp
+		modified:   indra/newview/llworld.h
+		modified:   indra/newview/pipeline.cpp
+		modified:   indra/newview/skins/default/xui/en-us/floater_avatar_picker.xml
 
 
 2009-06-07  McCabe Maxsted  <hakushakukun@gmail.com>
