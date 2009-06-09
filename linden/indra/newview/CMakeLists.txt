@@ -1070,6 +1070,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_live_lsleditor.xml
     skins/default/xui/en-us/floater_lsl_guide.xml
     skins/default/xui/en-us/floater_media_browser.xml
+    skins/default/xui/en-us/floater_mini_map.xml
     skins/default/xui/en-us/floater_moveview.xml
     skins/default/xui/en-us/floater_mute_object.xml
     skins/default/xui/en-us/floater_mute.xml
@@ -1125,6 +1126,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_world_map.xml
     skins/default/xui/en-us/menu_inventory.xml
     skins/default/xui/en-us/menu_login.xml
+    skins/default/xui/en-us/menu_mini_map.xml
     skins/default/xui/en-us/menu_pie_attachment.xml
     skins/default/xui/en-us/menu_pie_avatar.xml
     skins/default/xui/en-us/menu_pie_hud.xml
@@ -1162,6 +1164,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/panel_media_controls.xml
     skins/default/xui/en-us/panel_media_remote_expanded.xml
     skins/default/xui/en-us/panel_media_remote.xml
+    skins/default/xui/en-us/panel_mini_map.xml
     skins/default/xui/en-us/panel_overlaybar.xml
     skins/default/xui/en-us/panel_place_small.xml
     skins/default/xui/en-us/panel_place.xml

@@ -100,7 +100,6 @@
 #include "llfloatereditui.h" // HACK JAMESDEBUG for ui editor
 #include "llfloaterland.h"
 #include "llfloaterinspect.h"
-#include "llfloatermap.h"
 #include "llfloaternamedesc.h"
 #include "llfloaterpreference.h"
 #include "llfloatersnapshot.h"
@@ -1840,16 +1839,6 @@ void LLViewerWindow::initWorldUI()
 		gHoverView = new LLHoverView(std::string("gHoverView"), full_window);
 		gHoverView->setVisible(TRUE);
 		mRootView->addChild(gHoverView);
-
-		//
-		// Map
-		//
-		// TODO: Move instance management into class
-		gFloaterMap = new LLFloaterMap(std::string("Map"));
-		gFloaterMap->setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
-
-		// keep onscreen
-		gFloaterView->adjustToFitScreen(gFloaterMap, FALSE);
 		
 		gIMMgr = LLIMMgr::getInstance();
 
@@ -1932,7 +1921,6 @@ void LLViewerWindow::shutdownViews()
 	gFloaterView		= NULL;
 	gMorphView			= NULL;
 
-	gFloaterMap	= NULL;
 	gHUDView = NULL;
 
 	gNotifyBoxView = NULL;

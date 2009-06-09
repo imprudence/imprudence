@@ -35,12 +35,9 @@
 #include "v4color.h"
 
 extern LLColor4 gTrackColor;
-extern LLColor4 gSelfMapColor;
 extern LLColor4 gLandmarkMapColor;
 extern LLColor4 gLocationMapColor;
 extern LLColor4 gTelehubMapColor;
-extern LLColor4 gFrustumMapColor;
-extern LLColor4 gRotatingFrustumMapColor;
 extern LLColor4 gEventColor;
 extern LLColor4 gPopularColor;
 extern LLColor4 gPickColor;

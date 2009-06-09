@@ -155,6 +155,10 @@
 <!-- MEDIA ICONS -->
 <IconEnabledColor value="255, 255, 255, 255"/>          <!-- Media/music icon enabled -->
 <IconDisabledColor value="147, 169, 213, 200"/>         <!-- Media/music icon disabled -->
+
+<!-- MAP -->
+<MapAvatar value="0, 255, 0, 255" />                    <!-- Your avatar's glyph color -->
+<MapFriend value="255, 255, 0, 255" />                  <!-- Your friends' glyph color -->
  
 <!-- MINI-MAP -->
 <NetMapBackgroundColor value="0, 0, 0, 77" />           <!-- Mini-map floater background -->
@@ -164,10 +168,13 @@
 <NetMapGroupOwnBelowWater value="200, 0, 200, 255" />   <!-- Group owned objects below water -->
 <NetMapOtherOwnAboveWater value="60, 60, 60, 255" />    <!-- Objects owned by others above water -->
 <NetMapOtherOwnBelowWater value="30, 30, 30, 255" />    <!-- Objects owned by others below water -->
-<NetMapGlyphColorAvatar value="0, 255, 0, 255" />       <!-- Also the color of avatar glyphs on the map -->
-<NetMapGlyphColorFriend value="255, 255, 0, 255" />
- 
-<!-- INVENTORY -->
+<NetMapThisRegion value="255, 255, 255, 255" />
+<NetMapLiveRegion value="204, 204, 204, 255" />
+<NetMapDeadRegion value="255, 128, 128, 255" />
+<NetMapFrustum value="255, 255, 255, 20" />
+<NetMapFrustumRotating value="255, 255, 255, 51" />
+
+  <!-- INVENTORY -->
 <InventoryBackgroundColor value="255, 255, 255, 80"/>           <!-- Inventory floater background -->
 <FolderViewLoadingMessageTextColor value="240, 165, 90, 255"/>  <!-- "loading..." -->
 <InventoryItemSuffixColor value="120, 70, 55, 255"/>            <!-- "worn", "no modify", etc -->

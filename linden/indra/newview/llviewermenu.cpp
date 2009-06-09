@@ -416,7 +416,6 @@ void handle_force_delete(void*);
 void print_object_info(void*);
 void print_agent_nvpairs(void*);
 void toggle_debug_menus(void*);
-void toggle_map( void* user_data );
 void export_info_callback(LLAssetInfo *info, void **user_data, S32 result);
 void export_data_callback(LLVFS *vfs, const LLUUID& uuid, LLAssetType::EType type, void **user_data, S32 result);
 void upload_done_callback(const LLUUID& uuid, void* user_data, S32 result, LLExtStat ext_status);
@@ -4578,22 +4577,6 @@ void toggle_debug_menus(void*)
 }
 
 
-void toggle_map( void* user_data )
-{
-	// Toggle the item
-	BOOL checked = gSavedSettings.getBOOL( static_cast<char*>(user_data) );
-	gSavedSettings.setBOOL( static_cast<char*>(user_data), !checked );
-	if (checked)
-	{
-		gFloaterMap->close();
-	}
-	else
-	{
-		gFloaterMap->open();		/* Flawfinder: ignore */	
-	}
-}
-
-
 // LLUUID gExporterRequestID;
 // std::string gExportDirectory;
 
@@ -5116,7 +5099,7 @@ class LLShowFloater : public view_listener_t
 		}
 		else if (floater_name == "mini map")
 		{
-			LLFloaterMap::toggle(NULL);
+			LLFloaterMap::toggleInstance();
 		}
 		else if (floater_name == "stat bar")
 		{

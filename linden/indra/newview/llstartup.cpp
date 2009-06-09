@@ -1670,10 +1670,13 @@ bool idle_startup()
 		gLoginMenuBarView->setVisible( FALSE );
 		gLoginMenuBarView->setEnabled( FALSE );
 
-		gFloaterMap->setVisible( gSavedSettings.getBOOL("ShowMiniMap") );
-
 		LLRect window(0, gViewerWindow->getWindowHeight(), gViewerWindow->getWindowWidth(), 0);
 		gViewerWindow->adjustControlRectanglesForFirstUse(window);
+
+		if(gSavedSettings.getBOOL("ShowMiniMap"))
+		{
+			LLFloaterMap::showInstance();
+		}
 
 		if (gSavedSettings.getBOOL("ShowCameraControls"))
 		{
@@ -3911,8 +3914,7 @@ void reset_login()
 	}
 
 	// Hide any other stuff
-	if ( gFloaterMap )
-		gFloaterMap->setVisible( FALSE );
+	LLFloaterMap::hideInstance();
 }
 
 //---------------------------------------------------------------------------

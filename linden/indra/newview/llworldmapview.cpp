@@ -208,8 +208,6 @@ LLWorldMapView::LLWorldMapView(const std::string& name, const LLRect& rect )
 	mTextBoxNorthWest = new LLTextBox( std::string("NW"), minor_dir_rect );
 	mTextBoxNorthWest->setColor( minor_color );
 	addChild( mTextBoxNorthWest );
-
-	glyph_color_avatar = gColors.getColor("NetMapGlyphColorAvatar");
 }
 
 
@@ -866,6 +864,9 @@ void LLWorldMapView::drawImageStack(const LLVector3d& global_pos, LLUIImagePtr i
 void LLWorldMapView::drawAgents()
 {
 	F32 agents_scale = (gMapScale * 0.9f) / 256.f;
+	
+	LLColor4 avatar_color = gColors.getColor( "MapAvatar" );
+	LLColor4 friend_color = gColors.getColor( "MapFriend" );
 
 	for (handle_list_t::iterator iter = mVisibleRegions.begin(); iter != mVisibleRegions.end(); ++iter)
 	{
@@ -888,8 +889,8 @@ void LLWorldMapView::drawAgents()
 				S32 agent_count = info.mExtra;
 				sim_agent_count += info.mExtra;
 				// Here's how we'd choose the color if info.mID were available but it's not being sent:
-				//LLColor4 color = (agent_count == 1 && is_agent_friend(info.mID)) ? glyph_color_friend : glyph_color_avatar;
-				drawImageStack(info.mPosGlobal, sAvatarSmallImage, agent_count, 3.f, glyph_color_avatar);
+				//LLColor4 color = (agent_count == 1 && is_agent_friend(info.mID)) ? friend_color : avatar_color;
+				drawImageStack(info.mPosGlobal, sAvatarSmallImage, agent_count, 3.f, avatar_color);
 			}
 			LLWorldMap::getInstance()->mNumAgents[handle] = sim_agent_count; // override mNumAgents for this sim
 		}

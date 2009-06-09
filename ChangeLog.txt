@@ -1,3 +1,29 @@
+2009-06-09  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Backported 1.23's minimap conversion to XUI.
+	
+		modified:   indra/llui/llui.cpp
+		modified:   indra/llui/llui.h
+		modified:   indra/newview/CMakeLists.txt
+		modified:   indra/newview/llagent.cpp
+		modified:   indra/newview/llcolorscheme.cpp
+		modified:   indra/newview/llcolorscheme.h
+		modified:   indra/newview/llfloatermap.cpp
+		modified:   indra/newview/llfloatermap.h
+		modified:   indra/newview/llmenucommands.cpp
+		modified:   indra/newview/llnetmap.cpp
+		modified:   indra/newview/llnetmap.h
+		modified:   indra/newview/llstartup.cpp
+		modified:   indra/newview/llviewercontrol.cpp
+		modified:   indra/newview/llviewermenu.cpp
+		modified:   indra/newview/llviewerobject.cpp
+		modified:   indra/newview/llviewerregion.cpp
+		modified:   indra/newview/llviewerwindow.cpp
+		modified:   indra/newview/llworldmapview.cpp
+		modified:   indra/newview/skins/default/colors_base.xml
+		modified:   indra/newview/skins/silver/colors_base.xml
+
+
 2009-06-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Changed 'IM Received' button to '__ New IMs'.

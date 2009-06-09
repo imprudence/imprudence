@@ -36,12 +36,9 @@
 #include "llviewercontrol.h"
 
 LLColor4 gTrackColor;
-LLColor4 gSelfMapColor;
 LLColor4 gLandmarkMapColor;
 LLColor4 gLocationMapColor;
 LLColor4 gTelehubMapColor;
-LLColor4 gFrustumMapColor;
-LLColor4 gRotatingFrustumMapColor;
 LLColor4 gEventColor;
 LLColor4 gPopularColor;
 LLColor4 gPickColor;
@@ -52,17 +49,9 @@ void init_colors()
 {
 	gTrackColor	= LLColor4::red;
 	gDisabledTrackColor.setVec(		0.5f, 0.f, 0.f, 1.f );
-
-	gSelfMapColor     = LLColor4::white;
-
-	// fleshy color
-	//gAvatarMapColor.setVec( 255.f/255.f, 223.f/255.f, 170.f/255.f, 1.f);
-
 	gLandmarkMapColor = LLColor4::red;
 	gLocationMapColor.setVec(		0.f, 0.72f, 1.f, 1.f);
 	gTelehubMapColor.setVec(		0.9f, 0.9f, 0.f, 1.f); // dk yellow
-	gFrustumMapColor.setVec(		1.f, 1.f, 1.f, 0.08f);
-	gRotatingFrustumMapColor.setVec(1.f, 1.f, 1.f, 0.2f);
 	gEventColor.setVec(				1.f, 0.5f, 1.f, 1.f );
 	gPopularColor.setVec(			1.f, 0.0f, 0.f, 1.f );
 	gPickColor.setVec(				1.f, 0.0f, 0.f, 1.f );

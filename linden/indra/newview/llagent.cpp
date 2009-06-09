@@ -2816,7 +2816,7 @@ U8 LLAgent::getRenderState()
 static const LLFloaterView::skip_list_t& get_skip_list()
 {
 	static LLFloaterView::skip_list_t skip_list;
-	skip_list.insert(gFloaterMap);
+	skip_list.insert(LLFloaterMap::getInstance());
 	return skip_list;
 }
 
@@ -2894,7 +2894,7 @@ void LLAgent::endAnimationUpdateUI()
 		// let the mini-map go visible again. JC
         if (!LLAppViewer::instance()->quitRequested())
 		{
-			gFloaterMap->popVisible();
+			LLFloaterMap::getInstance()->popVisible();
 		}
 
 		if( gMorphView )
@@ -2991,7 +2991,7 @@ void LLAgent::endAnimationUpdateUI()
 	{
 		LLToolMgr::getInstance()->setCurrentToolset(gFaceEditToolset);
 
-		gFloaterMap->pushVisible(FALSE);
+		LLFloaterMap::getInstance()->pushVisible(FALSE);
 		/*
 		LLView *view;
 		for (view = gFloaterView->getFirstChild(); view; view = gFloaterView->getNextChild())
