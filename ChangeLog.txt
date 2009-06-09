@@ -1,9 +1,16 @@
-2009-05-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
+2009-06-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
-	* Updated Imprudence to be based on SL 1.22.11.
+	* Changed 'IM Received' button to '__ New IMs'.
+	
+		modified:   linden/indra/newview/llfloaterchatterbox.cpp
+		modified:   linden/indra/newview/llimview.cpp
+		modified:   linden/indra/newview/llimview.h
+		modified:   linden/indra/newview/lloverlaybar.cpp
+		modified:   linden/indra/newview/lloverlaybar.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_overlaybar.xml
 
 
-  McCabe Maxsted  <hakushakukun@gmail.com>
+2009-06-07  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed CopyWinLibs.CMake errors (removed vivox).
 	
@@ -40,6 +47,11 @@
 		
 		modified:   linden/indra/cmake/CopyWinLibs.cmake
 		modified:   linden/install.xml
+
+
+2009-05-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Updated Imprudence to be based on SL 1.22.11.
 
 
 2009-04-26  McCabe Maxsted  <hakushakukun@gmail.com>

@@ -132,6 +132,7 @@ public:
 
 	// IM received that you haven't seen yet
 	BOOL getIMReceived() const;
+	int getIMUnreadCount();
 
 	void		setFloaterOpen(BOOL open);		/*Flawfinder: ignore*/
 	BOOL		getFloaterOpen();
@@ -207,10 +208,11 @@ private:
 	LLFriendObserver* mFriendObserver;
 
 	// An IM has been received that you haven't seen yet.
-	BOOL mIMReceived;
+	BOOL	mIMReceived;
+	int		mIMUnreadCount;
 
-	LLSD mPendingInvitations;
-	LLSD mPendingAgentListUpdates;
+	LLSD	mPendingInvitations;
+	LLSD	mPendingAgentListUpdates;
 };
 
 

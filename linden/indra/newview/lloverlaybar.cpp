@@ -102,7 +102,8 @@ LLOverlayBar::LLOverlayBar()
 	:	LLPanel(),
 		mMediaRemote(NULL),
 		mVoiceRemote(NULL),
-		mMusicState(STOPPED)
+		mMusicState(STOPPED),
+		mOriginalIMLabel("")
 {
 	setMouseOpaque(FALSE);
 	setIsChrome(TRUE);
@@ -128,6 +129,8 @@ BOOL LLOverlayBar::postBuild()
 
 	setFocusRoot(TRUE);
 	mBuilt = true;
+
+	mOriginalIMLabel = getChild<LLButton>("IM Received")->getLabelSelected();
 
 	layoutButtons();
 	return TRUE;
@@ -192,9 +195,25 @@ void LLOverlayBar::refresh()
 	BOOL buttons_changed = FALSE;
 
 	BOOL im_received = gIMMgr->getIMReceived();
+	int unread_count = gIMMgr->getIMUnreadCount();
 	LLButton* button = getChild<LLButton>("IM Received");
-	if (button && button->getVisible() != im_received)
+
+	if (button && button->getVisible() != im_received ||
+		button && button->getVisible())
 	{
+		if (unread_count > 0)
+		{
+			if (unread_count > 1)
+			{
+				std::stringstream ss;
+				ss << unread_count << " " << getString("unread_count_string_plural");
+				button->setLabel(ss.str());
+			}
+			else
+			{
+				button->setLabel("1 " + mOriginalIMLabel);
+			}
+		}
 		button->setVisible(im_received);
 		sendChildToFront(button);
 		moveChildToBackOfTabGroup(button);

@@ -95,9 +95,11 @@ protected:
 protected:
 	LLMediaRemoteCtrl*	mMediaRemote;
 	LLVoiceRemoteCtrl*	mVoiceRemote;
-	bool mBuilt;	// dialog constructed yet?
+	bool				mBuilt;	// dialog constructed yet?
+	S32					mMusicState;
+	std::string			mOriginalIMLabel;
+
 	enum { STOPPED=0, PLAYING=1, PAUSED=2 };
-	S32 mMusicState;
 };
 
 extern LLOverlayBar* gOverlayBar;

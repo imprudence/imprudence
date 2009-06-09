@@ -89,8 +89,8 @@ void* LLFloaterMyFriends::createGroupsPanel(void* data)
 // LLFloaterChatterBox
 //
 
-static std::string sTitle = "Communicate";
-static int sUnreadCount = 0;
+static std::string sTitle = "";
+static int sIMUnreadCount = 0;
 
 LLFloaterChatterBox::LLFloaterChatterBox(const LLSD& seed) :
 	mActiveVoiceFloater(NULL)
@@ -127,7 +127,6 @@ LLFloaterChatterBox::LLFloaterChatterBox(const LLSD& seed) :
 	}
 	mTabContainer->lockTabs();
 
-	sUnreadCount = 0;
 	sTitle = getTitle();
 }
 
@@ -228,25 +227,25 @@ void LLFloaterChatterBox::markAsUnread(bool unread)
 {
 	LLFloaterChatterBox* floater = LLFloaterChatterBox::getInstance();
 
-	// Update IM unread count
+	// Update IM unread count here as tabs are clicked
 	if (unread)
 	{
-		sUnreadCount++;
+		sIMUnreadCount++;
 	}
-	else if (!unread)
+	else
 	{
-		sUnreadCount--;
+		sIMUnreadCount--;
 	}
 
 	if (floater)
 	{
 		// Update the title message with the number of unread IMs. 
 		// Remove the message when we hit 0.
-		if (sUnreadCount > 0)
+		if (sIMUnreadCount > 0)
 		{
 			// Check for plurals
 			std::string unread_string;
-			if (sUnreadCount == 1)
+			if (sIMUnreadCount == 1)
 			{
 				unread_string = floater->getString("unread_count_string_singular");
 			}
@@ -256,14 +255,14 @@ void LLFloaterChatterBox::markAsUnread(bool unread)
 			}
 
 			std::ostringstream unread_count_message;
-			unread_count_message << sTitle << " (" << sUnreadCount << " " << unread_string << ")";
+			unread_count_message << sTitle << "  -  " << sIMUnreadCount << " " << unread_string;
 
 			// Update the floater title
 			floater->setTitle(unread_count_message.str());
 		}
 		else
 		{
-			sUnreadCount = 0;
+			sIMUnreadCount = 0;
 			
 			// Update the floater title
 			floater->setTitle(sTitle);
