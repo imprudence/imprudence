@@ -10,7 +10,7 @@
 		modified:   linden/indra/newview/skins/default/xui/en-us/panel_overlaybar.xml
 		
 		
-	*Backported LL's version of VWR-2681 from 1.23.
+	* Backported LL's version of VWR-2681 from 1.23.
 		
 		modified:   indra/newview/app_settings/settings.xml
 		modified:   indra/newview/llfloateravatarpicker.cpp
@@ -23,6 +23,11 @@
 		modified:   indra/newview/llworld.h
 		modified:   indra/newview/pipeline.cpp
 		modified:   indra/newview/skins/default/xui/en-us/floater_avatar_picker.xml
+		
+		
+	* Fixed the Resident Chooser showing hair instead of calling cards.
+	
+		modified:   indra/newview/llfloateravatarpicker.cpp
 
 
 2009-06-07  McCabe Maxsted  <hakushakukun@gmail.com>

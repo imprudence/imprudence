@@ -39,6 +39,7 @@
 #include "llfocusmgr.h"
 #include "llinventoryview.h"
 #include "llinventorymodel.h"
+#include "llinventorytype.h"
 #include "lllineeditor.h"
 #include "llscrolllistctrl.h"
 #include "lltextbox.h"
@@ -128,7 +129,7 @@ BOOL LLFloaterAvatarPicker::postBuild()
 	getChild<LLScrollListCtrl>("SearchResults")->addCommentText(getString("no_results"));
 
 	LLInventoryPanel* inventory_panel = getChild<LLInventoryPanel>("InventoryPanel");
-	inventory_panel->setFilterTypes(0x1 << LLInventoryType::IT_CALLINGCARD);
+	inventory_panel->setFilterTypes(LLInventoryType::NIT_CALLCARD);
 	inventory_panel->setFollowsAll();
 	inventory_panel->setShowFolderState(LLInventoryFilter::SHOW_NON_EMPTY_FOLDERS);
 	inventory_panel->openDefaultFolderForType(LLAssetType::AT_CALLINGCARD);
