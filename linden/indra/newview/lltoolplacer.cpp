@@ -156,6 +156,20 @@ BOOL LLToolPlacer::raycastForNewObjPos( S32 x, S32 y, LLViewerObject** hit_obj, 
 }
 
 
+static S32 getTreeGrassSpecies(std::map<std::string, S32> &table, const char *control, S32 max)
+{
+	const std::string &species = gSavedSettings.getString(control);
+	std::map<std::string, S32>::iterator it;
+	it = table.find(species);
+	if (it != table.end()) {
+		return it->second;
+	} else {
+		// if saved species not found, default to "Random"
+		return (rand() % max);
+	}
+}
+
+
 BOOL LLToolPlacer::addObject( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 {
 	LLVector3 ray_start_region;
@@ -200,13 +214,13 @@ BOOL LLToolPlacer::addObject( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 	case LL_PCODE_LEGACY_GRASS:
 		//  Randomize size of grass patch 
 		scale.setVec(10.f + ll_frand(20.f), 10.f + ll_frand(20.f),  1.f + ll_frand(2.f));
-		state = rand() % LLVOGrass::sMaxGrassSpecies;
+		state = getTreeGrassSpecies(LLVOGrass::sSpeciesNames, "LastGrass", LLVOGrass::sMaxGrassSpecies);
 		break;
 
 
 	case LL_PCODE_LEGACY_TREE:
 	case LL_PCODE_TREE_NEW:
-		state = rand() % LLVOTree::sMaxTreeSpecies;
+		state = getTreeGrassSpecies(LLVOTree::sSpeciesNames, "LastTree", LLVOTree::sMaxTreeSpecies);
 		break;
 
 	case LL_PCODE_SPHERE:

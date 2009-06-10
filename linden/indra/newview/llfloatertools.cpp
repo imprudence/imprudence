@@ -77,6 +77,8 @@
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
 #include "llviewerjoystick.h"
+#include "llvograss.h"
+#include "llvotree.h"
 #include "lluictrlfactory.h"
 
 // Globals
@@ -276,10 +278,14 @@ BOOL	LLFloaterTools::postBuild()
 		{
 			found->setClickedCallback(setObjectType,toolData[t]);
 			mButtons.push_back( found );
-		}else{
+		}
+		else
+		{
 			llwarns << "Tool button not found! DOA Pending." << llendl;
 		}
 	}
+	mComboTreesGrass = getChild<LLComboBox>("trees_grass");
+	childSetCommitCallback("trees_grass", onSelectTreesGrass, (void*)0);
 	mCheckCopySelection = getChild<LLCheckBoxCtrl>("checkbox copy selection");
 	childSetValue("checkbox copy selection",(BOOL)gSavedSettings.getBOOL("CreateToolCopySelection"));
 	mCheckSticky = getChild<LLCheckBoxCtrl>("checkbox sticky");
@@ -381,6 +387,7 @@ LLFloaterTools::LLFloaterTools()
 	mBtnDuplicate(NULL),
 	mBtnDuplicateInPlace(NULL),
 
+	mComboTreesGrass(NULL),
 	mCheckSticky(NULL),
 	mCheckCopySelection(NULL),
 	mCheckCopyCenters(NULL),
@@ -658,6 +665,8 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	BOOL create_visible = (tool == LLToolCompCreate::getInstance());
 
 	mBtnCreate	->setToggleState(	tool == LLToolCompCreate::getInstance() );
+
+	updateTreeGrassCombo(create_visible);
 
 	if (mCheckCopySelection
 		&& mCheckCopySelection->get())
@@ -1004,6 +1013,7 @@ void LLFloaterTools::setObjectType( void* data )
 	LLPCode pcode = *(LLPCode*) data;
 	LLToolPlacer::setObjectType( pcode );
 	gSavedSettings.setBOOL("CreateToolCopySelection", FALSE);
+	gFloaterTools->updateTreeGrassCombo(true);
 	gFocusMgr.setMouseCapture(NULL);
 }
 
@@ -1025,4 +1035,66 @@ void LLFloaterTools::onFocusReceived()
 {
 	LLToolMgr::getInstance()->setCurrentToolset(gBasicToolset);
 	LLFloater::onFocusReceived();
+}
+
+void LLFloaterTools::updateTreeGrassCombo(bool visible)
+{
+	if (visible) 
+	{
+	LLPCode pcode = LLToolPlacer::getObjectType();
+	std::map<std::string, S32>::iterator it, end;
+	std::string selected;
+	if (pcode == LLToolPlacerPanel::sTree) 
+	{
+		selected = gSavedSettings.getString("LastTree");
+		it = LLVOTree::sSpeciesNames.begin();
+		end = LLVOTree::sSpeciesNames.end();
+	} 
+	else if (pcode == LLToolPlacerPanel::sGrass) 
+	{
+		selected = gSavedSettings.getString("LastGrass");
+		it = LLVOGrass::sSpeciesNames.begin();
+		end = LLVOGrass::sSpeciesNames.end();
+	} 
+	else 
+	{
+		mComboTreesGrass->removeall();
+		mComboTreesGrass->setLabel(LLStringExplicit(""));  // LLComboBox::removeall() does not clear the label
+		mComboTreesGrass->setEnabled(false);
+		return;
+	}
+
+	mComboTreesGrass->removeall();
+	mComboTreesGrass->add("Random");
+
+	int select = 0, i = 0;
+
+	while (it != end) 
+	{
+		const std::string &species = it->first;
+		mComboTreesGrass->add(species);  ++i;
+		if (species == selected) select = i;
+		++it;
+	}
+	// if saved species not found, default to "Random"
+	mComboTreesGrass->selectNthItem(select);
+	mComboTreesGrass->setEnabled(true);
+	}
+	
+	mComboTreesGrass->setVisible(visible);
+}
+
+// static
+void LLFloaterTools::onSelectTreesGrass(LLUICtrl*, void*)
+{
+	const std::string &selected = gFloaterTools->mComboTreesGrass->getValue();
+	LLPCode pcode = LLToolPlacer::getObjectType();
+	if (pcode == LLToolPlacerPanel::sTree) 
+	{
+		gSavedSettings.setString("LastTree", selected);
+	} 
+	else if (pcode == LLToolPlacerPanel::sGrass) 
+	{
+		gSavedSettings.setString("LastGrass", selected);
+	}  
 }

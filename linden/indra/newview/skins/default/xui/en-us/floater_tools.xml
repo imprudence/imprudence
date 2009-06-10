@@ -227,6 +227,9 @@
 	     image_unselected="object_grass.tga" label="" label_selected=""
 	     left_delta="23" mouse_opaque="true" name="ToolGrass" scale_image="TRUE"
 	     tool_tip="Grass" width="24" />
+  <combo_box max_chars="20" enabled="false" allow_text_entry="false" name="trees_grass"
+       height="18" width="135" right="-5" bottom="-122"
+       follows="left|top" mouse_opaque="true" />
 	<check_box bottom="-117" control_name="CreateToolKeepSelected" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Keep Tool Selected" left="4" mouse_opaque="true"

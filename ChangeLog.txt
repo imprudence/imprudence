@@ -3,6 +3,21 @@
 	* Fixed Communicate window not toggling from menu.
 	
 		modified:   indra/newview/llviewermenu.cpp
+		
+		
+	* Applied MJM's tree and grass pulldown list from the Hippo Viewer.
+	
+		modified:   linden/indra/newview/app_settings/grass.xml
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/app_settings/trees.xml
+		modified:   linden/indra/newview/llfloatertools.cpp
+		modified:   linden/indra/newview/llfloatertools.h
+		modified:   linden/indra/newview/lltoolplacer.cpp
+		modified:   linden/indra/newview/llvograss.cpp
+		modified:   linden/indra/newview/llvograss.h
+		modified:   linden/indra/newview/llvotree.cpp
+		modified:   linden/indra/newview/llvotree.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
 
 
 2009-06-09  McCabe Maxsted  <hakushakukun@gmail.com>

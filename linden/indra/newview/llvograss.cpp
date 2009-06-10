@@ -71,6 +71,8 @@ F32 w_mod[GRASS_MAX_BLADES];					//  Factor to modulate wind movement by to rand
 LLVOGrass::SpeciesMap LLVOGrass::sSpeciesTable;
 S32 LLVOGrass::sMaxGrassSpecies = 0;
 
+LLVOGrass::SpeciesNames LLVOGrass::sSpeciesNames;
+
 
 LLVOGrass::LLVOGrass(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 :	LLAlphaObject(id, pcode, regionp)
@@ -201,11 +203,16 @@ void LLVOGrass::initClass()
 
 		if (species >= sMaxGrassSpecies) sMaxGrassSpecies = species + 1;
 
+		std::string name;
+		static LLStdStringHandle name_string = LLXmlTree::addAttributeString("name");
+		success &= grass_def->getFastAttributeString(name_string, name);
+		sSpeciesNames[name] = species;
+
 		if (!success)
 		{
-			std::string name;
+			/*std::string name;
 			static LLStdStringHandle name_string = LLXmlTree::addAttributeString("name");
-			grass_def->getFastAttributeString(name_string, name);
+			grass_def->getFastAttributeString(name_string, name);*/
 			llwarns << "Incomplete definition of grass " << name << llendl;
 		}
 	}

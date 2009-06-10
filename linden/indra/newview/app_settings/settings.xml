@@ -4236,16 +4236,38 @@
       <string>default</string>
     </map>
     <key>LanguageIsPublic</key>
-        <map>
+    <map>
         <key>Comment</key>
-            <string>Let other residents see our language information</string>
+        <string>Let other residents see our language information</string>
         <key>Persist</key>
-            <integer>1</integer>
+        <integer>1</integer>
         <key>Type</key>
-            <string>Boolean</string>
+        <string>Boolean</string>
         <key>Value</key>
-            <integer>1</integer>
+        <integer>1</integer>
         </map>
+    <key>LastGrass</key>
+    <map>
+    <key>Comment</key>
+        <string>The last grass selected in the create dialog</string>
+	<key>Persist</key>
+        <integer>1</integer>
+	<key>Type</key>
+        <string>String</string>
+	<key>Value</key>
+        <integer>Random</integer>
+    </map>
+    <key>LastTree</key>
+    <map>
+	<key>Comment</key>
+        <string>The last tree selected in the create dialog</string>
+	<key>Persist</key>
+        <integer>1</integer>
+	<key>Type</key>
+        <string>String</string>
+        <key>Value</key>
+        <integer>Random</integer>
+    </map>
     <key>LastFeatureVersion</key>
     <map>
       <key>Comment</key>

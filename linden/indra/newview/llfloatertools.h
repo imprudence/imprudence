@@ -153,6 +153,7 @@ public:
 	LLButton	*mBtnDuplicateInPlace;
 
 	// Create buttons
+	LLComboBox		*mComboTreesGrass;
 	LLCheckBoxCtrl	*mCheckSticky;
 	LLCheckBoxCtrl	*mCheckCopySelection;
 	LLCheckBoxCtrl	*mCheckCopyCenters;
@@ -194,6 +195,9 @@ private:
 	S32						mLargeHeight;
 
 	std::map<std::string, std::string> mStatusText;
+
+	void updateTreeGrassCombo(bool visible);
+	static void onSelectTreesGrass(LLUICtrl*, void*);
 };
 
 extern LLFloaterTools *gFloaterTools;

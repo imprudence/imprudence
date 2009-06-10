@@ -120,6 +120,9 @@ public:
 
 	static F32 sTreeFactor;			// Tree level of detail factor
 
+	typedef std::map<std::string, S32> SpeciesNames;
+	static SpeciesNames sSpeciesNames;
+
 	friend class LLDrawPoolTree;
 protected:
 	LLVector3		mTrunkBend;		// Accumulated wind (used for blowing trees)

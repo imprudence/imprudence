@@ -116,6 +116,9 @@ public:
 	F32				          mBladeWindAngle;
 	F32				          mBWAOverlap;
 
+	typedef std::map<std::string, S32> SpeciesNames;
+	static SpeciesNames sSpeciesNames;
+
 protected:
 	~LLVOGrass();
 
