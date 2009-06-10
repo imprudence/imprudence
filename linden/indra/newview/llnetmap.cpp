@@ -68,13 +68,14 @@
 #include "llglheaders.h"
 
 const F32 MAP_SCALE_MIN = 32;
-const F32 MAP_SCALE_MID = 172;
-const F32 MAP_SCALE_MAX = 512;
+const F32 MAP_SCALE_MID = 1024;
+const F32 MAP_SCALE_MAX = 4096;
 const F32 MAP_SCALE_INCREMENT = 16;
-const F32 MAP_MIN_PICK_DIST = 4;
+const F32 MAP_SCALE_ZOOM_FACTOR = 1.04f;			// Zoom in factor per click of the scroll wheel (4%)
 const F32 MAP_MINOR_DIR_THRESHOLD = 0.08f;
-
-const S32 TRACKING_RADIUS = 3;
+const F32 MIN_DOT_RADIUS = 3.5f;
+const F32 DOT_SCALE = 0.75f;
+const F32 MIN_PICK_SCALE = 2.f;
 
 LLNetMap::LLNetMap(const std::string& name) :
 	LLPanel(name),
@@ -89,6 +90,7 @@ LLNetMap::LLNetMap(const std::string& name) :
 {
 	mScale = gSavedSettings.getF32("MiniMapScale");
 	mPixelsPerMeter = mScale / LLWorld::getInstance()->getRegionWidthInMeters();
+	mDotRadius = llmax(DOT_SCALE * mPixelsPerMeter, MIN_DOT_RADIUS);
 
 	mObjectImageCenterGlobal = gAgent.getCameraPositionGlobal();
 	
@@ -138,6 +140,7 @@ void LLNetMap::setScale( F32 scale )
 	}
 
 	mPixelsPerMeter = mScale / LLWorld::getInstance()->getRegionWidthInMeters();
+	mDotRadius = llmax(DOT_SCALE * mPixelsPerMeter, MIN_DOT_RADIUS);
 
 	mUpdateNow = TRUE;
 }
@@ -319,6 +322,7 @@ void LLNetMap::draw()
 		LLUI::getCursorPositionLocal(this, &local_mouse_x, &local_mouse_y);
 		mClosestAgentToCursor.setNull();
 		F32 closest_dist = F32_MAX;
+		F32 min_pick_dist = mDotRadius * MIN_PICK_SCALE; 
 
 		// Draw avatars
 		LLColor4 avatar_color = gColors.getColor( "MapAvatar" );
@@ -335,10 +339,11 @@ void LLNetMap::draw()
 			LLWorldMapView::drawAvatar(
 				pos_map.mV[VX], pos_map.mV[VY], 
 				is_agent_friend(avatar_ids[i]) ? friend_color : avatar_color, 
-				pos_map.mV[VZ]);
+				pos_map.mV[VZ],
+				mDotRadius);
 
 			F32	dist_to_cursor = dist_vec(LLVector2(pos_map.mV[VX], pos_map.mV[VY]), LLVector2(local_mouse_x,local_mouse_y));
-			if(dist_to_cursor < MAP_MIN_PICK_DIST && dist_to_cursor < closest_dist)
+			if(dist_to_cursor < min_pick_dist && dist_to_cursor < closest_dist)
 			{
 				closest_dist = dist_to_cursor;
 				mClosestAgentToCursor = avatar_ids[i];
@@ -367,10 +372,13 @@ void LLNetMap::draw()
 		// Draw dot for self avatar position
 		pos_global = gAgent.getPositionGlobal();
 		pos_map = globalPosToView(pos_global, rotate_map);
-		LLUIImagePtr you = LLWorldMapView::sAvatarYouSmallImage;
+		LLUIImagePtr you = LLWorldMapView::sAvatarYouLargeImage;
+		S32 dot_width = llround(mDotRadius * 2.f);
 		you->draw(
-			llround(pos_map.mV[VX]) - you->getWidth()/2, 
-			llround(pos_map.mV[VY]) - you->getHeight()/2);
+			llround(pos_map.mV[VX] - mDotRadius),
+			llround(pos_map.mV[VY] - mDotRadius),
+			dot_width,
+			dot_width);
 
 		// Draw frustum
 		F32 meters_to_pixels = mScale/ LLWorld::getInstance()->getRegionWidthInMeters();
@@ -509,8 +517,12 @@ LLVector3d LLNetMap::viewPosToGlobal( S32 x, S32 y, BOOL rotated )
 
 BOOL LLNetMap::handleScrollWheel(S32 x, S32 y, S32 clicks)
 {
-	// note that clicks are reversed from what you'd think
-	setScale(llclamp(mScale - clicks*MAP_SCALE_INCREMENT, MAP_SCALE_MIN, MAP_SCALE_MAX));
+	// note that clicks are reversed from what you'd think: i.e. > 0  means zoom out, < 0 means zoom in
+	F32 scale = mScale;
+	
+	scale *= pow(MAP_SCALE_ZOOM_FACTOR, -clicks);
+	setScale(llclamp(scale, MAP_SCALE_MIN, MAP_SCALE_MAX));
+
 	return TRUE;
 }
 

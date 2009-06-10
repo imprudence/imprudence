@@ -22,6 +22,17 @@
 		modified:   indra/newview/llworldmapview.cpp
 		modified:   indra/newview/skins/default/colors_base.xml
 		modified:   indra/newview/skins/silver/colors_base.xml
+		
+		
+	* Applied Aimee's minimap magnify patch.
+	
+		modified:   doc/contributions.txt
+		modified:   indra/newview/app_settings/settings.xml
+		modified:   indra/newview/llnetmap.cpp
+		modified:   indra/newview/llnetmap.h
+		modified:   indra/newview/llworldmapview.cpp
+		modified:   indra/newview/llworldmapview.h
+		modified:   indra/newview/skins/default/textures/textures.xml
 
 
 2009-06-08  McCabe Maxsted  <hakushakukun@gmail.com>

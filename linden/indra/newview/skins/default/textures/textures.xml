@@ -150,7 +150,6 @@
   
   <texture name="map_avatar_16.tga"/>
   <texture name="map_avatar_8.tga"/>
-  <texture name="map_avatar_you_8.tga"/>
   <texture name="map_event.tga"/>
   <texture name="map_event_mature.tga"/>
   <texture name="map_home.tga"/>
