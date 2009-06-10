@@ -1,3 +1,10 @@
+2009-06-10  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed Communicate window not toggling from menu.
+	
+		modified:   indra/newview/llviewermenu.cpp
+
+
 2009-06-09  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Backported 1.23's minimap conversion to XUI.

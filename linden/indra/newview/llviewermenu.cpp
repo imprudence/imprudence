@@ -9490,6 +9490,7 @@ void initialize_menus()
 	addMenu(new LLViewMouselook(), "View.Mouselook");
 	addMenu(new LLViewBuildMode(), "View.BuildMode");
 	addMenu(new LLViewJoystickFlycam(), "View.JoystickFlycam");
+	addMenu(new LLViewCommunicate(), "View.Communicate");
 	addMenu(new LLViewResetView(), "View.ResetView");
 	addMenu(new LLViewLookAtLastChatter(), "View.LookAtLastChatter");
 	addMenu(new LLViewShowHoverTips(), "View.ShowHoverTips");
