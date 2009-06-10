@@ -1041,44 +1041,55 @@ void LLFloaterTools::updateTreeGrassCombo(bool visible)
 {
 	if (visible) 
 	{
-	LLPCode pcode = LLToolPlacer::getObjectType();
-	std::map<std::string, S32>::iterator it, end;
-	std::string selected;
-	if (pcode == LLToolPlacerPanel::sTree) 
-	{
-		selected = gSavedSettings.getString("LastTree");
-		it = LLVOTree::sSpeciesNames.begin();
-		end = LLVOTree::sSpeciesNames.end();
-	} 
-	else if (pcode == LLToolPlacerPanel::sGrass) 
-	{
-		selected = gSavedSettings.getString("LastGrass");
-		it = LLVOGrass::sSpeciesNames.begin();
-		end = LLVOGrass::sSpeciesNames.end();
-	} 
-	else 
-	{
+		LLPCode pcode = LLToolPlacer::getObjectType();
+		std::map<std::string, S32>::iterator it, end;
+		std::string selected;
+		LLTextBox* tree_grass_label = getChild<LLTextBox>("tree_grass_label");
+		if (pcode == LLToolPlacerPanel::sTree) 
+		{
+			tree_grass_label->setVisible(true);
+			LLButton* button = getChild<LLButton>("ToolTree");
+			tree_grass_label->setText(button->getToolTip());
+
+			selected = gSavedSettings.getString("LastTree");
+			it = LLVOTree::sSpeciesNames.begin();
+			end = LLVOTree::sSpeciesNames.end();
+		} 
+		else if (pcode == LLToolPlacerPanel::sGrass) 
+		{
+			tree_grass_label->setVisible(true);
+			LLButton* button = getChild<LLButton>("ToolGrass");
+			tree_grass_label->setText(button->getToolTip());
+
+			selected = gSavedSettings.getString("LastGrass");
+			it = LLVOGrass::sSpeciesNames.begin();
+			end = LLVOGrass::sSpeciesNames.end();
+		} 
+		else 
+		{
+			mComboTreesGrass->removeall();
+			mComboTreesGrass->setLabel(LLStringExplicit(""));  // LLComboBox::removeall() does not clear the label
+			mComboTreesGrass->setEnabled(false);
+			mComboTreesGrass->setVisible(false);
+			tree_grass_label->setVisible(false);
+			return;
+		}
+
 		mComboTreesGrass->removeall();
-		mComboTreesGrass->setLabel(LLStringExplicit(""));  // LLComboBox::removeall() does not clear the label
-		mComboTreesGrass->setEnabled(false);
-		return;
-	}
+		mComboTreesGrass->add("Random");
 
-	mComboTreesGrass->removeall();
-	mComboTreesGrass->add("Random");
+		int select = 0, i = 0;
 
-	int select = 0, i = 0;
-
-	while (it != end) 
-	{
-		const std::string &species = it->first;
-		mComboTreesGrass->add(species);  ++i;
-		if (species == selected) select = i;
-		++it;
-	}
-	// if saved species not found, default to "Random"
-	mComboTreesGrass->selectNthItem(select);
-	mComboTreesGrass->setEnabled(true);
+		while (it != end) 
+		{
+			const std::string &species = it->first;
+			mComboTreesGrass->add(species);  ++i;
+			if (species == selected) select = i;
+			++it;
+		}
+		// if saved species not found, default to "Random"
+		mComboTreesGrass->selectNthItem(select);
+		mComboTreesGrass->setEnabled(true);
 	}
 	
 	mComboTreesGrass->setVisible(visible);

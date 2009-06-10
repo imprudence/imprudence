@@ -227,6 +227,10 @@
 	     image_unselected="object_grass.tga" label="" label_selected=""
 	     left_delta="23" mouse_opaque="true" name="ToolGrass" scale_image="TRUE"
 	     tool_tip="Grass" width="24" />
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-104" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" right="-5"
+	     mouse_opaque="true" name="tree_grass_label" v_pad="0" width="135" />
   <combo_box max_chars="20" enabled="false" allow_text_entry="false" name="trees_grass"
        height="18" width="135" right="-5" bottom="-122"
        follows="left|top" mouse_opaque="true" />
