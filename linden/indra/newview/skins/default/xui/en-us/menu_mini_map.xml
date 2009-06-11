@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<menu bottom="100" color="MenuDefaultBgColor" drop_shadow="true" height="101" left="100"
+	 mouse_opaque="false" name="popup" opaque="true" width="128">
+	<menu_item_call bottom_delta="-18" height="18" label="Zoom Close" left="0"
+		 mouse_opaque="true" name="Zoom Close" width="128">
+		<on_click function="MiniMap.ZoomLevel" userdata="2" />
+	</menu_item_call>
+	<menu_item_call bottom_delta="-18" height="18" label="Zoom Medium" left="0"
+		 mouse_opaque="true" name="Zoom Medium" width="128">
+		<on_click function="MiniMap.ZoomLevel" userdata="1" />
+	</menu_item_call>
+	<menu_item_call bottom_delta="-18" height="18" label="Zoom Far" left="0"
+		 mouse_opaque="true" name="Zoom Far" width="128">
+		<on_click function="MiniMap.ZoomLevel" userdata="0" />
+	</menu_item_call>
+	<menu_item_separator />
+	<menu_item_call bottom_delta="-18" enabled = "false" height="18" label="Stop Tracking"
+		 left="0" mouse_opaque="true" name="Stop Tracking" width="128">
+		<on_click function="MiniMap.StopTracking" />
+		<on_enable function="MiniMap.EnableTracking" />
+	</menu_item_call>
+	<menu_item_call bottom_delta="-18" enabled = "false" height="18" label="Profile..."
+		 left="0" mouse_opaque="true" name="Profile" width="128">
+		<on_click function="MiniMap.ShowProfile" />
+		<on_enable function="MiniMap.EnableProfile" />
+	</menu_item_call>
+</menu>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel background_opaque="false" background_visible="true" bg_alpha_color="NetMapBackgroundColor"
+	 border="false" follows="left|top|right|bottom" height="216" label="Mini Map"
+	 mouse_opaque="false" name="mini_mapview" width="196">
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		 bottom="-40" drop_shadow_visible="false" font="SansSerifSmall" h_pad="0"
+		 halign="left" height="10" left="80" mouse_opaque="false" name="n_label"
+		 text_enabled_color="1, 1, 1, 0.7" v_pad="0" width="10">
+		N
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		 bottom="-80" drop_shadow_visible="false" font="SansSerifSmall" h_pad="0"
+		 halign="left" height="10" left="120" mouse_opaque="false" name="e_label"
+		 text_enabled_color="1, 1, 1, 0.7" v_pad="0" width="10">
+		E
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		 bottom="-120" drop_shadow_visible="false" font="SansSerifSmall" h_pad="0"
+		 halign="left" height="10" left="80" mouse_opaque="false" name="s_label"
+		 text_enabled_color="1, 1, 1, 0.7" v_pad="0" width="10">
+		S
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		 bottom="-80" drop_shadow_visible="false" font="SansSerifSmall" h_pad="0"
+		 halign="left" height="10" left="40" mouse_opaque="false" name="w_label"
+		 text_enabled_color="1, 1, 1, 0.7" v_pad="0" width="11">
+		W
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		 bottom="-60" drop_shadow_visible="false" font="SansSerifSmall" h_pad="0"
+		 halign="left" height="10" left="100" mouse_opaque="false" name="ne_label"
+		 text_enabled_color="1, 1, 1, 0.7" v_pad="0" width="20">
+		NE
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		 bottom="-100" drop_shadow_visible="false" font="SansSerifSmall" h_pad="0"
+		 halign="left" height="10" left="100" mouse_opaque="false" name="se_label"
+		 text_enabled_color="1, 1, 1, 0.7" v_pad="0" width="20">
+		SE
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		 bottom="-100" drop_shadow_visible="false" font="SansSerifSmall" h_pad="0"
+		 halign="left" height="10" left="60" mouse_opaque="false" name="sw_label"
+		 text_enabled_color="1, 1, 1, 0.7" v_pad="0" width="21">
+		SW
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		 bottom="-60" drop_shadow_visible="false" font="SansSerifSmall" h_pad="0"
+		 halign="left" height="1-" left="60" mouse_opaque="false" name="nw_label"
+		 text_enabled_color="1, 1, 1, 0.7" v_pad="0" width="21">
+		NW
+	</text>
+</panel>

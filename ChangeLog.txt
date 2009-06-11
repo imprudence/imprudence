@@ -7,6 +7,12 @@
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
 	
 	
+	* Added missing mini-map xui files.
+	
+		new file:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+		new file:   linden/indra/newview/skins/default/xui/en-us/menu_mini_map.xml
+		new file:   linden/indra/newview/skins/default/xui/en-us/panel_mini_map.xml
+		
 
 2009-06-10  McCabe Maxsted  <hakushakukun@gmail.com>
 
