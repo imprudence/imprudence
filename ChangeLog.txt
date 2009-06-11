@@ -1,3 +1,12 @@
+2009-06-11  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added Link/Unlink buttons to the Tools floater.
+	
+		modified:   linden/indra/newview/llfloatertools.cpp
+		modified:   linden/indra/newview/llfloatertools.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+
+
 2009-06-10  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed Communicate window not toggling from menu.

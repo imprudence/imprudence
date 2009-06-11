@@ -46,6 +46,7 @@
 #include "llfloateropenobject.h"
 #include "llfocusmgr.h"
 #include "llmenugl.h"
+#include "llnotify.h"
 #include "llpanelcontents.h"
 #include "llpanelface.h"
 #include "llpanelland.h"
@@ -235,6 +236,11 @@ BOOL	LLFloaterTools::postBuild()
 	mTextGridMode = getChild<LLTextBox>("text ruler mode");
 	mComboGridMode = getChild<LLComboBox>("combobox grid mode");
 	childSetCommitCallback("combobox grid mode",commit_grid_mode, this);
+	mBtnLink = getChild<LLButton>("link_btn");
+	childSetAction("link_btn",onClickLink, this);
+	mBtnUnlink = getChild<LLButton>("unlink_btn");
+	childSetAction("unlink_btn",onClickUnlink, this);
+
 	//
 	// Create Buttons
 	//
@@ -386,6 +392,9 @@ LLFloaterTools::LLFloaterTools()
 	mBtnDelete(NULL),
 	mBtnDuplicate(NULL),
 	mBtnDuplicateInPlace(NULL),
+
+	mBtnLink(NULL),
+	mBtnUnlink(NULL),
 
 	mComboTreesGrass(NULL),
 	mCheckSticky(NULL),
@@ -660,6 +669,44 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	//mCheckSelectLinked	->setVisible( edit_visible );
 	if (mCheckStretchUniform) mCheckStretchUniform->setVisible( edit_visible );
 	if (mCheckStretchTexture) mCheckStretchTexture->setVisible( edit_visible );
+
+	if (mBtnLink) mBtnLink->setVisible( edit_visible );
+	if (mBtnUnlink) mBtnUnlink->setVisible( edit_visible );
+
+	// Check to see if we can link things
+	bool can_link = false;
+	if (!gSavedSettings.getBOOL("EditLinkedParts"))
+	{
+		if(LLSelectMgr::getInstance()->selectGetAllRootsValid() && LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() >= 2)
+		{
+			struct f : public LLSelectedObjectFunctor
+			{
+				virtual bool apply(LLViewerObject* object)
+				{
+					return object->permModify();
+				}
+			}
+			func;
+			const bool firstonly = true;
+			can_link = LLSelectMgr::getInstance()->getSelection()->applyToRootObjects(&func, firstonly);
+		}
+	}
+	mBtnLink->setEnabled(can_link);
+
+	// Check to see if we can unlink things
+	bool can_unlink = false;
+	if (LLSelectMgr::getInstance()->selectGetAllRootsValid() &&
+		LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject() &&
+		!LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject()->isAttachment())
+	{
+		if (LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() != 
+			LLSelectMgr::getInstance()->getSelection()->getObjectCount())
+		{
+			can_unlink = true;
+		}
+	}
+	mBtnUnlink->setEnabled(can_unlink);
+
 
 	// Create buttons
 	BOOL create_visible = (tool == LLToolCompCreate::getInstance());
@@ -1108,4 +1155,54 @@ void LLFloaterTools::onSelectTreesGrass(LLUICtrl*, void*)
 	{
 		gSavedSettings.setString("LastGrass", selected);
 	}  
+}
+
+// static
+void LLFloaterTools::onClickLink(void* data)
+{
+	if(!LLSelectMgr::getInstance()->selectGetAllRootsValid())
+	{
+		LLNotifyBox::showXml("UnableToLinkWhileDownloading");
+		return;
+	}
+ 
+	S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
+	if (object_count > MAX_CHILDREN_PER_TASK + 1)
+	{
+		LLStringUtil::format_map_t args;
+		args["[COUNT]"] = llformat("%d", object_count);
+		int max = MAX_CHILDREN_PER_TASK+1;
+		args["[MAX]"] = llformat("%d", max);
+		gViewerWindow->alertXml("UnableToLinkObjects", args);
+		return;
+	}
+ 
+	if(LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() < 2)
+	{
+		gViewerWindow->alertXml("CannotLinkIncompleteSet");
+		return;
+	}
+	if(!LLSelectMgr::getInstance()->selectGetRootsModify())
+	{
+		gViewerWindow->alertXml("CannotLinkModify");
+		return;
+	}
+	LLUUID owner_id;
+	std::string owner_name;
+	if(!LLSelectMgr::getInstance()->selectGetOwner(owner_id, owner_name))
+	{
+	  // we don't actually care if you're the owner, but novices are
+	  // the most likely to be stumped by this one, so offer the
+	  // easiest and most likely solution.
+	  gViewerWindow->alertXml("CannotLinkDifferentOwners");
+	  return;
+	}
+	LLSelectMgr::getInstance()->sendLink();
+	return;
+}
+
+// static
+void LLFloaterTools::onClickUnlink(void* data)
+{
+	LLSelectMgr::getInstance()->sendDelink();
 }

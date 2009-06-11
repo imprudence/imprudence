@@ -79,43 +79,49 @@
 	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Select Faces to Texture" left="4" mouse_opaque="true"
 	     name="radio select face" radio_style="true" width="114" />
-	<check_box bottom_delta="-19" control_name="EditLinkedParts" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Edit linked parts" left="4" mouse_opaque="true"
-	     name="checkbox edit linked parts" width="114" />
-	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+  <check_box bottom_delta="-22" control_name="SnapEnabled" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="true" label="Use Grid"
+	     left_delta="0" mouse_opaque="true" name="checkbox snap to grid" width="134" />
+  <button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
+	     height="16" label="Options..." label_selected="Options..." left_delta="75"
+	     mouse_opaque="true" name="Options..." scale_image="TRUE" width="80" />
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="6"
 	     mouse_opaque="true" name="text ruler mode" v_pad="0" width="68">
-		Ruler mode:
-	</text>
-	<combo_box allow_text_entry="false" bottom_delta="-4" follows="left|top" height="20"
+    Ruler mode:
+  </text>
+  <combo_box allow_text_entry="false" bottom_delta="-4" follows="left|top" height="20"
 	     left_delta="74" max_chars="20" mouse_opaque="true"
 	     name="combobox grid mode" width="86">
-		<combo_item name="World" value="World">
-			World
-		</combo_item>
-		<combo_item name="Local" value="Local">
-			Local
-		</combo_item>
-		<combo_item name="Reference" value="Reference">
-			Reference
-		</combo_item>
-	</combo_box>
-	<check_box bottom="-70" control_name="ScaleUniform" follows="left|top"
+    <combo_item name="World" value="World">
+      World
+    </combo_item>
+    <combo_item name="Local" value="Local">
+      Local
+    </combo_item>
+    <combo_item name="Reference" value="Reference">
+      Reference
+    </combo_item>
+  </combo_box>
+  <check_box bottom="-70" control_name="ScaleUniform" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Stretch Both Sides" left="143" mouse_opaque="true"
 	     name="checkbox uniform" width="134" />
-	<check_box bottom_delta="-15" control_name="ScaleStretchTextures" follows="left|top"
+  <check_box bottom_delta="-15" control_name="ScaleStretchTextures" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="true"
 	     label="Stretch Textures" left_delta="0" mouse_opaque="true"
 	     name="checkbox stretch textures" width="134" />
-	<check_box bottom_delta="-19" control_name="SnapEnabled" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="true" label="Use Grid"
-	     left_delta="0" mouse_opaque="true" name="checkbox snap to grid" width="134" />
-	<button bottom_delta="-14" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="16" label="Options..." label_selected="Options..." left_delta="20"
-	     mouse_opaque="true" name="Options..." scale_image="TRUE" width="80" />
+  <check_box bottom_delta="-15" control_name="EditLinkedParts" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Edit linked parts" left="143" mouse_opaque="true"
+	     name="checkbox edit linked parts" width="114" />
+  <button bottom_delta="-18" follows="left|top" font="SansSerifSmall"
+          halign="center" height="18" label="Link" label_selected="Link"
+          right="-5" mouse_opaque="true" name="link_btn" width="78" />
+  <button bottom_delta="-20" follows="left|top" font="SansSerifSmall"
+          halign="center" height="18" label="Unlink" label_selected="Unlink"
+          right="-5" mouse_opaque="true" name="unlink_btn" width="78" />
 
 <!-- Help text -->
 
