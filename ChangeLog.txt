@@ -1,7 +1,8 @@
 2009-06-11  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Moved 'Duplicate' to the Tools menu.
-	* Changed 'Select Tool' to 'Choose Tool', moved Selection options into a flyout menu.
+	* Renamed 'Select Tool' to 'Choose Tool', moved Selection options into a flyout menu.
+	* Renamed 'Set permissions on selected task inventory' to 'Set Bulk Permissions'.
 	
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
 	

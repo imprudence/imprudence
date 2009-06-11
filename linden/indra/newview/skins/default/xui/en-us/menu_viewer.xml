@@ -704,9 +704,10 @@
                 userdata="stop" />
       <on_enable function="EditableSelected" />
     </menu_item_call>
+    <menu_item_separator />
     <menu_item_call name="Set permissions on selected task inventory"
                     enabled="false"
-                    label="Set permissions on selected task inventory">
+                    label="Bulk Set Permissions">
       <on_click function="Tools.SetBulkPerms" userdata="" />
       <on_enable function="EditableSelected" />
     </menu_item_call>
