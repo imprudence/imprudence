@@ -24,6 +24,14 @@
 	
 		modified:   linden/indra/newview/llfloatertools.cpp
 		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+		
+		
+	* Applied Armin's patch to create an Advanced Menu menu item.
+	  (Placed it in View and changed it to a check.)
+	
+		modified:   indra/newview/llviewermenu.cpp
+		modified:   indra/newview/llviewerwindow.cpp
+		modified:   indra/newview/skins/default/xui/en-us/menu_viewer.xml
 
 
 2009-06-09  McCabe Maxsted  <hakushakukun@gmail.com>
