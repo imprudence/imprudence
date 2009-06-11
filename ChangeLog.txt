@@ -13,6 +13,11 @@
 		new file:   linden/indra/newview/skins/default/xui/en-us/menu_mini_map.xml
 		new file:   linden/indra/newview/skins/default/xui/en-us/panel_mini_map.xml
 		
+		
+	* Added patch and .pyc files to .gitignore.
+		 
+		modified:   .gitignore
+		
 
 2009-06-10  McCabe Maxsted  <hakushakukun@gmail.com>
 
