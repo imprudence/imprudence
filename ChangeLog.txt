@@ -10,6 +10,11 @@
 	* Fixed 'Unlink' not toggling in Tools menu.
 		
 		modified:   linden/indra/newview/llviewermenu.cpp
+		
+		
+	* Added Link/Unlink options to the object pie menu.
+		
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
 
 
 2009-06-10  McCabe Maxsted  <hakushakukun@gmail.com>
