@@ -5,6 +5,11 @@
 		modified:   linden/indra/newview/llfloatertools.cpp
 		modified:   linden/indra/newview/llfloatertools.h
 		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+		
+		
+	* Fixed 'Unlink' not toggling in Tools menu.
+		
+		modified:   linden/indra/newview/llviewermenu.cpp
 
 
 2009-06-10  McCabe Maxsted  <hakushakukun@gmail.com>

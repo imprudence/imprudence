@@ -4188,9 +4188,17 @@ class LLToolsEnableUnlink : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		bool new_value = LLSelectMgr::getInstance()->selectGetAllRootsValid() &&
+		bool new_value = false;
+		if (LLSelectMgr::getInstance()->selectGetAllRootsValid() &&
 			LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject() &&
-			!LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject()->isAttachment();
+			!LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject()->isAttachment())
+		{
+			if (LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() != 
+				LLSelectMgr::getInstance()->getSelection()->getObjectCount())
+			{
+				new_value = true;
+			}
+		}
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
 		return true;
 	}
