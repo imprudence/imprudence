@@ -34,6 +34,12 @@
 	* Added Link/Unlink options to the object pie menu.
 		
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
+		
+		
+	* Double clicking inventory objects toggles wear/detach.
+	  Patch originally by Nicholaz Beresford with additions by Henri Beauchamp. 
+		
+		modified:   indra/newview/llinventorybridge.cpp
 
 
 2009-06-10  McCabe Maxsted  <hakushakukun@gmail.com>
