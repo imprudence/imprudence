@@ -1,3 +1,10 @@
+2009-06-12  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Applied patch by Robin Cornelius for VWR-12686:
+	  LLTextureCache::writeToCache() does not cache textures smaller than TEXTURE_CACHE_ENTRY_SIZE
+	
+		modified:   linden/indra/newview/lltexturecache.cpp
+
 2009-06-11  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Moved 'Duplicate' to the Tools menu.

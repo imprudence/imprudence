@@ -1527,19 +1527,13 @@ LLTextureCache::handle_t LLTextureCache::writeToCache(const LLUUID& id, U32 prio
 	purgeTextureFilesTimeSliced();	// purge textures from cache in a non-hiccup-way
 
 
-	if (datasize >= TEXTURE_CACHE_ENTRY_SIZE)
-	{
-		LLMutexLock lock(&mWorkersMutex);
-		llassert_always(imagesize > 0);
-		LLTextureCacheWorker* worker = new LLTextureCacheRemoteWorker(this, priority, id,
-																data, datasize, 0,
-																imagesize, responder);
-		handle_t handle = worker->write();
-		mWriters[handle] = worker;
-		return handle;
-	}
-	delete responder;
-	return LLWorkerThread::nullHandle();
+	LLMutexLock lock(&mWorkersMutex);
+	LLTextureCacheWorker* worker = new LLTextureCacheRemoteWorker(this, priority, id,
+ 																	  data, datasize, 0,
+ 																	  imagesize, responder);
+	handle_t handle = worker->write();
+	mWriters[handle] = worker;
+	return handle;
 }
 
 bool LLTextureCache::writeComplete(handle_t handle, bool abort)
