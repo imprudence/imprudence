@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="Snapshot" title="Просмотр скриншота">
+<floater name="Snapshot" title="Просмотр скриншота" width="225">
 	<text name="type_label">
 		Куда сохранить скриншот
 	</text>
-	<radio_group label="Тип скриншота" name="snapshot_type_radio">
+	<radio_group label="Тип скриншота" name="snapshot_type_radio" width="205">
 		<radio_item name="postcard">
 			Отправить по email
 		</radio_item>

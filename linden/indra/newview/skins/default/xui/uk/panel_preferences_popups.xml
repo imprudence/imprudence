@@ -4,11 +4,11 @@
 		Не показувати спливаючі вікна:
 	</text>
 	<button label="Увім. це Повідомл." name="enable_popup"/>
-	<button label="Увімкнути усі вспл.вікна..." name="reset_dialogs_btn" tool_tip="Увімкнути всі показувані &apos;вперше&apos; повідомл."/>
-	<text name="show_label">
+	<button width="225" label="Увімкнути усі вспл.вікна..." name="reset_dialogs_btn" tool_tip="Увімкнути всі показувані &apos;вперше&apos; повідомл."/>
+	<text name="show_label" width="300" >
 		Показувати ці спливаючі вікна:
 	</text>
-	<button label="Вимкнути усі вспл.вікна..." name="skip_dialogs_btn" tool_tip="Вимкнути всі показувані &apos;вперше&apos; повідомлення."/>
+	<button width="225" label="Вимкнути усі вспл.вікна..." name="skip_dialogs_btn" tool_tip="Вимкнути всі показувані &apos;вперше&apos; повідомлення."/>
 	<text length="1" name="text_box2" type="string">
 		Дозволи для текстур, текстур і закладок:
 	</text>

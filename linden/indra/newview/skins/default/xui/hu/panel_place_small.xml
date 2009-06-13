@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Place" title="Hely">
+	<text name="name_label">
+		Név:
+	</text>
+	<text name="description_label">
+		Leírás:
+	</text>
+	<text name="information_label">
+		Információ:
+	</text>
+	<text name="land_type_label">
+		Föld típusa:
+	</text>
+	<text name="location_label">
+		Helyszín:
+	</text>
+	<button label="Teleportál" name="teleport_btn"/>
+	<button label="Térképen mutat" name="map_btn" width="110"/>
+	<button label="Licitál" name="auction_btn"/>
+	<string name="traffic_text">
+		Forgalom: [TRAFFIC]
+	</string>
+	<string name="area_text">
+		Terület: [AREA] m².
+	</string>
+	<string name="forsale_text">
+		Eladó: [PRICE] L$
+	</string>
+	<string name="auction_text">
+		Aukciós azonosító: [ID]
+	</string>
+	<string name="server_update_text">
+		Helyinformációk lekéréséhez szerver frissítés szükséges.
+	</string>
+	<string name="server_error_text">
+		Információk erről a helyszínről jelenleg nem elérhetők, kérjük próbáld meg később.
+	</string>
+	<string name="server_forbidden_text">
+		Információk erről a helyszínről jelenleg nem elérhetők belépési korlátozások miatt. Kérjük ellenőrizd a rád vonatkozó engedélyeket a telek tulajdonosával.
+	</string>
+</panel>

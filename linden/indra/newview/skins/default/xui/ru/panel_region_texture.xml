@@ -6,7 +6,7 @@
 	<text name="region_text">
 		неизвестно
 	</text>
-	<text name="detail_texture_text">
+	<text name="detail_texture_text" width="380">
 		Текстуры ландшафта (требования 512x512, 24 bit .tga файлы)
 	</text>
 	<text name="height_text_lbl">
@@ -45,13 +45,14 @@
 	<spinner label="высш." name="height_range_spin_2" />
 	<spinner label="высш." name="height_range_spin_3" />
 	<text name="height_text_lbl10">
-		Эти значения отображают диапазон перекрытия вышеперечисленных текстур
+		Эти значения отображают диапазон перекрытия вышеперечисленных
+текстур.
 	</text>
-	<text name="height_text_lbl11">
-		Измеряется в метрах, меньшее значение -- это максимальная высота текстуры 1
+	<text name="height_text_lbl11" bottom_delta="-32">
+		Измеряется в метрах, меньшее значение -- это максимальная высота
 	</text>
 	<text name="height_text_lbl12">
-		и высшеей значение минимума высоты текстуры 4.
+		    текстуры 1, и высшеей значение минимума высоты текстуры 4.
 	</text>
 	<button label="Применить" name="apply_btn" />
 </panel>

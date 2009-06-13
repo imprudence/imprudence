@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_buy_contents" title="Tartalom megvásárlása">
+	<text name="contains_text">
+		[NAME] tartalma:
+	</text>
+	<text name="buy_text">
+		[AMOUNT] L$ vásárlása ettől: [NAME]?
+	</text>
+	<button label="Mégsem" label_selected="Mégsem" name="cancel_btn"/>
+	<button label="Vásárol" label_selected="Vásárol" name="buy_btn"/>
+	<check_box label="Öltözet felvétele most" name="wear_check"/>
+	<string name="no_copy_text">
+		(nem másolható)
+	</string>
+	<string name="no_modify_text">
+		(nem módosítható)
+	</string>
+	<string name="no_transfer_text">
+		(nem átadható)
+	</string>
+</floater>

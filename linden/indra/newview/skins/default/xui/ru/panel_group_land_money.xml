@@ -13,7 +13,7 @@
 	<string name="loading_txt">
 		Загрузка...
 	</string>
-	<text name="group_land_heading">
+	<text name="group_land_heading" width="250">
 		Земля группы
 	</text>
 	<scroll_list name="group_parcel_list">
@@ -28,19 +28,19 @@
 		Всего взносов:
 	</text>
 	<text name="total_contributed_land_value">
-		[AREA] кв. метров
+		[AREA] кв. м.
 	</text>
 	<text name="total_land_in_use_label">
-		Земли используется
+		Земли используется:
 	</text>
 	<text name="total_land_in_use_value">
-		[AREA] кв. метров
+		[AREA] кв. м.
 	</text>
 	<text name="land_available_label">
-		Земли доступно
+		Земли доступно:
 	</text>
 	<text name="land_available_value">
-		[AREA] кв. метров
+		[AREA] кв. м.
 	</text>
 	<text name="your_contribution_label">
 		Ваши взносы:
@@ -49,10 +49,11 @@
 		Невозможно установить Ваши взносы
 	</string>
 	<text name="your_contribution_max_value">
-		кв. метров ([AMOUNT] макс)
+		кв. м. ([AMOUNT] макс)
 	</text>
 	<text name="group_over_limit_text">
-		Участники группы должны внести больше взносов для поддержки земли.
+		Участники группы должны внести больше взносов для
+поддержки земли.
 	</text>
 	<text name="group_money_heading">
 		L$ группы

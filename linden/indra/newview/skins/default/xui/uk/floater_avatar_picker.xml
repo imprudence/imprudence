@@ -14,13 +14,15 @@
 		</panel>
 		<panel label="Коло мене" name="NearMePanel">
 			<text name="InstructSelectResident">
-				Обрати резидента поруч:
+				Обрати резидента
+поруч:
 			</text>
 			<button label="Обновити" label_selected="Обновити" name="Refresh"/>
-			<slider label="Відстань" name="near_me_range"/>
-			<text name="meters">
+			<slider label="Відстань" name="near_me_range" bottom_delta="-36"/>
+			<text name="meters" width="60">
 				Метрів
 			</text>
+			<scroll_list bottom_delta="-169" height="159" name="NearMe"  />
 		</panel>
 	</tab_container>
 	<button label="Вибір" label_selected="Вибрати" name="Select"/>

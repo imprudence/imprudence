@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Hang és videó" name="Media panel">
+	<text type="string" length="1" name="muting_text">
+		Hangerő:
+	</text>
+	<text type="string" length="1" name="streaming_prefs_text">
+		Streaming
+tulajdonságok:
+	</text>
+	<text type="string" length="1" name="audio_prefs_text">
+		Hang tulajdonságok:
+	</text>
+	<panel label="Hangerő" name="Volume Panel" />
+	<check_box label="Streaming zene lejátszása (nagyobb sávszélességet igényel)"
+	     name="streaming_music" />
+	<check_box label="Streaming videó lejátszása (nagyobb sávszélességet igényel)"
+	     name="streaming_video" />
+	<check_box label="Média automatikus lejátszása" name="auto_streaming_video" />
+	<check_box label="Ablak kicsinyítésekor a hang némítása" name="mute_when_minimized" />
+	<slider label="Doppler hatás" name="Doppler Effect" />
+	<slider label="Távolsági hatóerő" name="Distance Factor" />
+	<slider label="Görgetési tényező" name="Rolloff Factor" />
+	<spinner label="L$ átváltási küszöb" name="L$ Change Threshold" label_width="165" width="229"/>
+	<spinner label="Testi épség megtartási küszöb" name="Health Change Threshold" label_width="165" width="229" />
+</panel>

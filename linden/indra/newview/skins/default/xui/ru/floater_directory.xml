@@ -65,7 +65,7 @@
 			<check_box label="PG контент" name="incpg"/>
 			<check_box label="Mature контент" name="incmature"/>
 			<check_box label="Adult контент" name="incadult"/>
-			<combo_box name="Category">
+			<combo_box name="Category" width="188" left="225">
 				<combo_item name="AnyCategory">
 					Все категории
 				</combo_item>
@@ -99,7 +99,7 @@
 			</combo_box>
 			<button label="Обзор" label_selected="Обзор" name="Browse"/>
 			<button label="Поиск" label_selected="Поиск" name="Search"/>
-			<button label="Разм.рекламу..." label_selected="Разм.рекламу..." name="Place an Ad..."/>
+			<button label="Разм. рекламу..." label_selected="Разм. рекламу..." name="Place an Ad..."/>
 			<button label="Удалить" label_selected="Удалить" name="Delete"/>
 			<scroll_list name="results">
 				<column label="" name="icon"/>
@@ -137,7 +137,7 @@
 			<text name="text">
 				Категория:
 			</text>
-			<combo_box name="category combo">
+			<combo_box name="category combo" width="190" left="222">
 				<combo_item name="All">
 					Любая Категория
 				</combo_item>
@@ -264,8 +264,8 @@
 				<column label="Площ." name="area"/>
 				<column label="L$/м²" name="per_meter"/>
 			</scroll_list>
-			<button label="&lt; След." label_selected="След. &gt;" name="Next &gt;"/>
-			<button label="Пред. &gt;" label_selected="&lt; Пред." name="&lt; Prev"/>
+			<button label="След. &gt;" label_selected="След. &gt;" name="Next &gt;"/>
+			<button label="&lt; Пред." label_selected="&lt; Пред." name="&lt; Prev"/>
 		</panel>
 		<panel label="Места" name="places_panel">
 			<string name="searching_text">

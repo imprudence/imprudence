@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floaterland" title="Föld információk">
+	<tab_container name="landtab">
+		<panel label="Általános" name="land_general_panel">
+			<text length="1" name="Name:" type="string">
+				Megnevezés:
+			</text>
+			<text length="1" name="Description:" type="string">
+				Leírás:
+			</text>
+			<text name="LandType">
+				Típus:
+			</text>
+			<text name="LandTypeText">
+				Mainland / Homestead
+			</text>
+			<text name="ContentRating">
+				Minősítés:
+			</text>
+			<text name="ContentRatingText">
+				Adult
+			</text>
+			<text length="1" name="Owner:" type="string">
+				Tulajdonos:
+			</text>
+			<text length="1" name="OwnerText" type="string">
+				Leyla Linden
+			</text>
+			<button label="Profile..." label_selected="Profile..." name="Profile..."/>
+			<text length="1" name="Group:" type="string">
+				Csoport:
+			</text>
+			<button label="Beállít" label_selected="Beállít" name="Set..."/>
+			<check_box label="Átruházás csoportra" name="check deed" tool_tip="Csak a csoport vezetői ruházhatnak át földet."/>
+			<button label="Átruház" label_selected="Átruház" name="Deed..." tool_tip="Csak akkor ruházhatod át a földet, ha vezetője vagy a kijelölt csoportnak."/>
+			<check_box label="Tulajdonos hozzáadott része az átruházáshoz" name="check contrib" tool_tip="A korábbi tulajdonos hozzáadott része a föld átruházásakor a csoport részére."/>
+			<text length="1" name="For Sale:" type="string">
+				Eladó:
+			</text>
+			<text length="1" name="Not for sale." type="string">
+				Nem
+			</text>
+			<text length="1" name="For Sale: Price L$[PRICE]." type="string">
+				Ár: [PRICE] L$ ([PRICE_PER_SQM] L$/m²).
+			</text>
+			<button label="Föld eladása" label_selected="Föld eladása" name="Sell Land..."/>
+			<text length="1" name="For sale to" type="string">
+				Vevő: [BUYER]
+			</text>
+			<text length="1" name="Sell with landowners objects in parcel." type="string">
+				Az ár tartalmazza a földön található tárgyakat.
+			</text>
+			<text length="1" name="Selling with no objects in parcel." type="string">
+				Az ár nem tartalmazza a földön található tárgyakat.
+			</text>
+			<button label="Föld eladásának törlése" label_selected="Föld eladásának törlése" name="Cancel Land Sale"/>
+			<text length="1" name="Claimed:" type="string">
+				Megszerzés:
+			</text>
+			<text length="1" name="DateClaimText" type="string">
+				2008. március 10., hétfő 13:47:25
+			</text>
+			<text length="1" name="PriceLabel" type="string">
+				Terület:
+			</text>
+			<text length="1" name="PriceText" type="string">
+				4048 m²
+			</text>
+			<text length="1" name="Traffic:" type="string">
+				Forgalom:
+			</text>
+			<text length="1" name="DwellText" type="string">
+				0
+			</text>
+			<button label="Föld megvásárlása" label_selected="Föld megvásárlása" left="130" name="Buy Land..." width="125"/>
+			<button label="Vásárlás csoport részére" label_selected="Vásárlás csoport részére" name="Buy For Group..."/>
+			<button label="Átjárás vásárlása" label_selected="Átjárás vásárlása" left="130" name="Buy Pass..." tool_tip="Ideiglenes lehetőséget biztosít ezen a telken lévő átjáráshoz." width="125"/>
+			<button label="Föld átengedése" label_selected="Föld átengedése" name="Abandon Land..."/>
+			<button label="Föld visszavétele" label_selected="Föld visszavétele" name="Reclaim Land..."/>
+			<button label="Linden eladás" label_selected="Linden eladás" name="Linden Sale..." tool_tip="A földnek tulajdonban kell lennie, feltöltött tartalommal kell rendelkeznie és nem szerepelhet aukcióban."/>
+			<string name="new users only">
+				Csak új lakóknak
+			</string>
+			<string name="anyone">
+				Bárki
+			</string>
+			<string name="area_text">
+				Terület:
+			</string>
+			<string name="area_size_text">
+				[AREA] m²
+			</string>
+			<string name="auction_id_text">
+				Aukciós azonosító: [ID]
+			</string>
+			<string name="need_tier_to_modify">
+				A föld változtatásához a vásárlást jóvá kell hagynod.
+			</string>
+			<string name="group_owned_text">
+				(Csoport tulajdonban)
+			</string>
+			<string name="profile_text">
+				Adatlap
+			</string>
+			<string name="info_text">
+				Információ
+			</string>
+			<string name="public_text">
+				(nyilvános)
+			</string>
+			<string name="none_text">
+				(nincs)
+			</string>
+			<string name="sale_pending_text">
+				(Eladás folyamatban)
+			</string>
+			<string name="no_selection_text">
+				Nincs kijelölt telek.
+Menj a Világ / Föld információk menübe vagy válassz egy másik telket a föld információk megtekintéséhez.
+			</string>
+		</panel>
+		<panel label="Szerződés" name="land_covenant_panel">
+			<text name="estate_section_lbl">
+				Telek:
+			</text>
+			<text length="1" name="estate_name_lbl" type="string">
+				Megnevezés:
+			</text>
+			<text length="1" name="estate_name_text" type="string">
+				Fősziget
+			</text>
+			<text length="1" name="estate_owner_lbl" type="string">
+				Tulajdonos:
+			</text>
+			<text length="1" name="estate_owner_text" type="string">
+				(nincs)
+			</text>
+			<text_editor length="1" name="covenant_editor" type="string">
+				Ezen az ingatlanon nincs főbérlői szerződés.
+			</text_editor>
+			<text length="1" name="covenant_timestamp_text" type="string">
+				Utolsó módosítás: 2008. március 10., 16:00:00
+			</text>
+			<text name="region_section_lbl">
+				Régió:
+			</text>
+			<text length="1" name="region_name_lbl" type="string">
+				Megnevezés:
+			</text>
+			<text length="1" name="region_name_text" type="string" left="90">
+				leyla
+			</text>
+			<text name="region_landtype_lbl">
+				Típus:
+			</text>
+			<text name="region_landtype_text" left="90">
+				Mainland / Homestead
+			</text>
+			<text name="region_maturity_lbl">
+				Minősítés:
+			</text>
+			<text name="region_maturity_text" left="90">
+				Adult
+			</text>
+			<text name="resellable_lbl">
+				Eladás:
+			</text>
+			<text length="1" name="resellable_clause" type="string" left="90" width="400">
+				Ezen a régión található föld továbbértékesítése nem megengedett.
+			</text>
+			<text name="changeable_lbl">
+				Felosztás:
+			</text>
+			<text length="1" name="changeable_clause" type="string" left="90" width="400">
+				Ezen a régión található föld egyesítése/felosztása nem megengedett.
+			</text>
+			<string name="can_resell">
+				Ezen a szigeten vásárolt földek továbbértékesíthetők.
+			</string>
+			<string name="can_not_resell">
+				Ezen a szigeten vásárolt földek nem értékesíthetők tovább.
+			</string>
+			<string name="can_change">
+				Ezen a szigeten vásárolt földek egyesíthetők és feloszthatók.
+			</string>
+			<string name="can_not_change">
+				Ezen a szigeten vásárolt földek nem egyesíthetők és nem
+oszthatók fel.
+			</string>
+		</panel>
+		<panel label="Tárgyak" name="land_objects_panel">
+			<text length="1" name="parcel_object_bonus" type="string">
+				Bónusz prímekek aránya: [BONUS]
+			</text>
+			<text length="1" name="Simulator primitive usage:" type="string">
+				Prímek aránya:
+			</text>
+			<text length="1" name="objects_available" type="string" width="230">
+				[COUNT]/[MAX] ([AVAILABLE] rendelkezésre áll)
+			</text>
+			<string name="objects_available_text">
+				[COUNT]/[MAX] ([AVAILABLE] rendelkezésre áll)
+			</string>
+			<string name="objects_deleted_text">
+				[COUNT]/[MAX] ([DELETED] törölve lesz)
+			</string>
+			<text length="1" name="Primitives parcel supports:" type="string">
+				Elérhető prímek száma:
+			</text>
+			<text length="1" name="object_contrib_text" type="string">
+				[COUNT]
+			</text>
+			<text length="1" name="Primitives on parcel:" type="string">
+				Jelenlévő prímek a telken:
+			</text>
+			<text length="1" name="total_objects_text" type="string">
+				[COUNT]
+			</text>
+			<text length="1" name="Owned by parcel owner:" type="string">
+				Telektulajdonosnál:
+			</text>
+			<text length="1" name="owner_objects_text" type="string">
+				[COUNT]
+			</text>
+			<button label="Megjelenít" label_selected="Megjelenít" name="ShowOwner" right="-135" width="80"/>
+			<button label="Visszaküld..." label_selected="Visszaküld..." name="ReturnOwner..." right="-30" tool_tip="Tárgyak visszaküldése a tulajdonosának." width="100"/>
+			<text length="1" name="Set to group:" type="string">
+				Csoportnál:
+			</text>
+			<text length="1" name="group_objects_text" type="string">
+				[COUNT]
+			</text>
+			<button label="Megjelenít" label_selected="Megjelenít" name="ShowGroup" right="-135" width="80"/>
+			<button label="Visszaküld..." label_selected="Visszaküld..." name="ReturnGroup..." right="-30" tool_tip="Tárgyak visszaküldése a tulajdonosának." width="100"/>
+			<text length="1" name="Owned by others:" type="string">
+				Egyéb tulajdonosoknál:
+			</text>
+			<text length="1" name="other_objects_text" type="string">
+				[COUNT]
+			</text>
+			<button label="Megjelenít" label_selected="Megjelenít" name="ShowOther" right="-135" width="80"/>
+			<button label="Visszaküld..." label_selected="Visszaküld..." name="ReturnOther..." right="-30" tool_tip="Tárgyak visszaküldése a tulajdonosának." width="100"/>
+			<text length="1" name="Selected / sat upon:" type="string">
+				Kijelöltek:
+			</text>
+			<text length="1" name="selected_objects_text" type="string">
+				[COUNT]
+			</text>
+			<text left="4" length="1" name="Autoreturn" type="string" width="412">
+				Tárgyak automatikus visszaküldése külső lakóknak (perc, 0=ki):
+			</text>
+			<line_editor name="clean other time" right="-65"/>
+			<text length="1" name="Object Owners:" type="string">
+				Tulajdonos tárgyai:
+			</text>
+			<button label="Lista frissítése" label_selected="Lista frissítése" name="Refresh List"/>
+			<button label="Tárgyak visszaküldése" label_selected="Tárgyak visszaküldése" name="Return objects..."/>
+			<name_list name="owner list">
+				<column label="Típus" name="type"/>
+				<column label="Név" name="name"/>
+				<column label="Létszám" name="count"/>
+				<column label="Legújabb" name="mostrecent"/>
+			</name_list>
+		</panel>
+		<panel label="Beállítások" name="land_options_panel">
+			<text length="1" name="allow_label" type="string">
+				Külső lakóknak engedélyezés:
+			</text>
+			<check_box label="Tereprendezés" name="edit land check" tool_tip="Ha ez bejelölésre került, akkor bárki szerkesztheti a föld domborzatát. Célszerű ezt nem bejelölve hagyni, mivel ez a saját földed."/>
+			<check_box label="Helyszín megjelölése" name="check landmark"/>
+			<check_box label="Repülés" name="check fly" tool_tip="Ha ez bejelölésre került, akkor a repülés engedélyezett a földön. Amennyiben nem, akkor ez csak a területen kívül lehetséges."/>
+			<text length="1" name="allow_label2" type="string">
+				Tárgyak építése:
+			</text>
+			<check_box label="Mindenki" left="285" name="edit objects check"/>
+			<check_box label="Csoport" name="edit group objects check"/>
+			<text length="1" name="allow_label3" type="string">
+				Tárgyak elhelyezése:
+			</text>
+			<check_box label="Mindenki" left="285" name="all object entry check"/>
+			<check_box label="Csoport" name="group object entry check"/>
+			<text length="1" name="allow_label4" type="string">
+				Kód futtatása:
+			</text>
+			<check_box label="Mindenki" left="285" name="check other scripts"/>
+			<check_box label="Csoport" name="check group scripts"/>
+			<text length="1" name="land_options_label" type="string">
+				Föld beállítások:
+			</text>
+			<check_box label="Biztonságos (nincs kár)" name="check safe" tool_tip="Ha ez bejelölésre került, akkor a föld biztonságos és mentesül a károkozásoktól. Amennyiben nem, akkor lehetséges a károkozás."/>
+			<check_box label="Lökés tiltása" name="PushRestrictCheck" tool_tip="Scriptek megóvása az ütközésektől. Ennek a funkciónak bekapcsolásával megakadályozhatók a telekkel kapcsolatos károkozások."/>
+			<check_box label="Helyszín megjelenítése a keresőben (30L$/hét)" name="ShowDirectoryCheck" tool_tip="Telek megjelenítése a keresőben."/>
+			<string name="search_enabled_tooltip">
+				Föld nevének a keresési eredmények közötti megjelenítése
+			</string>
+			<string name="search_disabled_small_tooltip">
+				Ez a funkció nem elérhető, mivel a telek mérete 128 m² vagy annál kisebb.
+Csak nagyobb telkek jeleníthetők meg a keresések között.
+			</string>
+			<string name="search_disabled_permissions_tooltip">
+				Ez a funkció nem elérhető a számodra.
+			</string>
+			<combo_box name="land category with adult">
+				<combo_item name="AnyCategory">
+					Minden kategória
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Linden helyszín
+				</combo_item>
+				<combo_item name="Adult">
+					Adult
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Művészetek és kultúra
+				</combo_item>
+				<combo_item name="Business">
+					Üzlet
+				</combo_item>
+				<combo_item name="Educational">
+					Oktatási
+				</combo_item>
+				<combo_item name="Gaming">
+					Játék
+				</combo_item>
+				<combo_item name="Hangout">
+					Szabadidő
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Újoncoknak
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Parkok és természet
+				</combo_item>
+				<combo_item name="Residential">
+					Otthon
+				</combo_item>
+				<combo_item name="Shopping">
+					Vásárlás
+				</combo_item>
+				<combo_item name="Other">
+					Egyéb
+				</combo_item>
+			</combo_box>
+			<combo_box left="280" name="land category" width="146">
+				<combo_item name="AnyCategory">
+					Minden kategória
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Linden helyszín
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Művészetek és kultúra
+				</combo_item>
+				<combo_item name="Business">
+					Üzlet
+				</combo_item>
+				<combo_item name="Educational">
+					Oktatás
+				</combo_item>
+				<combo_item name="Gaming">
+					Játék
+				</combo_item>
+				<combo_item name="Hangout">
+					Szabadidő
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Új felhasználóknak
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Parkok és természet
+				</combo_item>
+				<combo_item name="Residential">
+					Otthon
+				</combo_item>
+				<combo_item name="Shopping">
+					Vásárlás
+				</combo_item>
+				<combo_item name="Other">
+					Egyéb
+				</combo_item>
+			</combo_box>
+			<button label="?" label_selected="?" left="430" name="?"/>
+			<check_box label="Mature tartalom" name="MatureCheck" tool_tip=""/>
+			<string name="mature_check_mature">
+				Mature tartalom
+			</string>
+			<string name="mature_check_adult">
+				Adult tartalom
+			</string>
+			<string name="mature_check_mature_tooltip">
+				A telek információ és tartalom szerint a terület mature típusú.
+			</string>
+			<string name="mature_check_adult_tooltip">
+				A telek információ és tartalom szerint a terület adult típusú.
+			</string>
+			<text length="1" name="Snapshot:" type="string">
+				Kép:
+			</text>
+			<texture_picker label="" name="snapshot_ctrl" tool_tip="Kattints ide a kép kiválasztásához."/>
+			<text length="1" name="landing_point" type="string">
+				Érkezési koordináta: [LANDING]
+			</text>
+			<string name="landing_point_none">
+				(nincs)
+			</string>
+			<button label="Beállít" label_selected="Beállít" name="Set" tool_tip="Annak az érkezési pontnak a beállítása, ahova a látogatók először érkeznek. Az avatárod telken belüli tartózkodási pontjának beállítása."/>
+			<button label="Töröl" label_selected="Töröl" name="Clear" tool_tip="Érkezési pont törlése."/>
+			<text length="1" name="Teleport Routing: " type="string">
+				Teleportálási célpont:
+			</text>
+			<combo_box name="landing type" tool_tip="A telekre való érkezés teleportálási útvonalának szerkesztése.">
+				<combo_item length="1" name="Blocked" type="string">
+					Tiltva
+				</combo_item>
+				<combo_item length="1" name="LandingPoint" type="string">
+					Érkezési pont
+				</combo_item>
+				<combo_item length="1" name="Anywhere" type="string">
+					Bárhova
+				</combo_item>
+			</combo_box>
+			<string name="push_restrict_text">
+				Lökés tiltása
+			</string>
+			<string name="push_restrict_region_text">
+				Lökés tiltása (Régió szintű)
+			</string>
+		</panel>
+		<panel label="Média" name="land_media_panel">
+			<text length="1" name="with media:" type="string" width="85">
+				Média típusa:
+			</text>
+			<combo_box name="media type" tool_tip="Add meg a média forrássát, ami lehet hivatkozás, honlap vagy egyéb média"/>
+			<text length="1" name="at URL:" type="string">
+				Média URL:
+			</text>
+			<button label="Beállít" label_selected="Beállít" name="set_media_url"/>
+			<text length="1" name="Description:" type="string">
+				Leírás:
+			</text>
+			<line_editor name="url_description" tool_tip="Lejátszás/Betöltés gomb után megjelenített szöveg"/>
+			<text length="1" name="Media texture:" type="string">
+				Kép
+feltöltése:
+			</text>
+			<texture_picker label="" name="media texture" tool_tip="Kattints ide a kép kiválasztásához"/>
+			<text length="1" name="replace_texture_help" type="string">
+				(Azok a tárgyak, melyeken ez a kép van bemutatják a
+filmet vagy a honlapot a lejátszás indítása után.)
+			</text>
+			<text length="1" name="Options:" type="string">
+				Média
+beállítások:
+			</text>
+			<check_box label="Automatikus méretezés" name="media_auto_scale" tool_tip="Ennek beállításával a tartalmak automatikus méretezésre kerülnek. Ami lehet, hogy kissé lassabb és gyengébb minőséget eredményez vizuálisan, azonban egyéb méretezési és igazítási."/>
+			<check_box label="Média ismétlése" name="media_loop" tool_tip="Média folyamatos ismétlése. A média befejeztével az egész lejátszási folyamat újraindul az elejétől."/>
+			<check_box label="Média URL elrejtése" name="hide_media_url" tool_tip="Evvel a beállítással a telken lévő média hivatkozások elrejthetők a nem engedélyezett lakók számára. Megjegyzés: Nem alkalmazható HTML típusú médiák esetén."/>
+			<check_box label="Zene URL elrejtése" name="hide_music_url" tool_tip="Evvel a beállítással a telken lévő zene hivatkozások elrejthetők a nem engedélyezett lakók számára."/>
+			<text length="1" name="media_size" tool_tip="A renderelni kívánt web média mérete, 0 az alapértelmezett." type="string" width="105">
+				Média mérete:
+			</text>
+			<spinner left_delta="89" name="media_size_width" tool_tip="A renderelni kívánt web média mérete, 0 az alapértelmezett."/>
+			<spinner name="media_size_height" tool_tip="A renderelni kívánt web média mérete, 0 az alapértelmezett."/>
+			<text length="1" name="pixels" type="string">
+				pixel
+			</text>
+			<text length="1" name="MusicURL:" type="string">
+				Zene URL:
+			</text>
+			<text length="1" name="Sound:" type="string">
+				Zene:
+			</text>
+			<check_box label="Gesztusok és tárgyak hangjainak korlátozása a telken" name="check sound local"/>
+			<button label="?" label_selected="?" name="?" left="394" />
+			<text length="1" name="Voice settings:" type="string">
+				Hang:
+			</text>
+			<check_box label="Hang engedélyezése" name="parcel_enable_voice_channel"/>
+			<check_box label="Hang engedélyezése (Telek szintű)" name="parcel_enable_voice_channel_is_estate_disabled"/>
+			<check_box label="Hang korlátozása a telken" name="parcel_enable_voice_channel_parcel"/>
+		</panel>
+		<panel label="Belépés" name="land_access_panel">
+			<text length="1" name="Limit access to this parcel to:" type="string">
+				Telekre történő belépési engedélyek beállítása:
+			</text>
+			<check_box label="Nyilvános belépések engedélyezése" name="public_access"/>
+			<text length="1" name="Only Allow" type="string">
+				Belépés tiltása eszerint:
+			</text>
+			<check_box label="Fizetési információ nélküli lakók" name="limit_payment" tool_tip="Beazonosítatlan lakók tiltása."/>
+			<check_box label="Korhatár azonosítás nélküli lakók" name="limit_age_verified" tool_tip="Olyan lakók tiltása, ahol a korhatár azonosítás nem történt meg. További információk: support.secondlife.com oldalon."/>
+			<string name="estate_override">
+				Egy vagy több beállítás ezek közül már létezik
+			</string>
+			<check_box label="Csoport belépés engedélyezése: [GROUP]" name="GroupCheck" tool_tip="Csoport engedélyezése az Általános fülön."/>
+			<check_box label="Átjárás engedélyezése:" name="PassCheck" tool_tip="Ideiglenes átjárást biztosít a területen"/>
+			<combo_box name="pass_combo">
+				<combo_item name="Anyone">
+					Mindenki
+				</combo_item>
+				<combo_item name="Group">
+					Csoport
+				</combo_item>
+			</combo_box>
+			<spinner label="Ár (L$):" name="PriceSpin"/>
+			<spinner label="Időtartam (óra):" name="HoursSpin"/>
+			<text label="Mindig engedélyez" name="AllowedText">
+				Engedélyezett lakók
+			</text>
+			<name_list name="AccessList" tool_tip="([LISTED] listázva, [MAX] max.)"/>
+			<button label="Hozzáad" label_selected="Hozzáad" name="add_allowed"/>
+			<button label="Eltávolít" label_selected="Eltávolít" name="remove_allowed"/>
+			<text label="Kitilt" name="BanCheck">
+				Kitiltott lakók
+			</text>
+			<name_list name="BannedList" tool_tip="([LISTED] listázva, [MAX] max.)"/>
+			<button label="Hozzáad" label_selected="Hozzáad" name="add_banned"/>
+			<button label="Eltávolít" label_selected="Eltávolít" name="remove_banned"/>
+		</panel>
+	</tab_container>
+</floater>

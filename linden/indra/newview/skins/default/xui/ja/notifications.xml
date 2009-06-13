@@ -2869,7 +2869,7 @@ Second Life のウェブサイトにアクセスして、設定しますか？
 	<notification name="ImproperPaymentStatus">
 		この地域（リージョン）に入るために適した支払いステータスがありません。
 	</notification>
-	<notification name="MustGetAgeRgion">
+	<notification name="MustGetAgeRegion">
 		この地域（リージョン）に入るには年齢確認済みである必要があります。
 	</notification>
 	<notification name="MustGetAgeParcel">

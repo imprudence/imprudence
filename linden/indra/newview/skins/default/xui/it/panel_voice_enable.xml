@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="content_panel">
+	<text_editor name="voice_intro_text1">
+		Benvenuti nella voice chat di Second Life! La voice chat ti permette di parlare con gli altri residenti. Questa procedura ti guiderà attraverso i passaggi necessari ad impostare la voice chat. L&apos;uso della voice chat richiede degli altoparlanti e, se si desidera parlare con gli altri, un microfono o cuffie con microfono.
+	</text_editor>
+	<text_editor name="voice_intro_text2">
+		La voice chat è abilitata di default. Vuoi continuare ad usare la voice chat?
+	</text_editor>
+	<radio_group name="voice_enable">
+		<radio_item name="1">
+			Si, continua ad usare la voice chat.
+		</radio_item>
+		<radio_item name="0">
+			No, disabilita la voice chat.
+		</radio_item>
+	</radio_group>
+	<text_editor name="voice_intro_text3">
+		Puoi abilitare voice chat in ogni momento andando nella scheda voice chat del menù Preferenze.
+	</text_editor>
+	<text_editor name="voice_intro_text4">
+		Clicca il bottone &apos;Avanti&apos; per configurare le preferenze di voice chat o clicca &apos;Annulla&apos; per tornare in Second Life.
+	</text_editor>
+</panel>

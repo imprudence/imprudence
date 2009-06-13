@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Place" title="Sted">
+	<text name="name_label">
+		Navn:
+	</text>
+	<text name="description_label">
+		Beskrivelse:
+	</text>
+	<text name="information_label">
+		Information:
+	</text>
+	<text name="location_label">
+		Lokation:
+	</text>
+	<button label="Teleport" name="teleport_btn" />
+	<button label="Vis på kort" name="map_btn" />
+	<button label="Bud..." name="auction_btn" />
+	<string name="traffic_text">
+		Trafik: [TRAFFIC]
+	</string>
+	<string name="area_text">
+		Område: [AREA] m².
+	</string>
+	<string name="forsale_text">
+		Til salg for L$[PRICE]
+	</string>
+	<string name="auction_text">
+		Auktion ID [ID].
+	</string>
+	<string name="server_update_text">
+		Information om stedet er først tilgængelig efter server opdatering
+	</string>
+	<string name="server_error_text">
+		Information om stedet er ikke tilgængelig lige nu, prøv igen senere
+	</string>
+	<string name="server_forbidden_text">
+		Ikke rettigheder til at se information om stedet.
+	</string>
+</panel>

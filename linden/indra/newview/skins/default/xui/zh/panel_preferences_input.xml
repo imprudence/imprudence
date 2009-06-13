@@ -14,14 +14,11 @@
 	<text length="1" name=" Camera Options:" type="string">
 		摄像机选项:
 	</text>
+	<text name="camera_fov_label">
+		摄像机角度：
+	</text>
 	<text name="Camera Follow Distance:">
 		摄像机跟随距离:
-	</text>
-	<text name="Camera Transition Time:">
-		摄像机转换时间:
-	</text>
-	<text name="Camera Smoothing:">
-		摄像头平滑:
 	</text>
 	<check_box label="编辑物体时使用自动视角" name="edit_camera_movement" tool_tip="当进入和离开编辑模式时，自动移动摄像头"/>
 	<check_box label="编辑外观时使用自动视角" name="appearance_camera_movement" tool_tip="在编辑外观时，摄像头自动定位"/>
@@ -29,8 +26,5 @@
 		化身显示选项:
 	</text>
 	<check_box label="第一人称视角中，显示自己的化身" name="first_person_avatar_visible"/>
-	<text name="text5">
-		游戏手柄选项:
-	</text>
 	<button label="游戏杆设置" name="joystick_setup_button"/>
 </panel>

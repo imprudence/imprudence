@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Pick" title="Kedvencek">
+	<button label="Beállít" name="set_location_btn" />
+	<button label="Teleportál" name="pick_teleport_btn" />
+	<button label="Térkép" name="pick_map_btn" />
+	<text name="sort_order_text" left="244" width="100">
+		Sorba rendez:
+	</text>
+	<check_box label="Engedélyezve" name="enabled_check" />
+</panel>

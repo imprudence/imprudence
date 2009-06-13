@@ -47,7 +47,17 @@
 		<check_box label="公开注册" name="open_enrollement" tool_tip="设置该社团是否允许新会员加入而不需要被邀请。"/>
 		<check_box label="注册费用: L$" name="check_enrollment_fee" tool_tip="设定是否收将取社团入会费。"/>
 		<spinner name="spin_enrollment_fee" tool_tip="如果选择了注册费用的话，新会员加入社团时必须付出这笔费用。"/>
-
+		<combo_box name="group_mature_check" tool_tip="设置是否应将社团信息看作Mature内容。">
+			<combo_item name="select_mature">
+				- 选择限制级 -
+			</combo_item>
+			<combo_item name="mature">
+				Mature内容
+			</combo_item>
+			<combo_item name="pg">
+				PG内容
+			</combo_item>
+		</combo_box>
 		<panel name="title_container">
 			<text name="active_title_label">
 				我的头衔

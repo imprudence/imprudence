@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="directory" title="Second Life keresés">
+	<tab_container name="Directory Tabs">
+		<panel label="Minden" name="find_all_panel">
+			<string name="searching_text">
+				Keresés...
+			</string>
+			<string name="not_found_text">
+				Nincs találat.
+			</string>
+			<text name="find">
+				Keres:
+			</text>
+			<line_editor label="Keresés" name="search_editor" tool_tip="Second Life keresés"/>
+			<button label="Vissza" name="back_btn"/>
+			<button label="Előre" name="forward_btn"/>
+			<button label="Keresés" name="search_btn"/>
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Minden kategória
+				</combo_item>
+				<combo_item name="Events">
+					Események
+				</combo_item>
+				<combo_item name="Groups">
+					Csoportok
+				</combo_item>
+				<combo_item name="People">
+					Emberek
+				</combo_item>
+				<combo_item name="Places">
+					Helyszínek
+				</combo_item>
+				<combo_item name="Wiki">
+					Wiki
+				</combo_item>
+			</combo_box>
+			<check_box label="PG tartalom" name="incpg"/>
+			<check_box label="Mature tartalom" name="incmature"/>
+			<check_box label="Adult tartalom" name="incadult"/>
+			<button label="?" label_selected="?" name="?"/>
+			<string name="loading_text">
+				Folyamatban...
+			</string>
+			<string name="done_text">
+				Kész
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+		</panel>
+		<panel label="Hirdetések" name="classified_panel">
+			<string name="searching_text">
+				Keresés...
+			</string>
+			<string name="not_found_text">
+				Nincs találat.
+			</string>
+			<text name="find">
+				Találat:
+			</text>
+			<line_editor name="name"/>
+			<check_box label="PG tartalom" name="incpg"/>
+			<check_box label="Mature tartalom" name="incmature"/>
+			<check_box label="Adult tartalom" name="incadult"/>
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Minden kategória
+				</combo_item>
+				<combo_item name="Shopping">
+					Vásárlás
+				</combo_item>
+				<combo_item name="LandRental">
+					Földbérlet
+				</combo_item>
+				<combo_item name="PropertyRental">
+					Vagyonbérlet
+				</combo_item>
+				<combo_item name="SpecialAttraction">
+					Különleges bemutatók
+				</combo_item>
+				<combo_item name="NewProducts">
+					Új termékek
+				</combo_item>
+				<combo_item name="Employment">
+					Foglalkoztatás
+				</combo_item>
+				<combo_item name="Wanted">
+					Segítséget keres
+				</combo_item>
+				<combo_item name="Service">
+					Szolgáltatás
+				</combo_item>
+				<combo_item name="Personal">
+					Személyes
+				</combo_item>
+			</combo_box>
+			<button label="Tallóz" label_selected="Tallóz" left_delta="158" name="Browse"/>
+			<button label="Keres" label_selected="Keres" name="Search"/>
+			<button label="Hirdetés feladása..." label_selected="Hirdetés feladása..." name="Place an Ad..." width="135"/>
+			<button label="Töröl" label_selected="Töröl" name="Delete"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Név" name="name"/>
+				<column label="Ár" name="price"/>
+			</scroll_list>
+			<button label="Előre &gt;" label_selected="Előre &gt;" name="Next &gt;"/>
+			<button label="&lt; Vissza" label_selected="&lt; Vissza" name="&lt; Prev"/>
+		</panel>
+		<panel label="Események" name="events_panel">
+			<string name="searching_text">
+				Keresés...
+			</string>
+			<string name="not_found_text">
+				Nincs találat.
+			</string>
+			<text name="text2">
+				Keres:
+			</text>
+			<line_editor name="event_search_text"/>
+			<radio_group name="date_mode">
+				<radio_item name="current">
+					Folyamatban és elkövetkezendő
+				</radio_item>
+				<radio_item name="date">
+					Dátum
+				</radio_item>
+			</radio_group>
+			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;" tool_tip="Egy napot vissza"/>
+			<text name="date_text">
+				6/6
+			</text>
+			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;" tool_tip="Egy nappal később"/>
+			<button label="Ma" label_selected="Ma" name="Today" tool_tip="Mai események"/>
+			<text name="text">
+				Kategória:
+			</text>
+			<combo_box name="category combo" width="205">
+				<combo_item name="All">
+					Minden kategória
+				</combo_item>
+				<combo_item name="Discussion">
+					Eszmecsere
+				</combo_item>
+				<combo_item name="Sports">
+					Sport
+				</combo_item>
+				<combo_item name="LiveMusic">
+					Élő zene
+				</combo_item>
+				<combo_item name="Commercial">
+					Kereskedelem
+				</combo_item>
+				<combo_item name="Nightlife/Entertainment">
+					Éjszakai élet/Szórakozás
+				</combo_item>
+				<combo_item name="Games/Contests">
+					Játék/Verseny
+				</combo_item>
+				<combo_item name="Pageants">
+					Látványosság
+				</combo_item>
+				<combo_item name="Education">
+					Oktatás
+				</combo_item>
+				<combo_item name="ArtsandCulture">
+					Művészetek és kultúra
+				</combo_item>
+				<combo_item name="Charity/SupportGroups">
+					Jótékonyság/Támogatói csoportok
+				</combo_item>
+				<combo_item name="Miscellaneous">
+					Vegyes
+				</combo_item>
+			</combo_box>
+			<check_box left="440" label="PG tartalom" name="incpg"/>
+			<check_box left="440" label="Mature tartalom" name="incmature"/>
+			<check_box left="440" label="Adult tartalom" name="incadult"/>
+			<button label="Keres" label_selected="Keres" name="Search" tool_tip="Keresés"/>
+			<button label="Töröl" label_selected="Töröl" name="Delete"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Név" name="name"/>
+				<column label="Dátum (PT)" name="date"/>
+				<column label="" name="event_id"/>
+				<column label="Idő" name="time"/>
+			</scroll_list>
+			<button label="Előre &gt;" label_selected="Előre &gt;" name="Next &gt;"/>
+			<button label="&lt; Vissza" label_selected="&lt; Vissza" name="&lt; Prev"/>
+		</panel>
+		<panel label="Bemutatók" name="showcase_panel">
+			<string name="searching_text">
+				Keresés...
+			</string>
+			<string name="not_found_text">
+				Nincs találat.
+			</string>
+			<button label="Vissza" name="back_btn"/>
+			<button label="Előre" name="forward_btn"/>
+			<string name="loading_text">
+				Betöltés...
+			</string>
+			<string name="done_text">
+				Kész
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+			<string name="default_search_page">
+				http://secondlife.com/app/showcase/index.php?
+			</string>
+		</panel>
+		<panel label="Föld eladása" name="land_sales_panel">
+			<string name="searching_text">
+				Keresés...
+			</string>
+			<string name="not_found_text">
+				Nincs találat.
+			</string>
+			<string name="land_help_text">
+				A föld megvásárolható közvetlenül linden dollárért (L$) vagy aukció keretében L$ vagy US$ ellenében.
+A közvetlen vásárláshoz, látogasd meg a földet és kattints a helyszín nevére a címsorban.
+			</string>
+			<text name="find">
+				Keres:
+			</text>
+			<check_box left="440" label="PG tartalom" name="incpg"/>
+			<check_box left="440" label="Mature tartalom" name="incmature"/>
+			<check_box left="440" label="Adult tartalom" name="incadult"/>
+			<combo_box name="type" width="155">
+				<combo_item name="AllTypes">
+					Minden típus
+				</combo_item>
+				<combo_item name="Auction">
+					Aukció
+				</combo_item>
+				<combo_item name="MainlandSales">
+					Eladás a Főszigeten
+				</combo_item>
+				<combo_item name="EstateSales">
+					Eladás egyéb helyszínen
+				</combo_item>
+			</combo_box>
+			<check_box label="Ár &#8804; " name="pricecheck"/>
+			<text left="183" name="pricecheck_symbol">
+				L$
+			</text>
+			<check_box label="Terület &#8805; " name="areacheck" width="85"/>
+			<text left="183" name="areacheck_symbol">
+				m²
+			</text>
+			<line_editor left="128" name="priceedit"/>
+			<line_editor left="128" name="areaedit"/>
+			<button label="Keres" label_selected="Keres" name="Search"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Név" name="name"/>
+				<column label="Típus" name="landtype"/>
+				<column label="Ár L$" name="price"/>
+				<column label="Terület" name="area"/>
+				<column label="L$/m²" name="per_meter"/>
+			</scroll_list>
+			<button label="Előre &gt;" label_selected="Előre &gt;" name="Next &gt;"/>
+			<button label="&lt; Vissza" label_selected="&lt; Vissza" name="&lt; Prev"/>
+		</panel>
+		<panel label="Helyszínek" name="places_panel">
+			<string name="searching_text">
+				Keresés...
+			</string>
+			<string name="not_found_text">
+				Nincs találat.
+			</string>
+			<text name="find" width="63">
+				Találat:
+			</text>
+			<line_editor left_delta="51" name="name"/>
+			<check_box label="PG tartalom" name="incpg"/>
+			<check_box label="Mature tartalom" name="incmature"/>
+			<check_box label="Adult tartalom" name="incadult"/>
+			<combo_box left="195" name="Category" width="170">
+				<combo_item name="AnyCategory">
+					Minden kategória
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Linden helyszín
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Művészetek és kultúra
+				</combo_item>
+				<combo_item name="Business">
+					Üzlet
+				</combo_item>
+				<combo_item name="Educational">
+					Oktatás
+				</combo_item>
+				<combo_item name="Gaming">
+					Játék
+				</combo_item>
+				<combo_item name="Hangout">
+					Szabadidő
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Újoncoknak
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Parkok és természet
+				</combo_item>
+				<combo_item name="Residential">
+					Otthon
+				</combo_item>
+				<combo_item name="Shopping">
+					Vásárlás
+				</combo_item>
+				<combo_item name="Other">
+					Egyéb
+				</combo_item>
+			</combo_box>
+			<combo_box name="Category_Adult">
+				<combo_item name="AnyCategory">
+					Minden kategória
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Linden helyszín
+				</combo_item>
+				<combo_item name="Adult">
+					Adult
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Művészetek és kultúra
+				</combo_item>
+				<combo_item name="Business">
+					Üzlet
+				</combo_item>
+				<combo_item name="Educational">
+					Oktatási
+				</combo_item>
+				<combo_item name="Gaming">
+					Játék
+				</combo_item>
+				<combo_item name="Hangout">
+					Szabadidő
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Újoncoknak
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Parkok és természet
+				</combo_item>
+				<combo_item name="Residential">
+					Otthon
+				</combo_item>
+				<combo_item name="Shopping">
+					Vásárlás
+				</combo_item>
+				<combo_item name="Other">
+					Egyéb
+				</combo_item>
+			</combo_box>
+			<button label="Keres" label_selected="Keres" left_delta="178" name="Search"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Név" name="name"/>
+				<column label="Forgalom" name="dwell"/>
+			</scroll_list>
+			<button label="Előre &gt;" label_selected="Előre &gt;" name="Next &gt;"/>
+			<button label="&lt; Vissza" label_selected="&lt; Vissza" name="&lt; Prev"/>
+		</panel>
+		<panel label="Emberek" name="people_panel">
+			<string name="searching_text">
+				Keresés...
+			</string>
+			<string name="not_found_text">
+				Nincs találat.
+			</string>
+			<text name="find" width="63">
+				Találat:
+			</text>
+			<line_editor name="name"/>
+			<button label="Keres" label_selected="Keres" name="Search"/>
+			<scroll_list name="results" width="286">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Név" name="name" width="234"/>
+			</scroll_list>
+			<button label="Előre &gt;" label_selected="Előre &gt;" name="Next &gt;" right="290"/>
+			<button label="&lt; Vissza" label_selected="&lt; Vissza" name="&lt; Prev" right="204"/>
+		</panel>
+		<panel label="Csoportok" name="groups_panel">
+			<string name="searching_text">
+				Keresés...
+			</string>
+			<string name="not_found_text">
+				Nincs találat.
+			</string>
+			<text name="find">
+				Keres:
+			</text>
+			<line_editor label="Keresés" name="search_editor" tool_tip="Second Life keresés"/>
+			<button label="Vissza" name="back_btn"/>
+			<button label="Előre" name="forward_btn"/>
+			<button label="Keres" name="search_btn"/>
+			<check_box label="PG tartalom" name="incpg"/>
+			<check_box label="Mature tartalom" name="incmature"/>
+			<check_box label="Adult tartalom" name="incadult"/>
+			<string name="loading_text">
+				Betöltés
+			</string>
+			<string name="done_text">
+				Kész
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+			<string name="default_search_page">
+				http://secondlife.com/app/search/index_groups.php?
+			</string>
+		</panel>
+	</tab_container>
+	<panel left="310" name="Panel Avatar" width="470"/>
+</floater>

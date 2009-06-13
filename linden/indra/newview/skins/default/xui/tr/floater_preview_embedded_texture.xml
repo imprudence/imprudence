@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_texture">
+	<button label="Envantere kopyala" name="Copy To Inventory"/>
+	<text length="1" name="dimensions" type="string">
+		Boyutlar: [WIDTH] x [HEIGHT]
+	</text>
+</floater>

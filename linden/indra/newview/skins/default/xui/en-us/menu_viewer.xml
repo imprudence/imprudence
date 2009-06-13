@@ -657,7 +657,7 @@
 		<menu_item_call bottom="-346" enabled="false" height="19" label="Buy Object" left="0"
 		     mouse_opaque="true" name="Menu Object Take" visible="false" width="250">
 			<on_click function="Tools.BuyOrTake" userdata="" />
-			<on_enable function="Tools.EnableBuyOrTake" userdata="Buy,Take" />
+			<on_enable function="Tools.EnableBuyOrTake" userdata="Buy,Take" name="EnableBuyOrTake"/>
 		</menu_item_call>
 		<menu_item_call bottom="-365" enabled="false" height="19" label="Take Copy" left="0"
 		     mouse_opaque="true" name="Take Copy" width="250">

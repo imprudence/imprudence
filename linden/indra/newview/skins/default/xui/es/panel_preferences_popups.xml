@@ -3,12 +3,12 @@
 	<text name="dont_show_label">
 		No mostrar estas ventanas emergentes:
 	</text>
-	<button label="Activar esta ventana emergente" label_selected="Activar esta popup" name="enable_popup"/>
-	<button label="Activar todas las ventanas emergentes..." label_selected="Restaurar cajas de diálogo &apos;Mostrar en la próxima vez&apos;..." name="reset_dialogs_btn" tool_tip="Activar todas las ventanas emergentes y los avisos de &apos;primera vez que se usa&apos;."/>
-	<text name="show_label">
+	<button width="200" label="Activar esta ventana emergente" label_selected="Activar esta popup" name="enable_popup"/>
+	<button width="255" left="225" label="Activar todas las ventanas emergentes..." label_selected="Restaurar cajas de diálogo &apos;Mostrar en la próxima vez&apos;..." name="reset_dialogs_btn" tool_tip="Activar todas las ventanas emergentes y los avisos de &apos;primera vez que se usa&apos;."/>
+	<text name="show_label" width="300">
 		Mostrar estas ventanas emergentes:
 	</text>
-	<button label="Desactivar todas estas ventanas emergentes..." name="skip_dialogs_btn" tool_tip="Desactivar todas las ventanas emergentes y los avisos de &apos;primera vez que se usa&apos;."/>
+	<button left="205" width="275" label="Desactivar todas estas ventanas emergentes..." name="skip_dialogs_btn" tool_tip="Desactivar todas las ventanas emergentes y los avisos de &apos;primera vez que se usa&apos;."/>
 	<text length="1" name="text_box2" type="string">
 		Oferta de notas, texturas e hitos:
 	</text>

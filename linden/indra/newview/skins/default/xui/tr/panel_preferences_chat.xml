@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Yazılı Sohbet" name="chat">
+	<text length="1" name="text_box" type="string">
+		Sohbet yazı boyutu:
+	</text>
+	<radio_group name="chat_font_size">
+		<radio_item name="radio">
+			Küçük
+		</radio_item>
+		<radio_item name="radio2">
+			Orta
+		</radio_item>
+		<radio_item name="radio3">
+			Büyük
+		</radio_item>
+	</radio_group>
+	<text length="1" name="text_box2" type="string">
+		Sohbet yazı rengi:
+	</text>
+	<color_swatch label="Siz" name="user"/>
+	<color_swatch label="Diğerleri" name="agent"/>
+	<color_swatch label="HM" name="im" width="54"/>
+	<color_swatch label="Sistem" left_delta="58" name="system"/>
+	<color_swatch label="Hatalar" name="script_error"/>
+	<color_swatch label="Objeler" name="objects"/>
+	<color_swatch label="Sahip" name="owner"/>
+	<color_swatch label="Baloncuk" name="background" width="54"/>
+	<color_swatch label="Adresler" left_delta="58" name="links"/>
+	<text length="1" name="text_box3" type="string">
+		Sohbet konsolu:
+	</text>
+	<spinner label="Sohbeti gizle" name="fade_chat_time"/>
+	<text length="1" name="text_box4" type="string">
+		(saniye)
+	</text>
+	<text length="1" name="text_box5" type="string">
+		(# çizgi)
+	</text>
+	<slider label="Saydamlık" name="console_opacity"/>
+	<check_box label="Tam ekran genişliğini kullan(Yeniden başlatmak gerektirir)" name="chat_full_width_check"/>
+	<text length="1" name="text_box6" type="string">
+		Sohbet seçenekleri:
+	</text>
+	<check_box label="Return&apos;e bastıktan sonra sohbet çubuğunu kapat" name="close_chat_on_return_check"/>
+	<check_box label="Sohbet ederken yön tuşları her zaman karakteri hareket ettirir" name="arrow_keys_move_avatar_check"/>
+	<check_box label="Genel sohbette zaman imlerini göster" name="show_timestamps_check"/>
+	<check_box label="Betik hatalarını ve uyarılarını normal sohbet olarak göster" name="script_errors_as_chat"/>
+	<check_box label="Sohbet ederken yazma animasyonunu oynat" name="play_typing_animation"/>
+	<text length="1" name="text_box7" type="string">
+		Baloncuk Sohbeti:
+	</text>
+	<check_box label="Sohbet baloncuklarını göster" name="bubble_text_chat"/>
+	<slider label="Saydamlık" name="bubble_chat_opacity"/>
+</panel>

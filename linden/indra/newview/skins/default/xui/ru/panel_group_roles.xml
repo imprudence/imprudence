@@ -13,7 +13,7 @@
 		</text>
 		<text name="static2">
 			Участникам назначаются Роли с правами, эти установки могут быть
-легко изменены, что дает гибкость управления и организации
+легко изменены, что дает гибкость управления и организации.
 		</text>
 	</panel>
 	<panel name="roles_header">
@@ -47,25 +47,25 @@
 			<button label="Поиск" name="search_button" />
 			<button label="Показ.все" name="show_all_button" />
 			<name_list name="member_list">
-				<column label="Имя участника" name="name" />
-				<column label="Взнос" name="donated" />
-				<column label="Последний вход" name="online" />
+				<column label="Имя участника" name="name" width="136" />
+				<column label="Взнос" name="donated" width="126" />
+				<column label="Последний вход" name="online" width="126" />
 			</name_list>
-			<button label="Пригласить участника..." name="member_invite"/>
+			<button label="Пригласить участника..." name="member_invite" width="170"/>
 			<button label="Исключить из группы" name="member_eject" />
 			<string name="help_text">
-				Вы можете добавлять или убирать роли участников.. 
-				Удерживая клавишу Ctrl выберите нескольких участников,
-				кликая их имена.
+				Вы можете добавлять или убирать роли участников. 
+Удерживая клавишу Ctrl выберите нескольких участников,
+кликая их имена.
 			</string>
 		</panel>
 		<panel label="Роли" name="roles_sub_tab">
 			<button label="Поиск" name="search_button" />
 			<button label="Показ.все" name="show_all_button" />
 			<scroll_list name="role_list">
-				<column label="Имя роли" name="name" />
-				<column label="Титул" name="title" />
-				<column label="Участники" name="members" />
+				<column label="Имя роли" name="name" width="126"  />
+				<column label="Титул" name="title" width="156"  />
+				<column label="Участники" name="members" width="106"  />
 			</scroll_list>
 			<button label="Создать новую роль" name="role_create" />
 			<button label="Удалить роль" name="role_delete" />

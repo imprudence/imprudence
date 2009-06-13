@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(unknown)" name="im_floater" title="(unknown)">
+	<string name="ringing">
+		Arıyor...
+	</string>
+	<string name="answering">
+		Bağlanıyor...
+	</string>
+	<string name="connected">
+		Bağlandı,kapatmak için Kapat butonuna tıklayınız
+	</string>
+	<string name="hang_up">
+		Arama sonlandı
+	</string>
+	<string name="inventory_item_offered">
+		Inventory item offered
+	</string>
+	<string name="voice_icon">
+		icn_voice-pvtfocus.tga
+	</string>
+	<string name="title_string">
+		[NAME] ile hızlı mesaj
+	</string>
+	<string name="typing_start_string">
+		[NAME] yazıyor...
+	</string>
+	<string name="session_start_string">
+		[NAME] ile oturum başlatılıyor lütfen bekleyiniz.
+	</string>
+	<string name="default_text_label">
+		Hızlı mesaj için buraya tıklayınız.
+	</string>
+	<string name="unavailable_text_label">
+		Bu arama için yazılı sohbet mevcut değil.
+	</string>
+	<button label="Profil..." name="profile_callee_btn"/>
+	<button label="Ara" name="start_call_btn"/>
+	<button label="Kapat" name="end_call_btn"/>
+	<panel name="speaker_controls">
+		<button label="" name="mute_btn" tool_tip="Sesi engelle"/>
+	</panel>
+	<line_editor label="Hızlı mesaj için buraya tıklayınız" name="chat_editor"/>
+	<button label="Gönder" name="send_btn"/>
+</floater>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Preferences" title="Tulajdonságok" min_width="336" width="632">
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="Mégsem" label_selected="Mégsem" name="Cancel" />
+	<button label="Alkalmaz" label_selected="Alkalmaz" name="Apply" />
+	<button label="Rólunk" label_selected="Rólunk" name="About..." />
+	<button label="Segítség" label_selected="Segítség" name="Help" />
+	<tab_container name="pref core" tab_width="132" width="632" />
+</floater>

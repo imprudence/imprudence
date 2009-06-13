@@ -90,16 +90,16 @@ LLStat LLViewerImageList::sFormattedMemStat(32, TRUE);
 LLViewerImageList::LLViewerImageList() 
 	: mForceResetTextureStats(FALSE),
 	mUpdateStats(FALSE),
-	mMaxResidentTexMem(0),
-	mMaxTotalTextureMem(0)
+	mMaxResidentTexMemInMegaBytes(0),
+	mMaxTotalTextureMemInMegaBytes(0)
 {
 }
 
 void LLViewerImageList::init()
 {
 	sNumImages = 0;
-	mMaxResidentTexMem = 0;
-	mMaxTotalTextureMem = 0 ;
+	mMaxResidentTexMemInMegaBytes = 0;
+	mMaxTotalTextureMemInMegaBytes = 0 ;
 	
 	if (gNoRender)
 	{
@@ -513,10 +513,10 @@ void LLViewerImageList::updateImages(F32 max_time)
 	llpushcallstacks ;
 	sNumImagesStat.addValue(sNumImages);
 	sNumRawImagesStat.addValue(LLImageRaw::sRawImageCount);
-	sGLTexMemStat.addValue((F32)(LLImageGL::sGlobalTextureMemory >> 20));
-	sGLBoundMemStat.addValue((F32)(LLImageGL::sBoundTextureMemory >> 20));
-	sRawMemStat.addValue((F32)(LLImageRaw::sGlobalRawMemory >> 20));
-	sFormattedMemStat.addValue((F32)(LLImageFormatted::sGlobalFormattedMemory >> 20));
+	sGLTexMemStat.addValue((F32)BYTES_TO_MEGA_BYTES(LLImageGL::sGlobalTextureMemoryInBytes));
+	sGLBoundMemStat.addValue((F32)BYTES_TO_MEGA_BYTES(LLImageGL::sBoundTextureMemoryInBytes));
+	sRawMemStat.addValue((F32)BYTES_TO_MEGA_BYTES(LLImageRaw::sGlobalRawMemory));
+	sFormattedMemStat.addValue((F32)BYTES_TO_MEGA_BYTES(LLImageFormatted::sGlobalFormattedMemory));
 	
 	llpushcallstacks ;
 	updateImagesDecodePriorities();
@@ -582,8 +582,8 @@ void LLViewerImageList::updateImagesDecodePriorities()
 			//
 			// Flush formatted images using a lazy flush
 			//
-			const F32 LAZY_FLUSH_TIMEOUT = 30.f;
-			const F32 MAX_INACTIVE_TIME  = 50.f ;
+			const F32 LAZY_FLUSH_TIMEOUT = 30.f; // stop decoding
+			const F32 MAX_INACTIVE_TIME  = 50.f; // actually delete
 			S32 min_refs = 3; // 1 for mImageList, 1 for mUUIDMap, 1 for local reference
 			if (imagep->hasCallbacks())
 			{
@@ -983,16 +983,13 @@ LLPointer<LLImageJ2C> LLViewerImageList::convertToUploadFile(LLPointer<LLImageRa
 	
 	return compressedImage;
 }
-
-const S32 MIN_VIDEO_RAM = 32;
-const S32 MAX_VIDEO_RAM = 512; // 512MB max for performance reasons.
 	
 // Returns min setting for TextureMemory (in MB)
 S32 LLViewerImageList::getMinVideoRamSetting()
 {
-	S32 system_ram = (S32)(gSysMemory.getPhysicalMemoryClamped() >> 20);
+	S32 system_ram = (S32)BYTES_TO_MEGA_BYTES(gSysMemory.getPhysicalMemoryClamped());
 	//min texture mem sets to 64M if total physical mem is more than 1.5GB
-	return (system_ram > 1500) ? 64 : MIN_VIDEO_RAM;
+	return (system_ram > 1500) ? 64 : MIN_VIDEO_RAM_IN_MEGA_BYTES ;
 }
 
 //static
@@ -1019,14 +1016,14 @@ S32 LLViewerImageList::getMaxVideoRamSetting(bool get_recommended)
 		llwarns << "VRAM amount not detected, defaulting to " << max_texmem << " MB" << llendl;
 	}
 
-	S32 system_ram = (S32)(gSysMemory.getPhysicalMemoryClamped() >> 20); // In MB
+	S32 system_ram = (S32)BYTES_TO_MEGA_BYTES(gSysMemory.getPhysicalMemoryClamped()); // In MB
 	//llinfos << "*** DETECTED " << system_ram << " MB of system memory." << llendl;
 	if (get_recommended)
 		max_texmem = llmin(max_texmem, (S32)(system_ram/2));
 	else
 		max_texmem = llmin(max_texmem, (S32)(system_ram));
 		
-	max_texmem = llclamp(max_texmem, getMinVideoRamSetting(), MAX_VIDEO_RAM); 
+	max_texmem = llclamp(max_texmem, getMinVideoRamSetting(), MAX_VIDEO_RAM_IN_MEGA_BYTES); 
 	
 	return max_texmem;
 }
@@ -1063,17 +1060,17 @@ void LLViewerImageList::updateMaxResidentTexMem(S32 mem)
 	
 	S32 vb_mem = mem;
 	S32 fb_mem = llmax(VIDEO_CARD_FRAMEBUFFER_MEM, vb_mem/4);
-	mMaxResidentTexMem = (vb_mem - fb_mem) ; //in MB
+	mMaxResidentTexMemInMegaBytes = (vb_mem - fb_mem) ; //in MB
 	
-	mMaxTotalTextureMem = mMaxResidentTexMem * 2;
-	if (mMaxResidentTexMem > 640)
+	mMaxTotalTextureMemInMegaBytes = mMaxResidentTexMemInMegaBytes * 2;
+	if (mMaxResidentTexMemInMegaBytes > 640)
 	{
-		mMaxTotalTextureMem -= (mMaxResidentTexMem >> 2);
+		mMaxTotalTextureMemInMegaBytes -= (mMaxResidentTexMemInMegaBytes >> 2);
 	}
 	
-	if (mMaxTotalTextureMem > (S32)(gSysMemory.getPhysicalMemoryClamped() >> 20) - 128)
+	if (mMaxTotalTextureMemInMegaBytes > (S32)BYTES_TO_MEGA_BYTES(gSysMemory.getPhysicalMemoryClamped()) - 128)
 	{
-		mMaxTotalTextureMem = (gSysMemory.getPhysicalMemoryClamped() >> 20) - 128 ;
+		mMaxTotalTextureMemInMegaBytes = (S32)BYTES_TO_MEGA_BYTES(gSysMemory.getPhysicalMemoryClamped()) - 128 ;
 	}
 	
 	llinfos << "Total Video Memory set to: " << vb_mem << " MB" << llendl;

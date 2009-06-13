@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<menu_bar name="Login Menu">
+	<menu label="Dosya" name="File">
+		<menu_item_call label="Çık" name="Quit" />
+	</menu>
+	<menu label="Düzen" name="Edit">
+		<menu_item_call label="Ayarlar..." name="Preferences..." />
+	</menu>
+	<menu label="Yardım" name="Help">
+		<menu_item_call label="Second Life Yardımı" name="Second Life Help" />
+		<menu_item_call label="Second Life Hakkında..." name="About Second Life..." />
+	</menu>
+</menu_bar>

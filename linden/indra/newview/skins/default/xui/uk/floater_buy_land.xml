@@ -36,6 +36,7 @@
 	<text name="covenant_text">
 		Ви маєте погодитися з Правилами Маєтку:
 	</text>
+	<text left="470" name="covenant_timestamp_text"/>
 	<text_editor name="covenant_editor">
 		Завантаж...
 	</text_editor>
@@ -66,7 +67,7 @@
 	<text name="error_message">
 		Щось
 	</text>
-	<button label="Перейти на вебсайт" name="error_web"/>
+	<button label="Перейти на вебсайт" name="error_web" width="150"/>
 	<text name="account_action">
 		Вдосконалити Ваш аккаунт до Premium.
 	</text>
@@ -97,10 +98,10 @@
 	<text name="currency_reason">
 		У Вас L$ 2,100.
 	</text>
-	<text name="currency_action">
+	<text name="currency_action" width="126">
 		Купити додаткові L$
 	</text>
-	<line_editor name="currency_amt">
+	<line_editor name="currency_amt" left="200" width="54">
 		1000
 	</line_editor>
 	<text name="currency_est">

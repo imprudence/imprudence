@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mute floater" title="Engelli Üyeler &amp; Objeler" short_title="Engelli listesi">
+	<scroll_list name="mutes" tool_tip="Mevcut engelli üyelerin listesi" />
+	<button label="Üyeyi engelle..." label_selected="yeyi engelle..."
+	     name="Mute resident..." tool_tip="Engellemek için bir üye seçin" />
+	<button label="Objeyi adıyla engelle..." label_selected="Objeyi adıyla engelle..."
+	     name="Mute object by name..." />
+	<button label="Affet" label_selected="Affet" name="Unmute"
+	     tool_tip="Engelli listesinden üye veya obje çıkarın" />
+</floater>

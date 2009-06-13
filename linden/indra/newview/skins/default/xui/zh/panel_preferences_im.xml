@@ -12,7 +12,7 @@
 		登陆后更改
 	</text>
 	<check_box label="发送即时消息至电子邮件([EMAIL])" name="send_im_to_email" />
-	<check_box label="本地聊天中包含即时通信息" name="include_im_in_chat_history" />
+	<check_box label="本地聊天中包含即时通信息" name="include_im_in_chat_console" />
 	<check_box label="在即时消息中显示时间" name="show_timestamps_check" />
     <check_box
 		 label="显示好友上线通知"

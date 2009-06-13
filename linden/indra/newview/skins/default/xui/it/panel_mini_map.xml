@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Mini Mappa" name="mini_mapview">
+	<text name="n_label">
+		N
+	</text>
+	<text name="e_label">
+		E
+	</text>
+	<text name="s_label">
+		S
+	</text>
+	<text name="w_label">
+		O
+	</text>
+	<text name="ne_label">
+		NE
+	</text>
+	<text name="se_label">
+		SE
+	</text>
+	<text name="sw_label">
+		SO
+	</text>
+	<text name="nw_label">
+		NO
+	</text>
+</panel>

@@ -12,7 +12,15 @@
 	<text name="event_category">
 		(无)
 	</text>
-
+	<text name="event_mature_label">
+		Mature内容：
+	</text>
+	<text name="event_mature_yes">
+		是
+	</text>
+	<text name="event_mature_no">
+		否
+	</text>
 	<text name="event_date_label">
 		日期:
 	</text>

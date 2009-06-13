@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Teklifler" name="voting_tab">
+	<string name="help_text">
+		Grup teklifleri,grubun ne yapmak istediğini veya herhangi bir şey hakkında grubun ne düşündüğünü öğrenmek için kullanılabilir.Eğer yeterli güçleriniz varsa, teklifler yaratabilir,açık teklifleri oylayabilir ve geçmiş teklifleri görüntüleyebilirsiniz.
+	</string>
+	<button label="?" name="help_button"/>
+	<text name="proposal_header">
+		Grup tekliflerini aç
+	</text>
+	<text name="proposal_instructions">
+		Oylamak istediğiniz teklife iki kere tıklayınız veya yeni bir teklif yaratmak
+için Teklif yarat&apos;a basınız.
+	</text>
+	<text name="proposal_lbl">
+		Teklif tanımı
+	</text>
+	<text name="proposal_voting_lbl">
+		Teklif                                                             Oylama bitiş                    Oylandı?
+	</text>
+	<button label="Teklif yarat" label_selected="Teklif yarat" name="btn_proposal"/>
+	<button label="Teklifi görüntüle" label_selected="Teklifi görüntüle" name="btn_view_proposal_item"/>
+	<button label="Listeyi görüntüle" label_selected="Listeyi görüntüle" name="btn_view_proposal_list"/>
+	<text name="quorum_lbl">
+		Yeterli sayı:
+	</text>
+	<spinner name="quorum" tool_tip="# toplam oylama yapmış üye,seçim sonuçlarının belirlenmesi için gereklidir."/>
+	<text name="quorum_text">
+		üye oylamalı [MEMBERS] üyeden.
+	</text>
+	<text name="duration_lbl">
+		Süre:
+	</text>
+	<spinner name="duration" tool_tip="# gün sonra seçim sone erecektir."/>
+	<text name="duration_text">
+		gün
+	</text>
+	<radio_group name="majority" tool_tip="Kazanmak için gereken toplam oyların çoğunluğu.">
+		Basit çoğunluk
+2/3 çoğunluk
+Oybirliği ile
+	</radio_group>
+	<text name="start_lbl">
+		başlangıcı:
+	</text>
+	<text name="end_lbl">
+		sonu:
+	</text>
+	<button label="Teklifi Gönder" label_selected="Teklifi Gönder" name="btn_submit"/>
+	<button label="İptal" label_selected="İptal" name="btn_cancel"/>
+	<button label="Evet" label_selected="Evet" name="btn_yes"/>
+	<button label="Hayır" label_selected="Hayır" name="btn_no"/>
+	<button label="Çekimser" label_selected="Çekimser" name="btn_abstain"/>
+	<text name="txt">
+		Grup seçim geçmişi
+	</text>
+	<text name="instructions">
+		Sonuçları görmek için geçmiş bir oylamanın üzerine çift tıklayın 
+veya bir tane seçip Görüntüle butonuna tıklayınız.
+	</text>
+	<text name="history_list_lbl">
+		Geçmiş Oylama                                                         Oylama Bitiş
+	</text>
+	<button label="Görüntüle" label_selected="Görüntüle" name="btn_view_history_item"/>
+	<text name="vote_text_lbl">
+		Sonuç:
+	</text>
+	<button label="Listeyi görüntüle" label_selected="Listeyi görüntüle" name="btn_view_history_list"/>
+	<string name="proposals_header_view_txt">
+		Açık grup teklifleri
+	</string>
+	<string name="proposals_header_view_inst">
+		Oylama yapmak için teklif üzerine çift tıklayınız veya 
+Teklif yarat butonuna basarak yeni bir teklif yaratınız.
+	</string>
+	<string name="proposals_header_create_txt">
+		Teklif yarat
+	</string>
+	<string name="proposals_header_create_inst">
+		Yeni teklif için bir teklif tanımı giriniz.Teklifi geçirmek için
+gereken yeterli oy sayısı,süre ve çoğunluğu değiştirebilirsiniz.
+	</string>
+	<string name="proposals_header_vote_txt">
+		Teklif oylaması
+	</string>
+	<string name="proposals_header_vote_inst">
+		Bu teklifi oylamak için Evet veya Hayır butonuna basınız,
+veya bu teklifte Çekimser oylamayı seçiniz.
+	</string>
+	<string name="proposals_header_voted_inst">
+		Oyladığınız: [VOTE]
+	</string>
+	<string name="empty_proposal_txt">
+		Yaratmaya çalıştığınız teklif boş.  Lütfen teklifi yaratmadan önce doldurunuz.
+	</string>
+	<string name="proposals_submit_yes_txt">
+		Teklife Evet işleniyor...
+	</string>
+	<string name="proposals_submit_no_txt">
+		Teklife Hayır işleniyor...
+	</string>
+	<string name="proposals_submit_abstain_txt">
+		Teklife Çekimser işleniyor...
+	</string>
+	<string name="proposals_submit_new_txt">
+		Yeni teklif işleniyor...
+	</string>
+	<string name="vote_recorded">
+		Oyunuz alındı.
+	</string>
+	<string name="vote_previously_recorded">
+		Önceden oylama gerçekleştirdiniz.  Seçim sırasında sadece bir defa oylama izniniz mevcuttur.
+	</string>
+</panel>

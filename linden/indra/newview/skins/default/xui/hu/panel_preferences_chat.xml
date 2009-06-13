@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Szöveges üzenet" name="chat">
+	<text type="string" length="1" name="text_box">
+		Betűméret:
+	</text>
+	<radio_group name="chat_font_size">
+		<radio_item type="string" length="1" name="radio">
+			Kicsi
+		</radio_item>
+		<radio_item type="string" length="1" name="radio2">
+			Közepes
+		</radio_item>
+		<radio_item type="string" length="1" name="radio3">
+			Nagy
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="text_box2">
+		Színpaletta:
+	</text>
+	<color_swatch label="Saját" name="user" />
+	<color_swatch label="Egyebek" name="agent" />
+	<color_swatch label="Üzenet" name="im" />
+	<color_swatch label="Rendszer" name="system" width="54"/>
+	<color_swatch label="Hibák" name="script_error" left_delta="58" />
+	<color_swatch label="Tárgyak" name="objects" />
+	<color_swatch label="Tulaj" name="owner" />
+	<color_swatch label="Buborék" name="background" />
+	<color_swatch label="URL" name="links" width="54"/>
+	<text type="string" length="1" name="text_box8">
+		Script hibák:
+	</text>
+	<check_box label="Hibák és figyelmeztetések megjelenítése az üzenetek között"
+	     name="script_errors_as_chat" />
+	<text type="string" length="1" name="text_box3" bottom_delta="-16">
+		Üzenetküldő ablak:
+	</text>
+	<spinner label="Elhalványítás az &#10;üzenetküldés után" name="fade_chat_time" label_width="100" width="150"/>
+	<text type="string" length="1" name="text_box4" left="298">
+		(mp)
+	</text>
+	<spinner left="335" name="max_chat_count"/>
+	<text type="string" length="1" name="text_box5" left="397" width="74">
+		(sorok száma)
+	</text>
+	<slider label="Átlátszóság" name="console_opacity" bottom_delta="-40" />
+	<check_box label="Teljes képernyős üzemmód alkalmazása (újraindítás kell)" name="chat_full_width_check" bottom="-268"/>
+	<text type="string" length="1" name="text_box6">
+		Üzenetek beállítása:
+	</text>
+	<check_box label="Üzenetküldő sáv lezárása az enter megnyomása után" name="close_chat_on_return_check"/>
+	<check_box label="Le/fel billenytűk használata üzenetküldéskor"
+	     name="arrow_keys_move_avatar_check" />
+	<check_box label="Időbélyegző megjelenítése a helyi üzenetek között" name="show_timestamps_check"/>
+	<check_box label="Szöveges alapú animációk lejátszása üzenetküldés alatt"
+	     name="play_typing_animation" />
+	<text type="string" length="1" name="text_box7">
+		Buborék ablak:
+	</text>
+	<check_box label="Szöveges üzenetek buborék jellegű megjelenítése"
+	     name="bubble_text_chat" />
+	<slider label="Átlátszóság" name="bubble_chat_opacity" />
+</panel>

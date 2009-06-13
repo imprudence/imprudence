@@ -50,7 +50,7 @@
 				<column label="捐献的土地额度" name="donated"/>
 				<column label="最后登入" name="online"/>
 			</name_list>
-			<button label="邀请一个新人 ..." name="member_invite"/>
+			<button label="邀请新成员..." name="member_invite"/>
 			<button label="从社团中驱逐" name="member_eject"/>
 			<string name="help_text">
 				你可以添加或移除分配给会员的角色。按住控制键并点击会员的名字，选择多个会员。

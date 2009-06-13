@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="price_for_listing" title="Pubblica un annuncio a pagamento">
+	<text name="explanation_text">
+		Il tuo annuncio a pagamento rimarrà per una
+settimana dalla data di pubblicazione. 
+ 
+La posizione del tuo annuncio nelle inserzioni 
+è determinata da quanto scegli di investirci.
+Gli annunci pagati maggiormente appariranno più in
+alto nell&apos;elenco, e nella ricerca.
+	</text>
+	<text name="price_text" width="146">
+		Prezzo per l&apos;annuncio (L$):
+	</text>
+	<line_editor left="166" name="price_edit" />
+	<button label="Annulla" name="cancel_btn"/>
+	<button label="Imposta prezzo" name="set_price_btn"/>
+</floater>

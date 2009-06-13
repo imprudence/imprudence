@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater customize" title="Megjelenés">
+	<tab_container name="customize tab container">
+		<panel label="Testrészek" name="body_parts_placeholder"/>
+		<panel label="Alak" name="Shape">
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+			<button label="Test" label_selected="Test" name="Body"/>
+			<button label="Fej" label_selected="Fej" name="Head"/>
+			<button label="Szem" label_selected="Szem" name="Eyes"/>
+			<button label="Fül" label_selected="Fül" name="Ears"/>
+			<button label="Orr" label_selected="Orr" name="Nose"/>
+			<button label="Száj" label_selected="Száj" name="Mouth"/>
+			<button label="Áll" label_selected="Áll" name="Chin"/>
+			<button label="Felsőtest" label_selected="Felsőtest" name="Torso"/>
+			<button label="Láb" label_selected="Láb" name="Legs"/>
+			<radio_group name="sex radio">
+				<radio_item length="1" name="radio" type="string">
+					Nő
+				</radio_item>
+				<radio_item length="1" name="radio2" type="string">
+					Férfi
+				</radio_item>
+			</radio_group>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új alak beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Alak:
+			</text>
+			<button label="Új alak készítése" label_selected="Új alak készítése" name="Create New"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+		</panel>
+		<panel label="Bőr" name="Skin">
+			<button label="Bőrszín" label_selected="Bőrszín" name="Skin Color"/>
+			<button label="Arcvonások" label_selected="Arcvonások" name="Face Detail"/>
+			<button label="Smink" label_selected="Smink" name="Makeup"/>
+			<button label="Testrészek" label_selected="Testrészek" name="Body Detail"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: betöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új bőr beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Bőr:
+			</text>
+			<texture_picker width="80" label="Fej tetoválás" name="Head Tattoos" tool_tip="Kattints ide a kép kiválasztásához"/>
+			<texture_picker label="Felső tetoválás" name="Upper Tattoos" tool_tip="Kattints ide a kép kiválasztásához" width="80"/>
+			<texture_picker label="Alsó tetoválás" name="Lower Tattoos" tool_tip="Kattints ide a kép kiválasztásához" width="80"/>
+			<button label="Új bőr készítése" label_selected="Új bőr készítése" name="Create New"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+		</panel>
+		<panel label="Haj" name="Hair">
+			<button label="Szín" label_selected="Szín" name="Color"/>
+			<button label="Frizura" label_selected="Frizura" name="Style"/>
+			<button label="Szemöldök" label_selected="Szemöldök" name="Eyebrows"/>
+			<button label="Arc" label_selected="Arc" name="Facial"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új haj beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Haj:
+			</text>
+			<texture_picker label="Textúra" name="Texture" tool_tip="Kattints ide a kép kiválasztásához"/>
+			<button label="Új haj készítése" label_selected="Új haj készítése" name="Create New"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+		</panel>
+		<panel label="Szem" name="Eyes">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új szem beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Szem:
+			</text>
+			<texture_picker label="Szivárványhártya" left="4" name="Iris" tool_tip="Kattints ide a kép kiválasztásához" width="90"/>
+			<button label="Új szem beállítása" label_selected="Új szem beállítása" name="Create New"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+		</panel>
+		<panel label="Ruházat" name="clothes_placeholder"/>
+		<panel label="Ing" name="Shirt">
+			<texture_picker label="Szövet" name="Fabric" tool_tip="Kattints ide a kép kiválasztásához" width="70"/>
+			<color_swatch label="Szín/Árnyalat" name="Color/Tint" tool_tip="Kattints ide a színpaletta megjelenítéséhez" width="70"/>
+			<button label="Új ing beállítása" label_selected="Új ing beállítása" name="Create New"/>
+			<button label="Levesz" label_selected="Levesz" left="12" name="Take Off" width="82"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új ing beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Ing:
+			</text>
+		</panel>
+		<panel label="Nadrág" name="Pants">
+			<texture_picker label="Szövet" name="Fabric" tool_tip="Kattints ide a kép kiválasztásához" width="70"/>
+			<color_swatch label="Szín/Árnyalat" name="Color/Tint" tool_tip="Kattints ide a színpaletta megjelenítéséhez" width="70"/>
+			<button label="Új nadrág beállítása" label_selected="Új nadrág beállítása" name="Create New"/>
+			<button label="Levesz" label_selected="Levesz" left="12" name="Take Off" width="82"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új nadrág beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Nadrág:
+			</text>
+		</panel>
+		<panel label="Cipő" name="Shoes">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új cipő beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Cipő:
+			</text>
+			<texture_picker label="Szövet" name="Fabric" tool_tip="Kattints ide a kép kiválasztásához" width="70"/>
+			<color_swatch label="Szín/Árnyalat" name="Color/Tint" tool_tip="Kattints ide a színpaletta megjelenítéséhez" width="70"/>
+			<button label="Új cipő beállítása" label_selected="Új cipő beállítása" name="Create New"/>
+			<button label="Levesz" label_selected="Levesz" left="12" name="Take Off" width="82"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+		</panel>
+		<panel label="Harisnya" name="Socks">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új harisnya beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Harisnya:
+			</text>
+			<texture_picker label="Szövet" name="Fabric" tool_tip="Kattints ide a kép kiválasztásához" width="70"/>
+			<color_swatch label="Szín/Árnyalat" name="Color/Tint" tool_tip="Kattints ide a színpaletta megjelenítéséhez" width="70"/>
+			<button label="Új harisnya beállítása" label_selected="Új harisnya beállítása" name="Create New"/>
+			<button label="Levesz" label_selected="Levesz" left="12" name="Take Off" width="82"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+		</panel>
+		<panel label="Kabát" name="Jacket">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új kabát beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Kabát:
+			</text>
+			<texture_picker label="Felső szövet" name="Upper Fabric" tool_tip="Kattints ide a kép kiválasztásához" width="70"/>
+			<texture_picker label="Alsó szövet" name="Lower Fabric" tool_tip="Kattints ide a kép kiválasztásához" width="70"/>
+			<color_swatch label="Szín/Árnyalat" name="Color/Tint" tool_tip="Kattints ide a színpaletta megjelenítéséhez" width="70"/>
+			<button label="Új kabát beállítása" label_selected="Új kabát beállítása" name="Create New"/>
+			<button label="Levesz" label_selected="Levesz" left="12" name="Take Off" width="82"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+		</panel>
+		<panel label="Kesztyű" name="Gloves">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új kesztyű beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Kesztyű:
+			</text>
+			<texture_picker label="Szövet" name="Fabric" tool_tip="Kattints ide a kép kiválasztásához" width="70"/>
+			<color_swatch label="Szín/Árnyalat" name="Color/Tint" tool_tip="Kattints ide a színpaletta megjelenítéséhez" width="70"/>
+			<button label="Új kesztyű beállítása" label_selected="Új kesztyű beállítása" name="Create New"/>
+			<button label="Levesz" label_selected="Levesz" left="12" name="Take Off" width="82"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+		</panel>
+		<panel label="Alsóing" name="Undershirt">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új alsóing beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Alsóing:
+			</text>
+			<texture_picker label="Szövet" name="Fabric" tool_tip="Kattints ide a kép kiválasztásához" width="70"/>
+			<color_swatch label="Szín/Árnyalat" name="Color/Tint" tool_tip="Kattints ide a színpaletta megjelenítéséhez" width="70"/>
+			<button label="Új alsóing beállítása" label_selected="Új alsóing beállítása" name="Create New"/>
+			<button label="Levesz" label_selected="Levesz" left="12" name="Take Off" width="82"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+		</panel>
+		<panel label="Alsónadrág" name="Underpants">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új alsónadrág beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Alsónadrág:
+			</text>
+			<texture_picker label="Szövet" name="Fabric" tool_tip="Kattints ide a kép kiválasztásához" width="70"/>
+			<color_swatch label="Szín/Árnyalat" name="Color/Tint" tool_tip="Kattints ide a színpaletta megjelenítéséhez" width="70"/>
+			<button label="Új alsónadrág beállítása" label_selected="Új alsónadrág beállítása" name="Create New"/>
+			<button label="Levesz" label_selected="Levesz" left="12" name="Take Off" width="82"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+		</panel>
+		<panel label="Szoknya" name="Skirt">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: nem módosítható
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: feltöltés folyamatban...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: nincs beállítva
+			</text>
+			<text length="1" name="path" type="string">
+				Fájl útvonal: [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Új szoknya beállításához válassz a készlettáradból vagy készíts újat.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Nincs jogosultságod ennek a módosítására.
+			</text>
+			<text name="Item Action Label" right="94">
+				Szoknya:
+			</text>
+			<texture_picker label="Szövet" name="Fabric" tool_tip="Kattints ide a kép kiválasztásához" width="70"/>
+			<color_swatch label="Szín/Árnyalat" name="Color/Tint" tool_tip="Kattints ide a színpaletta megjelenítéséhez" width="70"/>
+			<button label="Új szoknya beállítása" label_selected="Új szoknya beállítása" name="Create New"/>
+			<button label="Levesz" label_selected="Levesz" left="12" name="Take Off" width="82"/>
+			<button label="Mentés" label_selected="Mentés" left="100" name="Save"/>
+			<button label="Mentés másként..." label_selected="Mentés másként..." left="186" name="Save As" width="115"/>
+			<button label="Visszaállít" label_selected="Visszaállít" name="Revert"/>
+		</panel>
+	</tab_container>
+	<button label="Mégsem" label_selected="Mégsem" name="Cancel"/>
+	<button label="OK" label_selected="OK" name="Ok"/>
+	<button label="Kinézetet elment..." label_selected="Kinézetet elment..." name="Make Outfit" width="125"/>
+</floater>

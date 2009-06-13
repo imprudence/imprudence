@@ -13,7 +13,7 @@
 	<check_box label="Выключить физику" name="disable_physics_check" tool_tip="Выключить всю физику в этом регионе"/>
 	<button label="?" name="disable_physics_help"/>
 	<button label="Применить" name="apply_btn"/>
-	<text name="objret_text_lbl">
+	<text name="objret_text_lbl" width="130">
 		Возврат объектов
 	</text>
 	<text name="resident_text_lbl">
@@ -34,7 +34,7 @@
 	<button label="?" name="top_colliders_help"/>
 	<button label="ТОП скриптов..." name="top_scripts_btn" tool_tip="Список объектов, больше всех нагружающих сим скриптами"/>
 	<button label="?" name="top_scripts_help"/>
-	<button label="Перезапуск" name="restart_btn" tool_tip="2 мин. на обратный отсчет и перезапуск региона"/>
-	<button label="?" name="restart_help"/>
-	<button label="Отл. перезап." name="cancel_restart_btn" tool_tip="Отложить перезапуск региона на 1 час"/>
+	<button label="Перезапуск" name="restart_btn" tool_tip="2 мин. на обратный отсчет и перезапуск региона" width="170"/>
+	<button label="?" name="restart_help" left="190"/>
+	<button label="Отл. перезап." name="cancel_restart_btn" tool_tip="Отложить перезапуск региона на 1 час" width="170"/>
 </panel>

@@ -26,8 +26,8 @@
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="Chamar" name="start_call_btn"/>
-			<button label="Encerrar Chamada" name="end_call_btn"/>
+			<button label="Chamar" name="start_call_btn" width="145"/>
+			<button label="Encerrar Chamada" name="end_call_btn" width="145" halign="right"/>
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Clique aqui para trocar uma lista de participantes ativos nesta sessão de MI."/>
 			<line_editor label="Clique aqui para mensagem instantânea" name="chat_editor"/>
 			<button label="Enviar" name="send_btn"/>

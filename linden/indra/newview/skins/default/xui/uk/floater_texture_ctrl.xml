@@ -9,8 +9,8 @@
 	<text type="string" length="1" name="unknown">
 		Розміри: [DIMENSIONS]
 	</text>
-	<button label="За замовч." label_selected="За замовч." name="Default" />
-	<button label="Нічого" label_selected="Нічого" name="None" />
+	<button label="За замовч." label_selected="За замовч." name="Default" width="100"/>
+	<button label="Нічого" label_selected="Нічого" name="None" left="106"/>
 	<button label="З нуля" label_selected="З нуля" name="Blank" />
 	<check_box label="Показати папки" name="show_folders_check" />
 	<search_editor label="Ввести тут для пошуку" name="inventory search editor" />

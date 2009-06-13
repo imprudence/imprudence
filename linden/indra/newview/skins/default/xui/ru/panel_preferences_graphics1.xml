@@ -49,7 +49,7 @@
 	<text type="string" length="1" name="HigherText">
 		Качество и
 	</text>
-	<text type="string" length="1" name="QualityText">
+	<text type="string" length="1" name="QualityText" width="102">
 		Быстродействие:
 	</text>
 	<text type="string" length="1" name="FasterText">
@@ -83,7 +83,7 @@
 	     tool_tip="Отключение этой опции защитит некоторые видеокарты от вылета." />
 	<check_box label="Атмосферные шейдеры" name="WindLightUseAtmosShaders" />
 	<check_box label="Отражения воды" name="Reflections" />
-	<text type="string" length="1" name="ReflectionDetailText">
+	<text type="string" length="1" name="ReflectionDetailText" width="144">
 		Детализация отражений:
 	</text>
 	<radio_group name="ReflectionDetailRadio">
@@ -101,7 +101,7 @@
 		</radio_item>
 	</radio_group>
 	<text type="string" length="1" name="AvatarRenderingText">
-		Рендеринг аватара
+		Рендеринг аватара:
 	</text>
 	<check_box label="Аватар" name="AvatarImpostors" />
 	<check_box label="Шкуры аватаров" name="AvatarVertexProgram" />
@@ -114,16 +114,16 @@
 	</text>
 	<slider label="Дальность прорисовки:" name="DrawDistance" />
 	<slider label="Макс. число частиц:" name="MaxParticleCount" />
-	<slider label="Кач-во постобработки" name="RenderPostProcess" />
+	<slider label="Кач-во постобработки:" name="RenderPostProcess" />
 	<text type="string" length="1" name="MeshDetailText">
-		Детализация сеток
+		Детализация сеток:
 	</text>
-	<slider label="Объекты" name="ObjectMeshDetail" />
-	<slider label="Гибкие примы" name="FlexibleMeshDetail" />
-	<slider label="Деревья" name="TreeMeshDetail" />
-	<slider label="Аватары" name="AvatarMeshDetail" />
-	<slider label="Ландшафт:" name="TerrainMeshDetail" />
-	<slider label="Небо" name="SkyMeshDetail" />
+	<slider label="   Объекты:" name="ObjectMeshDetail" />
+	<slider label="   Гибкие примы:" name="FlexibleMeshDetail" />
+	<slider label="   Деревья:" name="TreeMeshDetail" />
+	<slider label="   Аватары:" name="AvatarMeshDetail" />
+	<slider label="   Ландшафт:" name="TerrainMeshDetail" />
+	<slider label="   Небо:" name="SkyMeshDetail" />
 	<text type="string" length="1" name="PostProcessText">
 		Низко
 	</text>
@@ -146,7 +146,7 @@
 		Низко
 	</text>
 	<text type="string" length="1" name="LightingDetailText">
-		Детали освещения
+		Детали освещения:
 	</text>
 	<radio_group name="LightingDetailRadio">
 		<radio_item type="string" length="1" name="SunMoon">
@@ -159,7 +159,7 @@
 	<text type="string" length="1" name="TerrainDetailText">
 		Детали ландшафта:
 	</text>
-	<radio_group name="TerrainDetailRadio">
+	<radio_group name="TerrainDetailRadio" left_delta="45" >
 		<radio_item type="string" length="1" name="0">
 			Низко
 		</radio_item>
@@ -170,7 +170,7 @@
 	<button label="Рекомендованные" name="Defaults" />
 	<button label="Настройки оборудования"
 	     label_selected="Настройки оборудования"
-	     name="GraphicsHardwareButton" />
+	     name="GraphicsHardwareButton" width="180" />
 	<string name="resolution_format">
 		[RES_X] x [RES_Y]
 	</string>

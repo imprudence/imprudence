@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="move floater" title="">
+	<string name="rotate_tooltip">
+		Kamera fókuszpont körüli forgatása
+	</string>
+	<string name="zoom_tooltip">
+		Kamera fókuszponton túli nagyítása
+	</string>
+	<string name="move_tooltip">
+		Kamera mozgatása fel és le valamint balra és jobbra
+	</string>
+</floater>

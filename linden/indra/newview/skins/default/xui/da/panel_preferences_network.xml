@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Netværk" name="network">
+	<text type="string" length="1" name="text_box">
+		Maksimal båndbredde:
+	</text>
+	<text type="string" length="1" name="text_box2">
+		kbps (kilobits pr sekund)
+	</text>
+	<text type="string" length="1" name="cache_size_label_l">
+		Disk cache størrelse:
+	</text>
+	<text type="string" length="1" name="text_box5">
+		MB
+	</text>
+	<button label="Tøm cache" name="clear_cache" />
+	<text type="string" length="1" name="cache_location_label">
+		Disk cache placering:
+	</text>
+	<button label="Vælg" label_selected="Vælg" name="set_cache" />
+	<button label="Nulstil" label_selected="Vælg" name="reset_cache" />
+	<check_box label="Manuel port opsætning" name="connection_port_enabled" />
+	<spinner label="Port nummer:" name="connection_port" />
+</panel>

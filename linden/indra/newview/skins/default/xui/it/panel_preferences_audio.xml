@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Audio &amp; Video" name="Media panel">
+	<text name="muting_text">
+		Volume:
+	</text>
+	<text name="streaming_prefs_text" bottom="-195" >
+		Preferenze Streaming:
+	</text>
+	<text name="audio_prefs_text">
+		Preferenze Audio:
+	</text>
+	<panel label="Volume" name="Volume Panel"/>
+	<check_box bottom="-200" height="32" label="Ascolta il canale della musica se è disponibile &#10;
+(usa più banda)" name="streaming_music"/>
+	<check_box bottom_delta="-32" height="32" label="Guarda i video se sono disponibili &#10;
+(usa più banda)" name="streaming_video"/>
+	<check_box bottom_delta="-32" label="Attiva automaticamente i video" name="auto_streaming_video"/>
+	<check_box label="Muta l&apos;audio quando minimizzi la finestra" name="mute_when_minimized"/>
+	<slider label="Effetto Doppler" name="Doppler Effect" label_width="140" width="270" />
+	<slider label="Fattore di Distanza" name="Distance Factor" label_width="140" width="270"/>
+	<slider label="Fattore di Allontanamento" name="Rolloff Factor" label_width="140" width="270"/>
+	<spinner label="Suono di Avviso Transazioni &#8805; a L$" name="L$ Change Threshold" label_width="195" width="259"/>
+	<spinner label="Livello vitale dell&apos;avatar" name="Health Change Threshold" label_width="195" width="259"/>
+</panel>

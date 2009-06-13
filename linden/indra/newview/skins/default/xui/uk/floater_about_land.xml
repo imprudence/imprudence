@@ -94,7 +94,7 @@
 				ID аукціону: [ID]
 			</string>
 			<string name="need_tier_to_modify">
-				Ви маєте підтвердити покупку, щоб правити цю землю..
+				Ви маєте підтвердити покупку, щоб правити цю землю.
 			</string>
 			<string name="group_owned_text">
 				(Власність Групи)
@@ -274,7 +274,7 @@
 			<check_box label="Всі" name="edit objects check" left="310"/>
 			<check_box label="Група" name="edit group objects check"/>
 			<text length="1" name="allow_label3" type="string" width="124">
-				Об&apos;єкти Entry:
+				Входж. об&apos;єктів:
 			</text>
 			<check_box label="Всі" name="all object entry check" left="310"/>
 			<check_box label="Група" name="group object entry check"/>
@@ -299,7 +299,7 @@
 			<string name="search_disabled_permissions_tooltip">
 				Ця опція вимкнена, тому що Ви не можете змінювати настройки ділянки.
 			</string>
-			<combo_box name="land category with adult">
+			<combo_box name="land category with adult" width="170">
 				<combo_item name="AnyCategory">
 					Будь-яка Категорія
 				</combo_item>
@@ -340,7 +340,7 @@
 					Інше
 				</combo_item>
 			</combo_box>
-			<combo_box name="land category">
+			<combo_box name="land category" width="170">
 				<combo_item name="AnyCategory">
 					Будь-яка
 				</combo_item>
@@ -378,7 +378,7 @@
 					Інше
 				</combo_item>
 			</combo_box>
-			<button label="?" label_selected="?" name="?"/>
+			<button label="?" label_selected="?" name="?" left="430"/>
 			<check_box label="Mature контент" name="MatureCheck" tool_tip=""/>
 			<string name="mature_check_mature">
 				Mature контент

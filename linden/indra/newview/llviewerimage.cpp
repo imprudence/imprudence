@@ -76,11 +76,11 @@ F32 LLViewerImage::sDesiredDiscardBias = 0.f;
 static F32 sDesiredDiscardBiasMin = -2.0f; // -max number of levels to improve image quality by
 static F32 sDesiredDiscardBiasMax = 1.5f; // max number of levels to reduce image quality by
 F32 LLViewerImage::sDesiredDiscardScale = 1.1f;
-S32 LLViewerImage::sBoundTextureMemory = 0;
-S32 LLViewerImage::sTotalTextureMemory = 0;
-S32 LLViewerImage::sMaxBoundTextureMem = 0;
-S32 LLViewerImage::sMaxTotalTextureMem = 0;
-S32 LLViewerImage::sMaxDesiredTextureMem = 0 ;
+S32 LLViewerImage::sBoundTextureMemoryInBytes = 0;
+S32 LLViewerImage::sTotalTextureMemoryInBytes = 0;
+S32 LLViewerImage::sMaxBoundTextureMemInMegaBytes = 0;
+S32 LLViewerImage::sMaxTotalTextureMemInMegaBytes = 0;
+S32 LLViewerImage::sMaxDesiredTextureMemInBytes = 0 ;
 BOOL LLViewerImage::sDontLoadVolumeTextures = FALSE;
 
 // static
@@ -153,15 +153,17 @@ F32 texmem_middle_bound_scale = 0.925f;
 void LLViewerImage::updateClass(const F32 velocity, const F32 angular_velocity)
 {
 	llpushcallstacks ;
-	sBoundTextureMemory = LLImageGL::sBoundTextureMemory;//in bytes
-	sTotalTextureMemory = LLImageGL::sGlobalTextureMemory;//in bytes
-	sMaxBoundTextureMem = gImageList.getMaxResidentTexMem();//in MB	
-	sMaxTotalTextureMem = gImageList.getMaxTotalTextureMem() ;//in MB
+	sBoundTextureMemoryInBytes = LLImageGL::sBoundTextureMemoryInBytes;//in bytes
+	sTotalTextureMemoryInBytes = LLImageGL::sGlobalTextureMemoryInBytes;//in bytes
+	sMaxBoundTextureMemInMegaBytes = gImageList.getMaxResidentTexMem();//in MB	
+	sMaxTotalTextureMemInMegaBytes = gImageList.getMaxTotalTextureMem() ;//in MB
+	sMaxDesiredTextureMemInBytes = MEGA_BYTES_TO_BYTES(sMaxTotalTextureMemInMegaBytes) ; //in Bytes, by default and when total used texture memory is small.
 
-	if ((sBoundTextureMemory >> 20) >= sMaxBoundTextureMem ||
-		(sTotalTextureMemory >> 20) >= sMaxTotalTextureMem)
+	if (BYTES_TO_MEGA_BYTES(sBoundTextureMemoryInBytes) >= sMaxBoundTextureMemInMegaBytes ||
+		BYTES_TO_MEGA_BYTES(sTotalTextureMemoryInBytes) >= sMaxTotalTextureMemInMegaBytes)
 	{
-	sMaxDesiredTextureMem = llmin((S32)(sMaxTotalTextureMem * 0.75f) , 0x20000000) ;//512 MB
+		//when texture memory overflows, lower down the threashold to release the textures more aggressively.
+		sMaxDesiredTextureMemInBytes = llmin((S32)(sMaxDesiredTextureMemInBytes * 0.75f) , MEGA_BYTES_TO_BYTES(MAX_VIDEO_RAM_IN_MEGA_BYTES)) ;//512 MB
 	
 		// If we are using more texture memory than we should,
 		// scale up the desired discard level
@@ -172,8 +174,8 @@ void LLViewerImage::updateClass(const F32 velocity, const F32 angular_velocity)
 		}
 	}
 	else if (sDesiredDiscardBias > 0.0f &&
-			 (sBoundTextureMemory >> 20) < sMaxBoundTextureMem*texmem_lower_bound_scale &&
-			 (sTotalTextureMemory >> 20) < sMaxTotalTextureMem*texmem_lower_bound_scale)
+			 BYTES_TO_MEGA_BYTES(sBoundTextureMemoryInBytes) < sMaxBoundTextureMemInMegaBytes * texmem_lower_bound_scale &&
+			 BYTES_TO_MEGA_BYTES(sTotalTextureMemoryInBytes) < sMaxTotalTextureMemInMegaBytes * texmem_lower_bound_scale)
 	{
 		// If we are using less texture memory than we should,
 		// scale down the desired discard level
@@ -351,7 +353,7 @@ void LLViewerImage::reinit(BOOL usemipmaps /* = TRUE */)
 // ONLY called from LLViewerImageList
 void LLViewerImage::destroyTexture() 
 {
-	if(sGlobalTextureMemory < sMaxDesiredTextureMem)//not ready to release unused memory.
+	if(sGlobalTextureMemoryInBytes < sMaxDesiredTextureMemInBytes)//not ready to release unused memory.
 	{
 		return ;
 	}
@@ -571,7 +573,7 @@ void LLViewerImage::processTextureStats()
 		if ((sDesiredDiscardBias > 0.0f) &&
 			(current_discard >= 0 && mDesiredDiscardLevel >= current_discard))
 		{
-			if ( (sBoundTextureMemory >> 20) > sMaxBoundTextureMem*texmem_middle_bound_scale)
+			if ( BYTES_TO_MEGA_BYTES(sBoundTextureMemoryInBytes) > sMaxBoundTextureMemInMegaBytes * texmem_middle_bound_scale)
 			{
 				// Limit the amount of GL memory bound each frame
 				if (mDesiredDiscardLevel > current_discard)
@@ -579,7 +581,7 @@ void LLViewerImage::processTextureStats()
 					increase_discard = TRUE;
 				}
 			}
-			if ( (sTotalTextureMemory >> 20) > sMaxTotalTextureMem*texmem_middle_bound_scale)
+			if ( BYTES_TO_MEGA_BYTES(sTotalTextureMemoryInBytes) > sMaxTotalTextureMemInMegaBytes*texmem_middle_bound_scale)
 			{
 				// Only allow GL to have 2x the video card memory
 				if (!getBoundRecently())
@@ -590,13 +592,13 @@ void LLViewerImage::processTextureStats()
 			if (increase_discard)
 			{
 				// 			llinfos << "DISCARDED: " << mID << " Discard: " << current_discard << llendl;
-				sBoundTextureMemory -= mTextureMemory;
-				sTotalTextureMemory -= mTextureMemory;
+				sBoundTextureMemoryInBytes -= mTextureMemory;
+				sTotalTextureMemoryInBytes -= mTextureMemory;
 				// Increase the discard level (reduce the texture res)
 				S32 new_discard = current_discard+1;
 				setDiscardLevel(new_discard);
-				sBoundTextureMemory += mTextureMemory;
-				sTotalTextureMemory += mTextureMemory;
+				sBoundTextureMemoryInBytes += mTextureMemory;
+				sTotalTextureMemoryInBytes += mTextureMemory;
 			}
 		}
 	}

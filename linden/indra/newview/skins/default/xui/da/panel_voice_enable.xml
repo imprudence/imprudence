@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="content_panel">
+	<text_editor type="string" length="1" name="voice_intro_text1">
+		Velkommen til Second Life stemme chat. Stemme chat giver dig mulighed for at tale med andre beboere. Denne &quot;hjælper&quot; vil guide dig igennem de nødvendige skridt for at opsætte stemme  chat&quot;. 
+For at kunne benytte stemme chat skal du have højtalere/hovedtelefoner og en mikrofon/headset for at kunne tale med andre.
+	</text_editor>
+	<text_editor type="string" length="1" name="voice_intro_text2">
+		Stemme chat er aktiveret som standard. Ønsker du at forsætte med at benytte stemme chat.
+	</text_editor>
+	<radio_group name="voice_enable">
+		<radio_item type="string" length="1" name="1">
+			Ja, fortsæt med at benytte stemme chat.
+		</radio_item>
+		<radio_item type="string" length="1" name="0">
+			Nej, slå stemme chat fra.
+		</radio_item>
+	</radio_group>
+	<text_editor length="1" name="voice_intro_text3">
+		Du kan altid aktivere stemme chat via &apos;stemme chat&apos; opsætningen i &apos;Indstillinger&apos;.
+	</text_editor>
+	<text_editor length="1" name="voice_intro_text4">
+		Klik på &apos;Næste&apos; knappen for at konfigurere stemme chat præferencer eller klik på &apos;Afslut&apos; for at vende tilbage til Second Life.
+	</text_editor>
+</panel>

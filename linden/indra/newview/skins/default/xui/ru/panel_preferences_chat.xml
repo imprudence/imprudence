@@ -29,11 +29,12 @@
 	<text length="1" name="text_box3" type="string">
 		Консоль чата:
 	</text>
-	<spinner label="Закрыть после" name="fade_chat_time"/>
-	<text length="1" name="text_box4" type="string">
+	<spinner label="Закрыть после" label_width="95" name="fade_chat_time" width="145"/>
+	<text length="1" name="text_box4" type="string" left="297">
 		(секунд)
 	</text>
-	<text length="1" name="text_box5" type="string">
+	<spinner left="355" name="max_chat_count"/>
+	<text length="1" name="text_box5" type="string" left="420">
 		(строк)
 	</text>
 	<slider label="Прозрачность" name="console_opacity"/>

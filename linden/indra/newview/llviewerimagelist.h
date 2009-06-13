@@ -130,8 +130,8 @@ public:
 
 	void setUpdateStats(BOOL b)			{ mUpdateStats = b; }
 
-	S32	getMaxResidentTexMem() const	{ return mMaxResidentTexMem; }
-	S32 getMaxTotalTextureMem() const   { return mMaxTotalTextureMem;}
+	S32	getMaxResidentTexMem() const	{ return mMaxResidentTexMemInMegaBytes; }
+	S32 getMaxTotalTextureMem() const   { return mMaxTotalTextureMemInMegaBytes;}
 	S32 getNumImages()					{ return mImageList.size(); }
 
 	void updateMaxResidentTexMem(S32 mem);
@@ -172,8 +172,8 @@ private:
 	std::set<LLPointer<LLViewerImage> > mImagePreloads;
 
 	BOOL mUpdateStats;
-	S32	mMaxResidentTexMem;
-	S32 mMaxTotalTextureMem;
+	S32	mMaxResidentTexMemInMegaBytes;
+	S32 mMaxTotalTextureMemInMegaBytes;
 	LLFrameTimer mForceDecodeTimer;
 	
 public:

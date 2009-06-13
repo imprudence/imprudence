@@ -11,11 +11,12 @@
 		войти в систему для изменения
 	</string>
 	<check_box label="Посылать IM на Email ([EMAIL])" name="send_im_to_email"/>
-	<check_box label="Показывать ЛС в Общем Чате" name="include_im_in_chat_history"/>
+	<check_box label="Показывать ЛС в консолем чате" name="include_im_in_chat_console"/>
 	<check_box label="Показывать время в IM" name="show_timestamps_check"/>
 	<check_box label="Показывать уведомления о друзьях онлайн" name="friends_online_notify_checkbox"/>
 	<text length="1" name="text_box3" type="string">
-		Ответ в реж. &apos;Занят&apos;:
+		Ответ в режим
+&apos;Занят&apos;:
 	</text>
 	<text length="1" name="text_box4" type="string">
 		Опции журнала:

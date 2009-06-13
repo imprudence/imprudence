@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="chat floater" title="Lokal chat">
+	<string name="ringing">
+		Forbinder til stemmechat...
+	</string>
+	<string name="connected">
+		Forbundet
+	</string>
+	<string name="unavailable">
+		Stemmechat er ikke tilladt hvor du befinder dig
+	</string>
+	<string name="hang_up">
+		Stemme chat er afbrudt
+	</string>
+	<string name="voice_icon">
+		icn_voice-localchat.tga
+	</string>
+	<string name="IM_logging_string">
+		-- Logning af privat beskeder (IM) aktiveret --
+	</string>
+	<string name="IM_end_log_string">
+		-- Slut på log --
+	</string>
+  <string name="ScriptQuestionCautionChatGranted">
+	&apos;[OBJECTNAME]&apos;, en genstand, ejet af &apos;[OWNERNAME]&apos;, lokaliseret i [REGIONNAME] på [REGIONPOS], har fået tilladelse til: [PERMISSIONS].
+  </string>
+  <string name="ScriptQuestionCautionChatDenied">
+	&apos;[OBJECTNAME]&apos;, en genstand, ejet af &apos;[OWNERNAME]&apos;, lokaliseret i [REGIONNAME] på [REGIONPOS], er afvist tilladelse til: [PERMISSIONS].
+  </string>
+  <string name="ScriptTakeMoney">
+	Tag Linden dollars (L$) fra dig
+  </string>
+  <string name="ActOnControlInputs">
+	Reagér på dine kontrol-taster
+  </string>
+  <string name="RemapControlInputs">
+	Ændre dine kontrol-taster
+  </string>
+  <string name="AnimateYourAvatar">
+	Animér din avatar
+  </string>
+  <string name="AttachToYourAvatar">
+	Sæt på din avatar
+  </string>
+  <string name="ReleaseOwnership">
+	Fjern ejerskabet og sæt til offentlig
+  </string>
+  <string name="LinkAndDelink">
+	Sammenkæd og adskil andre genstande
+  </string>
+  <string name="AddAndRemoveJoints">
+	Tilføj og fjern sammenkødninger med andre genstande
+  </string>
+  <string name="ChangePermissions">
+	Ændre dens tilladelser
+  </string>
+  <string name="TrackYourCamera">
+	Spor dit kamera
+  </string>
+  <string name="ControlYourCamera">
+	Kontrollér dit kamera
+  </string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="Bevægelser" name="Gesture">
+				<combo_item name="Gestures">
+					Bevægelser
+				</combo_item>
+			</combo_box>
+			<check_box label="Vis blokeret tekst" name="show mutes" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Klik her for at få en liste over aktive deltagere i denne chat." />
+			<panel name="chat_panel">
+				<string name="gesture_label">
+					Bevægelser
+				</string>
+				<line_editor label="Klik her for at chatte." name="Chat Editor" />
+				<flyout_button label="Tal" name="Say" tool_tip="(Enter)" >
+					<flyout_button_item name="shout_item">
+						Råb
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						Tal
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Hvisk
+					</flyout_button_item>
+				</flyout_button>
+			</panel>
+		</layout_panel>
+	</layout_stack>
+</floater>

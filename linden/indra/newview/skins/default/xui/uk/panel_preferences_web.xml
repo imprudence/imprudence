@@ -26,7 +26,6 @@
 	<text type="string" length="1" name="proxy_text_label">
 		Адреса:
 	</text>
-	<line_editor name="web_proxy_editor"
-	     tool_tip="Ім&apos;я або IP-адреса проксі, який Ви хочете використовувати" />
-	<spinner label="Номер порту:" name="web_proxy_port" />
+	<line_editor left="227" name="web_proxy_editor" tool_tip="Ім&apos;я або IP-адреса проксі, який Ви хочете використовувати" />
+	<spinner label="Номер порту:" label_width="85" name="web_proxy_port" width="150"/>
 </panel>

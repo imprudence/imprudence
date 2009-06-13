@@ -59,9 +59,9 @@
 			<text type="string" length="1" name="WL12amHash2">
 				|
 			</text>
-			<button label="Додати ключ" label_selected="Додати ключ"
+			<button  font="SansSerifSmall" width="106" left="546" label="Додати ключ" label_selected="Додати ключ"
 			     name="WLAddKey" />
-			<button label="Видалити ключ" label_selected="Видалити ключ"
+			<button  font="SansSerifSmall" width="106" left="546" label="Видалити ключ" label_selected="Видалити ключ"
 			     name="WLDeleteKey" />
 			<text type="string" length="1" name="WLCurKeyFrameText">
 				Уст-ки кадрів ключа:
@@ -70,9 +70,9 @@
 				Час ключа:
 			</text>
 			<spinner label="Час" name="WLCurKeyHour" />
-			<spinner label="Хвилина" name="WLCurKeyMin" />
+			<spinner label="Хвилина" name="WLCurKeyMin" label_width="52" width="92" />
 			<text type="string" length="1" name="WLCurKeyTimeText2">
-				Станд. ключі
+				Станд. ключі:
 			</text>
 			<combo_box label="Стандарт" name="WLKeyPresets" />
 			<text type="string" length="1" name="DayCycleText">
@@ -83,14 +83,14 @@
 				Довж. цикла:
 			</text>
 			<spinner label="Час" name="WLLengthOfDayHour" />
-			<spinner label="Хвилина" name="WLLengthOfDayMin" />
-			<spinner label="Секунда" name="WLLengthOfDaySec" />
+			<spinner label="Хвилина" name="WLLengthOfDayMin" label_width="52" width="92"/>
+			<spinner label="Сек" name="WLLengthOfDaySec" label_width="32" width="72" left_delta="97"/>
 			<text type="string" length="1" name="DayCycleText3">
 				Перегляд:
 			</text>
-			<button label="Грати" label_selected="Грати" name="WLAnimSky" />
-			<button label="Стоп!" label_selected="Стоп" name="WLStopAnimSky" />
-			<button label="Використовувати час маєтку"
+			<button font="SansSerifSmall" label="Грати" label_selected="Грати" name="WLAnimSky" />
+			<button font="SansSerifSmall" label="Стоп!" label_selected="Стоп" name="WLStopAnimSky" />
+			<button font="SansSerifSmall" width="190" label="Використовувати час маєтку"
 			     label_selected="Перейти на час маєтку"
 			     name="WLUseLindenTime" />
 			<button label="Збер. тест день"

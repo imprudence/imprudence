@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="bug_reporter" title="Rapporter Fejl">
+	<texture_picker label="" name="screenshot" />
+	<check_box label="Inkluder Skærmbillede" name="screen_check" />
+	<text name="reporter_title">
+		Reporter:
+	</text>
+	<text name="sim_title">
+		Region:
+	</text>
+	<text name="pos_title">
+		Position:
+	</text>
+	<text name="select_object_label">
+		Klik på knappen derefter objektet:
+	</text>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="Objekt Vælger - Identificer et objekt som emne for denne rapport" />
+	<text name="object_name_label">
+		Navn:
+	</text>
+	<text name="object_name">
+		Consetetur Sadipscing
+	</text>
+	<text name="owner_name_label">
+		Ejer:
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
+	</text>
+	<combo_box name="category_combo"
+	     tool_tip="Kategori -- Vælg den kategori der bedste beskriver denne rapport">
+		<combo_item name="Selectcategory">
+			Vælg Kategori
+		</combo_item>
+		<combo_item name="Building">
+			Bygge
+		</combo_item>
+		<combo_item name="Character">
+			Figur
+		</combo_item>
+		<combo_item name="Chat/IM">
+			Chat/PB
+		</combo_item>
+		<combo_item name="Documentation">
+			Dokumentation
+		</combo_item>
+		<combo_item name="Exploit">
+			Udnyttelse
+		</combo_item>
+		<combo_item name="Graphics">
+			Grafik
+		</combo_item>
+		<combo_item name="Inventory">
+			Beholdning
+		</combo_item>
+		<combo_item name="Lag">
+			Lag
+		</combo_item>
+		<combo_item name="MissingContent">
+			Mangler Indhold
+		</combo_item>
+		<combo_item name="LindenDollars(L$)">
+			Linden Dollars (L$)
+		</combo_item>
+		<combo_item name="Permissions">
+			Rettigheder
+		</combo_item>
+		<combo_item name="Physics">
+			Fysik
+		</combo_item>
+		<combo_item name="Script">
+			Koder
+		</combo_item>
+		<combo_item name="Sound">
+			Lyd
+		</combo_item>
+		<combo_item name="Stipends">
+			Stipendier
+		</combo_item>
+		<combo_item name="Userinterface">
+			Brugerflade
+		</combo_item>
+		<combo_item name="Miscellaneous">
+			Andet
+		</combo_item>
+	</combo_box>
+	<text name="sum_title">
+		Opsummering:
+	</text>
+	<text name="dscr_title">
+		Detaljer: (Medgiv venligst så meget information som muligt)
+	</text>
+	<text_editor name="details_edit">
+		Trin for at genskabe fejl:
+
+Observerede Resultater:
+
+Forventet Resultat:
+	</text_editor>
+	<text name="bug_aviso">
+		Note: Ufuldstændige rapporter vil ikke blive undersøgt
+Hvis denne fejl giver dig mulighed for at gøre noget, du ikke bør være i stand
+til at gøre, især hvis det påvirker ydeevnen eller sikkerhed, skal du
+vælge "Udnyttelse" i kategori. Tak!
+	</text>
+	<button label="Annuller" label_selected="Annuller" name="cancel_btn" />
+	<button label="Rapporter Fejl" label_selected="Rapporter Fejl" name="send_btn" />
+</floater>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Felugró ablakok" name="popups" title="Popups">
+	<text name="dont_show_label">
+		Felugró ablakok elrejtése:
+	</text>
+	<button label="Fenti ablakok engedélyezése" name="enable_popup" />
+	<button label="Felugró ablakok engedélyezése..." name="reset_dialogs_btn"
+	     tool_tip="Felugró ablakok és első figyelemfelhívások engedélyezése." width="200" />
+	<text name="show_label" width="200">
+		Felugró ablakok megjelenítése:
+	</text>
+	<button label="Fenti ablakok kikapcsolása..." name="skip_dialogs_btn"
+	     tool_tip="Felugró ablakok és első figyelemfelhívások kikapcsolása." width="200" />
+	<text type="string" length="1" name="text_box2">
+		Jegyzetek, textúrák és jelzőpontok:
+	</text>
+	<check_box label="Automatikusan elfogad" name="accept_new_inventory" />
+	<check_box label="Automatikusan megtekint elfogadás után" name="show_new_inventory" />
+	<check_box
+	     label="Újonnan elfogadott tárgyak automatikus megjelenítés a készlettárban"
+	     name="show_in_inventory" />
+</panel>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Hibajavítás" name="Debug">
+	<text name="region_text_lbl">
+		Régió:
+	</text>
+	<text name="region_text">
+		ismeretlen
+	</text>
+	<check_box label="Kód futtatásának tiltása" name="disable_scripts_check"
+	     tool_tip="Minden kód futtatásának tiltása ezen a régión" />
+	<button label="?" name="disable_scripts_help" />
+	<check_box label="Ütközések tiltása" name="disable_collisions_check"
+	     tool_tip="Nem avatár jellegű ütközések tiltása ezen a régión" />
+	<button label="?" name="disable_collisions_help" />
+	<check_box label="Fizika tiltása" name="disable_physics_check"
+	     tool_tip="Minden fizikai jelenség tiltása ezen a régión" />
+	<button label="?" name="disable_physics_help" />
+	<button label="Alkalmaz" name="apply_btn" />
+	<text name="objret_text_lbl" width="200">
+		Tárgy visszaküldése
+	</text>
+	<text name="resident_text_lbl">
+		Lakó:
+	</text>
+	<line_editor name="target_avatar_name">
+		(nincs)
+	</line_editor>
+	<button label="Kiválaszt..." name="choose_avatar_btn" />
+	<text name="options_text_lbl">
+		Opciók:
+	</text>
+	<check_box label="Csak a scriptelt tárgyak visszaküldése" name="return_scripts"
+	     tool_tip="Azon tárgyak visszaküldése, melyek scripteket tartalmaznak." />
+	<check_box label="Idegen tárgyak visszaküldése" name="return_other_land"
+	     tool_tip="Azon tárgyak visszaküldése, melyek idegen tulajdonoshoz tartoznak" />
+	<check_box label="Minden telekhez tartozó régión szereplő tárgy visszaküldése"
+	     name="return_estate_wide"
+	     tool_tip="Minden telekhez tartozó régión szereplő tárgy visszaküldése" />
+	<button label="Visszaküld" name="return_btn" />
+	<button label="Legtöbb ütközést okozók..." name="top_colliders_btn" tool_tip="Azon tárgyak megjelenítése, melyek a legtöbb ütközést okozzák"  width="320"/>
+	<button label="?" name="top_colliders_help"  left="337"/>
+	<button label="Legtöbb ideig futtató scriptet tartalmazó tárgyak..." name="top_scripts_btn" tool_tip="Azon tárgyak kilistázása, melyek a legtöbb időt futó scriptet tartalmazzák"  width="320"/>
+	<button label="?" name="top_scripts_help"  left="337"/>
+	<button label="Régió újraindítása" name="restart_btn" tool_tip="A régió újraindítása 2 perc múlva kezdődik" width="160"/>
+	<button label="?" name="restart_help" left="177"  />
+	<button label="Újraindítás elhalasztása" name="cancel_restart_btn" tool_tip="Régió újraindításának elhalasztása 1 órával" width="160"/>
+</panel>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Image Preview" title="">
+	<text name="name_label">
+		Ad:
+	</text>
+	<text name="description_label">
+		Tanım:
+	</text>
+	<text name="preview_label">
+		Resmi Önizleme:
+	</text>
+	<combo_box label="Clothing Type" name="clothing_type_combo">
+		<combo_item name="Image">
+			Resim
+		</combo_item>
+		<combo_item name="Hair">
+			Saç
+		</combo_item>
+		<combo_item name="FemaleHead">
+			Bayan kafası
+		</combo_item>
+		<combo_item name="FemaleUpperBody">
+			Bayan vücut üstü
+		</combo_item>
+		<combo_item name="FemaleLowerBody">
+			Bayan vücut altı
+		</combo_item>
+		<combo_item name="MaleHead">
+			Bay kafası
+		</combo_item>
+		<combo_item name="MaleUpperBody">
+			Bay vücut üstü
+		</combo_item>
+		<combo_item name="MaleLowerBody">
+			Bay vücut altı
+		</combo_item>
+		<combo_item name="Skirt">
+			Etek
+		</combo_item>
+		<combo_item name="SculptedPrim">
+			Yontulmuş prim
+		</combo_item>
+	</combo_box>
+	<text name="bad_image_text" left="8">
+		Resim okunamadı.
+
+Resmi 24 bit Targa (.tga) olarak kaydetmeyi deneyiniz.
+	</text>
+	<check_box label="Kayıpsız sıkıştırma kullan" name="lossless_check" />
+	<button label="İptal" name="cancel_btn" />
+	<button label="Yükle ([AMOUNT] L$)" name="ok_btn" />
+</floater>

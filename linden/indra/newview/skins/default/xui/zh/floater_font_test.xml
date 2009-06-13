@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="contents" title="字体测试">
+	<text name="linea">
+		覆盖测试，应该以Times字体出现在此处（从default/xui/en-us）
+	</text>
+</floater>

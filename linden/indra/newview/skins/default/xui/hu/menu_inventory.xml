@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="Popup">
+	<menu_item_call label="Vásárol" name="Task Buy"/>
+	<menu_item_call label="Megnyit" name="Task Open"/>
+	<menu_item_call label="Lejátszik" name="Task Play"/>
+	<menu_item_call label="Tulajdonságok" name="Task Properties"/>
+	<menu_item_call label="Átnevez" name="Task Rename"/>
+	<menu_item_call label="Töröl" name="Task Remove"/>
+	<menu_item_call label="Kukát kiürít" name="Empty Trash"/>
+	<menu_item_call label="Elveszett és megtalált tárgyak kiürítése" name="Empty Lost And Found"/>
+	<menu_item_call label="Új mappa" name="New Folder"/>
+	<menu_item_call label="Új kód" name="New Script"/>
+	<menu_item_call label="Új jegyzet" name="New Note"/>
+	<menu_item_call label="Új gesztus" name="New Gesture"/>
+	<menu name="New Clothes">
+		<menu_item_call label="Új ing" name="New Shirt"/>
+		<menu_item_call label="Új nadrág" name="New Pants"/>
+		<menu_item_call label="Új cipő" name="New Shoes"/>
+		<menu_item_call label="Új harisnya" name="New Socks"/>
+		<menu_item_call label="Új kabát" name="New Jacket"/>
+		<menu_item_call label="Új szoknya" name="New Skirt"/>
+		<menu_item_call label="Új kesztyű" name="New Gloves"/>
+		<menu_item_call label="Új alsóing" name="New Undershirt"/>
+		<menu_item_call label="Új alsónadrág" name="New Underpants"/>
+	</menu>
+	<menu name="New Body Parts">
+		<menu_item_call label="Új alak" name="New Shape"/>
+		<menu_item_call label="Új bőr" name="New Skin"/>
+		<menu_item_call label="Új haj" name="New Hair"/>
+		<menu_item_call label="Új szem" name="New Eyes"/>
+	</menu>
+	<menu_item_call label="Teleportálás" name="Landmark Open"/>
+	<menu_item_call label="Megnyit" name="Animation Open"/>
+	<menu_item_call label="Megnyit" name="Sound Open"/>
+	<menu_item_call label="Tétel eltávolítása" name="Purge Item"/>
+	<menu_item_call label="Tétel visszaállítása" name="Restore Item"/>
+	<menu_item_call label="Megnyit" name="Open"/>
+	<menu_item_call label="Tulajdonságok" name="Properties"/>
+	<menu_item_call label="Átnevez" name="Rename"/>
+	<menu_item_call label="UUID eszköz másolása" name="Copy Asset UUID"/>
+	<menu_item_call label="Másol" name="Copy"/>
+	<menu_item_call label="Beszúr" name="Paste"/>
+	<menu_item_call label="Töröl" name="Delete"/>
+	<menu_item_call label="Tétel levetése" name="Take Off Items"/>
+	<menu_item_call label="Öltözethez hozzáad" name="Add To Outfit"/>
+	<menu_item_call label="Öltözet cseréje" name="Replace Outfit"/>
+	<menu_item_call label="Konferencia beszélgetés indítása" name="Conference Chat Folder"/>
+	<menu_item_call label="Lejátszik" name="Sound Play"/>
+	<menu_item_call label="Helyszínről" name="Teleport To Landmark"/>
+	<menu_item_call label="Lejátszik mindenkinek" name="Animation Play"/>
+	<menu_item_call label="Lejátszik nekem" name="Animation Audition"/>
+	<menu_item_call label="Azonnali üzenet küldése" name="Send Instant Message"/>
+	<menu_item_call label="Teleportálási ajánlat" name="Offer Teleport..."/>
+	<menu_item_call label="Konferencia beszélgetés indítása" name="Conference Chat"/>
+	<menu_item_call label="Aktivál" name="Activate"/>
+	<menu_item_call label="Inaktívál" name="Deactivate"/>
+	<menu_item_call label="Lecsatol" name="Detach From Yourself"/>
+	<menu_item_call label="Utolsó pozícióra visszaállít" name="Restore to Last Position"/>
+	<menu_item_call label="Felvesz" name="Object Wear"/>
+	<menu label="Hozzácsatol" name="Attach To"/>
+	<menu label="HUD-hoz csatol" name="Attach To HUD"/>
+	<menu_item_call label="Szerkeszt" name="Wearable Edit"/>
+	<menu_item_call label="Felvesz" name="Wearable Wear"/>
+	<menu_item_call label="Levesz" name="Take Off"/>
+	<menu_item_call label="--nincs választás--" name="--no options--"/>
+</menu>

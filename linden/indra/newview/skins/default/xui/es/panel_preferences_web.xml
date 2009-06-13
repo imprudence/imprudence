@@ -11,7 +11,7 @@
 	<text name="cache_size_label_l">
 		Caché del navegador:
 	</text>
-	<button label="Limpiarla ahora" name="clear_cache"/>
+	<button label="Limpiarla ahora" name="clear_cache" width="105"/>
 	<text name="cookie_label">
 		Cookies:
 	</text>
@@ -23,6 +23,6 @@
 	<text name="proxy_text_label">
 		Dirección:
 	</text>
-	<line_editor name="web_proxy_editor" tool_tip="El nombre o la dirección IP del proxy que quiere usar"/>
-	<spinner label="Número del puerto:" name="web_proxy_port"/>
+	<line_editor left="247" name="web_proxy_editor" tool_tip="El nombre o la dirección IP del proxy que quiere usar"/>
+	<spinner label="Número del puerto:" label_width="105" name="web_proxy_port" width="170"/>
 </panel>

@@ -55,6 +55,7 @@
 	<menu_item_call label="激活" name="Activate"/>
 	<menu_item_call label="解除激活" name="Deactivate"/>
 	<menu_item_call label="从自己身上卸下" name="Detach From Yourself"/>
+	<menu_item_call label="恢复至上一位置" name="Restore to Last Position"/>
 	<menu_item_call label="穿上" name="Object Wear"/>
 	<menu label="装备至" name="Attach To"/>
 	<menu label="装备到HUD" name="Attach To HUD"/>

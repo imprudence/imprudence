@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="friends">
+	<string name="Multiple">
+		Çoklu arkadaşlar...
+	</string>
+	<scroll_list name="friend_list" tool_tip="Birçok arkadaşınızı seçmek için tıklarken Shift veya Ctrl tuşlarını basılı tutun">
+		<column name="icon_online_status" tool_tip="Sisteme bağlılık durumu"/>
+		<column label="Ad" name="friend_name" tool_tip="Ad"/>
+		<column name="icon_visible_online" tool_tip="Arkadaşınız sizi sisteme bağlıyken görebilir"/>
+		<column name="icon_visible_map" tool_tip="Arkadaşınız haritadan sizin yerinizi bulabilir"/>
+		<column name="icon_edit_mine" tool_tip="Arkadaşınız sizin objelerinizi kontrol edebilir,silebilir veya alabilir"/>
+		<column name="icon_edit_theirs" tool_tip="Bu arkadaşınızın objelerini kontrol edebilirsiniz"/>
+	</scroll_list>
+	<button label="HM/Ara" name="im_btn" tool_tip="Hızlı mesaj oturumu açın"/>
+	<button label="Profil" name="profile_btn" tool_tip="Resim, gruplar ve diğer bilgileri görün"/>
+	<button label="Işınla..." name="offer_teleport_btn" tool_tip="Bu arkadaşınızı bulunduğunuz yere ışınlanma teklifi gönderin"/>
+	<button label="Öde..." name="pay_btn" tool_tip="Bu arkadaşınıza Linden doları(L$) verin"/>
+	<button label="Sil..." name="remove_btn" tool_tip="Bu kişiyi arkadaşlar listenizden silin"/>
+	<button label="Ekle..." name="add_btn" tool_tip="Üyeye arkadaşlık teklif edin"/>
+</panel>

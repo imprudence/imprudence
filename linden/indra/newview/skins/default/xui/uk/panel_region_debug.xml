@@ -13,7 +13,7 @@
 	<check_box label="Вимкнути фізику" name="disable_physics_check" tool_tip="Вимкнути всю фізику в цьому регіоні"/>
 	<button label="?" name="disable_physics_help"/>
 	<button label="Застосув." name="apply_btn"/>
-	<text name="objret_text_lbl">
+	<text name="objret_text_lbl" width="130">
 		Повернення об&apos;єктів
 	</text>
 	<text name="resident_text_lbl">
@@ -29,12 +29,12 @@
 	<check_box label="Повернути тільки ці об&apos;єкти зі скріптами." name="return_scripts" tool_tip="Повернути тільки об&apos;єкти зі скріптами."/>
 	<check_box label="Повернути тільки ці об&apos;єкти на землі, що належить комусь" name="return_other_land" tool_tip="Повернути тільки об&apos;єкти, які знаходяться на землі, яка належить комусь іншому"/>
 	<check_box label="Повертає об&apos;єкти у кожному регіоні цього маєтку" name="return_estate_wide" tool_tip="Повертає об&apos;єкти в усіх регіонах, які утворюють цей маєток"/>
-	<button label="Повернути" name="return_btn"/>
+	<button label="Повернути" name="return_btn" width="110"/>
 	<button label="ТОП зіткнень..." name="top_colliders_btn" tool_tip="Список об&apos;єктів, що зазнають більшість потенційних зіткнень"/>
 	<button label="?" name="top_colliders_help"/>
 	<button label="ТОП скриптів..." name="top_scripts_btn" tool_tip="Список об&apos;єктів, що більше всіх нагружають сім скриптами"/>
 	<button label="?" name="top_scripts_help"/>
-	<button label="Перезапуск" name="restart_btn" tool_tip="2 хв. на обернений відлік і перезапуск регіона"/>
-	<button label="?" name="restart_help"/>
-	<button label="Відк. перезап." name="cancel_restart_btn" tool_tip="Відкласти перезапуск регіона на 1 годину"/>
+	<button label="Перезапуск" name="restart_btn" tool_tip="2 хв. на обернений відлік і перезапуск регіона" width="170"/>
+	<button label="?" name="restart_help" left="190"/>
+	<button label="Відк. перезап." name="cancel_restart_btn" tool_tip="Відкласти перезапуск регіона на 1 годину" width="170"/>
 </panel>

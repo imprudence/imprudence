@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="ColorPicker" title="Показати колір">
+	<spinner left="90" name="rspin" width="44"/>
+	<spinner left="90" name="gspin" width="44"/>
+	<spinner left="90" name="bspin" width="44"/>
+	<spinner left="90" name="hspin" width="44"/>
+	<spinner left="90" name="sspin" width="44"/>
+	<spinner left="90" name="lspin" width="44"/>
 	<text name="r_val_text">
 		Червоний:
 	</text>
@@ -25,7 +31,8 @@
 	<text name="Current color:">
 		Поточний колір:
 	</text>
-	<text name="(Drag below to save.)">
-		(перетягніть нижче, щоб зберегти.)
+	<text name="(Drag below to save.)" width="117">
+		(перетягніть нижче,
+ щоб зберегти.)
 	</text>
 </floater>

@@ -1,0 +1,2673 @@
+<?xml version="1.0" encoding="utf-8"?>
+<notifications>
+	<global name="skipnexttime">
+		Nem mutasd ezt újra
+	</global>
+	<global name="alwayschoose">
+		Mindig ezt a beállítást válaszd
+	</global>
+  <template name="okbutton">
+    <form>
+      <button
+       name="OK"
+       text="$yestext"/>
+    </form>
+  </template>
+
+  <template name="okignore">
+    <form>
+      <button
+       name="OK"
+       text="$yestext"/>
+      <ignore text="$ignoretext"/>
+    </form>
+  </template>
+
+  <template name="okcancelbuttons">
+    <form>
+      <button
+       name="OK"
+       text="$yestext"/>
+      <button
+       name="Cancel"
+       text="$notext"/>
+    </form>
+  </template>
+
+  <template name="okcancelignore">
+    <form>
+      <button
+       name="OK"
+       text="$yestext"/>
+      <button
+       name="Cancel"
+       text="$notext"/>
+      <ignore text="$ignoretext"/>
+    </form>
+  </template>
+
+  <template name="okhelpbuttons">
+    <form>
+      <button
+       name="OK"
+       text="$yestext"/>
+      <button
+       name="Help"
+       text="$helptext"/>
+    </form>
+  </template>
+
+  <template name="yesnocancelbuttons">
+    <form>
+      <button
+       name="Yes"
+       text="$yestext"/>
+      <button
+       name="No"
+       text="$notext"/>
+      <button
+       name="Cancel"
+       text="$canceltext"/>
+    </form>
+  </template>
+	<notification functor="GenericAcknowledge" label="Ismeretlen figyelemfelhívás" name="MissingAlert">
+		A használt Second Life kliensverzió nem tudja a figyelemfelhívások megjelenítését kezelni.
+
+Hiba részletei: Ez a figyelemfelhívás: &apos;[_NAME]&apos; nem található a notifications.xml fájlban.
+		<usetemplate name="okbutton" yestext="OK"/>
+	</notification>
+	<notification name="FloaterNotFound">
+		Hiba: A következő vezérlők nem találhatók:
+
+[CONTROLS]
+		<usetemplate name="okbutton" yestext="OK"/>
+	</notification>
+	<notification name="TutorialNotFound">
+		Jelenleg oktatási anyag nem áll rendelkezésre.
+	</notification>
+	<notification name="GenericAlert">
+		[MESSAGE]
+	</notification>
+	<notification name="GenericAlertYesCancel">
+		[MESSAGE]
+		<usetemplate name="okcancelbuttons" notext="Mégsem" yestext="Igen"/>
+	</notification>
+	<notification name="BadInstallation">
+		Hiba merült fel a Second Life frissítése során. Kérjük töltsd le a legfrissebb verziót a secondlife.com oldalról.
+    <usetemplate
+     name="okbutton"
+     yestext="OK"/>
+	</notification>
+	<notification name="LoginFailedNoNetwork">
+		Hálózati probléma: Kapcsolat nem létesíthető. 
+&apos;[DIAGNOSTIC]&apos;
+Kérjük ellenőrizd a hálózati beállításokat.
+	<usetemplate
+     name="okbutton"
+     yestext="OK"/>
+	</notification>
+	<notification name="MessageTemplateNotFound">
+		Üzenetsablon: [PATH] nem található.
+	<usetemplate
+     name="okbutton"
+     yestext="OK"/>
+	</notification>
+	<notification name="WearableSave">
+		Változtatások elmentése öltözetként/testrészként?
+		<usetemplate canceltext="Mégsem" name="yesnocancelbuttons" notext="Nem ment" yestext="Ment"/>
+	</notification>
+	<notification name="CompileQueueSaveText">
+		A következő probléma merült fel a kód feltöltésekor: [REASON]. Kérjük próbáld meg később.
+	</notification>
+	<notification name="CompileQueueSaveBytecode">
+		A következő probléma merült fel a kód futtatásakor: [REASON]. Kérjük próbáld meg később.
+	</notification>
+	<notification name="WriteAnimationFail">
+		A következő probléma merült fel az animációs adatok írásakor: [REASON]. Kérjük próbáld meg később.
+	</notification>
+	<notification name="UploadAuctionSnapshotFail">
+		A következő probléma merült fel az aukciós képek feltöltésekor: [REASON]. Kérjük próbáld meg később.
+	</notification>
+	<notification name="UnableToViewContentsMoreThanOne">
+		Nem sikerült egyszerre több tétel tartalmának a megtekintése.
+Kérjük csak egy tárgyat válassz ki és próbáld újra.
+	</notification>
+	<notification name="SaveClothingBodyChanges">
+		Változtatások elmentése öltözetként/testrészként?
+		<usetemplate canceltext="Mégsem" name="yesnocancelbuttons" notext="Nem ment" yestext="Mindet elment"/>
+	</notification>
+	<notification name="GrantModifyRights">
+		A jogok módosításának átruházása más lakó részére lehetővé teszi a földön lévő BÁRMELY tárgy megváltozatásának jogát. Kérjük kezeld NAGYON figyelmesen ennek az engedélynek a kiosztását.
+Biztos, hogy átruházod a módosítás jogát a következő lakóra: [LAST_NAME] [FIRST_NAME]?
+		<usetemplate name="okcancelbuttons" notext="Nem" yestext="Igen"/>
+	</notification>
+	<notification name="GrantModifyRightsMultiple">
+		Jogosultságok módosításának átruházása másik lakóra lehetővé teszi a saját tulajdonú tárgyak módosítását. Emiatt kérjük, hogy fokozott figyelemmel kezeld ezt a jogosultságot.
+Biztos, hogy át kívánod ruházni a tárgyak módosítására való jogosultságot a kijelölt lakóra?
+		<usetemplate name="okcancelbuttons" notext="Nem" yestext="Igen"/>
+	</notification>
+	<notification name="RevokeModifyRights">
+		Visszavonod a módosítás jogát a következő lakótól: [LAST_NAME] [FIRST_NAME]?
+		<usetemplate name="okcancelbuttons" notext="Nem" yestext="Igen"/>
+	</notification>
+	<notification name="RevokeModifyRightsMultiple">
+		Biztos, hogy visszavonod a tárgyak módosítására való jogosultságot a kijelölt lakótól?
+		<usetemplate name="okcancelbuttons" notext="Nem" yestext="Igen"/>
+	</notification>
+	<notification name="UnableToCreateGroup">
+		Nem sikerült a csoport létrehozása.
+[MESSAGE]
+		<usetemplate name="okbutton" yestext="OK"/>
+	</notification>
+	<notification name="PanelGroupApply">
+		[NEEDS_APPLY_MESSAGE]
+[WANT_APPLY_MESSAGE]
+		<usetemplate canceltext="Mégsem" name="yesnocancelbuttons" notext="Változtatások elvetése" yestext="Változtatások mentése"/>
+	</notification>
+	<notification name="MustSpecifyGroupNoticeSubject">
+		Kérjük töltsd ki a csoport felhívás tárgysorát.
+		<usetemplate name="okbutton" yestext="OK"/>
+	</notification>
+	<notification name="AddGroupOwnerWarning">
+		A következő pozíció hozzárendelése csoporttaghoz: [ROLE_NAME].
+A tagoktól nem vonható meg ez a pozíció.
+A tagoknak saját maguktól kell lemondani a pozícióról.
+Biztos, hogy folytatni szeretnéd?
+		<usetemplate ignoretext="Amikor csoporttagokat adsz tulajdonosi jogokoz" name="okcancelignore" notext="Nem" yestext="Igen"/>
+	</notification>
+	<notification name="AssignDangerousActionWarning">
+		A következő tevékenység hozzárendelése a pozícióhoz: [ACTION_NAME].
+
+ *FIGYELEM*
+ Bármely tag, aki ebben pozícióban van ezzel a tevékenység jogával, bármikor módosíthatja az ehhez kapcsolódo jogokat. Kérjük kezeld figyelmesen a tevékenységek kiosztását.
+Tevékenység hozzárendelése a következő pozícióhoz: [ROLE_NAME]?
+		<usetemplate name="okcancelbuttons" notext="Nem" yestext="Igen"/>
+	</notification>
+	<notification name="AssignDangerousAbilityWarning">
+		A követekező képesség: &apos;[ACTION_NAME]&apos; hizzárandelése ehhez a beosztáshoz: &apos;[ROLE_NAME]&apos;.
+
+ *FIGYELEM*
+ Bármely tag, aki ebben pozícióban van ennek a képességnek a jogával, bármikor módosíthatja az ehhez kapcsolódo jogokat.
+
+Képesség hozzárendelése a következő pozícióhoz: [ROLE_NAME]?
+		<usetemplate name="okcancelbuttons" notext="Nem" yestext="Igen"/>
+	</notification>
+	<notification name="ClickPublishHelpLand">
+		A keresőkben történő megjelenítés kiválasztása
+Ezzel a beállítással lehetőség nyílik megjeleníteni:
+- a földet a keresési eredmények között
+- a földön elhelyzett nyilvánosan használható tárgyakat
+- a földet a honlapon szereplő keresőben
+	</notification>
+	<notification name="ClickSoundHelpLand">
+		Média és zeneszolgáltatás futtatása tapasztalható a telken. A Hang és hangüzenetek beállítása korlátozásra kerülhet a telken figyelembevéve a területre vonatkozó minősítés típusát. További információk ezekről a beállításokról a tudásbázisban találhatók.
+		<url name="url">
+			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=5046
+		</url>
+    <usetemplate
+     name="okcancelbuttons"
+     yestext="Tudásbázis megtekintése"
+	 notext="Bezár" />
+	</notification>
+	<notification name="ClickSearchHelpAll">
+		A keresési eredmények az adott menünek, minősítési besorolásnak, kategóriának vagy egyéb tényezőknek megfelelően kerülnek megjelenítés. További részletek esetén, tekintsd meg a tudásbázist.
+		<url name="url">
+			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=4722
+		</url>
+    <usetemplate
+     name="okcancelbuttons"
+     yestext="Tudásbázis megtekintése"
+	 notext="Bezár" />
+	</notification>
+	<notification name="ClickPublishHelpLandDisabled">
+		A telek nem jeleníthető meg a keresési eredmények között, mivel olyan régión helyezkedik el, ahol ez kikapcsolásra került.
+	</notification>
+	<notification name="ClickPublishHelpAvatar">
+		A keresőkben történő megjelenítés kiválasztása
+Ezzel a beállítással lehetőség nyílik megjeleníteni:
+- a saját adatlap megjelenítése a keresőben
+- hivatkozások a saját adatlaphoz nyilvános csoport oldalakon
+	</notification>
+	<notification name="ClickPartnerHelpAvatar">
+		Indítványozhatsz kapcsolatot egy másik vagy megszakíthatod a kapcsolatot egy meglévő lakóval a [SECOND_LIFE] oldalon.
+
+Tovább a Second Life honlapra?
+		<usetemplate name="okcancelbuttons" notext="Mégsem" yestext="Megnyit"/>
+	</notification>
+	<notification name="ClickUploadHelpPermissions">
+		Az alapértelmezett jogosultságok régebbi régiókon nem működnek.
+	</notification>
+	<notification name="ClickWebProfileHelpAvatar">
+		Amennyiben a lakó URL címet állított be az adatlap Web részénél, úgy a következőket teheted:
+ * Kattints a &apos;Betölt&apos; gombra a jelenlegi web részen való megjelenítéshez.
+ * Kattints a &apos;Betölt &gt; Beépített böngészőben&apos; részre az alapértelmezett böngészőben történő megjelenítéshez.
+ * Kattints a &apos;Betölt &gt; Kezdő URL&apos; részre a beállított URL cím visszatéréséhez.
+
+Bármilyen URL címet beírhatsz a saját adatlapod Web részén. A beállításhoz kattints az OK gombra.
+A beállított URL címet a többi lakó is megtekintheti az adatlapodon.
+	</notification>
+
+
+	<notification name="JoinGroupCannotAfford">
+		Csoport tagsági díj: [COST] L$.
+Nincs elég pénzed a csoportba való lépéshez.
+	</notification>
+
+
+	<notification name="SalePriceRestriction">
+		Az eladási árnak nagyobbnak kell lennie 0 L$ összegtől, amennyiben bárkinek el szeretnél adni.
+Kérjük válaszd ki azt a személyt, akinek el szeretnéd adni 0 L$ összegért.
+	</notification>
+	<notification name="ConfirmLandSaleChange">
+		A kijelölt [LAND_SIZE] m² területű föld eladásra beállítva.
+Az eladási ár [SALE_PRICE] L$ lesz valamint jóváhagyva ennek: [NAME].
+	</notification>
+	<notification name="ConfirmLandSaleToAnyoneChange">
+		FIGYELEM: A &apos;bárkinek eladás&apos; beállítása révén az eladásra szánt föld megvásárolhatóvá válik bármely személy részére a Second Life közösségében.
+
+A kijelölt [LAND_SIZE] m² területű föld eladásra beállítva.
+Az eladási ár [SALE_PRICE] L$ valamint jóváhagyva ennek: [NAME].
+	</notification>
+	<notification name="ReturnObjectsDeededToGroup">
+		Biztos, hogy az összes telken található &apos;[NAME]&apos; csoporttal megosztott tárgyat visszaküldöd az előző tulajdonos készlettárába?
+
+*VIGYÁZAT* Ezzel az összes nem átruházható, csoport részére átadott tárgy törlésre kerül!
+
+Tárgyak: [N]
+	</notification>
+	<notification name="ReturnObjectsOwnedByUser">
+		Biztos, hogy minden tárgyat visszaküldesz a készlettárba, melyek ennek a lakónak a tulajdonában vannak: &apos;[NAME]&apos;?
+
+Tárgyak: [N]
+	</notification>
+	<notification name="ReturnObjectsOwnedBySelf">
+		Biztos, hogy minden saját tulajdonú tárgyat visszaküldesz a készlettáradba?
+
+Tárgyak: [N]
+	</notification>
+	<notification name="ReturnObjectsNotOwnedBySelf">
+		Biztos, hogy visszaküldesz minden NEM saját tulajdonú tárgyat a tárgy tulajdonos készlettárába?
+A csoportra átruházott tárgyak a korábbi tulajdonosának készlettárába kerülnek visszaküldésre.
+
+*VIGYÁZAT* Ezzel az összes nem átruházható, csoport részére átadott tárgy törlésre kerül!
+
+Tárgyak: [N]
+	</notification>
+	<notification name="ReturnObjectsNotOwnedByUser">
+		Biztos, hogy minden tárgyat visszaküldesz a készlettárba, melyek NEM ennek a lakónak a tulajdonában vannak: [NAME]?
+A csoportra átruházott tárgyak a korábbi tulajdonosának készlettárába kerülnek visszaküldésre.
+
+*VIGYÁZAT* Ezzel az összes nem átruházható, csoport részére átadott tárgy törlésre kerül!
+
+Tárgyak: [N]
+	</notification>
+	<notification name="ReturnAllTopObjects">
+		Biztos, hogy minden listán szereplő tárgyat visszaküldesz a tulajdonos készlettárába?
+	</notification>
+	<notification name="DisableAllTopObjects">
+		Biztos, hogy figyelmen kívül hagyod a régión található összes tárgyat?
+	</notification>
+	<notification name="ReturnObjectsNotOwnedByGroup">
+		Biztos, hogy visszaküldöd azokat a tárgyakat a tulajdonosainak, melyek nem kerültek megosztásra ezzel a csoporttal: [NAME]?
+
+Tárgyak: [N]
+	</notification>
+	<notification name="UnableToDisableOutsideScripts">
+		Scriptek kikapcsolása nem lehetséges.
+A teljes régión károkozás engedélyezett.
+A fegyverek használatához a scriptek engedélyezése szükséges.
+	</notification>
+	<notification name="MustBeInParcel">
+		Az érkezési pont beállításához a telken belül kell tartózkodnod.
+	</notification>
+	<notification name="PromptRecipientEmail">
+		Kérjük a címzett(ek) e-mail címét helyesen add meg.
+	</notification>
+	<notification name="PromptSelfEmail">
+		Kérjük írd be a saját e-mail címedet.
+	</notification>
+	<notification name="PromptMissingSubjMsg">
+		Képeslap küldése az alapértelmezett tárgysorral és üzenetszöveggel?
+	</notification>
+	<notification name="ErrorProcessingSnapshot">
+		Hiba merült fel a képeslap küldésekor.
+	</notification>
+	<notification name="ErrorEncodingSnapshot">
+		Hiba merült fel a képeslap kódolása során.
+	</notification>
+	<notification name="ErrorUploadingPostcard">
+		A következő hiba merült fel a képeslap küldésekor: [REASON]
+	</notification>
+	<notification name="ErrorUploadingReportScreenshot">
+		A következő hiba merült fel a jelentés képének feltöltésekor: [REASON]
+	</notification>
+	<notification name="MustAgreeToLogIn">
+		A használati feltételek elfogadása szükséges [SECOND_LIFE]-ba történő belépéshez.
+	</notification>
+	<notification name="CouldNotPutOnOutfit">
+		Öltözet felvétele sikertelen.
+Az öltözet könyvtára nem tartalmaz ruhát, testrészt vagy egyéb csatolható tárgyat.
+	</notification>
+	<notification name="CannotWearTrash">
+		A szemetesben található ruhák és testrészek nem vehetők fel
+	</notification>
+	<notification name="CannotWearInfoNotComplete">
+		Ez az elem nem vehető fel, mivel még nem töltődött be. Kérjük próbáld újra.
+	</notification>
+	<notification name="MustHaveAccountToLogIn">
+		Hoppá! Valamelyik űrlap üresen maradt.
+Az avatár vezeték- és keresztnevét is meg kell adnod.
+
+A [SECOND_LIFE]-ba történő belépéshez szükséged van egy felhasználói fiókra. Elkészíted most?
+	</notification>
+	<notification name="AddClassified">
+		A feladott reklámhirdetések a kereső &apos;Hirdetések&apos; szekciójában és a www.secondlife.com oldalon tekinthetők meg egy hétig.
+Töltsd ki a hirdetéssel kapcsolatos információkat, majd kattints a &apos;Felad&apos; gombra a publikáláshoz.
+A feladáskor meg kell adnod a hirdetésre szánt összeget.
+Minél magasabb összeget állítasz be, annál kedvezőbb helyre kerül a hirdetésed egy adott kulcsszóra a keresőben.
+	</notification>
+	<notification name="DeleteClassified">
+		Ennek a hirdetésnek a törlése: &apos;[NAME]&apos;?
+A befizetett díj nem kerül visszatérítésre.
+	</notification>
+	<notification name="ClassifiedSave">
+		Hirdetés változásainak elmentése ilyen néven: [NAME]?
+	</notification>
+	<notification name="DeleteAvatarPick">
+		Ennek a kedvenc helynek törlése: [PICK]?
+	</notification>
+	<notification name="PromptGoToEventsPage">
+		[SECOND_LIFE] események honlapjának megtekintése?
+	</notification>
+	<notification name="SelectProposalToView">
+		Válassz ki egy javaslatot annak megtekintéséhez.
+	</notification>
+	<notification name="SelectHistoryItemToView">
+		Válassz ki egy elemtörténetet a megtekintéshez.
+	</notification>
+	<notification name="ResetShowNextTimeDialogs">
+		Ismét engedélyezni szeretnéd azokat a pop-up ablakokat, melyeket korábban letiltottál?
+	</notification>
+	<notification name="SkipShowNextTimeDialogs">
+		Le szeretnéd tiltani azokat a pop-up ablakokat, melyek kihagyásra kerülnek?
+	</notification>
+	<notification name="CacheWillClear">
+		Gyorsítótár kiürítése a [SECOND_LIFE] újraindítása után végrehajtásra kerül.
+	</notification>
+	<notification name="CacheWillBeMoved">
+		Gyorsítótár áthelyezése a [SECOND_LIFE] újraindítása után végrehajtásra kerül.
+Megjegyzés: Ez egyben a gyorsítótárat is kiüríti.
+	</notification>
+	<notification name="ChangeConnectionPort">
+		Port beállítások a [SECOND_LIFE] újraindítása után érvénybe lépnek.
+	</notification>
+	<notification name="ChangeSkin">
+		Az új kliens sablon a [SECOND_LIFE] újraindítása után érvénybe lép.
+	</notification>
+	<notification name="GoToAuctionPage">
+		Menj a [SECOND_LIFE] honlapra az részletes aukciók és licitek megtekintéséhez?
+	</notification>
+	<notification name="SaveChanges">
+		Változásokat elment?
+	</notification>
+	<notification name="GestureSaveFailedTooManySteps">
+		Gesztus mentése sikertelen.
+Ez a gesztus túl sok mozzanatból áll.
+Próbáld a mozzanatok számát csökkenteni, majd mentsd el ismét.
+	</notification>
+	<notification name="GestureSaveFailedTryAgain">
+		Gesztus mentése sikertelen. Kérjük próbáld újra.
+	</notification>
+	<notification name="GestureSaveFailedObjectNotFound">
+		Gesztus mentése sikertelen, mert az elem vagy a csatolt elem nem található a készlettárban.
+A elem hatókörön kívüli vagy törölt.
+	</notification>
+	<notification name="GestureSaveFailedReason">
+		A gesztus mentésekor a következő probléma merült fel: [REASON]. Kérjük próbáld a gesztus mentését újra.
+	</notification>
+	<notification name="SaveNotecardFailObjectNotFound">
+		A feljegyzés nem menthető, mert az elem vagy a csatolt elem nem található a készlettárban.
+A elem hatókörön kívüli vagy törölt.
+	</notification>
+	<notification name="SaveNotecardFailReason">
+		A feljegyzés mentésekor a következő probléma merült fel: [REASON]. Kérjük próbáld a feljegyzés mentését újra.
+	</notification>
+	<notification name="ScriptCannotUndo">
+		Ennél a verziójú scriptnél nem lehetséges minden változtatás visszavonása.
+Vissza szeretnéd tölteni a szerveren legutoljára elmentett verziót?
+(**Vigyázat** Ez a művelet nem visszavonható.)
+	</notification>
+	<notification name="SaveScriptFailReason">
+		A script mentésekor a következő probléma merült fel: [REASON].  Kérjük próbáld a script mentését újra.
+	</notification>
+	<notification name="SaveScriptFailObjectNotFound">
+		A feljegyzés nem menthető, mert maga az elem nem található.
+A elem hatókörön kívüli vagy törölt.
+	</notification>
+	<notification name="SaveBytecodeFailReason">
+		A script futtatásakor a következő probléma merült: [REASON].  Kérjük próbáld a script mentését újra.
+	</notification>
+	<notification name="CouldNotStartStopScript">
+		A script indítása és megállítása nem lehetséges, mert maga az elem nem található.
+A elem hatókörön kívüli vagy törölt.
+	</notification>
+	<notification name="CannotDownloadFile">
+		A fájl letöltése sikertelen
+	</notification>
+	<notification name="CannotWriteFile">
+		Ennek a fájlnak az írása sikertelen: [[FILE]]
+	</notification>
+	<notification name="UnsupportedHardware">
+		Vigyázat: A rendszered nem felel meg a Second Life minimális hardverkövetelményeinek. Amennyiben folytatod a Second Life használatát, akkor gyengébb teljesítményt fogsz észlelni. Sajnos technikai segítséget nem megfelelő rendszerek esetén nem tudunk nyújtani.
+
+MINSPECS
+További információkért látogasd meg ezt az oldalt: [_URL].
+		<url name="url">
+			http://www.secondlife.com/corporate/sysreqs.php
+		</url>
+	</notification>
+	<notification name="UnknownGPU">
+		A rendszered a Second Life számára nem azonosítható videókártyával működik.
+Ez jellemzően új hardveralkatrész esetén fordul elő, melyek még nem kerültek ténylegesen tesztelésre. Ettől függetlenül a Second Life megfelelően Second Life működik, de szükség van az ehhez illeszkedő grafikus beállítások végrehajtására.
+(Szerkesztés &gt; Tulajdonságok &gt; Grafika menü).
+	</notification>
+	<notification name="DisplaySettingsNoShaders">
+		[SECOND_LIFE] futása megszakadt az grafikus vezérlő indításakor.
+A szokásos vezérlőhibák elkerülése végett a grafika minősége alacsonyra került beállításra.
+Emiatt néhány grafikus tulajdonság nem elérhető.
+Javasoljuk a videókártya vezérlőprogramjának frissítését.
+A grafika minősége növelhető a Tulajdonságok &gt; Grafika menüben.
+	</notification>
+	<notification name="RegionNoTerraforming">
+		Domborzat szerkesztése ezen a régión nem engedélyezett: [REGION].
+	</notification>
+	<notification name="CannotCopyWarning">
+		Nincs jogosultságod az elem másolására. Amennyiben átadod, akkor véglegesen kikerül a készlettáradból. Valóban át szeretnéd adni ezt az elemet?
+	</notification>
+	<notification name="CannotGiveItem">
+		Készlettár elemének átadása sikertelen.
+	</notification>
+	<notification name="TransactionCancelled">
+		Tranzakció törölve.
+	</notification>
+	<notification name="TooManyItems">
+		Egyszerre 42 elemnél többet nem adhatsz át.
+	</notification>
+	<notification name="NoItems">
+		Nincs jogosultságod a kiválasztott elem átadására.
+	</notification>
+	<notification name="CannotCopyCountItems">
+		Nincs jogosultságod [COUNT] számú elem másolására. Ezeket az elemeket elveszted a készlettáradból.
+Valóban át szeretnéd adni ezeket az elemeket?
+	</notification>
+	<notification name="CannotGiveCategory">
+		Nincs jogosultságod a kiválasztott könyvtár átadására.
+	</notification>
+	<notification name="FreezeAvatar">
+		Avatár fagyasztása?
+Ennek hatására az avatár átmenetileg nem lesz képes mozogni, üzenetet küldeni vagy kapcsolatot teremteni.
+	</notification>
+	<notification name="FreezeAvatarFullname">
+		Ennek az avatárnak a fagyasztása: [AVATAR_NAME]?
+Ennek hatására az avatár átmenetileg nem lesz képes mozogni, üzenetet küldeni vagy kapcsolatot teremteni.
+	</notification>
+	<notification name="EjectAvatarFullname">
+		Ennek az avatárnak a kidobása saját telekről: [AVATAR_NAME]?
+	</notification>
+	<notification name="EjectAvatarNoBan">
+		Avatár kidobása a telekről?
+	</notification>
+	<notification name="EjectAvatarFullnameNoBan">
+		Ennek az avatárnak a kidobása saját telekről: [AVATAR_NAME]?
+	</notification>
+	<notification name="AcquireErrorTooManyObjects">
+		HIBA: Túl sok tárgy került kijelölésre.
+	</notification>
+	<notification name="AcquireErrorObjectSpan">
+		HIBA: Tárgyak közti távolság nagyobb egy régiónál.
+Kérjük helyezd az összes tárgyat ugyanarra a régióra.
+	</notification>
+	<notification name="PromptGoToCurrencyPage">
+		[EXTRA]
+
+Devizavásárlással kapcsolatos információk megtekintéséhez menj erre az oldalra: [URL].
+	</notification>
+	<notification name="UnableToLinkObjects">
+		Ennyi számú tárgy összefűzése sikertelen: [COUNT].
+Legfeljebb [MAX] tárgyat fűzhetsz össze.
+	</notification>
+	<notification name="CannotLinkIncompleteSet">
+		Egynél több tárgyat fűzhetsz csak össze, jelöld ki azokat a tárgyakat, melyeket össze szeretnél fűzni.
+	</notification>
+	<notification name="CannotLinkModify">
+		Összefűzés sikertelen, mivel nincs módosításra való jogosultságod minden tárgyon.
+
+Ellenőrizd, hogy mindegyik módosítható és saját tulajdonban legyen.
+	</notification>
+	<notification name="CannotLinkDifferentOwners">
+		Összefűzés sikertelen, mert nem mindegyik tárgynak ugyanaz a tulajdonosa.
+
+Ellenőrizd, hogy mindegyik tárgy saját tulajdonban legyen.
+	</notification>
+	<notification name="NoFileExtension">
+		Nem megfelelő fájl kiterjesztés ennél a fájlnál: &apos;[FILE]&apos;
+
+Kérjük ellenőrizd, hogy a fájlnak megfelelő kiterjesztése legyen.
+	</notification>
+	<notification name="InvalidFileExtension">
+		Nem megfelelő kiterjesztés: [EXTENSION]
+Szükséges: [VALIDS]
+	</notification>
+	<notification name="CannotUploadSoundFile">
+		A feltöltött hangfájl nem olvasható:
+[FILE]
+	</notification>
+	<notification name="SoundFileNotRIFF">
+		Nem megfelelő RIFF WAVE fájl:
+[FILE]
+	</notification>
+	<notification name="SoundFileNotPCM">
+		Nem megfelelő PCM WAVE audio fájl:
+[FILE]
+	</notification>
+	<notification name="SoundFileInvalidChannelCount">
+		A fájl nem megfelelő csatornaszámmal rendelkezik (mono vagy sztereó legyen):
+[FILE]
+	</notification>
+	<notification name="SoundFileInvalidSampleRate">
+		A fájl mintavételezési frekvenciája nem megfelelő (44.1k legyen):
+[FILE]
+	</notification>
+	<notification name="SoundFileInvalidWordSize">
+		A fájl nem megfelelő szóhosszal rendelkezik (8 vagy 16 bit legyen):
+[FILE]
+	</notification>
+	<notification name="SoundFileInvalidHeader">
+		Az adatrészek (data chunk) hiányoznak a WAV fejlécből:
+[FILE]
+	</notification>
+	<notification name="SoundFileInvalidTooLong">
+		Az audio fájl túl hosszú (legfeljebb 10 mp legyen):
+[FILE]
+	</notification>
+	<notification name="ProblemWithFile">
+		A [FILE] fájllal kapcsolatban a következő probléma merült fel:
+
+[ERROR]
+	</notification>
+	<notification name="CannotOpenTemporarySoundFile">
+		A [FILE] átmentileg tömörített fájl nem nyitható meg az íráshoz
+	</notification>
+	<notification name="UnknownVorbisEncodeFailure">
+		Ismeretlen Vorbis kódolási hiba ennél a fájlnál: [FILE]
+	</notification>
+	<notification name="CannotEncodeFile">
+		A fájl kódolása sikertelen: [FILE]
+	</notification>
+	<notification name="CorruptResourceFile">
+		Sérült forrás fájl: [FILE]
+	</notification>
+	<notification name="UnknownResourceFileVersion">
+		Ismeretlen Linden forrásfájl verzió a fájlban: [FILE]
+	</notification>
+	<notification name="UnableToCreateOutputFile">
+		A kimeneti fájl létrehozása sikertelen: [FILE]
+	</notification>
+	<notification name="DoNotSupportBulkAnimationUpload">
+		Az animációs fájlok tömeges feltöltése jelenleg nem elérhető.
+	</notification>
+	<notification name="CannotUploadReason">
+		A [FILE] fájl feltöltése sikertelen a következő ok miatt: [REASON]
+Kérjük próbáld újra.
+	</notification>
+	<notification name="CannotCreateLandmarkNotOwner">
+		Jelzőpont letételét a tulajdonos nem engedélyezte.
+	</notification>
+	<notification name="CannotRecompileSelectObjectsNoScripts">
+		Újragenerálás nem végrehajtható.
+Válassz ki egy tárgyat, amely scriptet tartalmaz.
+	</notification>
+	<notification name="CannotRecompileSelectObjectsNoPermission">
+		Újragenerálás nem hajtható végre.
+
+Válaszd ki azokat a scripteket tartalmazó tárgyakat, melyeken módosítási jogosultsággal rendelkezel.
+	</notification>
+	<notification name="CannotResetSelectObjectsNoScripts">
+		Újraindítás nem végrehajtható.
+
+Válaszd ki a scripteket tartalmazó tárgyakat.
+	</notification>
+	<notification name="CannotResetSelectObjectsNoPermission">
+		Újraindítás nem végrehajtható.
+
+Válaszd ki azokat a scripteket tartalmazó tárgyakat, melyeken módosítási jogosultsággal rendelkezel.
+	</notification>
+	<notification name="CannotSetRunningSelectObjectsNoScripts">
+		Scriptek futtatása nem végrehajtható.
+
+Válaszd ki a scripteket tartalmazó tárgyakat.
+	</notification>
+	<notification name="CannotSetRunningNotSelectObjectsNoScripts">
+		Scriptek futtatása nem végrehajtható.
+
+Válaszd ki a scripteket tartalmazó tárgyakat.
+	</notification>
+	<notification name="NoFrontmostFloater">
+		No frontmost floater to save.
+	</notification>
+	<notification name="SeachFilteredOnShortWords">
+		A keresési szöveg módosításra került és ezáltal a túl rövid szavak eltávolításra kerültek.
+
+Keresett szöveg: [FINALQUERY]
+	</notification>
+	<notification name="SeachFilteredOnShortWordsEmpty">
+		A keresési kulcsszavak túl rövidek, ezért a keresés nem végrehajtható.
+	</notification>
+	<notification name="CouldNotTeleportReason">
+		Teleportálás nem elérhető.
+[REASON]
+	</notification>
+
+  <notification name="invalid_tport">
+Probléma merült fel a teleportálás közben. Be kell lépned a teleportálás megkezdése előtt.
+Amennyiben továbbra is ezt a hibaüzenetet látod, olvasd el a technikai GYIK oldalt itt:
+www.secondlife.com/support
+  </notification>
+  <notification name="invalid_region_handoff">
+Probléma merült fel a régiók átlépése közben. Ismét be kell lépned a régiók átlépéséhez.
+Amennyiben továbbra is ezt a hibaüzenetet látod, olvasd el a technikai GYIK oldalt itt:
+www.secondlife.com/support
+  </notification>
+  <notification name="blocked_tport">
+Elnézést kérünk, a teleportálás jelenleg tiltva van. Próbáld meg újra.
+Amennyiben ismételten nem sikerül a teleportálás, kérjük lépj ki és be a probléma megoldásához.
+  </notification>
+  <notification name="nolandmark_tport">
+Elnézést kérünk, a rendszernek nem sikerült meghatározni a célpontot.
+  </notification>
+  <notification name="timeout_tport">
+Elnézést kérünk, a rendszer nem tudja végrehajtani a teleportálást.
+Próbáld meg újra.
+  </notification>
+  <notification name="noaccess_tport">
+Elnézést kérünk, de nincs jogosultságod a teleportálási célállomásra történő belépésre.
+  </notification>
+  <notification name="missing_attach_tport">
+A csatolások nem érkeztek még meg. Várj néhány másodpercet és utána lépj ki és be újra mielőtt újra megpróbálod a teleportálást.
+  </notification>
+  <notification name="too_many_uploads_tport">
+Az eszközszerver ebben a régióban túlterhelt, így a teleportálási kérésed meghatározott ideig nem fog sikerülni. Kérjük próbáld meg néhány perc múlva újra vagy menj egy kevésbé forgalmas területre.
+  </notification>
+  <notification name="expired_tport">
+Elnézést kérünk, a rendszer nem tudja teljesíteni a teleportálási kérésedet meghatározott ideig.
+Kérjük próbáld meg néhány perc múlva újra.
+  </notification>
+  <notification name="expired_region_handoff">
+Elnézést kérünk, a rendszer nem tudja teljesíteni a régió átlépési kérésedet meghatározott ideig.
+Kérjük próbáld meg néhány perc múlva újra.
+  </notification>
+  <notification name="no_host">
+Nem sikerült a teleportálási célállomás megtalálása. A helyszín ideiglenes nem elérhető vagy már nem létezik. Kérjük próbáld meg néhány perc múlva újra.
+  </notification>
+  <notification name="no_inventory_host">
+A készlettár jelenleg nem elérhető.
+  </notification>
+
+	<notification name="CannotSetLandOwnerNothingSelected">
+		A föld tulajdonosának beállítása nem elérhető:
+Telek nem került kiválasztásra.
+	</notification>
+	<notification name="CannotSetLandOwnerMultipleRegions">
+		A föld tulajdonjogának változtatása nem elérhető, mert a kijelölt területek több régiót foglalnak magukba. Kérjük jelölj ki egy kisebb területet és próbáld újra.
+	</notification>
+	<notification name="ForceOwnerAuctionWarning">
+		Ez a telek aukcióra bocsátva. A tulajdonjog megváltoztatása az aukción való megjelenés törléséhez vezet, mely kellemetlenséget okozhat a területre licitet indító lakók számára. Biztos, hogy módosítod a tulajdonjogot?
+	</notification>
+	<notification name="CannotContentifyNothingSelected">
+		Sikertelen tartalmi feldolgozás:
+Telek nem került kiválasztásra.
+	</notification>
+	<notification name="CannotContentifyNoRegion">
+		Sikertelen tartalmi feldolgozás:
+Telek nem került kiválasztásra.
+	</notification>
+	<notification name="CannotReleaseLandNothingSelected">
+		Föld feladása sikertelen:
+Telek nem került kiválasztásra.
+	</notification>
+	<notification name="CannotReleaseLandNoRegion">
+		Föld feladása sikertelen:
+Régió nem található.
+	</notification>
+	<notification name="CannotBuyLandNothingSelected">
+		Föld vásárlása sikertelen:
+Telek nem került kiválasztásra.
+	</notification>
+	<notification name="CannotBuyLandNoRegion">
+		Föld vásárlása sikertelen:
+A régió nem található, melyen a föld elhelyezkedik.
+	</notification>
+	<notification name="CannotCloseFloaterBuyLand">
+		Mindaddig nem zárhatod be a &apos;Föld vásárlása&apos; ablakot, amíg a Second Life nem számítja ki a tranzakció árát.
+	</notification>
+	<notification name="CannotDeedLandNothingSelected">
+		Föld átruházása sikertelen:
+Telek nem került kiválasztásra.
+	</notification>
+	<notification name="CannotDeedLandNoGroup">
+		Föld átruházása sikertelen:
+Csoport nem került kiválasztásra.
+	</notification>
+	<notification name="CannotDeedLandNoRegion">
+		Föld átruházása sikertelen:
+A régió nem található, melyen a föld elhelyezkedik.
+Kérjük használd az Segítség -&gt; Hibabejelentés menüt.
+	</notification>
+	<notification name="CannotDeedLandMultipleSelected">
+		Föld átruházása sikertelen:
+Több terület került kijelölésre.
+
+Csak egy területet jelölj ki.
+	</notification>
+	<notification name="ParcelCanPlayMedia">
+		Ezen a helyszínen média streaming futtatható.
+A média streaming futtatása gyors szélessávú internetkapcsolatot igényel.
+
+Média streaming lejátszása, amennyiben elérhető?
+(Ezt a beállítást megváltoztathatod a Tulajdonságok &gt; Hang és videó menüben.)
+	</notification>
+	<notification name="CannotDeedLandWaitingForServer">
+		Föld átruházása sikertelen:
+Várakozás a szerverre.
+
+Kérjük próbáld újra.
+	</notification>
+	<notification name="CannotDeedLandNoTransfer">
+		Föld átruházása sikertelen:
+A [REGION] régión földátruházás nem engedélyezett.
+	</notification>
+	<notification name="CannotReleaseLandWatingForServer">
+		Föld feladása sikertelen:
+Várakozás a szerverre.
+
+Kérjük próbáld újra.
+	</notification>
+	<notification name="CannotReleaseLandSelected">
+		Föld feladása sikertelen:
+Nem te rendelkezel az összes kijelölt terület tulajdonjogával.
+
+Csak egy területet jelölj ki.
+	</notification>
+	<notification name="CannotReleaseLandDontOwn">
+		Föld feladása sikertelen:
+Nincs jogosultságod ezt a telket felszabadítani.
+A saját tulajdonú telkek zöld színűek.
+	</notification>
+	<notification name="CannotReleaseLandRegionNotFound">
+		Föld feladása sikertelen:
+A régió nem található, melyen a föld elhelyezkedik.
+
+Kérjük használd az Segítség -&gt; Hibabejelentés menüt.
+	</notification>
+	<notification name="CannotReleaseLandNoTransfer">
+		Föld feladása sikertelen:
+A [REGION] régión földátruházás nem engedélyezett.
+	</notification>
+	<notification name="CannotReleaseLandPartialSelection">
+		Föld feladása sikertelen:
+A felszabadításhoz válassz ki egy telket.
+
+Válaszd ki egy telket vagy oszd fel először.
+	</notification>
+	<notification name="ReleaseLandWarning">
+		[AREA] m² területű telek felszabadítását végzed.
+Amennyiben a telket felszabadítod, akkor ez eltávolításra kerül a föld hozzájárulásaid közül, de ez nem jár semennyi L$ jóváírással.
+
+Telek felszabadítása?
+	</notification>
+	<notification name="CannotDivideLandNothingSelected">
+		Föld felosztása sikertelen:
+
+Telek nem került kiválasztásra.
+	</notification>
+	<notification name="CannotDivideLandPartialSelection">
+		Föld felosztása sikertelen:
+
+Az egész telek kijelölésre került.
+Próbáld csak a telek egy részét kijelölni.
+	</notification>
+	<notification name="LandDivideWarning">
+		A felosztással a föld két részre bontható, ahol minden beállítás külön-külön kezelhető. A felosztás után néhány beállítás visszaáll az alapértelmezettre.
+
+Föld felosztása?
+	</notification>
+	<notification name="CannotDivideLandNoRegion">
+		Föld felosztása sikertelen:
+A régió nem található, melyen a föld elhelyezkedik.
+
+Kérjük használd az Segítség -&gt; Hibabejelentés menüt.
+	</notification>
+	<notification name="CannotJoinLandNoRegion">
+		Föld egyesítése sikertelen:
+A régió nem található, melyen a föld elhelyezkedik.
+
+Kérjük használd az Segítség -&gt; Hibabejelentés menüt.
+	</notification>
+	<notification name="CannotJoinLandNothingSelected">
+		Föld egyesítése sikertelen:
+Telek nem került kiválasztásra.
+	</notification>
+	<notification name="CannotJoinLandEntireParcelSelected">
+		Föld egyesítése sikertelen:
+Csak egy telket jelöltél ki.
+
+Válassz földet, amely keresztezi mindkét telket.
+	</notification>
+	<notification name="CannotJoinLandSelection">
+		Föld egyesítése sikertelen:
+Egynél több telket válassz ki.
+
+Válassz földet, amely keresztezi mindkét telket.
+	</notification>
+	<notification name="JoinLandWarning">
+		A föld egyesítésével egy nagy négyszög alakú telek jön létre.
+Az új telek nevét és beállításait újra meg kell adnod.
+
+Telek egyesítése?
+	</notification>
+	<notification name="ShowOwnersHelp">
+		Tulajdonosok megjelenítése:
+Telek színei tulajdonosi típus szerint.
+
+Green = Saját föld
+Aqua = Saját csoport föld
+Red = Idegen föld
+Yellow = Eladó föld
+Purple = Aukciós föld
+Grey = Nyilvános föld
+	</notification>
+	<notification name="ConfirmNotecardSave">
+		A feljegyzést másolás vagy megtekintés előtt el kell menteni. Feljegyzés mentése?
+	</notification>
+	<notification name="ConfirmItemCopy">
+		Elem másolása a készlettárba?
+	</notification>
+	<notification name="ResolutionSwitchFail">
+		Felbontás átkapcsolása [RESX]-ról [RESY]-ra sikertelen
+	</notification>
+	<notification name="ErrorUndefinedGrasses">
+		Hiba: Ismeretlen gyeptakaró: [SPECIES]
+	</notification>
+	<notification name="ErrorUndefinedTrees">
+		Hiba: Ismeretlen fa: [SPECIES]
+	</notification>
+	<notification name="CannotSaveWearableOutOfSpace">
+		&apos;[NAME]&apos; felvehető fájlként való mentése sikertelen. Szabad tárterületet szükséges a gépeden a mentéshez.
+	</notification>
+	<notification name="CannotSaveToAssetStore">
+		[NAME] elmentése a központi eszköztárolóban sikertelen.
+Ez jellemzően csak átmeneti hiba. Kérjük próbáld a mentést néhány perc múlva ismét.
+
+Amennyiben a probléma még fennáll, kattints a &apos;Segítség -&gt; Hibabejelentés&apos; menüre
+és küld el a géped hálózati beállításának részleteit.
+	</notification>
+	<notification name="YouHaveBeenLoggedOut">
+		A [SECOND_LIFE]-ból kilépve:
+            [MESSAGE]
+A folyamatban lévő üzeneteket megtekintheted az &apos;Üzenetek megtekintése&apos; gombra kattintva. Ellenkező esetben, válaszd a &apos;Kilépés&apos; gombot a [SECOND_LIFE] bezárásához.
+	</notification>
+	<notification name="OnlyOfficerCanBuyLand">
+		Föld vásárlása a csoport részére sikertelen:
+Nincs jogosultságod föld vásárlására az aktív csoportod részére.
+	</notification>
+	<notification label="Barátokhoz ad" name="AddFriend">
+		A barátok különféle jogosultságokat adhatnak egymás részére, amivel megtekinthető a térképen való tartózkodási helye és aktuális online állapota.
+
+Barátság felajánlása ennek: [NAME]?
+	</notification>
+	<notification label="Barátokhoz ad" name="AddFriendWithMessage">
+		A barátok különféle jogosultságokat adhatnak egymás részére, amivel megtekinthető a térképen való tartózkodási helye és aktuális online állapota.
+
+Barátság felajánlása ennek: [NAME]?
+		<form name="form">
+			<input name="message">
+				Elfogadod a barátságot?
+			</input>
+		</form>
+	</notification>
+	<notification name="RemoveFromFriends">
+		[FIRST_NAME] [LAST_NAME] eltávolítása a barátok listájáról?
+	</notification>
+	<notification name="RemoveMultipleFromFriends">
+		Több barátot szeretnél eltávolítani a listáról?
+	</notification>
+	<notification name="GodDeleteAllScriptedPublicObjectsByUser">
+		Biztos, hogy minden scriptelt tárgyat törölsz a sim minden területéről,
+amely ennek a tulajdonában van:
+** [AVATAR_NAME] **
+	</notification>
+	<notification name="GodDeleteAllScriptedObjectsByUser">
+		Biztos, hogy minden scriptelt tárgyat törölsz a sim minden területéről,
+amely ennek a tulajdonában van:
+** [AVATAR_NAME] **
+	</notification>
+	<notification name="GodDeleteAllObjectsByUser">
+		Biztos, hogy minden scriptelt tárgyat törölsz a sim minden területéről,
+amely ennek a tulajdonában van:
+** [AVATAR_NAME] **
+	</notification>
+	<notification name="BlankClassifiedName">
+		A hirdetésnek nevet kell adnod.
+	</notification>
+	<notification name="MinClassifiedPrice">
+		A hirdetés megjelenésének ára legalább ennyi kell, hogy legyen: [MIN_PRICE] L$.
+
+Kérjük magasabb árat adj meg.
+	</notification>
+	<notification name="ConfirmObjectDeleteLock">
+		A kijelölt elemek közül legalább egy lezárt.
+
+Biztos, hogy törlöd ezeket az elemeket?
+	</notification>
+	<notification name="ConfirmObjectDeleteNoCopy">
+		A kijelelölt elemek közül legalább egy nem másolható.
+
+Biztos, hogy törlöd ezeket az elemeket?
+	</notification>
+	<notification name="ConfirmObjectDeleteNoOwn">
+		A kijelelölt elemek közül legalább egynek nem te vagy a tulajdonosa.
+
+Biztos, hogy törlöd ezeket az elemeket?
+	</notification>
+	<notification name="ConfirmObjectDeleteLockNoCopy">
+		Legalább egy tárgy lezárt.
+Legalább egy tárgy nem másolható.
+
+Biztos, hogy törlöd ezeket az elemeket?
+	</notification>
+	<notification name="ConfirmObjectDeleteLockNoOwn">
+		Legalább egy tárgy lezárt.
+Legalább egy tárgynak nem te vagy a tulajdonosa.
+
+Biztos, hogy törlöd ezeket az elemeket?
+	</notification>
+	<notification name="ConfirmObjectDeleteNoCopyNoOwn">
+		Legalább egy tárgy nem másolható.
+Legalább egy tárgynak nem te vagy a tulajdonosa.
+
+Biztos, hogy törlöd ezeket az elemeket?
+	</notification>
+	<notification name="ConfirmObjectDeleteLockNoCopyNoOwn">
+		Legalább egy tárgy lezárt.
+Legalább egy tárgy nem másolható.
+Legalább egy tárgynak nem te vagy a tulajdonosa.
+
+Biztos, hogy törlöd ezeket az elemeket?
+	</notification>
+	<notification name="ConfirmObjectTakeLock">
+		Legalább egy tárgy lezárt.
+
+Biztos, hogy átveszed ezeket az elemeket?
+	</notification>
+	<notification name="ConfirmObjectTakeNoOwn">
+		Nem minden átvett tárgynak te vagy a tulajdonosa.
+Amennyiben folytatod, a következő tulajdonos bármikor korlátozhatja a tárgy módosítására vagy másolására való jogosultságot.
+
+Biztos, hogy átveszed ezeket az elemeket?
+	</notification>
+	<notification name="ConfirmObjectTakeLockNoOwn">
+		Legalább egy tárgy lezárt.
+Legalább egy tárgynak nem te vagy a tulajdonosa.
+Amennyiben folytatod, a következő tulajdonos bármikor korlátozhatja a tárgy módosítására vagy másolására való jogosultságot.
+
+Biztos, hogy átveszed ezeket az elemeket?
+	</notification>
+	<notification name="CantBuyLandAcrossMultipleRegions">
+		Föld vásárlása sikertelen, mert a kijelölt területek több régión helyezkednek el.
+
+Kérjük jelölj ki egy kisebb területet és próbáld újra.
+	</notification>
+	<notification name="DeedLandToGroup">
+		A telek csoportra történő átruházásához a csoportnak rendelkeznie kell a föld megvásárlásához és fenntartásához szükséges mértékű díj összegével.
+A föld vételi ára nem kerül visszatérítésre. Amennyiben egy csoportra átruházott telek eladásra kerül, az eladási ár szétoszlik a csoport tagjai között.
+
+[AREA] m² területű föld átruházása erre a csoportra: &apos;[GROUP_NAME]&apos;?
+	</notification>
+	<notification name="DeedLandToGroupWithContribution">
+		A telek csoportra történő átruházásához a csoportnak rendelkeznie kell a föld megvásárlásához és fenntartásához szükséges mértékű díj összegével.
+Átruházás esetén hozzájárulás is szükséges egyidejűleg a csoport részére ettől: &apos;[FIRST_NAME] [LAST_NAME]&apos;.
+A föld vételi ára nem kerül visszatérítésre. Amennyiben egy csoportra átruházott telek eladásra kerül, az eladási ár szétoszlik a csoport tagjai között.
+
+[AREA] m² területű föld átruházása erre a csoportra: &apos;[GROUP_NAME]&apos;?
+	</notification>
+	<notification name="DisplaySetToSafe">
+		A biztonságos opció bekapcsolásával a megjelenítési beállítások is a megfelelő biztonsági szintre kerültek beállításra.
+	</notification>
+	<notification name="DisplaySetToRecommended">
+		A megjelenítési beállítások a javasolt szintre kerültek beállításra a rendszerben.
+	</notification>
+	<notification name="ErrorMessage">
+		[ERROR_MESSAGE]
+	</notification>
+	<notification name="AvatarMoved">
+		A [TYPE] helyszín jelenleg nem elérhető. [HELP]
+Az avatárod a legközelebbi régióra kerül teleportálásra.
+	</notification>
+	<notification name="ClothingLoading">
+		A ruházat betöltése folyamatban.
+A [SECOND_LIFE] működése megfelelő, így mások is megfelelően látnak.
+	</notification>
+	<notification name="FirstRun">
+		[SECOND_LIFE] telepítése befejeződött.
+
+Amennyiben először használod a [SECOND_LIFE]-ot, felhasználói fiókkal kell, hogy rendelkezz a belépéshez.
+Vissza a www.secondlife.com oldalra a regisztráció elvégzéséhez?
+	</notification>
+	<notification name="LoginPacketNeverReceived">
+		Hiba lépett fel a kapcsolódáskor. Valószínű, hogy probléma van az internetkapcsolatoddal vagy a Second Life kiszolgáló szervereivel.
+
+Ellenőrizd az internetkapcsolatod és néhány perc múlva próbáld újra. Kattints a Segítség menüre támogatás kéréséhez vagy próbáld a teleportálást újra.
+	</notification>
+	<notification name="WelcomeChooseSex">
+		Az avatárod hamarosan megjelenik.
+
+Használd a nyilakat a mozgáshoz.
+A segítséghez vagy további információk kéréséhez használd az F1 gombot.
+Kérjük válassz férfi vagy női avatárt. Ezt bármikor megváltoztathatod.
+	</notification>
+	<notification name="NotEnoughCurrency">
+		[NAME] L$ [PRICE] Nem áll rendelkezésre elég L$ ennek végrehajtásához.
+	</notification>
+	<notification name="GrantedModifyRights">
+		[FIRST_NAME] [LAST_NAME] tárgyainak szerkesztésére jogosultságot szereztél.
+	</notification>
+	<notification name="RevokedModifyRights">
+		[FIRST_NAME] [LAST_NAME] tárgyainak szerkesztésére való jogosultság visszavonásra került.
+	</notification>
+	<notification name="FlushMapVisibilityCaches">
+		Régió térkép gyorsítótár kiürítése.
+Ez kizárólag csak javítási célokat szolgál.
+(Folyamatban, várakozás 5 percig, majd térképfrissítés mindenkinél a kliens újraindítása után.)
+	</notification>
+	<notification name="BuyOneObjectOnly">
+		Jelenleg egynél több tárgy vásárlása nem sikerült. Kérjük csak egy tárgyat válassz, majd próbáld újra.
+	</notification>
+	<notification name="OnlyCopyContentsOfSingleItem">
+		Jelenleg egynél több tárgy tartalmának a másolása nem sikerült.
+Kérjük csak egy tárgyat válassz, majd próbáld újra.
+	</notification>
+	<notification name="KickUsersFromRegion">
+		Minden lakó a régió kezdőpontjára való teleportálása?
+	</notification>
+	<notification name="EstateObjectReturn">
+		Biztos, hogy visszaküldöd ennek a felhasználónak a tárgyait: [USER_NAME]?
+	</notification>
+	<notification name="InvalidTerrainBitDepth">
+		Régió textúrájának beállítása sikertelen:
+A [TEXTURE_NUM] domborzat textúra érvénytelen bit mélységet tartalmaz: [TEXTURE_BIT_DEPTH].
+
+Cseréld ki a [TEXTURE_NUM] textúrát 24 bites 512x512 vagy annál kisebb képre, majd kattints az &quot;Alkalmaz&quot; gombra ismét.
+	</notification>
+	<notification name="InvalidTerrainSize">
+		Régió textúrájának beállítása sikertelen:
+A [TEXTURE_NUM] domborzat textúra mérete túl nagy: [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y].
+
+Cseréld ki a [TEXTURE_NUM] textúrát 24 bites 512x512 vagy annál kisebb képre, majd kattints az &quot;Alkalmaz&quot; gombra ismét.
+	</notification>
+	<notification name="RawUploadStarted">
+		Feltöltés megkezdődött. Ez legfeljebb két percig tart az internetkapcsolattól függően.
+	</notification>
+	<notification name="ConfirmBakeTerrain">
+		Biztos, hogy frissíted a jelenlegi domborzat textúráját?
+	</notification>
+	<notification name="MaxAllowedAgentOnRegion">
+		Legfeljebb ennyi számú engedélyezett lakód lehet: [MAX_AGENTS].
+	</notification>
+	<notification name="MaxBannedAgentsOnRegion">
+		Legfeljebb ennyi számú kitiltott lakód lehet: [MAX_BANNED].
+	</notification>
+	<notification name="MaxAgentOnRegionBatch">
+		Hiba [NUM_ADDED] lakó hozzáadásakor:
+Meghaladja a [MAX_AGENTS] [LIST_TYPE] korlátot ennyivel: [NUM_EXCESS].
+	</notification>
+	<notification name="MaxAllowedGroupsOnRegion">
+		Legfeljebb ennyi engedélyezett számú csoportod lehet: [MAX_GROUPS].
+	</notification>
+	<notification name="MaxManagersOnRegion">
+		Legfeljebb ennyi számú ingatlankezelőd lehet: [MAX_MANAGER].
+	</notification>
+	<notification name="OwnerCanNotBeDenied">
+		Telektulajdonos nem adható hozzá a kitiltott lakók listájához.
+	</notification>
+	<notification name="CanNotChangeAppearanceUntilLoaded">
+		Megjelenés mindaddig nem változtatható, ameddig a ruházat és az alak be nem töltődött.
+	</notification>
+	<notification name="ClassifiedMustBeAlphanumeric">
+		A hirdetés neve betűvel vagy számmal kell, hogy kezdődjön. Írásjelek nem használhatók.
+	</notification>
+	<notification name="CantSetBuyObject">
+		Nem állítható vásárlásra a tárgy, mivel nem eladó.
+Kérjük állítsd a tárgyat eladhatóvá és próbáld újra.
+	</notification>
+	<notification name="FinishedRawDownload">
+		A raw domborzat fájl letöltése befejeződött erre a helyre:
+[DOWNLOAD_PATH].
+	</notification>
+	<notification name="DownloadWindowsMandatory">
+		A [SECOND_LIFE] új verziója elérhető.
+[MESSAGE]
+A [SECOND_LIFE] használatához le kell töltened ezt a frissítést.
+	</notification>
+	<notification name="DownloadWindows">
+		A [SECOND_LIFE] egy újabb verziója elérhető.
+[MESSAGE]
+A frissítés nem kötelező, de a jobb teljesítmény és stabilitás megteremtésének érdekében javasoljuk ennek telepítését.
+	</notification>
+	<notification name="DownloadWindowsReleaseForDownload">
+		A [SECOND_LIFE] egy újabb verziója elérhető.
+[MESSAGE]
+A frissítés nem kötelező, de a jobb teljesítmény és stabilitás megteremtésének érdekében javasoljuk ennek telepítését.
+	</notification>
+	<notification name="DownloadMacMandatory">
+		A [SECOND_LIFE] új verziója elérhető.
+[MESSAGE]
+A [SECOND_LIFE] használatához le kell töltened ezt a frissítést.
+
+Letöltés a programok könyvtárába?
+	</notification>
+	<notification name="DownloadMac">
+		A [SECOND_LIFE] egy újabb verziója elérhető.
+[MESSAGE]
+A frissítés nem kötelező, de a jobb teljesítmény és stabilitás megteremtésének érdekében javasoljuk ennek telepítését.
+
+Letöltés a programok könyvtárába?
+	</notification>
+	<notification name="DownloadMacReleaseForDownload">
+		A [SECOND_LIFE] egy újabb verziója elérhető.
+[MESSAGE]
+A frissítés nem kötelező, de a jobb teljesítmény és stabilitás megteremtésének érdekében javasoljuk ennek telepítését.
+
+Letöltés a programok könyvtárába?
+	</notification>
+	<notification name="DeedObjectToGroup">
+		Tárgy átruházása a csoport részére:
+* Tárgyra fizetett L$ fogadása
+	</notification>
+	<notification name="WebLaunchExternalTarget">
+		Tartalom megtekintése böngészőben?
+	</notification>
+	<notification name="WebLaunchJoinNow">
+		A www.secondlife.com oldal meglátogatása a felhasználói fiók beállításához?
+	</notification>
+	<notification name="WebLaunchBugReport101">
+		[SECOND_LIFE] Wiki oldal megtekintése a hibákat jelzésére.
+	</notification>
+	<notification name="WebLaunchSecurityIssues">
+		[SECOND_LIFE] Wiki oldal megtekintése a biztonsági kérdéseket kezelésére
+	</notification>
+	<notification name="WebLaunchQAWiki">
+		[SECOND_LIFE] QA Wiki megtekintése.
+	</notification>
+	<notification name="WebLaunchPublicIssue">
+		[SECOND_LIFE] nyilvános nyomonkövetések megtekintése a hibák és egyéb kérdések jelzésére.
+	</notification>
+	<notification name="WebLaunchPublicIssueHelp">
+		[SECOND_LIFE] Wiki oldal megtekintése a nyilvános nyomonkövetéseket kezelésére.
+	</notification>
+	<notification name="WebLaunchSupportWiki">
+		Hivatalos Linden Blog megtekintése a legfrissebb hírek és információk megtekintéséhez.
+	</notification>
+	<notification name="WebLaunchLSLGuide">
+		Scripting útmutató megtekintése programozási segítséghez?
+	</notification>
+	<notification name="WebLaunchLSLWiki">
+		LSL Portál megtekintése a scripting segítségnyújtáshoz?
+	</notification>
+	<notification name="ReturnToOwner">
+		Biztos, hogy visszaküldöd a kiválasztott tárgyakat a tulajdonosainak? Az átadható csoportra átruházott tárgyak az előző tulajdonosai részére kerülnek visszaküldésre.
+
+*VIGYÁZAT* Nem átadható csoportra átruházott tárgyak törlésre kerülnek!
+	</notification>
+	<notification name="GroupLeaveConfirmMember">
+		Jelenleg ennek a csoportnak vagy a tagja: [GROUP].
+Csoportból kilép?
+	</notification>
+	<notification name="ConfirmKick">
+		BIZTOS, hogy minden felhasználót kirúgsz a gridről?
+	</notification>
+	<notification name="MuteLinden">
+		Sajnos Linden felhasználót nem némíthatsz le.
+	</notification>
+	<notification name="CannotStartAuctionAlreadyForSale">
+		Nem tehetsz olyan telket aukcióra, amely eladásra lett beállítva. Amennyiben aukciót szeretnél indítani, szüntesd meg a föld eladását.
+	</notification>
+	<notification label="Tárgy név szerinti elnémítása sikertelen" name="MuteByNameFailed">
+		Ez a nevű elem már elnémításra került.
+	</notification>
+	<notification name="RemoveItemWarn">
+		Annak ellenére, hogy engedélyezett, a tartalmak törlése kárt okozhat a tárgynak. Biztos, hogy törlöd ezt az elemet?
+	</notification>
+	<notification name="CantOfferCallingCard">
+		Jelenleg nem küldhetsz hívókártyát. Kérjük próbáld később.
+	</notification>
+	<notification name="CantOfferFriendship">
+		Jelenleg nem ajánlhatsz barátságot. Kérjük próbáld később.
+	</notification>
+	<notification name="BusyModeSet">
+		Elfoglalt állapot.
+Az üzenetek elrejtésre kerülnek. Az elfoglalt állapotjelzést látható válaszként, amennyiben valaki üzenetet küld neked. Minden teleportálási ajánlat elutasításra kerül. Minden készlettárral kapcsolatos tranzakció a szemetesbe kerül.
+	</notification>
+	<notification name="JoinedTooManyGroupsMember">
+		Nem léphetsz be egy újabb csoportba, mivel már túl sok csoportnak vagy tagja. Kérjük lépj ki legalább egy csoportból, annak érdekében, hogy be tudj lépni egy újabb csoportba vagy hagyd figyelmen kívül a csoporttagsággal kapcsolatos meghívást.
+A csoportból való kilépéshez válaszd a &apos;Csoportok...&apos; részt a &apos;Szerkesztés&apos; menüből.
+[NAME] csoporttagságot ajánlott fel neked.
+[INVITE]
+	</notification>
+	<notification name="KickUser">
+		Felhasználó kirúgása?
+		<form name="form">
+			<input name="message">
+				Az adminisztrátor kiléptetett.
+			</input>
+		</form>
+	</notification>
+	<notification name="KickAllUsers">
+		Minden felhasználó kirúgása a gridről?
+		<form name="form">
+			<input name="message">
+				Az adminisztrátor kiléptetett.
+			</input>
+		</form>
+	</notification>
+	<notification name="FreezeUser">
+		Felhasználó fagyasztása?
+		<form name="form">
+			<input name="message">
+				Fagyasztásra kerültél. Nem mozoghatsz és nem küldhetsz üzenetet. Az adminisztrátor küldhet neked üzenetet.
+			</input>
+		</form>
+	</notification>
+	<notification name="UnFreezeUser">
+		Fagyasztás megszüntetése?
+		<form name="form">
+			<input name="message">
+				Fagyasztás megszüntetésre került.
+			</input>
+		</form>
+	</notification>
+	<notification name="OfferTeleport">
+		Teleportálás felajánlása a saját helyszínedre a következő üzenettel?
+		<form name="form">
+			<input name="message">
+				Csatlakozz hozzám itt: [REGION]
+			</input>
+		</form>
+	</notification>
+	<notification name="OfferTeleportFromGod">
+		Szuper adminisztrátori meghívás a helyszínedre?
+		<form name="form">
+			<input name="message">
+				Csatlakozz hozzám itt: [REGION]
+			</input>
+		</form>
+	</notification>
+	<notification name="TeleportFromLandmark">
+		Biztos, hogy teleportálsz?
+	</notification>
+	<notification label="Üzenetküldés mindenki számára a telkeden" name="MessageEstate">
+		Rövid bejelentés írása, amely elküldésre mindenki részére, aki az ingatlanodon tartózkodik.
+	</notification>
+	<notification label="Linden telek változtatása" name="ChangeLindenEstate">
+		Linden tulajdonú telek változtatása folyamatban (mainland, teen grid, orientation, stb.).
+
+Ez NAGYON VESZÉLYES, mivel kihatással van a felhasználók megszokásaira. A mainland-en ez régiók ezreit befolyásolja, amely a &apos;spaceserver&apos; működésében akadályokat okoz.
+
+Folytatod?
+	</notification>
+	<notification label="Linden telek belépésének változtatása" name="ChangeLindenAccess">
+		Linden tulajdonú telek változtatása folyamatban (mainland, teen grid, orientation, stb.).
+
+This is DANGEROUS and should only be done to invoke the hack allowing objects/L$ to be transfered in/out of a grid.
+A mainland-en ez régiók ezreit befolyásolja, amely a &apos;spaceserver&apos; működésében akadályokat okoz.
+	</notification>
+	<notification label="Ingatlan kiválasztása" name="EstateAllowedAgentAdd">
+		Engedélyezettek listájához való hozzáadása csak ennek az ingatlan vagy [ALL_ESTATES] esetén?
+	</notification>
+	<notification label="Ingatlan kiválasztása" name="EstateAllowedAgentRemove">
+		Engedélyezettek listájáról való eltávolítása csak ennek az ingatlan vagy [ALL_ESTATES] esetén?
+	</notification>
+	<notification label="Ingatlan kiválasztása" name="EstateAllowedGroupAdd">
+		Engedélyezett csoportokhoz való hozzáadása csak ennek az ingatlan vagy [ALL_ESTATES] esetén?
+	</notification>
+	<notification label="Ingatlan kiválasztása" name="EstateAllowedGroupRemove">
+		Engedélyezett csoportok közül való eltávolítása csak ennek az ingatlan vagy [ALL_ESTATES] esetén?
+	</notification>
+	<notification label="Ingatlan kiválasztása" name="EstateBannedAgentAdd">
+		Belépés elutasítása csak ennek az ingatlan vagy [ALL_ESTATES] esetén?
+	</notification>
+	<notification label="Ingatlan kiválasztása" name="EstateBannedAgentRemove">
+		Lakó eltávolítása a kitiltott lakók listájáról csak ennek az ingatlan vagy [ALL_ESTATES] esetén?
+	</notification>
+	<notification label="Ingatlan kiválasztása" name="EstateManagerAdd">
+		Ingatlankezelő hozzáadása csak ennek az ingatlan vagy [ALL_ESTATES] esetén?
+	</notification>
+	<notification label="Ingatlan kiválasztása" name="EstateManagerRemove">
+		Ingatlankezelő eltávolítása csak ennek az ingatlan vagy [ALL_ESTATES] esetén?
+	</notification>
+	<notification label="Kirúgás jóváhagyása" name="EstateKickUser">
+		[EVIL_USER] kirúgása az ingatlanról?
+	</notification>
+	<notification name="EstateChangeCovenant">
+		Biztos, hogy megváltoztatod az telek bérlői szerződését?
+	</notification>
+	<notification name="RegionEntryAccessBlocked">
+		Erre a régióra a felnőtt tartalom miatt nem léphetsz be. Ez lehetséges, hogy a korosztályigazolásod hiányának eredménye.
+
+Kérjük ellenőrizd, hogy a legújabb klienst használod-e, majd tekintsd meg a tudásbázis oldalt a felnőtt tartalmakkal kapcsolatos további részletekért.
+    <usetemplate
+     name="okbutton"
+     yestext="OK"/>
+	</notification>
+	<notification name="RegionEntryAccessBlocked_KB">
+		Erre a régióra a felnőtt tartalom miatt nem léphetsz be.
+
+Tudásbázis oldal megtekintése a felnőtt tartalmak minősítésével kapcsolatban?
+		<url name="url">
+			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+		</url>
+    <usetemplate
+     name="okcancelignore"
+     yestext="Tudásbázis megtekintése"
+	 notext="Bezár"
+	 ignoretext="Amikor egy régióra való belépés tiltásra került a minősítés típusának beállítása miatt"/>
+	</notification>
+	<notification name="RegionEntryAccessBlocked_Notify">
+		Erre a régióra a felnőtt tartalom miatt nem léphetsz be.
+	</notification>
+	<notification name="RegionEntryAccessBlocked_Change">
+		Erre a régióra a felnőtt tartalommal kapcsolatos beállításaid miatt nem léphetsz be.
+
+Kattints a &apos;Tulajdonságok megváltoztatása&apos; menüre a minősítés megváltoztatásához és engedélyezed a hozzáférést a számodra megfelelő tartalmakhoz. Így ezzel lehetőséged nyílik belépni és keresni [REGIONMATURITY] tartalmak között. Ezt a beállítást később is megváltoztathatod a Szerkesztés &gt; Tulajdonságok... &gt; Általános menü alatt.
+	 <form name="form">
+      <button
+       name="OK"
+       text="Tulajdonságok megváltoztatása"/>
+      <button
+       default="true"
+       name="Cancel"
+       text="Bezár"/>
+       <ignore name="ignore" text="Amikor egy régióra való belépés tiltásra került a minősítés típusának beállítása miatt"/>
+    </form>
+	</notification>
+	<notification name="LandClaimAccessBlocked">
+		A felnőtt tartalommal kapcsolatos minősítés beállítása miatt ezt a földet nem szerezheted meg. Ez lehetséges, hogy a korosztályigazolásod hiányának eredménye.
+
+Kérjük nézd meg, hogy a legújabb kliens használod, majd tekintsd meg a tudásbázis oldalt a felnőtt tartalmakkal kapcsolatos további részletekért.
+    <usetemplate
+     name="okbutton"
+     yestext="OK"/>
+	</notification>
+	<notification name="LandClaimAccessBlocked_KB">
+		A felnőtt tartalommal kapcsolatos minősítés beállítása miatt ezt a földet nem szerezheted meg.
+
+Tudásbázis oldal megtekintése a felnőtt tartalmak minősítésével kapcsolatban?
+		<url name="url">
+			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+		</url>
+    <usetemplate
+     name="okcancelignore"
+     yestext="Tudásbázis megtekintése"
+	 notext="Bezár"
+	 ignoretext="Amikor egy föld megszerzése tiltásra került a minősítés típusának beállítása miatt"/>
+	</notification>
+	<notification name="LandClaimAccessBlocked_Notify">
+		A felnőtt tartalommal kapcsolatos minősítés beállítása miatt ezt a földet nem szerezheted meg.
+	</notification>
+	<notification name="LandClaimAccessBlocked_Change">
+		A felnőtt tartalommal kapcsolatos minősítés beállítása miatt ezt a földet nem szerezheted meg.
+
+Kattints a &apos;Tulajdonságok megváltoztatása&apos; menüre a Minősítés megváltoztatásához és engedélyezed a hozzáférést a számodra megfelelő tartalmakhoz. Így ezzel lehetőséged nyílik belépni és keresni [REGIONMATURITY] tartalmak között. Ezt a beállítást később is megváltoztathatod a Szerkesztés &gt; Tulajdonságok... &gt; Általános menü alatt.
+    <usetemplate
+     name="okcancelignore"
+     yestext="Tulajdonságok megváltoztatása"
+	 notext="Bezár"
+	 ignoretext="Amikor egy föld megszerzése tiltásra került a minősítés típusának beállítása miatt"/>
+	</notification>
+	<notification name="LandBuyAccessBlocked">
+		A felnőtt tartalommal kapcsolatos minősítés beállítása miatt ezt a földet nem vásárolhatod meg. Ez lehetséges, hogy a korosztályigazolásod hiányának eredménye.
+
+Kérjük nézd meg, hogy a legújabb kliens használod, majd tekintsd meg a tudásbázis oldalt a felnőtt tartalmakkal kapcsolatos további részletekért.
+    <usetemplate
+     name="okbutton"
+     yestext="OK"/>
+	</notification>
+	<notification name="LandBuyAccessBlocked_KB">
+		A felnőtt tartalommal kapcsolatos minősítés beállítása miatt ezt a földet nem vásárolhatod meg.
+
+Tudásbázis oldal megtekintése a felnőtt tartalmak minősítésével kapcsolatban?
+		<url name="url">
+			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+		</url>
+    <usetemplate
+     name="okcancelignore"
+     yestext="Tudásbázis megtekintése"
+	 notext="Bezár"
+	 ignoretext="Amikor egy földvásárlás tiltásra került a minősítés típusának beállítása miatt"/>
+	</notification>
+	<notification name="LandBuyAccessBlocked_Notify">
+		A felnőtt tartalommal kapcsolatos minősítés beállítás miatt ezt a földet nem vásárolhatod meg.
+	</notification>
+	<notification name="LandBuyAccessBlocked_Change">
+		A felnőtt tartalommal kapcsolatos beállításod miatt ezt a földet nem vásárolhatod meg.
+
+Kattints a &apos;Tulajdonságok megváltoztatása&apos; menüre a Minősítés megváltoztatásához és engedélyezed a hozzáférést a számodra megfelelő tartalmakhoz. Így ezzel lehetőséged nyílik belépni és keresni [REGIONMATURITY] tartalmak között. Ezt a beállítást később is megváltoztathatod a Szerkesztés &gt; Tulajdonságok... &gt; Általános menü alatt.
+    <usetemplate
+     name="okcancelignore"
+     yestext="Tulajdonságok megváltoztatása"
+	 notext="Bezár"
+	 ignoretext="Amikor egy földvásárlás tiltásra került a minősítés típusának beállítása miatt"/>
+	</notification>
+	<notification name="TooManyPrimsSelected">
+		&quot;Túl sok tárgy került kijelölésre. Kérjük legfeljebb [MAX_PRIM_COUNT] vagy ennél kevesebb tárgyat válassz ki, majd próbáld újra.&quot;
+		<usetemplate name="okbutton" yestext="OK"/>
+	</notification>
+	<notification name="ProblemImportingEstateCovenant">
+		Probléma merült fel a bérlői szerződés importálásakor.
+	</notification>
+	<notification name="ProblemAddingEstateManager">
+		Probléma merült fel az új ingatlankezelő hozzáadásakor. Egy vagy több ingatlan esetén az ingatlankezelők listája nem bűvíthető.
+	</notification>
+	<notification name="ProblemAddingEstateGeneric">
+		Probléma merült fel az ingatlan listához való hozzáadáskor.  Egy vagy több ingatlan esetén a lista nem bővíthető.
+	</notification>
+	<notification name="UnableToLoadNotecardAsset">
+		Feljegyzéshez tartozó eszközök betöltése sikertelen.
+    <usetemplate
+     name="okbutton"
+     yestext="OK"/>
+	</notification>
+	<notification name="NotAllowedToViewNotecard">
+		Érvénytelen jóváhagyás a feljegyzéshez tartozó ID azonosítással rendelkező eszközök megtekintésére.
+	</notification>
+	<notification name="MissingNotecardAssetID">
+		Feljegyzés eszköz ID hiányzik az adatbázisból.
+	</notification>
+	<notification name="PublishClassified">
+		Emlékeztető: Hirdetések feladásának díjai nem visszatérítendők.
+
+Hirdetés feladása most ennyiért: [AMOUNT] L$?
+	</notification>
+	<notification name="SetClassifiedMature">
+		Ez a hirdetés Mature tartalmú?
+    <usetemplate
+     canceltext="Mégsem"
+     name="yesnocancelbuttons"
+     notext="Nem"
+     yestext="Igen"/>
+	</notification>
+	<notification name="SetGroupMature">
+		Ez a csoport Mature tartalmú?
+    <usetemplate
+     canceltext="Mégsem"
+     name="yesnocancelbuttons"
+     notext="Nem"
+     yestext="Igen"/>
+	</notification>
+	<notification label="Újraindítás jóváhagyása" name="ConfirmRestart">
+		Biztos, hogy két perc múlva újraindítod ezt a régiót?
+	</notification>
+	<notification label="Üzenet küldése mindenki részére a régión" name="MessageRegion">
+		Írj egy rövid hirdetmény szöveget, amely kiküldésre kerül mindenkinek a régión.
+	</notification>
+	<notification label="Domborzat szerkesztésének tiltása" name="HelpRegionBlockTerraform">
+		Amennyiben ez bejelölésre kerül, a földtulajdonosoknak nem lesz lehetőségük az ingatlanon domborzatának megváltoztatására függetlenül attól, hogy mi lett megadva az adott telek &apos;Domborzat szerkesztése&apos; beállítása alatt.
+
+Alapértelmezett: ki
+	</notification>
+	<notification label="Repülés tiltása" name="HelpRegionBlockFly">
+		Amennyiben ez bejelölésre kerül, az embereknek nem lesz lehetőségük repülni a régión, függetlenül attól, hogy mi lett megadva az adott telek &apos;Repülés&apos; beállítása alatt.
+
+Alapértelmezett: ki
+	</notification>
+	<notification label="Tömeges tartalom jogosultság módosítása" name="HelpBulkPermission">
+		A Tömeges jogosultság eszközkezelő segítséget nyújt ahhoz, hogy több elem tartalmára vonatkozó jogosultság beállítását egyszerűen és gyorsan kezeljük.  Felhívjuk figyelmedet, hogy kizárólag a kiválasztott tárgy Tartalom részében felsorolt elemek esetén végrehajthatók ezek a beállítások.  
+
+A jogosultságok nem alkalmazhatók összefűzött elemek esetén. A beállítások csak azonos szinten lévő elemek esetén kerülnek végrehajtásra.
+
+Lehetőséged van a tartalmi elemeket egyenként beállítani a Tartalom típusok rész alatt. Fénykép csatolására a Textúra bejelölése esetén van lehetőség.
+
+* Ezek a beállítások csak olyan elemek jogosultságának változtatásánál lesznek sikeresek, melyeken módosítási joggal rendelkezel.
+* Nem adhatod át a jogosultságot a következő tulajdonosra olyan elem esetén, amelyikkel nem rendelkezel.
+* A jogosultságok átruházása következő tulajdonosra egyszerű műveletek. Amennyiben valamelyik elemen nem kerülnek aktiválásra az új jogosultságok, úgy semelyik beállítás sem kerül alkalmazásra.
+
+A Tömeges jogosultságok beállításának befejezésével, kattints az 'Alkalmaz' gombra a változtatások érvénybe lépéséhez.
+
+Amennyiben a Tömeges jogosultságok ablakot a beállítások végrehajtása közben bezárod, akkor a művelet megszakad.
+	</notification>
+	<notification label="Károkozás engedélyezett" name="HelpRegionAllowDamage">
+		Amennyiben ez bejelölésre került, a károkozás az egész régión megengedett, függetlenül az adott telek beállításától. Amennyiben nem került bejelölésre, a telkeken lehetőség van egyedileg szabályozni ezt a beállítást.
+
+Alapértelmezett: ki
+	</notification>
+	<notification label="Avatárszám korlát" name="HelpRegionAgentLimit">
+		A régión való tartózkodásra megengedett legtöbb avatár számának beállítására szolgál.
+A teljesítményt befolyásolja az éppen ott tartózkodó avatárok száma.
+
+Alapértelmezett: 40
+	</notification>
+	<notification label="Bónusz tárgyak" name="HelpRegionObjectBonus">
+		A bónusz tárgyak értéke úgynevezett szorzószám a telken megengedett prímek számára. Ennek mértéke 1 és 10 között lehetséges. Amennyiben &apos;1&apos; került beállításra, úgy minden 512m² területű telekhez 117 tárgy tartozik. Amennyiben &apos;2&apos; ez a szám, abban az esetben minden 512m² területű telekhez 234 tárgy tartozik, és így tovább. A legfeljebb 15.000 tárgy engedélyezett egy régió függetlenül a bónusz tárgyak szorzószámától. Ha csökkented a bónusz tárgyak szorzóját, akkor a megengedett értéken felüli található tárgyak visszaküldésre vagy törlésre kerülnek.
+
+Alapértelmezett: 1.0
+	</notification>
+	<notification label="Minősítés" name="HelpRegionMaturity">
+		A régió minősítés típusának beállítása a kliens menüsávján és gyorssegítségként a világtérképen is látható, amikor az egeret egy adott helyszín fölé helyezzük egy adott régión belül. Ez a beállítás kihatással van a régióra való belépésre és a régió keresőben történő megjelenítésére. Csak azok a lakók látogathatják az adott régiót, akiknél ugyanez a minősítés lett beállítva a Tulajdonságok menüben.
+
+A változás térképen való frissítése hosszabb időt vehet igénybe.
+	</notification>
+	<notification label="Lökés korlátozása" name="HelpRegionRestrictPushObject">
+		Korlátozott ütközési jogosultságok beállítása az egész régión.
+Ha engedélyezve van, a lakók végezhetnek ütközéseket egymás között vagy a telektulajdonosok által.
+(További információkat az llPushObject() LSL funkcióknál találsz.)
+
+Alapértelmezett: ki
+	</notification>
+	<notification label="Telek egyesítése/felosztása" name="HelpParcelChanges">
+		Ez a beállítás a nem fő ingatlantulajdonos kezelésében lévő területek egyesítésének és felosztásának szabályozására szolgál.
+Ha nem került bejelölésre:
+ * Csak az ingatlantulajdonosok vagy -kezelők egyesíthetik vagy oszthatják fel a telket.
+ * Egyesíthetik és feloszthatják a telkeket, amennyiben rendelkeznek ezzel a csoportjogosultsággal.
+Ha bejelölésre került:
+ * Minden egyes telektulajdonosa a saját maga telkét egyesítheti vagy oszthatja fel.
+ * Csoport tulajdonban lévő telkek esetén pedig csak a meghatározott jogosultsággal rendelkező tag egyesítheti vagy oszthatja fel a telket.
+
+Alapértelemezett: Jelölt
+	</notification>
+	<notification label="Keresőben nem jelenít meg" name="HelpRegionSearch">
+		Ennek a beállításnak a bejelölése a telektulajdonosok ingatlanjainak keresőben való letiltására szolgál.
+
+Alapértelmezett: ki
+	</notification>
+	<notification label="Megváltoztatott régió minősítés" name="RegionMaturityChange">
+		A minősítés típusa ezen a régión változtatásra került.
+A változás térképen való frissítése hosszabb időt vehet igénybe.
+	</notification>
+	<notification label="Föld viszonteladása" name="HelpRegionLandResell">
+		A telektulajdonosok és -kezelők eladhatják a fő ingatlantulajdonos birtokában lévő földeket.
+Ha ez a beállítás nem került bejelölésre, a vásárlók nem adhatják el újra a földjeiket ezen a régión.
+Ha ez a beállítás bejelölésre került, akkor a vásárlók továbbadhatják a földjeiket a régión.
+
+Alapértelmezett: nem engedélyezett
+	</notification>
+	<notification label="Scriptek kikapcsolása" name="HelpRegionDisableScripts">
+		Ha egy sim teljesítménye gyenge, akkor emiatt a scriptek is okolhatók. Nézd meg a Statisztika (Ctrl-Shift-1) menüben a Simulator Physics FPS (Szimulátor Fizika FPS) értékét.
+Amennyiben ez az érték alacsonyabb, mint 45, kattints a Time (Idő) panelra a Statisztikák alatt és, ha a Script Time (Script idő) 25 ms vagy magasabb, kattints a Legtöbb ideig futtató scripteket tartalmazó tárgyak gombra, ahol megtekintheted a nevét és helyszínét azoknak a scripteknek, melyek a teljesítményt befolyásolják.
+
+Ha a Scriptek kikapcsolását bejelölöd, átmenetileg scriptek futtatása nem lesz elérhető a régión. You may need to do this in order to travel to the location of a noted &apos;top script&apos;. Once you have arrived at the location, investigate the script to determine if it is causing the problem. You may want to contact the owner of the script or delete or return the object.
+Scriptek tiltásának kikapcsolása után az Alkalmaz gomb megnyomásával ismét engedélyezésre kerülnek a scriptek a régión.
+
+Alapértelmezett: ki
+	</notification>
+	<notification label="Ütközések kikapcsolása" name="HelpRegionDisableCollisions">
+		Ha egy sim teljesítménye gyenge, akkor emiatt a fizikai tárgyak is okolhatók.
+Nyisd meg a Statisztikák panelt (Ctrl-Shift-1), majd ellenőrizd Simulator Physics FPS (Szimulátor Fizika FPS) értéket. Amennyiben ez az érték alacsonyabb 45, nyisd meg a Time (Idő) panelt a Statisztikák alján. Ha a Sim Time (Physics) (Sim Idő) 20 ms vagy magasabb, akkor kattints a Legtöbb ütközést okozók gombra.
+Itt részletesen megtudhatod azoknak a fizikai tárgyaknak a nevét és helyét, melyek a gyengébb teljesítményért felelősek.
+
+Checking the Disable Collisions box and then pressing the Apply button will temporarily disable object-object collisions. You may need to do this in order to travel to the location of a noted &apos;top collider&apos;. Once you have arrived at the location, investigate the object - is it constantly colliding with other objects? You may want to contact the owner of the object or delete or return the object.
+Uncheck the Disable Collisions box and then Apply to reactivate collisions in the region.
+
+Alapértelmezett: ki
+	</notification>
+	<notification label="Fizika kikapcsolása" name="HelpRegionDisablePhysics"/>
+	<notification label="Legtöbb ütközést okozók" name="HelpRegionTopColliders">
+		A legtöbb ütközést okozó tárgyak listája. Ezek a tárgyak teljesítménylassulást okozhatnak. Kattints a Nézet &gt; Statisztika menüre és ellenőrizd le a Simulator (Szimulátor) &gt; Time (idő) &gt; Sim Time (Physics) (Sim Idő (Fizika)) értékét, hogy vajon magasabb-e 20 ms-nál .
+	</notification>
+	<notification label="Legtöbb ideig futtató scripteket tartalmazó tárgyak" name="HelpRegionTopScripts">
+		Megmutatja azokat a tárgyakat, melyek a legtöbb ideig futtatnak LSL scriptet. Ezek a tárgyak teljesítménylassulást okozhatnak.
+Kattints a Nézet &gt; Statisztika menüre és ellenőrizd a Simulator (Szimulátor) &gt; Time (Idő) &gt; Script Time (Script Idő) értékét, hogy vajon magasabb-e 25 ms-nál.
+	</notification>
+	<notification label="Régió újraindítása" name="HelpRegionRestart">
+		Szerver újraindítása a régión két perc utáni figyelmeztetéssel. Ezzel a régión tartózkodó lakók kapcsolódása megszakításra kerül. A régió az adatokat elmenti, majd 90 másodpercen belül újratöltődik.
+
+A régió újraindítása nem javítja ki az összes teljesítménnyel kapcsolatos hibát.
+	</notification>
+	<notification label="Vízmagasság" name="HelpRegionWaterHeight">
+		Ez a víz tengerszint feletti magasságát mutatja. Amennyiben ez 20-tól eltérő értékű és a szomszédos területen is víz található, akkor a terület határán rés lesz látható.
+
+Alapértelmezett: 20
+	</notification>
+	<notification label="Domborzat emelése" name="HelpRegionTerrainRaise">
+		Ez a domborzat tengerszint feletti emelést mutatja.
+
+Alapértelmezett: 4
+	</notification>
+	<notification label="Domborzat mélyítése" name="HelpRegionTerrainLower">
+		Ez a domborzat tengerszint alatti mélyítést mutatja.
+
+Alapértelmezett: -4
+	</notification>
+	<notification label="RAW domborzat fájl feltöltése" name="HelpRegionUploadRaw">
+		Ezzel a gombbal ahhoz a régióhoz tartozó .RAW fájlt töltheted fel, amelyiken tartózkodsz.
+A fájlnak megfelelő méretűnek kell lennie (RGB, 256x256 és 13 csatorna).  A domborzat fájl szerkesztésének legjobb módja, ha a meglévő RAW fájl kerül letöltésre. Javasoljuk, hogy első lépésként a piros csatorna (domborzat magassága) módosításával kezd, majd töltsd fel.
+
+A feltöltés 45 másodpercig is eltarthat. A domborzat fájl feltöltésével a földön található tárgyak nem kerülnek eltávolításra csak a domborzat mintája és a földhöz beállított tulajdonságok változnak. Ennek lehetséges következménye, hogy néhány tárgy a föld felszíne alá kerülhet.
+
+További információkért, nyomd le az F1 Segítség billentyűt.
+	</notification>
+	<notification label="RAW domborzat fájl letöltése" name="HelpRegionDownloadRaw">
+		Ezzel a gombbal a régióhoz tartozó domborzat fájlt töltheted le, amely információkat tartalmaz a magassággal, területi mérettel, a telek néhány beállításával és eladási állapotával kapcsolatban. Amennyiben a fájlt valamilyen grafikai programmal, például Photoshop-pal nyitod meg, akkor a dokumentum méretének a következőnek kell lennie: RGB, 256x256 és 13 csatorna. Ellenkező esetben a domborzat fájl nem lesz megnyitható.
+
+További információkért, nyomd le az F1 Segítség billentyűt.
+	</notification>
+	<notification label="Telekidő alkalmazása" name="HelpRegionUseEstateSun">
+		Ennek az opciónak a bekapcsolásával a telken lévő nap pozíciót állíthatod be.
+
+Alapértelmezett: be
+	</notification>
+	<notification label="Rögzített napszak" name="HelpRegionFixedSun">
+		Ezzel beállíthatsz egy állandó nap pozíciót a telken.
+
+Alapértelmezett: ki
+	</notification>
+	<notification label="Domborzat bakelése" name="HelpRegionBakeTerrain">
+		Ezzel a gombbal a régióhoz tartozó domborzat jelenlegi formáját tudod lementeni alapértelmezettként. Bakelés után a föld domborzata bármikor visszaállítható erre a Domborzat rész alatt.
+	</notification>
+	<notification label="Ingatlankezelők" name="HelpEstateEstateManager">
+		Az ingatlankezelő az a lakó, akit az adott föld kezelésére kineveztél. Az ingatlankezelőnek lehetőgége van a földdel kapcsolatos bármilyen beállítások módosítására, kivéve a feltöltést, letöltést és a domborzat bakelését. Ugyancsak lehetősége van lakók engedélyezésére és kitiltására a földön.
+
+Az ingatlankezelők csakis kizárólag a telek tulajdonosa által nevezhető ki, más ingatlankezelő által nem. Csak olyan lakót válassz meg ingatlankezelőnek, akiben megbízol és a tetteiért felelősséget tudsz vállalni.
+	</notification>
+	<notification label="Globális idő használata" name="HelpEstateUseGlobalTime">
+		Ezzel a beállítással a telken lévő nap a Mainland területén működő nap mozgását követi.
+
+Alapértelmezett: be
+	</notification>
+	<notification label="Rögzített napszak" name="HelpEstateFixedSun">
+		Ezzel beállíthatsz egy állandó nap pozíciót a telken.
+	</notification>
+	<notification label="Nyilvános terület" name="HelpEstateExternallyVisible"/>
+	<notification label="Közvetlen teleportálás engedélyezése" name="HelpEstateAllowDirectTeleport">
+		Ennek bekapcsolásával lehetőség nyílik a telek bármely pontjára való közvetlen teleportálás. Amennyiben ez az opció nem került bejelölésre, úgy a teleportáció csak a legközelebbi telehub-ra lehetséges.
+
+Alapértelmezett: ki
+	</notification>
+	<notification label="Engedélyezett lakók" name="HelpEstateAllowResident">
+		A belépés csak a listán szereplő lakóknak lehetséges. Ez a beállítás csak akkor elérhető, ha a Nyilvános belépés engedélyezése opció nem került bejelölésre.
+	</notification>
+	<notification label="Engedélyezett csoportok" name="HelpEstateAllowGroup">
+		A belépés csak a listán szereplő csoportoknak lehetséges. Ez a beállítás csak akkor elérhető, ha a Nyilvános belépés engedélyezése opció nem került bejelölésre.
+	</notification>
+	<notification label="Visszaélések e-mail címe" name="HelpEstateAbuseEmailAddress">
+		A visszaélések értesítéséhez használt e-mail címe.
+Amennyiben üresen hagyod, akkor az értesítés csak a Linden Lab részére kerül elküldésre.
+	</notification>
+	<notification label="Kitiltott lakók" name="HelpEstateBanResident">
+		A listán szereplő lakók telekre való belépése nem engedélyezett függetlenül bármilyen egyéb beállítástól.
+	</notification>
+	<notification label="Hangüzenet küldésének engedélyezése" name="HelpEstateVoiceChat">
+		Az ezen a földön található telkek esetén a hangüzenet küldése engedéyezett.
+
+Alapértelmezett: ki
+	</notification>
+	<notification label="Nem megfelelő hangkezelő motor verzió" name="VoiceVersionMismatch">
+		Ez a Second Life kliensprogram nem kompatibilis a régión található hangüzenet továbbításért felelős motorral. Annak érdekében, hogy ez helyesen működjön, frissítsd a Second Life-ot.
+	</notification>
+	<notification label="Bérlői szerződés" name="HelpEstateCovenant">
+		A bérlői szerződés feltételeinek beállításával lehetőség nyílik a földön telkek eladására. Amennyiben ez nem került beállításra, úgy a telek eladása nem lehetséges. A bérlői szerződésre vonatkozó feltétel üres lehet, ha nem kívánsz szabályokat és feltételeket szabni a földeden található telkek vásárlásával kapcsolatban.
+
+A bérlői szerződés számos elemet tartalmazhat olyanokat, mint például a telken használatos közösségi szabályok, irányelvek, kulturális információk, egyedi szabályozások a lehetséges vevőkkel szemben. Ilyenek a zónák kialakításával, építési szabályokkal, fizetési feltételekkel vagy egyéb információkkal kapcsolatos szabályozások.
+
+A vevőnek a telek megvásárlása előtt a bérlői szerződést el kell fogadnia. A bérlői szerződések minden esetben megtekinthetők az adott telek Föld információk menü Szerződés rész alatt.
+	</notification>
+	<notification label="Tárgyak vásárlása sikertelen" name="BuyObjectOneOwner">
+		Egyidőben különböző tulajdonosoktól történt tárgyak vásárlása sikertelen.
+Kérjük csak egy tárgyat válassz és próbáld újra.
+	</notification>
+	<notification label="Tartalmak vásárlása sikertelen" name="BuyContentsOneOnly">
+		Egyidőben több tárgyhoz tartozó tartalom vásárlása sikertelen.
+Kérjük csak egy tárgyat válassz és próbáld újra.
+	</notification>
+	<notification label="Tartalamak vásárlása sikertelen" name="BuyContentsOneOwner">
+		Egyidőben különböző tulajdonosoktól történt tárgyak vásárlása sikertelen.
+Kérjük csak egy tárgyat válassz és próbáld újra.
+	</notification>
+	<notification name="BuyOriginal">
+		Eredeti tárgy vásárlása ettől: [OWNER] ezen az áron: [PRICE] L$?
+A tárgy tulajdonosa te leszel.
+Jogosultságod lesz:
+ Módosítás: [MODIFYPERM]
+ Másolás: [COPYPERM]
+ Eladás vagy átadás: [RESELLPERM]
+	</notification>
+	<notification name="BuyOriginalNoOwner">
+		Eredeti tárgy vásárlása ezen az áron: [PRICE] L$?
+A tárgy tulajdonosa te leszel.
+Jogosultságod lesz:
+ Módosítás: [MODIFYPERM]
+ Másolás: [COPYPERM]
+ Eladás vagy átadás: [RESELLPERM]
+	</notification>
+	<notification name="BuyCopy">
+		Másolat vásárlása ettől: [OWNER] ezen az áron: [PRICE] L$?
+A tárgy a másolásra kerül a készlettáradba.
+Jogosultságod lesz:
+ Módosítás: [MODIFYPERM]
+ Másolás: [COPYPERM]
+ Eladás vagy átadás: [RESELLPERM]
+	<usetemplate name="okcancelbuttons" notext="Mégsem" yestext="OK"/>
+	</notification>
+	<notification name="BuyCopyNoOwner">
+		Másolat vásárlása ezen az áron: [PRICE] L$?
+A tárgy a másolásra kerül a készlettáradba.
+Jogosultságod lesz:
+ Módosítás: [MODIFYPERM]
+ Másolás: [COPYPERM]
+ Eladás vagy átadás: [RESELLPERM]
+	</notification>
+	<notification name="BuyContents">
+		Tartalom vásárlása ettől: [OWNER] ezen az áron: [PRICE] L$?
+Ezek másolásra kerülnek a készlettáradba.
+	</notification>
+	<notification name="BuyContentsNoOwner">
+		Tartalom vásárlása ezen az áron: [PRICE] L$?
+Ezek másolásra kerülnek a készlettáradba.
+	</notification>
+	<notification name="ConfirmPurchase">
+		Tranzakció:
+[ACTION]
+
+Biztos, hogy folytatod ezt a vásárlást?
+	</notification>
+	<notification name="ConfirmPurchasePassword">
+		Tranzakció:
+[ACTION]
+
+Biztos, hogy folytatod ezt a vásárlást?
+Kérjük, hogy írd be újra a jelszavadat és kattints az OK gombra.
+	</notification>
+	<notification name="SetPickLocation">
+		Megjegyzés:
+Ez a kedvenc helyszín frissítésre került, azonban a többi információk változatlanok maradtak.
+	</notification>
+	<notification name="MoveInventoryFromObject">
+		Nem másolható tárgyakat választottál a készlettáradból.
+Ezek az elemek mozgatásra és nem másolásra kerülnek a készlettáradba.
+
+Készlettár elem(ek) mozgatása?
+	</notification>
+	<notification name="MoveInventoryFromScriptedObject">
+		Nem másolható elemeket választottál. Ezek az elemek mozgatásra és nem másolásra kerülnek a készlettáradba.
+Mivel ez a tárgy scriptet tartalmaz, így az ilyen elemek mozgatása működési hibákat okozhat a scriptekben.
+
+Készlettár elem(ek) mozgatása?
+	</notification>
+	<notification name="ClickActionNotPayable">
+		Figyelem: Fizetési szándék rögzítésre került, de csak akkor lesz működőképes, amennyiben a megfelelő script hozzáadásra kerül &apos;money&apos; eseményhez.
+	</notification>
+	<notification name="OpenObjectCannotCopy">
+		Nincs olyan elem ebben a tárgyban, amely másolható.
+	</notification>
+	<notification name="WebLaunchAccountHistory">
+		Felhasználói történek megtekintése a Second Life honlapon?
+	</notification>
+	<notification name="ClickOpenF1Help">
+		Second Life Támogatás oldal megtekintése?
+	</notification>
+	<notification name="ConfirmQuit">
+		Biztos, hogy ki szeretnél lépni?
+	</notification>
+	<notification name="HelpReportAbuseEmailLL">
+		A Használati feltételek megsértéséhez kapcsolódó jelentések megtekintéséhez további információkat itt találsz:
+
+http://secondlife.com/corporate/tos.php
+http://secondlife.com/corporate/cs.php
+
+Minden bejelentett szabálysértés kivizsgálásra és lezárásra kerül. Az egyes szabálytalanságokkal kapcsolatos bejelentéseket itt találod:
+
+http://secondlife.com/support/incidentreport.php
+	</notification>
+	<notification name="HelpReportAbuseSelectCategory">
+		Kérjük válassz kategóriát a szabálytalanság jelentéséhez.
+A kategória választásával megkönnyíted a feldolgozási folyamatot.
+	</notification>
+	<notification name="HelpReportBugSelectCategory">
+		Kérjük válassz kategóriát a hiba jelentéséhez.
+A kategória választásával megkönnyíted a feldolgozási folyamatot.
+	</notification>
+	<notification name="HelpReportAbuseAbuserNameEmpty">
+		Kérjük add meg a szabálytalanságot elkövető nevét.
+A pontos név megadásával megkönnyíted a feldolgozási folyamatot.
+	</notification>
+	<notification name="HelpReportAbuseAbuserLocationEmpty">
+		Kérjük add meg a szabálytalanság elkövetési helyét.
+A pontos helyszín megadásával megkönnyíted a feldolgozási folyamatot.
+	</notification>
+	<notification name="HelpReportAbuseSummaryEmpty">
+		Kérjük írj összefoglalót a szabálytalanságról.
+Összefoglaló írásával megkönnyíted a feldolgozási folyamatot.
+	</notification>
+	<notification name="HelpReportBugSummaryEmpty">
+		Kérjük írj összefoglalót a hibáról.
+Összefoglaló írásával megkönnyíted a feldolgozási folyamatot.
+	</notification>
+	<notification name="HelpReportAbuseDetailsEmpty">
+		Kérjük írj részletes leírást a szabálytalanságról.
+Kérjük minél részletesebb információkat adj meg az esetről.
+Részletes információk megadásával megkönnyíted a feldolgozási folyamatot.
+	</notification>
+	<notification name="HelpReportBugDetailsEmpty">
+		Kérjük írj részletes leírást a hibáról.
+Kérjük minél részletesebb információkat adj meg az esetről.
+Részletes információk megadásával megkönnyíted a feldolgozási folyamatot.
+	</notification>
+	<notification name="FailedRequirementsCheck">
+		A következő kötelező elemek hiányoznak innen: [FLOATER]:
+[COMPONENTS]
+	</notification>
+	<notification label="Jelenlegi csatolt elem cseréje" name="ReplaceAttachment">
+		Már egy tárgy csatolásra került az avatárod ennek a pontjára.
+Kicseréled azt a kijelölt tárgyra?
+	</notification>
+	<notification label="Elfoglalt állapot figyelmeztetés" name="BusyModePay">
+		Jelenleg elfoglalt állapotban vagy, ami azt jelenti, hogy nem tudsz elfogadni semmilyen tárgyat ebben a folyamatban.
+
+Elfoglalt állapot megszüntetése a tranzakció befejezése előtt?
+	</notification>
+	<notification name="ConfirmEmptyTrash">
+		Biztos, hogy minden elemet véglegesen eltávolítasz a Szemetes (Trash) könyvtárból?
+	</notification>
+	<notification name="ConfirmClearBrowserCache">
+		Biztos, hogy kiüríted a böngésző gyorsítótárát?
+	</notification>
+	<notification name="ConfirmClearCookies">
+		Biztos, hogy törlöd a cookie-kat?
+	</notification>
+	<notification name="ConfirmClearMediaUrlList">
+		Biztos, hogy törlöd a böngésző URL címeinek történetét?
+	</notification>
+	<notification name="ConfirmEmptyLostAndFound">
+		Biztos, hogy véglegesen eltávolítod a Lost And Found (Talált és visszaküldött tárgyak) könyvtárból a tartalmakat?
+	</notification>
+	<notification name="CopySLURL">
+		A következő SLURL a vágólapra másolásra került:
+ [SLURL]
+
+A cím megadásával lehetőség nyílik, hogy mások is könnyedén megtalálják az adott helyszínt.
+	</notification>
+	<notification name="GraphicsPreferencesHelp">
+		Ebben a részben beállítható az ablak mérete, felbontása és a kliens grafikai jellemzői. A Tulajdonságok &gt; Grafika menüben lehetőség nyílik a grafika minőségének és teljesítményének beállítására: Alacsony, Közepes, Magas és Ultra. Ugyancsak lehetőséged van egyedi grafikai beállításokra az Egyedi tulajdonság bejelölésével:
+
+Árnyékolók: Különböző típusű pixel árnyékolók engedélyezése és tiltása.
+
+Tükröződések részletei: Beállítja azoknak a tárgyaknak a típusait, melyeket a víz tükrözni képes.
+
+Avatér renderelés: Az avatár renderelés módjainak beállításai a kliensben.
+
+Látótávolság: A tárgyak nézőponttól számított renderelési távolsága.
+
+Max. Partikulaszám: A legmagasabb száma partikuláknak, amely egyidőben látható.
+
+Utófolyamat minősége: A ragyogás felbontása, ami renderelésre került.
+
+Rácsozat részletei: A tárgyak renderelésekor alkalmazott mesh részletezettség. Minél magasabb ez az érték, annál hosszabb ideig tart a renderelés, azonban a tárgyak megjelenítése sokkal részletesebb.
+
+Világítás részletei: A rendereléskor alkalmazott világítás típusai.
+
+Domborzat részletei: A domborzat textúrájának részletezettsége.
+	</notification>
+	<notification name="WLSavePresetAlert">
+		Biztos, hogy felülírod az elmentett eszköztárat?
+	</notification>
+	<notification name="WLDeletePresetAlert">
+		Törölni szeretnéd ezt: [SKY]?
+	</notification>
+	<notification name="WLNoEditDefault">
+		Az alapértelmezett eszköztár nem szerkeszthető és törölhető.
+	</notification>
+	<notification name="WLMissingSky">
+		A napi ciklus fájlból hiányzik a felhőzet fájl: [SKY].
+	</notification>
+	<notification name="PPSaveEffectAlert">
+		Utófolyamat hatás létezik. Biztos, hogy felülírod?
+	</notification>
+	<notification name="HelpEditSky">
+		WindLight csúszkák használata felhőzet készítéséhez és elmentéséhez.
+	</notification>
+	<notification name="HelpEditDayCycle">
+		Állítsd be, hogy mely felhőzetek legyenek aktívak.
+	</notification>
+	<notification name="NewSkyPreset">
+		Adj nevet az új felhő eszköztárnak.
+		<form name="form">
+			<input name="message">
+				Új eszköztár
+			</input>
+		</form>
+	</notification>
+	<notification name="ExistsSkyPresetAlert">
+		Az eszköztár már létezik!
+	</notification>
+	<notification name="NewWaterPreset">
+		Adj nevet az új víz eszköztárnak.
+		<form name="form">
+			<input name="message">
+				Új eszköztár
+			</input>
+		</form>
+	</notification>
+	<notification name="ExistsWaterPresetAlert">
+		Az eszköztár már létezik!
+	</notification>
+	<notification name="WaterNoEditDefault">
+		Az alapértelmezett eszköztár nem szerkeszthető és törölhető.
+	</notification>
+	<notification name="ChatterBoxSessionStartError">
+		Új üzenet nem kezdeményezhető ezzel: [RECIPIENT].
+[REASON]
+	</notification>
+	<notification name="ChatterBoxSessionEventError">
+		[EVENT]
+[REASON]
+	</notification>
+	<notification name="ForceCloseChatterBoxSession">
+		Üzenetküldés lezárásra került ezzel: [NAME].
+[REASON]
+	</notification>
+	<notification name="Cannot_Purchase_an_Attachment">
+		Azok az elemek, melyek egy csatolt tárgy részei, nem vásárolhatók meg.
+	</notification>
+	<notification label="About Requests for the Debit Permission" name="DebitPermissionDetails">
+		Granting this request gives a script ongoing permission to take Linden dollars (L$) from your account. To revoke this permission, the object owner must delete the object or reset the scripts in the object.
+	</notification>
+	<notification name="AutoWearNewClothing">
+		Az elkészített ruházat automatikus felvétele?
+	</notification>
+	<notification name="NotAgeVerified">
+		A telekre történő belépéshez korigazolás szükséges.
+A korigazolás kitöltéséhez meglátogatod az erre vonatkozó honlapot?
+
+[_URL]
+		<url name="url">
+			https://secondlife.com/account/verification.php
+		</url>
+	</notification>
+	<notification name="Cannot enter parcel: no payment info on file">
+		A telekre való belépéshez érvényes pénzügyi információk megléte szükséges.
+Ennek beállításához meglátogatod ez erre vonatkozó honlapot?
+
+[_URL]
+		<url name="url">
+			https://secondlife.com/account/
+		</url>
+	</notification>
+	<notification name="MissingString">
+		A [STRING_NAME] string hiányzik a strings.xml fájlból.
+	</notification>
+	<notification name="SystemMessageTip">
+		[MESSAGE]
+	</notification>
+	<notification name="Cancelled">
+		Törölt
+	</notification>
+	<notification name="CancelledSit">
+		Megszakított ülés
+	</notification>
+	<notification name="CancelledAttach">
+		Törölt csatolás
+	</notification>
+	<notification name="ReplacedMissingWearable">
+		Alapértelmezettel felcserélt hiányzó ruházat/testrész.
+	</notification>
+	<notification name="GroupNotice">
+		Tárgy: [SUBJECT], Üzenet: [MESSAGE]
+	</notification>
+	<notification name="FriendOnline">
+		[FIRST] [LAST] online
+	</notification>
+	<notification name="FriendOffline">
+		[FIRST] [LAST] offline
+	</notification>
+	<notification name="AddSelfFriend">
+		Saját magadat nem tudod hozzáadni a barátlistádhoz.
+	</notification>
+	<notification name="UploadingAuctionSnapshot">
+		Kép feltöltése itt vagy a honlapra...
+(Kb. 5 percig tart.)
+	</notification>
+	<notification name="UploadPayment">
+		Ennyi összeget fizettél a feltöltésért: [AMOUNT] L$.
+	</notification>
+	<notification name="UploadWebSnapshotDone">
+		Kép honlapra történő feltöltése megtörtént.
+	</notification>
+	<notification name="UploadSnapshotDone">
+		Kép feltöltése itt megtörtént.
+	</notification>
+	<notification name="TerrainDownloaded">
+		Domborzat .raw fájl feltöltése megtörtént.
+	</notification>
+	<notification name="GestureMissing">
+		[NAME] nevű gesztus hiányzik az adatbázisból.
+	</notification>
+	<notification name="UnableToLoadGesture">
+		[NAME] nevű gesztus feltöltése nem sikerült.
+Kérjük próbáld meg újra.
+	</notification>
+	<notification name="LandmarkMissing">
+		A jelzőpont hiányzik az adatbázisból.
+	</notification>
+	<notification name="UnableToLoadLandmark">
+		A jelzőpont betöltése nem sikerült. Kérjük próbáld meg újra.
+	</notification>
+	<notification name="CapsKeyOn">
+		A kis- és nagybillenytyű átkapcsoló gomb be van nyomva.
+Ennek hatása van a beírt jelszóra. Valószínüleg ki kell kapcsolnod.
+	</notification>
+	<notification name="NotecardMissing">
+		A jegyzet hiányzik az adatbázisból.
+	</notification>
+	<notification name="NotecardNoPermissions">
+		Nincs jogosultságod a jegyzet megtekintésére.
+	</notification>
+	<notification name="RezItemNoPermissions">
+		Nincs jogosultság a tárgy rezzelésére.
+	</notification>
+	<notification name="UnableToLoadNotecard">
+		A jegyzet betöltése nem sikerült.
+Kérjük próbáld meg újra.
+	</notification>
+	<notification name="ScriptMissing">
+		A kód hiányzik az adatbázisból.
+	</notification>
+	<notification name="ScriptNoPermissions">
+		NIncs jogosultságod a kód megtekintésésre.
+	</notification>
+	<notification name="UnableToLoadScript">
+		A kód betöltése sikertelen. Kérjük próbáld meg újra.
+	</notification>
+	<notification name="IncompleteInventory">
+		A felajánlott tartalom helyileg nem elérhető. Kérjük válassz másik elemet néhány perc múlva.
+	</notification>
+	<notification name="CannotModifyProtectedCategories">
+		Védett kategóriát nem módosíthatsz.
+	</notification>
+	<notification name="CannotRemoveProtectedCategories">
+		Védett kategóriát nem távolíthatsz el.
+	</notification>
+	<notification name="OfferedCard">
+		Hívókártya felajánlása ennek: [FIRST] [LAST]
+	</notification>
+	<notification name="UnableToBuyWhileDownloading">
+		Adatletöltés alatt a vásárlás nem elérhető.
+Kérjük próbáld meg újra.
+	</notification>
+	<notification name="UnableToLinkWhileDownloading">
+		Adatletöltés alatt az elemek összefűzése nem elérhető.
+Kérjük próbáld meg újra.
+	</notification>
+	<notification name="CannotBuyObjectsFromDifferentOwners">
+		Egyszerre ugyanabban az időben nem vásárolhatsz két különböző tulajdonostól.
+Kérjük csak egy tárgyat válassz.
+	</notification>
+	<notification name="ObjectNotForSale">
+		Ez a tárgy nem eladó.
+	</notification>
+	<notification name="EnteringGodMode">
+		Rendszergazdai jogba belépés, szint: [LEVEL]
+	</notification>
+	<notification name="LeavingGodMode">
+		Rendszergazdai jog elhagyása, szint: [LEVEL]
+	</notification>
+	<notification name="CopyFailed">
+		A másolás sikertelen, mivel ezt a funkciót letiltottad.
+	</notification>
+	<notification name="InventoryAccepted">
+		[NAME] elfogadta az átadott elemet.
+	</notification>
+	<notification name="InventoryDeclined">
+		[NAME] elutasította az átadott elemet.
+	</notification>
+	<notification name="ObjectMessage">
+		[NAME]: [MESSAGE]
+	</notification>
+	<notification name="CallingCardAccepted">
+		A hívókártyád elfogadásra került.
+	</notification>
+	<notification name="CallingCardDeclined">
+		A hívókártyád elutasításra került.
+	</notification>
+	<notification name="TeleportToLandmark">
+		Most, hogy elérted a Főszigetet, lehetőség nyílik erre a helyszínre történő teleportálásra: &apos;[NAME]&apos;. Kattints a Készlettár gombra és válaszd a Jelzőpontok (Landmarks) mappát, majd kattints kétszer a megfelelő jelzőpontra és a teleportálásod a kiválasztott helyszínre megkezdődik.
+	</notification>
+	<notification name="TeleportToPerson">
+		Most, hogy elérted a Főszigetet, lehetőség nyílik evvel a személlyel történő kapcsolatfelvételre: &apos;[NAME]&apos;. Kattints a Készlettár gombra és válaszd a Hívókártyák (Calling Cards) mappát, majd kattints kétszer a megfelelő hívókártyára és utána azonnali üzenetet küldhetsz a kiválasztott személynek.
+	</notification>
+	<notification name="CantSelectLandFromMultipleRegions">
+		Nem jelölhetsz ki olyan földet, amely túlnyúlik a szerver határain.
+Kérjük jelölj ki egy kisebb területet.
+	</notification>
+	<notification name="SearchWordBanned">
+		Néhány kifejezés a keresési kérésben nem lesz megtalálható a közösségi szabályokra vonatkozó tartalom korlátozások miatt.
+	</notification>
+	<notification name="NoContentToSearch">
+		Kérjük válassz legalább egy típusú tartalmat, amiben keresni szeretnél (PG, Mature vagy Adult).
+	</notification>
+	<notification name="GroupVote">
+		[NAME] szavazásra javasolta a következőt:
+[MESSAGE]
+		<form name="form">
+			<button name="VoteNow" text="Szavaz most"/>
+			<button name="Later" text="Később"/>
+		</form>
+	</notification>
+	<notification name="SystemMessage">
+		[MESSAGE]
+	</notification>
+	<notification name="EventNotification">
+		Esemény értesítés:
+
+[NAME]
+[DATE]
+		<form name="form">
+			<button name="Teleport" text="Teleportál"/>
+			<button name="Description" text="Leírás"/>
+			<button name="Cancel" text="Mégsem"/>
+		</form>
+	</notification>
+	<notification name="TransferObjectsHighlighted">
+		Minden tárgy kiemelésre került ezen a telken, melyek a vásárló részére kerülnek átadásra.
+
+* A fák és fűvek nem kerültek kiemelésre.
+		<form name="form">
+			<button name="Done" text="Végrehajtva"/>
+		</form>
+	</notification>
+	<notification name="DeactivatedGesturesTrigger">
+		Gesztusok leállítása a következő a vezérlőkkel:
+[NAMES]
+	</notification>
+	<notification name="NoQuickTime">
+		Apple QuickTime szoftver installálása nem történt meg a rendszeredben.
+Amennyiben streaming média tartalmat szeretnél megtekinteni, a QuickTime Player programot telepítened kell a következő honlapról: (http://www.apple.com/quicktime).
+	</notification>
+	<notification name="OwnedObjectsReturned">
+		A kijelölt területen lévő tárgyaid visszakerültek a készlettáradba.
+	</notification>
+	<notification name="OtherObjectsReturned">
+		[FIRST] [LAST] tulajdonában lévő tárgyak visszaküldésre kerültek a készlettárába.
+	</notification>
+	<notification name="OtherObjectsReturned2">
+		A kijelölt területen lévő tárgyak visszaküldésre kerültek a föld tulajdonos, &apos;[NAME]&apos; készlettárába.
+	</notification>
+	<notification name="GroupObjectsReturned">
+		A kijelölt területen lévő tárgyak megosztásra kerültek a következő csoporttal: [GROUPNAME].
+Az átruházható tárgyak visszakerültek az előző tulajdonoshoz.
+A nem átruházható tárgyak törlésre kerültek.
+	</notification>
+	<notification name="UnOwnedObjectsReturned">
+		A kijelölt területen lévő tárgyak, melyek nem a te tulajdonodban vannak, visszaküldésre kerültek a tulajdonosainak.
+	</notification>
+	<notification name="NotSafe">
+		Ezen a területen a károkozás engedélyezett (&apos;nem biztonságos&apos;).
+Sérülés lehetséges. Amennyiben megsérülsz, a kezdő helyszínre kerülsz teleportálásra.
+	</notification>
+	<notification name="NoFly">
+		Ezen a földön a repülés nincs engedélyezve (&apos;nincs repülés&apos;).
+Itt nem repülhetsz.
+	</notification>
+	<notification name="PushRestricted">
+		Ezen a földön az &apos;llPushObject&apos; korlátozva van.
+Nem használhatod ezt a funkciót, kivéve, ha te vagy a föld tulajdonosa.
+	</notification>
+	<notification name="NoVoice">
+		Ezen a földön a hangüzenetek váltása nem engedélyezett.
+	</notification>
+	<notification name="NoBuild">
+		Ezen a földön az építés nem engedélyezett (&apos;nincs építés&apos;).
+Itt nem építhetsz.
+	</notification>
+	<notification name="ScriptsStopped">
+		Kódok futtatásának lehetősége átmenetileg nincs engedélyezve ezen a régión.
+	</notification>
+	<notification name="ScriptsNotRunning">
+		Ezen a régión semmilyen kód nem fut.
+	</notification>
+	<notification name="NoOutsideScripts">
+		Ezen a földön külső kódok futtatására nincs lehetőség (&apos;nincs külső kód&apos;).
+Csak olyan kódok futtathatók, melyek a föld tulajdonosának birtokában vannak.
+	</notification>
+	<notification name="ClaimPublicLand">
+		Csak nyilvános területű föld szerezhető azon a régión, melyen tartózkodsz.
+	</notification>
+	<notification name="RegionTPAccessBlocked">
+		Nem léphetsz be erre a régióra a minősítés típusának beállítása miatt. Szükség van a korigazolás kitöltésére és a legújabb kliensre való frissítésre.
+
+Kérjük látogasd meg a tudásbázis oldalt a minősítéssel kapcsolatos további információk megtekintéséhez.
+	</notification>
+	<notification name="URBannedFromRegion">
+		Kitiltásra kerültél a régióról.
+	</notification>
+	<notification name="NoTeenGridAccess">
+		Ezzel a felhasználói azonosítóval nem kapcsolódhatsz a teen grid régiróra.
+	</notification>
+	<notification name="NoHelpIslandTP">
+		A Help Island-ra való teleportálás nem végrehajtható.
+Látogasd meg a &apos;Help Island Public&apos; területét az oktatási anyagok ismétléséhez.
+	</notification>
+	<notification name="ImproperPaymentStatus">
+		Nem vagy a megfelelő fizetési állapotban a régióra való belépéshez.
+	</notification>
+	<notification name="MustGetAgeRegion">
+		A régióra való belépéshez korigazolás szükséges.
+	</notification>
+	<notification name="MustGetAgeParcel">
+		A telekre történő belépéshez korigazolás szükséges.
+	</notification>
+	<notification name="NoDestRegion">
+		A Célhelyszín régiója nem található.
+	</notification>
+	<notification name="NotAllowedInDest">
+		Nem léphetsz be a célhelyszínre.
+	</notification>
+	<notification name="RegionParcelBan">
+		Nem mehetsz át a területen, mivel a telken a belépés nem engedélyezett. Próbálj egy másik útvonalat.
+	</notification>
+	<notification name="TelehubRedirect">
+		Átirányítás egy telehubhoz.
+	</notification>
+	<notification name="CouldntTPCloser">
+		Közelebbi helyszínre való teleportálás nem végrehajtható.
+	</notification>
+	<notification name="TPCancelled">
+		Teleportálás sikertelen.
+	</notification>
+	<notification name="FullRegionTryAgain">
+		A régió, amelyikre be szeretnél lépni, jelenleg tele van.
+Kérjük próbáld néhány perc múlva ismét.
+	</notification>
+	<notification name="GeneralFailure">
+		Általános hiba.
+	</notification>
+	<notification name="RoutedWrongRegion">
+		Nem megfelelő régióra való irányítás. Kérjük próbáld újra.
+	</notification>
+	<notification name="NoValidAgentID">
+		Érvénytelen avatár ID.
+	</notification>
+	<notification name="NoValidSession">
+		Érvénytelen session ID.
+	</notification>
+	<notification name="NoValidCircuit">
+		No valid circuit code.
+	</notification>
+	<notification name="NoValidTimestamp">
+		Érvénytelen időbélyegző.
+	</notification>
+	<notification name="NoPendingConnection">
+		Függő kapcsolat létrehozása nem sikerült.
+	</notification>
+	<notification name="InternalUsherError">
+		A teleportálási célhelyszín megnyitásakor probléma merült fel. Lehetséges szolgáltatási problémák a Second Life-nál.
+	</notification>
+	<notification name="NoGoodTPDestination">
+		A megfelelő teleportálási célhelyszín felderítése a régión nem sikerült.
+	</notification>
+	<notification name="InternalErrorRegionResolver">
+		Teleportálási kérés közben belső hiba merült fel a globális koordináták olvasásakor. Lehetséges szolgáltatási problémák a Second Life-nál.
+	</notification>
+	<notification name="NoValidLanding">
+		Érvényes kiindulópont nem található.
+	</notification>
+	<notification name="NoValidParcel">
+		Érvénytelen telek található.
+	</notification>
+	<notification name="ObjectGiveItem">
+		[FIRST] [LAST] tulajdonában lévő [OBJECTFROMNAME] tárgy átadta a követekezőket: [OBJECTTYPE], [OBJECTNAME].
+		<form name="form">
+			<button name="Keep" text="Megtart"/>
+			<button name="Discard" text="Elvet"/>
+			<button name="Mute" text="Elnémít"/>
+		</form>
+	</notification>
+	<notification name="ObjectGiveItemUnknownUser">
+		Ismeretlen felhasználó tulajdában lévő [OBJECTFROMNAME] tárgy átadta a következőket: [OBJECTTYPE], [OBJECTNAME].
+		<form name="form">
+			<button name="Keep" text="Megtart"/>
+			<button name="Discard" text="Elvet"/>
+			<button name="Mute" text="Elnémít"/>
+		</form>
+	</notification>
+	<notification name="UserGiveItem">
+		[NAME] átadta a következőt: [OBJECTTYPE], [OBJECTNAME].
+		<form name="form">
+			<button name="Keep" text="Megtart"/>
+			<button name="Discard" text="Elvet"/>
+			<button name="Mute" text="Elnémít"/>
+		</form>
+	</notification>
+	<notification name="GodMessage">
+		[NAME]
+[MESSAGE]
+	</notification>
+	<notification name="JoinGroup">
+		[MESSAGE]
+		<form name="form">
+			<button name="Join" text="Belép"/>
+			<button name="Decline" text="Elutasít"/>
+			<button name="Info" text="Információ"/>
+		</form>
+	</notification>
+	<notification name="TeleportOffered">
+		[NAME] teleportálást ajánlott a tartózkodási helyére:
+
+[MESSAGE]
+		<form name="form">
+			<button name="Teleport" text="Teleportál"/>
+			<button name="Cancel" text="Mégsem"/>
+		</form>
+	</notification>
+	<notification name="GotoURL">
+		[MESSAGE]
+[URL]
+		<form name="form">
+			<button name="Later" text="Később"/>
+			<button name="GoNow..." text="Most megy..."/>
+		</form>
+	</notification>
+	<notification name="OfferFriendship">
+		[NAME] barátságot ajánl.
+
+[MESSAGE]
+
+(Alapértelmezett esetben mindenki látja a másik fél online állapotát.)
+		<form name="form">
+			<button name="Accept" text="Elfogad"/>
+			<button name="Decline" text="Elutasít"/>
+		</form>
+	</notification>
+	<notification name="OfferFriendshipNoMessage">
+		[NAME] barátságot ajánl.
+
+(Alapértelmezett esetben mindenki
+látja a másik fél online állapotát.)
+		<form name="form">
+			<button name="Accept" text="Elfogad"/>
+			<button name="Decline" text="Elutasít"/>
+		</form>
+	</notification>
+	<notification name="FriendshipAccepted">
+		[NAME] elfogadta a barátság felajánlását.
+	</notification>
+	<notification name="FriendshipDeclined">
+		[NAME] elutasította a barátság felajánlását.
+	</notification>
+	<notification name="OfferCallingCard">
+		[FIRST] [LAST] felajánlja a hívókártyáját.
+Ez egy könyvjelző a készlettáradba, amellyel azonnali üzenetet tudsz neki küldeni.
+		<form name="form">
+			<button name="Accept" text="Elfogad"/>
+			<button name="Decline" text="Elutasít"/>
+		</form>
+	</notification>
+	<notification name="RegionRestartMinutes">
+		A régió [MINUTES] perc múlva újraindul.
+Amennyiben itt maradsz automatikusan kiléptetésre kerülsz.
+	</notification>
+	<notification name="RegionRestartSeconds">
+		A régió [SECONDS] mp múlva újraindul.
+Amennyiben itt maradsz automatikusan kiléptetésre kerülsz.
+	</notification>
+	<notification name="LoadWebPage">
+		Honlap betöltése [URL]?
+
+[MESSAGE]
+
+Ettől a tárgytól: [OBJECTNAME], tulajdonos: [NAME]?
+		<form name="form">
+			<button name="Gotopage" text="Megnyit"/>
+			<button name="Cancel" text="Mégsem"/>
+		</form>
+	</notification>
+	<notification name="FailedToFindWearableUnnamed">
+		Nem található az adatbázisban: [TYPE].
+	</notification>
+	<notification name="FailedToFindWearable">
+		Nem található az adatbázisban: [TYPE], [DESC].
+	</notification>
+	<notification name="InvalidWearable">
+		Az elem, melyet viselni szeretnél olyan tulajdonsággal rendelkezik, melyet a kliensprogramod nem tud olvasni. Ennek megoldása érdekében kérjük frissítsd a Second Life programot.
+	</notification>
+	<notification name="ScriptQuestion">
+		&apos;[OBJECTNAME]&apos;, tulajdonos: &apos;[NAME]&apos;, szeretne:
+
+[QUESTIONS]
+Rendben?
+		<form name="form">
+			<button name="Yes" text="Igen"/>
+			<button name="No" text="Nem"/>
+			<button name="Mute" text="Elnémít"/>
+		</form>
+	</notification>
+	<notification name="ScriptQuestionCaution">
+		&apos;[OBJECTNAME]&apos;, tulajdonos: &apos;[NAME]&apos;, szeretne:
+
+[QUESTIONS]
+Amennyiben nem találod biztonságosnak a tárgyat vagy a készítőjét, lehetőséged van elutasítani a kérést. További információkért, kattints a Részletek gombra.
+
+Jóváhagyod a kérést?
+		<form name="form">
+			<button name="Grant" text="Jóváhagy"/>
+			<button name="Deny" text="Elutasít"/>
+			<button name="Details" text="Részletek..."/>
+		</form>
+	</notification>
+	<notification name="ScriptDialog">
+		[FIRST] [LAST]&apos;s &apos;[TITLE]&apos;
+[MESSAGE]
+		<form name="form">
+			<button name="Ignore" text="Elutasít"/>
+		</form>
+	</notification>
+	<notification name="ScriptDialogGroup">
+		[GROUPNAME]&apos;s &apos;[TITLE]&apos;
+[MESSAGE]
+		<form name="form">
+			<button name="Ignore" text="Elutasít"/>
+		</form>
+	</notification>
+	<notification name="FirstBalanceIncrease">
+		Ennyi összeget kaptál: [AMOUNT] L$.
+Tárgyak és egyéb személyek is adhatnak L$.
+Az jelenlegi egyenleged a képernyő felső jobb sarkában látható.
+	</notification>
+	<notification name="FirstBalanceDecrease">
+		Ennyi összeget fizettél: [AMOUNT] L$.
+Az jelenlegi egyenleged a képernyő felső jobb sarkában látható.
+	</notification>
+	<notification name="FirstSit">
+		Éppen ülsz.
+Használd a nyilakat a billentyűzeten a nézet váltásához.
+Kattints a Felállás (Stand up) gombra a megszakításhoz.
+	</notification>
+	<notification name="FirstMap">
+		Kattins és húzd az egeret a térkép lapozásához.
+Kétszer kattints a teleportáláshoz.
+	</notification>
+	<notification name="FirstBuild">
+		A [SECOND_LIFE] területein új tárgyakat építhetsz.
+Használd a fenti eszközöket és alkalmazd a Ctrl vagy Alt billentyűket az esuközök váltásához.
+Nyomd le az Esc billentyűt az építés befejezéséhez.
+	</notification>
+	<notification name="FirstLeftClickNoHit">
+		A bal egér gomb lenyomásával kapcsolatot teremthetsz a különleges tárgyakkal.
+Ha az egér mutatója átvált nyílból mutatóújra,
+akkor kapcsolatot teremthetsz az adott tárggyal.
+Jobb egér gomb lenyomásával mindig a menü kerül megjelenítésre.
+	</notification>
+	<notification name="FirstTeleport">
+		Ezen a régión belül a teleportációk nincsenek engedélyezve, így a legközelebbi telehub-ra kerülsz átirányításra.
+Az érkezési pont egy magas beacon elemmel van jelölve.
+Kövesd a piros nyilat vagy kattints a beacon elvetéséhez.
+	</notification>
+	<notification name="FirstOverrideKeys">
+		A mozgás vezérlő gombok most egy tárgy által vezéreltek.
+Próbáld használni a nyilakat a billentyűzeten.
+Néhány tárgy (pl. fegyverek) egér nézet alkalmazását kérik.
+Nyomd le az &apos;M&apos; billentyűt ennek használatához.
+	</notification>
+	<notification name="FirstAppearance">
+		Jelenleg a megjelenésedet szerkeszted.
+A forgáshoz és nagyításhoz használd a nyilakat a billentyűzeten.
+Amikor befejezted, kattints a &apos;Mindet elment&apos; gombra a mentéshez és a kilépéshez.
+A megjelenésedet bármikor szerkesztheted.
+	</notification>
+	<notification name="FirstInventory">
+		Ez a készlettárad, amely tartalmaz tárgyakat, feljegyzéseket, ruházatot és egyéb tárgyakat.
+* Tárgy vagy ruházat felvételéhez egyszerűen csak húzd azokat magadra.
+* Tárgy kitételehez húzd ki a tárgyat a földre.
+* Feljegyzés olvasásához kattints kétszer a feljegyzésre.
+	</notification>
+	<notification name="FirstSandbox">
+		Ez a régió homokozóként működik.
+Az itt épített tárgyak törlésre kerülhetnek.
+A homokozókon általában rendszeres tisztítást végeznek bizonyos időközönként. Bővebbb információkat erről a Föld információkban találsz.
+
+A homokozók ritkák és ezeket ugyanakkor jelzik.
+	</notification>
+	<notification name="FirstFlexible">
+		Ez a tárgy flexi.
+Flexibilis tárgy nem lehet fizikai tárgy egyszerre és ugyanakkor fantom tulajdonságokkal kell rendelkeznie.
+	</notification>
+	<notification name="FirstDebugMenus">
+		Engedélyezted az Advanced menüt.
+Ez a menü a fejlesztéshez szükséges eszköztárakat tartalmazza.
+A menü ki- és bekapcsolásához használd a Ctrl-Alt-D vagy Cmd-Opt-Shift-D (MAC) billentyűket.
+	</notification>
+	<notification name="FirstSculptedPrim">
+		Éppen sculptie prímet szerkesztesz.
+A sculptie prím elkészítéséhez speciális textúrára van szükséged.
+Minta sculptie textúrákat találsz a készlettáradban.
+	</notification>
+	<notification name="FirstMedia">
+		Média lejátszását kezdted meg. A média automatikus lejátszása a Tulajdonságok menü Hang és Videó résznél állítható be. Ismeretlen média oldal lehetséges biztonsági kockázatot jelent.
+	</notification>
+	<notification name="MaxListSelectMessage">
+		Legfeljebb ennyi elemet jelölhetsz ki a listából: [MAX_SELECT].
+	</notification>
+	<notification name="VoiceInviteP2P">
+		[NAME] hangüzenet váltását szeretne veled kezdeményezni.
+Kattints az elfogad gombra a beszélgetés megkezdéséhez vagy az elutasít gombra a elutasításhoz. Kattints az elnémít gombra a hívó elnémításához.
+		<form name="form">
+			<button name="Accept" text="Elfogad"/>
+			<button name="Decline" text="Elutasít"/>
+			<button name="Mute" text="Elnémít"/>
+		</form>
+	</notification>
+	<notification name="AutoUnmuteByIM">
+		[FIRST] [LAST] üzenetet küldött és automatikusan lekerült az elnémítottak listájáról.
+	</notification>
+	<notification name="AutoUnmuteByMoney">
+		[FIRST] [LAST] pénzt adott és automatikusan lekerült az elnémítottak listájáról.
+	</notification>
+	<notification name="AutoUnmuteByInventory">
+		[FIRST] [LAST] készlettár elemet ajánlott és automatikusan lekerült az elnémítottak listájáról.
+	</notification>
+	<notification name="VoiceInviteGroup">
+		[NAME] belépett ezzel a csoporttal: [GROUP] történő beszélgetésbe.
+Kattints az elfogad gombra a beszélgetés megkezdéséhez vagy az elutasít gombra a elutasításhoz. Kattints az elnémít gombra a hívó elnémításához.
+		<form name="form">
+			<button name="Accept" text="Elfogad"/>
+			<button name="Decline" text="Elutasít"/>
+			<button name="Mute" text="Elnémít"/>
+		</form>
+	</notification>
+	<notification name="VoiceInviteAdHoc">
+		[NAME] konferencia beszélgetést végez...
+Kattints az elfogad gombra a beszélgetés megkezdéséhez vagy az elutasít gombra a elutasításhoz. Kattints az elnémít gombra a hívó elnémításához.
+		<form name="form">
+			<button name="Accept" text="Elfogad"/>
+			<button name="Decline" text="Elutasít"/>
+			<button name="Mute" text="Elnémít"/>
+		</form>
+	</notification>
+	<notification name="InviteAdHoc">
+		[NAME] konferencia beszélgetésbe hív.
+Kattints az elfogad gombra a beszélgetés megkezdéséhez vagy az elutasít gombra a elutasításhoz. Kattints az elnémít gombra a felhasználó elnémításához..
+		<form name="form">
+			<button name="Accept" text="Elfogad"/>
+			<button name="Decline" text="Elutasít"/>
+			<button name="Mute" text="Elnémít"/>
+		</form>
+	</notification>
+	<notification name="VoiceChannelFull">
+		A beszélgetésben résztvevők száma elérte maximális megengethető kapacitást: [VOICE_CHANNEL_NAME]. Kérjük próbáld meg később.
+	</notification>
+	<notification name="ProximalVoiceChannelFull">
+		Sajnáljuk, de ezen a területen több beszélgetés nem kezdeményezhető. Kérjük próbáld meg egy másik területen.
+	</notification>
+	<notification name="VoiceChannelDisconnected">
+		Lekapcsolódás erről a beszélgetésről: [VOICE_CHANNEL_NAME]. Most visszakapcsolódsz a nyilvános beszélgetésbe.
+	</notification>
+	<notification name="VoiceChannelDisconnectedP2P">
+		Beszélgetés befejezése evvel: [VOICE_CHANNEL_NAME]. Most visszakapcsolódsz a nyilvános beszélgetésbe.
+	</notification>
+	<notification name="P2PCallDeclined">
+		Beszélgetés visszautasítva ettől: [VOICE_CHANNEL_NAME]. Most visszakapcsolódsz a nyilvános beszélgetésbe.
+	</notification>
+	<notification name="P2PCallNoAnswer">
+		Beszélgetés nem elérhető evvel: [VOICE_CHANNEL_NAME]. Most visszakapcsolódsz a nyilvános beszélgetésbe.
+	</notification>
+	<notification name="VoiceChannelJoinFailed">
+		Sikertelen kapcsolódás evvel: [VOICE_CHANNEL_NAME], kérjük próbáld meg később. Most visszakapcsolódsz a nyilvános beszélgetésbe.
+	</notification>
+	<notification name="VoiceLoginRetry">
+		Beszélgetésre felkészülés. Ez eltarthat legalább egy percig.
+	</notification>
+	<notification name="Cannot enter parcel: not a group member">
+		Telekre történő belépés sikertelen. Nem vagy a megfelelő csoport tagja.
+	</notification>
+	<notification name="Cannot enter parcel: banned">
+		A telekre történő belépés nincs engedélyezve. Ki vagy tiltva.
+	</notification>
+	<notification name="Cannot enter parcel: not on access list">
+		A telekre történő belépés nincs engedélyezve. Nem vagy az engedélyezett belépők listáján.
+	</notification>
+	<notification name="VoiceNotAllowed">
+		Nincs jogosultságod a beszélgetéshez történő csatlakozáshoz evvel: [VOICE_CHANNEL_NAME].
+	</notification>
+	<notification name="VoiceCallGenericError">
+		Hiba merült fel a ehhez beszélgetéshez történő csatlakozáskor: [VOICE_CHANNEL_NAME]. Kérjük próbáld meg később.
+	</notification>
+	<notification name="ServerVersionChanged">
+		Ezen a régión más verziójú szimulátor fut. Kattints erre az üzenetre a részletekért.
+	</notification>
+	<notification name="UnableToOpenCommandURL">
+		A hivatkozás, melyre kattintottál nem nyitható meg ebből a böngészőből.
+	</notification>
+	<global name="UnsupportedCPU">
+		- A processzor sebessége nem felel meg a minimális követelményeknek.
+	</global>
+	<global name="UnsupportedGLRequirements">
+		Úgy tűnik, hogy nem rendelkezel a megfelelő hardverkövetelményekkel a Second Life futtatásához. A Second Life OpenGL futtatására képes videókártyát igényel, mely rendelkezik multitexture támogatással. Amennyiben ilyen kártyád van, akkor ellenőrizd, hogy a kártya a legfrissebb meghajtóprogrammal rendelkezzen vagy töltsd le az operációs rendszer szervízcsomagját és javításait a hiba kiküszöbölésére.
+
+Amennyiben továbbra is problémák merülnek fel, látogasd meg a http://www.secondlife.com/support oldalt.
+	</global>
+	<global name="UnsupportedCPUAmount">
+		796
+	</global>
+	<global name="UnsupportedRAMAmount">
+		510
+	</global>
+	<global name="UnsupportedGPU">
+		- A videókártya nem felel meg a minimális követelményeknek.
+	</global>
+	<global name="UnsupportedRAM">
+		- A rendszermemóriád nem felel meg a minimális követelményeknek.
+	</global>
+	<global name="PermYes">
+		Igen
+	</global>
+	<global name="PermNo">
+		Nem
+	</global>
+</notifications>

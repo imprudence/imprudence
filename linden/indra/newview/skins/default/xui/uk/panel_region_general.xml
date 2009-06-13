@@ -54,6 +54,6 @@
 	<button label="Застосув." name="apply_btn"/>
 	<button label="Відправ.додому одного користувача..." name="kick_btn"/>
 	<button label="Відправ.додому всіх користувачів..." name="kick_all_btn"/>
-	<button label="Відправ. повідомлення в Регіон..." name="im_btn"/>
-	<button label="Упр. Телехабом..." name="manage_telehub_btn"/>
+	<button label="Відправ. повідомлення в Регіон..." name="im_btn" width="220"/>
+	<button label="Упр. Телехабом..." name="manage_telehub_btn" width="210"/>
 </panel>

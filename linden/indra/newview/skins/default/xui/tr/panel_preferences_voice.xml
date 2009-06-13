@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Sesli Sohbet" name="chat">
+	<text_editor name="voice_unavailable">
+		Sesli sohbet mevcut değil
+	</text_editor>
+	<check_box label="Sesli sohbeti etkinleştir" name="enable_voice_check"/>
+	<radio_group name="ear_location">
+		<radio_item length="1" name="0" type="string">
+			Sesli sohbeti kamera pozisyonundan dinle.
+		</radio_item>
+		<radio_item length="1" name="1" type="string">
+			Sesli sohbeti karakter pozisyonundan dinle.
+		</radio_item>
+	</radio_group>
+	<text length="1" name="push_to_talk_heading" type="string">
+		Bas konuş
+	</text>
+	<text_editor length="1" name="voice_chat_description" type="string">
+		Bas konuş modu sesli iletişiminizi kontrol etmenizi sağlar.Geçici moddayken,bas konuş kısa yolu tuşuna basıp ve bırakıp mikrofonunuzu açıp kapatmayı sağlayabilirsiniz.Geçici modda değilken,mikforon sadece kısa yol tuşu kullanılmadığı sürece etkindir.
+	</text_editor>
+	<check_box label="Bas konuşu geçici modda kullan" name="push_to_talk_toggle_check"/>
+	<text length="1" name="push_to_talk_label" type="string">
+		Bas konuş kısayolu:
+	</text>
+	<button label="Kısayol düzenle" name="set_voice_hotkey_button"/>
+	<button label="Fare orta tuşu" name="set_voice_middlemouse_button"/>
+	<text name="privacy_heading">
+		Gizlilik seçenekleri
+	</text>
+	<check_box label="Sadece arkadaşlarım listesindeki insanlardan sesli aramaları kabul et" name="voice_call_friends_only_check"/>
+	<check_box label="HM aramaları sonunda mikrofonu kapat" name="auto_disengage_mic_check"/>
+	<button label="Aygıt ayarları" name="device_settings_btn"/>
+	<text_editor length="1" name="device_settings_text" type="string">
+		NOT: Aygıt ayarlarını çalıştırmak sizi geçici olarak sesli sohbetten düşürecektir, ve gerçekleştirdiğiniz değişiklikler anında uygulanacaktır.
+	</text_editor>
+</panel>

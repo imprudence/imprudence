@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Anlaşma" name="Covenant">
+	<text name="estate_section_lbl">
+		Emlak:
+	</text>
+	<text name="estate_name_lbl">
+		İsim:
+	</text>
+	<text name="estate_name_text">
+		anakara
+	</text>
+	<text name="estate_owner_lbl">
+		Sahip:
+	</text>
+	<text name="estate_owner_text">
+		(yok)
+	</text>
+	<text name="estate_cov_lbl">
+		Anlaşma:
+	</text>
+	<text name="covenant_timestamp_text">
+		Son düzenleme Wed Dec 31 16:00:00 1969
+	</text>
+	<button label="?" name="covenant_help"/>
+	<text_editor bottom="-247" height="162" name="covenant_editor">
+		Bu emlak için sağlanmış bir sözleşme mevcut değil.
+	</text_editor>
+	<button label="Yenile" name="reset_covenant"/>
+	<text name="covenant_help_text">
+		Sözleşme değişiklikleri bu emlak içindeki tüm parsellerde
+      görünecektir.
+	</text>
+	<text bottom_delta="-36" name="covenant_instructions">
+		Bu emlağın sözleşmesini değiştirmek için bir notekart sürükleyiniz
+      ve bırakınız.
+	</text>
+	<text bottom_delta="-36" name="region_section_lbl">
+		Bölge:
+	</text>
+	<text name="region_name_lbl">
+		İsim:
+	</text>
+	<text name="region_name_text">
+		leyla
+	</text>
+	<text name="region_landtype_lbl">
+		Tür:
+	</text>
+	<text name="region_landtype_text">
+		Anakara / Çiftlik
+	</text>
+	<text name="region_maturity_lbl">
+		Oran:
+	</text>
+	<text name="region_maturity_text">
+		Adult
+	</text>
+	<text name="resellable_lbl">
+		Tekrar satış:
+	</text>
+	<text name="resellable_clause">
+		Bu bölgedeki arazi tekrar satılamaz.
+	</text>
+	<text name="changeable_lbl">
+		Böl:
+	</text>
+	<text name="changeable_clause">
+		Bu bölgedeki arazi birleştirilemez/bölünemez.
+	</text>
+	<string name="can_resell">
+		Bu bölgede satın alınan arazi tekrar satılabilir.
+	</string>
+	<string name="can_not_resell">
+		Bu bölgede satın alınan arazi tekrar satılamaz.
+	</string>
+	<string name="can_change">
+		Bu bölgede satın alınan arazi birleştirilebilir veya bölünebilir.
+	</string>
+	<string name="can_not_change">
+		Bu bölgede satın alınan arazi birleştirilemez veya bölünemez.
+	</string>
+</panel>

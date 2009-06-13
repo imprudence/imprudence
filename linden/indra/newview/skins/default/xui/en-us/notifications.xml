@@ -5495,7 +5495,7 @@ You do not have proper payment status to enter this region.
 
   <notification
 	icon="notify.tga"
-	name="MustGetAgeRgion"
+	name="MustGetAgeRegion"
 	type="notify">
 You must be age-verified to enter this region.
   </notification>

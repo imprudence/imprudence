@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Ses &amp; Görüntü" name="Media panel">
+	<text length="1" name="muting_text" type="string">
+		Ses seviyesi:
+	</text>
+	<text length="1" name="streaming_prefs_text" type="string">
+		Yayın ayarları:
+	</text>
+	<text length="1" name="audio_prefs_text" type="string">
+		Ses ayarları:
+	</text>
+	<panel label="Ses birimi" name="Volume Panel"/>
+	<check_box label="Var olduğunda müzik yayını başlat(fazla bant genişliği kullanır)" name="streaming_music"/>
+	<check_box label="Var olduğunda video yayını başlat(fazla bant genişliği kullanır)" name="streaming_video"/>
+	<check_box label="Otomatik olarak medyayı oynat" name="auto_streaming_video"/>
+	<check_box label="Pencere küçüldüğünde sesi kapat" name="mute_when_minimized"/>
+	<slider label="Işık efekti" name="Doppler Effect"/>
+	<slider label="Rolloff faktörü" name="Rolloff Factor"/>
+	<spinner label="L$ değişim değeri" name="L$ Change Threshold"/>
+	<spinner label="Sağlık değişim değeri" name="Health Change Threshold"/>
+</panel>

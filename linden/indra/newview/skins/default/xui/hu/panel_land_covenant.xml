@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Covenant" title="Bérlői szerződés">
+	<text name="region_name_lbl">
+		Régió:
+	</text>
+	<text name="region_name_text">
+		(ismeretlen)
+	</text>
+	<text name="estate_name_lbl">
+		Ingatlan:
+	</text>
+	<text name="estate_name_text">
+		(ismeretlen)
+	</text>
+	<text name="estate_owner_lbl">
+		Ingatlan tulajdonos:
+	</text>
+	<text name="estate_owner_text">
+		(ismeretlen)
+	</text>
+	<text name="resellable_clause">
+		Ezen a régión vásárolt földek eladhatók vagy nem eladhatók.
+	</text>
+	<text name="changeable_clause">
+		Ezen a régión vásárolt földek egyesíthetők vagy feloszthatók.
+	</text>
+	<text name="can_resell">
+		A vásárolt földek ezen a régión eladhatók.
+	</text>
+	<text name="can_not_resell">
+		Ezen a régión vásárolt földek nem adhatók el.
+	</text>
+	<text name="can_change">
+		Ezen a régión vásárolt földek egyesíthetők vagy feloszthatók.
+	</text>
+	<text name="can_not_change">
+		Ezen a régión vásárolt földek nem egyesíthetők vagy nem oszthatók fel.
+	</text>
+</panel>

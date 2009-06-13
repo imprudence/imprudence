@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="toolbox floater" title="">
+<floater name="toolbox floater" title="" short_title="만들기">
 	<button label="" label_selected="" name="button focus" tool_tip="보기" />
 	<text name="tool label">
 		보기

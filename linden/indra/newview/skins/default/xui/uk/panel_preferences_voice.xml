@@ -30,7 +30,7 @@
 	<check_box label="Приймати голосові повідомлення тільки від моїх Друзів" name="voice_call_friends_only_check"/>
 	<check_box label="Вимикати мікрофон, коли закінчуються Дзвінки" name="auto_disengage_mic_check"/>
 	<button label="Настройки Пристрою" name="device_settings_btn"/>
-	<text_editor length="1" name="device_settings_text" type="string">
+	<text_editor length="1" name="device_settings_text" type="string" width="490">
 		ПРИМІТКА: Знаходячись в Настройках Пристрою Ви будете тимчасово від&apos;єднані від Голосового Чату, а зміни, які Ви зробите, будуть одразу задіяні.
 	</text_editor>
 </panel>

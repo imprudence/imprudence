@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="avatarpicker" title="Выбрать Резидента">
-	<tab_container name="ResidentChooserTabs">
+<floater name="avatarpicker" title="Выбрать Резидента" min_width="285" width="285">
+	<tab_container name="ResidentChooserTabs" width="275">
 		<panel label="Поиск" name="SearchPanel">
 			<text name="InstructSearchResidentName">
 				Введите часть имени резидента:
@@ -14,13 +14,15 @@
 		</panel>
 		<panel label="Возле меня" name="NearMePanel">
 			<text name="InstructSelectResident">
-				Выбрать резидента рядом:
+				Выбрать резидента
+рядом:
 			</text>
 			<button label="Обновить" label_selected="Обновить" name="Refresh"/>
-			<slider label="Расстояние" name="near_me_range"/>
-			<text name="meters">
+			<slider label="Расстояние" name="near_me_range" bottom_delta="-36"/>
+			<text name="meters" width="60">
 				Метров
 			</text>
+			<scroll_list bottom_delta="-169" height="159" name="NearMe"  />
 		</panel>
 	</tab_container>
 	<button label="Выбор" label_selected="Выбрать" name="Select"/>

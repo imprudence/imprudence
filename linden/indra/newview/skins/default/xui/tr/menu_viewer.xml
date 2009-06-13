@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu_bar name="Main Menu">
+	<menu label="Dosya" name="File">
+		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
+		<menu label="Yükle" name="upload">
+			<menu_item_call label="Resim ([COST]L$)..." name="Upload Image"/>
+			<menu_item_call label="Ses ([COST]L$)..." name="Upload Sound"/>
+			<menu_item_call label="Animasyon ([COST]L$)..." name="Upload Animation"/>
+			<menu_item_call label="Çoklu (dosya başına [COST]L$)..." name="Bulk Upload"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_call label="Varsayılan izinler düzenleniyor..." name="perm prefs"/>
+		</menu>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Pencereyi kapat" name="Close Window"/>
+		<menu_item_call label="Pencereleri kapat" name="Close All Windows"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Deseni kaydet..." name="Save Texture As..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Resim çek" name="Take Snapshot"/>
+		<menu_item_call label="Resmi diske kaydet" name="Snapshot to Disk"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Çık" name="Quit"/>
+	</menu>
+	<menu label="Düzen" name="Edit">
+		<menu_item_call label="Geri Al" name="Undo"/>
+		<menu_item_call label="İleri Al" name="Redo"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Kes" name="Cut"/>
+		<menu_item_call label="Kopyala" name="Copy"/>
+		<menu_item_call label="Yapıştır" name="Paste"/>
+		<menu_item_call label="Sil" name="Delete"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Ara..." name="Search..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Tümünü seç" name="Select All"/>
+		<menu_item_call label="Seçileni bırak" name="Deselect"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Çoğalt" name="Duplicate"/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu label="Obje ekle" name="Attach Object"/>
+		<menu label="Obje çıkar" name="Detach Object"/>
+		<menu label="Giysi çıkar" name="Take Off Clothing">
+			<menu_item_call label="Gömlek" name="Shirt"/>
+			<menu_item_call label="Pantalon" name="Pants"/>
+			<menu_item_call label="Ayakkabılar" name="Shoes"/>
+			<menu_item_call label="Çoraplar" name="Socks"/>
+			<menu_item_call label="Ceket" name="Jacket"/>
+			<menu_item_call label="Eldivenler" name="Gloves"/>
+			<menu_item_call label="Fanila" name="Menu Undershirt"/>
+			<menu_item_call label="Külot" name="Menu Underpants"/>
+			<menu_item_call label="Etek" name="Skirt"/>
+			<menu_item_call label="Tüm giysiler" name="All Clothes"/>
+		</menu>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="Hareketler..." name="Gestures..."/>
+		<menu_item_call label="Profil..." name="Profile..."/>
+		<menu_item_call label="Görünüm..." name="Appearance..."/>
+		<menu_item_separator label="-----------" name="separator7"/>
+		<menu_item_check label="Arkadaşlar..." name="Friends..."/>
+		<menu_item_call label="Gruplar..." name="Groups..."/>
+		<menu_item_separator label="-----------" name="separator8"/>
+		<menu_item_call label="Ayarlar..." name="Preferences..."/>
+	</menu>
+	<menu label="Görünüm" name="View">
+		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
+		<menu_item_call label="Farebakışı" name="Mouselook"/>
+		<menu_item_check label="İnşa" name="Build"/>
+		<menu_item_check label="Joystick Flycam" name="Joystick Flycam"/>
+		<menu_item_call label="Görüntüyü yenile" name="Reset View"/>
+		<menu_item_call label="Son konuşmacıya bak" name="Look at Last Chatter"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_check label="Araç çubuğu" name="Toolbar"/>
+		<menu_item_check label="Genel sohbet" name="Chat History"/>
+		<menu_item_check label="İletişim" name="Instant Message"/>
+		<menu_item_check label="Envanter" name="Inventory"/>
+		<menu_item_check label="Etkin konuşmacılar" name="Active Speakers"/>
+		<menu_item_check label="Engelli listesi" name="Mute List"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_check label="Kamera kontrolleri" name="Camera Controls"/>
+		<menu_item_check label="Hareket kontrolleri" name="Movement Controls"/>
+		<menu_item_check label="Dünya haritası" name="World Map"/>
+		<menu_item_check label="Küçük harita" name="Mini-Map"/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_check label="İstatistik çubuğu" name="Statistics Bar"/>
+		<menu_item_check label="Mülk sınırları" name="Property Lines"/>
+		<menu_item_check label="Yasak çizgileri" name="Banlines"/>
+		<menu_item_check label="Arazi sahipleri" name="Land Owners"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu label="İpuçları dolaş" name="Hover Tips">
+			<menu_item_check label="İpuçlarını göster" name="Show Tips"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_check label="Arazi ipuçları" name="Land Tips"/>
+			<menu_item_check label="Tüm objelerde ipuçları" name="Tips On All Objects"/>
+		</menu>
+		<menu_item_check label="Saydamı ışıklandır" name="Highlight Transparent"/>
+		<menu_item_check label="İşaretler" name="beacons"/>
+		<menu_item_check label="Tanecikleri gizle" name="Hide Particles"/>
+		<menu_item_check label="HUD eklerini göster" name="Show HUD Attachments"/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu_item_call label="Yakınlaştır" name="Zoom In"/>
+		<menu_item_call label="Normal yakınlık" name="Zoom Default"/>
+		<menu_item_call label="Uzaklaştır" name="Zoom Out"/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="Tam ekran kısayolu" name="Toggle Fullscreen"/>
+		<menu_item_call label="KA boyutunu var olan say" name="Set UI Size to Default"/>
+	</menu>
+	<menu label="Dünya" name="World">
+		<menu_item_call label="Sohbet" name="Chat"/>
+		<menu_item_check label="Her zaman koş" name="Always Run"/>
+		<menu_item_check label="Uç" name="Fly"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Buraya yer imi yarat" name="Create Landmark Here"/>
+		<menu_item_call label="Burayı ev olarak düzenle" name="Set Home to Here"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Eve ışınlan" name="Teleport Home"/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Dışarda durum" name="Set Away"/>
+		<menu_item_call label="Meşgul durum" name="Set Busy"/>
+		<menu_item_call label="Karakterimi oynatmayı durdur" name="Stop Animating My Avatar"/>
+		<menu_item_call label="Tuşları bırak" name="Release Keys"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Hesap geçmişi..." name="Account History..."/>
+		<menu_item_call label="Hesabımı yönet..." name="Manage My Account..."/>
+		<menu_item_call label="L$ satın al..." name="Buy and Sell L$..."/>
+		<menu_item_separator label="-----------" name="separator5"/>
+		<menu_item_call label="Arazim..." name="My Land..."/>
+		<menu_item_call label="Arazi hakkında..." name="About Land..."/>
+		<menu_item_call label="Araziyi satın Al..." name="Buy Land..."/>
+		<menu_item_call label="Bölge/Emlak..." name="Region/Estate..."/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu label="Çevre ayarları" name="Environment Settings">
+			<menu_item_call label="Gün doğumu" name="Sunrise"/>
+			<menu_item_call label="Öğlen" name="Noon"/>
+			<menu_item_call label="Gün batımı" name="Sunset"/>
+			<menu_item_call label="Gece yarısı" name="Midnight"/>
+			<menu_item_call label="Bölge ayarına geri çevir" name="Revert to Region Default"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_call label="Çevre editörü" name="Environment Editor"/>
+		</menu>
+	</menu>
+	<menu label="Araçlar" name="Tools">
+		<menu label="Araç seçiniz" name="Select Tool">
+			<menu_item_call label="Odaklık" name="Focus"/>
+			<menu_item_call label="Taşıma" name="Move"/>
+			<menu_item_call label="Düzenleme" name="Edit"/>
+			<menu_item_call label="Yaratma" name="Create"/>
+			<menu_item_call label="Arazi" name="Land"/>
+		</menu>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_check label="Sadece objelerimi seç" name="Select Only My Objects"/>
+		<menu_item_check label="Sadece taşınabilen objeleri seç" name="Select Only Movable Objects"/>
+		<menu_item_check name="Select By Surrounding"/>
+		<menu_item_check label="Gizli seçileni göster" name="Show Hidden Selection"/>
+		<menu_item_check name="Show Light Radius for Selection"/>
+		<menu_item_check label="Seçim işaretini göster" name="Show Selection Beam"/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_check name="Snap to Grid"/>
+		<menu_item_call name="Snap Object XY to Grid"/>
+		<menu_item_call label="Seçileni grid için kullan" name="Use Selection for Grid"/>
+		<menu_item_call label="Grid seçenekleri..." name="Grid Options..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_check label="Bağlı parçaları düzenle" name="Edit Linked Parts"/>
+		<menu_item_call label="Bağla" name="Link"/>
+		<menu_item_call label="Çöz" name="Unlink"/>
+		<menu_item_separator label="-----------" name="separator4"/>
+		<menu_item_call label="Seçilene odaklan" name="Focus on Selection"/>
+		<menu_item_call label="Seçilene yakınlaş" name="Zoom to Selection"/>
+		<menu_item_call label="Objeyi satın al" name="Menu Object Take">
+			<on_enable userdata="Satın al,Al" name="EnableBuyOrTake"/>
+		</menu_item_call>
+		<menu_item_call label="Kopyasını al" name="Take Copy"/>
+		<menu_item_call label="Objeyi obje içeriğine geri kaydet" name="Save Object Back to Object Contents"/>
+		<menu_item_separator label="-----------" name="separator6"/>
+		<menu_item_call label="Betik uyarı/hata penceresini göster" name="Show Script Warning/Error Window"/>
+		<menu label="Seçilen betikleri yeniden derle" name="Recompile Scripts in Selection">
+			<menu_item_call label="Mono" name="Mono"/>
+			<menu_item_call label="LSL" name="LSL"/>
+		</menu>
+		<menu_item_call label="Seçilen betikleri yenile" name="Reset Scripts in Selection"/>
+		<menu_item_call label="Seçilen betikleri çalıştır" name="Set Scripts to Running in Selection"/>
+		<menu_item_call label="Seçilen betikleri çalıştırma" name="Set Scripts to Not Running in Selection"/>
+	</menu>
+	<menu label="Yardım" name="Help">
+		<menu_item_call label="Second Life Yardımı" name="Second Life Help"/>
+		<menu_item_call label="Eğitim" name="Tutorial"/>
+		<menu_item_separator label="-----------" name="separator"/>
+		<menu_item_call label="Yasal Linden Bloğu..." name="Official Linden Blog..."/>
+		<menu_item_separator label="-----------" name="separator2"/>
+		<menu_item_call label="Betikleme Portalı..." name="Scripting Portal..."/>
+		<menu_item_separator label="-----------" name="separator3"/>
+		<menu_item_call label="Şikayet raporla..." name="Report Abuse..."/>
+		<menu_item_call label="Çarpışlar, itişler &amp; vuruşlar..." name="Bumps, Pushes &amp;amp; Hits..."/>
+		<menu_item_call label="Gecikme ölçüsü" name="Lag Meter"/>
+		<menu_item_separator label="-----------" name="separator7"/>
+		<menu label="Hata raporlama" name="Bug Reporting">
+			<menu_item_call label="Genel Sorun Tarayıcısı..." name="Public Issue Tracker..."/>
+			<menu_item_call label="Genel Sorun Tarayıcısı Yardımı..." name="Publc Issue Tracker Help..."/>
+			<menu_item_separator label="-----------" name="separator7"/>
+			<menu_item_call label="Hata Raporlama 101..." name="Bug Reporing 101..."/>
+			<menu_item_call label="Güvenlik Sorunları..." name="Security Issues..."/>
+			<menu_item_call label="QA Wiki..." name="QA Wiki..."/>
+			<menu_item_separator label="-----------" name="separator9"/>
+			<menu_item_call label="Hata raporla..." name="Report Bug..."/>
+		</menu>
+		<menu_item_call label="Second Life hakkında..." name="About Second Life..."/>
+	</menu>
+</menu_bar>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Annoncer">
+	<line_editor name="given_name_editor" tool_tip="Navnet skal begynde med et bogstav eller nummer, ikke tegn."/>
+	<line_editor name="location_editor" tool_tip="Sæt stedet for denne annonce til din nuværende position"/>
+	<button label="Sæt" name="set_location_btn"/>
+	<button label="Teleportere" name="classified_teleport_btn"/>
+	<button label="Vis på kort" name="classified_map_btn"/>
+	<button label="Profil" name="classified_profile_btn"/>
+	<combo_box name="classified_mature_check" width="150">
+		<combo_item name="select_mature">
+			- Vælg indholdsrating -
+		</combo_item>
+		<combo_item name="mature">
+			Mature indhold
+		</combo_item>
+		<combo_item name="pg">
+			PG indhold
+		</combo_item>
+	</combo_box>
+	<combo_box label="" name="classified_category_combo"/>
+	<button label="Opdatér" name="classified_update_btn"/>
+	<string name="ad_placed_paid">
+		Annonce anbragt:: [DATE], Betalt L$[AMT] for opslaget.
+	</string>
+	<string name="update_txt">
+		Opdatér
+	</string>
+	<string name="publish_txt">
+		Offentliggør...
+	</string>
+</panel>

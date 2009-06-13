@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Domborzat" name="Terrain">
+	<text name="region_text_lbl">
+		Régió:
+	</text>
+	<text name="region_text">
+		ismeretlen
+	</text>
+	<spinner label="Vízmagasság" name="water_height_spin" />
+	<button label="?" name="water_height_help" />
+	<spinner label="Emelési határ" name="terrain_raise_spin" />
+	<button label="?" name="terrain_raise_help" />
+	<spinner label="Mélyítési határ" name="terrain_lower_spin" />
+	<button label="?" name="terrain_lower_help" />
+	<check_box label="Telken beállított napszak" name="use_estate_sun_check" />
+	<button label="?" name="use_estate_sun_help" />
+	<check_box label="Rögzített napszak" name="fixed_sun_check" />
+	<button label="?" name="fixed_sun_help" />
+	<slider label="Időszak" name="sun_hour_slider" />
+	<button label="Alkalmaz" name="apply_btn" />
+	<button label="RAW domborzat fájl letöltése..." name="download_raw_btn" tool_tip="Csak a telektulajdonos részére elérhető, ingatlankezelőnek nem" width="230"/>
+	<button label="?" name="download_raw_help" left="246"/>
+	<button label="RAW domborzat fájl feltöltése..." name="upload_raw_btn" tool_tip="Csak a telektulajdonos részére elérhető, ingatlankezelőnek nem" width="230"/>
+	<button label="?" name="upload_raw_help" left="246"/>
+	<button label="Domborzat leképezése" name="bake_terrain_btn"
+	     tool_tip="Beállítja az aktuális pontot a domborzati változtatások viszonyítási alapjául"  width="230"/>
+	<button label="?" name="bake_terrain_help" left="246"/>
+</panel>

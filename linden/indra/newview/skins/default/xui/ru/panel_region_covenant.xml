@@ -22,17 +22,19 @@
 		Редактировалось Ср Дек 31 16:00:00 1969
 	</text>
 	<button label="?" name="covenant_help"/>
-	<text_editor name="covenant_editor">
+	<text_editor name="covenant_editor" bottom="-247" height="162">
 		Нет Соглашения для этого Поместья.
 	</text_editor>
 	<button label="Сброс" name="reset_covenant"/>
-	<text name="covenant_help_text">
-		Изменения в соглашении будут показаны на всех участках этого поместья.
+	<text bottom="-25" name="covenant_help_text">
+		Изменения в соглашении будут показаны на всех участках
+      этого поместья.
 	</text>
-	<text name="covenant_instructions">
-		Перетяните сюда заметку, чтобы изменить Соглашение для этого Поместься.
+	<text bottom_delta="-36" name="covenant_instructions">
+		Перетяните сюда заметку, чтобы изменить Соглашение для
+      этого Поместься.
 	</text>
-	<text name="region_section_lbl">
+	<text bottom_delta="-36" name="region_section_lbl">
 		Регион:
 	</text>
 	<text name="region_name_lbl">
@@ -63,7 +65,8 @@
 		Разделить:
 	</text>
 	<text name="changeable_clause">
-		Земля в этом регионе не может быть объединена/разделена.
+		Земля в этом регионе не может быть объединена/
+разделена.
 	</text>
 	<string name="can_resell">
 		Приобретенная земля в этом регионе может быть перепродана.
@@ -72,11 +75,11 @@
 		Приобретенная земля в этом регионе не может быть перепродана.
 	</string>
 	<string name="can_change">
-		Приобретенную в этом регионе землю можно объединить или
-разделить.
+		Приобретенную в этом регионе землю можно объединить
+или разделить.
 	</string>
 	<string name="can_not_change">
-		Приобретенную в этом регионе землю нельзя объединить или
-разделить.
+		Приобретенную в этом регионе землю нельзя объединить
+или разделить.
 	</string>
 </panel>

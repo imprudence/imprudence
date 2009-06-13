@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Tagság és beosztás" name="roles_tab">
+	<string name="default_needs_apply_text">
+		Végrehajtásra váró változtatások találhatók itt.
+	</string>
+	<string name="want_apply_text">
+		Szeretnéd a változtatásokat érvénybe léptetni?
+	</string>
+	<button label="?" name="help_button"/>
+	<panel name="members_header">
+		<text name="static">
+			Tagság és beosztás
+		</text>
+		<text name="static2">
+			A tagokhoz beosztások és képességek rendelhetők. Ezek a beállítások
+könnyedén testreszabhatók, lehetővé téve a csoporton belüli szervezést.
+		</text>
+	</panel>
+	<panel name="roles_header">
+		<text name="static">
+			Beosztások
+		</text>
+		<text name="role_properties_modifiable">
+			Válassz beosztást lent. Lehetőséged van módosítani a megnevezést,
+leírást és az ehhez tartozó címet.
+		</text>
+		<text name="role_properties_not_modifiable">
+			Válassz beosztást lent és tekintsd meg az ehhez tartozó tulajdonságokat,
+tagokat és az engedélyezett képességeket.
+		</text>
+		<text name="role_actions_modifiable" bottom_delta="-28" >
+			Lehetőséged van a beosztáshoz képességet rendelni.
+		</text>
+		<text name="role_actions_not_modifiable">
+			A képességek megtekinthetők, de nem módosíthatók.
+		</text>
+	</panel>
+	<panel name="actions_header">
+		<text name="static">
+			Képességek
+		</text>
+		<text name="static2">
+			Megtekintheted a képességek leírásait és azokat a beosztásokat,
+melyekkel végrehajthatók ezek a képességek.
+		</text>
+	</panel>
+	<tab_container name="roles_tab_container" height="164" >
+		<panel label="Tagok" name="members_sub_tab" tool_tip="Tagok" height="148" >
+			<line_editor bottom="127" name="search_text"/>
+			<button label="Keres" name="search_button"/>
+			<button label="Mindet mutat" name="show_all_button"/>
+			<name_list name="member_list" bottom_delta="-105" height="104" >
+				<column label="Tag neve" name="name"/>
+				<column label="Felajánlott föld használati díj" name="donated"/>
+				<column label="Utolsó belépés" name="online"/>
+			</name_list>
+			<button label="Új tag meghívása..." name="member_invite"/>
+			<button label="Csoportból eltávolít" name="member_eject"/>
+			<string name="help_text">
+				A tagokhoz hozzárendelhetsz és eltávolíthatsz beosztásokat. 
+Több tag egyszerre történő kiválasztásához nyomd le a Ctrl billentyűt és kattints a nevekre.
+			</string>
+		</panel>
+		<panel label="Beosztások" name="roles_sub_tab" height="148">
+			<line_editor bottom="127" name="search_text"/>
+			<button label="Keres" name="search_button"/>
+			<button label="Mindet mutat" name="show_all_button"/>
+			<scroll_list name="role_list" bottom_delta="-104" height="104" >
+				<column label="Beosztás" name="name"/>
+				<column label="Cím" name="title"/>
+				<column label="Tagok" name="members"/>
+			</scroll_list>
+			<button label="Új beosztás létrehozása" name="role_create"/>
+			<button label="Beosztás törlése" name="role_delete"/>
+			<string name="help_text">
+				Beosztáshoz címet és ahhoz kapcsolódó képességet lehet rendelni. A tagokhoz egy vagy több beosztás is tartozhat. Egy csoportban legfeljebb 10 beosztás lehet, beleértve a &apos;Minden&apos; és a &apos;Tulajdonos&apos; kategóriáját is.
+			</string>
+			<string name="cant_delete_role">
+				A &apos;Mindenki&apos; és a &apos;Tulajdonosok&apos; különleges kategória, melyek nem törölhetők.
+			</string>
+		</panel>
+		<panel label="Képességek" name="actions_sub_tab" height="148" >
+			<line_editor bottom="127" name="search_text"/>
+			<button label="Keres" name="search_button"/>
+			<button label="Mindet mutat" name="show_all_button"/>
+			<scroll_list name="action_list" tool_tip="Válassz egy képességet a további részletekért." bottom_delta="-120" height="118" >
+				<column label="" name="icon"/>
+				<column label="" name="action"/>
+			</scroll_list>
+			<string name="help_text">
+				A képesség lehetővé teszi egy beosztással rendelkező csoporttag meghatározott feladattal való felruházását a csoportban. Számos képesség közül válogathatsz.
+			</string>
+		</panel>
+	</tab_container>
+	<panel name="members_footer">
+		<text name="static"  width="200">
+			Hozzárendelt beosztás
+		</text>
+		<text name="static2">
+			Engedélyezett képesség
+		</text>
+		<scroll_list name="member_assigned_roles">
+			<column label="" name="checkbox"/>
+			<column label="" name="role"/>
+		</scroll_list>
+		<scroll_list name="member_allowed_actions" tool_tip="Információkat az engedélyezett képességekről a képességek fülön találsz.">
+			<column label="" name="icon"/>
+			<column label="" name="action"/>
+		</scroll_list>
+	</panel>
+	<panel name="roles_footer">
+		<text name="static">
+			Megnevezés
+		</text>
+		<text name="static2">
+			Leírás
+		</text>
+		<line_editor name="role_name">
+			Dolgozó
+		</line_editor>
+		<text name="static3">
+			Cím
+		</text>
+		<line_editor name="role_title">
+			(várakozás)
+		</line_editor>
+		<text_editor name="role_description">
+			(várakozás)
+		</text_editor>
+		<text name="static4">
+			Hozzárendelt tagok
+		</text>
+		<text name="static5" tool_tip="A kijelölt beosztáshoz rendelt képességek listája.">
+			Engedélyezett képességek
+		</text>
+		<check_box label="Látható tagok" name="role_visible_in_list" tool_tip="Itt beállíthatod, hogy az adott beosztáshoz rendelt tagok láthatók legyenek-e tagsággal nem rendelkező személyek részére vagy sem."/>
+		<scroll_list name="role_allowed_actions" tool_tip="Információkat az engedélyezett képességekről a képességek fülön találsz.">
+			<column label="" name="icon"/>
+			<column label="" name="checkbox"/>
+			<column label="" name="action"/>
+		</scroll_list>
+	</panel>
+	<panel name="actions_footer">
+		<text name="static">
+			Leírás
+		</text>
+		<text_editor name="action_description">
+			Ez a képesség lehetővé teszi a tag kizárását a csoportból, melyet csak a tulajdonos végezhet el.
+		</text_editor>
+		<text name="static2">
+			Beosztásokhoz rendelt
+képességek
+		</text>
+		<text name="static3">
+			Tagokhoz rendelt képességek
+		</text>
+	</panel>
+</panel>

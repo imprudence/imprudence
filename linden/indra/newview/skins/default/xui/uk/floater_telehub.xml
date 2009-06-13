@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="telehub" title="Телехаб">
+<floater name="telehub" title="Телехаб" min_height="280" height="280">
 	<text name="status_text_connected">
 		Телехаб з&apos;єднаний з об&apos;єктом [OBJECT]
 	</text>
@@ -10,9 +10,9 @@
 		Щоб видалити, натисніть Роз&apos;єднати.
 	</text>
 	<text name="help_text_not_connected">
-		Виберіть об&apos;єкт і натисніть З&apos;єдн.Телехаб.
+		Виберіть об&apos;єкт і натисніть З&apos;єдн. Телехаб.
 	</text>
-	<button label="З&apos;єдн.Телехаб" name="connect_btn" />
+	<button label="З&apos;єдн. Телехаб" name="connect_btn" />
 	<button label="Роз&apos;єднати" name="disconnect_btn" />
 	<text name="spawn_points_text">
 		Точки появи (позиції,не об&apos;кти):
@@ -21,8 +21,10 @@
 	<button label="Прибрати точку" name="remove_spawn_point_btn" />
 	<text name="spawn_point_help">
 		Виберіть об&apos;єкт і натисніть Додати щоб
-		визначити точку.Далі ви можете переміст.
-		або видалити об&apos;єкт. Виберіть елемент зі
-		списку, щоб показати його позицію у світі.
+визначити точку. Далі ви можете переміст.
+або видалити об&apos;єкт.
+
+Виберіть елемент зі списку, щоб
+показати його позицію у світі.
 	</text>
 </floater>

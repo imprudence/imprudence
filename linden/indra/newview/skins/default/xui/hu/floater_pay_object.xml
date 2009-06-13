@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Give Money" title="">
+	<text type="string" length="1" name="payee_group" left="5" width="110">
+		Fizetés csoportnak:
+	</text>
+	<text type="string" length="1" name="payee_resident" left="5" width="110">
+		Fizetés lakónak:
+	</text>
+	<text type="string" length="1" name="payee_name" left="120" width="180">
+		[FIRST] [LAST]
+	</text>
+	<text type="string" length="1" name="object_name_label">
+		Tárgy által:
+	</text>
+	<text type="string" length="1" name="object_name_text">
+		...
+	</text>
+	<text type="string" length="1" name="fastpay text">
+		Gyorsfizetés:
+	</text>
+	<text type="string" length="1" name="amount text">
+		Összeg:
+	</text>
+	<button label="L$1" label_selected="L$1" name="fastpay 1" />
+	<button label="5 L$" label_selected="5 L$" name="fastpay 5" />
+	<button label="10 L$" label_selected="10 L$" name="fastpay 10" />
+	<button label="L$20" label_selected="L$20" name="fastpay 20" />
+	<button label="Fizet" label_selected="Fizet" name="pay btn" />
+	<button label="Töröl" label_selected="Töröl" name="cancel btn" />
+</floater>

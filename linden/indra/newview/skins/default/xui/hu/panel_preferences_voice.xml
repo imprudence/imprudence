@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Hangüzenet" name="chat">
+	<text_editor length="1" name="voice_unavailable" type="string">
+		Hangüzenetküldés nem elérhető
+	</text_editor>
+	<check_box label="Hangüzenet engedélyezése" name="enable_voice_check"/>
+	<radio_group name="ear_location">
+		<radio_item length="1" name="0" type="string">
+			Hangüzenet a kamera pozíciójából.
+		</radio_item>
+		<radio_item length="1" name="1" type="string">
+			Hangüzenet az avatár pozíciójából.
+		</radio_item>
+	</radio_group>
+	<text length="1" name="push_to_talk_heading" type="string">
+		Adóvevős beszélgetés
+	</text>
+	<text_editor length="1" name="voice_chat_description" type="string">
+		Az adóvevős beszélgetés közben az átadott hangot vezérelni tudod. Amikor ki-bekapcsolási üzemmódban van, akkor nyomd le a adóvevő kioldó gombját a mikrofon ki-bekapcsolásához. Amikor nincs ebben az üzemmódban, a mikrofon csak akkor aktív, mikor a kioldó le van nyomva.
+	</text_editor>
+	<check_box label="Adóvevős üzemmód kioldással" name="push_to_talk_toggle_check"/>
+	<text length="1" name="push_to_talk_label" type="string">
+		Adóvevő kioldógomb:
+	</text>
+	<button label="Gomb beállítása" name="set_voice_hotkey_button"/>
+	<button label="Középső egérgomb" name="set_voice_middlemouse_button"/>
+	<text name="privacy_heading">
+		Magánbeszélgetések
+	</text>
+	<check_box label="Hangüzenetek fogadása a barátok listáján lévő emberektől" name="voice_call_friends_only_check"/>
+	<check_box label="Mikrofon kikapcsolása a magánbeszélgetés befejezése után" name="auto_disengage_mic_check"/>
+	<button label="Eszköz beállítása" name="device_settings_btn"/>
+	<text_editor length="1" name="device_settings_text" type="string">
+		MEGJEGYZÉS: Az eszköz- vagy a hangüzenetek beállításának futtatása átmenetileg felfüggeszti a hangüzenet küldését másik fél részére.
+	</text_editor>
+</panel>

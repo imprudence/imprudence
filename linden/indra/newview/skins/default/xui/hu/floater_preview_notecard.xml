@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview notecard" title="Feljegyzés:">
+	<button label="Elment" label_selected="Elment" name="Save" />
+	<text type="string" length="1" name="desc txt">
+		Leírás:
+	</text>
+	<text_editor type="string" length="1" name="Notecard Editor">
+		Betöltés folyamatban...
+	</text_editor>
+	<text name="no_object">
+		Nem sikerült megtalálni a tárgyat, ami tartalmazza ezt a jegyzetet.
+	</text>
+	<text name="not_allowed">
+		Nincs jogosultságod megtekinteni ezt a megjegyzést.
+	</text>
+</floater>

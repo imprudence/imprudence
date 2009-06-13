@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="item properties" title="Készlettár elemeinek tulajdonsága">
+	<text name="LabelItemNameTitle">
+		Név:
+	</text>
+	<text name="LabelItemDescTitle">
+		Leírás:
+	</text>
+	<text name="LabelCreatorTitle">
+		Készítő:
+	</text>
+	<text name="LabelCreatorName">
+		Nicole Linden
+	</text>
+	<button label="Adatlap" label_selected="" name="BtnCreator" />
+	<text name="LabelOwnerTitle">
+		Tulajdonos:
+	</text>
+	<text name="LabelOwnerName">
+		Thrax Linden
+	</text>
+	<button label="Adatlap" label_selected="" name="BtnOwner" />
+	<text name="LabelAcquiredTitle">
+		Megszerezve:
+	</text>
+	<text name="LabelAcquiredDate">
+		Wed May 24 12:50:46 2006
+	</text>
+	<text name="OwnerLabel" width="100">
+		Jogosultságod van:
+	</text>
+	<check_box label="Módosítani" name="CheckOwnerModify" />
+	<check_box left_delta="84" label="Másolni" name="CheckOwnerCopy" />
+	<check_box label="Újraértékesíteni/Elajándékozni" name="CheckOwnerTransfer" left_delta="74"/>
+	<text name="BaseMaskDebug">
+		B:
+	</text>
+	<text name="OwnerMaskDebug">
+		O:
+	</text>
+	<text name="GroupMaskDebug">
+		G:
+	</text>
+	<text name="EveryoneMaskDebug">
+		E:
+	</text>
+	<text name="NextMaskDebug">
+		N:
+	</text>
+	<check_box label="Csoporttal megosztva" name="CheckShareWithGroup" />
+	<check_box label="Bárki másolhatja" name="CheckEveryoneCopy" />
+	<text name="NextOwnerLabel" width="230">
+		Következő tulajdonosnak lehetősége van:
+	</text>
+	<check_box label="Módosítani" name="CheckNextOwnerModify" />
+	<check_box left_delta="84" label="Másolni" name="CheckNextOwnerCopy" />
+	<check_box label="Eladni/Átruházni" name="CheckNextOwnerTransfer" left_delta="74"/>
+	<text name="SaleLabel">
+		Elem típusa:
+	</text>
+	<check_box label="Eladó" name="CheckPurchase" />
+	<radio_group name="RadioSaleType">
+		<radio_item name="radio">
+			Eredeti
+		</radio_item>
+		<radio_item name="radio2">
+			Másolat
+		</radio_item>
+	</radio_group>
+	<text name="TextPrice">
+		Ár: L$
+	</text>
+	<line_editor left_delta="36" name="EditPrice" />
+	<text name="unknown">
+		(ismeretlen)
+	</text>
+	<text name="public">
+		(nyilvános)
+	</text>
+	<text name="you_can">
+		Jogosultságod van:
+	</text>
+	<text name="owner_can">
+		Tulajdonosnak jogosultsága van:
+	</text>
+</floater>

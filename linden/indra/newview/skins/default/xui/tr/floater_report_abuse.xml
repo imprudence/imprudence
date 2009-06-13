@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_report_abuse" title="Şikayet Raporla">
+	<texture_picker label="" name="screenshot"/>
+	<check_box label="Resim ekle" name="screen_check"/>
+	<text name="reporter_title">
+		Raporcu:
+	</text>
+	<text name="reporter_field">
+		Loremipsum Dolorsitamut
+	</text>
+	<text name="sim_title">
+		Bölge:
+	</text>
+	<text name="sim_field">
+		Region Name
+	</text>
+	<text name="pos_title">
+		Pozisyon:
+	</text>
+	<text name="pos_field">
+		{128.1, 128.1, 15.4}
+	</text>
+	<text name="select_object_label">
+		Önce butona sonra objeye tıklayın:
+	</text>
+	<button label="" label_selected="" name="pick_btn" tool_tip="Obje Seçici - Bir objeyi bu raporun konusu olarak tanımlayın"/>
+	<text name="object_name_label">
+		Ad:
+	</text>
+	<text name="object_name" left_delta="64" width="140">
+		Consetetur Sadipscing
+	</text>
+	<text name="owner_name_label">
+		Sahibi:
+	</text>
+	<text name="owner_name" left_delta="64">
+		Hendrerit Vulputate
+	</text>
+	<combo_box name="category_combo" tool_tip="Kategori -- bu raporu en iyi tasvir eden kategoriyi seçin">
+		<combo_item name="Select_category">
+			Kategori seçiniz
+		</combo_item>
+		<combo_item name="Age__Age_play">
+			Yaş &gt; Yaş oyunu
+		</combo_item>
+		<combo_item name="Age__Adult_resident_on_Teen_Second_Life">
+			Yaş &gt; Genç Second Life&apos;da yetişkin üye
+		</combo_item>
+		<combo_item name="Age__Underage_resident_outside_of_Teen_Second_Life">
+			Yaş &gt; Genç Second Life dışında genç üye
+		</combo_item>
+		<combo_item name="Assault__Combat_sandbox___unsafe_area">
+			Saldırı &gt; Dövüş atölyesi/güvensiz alan
+		</combo_item>
+		<combo_item name="Assault__Safe_area">
+			Saldırı &gt; Güvenli alan
+		</combo_item>
+		<combo_item name="Assault__Weapons_testing_sandbox">
+			Saldırı &gt; Atölyede silah testi
+		</combo_item>
+		<combo_item name="Commerce__Failure_to_deliver_product_or_service">
+			Ticaret &gt; Ürün veya servis alamama
+		</combo_item>
+		<combo_item name="Disclosure__Real_world_information">
+			İfşa &gt; Gerçek dünya bilgisi
+		</combo_item>
+		<combo_item name="Disclosure__Remotely_monitoring chat">
+			İfşa &gt; Uzaktan sohbet takibi
+		</combo_item>
+		<combo_item name="Disclosure__Second_Life_information_chat_IMs">
+			İfşa &gt; Second Life bilgisi/sohbet/HM
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Unfair_use_of_region_resources">
+			Huzuru bozma &gt; Bölge kaynaklarını adil kullanmama
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Excessive_scripted_objects">
+			Huzuru bozma &gt; Aşırı betikli objeler
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Object_littering">
+			Huzuru bozma &gt; Obje çöplüğü
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Repetitive_spam">
+			Huzuru bozma &gt; Tekrarlanan mesajlar
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Unwanted_advert_spam">
+			Huzuru bozma &gt; İstenmeyen reklam mesajları
+		</combo_item>
+		<combo_item name="Fraud__L$">
+			Dolandırıcılık &gt; L$
+		</combo_item>
+		<combo_item name="Fraud__Land">
+			Dolandırıcılık &gt; Arazi
+		</combo_item>
+		<combo_item name="Fraud__Pyramid_scheme_or_chain_letter">
+			Dolandırıcılık &gt; Piramit düzenleme veya zincir mektubu
+		</combo_item>
+		<combo_item name="Fraud__US$">
+			Dolandırıcılık &gt; US$
+		</combo_item>
+		<combo_item name="Harassment__Advert_farms___visual_spam">
+			Taciz &gt; Reklam tarlası/görülebilir mesaj bombardırmanı
+		</combo_item>
+		<combo_item name="Harassment__Defaming_individuals_or_groups">
+			Taciz &gt; Bireyleri veya grupları kötüleme
+		</combo_item>
+		<combo_item name="Harassment__Impeding_movement">
+			Taciz &gt; Hareket engelleme
+		</combo_item>
+		<combo_item name="Harassment__Sexual_harassment">
+			Taciz &gt; Cinsel taciz
+		</combo_item>
+		<combo_item name="Harassment__Solicting_inciting_others_to_violate_ToS">
+			Taciz &gt; Başkalarını Servis Anlaşması ihlaline teşvik etme
+		</combo_item>
+		<combo_item name="Harassment__Verbal_abuse">
+			Taciz &gt; Sözlü taciz/küfür
+		</combo_item>
+		<combo_item name="Indecency__Broadly_offensive_content_or_conduct">
+			Ahlaksızlık &gt; Büyük ölçüde saldırı içeriği veya davranışı
+		</combo_item>
+		<combo_item name="Indecency__Inappropriate_avatar_name">
+			Ahlaksızlık &gt; Uygunsuz karakter adı
+		</combo_item>
+		<combo_item name="Indecency__Mature_content_in_PG_region">
+			Ahlaksızlık &gt; PG bölgede uygunsuz içerik veya davranış
+		</combo_item>
+		<combo_item name="Indecency__Inappropriate_content_in_Mature_region">
+			Ahlaksızlık &gt; Mature bölgede uygunsuz içerik veya davranış
+		</combo_item>
+		<combo_item name="Intellectual_property_infringement_Content_Removal">
+			Zihinsel mülk ihlali &gt; İçerik silme
+		</combo_item>
+		<combo_item name="Intellectual_property_infringement_CopyBot_or_Permissions_Exploit">
+			Zihinsel mülk ihlali &gt; CopyBot veya izinler istismarı
+		</combo_item>
+		<combo_item name="Intolerance">
+			Hoşgörüsüzlük
+		</combo_item>
+		<combo_item name="Land__Abuse_of_sandbox_resources">
+			Arazi &gt; Atölye kaynaklarını kötüye kullanma
+		</combo_item>
+		<combo_item name="Land__Encroachment__Objects_textures">
+			Arazi &gt; Gasp &gt; Objeler/desenler
+		</combo_item>
+		<combo_item name="Land__Encroachment__Particles">
+			Arazi &gt; Gasp &gt; Tanecikler
+		</combo_item>
+		<combo_item name="Land__Encroachment__Trees_plants">
+			Arazi &gt; Gasp &gt; Ağaçlar/bitkiler
+		</combo_item>
+		<combo_item name="Wagering_gambling">
+			Bahis/kumar
+		</combo_item>
+		<combo_item name="Other">
+			Diğer
+		</combo_item>
+	</combo_box>
+	<text name="abuser_name_title">
+		Şikayetçi olunan:
+	</text>
+	<button label="Üye seç" label_selected="" name="select_abuser" tool_tip="Şikayetçi olduğunuz üyenin adını listeden seçiniz"/>
+	<check_box label="Şikayetçi okunan kişinin adını bilmiyorum" name="omit_abuser_name" tool_tip="Şikayetçi olunan kişinin adını veremiyorsanız burayı seçiniz"/>
+	<text name="abuser_name_title2">
+		Şikayet lokasyonu:
+	</text>
+	<text name="sum_title">
+		Özet:
+	</text>
+	<text name="dscr_title">
+		Detaylar:
+	</text>
+	<text name="bug_aviso">
+		Lütfen tarih,lokasyon,şikayet türü,ilgili sohbet/HM 
+yazısı gibi detaylara önem veriniz,ve mümkünse
+objeyi seçiniz.
+	</text>
+	<text name="incomplete_title">
+		Not: Tamamlanmamış raporlar araştırılmayacaktır.
+	</text>
+	<button label="İptal" label_selected="İptal" name="cancel_btn"/>
+	<button label="Şikayet et" label_selected="Şikayet et" name="send_btn"/>
+</floater>

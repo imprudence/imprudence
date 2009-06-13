@@ -208,7 +208,9 @@
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="선택 오브젝트에 초점 맞추기" name="Focus on Selection" />
 		<menu_item_call label="선택 영역 확대/축소" name="Zoom to Selection" />
-		<menu_item_call label="오브젝트 구매" name="Menu Object Take" />
+		<menu_item_call label="오브젝트 구매" name="Menu Object Take">
+			<on_enable userdata="구매,가지기" name="EnableBuyOrTake"/>
+		</menu_item_call>
 		<menu_item_call label="복사하기" name="Take Copy" />
 		<menu_item_call label="내 인벤토리에 오브젝트 다시 저장"
 		     name="Save Object Back to My Inventory" />

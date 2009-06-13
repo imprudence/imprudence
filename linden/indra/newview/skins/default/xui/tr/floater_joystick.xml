@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Joystick" title="Oyun Çubuğu Konfigürasyonu">
+	<check_box name="enable_joystick">
+		Etkinleştir:
+	</check_box>
+	<spinner label="X eksen eşlemi" name="JoystickAxis1"/>
+	<spinner label="Y eksen eşlemi" name="JoystickAxis2"/>
+	<spinner label="Z eksen eşlemi" name="JoystickAxis0"/>
+	<spinner label="Eğim eşlemi" name="JoystickAxis4"/>
+	<spinner label="Rota eşlemi" name="JoystickAxis5"/>
+	<spinner label="Yuvarlama eşlemi" name="JoystickAxis3"/>
+	<spinner label="Yakınlaştırma eşlemi" name="JoystickAxis6"/>
+	<check_box label="Doğrudan yakınlaştırma" name="ZoomDirect"/>
+	<check_box label="3B imleç" name="Cursor3D" left="340"/>
+	<check_box label="Otomatik seviye" name="AutoLeveling"/>
+	<text name="Control Modes:">
+		Kontrol modları:
+	</text>
+	<check_box name="JoystickAvatarEnabled">
+		Karakter
+	</check_box>
+	<check_box name="JoystickBuildEnabled">
+		İnşa
+	</check_box>
+	<check_box name="JoystickFlycamEnabled">
+		Uçan kamera
+	</check_box>
+	<text name="XScale">
+		X ölçüsü
+	</text>
+	<text name="YScale">
+		Y ölçüsü
+	</text>
+	<text name="ZScale">
+		Z ölçüsü
+	</text>
+	<text name="PitchScale">
+		Eğim ölçüsü
+	</text>
+	<text name="YawScale">
+		Rota ölçüsü
+	</text>
+	<text name="RollScale">
+		Yuvarlama ölçüsü
+	</text>
+	<text name="XDeadZone">
+		X ölü bölgesi
+	</text>
+	<text name="YDeadZone">
+		Y ölü bölgesi
+	</text>
+	<text name="ZDeadZone">
+		Z ölü bölgesi
+	</text>
+	<text name="PitchDeadZone">
+		Eğim ölü bölgesi
+	</text>
+	<text name="YawDeadZone">
+		Rota ölü bölgesi
+	</text>
+	<text name="RollDeadZone">
+		Yuvarlama ölü 
+bölgesi
+	</text>
+	<text name="Feathering">
+		Feathering
+	</text>
+	<text name="ZoomScale2" width="104">
+		Yakınlaştırma ölçüsü
+	</text>
+	<text name="ZoomDeadZone" width="128">
+		Yakınlaştırma ölü bölgesi
+	</text>
+	<button label="SpaceNavigator varsayılanı" name="SpaceNavigatorDefaults"/>
+	<button label="Tamam" label_selected="Tamam" name="ok_btn"/>
+	<button label="İptal" label_selected="İptal" name="cancel_btn"/>
+	<string name="JoystickMonitor">
+		Oyun Çubuğu Monitörü
+	</string>
+	<string name="Axis">
+		Axis [NUM]
+	</string>
+	<string name="NoDevice">
+		aygıt bulunamıyor
+	</string>
+</floater>

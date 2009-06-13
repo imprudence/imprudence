@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="overlay">
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
+				<layout_panel name="state_buttons">
+					<button label="IM modtaget" label_selected="IM modtaget" name="IM Received" tool_tip="Du har modtaget en privat besked (IM), klik her for at se den."/>
+					<button font="SansSerifSmall" label="Sæt &apos;ikke optaget&apos;" label_selected="Sæt &apos;ikke optaget&apos;" name="Set Not Busy" tool_tip="Chat og privat beskeder (IM) er skjulte for dig. Tryk her når du er &apos;ikke optaget&apos;."/>
+					<button label="Flycam" label_selected="Flycam" name="Flycam" tool_tip="Dir kamera styres nu af joystick, klik her for at frigøre det."/>
+					<button label="Førsteperson" label_selected="Førsteperson" name="Mouselook" tool_tip="Brug musen til at kigge rundt. Hvis du har et våben, klik for at skyde."/>
+					<button label="Stå op" label_selected="Stå op" name="Stand Up" tool_tip="Klik her for at stå op."/>
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+	</layout_stack>
+</panel>

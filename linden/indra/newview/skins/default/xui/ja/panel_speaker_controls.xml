@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="active_speakers_panel">
+<panel name="active_speakers_panel" width="200">
 	<string name="moderator_label">
 		(モデレータ)
 	</string>
-	<layout_stack name="panels">
-		<layout_panel name="moderation_mode_panel">
-			<combo_box name="moderation_mode">
+	<layout_stack name="panels" width="200">
+		<layout_panel name="moderation_mode_panel" width="200">
+			<combo_box name="moderation_mode" width="190">
 				<combo_item name="OpenVoice">
 					デフォルトでボイスをオン
 				</combo_item>
@@ -14,11 +14,11 @@
 				</combo_item>
 			</combo_box>
 		</layout_panel>
-		<layout_panel font="SansSerifSmall" name="moderate_chat_panel">
-			<scroll_list name="speakers_list">
+		<layout_panel font="SansSerifSmall" name="moderate_chat_panel" width="200">
+			<scroll_list name="speakers_list" right="200">
 				<column label="名前" name="speaker_name"/>
 			</scroll_list>
-			<panel name="speaker_controls">
+			<panel name="speaker_controls" width="200">
 				<text name="resident_name">
 					Rumplstiltskin Califragilistic
 				</text>
@@ -26,9 +26,9 @@
 				<check_box label="テキストをミュート" name="mute_text_btn"/>
 			</panel>
 		</layout_panel>
-		<layout_panel name="moderator_controls">
+		<layout_panel name="moderator_controls" width="200">
 			<text name="moderator_controls_label">
-				モデレータ・コントロール:
+				モデレータ・コントロール：
 			</text>
 			<check_box name="moderator_allow_voice">
 				ボイスチャットを許可
@@ -36,7 +36,6 @@
 			<check_box name="moderator_allow_text">
 				テキストによるチャットを許可
 			</check_box>
-			ボイスチャットを許可
 		</layout_panel>
 	</layout_stack>
 </panel>

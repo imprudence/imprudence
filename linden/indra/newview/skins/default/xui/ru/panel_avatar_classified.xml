@@ -2,8 +2,8 @@
 <panel name="Classified" title="Реклама">
 	<line_editor name="given_name_editor" tool_tip="Название должно начинаться с буквы или цифры, но не со знака препинания."/>
 	<line_editor name="location_editor" tool_tip="Установить местонахождение этой рекламы в Вашем текущем расположении"/>
-	<button label="Местонахождение" name="set_location_btn"/>
-	<button label="Телепорт" name="classified_teleport_btn"/>
+	<button label="Местонахождение" name="set_location_btn" width="135"/>
+	<button label="Телепорт" name="classified_teleport_btn" left_delta="135"/>
 	<button label="Карта" name="classified_map_btn"/>
 	<combo_box label="" name="classified_category_combo"/>
 	<combo_box label="" name="classified_mature_check">
@@ -23,7 +23,7 @@
 	<text name="click_through_text" tool_tip="Всего кликов на каждой кнопке с тех пор как Ваша реклама опубликована.">
 		Клики:
 	</text>
-	<button label="Опубликовать..." name="classified_update_btn"/>
+	<button label="Опубликовать..." name="classified_update_btn" width="115" />
 	<check_box label="Автообновление еженедельно" name="auto_renew_check"/>
 	<string name="ad_placed_paid">
 		Реклама размещена: [DATE], Оплата L$[AMT] за публикацию.

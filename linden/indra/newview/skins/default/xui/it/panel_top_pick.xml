@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Pick" title="Preferiti">
+	<button label="Imposta" name="set_location_btn"/>
+	<button label="Teleportati" name="pick_teleport_btn"/>
+	<button label="Mostra sulla mappa" name="pick_map_btn"/>
+	<text name="sort_order_text">
+		Ordina:
+	</text>
+	<check_box label="Abilitato" name="enabled_check"/>
+</panel>

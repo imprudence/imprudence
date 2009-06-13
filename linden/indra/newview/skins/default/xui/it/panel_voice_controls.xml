@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="voice_controls">
+	<button label="" name="speakers_btn" tool_tip="Mostra la lista dei residenti che stanno usando il voice qui vicino"/>
+	<button label="Parla" name="push_to_talk" tool_tip="Tieni premuto il pulsante per parlare"/>
+	<button label="" name="ptt_lock" tool_tip="Clicca &quot;blocca&quot; per cambiare la modalità d&apos;uso"/>
+	<button label="" name="show_channel" tool_tip="Clicca per mostrare il canale voice attivo"/>
+</panel>

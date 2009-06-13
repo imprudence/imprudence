@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!-- This file contains strings that used to be hardcoded in the source.
+     It is only for those strings which do not belong in a floater.
+     For example, the strings used in avatar chat bubbles, and strings 
+     that are returned from one component and may appear in many places-->
+<strings>
+	<string name="LoginInProgress">
+		Bejelentkezés folyamatban. [APP_NAME] hibát jelzett. Kérjük várj!.
+	</string>
+	<string name="LoginAuthenticating">
+		Hitelesítés folyamatban
+	</string>
+	<string name="LoginMaintenance">
+		Felhasználó karbantartása folyamatban...
+	</string>
+	<string name="LoginAttempt">
+		A korábbi belépés sikertelen volt. Belépés folyamatban, próbálkozások száma: [NUMBER]
+	</string>
+	<string name="LoginPrecaching">
+		Világ betöltése...
+	</string>
+	<string name="LoginInitializingBrowser">
+		Beépített böngésző aktíválása...
+	</string>
+	<string name="LoginInitializingMultimedia">
+		Multimédia aktíválása...
+	</string>
+	<string name="LoginVerifyingCache">
+		Cache fájlok ellenőrzése (60-90 másodpercig is eltarthat)...
+	</string>
+	<string name="LoginProcessingResponse">
+		Válasz küldése folyamatban...
+	</string>
+	<string name="LoginInitializingWorld">
+		Világ indítása...
+	</string>
+	<string name="LoginDecodingImages">
+		Képek tömörítése...
+	</string>
+	<string name="LoginInitializingQuicktime">
+		QuickTime indítása...
+	</string>
+	<string name="LoginQuicktimeNotFound">
+		QuickTime nem található - indítás sikertelen.
+	</string>
+	<string name="LoginQuicktimeOK">
+		QuickTime indítása sikeresen megtörtént.
+	</string>
+	<string name="LoginWaitingForRegionHandshake">
+		Várakozás a régió betöltésére...
+	</string>
+	<string name="LoginConnectingToRegion">
+		Kapcsolódás a régióhoz...
+	</string>
+	<string name="LoginDownloadingClothing">
+		Ruházat letöltése...
+	</string>
+	<string name="AgentLostConnection">
+		Lehetséges problémák a régión. Kérjük ellenőrizd, hogy megfelelően csatlakozol-e az internethez.
+	</string>
+	<string name="TooltipPerson">
+		Személy
+	</string>
+	<string name="TooltipNoName">
+		(nincs név)
+	</string>
+	<string name="TooltipOwner">
+		Tulajdonos:
+	</string>
+	<string name="TooltipPublic">
+		Nyivános
+	</string>
+	<string name="TooltipIsGroup">
+		(Csoport)
+	</string>
+	<string name="TooltipFlagScript">
+		Script
+	</string>
+	<string name="TooltipFlagPhysics">
+		Fizika
+	</string>
+	<string name="TooltipFlagTouch">
+		Érintés
+	</string>
+	<string name="TooltipFlagL$">
+		L$
+	</string>
+	<string name="TooltipFlagDropInventory">
+		Elem eldobása
+	</string>
+	<string name="TooltipFlagPhantom">
+		Fantom
+	</string>
+	<string name="TooltipFlagTemporary">
+		Ideiglenes
+	</string>
+	<string name="TooltipFlagRightClickMenu">
+		(Jobb egér gomb a menü eléréséhez)
+	</string>
+	<string name="TooltipFreeToCopy">
+		Szabadon másolható
+	</string>
+	<string name="TooltipForSaleL$">
+		Eladási ár: L$[AMOUNT]
+	</string>
+	<string name="TooltipForSaleMsg">
+		Eladó: [MESSAGE]
+	</string>
+	<string name="TooltipFlagGroupBuild">
+		Csoportépítés
+	</string>
+	<string name="TooltipFlagNoBuild">
+		Nincs építés
+	</string>
+	<string name="TooltipFlagNoEdit">
+		Csoportépítés
+	</string>
+	<string name="TooltipFlagNotSafe">
+		Nem biztonságos
+	</string>
+	<string name="TooltipFlagNoFly">
+		Nincs repülés
+	</string>
+	<string name="TooltipFlagGroupScripts">
+		Group scriptek
+	</string>
+	<string name="TooltipFlagNoScripts">
+		Nincsenek scriptek
+	</string>
+	<string name="TooltipLand">
+		Föld:
+	</string>
+	<string name="TooltipMustSingleDrop">
+		Az elemek csak egyesével mozgathatók
+	</string>
+	<string name="RetrievingData">
+		Adatok visszatöltése folyamatban...
+	</string>
+	<string name="ReleaseNotes">
+		Megjelenéssel kapcsolatos információk
+	</string>
+	<string name="LoadingData">
+		Betöltés...
+	</string>
+	<string name="AvatarNameNobody">
+		(nincs név)
+	</string>
+	<string name="AvatarNameWaiting">
+		(várakozás)
+	</string>
+	<string name="AvatarNameHippos">
+		(hippos)
+	</string>
+	<string name="GroupNameNone">
+		(nincs)
+	</string>
+	<string name="AssetErrorNone">
+		Nincs hiba
+	</string>
+	<string name="AssetErrorRequestFailed">
+		Eszköz lekérdezése: sikertelen
+	</string>
+	<string name="AssetErrorNonexistentFile">
+		Eszköz lekérdezése: nem létező fájl
+	</string>
+	<string name="AssetErrorNotInDatabase">
+		Eszköz lekérdezése: eszköz nem található az adatabázisban
+	</string>
+	<string name="AssetErrorEOF">
+		Fájl vége
+	</string>
+	<string name="AssetErrorCannotOpenFile">
+		Fájl megnyitása sikertelen
+	</string>
+	<string name="AssetErrorFileNotFound">
+		Fájl nem található
+	</string>
+	<string name="AssetErrorTCPTimeout">
+		Időtúllépés a fájl áthelyezésekor
+	</string>
+	<string name="AssetErrorCircuitGone">
+		Kapcsolat megszakadt
+	</string>
+	<string name="AssetErrorPriceMismatch">
+		Nem elfogadott ár a szerver és a kliens részéről
+	</string>
+	<string name="AssetErrorUnknownStatus">
+		Ismeretlen állapot
+	</string>
+	<string name="AvatarEditingApparance">
+		(Megjelenés szerkesztése)
+	</string>
+	<string name="AvatarAway">
+		Nincs a gépnél
+	</string>
+	<string name="AvatarBusy">
+		Elfoglalt
+	</string>
+	<string name="AvatarMuted">
+		Elnémítva
+	</string>
+	<string name="anim_express_afraid">
+		Fél
+	</string>
+	<string name="anim_express_anger">
+		Mérges
+	</string>
+	<string name="anim_away">
+		Nincs a gépnél
+	</string>
+	<string name="anim_backflip">
+		Bukfencezik
+	</string>
+	<string name="anim_express_laugh">
+		Kacag
+	</string>
+	<string name="anim_express_toothsmile">
+		Vigyorog
+	</string>
+	<string name="anim_blowkiss">
+		Csókot dob
+	</string>
+	<string name="anim_express_bored">
+		Unatkozik
+	</string>
+	<string name="anim_bow">
+		Meghajol
+	</string>
+	<string name="anim_clap">
+		Tapsol
+	</string>
+	<string name="anim_courtbow">
+		Mélyen meghajol
+	</string>
+	<string name="anim_express_cry">
+		Sír
+	</string>
+	<string name="anim_dance1">
+		Tánc 1
+	</string>
+	<string name="anim_dance2">
+		Tánc 2
+	</string>
+	<string name="anim_dance3">
+		Tánc 3
+	</string>
+	<string name="anim_dance4">
+		Tánc 4
+	</string>
+	<string name="anim_dance5">
+		Tánc 5
+	</string>
+	<string name="anim_dance6">
+		Tánc 6
+	</string>
+	<string name="anim_dance7">
+		Tánc 7
+	</string>
+	<string name="anim_dance8">
+		Tánc 8
+	</string>
+	<string name="anim_express_disdain">
+		Lenéz
+	</string>
+	<string name="anim_drink">
+		Iszik
+	</string>
+	<string name="anim_express_embarrased">
+		Szégyenlős
+	</string>
+	<string name="anim_angry_fingerwag">
+		Fenyegetés
+	</string>
+	<string name="anim_fist_pump">
+		Ökölbe szorítás
+	</string>
+	<string name="anim_yoga_float">
+		Yoga törökülés
+	</string>
+	<string name="anim_express_frown">
+		Szemöldök ráncolás
+	</string>
+	<string name="anim_impatient">
+		Türelmetlen
+	</string>
+	<string name="anim_jumpforjoy">
+		Örömugrálás
+	</string>
+	<string name="anim_kissmybutt">
+		Csókold meg a hátsóm
+	</string>
+	<string name="anim_express_kiss">
+		Csók
+	</string>
+	<string name="anim_laugh_short">
+		Nevetés
+	</string>
+	<string name="anim_musclebeach">
+		Izomfeszítés
+	</string>
+	<string name="anim_no_unhappy">
+		Nem (Boldogtalan)
+	</string>
+	<string name="anim_no_head">
+		Nem
+	</string>
+	<string name="anim_nyanya">
+		Nya-nya-nya
+	</string>
+	<string name="anim_punch_onetwo">
+		Kétkézzel üt
+	</string>
+	<string name="anim_express_open_mouth">
+		Nyitott száj
+	</string>
+	<string name="anim_peace">
+		Béke
+	</string>
+	<string name="anim_point_you">
+		Másra mutat
+	</string>
+	<string name="anim_point_me">
+		Magára mutat
+	</string>
+	<string name="anim_punch_l">
+		Balegyenes
+	</string>
+	<string name="anim_punch_r">
+		Jobbegyenes
+	</string>
+	<string name="anim_rps_countdown">
+		Kő, papír, olló játék
+	</string>
+	<string name="anim_rps_paper">
+		Papír
+	</string>
+	<string name="anim_rps_rock">
+		Kő
+	</string>
+	<string name="anim_rps_scissors">
+		Olló
+	</string>
+	<string name="anim_express_repulsed">
+		Rideg
+	</string>
+	<string name="anim_kick_roundhouse_r">
+		Roundhouse Kick
+	</string>
+	<string name="anim_express_sad">
+		Szomorú
+	</string>
+	<string name="anim_salute">
+		Üdvözöl
+	</string>
+	<string name="anim_shout">
+		Kiált
+	</string>
+	<string name="anim_express_shrug">
+		Vállvonás
+	</string>
+	<string name="anim_express_smile">
+		Mosolyog
+	</string>
+	<string name="anim_smoke_idle">
+		Dohányfüstöt beszív
+	</string>
+	<string name="anim_smoke_inhale">
+		Dohányfüstöt méllyen beszív
+	</string>
+	<string name="anim_smoke_throw_down">
+		Dohányfüstöt letüdőz
+	</string>
+	<string name="anim_express_surprise">
+		Meglepődik
+	</string>
+	<string name="anim_sword_strike_r">
+		Karddal harcol
+	</string>
+	<string name="anim_angry_tantrum">
+		Hisztéria
+	</string>
+	<string name="anim_express_tongue_out">
+		Nyelvet kiölt
+	</string>
+	<string name="anim_hello">
+		Integet
+	</string>
+	<string name="anim_whisper">
+		Suttog
+	</string>
+	<string name="anim_whistle">
+		Fütyül
+	</string>
+	<string name="anim_express_wink">
+		Kacsint
+	</string>
+	<string name="anim_wink_hollywood">
+		Kacsint (Hollywood)
+	</string>
+	<string name="anim_express_worry">
+		Aggódik
+	</string>
+	<string name="anim_yes_happy">
+		Igen (Boldog)
+	</string>
+	<string name="anim_yes_head">
+		Igen
+	</string>
+	<string name="texture_loading">
+		Betöltés...
+	</string>
+	<string name="worldmap_offline">
+		Offline
+	</string>
+	<string name="whisper">
+		súg:
+	</string>
+	<string name="shout">
+		kiált:
+	</string>
+	<string name="SIM_ACCESS_PG">
+		PG
+	</string>
+	<string name="SIM_ACCESS_MATURE">
+		Mature
+	</string>
+	<string name="SIM_ACCESS_ADULT">
+		Adult
+	</string>
+	<string name="SIM_ACCESS_DOWN">
+		Offline
+	</string>
+	<string name="SIM_ACCESS_MIN">
+		Ismeretlen
+	</string>
+	<string name="land_type_unknown">
+		(ismeretlen)
+	</string>
+	<string name="covenant_never_modified">Utolsó módosítás: (soha)</string>
+	<string name="covenant_modified">Utolsó módosítás: </string>
+	<string name="all_files">
+		Minden fájl
+	</string>
+	<string name="sound_files">
+		Hangok
+	</string>
+	<string name="animation_files">
+		Animáció
+	</string>
+	<string name="image_files">
+		Képek
+	</string>
+	<string name="save_file_verb">
+		Mentés
+	</string>
+	<string name="load_file_verb">
+		Betölt
+	</string>
+	<string name="targa_image_files">
+		Targa képek
+	</string>
+	<string name="bitmap_image_files">
+		Bitmap képek
+	</string>
+	<string name="avi_movie_file">
+		AVI Movie fájl
+	</string>
+	<string name="xaf_animation_file">
+		XAF Anim fájl
+	</string>
+	<string name="xml_file">
+		XML fájl
+	</string>
+	<string name="dot_raw_file">
+		RAW fájl
+	</string>
+	<string name="compressed_image_files">
+		Tömörített képek
+	</string>
+	<string name="load_files">
+		Fájlok betöltése
+	</string>
+	<string name="choose_the_directory">
+		Könyvtár kiválasztása
+	</string>
+</strings>

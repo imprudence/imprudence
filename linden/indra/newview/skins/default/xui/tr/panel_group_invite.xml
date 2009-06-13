@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Üye davet et" name="invite_panel">
+	<text name="help_text">
+		Grubunuza davet etmek için birden 
+fazle üye seçebilirsiniz. Başlamak 
+için &apos;Üye seçiciyi aç&apos; a tıklayınız.
+	</text>
+	<button label="Üye seçiciyi aç" name="add_button" tool_tip=""/>
+	<name_list name="invitee_list" tool_tip="Çoklu seçim için Ctrl tuşunu basılı tutunuz ve üye isimleri seçiniz."/>
+	<button label="Seçileni listeden çıkar" name="remove_button" tool_tip="Yukarıdaki davet listesinden seçili üyeleri çıkarır."/>
+	<text name="role_text">
+		Hangi göreve atayacağınızı seçiniz:
+	</text>
+	<combo_box name="role_name" tool_tip="Üyeleri atayabilme izniniz olan görevi seçiniz."/>
+	<button label="Davetleri gönder" name="ok_button"/>
+	<button label="İptal" name="cancel_button"/>
+	<string name="confirm_invite_owner_str">
+		Yeni sahip(ler) davet etmek istediğinizden emin misiniz? 
+Bu işlem kalıcıdır!
+	</string>
+	<string name="loading">
+		(yükleniyor...)
+	</string>
+</panel>

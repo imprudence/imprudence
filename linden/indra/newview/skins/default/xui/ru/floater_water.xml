@@ -3,10 +3,10 @@
 	<text type="string" length="1" name="KeyFramePresetsText">
 		Настройки воды:
 	</text>
-	<button label="Новый" label_selected="Новый" name="WaterNewPreset" />
+	<button label="Новый" label_selected="Новый" name="WaterNewPreset" width="80"/>
 	<button label="Сохранить" label_selected="Сохранить"
-	     name="WaterSavePreset" />
-	<button label="Удалить" label_selected="Удалить" name="WaterDeletePreset" />
+	     name="WaterSavePreset" width="80" left_delta="90"/>
+	<button label="Удалить" label_selected="Удалить" name="WaterDeletePreset" width="80" left_delta="90"/>
 	<tab_container name="Water Tabs">
 		<panel label="Установки" name="Settings">
 			<text type="string" length="1" name="BHText">
@@ -28,7 +28,7 @@
 			<text type="string" length="1" name="BDensText">
 				Уровень отражения волн
 			</text>
-			<button label="?" name="WaterNormalScaleHelp" />
+			<button label="?" name="WaterNormalScaleHelp" left="405"/>
 			<text type="string" length="1" name="BHText2">
 				1
 			</text>
@@ -44,34 +44,34 @@
 			<text type="string" length="1" name="HDText">
 				Масштаб Френеля
 			</text>
-			<button label="?" name="WaterFresnelScaleHelp" />
+			<button label="?" name="WaterFresnelScaleHelp" left="405"/>
 			<slider label="" name="WaterFresnelScale" />
 			<text type="string" length="1" name="FresnelOffsetText">
 				Сдвиг Френеля
 			</text>
-			<button label="?" name="WaterFresnelOffsetHelp" />
+			<button label="?" name="WaterFresnelOffsetHelp" left="405"/>
 			<slider label="" name="WaterFresnelOffset" />
 			<text type="string" length="1" name="DensMultText">
 				Масштаб преломления выше
 			</text>
-			<button label="?" name="WaterScaleAboveHelp" />
+			<button label="?" name="WaterScaleAboveHelp" left="664"/>
 			<slider label="" name="WaterScaleAbove" />
 			<text type="string" length="1" name="WaterScaleBelowText">
 				Масштаб преломления ниже
 			</text>
-			<button label="?" name="WaterScaleBelowHelp" />
+			<button label="?" name="WaterScaleBelowHelp" left="664"/>
 			<slider label="" name="WaterScaleBelow" />
 			<text type="string" length="1" name="MaxAltText">
 				Коэф-т пятна
 			</text>
-			<button label="?" name="WaterBlurMultiplierHelp" />
+			<button label="?" name="WaterBlurMultiplierHelp" left="624"/>
 			<slider label="" name="WaterBlurMult" />
 		</panel>
 		<panel label="Image" name="Waves">
 			<text type="string" length="1" name="BHText">
 				Направление больших волн
 			</text>
-			<button label="?" name="WaterWave1Help" />
+			<button label="?" name="WaterWave1Help" left="190"/>
 			<text type="string" length="1" name="WaterWave1DirXText">
 				X
 			</text>
@@ -83,7 +83,7 @@
 			<text type="string" length="1" name="BHText2">
 				Направление малых волн
 			</text>
-			<button label="?" name="WaterWave2Help" />
+			<button label="?" name="WaterWave2Help" left="190"/>
 			<text type="string" length="1" name="WaterWave2DirXText">
 				X
 			</text>

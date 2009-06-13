@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="media_remote">
+	<panel label="Hang és videó" name="Volume Panel" />
+	<string name="play_label">
+		Lejátszik
+	</string>
+	<string name="stop_label">
+		Kikapcsol
+	</string>
+	<string name="pause_label">
+		Megállít
+	</string>
+	<string name="default_tooltip_label">
+		Nincs beállított média
+	</string>
+	<string name="media_hidden_label">
+		(URL elrejtve a tuljadonos által)
+	</string>
+	<string name="media_icon_tooltip_web">
+		Ezen a helyen webtartalmak találhatók. Kattints a lejátszik gombra a webtartalom megjelenítéséhez.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		Ezen a helyen videótartalmak találhatók. Kattints a lejátszik gombra a videótartalom elindításához.
+	</string>
+	<string name="media_play_tooltip">
+		Webtartalmak megjelenítése ezen a helyen.
+	</string>
+</panel>

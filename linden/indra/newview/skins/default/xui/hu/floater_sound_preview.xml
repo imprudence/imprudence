@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Sound Preview" title="sound.wav">
+	<text name="name_label">
+		Név:
+	</text>
+	<text name="description_label">
+		Megnevezés:
+	</text>
+	<button label="Mégsem" label_selected="Mégsem" name="cancel_btn" />
+	<button label="Feltölt ([AMOUNT] L$)" label_selected="Feltölt ([AMOUNT] L$)" name="ok_btn" width="140" left_delta="-150"/>
+</floater>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="inspect" title="Інспектувати об&apos;кти">
+<floater name="inspect" title="Інспектувати об&apos;кти" min_width="450">
 	<scroll_list name="object_list"
 	     tool_tip="Вибрати об&apos;кт зі списку, щоб він підсвітився у світі">
 		<column label="Ім&apos;я об&apos;єкта" name="object_name" />
@@ -7,10 +7,10 @@
 		<column label="Ім&apos;я Творця" name="creator_name" />
 		<column label="Дата Створення" name="creation_date" />
 	</scroll_list>
-	<button label="Перегляд профіля власника" label_selected=""
+	<button width="215" label="Перегляд профіля власника..." label_selected=""
 	     name="button owner"
 	     tool_tip="Переглянути профіль власника підсвіченого об&apos;єкта" />
-	<button label="Перегляд профіля творця" label_selected=""
+	<button width="215" left="235" label="Перегляд профіля творця..." label_selected=""
 	     name="button creator"
 	     tool_tip="Переглянути профіль оригінального творця підсвіченого об&apos;єкта" />
 </floater>

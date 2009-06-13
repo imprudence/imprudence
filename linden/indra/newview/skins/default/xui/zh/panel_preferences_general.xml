@@ -33,10 +33,27 @@
 	</text>
 	<check_box bottom="-236" label="使用分辨率无关尺寸" left="148" name="ui_auto_scale" width="256"/>
 	<spinner label="离开休息计时:" name="afk_timeout_spinner"/>
-	<check_box label="旋转迷你地图" name="rotate_mini_map_checkbox"/>
 	<check_box label="在付出或收到林登币 (L$) 时提醒我" name="notify_money_change_checkbox"/>
-	<check_box label="使用系统默认色彩选择器" name="use_system_color_picker_checkbox" tool_tip="使用系统默认色彩撷取器，代替在第二人生中建设的色彩撷取器。"/>
-	<check_box label="在覆盖栏中显示搜索面板" mouse_opaque="true" name="show_search_panel" tool_tip="显示嵌入的搜索面板。"/>
+	<text name="maturity_desired_label">
+		分级：
+	</text>
+	<text name="maturity_desired_prompt">
+		我希望获的土地访问权限：
+	</text>
+	<combo_box name="maturity_desired_combobox">
+		<combo_item name="Desired_Adult">
+			PG，Mature和Adult
+		</combo_item>
+		<combo_item name="Desired_Mature">
+			PG和Mature
+		</combo_item>
+		<combo_item name="Desired_PG">
+			仅限PG
+		</combo_item>
+	</combo_box>
+	<text name="maturity_desired_textbox">
+		仅限PG
+	</text>
 	<text length="1" name="start_location_textbox" type="string">
 		起始位置:
 	</text>
@@ -56,7 +73,7 @@
 		语言:
 	</text>
 	<text length="1" name="language_textbox2" type="string">
-		(要使更改完全生效，需重新启动程序)
+		（要使更改完全生效，需重新启动程序）
 	</text>
 	<string name="region_name_prompt">
 		&lt;输入地域名&gt;
@@ -73,41 +90,56 @@
 		</combo_item>
 	</combo_box>
 	<combo_box name="language_combobox">
-		<combo_item name="System Default Language" >
+		<combo_item name="System Default Language">
 			系统默认值
 		</combo_item>
-		<combo_item name="English" >
-			English (英语)
+		<combo_item name="English">
+			English （英语）
 		</combo_item>
-		<combo_item name="Danish" >
-			Dansk （丹麦）- Beta
+		<combo_item name="Danish">
+			Dansk （丹麦）- 测试版
 		</combo_item>
-		<combo_item name="Deutsch(German)" >
-			Deutsch (德语) - 测试版
+		<combo_item name="Deutsch(German)">
+			Deutsch （德语）- 测试版
 		</combo_item>
-		<combo_item name="Spanish" >
-			Español (西班牙语) - 测试版
+		<combo_item name="Spanish">
+			Español （西班牙语）- 测试版
 		</combo_item>
-		<combo_item name="French" >
-			Français (法语) - 测试版
+		<combo_item name="French">
+			Français （法语）- 测试版
+		</combo_item>
+		<combo_item name="Italian">
+			Italiano （意大利语）- 测试版
 		</combo_item>
 		<combo_item name="Hungarian">
-			Magyar 马札儿语（匈牙利）- Beta
+			Magyar 马札儿语（匈牙利）- 测试版
+		</combo_item>
+		<combo_item name="Dutch">
+			Nederlands （荷兰语）- 测试版
 		</combo_item>
 		<combo_item name="Polish">
-			Polski （波兰）- Beta
+			Polski （波兰）- 测试版
 		</combo_item>
-		<combo_item name="Portugese" >
-			Português (葡萄牙语) - 测试版
+		<combo_item name="Portugese">
+			Português （葡萄牙语）- 测试版
 		</combo_item>
-		<combo_item name="Chinese" >
-			中文 (简体)  - 测试版
+		<combo_item name="Russian">
+			Русский （俄罗斯语）- 测试版
 		</combo_item>
-		<combo_item name="(Japanese)" >
-			日本語 (日语) - 测试版
+		<combo_item name="Turkish">
+			Türkçe （土耳其语）- 测试版
 		</combo_item>
-		<combo_item name="(Korean)" >
-			한국어 (朝鲜语) - 测试版
+		<combo_item name="Ukrainian">
+			Українська （乌克兰语）- 测试版
+		</combo_item>
+		<combo_item name="Chinese">
+			中文 （简体）- 测试版
+		</combo_item>
+		<combo_item name="(Japanese)">
+			日本語 （日语）- 测试版
+		</combo_item>
+		<combo_item name="(Korean)">
+			한국어 （朝鲜语）- 测试版
 		</combo_item>
 	</combo_box>
 	<check_box label="与物体共享语言" name="language_is_public" tool_tip="这使得世界内的物体可以知道你偏好的语言。"/>

@@ -6,7 +6,7 @@
 	<text name="LabelSlurlTitle">
 		Место:
 	</text>
-	<text name="Unknown_Slurl">
+	<text name="Unknown_Slurl" width="300">
 		(Информация о Месте Недоступна)
 	</text>
 	<text name="LabelOwnerNameTitle">

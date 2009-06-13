@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater label="(невідомо)" name="im_floater" title="(невідомо)">
+<floater label="(невідомо)" name="im_floater" title="(невідомо)" min_width="325">
 	<string name="ringing">
 		Приєднуємося до Голосового Чату...
 	</string>
@@ -33,6 +33,7 @@
 			<line_editor label="Натисніть сюди для IM" name="chat_editor"  width="406"/>
 			<button label="Відправити" name="send_btn" left="416" width="80"/>
 		</layout_panel>
+		<layout_panel min_width="200" name="active_speakers_panel" width="200" />
 	</layout_stack>
 	<string name="live_help_dialog">
 		*** Ласкаво просимо у запит про допомогу *** 

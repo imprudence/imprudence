@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Pick" title="Vælg">
+	<button label="Sæt" name="set_location_btn" />
+	<button label="Teleport" name="pick_teleport_btn" />
+	<button label="Vis på kort" name="pick_map_btn" />
+	<text name="sort_order_text" left="280" width="100">
+		Sortér:
+	</text>
+	<check_box label="Aktiv" name="enabled_check" />
+</panel>

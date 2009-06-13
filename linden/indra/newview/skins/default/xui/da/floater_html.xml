@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="htmlfloater" title="">
+	<button label="Luk" name="close_btn" />
+	<button label="Retur" name="back_btn" />
+	<button label="Frem" name="forward_btn" />
+	<button label="start" name="go_btn" />
+	<string name="home_page_url">
+		http://www.secondlife.com
+	</string>
+	<string name="support_page_url">
+		http://support.secondlife.com
+	</string>
+</floater>

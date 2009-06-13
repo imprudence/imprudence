@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="ColorPicker" title="Показать цвет">
+	<spinner left="90" name="rspin" width="44"/>
+	<spinner left="90" name="gspin" width="44"/>
+	<spinner left="90" name="bspin" width="44"/>
+	<spinner left="90" name="hspin" width="44"/>
+	<spinner left="90" name="sspin" width="44"/>
+	<spinner left="90" name="lspin" width="44"/>
 	<text name="r_val_text">
 		Красный:
 	</text>
@@ -26,6 +32,7 @@
 		Текущий цвет:
 	</text>
 	<text name="(Drag below to save.)">
-		(перетащите ниже, чтобы сохранить.)
+		(перетащите ниже,
+ чтобы сохранить.)
 	</text>
 </floater>

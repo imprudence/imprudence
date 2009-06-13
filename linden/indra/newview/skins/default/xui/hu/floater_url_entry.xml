@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="url_entry" title="">
+	<text name="media_label">
+		Média URL:
+	</text>
+	<button label="OK" name="ok_btn" />
+	<button label="Mégsem" name="cancel_btn" />
+	<button label="Mégsem" name="cancel_btn2" />
+	<button label="Töröl" name="clear_btn" />
+	<text name="loading_label">
+		Betöltés...
+	</text>
+</floater>

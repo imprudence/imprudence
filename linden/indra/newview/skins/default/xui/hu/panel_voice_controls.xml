@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="voice_controls">
+	<!-- WARNING: separate formatting and translations of these same strings (for using the Silver skin) is controlled by a different file in \skins\silver\xui\hu\panel_voice_controls.xml You must make changes to translations in both files.-->
+	<button label="" name="speakers_btn"
+	     tool_tip="Körülötted lévő lakók listája, akik a hang üzenetet használják" />
+	<button label="Mond" name="push_to_talk" tool_tip="Nyomd meg a gombot a beszédhez" width="70" left_delta="37"/>
+	<button label="" name="ptt_lock"
+	     tool_tip="Kattints a lezár gombra a mód váltásához" />
+	<icon name="voice_volume" width="16" left_delta="49"/>
+	<button label="" name="show_channel"
+	     tool_tip="Kattints ide az elérhető hangcsatorna megjelenítéséhez" left_delta="16"/>
+</panel>

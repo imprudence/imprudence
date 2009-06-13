@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_notecard">
+	<text_editor name="Notecard Editor">
+		Yükleniyor...
+	</text_editor>
+	<text length="1" name="desc txt" type="string">
+		Tanım:
+	</text>
+	<button label="Kaydet" label_selected="Kaydet" name="Keep"/>
+	<button label="Reddet" label_selected="Reddet" name="Discard"/>
+	<string name="no_object">
+		Bu notu içeren obje bulanmıyor.
+	</string>
+	<string name="not_allowed">
+		Bu notu okumaya izniniz yok.
+	</string>
+</floater>

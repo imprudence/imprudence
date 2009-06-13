@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Panel Avatar" width="470">
+	<tab_container name="tab" width="459">
+		<panel label="2nd Life" name="2nd Life" width="458">
+			<string name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+			<string name="AcctTypeResident">
+				Residente
+			</string>
+			<string name="AcctTypeTrial">
+				Prova
+			</string>
+			<string name="AcctTypeCharterMember">
+				Membro privilegiato
+			</string>
+			<string name="AcctTypeEmployee">
+				Impiegato della Linden Lab
+			</string>
+			<string name="PaymentInfoUsed">
+				Info. di pagamento usate
+			</string>
+			<string name="PaymentInfoOnFile">
+				Info. di pagamento in archivio
+			</string>
+			<string name="NoPaymentInfoOnFile">
+				Nessuna info. di pagamento
+			</string>
+			<string name="AgeVerified">
+				Età verificata
+			</string>
+			<string name="NotAgeVerified">
+				Età non verificata
+			</string>
+			<text name="Name:">
+				Nome:
+			</text>
+			<text name="online_yes" width="151">
+				Online in questo istante
+			</text>
+			<text name="label">
+				Nato:
+			</text>
+			<line_editor name="born" width="161" />
+			<text name="label2">
+				Conto:
+			</text>
+			<view_border name="acct_border" width="161" />
+			<text name="acct" width="161" />
+			<text name="partner_label" tool_tip="Partner in Second Life. Per maggiori informazioni sulla partnesrhip leggi www.secondlife.com/partner">
+				Partner:
+			</text>
+			<button label="i" label_selected="i" name="partner_info" tool_tip="Clicca per aprire il profilo del partner"/>
+			<button label="?" label_selected="?" name="partner_help"/>
+			<line_editor name="partner_edit" tool_tip="Partner in Second Life. Per maggiori informazioni sulla partnership leggi www.secondlife.com/partner" width="161">
+				[FIRST] [LAST]
+			</line_editor>
+			<text name="Photo:">
+				Foto:
+			</text>
+			<texture_picker label="" name="img" tool_tip="Clicca per scegliere una fotografia"/>
+			<text name="Groups:">
+				Gruppi:
+			</text>
+			<scroll_list name="groups" width="361" />
+			<text name="About:">
+				Informazioni:
+			</text>
+			<text name="(500 chars)">
+				500 carat.
+			</text>
+			<text_editor name="about" width="361"/>
+			<text name="Give item:">
+				Regala oggetto:
+			</text>
+			<view_border name="drop_target_rect" width="449" />
+			<view_border name="drop_target_rect_vis" width="361" />
+			<text name="Give inventory" tool_tip="Trascina e lascia uno o più oggetti dell&apos;inventario qui, per regalarli a questa persona." width="361">
+				Rilascia un oggetto dell&apos;inventario qui.
+			</text>
+			<check_box label="Mostra nella ricerca" name="allow_publish" tool_tip="Pubblica informazioni descrizioni o immagini aggiuntive del profilo nella ricerca."/>
+			<button label="?" label_selected="?" name="?"/>
+			<button label="Trova sulla mappa" label_selected="Trova sulla mappa" name="Find on Map"/>
+			<button label="Offri teletrasporto..." label_selected="Offri teletrasporto..." name="Offer Teleport..." left_delta="117"/>
+			<button label="Aggiungi come amico..." label_selected="Aggiungi come amico..." name="Add Friend..." left_delta="157" width="140"/>
+			<button label="Paga..." label_selected="Paga..." name="Pay..."/>
+			<button label="Instant Message..." label_selected="Instant Message..." name="Instant Message..." tool_tip="Instant Message (IM)" left_delta="117"/>
+			<button label="Ignora" label_selected="Ignora" name="Mute" left_delta="157" width="140"/>
+		</panel>
+		<panel label="Web" name="WebProfile" width="458">
+		  <line_editor name="url_edit" width="440" />
+			<flyout_button label="Carica" label_selected="Carica" name="load" tool_tip="Carica questa pagina del profilo con il browser web interno.">
+				<flyout_button_item name="open_item">
+					Usa browser esterno
+				</flyout_button_item>
+				<flyout_button_item name="home_item">
+					URL di casa
+				</flyout_button_item>
+			</flyout_button>
+			<button label="?" label_selected="?" name="web_profile_help"/>
+			<check_box label="Carica automaticamente tutte le pagine web dei profili" name="auto_load" tool_tip="Carica automaticamente tutte le pagine web dei profili senza chiedere preventivamente."/>
+			<web_browser name="profile_html" width="440" />
+		</panel>
+		<panel label="Interessi" name="Interests" width="458">
+			<text name="I Want To:">
+				Mi piace:
+			</text>
+			<check_box label="Costruire" name="chk0"/>
+			<check_box label="Esplorare" name="chk1"/>
+			<check_box label="Incontrare" name="chk2"/>
+			<check_box label="Lavorare" name="chk6"/>
+			<check_box label="Gruppo" name="chk3"/>
+			<check_box label="Comprare" name="chk4"/>
+			<check_box label="Vendere" name="chk5"/>
+			<check_box label="Assumere" name="chk7"/>
+			<line_editor name="want_to_edit" width="360" />
+			<text name="Skills:">
+				Capacità:
+			</text>
+			<check_box label="Texture" name="schk0"/>
+			<check_box label="Architettura" name="schk1"/>
+			<check_box label="Pianificazione d&apos;eventi" name="schk2"/>
+			<check_box label="Modellazione" name="schk3"/>
+			<check_box label="Scripting" name="schk4"/>
+			<check_box label="Personalizzazione avatar" name="schk5"/>
+			<line_editor name="skills_edit" width="360" />
+			<text name="Languages:">
+				Lingue:
+			</text>
+			<line_editor name="languages_edit" width="360" />
+		</panel>
+		<panel label="Preferiti" name="Picks" width="458">
+			<tab_container name="picks tab" width="452" />
+			<text name="Tell everyone about your favorite places in Second Life.">
+				Comunica a tutti i tuoi posti preferiti in Second Life.
+			</text>
+			<button label="Nuovo..." label_selected="Nuovo..." name="New..."/>
+			<button label="Cancella..." label_selected="Cancella..." name="Delete..."/>
+			<text name="loading_text">
+				In caricamento...
+			</text>
+		</panel>
+		<panel label="Inserzioni" name="Classified" width="458">
+			<tab_container name="classified tab" width="452" />
+			<text name="Place an ad in Second Life&apos;s classified listings.">
+				Inserisci una pubblicità nelle liste delle inserzioni di Second Life.
+			</text>
+			<button label="Nuovo..." label_selected="Nuovo..." name="New..."/>
+			<button label="Cancella..." label_selected="Cancella..." name="Delete..."/>
+			<text name="loading_text">
+				In caricamento...
+			</text>
+		</panel>
+		<panel label="First Life" name="1st Life" width="458">
+			<text_editor name="about" width="370" />
+			<text name="Photo:">
+				Foto:
+			</text>
+			<texture_picker label="" name="img" tool_tip="Clicca per scegliere un&apos;immagine"/>
+			<text name="Info:">
+				Info:
+			</text>
+			<text name="(250 chars)" halign="left" left="7">
+				(250
+caratteri)
+			</text>
+		</panel>
+		<panel label="Le mie note" name="My Notes" width="458">
+			<text_editor name="notes edit" width="430"/>
+			<string name="Loading">
+				In caricamento...
+			</string>
+			<text name="label" width="452">
+				Usa questo spazio per registrare le tue note su questa persona. Appunta qui
+affari in corso, progetti in comune, ecc. Solo tu puoi leggere queste note.
+Nè questa persona né nessun altro possono vederle.
+			</text>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="Annulla" label_selected="Annulla" name="Cancel"/>
+	<button label="Espelli" label_selected="Espelli" name="Kick"/>
+	<button label="Blocca" label_selected="Blocca" name="Freeze" tool_tip="Blocca i movimenti e la chat di questo residente."/>
+	<button label="Sblocca" label_selected="Sblocca" name="Unfreeze" tool_tip="Sblocca residente"/>
+	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="Apri lo strumento di assistenza clienti per questo residente"/>
+	<string name="ShowOnMapNonFriend">
+		Mostra il luogo sulla mappa.
+Opzione disabilitata perchè non hai stabilito un&apos;amicizia con loro.
+	</string>
+	<string name="ShowOnMapFriendOffline">
+		Mostra il luogo sulla mappa. Opzione disabilitata perchè loro non sono online.
+	</string>
+	<string name="ShowOnMapFriendOnline">
+		Mostra il luogo sulla mappa.
+	</string>
+	<string name="TeleportGod">
+		Forza un teletrasporto sino alla tua posizione.
+	</string>
+	<string name="TeleportPrelude">
+		Offri un teletrasporto sino alla tuo posizione. Opzione disabilitata finchè non lascerai l&apos;isola di orientamento.
+	</string>
+	<string name="TeleportNormal">
+		Offri un teletrasporto sino alla tuo posizione.
+	</string>
+	<string name="Loading">
+		In caricamento...
+	</string>
+</panel>

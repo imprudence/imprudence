@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview_texture">
+	<text type="string" length="1" name="desc txt">
+		Tanım:
+	</text>
+	<button label="Sakla" label_selected="Sakla" name="Keep" />
+	<button label="Reddet" label_selected="Reddet" name="Discard" />
+	<text type="string" length="1" name="dimensions">
+		Boyutlar: [WIDTH] x [HEIGHT]
+	</text>
+</floater>

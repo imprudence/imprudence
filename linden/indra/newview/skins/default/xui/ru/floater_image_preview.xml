@@ -9,7 +9,7 @@
 	<text name="preview_label">
 		Предпросмотр как:
 	</text>
-	<combo_box label="Тип одежды" name="clothing_type_combo">
+	<combo_box label="Тип одежды" name="clothing_type_combo" left="126">
 		<combo_item name="Image">
 			Изображение
 		</combo_item>
@@ -44,10 +44,11 @@
 	<text name="bad_image_text">
 		Невозможно прочесть изображение.
 
-Попробуйте сохранить изображение как 24 bit Targa (.tga).
+Попробуйте сохранить изображение как
+24 bit Targa (.tga).
 	</text>
 	<check_box label="Использовать беспотерьное сжатие"
 	     name="lossless_check" />
 	<button label="Отмена" name="cancel_btn" />
-	<button label="Загрузить (L$[AMOUNT])" name="ok_btn" />
+	<button label="Загрузить (L$[AMOUNT])" name="ok_btn" width="135" />
 </floater>

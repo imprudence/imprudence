@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="modal container" title="">
-	<button label="Сохранить" label_selected="Сохранить" name="Save" />
-	<button label="Отмена" label_selected="Отмена" name="Cancel" />
+<floater name="modal container" width="585">
+	<button label="Сохранить" label_selected="Сохранить" left="171" name="Save" width="100"/>
+	<button label="Отмена" label_selected="Отмена" left="280" name="Cancel" width="100"/>
 	<check_box label="Форма" name="checkbox_Shape" />
 	<check_box label="Кожа" name="checkbox_Skin" />
 	<check_box label="Волосы" name="checkbox_Hair" />
 	<check_box label="Глаза" name="checkbox_Eyes" />
-	<check_box label="Переименовать одежду под имя папки"
-	     name="rename" />
+	<check_box label="Переименовать одежду &#10;под имя папки" name="rename" />
 	<check_box label="Рубашка" name="checkbox_Shirt" />
 	<check_box label="Брюки" name="checkbox_Pants" />
 	<check_box label="Обувь" name="checkbox_Shoes" />
@@ -43,32 +42,32 @@
 	<check_box label="Прав.низ ноги" name="checkbox_R Lower Leg" />
 	<check_box label="Левое бедро" name="checkbox_Left Hip" />
 	<check_box label="Лев.верх ноги" name="checkbox_L Upper Leg" />
-	<check_box label="Лев.низ ноги" name="checkbox_L Lower Leg" />
-	<check_box label="Живот" name="checkbox_Stomach" />
-	<check_box label="Left Pec" name="checkbox_Left Pec" />
-	<check_box label="Right Pec" name="checkbox_Right Pec" />
-	<check_box label="Центр 2" name="checkbox_Center 2" />
-	<check_box label="Правый верх" name="checkbox_Top Right" />
-	<check_box label="Верх" name="checkbox_Top" />
-	<check_box label="Левый верх" name="checkbox_Top Left" />
-	<check_box label="Центр" name="checkbox_Center" />
-	<check_box label="Низ слева" name="checkbox_Bottom Left" />
-	<check_box label="Низ" name="checkbox_Bottom" />
-	<check_box label="Низ справа" name="checkbox_Bottom Right" />
-	<text type="string" length="1" name="Make New Outfit">
+	<check_box left="450" label="Лев.низ ноги" name="checkbox_L Lower Leg" />
+	<check_box left="450" label="Живот" name="checkbox_Stomach" />
+	<check_box left="450" label="Левое нагрудное &#10;украшение" name="checkbox_Left Pec" />
+	<check_box left="450" bottom="-288" label="Правое нагрудное &#10;украшение" name="checkbox_Right Pec" />
+	<check_box left="450" bottom="-320" label="Центр 2" name="checkbox_Center 2" />
+	<check_box left="450" bottom="-340" label="Правый верх" name="checkbox_Top Right" />
+	<check_box left="450" bottom="-360" label="Верх" name="checkbox_Top" />
+	<check_box left="450" bottom="-380" label="Левый верх" name="checkbox_Top Left" />
+	<check_box left="450" bottom="-400" label="Центр" name="checkbox_Center" />
+	<check_box left="450" bottom="-420" label="Низ слева" name="checkbox_Bottom Left" />
+	<check_box left="450" bottom="-440" label="Низ" name="checkbox_Bottom" />
+	<check_box left="450" bottom="-460" label="Низ справа" name="checkbox_Bottom Right" />
+	<text type="string" length="1" name="Make New Outfit" font="SansSerifLarge">
 		Создать новый набор
 	</text>
-	<text type="string" length="1"
+	<text type="string" length="1" width="540"
 	     name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
 		Наборы -- это папки, содержащие одежду и части тел.
 Перетащите папку с набором на Вашего аватара, чтобы включить его.
 
-&quot;Создать новый набор&quot; создает новую папку с содержанием всего надетого на Вас сейчас
+&apos;Создать новый набор&apos; создает новую папку с содержанием всего надетого на Вас сейчас.
 	</text>
-	<text type="string" length="1" name="Folder name:">
+	<text type="string" length="1" name="Folder name:" font="SansSerifLarge">
 		Имя папки:
 	</text>
-	<text type="string" length="1" name="Items to include in outfit:">
+	<text type="string" length="1" name="Items to include in outfit:" font="SansSerifLarge">
 		Элементы для включения в набор:
 	</text>
 	<text type="string" length="1" name="Body Parts:">
@@ -83,7 +82,9 @@
 	<text type="string" length="1" name="Options:">
 		Опции:
 	</text>
+	<!-- removed translation due to VWR-1843
 	<line_editor name="name ed">
 		Новый набор
 	</line_editor>
+	-->
 </floater>

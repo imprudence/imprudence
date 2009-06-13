@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="objectcontents" title="Tárgy tartalma">
+	<text type="string" length="1" name="object_name">
+		[DESC]:
+	</text>
+	<button label="Készlettárba másol" label_selected="Készlettárba másolás"
+	     name="copy_to_inventory_button" />
+	<button label="Másol és felvesz" label_selected="Másol és felvesz"
+	     name="copy_and_wear_button" />
+</floater>

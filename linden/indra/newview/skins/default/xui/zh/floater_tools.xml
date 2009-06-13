@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="toolbox floater" title="">
+<floater name="toolbox floater" title="" short_title="建造">
 	<button label="" label_selected="" name="button focus" tool_tip="聚焦"/>
 	<button label="" label_selected="" name="button move" tool_tip="移动"/>
 	<button label="" label_selected="" name="button edit" tool_tip="编辑"/>
@@ -17,7 +17,7 @@
 	<check_box label="选择材质" name="radio select face"/>
 	<check_box label="编辑连接部件" name="checkbox edit linked parts"/>
 	<text name="text ruler mode">
-		标尺模式:
+		标尺：
 	</text>
 	<combo_box name="combobox grid mode">
 		<combo_item name="World">
@@ -52,35 +52,33 @@
 	<button image_disabled="object_ring.tga" image_disabled_selected="object_ring_active.tga" label="" label_selected="" name="ToolRing" tool_tip="环"/>
 	<button image_disabled="object_tree.tga" image_disabled_selected="object_tree_active.tga" label="" label_selected="" name="ToolTree" tool_tip="树木"/>
 	<button image_disabled="object_grass.tga" image_disabled_selected="object_grass_active.tga" label="" label_selected="" name="ToolGrass" tool_tip="草地"/>
-	<check_box label="保持选定工具" name="checkbox sticky"/>
-	<check_box label="复制选择项" name="checkbox copy selection"/>
-	<check_box label="居中附件" name="checkbox copy centers"/>
-	<check_box label="旋转附件" name="checkbox copy rotates"/>
+	<check_box label="保持选定" name="checkbox sticky"/>
+	<check_box label="复制所选" name="checkbox copy selection"/>
+	<check_box label="居中" name="checkbox copy centers"/>
+	<check_box label="旋转" name="checkbox copy rotates"/>
 	<check_box label="选择土地" name="radio select land"/>
-	<check_box label="磨平土地" name="radio flatten"/>
-	<check_box label="抬高土地" name="radio raise"/>
-	<check_box label="降低土地" name="radio lower"/>
-	<check_box label="使土地光滑" name="radio smooth"/>
-	<check_box label="粗糙化土地" name="radio noise"/>
-	<check_box label="恢复土地" name="radio revert"/>
-	<combo_box name="combobox brush size">
-		<combo_item name="Small">
-			小
-		</combo_item>
-		<combo_item name="Medium">
-			中
-		</combo_item>
-		<combo_item name="Large">
-			大
-		</combo_item>
-	</combo_box>
-	<text name="Strength:" type="string">
-		强度:
+	<check_box label="磨平" name="radio flatten"/>
+	<check_box label="抬高" name="radio raise"/>
+	<check_box label="降低" name="radio lower"/>
+	<check_box label="光滑" name="radio smooth"/>
+	<check_box label="粗糙" name="radio noise"/>
+	<check_box label="恢复" name="radio revert"/>
+	<button label="应用" label_selected="应用" name="button apply to selection" tool_tip="更改所选土地"/>
+	<text name="Bulldozer:">
+		推土机：
 	</text>
-	<button label="应用到所选项目" label_selected="应用到所选项目" name="button apply to selection" tool_tip="更改所选土地"/>
-	<check_box label="显示物品主人" name="checkbox show owners"/>
-	<button label="更多 &gt;&gt;" name="button more" tool_tip="高级选项"/>
-	<button label="&lt;&lt; 更少" name="button less" tool_tip="高级选项"/>
+	<text name="Dozer Size:">
+		尺寸
+	</text>
+	<text name="Strength:" type="string">
+		强度
+	</text>
+	<text name="obj_count">
+		选择物品：[COUNT]
+	</text>
+	<text name="prim_count">
+		元件：[COUNT]
+	</text>
 	<tab_container name="Object Info Tabs">
 		<panel label="一般" name="General">
 			<text name="Name:">
@@ -110,9 +108,6 @@
 				The Lindens
 			</text>
 			<button label="设置..." label_selected="设置..." name="button set group"/>
-			<text name="prim info">
-				1个物体, 1个元件
-			</text>
 			<text name="Permissions:">
 				权利:
 			</text>
@@ -362,6 +357,9 @@
 			<text name="advanced_dimple">
 				凹陷开始和结束
 			</text>
+			<text name="advanced_slice">
+				切片起始和终止
+			</text>
 			<spinner label="B" name="Path Limit Begin"/>
 			<spinner label="E" name="Path Limit End"/>
 			<text name="text taper2">
@@ -553,21 +551,33 @@
 			<button label="对齐" label_selected="对齐" name="button align"/>
 		</panel>
 		<panel label="内容" name="Contents">
-			<button label="新脚本..." label_selected="新脚本..." name="button new script"/>
+			<button label="新脚本" label_selected="新脚本..." name="button new script"/>
+			<button label="权限..." name="button permissions"/>
 		</panel>
 	</tab_container>
 	<panel name="land info panel">
+		<text name="label_parcel_info">
+			土地信息
+		</text>
 		<text name="label_area_price">
 			价格: L$[PRICE] 每 [AREA]平方米.
 		</text>
 		<text name="label_area">
 			面积: [AREA] 平方米.
 		</text>
-		<button label="购买土地..." label_selected="购买土地..." name="button buy land"/>
-		<button label="放弃土地..." label_selected="放弃土地..." name="button abandon land"/>
+		<button label="关于土地..." label_selected="关于土地..." name="button about land"/>
+		<check_box label="显示土地拥有者" name="checkbox show owners" tool_tip="用颜色区分土地的拥有者"/>
+		<button label="?" label_selected="?" name="button show owners help"/>
+		<text name="label_parcel_modify">
+			修改土地
+		</text>
 		<button label="再划分为..." label_selected="再划分为..." name="button subdivide land"/>
 		<button label="加入..." label_selected="加入..." name="button join land"/>
-		<button label="关于土地..." label_selected="关于土地..." name="button about land"/>
+		<text name="label_parcel_trans">
+			土地转让
+		</text>
+		<button label="购买土地..." label_selected="购买土地..." name="button buy land"/>
+		<button label="放弃土地..." label_selected="放弃土地..." name="button abandon land"/>
 	</panel>
 	<string name="status_rotate">
 		拖动彩带来旋转物体
@@ -585,10 +595,10 @@
 		点击并拖动来更改视角
 	</string>
 	<string name="status_grab">
-		拖动以移动，按住 Ctrl 抬起，Ctrl+Shift 旋转
+		拖动以移动，按住Ctrl抬起，Ctrl+Shift旋转
 	</string>
 	<string name="status_place">
-		在世界中点击以创建，按着 Shift 点击来选择
+		在世界中点击以创建
 	</string>
 	<string name="status_selectland">
 		点击并拖动以选择土地

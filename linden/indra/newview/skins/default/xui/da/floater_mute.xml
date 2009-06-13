@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mute floater" title="Blokerede beboere &amp; objekter" short_title="Blok Liste">
+	<scroll_list name="mutes" tool_tip="Liste over blokerede beboere" />
+	<button label="Blokér beboer..." label_selected="Blokér beboer..."
+	     name="Mute resident..."
+	     tool_tip="Vælg en beboer at blokere (så beboer ikke kan tale til dig)" />
+	<button label="Blokér objekt via navn..." label_selected="Blokér objekt via navn..."
+	     name="Mute object by name..." />
+	<button label="Fjern blokering" label_selected="Fjern blokering" name="Unmute"
+	     tool_tip="Fjern beboer fra blokeringslisten" />
+</floater>

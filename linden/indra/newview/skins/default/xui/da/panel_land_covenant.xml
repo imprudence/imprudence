@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Covenant" title="Regler">
+	<text name="region_name_lbl">
+		Region:
+	</text>
+	<text name="region_name_text">
+		(ukendt)
+	</text>
+	<text name="estate_name_lbl">
+		Estate:
+	</text>
+	<text name="estate_name_text">
+		(ukendt)
+	</text>
+	<text name="estate_owner_lbl">
+		Estate ejer:
+	</text>
+	<text name="estate_owner_text">
+		(ukendt)
+	</text>
+	<text name="resellable_clause">
+		Købt land i denne region kan eller må ikke sælges videre.
+	</text>
+	<text name="changeable_clause">
+		Købt land i denne region kan eller må ikke opdeles eller samles.
+	</text>
+	<string name="can_resell">
+		Købt land i denne region må sælges videre.
+	</string>
+	<string name="can_not_resell">
+		Købt land i denne region må ikke sælges videre.
+	</string>
+	<string name="can_change">
+		Købt land i denne region må samles eller deles.
+	</string>
+	<string name="can_not_change">
+		Købt land i denne region må ikke samles eller deles.
+	</string>
+</panel>

@@ -29,11 +29,12 @@
 	<text length="1" name="text_box3" type="string">
 		Консоль чату:
 	</text>
-	<spinner label="Закрити після" name="fade_chat_time"/>
-	<text length="1" name="text_box4" type="string">
+	<spinner label="Закрити після" label_width="95" name="fade_chat_time" width="145"/>
+	<text length="1" name="text_box4" type="string" left="297">
 		(секунд)
 	</text>
-	<text length="1" name="text_box5" type="string">
+	<spinner left="355" name="max_chat_count"/>
+	<text length="1" name="text_box5" type="string" left="420">
 		(рядків)
 	</text>
 	<slider label="Прозорість" name="console_opacity"/>

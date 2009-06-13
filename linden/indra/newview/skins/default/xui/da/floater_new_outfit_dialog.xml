@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container" title="">
+	<button label="Gem" label_selected="Gem" name="Save" />
+	<button label="Annullér" label_selected="Annullér" name="Cancel" />
+	<check_box label="Figur" name="checkbox_Shape" />
+	<check_box label="Hud" name="checkbox_Skin" />
+	<check_box label="Hår" name="checkbox_Hair" />
+	<check_box label="Øjne" name="checkbox_Eyes" />
+	<check_box label="Navngiv tøj til mappe navn" name="rename" />
+	<check_box label="Trøje" name="checkbox_Shirt" />
+	<check_box label="Bukser" name="checkbox_Pants" />
+	<check_box label="Sko" name="checkbox_Shoes" />
+	<check_box label="Strømper" name="checkbox_Socks" />
+	<check_box label="Jakke" name="checkbox_Jacket" />
+	<check_box label="Handsker" name="checkbox_Gloves" />
+	<check_box label="Undertrøje" name="checkbox_Undershirt" />
+	<check_box label="Underbukser" name="checkbox_Underpants" />
+	<check_box label="Nederdel" name="checkbox_Skirt" />
+	<check_box label="Brystkasse" name="checkbox_Chest" />
+	<check_box label="Kranie" name="checkbox_Skull" />
+	<check_box label="Venstre skulder" name="checkbox_Left Shoulder" />
+	<check_box label="Højre skulder" name="checkbox_Right Shoulder" />
+	<check_box label="Venstre hånd" name="checkbox_Left Hand" />
+	<check_box label="Højre hånd" name="checkbox_Right Hand" />
+	<check_box label="Venstre fod" name="checkbox_Left Foot" />
+	<check_box label="Højre fod" name="checkbox_Right Foot" />
+	<check_box label="Ryggrad" name="checkbox_Spine" />
+	<check_box label="Bækken" name="checkbox_Pelvis" />
+	<check_box label="Mund" name="checkbox_Mouth" />
+	<check_box label="Kinder" name="checkbox_Chin" />
+	<check_box label="Venstre øre" name="checkbox_Left Ear" />
+	<check_box label="Højre øre" name="checkbox_Right Ear" />
+	<check_box label="Venstre øje" name="checkbox_Left Eyeball" />
+	<check_box label="Højre øje" name="checkbox_Right Eyeball" />
+	<check_box label="Næse" name="checkbox_Nose" />
+	<check_box label="H overarm" name="checkbox_R Upper Arm" />
+	<check_box label="H underarm" name="checkbox_R Forearm" />
+	<check_box label="V overarm" name="checkbox_L Upper Arm" />
+	<check_box label="V underarm" name="checkbox_L Forearm" />
+	<check_box label="Højre hofte" name="checkbox_Right Hip" />
+	<check_box label="H lår" name="checkbox_R Upper Leg" />
+	<check_box label="H skinneben" name="checkbox_R Lower Leg" />
+	<check_box label="Venstre hofte" name="checkbox_Left Hip" />
+	<check_box label="V lår" name="checkbox_L Upper Leg" />
+	<check_box label="V skinneben" name="checkbox_L Lower Leg" />
+	<check_box label="Mave" name="checkbox_Stomach" />
+	<check_box label="Venstre bryst" name="checkbox_Left Pec" />
+	<check_box label="Højre bryst" name="checkbox_Right Pec" />
+	<check_box label="Midt 2" name="checkbox_Center 2" />
+	<check_box label="Højre top" name="checkbox_Top Right" />
+	<check_box label="Top" name="checkbox_Top" />
+	<check_box label="Venstre top" name="checkbox_Top Left" />
+	<check_box label="Midt" name="checkbox_Center" />
+	<check_box label="Venstre bund" name="checkbox_Bottom Left" />
+	<check_box label="Bund" name="checkbox_Bottom" />
+	<check_box label="Bund højre" name="checkbox_Bottom Right" />
+	<text type="string" length="1" name="Make New Outfit">
+		Lav nyt sæt
+	</text>
+	<text type="string" length="1"
+	     name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
+		&quot;S&#230;t&quot; er mapper der indeholder t&#248;j og kropsdele.
+Tr&#230;k et s&#230;t over p&#229; din avatar for at tage t&#248;j og kropsdele p&#229;
+ 
+&quot;Lav nyt s&#230;t&quot; opretter en ny mappe og gemmer kopier af den figur og det t&#248;j du har p&#229; i denne.
+	</text>
+	<text type="string" length="1" name="Folder name:">
+		Mappe navn:
+	</text>
+	<text type="string" length="1" name="Items to include in outfit:">
+		Kropsdele og tøj der skal inkluderes i sæt:
+	</text>
+	<text type="string" length="1" name="Body Parts:">
+		Kropsdele:
+	</text>
+	<text type="string" length="1" name="Clothes:">
+		Tøj:
+	</text>
+	<text type="string" length="1" name="Attachments:">
+		Vedhæftninger:
+	</text>
+	<text type="string" length="1" name="Options:">
+		Ekstra valg:
+	</text>
+</floater>

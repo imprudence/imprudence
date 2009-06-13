@@ -6,8 +6,8 @@
 	<text name="LabelSlurlTitle">
 		Posición:
 	</text>
-	<text name="Unknown_Slurl">
-		(No está disponible la información de la posición)
+	<text name="Unknown_Slurl" width="300">
+		(No está disponible la información)
 	</text>
 	<text name="LabelOwnerNameTitle">
 		Propietario:

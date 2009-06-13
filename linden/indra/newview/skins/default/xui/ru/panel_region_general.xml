@@ -3,19 +3,19 @@
 	<text name="region_text_lbl">
 		Регион:
 	</text>
-	<text name="region_text">
+	<text name="region_text" left="70">
 		неизвестно
 	</text>
 	<text name="version_channel_text_lbl">
 		Версия:
 	</text>
-	<text name="version_channel_text">
+	<text name="version_channel_text" left="70">
 		неизвестно
 	</text>
 	<text name="region_type_lbl">
 		Тип:
 	</text>
-	<text name="region_type">
+	<text name="region_type" left="70">
 		неизвестно
 	</text>
 	<check_box label="Блок. Изм. Ландшафта" name="block_terraform_check"/>
@@ -54,6 +54,6 @@
 	<button label="Применить" name="apply_btn"/>
 	<button label="Отправ.домой одного пользователя..." name="kick_btn"/>
 	<button label="Отправ.домой всех пользователей..." name="kick_all_btn"/>
-	<button label="Послать сообщение в Регион..." name="im_btn"/>
-	<button label="Упр. Телехабом..." name="manage_telehub_btn"/>
+	<button label="Послать сообщение в Регион..." name="im_btn" width="220"/>
+	<button label="Упр. Телехабом..." name="manage_telehub_btn" width="210"/>
 </panel>

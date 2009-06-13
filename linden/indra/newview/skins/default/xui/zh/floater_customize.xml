@@ -21,7 +21,6 @@
 					男性
 				</radio_item>
 			</radio_group>
-			<button label="随机排列" label_selected="随机排列" name="Randomize"/>
 			<text length="1" name="title" type="string">
 				[DESC]
 			</text>
@@ -44,10 +43,12 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件穿着的权利。
 			</text>
+			<text name="Item Action Label">
+				体形：
+			</text>
 			<button label="创建新的体型" label_selected="创建新的体型" name="Create New"/>
-			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 		</panel>
 		<panel label="皮肤" name="Skin">
 			<button label="皮肤颜色" label_selected="皮肤颜色" name="Skin Color"/>
@@ -77,14 +78,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
+			<text name="Item Action Label">
+				皮肤：
+			</text>
 			<texture_picker label="头部纹身" name="Head Tattoos" tool_tip="点击这里来选择图片"/>
 			<texture_picker label="上身的纹身" name="Upper Tattoos" tool_tip="点击这里来选择图片"/>
 			<texture_picker label="下身纹身" name="Lower Tattoos" tool_tip="点击这里来选择图片"/>
-			<button label="随机排列" label_selected="随机排列" name="Randomize"/>
 			<button label="创建新的皮肤" label_selected="创建新的皮肤" name="Create New"/>
-			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="头发" name="Hair">
@@ -114,12 +116,13 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
+			<text name="Item Action Label">
+				头发：
+			</text>
 			<texture_picker label="材质" name="Texture" tool_tip="点击这里来选择图片"/>
-			<button label="随机排列" label_selected="随机排列" name="Randomize"/>
 			<button label="创建新的头发" label_selected="传建新的头发" name="Create New"/>
-			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="眼睛" name="Eyes">
@@ -145,12 +148,13 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
+			<text name="Item Action Label">
+				眼睛：
+			</text>
 			<texture_picker label="瞳孔" name="Iris" tool_tip="点击这里来选择图片"/>
-			<button label="随机排列" label_selected="随机排列" name="Randomize"/>
 			<button label="创建新的眼睛" label_selected="创建新的眼睛" name="Create New"/>
-			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="服装" name="clothes_placeholder"/>
@@ -160,7 +164,7 @@
 			<button label="创建新的衬衫" label_selected="创建新的衬衫" name="Create New"/>
 			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 			<text length="1" name="title" type="string">
 				[DESC]
@@ -184,6 +188,9 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
+			<text name="Item Action Label">
+				裙子：
+			</text>
 		</panel>
 		<panel label="裤子" name="Pants">
 			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
@@ -191,7 +198,7 @@
 			<button label="创建新的裤子" label_selected="创建新的裤子" name="Create New"/>
 			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 			<text length="1" name="title" type="string">
 				[DESC]
@@ -214,6 +221,9 @@
 			</text>
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
+			</text>
+			<text name="Item Action Label">
+				裤子：
 			</text>
 		</panel>
 		<panel label="鞋子" name="Shoes">
@@ -239,12 +249,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
+			<text name="Item Action Label">
+				鞋子：
+			</text>
 			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
 			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
 			<button label="创建新的鞋子" label_selected="创建新的鞋子" name="Create New"/>
 			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="袜子" name="Socks">
@@ -270,12 +283,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
+			<text name="Item Action Label">
+				袜子：
+			</text>
 			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
 			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
 			<button label="创建新的袜子" label_selected="创建新的袜子" name="Create New"/>
 			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="夹克" name="Jacket">
@@ -301,13 +317,16 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
+			<text name="Item Action Label">
+				外套：
+			</text>
 			<texture_picker label="上身材质" name="Upper Fabric" tool_tip="点击这里来选择图片"/>
 			<texture_picker label="下身材质" name="Lower Fabric" tool_tip="点击这里来选择图片"/>
 			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
 			<button label="创建新的夹克" label_selected="创建新的夹克" name="Create New"/>
 			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="手套" name="Gloves">
@@ -333,12 +352,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
+			<text name="Item Action Label">
+				手套：
+			</text>
 			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
 			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
 			<button label="传建新的手套" label_selected="传建新的手套" name="Create New"/>
 			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="内衣" name="Undershirt">
@@ -364,12 +386,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
+			<text name="Item Action Label">
+				内衣：
+			</text>
 			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
 			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
 			<button label="创建新的内衣" label_selected="创建新的内衣" name="Create New"/>
 			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="内裤" name="Underpants">
@@ -395,12 +420,15 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
+			<text name="Item Action Label">
+				内裤：
+			</text>
 			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
 			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
 			<button label="创建新的内裤" label_selected="创建新的内裤" name="Create New"/>
 			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 		<panel label="裙子" name="Skirt">
@@ -426,16 +454,19 @@
 			<text length="1" name="no modify instructions" type="string">
 				你没有修改这件服饰的权利。
 			</text>
+			<text name="Item Action Label">
+				裙子：
+			</text>
 			<texture_picker label="质地" name="Fabric" tool_tip="点击这里来选择图片"/>
 			<color_swatch label="颜色/配色" name="Color/Tint" tool_tip="点击这里来打开色彩选择器"/>
 			<button label="创建新的裙子" label_selected="创建新的短裙" name="Create New"/>
 			<button label="脱掉" label_selected="脱掉" name="Take Off"/>
 			<button label="存储" label_selected="存储" name="Save"/>
-			<button label="另存为" label_selected="另存为" name="Save As"/>
+			<button label="另存为..." label_selected="另存为..." name="Save As"/>
 			<button label="恢复" label_selected="恢复" name="Revert"/>
 		</panel>
 	</tab_container>
-	<button label="关闭" label_selected="关闭" name="Close"/>
-	<button label="储存全部" label_selected="储存全部" name="Save All"/>
-	<button label="保存为装束" label_selected="保存为装束" name="Make Outfit"/>
+	<button label="取消" label_selected="取消" name="Cancel"/>
+	<button label="确定" label_selected="确定" name="Ok"/>
+	<button label="Make Outfit..." label_selected="制作装束..." name="Make Outfit"/>
 </floater>

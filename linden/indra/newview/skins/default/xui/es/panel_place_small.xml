@@ -3,20 +3,24 @@
 	<text name="name_label">
 		Nombre:
 	</text>
+	<text left="70" name="name_editor" width="351" />
 	<text name="description_label">
 		Descripción:
 	</text>
 	<text name="information_label">
 		Información:
 	</text>
+	<text left="110" name="info_editor" width="322" />
 	<text name="land_type_label">
 		Tipo de terreno:
 	</text>
+	<text left="110" name="land_type_display" width="322" />
 	<text name="location_label">
 		Localización:
 	</text>
+	<text left="110" name="location_editor" width="322" />
 	<button label="Teleportar" name="teleport_btn"/>
-	<button label="Mostrar en el mapa" name="map_btn"/>
+	<button label="Mostrar en el mapa" name="map_btn" width="125"/>
 	<button label="Pujas..." name="auction_btn"/>
 	<string name="traffic_text">
 		Tráfico: [TRAFFIC]

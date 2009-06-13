@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Küçük harita" name="mini_mapview">
+	<text name="n_label">
+		K
+	</text>
+	<text name="e_label">
+		D
+	</text>
+	<text name="s_label">
+		G
+	</text>
+	<text name="w_label">
+		B
+	</text>
+	<text name="ne_label">
+		KD
+	</text>
+	<text name="se_label">
+		GD
+	</text>
+	<text name="sw_label">
+		GB
+	</text>
+	<text name="nw_label">
+		KB
+	</text>
+</panel>

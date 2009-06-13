@@ -3,6 +3,7 @@
 	<text name="name_label">
 		Nombre:
 	</text>
+	<text left="70" name="name_editor" width="351" />
 	<text name="description_label">
 		Descripción:
 	</text>
@@ -13,7 +14,7 @@
 		Localización:
 	</text>
 	<button label="Teleportar" name="teleport_btn"/>
-	<button label="Mostrar en el mapa" name="map_btn"/>
+	<button label="Mostrar en el mapa" name="map_btn" width="125"/>
 	<button label="Pujas..." name="auction_btn"/>
 	<string name="traffic_text">
 		Tráfico: [TRAFFIC]

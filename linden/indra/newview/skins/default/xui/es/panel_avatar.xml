@@ -20,13 +20,13 @@
 				Empleado de Linden Lab
 			</string>
 			<string name="PaymentInfoUsed">
-				Ha usado información sobre la forma de pago
+				Ha usado una forma de pago
 			</string>
 			<string name="PaymentInfoOnFile">
-				Hay información archivada sobre la forma de pago
+				Hay infor. de la forma de pago
 			</string>
 			<string name="NoPaymentInfoOnFile">
-				No hay información archivada sobre la forma de pago
+				Sin infor. de la forma de pago
 			</string>
 			<string name="AgeVerified">
 				Edad verificada
@@ -69,7 +69,7 @@
 				Sobre mí:
 			</text>
 			<text name="(500 chars)">
-				(500 caracts.)
+				500 caracts.
 			</text>
 			<text_editor name="about" width="361"/>
 			<text name="Give item:">

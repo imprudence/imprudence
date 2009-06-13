@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Import" title="">
+	<text name="name_label">
+		Név:
+	</text>
+	<text name="description_label">
+		Leírás:
+	</text>
+	<text name="preview_label">
+		Feltöltendő fájlok:
+	</text>
+	<button label="Mégsem" name="cancel_btn" />
+	<button label="Feltölt (10 L$)" name="ok_btn" />
+	<text name="preview_label2">
+		Kép előnézet:
+	</text>
+</floater>

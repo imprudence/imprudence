@@ -34,9 +34,9 @@
 		<combo_item name="Age__Adult_resident_on_Teen_Second_Life">
 			年龄 &gt; 成年人居民在 Teen Second Life 上
 		</combo_item>
-		
-		
-		
+		<combo_item name="Age__Underage_resident_outside_of_Teen_Second_Life">
+			年龄 &gt; 未成年人居民在“少年第二人生”之外
+		</combo_item>
 		<combo_item name="Assault__Combat_sandbox___unsafe_area">
 			攻击 &gt; 格斗沙盒 / 不安全地区
 		</combo_item>
@@ -106,15 +106,15 @@
 		<combo_item name="Indecency__Broadly_offensive_content_or_conduct">
 			猥亵 &gt; 极具攻击性的内容或行为
 		</combo_item>
-		
-		
-		
 		<combo_item name="Indecency__Inappropriate_avatar_name">
 			猥亵 &gt; 不妥当的化身名字
 		</combo_item>
-		
-		
-		
+		<combo_item name="Indecency__Mature_content_in_PG_region">
+			猥亵 &gt; PG地区中的不适当内容或行为
+		</combo_item>
+		<combo_item name="Indecency__Inappropriate_content_in_Mature_region">
+			猥亵 &gt; Mature地区中的不适当内容或行为
+		</combo_item>
 		<combo_item name="Intellectual_property_infringement_Content_Removal">
 			知识产权侵犯 &gt; 撤除内容
 		</combo_item>

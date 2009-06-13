@@ -41,6 +41,9 @@
 #include <map>
 #include <list>
 
+#define MIN_VIDEO_RAM_IN_MEGA_BYTES    32
+#define MAX_VIDEO_RAM_IN_MEGA_BYTES    512 // 512MB max for performance reasons.
+
 class LLViewerImage;
 
 typedef	void	(*loaded_callback_func)( BOOL success, LLViewerImage *src_vi, LLImageRaw* src, LLImageRaw* src_aux, S32 discard_level, BOOL final, void* userdata );
@@ -360,11 +363,11 @@ public:
 	static LLTimer sEvaluationTimer;
 	static F32 sDesiredDiscardBias;
 	static F32 sDesiredDiscardScale;
-	static S32 sBoundTextureMemory;
-	static S32 sTotalTextureMemory;
-	static S32 sMaxBoundTextureMem;
-	static S32 sMaxTotalTextureMem;
-	static S32 sMaxDesiredTextureMem ;
+	static S32 sBoundTextureMemoryInBytes;
+	static S32 sTotalTextureMemoryInBytes;
+	static S32 sMaxBoundTextureMemInMegaBytes;
+	static S32 sMaxTotalTextureMemInMegaBytes;
+	static S32 sMaxDesiredTextureMemInBytes ;
 	static BOOL sDontLoadVolumeTextures;
 };
 

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="WindLight floater" title="Felhő beállítások">
+	<text length="1" name="KeyFramePresetsText" type="string">
+		Felhő eszköztár:
+	</text>
+	<button label="Új" label_selected="Új" name="WLNewPreset"/>
+	<button label="Elment" label_selected="Elment" name="WLSavePreset"/>
+	<button label="Töröl" label_selected="Töröl" name="WLDeletePreset"/>
+	<button label="Napi ciklus szerkesztő" label_selected="Napi ciklus szerkesztő" name="WLDayCycleMenuButton" width="150" left_delta="95" />
+	<tab_container name="WindLight Tabs">
+		<panel label="Légkör" name="Atmosphere">
+			<text length="1" name="BHText" type="string">
+				Kék égalj
+			</text>
+			<button label="?" name="WLBlueHorizonHelp"/>
+			<text length="1" name="BHText2" type="string">
+				R
+			</text>
+			<text length="1" name="BHText3" type="string">
+				G
+			</text>
+			<text length="1" name="BHText4" type="string">
+				B
+			</text>
+			<text length="1" name="BHText5" type="string">
+				I
+			</text>
+			<slider label="" name="WLBlueHorizonR"/>
+			<slider label="" name="WLBlueHorizonG"/>
+			<slider label="" name="WLBlueHorizonB"/>
+			<slider label="" name="WLBlueHorizonI"/>
+			<text length="1" name="BDensText" type="string">
+				Ködfátyol
+			</text>
+			<button label="?" name="WLHazeHorizonHelp"/>
+			<slider label="" name="WLHazeHorizon"/>
+			<text length="1" name="BDensText2" type="string">
+				Kékesség
+			</text>
+			<button label="?" name="WLBlueDensityHelp"/>
+			<text length="1" name="BHText6" type="string">
+				R
+			</text>
+			<text length="1" name="BHText7" type="string">
+				G
+			</text>
+			<text length="1" name="BHText8" type="string">
+				B
+			</text>
+			<text length="1" name="BHText9" type="string">
+				I
+			</text>
+			<slider label="" name="WLBlueDensityR"/>
+			<slider label="" name="WLBlueDensityG"/>
+			<slider label="" name="WLBlueDensityB"/>
+			<slider label="" name="WLBlueDensityI"/>
+			<text length="1" name="HDText" type="string">
+				Homályosság
+			</text>
+			<button label="?" name="WLHazeDensityHelp"/>
+			<slider label="" name="WLHazeDensity"/>
+			<text length="1" name="DensMultText" type="string">
+				Sűrűség többszöröző
+			</text>
+			<button label="?" name="WLDensityMultHelp"/>
+			<slider label="" name="WLDensityMult"/>
+			<text length="1" name="WLDistanceMultText" type="string">
+				Távolság többszöröző
+			</text>
+			<button label="?" name="WLDistanceMultHelp"/>
+			<slider label="" name="WLDistanceMult"/>
+			<text length="1" name="MaxAltText" type="string">
+				Maximum magasság
+			</text>
+			<button label="?" name="WLMaxAltitudeHelp"/>
+			<slider label="" name="WLMaxAltitude"/>
+		</panel>
+		<panel label="Világítás" name="Lighting">
+			<text length="1" name="SLCText" type="string">
+				Nap/Hold szín
+			</text>
+			<button label="?" name="WLSunlightColorHelp"/>
+			<text length="1" name="BHText" type="string">
+				R
+			</text>
+			<text length="1" name="BHText2" type="string">
+				G
+			</text>
+			<text length="1" name="BHText3" type="string">
+				B
+			</text>
+			<text length="1" name="BHText4" type="string">
+				I
+			</text>
+			<slider label="" name="WLSunlightR"/>
+			<slider label="" name="WLSunlightG"/>
+			<slider label="" name="WLSunlightB"/>
+			<slider label="" name="WLSunlightI"/>
+			<text length="1" name="TODText" type="string">
+				Nap/Hold pozíció
+			</text>
+			<button label="?" name="WLTimeOfDayHelp"/>
+			<slider label="" name="WLSunAngle"/>
+			<text length="1" name="WLAmbientText" type="string">
+				Környezet
+			</text>
+			<button label="?" name="WLAmbientHelp"/>
+			<text length="1" name="BHText5" type="string">
+				R
+			</text>
+			<text length="1" name="BHText6" type="string">
+				G
+			</text>
+			<text length="1" name="BHText7" type="string">
+				B
+			</text>
+			<text length="1" name="BHText8" type="string">
+				I
+			</text>
+			<slider label="" name="WLAmbientR"/>
+			<slider label="" name="WLAmbientG"/>
+			<slider label="" name="WLAmbientB"/>
+			<slider label="" name="WLAmbientI"/>
+			<text length="1" name="WLEastAngleText" type="string">
+				Keleti szög
+			</text>
+			<button label="?" name="WLEastAngleHelp"/>
+			<slider label="" name="WLEastAngle"/>
+			<text length="1" name="SunGlowText" type="string">
+				Napkorona
+			</text>
+			<button label="?" name="WLSunGlowHelp"/>
+			<slider label="Fókusz " name="WLGlowB"/>
+			<slider label="Méret    " name="WLGlowR"/>
+			<text length="1" name="SceneGammaText" type="string">
+				Táj gamma
+			</text>
+			<button label="?" name="WLSceneGammaHelp"/>
+			<slider label="" name="WLGamma"/>
+			<text length="1" name="WLStarText" type="string">
+				Csillag ragyogása
+			</text>
+			<button label="?" name="WLStarBrightnessHelp"/>
+			<slider label="" name="WLStarAlpha"/>
+		</panel>
+		<panel label="Felhők" name="Clouds">
+			<text length="1" name="WLCloudColorText" type="string">
+				Felhő színe
+			</text>
+			<button label="?" name="WLCloudColorHelp"/>
+			<text length="1" name="BHText" type="string">
+				R
+			</text>
+			<text length="1" name="BHText2" type="string">
+				G
+			</text>
+			<text length="1" name="BHText3" type="string">
+				B
+			</text>
+			<text length="1" name="BHText4" type="string">
+				I
+			</text>
+			<slider label="" name="WLCloudColorR"/>
+			<slider label="" name="WLCloudColorG"/>
+			<slider label="" name="WLCloudColorB"/>
+			<slider label="" name="WLCloudColorI"/>
+			<text length="1" name="WLCloudColorText2" type="string">
+				Felhő XY/Sűrűség
+			</text>
+			<button label="?" name="WLCloudDensityHelp"/>
+			<text length="1" name="BHText5" type="string">
+				X
+			</text>
+			<text length="1" name="BHText6" type="string">
+				Y
+			</text>
+			<text length="1" name="BHText7" type="string">
+				D
+			</text>
+			<slider label="" name="WLCloudX"/>
+			<slider label="" name="WLCloudY"/>
+			<slider label="" name="WLCloudDensity"/>
+			<text length="1" name="WLCloudCoverageText" type="string">
+				Felhőzet telítettsége
+			</text>
+			<button label="?" name="WLCloudCoverageHelp"/>
+			<slider label="" name="WLCloudCoverage"/>
+			<text length="1" name="WLCloudScaleText" type="string">
+				Felhő méretezése
+			</text>
+			<button label="?" name="WLCloudScaleHelp"/>
+			<slider label="" name="WLCloudScale"/>
+			<text length="1" name="WLCloudDetailText" type="string">
+				Felhő részletezése (XY/Sűrűség)
+			</text>
+			<button label="?" name="WLCloudDetailHelp" left="430"/>
+			<text length="1" name="BHText8" type="string">
+				X
+			</text>
+			<text length="1" name="BHText9" type="string">
+				Y
+			</text>
+			<text length="1" name="BHText10" type="string">
+				D
+			</text>
+			<slider label="" name="WLCloudDetailX"/>
+			<slider label="" name="WLCloudDetailY"/>
+			<slider label="" name="WLCloudDetailDensity"/>
+			<text length="1" name="WLCloudScrollXText" type="string">
+				Felhők haladása X
+			</text>
+			<button label="?" name="WLCloudScrollXHelp"/>
+			<check_box label="Lock" name="WLCloudLockX"/>
+			<slider label="" name="WLCloudScrollX"/>
+			<text length="1" name="WLCloudScrollYText" type="string">
+				Felhők haladása Y
+			</text>
+			<button label="?" name="WLCloudScrollYHelp"/>
+			<check_box label="Lock" name="WLCloudLockY"/>
+			<slider label="" name="WLCloudScrollY"/>
+			<check_box label="Klasszikus felhőzet kirajzolása" name="DrawClassicClouds"/>
+			<button label="?" name="WLClassicCloudsHelp" left="664"/>
+		</panel>
+	</tab_container>
+	<string name="WLDefaultSkyNames">
+		A-12AM:A-12PM:A-3AM:A-3PM:A-4.30PM:A-6AM:A-6PM:A-9AM:A-9PM:Barcelona:Blizzard:Blue Midday:Coastal Afternoon:Coastal Sunset:Default:Desert Sunset:Fine Day:Fluffy Big Clouds:Foggy:Funky Funky:Funky Funky Funky:Gelatto:Ghost:Incongruent Truths:Midday 1:Midday 2:Midday 3:Midday 4:Night:Pirate:Purple:Sailor&apos;s Delight:Sheer Sensuality
+	</string>
+</floater>

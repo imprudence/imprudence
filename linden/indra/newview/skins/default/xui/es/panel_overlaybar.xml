@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="overlay">
 	<layout_stack name="overlay_layout_panel">
-		<layout_panel name="main_panel">
-			<layout_stack name="chatbar_and_buttons">
-				<layout_panel name="state_buttons">
+		<layout_panel min_width="410" name="main_panel" width="410">
+			<layout_stack name="chatbar_and_buttons" right="410">
+				<layout_panel name="padding" width="410"/>
+				<layout_panel name="state_buttons" width="410">
 					<button label="Recibido un MI" label_selected="Recibido un MI" name="IM Received" tool_tip="Tiene pendiente un mensaje instantáneo. Pulse para ver los MI."/>
 					<button label="Salir de &apos;ocupado&apos;" label_selected="Salir de &apos;ocupado&apos;" name="Set Not Busy" tool_tip="El chat y los MI están escondidos para usted. Pulse aquí para salir del estado ocupado."/>
 					<button label="Flycam" label_selected="Flycam" name="Flycam" tool_tip="Su cámara está controlada por el joystick; pulse aquí para liberarla."/>
-					<button label="Vista subjetiva" label_selected="Vista subjetiva" name="Mouselook" tool_tip="Use el ratón para orientar su punto de vista. Si tiene un arma, al pulsarlo disparará."/>
+					<button font="SansSerifSmall" label="Vista subjetiva" label_selected="Vista subjetiva" name="Mouselook" tool_tip="Use el ratón para orientar su punto de vista. Si tiene un arma, al pulsarlo disparará."/>
 					<button label="Levantarse" label_selected="Levantarse" name="Stand Up" tool_tip="Pulse aquí para levantarse."/>
 				</layout_panel>
+				<layout_panel name="chat_bar"/>
 			</layout_stack>
 		</layout_panel>
+		<layout_panel min_width="220" name="media_remote_container" width="220"/>
+		<layout_panel min_width="138" name="voice_remote_container" width="140"/>
 	</layout_stack>
 </panel>

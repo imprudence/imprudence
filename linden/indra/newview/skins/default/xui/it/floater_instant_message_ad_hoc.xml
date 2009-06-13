@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(sconosciuto)" name="im_floater" title="(sconosciuto)">
+	<string name="ringing">
+		Connessione alla voice chat...
+	</string>
+	<string name="connected">
+		Connesso, clicca Fine Chiamata per riagganciare
+	</string>
+	<string name="hang_up">
+		Abbandona la Voice Chat
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="title_string">
+		Instant Message con [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] sta scrivendo...
+	</string>
+	<string name="session_start_string">
+		Avvio sessione con [NAME], attendi.
+	</string>
+	<string name="default_text_label">
+		Clicca qui per mandare un instant message.
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Chiama" name="start_call_btn" width="145"/>
+			<button label="Termina la chiamata" name="end_call_btn" width="145" halign="right"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Clicca qui per vedere la lista di partecipanti attivi in questa sessione IM."/>
+			<line_editor label="Clicca qui per mandare un instant message" name="chat_editor"/>
+			<button label="Invia" name="send_btn"/>
+		</layout_panel>
+	</layout_stack>
+	<string name="live_help_dialog">
+		*** Benvenuto nelle Richieste di Aiuto *** 
+Per favore dai un&apos;occhiata prima alle nostre Pagine di Aiuto di SL premendo F1, o accedendo alle Nozioni di Base http://secondlife.com/knowledgebase/
+Se non trovi la risposta, inizia inserendo la tua domanda, quindi attendi alcuni istanti per consentire agli assistenti disponibili di rispondere.
+-=-=- I tempi di risposta variano, specialmente nelle ore di punta -=-=-
+	</string>
+</floater>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="groups">
+	<scroll_list name="group list">
+		<column label="" name="name" />
+	</scroll_list>
+	<text type="string" length="1" name="groupdesc" width="300">
+		Mevcut aktif grubunuz koyu siyah olarak görünür.
+	</text>
+	<text type="string" length="1" name="groupcount">
+		[COUNT] gruba üyesiniz (en fazla [MAX]).
+	</text>
+	<button label="HM/Ara" name="IM" tool_tip="Hızlı Mesaj oturumu açın" />
+	<button label="Bilgi" name="Info" />
+	<button label="Aktif Et" name="Activate" />
+	<button label="Çık" name="Leave" />
+	<button label="Yarat..." name="Create" />
+	<button label="Ara..." name="Search..." />
+</panel>

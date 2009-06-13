@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfo" title="Csoport információ">
+	<text name="default_needs_apply_text">
+		Végrehajtásra váró változtatások találhatók itt.
+	</text>
+	<text name="want_apply_text">
+		Szeretnéd a változtatásokat érvénybe léptetni?
+	</text>
+	<button label="Alkalmaz" label_selected="Alkalmaz" name="btn_apply" />
+	<button label="Mégsem" label_selected="Mégsem" name="btn_cancel" />
+	<button label="OK" label_selected="OK" name="btn_ok" />
+	<button label="Frissít" label_selected="Frissít" name="btn_refresh" />
+</panel>

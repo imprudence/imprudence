@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="script ed float" title="LSL Wiki">
+	<check_box label="Kurzor követése" name="lock_check" />
+	<combo_box label="Lock" name="history_combo" left_delta="120" width="70" />
+	<button label="Vissza" name="back_btn" left_delta="75"/>
+	<button label="Előre" name="fwd_btn" />
+</floater>

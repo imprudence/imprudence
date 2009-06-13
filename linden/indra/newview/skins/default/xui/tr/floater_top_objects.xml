@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="top_objects" title="yükleniyor...">
+	<text name="title_text">
+		Yükleniyor...
+	</text>
+	<scroll_list name="objects_list">
+		<column label="Skor" name="score"/>
+		<column label="Ad" name="name"/>
+		<column label="Sahip" name="owner"/>
+		<column label="Lokasyon" name="location"/>
+		<column label="Zaman" name="time"/>
+		<column label="Mono zamanı" name="mono_time"/>
+	</scroll_list>
+	<text name="id_text">
+		Obje no:
+	</text>
+	<button label="İşareti göster" name="show_beacon_btn"/>
+	<text name="obj_name_text">
+		Obje adı:
+	</text>
+	<button label="Filtrele" name="filter_object_btn"/>
+	<text name="owner_name_text">
+		Obje sahibi:
+	</text>
+	<button label="Filtre" name="filter_owner_btn"/>
+	<button label="Seçileni geri gönder" name="return_selected_btn" width="150"/>
+	<button label="Tümünü geri gönder" name="return_all_btn" left="170" width="150"/>
+	<button label="Seçileni devre dışı bırak" name="disable_selected_btn" width="150"/>
+	<button label="Tümünü devre dışı bırak" name="disable_all_btn" width="150" left="170"/>
+	<button label="Yenile" name="refresh_btn"/>
+	<string name="top_scripts_title">
+		Yoğun Betikler
+	</string>
+	<string name="top_scripts_text">
+		[COUNT] betik toplam [TIME] ms alıyor
+	</string>
+	<string name="scripts_score_label">
+		Zaman
+	</string>
+	<string name="scripts_mono_time_label">
+		Mono zamanı
+	</string>
+	<string name="top_colliders_title">
+		Yoğun çarpıştırıcılar
+	</string>
+	<string name="top_colliders_text">
+		En yoğun [COUNT] obje çok potansiyal çarpışma yaşıyor
+	</string>
+	<string name="colliders_score_label">
+		Skor
+	</string>
+	<string name="none_descriptor">
+		Hiç bulunamadı.
+	</string>
+</floater>

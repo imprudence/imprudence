@@ -23,8 +23,8 @@
 	</string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="发起呼叫" name="start_call_btn"/>
-			<button label="结束呼叫" name="end_call_btn"/>
+			<button label="发起呼叫" name="start_call_btn" width="110"/>
+			<button label="结束呼叫" name="end_call_btn" width="110"/>
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="点击此处，列出参与本次及时消息会话的活动参与者."/>
 			<line_editor label="点击此处，进行即时通信" name="chat_editor"/>
 			<button label="发送" name="send_btn"/>

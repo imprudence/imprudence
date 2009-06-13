@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<teleport_messages>
+	<message_set name="errors">
+		<message name="invalid_tport">
+			Probléma merült fel a teleportálás közben. Be kell lépned a teleportálás megkezdése előtt.
+Amennyiben továbbra is ezt a hibaüzenetet látod, olvasd el a technikai GYIK oldalt itt:
+www.secondlife.com/support
+		</message>
+		<message name="invalid_region_handoff">
+			Probléma merült fel a régiók átlépése közben. Ismét be kell lépned a régiók átlépéséhez.
+Amennyiben továbbra is ezt a hibaüzenetet látod, olvasd el a technikai GYIK oldalt itt:
+www.secondlife.com/support
+		</message>
+		<message name="blocked_tport">
+			Elnézést kérünk, a teleportálás jelenleg tiltva van. Próbáld meg újra.
+Amennyiben ismételten nem sikerül a teleportálás, kérjük lépj ki és be a probléma megoldásához.
+		</message>
+		<message name="nolandmark_tport">
+			Elnézést kérünk, a rendszernek nem sikerült meghatározni a célpontot.
+		</message>
+		<message name="timeout_tport">
+			Elnézést kérünk, a rendszer nem tudja végrehajtani a teleportálást.
+Próbáld meg újra.
+		</message>
+		<message name="noaccess_tport">
+			Elnézést kérünk, de nincs jogosultságod a teleportálási célállomásra történő belépésre.
+		</message>
+		<message name="missing_attach_tport">
+			A csatolások nem érkeztek még meg. Várj néhány másodpercet és utána lépj ki és be újra mielőtt újra megpróbálod a teleportálást.
+		</message>
+		<message name="too_many_uploads_tport">
+			Az eszközszerver ebben a régióban túlterhelt, így a teleportálási kérésed meghatározott ideig nem fog sikerülni. Kérjük próbáld meg néhány perc múlva újra vagy menj egy kevésbé forgalmas területre.
+		</message>
+		<message name="expired_tport">
+			Elnézést kérünk, a rendszer nem tudja teljesíteni a teleportálási kérésedet meghatározott ideig.
+Kérjük próbáld meg néhány perc múlva újra.
+		</message>
+		<message name="expired_region_handoff">
+			Elnézést kérünk, a rendszer nem tudja teljesíteni a régió átlépési kérésedet meghatározott ideig.
+Kérjük próbáld meg néhány perc múlva újra.
+		</message>
+		<message name="no_host">
+			Nem sikerült a teleportálási célállomás megtalálása. A helyszín ideiglenes nem elérhető vagy már nem létezik. Kérjük próbáld meg néhány perc múlva újra.
+		</message>
+		<message name="no_inventory_host">
+			A készlettár jelenleg nem elérhető.
+		</message>
+	</message_set>
+	<message_set name="progress">
+		<message name="sending_dest">
+			Célhelyszínre küld.
+		</message>
+		<message name="redirecting">
+			Átirányít más helyszínre.
+		</message>
+		<message name="relaying">
+			Helyszínre közvetít.
+		</message>
+		<message name="sending_home">
+			Kezdő helyszínre küldés kérése.
+		</message>
+		<message name="sending_landmark">
+			Jelzőpont helyszínére való kérés.
+		</message>
+		<message name="completing">
+			Végrehajtott teleportálás.
+		</message>
+		<message name="resolving">
+			Elért célállomás.
+		</message>
+		<message name="contacting">
+			Kapcsolódás új régióhoz.
+		</message>
+		<message name="arriving">
+			Érkezés...
+		</message>
+		<message name="requesting">
+			Teleportálás kérése...
+		</message>
+	</message_set>
+</teleport_messages>

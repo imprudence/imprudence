@@ -28,7 +28,7 @@
 	     width="350" />
 	<check_box bottom="-65" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Include IM in background console" left="148" mouse_opaque="true"
+	     label="Include IM in chat console" left="148" mouse_opaque="true"
 	     name="include_im_in_chat_console" radio_style="false" width="237" />
 	<check_box bottom="-85" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"

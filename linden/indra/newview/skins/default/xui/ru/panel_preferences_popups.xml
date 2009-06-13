@@ -4,11 +4,11 @@
 		Не показывать всплывающие окна:
 	</text>
 	<button label="Вкл. это Уведомл." name="enable_popup"/>
-	<button label="Включить все вспл.окна..." name="reset_dialogs_btn" tool_tip="Включить все показываемые &apos;впервые&apos; уведомл."/>
-	<text name="show_label">
+	<button width="225" label="Включить все вспл.окна..." name="reset_dialogs_btn" tool_tip="Включить все показываемые &apos;впервые&apos; уведомл."/>
+	<text name="show_label" width="300">
 		Показывать эти всплывающие окна:
 	</text>
-	<button label="Выключить все вспл.окна..." name="skip_dialogs_btn" tool_tip="Выключить все показываемые &apos;впервые&apos; уведомления."/>
+	<button width="225" label="Выключить все вспл.окна..." name="skip_dialogs_btn" tool_tip="Выключить все показываемые &apos;впервые&apos; уведомления."/>
 	<text length="1" name="text_box2" type="string">
 		Разрешения для заметок, текстур и закладок:
 	</text>

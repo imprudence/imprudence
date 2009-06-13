@@ -32,7 +32,7 @@
 				비매용
 			</text>
 			<text type="string" length="1" name="For Sale: Price L$[PRICE].">
-				가격: L$[PRICE].
+				가격: L$[PRICE] ([PRICE_PER_SQM]L$/제곱미터).
 			</text>
 			<button label="토지 판매" label_selected="토지 판매" name="Sell Land..." />
 			<text type="string" length="1" name="For sale to">

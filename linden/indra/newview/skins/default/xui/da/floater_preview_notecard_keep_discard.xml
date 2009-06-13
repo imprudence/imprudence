@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview_notecard">
+	<text_editor type="string" length="1" name="Notecard Editor">
+		Indlæser...
+	</text_editor>
+	<text type="string" length="1" name="desc txt">
+		Beskrivelse:
+	</text>
+	<button label="Behold" label_selected="Behold" name="Keep" />
+	<button label="Smid ud" label_selected="Smid ud" name="Discard" />
+	<string name="no_object">
+		Ikke i stand til at finde objekt med denne note.:
+	</string>
+	<string name="not_allowed">
+		Du har ikke tilladelse til at læse denne note.
+	</string>
+</floater>

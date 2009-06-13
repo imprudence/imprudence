@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mute floater" title="Lakók és tárgyak némítása" short_title="Némítási lista">
+	<scroll_list name="mutes" tool_tip="Jelenleg elnémított lakók listája" />
+	<button label="Lakó némítása..." label_selected="Lakó némítása..."
+	     name="Mute resident..."
+	     tool_tip="Jelöld be azt a lakót, akit el szeretnél némítani" />
+	<button label="Tárgy neve szerinti némítás..."
+	     label_selected="Tárgy neve szerinti némítás..."
+	     name="Mute object by name..." />
+	<button label="Némít" label_selected="Unmute" name="Unmute"
+	     tool_tip="Lakó vagy tárgy eltávolítása a némítási listából" />
+</floater>

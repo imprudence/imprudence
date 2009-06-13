@@ -31,8 +31,8 @@
 		Вы можете:
 	</text>
 	<check_box label="Изменить" name="CheckOwnerModify" />
-	<check_box label="Копировать" name="CheckOwnerCopy" />
-	<check_box label="Продать/Отдать" name="CheckOwnerTransfer" />
+	<check_box left_delta="92" label="Копировать" name="CheckOwnerCopy" />
+	<check_box left_delta="92" label="Продать/Отдать" name="CheckOwnerTransfer" />
 	<text name="BaseMaskDebug">
 		B:
 	</text>
@@ -51,17 +51,17 @@
 	<check_box label="Делиться с группой" name="CheckShareWithGroup" />
 	<check_box label="Позволить любому копировать"
 	     name="CheckEveryoneCopy" />
-	<text name="NextOwnerLabel">
+	<text name="NextOwnerLabel" width="230">
 		След. владелец может:
 	</text>
 	<check_box label="Изменять" name="CheckNextOwnerModify" />
-	<check_box label="Копировать" name="CheckNextOwnerCopy" />
-	<check_box label="Продать/Отдать" name="CheckNextOwnerTransfer" />
+	<check_box left_delta="92" label="Копировать" name="CheckNextOwnerCopy" />
+	<check_box left_delta="92" label="Продать/Отдать" name="CheckNextOwnerTransfer" />
 	<text name="SaleLabel">
 		Пометить элемент:
 	</text>
 	<check_box label="Продается" name="CheckPurchase" />
-	<radio_group name="RadioSaleType">
+	<radio_group name="RadioSaleType" left_delta="92">
 		<radio_item name="radio">
 			Оригинал
 		</radio_item>

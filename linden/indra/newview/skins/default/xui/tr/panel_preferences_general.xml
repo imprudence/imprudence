@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Genel" name="general_panel">
+	<radio_group name="default_start_location">
+		<radio_item name="MyHome" tool_tip="Varsayılan olarak ev lokasyonuma gir.">
+			Evim
+		</radio_item>
+		<radio_item name="MyLastLocation" tool_tip="Varsayılan olarak son lokasyonuma gir.">
+			Son lokasyonum
+		</radio_item>
+	</radio_group>
+	<check_box label="Giriş ekranında başlangıç lokasyonunu göster" name="show_location_checkbox"/>
+	<combo_box name="fade_out_combobox">
+		<combo_item name="Never">
+			Hiçbir zaman
+		</combo_item>
+		<combo_item name="Show Temporarily">
+			Geçici süreyle göster
+		</combo_item>
+		<combo_item name="Always">
+			Her zaman
+		</combo_item>
+	</combo_box>
+	<check_box label="Küçük karakter adları" name="small_avatar_names_checkbox"/>
+	<check_box label="Kendi ekranımda adımı gizle" name="show_my_name_checkbox"/>
+	<text length="1" name="group_titles_textbox" type="string">
+		Grup başlıkları:
+	</text>
+	<check_box label="Tüm grup başlıklarını gizle" name="show_all_title_checkbox"/>
+	<check_box label="Grup başlığımı gizle" name="show_my_title_checkbox"/>
+	<color_swatch label="" name="effect_color_swatch" tool_tip="Renk seçiciyi açmak için tıklayınız"/>
+	<text length="1" name="UI Size:" type="string">
+		KA boyutu:
+	</text>
+	<check_box label="Bağımsız çözünürlük ölçeğini kullan" name="ui_auto_scale"/>
+	<spinner label="Dışarda zaman aşımı:" name="afk_timeout_spinner"/>
+	<check_box label="Linden doları (L$) harcandığında veya alındığında bildir" name="notify_money_change_checkbox"/>
+	<text name="maturity_desired_label">
+		Oran:
+	</text>
+	<text name="maturity_desired_prompt">
+		Oranlanan içeriğe erişmek istiyorum:
+	</text>
+	<combo_box name="maturity_desired_combobox" left="344" width="130">
+		<combo_item name="Desired_Adult">
+			PG, Mature ve Adult
+		</combo_item>
+		<combo_item name="Desired_Mature">
+			PG ve Mature
+		</combo_item>
+		<combo_item name="Desired_PG">
+			Sadece PG
+		</combo_item>
+	</combo_box>
+	<text name="maturity_desired_textbox" left="344">
+		Sadece PG
+	</text>
+	<text length="1" name="start_location_textbox" type="string">
+		Başlangıç lokasyonu:
+	</text>
+	<text length="1" name="show_names_textbox" type="string">
+		Ad görüntüleme:
+	</text>
+	<text length="1" name="effects_color_textbox" type="string">
+		Efekt rengi:
+	</text>
+	<text length="1" name="seconds_textbox" type="string">
+		saniye
+	</text>
+	<text length="1" name="crash_report_textbox" type="string">
+		Çakışma raporları:
+	</text>
+	<text length="1" name="language_textbox" type="string">
+		Dil:
+	</text>
+	<text length="1" name="language_textbox2" type="string">
+		(Yeniden başlatmak gerektirir)
+	</text>
+	<string name="region_name_prompt">
+		&lt;Bölge ismi girin&gt;
+	</string>
+	<combo_box name="crash_behavior_combobox">
+		<combo_item length="1" name="Askbeforesending" type="string">
+			Göndermeden önce sor
+		</combo_item>
+		<combo_item length="1" name="Alwayssend" type="string">
+			Her zaman gönder
+		</combo_item>
+		<combo_item length="1" name="Neversend" type="string">
+			Hiçbir zaman gönderme
+		</combo_item>
+	</combo_box>
+	<combo_box name="language_combobox">
+		<combo_item length="1" name="System Default Language" type="string">
+			Sistem dili
+		</combo_item>
+		<combo_item length="1" name="English" type="string">
+			English (İngilizce)
+		</combo_item>
+		<combo_item name="Danish">
+			Dansk (Danimarkaca) - Beta
+		</combo_item>
+		<combo_item length="1" name="Deutsch(German)" type="string">
+			Deutsch (Almanca) - Beta
+		</combo_item>
+		<combo_item length="1" name="Spanish" type="string">
+			Español (İspanyolca) - Beta
+		</combo_item>
+		<combo_item length="1" name="French" type="string">
+			Français (Fransızca) - Beta
+		</combo_item>
+		<combo_item name="Italian">
+			Italiano (İtalyanca) - Beta
+		</combo_item>
+		<combo_item name="Hungarian">
+			Magyar (Macarca) - Beta
+		</combo_item>
+		<combo_item name="Dutch">
+			Nederlands (Flemenkçe) - Beta
+		</combo_item>
+		<combo_item name="Polish">
+			Polski (Polonyaca) - Beta
+		</combo_item>
+		<combo_item length="1" name="Portugese" type="string">
+			Portugués (Portekizce) - Beta
+		</combo_item>
+		<combo_item name="Russian">
+			Русский (Rusça) - Beta
+		</combo_item>
+		<combo_item length="1" name="Turkish" type="string">
+			Türkçe - Beta
+		</combo_item>
+		<combo_item name="Ukrainian">
+			Українська (Ukraynaca) - Beta
+		</combo_item>
+		<combo_item length="1" name="Chinese" type="string">
+			中文 (简体) (Çince) - Beta
+		</combo_item>
+		<combo_item length="1" name="(Japanese)" type="string">
+			日本語 (Japonca) - Beta
+		</combo_item>
+		<combo_item length="1" name="(Korean)" type="string">
+			한국어 (Korece) - Beta
+		</combo_item>
+	</combo_box>
+	<check_box label="Dili objeler ile paylaş" name="language_is_public" tool_tip="Bu,iç dünya objelerinin seçtiğiniz dili tanımasını sağlar."/>
+</panel>

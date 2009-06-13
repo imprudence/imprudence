@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Stemme chat" name="chat">
+	<text_editor length="1" name="voice_unavailable" type="string">
+		Stemme chat er ikke tilgængelig
+	</text_editor>
+	<check_box label="Aktivér stemme chat" name="enable_voice_check"/>
+	<radio_group name="ear_location">
+		<radio_item length="1" name="0" type="string">
+			Hør stemmer fra kamera position.
+		</radio_item>
+		<radio_item length="1" name="1" type="string">
+			Hør stemmer fra avatar position.
+		</radio_item>
+	</radio_group>
+	<text length="1" name="push_to_talk_heading" type="string">
+		Tryk-og-tal
+	</text>
+	<text_editor length="1" name="voice_chat_description" type="string">
+		Tryk og tal lader dig kontrollere, hvornår din stemme bliver transmiteret. Når du er i &apos;Walky Talky&apos; tilstand, skal du trykke på den knap du har valgt som Tryk-og-Tal knap for at tale. Når du ikke er i walkey talkey tilstand kan du kun tale når Tryk-og-tal knappen er holdt nede.
+	</text_editor>
+	<check_box label="Brug Tryk-og-tal i &apos;walkey talkey&apos; tilstand" name="push_to_talk_toggle_check"/>
+	<text length="1" name="push_to_talk_label" type="string">
+		Tryk-og-tal aktivering:
+	</text>
+	<button label="Vælg taste" name="set_voice_hotkey_button"/>
+	<button label="Midterste muse knap" name="set_voice_middlemouse_button"/>
+	<text name="privacy_heading">
+		Privatlivs funktioner:
+	</text>
+	<check_box label="Accepter kun opkald fra venneliste" name="voice_call_friends_only_check"/>
+	<check_box label="Slå mikrofon fra når IM kald slutter" name="auto_disengage_mic_check"/>
+	<button label="Enheds Indstillinger" name="device_settings_btn"/>
+	<text_editor length="1" name="device_settings_text" type="string">
+		NOTE: Hvis du starter enheds indstillingerne vil du midlertidigt blive afbrudt af stemmechat, og de ændringer du laver vil tage effekt med det samme.
+	</text_editor>
+</panel>

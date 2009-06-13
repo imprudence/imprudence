@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Hirdetés">
+	<line_editor name="given_name_editor" tool_tip="A névnek betűvel vagy számmal kell kezdődnie, írásjelek nem megengedettek."/>
+	<line_editor name="location_editor" tool_tip="A hirdetés helyszínének beállítása."/>
+	<button label="Helyszín beállítása" name="set_location_btn"/>
+	<button label="Teleportál" name="classified_teleport_btn"/>
+	<button label="Térkép" name="classified_map_btn"/>
+	<combo_box label="" name="classified_category_combo"/>
+	<combo_box label="" name="classified_mature_check" width="140">
+		<combo_item name="select_mature">
+			- Típus kiválasztása -
+		</combo_item>
+		<combo_item name="mature">
+			Mature tartalom
+		</combo_item>
+		<combo_item name="pg">
+			PG tartalom
+		</combo_item>
+	</combo_box>
+	<text name="classified_info_text" tool_tip="Minél többet fizetsz a hirdetésért, annál magasabb helyen szerepel a hirdetések között.">
+		Elhelyezett hirdetés: Jelenleg még nincs feladva
+	</text>
+	<text name="click_through_text" tool_tip="Össze kattintás száma a hirdetés feladása óta.">
+		Kattintások:
+	</text>
+	<button label="Felad" name="classified_update_btn" left="240" width="60"/>
+	<check_box label="Automatikus megújítás minden héten" name="auto_renew_check"/>
+	<string name="ad_placed_paid">
+		Elhelyezett hirdetés: [DATE], fizetve: [AMT] L$.
+	</string>
+	<string name="update_txt">
+		Frissít
+	</string>
+	<string name="publish_txt">
+		Felad
+	</string>
+</panel>

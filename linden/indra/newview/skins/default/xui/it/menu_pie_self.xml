@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Self Pie">
+	<menu_item_call label="Profilo..." name="Profile..."/>
+	<menu_item_call label="Gruppi..." name="Groups..."/>
+	<menu_item_call label="Vai..." name="Go..."/>
+	<menu_item_call label="Alzati" name="Stand Up"/>
+	<menu_item_call label="Amici..." name="Friends..."/>
+	<menu_item_call label="Gesture..." name="Gestures..."/>
+	<pie_menu label="Togli &gt;" name="Take Off &gt;">
+		<pie_menu label="Abiti &gt;" name="Clothes &gt;">
+			<menu_item_call label="Maglietta" name="Shirt"/>
+			<menu_item_call label="Pantaloni" name="Pants"/>
+			<menu_item_call label="Scarpe" name="Shoes"/>
+			<menu_item_call label="Calze" name="Socks"/>
+			<menu_item_call label="Giacca" name="Jacket"/>
+			<menu_item_call label="Guanti" name="Gloves"/>
+			<pie_menu label="Ulteriore &gt;" name="More &gt;">
+				<menu_item_call label="Canottiera" name="Self Undershirt"/>
+				<menu_item_call label="Tutti gli abiti" name="All Clothes"/>
+				<menu_item_call label="Mutande" name="Self Underpants"/>
+			</pie_menu>
+			<menu_item_call label="Gonna" name="Skirt"/>
+		</pie_menu>
+		<pie_menu label="Dispositivi HUD &gt;" name="Object Detach HUD"/>
+		<pie_menu label="Distacca &gt;" name="Object Detach"/>
+		<menu_item_call label="Distacca tutto" name="Detach All"/>
+	</pie_menu>
+	<menu_item_call label="Aspetto fisico..." name="Appearance..."/>
+</pie_menu>

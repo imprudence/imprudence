@@ -4,6 +4,6 @@
 		Опис:
 	</text>
 	<text type="string" length="1" name="dimensions">
-		Розміри: [WIDTH]?[HEIGHT]
+		Розміри: [WIDTH] x [HEIGHT]
 	</text>
 </floater>

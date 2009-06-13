@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="contents" title="Font testi">
+	<text name="linea">
+		Üzerine yazım testi, Times olarak görünür. (default/xui/en-us&apos;den)
+	</text>
+</floater>

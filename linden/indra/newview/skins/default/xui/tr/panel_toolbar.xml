@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="toolbar">
+	<string name="Redock Windows">
+		Pencereleri tekrar çıkar
+	</string>
+	<layout_stack name="toolbar_stack">
+		<button label="" name="chat_btn" tool_tip="Sohbet çubuğunu gösterir. (Enter)" />
+		<flyout_button label="İletişim" name="communicate_btn"
+		     tool_tip="Arkadaşlarınız veya gruplarınız ile iletişim kurun." />
+		<button label="Uç" label_selected="Uçmayı durdur" name="fly_btn"
+		     tool_tip="Uçuşu başlatır. Havalanıp yere konmak için E/C veya PgUp/PgDn tuşlarını kullanınız." />
+		<button label="Resim çek" name="snapshot_btn"
+		     tool_tip="Diskinize veya envanterinize ekran görüntüsü kaydedin." />
+		<button label="Ara" name="directory_btn"
+		     tool_tip="Lokasyonlar,aktiviteler,insanlar ve daha fazlasını arayın." />
+		<button label="İnşa et" name="build_btn" tool_tip="Yeni objeler yaratın." />
+		<button label="Harita" name="map_btn" tool_tip="Dünya haritası. (Ctrl-M)" />
+		<button label="Küçük harita" name="radar_btn"
+		     tool_tip="Çevrenizdeki alan haritası. (Ctrl-Shift-M)" />
+		<button label="Envanter" name="inventory_btn" tool_tip="Ürünleriniz. (Ctrl-I)" />
+	</layout_stack>
+</panel>

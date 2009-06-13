@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Event" title="Esemény">
+	<text name="event_name_label">
+		Megnevezés:
+	</text>
+	<text name="event_name">
+		(nincs)
+	</text>
+	<text name="event_category_label">
+		Típus:
+	</text>
+	<text name="event_category">
+		(nincs)
+	</text>
+	<text name="event_mature_label">
+		Mature tartalom:
+	</text>
+	<text name="event_mature_yes">
+		Igen
+	</text>
+	<text name="event_mature_no">
+		Nem
+	</text>
+	<text name="event_date_label">
+		Dátum:
+	</text>
+	<text name="event_date">
+		(nincs)
+	</text>
+	<text name="event_duration_label">
+		Lejárat:
+	</text>
+	<text name="event_duration">
+		(nincs)
+	</text>
+	<text name="event_runby_label">
+		Hazigazda:
+	</text>
+	<text name="event_runby">
+		(nincs)
+	</text>
+	<text name="event_location_label">
+		Helyszín:
+	</text>
+	<text name="event_location">
+		(nincs)
+	</text>
+	<text name="event_cover_label">
+		Költség:
+	</text>
+	<text name="event_cover">
+		(nincs)
+	</text>
+	<text name="event_desc_label">
+		Leírás:
+	</text>
+	<button label="Teleportál" name="teleport_btn"/>
+	<button label="Térkép" name="map_btn"/>
+	<button label="Értesít" name="notify_btn"/>
+	<button label="Esemény hirdetése" name="create_event_btn"/>
+	<string name="none">
+		nincs
+	</string>
+	<string name="notify">
+		Értesít
+	</string>
+	<string name="dont_notify">
+		Nem éretesít
+	</string>
+</panel>

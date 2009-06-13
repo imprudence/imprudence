@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="chat_bar">
+	<button label="Lokal Chat" name="History"
+	     tool_tip="Klik her for at se hvad der er blevet sagt" />
+	<line_editor label="Klik her for at chatte." name="Chat Editor"
+	     tool_tip="Tryk på enter for at tale, Ctrl-Enter for at r&amp;#229;be." />
+	<flyout_button label="Tal" name="Say" tool_tip="(Enter)">
+		<flyout_button_item name="shout_item">
+			Råb
+		</flyout_button_item>
+		<flyout_button_item name="say_item">
+			Tal
+		</flyout_button_item>
+		<flyout_button_item name="whisper_item">
+			Hvisk
+		</flyout_button_item>
+	</flyout_button>
+	<combo_box label="Bevægelser" name="Gesture" />
+	<string name="gesture_label">
+		Bevægelser
+	</string>
+</panel>

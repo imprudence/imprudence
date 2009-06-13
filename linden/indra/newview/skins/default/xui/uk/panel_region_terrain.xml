@@ -8,9 +8,9 @@
 	</text>
 	<spinner label="Висота води" name="water_height_spin" />
 	<button label="?" name="water_height_help" />
-	<spinner label="Верхн.ліміт ланд." name="terrain_raise_spin" />
+	<spinner label="Верхн. ліміт&#10;  ландшафт" name="terrain_raise_spin" />
 	<button label="?" name="terrain_raise_help" />
-	<spinner label="Нижн.ліміт ланд." name="terrain_lower_spin" />
+	<spinner label="Нижн. ліміт&#10;  ландшафт" name="terrain_lower_spin" bottom_delta="-34"/>
 	<button label="?" name="terrain_lower_help" />
 	<check_box label="Вик. місцеве Сонце" name="use_estate_sun_check" />
 	<button label="?" name="use_estate_sun_help" />
@@ -18,12 +18,12 @@
 	<button label="?" name="fixed_sun_help" />
 	<slider label="Фаза" name="sun_hour_slider" />
 	<button label="Застосув." name="apply_btn" />
-	<button label="Скачати RAW ландш." name="download_raw_btn"
-	     tool_tip="Доступно тільки власникам маєтків, не менеджерам." />
-	<button label="?" name="download_raw_help" />
-	<button label="Закачати RAW ландш." name="upload_raw_btn"
-	     tool_tip="Доступно тільки власникам маєтків, не менеджерам" />
-	<button label="?" name="upload_raw_help" />
+	<button label="Скачати RAW ландшафт..." name="download_raw_btn"
+	     tool_tip="Доступно тільки власникам маєтків, не менеджерам."  width="230"/>
+	<button label="?" name="download_raw_help"  left="246"/>
+	<button label="Закачати RAW ландшафт..." name="upload_raw_btn"
+	     tool_tip="Доступно тільки власникам маєтків, не менеджерам"  width="230"/>
+	<button label="?" name="upload_raw_help"  left="246"/>
 	<button label="Скинути" name="bake_terrain_btn"
 	     tool_tip="Встановити поточний ландшафт на середню точку між його верх. і ниж. відмітками." />
 	<button label="?" name="bake_terrain_help" />

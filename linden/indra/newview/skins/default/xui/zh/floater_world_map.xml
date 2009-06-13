@@ -4,40 +4,29 @@
 		<panel label="物体" name="objects_mapview"/>
 		<panel label="地形" name="terrain_mapview"/>
 	</tab_container>
-	<text name="land_for_sale_label">
-		待售土地
-	</text>
-	<text name="auction_label">
-		拍卖
-	</text>
 	<text name="you_label">
 		您
 	</text>
 	<text name="home_label">
 		家
 	</text>
-	<button label="回家" label_selected="回家" name="Go Home" tool_tip="瞬间移动到你的起始位置"/>
-	<text name="person_label">
-		人
+	<text name="auction_label">
+		拍卖
 	</text>
-	<check_box label="" name="people_chk"/>
-	<text name="infohub_label">
-		信息中心
-	</text>
-	<check_box label="" name="infohub_chk"/>
-	<text name="telehub_label">
-		瞬移枢纽
-	</text>
-	<check_box label="" name="telehubchk"/>
-	<text name="land_for_sale_label2">
+	<text name="land_for_sale_label">
 		待售土地
 	</text>
-	<check_box label="" name="land_for_sale_chk"/>
+	<button label="回家" label_selected="回家" name="Go Home" tool_tip="瞬间移动到你的起始位置"/>
+	<check_box label="居民" name="people_chk"/>
+	<check_box label="信息港" name="infohub_chk"/>
+	<check_box label="传送站" name="telehubchk"/>
+	<check_box label="待售土地" name="land_for_sale_chk"/>
 	<text name="events_label">
-		事件
+		事件：
 	</text>
-	<check_box label="" name="event_chk"/>
-	<check_box label="" name="event_mature_chk"/>
+	<check_box label="PG" name="event_chk"/>
+	<check_box label="Mature" name="event_mature_chk"/>
+	<check_box label="Adult" name="event_adult_chk"/>
 	<combo_box label="在线好友" name="friend combo" tool_tip="要在地图上显示的好友">
 		<combo_item name="none_selected">
 			在线好友

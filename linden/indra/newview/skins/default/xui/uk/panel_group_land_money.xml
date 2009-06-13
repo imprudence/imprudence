@@ -31,13 +31,13 @@
 		[AREA] кв. м.
 	</text>
 	<text name="total_land_in_use_label">
-		Землі використов.
+		Землі використов.:
 	</text>
 	<text name="total_land_in_use_value">
 		[AREA] кв. м.
 	</text>
 	<text name="land_available_label">
-		Земли доступно
+		Земли доступно:
 	</text>
 	<text name="land_available_value">
 		[AREA] кв. м.

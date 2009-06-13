@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Connessione" name="network">
+	<text name="text_box">
+		Larghezza massima di banda:
+	</text>
+	<text name="text_box2">
+		kbps (kilobits al secondo)
+	</text>
+	<text name="cache_size_label_l">
+		Dimensione della cache del disco:
+	</text>
+	<text name="text_box5">
+		MB
+	</text>
+	<button label="Elimina contenuto della cache" name="clear_cache" width="180"/>
+	<text name="cache_location_label">
+		Percorso della cache del disco:
+	</text>
+	<button label="Imposta" label_selected="Imposta" name="set_cache"/>
+	<button label="Reimposta" label_selected="Imposta" name="reset_cache"/>
+	<check_box label="Connessione mediante porta personalizzata" name="connection_port_enabled"/>
+	<spinner label="Numero porta:" name="connection_port"/>
+</panel>

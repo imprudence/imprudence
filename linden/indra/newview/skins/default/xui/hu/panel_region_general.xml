@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Régió" name="General">
+	<text name="region_text_lbl">
+		Régió:
+	</text>
+	<text name="region_text">
+		ismeretlen
+	</text>
+	<text name="version_channel_text_lbl">
+		Verzió:
+	</text>
+	<text name="version_channel_text">
+		ismeretlen
+	</text>
+	<text name="region_type_lbl">
+		Típus:
+	</text>
+	<text name="region_type">
+		ismeretlen
+	</text>
+	<check_box label="Domborzat átalakításának tiltása" name="block_terraform_check"/>
+	<button label="?" name="terraform_help"/>
+	<check_box label="Repülés tiltása" name="block_fly_check"/>
+	<button label="?" name="fly_help"/>
+	<check_box label="Károkozás engedélyezése" name="allow_damage_check"/>
+	<button label="?" name="damage_help"/>
+	<check_box label="Ütközések engedélyezése" name="restrict_pushobject"/>
+	<button label="?" name="restrict_pushobject_help"/>
+	<check_box label="Föld eladásának engedélyezése" name="allow_land_resell_check"/>
+	<button label="?" name="land_resell_help"/>
+	<check_box label="Föld egyesítésének/&#10;felosztásának engedélyezése" name="allow_parcel_changes_check"/>
+	<button label="?" name="parcel_changes_help"/>
+	<check_box bottom_delta="-36" label="Föld megjelenítésének tiltása &#10;a keresőben" name="block_parcel_search_check" tool_tip="Föld nevének a keresési eredmények közötti tiltása"/>
+	<button label="?" name="parcel_search_help"/>
+	<spinner label="Maximum avatárok száma:" label_width="134" name="agent_limit_spin" width="194"/>
+	<button label="?" name="agent_limit_help"/>
+	<spinner label="Bónusz tárgyak száma:" label_width="134" name="object_bonus_spin" width="194"/>
+	<button label="?" name="object_bonus_help"/>
+	<text label="Típus" name="access_text">
+		Minősítés:
+	</text>
+	<combo_box label="Mature" left="70" name="access_combo" width="132">
+		<combo_item name="Adult">
+			Adult
+		</combo_item>
+		<combo_item name="Mature">
+			Mature
+		</combo_item>
+		<combo_item name="PG">
+			PG
+		</combo_item>
+	</combo_box>
+	<button label="?" name="access_help"/>
+	<button label="Alkalmaz" name="apply_btn"/>
+	<button bottom_delta="-44" label="Egy adott felhasználó hazateleportálása" name="kick_btn"/>
+	<button label="Összes felhasználó hazateleportálása" name="kick_all_btn"/>
+	<button label="Üzenetküldése a régiónak..." name="im_btn"/>
+	<button label="Telehub kezelése..." name="manage_telehub_btn"/>
+</panel>

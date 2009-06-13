@@ -6,7 +6,17 @@
 	<button label="瞬间移动" left_delta="90" name="classified_teleport_btn" width="80"/>
 	<button label="在地图中显示" left_delta="90" name="classified_map_btn" width="110"/>
 	<combo_box label="" name="classified_category_combo"/>
-
+	<combo_box label="" name="classified_mature_check">
+		<combo_item name="select_mature">
+			- 选择限制级 -
+		</combo_item>
+		<combo_item name="mature">
+			Mature内容
+		</combo_item>
+		<combo_item name="pg">
+			PG内容
+		</combo_item>
+	</combo_box>
 	<text name="classified_info_text" tool_tip="你选择为你的广告付费越多, 您的广告在广告栏里出现的位置就会越高.">
 		广告发布: 还没有发布
 	</text>

@@ -165,7 +165,9 @@
 		<menu_item_separator label="-----------" name="separator4"/>
 		<menu_item_call label="Фокус на выбранном" name="Focus on Selection"/>
 		<menu_item_call label="Приблизить к выбранному" name="Zoom to Selection"/>
-		<menu_item_call label="Купить объект" name="Menu Object Take"/>
+		<menu_item_call label="Купить объект" name="Menu Object Take">
+			<on_enable userdata="Купить,Взять" name="EnableBuyOrTake"/>
+		</menu_item_call>
 		<menu_item_call label="Взять копию" name="Take Copy"/>
 		<menu_item_call label="Сохранить предмет назад в содержание объекта" name="Save Object Back to Object Contents"/>
 		<menu_item_separator label="-----------" name="separator6"/>

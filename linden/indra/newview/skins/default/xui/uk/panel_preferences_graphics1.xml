@@ -83,7 +83,7 @@
 	     tool_tip="Вимикання цієї опції захистить деякі відеокарти від вильоту." />
 	<check_box label="Атмосферні шейдери" name="WindLightUseAtmosShaders" />
 	<check_box label="Відбиття води" name="Reflections" />
-	<text type="string" length="1" name="ReflectionDetailText">
+	<text type="string" length="1" name="ReflectionDetailText" width="144">
 		Детализація відбиттів:
 	</text>
 	<radio_group name="ReflectionDetailRadio">
@@ -101,7 +101,7 @@
 		</radio_item>
 	</radio_group>
 	<text type="string" length="1" name="AvatarRenderingText">
-		Рендеринг аватара
+		Рендеринг аватара:
 	</text>
 	<check_box label="Аватар" name="AvatarImpostors" />
 	<check_box label="Шкуры аватаров" name="AvatarVertexProgram" />
@@ -114,16 +114,16 @@
 	</text>
 	<slider label="Дальність промальовки:" name="DrawDistance" />
 	<slider label="Макс. к-сть частинок:" name="MaxParticleCount" />
-	<slider label="Як. постобробки" name="RenderPostProcess" />
+	<slider label="Як. постобробки:" name="RenderPostProcess" />
 	<text type="string" length="1" name="MeshDetailText">
-		Деталізація сіток
+		Деталізація сіток:
 	</text>
-	<slider label="Об&apos;єкти" name="ObjectMeshDetail" />
-	<slider label="Гнучкі пріми" name="FlexibleMeshDetail" />
-	<slider label="Дерева" name="TreeMeshDetail" />
-	<slider label="Аватари" name="AvatarMeshDetail" />
-	<slider label="Ландшафт:" name="TerrainMeshDetail" />
-	<slider label="Небо" name="SkyMeshDetail" />
+	<slider label="   Об&apos;єкти:" name="ObjectMeshDetail" />
+	<slider label="   Гнучкі пріми:" name="FlexibleMeshDetail" />
+	<slider label="   Дерева:" name="TreeMeshDetail" />
+	<slider label="   Аватари:" name="AvatarMeshDetail" />
+	<slider label="   Ландшафт:" name="TerrainMeshDetail" />
+	<slider label="   Небо:" name="SkyMeshDetail" />
 	<text type="string" length="1" name="PostProcessText">
 		Низько
 	</text>
@@ -146,7 +146,7 @@
 		Низько
 	</text>
 	<text type="string" length="1" name="LightingDetailText">
-		Деталі освітлення
+		Деталі освітлення:
 	</text>
 	<radio_group name="LightingDetailRadio">
 		<radio_item type="string" length="1" name="SunMoon">
@@ -159,7 +159,7 @@
 	<text type="string" length="1" name="TerrainDetailText">
 		Деталі ландшафту:
 	</text>
-	<radio_group name="TerrainDetailRadio">
+	<radio_group name="TerrainDetailRadio" left_delta="25" >
 		<radio_item type="string" length="1" name="0">
 			Низько
 		</radio_item>

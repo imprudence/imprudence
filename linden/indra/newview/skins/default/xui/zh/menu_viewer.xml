@@ -3,10 +3,12 @@
 	<menu label="文件" name="File">
 		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~"/>
 		<menu label="上传" name="upload">
-			<menu_item_call label="上传图像 (L$[COST])..." name="Upload Image" />
-			<menu_item_call label="上传声音 (L$[COST])..." name="Upload Sound" />
-			<menu_item_call label="上传动画 (L$[COST])..." name="Upload Animation" />
-			<menu_item_call label="大宗文件上传(每个文件需L$[COST])..." name="Bulk Upload" />
+			<menu_item_call label="图像（L$[COST]）..." name="Upload Image"/>
+			<menu_item_call label="声音（L$[COST]）..." name="Upload Sound"/>
+			<menu_item_call label="动画（L$[COST]）..." name="Upload Animation"/>
+			<menu_item_call label="大宗（每份需付L$[COST]）..." name="Bulk Upload"/>
+			<menu_item_separator label="-----------" name="separator"/>
+			<menu_item_call label="设置默认权限..." name="perm prefs"/>
 		</menu>
 		<menu_item_separator label="-----------" name="separator"/>
 		<menu_item_call label="关闭窗口" name="Close Window"/>
@@ -81,6 +83,7 @@
 		<menu_item_separator label="-----------" name="separator3"/>
 		<menu_item_check label="统计条" name="Statistics Bar"/>
 		<menu_item_check label="地块边线" name="Property Lines"/>
+		<menu_item_check label="隔离线" name="Banlines"/>
 		<menu_item_check label="土地所有者" name="Land Owners"/>
 		<menu_item_separator label="-----------" name="separator4"/>
 		<menu label="悬停提示" name="Hover Tips">
@@ -113,7 +116,7 @@
 		<menu_item_separator label="-----------" name="separator3"/>
 		<menu_item_call label="设成离开状态" name="Set Away"/>
 		<menu_item_call label="设成繁忙状态" name="Set Busy"/>
-		<menu_item_call label="停止所有动画" name="Stop All Animations"/>
+		<menu_item_call label="停止化身动画" name="Stop Animating My Avatar"/>
 		<menu_item_call label="释放按键" name="Release Keys"/>
 		<menu_item_separator label="-----------" name="separator4"/>
 		<menu_item_call label="帐户历史纪录..." name="Account History..."/>
@@ -161,9 +164,10 @@
 		<menu_item_separator label="-----------" name="separator4"/>
 		<menu_item_call label="聚焦于所选物体" name="Focus on Selection"/>
 		<menu_item_call label="缩放到所选物体" name="Zoom to Selection"/>
-		<menu_item_call label="购买物体" name="Menu Object Take"/>
+		<menu_item_call label="购买物体" name="Menu Object Take">
+			<on_enable userdata="购买,拿走" name="EnableBuyOrTake"/>
+		</menu_item_call>
 		<menu_item_call label="拿走副本" name="Take Copy"/>
-		<menu_item_call label="将物体存回至我的库存" name="Save Object Back to My Inventory"/>
 		<menu_item_call label="将物体存回至物体内容" name="Save Object Back to Object Contents"/>
 		<menu_item_separator label="-----------" name="separator6"/>
 		<menu_item_call label="显示脚本警告/错误窗口" name="Show Script Warning/Error Window"/>

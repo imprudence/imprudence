@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Joystick" title="Joystick konfigurációja">
+	<check_box name="enable_joystick">
+		Joystick engedélyezése:
+	</check_box>
+	<text left="140" name="joystick_type" width="360"/>
+	<spinner label="X tengely leképezése" name="JoystickAxis1" label_width="114" width="164"/>
+	<spinner label="Y tengely leképezése" name="JoystickAxis2" label_width="114" width="164"/>
+	<spinner label="Z tengely leképezése" name="JoystickAxis0" label_width="114" width="164"/>
+	<spinner label="Magassági leképezés" name="JoystickAxis4" label_width="114" width="164"/>
+	<spinner label="Oldalirányú leképezés" name="JoystickAxis5" label_width="114" width="164"/>
+	<spinner label="Gördülési leképezés" name="JoystickAxis3" label_width="114" width="164"/>
+	<spinner label="Nagyítási leképezés" name="JoystickAxis6" label_width="114" width="164"/>
+	<check_box label="Közvetlen nagyítás" name="ZoomDirect"/>
+	<check_box label="3D kurzor" name="Cursor3D"/>
+	<check_box label="Automatikus szint" name="AutoLeveling"/>
+	<text length="1" name="Control Modes:" type="string">
+		Kontroll módok:
+	</text>
+	<check_box name="JoystickAvatarEnabled">
+		Avatár
+	</check_box>
+	<check_box name="JoystickBuildEnabled">
+		Építés
+	</check_box>
+	<check_box name="JoystickFlycamEnabled">
+		Flycam
+	</check_box>
+	<text name="XScale">
+		X skála
+	</text>
+	<text name="YScale">
+		Y skála
+	</text>
+	<text name="ZScale">
+		Z skála
+	</text>
+	<text name="PitchScale">
+		Magássági fok
+	</text>
+	<text name="YawScale">
+		Oldalirányú fok
+	</text>
+	<text name="RollScale">
+		Görgetési fok
+	</text>
+	<text name="XDeadZone">
+		X néma zóna
+	</text>
+	<text name="YDeadZone">
+		Y néma zóna
+	</text>
+	<text name="ZDeadZone">
+		Z néma zóna
+	</text>
+	<text name="PitchDeadZone" left="3" width="115">
+		Magassági néma zóna
+	</text>
+	<text name="YawDeadZone" left="3" width="118">
+		Oldalirányú néma zóna
+	</text>
+	<text name="RollDeadZone" left="3" width="118">
+		Görgetési néma zóna
+	</text>
+	<text name="Feathering">
+		Csúsztatás
+	</text>
+	<slider label="" name="AvatarFeathering"/>
+	<slider label="" name="BuildFeathering"/>
+	<slider label="" name="FlycamFeathering"/>
+	<text name="ZoomScale2">
+		Nagyítási skála
+	</text>
+	<spinner label="" name="FlycamAxisScale6"/>
+	<text name="ZoomDeadZone" width="110" left="4">
+		Nagyítási néma zóna
+	</text>
+	<spinner label="" name="FlycamAxisDeadZone6"/>
+	<button label="Alapértelmezett beállítása" name="SpaceNavigatorDefaults"/>
+	<button label="OK" label_selected="OK" name="ok_btn"/>
+	<button label="Mégsem" label_selected="Mégsem" name="cancel_btn"/>
+	<string name="JoystickMonitor">
+		Joystick Monitor
+	</string>
+	<string name="Axis">
+		Tengely [NUM]
+	</string>
+	<string name="NoDevice">
+		nincs csatlakoztatott eszköz
+	</string>
+</floater>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="gestures" title="Aktív gesztusok">
+	<text name="help_label">
+		Kattints duplán egy gesztusra az animációk és a hangok
+lejátszásához.
+	</text>
+	<scroll_list name="gesture_list" bottom_delta="-385" height="360" >
+		<column label="Bekapcsolás" name="trigger" />
+		<column label="Gyorsbillentyű" name="shortcut" />
+		<column label="" name="key" />
+		<column label="Név" name="name" />
+	</scroll_list>
+	<button label="Új" name="new_gesture_btn" />
+	<button label="Szerkeszt" name="edit_btn" />
+	<button label="Lejátszik" name="play_btn" />
+	<button label="Megállít" name="stop_btn" />
+</floater>

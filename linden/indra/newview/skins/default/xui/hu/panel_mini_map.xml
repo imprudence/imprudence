@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Mini térkép" name="mini_mapview">
+	<text name="n_label" width="20">
+		É
+	</text>
+	<text name="e_label" width="20">
+		K
+	</text>
+	<text name="s_label" width="20">
+		D
+	</text>
+	<text name="w_label" width="20">
+		Ny
+	</text>
+	<text name="ne_label" width="40">
+		ÉK
+	</text>
+	<text name="se_label" width="40">
+		DK
+	</text>
+	<text name="sw_label" width="40">
+		DNy
+	</text>
+	<text name="nw_label" width="40">
+		ÉNy
+	</text>
+</panel>

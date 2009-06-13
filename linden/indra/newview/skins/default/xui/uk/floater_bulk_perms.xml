@@ -24,8 +24,9 @@
 		Наступний власник може:
 	</text>
 	<check_box label="Модифікувати" name="next_owner_modify"/>
-	<check_box label="Копіювати" name="next_owner_copy"/>
-	<check_box label="Продавати/Віддавати" name="next_owner_transfer"/>
+	<check_box label="Копіювати" name="next_owner_copy" left_delta="115"/>
+	<check_box label="Продавати/&#10;Віддавати" name="next_owner_transfer" left_delta="92"/>
+	<scroll_list bottom="40" height="124" name="queue output" />
 	<button label="Допомога" name="help"/>
 	<button label="Застосувати" name="apply"/>
 	<button label="Закрити" name="close"/>

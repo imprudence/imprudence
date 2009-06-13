@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="floaterreleasemessage" title="Входимо в регіон">
-	<button label="Закрити" name="close_btn" />
+	<button label="Закрити" name="close_btn" width="70"/>
 	<string name="in-world_help_title">
 		Допомога в-світі
 	</string>

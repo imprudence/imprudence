@@ -12,7 +12,7 @@
 		zaloguj się żeby zmienić
 	</string>
 	<check_box label="Wysyłaj IMy na email ([EMAIL])" name="send_im_to_email" />
-	<check_box label="Dołącz IMy do zapisu czatu" name="include_im_in_chat_history" />
+	<check_box label="Dołącz IMy do Konsola Czatu" name="include_im_in_chat_console" />
 	<check_box label="Pokazuj czas w IM" name="show_timestamps_check" />
 	<check_box label="Powiadamiaj o zalogowanych znajomych"
 	     name="friends_online_notify_checkbox" />

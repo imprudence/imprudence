@@ -8,10 +8,10 @@
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
-			<text name="find">
+			<text name="find" width="60">
 				Encontrar:
 			</text>
-			<line_editor label="Buscar" name="search_editor" tool_tip="Busca no Second Life"/>
+			<line_editor label="Buscar" name="search_editor" tool_tip="Busca no Second Life" width="150" left_delta="66"/>
 			<button label="Voltar" name="back_btn"/>
 			<button label="Adiantar" name="forward_btn"/>
 			<button label="Buscar" name="search_btn"/>
@@ -56,7 +56,7 @@
 			<text name="find" width="63">
 				Encontrar:
 			</text>
-			<line_editor left_delta="58" name="name"/>
+			<line_editor left="69" name="name" width="150"/>
 			<check_box label="Conteúdo PG" name="incpg"/>
 			<check_box label="Conteúdo Mature" name="incmature"/>
 			<check_box label="Conteúdo Adult" name="incadult"/>
@@ -101,7 +101,7 @@
 				<column label="Preço" name="price"/>
 			</scroll_list>
 			<button label="Próximo &gt;" label_selected="Próximo &gt;" name="Next &gt;"/>
-			<button label="&lt; Prev" label_selected="&lt; Prev" name="&lt; Prev"/>
+			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
 		</panel>
 		<panel label="Eventos" name="events_panel">
 			<string name="searching_text">
@@ -110,9 +110,10 @@
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
-			<text name="text2">
+			<text name="text2" width="60">
 				Encontrar:
 			</text>
+			<line_editor left="69" name="event_search_text" width="150" />
 			<radio_group name="date_mode">
 				<radio_item name="current">
 					Em progresso e processando
@@ -130,9 +131,9 @@
 			<text name="text">
 				Categoria:
 			</text>
-			<combo_box name="category combo">
+			<combo_box name="category combo" width="178">
 				<combo_item name="All">
-					Qualquer Categoria
+					Qualquer categoria
 				</combo_item>
 				<combo_item name="Discussion">
 					Discussão
@@ -179,7 +180,7 @@
 				<column label="Tempo" name="time"/>
 			</scroll_list>
 			<button label="Próximo &gt;" label_selected="Próximo &gt;" name="Next &gt;"/>
-			<button label="&lt; Prev" label_selected="&lt; Prev" name="&lt; Prev"/>
+			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
 		</panel>
 		<panel label="Mostruário" name="showcase_panel">
 			<string name="searching_text">
@@ -208,13 +209,13 @@
 				Terra pode ser comprada direto por Linden dólares (L$) ou em leilão por ambos L$ ou US$.
 Para comprar direto, visite a terra e clique no nome do lugar, na barra de título.
 			</string>
-			<text name="find">
+			<text name="find" width="60">
 				Encontrar:
 			</text>
-			<check_box label="Conteúdo PG" name="incpg"/>
-			<check_box label="Conteúdo Mature" name="incmature"/>
-			<check_box label="Conteúdo Adulto" name="incadult"/>
-			<combo_box name="type">
+			<check_box left="440" label="Conteúdo PG" name="incpg"/>
+			<check_box left="440" label="Conteúdo Mature" name="incmature"/>
+			<check_box left="440" label="Conteúdo Adulto" name="incadult"/>
+			<combo_box name="type" width="148">
 				<combo_item name="AllTypes">
 					Todos os tipos
 				</combo_item>
@@ -228,23 +229,23 @@ Para comprar direto, visite a terra e clique no nome do lugar, na barra de títu
 					À venda - Propriedade
 				</combo_item>
 			</combo_box>
-			<check_box label="Preço &#8804; " name="pricecheck"/>
+			<check_box left="66" label="Preço &#8804; " name="pricecheck"/>
 			<text left="186" name="pricecheck_symbol">
 				L$
 			</text>
-			<check_box label="Área &#8805; " name="areacheck"/>
+			<check_box left="66" label="Área &#8805; " name="areacheck"/>
 			<text left="186" name="areacheck_symbol">
 				m²
 			</text>
-			<line_editor name="priceedit"/>
-			<line_editor name="areaedit"/>
+			<line_editor name="priceedit" left="132"/>
+			<line_editor name="areaedit" left="132"/>
 			<button label="Buscar" label_selected="Buscar" name="Search"/>
 			<scroll_list name="results">
 				<column label="Nome" name="name"/>
-				<column label="Tipo" name="landtype"/>
-				<column label="Preço em L$" name="price"/>
-				<column label="Área" name="area"/>
-				<column label="L$/m²" name="per_meter"/>
+				<column label="Tipo" name="landtype" width="50"/>
+				<column label="Preço L$" name="price" width="70"/>
+				<column label="Área" name="area" width="50"/>
+				<column label="L$/m²" name="per_meter" width="65"/>
 			</scroll_list>
 			<button label="Próximo &gt;" label_selected="Próximo &gt;" name="Next &gt;"/>
 			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>
@@ -256,10 +257,10 @@ Para comprar direto, visite a terra e clique no nome do lugar, na barra de títu
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
-			<text name="find">
+			<text name="find" width="60">
 				Encontrar:
 			</text>
-			<line_editor name="name"/>
+			<line_editor name="name" left="66" width="150"/>
 			<check_box label="Conteúdo PG" name="incpg"/>
 			<check_box label="Conteúdo Mature" name="incmature"/>
 			<check_box label="Conteúdo Adult" name="incadult"/>
@@ -357,10 +358,10 @@ Para comprar direto, visite a terra e clique no nome do lugar, na barra de títu
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
-			<text name="find">
+			<text name="find" width="60">
 				Encontrar:
 			</text>
-			<line_editor name="name"/>
+			<line_editor name="name" left="66" width="150"/>
 			<button label="Buscar" label_selected="Buscar" name="Search"/>
 			<scroll_list name="results" width="266">
 				<column label="Nome" name="name" width="214"/>
@@ -375,10 +376,10 @@ Para comprar direto, visite a terra e clique no nome do lugar, na barra de títu
 			<string name="not_found_text">
 				Nada foi encontrado.
 			</string>
-			<text name="find">
+			<text name="find" width="60">
 				Encontrar:
 			</text>
-			<line_editor label="Buscar" name="search_editor" tool_tip="Busca no Second Life"/>
+			<line_editor label="Buscar" name="search_editor" tool_tip="Busca no Second Life" left_delta="66" width="150"/>
 			<button label="Voltar" name="back_btn"/>
 			<button label="Adiantar" name="forward_btn"/>
 			<button label="Buscar" name="search_btn"/>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Forslag" name="voting_tab">
+	<string name="help_text">
+		Gruppeforslag kan bruges for at få fornemmelsen af, hvad gruppen vil eller hvad medlemmerne synes om noget bestemt. Hvis du har rettigheder, kan du lave forslag, stemme for eller imod åbne forslag og se gamle forslag.
+	</string>
+	<button label="?" name="help_button"/>
+	<text name="proposal_header">
+		Åben gruppeforslag
+	</text>
+	<text name="proposal_instructions">
+		Dobbeltklik på forslaget du vil stemme om, eller klik på Lav forslag
+for at lave et nyt forslag
+	</text>
+	<text name="proposal_lbl">
+		Beskrivelse af forslaget
+	</text>
+	<text name="proposal_voting_lbl">
+		Forslag                                                          Afstemning slutter            Stemt?
+	</text>
+	<button label="Lav forslag" label_selected="Lav forslag" name="btn_proposal"/>
+	<button label="Vis forslag" label_selected="Vis forslag" name="btn_view_proposal_item"/>
+	<button label="Se liste" label_selected="Se liste" name="btn_view_proposal_list"/>
+	<text name="quorum_lbl">
+		Min. antal:
+	</text>
+	<spinner name="quorum" tool_tip="Antal stemmende medlemmer der er nødvendig for at afstemning skal være bindende."/>
+	<text name="quorum_text">
+		ud af [MEMBERS] skal stemme.
+	</text>
+	<text name="duration_lbl">
+		Varighed:
+	</text>
+	<spinner name="duration" tool_tip="Antal dage afstemning vi vare."/>
+	<text name="duration_text">
+		dage
+	</text>
+	<radio_group name="majority" tool_tip="Nødvendigt flertal for at forslag kan gennemføres.">
+		Simpelt flertal
+		2/3 flertal
+		Enstemmigt
+	</radio_group>
+	<text name="start_lbl">
+		Start:
+	</text>
+	<text name="end_lbl">
+		Slut:
+	</text>
+	<button label="Send forslag" label_selected="Send forslag" name="btn_submit"/>
+	<button label="Annullér" label_selected="Annullér" name="btn_cancel"/>
+	<button label="Ja" label_selected="Ja" name="btn_yes"/>
+	<button label="Nej" label_selected="Nej" name="btn_no"/>
+	<button label="Blank" label_selected="Blank" name="btn_abstain"/>
+	<text name="txt">
+		Tidligere afstemninger
+	</text>
+	<text name="instructions">
+		Dobbeltklik på Tidligere stemme eller vælg en og klik på Vis emne 
+for at se resultater.
+	</text>
+	<text name="history_list_lbl">
+		Tidligere stemme                                                  Afstemning sluttede
+	</text>
+	<button label="Vis emne" label_selected="Vis emne" name="btn_view_history_item"/>
+	<text name="vote_text_lbl">
+		Afstemningsresultat:
+	</text>
+	<button label="Vis liste" label_selected="Vis liste" name="btn_view_history_list"/>
+	<string name="proposals_header_view_txt">
+		Åben gruppeforslag
+	</string>
+	<string name="proposals_header_view_inst">
+		Dobbeltklik på forslaget du gerne vil stemme om, eller klik på
+Lav forslag for at lave et nyt forslag.
+	</string>
+	<string name="proposals_header_create_txt">
+		Lav forslag
+	</string>
+	<string name="proposals_header_create_inst">
+		Skriv forslagsbeskrivelsen for det nye forslag. Du kan ændre min. antal
+stemmer, varighed og det flertal der kræves, for at vedtage forslaget.
+	</string>
+	<string name="proposals_header_vote_txt">
+		Forslag stemme
+	</string>
+	<string name="proposals_header_vote_inst">
+		Klik på Ja eller Nej-knappen for at stemme for eller imod forslaget,
+eller vælg Blank for at undlade at stemme.
+	</string>
+	<string name="proposals_header_voted_inst">
+		Du har stemt: [VOTE]
+	</string>
+	<string name="empty_proposal_txt">
+		Det forslag du prøver at lave er tomt.  Udfyld venligst forslaget før du stiller det.
+	</string>
+	<string name="proposals_submit_yes_txt">
+		Sender Ja til forslag...
+	</string>
+	<string name="proposals_submit_no_txt">
+		Sender Nej til forslag...
+	</string>
+	<string name="proposals_submit_abstain_txt">
+		Sender Blank stemme til forslag...
+	</string>
+	<string name="proposals_submit_new_txt">
+		Sender nyt forslag...
+	</string>
+	<string name="vote_recorded">
+		Din stemme er modtaget.
+	</string>
+	<string name="vote_previously_recorded">
+		Du har tidligere stemt.  Du kan kun stemme én gang pr. valghandling.
+	</string>
+</panel>

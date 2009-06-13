@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="toolbar">
+	<string name="Redock Windows">
+		Ablak visszarendezése
+	</string>
+	<layout_stack name="toolbar_stack">
+		<button label="" name="chat_btn"
+		     tool_tip="Üzenetküldő sáv megjelenítése. (Enter)" />
+		<flyout_button label="Kommunikáció" name="communicate_btn"
+		     tool_tip="Kommunikáció barátokkal vagy csoporttal." />
+		<button label="Repülés" label_selected="Repülés leállítása" name="fly_btn"
+		     tool_tip="Repülés megkezdése. Használd az E/C vagy PgUp/PgDn gombokat a fel- és leszálláshoz." />
+		<button label="Fénykép" name="snapshot_btn"
+		     tool_tip="Fénykép mentése merevlemezre vagy készlettárba." />
+		<button label="Keresés" name="directory_btn"
+		     tool_tip="Hely, esemény, ember és még sok egyéb keresése." />
+		<button label="Építés" name="build_btn" tool_tip="Új tárgy létrehozása." />
+		<button label="Világtérkép" name="map_btn"
+		     tool_tip="Térkép a világról. (Ctrl-M)" />
+		<button label="Mini térkép" name="radar_btn"
+		     tool_tip="MTérkép a környező helyszínről. (Ctrl-Shift-M)" />
+		<button label="Készlettár" name="inventory_btn" tool_tip="Saját tárgyak. (Ctrl-I)" />
+	</layout_stack>
+</panel>

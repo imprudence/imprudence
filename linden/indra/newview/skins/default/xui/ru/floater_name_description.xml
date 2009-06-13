@@ -7,5 +7,5 @@
 		Описание:
 	</text>
 	<button label="Отмена" name="cancel_btn" />
-	<button label="Загрузка (L$[AMOUNT])" name="ok_btn" />
+	<button label="Загрузка (L$[AMOUNT])" name="ok_btn" width="140" />
 </floater>

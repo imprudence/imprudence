@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="modal container" width="585">
+	<button label="Salva" label_selected="Salva" left="171" name="Save" width="100"/>
+	<button label="Annulla" label_selected="Annulla" left="280" name="Cancel" width="100"/>
+	<check_box label="Forma del Corpo" name="checkbox_Shape"/>
+	<check_box label="Pelle" name="checkbox_Skin"/>
+	<check_box label="Capelli" name="checkbox_Hair"/>
+	<check_box label="Occhi" name="checkbox_Eyes"/>
+	<check_box label="Rinomina gli indumenti con &#10;il nome della cartella" name="rename"/>
+	<check_box left="120" label="Camicia" name="checkbox_Shirt"/>
+	<check_box left="120" label="Pantaloni" name="checkbox_Pants"/>
+	<check_box left="120" label="Scarpe" name="checkbox_Shoes"/>
+	<check_box left="120" label="Calze" name="checkbox_Socks"/>
+	<check_box left="120" label="Giacca" name="checkbox_Jacket"/>
+	<check_box left="120" label="Guanti" name="checkbox_Gloves"/>
+	<check_box left="120" label="Canottiera" name="checkbox_Undershirt"/>
+	<check_box left="120" label="Mutande" name="checkbox_Underpants"/>
+	<check_box left="120" label="Gonna" name="checkbox_Skirt"/>
+	<check_box label="Torace" name="checkbox_Chest"/>
+	<check_box label="Cranio" name="checkbox_Skull"/>
+	<check_box label="Spalla sinistra" name="checkbox_Left Shoulder"/>
+	<check_box label="Spalla destra" name="checkbox_Right Shoulder"/>
+	<check_box label="Mano sinistra" name="checkbox_Left Hand"/>
+	<check_box label="Mano destra" name="checkbox_Right Hand"/>
+	<check_box label="Piede sinistro" name="checkbox_Left Foot"/>
+	<check_box label="Piede destro" name="checkbox_Right Foot"/>
+	<check_box label="Spina dorsale" name="checkbox_Spine"/>
+	<check_box label="Bacino" name="checkbox_Pelvis"/>
+	<check_box label="Bocca" name="checkbox_Mouth"/>
+	<check_box label="Mento" name="checkbox_Chin"/>
+	<check_box label="Orecchio sinistro" name="checkbox_Left Ear"/>
+	<check_box left="325"  label="Orecchio destro" name="checkbox_Right Ear"/>
+	<check_box left="325" label="Occhio sinistro" name="checkbox_Left Eyeball"/>
+	<check_box left="325" label="Occhio destro" name="checkbox_Right Eyeball"/>
+	<check_box left="325" label="Naso" name="checkbox_Nose"/>
+	<check_box left="325" label="Braccio D" name="checkbox_R Upper Arm"/>
+	<check_box left="325" label="Avambraccio D" name="checkbox_R Forearm"/>
+	<check_box left="325" label="Braccio S" name="checkbox_L Upper Arm"/>
+	<check_box left="325" label="Avambraccio S" name="checkbox_L Forearm"/>
+	<check_box left="325" label="Anca destra" name="checkbox_Right Hip"/>
+	<check_box left="325" label="Coscia D" name="checkbox_R Upper Leg"/>
+	<check_box left="325" label="Gamba D" name="checkbox_R Lower Leg"/>
+	<check_box left="325" label="Anca sinistra" name="checkbox_Left Hip"/>
+	<check_box left="325" label="Coscia S" name="checkbox_L Upper Leg"/>
+	<check_box left="435" label="Gamba S" name="checkbox_L Lower Leg"/>
+	<check_box left="435" label="Stomaco" name="checkbox_Stomach"/>
+	<check_box left="435" label="Pettorali S" name="checkbox_Left Pec"/>
+	<check_box left="435" label="Pettorali D" name="checkbox_Right Pec"/>
+	<check_box left="435" label="In centro 2" name="checkbox_Center 2"/>
+	<check_box left="435" label="In alto a destra" name="checkbox_Top Right"/>
+	<check_box left="435" label="In alto" name="checkbox_Top"/>
+	<check_box left="435" label="In alto a sinistra" name="checkbox_Top Left"/>
+	<check_box left="435" label="In centro" name="checkbox_Center"/>
+	<check_box left="435" label="In basso a sinistra" name="checkbox_Bottom Left"/>
+	<check_box left="435" label="In basso" name="checkbox_Bottom"/>
+	<check_box left="435" label="In basso a destra" name="checkbox_Bottom Right"/>
+	<text name="Make New Outfit" font="SansSerifLarge">
+		Crea un nuovo outfit
+	</text>
+	<text name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
+		Gli &apos;outfit&apos; sono cartelle che contengono vestiti e parti del corpo.
+Trascina una cartella outfit sul tuo avatar per indossarne tutto il contenuto.
+
+&apos;Crea un nuovo outfit&apos; crea una nuova cartella nella quale salve le copia degli indumenti che
+stai indossando ora.
+	</text>
+	<text name="Folder name:" font="SansSerifLarge">
+		Nome cartella:
+	</text>
+	<text name="Items to include in outfit:" font="SansSerifLarge">
+		Elementi da includere nell&apos;outfit:
+	</text>
+	<text name="Body Parts:">
+		Parti del corpo:
+	</text>
+	<text name="Clothes:" left="120" >
+		Abiti:
+	</text>
+	<text name="Attachments:">
+		Oggetti indossabili:
+	</text>
+	<text name="Options:">
+		Opzioni:
+	</text>
+	<line_editor name="name ed">
+		Nuovo outfit
+	</line_editor>
+</floater>

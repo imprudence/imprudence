@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="device_settings">
+	<text type="string" length="1" name="Audio Devices">
+		Ses Aygıtları
+	</text>
+	<text type="string" length="1" name="Input device (microphone):">
+		Giriş aygıtı (mikrofon):
+	</text>
+	<text type="string" length="1" name="Output device (speakers):">
+		Çıkış aygıtı (hoparlörler):
+	</text>
+	<text type="string" length="1" name="Input level:">
+		Giriş seviyesi
+	</text>
+	<text_editor type="string" length="1" name="voice_intro_text1">
+		Diğer üyelerin duyacağı sesinizin seviyesini kaydırgacı kullanarak değiştirebilirsiniz.Giriş seviyesini test etmek için,basitçe mikrofonunuza doğru konuşunuz.
+	</text_editor>
+	<volume_slider name="mic_volume_slider"
+	     tool_tip="Kaydırgacı kullanarak ses seviyesini değiştirebilirsiniz" />
+	<text name="wait_text">
+		Lütfen bekleyiniz
+	</text>
+	<string name="default_text">
+		Default
+	</string>
+</panel>

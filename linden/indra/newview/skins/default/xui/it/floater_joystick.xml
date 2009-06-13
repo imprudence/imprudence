@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Joystick" title="Configurazione Joystick">
+	<check_box name="enable_joystick">
+		Abilita Joystick:
+	</check_box>
+	<text left="120" name="joystick_type" width="380"/>
+	<spinner label="Mapping: asse X" name="JoystickAxis1" label_width="140" width="180" left="12"/>
+	<spinner label="Mapping: asse Y" name="JoystickAxis2" label_width="134" width="174" left="205"/>
+	<spinner label="Mapping: asse Z" name="JoystickAxis0" label_width="94" width="134" left="390"/>
+	<spinner label="Mapping: direzione o Pitch" name="JoystickAxis4" label_width="140" width="180" left="12"/>
+	<spinner label="Mapping: altitudine o Yaw" name="JoystickAxis5" label_width="134" width="174" left="205"/>
+	<spinner label="Mapping del Roll" name="JoystickAxis3" label_width="94" width="134" left="390"/>
+	<spinner label="Mapping dello Zoom" name="JoystickAxis6" label_width="140" width="180" left="12"/>
+	<check_box label="Zoom diretto" name="ZoomDirect" left="205"/>
+	<check_box label="Cursore 3D" name="Cursor3D"/>
+	<check_box label="Auto livellamento" name="AutoLeveling"/>
+	<text name="Control Modes:" left="3" width="113">
+		Modalità di controllo:
+	</text>
+	<check_box name="JoystickAvatarEnabled">
+		Avatar
+	</check_box>
+	<check_box name="JoystickBuildEnabled" left="192">
+		Costruire
+	</check_box>
+	<check_box name="JoystickFlycamEnabled">
+		Camera dall&apos;alto
+	</check_box>
+	<text name="XScale">
+		Regolazione X
+	</text>
+	<text name="YScale">
+		Regolazione Y
+	</text>
+	<text name="ZScale">
+		Regolazione Z
+	</text>
+	<text name="PitchScale" left="3" width="112">
+		Regolazione: Pitch
+	</text>
+	<text name="YawScale" left="3" width="112">
+		Regolazione: Yaw
+	</text>
+	<text name="RollScale" left="3" width="112">
+		Regolazione: Roll
+	</text>
+	<text name="XDeadZone">
+		Angolo morto X
+	</text>
+	<text name="YDeadZone">
+		Angolo morto Y
+	</text>
+	<text name="ZDeadZone">
+		Angolo morto Z
+	</text>
+	<text name="PitchDeadZone" left="3" width="112">
+		Angolo morto: Pitch
+	</text>
+	<text name="YawDeadZone" left="3" width="112">
+		Angolo morto: Yaw
+	</text>
+	<text name="RollDeadZone" left="3" width="112">
+		Angolo morto: Roll
+	</text>
+	<text name="Feathering">
+		Smussamento
+	</text>
+	<text name="ZoomScale2" width="135" left="6">
+		Regolazione dello zoom
+	</text>
+	<text name="ZoomDeadZone" width="135" left="6">
+		Angolo morto dello zoom
+	</text>
+	<button label="SpaceNavigator Defaults" name="SpaceNavigatorDefaults"/>
+	<button label="OK" label_selected="OK" name="ok_btn"/>
+	<button label="Annulla" label_selected="Annulla" name="cancel_btn"/>
+	<string name="JoystickMonitor">
+		Monitor del Joystick
+	</string>
+	<string name="Axis">
+		Assi [NUM]
+	</string>
+	<string name="NoDevice">
+		nessun dispositivo trovato
+	</string>
+</floater>

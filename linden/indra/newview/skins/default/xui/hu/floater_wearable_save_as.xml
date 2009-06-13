@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container" title=" ">
+	<button label="Elment" label_selected="Elment" name="Save" />
+	<button label="Mégsem" label_selected="Mégsem" name="Cancel" />
+	<text type="string" length="1" name="Save item as:">
+		Tétel mentése másként:
+	</text>
+	<line_editor name="name ed">
+		New [DESC]
+	</line_editor>
+</floater>

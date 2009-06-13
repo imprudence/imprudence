@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="floaterreleasemessage" title="Wejście do Regionu">
-	<button label="Zamknij" name="close_btn" />
+	<button label="Zamknij" name="close_btn" width="70"/>
 	<string name="in-world_help_title">
 		Pomoc w Świecie
 	</string>

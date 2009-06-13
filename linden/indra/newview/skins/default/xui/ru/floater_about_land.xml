@@ -147,31 +147,31 @@
 			<text length="1" name="region_name_lbl" type="string">
 				Название:
 			</text>
-			<text length="1" name="region_name_text" type="string">
+			<text length="1" name="region_name_text" type="string" left="104">
 				leyla
 			</text>
 			<text name="region_landtype_lbl">
 				Тип:
 			</text>
-			<text name="region_landtype_text">
+			<text name="region_landtype_text" left="104">
 				Материк / Поместье
 			</text>
 			<text name="region_maturity_lbl">
 				Рейтинг:
 			</text>
-			<text name="region_maturity_text">
+			<text name="region_maturity_text" left="104">
 				Adult
 			</text>
 			<text name="resellable_lbl">
 				Перепродажа:
 			</text>
-			<text length="1" name="resellable_clause" type="string">
+			<text length="1" name="resellable_clause" type="string" left="104" width="350">
 				Земля в этом регионе не может быть перепродана.
 			</text>
 			<text name="changeable_lbl">
 				Разделить:
 			</text>
-			<text length="1" name="changeable_clause" type="string">
+			<text length="1" name="changeable_clause" type="string" left="104" width="350">
 				Земля в этом регионе не может быть объединена/
 разделена.
 			</text>
@@ -276,7 +276,7 @@
 			<check_box label="Все" name="edit objects check" left="310"/>
 			<check_box label="Группа" name="edit group objects check"/>
 			<text length="1" name="allow_label3" type="string" width="124">
-				Объекты Entry:
+				Вхожд. объектов:
 			</text>
 			<check_box label="Все" name="all object entry check" left="310"/>
 			<check_box label="Группа" name="group object entry check"/>
@@ -301,7 +301,7 @@
 			<string name="search_disabled_permissions_tooltip">
 				Эта опция отключена, потому что Вы не можете изменять настройки участка.
 			</string>
-			<combo_box name="land category with adult">
+			<combo_box name="land category with adult" width="170">
 				<combo_item name="AnyCategory">
 					Любая Категория
 				</combo_item>
@@ -342,7 +342,7 @@
 					Другое
 				</combo_item>
 			</combo_box>
-			<combo_box name="land category">
+			<combo_box name="land category" width="170">
 				<combo_item name="AnyCategory">
 					Любая категория
 				</combo_item>
@@ -380,7 +380,7 @@
 					Другое
 				</combo_item>
 			</combo_box>
-			<button label="?" label_selected="?" name="?"/>
+			<button label="?" label_selected="?" name="?" left="430"/>
 			<check_box label="Mature контент" name="MatureCheck" tool_tip=""/>
 			<string name="mature_check_mature">
 				Mature контент

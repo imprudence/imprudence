@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_login">
+	<string name="real_url">
+		http://secondlife.com/app/login/
+	</string>
+	<string name="forgot_password_url">
+		http://secondlife.com/account/request.php
+	</string>
+	<text name="first_name_text">
+		Ad:
+	</text>
+	<text name="last_name_text">
+		Soyad:
+	</text>
+	<text name="password_text">
+		Şifre:
+	</text>
+	<text name="start_location_text">
+		Başlangıç:
+	</text>
+	<combo_box name="start_location_combo">
+		<combo_item name="MyHome">
+			Evim
+		</combo_item>
+		<combo_item name="MyLastLocation">
+			Son lokasyonum
+		</combo_item>
+		<combo_item name="Typeregionname">
+			&lt;Bölge ismi girin&gt;
+		</combo_item>
+	</combo_box>
+	<check_box label="Şifreyi hatırla" name="remember_check" />
+	<button label="Giriş" label_selected="Giriş" name="connect_btn" />
+	<text name="create_new_account_text">
+		Hesap için kaydolun
+	</text>
+	<text name="forgot_password_text">
+		Adınızı veya şifrenizi mi unuttunuz?
+	</text>
+	<text name="channel_text">
+		[VERSION]
+	</text>
+</panel>

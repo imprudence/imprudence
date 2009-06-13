@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(ukendt)" name="im_floater" title="(ukendt)">
+	<string name="ringing">
+		Kalder op...
+	</string>
+	<string name="answering">
+		Forbinder...
+	</string>
+	<string name="connected">
+		Forbundet, klik på afbryd for at afslutte
+	</string>
+	<string name="hang_up">
+		Opkald afsluttet
+	</string>
+	<string name="inventory_item_offered">
+		Beholdningsgenstand tilbudt
+	</string>
+	<string name="voice_icon">
+		icn_voice-pvtfocus.tga
+	</string>
+	<string name="title_string">
+		Privat besked (IM) med [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] skriver...
+	</string>
+	<string name="session_start_string">
+		Starter session med [NAME] vent venligst.
+	</string>
+	<string name="default_text_label">
+		Klik her for at sende privat besked (IM).
+	</string>
+	<string name="unavailable_text_label">
+		Tekst chat er ikke tilgængeligt i dette opkald.
+	</string>
+	<button label="Profil..." name="profile_callee_btn"/>
+	<button label="Opkald" name="start_call_btn" pad_right="7" width="120"/>
+	<button halign="right" label="Afbryd" name="end_call_btn" width="120"/>
+	<panel left_delta="116" name="speaker_controls">
+		<button label="" name="mute_btn" tool_tip="Sluk for lyd"/>
+	</panel>
+	<line_editor label="Klik her for at sende privat besked (IM)" name="chat_editor"/>
+	<button label="Send" name="send_btn"/>
+	<string name="live_help_dialog">
+		*** Velkommen til hjælpesystem ***
+Undersøg venligst først Second Life hjælpesiderne ved at trykke F1 eller ved at besøge vidensdatabasen http://secondlife.com/knowledgebase/
+Hvis ikke du kan finde svaret der, så indtast venligst dit spørgsmål og vent lidt på at tilgångelige hjælpere kan svare.
+-=-=- Svartiderne kan variere, specielt i travle perioder. *BEMæRK*: Hjælp vil normalt altid foregå på engelsk. -=-=-
+	</string>
+</floater>

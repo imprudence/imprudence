@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Emlak" name="Estate">
+	<text name="estate_help_text">
+		Bu sekmedeki değişiklikler,bu emlaktaki
+tüm bölgelerde etkili olacaktır.
+	</text>
+	<text name="estate_text">
+		Emlak:
+	</text>
+	<text name="estate_name">
+		(bilinmeyen)
+	</text>
+	<text name="owner_text">
+		Sahibi:
+	</text>
+	<text name="estate_owner">
+		(bilinmeyen)
+	</text>
+	<check_box label="Küresel saati kullan" name="use_global_time_check"/>
+	<button label="?" name="use_global_time_help"/>
+	<check_box label="Sabit güneş" name="fixed_sun_check"/>
+	<button label="?" name="fixed_sun_help"/>
+	<slider label="Aşama" name="sun_hour_slider"/>
+	<check_box label="Genel girişe izin ver" name="externally_visible_check"/>
+	<button label="?" name="externally_visible_help"/>
+	<text length="1" name="Only Allow" type="string">
+		Giriş kısıtlaması:
+	</text>
+	<check_box label="Ödeme bilgisi olmayan üyeler" name="limit_payment" tool_tip="Tanımlanamayan üyeleri yasaklayın."/>
+	<check_box label="Yaş doğrulamış yetişkinler" name="limit_age_verified" tool_tip="Yaşlarını doğrulamamış üyeleri yasaklayın. Daha fazla bilgi için support.secondlife.com adresini ziyaret ediniz."/>
+	<check_box label="Sesli sohbet izinli" name="voice_chat_check"/>
+	<button label="?" name="voice_chat_help"/>
+	<check_box label="Direkt ışınlanma izinli" name="allow_direct_teleport"/>
+	<button label="?" name="allow_direct_teleport_help"/>
+	<text name="abuse_email_text">
+		Şikayet e-posta adresi:
+	</text>
+	<string name="email_unsupported">
+		Özellik desteklenmiyor
+	</string>
+	<button label="?" name="abuse_email_address_help"/>
+	<button label="Uygula" name="apply_btn"/>
+	<button label="Üyeyi emlaktan çıkar..." name="kick_user_from_estate_btn"/>
+	<button label="Emlağa mesaj gönder..." name="message_estate_btn"/>
+	<text name="estate_manager_label">
+		Emlak menejerleri:
+	</text>
+	<button label="?" name="estate_manager_help"/>
+	<button label="Çıkar..." name="remove_estate_manager_btn"/>
+	<button label="Ekle..." name="add_estate_manager_btn"/>
+	<text name="allow_resident_label">
+		İzinli üyeler:
+	</text>
+	<button label="?" name="allow_resident_help"/>
+	<button label="Çıkar..." name="remove_allowed_avatar_btn"/>
+	<button label="Ekle..." name="add_allowed_avatar_btn"/>
+	<text name="allow_group_label">
+		İzinli gruplar:
+	</text>
+	<button label="?" name="allow_group_help"/>
+	<button label="Çıkar..." name="remove_allowed_group_btn"/>
+	<button label="Ekle..." name="add_allowed_group_btn"/>
+	<text name="ban_resident_label">
+		Yasaklı üyeler:
+	</text>
+	<button label="?" name="ban_resident_help"/>
+	<button label="Çıkar..." name="remove_banned_avatar_btn"/>
+	<button label="Ekle..." name="add_banned_avatar_btn"/>
+</panel>

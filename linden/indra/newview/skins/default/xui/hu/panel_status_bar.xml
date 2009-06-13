@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="status">
+	<text type="string" length="1" name="ParcelNameText"
+	     tool_tip="A telek neve, amelyen jelenleg tartózkodsz. Kattints a föld információkra.">
+		telek neve idekerül
+	</text>
+	<text type="string" length="1" name="BalanceText" tool_tip="Felhasználó egyenlege">
+		Betöltés folyamatban...
+	</text>
+	<button label="" label_selected="" name="buycurrency" tool_tip="Deviza vásárlása" />
+	<text type="string" length="12" name="TimeText" tool_tip="Jelenlegi idő (PST)">
+		12:00 de
+	</text>
+	<string name="StatBarDaysOfWeek">
+		Vasárnap:Hétfő:Kedd:Szerda:Csütörtök:Péntek:Szombat
+	</string>
+	<string name="StatBarMonthsOfYear">
+		Január:Február:Március:Április:Május:Június:Július:Augusztus:Szeptember:Október:November:December
+	</string>
+	<button label="" label_selected="" name="scriptout"
+	     tool_tip="Kódhibák és figyelmeztetések" />
+	<button label="" label_selected="" name="health" tool_tip="Állapot" />
+	<text type="string" length="1" name="HealthText" tool_tip="Állapot">
+		100%
+	</text>
+	<button label="" label_selected="" name="no_fly" tool_tip="Repülés tiltott" />
+	<button label="" label_selected="" name="no_build"
+	     tool_tip="Építés/Rezzelés tiltott" />
+	<button label="" label_selected="" name="no_scripts" tool_tip="Kód futtatása tiltott" />
+	<button label="" label_selected="" name="restrictpush" tool_tip="Lökés tiltása"/>
+	<button label="" label_selected="" name="status_no_voice"
+	     tool_tip="Hangüzenetek küldése tiltott" />
+	<button label="" label_selected="" name="buyland" tool_tip="Telek megvásárlása" />
+	<line_editor label="Keresés" name="search_editor" tool_tip="Keresés a Second Life-ban" />
+	<button label="" label_selected="" name="search_btn"
+	     tool_tip="Keresés a Second Life-ban" />
+	<string name="packet_loss_tooltip">
+		Csomagveszteség
+	</string>
+	<string name="bandwidth_tooltip">
+		Sávszélesség
+	</string>
+</panel>

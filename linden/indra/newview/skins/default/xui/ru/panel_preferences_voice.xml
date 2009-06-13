@@ -15,7 +15,7 @@
 	<text length="1" name="push_to_talk_heading" type="string">
 		Нажать для Разговора (Push To Talk - PTT)
 	</text>
-	<text_editor length="1" name="voice_chat_description" type="string">
+	<text_editor length="1" name="voice_chat_description" type="string" bottom_delta="-76" height="81" width="465">
 		Режим Нажми для Разговора позволяет контролировать время, когда Ваш голос будет передаваться. Когда включено, нажмите и отпустите клавишу, отвечающую за включение режима, чтобы включить или выключить Ваш микрофон. Когда выключено, микрофон активен только, когда нажата клавиша.
 	</text_editor>
 	<check_box label="Использовать Нажми для Разговора во включенном режиме" name="push_to_talk_toggle_check"/>
@@ -29,8 +29,8 @@
 	</text>
 	<check_box label="Принимать голосовые сообщения только от моих Друзей" name="voice_call_friends_only_check"/>
 	<check_box label="Выключать микрофон, когда заканчиваются Звонки" name="auto_disengage_mic_check"/>
-	<button label="Настройки Устройства" name="device_settings_btn"/>
-	<text_editor length="1" name="device_settings_text" type="string">
+	<button label="Настройки Устройства" name="device_settings_btn" width="180" bottom_delta="-35"/>
+	<text_editor length="1" name="device_settings_text" type="string" width="490" bottom_delta="-45" height="48">
 		ЗАМЕТКА: Находясь в Настройках Устройства Вы будете временно отключены от Голосового Чата, а изменения, которые Вы сделаете, будут немедленно задействованы.
 	</text_editor>
 </panel>

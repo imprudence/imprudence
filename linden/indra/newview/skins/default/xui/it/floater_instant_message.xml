@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(sconosciuto)" name="im_floater" title="(sconosciuto)">
+	<string name="ringing">
+		In chiamata...
+	</string>
+	<string name="answering">
+		In connessione...
+	</string>
+	<string name="connected">
+		Connesso, clicca &apos;Fine Chiamata&apos; per riagganciare
+	</string>
+	<string name="hang_up">
+		Chaiamata conclusa
+	</string>
+	<string name="inventory_item_offered">
+		Offerto oggetto dell&apos;inventario
+	</string>
+	<string name="voice_icon">
+		icn_voice-pvtfocus.tga
+	</string>
+	<string name="title_string">
+		Instant Message con [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] sta scrivendo...
+	</string>
+	<string name="session_start_string">
+		Sessione in avvio con [NAME], attendi.
+	</string>
+	<string name="default_text_label">
+		Clicca qui per un instant message.
+	</string>
+	<string name="unavailable_text_label">
+		La chat di testo non è disponibile in questa chiamata.
+	</string>
+	<button label="Profilo..." name="profile_callee_btn"/>
+	<button label="Chiama" name="start_call_btn"/>
+	<button label="Termina" name="end_call_btn"/>
+	<panel name="speaker_controls">
+		<button label="" name="mute_btn" tool_tip="Muta il voice per questo residente"/>
+	</panel>
+	<line_editor label="Clicca qui per un instant message" name="chat_editor"/>
+	<button label="Invia" name="send_btn"/>
+	<string name="live_help_dialog">
+		*** Benvenuto nella &apos;Richiesta di Aiuto&apos; *** 
+Controlla, prima le nostre &apos;Pagine di Aiuto&apos; premendo F1, o accedendo alle Nozioni di Base a http://secondlife.com/knowledgebase/ 
+Se la risposta che cerchi non è presente, scrivi la tua domanda per cominciare, quindi attendi qualche istante per consentire agli assistenti disponibili di rispondere.
+-=-=- I tempi di risposta varieranno, specialmente durante gli orari di picco -=-=-
+	</string>
+</floater>

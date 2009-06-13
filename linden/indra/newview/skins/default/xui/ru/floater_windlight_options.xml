@@ -6,11 +6,11 @@
 	</text>
 	<button label="Новый" label_selected="Новый" name="WLNewPreset" />
 	<button label="Сохранить" label_selected="Сохранить"
-	     name="WLSavePreset" />
-	<button label="Удалить" label_selected="Удалить" name="WLDeletePreset" />
+	     name="WLSavePreset"  left_delta="72" width="80"/>
+	<button label="Удалить" label_selected="Удалить" name="WLDeletePreset" left_delta="82"/>
 	<button label="Редактор цикла дня"
 	     label_selected="Редактор цикла дня"
-	     name="WLDayCycleMenuButton" />
+	     name="WLDayCycleMenuButton" font="SansSerifSmall"  width="165" left_delta="85"/>
 	<tab_container name="WindLight Tabs">
 		<panel label="Атмосфера" name="Atmosphere">
 			<text type="string" length="1" name="BHText">
@@ -194,11 +194,12 @@
 			</text>
 			<button label="?" name="WLCloudScaleHelp" />
 			<slider label="" name="WLCloudScale" />
-			<text type="string" length="1" name="WLCloudDetailText">
-				Детальность облаков (XY/плотность)
+			<text type="string" length="1" name="WLCloudDetailText" font="SansSerifSmall">
+				Детальность облаков
+  (XY/плотность)
 			</text>
 			<button label="?" name="WLCloudDetailHelp" />
-			<text type="string" length="1" name="BHText8">
+			<text type="string" length="1" name="BHText8" bottom="-113">
 				X
 			</text>
 			<text type="string" length="1" name="BHText9">
@@ -207,24 +208,24 @@
 			<text type="string" length="1" name="BHText10">
 				D
 			</text>
-			<slider label="" name="WLCloudDetailX" />
+			<slider bottom="-127" name="WLCloudDetailX"/>
 			<slider label="" name="WLCloudDetailY" />
 			<slider label="" name="WLCloudDetailDensity" />
 			<text type="string" length="1" name="WLCloudScrollXText">
 				Облака по X
 			</text>
-			<button label="?" name="WLCloudScrollXHelp" />
-			<check_box label="Заблокировать" name="WLCloudLockX" />
+			<button label="?" name="WLCloudScrollXHelp" left="560"/>
+			<check_box label="Заблокировать" name="WLCloudLockX" left="585"/>
 			<slider label="" name="WLCloudScrollX" />
 			<text type="string" length="1" name="WLCloudScrollYText">
 				Облака по Y
 			</text>
-			<button label="?" name="WLCloudScrollYHelp" />
-			<check_box label="Заблокировать" name="WLCloudLockY" />
+			<button label="?" name="WLCloudScrollYHelp" left="560"/>
+			<check_box label="Заблокировать" name="WLCloudLockY" left="585"/>
 			<slider label="" name="WLCloudScrollY" />
-			<check_box label="Рисовать классические облака"
+			<check_box label="Рисовать классические &#10;облака"
 			     name="DrawClassicClouds" />
-			<button label="?" name="WLClassicCloudsHelp" />
+			<button label="?" name="WLClassicCloudsHelp" left="645"/>
 		</panel>
 	</tab_container>
 	<string name="WLDefaultSkyNames">

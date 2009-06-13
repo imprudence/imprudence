@@ -6,7 +6,7 @@
 	<text name="description_label">
 		Опис:
 	</text>
-	<spinner label="Пріоритет" name="priority"
+	<spinner label_width="72" width="110" label="Пріоритет" name="priority"
 	     tool_tip="Управління тим, які інші анімації можуть бути перекриті даною анімацією." />
 	<check_box label="Цикл" name="loop_check"
 	     tool_tip="Зациклює анімацію." />
@@ -17,7 +17,7 @@
 	<text name="hand_label">
 		Положення рук
 	</text>
-	<combo_box label="" name="hand_pose_combo"
+	<combo_box label="" name="hand_pose_combo" left_delta="110" width="174" 
 	     tool_tip="Управління тим, що під час анімації роблять руки.">
 		<combo_item name="Spread">
 			Розставлені
@@ -62,7 +62,7 @@
 	<text name="emote_label">
 		Вираз
 	</text>
-	<combo_box label="" name="emote_combo"
+	<combo_box label="" name="emote_combo" left_delta="110" width="174" 
 	     tool_tip="Управління тим, що під час анімації робить голова.">
 		<combo_item name="[None]">
 			[Ні]
@@ -128,7 +128,7 @@
 	<text name="preview_label">
 		Показ до
 	</text>
-	<combo_box label="" name="preview_base_anim"
+	<combo_box label="" name="preview_base_anim" left_delta="110" 
 	     tool_tip="Використовуйте це для теста поведінки Вашої анімації, доки Ваш аватар виконує якісь дії.">
 		<combo_item name="Standing">
 			Стояти
@@ -143,11 +143,11 @@
 			Літати
 		</combo_item>
 	</combo_box>
-	<spinner label="Легкий вхід (сек)" name="ease_in_time"
+	<spinner label_width="108" width="192" label="Легкий вхід (сек)" name="ease_in_time"
 	     tool_tip="Кількість часу в секундах, через яку анімації змішуються." />
-	<spinner label="Легкий вихід(сек)" name="ease_out_time"
+	<spinner bottom_delta="-20"  label_width="108" left="10"  width="192" label="Легкий вихід (сек)" name="ease_out_time"
 	     tool_tip="Кількість часу в секундах, через яку анімації розходяться." />
-	<button label="" name="play_btn"
+	<button bottom_delta="-32" label="" name="play_btn"
 	     tool_tip="Увімкнути/поставити на паузу Вашу анімацію." />
 	<button label="" name="stop_btn"
 	     tool_tip="Зупинити програвання анімації." />
@@ -155,10 +155,11 @@
 	<text name="bad_animation_text">
 		Неможливо прочитати файл анімації
 
-Ми рекомендуємо файл формату BVH, експортований з Poser 4.
+Ми рекомендуємо файл формату BVH,
+експортований з Poser 4.
 	</text>
 	<button label="Відміна" name="cancel_btn" />
-	<button label="Завантаж. (L$[AMOUNT])" name="ok_btn" />
+	<button label="Завантаж. (L$[AMOUNT])" name="ok_btn"  width="143" left_delta="-149"/>
 	<string name="failed_to_initialize">
 		Помилка при спробі ініціалізувати рух.
 	</string>

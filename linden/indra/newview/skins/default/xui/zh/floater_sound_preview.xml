@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Name/Description" title="声效.wav">
+<floater name="Sound Preview" title="声效.wav">
 	<text name="name_label">
 		名字:
 	</text>

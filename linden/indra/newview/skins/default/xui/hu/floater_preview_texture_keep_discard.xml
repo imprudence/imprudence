@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview_texture">
+	<text type="string" length="1" name="desc txt">
+		Megnevezés:
+	</text>
+	<button label="Megtart" label_selected="Megtart" name="Keep" />
+	<button label="Discard" label_selected="Elvet" name="Discard" />
+	<text type="string" length="1" name="dimensions">
+		Méret: [WIDTH] x [HEIGHT]
+	</text>
+</floater>

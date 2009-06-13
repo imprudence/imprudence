@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Ayıklama" name="Debug">
+	<text name="region_text_lbl">
+		Bölge:
+	</text>
+	<text name="region_text">
+		bilinmeyen
+	</text>
+	<check_box label="Betikleri yasakla" name="disable_scripts_check" tool_tip="Bu bölgede tüm betikler yasak"/>
+	<button label="?" name="disable_scripts_help"/>
+	<check_box label="Çarpmaları yasakla" name="disable_collisions_check" tool_tip="Bu bölgede karakter olmayan çarpışmalar yasak"/>
+	<button label="?" name="disable_collisions_help"/>
+	<check_box label="Fiziği yasakla" name="disable_physics_check" tool_tip="Bu bölgedeki tüm fiziği yasakla"/>
+	<button label="?" name="disable_physics_help"/>
+	<button label="Uygula" name="apply_btn"/>
+	<text name="objret_text_lbl">
+		Obje geri gönderme
+	</text>
+	<text name="resident_text_lbl">
+		Üye:
+	</text>
+	<line_editor name="target_avatar_name">
+		(yok)
+	</line_editor>
+	<button label="Seç..." name="choose_avatar_btn"/>
+	<text name="options_text_lbl">
+		Seçenekler:
+	</text>
+	<check_box label="Sadece o betikli objeleri geri gönderiniz" name="return_scripts" tool_tip="Sadece betikli objeleri geri gönderiniz."/>
+	<check_box label="Sadece başkasına ait arazideki o objeleri geri gönderiniz" name="return_other_land" tool_tip="Sadece başkasına ait arazideki objeleri geri gönderiniz"/>
+	<check_box label="Bu emlaktaki her bölgede bulunan objeleri geri gönderiniz" name="return_estate_wide" tool_tip="Bu emlağı oluşturan her bölgedeki objeleri geri gönderiniz"/>
+	<button label="Geri gönder" name="return_btn"/>
+	<button label="Yoğun çarpıştırıcılar..." name="top_colliders_btn" tool_tip="En çok çarpışmalar yaşayan objelerin listesi"/>
+	<button label="?" name="top_colliders_help"/>
+	<button label="Yoğun betikler..." name="top_scripts_btn" tool_tip="Uzun zamandır betikler çalıştıran objelerin listesi"/>
+	<button label="?" name="top_scripts_help"/>
+	<button label="Yeniden başlat" name="restart_btn" tool_tip="2 dakika geri sayımdan sonra bölgeyi baştan başlatır"/>
+	<button label="?" name="restart_help"/>
+	<button label="Başlatmayı ertele" name="cancel_restart_btn" tool_tip="Bölge baştan başlatma işlemini 1 saatliğine erteler"/>
+</panel>

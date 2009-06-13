@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="build options floater" title="Grid beállítások">
+	<spinner label="Grid egység (méter)" name="GridResolution" />
+	<spinner label="Grid méret (méter)" name="GridDrawSize" />
+	<check_box label="Alegység illesztés engedélyezése" name="GridSubUnit" />
+	<check_box label="Átmenő részek megjelenítése" name="GridCrossSection" />
+	<slider label="Grid átlátszóság" name="GridOpacity" />
+</floater>

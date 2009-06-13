@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_lagmeter" title="Csomagveszteség mérő">
+	<button label="" label_selected="" name="client_lagmeter"
+	     tool_tip="A kliens csomagveszteségének állapota" />
+	<text name="client">
+		Kliens:
+	</text>
+	<text name="client_text">
+		Normál
+	</text>
+	<button label="" label_selected="" name="network_lagmeter"
+	     tool_tip="A hálózat csomagveszteségének állapota" />
+	<text name="network">
+		Hálózat:
+	</text>
+	<text name="network_text">
+		Normál
+	</text>
+	<button label="" label_selected="" name="server_lagmeter"
+	     tool_tip="A szerver csomagveszteségének állapota" />
+	<text name="server">
+		Szerver:
+	</text>
+	<text name="server_text">
+		Normál
+	</text>
+	<button label="?" name="server_help" />
+	<button label="&gt;&gt;" name="minimize" />
+	<text name="max_title_msg">
+		Csomagveszteség mérő
+	</text>
+	<text name="max_width_px">
+		360
+	</text>
+	<text name="min_title_msg">
+		Csomagveszteség
+	</text>
+	<text name="min_width_px">
+		90
+	</text>
+	<text name="client_text_msg">
+		Kliens
+	</text>
+	<text name="client_frame_rate_critical_fps">
+		10
+	</text>
+	<text name="client_frame_rate_warning_fps">
+		15
+	</text>
+	<text name="client_frame_time_window_bg_msg">
+		Normál, ablak a háttérben
+	</text>
+	<text name="client_frame_time_critical_msg">
+		Kliens frame rate alatt: [CLIENT_FRAME_RATE_CRITICAL]
+	</text>
+	<text name="client_frame_time_warning_msg">
+		Kliens frame rate között: [CLIENT_FRAME_RATE_CRITICAL] és [CLIENT_FRAME_RATE_WARNING]
+	</text>
+	<text name="client_frame_time_normal_msg">
+		Normál
+	</text>
+	<text name="client_draw_distance_cause_msg">
+		Lehetséges ok: Látótávolság túl messzire van beállítva
+	</text>
+	<text name="client_texture_loading_cause_msg">
+		Lehetséges ok: Kép betöltés
+	</text>
+	<text name="client_texture_memory_cause_msg">
+		Lehetséges ok: Túl sok kép a memóriában
+	</text>
+	<text name="client_complex_objects_cause_msg">
+		Lehetséges ok: Túl sok összetett tárgy a helyszínen
+	</text>
+	<text name="network_text_msg">
+		Hálózat
+	</text>
+	<text name="network_packet_loss_critical_pct">
+		10
+	</text>
+	<text name="network_packet_loss_warning_pct">
+		5
+	</text>
+	<text name="network_packet_loss_critical_msg">
+		Kapcsolatot megszakad [NETWORK_PACKET_LOSS_CRITICAL]%/csomag felett
+	</text>
+	<text name="network_packet_loss_warning_msg">
+		Kapcsolatot megszakad [NETWORK_PACKET_LOSS_WARNING]%-[NETWORK_PACKET_LOSS_CRITICAL]%/csomag felett
+	</text>
+	<text name="network_performance_normal_msg">
+		Normál
+	</text>
+	<text name="network_ping_critical_ms">
+		600
+	</text>
+	<text name="network_ping_warning_ms">
+		300
+	</text>
+	<text name="network_ping_critical_msg">
+		Kapcsolat ping ideje [NETWORK_PING_CRITICAL] ms felett van
+	</text>
+	<text name="network_ping_warning_msg">
+		Kapcsolat ping ideje [NETWORK_PING_WARNING]-[NETWORK_PING_CRITICAL] ms között van
+	</text>
+	<text name="network_packet_loss_cause_msg">
+		Nem megfelelően beállított kapcsolat vagy sávszélesség.
+	</text>
+	<text name="network_ping_cause_msg">
+		Nem megfelelően beállított kapcsolat vagy fájlmegosztó alkalmazás.
+	</text>
+	<text name="server_text_msg">
+		Szerver
+	</text>
+	<text name="server_frame_rate_critical_fps">
+		20
+	</text>
+	<text name="server_frame_rate_warning_fps">
+		30
+	</text>
+	<text name="server_single_process_max_time_ms">
+		20
+	</text>
+	<text name="server_frame_time_critical_msg">
+		Szimulátor framerate [SERVER_FRAME_RATE_CRITICAL] alatt van
+	</text>
+	<text name="server_frame_time_warning_msg">
+		Szimulátor framerate [SERVER_FRAME_RATE_CRITICAL] és [SERVER_FRAME_RATE_WARNING] között van
+	</text>
+	<text name="server_frame_time_normal_msg">
+		Normál
+	</text>
+	<text name="server_physics_cause_msg">
+		Lehetséges ok: Túl sok fizikai tárgy
+	</text>
+	<text name="server_scripts_cause_msg">
+		Lehetséges ok: Túl sok kódolt tárgy
+	</text>
+	<text name="server_net_cause_msg">
+		Lehetséges ok: Túl magas hálózati forgalom
+	</text>
+	<text name="server_agent_cause_msg">
+		Lehetséges ok: Túl sok mozgó ember a régióban
+	</text>
+	<text name="server_images_cause_msg">
+		Lehetséges ok: Túl sok kép
+	</text>
+	<text name="server_generic_cause_msg">
+		Lehetséges ok: Lassú szimulátor betöltődés
+	</text>
+	<text name="smaller_label">
+		&gt;&gt;
+	</text>
+	<text name="bigger_label">
+		&lt;&lt;
+	</text>
+</floater>

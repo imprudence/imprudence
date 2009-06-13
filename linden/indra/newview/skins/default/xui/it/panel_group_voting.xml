@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Proposte" name="voting_tab">
+	<string name="help_text">
+		Le proposte di gruppo possono essere utilizzate per sapere ciò che il gruppo vuole fare, o cosa il gruppo pensa di qualcosa. Se si dispone dei diritti, è possibile creare proposte, votare sulle proposte aperte, e visualizzare le vecchie proposte.
+	</string>
+	<button label="?" name="help_button"/>
+	<text name="proposal_header">
+		Apri le proposte di gruppo
+	</text>
+	<text name="proposal_instructions">
+		Fai doppio clic sulla proposta che si desidera votare oppure premi
+Crea per creare una nuova proposta.
+	</text>
+	<text name="proposal_lbl">
+		Descrizione della proposta
+	</text>
+	<text name="proposal_voting_lbl">
+		Proposta                                                       Data fine votazione           Votato?
+	</text>
+	<button label="Crea una proposta" label_selected="Crea una Proposta" name="btn_proposal"/>
+	<button label="Vedi la Proposta" label_selected="Vedi la Proposta" name="btn_view_proposal_item"/>
+	<button label="Vedi la lista" label_selected="Vedi la lista" name="btn_view_proposal_list"/>
+	<text name="quorum_lbl">
+		Quorum:
+	</text>
+	<spinner name="quorum" tool_tip="Numero totale dei membri votanti necessari perchè le elezioni risultino valide."/>
+	<text name="quorum_text">
+		su [MEMBERS] membri che devono votare.
+	</text>
+	<text name="duration_lbl">
+		Durata:
+	</text>
+	<spinner name="duration" tool_tip="Durata in giorni della votazione."/>
+	<text name="duration_text">
+		giorni
+	</text>
+	<radio_group name="majority" tool_tip="Maggioranza dei voti totali necessari per vincere.">
+		Maggioranza semplice.
+2/3 della maggioranza
+Unanimità
+	</radio_group>
+	<text name="start_lbl">
+		Inizio:
+	</text>
+	<text name="end_lbl">
+		Fine:
+	</text>
+	<button label="Inoltra la proposta" label_selected="Inoltra la proposta" name="btn_submit"/>
+	<button label="Annulla" label_selected="Annulla" name="btn_cancel"/>
+	<button label="Si" label_selected="Si" name="btn_yes" width="53"/>
+	<button label="No" label_selected="No" name="btn_no" width="53" left_delta="60"/>
+	<button label="Mi astengo" label_selected="Mi astengo" name="btn_abstain" width="83" left_delta="60"/>
+	<text name="txt">
+		Storico delle votazioni di gruppo
+	</text>
+	<text name="instructions">
+		Fai doppio clic su una votazione passata o selezionane una e fai clic su
+visualizza per vederne i risultati.
+	</text>
+	<text name="history_list_lbl">
+		Votazioni precedenti                                                       Votazione chiusa il
+	</text>
+	<button label="Vedi la proposta" label_selected="Vedi la proposta" name="btn_view_history_item"/>
+	<text name="vote_text_lbl">
+		Risultati:
+	</text>
+	<button label="Visualizza elenco" label_selected="Visualizza elenco" name="btn_view_history_list"/>
+	<string name="proposals_header_view_txt">
+		Apri le proposte di gruppo
+	</string>
+	<string name="proposals_header_view_inst">
+		Fai doppio clic sulla proposta che desideri votare o clicca 
+crea proposta per creare una nuova proposta.
+	</string>
+	<string name="proposals_header_create_txt">
+		Crea Proposta
+	</string>
+	<string name="proposals_header_create_inst">
+		Digita la descrizione per la nuova proposta. È possibile modificare il 
+Quorum, Durata e Maggioranza richiesta perchè la proposta passi.
+	</string>
+	<string name="proposals_header_vote_txt">
+		Vota la proposta
+	</string>
+	<string name="proposals_header_vote_inst">
+		Premi il pulsante Sì o No per votare la proposta, 
+o scegliere di Mi astengo per votare questa proposta.
+	</string>
+	<string name="proposals_header_voted_inst">
+		Hai votato: [VOTE]
+	</string>
+	<string name="empty_proposal_txt">
+		La proposta che stai tentando di creare è vuota. Compila la proposta prima di crearla.
+	</string>
+	<string name="proposals_submit_yes_txt">
+		Stai rispondendo Si alla proposta...
+	</string>
+	<string name="proposals_submit_no_txt">
+		Stai rispondendo No alla proposta...
+	</string>
+	<string name="proposals_submit_abstain_txt">
+		Stai rispondendo Mi astengo alla proposta...
+	</string>
+	<string name="proposals_submit_new_txt">
+		Stai creando una nuova proposta...
+	</string>
+	<string name="vote_recorded">
+		Il tuo voto è stato ricevuto.
+	</string>
+	<string name="vote_previously_recorded">
+		Hai già votato. E&apos; possibile votare solo una volta nel corso di un&apos;elezione.
+	</string>
+</panel>

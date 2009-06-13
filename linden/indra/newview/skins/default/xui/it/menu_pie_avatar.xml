@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Avatar Pie">
+	<menu_item_call label="Profilo..." name="Profile..."/>
+	<menu_item_call label="Muta" name="Avatar Mute"/>
+	<menu_item_call label="Vai a" name="Go To"/>
+	<menu_item_call label="Denuncia..." name="abuse"/>
+	<menu_item_call label="Chiedi l&apos;amicizia..." name="Add Friend"/>
+	<menu_item_call label="Paga..." name="Pay..."/>
+	<pie_menu label="Ulteriore &gt;" name="More &gt;">
+		<menu_item_call label="Immobilizza..." name="Freeze..."/>
+		<menu_item_call label="Dai biglietto da visita" name="Give Card"/>
+		<menu_item_call label="Invita in un gruppo..." name="Invite..."/>
+		<menu_item_call label="Eietta..." name="Eject..."/>
+		<menu_item_call label="Debug..." name="Debug..."/>
+		<menu_item_call label="Ispeziona" name="Object Inspect"/>
+	</pie_menu>
+	<menu_item_call label="Manda un IM..." name="Send IM..."/>
+</pie_menu>

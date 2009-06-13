@@ -11,23 +11,26 @@
 		<column label="Время" name="time"/>
 		<column label="Моно Время" name="mono_time"/>
 	</scroll_list>
+	<line_editor font="SansSerifSmall" left="125" name="id_editor" width="260"/>
+	<line_editor font="SansSerifSmall" left="125" name="object_name_editor" width="260"/>
+	<line_editor font="SansSerifSmall" left="125" name="owner_name_editor" width="260"/>
 	<text name="id_text">
 		ID объекта:
 	</text>
-	<button label="Показывать маяк" name="show_beacon_btn"/>
-	<text name="obj_name_text">
+	<button label="Показывать маяк" name="show_beacon_btn" width="150"/>
+	<text name="obj_name_text" width="120">
 		Название объекта:
 	</text>
-	<button label="Фильтр" name="filter_object_btn"/>
-	<text name="owner_name_text">
+	<button label="Фильтр" name="filter_object_btn" width="150"/>
+	<text name="owner_name_text" width="120">
 		Имя владельца:
 	</text>
-	<button label="Фильтр" name="filter_owner_btn"/>
-	<button label="Вернуть выбранное" name="return_selected_btn"/>
-	<button label="Вернуть все" name="return_all_btn"/>
-	<button label="Заблокировать выбранное" name="disable_selected_btn"/>
-	<button label="Заблокировать все" name="disable_all_btn"/>
-	<button label="Обновить" name="refresh_btn"/>
+	<button label="Фильтр" name="filter_owner_btn" width="150"/>
+	<button label="Вернуть выбранное" name="return_selected_btn" width="180"/>
+	<button label="Вернуть все" name="return_all_btn" left="200" width="150"/>
+	<button label="Заблокировать выбранное" name="disable_selected_btn" width="180"/>
+	<button label="Заблокировать все" name="disable_all_btn" left="200" width="150"/>
+	<button label="Обновить" name="refresh_btn" width="150"/>
 	<string name="top_scripts_title">
 		Топ скриптов
 	</string>

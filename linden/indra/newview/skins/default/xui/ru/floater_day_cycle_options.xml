@@ -59,9 +59,9 @@
 			<text type="string" length="1" name="WL12amHash2">
 				|
 			</text>
-			<button label="Добавить ключ" label_selected="Добавить ключ"
+			<button  font="SansSerifSmall" width="106" left="546" label="Добавить ключ" label_selected="Добавить ключ"
 			     name="WLAddKey" />
-			<button label="Удалить ключ" label_selected="Удалить ключ"
+			<button  font="SansSerifSmall" width="106" left="546" label="Удалить ключ" label_selected="Удалить ключ"
 			     name="WLDeleteKey" />
 			<text type="string" length="1" name="WLCurKeyFrameText">
 				Уст-ки кадров ключа:
@@ -70,9 +70,9 @@
 				Время ключа:
 			</text>
 			<spinner label="Час" name="WLCurKeyHour" />
-			<spinner label="Минута" name="WLCurKeyMin" />
+			<spinner label="Минута" name="WLCurKeyMin" label_width="52" width="92" />
 			<text type="string" length="1" name="WLCurKeyTimeText2">
-				Станд. ключи
+				Станд. ключи:
 			</text>
 			<combo_box label="Стандарт" name="WLKeyPresets" />
 			<text type="string" length="1" name="DayCycleText">
@@ -83,14 +83,14 @@
 				Длина цикла:
 			</text>
 			<spinner label="Час" name="WLLengthOfDayHour" />
-			<spinner label="Минута" name="WLLengthOfDayMin" />
-			<spinner label="Секунда" name="WLLengthOfDaySec" />
+			<spinner label="Минута" name="WLLengthOfDayMin" label_width="50" width="90" />
+			<spinner label="Сек" name="WLLengthOfDaySec" label_width="30" width="70" left_delta="95" />
 			<text type="string" length="1" name="DayCycleText3">
 				Просмотр:
 			</text>
-			<button label="Играть" label_selected="Играть" name="WLAnimSky" />
-			<button label="Стоп!" label_selected="Стоп" name="WLStopAnimSky" />
-			<button label="Использовать время поместья"
+			<button font="SansSerifSmall" width="60" label="Играть" label_selected="Играть" name="WLAnimSky" />
+			<button font="SansSerifSmall" width="60" left_delta="63" label="Стоп!" label_selected="Стоп" name="WLStopAnimSky" />
+			<button font="SansSerifSmall" width="200" left_delta="63" label="Использовать время поместья"
 			     label_selected="Перейти на время поместья"
 			     name="WLUseLindenTime" />
 			<button label="Сохр. тест день"

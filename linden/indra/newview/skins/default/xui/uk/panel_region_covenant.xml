@@ -22,17 +22,19 @@
 		Редагувалось Ср Гру 31 16:00:00 1969
 	</text>
 	<button label="?" name="covenant_help"/>
-	<text_editor name="covenant_editor">
+	<text_editor name="covenant_editor" bottom="-247" height="162">
 		Немає Угоди для цього Маєтку.
 	</text_editor>
 	<button label="Сброс" name="reset_covenant"/>
-	<text name="covenant_help_text">
-		Зміни в угоді будуть показані на усіх ділянках цього маєтку.
+	<text  bottom="-25" name="covenant_help_text">
+		Зміни в угоді будуть показані на усіх ділянках цього
+      маєтку.
 	</text>
-	<text name="covenant_instructions">
-		Перетягніть сюди замітку, щоб змінити Угоду для цього Маєтку.
+	<text  bottom_delta="-36" name="covenant_instructions">
+		Перетягніть сюди замітку, щоб змінити Угоду для цього
+      Маєтку.
 	</text>
-	<text name="region_section_lbl">
+	<text bottom_delta="-36" name="region_section_lbl">
 		Регіон:
 	</text>
 	<text name="region_name_lbl">
@@ -63,7 +65,8 @@
 		Розділити:
 	</text>
 	<text name="changeable_clause">
-		Земля у цьому регіоні не може бути об&apos;єднана/розділена.
+		Земля у цьому регіоні не може бути об&apos;єднана/
+розділена.
 	</text>
 	<string name="can_resell">
 		Придбана земля в цьому регіоні може бути перепродана.

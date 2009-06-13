@@ -136,7 +136,7 @@
 			<text name="text">
 				Kategorie:
 			</text>
-			<combo_box name="category combo" width="191">
+			<combo_box name="category combo" width="195" left="222">
 				<combo_item name="All">
 					Alle Kategorien
 				</combo_item>

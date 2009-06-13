@@ -30,6 +30,12 @@
 	<text name="steps_label">
 		阶段：
 	</text>
+	<scroll_list name="library_list">
+		动画
+声音
+聊天
+等待
+	</scroll_list>
 	<button label="添加&gt;&gt;" name="add_btn"/>
 	<button label="上移" name="up_btn"/>
 	<button label="下移" name="down_btn"/>

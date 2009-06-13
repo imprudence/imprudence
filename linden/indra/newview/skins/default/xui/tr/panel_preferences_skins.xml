@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Görünümler" name="Skins panel">
+	<text type="string" length="1" name="muting_text">
+		Görünüm seçiniz (Yeniden başlatmak gerektirir):
+	</text>
+	<radio_group name="skin_selection">
+		<radio_item name="default">
+			Var olan
+		</radio_item>
+		<radio_item name="silver">
+			Gümüş
+		</radio_item>
+	</radio_group>
+	<button label="" name="classic_preview" />
+	<button label="" name="silver_preview" />
+</panel>

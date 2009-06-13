@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Covenant" title="Regolamento">
+	<text name="region_name_lbl">
+		Regione:
+	</text>
+	<text name="region_name_text">
+		(sconosciuta)
+	</text>
+	<text name="estate_name_lbl">
+		Proprietà:
+	</text>
+	<text name="estate_name_text">
+		(sconosciuto)
+	</text>
+	<text name="estate_owner_lbl">
+		Proprietario degli immobili:
+	</text>
+	<text name="estate_owner_text">
+		(sconosciuto)
+	</text>
+	<text name="resellable_clause">
+		Un terreno acquistato in questa regione può essere rivenduto oppure no.
+	</text>
+	<text name="changeable_clause">
+		Un terreno acquistato in questa regione può essere unito o suddiviso oppure no.
+	</text>
+	<string name="can_resell">
+		Un terreno acquistato in questa regione può essere rivenduto.
+	</string>
+	<string name="can_not_resell">
+		Un terreno acquistato in questa regione non può essere rivenduto.
+	</string>
+	<string name="can_change">
+		Un terreno acquistato in questa regione può essere unito o suddiviso.
+	</string>
+	<string name="can_not_change">
+		Un terreno acquistato in questa regione non può essere unito o suddiviso.
+	</string>
+</panel>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Water Floater" title="Editor avanzato dell&apos;acqua">
+	<text name="KeyFramePresetsText" width="224">
+		Impostazioni predeterminate dell&apos;acqua:
+	</text>
+	<combo_box left_delta="230" name="WaterPresetsCombo" width="150" />
+	<button label="Nuovo" label_selected="Nuovo" name="WaterNewPreset"/>
+	<button label="Salva" label_selected="Salva" name="WaterSavePreset"/>
+	<button label="Cancella" label_selected="Cancella" name="WaterDeletePreset"/>
+	<tab_container name="Water Tabs">
+		<panel label="Impostazioni" name="Settings">
+			<text name="BHText">
+				Colore della nebbiosità dell&apos;acqua
+			</text>
+			<button label="?" name="WaterFogColorHelp" left="209"/>
+			<color_swatch label="" name="WaterFogColor" tool_tip="Clicca per aprire la selezione colore"/>
+			<text name="WaterFogDensText" font="SansSerifSmall">
+				Esponente di densità della nebbia&#10; dell&apos;acqua
+			</text>
+			<slider bottom_delta="-40" name="WaterFogDensity"/>
+			<button label="?" name="WaterFogDensityHelp" left="209"/>
+			<text name="WaterUnderWaterFogModText" font="SansSerifSmall" bottom="-140">
+				Regolatore effetto nebbia subacquea
+			</text>
+			<button label="?" name="WaterUnderWaterFogModHelp" left="209"/>
+			<text name="BDensText">
+				Scala di riflessione delle onde
+			</text>
+			<button label="?" name="WaterNormalScaleHelp" left="415"/>
+			<text name="BHText2">
+				1
+			</text>
+			<text name="BHText3">
+				2
+			</text>
+			<text name="BHText4">
+				3
+			</text>
+			<text name="HDText">
+				Scala Fresnel
+			</text>
+			<button label="?" name="WaterFresnelScaleHelp" left="415"/>
+			<text name="FresnelOffsetText">
+				Offset Fresnel
+			</text>
+			<button label="?" name="WaterFresnelOffsetHelp" left="415"/>
+			<text name="DensMultText" font="SansSerifSmall">
+				Scala di rifrazione nell&apos;acqua&#10; dall&apos;alto
+			</text>
+			<slider bottom_delta="-40" name="WaterScaleAbove"/>
+			<button label="?" name="WaterScaleAboveHelp" left="650"/>
+			<text name="WaterScaleBelowText" font="SansSerifSmall" bottom="-70">
+				Scala di rifrazione nell&apos;acqua&#10; dal basso
+			</text>
+			<slider bottom_delta="-40" name="WaterScaleBelow"/>
+			<button label="?" name="WaterScaleBelowHelp" left="650"/>
+			<text name="MaxAltText" bottom="-122">
+				Moltiplicatore della sfocatura
+			</text>
+			<button label="?" name="WaterBlurMultiplierHelp" left="650"/>
+		</panel>
+		<panel label="Immagine" name="Waves">
+			<text name="BHText">
+				Direzione della grande onda
+			</text>
+			<button label="?" name="WaterWave1Help" left="170"/>
+			<text name="WaterWave1DirXText">
+				X
+			</text>
+			<text name="WaterWave1DirYText">
+				Y
+			</text>
+			<text name="BHText2">
+				Direzione della piccola onda
+			</text>
+			<button label="?" name="WaterWave2Help" left="170"/>
+			<text name="WaterWave2DirXText">
+				X
+			</text>
+			<text name="WaterWave2DirYText">
+				Y
+			</text>
+			<text name="BHText3">
+				Mappatura normale
+			</text>
+			<button label="?" name="WaterNormalMapHelp"/>
+		</panel>
+	</tab_container>
+	<string name="WLDefaultWaterNames">
+		Default:Glassy:Pond:Murky:Second Plague:SNAKE!!!:Valdez
+	</string>
+</floater>

@@ -13,7 +13,7 @@
 		Localidade:
 	</text>
 	<button label="Teletransportar" name="teleport_btn"/>
-	<button label="Mostrar no mapa" name="map_btn"/>
+	<button label="Mostrar no mapa" name="map_btn" width="125"/>
 	<button label="Ofertas..." name="auction_btn"/>
 	<string name="traffic_text">
 		Tráfego: [TRAFFIC]

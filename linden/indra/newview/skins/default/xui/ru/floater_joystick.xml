@@ -3,6 +3,7 @@
 	<check_box name="enable_joystick">
 		Включить Джойстик:
 	</check_box>
+	<text left="160" name="joystick_type" width="340"/>
 	<spinner label="Ось X" name="JoystickAxis1"/>
 	<spinner label="Ось Y" name="JoystickAxis2"/>
 	<spinner label="Ось Z" name="JoystickAxis0"/>
@@ -19,7 +20,7 @@
 	<check_box name="JoystickAvatarEnabled">
 		Аватар
 	</check_box>
-	<check_box name="JoystickBuildEnabled">
+	<check_box name="JoystickBuildEnabled" left="192">
 		Стройка
 	</check_box>
 	<check_box name="JoystickFlycamEnabled">
@@ -55,10 +56,10 @@
 	<text name="PitchDeadZone">
 		Мер.Зона Шага
 	</text>
-	<text name="YawDeadZone">
+	<text name="YawDeadZone" left="3" width="112">
 		Мер.Зона Отклон.
 	</text>
-	<text name="RollDeadZone">
+	<text name="RollDeadZone" left="3" width="112">
 		Мер.Зона Прокр.
 	</text>
 	<text name="Feathering">
@@ -67,15 +68,15 @@
 	<slider label="" name="AvatarFeathering"/>
 	<slider label="" name="BuildFeathering"/>
 	<slider label="" name="FlycamFeathering"/>
-	<text name="ZoomScale2">
+	<text name="ZoomScale2" width="135" left="6">
 		Шкала Масштаб.
 	</text>
 	<spinner label="" name="FlycamAxisScale6"/>
-	<text name="ZoomDeadZone">
+	<text name="ZoomDeadZone" width="135" left="6">
 		Мер.Зона Масштаб.
 	</text>
 	<spinner label="" name="FlycamAxisDeadZone6"/>
-	<button label="По умолчанию" name="SpaceNavigatorDefaults"/>
+	<button label="По умолчанию SpaceNavigator" name="SpaceNavigatorDefaults" font="SansSerifSmall"/>
 	<button label="OK" label_selected="OK" name="ok_btn"/>
 	<button label="Отмена" label_selected="Отмена" name="cancel_btn"/>
 	<string name="JoystickMonitor">

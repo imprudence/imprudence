@@ -18,7 +18,7 @@
 	</text>
 	<check_box label="Використовувати глобальний час" name="use_global_time_check"/>
 	<button label="?" name="use_global_time_help"/>
-	<check_box label="Фікс.Сонце" name="fixed_sun_check"/>
+	<check_box label="Фікс. Сонце" name="fixed_sun_check"/>
 	<button label="?" name="fixed_sun_help"/>
 	<slider label="Фаза" name="sun_hour_slider"/>
 	<check_box label="Публічний Доступ" name="externally_visible_check"/>
@@ -26,9 +26,9 @@
 	<text length="1" name="Only Allow" type="string">
 		Заборонити доступ для:
 	</text>
-	<check_box label="Резидентам без плат.інфо" name="limit_payment" tool_tip="Забанити невідомих резидентів"/>
-	<check_box label="Не пройш.пер.віку" name="limit_age_verified" tool_tip="Забанити резидентів з неперевіреним віком. Детальніше support.secondlife.com."/>
-	<check_box label="Увімкн.Голосовий Чат" name="voice_chat_check"/>
+	<check_box label="Резидентам без плат. інфо" name="limit_payment" tool_tip="Забанити невідомих резидентів"/>
+	<check_box label="Не пройш. пер. віку" name="limit_age_verified" tool_tip="Забанити резидентів з неперевіреним віком. Детальніше support.secondlife.com."/>
+	<check_box label="Увімкн. Голосовий Чат" name="voice_chat_check"/>
 	<button label="?" name="voice_chat_help"/>
 	<check_box label="Дозволити прямий телепорт" name="allow_direct_teleport"/>
 	<button label="?" name="allow_direct_teleport_help"/>

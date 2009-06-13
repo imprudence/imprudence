@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="media_remote">
+	<panel label="Lyd &amp; video" name="Volume Panel" />
+	<string name="play_label">
+		Afspil
+	</string>
+	<string name="stop_label">
+		Stop
+	</string>
+	<string name="pause_label">
+		Pause
+	</string>
+	<string name="default_tooltip_label">
+		Intet medie specificeret
+	</string>
+	<string name="media_hidden_label">
+		(URL skjult af stedets ejer)
+	</string>
+	<string name="media_icon_tooltip_web">
+		Dette sted viser indhold fra WWW. Klik på afspil for at vise web indhold.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		Dette sted viser video indhold. Klik på afspil for at afspille video.
+	</string>
+	<string name="media_play_tooltip">
+		Vis web indhold på dette sted
+	</string>
+</panel>

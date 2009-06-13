@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Inventory Finder"
-     title="нещодавні елементи інвентаря">
+<floater name="Inventory Finder" title="нещодавні елементи інвентаря" width="175">
 	<check_box label="Анімація" name="check_animation" />
 	<check_box label="Візитки" name="check_calling_card" />
 	<check_box label="Одяг" name="check_clothing" />
@@ -14,12 +13,12 @@
 	<check_box label="Скріншоти" name="check_snapshot" />
 	<button label="Все" label_selected="Все" name="All" />
 	<button label="Нічого" label_selected="Нічого" name="None" />
-	<check_box label="Завжди показ-ти папки" name="check_show_empty" />
-	<check_box label="З часу виходу з SL" name="check_since_logoff" />
+	<check_box label="Завжди показ-ти папки" name="check_show_empty" left="3"/>
+	<check_box label="З часу виходу з SL" name="check_since_logoff" left="3"/>
 	<text type="string" length="1" name="- OR -">
 		-або-
 	</text>
-	<spinner label="Годин назад" name="spin_hours_ago" />
-	<spinner label="Днів назад" name="spin_days_ago" />
+	<spinner label="Годин назад" name="spin_hours_ago" label_width="78" width="144"/>
+	<spinner label="Днів назад" name="spin_days_ago" label_width="78" width="144"/>
 	<button label="Закрити" label_selected="Закрити" name="Close" />
 </floater>

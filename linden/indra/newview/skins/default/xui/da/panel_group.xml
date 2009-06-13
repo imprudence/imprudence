@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfo" title="Gruppe-info">
+	<string name="default_needs_apply_text">
+		Der er ændringer på denne fane der ikke er gemt.
+	</string>
+	<string name="want_apply_text">
+		Vil du anvende gemme ændringer?
+	</string>
+	<button label="Anvend" label_selected="Anvend" name="btn_apply" />
+	<button label="Annullér" label_selected="Annullér" name="btn_cancel" />
+	<button label="OK" label_selected="OK" name="btn_ok" />
+	<button label="Genopfrisk" label_selected="Genopfrisk" name="btn_refresh" />
+</panel>

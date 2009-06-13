@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Self Pie">
+	<menu_item_call label="Adatlap" name="Profile..." />
+	<menu_item_call label="Csoportok" name="Groups..." />
+	<menu_item_call label="Megy" name="Go..." />
+	<menu_item_call label="Feláll" name="Stand Up" />
+	<menu_item_call label="Barátok" name="Friends..." />
+	<menu_item_call label="Gesztusok" name="Gestures..." />
+	<pie_menu label="Levesz &gt;" name="Take Off &gt;">
+		<pie_menu label="Ruházat &gt;" name="Clothes &gt;">
+			<menu_item_call label="Ing" name="Shirt" />
+			<menu_item_call label="Nadrág" name="Pants" />
+			<menu_item_call label="Cipő" name="Shoes" />
+			<menu_item_call label="Harisnya" name="Socks" />
+			<menu_item_call label="Kabát" name="Jacket" />
+			<menu_item_call label="Kesztyű" name="Gloves" />
+			<pie_menu label="More &gt;" name="More &gt;">
+				<menu_item_call label="Alsóing" name="Self Undershirt" />
+				<menu_item_call label="Minden ruha" name="All Clothes" />
+				<menu_item_call label="Alsónadrág" name="Self Underpants" />
+			</pie_menu>
+			<menu_item_call label="Szoknya" name="Skirt" />
+		</pie_menu>
+		<pie_menu label="HUD &gt;" name="Object Detach HUD" />
+		<pie_menu label="Lecsatol &gt;" name="Object Detach" />
+		<menu_item_call label="Mindet lecsatol" name="Detach All" />
+	</pie_menu>
+	<menu_item_call label="Megjelenés" name="Appearance..." />
+</pie_menu>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="item properties" title="Envanter ürün özellikleri">
+	<text name="LabelItemNameTitle">
+		Ad:
+	</text>
+	<text name="LabelItemDescTitle">
+		Tanım:
+	</text>
+	<text name="LabelCreatorTitle">
+		Yaratıcı:
+	</text>
+	<text name="LabelCreatorName">
+		Nicole Linden
+	</text>
+	<button label="Profil..." label_selected="" name="BtnCreator"/>
+	<text name="LabelOwnerTitle">
+		Sahibi:
+	</text>
+	<text name="LabelOwnerName">
+		Thrax Linden
+	</text>
+	<button label="Profil..." label_selected="" name="BtnOwner"/>
+	<text name="LabelAcquiredTitle">
+		Alım zamanı:
+	</text>
+	<text name="LabelAcquiredDate">
+		Wed May 24 12:50:46 2006
+	</text>
+	<text name="OwnerLabel">
+		Yapabildikleriniz:
+	</text>
+	<check_box label="Modifiye" name="CheckOwnerModify"/>
+	<check_box label="Kopyalama" name="CheckOwnerCopy"/>
+	<check_box label="Tekrar satış/transfer" name="CheckOwnerTransfer"/>
+	<text name="BaseMaskDebug">
+		B:
+	</text>
+	<text name="OwnerMaskDebug">
+		O:
+	</text>
+	<text name="GroupMaskDebug">
+		G:
+	</text>
+	<text name="EveryoneMaskDebug">
+		E:
+	</text>
+	<text name="NextMaskDebug">
+		N:
+	</text>
+	<check_box label="Grup ile paylaş" name="CheckShareWithGroup"/>
+	<check_box label="Herhangi birinin kopyalamasına izin ver" name="CheckEveryoneCopy"/>
+	<text name="NextOwnerLabel">
+		Başkası:
+	</text>
+	<check_box label="Modifiye" name="CheckNextOwnerModify"/>
+	<check_box label="Kopyalama" name="CheckNextOwnerCopy"/>
+	<check_box label="Tekrar satış/transfer" name="CheckNextOwnerTransfer"/>
+	<text name="SaleLabel">
+		Ürün işareti:
+	</text>
+	<check_box label="Satılık" name="CheckPurchase"/>
+	<radio_group name="RadioSaleType">
+		<radio_item name="radio">
+			Orjinal
+		</radio_item>
+		<radio_item name="radio2">
+			Kopya
+		</radio_item>
+	</radio_group>
+	<text name="TextPrice">
+		Ücret:  L$
+	</text>
+	<string name="unknown">
+		(bilinmeyen)
+	</string>
+	<string name="public">
+		(genel)
+	</string>
+	<string name="you_can">
+		Yapabilirsiniz:
+	</string>
+	<string name="owner_can">
+		Sahibin yapabildikleri:
+	</string>
+</floater>

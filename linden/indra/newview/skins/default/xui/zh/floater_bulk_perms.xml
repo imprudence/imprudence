@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floaterbulkperms" title="Bulk change content permissions">
+	<text name="applyto">
+		内容类型
+	</text>
+	<check_box label="动画" name="check_animation"/>
+	<check_box label="身体部分" name="check_bodypart"/>
+	<check_box label="衣服" name="check_clothing"/>
+	<check_box label="动作" name="check_gesture"/>
+	<check_box label="地标" name="check_landmark"/>
+	<check_box label="记事卡" name="check_notecard"/>
+	<check_box label="物品" name="check_object"/>
+	<check_box label="脚本" name="check_script"/>
+	<check_box label="声音" name="check_sound"/>
+	<check_box label="纹理" name="check_texture"/>
+	<button label="全选" label_selected="全选" name="check_all"/>
+	<button label="清空" label_selected="清空" name="check_none"/>
+	<text name="newperms">
+		新建权限
+	</text>
+	<check_box label="与社团分享" name="share_with_group"/>
+	<check_box label="允许任何人复制" name="everyone_copy"/>
+	<text name="NextOwnerLabel">
+		下一个拥有者可以：
+	</text>
+	<check_box label="更改" name="next_owner_modify"/>
+	<check_box label="复制" name="next_owner_copy"/>
+	<check_box label="转卖/赠送" name="next_owner_transfer"/>
+	<button label="帮助" name="help"/>
+	<button label="应用" name="apply"/>
+	<button label="关闭" name="close"/>
+	<string name="nothing_to_modify_text">
+		所选内容不包含可编辑部分
+	</string>
+	<string name="status_text">
+		设定[NAME]的权限
+	</string>
+	<string name="start_text">
+		开始权限更改...
+	</string>
+	<string name="done_text">
+		权限更改结束。
+	</string>
+</floater>

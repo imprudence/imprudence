@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Grafika" name="Display panel">
+	<button label="?" name="GraphicsPreferencesHelpButton"/>
+	<check_box label="Second Life futtatása ablakban" name="windowed mode"/>
+	<text_editor length="1" name="FullScreenInfo" type="string" bottom="-56" height="40" width="480">
+		Ha nincs bejelölve, akkor a kliens teljesképernyős üzemmódban fut.
+	</text_editor>
+	<text name="WindowSizeLabel">
+		Ablak mérete:
+	</text>
+	<combo_box name="windowsize combo" left="115" >
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="720x480">
+			720x480 (NTSC)
+		</combo_item>
+		<combo_item name="768x576">
+			768x576 (PAL)
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
+	</combo_box>
+	<text length="1" name="DisplayResLabel" type="string">
+		Képernyőfelbontás:
+	</text>
+	<combo_box left="115" name="fullscreen combo" />
+	<text length="1" name="AspectRatioLabel1" tool_tip="width / height" type="string">
+		Méretarány:
+	</text>
+	<combo_box name="aspect_ratio" tool_tip="szélesség/magasság" left="115" >
+		<combo_item length="1" name="4:3(StandardCRT)" type="string">
+			4:3 (Szabványos CRT)
+		</combo_item>
+		<combo_item length="1" name="5:4(1280x1024LCD)" type="string">
+			5:4 (1280x1024 LCD)
+		</combo_item>
+		<combo_item length="1" name="8:5(Widescreen)" type="string">
+			8:5 (Szélesvásznú)
+		</combo_item>
+		<combo_item length="1" name="16:9(Widescreen)" type="string">
+			16:9 (Szélesvásznú)
+		</combo_item>
+	</combo_box>
+	<check_box label="Méretarány automatikus felderítése" name="aspect_auto_detect" left="275" />
+	<text length="1" name="HigherText" type="string">
+		Minőség és
+	</text>
+	<text length="1" name="QualityText" type="string">
+		teljesítmény:
+	</text>
+	<text length="1" name="FasterText" type="string">
+		Gyorsabb
+	</text>
+	<text length="1" name="ShadersPrefText" type="string" left="152" width="48">
+		Alacsony
+	</text>
+	<text length="1" name="ShadersPrefText2" type="string" left_delta="51" width="44">
+		Közepes
+	</text>
+	<text length="1" name="ShadersPrefText3" type="string" left_delta="50">
+		Magas
+	</text>
+	<text length="1" name="ShadersPrefText4" type="string" left_delta="42">
+		Ultra
+	</text>
+	<text length="1" name="HigherText2" type="string">
+		Magasabb
+	</text>
+	<text length="1" name="QualityText2" type="string">
+		minőség
+	</text>
+	<slider label="" name="QualityPerformanceSelection"/>
+	<check_box label="Egyedi" name="CustomSettings" left="395"/>
+	<text length="1" name="ShadersText" type="string">
+		Árnyékolók:
+	</text>
+	<check_box label="Egyenetlenségek és fényesség" name="BumpShiny"/>
+	<check_box label="Alap árnyékolók" name="BasicShaders" tool_tip="Ennek tiltása néhány videókártya esetén ajánlott."/>
+	<check_box label="Környezeti árnyékolás" name="WindLightUseAtmosShaders"/>
+	<check_box label="Víz tükröződés" name="Reflections"/>
+	<text length="1" name="ReflectionDetailText" type="string">
+		Tükröződés részletei:
+	</text>
+	<radio_group name="ReflectionDetailRadio">
+		<radio_item length="1" name="0" type="string">
+			Domborzat és fák
+		</radio_item>
+		<radio_item length="1" name="1" type="string">
+			Statikus tárgyak
+		</radio_item>
+		<radio_item length="1" name="2" type="string">
+			Avatárok és tárgyak
+		</radio_item>
+		<radio_item length="1" name="3" type="string">
+			Minden
+		</radio_item>
+	</radio_group>
+	<text length="1" name="AvatarRenderingText" type="string">
+		Avatár renderelés:
+	</text>
+	<check_box label="Avatár Imposztorok" name="AvatarImpostors"/>
+	<check_box label="Hardveres gyorsítás" name="AvatarVertexProgram"/>
+	<check_box label="Avatár ruházat" name="AvatarCloth"/>
+	<text length="1" name="DrawDistanceMeterText1" type="string">
+		m
+	</text>
+	<text length="1" name="DrawDistanceMeterText2" type="string">
+		m
+	</text>
+	<slider label="Látótávolság:" name="DrawDistance"/>
+	<slider label="Max. partikula szám:" name="MaxParticleCount"/>
+	<slider label="Utófolyamat minősége:" name="RenderPostProcess"/>
+	<text length="1" name="MeshDetailText" type="string">
+		Rácsozat részletei:
+	</text>
+	<slider label="  Tárgyak:" name="ObjectMeshDetail"/>
+	<slider label="  Flexi primek:" name="FlexibleMeshDetail"/>
+	<slider label="  Fák:" name="TreeMeshDetail"/>
+	<slider label="  Avatárok:" name="AvatarMeshDetail"/>
+	<slider label="  Domborzat:" name="TerrainMeshDetail"/>
+	<slider label="  Égbolt:" name="SkyMeshDetail"/>
+	<text length="1" name="PostProcessText" type="string" left="440">
+		Alacsony
+	</text>
+	<text length="1" name="ObjectMeshDetailText" type="string" left="440">
+		Alacsony
+	</text>
+	<text length="1" name="FlexibleMeshDetailText" type="string" left="440">
+		Alacsony
+	</text>
+	<text length="1" name="TreeMeshDetailText" type="string" left="440">
+		Alacsony
+	</text>
+	<text length="1" name="AvatarMeshDetailText" type="string" left="440">
+		Alacsony
+	</text>
+	<text length="1" name="TerrainMeshDetailText" type="string" left="440">
+		Alacsony
+	</text>
+	<text length="1" name="SkyMeshDetailText" type="string" left="440">
+		Alacsony
+	</text>
+	<text length="1" name="LightingDetailText" type="string">
+		Világítás részletei:
+	</text>
+	<radio_group name="LightingDetailRadio">
+		<radio_item length="1" name="SunMoon" type="string">
+			Csak nap és hold
+		</radio_item>
+		<radio_item length="1" name="LocalLights" type="string">
+			Helyi fények
+		</radio_item>
+	</radio_group>
+	<text length="1" name="TerrainDetailText" type="string">
+		Domborzat részletei:
+	</text>
+	<radio_group name="TerrainDetailRadio">
+		<radio_item length="1" name="0" type="string">
+			Alacsony
+		</radio_item>
+		<radio_item length="1" name="2" type="string">
+			Magas
+		</radio_item>
+	</radio_group>
+	<button label="Javasolt beállítások" name="Defaults"/>
+	<button label="Hardver beállítások" label_selected="Hardware Options" name="GraphicsHardwareButton"/>
+	<string name="resolution_format">
+		[RES_X] x [RES_Y]
+	</string>
+	<string name="aspect_ratio_text">
+		[NUM]:[DEN]
+	</string>
+</panel>

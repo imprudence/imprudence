@@ -8,7 +8,7 @@
 		Position:
 	</text>
 	<text left="86" name="Slurl" />
-	<text name="Unknown_Slurl">
+	<text name="Unknown_Slurl" width="300" font="SansSerifSmall">
 		(Information zu Position nicht verfügbar)
 	</text>
 	<text name="LabelOwnerNameTitle">

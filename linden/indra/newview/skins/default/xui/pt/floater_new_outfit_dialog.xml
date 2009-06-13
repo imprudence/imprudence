@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="modal container" width="585">
-	<button label="Salvar" label_selected="Salvar" name="Save"/>
-	<button label="Cancelar" label_selected="Cancelar" name="Cancel"/>
+	<button label="Salvar" label_selected="Salvar" left="171" name="Save" width="100"/>
+	<button label="Cancelar" label_selected="Cancelar" left="280" name="Cancel" width="100"/>
 	<check_box label="Forma" name="checkbox_Shape"/>
 	<check_box label="Pele" name="checkbox_Skin"/>
 	<check_box label="Cabelo" name="checkbox_Hair"/>
@@ -29,19 +29,19 @@
 	<check_box label="Boca" left="225" name="checkbox_Mouth"/>
 	<check_box label="Queixo" left="225" name="checkbox_Chin"/>
 	<check_box label="Orelha Esquerda" left="225" name="checkbox_Left Ear"/>
-	<check_box label="Orelha Direita" left="325" name="checkbox_Right Ear"/>
-	<check_box label="Olho Esquerdo" left="325" name="checkbox_Left Eyeball"/>
-	<check_box label="Olho Direito" left="325" name="checkbox_Right Eyeball"/>
-	<check_box label="Nariz" left="325" name="checkbox_Nose"/>
-	<check_box label="Antebraço Direito" left="325" name="checkbox_R Upper Arm"/>
-	<check_box label="Braço Direito" left="325" name="checkbox_R Forearm"/>
-	<check_box label="Antebraço Esquerdo" left="325" name="checkbox_L Upper Arm"/>
-	<check_box label="Braço Esquerdo" left="325" name="checkbox_L Forearm"/>
-	<check_box label="Nádega Direita" left="325" name="checkbox_Right Hip"/>
-	<check_box label="Coxa Direita" left="325" name="checkbox_R Upper Leg"/>
-	<check_box label="Canela Direita" left="325" name="checkbox_R Lower Leg"/>
-	<check_box label="Nádega Esquerda" left="325" name="checkbox_Left Hip"/>
-	<check_box label="Coxa Esquerda" left="325" name="checkbox_L Upper Leg"/>
+	<check_box label="Orelha Direita" left="335" name="checkbox_Right Ear"/>
+	<check_box label="Olho Esquerdo" left="335" name="checkbox_Left Eyeball"/>
+	<check_box label="Olho Direito" left="335" name="checkbox_Right Eyeball"/>
+	<check_box label="Nariz" left="335" name="checkbox_Nose"/>
+	<check_box label="Antebraço Direito" left="335" name="checkbox_R Upper Arm"/>
+	<check_box label="Braço Direito" left="335" name="checkbox_R Forearm"/>
+	<check_box label="Antebraço Esquerdo" left="335" name="checkbox_L Upper Arm"/>
+	<check_box label="Braço Esquerdo" left="335" name="checkbox_L Forearm"/>
+	<check_box label="Nádega Direita" left="335" name="checkbox_Right Hip"/>
+	<check_box label="Coxa Direita" left="335" name="checkbox_R Upper Leg"/>
+	<check_box label="Canela Direita" left="335" name="checkbox_R Lower Leg"/>
+	<check_box label="Nádega Esquerda" left="335" name="checkbox_Left Hip"/>
+	<check_box label="Coxa Esquerda" left="335" name="checkbox_L Upper Leg"/>
 	<check_box label="Canela Esquerda" left="460" name="checkbox_L Lower Leg"/>
 	<check_box label="Estomago" left="460" name="checkbox_Stomach"/>
 	<check_box label="Peito Esquerdo" left="460" name="checkbox_Left Pec"/>
@@ -54,20 +54,20 @@
 	<check_box label="Inferior Esquerda" left="460" name="checkbox_Bottom Left"/>
 	<check_box label="Inferior" left="460" name="checkbox_Bottom"/>
 	<check_box label="Inferior Direita" left="460" name="checkbox_Bottom Right"/>
-	<text length="1" name="Make New Outfit" type="string">
+	<text length="1" name="Make New Outfit" type="string" font="SansSerifLarge">
 		Fazer Nova Aparencia
 	</text>
 	<text length="1" name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it." type="string">
 		Aparências são pastas que contém roupas e partes do corpo.
 Arraste uma Aparencia até seu avatar para vestí-la.
 
-Fazer Nova Aparencia cria uma nova pasta e salva cópias dos itens que você
-está vestindo no momento.
+Fazer Nova Aparencia cria uma nova pasta e salva cópias dos itens que você está vestindo
+no momento.
 	</text>
-	<text length="1" name="Folder name:" type="string">
+	<text length="1" name="Folder name:" type="string" font="SansSerifLarge">
 		Nome da Pasta:
 	</text>
-	<text length="1" name="Items to include in outfit:" type="string">
+	<text length="1" name="Items to include in outfit:" type="string" font="SansSerifLarge">
 		Itens que compõem a Aparência:
 	</text>
 	<text length="1" name="Body Parts:" type="string">

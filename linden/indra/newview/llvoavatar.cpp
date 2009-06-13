@@ -1276,7 +1276,7 @@ void LLVOAvatar::deleteCachedImages(bool clearAll)
 
 		sScratchTexNames.deleteAllData();
 		LLVOAvatar::sScratchTexLastBindTime.deleteAllData();
-		LLImageGL::sGlobalTextureMemory -= sScratchTexBytes;
+		LLImageGL::sGlobalTextureMemoryInBytes -= sScratchTexBytes;
 		sScratchTexBytes = 0;
 	}
 
@@ -6781,7 +6781,7 @@ LLGLuint LLVOAvatar::getScratchTexName( LLGLenum format, U32* texture_bytes )
 		LLVOAvatar::sScratchTexNames.addData( format, new LLGLuint( name ) );
 
 		LLVOAvatar::sScratchTexBytes += *texture_bytes;
-		LLImageGL::sGlobalTextureMemory += *texture_bytes;
+		LLImageGL::sGlobalTextureMemoryInBytes += *texture_bytes;
 		return name;
 	}
 }

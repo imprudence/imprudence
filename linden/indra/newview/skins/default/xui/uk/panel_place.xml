@@ -10,10 +10,10 @@
 		Інфо:
 	</text>
 	<text name="location_label">
-		Місцезнаходження:
+		Располож.:
 	</text>
 	<button label="Телепорт" name="teleport_btn" />
-	<button label="Показ.на карті" name="map_btn" />
+	<button label="Показ.на карті" name="map_btn" width="125"/>
 	<button label="Заявки..." name="auction_btn" />
 	<string name="traffic_text">
 		Трафік: [TRAFFIC]

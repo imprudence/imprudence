@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="floaterreleasemessage" title="Betrete Region">
-	<button label="Schließen" name="close_btn" />
+	<button label="Schließen" name="close_btn" width="70"/>
 	<text name="in-world_help_title">
 		In-Welt-Hilfe
 	</text>

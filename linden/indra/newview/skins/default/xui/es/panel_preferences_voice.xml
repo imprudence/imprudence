@@ -23,13 +23,13 @@
 		Botón de Apretar para Hablar:
 	</text>
 	<button label="Asignar una tecla" name="set_voice_hotkey_button"/>
-	<button label="Botón de en medio del ratón" name="set_voice_middlemouse_button"/>
+	<button label="Botón medio del ratón" name="set_voice_middlemouse_button"/>
 	<text name="privacy_heading">
 		Opciones de la privacidad
 	</text>
 	<check_box label="Aceptar llamadas de voz sólo de gente de mi lista de amigos" name="voice_call_friends_only_check"/>
 	<check_box label="Apagar el micrófono cuando acaben las llamadas por MI" name="auto_disengage_mic_check"/>
-	<button label="Configuración de los dispositivos" name="device_settings_btn"/>
+	<button label="Configuración de los dispositivos" name="device_settings_btn" width="210" />
 	<text_editor name="device_settings_text">
 		NOTA: configurar los dispositivos le desconectará temporalmente del chat de voz, y los cambios que haga se aplicarán al momento.
 	</text_editor>

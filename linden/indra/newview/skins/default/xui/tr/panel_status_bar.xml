@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="status">
+	<text length="1" name="ParcelNameText" tool_tip="Üzerinde durduğunuz arazi parselinin ismi.Arazi hakkında bilgi için tıklayınız." type="string">
+		parcel name goes here
+	</text>
+	<text length="1" name="BalanceText" tool_tip="Hesap bakiyesi" type="string">
+		Yükleniyor...
+	</text>
+	<button label="" label_selected="" name="buycurrency" tool_tip="Döviz alın"/>
+	<text length="12" name="TimeText" tool_tip="Mevcut zaman (Pasifik)" type="string">
+		12:00 AM
+	</text>
+	<string name="StatBarDaysOfWeek">
+		Pazar:Pazartesi:Salı:Çarşamba:Perşembe:Cuma:Cumartesi
+	</string>
+	<string name="StatBarMonthsOfYear">
+		Ocak:Şubat:Mart:Nisan:Mayıs:Haziran:Temmuz:Ağustos:Eylül:Ekim:Kasım:Aralık
+	</string>
+	<button label="" label_selected="" name="scriptout" tool_tip="Betik uyarıları ve hataları"/>
+	<button label="" label_selected="" name="health" tool_tip="Sağlık"/>
+	<text length="1" name="HealthText" tool_tip="Health" type="string">
+		100%
+	</text>
+	<button label="" label_selected="" name="no_fly" tool_tip="Uçmak yasak"/>
+	<button label="" label_selected="" name="no_build" tool_tip="İnşa etme/yaratma yasak"/>
+	<button label="" label_selected="" name="no_scripts" tool_tip="Betikler yasak"/>
+	<button label="" label_selected="" name="restrictpush" tool_tip="İtiş yok"/>
+	<button label="" label_selected="" name="status_no_voice" tool_tip="Burada sesli sohbet edilemez"/>
+	<button label="" label_selected="" name="buyland" tool_tip="Bu parseli satın alın"/>
+	<button label="" name="menubar_search_bevel_bg"/>
+	<line_editor label="Ara" name="search_editor" tool_tip="Second Life&apos;da arayın"/>
+	<button label="" label_selected="" name="search_btn" tool_tip="Second Life&apos;da arayın"/>
+	<string name="packet_loss_tooltip">
+		Packet kaybı
+	</string>
+	<string name="bandwidth_tooltip">
+		Bant genişliği
+	</string>
+</panel>

@@ -158,6 +158,7 @@ public:
 	/*virtual*/ S32		setTEBumpmap(const U8 te, const U8 bump);
 	/*virtual*/ S32		setTEShiny(const U8 te, const U8 shiny);
 	/*virtual*/ S32		setTEFullbright(const U8 te, const U8 fullbright);
+	/*virtual*/ S32		setTEBumpShinyFullbright(const U8 te, const U8 bump);
 	/*virtual*/ S32		setTEMediaFlags(const U8 te, const U8 media_flags);
 	/*virtual*/ S32		setTEGlow(const U8 te, const F32 glow);
 	/*virtual*/ S32		setTEScale(const U8 te, const F32 s, const F32 t);

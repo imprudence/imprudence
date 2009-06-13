@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="beacons" title="Beacon elemek">
+	<panel name="beacons_panel">
+		<check_box label="Csak érintéssel működő scriptelt tárgyak" name="touch_only"/>
+		<check_box label="Scriptelt tárgyak" name="scripted"/>
+		<check_box label="Fizikai tárgyak" name="physical"/>
+		<check_box label="Hangforrások" name="sounds"/>
+		<check_box label="Partikula források" name="particles"/>
+		<check_box label="Megvilágított elemek renderelése" name="highlights"/>
+		<check_box label="Beacon elemek renderelése" name="beacons"/>
+		<text name="beacon_width_label">
+			Beacon szélesség:
+		</text>
+	</panel>
+</floater>

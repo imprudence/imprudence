@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater customize" title="Görünüm">
+	<tab_container name="customize tab container">
+		<panel label="Vücut Parçaları" name="body_parts_placeholder"/>
+		<panel label="Vücut Şekli" name="Shape">
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+			<button label="Vücut" label_selected="Vücut" name="Body"/>
+			<button label="Kafa" label_selected="Kafa" name="Head"/>
+			<button label="Gözler" label_selected="Gözler" name="Eyes"/>
+			<button label="Kulaklar" label_selected="Kulaklar" name="Ears"/>
+			<button label="Burun" label_selected="Burun" name="Nose"/>
+			<button label="Ağız" label_selected="Ağız" name="Mouth"/>
+			<button label="Çene" label_selected="Çene" name="Chin"/>
+			<button label="Gövde" label_selected="Gövde" name="Torso"/>
+			<button label="Bacaklar" label_selected="Bacaklar" name="Legs"/>
+			<radio_group name="sex radio">
+				<radio_item length="1" name="radio" type="string">
+					Bayan
+				</radio_item>
+				<radio_item length="1" name="radio2" type="string">
+					Bay
+				</radio_item>
+			</radio_group>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni bir şekil sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Vücut şekli:
+			</text>
+			<button label="Yeni vücut şekli yarat" label_selected="Yeni vücut şekli yarat" name="Create New"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+		</panel>
+		<panel label="Vücut Teni" name="Skin">
+			<button label="Ten rengi" label_selected="Ten rengi" name="Skin Color"/>
+			<button label="Yüz detayı" label_selected="Yüz detayı" name="Face Detail"/>
+			<button label="Makyaj" label_selected="Makyaj" name="Makeup"/>
+			<button label="Vücut detayı" label_selected="Vücut detayı" name="Body Detail"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni bir ten sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Vücut teni:
+			</text>
+			<texture_picker label="Kafa dövmesi" name="Head Tattoos" tool_tip="Resim seçmek için tıklayınız" width="80"/>
+			<texture_picker label="Gövde dövmesi" name="Upper Tattoos" tool_tip="Resim seçmek için tıklayınız" width="80"/>
+			<texture_picker label="Bacak dövmesi" name="Lower Tattoos" tool_tip="Resim seçmek için tıklayınız" width="80"/>
+			<button label="Yeni vücut teni yarat" label_selected="Yeni vücut teni yarat" name="Create New"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+		</panel>
+		<panel label="Saç" name="Hair">
+			<button label="Renk" label_selected="Renk" name="Color"/>
+			<button label="Stil" label_selected="Stil" name="Style"/>
+			<button label="Kaşlar" label_selected="Kaşlar" name="Eyebrows"/>
+			<button label="Sakal &amp; bıyık" label_selected="Sakal &amp; Bıyık" name="Facial"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni bir şaç sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Saç:
+			</text>
+			<texture_picker label="Desen" name="Texture" tool_tip="Resim seçmek için tıklayınız"/>
+			<button label="Yeni saç yarat" label_selected="Yeni saç yarat" name="Create New"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+		</panel>
+		<panel label="Gözler" name="Eyes">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum in [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni gözler sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Gözler:
+			</text>
+			<texture_picker label="İris" name="Iris" tool_tip="Resim seçmek için tıklayınız"/>
+			<button label="Yeni gözler yarat" label_selected="Yeni gözler yarat" name="Create New"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+		</panel>
+		<panel label="Giysiler" name="clothes_placeholder"/>
+		<panel label="Gömlek" name="Shirt">
+			<texture_picker label="Doku" name="Fabric" tool_tip="Resim seçmek için tıklayınız"/>
+			<color_swatch label="Renk/ton" name="Color/Tint" tool_tip="Renk seçiciyi açmak için tıklayınız"/>
+			<button label="Yeni gömlek yarat" label_selected="Yeni gömlek yarat" name="Create New"/>
+			<button label="Çıkar" label_selected="Çıkar" name="Take Off"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri Al" label_selected="Geri Al" name="Revert"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni bir gömlek sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Gömlek:
+			</text>
+		</panel>
+		<panel label="Pantolon" name="Pants">
+			<texture_picker label="Doku" name="Fabric" tool_tip="Resim seçmek için tıklayınız"/>
+			<color_swatch label="Renk/ton" name="Color/Tint" tool_tip="Renk seçiciyi açmak için tıklayınız"/>
+			<button label="Yeni pantolon yarat" label_selected="Yeni pantolon yarat" name="Create New"/>
+			<button label="Çıkar" label_selected="Çıkar" name="Take Off"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni bir pantolon sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Pantolon:
+			</text>
+		</panel>
+		<panel label="Ayakkabılar" name="Shoes">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni ayakkabılar sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Ayakkabılar:
+			</text>
+			<texture_picker label="Doku" name="Fabric" tool_tip="Resim seçmek için tıklayınız"/>
+			<color_swatch label="Renk/ton" name="Color/Tint" tool_tip="Renk seçiciyi açmak için tıklayınız"/>
+			<button label="Yeni ayakkabılar yarat" label_selected="Yeni ayakkabılar yarat" name="Create New"/>
+			<button label="Çıkar" label_selected="Çıkar" name="Take Off"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+		</panel>
+		<panel label="Çoraplar" name="Socks">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni çoraplar sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Çoraplar:
+			</text>
+			<texture_picker label="Doku" name="Fabric" tool_tip="Resim seçmek için tıklayınız"/>
+			<color_swatch label="Renk/ton" name="Color/Tint" tool_tip="Renk seçiciyi açmak için tıklayınız"/>
+			<button label="Yeni çoraplar yarat" label_selected="Yeni çoraplar yarat" name="Create New"/>
+			<button label="Çıkar" label_selected="Çıkar" name="Take Off"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+		</panel>
+		<panel label="Ceket" name="Jacket">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni bir ceket sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Ceket:
+			</text>
+			<texture_picker label="Üst doku" name="Upper Fabric" tool_tip="Resim seçmek için tıklayınız"/>
+			<texture_picker label="Alt doku" name="Lower Fabric" tool_tip="Resim seçmek için tıklayınız"/>
+			<color_swatch label="Renk/ton" name="Color/Tint" tool_tip="Renk seçiciyi açmak için tıklayınız"/>
+			<button label="Yeni ceket yarat" label_selected="Yeni ceket yarat" name="Create New"/>
+			<button label="Çıkar" label_selected="Çıkar" name="Take Off"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+		</panel>
+		<panel label="Eldivenler" name="Gloves">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni eldivenler sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Eldivenler:
+			</text>
+			<texture_picker label="Doku" name="Fabric" tool_tip="Resim seçmek için tıklayınız"/>
+			<color_swatch label="Renk/ton" name="Color/Tint" tool_tip="Renk seçiciyi açmak için tıklayınız"/>
+			<button label="Yeni eldivenler yarat" label_selected="Yeni eldivenler yarat" name="Create New"/>
+			<button label="Çıkar" label_selected="Çıkar" name="Take Off"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+		</panel>
+		<panel label="Fanila" name="Undershirt">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni bir fanila sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Fanila:
+			</text>
+			<texture_picker label="Doku" name="Fabric" tool_tip="Resim seçmek için tıklayınız"/>
+			<color_swatch label="Renk/ton" name="Color/Tint" tool_tip="Renk seçiciyi açmak için tıklayınız"/>
+			<button label="Yeni fanila yarat" label_selected="Yeni fanila yarat" name="Create New"/>
+			<button label="Çıkar" label_selected="Çıkar" name="Take Off"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+		</panel>
+		<panel label="Külot" name="Underpants">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni bir külot sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Külot:
+			</text>
+			<texture_picker label="Doku" name="Fabric" tool_tip="Resim seçmek için tıklayınız"/>
+			<color_swatch label="Renk/ton" name="Color/Tint" tool_tip="Renk seçiciyi açmak için tıklayınız"/>
+			<button label="Yeni külot yarat" label_selected="Yeni külot yarat" name="Create New"/>
+			<button label="Çıkar" label_selected="Çıkar" name="Take Off"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+		</panel>
+		<panel label="Etek" name="Skirt">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]: modifiye edilemez
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: yükleniyor...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: giyilmemiş
+			</text>
+			<text length="1" name="path" type="string">
+				Konum [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Envanterinizden yeni bir etek sürükleyerek
+karakterinize ekleyiniz.  Bunun yanı sıra, kendiniz yeni bir
+yeni bir tanesini rastgele yaratıp giyebilirsiniz.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				Bu giyimi modifiye etme izniniz yok.
+			</text>
+			<text name="Item Action Label">
+				Etek:
+			</text>
+			<texture_picker label="Doku" name="Fabric" tool_tip="Resim seçmek için tıklayınız"/>
+			<color_swatch label="Renk/ton" name="Color/Tint" tool_tip="Renk seçiciyi açmak için tıklayınız"/>
+			<button label="Yeni etek yarat" label_selected="Yeni etek yarat" name="Create New"/>
+			<button label="Çıkar" label_selected="Çıkar" name="Take Off"/>
+			<button label="Kaydet" label_selected="Kaydet" name="Save"/>
+			<button label="Farklı kaydet..." label_selected="Farklı kaydet..." name="Save As"/>
+			<button label="Geri al" label_selected="Geri al" name="Revert"/>
+		</panel>
+	</tab_container>
+	<button label="İptal" label_selected="İptal" name="Cancel"/>
+	<button label="Tamam" label_selected="Tamam" name="Ok"/>
+	<button label="Dışgiyim yap..." label_selected="Dışgiyim yap..." name="Make Outfit" width="125"/>
+</floater>

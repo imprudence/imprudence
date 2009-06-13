@@ -20,7 +20,8 @@
 		Введите сообщение здесь.
 	</text_editor>
 	<text name="fine_print">
-		Если получатель Вашей открытки присоединится к SL, Вы получите бонус.
+		Если получатель Вашей открытки присоединится к Second Life,
+Вы получите бонус.
 	</text>
 	<button label="Отмена" name="cancel_btn"/>
 	<button label="Отправить" name="send_btn"/>

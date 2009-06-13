@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Értesítések" name="notices_tab">
+	<text name="help_text">
+		Értésítések küldés lehetőséget nyújt a csoport és a tagok közötti kapcsolatteremtésre. Az értesítések csak azoknak a csoporttagoknak kerülnek kiküldésre, akiknél az értesítések fogadása belet állítva. Az értesítések fogadásának kikapcsolását az általános részben lehet elvégezni.
+	</text>
+	<text name="no_notices_text">
+		Nincs korábbi értesítés.
+	</text>
+	<button label="?" label_selected="?" name="help_button" />
+	<text name="lbl">
+		Csoport értesítések arhívuma
+	</text>
+	<text name="lbl2">
+		Az értesítések 14 napig kerülnek megőrzésre. Kattints a fenti értesítésre a 
+megtekintéshez. Kattints a &apos;Frissít&apos; gombra az új értesítések megtekintéséhez.
+Naponta legfeljebb 200 értesítés küldhető ki csoportonként.
+	</text>
+	<scroll_list name="notice_list">
+		<column label="" name="icon" />
+		<column label="Tárgy" name="subject" />
+		<column label="Feladó" name="from" />
+		<column label="Dátum" name="date" />
+	</scroll_list>
+	<text name="notice_list_none_found">
+		Nincs találat.
+	</text>
+	<button label="Új értesítés írása" label_selected="Új értesítés írása"
+	     name="create_new_notice" />
+	<button label="Frissít" label_selected="Lista frissítése" name="refresh_notices" />
+	<panel label="Új értesítés írása" name="panel_create_new_notice">
+		<text name="lbl">
+			Értesítés írása
+		</text>
+		<text name="lbl2">
+			Az értesítéshez tárgyszöveget is kell írnod. A készlettárból
+további elemeket is hozzáadhatsz az értesítésedhez.
+A tárgynak másolhatónak és átruházhatónak kell lennie.
+		</text>
+		<text name="lbl3">
+			Tárgy:
+		</text>
+		<text name="lbl4">
+			Üzenet:
+		</text>
+		<text name="lbl5">
+			Melléklet:
+		</text>
+		<button label="Melléklet eltávolítása" label_selected="Melléklet eltávolítása"
+		     name="remove_attachment" />
+		<button label="Értesítés küldése" label_selected="Értesítés küldése"
+		     name="send_notice" />
+		<panel name="drop_target"
+		     tool_tip="Készláttár elemének csatolása az értesítéshez. A tárgynal másolhatónak és átruházhatónak kell lennie." />
+	</panel>
+	<panel label="Korábbi üzenetek megtekintése" name="panel_view_past_notice">
+		<text name="lbl">
+			Értesítések arhívuma
+		</text>
+		<text name="lbl2">
+			Új értesítés küldéséhez kattints az Új értesítés írása gombra.
+		</text>
+		<text name="lbl3">
+			Tárgy:
+		</text>
+		<text name="lbl4">
+			Üzenet:
+		</text>
+		<button label="Melléklet megnyitása" label_selected="Melléklet megnyitása"
+		     name="open_attachment"  width="130"/>
+		<line_editor bottom_delta="3" left="140" name="view_inventory_name" width="244" />
+	</panel>
+</panel>

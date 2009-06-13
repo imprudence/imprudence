@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mute by name" title="Objeyi adıyla engelle">
+	<text name="message">
+		Sadece obje yazı ve HM&apos;lerine etki eder,seslerine değil.
+Objenin tam adını yazmalısınız.
+	</text>
+	<line_editor name="object_name">
+		Obje adı
+	</line_editor>
+	<button label="Tamam" name="OK" />
+	<button label="İptal" name="Cancel" />
+</floater>

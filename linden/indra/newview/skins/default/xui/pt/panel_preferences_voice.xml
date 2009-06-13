@@ -15,12 +15,12 @@
 	<text name="push_to_talk_heading">
 		Pressione para falar
 	</text>
-	<text_editor name="voice_chat_description">
-		O  modo Pressione-para-falar permite que você controle quando a sua voz é transmitida. Quando quiser alternar o modo, pressione e solte o botão pressione-para-falar para mudar o seu microfone de ligado para desligado. Quando não estiver em modo alternado, o microfone estará ativo apenas quando o botão estiver mantido para baixo.
+	<text_editor name="voice_chat_description" width="465" bottom_delta="-76" height="81" >
+		O modo Pressione-para-falar permite que você controle quando a sua voz é transmitida. Quando quiser alternar o modo, pressione e solte o botão pressione-para-falar para mudar o seu microfone de ligado para desligado. Quando não estiver em modo alternado, o microfone estará ativo apenas quando o botão estiver mantido para baixo.
 	</text_editor>
 	<check_box label="Use Pressione-para-falar em modo alternado" name="push_to_talk_toggle_check"/>
 	<text name="push_to_talk_label">
-		gatilho do Pressione-para-Falar:
+		Gatilho do Pressione-para-Falar:
 	</text>
 	<button label="Definir tecla" name="set_voice_hotkey_button"/>
 	<button label="Botão do meio do mouse" name="set_voice_middlemouse_button"/>

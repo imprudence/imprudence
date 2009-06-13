@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!-- This file contains strings that used to be hardcoded in the source.
+     It is only for those strings which do not belong in a floater.
+     For example, the strings used in avatar chat bubbles, and strings 
+     that are returned from one component and may appear in many places-->
+<strings>
+	<string name="LoginInProgress">
+		Giriş yapılıyor.[APP_NAME] donmuş gözükebilir.Lütfen bekleyiniz.
+	</string>
+	<string name="LoginAuthenticating">
+		Tanımlanıyor
+	</string>
+	<string name="LoginMaintenance">
+		Hesap bakımı gerçekleşiyor...
+	</string>
+	<string name="LoginAttempt">
+		Önceki giriş işlemi başarısız oldu.Giriş yapılıyor,deneme [NUMBER]
+	</string>
+	<string name="LoginPrecaching">
+		Dünya yükleniyor...
+	</string>
+	<string name="LoginInitializingBrowser">
+		Gömülü web tarayıcı algılanıyor...
+	</string>
+	<string name="LoginInitializingMultimedia">
+		Multimedya algılanıyor...
+	</string>
+	<string name="LoginVerifyingCache">
+		Ön bellek dosyaları doğrlanıyor(60-90 saniye sürebilir)...
+	</string>
+	<string name="LoginProcessingResponse">
+		Yanıt işleniyor...
+	</string>
+	<string name="LoginInitializingWorld">
+		Dünya algılanıyor...
+	</string>
+	<string name="LoginDecodingImages">
+		Resimler çözümüyor...
+	</string>
+	<string name="LoginInitializingQuicktime">
+		QuickTime algılanıyor...
+	</string>
+	<string name="LoginQuicktimeNotFound">
+		QuickTime bulanamıyor - algılanamadı.
+	</string>
+	<string name="LoginQuicktimeOK">
+		QuickTime başarıyla algılandı.
+	</string>
+	<string name="LoginWaitingForRegionHandshake">
+		Bölge iletişimi bekleniyor...
+	</string>
+	<string name="LoginConnectingToRegion">
+		Bölgeye bağlanılıyor...
+	</string>
+	<string name="LoginDownloadingClothing">
+		Giyim indiriliyor...
+	</string>
+	<string name="AgentLostConnection">
+		Bu bölge sorun yaşıyor olabilir.Lütfen internet bağlantınızı kontrol ediniz.
+	</string>
+	<string name="TooltipPerson">
+		Kişi
+	</string>
+	<string name="TooltipNoName">
+		(Ad yok)
+	</string>
+	<string name="TooltipOwner">
+		Sahip:
+	</string>
+	<string name="TooltipPublic">
+		Genel
+	</string>
+	<string name="TooltipIsGroup">
+		(Grup)
+	</string>
+	<string name="TooltipFlagScript">
+		Betik
+	</string>
+	<string name="TooltipFlagPhysics">
+		Fizik
+	</string>
+	<string name="TooltipFlagTouch">
+		Dokunma
+	</string>
+	<string name="TooltipFlagL$">
+		L$
+	</string>
+	<string name="TooltipFlagDropInventory">
+		Envantere sürükleme
+	</string>
+	<string name="TooltipFlagPhantom">
+		Hayalet
+	</string>
+	<string name="TooltipFlagTemporary">
+		Geçici
+	</string>
+	<string name="TooltipFlagRightClickMenu">
+		(Menü için sağ tıklayınız)
+	</string>
+	<string name="TooltipFreeToCopy">
+		Ücretsiz kopyalanabilir
+	</string>
+	<string name="TooltipForSaleL$">
+		Satılık: [AMOUNT]L$
+	</string>
+	<string name="TooltipForSaleMsg">
+		Satılık: [MESSAGE]
+	</string>
+	<string name="TooltipFlagGroupBuild">
+		Grup inşası
+	</string>
+	<string name="TooltipFlagNoBuild">
+		İnşa yok
+	</string>
+	<string name="TooltipFlagNoEdit">
+		Grup inşası
+	</string>
+	<string name="TooltipFlagNotSafe">
+		Güvenli değil
+	</string>
+	<string name="TooltipFlagNoFly">
+		Uçuş yok
+	</string>
+	<string name="TooltipFlagGroupScripts">
+		Grup betikleri
+	</string>
+	<string name="TooltipFlagNoScripts">
+		Betikler yok
+	</string>
+	<string name="TooltipLand">
+		Arazi:
+	</string>
+	<string name="TooltipMustSingleDrop">
+		Buraya sadece tek bir ürün sürüklenebilir
+	</string>
+	<string name="RetrievingData">
+		Erişiliyor...
+	</string>
+	<string name="ReleaseNotes">
+		Sürüm Notları
+	</string>
+	<string name="LoadingData">
+		Yükleniyor...
+	</string>
+	<string name="AvatarNameNobody">
+		(hiç kimse)
+	</string>
+	<string name="AvatarNameWaiting">
+		(bekleniyor)
+	</string>
+	<string name="AvatarNameHippos">
+		(hippos)
+	</string>
+	<string name="GroupNameNone">
+		(yok)
+	</string>
+	<string name="AssetErrorNone">
+		Hata yok
+	</string>
+	<string name="AssetErrorRequestFailed">
+		Veri isteği: başarısız
+	</string>
+	<string name="AssetErrorNonexistentFile">
+		Veri isteği: var olmayan dosya
+	</string>
+	<string name="AssetErrorNotInDatabase">
+		Veri isteği: veri veritabanında bulunamadı
+	</string>
+	<string name="AssetErrorEOF">
+		Dosya sonu
+	</string>
+	<string name="AssetErrorCannotOpenFile">
+		Dosya açılamıyor
+	</string>
+	<string name="AssetErrorFileNotFound">
+		Dosya bulunamadı
+	</string>
+	<string name="AssetErrorTCPTimeout">
+		Dosya transfer zaman aşımı
+	</string>
+	<string name="AssetErrorCircuitGone">
+		Devre sona erdi.
+	</string>
+	<string name="AssetErrorPriceMismatch">
+		Görüntüleyici ve sunucu ücrette anlaşamıyor
+	</string>
+	<string name="AssetErrorUnknownStatus">
+		Bilinmeyen durum
+	</string>
+	<string name="AvatarEditingApparance">
+		(Görünüm düzenleniyor)
+	</string>
+	<string name="AvatarAway">
+		Dışarda
+	</string>
+	<string name="AvatarBusy">
+		Meşgul
+	</string>
+	<string name="AvatarMuted">
+		Engelli
+	</string>
+	<string name="anim_express_afraid">
+		Korkma
+	</string>
+	<string name="anim_express_anger">
+		Sinirli
+	</string>
+	<string name="anim_away">
+		Dışarıda
+	</string>
+	<string name="anim_express_laugh">
+		Kahkaha atan
+	</string>
+	<string name="anim_express_toothsmile">
+		Kocaman gülümseyen
+	</string>
+	<string name="anim_blowkiss">
+		Öpücük gönderen
+	</string>
+	<string name="anim_express_bored">
+		Sıkılmış
+	</string>
+	<string name="anim_clap">
+		El çırpan
+	</string>
+	<string name="anim_express_cry">
+		Ağlayan
+	</string>
+	<string name="anim_dance1">
+		Dans 1
+	</string>
+	<string name="anim_dance2">
+		Dans 2
+	</string>
+	<string name="anim_dance3">
+		Dans 3
+	</string>
+	<string name="anim_dance4">
+		Dans 4
+	</string>
+	<string name="anim_dance5">
+		Dans 5
+	</string>
+	<string name="anim_dance6">
+		Dans 6
+	</string>
+	<string name="anim_dance7">
+		Dans 7
+	</string>
+	<string name="anim_dance8">
+		Dans 8
+	</string>
+	<string name="anim_express_disdain">
+		Küçümseyen
+	</string>
+	<string name="anim_drink">
+		İçen
+	</string>
+	<string name="anim_express_embarrased">
+		Utanmış
+	</string>
+	<string name="anim_express_frown">
+		Somurtmuş
+	</string>
+	<string name="anim_impatient">
+		Sabırsız
+	</string>
+	<string name="anim_jumpforjoy">
+		Neşe ile zıplayan
+	</string>
+	<string name="anim_kissmybutt">
+		Popomu öp
+	</string>
+	<string name="anim_express_kiss">
+		Öpücük
+	</string>
+	<string name="anim_laugh_short">
+		Kısa kahkaha
+	</string>
+	<string name="anim_musclebeach">
+		Kas gösteren
+	</string>
+	<string name="anim_no_unhappy">
+		Hayır (Mutsuz)
+	</string>
+	<string name="anim_no_head">
+		Hayır
+	</string>
+	<string name="anim_punch_onetwo">
+		Bir-iki yumruk
+	</string>
+	<string name="anim_express_open_mouth">
+		Ağzı açık
+	</string>
+	<string name="anim_peace">
+		Barış
+	</string>
+	<string name="anim_point_you">
+		Başkasını gösteren
+	</string>
+	<string name="anim_point_me">
+		Kendisini gösteren
+	</string>
+	<string name="anim_punch_l">
+		Sol yumruk
+	</string>
+	<string name="anim_punch_r">
+		Sağ yumruk
+	</string>
+	<string name="anim_rps_countdown">
+		RPS sayısı
+	</string>
+	<string name="anim_rps_paper">
+		RPS kağıdı
+	</string>
+	<string name="anim_rps_rock">
+		RPS kayası
+	</string>
+	<string name="anim_rps_scissors">
+		RPS makası
+	</string>
+	<string name="anim_express_repulsed">
+		Reddeden
+	</string>
+	<string name="anim_kick_roundhouse_r">
+		Döner tekme
+	</string>
+	<string name="anim_express_sad">
+		Mutsuz
+	</string>
+	<string name="anim_salute">
+		Selamlayan
+	</string>
+	<string name="anim_shout">
+		Bağıran
+	</string>
+	<string name="anim_express_shrug">
+		Omuz silken
+	</string>
+	<string name="anim_express_smile">
+		Gülümseyen
+	</string>
+	<string name="anim_express_surprise">
+		Şaşırmış
+	</string>
+	<string name="anim_sword_strike_r">
+		Kılıç sallayan
+	</string>
+	<string name="anim_angry_tantrum">
+		Tantrum
+	</string>
+	<string name="anim_express_tongue_out">
+		Dil çıkaran
+	</string>
+	<string name="anim_hello">
+		El sallayan
+	</string>
+	<string name="anim_whisper">
+		Fısıldayan
+	</string>
+	<string name="anim_whistle">
+		Islık çalan
+	</string>
+	<string name="anim_express_wink">
+		Göz kıran
+	</string>
+	<string name="anim_wink_hollywood">
+		Göz kıran (Hollywood)
+	</string>
+	<string name="anim_express_worry">
+		Endişeli
+	</string>
+	<string name="anim_yes_happy">
+		Evet (Mutlu)
+	</string>
+	<string name="anim_yes_head">
+		Evet
+	</string>
+	<string name="texture_loading">
+		Yükleniyor...
+	</string>
+	<string name="worldmap_offline">
+		Devre dışı
+	</string>
+	<string name="whisper">
+		fısıldıyor:
+	</string>
+	<string name="shout">
+		bağırıyor:
+	</string>
+	<string name="SIM_ACCESS_PG">
+		PG
+	</string>
+	<string name="SIM_ACCESS_MATURE">
+		Mature
+	</string>
+	<string name="SIM_ACCESS_ADULT">
+		Adult
+	</string>
+	<string name="SIM_ACCESS_DOWN">
+		Sistemde değil
+	</string>
+	<string name="SIM_ACCESS_MIN">
+		Bilinmeyen
+	</string>
+	<string name="land_type_unknown">
+		(bilinmeyen)
+	</string>
+	<string name="covenant_never_modified">
+		Son düzenleme: (asla)
+	</string>
+	<string name="covenant_modified">
+		Son düzenleme:
+	</string>
+	<string name="all_files">
+		Tüm dosyalar
+	</string>
+	<string name="sound_files">
+		Sesler
+	</string>
+	<string name="animation_files">
+		Animasyonlar
+	</string>
+	<string name="image_files">
+		Resimler
+	</string>
+	<string name="save_file_verb">
+		Kaydet
+	</string>
+	<string name="load_file_verb">
+		Yükle
+	</string>
+	<string name="targa_image_files">
+		Targa resimleri
+	</string>
+	<string name="bitmap_image_files">
+		Bitmap resimleri
+	</string>
+	<string name="avi_movie_file">
+		AVI film dosyası
+	</string>
+	<string name="xaf_animation_file">
+		XAF anim dosyası
+	</string>
+	<string name="xml_file">
+		XML dosyası
+	</string>
+	<string name="dot_raw_file">
+		RAW dosyası
+	</string>
+	<string name="compressed_image_files">
+		Sıkıştırılmış resimler
+	</string>
+	<string name="load_files">
+		Dosyaları yükle
+	</string>
+	<string name="choose_the_directory">
+		Dizin seçiniz
+	</string>
+</strings>

@@ -137,7 +137,7 @@
 			<text name="text">
 				Categoría:
 			</text>
-			<combo_box name="category combo">
+			<combo_box name="category combo" width="185" left="222">
 				<combo_item name="All">
 					Cualquier categoría
 				</combo_item>
@@ -245,15 +245,15 @@ subasta. Para comprarlo directamente, visítelo y pulse su nombre en la barra su
 				</combo_item>
 			</combo_box>
 			<check_box label="Precio &#8804; " name="pricecheck"/>
-			<text left="126" name="pricecheck_symbol">
+			<text  left="191" name="pricecheck_symbol">
 				L$
 			</text>
 			<check_box label="Superficie &#8805; " name="areacheck" width="100"/>
-			<text left="196" name="areacheck_symbol">
+			<text left="191" name="areacheck_symbol">
 				m²
 			</text>
-			<line_editor left="142" name="priceedit"/>
-			<line_editor left="142" name="areaedit"/>
+			<line_editor left="142" name="priceedit" width="45"/>
+			<line_editor left="142" name="areaedit" width="45"/>
 			<button label="Buscar" label_selected="Buscar" name="Search"/>
 			<scroll_list name="results">
 				<column label="" name="icon"/>

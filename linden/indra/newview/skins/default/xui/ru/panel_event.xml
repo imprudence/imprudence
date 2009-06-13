@@ -3,52 +3,52 @@
 	<text name="event_name_label">
 		Название:
 	</text>
-	<text name="event_name">
+	<text name="event_name" left="140" >
 		(нет)
 	</text>
 	<text name="event_category_label">
 		Тип:
 	</text>
-	<text name="event_category">
+	<text name="event_category" left="140" >
 		(нет)
 	</text>
 	<text name="event_mature_label">
 		Mature контент:
 	</text>
-	<text name="event_mature_yes">
+	<text name="event_mature_yes" left="140" >
 		Да
 	</text>
-	<text name="event_mature_no">
+	<text name="event_mature_no" left="140" >
 		Нет
 	</text>
 	<text name="event_date_label">
 		Дата:
 	</text>
-	<text name="event_date">
+	<text name="event_date" left="140" >
 		(нет)
 	</text>
 	<text name="event_duration_label">
 		Продолжительность события:
 	</text>
-	<text name="event_duration">
+	<text name="event_duration" left="210" >
 		(нет)
 	</text>
 	<text name="event_runby_label">
 		Начало:
 	</text>
-	<text name="event_runby">
+	<text name="event_runby" left="140" >
 		(нет)
 	</text>
 	<text name="event_location_label">
 		Место:
 	</text>
-	<text name="event_location">
+	<text name="event_location" left="140" >
 		(нет)
 	</text>
 	<text name="event_cover_label">
 		Обложка:
 	</text>
-	<text name="event_cover">
+	<text name="event_cover" left="140" >
 		(нет)
 	</text>
 	<text name="event_desc_label">

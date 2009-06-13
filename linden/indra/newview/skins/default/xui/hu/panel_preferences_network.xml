@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Hálózat" name="network">
+	<text type="string" length="1" name="text_box">
+		Maximális sávszélesség:
+	</text>
+	<text type="string" length="1" name="text_box2">
+		kbps (kbit/mp)
+	</text>
+	<text type="string" length="1" name="cache_size_label_l">
+		Gyorsítótár mérete:
+	</text>
+	<text type="string" length="1" name="text_box5">
+		MB
+	</text>
+	<button label="Gyorsítótár kiürítése" name="clear_cache" width="150"/>
+	<text type="string" length="1" name="cache_location_label">
+		Gyorsítótár helye:
+	</text>
+	<button label="Beállít" label_selected="Set" name="set_cache" />
+	<button label="Visszaállít" label_selected="Set" name="reset_cache" />
+	<check_box label="Egyedi port alkalmazása" name="connection_port_enabled" />
+	<spinner label="Port száma:" name="connection_port" />
+</panel>

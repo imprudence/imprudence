@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_notecard">
+	<text_editor length="1" name="Notecard Editor" type="string">
+		Betöltés folyamatban...
+	</text_editor>
+	<text length="1" name="desc txt" type="string">
+		Leírás:
+	</text>
+	<button label="Megtart" label_selected="Megtart" name="Keep"/>
+	<button label="Elvet" label_selected="Elvet" name="Discard"/>
+	<string name="no_object">
+		Nem sikerült megtalálni a tárgyat, ami tartalmazza ezt a jegyzetet:
+	</string>
+	<string name="not_allowed">
+		Nincs jogosultságod a jegyzet megtekintésére.
+	</string>
+</floater>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="邀请会员" name="invite_panel">
 	<text name="help_text">
-		您可以同时选择多人并邀请加入到您的社团。点击‘打开个人选择’开始。
+		您可以同时选择多人并邀请加入到您的社团。点击“打开人物选择器”开始。
 	</text>
 	<button label="打开人物选择器" name="add_button" tool_tip=""/>
 	<name_list name="invitee_list" tool_tip="按住Ctrl键然后点击居民名字来选择多个项目。"/>

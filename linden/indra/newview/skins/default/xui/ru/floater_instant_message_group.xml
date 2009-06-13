@@ -46,5 +46,6 @@
 			<line_editor name="chat_editor" width="86" />
 			<button label="Отправить" name="send_btn" width="80" left="96"  />
 		</layout_panel>
+		<layout_panel min_width="200" name="active_speakers_panel" width="200" />
 	</layout_stack>
 </floater>

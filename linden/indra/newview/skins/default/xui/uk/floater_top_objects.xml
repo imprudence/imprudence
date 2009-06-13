@@ -11,23 +11,26 @@
 		<column label="Час" name="time"/>
 		<column label="Моно Час" name="mono_time"/>
 	</scroll_list>
+	<line_editor font="SansSerifSmall" left="105" name="id_editor" width="280"/>
+	<line_editor font="SansSerifSmall" left="105" name="object_name_editor" width="280"/>
+	<line_editor font="SansSerifSmall" left="105" name="owner_name_editor" width="280"/>
 	<text name="id_text">
 		ID об&apos;єкта:
 	</text>
-	<button label="Показувати маяк" name="show_beacon_btn"/>
-	<text name="obj_name_text">
+	<button label="Показувати маяк" name="show_beacon_btn" width="150"/>
+	<text name="obj_name_text" width="120">
 		Назва об&apos;єкта:
 	</text>
-	<button label="Фільтр" name="filter_object_btn"/>
-	<text name="owner_name_text">
+	<button label="Фільтр" name="filter_object_btn" width="150"/>
+	<text name="owner_name_text" width="120">
 		Ім&apos;я власника:
 	</text>
-	<button label="Фільтр" name="filter_owner_btn"/>
-	<button label="Повернути вибране" name="return_selected_btn"/>
-	<button label="Повернути все" name="return_all_btn"/>
-	<button label="Заблокувати вибране" name="disable_selected_btn"/>
-	<button label="Заблокувати все" name="disable_all_btn"/>
-	<button label="Оновити" name="refresh_btn"/>
+	<button label="Фільтр" name="filter_owner_btn" width="150"/>
+	<button label="Повернути вибране" name="return_selected_btn" width="180"/>
+	<button label="Повернути все" name="return_all_btn" left="200" width="150"/>
+	<button label="Заблокувати вибране" name="disable_selected_btn" width="180"/>
+	<button label="Заблокувати все" name="disable_all_btn" left="200" width="150"/>
+	<button label="Оновити" name="refresh_btn" width="150"/>
 	<string name="top_scripts_title">
 		Топ скриптів
 	</string>

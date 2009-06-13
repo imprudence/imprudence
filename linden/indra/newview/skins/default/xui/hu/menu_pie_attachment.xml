@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Attachment Pie">
+	<menu_item_call label="Adatlap..." name="Profile..."/>
+	<menu_item_call label="Eldob" name="Drop"/>
+	<menu_item_call label="Csoportok..." name="Groups..."/>
+	<menu_item_call label="Érint" name="Attachment Object Touch">
+		<on_enable userdata="Érint" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="Feláll" name="Stand Up"/>
+	<menu_item_call label="Lecsatol" name="Detach"/>
+	<menu_item_call label="Barátok..." name="Friends..."/>
+	<menu_item_call label="Gesztusok..." name="Gestures..."/>
+	<menu_item_call label="Megjelenés..." name="Appearance..."/>
+	<menu_item_call label="Szerkeszt..." name="Edit..."/>
+</pie_menu>

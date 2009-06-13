@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="active_speakers_panel">
+	<string name="moderator_label">
+		(Moderátor)
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="moderation_mode_panel">
+			<combo_box name="moderation_mode">
+				<combo_item name="OpenVoice">
+					Hangüzenetek küldése bekapcsolva alapértelmezettként
+				</combo_item>
+				<combo_item name="ModeratedVoice">
+					Hangüzenetek küldése kikapcsolva alapértelmezettként
+				</combo_item>
+			</combo_box>
+		</layout_panel>
+		<layout_panel name="moderate_chat_panel">
+			<scroll_list name="speakers_list">
+				<column label="Név" name="speaker_name" />
+				<column label="" name="speaking_status" />
+			</scroll_list>
+			<panel name="speaker_controls">
+				<button label="" name="profile_btn" />
+				<text name="resident_name">
+					Rumplstiltskin Califragilistic
+				</text>
+				<button label="" name="mute_btn" tool_tip="Lakó elnémítása" />
+				<check_box label="Szöveg elnémítása" name="mute_text_btn" />
+			</panel>
+		</layout_panel>
+		<layout_panel name="moderator_controls">
+			<text name="moderator_controls_label">
+				Moderátori vezérlők:
+			</text>
+			<check_box name="moderator_allow_voice">
+				Hangüzenet küldésének engedélyezése
+			</check_box>
+			<check_box name="moderator_allow_text">
+				Szöveges üzenetek küldésének engedélyezése
+			</check_box>
+		</layout_panel>
+	</layout_stack>
+</panel>

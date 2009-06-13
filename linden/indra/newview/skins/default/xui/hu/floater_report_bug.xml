@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="bug_reporter" title="Hibabejelentés">
+	<texture_picker label="" name="screenshot" />
+	<check_box label="Képet mellékel" name="screen_check" />
+	<text name="reporter_title">
+		Bejelentő:
+	</text>
+	<text name="sim_title">
+		Régió:
+	</text>
+	<text name="pos_title">
+		Koordináta:
+	</text>
+	<text name="select_object_label">
+		Kattints a gombra, majd a tárgyra:
+	</text>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="Tárgy kiválasztó - Jelölj ki egy tárgyat, amire a bejelentés irányul" />
+	<text name="object_name_label">
+		Név:
+	</text>
+	<text name="object_name">
+		Consetetur Sadipscing
+	</text>
+	<text name="owner_name_label">
+		Tulajdonos:
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
+	</text>
+	<combo_box name="category_combo"
+	     tool_tip="Kategória -- válaszd ki azt a kategóriát, amely a legjobban jellemző a bejelentésre">
+		<combo_item name="Selectcategory">
+			Válassz kategóriát
+		</combo_item>
+		<combo_item name="Building">
+			Építés
+		</combo_item>
+		<combo_item name="Character">
+			Avatár
+		</combo_item>
+		<combo_item name="Chat/IM">
+			Üzenetküldés
+		</combo_item>
+		<combo_item name="Documentation">
+			Dokumentáció
+		</combo_item>
+		<combo_item name="Exploit">
+			Felfedezés
+		</combo_item>
+		<combo_item name="Graphics">
+			Grafika
+		</combo_item>
+		<combo_item name="Inventory">
+			Készlettár
+		</combo_item>
+		<combo_item name="Lag">
+			Csomagvesztés
+		</combo_item>
+		<combo_item name="MissingContent">
+			Hiányzó tartalom
+		</combo_item>
+		<combo_item name="LindenDollars(L$)">
+			Linden dollár (L$)
+		</combo_item>
+		<combo_item name="Permissions">
+			Jogosultság
+		</combo_item>
+		<combo_item name="Physics">
+			Fizika
+		</combo_item>
+		<combo_item name="Script">
+			Kód
+		</combo_item>
+		<combo_item name="Sound">
+			Hang
+		</combo_item>
+		<combo_item name="Stipends">
+			Juttatás
+		</combo_item>
+		<combo_item name="Userinterface">
+			Felhasználói felület
+		</combo_item>
+		<combo_item name="Miscellaneous">
+			Egyéb
+		</combo_item>
+	</combo_box>
+	<text name="sum_title">
+		Összefoglaló:
+	</text>
+	<text name="dscr_title">
+		Részletek: (Kérjük minél több információt adj meg!)
+	</text>
+	<text_editor name="details_edit">
+		Hiba megjelenésének lépései:
+
+Észlelt eredmény:
+
+Elvárt eredmény:
+	</text_editor>
+	<text name="bug_aviso">
+		Megjegyzés: Hiányos jelentések nem kerülnek kivizsgálásra.
+Amennyiben ez a hiba kihatással van a teljesítményre vagy
+biztonságra kérjük válaszd a Felfedezés kategóriát. Köszönjük!
+	</text>
+	<button label="Töröl" label_selected="Töröl" name="cancel_btn" />
+	<button label="Bejelent" label_selected="Bejelent" name="send_btn" />
+</floater>

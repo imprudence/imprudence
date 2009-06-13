@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Panel Avatar">
+	<tab_container name="tab">
+		<panel label="SL" name="2nd Life">
+			<string name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+			<string name="AcctTypeResident">
+				Beboer
+			</string>
+			<string name="AcctTypeTrial">
+				På prøve
+			</string>
+			<string name="AcctTypeCharterMember">
+				æresmedlem
+			</string>
+			<string name="AcctTypeEmployee">
+				Linden Lab medarbejder
+			</string>
+			<string name="PaymentInfoUsed">
+				Betalende medlem
+			</string>
+			<string name="PaymentInfoOnFile">
+				Registreret betalende
+			</string>
+			<string name="NoPaymentInfoOnFile">
+				Ingen betalingsinfo
+			</string>
+			<string name="AgeVerified">
+				Alders-checket
+			</string>
+			<string name="NotAgeVerified">
+				Ikke alders-checket
+			</string>
+			<text name="Name:">
+				Navn:
+			</text>
+			<text name="online_yes">
+				Online lige nu
+			</text>
+			<text name="label">
+				Født:
+			</text>
+			<text name="label2">
+				Konto:
+			</text>
+			<text name="partner_label" tool_tip="Second Life partner eller kæreste. For mere info om hvordan, se www.secondlife.com/partner">
+				Partner:
+			</text>
+			<button label="i" label_selected="i" name="partner_info" tool_tip="Klik for at åbne partnerens profil"/>
+			<button label="?" label_selected="?" name="partner_help"/>
+			<line_editor name="partner_edit" tool_tip="Second Life partner eller kæreste. For mere info om hvordan, se www.secondlife.com/partner">
+				[FIRST] [LAST]
+			</line_editor>
+			<text name="Photo:">
+				Foto:
+			</text>
+			<texture_picker label="" name="img" tool_tip="Klik for at vælge et billede"/>
+			<text name="Groups:">
+				Grupper:
+			</text>
+			<text name="About:">
+				Om:
+			</text>
+			<text name="(500 chars)">
+				(500 tegn)
+			</text>
+			<text name="Give item:">
+				Giv objekt:
+			</text>
+			<text name="Give inventory" tool_tip="Træk ting fra din beholding herover for at give det til denne person.">
+				Træk det du vil give fra beholdning hertil.
+			</text>
+			<check_box label="Vis i søgning" name="allow_publish" tool_tip="Udgiv ekstra profil informationer så som beskrivelse og billeder i søgningen."/>
+			<button label="?" label_selected="?" name="?"/>
+			<button label="Find på kort" label_selected="Find på kort" name="Find on Map"/>
+			<button label="Tilbyd teleport..." label_selected="Tilbyd teleport..." name="Offer Teleport..."/>
+			<button label="Tilføj ven..." label_selected="Tilføj ven..." name="Add Friend..."/>
+			<button label="Betal..." label_selected="Betal..." name="Pay..."/>
+			<button label="Privat besked (IM)..." label_selected="Privat besked (IM)..." name="Instant Message..." tool_tip="Chat privat med denne bruger"/>
+			<button label="Blokér" label_selected="Blokér" name="Mute"/>
+		</panel>
+		<panel label="Web" name="WebProfile">
+			<flyout_button label="Indlæs" label_selected="Indlæs" name="load" tool_tip="Indlæs denne profil med den interne browser.">
+				<flyout_button_item name="open_item">
+					I ekstern browser
+				</flyout_button_item>
+				<flyout_button_item name="home_item">
+					Hjem URL
+				</flyout_button_item>
+			</flyout_button>
+			<button label="?" label_selected="?" name="web_profile_help"/>
+			<check_box label="Indlæs automatisk web profiler" name="auto_load" tool_tip="Indlæser automatisk alle webprofiler uden at spørge først."/>
+		</panel>
+		<panel label="Interesser" name="Interests">
+			<text name="I Want To:">
+				Jeg vil:
+			</text>
+			<check_box label="Bygge" name="chk0"/>
+			<check_box label="Udforske" name="chk1"/>
+			<check_box label="Møde" name="chk2"/>
+			<check_box label="Blive hyret" name="chk6"/>
+			<check_box label="Lave grupper" name="chk3"/>
+			<check_box label="Shoppe" name="chk4"/>
+			<check_box label="Sælge" name="chk5"/>
+			<check_box label="Ansætte" name="chk7"/>
+			<text name="Skills:">
+				Færdigheder:
+			</text>
+			<check_box label="Teksturer" name="schk0"/>
+			<check_box label="Arkitektur" name="schk1"/>
+			<check_box label="Event planlægning" name="schk2"/>
+			<check_box label="Model" name="schk3"/>
+			<check_box label="Scripte" name="schk4"/>
+			<check_box label="Lave avatarer" name="schk5"/>
+			<text name="Languages:">
+				Sprog:
+			</text>
+		</panel>
+		<panel label="Favoritter" name="Picks">
+			<text name="Tell everyone about your favorite places in Second Life.">
+				Fortæl alle om dine favorit steder i Second Life.
+			</text>
+			<button label="Ny..." label_selected="Ny..." name="New..."/>
+			<button label="Slet..." label_selected="Slet..." name="Delete..."/>
+			<text name="loading_text">
+				Indlæser...
+			</text>
+		</panel>
+		<panel label="Annoncer" name="Classified">
+			<text name="Place an ad in Second Life&apos;s classified listings.">
+				Opret en annonce i Second Life&apos;s annonce sider.
+			</text>
+			<button label="Ny..." label_selected="Ny..." name="New..."/>
+			<button label="Slet..." label_selected="Slet..." name="Delete..."/>
+			<text name="loading_text">
+				Indlæser...
+			</text>
+		</panel>
+		<panel label="RL" name="1st Life">
+			<text name="Photo:">
+				Foto:
+			</text>
+			<texture_picker label="" name="img" tool_tip="Klik for at vælge et billede"/>
+			<text name="Info:">
+				Info:
+			</text>
+			<text name="(250 chars)">
+				(250 tegn)
+			</text>
+		</panel>
+		<panel label="Noter" name="My Notes">
+			<string name="Loading">
+				Indlæser...
+			</string>
+			<text name="label">
+				Brug denne plads til at skrive din noter omkring denne person. Hold styr på
+aftaler, information om personen og mere. Det er kun dig der kan se disse
+informationer.
+			</text>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="Annullér" label_selected="Annullér" name="Cancel"/>
+	<button label="Spark" label_selected="Spark" name="Kick"/>
+	<button label="Frys" label_selected="Frys" name="Freeze" tool_tip="Stop denne beboer&apos;s bevægelse og chat."/>
+	<button label="Stop frys" label_selected="Stop frys" name="Unfreeze" tool_tip="Fjern evt. frysning af beboer, der hindrede i bevægelse og chat."/>
+	<string name="ShowOnMapNonFriend">
+		Vis lokation på kortet.
+Ikke muligt fordi du ikke har
+venskab med denne person.
+	</string>
+	<string name="ShowOnMapFriendOffline">
+		Vis lokation på kortet.
+	</string>
+	<string name="ShowOnMapFriendOnline">
+		Vis lokation på kortet.
+	</string>
+	<string name="TeleportGod">
+		Tving beboer hen til dig.
+	</string>
+	<string name="TeleportPrelude">
+		Tilbyd teleport til din lokation.
+Ikke muligt før du har forladt Orienterings øen.
+	</string>
+	<string name="TeleportNormal">
+		Tilbyd teleport til din lokation.
+	</string>
+	<string name="Loading">
+		Indlæser...
+	</string>
+</panel>

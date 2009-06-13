@@ -6,6 +6,6 @@
 		Сохр. эл-т как:
 	</text>
 	<line_editor name="name ed">
-		Новый [DESC]
+		New [DESC]
 	</line_editor>
 </floater>

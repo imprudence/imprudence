@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Name/Description" title="">
+	<text name="name_label">
+		Név:
+	</text>
+	<text name="description_label">
+		Leírás:
+	</text>
+	<button label="Mégsem" name="cancel_btn" />
+	<button label="Feltölt (L$[AMOUNT])" name="ok_btn" />
+</floater>

@@ -2,10 +2,13 @@
 <floater name="floater_lagmeter" title="Рівень лагів">
 	<button label="" label_selected="" name="client_lagmeter"
 	     tool_tip="Лаги клієнта" />
+	<text left="30" name="client_lag_cause" right="-10" />
+	<text left="30" name="network_lag_cause" right="-10" />
+	<text left="30" name="server_lag_cause" right="-32" />
 	<text name="client">
 		Клієнт:
 	</text>
-	<text name="client_text">
+	<text name="client_text" font="SansSerifSmall">
 		Нормально
 	</text>
 	<button label="" label_selected="" name="network_lagmeter"
@@ -13,7 +16,7 @@
 	<text name="network">
 		Мережа:
 	</text>
-	<text name="network_text">
+	<text name="network_text" font="SansSerifSmall">
 		Нормально
 	</text>
 	<button label="" label_selected="" name="server_lagmeter"
@@ -21,7 +24,7 @@
 	<text name="server">
 		Сервер:
 	</text>
-	<text name="server_text">
+	<text name="server_text" font="SansSerifSmall">
 		Нормально
 	</text>
 	<button label="?" name="server_help" />
@@ -51,10 +54,10 @@
 		Нормально, вікно на фоні
 	</string>
 	<string name="client_frame_time_critical_msg">
-		Частота кадрів клієнта нижче [CLIENT_FRAME_RATE_CRITICAL]
+		Частота кадрів нижче [CLIENT_FRAME_RATE_CRITICAL]
 	</string>
 	<string name="client_frame_time_warning_msg">
-		Частота кадрів клієнта між [CLIENT_FRAME_RATE_CRITICAL] і [CLIENT_FRAME_RATE_WARNING]
+		Частота кадрів між [CLIENT_FRAME_RATE_CRITICAL] і [CLIENT_FRAME_RATE_WARNING]
 	</string>
 	<string name="client_frame_time_normal_msg">
 		Нормально
@@ -120,10 +123,10 @@
 		20
 	</string>
 	<string name="server_frame_time_critical_msg">
-		Частота кадрів симулятора нижче [SERVER_FRAME_RATE_CRITICAL]
+		Частота кадрів нижче [SERVER_FRAME_RATE_CRITICAL]
 	</string>
 	<string name="server_frame_time_warning_msg">
-		Частота кадрів симулятора між [SERVER_FRAME_RATE_CRITICAL] і [SERVER_FRAME_RATE_WARNING]
+		Частота кадрів між [SERVER_FRAME_RATE_CRITICAL] і [SERVER_FRAME_RATE_WARNING]
 	</string>
 	<string name="server_frame_time_normal_msg">
 		Нормально

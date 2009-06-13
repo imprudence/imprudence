@@ -19,5 +19,5 @@
 	<button label="Установить" label_selected="Установить" name="set_cache"/>
 	<button label="Сбросить" label_selected="Установить" name="reset_cache"/>
 	<check_box label="Соединение на заданный порт" name="connection_port_enabled"/>
-	<spinner label="Номер порта:" name="connection_port"/>
+	<spinner label="Номер порта:" name="connection_port" width="180" label_width="105"/>
 </panel>

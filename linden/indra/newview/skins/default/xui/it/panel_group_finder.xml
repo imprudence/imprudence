@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="GroupInfoFinder" title="Ricerca informazioni sul gruppo">
+	<text name="default_needs_apply_text">
+		Ci sono cambiamenti da applicare nel pannello corrente.
+	</text>
+	<text name="want_apply_text">
+		Vuoi applicare questi cambiamenti?
+	</text>
+</panel>

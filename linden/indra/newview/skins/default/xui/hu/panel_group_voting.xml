@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Javaslatok" name="voting_tab">
+	<text name="help_text">
+		A csoporttal kapcsolatos tennivalók, feladatok és vélemények tájékozatására szolgál. Amennyiben rendelkezel a megfelelő jogosultsággal javaslatot terjeszthetsz be, szavazást indíthatsz erről és megtekintheted a korábban benyújtott javaslatokat.
+	</text>
+	<button label="?" name="help_button" />
+	<text name="proposal_header">
+		Csoport javaslat indítása
+	</text>
+	<text name="proposal_instructions">
+		Kattints kétszer arra a javaslatra, amire szavazást szeretnél kezdeményezni
+vagy nyomj a Javaslat írása gombra új előterjesztés benyújtásához.
+	</text>
+	<text name="proposal_lbl">
+		Javaslat leírása
+	</text>
+	<text name="proposal_voting_lbl">
+		Javaslat                                                     Szavazás vége                Szavazott?
+	</text>
+	<button label="Javaslat írása" label_selected="Javaslat írása" name="btn_proposal" />
+	<button label="Javaslat megtekintése" label_selected="Javaslat megtekintése"
+	     name="btn_view_proposal_item" />
+	<button label="Lista megtekintése" label_selected="Lista megtekintése" name="btn_view_proposal_list" font="SansSerifSmall" width="108"/>
+	<text name="quorum_lbl">
+		Határozatképesség:
+	</text>
+	<spinner name="quorum"
+	     tool_tip="Szükséges szavazatok száma érvényes szavazási eredményhez." />
+	<text name="quorum_text">
+		/ [MEMBERS] szavazata szükséges.
+	</text>
+	<text name="duration_lbl">
+		Lejárat:
+	</text>
+	<spinner name="duration" tool_tip="Napok száma, ameddig szavazni lehet." />
+	<text name="duration_text">
+		nap
+	</text>
+	<radio_group name="majority"
+	     tool_tip="A nyeréshez szükség van a szavazatok többségére.">
+		Egyszerű többség
+2/3-os többség
+Egyhangú többség
+	</radio_group>
+	<text name="start_lbl">
+		kezdete:
+	</text>
+	<text name="end_lbl">
+		vége:
+	</text>
+	<button label="Javaslat benyújtása" label_selected="Javaslat benyújtása" name="btn_submit" left="175" width="140"/>
+	<button label="Mégsemm" label_selected="Mégsemm" name="btn_cancel" left_delta="158"/>
+	<button label="Igen" label_selected="Igen" left="195" name="btn_yes" width="60" />
+	<button label="Nem" label_selected="Nem" left_delta="66" name="btn_no" width="60"/>
+	<button font="SansSerifSmall" label="Tartózkodik" label_selected="Tartózkodik" left_delta="66" name="btn_abstain" width="80" />
+	<text name="txt">
+		Csoport szavazások előzménye
+	</text>
+	<text name="instructions">
+		Kattints kétszer a korábbi szavazatokra vagy válassz ki egy szavazást
+az eredmények megtekintéséhez.
+	</text>
+	<text name="history_list_lbl">
+		Korábbi szavazatok                                                         Szavazás vége
+	</text>
+	<button label="Tétel megtekintése" label_selected="Tétel megtekintése"
+	     name="btn_view_history_item" />
+	<text name="vote_text_lbl">
+		Szavazási eredmények:
+	</text>
+	<button label="Lista megtekintése" label_selected="Lista megtekintése"
+	     name="btn_view_history_list" />
+	<text name="proposals_header_view_txt">
+		Csoport javaslatok indítása
+	</text>
+	<text name="proposals_header_view_inst">
+		Kattints kétszer arra a javaslatra, melyre szavazatot szeretnél leadni.
+	</text>
+	<text name="proposals_header_create_txt">
+		Javaslat indítása
+	</text>
+	<text name="proposals_header_create_inst">
+		Ide írd az új javaslat szövegét. A javaslathoz kapcsolódó
+határozatképességet, lejáratot, többséget is beállíthatod.
+	</text>
+	<text name="proposals_header_vote_txt">
+		Javaslat szavazása
+	</text>
+	<text name="proposals_header_vote_inst">
+		Nyomd meg az igen vagy nem gombot a javaslatra történő szavazat
+leadásához vagy válaszd a tartózkodik gombot.
+	</text>
+	<text name="proposals_header_voted_inst">
+		Szavazatod: [VOTE]
+	</text>
+	<text name="empty_proposal_txt">
+		Az általad indított javaslat jelenleg üres. Kérjük töltsd ki a javaslat szövegét mielőtt benyújtod.
+	</text>
+	<text name="proposals_submit_yes_txt">
+		Igen szavazat leadása folyamatban...
+	</text>
+	<text name="proposals_submit_no_txt">
+		Nem szavazat leadása folyamatban...
+	</text>
+	<text name="proposals_submit_abstain_txt">
+		Tartózkodik szavazat leadása folyamatban...
+	</text>
+	<text name="proposals_submit_new_txt">
+		Új javaslat benyújtása folyamatban...
+	</text>
+	<text name="vote_recorded">
+		A szavazatod leadásra került.
+	</text>
+	<text name="vote_previously_recorded">
+		Korábban már szavaztál. Csak egyszer szavazhatsz egy adott szaváskor.
+	</text>
+</panel>

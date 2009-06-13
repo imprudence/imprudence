@@ -137,7 +137,7 @@
 			<text name="text">
 				Категорія:
 			</text>
-			<combo_box name="category combo">
+			<combo_box name="category combo" width="180">
 				<combo_item name="All">
 					Будь-яка Категорія
 				</combo_item>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfoFinder" title="Gruppe-info søger">
+	<text name="default_needs_apply_text">
+		Der er ændringer på denne fane der ikke er gemt.
+	</text>
+	<text name="want_apply_text">
+		Vil du gemme disse ændringer?
+	</text>
+</panel>

@@ -3,52 +3,52 @@
 	<text name="event_name_label">
 		Nombre:
 	</text>
-	<text name="event_name">
+	<text name="event_name" left="150" >
 		(ninguno)
 	</text>
 	<text name="event_category_label">
 		Tipo:
 	</text>
-	<text name="event_category">
+	<text name="event_category" left="150" >
 		(ninguno)
 	</text>
 	<text name="event_mature_label">
 		Contenido &apos;Mature&apos;:
 	</text>
-	<text name="event_mature_yes">
+	<text name="event_mature_yes" left="150" >
 		Sí
 	</text>
-	<text name="event_mature_no">
+	<text name="event_mature_no" left="150" >
 		No
 	</text>
 	<text name="event_date_label">
 		Fecha:
 	</text>
-	<text name="event_date">
+	<text name="event_date" left="150" >
 		(ninguna)
 	</text>
 	<text name="event_duration_label">
 		Duración del evento:
 	</text>
-	<text name="event_duration">
+	<text name="event_duration" left="150" >
 		(ninguna)
 	</text>
 	<text name="event_runby_label">
 		Auspiciado por:
 	</text>
-	<text name="event_runby">
+	<text name="event_runby" left="150" >
 		(nadie)
 	</text>
 	<text name="event_location_label">
 		Localización:
 	</text>
-	<text name="event_location">
+	<text name="event_location" left="150" >
 		(ninguna)
 	</text>
 	<text name="event_cover_label">
 		Cuota de participación:
 	</text>
-	<text name="event_cover">
+	<text name="event_cover" left="150" >
 		(ninguna)
 	</text>
 	<text name="event_desc_label">

@@ -1535,7 +1535,7 @@ www.secondlife.com/support
 		Вам нельзя находиться в этом регионе из-за Ваших настроек maturity Рейтинга.
 
 Вы можете &apos;Изменить Настройки&apos;, чтобы повысить maturity Рейтинг сейчас и получить возможность войти. Вы сможете искать и получать доступ к [REGIONMATURITY] контенту с этого момента. Если позже Вы вернуть эту настройку, перейдите в меню Правка &gt; Настройки... &gt; Общие.
-	 <form>
+	 <form name="form">
       <button
        name="OK"
        text="Изменить Настройки"/>
@@ -1543,7 +1543,7 @@ www.secondlife.com/support
        default="true"
        name="Cancel"
        text="Закрыть"/>
-       <ignore text="Когда вход в Регион заблокирован из-за настроек maturity Рейтинга"/>
+       <ignore name="ignore" text="Когда вход в Регион заблокирован из-за настроек maturity Рейтинга"/>
     </form>
 	</notification>
 	<notification name="LandClaimAccessBlocked">
@@ -2651,7 +2651,7 @@ X и Y задает их позицию. D (плотность) определя
 	<notification name="ImproperPaymentStatus">
 		Ваша платежеспособность не проверена для того, чтобы попасть в этот регион.
 	</notification>
-	<notification name="MustGetAgeRgion">
+	<notification name="MustGetAgeRegion">
 		Вам необходимо пройти проверку возраста, чтобы попасть в этот регион.
 	</notification>
 	<notification name="MustGetAgeParcel">

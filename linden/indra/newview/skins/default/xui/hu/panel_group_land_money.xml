@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Föld és L$" name="land_money_tab">
+	<string name="help_text">
+		A csoport tulajdonában lévő telkek kerülnek itt listázásra a hozzájárulások alapján. A figyelmeztetés mindaddig megmarad, amíg az összes használatban lévő földterület kevesebb vagy egyenlő az összes hozzájáruláshoz viszonyítva. A tervezett, részletek és az eladás rész a csoport pénzügyi információit mutatja.
+	</string>
+	<button label="?" name="help_button"/>
+	<string name="cant_view_group_land_text">
+		Nincs jogosultságod megtekinteni a csoport tulajdonban lévő földet.
+	</string>
+	<string name="cant_view_group_accounting_text">
+		Nincs jogosultságod megtekinteni a csoport pénzügyi információit.
+	</string>
+	<string name="loading_txt">
+		Betöltés...
+	</string>
+	<text name="group_land_heading" width="260">
+		Csoport tulajdonban lévő földek
+	</text>
+	<scroll_list name="group_parcel_list">
+		<column label="Telek neve" name="name"/>
+		<column label="Régió" name="location"/>
+		<column label="Típus" name="type"/>
+		<column label="Terület" name="area"/>
+		<column label="" name="hidden"/>
+	</scroll_list>
+	<button label="Térképen mutat" label_selected="Térképen mutat" name="map_button"/>
+	<text name="total_contributed_land_label">
+		Összes hozzájárulás:
+	</text>
+	<text name="total_contributed_land_value"  left_delta="178">
+		[AREA] m²
+	</text>
+	<text name="total_land_in_use_label" left="18" width="160">
+		Összes használatban lévő föld:
+	</text>
+	<text name="total_land_in_use_value" left_delta="166">
+		[AREA] m²
+	</text>
+	<text name="land_available_label" left="18" width="124">
+		Rendelkezésre álló föld:
+	</text>
+	<text name="land_available_value" left_delta="166">
+		[AREA] m²
+	</text>
+	<text name="your_contribution_label">
+		Összes hozzájárulás:
+	</text>
+	<line_editor left_delta="176" name="your_contribution_line_editor" width="70" />
+	<string name="land_contrib_error">
+		Föld hozzájárulás beállítása sikertelen.
+	</string>
+	<text name="your_contribution_max_value">
+		m² (max. [AMOUNT])
+	</text>
+	<text name="group_over_limit_text">
+		A csoporttagoknak több hozzájárulással kell rendelkezniük
+a föld használatához.
+	</text>
+	<text name="group_money_heading">
+		Csoport L$
+	</text>
+	<tab_container name="group_money_tab_container">
+		<panel label="Tervezett" name="group_money_planning_tab">
+			<text_editor name="group_money_planning_text">
+				Kalkuláció...
+			</text_editor>
+		</panel>
+		<panel label="Részletek" name="group_money_details_tab">
+			<text_editor name="group_money_details_text">
+				Becsült...
+			</text_editor>
+			<button label="&lt; Vissza" label_selected="&lt; Vissza" name="earlier_details_button" tool_tip="Vissza az időben"/>
+			<button label="Előre &gt;" label_selected="Előre &gt;" name="later_details_button" tool_tip="Előre az időben"/>
+		</panel>
+		<panel label="Eladás" name="group_money_sales_tab">
+			<text_editor name="group_money_sales_text">
+				Becsült...
+			</text_editor>
+			<button label="&lt; Vissza" label_selected="&lt; Vissza" name="earlier_sales_button" tool_tip="Vissza az időben"/>
+			<button label="Előre &gt;" label_selected="Előre &gt;" name="later_sales_button" tool_tip="Előre az időben"/>
+		</panel>
+	</tab_container>
+</panel>

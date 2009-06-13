@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Object Pie">
+	<menu_item_call label="Apri" name="Open"/>
+	<menu_item_call label="Crea" name="Create"/>
+	<menu_item_call label="Tocca" name="Object Touch">
+		<on_enable userdata="Tocca" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="Siedi qui" name="Object Sit">
+		<on_enable userdata="Siedi qui,Alzati" name="EnableSitOrStand"/>
+	</menu_item_call>
+	<menu_item_call label="Prendi" name="Pie Object Take">
+		<on_enable userdata="Compra,Prendi" name="EnableBuyOrTake"/>
+	</menu_item_call>
+	<menu_item_call label="Paga..." name="Pay..."/>
+	<pie_menu label="Altro &gt;" name="More &gt;">
+		<menu_item_call label="Cancella" name="Delete"/>
+		<menu_item_call label="Indossa" name="Wear"/>
+		<menu_item_call label="Prendine una copia" name="Take Copy"/>
+		<pie_menu label="Indossa HUD &gt;" name="Object Attach HUD"/>
+		<pie_menu label="Attacca &gt;" name="Object Attach"/>
+		<menu_item_call label="Restituisci..." name="Return..."/>
+		<pie_menu label="Altro &gt;" name="Rate Menu">
+			<menu_item_call label="Denuncia..." name="Report Abuse..."/>
+			<menu_item_call label="Muta" name="Object Mute"/>
+			<menu_item_call label="Ispeziona" name="Object Inspect"/>
+		</pie_menu>
+		<menu_item_call label="Compra..." name="Buy..."/>
+	</pie_menu>
+	<menu_item_call label="Modifica..." name="Edit..."/>
+</pie_menu>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="avatar_texture_debug" title="Avatár Textúrák">
+	<text name="">
+		Jelzőfény textúrák
+	</text>
+	<text name="">
+		Vegyes textúrák
+	</text>
+	<texture_picker label="Fej" name="baked_head" />
+	<texture_picker label="Smink" name="head_bodypaint" />
+	<texture_picker label="Haj" name="hair" />
+	<button label="Molett" label_selected="Molett" name="Dump" />
+	<texture_picker label="Eyes" name="baked_eyes" />
+	<texture_picker label="Eye" name="eye_texture" />
+	<texture_picker label="Felsőtest" name="baked_upper_body" />
+	<texture_picker label="Felsőtest tetoválás" name="upper_bodypaint" />
+	<texture_picker label="Alsóing" name="undershirt" />
+	<texture_picker label="Kesztyű" name="gloves" />
+	<texture_picker label="Ing" name="shirt" />
+	<texture_picker label="Felsőkabát" name="upper_jacket" />
+	<texture_picker label="Alsótest" name="baked_lower_body" />
+	<texture_picker label="Alsótest tetoválás" name="lower_bodypaint" />
+	<texture_picker label="Alsónadrág" name="underpants" />
+	<texture_picker label="Harisnya" name="socks" />
+	<texture_picker label="Cipő" name="shoes" />
+	<texture_picker label="Nadrás" name="pants" />
+	<texture_picker label="Kabát" name="jacket" />
+	<texture_picker label="Szoknya" name="baked_skirt" />
+	<texture_picker label="Szoknya" name="skirt_texture" />
+</floater>
