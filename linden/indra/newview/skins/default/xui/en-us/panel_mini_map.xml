@@ -50,10 +50,13 @@
 		 text_enabled_color="1, 1, 1, 0.7" v_pad="0" width="21">
 		NW
 	</text>
-  <string name="tooltip_1">
-    Double-Cick to Teleport
+  <string name="tooltip_tp">
+    Double-Click teleports
   </string>
-  <string name="tooltip_2">
-    Shift-Drag to Pan
+  <string name="tooltip_pan">
+    Shift-Drag pans
+  </string>
+  <string name="tooltip_map">
+    Double-Click opens Map
   </string>
 </panel>

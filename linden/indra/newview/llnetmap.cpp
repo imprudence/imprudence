@@ -538,11 +538,11 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 		msg.append( region->getName() );
 		
 		msg.append("\n");
-		msg.append(getString("tooltip_1"));
+		gSavedSettings.getBOOL( "MiniMapTeleport" ) ?
+						msg.append(getString("tooltip_tp")) : msg.append(getString("tooltip_map"));
 		msg.append("\n");
-		msg.append(getString("tooltip_2"));
-
-
+		msg.append(getString("tooltip_pan"));
+		
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 		std::string buffer;
 		msg.append("\n");
