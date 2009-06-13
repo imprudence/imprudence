@@ -42,6 +42,14 @@
 		modified:   linden/indra/newview/llnetmap.cpp
 		modified:   linden/indra/newview/llviewermessage.cpp
 		
+		
+  Aimee Trescothick  <aimee@ama-zing.co.uk>
+	
+	* VWR-4106: Mini-map beacon icon doesn't display correctly when beacon position above or below camera
+	 
+		modified:   linden/indra/newview/llworldmapview.cpp
+		modified:   linden/indra/newview/llworldmapview.h
+		
 
 2009-06-12  McCabe Maxsted  <hakushakukun@gmail.com>
 

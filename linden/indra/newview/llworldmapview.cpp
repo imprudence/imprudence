@@ -1195,6 +1195,9 @@ static void drawDot(F32 x_pixels, F32 y_pixels,
 	}
 	else
 	{
+		// Draw V indicator for above or below
+		// *TODO: Replace this vector drawing with icons
+		
 		F32 left =		x_pixels - dot_radius;
 		F32 right =		x_pixels + dot_radius;
 		F32 center = (left + right) * 0.5f;
@@ -1203,13 +1206,14 @@ static void drawDot(F32 x_pixels, F32 y_pixels,
 
 		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 		gGL.color4fv( color.mV );
-		LLUI::setLineWidth(1.5f);
-		F32 h_bar = relative_z > HEIGHT_THRESHOLD ? top : bottom; // horizontal bar Y
+		LLUI::setLineWidth(3.0f);
+		F32 point = relative_z > HEIGHT_THRESHOLD ? top : bottom; // Y pos of the point of the V
+		F32 back = relative_z > HEIGHT_THRESHOLD ? bottom : top; // Y pos of the ends of the V
 		gGL.begin( LLRender::LINES );
-			gGL.vertex2f(center, top);
-			gGL.vertex2f(left, h_bar);
-			gGL.vertex2f(right, h_bar);
-			gGL.vertex2f(right, bottom);
+			gGL.vertex2f(left, back);
+			gGL.vertex2f(center, point);
+			gGL.vertex2f(center, point);
+			gGL.vertex2f(right, back);
 		gGL.end();
 		LLUI::setLineWidth(1.0f);
 	}

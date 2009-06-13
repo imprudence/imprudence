@@ -105,7 +105,7 @@ public:
 									F32 y_pixels, 
 									const LLColor4& color,
 									F32 relative_z = 0.f,
-									F32 dot_radius = 3.f);
+									F32 dot_radius = 5.f);
 
 	static void		drawTrackingCircle( const LLRect& rect, S32 x, S32 y, 
 										const LLColor4& color, 
