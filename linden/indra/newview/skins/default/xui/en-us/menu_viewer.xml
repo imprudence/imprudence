@@ -571,6 +571,7 @@
                   userdata="" />
         <on_check control="RectangleSelectInclusive" />
       </menu_item_check>
+      <menu_item_separator />
       <menu_item_check name="Show Hidden Selection"
                        label="Show Hidden Selection">
         <on_click function="Tools.ShowHiddenSelection"
@@ -582,6 +583,11 @@
         <on_click function="Tools.ShowSelectionLightRadius"
                   userdata="" />
         <on_check control="RenderLightRadius" />
+      </menu_item_check>
+      <menu_item_check label="Show Selection Outlines"
+                       name="Show Selection Outlines">
+        <on_click function="Tools.ShowSelectionHighlights" userdata="" />
+        <on_check control="RenderHighlightSelections" />
       </menu_item_check>
       <menu_item_check name="Show Selection Beam"
                        label="Show Selection Beam">

@@ -4,6 +4,19 @@
 	  LLTextureCache::writeToCache() does not cache textures smaller than TEXTURE_CACHE_ENTRY_SIZE
 	
 		modified:   linden/indra/newview/lltexturecache.cpp
+		
+		
+  Aimee Trescothick  <aimee@ama-zing.co.uk>
+  
+	* VWR-6918: Hide/Show Selection Outlines.
+    
+		modified:   indra/newview/app_settings/settings.xml
+		modified:   indra/newview/llappviewer.cpp
+		modified:   indra/newview/llselectmgr.cpp
+		modified:   indra/newview/llselectmgr.h
+		modified:   indra/newview/llviewermenu.cpp
+		modified:   indra/newview/skins/default/xui/en-us/menu_viewer.xml
+		
 
 2009-06-11  McCabe Maxsted  <hakushakukun@gmail.com>
 
