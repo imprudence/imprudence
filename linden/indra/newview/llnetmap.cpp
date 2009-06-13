@@ -536,6 +536,12 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 			msg.append("\n");
 		}
 		msg.append( region->getName() );
+		
+		msg.append("\n");
+		msg.append(getString("tooltip_1"));
+		msg.append("\n");
+		msg.append(getString("tooltip_2"));
+
 
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 		std::string buffer;
@@ -546,13 +552,6 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 		buffer = region->getHost().getString();
 		msg.append(buffer);
 #endif
-		// *TODO: 
-		//	- put this under the control of XUI so it can be translated.
-
-		if ( gSavedSettings.getBOOL( "MiniMapTeleport" ))
-			msg.append("\n(Double-click to teleport)");
-		else
-			msg.append("\n(Double-click to open Map)");
 
 		S32 SLOP = 4;
 		localPointToScreen( 

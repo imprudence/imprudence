@@ -50,4 +50,10 @@
 		 text_enabled_color="1, 1, 1, 0.7" v_pad="0" width="21">
 		NW
 	</text>
+  <string name="tooltip_1">
+    Double-Cick to Teleport
+  </string>
+  <string name="tooltip_2">
+    Shift-Drag to Pan
+  </string>
 </panel>

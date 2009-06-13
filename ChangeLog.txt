@@ -5,6 +5,13 @@
 		modified:   linden/indra/newview/llnetmap.cpp
 		modified:   linden/indra/newview/llnetmap.h
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_mini_map.xml
+		
+		
+	* Moved mini-map tooltips to XML, added panning tooltip.
+		
+		modified:   linden/indra/newview/llnetmap.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_mini_map.xml
 
 
 2009-06-12  McCabe Maxsted  <hakushakukun@gmail.com>
