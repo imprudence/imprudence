@@ -94,6 +94,8 @@ LLNetMap::LLNetMap(const std::string& name) :
 	
 	// Register event listeners for popup menu
 	(new LLScaleMap())->registerListener(this, "MiniMap.ZoomLevel");
+	(new LLCenterMap())->registerListener(this, "MiniMap.Center");
+	(new LLCheckCenterMap())->registerListener(this, "MiniMap.CheckCenter");
 	(new LLStopTracking())->registerListener(this, "MiniMap.StopTracking");
 	(new LLEnableTracking())->registerListener(this, "MiniMap.EnableTracking");
 	(new LLShowAgentProfile())->registerListener(this, "MiniMap.ShowProfile");
@@ -160,8 +162,11 @@ void LLNetMap::draw()
 		createObjectImage();
 	}
 
-	mCurPanX = lerp(mCurPanX, mTargetPanX, LLCriticalDamp::getInterpolant(0.1f));
-	mCurPanY = lerp(mCurPanY, mTargetPanY, LLCriticalDamp::getInterpolant(0.1f));
+	if (gSavedSettings.getS32( "MiniMapCenter" ) != MAP_CENTER_NONE)
+	{
+		mCurPanX = lerp(mCurPanX, mTargetPanX, LLCriticalDamp::getInterpolant(0.1f));
+		mCurPanY = lerp(mCurPanY, mTargetPanY, LLCriticalDamp::getInterpolant(0.1f));
+	}
 
 	F32 rotation = 0;
 
@@ -261,26 +266,24 @@ void LLNetMap::draw()
 			}
 			gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
 		}
-		
 
-		LLVector3d old_center = mObjectImageCenterGlobal;
-		LLVector3d new_center = gAgent.getCameraPositionGlobal();
-
-		new_center.mdV[0] = (5.f/mObjectMapTPM)*floor(0.2f*mObjectMapTPM*new_center.mdV[0]);
-		new_center.mdV[1] = (5.f/mObjectMapTPM)*floor(0.2f*mObjectMapTPM*new_center.mdV[1]);
-		new_center.mdV[2] = 0.f;
-
+		// Redraw object layer periodically
 		if (mUpdateNow || (map_timer.getElapsedTimeF32() > 0.5f))
 		{
 			mUpdateNow = FALSE;
-			mObjectImageCenterGlobal = new_center;
 
-			// Center moved enough.
+			// Locate the centre of the object layer, accounting for panning
+			LLVector3 new_center = globalPosToView(gAgent.getCameraPositionGlobal(), rotate_map);	
+			new_center.mV[0] -= mCurPanX;
+			new_center.mV[1] -= mCurPanY;
+			new_center.mV[2] = 0.f;
+			mObjectImageCenterGlobal = viewPosToGlobal(llround(new_center.mV[0]), llround(new_center.mV[1]), rotate_map);
+
 			// Create the base texture.
 			U8 *default_texture = mObjectRawImagep->getData();
 			memset( default_texture, 0, mObjectImagep->getWidth() * mObjectImagep->getHeight() * mObjectImagep->getComponents() );
 
-			// Draw buildings
+			// Draw objects
 			gObjectList.renderObjectsForMap(*this);
 
 			mObjectImagep->setSubImage(mObjectRawImagep, 0, 0, mObjectImagep->getWidth(), mObjectImagep->getHeight());
@@ -728,6 +731,99 @@ void LLNetMap::createObjectImage()
 	mUpdateNow = TRUE;
 }
 
+BOOL LLNetMap::handleMouseDown( S32 x, S32 y, MASK mask )
+{
+	if (!(mask & MASK_SHIFT)) return FALSE;
+
+	// Start panning
+	gFocusMgr.setMouseCapture( this );
+
+	mMouseDownPanX = llround(mCurPanX);
+	mMouseDownPanY = llround(mCurPanY);
+	mMouseDownX = x;
+	mMouseDownY = y;
+	return TRUE;
+}
+
+BOOL LLNetMap::handleMouseUp( S32 x, S32 y, MASK mask )
+{
+	if (hasMouseCapture())
+	{
+		if (mPanning)
+		{
+			// restore mouse cursor
+			S32 local_x, local_y;
+			local_x = mMouseDownX + llfloor(mCurPanX - mMouseDownPanX);
+			local_y = mMouseDownY + llfloor(mCurPanY - mMouseDownPanY);
+			LLRect clip_rect = getRect();
+			clip_rect.stretch(-8);
+			clip_rect.clipPointToRect(mMouseDownX, mMouseDownY, local_x, local_y);
+			LLUI::setCursorPositionLocal(this, local_x, local_y);
+
+			// finish the pan
+			mPanning = FALSE;
+
+			mMouseDownX = 0;
+			mMouseDownY = 0;
+
+			// auto centre
+			mTargetPanX = 0;
+			mTargetPanY = 0;
+		}
+		gViewerWindow->showCursor();
+		gFocusMgr.setMouseCapture( NULL );
+		return TRUE;
+	}
+	return FALSE;
+}
+
+// static
+BOOL LLNetMap::outsideSlop(S32 x, S32 y, S32 start_x, S32 start_y)
+{
+	S32 dx = x - start_x;
+	S32 dy = y - start_y;
+	S32 SLOP = 4;
+
+	return (dx <= -SLOP || SLOP <= dx || dy <= -SLOP || SLOP <= dy);
+}
+
+BOOL LLNetMap::handleHover( S32 x, S32 y, MASK mask )
+{
+	if (hasMouseCapture())
+	{
+		if (mPanning || outsideSlop(x, y, mMouseDownX, mMouseDownY))
+		{
+			// just started panning, so hide cursor
+			if (!mPanning)
+			{
+				mPanning = TRUE;
+				gViewerWindow->hideCursor();
+			}
+
+			F32 delta_x = (F32)(gViewerWindow->getCurrentMouseDX());
+			F32 delta_y = (F32)(gViewerWindow->getCurrentMouseDY());
+
+			// Set pan to value at start of drag + offset
+			mCurPanX += delta_x;
+			mCurPanY += delta_y;
+			mTargetPanX = mCurPanX;
+			mTargetPanY = mCurPanY;
+
+			gViewerWindow->moveCursorToCenter();
+		}
+
+		// Doesn't matter, cursor should be hidden
+	gViewerWindow->setCursor( UI_CURSOR_CROSS );
+		return TRUE;
+	}
+	else
+	{
+	gViewerWindow->setCursor( UI_CURSOR_CROSS );
+		lldebugst(LLERR_USER_INPUT) << "hover handled by LLNetMap" << llendl;
+		return TRUE;
+	}
+}
+
 BOOL LLNetMap::handleDoubleClick( S32 x, S32 y, MASK mask )
 {
 	if (gSavedSettings.getBOOL( "MiniMapTeleport" ))
@@ -777,6 +873,32 @@ bool LLNetMap::LLScaleMap::handleEvent(LLPointer<LLEvent> event, const LLSD& use
 		break;
 	}
 
+	return true;
+}
+
+bool LLNetMap::LLCenterMap::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	S32 center = userdata.asInteger();
+
+	if (gSavedSettings.getS32("MiniMapCenter") == center)
+	{
+		gSavedSettings.setS32("MiniMapCenter", MAP_CENTER_NONE);
+	}
+	else
+	{
+		gSavedSettings.setS32("MiniMapCenter", userdata.asInteger());
+	}
+
+	return true;
+}
+
+bool LLNetMap::LLCheckCenterMap::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	LLNetMap *self = mPtr;
+	EMiniMapCenter center = (EMiniMapCenter)userdata["data"].asInteger();
+	BOOL enabled = (gSavedSettings.getS32("MiniMapCenter") == center);
+
+	self->findControl(userdata["control"].asString())->setValue(enabled);
 	return true;
 }
 

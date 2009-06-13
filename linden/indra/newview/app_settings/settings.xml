@@ -4797,6 +4797,17 @@
       <key>Value</key>
       <integer>410</integer>
     </map>
+    <key>MiniMapCenter</key>
+    <map>
+      <key>Comment</key>
+      <string>Sets the focal point of the minimap. (0=None, 1=Camera)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>MiniMapRotate</key>
     <map>
       <key>Comment</key>

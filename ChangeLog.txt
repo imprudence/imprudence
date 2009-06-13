@@ -17,6 +17,14 @@
 		modified:   indra/newview/llviewermenu.cpp
 		modified:   indra/newview/skins/default/xui/en-us/menu_viewer.xml
 		
+		
+	* VWR-13221: Allow panning of the mini-map.
+		
+		modified:   indra/newview/app_settings/settings.xml
+		modified:   indra/newview/llnetmap.cpp
+		modified:   indra/newview/llnetmap.h
+		modified:   indra/newview/skins/default/xui/en-us/menu_mini_map.xml
+		
 
 2009-06-11  McCabe Maxsted  <hakushakukun@gmail.com>
 
