@@ -33,6 +33,15 @@
 		modified:   linden/indra/newview/skins/default/colors_base.xml
 		modified:   linden/indra/newview/skins/silver/colors_base.xml
 		
+		
+	* Cleaned up some old unused references.
+	
+		modified:   linden/indra/newview/llappviewer.cpp
+		modified:   linden/indra/newview/llappviewer.h
+		modified:   linden/indra/newview/llfloaterreporter.cpp
+		modified:   linden/indra/newview/llnetmap.cpp
+		modified:   linden/indra/newview/llviewermessage.cpp
+		
 
 2009-06-12  McCabe Maxsted  <hakushakukun@gmail.com>
 

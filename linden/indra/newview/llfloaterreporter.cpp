@@ -64,7 +64,6 @@
 #include "llviewerregion.h"
 #include "llcombobox.h"
 #include "lltooldraganddrop.h"
-#include "llfloatermap.h"
 #include "lluiconstants.h"
 #include "lluploaddialog.h"
 #include "llcallingcard.h"

@@ -74,6 +74,7 @@ const F32 MAP_SCALE_MAX = 512;
 const F32 MAP_SCALE_INCREMENT = 16;
 const F32 MAP_MIN_PICK_DIST = 4;
 const F32 MAP_MINOR_DIR_THRESHOLD = 0.08f;
+const S32 SLOP = 2;
 
 const S32 TRACKING_RADIUS = 3;
 
@@ -800,7 +801,6 @@ BOOL LLNetMap::outsideSlop(S32 x, S32 y, S32 start_x, S32 start_y)
 {
 	S32 dx = x - start_x;
 	S32 dy = y - start_y;
-	S32 SLOP = 4;
 
 	return (dx <= -SLOP || SLOP <= dx || dy <= -SLOP || SLOP <= dy);
 }
