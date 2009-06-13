@@ -12,6 +12,12 @@
 		modified:   linden/indra/newview/llnetmap.cpp
 		modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
 		modified:   linden/indra/newview/skins/default/xui/en-us/panel_mini_map.xml
+		
+		
+		* Removed double click tp checkbox from preferences as it keeps the two maps more in sync,
+		  and Show Map is in the minimap now. Keeping the debug setting.
+		
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
 
 
 2009-06-12  McCabe Maxsted  <hakushakukun@gmail.com>
