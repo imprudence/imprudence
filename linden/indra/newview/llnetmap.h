@@ -140,6 +140,12 @@ private:
 		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
 	};
 
+	class LLShowWorldMap : public LLMemberListener<LLNetMap>
+	{
+	public:
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+	};
+
 	class LLStopTracking : public LLMemberListener<LLNetMap>
 	{
 	public:

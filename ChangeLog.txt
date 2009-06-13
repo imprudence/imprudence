@@ -1,3 +1,12 @@
+2009-06-13  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added 'Show Map' option to the mini-map menu.
+
+		modified:   linden/indra/newview/llnetmap.cpp
+		modified:   linden/indra/newview/llnetmap.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_mini_map.xml
+
+
 2009-06-12  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Applied patch by Robin Cornelius for VWR-12686:
