@@ -47,6 +47,7 @@
 #include "llfloateravatarinfo.h"
 #include "llfloaterworldmap.h"
 #include "llframetimer.h"
+#include "llmutelist.h"
 #include "lltracker.h"
 #include "llmenugl.h"
 #include "llsurface.h"
@@ -327,6 +328,9 @@ void LLNetMap::draw()
 		// Draw avatars
 		LLColor4 avatar_color = gColors.getColor( "MapAvatar" );
 		LLColor4 friend_color = gColors.getColor( "MapFriend" );
+		LLColor4 muted_color = gColors.getColor( "MapMuted" );
+		LLColor4 glyph_color;
+
 		std::vector<LLUUID> avatar_ids;
 		std::vector<LLVector3d> positions;
 		LLWorld::getInstance()->getAvatars(&avatar_ids, &positions);
@@ -336,9 +340,23 @@ void LLNetMap::draw()
 			// just be careful to sort the avatar IDs along with the positions. -MG
 			pos_map = globalPosToView(positions[i], rotate_map);
 
+			// Show them muted even if they're friends
+			if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
+			{
+				glyph_color = muted_color;
+			}
+			else if (is_agent_friend(avatar_ids[i]))
+			{
+				glyph_color = friend_color;
+			}
+			else
+			{
+				glyph_color = avatar_color;
+			}
+
 			LLWorldMapView::drawAvatar(
 				pos_map.mV[VX], pos_map.mV[VY], 
-				is_agent_friend(avatar_ids[i]) ? friend_color : avatar_color, 
+				glyph_color, 
 				pos_map.mV[VZ]);
 
 			F32	dist_to_cursor = dist_vec(LLVector2(pos_map.mV[VX], pos_map.mV[VY]), LLVector2(local_mouse_x,local_mouse_y));

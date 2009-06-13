@@ -25,6 +25,14 @@
 		modified:   linden/indra/newview/llnetmap.cpp
 		modified:   linden/indra/newview/skins/default/xui/en-us/panel_mini_map.xml
 		
+		
+	* Show muted avatars as grey in the mini-map. 
+		
+		modified:   linden/indra/newview/llnetmap.cpp
+		modified:   linden/indra/newview/llworldmapview.cpp
+		modified:   linden/indra/newview/skins/default/colors_base.xml
+		modified:   linden/indra/newview/skins/silver/colors_base.xml
+		
 
 2009-06-12  McCabe Maxsted  <hakushakukun@gmail.com>
 
