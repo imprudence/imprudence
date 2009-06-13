@@ -3,7 +3,9 @@
 	<menu_item_call enabled="true" label="Profile..." name="Profile...">
 		<on_click function="ShowAgentProfile" userdata="agent" />
 	</menu_item_call>
-	<menu_item_separator />
+	<menu_item_call enabled="true" label="Groups..." name="Groups...">
+		<on_click function="ShowAgentGroups" userdata="agent" />
+	</menu_item_call>
 	<pie_menu enabled="true" label="Take Off &gt;" name="Take Off &gt;">
 		<pie_menu enabled="true" label="Clothes &gt;" name="Clothes &gt;">
 			<menu_item_call bottom="-29" enabled="false" height="19" label="Shirt" left="0"

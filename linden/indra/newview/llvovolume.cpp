@@ -1318,6 +1318,17 @@ S32 LLVOVolume::setTETexGen(const U8 te, const U8 texgen)
 	return  res;
 }
 
+S32 LLVOVolume::setTEMediaTexGen(const U8 te, const U8 media)
+{
+	S32 res = LLViewerObject::setTEMediaTexGen(te, media);
+	if (res)
+	{
+		gPipeline.markTextured(mDrawable);
+		mFaceMappingChanged = TRUE;
+	}
+	return  res;
+}
+
 S32 LLVOVolume::setTEShiny(const U8 te, const U8 shiny)
 {
 	S32 res = LLViewerObject::setTEShiny(te, shiny);

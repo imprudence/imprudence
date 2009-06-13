@@ -188,7 +188,7 @@ avatar. O parta de cero creando una nueva y vistiéndola.
 				No tiene permiso para modificar este ítem.
 			</text>
 			<text name="Item Action Label" right="107">
-				Camiseta:
+				Camisa:
 			</text>
 		</panel>
 		<panel label="Pantalones" name="Pants">

@@ -3779,6 +3779,22 @@ S32 LLViewerObject::setTETexGen(const U8 te, const U8 texgen)
 	return retval;
 }
 
+S32 LLViewerObject::setTEMediaTexGen(const U8 te, const U8 media)
+{
+	S32 retval = 0;
+	const LLTextureEntry *tep = getTE(te);
+	if (!tep)
+	{
+		llwarns << "No texture entry for te " << (S32)te << ", object " << mID << llendl;
+	}
+	else if (media != tep->getMediaTexGen())
+	{
+		retval = LLPrimitive::setTEMediaTexGen(te, media);
+		setChanged(TEXTURE);
+	}
+	return retval;
+}
+
 S32 LLViewerObject::setTEShiny(const U8 te, const U8 shiny)
 {
 	S32 retval = 0;

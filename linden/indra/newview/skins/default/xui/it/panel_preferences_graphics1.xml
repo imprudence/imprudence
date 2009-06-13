@@ -2,7 +2,7 @@
 <panel label="Grafica" name="Display panel">
 	<button label="?" name="GraphicsPreferencesHelpButton"/>
 	<check_box label="Esegui Second Life in una finestra" name="windowed mode"/>
-	<text_editor name="FullScreenInfo">
+	<text_editor name="FullScreenInfo" width="480">
 		Se deselezionato, all&apos;avvio il programma partirà a schermo intero.
 	</text_editor>
 	<text name="WindowSizeLabel">

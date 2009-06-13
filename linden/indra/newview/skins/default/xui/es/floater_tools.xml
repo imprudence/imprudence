@@ -223,7 +223,7 @@
 		</panel>
 		<panel label="Objeto" name="Object">
 			<text name="select_single">
-				Seleccione un único prim para editar los parámetros.
+				Seleccione un sólo prim para editarlo.
 			</text>
 			<text name="edit_object">
 				Modificar los parámetros del objeto:
@@ -399,7 +399,7 @@
 		</panel>
 		<panel label="Caracter." name="Features">
 			<text name="select_single">
-				Seleccione un sólo prim para editar las características.
+				Seleccione un sólo prim para editarlo.
 			</text>
 			<text name="edit_object">
 				Editar las características del objeto:

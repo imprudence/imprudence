@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="directory" title="Поиск в SL">
+<floater name="directory" title="Поиск в Second Life">
 	<tab_container name="Directory Tabs">
 		<panel label="Все" name="find_all_panel">
 			<string name="searching_text">
@@ -11,7 +11,7 @@
 			<text name="find">
 				Найти:
 			</text>
-			<line_editor label="Поиск" name="search_editor" tool_tip="Поиск в SL"/>
+			<line_editor label="Поиск" name="search_editor" tool_tip="Поиск в Second Life"/>
 			<button label="Назад" name="back_btn"/>
 			<button label="Вперед" name="forward_btn"/>
 			<button label="Поиск" name="search_btn"/>
@@ -398,7 +398,7 @@
 			<text name="find">
 				Найти:
 			</text>
-			<line_editor label="Поиск" name="search_editor" tool_tip="Поиск в SL"/>
+			<line_editor label="Поиск" name="search_editor" tool_tip="Поиск в Second Life"/>
 			<button label="&lt; Назад" name="back_btn"/>
 			<button label="Вперед &gt;" name="forward_btn"/>
 			<button label="Поиск" name="search_btn"/>

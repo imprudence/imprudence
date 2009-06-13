@@ -31,10 +31,10 @@
 				Controles del moderador:
 			</text>
 			<check_box name="moderator_allow_voice">
-				Permitir el chat de voz
+				Permitir chat de voz
 			</check_box>
 			<check_box name="moderator_allow_text">
-				Permitir el chat de texto
+				Permitir chat de texto
 			</check_box>
 		</layout_panel>
 	</layout_stack>

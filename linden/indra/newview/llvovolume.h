@@ -165,6 +165,7 @@ public:
 	/*virtual*/ S32		setTEScaleS(const U8 te, const F32 s);
 	/*virtual*/ S32		setTEScaleT(const U8 te, const F32 t);
 	/*virtual*/ S32		setTETexGen(const U8 te, const U8 texgen);
+	/*virtual*/ S32		setTEMediaTexGen(const U8 te, const U8 media);
 	/*virtual*/ BOOL 	setMaterial(const U8 material);
 
 				void	setTexture(const S32 face);

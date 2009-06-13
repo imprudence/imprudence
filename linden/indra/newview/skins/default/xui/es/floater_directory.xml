@@ -105,7 +105,7 @@
 				<column label="" name="icon"/>
 				<column label="" name="type"/>
 				<column label="Nombre" name="name"/>
-				<column label="Precio" name="price"/>
+				<column label="Precio" name="price" width="65"/>
 			</scroll_list>
 			<button label="Siguiente &gt;" label_selected="Siguiente &gt;" name="Next &gt;"/>
 			<button label="&lt; Anterior" label_selected="&lt; Anterior" name="&lt; Prev"/>

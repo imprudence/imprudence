@@ -133,7 +133,7 @@
 		</panel>
 		<panel label="Вибране" name="Picks" width="488">
 			<text name="Tell everyone about your favorite places in Second Life.">
-				Розповісти усім про Ваші улюблені місця в SL
+				Розповісти усім про Ваші улюблені місця в Second Life
 			</text>
 			<button label="Новий..." label_selected="Новий..." name="New..."/>
 			<button label="Видалити..." label_selected="Видалити..." name="Delete..."/>

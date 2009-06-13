@@ -59,7 +59,7 @@
 	<button label="Notificar" name="notify_btn"/>
 	<button label="Crear un evento..." name="create_event_btn"/>
 	<string name="none">
-		ninguno
+		ninguna
 	</string>
 	<string name="notify">
 		Notificar

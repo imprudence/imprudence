@@ -8317,7 +8317,7 @@ BOOL LLVOAvatar::canGrabLocalTexture(ETextureIndex index)
 		return FALSE;
 	}
 
-	if (gAgent.isGodlike())
+	if (gAgent.isGodlike() && !gAgent.getAdminOverride())
 		return TRUE;
 
 	// Check permissions of textures that show up in the
