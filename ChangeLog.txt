@@ -57,6 +57,14 @@
 		modified:   linden/indra/newview/llnetmap.cpp
 		modified:   linden/indra/newview/llviewerobjectlist.cpp
 		
+		
+  Armin Weatherwax  <email@unknown.com>
+  
+	* Updated OpenJpeg to 1.3 for Linux.
+	
+		modified:   linden/indra/newview/viewer_manifest.py
+		modified:   linden/install.xml
+
 
 2009-06-12  McCabe Maxsted  <hakushakukun@gmail.com>
 
