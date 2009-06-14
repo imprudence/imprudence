@@ -1030,6 +1030,7 @@ void LLViewerObjectList::renderObjectsForMap(LLNetMap &netmap)
 	LLColor4 group_own_below_water_color = 
 						gColors.getColor( "NetMapGroupOwnBelowWater" );
 
+	F32 max_radius = gSavedSettings.getF32("MiniMapPrimMaxRadius");
 
 	for (S32 i = 0; i < mMapObjects.count(); i++)
 	{
@@ -1044,6 +1045,9 @@ void LLViewerObjectList::renderObjectsForMap(LLNetMap &netmap)
 		// LLWorld::getInstance()->getWaterHeight();
 
 		F32 approx_radius = (scale.mV[VX] + scale.mV[VY]) * 0.5f * 0.5f * 1.3f;  // 1.3 is a fudge
+
+		// DEV-17370 - megaprims of size > 4096 cause lag.  (go figger.)
+		approx_radius = llmin(approx_radius, max_radius);
 
 		LLColor4U color = above_water_color;
 		if( objectp->permYouOwner() )

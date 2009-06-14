@@ -45,10 +45,17 @@
 		
   Aimee Trescothick  <aimee@ama-zing.co.uk>
 	
-	* VWR-4106: Mini-map beacon icon doesn't display correctly when beacon position above or below camera
+	* VWR-4106: Mini-map beacon icon doesn't display correctly when beacon position above or below camera.
 	 
 		modified:   linden/indra/newview/llworldmapview.cpp
 		modified:   linden/indra/newview/llworldmapview.h
+		
+		
+	* VWR-12631: setting to adjust the maximum size of objects displayed on the minimap (MiniMapPrimMaxRadius).
+		
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/llnetmap.cpp
+		modified:   linden/indra/newview/llviewerobjectlist.cpp
 		
 
 2009-06-12  McCabe Maxsted  <hakushakukun@gmail.com>
