@@ -96,6 +96,7 @@ BOOL LLPrefsIMImpl::postBuild()
 	childSetLabelArg("send_im_to_email", "[EMAIL]", getString("log_in_to_change"));
 
 	// Don't enable this until we get personal data
+	childDisable("include_im_in_chat_console");
 	childDisable("include_im_in_chat_history");
 	childDisable("show_timestamps_check");
 	childDisable("friends_online_notify_checkbox");
@@ -114,6 +115,7 @@ BOOL LLPrefsIMImpl::postBuild()
 
 	childSetText("busy_response", getString("log_in_to_change"));
 
+	childSetValue("include_im_in_chat_console", gSavedSettings.getBOOL("IMInChatConsole"));
 	childSetValue("include_im_in_chat_history", gSavedSettings.getBOOL("IMInChatHistory"));
 	childSetValue("show_timestamps_check", gSavedSettings.getBOOL("IMShowTimestamps"));
 	childSetValue("friends_online_notify_checkbox", gSavedSettings.getBOOL("ChatOnlineNotification"));
@@ -163,6 +165,7 @@ void LLPrefsIMImpl::apply()
 
 		gSavedPerAccountSettings.setString("BusyModeResponse", std::string(wstring_to_utf8str(busy_response)));
 
+		gSavedSettings.setBOOL("IMInChatConsole", childGetValue("include_im_in_chat_console").asBoolean());
 		gSavedSettings.setBOOL("IMInChatHistory", childGetValue("include_im_in_chat_history").asBoolean());
 		gSavedSettings.setBOOL("IMShowTimestamps", childGetValue("show_timestamps_check").asBoolean());
 		gSavedSettings.setBOOL("ChatOnlineNotification", childGetValue("friends_online_notify_checkbox").asBoolean());
@@ -234,6 +237,7 @@ void LLPrefsIMImpl::setPersonalInfo(const std::string& visibility, bool im_via_e
 		mOriginalHideOnlineStatus = true;
 	}
 
+	childEnable("include_im_in_chat_console");
 	childEnable("include_im_in_chat_history");
 	childEnable("show_timestamps_check");
 	childEnable("friends_online_notify_checkbox");

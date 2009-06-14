@@ -1,3 +1,13 @@
+2009-06-14  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added IM preference for showing IMs in either main or local chat.
+
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/llfloaterchat.cpp
+		modified:   linden/indra/newview/llprefsim.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_im.xml
+
+
 2009-06-13  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added 'Show Map' option to the mini-map menu.
