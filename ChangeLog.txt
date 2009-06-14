@@ -6,6 +6,11 @@
 		modified:   linden/indra/newview/llfloaterchat.cpp
 		modified:   linden/indra/newview/llprefsim.cpp
 		modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_im.xml
+		
+		
+	* Online/Offline notifications now always show in IM windows.
+	
+		modified:   linden/indra/newview/llcallingcard.cpp
 
 
 2009-06-13  McCabe Maxsted  <hakushakukun@gmail.com>

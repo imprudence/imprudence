@@ -625,7 +625,7 @@ void LLAvatarTracker::processChangeUserRights(LLMessageSystem* msg, void**)
 void LLAvatarTracker::processNotify(LLMessageSystem* msg, bool online)
 {
 	S32 count = msg->getNumberOfBlocksFast(_PREHASH_AgentBlock);
-	BOOL chat_notify = gSavedSettings.getBOOL("ChatOnlineNotification");
+	BOOL notify = gSavedSettings.getBOOL("ChatOnlineNotification");
 
 	lldebugs << "Received " << count << " online notifications **** " << llendl;
 	if(count > 0)
@@ -637,7 +637,6 @@ void LLAvatarTracker::processNotify(LLMessageSystem* msg, bool online)
 		{
 			tracking_id = mTrackingData->mAvatarID;
 		}
-		BOOL notify = FALSE;
 		LLStringUtil::format_map_t args;
 		for(S32 i = 0; i < count; ++i)
 		{
@@ -646,14 +645,16 @@ void LLAvatarTracker::processNotify(LLMessageSystem* msg, bool online)
 			if(info)
 			{
 				setBuddyOnline(agent_id,online);
-				if(chat_notify)
+				
+				std::string first, last;
+				if(gCacheName->getName(agent_id, first, last))
 				{
-					std::string first, last;
-					if(gCacheName->getName(agent_id, first, last))
+					args["[FIRST]"] = first;
+					args["[LAST]"] = last;
+					if(notify)
 					{
-						notify = TRUE;
-						args["[FIRST]"] = first;
-						args["[LAST]"] = last;
+						// Popup a notify box with online status of this agent
+						LLNotifyBox::showXml(online ? "FriendOnline" : "FriendOffline", args);
 					}
 				}
 			}
@@ -671,20 +672,16 @@ void LLAvatarTracker::processNotify(LLMessageSystem* msg, bool online)
 			// *TODO: get actual inventory id
 			gInventory.addChangedMask(LLInventoryObserver::CALLING_CARD, LLUUID::null);
 		}
-		if(notify)
-		{
-			// Popup a notify box with online status of this agent
-			LLNotifyBox::showXml(online ? "FriendOnline" : "FriendOffline", args);
 
-			// If there's an open IM session with this agent, send a notification there too.
-			LLUUID session_id = LLIMMgr::computeSessionID(IM_NOTHING_SPECIAL, agent_id);
-			LLFloaterIMPanel *floater = gIMMgr->findFloaterBySession(session_id);
-			if (floater)
-			{
-				LLUIString notifyMsg = LLNotifyBox::getTemplateMessage((online ? "FriendOnline" : "FriendOffline"),args);
-				if (!notifyMsg.empty())
-					floater->addHistoryLine(notifyMsg,gSavedSettings.getColor4("SystemChatColor"));
-			}
+		// If there's an open IM session with this agent, send a notification there too
+		// even if ChatOnlineNotification is false.
+		LLUUID session_id = LLIMMgr::computeSessionID(IM_NOTHING_SPECIAL, agent_id);
+		LLFloaterIMPanel *floater = gIMMgr->findFloaterBySession(session_id);
+		if (floater)
+		{
+			LLUIString notifyMsg = LLNotifyBox::getTemplateMessage((online ? "FriendOnline" : "FriendOffline"),args);
+			if (!notifyMsg.empty())
+				floater->addHistoryLine(notifyMsg,gSavedSettings.getColor4("SystemChatColor"));
 		}
 
 		mModifyMask |= LLFriendObserver::ONLINE;
