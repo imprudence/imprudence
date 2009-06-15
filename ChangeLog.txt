@@ -17,6 +17,11 @@
 	
 		modified:   indra/newview/lloverlaybar.cpp
 		
+		
+	* Fixed stream info not updating.
+	
+		modified:   indra/llmedia/llmediaimplgstreamer.cpp
+		
 	
   Dale Glass  <email@unknown.com>	
 

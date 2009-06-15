@@ -471,7 +471,7 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 			case GST_STATE_PAUSED:
 				break;
 			case GST_STATE_PLAYING:
-				impl->mLastTitle = "";
+				//impl->mLastTitle = "";
 
 				LLMediaEvent event( impl, 100 );
 				impl->getEventEmitter().update( &LLMediaObserver::onUpdateProgress, event );
@@ -529,12 +529,12 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 			gst_message_parse_tag( message, &new_tags );
 
 			gchar *title;
-			gchar *artist;
 
 			if ( gst_tag_list_get_string(new_tags, GST_TAG_TITLE, &title) )
 			{
 				LL_INFOS("MediaInfo") << "Title: " << title << LL_ENDL;
 				std::string newtitle(title);
+				gst_tag_list_free(new_tags);
 
 				if ( newtitle != impl->mLastTitle && newtitle != "" )
 				{
@@ -546,13 +546,6 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 				g_free(title);
 			}
 
-			if (gst_tag_list_get_string(new_tags, GST_TAG_ARTIST, &artist))
-			{
-				LL_INFOS("MediaInfo") << "Artist: " << artist << LL_ENDL;
-				g_free(artist);
-			}
-
-			gst_tag_list_free(new_tags);
 			break;
 		}
 		case GST_MESSAGE_EOS:
