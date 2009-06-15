@@ -89,6 +89,7 @@ LLMediaImplGStreamer () :
 	mPump ( NULL ),
 	mPlaybin ( NULL ),
 	mVideoSink ( NULL ),
+	mLastTitle ( "" ),
 	mState( GST_STATE_NULL ),
 	mPlayThread ( NULL )
 {
@@ -470,6 +471,8 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 			case GST_STATE_PAUSED:
 				break;
 			case GST_STATE_PLAYING:
+				impl->mLastTitle = "";
+
 				LLMediaEvent event( impl, 100 );
 				impl->getEventEmitter().update( &LLMediaObserver::onUpdateProgress, event );
 				// emit an event to say that a media source was loaded
@@ -521,18 +524,35 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 		}
 		case GST_MESSAGE_TAG: 
 		{
-	        GstTagList *tag_list;
-		gchar *title;
-		gchar *artist;
-		gst_message_parse_tag(message, &tag_list);
-		gboolean hazTitle = gst_tag_list_get_string(tag_list,
-			GST_TAG_TITLE, &title);
-		gboolean hazArtist = gst_tag_list_get_string(tag_list,
-			GST_TAG_ARTIST, &artist);
-		if(hazTitle) 
-			LL_INFOS("MediaInfo") << "Title: " << title << LL_ENDL;
-		if(hazArtist) 
-			LL_INFOS("MediaInfo") << "Artist: " << artist << LL_ENDL;
+			GstTagList *new_tags;
+
+			gst_message_parse_tag( message, &new_tags );
+
+			gchar *title;
+			gchar *artist;
+
+			if ( gst_tag_list_get_string(new_tags, GST_TAG_TITLE, &title) )
+			{
+				LL_INFOS("MediaInfo") << "Title: " << title << LL_ENDL;
+				std::string newtitle(title);
+
+				if ( newtitle != impl->mLastTitle && newtitle != "" )
+				{
+					impl->mLastTitle = newtitle;
+					LLMediaEvent event( impl, impl->mLastTitle );
+					impl->getEventEmitter().update( &LLMediaObserver::onMediaTitleChange, event );
+				}
+
+				g_free(title);
+			}
+
+			if (gst_tag_list_get_string(new_tags, GST_TAG_ARTIST, &artist))
+			{
+				LL_INFOS("MediaInfo") << "Artist: " << artist << LL_ENDL;
+				g_free(artist);
+			}
+
+			gst_tag_list_free(new_tags);
 			break;
 		}
 		case GST_MESSAGE_EOS:
@@ -551,10 +571,10 @@ gboolean LLMediaImplGStreamer::bus_callback(GstBus *bus, GstMessage *message, gp
 				impl->addCommand(LLMediaBase::COMMAND_STOP);
 			}
 			break;
+		}
 		default:
 			/* unhandled message */
 			break;
-		}
 	}
 	/* we want to be notified again the next time there is a message
 	 * on the bus, so return true (false means we want to stop watching

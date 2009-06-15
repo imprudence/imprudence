@@ -127,6 +127,7 @@ class LLMediaImplGStreamer:
 		GMainLoop *mPump; // event pump for this media
 		GstElement *mPlaybin;
 		GstSLVideo *mVideoSink;
+		std::string mLastTitle;
 		GstState mState;
 		GstState getState() const { return mState; }
 

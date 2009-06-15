@@ -15,7 +15,7 @@
 		Streaming Preferences:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-280" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-300" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
 	     mouse_opaque="true" name="audio_prefs_text" v_pad="0" width="128">
 		Audio Preferences:
@@ -28,6 +28,10 @@
 	     label="Play Streaming Music When Available (uses more bandwidth)"
 	     left="142" mouse_opaque="true" name="streaming_music" radio_style="false"
 	     width="339" />
+  <check_box bottom_delta="-20" control_name="ShowStreamTitle" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
+	     label="Show stream info in chat" left="162" mouse_opaque="true"
+       name="show_stream_title" radio_style="false" width="338" />
 	<check_box bottom_delta="-20" control_name="AudioStreamingVideo" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Play Streaming Media When Available (uses more bandwidth)"

@@ -11,6 +11,24 @@
 	* Online/Offline notifications now always show in IM windows.
 	
 		modified:   linden/indra/newview/llcallingcard.cpp
+	
+	
+	* Audio stream track info displayed in chat instead of notices.
+	
+		modified:   indra/newview/lloverlaybar.cpp
+		
+	
+  Dale Glass  <email@unknown.com>	
+
+	* VWR-12655: Add support for displaying the title of the song.		
+	
+		modified:   indra/llaudio/audioengine.h
+		modified:   indra/llmedia/llmediaimplgstreamer.cpp
+		modified:   indra/llmedia/llmediaimplgstreamer.h
+		modified:   indra/llmedia/llmediaobserver.h
+		modified:   indra/newview/app_settings/settings.xml
+		modified:   indra/newview/lloverlaybar.cpp
+		modified:   indra/newview/skins/default/xui/en-us/panel_preferences_audio.xml
 
 
 2009-06-13  McCabe Maxsted  <hakushakukun@gmail.com>

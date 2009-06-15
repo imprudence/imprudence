@@ -41,6 +41,7 @@
 #include "llagent.h"
 #include "llbutton.h"
 #include "llchatbar.h"
+#include "llfloaterchat.h"
 #include "llfocusmgr.h"
 #include "llimview.h"
 #include "llmediaremotectrl.h"
@@ -71,6 +72,53 @@
 LLOverlayBar *gOverlayBar = NULL;
 
 extern S32 MENU_BAR_HEIGHT;
+
+
+class LLTitleObserver
+	:	public LLMediaObserver
+{
+public:
+	void init(std::string url);
+	/*virtual*/ void onMediaTitleChange(const EventType& event_in);
+private:
+	LLMediaBase* mMediaSource;
+};
+
+static LLTitleObserver sTitleObserver;
+
+static LLRegisterWidget<LLMediaRemoteCtrl> r("media_remote");
+
+void LLTitleObserver::init(std::string url)
+{
+
+	if (!gAudiop)
+	{
+		return;
+	}
+
+	mMediaSource = gAudiop->getStreamMedia(); // LLViewerMedia::getSource();
+
+	if ( mMediaSource )
+	{
+		mMediaSource->addObserver(this);
+	}
+}
+
+//virtual
+void LLTitleObserver::onMediaTitleChange(const EventType& event_in)
+{
+	if ( !gSavedSettings.getBOOL("ShowStreamTitle") )
+	{
+		return;
+	}
+
+	LLChat chat;
+	//TODO: set this in XUI
+	std::string playing_msg = "Playing: " + event_in.getStringValue();
+	chat.mText = playing_msg;
+	LLFloaterChat::addChat(chat, FALSE, FALSE);
+}
+
 
 //
 // Functions
@@ -406,6 +454,7 @@ void LLOverlayBar::toggleMusicPlay(void*)
 	// 			if ( gAudiop->isInternetStreamPlaying() == 0 )
 				{
 					gAudiop->startInternetStream(parcel->getMusicURL());
+					sTitleObserver.init(parcel->getMusicURL());
 				}
 			}
 		}
