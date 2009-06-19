@@ -8243,10 +8243,10 @@
       <string>Rect</string>
       <key>Value</key>
       <array>
-        <integer>0</integer>
-        <integer>85</integer>
-        <integer>300</integer>
-        <integer>0</integer>
+       <integer>11</integer>
+       <integer>459</integer>
+       <integer>311</integer>
+       <integer>173</integer>
       </array>
     </map>
     <key>PreviewClassifiedRect</key>
@@ -8307,9 +8307,9 @@
       <string>Rect</string>
       <key>Value</key>
       <array>
-        <integer>0</integer>
-        <integer>85</integer>
-        <integer>300</integer>
+	<integer>0</integer>
+	<integer>530</integer>
+	<integer>420</integer>
         <integer>0</integer>
       </array>
     </map>

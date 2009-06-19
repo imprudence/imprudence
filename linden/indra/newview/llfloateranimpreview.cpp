@@ -326,6 +326,7 @@ BOOL LLFloaterAnimPreview::postBuild()
 			seconds_string = llformat(" - %.2f seconds", motionp->getDuration());
 
 			setTitle(mFilename + std::string(seconds_string));
+
 		}
 		else
 		{
@@ -371,6 +372,13 @@ BOOL LLFloaterAnimPreview::postBuild()
 //-----------------------------------------------------------------------------
 LLFloaterAnimPreview::~LLFloaterAnimPreview()
 {
+	if (mMotionID.notNull() && mAnimPreview)
+	{
+		mAnimPreview->getDummyAvatar()->deactivateAllMotions();
+		mAnimPreview->getDummyAvatar()->removeMotion(mMotionID);
+		LLKeyframeDataCache::removeKeyframeData(mMotionID);
+	}
+
 	delete mAnimPreview;
 	mAnimPreview = NULL;
 
@@ -389,7 +397,7 @@ void LLFloaterAnimPreview::draw()
 
 	if (mMotionID.notNull() && mAnimPreview)
 	{
-		gGL.color3f(1.f, 1.f, 1.f);
+/*		gGL.color3f(1.f, 1.f, 1.f);
 
 		gGL.getTexUnit(0)->bind(mAnimPreview->getTexture());
 
@@ -407,7 +415,7 @@ void LLFloaterAnimPreview::draw()
 		gGL.end();
 
 		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
-
+*/
 		LLVOAvatar* avatarp = mAnimPreview->getDummyAvatar();
 		if (!avatarp->areAnimationsPaused())
 		{
@@ -451,7 +459,7 @@ void LLFloaterAnimPreview::resetMotion()
 		mPauseRequest = NULL;	
 	}
 }
-
+/*
 //-----------------------------------------------------------------------------
 // handleMouseDown()
 //-----------------------------------------------------------------------------
@@ -553,7 +561,7 @@ void LLFloaterAnimPreview::onMouseCaptureLost()
 {
 	gViewerWindow->showCursor();
 }
-
+*/
 //-----------------------------------------------------------------------------
 // onBtnPlay()
 //-----------------------------------------------------------------------------

@@ -32,7 +32,7 @@
 
 #ifndef LL_LLFLOATERANIMPREVIEW_H
 #define LL_LLFLOATERANIMPREVIEW_H
-
+#include "llagent.h"
 #include "llfloaternamedesc.h"
 #include "lldynamictexture.h"
 #include "llcharacter.h"
@@ -55,7 +55,10 @@ public:
 	void	pan(F32 right, F32 up);
 	virtual BOOL needsUpdate() { return mNeedsUpdate; }
 
-	LLVOAvatar* getDummyAvatar() { return mDummyAvatar; }
+//	LLVOAvatar* getDummyAvatar() { return mDummyAvatar; }
+//	HACK:don't get a dummy...
+	LLVOAvatar* getDummyAvatar() { return gAgent.getAvatarObject();} 
+
 
 protected:
 	BOOL				mNeedsUpdate;
@@ -75,13 +78,13 @@ public:
 	virtual ~LLFloaterAnimPreview();
 	
 	BOOL postBuild();
-
+/*
 	BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 	BOOL handleHover(S32 x, S32 y, MASK mask);
 	BOOL handleScrollWheel(S32 x, S32 y, S32 clicks); 
 	void onMouseCaptureLost();
-
+*/
 	void refresh();
 
 	static void	onBtnPlay(void*);
