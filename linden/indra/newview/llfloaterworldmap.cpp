@@ -68,6 +68,12 @@
 #include "llappviewer.h"
 #include "llmapimagetype.h"
 #include "llweb.h"
+#include "floaterlogin.h"
+#include "llstartup.h"
+#include "hippoGridManager.h"
+#include "floaterlogin.h"
+#include "llpanellogin.h"
+
 
 #include "llglheaders.h"
 
@@ -237,6 +243,10 @@ BOOL LLFloaterWorldMap::postBuild()
 		landmark_combo->setTextEntryCallback( onComboTextEntry );
 	}
 
+	childSetCommitCallback("grid_combo", onSelectServer, this);
+
+	childSetAction("Grid Manager", onGridManager, this);
+
 	childSetAction("Go Home", onGoHome, this);
 
 	childSetAction("Teleport", onClickTeleportBtn, this);
@@ -327,6 +337,8 @@ void LLFloaterWorldMap::show(void*, BOOL center_on_target)
 
 		// If nothing is being tracked, set flag so the user position will be found
 		gFloaterWorldMap->mSetToUserPosition = ( LLTracker::getTrackingStatus() == LLTracker::TRACKING_NOTHING );
+
+		LLFloaterWorldMap::addServer(gHippoGridManager->getDefaultGridNick());
 	}
 	
 	if (center_on_target)
@@ -370,6 +382,48 @@ void LLFloaterWorldMap::hide(void*)
 	gFloaterWorldMap->close();
 }
 
+
+// static
+void LLFloaterWorldMap::addServer(const std::string& server)
+{
+	const std::string &defaultGrid = gHippoGridManager->getDefaultGridNick();
+	
+	LLCtrlListInterface *grids = gFloaterWorldMap->childGetListInterface("grid_combo");
+	if (!grids) return;
+
+    // Delete all but the "None" entry
+	S32 list_size = grids->getItemCount();
+	while (list_size > 1)
+	{
+		grids->selectNthItem(1);
+		grids->operateOnSelection(LLCtrlListInterface::OP_DELETE);
+		--list_size;
+	}
+
+
+	//LLComboBox *grids = gFloaterWorldMap->getChild<LLComboBox>("grid_combo");
+	S32 selectIndex = -1, i = 0;
+	//grids->removeall();
+	if (defaultGrid != "") {
+		grids->addSimpleElement(defaultGrid);
+		selectIndex = i++;
+	}
+	HippoGridManager::GridIterator it, end = gHippoGridManager->endGrid();
+	for (it = gHippoGridManager->beginGrid(); it != end; ++it) {
+		const std::string &grid = it->second->getGridNick();
+		if (grid != defaultGrid) {
+			grids->addSimpleElement(grid);
+			//if (grid == mCurGrid) selectIndex = i;
+			i++;
+		}
+	}
+	grids->selectFirstItem();
+	//grids->setCurrentByIndex(0);
+
+	//LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
+	//combo->add(server, LLSD(domain_name) );
+	//combo->setCurrentByIndex(0);
+}
 
 // virtual
 void LLFloaterWorldMap::setVisible( BOOL visible )
@@ -443,7 +497,10 @@ void LLFloaterWorldMap::draw()
 	childSetEnabled("Go Home", enable_go_home);
 
 	updateLocation();
-	
+
+	LLComboBox *grid_combo = getChild<LLComboBox>("grid_combo");
+	std::string current_grid = gHippoGridManager->getConnectedGrid()->getGridNick();
+
 	LLTracker::ETrackingStatus tracking_status = LLTracker::getTrackingStatus(); 
 	if (LLTracker::TRACKING_AVATAR == tracking_status)
 	{
@@ -489,7 +546,19 @@ void LLFloaterWorldMap::draw()
 		centerOnTarget(TRUE);
 	}
 
-	childSetEnabled("Teleport", (BOOL)tracking_status);
+	//GRID MANAGER
+	if (grid_combo->getSelectedValue().asString() != "None")
+	{
+		childSetEnabled("Teleport", TRUE);
+		childSetColor("grid_icon", gTrackColor);
+	}
+	else
+	{
+		childSetEnabled("Teleport", (BOOL)tracking_status);
+		childSetColor("grid_icon", gDisabledTrackColor);
+	}
+	//END GRID MANAGER
+
 //	childSetEnabled("Clear", (BOOL)tracking_status);
 	childSetEnabled("Show Destination", (BOOL)tracking_status || LLWorldMap::getInstance()->mIsTrackingUnknownLocation);
 	childSetEnabled("copy_slurl", (mSLURL.size() > 0) );
@@ -743,7 +812,7 @@ void LLFloaterWorldMap::updateLocation()
 void LLFloaterWorldMap::trackURL(const std::string& region_name, S32 x_coord, S32 y_coord, S32 z_coord)
 {
 	LLSimInfo* sim_info = LLWorldMap::getInstance()->simInfoFromName(region_name);
-	z_coord = llclamp(z_coord, 0, 4096);
+	z_coord = llclamp(z_coord, 0, 1000);
 	if (sim_info)
 	{
 		LLVector3 local_pos;
@@ -953,6 +1022,18 @@ void LLFloaterWorldMap::clearLocationSelection(BOOL clear_ui)
 }
 
 
+void LLFloaterWorldMap::clearGridSelection(BOOL clear_ui)
+{
+	if (clear_ui || !childHasKeyboardFocus("grid_combo"))
+	{
+		LLCtrlListInterface *list = childGetListInterface("grid_combo");
+		if (list)
+		{
+			list->selectByValue( "None" );
+		}
+	}
+}
+
 void LLFloaterWorldMap::clearLandmarkSelection(BOOL clear_ui)
 {
 	if (clear_ui || !childHasKeyboardFocus("landmark combo"))
@@ -1050,9 +1131,18 @@ void LLFloaterWorldMap::onPanBtn( void* userdata )
 }
 
 // static
+void LLFloaterWorldMap::onGridManager(void*)
+{
+	LoginFloater::newShow(std::string("Test"), false, LoginFloater::testCallback, NULL);
+	//gAgent.teleportHome();
+	//gFloaterWorldMap->close();
+}
+
+// static
 void LLFloaterWorldMap::onGoHome(void*)
 {
 	gAgent.teleportHomeConfirm();
+	gFloaterWorldMap->close();
 }
 
 
@@ -1135,6 +1225,9 @@ void LLFloaterWorldMap::onLandmarkComboCommit( LLUICtrl* ctrl, void* userdata )
 			item_id.setNull();
 		}
 	}
+	//GRID MANAGER HAX
+	self->clearGridSelection(TRUE);
+	//END GRID MANAGER HAX
 	
 	self->trackLandmark( item_id);
 	onShowTargetBtn(self);
@@ -1186,6 +1279,10 @@ void LLFloaterWorldMap::onAvatarComboCommit( LLUICtrl* ctrl, void* userdata )
 	const LLUUID& new_avatar_id = list->getCurrentID();
 	if (new_avatar_id.notNull())
 	{
+		//GRID MANAGER HAX
+		self->clearGridSelection(TRUE);
+		//END GRID MANAGER HAX
+
 		std::string name;
 		LLComboBox* combo = gFloaterWorldMap->getChild<LLComboBox>("friend combo");
 		if (combo) name = combo->getSimple();
@@ -1267,6 +1364,10 @@ void LLFloaterWorldMap::onClearBtn(void* data)
 	LLWorldMap::getInstance()->mIsTrackingUnknownLocation = FALSE;
 	self->mSLURL = "";				// Clear the SLURL since it's invalid
 	self->mSetToUserPosition = TRUE;	// Revert back to the current user position
+	//KOW TODO clear grid combo red ring, clear grid combo.
+	//GRID MANAGER HAX
+	self->clearGridSelection(TRUE);
+	//END GRID MANAGER HAX
 }
 
 // static
@@ -1376,6 +1477,39 @@ void LLFloaterWorldMap::fly()
 // protected
 void LLFloaterWorldMap::teleport()
 {
+	//BEGIN CROSS GRIP TP//
+	LLComboBox *grid_combo = getChild<LLComboBox>("grid_combo");
+	std::string current_grid = gHippoGridManager->getConnectedGrid()->getGridNick();
+	
+	// BUG: the client crashes if fed an invalid grid through this interface, which shouldn't happen
+	if(//grid_combo && grid_combo->getSelectedValue().asString() != current_grid || gSavedSettings.getBOOL("CmdLineLoginURI") &&
+		grid_combo->getSelectedValue().asString() != "None" &&
+		!grid_combo->getSelectedValue().asString().empty())
+	{
+		HippoGridInfo *gridInfo = gHippoGridManager->getGrid(grid_combo->getSelectedValue().asString());
+		//DEBUG
+
+		llwarns << "tp button current grid = " << grid_combo->getSelectedValue().asString() << llendl; 
+		std::string firstName = gridInfo->getFirstName();
+		std::string lastName = gridInfo->getLastName();
+		std::string loginPassword = gridInfo->getAvatarPassword();
+		
+		if(!firstName.empty() && !lastName.empty())
+		{
+			gLoginHandler.mFirstName = firstName;
+			gLoginHandler.mLastName = lastName;
+			gLoginHandler.mPassword = loginPassword;
+		}
+		
+		gHippoGridManager->setCurrentGrid(gridInfo->getGridNick());
+		gHippoGridManager->setDefaultGrid(gridInfo->getGridNick());
+		//this doesn't work :( gSavedSettings.setBOOL("CmdLineLoginURI", FALSE);
+		LLStartUp::setShouldAutoLogin(true);
+		LLAppViewer::instance()->requestLogout(false);
+		return;
+	}
+	//END CROSS GRID TP//
+	
 	BOOL teleport_home = FALSE;
 	LLVector3d pos_global;
 	LLAvatarTracker& av_tracker = LLAvatarTracker::instance();
@@ -1665,4 +1799,21 @@ void LLFloaterWorldMap::onCommitSearchResult(LLUICtrl*, void* userdata)
 	}
 
 	onShowTargetBtn(self);
+}
+
+// static
+void LLFloaterWorldMap::onSelectServer(LLUICtrl* ctrl, void* userdata)
+{
+	//GRID MANAGER COMBO BOX CLICKED//
+	llwarns << "onSelectServer called" << llendl;
+	//snip from onClearBtn (bless this mess)
+	LLFloaterWorldMap* self = (LLFloaterWorldMap*) userdata;
+	self->mTrackedStatus = LLTracker::TRACKING_NOTHING;
+	LLTracker::stopTracking((void *)(intptr_t)TRUE);
+	//LLTracker::stopTracking(NULL);
+	LLWorldMap::getInstance()->mIsTrackingUnknownLocation = FALSE;
+	self->mSLURL = "";				// Clear the SLURL since it's invalid
+	self->mSetToUserPosition = TRUE;	// Revert back to the current user position
+
+	self->setDefaultBtn("Teleport");
 }

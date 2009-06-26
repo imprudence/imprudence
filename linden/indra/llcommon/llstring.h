@@ -36,6 +36,7 @@
 #include <wctype.h>
 #include <wchar.h>
 #endif
+#include "linden_common.h"
 
 const char LL_UNKNOWN_CHAR = '?';
 

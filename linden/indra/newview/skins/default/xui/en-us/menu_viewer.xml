@@ -64,6 +64,10 @@
                 userdata="" />
     </menu_item_call>
     <menu_item_separator />
+    <menu_item_call name="Logout" label="Logout"
+                    shortcut="control|alt|Q">
+          <on_click function="File.Logout" userdata="" />
+    </menu_item_call>
     <menu_item_call name="Quit" label="Quit"
                     shortcut="control|Q">
       <on_click function="File.Quit" userdata="" />

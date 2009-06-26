@@ -61,6 +61,15 @@ include_directories(
     )
 
 set(viewer_SOURCE_FILES
+    authentication_controller.cpp
+    authentication_floater.cpp
+    authentication_model.cpp
+    controllerlogin.cpp
+    controllerpasswords.cpp
+    floaterlogin.cpp
+    hippoGridManager.cpp
+    hippoLimits.cpp
+    hippoRestRequest.cpp
     llagent.cpp
     llagentdata.cpp
     llagentlanguage.cpp
@@ -431,6 +440,7 @@ set(viewer_SOURCE_FILES
     llxmlrpctransaction.cpp
     noise.cpp
     pipeline.cpp
+    prefpanelpasswords.cpp
     )
 
 set(VIEWER_BINARY_NAME "imprudence-bin" CACHE STRING
@@ -453,7 +463,15 @@ endif (LINUX)
 set(viewer_HEADER_FILES
     CMakeLists.txt
     ViewerInstall.cmake
-
+    authentication_controller.h
+    authentication_floater.h
+    authentication_model.h
+    controllerlogin.h
+    controllerpasswords.h
+    floaterlogin.h
+    hippoGridManager.h
+    hippoLimits.h
+    hippoRestRequest.h
     llagent.h
     llagentdata.h
     llagentlanguage.h
@@ -831,6 +849,7 @@ set(viewer_HEADER_FILES
     macmain.h
     noise.h
     pipeline.h
+    prefpanelpasswords.h
     randgauss.h
     VertexCache.h
     VorbisFramework.h

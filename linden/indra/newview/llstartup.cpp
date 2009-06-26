@@ -29,7 +29,14 @@
  * $/LicenseInfo$
  */
 
-#include "llviewerprecompiledheaders.h"
+// #include "llviewerprecompiledheaders.h"
+
+
+#if LL_WINDOWS
+	#define WIN32_LEAN_AND_MEAN
+	#include <winsock2.h>
+	#include <windows.h>
+#endif
 
 #include "llstartup.h"
 
@@ -190,6 +197,8 @@
 #include "lldxhardware.h"
 #endif
 
+#include "hippoGridManager.h"
+#include "hippoLimits.h"
 //
 // exported globals
 //
@@ -222,7 +231,8 @@ static std::string sInitialOutfitGender;	// "male" or "female"
 static bool gUseCircuitCallbackCalled = false;
 
 EStartupState LLStartUp::gStartupState = STATE_FIRST;
-
+bool LLStartUp::mStartedOnce = false;
+bool LLStartUp::mShouldAutoLogin = false;
 
 //
 // local function declaration
@@ -248,7 +258,6 @@ void dialog_choose_gender_first_start();
 void callback_choose_gender(S32 option, void* userdata);
 void init_start_screen(S32 location_id);
 void release_start_screen();
-void reset_login();
 void apply_udp_blacklist(const std::string& csv);
 
 void callback_cache_name(const LLUUID& id, const std::string& firstname, const std::string& lastname, BOOL is_group, void* data)
@@ -322,6 +331,7 @@ bool idle_startup()
 	static S32 timeout_count = 0;
 
 	static LLTimer login_time;
+	static LLFrameTimer wearables_timer;
 
 	// until this is encapsulated, this little hack for the
 	// auth/transform loop will do.
@@ -654,7 +664,7 @@ bool idle_startup()
 
 			show_connect_box = false;
 		}
-        else if(gSavedSettings.getLLSD("UserLoginInfo").size() == 3)
+        else if((gSavedSettings.getLLSD("UserLoginInfo").size() == 3) && !LLStartUp::shouldAutoLogin())
         {
             LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
 			firstname = cmd_line_login[0].asString();
@@ -721,12 +731,19 @@ bool idle_startup()
 	if (STATE_LOGIN_SHOW == LLStartUp::getStartupState())
 	{
 		LL_DEBUGS("AppInit") << "Initializing Window" << LL_ENDL;
+		sAuthUris.clear();
+		sAuthUriNum = -1;
 		
 		gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
 		// Push our window frontmost
 		gViewerWindow->getWindow()->show();
 
 		timeout_count = 0;
+		
+		if(LLStartUp::shouldAutoLogin())
+		{
+			show_connect_box = false;
+		}
 
 		if (show_connect_box)
 		{
@@ -809,6 +826,18 @@ bool idle_startup()
 			lastname = gLoginHandler.mLastName;
 			web_login_key = gLoginHandler.mWebLoginKey;
 		}
+		
+		if(!gLoginHandler.mPassword.empty())
+		{
+			firstname = gLoginHandler.mFirstName;
+			lastname = gLoginHandler.mLastName;
+			password = gLoginHandler.mPassword;
+			
+			gLoginHandler.mFirstName = "";
+			gLoginHandler.mLastName = "";
+			gLoginHandler.mPassword = "";
+			LLStartUp::setShouldAutoLogin(false);
+		}
 				
 		if (show_connect_box)
 		{
@@ -836,10 +865,11 @@ bool idle_startup()
 			}
 			gSavedSettings.setBOOL("RememberPassword", remember_password);
 
-			LL_INFOS("AppInit") << "Attempting login as: " << firstname << " " << lastname << LL_ENDL;
+			LL_INFOS("AppInit") << "Attempting login as: " << firstname << " " << lastname << " " << password << LL_ENDL;
 			gDebugInfo["LoginName"] = firstname + " " + lastname;	
 		}
 
+        gHippoGridManager->setCurrentGridAsConnected();
 		// create necessary directories
 		// *FIX: these mkdir's should error check
 		gDirUtilp->setLindenUserDir(firstname, lastname);
@@ -1031,6 +1061,10 @@ bool idle_startup()
 		LLStringUtil::format_map_t args;
 		args["[APP_NAME]"] = LLAppViewer::instance()->getSecondLifeTitle();
 		auth_desc = LLTrans::getString("LoginInProgress", args);
+
+		//Since we are about to login, we don't want the client to attempt auto login
+		//again until the user does a grid2grid teleport.
+		LLStartUp::setShouldAutoLogin(false);
 		LLStartUp::setStartupState( STATE_LOGIN_AUTHENTICATE );
 	}
 
@@ -1070,13 +1104,15 @@ bool idle_startup()
 		hashed_mac.hex_digest(hashed_mac_string);
 
 		// TODO if statement here to use web_login_key
+		if(web_login_key.isNull()){
 		sAuthUriNum = llclamp(sAuthUriNum, 0, (S32)sAuthUris.size()-1);
 		LLUserAuth::getInstance()->authenticate(
 			sAuthUris[sAuthUriNum],
 			auth_method,
 			firstname,
 			lastname,			
-			password, // web_login_key,
+			password, 
+			//web_login_key,
 			start.str(),
 			gSkipOptionalUpdate,
 			gAcceptTOS,
@@ -1085,6 +1121,22 @@ bool idle_startup()
 			requested_options,
 			hashed_mac_string,
 			LLAppViewer::instance()->getSerialNumber());
+		} else {
+		LLUserAuth::getInstance()->authenticate(
+			sAuthUris[sAuthUriNum],
+			auth_method,
+			firstname,
+			lastname,			 
+			web_login_key,
+			start.str(),
+			gSkipOptionalUpdate,
+			gAcceptTOS,
+			gAcceptCriticalMessage,
+			gLastExecEvent,
+			requested_options,
+			hashed_mac_string,
+			LLAppViewer::instance()->getSerialNumber());
+		}
 
 		// reset globals
 		gAcceptTOS = FALSE;
@@ -1144,7 +1196,6 @@ bool idle_startup()
 		LL_DEBUGS("AppInit") << "STATE_LOGIN_PROCESS_RESPONSE" << LL_ENDL;
 		std::ostringstream emsg;
 		bool quit = false;
-		bool update = false;
 		std::string login_response;
 		std::string reason_response;
 		std::string message_response;
@@ -1188,7 +1239,11 @@ bool idle_startup()
 				reason_response = LLUserAuth::getInstance()->getResponse("reason");
 				message_response = LLUserAuth::getInstance()->getResponse("message");
 
-				if (!message_response.empty())
+				if (gHideLinks && reason_response == "disabled")
+				{
+					emsg << gDisabledMessage;
+				}
+				else if (!message_response.empty())
 				{
 					// XUI: fix translation for strings returned during login
 					// We need a generic table for translations
@@ -1246,7 +1301,16 @@ bool idle_startup()
 				if(reason_response == "update")
 				{
 					auth_message = LLUserAuth::getInstance()->getResponse("message");
-					update = true;
+					if (show_connect_box)
+					{
+						update_app(TRUE, auth_message);
+						LLStartUp::setStartupState( STATE_UPDATE_CHECK );
+						return false;
+					}
+					else
+					{
+						quit = true;
+					}
 				}
 				if(reason_response == "optional")
 				{
@@ -1282,21 +1346,6 @@ bool idle_startup()
 				return FALSE;
 			}
 			break;
-		}
-
-		if (update || gSavedSettings.getBOOL("ForceMandatoryUpdate"))
-		{
-			gSavedSettings.setBOOL("ForceMandatoryUpdate", FALSE);
-			if (show_connect_box)
-			{
-				update_app(TRUE, auth_message);
-				LLStartUp::setStartupState( STATE_UPDATE_CHECK );
-				return false;
-			}
-			else
-			{
-				quit = true;
-			}
 		}
 
 		// Version update and we're not showing the dialog
@@ -1511,6 +1560,42 @@ bool idle_startup()
 				}
 			}
 
+            // Override grid info with anything sent in the login response
+			std::string tmp = LLUserAuth::getInstance()->getResponse("gridname");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setGridName(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("loginuri");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setLoginUri(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("welcome");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setLoginPage(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("loginpage");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setLoginPage(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("economy");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setHelperUri(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("helperuri");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setHelperUri(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("about");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setWebSite(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("website");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setWebSite(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("help");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSupportUrl(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("support");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSupportUrl(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("register");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRegisterUrl(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("account");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRegisterUrl(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("password");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setPasswordUrl(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("search");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSearchUrl(tmp);
+            tmp = LLUserAuth::getInstance()->getResponse("currency");
+            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setCurrencySymbol(tmp);
+            tmp = LLUserAuth::getInstance()->getResponse("real_currency");
+            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRealCurrencySymbol(tmp);
+            tmp = LLUserAuth::getInstance()->getResponse("directory_fee");
+            if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setDirectoryFee(atoi(tmp.c_str()));
+            gHippoGridManager->saveFile();
 
 			// JC: gesture loading done below, when we have an asset system
 			// in place.  Don't delete/clear user_credentials until then.
@@ -1535,8 +1620,10 @@ bool idle_startup()
 				LLStringUtil::format_map_t args;
 				args["[ERROR_MESSAGE]"] = emsg.str();
 				gViewerWindow->alertXml("ErrorMessage", args, login_alert_done);
-				reset_login();
+				LLStartUp::resetLogin();
 				gSavedSettings.setBOOL("AutoLogin", FALSE);
+				//this might be redundant
+				LLStartUp::setShouldAutoLogin(false);
 				show_connect_box = true;
 			}
 			
@@ -1555,8 +1642,10 @@ bool idle_startup()
 			LLStringUtil::format_map_t args;
 			args["[ERROR_MESSAGE]"] = emsg.str();
 			gViewerWindow->alertXml("ErrorMessage", args, login_alert_done);
-			reset_login();
+			LLStartUp::resetLogin();
 			gSavedSettings.setBOOL("AutoLogin", FALSE);
+			//this might be redundant
+			LLStartUp::setShouldAutoLogin(false);
 			show_connect_box = true;
 			// Don't save an incorrect password to disk.
 			save_password_to_disk(NULL);
@@ -1570,6 +1659,7 @@ bool idle_startup()
 	if (STATE_WORLD_INIT == LLStartUp::getStartupState())
 	{
 		set_startup_status(0.40f, LLTrans::getString("LoginInitializingWorld"), gAgent.mMOTD);
+		gDisconnected=FALSE;
 		display_startup();
 		// We should have an agent id by this point.
 		llassert(!(gAgentID == LLUUID::null));
@@ -1598,10 +1688,11 @@ bool idle_startup()
 		LLWaterParamManager::initClass();
 
 		// RN: don't initialize VO classes in drone mode, they are too closely tied to rendering
+
+		if (!LLStartUp::getStartedOnce())
 		LLViewerObject::initVOClasses();
 
 		display_startup();
-
 		// This is where we used to initialize gWorldp. Original comment said:
 		// World initialization must be done after above window init
 
@@ -1744,7 +1835,7 @@ bool idle_startup()
 		//reset statistics
 		LLViewerStats::getInstance()->resetStats();
 
-		if (!gNoRender)
+		if ((!gNoRender)&&(!LLStartUp::getStartedOnce()))
 		{
 			//
 			// Set up all of our statistics UI stuff.
@@ -2016,6 +2107,7 @@ bool idle_startup()
 			LLAvatarTracker::instance().addBuddyList(list);
  		}
 
+		/*
 		options.clear();
  		if(LLUserAuth::getInstance()->getOptions("ui-config", options))
  		{
@@ -2034,6 +2126,7 @@ bool idle_startup()
 				}
 			}
  		}
+		*/
 		options.clear();
 		bool show_hud = false;
 		if(LLUserAuth::getInstance()->getOptions("tutorial_setting", options))
@@ -2121,6 +2214,7 @@ bool idle_startup()
 		// Create the inventory views
 		llinfos << "Creating Inventory Views" << llendl;
 		LLInventoryView::showAgentInventory();
+		llinfos << "Inventory Views Created" << llendl;
 
 		// Hide the inventory if it wasn't shown at exit
 		if(!shown_at_exit)
@@ -2184,7 +2278,7 @@ bool idle_startup()
 			gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile") , TRUE );
 		};
 
-		if (!gNoRender)
+		if ((!gNoRender)&&(!LLStartUp::getStartedOnce()))
 		{
 			// JC: Initializing audio requests many sounds for download.
 			init_audio();
@@ -2344,25 +2438,11 @@ bool idle_startup()
 			LLStartUp::loadInitialOutfit( sInitialOutfit, sInitialOutfitGender );
 		}
 
-
-		// We now have an inventory skeleton, so if this is a user's first
-		// login, we can start setting up their clothing and avatar 
-		// appearance.  This helps to avoid the generic "Ruth" avatar in
-		// the orientation island tutorial experience. JC
-		if (gAgent.isFirstLogin()
-			&& !sInitialOutfit.empty()    // registration set up an outfit
-			&& !sInitialOutfitGender.empty() // and a gender
-			&& gAgent.getAvatarObject()	  // can't wear clothes without object
-			&& !gAgent.isGenderChosen() ) // nothing already loading
-		{
-			// Start loading the wearables, textures, gestures
-			LLStartUp::loadInitialOutfit( sInitialOutfit, sInitialOutfitGender );
-		}
-
 		// wait precache-delay and for agent's avatar or a lot longer.
 		if(((timeout_frac > 1.f) && gAgent.getAvatarObject())
 		   || (timeout_frac > 3.f))
 		{
+			wearables_timer.reset();
 			LLStartUp::setStartupState( STATE_WEARABLES_WAIT );
 		}
 		else
@@ -2378,7 +2458,6 @@ bool idle_startup()
 
 	if (STATE_WEARABLES_WAIT == LLStartUp::getStartupState())
 	{
-		static LLFrameTimer wearables_timer;
 
 		const F32 wearables_time = wearables_timer.getElapsedTimeF32();
 		const F32 MAX_WEARABLES_TIME = 10.f;
@@ -2482,6 +2561,7 @@ bool idle_startup()
 		LLUserAuth::getInstance()->reset();
 
 		LLStartUp::setStartupState( STATE_STARTED );
+		LLStartUp::setStartedOnce(true);
 
 		// Unmute audio if desired and setup volumes.
 		// Unmute audio if desired and setup volumes.
@@ -2498,7 +2578,7 @@ bool idle_startup()
 		gDebugView->mFastTimerView->setVisible(TRUE);
 #endif
 
-		LLAppViewer::instance()->handleLoginComplete();
+		LLAppViewer::instance()->initMainloopTimeout("Mainloop Init");
 
 		return TRUE;
 	}
@@ -2528,14 +2608,15 @@ void login_show()
 	// UI textures have been previously loaded in doPreloadImages()
 	
 	LL_DEBUGS("AppInit") << "Setting Servers" << LL_ENDL;
-	LL_INFOS("AppInit") << "getGridChoice is " << LLViewerLogin::getInstance()->getGridChoice() << LL_ENDL;
 
+	//KOW
+/*
 	LLViewerLogin* vl = LLViewerLogin::getInstance();
-	for(int grid_index = GRID_INFO_NONE + 1; grid_index < GRID_INFO_OTHER; ++grid_index)
+	for(int grid_index = 1; grid_index < GRID_INFO_OTHER; ++grid_index)
 	{
-		LLPanelLogin::addServer(vl->getKnownGridLabel((EGridInfo)grid_index), grid_index);
+		LLPanelLogin::addServer(vl->getKnownGridLabel(grid_index), grid_index);
 	}
-	LLPanelLogin::setServer(LLViewerLogin::getInstance()->getGridChoice()-1);
+*/
 }
 
 // Callback for when login screen is closed.  Option 0 = connect, option 1 = quit.
@@ -2814,6 +2895,7 @@ void update_app(BOOL mandatory, const std::string& auth_msg)
 
 void update_dialog_callback(S32 option, void *userdata)
 {
+	std::string update_exe_path;
 	bool mandatory = userdata != NULL;
 
 #if !LL_RELEASE_FOR_DOWNLOAD
@@ -2830,8 +2912,6 @@ void update_dialog_callback(S32 option, void *userdata)
 		if (mandatory)
 		{
 			LLAppViewer::instance()->forceQuit();
-			// Bump them back to the login screen.
-			//reset_login();
 		}
 		else
 		{
@@ -2856,7 +2936,7 @@ void update_dialog_callback(S32 option, void *userdata)
 	// *TODO constantize this guy
 	LLURI update_url = LLURI::buildHTTP("secondlife.com", 80, "update.php", query_map);
 	
-	if(LLAppViewer::sUpdaterInfo)
+/*	if(LLAppViewer::sUpdaterInfo)
 	{
 		delete LLAppViewer::sUpdaterInfo ;
 	}
@@ -2929,14 +3009,16 @@ void update_dialog_callback(S32 option, void *userdata)
 	LL_DEBUGS("AppInit") << "Calling updater: " << LLAppViewer::sUpdaterInfo->mUpdateExePath << LL_ENDL;
 
 	// Run the auto-updater.
-	system(LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str()); /* Flawfinder: ignore */
-
+*/
+	//system(LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str()); /* Flawfinder: ignore */
+/*
 #elif LL_LINUX
 	OSMessageBox("Automatic updating is not yet implemented for Linux.\n"
 		"Please download the latest version from www.secondlife.com.",
 		LLStringUtil::null, OSMB_OK);
 #endif
 	LLAppViewer::instance()->forceQuit();
+	*/
 }
 
 void use_circuit_callback(void**, S32 result)
@@ -2952,7 +3034,7 @@ void use_circuit_callback(void**, S32 result)
 			LL_WARNS("AppInit") << "Backing up to login screen!" << LL_ENDL;
 			gViewerWindow->alertXml("LoginPacketNeverReceived",
 				login_alert_status, NULL);
-			reset_login();
+			LLStartUp::resetLogin();
 		}
 		else
 		{
@@ -3902,7 +3984,16 @@ void LLStartUp::setStartupState( EStartupState state )
 }
 
 
-void reset_login()
+//static
+void LLStartUp::setStartedOnce(bool started)
+{
+	mStartedOnce=started;
+}
+
+
+//displays the screen and cleans up UI
+// static
+void LLStartUp::resetLogin()
 {
 	LLStartUp::setStartupState( STATE_LOGIN_SHOW );
 
