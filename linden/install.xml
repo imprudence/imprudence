@@ -843,7 +843,7 @@ anguage Infrstructure (CLI) international standard</string>
             <key>md5sum</key>
             <string>f30b851e089108978c8218295a405159</string>
             <key>url</key>
-            <uri>http://thomas.shikami.mooo.com/install_pkgs/openal-darwin-20090418.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/openal-darwin-20090418.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
