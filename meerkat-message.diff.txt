@@ -1,0 +1,1319 @@
+diff --git a/linden/indra/llcommon/llstat.cpp b/linden/indra/llcommon/llstat.cpp
+index 31a72e2..74e8bf1 100644
+--- a/linden/indra/llcommon/llstat.cpp
++++ b/linden/indra/llcommon/llstat.cpp
+@@ -31,288 +31,17 @@
+ #include "linden_common.h"
+ 
+ #include "llstat.h"
+-#include "lllivefile.h"
+-#include "llerrorcontrol.h"
+ #include "llframetimer.h"
+ #include "timing.h"
+-#include "llsd.h"
+-#include "llsdserialize.h"
+-#include "llstl.h"
+-#include "u64.h"
+ 
+ 
+-// statics
+-BOOL            LLPerfBlock::sStatsEnabled = FALSE;    // Flag for detailed information
+-LLPerfBlock::stat_map_t    LLPerfBlock::sStatMap;    // Map full path string to LLStatTime objects, tracks all active objects
+-std::string        LLPerfBlock::sCurrentStatPath = "";    // Something like "/total_time/physics/physics step"
+ 
+-//------------------------------------------------------------------------
+-// Live config file to trigger stats logging
+-static const char    STATS_CONFIG_FILE_NAME[]            = "/dev/shm/simperf/simperf_proc_config.llsd";
+-static const F32    STATS_CONFIG_REFRESH_RATE            = 5.0;        // seconds
+-
+-class LLStatsConfigFile : public LLLiveFile
+-{
+-public:
+-    LLStatsConfigFile()
+-        : LLLiveFile(filename(), STATS_CONFIG_REFRESH_RATE),
+-        mChanged(false), mStatsp(NULL) { }
+-
+-    static std::string filename();
+-    
+-protected:
+-    /* virtual */ void loadFile();
+-
+-public:
+-    void init(LLPerfStats* statsp);
+-    static LLStatsConfigFile& instance();
+-        // return the singleton stats config file
+-
+-    bool mChanged;
+-
+-protected:
+-    LLPerfStats*    mStatsp;
+-};
+-
+-std::string LLStatsConfigFile::filename()
+-{
+-    return STATS_CONFIG_FILE_NAME;
+-}
+-
+-void LLStatsConfigFile::init(LLPerfStats* statsp)
+-{
+-    mStatsp = statsp;
+-}
+-
+-LLStatsConfigFile& LLStatsConfigFile::instance()
+-{
+-    static LLStatsConfigFile the_file;
+-    return the_file;
+-}
+-
+-
+-/* virtual */
+-// Load and parse the stats configuration file
+-void LLStatsConfigFile::loadFile()
+-{
+-    if (!mStatsp)
+-    {
+-        llwarns << "Tries to load performance configure file without initializing LPerfStats" << llendl;
+-        return;
+-    }
+-    mChanged = true;
+-    
+-    LLSD stats_config;
+-    {
+-        llifstream file(filename().c_str());
+-        if (file.is_open())
+-        {
+-            LLSDSerialize::fromXML(stats_config, file);
+-            if (stats_config.isUndefined())
+-            {
+-                llinfos << "Performance statistics configuration file ill-formed, not recording statistics" << llendl;
+-                mStatsp->setReportPerformanceDuration( 0.f );
+-                return;
+-            }
+-        }
+-        else 
+-        {    // File went away, turn off stats if it was on
+-            if ( mStatsp->frameStatsIsRunning() )
+-            {
+-                llinfos << "Performance statistics configuration file deleted, not recording statistics" << llendl;
+-                mStatsp->setReportPerformanceDuration( 0.f );
+-            }
+-            return;
+-        }
+-    }
+-
+-    F32 duration = 0.f;
+-    F32 interval = 0.f;
+-
+-    const char * w = "duration";
+-    if (stats_config.has(w))
+-    {
+-        duration = (F32)stats_config[w].asReal();
+-    } 
+-    w = "interval";
+-    if (stats_config.has(w))
+-    {
+-        interval = (F32)stats_config[w].asReal();
+-    } 
+-
+-    mStatsp->setReportPerformanceDuration( duration );
+-    mStatsp->setReportPerformanceInterval( interval );
+-
+-    if ( duration > 0 )
+-    {
+-        if ( interval == 0.f )
+-        {
+-            llinfos << "Recording performance stats every frame for " << duration << " sec" << llendl;
+-        }
+-        else
+-        {
+-            llinfos << "Recording performance stats every " << interval << " seconds for " << duration << " seconds" << llendl;
+-        }
+-    }
+-    else
+-    {
+-        llinfos << "Performance stats recording turned off" << llendl;
+-    }
+-}
+-
+-
+-//------------------------------------------------------------------------
+-
+-LLPerfStats::LLPerfStats(const std::string& process_name, S32 process_pid) : 
+-    mFrameStatsFileFailure(FALSE),
+-    mSkipFirstFrameStats(FALSE),
+-    mProcessName(process_name),
+-    mProcessPID(process_pid),
+-    mReportPerformanceStatInterval(1.f),
+-    mReportPerformanceStatEnd(0.0) 
+-{ }
+-
+-LLPerfStats::~LLPerfStats()
+-{
+-    LLPerfBlock::clearDynamicStats();
+-    mFrameStatsFile.close();
+-}
+-
+-void LLPerfStats::init()
+-{
+-    // Initialize the stats config file instance.
+-    (void) LLStatsConfigFile::instance().init(this);
+-    (void) LLStatsConfigFile::instance().checkAndReload();
+-}
+-
+-// Open file for statistics
+-void    LLPerfStats::openPerfStatsFile()
+-{
+-    if ( !mFrameStatsFile
+-        && !mFrameStatsFileFailure )
+-    {
+-        std::string stats_file = llformat("/dev/shm/simperf/%s_proc.%d.llsd", mProcessName.c_str(), mProcessPID);
+-        mFrameStatsFile.close();
+-        mFrameStatsFile.clear();
+-        mFrameStatsFile.open(stats_file, llofstream::out);
+-        if ( mFrameStatsFile.fail() )
+-        {
+-            llinfos << "Error opening statistics log file " << stats_file << llendl;
+-            mFrameStatsFileFailure = TRUE;
+-        }
+-        else
+-        {
+-            LLSD process_info = LLSD::emptyMap();
+-            process_info["name"] = mProcessName;
+-            process_info["pid"] = (LLSD::Integer) mProcessPID;
+-            process_info["stat_rate"] = (LLSD::Integer) mReportPerformanceStatInterval;
+-            // Add process-specific info.
+-            addProcessHeaderInfo(process_info);
+-
+-            mFrameStatsFile << LLSDNotationStreamer(process_info) << std::endl; 
+-        }
+-    }
+-}
+-
+-// Dump out performance metrics over some time interval
+-void LLPerfStats::dumpIntervalPerformanceStats()
+-{
+-    // Ensure output file is OK
+-    openPerfStatsFile();
+-
+-    if ( mFrameStatsFile )
+-    {
+-        LLSD stats = LLSD::emptyMap();
+-
+-        LLStatAccum::TimeScale scale;
+-        if ( getReportPerformanceInterval() == 0.f )
+-        {
+-            scale = LLStatAccum::SCALE_PER_FRAME;
+-        }
+-        else if ( getReportPerformanceInterval() < 0.5f )
+-        {
+-            scale = LLStatAccum::SCALE_100MS;
+-        }
+-        else
+-        {
+-            scale = LLStatAccum::SCALE_SECOND;
+-        }
+-
+-        // Write LLSD into log
+-        stats["utc_time"] = (LLSD::String) LLError::utcTime();
+-        stats["timestamp"] = U64_to_str((totalTime() / 1000) + (gUTCOffset * 1000));    // milliseconds since epoch
+-        stats["frame_number"] = (LLSD::Integer) LLFrameTimer::getFrameCount();
+-
+-        // Add process-specific frame info.
+-        addProcessFrameInfo(stats, scale);
+-        LLPerfBlock::addStatsToLLSDandReset( stats, scale );
+-
+-        mFrameStatsFile << LLSDNotationStreamer(stats) << std::endl; 
+-    }
+-}
+-
+-// Set length of performance stat recording
+-void    LLPerfStats::setReportPerformanceDuration( F32 seconds )
+-{ 
+-	if ( seconds <= 0.f )
+-	{
+-		mReportPerformanceStatEnd = 0.0;
+-		LLPerfBlock::setStatsEnabled( FALSE );
+-		mFrameStatsFile.close();
+-		LLPerfBlock::clearDynamicStats();
+-	}
+-	else
+-	{
+-		mReportPerformanceStatEnd = LLFrameTimer::getElapsedSeconds() + ((F64) seconds);
+-		// Clear failure flag to try and create the log file once
+-		mFrameStatsFileFailure = FALSE;
+-		LLPerfBlock::setStatsEnabled( TRUE );
+-		mSkipFirstFrameStats = TRUE;		// Skip the first report (at the end of this frame)
+-	}
+-}
+-
+-void LLPerfStats::updatePerFrameStats()
+-{
+-    (void) LLStatsConfigFile::instance().checkAndReload();
+-	static LLFrameTimer performance_stats_timer;
+-	if ( frameStatsIsRunning() )
+-	{
+-		if ( mReportPerformanceStatInterval == 0 )
+-		{	// Record info every frame
+-			if ( mSkipFirstFrameStats )
+-			{	// Skip the first time - was started this frame
+-				mSkipFirstFrameStats = FALSE;
+-			}
+-			else
+-			{
+-				dumpIntervalPerformanceStats();
+-			}
+-		}
+-		else
+-		{
+-			performance_stats_timer.setTimerExpirySec( getReportPerformanceInterval() );
+-			if (performance_stats_timer.checkExpirationAndReset( mReportPerformanceStatInterval ))
+-			{
+-				dumpIntervalPerformanceStats();
+-			}
+-		}
+-		
+-		if ( LLFrameTimer::getElapsedSeconds() > mReportPerformanceStatEnd )
+-		{	// Reached end of time, clear it to stop reporting
+-			setReportPerformanceDuration(0.f);			// Don't set mReportPerformanceStatEnd directly	
+-            llinfos << "Recording performance stats completed" << llendl;
+-		}
+-	}
+-}
+-
+-
+-//------------------------------------------------------------------------
+-
+-U64 LLStatAccum::sScaleTimes[NUM_SCALES] =
++U64 LLStatAccum::sScaleTimes[IMPL_NUM_SCALES] =
+ {
+ 	USEC_PER_SEC / 10,				// 100 millisec
+ 	USEC_PER_SEC * 1,				// seconds
+ 	USEC_PER_SEC * 60,				// minutes
++	USEC_PER_SEC * 60 * 2			// two minutes
+ #if ENABLE_LONG_TIME_STATS
+ 	// enable these when more time scales are desired
+ 	USEC_PER_SEC * 60*60,			// hours
+@@ -342,7 +71,7 @@ void LLStatAccum::reset(U64 when)
+ 	mRunning = TRUE;
+ 	mLastTime = when;
+ 
+-	for (int i = 0; i < NUM_SCALES; ++i)
++	for (int i = 0; i < IMPL_NUM_SCALES; ++i)
+ 	{
+ 		mBuckets[i].accum = 0.0;
+ 		mBuckets[i].endTime = when + sScaleTimes[i];
+@@ -375,7 +104,7 @@ void LLStatAccum::sum(F64 value, U64 when)
+ 	// how long is this value for
+ 	U64 timeSpan = when - mLastTime;
+ 
+-	for (int i = 0; i < NUM_SCALES; ++i)
++	for (int i = 0; i < IMPL_NUM_SCALES; ++i)
+ 	{
+ 		Bucket& bucket = mBuckets[i];
+ 
+@@ -421,12 +150,7 @@ F32 LLStatAccum::meanValue(TimeScale scale) const
+ 	{
+ 		return 0.0;
+ 	}
+-	if ( scale == SCALE_PER_FRAME )
+-	{	// Per-frame not supported here
+-		scale = SCALE_100MS;
+-	}
+-
+-	if (scale < 0 || scale >= NUM_SCALES)
++	if (scale < 0 || scale >= IMPL_NUM_SCALES)
+ 	{
+ 		llwarns << "llStatAccum::meanValue called for unsupported scale: "
+ 			<< scale << llendl;
+@@ -536,15 +260,12 @@ void LLStatMeasure::sample(F64 value)
+ 
+ // ------------------------------------------------------------------------
+ 
+-LLStatTime::LLStatTime(const std::string & key)
+-	: LLStatAccum(false),
+-	  mFrameNumber(LLFrameTimer::getFrameCount()),
+-	  mTotalTimeInFrame(0),
+-	  mKey(key)
+-#if LL_DEBUG
+-	  , mRunning(FALSE)
+-#endif
++LLStatTime::LLStatTime(bool use_frame_timer)
++	: LLStatAccum(use_frame_timer),
++	  mFrameNumber(0),
++	  mTotalTimeInFrame(0)
+ {
++	mFrameNumber = LLFrameTimer::getFrameCount();
+ }
+ 
+ void LLStatTime::start()
+@@ -558,12 +279,6 @@ void LLStatTime::start()
+ 	}
+ 
+ 	sum(0.0);
+-
+-#if LL_DEBUG
+-	// Shouldn't be running already
+-	llassert( !mRunning );
+-	mRunning = TRUE;
+-#endif
+ }
+ 
+ void LLStatTime::stop()
+@@ -571,149 +286,7 @@ void LLStatTime::stop()
+ 	U64 end_time = getCurrentUsecs();
+ 	U64 duration = end_time - mLastTime;
+ 	sum(F64(duration), end_time);
+-	//llinfos << "mTotalTimeInFrame incremented from  " << mTotalTimeInFrame << " to " << (mTotalTimeInFrame + duration) << llendl; 
+ 	mTotalTimeInFrame += duration;
+-
+-#if LL_DEBUG
+-	mRunning = FALSE;
+-#endif
+-}
+-
+-/* virtual */ F32 LLStatTime::meanValue(TimeScale scale) const
+-{
+-    if ( LLStatAccum::SCALE_PER_FRAME == scale )
+-    {
+-        return mTotalTimeInFrame;
+-    }
+-    else
+-    {
+-        return LLStatAccum::meanValue(scale);
+-    }
+-}
+-
+-
+-// ------------------------------------------------------------------------
+-
+-
+-// Use this constructor for pre-defined LLStatTime objects
+-LLPerfBlock::LLPerfBlock(LLStatTime* stat ) : mPredefinedStat(stat), mDynamicStat(NULL)
+-{
+-    if (mPredefinedStat)
+-    {
+-        // If dynamic stats are turned on, this will create a separate entry in the stat map.
+-        initDynamicStat(mPredefinedStat->mKey);
+-
+-        // Start predefined stats.  These stats are not part of the stat map.
+-        mPredefinedStat->start();
+-    }
+-}
+-
+-// Use this constructor for dynamically created LLStatTime objects (not pre-defined) with a multi-part key.
+-// These are also turned on or off via the switch passed in
+-LLPerfBlock::LLPerfBlock( const char* key1, const char* key2 ) : mPredefinedStat(NULL), mDynamicStat(NULL)
+-{
+-    if (!sStatsEnabled) return;
+-
+-    if (NULL == key2 || strlen(key2) == 0)
+-    {
+-        initDynamicStat(key1);
+-    }
+-    else
+-    {
+-        std::ostringstream key;
+-        key << key1 << "_" << key2;
+-        initDynamicStat(key.str());
+-    }
+-}
+-
+-void LLPerfBlock::initDynamicStat(const std::string& key)
+-{
+-    // Early exit if dynamic stats aren't enabled.
+-    if (!sStatsEnabled) return;
+-
+-    mLastPath = sCurrentStatPath;		// Save and restore current path
+-    sCurrentStatPath += "/" + key;		// Add key to current path
+-
+-    // See if the LLStatTime object already exists
+-    stat_map_t::iterator iter = sStatMap.find(sCurrentStatPath);
+-    if ( iter == sStatMap.end() )
+-    {
+-        // StatEntry object doesn't exist, so create it
+-        mDynamicStat = new StatEntry( key );
+-        sStatMap[ sCurrentStatPath ] = mDynamicStat;	// Set the entry for this path
+-    }
+-    else
+-    {
+-        // Found this path in the map, use the object there
+-        mDynamicStat = (*iter).second;		// Get StatEntry for the current path
+-    }
+-
+-    if (mDynamicStat)
+-    {
+-        mDynamicStat->mStat.start();
+-        mDynamicStat->mCount++;
+-    }
+-    else
+-    {
+-        llwarns << "Initialized NULL dynamic stat at '" << sCurrentStatPath << "'" << llendl;
+-       sCurrentStatPath = mLastPath;
+-    }
+-}
+-
+-
+-// Destructor does the time accounting
+-LLPerfBlock::~LLPerfBlock()
+-{
+-    if (mPredefinedStat) mPredefinedStat->stop();
+-    if (mDynamicStat)
+-    {
+-        mDynamicStat->mStat.stop();
+-        sCurrentStatPath = mLastPath;	// Restore the path in case sStatsEnabled changed during this block
+-    }
+-}
+-
+-
+-// Clear the map of any dynamic stats.  Static routine
+-void LLPerfBlock::clearDynamicStats()
+-{
+-    std::for_each(sStatMap.begin(), sStatMap.end(), DeletePairedPointer());
+-    sStatMap.clear();
+-}
+-
+-// static - Extract the stat info into LLSD
+-void LLPerfBlock::addStatsToLLSDandReset( LLSD & stats,
+-										  LLStatAccum::TimeScale scale )
+-{
+-    // If we aren't in per-frame scale, we need to go from second to microsecond.
+-    U32 scale_adjustment = 1;
+-    if (LLStatAccum::SCALE_PER_FRAME != scale)
+-    {
+-        scale_adjustment = USEC_PER_SEC;
+-    }
+-	stat_map_t::iterator iter = sStatMap.begin();
+-	for ( ; iter != sStatMap.end(); ++iter )
+-	{	// Put the entry into LLSD "/full/path/to/stat/" = microsecond total time
+-		const std::string & stats_full_path = (*iter).first;
+-
+-		StatEntry * stat = (*iter).second;
+-		if (stat)
+-		{
+-            if (stat->mCount > 0)
+-            {
+-                stats[stats_full_path] = LLSD::emptyMap();
+-                stats[stats_full_path]["us"] = (LLSD::Integer) (scale_adjustment * stat->mStat.meanValue(scale));
+-                if (stat->mCount > 1)
+-                {
+-                    stats[stats_full_path]["count"] = (LLSD::Integer) stat->mCount;
+-                }
+-                stat->mCount = 0;
+-            }
+-		}
+-		else
+-		{	// WTF?  Shouldn't have a NULL pointer in the map.
+-            llwarns << "Unexpected NULL dynamic stat at '" << stats_full_path << "'" << llendl;
+-		}
+-	}	
+ }
+ 
+ 
+diff --git a/linden/indra/llcommon/llstat.h b/linden/indra/llcommon/llstat.h
+index eceb5e3..0e66cf0 100644
+--- a/linden/indra/llcommon/llstat.h
++++ b/linden/indra/llcommon/llstat.h
+@@ -33,13 +33,9 @@
+ #define LL_LLSTAT_H
+ 
+ #include <deque>
+-#include <map>
+ 
+ #include "lltimer.h"
+ #include "llframetimer.h"
+-#include "llfile.h"
+-
+-class	LLSD;
+ 
+ // Set this if longer stats are needed
+ #define ENABLE_LONG_TIME_STATS	0
+@@ -62,18 +58,19 @@ public:
+ 		SCALE_100MS,
+ 		SCALE_SECOND,
+ 		SCALE_MINUTE,
++		SCALE_TWO_MINUTE,
+ #if ENABLE_LONG_TIME_STATS
+ 		SCALE_HOUR,
+ 		SCALE_DAY,
+ 		SCALE_WEEK,
+ #endif
+-		NUM_SCALES,			// Use to size storage arrays
+-		SCALE_PER_FRAME		// For latest frame information - should be after NUM_SCALES since this doesn't go into the time buckets
++		NUM_SCALES
+ 	};
+ 
+-	static U64 sScaleTimes[NUM_SCALES];
++	static const TimeScale IMPL_NUM_SCALES = (TimeScale)(SCALE_TWO_MINUTE + 1);
++	static U64 sScaleTimes[IMPL_NUM_SCALES];
+ 
+-	virtual F32 meanValue(TimeScale scale) const;
++	F32 meanValue(TimeScale scale) const;
+ 		// see the subclasses for the specific meaning of value
+ 
+ 	F32 meanValueOverLast100ms()  const { return meanValue(SCALE_100MS);  }
+@@ -89,8 +86,8 @@ public:
+ 		// Get current microseconds based on timer type
+ 
+ 	BOOL	mUseFrameTimer;
+-	BOOL	mRunning;
+ 
++	BOOL	mRunning;
+ 	U64		mLastTime;
+ 	
+ 	struct Bucket
+@@ -102,7 +99,7 @@ public:
+ 		F64		lastAccum;
+ 	};
+ 
+-	Bucket	mBuckets[NUM_SCALES];
++	Bucket	mBuckets[IMPL_NUM_SCALES];
+ 
+ 	BOOL 	mLastSampleValid;
+ 	F64 	mLastSampleValue;
+@@ -139,115 +136,37 @@ public:
+ };
+ 
+ 
++class LLTimeBlock;
++
+ class LLStatTime : public LLStatAccum
+ 	// gathers statistics about time spent in a block of code
+ 	// measure average duration per second in the block
+ {
+ public:
+-	LLStatTime( const std::string & key = "undefined" );
++	LLStatTime(bool use_frame_timer = false);
+ 
+ 	U32		mFrameNumber;		// Current frame number
+ 	U64		mTotalTimeInFrame;	// Total time (microseconds) accumulated during the last frame
+ 
+-	void	setKey( const std::string & key )		{ mKey = key;	};
+-
+-	virtual F32 meanValue(TimeScale scale) const;
+-
+ private:
+-	void start();				// Start and stop measuring time block
++	void start();
+ 	void stop();
+-
+-	std::string		mKey;		// Tag representing this time block
+-
+-#if LL_DEBUG
+-	BOOL			mRunning;	// TRUE if start() has been called
+-#endif
+-
+-	friend class LLPerfBlock;
++	friend class LLTimeBlock;
+ };
+ 
+-// ----------------------------------------------------------------------------
+-
+-
+-// Use this class on the stack to record statistics about an area of code
+-class LLPerfBlock
++class LLTimeBlock
+ {
+ public:
+-    struct StatEntry
+-    {
+-            StatEntry(const std::string& key) : mStat(LLStatTime(key)), mCount(0) {}
+-            LLStatTime  mStat;
+-            U32         mCount;
+-    };
+-    typedef std::map<std::string, StatEntry*>		stat_map_t;
+-
+-	// Use this constructor for pre-defined LLStatTime objects
+-	LLPerfBlock(LLStatTime* stat);
+-
+-	// Use this constructor for dynamically created LLStatTime objects (not pre-defined) with a multi-part key
+-	LLPerfBlock( const char* key1, const char* key2 = NULL);
+-
+-
+-	~LLPerfBlock();
+-
+-	static void setStatsEnabled( BOOL enable )		{ sStatsEnabled = enable;	};
+-	static S32  getStatsEnabled()					{ return sStatsEnabled;		};
+-
+-	static void clearDynamicStats();		// Reset maps to clear out dynamic objects
+-	static void addStatsToLLSDandReset( LLSD & stats,		// Get current information and clear time bin
+-										LLStatAccum::TimeScale scale );
+-
++	LLTimeBlock(LLStatTime& stat) : mStat(stat) { mStat.start(); }
++	~LLTimeBlock()								{ mStat.stop(); }
+ private:
+-	// Initialize dynamically created LLStatTime objects
+-    void initDynamicStat(const std::string& key);
+-
+-	std::string				mLastPath;				// Save sCurrentStatPath when this is called
+-	LLStatTime * 			mPredefinedStat;		// LLStatTime object to get data
+-	StatEntry *				mDynamicStat;   		// StatEntryobject to get data
+-
+-	static BOOL				sStatsEnabled;			// Normally FALSE
+-    static stat_map_t		sStatMap;				// Map full path string to LLStatTime objects
+-	static std::string		sCurrentStatPath;		// Something like "frame/physics/physics step"
++	LLStatTime& mStat;
+ };
+ 
+-// ----------------------------------------------------------------------------
+ 
+-class LLPerfStats
+-{
+-public:
+-    LLPerfStats(const std::string& process_name = "unknown", S32 process_pid = 0);
+-    virtual ~LLPerfStats();
+-
+-    virtual void init();    // Reset and start all stat timers
+-    virtual void updatePerFrameStats();
+-    // Override these function to add process-specific information to the performance log header and per-frame logging.
+-    virtual void addProcessHeaderInfo(LLSD& info) { /* not implemented */ }
+-    virtual void addProcessFrameInfo(LLSD& info, LLStatAccum::TimeScale scale) { /* not implemented */ }
+-
+-    // High-resolution frame stats
+-    BOOL    frameStatsIsRunning()                                { return (mReportPerformanceStatEnd > 0.);        };
+-    F32     getReportPerformanceInterval() const                { return mReportPerformanceStatInterval;        };
+-    void    setReportPerformanceInterval( F32 interval )        { mReportPerformanceStatInterval = interval;    };
+-    void    setReportPerformanceDuration( F32 seconds );
+-    void    setProcessName(const std::string& process_name) { mProcessName = process_name; }
+-    void    setProcessPID(S32 process_pid) { mProcessPID = process_pid; }
+-
+-protected:
+-    void    openPerfStatsFile();                    // Open file for high resolution metrics logging
+-    void    dumpIntervalPerformanceStats();
+ 
+-    llofstream      mFrameStatsFile;            // File for per-frame stats
+-    BOOL            mFrameStatsFileFailure;        // Flag to prevent repeat opening attempts
+-    BOOL            mSkipFirstFrameStats;        // Flag to skip one (partial) frame report
+-    std::string     mProcessName;
+-    S32             mProcessPID;
+ 
+-private:
+-    F32 mReportPerformanceStatInterval;    // Seconds between performance stats
+-    F64 mReportPerformanceStatEnd;        // End time (seconds) for performance stats
+-};
+ 
+-// ----------------------------------------------------------------------------
+ class LLStat
+ {
+ public:
+diff --git a/linden/indra/llcommon/llstatenums.h b/linden/indra/llcommon/llstatenums.h
+index febd958..ae3be14 100644
+--- a/linden/indra/llcommon/llstatenums.h
++++ b/linden/indra/llcommon/llstatenums.h
+@@ -33,41 +33,38 @@
+ 
+ enum
+ {
+-	LL_SIM_STAT_TIME_DILATION,				// 0
++	LL_SIM_STAT_TIME_DILATION,
+ 	LL_SIM_STAT_FPS,
+ 	LL_SIM_STAT_PHYSFPS,
+ 	LL_SIM_STAT_AGENTUPS,
+ 	LL_SIM_STAT_FRAMEMS,
+-	LL_SIM_STAT_NETMS,						// 5
++	LL_SIM_STAT_NETMS,
+ 	LL_SIM_STAT_SIMOTHERMS,
+ 	LL_SIM_STAT_SIMPHYSICSMS,
+ 	LL_SIM_STAT_AGENTMS,
+ 	LL_SIM_STAT_IMAGESMS,
+-	LL_SIM_STAT_SCRIPTMS,					// 10
++	LL_SIM_STAT_SCRIPTMS,
+ 	LL_SIM_STAT_NUMTASKS,
+ 	LL_SIM_STAT_NUMTASKSACTIVE,
+ 	LL_SIM_STAT_NUMAGENTMAIN,
+ 	LL_SIM_STAT_NUMAGENTCHILD,
+-	LL_SIM_STAT_NUMSCRIPTSACTIVE,			// 15
++	LL_SIM_STAT_NUMSCRIPTSACTIVE,
+ 	LL_SIM_STAT_LSLIPS,
+ 	LL_SIM_STAT_INPPS,
+ 	LL_SIM_STAT_OUTPPS,
+ 	LL_SIM_STAT_PENDING_DOWNLOADS,
+-	LL_SIM_STAT_PENDING_UPLOADS,			// 20
++	LL_SIM_STAT_PENDING_UPLOADS,
+ 	LL_SIM_STAT_VIRTUAL_SIZE_KB,
+ 	LL_SIM_STAT_RESIDENT_SIZE_KB,
+ 	LL_SIM_STAT_PENDING_LOCAL_UPLOADS,
+ 	LL_SIM_STAT_TOTAL_UNACKED_BYTES,
+-	LL_SIM_STAT_PHYSICS_PINNED_TASKS,		// 25
++	LL_SIM_STAT_PHYSICS_PINNED_TASKS,
+ 	LL_SIM_STAT_PHYSICS_LOD_TASKS,
+ 	LL_SIM_STAT_SIMPHYSICSSTEPMS,
+ 	LL_SIM_STAT_SIMPHYSICSSHAPEMS,
+ 	LL_SIM_STAT_SIMPHYSICSOTHERMS,
+-	LL_SIM_STAT_SIMPHYSICSMEMORY,			// 30
++	LL_SIM_STAT_SIMPHYSICSMEMORY,
+ 	LL_SIM_STAT_SCRIPT_EPS,
+-	LL_SIM_STAT_SIMSPARETIME,
+-	LL_SIM_STAT_SIMSLEEPTIME,
+-	LL_SIM_STAT_IOPUMPTIME,
+ };
+ 
+ #endif
+diff --git a/linden/indra/llmessage/lliohttpserver.cpp b/linden/indra/llmessage/lliohttpserver.cpp
+index 167f212..39fecb4 100644
+--- a/linden/indra/llmessage/lliohttpserver.cpp
++++ b/linden/indra/llmessage/lliohttpserver.cpp
+@@ -47,7 +47,6 @@
+ #include "llpumpio.h"
+ #include "llsd.h"
+ #include "llsdserialize_xml.h"
+-#include "llstat.h"
+ #include "llstl.h"
+ #include "lltimer.h"
+ 
+@@ -172,26 +171,22 @@ LLIOPipe::EStatus LLHTTPPipe::process_impl(
+ 		std::string verb = context[CONTEXT_REQUEST][CONTEXT_VERB];
+ 		if(verb == HTTP_VERB_GET)
+ 		{
+-            LLPerfBlock getblock("http_get");   
+ 			mNode.get(LLHTTPNode::ResponsePtr(mResponse), context);
+ 		}
+ 		else if(verb == HTTP_VERB_PUT)
+ 		{
+-            LLPerfBlock putblock("http_put");
+ 			LLSD input;
+ 			LLSDSerialize::fromXML(input, istr);
+ 			mNode.put(LLHTTPNode::ResponsePtr(mResponse), context, input);
+ 		}
+ 		else if(verb == HTTP_VERB_POST)
+ 		{
+-            LLPerfBlock postblock("http_post");
+ 			LLSD input;
+ 			LLSDSerialize::fromXML(input, istr);
+ 			mNode.post(LLHTTPNode::ResponsePtr(mResponse), context, input);
+ 		}
+ 		else if(verb == HTTP_VERB_DELETE)
+ 		{
+-            LLPerfBlock delblock("http_delete");
+ 			mNode.del(LLHTTPNode::ResponsePtr(mResponse), context);
+ 		}		
+ 		else if(verb == HTTP_VERB_OPTIONS)
+diff --git a/linden/indra/llmessage/llmessagetemplate.h b/linden/indra/llmessage/llmessagetemplate.h
+index 2390eea..a4062fa 100644
+--- a/linden/indra/llmessage/llmessagetemplate.h
++++ b/linden/indra/llmessage/llmessagetemplate.h
+@@ -34,8 +34,11 @@
+ 
+ #include "lldarray.h"
+ #include "message.h" // TODO: babbage: Remove...
+-#include "llstat.h"
++#include "llmsgvariabletype.h"
+ #include "llstl.h"
++#include <list>
++#include <algorithm>
++#include <functional>
+ 
+ class LLMsgVarData
+ {
+@@ -270,6 +273,31 @@ enum EMsgDeprecation
+ 	MD_DEPRECATED
+ };
+ 
++class LLMessageTemplateHandlerEntry
++{
++public:
++	LLMessageTemplateHandlerEntry(message_handler_func_t handler, void **userdata = NULL) :
++		mHandlerFunc(handler), mUserData(userdata) {}
++
++	void call(LLMessageSystem *msgsystem) const { mHandlerFunc(msgsystem, mUserData); }
++
++	bool operator==(const LLMessageTemplateHandlerEntry&a) { return mHandlerFunc == a.mHandlerFunc; }
++private:
++	// message handler function (this is set by each application)
++	message_handler_func_t mHandlerFunc;
++	void **mUserData;	
++};
++
++class callHandler : public std::unary_function<LLMessageTemplateHandlerEntry, void>
++{
++public:
++	callHandler(LLMessageSystem *msg) : mMsg(msg) {}
++	void operator()(const LLMessageTemplateHandlerEntry& a) const { a.call(mMsg); }
++private:
++	LLMessageSystem *mMsg;
++};
++
++
+ class LLMessageTemplate
+ {
+ public:
+@@ -291,9 +319,10 @@ public:
+ 		mTotalDecodeTime(0.f),
+ 		mMaxDecodeTimePerMsg(0.f),
+ 		mBanFromTrusted(false),
+-		mBanFromUntrusted(false),
+-		mHandlerFunc(NULL), 
+-		mUserData(NULL)
++		//mBanFromUntrusted(false),
++		//mHandlerFunc(NULL), 
++		//mUserData(NULL)
++		mBanFromUntrusted(false)
+ 	{ 
+ 		mName = LLMessageStringTable::getInstance()->getString(name);
+ 	}
+@@ -361,21 +390,91 @@ public:
+ 		return mDeprecation;
+ 	}
+ 	
+-	void setHandlerFunc(void (*handler_func)(LLMessageSystem *msgsystem, void **user_data), void **user_data)
++//	void setHandlerFunc(void (*handler_func)(LLMessageSystem *msgsystem, void **user_data), void **user_data)
++	/**
++	 * @brief Adds a handler
++	 * This function adds a new handler to be called when the message arrives.
++	 * Repeated additions of the same handler function will be ignored.
++	 * @note delHandlerFunc() must be called to remove the registration
++	 * @param handler Function to call
++	 * @param user_data User specified data to pass to the function
++	 */
++	void addHandlerFunc(message_handler_func_t handler, void **user_data)	
+ 	{
+-		mHandlerFunc = handler_func;
+-		mUserData = user_data;
++		LLMessageTemplateHandlerEntry h(handler, user_data);
++
++		if ( std::find(mHandlers.begin(), mHandlers.end(), h ) != mHandlers.end() )
++		{
++			return;
++		}
++
++		mHandlers.push_back( h );
++	}
++
++	/**
++	 * @brief Sets a handler
++	 * This function sets a handler to be called when the message arrives.
++	 * Any existing handlers are unregistered.
++	 * @note delHandlerFunc() must be called to remove the registration
++	 * @param handler Function to call
++	 * @param user_data User specified data to pass to the function
++	 */
++	void setHandlerFunc(message_handler_func_t handler, void **user_data)
++	{
++		mHandlers.clear();
++		if( handler )
++		{
++			addHandlerFunc(handler, user_data);
++		}
++		else
++		{
++			llwarns << "code has reset handler for \"" << mName << "\" by setting it to NULL." << llendl;
++		}
++	}
++
++	/**
++	 * @brief Removes a handler
++	 * Removes a handler from the list of handlers.
++	 * Attempts to remove handlers that aren't in the list are silently
++	 * ignored.
++	 * @param handler Function to remove
++	 */
++	void delHandlerFunc(message_handler_func_t handler)
++	{
++		//mHandlerFunc = handler_func;
++		//mUserData = user_data;
++		mHandlers.remove( LLMessageTemplateHandlerEntry(handler) );
+ 	}
+ 
+ 	BOOL callHandlerFunc(LLMessageSystem *msgsystem) const
+ 	{
+-		if (mHandlerFunc)
++		//if (mHandlerFunc)
++		if ( mHandlers.empty() )
++		{
++			return FALSE;
++		}
++		/* 
++		 * Be on the safe side and use for_each only when necessary. There is Linden code ("ReplyPayPrice") that
++		 * does not take the multiple reply handlers into account and simply tries to unregister
++		 * by setting the handler function to 0, unfortunately from within the reply handler so in this case
++		 * the for_each iterator inside std_algo.h is invalidated leading to a crash if the memory is reused
++		 * in between.
++		 */
++		else if( mHandlers.size() == 1 )
++		{
++			//KOW HACK we probably want to re-enable the llPerfBlocks here, may need a vendor merge for llstats.cpp stuff.
++			//LLPerfBlock msg_cb_time("msg_cb", mName);
++			//mHandlerFunc(msgsystem, mUserData);
++			mHandlers.begin()->call(msgsystem);
++			return TRUE;
++		}
++		else
+ 		{
+-            LLPerfBlock msg_cb_time("msg_cb", mName);
+-			mHandlerFunc(msgsystem, mUserData);
++            //LLPerfBlock msg_cb_time("msg_cb", mName);
++			std::for_each(mHandlers.begin(), mHandlers.end(), callHandler(msgsystem));
+ 			return TRUE;
+ 		}
+-		return FALSE;
++		//return FALSE;
+ 	}
+ 
+ 	bool isUdpBanned() const
+@@ -421,8 +520,9 @@ public:
+ 
+ private:
+ 	// message handler function (this is set by each application)
+-	void									(*mHandlerFunc)(LLMessageSystem *msgsystem, void **user_data);
+-	void									**mUserData;
++//	void									(*mHandlerFunc)(LLMessageSystem *msgsystem, void **user_data);
++//	void									**mUserData;
++	std::list<LLMessageTemplateHandlerEntry> mHandlers;
+ };
+ 
+ #endif // LL_LLMESSAGETEMPLATE_H
+diff --git a/linden/indra/llmessage/llpumpio.cpp b/linden/indra/llmessage/llpumpio.cpp
+index 01a43ec..cc9e543 100644
+--- a/linden/indra/llmessage/llpumpio.cpp
++++ b/linden/indra/llmessage/llpumpio.cpp
+@@ -41,7 +41,6 @@
+ #include "llapr.h"
+ #include "llmemtype.h"
+ #include "llstl.h"
+-#include "llstat.h"
+ 
+ // These should not be enabled in production, but they can be
+ // intensely useful during development for finding certain kinds of
+@@ -177,8 +176,7 @@ LLPumpIO::LLPumpIO(apr_pool_t* pool) :
+ 	mCurrentPool(NULL),
+ 	mCurrentPoolReallocCount(0),
+ 	mChainsMutex(NULL),
+-	mCallbackMutex(NULL),
+-	mCurrentChain(mRunningChains.end())
++	mCallbackMutex(NULL)
+ {
+ 	LLMemType m1(LLMemType::MTYPE_IO_PUMP);
+ 	initialize(pool);
+@@ -274,10 +272,7 @@ bool LLPumpIO::setTimeoutSeconds(F32 timeout)
+ void LLPumpIO::adjustTimeoutSeconds(F32 delta)
+ {
+ 	// If no chain is running, bail
+-	if(mRunningChains.end() == mCurrentChain) 
+-	{
+-		return;
+-	}
++	if(current_chain_t() == mCurrentChain) return;
+ 	(*mCurrentChain).adjustTimeoutSeconds(delta);
+ }
+ 
+@@ -526,10 +521,7 @@ void LLPumpIO::pump(const S32& poll_timeout)
+ 		//llinfos << "polling" << llendl;
+ 		S32 count = 0;
+ 		S32 client_id = 0;
+-        {
+-            LLPerfBlock polltime("pump_poll");
+             apr_pollset_poll(mPollset, poll_timeout, &count, &poll_fd);
+-        }
+ 		PUMP_DEBUG;
+ 		for(S32 ii = 0; ii < count; ++ii)
+ 		{
+diff --git a/linden/indra/llmessage/message.cpp b/linden/indra/llmessage/message.cpp
+index ccc3d79..0d0ad18 100644
+--- a/linden/indra/llmessage/message.cpp
++++ b/linden/indra/llmessage/message.cpp
+@@ -754,7 +754,6 @@ BOOL LLMessageSystem::checkMessages( S64 frame_count )
+ 				clearReceiveState();
+ 				valid_packet = FALSE;
+ 			}
+-
+ 			if( valid_packet && mTemplateMessageReader->isUdpBanned())
+ 			{
+ 				llwarns << "Received UDP black listed message "
+@@ -767,6 +766,7 @@ BOOL LLMessageSystem::checkMessages( S64 frame_count )
+ 			if( valid_packet )
+ 			{
+ 				logValidMsg(cdp, host, recv_reliable, recv_resent, (BOOL)(acks>0) );
++
+ 				valid_packet = mTemplateMessageReader->readMessage(buffer, host);
+ 			}
+ 
+@@ -2972,7 +2972,7 @@ void LLMessageSystem::addTemplate(LLMessageTemplate *templatep)
+ }
+ 
+ 
+-void LLMessageSystem::setHandlerFuncFast(const char *name, void (*handler_func)(LLMessageSystem *msgsystem, void **user_data), void **user_data)
++void LLMessageSystem::setHandlerFuncFast(const char *name, message_handler_func_t handler_func, void **user_data)
+ {
+ 	LLMessageTemplate* msgtemplate = get_ptr_in_map(mMessageTemplates, name);
+ 	if (msgtemplate)
+@@ -2985,6 +2985,32 @@ void LLMessageSystem::setHandlerFuncFast(const char *name, void (*handler_func)(
+ 	}
+ }
+ 
++void LLMessageSystem::addHandlerFuncFast(const char *name, message_handler_func_t handler_func, void **user_data)
++{
++	LLMessageTemplate* msgtemplate = get_ptr_in_map(mMessageTemplates, name);
++	if (msgtemplate)
++	{
++		msgtemplate->addHandlerFunc(handler_func, user_data);
++	}
++	else
++	{
++		llerrs << name << " is not a known message name!" << llendl;
++	}
++}
++
++void LLMessageSystem::delHandlerFuncFast(const char *name, message_handler_func_t handler_func)
++{
++	LLMessageTemplate* msgtemplate = get_ptr_in_map(mMessageTemplates, name);
++	if (msgtemplate)
++	{
++		msgtemplate->delHandlerFunc(handler_func);
++	}
++	else
++	{
++		llerrs << name << " is not a known message name!" << llendl;
++	}
++}
++
+ bool LLMessageSystem::callHandler(const char *name,
+ 		bool trustedSource, LLMessageSystem* msg)
+ {
+@@ -3956,27 +3982,27 @@ void LLMessageSystem::getString(const char *block, const char *var,
+ 				  blocknum);
+ }
+ 
+-BOOL	LLMessageSystem::has(const char *blockname) const
++BOOL	LLMessageSystem::has(const char *blockname)
+ {
+ 	return getNumberOfBlocks(blockname) > 0;
+ }
+ 
+-S32	LLMessageSystem::getNumberOfBlocksFast(const char *blockname) const
++S32	LLMessageSystem::getNumberOfBlocksFast(const char *blockname)
+ {
+ 	return mMessageReader->getNumberOfBlocks(blockname);
+ }
+ 
+-S32	LLMessageSystem::getNumberOfBlocks(const char *blockname) const
++S32	LLMessageSystem::getNumberOfBlocks(const char *blockname)
+ {
+ 	return getNumberOfBlocksFast(LLMessageStringTable::getInstance()->getString(blockname));
+ }
+ 	
+-S32	LLMessageSystem::getSizeFast(const char *blockname, const char *varname) const
++S32	LLMessageSystem::getSizeFast(const char *blockname, const char *varname)
+ {
+ 	return mMessageReader->getSize(blockname, varname);
+ }
+ 
+-S32	LLMessageSystem::getSize(const char *blockname, const char *varname) const
++S32	LLMessageSystem::getSize(const char *blockname, const char *varname)
+ {
+ 	return getSizeFast(LLMessageStringTable::getInstance()->getString(blockname), 
+ 					   LLMessageStringTable::getInstance()->getString(varname));
+@@ -3984,13 +4010,13 @@ S32	LLMessageSystem::getSize(const char *blockname, const char *varname) const
+ 	
+ // size in bytes of variable length data
+ S32	LLMessageSystem::getSizeFast(const char *blockname, S32 blocknum, 
+-								 const char *varname) const
++								 const char *varname)
+ {
+ 	return mMessageReader->getSize(blockname, blocknum, varname);
+ }
+ 		
+ S32	LLMessageSystem::getSize(const char *blockname, S32 blocknum, 
+-							 const char *varname) const
++							 const char *varname)
+ {
+ 	return getSizeFast(LLMessageStringTable::getInstance()->getString(blockname), blocknum, 
+ 					   LLMessageStringTable::getInstance()->getString(varname));
+diff --git a/linden/indra/llmessage/message.h b/linden/indra/llmessage/message.h
+index c503a58..4b96526 100644
+--- a/linden/indra/llmessage/message.h
++++ b/linden/indra/llmessage/message.h
+@@ -179,7 +179,7 @@ enum EMessageException
+ 	MX_WROTE_PAST_BUFFER_SIZE // wrote past buffer size in zero code expand
+ };
+ typedef void (*msg_exception_callback)(LLMessageSystem*,void*,EMessageException);
+-
++typedef void (*message_handler_func_t)(LLMessageSystem *msgsystem, void **user_data);
+ 
+ // message data pieces are used to collect the data called for by the message template
+ class LLMsgData;
+@@ -299,12 +299,24 @@ public:
+ 
+ 
+ 	// methods for building, sending, receiving, and handling messages
+-	void	setHandlerFuncFast(const char *name, void (*handler_func)(LLMessageSystem *msgsystem, void **user_data), void **user_data = NULL);
+-	void	setHandlerFunc(const char *name, void (*handler_func)(LLMessageSystem *msgsystem, void **user_data), void **user_data = NULL)
++	void	setHandlerFuncFast(const char *name, message_handler_func_t, void **user_data = NULL);
++	void	setHandlerFunc(const char *name, message_handler_func_t handler_func, void **user_data = NULL)
+ 	{
+ 		setHandlerFuncFast(LLMessageStringTable::getInstance()->getString(name), handler_func, user_data);
+ 	}
+ 
++	void	addHandlerFuncFast(const char *name, message_handler_func_t, void **user_data = NULL);
++	void	addHandlerFunc(const char *name, message_handler_func_t handler_func, void **user_data = NULL)
++	{
++		addHandlerFuncFast(LLMessageStringTable::getInstance()->getString(name), handler_func, user_data);
++	}
++
++	void	delHandlerFuncFast(const char *name, message_handler_func_t);
++	void	delHandlerFunc(const char *name, message_handler_func_t handler_func)
++	{
++		delHandlerFuncFast(LLMessageStringTable::getInstance()->getString(name), handler_func);
++	}
++
+ 	// Set a callback function for a message system exception.
+ 	void setExceptionFunc(EMessageException exception, msg_exception_callback func, void* data = NULL);
+ 	// Call the specified exception func, and return TRUE if a
+@@ -594,14 +606,14 @@ public:
+ 	LLHost	findHost(const U32 circuit_code);
+ 	void	sanityCheck();
+ 
+-	BOOL	has(const char *blockname) const;
+-	S32		getNumberOfBlocksFast(const char *blockname) const;
+-	S32		getNumberOfBlocks(const char *blockname) const;
+-	S32		getSizeFast(const char *blockname, const char *varname) const;
+-	S32		getSize(const char *blockname, const char *varname) const;
++	BOOL		has(const char *blockname);
++	S32		getNumberOfBlocksFast(const char *blockname);
++	S32		getNumberOfBlocks(const char *blockname);
++	S32		getSizeFast(const char *blockname, const char *varname);
++	S32		getSize(const char *blockname, const char *varname);
+ 	S32		getSizeFast(const char *blockname, S32 blocknum, 
+-						const char *varname) const; // size in bytes of data
+-	S32		getSize(const char *blockname, S32 blocknum, const char *varname) const;
++						const char *varname); // size in bytes of data
++	S32		getSize(const char *blockname, S32 blocknum, const char *varname);
+ 
+ 	void	resetReceiveCounts();				// resets receive counts for all message types to 0
+ 	void	dumpReceiveCounts();				// dumps receive count for each message type to llinfos
+diff --git a/linden/indra/newview/app_settings/settings.xml b/linden/indra/newview/app_settings/settings.xml
+index cf9a7cd..4927571 100644
+--- a/linden/indra/newview/app_settings/settings.xml
++++ b/linden/indra/newview/app_settings/settings.xml
+@@ -4762,7 +4762,7 @@
+       <key>Type</key>
+       <string>U32</string>
+       <key>Value</key>
+-      <integer>0</integer>
++      <integer>1</integer>
+     </map>
+     <key>MemoryLogFrequency</key>
+         <map>
+diff --git a/linden/indra/newview/llstartup.cpp b/linden/indra/newview/llstartup.cpp
+index cab9815..5cd2a56 100644
+--- a/linden/indra/newview/llstartup.cpp
++++ b/linden/indra/newview/llstartup.cpp
+@@ -3152,7 +3152,7 @@ void register_viewer_callbacks(LLMessageSystem* msg)
+ 	msg->setHandlerFunc("ParcelDwellReply",
+ 		LLViewerParcelMgr::processParcelDwellReply);
+ 
+-	msg->setHandlerFunc("AvatarPropertiesReply",
++	msg->addHandlerFunc("AvatarPropertiesReply",
+ 						LLPanelAvatar::processAvatarPropertiesReply);
+ 	msg->setHandlerFunc("AvatarInterestsReply",
+ 						LLPanelAvatar::processAvatarInterestsReply);
+diff --git a/linden/indra/newview/llviewermessage.cpp b/linden/indra/newview/llviewermessage.cpp
+index 03114f7..b984687 100644
+--- a/linden/indra/newview/llviewermessage.cpp
++++ b/linden/indra/newview/llviewermessage.cpp
+@@ -3516,15 +3516,6 @@ void process_sim_stats(LLMessageSystem *msg, void **user_data)
+ 		case LL_SIM_STAT_SIMPHYSICSMEMORY:
+ 			LLViewerStats::getInstance()->mPhysicsMemoryAllocated.addValue(stat_value);
+ 			break;
+-		case LL_SIM_STAT_SIMSPARETIME:
+-			LLViewerStats::getInstance()->mSimSpareMsec.addValue(stat_value);
+-			break;
+-		case LL_SIM_STAT_SIMSLEEPTIME:
+-			LLViewerStats::getInstance()->mSimSleepMsec.addValue(stat_value);
+-			break;
+-		case LL_SIM_STAT_IOPUMPTIME:
+-			LLViewerStats::getInstance()->mSimPumpIOMsec.addValue(stat_value);
+-			break;
+ 		default:
+ 			// Used to be a commented out warning.
+  			LL_DEBUGS("Messaging") << "Unknown stat id" << stat_id << LL_ENDL;
+diff --git a/linden/indra/newview/llviewerobject.h b/linden/indra/newview/llviewerobject.h
+index dc529cd..ebb46b9 100644
+--- a/linden/indra/newview/llviewerobject.h
++++ b/linden/indra/newview/llviewerobject.h
+@@ -600,7 +600,9 @@ protected:
+ 	// extra data sent from the sim...currently only used for tree species info
+ 	U8* mData;
+ 
++public:
+ 	LLPointer<LLViewerPartSourceScript>		mPartSourcep;	// Particle source associated with this object.
++protected:
+ 	LLAudioSourceVO* mAudioSourcep;
+ 	F32				mAudioGain;
+ 	
+diff --git a/linden/indra/newview/llvoavatar.cpp b/linden/indra/newview/llvoavatar.cpp
+index 3d2523e..86993df 100644
+--- a/linden/indra/newview/llvoavatar.cpp
++++ b/linden/indra/newview/llvoavatar.cpp
+@@ -891,7 +891,6 @@ LLVOAvatar::LLVOAvatar(
+ 	mEyeBallLeftMesh1.setSpecular( LLColor4( 1.0f, 1.0f, 1.0f, 1.0f ), 1.f );
+ 	mEyeBallRightMesh0.setSpecular( LLColor4( 1.0f, 1.0f, 1.0f, 1.0f ), 1.f );
+ 	mEyeBallRightMesh1.setSpecular( LLColor4( 1.0f, 1.0f, 1.0f, 1.0f ), 1.f );
+-
+ 	//-------------------------------------------------------------------------
+ 	// register motions
+ 	//-------------------------------------------------------------------------
+@@ -960,7 +959,8 @@ LLVOAvatar::LLVOAvatar(
+ 	//VTPause();  // VTune
+ 	
+ 	mVoiceVisualizer->setVoiceEnabled( gVoiceClient->getVoiceEnabled( mID ) );
+-	mCurrentGesticulationLevel = 0;		
++	mCurrentGesticulationLevel = 0;	
++
+ }
+ 
+ //------------------------------------------------------------------------
+@@ -1990,7 +1990,8 @@ void LLVOAvatar::buildCharacter()
+ 	mWristRightp	= (LLViewerJoint*)mRoot.findJoint("mWristRight");
+ 	mEyeLeftp		= (LLViewerJoint*)mRoot.findJoint("mEyeLeft");
+ 	mEyeRightp		= (LLViewerJoint*)mRoot.findJoint("mEyeRight");
+-
++	
++	lldebugs << " initialized joint pointers" << llendl;
+ 	//-------------------------------------------------------------------------
+ 	// Make sure "well known" pointers exist
+ 	//-------------------------------------------------------------------------
+@@ -2016,7 +2017,7 @@ void LLVOAvatar::buildCharacter()
+ 		llerrs << "Failed to create avatar." << llendl;
+ 		return;
+ 	}
+-
++	lldebugs << "pointers exist, good." << llendl;
+ 	//-------------------------------------------------------------------------
+ 	// initialize the pelvis
+ 	//-------------------------------------------------------------------------
+@@ -2140,7 +2141,7 @@ void LLVOAvatar::buildCharacter()
+ 				}
+ 			}
+ 		}
+-
++		lldebugs << "builded the attach and detach menus" << llendl;
+ 		// add screen attachments
+ 		for (attachment_map_t::iterator iter = mAttachmentPoints.begin(); 
+ 			 iter != mAttachmentPoints.end(); )
+@@ -2159,6 +2160,7 @@ void LLVOAvatar::buildCharacter()
+ 							&handle_detach_from_avatar, object_attached, attachment));
+ 			}
+ 		}
++		lldebugs << "added screen attachments" << llendl;
+ 
+ 		for (S32 pass = 0; pass < 2; pass++)
+ 		{
+@@ -2188,6 +2190,7 @@ void LLVOAvatar::buildCharacter()
+ 				gDetachSubMenu->appendSeparator();
+ 			}
+ 		}
++		lldebugs << "added other attachments" << llendl;
+ 
+ 		for (S32 group = 0; group < 8; group++)
+ 		{
+@@ -2241,9 +2244,11 @@ void LLVOAvatar::buildCharacter()
+ 				}
+ 			}
+ 		}
++		lldebugs << "added pies" << llendl;
+ 	}
+ 
+ 	mMeshValid = TRUE;
++	lldebugs << "mMeshValid = TRUE" << llendl;
+ }
+ 
+ 

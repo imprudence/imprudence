@@ -1,0 +1,581 @@
+2009-07-01T20:58:49Z INFO: initConfiguration: Loading settings file list/home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/settings_files.xml
+2009-07-01T20:58:49Z INFO: loadSettingsFromDirectory: Loaded settings file /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/settings_crash_behavior.xml
+2009-07-01T20:58:49Z INFO: loadSettingsFromDirectory: Loaded settings file /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/settings.xml
+2009-07-01T20:58:49Z INFO: loadSettingsFromDirectory: Loaded settings file /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/settings_per_account.xml
+2009-07-01T20:58:49Z INFO: initParseCommandLine: Language de
+2009-07-01T20:58:49Z INFO: initParseCommandLine: Location DE
+2009-07-01T20:58:49Z INFO: initParseCommandLine: Variant UTF-8
+2009-07-01T20:58:49Z INFO: initConfiguration: Using command line specified settings filename: /home/aw/.imprudence/user_settings/settings_imprudence.xml
+2009-07-01T20:58:49Z INFO: loadSettingsFromDirectory: Loaded settings file /home/aw/.imprudence/user_settings/settings_crash_behavior.xml
+2009-07-01T20:58:49Z INFO: loadSettingsFromDirectory: Loaded settings file /home/aw/.imprudence/user_settings/settings_imprudence.xml
+2009-07-01T20:58:49Z WARNING: loadFromFile: Cannot find file /home/aw/.imprudence/user_settings/settings_per_account.xml to load.
+2009-07-01T20:58:49Z WARNING: loadSettingsFromDirectory: Cannot load /home/aw/.imprudence/user_settings/settings_per_account.xml - No settings found.
+2009-07-01T20:58:49Z INFO: getFontListSans: Getting system font list from FontConfig...
+2009-07-01T20:58:49Z INFO: getFontListSans: Language de
+2009-07-01T20:58:49Z INFO: getFontListSans: Location DE
+2009-07-01T20:58:49Z INFO: getFontListSans: Variant UTF-8
+2009-07-01T20:58:49Z INFO: getFontListSans: Preferring fonts of language: de
+2009-07-01T20:58:49Z INFO: getFontListSans: Using 31 system font(s).
+2009-07-01T20:58:49Z INFO: parseFile: Loading grid info file /home/aw/.imprudence/user_settings/grid_info.xml.
+2009-07-01T20:58:49Z INFO: parseData: Loading grid data.
+2009-07-01T20:58:49Z WARNING: setPlatform: Unknown platform 'Other'.
+2009-07-01T20:58:49Z INFO: parseFile: Loading grid info file /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/default_grids.xml.
+2009-07-01T20:58:49Z INFO: parseUrl: Loading grid info from 'http://opensim-viewer.sourceforge.net/db/grids.php'.
+2009-07-01T20:58:49Z INFO: blockingGet: blockingGet of http://opensim-viewer.sourceforge.net/db/grids.php
+2009-07-01T20:58:51Z WARNING: setCurrentGrid: Unknown grid ''. Setting to default grid.
+2009-07-01T20:58:51Z INFO: initMarkerFile: Last exec LLError crashed, setting LastExecEvent to 2
+2009-07-01T20:58:51Z INFO: initMarkerFile: Last exec crashed, setting LastExecEvent to 3
+2009-07-01T20:58:51Z INFO: writeSystemInfo: 
+2009-07-01T20:58:51Z INFO: writeSystemInfo: Local time: 2009-07-01T22:58:51 CEST
+2009-07-01T20:58:51Z INFO: writeSystemInfo: CPU info:
+processor	: 0 vendor_id	: GenuineIntel cpu family	: 6 model		: 14 model name	: Intel(R) Core(TM) Duo CPU      T2450  @ 2.00GHz stepping	: 12 cpu MHz		: 798.000 cache size	: 2048 KB physical id	: 0 siblings	: 2 core id		: 0 cpu cores	: 2 apicid		: 0 initial apicid	: 0 fdiv_bug	: no hlt_bug		: no f00f_bug	: no coma_bug	: no fpu		: yes fpu_exception	: yes cpuid level	: 10 wp		: yes flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe constant_tsc arch_perfmon bts pni monitor est tm2 xtpr pdcm bogomips	: 3990.13 clflush size	: 64 power management:  processor	: 1 vendor_id	: GenuineIntel cpu family	: 6 model		: 14 model name	: Intel(R) Core(TM) Duo CPU      T2450  @ 2.00GHz stepping	: 12 cpu MHz		: 798.000 cache size	: 2048 KB physical id	: 0 siblings	: 2 core id		: 1 cpu cores	: 2 apicid		: 1 initial apicid	: 1 fdiv_bug	: no hlt_bug		: no f00f_bug	: no coma_bug	: no fpu		: yes fpu_exception	: yes cpuid level	: 10 wp		: yes flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe constant_tsc arch_perfmon bts pni monitor est tm2 xtpr pdcm bogomips	: 3990.49 clflush size	: 64 power management:  
+->mHasSSE:     1
+->mHasSSE2:    1
+->mHasAltivec: 0
+->mCPUMhz:     798
+->mCPUString:  Intel(R) Core(TM) Duo CPU      T2450  @ 2.00GHz
+
+2009-07-01T20:58:51Z INFO: writeSystemInfo: Memory info:
+MemTotal:        1945568 kB MemFree:          593720 kB Buffers:           13392 kB Cached:           580556 kB SwapCached:         2340 kB Active:            79892 kB Inactive:         810692 kB Active(anon):      17656 kB Inactive(anon):   280332 kB Active(file):      62236 kB Inactive(file):   530360 kB Unevictable:           0 kB Mlocked:               0 kB HighTotal:       1056424 kB HighFree:         133548 kB LowTotal:         889144 kB LowFree:          460172 kB SwapTotal:        995988 kB SwapFree:         959280 kB Dirty:               100 kB Writeback:             0 kB AnonPages:        294600 kB Mapped:            61736 kB Slab:              26508 kB SReclaimable:      17520 kB SUnreclaim:         8988 kB PageTables:         2868 kB NFS_Unstable:          0 kB Bounce:                0 kB WritebackTmp:          0 kB CommitLimit:     1968772 kB Committed_AS:     504844 kB VmallocTotal:     122880 kB VmallocUsed:       18444 kB VmallocChunk:     103592 kB HugePages_Total:       0 HugePages_Free:        0 HugePages_Rsvd:        0 HugePages_Surp:        0 Hugepagesize:       4096 kB DirectMap4k:      876536 kB DirectMap4M:       32768 kB 
+2009-07-01T20:58:51Z INFO: writeSystemInfo: OS: Linux 2.6
+2009-07-01T20:58:51Z INFO: writeSystemInfo: OS info: Linux 2.6.29.3 #1 SMP Fri May 15 17:03:02 CEST 2009 i686
+2009-07-01T20:58:51Z INFO: writeDebugInfo: Opening debug file /home/aw/.imprudence/logs/debug_info.log
+2009-07-01T20:58:51Z INFO: init: J2C Engine is: OpenJPEG: 1.2.0, Runtime: 1.3.0
+2009-07-01T20:58:51Z INFO: init: libcurl version is: libcurl/7.16.4 OpenSSL/0.9.7c zlib/1.2.3.3 c-ares/1.4.0
+2009-07-01T20:58:51Z INFO: updateVectorize: Vectorization         : DISABLED
+2009-07-01T20:58:51Z INFO: updateVectorize: Vector Processor      : COMPILER DEFAULT
+2009-07-01T20:58:51Z INFO: updateVectorize: Vectorized Skinning   : DISABLED
+2009-07-01T20:58:51Z WARNING: isFeatureAvailable: Feature RenderCubeMap not on feature list!
+2009-07-01T20:58:51Z INFO: grab_dbus_syms: Found DSO: libdbus-glib-1.so.2
+2009-07-01T20:58:51Z INFO: initCache: Headers: 139810 Textures size: 320 MB
+2009-07-01T20:58:51Z INFO: purgeTextures: TEXTURE CACHE: PURGED: 0 ENTRIES: 2650 CACHE SIZE: 65 MB
+2009-07-01T20:58:51Z INFO: initCache: VFS CACHE SIZE: 100 MB
+2009-07-01T20:58:51Z WARNING: LLVFS: Using index file /home/aw/.imprudence/cache/index.db2.x.1
+2009-07-01T20:58:51Z WARNING: LLVFS: Using data file /home/aw/.imprudence/cache/data.db2.x.1
+2009-07-01T20:58:51Z WARNING: LLVFS: Using index file /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/static_index.db2
+2009-07-01T20:58:51Z WARNING: LLVFS: Using data file /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/static_data.db2
+2009-07-01T20:58:51Z INFO: initWindow: Initializing window...
+2009-07-01T20:58:51Z INFO: ll_try_gtk_init: Starting GTK Initialization.
+2009-07-01T20:58:51Z INFO: ll_try_gtk_init: GTK Initialized.
+2009-07-01T20:58:51Z INFO: ll_try_gtk_init: - Compiled against GTK version 2.4.14
+2009-07-01T20:58:51Z INFO: ll_try_gtk_init: - Running against GTK version 2.16.1
+2009-07-01T20:58:51Z INFO: createContext: createContext, fullscreen=0 size=1118x722
+2009-07-01T20:58:52Z INFO: createContext: Compiled against SDL 1.2.5
+2009-07-01T20:58:52Z INFO: createContext:  Running against SDL 1.2.12
+2009-07-01T20:58:52Z INFO: createContext: createContext: creating window 1118x722x32
+2009-07-01T20:58:54Z INFO: x11_detect_VRAM_kb: Looking in /var/log/Xorg.0.log for VRAM info...
+2009-07-01T20:58:54Z INFO: createContext: GL buffer:
+2009-07-01T20:58:54Z INFO: createContext:   Red Bits 8
+2009-07-01T20:58:54Z INFO: createContext:   Green Bits 8
+2009-07-01T20:58:54Z INFO: createContext:   Blue Bits 8
+2009-07-01T20:58:54Z INFO: createContext:   Alpha Bits 8
+2009-07-01T20:58:54Z INFO: createContext:   Depth Bits 24
+2009-07-01T20:58:54Z INFO: createContext:   Stencil Bits 8
+2009-07-01T20:58:54Z INFO: initExtensions: Couldn't initialize GL_ARB_point_parameters
+2009-07-01T20:58:54Z INFO: initExtensions: Disabling mip-map generation for ATI GPUs (performance opt)
+2009-07-01T20:58:54Z WARNING: addFeature: LLFeatureList::Attempting to add preexisting feature Disregard128DefaultDrawDistance
+2009-07-01T20:58:54Z INFO: loadGPUClass: GPU is ATI Radeon Xpress
+2009-07-01T20:58:54Z INFO: applyBaseMasks: Setting GPU Class to Class0
+2009-07-01T20:58:54Z WARNING: LLViewerImageList::getMaxVideoRamSetting: VRAM amount not detected, defaulting to 128 MB
+2009-07-01T20:58:54Z WARNING: LLViewerImageList::getMaxVideoRamSetting: VRAM amount not detected, defaulting to 512 MB
+2009-07-01T20:58:54Z INFO: LLViewerImageList::updateMaxResidentTexMem: Total Video Memory set to: 128 MB
+2009-07-01T20:58:54Z INFO: LLViewerImageList::updateMaxResidentTexMem: Available Texture Memory set to: 96 MB
+2009-07-01T20:58:55Z INFO: restoreGL: Loading bumpmap: <blahblah> from viewerart
+2009-07-01T20:58:56Z INFO: saveToFile: Saved to /home/aw/.imprudence/user_settings/settings_imprudence.xml
+2009-07-01T20:58:56Z INFO: setShaders: 
+~~~~~~~~~~~~~~~~~~
+ Loading Shaders:
+~~~~~~~~~~~~~~~~~~
+2009-07-01T20:58:56Z INFO: saveToFile: Saved to /home/aw/.imprudence/user_settings/settings_imprudence.xml
+2009-07-01T20:58:57Z INFO: printGLInfoString: GL_VENDOR:     ATI Technologies Inc.
+2009-07-01T20:58:57Z INFO: printGLInfoString: GL_RENDERER:   ATI Radeon Xpress Series        
+2009-07-01T20:58:57Z INFO: printGLInfoString: GL_VERSION:    2.1.8543 Release
+2009-07-01T20:58:57Z WARNING: init: ndof_init_first FAILED
+2009-07-01T20:58:57Z INFO: init: ndof: mDriverState=0; mNdofDev=0x9c2c1740; libinit=1
+2009-07-01T20:58:57Z INFO: LLTemplateParser: ### Message template version 2  ###
+2009-07-01T20:58:57Z INFO: start_net: startNet - receive buffer size : 262142
+2009-07-01T20:58:57Z INFO: start_net: startNet - send buffer size    : 262142
+2009-07-01T20:58:57Z INFO: idle_startup: Message System Initialized.
+2009-07-01T20:58:57Z INFO: init: LLAudioEngine::init() AudioEngine successfully initialized
+2009-07-01T20:58:57Z INFO: init: LLAudioEngine_OpenAL::init() OpenAL successfully initialized
+2009-07-01T20:58:57Z INFO: init: OpenAL version: 1.1
+2009-07-01T20:58:57Z INFO: init: OpenAL vendor: OpenAL Community
+2009-07-01T20:58:57Z INFO: init: OpenAL renderer: OpenAL Soft
+2009-07-01T20:58:57Z INFO: init: ALUT version: 1.1
+2009-07-01T20:58:57Z INFO: init: ALC version: 1.1
+2009-07-01T20:58:57Z INFO: init: ALC default device: ALSA Software on default
+2009-07-01T20:58:57Z INFO: idle_startup: Audio Engine Initialized.
+2009-07-01T20:58:57Z INFO: setStartupState: Startup state changing from STATE_FIRST to (state #1)
+2009-07-01T20:58:59Z INFO: updateBrowserUserAgent: SecondLife/1.22.11.0 (Imprudence; default skin)
+2009-07-01T20:58:59Z INFO: setStartupState: Startup state changing from (state #1) to STATE_LOGIN_SHOW
+2009-07-01T20:58:59Z INFO: login_show: Initializing Login Screen
+2009-07-01T20:59:00Z INFO: setStartupState: Startup state changing from STATE_LOGIN_SHOW to STATE_LOGIN_WAIT
+2009-07-01T20:59:00Z WARNING: getChild: Found child named Say but of wrong type
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy button named Say in chat_bar
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy button named end_call_btn in voice_remote
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy text named channel_label in voice_remote
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy button named voice_channel_bg in voice_remote
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy button named appearance_btn in toolbar
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy button named clothing_btn in toolbar
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy button named sit_btn in toolbar
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy button named History in chat_panel
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy combo_box named Gesture in chat_panel
+2009-07-01T20:59:00Z WARNING: getChild: Found child named Say but of wrong type
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy button named Say in chat_panel
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy button named Chat in chat floater
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy view named bandwidth_tooltip in status
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy view named packet_loss_tooltip in status
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy view named friend_name_label in friends
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy view named friend_rights in friends
+2009-07-01T20:59:00Z WARNING: createDummyWidget: Making dummy text named process_rights_label in friends
+2009-07-01T20:59:01Z WARNING: createDummyWidget: Making dummy view named Shout in chat_bar
+2009-07-01T20:59:03Z INFO: setStartupState: Startup state changing from STATE_LOGIN_WAIT to STATE_LOGIN_CLEANUP
+2009-07-01T20:59:04Z INFO: idle_startup: Attempting login as: Armin Weatherwax <uuid>
+2009-07-01T20:59:04Z WARNING: loadFromFile: Cannot find file /home/aw/.imprudence/armin_weatherwax/settings_crash_behavior.xml to load.
+2009-07-01T20:59:04Z WARNING: loadSettingsFromDirectory: Cannot load /home/aw/.imprudence/armin_weatherwax/settings_crash_behavior.xml - No settings found.
+2009-07-01T20:59:04Z WARNING: loadFromFile: Cannot find file /home/aw/.imprudence/armin_weatherwax/settings.xml to load.
+2009-07-01T20:59:04Z WARNING: loadSettingsFromDirectory: Cannot load /home/aw/.imprudence/armin_weatherwax/settings.xml - No settings found.
+2009-07-01T20:59:04Z INFO: loadSettingsFromDirectory: Loaded settings file /home/aw/.imprudence/armin_weatherwax/settings_per_account.xml
+2009-07-01T20:59:04Z INFO: loadFile: Loading history.xml file at url_history.xml
+2009-07-01T20:59:04Z INFO: loadFile: file missing, ill-formed, or simply undefined; not changing the file
+2009-07-01T20:59:05Z INFO: setStartupState: Startup state changing from STATE_LOGIN_CLEANUP to STATE_LOGIN_AUTH_INIT
+2009-07-01T20:59:05Z INFO: rewriteURI: Rewriting http://127.0.0.1:9000/
+2009-07-01T20:59:05Z INFO: rewriteResult: [0] http://127.0.0.1:9000/
+2009-07-01T20:59:05Z INFO: setStartupState: Startup state changing from STATE_LOGIN_AUTH_INIT to STATE_LOGIN_AUTHENTICATE
+2009-07-01T20:59:05Z INFO: authenticate: Authenticating: Armin Weatherwax, 
+2009-07-01T20:59:05Z INFO: authenticate: Options: inventory-root, inventory-skeleton, inventory-lib-root, inventory-lib-owner, inventory-skel-lib, initial-outfit, gestures, event_categories, event_notifications, classified_categories, buddy-list, ui-config, tutorial_setting, login-flags, global-textures, END
+2009-07-01T20:59:05Z INFO: authenticate: LLUserAuth::authenticate: uri=http://127.0.0.1:9000/
+2009-07-01T20:59:05Z INFO: setStartupState: Startup state changing from STATE_LOGIN_AUTHENTICATE to STATE_LOGIN_NO_DATA_YET
+2009-07-01T20:59:05Z INFO: transferRate: Buffer size:   105394 B
+2009-07-01T20:59:05Z INFO: transferRate: Transfer rate: 2041.61 Kb/s
+2009-07-01T20:59:05Z INFO: authResponse: Processed response: 0
+2009-07-01T20:59:05Z INFO: setStartupState: Startup state changing from STATE_LOGIN_NO_DATA_YET to STATE_LOGIN_DOWNLOADING
+2009-07-01T20:59:05Z INFO: setStartupState: Startup state changing from STATE_LOGIN_DOWNLOADING to STATE_LOGIN_PROCESS_RESPONSE
+2009-07-01T20:59:05Z INFO: addCircuitData: LLCircuit::addCircuitData for 127.0.0.1:9000
+2009-07-01T20:59:05Z INFO: saveFile: Saved grids to /home/aw/.imprudence/user_settings/grid_info.xml
+2009-07-01T20:59:05Z INFO: setStartupState: Startup state changing from STATE_LOGIN_PROCESS_RESPONSE to STATE_WORLD_INIT
+2009-07-01T20:59:05Z INFO: LLVoiceClient::userAuthorized: name "Armin Weatherwax" , ID <uuid>
+2009-07-01T20:59:05Z INFO: saveToFile: Saved to /home/aw/.imprudence/user_settings/settings_imprudence.xml
+2009-07-01T20:59:05Z INFO: loadPresets: Loading Default WindLight settings from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Blue%20Midday.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/A%2D9AM.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Sheer%20Surreality.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/A%2D12PM.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Funky%20Funky%20Funky.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Fine%20Day.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/A%2D3PM.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Midday%203.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Funky%20Funky.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Night.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Coastal%20Sunset.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/A%2D9PM.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Barcelona.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/A%2D6AM.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Purple.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/A%2D6PM.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Gelatto.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Incongruent%20Truths.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Fluffy%20Big%20Clouds.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Midday%202.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Ghost.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Desert%20Sunset.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Default.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Midday%204.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Blizzard.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Coastal%20Afternoon.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Foggy.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Sailor%27s%20Delight.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Pirate.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/A%2D3AM.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/Midday%201.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading WindLight sky setting from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/skies/A%2D12AM.xml
+2009-07-01T20:59:05Z INFO: loadPresets: Loading User WindLight settings from /home/aw/.imprudence/user_settings/windlight/skies/
+2009-07-01T20:59:05Z INFO: loadDayCycle: Loading DayCycle settings from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/days/Default.xml
+2009-07-01T20:59:05Z INFO: loadAllPresets: Loading Default water settings from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/water/
+2009-07-01T20:59:05Z INFO: loadPreset: Loading water settings from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/water/Murky.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading water settings from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/water/Pond.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading water settings from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/water/Valdez.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading water settings from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/water/Default.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading water settings from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/water/Glassy.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading water settings from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/water/Second%20Plague.xml
+2009-07-01T20:59:05Z INFO: loadPreset: Loading water settings from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/water/SNAKE%21%21%21.xml
+2009-07-01T20:59:05Z INFO: loadAllPresets: Loading User water settings from /home/aw/.imprudence/user_settings/windlight/water/
+2009-07-01T20:59:05Z INFO: initVOClasses: Viewer Object size: 444
+2009-07-01T20:59:05Z INFO: addRegion: Adding new region (1000:1000)
+2009-07-01T20:59:05Z INFO: addRegion: Host: 127.0.0.1:9000
+2009-07-01T20:59:05Z INFO: idle_startup: Adding initial simulator { 256000, 256000, 0 }
+2009-07-01T20:59:05Z INFO: setSeedCapability: posting to seed http://127.0.0.1:9000/CAPS/<uuid>/
+2009-07-01T20:59:05Z INFO: LLAgent::setRegion: Moving agent into region:  located at 127.0.0.1:9000
+2009-07-01T20:59:05Z INFO: setStartupState: Startup state changing from STATE_WORLD_INIT to (state #12)
+2009-07-01T20:59:05Z INFO: LLVoiceClient::stateMachine: /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/bin/SLVoice not found.
+2009-07-01T20:59:06Z DEBUG: startup: Found GStreamer plugins:
+2009-07-01T20:59:06Z DEBUG: startup: private-slvideoplugin, loaded? Yes
+2009-07-01T20:59:06Z DEBUG: startup: wavparse, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mpegdemux2, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: uridecodebin, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: esdsink, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: ogg, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: ffmpeg, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: theora, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: gnomevfs, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: asf, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: coreelements, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: ossaudio, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: pulseaudio, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: coreindexers, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: typefindfunctions, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: autodetect, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: multifile, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: multipart, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: quicktime, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: id3demux, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: ffmpegcolorspace, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: audioconvert, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: tcp, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: audioresample, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: videoscale, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: avi, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: icydemux, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: vorbis, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: volume, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: playback, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: decodebin, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: alsa, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: udp, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: queue2, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: dvdsub, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: musicbrainz, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: wildmidi, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: rfbsrc, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: dvdlpcmdec, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: ofa, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: gstrtpmanager, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: dfbvideosink, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: fbdevsink, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: siddec, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mpeg4videoparse, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mpegvideoparse, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: nsfdec, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: festival, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: alsaspdif, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mpegtsparse, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: a52dec, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: realmedia, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: dvdread, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: flvdemux, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: videosignal, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: sdp, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mms, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: spcdec, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: speed, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: interleave, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: oss4, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: dvb, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: h264parse, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: bayer, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: dc1394, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: vcdsrc, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: tta, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: speexresample, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mpeg2dec, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: gstinterlace, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: nuvdemux, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: faad, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: ladspa, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mad, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: soundtouch, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: iec958, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: cdxaparse, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: sndfile, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: filter, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: replaygain, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: gsm, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: cdaudio, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: metadata, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: freeze, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mve, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: jack, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mpegaudioparse, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: dtsdec, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: selector, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: dvdspu, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: real, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: musepack, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: neon, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: bz2, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: modplug, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: rawparse, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mythtv, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: vmnc, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: stereo, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mpegstream, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: postproc, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: subenc, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: y4menc, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: debug, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: videobalance, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: alaw, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: videomixer, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: annodex, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: png, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: goom, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: goom2k1, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: sdl, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: audiotestsrc, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: level, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: matroska, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: ximagesink, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: gdkpixbuf, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: videorate, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: efence, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: mulaw, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: flac, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: spectrum, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: audiorate, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: xvimagesink, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: auparse, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: shout2send, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: rtsp, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: gio, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: gdp, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: equalizer, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: wavenc, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: wavpack, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: videobox, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: smpte, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: alphacolor, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: adder, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: video4linux, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: gamma, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: taglib, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: cacasink, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: jpeg, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: soup, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: videocrop, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: videotestsrc, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: videoflip, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: speex, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: cairo, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: monoscope, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: alpha, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: dv, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: subparse, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: aasink, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: halelements, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: audiofx, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: rtp, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: cdparanoia, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: pango, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: apetag, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: ximagesrc, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: navigationtest, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: cdio, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: video4linux2, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: 1394, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: flxdec, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: libvisual, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: cutter, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: gconfelements, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: effectv, loaded? No
+2009-07-01T20:59:06Z DEBUG: startup: staticelements, loaded? Yes
+2009-07-01T20:59:06Z INFO: setStartupState: Startup state changing from (state #12) to STATE_SEED_GRANTED_WAIT
+2009-07-01T20:59:06Z INFO: LLEventPollResponder: LLEventPoll initialized with sender 127.0.0.1:9000
+2009-07-01T20:59:06Z INFO: start: LLEventPollResponder::start <1> http://127.0.0.1:9000/CAPS/EQG/<uuid>/
+2009-07-01T20:59:06Z INFO: setStartupState: Startup state changing from STATE_SEED_GRANTED_WAIT to STATE_SEED_CAP_GRANTED
+2009-07-01T20:59:06Z INFO: idle_startup: Initializing communications...
+2009-07-01T20:59:06Z INFO: importFile: LLCacheName loaded 72 agent names
+2009-07-01T20:59:06Z INFO: importFile: LLCacheName loaded 1 group names
+2009-07-01T20:59:06Z WARNING: createDummyWidget: Making dummy icon named voice_channel_icon in voice_remote
+2009-07-01T20:59:06Z INFO: LLDrawPoolWLSky: loading WindLight cloud noise from /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/app_settings/windlight/clouds2.tga
+2009-07-01T20:59:07Z WARNING: LLViewerImage::setIsMissingAsset: /home/aw/src/aaamyimprudence/linden/indra/viewer-linux-i686-relwithdebinfo/newview/packaged/skins/default/textures/ <uuid>: Marking image as missing
+2009-07-01T20:59:08Z INFO: setStartupState: Startup state changing from STATE_SEED_CAP_GRANTED to STATE_WORLD_WAIT
+2009-07-01T20:59:08Z INFO: idle_startup: viewer: UserLoginLocationReply() Enabling 127.0.0.1:9000 with code <code>
+2009-07-01T20:59:08Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9000 trying to read 4 bytes at position 243 going past packet end at 243
+2009-07-01T20:59:08Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9000 trying to read 4 bytes at position 247 going past packet end at 243
+2009-07-01T20:59:08Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9000 trying to read 1 bytes at position 251 going past packet end at 243
+2009-07-01T20:59:08Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9000 trying to read 1 bytes at position 252 going past packet end at 243
+2009-07-01T20:59:08Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9000 trying to read 1 bytes at position 253 going past packet end at 243
+2009-07-01T20:59:08Z INFO: setStartupState: Startup state changing from STATE_WORLD_WAIT to STATE_AGENT_SEND
+2009-07-01T20:59:08Z INFO: setStartupState: Startup state changing from STATE_AGENT_SEND to STATE_AGENT_WAIT
+2009-07-01T20:59:08Z INFO: stopInternetStream: entered stopInternetStream()
+2009-07-01T20:59:09Z WARNING: process_agent_movement_complete: agent_movement_complete() with NULL avatarp.
+2009-07-01T20:59:09Z INFO: process_agent_movement_complete: Changing home region to 256000:256000
+2009-07-01T20:59:09Z INFO: sendToSim: Sending throttle settings, total BW 1050
+2009-07-01T20:59:09Z INFO: setStartupState: Startup state changing from STATE_AGENT_WAIT to STATE_INVENTORY_SEND
+2009-07-01T20:59:09Z INFO: loadFromFile: LLInventoryModel::loadFromFile(/home/aw/.imprudence/cache/<uuid>.inv)
+2009-07-01T20:59:09Z INFO: loadSkeleton: Successfully loaded 7 categories and 0 items from cache.
+2009-07-01T20:59:09Z INFO: loadFromFile: LLInventoryModel::loadFromFile(/home/aw/.imprudence/cache/<uuid>.inv)
+2009-07-01T20:59:09Z INFO: loadSkeleton: Successfully loaded 5 categories and 0 items from cache.
+2009-07-01T20:59:09Z INFO: buildParentChildMap: LLInventoryModel::buildParentChildMap()
+2009-07-01T20:59:09Z INFO: idle_startup: Setting Inventory changed mask and notifying observers
+2009-07-01T20:59:09Z INFO: idle_startup: Registering Callbacks
+2009-07-01T20:59:09Z INFO: idle_startup:  Inventory
+2009-07-01T20:59:09Z INFO: idle_startup:  AvatarTracker
+2009-07-01T20:59:09Z INFO: idle_startup:  Landmark
+2009-07-01T20:59:09Z INFO: idle_startup: Requesting Mute List
+2009-07-01T20:59:09Z INFO: idle_startup: Requesting Money Balance
+2009-07-01T20:59:09Z INFO: idle_startup: Requesting Agent Data
+2009-07-01T20:59:09Z INFO: idle_startup: Creating Inventory Views
+2009-07-01T20:59:09Z INFO: init: LLInventoryView::init: reading from 0xbfa919f0
+2009-07-01T20:59:09Z INFO: idle_startup: Inventory Views Created
+2009-07-01T20:59:09Z INFO: setStartupState: Startup state changing from STATE_INVENTORY_SEND to STATE_MISC
+2009-07-01T20:59:09Z INFO: initWind: LLAudioEngine_OpenAL::initWind() start
+2009-07-01T20:59:09Z INFO: initWind: LLAudioEngine_OpenAL::initWind() done
+2009-07-01T20:59:09Z INFO: setStartupState: Startup state changing from STATE_MISC to STATE_PRECACHE
+2009-07-01T20:59:09Z INFO: idle: Transmitting sessions stats
+2009-07-01T20:59:09Z WARNING: send_stats: Could not get ViewerStats capability
+2009-07-01T20:59:09Z WARNING: getVisualParam: LLCharacter::getVisualParam() Invalid visual parameter: Lipsync_Ooh
+2009-07-01T20:59:09Z WARNING: getVisualParam: LLCharacter::getVisualParam() Invalid visual parameter: Lipsync_Aah
+2009-07-01T20:59:09Z WARNING: buildCharacter: Missing 'Ooh' morph for lipsync, using fallback.
+2009-07-01T20:59:09Z WARNING: buildCharacter: Missing 'Aah' morph for lipsync, using fallback.
+2009-07-01T20:59:09Z INFO: backgroundFetch: Inventory fetch completed
+2009-07-01T20:59:09Z INFO: addCircuitData: LLCircuit::addCircuitData for 127.0.0.1:9002
+2009-07-01T20:59:09Z INFO: addRegion: Adding new region (1000:1001)
+2009-07-01T20:59:09Z INFO: addRegion: Host: 127.0.0.1:9002
+2009-07-01T20:59:09Z INFO: process_enable_simulator: simulator_enable() Enabling 127.0.0.1:9002 with code <code>
+2009-07-01T20:59:09Z INFO: setSeedCapability: posting to seed http://127.0.0.1:9000/CAPS/<uuid>/
+2009-07-01T20:59:09Z INFO: processUseCachedMuteList: LLMuteList::processUseCachedMuteList()
+2009-07-01T20:59:09Z WARNING: loadFromFile: Couldn't open mute list /home/aw/.imprudence/cache/<uuid>.cached_mute
+2009-07-01T20:59:09Z INFO: process_money_balance_reply: L$, credit, committed: 0 0 0
+2009-07-01T20:59:10Z INFO: LLAgent::sendAgentSetAppearance: TAT: Sent AgentSetAppearance: HEAD UPPER LOWER EYES
+2009-07-01T20:59:10Z INFO: LLAgent::sendAgentSetAppearance: TAT: Sending cached texture data
+2009-07-01T20:59:10Z INFO: deleteCachedImages: Clearing Static Textures KB GL:5120KB TGA:326KB
+2009-07-01T20:59:10Z INFO: LLEventPollResponder: LLEventPoll initialized with sender 127.0.0.1:9002
+2009-07-01T20:59:10Z INFO: start: LLEventPollResponder::start <2> http://127.0.0.1:9000/CAPS/EQG/<uuid>/
+2009-07-01T20:59:10Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9002 trying to read 4 bytes at position 243 going past packet end at 243
+2009-07-01T20:59:10Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9002 trying to read 4 bytes at position 247 going past packet end at 243
+2009-07-01T20:59:10Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9002 trying to read 1 bytes at position 251 going past packet end at 243
+2009-07-01T20:59:10Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9002 trying to read 1 bytes at position 252 going past packet end at 243
+2009-07-01T20:59:10Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9002 trying to read 1 bytes at position 253 going past packet end at 243
+2009-07-01T20:59:14Z INFO: idle: Unknown object updates: 3
+2009-07-01T20:59:15Z INFO: setStartupState: Startup state changing from STATE_PRECACHE to STATE_WEARABLES_WAIT
+2009-07-01T20:59:15Z INFO: setStartupState: Startup state changing from STATE_WEARABLES_WAIT to STATE_CLEANUP
+2009-07-01T20:59:15Z INFO: setStartupState: Startup state changing from STATE_CLEANUP to STATE_STARTED
+2009-07-01T20:59:15Z INFO: idle_startup: Doing first audio_update_volume...
+2009-07-01T20:59:15Z INFO: idle_startup: Done first audio_update_volume.
+2009-07-01T20:59:15Z INFO: updateGeometry: WL Skydome strips in 3 batches.
+2009-07-01T20:59:20Z INFO: sendMapLayerRequest: LLWorldMap::sendMapLayerRequest via capability
+2009-07-01T20:59:20Z INFO: backgroundFetch: Inventory fetch completed
+2009-07-01T20:59:20Z INFO: parse: LLSDXMLParser::Impl::parse: XML_STATUS_ERROR parsing:OpenSim.Framework.Communications.Capabilities.LLSDMapLayerResponse
+2009-07-01T20:59:20Z INFO: result: LLMapLayerResponder::result from capabilities
+2009-07-01T20:59:26Z WARNING: onSelectServer: onSelectServer called
+2009-07-01T20:59:31Z WARNING: teleport: tp button current grid = local
+2009-07-01T20:59:31Z INFO: requestLogout: requestLogout
+2009-07-01T20:59:31Z WARNING: send_stats: Could not get ViewerStats capability
+2009-07-01T20:59:31Z INFO: sendLogoutRequest: Created logout marker file /home/aw/.imprudence/logs/Imprudence.logout_marker
+2009-07-01T20:59:31Z INFO: saveSnapshot: Saving snapshot to: /home/aw/.imprudence/armin_weatherwax/screen_last.bmp
+2009-07-01T20:59:32Z INFO: removeRegion: Removing region 256000:256256
+2009-07-01T20:59:32Z INFO: stop: LLEventPollResponder::stop	<2> http://127.0.0.1:9000/CAPS/EQG/<uuid>/
+2009-07-01T20:59:32Z INFO: disableCircuit: LLMessageSystem::disableCircuit for 127.0.0.1:9002
+2009-07-01T20:59:32Z WARNING: disableCircuit: Couldn't find circuit code for 127.0.0.1:9002
+2009-07-01T20:59:32Z INFO: stop: LLEventPollResponder::stop	<2> http://127.0.0.1:9000/CAPS/EQG/<uuid>/
+2009-07-01T20:59:38Z INFO: forceQuit: Destroying the entire world
+2009-07-01T20:59:38Z INFO: setStartupState: Startup state changing from STATE_STARTED to STATE_LOGIN_SHOW
+2009-07-01T20:59:38Z WARNING: createDummyWidget: Making dummy text named ne_label in mini_mapview
+2009-07-01T20:59:38Z WARNING: createDummyWidget: Making dummy text named nw_label in mini_mapview
+2009-07-01T20:59:38Z WARNING: createDummyWidget: Making dummy text named sw_label in mini_mapview
+2009-07-01T20:59:38Z WARNING: createDummyWidget: Making dummy text named se_label in mini_mapview
+2009-07-01T20:59:38Z INFO: disconnectViewer: Disconnecting viewer!
+2009-07-01T20:59:38Z INFO: saveToFile: LLInventoryModel::saveToFile(/home/aw/.imprudence/cache/<uuid>.inv)
+2009-07-01T20:59:38Z INFO: saveToFile: LLInventoryModel::saveToFile(/home/aw/.imprudence/cache/<uuid>.inv)
+2009-07-01T20:59:38Z INFO: removeRegion: Removing region 256000:256000
+2009-07-01T20:59:38Z INFO: stop: LLEventPollResponder::stop	<1> http://127.0.0.1:9000/CAPS/EQG/<uuid>/
+2009-07-01T20:59:38Z INFO: cleanup: Viewer disconnected
+2009-07-01T20:59:38Z INFO: cleanup: Cleaning Up
+2009-07-01T20:59:38Z INFO: cleanupHUDObjects: LLHUDObject 0xce9dc20 has 2 refs!
+2009-07-01T20:59:38Z INFO: cleanupHUDObjects: LLHUDObject 0x9534b040 has 2 refs!
+2009-07-01T20:59:38Z INFO: cleanupHUDObjects: LLHUDObject 0x95c48ed0 has 2 refs!
+2009-07-01T20:59:38Z INFO: LLAgent::setAvatarObject: Setting LLAgent::mAvatarObject to NULL
+2009-07-01T20:59:38Z WARNING: updateMeshTextures: updateMeshTextures: invalid host for object: <uuid>
+2009-07-01T20:59:38Z INFO: cleanupHUDObjects: LLHUDObject 0x953a0100 has 2 refs!
+2009-07-01T20:59:38Z INFO: cleanupHUDObjects: LLHUDObject 0x95855210 has 2 refs!
+2009-07-01T20:59:38Z INFO: cleanup: HUD Objects cleaned up
+2009-07-01T20:59:38Z INFO: LLVoiceClient::stateMachine: Disabling voice before connection to daemon, terminating.
+2009-07-01T20:59:38Z INFO: setStartupState: Startup state changing from STATE_LOGIN_SHOW to STATE_LOGIN_CLEANUP
+2009-07-01T20:59:38Z INFO: idle_startup: Attempting login as: Armin Weatherwax <uuid>
+2009-07-01T20:59:38Z WARNING: loadFromFile: Cannot find file /home/aw/.imprudence/armin_weatherwax/settings_crash_behavior.xml to load.
+2009-07-01T20:59:38Z WARNING: loadSettingsFromDirectory: Cannot load /home/aw/.imprudence/armin_weatherwax/settings_crash_behavior.xml - No settings found.
+2009-07-01T20:59:38Z WARNING: loadFromFile: Cannot find file /home/aw/.imprudence/armin_weatherwax/settings.xml to load.
+2009-07-01T20:59:38Z WARNING: loadSettingsFromDirectory: Cannot load /home/aw/.imprudence/armin_weatherwax/settings.xml - No settings found.
+2009-07-01T20:59:38Z INFO: loadSettingsFromDirectory: Loaded settings file /home/aw/.imprudence/armin_weatherwax/settings_per_account.xml
+2009-07-01T20:59:38Z INFO: loadFile: Loading history.xml file at url_history.xml
+2009-07-01T20:59:38Z INFO: loadFile: file missing, ill-formed, or simply undefined; not changing the file
+2009-07-01T20:59:39Z INFO: setStartupState: Startup state changing from STATE_LOGIN_CLEANUP to STATE_LOGIN_AUTH_INIT
+2009-07-01T20:59:39Z INFO: rewriteURI: Rewriting http://127.0.0.1:9000/
+2009-07-01T20:59:39Z INFO: rewriteResult: [0] http://127.0.0.1:9000/
+2009-07-01T20:59:39Z INFO: setStartupState: Startup state changing from STATE_LOGIN_AUTH_INIT to STATE_LOGIN_AUTHENTICATE
+2009-07-01T20:59:39Z INFO: authenticate: Authenticating: Armin Weatherwax, 
+2009-07-01T20:59:39Z INFO: authenticate: Options: inventory-root, inventory-skeleton, inventory-lib-root, inventory-lib-owner, inventory-skel-lib, initial-outfit, gestures, event_categories, event_notifications, classified_categories, buddy-list, ui-config, tutorial_setting, login-flags, global-textures, END
+2009-07-01T20:59:39Z INFO: authenticate: LLUserAuth::authenticate: uri=http://127.0.0.1:9000/
+2009-07-01T20:59:39Z INFO: setStartupState: Startup state changing from STATE_LOGIN_AUTHENTICATE to STATE_LOGIN_NO_DATA_YET
+2009-07-01T20:59:39Z INFO: transferRate: Buffer size:   105394 B
+2009-07-01T20:59:39Z INFO: transferRate: Transfer rate: 5616.14 Kb/s
+2009-07-01T20:59:39Z INFO: authResponse: Processed response: 0
+2009-07-01T20:59:39Z INFO: setStartupState: Startup state changing from STATE_LOGIN_NO_DATA_YET to STATE_LOGIN_DOWNLOADING
+2009-07-01T20:59:39Z INFO: setStartupState: Startup state changing from STATE_LOGIN_DOWNLOADING to STATE_LOGIN_PROCESS_RESPONSE
+2009-07-01T20:59:39Z INFO: saveFile: Saved grids to /home/aw/.imprudence/user_settings/grid_info.xml
+2009-07-01T20:59:39Z INFO: setStartupState: Startup state changing from STATE_LOGIN_PROCESS_RESPONSE to STATE_WORLD_INIT
+2009-07-01T20:59:39Z INFO: LLVoiceClient::userAuthorized: name "Armin Weatherwax" , ID <uuid>
+2009-07-01T20:59:39Z INFO: saveToFile: Saved to /home/aw/.imprudence/user_settings/settings_imprudence.xml
+2009-07-01T20:59:39Z INFO: addRegion: Adding new region (1000:1000)
+2009-07-01T20:59:39Z INFO: addRegion: Host: 127.0.0.1:9000
+2009-07-01T20:59:39Z INFO: idle_startup: Adding initial simulator { 256000, 256000, 0 }
+2009-07-01T20:59:39Z INFO: setSeedCapability: posting to seed http://127.0.0.1:9000/CAPS/<uuid>/
+2009-07-01T20:59:39Z INFO: LLAgent::setRegion: Moving agent into region:  located at 127.0.0.1:9000
+2009-07-01T20:59:39Z INFO: setStartupState: Startup state changing from STATE_WORLD_INIT to (state #12)
+2009-07-01T20:59:39Z INFO: setStartupState: Startup state changing from (state #12) to STATE_SEED_GRANTED_WAIT
+2009-07-01T20:59:39Z INFO: LLEventPollResponder: LLEventPoll initialized with sender 127.0.0.1:9000
+2009-07-01T20:59:39Z INFO: start: LLEventPollResponder::start <3> http://127.0.0.1:9000/CAPS/EQG/<uuid>/
+2009-07-01T20:59:39Z INFO: setStartupState: Startup state changing from STATE_SEED_GRANTED_WAIT to STATE_SEED_CAP_GRANTED
+2009-07-01T20:59:39Z INFO: idle_startup: Initializing communications...
+2009-07-01T20:59:42Z INFO: setStartupState: Startup state changing from STATE_SEED_CAP_GRANTED to STATE_WORLD_WAIT
+2009-07-01T20:59:42Z INFO: idle_startup: viewer: UserLoginLocationReply() Enabling 127.0.0.1:9000 with code <code>
+2009-07-01T20:59:42Z INFO: stop: LLEventPollResponder::stop	<1> http://127.0.0.1:9000/CAPS/EQG/<uuid>/
+2009-07-01T20:59:42Z INFO: setStartupState: Startup state changing from STATE_WORLD_WAIT to STATE_AGENT_SEND
+2009-07-01T20:59:42Z WARNING: sendEffects: Trying to send dead effect!
+2009-07-01T20:59:42Z WARNING: sendEffects: Trying to send dead effect!
+2009-07-01T20:59:42Z WARNING: sendEffects: Trying to send dead effect!
+2009-07-01T20:59:42Z WARNING: sendEffects: Trying to send dead effect!
+2009-07-01T20:59:42Z INFO: setStartupState: Startup state changing from STATE_AGENT_SEND to STATE_AGENT_WAIT
+2009-07-01T20:59:42Z INFO: checkPacketInID: packet_out_of_order - got packet 370 expecting 1424 from 127.0.0.1:9000
+2009-07-01T20:59:42Z INFO: setStartupState: Startup state changing from STATE_AGENT_WAIT to STATE_INVENTORY_SEND
+2009-07-01T20:59:42Z INFO: stopInternetStream: entered stopInternetStream()
+2009-07-01T20:59:42Z INFO: loadFromFile: LLInventoryModel::loadFromFile(/home/aw/.imprudence/cache/<uuid>.inv)
+2009-07-01T20:59:42Z INFO: loadSkeleton: Successfully loaded 7 categories and 0 items from cache.
+2009-07-01T20:59:42Z INFO: loadFromFile: LLInventoryModel::loadFromFile(/home/aw/.imprudence/cache/<uuid>.inv)
+2009-07-01T20:59:42Z INFO: loadSkeleton: Successfully loaded 5 categories and 0 items from cache.
+2009-07-01T20:59:42Z INFO: buildParentChildMap: LLInventoryModel::buildParentChildMap()
+2009-07-01T20:59:42Z INFO: idle_startup: Setting Inventory changed mask and notifying observers
+2009-07-01T20:59:42Z INFO: idle_startup: Registering Callbacks
+2009-07-01T20:59:42Z INFO: idle_startup:  Inventory
+2009-07-01T20:59:42Z INFO: idle_startup:  AvatarTracker
+2009-07-01T20:59:42Z INFO: idle_startup:  Landmark
+2009-07-01T20:59:42Z INFO: idle_startup: Requesting Mute List
+2009-07-01T20:59:42Z INFO: idle_startup: Requesting Money Balance
+2009-07-01T20:59:42Z INFO: idle_startup: Requesting Agent Data
+2009-07-01T20:59:42Z INFO: idle_startup: Creating Inventory Views
+2009-07-01T20:59:42Z INFO: init: LLInventoryView::init: reading from 0xbfa919f0
+2009-07-01T20:59:42Z INFO: idle_startup: Inventory Views Created
+2009-07-01T20:59:42Z INFO: setStartupState: Startup state changing from STATE_INVENTORY_SEND to STATE_MISC
+2009-07-01T20:59:42Z INFO: setStartupState: Startup state changing from STATE_MISC to STATE_PRECACHE
+2009-07-01T20:59:42Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9000 trying to read 4 bytes at position 243 going past packet end at 243
+2009-07-01T20:59:42Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9000 trying to read 4 bytes at position 247 going past packet end at 243
+2009-07-01T20:59:42Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9000 trying to read 1 bytes at position 251 going past packet end at 243
+2009-07-01T20:59:42Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9000 trying to read 1 bytes at position 252 going past packet end at 243
+2009-07-01T20:59:42Z WARNING: logRanOffEndOfPacket: Ran off end of packet RegionHandshake from 127.0.0.1:9000 trying to read 1 bytes at position 253 going past packet end at 243
+2009-07-01T20:59:42Z INFO: checkPacketInID: packet_out_of_order - got packet 3 expecting 371 from 127.0.0.1:9000
+2009-07-01T20:59:42Z WARNING: process_agent_movement_complete: agent_movement_complete() with NULL avatarp.
+2009-07-01T20:59:42Z INFO: process_agent_movement_complete: Changing home region to 256000:256000
+2009-07-01T20:59:42Z INFO: sendToSim: Sending throttle settings, total BW 1050
+2009-07-01T20:59:42Z INFO: backgroundFetch: Inventory fetch completed
+2009-07-01T20:59:42Z WARNING: getVisualParam: LLCharacter::getVisualParam() Invalid visual parameter: Lipsync_Ooh
+2009-07-01T20:59:42Z WARNING: getVisualParam: LLCharacter::getVisualParam() Invalid visual parameter: Lipsync_Aah
+2009-07-01T20:59:42Z WARNING: buildCharacter: Missing 'Ooh' morph for lipsync, using fallback.
+2009-07-01T20:59:42Z WARNING: buildCharacter: Missing 'Aah' morph for lipsync, using fallback.
+2009-07-01T20:59:42Z INFO: do_elfio_glibc_backtrace: Opening stack trace file /home/aw/.imprudence/logs/stack_trace.log
+2009-07-01T20:59:46Z INFO: do_elfio_glibc_backtrace: Finished generating stack trace.
+2009-07-01T20:59:46Z INFO: handleViewerCrash: Handle viewer crash entry.
+2009-07-01T20:59:46Z INFO: handleViewerCrash: Creating crash marker file /home/aw/.imprudence/logs/Imprudence.error_marker
+2009-07-01T20:59:46Z INFO: handleViewerCrash: Created crash marker file /home/aw/.imprudence/logs/Imprudence.error_marker
+2009-07-01T20:59:46Z INFO: handleViewerCrash: Handle viewer crash generating stats log.
+2009-07-01T20:59:46Z INFO: writeDebugInfo: Opening debug file /home/aw/.imprudence/logs/debug_info.log

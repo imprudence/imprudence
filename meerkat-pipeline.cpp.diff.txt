@@ -1,0 +1,22 @@
+--- /linden/indra/newview/pipeline.cpp	2009-06-25 15:23:44.000000000 +0200
++++ /linden/indra/newview/pipeline.cpp	2009-06-25 23:49:51.000000000 +0200
+@@ -2691,7 +2711,10 @@
+ 	// from Medium -> Low, because we unload all the shaders and the 
+ 	// draw pools aren't aware.  I don't know if this has to be a separate
+ 	// loop before actual rendering. JC
+-	for (pool_set_t::iterator iter = mPools.begin(); iter != mPools.end(); ++iter)
++	
++	// TODO: this is a useful fix, find out why it breaks logout -- RMS
++	
++/*	for (pool_set_t::iterator iter = mPools.begin(); iter != mPools.end(); ++iter)
+ 	{
+ 		LLDrawPool *poolp = *iter;
+ 		if (poolp->isFacePool() && hasRenderType(poolp->getType()))
+@@ -2699,6 +2722,7 @@
+ 			poolp->prerender();
+ 		}
+ 	}
++*/
+ 	for (pool_set_t::iterator iter = mPools.begin(); iter != mPools.end(); ++iter)
+ 	{
+ 		LLDrawPool *poolp = *iter;
