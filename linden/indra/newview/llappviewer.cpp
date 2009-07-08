@@ -3797,7 +3797,7 @@ void LLAppViewer::disconnectViewer()
 	LLWorld::getInstance()->destroyClass();
 
 	if (mQuitRequested)
-	cleanup_xfer_manager();
+		cleanup_xfer_manager();
 }
 
 void LLAppViewer::forceErrorLLError()

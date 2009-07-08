@@ -1499,7 +1499,7 @@ void LLInventoryModel::stopBackgroundFetch()
 //static 
 void LLInventoryModel::backgroundFetch(void*)
 {
-	if (sBackgroundFetchActive && gAgent.getRegion())
+	if (sBackgroundFetchActive)
 	{
 		//If we'll be using the capability, we'll be sending batches and the background thing isn't as important.
 		std::string url = gAgent.getRegion()->getCapability("WebFetchInventoryDescendents");   

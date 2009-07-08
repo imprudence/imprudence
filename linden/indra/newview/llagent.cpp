@@ -466,6 +466,10 @@ void LLAgent::init()
 //-----------------------------------------------------------------------------
 void LLAgent::cleanup()
 {
+	mInitialized = FALSE;
+	mWearablesLoaded = FALSE;
+	mShowAvatar = TRUE;
+
 	setSitCamera(LLUUID::null);
 	mAvatarObject = NULL;
 	mLookAt = NULL;
@@ -6592,11 +6596,19 @@ BOOL LLAgent::isWearingItem( const LLUUID& item_id )
 // static
 void LLAgent::processAgentInitialWearablesUpdate( LLMessageSystem* mesgsys, void** user_data )
 {
+	if (gNoRender)
+	{
+		return;
+	}
+
 	// We should only receive this message a single time.  Ignore subsequent AgentWearablesUpdates
 	// that may result from AgentWearablesRequest having been sent more than once. 
+	// If we do this, then relogging won't work. - Gigs
+	/*
 	static bool first = true;
 	if (!first) return;
 	first = false;
+	*/
 
 	LLUUID agent_id;
 	gMessageSystem->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );

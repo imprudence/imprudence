@@ -98,7 +98,9 @@ protected:
 	void calcLOD();
 	
 protected:
-	LLPointer<LLViewerObject> mAttachedObject;
+
+	// Backlink only; don't make this an LLPointer.
+	LLViewerObject*	mAttachedObject;
 	BOOL			mVisibleInFirst;
 	LLVector3		mOriginalPos;
 	S32				mGroup;
