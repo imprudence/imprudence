@@ -691,7 +691,11 @@ LLVOAvatar::LLVOAvatar(
 	mTexEyeColor( NULL ),
 	mNeedsSkin(FALSE),
 	mUpdatePeriod(1),
-	mFullyLoadedInitialized(FALSE)
+//	mFullyLoadedInitialized(FALSE)
+	mPreviousFullyLoaded(FALSE),
+	mVisibleChat( FALSE ),
+	mFullyLoadedInitialized(FALSE),
+	mFullyLoaded(FALSE)
 {
 	LLMemType mt(LLMemType::MTYPE_AVATAR);
 	
@@ -1807,6 +1811,10 @@ BOOL LLVOAvatar::buildSkeleton(LLVOAvatarSkeletonInfo *info)
 {
 	LLMemType mt(LLMemType::MTYPE_AVATAR);
 	
+	//this can get called with null info on startup sometimes
+	if (!info)
+		return FALSE;
+
 	//-------------------------------------------------------------------------
 	// allocate joints
 	//-------------------------------------------------------------------------
@@ -2174,9 +2182,10 @@ void LLVOAvatar::buildCharacter()
 				LLMenuItemCallGL* item = new LLMenuItemCallGL(attachment->getName(), 
 															  NULL, &object_selected_and_point_valid,
 															  &attach_label, attachment);
+if (item){
 				item->addListener(gMenuHolder->getListenerByName("Object.AttachToAvatar"), "on_click", curiter->first);
 				gAttachSubMenu->append(item);
-
+}
 				gDetachSubMenu->append(new LLMenuItemCallGL(attachment->getName(), 
 					&handle_detach_from_avatar, object_attached, &detach_label, attachment));
 				
