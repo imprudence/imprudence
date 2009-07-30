@@ -35,7 +35,7 @@
 
 #include "llfloater.h"
 
-class LLTextEditor;
+class LLViewerTextEditor;
 class LLUUID;
 
 class LLFloaterScriptDebug : public LLMultiFloater
@@ -73,7 +73,7 @@ public:
 	static LLFloaterScriptDebugOutput* getFloaterByID(const LLUUID& id);
 
 protected:
-	LLTextEditor*			mHistoryEditor;
+	LLViewerTextEditor*			mHistoryEditor;
 
 	typedef std::map<LLUUID, LLFloaterScriptDebugOutput*> instance_map_t;
 	static instance_map_t sInstanceMap;
