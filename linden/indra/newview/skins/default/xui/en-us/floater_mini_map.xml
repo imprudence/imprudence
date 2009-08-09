@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="false" can_resize="true"
-	 can_tear_off="false" follows="top|right" height="220" min_height="64" min_width="64"
+	 can_tear_off="false" follows="top|right" height="420" min_height="64" min_width="64"
 	 name="minimap" rect_control="FloaterMiniMapRect" width="200">
-    <panel bottom="2" follows="left|top|right|bottom" height="216" label="Mini Map"
-		 left="2" mouse_opaque="false" name="mini_mapview" width="196" />
+
+  <panel label="Mini Map" name="mini_mapview"
+         top="-2" left="2" bottom="196" right="196"
+         follows="left|top|right|bottom" mouse_opaque="false"  />
+
+  <panel name="RadarPanel" label="Radar"
+         background_visible="true" bg_alpha_color="NetMapBackgroundColor"
+         left="2" top="196" right="196" height="120"
+         follows="left|right|bottom" border="true" mouse_opaque="true">
+
+    <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+          bottom="-20" drop_shadow_visible="true" follows="left|top"
+          font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+          mouse_opaque="true" name="InstructSelectResident" v_pad="0"
+          width="220">
+      Select nearby resident:
+    </text>
+    <slider bottom_delta="-20" left="10" follows="left|top" width="175" height="15"
+         name="near_me_range" label="Range" control_name="NearMeRange"
+         min_val="5" max_val="40" increment="1" initial_val="20" decimal_digits="0" />
+    <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+         bottom_delta="0" left="185" drop_shadow_visible="true" follows="left|top"
+         font="SansSerifSmall" h_pad="0" halign="left" height="15"
+         mouse_opaque="true" name="meters" v_pad="0"
+         width="40">
+      Meters
+    </text>
+    <scroll_list bottom_delta="-100" width="96" height="100" left="10"
+         follows="left|top|bottom|right" draw_border="true" draw_heading="false"
+         draw_stripes="true" column_padding="5" sort_column="0" mouse_opaque="true"
+         background_visible="true" multi_select="false" name="RadarList"  />
+    <button bottom_delta="100" follows="top|right" height="22" label="IM/Call"
+         left="-90" name="im_btn" tool_tip="Open Instant Message session"
+         width="80" />
+    <button bottom_delta="-25" follows="top|right" height="22" label="Profile"
+         left_delta="0" name="profile_btn"
+         tool_tip="Show picture, groups, and other information" width="80" />
+    <button bottom_delta="-25" follows="top|right" height="22" label="Teleport..."
+         left_delta="0" name="offer_teleport_btn"
+         tool_tip="Offer this friend a teleport to your current location" width="80" />
+    <button bottom_delta="-25" follows="top|right" height="22" label="Track"
+         left_delta="0" name="track_btn"
+         tool_tip="Create a beacon to track this avatar" width="80" />
+    <button bottom_delta="-35" follows="top|right" height="22" label="Invite..."
+         left_delta="0" name="invite_btn"
+         tool_tip="Remove this person from your friends list" width="80" />
+    <button bottom_delta="-35" follows="top|right" height="22" label="Add..."
+         left_delta="0" name="add_btn" tool_tip="Offer friendship to a resident"
+         width="80" />
+  </panel>
 </floater>

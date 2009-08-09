@@ -1119,3 +1119,4 @@ void LLNetMap::callback_invite_to_group(LLUUID group_id, void *user_data)
 void LLNetMap::onClickAddFriend(void* user_data)
 {
 }
+
