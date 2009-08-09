@@ -34,6 +34,7 @@
 
 #include "llpanel.h"
 #include "llmemberlistener.h"
+#include "llscrolllistctrl.h"
 #include "v3math.h"
 #include "v3dmath.h"
 #include "v4color.h"
@@ -52,6 +53,8 @@ class LLNetMap : public LLPanel
 {
 public:
 	LLNetMap(const std::string& name);
+
+	virtual	BOOL postBuild();
 	virtual ~LLNetMap();
 
 	virtual void	draw();
@@ -111,8 +114,9 @@ private:
 	LLPointer<LLImageGL>	mObjectImagep;
 
 private:
-	LLUUID			mClosestAgentToCursor;
-	LLUUID			mClosestAgentAtLastRightClick;
+	LLUUID				mClosestAgentToCursor;
+	LLUUID				mClosestAgentAtLastRightClick;
+	LLScrollListCtrl*	mRadarList;
 
 	static BOOL		sRotateMap;
 	static LLNetMap*	sInstance;
@@ -121,6 +125,16 @@ private:
 
 	static void showAgentProfile(void*);
 	BOOL isAgentUnderCursor() { return mClosestAgentToCursor.notNull(); }
+
+	void populateRadar();
+
+	static void onClickProfile(void* user_data);
+	static void onClickIM(void* user_data);
+	static void onClickAddFriend(void* user_data);
+	static void onClickOfferTeleport(void* user_data);
+	static void onClickTrack(void* user_data);
+	static void onClickInvite(void* user_data);
+	static void callback_invite_to_group(LLUUID group_id, void *user_data);
 
 	class LLScaleMap : public LLMemberListener<LLNetMap>
 	{
