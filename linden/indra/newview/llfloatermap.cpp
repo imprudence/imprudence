@@ -86,6 +86,7 @@ BOOL LLFloaterMap::postBuild()
 	
 	mRadarList = getChild<LLScrollListCtrl>("RadarList");
 	childSetCommitCallback("RadarList", onList, this);
+	mRadarList->setDoubleClickCallback(onClickIM);
 
 	childSetAction("im_btn", onClickIM, this);
 	childSetAction("profile_btn", onClickProfile, this);
@@ -154,6 +155,7 @@ void LLFloaterMap::draw()
 	}
 }
 
+// TODO: make this detachable
 
 //
 // Radar
@@ -168,67 +170,113 @@ void LLFloaterMap::updateRadar()
 
 void LLFloaterMap::populateRadar()
 {
-	BOOL empty = TRUE;
 	std::stringstream avatar_count_string;
-	LLScrollListCtrl* radar_scroller = getChild<LLScrollListCtrl>("RadarList");
-	radar_scroller->deleteAllItems();
-
 	LLVector3d current_pos = gAgent.getPositionGlobal();
 
-	std::vector<LLUUID> avatar_ids;
-	std::vector<LLVector3d> positions;
-	LLWorld::getInstance()->getAvatars(&avatar_ids, &positions, current_pos, gSavedSettings.getF32("NearMeRange"));
-	for(U32 i=0; i<avatar_ids.size(); i++)
-	{
-		LLUUID& av = avatar_ids[i];
-
-		if(av == gAgent.getID()) 
-			continue;
-
-		LLVector3d avatar_pos = positions[i];
-		F64 distance = dist_vec(current_pos, avatar_pos);
-		std::stringstream dist_formatted;
-		dist_formatted << (double)((int)((distance + 0.05)*10.0))/10.0 << "m";
-
-		LLSD element;
-		element["id"] = av; // value
-		element["columns"][0]["column"] = "avatar_name";
-		element["columns"][0]["type"] = "text";
-
-		std::string fullname;
-		if(!gCacheName->getFullName(av, fullname))
-		{
-			element["columns"][0]["value"] = LLCacheName::getDefaultName();
-		}			
-		else
-		{
-			element["columns"][0]["value"] = fullname;
-		}
-
-		element["columns"][1]["column"] = "avatar_distance";
-		element["columns"][1]["type"] = "text";
-		element["columns"][1]["value"] = dist_formatted.str();
-		radar_scroller->addElement(element);
-		empty = FALSE;
-	}
+	// find what avatars you can see
+	std::vector<LLUUID> avatar_ids_new;
+	std::vector<LLVector3d> positions_new;
+	LLWorld::getInstance()->getAvatars(&avatar_ids_new, &positions_new, current_pos, gSavedSettings.getF32("NearMeRange"));
 	
+	// add an avatar to the list if it doesn't exist
+	std::vector<LLUUID>::iterator result;
+	for (U32 i=0; i<avatar_ids_new.size(); i++)
+	{
+		result = find(mAvatarIDs.begin(), mAvatarIDs.end(), avatar_ids_new[i]);
+		if (result == mAvatarIDs.end())
+		{
+			mAvatarIDs.push_back(avatar_ids_new[i]);
+			mPositions.push_back(positions_new[i]);
+			addToList(avatar_ids_new[i], positions_new[i], current_pos);
+		}
+		else // avatar exists, check for updated position
+		{
+			if (mPositions[i] != positions_new[i])
+			{
+				removeFromList(mAvatarIDs[i]);
+				mPositions[i] = positions_new[i];
+				addToList(mAvatarIDs[i], mPositions[i], current_pos);
+			}
+		}
+	}
+
+	// pull out dead entries
+	for (U32 i=0; i<mAvatarIDs.size(); i++)
+	{
+		result = find(avatar_ids_new.begin(), avatar_ids_new.end(), mAvatarIDs[i]);
+		if (result == avatar_ids_new.end())
+		{
+			removeFromList(mAvatarIDs[i]);
+
+			// pop_back is faster
+			std::swap(mAvatarIDs[i], mAvatarIDs.back());
+			mAvatarIDs.pop_back();
+			std::swap(mPositions[i], mPositions.back());
+			mPositions.pop_back();
+		}
+	}
+
 	avatar_count_string.str("");
-	if (empty)
+	if (mAvatarIDs.empty())
 	{
 		childSetEnabled("RadarList", false);childSetEnabled("im_btn", false);
-		radar_scroller->addCommentText(getString("no_one_near"));
+		mRadarList->addCommentText(getString("no_one_near"));
 		avatar_count_string << "0";
 	}
 	else 
 	{
-		childSetEnabled("RadarList", true);
-		radar_scroller->selectFirstItem();		
-		avatar_count_string << (int)avatar_ids.size();
+		childSetEnabled("RadarList", true);		
+		avatar_count_string << (int)mAvatarIDs.size();
 	}
 	LLTextBox* lblAvatarCount = getChild<LLTextBox>("lblAvatarCount");
 	lblAvatarCount->setText(avatar_count_string.str());
+	onList(mRadarList, this);
+}
 
-	onList(radar_scroller, this);
+void LLFloaterMap::addToList(const LLUUID& agent_id, const LLVector3d& agent_pos, const LLVector3d& current_pos)
+{
+	if (agent_id == gAgent.getID()) 
+		return;	
+
+	F64 distance = dist_vec(current_pos, agent_pos);
+	std::stringstream dist_formatted;
+	dist_formatted << (double)((int)((distance + 0.05)*10.0))/10.0 << "m";
+
+	LLSD element;
+	element["id"] = agent_id; // value
+	element["columns"][0]["column"] = "avatar_name";
+	element["columns"][0]["type"] = "text";
+
+	std::string fullname;
+	if(!gCacheName->getFullName(agent_id, fullname))
+	{
+		element["columns"][0]["value"] = LLCacheName::getDefaultName();
+	}			
+	else
+	{
+		element["columns"][0]["value"] = fullname;
+	}
+
+	element["columns"][1]["column"] = "avatar_distance";
+	element["columns"][1]["type"] = "text";
+	element["columns"][1]["value"] = dist_formatted.str();
+
+	mRadarList->addElement(element);
+	mRadarList->selectByID(mSelectedAvatar);
+
+	onList(mRadarList, this);
+}
+
+void LLFloaterMap::removeFromList(const LLUUID& agent_id)
+{
+	S32 index = mRadarList->getItemIndex(agent_id);
+	if (index >= 0)
+	{
+		mRadarList->deleteSingleItem(index);
+		mRadarList->selectByID(mSelectedAvatar);
+
+		onList(mRadarList, this);
+	}
 }
 
 // static
@@ -246,7 +294,10 @@ void LLFloaterMap::onList(LLUICtrl* ctrl, void* user_data)
 
 		if (self->visibleItemsSelected())
 		{
-			self->mSelectedAvatar = self->mRadarList->getFirstSelected()->getUUID();
+			if (self->mSelectedAvatar != self->mRadarList->getFirstSelected()->getUUID())
+			{
+				self->mSelectedAvatar = self->mRadarList->getFirstSelected()->getUUID();
+			}
 		}
 		else
 		{	

@@ -62,7 +62,12 @@ private:
 	LLNetMap*				mPanelMap;
 	LLScrollListCtrl*		mRadarList;
 	LLUUID					mSelectedAvatar;
+	std::vector<LLUUID>		mAvatarIDs;
+	std::vector<LLVector3d> mPositions;
 	static LLFloaterMap*	sInstance;
+
+	void addToList(const LLUUID& agent_id, const LLVector3d& agent_pos, const LLVector3d& current_pos);
+	void removeFromList(const LLUUID& agent_id);
 	
 	static void onList(class LLUICtrl* ctrl, void* user_data);
 	BOOL visibleItemsSelected() const;

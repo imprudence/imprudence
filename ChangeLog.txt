@@ -1,3 +1,13 @@
+2009-08-12  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added basic radar to the minimap.
+		
+		modified:   linden/indra/newview/llfloatermap.cpp
+		modified:   linden/indra/newview/llfloatermap.h
+		modified:   linden/indra/newview/llnetmap.cpp
+		modified:	linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+		
+
 2009-06-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added IM preference for showing IMs in either main or local chat.
