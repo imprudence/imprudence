@@ -44,6 +44,8 @@
 #include "llcallingcard.h"
 #include "llcolorscheme.h"
 #include "llviewercontrol.h"
+#include "llfloateravatarinfo.h"
+#include "llfloatermap.h"
 #include "llfloaterworldmap.h"
 #include "llframetimer.h"
 #include "llmutelist.h"
@@ -64,14 +66,6 @@
 #include "llworld.h"
 #include "llworldmapview.h"		// shared draw code
 #include "llappviewer.h"				// Only for constants!
-
-// radar
-#include "llfloateravatarinfo.h"
-#include "llfloatergroupinvite.h"
-#include "llfloatergroups.h"
-#include "roles_constants.h"
-#include "llimview.h"
-#include "llscrolllistctrl.h"
 
 #include "llglheaders.h"
 
@@ -112,8 +106,6 @@ LLNetMap::LLNetMap(const std::string& name) :
 	(new LLEnableProfile())->registerListener(this, "MiniMap.EnableProfile");
 
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_mini_map.xml");
-	//TODO: This'll make it toggle
-	//LLUICtrlFactory::getInstance()->buildPanel(this, "panel_mini_map_radar.xml");
 
 	updateMinorDirections();
 
@@ -128,17 +120,6 @@ LLNetMap::LLNetMap(const std::string& name) :
 
 BOOL LLNetMap::postBuild()
 {
-	mRadarList = getChild<LLScrollListCtrl>("RadarList");
-
-	childSetAction("im_btn", onClickIM, this);
-	childSetAction("profile_btn", onClickProfile, this);
-	childSetAction("offer_teleport_btn", onClickOfferTeleport, this);
-	childSetAction("track_btn", onClickTrack, this);
-	childSetAction("invite_btn", onClickInvite, this);
-	childSetAction("add_btn", onClickAddFriend, this);
-
-	setDefaultBtn("im_btn");
-
 	return TRUE;
 }
 
@@ -355,6 +336,7 @@ void LLNetMap::draw()
 		LLColor4 avatar_color = gColors.getColor( "MapAvatar" );
 		LLColor4 friend_color = gColors.getColor( "MapFriend" );
 		LLColor4 muted_color = gColors.getColor( "MapMuted" );
+		LLColor4 selected_color = gColors.getColor( "MapSelected" );
 		LLColor4 glyph_color;
 
 		std::vector<LLUUID> avatar_ids;
@@ -374,6 +356,10 @@ void LLNetMap::draw()
 			else if (is_agent_friend(avatar_ids[i]))
 			{
 				glyph_color = friend_color;
+			}
+			else if (LLFloaterMap::isSelected(avatar_ids[i]))
+			{
+				glyph_color = selected_color;
 			}
 			else
 			{
@@ -474,9 +460,9 @@ void LLNetMap::draw()
 	setDirectionPos( getChild<LLTextBox>("sw_label"), rotation + F_PI + F_PI_BY_TWO / 2);
 	setDirectionPos( getChild<LLTextBox>("se_label"), rotation + F_PI + F_PI_BY_TWO + F_PI_BY_TWO / 2);
 
-	populateRadar();
-
 	LLView::draw();
+
+	LLFloaterMap::updateRadar();
 }
 
 void LLNetMap::reshape(S32 width, S32 height, BOOL called_from_parent)
@@ -975,148 +961,3 @@ bool LLNetMap::LLEnableProfile::handleEvent(LLPointer<LLEvent> event, const LLSD
 	self->findControl(userdata["control"].asString())->setValue(self->isAgentUnderCursor());
 	return true;
 }
-
-
-//
-// Radar
-//
-
-void LLNetMap::populateRadar()
-{
-	BOOL all_loaded = TRUE;
-	BOOL empty = TRUE;
-	LLScrollListCtrl* radar_scroller = getChild<LLScrollListCtrl>("RadarList");
-	radar_scroller->deleteAllItems();
-
-	std::vector<LLUUID> avatar_ids;
-	LLWorld::getInstance()->getAvatars(&avatar_ids, NULL, gAgent.getPositionGlobal(), gSavedSettings.getF32("NearMeRange"));
-	for(U32 i=0; i<avatar_ids.size(); i++)
-	{
-		LLUUID& av = avatar_ids[i];
-		if(av == gAgent.getID()) continue;
-		LLSD element;
-		element["id"] = av; // value
-		std::string fullname;
-		if(!gCacheName->getFullName(av, fullname))
-		{
-			element["columns"][0]["value"] = LLCacheName::getDefaultName();
-			all_loaded = FALSE;
-		}			
-		else
-		{
-			element["columns"][0]["value"] = fullname;
-		}
-		radar_scroller->addElement(element);
-		empty = FALSE;
-	}
-
-	if (empty)
-	{
-		childDisable("RadarList");
-		//radar_scroller->addCommentText(getString("no_one_near"));
-	}
-	else 
-	{
-		childEnable("RadarList");
-		radar_scroller->selectFirstItem();
-		//onList(radar_scroller, this);
-		radar_scroller->setFocus(TRUE);
-	}
-
-	//if (all_loaded)
-	//{
-	//	mRadarListComplete = TRUE;
-	//}
-}
-
-// TODO: Since there're no tabs, move this up above
-//void LLNetMap::onList(LLUICtrl* ctrl, void* userdata)
-//{
-//	LLNetMap* self = (LLNetMap*)userdata;
-//	if (self)
-//	{
-//		self->childSetEnabled("im_btn", self->visibleItemsSelected());
-//		self->childSetEnabled("profile_btn", self->visibleItemsSelected());
-//		self->childSetEnabled("offer_teleport_btn", self->visibleItemsSelected());
-//		self->childSetEnabled("track_btn", self->visibleItemsSelected());
-//		self->childSetEnabled("invite_btn", self->visibleItemsSelected());
-//		self->childSetEnabled("add_btn", self->visibleItemsSelected());
-//	}
-//}
-
-void LLNetMap::onClickIM(void* user_data)
-{
-	LLNetMap* self = (LLNetMap*) user_data;
-
-	LLScrollListItem *item = self->mRadarList->getFirstSelected();
-	LLUUID agent_id = item->getUUID();
-	std::string fullname;
-	if(gCacheName->getFullName(agent_id, fullname))
-	{
-		gIMMgr->setFloaterOpen(TRUE);
-		gIMMgr->addSession(fullname, IM_NOTHING_SPECIAL, agent_id);
-	}
-}
-
-void LLNetMap::onClickProfile(void* user_data)
-{
-	LLNetMap* self = (LLNetMap*) user_data;
-
-	LLScrollListItem *item = self->mRadarList->getFirstSelected();
-	LLUUID agent_id = item->getUUID();
-	LLFloaterAvatarInfo::show(agent_id);
-}
-
-void LLNetMap::onClickOfferTeleport(void* user_data)
-{
-}
-
-void LLNetMap::onClickTrack(void* user_data)
-{
-	LLNetMap* self = (LLNetMap*) user_data;
-
-	LLTracker::ETrackingStatus tracking_status = LLTracker::getTrackingStatus();
-	if (LLTracker::TRACKING_AVATAR == tracking_status)
-	{
-		LLTracker::stopTracking(NULL);
-	}
-	else
-	{
- 		LLScrollListItem *item = self->mRadarList->getFirstSelected();
-		LLUUID agent_id = item->getUUID();
-		std::string fullname;
-		gCacheName->getFullName(agent_id, fullname);
-		LLTracker::trackAvatar(agent_id, fullname);
-	}
-}
-
-void LLNetMap::onClickInvite(void* user_data)
-{
-	LLNetMap* self = (LLNetMap*) user_data;
-
-	LLScrollListItem *item = self->mRadarList->getFirstSelected();
-	LLUUID agent_id = item->getUUID();
-	{
-		LLFloaterGroupPicker* widget;
-		widget = LLFloaterGroupPicker::showInstance(LLSD(gAgent.getID()));
-		if (widget)
-		{
-			widget->center();
-			widget->setPowersMask(GP_MEMBER_INVITE);
-			widget->setSelectCallback(callback_invite_to_group, (void *)&agent_id);
-		}
-	}
-}
-
-void LLNetMap::callback_invite_to_group(LLUUID group_id, void *user_data)
-{
-	std::vector<LLUUID> agent_ids;
-	agent_ids.push_back(*(LLUUID *)user_data);
-	
-	LLFloaterGroupInvite::showForGroup(group_id, &agent_ids);
-}
-
-void LLNetMap::onClickAddFriend(void* user_data)
-{
-}
-

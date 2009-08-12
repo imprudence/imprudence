@@ -33,6 +33,7 @@
 #define LL_LLFLOATERMAP_H
 
 #include "llfloater.h"
+#include "llscrolllistctrl.h"
 
 class LLNetMap;
 
@@ -46,6 +47,9 @@ public:
 
 	static void* createPanelMiniMap(void* data);
 
+	static void updateRadar();
+	static BOOL isSelected(LLUUID agent);
+
 	BOOL postBuild();
 
 	/*virtual*/ void	draw();
@@ -55,7 +59,22 @@ public:
 
 private:
 	LLFloaterMap(const LLSD& key = LLSD());
-	LLNetMap*		mPanelMap;
+	LLNetMap*				mPanelMap;
+	LLScrollListCtrl*		mRadarList;
+	LLUUID					mSelectedAvatar;
+	static LLFloaterMap*	sInstance;
+	
+	static void onList(class LLUICtrl* ctrl, void* user_data);
+	BOOL visibleItemsSelected() const;
+	void populateRadar();
+
+	static void onClickProfile(void* user_data);
+	static void onClickIM(void* user_data);
+	static void onClickAddFriend(void* user_data);
+	static void onClickOfferTeleport(void* user_data);
+	static void onClickTrack(void* user_data);
+	static void onClickInvite(void* user_data);
+	static void callback_invite_to_group(LLUUID group_id, void *user_data);
 };
 
 #endif  // LL_LLFLOATERMAP_H
