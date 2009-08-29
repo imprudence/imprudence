@@ -1,3 +1,10 @@
+2009-08-29  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed OpenAL CMake error
+
+		modified:   linden/indra/cmake/OPENAL.cmake
+
+
 2009-06-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added IM preference for showing IMs in either main or local chat.
