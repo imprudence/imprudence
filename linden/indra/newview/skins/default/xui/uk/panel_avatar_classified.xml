@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Реклама">
+	<line_editor name="given_name_editor" tool_tip="Назва має починатися з літери або числа, але не знака пунктуації."/>
+	<line_editor name="location_editor" tool_tip="Встановити місцезнаходження цієї реклами в Вашому поточному розміщенні"/>
+	<button label="Місцезнаходження" name="set_location_btn" width="135"/>
+	<button label="Телепорт" name="classified_teleport_btn" left_delta="135"/>
+	<button label="Карта" name="classified_map_btn"/>
+	<combo_box label="" name="classified_category_combo"/>
+	<combo_box label="" name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Оберіть -
+		</combo_item>
+		<combo_item name="mature">
+			Mature контент
+		</combo_item>
+		<combo_item name="pg">
+			PG контент
+		</combo_item>
+	</combo_box>
+	<text name="classified_info_text" tool_tip="Чим більше Ви заплатите за рекламу, тим вище вона буде знаходитися в списку.">
+		Реклама розміщена: ще не опублікована
+	</text>
+	<text name="click_through_text" tool_tip="Всього кліків на кожній кнопці з тих пір як Ваша реклама опублікована.">
+		Кліки:
+	</text>
+	<button label="Опублікувати..." name="classified_update_btn" width="115" />
+	<check_box label="Автооновлення щотижнево" name="auto_renew_check"/>
+	<string name="ad_placed_paid">
+		Реклама розміщена: [DATE], Оплата L$[AMT] за публікацію.
+	</string>
+	<string name="update_txt">
+		Оновити
+	</string>
+	<string name="publish_txt">
+		Опублікувати
+	</string>
+</panel>

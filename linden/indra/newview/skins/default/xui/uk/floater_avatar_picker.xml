@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="avatarpicker" title="Вибрати Резидента">
+	<tab_container name="ResidentChooserTabs">
+		<panel label="Пошук" name="SearchPanel">
+			<text name="InstructSearchResidentName">
+				Введіть частину імені резидента:
+			</text>
+			<button label="Знайти" label_selected="Знайти" name="Find"/>
+		</panel>
+		<panel label="Картки Виклику" name="CallingCardsPanel">
+			<text name="InstructSelectCallingCard">
+				Вибрати картку виклику:
+			</text>
+		</panel>
+		<panel label="Коло мене" name="NearMePanel">
+			<text name="InstructSelectResident">
+				Обрати резидента
+поруч:
+			</text>
+			<button label="Обновити" label_selected="Обновити" name="Refresh"/>
+			<slider label="Відстань" name="near_me_range" bottom_delta="-36"/>
+			<text name="meters" width="60">
+				Метрів
+			</text>
+			<scroll_list bottom_delta="-169" height="159" name="NearMe"  />
+		</panel>
+	</tab_container>
+	<button label="Вибір" label_selected="Вибрати" name="Select"/>
+	<button label="Відміна" label_selected="Відміна" name="Cancel"/>
+	<string name="not_found">
+		&apos;[TEXT]&apos; не знайдено
+	</string>
+	<string name="no_one_near">
+		Нікого поруч
+	</string>
+	<string name="no_results">
+		Немає результатів
+	</string>
+	<string name="searching">
+		Шукаємо...
+	</string>
+</floater>

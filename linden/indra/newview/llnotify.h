@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -35,55 +36,43 @@
 #include "llfontgl.h"
 #include "llpanel.h"
 #include "lltimer.h"
+#include "llnotifications.h"
 #include <vector>
 
 class LLButton;
 class LLNotifyBoxTemplate;
 
 // NotifyBox - for notifications that require a response from the user.  
-class LLNotifyBox : public LLPanel, public LLEventTimer
+class LLNotifyBox : 
+	public LLPanel, 
+	public LLEventTimer,
+	public LLInitClass<LLNotifyBox>,
+	public LLInstanceTracker<LLNotifyBox, LLUUID>
 {
 public:
 	typedef void (*notify_callback_t)(S32 option, void* data);
 	typedef std::vector<std::string> option_list_t;
 
-	static LLNotifyBox* showXml( const std::string& xml_desc,
-						 notify_callback_t callback = NULL, void *user_data = NULL);
-	static LLNotifyBox* showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args, BOOL is_caution,
-						 notify_callback_t callback = NULL, void *user_data = NULL);
-	static LLNotifyBox* showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
-						 notify_callback_t callback = NULL, void *user_data = NULL);
-	// For script notifications:
-	static LLNotifyBox* showXml( const std::string& xml_desc, const LLStringUtil::format_map_t& args,
-						 notify_callback_t callback, void *user_data,
-						 const option_list_t& options,
-						 BOOL layout_script_dialog = FALSE);
+	static void initClass();
+	static void destroyClass();
 
-	static bool parseNotify(const std::string& xml_filename);
-	static const std::string getTemplateMessage(const std::string& xml_desc, const LLStringUtil::format_map_t& args);
-	static const std::string getTemplateMessage(const std::string& xml_desc);
- 	static BOOL getTemplateIsCaution(const std::string& xml_desc);
-	
 	BOOL isTip() const { return mIsTip; }
 	BOOL isCaution() const { return mIsCaution; }
 	/*virtual*/ void setVisible(BOOL visible);
 	void stopAnimation() { mAnimating = FALSE; }
 
-	notify_callback_t getNotifyCallback() { return mBehavior->mCallback; }
-	void* getUserData() { return mBehavior->mData; }
 	void close();
 
-	static void cleanup();
+	LLNotificationPtr getNotification() const { return mNotification; }
+
 	static void format(std::string& msg, const LLStringUtil::format_map_t& args);
 
 protected:
-	LLNotifyBox(LLPointer<LLNotifyBoxTemplate> notify_template, const LLStringUtil::format_map_t& args,
-							 notify_callback_t callback, void* user_data,
- 							 BOOL is_caution = FALSE,
-							 const option_list_t& extra_options = option_list_t(),
-							 BOOL layout_script_dialog = FALSE);
+	LLNotifyBox(LLNotificationPtr notification, BOOL layout_script_dialog);
+
 	/*virtual*/ ~LLNotifyBox();
 
+	LLButton* addButton(std::string const &name, const std::string& label, BOOL is_option, BOOL is_default);
 	
 	/*virtual*/ BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL handleRightMouseDown(S32 x, S32 y, MASK mask);
@@ -105,21 +94,19 @@ protected:
 	// for "next" button
 	static void onClickNext(void* data);
 
-	static LLPointer<LLNotifyBoxTemplate> getTemplate(const std::string& xml_desc);
-	static LLNotifyBox* findExistingNotify(LLPointer<LLNotifyBoxTemplate> notify_template, const LLStringUtil::format_map_t& args);
+	//static LLNotifyBox* findExistingNotify(LLPointer<LLNotifyBoxTemplate> notify_template, const LLString::format_map_t& args);
 
 private:
+	static bool onNotification(const LLSD& notify);
 	void drawBackground() const;
-
-	static LLPointer<LLNotifyBoxTemplate> sDefaultTemplate;
 
 protected:
 	std::string mMessage;
 
+	LLNotificationPtr mNotification;
 	BOOL mIsTip;
 	BOOL mIsCaution; // is this a caution notification?
 	BOOL mAnimating; // Are we sliding onscreen?
-	BOOL mUnique;
 
 	// Time since this notification was displayed.
 	// This is an LLTimer not a frame timer because I am concerned
@@ -128,31 +115,20 @@ protected:
 
 	LLButton* mNextBtn;
 
-	// keep response behavior isolated here
-	struct LLNotifyBehavior
-	{
-		LLNotifyBehavior(notify_callback_t callback, void* data);
-
-		notify_callback_t mCallback;
-		void* mData;
-
-	};
-	LLNotifyBehavior* mBehavior;
-
 	S32 mNumOptions;
-	S32 mDefaultOption;
+	S32 mNumButtons;
+	BOOL mAddedDefaultBtn;
+
+	BOOL mLayoutScriptDialog;
 
 	// Used for callbacks
 	struct InstanceAndS32
 	{
 		LLNotifyBox* mSelf;
-		S32			mButton;
+		std::string	mButtonName;
 	};
 	std::vector<InstanceAndS32*> mBtnCallbackData;
 
-	typedef std::map<std::string, LLPointer<LLNotifyBoxTemplate> > template_map_t;
-	static template_map_t sNotifyTemplates; // by mLabel
-	
 	static S32 sNotifyBoxCount;
 	static const LLFontGL* sFont;
 	static const LLFontGL* sFontSmall;
@@ -168,13 +144,12 @@ public:
 	void showOnly(LLView * ctrl);
 	LLNotifyBox * getFirstNontipBox() const;
 
-
 	class Matcher
 	{
 	public: 
 		Matcher(){}
 		virtual ~Matcher() {}
-		virtual BOOL matches(LLNotifyBox::notify_callback_t callback, void* cb_data) const = 0;
+		virtual BOOL matches(const LLNotificationPtr) const = 0;
 	};
 	// Walks the list and removes any stacked messages for which the given matcher returns TRUE.
 	// Useful when muting people and things in order to clear out any similar previously queued messages.
@@ -186,41 +161,5 @@ private:
 
 // This view contains the stack of notification windows.
 extern LLNotifyBoxView* gNotifyBoxView;
-
-class LLNotifyBoxTemplate : public LLRefCount
-{
-public:
-	LLNotifyBoxTemplate(BOOL unique, F32 duration) :
-		mIsTip(FALSE),
-		mIsCaution(FALSE),
-		mUnique(unique),
-		mDuration(duration),
-		mDefaultOption(0)
-	{}
-
-	void setMessage(const std::string& message)
-	{
-		mMessage = message;
-	}
-	
-	void addOption(const std::string& label, BOOL is_default = FALSE)
-	{
-		if (is_default)
-		{
-			mDefaultOption = mOptions.size();
-		}
-		mOptions.push_back(label);
-	}
-
-public:
-	std::string mLabel;			// Handle for access from code, etc
-	std::string mMessage;			// Message to display
-	BOOL mIsTip;
-	BOOL mIsCaution;
-	BOOL mUnique;
-	F32	 mDuration;
-	LLNotifyBox::option_list_t mOptions;
-	S32 mDefaultOption;
-};
 
 #endif

@@ -8,17 +8,7 @@
 	<button label="텔리포트" name="classified_teleport_btn" />
 	<button label="지도" name="classified_map_btn" />
 	<combo_box label="" name="classified_category_combo" />
-	<check_box label="성인용" name="classified_mature_check">
-		<combo_item name="select_mature">
-			- 성인용 컨텐츠 선택 -
-		</combo_item>
-		<combo_item name="mature">
-			성인용 컨텐츠
-		</combo_item>
-		<combo_item name="not_mature">
-			성인용 컨텐츠 아님
-		</combo_item>
-	</check_box>
+
 	<text name="classified_info_text"
 	     tool_tip="광고에 대한 지불액이 높을수록 목록의 상위에 표시됩니다.">
 		게재 광고: 게시예정

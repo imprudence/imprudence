@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -36,6 +37,9 @@
 //#include "lllocalidhashmap.h"
 #include "llmemory.h"
 #include "llstl.h"
+
+#include "llimagegl.h"
+#include "llfontbitmapcache.h"
 
 class LLImageRaw;
 class LLFontManager;
@@ -80,6 +84,7 @@ public:
 	S32 mYBitmapOffset; // Offset to the origin in the bitmap
 	S32 mXBearing;	// Distance from baseline to left in pixels
 	S32 mYBearing;	// Distance from baseline to top in pixels
+	S32 mBitmapNum; // Which bitmap in the bitmap cache contains this glyph
 };
 
 // Used for lists of fallback fonts
@@ -91,14 +96,14 @@ public:
 	void addAtEnd(LLFont *font);
 };
 
-
 class LLFont
 {
 public:
-	LLFont(LLImageRaw *imagep = NULL);
+	LLFont();
 	virtual ~LLFont();
 
-	// is_fallback should be true for fallback fonts that aren't used to render directly (Unicode backup, primarily)
+	// is_fallback should be true for fallback fonts that aren't used
+	// to render directly (Unicode backup, primarily)
 	virtual BOOL loadFace(const std::string& filename,
 							const F32 point_size,
 							const F32 vert_dpi,
@@ -108,7 +113,6 @@ public:
 	void setFallbackFont(LLFontList *fontp)		{ mFallbackFontp = fontp; }
 
 	void setCharToGlyphMap(llwchar wch, U32 glyph_index) const;
-	void setRawImage( LLImageRaw *imagep );
 
 	// Global font metrics - in units of pixels
 	virtual F32 getLineHeight() const;
@@ -145,31 +149,29 @@ public:
 	const LLFontGlyphInfo &getMetrics(const llwchar wc) const;
 	F32 getXAdvance(const llwchar wc) const;
 	F32 getXKerning(const llwchar char_left, const llwchar char_right) const; // Get the kerning between the two characters
+	virtual void reset() = 0;
+
 protected:
 	virtual BOOL hasGlyph(const llwchar wch) const;		// Has a glyph for this character
-	virtual BOOL addChar(const llwchar wch);		// Add a new character to the font if necessary
-	virtual BOOL addGlyph(const llwchar wch, const U32 glyph_index);	// Add a new glyph to the existing font
-	virtual BOOL addGlyphFromFont(LLFont *fontp, const llwchar wch, const U32 glyph_index);	// Add a glyph from this font to the other (returns the glyph_index, 0 if not found)
+	virtual BOOL addChar(const llwchar wch) const;		// Add a new character to the font if necessary
+	virtual BOOL addGlyph(const llwchar wch, const U32 glyph_index) const;	// Add a new glyph to the existing font
+	virtual BOOL addGlyphFromFont(const LLFont *fontp, const llwchar wch, const U32 glyph_index) const;	// Add a glyph from this font to the other (returns the glyph_index, 0 if not found)
 
 	virtual LLFontGlyphInfo* getGlyphInfo(const llwchar wch) const;
 
 	void insertGlyphInfo(llwchar wch, LLFontGlyphInfo* gi) const;
-	void renderGlyph(const U32 glyph_index);
+	void renderGlyph(const U32 glyph_index) const;
 
-	void resetBitmap();	// Reset bitmap to contain only the null glyph
+	void resetBitmapCache();
+
 protected:
 	std::string mName;
+	F32 mPointSize;
 	F32 mAscender;			
 	F32 mDescender;
 	F32 mLineHeight;
 
-	S32 mNumComponents;
-	S32 mBitmapWidth;
-	S32 mBitmapHeight;
-	S32 mMaxCharWidth;
-	S32 mMaxCharHeight;
-	S32 mCurrentOffsetX;
-	S32 mCurrentOffsetY;
+	mutable LLPointer<LLFontBitmapCache> mFontBitmapCachep;
 
 	LLFT_Face mFTFace;
 
@@ -181,14 +183,14 @@ protected:
 
 	BOOL mValid;
 	void setSubImageLuminanceAlpha(const U32 x,
-				       const U32 y,
-				       const U32 width,
-				       const U32 height,
-				       const U8 *data,
-				       S32 stride = 0);
-
-private:
-	LLPointer<LLImageRaw> mRawImagep;	// Bitmaps of glyphs are stored here.
+								   const U32 y,
+								   const U32 bitmap_num,
+								   const U32 width,
+								   const U32 height,
+								   const U8 *data,
+								   S32 stride = 0) const;
+	mutable S32 mRenderGlyphCount;
+	mutable S32 mAddGlyphCount;
 };
 
 #endif // LL_FONT_

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="object im info" title="Obje bilgisi">
+	<text name="LabelItemNameTitle">
+		Obje:
+	</text>
+	<text name="LabelSlurlTitle">
+		Lokasyon:
+	</text>
+	<text name="Unknown_Slurl">
+		(Lokasyon bilgisi mevcut değil)
+	</text>
+	<text name="LabelOwnerNameTitle">
+		Sahip:
+	</text>
+	<button label="Sahibi engelle" label_selected="Sahibi engelle" name="Mute"/>
+</floater>

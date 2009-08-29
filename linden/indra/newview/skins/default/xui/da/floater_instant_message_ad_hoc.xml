@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(ukendt)" name="im_floater" title="(unknown)">
+	<string name="ringing">
+		Tilslutter til stemme chat...
+	</string>
+	<string name="connected">
+		Tilsluttet, Tryk Afslut for at lægge på
+	</string>
+	<string name="hang_up">
+		Afsluttet stemme chat
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="title_string">
+		Privat samtale (IM) med [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] skriver...
+	</string>
+	<string name="session_start_string">
+		Starter samtale med [NAME] vent venligst.
+	</string>
+	<string name="default_text_label">
+		Tryk her for at starte privat samtale (IM).
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Opkald" name="start_call_btn" />
+			<button label="Læg på" name="end_call_btn" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Tryk her for at se/skjule liste med aktive deltagere i denne samtale." />
+			<line_editor label="Tryk her for privat samtale (IM)" name="chat_editor" />
+			<button label="Send" name="send_btn" />
+		</layout_panel>
+	</layout_stack>
+	<string name="live_help_dialog">
+		*** Velkommen til hjælp *** 
+       Check venligst først vores Second Life hjælpesider ved at trykke F1, eller via vidensdatabasen på http://secondlife.com/knowledgebase/ 
+       Hvis du ikke finder svar der, indtast dit spørgsmål for at starte og vent så lidt, så tilgængelige hjælpere kan svare. 
+       -=-=- Svartiderne kan variere, specielt i travle perioder -=-=-
+	</string>
+</floater>

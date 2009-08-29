@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -52,6 +53,8 @@
 #include "llmath.h"	// Linden math
 #include "llstring.h"
 //#include "imdebug.h"
+#include "llfontbitmapcache.h"
+#include "llgl.h"
 
 FT_Render_Mode gFontRenderMode = FT_RENDER_MODE_NORMAL;
 
@@ -124,30 +127,28 @@ void LLFontList::addAtEnd(LLFont *font)
 	this->push_back(font);
 }
 
-LLFont::LLFont(LLImageRaw *imagep)
-	: mRawImagep(imagep)
+LLFont::LLFont()
 {
+	mFontBitmapCachep = new LLFontBitmapCache;
+
 	mValid = FALSE;
 	mAscender = 0.f;
 	mDescender = 0.f;
 	mLineHeight = 0.f;
-	mBitmapWidth = 0;
-	mBitmapHeight = 0;
-	mCurrentOffsetX = 1;
-	mCurrentOffsetY = 1;
-	mMaxCharWidth = 0;
-	mMaxCharHeight = 0;
-	mNumComponents = 0;
+
 	mFallbackFontp = NULL;
 	mIsFallback = FALSE;
 	mFTFace = NULL;
+
+	mRenderGlyphCount = 0;
+	mAddGlyphCount = 0;
+
+	mPointSize = 0;
 }
 
 
 LLFont::~LLFont()
 {
-	mRawImagep = NULL; // dereferences or deletes image
-
 	// Clean up freetype libs.
 	if (mFTFace)
 		FT_Done_Face(mFTFace);
@@ -155,11 +156,8 @@ LLFont::~LLFont()
 
 	// Delete glyph info
 	std::for_each(mCharGlyphInfoMap.begin(), mCharGlyphInfoMap.end(), DeletePairedPointer());
-}
 
-void LLFont::setRawImage(LLImageRaw *imagep)
-{
-	mRawImagep = imagep; // will delete old raw image if we have one and created it
+	// mFontBitmapCachep will be cleaned up by LLPointer destructor.
 }
 
 // virtual
@@ -203,7 +201,6 @@ BOOL LLFont::loadFace(const std::string& filename, const F32 point_size, const F
 	}
 
 	mIsFallback = is_fallback;
-	mNumComponents = components;
 	F32 pixels_per_em = (point_size / 72.f)*vert_dpi; // Size in inches * dpi
 
 	error = FT_Set_Char_Size(mFTFace,    /* handle to face object           */
@@ -233,8 +230,10 @@ BOOL LLFont::loadFace(const std::string& filename, const F32 point_size, const F
 	mDescender = -mFTFace->descender * pixels_per_unit;
 	mLineHeight = mFTFace->height * pixels_per_unit;
 
-	mMaxCharWidth = llround(0.5f + (x_max - x_min));
-	mMaxCharHeight = llround(0.5f + (y_max - y_min));
+	S32 max_char_width = llround(0.5f + (x_max - x_min));
+	S32 max_char_height = llround(0.5f + (y_max - y_min));
+
+	mFontBitmapCachep->init(components, max_char_width, max_char_height);
 
 	if (!mFTFace->charmap)
 	{
@@ -242,62 +241,20 @@ BOOL LLFont::loadFace(const std::string& filename, const F32 point_size, const F
 		FT_Set_Charmap(mFTFace, mFTFace->charmaps[0]);
 	}
 
-	if (mRawImagep.isNull() && !mIsFallback)
-	{
-		mRawImagep = new LLImageRaw();
-	}
-
 	if (!mIsFallback)
 	{
-		// Place text into bitmap, and generate all necessary positions/
-		// offsets for the individual characters.
-
-		// calc width and height for mRawImagep (holds all characters)
-		// Guess for approximately 20*20 characters
-		S32 image_width = mMaxCharWidth * 20;
-		S32 pow_iw = 2;
-		while (pow_iw < image_width)
-		{
-			pow_iw *= 2;
-		}
-		image_width = pow_iw;
-		image_width = llmin(512, image_width); // Don't make bigger than 512x512, ever.
-		S32 image_height = image_width;
-
-		//llinfos << "Guessing texture size of " << image_width << " pixels square" << llendl;
-
-		mRawImagep->resize(image_width, image_height, components);
-
-		mBitmapWidth = image_width;
-		mBitmapHeight = image_height;
-
-		switch (components)
-		{
-		case 1:
-			mRawImagep->clear();
-			break;
-		case 2:
-			mRawImagep->clear(255, 0);
-			break;
-		}
-
-		mCurrentOffsetX = 1;
-		mCurrentOffsetY = 1;
-
 		// Add the default glyph
 		addGlyph(0, 0);
 	}
 
 	mName = filename;
+	mPointSize = point_size;
 
 	return TRUE;
 }
 
-
-void LLFont::resetBitmap()
+void LLFont::resetBitmapCache()
 {
-	llinfos << "Rebuilding bitmap for glyph" << llendl;
-
 	// Iterate through glyphs and clear the mIsRendered flag
 	for (char_glyph_info_map_t::iterator iter = mCharGlyphInfoMap.begin();
 		 iter != mCharGlyphInfoMap.end(); ++iter)
@@ -307,9 +264,7 @@ void LLFont::resetBitmap()
 		//not just flushing the bitmap
 		iter->second->mMetricsValid = FALSE;
 	}
-	mRawImagep->clear(255, 0);
-	mCurrentOffsetX = 1;
-	mCurrentOffsetY = 1;
+	mFontBitmapCachep->reset();
 
 	// Add the empty glyph`5
 	addGlyph(0, 0);
@@ -340,7 +295,7 @@ BOOL LLFont::hasGlyph(const llwchar wch) const
 	}
 }
 
-BOOL LLFont::addChar(const llwchar wch)
+BOOL LLFont::addChar(const llwchar wch) const
 {
 	if (mFTFace == NULL)
 		return FALSE;
@@ -375,7 +330,6 @@ BOOL LLFont::addChar(const llwchar wch)
 	if (iter == mCharGlyphInfoMap.end() || !(iter->second->mIsRendered))
 	{
 		BOOL result = addGlyph(wch, glyph_index);
-		//imdebug("luma b=8 w=%d h=%d t=%s %p", mRawImagep->getWidth(), mRawImagep->getHeight(), mName.c_str(), mRawImagep->getData());
 		return result;
 	}
 	return FALSE;
@@ -395,7 +349,7 @@ void LLFont::insertGlyphInfo(llwchar wch, LLFontGlyphInfo* gi) const
 	}
 }
 
-BOOL LLFont::addGlyphFromFont(LLFont *fontp, const llwchar wch, const U32 glyph_index)
+BOOL LLFont::addGlyphFromFont(const LLFont *fontp, const llwchar wch, const U32 glyph_index) const
 {
 	if (mFTFace == NULL)
 		return FALSE;
@@ -405,35 +359,15 @@ BOOL LLFont::addGlyphFromFont(LLFont *fontp, const llwchar wch, const U32 glyph_
 	S32 width = fontp->mFTFace->glyph->bitmap.width;
 	S32 height = fontp->mFTFace->glyph->bitmap.rows;
 
-	if ((mCurrentOffsetX + width + 1) > mRawImagep->getWidth())
-	{
-		if ((mCurrentOffsetY + 2*mMaxCharHeight + 2) > mBitmapHeight)
-		{
-			// We're out of space in this texture - clear it an all of the glyphs
-			// and start over again.  Easier than LRU and should work just as well
-			// (just slightly slower on the rebuild).  As long as the texture has
-			// enough room to hold all glyphs needed for a particular frame this
-			// shouldn't be too slow.
-
-			resetBitmap();
-
-			// Need to rerender the glyph, as it's been overwritten by the default glyph.
-			fontp->renderGlyph(glyph_index);
-			width = fontp->mFTFace->glyph->bitmap.width;
-			height = fontp->mFTFace->glyph->bitmap.rows;
-
-			// We should have a reasonable offset for x and y, no need to check that it's in range
-		}
-		else
-		{
-			mCurrentOffsetX = 1;
-			mCurrentOffsetY += mMaxCharHeight + 1;
-		}
-	}
+	S32 pos_x, pos_y;
+	S32 bitmap_num;
+	mFontBitmapCachep->nextOpenPos(width, pos_x, pos_y, bitmap_num);
+	mAddGlyphCount++;
 
 	LLFontGlyphInfo* gi = new LLFontGlyphInfo(glyph_index);
-	gi->mXBitmapOffset = mCurrentOffsetX;
-	gi->mYBitmapOffset = mCurrentOffsetY;
+	gi->mXBitmapOffset = pos_x;
+	gi->mYBitmapOffset = pos_y;
+	gi->mBitmapNum = bitmap_num;
 	gi->mWidth = width;
 	gi->mHeight = height;
 	gi->mXBearing = fontp->mFTFace->glyph->bitmap_left;
@@ -482,24 +416,25 @@ BOOL LLFont::addGlyphFromFont(LLFont *fontp, const llwchar wch, const U32 glyph_
 			buffer_row_stride = width;
 		}
 
-		switch (mNumComponents)
+		switch (mFontBitmapCachep->getNumComponents())
 		{
 		case 1:
-			mRawImagep->setSubImage(mCurrentOffsetX,
-						mCurrentOffsetY,
-						width,
-						height,
-						buffer_data,
-						buffer_row_stride,
-						TRUE);
+			mFontBitmapCachep->getImageRaw(bitmap_num)->setSubImage(pos_x,
+																	pos_y,
+																	width,
+																	height,
+																	buffer_data,
+																	buffer_row_stride,
+																	TRUE);
 			break;
 		case 2:
-			setSubImageLuminanceAlpha(mCurrentOffsetX,
-						  mCurrentOffsetY,
-						  width,
-						  height,
-						  buffer_data,
-						  buffer_row_stride);
+			setSubImageLuminanceAlpha(pos_x,	
+									  pos_y,
+									  bitmap_num,
+									  width,
+									  height,
+									  buffer_data,
+									  buffer_row_stride);
 			break;
 		default:
 			break;
@@ -512,11 +447,10 @@ BOOL LLFont::addGlyphFromFont(LLFont *fontp, const llwchar wch, const U32 glyph_
 		// omit it from the font-image.
 	}
 	
-	mCurrentOffsetX += width + 1;
 	return TRUE;
 }
 
-BOOL LLFont::addGlyph(const llwchar wch, const U32 glyph_index)
+BOOL LLFont::addGlyph(const llwchar wch, const U32 glyph_index) const
 {
 	return addGlyphFromFont(this, wch, glyph_index);
 }
@@ -557,7 +491,7 @@ F32 LLFont::getXAdvance(const llwchar wch) const
 	if (glyph_index)
 	{
 		// This font has this glyph
-		(const_cast<LLFont *>(fontp))->renderGlyph(glyph_index);
+		fontp->renderGlyph(glyph_index);
 
 		// Create the entry if it's not there
 		char_glyph_info_map_t::iterator iter2 = mCharGlyphInfoMap.find(wch);
@@ -590,11 +524,11 @@ F32 LLFont::getXAdvance(const llwchar wch) const
 	}
 
 	// Last ditch fallback - no glyphs defined at all.
-	return (F32)mMaxCharWidth;
+	return (F32)mFontBitmapCachep->getMaxCharWidth();
 }
 
 
-void LLFont::renderGlyph(const U32 glyph_index)
+void LLFont::renderGlyph(const U32 glyph_index) const
 {
 	if (mFTFace == NULL)
 		return;
@@ -603,6 +537,9 @@ void LLFont::renderGlyph(const U32 glyph_index)
 	llassert(!error);
 
 	error = FT_Render_Glyph(mFTFace->glyph, gFontRenderMode);
+
+	mRenderGlyphCount++;
+	
 	llassert(!error);
 }
 
@@ -627,16 +564,20 @@ F32 LLFont::getXKerning(const llwchar char_left, const llwchar char_right) const
 }
 
 void LLFont::setSubImageLuminanceAlpha(const U32 x,
-				       const U32 y,
-				       const U32 width,
-				       const U32 height,
-				       const U8 *data,
-				       S32 stride)
+									   const U32 y,
+									   const U32 bitmap_num,
+									   const U32 width,
+									   const U32 height,
+									   const U8 *data,
+									   S32 stride) const
 {
-	llassert(!mIsFallback);
-	llassert(mRawImagep->getComponents() == 2);
+	LLImageRaw *image_raw = mFontBitmapCachep->getImageRaw(bitmap_num);
 
-	U8 *target = mRawImagep->getData();
+	llassert(!mIsFallback);
+	llassert(image_raw && (image_raw->getComponents() == 2));
+
+	
+	U8 *target = image_raw->getData();
 
 	if (!data)
 	{
@@ -649,7 +590,7 @@ void LLFont::setSubImageLuminanceAlpha(const U32 x,
 	U32 i, j;
 	U32 to_offset;
 	U32 from_offset;
-	U32 target_width = mRawImagep->getWidth();
+	U32 target_width = image_raw->getWidth();
 	for (i = 0; i < height; i++)
 	{
 		to_offset = (y + i)*target_width + x;

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -51,7 +52,7 @@ public:
 	{
 		VERTEX_DATA_MASK =	LLVertexBuffer::MAP_VERTEX |
 							LLVertexBuffer::MAP_NORMAL |
-							LLVertexBuffer::MAP_TEXCOORD |
+							LLVertexBuffer::MAP_TEXCOORD0 |
 							LLVertexBuffer::MAP_WEIGHT |
 							LLVertexBuffer::MAP_CLOTHWEIGHT
 	};
@@ -73,6 +74,21 @@ public:
 	/*virtual*/ void render(S32 pass = 0);
 	/*virtual*/ void renderForSelect();
 
+	/*virtual*/ S32 getNumDeferredPasses();
+	/*virtual*/ void beginDeferredPass(S32 pass);
+	/*virtual*/ void endDeferredPass(S32 pass);
+	/*virtual*/ void renderDeferred(S32 pass);
+
+	/*virtual*/ S32 getNumPostDeferredPasses();
+	/*virtual*/ void beginPostDeferredPass(S32 pass);
+	/*virtual*/ void endPostDeferredPass(S32 pass);
+	/*virtual*/ void renderPostDeferred(S32 pass);
+
+	/*virtual*/ S32 getNumShadowPasses();
+	/*virtual*/ void beginShadowPass(S32 pass);
+	/*virtual*/ void endShadowPass(S32 pass);
+	/*virtual*/ void renderShadow(S32 pass);
+
 	void beginRigid();
 	void beginFootShadow();
 	void beginSkinned();
@@ -80,14 +96,30 @@ public:
 	void endRigid();
 	void endFootShadow();
 	void endSkinned();
+
+	void beginDeferredImpostor();
+	void beginDeferredRigid();
+	void beginDeferredSkinned();
+	
+	void endDeferredImpostor();
+	void endDeferredRigid();
+	void endDeferredSkinned();
 		
 	/*virtual*/ LLViewerImage *getDebugTexture();
 	/*virtual*/ LLColor3 getDebugColor() const; // For AGP debug display
 
 	void renderAvatars(LLVOAvatar *single_avatar, S32 pass = -1); // renders only one avatar if single_avatar is not null.
+
+	static BOOL sSkipOpaque;
+	static BOOL sSkipTransparent;
 };
 
-
+class LLVertexBufferAvatar : public LLVertexBuffer
+{
+public:
+	LLVertexBufferAvatar();
+	virtual void setupVertexBuffer(U32 data_mask) const;
+};
 
 extern S32 AVATAR_OFFSET_POS;
 extern S32 AVATAR_OFFSET_NORMAL;

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="texture picker" title="Выбор: Текстуры">
+	<string name="choose_picture">
+		Кликните для выбора картинки
+	</string>
+	<text type="string" length="1" name="Multiple">
+		Сложная
+	</text>
+	<text type="string" length="1" name="unknown">
+		Размеры: [DIMENSIONS]
+	</text>
+	<button label="По умолчанию" label_selected="По умолчанию"
+	     name="Default" width="100"/>
+	<button label="Ничего" label_selected="Ничего" name="None" left="106"/>
+	<button label="С нуля" label_selected="С нуля" name="Blank" />
+	<check_box label="Показать папки" name="show_folders_check" />
+	<search_editor label="Ввести тут для поиска" name="inventory search editor" />
+	<check_box label="Применить &#10;немедленно" name="apply_immediate_check" bottom="-273"/>
+	<button label="" label_selected="" name="Pipette" />
+	<button label="Отмена" label_selected="Отмена" name="Cancel" />
+	<button label="Выбор" label_selected="Выбор" name="Select" />
+	<string name="pick title">
+		Выбрать:
+	</string>
+</floater>

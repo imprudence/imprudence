@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="script ed float" title="Скрипт: Новый скрипт">
+	<button label="Сброс" label_selected="Сброс" name="Reset"/>
+	<check_box label="Выполнение" name="running" left="4"/>
+	<check_box label="Моно" name="mono" left="106"/>
+	<string name="not_allowed">
+		Вы не имеете права видеть этот скрипт.
+	</string>
+	<string name="script_running">
+		Выполнение
+	</string>
+</floater>

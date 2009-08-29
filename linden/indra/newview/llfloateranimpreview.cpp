@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -52,6 +53,7 @@
 #include "llfocusmgr.h"
 #include "llkeyframemotion.h"
 #include "lllineeditor.h"
+#include "llfloaterperms.h"
 #include "llsliderctrl.h"
 #include "llspinctrl.h"
 #include "lltextbox.h"
@@ -234,9 +236,11 @@ BOOL LLFloaterAnimPreview::postBuild()
 
 		// now load bvh file
 		S32 file_size;
-		apr_file_t* fp = ll_apr_file_open(mFilenameAndPath, LL_APR_RB, &file_size);
-
-		if (!fp)
+		
+		LLAPRFile infile ;
+		infile.open(mFilenameAndPath, LL_APR_RB, NULL, &file_size);
+		
+		if (!infile.getFileHandle())
 		{
 			llwarns << "Can't open BVH file:" << mFilename << llendl;	
 		}
@@ -246,14 +250,14 @@ BOOL LLFloaterAnimPreview::postBuild()
 
 			file_buffer = new char[file_size + 1];
 
-			if (file_size == ll_apr_file_read(fp, file_buffer, file_size))
+			if (file_size == infile.read(file_buffer, file_size))
 			{
 				file_buffer[file_size] = '\0';
 				llinfos << "Loading BVH file " << mFilename << llendl;
 				loaderp = new LLBVHLoader(file_buffer);
 			}
 
-			apr_file_close(fp);
+			infile.close() ;
 			delete[] file_buffer;
 		}
 	}
@@ -987,20 +991,24 @@ void LLFloaterAnimPreview::onBtnOK(void* userdata)
 			{
 				std::string name = floaterp->childGetValue("name_form").asString();
 				std::string desc = floaterp->childGetValue("description_form").asString();
+				LLAssetStorage::LLStoreAssetCallback callback = NULL;
+				S32 expected_upload_cost = sUploadAmount;
+				void *userdata = NULL;
 				upload_new_resource(floaterp->mTransactionID, // tid
-									LLAssetType::AT_ANIMATION,
-									name,
-									desc,
-									0,
-									LLAssetType::AT_NONE,
-									LLInventoryType::IT_ANIMATION,
-									PERM_NONE,
-									name);
+						    LLAssetType::AT_ANIMATION,
+						    name,
+						    desc,
+						    0,
+						    LLAssetType::AT_NONE,
+						    LLInventoryType::IT_ANIMATION,
+						    LLFloaterPerms::getNextOwnerPerms(), LLFloaterPerms::getGroupPerms(), LLFloaterPerms::getEveryonePerms(),
+						    name,
+						    callback, expected_upload_cost, userdata);
 			}
 			else
 			{
 				llwarns << "Failure writing animation data." << llendl;
-				gViewerWindow->alertXml("WriteAnimationFail");
+				LLNotifications::instance().add("WriteAnimationFail");
 			}
 		}
 
@@ -1033,7 +1041,7 @@ LLPreviewAnimation::LLPreviewAnimation(S32 width, S32 height) : LLDynamicTexture
 	mDummyAvatar->updateJointLODs();
 	mDummyAvatar->updateGeometry(mDummyAvatar->mDrawable);
 	mDummyAvatar->startMotion(ANIM_AGENT_STAND, BASE_ANIM_TIME_OFFSET);
-	mDummyAvatar->mSkirtLOD.setVisible(FALSE, TRUE);
+	mDummyAvatar->hideSkirt();
 	gPipeline.markVisible(mDummyAvatar->mDrawable, *LLViewerCamera::getInstance());
 
 	// stop extraneous animations

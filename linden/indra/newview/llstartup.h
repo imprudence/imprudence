@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -36,9 +37,8 @@
 
 // functions
 bool idle_startup();
-std::string load_password_from_disk();
 void release_start_screen();
-void login_alert_done(S32 option, void* user_data);
+bool login_alert_done(const LLSD& notification, const LLSD& response);
 
 // constants, variables,  & enumerations
 extern std::string SCREEN_HOME_FILENAME;
@@ -98,6 +98,15 @@ public:
 	static void loadInitialOutfit( const std::string& outfit_folder_name,
 								   const std::string& gender_name );
 
+	// Load MD5 of user's password from local disk file.
+	static std::string loadPasswordFromDisk();
+	
+	// Record MD5 of user's password for subsequent login.
+	static void savePasswordToDisk(const std::string& hashed_password);
+	
+	// Delete the saved password local disk file.
+	static void deletePasswordFromDisk();
+	
 	static bool dispatchURL();
 		// if we have a SLURL or sim string ("Ahern/123/45") that started
 		// the viewer, dispatch it

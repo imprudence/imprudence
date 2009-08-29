@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater label="（不明）" name="im_floater" title="（不明）">
 	<string name="ringing">
 		呼び出し中...
@@ -18,35 +18,33 @@
 	<string name="voice_icon">
 		icn_voice-pvtfocus.tga
 	</string>
+	<string name="title_string">
+		[NAME]とインスタント・メッセージ
+	</string>
+	<string name="typing_start_string">
+		[NAME]は入力中...
+	</string>
+	<string name="session_start_string">
+		[NAME]とセッションを開始します。お待ちください。
+	</string>
 	<string name="default_text_label">
 		ここをクリックしてIM
 	</string>
-	<button label="プロフィール" name="profile_callee_btn"  width="100"/>
-	<button label="コール" name="start_call_btn"  left_delta="105" width="100"/>
-	<button label="呼出終了" name="end_call_btn" width="100" />
-	<panel name="speaker_controls" left_delta="96">
-		<check_box name="mute_btn" tool_tip="ボイスをミュート(消声)" />
+	<string name="unavailable_text_label">
+		このコールでは文字チャットが利用できません。
+	</string>
+	<button label="プロフィール" name="profile_callee_btn" width="100"/>
+	<button label="コール" left_delta="105" name="start_call_btn" width="100"/>
+	<button label="呼出終了" name="end_call_btn" width="100"/>
+	<panel left_delta="96" name="speaker_controls">
+		<button label="" name="mute_btn" tool_tip="ボイスをミュート(消声)"/>
 	</panel>
-	<line_editor label="IMを開始するには、ここをクリックします。"
-	     name="chat_editor" />
-	<button label="テレポート" label_selected="テレポート" name="teleport_btn" />
-	<button label="ﾌﾟﾛﾌｨｰﾙ" label_selected="ﾌﾟﾛﾌｨｰﾙ"
-	     name="profile_btn" />
-	<button label="閉じる" label_selected="閉じる" name="close_btn" />
-	<button label="送信" name="send_btn" />
-	<text name="live_help_dialog">
+	<line_editor label="IMを開始するには、ここをクリックします。" name="chat_editor"/>
+	<button label="送信" name="send_btn"/>
+	<string name="live_help_dialog">
 		***ヘルプリクエストへようこそ***
 まずF1キーを押すか、または知識ベース（http://secondlife.com/knowledgebase/）にアクセスしてSLヘルプページを開いてください。
 回答が見つからなければ、質問を入力してヘルパーの手が空くまで、数分程度お待ちください。
 -=-=- 応答時間は一定ではなく、特にピークタイムは大きく変動します。-=-=-
-	</text>
-	<text name="title_string">
-		[NAME]とインスタント・メッセージ
-	</text>
-	<text name="typing_start_string">
-		[NAME]は入力中...
-	</text>
-	<text name="session_start_string">
-		[NAME]とセッションを開始します。お待ちください。
-	</text>
+	</string>
 </floater>

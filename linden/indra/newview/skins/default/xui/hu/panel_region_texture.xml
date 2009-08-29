@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Talaj" name="Textures">
+	<text name="region_text_lbl">
+		Régió:
+	</text>
+	<text name="region_text">
+		ismeretlen
+	</text>
+	<text name="detail_texture_text" width="400">
+		Domborzat mintázata (követelmény: 512x512, 24 bit .tga fájl)
+	</text>
+	<text name="height_text_lbl">
+		1 (Alacsony)
+	</text>
+	<text name="height_text_lbl2">
+		2
+	</text>
+	<text name="height_text_lbl3">
+		3
+	</text>
+	<text name="height_text_lbl4">
+		4 (Magas)
+	</text>
+	<text name="height_text_lbl5">
+		Mintázat magassági hatósugár:
+	</text>
+	<text name="height_text_lbl6">
+		Dél-nyugat
+	</text>
+	<text name="height_text_lbl7">
+		Észak-nyugat
+	</text>
+	<text name="height_text_lbl8">
+		Dél-kelet
+	</text>
+	<text name="height_text_lbl9">
+		Észak-kelet
+	</text>
+	<spinner label="Alacsony" name="height_start_spin_0" label_width="52" width="105"/>
+	<spinner label="Alacsony" name="height_start_spin_1" label_width="52" width="105"/>
+	<spinner label="Alacsony" name="height_start_spin_2" label_width="52" width="105"/>
+	<spinner label="Alacsony" name="height_start_spin_3" label_width="52" width="105"/>
+	<spinner label="Magas" name="height_range_spin_0" label_width="52" width="105"/>
+	<spinner label="Magas" name="height_range_spin_1" label_width="52" width="105"/>
+	<spinner label="Magas" name="height_range_spin_2" label_width="52" width="105"/>
+	<spinner label="Magas" name="height_range_spin_3" label_width="52" width="105"/>
+	<text name="height_text_lbl10" left="10">
+		Ez az érték mutatja a fenti mintázatok keverési értékét. Az adatok méterben vannak
+megadva.
+	</text>
+	<text name="height_text_lbl11" left="10" bottom_delta="-32">
+		Az ALACSONY érték az 1. mintázat magasságának a MAXIMUMA,
+	</text>
+	<text name="height_text_lbl12" left="10">
+		a MAGAS érték a 4. mintázat magasságának a MINIMUMA.
+	</text>
+	<button label="Alkalmaz" name="apply_btn" />
+</panel>

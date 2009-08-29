@@ -16,7 +16,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -45,6 +46,7 @@
 #include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 #include "llappviewer.h"
+#include "llnotifications.h"
 
 // static
 void* LLPanelGroupTab::createTab(void* data)
@@ -115,17 +117,12 @@ void LLPanelGroupTab::handleClickHelp()
 	std::string help_text( getHelpText() );
 	if ( !help_text.empty() )
 	{
-		LLStringUtil::format_map_t args;
-		args["[MESSAGE]"] = help_text;
-		LLAlertDialog* dialogp = gViewerWindow->alertXml("GenericAlert", args);
-		if (dialogp)
-		{
-			LLFloater* root_floater = gFloaterView->getParentFloater(this);;
-			if (root_floater)
-			{
-				root_floater->addDependentFloater(dialogp);
-			}
-		}
+		LLSD args;
+		args["MESSAGE"] = help_text;
+		LLFloater* parent_floater = gFloaterView->getParentFloater(this);
+		LLNotification::Params params(parent_floater->contextualNotification("GenericAlert"));
+		params.substitutions(args);
+		LLNotifications::instance().add(params);
 	}
 }
 
@@ -411,11 +408,11 @@ BOOL LLPanelGroup::attemptTransition()
 			mesg = mDefaultNeedsApplyMesg;
 		}
 		// Create a notify box, telling the user about the unapplied tab.
-		LLStringUtil::format_map_t args;
-		args["[NEEDS_APPLY_MESSAGE]"] = mesg;
-		args["[WANT_APPLY_MESSAGE]"] = mWantApplyMesg;
-		gViewerWindow->alertXml("PanelGroupApply", args,
-								onNotifyCallback, (void*) this);
+		LLSD args;
+		args["NEEDS_APPLY_MESSAGE"] = mesg;
+		args["WANT_APPLY_MESSAGE"] = mWantApplyMesg;
+		LLNotifications::instance().add("PanelGroupApply", args, LLSD(),
+			boost::bind(&LLPanelGroup::handleNotifyCallback, this, _1, _2));
 		mShowingNotifyDialog = TRUE;
 		
 		// We need to reselect the current tab, since it isn't finished.
@@ -465,18 +462,9 @@ void LLPanelGroup::transitionToTab()
 	}
 }
 
-// static
-void LLPanelGroup::onNotifyCallback(S32 option, void* user_data)
+bool LLPanelGroup::handleNotifyCallback(const LLSD& notification, const LLSD& response)
 {
-	LLPanelGroup* self = static_cast<LLPanelGroup*>(user_data);
-	if (self)
-	{
-		self->handleNotifyCallback(option);
-	}
-}
-
-void LLPanelGroup::handleNotifyCallback(S32 option)
-{
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	mShowingNotifyDialog = FALSE;
 	switch (option)
 	{
@@ -512,6 +500,7 @@ void LLPanelGroup::handleNotifyCallback(S32 option)
 		LLAppViewer::instance()->abortQuit();
 		break;
 	}
+	return false;
 }
 
 // static
@@ -568,9 +557,9 @@ bool LLPanelGroup::apply()
 	// Inform the user.
 	if ( !apply_mesg.empty() )
 	{
-		LLStringUtil::format_map_t args;
-		args["[MESSAGE]"] = apply_mesg;
-		gViewerWindow->alertXml("GenericAlert", args);
+		LLSD args;
+		args["MESSAGE"] = apply_mesg;
+		LLNotifications::instance().add("GenericAlert", args);
 	}
 
 	return false;
@@ -638,7 +627,7 @@ void LLPanelGroup::showNotice(const std::string& subject,
 		// We need to clean up that inventory offer.
 		if (inventory_offer)
 		{
-			inventory_offer_callback( IOR_DECLINE , inventory_offer); 
+			inventory_offer->forceResponse(IOR_DECLINE);
 		}
 		return;
 	}

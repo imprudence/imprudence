@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -63,7 +64,8 @@ public:
 	void forceQuit(); // Puts the viewer into 'shutting down without error' mode.
 	void requestQuit(); // Request a quit. A kinder, gentler quit.
 	void userQuit(); // The users asks to quit. Confirm, then requestQuit()
-    void earlyExit(const std::string& msg); // Display an error dialog and forcibly quit.
+    void earlyExit(const std::string& name, 
+				   const LLSD& substitutions = LLSD()); // Display an error dialog and forcibly quit.
     void forceExit(S32 arg); // exit() immediately (after some cleanup).
     void abortQuit();  // Called to abort a quit request.
 
@@ -83,7 +85,8 @@ public:
 	virtual void handleSyncCrashTrace() = 0; // any low-level crash-prep that has to happen in the context of the crashing thread before the crash report is delivered.
 	static void handleViewerCrash(); // Hey! The viewer crashed. Do this, soon.
 	static void handleSyncViewerCrash(); // Hey! The viewer crashed. Do this right NOW in the context of the crashing thread.
-
+    void checkForCrash();
+    
 	// Thread accessors
 	static LLTextureCache* getTextureCache() { return sTextureCache; }
 	static LLWorkerThread* getImageDecodeThread() { return sImageDecodeThread; }
@@ -125,10 +128,14 @@ public:
 	static const std::string sPerAccountSettingsName; 
 	static const std::string sCrashSettingsName; 
 
-	// returns false if loading a *required* settings file fails.
-	bool loadSettingsFromDirectory(ELLPath path_index, bool set_defaults = false);
+	// Load settings from the location specified by loction_key.
+	// Key availale and rules for loading, are specified in 
+	// 'app_settings/settings_files.xml'
+	bool loadSettingsFromDirectory(const std::string& location_key, 
+				       bool set_defaults = false);
 
-	std::string getSettingsFileName(const std::string& file);
+	std::string getSettingsFilename(const std::string& location_key,
+					const std::string& file);
 
 	// For thread debugging. 
 	// llstartup needs to control init.
@@ -166,6 +173,10 @@ private:
 	bool initCache(); // Initialize local client cache.
 	void purgeCache(); // Clear the local cache. 
 
+	// We have switched locations of both Mac and Windows cache, make sure
+	// files migrate and old cache is cleared out.
+	void migrateCacheDirectory();
+
 	void cleanupSavedSettings(); // Sets some config data to current or default values during cleanup.
 	void removeCacheFiles(const std::string& filemask); // Deletes cached files the match the given wildcard.
 
@@ -188,7 +199,7 @@ private:
     bool mSecondInstance; // Is this a second instance of the app?
 
 	std::string mMarkerFileName;
-	apr_file_t* mMarkerFile; // A file created to indicate the app is running.
+	LLAPRFile mMarkerFile; // A file created to indicate the app is running.
 
 	std::string mLogoutMarkerFileName;
 	apr_file_t* mLogoutMarkerFile; // A file created to indicate the app is running.
@@ -213,7 +224,7 @@ private:
     bool mQuitRequested;				// User wants to quit, may have modified documents open.
     bool mLogoutRequestSent;			// Disconnect message sent to simulator, no longer safe to send messages to the sim.
     S32 mYieldTime;
-	LLSD mSettingsFileList;
+	LLSD mSettingsLocationList;
 
 	LLWatchdogTimeout* mMainloopTimeout;
 

@@ -8,26 +8,29 @@
 
   <menu name="File" create_jump_keys="true" label="File"
         opaque="true" tear_off="true">
-    <menu_item_call name="Upload Image"
-                    label="Upload Image (L$[COST])..."
-                    shortcut="control|U">
-      <on_click function="File.UploadImage" userdata="" />
-      <on_enable function="File.EnableUpload" />
-    </menu_item_call>
-    <menu_item_call name="Upload Sound"
-                    label="Upload Sound (L$[COST])...">
-      <on_click function="File.UploadSound" userdata="" />
-      <on_enable function="File.EnableUpload" />
-    </menu_item_call>
-    <menu_item_call name="Upload Animation"
-                    label="Upload Animation (L$[COST])...">
-      <on_click function="File.UploadAnim" userdata="" />
-      <on_enable function="File.EnableUpload" />
-    </menu_item_call>
-    <menu_item_call name="Bulk Upload"
-                    label="Bulk Upload (L$[COST] per file)...">
-      <on_click function="File.UploadBulk" userdata="" />
-    </menu_item_call>
+    <menu label="Upload" create_jump_keys="true" name="Upload"
+          opaque="true" tear_off="true">
+      <menu_item_call name="Upload Image"
+                      label="Upload Image (L$[COST])..."
+                      shortcut="control|U">
+        <on_click function="File.UploadImage" userdata="" />
+        <on_enable function="File.EnableUpload" />
+      </menu_item_call>
+      <menu_item_call name="Upload Sound"
+                      label="Upload Sound (L$[COST])...">
+        <on_click function="File.UploadSound" userdata="" />
+        <on_enable function="File.EnableUpload" />
+      </menu_item_call>
+      <menu_item_call name="Upload Animation"
+                      label="Upload Animation (L$[COST])...">
+        <on_click function="File.UploadAnim" userdata="" />
+        <on_enable function="File.EnableUpload" />
+      </menu_item_call>
+      <menu_item_call name="Bulk Upload"
+                      label="Bulk Upload (L$[COST] per file)...">
+        <on_click function="File.UploadBulk" userdata="" />
+      </menu_item_call>
+    </menu>
     <menu_item_separator />
     <menu_item_call name="Close Window"
                     label="Close Window"
@@ -259,6 +262,7 @@
                      shortcut="alt|shift|F">
       <on_click function="View.JoystickFlycam" userdata="" />
       <on_check function="View.CheckJoystickFlycam" />
+      <on_enable function="View.EnableJoystickFlycam" />
     </menu_item_check>
     <menu_item_call name="Reset View" label="Reset View"
                     shortcut="Esc">
@@ -332,6 +336,10 @@
       <on_click function="ToggleControl" userdata="ShowPropertyLines" />
       <on_check control="ShowPropertyLines" />
     </menu_item_check>
+		<menu_item_check label="Banlines" enabled="true" name="Banlines">
+			<on_click function="ToggleControl" userdata="ShowBanLines" />
+			<on_check control="ShowBanLines" />
+		</menu_item_check>
     <menu_item_check name="Land Owners" label="Land Owners">
       <on_click function="ToggleControl" userdata="ShowParcelOwners" />
       <on_check control="ShowParcelOwners" />
@@ -645,8 +653,8 @@
     </menu_item_call>
     <menu_item_call name="Menu Object Take" enabled="false"
                     label="Take" visible="false">
-      <on_click function="Tools.Take" userdata="" />
-      <on_enable function="Tools.EnableTake" />
+      <on_click function="Tools.Take" userdata=""/>
+      <on_enable function="Tools.EnableTake" name="EnableTake"/>
     </menu_item_call>
     <menu_item_call name="Take Copy" enabled="false"
                     label="Take Copy">
@@ -658,12 +666,6 @@
                     label="Return Object">
       <on_click function="Object.Return" />
       <on_enable function="Object.EnableReturn" />
-    </menu_item_call>
-    <menu_item_call name="Save Object Back to My Inventory"
-                    enabled="false"
-                    label="Save Object Back to My Inventory">
-      <on_click function="Tools.SaveToInventory" userdata="" />
-      <on_enable function="Tools.EnableSaveToInventory" />
     </menu_item_call>
     <menu_item_call name="Save Object Back to Object Contents"
                     enabled="false"

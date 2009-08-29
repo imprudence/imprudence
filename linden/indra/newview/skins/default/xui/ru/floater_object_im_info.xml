@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="object im info" title="Информация об Объекте">
+	<text name="LabelItemNameTitle">
+		Объект:
+	</text>
+	<text name="LabelSlurlTitle">
+		Место:
+	</text>
+	<text name="Unknown_Slurl" width="300">
+		(Информация о Месте Недоступна)
+	</text>
+	<text name="LabelOwnerNameTitle">
+		Владелец:
+	</text>
+	<button label="Заглушить Владельца" label_selected="Заглушить Владельца" name="Mute"/>
+</floater>

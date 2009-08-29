@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_buy_contents" title="Купити Зміст" width="340" min_width="340">
+	<text name="contains_text">
+		[NAME] містить:
+	</text>
+	<scroll_list name="item_list" width="310"/>
+	<text name="buy_text" width="320">
+		Купити за L$[AMOUNT] у [NAME]?
+	</text>
+	<button label="Відміна" label_selected="Відміна" name="cancel_btn" left="256"/>
+	<button label="Купити" label_selected="Купити" name="buy_btn" />
+	<check_box label="Вдягти одяг зараз" name="wear_check" left_delta="-179"/>
+	<string name="no_copy_text">
+		(не копіювати)
+	</string>
+	<string name="no_modify_text">
+		(не змінювати)
+	</string>
+	<string name="no_transfer_text">
+		(не передавати)
+	</string>
+</floater>

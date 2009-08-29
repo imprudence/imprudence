@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="0" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" can_tear_off="true" enabled="true" height="140" left="0"
+     mouse_opaque="true" name="object im info" width="300"
+     rect_control="FloaterObjectIMInfo" short_title="Object Info" title="Object Information" >
+
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-35" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="10" left="10"
+	     mouse_opaque="true" name="LabelItemNameTitle" v_pad="0" width="78">
+    Object:
+  </text>
+  <text bevel_style="none" border_style="line" border_visible="false"
+			     border_thickness="0" bottom_delta="-10" enabled="true" follows="left|top"
+			     font="SansSerif" height="20" is_unicode="false" left="70"
+			     max_length="254" mouse_opaque="false" name="ObjectName"
+			     width="200" />
+
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-60" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="10" left="10"
+	     mouse_opaque="true" name="LabelSlurlTitle" v_pad="0" width="78">
+    Location:
+  </text>
+  <text bevel_style="none" border_style="line" border_visible="false"
+			     border_thickness="0" bottom_delta="-10" enabled="true" follows="left|top"
+			     font="SansSerif" height="20" is_unicode="false" left="70" hover="true"
+			     max_length="254" mouse_opaque="true" name="Slurl" font-style="UNDERLINE"
+			     width="200" hover_cursor="UI_CURSOR_HAND" text_color="TextLinkColor" hover_color="TextLinkHoverColor"/>
+  
+  <!-- A new viewer talking to an old sim will not have a slurl available and will show this. -->
+  <text bevel_style="none" border_style="line" border_visible="false"
+			     border_thickness="0" bottom_delta="0" enabled="true" follows="left|top"
+			     font="SansSerif" height="20" is_unicode="false" left_delta="0" hover="false"
+			     max_length="254" mouse_opaque="false" name="Unknown_Slurl" width="200">
+    (Location Info Not Available)
+  </text>
+
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-85" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="10" left="10"
+	     mouse_opaque="true" name="LabelOwnerNameTitle" v_pad="0" width="78">
+    Owner:
+  </text>
+  <text bevel_style="none" border_style="line" border_visible="false"
+			     border_thickness="0" bottom_delta="-10" enabled="true" follows="left|top"
+			     font="SansSerif" height="20" is_unicode="false" left="70" hover="true"
+			     max_length="254" mouse_opaque="true" name="OwnerName" font-style="UNDERLINE"
+			     width="200" hover_cursor="UI_CURSOR_HAND" text_color="TextLinkColor" hover_color="TextLinkHoverColor"/>
+  
+  <button bottom_delta="-30" font="SansSerif" halign="center" height="20" label="Mute Owner"
+         label_selected="Mute Owner" left="70" mouse_opaque="true" name="Mute"
+         width="160" />
+</floater>

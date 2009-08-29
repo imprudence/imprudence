@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -72,7 +73,7 @@ LLCheckBoxCtrl::LLCheckBoxCtrl(const std::string& name, const LLRect& rect,
 	}
 	else
 	{
-		mFont = LLFontGL::sSansSerifSmall;
+		mFont = LLFontGL::getFontSansSerifSmall();
 	}
 
 	// must be big enough to hold all children
@@ -122,7 +123,7 @@ LLCheckBoxCtrl::LLCheckBoxCtrl(const std::string& name, const LLRect& rect,
 		inactive_false_id = "UIImgRadioInactiveUUID";
 		mButton = new LLButton(std::string("Radio control button"), btn_rect,
 							   active_false_id, active_true_id, control_which,
-							   &LLCheckBoxCtrl::onButtonPress, this, LLFontGL::sSansSerif ); 
+							   &LLCheckBoxCtrl::onButtonPress, this, LLFontGL::getFontSansSerif() ); 
 		mButton->setDisabledImages( inactive_false_id, inactive_true_id );
 		mButton->setHoverGlowStrength(0.35f);
 	}
@@ -134,7 +135,7 @@ LLCheckBoxCtrl::LLCheckBoxCtrl(const std::string& name, const LLRect& rect,
 		inactive_false_id = "UIImgCheckboxInactiveUUID";
 		mButton = new LLButton(std::string("Checkbox control button"), btn_rect,
 							   active_false_id, active_true_id, control_which,
-							   &LLCheckBoxCtrl::onButtonPress, this, LLFontGL::sSansSerif ); 
+							   &LLCheckBoxCtrl::onButtonPress, this, LLFontGL::getFontSansSerif() ); 
 		mButton->setDisabledImages( inactive_false_id, inactive_true_id );
 		mButton->setHoverGlowStrength(0.35f);
 	}

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -35,6 +36,8 @@
 
 #include "llfont.h"
 #include "llfontgl.h"
+#include "llfontbitmapcache.h"
+#include "llfontregistry.h"
 #include "llgl.h"
 #include "llrender.h"
 #include "v4color.h"
@@ -50,24 +53,11 @@ F32 LLFontGL::sScaleY = 1.f;
 BOOL LLFontGL::sDisplayFont = TRUE ;
 std::string LLFontGL::sAppDir;
 
-LLFontGL* LLFontGL::sMonospace = NULL;
-LLFontGL* LLFontGL::sSansSerifSmall = NULL;
-LLFontGL* LLFontGL::sSansSerif = NULL;
-LLFontGL* LLFontGL::sSansSerifBig = NULL;
-LLFontGL* LLFontGL::sSansSerifHuge = NULL;
-LLFontGL* LLFontGL::sSansSerifBold = NULL;
-LLFontList*	LLFontGL::sMonospaceFallback = NULL;
-LLFontList*	LLFontGL::sSSFallback = NULL;
-LLFontList*	LLFontGL::sSSSmallFallback = NULL;
-LLFontList*	LLFontGL::sSSBigFallback = NULL;
-LLFontList*	LLFontGL::sSSHugeFallback = NULL;
-LLFontList*	LLFontGL::sSSBoldFallback = NULL;
 LLColor4 LLFontGL::sShadowColor(0.f, 0.f, 0.f, 1.f);
+LLFontRegistry* LLFontGL::sFontRegistry = NULL;
 
 LLCoordFont LLFontGL::sCurOrigin;
 std::vector<LLCoordFont> LLFontGL::sOriginStack;
-
-LLFontGL*& gExtCharFont = LLFontGL::sSansSerif;
 
 const F32 EXT_X_BEARING = 1.f;
 const F32 EXT_Y_BEARING = 0.f;
@@ -75,7 +65,7 @@ const F32 EXT_KERNING = 1.f;
 const F32 PIXEL_BORDER_THRESHOLD = 0.0001f;
 const F32 PIXEL_CORRECTION_DISTANCE = 0.01f;
 
-const F32 PAD_AMT = 0.5f;
+const F32 PAD_UVY = 0.5f; // half of vertical padding between glyphs in the glyph texture
 const F32 DROP_SHADOW_SOFT_STRENGTH = 0.3f;
 
 F32 llfont_round_x(F32 x)
@@ -126,7 +116,6 @@ U8 LLFontGL::getStyleFromString(const std::string &style)
 LLFontGL::LLFontGL()
 	: LLFont()
 {
-	init();
 	clearEmbeddedChars();
 }
 
@@ -137,32 +126,30 @@ LLFontGL::LLFontGL(const LLFontGL &source)
 
 LLFontGL::~LLFontGL()
 {
-	mImageGLp = NULL;
-	mRawImageGLp = NULL;
 	clearEmbeddedChars();
-}
-
-void LLFontGL::init()
-{
-	if (mImageGLp.isNull())
-	{
-		mImageGLp = new LLImageGL(FALSE);
-		//RN: use nearest mipmap filtering to obviate the need to do pixel-accurate positioning
-		gGL.getTexUnit(0)->bind(mImageGLp);
-		// we allow bilinear filtering to get sub-pixel positioning for drop shadows
-		//mImageGLp->setMipFilterNearest(TRUE, TRUE);
-	}
-	if (mRawImageGLp.isNull())
-	{
-		mRawImageGLp = new LLImageRaw; // Note LLFontGL owns the image, not LLFont.
-	}
-	setRawImage( mRawImageGLp );  
 }
 
 void LLFontGL::reset()
 {
-	init();
-	resetBitmap();
+	if (!mIsFallback)
+	{
+		// This is the head of the list - need to rebuild ourself and all fallbacks.
+		loadFace(mName,mPointSize,sVertDPI,sHorizDPI,mFontBitmapCachep->getNumComponents(),mIsFallback);
+		if (mFallbackFontp==NULL)
+		{
+			llwarns << "LLFontGL::reset(), no fallback fonts present" << llendl;
+		}
+		else
+		{
+			for (LLFontList::iterator it = mFallbackFontp->begin();
+				 it != mFallbackFontp->end();
+				 ++it)
+			{
+				(*it)->reset();
+			}
+		}
+	}
+	resetBitmapCache(); 
 }
 
 // static 
@@ -219,243 +206,48 @@ std::string LLFontGL::getFontPathLocal()
 	return local_path;
 }
 
-//static
-bool LLFontGL::loadFaceFallback(LLFontList *fontlistp, const std::string& fontname, const F32 point_size)
+bool findOrCreateFont(LLFontGL*& fontp, const LLFontDescriptor& desc)
 {
-	std::string local_path = getFontPathLocal();
-	std::string sys_path = getFontPathSystem();
-	
-	// The fontname string may contain multiple font file names separated by semicolons.
-	// Break it apart and try loading each one, in order.
-	typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-	boost::char_separator<char> sep(";");
-	tokenizer tokens(fontname, sep);
-	tokenizer::iterator token_iter;
-
-	for(token_iter = tokens.begin(); token_iter != tokens.end(); ++token_iter)
-	{
-		LLFont *fontp = new LLFont();
-		std::string font_path = local_path + *token_iter;
-		if (!fontp->loadFace(font_path, point_size, sVertDPI, sHorizDPI, 2, TRUE))
-		{
-			font_path = sys_path + *token_iter;
-			if (!fontp->loadFace(font_path, point_size, sVertDPI, sHorizDPI, 2, TRUE))
-			{
-				LL_INFOS_ONCE("ViewerImages") << "Couldn't load font " << *token_iter << LL_ENDL;
-				delete fontp;
-				fontp = NULL;
-			}
-		}
-		
-		if(fontp)
-		{
-			fontlistp->addAtEnd(fontp);
-		}
-	}
-	
-	// We want to return true if at least one fallback font loaded correctly.
-	return (fontlistp->size() > 0);
+	// Don't delete existing fonts, if any, here, because they've
+	// already been deleted by LLFontRegistry::clear()
+	fontp = LLFontGL::getFont(desc);
+	return (fontp != NULL);
 }
-
-//static
-bool LLFontGL::loadFace(LLFontGL *fontp, const std::string& fontname, const F32 point_size, LLFontList *fallback_fontp)
-{
-	std::string local_path = getFontPathLocal();
-	std::string font_path = local_path + fontname;
-	if (!fontp->loadFace(font_path, point_size, sVertDPI, sHorizDPI, 2, FALSE))
-	{
-		std::string sys_path = getFontPathSystem();
-		font_path = sys_path + fontname;
-		if (!fontp->loadFace(font_path, point_size, sVertDPI, sHorizDPI, 2, FALSE))
-		{
-			LL_WARNS("ViewerImages") << "Couldn't load font " << fontname << LL_ENDL;
-			return false;
-		}
-	}
-
-	fontp->setFallbackFont(fallback_fontp);
-	return true;
-}
-
 
 // static
 BOOL LLFontGL::initDefaultFonts(F32 screen_dpi, F32 x_scale, F32 y_scale,
-				const std::string& monospace_file, F32 monospace_size,
-				const std::string& sansserif_file,
-				const std::string& sanserif_fallback_file, F32 ss_fallback_scale,
-				F32 small_size, F32 medium_size, F32 big_size, F32 huge_size,
-				const std::string& sansserif_bold_file, F32 bold_size,
-				const std::string& app_dir)
+								const std::string& app_dir,
+								const std::vector<std::string>& xui_paths)
 {
-	BOOL failed = FALSE;
+	bool succ = true;
 	sVertDPI = (F32)llfloor(screen_dpi * y_scale);
 	sHorizDPI = (F32)llfloor(screen_dpi * x_scale);
 	sScaleX = x_scale;
 	sScaleY = y_scale;
 	sAppDir = app_dir;
 
-	//
-	// Monospace font
-	//
-
-	if (!sMonospace)
+	// Font registry init
+	if (!sFontRegistry)
 	{
-		sMonospace = new LLFontGL();
+		sFontRegistry = new LLFontRegistry(xui_paths);
+		sFontRegistry->parseFontInfo("fonts.xml");
 	}
 	else
 	{
-		sMonospace->reset();
+		sFontRegistry->reset();
 	}
 
-	if (sMonospaceFallback)
-	{
-		delete sMonospaceFallback;
-	}
-	sMonospaceFallback = new LLFontList();
-	if (!loadFaceFallback(
-			sMonospaceFallback,
-			sanserif_fallback_file,
-			monospace_size * ss_fallback_scale))
-	{
-		delete sMonospaceFallback;
-		sMonospaceFallback = NULL;
-	}
-
-	failed |= !loadFace(sMonospace, monospace_file, monospace_size, sMonospaceFallback);
-
-	//
-	// Sans-serif fonts
-	//
-	if(!sSansSerifHuge)
-	{
-		sSansSerifHuge = new LLFontGL();
-	}
-	else
-	{
-		sSansSerifHuge->reset();
-	}
-
-	if (sSSHugeFallback)
-	{
-		delete sSSHugeFallback;
-	}
-	sSSHugeFallback = new LLFontList();
-	if (!loadFaceFallback(
-			sSSHugeFallback,
-			sanserif_fallback_file,
-			huge_size*ss_fallback_scale))
-	{
-		delete sSSHugeFallback;
-		sSSHugeFallback = NULL;
-	}
-
-	failed |= !loadFace(sSansSerifHuge, sansserif_file, huge_size, sSSHugeFallback);
-
-
-	if(!sSansSerifBig)
-	{
-		sSansSerifBig = new LLFontGL();
-	}
-	else
-	{
-		sSansSerifBig->reset();
-	}
-
-	if (sSSBigFallback)
-	{
-		delete sSSBigFallback;
-	}
-	sSSBigFallback = new LLFontList();
-	if (!loadFaceFallback(
-			sSSBigFallback,
-			sanserif_fallback_file,
-			big_size*ss_fallback_scale))
-	{
-		delete sSSBigFallback;
-		sSSBigFallback = NULL;
-	}
-
-	failed |= !loadFace(sSansSerifBig, sansserif_file, big_size, sSSBigFallback);
-
-
-	if(!sSansSerif)
-	{
-		sSansSerif = new LLFontGL();
-	}
-	else
-	{
-		sSansSerif->reset();
-	}
-
-	if (sSSFallback)
-	{
-		delete sSSFallback;
-	}
-	sSSFallback = new LLFontList();
-	if (!loadFaceFallback(
-			sSSFallback,
-			sanserif_fallback_file,
-			medium_size*ss_fallback_scale))
-	{
-		delete sSSFallback;
-		sSSFallback = NULL;
-	}
-	failed |= !loadFace(sSansSerif, sansserif_file, medium_size, sSSFallback);
-
-
-	if(!sSansSerifSmall)
-	{
-		sSansSerifSmall = new LLFontGL();
-	}
-	else
-	{
-		sSansSerifSmall->reset();
-	}
-
-	if(sSSSmallFallback)
-	{
-		delete sSSSmallFallback;
-	}
-	sSSSmallFallback = new LLFontList();
-	if (!loadFaceFallback(
-			sSSSmallFallback,
-			sanserif_fallback_file,
-			small_size*ss_fallback_scale))
-	{
-		delete sSSSmallFallback;
-		sSSSmallFallback = NULL;
-	}
-	failed |= !loadFace(sSansSerifSmall, sansserif_file, small_size, sSSSmallFallback);
-
-
-	//
-	// Sans-serif bold
-	//
-	if(!sSansSerifBold)
-	{
-		sSansSerifBold = new LLFontGL();
-	}
-	else
-	{
-		sSansSerifBold->reset();
-	}
-
-	if (sSSBoldFallback)
-	{
-		delete sSSBoldFallback;
-	}
-	sSSBoldFallback = new LLFontList();
-	if (!loadFaceFallback(
-			sSSBoldFallback,
-			sanserif_fallback_file,
-			medium_size*ss_fallback_scale))
-	{
-		delete sSSBoldFallback;
-		sSSBoldFallback = NULL;
-	}
-	failed |= !loadFace(sSansSerifBold, sansserif_bold_file, medium_size, sSSBoldFallback);
-
-	return !failed;
+	// Force standard fonts to get generated up front.
+	// This is primarily for error detection purposes.
+ 	succ &= (NULL != getFontSansSerifSmall());
+ 	succ &= (NULL != getFontSansSerif());
+ 	succ &= (NULL != getFontSansSerifBig());
+ 	succ &= (NULL != getFontSansSerifHuge());
+ 	succ &= (NULL != getFontSansSerifBold());
+ 	succ &= (NULL != getFontMonospace());
+	succ &= (NULL != getFontExtChar());
+	
+	return succ;
 }
 
 
@@ -463,57 +255,23 @@ BOOL LLFontGL::initDefaultFonts(F32 screen_dpi, F32 x_scale, F32 y_scale,
 // static
 void LLFontGL::destroyDefaultFonts()
 {
-	delete sMonospace;
-	sMonospace = NULL;
-
-	delete sSansSerifHuge;
-	sSansSerifHuge = NULL;
-
-	delete sSansSerifBig;
-	sSansSerifBig = NULL;
-
-	delete sSansSerif;
-	sSansSerif = NULL;
-
-	delete sSansSerifSmall;
-	sSansSerifSmall = NULL;
-
-	delete sSansSerifBold;
-	sSansSerifBold = NULL;
-
-	delete sMonospaceFallback;
-	sMonospaceFallback = NULL;
-
-	delete sSSHugeFallback;
-	sSSHugeFallback = NULL;
-
-	delete sSSBigFallback;
-	sSSBigFallback = NULL;
-
-	delete sSSFallback;
-	sSSFallback = NULL;
-
-	delete sSSSmallFallback;
-	sSSSmallFallback = NULL;
-
-	delete sSSBoldFallback;
-	sSSBoldFallback = NULL;
+	// Remove the actual fonts.
+	delete sFontRegistry;
+	sFontRegistry = NULL;
 }
 
 //static 
+void LLFontGL::destroyAllGL()
+{
+	if (sFontRegistry)
+	{
+		sFontRegistry->destroyGL();
+	}
+}
+
 void LLFontGL::destroyGL()
 {
-	if (!sMonospace)
-	{
-		// Already all destroyed.
-		return;
-	}
-	sMonospace->mImageGLp->destroyGLTexture();
-	sSansSerifHuge->mImageGLp->destroyGLTexture();
-	sSansSerifSmall->mImageGLp->destroyGLTexture();
-	sSansSerif->mImageGLp->destroyGLTexture();
-	sSansSerifBig->mImageGLp->destroyGLTexture();
-	sSansSerifBold->mImageGLp->destroyGLTexture();
+	mFontBitmapCachep->destroyGL();
 }
 
 
@@ -532,13 +290,58 @@ BOOL LLFontGL::loadFace(const std::string& filename,
 	{
 		return FALSE;
 	}
-	mImageGLp->createGLTexture(0, mRawImageGLp);
-	gGL.getTexUnit(0)->bind(mImageGLp);
-	mImageGLp->setMipFilterNearest(TRUE, TRUE);
 	return TRUE;
 }
 
-BOOL LLFontGL::addChar(const llwchar wch)
+//static
+LLFontGL* LLFontGL::getFontMonospace()
+{
+	return getFont(LLFontDescriptor("Monospace","Monospace",0));
+}
+
+//static
+LLFontGL* LLFontGL::getFontSansSerifSmall()
+{
+	return getFont(LLFontDescriptor("SansSerif","Small",0));
+}
+
+//static
+LLFontGL* LLFontGL::getFontSansSerif()
+{
+	return getFont(LLFontDescriptor("SansSerif","Medium",0));
+}
+
+//static
+LLFontGL* LLFontGL::getFontSansSerifBig()
+{
+	return getFont(LLFontDescriptor("SansSerif","Large",0));
+}
+
+//static 
+LLFontGL* LLFontGL::getFontSansSerifHuge()
+{
+	return getFont(LLFontDescriptor("SansSerif","Huge",0));
+}
+
+//static 
+LLFontGL* LLFontGL::getFontSansSerifBold()
+{
+	return getFont(LLFontDescriptor("SansSerif","Medium",BOLD));
+}
+
+//static
+LLFontGL* LLFontGL::getFontExtChar()
+{
+	return getFontSansSerif();
+}
+
+//static 
+LLFontGL* LLFontGL::getFont(const LLFontDescriptor& desc)
+{
+	return sFontRegistry->getFont(desc);
+}
+
+BOOL LLFontGL::addChar(const llwchar wch) const
 {
 	if (!LLFont::addChar(wch))
 	{
@@ -546,10 +349,12 @@ BOOL LLFontGL::addChar(const llwchar wch)
 	}
 
 	stop_glerror();
-	mImageGLp->setSubImage(mRawImageGLp, 0, 0, mImageGLp->getWidth(), mImageGLp->getHeight());
-	gGL.getTexUnit(0)->bind(mImageGLp);
-	mImageGLp->setMipFilterNearest(TRUE, TRUE);
-	stop_glerror();
+
+	LLFontGlyphInfo *glyph_info = getGlyphInfo(wch);
+	U32 bitmap_num = glyph_info->mBitmapNum;
+	LLImageGL *image_gl = mFontBitmapCachep->getImageGL(bitmap_num);
+	LLImageRaw *image_raw = mFontBitmapCachep->getImageRaw(bitmap_num);
+	image_gl->setSubImage(image_raw, 0, 0, image_gl->getWidth(), image_gl->getHeight());
 	return TRUE;
 }
 
@@ -564,7 +369,7 @@ S32 LLFontGL::renderUTF8(const std::string &text, const S32 offset,
 					 BOOL use_ellipses) const
 {
 	LLWString wstr = utf8str_to_wstring(text);
-	return render(wstr, offset, x, y, color, halign, valign, style, max_chars, max_pixels, right_x, use_ellipses);
+	return render(wstr, offset, x, y, color, halign, valign, style, max_chars, max_pixels, right_x, FALSE, use_ellipses);
 }
 
 S32 LLFontGL::render(const LLWString &wstr, 
@@ -583,30 +388,17 @@ S32 LLFontGL::render(const LLWString &wstr,
 		return wstr.length() ;
 	}
 
-	gGL.getTexUnit(0)->enable(LLTexUnit::TT_TEXTURE);
-
 	if (wstr.empty())
 	{
 		return 0;
 	} 
 
+	gGL.getTexUnit(0)->enable(LLTexUnit::TT_TEXTURE);
+
 	S32 scaled_max_pixels = max_pixels == S32_MAX ? S32_MAX : llceil((F32)max_pixels * sScaleX);
 
-	// HACK for better bolding
-	if (style & BOLD)
-	{
-		if (this == LLFontGL::sSansSerif)
-		{
-			return LLFontGL::sSansSerifBold->render(
-				wstr, begin_offset,
-				x, y,
-				color,
-				halign, valign, 
-				(style & ~BOLD),
-				max_chars, max_pixels,
-				right_x, use_embedded);
-		}
-	}
+	// Strip off any style bits that are already accounted for by the font.
+	style = style & (~getFontDesc().getStyle());
 
 	F32 drop_shadow_strength = 0.f;
 	if (style & (DROP_SHADOW | DROP_SHADOW_SOFT))
@@ -623,25 +415,12 @@ S32 LLFontGL::render(const LLWString &wstr,
 	gGL.pushMatrix();
 	glLoadIdentity();
 	gGL.translatef(floorf(sCurOrigin.mX*sScaleX), floorf(sCurOrigin.mY*sScaleY), sCurOrigin.mZ);
-	//glScalef(sScaleX, sScaleY, 1.0f);
-	
-	// avoid half pixels
-	// RN: if we're going to this trouble, might as well snap to nearest pixel all the time
-	// but the plan is to get rid of this so that fonts "just work"
-	//F32 half_pixel_distance = llabs(fmodf(sCurOrigin.mX * sScaleX, 1.f) - 0.5f);
-	//if (half_pixel_distance < PIXEL_BORDER_THRESHOLD)
-	//{
-		gGL.translatef(PIXEL_CORRECTION_DISTANCE*sScaleX, 0.f, 0.f);
-	//}
 
-	// this code would just snap to pixel grid, although it seems to introduce more jitter
-	//F32 pixel_offset_x = llround(sCurOrigin.mX * sScaleX) - (sCurOrigin.mX * sScaleX);
-	//F32 pixel_offset_y = llround(sCurOrigin.mY * sScaleY) - (sCurOrigin.mY * sScaleY);
-	//gGL.translatef(-pixel_offset_x, -pixel_offset_y, 0.f);
+	// this code snaps the text origin to a pixel grid to start with
+	F32 pixel_offset_x = llround((F32)sCurOrigin.mX) - (sCurOrigin.mX);
+	F32 pixel_offset_y = llround((F32)sCurOrigin.mY) - (sCurOrigin.mY);
+	gGL.translatef(-pixel_offset_x, -pixel_offset_y, 0.f);
 
-	// scale back to native pixel size
-	//glScalef(1.f / sScaleX, 1.f / sScaleY, 1.f);
-	//glScaled(1.0 / (F64) sScaleX, 1.0 / (F64) sScaleY, 1.0f);
 	LLFastTimer t(LLFastTimer::FTM_RENDER_FONTS);
 
 	gGL.color4fv( color.mV );
@@ -661,10 +440,6 @@ S32 LLFontGL::render(const LLWString &wstr,
 
 	F32 cur_x, cur_y, cur_render_x, cur_render_y;
 
-	// Bind the font texture
-	
-	gGL.getTexUnit(0)->bind(mImageGLp);
-	
  	// Not guaranteed to be set correctly
 	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 	
@@ -704,17 +479,13 @@ S32 LLFontGL::render(const LLWString &wstr,
 		break;
 	}
 
-	// Round properly.
-	//cur_render_y = (F32)llfloor(cur_y/sScaleY + 0.5f)*sScaleY;
-	//cur_render_x = (F32)llfloor(cur_x/sScaleX + 0.5f)*sScaleX;
-	
 	cur_render_y = cur_y;
 	cur_render_x = cur_x;
 
 	F32 start_x = cur_x;
 
-	F32 inv_width = 1.f / mImageGLp->getWidth();
-	F32 inv_height = 1.f / mImageGLp->getHeight();
+	F32 inv_width = 1.f / mFontBitmapCachep->getBitmapWidth();
+	F32 inv_height = 1.f / mFontBitmapCachep->getBitmapHeight();
 
 	const S32 LAST_CHARACTER = LLFont::LAST_CHAR_FULL;
 
@@ -732,6 +503,9 @@ S32 LLFontGL::render(const LLWString &wstr,
 		}
 	}
 
+
+	// Remember last-used texture to avoid unnecesssary bind calls.
+	LLImageGL *last_bound_texture = NULL;
 
 	for (i = begin_offset; i < begin_offset + length; i++)
 	{
@@ -752,7 +526,7 @@ S32 LLFontGL::render(const LLWString &wstr,
 
 			if (!label.empty())
 			{
-				ext_advance += (EXT_X_BEARING + gExtCharFont->getWidthF32( label.c_str() )) * sScaleX;
+				ext_advance += (EXT_X_BEARING + getFontExtChar()->getWidthF32( label.c_str() )) * sScaleX;
 			}
 
 			if (start_x + scaled_max_pixels < cur_x + ext_advance)
@@ -761,9 +535,15 @@ S32 LLFontGL::render(const LLWString &wstr,
 				break;
 			}
 
-			gGL.getTexUnit(0)->bind(ext_image);
-			const F32 ext_x = cur_render_x + (EXT_X_BEARING * sScaleX);
-			const F32 ext_y = cur_render_y + (EXT_Y_BEARING * sScaleY + mAscender - mLineHeight);
+			if (last_bound_texture != ext_image)
+			{
+				gGL.getTexUnit(0)->bind(ext_image);
+				last_bound_texture = ext_image;
+			}
+
+			// snap origin to whole screen pixel
+			const F32 ext_x = (F32)llround(cur_render_x + (EXT_X_BEARING * sScaleX));
+			const F32 ext_y = (F32)llround(cur_render_y + (EXT_Y_BEARING * sScaleY + mAscender - mLineHeight));
 
 			LLRectf uv_rect(0.f, 1.f, 1.f, 0.f);
 			LLRectf screen_rect(ext_x, ext_y + ext_height, ext_x + ext_width, ext_y);
@@ -775,7 +555,7 @@ S32 LLFontGL::render(const LLWString &wstr,
 				//glLoadIdentity();
 				//gGL.translatef(sCurOrigin.mX, sCurOrigin.mY, 0.0f);
 				//glScalef(sScaleX, sScaleY, 1.f);
-				gExtCharFont->render(label, 0,
+				getFontExtChar()->render(label, 0,
 									 /*llfloor*/((ext_x + (F32)ext_image->getWidth() + EXT_X_BEARING) / sScaleX), 
 									 /*llfloor*/(cur_y / sScaleY),
 									 color,
@@ -793,15 +573,12 @@ S32 LLFontGL::render(const LLWString &wstr,
 				cur_x += EXT_KERNING * sScaleX;
 			}
 			cur_render_x = cur_x;
-
-			// Bind the font texture
-			gGL.getTexUnit(0)->bind(mImageGLp);
 		}
 		else
 		{
 			if (!hasGlyph(wch))
 			{
-				(const_cast<LLFontGL*>(this))->addChar(wch);
+				addChar(wch);
 			}
 
 			const LLFontGlyphInfo* fgi= getGlyphInfo(wch);
@@ -810,6 +587,14 @@ S32 LLFontGL::render(const LLWString &wstr,
 				llerrs << "Missing Glyph Info" << llendl;
 				break;
 			}
+			// Per-glyph bitmap texture.
+			LLImageGL *image_gl = mFontBitmapCachep->getImageGL(fgi->mBitmapNum);
+			if (last_bound_texture != image_gl)
+			{
+				gGL.getTexUnit(0)->bind(image_gl);
+				last_bound_texture = image_gl;
+			}
+
 			if ((start_x + scaled_max_pixels) < (cur_x + fgi->mXBearing + fgi->mWidth))
 			{
 				// Not enough room for this character.
@@ -818,15 +603,16 @@ S32 LLFontGL::render(const LLWString &wstr,
 
 			// Draw the text at the appropriate location
 			//Specify vertices and texture coordinates
-			LLRectf uv_rect((fgi->mXBitmapOffset - PAD_AMT) * inv_width,
-							(fgi->mYBitmapOffset + fgi->mHeight + PAD_AMT) * inv_height,
-							(fgi->mXBitmapOffset + fgi->mWidth + PAD_AMT) * inv_width,
-							(fgi->mYBitmapOffset - PAD_AMT) * inv_height);
-			LLRectf screen_rect(cur_render_x + (F32)fgi->mXBearing - PAD_AMT,
-								cur_render_y + (F32)fgi->mYBearing + PAD_AMT,
-								cur_render_x + (F32)fgi->mXBearing + (F32)fgi->mWidth + PAD_AMT,
-								cur_render_y + (F32)fgi->mYBearing - (F32)fgi->mHeight - PAD_AMT);
-
+			LLRectf uv_rect((fgi->mXBitmapOffset) * inv_width,
+					(fgi->mYBitmapOffset + fgi->mHeight + PAD_UVY) * inv_height,
+					(fgi->mXBitmapOffset + fgi->mWidth) * inv_width,
+					(fgi->mYBitmapOffset - PAD_UVY) * inv_height);
+			// snap glyph origin to whole screen pixel
+			LLRectf screen_rect(llround(cur_render_x + (F32)fgi->mXBearing),
+					    llround(cur_render_y + (F32)fgi->mYBearing),
+					    llround(cur_render_x + (F32)fgi->mXBearing) + (F32)fgi->mWidth,
+					    llround(cur_render_y + (F32)fgi->mYBearing) - (F32)fgi->mHeight);
+			
 			drawGlyph(screen_rect, uv_rect, color, style, drop_shadow_strength);
 
 			chars_drawn++;
@@ -839,7 +625,7 @@ S32 LLFontGL::render(const LLWString &wstr,
 				// Kern this puppy.
 				if (!hasGlyph(next_char))
 				{
-					(const_cast<LLFontGL*>(this))->addChar(next_char);
+					addChar(next_char);
 				}
 				cur_x += getXKerning(wch, next_char);
 			}
@@ -896,11 +682,6 @@ S32 LLFontGL::render(const LLWString &wstr,
 	return chars_drawn;
 }
 
- 
-LLImageGL *LLFontGL::getImageGL() const
-{
-	return mImageGLp;
-}
 
 S32 LLFontGL::getWidth(const std::string& utf8text) const
 {
@@ -1118,59 +899,32 @@ S32	LLFontGL::firstDrawableChar(const llwchar* wchars, F32 max_pixels, S32 text_
 		llwchar wch = wchars[i];
 
 		const embedded_data_t* ext_data = getEmbeddedCharData(wch);
-		if (ext_data)
+		F32 char_width = ext_data ? getEmbeddedCharAdvance(ext_data) : getXAdvance(wch);
+
+		if( scaled_max_pixels < (total_width + char_width) )
 		{
-			F32 char_width = getEmbeddedCharAdvance(ext_data);
-
-			if( scaled_max_pixels < (total_width + char_width) )
-			{
-				break;
-			}
-
-			total_width += char_width;
-
-			drawable_chars++;
-			if( max_chars >= 0 && drawable_chars >= max_chars )
-			{
-				break;
-			}
-
-			if ( i > 0 )
-			{
-				total_width += EXT_KERNING * sScaleX;
-			}
-
-			// Round after kerning.
-			total_width = (F32)llfloor(total_width + 0.5f);
+			break;
 		}
-		else
+
+		total_width += char_width;
+		drawable_chars++;
+
+		if( max_chars >= 0 && drawable_chars >= max_chars )
 		{
-			F32 char_width = getXAdvance(wch);
-			if( scaled_max_pixels < (total_width + char_width) )
-			{
-				break;
-			}
-
-			total_width += char_width;
-
-			drawable_chars++;
-			if( max_chars >= 0 && drawable_chars >= max_chars )
-			{
-				break;
-			}
-
-			if ( i > 0 )
-			{
-				// Kerning
-				total_width += getXKerning(wchars[i-1], wch);
-			}
-
-			// Round after kerning.
-			total_width = (F32)llfloor(total_width + 0.5f);
+			break;
 		}
+
+		if ( i > 0 )
+		{
+			// kerning
+			total_width += ext_data ? (EXT_KERNING * sScaleX) : getXKerning(wchars[i-1], wch);
+		}
+
+		// Round after kerning.
+		total_width = llround(total_width);
 	}
 
-	return text_len - drawable_chars;
+	return start_pos - drawable_chars;
 }
 
 
@@ -1299,7 +1053,7 @@ F32 LLFontGL::getEmbeddedCharAdvance(const embedded_data_t* ext_data) const
 	F32 ext_width = (F32)ext_image->getWidth();
 	if( !label.empty() )
 	{
-		ext_width += (EXT_X_BEARING + gExtCharFont->getWidthF32(label.c_str())) * sScaleX;
+		ext_width += (EXT_X_BEARING + getFontExtChar()->getWidthF32(label.c_str())) * sScaleX;
 	}
 
 	return (EXT_X_BEARING * sScaleX) + ext_width;
@@ -1312,19 +1066,19 @@ void LLFontGL::clearEmbeddedChars()
 	mEmbeddedChars.clear();
 }
 
-void LLFontGL::addEmbeddedChar( llwchar wc, LLImageGL* image, const std::string& label )
+void LLFontGL::addEmbeddedChar( llwchar wc, LLImageGL* image, const std::string& label ) const
 {
 	LLWString wlabel = utf8str_to_wstring(label);
 	addEmbeddedChar(wc, image, wlabel);
 }
 
-void LLFontGL::addEmbeddedChar( llwchar wc, LLImageGL* image, const LLWString& wlabel )
+void LLFontGL::addEmbeddedChar( llwchar wc, LLImageGL* image, const LLWString& wlabel ) const
 {
 	embedded_data_t* ext_data = new embedded_data_t(image, wlabel);
 	mEmbeddedChars[wc] = ext_data;
 }
 
-void LLFontGL::removeEmbeddedChar( llwchar wc )
+void LLFontGL::removeEmbeddedChar( llwchar wc ) const
 {
 	embedded_map_t::iterator iter = mEmbeddedChars.find(wc);
 	if (iter != mEmbeddedChars.end())
@@ -1428,68 +1182,9 @@ void LLFontGL::drawGlyph(const LLRectf& screen_rect, const LLRectf& uv_rect, con
 	gGL.end();
 }
 
-// static
 std::string LLFontGL::nameFromFont(const LLFontGL* fontp)
 {
-	if (fontp == sSansSerifHuge)
-	{
-		return std::string("SansSerifHuge");
-	}
-	else if (fontp == sSansSerifSmall)
-	{
-		return std::string("SansSerifSmall");
-	}
-	else if (fontp == sSansSerif)
-	{
-		return std::string("SansSerif");
-	}
-	else if (fontp == sSansSerifBig)
-	{
-		return std::string("SansSerifBig");
-	}
-	else if (fontp == sSansSerifBold)
-	{
-		return std::string("SansSerifBold");
-	}
-	else if (fontp == sMonospace)
-	{
-		return std::string("Monospace");
-	}
-	else
-	{
-		return std::string();
-	}
-}
-
-// static
-LLFontGL* LLFontGL::fontFromName(const std::string& font_name)
-{
-	LLFontGL* gl_font = NULL;
-	if (font_name == "SansSerifHuge")
-	{
-		gl_font = LLFontGL::sSansSerifHuge;
-	}
-	else if (font_name == "SansSerifSmall")
-	{
-		gl_font = LLFontGL::sSansSerifSmall;
-	}
-	else if (font_name == "SansSerif")
-	{
-		gl_font = LLFontGL::sSansSerif;
-	}
-	else if (font_name == "SansSerifBig")
-	{
-		gl_font = LLFontGL::sSansSerifBig;
-	}
-	else if (font_name == "SansSerifBold")
-	{
-		gl_font = LLFontGL::sSansSerifBold;
-	}
-	else if (font_name == "Monospace")
-	{
-		gl_font = LLFontGL::sMonospace;
-	}
-	return gl_font;
+	return fontp->getFontDesc().getName();
 }
 
 // static

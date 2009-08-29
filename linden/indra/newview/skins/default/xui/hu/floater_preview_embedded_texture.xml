@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview_texture">
+	<button label="Másolás készlettárba" name="Copy To Inventory" />
+	<text type="string" length="1" name="dimensions">
+		Méret: [WIDTH] x [HEIGHT]
+	</text>
+</floater>

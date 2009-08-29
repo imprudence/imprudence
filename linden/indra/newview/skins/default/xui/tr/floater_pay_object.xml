@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Give Money" title="">
+	<text type="string" length="1" name="payee_group">
+		Gruba öde:
+	</text>
+	<text type="string" length="1" name="payee_resident">
+		Üyeye öde:
+	</text>
+	<text type="string" length="1" name="payee_name">
+		[FIRST] [LAST]
+	</text>
+	<text type="string" length="1" name="object_name_label">
+		Obje ile:
+	</text>
+	<text type="string" length="1" name="object_name_text">
+		...
+	</text>
+	<text type="string" length="1" name="fastpay text">
+		Hızlı öde:
+	</text>
+	<text type="string" length="1" name="amount text">
+		Miktar:
+	</text>
+	<button label="1 L$" label_selected="1 L$" name="fastpay 1" />
+	<button label="5 L$" label_selected="5 L$" name="fastpay 5" />
+	<button label="10 L$" label_selected="10 L$" name="fastpay 10" />
+	<button label="20 L$" label_selected="20 L$" name="fastpay 20" />
+	<button label="Öde" label_selected="Öde" name="pay btn" />
+	<button label="İptal" label_selected="İptal" name="cancel btn" />
+</floater>

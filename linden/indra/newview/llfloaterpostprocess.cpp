@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -169,11 +170,13 @@ void LLFloaterPostProcess::onSaveEffect(void* userData)
 {
 	LLLineEditor* editBox = static_cast<LLLineEditor*>(userData);
 
-	LLSD::String effectName(editBox->getValue().asString());
+	std::string effectName(editBox->getValue().asString());
 
 	if (gPostProcess->mAllEffects.has(effectName))
 	{
-		gViewerWindow->alertXml("PPSaveEffectAlert", &LLFloaterPostProcess::saveAlertCallback, userData);
+		LLSD payload;
+		payload["effect_name"] = effectName;
+		LLNotifications::instance().add("PPSaveEffectAlert", LLSD(), payload, &LLFloaterPostProcess::saveAlertCallback);
 	}
 	else
 	{
@@ -192,20 +195,18 @@ void LLFloaterPostProcess::onChangeEffectName(LLUICtrl* ctrl, void * userData)
 	editBox->setValue(comboBox->getSelectedValue());
 }
 
-void LLFloaterPostProcess::saveAlertCallback(S32 option, void* userData)
+bool LLFloaterPostProcess::saveAlertCallback(const LLSD& notification, const LLSD& response)
 {
-	LLLineEditor* editBox = static_cast<LLLineEditor*>(userData);
+	S32 option = LLNotification::getSelectedOption(notification, response);
 
 	// if they choose save, do it.  Otherwise, don't do anything
 	if (option == 0)
 	{
-		LLSD::String effectName(editBox->getValue().asString());
-
-		gPostProcess->saveEffect(effectName);
+		gPostProcess->saveEffect(notification["payload"]["effect_name"].asString());
 
 		sPostProcess->syncMenu();
 	}
-
+	return false;
 }
 
 void LLFloaterPostProcess::show()

@@ -19,7 +19,8 @@
 # There are special exceptions to the terms and conditions of the GPL as
 # it is applied to this Source Code. View the full text of the exception
 # in the file doc/FLOSS-exception.txt in this software distribution, or
-# online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+# online at
+# http://secondlifegrid.net/programs/open_source/licensing/flossexception
 # 
 # By copying, modifying or distributing this software, you acknowledge
 # that you have read and understood your obligations described above,
@@ -237,7 +238,6 @@ class WindowsManifest(ViewerManifest):
         # Mozilla runtime DLLs (CP)
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
             self.path("freebl3.dll")
-            self.path("gksvggdiplus.dll")
             self.path("js3250.dll")
             self.path("nspr4.dll")
             self.path("nss3.dll")
@@ -293,6 +293,12 @@ class WindowsManifest(ViewerManifest):
                 "../win_updater/release/windows-updater.exe",
                 "../win_updater/relwithdebinfo/windows-updater.exe"),
                   dst="updater.exe")
+
+        # For google-perftools tcmalloc allocator.
+        #if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
+        #        self.path("libtcmalloc_minimal.dll")
+        #        self.end_prefix()
+
 
     def nsi_file_commands(self, install=True):
         def wpath(path):
@@ -411,9 +417,17 @@ class WindowsManifest(ViewerManifest):
                 "%%INSTALL_FILES%%":self.nsi_file_commands(True),
                 "%%DELETE_FILES%%":self.nsi_file_commands(False)})
 
+        # We use the Unicode version of NSIS, available from
+        # http://www.scratchpaper.com/
         NSIS_path = 'C:\\Program Files\\NSIS\\Unicode\\makensis.exe'
         self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
         # self.remove(self.dst_path_of(tempfile))
+        # If we're on a build machine, sign the code using our Authenticode certificate. JC
+        sign_py = 'C:\\buildscripts\\code-signing\\sign.py'
+        if os.path.exists(sign_py):
+            self.run_command(sign_py + ' ' + self.dst_path_of(installer_file))
+        else:
+            print "Skipping code signing,", sign_py, "does not exist"
         self.created_path(self.dst_path_of(installer_file))
         self.package_file = installer_file
 
@@ -505,6 +519,18 @@ class DarwinManifest(ViewerManifest):
                 self.path("German.lproj")
                 self.path("Japanese.lproj")
                 self.path("Korean.lproj")
+                self.path("da.lproj")
+                self.path("es.lproj")
+                self.path("fr.lproj")
+                self.path("hu.lproj")
+                self.path("it.lproj")
+                self.path("nl.lproj")
+                self.path("pl.lproj")
+                self.path("pt.lproj")
+                self.path("ru.lproj")
+                self.path("tr.lproj")
+                self.path("uk.lproj")
+                self.path("zh-Hans.lproj")
 
 
                 if self.prefix(src="../../libraries/universal-darwin/lib_release/gstreamer-plugins", dst="lib/gstreamer-plugins"):
@@ -706,6 +732,7 @@ class LinuxManifest(ViewerManifest):
         if self.prefix("linux_tools", dst=""):
             #self.path("client-readme.txt","README-linux.txt")
             #self.path("client-readme-voice.txt","README-linux-voice.txt")
+            #self.path("client-readme-joystick.txt","README-linux-joystick.txt")
             self.path("wrapper.sh","imprudence")
             self.path("handle_secondlifeprotocol.sh")
             self.path("register_secondlifeprotocol.sh")
@@ -735,8 +762,8 @@ class LinuxManifest(ViewerManifest):
             else:
                 installer_name += '_' + self.channel_oneword().upper()
 
-                # Fix access permissions
-                self.run_command("""
+        # Fix access permissions
+        self.run_command("""
                 find %(dst)s -type d | xargs --no-run-if-empty chmod 755;
                 find %(dst)s -type f -perm 0700 | xargs --no-run-if-empty chmod 0755;
                 find %(dst)s -type f -perm 0500 | xargs --no-run-if-empty chmod 0555;

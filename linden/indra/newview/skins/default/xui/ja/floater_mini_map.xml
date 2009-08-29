@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="minimap">
+	<panel label="ミニマップ" name="mini_mapview" tool_tip="（ダブルクリックで地図を開く）"/>
+</floater>

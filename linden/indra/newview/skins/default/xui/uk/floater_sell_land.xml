@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="sell land" title="Продати землю">
+	<text name="info_parcel_label">
+		Ділянка:
+	</text>
+	<text name="info_parcel">
+		НАЗВА ДІЛЯНКИ
+	</text>
+	<text name="info_size_label">
+		Площа:
+	</text>
+	<text name="info_size">
+		[AREA] кв.м.
+	</text>
+	<text name="info_action">
+		Щоб продати цю ділянку:
+	</text>
+	<text name="price_label">
+		Призначте ціну:
+	</text>
+	<text name="price_text">
+		Установіть ціну цієї землі:
+	</text>
+	<text name="price_ld">
+		L$
+	</text>
+	<text name="price_per_m">
+		(L$[PER_METER] за кв.м)
+	</text>
+	<text name="sell_to_label">
+		Продати землю:
+	</text>
+	<text name="sell_to_text">
+		Виберіть варіант -- продати комусь конкретно або будь-кому.
+	</text>
+	<combo_box name="sell_to">
+		<combo_item name="--selectone--">
+			-- виберіть покупця --
+		</combo_item>
+		<combo_item name="Anyone">
+			Кому-завгодно
+		</combo_item>
+		<combo_item name="Specificuser:">
+			Конкретному користувачу:
+		</combo_item>
+	</combo_box>
+	<button label="Виберіть..." name="sell_to_select_agent" />
+	<text name="sell_objects_label">
+		Продати об&apos;єкти разом з землею?
+	</text>
+	<text name="sell_objects_text">
+		Рухомі об&apos;єкти власника цієї землі змінять власника?
+	</text>
+	<radio_group name="sell_objects">
+		<radio_item name="no">
+			Ні, зберегти володіння об&apos;єктами
+		</radio_item>
+		<radio_item name="yes">
+			Так, продати об&apos;єкти разом з землею
+		</radio_item>
+	</radio_group>
+	<button label="Показати об&apos;єкти" name="show_objects" />
+	<text name="nag_message_label">
+		УВАГА: операція буде завершена.
+	</text>
+	<button label="Виставити землю на продаж" name="sell_btn" />
+	<button label="Відміна" name="cancel_btn" />
+</floater>

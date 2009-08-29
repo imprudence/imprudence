@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -72,7 +73,7 @@ extern BOOL gRenderForSelect;
 static LLPointer<LLVertexBuffer> sRenderBuffer = NULL;
 static const U32 sRenderMask = LLVertexBuffer::MAP_VERTEX |
 							   LLVertexBuffer::MAP_NORMAL |
-							   LLVertexBuffer::MAP_TEXCOORD;
+							   LLVertexBuffer::MAP_TEXCOORD0;
 
 
 //-----------------------------------------------------------------------------
@@ -458,14 +459,13 @@ void LLViewerJointMesh::uploadJointMatrices()
 			for (S32 axis = 0; axis < NUM_AXES; axis++)
 			{
 				F32* vector = gJointMatUnaligned[joint_num].mMatrix[axis];
-				//glProgramLocalParameter4fvARB(GL_VERTEX_PROGRAM_ARB, LL_CHARACTER_MAX_JOINTS_PER_MESH * axis + joint_num+5, (GLfloat*)vector);
 				U32 offset = LL_CHARACTER_MAX_JOINTS_PER_MESH*axis+joint_num;
 				memcpy(mat+offset*4, vector, sizeof(GLfloat)*4);
-				//glProgramLocalParameter4fvARB(GL_VERTEX_PROGRAM_ARB, LL_CHARACTER_MAX_JOINTS_PER_MESH * axis + joint_num+6, (GLfloat*)vector);
-				//cgGLSetParameterArray4f(gPipeline.mAvatarMatrix, offset, 1, vector);
 			}
 		}
+		stop_glerror();
 		glUniform4fvARB(gAvatarMatrixParam, 45, mat);
+		stop_glerror();
 	}
 }
 
@@ -505,7 +505,7 @@ int compare_int(const void *a, const void *b)
 //--------------------------------------------------------------------
 // LLViewerJointMesh::drawShape()
 //--------------------------------------------------------------------
-U32 LLViewerJointMesh::drawShape( F32 pixelArea, BOOL first_pass)
+U32 LLViewerJointMesh::drawShape( F32 pixelArea, BOOL first_pass, BOOL is_dummy)
 {
 	if (!mValid || !mMesh || !mFace || !mVisible || 
 		mFace->mVertexBuffer.isNull() ||
@@ -523,7 +523,10 @@ U32 LLViewerJointMesh::drawShape( F32 pixelArea, BOOL first_pass)
 	//----------------------------------------------------------------
 	if (!gRenderForSelect)
 	{
-		glColor4fv(mColor.mV);
+		if (is_dummy)
+			glColor4fv(LLVOAvatar::getDummyColor().mV);
+		else
+			glColor4fv(mColor.mV);
 	}
 
 	stop_glerror();
@@ -535,6 +538,7 @@ U32 LLViewerJointMesh::drawShape( F32 pixelArea, BOOL first_pass)
 	//----------------------------------------------------------------
 	llassert( !(mTexture.notNull() && mLayerSet) );  // mutually exclusive
 
+	LLTexUnit::eTextureAddressMode old_mode = LLTexUnit::TAM_WRAP;
 	if (mTestImageName)
 	{
 		gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mTestImageName);
@@ -549,7 +553,7 @@ U32 LLViewerJointMesh::drawShape( F32 pixelArea, BOOL first_pass)
 			gGL.getTexUnit(0)->setTextureColorBlend(LLTexUnit::TBO_LERP_TEX_ALPHA, LLTexUnit::TBS_TEX_COLOR, LLTexUnit::TBS_PREV_COLOR);
 		}
 	}
-	else if( mLayerSet )
+	else if( !is_dummy && mLayerSet )
 	{
 		if(	mLayerSet->hasComposite() )
 		{
@@ -557,18 +561,21 @@ U32 LLViewerJointMesh::drawShape( F32 pixelArea, BOOL first_pass)
 		}
 		else
 		{
-			llwarns << "Layerset without composite" << llendl;
+			// This warning will always trigger if you've hacked the avatar to show as incomplete.
+			// Ignore the warning if that's the case.
+			if (!gSavedSettings.getBOOL("RenderUnloadedAvatar"))
+			{
+				llwarns << "Layerset without composite" << llendl;
+			}
 			gGL.getTexUnit(0)->bind(gImageList.getImage(IMG_DEFAULT));
 		}
 	}
 	else
-	if ( mTexture.notNull() )
+	if ( !is_dummy && mTexture.notNull() )
 	{
-		if (!mTexture->getClampS() || !mTexture->getClampT())
-		{
-			gGL.getTexUnit(0)->bind(mTexture.get());
-			mTexture->overrideClamp (TRUE, TRUE);
-		}
+		old_mode = mTexture->getAddressMode();
+		gGL.getTexUnit(0)->bind(mTexture.get());
+		gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 	}
 	else
 	{
@@ -624,10 +631,10 @@ U32 LLViewerJointMesh::drawShape( F32 pixelArea, BOOL first_pass)
 		gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 	}
 
-	if (mTexture.notNull())
+	if (mTexture.notNull() && !is_dummy)
 	{
 		gGL.getTexUnit(0)->bind(mTexture.get());
-		mTexture->restoreClamp();
+		gGL.getTexUnit(0)->setTextureAddressMode(old_mode);
 	}
 
 	return triangle_count;

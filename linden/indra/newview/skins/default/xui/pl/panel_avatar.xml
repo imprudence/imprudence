@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Panel Avatar">
+	<tab_container name="tab">
+		<panel label="Życie #2" name="2nd Life">
+			<string name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+			<string name="AcctTypeResident">
+				Rezydent
+			</string>
+			<string name="AcctTypeTrial">
+				Próbne
+			</string>
+			<string name="AcctTypeCharterMember">
+				Członek-zalożyciel
+			</string>
+			<string name="AcctTypeEmployee">
+				Pracownik Linden Lab
+			</string>
+			<string name="PaymentInfoUsed">
+				Dane Konta Używane
+			</string>
+			<string name="PaymentInfoOnFile">
+				Dane Konta Dostępne
+			</string>
+			<string name="NoPaymentInfoOnFile">
+				Brak Danych Konta
+			</string>
+			<string name="AgeVerified">
+				Wiek Zweryfikowany
+			</string>
+			<string name="NotAgeVerified">
+				Brak Weryfikacji Wieku
+			</string>
+			<text name="Name:">
+				Imię:
+			</text>
+			<name_editor name="name"/>
+			<text name="online_yes">
+				Obecnie w SL
+			</text>
+			<text name="label">
+				Urodziny:
+			</text>
+			<line_editor name="born"/>
+			<text name="label2">
+				Konto:
+			</text>
+			<view_border name="acct_border"/>
+			<text name="acct"/>
+			<text name="partner_label" tool_tip="Partner w Second Life. Więcej informacji na www.secondlife.com/partner">
+				Partner:
+			</text>
+			<button label="i" label_selected="i" name="partner_info" tool_tip="Kliknij żeby zobaczyć profil partnera"/>
+			<button label="?" label_selected="?" name="partner_help"/>
+			<line_editor name="partner_edit" tool_tip="Partner w Second Life. Więcej informacji pod www.secondlife.com/partner">
+				[FIRST] [LAST]
+			</line_editor>
+			<text name="Photo:">
+				Zdjęcie:
+			</text>
+			<texture_picker label="" name="img" tool_tip="Kliknij żeby wybrać zdjęcie"/>
+			<text name="Groups:">
+				Grupy:
+			</text>
+			<scroll_list name="groups"/>
+			<text name="About:">
+				Dane:
+			</text>
+			<text name="(500 chars)">
+				500 znaków
+			</text>
+			<text_editor name="about"/>
+			<text name="Give item:">
+				Podaruj:
+			</text>
+			<view_border name="drop_target_rect"/>
+			<view_border name="drop_target_rect_vis"/>
+			<text name="Give inventory" tool_tip="Tutaj wrzucaj rzeczy z szafy, które chcesz podarować tej osobie.">
+				Tutaj wrzuć rzecz z szafy.
+			</text>
+			<check_box label="Pokazuj w wyszukiwarce" name="allow_publish" tool_tip="Opublikuj dodatkowe dane profilu takie jak opis i zdjęcie w wyszukiwarce."/>
+			<button label="?" label_selected="?" name="?"/>
+			<button label="Zlokalizuj" label_selected="Zlokalizuj" name="Find on Map"/>
+			<button label="Zaproponuj TP..." label_selected="Zaproponuj TP..." name="Offer Teleport..."/>
+			<button label="Dodaj Znajomość..." label_selected="Dodaj Znajomość..." name="Add Friend..."/>
+			<button label="Zapłać..." label_selected="Zapłać..." name="Pay..."/>
+			<button label="Wyślij IM..." label_selected="Wyślij IM..." name="Instant Message..." tool_tip="Wyślij wiadomość (IM)"/>
+			<button label="Wycisz" label_selected="Wycisz" name="Mute"/>
+		</panel>
+		<panel label="WWW" name="WebProfile">
+			<line_editor name="url_edit"/>
+			<flyout_button label="Załaduj" label_selected="Załaduj" name="load" tool_tip="Załaduj stronę profilu używając wbudowanej przeglądarki.">
+				<flyout_button_item name="open_item">
+					Użyj zewnętrznej przeglądarki
+				</flyout_button_item>
+				<flyout_button_item name="home_item">
+					Otwórz URL strony profilu
+				</flyout_button_item>
+			</flyout_button>
+			<button label="?" label_selected="?" name="web_profile_help"/>
+			<check_box label="Automatyczne ładowanie profilu z Internetu" name="auto_load" tool_tip="Automatycznie ładuj stronę profilu."/>
+			<web_browser name="profile_html"/>
+			<text name="status_text"/>
+		</panel>
+		<panel label="Zajęcia" name="Interests">
+			<text name="I Want To:">
+				Chcę:
+			</text>
+			<check_box label="Budować" name="chk0"/>
+			<check_box label="Zwiedzać" name="chk1"/>
+			<check_box label="Spotykać się" name="chk2"/>
+			<check_box label="Pracować" name="chk6"/>
+			<check_box label="Należeć do Grup" name="chk3"/>
+			<check_box label="Kupować" name="chk4"/>
+			<check_box label="Sprzedawać" name="chk5"/>
+			<check_box label="Zatrudniać" name="chk7"/>
+			<line_editor name="want_to_edit"/>
+			<text name="Skills:">
+				Zdolności:
+			</text>
+			<check_box label="Tekstury" name="schk0"/>
+			<check_box label="Architektura" name="schk1"/>
+			<check_box label="Planowanie Imprez" name="schk2"/>
+			<check_box label="Modelowanie" name="schk3"/>
+			<check_box label="Skrypty" name="schk4"/>
+			<check_box label="Tworzenie Postaci" name="schk5"/>
+			<line_editor name="skills_edit"/>
+			<text name="Languages:">
+				Języki:
+			</text>
+			<line_editor name="languages_edit"/>
+		</panel>
+		<panel label="Lubię" name="Picks">
+			<text name="Tell everyone about your favorite places in Second Life.">
+				Pokaż Twoje ulubione miejsca w Second Life.
+			</text>
+			<button label="Dodaj..." label_selected="Dodaj..." name="New..."/>
+			<button label="Usuń..." label_selected="Usuń..." name="Delete..."/>
+			<tab_container name="picks tab"/>
+			<text name="loading_text">
+				Ładowanie...
+			</text>
+		</panel>
+		<panel label="Reklama" name="Classified">
+			<text name="Place an ad in Second Life&apos;s classified listings.">
+				Zamieść reklamę w Second Life.
+			</text>
+			<button label="Dodaj..." label_selected="Dodaj..." name="New..."/>
+			<button label="Usuń..." label_selected="Usuń..." name="Delete..."/>
+			<tab_container name="classified tab"/>
+			<text name="loading_text">
+				Ładowanie...
+			</text>
+		</panel>
+		<panel label="Życie #1" name="1st Life">
+			<text name="Photo:">
+				Zdjęcie:
+			</text>
+			<texture_picker label="" name="img" tool_tip="Kliknij żeby wybrać zdjęcie"/>
+			<text name="Info:">
+				Dane:
+			</text>
+			<text name="(250 chars)">
+				250 znaków
+			</text>
+			<text_editor name="about"/>
+		</panel>
+		<panel label="Notatki" name="My Notes">
+			<string name="Loading">
+				Ładowanie...
+			</string>
+			<text name="label">
+				Używaj tego miejsca na Twoje prywatne notatki o tej osobie. Tylko
+Ty możesz widzieć te notatki. Żadna inna osoba nie może ich zobaczyć.
+			</text>
+			<text_editor name="notes edit"/>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="Anuluj" label_selected="Anuluj" name="Cancel"/>
+	<button label="Kopnij" label_selected="Kopnij" name="Kick"/>
+	<button label="Zatrzymaj" label_selected="Zatrzymaj" name="Freeze" tool_tip="Zablokuj ruch i czat tego Rezydenta."/>
+	<button label="Uwolnij" label_selected="Uwolnij" name="Unfreeze" tool_tip="Odblokuj Rezydenta"/>
+	<button label="NOK" label_selected="NOK" name="csr_btn" tool_tip="Otwórz Narzędzie Obsługi Klienta dla tego Rezydenta"/>
+	<string name="ShowOnMapNonFriend">
+		Zlokalizuj na mapie.
+Nie możesz tego użyć ponieważ
+nie jesteście znajomymi.
+	</string>
+	<string name="ShowOnMapFriendOffline">
+		Zlokalizuj na mapie.
+Nie możesz tego użyć ponieważ
+osoby nie ma obecnie w Second Life.
+	</string>
+	<string name="ShowOnMapFriendOnline">
+		Zlokalizuj na mapie.
+	</string>
+	<string name="TeleportGod">
+		Wymuś teleportację do siebie.
+	</string>
+	<string name="TeleportPrelude">
+		Zaproponuj teleportację do siebie.
+Nie działa na Wyspie Orientacyjnej.
+	</string>
+	<string name="TeleportNormal">
+		Zaproponuj teleportację do siebie.
+	</string>
+	<string name="Loading">
+		Ładowanie...
+	</string>
+</panel>

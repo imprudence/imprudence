@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -49,6 +50,7 @@
 #include <Carbon/Carbon.h>
 #include "lldir.h"
 #include <signal.h>
+class LLWebBrowserCtrl;		// for LLURLDispatcher
 
 namespace 
 {
@@ -389,6 +391,28 @@ void LLAppViewerMacOSX::handleCrashReporting(bool reportFreeze)
 	{
 		_exit(1);
 	}
+	
+	// TODO:palmer REMOVE THIS VERY SOON.  THIS WILL NOT BE IN VIEWER 2.0
+	// Remove the crash stack log from previous executions.
+	// Since we've started logging a new instance of the app, we can assume 
+	// The old crash stack is invalid for the next crash report.
+	char path[MAX_PATH];		
+	FSRef folder;
+	if(FSFindFolder(kUserDomain, kLogsFolderType, false, &folder) == noErr)
+	{
+		// folder is an FSRef to ~/Library/Logs/
+		if(FSRefMakePath(&folder, (UInt8*)&path, sizeof(path)) == noErr)
+		{
+			std::string pathname = std::string(path) + std::string("/CrashReporter/");
+			std::string mask = "Second Life*";
+			std::string file_name;
+			while(gDirUtilp->getNextFileInDir(pathname, mask, file_name, false))
+			{
+				LLFile::remove(pathname + file_name);
+			}
+		}
+	}
+	
 }
 
 std::string LLAppViewerMacOSX::generateSerialNumber()
@@ -440,8 +464,21 @@ OSErr AEGURLHandler(const AppleEvent *messagein, AppleEvent *reply, long refIn)
 	if(result == noErr)
 	{
 		std::string url = buffer;
-		const bool from_external_browser = true;
-		LLURLDispatcher::dispatch(url, from_external_browser);
+		
+		// Safari 3.2 silently mangles secondlife:///app/ URLs into
+		// secondlife:/app/ (only one leading slash).
+		// Fix them up to meet the URL specification. JC
+		const std::string prefix = "secondlife:/app/";
+		std::string test_prefix = url.substr(0, prefix.length());
+		LLStringUtil::toLower(test_prefix);
+		if (test_prefix == prefix)
+		{
+			url.replace(0, prefix.length(), "secondlife:///app/");
+		}
+		
+		LLWebBrowserCtrl* web = NULL;
+		const bool trusted_browser = false;
+		LLURLDispatcher::dispatch(url, web, trusted_browser);
 	}
 	
 	return(result);

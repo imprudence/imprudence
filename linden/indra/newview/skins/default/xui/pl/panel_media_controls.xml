@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="media_controls">
+	<icon label="" name="music_icon" tool_tip="Odtwarzanie/Pauza strumienia muzyki" />
+	<button label="" name="music_play" tool_tip="Odtwarzanie/Pauza strumienia muzyki" />
+	<button label="" name="music_pause" tool_tip="Pauza strumienia muzyki" />
+	<button label="" name="music_stop" tool_tip="Zatrzymaj strumień muzyki" />
+	<icon label="" name="media_icon" tool_tip="Odtwarzanie/Pauza strumienia muzyki" />
+	<button label="" name="media_play" tool_tip="Odtwarzanie/Pauza strumienia muzyki" />
+	<button label="" name="media_pause" tool_tip="Pauza strumienia muzyki" />
+	<button label="" name="media_stop" tool_tip="Zatrzymaj strumień muzyki" />
+	<volume_slider name="volume_slider" tool_tip="Master Volume" />
+	<button label="" name="mute_master" tool_tip="Master Mute" />
+	<button label="" name="expand" tool_tip="Dopasuj indywidualny poziom głośności" />
+	<string name="play_label">
+		Odtwarzaj
+	</string>
+	<string name="stop_label">
+		Zatrzymaj
+	</string>
+	<string name="pause_label">
+		Pauza
+	</string>
+	<string name="default_tooltip_label">
+		Brak źródła strumienia
+	</string>
+	<string name="media_hidden_label">
+		(URL mediów ukryty przez właściciela posiadłości)
+	</string>
+	<string name="media_icon_tooltip_web">
+		To miejsce wyświetla materiał ze strony internetowej. Kliknij Odtwarzaj by wyświetlić zawartość.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		To miejsce wyświetla materiał video. Kliknij Odtwarzaj by wyświetlić zawartość.
+	</string>
+	<string name="media_play_tooltip">
+		Wyświetl zawartość strony internetowej w tym miejscu.
+	</string>
+</panel>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Hardware Settings Floater" title="Donanım Ayarları">
+	<text length="1" name="Filtering:" type="string">
+		Filtreleme:
+	</text>
+	<check_box label="Anisotropic filtreleme (etkin olduğunda yavaşlatır)" name="ani"/>
+	<text length="1" name="Antialiasing:" type="string">
+		Antialiasing:
+	</text>
+	<combo_box label="Antialiasing" name="fsaa" width="100">
+		<combo_item name="FSAADisabled">
+			Etkin değil
+		</combo_item>
+		<combo_item name="2x">
+			2x
+		</combo_item>
+		<combo_item name="4x">
+			4x
+		</combo_item>
+		<combo_item name="8x">
+			8x
+		</combo_item>
+		<combo_item name="16x">
+			16x
+		</combo_item>
+	</combo_box>
+	<spinner label="Gama:" name="gamma"/>
+	<text length="1" name="(brightness, lower is brighter)" type="string">
+		(parlaklık, daha düşük olan daha parlaktır, 0=normal)
+	</text>
+	<text length="1" name="Enable VBO:" type="string">
+		VBO&apos;yu etkinleştir:
+	</text>
+	<check_box label="OpenGL açı tampon objelerini etkinleştir" name="vbo" tool_tip="Bunu modern donanımda etkinleştirmek performans kazancı sağlar.  Ancak, daha eski donanım genellikle zayıf VBO uygulamalarına sahiptir ve bu etkin olduğunda görüntüleyici kitlenebilir."/>
+	<slider label="Desen hafızası (MB):" name="GrapicsCardTextureMemory" tool_tip="Desenler için ayrılan hafıza miktarı.Grafik kartı hafızası var olanı.Bunu düşürmek performansı arttırabilir fakat ayrıca desenleri bulanıklaştırabilir."/>
+	<spinner label="Sis uzaklık oranı:" name="fog"/>
+	<button label="Tamam" label_selected="Tamam" name="OK"/>
+</floater>

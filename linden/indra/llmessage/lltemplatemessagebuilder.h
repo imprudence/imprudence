@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -48,7 +49,7 @@ public:
 	
 	typedef std::map<const char* , LLMessageTemplate*> message_template_name_map_t;
 
-	LLTemplateMessageBuilder(message_template_name_map_t&);
+	LLTemplateMessageBuilder(const message_template_name_map_t&);
 	virtual ~LLTemplateMessageBuilder();
 
 	virtual void newMessage(const char* name);
@@ -98,6 +99,7 @@ public:
 	virtual void copyFromMessageData(const LLMsgData& data);
 	virtual void copyFromLLSD(const LLSD&);
 
+	LLMsgData* getCurrentMessage() const { return mCurrentSMessageData; }
 private:
 	void addData(const char* varname, const void* data, 
 					 EMsgVariableType type, S32 size);
@@ -113,7 +115,7 @@ private:
 	BOOL mbSBuilt;
 	BOOL mbSClear;
 	S32	 mCurrentSendTotal;
-	message_template_name_map_t& mMessageTemplates;
+	const message_template_name_map_t& mMessageTemplates;
 };
 
 #endif // LL_LLTEMPLATEMESSAGEBUILDER_H

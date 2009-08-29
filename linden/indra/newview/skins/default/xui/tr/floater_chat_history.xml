@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="chat floater" title="Genel sohbet">
+	<string name="ringing">
+		İç dünya sesli sohbetine bağlanılıyor...
+	</string>
+	<string name="connected">
+		Bağlandı
+	</string>
+	<string name="unavailable">
+		Mevcut lokasyonunuzda sesli sohbet edilemez
+	</string>
+	<string name="hang_up">
+		İç dünya sesli sohbetinden bağlantı kesildi
+	</string>
+	<string name="voice_icon">
+		icn_voice-localchat.tga
+	</string>
+	<string name="IM_logging_string">
+		-- Hızlı mesaj kaydı etkin --
+	</string>
+	<string name="IM_end_log_string">
+		-- Kayıt sonu --
+	</string>
+	<string name="ScriptQuestionCautionChatGranted">
+		[REGIONNAME] bölgesinde [REGIONPOS] koordinatlarında bulunan &apos;[OWNERNAME]&apos; kişisine ait &apos;[OBJECTNAME]&apos;, [PERMISSIONS izinlerine sahip.
+	</string>
+	<string name="ScriptQuestionCautionChatDenied">
+		[REGIONNAME] bölgesinde [REGIONPOS] koordinatlarında bulunan &apos;[OWNERNAME]&apos; kişisine ait &apos;[OBJECTNAME]&apos;, [PERMISSIONS izinlerine sahip değil.
+	</string>
+	<string name="ScriptTakeMoney">
+		Sizden Linden doları(L$) alır
+	</string>
+	<string name="ActOnControlInputs">
+		Kontrol girdilerine göre davran
+	</string>
+	<string name="RemapControlInputs">
+		Kontrol girdilerini yeniden düzenle
+	</string>
+	<string name="AnimateYourAvatar">
+		Karakterini oynat
+	</string>
+	<string name="AttachToYourAvatar">
+		Karakterine ekle
+	</string>
+	<string name="ReleaseOwnership">
+		Sahipliği bırak ve genel hale gel
+	</string>
+	<string name="LinkAndDelink">
+		Diğer objelerden bağla ve çöz
+	</string>
+	<string name="AddAndRemoveJoints">
+		Diğer objeler ile birleşme yeri ekle ve çıkar
+	</string>
+	<string name="ChangePermissions">
+		İzinleri değiştir
+	</string>
+	<string name="TrackYourCamera">
+		Kameranı takip et
+	</string>
+	<string name="ControlYourCamera">
+		Kameranı kontrol et
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="Hareketler" name="Gesture">
+				<combo_item name="Gestures">
+					Hareketler
+				</combo_item>
+			</combo_box>
+			<check_box label="Engelli yazıyı göster" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Bu HM oturumundaki aktif katılımcıların listesini görüntülemek için buraya tıklayınız."/>
+			<panel name="chat_panel">
+				<string name="gesture_label">
+					Hareketler
+				</string>
+				<line_editor label="Sohbet için buraya tıklayınız." name="Chat Editor"/>
+				<flyout_button label="Söyle" name="Say" tool_tip="(Enter)">
+					<flyout_button_item name="shout_item">
+						Bağır
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						Söyle
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Fısılda
+					</flyout_button_item>
+				</flyout_button>
+			</panel>
+		</layout_panel>
+	</layout_stack>
+</floater>

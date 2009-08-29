@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -77,6 +78,7 @@ public:
 	void			setCanApplyImmediately(BOOL apply) { mCanApplyImmediately = apply; }
 	void			setOnCancelCallback(LLUICtrlCallback cb) { mOnCancelCallback = cb; }
 	void			setOnSelectCallback(LLUICtrlCallback cb) { mOnSelectCallback = cb; }
+	void			setFallbackImageName(const std::string& name) { mFallbackImageName = name; }
 
 	void			showPicker(BOOL take_focus);
 
@@ -104,6 +106,7 @@ protected:
 	LLUICtrlCallback mOnSelectCallback;
 
 	LLPointer<LLUIImage> mAlphaGradientImage;
+	std::string		mFallbackImageName;
 };
 
 #endif  // LL_LLBUTTON_H

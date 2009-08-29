@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -30,7 +31,7 @@
  * $/LicenseInfo$
  */
 
-#include <tut/tut.h>
+#include <tut/tut.hpp>
 #include "linden_common.h"
 #include "lltut.h"
 
@@ -50,6 +51,7 @@ namespace
 		{
 			mStatus = code;
 		}
+		virtual void extendedResult(S32 code, const std::string& message, const LLSD& headers) { }
 		S32 mStatus;
 	};
 }
@@ -70,6 +72,9 @@ namespace tut
 				//init_prehash_data();
 				init = true;
 			}
+			const F32 circuit_heartbeat_interval=5;
+			const F32 circuit_timeout=100;
+
 
 			// currently test disconnected message system
 			start_messaging_system("notafile", 13035,
@@ -79,7 +84,10 @@ namespace tut
 								   FALSE,        
 								   "notasharedsecret",
 								   NULL,
-								   false);
+								   false,
+								   circuit_heartbeat_interval,
+								   circuit_timeout
+								   );
 			// generate temp dir
 			std::ostringstream ostr;
 #if LL_WINDOWS

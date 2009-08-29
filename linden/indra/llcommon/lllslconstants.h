@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -186,5 +187,19 @@ const S32 OBJECT_CREATOR = 8;
 
 // llTextBox() magic token string - yes this is a hack.  sue me.
 const std::string TEXTBOX_MAGIC_TOKEN = "!!llTextBox!!";
+
+// changed() event flags
+const U32	CHANGED_NONE = 0x0;
+const U32	CHANGED_INVENTORY = 0x1;
+const U32	CHANGED_COLOR = 0x2;
+const U32	CHANGED_SHAPE = 0x4;
+const U32	CHANGED_SCALE = 0x8;
+const U32	CHANGED_TEXTURE = 0x10;
+const U32	CHANGED_LINK = 0x20;
+const U32	CHANGED_ALLOWED_DROP = 0x40;
+const U32	CHANGED_OWNER = 0x80;
+const U32	CHANGED_REGION = 0x100;
+const U32	CHANGED_TELEPORT = 0x200;
+const U32	CHANGED_REGION_START = 0x400;
 
 #endif

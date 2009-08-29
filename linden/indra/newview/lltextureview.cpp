@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -208,7 +209,7 @@ void LLTextureBar::draw()
 						   mImagep->mFetchPriority);
 	}
 
-	LLFontGL::sMonospace->renderUTF8(tex_str, 0, title_x1, getRect().getHeight(),
+	LLFontGL::getFontMonospace()->renderUTF8(tex_str, 0, title_x1, getRect().getHeight(),
 									 color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	// State
@@ -234,7 +235,7 @@ void LLTextureBar::draw()
 		{ "MIS", LLColor4::red }, // LAST_STATE+4
 		{ "---", LLColor4::white }, // LAST_STATE+5
 	};
-	const S32 fetch_state_desc_size = (S32)(sizeof(fetch_state_desc)/sizeof(fetch_state_desc[0]));
+	const S32 fetch_state_desc_size = (S32)LL_ARRAY_SIZE(fetch_state_desc);
 	S32 state =
 		mImagep->mNeedsCreateTexture ? LAST_STATE+1 :
 		mImagep->mFullyLoaded ? LAST_STATE+2 :
@@ -244,7 +245,7 @@ void LLTextureBar::draw()
 		mImagep->mFetchState;
 	state = llclamp(state,0,fetch_state_desc_size-1);
 
-	LLFontGL::sMonospace->renderUTF8(fetch_state_desc[state].desc, 0, title_x2, getRect().getHeight(),
+	LLFontGL::getFontMonospace()->renderUTF8(fetch_state_desc[state].desc, 0, title_x2, getRect().getHeight(),
 									 fetch_state_desc[state].color,
 									 LLFontGL::LEFT, LLFontGL::TOP);
 	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
@@ -326,7 +327,7 @@ void LLTextureBar::draw()
 		// draw the packet data
 // 		{
 // 			std::string num_str = llformat("%3d/%3d", mImagep->mLastPacket+1, mImagep->mPackets);
-// 			LLFontGL::sMonospace->renderUTF8(num_str, 0, bar_left + 100, getRect().getHeight(), color,
+// 			LLFontGL::getFontMonospace()->renderUTF8(num_str, 0, bar_left + 100, getRect().getHeight(), color,
 // 											 LLFontGL::LEFT, LLFontGL::TOP);
 // 		}
 		
@@ -334,7 +335,7 @@ void LLTextureBar::draw()
 		{
 			std::string num_str = llformat("%3dx%3d (%d) %7d", mImagep->getWidth(), mImagep->getHeight(),
 										mImagep->getDiscardLevel(), mImagep->mTextureMemory);
-			LLFontGL::sMonospace->renderUTF8(num_str, 0, title_x4, getRect().getHeight(), color,
+			LLFontGL::getFontMonospace()->renderUTF8(num_str, 0, title_x4, getRect().getHeight(), color,
 											LLFontGL::LEFT, LLFontGL::TOP);
 		}
 	}
@@ -369,7 +370,7 @@ public:
 		: LLView(name, FALSE),
 		  mTextureView(texview)
 	{
-		S32 line_height = (S32)(LLFontGL::sMonospace->getLineHeight() + .5f);
+		S32 line_height = (S32)(LLFontGL::getFontMonospace()->getLineHeight() + .5f);
 		setRect(LLRect(0,0,100,line_height * 4));
 	}
 
@@ -383,12 +384,12 @@ private:
 
 void LLGLTexMemBar::draw()
 {
-	S32 bound_mem = (LLViewerImage::sBoundTextureMemory >> 20);
- 	S32 max_bound_mem = LLViewerImage::sMaxBoundTextureMem;
-	S32 total_mem = (LLViewerImage::sTotalTextureMemory >> 20);
-	S32 max_total_mem = LLViewerImage::sMaxTotalTextureMem;
+	S32 bound_mem = BYTES_TO_MEGA_BYTES(LLViewerImage::sBoundTextureMemoryInBytes);
+ 	S32 max_bound_mem = LLViewerImage::sMaxBoundTextureMemInMegaBytes;
+	S32 total_mem = BYTES_TO_MEGA_BYTES(LLViewerImage::sTotalTextureMemoryInBytes);
+	S32 max_total_mem = LLViewerImage::sMaxTotalTextureMemInMegaBytes;
 	F32 discard_bias = LLViewerImage::sDesiredDiscardBias;
-	S32 line_height = (S32)(LLFontGL::sMonospace->getLineHeight() + .5f);
+	S32 line_height = (S32)(LLFontGL::getFontMonospace()->getLineHeight() + .5f);
 	
 	//----------------------------------------------------------------------------
 	LLGLSUIDefault gls_ui;
@@ -402,7 +403,7 @@ void LLGLTexMemBar::draw()
 					max_bound_mem,
 					discard_bias);
 
-	LLFontGL::sMonospace->renderUTF8(text, 0, 0, line_height*3,
+	LLFontGL::getFontMonospace()->renderUTF8(text, 0, 0, line_height*3,
 									 text_color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	//----------------------------------------------------------------------------
@@ -469,40 +470,40 @@ void LLGLTexMemBar::draw()
 					LLImageRaw::sRawImageCount, LLViewerImage::sRawCount, LLViewerImage::sAuxCount,
 					gImageList.mCallbackList.size());
 
-	LLFontGL::sMonospace->renderUTF8(text, 0, 0, line_height*2,
+	LLFontGL::getFontMonospace()->renderUTF8(text, 0, 0, line_height*2,
 									 text_color, LLFontGL::LEFT, LLFontGL::TOP);
 	
 	S32 dx1 = 0;
 	if (LLAppViewer::getTextureFetch()->mDebugPause)
 	{
-		LLFontGL::sMonospace->renderUTF8(std::string("!"), 0, title_x1, line_height,
+		LLFontGL::getFontMonospace()->renderUTF8(std::string("!"), 0, title_x1, line_height,
 										 text_color, LLFontGL::LEFT, LLFontGL::TOP);
 		dx1 += 8;
 	}
 	if (mTextureView->mFreezeView)
 	{
-		LLFontGL::sMonospace->renderUTF8(std::string("*"), 0, title_x1, line_height,
+		LLFontGL::getFontMonospace()->renderUTF8(std::string("*"), 0, title_x1, line_height,
 										 text_color, LLFontGL::LEFT, LLFontGL::TOP);
 		dx1 += 8;
 	}
 	if (mTextureView->mOrderFetch)
 	{
-		LLFontGL::sMonospace->renderUTF8(title_string1b, 0, title_x1+dx1, line_height,
+		LLFontGL::getFontMonospace()->renderUTF8(title_string1b, 0, title_x1+dx1, line_height,
 										 text_color, LLFontGL::LEFT, LLFontGL::TOP);
 	}
 	else
 	{	
-		LLFontGL::sMonospace->renderUTF8(title_string1a, 0, title_x1+dx1, line_height,
+		LLFontGL::getFontMonospace()->renderUTF8(title_string1a, 0, title_x1+dx1, line_height,
 										 text_color, LLFontGL::LEFT, LLFontGL::TOP);
 	}
 	
-	LLFontGL::sMonospace->renderUTF8(title_string2, 0, title_x2, line_height,
+	LLFontGL::getFontMonospace()->renderUTF8(title_string2, 0, title_x2, line_height,
 									 text_color, LLFontGL::LEFT, LLFontGL::TOP);
 
-	LLFontGL::sMonospace->renderUTF8(title_string3, 0, title_x3, line_height,
+	LLFontGL::getFontMonospace()->renderUTF8(title_string3, 0, title_x3, line_height,
 									 text_color, LLFontGL::LEFT, LLFontGL::TOP);
 
-	LLFontGL::sMonospace->renderUTF8(title_string4, 0, title_x4, line_height,
+	LLFontGL::getFontMonospace()->renderUTF8(title_string4, 0, title_x4, line_height,
 									 text_color, LLFontGL::LEFT, LLFontGL::TOP);
 }
 

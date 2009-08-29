@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="texture picker" title="Seç: Desen">
+	<string name="choose_picture">
+		Resim seçmek için tıklayınız
+	</string>
+	<text name="Multiple">
+		Çoklu
+	</text>
+	<text length="1" name="unknown" type="string">
+		Boyutlar: [DIMENSIONS]
+	</text>
+	<button label="Var olan" label_selected="Var olan" name="Default"/>
+	<button label="Yok" label_selected="Yok" name="None"/>
+	<button label="Boş" label_selected="Boş" name="Blank"/>
+	<check_box label="Klasörleri göster" name="show_folders_check"/>
+	<search_editor label="Aramak için buraya yazınız" name="inventory search editor"/>
+	<check_box label="Hemen Uygula" name="apply_immediate_check"/>
+	<button label="" label_selected="" name="Pipette"/>
+	<button label="İptal" label_selected="Cancel" name="Cancel"/>
+	<button label="Seç" label_selected="Select" name="Select"/>
+	<string name="pick title">
+		Pick:
+	</string>
+</floater>

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="overlay">
 	<layout_stack name="overlay_layout_panel">
-		<layout_panel name="main_panel" width="410" min_width="410">
+		<layout_panel min_width="410" name="main_panel" width="410">
 			<layout_stack name="chatbar_and_buttons" right="410">
-				<layout_panel name="padding" width="410" />
+				<layout_panel name="padding" width="410"/>
 				<layout_panel name="state_buttons" width="410">
 					<button label="IM reçus" label_selected="IM reçus" name="IM Received" tool_tip="Vous avez reçu des messages instantanés. Cliquez pour afficher les IM."/>
 					<button label="Disponible" label_selected="Disponible" name="Set Not Busy" tool_tip="Le chat et les IM ne s&apos;affichent pas. Cliquez ici pour ne plus être en mode occupé(e)."/>
+					<button label="Flycam" label_selected="Flycam" name="Flycam" tool_tip="Votre caméra est contrôlée par le joystick, cliquez ici pour la libérer."/>
 					<button label="Vue subjective" label_selected="Vue subjective" name="Mouselook" tool_tip="Utilisez la souris pour diriger votre vue. Si vous avez un pistolet, vous pouvez tirer en cliquant."/>
 					<button label="Me lever" label_selected="Me lever" name="Stand Up" tool_tip="Cliquez ici pour vous lever."/>
 				</layout_panel>
-				<layout_panel name="chat_bar" />
+				<layout_panel name="chat_bar"/>
 			</layout_stack>
 		</layout_panel>
-		<layout_panel name="media_remote_container" width="220" min_width="220" />
-		<layout_panel name="voice_remote_container" width="140" min_width="138" />
+		<layout_panel min_width="220" name="media_remote_container" width="220"/>
+		<layout_panel min_width="138" name="voice_remote_container" width="140"/>
 	</layout_stack>
 </panel>

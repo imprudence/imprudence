@@ -35,8 +35,7 @@
 			<check_box label="在网上公布" name="allow_publish"
 			     tool_tip="将简介发布到网上。" />
 			<button label="?" label_selected="?" name="publish_help_btn" />
-			<check_box label="成人" name="mature"
-			     tool_tip="您的社团档案带有成人内容。" />
+			<check_box name="mature" />
 		</panel>
 		<panel label="头衔" name="tit">
 			<text name="txt">

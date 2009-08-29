@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Panel Avatar">
+	<tab_container name="tab">
+		<panel label="2. Hayat" name="2nd Life">
+			<string name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+			<string name="AcctTypeResident">
+				Üye
+			</string>
+			<string name="AcctTypeTrial">
+				Deneme
+			</string>
+			<string name="AcctTypeCharterMember">
+				Gönüllü üye
+			</string>
+			<string name="AcctTypeEmployee">
+				Linden Lab görevlisi
+			</string>
+			<string name="PaymentInfoUsed">
+				Ödeme bilgisi kullanıldı
+			</string>
+			<string name="PaymentInfoOnFile">
+				Ödeme bilgisi mevcut
+			</string>
+			<string name="NoPaymentInfoOnFile">
+				Ödeme bilgisi yok
+			</string>
+			<string name="AgeVerified">
+				Age-verified
+			</string>
+			<string name="NotAgeVerified">
+				Not Age-verified
+			</string>
+			<text name="Name:">
+				Ad:
+			</text>
+			<text name="online_yes">
+				Sistemde
+			</text>
+			<text name="label">
+				Doğum:
+			</text>
+			<text name="label2">
+				Hesap:
+			</text>
+			<text name="partner_label" tool_tip="Second Life evliliği.Nasıl kullandığında dair daha fazla bilgi almak için,www.secondlife.com/partner adresini ziyaret ediniz.">
+				Eş:
+			</text>
+			<button label="i" label_selected="i" name="partner_info" tool_tip="Eş profilini açmak için tıklayınız"/>
+			<button label="?" label_selected="?" name="partner_help"/>
+			<line_editor name="partner_edit" tool_tip="Second Life evliliği.Nasıl kullandığında dair daha fazla bilgi almak için,www.secondlife.com/partner adresini ziyaret ediniz.">
+				[FIRST] [LAST]
+			</line_editor>
+			<text name="Photo:">
+				Fotoğraf:
+			</text>
+			<texture_picker label="" name="img" tool_tip="Resim seçmek için tıklayınız"/>
+			<text name="Groups:">
+				Gruplar:
+			</text>
+			<text name="About:">
+				Hakkında:
+			</text>
+			<text name="(500 chars)">
+				(500 kar)
+			</text>
+			<text name="Give item:">
+				Ürün ver:
+			</text>
+			<text name="Give inventory" tool_tip="Bu kişiye vereceğiniz envanter ürününü buraya sürükleyiniz.">
+				Envanter ürününü buraya sürükleyiniz.
+			</text>
+			<check_box label="Aramada göster" name="allow_publish" tool_tip="Aramada tanım ve resim gibi ekstra profil bilgisi yayınla."/>
+			<button label="?" label_selected="?" name="?"/>
+			<button label="Haritada bul" label_selected="Haritada bul" name="Find on Map"/>
+			<button label="Işınlama teklif et..." label_selected="Işınlama teklif et..." name="Offer Teleport..."/>
+			<button label="Arkadaş ol..." label_selected="Arkadaş ol..." name="Add Friend..."/>
+			<button label="Öde..." label_selected="Öde..." name="Pay..."/>
+			<button label="Hızlı mesaj..." label_selected="Hızlı mesaj..." name="Instant Message..." tool_tip="Hızlı mesaj (HM)"/>
+			<button label="Engelle" label_selected="Engelle" name="Mute"/>
+		</panel>
+		<panel label="Web" name="WebProfile">
+			<flyout_button label="Yükle" label_selected="Yükle" name="load" tool_tip="Bu profil sayfasını gömülü web tarayıcısı ile yükleyin.">
+				<flyout_button_item name="open_item">
+					Dış tarayıcıda
+				</flyout_button_item>
+				<flyout_button_item name="home_item">
+					Ev linki
+				</flyout_button_item>
+			</flyout_button>
+			<button label="?" label_selected="?" name="web_profile_help"/>
+			<check_box label="Otomatik olarak web profillerini yükle" name="auto_load" tool_tip="Tüm profil web sayfalarını sormadan otomatik olarak yükler."/>
+		</panel>
+		<panel label="Hobiler" name="Interests">
+			<text name="I Want To:">
+				İstediklerim:
+			</text>
+			<check_box label="İnşa etme" name="chk0"/>
+			<check_box label="Araştırma" name="chk1"/>
+			<check_box label="Tanışma" name="chk2"/>
+			<check_box label="İşe alınma" name="chk6"/>
+			<check_box label="Gruplaşma" name="chk3"/>
+			<check_box label="Satın alma" name="chk4"/>
+			<check_box label="Satma" name="chk5"/>
+			<check_box label="İşe alma" name="chk7"/>
+			<text name="Skills:">
+				Yeteneklerim:
+			</text>
+			<check_box label="Desenler" name="schk0"/>
+			<check_box label="Mimari" name="schk1"/>
+			<check_box label="Aktivite planlama" name="schk2"/>
+			<check_box label="Modellik" name="schk3"/>
+			<check_box label="Kodlama" name="schk4"/>
+			<check_box label="Özel karakterler" name="schk5"/>
+			<text name="Languages:">
+				Diller:
+			</text>
+		</panel>
+		<panel label="Resimler" name="Picks">
+			<text name="Tell everyone about your favorite places in Second Life.">
+				Second Life&apos;daki favori lokasyonlarınızı herkese anlatın.
+			</text>
+			<button label="Yeni..." label_selected="Yeni..." name="New..."/>
+			<button label="Sil..." label_selected="Sil..." name="Delete..."/>
+			<text name="loading_text">
+				Yükleniyor...
+			</text>
+		</panel>
+		<panel label="İlan" name="Classified">
+			<text name="Place an ad in Second Life&apos;s classified listings.">
+				Second Life ilan listelerinde reklam verin.
+			</text>
+			<button label="Yeni..." label_selected="Yeni..." name="New..."/>
+			<button label="Sil..." label_selected="Sil..." name="Delete..."/>
+			<text name="loading_text">
+				Yükleniyor...
+			</text>
+		</panel>
+		<panel label="Gerçek Hayat" name="1st Life">
+			<text name="Photo:">
+				Fotoğraf:
+			</text>
+			<texture_picker label="" name="img" tool_tip="Resim seçmek için tıklayınız"/>
+			<text name="Info:">
+				Bilgi:
+			</text>
+			<text name="(250 chars)">
+				(250 kar)
+			</text>
+		</panel>
+		<panel label="Notlarım" name="My Notes">
+			<string name="Loading">
+				Yükleniyor...
+			</string>
+			<text name="label">
+				Bu alanı bu kişi hakkındaki notlarınızı kaydetmek için kullanın.  Devam eden
+ticaretin, ortak projelerin, vs kaydını tutun.  Bu notları sadece
+siz görebilirsiniz.  Bu kişi veya başkaları göremez.
+			</text>
+		</panel>
+	</tab_container>
+	<button label="Tamam" label_selected="Tamam" name="OK"/>
+	<button label="İptal" label_selected="İptal" name="Cancel"/>
+	<button label="Çıkar" label_selected="Çıkar" name="Kick"/>
+	<button label="Dondur" label_selected="Dondur" name="Freeze" tool_tip="Bu üyenin hareketini ve sohbetini durdurur."/>
+	<button label="Çöz" label_selected="Çöz" name="Unfreeze" tool_tip="Üyeyi çöz"/>
+	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="Bu üye için müşteri servisi aracı açın"/>
+	<string name="ShowOnMapNonFriend">
+		Lokasyonu haritada gösterir.
+Etkin değil çünkü siz onlarla 
+arkadaşlık oluşturmadınız.
+	</string>
+	<string name="ShowOnMapFriendOffline">
+		Lokasyonu haritada gösterir.
+Etkin değil çünkü onlar sistemde değil.
+	</string>
+	<string name="ShowOnMapFriendOnline">
+		Lokasyonu haritada gösterir.
+	</string>
+	<string name="TeleportGod">
+		Lokasyonunuza ışınlamaya zorlayınız.
+	</string>
+	<string name="TeleportPrelude">
+		Lokasyonunuza ışınlanma teklif ediniz.
+Oryentasyon Adası&apos;nı geçene kadar etkin değil.
+	</string>
+	<string name="TeleportNormal">
+		Lokasyonunuza ışınlanma teklif ediniz.
+	</string>
+	<string name="Loading">
+		Yükleniyor...
+	</string>
+</panel>

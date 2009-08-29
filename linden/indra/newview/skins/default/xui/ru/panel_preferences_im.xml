@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Связь" name="im">
+	<text length="1" name="text_box" type="string">
+		Мой Онлайн Статус:
+	</text>
+	<check_box label="Только мои Друзья и Группы могут видеть, когда я онлайн" name="online_visibility"/>
+	<text length="1" name="text_box2" type="string">
+		Опции IM:
+	</text>
+	<string name="log_in_to_change">
+		войти в систему для изменения
+	</string>
+	<check_box label="Посылать IM на Email ([EMAIL])" name="send_im_to_email"/>
+	<check_box label="Показывать ЛС в консолем чате" name="include_im_in_chat_console"/>
+	<check_box label="Показывать время в IM" name="show_timestamps_check"/>
+	<check_box label="Показывать уведомления о друзьях онлайн" name="friends_online_notify_checkbox"/>
+	<text length="1" name="text_box3" type="string">
+		Ответ в режим
+&apos;Занят&apos;:
+	</text>
+	<text length="1" name="text_box4" type="string">
+		Опции журнала:
+	</text>
+	<check_box label="Сохранять лог ЛС на моем компьютере" name="log_instant_messages"/>
+	<check_box label="Показывать время в логах ЛС" name="log_instant_messages_timestamp"/>
+	<check_box label="Показывать окончание последнего ЛС разговора" name="log_show_history"/>
+	<check_box label="Сохранять лог Общего Чата на мой компьютер" name="log_chat"/>
+	<check_box label="Показывать время в логах Общего Чата" name="log_chat_timestamp"/>
+	<check_box label="Показывать входящие ЛС в логах Общего Чата" name="log_chat_IM"/>
+	<check_box label="Показывать дату и время" name="log_date_timestamp"/>
+	<button label="Путь" label_selected="Изменить Путь" name="log_path_button"/>
+</panel>

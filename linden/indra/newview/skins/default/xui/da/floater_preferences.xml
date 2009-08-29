@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Preferences" title="Indstillinger">
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="Annullér" label_selected="Annullér" name="Cancel" />
+	<button label="Gem" label_selected="Gem" name="Apply" />
+	<button label="Om" label_selected="Om" name="About..." />
+	<button label="Hjælp" label_selected="Hjælp" name="Help" />
+</floater>

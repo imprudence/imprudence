@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Általános" name="general_tab">
+	<string name="help_text">
+		Itt találhatók az általános információk a csoportról.
+Tulajdonosok, tagok listája, csoport tulajdonságok és a 
+tagok beállításai.
+
+Helyezd az egeret a beállítások fölé a további segítségért.
+	</string>
+	<string name="group_info_unchanged">
+		Általános csoport információk megváltoztak.
+	</string>
+	<button label="?" label_selected="?" name="help_button"/>
+	<line_editor label="Ide írd az új csoport nevet" name="group_name_editor"/>
+	<text name="group_name">
+		Ide írd az új csoport nevet
+	</text>
+	<text name="prepend_founded_by">
+		Alapította:
+	</text>
+	<text name="founder_name">
+		(várakozás)
+	</text>
+	<text name="group_charter_label">
+		Alapszabály
+	</text>
+	<texture_picker label="Csoportjel" name="insignia" tool_tip="Click to choose a picture"/>
+	<text_editor name="charter">
+		Csoport jele
+	</text_editor>
+	<button label="Belép (0 L$)" label_selected="Belép (0 L$)" name="join_button"/>
+	<button label="Részletes nézet" label_selected="Részletes nézet" name="info_button"/>
+	<text name="text_owners_and_visible_members">
+		Tulajdonosok és látható tagok
+	</text>
+	<text name="text_owners_are_shown_in_bold">
+		(Tulajdonosok vastagon vannak szedve)
+	</text>
+	<name_list name="visible_members">
+		<column label="Tag neve" name="name" relwidth="0.40"/>
+		<column label="Beosztás" name="title" relwidth="0.25"/>
+		<column label="Utolsó belépés" name="online" relwidth="0.35"/>
+	</name_list>
+	<text name="text_group_preferences">
+		Csoport tulajdonságok
+	</text>
+	<panel name="preferences_container">
+		<check_box label="Keresőben megjelenít" name="show_in_group_list" tool_tip="Csoport megjelenítése a keresési eredmények között."/>
+		<check_box label="Nyitott tagság" name="open_enrollement" tool_tip="Meghívás nélkül is be lehet lépni a csoportba."/>
+		<check_box label="Tagsági díj: L$" name="check_enrollment_fee" tool_tip="Csoporttagsághoz szükséges díj beállítása."/>
+		<spinner name="spin_enrollment_fee" tool_tip="Az új tagoknak ezt a díjat kell belépéskor megfizetniük, amennyiben ez be van jelölve."/>
+		<combo_box name="group_mature_check" tool_tip="Csoport információk beállítása felnőtt tartalomként." width="136">
+			<combo_item name="select_mature">
+				- Típus kiválasztása -
+			</combo_item>
+			<combo_item name="mature">
+				Mature tartalom
+			</combo_item>
+			<combo_item name="pg">
+				PG tartalom
+			</combo_item>
+		</combo_box>
+		<panel name="title_container">
+			<text name="active_title_label">
+				Jelenlegi beosztásom
+			</text>
+			<combo_box length="150" name="active_title" tool_tip="Az avatár beosztásának beállítása. Ez megjelenik az avatár feletti névtérben, amennyiben az aktuális csoport aktív."/>
+		</panel>
+		<check_box label="Csoport értesítések fogadása" name="receive_notices" tool_tip="Csoport értesítések fogadásának engedélyezése. Jelölés kivétele, ha a csoportban sok a spam."/>
+		<check_box label="Csoport az adatlapomon" name="list_groups_in_profile" tool_tip="Csoport megjelenítése az adatlapodon"/>
+	</panel>
+	<string name="incomplete_member_data_str">
+		Csoporttag információk betöltése
+	</string>
+	<string name="confirm_group_create_str">
+		Csoport létrehozásának díja 100 L$. 
+Valóban létre szeretnéd hozni a csoportot?
+	</string>
+</panel>

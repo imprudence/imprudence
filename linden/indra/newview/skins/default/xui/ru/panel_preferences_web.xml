@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Интернет" name="web">
+	<radio_group name="use_external_browser">
+		<radio_item name="external"
+		     tool_tip="Использовать системный веб-браузер для помощи, веб-ссылок и т.д. Не рекомендуется при работе в полноэкранном режиме.">
+			Использовать внешний браузер (Firefox, Safari, Internet Explorer)
+		</radio_item>
+		<radio_item name="internal"
+		     tool_tip="Использовать встроенный веб-браузер для помощи, веб-ссылок и т.д. Этот браузер открывается как окно внутри Second Life.">
+			Использовать встроенный браузер.
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="cache_size_label_l">
+		Кэш браузера:
+	</text>
+	<button label="Очистить" name="clear_cache" />
+	<text type="string" length="1" name="cookie_label">
+		Cookies:
+	</text>
+	<check_box label="Принимать &apos;cookies&apos; с сайтов:"
+	     name="cookies_enabled" />
+	<text type="string" length="1" name="proxy_label">
+		Веб-прокси:
+	</text>
+	<check_box label="Включить Веб-Прокси" name="web_proxy_enabled" />
+	<text type="string" length="1" name="proxy_text_label">
+		Адрес:
+	</text>
+	<line_editor left="227" name="web_proxy_editor" tool_tip="Имя или IP-адрес прокси, который Вы хотите использовать" />
+	<spinner label="Номер порта:" label_width="85" name="web_proxy_port" width="150" />
+</panel>

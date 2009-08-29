@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -131,8 +132,12 @@ BOOL decode_vorbis_file(LLVFS *vfs, const LLUUID &in_uuid, char *out_fname)
 		llwarning("unable to open vorbis source vfile for reading",0);
 		return(FALSE);
 	}
-	apr_file_t* outfp = ll_apr_file_open(out_fname,LL_APR_WPB);
-	if (!outfp)
+
+	//**********************************
+	LLAPRFile outfile ;
+	outfile.open(out_fname,LL_APR_WPB);
+	//**********************************
+	if (!outfile.getFileHandle())
 	{
 		llwarning("unable to open vorbis destination file for writing",0);
 		return(FALSE);		
@@ -211,8 +216,7 @@ BOOL decode_vorbis_file(LLVFS *vfs, const LLUUID &in_uuid, char *out_fname)
 		temp[42] = 0x00;
 		temp[43] = 0x00;
 
-
-		ll_apr_file_write(outfp, temp, 44);
+		outfile.write(temp, 44);
 	}
 
 	OggVorbis_File vf;
@@ -222,7 +226,7 @@ BOOL decode_vorbis_file(LLVFS *vfs, const LLUUID &in_uuid, char *out_fname)
 	int r = ov_open_callbacks(in_vfile, &vf, NULL, 0, vfs_callbacks);
 	if(r < 0) 
 	{
-		llwarns << r << " Input to vorbis decode does not appear to be an Ogg bitstream: " << in_uuid << llendl;
+		llwarns << r << " Input to vorbis decode does not appear to be an Ogg bitstream: " << in_uuid << llendl;		
 		return(FALSE);
 	}
 
@@ -254,20 +258,20 @@ BOOL decode_vorbis_file(LLVFS *vfs, const LLUUID &in_uuid, char *out_fname)
 //			llinfos << "Vorbis read " << ret << "bytes" << llendl;
 			/* we don't bother dealing with sample rate changes, etc, but.
 			   you'll have to*/
-			data_length += ll_apr_file_write(outfp, pcmout, ret);
+			data_length += outfile.write(pcmout, ret);
 		}
 	}
 
 	ov_clear(&vf);
   
 	// write "data" chunk length
-	ll_apr_file_seek(outfp,APR_SET,40);
-	ll_apr_file_write(outfp,&data_length,4);
+	outfile.seek(APR_SET,40);
+	outfile.write(&data_length,4);
  
 	// write overall "RIFF" length
 	data_length += 36;
-	ll_apr_file_seek(outfp,APR_SET,4);
-	ll_apr_file_write(outfp,&data_length,1*4);
+	outfile.seek(APR_SET,4);
+	outfile.write(&data_length,1*4);
 
 	// FUCK!!! Vorbis encode/decode messes up loop point transitions (pop)
 	// do a cheap-and-cheesy crossfade 
@@ -279,8 +283,8 @@ BOOL decode_vorbis_file(LLVFS *vfs, const LLUUID &in_uuid, char *out_fname)
 
 	fade_length = llmin((S32)128,(S32)(data_length-36)/8);
 	
-	ll_apr_file_seek(outfp,APR_SET,44);
-	ll_apr_file_read(outfp, pcmout,2*fade_length);  //read first 16 samples
+	outfile.seek(APR_SET,44);
+	outfile.read(pcmout,2*fade_length);  //read first 16 samples
 
 	samplep = (S16 *)pcmout;
 
@@ -289,11 +293,11 @@ BOOL decode_vorbis_file(LLVFS *vfs, const LLUUID &in_uuid, char *out_fname)
 		*samplep++ = ((F32)*samplep * ((F32)i/(F32)fade_length));	   
 	}
 	
-	ll_apr_file_seek(outfp,APR_SET,44);
-	ll_apr_file_write(outfp,pcmout,2*fade_length);  //write back xfaded first 16 samples
+	outfile.seek(APR_SET,44);
+	outfile.write(pcmout,2*fade_length);  //write back xfaded first 16 samples
 
-	ll_apr_file_seek(outfp,APR_END,-fade_length*2); 
-	ll_apr_file_read(outfp, pcmout,2*fade_length);  //read last 16 samples
+	outfile.seek(APR_END,-fade_length*2); 
+	outfile.read(pcmout,2*fade_length);  //read last 16 samples
 
 	samplep = (S16 *)pcmout;
 
@@ -302,11 +306,12 @@ BOOL decode_vorbis_file(LLVFS *vfs, const LLUUID &in_uuid, char *out_fname)
 		*samplep++ = ((F32)*samplep * ((F32)i/(F32)fade_length));	   
 	}
 	
-	ll_apr_file_seek(outfp,SEEK_END,-fade_length*2); 
-	ll_apr_file_write(outfp,pcmout,2*fade_length);  //write back xfaded last 16 samples
-
-	apr_file_close(outfp);
-
+	outfile.seek(SEEK_END,-fade_length*2); 
+	outfile.write(pcmout,2*fade_length);  //write back xfaded last 16 samples
+	//*******************
+	outfile.close();
+	//*******************
+	
 	if ((36 == data_length) || (!(eof)))
 	{
 		llwarning("BAD Vorbis DECODE!, removing .wav!",0); 

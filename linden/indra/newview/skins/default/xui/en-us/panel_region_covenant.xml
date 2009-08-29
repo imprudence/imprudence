@@ -1,61 +1,132 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="0" follows="top|left" height="320" label="Covenant"
      left="0" name="Covenant" width="480">
-	<text bottom="-30" follows="left|top" font="SansSerifSmall" height="20" left="10"
-	     name="covenant_help_text" width="460">
-		Changes to the covenant information will show on all parcels in the estate.
-	</text>
-	<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="20"
-	     left="10" name="region_name_lbl" width="75">
-		Region:
-	</text>
-	<text bottom_delta="-14" follows="left|top"
-	     font="SansSerifSmall" height="20" left_delta="0" name="region_name_text"
-	     width="130">
-		(unknown)
-	</text>
-	<text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20"
-	     left="10" name="estate_name_lbl" width="75">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="20" left="5"
+	     mouse_opaque="false" name="estate_section_lbl" v_pad="0" width="100">
 		Estate:
 	</text>
-	<text bottom_delta="-14" follows="left|top"
-	     font="SansSerifSmall" height="20" left_delta="0" name="estate_name_text"
-	     width="130">
-		(unknown)
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-45" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="10"
+	     mouse_opaque="false" name="estate_name_lbl" v_pad="0" width="100">
+		Name:
 	</text>
-	<text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20"
-	     left="10" name="estate_owner_lbl" width="300">
-		Estate Owner:
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-45" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="120"
+	     mouse_opaque="false" name="estate_name_text" v_pad="0" width="150">
+		mainland
 	</text>
-	<text bottom_delta="-14" follows="left|top"
-	     font="SansSerifSmall" height="20" left_delta="0" name="estate_owner_text"
-	     width="120">
-		(unknown)
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-65" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="10"
+	     mouse_opaque="false" name="estate_owner_lbl" v_pad="0" width="100">
+		Owner:
 	</text>
-	<text bottom_delta="-28" follows="left|top"
-	     font="SansSerif" height="20" left_delta="0" name="resellable_clause"
-	     width="465">
-		Purchased land in this region may or may not be resold.
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-65" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="120"
+	     mouse_opaque="false" name="estate_owner_text" v_pad="0" width="150">
+		(none)
 	</text>
-	<text bottom_delta="-18" follows="left|top"
-	     font="SansSerif" height="20" left_delta="0" name="changeable_clause"
-	     width="465">
-		Purchased land in this region may or may not be joined or subdivided.
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-85" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="10"
+	     mouse_opaque="false" name="estate_cov_lbl" v_pad="0" width="100">
+		Covenant:
 	</text>
-	<text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16"
-	     left_delta="0" name="covenent_instructions" width="465">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-85" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="120"
+	     mouse_opaque="false" name="covenant_timestamp_text" v_pad="0" width="300">
+		Last Modified Wed Dec 31 16:00:00 1969
+	</text>
+	<button bottom="-82" follows="right|top" font="SansSerifSmall" height="18" label="?"
+	     name="covenant_help" right="462" width="18" />
+	<text_editor type="string" length="1" bottom="-279" embedded_items="false" enabled="false"
+	     follows="left|top" font="SansSerifSmall" height="194"
+	     left="120" max_length="65535" mouse_opaque="true" name="covenant_editor"
+	     width="340" word_wrap="true">
+		There is no Covenant provided for this Estate.
+	</text_editor>
+	<button bottom_delta="-25" follows="left|top" font="SansSerifSmall" height="18"
+	     label="Reset" name="reset_covenant" right="460" width="90" />
+	<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16" left="120"
+	     name="covenant_help_text" width="460">
+		Changes to the covenant will show on all parcels in the estate.
+	</text>
+	<text bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
+	     left_delta="0" name="covenant_instructions" width="465">
 		Drag and drop a notecard to change the Covenant for this Estate.
 	</text>
-	<text_editor bottom_delta="-242" enabled="false"
-	     follows="left|top" font="SansSerifSmall" height="238" left_delta="0"
-	     max_length="65535" name="covenant_editor" 
-	     width="460" word_wrap="true">
-		Loading...
-	</text_editor>
-	<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="20"
-	     left_delta="0" name="covenant_timestamp_text" width="300" />
-	<button bottom_delta="-4" follows="left|top" font="SansSerifSmall" height="18"
-	     label="Reset" name="reset_covenant" right="470" width="90" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="20" left="5"
+	     mouse_opaque="false" name="region_section_lbl" v_pad="0" width="100">
+		Region:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="10"
+	     mouse_opaque="false" name="region_name_lbl" v_pad="0" width="100">
+		Name:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="120"
+	     mouse_opaque="false" name="region_name_text" v_pad="0" width="150">
+		leyla
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="10"
+	     mouse_opaque="false" name="region_landtype_lbl" v_pad="0" width="100">
+		Type:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="120"
+	     mouse_opaque="false" name="region_landtype_text" v_pad="0" width="150">
+		Mainland / Homestead
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="10"
+	     mouse_opaque="false" name="region_maturity_lbl" v_pad="0" width="100">
+		Rating:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="120"
+	     mouse_opaque="false" name="region_maturity_text" v_pad="0" width="150">
+		Adult
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="10"
+	     mouse_opaque="false" name="resellable_lbl" v_pad="0" width="100">
+		Resale:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="120"
+	     mouse_opaque="false" name="resellable_clause" v_pad="0" width="330">
+		Land in this region may not be resold.
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="10"
+	     mouse_opaque="false" name="changeable_lbl" v_pad="0" width="100">
+		Subdivide:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-10" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="30" left="120"
+	     mouse_opaque="false" name="changeable_clause" v_pad="0" width="330">
+		Land in this region may not be joined/subdivided.
+	</text>
 	<string name="can_resell">
 		Purchased land in this region may be resold.
 	</string>
@@ -68,6 +139,4 @@
 	<string name="can_not_change">
 		Purchased land in this region may not be joined or subdivided.
 	</string>
-	<button bottom="-24" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     name="covenant_help" right="470" width="18" />
 </panel>

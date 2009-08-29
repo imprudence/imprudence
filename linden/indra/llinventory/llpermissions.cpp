@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -274,6 +275,15 @@ BOOL LLPermissions::setOwnerAndGroup(
 	}
 
 	return allowed;
+}
+
+// only call this if you know what you're doing
+// there are usually perm-bit consequences when the 
+// ownerhsip changes
+void LLPermissions::yesReallySetOwner(const LLUUID& owner, bool group_owned)
+{
+	mOwner = owner;
+	mIsGroupOwned = group_owned;
 }
 
 BOOL LLPermissions::deedToGroup(const LLUUID& agent, const LLUUID& group)

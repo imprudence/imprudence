@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -173,7 +174,7 @@ LLFloaterScriptDebugOutput::LLFloaterScriptDebugOutput(const LLUUID& object_id)
 		getRect().getWidth() - LLFLOATER_HPAD,
 				LLFLOATER_VPAD );
 	mHistoryEditor = new LLViewerTextEditor( std::string("Chat History Editor"), 
-										history_editor_rect, S32_MAX, LLStringUtil::null, LLFontGL::sSansSerif);
+										history_editor_rect, S32_MAX, LLStringUtil::null, LLFontGL::getFontSansSerif());
 	mHistoryEditor->setWordWrap( TRUE );
 	mHistoryEditor->setFollowsAll();
 	mHistoryEditor->setEnabled( FALSE );
@@ -196,7 +197,7 @@ void LLFloaterScriptDebugOutput::initFloater(const std::string& title, BOOL resi
 		getRect().getWidth() - LLFLOATER_HPAD,
 				LLFLOATER_VPAD );
 	mHistoryEditor = new LLViewerTextEditor( std::string("Chat History Editor"), 
-										history_editor_rect, S32_MAX, LLStringUtil::null, LLFontGL::sSansSerif);
+										history_editor_rect, S32_MAX, LLStringUtil::null, LLFontGL::getFontSansSerif());
 	mHistoryEditor->setWordWrap( TRUE );
 	mHistoryEditor->setFollowsAll();
 	mHistoryEditor->setEnabled( FALSE );

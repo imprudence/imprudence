@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -349,7 +350,7 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 
 	LLSD columns;
 	S32 index = 0;
-	S32 total_static = 0;
+	//S32 total_static = 0;
 	LLXMLNodePtr child;
 	for (child = node->getFirstChild(); child.notNull(); child = child->getNextSibling())
 	{
@@ -383,7 +384,7 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 			LLFontGL::HAlign h_align = LLFontGL::LEFT;
 			h_align = LLView::selectFontHAlign(child);
 
-			if(!columndynamicwidth) total_static += llmax(0, columnwidth);
+			//if(!columndynamicwidth) total_static += llmax(0, columnwidth);
 
 			columns[index]["name"] = columnname;
 			columns[index]["label"] = labelname;
@@ -394,7 +395,6 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 			index++;
 		}
 	}
-	name_list->setTotalStaticColumnWidth(total_static);
 	name_list->setColumnHeadings(columns);
 
 

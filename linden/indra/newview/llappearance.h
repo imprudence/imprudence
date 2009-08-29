@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -43,14 +44,14 @@ public:
 	void	addParam( S32 id, F32 value )				{ mParamMap[id] = value; }
 	F32		getParam( S32 id, F32 defval )				{ return get_if_there(mParamMap, id, defval ); }
 
-	void	addTexture( S32 te, const LLUUID& uuid )	{ if( te < LLVOAvatar::TEX_NUM_ENTRIES ) mTextures[te] = uuid; }
-	const LLUUID& getTexture( S32 te )					{ return ( te < LLVOAvatar::TEX_NUM_ENTRIES ) ? mTextures[te] : LLUUID::null; }
+	void	addTexture( S32 te, const LLUUID& uuid )	{ if( te < LLVOAvatarDefines::TEX_NUM_INDICES ) mTextures[te] = uuid; }
+	const LLUUID& getTexture( S32 te )					{ return ( te < LLVOAvatarDefines::TEX_NUM_INDICES ) ? mTextures[te] : LLUUID::null; }
 	
-	void	clear()										{ mParamMap.clear(); for( S32 i=0; i<LLVOAvatar::TEX_NUM_ENTRIES; i++ ) mTextures[i].setNull(); }
+	void	clear()										{ mParamMap.clear(); for( S32 i=0; i<LLVOAvatarDefines::TEX_NUM_INDICES; i++ ) mTextures[i].setNull(); }
 
 	typedef std::map<S32, F32> param_map_t;
 	param_map_t mParamMap;
-	LLUUID	mTextures[LLVOAvatar::TEX_NUM_ENTRIES];
+	LLUUID	mTextures[LLVOAvatarDefines::TEX_NUM_INDICES];
 };
 
 #endif  // LL_LLAPPEARANCE_H

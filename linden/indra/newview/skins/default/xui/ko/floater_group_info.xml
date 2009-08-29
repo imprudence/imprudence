@@ -34,8 +34,7 @@
 			<check_box label="웹에 게시" name="allow_publish"
 			     tool_tip="내 프로필 정보를 웹에 게시." />
 			<button label="?" label_selected="?" name="publish_help_btn" />
-			<check_box label="성인용" name="mature"
-			     tool_tip="사용자의 프로필 정보는 성인 전용으로 간주됩니다." />
+			<check_box name="mature" />
 		</panel>
 		<panel label="타이틀" name="tit">
 			<text name="txt">

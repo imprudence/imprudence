@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="object im info" title="Objekt Information">
+	<text name="LabelItemNameTitle">
+		Objekt:
+	</text>
+	<text name="LabelSlurlTitle">
+		Sted:
+	</text>
+	<text name="Unknown_Slurl" width="300">
+		(Information om sted ikke tilgængelig)
+	</text>
+	<text name="LabelOwnerNameTitle">
+		Ejer:
+	</text>
+	<button label="Blokér ejer" label_selected="Blokér ejer" name="Mute"/>
+</floater>

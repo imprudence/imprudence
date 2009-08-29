@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Аудіо і Відео" name="Media panel">
+	<slider label_width="60" label="Головні" name="System Volume" />
+	<button label="" name="mute_audio" />
+	<slider label_width="60" label="Музика" name="Music Volume" />
+	<button label="" name="mute_music" />
+	<slider label_width="60" label="Медіа" name="Media Volume" />
+	<button label="" name="mute_media" />
+	<slider label_width="60" label="Голос" name="Voice Volume" />
+	<button label="" name="mute_voice" />
+	<slider label_width="60" label="Звуки" name="SFX Volume" />
+	<button label="" name="mute_sfx" />
+	<slider label_width="60" label="Оточ.звук" name="Wind Volume" />
+	<button label="" name="mute_wind" />
+	<slider label_width="60" label="UI" name="UI Volume" />
+	<button label="" name="mute_ui" />
+</panel>

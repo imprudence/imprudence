@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="top_objects" title="Завантаження...">
+	<text name="title_text">
+		Завантаж...
+	</text>
+	<scroll_list name="objects_list">
+		<column label="Рахунок" name="score"/>
+		<column label="Ім&apos;я" name="name"/>
+		<column label="Власник" name="owner"/>
+		<column label="Розміщення" name="location"/>
+		<column label="Час" name="time"/>
+		<column label="Моно Час" name="mono_time"/>
+	</scroll_list>
+	<line_editor font="SansSerifSmall" left="105" name="id_editor" width="280"/>
+	<line_editor font="SansSerifSmall" left="105" name="object_name_editor" width="280"/>
+	<line_editor font="SansSerifSmall" left="105" name="owner_name_editor" width="280"/>
+	<text name="id_text">
+		ID об&apos;єкта:
+	</text>
+	<button label="Показувати маяк" name="show_beacon_btn" width="150"/>
+	<text name="obj_name_text" width="120">
+		Назва об&apos;єкта:
+	</text>
+	<button label="Фільтр" name="filter_object_btn" width="150"/>
+	<text name="owner_name_text" width="120">
+		Ім&apos;я власника:
+	</text>
+	<button label="Фільтр" name="filter_owner_btn" width="150"/>
+	<button label="Повернути вибране" name="return_selected_btn" width="180"/>
+	<button label="Повернути все" name="return_all_btn" left="200" width="150"/>
+	<button label="Заблокувати вибране" name="disable_selected_btn" width="180"/>
+	<button label="Заблокувати все" name="disable_all_btn" left="200" width="150"/>
+	<button label="Оновити" name="refresh_btn" width="150"/>
+	<string name="top_scripts_title">
+		Топ скриптів
+	</string>
+	<string name="top_scripts_text">
+		[COUNT] скриптів виконується за [TIME] мс
+	</string>
+	<string name="scripts_score_label">
+		Час
+	</string>
+	<string name="scripts_mono_time_label">
+		Моно Час
+	</string>
+	<string name="top_colliders_title">
+		Топ зіткнень
+	</string>
+	<string name="top_colliders_text">
+		Топ [COUNT] об&apos;єктів потенційно небезпечних для зіткнень
+	</string>
+	<string name="colliders_score_label">
+		Рахунок
+	</string>
+	<string name="none_descriptor">
+		Не знайдено.
+	</string>
+</floater>

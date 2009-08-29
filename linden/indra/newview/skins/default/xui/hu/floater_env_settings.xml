@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Environment Editor Floater" title="Környezeti beállítások">
+	<text type="string" length="1" name="EnvTimeText">
+		Nappal
+	</text>
+	<text type="string" length="1" name="EnvTimeText2">
+		12:00 óra
+	</text>
+	<slider label="" name="EnvTimeSlider" />
+	<text type="string" length="1" name="EnvCloudText">
+		Felhősödés
+	</text>
+	<slider label="" name="EnvCloudSlider" />
+	<text type="string" length="1" name="EnvWaterColorText">
+		Víz színe
+	</text>
+	<color_swatch label="" name="EnvWaterColor" tool_tip="Click to open Color Picker" />
+	<text type="string" length="1" name="EnvWaterFogText">
+		Vízköd
+	</text>
+	<slider label="" name="EnvWaterFogSlider" />
+	<button label="Telekidő használata" name="EnvUseEstateTimeButton" />
+	<button label="Felhő beállítások" name="EnvAdvancedSkyButton" />
+	<button label="Víz beállítások" name="EnvAdvancedWaterButton" />
+	<button label="?" name="EnvSettingsHelpButton" />
+</floater>

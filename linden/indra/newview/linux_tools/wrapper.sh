@@ -41,6 +41,17 @@
 ##   driver bug, try enabling this option and report whether it helps:
 #export LL_ATI_MOUSE_CURSOR_BUG=x
 
+## - If you experience crashes with streaming video and music, you can
+##   disable these by enabling this option:
+#export LL_DISABLE_GSTREAMER=x
+
+## - GStreamer is automatically disabled - for now - on 64-bit systems due
+##   to common fatal incompatibilities; remove/comment these lines if you want
+##   to try anyway.
+if [ "`uname -m`" = "x86_64" ]; then
+    export LL_DISABLE_GSTREAMER=x
+    echo '64-bit Linux detected: Disabling GStreamer (streaming video and music) by default; edit ./secondlife to re-enable.'
+fi
 
 ## Everything below this line is just for advanced troubleshooters.
 ##-------------------------------------------------------------------
@@ -83,9 +94,7 @@ cd "${RUN_PATH}"
 ./register_secondlifeprotocol.sh
 ## Before we mess with LD_LIBRARY_PATH, save the old one to restore for
 ##  subprocesses that care.
-if [ "${LD_LIBRARY_PATH+isset}" = "isset" ]; then
-    export SAVED_LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
-fi
+export SAVED_LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
 if [ -n "$LL_TCMALLOC" ]; then
     tcmalloc_libs='/usr/lib/libtcmalloc.so.0 /usr/lib/libstacktrace.so.0 /lib/libpthread.so.0'
@@ -119,7 +128,7 @@ if [ -n "$LL_RUN_ERR" ]; then
 	LL_RUN_ERR_MSG=""
 	if [ "$LL_RUN_ERR" = "runerr" ]; then
 		# generic error running the binary
-		echo '*** Unclean shutdown. ***'
+		echo '*** Bad shutdown. ***'
 		if [ "`uname -m`" = "x86_64" ]; then
 			echo
 			cat << EOFMARKER

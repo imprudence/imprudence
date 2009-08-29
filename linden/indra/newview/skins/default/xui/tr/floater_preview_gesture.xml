@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="gesture_preview">
+	<string name="stop_txt">
+		Durdur
+	</string>
+	<string name="preview_txt">
+		Önizleme
+	</string>
+	<string name="none_text">
+		-- None --
+	</string>
+	<text name="desc_label">
+		Tanım:
+	</text>
+	<text name="trigger_label">
+		Kısayol:
+	</text>
+	<text name="replace_text" tool_tip="Tetikleyici sözcükleri bu sözcükler ile değiştirir. Örneğin, tetikleyici &apos;hello&apos; yerine &apos;howdy&apos; gelir ve &apos;I wanted to say hello&apos; yazısını &apos;I wanted to say howdy&apos; olarak değiştirir,bunun yanısıra hareketi de oynatır!">
+		Değiştir:
+	</text>
+	<line_editor name="replace_editor" tool_tip="Tetikleyici sözcükleri bu sözcükler ile değiştirir. Örneğin, tetikleyici &apos;hello&apos; yerine &apos;howdy&apos; gelir ve &apos;I wanted to say hello&apos; yazısını &apos;I wanted to say howdy&apos; olarak değiştirir,bunun yanısıra hareketi de oynatır"/>
+	<text name="key_label">
+		Kısayol tuşu:
+	</text>
+	<combo_box label="Yok" name="modifier_combo"/>
+	<combo_box label="Yok" name="key_combo"/>
+	<text name="library_label">
+		Kütüphane:
+	</text>
+	<text name="steps_label">
+		Adımlar:
+	</text>
+	<scroll_list name="library_list">
+		Animasyon
+Ses
+Sohbet
+Bekleme
+	</scroll_list>
+	<button label="Ekle &gt;&gt;" name="add_btn"/>
+	<button label="Yukarı" name="up_btn"/>
+	<button label="Aşağı" name="down_btn"/>
+	<button label="Çıkar" name="delete_btn"/>
+	<text name="help_label">
+		Bekleme adımları eklemediğiniz 
+takdirde tüm adımlar eşzamanlı 
+olarak gerçekleşir.
+	</text>
+	<radio_group name="animation_trigger_type">
+		<radio_item name="start">
+			Başlat
+		</radio_item>
+		<radio_item name="stop">
+			Durdur
+		</radio_item>
+	</radio_group>
+	<check_box label="animasyonlar tamamlanana kadar" name="wait_anim_check"/>
+	<check_box label="saniye olarak zaman" name="wait_time_check"/>
+	<line_editor left_delta="130" name="wait_time_editor" />
+	<check_box label="Aktif" name="active_check" tool_tip="Aktif hareketler kısayol ibareleri yazılarak veya tuşları kullanılarak tetiklenebilir.Eğer tuş karışması varsa,hareketler genellikle devre dışı olurlar."/>
+	<button label="Önizleme" name="preview_btn"/>
+	<button label="Kaydet" name="save_btn"/>
+</floater>

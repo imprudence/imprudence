@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Place" title="Luogo">
+	<text name="name_label">
+		Nome:
+	</text>
+	<text name="description_label">
+		Descrizione:
+	</text>
+	<text name="information_label">
+		Informazioni:
+	</text>
+	<text name="location_label">
+		Luogo:
+	</text>
+	<button label="Teleport" name="teleport_btn"/>
+	<button label="Mostra sulla mappa" name="map_btn" width="125"/>
+	<button label="Offerte..." name="auction_btn"/>
+	<string name="traffic_text">
+		Traffico: [TRAFFIC]. 
+	</string>
+	<string name="area_text">
+		Area: [AREA] m². 
+	</string>
+	<string name="forsale_text">
+		In vendita a [PRICE]L$
+	</string>
+	<string name="auction_text">
+		Asta n. [ID].
+	</string>
+	<string name="server_update_text">
+		Informazioni sul luogo non disponibili senza l&apos;aggiornamento del server.
+	</string>
+	<string name="server_error_text">
+		Le informazioni su questa località non sono al momento disponibili, per cortesia riprova più tardi.
+	</string>
+	<string name="server_forbidden_text">
+		Le informazioni su questa località non sono disponibili a causa di restrizioni d&apos;accesso.  Per favore controlla i permessi con il proprietario del terreno.
+	</string>
+</panel>

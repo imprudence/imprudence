@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Lokalt kort" name="mini_mapview">
+	<text name="n_label">
+		N
+	</text>
+	<text name="e_label">
+		Ø
+	</text>
+	<text name="s_label">
+		S
+	</text>
+	<text name="w_label">
+		V
+	</text>
+	<text name="ne_label">
+		NØ
+	</text>
+	<text name="se_label">
+		SØ
+	</text>
+	<text name="sw_label">
+		SV
+	</text>
+	<text name="nw_label">
+		NV
+	</text>
+</panel>

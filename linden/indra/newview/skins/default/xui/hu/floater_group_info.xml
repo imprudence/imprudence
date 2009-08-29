@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groupinfo" title="Linden csoport információk">
+	<tab_container name="tab">
+		<panel label="Általános" name="gen">
+			<text name="title_box">
+				Csoport információ
+			</text>
+			<text name="txt">
+				A csoport összehozza a barátokat.
+			</text>
+			<text name="txt2">
+				A csoportot elnevezheted, jelképpel láthatod el és szavazást indíthatsz.
+			</text>
+			<text name="txt3">
+				Bárki alapíthat csoportot. Minden személy legfeljebb 15 csoportnak lehet tagja.
+			</text>
+			<text name="txt4">
+				A csoportnak legalább 3 tagúnak kell lennie a fennmaradáshoz.
+			</text>
+			<text name="group_create_text">
+				Csoport létrehozásának költsége 100 L$.
+			</text>
+			<text name="lbl">
+				Név:
+			</text>
+			<text name="founder_label">
+				Alapító:
+			</text>
+			<text name="lbl2">
+				Alapító okirat:
+			</text>
+			<check_box label="Show In Group List" name="sho" />
+			<check_box label="Tagok megjelenítése a csoportlistában" name="sho_mem" />
+			<check_box label="Weben történő megjelenítés." name="allow_publish"
+			     tool_tip="Adatlap megjelenítése a weben." />
+			<button label="?" label_selected="?" name="publish_help_btn" />
+			<check_box name="mature" />
+		</panel>
+		<panel label="Titles" name="tit">
+			<text name="txt">
+				Csoport neve
+			</text>
+			<text name="txt2">
+				A csoportnak lehetnek vezetői és tagjai, melyeket egyedileg is el lehet nevezni.
+			</text>
+			<text name="txt3">
+				Az elnevezések mindig a nevek elé kerülnek feltüntetésre.
+			</text>
+			<text name="lbl">
+				Vezető megnevezése:
+			</text>
+			<text name="lbl2">
+				Tagok megnevezése:
+			</text>
+			<text name="lbl3">
+				Húzd bele képet a készlettáradból a csoport jelképre, annak beállításához.
+			</text>
+			<texture_picker name="insig" tool_tip="Kattints ide a kép kiválasztásához" />
+		</panel>
+		<panel label="Tagok" name="mem">
+			<text name="txt">
+				Csoport tagjai
+			</text>
+			<text name="txt2">
+				Jelenlegi csoport vezetői és tagjai.
+			</text>
+			<text name="txt3">
+				Kattints a névre a tag adatlapjának megtekintéséhez.
+			</text>
+			<text name="lbl">
+				Vezetők:
+			</text>
+			<text name="members_label">
+				Tagok:
+			</text>
+			<button label="Tag eltávolítása" label_selected="Tag eltávolítása"
+			     name="eject_member_btn" />
+		</panel>
+		<panel label="Szavazás" name="voting">
+			<tab_container name="tab">
+				<panel label="Választási kiírás" name="recall">
+					<text name="txt">
+						Csoport választási kiírás
+					</text>
+					<text name="instructions">
+						Nyomd meg a Választás indítása gombot az új választási kiíráshoz. 
+A jelölésre nevezhető mindenki.
+					</text>
+					<text name="lbl">
+						Jelöltek:
+					</text>
+					<button label="Szavaz" label_selected="Vote" name="btn_vote" />
+					<button label="Tartózkodik" label_selected="Tartózkodik" name="btn_abstain" />
+					<button label="Választás indítása" label_selected="Választás indítása"
+					     name="btn_start_election" />
+					<text name="lbl2">
+						Határozatképesség (fő):
+					</text>
+					<spinner name="quorum"
+					     tool_tip="A határozatképességhez szükséges összes létszám." />
+					<text name="quorum_text">
+						111 személy az össes csoporttag közül.
+					</text>
+					<text name="lbl3">
+						Többség:
+					</text>
+					<radio_group name="majority"
+					     tool_tip="A szavazás megnyeréséhez szükséges többségi határozat.">
+						<radio_item name="radio">
+							Egyszerű többésg
+						</radio_item>
+						<radio_item name="radio2">
+							2/3-os többség
+						</radio_item>
+						<radio_item name="radio3">
+							Egyhangú határozat
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						Érvényesség:
+					</text>
+					<spinner name="duration" tool_tip="A választási lejárat napjainak száma." />
+					<text name="duration_days">
+						nap
+					</text>
+					<text name="start_lbl">
+						Választás indítása:
+					</text>
+					<text name="end_lbl">
+						Választás vége:
+					</text>
+				</panel>
+				<panel label="Proposal" name="panel_group_proposals">
+					<text name="txt">
+						Csoport bejelentések
+					</text>
+					<text name="instructions">
+						Nincs érvényben lévő bejelentés. Új bejelentés megírásához kattints a bejelentés feladása gombra.
+					</text>
+					<text name="proposal_lbl">
+						Bejelentések:
+					</text>
+					<button label="Igen" label_selected="Yes" name="btn_yes" />
+					<button label="Nem" label_selected="No" name="btn_no" />
+					<button label="Tartózkodik" label_selected="Tartózkodik" name="btn_abstain" />
+					<button label="Lista megtekintése" label_selected="Lista megtekintése"
+					     name="btn_view_list" />
+					<button label="Tétel megtekintése" label_selected="Tétel megtekintése"
+					     name="btn_view_item" />
+					<button label="Bejelentés feladása" label_selected="Bejelentés feladása"
+					     name="btn_proposal" />
+					<button label="Submit" label_selected="Submit" name="btn_submit" />
+					<text name="quorum_lbl">
+						Határozatképesság (fő):
+					</text>
+					<spinner name="quorum"
+					     tool_tip="A határozatképességhez szükséges összes létszám." />
+					<text name="quorum_text">
+						111 személy az össes csoporttag közül.
+					</text>
+					<text name="majority_lbl">
+						Többség:
+					</text>
+					<radio_group name="majority"
+					     tool_tip="A szavazás megnyeréséhez szükséges többségi határozat.">
+						<radio_item name="radio">
+							Egyszerű többség
+						</radio_item>
+						<radio_item name="radio2">
+							2/3-os többség
+						</radio_item>
+						<radio_item name="radio3">
+							Egyhangú határozat
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						Érvényesség:
+					</text>
+					<spinner name="duration" tool_tip="A választási lejárat napjainak száma." />
+					<text name="duration_text">
+						nap
+					</text>
+					<text name="start_lbl">
+						Választás indítása:
+					</text>
+					<text name="end_lbl">
+						Választás vége:
+					</text>
+				</panel>
+				<panel label="Történet" name="History">
+					<text name="txt">
+						Csoport szavazások előzménye
+					</text>
+					<text name="instructions">
+						Megtekintheted a korábbi csoport szavazások eredményeit az adott szavazás kijelölésével.
+					</text>
+					<text name="instructions2">
+						tétel megtekintésére történő kattintással.
+					</text>
+					<text name="history_list_lbl">
+						Korábbi szavazatok:
+					</text>
+					<text name="vote_text_lbl">
+						Szavazási eredmények:
+					</text>
+					<button label="Lista megtekintése" label_selected="Lista megtekintése"
+					     name="btn_view_list" />
+					<button label="Tétel megtekintése" label_selected="Tétel megtekintése"
+					     name="btn_view_item" />
+				</panel>
+			</tab_container>
+		</panel>
+		<panel label="Meghív" name="inv">
+			<text name="txt">
+				Csoport meghívások
+			</text>
+			<text name="txt2">
+				Meghívások azonnali üzenetküldéssel.
+			</text>
+			<text name="txt3">
+				Kattints a hozzáad gombra a lakó listához adásához.
+			</text>
+			<text name="lbl">
+				Vezetők:
+			</text>
+			<button label="Vezető hozzáadása" label_selected="Vezető hozzáadása"
+			     name="add_officer_btn" />
+			<button label="Kijelölt eltávolítása" label_selected="Kijelölt eltávolítása"
+			     name="remove_officer_btn" />
+			<text name="lbl2">
+				Tagok:
+			</text>
+			<button label="Tag hozzáadása" label_selected="Tag hozzáadása"
+			     name="add_member_btn" />
+			<button label="Kijelölt eltávolítása" label_selected="Kijelölt eltávolítása"
+			     name="remove_member_btn" />
+			<text name="lbl3">
+				Belépési díj:
+			</text>
+			<check_box label="Nyitott csoport (belépés meghívás nélkül is lehetséges)"
+			     name="open" />
+		</panel>
+		<panel label="Föld" name="land">
+			<text name="txt">
+				Csoport tulajdonban lévő föld
+			</text>
+			<text name="lbl">
+				Összes földhozzájárulás:
+			</text>
+			<button label="Világtérkép" label_selected="Világtérkép" name="map_btn" />
+			<text name="lbl2">
+				Összes használatban kévő föld:
+			</text>
+			<text name="lbl3">
+				Rendelkezésre álló föld:
+			</text>
+			<button label="Hozzájárulás beállítása"
+			     label_selected="Hozzájárulás beállítása" name="set_contrib_btn" />
+			<text name="warning_label">
+				FIGYELEM: A csoport túl nagy földterületet tart fenn. A csoport tagjainak több hozzájárulást kell biztosítania.
+			</text>
+		</panel>
+		<panel label="Pénz" name="mon">
+			<tab_container name="group money history tab">
+				<panel label="Tervezett" name="money panel" />
+				<panel label="Részletek" name="money panel2">
+					<button label="&lt; Korábban" label_selected="&lt; Korábban" name="&lt; Earlier"
+					     tool_tip="Vissza időben" />
+					<button label="Később &gt;" label_selected="Később &gt;" name="Later &gt;"
+					     tool_tip="Előre időben" />
+				</panel>
+				<panel label="Eladás" name="money panel3">
+					<button label="&lt; Korábban" label_selected="&lt; Korábban" name="&lt; Earlier"
+					     tool_tip="Vissza időben" />
+					<button label="Később &gt;" label_selected="Később &gt;" name="Later &gt;"
+					     tool_tip="Előre időben" />
+				</panel>
+			</tab_container>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="Mégse" label_selected="Mégse" name="Cancel" />
+</floater>

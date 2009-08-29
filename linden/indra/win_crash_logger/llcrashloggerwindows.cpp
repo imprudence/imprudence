@@ -17,7 +17,8 @@
 * There are special exceptions to the terms and conditions of the GPL as
 * it is applied to this Source Code. View the full text of the exception
 * in the file doc/FLOSS-exception.txt in this software distribution, or
-* online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+* online at
+* http://secondlifegrid.net/programs/open_source/licensing/flossexception
 * 
 * By copying, modifying or distributing this software, you acknowledge
 * that you have read and understood your obligations described above,
@@ -258,8 +259,8 @@ bool LLCrashLoggerWindows::init(void)
 	if(!ok) return false;
 
 	/*
-	mbstowcs(gProductName, mProductName.c_str(), sizeof(gProductName)/sizeof(gProductName[0]));
-	gProductName[ sizeof(gProductName)/sizeof(gProductName[0]) - 1 ] = 0;
+	mbstowcs( gProductName, mProductName.c_str(), LL_ARRAY_SIZE(gProductName) );
+	gProductName[ LL_ARRY_SIZE(gProductName) - 1 ] = 0;
 	swprintf(gProductName, L"Second Life");
 	*/
 

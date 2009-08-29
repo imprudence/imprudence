@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -47,7 +48,8 @@ public:
 	LLStyleMap();
 	~LLStyleMap();
 	// Just like the [] accessor but it will add the entry in if it doesn't exist.
-	const LLStyleSP &lookup(const LLUUID &source); 
+	const LLStyleSP &lookupAgent(const LLUUID &source); 
+	const LLStyleSP &lookup(const LLUUID &source, const std::string& link); 
 	static LLStyleMap &instance();
 
 	// Forces refresh of the entries, call when something changes (e.g. link color).

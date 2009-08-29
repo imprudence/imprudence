@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="gesture_preview">
+	<string name="stop_txt">
+		Стоп
+	</string>
+	<string name="preview_txt">
+		Перегляд
+	</string>
+	<string name="none_text">
+		-- Нічого --
+	</string>
+	<text name="desc_label">
+		Опис:
+	</text>
+	<text name="trigger_label">
+		Запустити:
+	</text>
+	<text name="replace_text" tool_tip="Замінити слово-перемикач цими словами. Наприклад: якщо перемикач &apos;добрий день&apos; замінити на &apos;привіт&apos;, то при введенні в чат фрази &apos;Я хотів сказати добрий день&apos; з&apos;явиться &apos;Я хотів сказати привіт&apos; разом з жестом!">
+		Замінити:
+	</text>
+	<line_editor name="replace_editor" tool_tip="Замінити слово-перемикач цими словами. Наприклад: якщо перемикач &apos;добрий день&apos; замінити на &apos;привіт&apos;, то при введенні в чат фрази &apos;Я хотів сказати добрий день&apos; з&apos;явиться &apos;Я хотів сказати привіт&apos; разом з жестом!"/>
+	<text name="key_label">
+		Гаряча клавіша:
+	</text>
+	<combo_box label="Немає" name="modifier_combo" left="130" width="76"/>
+	<combo_box label="Немає" name="key_combo" width="76" left_delta="80"/>
+	<text name="library_label">
+		Бібліотека:
+	</text>
+	<text name="steps_label">
+		Кроки:
+	</text>
+	<scroll_list name="library_list" width="84">
+		Анімація
+Звук
+Чат
+Очікуйте
+	</scroll_list>
+	<button label="Додати &gt;&gt;" name="add_btn" left="118" width="87"/>
+	<button label="Рухатися Вгору" name="up_btn" width="114" left_delta="-13"/>
+	<button label="Рухатися Вниз" name="down_btn" width="114"/>
+	<button label="Видалити" name="delete_btn" width="84" left_delta="13"/>
+	<scroll_list left="226" name="step_list" width="205" />
+	<text name="help_label">
+		Усі кроки відбуваються
+одночасно, якщо тільки Ви не
+додасте кроки очікування.
+	</text>
+	<radio_group name="animation_trigger_type">
+		<radio_item name="start">
+			Старт
+		</radio_item>
+		<radio_item name="stop">
+			Стоп
+		</radio_item>
+	</radio_group>
+	<check_box bottom_delta="34" label="до того, як анімації будуть &#10;завершені" name="wait_anim_check"/>
+	<check_box bottom_delta="-30" label="час в секундах" name="wait_time_check"/>
+	<line_editor left_delta="115" name="wait_time_editor" />
+	<check_box left="130" label="Активний" name="active_check" tool_tip="Активні жести можуть бути увімкнені введенням їх фраз-вмикачів у чат або натисненням гарячих клавіш. Жести зазвичай стають неактивними, коли виникає конфлікт клавіш."/>
+	<button label="Перегляд" name="preview_btn" width="125"/>
+	<button label="Зберегти" name="save_btn" left_delta="130" width="85"/>
+</floater>

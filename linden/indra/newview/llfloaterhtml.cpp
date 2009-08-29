@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -127,7 +128,7 @@ void LLFloaterHtml::show( std::string content_id, bool open_link_external, bool 
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-void LLFloaterHtml::show( std::string start_url, std::string title, bool open_link_external, bool open_app_slurls )
+void LLFloaterHtml::show( std::string start_url, std::string title, bool open_link_external, bool trusted_browser )
 {
 	// set the title 
 	setTitle( title );
@@ -135,7 +136,7 @@ void LLFloaterHtml::show( std::string start_url, std::string title, bool open_li
 	// navigate to the URL
 	if ( mWebBrowser )
 	{
-		mWebBrowser->setOpenAppSLURLs( open_app_slurls );
+		mWebBrowser->setTrusted( trusted_browser );
 		mWebBrowser->setOpenInExternalBrowser( open_link_external );
 		mWebBrowser->navigateTo( start_url );
 	}

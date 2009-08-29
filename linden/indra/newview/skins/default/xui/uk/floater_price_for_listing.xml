@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="price_for_listing" title="Публікувати оголошення">
+	<text name="explanation_text">
+		Ваше оголошення буде дійсне протягом
+тижня після публікації. 
+
+Позиція Вашого оголошення залежить від того,
+скільки Ви заплатите. Найбільш дороге 
+оголошення опиниться зверху списку, 
+і буде в перших рядах в пошуку.
+	</text>
+	<text name="price_text">
+		Оплатити (L$):
+	</text>
+	<button label="Відмінити" name="cancel_btn" />
+	<button label="Встановити ціну" name="set_price_btn" left_delta="-126" width="120" />
+</floater>

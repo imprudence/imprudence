@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -97,26 +98,27 @@ public:
 private:
 	// Embedded object operations
 	virtual llwchar	pasteEmbeddedItem(llwchar ext_char);
-	virtual void	bindEmbeddedChars(LLFontGL* font) const;
-	virtual void	unbindEmbeddedChars(LLFontGL* font) const;
+	virtual void	bindEmbeddedChars(const LLFontGL* font) const;
+	virtual void	unbindEmbeddedChars(const LLFontGL* font) const;
 
 	BOOL			getEmbeddedItemToolTipAtPos(S32 pos, LLWString &wmsg) const;
 	BOOL			openEmbeddedItemAtPos( S32 pos );
-	BOOL			openEmbeddedItem(LLInventoryItem* item);
+	BOOL			openEmbeddedItem(LLInventoryItem* item, llwchar wc);
 
 	S32				insertEmbeddedItem(S32 pos, LLInventoryItem* item);
 
-	void			openEmbeddedTexture( LLInventoryItem* item );
-	void			openEmbeddedSound( LLInventoryItem* item );
-	void			openEmbeddedLandmark( LLInventoryItem* item );
-	void			openEmbeddedNotecard( LLInventoryItem* item);
-	void			showCopyToInvDialog( LLInventoryItem* item );
+	void			openEmbeddedTexture( LLInventoryItem* item, llwchar wc );
+	void			openEmbeddedSound( LLInventoryItem* item, llwchar wc );
+	void			openEmbeddedLandmark( LLInventoryItem* item, llwchar wc );
+	void			openEmbeddedNotecard( LLInventoryItem* item, llwchar wc);
+	void			showCopyToInvDialog( LLInventoryItem* item, llwchar wc );
 	void			showUnsavedAlertDialog( LLInventoryItem* item );
 
-	static void		onCopyToInvDialog( S32 option, void* userdata );
-	static void		onNotecardDialog( S32 option, void* userdata );
+	bool			onCopyToInvDialog(const LLSD& notification, const LLSD& response );
+	static bool		onNotecardDialog(const LLSD& notification, const LLSD& response );
 	
 	LLPointer<LLInventoryItem> mDragItem;
+	llwchar mDragItemChar;
 	BOOL mDragItemSaved;
 	class LLEmbeddedItems* mEmbeddedItemList;
 

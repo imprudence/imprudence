@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -540,6 +541,19 @@ void LLAssetStorage::downloadCompleteCallback(
 	{
 		llwarns << "LLAssetStorage::downloadCompleteCallback called without any asset system, aborting!" << llendl;
 		return;
+	}
+
+	// Inefficient since we're doing a find through a list that may have thousands of elements.
+	// This is due for refactoring; we will probably change mPendingDownloads into a set.
+	request_list_t::iterator download_iter = std::find(gAssetStorage->mPendingDownloads.begin(), 
+													   gAssetStorage->mPendingDownloads.end(),
+													   req);
+	// If the LLAssetRequest doesn't exist in the downloads queue, then it either has already been deleted
+	// by _cleanupRequests, or it's a transfer.
+	if (download_iter != gAssetStorage->mPendingDownloads.end())
+	{
+		req->setUUID(file_id);
+		req->setType(file_type);
 	}
 
 	if (LL_ERR_NOERR == result)
@@ -1198,6 +1212,9 @@ const char* LLAssetStorage::getErrorString(S32 status)
 
 	case LL_ERR_CIRCUIT_GONE:
 		return "Circuit gone";
+
+	case LL_ERR_PRICE_MISMATCH:
+		return "Viewer and server do not agree on price";
 
 	default:
 		return "Unknown status";

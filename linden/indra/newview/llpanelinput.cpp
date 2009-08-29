@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -32,7 +33,10 @@
 #include "llviewerprecompiledheaders.h"
 #include "llpanelinput.h"
 #include "lluictrlfactory.h"
+#include "llviewercamera.h"
 #include "llviewercontrol.h"
+#include "llfloaterjoystick.h"
+#include "llsliderctrl.h"
 #include "llfloaterjoystick.h"
 
 
@@ -41,19 +45,32 @@ LLPanelInput::LLPanelInput()
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_input.xml");
 }
 
+static void onFOVAdjust(LLUICtrl* source, void* data)
+{
+	LLSliderCtrl* slider = dynamic_cast<LLSliderCtrl*>(source);
+	LLViewerCamera::getInstance()->setDefaultFOV(slider->getValueF32());
+}
+
 BOOL LLPanelInput::postBuild()
 {
 	childSetAction("joystick_setup_button", onClickJoystickSetup, (void*)this);
+
+	// cache values in case user cancels
+	mPreAdjustFOV = gSavedSettings.getF32("CameraAngle");
+	mPreAdjustCameraOffsetScale = gSavedSettings.getF32("CameraOffsetScale");
 
 	childSetValue("mouse_sensitivity", gSavedSettings.getF32("MouseSensitivity"));
 	childSetValue("automatic_fly", gSavedSettings.getBOOL("AutomaticFly"));
 	childSetValue("invert_mouse", gSavedSettings.getBOOL("InvertMouse"));
 	childSetValue("edit_camera_movement", gSavedSettings.getBOOL("EditCameraMovement"));
 	childSetValue("appearance_camera_movement", gSavedSettings.getBOOL("AppearanceCameraMovement"));
-	childSetValue("dynamic_camera_strength", gSavedSettings.getF32("DynamicCameraStrength"));
-	childSetValue("zoom_time", gSavedSettings.getF32("ZoomTime"));
-	childSetValue("camera_position_smoothing", gSavedSettings.getF32("CameraPositionSmoothing"));
 	childSetValue("first_person_avatar_visible", gSavedSettings.getBOOL("FirstPersonAvatarVisible"));
+
+	LLSliderCtrl* fov_slider = getChild<LLSliderCtrl>("camera_fov");
+	fov_slider->setCommitCallback(&onFOVAdjust);
+	fov_slider->setMinValue(LLViewerCamera::getInstance()->getMinView());
+	fov_slider->setMaxValue(LLViewerCamera::getInstance()->getMaxView());
+	fov_slider->setValue(LLViewerCamera::getInstance()->getView());
 
 	return TRUE;
 }
@@ -65,19 +82,24 @@ LLPanelInput::~LLPanelInput()
 
 void LLPanelInput::apply()
 {
+	// any cancel after this point will use these new values
+	mPreAdjustFOV = childGetValue("camera_fov").asReal();
+	mPreAdjustCameraOffsetScale = childGetValue("camera_offset_scale").asReal();
+
 	gSavedSettings.setF32("MouseSensitivity", childGetValue("mouse_sensitivity").asReal());
 	gSavedSettings.setBOOL("AutomaticFly", childGetValue("automatic_fly"));
 	gSavedSettings.setBOOL("InvertMouse", childGetValue("invert_mouse"));
 	gSavedSettings.setBOOL("EditCameraMovement", childGetValue("edit_camera_movement"));
 	gSavedSettings.setBOOL("AppearanceCameraMovement", childGetValue("appearance_camera_movement"));
-	gSavedSettings.setF32("DynamicCameraStrength", childGetValue("dynamic_camera_strength").asReal());
-	gSavedSettings.setF32("ZoomTime", childGetValue("zoom_time").asReal());
-	gSavedSettings.setF32("CameraPositionSmoothing", childGetValue("camera_position_smoothing").asReal());
+	gSavedSettings.setF32("CameraAngle", mPreAdjustFOV);
 	gSavedSettings.setBOOL("FirstPersonAvatarVisible", childGetValue("first_person_avatar_visible"));
 }
 
 void LLPanelInput::cancel()
 {
+	LLViewerCamera::getInstance()->setView(mPreAdjustFOV);
+	gSavedSettings.setF32("CameraAngle", LLViewerCamera::getInstance()->getView());
+	gSavedSettings.setF32("CameraOffsetScale", mPreAdjustCameraOffsetScale);
 }
 
 //static

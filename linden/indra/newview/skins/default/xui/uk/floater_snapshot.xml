@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Snapshot" title="Перегляд скріншота">
+	<text name="type_label">
+		Куди зберегти знімок
+	</text>
+	<radio_group label="Тип скріншота" name="snapshot_type_radio">
+		<radio_item name="postcard">
+			Відправити на email
+		</radio_item>
+		<radio_item name="texture">
+			Зберегти в інвентар (L$[AMOUNT])
+		</radio_item>
+		<radio_item name="local">
+			Зберегти на жорсткий диск
+		</radio_item>
+	</radio_group>
+	<text name="file_size_label">
+		Розмір файла: [SIZE] KB
+	</text>
+	<button label="Оновити Скріншот" name="new_snapshot_btn"/>
+	<button label="Відправити" name="send_btn"/>
+	<button label="Зав.(L$[AMOUNT])" name="upload_btn"/>
+	<flyout_button label="Зберегти" name="save_btn" tool_tip="Зберегти у файл">
+		<flyout_button_item name="save_item">
+			Зберегти
+		</flyout_button_item>
+		<flyout_button_item name="saveas_item">
+			Зберегти як...
+		</flyout_button_item>
+	</flyout_button>
+	<button label="Відміна" name="discard_btn"/>
+	<button label="Більше &gt;&gt;" name="more_btn" tool_tip="Дод. опції"/>
+	<button label="&lt;&lt; Менше" name="less_btn" tool_tip="Дод. опції"/>
+	<text name="type_label2">
+		Розмір
+	</text>
+	<text name="format_label">
+		Формат
+	</text>
+	<combo_box label="Розд.здат." name="postcard_size_combo">
+		<combo_item name="CurrentWindow">
+			Поточне вікно
+		</combo_item>
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
+		<combo_item name="Custom">
+			Свій
+		</combo_item>
+	</combo_box>
+	<combo_box label="Розд.здат." name="texture_size_combo">
+		<combo_item name="CurrentWindow">
+			Поточне вікно
+		</combo_item>
+		<combo_item name="Small(128x128)">
+			Маленький (128x128)
+		</combo_item>
+		<combo_item name="Medium(256x256)">
+			Середній (256x256)
+		</combo_item>
+		<combo_item name="Large(512x512)">
+			Великий (512x512)
+		</combo_item>
+		<combo_item name="Custom">
+			Свій
+		</combo_item>
+	</combo_box>
+	<combo_box label="Розд.здат." name="local_size_combo">
+		<combo_item name="CurrentWindow">
+			Поточне вікно
+		</combo_item>
+		<combo_item name="320x240">
+			320x240
+		</combo_item>
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
+		<combo_item name="1280x1024">
+			1280x1024
+		</combo_item>
+		<combo_item name="1600x1200">
+			1600x1200
+		</combo_item>
+		<combo_item name="Custom">
+			Свій
+		</combo_item>
+	</combo_box>
+	<combo_box label="Формат" name="local_format_combo">
+		<combo_item name="PNG">
+			PNG
+		</combo_item>
+		<combo_item name="JPEG">
+			JPEG
+		</combo_item>
+		<combo_item name="BMP">
+			BMP
+		</combo_item>
+	</combo_box>
+	<spinner label="Шир." name="snapshot_width"/>
+	<spinner label="Вис." name="snapshot_height"/>
+	<check_box label="Зберегти пропорції" name="keep_aspect_check"/>
+	<slider label="Якість зображення" name="image_quality_slider"/>
+	<text name="layer_type_label">
+		Захв.:
+	</text>
+	<combo_box label="Слої картинки" name="layer_types">
+		<combo_item name="Colors">
+			Колір
+		</combo_item>
+		<combo_item name="Depth">
+			Глибина
+		</combo_item>
+		<combo_item name="ObjectMattes">
+			Маски об&apos;єктів
+		</combo_item>
+	</combo_box>
+	<check_box label="Показувати інтерфейс" name="ui_check"/>
+	<check_box label="Показувати HUD" name="hud_check"/>
+	<check_box label="Залишити відкритим" name="keep_open_check"/>
+	<check_box label="Повноекраний перегляд" name="freeze_frame_check"/>
+	<check_box label="Автооновлення" name="auto_snapshot_check"/>
+	<string name="unknown">
+		невідомий
+	</string>
+</floater>

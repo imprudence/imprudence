@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -437,6 +438,10 @@ public:
 
 	// Add the menu item to this menu.
 	virtual BOOL append( LLMenuItemGL* item );
+
+	// *NOTE:Mani - appendNoArrange() should be removed when merging to skinning/viewer2.0
+	// Its added as a fix to a viewer 1.23 bug that has already been address by skinning work.
+	virtual BOOL appendNoArrange( LLMenuItemGL* item ); 
 
 	// add a separator to this menu
 	virtual BOOL appendSeparator( const std::string &separator_name = LLStringUtil::null );

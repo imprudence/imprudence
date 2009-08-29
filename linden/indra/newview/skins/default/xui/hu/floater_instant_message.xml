@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(ismeretlen)" name="im_floater" title="(ismeretlen)">
+	<string name="ringing">
+		Hívás...
+	</string>
+	<string name="answering">
+		Kapcsolódás...
+	</string>
+	<string name="connected">
+		Kapcsolódva, kattints a hívás vége gombra a befejezéshez
+	</string>
+	<string name="hang_up">
+		Hívás befejezése
+	</string>
+	<string name="inventory_item_offered">
+		Készlettárból felajánlott elem
+	</string>
+	<string name="voice_icon">
+		icn_voice-pvtfocus.tga
+	</string>
+	<string name="title_string">
+		Azonnali üzenet küldése ennek: [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] éppen ír...
+	</string>
+	<string name="session_start_string">
+		Beszélgetés megkezdése evvel: [NAME]. Kérjük várj.
+	</string>
+	<string name="default_text_label">
+		Kattints ide az üzenet küldéséhez.
+	</string>
+	<string name="unavailable_text_label">
+		Szöveges üzenetküldés nem elérhető a jelenlegi hívás alatt.
+	</string>
+	<button label="Adatlap" name="profile_callee_btn"/>
+	<button label="Hívás" name="start_call_btn"/>
+	<button label="Hívás vége" name="end_call_btn"/>
+	<panel name="speaker_controls">
+		<button label="" name="mute_btn" tool_tip="Hang elnémítása"/>
+	</panel>
+	<line_editor label="Kattints ide az azonnali üzenetküldséhez" name="chat_editor"/>
+	<button label="Elküld" name="send_btn"/>
+	<string name="live_help_dialog">
+		*** Üdvözlünk a támogatás szekcióban *** 
+Kérjük először látogasd meg a hivatalos SL támogatói oldalt, amit elérsz közvetlenül az F1 lenyomásával, vagy hasznád a tudásbázist, ahol választ kaphatsz kérdéseidre itt: http://secondlife.com/knowledgebase/.
+Amennyiben nem kaptál találtál megoldást problémádra, kérjük írd meg kérdésed közvetlenül a támogatás menüben, ahol akár azonnal választ is kaphatsz.
+-=-=- Az ügyfélszolgálat válaszideje változó, különösképpen csúcsidőben. -=-=-
+	</string>
+</floater>

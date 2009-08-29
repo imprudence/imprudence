@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -32,6 +33,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llpanellogin.h"
+
 #include "llpanelgeneral.h"
 
 #include "indra_constants.h"		// for key and mask constants
@@ -43,7 +45,7 @@
 
 #include "llbutton.h"
 #include "llcheckboxctrl.h"
-#include "llcommandhandler.h"
+#include "llcommandhandler.h"		// for secondlife:///app/login/
 #include "llcombobox.h"
 #include "llcurl.h"
 #include "llviewercontrol.h"
@@ -76,9 +78,6 @@
 
 #define USE_VIEWER_AUTH 0
 
-std::string load_password_from_disk(void);
-void save_password_to_disk(const char* hashed_password);
-
 const S32 BLACK_BORDER_HEIGHT = 160;
 const S32 MAX_PASSWORD = 16;
 
@@ -90,8 +89,8 @@ class LLLoginRefreshHandler : public LLCommandHandler
 {
 public:
 	// don't allow from external browsers
-	LLLoginRefreshHandler() : LLCommandHandler("login_refresh", false) { }
-	bool handle(const LLSD& tokens, const LLSD& queryMap)
+	LLLoginRefreshHandler() : LLCommandHandler("login_refresh", true) { }
+	bool handle(const LLSD& tokens, const LLSD& query_map, LLWebBrowserCtrl* web)
 	{	
 		if (LLStartUp::getStartupState() < STATE_LOGIN_CLEANUP)
 		{
@@ -104,111 +103,6 @@ public:
 LLLoginRefreshHandler gLoginRefreshHandler;
 
 
-//parses the input url and returns true if afterwards
-//a web-login-key, firstname and lastname  is set
-bool LLLoginHandler::parseDirectLogin(std::string url)
-{
-	LLURI uri(url);
-	parse(uri.queryMap());
-
-	if (mWebLoginKey.isNull() ||
-		mFirstName.empty() ||
-		mLastName.empty())
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
-}
-
-
-void LLLoginHandler::parse(const LLSD& queryMap)
-{
-	mWebLoginKey = queryMap["web_login_key"].asUUID();
-	mFirstName = queryMap["first_name"].asString();
-	mLastName = queryMap["last_name"].asString();
-	
-	EGridInfo grid_choice = GRID_INFO_NONE;
-	if (queryMap["grid"].asString() == "sl beta grid")
-	{
-		grid_choice = GRID_INFO_ADITI;
-	}
-	else if (queryMap["grid"].asString() == "sl main grid")
-	{
-		grid_choice = GRID_INFO_AGNI;
-	}
-
-	if(grid_choice != GRID_INFO_NONE)
-	{
-		LLViewerLogin::getInstance()->setGridChoice(grid_choice);
-	}
-
-	std::string startLocation = queryMap["location"].asString();
-
-	if (startLocation == "specify")
-	{
-		LLURLSimString::setString(queryMap["region"].asString());
-	}
-	else if (startLocation == "home")
-	{
-		gSavedSettings.setBOOL("LoginLastLocation", FALSE);
-		LLURLSimString::setString(LLStringUtil::null);
-	}
-	else if (startLocation == "last")
-	{
-		gSavedSettings.setBOOL("LoginLastLocation", TRUE);
-		LLURLSimString::setString(LLStringUtil::null);
-	}
-}
-
-bool LLLoginHandler::handle(const LLSD& tokens,
-						  const LLSD& queryMap)
-{	
-	parse(queryMap);
-	
-	//if we haven't initialized stuff yet, this is 
-	//coming in from the GURL handler, just parse
-	if (STATE_FIRST == LLStartUp::getStartupState())
-	{
-		return true;
-	}
-	
-	std::string password = queryMap["password"].asString();
-
-	if (!password.empty())
-	{
-		gSavedSettings.setBOOL("RememberPassword", TRUE);
-
-		if (password.substr(0,3) != "$1$")
-		{
-			LLMD5 pass((unsigned char*)password.c_str());
-			char md5pass[33];		/* Flawfinder: ignore */
-			pass.hex_digest(md5pass);
-			password = ll_safe_string(md5pass, 32);
-			save_password_to_disk(password.c_str());
-		}
-	}
-	else
-	{
-		save_password_to_disk(NULL);
-		gSavedSettings.setBOOL("RememberPassword", FALSE);
-	}
-			
-
-	if  (LLStartUp::getStartupState() < STATE_LOGIN_CLEANUP)  //on splash page
-	{
-		if (mWebLoginKey.isNull()) {
-			LLPanelLogin::loadLoginPage();
-		} else {
-			LLStartUp::setStartupState( STATE_LOGIN_CLEANUP );
-		}
-	}
-	return true;
-}
-
-LLLoginHandler gLoginHandler;
 
 // helper class that trys to download a URL from a web site and calls a method 
 // on parent class indicating if the web server is working or not
@@ -393,7 +287,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	// get the web browser control
 	LLWebBrowserCtrl* web_browser = getChild<LLWebBrowserCtrl>("login_html");
 	// Need to handle login secondlife:///app/ URLs
-	web_browser->setOpenAppSLURLs( true );
+	web_browser->setTrusted( true );
 
 	// observe browser events
 	web_browser->addObserver( this );
@@ -660,8 +554,9 @@ void LLPanelLogin::show(const LLRect &rect,
 }
 
 // static
-void LLPanelLogin::setFields(const std::string& firstname, const std::string& lastname, const std::string& password,
-							 BOOL remember)
+void LLPanelLogin::setFields(const std::string& firstname,
+			     const std::string& lastname,
+			     const std::string& password)
 {
 	if (!sInstance)
 	{
@@ -695,8 +590,6 @@ void LLPanelLogin::setFields(const std::string& firstname, const std::string& la
 		pass.hex_digest(munged_password);
 		sInstance->mMungedPassword = munged_password;
 	}
-
-	sInstance->childSetValue("remember_check", remember);
 }
 
 
@@ -723,8 +616,9 @@ void LLPanelLogin::setServer(S32 domain_name)
 }
 
 // static
-void LLPanelLogin::getFields(std::string &firstname, std::string &lastname, std::string &password,
-							BOOL &remember)
+void LLPanelLogin::getFields(std::string *firstname,
+			     std::string *lastname,
+			     std::string *password)
 {
 	if (!sInstance)
 	{
@@ -732,14 +626,13 @@ void LLPanelLogin::getFields(std::string &firstname, std::string &lastname, std:
 		return;
 	}
 
-	firstname = sInstance->childGetText("first_name_edit");
-	LLStringUtil::trim(firstname);
+	*firstname = sInstance->childGetText("first_name_edit");
+	LLStringUtil::trim(*firstname);
 
-	lastname = sInstance->childGetText("last_name_edit");
-	LLStringUtil::trim(lastname);
+	*lastname = sInstance->childGetText("last_name_edit");
+	LLStringUtil::trim(*lastname);
 
-	password = sInstance->mMungedPassword;
-	remember = sInstance->childGetValue("remember_check");
+	*password = sInstance->mMungedPassword;
 }
 
 // static
@@ -1017,16 +910,17 @@ void LLPanelLogin::onClickConnect(void *)
 		}
 		else
 		{
-			gViewerWindow->alertXml("MustHaveAccountToLogIn",
-									LLPanelLogin::newAccountAlertCallback);
+			LLNotifications::instance().add("MustHaveAccountToLogIn", LLSD(), LLSD(),
+										LLPanelLogin::newAccountAlertCallback);
 		}
 	}
 }
 
 
 // static
-void LLPanelLogin::newAccountAlertCallback(S32 option, void*)
+bool LLPanelLogin::newAccountAlertCallback(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
 		llinfos << "Going to account creation URL" << llendl;
@@ -1036,6 +930,7 @@ void LLPanelLogin::newAccountAlertCallback(S32 option, void*)
 	{
 		sInstance->setFocus(TRUE);
 	}
+	return false;
 }
 
 
@@ -1082,7 +977,7 @@ void LLPanelLogin::onPassKey(LLLineEditor* caller, void* user_data)
 {
 	if (gKeyboard->getKeyDown(KEY_CAPSLOCK) && sCapslockDidNotification == FALSE)
 	{
-		LLNotifyBox::showXml("CapsKeyOn");
+		LLNotifications::instance().add("CapsKeyOn");
 		sCapslockDidNotification = TRUE;
 	}
 }

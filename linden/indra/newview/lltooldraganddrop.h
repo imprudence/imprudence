@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -209,14 +210,17 @@ protected:
 
 
 	// give inventory item functionality
-	static void handleCopyProtectedItem(S32 option, void* data);
+	static bool handleCopyProtectedItem(const LLSD& notification, const LLSD& response);
 	static void commitGiveInventoryItem(const LLUUID& to_agent,
-										LLInventoryItem* item);
+										LLInventoryItem* item,
+										const LLUUID &im_session_id = LLUUID::null);
 
 	// give inventory category functionality
-	static void handleCopyProtectedCategory(S32 option, void* data);
+	static bool handleCopyProtectedCategory(const LLSD& notification, const LLSD& response);
 	static void commitGiveInventoryCategory(const LLUUID& to_agent,
-						LLInventoryCategory* cat);
+											LLInventoryCategory* cat,
+											const LLUUID &im_session_id = LLUUID::null);
+
 public:
 	// helper functions
 	static BOOL isInventoryDropAcceptable(LLViewerObject* obj, LLInventoryItem* item) { return (ACCEPT_YES_COPY_SINGLE <= willObjectAcceptInventory(obj, item)); }
@@ -251,9 +255,17 @@ public:
 							  ESource source,
 							  const LLUUID& src_id);
 
-	static void giveInventory(const LLUUID& to_agent, LLInventoryItem* item);
+	static void giveInventory(const LLUUID& to_agent, 
+							  LLInventoryItem* item,
+							  const LLUUID &session_id = LLUUID::null);
 	static void giveInventoryCategory(const LLUUID& to_agent,
-									  LLInventoryCategory* item);
+									  LLInventoryCategory* item,
+									  const LLUUID &session_id = LLUUID::null);
+
+	static bool handleGiveDragAndDrop(LLUUID agent, LLUUID session, BOOL drop,
+									  EDragAndDropType cargo_type,
+									  void* cargo_data,
+									  EAcceptance* accept);
 };
 
 // utility functions

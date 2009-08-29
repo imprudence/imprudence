@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -57,46 +58,10 @@ const F32 ANIMATION_TIME = 0.333f;
 
 S32 LLGroupNotifyBox::sGroupNotifyBoxCount = 0;
 
+
 //---------------------------------------------------------------------------
 // LLGroupNotifyBox
 //---------------------------------------------------------------------------
-
-static std::string g_formatted_time(const time_t& the_time)
-{
-	char buffer[30];		/*Flawfinder: ignore*/	
-	time_t t = the_time;
-	if (!t) time(&t);
-	LLStringUtil::copy(buffer, ctime(&t), 30);
-	buffer[24] = '\0';
-	return std::string(buffer);
-}
-
-// static
-LLGroupNotifyBox* LLGroupNotifyBox::show(const std::string& subject,
-										 const std::string& message,
-										 const std::string& from_name,
-										 const LLUUID& group_id,
-										 const U32& t,
-										 const bool& has_inventory,
-										 const std::string& inventory_name,
-										 LLOfferInfo* inventory_offer)
-{
-	// Get the group data
-	LLGroupData group_data;
-	if (!gAgent.getGroupData(group_id,group_data))
-	{
-		llwarns << "Group notice for unknown group: " << group_id << llendl;
-		return NULL;
-	}
-
-	LLGroupNotifyBox* self;
-	self = new LLGroupNotifyBox(subject, message, from_name, group_id, group_data.mInsigniaID, group_data.mName,t,has_inventory,inventory_name,inventory_offer);
-	gNotifyBoxView->addChild(self);
-
-	// TODO: play a sound
-	return self;
-}
-
 bool is_openable(LLAssetType::EType type)
 {
 	switch(type)
@@ -114,38 +79,22 @@ bool is_openable(LLAssetType::EType type)
 }
 
 LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
-								   const std::string& message,
-								   const std::string& from_name,
-								   const LLUUID& group_id,
-								   const LLUUID& group_insignia,
-								   const std::string& group_name,
-								   const U32& t,
-								   const bool& has_inventory,
-								   const std::string& inventory_name,
-								   LLOfferInfo* inventory_offer)
-:	LLPanel(std::string("groupnotify"), LLGroupNotifyBox::getGroupNotifyRect(), BORDER_YES),
+							 const std::string& message,
+							 const std::string& from_name,
+							 const LLUUID& group_id,
+							 const LLUUID& group_insignia,
+							 const std::string& group_name,
+							 const LLDate& time_stamp,
+							 const bool& has_inventory,
+							 const std::string& inventory_name,
+							 const LLSD& inventory_offer)
+:	LLPanel("groupnotify", LLGroupNotifyBox::getGroupNotifyRect(), BORDER_YES),
 	mAnimating(TRUE),
 	mTimer(),
 	mGroupID(group_id),
 	mHasInventory(has_inventory),
-	mInventoryOffer(inventory_offer)
+	mInventoryOffer(NULL)
 {
-	setFocusRoot(TRUE);
-
-	time_t timestamp = (time_t)t;
-
-	std::string time_buf = g_formatted_time(timestamp);
-
-	setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
-	setBackgroundVisible(TRUE);
-	setBackgroundOpaque(TRUE);
-
-	// TODO: add a color for group notices
-	setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
-
-	LLIconCtrl* icon;
-	LLTextEditor* text;
-
 	const S32 VPAD = 2;
 	const S32 TOP = getRect().getHeight() - 32; // Get past the top menu bar
 	const S32 BOTTOM_PAD = VPAD * 2;
@@ -155,6 +104,21 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 
 	const S32 LABEL_WIDTH = 64;
 	const S32 ICON_WIDTH = 64;
+
+
+	if (mHasInventory)
+	{
+		mInventoryOffer = new LLOfferInfo(inventory_offer);
+	}
+
+	setFocusRoot(TRUE);
+	setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
+	setBackgroundVisible(TRUE);
+	setBackgroundOpaque(TRUE);
+	setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
+
+	LLIconCtrl* icon;
+	LLTextEditor* text;
 
 	S32 y = TOP;
 	S32 x = HPAD + HPAD;
@@ -173,9 +137,8 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 		}
 	};
 
-
 	// Title
-	addChild(new NoticeText(std::string("title"),LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),std::string("Group Notice"),LLFontGL::sSansSerifHuge));
+	addChild(new NoticeText(std::string("title"),LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),std::string("Group Notice"),LLFontGL::getFontSansSerifHuge()));
 
 	y -= llfloor(1.5f*LINE_HEIGHT);
 
@@ -184,7 +147,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	std::stringstream from;
 	from << "Sent by " << from_name << ", " << group_name;
 
-	addChild(new NoticeText(std::string("group"),LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),from.str(),LLFontGL::sSansSerif));
+	addChild(new NoticeText(std::string("group"),LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),from.str(),LLFontGL::getFontSansSerif()));
 	
 	y -= (LINE_HEIGHT + VPAD);
 	x = HPAD + HPAD;
@@ -214,18 +177,20 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 		LLRect(x, y, RIGHT, box_bottom),
 		DB_GROUP_NOTICE_MSG_STR_LEN,
 		LLStringUtil::null,
-		LLFontGL::sSansSerif,
+		LLFontGL::getFontSansSerif(),
 		FALSE);
 
 	static const LLStyleSP headerstyle(new LLStyle(true,LLColor4::black,"SansSerifBig"));
 	static const LLStyleSP datestyle(new LLStyle(true,LLColor4::black,"serif"));
 
-	text->appendStyledText(subject,false,false,&headerstyle);
-	text->appendStyledText(time_buf,false,false,&datestyle);
+	text->appendStyledText(subject + "\n",false,false,headerstyle);
+
+	LLDate notice_date = time_stamp.notNull() ? time_stamp : LLDate::now();
+	text->appendStyledText(notice_date.asRFC1123(),false,false,datestyle);
 	// Sadly, our LLTextEditor can't handle both styled and unstyled text
 	// at the same time.  Hence this space must be styled. JC
 	text->appendColoredText(std::string(" "),false,false,LLColor4::grey4);
-	text->appendColoredText(message,false,false,LLColor4::grey4);
+	text->appendColoredText(std::string("\n\n") + message,false,false,LLColor4::grey4);
 
 	LLColor4 semi_transparent(1.0f,1.0f,1.0f,0.8f);
 	text->setCursor(0,0);
@@ -246,7 +211,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 
 	if (mHasInventory)
 	{
-			addChild(new NoticeText(std::string("subjecttitle"),LLRect(x,y,x + LABEL_WIDTH,y - LINE_HEIGHT),std::string("Attached: "),LLFontGL::sSansSerif));
+			addChild(new NoticeText(std::string("subjecttitle"),LLRect(x,y,x + LABEL_WIDTH,y - LINE_HEIGHT),std::string("Attached: "),LLFontGL::getFontSansSerif()));
 
 
 			LLAssetType::EType atype;
@@ -261,7 +226,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 
 			std::stringstream ss;
 			ss << "        " << inventory_name;
-			LLTextBox *line = new LLTextBox(std::string("object_name"),LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),ss.str(),LLFontGL::sSansSerif);
+			LLTextBox *line = new LLTextBox(std::string("object_name"),LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),ss.str(),LLFontGL::getFontSansSerif());
 			line->setEnabled(FALSE);
 			line->setBorderVisible(TRUE);
 			line->setDisabledColor(LLColor4::blue4);
@@ -285,7 +250,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 				LLStringUtil::null,
 				onClickNext,
 				this,
-				LLFontGL::sSansSerif);
+				LLFontGL::getFontSansSerif());
 	btn->setToolTip(std::string("Next")); // *TODO: Translate
 	btn->setScaleImage(TRUE);
 	addChild(btn);
@@ -317,7 +282,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	btn->setToolTip(std::string("View past notices or opt-out of receiving these messages here.")); // TODO: Translate
 	addChild(btn, -1);
 
-	if (mHasInventory && mInventoryOffer)
+	if (mHasInventory)
 	{
 		x += wide_btn_width + HPAD;
 
@@ -399,13 +364,53 @@ void LLGroupNotifyBox::close()
 	// Then we need to send the inventory declined message
 	if(mHasInventory)
 	{
-		inventory_offer_callback(IOR_DECLINE , mInventoryOffer); 
+		mInventoryOffer->forceResponse(IOR_DECLINE);
+		mInventoryOffer = NULL;
+		mHasInventory = FALSE;
 	}
 	gNotifyBoxView->removeChild(this);
 
 	die();
 }
 
+//static 
+void LLGroupNotifyBox::initClass()
+{
+	LLNotificationChannel::buildChannel("Group Notifications", "Visible", LLNotificationFilters::filterBy<std::string>(&LLNotification::getType, "groupnotify"));
+	LLNotifications::instance().getChannel("Group Notifications")->connectChanged(&LLGroupNotifyBox::onNewNotification);
+}
+
+//static 
+bool LLGroupNotifyBox::onNewNotification(const LLSD& notify)
+{
+	LLNotificationPtr notification = LLNotifications::instance().find(notify["id"].asUUID());
+
+	if (notification)
+	{
+		const LLSD& payload = notification->getPayload();
+		// Get the group data
+		LLGroupData group_data;
+		if (!gAgent.getGroupData(payload["group_id"].asUUID(),group_data))
+		{
+			llwarns << "Group notice for unkown group: " << payload["group_id"].asUUID() << llendl;
+			return false;
+		}
+
+		LLGroupNotifyBox* self;
+		self = new LLGroupNotifyBox(payload["subject"].asString(),
+									payload["message"].asString(),
+									payload["sender_name"].asString(), 
+									payload["group_id"].asUUID(), 
+									group_data.mInsigniaID, 
+									group_data.mName,
+									notification->getDate(),
+									payload["inventory_offer"].isDefined(),
+									payload["inventory_name"].asString(),
+									payload["inventory_offer"]);
+		gNotifyBoxView->addChild(self);
+	}
+	return false;
+}
 
 void LLGroupNotifyBox::moveToBack()
 {
@@ -469,10 +474,11 @@ void LLGroupNotifyBox::onClickSaveInventory(void* data)
 {
 	LLGroupNotifyBox* self = (LLGroupNotifyBox*)data;
 
-	inventory_offer_callback( IOR_ACCEPT , self->mInventoryOffer); 
+	self->mInventoryOffer->forceResponse(IOR_ACCEPT);
 
-	// inventory_offer_callback will delete the offer, so make sure we aren't still pointing to it.
 	self->mInventoryOffer = NULL;
+	self->mHasInventory = FALSE;
+
 	// Each item can only be received once, so disable the button.
 	self->mSaveInventoryBtn->setEnabled(FALSE);
 }

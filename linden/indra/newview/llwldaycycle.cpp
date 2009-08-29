@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -82,9 +83,9 @@ void LLWLDayCycle::loadDayCycle(const std::string & fileName)
 			if(!success)
 			{
 				// alert the user
-				LLStringUtil::format_map_t args;
-				args["[SKY]"] = day_data[i][1].asString();
-				gViewerWindow->alertXml("WLMissingSky", args);
+				LLSD args;
+				args["SKY"] = day_data[i][1].asString();
+				LLNotifications::instance().add("WLMissingSky", args);
 				continue;
 			}
 			

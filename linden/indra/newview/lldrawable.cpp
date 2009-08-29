@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -531,10 +532,10 @@ F32 LLDrawable::updateXform(BOOL undamped)
 
 	if ((mCurrentScale != target_scale) ||
 		(!isRoot() && 
-		 (dist_squared >= MIN_INTERPOLATE_DISTANCE_SQUARED) || 
+		 (dist_squared >= MIN_INTERPOLATE_DISTANCE_SQUARED || 
 		 !mVObjp->getAngularVelocity().isExactlyZero() ||
 		 target_pos != mXform.getPosition() ||
-		 target_rot != mXform.getRotation()))
+		 target_rot != mXform.getRotation())))
 	{ //child prim moving or scale change requires immediate rebuild
 		gPipeline.markRebuild(this, LLDrawable::REBUILD_POSITION, TRUE);
 	}
@@ -672,7 +673,7 @@ BOOL LLDrawable::updateMoveDamped()
 	return done_moving;
 }
 
-void LLDrawable::updateDistance(LLCamera& camera)
+void LLDrawable::updateDistance(LLCamera& camera, bool force_update)
 {
 	//switch LOD with the spatial group to avoid artifacts
 	//LLSpatialGroup* sg = getSpatialGroup();
@@ -694,7 +695,7 @@ void LLDrawable::updateDistance(LLCamera& camera)
 			for (S32 i = 0; i < getNumFaces(); i++)
 			{
 				LLFace* facep = getFace(i);
-				if (facep->getPoolType() == LLDrawPool::POOL_ALPHA)
+				if (force_update || facep->getPoolType() == LLDrawPool::POOL_ALPHA)
 				{
 					LLVector3 box = (facep->mExtents[1] - facep->mExtents[0]) * 0.25f;
 					LLVector3 v = (facep->mCenterLocal-camera.getOrigin());
@@ -735,11 +736,7 @@ void LLDrawable::updateTexture()
 
 	if (getVOVolume())
 	{
-		if (!isActive())
-		{
-			//gPipeline.markMoved(this);
-		}
-		else
+		if (isActive())
 		{
 			if (isRoot())
 			{
@@ -1232,7 +1229,8 @@ void LLSpatialBridge::setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* 
 	LLVector3 center = (mExtents[0] + mExtents[1]) * 0.5f;
 	LLVector3 size = (mExtents[1]-mExtents[0]) * 0.5f;
 
-	if (LLPipeline::sImpostorRender ||
+	if ((LLPipeline::sShadowRender && camera_in.AABBInFrustum(center, size)) ||
+		LLPipeline::sImpostorRender ||
 		(camera_in.AABBInFrustumNoFarClip(center, size) && 
 		AABBSphereIntersect(mExtents[0], mExtents[1], camera_in.getOrigin(), camera_in.mFrustumCornerDist)))
 	{
@@ -1267,7 +1265,7 @@ void LLSpatialBridge::setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* 
 	}
 }
 
-void LLSpatialBridge::updateDistance(LLCamera& camera_in)
+void LLSpatialBridge::updateDistance(LLCamera& camera_in, bool force_update)
 {
 	if (mDrawable == NULL)
 	{
@@ -1277,7 +1275,7 @@ void LLSpatialBridge::updateDistance(LLCamera& camera_in)
 
 	LLCamera camera = transformCamera(camera_in);
 	
-	mDrawable->updateDistance(camera);
+	mDrawable->updateDistance(camera, force_update);
 	
 	if (mDrawable->getVObj())
 	{
@@ -1289,13 +1287,12 @@ void LLSpatialBridge::updateDistance(LLCamera& camera_in)
 			LLDrawable* drawable = child->mDrawable;					
 			if (!drawable)
 			{
-				llwarns << "Corrupt drawable found while updating spatial bridge distance." << llendl;
 				continue;
 			}
 
 			if (!drawable->isAvatar())
 			{
-				drawable->updateDistance(camera);
+				drawable->updateDistance(camera, force_update);
 			}
 		}
 	}

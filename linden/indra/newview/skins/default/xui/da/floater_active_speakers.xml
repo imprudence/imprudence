@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="active_speakers" title="Aktive talere">
+	<panel name="active_speakers_panel">
+		<scroll_list name="speakers_list">
+			<column label="Navn" name="speaker_name" />
+			<column label="" name="speaking_status" />
+		</scroll_list>
+		<panel name="volume_container">
+			<button label="" name="mute_btn" tool_tip="Blokér denne person fra stemme chat" />
+		</panel>
+	</panel>
+</floater>

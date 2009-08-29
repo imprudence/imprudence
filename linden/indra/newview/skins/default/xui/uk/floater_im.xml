@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater name="im_floater" title="Миттєве повідомл.">
+	<string name="only_user_message">
+		Ви єдиний користувач в цій сесії
+	</string>
+	<string name="offline_message">
+		[FIRST] [LAST] офлайн.
+	</string>
+	<string name="invite_message">
+		Натисніть [BUTTON NAME] кнопку, щоб прийняти/приєднатися до цього Голосового Чату.
+	</string>
+	<string name="muted_message">
+		Ви заглушили цього резидента. Відправив повідомл., Ви автоматично разблокуєте його.
+	</string>
+	<string name="generic_request_error">
+		Помилка запиту, будь ласка, повторіть пізніше
+	</string>
+	<string name="insufficient_perms_error">
+		У Вас недостатньо прав
+	</string>
+	<string name="session_does_not_exist_error">
+		Ця сесія більше не існує
+	</string>
+	<string name="no_ability_error">
+		У Вас намає такої можливості
+	</string>
+	<string name="not_a_mod_error">
+		Ви не модератор сесії
+	</string>
+	<string name="muted_error">
+		Модератор групи вимкнув Ваш текстовий чат.
+	</string>
+	<string name="add_session_event">
+		Неможливо додати користувачів у чат з [RECIPIENT].
+	</string>
+	<string name="message_session_event">
+		Неможливо відправити Ваше повідомлення [RECIPIENT].
+	</string>
+	<string name="mute_agent_event">
+		заглушити агента в
+	</string>
+	<string name="removed_from_group">
+		Вас виключили з групи
+	</string>
+	<string name="close_on_no_ability">
+		У Вас більше немає можливості знаходитися в цій чат сесії.
+	</string>
+</multi_floater>

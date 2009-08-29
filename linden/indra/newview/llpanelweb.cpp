@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -143,12 +144,13 @@ void LLPanelWeb::cancel()
 // static
 void LLPanelWeb::onClickClearCache(void*)
 {
-	gViewerWindow->alertXml("ConfirmClearBrowserCache", callback_clear_browser_cache, 0);
+	LLNotifications::instance().add("ConfirmClearBrowserCache", LLSD(), LLSD(), callback_clear_browser_cache);
 }
 
 //static
-void LLPanelWeb::callback_clear_browser_cache(S32 option, void* userdata)
+bool LLPanelWeb::callback_clear_browser_cache(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if ( option == 0 ) // YES
 	{
 		LLMediaBase *media_source = get_web_media();
@@ -156,8 +158,42 @@ void LLPanelWeb::callback_clear_browser_cache(S32 option, void* userdata)
 			media_source->clearCache();
 		free_web_media(media_source);
 	}
+	return false;
 }
 
+// static
+void LLPanelWeb::onClickClearCookies(void*)
+{
+	LLNotifications::instance().add("ConfirmClearCookies", LLSD(), LLSD(), callback_clear_cookies);
+}
+
+//static
+bool LLPanelWeb::callback_clear_cookies(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if ( option == 0 ) // YES
+	{
+		LLMediaBase *media_source = get_web_media();
+		if (media_source)
+			media_source->clearCookies();
+		free_web_media(media_source);
+	}
+	return false;
+}
+
+// static
+void LLPanelWeb::onCommitCookies(LLUICtrl* ctrl, void* data)
+{
+  LLPanelWeb* self = (LLPanelWeb*)data;
+  LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+
+  if (!self || !check) return;
+
+  LLMediaBase *media_source = get_web_media();
+  if (media_source)
+	  media_source->enableCookies(check->get());
+  free_web_media(media_source);
+}
 // static
 void LLPanelWeb::onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data)
 {

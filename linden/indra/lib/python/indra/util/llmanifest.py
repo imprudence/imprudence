@@ -452,7 +452,7 @@ class LLManifest(object):
             # *TODO is this gonna be useful?
             print "Cleaning up " + c
 
-    def process_file(self, src, dst, strip=False):
+    def process_file(self, src, dst):
         if self.includes(src, dst):
 #            print src, "=>", dst
             for action in self.actions:
@@ -460,7 +460,7 @@ class LLManifest(object):
                 method = getattr(self, methodname, None)
                 if method is not None:
                     method(src, dst)
-            self.file_list.append([src, dst, strip])
+            self.file_list.append([src, dst])
             return 1
         else:
             sys.stdout.write(" (excluding %r, %r)" % (src, dst))
@@ -607,7 +607,7 @@ class LLManifest(object):
             d = src_re.sub(d_template, s.replace('\\', '/'))
             yield os.path.normpath(s), os.path.normpath(d)
 
-    def path(self, src, dst=None, strip=False):
+    def path(self, src, dst=None):
         sys.stdout.write("Processing %s => %s ... " % (src, dst))
         sys.stdout.flush()
         if src == None:
@@ -622,7 +622,7 @@ class LLManifest(object):
             if self.wildcard_pattern.search(src):
                 for s,d in self.expand_globs(src, dst):
                     assert(s != d)
-                    count += self.process_file(s, d, strip)
+                    count += self.process_file(s, d)
             else:
                 # if we're specifying a single path (not a glob),
                 # we should error out if it doesn't exist
@@ -631,7 +631,7 @@ class LLManifest(object):
                 if os.path.isdir(src):
                     count += self.process_directory(src, dst)
                 else:
-                    count += self.process_file(src, dst, strip)
+                    count += self.process_file(src, dst)
             return count
         try:
             count = try_path(os.path.join(self.get_src_prefix(), src))

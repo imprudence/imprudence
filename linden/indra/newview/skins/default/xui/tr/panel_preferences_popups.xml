@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Açılan Pencereler" name="popups" title="Popups">
+	<text name="dont_show_label">
+		Bu pencereleri gösterme:
+	</text>
+	<button label="Bu pencereyi etkinleştir" name="enable_popup" />
+	<button label="Tüm pencereleri etkinleştir..." name="reset_dialogs_btn"
+	     tool_tip="Tüm opsiyonal açılan pencereleri ve &apos;ilk kullanım&apos; duyurularını etkinleştir." width="220"/>
+	<text name="show_label">
+		Bu pencereleri göster:
+	</text>
+	<button label="Tüm bu pencereleri devre dışı bırak..." name="skip_dialogs_btn"
+	     tool_tip="Tum opsiyonal açılan pencereleri ve &apos;ilk kullanım&apos; duyurularını devre dışı bırak." width="220"/>
+	<text type="string" length="1" name="text_box2">
+		Notekartlar,desenler ve yer imleri teklifleri:
+	</text>
+	<check_box label="Otomatik olarak kabul et" name="accept_new_inventory" />
+	<check_box label="Kabul ettikten sonra otomatik olarak incele" name="show_new_inventory" />
+	<check_box label="Envanterdeki yeni kabul edilmiş objeleri otomatik olarak göster"
+	     name="show_in_inventory" />
+</panel>

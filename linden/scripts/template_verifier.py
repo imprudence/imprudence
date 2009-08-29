@@ -18,7 +18,8 @@ online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
 There are special exceptions to the terms and conditions of the GPL as
 it is applied to this Source Code. View the full text of the exception
 in the file doc/FLOSS-exception.txt in this software distribution, or
-online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+online at
+http://secondlifegrid.net/programs/open_source/licensing/flossexception
 
 By copying, modifying or distributing this software, you acknowledge
 that you have read and understood your obligations described above,
@@ -47,23 +48,26 @@ import os.path
 #  * it doesn't depend on the current directory
 #  * it doesn't depend on another file being present.
 
-root = os.path.abspath(__file__)
-# always insert the directory of the script in the search path
-dir = os.path.dirname(root)
-if dir not in sys.path:
-    sys.path.insert(0, dir)
+def add_indra_lib_path():
+    root = os.path.realpath(__file__)
+    # always insert the directory of the script in the search path
+    dir = os.path.dirname(root)
+    if dir not in sys.path:
+        sys.path.insert(0, dir)
 
-# Now go look for indra/lib/python in the parent dies
-while root != os.path.sep:
-    root = os.path.dirname(root)
-    dir = os.path.join(root, 'indra', 'lib', 'python')
-    if os.path.isdir(dir):
-        if dir not in sys.path:
-            sys.path.insert(0, dir)
-        break
-else:
-    print >>sys.stderr, "This script is not inside a valid installation."
-    sys.exit(1)
+    # Now go look for indra/lib/python in the parent dies
+    while root != os.path.sep:
+        root = os.path.dirname(root)
+        dir = os.path.join(root, 'indra', 'lib', 'python')
+        if os.path.isdir(dir):
+            if dir not in sys.path:
+                sys.path.insert(0, dir)
+            break
+    else:
+        print >>sys.stderr, "This script is not inside a valid installation."
+        sys.exit(1)
+
+add_indra_lib_path()
 
 import optparse
 import os

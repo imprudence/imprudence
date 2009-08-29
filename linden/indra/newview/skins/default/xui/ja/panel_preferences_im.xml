@@ -11,7 +11,7 @@
 		ログインして変更してください
 	</text>
 	<check_box label="IMを電子メール（[EMAIL]）へ送信" name="send_im_to_email"/>
-	<check_box label="ローカルチャットにIMを含める" name="include_im_in_chat_history"/>
+	<check_box label="チャットコンソールにIMを表示する" name="include_im_in_chat_console"/>
 	<check_box label="IMにタイムスタンプを表示" name="show_timestamps_check"/>
 	<check_box label="オンライン・フレンド通知を表示" name="friends_online_notify_checkbox"/>
 	<text name="text_box4">

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -81,7 +82,7 @@ public:
 	EState getState() { return mState; }
 
 	void updateSessionID(const LLUUID& new_session_id);
-	const LLStringUtil::format_map_t& getNotifyArgs() { return mNotifyArgs; }
+	const LLSD& getNotifyArgs() { return mNotifyArgs; }
 
 	static LLVoiceChannel* getChannelByID(const LLUUID& session_id);
 	static LLVoiceChannel* getChannelByURI(std::string uri);
@@ -100,7 +101,7 @@ protected:
 	LLUUID		mSessionID;
 	EState		mState;
 	std::string	mSessionName;
-	LLStringUtil::format_map_t mNotifyArgs;
+	LLSD mNotifyArgs;
 	BOOL		mIgnoreNextSessionLeave;
 	LLHandle<LLPanel> mLoginNotificationHandle;
 
@@ -267,7 +268,7 @@ public:
 		const std::string& error_string);
 	void showSessionForceClose(const std::string& reason);
 
-	static void onConfirmForceCloseError(S32 option, void* data);
+	static bool onConfirmForceCloseError(const LLSD& notification, const LLSD& response);
 
 private:
 	// called by constructors
@@ -343,6 +344,10 @@ private:
 	BOOL mShowSpeakersOnConnect;
 
 	BOOL mAutoConnect;
+	
+	BOOL mTextIMPossible;
+	BOOL mProfileButtonEnabled;
+	BOOL mCallBackEnabled;
 
 	LLIMSpeakerMgr* mSpeakers;
 	LLPanelActiveSpeakers* mSpeakerPanel;

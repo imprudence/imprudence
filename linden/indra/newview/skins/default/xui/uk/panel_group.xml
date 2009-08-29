@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfo" title="Інф.про Групу">
+	<text name="default_needs_apply_text">
+		Тут є незастосовані зміни
+	</text>
+	<text name="want_apply_text">
+		Ви хочете застосува. ці зміни?
+	</text>
+	<button label="Застосув." label_selected="Застосув." name="btn_apply" />
+	<button label="Відмінити" label_selected="Відмінити"
+	     name="btn_cancel" />
+	<button label="OK" label_selected="OK" name="btn_ok" />
+	<button label="Оновити" label_selected="Оновити" name="btn_refresh" />
+</panel>

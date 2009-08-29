@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -43,7 +44,7 @@
 #include "llsd.h"
 #include "llstring.h"
 #include "apr_env.h"
-
+#include "llapr.h"
 static const U32 HTTP_STATUS_PIPE_ERROR = 499;
 
 /**
@@ -165,18 +166,16 @@ void LLURLRequest::useProxy(bool use_proxy)
     if (use_proxy && (env_proxy == NULL))
     {
         apr_status_t status;
-        apr_pool_t* pool;
-        apr_pool_create(&pool, NULL);
-        status = apr_env_get(&env_proxy, "ALL_PROXY", pool);
+        LLAPRPool pool;
+		status = apr_env_get(&env_proxy, "ALL_PROXY", pool.getAPRPool());
         if (status != APR_SUCCESS)
         {
-            status = apr_env_get(&env_proxy, "http_proxy", pool);
+			status = apr_env_get(&env_proxy, "http_proxy", pool.getAPRPool());
         }
         if (status != APR_SUCCESS)
         {
            use_proxy = FALSE;
         }
-        apr_pool_destroy(pool);
     }
 
 
@@ -501,33 +500,25 @@ static size_t headerCallback(void* data, size_t size, size_t nmemb, void* user)
 	std::string header(header_line, header_len);
 
 	// Per HTTP spec the first header line must be the status line.
-	if (!complete->haveHTTPStatus())
+	if (header.substr(0,5) == "HTTP/")
 	{
-		if (header.substr(0,5) == "HTTP/")
+		std::string::iterator end = header.end();
+		std::string::iterator pos1 = std::find(header.begin(), end, ' ');
+		if (pos1 != end) ++pos1;
+		std::string::iterator pos2 = std::find(pos1, end, ' ');
+		if (pos2 != end) ++pos2;
+		std::string::iterator pos3 = std::find(pos2, end, '\r');
+
+		std::string version(header.begin(), pos1);
+		std::string status(pos1, pos2);
+		std::string reason(pos2, pos3);
+
+		S32 status_code = atoi(status.c_str());
+		if (status_code > 0)
 		{
-			std::string::iterator end = header.end();
-			std::string::iterator pos1 = std::find(header.begin(), end, ' ');
-			if (pos1 != end) ++pos1;
-			std::string::iterator pos2 = std::find(pos1, end, ' ');
-			if (pos2 != end) ++pos2;
-			std::string::iterator pos3 = std::find(pos2, end, '\r');
-
-			std::string version(header.begin(), pos1);
-			std::string status(pos1, pos2);
-			std::string reason(pos2, pos3);
-
-			int statusCode = atoi(status.c_str());
-			if (statusCode >= 300 && statusCode < 400)
-			{
-				// This is a redirect, ignore it and all headers
-				// until we find a normal status code.
-			}
-			else if (statusCode > 0)
-			{
-				complete->httpStatus((U32)statusCode, reason);
-			}
+			complete->httpStatus((U32)status_code, reason);
+			return header_len;
 		}
-		return header_len;
 	}
 
 	std::string::iterator sep = std::find(header.begin(),header.end(),':');
@@ -592,8 +583,7 @@ LLIOPipe::EStatus LLContextURLExtractor::process_impl(
  * LLURLRequestComplete
  */
 LLURLRequestComplete::LLURLRequestComplete() :
-	mRequestStatus(LLIOPipe::STATUS_ERROR),
-	mHaveHTTPStatus(false)
+	mRequestStatus(LLIOPipe::STATUS_ERROR)
 {
 	LLMemType m1(LLMemType::MTYPE_IO_URL_REQUEST);
 }
@@ -607,12 +597,6 @@ LLURLRequestComplete::~LLURLRequestComplete()
 //virtual 
 void LLURLRequestComplete::header(const std::string& header, const std::string& value)
 {
-}
-
-//virtual 
-void LLURLRequestComplete::httpStatus(U32 status, const std::string& reason)
-{
-	mHaveHTTPStatus = true;
 }
 
 //virtual 

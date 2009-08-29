@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Object Pie">
+	<menu_item_call label="Otwórz" name="Open" />
+	<menu_item_call label="Stwórz" name="Create" />
+	<menu_item_call label="Dotknij" name="Object Touch">
+		<on_enable userdata="Dotknij" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="Usiądź Tu" name="Object Sit">
+		<on_enable userdata="Usiądź Tu,Wstań" name="EnableSitOrStand"/>
+	</menu_item_call>
+	<menu_item_call label="Weź" name="Pie Object Take">
+		<on_enable userdata="Kup,Weź" name="EnableBuyOrTake"/>
+	</menu_item_call>
+	<menu_item_call label="Zapłać..." name="Pay..." />
+	<pie_menu label="Więcej &gt;" name="More &gt;">
+		<menu_item_call label="Usuń" name="Delete" />
+		<menu_item_call label="Ubierz" name="Wear" />
+		<menu_item_call label="Weź Kopię" name="Take Copy" />
+		<pie_menu label="Dołącz do HUD" name="Object Attach HUD" />
+		<pie_menu label="Dołącz Obiekt" name="Object Attach" />
+		<menu_item_call label="Zwróć..." name="Return..." />
+		<pie_menu label="Więcej &gt;" name="Rate Menu">
+			<menu_item_call label="Raport..." name="Report Abuse..."/>
+			<menu_item_call label="Wycisz" name="Object Mute" />
+			<menu_item_call label="Sprawdź" name="Object Inspect" />
+		</pie_menu>
+		<menu_item_call label="Kup..." name="Buy..." />
+	</pie_menu>
+	<menu_item_call label="Edytuj..." name="Edit..." />
+</pie_menu>

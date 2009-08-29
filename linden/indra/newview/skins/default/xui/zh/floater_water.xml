@@ -1,185 +1,98 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater
-	 min_height="200"
-	 min_width="400"
-	 name="Water Floater"
-	 title="Advanced Water Editor">
-	<text
-		 name="KeyFramePresetsText">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater min_height="200" min_width="400" name="Water Floater" title="Advanced Water Editor">
+	<text name="KeyFramePresetsText">
 		水预设:
 	</text>
-	<combo_box
-		 allow_text_entry="false"
-		 max_chars="20"
-		 name="WaterPresetsCombo" />
-	<button
-		 label="新建"
-		 label_selected="新建"
-		 name="WaterNewPreset" />
-	<button
-		 label="保存"
-		 label_selected="保存"
-		 name="WaterSavePreset" />
-	<button
-		 label="删除"
-		 label_selected="Delete"
-		 name="WaterDeletePreset" />
-	<tab_container
-		 name="Water Tabs"
-		 tab_position="top">
-		<panel
-			 label="设置"
-			 name="Settings">
-			<text
-				 name="BHText">
+	<combo_box allow_text_entry="false" max_chars="20" name="WaterPresetsCombo"/>
+	<button label="新建" label_selected="新建" name="WaterNewPreset"/>
+	<button label="保存" label_selected="保存" name="WaterSavePreset"/>
+	<button label="删除" label_selected="Delete" name="WaterDeletePreset"/>
+	<tab_container name="Water Tabs" tab_position="top">
+		<panel label="设置" name="Settings">
+			<text name="BHText">
 				水雾颜色
 			</text>
-			<button
-				 label="?"
-				 name="WaterFogColorHelp" />
-			<color_swatch
-				 label=""
-				 name="WaterFogColor"
-				 tool_tip="点击打开颜色选择器" />
-			<text
-				 name="WaterFogDensText">
+			<button label="?" name="WaterFogColorHelp"/>
+			<color_swatch label="" name="WaterFogColor" tool_tip="点击打开颜色选择器"/>
+			<text name="WaterFogDensText">
 				水雾浓度指数
 			</text>
-			<button
-				 label="?"
-				 name="WaterFogDensityHelp" />
-			<slider
-				 label=""
-				 name="WaterFogDensity"
-				 value="1.0" />
-			<text
-				 name="WaterUnderWaterFogModText">
+			<button label="?" name="WaterFogDensityHelp"/>
+			<slider label="" name="WaterFogDensity" />
+			<text name="WaterUnderWaterFogModText">
 				水下雾浓度修正
 			</text>
-			<text
-				 name="BDensText">
+			<text name="BDensText">
 				反射小波大小
 			</text>
-			<text
-				 name="HDText">
+			<text name="BHText2">
+				1
+			</text>
+			<text name="BHText3">
+				2
+			</text>
+			<text name="BHText4">
+				3
+			</text>
+			<text name="HDText">
 				菲涅尔尺度
 			</text>
-			<button
-				 label="?"
-				 name="WaterFresnelScaleHelp" />
-			<slider
-				 label=""
-				 name="WaterFresnelScale"
-				 value="1.0" />
-			<text
-				 name="FresnelOffsetText">
+			<button label="?" name="WaterFresnelScaleHelp"/>
+			<slider label="" name="WaterFresnelScale"/>
+			<text name="FresnelOffsetText">
 				菲涅尔偏移
 			</text>
-			<button
-				 label="?"
-				 name="WaterFresnelOffsetHelp" />
-			<slider
-				 label=""
-				 name="WaterFresnelOffset"
-				 value="1.0" />
-			<text
-				 name="DensMultText">
+			<button label="?" name="WaterFresnelOffsetHelp"/>
+			<slider label="" name="WaterFresnelOffset" />
+			<text name="DensMultText">
 				水上折射量
 			</text>
-			<button
-				 label="?"
-				 name="WaterScaleAboveHelp" />
-			<slider
-				 label=""
-				 name="WaterScaleAbove"
-				 value="1.0" />
-			<text
-				 name="WaterScaleBelowText">
+			<button label="?" name="WaterScaleAboveHelp"/>
+			<slider label="" name="WaterScaleAbove" />
+			<text name="WaterScaleBelowText">
 				水下折射量
 			</text>
-			<button
-				 label="?"
-				 name="WaterScaleBelowHelp" />
-			<slider
-				 label=""
-				 name="WaterScaleBelow"
-				 value="0.0" />
-			<text
-				 name="MaxAltText">
+			<button label="?" name="WaterScaleBelowHelp"/>
+			<slider label="" name="WaterScaleBelow" />
+			<text name="MaxAltText">
 				模糊因数
 			</text>
-			<button
-				 label="?"
-				 name="WaterBlurMultiplierHelp" />
-			<slider
-				 label=""
-				 name="WaterBlurMult"
-				 value="0" />
+			<button label="?" name="WaterBlurMultiplierHelp"/>
+			<slider label="" name="WaterBlurMult"/>
 		</panel>
-		<panel
-			 label="图像"
-			 name="Waves">
-			<text
-				 name="BHText">
+		<panel label="图像" name="Waves">
+			<text name="BHText">
 				大波方向
 			</text>
-			<button
-				 label="?"
-				 name="WaterWave1Help" />
-			<text
-				 name="WaterWave1DirXText">
+			<button label="?" name="WaterWave1Help"/>
+			<text name="WaterWave1DirXText">
 				X
 			</text>
-			<text
-				 name="WaterWave1DirYText">
+			<text name="WaterWave1DirYText">
 				Y
 			</text>
-			<slider
-				 label=""
-				 name="WaterWave1DirX"
-				 value="0.7" />
-			<slider
-				 label=""
-				 name="WaterWave1DirY"
-				 value="0.7" />
-			<text
-				 name="BHText2">
+			<slider label="" name="WaterWave1DirX" />
+			<slider label="" name="WaterWave1DirY" />
+			<text name="BHText2">
 				小波方向
 			</text>
-			<button
-				 label="?"
-				 name="WaterWave2Help" />
-			<text
-				 name="WaterWave2DirXText">
+			<button label="?" name="WaterWave2Help"/>
+			<text name="WaterWave2DirXText">
 				X
 			</text>
-			<text
-				 name="WaterWave2DirYText">
+			<text name="WaterWave2DirYText">
 				Y
 			</text>
-			<slider
-				 label=""
-				 name="WaterWave2DirX"
-				 value="0.7" />
-			<slider
-				 label=""
-				 name="WaterWave2DirY"
-				 value="0.7" />
-			<text
-				 name="BHText3">
+			<slider label="" name="WaterWave2DirX" />
+			<slider label="" name="WaterWave2DirY" />
+			<text name="BHText3">
 				法向图
 			</text>
-			<button
-				 label="?"
-				 name="WaterNormalMapHelp" />
-			<texture_picker
-				 label=""
-				 name="WaterNormalMap" />
+			<button label="?" name="WaterNormalMapHelp"/>
+			<texture_picker label="" name="WaterNormalMap"/>
 		</panel>
 	</tab_container>
-	<string
-		 name="WLDefaultWaterNames">
+	<string name="WLDefaultWaterNames">
 		Default:Glassy:Pond:Murky:Second Plague:SNAKE!!!:Valdez
 	</string>
 </floater>
-

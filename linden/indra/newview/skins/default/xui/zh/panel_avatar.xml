@@ -1,52 +1,44 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Panel Avatar">
 	<tab_container name="tab">
 		<panel label="第二人生" name="2nd Life">
-			<text name="CaptionTextAcctInfo">
+			<string name="CaptionTextAcctInfo">
 				[ACCTTYPE]
 [PAYMENTINFO]
 [AGEVERIFICATION]
-			</text>
-			<text name="AcctTypeResident">
+			</string>
+			<string name="AcctTypeResident">
 				居民
-			</text>
-			<text name="AcctTypeTrial">
+			</string>
+			<string name="AcctTypeTrial">
 				试用者
-			</text>
-			<text name="AcctTypeCharterMember">
+			</string>
+			<string name="AcctTypeCharterMember">
 				宪章制定委员会成员
-			</text>
-			<text name="AcctTypeEmployee">
+			</string>
+			<string name="AcctTypeEmployee">
 				林登实验室雇员
-			</text>
-			<text name="PaymentInfoUsed">
+			</string>
+			<string name="PaymentInfoUsed">
 				支付信息已使用
-			</text>
-			<text name="PaymentInfoOnFile">
+			</string>
+			<string name="PaymentInfoOnFile">
 				支付信息在案
-			</text>
-			<text name="NoPaymentInfoOnFile">
+			</string>
+			<string name="NoPaymentInfoOnFile">
 				无支付信息
-			</text>
-			<text
-				 name="AgeVerified" >
+			</string>
+			<string name="AgeVerified">
 				年龄已验证
-			</text>
-			<text
-				 name="NotAgeVerified" >
+			</string>
+			<string name="NotAgeVerified">
 				年龄未验证
-			</text>
+			</string>
 			<text name="Name:">
 				名字:
 			</text>
 			<text name="online_yes">
 				当前在线
-			</text>
-			<text name="online_no">
-				不在线
-			</text>
-			<text name="online_unknown">
-				在线状态未知
 			</text>
 			<text name="label">
 				出生:
@@ -54,26 +46,17 @@
 			<text name="label2">
 				账户:
 			</text>
-			<text name="partner_label"
-			     tool_tip="第二人生搭档。要获取更多关于如何设置此项功能， 请登陆www.secondlife.com/partner">
+			<text name="partner_label" tool_tip="第二人生搭档。要获取更多关于如何设置此项功能， 请登陆www.secondlife.com/partner">
 				搭档:
 			</text>
-			<button
-				 label="i"
-				 label_selected="i"
-				 name="partner_info"
-				 tool_tip="点击打开搭档的档案" />
-			<line_editor name="partner_edit"
-			     tool_tip="第二人生搭档。要获取更多关于如何设置此项功能， 请登陆www.secondlife.com/partner">
+			<button label="i" label_selected="i" name="partner_info" tool_tip="点击打开搭档的档案"/>
+			<line_editor name="partner_edit" tool_tip="第二人生搭档。要获取更多关于如何设置此项功能， 请登陆www.secondlife.com/partner">
 				[FIRST] [LAST]
 			</line_editor>
 			<text name="Photo:">
 				照片：
 			</text>
-			<texture_picker label="" name="img" tool_tip="点击这里来选择图片" />
-			<text name="Ratings:">
-				级别:
-			</text>
+			<texture_picker label="" name="img" tool_tip="点击这里来选择图片"/>
 			<text name="Groups:">
 				社团:
 			</text>
@@ -86,73 +69,53 @@
 			<text name="Give item:">
 				给与物品:
 			</text>
-			<text name="Give inventory"
-			     tool_tip="要把库存中的物体赠与这个人，将其拖动到这里。">
+			<text name="Give inventory" tool_tip="要把库存中的物体赠与这个人，将其拖动到这里。">
 				放置库存物品于此。
 			</text>
-			<check_box label="在搜索结果中显示" name="allow_publish"
-			     tool_tip="在搜索中显示额外信息，例如描述和照片。" />
-			<button label="?" label_selected="?" name="?" />
-			<!-- <button label="在地图中显示" label_selected="在地图中显示"
-			     name="Show on Map" /> -->
-			<button label="在地图中显示" label_selected="在地图中显示"
-			     name="Find on Map" />
-				 
-			<button label="邀请瞬间移动..." label_selected="邀请瞬间移动..."
-			     name="Offer Teleport..." />
- 			<button
-				 label="添加为好友..."
-				 label_selected="添加为好友..."
-				 name="Add Friend..." />
-
-			<!-- <button label="评分..." label_selected="评分..." name="Rate..." /> -->
-			<button label="付款..." label_selected="付款..." name="Pay..." />
-			<button label="即时消息..." label_selected="即时消息..."
-			     name="Instant Message..." />
-			<button label="屏蔽" label_selected="屏蔽" name="Mute" />
+			<check_box label="在搜索结果中显示" name="allow_publish" tool_tip="在搜索中显示额外信息，例如描述和照片。"/>
+			<button label="?" label_selected="?" name="?"/>
+			<button label="在地图中显示" label_selected="在地图中显示" name="Find on Map"/>
+			<button label="邀请瞬间移动..." label_selected="邀请瞬间移动..." name="Offer Teleport..."/>
+			<button label="添加为好友..." label_selected="添加为好友..." name="Add Friend..."/>
+			<button label="付款..." label_selected="付款..." name="Pay..."/>
+			<button label="即时消息..." label_selected="即时消息..." name="Instant Message..." tool_tip="即时通信"/>
+			<button label="屏蔽" label_selected="屏蔽" name="Mute"/>
 		</panel>
 		<panel label="Web" name="WebProfile">
-			<line_editor
-				 is_unicode="false"
-				 name="url_edit" />
-			<flyout_button
-				 label="加载"
-				 label_selected="加载"
-				 name="load"
-				 tool_tip="用内部浏览器打开这个档案页面。">
-				<flyout_button_item
-					value="open">
-					在外部浏览器中打开</flyout_button_item>
-				<flyout_button_item
-					value="home">返回原来页面</flyout_button_item>
+			<line_editor is_unicode="false" name="url_edit"/>
+			<flyout_button label="加载" label_selected="加载" name="load" tool_tip="用内部浏览器打开这个档案页面。">
+				<flyout_button_item name="open_item">
+					在外部浏览器中
+				</flyout_button_item>
+				<flyout_button_item name="home_item">
+					家连接
+				</flyout_button_item>
 			</flyout_button>
-			<button label="?" label_selected="?" name="web_profile_help" />
-			<check_box label="自动加载网络档案" name="auto_load"
-			     tool_tip="不询问就自动加载 *所有* 网络档案。" />
-			<text name="status_text">
-			</text>
+			<button label="?" label_selected="?" name="web_profile_help"/>
+			<check_box label="自动加载网络档案" name="auto_load" tool_tip="不询问就自动加载 *所有* 网络档案。"/>
+			<text name="status_text"/>
 		</panel>
 		<panel label="兴趣" name="Interests">
 			<text name="I Want To:">
 				我想要:
 			</text>
-			<check_box label="建造" name="chk0" />
-			<check_box label="探索" name="chk1" />
-			<check_box label="聚会" name="chk2" />
-			<check_box label="受雇" name="chk6" />
-			<check_box label="组团" name="chk3" />
-			<check_box label="购买" name="chk4" />
-			<check_box label="出售" name="chk5" />
-			<check_box label="雇佣" name="chk7" />
+			<check_box label="建造" name="chk0"/>
+			<check_box label="探索" name="chk1"/>
+			<check_box label="聚会" name="chk2"/>
+			<check_box label="受雇" name="chk6"/>
+			<check_box label="组团" name="chk3"/>
+			<check_box label="购买" name="chk4"/>
+			<check_box label="出售" name="chk5"/>
+			<check_box label="雇佣" name="chk7"/>
 			<text name="Skills:">
 				技能：
 			</text>
-			<check_box label="材质" name="schk0" />
-			<check_box label="建筑" name="schk1" />
-			<check_box label="计划事件" name="schk2" />
-			<check_box label="建模" name="schk3" />
-			<check_box label="编辑脚本" name="schk4" />
-			<check_box label="个性化人物" name="schk5" />
+			<check_box label="材质" name="schk0"/>
+			<check_box label="建筑" name="schk1"/>
+			<check_box label="计划事件" name="schk2"/>
+			<check_box label="建模" name="schk3"/>
+			<check_box label="编辑脚本" name="schk4"/>
+			<check_box label="个性化人物" name="schk5"/>
 			<text name="Languages:">
 				语言:
 			</text>
@@ -161,21 +124,27 @@
 			<text name="Tell everyone about your favorite places in Second Life.">
 				告诉大家你在第二人生中最喜欢的地点。
 			</text>
-			<button label="新建..." label_selected="新建..." name="New..." />
-			<button label="删除..." label_selected="删除..." name="Delete..." />
+			<button label="新建..." label_selected="新建..." name="New..."/>
+			<button label="删除..." label_selected="删除..." name="Delete..."/>
+			<text name="loading_text">
+				加载...
+			</text>
 		</panel>
 		<panel label="分类广告" name="Classified">
 			<text name="Place an ad in Second Life&apos;s classified listings.">
 				在第二人生的分类栏中刊登广告。
 			</text>
-			<button label="新建..." label_selected="新建..." name="New..." />
-			<button label="删除..." label_selected="删除..." name="Delete..." />
+			<button label="新建..." label_selected="新建..." name="New..."/>
+			<button label="删除..." label_selected="删除..." name="Delete..."/>
+			<text name="loading_text">
+				加载...
+			</text>
 		</panel>
 		<panel label="第一人生" name="1st Life">
 			<text name="Photo:">
 				照片：
 			</text>
-			<texture_picker label="" name="img" tool_tip="点击这里来选择图片" />
+			<texture_picker label="" name="img" tool_tip="点击这里来选择图片"/>
 			<text name="Info:">
 				消息:
 			</text>
@@ -184,6 +153,9 @@
 			</text>
 		</panel>
 		<panel label="我的备注" name="My Notes">
+			<string name="Loading">
+				加载...
+			</string>
 			<text name="label">
 				使用这块空间来记录你关于这个人的笔记。 追踪交易
 进展，合作的项目，等等。只有你可以看见这些笔记。
@@ -191,34 +163,33 @@
 			</text>
 		</panel>
 	</tab_container>
-	<button label="OK" label_selected="OK" name="OK" />
-	<button label="取消" label_selected="取消" name="Cancel" />
-	<button label="踢人" label_selected="踢人" name="Kick" />
-	<button label="锁定" label_selected="锁定" name="Freeze"
-	     tool_tip="停止此居民的现有动作和对话。" />
-	<button label="解锁" label_selected="解锁" name="Unfreeze"
-	     tool_tip="解除冻结的居民。" />
-	<button label="CSR" label_selected="CSR" name="csr_btn"
-	     tool_tip="对此位居民开启顾客服务工具。" />
-	<text name="ShowOnMapNonFriend">
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="取消" label_selected="取消" name="Cancel"/>
+	<button label="踢人" label_selected="踢人" name="Kick"/>
+	<button label="锁定" label_selected="锁定" name="Freeze" tool_tip="停止此居民的现有动作和对话。"/>
+	<button label="解锁" label_selected="解锁" name="Unfreeze" tool_tip="解除冻结的居民。"/>
+	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="对此位居民开启顾客服务工具。"/>
+	<string name="ShowOnMapNonFriend">
 		在地图上显示位置。
 由于你和它们之间没有友谊关系，所以刚才的操作无效。
-	</text>
-	<text name="ShowOnMapFriendOffline">
+	</string>
+	<string name="ShowOnMapFriendOffline">
 		在地图上显示位置。
 由于对方不在线，刚才的操作无效。
-	</text>
-	<text name="ShowOnMapFriendOnline">
+	</string>
+	<string name="ShowOnMapFriendOnline">
 		在地图上显示位置。
-	</text>
-	<text name="TeleportGod">
+	</string>
+	<string name="TeleportGod">
 		强制瞬间移动到你的位置。
-	</text>
-	<text name="TeleportPrelude">
+	</string>
+	<string name="TeleportPrelude">
 		邀请瞬间移动到你所在的位置。但当你离开方位岛时，此项功能才可用。
-	</text>
-	<text name="TeleportNormal">
+	</string>
+	<string name="TeleportNormal">
 		邀请瞬间移动到你所在的位置。
-	</text>
+	</string>
+	<string name="Loading">
+		加载...
+	</string>
 </panel>
-<!--Translated for Second Life 1.19.0 (80044)-->

@@ -55,6 +55,17 @@
         <real>1.0</real>
       </array>
     </map>
+    <key>AlertedUnsupportedHardware</key>
+    <map>
+      <key>Comment</key>
+      <string>Set if there's unsupported hardware and we've already done a notification.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>AllowIdleAFK</key>
     <map>
       <key>Comment</key>
@@ -550,17 +561,6 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
-    <key>AvatarCompositeLimit</key>
-    <map>
-      <key>Comment</key>
-      <string>Maximum number of avatars to display appearance changes on the fly</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>5</integer>
-    </map>
     <key>AvatarFeathering</key>
     <map>
       <key>Comment</key>
@@ -906,6 +906,204 @@
       <key>Value</key>
       <real>16.0</real>
     </map>
+    <key>BulkChangeIncludeAnimations</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect animations</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeAnimations</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect animations</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeAnimations</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect animations</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeAnimations</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect animations</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeBodyParts</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect body parts</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeClothing</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect clothing</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeGestures</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect gestures</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeLandmarks</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect landmarks</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeNotecards</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect notecards</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeObjects</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect objects</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeScripts</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect scripts</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeSounds</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect sounds</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeIncludeTextures</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk permission changes affect textures</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>BulkChangeEveryoneCopy</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk changed objects can be copied by everyone</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>BulkChangeNextOwnerCopy</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk changed objects can be copied by next owner</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>BulkChangeNextOwnerModify</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk changed objects can be modified by next owner</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>BulkChangeNextOwnerTransfer</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk changed objects can be resold or given away by next owner</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>BulkChangeShareWithGroup</key>
+    <map>
+      <key>Comment</key>
+      <string>Bulk changed objects are shared with the currently active group</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>ButtonFlashCount</key>
     <map>
       <key>Comment</key>
@@ -1016,6 +1214,17 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>CameraAngle</key>
+    <map>
+      <key>Comment</key>
+      <string>Camera field of view angle (Radians)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>1.047197551</real>
+    </map>
     <key>CameraOffset</key>
     <map>
       <key>Comment</key>
@@ -1056,6 +1265,17 @@
         <real>0.0</real>
         <real>0.75</real>
       </array>
+    </map>
+    <key>CameraOffsetScale</key>
+    <map>
+      <key>Comment</key>
+      <string>Scales the default offset</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>1.0</real>
     </map>
     <key>CameraPosOnLogout</key>
     <map>
@@ -1241,17 +1461,6 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
-    </map>
-    <key>ClothingBtnState</key>
-    <map>
-      <key>Comment</key>
-      <string />
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
     </map>
     <key>CmdLineDisableVoice</key>
     <map>
@@ -2047,7 +2256,18 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>DebugShowTime</key>
+  <key>DebugShowRenderMatrices</key>
+  <map>
+    <key>Comment</key>
+    <string>Display values of current view and projection matrices.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>DebugShowTime</key>
     <map>
       <key>Comment</key>
       <string>Show depth buffer contents</string>
@@ -2057,6 +2277,600 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
+    </map>
+    <key>DebugStatModeFPS</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeBandwidth</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModePacketLoss</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatMode</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeKTrisDrawnFr</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeKTrisDrawnSec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeTotalObjs</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeNewObjs</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeTextureCount</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeRawCount</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeGLMem</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeFormattedMem</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeRawMem</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeBoundMem</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModePacketsIn</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModePacketsOut</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeObjects</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeTexture</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeAsset</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeLayers</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeActualIn</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeActualOut</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeVFSPendingOps</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeTimeDialation</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimFPS</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModePhysicsFPS</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModePinnedObjects</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeLowLODObjects</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeMemoryAllocated</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeAgentUpdatesSec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeMainAgents</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeChildAgents</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimObjects</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimActiveObjects</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimActiveScripts</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimScriptEvents</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimInPPS</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimOutPPS</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimPendingDownloads</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>SimPendingUploads</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimTotalUnackedBytes</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimFrameMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimNetMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimSimPhysicsMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimSimOtherMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimAgentMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimImagesMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimScriptMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimSpareMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimSimPhysicsStepMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimSimPhysicsShapeUpdateMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimSimPhysicsOtherMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimSleepMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
+    </map>
+    <key>DebugStatModeSimPumpIOMsec</key>
+    <map>
+      <key>Comment</key>
+      <string>Mode of stat in Statistics floater</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>-1</integer>
     </map>
     <key>DebugViews</key>
     <map>
@@ -2221,7 +3035,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <real>1.0</real>
+      <integer>1</integer>
     </map>
     <key>Disregard96DefaultDrawDistance</key>
     <map>
@@ -2232,7 +3046,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <real>1.0</real>
+      <integer>1</integer>
     </map>
     <key>DoubleClickAutoPilot</key>
     <map>
@@ -2404,6 +3218,17 @@
       <key>Value</key>
       <integer>175</integer>
     </map>
+    <key>EveryoneCopy</key>
+      <map>
+        <key>Comment</key>
+        <string>Everyone can copy the newly created objects</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+    </map>
     <key>FPSLogFrequency</key>
     <map>
       <key>Comment</key>
@@ -2415,6 +3240,17 @@
       <key>Value</key>
       <real>60.0</real>
     </map>
+    <key>FPSLogFrequency</key>
+        <map>
+        <key>Comment</key>
+            <string>Seconds between display of FPS in log (0 for never)</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>F32</string>
+        <key>Value</key>
+            <real>10.0</real>
+        </map>
     <key>FilterItemsPerFrame</key>
     <map>
       <key>Comment</key>
@@ -2611,9 +3447,9 @@
       <string>Rect</string>
       <key>Value</key>
       <array>
-        <integer>50</integer>
+        <integer>0</integer>
         <integer>220</integer>
-        <integer>450</integer>
+        <integer>700</integer>
         <integer>0</integer>
       </array>
     </map>
@@ -2627,9 +3463,9 @@
       <string>Rect</string>
       <key>Value</key>
       <array>
-        <integer>50</integer>
-        <integer>220</integer>
-        <integer>450</integer>
+        <integer>0</integer>
+        <integer>240</integer>
+        <integer>700</integer>
         <integer>0</integer>
       </array>
     </map>
@@ -2819,9 +3655,9 @@
       <string>Rect</string>
       <key>Value</key>
       <array>
-        <integer>50</integer>
-        <integer>450</integer>
-        <integer>300</integer>
+        <integer>0</integer>
+        <integer>646</integer>
+        <integer>275</integer>
         <integer>0</integer>
       </array>
     </map>
@@ -2835,9 +3671,9 @@
       <string>Rect</string>
       <key>Value</key>
       <array>
-        <integer>50</integer>
+        <integer>0</integer>
         <integer>150</integer>
-        <integer>650</integer>
+        <integer>600</integer>
         <integer>0</integer>
       </array>
     </map>
@@ -3084,7 +3920,24 @@
         <integer>0</integer>
       </array>
     </map>
-    <key>FloaterOpenObjectRect</key>
+  
+  <key>FloaterObjectIMInfo</key>
+  <map>
+    <key>Comment</key>
+    <string>Rectangle for floater object im info windows</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Rect</string>
+    <key>Value</key>
+    <array>
+      <integer>0</integer>
+      <integer>300</integer>
+      <integer>300</integer>
+      <integer>0</integer>
+    </array>
+  </map>
+  <key>FloaterOpenObjectRect</key>
     <map>
       <key>Comment</key>
       <string>Rectangle for Open Object window</string>
@@ -3114,6 +3967,22 @@
         <integer>150</integer>
         <integer>400</integer>
         <integer>0</integer>
+      </array>
+    </map>
+    <key>FloaterPermPrefsRect</key>
+    <map>
+      <key>Comment</key>
+      <string>Rectangle for initial permissions preferences</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Rect</string>
+      <key>Value</key>
+      <array>
+        <integer>200</integer>
+        <integer>250</integer>
+        <integer>250</integer>
+        <integer>200</integer>
       </array>
     </map>
     <key>FloaterRegionInfo</key>
@@ -3162,6 +4031,22 @@
         <integer>200</integer>
         <integer>200</integer>
         <integer>400</integer>
+      </array>
+    </map>
+    <key>FloaterStatisticsRect</key>
+    <map>
+      <key>Comment</key>
+      <string>Rectangle for chat history</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Rect</string>
+      <key>Value</key>
+      <array>
+        <integer>0</integer>
+        <integer>400</integer>
+        <integer>250</integer>
+        <integer>0</integer>
       </array>
     </map>
     <key>FloaterViewBottom</key>
@@ -3455,9 +4340,9 @@
     <key>FontMonospace</key>
     <map>
       <key>Comment</key>
-      <string>Name of monospace font (Truetype file name)</string>
+      <string>Name of monospace font that definitely exists (Truetype file name)</string>
       <key>Persist</key>
-      <integer>1</integer>
+      <integer>0</integer>
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
@@ -3466,20 +4351,31 @@
     <key>FontSansSerif</key>
     <map>
       <key>Comment</key>
-      <string>Name of san-serif font (Truetype file name)</string>
+      <string>Name of primary sans-serif font that definitely exists (Truetype file name)</string>
       <key>Persist</key>
-      <integer>1</integer>
+      <integer>0</integer>
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
       <string>LiberationSans-Regular.ttf</string>
+    </map>
+    <key>FontSansSerifBundledFallback</key>
+    <map>
+      <key>Comment</key>
+      <string>Name of secondary sans-serif font that definitely exists (Truetype file name)</string>
+      <key>Persist</key>
+      <integer>0</integer>
+      <key>Type</key>
+      <string>String</string>
+      <key>Value</key>
+      <string>DejaVuSansCondensed.ttf</string>
     </map>
     <key>FontSansSerifBold</key>
     <map>
       <key>Comment</key>
       <string>Name of bold font (Truetype file name)</string>
       <key>Persist</key>
-      <integer>1</integer>
+      <integer>0</integer>
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
@@ -3488,9 +4384,9 @@
     <key>FontSansSerifFallback</key>
     <map>
       <key>Comment</key>
-      <string>Name of san-serif font (Truetype file name)</string>
+      <string>Name of sans-serif font (Truetype file name)</string>
       <key>Persist</key>
-      <integer>1</integer>
+      <integer>0</integer>
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
@@ -3977,18 +4873,18 @@
       <key>Value</key>
       <real>0.0</real>
     </map>
-	<key>InstallLanguage</key>
-	<map>
-		<key>Comment</key>
-		<string>Language passed from installer (for UI)</string>
-		<key>Persist</key>
-		<integer>1</integer>
-		<key>Type</key>
-		<string>String</string>
-		<key>Value</key>
-		<string>default</string>
-	</map>
-	<key>InventoryAutoOpenDelay</key>
+    <key>InstallLanguage</key>
+    <map>
+      <key>Comment</key>
+      <string>Language passed from installer (for UI)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>String</string>
+      <key>Value</key>
+      <string>default</string>
+    </map>
+    <key>InventoryAutoOpenDelay</key>
     <map>
       <key>Comment</key>
       <string>Seconds before automatically opening inventory when mouse is over inventory button when performing inventory drag and drop</string>
@@ -4024,13 +4920,13 @@
     <key>JoystickAvatarEnabled</key>
     <map>
       <key>Comment</key>
-      <string>Enables the Joystick to control Avatar movmement.</string>
+      <string>Enables the Joystick to control Avatar movement.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <string>1</string>
+      <integer>1</integer>
     </map>
     <key>JoystickAxis0</key>
     <map>
@@ -4118,7 +5014,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <string>1</string>
+      <integer>0</integer>
     </map>
     <key>JoystickEnabled</key>
     <map>
@@ -4136,11 +5032,11 @@
       <key>Comment</key>
       <string>Enables the Joystick to control the flycam.</string>
       <key>Persist</key>
-      <integer>1</integer>
+      <integer>0</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <string>1</string>
+      <integer>1</integer>
     </map>
     <key>JoystickInitialized</key>
     <map>
@@ -4153,6 +5049,17 @@
       <key>Value</key>
       <string />
     </map>
+    <key>JoystickRunThreshold</key>
+    <map>
+      <key>Comment</key>
+        <string>Input threshold to initiate running</string>
+      <key>Persist</key>
+        <integer>1</integer>
+      <key>Type</key>
+        <string>F32</string>
+      <key>Value</key>
+        <real>0.25</real>
+      </map>
     <key>KeepAspectForSnapshot</key>
     <map>
       <key>Comment</key>
@@ -4163,6 +5070,17 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
+    </map>
+    <key>LandBrushSize</key>
+    <map>
+      <key>Comment</key>
+        <string>Size of affected region when using teraform tool</string>
+      <key>Persist</key>
+        <integer>1</integer>
+      <key>Type</key>
+        <string>F32</string>
+      <key>Value</key>
+        <real>2.0</real>
     </map>
     <key>LCDDestination</key>
     <map>
@@ -4808,6 +5726,17 @@
       <key>Value</key>
       <integer>410</integer>
     </map>
+    <key>MigrateCacheDirectory</key>
+    <map>
+      <key>Comment</key>
+      <string>Check for old version of disk cache to migrate to current location</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>MiniMapCenter</key>
     <map>
       <key>Comment</key>
@@ -5039,15 +5968,48 @@
       <integer>1</integer>
     </map>
     <key>NearMeRange</key>
-	    <map>
-	      <key>Comment</key>
-	      <string>Search radius for nearby avatars</string>
-	      <key>Persist</key>
-	      <integer>1</integer>
-	      <key>Type</key>
-	      <string>F32</string>
-	      <key>Value</key>
-	      <integer>20</integer>
+    <map>
+      <key>Comment</key>
+      <string>Search radius for nearby avatars</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <integer>20</integer>
+    </map>
+    <key>NextOwnerCopy</key>
+    <map>
+      <key>Comment</key>
+      <string>Newly created objects can be copied by next owner</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>NextOwnerModify</key>
+    <map>
+      <key>Comment</key>
+      <string>Newly created objects can be modified by next owner</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>NextOwnerTransfer</key>
+    <map>
+      <key>Comment</key>
+      <string>Newly created objects can be resold or given away by next owner</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
     </map>
     <key>NewCacheLocation</key>
     <map>
@@ -5279,6 +6241,50 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>OpenDebugStatTexture</key>
+    <map>
+      <key>Comment</key>
+      <string>Expand Texture performance stats display</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>OpenDebugStatPhysicsDetails</key>
+    <map>
+      <key>Comment</key>
+      <string>Expand Physics Details performance stats display</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>OpenDebugStatSimTime</key>
+    <map>
+      <key>Comment</key>
+      <string>Expand Simulator Time performance stats display</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>OpenDebugStatSimTimeDetails</key>
+    <map>
+      <key>Comment</key>
+      <string>Expand Simulator Time Details performance stats display</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>OutBandwidth</key>
     <map>
       <key>Comment</key>
@@ -5498,6 +6504,17 @@
       <key>Value</key>
       <real>6.0</real>
     </map>
+    <key>PreferredMaturity</key>
+    <map>
+      <key>Comment</key>
+      <string>Setting for the user's preferred maturity level.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>U32</string>
+      <key>Value</key>
+	  <integer>13</integer>
+    </map>
     <key>PreviewAnimRect</key>
     <map>
       <key>Comment</key>
@@ -5589,8 +6606,8 @@
       <key>Value</key>
       <array>
         <integer>0</integer>
-        <integer>550</integer>
-        <integer>500</integer>
+        <integer>586</integer>
+        <integer>576</integer>
         <integer>0</integer>
       </array>
     </map>
@@ -5773,28 +6790,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>LandBrushSize</key>
+    <key>LandBrushForce</key>
     <map>
       <key>Comment</key>
-      <string>Size of land modification brush (0 = small, 1 = medium, 2 = large)</string>
+      <string>Multiplier for land modification brush force.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
-      <string>S32</string>
+      <string>F32</string>
       <key>Value</key>
-      <integer>0</integer>
+      <real>1.0</real>
     </map>
-    <key>LandBrushForce</key>
-        <map>
-        <key>Comment</key>
-            <string>Multiplier for land modification brush force.</string>
-        <key>Persist</key>
-            <integer>1</integer>
-        <key>Type</key>
-            <string>F32</string>
-        <key>Value</key>
-            <real>1.0</real>
-        </map>
     <key>RecentItemsSortOrder</key>
     <map>
       <key>Comment</key>
@@ -5916,6 +6922,17 @@
       <key>Value</key>
       <integer>35</integer>
     </map>
+    <key>RenderAvatarInvisible</key>
+    <map>
+      <key>Comment</key>
+      <string>Set your avatar as Invisible</string>
+      <key>Persist</key>
+      <integer>0</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>RenderAvatarVP</key>
     <map>
       <key>Comment</key>
@@ -5927,7 +6944,102 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
-    <key>RenderBumpmapMinDistanceSquared</key>
+
+  <key>RenderShadowGaussian</key>
+  <map>
+    <key>Comment</key>
+    <string>Gaussian coefficients for the two shadow/SSAO blurring passes (z component unused).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>2.0</real>
+      <real>2.0</real>
+      <real>0.0</real>
+    </array>
+  </map>
+
+  <key>RenderShadowNearDist</key>
+  <map>
+    <key>Comment</key>
+    <string>Near clip plane of shadow camera (affects precision of depth shadows).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>256</real>
+      <real>256</real>
+      <real>256</real>
+    </array>
+  </map>
+  <key>RenderShadowClipPlanes</key>
+  <map>
+    <key>Comment</key>
+    <string>Near clip plane split distances for shadow map frusta.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>4.0</real>
+      <real>8.0</real>
+      <real>24.0</real>
+    </array>
+  </map>
+  <key>RenderSSAOScale</key>
+  <map>
+    <key>Comment</key>
+    <string>Scaling factor for the area to sample for occluders (pixels at 1 meter away, inversely varying with distance)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>500.0</real>
+  </map>
+  <key>RenderSSAOMaxScale</key>
+  <map>
+    <key>Comment</key>
+    <string>Maximum screen radius for sampling (pixels)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>60</integer>
+  </map>
+  <key>RenderSSAOFactor</key>
+  <map>
+    <key>Comment</key>
+    <string>Occlusion sensitivity factor for ambient occlusion (larger is more)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.30</real>
+  </map>
+  <key>RenderSSAOEffect</key>
+  <map>
+    <key>Comment</key>
+    <string>Multiplier for (1) value and (2) saturation (HSV definition), for areas which are totally occluded.  Blends with original color for partly-occluded areas.  (Third component is unused.)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>0.40</real>
+      <real>1.00</real>
+      <real>0.00</real>
+    </array>
+  </map>
+  <key>RenderBumpmapMinDistanceSquared</key>
     <map>
       <key>Comment</key>
       <string>Maximum distance at which to render bumpmapped primitives (distance in meters, squared)</string>
@@ -5938,6 +7050,17 @@
       <key>Value</key>
       <real>100.0</real>
     </map>
+  <key>RenderNormalMapScale</key>
+  <map>
+    <key>Comment</key>
+    <string>Scaler applied to height map when generating normal maps</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>128</real>
+  </map>
     <key>RenderCubeMap</key>
     <map>
       <key>Comment</key>
@@ -5978,7 +7101,7 @@
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
-      <string>Boolean</string>
+      <string>Boolean</string> 
       <key>Value</key>
       <integer>0</integer>
     </map>
@@ -5993,18 +7116,129 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>RenderDeferred</key>
-    <map>
-      <key>Comment</key>
-      <string>Use deferred rendering pipeline.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
-    <key>RenderDynamicLOD</key>
+  <key>RenderDelayCreation</key>
+  <map>
+    <key>Comment</key>
+    <string>Throttle creation of drawables.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RenderAnimateRes</key>
+  <map>
+    <key>Comment</key>
+    <string>Animate rezing prims.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+
+  <key>RenderAnimateTrees</key>
+  <map>
+    <key>Comment</key>
+    <string>Use GL matrix ops to animate tree branches.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RenderDeferredAlphaSoften</key>
+  <map>
+    <key>Comment</key>
+    <string>Scalar for softening alpha surfaces (for soft particles).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.75</real>
+  </map>
+  <key>RenderDeferredNoise</key>
+  <map>
+    <key>Comment</key>
+    <string>Noise scalar to hide banding in deferred render.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>4</real>
+  </map>
+  <key>RenderDeferred</key>
+  <map>
+    <key>Comment</key>
+    <string>Use deferred rendering pipeline.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>
+  <key>RenderDeferredSunShadow</key>
+  <map>
+    <key>Comment</key>
+    <string>Generate shadows from the sun.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>RenderDeferredSunWash</key>
+  <map>
+    <key>Comment</key>
+    <string>Amount local lights are washed out by sun.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.5</real>
+  </map>
+  <key>RenderShadowNoise</key>
+  <map>
+    <key>Comment</key>
+    <string>Magnitude of noise on shadow samples.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>-0.0001</real>
+  </map>
+  <key>RenderShadowBlurSize</key>
+  <map>
+    <key>Comment</key>
+    <string>Scale of shadow softening kernel.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.7</real>
+  </map>
+  <key>RenderShadowBlurSamples</key>
+  <map>
+    <key>Comment</key>
+    <string>Number of samples to take for each pass of shadow blur (value range 1-16).  Actual number of samples is value * 2 - 1.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>5</real>
+  </map>
+  <key>RenderDynamicLOD</key>
     <map>
       <key>Comment</key>
       <string>Dynamically adjust level of detail.</string>
@@ -6154,13 +7388,13 @@
     <key>RenderGlowMinLuminance</key>
     <map>
       <key>Comment</key>
-      <string>Min luminance intensity necessary to consider an object bright enough to automatically glow. (Gets clamped to 0 - 1.0 range)</string>
+      <string>Min luminance intensity necessary to consider an object bright enough to automatically glow.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>1.0</real>
+      <real>2.5</real>
     </map>
     <key>RenderGlowResolutionPow</key>
     <map>
@@ -6254,6 +7488,17 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>RenderHUDParticles</key>
+    <map>
+      <key>Comment</key>
+      <string>Display particle systems in HUD attachments (experimental)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>RenderHiddenSelections</key>
     <map>
       <key>Comment</key>
@@ -6331,6 +7576,17 @@
       <key>Value</key>
       <integer>4096</integer>
     </map>
+  <key>RenderMaxNodeSize</key>
+  <map>
+    <key>Comment</key>
+    <string>Maximum size of a single node's vertex data (in KB).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>4096</integer>
+  </map>
     <key>RenderMaxVBOSize</key>
     <map>
       <key>Comment</key>
@@ -6340,7 +7596,7 @@
       <key>Type</key>
       <string>S32</string>
       <key>Value</key>
-      <integer>32</integer>
+      <integer>512</integer>
     </map>
     <key>RenderName</key>
     <map>
@@ -6440,6 +7696,17 @@
       <string>U32</string>
       <key>Value</key>
       <integer>1</integer>
+    </map>
+    <key>RenderShaderLightingMaxLevel</key>
+    <map>
+      <key>Comment</key>
+      <string>Max lighting level to use in the shader (class 3 is default, 2 is less lights, 1 is sun/moon only.  Works around shader compiler bugs on certain platforms.)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>3</integer>
     </map>
     <key>RenderShaderLODThreshold</key>
     <map>
@@ -6815,10 +8082,12 @@
       <string>URL to load for empty searches</string>
       <key>Persist</key>
       <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>http://secondlife.com/app/search/index.php?</string>
+      <string>http://search.secondlife.com/client_search.php?</string>
     </map>
     <key>SearchURLQuery</key>
     <map>
@@ -6826,10 +8095,12 @@
       <string>URL to use for searches</string>
       <key>Persist</key>
       <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>http://secondlife.com/app/search/search_proxy.php?q=[QUERY]&amp;s=[COLLECTION]&amp;</string>
+      <string>http://search.secondlife.com/client_search.php?q=[QUERY]&amp;s=[COLLECTION]&amp;</string>
     </map>
     <key>SearchURLSuffix2</key>
     <map>
@@ -6837,10 +8108,12 @@
       <string>Parameters added to end of search queries</string>
       <key>Persist</key>
       <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>lang=[LANG]&amp;m=[MATURE]&amp;t=[TEEN]&amp;region=[REGION]&amp;x=[X]&amp;y=[Y]&amp;z=[Z]&amp;session=[SESSION]</string>
+      <string>lang=[LANG]&amp;mat=[MATURITY]&amp;t=[TEEN]&amp;region=[REGION]&amp;x=[X]&amp;y=[Y]&amp;z=[Z]&amp;session=[SESSION]</string>
     </map>
     <key>SelectMovableOnly</key>
     <map>
@@ -6963,6 +8236,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>ShareWithGroup</key>
+    <map>
+      <key>Comment</key>
+      <string>Newly created objects are shared with the currently active group</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>ShowActiveSpeakers</key>
     <map>
       <key>Comment</key>
@@ -6995,6 +8279,17 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
+    </map>
+    <key>ShowBanLines</key>
+    <map>
+      <key>Comment</key>
+      <string>Show in-world ban/access borders</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
     </map>
     <key>ShowCameraControls</key>
     <map>
@@ -7139,16 +8434,135 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>ShowPGSearchAll</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of search All that are flagged as PG</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>ShowMatureSearchAll</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of search All that are flagged as mature</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>ShowAdultSearchAll</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of search All that are flagged as adult</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>ShowPGGroups</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of find groups that are flagged as PG</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>ShowMatureGroups</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of find groups that are flagged as mature</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>ShowAdultGroups</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of find groups that are flagged as adult</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>ShowPGClassifieds</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of find classifieds that are flagged as PG</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>ShowMatureClassifieds</key>
     <map>
       <key>Comment</key>
       <string>Display results of find classifieds that are flagged as mature</string>
       <key>Persist</key>
       <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
+    </map>
+    <key>ShowAdultClassifieds</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of find classifieds that are flagged as adult</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>ShowPGEvents</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of find events that are flagged as PG</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
     </map>
     <key>ShowMatureEvents</key>
     <map>
@@ -7156,28 +8570,73 @@
       <string>Display results of find events that are flagged as mature</string>
       <key>Persist</key>
       <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>ShowMatureFindAll</key>
+    <key>ShowAdultEvents</key>
     <map>
       <key>Comment</key>
-      <string>Display results of find all that are in mature sims</string>
+      <string>Display results of find events that are flagged as adult</string>
       <key>Persist</key>
       <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>ShowMatureGroups</key>
+    <key>ShowPGLand</key>
     <map>
       <key>Comment</key>
-      <string>Display results of find groups that are in flagged as mature</string>
+      <string>Display results of find land sales that are flagged as PG</string>
       <key>Persist</key>
       <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>ShowMatureLand</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of find land sales that are flagged as mature</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>ShowAdultLand</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of find land sales that are flagged as adult</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>ShowPGSims</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of find places or find popular that are in PG sims</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
@@ -7189,6 +8648,21 @@
       <string>Display results of find places or find popular that are in mature sims</string>
       <key>Persist</key>
       <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>ShowAdultSims</key>
+    <map>
+      <key>Comment</key>
+      <string>Display results of find places or find popular that are in adult sims</string>
+      <key>Persist</key>
+      <integer>1</integer>
+	  <key>HideFromEditor</key>
+	  <integer>1</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
@@ -7419,7 +8893,7 @@
       <key>Comment</key>
       <string>Display XUI Names as Tooltips</string>
       <key>Persist</key>
-      <integer>1</integer>
+      <integer>0</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
@@ -7962,17 +9436,6 @@
         <integer>100</integer>
         <integer>100</integer>
       </array>
-    </map>
-    <key>ToolboxShowMore</key>
-    <map>
-      <key>Comment</key>
-      <string>Whether to show additional build tool controls</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
     </map>
     <key>TrackFocusObject</key>
     <map>
@@ -9469,6 +10932,17 @@
       <key>Value</key>
       <string>c80260ba-41fd-8a46-768a-6bf236360e3a</string>
     </map>
+	<key>UploadBakedTexOld</key>
+    <map>
+      <key>Comment</key>
+      <string>Forces the baked texture pipeline to upload using the old method.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>UseAltKeyForMenus</key>
     <map>
       <key>Comment</key>
@@ -9561,6 +11035,17 @@
     <map>
       <key>Comment</key>
       <string>Enable object culling based on occlusion (coverage) by other objects</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>RenderDelayVBUpdate</key>
+    <map>
+      <key>Comment</key>
+      <string>Delay vertex buffer updates until just before rendering</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -9734,6 +11219,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>VivoxAutoPostCrashDumps</key>
+    <map>
+      <key>Comment</key>
+      <string>If true, SLVoice will automatically send crash dumps directly to Vivox.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>VivoxDebugLevel</key>
     <map>
       <key>Comment</key>
@@ -9777,6 +11273,17 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
+    </map>
+    <key>AutoDisengageMic</key>
+    <map>
+      <key>Comment</key>
+      <string>Automatically turn off the microphone when ending IM calls.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
     </map>
     <key>VoiceEarLocation</key>
     <map>
@@ -10326,7 +11833,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>1</integer>
+      <integer>0</integer>
     </map>
     <key>WindowWidth</key>
     <map>

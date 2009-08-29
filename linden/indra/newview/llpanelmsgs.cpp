@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -41,9 +42,7 @@
 
 //-----------------------------------------------------------------------------
 LLPanelMsgs::LLPanelMsgs() : 
-	LLPanel(std::string("Messages Panel")),
-	mDisabledPopups( NULL ),
-	mEnabledPopups( NULL )
+	LLPanel("Messages Panel")
 {
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_popups.xml");
 }
@@ -57,8 +56,6 @@ LLPanelMsgs::~LLPanelMsgs()
 //-----------------------------------------------------------------------------
 BOOL LLPanelMsgs::postBuild()
 {
-	mDisabledPopups = getChild<LLScrollListCtrl>("disabled_popups");
-	mEnabledPopups = getChild<LLScrollListCtrl>("enabled_popups");
 	childSetAction("enable_popup", onClickEnablePopup, this);
 	childSetAction("reset_dialogs_btn", onClickResetDialogs, this);
 	childSetAction("skip_dialogs_btn", onClickSkipDialogs, this);
@@ -73,68 +70,73 @@ BOOL LLPanelMsgs::postBuild()
 
 void LLPanelMsgs::buildLists()
 {
-	if ( mDisabledPopups )
-		mDisabledPopups->deleteAllItems();
+	LLScrollListCtrl& disabled_popups = getChildRef<LLScrollListCtrl>("disabled_popups");
+	LLScrollListCtrl& enabled_popups = getChildRef<LLScrollListCtrl>("enabled_popups");
 
-	if ( mEnabledPopups )
-		mEnabledPopups->deleteAllItems();
+	disabled_popups.deleteAllItems();
+	enabled_popups.deleteAllItems();
 
-	for (LLAlertDialog::template_map_t::iterator iter = LLAlertDialog::sIgnorableTemplates.begin();
-		 iter != LLAlertDialog::sIgnorableTemplates.end(); ++iter)
+	for (LLNotifications::TemplateMap::const_iterator iter = LLNotifications::instance().templatesBegin();
+		iter != LLNotifications::instance().templatesEnd();
+		++iter)
 	{
-		LLAlertDialogTemplate* alert_temp = iter->second;
-		S32 ignore = alert_temp->getIgnore();
+		LLNotificationTemplatePtr templatep = iter->second;
+		LLNotificationFormPtr formp = templatep->mForm;
+
+		LLNotificationForm::EIgnoreType ignore = formp->getIgnoreType();
+		if (ignore == LLNotificationForm::IGNORE_NO)
+				continue;
 
 		LLSD row;
-		row["columns"][0]["value"] = alert_temp->mIgnoreListText;
+		row["columns"][0]["value"] = formp->getIgnoreMessage();
 		row["columns"][0]["font"] = "SANSSERIF_SMALL";
 		row["columns"][0]["width"] = 300;
 
 		LLScrollListItem* item = NULL;
 
-
-		if (ignore)
+		bool show_popup = gSavedSettings.getWarning(templatep->mName);
+		if (!show_popup)
 		{
-			if (ignore == LLAlertDialog::IGNORE_USE_SAVED)
+			if (ignore == LLNotificationForm::IGNORE_WITH_LAST_RESPONSE)
 			{
-				S32 arg = LLUI::sConfigGroup->getS32("Default" + alert_temp->mIgnoreLabel);
-				row["columns"][1]["value"] = alert_temp->mOptionDefaultText[arg];
+				LLSD last_response = LLUI::sConfigGroup->getLLSD("Default" + templatep->mName);
+				if (!last_response.isUndefined())
+				{
+					for (LLSD::map_const_iterator it = last_response.beginMap();
+						it != last_response.endMap();
+						++it)
+					{
+						if (it->second.asBoolean())
+						{
+							row["columns"][1]["value"] = formp->getElement(it->first)["ignore"].asString();
+							break;
+						}
+					}
+				}
 				row["columns"][1]["font"] = "SANSSERIF_SMALL";
 				row["columns"][1]["width"] = 160;
 			}
-			if (mDisabledPopups)
-			{
-				item = mDisabledPopups->addElement(row,
-								   ADD_SORTED);
-			}
-			else
-			{
-				llwarns << "(ignore) but also (!mDisabledPopups)" << llendl;
-			}
+			item = disabled_popups.addElement(row,
+							   ADD_SORTED);
 		}
 		else
 		{
-			if (mEnabledPopups)
-			{
-				item = mEnabledPopups->addElement(row,
-								  ADD_SORTED);
-			}
-			else
-			{
-				llwarns << "(!ignore) but also (!mEnabledPopups)" << llendl;
-			}
+			item = enabled_popups.addElement(row,
+							  ADD_SORTED);
 		}
 
 		if (item)
 		{
 			item->setUserdata((void*)&iter->first);
 		}
-	}	
+	}
 }
 
 void LLPanelMsgs::draw()
 {
-	if (mDisabledPopups->getFirstSelected())
+	LLScrollListCtrl& disabled_popups = getChildRef<LLScrollListCtrl>("disabled_popups");
+
+	if (disabled_popups.getFirstSelected())
 	{
 		childEnable("enable_popup");
 	}
@@ -160,23 +162,27 @@ void LLPanelMsgs::cancel()
 
 void LLPanelMsgs::resetAllIgnored()
 {
-	for(LLAlertDialog::template_map_t::iterator iter = LLAlertDialog::sIgnorableTemplates.begin();
-		iter != LLAlertDialog::sIgnorableTemplates.end(); ++iter)
+	for (LLNotifications::TemplateMap::const_iterator iter = LLNotifications::instance().templatesBegin();
+		iter != LLNotifications::instance().templatesEnd();
+		++iter)
 	{
-		LLAlertDialogTemplate* alert_temp = iter->second;
-		S32 ignore = alert_temp->getIgnore();
-		if(ignore)
-			alert_temp->setIgnore(false);
+		if (iter->second->mForm->getIgnoreType() != LLNotificationForm::IGNORE_NO)
+		{
+			gSavedSettings.setWarning(iter->first, TRUE);
+		}
 	}
 }
 
 void LLPanelMsgs::setAllIgnored()
 {
-	for(LLAlertDialog::template_map_t::iterator iter = LLAlertDialog::sIgnorableTemplates.begin();
-		iter != LLAlertDialog::sIgnorableTemplates.end(); ++iter)
+	for (LLNotifications::TemplateMap::const_iterator iter = LLNotifications::instance().templatesBegin();
+		iter != LLNotifications::instance().templatesEnd();
+		++iter)
 	{
-		LLAlertDialogTemplate* alert_temp = iter->second;
-		alert_temp->setIgnore(true);
+		if (iter->second->mForm->getIgnoreType() != LLNotificationForm::IGNORE_NO)
+		{
+			gSavedSettings.setWarning(iter->first, FALSE);
+		}
 	}
 }
 
@@ -185,26 +191,24 @@ void LLPanelMsgs::onClickEnablePopup(void* user_data)
 {
 	LLPanelMsgs* panelp = (LLPanelMsgs*)user_data;
 
-	std::vector<LLScrollListItem*> items = panelp->mDisabledPopups->getAllSelected();
+	LLScrollListCtrl& disabled_popups = panelp->getChildRef<LLScrollListCtrl>("disabled_popups");
+
+	std::vector<LLScrollListItem*> items = disabled_popups.getAllSelected();
 	std::vector<LLScrollListItem*>::iterator itor;
 	for (itor = items.begin(); itor != items.end(); ++itor)
 	{
-		LLAlertDialog::template_map_t::iterator found_alert = LLAlertDialog::sAlertTemplates.find(*(std::string*)((*itor)->getUserdata()));
-		if (found_alert != LLAlertDialog::sAlertTemplates.end())
-		{
-			LLAlertDialogTemplate* alert_temp = LLAlertDialog::sAlertTemplates[*(std::string*)((*itor)->getUserdata())];
-			gSavedSettings.setWarning(alert_temp->mIgnoreLabel, TRUE);
-		}
+		LLNotificationTemplatePtr templatep = LLNotifications::instance().getTemplate(*(std::string*)((*itor)->getUserdata()));
+		gSavedSettings.setWarning(templatep->mName, TRUE);
 	}
 
 	panelp->buildLists();
 }
 
-void callback_reset_dialogs(S32 option, void* data)
+bool callback_reset_dialogs(const LLSD& notification, const LLSD& response, LLPanelMsgs* panelp)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
-		LLPanelMsgs* panelp = (LLPanelMsgs*)data;
 		if ( panelp )
 		{
 			panelp->resetAllIgnored();
@@ -212,19 +216,20 @@ void callback_reset_dialogs(S32 option, void* data)
 			panelp->buildLists();
 		}
 	}
+	return false;
 }
 
 // static
 void LLPanelMsgs::onClickResetDialogs(void* user_data)
 {
-	gViewerWindow->alertXml("ResetShowNextTimeDialogs",callback_reset_dialogs,user_data);
+	LLNotifications::instance().add("ResetShowNextTimeDialogs", LLSD(), LLSD(), boost::bind(&callback_reset_dialogs, _1, _2, (LLPanelMsgs*)user_data));
 }
 
-void callback_skip_dialogs(S32 option, void* data)
+bool callback_skip_dialogs(const LLSD& notification, const LLSD& response, LLPanelMsgs* panelp)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
-		LLPanelMsgs* panelp = (LLPanelMsgs*)data;
 		if ( panelp )
 		{
 			panelp->setAllIgnored();
@@ -232,10 +237,11 @@ void callback_skip_dialogs(S32 option, void* data)
 			panelp->buildLists();
 		}
 	}
+	return false;
 }
 
 // static
 void LLPanelMsgs::onClickSkipDialogs(void* user_data)
 {
-	gViewerWindow->alertXml("SkipShowNextTimeDialogs", callback_skip_dialogs, user_data);
+	LLNotifications::instance().add("SkipShowNextTimeDialogs", LLSD(), LLSD(), boost::bind(&callback_skip_dialogs, _1, _2, (LLPanelMsgs*)user_data));
 }

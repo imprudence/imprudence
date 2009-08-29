@@ -1,77 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="音频和视频" name="Media panel">
-	<text type="string" length="1" name="muting_text">
+	<text length="1" name="muting_text" type="string">
 		音量:
 	</text>
-	<check_box label="屏蔽声音" name="disable audio" />
-	<check_box label="当窗口最小化时屏蔽声音" name="mute_when_minimized" />
-		<text
-		 name="streaming_prefs_text">
+	<text name="streaming_prefs_text">
 		流媒体首选项:
 	</text>
-	<text
-		 name="audio_prefs_text">
+	<text name="audio_prefs_text">
 		音频首选项:
 	</text>
-
-	<check_box label="当音乐可用时播放音乐流(会占用更多带宽)"
-	     name="streaming_music" />
-	<check_box label="当视频可用时播放视频流(会占用更多带宽)"
-	     name="streaming_video" />
-	<check_box label="自动播放媒体"
-		 name="auto_streaming_video" />
-
-	<text type="string" length="1" name="streaming_text">
-		流派:
-	</text>
-
-	<text type="string" length="1" name="system_volume_text">
-		系统声音效果:
-	</text>
-	<text type="string" length="1" name="wind_volume_text">
-		风声:
-	</text>
-	<text type="string" length="1" name="footsteps_volume_text">
-		脚步声:
-	</text>
-	<text type="string" length="1" name="ui_volume_text">
-		界面音量:
-	</text>
-	<spinner label="L$ 变化阈值" name="L$ Change Threshold" />
-	<spinner label="生命值变化阈值" name="Health Change Threshold" />
-
-	<slider 
-	     name="Doppler Effect" width="250"
-	     label="多普勒效应" />
-	<text type="string" length="1" name="distance_factor_text">
-		距离系数:
-	</text>
-	<slider 
-		name="Distance Factor"
-		label="距离系数" />
-
-	<text type="string" length="1" name="rolloff_factor_text">
-		衰减系数:
-	</text>
-	<slider 
-		name="Rolloff Factor"
-		label="衰减系数:" />
-	
-	<text type="string" length="1" name="default_upload_bitrate_text">
-		默认上传速率:
-	</text>
-	<radio_group name="bitrate">
-		<radio_item type="string" length="1" name="32kbps">
-			32 kbps
-		</radio_item>
-		<radio_item type="string" length="1" name="64kbps">
-			64 kbps
-		</radio_item>
-		<radio_item type="string" length="1" name="96kbps">
-			96 kbps
-		</radio_item>
-		<radio_item type="string" length="1" name="128kbps">
-			128 kbps
-		</radio_item>
-	</radio_group>
+	<panel label="音量" name="Volume Panel"/>
+	<check_box label="当音乐可用时播放音乐流(会占用更多带宽)" name="streaming_music"/>
+	<check_box label="当视频可用时播放视频流(会占用更多带宽)" name="streaming_video"/>
+	<check_box label="自动播放媒体" name="auto_streaming_video"/>
+	<check_box label="当窗口最小化时屏蔽声音" name="mute_when_minimized"/>
+	<slider label="多普勒效应" name="Doppler Effect" width="250"/>
+	<slider label="距离系数" name="Distance Factor"/>
+	<slider label="衰减系数:" name="Rolloff Factor"/>
+	<spinner label="L$ 变化阈值" name="L$ Change Threshold"/>
+	<spinner label="生命值变化阈值" name="Health Change Threshold"/>
 </panel>

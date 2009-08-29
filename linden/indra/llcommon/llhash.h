@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -53,15 +54,20 @@
 #error Please define your platform.
 #endif
 
-template<class T> inline size_t llhash(T value) 
-{ 
+// Warning - an earlier template-based version of this routine did not do
+// the correct thing on Windows.   Since this is only used to get
+// a string hash, it was converted to a regular routine and
+// unit tests added.
+
+inline size_t llhash( const char * value )
+{
 #if LL_WINDOWS
-	return stdext::hash_value<T>(value);
+	return stdext::hash_value(value);
 #elif ( (defined _STLPORT_VERSION) || ((LL_LINUX) && (__GNUC__ <= 2)) )
-	std::hash<T> H;
+	std::hash<const char *> H;
 	return H(value);
 #elif LL_DARWIN || LL_LINUX || LL_SOLARIS
-	__gnu_cxx::hash<T> H;
+	__gnu_cxx::hash<const char *> H;
 	return H(value);
 #else
 #error Please define your platform.

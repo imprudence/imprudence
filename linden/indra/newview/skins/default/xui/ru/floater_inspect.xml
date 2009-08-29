@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="inspect" title="Инспектировать объекты" min_width="450">
+	<scroll_list name="object_list"
+	     tool_tip="Выбрать объект из списка, чтобы он подсветился в мире">
+		<column label="Имя объекта" name="object_name" />
+		<column label="Владелец объекта" name="owner_name" />
+		<column label="Имя Создателя" name="creator_name" />
+		<column label="Дата Создания" name="creation_date" />
+	</scroll_list>
+	<button width="215" label="Просмотр профиля владельца..." label_selected=""
+	     name="button owner"
+	     tool_tip="Посмотреть профиль владельца подсвеченного объекта" />
+	<button width="215" left="235" label="Просмотр профиля создателя..." label_selected=""
+	     name="button creator"
+	     tool_tip="Посмотреть профиль оригинального создателя подсвеченного объекта" />
+</floater>

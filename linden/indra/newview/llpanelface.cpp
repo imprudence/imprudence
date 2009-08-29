@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -428,7 +429,7 @@ void LLPanelFace::getState()
 				}
 			} func;
 			identical = LLSelectMgr::getInstance()->getSelection()->getSelectedTEValue( &func, id );
-			
+
 			if (identical)
 			{
 				// All selected have the same texture
@@ -779,6 +780,7 @@ void LLPanelFace::getState()
 		if(texture_ctrl)
 		{
 			texture_ctrl->setImageAssetID( LLUUID::null );
+			texture_ctrl->setFallbackImageName( "locked_image.j2c" );
 			texture_ctrl->setEnabled( FALSE );  // this is a LLUICtrl, but we don't want it to have keyboard focus so we add it as a child, not a ctrl.
 // 			texture_ctrl->setValid(FALSE);
 		}
@@ -786,6 +788,7 @@ void LLPanelFace::getState()
 		if(mColorSwatch)
 		{
 			mColorSwatch->setEnabled( FALSE );			
+			mColorSwatch->setFallbackImageName("locked_image.j2c" );
 			mColorSwatch->setValid(FALSE);
 		}
 		childSetEnabled("color trans",FALSE);

@@ -9,7 +9,7 @@
 	<button label="Guardar" label_selected="Guardar" name="Keep"/>
 	<button label="Descartar" label_selected="Descartar" name="Discard"/>
 	<string name="no_object">
-		Não foi possível encontrar o objeto que contém esta nota.:
+		Não foi possível encontrar o objeto que contém esta nota:
 	</string>
 	<string name="not_allowed">
 		Você não tem permissão para ler esta nota.

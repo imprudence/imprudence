@@ -2,6 +2,7 @@
 <panel name="media_controls">
 	<icon name="music_icon" tool_tip="Streaming-Musik abspielen/unterbrechen" />
 	<button name="music_play" tool_tip="Streaming-Musik spielen/unterbrechen" />
+	<button name="music_pause" tool_tip="Streaming-Musik unterbrechen" />
 	<button name="music_stop" tool_tip="Streaming-Musik beenden" />
 	<icon name="media_icon" tool_tip="Streaming-Musik abspielen/unterbrechen" />
 	<button name="media_play" tool_tip="Streaming-Musik abspielen/unterbrechen" />

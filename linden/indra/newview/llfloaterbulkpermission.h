@@ -1,10 +1,11 @@
 /** 
  * @file llfloaterbulkpermissions.h
- * @brief A floater which allows task inventory item's properties to be changed on mass.
+ * @brief Allow multiple task inventory properties to be set in one go.
+ * @author Michelle2 Zenovka
  *
  * $LicenseInfo:firstyear=2008&license=viewergpl$
  * 
- * Copyright (c) 2008, Linden Research, Inc.
+ * Copyright (c) 2008-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -17,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -28,8 +30,6 @@
  * COMPLETENESS OR PERFORMANCE.
  * $/LicenseInfo$
  */
-
-/* Allow multiple task inventory properties to be set in one go, by Michelle2 Zenovka */
 
 #ifndef LL_LLBULKPERMISSION_H
 #define LL_LLBULKPERMISSION_H
@@ -46,23 +46,18 @@
 
 #include "llviewerinventory.h"
 
-class LLFloaterBulkPermission : public LLFloater, public LLVOInventoryListener
+class LLFloaterBulkPermission : public LLFloater, public LLVOInventoryListener, public LLFloaterSingleton<LLFloaterBulkPermission>
 {
 public:
-	// addObject() accepts an object id.
-	void addObject(const LLUUID& id);
 
-	// start() returns TRUE if the queue has started, otherwise FALSE.
-	BOOL start();
+	LLFloaterBulkPermission(const LLSD& seed);
 
-	// Use this method to create a reset queue. Once created, it
-	// will be responsible for it's own destruction.
-	static LLFloaterBulkPermission * create();
+private:
+	virtual ~LLFloaterBulkPermission() {}
 
-protected:
-	LLFloaterBulkPermission(const std::string& name, const LLRect& rect,
-						 const char* title, const char* start_string);
-	virtual ~LLFloaterBulkPermission();
+	BOOL start(); // returns TRUE if the queue has started, otherwise FALSE.
+	BOOL nextObject();
+	BOOL popNext();
 
 	// This is the callback method for the viewer object currently
 	// being worked on.
@@ -81,49 +76,21 @@ protected:
 								U8 key,
 								bool is_new);
 
-
+	static void onHelpBtn(void* user_data);
 	static void onCloseBtn(void* user_data);
 	static void onApplyBtn(void* user_data);
-	static void onCommitPermissions(LLUICtrl* ctrl, void* data);
-	static void InvSelection(LLUICtrl* ctrl, void* data);
-	static void onRecurse(LLUICtrl* ctrl, void* data);	
-	static void onParent(LLUICtrl* ctrl, void* data);
-
+	static void onCommitCopy(LLUICtrl* ctrl, void* data);
+	static void onCheckAll(  void* user_data) { ((LLFloaterBulkPermission*)user_data)->doCheckUncheckAll(TRUE); }
+	static void onUncheckAll(void* user_data) { ((LLFloaterBulkPermission*)user_data)->doCheckUncheckAll(FALSE); }
+	
 	// returns true if this is done
-	BOOL isDone() const;
+	BOOL isDone() const { return (mCurrentObjectID.isNull() || (mObjectIDs.count() == 0)); }
 
 	//Read the settings and Apply the permissions
 	void doApply();
+	void doCheckUncheckAll(BOOL check);
 
-	// go to the next object. If no objects left, it falls out
-	// silently and waits to be killed by the deleteIfDone() callback.
-	BOOL nextObject();
-	BOOL popNext();
-
-	// Get this instances ID.
-	const LLUUID& getID() const { return mID; } 
-
-	// find an instance by ID. Return NULL if it does not exist.
-	static LLFloaterBulkPermission* findInstance(const LLUUID& id);
-
-	U32 req_perm_mask;
-
-	BOOL processObject;
-	BOOL processScript;
-	BOOL processTexture;
-	BOOL processSound;
-	BOOL processAnimation;
-	BOOL processCallingcard;
-	BOOL processNotecard;
-	BOOL processGesture;
-	BOOL processClothing;
-	BOOL processBodypart;
-	BOOL processLandmark;
-
-	BOOL recurse;
-	BOOL parent;
-
-protected:
+private:
 	// UI
 	LLScrollListCtrl* mMessages;
 	LLButton* mCloseBtn;
@@ -134,10 +101,9 @@ protected:
 	BOOL mDone;
 
 	LLUUID mID;
-	static LLMap<LLUUID, LLFloaterBulkPermission*> sInstances;
 
 	const char* mStartString;
-
 };
 
 #endif
+

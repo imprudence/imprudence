@@ -7,5 +7,5 @@
 		설명:
 	</text>
 	<button label="취소" name="cancel_btn" />
-	<button label="업로드(L$10)" name="ok_btn" />
+	<button label="업로드(L$[AMOUNT])" name="ok_btn" />
 </floater>

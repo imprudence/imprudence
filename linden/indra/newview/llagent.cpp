@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -36,6 +37,7 @@
 
 #include "llagent.h" 
 
+#include "llcamera.h"
 #include "llcoordframe.h"
 #include "indra_constants.h"
 #include "llmath.h"
@@ -99,6 +101,7 @@
 #include "llstartup.h"
 #include "llimview.h"
 #include "lltool.h"
+#include "lltoolcomp.h"
 #include "lltoolfocus.h"
 #include "lltoolgrab.h"
 #include "lltoolmgr.h"
@@ -130,6 +133,8 @@
 #include "llappviewer.h"
 #include "llviewerjoystick.h"
 #include "llfollowcam.h"
+
+using namespace LLVOAvatarDefines;
 
 extern LLMenuBarGL* gMenuBarView;
 
@@ -205,33 +210,12 @@ const F32 MIN_RADIUS_ALPHA_SIZZLE = 0.5f;
 
 const F64 CHAT_AGE_FAST_RATE = 3.0;
 
-const S32 MAX_WEARABLES_PER_LAYERSET = 7;
-
-const EWearableType WEARABLE_BAKE_TEXTURE_MAP[BAKED_TEXTURE_COUNT][MAX_WEARABLES_PER_LAYERSET] = 
-{
-	{ WT_SHAPE,	WT_SKIN,	WT_HAIR,	WT_INVALID,	WT_INVALID,	WT_INVALID,		WT_INVALID    },	// TEX_HEAD_BAKED
-	{ WT_SHAPE, WT_SKIN,	WT_SHIRT,	WT_JACKET,	WT_GLOVES,	WT_UNDERSHIRT,	WT_INVALID	  },	// TEX_UPPER_BAKED
-	{ WT_SHAPE, WT_SKIN,	WT_PANTS,	WT_SHOES,	WT_SOCKS,	WT_JACKET,		WT_UNDERPANTS },	// TEX_LOWER_BAKED
-	{ WT_EYES,	WT_INVALID,	WT_INVALID,	WT_INVALID,	WT_INVALID,	WT_INVALID,		WT_INVALID    },	// TEX_EYES_BAKED
-	{ WT_SKIRT,	WT_INVALID,	WT_INVALID,	WT_INVALID,	WT_INVALID,	WT_INVALID,		WT_INVALID    }		// TEX_SKIRT_BAKED
-};
-
-const LLUUID BAKED_TEXTURE_HASH[BAKED_TEXTURE_COUNT] = 
-{
-	LLUUID("18ded8d6-bcfc-e415-8539-944c0f5ea7a6"),
-	LLUUID("338c29e3-3024-4dbb-998d-7c04cf4fa88f"),
-	LLUUID("91b4a2c7-1b1a-ba16-9a16-1f8f8dcc1c3f"),
-	LLUUID("b2cf28af-b840-1071-3c6a-78085d8128b5"),
-	LLUUID("ea800387-ea1a-14e0-56cb-24f2022f969a")
-};
-
 // The agent instance.
 LLAgent gAgent;
 
 //
 // Statics
 //
-BOOL LLAgent::sDebugDisplayTarget = FALSE;
 
 const F32 LLAgent::TYPING_TIMEOUT_SECS = 5.f;
 
@@ -270,8 +254,27 @@ void LLAgentFriendObserver::changed(U32 mask)
 //-----------------------------------------------------------------------------
 // LLAgent()
 //-----------------------------------------------------------------------------
-LLAgent::LLAgent()
-:	mDrawDistance( DEFAULT_FAR_PLANE ),
+LLAgent::LLAgent() :
+	mDrawDistance( DEFAULT_FAR_PLANE ),
+
+	mGroupPowers(0),
+	mHideGroupTitle(FALSE),
+	mGroupID(),
+
+	mMapOriginX(0.F),
+	mMapOriginY(0.F),
+	mMapWidth(0),
+	mMapHeight(0),
+
+	mLookAt(NULL),
+	mPointAt(NULL),
+
+	mHUDTargetZoom(1.f),
+	mHUDCurZoom(1.f),
+	mInitialized(FALSE),
+	mNumPendingQueries(0),
+	mActiveCacheQueries(NULL),
+	mForceMouselook(FALSE),
 
 	mDoubleTapRunTimer(),
 	mDoubleTapRunMode(DOUBLETAP_NONE),
@@ -279,26 +282,14 @@ LLAgent::LLAgent()
 	mbAlwaysRun(false),
 	mbRunning(false),
 
-	mAccess(SIM_ACCESS_PG),
-	mGroupPowers(0),
-	mGroupID(),
-	//mGroupInsigniaID(),
-	mMapOriginX(0),
-	mMapOriginY(0),
-	mMapWidth(0),
-	mMapHeight(0),
-	mLookAt(NULL),
-	mPointAt(NULL),
-	mInitialized(FALSE),
-	mNumPendingQueries(0),
-	mForceMouselook(FALSE),
+	mAgentAccess(gSavedSettings),
 	mTeleportState( TELEPORT_NONE ),
 	mRegionp(NULL),
 
 	mAgentOriginGlobal(),
 	mPositionGlobal(),
 
-	mDistanceTraveled(0),
+	mDistanceTraveled(0.F),
 	mLastPositionGlobal(LLVector3d::zero),
 
 	mAvatarObject(NULL),
@@ -310,43 +301,67 @@ LLAgent::LLAgent()
 	mLastCameraMode( CAMERA_MODE_THIRD_PERSON ),
 	mViewsPushed(FALSE),
 
+	mCustomAnim(FALSE),
 	mShowAvatar(TRUE),
-	
 	mCameraAnimating( FALSE ),
 	mAnimationCameraStartGlobal(),
 	mAnimationFocusStartGlobal(),
 	mAnimationTimer(),
 	mAnimationDuration(0.33f),
+	
 	mCameraFOVZoomFactor(0.f),
 	mCameraCurrentFOVZoomFactor(0.f),
 	mCameraFocusOffset(),
+	mCameraFOVDefault(DEFAULT_FIELD_OF_VIEW),
+
 	mCameraOffsetDefault(),
-//	mCameraOffsetNorm(),
 	mCameraCollidePlane(),
+
 	mCurrentCameraDistance(2.f),		// meters, set in init()
 	mTargetCameraDistance(2.f),
 	mCameraZoomFraction(1.f),			// deprecated
 	mThirdPersonHeadOffset(0.f, 0.f, 1.f),
 	mSitCameraEnabled(FALSE),
-	mHUDTargetZoom(1.f),
-	mHUDCurZoom(1.f),
-	mFocusOnAvatar(TRUE),
-	mFocusGlobal(),
-	mFocusTargetGlobal(),
-	mFocusObject(NULL),
-	mFocusObjectOffset(),
-	mFocusDotRadius( 0.1f ),			// meters
-	mTrackFocusObject(TRUE),
 	mCameraSmoothingLastPositionGlobal(),
 	mCameraSmoothingLastPositionAgent(),
 	mCameraSmoothingStop(FALSE),
 
+	mCameraUpVector(LLVector3::z_axis), // default is straight up
+
+	mFocusOnAvatar(TRUE),
+	mFocusGlobal(),
+	mFocusTargetGlobal(),
+	mFocusObject(NULL),
+	mFocusObjectDist(0.f),
+	mFocusObjectOffset(),
+	mFocusDotRadius( 0.1f ),			// meters
+	mTrackFocusObject(TRUE),
+	mUIOffset(0.f),
+
 	mFrameAgent(),
 
-	mCrouching(FALSE),
 	mIsBusy(FALSE),
 
-	// movement keys below
+	mAtKey(0), // Either 1, 0, or -1... indicates that movement-key is pressed
+	mWalkKey(0), // like AtKey, but causes less forward thrust
+	mLeftKey(0),
+	mUpKey(0),
+	mYawKey(0.f),
+	mPitchKey(0),
+
+	mOrbitLeftKey(0.f),
+	mOrbitRightKey(0.f),
+	mOrbitUpKey(0.f),
+	mOrbitDownKey(0.f),
+	mOrbitInKey(0.f),
+	mOrbitOutKey(0.f),
+
+	mPanUpKey(0.f),
+	mPanDownKey(0.f),
+	mPanLeftKey(0.f),
+	mPanRightKey(0.f),
+	mPanInKey(0.f),
+	mPanOutKey(0.f),
 
 	mControlFlags(0x00000000),
 	mbFlagsDirty(FALSE),
@@ -361,27 +376,27 @@ LLAgent::LLAgent()
 	mAutoPilotUseRotation(FALSE),
 	mAutoPilotTargetFacing(LLVector3::zero),
 	mAutoPilotTargetDist(0.f),
+	mAutoPilotNoProgressFrameCount(0),
+	mAutoPilotRotationThreshold(0.f),
 	mAutoPilotFinishedCallback(NULL),
 	mAutoPilotCallbackData(NULL),
 	
-
 	mEffectColor(0.f, 1.f, 1.f, 1.f),
+
 	mHaveHomePosition(FALSE),
 	mHomeRegionHandle( 0 ),
 	mNearChatRadius(CHAT_NORMAL_RADIUS / 2.f),
-	mGodLevel( GOD_NOT ),
-
 
 	mNextFidgetTime(0.f),
 	mCurrentFidget(0),
 	mFirstLogin(FALSE),
 	mGenderChosen(FALSE),
+
 	mAgentWearablesUpdateSerialNum(0),
 	mWearablesLoaded(FALSE),
 	mTextureCacheQueryID(0),
 	mAppearanceSerialNum(0)
 {
-
 	U32 i;
 	for (i = 0; i < TOTAL_CONTROLS; i++)
 	{
@@ -389,40 +404,13 @@ LLAgent::LLAgent()
 		mControlsTakenPassedOnCount[i] = 0;
 	}
 
-	// Initialize movement keys
-	mAtKey				= 0;	// Either 1, 0, or -1... indicates that movement-key is pressed
-	mWalkKey			= 0;	// like AtKey, but causes less forward thrust
-	mLeftKey			= 0;
-	mUpKey				= 0;
-	mYawKey				= 0.f;
-	mPitchKey			= 0;
-
-	mOrbitLeftKey		= 0.f;
-	mOrbitRightKey		= 0.f;
-	mOrbitUpKey			= 0.f;
-	mOrbitDownKey		= 0.f;
-	mOrbitInKey			= 0.f;
-	mOrbitOutKey		= 0.f;
-
-	mPanUpKey			= 0.f;
-	mPanDownKey			= 0.f;
-	mPanLeftKey			= 0.f;
-	mPanRightKey		= 0.f;
-	mPanInKey			= 0.f;
-	mPanOutKey			= 0.f;
-
-	mActiveCacheQueries = new S32[BAKED_TEXTURE_COUNT];
-	for (i = 0; i < (U32)BAKED_TEXTURE_COUNT; i++)
+	mActiveCacheQueries = new S32[BAKED_NUM_INDICES];
+	for (i = 0; i < (U32)BAKED_NUM_INDICES; i++)
 	{
 		mActiveCacheQueries[i] = 0;
 	}
 
-	//Ventrella
-	mCameraUpVector = LLVector3::z_axis;// default is straight up 
 	mFollowCam.setMaxCameraDistantFromSubject( MAX_CAMERA_DISTANCE_FROM_AGENT );
-	//end ventrella
-
-	mCustomAnim = FALSE ;
 }
 
 // Requires gSavedSettings to be initialized.
@@ -446,10 +434,8 @@ void LLAgent::init()
 
 	mCameraFocusOffsetTarget = LLVector4(gSavedSettings.getVector3("CameraOffsetBuild"));
 	mCameraOffsetDefault = gSavedSettings.getVector3("CameraOffsetDefault");
-//	mCameraOffsetNorm = mCameraOffsetDefault;
-//	mCameraOffsetNorm.normalize();
 	mCameraCollidePlane.clearVec();
-	mCurrentCameraDistance = mCameraOffsetDefault.magVec();
+	mCurrentCameraDistance = mCameraOffsetDefault.magVec() * gSavedSettings.getF32("CameraOffsetScale");
 	mTargetCameraDistance = mCurrentCameraDistance;
 	mCameraZoomFraction = 1.f;
 	mTrackFocusObject = gSavedSettings.getBOOL("TrackFocusObject");
@@ -468,8 +454,16 @@ void LLAgent::cleanup()
 {
 	setSitCamera(LLUUID::null);
 	mAvatarObject = NULL;
-	mLookAt = NULL;
-	mPointAt = NULL;
+	if(mLookAt)
+	{
+		mLookAt->markDead() ;
+		mLookAt = NULL;
+	}
+	if(mPointAt)
+	{
+		mPointAt->markDead() ;
+		mPointAt = NULL;
+	}
 	mRegionp = NULL;
 	setFocusObject(NULL);
 }
@@ -575,7 +569,7 @@ void LLAgent::onAppFocusGained()
 
 void LLAgent::ageChat()
 {
-	if (mAvatarObject)
+	if (mAvatarObject.notNull())
 	{
 		// get amount of time since I last chatted
 		F64 elapsed_time = (F64)mAvatarObject->mChatTimer.getElapsedTimeF32();
@@ -592,7 +586,7 @@ void LLAgent::unlockView()
 {
 	if (getFocusOnAvatar())
 	{
-		if (mAvatarObject)
+		if (mAvatarObject.notNull())
 		{
 			setFocusGlobal( LLVector3d::zero, mAvatarObject->mID );
 		}
@@ -1009,7 +1003,7 @@ void LLAgent::sendReliableMessage()
 //-----------------------------------------------------------------------------
 LLVector3 LLAgent::getVelocity() const
 {
-	if (mAvatarObject)
+	if (mAvatarObject.notNull())
 	{
 		return mAvatarObject->getVelocity();
 	}
@@ -1030,7 +1024,7 @@ void LLAgent::setPositionAgent(const LLVector3 &pos_agent)
 		llerrs << "setPositionAgent is not a number" << llendl;
 	}
 
-	if (!mAvatarObject.isNull() && mAvatarObject->getParent())
+	if (mAvatarObject.notNull() && mAvatarObject->getParent())
 	{
 		LLVector3 pos_agent_sitting;
 		LLVector3d pos_agent_d;
@@ -1068,7 +1062,7 @@ void LLAgent::slamLookAt(const LLVector3 &look_at)
 //-----------------------------------------------------------------------------
 const LLVector3d &LLAgent::getPositionGlobal() const
 {
-	if (!mAvatarObject.isNull() && !mAvatarObject->mDrawable.isNull())
+	if (mAvatarObject.notNull() && !mAvatarObject->mDrawable.isNull())
 	{
 		mPositionGlobal = getPosGlobalFromAgent(mAvatarObject->getRenderPosition());
 	}
@@ -1085,7 +1079,7 @@ const LLVector3d &LLAgent::getPositionGlobal() const
 //-----------------------------------------------------------------------------
 const LLVector3 &LLAgent::getPositionAgent()
 {
-	if(!mAvatarObject.isNull() && !mAvatarObject->mDrawable.isNull())
+	if(mAvatarObject.notNull() && !mAvatarObject->mDrawable.isNull())
 	{
 		mFrameAgent.setOrigin(mAvatarObject->getRenderPosition());	
 	}
@@ -1320,167 +1314,171 @@ LLQuaternion LLAgent::getQuat() const
 //-----------------------------------------------------------------------------
 // calcFocusOffset()
 //-----------------------------------------------------------------------------
-LLVector3 LLAgent::calcFocusOffset(LLViewerObject *object, LLVector3 pos_agent, S32 x, S32 y)
+LLVector3 LLAgent::calcFocusOffset(LLViewerObject *object, LLVector3 original_focus_point, S32 x, S32 y)
 {
-	// calculate offset based on view direction
+	LLMatrix4 obj_matrix = object->getRenderMatrix();
+	LLQuaternion obj_rot = object->getRenderRotation();
+	LLVector3 obj_pos = object->getRenderPosition();
+
 	BOOL is_avatar = object->isAvatar();
-	LLMatrix4 obj_matrix = is_avatar  ? ((LLVOAvatar*)object)->mPelvisp->getWorldMatrix() : object->getRenderMatrix();
-	LLQuaternion obj_rot = is_avatar  ? ((LLVOAvatar*)object)->mPelvisp->getWorldRotation() : object->getRenderRotation();
-	LLVector3 obj_pos = is_avatar ? ((LLVOAvatar*)object)->mPelvisp->getWorldPosition() : object->getRenderPosition();
-	LLQuaternion inv_obj_rot = ~obj_rot;
+	// if is avatar - don't do any funk heuristics to position the focal point
+	// see DEV-30589
+	if (is_avatar)
+	{
+		return original_focus_point - obj_pos;
+	}
 
-	LLVector3 obj_dir_abs = obj_pos - LLViewerCamera::getInstance()->getOrigin();
-	obj_dir_abs.rotVec(inv_obj_rot);
-	obj_dir_abs.normalize();
-	obj_dir_abs.abs();
-
+	
+	LLQuaternion inv_obj_rot = ~obj_rot; // get inverse of rotation
 	LLVector3 object_extents = object->getScale();
 	// make sure they object extents are non-zero
 	object_extents.clamp(0.001f, F32_MAX);
-	LLVector3 object_half_extents = object_extents * 0.5f;
 
-	obj_dir_abs.mV[VX] = obj_dir_abs.mV[VX] / object_extents.mV[VX];
-	obj_dir_abs.mV[VY] = obj_dir_abs.mV[VY] / object_extents.mV[VY];
-	obj_dir_abs.mV[VZ] = obj_dir_abs.mV[VZ] / object_extents.mV[VZ];
+	// obj_to_cam_ray is unit vector pointing from object center to camera, in the coordinate frame of the object
+	LLVector3 obj_to_cam_ray = obj_pos - LLViewerCamera::getInstance()->getOrigin();
+	obj_to_cam_ray.rotVec(inv_obj_rot);
+	obj_to_cam_ray.normalize();
 
-	LLVector3 normal;
-	if (obj_dir_abs.mV[VX] > obj_dir_abs.mV[VY] && obj_dir_abs.mV[VX] > obj_dir_abs.mV[VZ])
+	// obj_to_cam_ray_proportions are the (positive) ratios of 
+	// the obj_to_cam_ray x,y,z components with the x,y,z object dimensions.
+	LLVector3 obj_to_cam_ray_proportions;
+	obj_to_cam_ray_proportions.mV[VX] = llabs(obj_to_cam_ray.mV[VX] / object_extents.mV[VX]);
+	obj_to_cam_ray_proportions.mV[VY] = llabs(obj_to_cam_ray.mV[VY] / object_extents.mV[VY]);
+	obj_to_cam_ray_proportions.mV[VZ] = llabs(obj_to_cam_ray.mV[VZ] / object_extents.mV[VZ]);
+
+	// find the largest ratio stored in obj_to_cam_ray_proportions
+	// this corresponds to the object's local axial plane (XY, YZ, XZ) that is *most* facing the camera
+	LLVector3 longest_object_axis;
+	// is x-axis longest?
+	if (obj_to_cam_ray_proportions.mV[VX] > obj_to_cam_ray_proportions.mV[VY] 
+		&& obj_to_cam_ray_proportions.mV[VX] > obj_to_cam_ray_proportions.mV[VZ])
 	{
-		normal.setVec(obj_matrix.getFwdRow4());
+		// then grab it
+		longest_object_axis.setVec(obj_matrix.getFwdRow4());
 	}
-	else if (obj_dir_abs.mV[VY] > obj_dir_abs.mV[VZ])
+	// is y-axis longest?
+	else if (obj_to_cam_ray_proportions.mV[VY] > obj_to_cam_ray_proportions.mV[VZ])
 	{
-		normal.setVec(obj_matrix.getLeftRow4());
+		// then grab it
+		longest_object_axis.setVec(obj_matrix.getLeftRow4());
 	}
+	// otherwise, use z axis
 	else
 	{
-		normal.setVec(obj_matrix.getUpRow4());
+		longest_object_axis.setVec(obj_matrix.getUpRow4());
 	}
-	normal.normalize();
+
+	// Use this axis as the normal to project mouse click on to plane with that normal, at the object center.
+	// This generates a point behind the mouse cursor that is approximately in the middle of the object in
+	// terms of depth.  
+	// We do this to allow the camera rotation tool to "tumble" the object by rotating the camera.
+	// If the focus point were the object surface under the mouse, camera rotation would introduce an undesirable
+	// eccentricity to the object orientation
+	LLVector3 focus_plane_normal(longest_object_axis);
+	focus_plane_normal.normalize();
 
 	LLVector3d focus_pt_global;
-	// RN: should we check return value for valid pick?
-	gViewerWindow->mousePointOnPlaneGlobal(focus_pt_global, x, y, gAgent.getPosGlobalFromAgent(obj_pos), normal);
+	gViewerWindow->mousePointOnPlaneGlobal(focus_pt_global, x, y, gAgent.getPosGlobalFromAgent(obj_pos), focus_plane_normal);
 	LLVector3 focus_pt = gAgent.getPosAgentFromGlobal(focus_pt_global);
-	// find vector from camera to focus point in object coordinates
-	LLVector3 camera_focus_vec = focus_pt - LLViewerCamera::getInstance()->getOrigin();
-	// convert to object-local space
-	camera_focus_vec.rotVec(inv_obj_rot);
+
+	// find vector from camera to focus point in object space
+	LLVector3 camera_to_focus_vec = focus_pt - LLViewerCamera::getInstance()->getOrigin();
+	camera_to_focus_vec.rotVec(inv_obj_rot);
 
 	// find vector from object origin to focus point in object coordinates
-	LLVector3 focus_delta = focus_pt - obj_pos;
+	LLVector3 focus_offset_from_object_center = focus_pt - obj_pos;
 	// convert to object-local space
-	focus_delta.rotVec(inv_obj_rot);
+	focus_offset_from_object_center.rotVec(inv_obj_rot);
 
-	// calculate clip percentage needed to get focus offset back in bounds along the camera_focus axis
+	// We need to project the focus point back into the bounding box of the focused object.
+	// Do this by calculating the XYZ scale factors needed to get focus offset back in bounds along the camera_focus axis
 	LLVector3 clip_fraction;
 
+	// for each axis...
 	for (U32 axis = VX; axis <= VZ; axis++)
 	{
-		F32 clip_amt;
-		if (focus_delta.mV[axis] > 0.f)
+		//...calculate distance that focus offset sits outside of bounding box along that axis...
+		//NOTE: dist_out_of_bounds keeps the sign of focus_offset_from_object_center 
+		F32 dist_out_of_bounds;
+		if (focus_offset_from_object_center.mV[axis] > 0.f)
 		{
-			clip_amt = llmax(0.f, focus_delta.mV[axis] - object_half_extents.mV[axis]);
+			dist_out_of_bounds = llmax(0.f, focus_offset_from_object_center.mV[axis] - (object_extents.mV[axis] * 0.5f));
 		}
 		else
 		{
-			clip_amt = llmin(0.f, focus_delta.mV[axis] + object_half_extents.mV[axis]);
+			dist_out_of_bounds = llmin(0.f, focus_offset_from_object_center.mV[axis] + (object_extents.mV[axis] * 0.5f));
 		}
 
-		// don't divide by very small nunber
-		if (llabs(camera_focus_vec.mV[axis]) < 0.0001f)
+		//...then calculate the scale factor needed to push camera_to_focus_vec back in bounds along current axis
+		if (llabs(camera_to_focus_vec.mV[axis]) < 0.0001f)
 		{
+			// don't divide by very small number
 			clip_fraction.mV[axis] = 0.f;
 		}
 		else
 		{
-			clip_fraction.mV[axis] = clip_amt / camera_focus_vec.mV[axis];
+			clip_fraction.mV[axis] = dist_out_of_bounds / camera_to_focus_vec.mV[axis];
 		}
 	}
 
 	LLVector3 abs_clip_fraction = clip_fraction;
 	abs_clip_fraction.abs();
 
-	// find greatest shrinkage factor and
+	// find axis of focus offset that is *most* outside the bounding box and use that to
 	// rescale focus offset to inside object extents
-	if (abs_clip_fraction.mV[VX] > abs_clip_fraction.mV[VY] &&
-		abs_clip_fraction.mV[VX] > abs_clip_fraction.mV[VZ])
+	if (abs_clip_fraction.mV[VX] > abs_clip_fraction.mV[VY]
+		&& abs_clip_fraction.mV[VX] > abs_clip_fraction.mV[VZ])
 	{
-		focus_delta -= clip_fraction.mV[VX] * camera_focus_vec;
+		focus_offset_from_object_center -= clip_fraction.mV[VX] * camera_to_focus_vec;
 	}
 	else if (abs_clip_fraction.mV[VY] > abs_clip_fraction.mV[VZ])
 	{
-		focus_delta -= clip_fraction.mV[VY] * camera_focus_vec;
+		focus_offset_from_object_center -= clip_fraction.mV[VY] * camera_to_focus_vec;
 	}
 	else
 	{
-		focus_delta -= clip_fraction.mV[VZ] * camera_focus_vec;
+		focus_offset_from_object_center -= clip_fraction.mV[VZ] * camera_to_focus_vec;
 	}
 
 	// convert back to world space
-	focus_delta.rotVec(obj_rot);
+	focus_offset_from_object_center.rotVec(obj_rot);
 	
+	// now, based on distance of camera from object relative to object size
+	// push the focus point towards the near surface of the object when (relatively) close to the objcet
+	// or keep the focus point in the object middle when (relatively) far
+	// NOTE: leave focus point in middle of avatars, since the behavior you want when alt-zooming on avatars
+	// is almost always "tumble about middle" and not "spin around surface point"
 	if (!is_avatar) 
 	{
-		//unproject relative clicked coordinate from window coordinate using GL
-		/*GLint viewport[4];
-		GLdouble modelview[16];
-		GLdouble projection[16];
-		GLfloat winX, winY, winZ;
-		GLdouble posX, posY, posZ;
-
-		// convert our matrices to something that has a multiply that works
-		glh::matrix4f newModel((F32*)LLViewerCamera::getInstance()->getModelview().mMatrix);
-		glh::matrix4f tmpObjMat((F32*)obj_matrix.mMatrix);
-		newModel *= tmpObjMat;
-
-		for(U32 i = 0; i < 16; ++i)
-		{
-			modelview[i] = newModel.m[i];
-			projection[i] = LLViewerCamera::getInstance()->getProjection().mMatrix[i/4][i%4];
-		}
-		glGetIntegerv( GL_VIEWPORT, viewport );
-
-		winX = ((F32)x) * gViewerWindow->getDisplayScale().mV[VX];
-		winY = ((F32)y) * gViewerWindow->getDisplayScale().mV[VY];
-		glReadPixels( llfloor(winX), llfloor(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
-
-		gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);*/
-
-		LLVector3 obj_rel = pos_agent - object->getRenderPosition();
+		LLVector3 obj_rel = original_focus_point - object->getRenderPosition();
 		
-		LLVector3 obj_center = LLVector3(0, 0, 0) * object->getRenderMatrix();
-
 		//now that we have the object relative position, we should bias toward the center of the object 
 		//based on the distance of the camera to the focus point vs. the distance of the camera to the focus
 
 		F32 relDist = llabs(obj_rel * LLViewerCamera::getInstance()->getAtAxis());
-		F32 viewDist = dist_vec(obj_center + obj_rel, LLViewerCamera::getInstance()->getOrigin());
+		F32 viewDist = dist_vec(obj_pos + obj_rel, LLViewerCamera::getInstance()->getOrigin());
 
 
 		LLBBox obj_bbox = object->getBoundingBoxAgent();
 		F32 bias = 0.f;
 
+		// virtual_camera_pos is the camera position we are simulating by backing the camera off
+		// and adjusting the FOV
 		LLVector3 virtual_camera_pos = gAgent.getPosAgentFromGlobal(mFocusTargetGlobal + (getCameraPositionGlobal() - mFocusTargetGlobal) / (1.f + mCameraFOVZoomFactor));
 
-		if(obj_bbox.containsPointAgent(virtual_camera_pos))
-		{
-			// if the camera is inside the object (large, hollow objects, for example)
-			// force focus point all the way to destination depth, away from object center
-			bias = 1.f;
-		}
-		else
+		// if the camera is inside the object (large, hollow objects, for example)
+		// leave focus point all the way to destination depth, away from object center
+		if(!obj_bbox.containsPointAgent(virtual_camera_pos))
 		{
 			// perform magic number biasing of focus point towards surface vs. planar center
 			bias = clamp_rescale(relDist/viewDist, 0.1f, 0.7f, 0.0f, 1.0f);
+			obj_rel = lerp(focus_offset_from_object_center, obj_rel, bias);
 		}
-		
-		obj_rel = lerp(focus_delta, obj_rel, bias);
-		
-		return LLVector3(obj_rel);
+			
+		focus_offset_from_object_center = obj_rel;
 	}
 
-	return LLVector3(focus_delta.mV[VX], focus_delta.mV[VY], focus_delta.mV[VZ]);
+	return focus_offset_from_object_center;
 }
 
 //-----------------------------------------------------------------------------
@@ -1889,7 +1887,7 @@ void LLAgent::cameraOrbitIn(const F32 meters)
 {
 	if (mFocusOnAvatar && mCameraMode == CAMERA_MODE_THIRD_PERSON)
 	{
-		F32 camera_offset_dist = llmax(0.001f, mCameraOffsetDefault.magVec());
+		F32 camera_offset_dist = llmax(0.001f, mCameraOffsetDefault.magVec() * gSavedSettings.getF32("CameraOffsetScale"));
 		
 		mCameraZoomFraction = (mTargetCameraDistance - meters) / camera_offset_dist;
 
@@ -2337,11 +2335,11 @@ void LLAgent::stopAutoPilot(BOOL user_cancel)
 		if (user_cancel && !mAutoPilotBehaviorName.empty())
 		{
 			if (mAutoPilotBehaviorName == "Sit")
-				LLNotifyBox::showXml("CancelledSit");
+				LLNotifications::instance().add("CancelledSit");
 			else if (mAutoPilotBehaviorName == "Attach")
-				LLNotifyBox::showXml("CancelledAttach");
+				LLNotifications::instance().add("CancelledAttach");
 			else
-				LLNotifyBox::showXml("Cancelled");
+				LLNotifications::instance().add("Cancelled");
 		}
 	}
 }
@@ -2366,7 +2364,7 @@ void LLAgent::autoPilot(F32 *delta_yaw)
 			mAutoPilotTargetGlobal = object->getPositionGlobal();
 		}
 		
-		if (!mAvatarObject)
+		if (mAvatarObject.isNull())
 		{
 			return;
 		}
@@ -2447,7 +2445,7 @@ void LLAgent::autoPilot(F32 *delta_yaw)
 		// If we're flying, handle autopilot points above or below you.
 		if (getFlying() && xy_distance < AUTOPILOT_HEIGHT_ADJUST_DISTANCE)
 		{
-			if (mAvatarObject)
+			if (mAvatarObject.notNull())
 			{
 				F64 current_height = mAvatarObject->getPositionGlobal().mdV[VZ];
 				F32 delta_z = (F32)(mAutoPilotTargetGlobal.mdV[VZ] - current_height);
@@ -2532,7 +2530,7 @@ void LLAgent::propagate(const F32 dt)
 	pitch(PITCH_RATE * (F32) mPitchKey * dt);
 	
 	// handle auto-land behavior
-	if (mAvatarObject)
+	if (mAvatarObject.notNull())
 	{
 		BOOL in_air = mAvatarObject->mInAir;
 		LLVector3 land_vel = getVelocity();
@@ -2583,7 +2581,7 @@ void LLAgent::updateLookAt(const S32 mouse_x, const S32 mouse_y)
 	static LLVector3 last_at_axis;
 
 
-	if ( mAvatarObject.isNull() )
+	if (mAvatarObject.isNull())
 	{
 		return;
 	}
@@ -2717,7 +2715,7 @@ BOOL LLAgent::needsRenderAvatar()
 // TRUE if we need to render your own avatar's head.
 BOOL LLAgent::needsRenderHead()
 {
-	return mShowAvatar && !cameraMouselook();
+	return (LLVOAvatar::sVisibleInFirstPerson && LLPipeline::sReflectionRender) || (mShowAvatar && !cameraMouselook());
 }
 
 //-----------------------------------------------------------------------------
@@ -2856,7 +2854,7 @@ void LLAgent::endAnimationUpdateUI()
 		}
 
 		// Disable mouselook-specific animations
-		if (mAvatarObject)
+		if (mAvatarObject.notNull())
 		{
 			if( mAvatarObject->isAnyAnimationSignaled(AGENT_GUN_AIM_ANIMS, NUM_AGENT_GUN_AIM_ANIMS) )
 			{
@@ -2902,7 +2900,7 @@ void LLAgent::endAnimationUpdateUI()
 			gMorphView->setVisible( FALSE );
 		}
 
-		if (mAvatarObject)
+		if (mAvatarObject.notNull())
 		{
 			if(mCustomAnim)
 			{
@@ -2945,7 +2943,7 @@ void LLAgent::endAnimationUpdateUI()
 		gIMMgr->setFloaterOpen( FALSE );
 		gConsole->setVisible( TRUE );
 
-		if (mAvatarObject)
+		if (mAvatarObject.notNull())
 		{
 			// Trigger mouselook-specific animations
 			if( mAvatarObject->isAnyAnimationSignaled(AGENT_GUN_HOLD_ANIMS, NUM_AGENT_GUN_HOLD_ANIMS) )
@@ -3006,7 +3004,7 @@ void LLAgent::endAnimationUpdateUI()
 		}
 
 		// freeze avatar
-		if (mAvatarObject)
+		if (mAvatarObject.notNull())
 		{
 			mPauseRequest = mAvatarObject->requestPause();
 		}
@@ -3040,7 +3038,7 @@ void LLAgent::updateCamera()
 
 	validateFocusObject();
 
-	if (!mAvatarObject.isNull() && 
+	if (mAvatarObject.notNull() && 
 		mAvatarObject->mIsSitting &&
 		camera_mode == CAMERA_MODE_MOUSELOOK)
 	{
@@ -3154,7 +3152,7 @@ void LLAgent::updateCamera()
 	//Ventrella
 	if ( mCameraMode == CAMERA_MODE_FOLLOW )
 	{
-		if ( !mAvatarObject.isNull() )
+		if ( mAvatarObject.notNull() )
 		{
 			//--------------------------------------------------------------------------------
 			// this is where the avatar's position and rotation are given to followCam, and 
@@ -3255,12 +3253,15 @@ void LLAgent::updateCamera()
 	}
 
 	// smoothing
-	if (TRUE) 	
+	if (TRUE)
 	{
 		LLVector3d agent_pos = getPositionGlobal();
 		LLVector3d camera_pos_agent = camera_pos_global - agent_pos;
+		// Sitting on what you're manipulating can cause camera jitter with smoothing. 
+		// This turns off smoothing while editing. -MG
+		mCameraSmoothingStop |= (BOOL)LLToolMgr::getInstance()->inBuildMode();
 		
-		if (cameraThirdPerson() && !mCameraSmoothingStop) // only smooth in third person mode
+		if (cameraThirdPerson() && !mCameraSmoothingStop)
 		{
 			const F32 SMOOTHING_HALF_LIFE = 0.02f;
 			
@@ -3464,7 +3465,7 @@ LLVector3d LLAgent::calcFocusPositionTargetGlobal()
 	{
 		LLVector3d at_axis(1.0, 0.0, 0.0);
 		LLQuaternion agent_rot = mFrameAgent.getQuaternion();
-		if (!mAvatarObject.isNull() && mAvatarObject->getParent())
+		if (mAvatarObject.notNull() && mAvatarObject->getParent())
 		{
 			LLViewerObject* root_object = (LLViewerObject*)mAvatarObject->getRoot();
 			if (!root_object->flagCameraDecoupled())
@@ -3686,7 +3687,7 @@ LLVector3d LLAgent::calcCameraPositionTargetGlobal(BOOL *hit_limit)
 		}
 		else
 		{
-			local_camera_offset = mCameraZoomFraction * mCameraOffsetDefault;
+			local_camera_offset = mCameraZoomFraction * mCameraOffsetDefault * gSavedSettings.getF32("CameraOffsetScale");
 			
 			// are we sitting down?
 			if (mAvatarObject.notNull() && mAvatarObject->getParent())
@@ -3762,7 +3763,7 @@ LLVector3d LLAgent::calcCameraPositionTargetGlobal(BOOL *hit_limit)
 			camera_offset.setVec( local_camera_offset );
 			camera_position_global = frame_center_global + head_offset + camera_offset;
 
-			if (!mAvatarObject.isNull())
+			if (mAvatarObject.notNull())
 			{
 				LLVector3d camera_lag_d;
 				F32 lag_interp = LLCriticalDamp::getInterpolant(CAMERA_LAG_HALF_LIFE);
@@ -3837,7 +3838,7 @@ LLVector3d LLAgent::calcCameraPositionTargetGlobal(BOOL *hit_limit)
 		if(constrain)
 		{
 			F32 max_dist = ( CAMERA_MODE_CUSTOMIZE_AVATAR == mCameraMode ) ?
-				APPEARANCE_MAX_ZOOM : MAX_CAMERA_DISTANCE_FROM_AGENT;
+				APPEARANCE_MAX_ZOOM : mDrawDistance;
 
 			LLVector3d camera_offset = camera_position_global
 				- gAgent.getPositionGlobal();
@@ -3917,10 +3918,10 @@ void LLAgent::handleScrollWheel(S32 clicks)
 		}
 		else if (mFocusOnAvatar && mCameraMode == CAMERA_MODE_THIRD_PERSON)
 		{
-			F32 current_zoom_fraction = mTargetCameraDistance / mCameraOffsetDefault.magVec();
+			F32 current_zoom_fraction = mTargetCameraDistance / (mCameraOffsetDefault.magVec() * gSavedSettings.getF32("CameraOffsetScale"));
 			current_zoom_fraction *= 1.f - pow(ROOT_ROOT_TWO, clicks);
 			
-			cameraOrbitIn(current_zoom_fraction * mCameraOffsetDefault.magVec());
+			cameraOrbitIn(current_zoom_fraction * mCameraOffsetDefault.magVec() * gSavedSettings.getF32("CameraOffsetScale"));
 		}
 		else
 		{
@@ -3993,7 +3994,7 @@ void LLAgent::changeCameraToMouselook(BOOL animate)
 	gSavedSettings.setBOOL("ThirdPersonBtnState",	FALSE);
 	gSavedSettings.setBOOL("BuildBtnState",			FALSE);
 
-	if (mAvatarObject)
+	if (mAvatarObject.notNull())
 	{
 		mAvatarObject->stopMotion( ANIM_AGENT_BODY_NOISE );
 		mAvatarObject->stopMotion( ANIM_AGENT_BREATHE_ROT );
@@ -4081,7 +4082,7 @@ void LLAgent::changeCameraToFollow(BOOL animate)
 			LLToolMgr::getInstance()->setCurrentToolset(gBasicToolset);
 		}
 
-		if (mAvatarObject)
+		if (mAvatarObject.notNull())
 		{
 			mAvatarObject->mPelvisp->setPosition(LLVector3::zero);
 			mAvatarObject->startMotion( ANIM_AGENT_BODY_NOISE );
@@ -4129,7 +4130,7 @@ void LLAgent::changeCameraToThirdPerson(BOOL animate)
 
 	mCameraZoomFraction = INITIAL_ZOOM_FRACTION;
 
-	if (mAvatarObject)
+	if (mAvatarObject.notNull())
 	{
 		if (!mAvatarObject->mIsSitting)
 		{
@@ -4175,7 +4176,7 @@ void LLAgent::changeCameraToThirdPerson(BOOL animate)
 	}
 
 	// Remove any pitch from the avatar
-	if (!mAvatarObject.isNull() && mAvatarObject->getParent())
+	if (mAvatarObject.notNull() && mAvatarObject->getParent())
 	{
 		LLQuaternion obj_rot = ((LLViewerObject*)mAvatarObject->getParent())->getRenderRotation();
 		at_axis = LLViewerCamera::getInstance()->getAtAxis();
@@ -4254,7 +4255,7 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL avatar_animate, BOOL camera_ani
 		LLVOAvatar::onCustomizeStart();
 	}
 
-	if (!mAvatarObject.isNull())
+	if (mAvatarObject.notNull())
 	{
 		if(avatar_animate)
 		{
@@ -4339,7 +4340,19 @@ void LLAgent::setFocusObject(LLViewerObject* object)
 //-----------------------------------------------------------------------------
 void LLAgent::setFocusGlobal(const LLPickInfo& pick)
 {
-	setFocusGlobal(pick.mPosGlobal, pick.mObjectID);
+	LLViewerObject* objectp = gObjectList.findObject(pick.mObjectID);
+
+	if (objectp)
+	{
+		// focus on object plus designated offset
+		// which may or may not be same as pick.mPosGlobal
+		setFocusGlobal(objectp->getPositionGlobal() + LLVector3d(pick.mObjectOffset), pick.mObjectID);
+	}
+	else
+	{
+		// focus directly on point where user clicked
+		setFocusGlobal(pick.mPosGlobal, pick.mObjectID);
+	}
 }
 
 
@@ -4354,7 +4367,7 @@ void LLAgent::setFocusGlobal(const LLVector3d& focus, const LLUUID &object_id)
 	{
 		if (focus.isExactlyZero())
 		{
-			if (!mAvatarObject.isNull())
+			if (mAvatarObject.notNull())
 			{
 				mFocusTargetGlobal = getPosGlobalFromAgent(mAvatarObject->mHeadp->getWorldPosition());
 			}
@@ -4399,7 +4412,7 @@ void LLAgent::setFocusGlobal(const LLVector3d& focus, const LLUUID &object_id)
 	{
 		if (focus.isExactlyZero())
 		{
-			if (!mAvatarObject.isNull())
+			if (mAvatarObject.notNull())
 			{
 				mFocusTargetGlobal = getPosGlobalFromAgent(mAvatarObject->mHeadp->getWorldPosition());
 			}
@@ -4417,7 +4430,8 @@ void LLAgent::setFocusGlobal(const LLVector3d& focus, const LLUUID &object_id)
 		// for attachments, make offset relative to avatar, not the attachment
 		if (mFocusObject->isAttachment())
 		{
-			while (!mFocusObject->isAvatar())
+			while (mFocusObject.notNull()		// DEV-29123 - can crash with a messed-up attachment
+				&& !mFocusObject->isAvatar())
 			{
 				mFocusObject = (LLViewerObject*) mFocusObject->getParent();
 			}
@@ -4536,7 +4550,7 @@ void LLAgent::setFocusOnAvatar(BOOL focus_on_avatar, BOOL animate)
 		if (mCameraMode == CAMERA_MODE_THIRD_PERSON)
 		{
 			LLVector3 at_axis;
-			if (!mAvatarObject.isNull() && mAvatarObject->getParent())
+			if (mAvatarObject.notNull() && mAvatarObject->getParent())
 			{
 				LLQuaternion obj_rot = ((LLViewerObject*)mAvatarObject->getParent())->getRenderRotation();
 				at_axis = LLViewerCamera::getInstance()->getAtAxis();
@@ -4603,7 +4617,7 @@ void LLAgent::lookAtLastChat()
 		if (chatter->isAvatar())
 		{
 			LLVOAvatar *chatter_av = (LLVOAvatar*)chatter;
-			if (!mAvatarObject.isNull() && chatter_av->mHeadp)
+			if (mAvatarObject.notNull() && chatter_av->mHeadp)
 			{
 				delta_pos = chatter_av->mHeadp->getWorldPosition() - mAvatarObject->mHeadp->getWorldPosition();
 			}
@@ -4684,7 +4698,7 @@ void LLAgent::setStartPosition( U32 location_id )
       LLVector3 agent_pos = getPositionAgent();
       LLVector3 agent_look_at = mFrameAgent.getAtAxis();
 
-      if (mAvatarObject)
+      if (mAvatarObject.notNull())
       {
 	// the z height is at the agent's feet
 	agent_pos.mV[VZ] -= 0.5f * mAvatarObject->mBodySize.mV[VZ];
@@ -4808,44 +4822,165 @@ void LLAgent::onAnimStop(const LLUUID& id)
 
 BOOL LLAgent::isGodlike() const
 {
-#ifdef HACKED_GODLIKE_VIEWER
-	return TRUE;
-#else
-	if(mAdminOverride) return TRUE;
-	return mGodLevel > GOD_NOT;
-#endif
+	return mAgentAccess.isGodlike();
 }
 
 U8 LLAgent::getGodLevel() const
 {
-#ifdef HACKED_GODLIKE_VIEWER
-	return GOD_MAINTENANCE;
-#else
-	if(mAdminOverride) return GOD_FULL;
-	return mGodLevel;
-#endif
+	return mAgentAccess.getGodLevel();
+}
+
+bool LLAgent::wantsPGOnly() const
+{
+	return mAgentAccess.wantsPGOnly();
+}
+
+bool LLAgent::canAccessMature() const
+{
+	return mAgentAccess.canAccessMature();
+}
+
+bool LLAgent::canAccessAdult() const
+{
+	return mAgentAccess.canAccessAdult();
+}
+
+bool LLAgent::canAccessMaturityInRegion( U64 region_handle ) const
+{
+	LLViewerRegion *regionp = LLWorld::getInstance()->getRegionFromHandle( region_handle );
+	if( regionp )
+	{
+		switch( regionp->getSimAccess() )
+		{
+			case SIM_ACCESS_MATURE:
+				if( !canAccessMature() )
+					return false;
+				break;
+			case SIM_ACCESS_ADULT:
+				if( !canAccessAdult() )
+					return false;
+				break;
+			default:
+				// Oh, go on and hear the silly noises.
+				break;
+		}
+	}
+	
+	return true;
+}
+
+bool LLAgent::canAccessMaturityAtGlobal( LLVector3d pos_global ) const
+{
+	U64 region_handle = to_region_handle_global( pos_global.mdV[0], pos_global.mdV[1] );
+	return canAccessMaturityInRegion( region_handle );
+}
+
+bool LLAgent::prefersPG() const
+{
+	return mAgentAccess.prefersPG();
+}
+
+bool LLAgent::prefersMature() const
+{
+	return mAgentAccess.prefersMature();
+}
+	
+bool LLAgent::prefersAdult() const
+{
+	return mAgentAccess.prefersAdult();
 }
 
 bool LLAgent::isTeen() const
 {
-	return mAccess < SIM_ACCESS_MATURE;
+	return mAgentAccess.isTeen();
+}
+
+bool LLAgent::isMature() const
+{
+	return mAgentAccess.isMature();
+}
+
+bool LLAgent::isAdult() const
+{
+	return mAgentAccess.isAdult();
 }
 
 void LLAgent::setTeen(bool teen)
 {
-	if (teen)
-	{
-		mAccess = SIM_ACCESS_PG;
-	}
-	else
-	{
-		mAccess = SIM_ACCESS_MATURE;
-	}
+	mAgentAccess.setTeen(teen);
 }
+
+//static 
+int LLAgent::convertTextToMaturity(char text)
+{
+	return LLAgentAccess::convertTextToMaturity(text);
+}
+
+bool LLAgent::sendMaturityPreferenceToServer(int preferredMaturity)
+{
+	// Update agent access preference on the server
+	std::string url = getRegion()->getCapability("UpdateAgentInformation");
+	if (!url.empty())
+	{
+		// Set new access preference
+		LLSD access_prefs = LLSD::emptyMap();
+		if (preferredMaturity == SIM_ACCESS_PG)
+		{
+			access_prefs["max"] = "PG";
+		}
+		else if (preferredMaturity == SIM_ACCESS_MATURE)
+		{
+			access_prefs["max"] = "M";
+		}
+		if (preferredMaturity == SIM_ACCESS_ADULT)
+		{
+			access_prefs["max"] = "A";
+		}
+		
+		LLSD body = LLSD::emptyMap();
+		body["access_prefs"] = access_prefs;
+		llinfos << "Sending access prefs update to " << (access_prefs["max"].asString()) << " via capability to: "
+		<< url << llendl;
+		LLHTTPClient::post(url, body, new LLHTTPClient::Responder());    // Ignore response
+		return true;
+	}
+	return false;
+}
+
+BOOL LLAgent::getAdminOverride() const	
+{ 
+	return mAgentAccess.getAdminOverride(); 
+}
+
+void LLAgent::setMaturity(char text)
+{
+	mAgentAccess.setMaturity(text);
+}
+
+void LLAgent::setAdminOverride(BOOL b)	
+{ 
+	mAgentAccess.setAdminOverride(b);
+}
+
+void LLAgent::setGodLevel(U8 god_level)	
+{ 
+	mAgentAccess.setGodLevel(god_level);
+}
+
+void LLAgent::setAOTransition()
+{
+	mAgentAccess.setTransition();
+}
+
+const LLAgentAccess& LLAgent::getAgentAccess()
+{
+	return mAgentAccess;
+}
+
 
 void LLAgent::buildFullname(std::string& name) const
 {
-	if (mAvatarObject)
+	if (mAvatarObject.notNull())
 	{
 		name = mAvatarObject->getFullname();
 	}
@@ -4863,7 +4998,7 @@ void LLAgent::buildFullnameAndTitle(std::string& name) const
 		name.erase(0, name.length());
 	}
 
-	if (mAvatarObject)
+	if (mAvatarObject.notNull())
 	{
 		name += mAvatarObject->getFullname();
 	}
@@ -5218,7 +5353,7 @@ void LLAgent::getName(std::string& name)
 {
 	name.clear();
 
-	if (mAvatarObject)
+	if (mAvatarObject.notNull())
 	{
 		LLNameValue *first_nv = mAvatarObject->getNVPair("FirstName");
 		LLNameValue *last_nv = mAvatarObject->getNVPair("LastName");
@@ -5728,11 +5863,11 @@ void LLAgent::processAgentCachedTextureResponse(LLMessageSystem *mesgsys, void *
 		mesgsys->getU8Fast(_PREHASH_WearableData, _PREHASH_TextureIndex, texture_index, texture_block);
 
 		if (texture_id.notNull() 
-			&& (S32)texture_index < BAKED_TEXTURE_COUNT 
+			&& (S32)texture_index < BAKED_NUM_INDICES 
 			&& gAgent.mActiveCacheQueries[ texture_index ] == query_id)
 		{
 			//llinfos << "Received cached texture " << (U32)texture_index << ": " << texture_id << llendl;
-			avatarp->setCachedBakedTexture((LLVOAvatar::ETextureIndex)LLVOAvatar::sBakedTextureIndices[texture_index], texture_id);
+			avatarp->setCachedBakedTexture(getTextureIndex((EBakedTextureIndex)texture_index), texture_id);
 			//avatarp->setTETexture( LLVOAvatar::sBakedTextureIndices[texture_index], texture_id );
 			gAgent.mActiveCacheQueries[ texture_index ] = 0;
 			num_results++;
@@ -5822,13 +5957,24 @@ bool LLAgent::teleportCore(bool is_local)
 		return false;
 	}
 
-	// Cease sitting on the current object, if any.
-	LLVOAvatar* avatarp = gAgent.getAvatarObject();
-	if (avatarp)
-		avatarp->getOffObject();
+#if 0
+	// This should not exist. It has been added, removed, added, and now removed again.
+	// This change needs to come from the simulator. Otherwise, the agent ends up out of
+	// sync with other viewers. Discuss in DEV-14145/VWR-6744 before reenabling.
 
-	// Stop all animations before actual teleporting 
-	stopCurrentAnimations();
+	// Stop all animation before actual teleporting 
+	LLVOAvatar* avatarp = gAgent.getAvatarObject();
+        if (avatarp)
+	{
+		for ( LLVOAvatar::AnimIterator anim_it= avatarp->mPlayingAnimations.begin();
+		      anim_it != avatarp->mPlayingAnimations.end();
+		      ++anim_it)
+               {
+                       avatarp->stopMotion(anim_it->first);
+               }
+               avatarp->processAnimationStateChanges();
+       }
+#endif
 
 	// Don't call LLFirstUse::useTeleport because we don't know
 	// yet if the teleport will succeed.  Look in 
@@ -6001,17 +6147,19 @@ void LLAgent::teleportHome()
 
 void LLAgent::teleportHomeConfirm()
 {
-	gViewerWindow->alertXml("ConfirmTeleportHome", LLAgent::teleportHomeCallback, (void *)this);
+	LLNotifications::instance().add("ConfirmTeleportHome", LLSD(), LLSD(), &LLAgent::teleportHomeCallback);
 }
 
 // static
-void LLAgent::teleportHomeCallback(S32 option, void *userdata)
+bool LLAgent::teleportHomeCallback( const LLSD& notification, const LLSD& response )
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if( option == 0 )
 	{
 		// They confirmed it. Here we go!
-		((LLAgent *) userdata)->teleportHome();
+		gAgent.teleportHome();
 	}
+	return false;
 }
 
 
@@ -6337,6 +6485,8 @@ void LLAgent::saveWearable( EWearableType type, BOOL send_update )
 			addWearableToAgentInventory(cb, new_wearable);
 			return;
 		}
+		
+		getAvatarObject()->wearableUpdated( type );
 
 		if( send_update )
 		{
@@ -6735,7 +6885,7 @@ void LLAgent::onInitialWearableAssetArrived( LLWearable* wearable, void* userdat
 void LLAgent::recoverMissingWearable( EWearableType type )
 {
 	// Try to recover by replacing missing wearable with a new one.
-	LLNotifyBox::showXml("ReplacedMissingWearable");
+	LLNotifications::instance().add("ReplacedMissingWearable");
 	lldebugs << "Wearable " << LLWearable::typeToTypeLabel( type ) << " could not be downloaded.  Replaced inventory item with default wearable." << llendl;
 	LLWearable* new_wearable = gWearableList.createNewWearable(type);
 
@@ -7036,11 +7186,8 @@ void LLAgent::sendAgentSetAppearance()
 		return;
 	}
 
-	llinfos << "TAT: Sent AgentSetAppearance: " <<
-		(( mAvatarObject->getTEImage( LLVOAvatar::TEX_HEAD_BAKED )->getID() != IMG_DEFAULT_AVATAR )  ? "HEAD " : "head " ) <<
-		(( mAvatarObject->getTEImage( LLVOAvatar::TEX_UPPER_BAKED )->getID() != IMG_DEFAULT_AVATAR ) ? "UPPER " : "upper " ) <<
-		(( mAvatarObject->getTEImage( LLVOAvatar::TEX_LOWER_BAKED )->getID() != IMG_DEFAULT_AVATAR ) ? "LOWER " : "lower " ) <<
-		(( mAvatarObject->getTEImage( LLVOAvatar::TEX_EYES_BAKED )->getID() != IMG_DEFAULT_AVATAR )  ? "EYES" : "eyes" ) << llendl;
+
+	llinfos << "TAT: Sent AgentSetAppearance: " << mAvatarObject->getBakedStatusForPrintout() << llendl;
 	//dumpAvatarTEs( "sendAgentSetAppearance()" );
 
 	LLMessageSystem* msg = gMessageSystem;
@@ -7054,7 +7201,7 @@ void LLAgent::sendAgentSetAppearance()
 	// NOTE -- when we start correcting all of the other Havok geometry 
 	// to compensate for the COLLISION_TOLERANCE ugliness we will have 
 	// to tweak this number again
-	LLVector3 body_size = mAvatarObject->mBodySize;
+	const LLVector3 body_size = mAvatarObject->mBodySize;
 	msg->addVector3Fast(_PREHASH_Size, body_size);	
 
 	// To guard against out of order packets
@@ -7066,19 +7213,18 @@ void LLAgent::sendAgentSetAppearance()
 	// KLW - TAT this will probably need to check the local queue.
 	BOOL textures_current = !mAvatarObject->hasPendingBakedUploads() && mWearablesLoaded;
 
-	S32 baked_texture_index;
-	for( baked_texture_index = 0; baked_texture_index < BAKED_TEXTURE_COUNT; baked_texture_index++ )
+	for(U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++ )
 	{
-		S32 tex_index = LLVOAvatar::sBakedTextureIndices[baked_texture_index];
+		const ETextureIndex texture_index = getTextureIndex((EBakedTextureIndex)baked_index);
 
 		// if we're not wearing a skirt, we don't need the texture to be baked
-		if (tex_index == LLVOAvatar::TEX_SKIRT_BAKED && !mAvatarObject->isWearingWearableType(WT_SKIRT))
+		if (texture_index == TEX_SKIRT_BAKED && !mAvatarObject->isWearingWearableType(WT_SKIRT))
 		{
 			continue;
 		}
 
 		// IMG_DEFAULT_AVATAR means not baked
-		if (mAvatarObject->getTEImage( tex_index)->getID() == IMG_DEFAULT_AVATAR)
+		if (!mAvatarObject->isTextureDefined(texture_index))
 		{
 			textures_current = FALSE;
 			break;
@@ -7089,50 +7235,56 @@ void LLAgent::sendAgentSetAppearance()
 	if (textures_current)
 	{
 		llinfos << "TAT: Sending cached texture data" << llendl;
-		for (baked_texture_index = 0; baked_texture_index < BAKED_TEXTURE_COUNT; baked_texture_index++)
+		for (U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++)
 		{
+			const LLVOAvatarDictionary::WearableDictionaryEntry *wearable_dict = LLVOAvatarDictionary::getInstance()->getWearable((EBakedTextureIndex)baked_index);
 			LLUUID hash;
-
-			for( S32 wearable_num = 0; wearable_num < MAX_WEARABLES_PER_LAYERSET; wearable_num++ )
+			for (U8 i=0; i < wearable_dict->mWearablesVec.size(); i++)
 			{
-				EWearableType wearable_type = WEARABLE_BAKE_TEXTURE_MAP[baked_texture_index][wearable_num];
-
-				LLWearable* wearable = getWearable( wearable_type );
+				// EWearableType wearable_type = gBakedWearableMap[baked_index][wearable_num];
+				const EWearableType wearable_type = wearable_dict->mWearablesVec[i];
+				const LLWearable* wearable = getWearable(wearable_type);
 				if (wearable)
 				{
 					hash ^= wearable->getID();
 				}
 			}
-
 			if (hash.notNull())
 			{
-				hash ^= BAKED_TEXTURE_HASH[baked_texture_index];
+				hash ^= wearable_dict->mHashID;
 			}
 
-			S32 tex_index = LLVOAvatar::sBakedTextureIndices[baked_texture_index];
+			const ETextureIndex texture_index = getTextureIndex((EBakedTextureIndex)baked_index);
 
 			msg->nextBlockFast(_PREHASH_WearableData);
 			msg->addUUIDFast(_PREHASH_CacheID, hash);
-			msg->addU8Fast(_PREHASH_TextureIndex, (U8)tex_index);
+			msg->addU8Fast(_PREHASH_TextureIndex, (U8)texture_index);
 		}
+		msg->nextBlockFast(_PREHASH_ObjectData);
+		mAvatarObject->packTEMessage( gMessageSystem );
+	}
+	else
+	{
+		// If the textures aren't baked, send NULL for texture IDs
+		// This means the baked texture IDs on the server will be untouched.
+		// Once all textures are baked, another AvatarAppearance message will be sent to update the TEs
+		msg->nextBlockFast(_PREHASH_ObjectData);
+		gMessageSystem->addBinaryDataFast(_PREHASH_TextureEntry, NULL, 0);
 	}
 
-	msg->nextBlockFast(_PREHASH_ObjectData);
-	mAvatarObject->packTEMessage( gMessageSystem );
 
 	S32 transmitted_params = 0;
 	for (LLViewerVisualParam* param = (LLViewerVisualParam*)mAvatarObject->getFirstVisualParam();
 		 param;
 		 param = (LLViewerVisualParam*)mAvatarObject->getNextVisualParam())
 	{
-		F32 param_value = param->getWeight();
-	
 		if (param->getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE)
 		{
 			msg->nextBlockFast(_PREHASH_VisualParam );
 			
 			// We don't send the param ids.  Instead, we assume that the receiver has the same params in the same sequence.
-			U8 new_weight = F32_to_U8(param_value, param->getMinWeight(), param->getMaxWeight());
+			const F32 param_value = param->getWeight();
+			const U8 new_weight = F32_to_U8(param_value, param->getMinWeight(), param->getMaxWeight());
 			msg->addU8Fast(_PREHASH_ParamValue, new_weight );
 			transmitted_params++;
 		}
@@ -7166,8 +7318,10 @@ void LLAgent::removeWearable( EWearableType type )
 	{
 		if( old_wearable->isDirty() )
 		{
+			LLSD payload;
+			payload["wearable_type"] = (S32)type;
 			// Bring up view-modal dialog: Save changes? Yes, No, Cancel
-			gViewerWindow->alertXml("WearableSave", LLAgent::onRemoveWearableDialog, (void*)type );
+			LLNotifications::instance().add("WearableSave", LLSD(), payload, &LLAgent::onRemoveWearableDialog);
 			return;
 		}
 		else
@@ -7178,9 +7332,10 @@ void LLAgent::removeWearable( EWearableType type )
 }
 
 // static 
-void LLAgent::onRemoveWearableDialog( S32 option, void* userdata )
+bool LLAgent::onRemoveWearableDialog(const LLSD& notification, const LLSD& response )
 {
-	EWearableType type = (EWearableType)(intptr_t)userdata;
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	EWearableType type = (EWearableType)notification["payload"]["wearable_type"].asInteger();
 	switch( option )
 	{
 	case 0:  // "Save"
@@ -7199,6 +7354,7 @@ void LLAgent::onRemoveWearableDialog( S32 option, void* userdata )
 		llassert(0);
 		break;
 	}
+	return false;
 }
 
 // Called by removeWearable() and onRemoveWearableDialog() to actually do the removal.
@@ -7367,8 +7523,6 @@ void LLAgent::setWearableOutfit(
 		wearables[i]->writeToAvatar( TRUE );
 	}
 
-	LLFloaterCustomize::setCurrentWearableType( WT_SHAPE );
-
 	// Start rendering & update the server
 	mWearablesLoaded = TRUE; 
 	sendAgentWearablesUpdate();
@@ -7397,8 +7551,9 @@ void LLAgent::setWearable( LLInventoryItem* new_item, LLWearable* new_wearable )
 		if( old_wearable->isDirty() )
 		{
 			// Bring up modal dialog: Save changes? Yes, No, Cancel
-			gViewerWindow->alertXml( "WearableSave", LLAgent::onSetWearableDialog,
-				new LLSetWearableData( new_item->getUUID(), new_wearable ));
+			LLSD payload;
+			payload["item_id"] = new_item->getUUID();
+			LLNotifications::instance().add( "WearableSave", LLSD(), payload, boost::bind(LLAgent::onSetWearableDialog, _1, _2, new_wearable));
 			return;
 		}
 	}
@@ -7407,25 +7562,25 @@ void LLAgent::setWearable( LLInventoryItem* new_item, LLWearable* new_wearable )
 }
 
 // static 
-void LLAgent::onSetWearableDialog( S32 option, void* userdata )
+bool LLAgent::onSetWearableDialog( const LLSD& notification, const LLSD& response, LLWearable* wearable )
 {
-	LLSetWearableData* data = (LLSetWearableData*)userdata;
-	LLInventoryItem* new_item = gInventory.getItem( data->mNewItemID );
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	LLInventoryItem* new_item = gInventory.getItem( notification["payload"]["item_id"].asUUID());
 	if( !new_item )
 	{
-		delete data;
-		return;
+		delete wearable;
+		return false;
 	}
 
 	switch( option )
 	{
 	case 0:  // "Save"
-		gAgent.saveWearable( data->mNewWearable->getType() );
-		gAgent.setWearableFinal( new_item, data->mNewWearable );
+		gAgent.saveWearable( wearable->getType() );
+		gAgent.setWearableFinal( new_item, wearable );
 		break;
 
 	case 1:  // "Don't Save"
-		gAgent.setWearableFinal( new_item, data->mNewWearable );
+		gAgent.setWearableFinal( new_item, wearable );
 		break;
 
 	case 2: // "Cancel"
@@ -7436,7 +7591,8 @@ void LLAgent::onSetWearableDialog( S32 option, void* userdata )
 		break;
 	}
 
-	delete data;
+	delete wearable;
+	return false;
 }
 
 // Called from setWearable() and onSetWearableDialog() to actually set the wearable.
@@ -7488,14 +7644,15 @@ void LLAgent::queryWearableCache()
 	gMessageSystem->addS32Fast(_PREHASH_SerialNum, mTextureCacheQueryID);
 
 	S32 num_queries = 0;
-	for (S32 baked_texture_index = 0; baked_texture_index < BAKED_TEXTURE_COUNT; baked_texture_index++)
+	for (U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++ )
 	{
+		const LLVOAvatarDictionary::WearableDictionaryEntry *wearable_dict = LLVOAvatarDictionary::getInstance()->getWearable((EBakedTextureIndex)baked_index);
 		LLUUID hash;
-		for (S32 wearable_num = 0; wearable_num < MAX_WEARABLES_PER_LAYERSET; wearable_num++)
+		for (U8 i=0; i < wearable_dict->mWearablesVec.size(); i++)
 		{
-			EWearableType wearable_type = WEARABLE_BAKE_TEXTURE_MAP[baked_texture_index][wearable_num];
-				
-			LLWearable* wearable = getWearable( wearable_type );
+			// EWearableType wearable_type = gBakedWearableMap[baked_index][wearable_num];
+			const EWearableType wearable_type = wearable_dict->mWearablesVec[i];
+			const LLWearable* wearable = getWearable(wearable_type);
 			if (wearable)
 			{
 				hash ^= wearable->getID();
@@ -7503,17 +7660,17 @@ void LLAgent::queryWearableCache()
 		}
 		if (hash.notNull())
 		{
-			hash ^= BAKED_TEXTURE_HASH[baked_texture_index];
+			hash ^= wearable_dict->mHashID;
 			num_queries++;
 			// *NOTE: make sure at least one request gets packed
 
-			//llinfos << "Requesting texture for hash " << hash << " in baked texture slot " << baked_texture_index << llendl;
+			//llinfos << "Requesting texture for hash " << hash << " in baked texture slot " << baked_index << llendl;
 			gMessageSystem->nextBlockFast(_PREHASH_WearableData);
 			gMessageSystem->addUUIDFast(_PREHASH_ID, hash);
-			gMessageSystem->addU8Fast(_PREHASH_TextureIndex, (U8)baked_texture_index);
+			gMessageSystem->addU8Fast(_PREHASH_TextureIndex, (U8)baked_index);
 		}
 
-		mActiveCacheQueries[ baked_texture_index ] = mTextureCacheQueryID;
+		mActiveCacheQueries[ baked_index ] = mTextureCacheQueryID;
 	}
 
 	llinfos << "Requesting texture cache entry for " << num_queries << " baked textures" << llendl;
@@ -7539,18 +7696,19 @@ void LLAgent::userRemoveWearable( void* userdata )
 // static
 void LLAgent::userRemoveAllClothesConfirm()
 {
-	gViewerWindow->alertXml("ConfirmRemoveAllClothes",
-	                        LLAgent::userRemoveAllClothesCallback, NULL);
+	LLNotifications::instance().add("ConfirmRemoveAllClothes", LLSD(), LLSD(), LLAgent::userRemoveAllClothesCallback);
 }
 
 // static
-void LLAgent::userRemoveAllClothesCallback(S32 option, void *userdata)
+bool LLAgent::userRemoveAllClothesCallback( const LLSD& notification, const LLSD& response )
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if( option == 0 )
 	{
 		// They confirmed it. Here we go!
 		LLAgent::userRemoveAllClothes(NULL);
 	}
+	return false;
 }
 
 
@@ -7559,7 +7717,7 @@ void LLAgent::userRemoveAllClothes( void* userdata )
 	// We have to do this up front to avoid having to deal with the case of multiple wearables being dirty.
 	if( gFloaterCustomize )
 	{
-		gFloaterCustomize->askToSaveAllIfDirty( LLAgent::userRemoveAllClothesStep2, NULL );
+		gFloaterCustomize->askToSaveIfDirty( LLAgent::userRemoveAllClothesStep2, NULL );
 	}
 	else
 	{

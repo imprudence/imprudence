@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Reklama">
+	<line_editor name="given_name_editor" tool_tip="Nazwa musi się zaczynać od litery lub cyfry, nie od znaku przestankowego."/>
+	<line_editor name="location_editor" tool_tip="Przypisz Twoje obecne położenie do tej reklamy."/>
+	<button label="Wybierz Miejsce" name="set_location_btn"/>
+	<button label="Teleportuj" name="classified_teleport_btn"/>
+	<button label="Mapa" name="classified_map_btn"/>
+	<combo_box label="" name="classified_category_combo"/>
+	<combo_box label="" name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Wybierz Treść -
+		</combo_item>
+		<combo_item name="mature">
+			Treść &apos;Mature&apos;
+		</combo_item>
+		<combo_item name="pg">
+			Treść &apos;PG&apos;
+		</combo_item>
+	</combo_box>
+	<text name="classified_info_text" tool_tip="Twoja reklama jest tym wyżej na liście im więcej za nią płacisz.">
+		Reklama: Jeszcze nie zamieszczona
+	</text>
+	<text name="click_through_text" tool_tip="Liczba kliknięć na każdym z przycisków od momentu zamieszczenia reklamy.">
+		Kliknięcia:
+	</text>
+	<button label="Zamieść..." name="classified_update_btn"/>
+	<check_box label="Auto-odnawiaj co tydzień" name="auto_renew_check"/>
+	<string name="ad_placed_paid">
+		Od: [DATE], Zapłacono [AMT]L$ za zamieszczenie.
+	</string>
+	<string name="update_txt">
+		Aktualizuj
+	</string>
+	<string name="publish_txt">
+		Zamieść...
+	</string>
+</panel>

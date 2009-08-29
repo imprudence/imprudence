@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -57,26 +58,42 @@ void fallbackDestroyLLImageJ2CImpl(LLImageJ2CImpl* impl)
 	impl = NULL;
 }
 
+// Return string from message, eliminating final \n if present
+static std::string chomp(const char* msg)
+{
+	// stomp trailing \n
+	std::string message = msg;
+	if (!message.empty())
+	{
+		size_t last = message.size() - 1;
+		if (message[last] == '\n')
+		{
+			message.resize( last );
+		}
+	}
+	return message;
+}
+
 /**
 sample error callback expecting a LLFILE* client object
 */
 void error_callback(const char* msg, void*)
 {
-	lldebugs << "LLImageJ2CImpl error_callback: " << msg << llendl;
+	lldebugs << "LLImageJ2COJ: " << chomp(msg) << llendl;
 }
 /**
 sample warning callback expecting a LLFILE* client object
 */
 void warning_callback(const char* msg, void*)
 {
-	lldebugs << "LLImageJ2CImpl warning_callback: " << msg << llendl;
+	lldebugs << "LLImageJ2COJ: " << chomp(msg) << llendl;
 }
 /**
 sample debug callback expecting no client object
 */
 void info_callback(const char* msg, void*)
 {
-	lldebugs << "LLImageJ2CImpl info_callback: " << msg << llendl;
+	lldebugs << "LLImageJ2COJ: " << chomp(msg) << llendl;
 }
 
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Głos" name="chat">
+	<text_editor length="1" name="voice_unavailable" type="string">
+		Rozmowy są Niedostępne
+	</text_editor>
+	<check_box label="Pozwól na Rozmowy" name="enable_voice_check"/>
+	<radio_group name="ear_location">
+		<radio_item length="1" name="0" type="string">
+			Odtwarzaj głos z pozycji kamery.
+		</radio_item>
+		<radio_item length="1" name="1" type="string">
+			Odtwarzaj głos z pozycji awatara.
+		</radio_item>
+	</radio_group>
+	<text length="1" name="push_to_talk_heading" type="string">
+		Naciśnij-by-Mówić
+	</text>
+	<text_editor length="1" name="voice_chat_description" type="string">
+		Tryb Naciśnij-by-Mówić kontroluje transmisję Twojego głosu. W trybie przełączanym naciśnij i zwolnij wybrany klawisz aby włączyć lub wyłączyć mikrofon. W trybie nie przełączanym mikrofon jest włączony tylko wtedy kiedy wybrany klawisz jest wciśnięty.
+	</text_editor>
+	<check_box label="Przełączaj Tryb Naciśnij-by-Mówić" name="push_to_talk_toggle_check"/>
+	<text length="1" name="push_to_talk_label" type="string">
+		Klawisz Naciśnij-by-Mówić:
+	</text>
+	<button label="Wybierz Klawisz" name="set_voice_hotkey_button"/>
+	<button label="Środkowy Klawisz Myszki" name="set_voice_middlemouse_button"/>
+	<text name="privacy_heading">
+		Ustawienia Prywatności
+	</text>
+	<check_box label="Akceptuj rozmowy tylko od znajomych" name="voice_call_friends_only_check"/>
+	<check_box label="Wyłącz mikrofon po zakończeniu konferencji głosowej na IM" name="auto_disengage_mic_check"/>
+	<button label="Ustawienia Sprzętowe" name="device_settings_btn"/>
+	<text_editor length="1" name="device_settings_text" type="string">
+		UWAGA: Uruchomienie Ustawień Sprzętowych spowoduje utratę połączenia z rozmowami głosowem. Wszelkie zmiany usawień zostaną automatycznie zastosowane, a połączenie wznowione.
+	</text_editor>
+</panel>

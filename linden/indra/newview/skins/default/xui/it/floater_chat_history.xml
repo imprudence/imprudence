@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="chat floater" title="Chat Locale">
+	<string name="ringing">
+		In connessione alla Voice Chat in-world...
+	</string>
+	<string name="connected">
+		Connesso
+	</string>
+	<string name="unavailable">
+		Il voice non è disponibile nel posto dove ti trovi ora
+	</string>
+	<string name="hang_up">
+		Disconnesso dalla Voice Chat in-world
+	</string>
+	<string name="voice_icon">
+		icn_voice-localchat.tga
+	</string>
+	<string name="IM_logging_string">
+		-- Registrazione degli Instant Messages abilitata --
+	</string>
+	<string name="IM_end_log_string">
+		-- Fine della Registrazione Testo --
+	</string>
+  <string name="ScriptQuestionCautionChatGranted">
+	A &apos;[OBJECTNAME]&apos;, un oggetto di proprietà di &apos;[OWNERNAME]&apos;, situato in [REGIONNAME] [REGIONPOS], è stato concesso il permesso di: [PERMISSIONS].
+  </string>
+  <string name="ScriptQuestionCautionChatDenied">
+	A &apos;[OBJECTNAME]&apos;, un oggetto di proprietà di &apos;[OWNERNAME]&apos;, situato in [REGIONNAME] [REGIONPOS], è stato negato il permesso di: [PERMISSIONS].
+  </string>
+  <string name="ScriptTakeMoney">
+	Prendere dollari Linden (L$) da te
+  </string>
+  <string name="ActOnControlInputs">
+	Agire sul tuo controllo degli input
+  </string>
+  <string name="RemapControlInputs">
+	Rimappare il tuo controllo degli input
+  </string>
+  <string name="AnimateYourAvatar">
+	Animare il tuo avatar
+  </string>
+  <string name="AttachToYourAvatar">
+	Far indossare al tuo avatar
+  </string>
+  <string name="ReleaseOwnership">
+	Rilasciare la propietà è far diventare pubblico.
+  </string>
+  <string name="LinkAndDelink">
+	Collegare e scollegare dagli altri oggetti
+  </string>
+  <string name="AddAndRemoveJoints">
+	Aggiungere e rimuovere le giunzioni insieme con gli altri oggetti
+  </string>
+  <string name="ChangePermissions">
+	Cambiare i permessi
+  </string>
+  <string name="TrackYourCamera">
+	Tracciare la fotocamera
+  </string>
+  <string name="ControlYourCamera">
+	Controllare la tua fotocamera
+  </string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="Gesture" name="Gesture">
+				<combo_item name="Gestures">
+					Gesture
+				</combo_item>
+			</combo_box>
+			<check_box label="Mostra testo mutato" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Clicca qui per vedere la lista dei partecipanti attivi in questa sessione IM."/>
+			<panel name="chat_panel">
+				<string name="gesture_label">
+					Gesture
+				</string>
+				<line_editor label="Clicca qui per chiacchierare." name="Chat Editor"/>
+				<flyout_button label="Parla" name="Say" tool_tip="(Invio)">
+					<flyout_button_item name="shout_item">
+						Grida
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						Parla
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Sussurra
+					</flyout_button_item>
+				</flyout_button>
+			</panel>
+		</layout_panel>
+	</layout_stack>
+</floater>

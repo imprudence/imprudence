@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -75,6 +76,7 @@ public:
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, class LLUICtrlFactory *factory);
 	void    setTextEditorParameters(LLXMLNodePtr node);
 	void	setParseHTML(BOOL parsing) {mParseHTML=parsing;}
+	void	setParseHighlights(BOOL parsing) {mParseHighlights=parsing;}
 
 	// mousehandler overrides
 	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
@@ -140,7 +142,7 @@ public:
 	void			insertText(const std::string &text);
 	// appends text at end
 	void 			appendText(const std::string &wtext, bool allow_undo, bool prepend_newline,
-							   const LLStyleSP *stylep = NULL);
+							   const LLStyleSP stylep = NULL);
 
 	void 			appendColoredText(const std::string &wtext, bool allow_undo, 
 									  bool prepend_newline,
@@ -149,8 +151,11 @@ public:
 	// if styled text starts a line, you need to prepend a newline.
 	void 			appendStyledText(const std::string &new_text, bool allow_undo, 
 									 bool prepend_newline,
-									 const LLStyleSP *stylep = NULL);
-
+									 LLStyleSP stylep = NULL);
+	void			appendHighlightedText(const std::string &new_text,  bool allow_undo, 
+										  bool prepend_newline,	 S32  highlight_part,
+										  LLStyleSP stylep);
+	
 	// Removes text from the end of document
 	// Does not change highlight or cursor position.
 	void 			removeTextFromEnd(S32 num_chars);
@@ -313,8 +318,8 @@ protected:
 	virtual BOOL	handleMouseUpOverSegment(S32 x, S32 y, MASK mask);
 
 	virtual llwchar	pasteEmbeddedItem(llwchar ext_char) { return ext_char; }
-	virtual void	bindEmbeddedChars(LLFontGL* font) const {}
-	virtual void	unbindEmbeddedChars(LLFontGL* font) const {}
+	virtual void	bindEmbeddedChars(const LLFontGL* font) const {}
+	virtual void	unbindEmbeddedChars(const LLFontGL* font) const {}
 	
 	S32				findHTMLToken(const std::string &line, S32 pos, BOOL reverse) const;
 	BOOL			findHTML(const std::string &line, S32 *begin, S32 *end) const;
@@ -402,6 +407,7 @@ protected:
 	S32				mLastSelectionY;
 
 	BOOL			mParseHTML;
+	BOOL			mParseHighlights;
 	std::string		mHTML;
 
 	typedef std::vector<LLTextSegment *> segment_list_t;

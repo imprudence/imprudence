@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -119,13 +120,13 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 		LLStringUtil::null,
 		onClickButton, this);
 	btn->setFollows(FOLLOWS_LEFT|FOLLOWS_TOP);
-	btn->setFont(LLFontGL::sSansSerifSmall);
+	btn->setFont(LLFontGL::getFontSansSerifSmall());
 	addChild(btn);
 
 	text = new LLTextBox(std::string("simple_text"), 
 		std::string("simple sans-serif text that is mouse opaque opaque opaque"),
 		50,	// max_width
-		LLFontGL::sSansSerifSmall,
+		LLFontGL::getFontSansSerifSmall(),
 		TRUE);	// mouse_opaque
 	text->setClickedCallback(onClickText);
 	text->setRect(LLRect(LEFT, y, RIGHT, y-LINE));
@@ -138,13 +139,13 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 		LLStringUtil::null,
 		onClickButton, this);
 	btn->setFollows(FOLLOWS_LEFT|FOLLOWS_TOP);
-	btn->setFont(LLFontGL::sSansSerifSmall);
+	btn->setFont(LLFontGL::getFontSansSerifSmall());
 	addChild(btn);
 
 	text = new LLTextBox(std::string("simple2_text"), 
 		LLRect(LEFT, y, RIGHT, y-LINE),
 		std::string("monospaced, non-opaque text with tooltip, non-opaque non-opaque"),
-		LLFontGL::sMonospace,
+		LLFontGL::getFontMonospace(),
 		FALSE);	// mouse_opaque
 	text->setToolTip(std::string("I'm a tooltip"));
 	addChild(text);
@@ -174,7 +175,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	text = new LLTextBox(std::string("unicode_text"),
 		LLRect(LEFT, y, RIGHT, y-LINE),
 		std::string("File"),
-		LLFontGL::sSansSerif,
+		LLFontGL::getFontSansSerif(),
 		TRUE);	// mouse_opaque
 	text->setToolTip(std::string("This should be Unicode text"));
 	panel->addChild(text);
@@ -193,7 +194,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 		std::string("tool_zoom_active.tga"),
 		LLStringUtil::null,
 		onClickButton, this,
-		LLFontGL::sSansSerifSmall);
+		LLFontGL::getFontSansSerifSmall());
 	btn->setFollows(FOLLOWS_LEFT | FOLLOWS_TOP);
 	panel->addChild(btn);
 
@@ -202,7 +203,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	check = new LLCheckBoxCtrl(std::string("simple_check"),
 		LLRect(LEFT, y, LEFT+150, y-LLCHECKBOXCTRL_HEIGHT),
 		std::string("Simple Checkbox"),
-		LLFontGL::sSansSerifSmall,
+		LLFontGL::getFontSansSerifSmall(),
 		onCommitCheck, this,
 		TRUE,	// initial_value
 		FALSE,	// radio_style
@@ -214,7 +215,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	check = new LLCheckBoxCtrl(std::string("unicode_check"),
 		LLRect(LEFT, y, LEFT+150, y-LLCHECKBOXCTRL_HEIGHT),
 		std::string("TODO: Unicode Checkbox"),
-		LLFontGL::sSansSerifSmall,
+		LLFontGL::getFontSansSerifSmall(),
 		onCommitCheck, this,
 		TRUE,	// initial_value
 		FALSE,	// radio_style
@@ -249,7 +250,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 		std::string("test_line"),
 		LLRect(LEFT, y, LEFT+200, y-20),
 		std::string("test some unicode text here"),
-		LLFontGL::sSansSerif,
+		LLFontGL::getFontSansSerif(),
 		200,	// max_length_bytes
 		onCommitLine,
 		onKeyLine,
@@ -269,11 +270,11 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	panel->addChild(group);
 
 	S32 yy = 100;
-	group->addRadioButton(std::string("Radio1"), std::string("Radio 1"), LLRect(0, yy, 200, yy-LINE), LLFontGL::sSansSerifSmall);
+	group->addRadioButton(std::string("Radio1"), std::string("Radio 1"), LLRect(0, yy, 200, yy-LINE), LLFontGL::getFontSansSerifSmall());
 	yy -= LINE;
-	group->addRadioButton(std::string("Radio2"), std::string("Radio 2"), LLRect(0, yy, 200, yy-LINE), LLFontGL::sSansSerifSmall);
+	group->addRadioButton(std::string("Radio2"), std::string("Radio 2"), LLRect(0, yy, 200, yy-LINE), LLFontGL::getFontSansSerifSmall());
 	yy -= LINE;
-	group->addRadioButton(std::string("Radio3"), std::string("Radio 3"), LLRect(0, yy, 200, yy-LINE), LLFontGL::sSansSerifSmall);
+	group->addRadioButton(std::string("Radio3"), std::string("Radio 3"), LLRect(0, yy, 200, yy-LINE), LLFontGL::getFontSansSerifSmall());
 	yy -= LINE;
 
 	//-----------------------------------------------------------------------

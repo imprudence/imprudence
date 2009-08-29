@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container" width="585">
+	<button label="Зберегти" label_selected="Зберегти" left="171" name="Save" width="100"/>
+	<button label="Відміна" label_selected="Відміна" left="280" name="Cancel" width="100"/>
+	<check_box label="Форма" name="checkbox_Shape" />
+	<check_box label="Шкіра" name="checkbox_Skin" />
+	<check_box label="Волосся" name="checkbox_Hair" />
+	<check_box label="Очі" name="checkbox_Eyes" />
+	<check_box label="Переіменувати одяг &#10;під ім&apos;я папки" name="rename" />
+	<check_box label="Сорочка" name="checkbox_Shirt" />
+	<check_box label="Штани" name="checkbox_Pants" />
+	<check_box label="Взуття" name="checkbox_Shoes" />
+	<check_box label="Шкарпетки" name="checkbox_Socks" />
+	<check_box label="Піджак" name="checkbox_Jacket" />
+	<check_box label="Рукавиці" name="checkbox_Gloves" />
+	<check_box label="Майка" name="checkbox_Undershirt" />
+	<check_box label="Труси" name="checkbox_Underpants" />
+	<check_box label="Спідниця" name="checkbox_Skirt" />
+	<check_box label="Груди" name="checkbox_Chest" />
+	<check_box label="Череп" name="checkbox_Skull" />
+	<check_box label="Ліве плече" name="checkbox_Left Shoulder" />
+	<check_box label="Праве плече" name="checkbox_Right Shoulder" />
+	<check_box label="Ліва кисть" name="checkbox_Left Hand" />
+	<check_box label="Права кисть" name="checkbox_Right Hand" />
+	<check_box label="Ліва нога" name="checkbox_Left Foot" />
+	<check_box label="Права нога" name="checkbox_Right Foot" />
+	<check_box label="Хребет" name="checkbox_Spine" />
+	<check_box label="Таз" name="checkbox_Pelvis" />
+	<check_box label="Рот" name="checkbox_Mouth" />
+	<check_box label="Підборіддя" name="checkbox_Chin" />
+	<check_box label="Ліве вухо" name="checkbox_Left Ear" />
+	<check_box label="Праве вухо" name="checkbox_Right Ear" />
+	<check_box label="Лів. глазн.яблуко" name="checkbox_Left Eyeball" />
+	<check_box label="Прав. глазн.яблуко" name="checkbox_Right Eyeball" />
+	<check_box label="Ніс" name="checkbox_Nose" />
+	<check_box label="Праве передпліччя" name="checkbox_R Upper Arm" />
+	<check_box label="Права кисть" name="checkbox_R Forearm" />
+	<check_box label="Ліве передпліччя" name="checkbox_L Upper Arm" />
+	<check_box label="Ліва кисть" name="checkbox_L Forearm" />
+	<check_box label="Праве бедро" name="checkbox_Right Hip" />
+	<check_box label="Прав.верх ноги" name="checkbox_R Upper Leg" />
+	<check_box label="Прав.низ ноги" name="checkbox_R Lower Leg" />
+	<check_box label="Ліве бедро" name="checkbox_Left Hip" />
+	<check_box label="Лів.верх ноги" name="checkbox_L Upper Leg" />
+	<check_box left="450" label="Лів.низ ноги" name="checkbox_L Lower Leg" />
+	<check_box left="450" label="Живіт" name="checkbox_Stomach" />
+	<check_box left="450" label="Ліва нагрудна &#10;прикраса" name="checkbox_Left Pec" />
+	<check_box left="450" bottom="-288" label="Права нагрудна &#10;прикраса" name="checkbox_Right Pec" />
+	<check_box left="450" bottom="-320" label="Центр 2" name="checkbox_Center 2" />
+	<check_box left="450" bottom="-340" label="Правий верх" name="checkbox_Top Right" />
+	<check_box left="450" bottom="-360" label="Верх" name="checkbox_Top" />
+	<check_box left="450" bottom="-380" label="Лівий верх" name="checkbox_Top Left" />
+	<check_box left="450" bottom="-400" label="Центр" name="checkbox_Center" />
+	<check_box left="450" bottom="-420" label="Низ зліва" name="checkbox_Bottom Left" />
+	<check_box left="450" bottom="-440" label="Низ" name="checkbox_Bottom" />
+	<check_box left="450" bottom="-460" label="Низ справа" name="checkbox_Bottom Right" />
+	<text type="string" length="1" name="Make New Outfit" font="SansSerifLarge">
+		Створити новий набір
+	</text>
+	<text type="string" length="1" width="540"
+	     name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
+		Набори -- це папки, що містять одяг і частини тіл.
+Перетагніть папку з набором на Вашого аватара, що увімкнути його.
+
+&apos;Створити новий набір&apos; створює нову папку зі змістом всього вдягненого на Вас зараз.
+	</text>
+	<text type="string" length="1" name="Folder name:" font="SansSerifLarge">
+		Ім&apos;я папки:
+	</text>
+	<text type="string" length="1" name="Items to include in outfit:" font="SansSerifLarge">
+		Елементи для включення в набір:
+	</text>
+	<text type="string" length="1" name="Body Parts:">
+		Частини тіл:
+	</text>
+	<text type="string" length="1" name="Clothes:">
+		Одяг:
+	</text>
+	<text type="string" length="1" name="Attachments:">
+		Прикріплене:
+	</text>
+	<text type="string" length="1" name="Options:">
+		Опції:
+	</text>
+	<!-- removed translation due to VWR-1843
+	<line_editor name="name ed">
+		Новий набір
+	</line_editor>
+	-->
+</floater>

@@ -33,7 +33,7 @@
 	     embedded_items="false" enabled="false" follows="left|top"
 	     font="SansSerifSmall" height="65" hide_border="true" hide_scrollbar="true"
 	     left_delta="20" max_length="65535" mouse_opaque="true"
-	     name="voice_chat_description" tab_stop="false" width="450" word_wrap="true">
+	     name="voice_chat_description" tab_stop="false" width="465" word_wrap="true">
 		Push-to-Talk mode lets you control when your voice is transmitted. When in toggle mode, press and release the push-to-talk trigger to switch your microphone on and off. When not in toggle mode, the microphone is active only when the trigger is held down.
 	</text_editor>
 	<check_box bottom_delta="-20" enabled="true"
@@ -67,6 +67,11 @@
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Only accept voice calls from people on My Friends list"
 	     left_delta="20" mouse_opaque="true" name="voice_call_friends_only_check"
+	     radio_style="false" width="200" />
+	<check_box bottom_delta="-18" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Switch off microphone when ending IM calls"
+		 mouse_opaque="true" name="auto_disengage_mic_check"
 	     radio_style="false" width="200" />
 	<button bottom_delta="-40" follows="left|top" font="SansSerif" height="20"
 	     label="Device Settings" left="28" mouse_opaque="true"

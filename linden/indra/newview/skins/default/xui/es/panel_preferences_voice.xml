@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Chat de voz" name="chat">
+	<text_editor name="voice_unavailable">
+		El chat de voz no está disponible
+	</text_editor>
+	<check_box label="Activar el chat de voz" name="enable_voice_check"/>
+	<radio_group name="ear_location">
+		<radio_item name="0">
+			Oír el chat desde la posición de la cámara.
+		</radio_item>
+		<radio_item name="1">
+			Oír el chat desde la posición del avatar.
+		</radio_item>
+	</radio_group>
+	<text name="push_to_talk_heading">
+		Apretar para Hablar
+	</text>
+	<text_editor name="voice_chat_description">
+		El modo Apretar para Hablar controla cuándo se transmite su voz. En el modo &apos;un toque&apos;, pulse y suelte el botón Apretar para Hablar para activar y desactivar su micrófono. Si no se está en el modo &apos;un toque&apos;, el micrófono está activo sólo cuando se mantiene pulsado el botón.
+	</text_editor>
+	<check_box label="Usar Apretar para Hablar en el modo &apos;un toque&apos;" name="push_to_talk_toggle_check"/>
+	<text name="push_to_talk_label">
+		Botón de Apretar para Hablar:
+	</text>
+	<button label="Asignar una tecla" name="set_voice_hotkey_button"/>
+	<button label="Botón medio del ratón" name="set_voice_middlemouse_button"/>
+	<text name="privacy_heading">
+		Opciones de la privacidad
+	</text>
+	<check_box label="Aceptar llamadas de voz sólo de gente de mi lista de amigos" name="voice_call_friends_only_check"/>
+	<check_box label="Apagar el micrófono cuando acaben las llamadas por MI" name="auto_disengage_mic_check"/>
+	<button label="Configuración de los dispositivos" name="device_settings_btn" width="210" />
+	<text_editor name="device_settings_text">
+		NOTA: configurar los dispositivos le desconectará temporalmente del chat de voz, y los cambios que haga se aplicarán al momento.
+	</text_editor>
+</panel>

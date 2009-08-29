@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -247,7 +248,7 @@ void LLFloaterProperties::refresh()
 			"RadioSaleType",
 			"EditPrice"
 		};
-		for(size_t t=0; t<sizeof(enableNames)/sizeof(char*); ++t)
+		for(size_t t=0; t<LL_ARRAY_SIZE(enableNames); ++t)
 		{
 			childSetEnabled(enableNames[t],false);
 		}
@@ -258,7 +259,7 @@ void LLFloaterProperties::refresh()
 			"EveryoneMaskDebug",
 			"NextMaskDebug"
 		};
-		for(size_t t=0; t<sizeof(hideNames)/sizeof(char*); ++t)
+		for(size_t t=0; t<LL_ARRAY_SIZE(hideNames); ++t)
 		{
 			childSetVisible(hideNames[t],false);
 		}
@@ -876,10 +877,13 @@ void LLFloaterProperties::updateSaleInfo()
 	{
 		LLPointer<LLViewerInventoryItem> new_item = new LLViewerInventoryItem(item);
 
-		// Force an update on the sale price.
-		U32 flags = new_item->getFlags();
-		flags |= LLInventoryItem::II_FLAGS_OBJECT_SLAM_SALE;
-		new_item->setFlags(flags);
+		// Force an update on the sale price at rez
+		if (item->getType() == LLAssetType::AT_OBJECT)
+		{
+			U32 flags = new_item->getFlags();
+			flags |= LLInventoryItem::II_FLAGS_OBJECT_SLAM_SALE;
+			new_item->setFlags(flags);
+		}
 
 		new_item->setSaleInfo(sale_info);
 		if(mObjectID.isNull())

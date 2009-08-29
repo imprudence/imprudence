@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="landmarkpicker" title="Організуйте: Закладки">
+	<check_box label="Показати папки" name="show_folders_check" />
+	<button label="Новий" label_selected="Новий" name="New" />
+	<button label="Переіменуйте" label_selected="Переіменуйте"
+	     name="Rename" />
+	<button label="Нова папка" label_selected="Нова папка"
+	     name="NewFolder" />
+	<button label="Правка" label_selected="Правка" name="Edit" />
+	<button label="Видалення" label_selected="Видалення" name="Delete" />
+	<button label="Закрити" label_selected="Закрити" name="Close" />
+</floater>

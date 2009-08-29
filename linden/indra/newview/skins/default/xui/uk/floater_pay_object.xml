@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Give Money" title="">
+	<text type="string" length="1" name="payee_group" width="100" halign="left">
+		Платити групі:
+	</text>
+	<text type="string" length="1" name="payee_resident" width="125" halign="left">
+		Платити резиденту:
+	</text>
+	<text type="string" length="1" name="payee_name" left="128">
+		[FIRST] [LAST]
+	</text>
+	<text type="string" length="1" name="object_name_label" left="5" width="110" halign="left">
+		Через об&apos;єкт:
+	</text>
+	<text type="string" length="1" name="object_name_text" left="128" >
+		...
+	</text>
+	<text type="string" length="1" name="fastpay text" width="115" halign="left">
+		Швидка оплата:
+	</text>
+	<text type="string" length="1" name="amount text" left="5" halign="left">
+		Кількість:
+	</text>
+	<button label="L$1" label_selected="L$1" name="fastpay 1" left="125" width="70" />
+	<button label="L$5" label_selected="L$5" name="fastpay 5" left="200" width="70" />
+	<button label="L$10" label_selected="L$10" name="fastpay 10" left="125" width="70" />
+	<button label="L$20" label_selected="L$20" name="fastpay 20" left="200" width="70" />
+	<button label="Платити" label_selected="Платити" name="pay btn" />
+	<button label="Відміна" label_selected="Відміна" name="cancel btn" />
+	<line_editor left="70" name="amount" width="50" />
+</floater>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Inventory Finder" title="inventory_recent_items">
+	<check_box label="Animációk" name="check_animation" />
+	<check_box label="Hívókártyák" name="check_calling_card" />
+	<check_box label="Öltözet" name="check_clothing" />
+	<check_box label="Gesztusok" name="check_gesture" />
+	<check_box label="Helyszín jelölések" name="check_landmark" />
+	<check_box label="Feljegyzések" name="check_notecard" />
+	<check_box label="Tárgyak" name="check_object" />
+	<check_box label="Kódok" name="check_script" />
+	<check_box label="Hangok" name="check_sound" />
+	<check_box label="Textúrák" name="check_texture" />
+	<check_box label="Fényképek" name="check_snapshot" />
+	<button label="Összes" label_selected="Összes" name="All"  width="70"/>
+	<button label="Egyik sem" label_selected="Egyik sem" name="None" width="70" bottom_delta="0" left="83"/>
+	<check_box label="Mappákat mindig &#10;megjeleníti" name="check_show_empty" bottom="-284"/>
+	<check_box label="Kijelentkezés óta" name="check_since_logoff" bottom_delta="-32"/>
+	<text type="string" length="1" name="- OR -">
+		- VAGY -
+	</text>
+	<spinner label="Órával ezelőtt" name="spin_hours_ago" label_width="78"/>
+	<spinner label="Nappal ezelőtt" name="spin_days_ago" label_width="78"/>
+	<button label="Bezár" label_selected="Bezár" name="Close" />
+</floater>

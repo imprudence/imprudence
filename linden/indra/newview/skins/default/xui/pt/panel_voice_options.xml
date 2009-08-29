@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="content_panel">
+	<text_editor name="voice_intro_text1">
+		Utilize as opções abaixo para configurar a experiência de bate-papo de Voz.
+	</text_editor>
+	<radio_group name="ear_location">
+		<radio_item name="0">
+			Ouvir o bate-papo de Voz pela posição de câmera.
+		</radio_item>
+		<radio_item name="1">
+			Ouvir o bate-papo de Voz pela posição do avatar.
+		</radio_item>
+	</radio_group>
 	<check_box label="Permitir somente amigos de iniciar chamadas de voz comigo." name="friends_only_check"/>
+	<check_box label="Use pressione-para-falar em modo alternado" name="push_to_talk_toggle_check"/>
+	<text name="push_to_talk_label">
+		acionar pressione-para-falar:
+	</text>
+	<button label="Estabelecer chave" name="set_voice_hotkey_button"/>
+	<button label="Botâo do meio do Mouse" name="set_voice_middlemouse_button"/>
 </panel>

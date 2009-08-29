@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Place" title="Miejsce">
+	<text name="name_label">
+		Nazwa:
+	</text>
+	<text name="description_label">
+		Opis:
+	</text>
+	<text name="information_label">
+		Informacje:
+	</text>
+	<text name="land_type_label">
+		Rodzaj Posiadłości:
+	</text>
+	<text name="location_label">
+		Położenie:
+	</text>
+	<button label="Teleportuj" name="teleport_btn"/>
+	<button label="Pokaż na Mapie" name="map_btn"/>
+	<button label="Oferty..." name="auction_btn"/>
+	<string name="traffic_text">
+		Ruch: [TRAFFIC]
+	</string>
+	<string name="area_text">
+		Obszar: [AREA] m².
+	</string>
+	<string name="forsale_text">
+		Na sprzedaż za: L$[PRICE]
+	</string>
+	<string name="auction_text">
+		ID Aukcji: [ID]
+	</string>
+	<string name="server_update_text">
+		Informacje o tym miejscu nie będą dostępne bez aktualizacji serwera.
+	</string>
+	<string name="server_error_text">
+		Informacje o tym miejscu są obecnie niedostępne, spróbuj pózniej.
+	</string>
+	<string name="server_forbidden_text">
+		Dostęp do informacji o tym miejscu jest ograniczony. Zweryfikuj swoje przywileje z właścicielem posiadłości.
+	</string>
+</panel>

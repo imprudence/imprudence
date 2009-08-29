@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(невідомо)" name="im_floater" title="(невідомо)" min_width="460" width="501">
+	<string name="ringing">
+		Приєднуємося до Голосового Чату...
+	</string>
+	<string name="connected">
+		Підключено, натисніть Закінчити для того, щоб закінчити зв&apos;язок
+	</string>
+	<string name="hang_up">
+		Покинути Голосовий Чат
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="live_help_dialog">
+		*** Ласкаво просимо в Запит Допомоги *** 
+Будь ласка,, перевірте спочатку сторінки допомоги по SL, натиснувши F1, або зверніться до Бази Знань http://secondlife.com/knowledgebase/ 
+Якщо Вашої відповіді тут немає, то напишіть своє питання, і потім зачекайте декілька хвилин доки доступний помічник не відповість Вам.
+ -=-=- Час відповіді може бути різним, особливо, в години пік -=-=-
+	</string>
+	<string name="title_string">
+		Миттєве повідомлення з [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] друкує...
+	</string>
+	<string name="session_start_string">
+		Починаємо сесію з [NAME], будь ласка зачекайте.
+	</string>
+	<string name="moderated_chat_label">
+		(Модеровано: Голоси вимкнені за замовчуванням)
+	</string>
+	<string name="default_text_label">
+		Натисніть сюди для IM
+	</string>
+	<string name="muted_text_label">
+		Ваш текстовий чат вимкнений Модератором Групи.
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Інфо про Групу" name="group_info_btn" width="120"/>
+			<button label="Приєд." left_delta="125" name="start_call_btn" width="145" halign="center" />
+			<button label="Закінчити Дзвінок" name="end_call_btn"  width="145" halign="right" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Натисніть сюди для показу активних учасників IM сесії." />
+			<line_editor name="chat_editor" width="86" />
+			<button label="Відправити" name="send_btn" width="80" left="96"  />
+		</layout_panel>
+		<layout_panel min_width="200" name="active_speakers_panel" width="200" />
+	</layout_stack>
+</floater>

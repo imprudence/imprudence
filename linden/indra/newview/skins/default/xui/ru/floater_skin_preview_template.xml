@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater name="floater_chatterbox" title="">
+	<panel>
+		<button label="" name="chat_btn" tool_tip="Показать Чат.(Ввод)" />
+		<flyout_button label="Общаться" name="communicate_btn"
+		     tool_tip="Общаться со своими Друзьями и Группами.и" />
+		<button label="Полет" label_selected="Остановить Полет"
+		     name="fly_btn"
+		     tool_tip="Начать полет. Используйте E/C или PgUp/PgDn, чтобы подниматься или опускаться." />
+	</panel>
+	<panel name="panel_unfocused_floater">
+		<text name="titlebar_focused">
+			Несфокусированный
+		</text>
+		<combo_box label="Комбо-бокс" name="combo_box_1" />
+		<text_editor type="string" length="1" name="Chat History Editor">
+			Текст
+		</text_editor>
+	</panel>
+	<panel name="panel_focused_floater">
+		<text name="titlebar_focused">
+			Сфокусированный
+		</text>
+		<tab_container name="chatterbox_tabs">
+			<panel label="Сфокусированный" name="test_1">
+				<slider label="Слайдер" name="SliderTestName" />
+				<check_box label="Истина" name="check_box_test_1" />
+				<check_box label="Ложь" name="check_box_test_1" />
+				<text_editor type="string" length="1" name="Chat History Editor">
+					Текст Чата
+				</text_editor>
+			</panel>
+			<panel label="Несфокусированный" name="test_2" />
+		</tab_container>
+	</panel>
+</multi_floater>

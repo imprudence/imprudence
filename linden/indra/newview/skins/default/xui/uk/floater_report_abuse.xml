@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_report_abuse" title="Поскаржитися">
+	<texture_picker label="" name="screenshot"/>
+	<check_box label="Включити скріншот" name="screen_check"/>
+	<text name="reporter_title">
+		Автор:
+	</text>
+	<text name="reporter_field">
+		Loremipsum Dolorsitamut
+	</text>
+	<text name="sim_title">
+		Регіон:
+	</text>
+	<text name="sim_field">
+		Назва регіона
+	</text>
+	<text name="pos_title">
+		Координати:
+	</text>
+	<text name="pos_field">
+		{128.1, 128.1, 15.4}
+	</text>
+	<text name="select_object_label">
+		Натисніть кнопку, потім об&apos;єкт
+	</text>
+	<button label="" label_selected="" name="pick_btn" tool_tip="Вибір об&apos;єкта - укажіть об&apos;єкт як предмет скарги"/>
+	<text name="object_name_label">
+		Ім&apos;я:
+	</text>
+	<text name="object_name">
+		Чий:
+	</text>
+	<text name="owner_name_label">
+		Власник:
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
+	</text>
+	<combo_box name="category_combo" tool_tip="Категорія -- виберіть категорію, що найбільше підходить по типу порушення">
+		<combo_item name="Select_category">
+			Оберіть категорію
+		</combo_item>
+		<combo_item name="Age__Age_play">
+			Вік &gt; Неправдива інформація про вік
+		</combo_item>
+		<combo_item name="Age__Adult_resident_on_Teen_Second_Life">
+			Вік &gt; Adult резидент у Teen Second Life
+		</combo_item>
+		<combo_item name="Age__Underage_resident_outside_of_Teen_Second_Life">
+			Вік &gt; Неповнолітній резидент за межами Teen Second Life
+		</combo_item>
+		<combo_item name="Assault__Combat_sandbox___unsafe_area">
+			Напад &gt; Бойова пісочниця / небезпечна зона
+		</combo_item>
+		<combo_item name="Assault__Safe_area">
+			Напад &gt; Безпечна зона
+		</combo_item>
+		<combo_item name="Assault__Weapons_testing_sandbox">
+			Напад &gt; Пісочниця для тестування зброї
+		</combo_item>
+		<combo_item name="Commerce__Failure_to_deliver_product_or_service">
+			Комерція &gt; Невдача при достаці продукту або наданні послуги
+		</combo_item>
+		<combo_item name="Disclosure__Real_world_information">
+			Розкриття &gt; інформації з Реального світу
+		</combo_item>
+		<combo_item name="Disclosure__Remotely_monitoring chat">
+			Розкриття &gt; Віддалений моніторинг чату
+		</combo_item>
+		<combo_item name="Disclosure__Second_Life_information_chat_IMs">
+			Розкриття &gt; Інформація з Second Life/Чат/ПП
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Unfair_use_of_region_resources">
+			Порушення миру &gt; Нечесне використання ресурсів регіону
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Excessive_scripted_objects">
+			Порушення миру &gt; Надмірно заскриптовані об&apos;єкти
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Object_littering">
+			Порушення миру &gt; Засмічення об&apos;єктами
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Repetitive_spam">
+			Порушення миру &gt; Спам, який повторюється
+		</combo_item>
+		<combo_item name="Disturbing_the_peace__Unwanted_advert_spam">
+			Порушення миру &gt; Небажаний рекламний спам
+		</combo_item>
+		<combo_item name="Fraud__L$">
+			Шахрайство &gt; L$
+		</combo_item>
+		<combo_item name="Fraud__Land">
+			Шахрайство &gt; Земля
+		</combo_item>
+		<combo_item name="Fraud__Pyramid_scheme_or_chain_letter">
+			Шахрайство &gt; Піраміда або ланцюг листів
+		</combo_item>
+		<combo_item name="Fraud__US$">
+			Шахрайство &gt; US$
+		</combo_item>
+		<combo_item name="Harassment__Advert_farms___visual_spam">
+			Переслідування &gt; Рекламні ферми / візуальний спам
+		</combo_item>
+		<combo_item name="Harassment__Defaming_individuals_or_groups">
+			Переслідування &gt; Наклеп особистості або групи
+		</combo_item>
+		<combo_item name="Harassment__Impeding_movement">
+			Переслідування &gt; Перешкоджання руху
+		</combo_item>
+		<combo_item name="Harassment__Sexual_harassment">
+			Переслідування &gt; Сексуальне домагання
+		</combo_item>
+		<combo_item name="Harassment__Solicting_inciting_others_to_violate_ToS">
+			Переслідування &gt; Провокування інших на порушення ToS
+		</combo_item>
+		<combo_item name="Harassment__Verbal_abuse">
+			Переслідування &gt; Усна образа
+		</combo_item>
+		<combo_item name="Indecency__Broadly_offensive_content_or_conduct">
+			Непристойність &gt; Образливий зміст або поведінка
+		</combo_item>
+		<combo_item name="Indecency__Inappropriate_avatar_name">
+			Непристойність &gt; Недоречне ім&apos;я аватара
+		</combo_item>
+		<combo_item name="Indecency__Mature_content_in_PG_region">
+			Непристойність &gt; Недоречний зміст або поведінка в PG регіоні
+		</combo_item>
+		<combo_item name="Indecency__Inappropriate_content_in_Mature_region">
+			Непристойність &gt; Недоречний зміст або поведінка в Mature регіоні
+		</combo_item>
+		<combo_item name="Intellectual_property_infringement_Content_Removal">
+			Порушення інтелектуальної власності &gt; Видалення контенту
+		</combo_item>
+		<combo_item name="Intellectual_property_infringement_CopyBot_or_Permissions_Exploit">
+			Порушення інтелектуальної власності &gt; CopyBot або використання Прав
+		</combo_item>
+		<combo_item name="Intolerance">
+			Нетерпимість
+		</combo_item>
+		<combo_item name="Land__Abuse_of_sandbox_resources">
+			Земля &gt; Зловживання ресурсами пісочниці
+		</combo_item>
+		<combo_item name="Land__Encroachment__Objects_textures">
+			Земля &gt; Вторгнення &gt; Об&apos;єкти/текстури
+		</combo_item>
+		<combo_item name="Land__Encroachment__Particles">
+			Земля &gt; Вторгнення &gt; Частинки
+		</combo_item>
+		<combo_item name="Land__Encroachment__Trees_plants">
+			Земля &gt; Вторгнення &gt; Дерева/рослини
+		</combo_item>
+		<combo_item name="Wagering_gambling">
+			Парі/азартні ігри
+		</combo_item>
+		<combo_item name="Other">
+			Інше
+		</combo_item>
+	</combo_box>
+	<text name="abuser_name_title">
+		Ім&apos;я порушника
+	</text>
+	<button label="Вибрати резидента" label_selected="" name="select_abuser" tool_tip="Виберіть ім&apos;я порушника зі списку"/>
+	<check_box label="Ім&apos;я порушника невідоме" name="omit_abuser_name" tool_tip="Відмітьте, якщо не можете надати ім&apos;я порушника"/>
+	<text name="abuser_name_title2">
+		Розміщення скарги:
+	</text>
+	<text name="sum_title">
+		Разом:
+	</text>
+	<text name="dscr_title">
+		Деталі:
+	</text>
+	<text name="bug_aviso">
+		Укажіть, будь ласка, дату, місце, суть порушення,
+процитуйте чат або IM, укажіть об&apos;єкт,
+якщо можливо.
+	</text>
+	<text name="incomplete_title">
+		Примітка: Неповні заяви не будуть розглядатися
+	</text>
+	<button label="Відмінити" label_selected="Відмінити" name="cancel_btn"/>
+	<button label="Поскаржитися" label_selected="Поскаржитися" name="send_btn"/>
+</floater>

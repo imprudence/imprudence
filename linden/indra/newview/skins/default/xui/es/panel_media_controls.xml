@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="media_controls">
+	<icon label="" name="music_icon" tool_tip="Play/Pausa la música en streaming"/>
+	<button label="" name="music_play" tool_tip="Play/Pausa la música en streaming"/>
+	<button label="" name="music_pause" tool_tip="Pausar la música en streaming"/>
+	<button label="" name="music_stop" tool_tip="Parar la música en streaming"/>
+	<icon label="" name="media_icon" tool_tip="Play/Pausa la música en streaming"/>
+	<button label="" name="media_play" tool_tip="Play/Pausa la música en streaming"/>
+	<button label="" name="media_pause" tool_tip="Pausar los media en streaming"/>
+	<button label="" name="media_stop" tool_tip="Parar los media en streaming"/>
+	<volume_slider name="volume_slider" tool_tip="Volumen general"/>
+	<button label="" name="mute_master" tool_tip="Silenciador general"/>
+	<button label="" name="expand" tool_tip="Ajustar individualmente los niveles del volumen"/>
+	<string name="play_label">
+		Play
+	</string>
+	<string name="stop_label">
+		Parar
+	</string>
+	<string name="pause_label">
+		Pausas
+	</string>
+	<string name="default_tooltip_label">
+		No hay media especificados
+	</string>
+	<string name="media_hidden_label">
+		(URL ocultada por el propietario de la parcela)
+	</string>
+	<string name="media_icon_tooltip_web">
+		Esta localización muestra contenidos web. Pulse el botón Play para verlos.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		Esta localización muestra contenidos en vídeo. Pulse el botón Play para verlos.
+	</string>
+	<string name="media_play_tooltip">
+		Mostrar el contenido web de esta localización.
+	</string>
+</panel>

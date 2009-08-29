@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -41,6 +42,7 @@
 #include "llgltypes.h"
 #include "llcubemap.h"
 #include "lldrawpool.h"
+#include "llface.h"
 
 #include <queue>
 
@@ -53,6 +55,9 @@ class LLSpatialGroup;
 
 S32 AABBSphereIntersect(const LLVector3& min, const LLVector3& max, const LLVector3 &origin, const F32 &rad);
 S32 AABBSphereIntersectR2(const LLVector3& min, const LLVector3& max, const LLVector3 &origin, const F32 &radius_squared);
+
+// get index buffer for binary encoded axis vertex buffer given a box at center being viewed by given camera
+U8* get_box_fan_indices(LLCamera* camera, const LLVector3& center);
 
 class LLDrawInfo : public LLRefCount 
 {
@@ -81,6 +86,9 @@ public:
 	F32 mPartSize;
 	F32 mVSize;
 	LLSpatialGroup* mGroup;
+	LLFace* mFace; //associated face
+	F32 mDistance;
+	LLVector3 mExtents[2];
 
 	struct CompareTexture
 	{
@@ -97,6 +105,16 @@ public:
 			// sort by pointer, sort NULL down to the end
 			return lhs.get() != rhs.get() 
 						&& (lhs.isNull() || (rhs.notNull() && lhs->mTexture.get() > rhs->mTexture.get()));
+		}
+	};
+
+	struct CompareVertexBuffer
+	{ //sort by texture
+		bool operator()(const LLPointer<LLDrawInfo>& lhs, const LLPointer<LLDrawInfo>& rhs)	
+		{
+			// sort by pointer, sort NULL down to the end
+			return lhs.get() != rhs.get() 
+					&& (lhs.isNull() || (rhs.notNull() && lhs->mVertexBuffer.get() > rhs->mVertexBuffer.get()));
 		}
 	};
 
@@ -120,6 +138,16 @@ public:
 						&& (lhs.isNull() || (rhs.notNull() && lhs->mBump > rhs->mBump));
 		}
 	};
+
+	struct CompareDistanceGreater
+	{
+		bool operator()(const LLPointer<LLDrawInfo>& lhs, const LLPointer<LLDrawInfo>& rhs) 
+		{
+			// sort by mBump value, sort NULL down to the end
+			return lhs.get() != rhs.get() 
+						&& (lhs.isNull() || (rhs.notNull() && lhs->mDistance > rhs->mDistance));
+		}
+	};
 };
 
 class LLSpatialGroup : public LLOctreeListener<LLDrawable>
@@ -135,7 +163,8 @@ public:
 	typedef std::vector<LLPointer<LLDrawInfo> > drawmap_elem_t; 
 	typedef std::map<U32, drawmap_elem_t > draw_map_t;	
 	typedef std::vector<LLPointer<LLVertexBuffer> > buffer_list_t;
-	typedef std::map<LLPointer<LLViewerImage>, buffer_list_t> buffer_map_t;
+	typedef std::map<LLPointer<LLViewerImage>, buffer_list_t> buffer_texture_map_t;
+	typedef std::map<U32, buffer_texture_map_t> buffer_map_t;
 
 	typedef LLOctreeListener<LLDrawable>	BaseType;
 	typedef LLOctreeListener<LLDrawable>	OctreeListener;
@@ -225,6 +254,7 @@ public:
 	BOOL needsUpdate();
 	BOOL changeLOD();
 	void rebuildGeom();
+	void rebuildMesh();
 
 	void dirtyGeom() { setState(GEOM_DIRTY); }
 	void dirtyMesh() { setState(MESH_DIRTY); }
@@ -285,8 +315,10 @@ public:
 	std::vector<LLFace*> mFaceList;
 	virtual ~LLGeometryManager() { }
 	virtual void rebuildGeom(LLSpatialGroup* group) = 0;
+	virtual void rebuildMesh(LLSpatialGroup* group) = 0;
 	virtual void getGeometry(LLSpatialGroup* group) = 0;
 	virtual void addGeometryCount(LLSpatialGroup* group, U32 &vertex_count, U32 &index_count);
+	
 	virtual LLVertexBuffer* createVertexBuffer(U32 type_mask, U32 usage);
 };
 
@@ -319,7 +351,9 @@ public:
 	virtual F32 calcPixelArea(LLSpatialGroup* group, LLCamera& camera);
 
 	virtual void rebuildGeom(LLSpatialGroup* group);
+	virtual void rebuildMesh(LLSpatialGroup* group);
 
+	BOOL visibleObjectsInFrustum(LLCamera& camera);
 	S32 cull(LLCamera &camera, std::vector<LLDrawable *>* results = NULL, BOOL for_select = FALSE); // Cull on arbitrary frustum
 	
 	BOOL isVisible(const LLVector3& v);
@@ -328,9 +362,12 @@ public:
 	virtual BOOL isBridge() { return asBridge() != NULL; }
 
 	void renderDebug();
+	void renderIntersectingBBoxes(LLCamera* camera);
 	void restoreGL();
 	void resetVertexBuffers();
-	
+	BOOL isOcclusionEnabled();
+	BOOL getVisibleExtents(LLCamera& camera, LLVector3& visMin, LLVector3& visMax);
+
 public:
 	LLSpatialGroup::OctreeNode* mOctree;
 	BOOL mOcclusionEnabled; // if TRUE, occlusion culling is performed
@@ -362,7 +399,7 @@ public:
 	virtual void updateSpatialExtents();
 	virtual void updateBinRadius();
 	virtual void setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results = NULL, BOOL for_select = FALSE);
-	virtual void updateDistance(LLCamera& camera_in);
+	virtual void updateDistance(LLCamera& camera_in, bool force_update);
 	virtual void makeActive();
 	virtual void move(LLDrawable *drawablep, LLSpatialGroup *curp, BOOL immediate = FALSE);
 	virtual BOOL updateMove();
@@ -444,6 +481,7 @@ private:
 	drawinfo_list_t		mRenderMap[LLRenderPass::NUM_RENDER_TYPES];
 };
 
+
 //spatial partition for water (implemented in LLVOWater.cpp)
 class LLWaterPartition : public LLSpatialPartition
 {
@@ -510,8 +548,11 @@ class LLVolumeGeometryManager: public LLGeometryManager
 public:
 	virtual ~LLVolumeGeometryManager() { }
 	virtual void rebuildGeom(LLSpatialGroup* group);
+	virtual void rebuildMesh(LLSpatialGroup* group);
 	virtual void getGeometry(LLSpatialGroup* group);
+	void genDrawInfo(LLSpatialGroup* group, U32 mask, std::vector<LLFace*>& faces, BOOL distance_sort = FALSE);
 	void registerFace(LLSpatialGroup* group, LLFace* facep, U32 type);
+
 };
 
 //spatial partition that uses volume geometry manager (implemented in LLVOVolume.cpp)
@@ -521,6 +562,7 @@ public:
 	LLVolumePartition();
 	virtual void rebuildGeom(LLSpatialGroup* group) { LLVolumeGeometryManager::rebuildGeom(group); }
 	virtual void getGeometry(LLSpatialGroup* group) { LLVolumeGeometryManager::getGeometry(group); }
+	virtual void rebuildMesh(LLSpatialGroup* group) { LLVolumeGeometryManager::rebuildMesh(group); }
 	virtual void addGeometryCount(LLSpatialGroup* group, U32 &vertex_count, U32& index_count) { LLVolumeGeometryManager::addGeometryCount(group, vertex_count, index_count); }
 };
 
@@ -531,6 +573,7 @@ public:
 	LLVolumeBridge(LLDrawable* drawable);
 	virtual void rebuildGeom(LLSpatialGroup* group) { LLVolumeGeometryManager::rebuildGeom(group); }
 	virtual void getGeometry(LLSpatialGroup* group) { LLVolumeGeometryManager::getGeometry(group); }
+	virtual void rebuildMesh(LLSpatialGroup* group) { LLVolumeGeometryManager::rebuildMesh(group); }
 	virtual void addGeometryCount(LLSpatialGroup* group, U32 &vertex_count, U32& index_count) { LLVolumeGeometryManager::addGeometryCount(group, vertex_count, index_count); }
 };
 

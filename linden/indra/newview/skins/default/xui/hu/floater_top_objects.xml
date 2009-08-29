@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="top_objects" title="betöltés folyamatban...">
+	<text name="title_text">
+		Betöltés folyamatban...
+	</text>
+	<scroll_list name="objects_list">
+		<column label="Pontszám" name="score" width="84"/>
+		<column label="Név" name="name" width="84"/>
+		<column label="Tulajdonos" name="owner" width="84"/>
+		<column label="Helyszín" name="location" width="84"/>
+		<column label="Idő" name="time" width="84"/>
+		<column label="Mono idő" name="mono_time" width="84"/>
+	</scroll_list>
+	<line_editor font="SansSerifSmall" left="100" name="id_editor" width="244"/>
+	<text bottom_delta="-30" left="10" name="id_text" label_width="100">
+		Tárgy azonosító:
+	</text>
+	<button label="Jelzőfények megjelenítése" name="show_beacon_btn" width="160"/>
+	<line_editor font="SansSerifSmall" left="100" name="object_name_editor" width="244"/>
+	<text left="10" name="obj_name_text" width="100">
+		Tárgy neve:
+	</text>
+	<button label="Szűrő" name="filter_object_btn" width="160"/>
+	<line_editor font="SansSerifSmall" left="100" name="owner_name_editor" width="244"/>
+	<text left="10" name="owner_name_text" width="100">
+		Tulajdonos neve:
+	</text>
+	<button label="Szűrő" name="filter_owner_btn" width="160"/>
+	<button label="Kijelölt visszaküldése" name="return_selected_btn"/>
+	<button label="Mindet visszaküld" name="return_all_btn"/>
+	<button label="Kijelölt letiltása" name="disable_selected_btn"/>
+	<button label="Mindet letilt" name="disable_all_btn"/>
+	<button label="Frissít" name="refresh_btn" width="160"/>
+	<string name="top_scripts_title">
+		Főbb kódok
+	</string>
+	<string name="top_scripts_text">
+		[COUNT] kód betöltése ennyi időt vesz igénybe: [TIME] ms
+	</string>
+	<string name="scripts_score_label">
+		Idő
+	</string>
+	<string name="scripts_mono_time_label">
+		Mono idő
+	</string>
+	<string name="top_colliders_title">
+		Főbb ütközések
+	</string>
+	<string name="top_colliders_text">
+		[COUNT] tárgy számos ütközést okozhat
+	</string>
+	<string name="colliders_score_label">
+		Pontszám
+	</string>
+	<string name="none_descriptor">
+		Egyet sem talált.
+	</string>
+</floater>

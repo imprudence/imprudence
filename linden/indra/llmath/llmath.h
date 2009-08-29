@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -37,6 +38,10 @@
 #include "lldefs.h"
 #include "llstl.h" // *TODO: Remove when LLString is gone
 #include "llstring.h" // *TODO: Remove when LLString is gone
+// lltut.h uses is_approx_equal_fraction(). This was moved to its own header
+// file in llcommon so we can use lltut.h for llcommon tests without making
+// llcommon depend on llmath.
+#include "is_approx_equal_fraction.h"
 
 // work around for Windows & older gcc non-standard function names.
 #if LL_WINDOWS
@@ -85,6 +90,8 @@ const F32	GRAVITY			= -9.8f;
 const F32	F_PI		= 3.1415926535897932384626433832795f;
 const F32	F_TWO_PI	= 6.283185307179586476925286766559f;
 const F32	F_PI_BY_TWO	= 1.5707963267948966192313216916398f;
+const F32	F_SQRT_TWO_PI = 2.506628274631000502415765284811f;
+const F32	F_E			= 2.71828182845904523536f;
 const F32	F_SQRT2		= 1.4142135623730950488016887242097f;
 const F32	F_SQRT3		= 1.73205080756888288657986402541f;
 const F32	OO_SQRT2	= 0.7071067811865475244008443621049f;
@@ -103,6 +110,30 @@ const F32 FP_MAG_THRESHOLD = 0.0000001f;
 // TODO: Replace with logic like is_approx_equal
 inline BOOL is_approx_zero( F32 f ) { return (-F_APPROXIMATELY_ZERO < f) && (f < F_APPROXIMATELY_ZERO); }
 
+// These functions work by interpreting sign+exp+mantissa as an unsigned
+// integer.
+// For example:
+// x = <sign>1 <exponent>00000010 <mantissa>00000000000000000000000
+// y = <sign>1 <exponent>00000001 <mantissa>11111111111111111111111
+//
+// interpreted as ints = 
+// x = 10000001000000000000000000000000
+// y = 10000000111111111111111111111111
+// which is clearly a different of 1 in the least significant bit
+// Values with the same exponent can be trivially shown to work.
+//
+// WARNING: Denormals of opposite sign do not work
+// x = <sign>1 <exponent>00000000 <mantissa>00000000000000000000001
+// y = <sign>0 <exponent>00000000 <mantissa>00000000000000000000001
+// Although these values differ by 2 in the LSB, the sign bit makes
+// the int comparison fail.
+//
+// WARNING: NaNs can compare equal
+// There is no special treatment of exceptional values like NaNs
+//
+// WARNING: Infinity is comparable with F32_MAX and negative 
+// infinity is comparable with F32_MIN
+
 inline BOOL is_approx_equal(F32 x, F32 y)
 {
 	const S32 COMPARE_MANTISSA_UP_TO_BIT = 0x02;
@@ -113,48 +144,6 @@ inline BOOL is_approx_equal(F64 x, F64 y)
 {
 	const S64 COMPARE_MANTISSA_UP_TO_BIT = 0x02;
 	return (std::abs((S32) ((U64&)x - (U64&)y) ) < COMPARE_MANTISSA_UP_TO_BIT);
-}
-
-inline BOOL is_approx_equal_fraction(F32 x, F32 y, U32 frac_bits)
-{
-	BOOL ret = TRUE;
-	F32 diff = (F32) fabs(x - y);
-
-	S32 diffInt = (S32) diff;
-	S32 diffFracTolerance = (S32) ((diff - (F32) diffInt) * (1 << frac_bits));
-	
-	// if integer portion is not equal, not enough bits were used for packing
-	// so error out since either the use case is not correct OR there is
-	// an issue with pack/unpack. should fail in either case.
-	// for decimal portion, make sure that the delta is no more than 1
-	// based on the number of bits used for packing decimal portion.
-	if (diffInt != 0 || diffFracTolerance > 1)
-	{
-		ret = FALSE;
-	}
-
-	return ret;
-}
-
-inline BOOL is_approx_equal_fraction(F64 x, F64 y, U32 frac_bits)
-{
-	BOOL ret = TRUE;
-	F64 diff = (F64) fabs(x - y);
-
-	S32 diffInt = (S32) diff;
-	S32 diffFracTolerance = (S32) ((diff - (F64) diffInt) * (1 << frac_bits));
-	
-	// if integer portion is not equal, not enough bits were used for packing
-	// so error out since either the use case is not correct OR there is
-	// an issue with pack/unpack. should fail in either case.
-	// for decimal portion, make sure that the delta is no more than 1
-	// based on the number of bits used for packing decimal portion.
-	if (diffInt != 0 || diffFracTolerance > 1)
-	{
-		ret = FALSE;
-	}
-
-	return ret;
 }
 
 inline S32 llabs(const S32 a)
@@ -521,6 +510,12 @@ inline U32 get_next_power_two(U32 val, U32 max_power_two)
 	val++;
 
 	return val;
+}
+
+//get the gaussian value given the linear distance from axis x and guassian value o
+inline F32 llgaussian(F32 x, F32 o)
+{
+	return 1.f/(F_SQRT_TWO_PI*o)*powf(F_E, -(x*x)/(2*o*o));
 }
 
 #endif

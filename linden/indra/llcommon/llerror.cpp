@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -987,6 +988,38 @@ namespace LLError
 		
 		return new std::ostringstream;
 	}
+	
+	void Log::flush(std::ostringstream* out, char* message)
+    {
+       LogLock lock;
+       if (!lock.ok())
+       {
+           return;
+       }
+       
+	   if(strlen(out->str().c_str()) < 128)
+	   {
+		   strcpy(message, out->str().c_str());
+	   }
+	   else
+	   {
+		   strncpy(message, out->str().c_str(), 127);
+		   message[127] = '\0' ;
+	   }
+	   
+	   Globals& g = Globals::get();
+       if (out == &g.messageStream)
+       {
+           g.messageStream.clear();
+           g.messageStream.str("");
+           g.messageStreamInUse = false;
+       }
+       else
+       {
+           delete out;
+       }
+	   return ;
+    }
 
 	void Log::flush(std::ostringstream* out, const CallSite& site)
 	{
@@ -1200,5 +1233,161 @@ namespace LLError
 
 		return chars ? time_str : "time error";
 	}
+}
+
+namespace LLError
+{     
+	char** LLCallStacks::sBuffer = NULL ;
+	S32    LLCallStacks::sIndex  = 0 ;
+
+	class CallStacksLogLock
+	{
+	public:
+		CallStacksLogLock();
+		~CallStacksLogLock();
+		bool ok() const { return mOK; }
+	private:
+		bool mLocked;
+		bool mOK;
+	};
+	
+	CallStacksLogLock::CallStacksLogLock()
+		: mLocked(false), mOK(false)
+	{
+		if (!gCallStacksLogMutexp)
+		{
+			mOK = true;
+			return;
+		}
+		
+		const int MAX_RETRIES = 5;
+		for (int attempts = 0; attempts < MAX_RETRIES; ++attempts)
+		{
+			apr_status_t s = apr_thread_mutex_trylock(gCallStacksLogMutexp);
+			if (!APR_STATUS_IS_EBUSY(s))
+			{
+				mLocked = true;
+				mOK = true;
+				return;
+			}
+
+			ms_sleep(1);
+		}
+
+		// We're hosed, we can't get the mutex.  Blah.
+		std::cerr << "CallStacksLogLock::CallStacksLogLock: failed to get mutex for log"
+					<< std::endl;
+	}
+	
+	CallStacksLogLock::~CallStacksLogLock()
+	{
+		if (mLocked)
+		{
+			apr_thread_mutex_unlock(gCallStacksLogMutexp);
+		}
+	}
+
+	//static
+   void LLCallStacks::push(const char* function, const int line)
+   {
+	   CallStacksLogLock lock;
+       if (!lock.ok())
+       {
+           return;
+       }
+
+	   if(!sBuffer)
+	   {
+		   sBuffer = new char*[512] ;
+		   sBuffer[0] = new char[512 * 128] ;
+		   for(S32 i = 1 ; i < 512 ; i++)
+		   {
+			   sBuffer[i] = sBuffer[i-1] + 128 ;
+		   }
+		   sIndex = 0 ;
+	   }
+
+	   if(sIndex > 511)
+	   {
+		   clear() ;
+	   }
+
+	   strcpy(sBuffer[sIndex], function) ;
+	   sprintf(sBuffer[sIndex] + strlen(function), " line: %d ", line) ;
+	   sIndex++ ;
+
+	   return ;
+   }
+
+	//static
+   std::ostringstream* LLCallStacks::insert(const char* function, const int line)
+   {
+       std::ostringstream* _out = LLError::Log::out();
+	   *_out << function << " line " << line << " " ;
+             
+	   return _out ;
+   }
+
+   //static
+   void LLCallStacks::end(std::ostringstream* _out)
+   {
+	   CallStacksLogLock lock;
+       if (!lock.ok())
+       {
+           return;
+       }
+
+	   if(!sBuffer)
+	   {
+		   sBuffer = new char*[512] ;
+		   sBuffer[0] = new char[512 * 128] ;
+		   for(S32 i = 1 ; i < 512 ; i++)
+		   {
+			   sBuffer[i] = sBuffer[i-1] + 128 ;
+		   }
+		   sIndex = 0 ;
+	   }
+
+	   if(sIndex > 511)
+	   {
+		   clear() ;
+	   }
+
+	   LLError::Log::flush(_out, sBuffer[sIndex++]) ;	   
+   }
+
+   //static
+   void LLCallStacks::print()
+   {
+	   CallStacksLogLock lock;
+       if (!lock.ok())
+       {
+           return;
+       }
+
+       if(sIndex > 0)
+       {
+           llinfos << " ************* PRINT OUT LL CALL STACKS ************* " << llendl ;
+           while(sIndex > 0)
+           {                  
+			   sIndex-- ;
+               llinfos << sBuffer[sIndex] << llendl ;
+           }
+           llinfos << " *************** END OF LL CALL STACKS *************** " << llendl ;
+       }
+
+	   if(sBuffer)
+	   {
+		   delete[] sBuffer[0] ;
+		   delete[] sBuffer ;
+		   sBuffer = NULL ;
+	   }
+   }
+
+   //static
+   void LLCallStacks::clear()
+   {
+       sIndex = 0 ;
+   }
 }
 

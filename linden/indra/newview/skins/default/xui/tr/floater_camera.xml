@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="move floater" title="">
+	<string name="rotate_tooltip">
+		Kamerayı odak çevresinde döndür
+	</string>
+	<string name="zoom_tooltip">
+		Kamerayı odağa doğru yakınlaştır
+	</string>
+	<string name="move_tooltip">
+		Kamerayı yukarı ve aşağı,sola ve sağa taşı
+	</string>
+</floater>

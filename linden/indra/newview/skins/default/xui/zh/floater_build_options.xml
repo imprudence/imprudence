@@ -3,11 +3,11 @@
 	<spinner label="网格单位 (米)" name="GridResolution" />
 	<spinner label="网格宽度 (米)" name="GridDrawSize" />
 	<check_box
-		 initial_value="false"
+		 
 		 label="启用子单位对齐"
 		 name="GridSubUnit" />
 	<check_box
-		 initial_value="false"
+		 
 		 label="显示剖面"
 		 name="GridCrossSection" />
 	<slider label="格子不透明度" name="GridOpacity" />

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -48,7 +49,7 @@
 #include "lloctree.h"
 #include "llvoavatar.h"
 
-const F32 SG_OCCLUSION_FUDGE = 1.01f;
+const F32 SG_OCCLUSION_FUDGE = 0.25f;
 #define SG_DISCARD_TOLERANCE 0.01f
 
 #if LL_OCTREE_PARANOIA_CHECK
@@ -190,7 +191,7 @@ static U8 sOcclusionIndices[] =
 		b000, b110, b100, b101, b001, b011, b010, b110,
 };
 
-U8* get_occlusion_indices(LLCamera* camera, const LLVector3& center)
+U8* get_box_fan_indices(LLCamera* camera, const LLVector3& center)
 {
 	LLVector3 d = center - camera->getOrigin();
 
@@ -218,7 +219,7 @@ void LLSpatialGroup::buildOcclusion()
 		mOcclusionVerts = new F32[8*3];
 	}
 
-	LLVector3 r = mBounds[1]*SG_OCCLUSION_FUDGE + LLVector3(0.1f,0.1f,0.1f);
+	LLVector3 r = mBounds[1] + LLVector3(SG_OCCLUSION_FUDGE, SG_OCCLUSION_FUDGE, SG_OCCLUSION_FUDGE);
 
 	for (U32 k = 0; k < 3; k++)
 	{
@@ -561,8 +562,21 @@ void LLSpatialGroup::rebuildGeom()
 	}
 }
 
+void LLSpatialGroup::rebuildMesh()
+{
+	if (!isDead())
+	{
+		mSpatialPartition->rebuildMesh(this);
+	}
+}
+
 void LLSpatialPartition::rebuildGeom(LLSpatialGroup* group)
 {
+	if (!gPipeline.hasRenderType(mDrawableType))
+	{
+		return;
+	}
+
 	if (group->changeLOD())
 	{
 		group->mLastUpdateDistance = group->mDistance;
@@ -609,6 +623,11 @@ void LLSpatialPartition::rebuildGeom(LLSpatialGroup* group)
 
 	group->mLastUpdateTime = gFrameTimeSeconds;
 	group->clearState(LLSpatialGroup::GEOM_DIRTY);
+}
+
+void LLSpatialPartition::rebuildMesh(LLSpatialGroup* group)
+{
+
 }
 
 BOOL LLSpatialGroup::boundObjects(BOOL empty, LLVector3& minOut, LLVector3& maxOut)
@@ -777,7 +796,7 @@ void LLSpatialGroup::shift(const LLVector3 &offset)
 	mObjectExtents[0] += offset;
 	mObjectExtents[1] += offset;
 
-	if (!mSpatialPartition->mRenderByGroup)
+	//if (!mSpatialPartition->mRenderByGroup)
 	{
 		setState(GEOM_DIRTY);
 	}
@@ -1270,8 +1289,8 @@ void LLSpatialGroup::checkOcclusion()
 
 			clearState(QUERY_PENDING | DISCARD_QUERY);
 		}
-		else if (mSpatialPartition->mOcclusionEnabled)
-		{
+		else if (mSpatialPartition->isOcclusionEnabled() && isState(LLSpatialGroup::OCCLUDED))
+		{	//check occlusion has been issued for occluded node that has not had a query issued
 			assert_states_valid(this);
 			clearState(LLSpatialGroup::OCCLUDED, LLSpatialGroup::STATE_MODE_DIFF);
 			assert_states_valid(this);
@@ -1281,7 +1300,7 @@ void LLSpatialGroup::checkOcclusion()
 
 void LLSpatialGroup::doOcclusion(LLCamera* camera)
 {
-	if (mSpatialPartition->mOcclusionEnabled && LLPipeline::sUseOcclusion > 1)
+	if (mSpatialPartition->isOcclusionEnabled() && LLPipeline::sUseOcclusion > 1)
 	{
 		if (earlyFail(camera, this))
 		{
@@ -1308,7 +1327,7 @@ void LLSpatialGroup::doOcclusion(LLCamera* camera)
 				glBeginQueryARB(GL_SAMPLES_PASSED_ARB, mOcclusionQuery);					
 				glVertexPointer(3, GL_FLOAT, 0, mOcclusionVerts);
 				glDrawRangeElements(GL_TRIANGLE_FAN, 0, 7, 8,
-							GL_UNSIGNED_BYTE, get_occlusion_indices(camera, mBounds[0]));
+							GL_UNSIGNED_BYTE, get_box_fan_indices(camera, mBounds[0]));
 				glEndQueryARB(GL_SAMPLES_PASSED_ARB);
 			}
 
@@ -1469,7 +1488,7 @@ public:
 		group->checkOcclusion();
 
 		if (group->mOctreeNode->getParent() &&	//never occlusion cull the root node
-			LLPipeline::sUseOcclusion &&			//ignore occlusion if disabled
+		  	LLPipeline::sUseOcclusion &&			//ignore occlusion if disabled
 			group->isState(LLSpatialGroup::OCCLUDED))
 		{
 			gPipeline.markOccluder(group);
@@ -1591,6 +1610,86 @@ public:
 		S32 res = mCamera->AABBInFrustumNoFarClip(group->mObjectBounds[0], group->mObjectBounds[1]);
 		return res;
 	}
+};
+
+class LLOctreeCullShadow : public LLOctreeCull
+{
+public:
+	LLOctreeCullShadow(LLCamera* camera)
+		: LLOctreeCull(camera) { }
+
+	virtual S32 frustumCheck(const LLSpatialGroup* group)
+	{
+		return mCamera->AABBInFrustum(group->mBounds[0], group->mBounds[1]);
+	}
+
+	virtual S32 frustumCheckObjects(const LLSpatialGroup* group)
+	{
+		return mCamera->AABBInFrustum(group->mObjectBounds[0], group->mObjectBounds[1]);
+	}
+};
+
+class LLOctreeCullVisExtents: public LLOctreeCullShadow
+{
+public:
+	LLOctreeCullVisExtents(LLCamera* camera, LLVector3& min, LLVector3& max)
+		: LLOctreeCullShadow(camera), mMin(min), mMax(max), mEmpty(TRUE) { }
+
+	virtual bool earlyFail(LLSpatialGroup* group)
+	{
+		if (group->mOctreeNode->getParent() &&	//never occlusion cull the root node
+			LLPipeline::sUseOcclusion &&			//ignore occlusion if disabled
+			group->isState(LLSpatialGroup::OCCLUDED))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+
+	virtual void processGroup(LLSpatialGroup* group)
+	{
+		if (group->mObjectBounds[1].magVecSquared() < 256.f * 256.f)
+		{ //megaprims and water edge patches be damned!
+			mEmpty = FALSE;
+			update_min_max(mMin, mMax, group->mObjectExtents[0]);
+			update_min_max(mMin, mMax, group->mObjectExtents[1]);
+		}
+	}
+
+	BOOL mEmpty;
+	LLVector3& mMin;
+	LLVector3& mMax;
+};
+
+class LLOctreeCullDetectVisible: public LLOctreeCullShadow
+{
+public:
+	LLOctreeCullDetectVisible(LLCamera* camera)
+		: LLOctreeCullShadow(camera), mResult(FALSE) { }
+
+	virtual bool earlyFail(LLSpatialGroup* group)
+	{
+		if (mResult || //already found a node, don't check any more
+			group->mOctreeNode->getParent() &&	//never occlusion cull the root node
+			LLPipeline::sUseOcclusion &&			//ignore occlusion if disabled
+			group->isState(LLSpatialGroup::OCCLUDED))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+
+	virtual void processGroup(LLSpatialGroup* group)
+	{
+		if (group->isVisible())
+		{
+			mResult = TRUE;
+		}
+	}
+
+	BOOL mResult;
 };
 
 class LLOctreeSelect : public LLOctreeCull
@@ -1746,6 +1845,25 @@ void LLSpatialPartition::resetVertexBuffers()
 	dirty.traverse(mOctree);
 }
 
+BOOL LLSpatialPartition::isOcclusionEnabled()
+{
+	return mOcclusionEnabled || LLPipeline::sUseOcclusion > 2;
+}
+
+BOOL LLSpatialPartition::getVisibleExtents(LLCamera& camera, LLVector3& visMin, LLVector3& visMax)
+{
+	LLOctreeCullVisExtents vis(&camera, visMin, visMax);
+	vis.traverse(mOctree);
+	return vis.mEmpty;
+}
+
+BOOL LLSpatialPartition::visibleObjectsInFrustum(LLCamera& camera)
+{
+	LLOctreeCullDetectVisible vis(&camera);
+	vis.traverse(mOctree);
+	return vis.mResult;
+}
+
 S32 LLSpatialPartition::cull(LLCamera &camera, std::vector<LLDrawable *>* results, BOOL for_select)
 {
 	LLMemType mt(LLMemType::MTYPE_SPACE_PARTITION);
@@ -1771,6 +1889,12 @@ S32 LLSpatialPartition::cull(LLCamera &camera, std::vector<LLDrawable *>* result
 		LLOctreeSelect selecter(&camera, results);
 		selecter.traverse(mOctree);
 	}
+	else if (LLPipeline::sShadowRender)
+	{
+		LLFastTimer ftm(LLFastTimer::FTM_FRUSTUM_CULL);
+		LLOctreeCullShadow culler(&camera);
+		culler.traverse(mOctree);
+	}
 	else if (mInfiniteFarClip || !LLPipeline::sUseFarClip)
 	{
 		LLFastTimer ftm(LLFastTimer::FTM_FRUSTUM_CULL);		
@@ -1789,14 +1913,14 @@ S32 LLSpatialPartition::cull(LLCamera &camera, std::vector<LLDrawable *>* result
 
 BOOL earlyFail(LLCamera* camera, LLSpatialGroup* group)
 {
-	const F32 vel = (LLViewerCamera::getInstance()->getVelocityStat()->getCurrent()+0.2f);
+	const F32 vel = SG_OCCLUSION_FUDGE*2.f;
 	LLVector3 c = group->mBounds[0];
-	LLVector3 r = group->mBounds[1]*SG_OCCLUSION_FUDGE + LLVector3(vel,vel,vel);
+	LLVector3 r = group->mBounds[1] + LLVector3(vel,vel,vel);
     
-	if (r.magVecSquared() > 1024.0*1024.0)
+	/*if (r.magVecSquared() > 1024.0*1024.0)
 	{
 		return TRUE;
-	}
+	}*/
 
 	LLVector3 e = camera->getOrigin();
 	
@@ -1864,20 +1988,30 @@ void pushBufferVerts(LLVertexBuffer* buffer, U32 mask)
 
 void pushBufferVerts(LLSpatialGroup* group, U32 mask)
 {
-	if (!group->mDrawMap.empty())
+	if (group->mSpatialPartition->mRenderByGroup)
 	{
-		LLDrawInfo* params = *(group->mDrawMap.begin()->second.begin());
-		LLRenderPass::applyModelMatrix(*params);
-	
-		pushBufferVerts(group->mVertexBuffer, mask);
-
-		for (LLSpatialGroup::buffer_map_t::iterator i = group->mBufferMap.begin(); i != group->mBufferMap.end(); ++i)
+		if (!group->mDrawMap.empty())
 		{
-			for (LLSpatialGroup::buffer_list_t::iterator j = i->second.begin(); j != i->second.end(); ++j)
+			LLDrawInfo* params = *(group->mDrawMap.begin()->second.begin());
+			LLRenderPass::applyModelMatrix(*params);
+		
+			pushBufferVerts(group->mVertexBuffer, mask);
+
+			for (LLSpatialGroup::buffer_map_t::iterator i = group->mBufferMap.begin(); i != group->mBufferMap.end(); ++i)
 			{
-				pushBufferVerts(*j, mask);
+				for (LLSpatialGroup::buffer_texture_map_t::iterator j = i->second.begin(); j != i->second.end(); ++j)
+				{
+					for (LLSpatialGroup::buffer_list_t::iterator k = j->second.begin(); k != j->second.end(); ++k)
+					{
+						pushBufferVerts(*k, mask);
+					}
+				}
 			}
 		}
+	}
+	else
+	{
+		drawBox(group->mBounds[0], group->mBounds[1]);
 	}
 }
 
@@ -1895,7 +2029,7 @@ void pushVertsColorCoded(LLSpatialGroup* group, U32 mask)
 		LLColor4::green6
 	};
 		
-	static const U32 col_count = sizeof(colors)/sizeof(LLColor4);
+	static const U32 col_count = LL_ARRAY_SIZE(colors);
 
 	U32 col = 0;
 
@@ -2025,6 +2159,23 @@ void renderOctree(LLSpatialGroup* group)
 		}
 						
 		drawBoxOutline(group->mBounds[0],group->mBounds[1]);
+
+
+		//draw bounding box for draw info
+		if (group->mSpatialPartition->mRenderByGroup)
+		{
+			gGL.color4f(1.0f, 0.75f, 0.25f, 0.6f);
+			for (LLSpatialGroup::draw_map_t::iterator i = group->mDrawMap.begin(); i != group->mDrawMap.end(); ++i)
+			{
+				for (LLSpatialGroup::drawmap_elem_t::iterator j = i->second.begin(); j != i->second.end(); ++j)
+				{
+					LLDrawInfo* draw_info = *j;
+					LLVector3 center = (draw_info->mExtents[1] + draw_info->mExtents[0])*0.5f;
+					LLVector3 size = (draw_info->mExtents[1] - draw_info->mExtents[0])*0.5f;
+					drawBoxOutline(center, size);
+				}
+			}
+		}
 	}
 	
 //	LLSpatialGroup::OctreeNode* node = group->mOctreeNode;
@@ -2045,6 +2196,7 @@ void renderVisibility(LLSpatialGroup* group, LLCamera* camera)
 	{
 		LLGLDepthTest depth_under(GL_TRUE, GL_FALSE, GL_GREATER);
 		glColor4f(0, 0.5f, 0, 0.5f);
+		gGL.color4f(0, 0.5f, 0, 0.5f);
 		pushBufferVerts(group, LLVertexBuffer::MAP_VERTEX);
 	}
 
@@ -2054,6 +2206,7 @@ void renderVisibility(LLSpatialGroup* group, LLCamera* camera)
 		if (render_objects)
 		{
 			glColor4f(0.f, 0.5f, 0.f,1.f);
+			gGL.color4f(0.f, 0.5f, 0.f, 1.f);
 			pushBufferVerts(group, LLVertexBuffer::MAP_VERTEX);
 		}
 
@@ -2062,6 +2215,7 @@ void renderVisibility(LLSpatialGroup* group, LLCamera* camera)
 		if (render_objects)
 		{
 			glColor4f(0.f, 0.75f, 0.f,0.5f);
+			gGL.color4f(0.f, 0.75f, 0.f, 0.5f);
 			pushBufferVerts(group, LLVertexBuffer::MAP_VERTEX);
 		}
 		else if (camera && group->mOcclusionVerts)
@@ -2070,60 +2224,79 @@ void renderVisibility(LLSpatialGroup* group, LLCamera* camera)
 			glVertexPointer(3, GL_FLOAT, 0, group->mOcclusionVerts);
 
 			glColor4f(1.0f, 0.f, 0.f, 0.5f);
-			glDrawRangeElements(GL_TRIANGLE_FAN, 0, 7, 8, GL_UNSIGNED_BYTE, get_occlusion_indices(camera, group->mBounds[0]));
+			glDrawRangeElements(GL_TRIANGLE_FAN, 0, 7, 8, GL_UNSIGNED_BYTE, get_box_fan_indices(camera, group->mBounds[0]));
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			
 			glColor4f(1.0f, 1.f, 1.f, 1.0f);
-			glDrawRangeElements(GL_TRIANGLE_FAN, 0, 7, 8, GL_UNSIGNED_BYTE, get_occlusion_indices(camera, group->mBounds[0]));
+			glDrawRangeElements(GL_TRIANGLE_FAN, 0, 7, 8, GL_UNSIGNED_BYTE, get_box_fan_indices(camera, group->mBounds[0]));
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 	}
 }
 
-void renderBoundingBox(LLDrawable* drawable)
+void renderCrossHairs(LLVector3 position, F32 size, LLColor4 color)
 {
-	if (drawable->isSpatialBridge())
+	gGL.color4fv(color.mV);
+	gGL.begin(LLRender::LINES);
 	{
-		gGL.color4f(1,0.5f,0,1);
+		gGL.vertex3fv((position - LLVector3(size, 0.f, 0.f)).mV);
+		gGL.vertex3fv((position + LLVector3(size, 0.f, 0.f)).mV);
+		gGL.vertex3fv((position - LLVector3(0.f, size, 0.f)).mV);
+		gGL.vertex3fv((position + LLVector3(0.f, size, 0.f)).mV);
+		gGL.vertex3fv((position - LLVector3(0.f, 0.f, size)).mV);
+		gGL.vertex3fv((position + LLVector3(0.f, 0.f, size)).mV);
 	}
-	else if (drawable->getVOVolume())
+	gGL.end();
+}
+
+
+void renderBoundingBox(LLDrawable* drawable, BOOL set_color = TRUE)
+{
+	if (set_color)
 	{
-		if (drawable->isRoot())
+		if (drawable->isSpatialBridge())
 		{
-			gGL.color4f(1,1,0,1);
+			gGL.color4f(1,0.5f,0,1);
 		}
-		else
+		else if (drawable->getVOVolume())
 		{
-			gGL.color4f(0,1,0,1);
+			if (drawable->isRoot())
+			{
+				gGL.color4f(1,1,0,1);
+			}
+			else
+			{
+				gGL.color4f(0,1,0,1);
+			}
 		}
-	}
-	else if (drawable->getVObj())
-	{
-		switch (drawable->getVObj()->getPCode())
+		else if (drawable->getVObj())
 		{
-			case LLViewerObject::LL_VO_SURFACE_PATCH:
-					gGL.color4f(0,1,1,1);
-					break;
-			case LLViewerObject::LL_VO_CLOUDS:
-					gGL.color4f(0.5f,0.5f,0.5f,1.0f);
-					break;
-			case LLViewerObject::LL_VO_PART_GROUP:
+			switch (drawable->getVObj()->getPCode())
+			{
+				case LLViewerObject::LL_VO_SURFACE_PATCH:
+						gGL.color4f(0,1,1,1);
+						break;
+				case LLViewerObject::LL_VO_CLOUDS:
+						gGL.color4f(0.5f,0.5f,0.5f,1.0f);
+						break;
+				case LLViewerObject::LL_VO_PART_GROUP:
 			case LLViewerObject::LL_VO_HUD_PART_GROUP:
-					gGL.color4f(0,0,1,1);
-					break;
-			case LLViewerObject::LL_VO_WATER:
-					gGL.color4f(0,0.5f,1,1);
-					break;
-			case LL_PCODE_LEGACY_TREE:
-					gGL.color4f(0,0.5f,0,1);
-			default:
-					gGL.color4f(1,0,1,1);
-					break;
+						gGL.color4f(0,0,1,1);
+						break;
+				case LLViewerObject::LL_VO_WATER:
+						gGL.color4f(0,0.5f,1,1);
+						break;
+				case LL_PCODE_LEGACY_TREE:
+						gGL.color4f(0,0.5f,0,1);
+				default:
+						gGL.color4f(1,0,1,1);
+						break;
+			}
 		}
-	}
-	else 
-	{
-		gGL.color4f(1,0,0,1);
+		else 
+		{
+			gGL.color4f(1,0,0,1);
+		}
 	}
 
 	const LLVector3* ext;
@@ -2155,7 +2328,8 @@ void renderBoundingBox(LLDrawable* drawable)
 	if (vobj && vobj->onActiveList())
 	{
 		gGL.flush();
-		glLineWidth(4.f*(sinf(gFrameTimeSeconds*2.f)*0.25f+0.75f));
+		glLineWidth(llmax(4.f*sinf(gFrameTimeSeconds*2.f)+1.f, 1.f));
+		//glLineWidth(4.f*(sinf(gFrameTimeSeconds*2.f)*0.25f+0.75f));
 		stop_glerror();
 		drawBoxOutline(pos,size);
 		gGL.flush();
@@ -2247,7 +2421,7 @@ void renderTextureAnim(LLDrawInfo* params)
 	}
 	
 	LLGLEnable blend(GL_BLEND);
-	gGL.color4f(1,1,0,0.5f);
+	glColor4f(1,1,0,0.5f);
 	pushVerts(params, LLVertexBuffer::MAP_VERTEX);
 }
 
@@ -2349,6 +2523,25 @@ void renderRaycast(LLDrawable* drawablep)
 	}
 }
 
+
+void renderAvatarCollisionVolumes(LLVOAvatar* avatar)
+{
+	avatar->renderCollisionVolumes();
+}
+
+void renderAgentTarget(LLVOAvatar* avatar)
+{
+	// render these for self only (why, i don't know)
+	if (avatar->isSelf())
+	{
+		renderCrossHairs(avatar->getPositionAgent(), 0.2f, LLColor4(1, 0, 0, 0.8f));
+		renderCrossHairs(avatar->mDrawable->getPositionAgent(), 0.2f, LLColor4(1, 0, 0, 0.8f));
+		renderCrossHairs(avatar->mRoot.getWorldPosition(), 0.2f, LLColor4(1, 1, 1, 0.8f));
+		renderCrossHairs(avatar->mPelvisp->getWorldPosition(), 0.2f, LLColor4(0, 0, 1, 0.8f));
+	}
+}
+
+
 class LLOctreeRenderNonOccluded : public LLOctreeTraveler<LLDrawable>
 {
 public:
@@ -2378,8 +2571,7 @@ public:
 			}
 
 			//render visibility wireframe
-			if (group->mSpatialPartition->mRenderByGroup &&
-				gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_OCCLUSION))
+			if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_OCCLUSION))
 			{
 				gGL.flush();
 				glPushMatrix();
@@ -2434,6 +2626,19 @@ public:
 			{
 				renderRaycast(drawable);
 			}
+
+			LLVOAvatar* avatar = dynamic_cast<LLVOAvatar*>(drawable->getVObj().get());
+			
+			if (avatar && gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_AVATAR_VOLUME))
+			{
+				renderAvatarCollisionVolumes(avatar);
+			}
+
+			if (avatar && gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_AGENT_TARGET))
+			{
+				renderAgentTarget(avatar);
+			}
+			
 		}
 		
 		for (LLSpatialGroup::draw_map_t::iterator i = group->mDrawMap.begin(); i != group->mDrawMap.end(); ++i)
@@ -2455,6 +2660,51 @@ public:
 	}
 };
 
+class LLOctreePushBBoxVerts : public LLOctreeTraveler<LLDrawable>
+{
+public:
+	LLCamera* mCamera;
+	LLOctreePushBBoxVerts(LLCamera* camera): mCamera(camera) {}
+	
+	virtual void traverse(const LLSpatialGroup::OctreeNode* node)
+	{
+		LLSpatialGroup* group = (LLSpatialGroup*) node->getListener(0);
+		
+		if (!mCamera || mCamera->AABBInFrustum(group->mBounds[0], group->mBounds[1]))
+		{
+			node->accept(this);
+
+			for (U32 i = 0; i < node->getChildCount(); i++)
+			{
+				traverse(node->getChild(i));
+			}
+		}
+	}
+
+	virtual void visit(const LLSpatialGroup::OctreeNode* branch)
+	{
+		LLSpatialGroup* group = (LLSpatialGroup*) branch->getListener(0);
+
+		if (group->isState(LLSpatialGroup::GEOM_DIRTY) || (mCamera && !mCamera->AABBInFrustumNoFarClip(group->mBounds[0], group->mBounds[1])))
+		{
+			return;
+		}
+
+		for (LLSpatialGroup::OctreeNode::const_element_iter i = branch->getData().begin(); i != branch->getData().end(); ++i)
+		{
+			LLDrawable* drawable = *i;
+						
+			renderBoundingBox(drawable, FALSE);			
+		}
+	}
+};
+
+void LLSpatialPartition::renderIntersectingBBoxes(LLCamera* camera)
+{
+	LLOctreePushBBoxVerts pusher(camera);
+	pusher.traverse(mOctree);
+}
+
 void LLSpatialPartition::renderDebug()
 {
 	if (!gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_OCTREE |
@@ -2465,7 +2715,9 @@ void LLSpatialPartition::renderDebug()
 									  LLPipeline::RENDER_DEBUG_POINTS |
 									  LLPipeline::RENDER_DEBUG_TEXTURE_PRIORITY |
 									  LLPipeline::RENDER_DEBUG_TEXTURE_ANIM |
-									  LLPipeline::RENDER_DEBUG_RAYCAST))
+									  LLPipeline::RENDER_DEBUG_RAYCAST |
+									  LLPipeline::RENDER_DEBUG_AVATAR_VOLUME |
+									  LLPipeline::RENDER_DEBUG_AGENT_TARGET))
 	{
 		return;
 	}
@@ -2660,9 +2912,22 @@ LLDrawInfo::LLDrawInfo(U16 start, U16 end, U32 count, U32 offset,
 	mParticle(particle),
 	mPartSize(part_size),
 	mVSize(0.f),
-	mGroup(NULL)
+	mGroup(NULL),
+	mFace(NULL),
+	mDistance(0.f)
 {
 	mDebugColor = (rand() << 16) + rand();
+	if (mStart >= mVertexBuffer->getRequestedVerts() ||
+		mEnd >= mVertexBuffer->getRequestedVerts())
+	{
+		llerrs << "Invalid draw info vertex range." << llendl;
+	}
+
+	if (mOffset >= (U32) mVertexBuffer->getRequestedIndices() ||
+		mOffset + mCount > (U32) mVertexBuffer->getRequestedIndices())
+	{
+		llerrs << "Invalid draw info index range." << llendl;
+	}
 }
 
 LLDrawInfo::~LLDrawInfo()	
@@ -2670,6 +2935,11 @@ LLDrawInfo::~LLDrawInfo()
 	if (LLSpatialGroup::sNoDelete)
 	{
 		llerrs << "LLDrawInfo deleted illegally!" << llendl;
+	}
+
+	if (mFace)
+	{
+		mFace->setDrawInfo(NULL);
 	}
 }
 

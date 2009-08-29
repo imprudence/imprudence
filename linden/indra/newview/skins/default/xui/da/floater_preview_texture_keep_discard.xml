@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview_texture">
+	<text type="string" length="1" name="desc txt">
+		Beskrivelse:
+	</text>
+	<button label="Behold" label_selected="Behold" name="Keep" />
+	<button label="Smid ud" label_selected="Smid ud" name="Discard" />
+	<text type="string" length="1" name="dimensions">
+		Størrelse: [WIDTH] x [HEIGHT]
+	</text>
+</floater>

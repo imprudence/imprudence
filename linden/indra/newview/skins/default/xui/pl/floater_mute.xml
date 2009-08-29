@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mute floater" title="Lista Wyciszonych Rezydentów i Obiektów" short_title="Wyciszone Osoby">
+	<scroll_list name="mutes" tool_tip="Lista wyciszonych Rezydentów" />
+	<button label="Wycisz Rezydenta..." label_selected="Wycisz Rezydenta..."
+	     name="Mute resident..."
+	     tool_tip="Wybierz Rezydenta, którego chcesz wyciszyć" />
+	<button label="Wycisz obiekt według nazwy..."
+	     label_selected="Wycisz obiekt według nazwy..."
+	     name="Mute object by name..." />
+	<button label="Odblokuj wyciszenie" label_selected="Odblokuj wyciszenie" name="Unmute"
+	     tool_tip="Usuń Rezydenta lub obiekt z listy wyciszenia" />
+</floater>

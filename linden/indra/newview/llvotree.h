@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -50,7 +51,7 @@ public:
 	{
 		VERTEX_DATA_MASK =	(1 << LLVertexBuffer::TYPE_VERTEX) |
 							(1 << LLVertexBuffer::TYPE_NORMAL) |
-							(1 << LLVertexBuffer::TYPE_TEXCOORD)
+							(1 << LLVertexBuffer::TYPE_TEXCOORD0)
 	};
 
 	LLVOTree(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
@@ -77,6 +78,38 @@ public:
 	virtual U32 getPartitionType() const;
 
 	void updateRadius();
+
+	void calcNumVerts(U32& vert_count, U32& index_count, S32 trunk_LOD, S32 stop_level, U16 depth, U16 trunk_depth, F32 branches);
+
+	void updateMesh();
+
+	void appendMesh(LLStrider<LLVector3>& vertices, 
+						 LLStrider<LLVector3>& normals, 
+						 LLStrider<LLVector2>& tex_coords, 
+						 LLStrider<U16>& indices,
+						 U16& idx_offset,
+						 LLMatrix4& matrix,
+						 LLMatrix4& norm_mat,
+						 S32 vertex_offset,
+						 S32 vertex_count,
+						 S32 index_count,
+						 S32 index_offset);
+
+	void genBranchPipeline(LLStrider<LLVector3>& vertices, 
+								 LLStrider<LLVector3>& normals, 
+								 LLStrider<LLVector2>& tex_coords, 
+								 LLStrider<U16>& indices,
+								 U16& index_offset,
+								 LLMatrix4& matrix, 
+								 S32 trunk_LOD, 
+								 S32 stop_level, 
+								 U16 depth, 
+								 U16 trunk_depth,  
+								 F32 scale, 
+								 F32 twist, 
+								 F32 droop,  
+								 F32 branches, 
+								 F32 alpha);
 
 	U32 drawBranchPipeline(LLMatrix4& matrix, U16* indicesp, S32 trunk_LOD, S32 stop_level, U16 depth, U16 trunk_depth,  F32 scale, F32 twist, F32 droop,  F32 branches, F32 alpha);
  
@@ -129,6 +162,7 @@ protected:
 	LLVector3		mTrunkVel;		// 
 	LLVector3		mWind;
 
+	LLPointer<LLVertexBuffer> mReferenceBuffer; //reference geometry for generating tree mesh
 	LLPointer<LLViewerImage> mTreeImagep;	// Pointer to proper tree image
 
 	U8				mSpecies;		// Species of tree
@@ -140,7 +174,7 @@ protected:
 	U8				mDepth;			// Number of recursions to tips of branches
 	F32				mScaleStep;		// Multiplier for scale at each recursion level
 	U8				mTrunkDepth;
-
+	U32				mTrunkLOD;
 	F32				mLeafScale;		// Scales leaf texture when rendering 
 
 	F32				mBillboardScale;	//  How big to draw the billboard?
@@ -148,6 +182,11 @@ protected:
 	F32				mTrunkAspect;		//  Ratio between width/length of trunk
 	F32				mBranchAspect;	//  Ratio between width/length of branch
 	F32				mRandomLeafRotate;	//	How much to randomly rotate leaves about arbitrary axis 
+
+	// cache last position+rotation so we can detect the need for a
+	// complete rebuild when not animating
+	LLVector3 mLastPosition;
+	LLQuaternion mLastRotation;
 	
 	U32 mFrameCount;
 

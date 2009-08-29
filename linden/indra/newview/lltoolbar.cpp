@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -126,9 +127,6 @@ BOOL LLToolBar::postBuild()
 
 	childSetAction("appearance_btn", onClickAppearance, this);
 	childSetControlName("appearance_btn", "");
-
-	childSetAction("clothing_btn", onClickClothing, this);
-	childSetControlName("clothing_btn", "ClothingBtnState");
 
 	childSetAction("fly_btn", onClickFly, this);
 	childSetControlName("fly_btn", "FlyBtnState");
@@ -286,8 +284,6 @@ void LLToolBar::refresh()
 	BOOL mouselook = gAgent.cameraMouselook();
 	setVisible(show && !mouselook);
 
-	// Clothing button updated inside LLFloaterClothing
-
 	BOOL sitting = FALSE;
 	if (gAgent.getAvatarObject())
 	{
@@ -307,7 +303,10 @@ void LLToolBar::refresh()
 	}
 	gSavedSettings.setBOOL("BuildBtnState", build_mode);
 
-	updateCommunicateList();
+	if (isInVisibleChain())
+	{
+		updateCommunicateList();
+	}
 }
 
 void LLToolBar::updateCommunicateList()
@@ -444,17 +443,10 @@ void LLToolBar::onClickChat(void* user_data)
 // static
 void LLToolBar::onClickAppearance(void*)
 {
-	if (gAgent.getWearablesLoaded())
+	if (gAgent.areWearablesLoaded())
 	{
 		gAgent.changeCameraToCustomizeAvatar();
 	}
-}
-
-
-// static
-void LLToolBar::onClickClothing(void*)
-{
-	handle_clothing(NULL);
 }
 
 

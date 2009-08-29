@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -62,6 +63,7 @@
 #include "llpaneldirbrowser.h"
 
 #include <boost/tokenizer.hpp>
+#include <boost/lexical_cast.hpp>
 
 //---------------------------------------------------------------------------
 // LLPanelDirFindAll - Google search appliance based search
@@ -102,17 +104,36 @@ BOOL LLPanelDirFind::postBuild()
 	childSetAction("forward_btn", onClickForward, this);
 	childSetCommitCallback("search_editor", onCommitSearch, this);
 	childSetAction("search_btn", onClickSearch, this);
+	childSetAction("?", onClickHelp, this);
 
-	if (gAgent.isTeen())
+	// showcase doesn't have maturity flags -- it's all PG
+	if (hasChild("incmature"))
 	{
-		// Showcase tab does not have mature checkbox
-		if (hasChild("mature_check"))
+		// Teens don't get mature checkbox
+		if (gAgent.wantsPGOnly())
 		{
-			childSetVisible("mature_check", false);
-			childSetValue("mature_check", false);
+			childSetValue("incmature", FALSE);
+			childSetValue("incadult", FALSE);
+			childHide("incmature");
+			childHide("incadult");
+			childSetValue("incpg", TRUE);
+			childDisable("incpg");
+		}		
+		
+		if (!gAgent.canAccessMature())
+		{
+			childSetValue("incmature", FALSE);
+			childDisable("incmature");
+		}
+		
+		if (!gAgent.canAccessAdult())
+		{
+			childSetValue("incadult", FALSE);
+			childDisable("incadult");
 		}
 	}
-
+	
+	
 	mWebBrowser = getChild<LLWebBrowserCtrl>(mBrowserName);
 	if (mWebBrowser)
 	{
@@ -121,7 +142,7 @@ BOOL LLPanelDirFind::postBuild()
 		mWebBrowser->setOpenInExternalBrowser( false );	
 
 		// need to handle secondlife:///app/ URLs for direct teleports
-		mWebBrowser->setOpenAppSLURLs( true );
+		mWebBrowser->setTrusted( true );
 
 		// redirect 404 pages from S3 somewhere else
 		mWebBrowser->set404RedirectUrl( getString("redirect_404_url") );
@@ -154,6 +175,12 @@ void LLPanelDirFind::draw()
 		childSetEnabled( "forward_btn", enable_forward );
 	}
 
+	// showcase doesn't have maturity flags -- it's all PG
+	if (hasChild("incmature"))
+	{
+		updateMaturityCheckbox();
+	}
+
 	LLPanelDirBrowser::draw();
 }
 
@@ -180,11 +207,19 @@ void LLPanelDirFindAll::reshape(S32 width, S32 height, BOOL called_from_parent =
 
 void LLPanelDirFindAll::search(const std::string& search_text)
 {
+	BOOL inc_pg = childGetValue("incpg").asBoolean();
+	BOOL inc_mature = childGetValue("incmature").asBoolean();
+	BOOL inc_adult = childGetValue("incadult").asBoolean();
+	if (!(inc_pg || inc_mature || inc_adult))
+	{
+		LLNotifications::instance().add("NoContentToSearch");
+		return;
+	}
+	
 	if (!search_text.empty())
 	{
-		bool mature = childGetValue( "mature_check" ).asBoolean();
 		std::string selected_collection = childGetValue( "Category" ).asString();
-		std::string url = buildSearchURL(search_text, selected_collection, mature);
+		std::string url = buildSearchURL(search_text, selected_collection, inc_pg, inc_mature, inc_adult);
 		if (mWebBrowser)
 		{
 			mWebBrowser->navigateTo(url);
@@ -207,8 +242,17 @@ void LLPanelDirFind::focus()
 void LLPanelDirFind::navigateToDefaultPage()
 {
 	std::string start_url = getString("default_search_page");
-	bool mature = childGetValue( "mature_check" ).asBoolean();
-	start_url += getSearchURLSuffix( mature );
+	BOOL inc_pg = childGetValue("incpg").asBoolean();
+	BOOL inc_mature = childGetValue("incmature").asBoolean();
+	BOOL inc_adult = childGetValue("incadult").asBoolean();
+	if (!(inc_pg || inc_mature || inc_adult))
+	{
+		// if nothing's checked, just go for pg; we don't notify in
+		// this case because it's a default page.
+		inc_pg = true;
+	}
+	
+	start_url += getSearchURLSuffix(inc_pg, inc_mature, inc_adult);
 
 	llinfos << "default url: "  << start_url << llendl;
 
@@ -218,7 +262,8 @@ void LLPanelDirFind::navigateToDefaultPage()
 	}
 }
 // static
-std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const std::string& collection, bool mature_in)
+std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const std::string& collection, 
+										   bool inc_pg, bool inc_mature, bool inc_adult)
 {
 	std::string url = gSavedSettings.getString("SearchURLDefault");
 	if (!search_text.empty())
@@ -261,35 +306,27 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 			url.replace(where, substring.length(), collection);
 		}
 
-		llinfos << "url " << url << llendl;
 	}
-	url += getSearchURLSuffix( mature_in );
+	url += getSearchURLSuffix(inc_pg, inc_mature, inc_adult);
+	llinfos << "search url " << url << llendl;
 	return url;
 }
 // static
-std::string LLPanelDirFind::getSearchURLSuffix(bool mature_in)
+std::string LLPanelDirFind::getSearchURLSuffix(bool inc_pg, bool inc_mature, bool inc_adult)
 {
-	bool mature = mature_in;
-	// Teens never get mature results.  Explicitly override because 
-	// Lindens/testers have multiple accounts and shared settings sometimes 
-	// result in teen=Y and mature=Y simultaneously.  JC
-	if (gAgent.isTeen())
-	{
-		mature = false;
-	}
-
 	std::string url = gSavedSettings.getString("SearchURLSuffix2");
 
 	// if the mature checkbox is unchecked, modify query to remove 
 	// terms with given phrase from the result set
-	std::string substring = "[MATURE]";
-	const char* mature_flag = (mature ? "Y" : "N");
-	url.replace(url.find(substring), substring.length(), mature_flag);
-
-	substring = "[TEEN]";
-	const char* teen_flag = (gAgent.isTeen() ? "Y" : "N");
-	url.replace(url.find(substring), substring.length(), teen_flag);
-
+	// This builds a value from 1-7 by or-ing together the flags, and then converts
+	// it to a string. 
+	std::string substring="[MATURITY]";
+	S32 maturityFlag = 
+		(inc_pg ? SEARCH_PG : SEARCH_NONE) |
+		(inc_mature ? SEARCH_MATURE : SEARCH_NONE) |
+		(inc_adult ? SEARCH_ADULT : SEARCH_NONE);
+	url.replace(url.find(substring), substring.length(), boost::lexical_cast<std::string>(maturityFlag));
+	
 	// Include region and x/y position, not for the GSA, but
 	// just to get logs on the web server for search_proxy.php
 	// showing where people were standing when they searched.
@@ -326,6 +363,11 @@ std::string LLPanelDirFind::getSearchURLSuffix(bool mature_in)
 	std::string language_tag = "[LANG]";
 	url.replace( url.find( language_tag ), language_tag.length(), language_string );
 
+	// and set the flag for the teen grid
+	std::string teen_string = gAgent.isTeen() ? "y" : "n";
+	std::string teen_tag = "[TEEN]";
+	url.replace( url.find( teen_tag ), teen_tag.length(), teen_string );	
+	
 	return url;
 }
 
@@ -338,6 +380,12 @@ void LLPanelDirFind::onClickBack( void* data )
 	{
 		self->mWebBrowser->navigateBack();
 	}
+}
+
+// static
+void LLPanelDirFind::onClickHelp( void* data )
+{
+	LLNotifications::instance().add("ClickSearchHelpAll");
 }
 
 // static

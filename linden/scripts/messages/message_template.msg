@@ -594,7 +594,7 @@ version 2.0
 // global x,y,z.  Otherwise, use center of the AABB.
 // reliable
 {
-	PlacesReply Low 30 Trusted Zerocoded
+	PlacesReply Low 30 Trusted Zerocoded UDPDeprecated
 	{
 		AgentData		Single
 		{	AgentID		LLUUID		}
@@ -619,6 +619,7 @@ version 2.0
 		{	SnapshotID		LLUUID			}
 		{	Dwell			F32				}
 		{	Price			S32				}
+		//{	ProductSKU		Variable	1	}
 	}
 }
 
@@ -723,6 +724,10 @@ version 2.0
 		{	Auction			BOOL		}
 		{	Dwell			F32			}
 	}
+	{
+		StatusData            Variable
+		{	Status		U32		}
+	}
 }
 
 // DirPeopleReply
@@ -766,6 +771,10 @@ version 2.0
 		{	Date		Variable	1	}
 		{	UnixTime	U32				}
 		{	EventFlags	U32				}
+	}
+	{
+		StatusData Variable
+		{	Status		U32			}
 	}
 }
 
@@ -851,6 +860,10 @@ version 2.0
 		{	CreationDate	U32			}
 		{	ExpirationDate	U32			}
 		{	PriceForListing	S32			}
+	}
+	{
+		StatusData Variable
+		{	Status			U32		}
 	}
 }
 
@@ -1036,7 +1049,7 @@ version 2.0
 // dataserver -> simulator -> viewer
 // reliable
 {
-	DirLandReply Low 50 Trusted Zerocoded
+	DirLandReply Low 50 Trusted Zerocoded UDPDeprecated
 	{
 		AgentData			Single
 		{	AgentID			LLUUID	}
@@ -1053,6 +1066,7 @@ version 2.0
 		{	ForSale			BOOL		}
 		{	SalePrice		S32			}
 		{	ActualArea		S32			}
+		//{	ProductSKU		Variable 1	}
 	}
 }
 
@@ -1465,7 +1479,7 @@ version 2.0
 	}
 }
 
-// TeleportFailed somehwere->sim->viewer
+// TeleportFailed somewhere->sim->viewer
 // announce failure of teleport request
 {
 	TeleportFailed Low 74 Trusted Unencoded
@@ -1473,6 +1487,11 @@ version 2.0
 		Info		Single
 		{	AgentID		LLUUID			}
 		{	Reason		Variable	1	}  // string
+	}
+	{
+		AlertInfo			Variable
+		{	Message			Variable	1	}	// string id
+		{	ExtraParams		Variable	1	}	// llsd extra parameters
 	}
 }
 
@@ -2589,6 +2608,10 @@ version 2.0
 		{	East			F32		}
 		{	North			F32		}
 	}
+	{
+		ModifyBlockExtended Variable
+		{   BrushSize       F32 }
+	}
 }
 
 
@@ -2805,6 +2828,11 @@ version 2.0
 	{
 		AlertData			Single
 		{	Message			Variable	1	}
+	}
+	{
+		AlertInfo			Variable
+		{	Message			Variable	1	}
+		{	ExtraParams		Variable	1	}
 	}
 }
 
@@ -8717,7 +8745,7 @@ version 2.0
 
 // spaceserver -> simulator
 {
-	RpcScriptRequestInboundForward Low 416 Trusted Unencoded
+	RpcScriptRequestInboundForward Low 416 Trusted Unencoded UDPDeprecated
 	{
 		DataBlock Single
 		{	RPCServerIP	IPADDR }

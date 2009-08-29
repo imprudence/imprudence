@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater name="im_floater" title="Мгновенное сообщение">
+	<string name="only_user_message">
+		Вы единственный пользователь в этой сессии
+	</string>
+	<string name="offline_message">
+		[FIRST] [LAST] оффлайн.
+	</string>
+	<string name="invite_message">
+		Нажмите [BUTTON NAME] кнопку, чтобы принять/соединиться к этому Голосовому Чату.
+	</string>
+	<string name="muted_message">
+		Вы заглушили этого резидента. Отправив сообщение, Вы автоматически разблокируете его.
+	</string>
+	<string name="generic_request_error">
+		Ошибка запроса, пожалуйста, повторите позже
+	</string>
+	<string name="insufficient_perms_error">
+		У Вас недостаточно прав
+	</string>
+	<string name="session_does_not_exist_error">
+		Эта сессия больше не существует
+	</string>
+	<string name="no_ability_error">
+		У Вас нет такой возможности
+	</string>
+	<string name="not_a_mod_error">
+		Вы не модератор сессии
+	</string>
+	<string name="muted_error">
+		Модератор группы отключил Ваш текстовый чат.
+	</string>
+	<string name="add_session_event">
+		Невозможно добавить пользователей в чат с [RECIPIENT].
+	</string>
+	<string name="message_session_event">
+		Невозможно отправить Ваше сообщение [RECIPIENT].
+	</string>
+	<string name="mute_agent_event">
+		заглушить агента в
+	</string>
+	<string name="removed_from_group">
+		Вас исключили из группы
+	</string>
+	<string name="close_on_no_ability">
+		У Вас больше нет возможности находиться в этой чат сессии.
+	</string>
+</multi_floater>

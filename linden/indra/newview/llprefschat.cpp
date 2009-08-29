@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -49,7 +50,8 @@ public:
 	void apply();
 	void cancel();
 
-protected:
+private:
+	void refreshValues();
 	S32	mChatSize;
 	F32	mChatPersist;
 	S32	mChatMaxLines;
@@ -77,6 +79,8 @@ protected:
 LLPrefsChatImpl::LLPrefsChatImpl()
 	:	LLPanel(std::string("Chat Panel"))
 {
+	refreshValues(); // initialize member data from saved settings
+
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_chat.xml");
 
 	getChild<LLRadioGroup>("chat_font_size")->setSelectedIndex(gSavedSettings.getS32("ChatFontSize"));
@@ -103,7 +107,10 @@ LLPrefsChatImpl::LLPrefsChatImpl()
 	childSetValue("play_typing_animation", gSavedSettings.getBOOL("PlayTypingAnim"));
 	childSetValue("console_opacity", gSavedSettings.getF32("ConsoleBackgroundOpacity"));
 	childSetValue("bubble_chat_opacity", gSavedSettings.getF32("ChatBubbleOpacity"));
+}
 
+void LLPrefsChatImpl::refreshValues()
+{
 	//set values
 	mChatSize = gSavedSettings.getS32("ChatFontSize");
 	mChatPersist = gSavedSettings.getF32("ChatPersistTime");
@@ -181,6 +188,8 @@ void LLPrefsChatImpl::apply()
 
 	gSavedSettings.setF32("ConsoleBackgroundOpacity", childGetValue("console_opacity").asReal());
 	gSavedSettings.setF32("ChatBubbleOpacity", childGetValue("bubble_chat_opacity").asReal());
+
+	refreshValues(); // member values become the official values and cancel becomes a no-op.
 }
 
 //---------------------------------------------------------------------------

@@ -11,11 +11,12 @@
 		Logar para Alterar
 	</string>
 	<check_box label="Enviar MI para o e-mail ([EMAIL])" name="send_im_to_email"/>
-	<check_box label="Incluir MIs no histórico de conversas" name="include_im_in_chat_history"/>
+	<check_box label="Incluir MIs no console do chat" name="include_im_in_chat_console"/>
 	<check_box label="Mostrar data e hora na MI" name="show_timestamps_check"/>
 	<check_box label="Mostrar notificação de Amigo online" name="friends_online_notify_checkbox"/>
 	<text length="1" name="text_box3" type="string" width="134">
-		Resp. no Modo Ocupado:
+		Resposta no Modo
+Ocupado:
 	</text>
 	<text name="text_box4">
 		Opções de Registro:
@@ -27,5 +28,6 @@
 	<check_box label="Mostrar a hora no registro da Conversa local" name="log_chat_timestamp"/>
 	<check_box label="Mostrar MIs recebidas no registro de Conversa local" name="log_chat_IM"/>
 	<check_box label="Incluir data e hora" name="log_date_timestamp"/>
-	<button label="Alt. Caminho" label_selected="Alt. Caminho" name="log_path_button"/>
+	<button label="Mudar Local" label_selected="Alterar Caminho" name="log_path_button" width="120"/>
+	<line_editor left="278" name="log_path_string" right="-20"/>
 </panel>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<teleport_messages>
+	<message_set name="errors">
+		<message name="invalid_tport">
+			При попытке телепортирования возникла проблема. Возможно Вам придется перезайти в Second Life перед тем, как Вы сможете телепортироваться. Если Вы продолжаете получать это сообщение, обратитесь в FAQ техподдержки Second Life по адресу:
+www.secondlife.com/support
+		</message>
+		<message name="invalid_region_handoff">
+			При попытке пересечения границы региона возникла проблема. Возможно Вам придется перезайти в Second Life перед тем, как Вы сможете перейти границу. Если Вы продолжаете получать это сообщение, обратитесь в FAQ техподдержки Second Life по адресу:
+www.secondlife.com/support
+		</message>
+		<message name="blocked_tport">
+			Извините, Телепорт сейчас заблокирован. Попробуйте еще раз через какое-то время.
+Если Вы до сих пор не можете телепортироваться, выйдите из Second Life, и войдите снова для решения этой проблемы.
+		</message>
+		<message name="nolandmark_tport">
+			Извините, но система не смогла определить местоназначение закладки.
+		</message>
+		<message name="timeout_tport">
+			Извините, но система не смогла совершить Телепорт.
+Попробуйте еще раз через секунду.
+		</message>
+		<message name="noaccess_tport">
+			Извините, но у Вас нет доступа для Телепорта в выбранный регион.
+		</message>
+		<message name="missing_attach_tport">
+			Ваши приложения пока еще не прибыли. Подождите их несколько секунд, или выйдите из Second Life, и загрузите вновь перед тем, как попробовать телепортироваться еще раз.
+		</message>
+		<message name="too_many_uploads_tport">
+			Очередь входов в этот регион заполнена, поэтому Вы пока не можете попасть сюда.
+Попробуйте еще раз через несколько минут, или перейдите в менее загруженный регион.
+		</message>
+		<message name="expired_tport">
+			Извините, но система не смогла совершить Телепорт.
+Попробуйте еще раз через несколько минут.
+		</message>
+		<message name="expired_region_handoff">
+			Извините, но система не может совершить пересечение границы регионов.
+Попробуйте еще раз через несколько минут.
+		</message>
+		<message name="no_host">
+			Невозможно определить местоназначение Телепорта. Область может быть временно недоступна, либо вовсе не существовать.
+Попробуйте еще раз через несколько минут.
+		</message>
+		<message name="no_inventory_host">
+			Система инвентаря временно недоступна.
+		</message>
+	</message_set>
+	<message_set name="progress">
+		<message name="sending_dest">
+			Отправляем по назначению.
+		</message>
+		<message name="redirecting">
+			Переадресация в другое место.
+		</message>
+		<message name="relaying">
+			Передача по назначению.
+		</message>
+		<message name="sending_home">
+			Отправляем запрос локации дома.
+		</message>
+		<message name="sending_landmark">
+			Отправляем запрос локации закладки.
+		</message>
+		<message name="completing">
+			Завершаем телепорт.
+		</message>
+		<message name="resolving">
+			Определение назначения.
+		</message>
+		<message name="contacting">
+			Связываемся с новым регионом..
+		</message>
+		<message name="arriving">
+			Прибытие...
+		</message>
+		<message name="requesting">
+			Запрос Телепорта...
+		</message>
+	</message_set>
+</teleport_messages>

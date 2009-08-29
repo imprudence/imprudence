@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -57,6 +58,7 @@
 #include "llviewerwindow.h"		// *TODO: remove, only used for width/height
 #include "llworld.h"
 #include "llfeaturemanager.h"
+#include "llviewernetwork.h"
 #if LL_LCD_COMPILE
 #include "lllcd.h"
 #endif
@@ -348,7 +350,6 @@ void LLViewerStats::addToMessage(LLSD &body) const
 // Moving them here, but not merging them into LLViewerStats yet.
 void reset_statistics()
 {
-	gPipeline.resetFrameStats();	// Reset per-frame statistics.
 	if (LLSurface::sTextureUpdateTime)
 	{
 		LLSurface::sTexelsUpdatedPerSecStat.addValue(0.001f*(LLSurface::sTexelsUpdated / LLSurface::sTextureUpdateTime));
@@ -363,8 +364,8 @@ void output_statistics(void*)
 	llinfos << "Number of orphans: " << gObjectList.getOrphanCount() << llendl;
 	llinfos << "Number of dead objects: " << gObjectList.mNumDeadObjects << llendl;
 	llinfos << "Num images: " << gImageList.getNumImages() << llendl;
-	llinfos << "Texture usage: " << LLImageGL::sGlobalTextureMemory << llendl;
-	llinfos << "Texture working set: " << LLImageGL::sBoundTextureMemory << llendl;
+	llinfos << "Texture usage: " << LLImageGL::sGlobalTextureMemoryInBytes << llendl;
+	llinfos << "Texture working set: " << LLImageGL::sBoundTextureMemoryInBytes << llendl;
 	llinfos << "Raw usage: " << LLImageRaw::sGlobalRawMemory << llendl;
 	llinfos << "Formatted usage: " << LLImageFormatted::sGlobalFormattedMemory << llendl;
 	llinfos << "Zombie Viewer Objects: " << LLViewerObject::getNumZombieObjects() << llendl;
@@ -658,7 +659,7 @@ void send_stats()
 	time(&ltime);
 	F32 run_time = F32(LLFrameTimer::getElapsedSeconds());
 
-	agent["start_time"] = ltime - run_time;
+	agent["start_time"] = S32(ltime - S32(run_time));
 
 	// The first stat set must have a 0 run time if it doesn't actually
 	// contain useful data in terms of FPS, etc.  We use half the
@@ -697,7 +698,11 @@ void send_stats()
 	system["ram"] = (S32) gSysMemory.getPhysicalMemoryKB();
 	system["os"] = LLAppViewer::instance()->getOSInfo().getOSStringSimple();
 	system["cpu"] = gSysCPU.getCPUString();
-
+	std::string macAddressString = llformat("%02x-%02x-%02x-%02x-%02x-%02x",
+											gMACAddress[0],gMACAddress[1],gMACAddress[2],
+											gMACAddress[3],gMACAddress[4],gMACAddress[5]);
+	system["mac_address"] = macAddressString;
+	system["serial_number"] = LLAppViewer::instance()->getSerialNumber();
 	std::string gpu_desc = llformat(
 		"%-6s Class %d ",
 		gGLManager.mGLVendorShort.substr(0,6).c_str(),

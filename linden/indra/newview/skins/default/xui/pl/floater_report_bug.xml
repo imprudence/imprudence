@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="bug_reporter" title="Zgłoś Błędy Klienta">
+	<texture_picker label="" name="screenshot" />
+	<check_box label="Załącz Zdjęcie Ekranu" name="screen_check" />
+	<text name="reporter_title">
+		Reporter:
+	</text>
+	<text name="sim_title">
+		Region:
+	</text>
+	<text name="pos_title">
+		Pozycja:
+	</text>
+	<text name="select_object_label">
+		Kliknij na przycisk później na obiekt:
+	</text>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="Wybór obiektu - wybierz obiekt, którego dotyczy raport." />
+	<text name="object_name_label">
+		Nazwa:
+	</text>
+	<text name="object_name">
+		Consetetur Sadipscing
+	</text>
+	<text name="owner_name_label">
+		Właściciel:
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
+	</text>
+	<combo_box name="category_combo"
+	     tool_tip="Wybór kategorii - wybierz kategorię, której dotyczy raport">
+		<combo_item name="Selectcategory">
+			Wybierz Kategorię
+		</combo_item>
+		<combo_item name="Building">
+			Budowanie
+		</combo_item>
+		<combo_item name="Character">
+			Awatar
+		</combo_item>
+		<combo_item name="Chat/IM">
+			Czat/IM
+		</combo_item>
+		<combo_item name="Documentation">
+			Dokumentacja
+		</combo_item>
+		<combo_item name="Exploit">
+			Eksploatacja
+		</combo_item>
+		<combo_item name="Graphics">
+			Grafika
+		</combo_item>
+		<combo_item name="Inventory">
+			Szafa
+		</combo_item>
+		<combo_item name="Lag">
+			Lag
+		</combo_item>
+		<combo_item name="MissingContent">
+			Brakujący Element
+		</combo_item>
+		<combo_item name="LindenDollars(L$)">
+			Linden Dollars (L$)
+		</combo_item>
+		<combo_item name="Permissions">
+			Prawa
+		</combo_item>
+		<combo_item name="Physics">
+			Fizyka
+		</combo_item>
+		<combo_item name="Script">
+			Skrypty
+		</combo_item>
+		<combo_item name="Sound">
+			Dźwięk
+		</combo_item>
+		<combo_item name="Stipends">
+			Uposażenie
+		</combo_item>
+		<combo_item name="Userinterface">
+			Interfejs Użytkownika
+		</combo_item>
+		<combo_item name="Miscellaneous">
+			Różne/Inne
+		</combo_item>
+	</combo_box>
+	<text name="sum_title">
+		Podsumowanie:
+	</text>
+	<text name="dscr_title">
+		Detale: (Proszę dostarczyć możliwie jak najwięcej szczegółów)
+	</text>
+	<text_editor name="details_edit">
+		Procedura usuwania błędów klienta:
+
+Zaobserwowane rezultaty:
+
+Oczekiwane rezultaty:
+	</text_editor>
+	<text name="bug_aviso">
+		Pamiętaj: Niedokończone raporty nie będą analizowane!
+Jeżeli ten błąd pozwala Ci na dokonywanie niedozwolonych operacji, 
+zwłaszcza związanych z bezpieczeństwem i działanością systemu wybierz kategorię Eksploatacja. Dziękujemy!
+	</text>
+	<button label="Anuluj" label_selected="Anuluj" name="cancel_btn" />
+	<button label="Zgłoś Błąd" label_selected="Zgłoś Błąd" name="send_btn" />
+</floater>

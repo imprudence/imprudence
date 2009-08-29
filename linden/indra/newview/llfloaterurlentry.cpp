@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -262,32 +263,30 @@ void LLFloaterURLEntry::onBtnCancel( void* userdata )
 //-----------------------------------------------------------------------------
 void LLFloaterURLEntry::onBtnClear( void* userdata )
 {
-	gViewerWindow->alertXml( "ConfirmClearMediaUrlList", callback_clear_url_list, userdata );
+	LLNotifications::instance().add( "ConfirmClearMediaUrlList", LLSD(), LLSD(), 
+									boost::bind(&LLFloaterURLEntry::callback_clear_url_list, (LLFloaterURLEntry*)userdata, _1, _2) );
 }
 
-void LLFloaterURLEntry::callback_clear_url_list(S32 option, void* userdata)
+bool LLFloaterURLEntry::callback_clear_url_list(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if ( option == 0 ) // YES
 	{
-		LLFloaterURLEntry *self =(LLFloaterURLEntry *)userdata;
-
-		if ( self )
+		// clear saved list
+		LLCtrlListInterface* url_list = childGetListInterface("media_entry");
+		if ( url_list )
 		{
-			// clear saved list
-			LLCtrlListInterface* url_list = self->childGetListInterface("media_entry");
-			if ( url_list )
-			{
-				url_list->operateOnAll( LLCtrlListInterface::OP_DELETE );
-			}
-
-			// clear current contents of combo box
-			self->mMediaURLEdit->clear();
-
-			// clear stored version of list
-			LLURLHistory::clear("parcel");
-
-			// cleared the list so disable Clear button
-			self->childSetEnabled( "clear_btn", false );
+			url_list->operateOnAll( LLCtrlListInterface::OP_DELETE );
 		}
+
+		// clear current contents of combo box
+		mMediaURLEdit->clear();
+
+		// clear stored version of list
+		LLURLHistory::clear("parcel");
+
+		// cleared the list so disable Clear button
+		childSetEnabled( "clear_btn", false );
 	}
+	return false;
 }

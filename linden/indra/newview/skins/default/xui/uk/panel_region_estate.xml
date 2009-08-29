@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Маєток" name="Estate">
+	<text name="estate_help_text">
+		Зміна цих параметрів повлечет змін.
+всі ділянки в маєтку
+	</text>
+	<text name="estate_text">
+		Маєток:
+	</text>
+	<text name="estate_name">
+		(невідомо)
+	</text>
+	<text name="owner_text">
+		Власник:
+	</text>
+	<text name="estate_owner">
+		(невідомо)
+	</text>
+	<check_box label="Використовувати глобальний час" name="use_global_time_check"/>
+	<button label="?" name="use_global_time_help"/>
+	<check_box label="Фікс. Сонце" name="fixed_sun_check"/>
+	<button label="?" name="fixed_sun_help"/>
+	<slider label="Фаза" name="sun_hour_slider"/>
+	<check_box label="Публічний Доступ" name="externally_visible_check"/>
+	<button label="?" name="externally_visible_help"/>
+	<text length="1" name="Only Allow" type="string">
+		Заборонити доступ для:
+	</text>
+	<check_box label="Резидентам без плат. інфо" name="limit_payment" tool_tip="Забанити невідомих резидентів"/>
+	<check_box label="Не пройш. пер. віку" name="limit_age_verified" tool_tip="Забанити резидентів з неперевіреним віком. Детальніше support.secondlife.com."/>
+	<check_box label="Увімкн. Голосовий Чат" name="voice_chat_check"/>
+	<button label="?" name="voice_chat_help"/>
+	<check_box label="Дозволити прямий телепорт" name="allow_direct_teleport"/>
+	<button label="?" name="allow_direct_teleport_help"/>
+	<text name="abuse_email_text">
+		E-mail для скарг:
+	</text>
+	<string name="email_unsupported">
+		Функція не підтримується
+	</string>
+	<button label="?" name="abuse_email_address_help"/>
+	<button label="Застосув." name="apply_btn"/>
+	<button label="Викинути користувача з маєтку..." name="kick_user_from_estate_btn"/>
+	<button label="Відправ. повідом. в маєток..." name="message_estate_btn"/>
+	<text name="estate_manager_label">
+		Менеджери маєтку:
+	</text>
+	<button label="?" name="estate_manager_help"/>
+	<button label="Видалити..." name="remove_estate_manager_btn"/>
+	<button label="Додати..." name="add_estate_manager_btn"/>
+	<text name="allow_resident_label">
+		Допущені резиденти:
+	</text>
+	<button label="?" name="allow_resident_help"/>
+	<button label="Видалити..." name="remove_allowed_avatar_btn"/>
+	<button label="Додати..." name="add_allowed_avatar_btn"/>
+	<text name="allow_group_label">
+		Допущені Групи:
+	</text>
+	<button label="?" name="allow_group_help"/>
+	<button label="Видалити..." name="remove_allowed_group_btn"/>
+	<button label="Додати..." name="add_allowed_group_btn"/>
+	<text name="ban_resident_label">
+		Забанені резиденти:
+	</text>
+	<button label="?" name="ban_resident_help"/>
+	<button label="Видалити..." name="remove_banned_avatar_btn"/>
+	<button label="Додати..." name="add_banned_avatar_btn"/>
+</panel>

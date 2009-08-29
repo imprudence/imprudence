@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="media_controls">
+	<icon label="" name="music_icon"
+	     tool_tip="Вкл/пауз. потоковая музыка" />
+	<button label="" name="music_play"
+	     tool_tip="Вкл/пауз. потоковая музыка" />
+	<button label="" name="music_pause" tool_tip="Пауза" />
+	<button label="" name="music_stop" tool_tip="Стоп" />
+	<icon label="" name="media_icon"
+	     tool_tip="Вкл/пауз. потоковая музыка" />
+	<button label="" name="media_play"
+	     tool_tip="Вкл/пауз. потоковое медиа" />
+	<button label="" name="media_pause" tool_tip="Пауза" />
+	<button label="" name="media_stop" tool_tip="Стоп" />
+	<volume_slider name="volume_slider" tool_tip="Основной звук" />
+	<button label="" name="mute_master" tool_tip="Основная глушилка" />
+	<button label="" name="expand"
+	     tool_tip="Применить индивидуальные настройки звука" />
+	<string name="play_label">
+		Играть
+	</string>
+	<string name="stop_label">
+		Стоп
+	</string>
+	<string name="pause_label">
+		Пауза
+	</string>
+	<string name="default_tooltip_label">
+		Медиа не указано
+	</string>
+	<string name="media_hidden_label">
+		(URL скрыт владельцем)
+	</string>
+	<string name="media_icon_tooltip_web">
+		Эта локация отображает содержимое интернета. Нажмите Играть чтобы увидеть его.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		Эта локация может показать видео. Нажмите Играть чтобы увидеть его.
+	</string>
+	<string name="media_play_tooltip">
+		Показать вебсодержимое в этой локации.
+	</string>
+</panel>

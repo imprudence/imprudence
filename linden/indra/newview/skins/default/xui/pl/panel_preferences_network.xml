@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Sieć" name="network">
+	<text type="string" length="1" name="text_box">
+		Maksymalna Przepustowość:
+	</text>
+	<text type="string" length="1" name="text_box2">
+		kbps (kilobity na sekundę)
+	</text>
+	<text type="string" length="1" name="cache_size_label_l">
+		Rozmiar Bufora Danych:
+	</text>
+	<text type="string" length="1" name="text_box5">
+		MB
+	</text>
+	<button label="Wyczyść" name="clear_cache" />
+	<text type="string" length="1" name="cache_location_label">
+		Lokacja Bufora Danych na Dysku:
+	</text>
+	<button label="Ustaw" label_selected="Ustaw" name="set_cache" />
+	<button label="Zresetuj" label_selected="Zresetuj" name="reset_cache" />
+	<check_box label="Port dedykowany dla aplikacji" name="connection_port_enabled" />
+	<spinner label="Numer Portu:" name="connection_port" />
+</panel>

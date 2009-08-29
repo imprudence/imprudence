@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -353,7 +354,9 @@ BOOL LLKeyframeMotionParam::loadMotions()
 	// open the file
 	//-------------------------------------------------------------------------
 	S32 fileSize = 0;
-	apr_file_t* fp = ll_apr_file_open(path, LL_APR_R, &fileSize);
+	LLAPRFile infile ;
+	infile.open(path, LL_APR_R, NULL, &fileSize);
+	apr_file_t* fp = infile.getFileHandle() ;
 	if (!fp || fileSize == 0)
 	{
 		llinfos << "ERROR: can't open: " << path << llendl;
@@ -365,7 +368,6 @@ BOOL LLKeyframeMotionParam::loadMotions()
 	if ( !text )
 	{
 		llinfos << "ERROR: can't allocated keyframe text buffer." << llendl;
-		apr_file_close(fp);
 		return FALSE;
 	}
 
@@ -392,7 +394,7 @@ BOOL LLKeyframeMotionParam::loadMotions()
 	//-------------------------------------------------------------------------
 	// close the file
 	//-------------------------------------------------------------------------
-	apr_file_close( fp );
+	infile.close();
 
 	//-------------------------------------------------------------------------
 	// check for error

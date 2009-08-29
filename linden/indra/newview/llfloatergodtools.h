@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -201,11 +202,11 @@ public:
 	void refresh();
 
 	static void onClickKickAll(void *data);
-	static void confirmKick(S32 option, const std::string& text, void* userdata);
-	static void finishKick(S32 option, void* userdata);
+	static bool confirmKick(const LLSD& notification, const LLSD& response);
+	static bool finishKick(const LLSD& notification, const LLSD& response);
 	static void onDragSunPhase(LLUICtrl *ctrl, void *userdata);
 	static void onClickFlushMapVisibilityCaches(void* data);
-	static void flushMapVisibilityCachesConfirm(S32 option, void* data);
+	static bool flushMapVisibilityCachesConfirm(const LLSD& notification, const LLSD& response);
 
 protected:
 	std::string        mKickMessage; // Message to send on kick
@@ -240,7 +241,7 @@ public:
 	static void onClickDeletePublicOwnedBy(void* data);
 	static void onClickDeleteAllScriptedOwnedBy(void* data);
 	static void onClickDeleteAllOwnedBy(void* data);
-	static void callbackSimWideDeletes(S32 option, void* userdata);
+	static bool callbackSimWideDeletes(const LLSD& notification, const LLSD& response);
 	static void onGetTopColliders(void* data);
 	static void onGetTopScripts(void* data);
 	static void onGetScriptDigest(void* data);

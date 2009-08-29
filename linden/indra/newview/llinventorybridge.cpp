@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -109,8 +110,8 @@ void wear_inventory_category_on_avatar_loop(LLWearable* wearable, void*);
 void wear_inventory_category_on_avatar_step3(LLWearableHoldingPattern* holder, BOOL append);
 void remove_inventory_category_from_avatar(LLInventoryCategory* category);
 void remove_inventory_category_from_avatar_step2( BOOL proceed, void* userdata);
-void move_task_inventory_callback(S32 option, void* user_data);
-void confirm_replace_attachment_rez(S32 option, void* user_data);
+bool move_task_inventory_callback(const LLSD& notification, const LLSD& response, LLMoveInv*);
+bool confirm_replace_attachment_rez(const LLSD& notification, const LLSD& response);
 
 std::string ICON_NAME[ICON_NAME_COUNT] =
 {
@@ -1030,6 +1031,19 @@ BOOL LLItemBridge::isItemCopyable() const
 	LLViewerInventoryItem* item = getItem();
 	if (item)
 	{
+		// can't copy worn objects. DEV-15183
+		LLVOAvatar *avatarp = gAgent.getAvatarObject();
+		if( !avatarp )
+		{
+			return FALSE;
+		}
+
+		if( avatarp->isWearingAttachment( mUUID ) )
+		{
+			return FALSE;
+		}
+			
+
 		return (item->getPermissions().allowCopyBy(gAgent.getID()));
 	}
 	return FALSE;
@@ -1307,7 +1321,7 @@ void warn_move_inventory(LLViewerObject* object, LLMoveInv* move_inv)
 	{
 		dialog = "MoveInventoryFromObject";
 	}
-	gViewerWindow->alertXml(dialog, move_task_inventory_callback, move_inv);
+	LLNotifications::instance().add(dialog, LLSD(), LLSD(), boost::bind(move_task_inventory_callback, _1, _2, move_inv));
 }
 
 // Move/copy all inventory items from the Contents folder of an in-world
@@ -1396,7 +1410,9 @@ BOOL move_inv_category_world_to_agent(const LLUUID& object_id,
 		}
 		else
 		{
-			move_task_inventory_callback(0, (void*)(move_inv));
+			LLNotification::Params params("MoveInventoryFromObject");
+			params.functor(boost::bind(move_task_inventory_callback, _1, _2, move_inv));
+			LLNotifications::instance().forceResponse(params, 0);
 		}
 	}
 	return accept;
@@ -1862,15 +1878,23 @@ void LLFolderBridge::folderOptionsMenu()
 	
 	LLInventoryModel* model = mInventoryPanel->getModel();
 	if(!model) return;
+
+	const LLInventoryCategory* category = model->getCategory(mUUID);
+	bool is_default_folder = category &&
+		(LLAssetType::AT_NONE != category->getPreferredType());
 	
 	// calling card related functionality for folders.
 
-	LLIsType is_callingcard(LLAssetType::AT_CALLINGCARD);
-	if (mCallingCards || checkFolderForContentsOfType(model, is_callingcard))
+	// Only enable calling-card related options for non-default folders.
+	if (!is_default_folder)
 	{
-		mItems.push_back(std::string("Calling Card Separator"));
-		mItems.push_back(std::string("Conference Chat Folder"));
-		mItems.push_back(std::string("IM All Contacts In Folder"));
+		LLIsType is_callingcard(LLAssetType::AT_CALLINGCARD);
+		if (mCallingCards || checkFolderForContentsOfType(model, is_callingcard))
+		{
+			mItems.push_back(std::string("Calling Card Separator"));
+			mItems.push_back(std::string("Conference Chat Folder"));
+			mItems.push_back(std::string("IM All Contacts In Folder"));
+		}
 	}
 	
 	// wearables related functionality for folders.
@@ -1887,8 +1911,7 @@ void LLFolderBridge::folderOptionsMenu()
 		mItems.push_back(std::string("Folder Wearables Separator"));
 
 		// Only enable add/replace outfit for non-default folders.
-		const LLInventoryCategory* category = model->getCategory(mUUID);
-		if (!category || (LLAssetType::AT_NONE == category->getPreferredType()))
+		if (!is_default_folder)
 		{
 			mItems.push_back(std::string("Add To Outfit"));
 			mItems.push_back(std::string("Replace Outfit"));
@@ -2206,12 +2229,12 @@ void LLFolderBridge::modifyOutfit(BOOL append)
 }
 
 // helper stuff
-void move_task_inventory_callback(S32 option, void* user_data)
+bool move_task_inventory_callback(const LLSD& notification, const LLSD& response, LLMoveInv* move_inv)
 {
-	LLMoveInv* move_inv = (LLMoveInv*)user_data;
 	LLFloaterOpenObject::LLCatAndWear* cat_and_wear = (LLFloaterOpenObject::LLCatAndWear* )move_inv->mUserData;
 	LLViewerObject* object = gObjectList.findObject(move_inv->mObjectID);
-	
+	S32 option = LLNotification::getSelectedOption(notification, response);
+
 	if(option == 0 && object)
 	{
 		if (cat_and_wear && cat_and_wear->mWear)
@@ -2242,6 +2265,7 @@ void move_task_inventory_callback(S32 option, void* user_data)
 	}
 
 	delete move_inv;
+	return false;
 }
 
 BOOL LLFolderBridge::dragItemIntoFolder(LLInventoryItem* inv_item,
@@ -2372,7 +2396,9 @@ BOOL LLFolderBridge::dragItemIntoFolder(LLInventoryItem* inv_item,
 			}
 			else
 			{
-				move_task_inventory_callback(0, (void*)(move_inv));
+				LLNotification::Params params("MoveInventoryFromObject");
+				params.functor(boost::bind(move_task_inventory_callback, _1, _2, move_inv));
+				LLNotifications::instance().forceResponse(params, 0);
 			}
 		}
 		
@@ -2667,23 +2693,28 @@ void open_landmark(LLViewerInventoryItem* inv_item,
 	}
 }
 
-static void open_landmark_callback(S32 option, void* data)
+static bool open_landmark_callback(const LLSD& notification, const LLSD& response)
 {
-	LLUUID* asset_idp = (LLUUID*)data;
+	S32 option = LLNotification::getSelectedOption(notification, response);
+
+	LLUUID asset_id = notification["payload"]["asset_id"].asUUID();
 	if (option == 0)
 	{
 		// HACK: This is to demonstrate teleport on double click for landmarks
-		gAgent.teleportViaLandmark( *asset_idp );
+		gAgent.teleportViaLandmark( asset_id );
 
 		// we now automatically track the landmark you're teleporting to
 		// because you'll probably arrive at a telehub instead
 		if( gFloaterWorldMap )
 		{
-			gFloaterWorldMap->trackLandmark( *asset_idp );
+			gFloaterWorldMap->trackLandmark( asset_id );
 		}
 	}
-	delete asset_idp;
+
+	return false;
 }
+static LLNotificationFunctorRegistration open_landmark_callback_reg("TeleportFromLandmark", open_landmark_callback);
+
 
 void LLLandmarkBridge::openItem()
 {
@@ -2693,9 +2724,9 @@ void LLLandmarkBridge::openItem()
 		// Opening (double-clicking) a landmark immediately teleports,
 		// but warns you the first time.
 		// open_landmark(item, std::string("  ") + getPrefix() + item->getName(), FALSE);
-		LLUUID* asset_idp = new LLUUID(item->getAssetUUID());
-		LLAlertDialog::showXml("TeleportFromLandmark",
-			open_landmark_callback, (void*)asset_idp);
+		LLSD payload;
+		payload["asset_id"] = item->getAssetUUID();
+		LLNotifications::instance().add("TeleportFromLandmark", LLSD(), payload);
 	}
 }
 
@@ -3349,8 +3380,9 @@ std::string LLObjectBridge::getLabelSuffix() const
 
 void rez_attachment(LLViewerInventoryItem* item, LLViewerJointAttachment* attachment)
 {
-	LLAttachmentRezAction* rez_action = new LLAttachmentRezAction;
-	rez_action->mItemID = item->getUUID();
+	LLSD payload;
+	payload["item_id"] = item->getUUID();
+
 	S32 attach_pt = 0;
 	if (gAgent.getAvatarObject() && attachment)
 	{
@@ -3364,46 +3396,46 @@ void rez_attachment(LLViewerInventoryItem* item, LLViewerJointAttachment* attach
 			}
 		}
 	}
-	rez_action->mAttachPt = attach_pt;
+
+	payload["attachment_point"] = attach_pt;
+
 	if (attachment && attachment->getObject())
 	{
-		gViewerWindow->alertXml("ReplaceAttachment", confirm_replace_attachment_rez, (void*)rez_action);
+		LLNotifications::instance().add("ReplaceAttachment", LLSD(), payload, confirm_replace_attachment_rez);
 	}
 	else
 	{
-		confirm_replace_attachment_rez(0/*YES*/, (void*)rez_action);
+		LLNotifications::instance().forceResponse(LLNotification::Params("ReplaceAttachment").payload(payload), 0/*YES*/);
 	}
 }
 
-void confirm_replace_attachment_rez(S32 option, void* user_data)
+bool confirm_replace_attachment_rez(const LLSD& notification, const LLSD& response)
 {
-	LLAttachmentRezAction* rez_action = (LLAttachmentRezAction*)user_data;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0/*YES*/)
 	{
-		if (rez_action)
+		LLViewerInventoryItem* itemp = gInventory.getItem(notification["payload"]["item_id"].asUUID());
+		
+		if (itemp)
 		{
-			LLViewerInventoryItem* itemp = gInventory.getItem(rez_action->mItemID);
-			
-			if (itemp)
-			{
-				LLMessageSystem* msg = gMessageSystem;
-				msg->newMessageFast(_PREHASH_RezSingleAttachmentFromInv);
-				msg->nextBlockFast(_PREHASH_AgentData);
-				msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-				msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-				msg->nextBlockFast(_PREHASH_ObjectData);
-				msg->addUUIDFast(_PREHASH_ItemID, itemp->getUUID());
-				msg->addUUIDFast(_PREHASH_OwnerID, itemp->getPermissions().getOwner());
-				msg->addU8Fast(_PREHASH_AttachmentPt, rez_action->mAttachPt);
-				pack_permissions_slam(msg, itemp->getFlags(), itemp->getPermissions());
-				msg->addStringFast(_PREHASH_Name, itemp->getName());
-				msg->addStringFast(_PREHASH_Description, itemp->getDescription());
-				msg->sendReliable(gAgent.getRegion()->getHost());
-			}
+			LLMessageSystem* msg = gMessageSystem;
+			msg->newMessageFast(_PREHASH_RezSingleAttachmentFromInv);
+			msg->nextBlockFast(_PREHASH_AgentData);
+			msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+			msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+			msg->nextBlockFast(_PREHASH_ObjectData);
+			msg->addUUIDFast(_PREHASH_ItemID, itemp->getUUID());
+			msg->addUUIDFast(_PREHASH_OwnerID, itemp->getPermissions().getOwner());
+			msg->addU8Fast(_PREHASH_AttachmentPt, notification["payload"]["attachment_point"].asInteger());
+			pack_permissions_slam(msg, itemp->getFlags(), itemp->getPermissions());
+			msg->addStringFast(_PREHASH_Name, itemp->getName());
+			msg->addStringFast(_PREHASH_Description, itemp->getDescription());
+			msg->sendReliable(gAgent.getRegion()->getHost());
 		}
 	}
-	delete rez_action;
+	return false;
 }
+static LLNotificationFunctorRegistration confirm_replace_attachment_rez_reg("ReplaceAttachment", confirm_replace_attachment_rez);
 
 void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 {
@@ -3900,7 +3932,7 @@ void wear_inventory_category_on_avatar( LLInventoryCategory* category, BOOL appe
 
 	if( gFloaterCustomize )
 	{
-		gFloaterCustomize->askToSaveAllIfDirty(
+		gFloaterCustomize->askToSaveIfDirty(
 			wear_inventory_category_on_avatar_step2,
 			userdata);
 	}
@@ -3956,7 +3988,7 @@ void wear_inventory_category_on_avatar_step2( BOOL proceed, void* userdata )
 
 		if( !wearable_count && !obj_count && !gest_count)
 		{
-			gViewerWindow->alertXml("CouldNotPutOnOutfit");
+			LLNotifications::instance().add("CouldNotPutOnOutfit");
 			delete wear_info;
 			return;
 		}
@@ -4171,7 +4203,7 @@ void remove_inventory_category_from_avatar( LLInventoryCategory* category )
 
 	if( gFloaterCustomize )
 	{
-		gFloaterCustomize->askToSaveAllIfDirty(
+		gFloaterCustomize->askToSaveIfDirty(
 			remove_inventory_category_from_avatar_step2,
 			uuid);
 	}
@@ -4363,7 +4395,7 @@ void LLWearableBridge::openItem()
 {
 	if( isInTrash() )
 	{
-		gViewerWindow->alertXml("CannotWearTrash");
+		LLNotifications::instance().add("CannotWearTrash");
 	}
 	else if(isAgentInventory())
 	{
@@ -4396,7 +4428,7 @@ void LLWearableBridge::openItem()
 		{
 			// *TODO: We should fetch the item details, and then do
 			// the operation above.
-			gViewerWindow->alertXml("CannotWearInfoNotComplete");
+			LLNotifications::instance().add("CannotWearInfoNotComplete");
 		}
 	}
 }
@@ -4497,7 +4529,7 @@ void LLWearableBridge::wearOnAvatar()
 	// destroy clothing items.
 	if (!gAgent.areWearablesLoaded()) 
 	{
-		gViewerWindow->alertXml("CanNotChangeAppearanceUntilLoaded");
+		LLNotifications::instance().add("CanNotChangeAppearanceUntilLoaded");
 		return;
 	}
 

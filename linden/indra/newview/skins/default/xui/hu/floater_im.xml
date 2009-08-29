@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<multi_floater name="im_floater" title="Azonnali üzenetküldés">
+	<string name="only_user_message">
+		Te vagy az egyedüli résztvevő ebben a beszélgetésben.
+	</string>
+	<string name="offline_message">
+		[FIRST] [LAST] nem elérhető.
+	</string>
+	<string name="invite_message">
+		Kattints a [BUTTON NAME] gombra a beszédhez történő elfogadásához/kapcsolódáshoz.
+	</string>
+	<string name="muted_message">
+		Ezt az lakót elnémítottad. Az üzenet küldésével automatikusan lekerül az elnémítottak listáról.
+	</string>
+	<string name="generic_request_error">
+		Hiba a kérésben, kérjük próbáld meg később újra.
+	</string>
+	<string name="insufficient_perms_error">
+		Nincs megfelelő jogosultságod.
+	</string>
+	<string name="session_does_not_exist_error">
+		A munkaszakasz már nem létezik
+	</string>
+	<string name="no_ability_error">
+		Képesség nem áll rendelkezésre.
+	</string>
+	<string name="not_a_mod_error">
+		Nem vagy a munkaszakasz moderátora.
+	</string>
+	<string name="muted_error">
+		A csoportmoderátor kikapcsolta a szöveges üzeneteidet.
+	</string>
+	<string name="add_session_event">
+		A felhasználók hozzáadása az üzenetek munkaszakaszához sikertelen ezzel: [RECIPIENT].
+	</string>
+	<string name="message_session_event">
+		Az üzeneted elküldése az üzenetek munkaszakaszába sikertelen ezzel: [RECIPIENT].
+	</string>
+	<string name="removed_from_group">
+		Eltávolításra kerültél a csoportból.
+	</string>
+	<string name="close_on_no_ability">
+		Nincs megfelelő képesség hozzádrendelve az üzenetek munkaszakaszában történő részvételhez.
+	</string>
+</multi_floater>

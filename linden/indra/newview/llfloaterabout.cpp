@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -58,7 +59,11 @@
 #include "llappviewer.h" 
 #include "llglheaders.h"
 #include "llmediamanager.h"
+#include "llwindow.h"
 
+#if LL_WINDOWS
+#include "lldxhardware.h"
+#endif
 
 extern LLCPUInfo gSysCPU;
 extern LLMemoryInfo gSysMemory;
@@ -119,10 +124,18 @@ LLFloaterAbout::LLFloaterAbout()
 	  __DATE__, __TIME__);
 
 	support_widget->appendColoredText(version, FALSE, FALSE, gColors.getColor("TextFgReadOnlyColor"));
-	support_widget->appendStyledText(LLTrans::getString("ReleaseNotes"), FALSE, FALSE, &viewer_link_style);
+	support_widget->appendStyledText(LLTrans::getString("ReleaseNotes"), false, false, viewer_link_style);
 
 	std::string support;
 	support.append("\n\n");
+
+#if LL_MSVC
+    support.append(llformat("Built with MSVC version %d\n\n", _MSC_VER));
+#endif
+
+#if LL_GNUC
+    support.append(llformat("Built with GCC version %d\n\n", GCC_VERSION));
+#endif
 
 	// Position
 	LLViewerRegion* region = gAgent.getRegion();
@@ -155,7 +168,7 @@ LLFloaterAbout::LLFloaterAbout()
 		support.append("\n");
 
 		support_widget->appendColoredText(support, FALSE, FALSE, gColors.getColor("TextFgReadOnlyColor"));
-		support_widget->appendStyledText(LLTrans::getString("ReleaseNotes"), FALSE, FALSE, &server_link_style);
+		support_widget->appendStyledText(LLTrans::getString("ReleaseNotes"), false, false, server_link_style);
 
 		support = "\n\n";
 	}
@@ -186,6 +199,20 @@ LLFloaterAbout::LLFloaterAbout()
 	support.append("Graphics Card: ");
 	support.append( (const char*) glGetString(GL_RENDERER) );
 	support.append("\n");
+
+#if LL_WINDOWS
+    getWindow()->incBusyCount();
+    getWindow()->setCursor(UI_CURSOR_ARROW);
+    support.append("Windows Graphics Driver Version: ");
+    LLSD driver_info = gDXHardware.getDisplayInfo();
+    if (driver_info.has("DriverVersion"))
+    {
+        support.append(driver_info["DriverVersion"]);
+    }
+    support.append("\n");
+    getWindow()->decBusyCount();
+    getWindow()->setCursor(UI_CURSOR_ARROW);
+#endif
 
 	support.append("OpenGL Version: ");
 	support.append( (const char*) glGetString(GL_VERSION) );

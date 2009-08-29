@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -206,7 +207,7 @@ void LLFloaterAuction::onClickSnapshot(void* data)
 
 		self->mImage = new LLImageGL((LLImageRaw*)raw, FALSE);
 		gGL.getTexUnit(0)->bind(self->mImage);
-		self->mImage->setClamp(TRUE, TRUE);
+		self->mImage->setAddressMode(LLTexUnit::TAM_CLAMP);
 	}
 	else
 	{
@@ -238,7 +239,7 @@ void LLFloaterAuction::onClickOK(void* data)
 								   FALSE);
 		self->getWindow()->incBusyCount();
 
-		LLNotifyBox::showXml("UploadingAuctionSnapshot");
+		LLNotifications::instance().add("UploadingAuctionSnapshot");
 
 	}
 	LLMessageSystem* msg = gMessageSystem;
@@ -277,13 +278,13 @@ void auction_tga_upload_done(const LLUUID& asset_id, void* user_data, S32 status
 
 	if (0 == status)
 	{
-		LLNotifyBox::showXml("UploadWebSnapshotDone");
+		LLNotifications::instance().add("UploadWebSnapshotDone");
 	}
 	else
 	{
-		LLStringUtil::format_map_t args;
-		args["[REASON]"] = std::string(LLAssetStorage::getErrorString(status));
-		gViewerWindow->alertXml("UploadAuctionSnapshotFail", args);
+		LLSD args;
+		args["REASON"] = std::string(LLAssetStorage::getErrorString(status));
+		LLNotifications::instance().add("UploadAuctionSnapshotFail", args);
 	}
 }
 
@@ -298,12 +299,12 @@ void auction_j2c_upload_done(const LLUUID& asset_id, void* user_data, S32 status
 
 	if (0 == status)
 	{
-		LLNotifyBox::showXml("UploadSnapshotDone");
+		LLNotifications::instance().add("UploadSnapshotDone");
 	}
 	else
 	{
-		LLStringUtil::format_map_t args;
-		args["[REASON]"] = std::string(LLAssetStorage::getErrorString(status));
-		gViewerWindow->alertXml("UploadAuctionSnapshotFail", args);
+		LLSD args;
+		args["REASON"] = std::string(LLAssetStorage::getErrorString(status));
+		LLNotifications::instance().add("UploadAuctionSnapshotFail", args);
 	}
 }

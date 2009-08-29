@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -359,6 +360,7 @@ typedef enum e_lscript_state_event_type
 	LSTT_OBJECT_REZ,
 	LSTT_REMOTE_DATA,
 	LSTT_HTTP_RESPONSE,
+	LSTT_HTTP_REQUEST,
 	LSTT_EOF,
 	
 	LSTT_STATE_BEGIN = LSTT_STATE_ENTRY,
@@ -400,7 +402,8 @@ const U64 LSCRIPTStateBitField[LSTT_EOF] =
 	0x0000000020000000,		//  LSTT_MOVING_END
 	0x0000000040000000,		//  LSTT_OBJECT_REZ
 	0x0000000080000000,		//  LSTT_REMOTE_DATA
-	0x0000000100000000LL     // LSTT_HTTP_RESPOSE
+	0x0000000100000000LL,	// LSTT_HTTP_RESPOSE
+	0x0000000200000000LL 	// LSTT_HTTP_REQUEST
 };
 
 inline S32 get_event_handler_jump_position(U64 bit_field, LSCRIPTStateEventType type)
@@ -549,6 +552,11 @@ const U32 LSCRIPTRunTimePermissionBits[SCRIPT_PERMISSION_EOF] =
 	(0x1 << 10),//	SCRIPT_PERMISSION_TRACK_CAMERA
 	(0x1 << 11),//	SCRIPT_PERMISSION_CONTROL_CAMERA
 };
+
+// http_request string constants
+extern const char* URL_REQUEST_GRANTED;
+extern const char* URL_REQUEST_DENIED;
+extern const U64 LSL_HTTP_REQUEST_TIMEOUT;
 
 #endif
 

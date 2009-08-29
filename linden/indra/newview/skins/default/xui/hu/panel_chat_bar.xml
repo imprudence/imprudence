@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat_bar">
+	<button label="Helyi üzenet" name="History" tool_tip="Kattints ide az üzenetek megtekintéséhez"/>
+	<line_editor label="Kattints ide a üzenetküldéshez." name="Chat Editor" tool_tip="Nyomd le az Enter gombot a beszédhez, a Ctrl-Enter-t, pedig a kiáltáshoz."/>
+	<flyout_button label="Beszél" name="Say" tool_tip="(Enter)">
+		<flyout_button_item name="shout_item">
+			Kiált
+		</flyout_button_item>
+		<flyout_button_item name="say_item">
+			Beszél
+		</flyout_button_item>
+		<flyout_button_item name="whisper_item">
+			Suttog
+		</flyout_button_item>
+	</flyout_button>
+	<combo_box label="Gesztusok" name="Gesture"/>
+	<string name="gesture_label">
+		Gesztusok
+	</string>
+</panel>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="overlay">
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel min_width="410" name="main_panel" width="410">
+			<layout_stack name="chatbar_and_buttons" right="410">
+				<layout_panel name="padding" width="410"/>
+				<layout_panel name="state_buttons" width="410">
+					<button label="Отримано IM" label_selected="Отримано IM" name="IM Received" tool_tip="У Вас є непрочитані IM-повідомлення. Щоб їх побачити натисніть IM."/>
+					<button label="Не зайнятий" label_selected="Не зайнятий" name="Set Not Busy" tool_tip="Спілкування по чату і IM сховано від Вас. Натисніть тут, щоб зняти цей статус."/>
+					<button label="Камера" label_selected="Камера" name="Flycam" tool_tip="Ваша камера під контролем джойстика, натисніть тут, щоб відпустити її."/>
+					<button label="Вид мишкою" label_selected="Вид мишкою" name="Mouselook" tool_tip="Використовуйте мишу для того, щоб оглянутися. Для зброї клік означає постріл."/>
+					<button label="Встати" label_selected="Встати" name="Stand Up" tool_tip="Натисніть, щоб встати."/>
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+		<layout_panel min_width="220" name="media_remote_container" width="220"/>
+		<layout_panel min_width="138" name="voice_remote_container" width="140"/>
+	</layout_stack>
+</panel>

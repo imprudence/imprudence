@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="chat_bar">
+	<button label="Местный Чат" name="History" tool_tip="Кликните для просмотра сказанного"/>
+	<line_editor width="95" label="Для чата нажмите сюда" name="Chat Editor" tool_tip="Нажмите Enter -- сказать, Ctrl+Enter -- крикнуть"/>
+	<flyout_button label="Сказать" name="Say" tool_tip="(Enter)" width="90" left_delta="100">
+		<flyout_button_item name="shout_item">
+			Крикнуть
+		</flyout_button_item>
+		<flyout_button_item name="say_item">
+			Сказать
+		</flyout_button_item>
+		<flyout_button_item name="whisper_item">
+			Прошептать
+		</flyout_button_item>
+	</flyout_button>
+	<combo_box label="Жесты" name="Gesture" left_delta="95"/>
+	<string name="gesture_label">
+		Жесты
+	</string>
+</panel>

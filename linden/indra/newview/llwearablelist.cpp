@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -101,6 +102,7 @@ void LLWearableList::getAsset( const LLAssetID& assetID, const std::string& wear
 // static
 void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID& uuid, void* userdata, S32 status, LLExtStat ext_status )
 {
+	BOOL isNewWearable = FALSE;
 	LLWearableArrivedData* data = (LLWearableArrivedData*) userdata;
 	LLWearable* wearable = NULL; // NULL indicates failure
 	
@@ -123,6 +125,10 @@ void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID
 			bool res = wearable->importFile( fp );
 			if (!res)
 			{
+				if (wearable->getType() == WT_COUNT)
+				{
+					isNewWearable = TRUE;
+				}
 				delete wearable;
 				wearable = NULL;
 			}
@@ -149,27 +155,27 @@ void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID
 		  {
 			  // Fail
 			  break;
-		  }
+		}
 		  default:
-		  {
+		{
 			  static const S32 MAX_RETRIES = 3;
 			  if (data->mRetries < MAX_RETRIES)
 			  {
-				  // Try again
+			  // Try again
 				  data->mRetries++;
-				  gAssetStorage->getAssetData(uuid,
-											  data->mAssetType,
-											  LLWearableList::processGetAssetReply,
-											  userdata);  // re-use instead of deleting.
-				  return;
-			  }
+			  gAssetStorage->getAssetData(uuid,
+										  data->mAssetType,
+										  LLWearableList::processGetAssetReply,
+										  userdata);  // re-use instead of deleting.
+			  return;
+		}
 			  else
 			  {
 				  // Fail
 				  break;
 			  }
 		  }
-		}
+	}
 	}
 
 	if (wearable) // success
@@ -180,17 +186,21 @@ void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID
 	}
 	else
 	{
-		LLStringUtil::format_map_t args;
+		LLSD args;
 		// *TODO:translate
-		args["[TYPE]"] = LLAssetType::lookupHumanReadable(data->mAssetType);
-		if (data->mName.empty())
+		args["TYPE"] = LLAssetType::lookupHumanReadable(data->mAssetType);
+		if (isNewWearable)
 		{
-			LLNotifyBox::showXml("FailedToFindWearableUnnamed", args);
+			LLNotifications::instance().add("InvalidWearable");
+		}
+		else if (data->mName.empty())
+		{
+			LLNotifications::instance().add("FailedToFindWearableUnnamed", args);
 		}
 		else
 		{
-			args["[DESC]"] = data->mName;
-			LLNotifyBox::showXml("FailedToFindWearable", args);
+			args["DESC"] = data->mName;
+			LLNotifications::instance().add("FailedToFindWearable", args);
 		}
 	}
 	// Always call callback; wearable will be NULL if we failed

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="object im info" title="Tárgy információk">
+	<text name="LabelItemNameTitle">
+		Tárgy:
+	</text>
+	<text name="LabelSlurlTitle">
+		Hely:
+	</text>
+	<text name="Unknown_Slurl">
+		(Hely információ nem elérhető)
+	</text>
+	<text name="LabelOwnerNameTitle">
+		Tulajdonos:
+	</text>
+	<button label="Tulajdonos elnémítása" label_selected="Tulajdonos elnémítása" name="Mute"/>
+</floater>

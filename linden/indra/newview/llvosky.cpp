@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -212,7 +213,7 @@ void LLSkyTex::init()
 	for (S32 i = 0; i < 2; ++i)
 	{
 		mImageGL[i] = new LLImageGL(FALSE);
-		mImageGL[i]->setClamp(TRUE, TRUE);
+		mImageGL[i]->setAddressMode(LLTexUnit::TAM_CLAMP);
 		mImageRaw[i] = new LLImageRaw(sResolution, sResolution, sComponents);
 		
 		initEmpty(i);
@@ -230,7 +231,7 @@ void LLSkyTex::restoreGL()
 	for (S32 i = 0; i < 2; i++)
 	{
 		mImageGL[i] = new LLImageGL(FALSE);
-		mImageGL[i]->setClamp(TRUE, TRUE);
+		mImageGL[i]->setAddressMode(LLTexUnit::TAM_CLAMP);
 	}
 }
 
@@ -289,7 +290,7 @@ void LLSkyTex::create(const F32 brightness)
 void LLSkyTex::createGLImage(S32 which)
 {	
 	mImageGL[which]->createGLTexture(0, mImageRaw[which]);
-	mImageGL[which]->setClamp(TRUE, TRUE);
+	mImageGL[which]->setAddressMode(LLTexUnit::TAM_CLAMP);
 }
 
 void LLSkyTex::bindTexture(BOOL curr)
@@ -376,11 +377,12 @@ LLVOSky::LLVOSky(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 	mMoon.setIntensity(0.1f * SUN_INTENSITY);
 
 	mSunTexturep = gImageList.getImage(gSunTextureID, TRUE, TRUE);
-	mSunTexturep->setClamp(TRUE, TRUE);
+	mSunTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 	mMoonTexturep = gImageList.getImage(gMoonTextureID, TRUE, TRUE);
-	mMoonTexturep->setClamp(TRUE, TRUE);
+	mMoonTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 	mBloomTexturep = gImageList.getImage(IMG_BLOOM1);
-	mBloomTexturep->setClamp(TRUE, TRUE);
+	mBloomTexturep->setNoDelete() ;
+	mBloomTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 
 	mHeavenlyBodyUpdated = FALSE ;
 }
@@ -446,6 +448,7 @@ void LLVOSky::initCubeMap()
 		mCubeMap = new LLCubeMap();
 		mCubeMap->init(images);
 	}
+	gGL.getTexUnit(0)->disable();
 }
 
 
@@ -470,11 +473,12 @@ void LLVOSky::restoreGL()
 		mSkyTex[i].restoreGL();
 	}
 	mSunTexturep = gImageList.getImage(gSunTextureID, TRUE, TRUE);
-	mSunTexturep->setClamp(TRUE, TRUE);
+	mSunTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 	mMoonTexturep = gImageList.getImage(gMoonTextureID, TRUE, TRUE);
-	mMoonTexturep->setClamp(TRUE, TRUE);
+	mMoonTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 	mBloomTexturep = gImageList.getImage(IMG_BLOOM1);
-	mBloomTexturep->setClamp(TRUE, TRUE);
+	mBloomTexturep->setNoDelete() ;
+	mBloomTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 
 	calcAtmospherics();	
 
@@ -1152,6 +1156,7 @@ BOOL LLVOSky::updateSky()
 					images.push_back(mShinyTex[side].getImageRaw(TRUE));
 				}
 				mCubeMap->init(images);
+				gGL.getTexUnit(0)->disable();
 			}
 
 			gPipeline.markRebuild(gSky.mVOGroundp->mDrawable, LLDrawable::REBUILD_ALL, TRUE);
@@ -1192,8 +1197,6 @@ LLDrawable *LLVOSky::createDrawable(LLPipeline *pipeline)
 
 	LLDrawPoolSky *poolp = (LLDrawPoolSky*) gPipeline.getPool(LLDrawPool::POOL_SKY);
 	poolp->setSkyTex(mSkyTex);
-	poolp->setSun(&mSun);
-	poolp->setMoon(&mMoon);
 	mDrawable->setRenderType(LLPipeline::RENDER_TYPE_SKY);
 	
 	for (S32 i = 0; i < 6; ++i)
@@ -1210,7 +1213,7 @@ LLDrawable *LLVOSky::createDrawable(LLPipeline *pipeline)
 
 //by bao
 //fake vertex buffer updating
-//to guaranttee at least updating one VBO buffer every frame
+//to guarantee at least updating one VBO buffer every frame
 //to walk around the bug caused by ATI card --> DEV-3855
 //
 void LLVOSky::createDummyVertexBuffer()
@@ -2023,7 +2026,7 @@ void LLVOSky::updateFog(const F32 distance)
 	const BOOL hide_clip_plane = TRUE;
 	LLColor4 target_fog(0.f, 0.2f, 0.5f, 0.f);
 
-	const F32 water_height = gAgent.getRegion()->getWaterHeight();
+	const F32 water_height = gAgent.getRegion() ? gAgent.getRegion()->getWaterHeight() : 0.f;
 	// LLWorld::getInstance()->getWaterHeight();
 	F32 camera_height = gAgent.getCameraPositionAgent().mV[2];
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="content_panel">
+	<text_editor type="string" length="1" name="voice_intro_text1">
+		Second Life sesli sohbetine hoşgeldiniz! Sesli sohbet diğer üyeler ile konuşmanızı sağlar.Bu sihirbaz,sesli sohbet kurulumunda gereken adımlarda size rehberlik edecektir.Sesli sohbeti kullanmak hoparlör gerektirir ve eğer siz de diğerleri ile konuşmak isterseniz mikrofon veya kulaklıklı mikforona sahip olmalısınız.
+	</text_editor>
+	<text_editor type="string" length="1" name="voice_intro_text2">
+		Sesli sohbet etkin.Sesli sohbeti kullanmaya devam etmek ister misiniz?
+	</text_editor>
+	<radio_group name="voice_enable">
+		<radio_item type="string" length="1" name="1">
+			Evet,sesli sohbeti kullanmaya devam et.
+		</radio_item>
+		<radio_item type="string" length="1" name="0">
+			Hayır,sesli sohbeti devre dışı bırak.
+		</radio_item>
+	</radio_group>
+	<text_editor length="1" name="voice_intro_text3">
+		İstediğiniz zaman sesli sohbeti Ayarlar içindeki Sesli Sohbet sekmesinden etkinleştirebilirsiniz.
+	</text_editor>
+	<text_editor length="1" name="voice_intro_text4">
+		Sesli sohbet ayarlarını düzenlemek için İleri butonuna tıklayınız veya Bitir butonuna tıklayarak Second Life&apos;ı kullanmaya devam ediniz.
+	</text_editor>
+</panel>

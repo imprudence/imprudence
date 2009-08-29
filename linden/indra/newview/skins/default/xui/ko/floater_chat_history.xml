@@ -21,6 +21,45 @@
 	<string name="IM_end_log_string">
 		-- 로그 끝 --
 	</string>
+  <string name="ScriptQuestionCautionChatGranted">
+	[REGIONPOS]의[REGIONNAME] 에 위치하며 &apos;[OBJECTNAME]&apos;, &apos;[OWNERNAME]&apos;가 소유하는 오브젝트는 다음과 같은 권한이 있음: [PERMISSIONS].
+  </string>
+  <string name="ScriptQuestionCautionChatDenied">
+	[REGIONPOS]의[REGIONNAME] 에 위치하며 &apos;[OBJECTNAME]&apos;, &apos;[OWNERNAME]&apos;가 소유하는 오브젝트는 다음과 같은 권한이 거부되었음: [PERMISSIONS].
+  </string>
+  <string name="ScriptTakeMoney">
+	사용자로부터 린든 달러(L$) 가져오기
+  </string>
+  <string name="ActOnControlInputs">
+	제어 입력 사항에 따라 행동
+  </string>
+  <string name="RemapControlInputs">
+	제어 입력 사항 다시 매핑
+  </string>
+  <string name="AnimateYourAvatar">
+	아바타에 애니메이션 효과 주기
+  </string>
+  <string name="AttachToYourAvatar">
+	자신의 아바타에 착용
+  </string>
+  <string name="ReleaseOwnership">
+	소유권 해제 및 공개
+  </string>
+  <string name="LinkAndDelink">
+	다른 오브젝트와의 연결 및 연결 해제
+  </string>
+  <string name="AddAndRemoveJoints">
+	다른 오브젝트와 함께 추가 및 삭제
+  </string>
+  <string name="ChangePermissions">
+	권한 변경
+  </string>
+  <string name="TrackYourCamera">
+	카메라 추적
+  </string>
+  <string name="ControlYourCamera">
+	카메라 제어
+  </string>
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<combo_box label="제스처" name="Gesture">

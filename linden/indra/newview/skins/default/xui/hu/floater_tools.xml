@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="toolbox floater" title="" short_title="Építés">
+	<button label="" label_selected="" name="button focus" tool_tip="Fókuszál"/>
+	<button label="" label_selected="" name="button move" tool_tip="Mozgat"/>
+	<button label="" label_selected="" name="button edit" tool_tip="Szerkeszt"/>
+	<button label="" label_selected="" name="button create" tool_tip="Készít"/>
+	<button label="" label_selected="" name="button land" tool_tip="Föld"/>
+	<check_box label="Nagyít" name="radio zoom"/>
+	<check_box label="Körbenéz (Ctrl)" name="radio orbit"/>
+	<check_box label="Pásztáz (Ctrl-Shift)" name="radio pan"/>
+	<check_box label="Mozgat" name="radio move"/>
+	<check_box label="Emel (Ctrl)" name="radio lift"/>
+	<check_box label="Pörget (Ctrl-Shift)" name="radio spin"/>
+	<check_box label="Pozícionál" name="radio position"/>
+	<check_box label="Forgat (Ctrl)" name="radio rotate"/>
+	<check_box label="Nyújt (Ctrl-Shift)" name="radio stretch"/>
+	<check_box label="Textúra kiválasztása" name="radio select face"/>
+	<check_box label="Csatolt elemek szerkesztése" name="checkbox edit linked parts"/>
+	<text name="text ruler mode">
+		Méretezés:
+	</text>
+	<combo_box name="combobox grid mode" left_delta="58">
+		<combo_item name="World">
+			Világ
+		</combo_item>
+		<combo_item name="Local">
+			Helyi
+		</combo_item>
+		<combo_item name="Reference">
+			Referencia
+		</combo_item>
+	</combo_box>
+	<check_box label="Oldalak nyújtása" name="checkbox uniform"/>
+	<check_box label="Textúra nyújtása" name="checkbox stretch textures"/>
+	<check_box label="Rács használata" name="checkbox snap to grid"/>
+	<button label="Beállítások" label_selected="Beállítások" name="Options..."/>
+	<text name="text status">
+		A mozgatáshoz fog meg és húzd, a másoláshoz shift gombot használj és húzd.
+	</text>
+	<button label="" label_selected="" name="ToolCube" tool_tip="Kocka"/>
+	<button label="" label_selected="" name="ToolPrism" tool_tip="Hasáb"/>
+	<button label="" label_selected="" name="ToolPyramid" tool_tip="Gúla"/>
+	<button label="" label_selected="" name="ToolTetrahedron" tool_tip="Tetraéder"/>
+	<button label="" label_selected="" name="ToolCylinder" tool_tip="Henger"/>
+	<button label="" label_selected="" name="ToolHemiCylinder" tool_tip="Félhenger"/>
+	<button label="" label_selected="" name="ToolCone" tool_tip="Kúp"/>
+	<button label="" label_selected="" name="ToolHemiCone" tool_tip="Félkúp"/>
+	<button label="" label_selected="" name="ToolSphere" tool_tip="Kör"/>
+	<button label="" label_selected="" name="ToolHemiSphere" tool_tip="Félgömb"/>
+	<button label="" label_selected="" name="ToolTorus" tool_tip="Tórusz"/>
+	<button label="" label_selected="" name="ToolTube" tool_tip="Cső"/>
+	<button label="" label_selected="" name="ToolRing" tool_tip="Gyűrű"/>
+	<button label="" label_selected="" name="ToolTree" tool_tip="Fa"/>
+	<button label="" label_selected="" name="ToolGrass" tool_tip="Fű"/>
+	<check_box label="Kijelölt megtartása" name="checkbox sticky"/>
+	<check_box label="Kijelölt másolása" name="checkbox copy selection"/>
+	<check_box label="Középre helyez" name="checkbox copy centers"/>
+	<check_box label="Forgat" name="checkbox copy rotates"/>
+	<check_box label="Föld kijelölése" name="radio select land"/>
+	<check_box label="Simítás" name="radio flatten"/>
+	<check_box label="Emelés" name="radio raise"/>
+	<check_box label="Mélyítés" name="radio lower"/>
+	<check_box label="Egyengetés" name="radio smooth"/>
+	<check_box label="Durvítás" name="radio noise"/>
+	<check_box label="Visszaállítás" name="radio revert"/>
+	<button label="Végrehajt" label_selected="Végrehajt" name="button apply to selection" tool_tip="Kijelölt föld módosítása"/>
+	<text name="Bulldozer:">
+		Talajegyengető:
+	</text>
+	<text name="Dozer Size:">
+		Méret
+	</text>
+	<text name="Strength:">
+		Erősség
+	</text>
+	<text name="obj_count">
+		Kijelölt tárgyak: [COUNT]
+	</text>
+	<text name="prim_count">
+		prímek száma: [COUNT]
+	</text>
+	<tab_container name="Object Info Tabs" tab_max_width="56" tab_min_width="30" >
+		<panel label="Általános" name="General">
+			<text name="Name:">
+				Név:
+			</text>
+			<text name="Description:">
+				Leírás:
+			</text>
+			<text name="Creator:">
+				Készítő:
+			</text>
+			<text name="Creator Name">
+				Thrax Linden
+			</text>
+			<button label="Adatlap..." label_selected="Adatlap..." name="button creator profile"/>
+			<text name="Owner:">
+				Tulajdonos:
+			</text>
+			<text name="Owner Name">
+				Thrax Linden
+			</text>
+			<button label="Adatlap..." label_selected="Adatlap..." name="button owner profile"/>
+			<text name="Group:">
+				Csoport:
+			</text>
+			<text name="Group Name Proxy">
+				The Lindens
+			</text>
+			<button label="Beállít..." label_selected="Beállít..." name="button set group"/>
+			<text name="Permissions:">
+				Jogosultságok:
+			</text>
+			<text name="perm_modify">
+				A tárgyat módosíthatod.
+			</text>
+			<check_box label="Csoporttal megoszt" name="checkbox share with group" tool_tip="Lehetővé teszi a csoport tagjainak, hogy az adott tárgyat megosszák és használják a beállított jogosultságaid mellett. A jogosultságok korlátozásához át kell ruháznod."/>
+			<string name="text deed continued">
+				Átruház...
+			</string>
+			<string name="text deed">
+				Átruház
+			</string>
+			<button label="Átruház" label_selected="Átruház" name="button deed" tool_tip="Csoporttal megosztott tárgyakat a csoport vezetője törölni tudja."/>
+			<check_box label="Bárki mozgathatja" name="checkbox allow everyone move"/>
+			<check_box label="Bárki másolhatja" name="checkbox allow everyone copy"/>
+			<check_box label="Keresőben megjelenít" name="search_check" tool_tip="A tárgy megjelenítése a keresési eredmények között"/>
+			<check_box label="Eladó" name="checkbox for sale"/>
+			<text name="Cost">
+				Ár:  L$
+			</text>
+			<radio_group name="sale type">
+				<radio_item name="Original">
+					Eredeti
+				</radio_item>
+				<radio_item name="Copy">
+					Másolat
+				</radio_item>
+				<radio_item name="Contents">
+					Tartalmak
+				</radio_item>
+			</radio_group>
+			<text name="Next owner can:">
+				Következő tulajdonos jogosultsága:
+			</text>
+			<check_box label="Módosítás" name="checkbox next owner can modify"/>
+			<check_box label="Másolás" name="checkbox next owner can copy" left_delta="85"/>
+			<check_box label="Eladás/Átadás" name="checkbox next owner can transfer" left_delta="67"/>
+			<text name="label click action">
+				Bal egér gomb funkció:
+			</text>
+			<combo_box name="clickaction" width="220">
+				<combo_item name="Touch/grab(default)">
+					Érint/megfog (alapértelmezett)
+				</combo_item>
+				<combo_item name="Sitonobject">
+					Ül
+				</combo_item>
+				<combo_item name="Buyobject">
+					Vásárol
+				</combo_item>
+				<combo_item name="Payobject">
+					Fizet
+				</combo_item>
+				<combo_item name="Open">
+					Megnyit
+				</combo_item>
+				<combo_item name="Play">
+					Telek média tartalmat lejátszik
+				</combo_item>
+				<combo_item name="Opemmedia">
+					Telek média tartalmat megnyit
+				</combo_item>
+			</combo_box>
+			<text name="B:">
+				B:
+			</text>
+			<text name="O:">
+				O:
+			</text>
+			<text name="G:">
+				G:
+			</text>
+			<text name="E:">
+				E:
+			</text>
+			<text name="N:">
+				N:
+			</text>
+			<text name="F:">
+				F:
+			</text>
+			<string name="text modify info 1">
+				A tárgy módosítható.
+			</string>
+			<string name="text modify info 2">
+				A tárgyak módosíthatók.
+			</string>
+			<string name="text modify info 3">
+				Ez a tárgy nem módosítható.
+			</string>
+			<string name="text modify info 4">
+				Ezek a tárgyak nem módosíthatók.
+			</string>
+			<string name="text modify warning">
+				Ki kell választani az egész tárgyat a jogosultságok beállításához.
+			</string>
+			<string name="Cost Default">
+				Ár:                L$
+			</string>
+			<string name="Cost Total">
+				Végösszeg:  L$
+			</string>
+			<string name="Cost Per Unit">
+				Ár/:     L$
+			</string>
+			<string name="Cost Mixed">
+				Vegyes ár
+			</string>
+			<string name="Sale Mixed">
+				Vegyes eladás
+			</string>
+		</panel>
+		<panel label="Tárgy" name="Object">
+			<text name="select_single">
+				A beállítások szerkesztéséhez csak egy prímet válassz ki.
+			</text>
+			<text name="edit_object">
+				Tárgy beállításainak szerkesztése:
+			</text>
+			<check_box label="Lezárt" name="checkbox locked" tool_tip="Tárgy megóvása a mozgatástól és törléstől. Sokszor hasznos akaratlan változtatások kikerülésére."/>
+			<check_box label="Fizikai" name="Physical Checkbox Ctrl" tool_tip="Fizikai hatások engedélyezése a tárgyon"/>
+			<check_box label="Ideiglenes" name="Temporary Checkbox Ctrl" tool_tip="A tárgy 1 perc múlva törlésre kerül."/>
+			<check_box label="Fantom" name="Phantom Checkbox Ctrl" tool_tip="Más tárgyakkal vagy avatárokkal való ütközések kiiktatása"/>
+			<text name="label position">
+				Pozíció (méter)
+			</text>
+			<spinner label="X" name="Pos X"/>
+			<spinner label="Y" name="Pos Y"/>
+			<spinner label="Z" name="Pos Z"/>
+			<text name="label size">
+				Méret (méter)
+			</text>
+			<spinner label="X" name="Scale X"/>
+			<spinner label="Y" name="Scale Y"/>
+			<spinner label="Z" name="Scale Z"/>
+			<text name="label rotation">
+				Forgatás (fok)
+			</text>
+			<spinner label="X" name="Rot X"/>
+			<spinner label="Y" name="Rot Y"/>
+			<spinner label="Z" name="Rot Z"/>
+			<text name="label material">
+				Anyag
+			</text>
+			<combo_box name="material">
+				<combo_item name="Stone">
+					Kő
+				</combo_item>
+				<combo_item name="Metal">
+					Fém
+				</combo_item>
+				<combo_item name="Glass">
+					Üveg
+				</combo_item>
+				<combo_item name="Wood">
+					Fa
+				</combo_item>
+				<combo_item name="Flesh">
+					Hús
+				</combo_item>
+				<combo_item name="Plastic">
+					Műanyag
+				</combo_item>
+				<combo_item name="Rubber">
+					Gumi
+				</combo_item>
+			</combo_box>
+			<text name="label basetype">
+				Építőforma típusa
+			</text>
+			<combo_box name="comboBaseType">
+				<combo_item name="Box">
+					Kocka
+				</combo_item>
+				<combo_item name="Cylinder">
+					Henger
+				</combo_item>
+				<combo_item name="Prism">
+					Hasáb
+				</combo_item>
+				<combo_item name="Sphere">
+					Gömb
+				</combo_item>
+				<combo_item name="Torus">
+					Tórusz
+				</combo_item>
+				<combo_item name="Tube">
+					Cső
+				</combo_item>
+				<combo_item name="Ring">
+					Gyűrű
+				</combo_item>
+				<combo_item name="Sculpted">
+					Sculptie
+				</combo_item>
+			</combo_box>
+			<text name="text cut">
+				Levág az elején és végén
+			</text>
+			<spinner label="E" name="cut begin"/>
+			<spinner label="V" name="cut end"/>
+			<text name="text hollow">
+				Üreg
+			</text>
+			<text name="text skew">
+				Ferdítés
+			</text>
+			<text name="Hollow Shape">
+				Üreges test
+			</text>
+			<combo_box name="hole">
+				<combo_item name="Default">
+					Alapértelmezett
+				</combo_item>
+				<combo_item name="Circle">
+					Kör
+				</combo_item>
+				<combo_item name="Square">
+					Négyzet
+				</combo_item>
+				<combo_item name="Triangle">
+					Háromszög
+				</combo_item>
+			</combo_box>
+			<text name="text twist">
+				Elejét és végét megsodor
+			</text>
+			<spinner label="E" name="Twist Begin"/>
+			<spinner label="V" name="Twist End"/>
+			<text name="scale_taper">
+				Elvékonyítás
+			</text>
+			<text name="scale_hole">
+				Üreg mérete
+			</text>
+			<spinner label="X" name="Taper Scale X"/>
+			<spinner label="Y" name="Taper Scale Y"/>
+			<text name="text topshear">
+				Megdöntés
+			</text>
+			<spinner label="X" name="Shear X"/>
+			<spinner label="Y" name="Shear Y"/>
+			<text name="advanced_cut">
+				Profil vágása az elején és végén
+			</text>
+			<text name="advanced_dimple">
+				Gödör az elején és végén
+			</text>
+			<text name="advanced_slice">
+				Levág az elején és végén
+			</text>
+			<spinner label="E" name="Path Limit Begin"/>
+			<spinner label="V" name="Path Limit End"/>
+			<text name="text taper2">
+				Elvékonyítás
+			</text>
+			<spinner label="X" name="Taper X"/>
+			<spinner label="Y" name="Taper Y"/>
+			<text name="text radius delta">
+				Sugár
+			</text>
+			<text name="text revolutions">
+				Fordulat
+			</text>
+			<texture_picker label="Sculptie textúrája" name="sculpt texture control" tool_tip="Kattints ide a kép kiválasztásához"/>
+			<check_box label="Tükör" name="sculpt mirror control" tool_tip="Sculptie prím megfordítása az X tengely mentén."/>
+			<check_box label="Kifordított" name="sculpt invert control" tool_tip="Megfordítja a sculptie prím normálokat, amitől az kifordítva látszik."/>
+			<text name="label sculpt type">
+				Összefűzés típusa
+			</text>
+			<combo_box name="sculpt type control">
+				<combo_item name="None">
+					(nincs)
+				</combo_item>
+				<combo_item name="Sphere">
+					Kör
+				</combo_item>
+				<combo_item name="Torus">
+					Tórusz
+				</combo_item>
+				<combo_item name="Plane">
+					Síklap
+				</combo_item>
+				<combo_item name="Cylinder">
+					Henger
+				</combo_item>
+			</combo_box>
+		</panel>
+		<panel label="Jellemzők" name="Features">
+			<text name="select_single">
+				Csak egy prím kiválasztása a beállítások szerkesztéséhez.
+			</text>
+			<text name="edit_object">
+				Tárgy tulajdonságainak szerkesztése:
+			</text>
+			<check_box label="Hajlékonyság" name="Flexible1D Checkbox Ctrl" tool_tip="A tárgy Z koordináta felé történő hajlékonysága."/>
+			<spinner label="Lágyság" name="FlexNumSections"/>
+			<spinner label="Gravitáció" name="FlexGravity"/>
+			<spinner label="Húzóerő" name="FlexFriction"/>
+			<spinner label="Szél" name="FlexWind"/>
+			<spinner label="Feszesség" name="FlexTension"/>
+			<spinner label="Erő X" name="FlexForceX"/>
+			<spinner label="Erő Y" name="FlexForceY"/>
+			<spinner label="Erő Z" name="FlexForceZ"/>
+			<check_box label="Fény" name="Light Checkbox Ctrl" tool_tip="Tárgy fénykibocsátása"/>
+			<text name="label color">
+				Szín
+			</text>
+			<color_swatch label="" name="colorswatch" tool_tip="Kattints ide a színpaletta megnyitásához"/>
+			<spinner label="Intenzitás" name="Light Intensity"/>
+			<spinner label="Sugár" name="Light Radius"/>
+			<spinner label="Elsötétedés" name="Light Falloff"/>
+		</panel>
+		<panel label="Textúra" name="Texture">
+			<texture_picker label="Textúra" name="texture control" tool_tip="Kattints ide a kép kiválasztásához"/>
+			<color_swatch label="Szín" name="colorswatch" tool_tip="Kattints ide a színpaletta megnyitásához"/>
+			<text name="color trans">
+				Átlátszóság %
+			</text>
+			<text name="glow label">
+				Ragyogás
+			</text>
+			<check_box label="Megvilágítás" name="checkbox fullbright"/>
+			<text name="tex gen">
+				Leképezés
+			</text>
+			<combo_box name="combobox texgen">
+				<combo_item name="Default">
+					Alapértelmezett
+				</combo_item>
+				<combo_item name="Planar">
+					Síkbeli
+				</combo_item>
+			</combo_box>
+			<text name="label shininess">
+				Fényesség
+			</text>
+			<combo_box name="combobox shininess">
+				<combo_item name="None">
+					Nincs
+				</combo_item>
+				<combo_item name="Low">
+					Alacsony
+				</combo_item>
+				<combo_item name="Medium">
+					Közepes
+				</combo_item>
+				<combo_item name="High">
+					Magas
+				</combo_item>
+			</combo_box>
+			<text name="label bumpiness">
+				Egyenetlenség
+			</text>
+			<combo_box name="combobox bumpiness">
+				<combo_item name="None">
+					Nincs
+				</combo_item>
+				<combo_item name="Brightness">
+					Fényesség
+				</combo_item>
+				<combo_item name="Darkness">
+					Sötétség
+				</combo_item>
+				<combo_item name="woodgrain">
+					faerezet
+				</combo_item>
+				<combo_item name="bark">
+					kéreg
+				</combo_item>
+				<combo_item name="bricks">
+					tégla
+				</combo_item>
+				<combo_item name="checker">
+					tarka
+				</combo_item>
+				<combo_item name="concrete">
+					beton
+				</combo_item>
+				<combo_item name="crustytile">
+					crustytile
+				</combo_item>
+				<combo_item name="cutstone">
+					cutstone
+				</combo_item>
+				<combo_item name="discs">
+					lemez
+				</combo_item>
+				<combo_item name="gravel">
+					kavics
+				</combo_item>
+				<combo_item name="petridish">
+					petri csésze
+				</combo_item>
+				<combo_item name="siding">
+					siding
+				</combo_item>
+				<combo_item name="stonetile">
+					stonetile
+				</combo_item>
+				<combo_item name="stucco">
+					stukkó
+				</combo_item>
+				<combo_item name="suction">
+					suction
+				</combo_item>
+				<combo_item name="weave">
+					szövet
+				</combo_item>
+			</combo_box>
+			<text name="tex scale">
+				Felület ismétlése
+			</text>
+			<spinner label="Vízszintes (U)" name="TexScaleU"/>
+			<check_box label="Megfordít" name="checkbox flip s"/>
+			<spinner label="Függőleges (V)" name="TexScaleV"/>
+			<check_box label="Megfordít" name="checkbox flip t"/>
+			<text name="tex rotate">
+				Forgatás (fok)
+			</text>
+			<string name="string repeats per meter">
+				Ismétlések száma
+			</string>
+			<string name="string repeats per face">
+				Felület ismétlések száma
+			</string>
+			<text name="rpt">
+				Ismétlések száma
+			</text>
+			<button label="Alkalmaz" label_selected="Alkalmaz" name="button apply"/>
+			<text name="tex offset">
+				Elcsúsztatás
+			</text>
+			<spinner label="Vízszintes (U)" name="TexOffsetU"/>
+			<spinner label="Függőleges (V)" name="TexOffsetV"/>
+			<text name="textbox autofix">
+				Média textúra igazítása
+(először fel kell tölteni)
+			</text>
+			<button label="Igazít" label_selected="Igazít" name="button align" left="160"/>
+		</panel>
+		<panel label="Tartalom" name="Contents">
+			<button label="Új script" label_selected="Új kód" name="button new script"/>
+			<button label="Jogosultságok..." name="button permissions"/>
+		</panel>
+	</tab_container>
+	<panel name="land info panel">
+		<text name="label_parcel_info">
+			Telekinformáció
+		</text>
+		<text name="label_area_price">
+			Ár: [PRICE] L$/[AREA] m².
+		</text>
+		<text name="label_area">
+			Terület: [AREA] m².
+		</text>
+		<button label="Föld információ..." label_selected="Föld információ..." name="button about land" width="156"/>
+		<check_box label="Tulajdonosok megjelenítése" name="checkbox show owners" tool_tip="Telek színek csoportosítása tulajdonos alapján"/>
+		<button label="?" label_selected="?" name="button show owners help" left_delta="166"/>
+		<text name="label_parcel_modify">
+			Telek módosítása
+		</text>
+		<button label="Feloszt..." label_selected="Feloszt..." name="button subdivide land" width="156"/>
+		<button label="Egyesít..." label_selected="Egyesít..." name="button join land" width="156"/>
+		<text name="label_parcel_trans">
+			Föld tranzakciók
+		</text>
+		<button label="Föld megvásárlása..." label_selected="Föld megvásárlása..." name="button buy land" width="156"/>
+		<button label="Föld feladása..." label_selected="Föld feladása..." name="button abandon land" width="156"/>
+	</panel>
+	<string name="status_rotate">
+		Húzd a színes gyűrűt a tárgy forgatásához
+	</string>
+	<string name="status_scale">
+		Kattints a tárgy kijelölt oldalára a nyújtáshoz
+	</string>
+	<string name="status_move">
+		Válassz lent a szerkesztéshez
+	</string>
+	<string name="status_modifyland">
+		Válassz a lehetőségek közül a domborzat módosításához
+	</string>
+	<string name="status_camera">
+		Válassz lent a mozgatáshoz, emeléshez, pörgetéshez
+	</string>
+	<string name="status_grab">
+		A mozgatáshoz fogd meg, az emeléshez használd a Ctrl-t, Ctrl-Shift-et pedig a forgatáshoz
+	</string>
+	<string name="status_place">
+		Kattints a földre az építéshez
+	</string>
+	<string name="status_selectland">
+		Kattints a földre a domborzat szerkesztéséhez
+	</string>
+	<string name="grid_screen_text">
+		Képernyő
+	</string>
+	<string name="grid_local_text">
+		Helyi
+	</string>
+	<string name="grid_world_text">
+		Világ
+	</string>
+	<string name="grid_reference_text">
+		Referencia
+	</string>
+	<string name="grid_attachment_text">
+		Csatolmány
+	</string>
+</floater>

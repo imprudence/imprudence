@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -107,7 +108,7 @@ LLFrameTimer gRecentMemoryTime;
 // Rendering stuff
 void pre_show_depth_buffer();
 void post_show_depth_buffer();
-void render_ui();
+void render_ui(F32 zoom_factor = 1.f, int subfield = 0);
 void render_hud_attachments();
 void render_ui_3d();
 void render_ui_2d();
@@ -160,9 +161,9 @@ void display_startup()
 	glClear(GL_DEPTH_BUFFER_BIT);
 }
 
-
 void display_update_camera()
 {
+	llpushcallstacks ;
 	// TODO: cut draw distance down if customizing avatar?
 	// TODO: cut draw distance on per-parcel basis?
 
@@ -499,12 +500,13 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		if (LLDynamicTexture::updateAllInstances())
 		{
 			gGL.setColorMask(true, true);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClear(GL_DEPTH_BUFFER_BIT);
 		}
 	}
 
 	gViewerWindow->setupViewport();
-	
+
+	gPipeline.resetFrameStats();	// Reset per-frame statistics.
 	if (!gDisconnected)
 	{
 		LLAppViewer::instance()->pingMainloopTimeout("Display:Update");
@@ -512,7 +514,12 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		{ //don't draw hud objects in this frame
 			gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_HUD);
 		}
-		
+
+		if (gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_HUD_PARTICLES))
+		{ //don't draw hud particles in this frame
+			gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_HUD_PARTICLES);
+		}
+
 		//upkeep gl name pools
 		LLGLNamePool::upkeepPools();
 		
@@ -527,6 +534,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		
 		gFrameStats.start(LLFrameStats::UPDATE_GEOM);
 		const F32 max_geom_update_time = 0.005f*10.f*gFrameIntervalSeconds; // 50 ms/second update time
+		gPipeline.createObjects(max_geom_update_time);
 		gPipeline.updateGeom(max_geom_update_time);
 		stop_glerror();
 		
@@ -556,10 +564,17 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 				&& LLFeatureManager::getInstance()->isFeatureAvailable("UseOcclusion") 
 				&& gSavedSettings.getBOOL("UseOcclusion") 
 				&& gGLManager.mHasOcclusionQuery) ? 2 : 0;
+
+		if (LLPipeline::sUseOcclusion && LLPipeline::sRenderDeferred)
+		{ //force occlusion on for all render types if doing deferred render
+			LLPipeline::sUseOcclusion = 3;
+		}
+
 		LLPipeline::sFastAlpha = gSavedSettings.getBOOL("RenderFastAlpha");
 		LLPipeline::sUseFarClip = gSavedSettings.getBOOL("RenderUseFarClip");
 		LLVOAvatar::sMaxVisible = gSavedSettings.getS32("RenderAvatarMaxVisible");
-		
+		LLPipeline::sDelayVBUpdate = gSavedSettings.getBOOL("RenderDelayVBUpdate");
+
 		S32 occlusion = LLPipeline::sUseOcclusion;
 		if (gDepthDirty)
 		{ //depth buffer is invalid, don't overwrite occlusion state
@@ -567,9 +582,17 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		}
 		gDepthDirty = FALSE;
 
+		LLGLState::checkStates();
+		LLGLState::checkTextureChannels();
+		LLGLState::checkClientArrays();
+
 		static LLCullResult result;
 		gPipeline.updateCull(*LLViewerCamera::getInstance(), result, water_clip);
 		stop_glerror();
+
+		LLGLState::checkStates();
+		LLGLState::checkTextureChannels();
+		LLGLState::checkClientArrays();
 
 		BOOL to_texture = !for_snapshot &&
 						gPipeline.canUseVertexShaders() &&
@@ -577,8 +600,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 		LLAppViewer::instance()->pingMainloopTimeout("Display:Swap");
 		
-		// now do the swap buffer (just before rendering to framebuffer)
-		{ //swap and flush state from previous frame
+		{ 
 			{
  				LLFastTimer ftm(LLFastTimer::FTM_CLIENT_COPY);
 				LLVertexBuffer::clientCopy(0.016);
@@ -592,14 +614,29 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 			gGL.setColorMask(true, true);
 			glClearColor(0,0,0,0);
-			
+
+			LLGLState::checkStates();
+			LLGLState::checkTextureChannels();
+			LLGLState::checkClientArrays();
+
 			if (!for_snapshot)
 			{
+				if (gFrameCount > 1)
+				{ //for some reason, ATI 4800 series will error out if you 
+				  //try to generate a shadow before the first frame is through
+					gPipeline.generateSunShadow(*LLViewerCamera::getInstance());
+				}
+
+				LLGLState::checkStates();
+				LLGLState::checkTextureChannels();
+				LLGLState::checkClientArrays();
+
 				glh::matrix4f proj = glh_get_current_projection();
 				glh::matrix4f mod = glh_get_current_modelview();
 				glViewport(0,0,512,512);
 				LLVOAvatar::updateFreezeCounter() ;
 				LLVOAvatar::updateImpostors();
+
 				glh_set_current_projection(proj);
 				glh_set_current_modelview(mod);
 				glMatrixMode(GL_PROJECTION);
@@ -607,8 +644,13 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 				glMatrixMode(GL_MODELVIEW);
 				glLoadMatrixf(mod.m);
 				gViewerWindow->setupViewport();
+
+				LLGLState::checkStates();
+				LLGLState::checkTextureChannels();
+				LLGLState::checkClientArrays();
+
 			}
-			glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+			glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		}
 
 		if (!for_snapshot)
@@ -625,6 +667,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		//
 		// Doing this here gives hardware occlusion queries extra time to complete
 		LLAppViewer::instance()->pingMainloopTimeout("Display:UpdateImages");
+		LLError::LLCallStacks::clear() ;
+		llpushcallstacks ;
 		gFrameStats.start(LLFrameStats::IMAGE_UPDATE);
 
 		{
@@ -639,7 +683,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			gImageList.updateImages(max_image_decode_time);
 			stop_glerror();
 		}
-
+		llpushcallstacks ;
 		///////////////////////////////////
 		//
 		// StateSort
@@ -721,11 +765,25 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		//	glPopMatrix();
 		//}
 
+		LLPipeline::sUnderWaterRender = LLViewerCamera::getInstance()->cameraUnderWater() ? TRUE : FALSE;
+		LLPipeline::updateRenderDeferred();
+		
+		stop_glerror();
+
 		if (to_texture)
 		{
 			gGL.setColorMask(true, true);
-			gPipeline.mScreen.bindTarget();
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+			if (LLPipeline::sRenderDeferred && !LLPipeline::sUnderWaterRender)
+			{
+				gPipeline.mDeferredScreen.bindTarget();
+				gPipeline.mDeferredScreen.clear();
+			}
+			else
+			{
+				gPipeline.mScreen.bindTarget();
+				gPipeline.mScreen.clear();
+			}
+			
 			gGL.setColorMask(true, false);
 		}
 		
@@ -736,9 +794,15 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		{
 
 			gGL.setColorMask(true, false);
-			LLPipeline::sUnderWaterRender = LLViewerCamera::getInstance()->cameraUnderWater() ? TRUE : FALSE;
-			gPipeline.renderGeom(*LLViewerCamera::getInstance(), TRUE);
-			LLPipeline::sUnderWaterRender = FALSE;
+			if (LLPipeline::sRenderDeferred && !LLPipeline::sUnderWaterRender)
+			{
+				gPipeline.renderGeomDeferred(*LLViewerCamera::getInstance());
+			}
+			else
+			{
+				gPipeline.renderGeom(*LLViewerCamera::getInstance(), TRUE);
+			}
+			
 			gGL.setColorMask(true, true);
 
 			//store this frame's modelview matrix for use
@@ -754,8 +818,14 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		
 		if (to_texture)
 		{
-
-			gPipeline.mScreen.flush();
+			if (LLPipeline::sRenderDeferred && !LLPipeline::sUnderWaterRender)
+			{
+				gPipeline.mDeferredScreen.flush();
+			}
+			else
+			{
+				gPipeline.mScreen.flush();
+			}
 		}
 
 		/// We copy the frame buffer straight into a texture here,
@@ -764,8 +834,14 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		/// grasp of their full display stack just yet.
 		// gPostProcess->apply(gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight());
 		
+		if (LLPipeline::sRenderDeferred && !LLPipeline::sUnderWaterRender)
+		{
+			gPipeline.renderDeferredLighting();
+		}
+
+		LLPipeline::sUnderWaterRender = FALSE;
+
 		LLAppViewer::instance()->pingMainloopTimeout("Display:RenderUI");
-		
 		if (!for_snapshot)
 		{
 			gFrameStats.start(LLFrameStats::RENDER_UI);
@@ -813,13 +889,26 @@ void render_hud_attachments()
 		hud_cam.setOrigin(-1.f,0,0);
 		hud_cam.setAxes(LLVector3(1,0,0), LLVector3(0,1,0), LLVector3(0,0,1));
 		LLViewerCamera::updateFrustumPlanes(hud_cam, TRUE);
+
+		bool render_particles = gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_PARTICLES) && gSavedSettings.getBOOL("RenderHUDParticles");
 		
 		//only render hud objects
 		U32 mask = gPipeline.getRenderTypeMask();
+		// turn off everything
 		gPipeline.setRenderTypeMask(0);
+		// turn on HUD
 		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_HUD);
+		// turn on HUD particles
+		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_HUD_PARTICLES);
 
-		BOOL has_ui = gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI);
+		// if particles are off, turn off hud-particles as well
+		if (!render_particles)
+		{
+			// turn back off HUD particles
+			gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_HUD_PARTICLES);
+		}
+
+		bool has_ui = gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI);
 		if (has_ui)
 		{
 			gPipeline.toggleRenderDebugFeature((void*) LLPipeline::RENDER_DEBUG_FEATURE_UI);
@@ -828,16 +917,18 @@ void render_hud_attachments()
 		S32 use_occlusion = LLPipeline::sUseOcclusion;
 		LLPipeline::sUseOcclusion = 0;
 		LLPipeline::sDisableShaders = TRUE;
-
+		
 		//cull, sort, and render hud objects
 		static LLCullResult result;
 		LLSpatialGroup::sNoDelete = TRUE;
+
 		gPipeline.updateCull(hud_cam, result);
 
 		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_BUMP);
 		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_SIMPLE);
 		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_VOLUME);
 		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_ALPHA);
+		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_FULLBRIGHT);
 		
 		gPipeline.stateSort(hud_cam, result);
 
@@ -934,7 +1025,7 @@ BOOL setup_hud_matrices(const LLRect& screen_region)
 }
 
 
-void render_ui()
+void render_ui(F32 zoom_factor, int subfield)
 {
 	LLGLState::checkStates();
 	
@@ -949,7 +1040,7 @@ void render_ui()
 
 		if (to_texture)
 		{
-			gPipeline.renderBloom(gSnapshot);
+			gPipeline.renderBloom(gSnapshot, zoom_factor, subfield);
 		}
 
 		render_hud_elements();

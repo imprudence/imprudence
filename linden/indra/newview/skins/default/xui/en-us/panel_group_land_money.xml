@@ -3,7 +3,7 @@
      left="1" mouse_opaque="true" name="land_money_tab" select="false"
      width="418">
 	<string name="help_text">
-		Parcels owned by the group are listed along with contribution details. A warning appears until the Total Land in Use is less than or equal to the Total Contribution. The &apos;Details&apos; and &apos;Sales&apos; tabs provide information about the group&apos;s finances.
+		Parcels owned by the group are listed along with contribution details. A warning appears until the Total Land in Use is less than or equal to the Total Contribution. The Planning, Details, and Sales tabs provide information about the group&apos;s finances.
 	</string>
 	<button bottom="-24" font="SansSerif" halign="center" height="16" label="?" left="391"
 	     name="help_button" width="20" />
@@ -27,9 +27,10 @@
 	     heading_font="SansSerifSmall" heading_height="14" height="120" left="7"
 	     mouse_opaque="true" multi_select="false" name="group_parcel_list"
 	     width="404">
-		<column label="Parcel Name" name="name" width="159" />
-		<column label="Region" name="location" width="159" />
-		<column label="Area" name="area" width="63" />
+		<column label="Parcel Name" name="name" width="100" />
+		<column label="Region" name="location" width="120" />
+		<column label="Type" name="type" width="100" />
+		<column label="Area" name="area" width="61" />
 		<column label="" name="hidden" width="-1" />
 	</scroll_list>
 	<button bottom_delta="-24" follows="top" font="SansSerif" halign="center" height="20"
@@ -110,7 +111,6 @@
 	</text>
 	<tab_container border="false" bottom_delta="-189" height="180" left="6" mouse_opaque="false"
 	     name="group_money_tab_container" tab_position="top" width="406">
-		<!-- Comment out for [DEV-11287]
 		<panel border="true" bottom_delta="-260" follows="left|top|right|bottom" height="255"
 		     label="Planning" left="1" mouse_opaque="true"
 		     name="group_money_planning_tab" width="398">
@@ -122,7 +122,6 @@
 				Computing...
 			</text_editor>
 		</panel>
-		-->
 		<panel border="true" bottom_delta="-250" follows="left|top|right|bottom" height="250"
 		     label="Details" left="1" mouse_opaque="true" name="group_money_details_tab"
 		     width="398">

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -71,8 +72,9 @@
 #include "llappviewer.h"	// abortQuit()
 
 const S32 MINIMUM_PRICE_FOR_LISTING = 50;	// L$
+const S32 MATURE_UNDEFINED = -1;
 const S32 MATURE_CONTENT = 1;
-const S32 NON_MATURE_CONTENT = 2;
+const S32 PG_CONTENT = 2;
 const S32 DECLINE_TO_STATE = 0;
 
 //static
@@ -116,7 +118,7 @@ class LLClassifiedTeleportHandler : public LLCommandHandler
 {
 public:
 	// don't allow from external browsers because it moves you immediately
-	LLClassifiedTeleportHandler() : LLCommandHandler("classifiedteleport", false) { }
+	LLClassifiedTeleportHandler() : LLCommandHandler("classifiedteleport", true) { }
 
 	bool handle(const LLSD& tokens, const LLSD& queryMap)
 	{
@@ -139,8 +141,9 @@ public:
 		const bool from_search = true;
 		LLPanelClassified::sendClassifiedClickMessage(classified_id, "teleport", from_search);
 		// Invoke teleport
-		const bool from_external_browser = false;
-		return LLURLDispatcher::dispatch(url, from_external_browser);
+		LLWebBrowserCtrl* web = NULL;
+		const bool trusted_browser = true;
+		return LLURLDispatcher::dispatch(url, web, trusted_browser);
 	}
 };
 // Creating the object registers with the dispatcher.
@@ -221,6 +224,7 @@ void LLPanelClassified::reset()
 	mPosGlobal.clearVec();
 
 	clearCtrls();
+	resetDirty();
 }
 
 
@@ -283,11 +287,11 @@ BOOL LLPanelClassified::postBuild()
 	mMatureCombo->setCurrentByIndex(0);
 	mMatureCombo->setCommitCallback(onCommitAny);
 	mMatureCombo->setCallbackUserData(this);
-	if (gAgent.isTeen())
+	if (gAgent.wantsPGOnly())
 	{
 		// Teens don't get to set mature flag. JC
 		mMatureCombo->setVisible(FALSE);
-		mMatureCombo->setCurrentByIndex(NON_MATURE_CONTENT);
+		mMatureCombo->setCurrentByIndex(PG_CONTENT);
 	}
 
 	if (!mInFinder)
@@ -306,6 +310,7 @@ BOOL LLPanelClassified::postBuild()
 		mClickThroughText = getChild<LLTextBox>("click_through_text");
 	}
 	
+	resetDirty();
     return TRUE;
 }
 
@@ -316,12 +321,12 @@ BOOL LLPanelClassified::titleIsValid()
 	const std::string& name = mNameEditor->getText();
 	if (name.empty())
 	{
-		gViewerWindow->alertXml("BlankClassifiedName");
+		LLNotifications::instance().add("BlankClassifiedName");
 		return FALSE;
 	}
 	if (!isalnum(name[0]))
 	{
-		gViewerWindow->alertXml("ClassifiedMustBeAlphanumeric");
+		LLNotifications::instance().add("ClassifiedMustBeAlphanumeric");
 		return FALSE;
 	}
 
@@ -338,31 +343,24 @@ void LLPanelClassified::apply()
 	}
 }
 
-
-// static
-void LLPanelClassified::saveCallback(S32 option, void* data)
+bool LLPanelClassified::saveCallback(const LLSD& notification, const LLSD& response)
 {
-	LLPanelClassified* self = (LLPanelClassified*)data;
+	S32 option = LLNotification::getSelectedOption(notification, response);
+
 	switch(option)
 	{
 		case 0: // Save
-			self->sendClassifiedInfoUpdate();
+			sendClassifiedInfoUpdate();
 			// fall through to close
 
 		case 1: // Don't Save
 			{
-				self->mForceClose = true;
+				mForceClose = true;
 				// Close containing floater
-				LLView* view = self;
-				while (view)
+				LLFloater* parent_floater = gFloaterView->getParentFloater(this);
+				if (parent_floater)
 				{
-					LLFloater* floaterp = dynamic_cast<LLFloater*>(view);
-					if (floaterp)
-					{
-						floaterp->close();
-						break;
-					}
-					view = view->getParent();
+					parent_floater->close();
 				}
 			}
 			break;
@@ -372,16 +370,18 @@ void LLPanelClassified::saveCallback(S32 option, void* data)
             LLAppViewer::instance()->abortQuit();
 			break;
 	}
+	return false;
 }
+
 
 BOOL LLPanelClassified::canClose()
 {
 	if (mForceClose || !checkDirty()) 
 		return TRUE;
 
-	LLStringUtil::format_map_t args;
-	args["[NAME]"] = mNameEditor->getText();
-	LLAlertDialog::showXml("ClassifiedSave", args, saveCallback, this);
+	LLSD args;
+	args["NAME"] = mNameEditor->getText();
+	LLNotifications::instance().add("ClassifiedSave", args, LLSD(), boost::bind(&LLPanelClassified::saveCallback, this, _1, _2));
 	return FALSE;
 }
 
@@ -409,6 +409,9 @@ void LLPanelClassified::initNewClassified()
 	}
 
 	mUpdateBtn->setLabel(getString("publish_txt"));
+	
+	// simulate clicking the "location" button
+	LLPanelClassified::onClickSet(this);
 }
 
 
@@ -543,7 +546,10 @@ void LLPanelClassified::sendClassifiedInfoUpdate()
 	{
 		auto_renew = mAutoRenewCheck->get();
 	}
-	U8 flags = pack_classified_flags(mature, auto_renew);
+    // These flags doesn't matter here.
+    const bool adult_enabled = false;
+	const bool is_pg = false;
+	U8 flags = pack_classified_flags_request(auto_renew, is_pg, mature, adult_enabled);
 	msg->addU8Fast(_PREHASH_ClassifiedFlags, flags);
 	msg->addS32("PriceForListing", mPriceForListing);
 	gAgent.sendReliableMessage();
@@ -661,7 +667,7 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
 		}
 		else
 		{
-			self->mMatureCombo->setCurrentByIndex(NON_MATURE_CONTENT);
+			self->mMatureCombo->setCurrentByIndex(PG_CONTENT);
 		}
 		if (self->mAutoRenewCheck)
 		{
@@ -681,6 +687,7 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
 
 		self->resetDirty();
 
+		// I don't know if a second call is deliberate or a bad merge, so I'm leaving it here. 
 		self->resetDirty();
     }
 }
@@ -747,9 +754,19 @@ void LLPanelClassified::refresh()
 		mDescEditor->setEnabled(is_self);
 		//mPriceEditor->setEnabled(is_self);
 		mCategoryCombo->setEnabled(is_self);
-
 		mMatureCombo->setEnabled(is_self);
 
+		if( is_self )
+		{							
+			if( mMatureCombo->getCurrentIndex() == 0 )
+			{
+				// It's a new panel.
+				// PG regions should have PG classifieds. AO should have mature.
+								
+				setDefaultAccessCombo();
+			}
+		}
+		
 		if (mAutoRenewCheck)
 		{
 			mAutoRenewCheck->setEnabled(is_self);
@@ -784,8 +801,11 @@ void LLPanelClassified::onClickUpdate(void* data)
 	// If user has not set mature, do not allow publish
 	if(self->mMatureCombo->getCurrentIndex() == DECLINE_TO_STATE)
 	{
-		LLStringUtil::format_map_t args;
-		gViewerWindow->alertXml("SetClassifiedMature", &callbackConfirmMature, self);
+		// Tell user about it
+		LLNotifications::instance().add("SetClassifiedMature", 
+				LLSD(), 
+				LLSD(), 
+				boost::bind(&LLPanelClassified::confirmMature, self, _1, _2));
 		return;
 	}
 
@@ -793,16 +813,11 @@ void LLPanelClassified::onClickUpdate(void* data)
 	self->gotMature();
 }
 
-// static
-void LLPanelClassified::callbackConfirmMature(S32 option, void* data)
+// Callback from a dialog indicating response to mature notification
+bool LLPanelClassified::confirmMature(const LLSD& notification, const LLSD& response)
 {
-	LLPanelClassified* self = (LLPanelClassified*)data;
-	self->confirmMature(option);
-}
-
-// invoked from callbackConfirmMature
-void LLPanelClassified::confirmMature(S32 option)
-{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	
 	// 0 == Yes
 	// 1 == No
 	// 2 == Cancel
@@ -812,14 +827,15 @@ void LLPanelClassified::confirmMature(S32 option)
 		mMatureCombo->setCurrentByIndex(MATURE_CONTENT);
 		break;
 	case 1:
-		mMatureCombo->setCurrentByIndex(NON_MATURE_CONTENT);
+		mMatureCombo->setCurrentByIndex(PG_CONTENT);
 		break;
 	default:
-		return;
+		return false;
 	}
 	
 	// If we got here it means they set a valid value
 	gotMature();
+	return false;
 }
 
 // Called after we have determined whether this classified has
@@ -829,7 +845,9 @@ void LLPanelClassified::gotMature()
 	// if already paid for, just do the update
 	if (mPaidFor)
 	{
-		callbackConfirmPublish(0, this);
+		LLNotification::Params params("PublishClassified");
+		params.functor(boost::bind(&LLPanelClassified::confirmPublish, this, _1, _2));
+		LLNotifications::instance().forceResponse(params, 0);
 	}
 	else
 	{
@@ -849,11 +867,11 @@ void LLPanelClassified::callbackGotPriceForListing(S32 option, std::string text,
 	S32 price_for_listing = strtol(text.c_str(), NULL, 10);
 	if (price_for_listing < MINIMUM_PRICE_FOR_LISTING)
 	{
-		LLStringUtil::format_map_t args;
+		LLSD args;
 		std::string price_text = llformat("%d", MINIMUM_PRICE_FOR_LISTING);
-		args["[MIN_PRICE]"] = price_text;
+		args["MIN_PRICE"] = price_text;
 			
-		gViewerWindow->alertXml("MinClassifiedPrice", args);
+		LLNotifications::instance().add("MinClassifiedPrice", args);
 		return;
 	}
 
@@ -861,10 +879,10 @@ void LLPanelClassified::callbackGotPriceForListing(S32 option, std::string text,
 	// update send
 	self->mPriceForListing = price_for_listing;
 
-	LLStringUtil::format_map_t args;
-	args["[AMOUNT]"] = llformat("%d", price_for_listing);
-	gViewerWindow->alertXml("PublishClassified", args, &callbackConfirmPublish, self);
-
+	LLSD args;
+	args["AMOUNT"] = llformat("%d", price_for_listing);
+	LLNotifications::instance().add("PublishClassified", args, LLSD(), 
+									boost::bind(&LLPanelClassified::confirmPublish, self, _1, _2));
 }
 
 void LLPanelClassified::resetDirty()
@@ -888,10 +906,11 @@ void LLPanelClassified::resetDirty()
 }
 
 // invoked from callbackConfirmPublish
-void LLPanelClassified::confirmPublish(S32 option)
+bool LLPanelClassified::confirmPublish(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	// Option 0 = publish
-	if (option != 0) return;
+	if (option != 0) return false;
 
 	sendClassifiedInfoUpdate();
 
@@ -910,14 +929,9 @@ void LLPanelClassified::confirmPublish(S32 option)
 	}
 
 	resetDirty();
+	return false;
 }
 
-// static
-void LLPanelClassified::callbackConfirmPublish(S32 option, void* data)
-{
-	LLPanelClassified* self = (LLPanelClassified*)data;
-	self->confirmPublish(option);
-}
 
 // static
 void LLPanelClassified::onClickTeleport(void* data)
@@ -970,7 +984,13 @@ void LLPanelClassified::onClickSet(void* data)
 	self->mPosGlobal = gAgent.getPositionGlobal();
 
 	std::string location_text;
-	location_text.assign("(will update after publish)");
+	std::string regionName = "(will update after publish)";
+	LLViewerRegion* pRegion = gAgent.getRegion();
+	if (pRegion)
+	{
+		regionName = pRegion->getName();
+	}
+	location_text.assign(regionName);
 	location_text.append(", ");
 
     S32 region_x = llround((F32)self->mPosGlobal.mdV[VX]) % REGION_WIDTH_UNITS;
@@ -982,6 +1002,8 @@ void LLPanelClassified::onClickSet(void* data)
 
 	self->mLocationEditor->setText(location_text);
 	self->mLocationChanged = true;
+	
+	self->setDefaultAccessCombo();	
 
 	// Set this to null so it updates on the next save.
 	self->mParcelID.setNull();
@@ -1108,5 +1130,25 @@ void LLFloaterPriceForListing::buttonCore(S32 button, void* data)
 		std::string text = self->childGetText("price_edit");
 		self->mCallback(button, text, self->mUserData);
 		self->close();
+	}
+}
+
+void LLPanelClassified::setDefaultAccessCombo()
+{
+	// PG regions should have PG classifieds. AO should have mature.
+
+	LLViewerRegion *regionp = gAgent.getRegion();
+
+	switch( regionp->getSimAccess() )
+	{
+		case SIM_ACCESS_PG:	
+			mMatureCombo->setCurrentByIndex(PG_CONTENT);
+			break;
+		case SIM_ACCESS_ADULT:
+			mMatureCombo->setCurrentByIndex(MATURE_CONTENT);
+			break;
+		default:
+			// You are free to move about the cabin.
+			break;
 	}
 }

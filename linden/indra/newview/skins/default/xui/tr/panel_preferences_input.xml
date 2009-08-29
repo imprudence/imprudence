@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Giriş &amp; Kamera" name="Input panel">
+	<text length="1" name=" Mouselook Options:" type="string">
+		Farebakışı seçenekleri:
+	</text>
+	<text length="1" name=" Mouse Sensitivity:" type="string">
+		Fare duyarlılığı:
+	</text>
+	<check_box label="Fareyi ters çevir" name="invert_mouse"/>
+	<text length="1" name=" Auto Fly Options:" type="string">
+		Otomatik uçuş seçenekleri:
+	</text>
+	<check_box label="Yukarı/aşağı tuşlarına basılı tutarak uç/alçal" name="automatic_fly"/>
+	<text length="1" name=" Camera Options:" type="string">
+		Kamera seçenekleri:
+	</text>
+	<text name="camera_fov_label">
+		Kamera görünüm açıcısı:
+	</text>
+	<text length="1" name="Camera Follow Distance:" type="string">
+		Kamera takip uzaklığı:
+	</text>
+	<check_box label="Otomatik kamera hareketi düzenleme" name="edit_camera_movement" tool_tip="Düzenleme moduna girişte ve çıkışta otomatik kamera pozisyonlandırmasını kullan"/>
+	<check_box label="Otomatik görünüm kamera hareketi" name="appearance_camera_movement" tool_tip="Düzenleme modundayken otomatik kamera pozisyonlandırmasını kullan"/>
+	<text length="1" name="text2" type="string">
+		Karakter görüntüsü:
+	</text>
+	<check_box label="Karakteri farebakışında görüntüle" name="first_person_avatar_visible"/>
+	<button label="Oyun çubuğu kurulumu" name="joystick_setup_button"/>
+</panel>

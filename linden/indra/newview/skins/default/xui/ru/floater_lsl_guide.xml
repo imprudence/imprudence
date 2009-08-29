@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="script ed float" title="Вики по LSL">
+	<check_box label="Следовать курсору" name="lock_check" />
+	<combo_box label="Блокировать" name="history_combo" left_delta="143" width="60"/>
+	<button label="Назад" name="back_btn" left_delta="65"/>
+	<button label="Вперед" name="fwd_btn" />
+</floater>

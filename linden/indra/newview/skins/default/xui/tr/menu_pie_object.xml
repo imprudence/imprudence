@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Object Pie">
+	<menu_item_call label="Aç" name="Open" />
+	<menu_item_call label="Yarat" name="Create" />
+	<menu_item_call label="Dokun" name="Object Touch">
+		<on_enable userdata="Dokun" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="Buraya otur" name="Object Sit">
+		<on_enable userdata="Buraya otur,Ayağa kalk" name="EnableSitOrStand"/>
+	</menu_item_call>
+	<menu_item_call label="Al" name="Pie Object Take">
+		<on_enable userdata="Satın al,Al" name="EnableBuyOrTake"/>
+	</menu_item_call>
+	<menu_item_call label="Öde..." name="Pay..." />
+	<pie_menu label="İleri &gt;" name="More &gt;">
+		<menu_item_call label="Sil" name="Delete" />
+		<menu_item_call label="Giy" name="Wear" />
+		<menu_item_call label="Kopyasını al" name="Take Copy" />
+		<pie_menu label="HUD olarak ekle &gt;" name="Object Attach HUD" />
+		<pie_menu label="Ekle &gt;" name="Object Attach" />
+		<menu_item_call label="Geri gönder..." name="Return..." />
+		<pie_menu label="İleri &gt;" name="Rate Menu">
+			<menu_item_call label="Raporla..." name="Report Abuse..." />
+			<menu_item_call label="Engelle" name="Object Mute" />
+			<menu_item_call label="Araştır" name="Object Inspect" />
+		</pie_menu>
+		<menu_item_call label="Satın al..." name="Buy..." />
+	</pie_menu>
+	<menu_item_call label="Düzenle..." name="Edit..." />
+</pie_menu>

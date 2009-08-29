@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="worldmap" title="Világtérkép">
+	<tab_container name="maptab">
+		<panel label="Tárgyak" name="objects_mapview"/>
+		<panel label="Domborzat" name="terrain_mapview"/>
+	</tab_container>
+	<text name="you_label">
+		Itt vagy
+	</text>
+	<text name="home_label">
+		Saját hely
+	</text>
+	<text name="auction_label">
+		Aukció
+	</text>
+	<text name="land_for_sale_label">
+		Eladó föld
+	</text>
+	<button label="Haza megy" label_selected="Haza megy" left="1158" name="Go Home" tool_tip="Teleportálás a saját helyszínedre" width="80"/>
+	<check_box label="Lakó" name="people_chk"/>
+	<check_box label="Infohub" name="infohub_chk"/>
+	<check_box label="Telehub" name="telehubchk"/>
+	<check_box label="Eladó" name="land_for_sale_chk"/>
+	<text name="events_label">
+		Események:
+	</text>
+	<check_box label="PG" name="event_chk"/>
+	<check_box label="Mature" name="event_mature_chk"/>
+	<check_box label="Adult" name="event_adult_chk"/>
+	<combo_box label="Barátaim" name="friend combo" tool_tip="Barátok megjelenítése a térképen">
+		<combo_item name="none_selected">
+			Barátaim
+		</combo_item>
+	</combo_box>
+	<combo_box label="Jelzőpontjaim" name="landmark combo" tool_tip="Landmark to Show on Map">
+		<combo_item name="none_selected">
+			Jelzőpontjaim
+		</combo_item>
+	</combo_box>
+	<line_editor label="Keresés a régió neve szerint" name="location" tool_tip="Írd ide a régió nevét" width="152"/>
+	<button label="Keres" name="DoSearch" tool_tip="Régió keresése" width="50" left_delta="154"/>
+	<text name="search_label">
+		Keresési eredmények:
+	</text>
+	<scroll_list name="search_results">
+		<column label="" name="icon"/>
+		<column label="" name="sim_name"/>
+	</scroll_list>
+	<text name="location_label">
+		Helyszín:
+	</text>
+	<spinner name="spin x" tool_tip="A helyszín X koordinátájának megjelenítése a térképen"/>
+	<spinner name="spin y" tool_tip="A helyszín X koordinátájának megjelenítése a térképen"/>
+	<spinner name="spin z" tool_tip="Z coordinate of location to show on map"/>
+	<button label="Teleport" label_selected="Teleport" name="Teleport" tool_tip="Teleportálás a kijelölt helyszínre"/>
+	<button label="Érkezési pont" label_selected="Érkezési pont" name="Show Destination" tool_tip="Térkép középre pozícionálása a kijelölt helyszínhez viszonyítva"/>
+	<button label="Töröl" label_selected="Töröl" name="Clear" tool_tip="Követés kikapcsolása"/>
+	<button label="Saját hely" label_selected="Saját hely" name="Show My Location" tool_tip="Térkép középre pozícionálása az avatár helyszínéhez viszonyítva"/>
+	<button label="SLURL másolása vágólapra" name="copy_slurl" tool_tip="Jelenlegi helyszín SLURL-ként történő másolása honlapra történő beillesztéshez."/>
+	<slider label="Nagyít" name="zoom slider"/>
+</floater>

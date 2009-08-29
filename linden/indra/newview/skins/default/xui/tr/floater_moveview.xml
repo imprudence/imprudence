@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="move floater" title="">
+	<button label="" label_selected="" name="turn left btn" tool_tip="Sola dön" />
+	<button label="" label_selected="" name="turn right btn" tool_tip="Sağa dön" />
+	<button label="" label_selected="" name="move up btn" tool_tip="Zıpla veya uç" />
+	<button label="" label_selected="" name="move down btn" tool_tip="Çömel veya alçal" />
+	<joystick_slide name="slide left btn" tool_tip="Sola git" />
+	<joystick_slide name="slide right btn" tool_tip="Sağa git" />
+	<joystick_turn name="forward btn" tool_tip="İleri Git" />
+	<joystick_turn name="backward btn" tool_tip="Geri git" />
+</floater>

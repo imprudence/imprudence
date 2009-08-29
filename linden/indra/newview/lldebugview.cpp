@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -96,20 +97,6 @@ LLDebugView::LLDebugView(const std::string& name, const LLRect &rect)
 	gTextureView->setFollowsLeft();
 	addChild(gTextureView);
 	//gTextureView->reshape(r.getWidth(), r.getHeight(), TRUE);
-
-	//
-	// Debug statistics
-	//
-	r.set(rect.getWidth() - 250,
-		  rect.getHeight() - 50,
-		  rect.getWidth(),
-		  rect.getHeight() - 450);
-	mFloaterStatsp = new LLFloaterStats(r);
-
-	mFloaterStatsp->setFollowsTop();
-	mFloaterStatsp->setFollowsRight();
-	// since this is a floater, it belongs to LLFloaterView
-	//addChild(mFloaterStatsp);
 
 	const S32 VELOCITY_LEFT = 10; // 370;
 	const S32 VELOCITY_WIDTH = 500;

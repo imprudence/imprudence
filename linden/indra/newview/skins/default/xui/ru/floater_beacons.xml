@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="beacons" title="Метки">
+	<panel name="beacons_panel">
+		<check_box label="Заскриптованные Объекты с &#10;функцией Касания" name="touch_only"/>
+		<check_box bottom_delta="-36" label="Заскриптованные Объекты" name="scripted"/>
+		<check_box label="Физические Объекты" name="physical"/>
+		<check_box label="Источники Звука" name="sounds"/>
+		<check_box label="Источники Частиц" name="particles"/>
+		<check_box label="Отрисовка подсветки" name="highlights"/>
+		<check_box label="Отрисовка меток" name="beacons"/>
+		<text bottom_delta="-16" name="beacon_width_label">
+			Ширина метки:
+		</text>
+	</panel>
+</floater>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Реклама">
+	<line_editor name="given_name_editor" tool_tip="Назва має починатися з літери або числа, але не знака пунктуації."/>
+	<line_editor name="location_editor" tool_tip="Встановити місцезнаходження цієї реклами в Вашому поточному розміщенні."/>
+	<button label="Призначити" name="set_location_btn"/>
+	<button label="Телепорт" name="classified_teleport_btn"/>
+	<button label="Показати на карті" name="classified_map_btn" width="130" />
+	<button label="Профіль" name="classified_profile_btn" left="260"/>
+	<combo_box name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Оберіть -
+		</combo_item>
+		<combo_item name="mature">
+			Mature контент
+		</combo_item>
+		<combo_item name="pg">
+			PG контент
+		</combo_item>
+	</combo_box>
+	<combo_box label="" name="classified_category_combo"/>
+	<button label="Оновити" name="classified_update_btn"/>
+	<string name="ad_placed_paid">
+		Реклама розміщена: [DATE], Сплачено L$[AMT] за публікацію.
+	</string>
+	<string name="update_txt">
+		Оновити
+	</string>
+	<string name="publish_txt">
+		Опублікувати...
+	</string>
+</panel>

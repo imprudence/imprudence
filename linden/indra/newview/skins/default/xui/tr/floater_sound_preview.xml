@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Sound Preview" title="sound.wav">
+	<text name="name_label">
+		Ad:
+	</text>
+	<text name="description_label">
+		Tanım:
+	</text>
+	<button label="İptal" label_selected="İptal" name="cancel_btn" />
+	<button label="Yükle ([AMOUNT] L$)" label_selected="Yükle ([AMOUNT] L$)" name="ok_btn" />
+</floater>

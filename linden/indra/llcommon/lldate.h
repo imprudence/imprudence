@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -35,6 +36,7 @@
 #define LL_LLDATE_H
 
 #include <iosfwd>
+#include <string>
 
 #include "stdtypes.h"
 
@@ -53,7 +55,7 @@ public:
 	LLDate();
 
 	/** 
-	 * @brief Construct a date equal to epoch.
+	 * @brief Construct a date equal to the source date.
 	 */
 	LLDate(const LLDate& date);
 
@@ -111,11 +113,44 @@ public:
 	 * @param seconds The number of seconds since epoch UTC.
 	 */
 	void secondsSinceEpoch(F64 seconds);
+    
+    /**
+     * @brief Create an LLDate object set to the current time.
+	 *
+	 * @return The number of seconds since epoch UTC.
+	 */
+    static LLDate now();
+
+	/** 
+	 * @brief Compare dates using operator< so we can order them using STL.
+	 *
+	 * @param rhs -- the right hand side of the comparison operator
+	 */
+	bool operator<(const LLDate& rhs) const;
+    
+	/** 
+	 * @brief Remaining comparison operators in terms of operator<
+     * This conforms to the expectation of STL.
+	 *
+	 * @param rhs -- the right hand side of the comparison operator
+	 */
+    bool operator>(const LLDate& rhs) const { return rhs < *this; }
+    bool operator<=(const LLDate& rhs) const { return !(rhs < *this); }
+    bool operator>=(const LLDate& rhs) const { return !(*this < rhs); }
+    bool operator!=(const LLDate& rhs) const { return (*this < rhs) || (rhs < *this); }
+    bool operator==(const LLDate& rhs) const { return !(*this != rhs); }
+
+	/**
+	 * @brief Compare to epoch UTC.
+	 */
+
+	bool isNull() const { return mSecondsSinceEpoch == 0.0; }
+	bool notNull() const { return mSecondsSinceEpoch != 0.0; }
+	 
 
 private:
 	F64 mSecondsSinceEpoch;
 };
-
 
 // Helper function to stream out a date
 std::ostream& operator<<(std::ostream& s, const LLDate& date);

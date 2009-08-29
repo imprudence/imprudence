@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Place" title="Місце">
+	<text name="name_label">
+		Назв.:
+	</text>
+	<text name="description_label">
+		Опис:
+	</text>
+	<text name="information_label">
+		Інфо:
+	</text>
+	<text name="land_type_label">
+		Тип землі:
+	</text>
+	<text name="location_label">
+		Располож.:
+	</text>
+	<button label="Телепорт" name="teleport_btn"/>
+	<button label="Показ.на карті" name="map_btn" width="125"/>
+	<button label="Заявки..." name="auction_btn"/>
+	<string name="traffic_text">
+		Трафік: [TRAFFIC]
+	</string>
+	<string name="area_text">
+		Площа: [AREA] м².
+	</string>
+	<string name="forsale_text">
+		Продається за L$[PRICE]
+	</string>
+	<string name="auction_text">
+		ID аукціона [ID].
+	</string>
+	<string name="server_update_text">
+		Розміщення інформації недоступно без оновлення сервера.
+	</string>
+	<string name="server_error_text">
+		Інформація про этом месте в даний момент недоступна, будь ласка повторіть пізніше.
+	</string>
+	<string name="server_forbidden_text">
+		Інформація про этом месте недоступна з-за обмежень в доступі. Будь ласка перевірте Ваші дозволи у власника ділянки.
+	</string>
+</panel>

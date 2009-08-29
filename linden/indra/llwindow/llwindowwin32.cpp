@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -372,6 +373,8 @@ LLWindowWin32::LLWindowWin32(const std::string& title, const std::string& name, 
 	mMousePositionModified = FALSE;
 	mInputProcessingPaused = FALSE;
 	mPreeditor = NULL;
+	mhDC = NULL;
+	mhRC = NULL;
 
 	// Initialize the keyboard
 	gKeyboard = new LLKeyboardWin32();
@@ -417,7 +420,7 @@ LLWindowWin32::LLWindowWin32(const std::string& title, const std::string& name, 
 	mhInstance = GetModuleHandle(NULL);
 	mWndProc = NULL;
 
-	mSwapMethod = SWAP_METHOD_EXCHANGE;
+	mSwapMethod = SWAP_METHOD_UNDEFINED;
 
 	// No WPARAM yet.
 	mLastSizeWParam = 0;
@@ -843,8 +846,13 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 	RECT	window_rect;
 	S32 width = size.mX;
 	S32 height = size.mY;
+	BOOL auto_show = FALSE;
 
-	resetDisplayResolution();
+	if (mhRC)
+	{
+		auto_show = TRUE;
+		resetDisplayResolution();
+	}
 
 	if (EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dev_mode))
 	{
@@ -1182,8 +1190,28 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 			LL_INFOS("Window") << "Choosing pixel formats: " << num_formats << " pixel formats returned" << LL_ENDL;
 		}
 
-		pixel_format = pixel_formats[0];
+		
 
+		S32 swap_method = 0;
+		S32 cur_format = num_formats-1;
+		GLint swap_query = WGL_SWAP_METHOD_ARB;
+
+		BOOL found_format = FALSE;
+
+		while (!found_format && wglGetPixelFormatAttribivARB(mhDC, pixel_format, 0, 1, &swap_query, &swap_method))
+		{
+			if (swap_method == WGL_SWAP_UNDEFINED_ARB || cur_format <= 0)
+			{
+				found_format = TRUE;
+			}
+			else
+			{
+				--cur_format;
+			}
+		}
+		
+		pixel_format = pixel_formats[cur_format];
+		
 		if (mhDC != 0)											// Does The Window Have A Device Context?
 		{
 			wglMakeCurrent(mhDC, 0);							// Set The Current Active Rendering Context To Zero
@@ -1225,9 +1253,6 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 			OSMessageBox("Can't set pixel format", "Error", OSMB_OK);
 			return FALSE;
 		}
-
-		int swap_method = 0;
-		GLint swap_query = WGL_SWAP_METHOD_ARB;
 
 		if (wglGetPixelFormatAttribivARB(mhDC, pixel_format, 0, 1, &swap_query, &swap_method))
 		{
@@ -1341,13 +1366,21 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 	}
 
 	SetWindowLong(mWindowHandle, GWL_USERDATA, (U32)this);
-	show();
-
+	
 	//register joystick timer callback
 	SetTimer( mWindowHandle, 0, 1000 / 30, NULL ); // 30 fps timer
 
 	// ok to post quit messages now
 	mPostQuit = TRUE;
+
+	if (auto_show)
+	{
+		show();
+		glClearColor(0.0f, 0.0f, 0.0f, 0.f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		swapBuffers();
+	}
+
 	return TRUE;
 }
 
@@ -2930,7 +2963,7 @@ void LLWindowWin32::spawnWebBrowser(const std::string& escaped_url )
 	/*
 	std::string reg_path_str = gURLProtocolWhitelistHandler[i] + "\\shell\\open\\command";
 	WCHAR reg_path_wstr[256];
-	mbstowcs(reg_path_wstr, reg_path_str.c_str(), sizeof(reg_path_wstr)/sizeof(reg_path_wstr[0]));
+	mbstowcs( reg_path_wstr, reg_path_str.c_str(), LL_ARRAY_SIZE(reg_path_wstr) );
 
 	HKEY key;
 	WCHAR browser_open_wstr[1024];
@@ -3621,11 +3654,10 @@ BOOL LLWindowWin32::handleImeRequests(U32 request, U32 param, LRESULT *result)
 }
 
 //static
-std::string LLWindowWin32::getFontListSans()
+std::vector<std::string> LLWindowWin32::getDynamicFallbackFontList()
 {
-	// Lists Japanese, Korean, and Chinese sanserif fonts available in
-	// Windows XP and Vista, as well as "Arial Unicode MS".
-	return "MSGOTHIC.TTC;gulim.ttc;simhei.ttf;ArialUni.ttf";
+	// Fonts previously in getFontListSans() have moved to fonts.xml.
+	return std::vector<std::string>();
 }
 
 

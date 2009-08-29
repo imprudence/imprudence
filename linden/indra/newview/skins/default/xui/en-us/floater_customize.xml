@@ -16,7 +16,7 @@
 			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
 			     mouse_opaque="true" name="icon" width="16" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 			<button bottom="-81" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" label="Body" label_selected="Body" left="8" mouse_opaque="true"
@@ -56,9 +56,6 @@
 					Male
 				</radio_item>
 			</radio_group>
-			<button bottom="-433" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="16" label="Randomize" label_selected="Randomize" left="8"
-			     mouse_opaque="true" name="Randomize" scale_image="true" width="82" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
@@ -103,197 +100,200 @@ scratch and wear it.
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
 				You do not have permission to modify this wearable.
 			</text>
-			<button bottom="-128" follows="left|top" halign="center" height="24"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Shape:
+      </text>
+      <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Shape" label_selected="Create New Shape" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
-			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
-		</panel>
-		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
+    </panel>
+    <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Skin" left="102" mouse_opaque="true" name="Skin" width="389">
-			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
+      <icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
 			     image_name="icon_lock.tga" left="333" mouse_opaque="true" name="square"
 			     width="16" />
-			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
+      <icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
 			     mouse_opaque="true" name="icon" width="16" />
-			<button bottom="-81" follows="left|top" font="SansSerifSmall" halign="center"
+      <button bottom="-81" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" label="Skin Color" label_selected="Skin Color" left="8"
 			     mouse_opaque="true" name="Skin Color" scale_image="true" width="82" />
-			<button bottom="-113" follows="left|top" font="SansSerifSmall" halign="center"
+      <button bottom="-113" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" label="Face Detail" label_selected="Face Detail" left="8"
 			     mouse_opaque="true" name="Face Detail" scale_image="true" width="82" />
-			<button bottom="-145" follows="left|top" font="SansSerifSmall" halign="center"
+      <button bottom="-145" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" label="Makeup" label_selected="Makeup" left="8"
 			     mouse_opaque="true" name="Makeup" scale_image="true" width="82" />
-			<button bottom="-177" follows="left|top" font="SansSerifSmall" halign="center"
+      <button bottom="-177" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" label="Body Detail" label_selected="Body Detail" left="8"
 			     mouse_opaque="true" name="Body Detail" scale_image="true" width="82" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title" v_pad="0" width="355">
-				[DESC]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_no_modify" v_pad="0" width="355">
-				[DESC]: cannot modify
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: cannot modify
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_loading" v_pad="0" width="355">
-				[DESC]: loading...
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: loading...
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_not_worn" v_pad="0" width="355">
-				[DESC]: not worn
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: not worn
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="8"
 			     mouse_opaque="true" name="path" v_pad="0" width="373">
-				Located in [PATH]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Located in [PATH]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="not worn instructions" v_pad="0" width="373">
 				Put on a new skin by dragging one from your inventory
 to your avatar. Alternately, you create a new one from
 scratch and wear it.
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
-				You do not have permission to modify this wearable.
-			</text>
-			<texture_picker allow_no_texture="true" bottom="-273" can_apply_immediately="true"
+        You do not have permission to modify this wearable.
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Skin:
+      </text>
+      <texture_picker allow_no_texture="true" bottom="-273" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80"
 			     label="Head Tattoos" left="8" mouse_opaque="true" name="Head Tattoos"
 			     tool_tip="Click to choose a picture" width="74" />
-			<texture_picker allow_no_texture="true" bottom="-353" can_apply_immediately="true"
+      <texture_picker allow_no_texture="true" bottom="-353" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80"
 			     label="Upper Tattoos" left="8" mouse_opaque="true" name="Upper Tattoos"
 			     tool_tip="Click to choose a picture" width="74" />
-			<texture_picker allow_no_texture="true" bottom="-433" can_apply_immediately="true"
+      <texture_picker allow_no_texture="true" bottom="-433" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80"
 			     label="Lower Tattoos" left="8" mouse_opaque="true" name="Lower Tattoos"
 			     tool_tip="Click to choose a picture" width="74" />
-			<button bottom="-449" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="16" label="Randomize" label_selected="Randomize" left="8"
-			     mouse_opaque="true" name="Randomize" scale_image="true" width="82" />
-			<button bottom="-128" follows="left|top" halign="center" height="24"
+      <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Skin" label_selected="Create New Skin" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
-			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
-		</panel>
-		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
+    </panel>
+    <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Hair" left="102" mouse_opaque="true" name="Hair" width="389">
-			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
+      <icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
 			     image_name="icon_lock.tga" left="333" mouse_opaque="true" name="square"
 			     width="16" />
-			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
+      <icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
 			     mouse_opaque="true" name="icon" width="16" />
-			<button bottom="-81" follows="left|top" font="SansSerifSmall" halign="center"
+      <button bottom="-81" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" label="Color" label_selected="Color" left="8"
 			     mouse_opaque="true" name="Color" scale_image="true" width="82" />
-			<button bottom="-113" follows="left|top" font="SansSerifSmall" halign="center"
+      <button bottom="-113" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" label="Style" label_selected="Style" left="8"
 			     mouse_opaque="true" name="Style" scale_image="true" width="82" />
-			<button bottom="-145" follows="left|top" font="SansSerifSmall" halign="center"
+      <button bottom="-145" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" label="Eyebrows" label_selected="Eyebrows" left="8"
 			     mouse_opaque="true" name="Eyebrows" scale_image="true" width="82" />
-			<button bottom="-177" follows="left|top" font="SansSerifSmall" halign="center"
+      <button bottom="-177" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" label="Facial" label_selected="Facial" left="8"
 			     mouse_opaque="true" name="Facial" scale_image="true" width="82" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title" v_pad="0" width="355">
-				[DESC]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_no_modify" v_pad="0" width="355">
-				[DESC]: cannot modify
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: cannot modify
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_loading" v_pad="0" width="355">
-				[DESC]: loading...
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: loading...
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_not_worn" v_pad="0" width="355">
-				[DESC]: not worn
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: not worn
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="8"
 			     mouse_opaque="true" name="path" v_pad="0" width="373">
-				Located in [PATH]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Located in [PATH]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="not worn instructions" v_pad="0" width="373">
 				Put on a new hair by dragging one from your inventory
 to your avatar. Alternately, you create a new one from
 scratch and wear it.
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
-				You do not have permission to modify this wearable.
-			</text>
+        You do not have permission to modify this wearable.
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Hair:
+      </text>
 			<texture_picker allow_no_texture="false" bottom="-273" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" label="Texture"
 			     left="8" mouse_opaque="true" name="Texture"
 			     tool_tip="Click to choose a picture" width="64" />
-			<button bottom="-305" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="16" label="Randomize" label_selected="Randomize" left="8"
-			     mouse_opaque="true" name="Randomize" scale_image="true" width="82" />
 			<button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Hair" label_selected="Create New Hair" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
-			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
@@ -347,179 +347,191 @@ scratch and wear it.
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
 				You do not have permission to modify this wearable.
 			</text>
-			<texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Eyes:
+      </text>
+      <texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" label="Iris"
 			     left="8" mouse_opaque="true" name="Iris"
 			     tool_tip="Click to choose a picture" width="64" />
-			<button bottom="-177" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="16" label="Randomize" label_selected="Randomize" left="8"
-			     mouse_opaque="true" name="Randomize" scale_image="true" width="82" />
-			<button bottom="-128" follows="left|top" halign="center" height="24"
+      <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Eyes" label_selected="Create New Eyes" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
-			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
-		</panel>
-		<panel label="Clothes" placeholder="true" name="clothes_placeholder" />
-		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
+    </panel>
+    <panel label="Clothes" placeholder="true" name="clothes_placeholder" />
+    <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Shirt" left="102" mouse_opaque="true" name="Shirt" width="389">
-			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
+      <icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
 			     image_name="icon_lock.tga" left="333" mouse_opaque="true" name="square"
 			     width="16" />
-			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
+      <icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
 			     mouse_opaque="true" name="icon" width="16" />
-			<texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
+      <texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" label="Fabric"
 			     left="8" mouse_opaque="true" name="Fabric"
 			     tool_tip="Click to choose a picture" width="64" />
-			<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-225"
+      <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-225"
 			     can_apply_immediately="true" color="1 1 1 1" follows="left|top" height="80"
 			     label="Color/Tint" left="8" mouse_opaque="true" name="Color/Tint"
 			     tool_tip="Click to open Color Picker" width="64" />
-			<button bottom="-128" follows="left|top" halign="center" height="24"
+      <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Shirt" label_selected="Create New Shirt" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
+      <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title" v_pad="0" width="355">
-				[DESC]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_no_modify" v_pad="0" width="355">
-				[DESC]: cannot modify
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: cannot modify
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_loading" v_pad="0" width="355">
-				[DESC]: loading...
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: loading...
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_not_worn" v_pad="0" width="355">
-				[DESC]: not worn
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: not worn
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="8"
 			     mouse_opaque="true" name="path" v_pad="0" width="373">
-				Located in [PATH]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Located in [PATH]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="not worn instructions" v_pad="0" width="373">
 				Put on a new shirt by dragging one from your inventory
 to your avatar. Alternately, you create a new one from
 scratch and wear it.
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
-				You do not have permission to modify this wearable.
-			</text>
-		</panel>
-		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
+        You do not have permission to modify this wearable.
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Shirt:
+      </text>
+    </panel>
+    <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Pants" left="102" mouse_opaque="true" name="Pants" width="389">
-			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
+      <icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
 			     image_name="icon_lock.tga" left="333" mouse_opaque="true" name="square"
 			     width="16" />
-			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
+      <icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
 			     mouse_opaque="true" name="icon" width="16" />
-			<texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
+      <texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" label="Fabric"
 			     left="8" mouse_opaque="true" name="Fabric"
 			     tool_tip="Click to choose a picture" width="64" />
-			<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-225"
+      <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-225"
 			     can_apply_immediately="true" color="1 1 1 1" follows="left|top" height="80"
 			     label="Color/Tint" left="8" mouse_opaque="true" name="Color/Tint"
 			     tool_tip="Click to open Color Picker" width="64" />
-			<button bottom="-128" follows="left|top" halign="center" height="24"
+      <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Pants" label_selected="Create New Pants" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
+      <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title" v_pad="0" width="355">
-				[DESC]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_no_modify" v_pad="0" width="355">
-				[DESC]: cannot modify
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: cannot modify
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_loading" v_pad="0" width="355">
-				[DESC]: loading...
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: loading...
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_not_worn" v_pad="0" width="355">
-				[DESC]: not worn
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: not worn
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="8"
 			     mouse_opaque="true" name="path" v_pad="0" width="373">
-				Located in [PATH]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Located in [PATH]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="not worn instructions" v_pad="0" width="373">
 				Put on a new pants by dragging one from your inventory
 to your avatar. Alternately, you create a new one from
 scratch and wear it.
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
-				You do not have permission to modify this wearable.
-			</text>
+        You do not have permission to modify this wearable.
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Pants:
+      </text>
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Shoes" left="102" mouse_opaque="true" name="Shoes" width="389">
@@ -572,6 +584,12 @@ scratch and wear it.
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
 				You do not have permission to modify this wearable.
 			</text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Shoes:
+      </text>
 			<texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" label="Fabric"
 			     left="8" mouse_opaque="true" name="Fabric"
@@ -582,18 +600,18 @@ scratch and wear it.
 			     tool_tip="Click to open Color Picker" width="64" />
 			<button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Shoes" label_selected="Create New Shoes" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
+      <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
@@ -647,313 +665,343 @@ scratch and wear it.
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
 				You do not have permission to modify this wearable.
 			</text>
-			<texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Socks:
+      </text>
+      <texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" label="Fabric"
 			     left="8" mouse_opaque="true" name="Fabric"
 			     tool_tip="Click to choose a picture" width="64" />
-			<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-225"
+      <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-225"
 			     can_apply_immediately="true" color="1 1 1 1" follows="left|top" height="80"
 			     label="Color/Tint" left="8" mouse_opaque="true" name="Color/Tint"
 			     tool_tip="Click to open Color Picker" width="64" />
-			<button bottom="-128" follows="left|top" halign="center" height="24"
+      <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Socks" label_selected="Create New Socks" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
+      <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
-		</panel>
-		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
+    </panel>
+    <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Jacket" left="102" mouse_opaque="true" name="Jacket" width="389">
-			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
+      <icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
 			     image_name="icon_lock.tga" left="333" mouse_opaque="true" name="square"
 			     width="16" />
-			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
+      <icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
 			     mouse_opaque="true" name="icon" width="16" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title" v_pad="0" width="355">
-				[DESC]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_no_modify" v_pad="0" width="355">
-				[DESC]: cannot modify
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: cannot modify
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_loading" v_pad="0" width="355">
-				[DESC]: loading...
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: loading...
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_not_worn" v_pad="0" width="355">
-				[DESC]: not worn
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: not worn
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="8"
 			     mouse_opaque="true" name="path" v_pad="0" width="373">
-				Located in [PATH]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Located in [PATH]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="not worn instructions" v_pad="0" width="373">
 				Put on a new jacket by dragging one from your inventory
 to your avatar. Alternately, you create a new one from
 scratch and wear it.
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
-				You do not have permission to modify this wearable.
-			</text>
-			<texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
+        You do not have permission to modify this wearable.
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Jacket:
+      </text>
+      <texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80"
 			     label="Upper Fabric" left="8" mouse_opaque="true" name="Upper Fabric"
-			     tool_tip="Click to choose a picture" width="64" />
-			<texture_picker allow_no_texture="false" bottom="-225" can_apply_immediately="true"
+			     tool_tip="Click to choose a picture" width="66" />
+      <texture_picker allow_no_texture="false" bottom="-225" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80"
 			     label="Lower Fabric" left="8" mouse_opaque="true" name="Lower Fabric"
-			     tool_tip="Click to choose a picture" width="64" />
-			<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-305"
+			     tool_tip="Click to choose a picture" width="66" />
+      <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-305"
 			     can_apply_immediately="true" color="1 1 1 1" follows="left|top" height="80"
 			     label="Color/Tint" left="8" mouse_opaque="true" name="Color/Tint"
-			     tool_tip="Click to open Color Picker" width="64" />
-			<button bottom="-128" follows="left|top" halign="center" height="24"
+			     tool_tip="Click to open Color Picker" width="66" />
+      <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Jacket" label_selected="Create New Jacket" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="140" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
+      <button bottom="-330" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
-		</panel>
-		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
+    </panel>
+    <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Gloves" left="102" mouse_opaque="true" name="Gloves" width="389">
-			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
+      <icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
 			     image_name="icon_lock.tga" left="333" mouse_opaque="true" name="square"
 			     width="16" />
-			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
+      <icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
 			     mouse_opaque="true" name="icon" width="16" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title" v_pad="0" width="355">
-				[DESC]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_no_modify" v_pad="0" width="355">
-				[DESC]: cannot modify
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: cannot modify
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_loading" v_pad="0" width="355">
-				[DESC]: loading...
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: loading...
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_not_worn" v_pad="0" width="355">
-				[DESC]: not worn
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: not worn
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="8"
 			     mouse_opaque="true" name="path" v_pad="0" width="373">
-				Located in [PATH]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Located in [PATH]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="not worn instructions" v_pad="0" width="373">
 				Put on a new gloves by dragging one from your inventory
 to your avatar. Alternately, you create a new one from
 scratch and wear it.
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
-				You do not have permission to modify this wearable.
-			</text>
-			<texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
+        You do not have permission to modify this wearable.
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Gloves:
+      </text>
+      <texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" label="Fabric"
 			     left="8" mouse_opaque="true" name="Fabric"
 			     tool_tip="Click to choose a picture" width="64" />
-			<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-225"
+      <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-225"
 			     can_apply_immediately="true" color="1 1 1 1" follows="left|top" height="80"
 			     label="Color/Tint" left="8" mouse_opaque="true" name="Color/Tint"
 			     tool_tip="Click to open Color Picker" width="64" />
-			<button bottom="-128" follows="left|top" halign="center" height="24"
+      <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Gloves" label_selected="Create New Gloves" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="130" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
+      <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
-		</panel>
-		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
+    </panel>
+    <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Undershirt" left="102" mouse_opaque="true" name="Undershirt"
 		     width="389">
-			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
+      <icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
 			     image_name="icon_lock.tga" left="333" mouse_opaque="true" name="square"
 			     width="16" />
-			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
+      <icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
 			     mouse_opaque="true" name="icon" width="16" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title" v_pad="0" width="355">
-				[DESC]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_no_modify" v_pad="0" width="355">
-				[DESC]: cannot modify
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: cannot modify
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_loading" v_pad="0" width="355">
-				[DESC]: loading...
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: loading...
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_not_worn" v_pad="0" width="355">
-				[DESC]: not worn
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: not worn
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="8"
 			     mouse_opaque="true" name="path" v_pad="0" width="373">
-				Located in [PATH]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Located in [PATH]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="not worn instructions" v_pad="0" width="373">
 				Put on a new undershirt by dragging one from your inventory
 to your avatar. Alternately, you create a new one from
 scratch and wear it.
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
-				You do not have permission to modify this wearable.
-			</text>
-			<texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
+        You do not have permission to modify this wearable.
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Undershirt:
+      </text>
+      <texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" label="Fabric"
 			     left="8" mouse_opaque="true" name="Fabric"
 			     tool_tip="Click to choose a picture" width="64" />
-			<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-225"
+      <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-225"
 			     can_apply_immediately="true" color="1 1 1 1" follows="left|top" height="80"
 			     label="Color/Tint" left="8" mouse_opaque="true" name="Color/Tint"
 			     tool_tip="Click to open Color Picker" width="64" />
-			<button bottom="-128" follows="left|top" halign="center" height="24"
+      <button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Undershirt" label_selected="Create New Undershirt"
 			     left="8" mouse_opaque="true" name="Create New" scale_image="true"
-			     width="160" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
+			     width="170" />
+      <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
-		</panel>
-		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
+    </panel>
+    <panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Underpants" left="102" mouse_opaque="true" name="Underpants"
 		     width="389">
-			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
+      <icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
 			     image_name="icon_lock.tga" left="333" mouse_opaque="true" name="square"
 			     width="16" />
-			<icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
+      <icon bottom="-24" color="1 1 1 1" follows="left|top" height="16" left="8"
 			     mouse_opaque="true" name="icon" width="16" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title" v_pad="0" width="355">
-				[DESC]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_no_modify" v_pad="0" width="355">
-				[DESC]: cannot modify
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: cannot modify
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_loading" v_pad="0" width="355">
-				[DESC]: loading...
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: loading...
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" left="26"
 			     mouse_opaque="true" name="title_not_worn" v_pad="0" width="355">
-				[DESC]: not worn
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        [DESC]: not worn
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="8"
 			     mouse_opaque="true" name="path" v_pad="0" width="373">
-				Located in [PATH]
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+        Located in [PATH]
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="not worn instructions" v_pad="0" width="373">
 				Put on a new underpants by dragging one from your inventory
 to your avatar. Alternately, you create a new one from
 scratch and wear it.
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-74" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="28" left="8"
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
-				You do not have permission to modify this wearable.
-			</text>
+        You do not have permission to modify this wearable.
+      </text>
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+           bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+           font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+           mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Underpants:
+      </text>
 			<texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" label="Fabric"
 			     left="8" mouse_opaque="true" name="Fabric"
@@ -965,18 +1013,18 @@ scratch and wear it.
 			<button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Underpants" label_selected="Create New Underpants"
 			     left="8" mouse_opaque="true" name="Create New" scale_image="true"
-			     width="160" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
+			     width="170" />
+      <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
@@ -1030,7 +1078,13 @@ scratch and wear it.
 			     mouse_opaque="true" name="no modify instructions" v_pad="0" width="373">
 				You do not have permission to modify this wearable.
 			</text>
-			<texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
+      <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+                 bottom="-486" drop_shadow_visible="true" follows="left|top|right"
+                 font="SansSerif" h_pad="0" halign="right" height="28" right="117"
+                 mouse_opaque="true" name="Item Action Label" v_pad="0" width="100">
+        Skirt:
+      </text>
+      <texture_picker allow_no_texture="false" bottom="-145" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" label="Fabric"
 			     left="8" mouse_opaque="true" name="Fabric"
 			     tool_tip="Click to choose a picture" width="64" />
@@ -1040,31 +1094,31 @@ scratch and wear it.
 			     tool_tip="Click to open Color Picker" width="64" />
 			<button bottom="-128" follows="left|top" halign="center" height="24"
 			     label="Create New Skirt" label_selected="Create New Skirt" left="8"
-			     mouse_opaque="true" name="Create New" scale_image="true" width="120" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Take Off" label_selected="Take Off" left="35"
+			     mouse_opaque="true" name="Create New" scale_image="true" width="170" />
+      <button bottom="-250" follows="left|top" font="SansSerif" halign="center"
+			     height="20" label="Take Off" label_selected="Take Off" left="8"
 			     mouse_opaque="true" name="Take Off" scale_image="true" width="82" />
-			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
+      <button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
 			     height="20" label="Save" label_selected="Save" left="123"
 			     mouse_opaque="true" name="Save" scale_image="true" width="82" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Save As" label_selected="Save As" left="211"
-			     mouse_opaque="true" name="Save As" scale_image="true" width="82" />
+			     height="20" label="Save As..." label_selected="Save As..." left="209"
+			     mouse_opaque="true" name="Save As" scale_image="true" width="92" />
 			<button bottom="-478" follows="right|bottom" font="SansSerif" halign="center"
-			     height="20" label="Revert" label_selected="Revert" left="299"
+			     height="20" label="Revert" label_selected="Revert" left="305"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 		</panel>
 	</tab_container>
 	<scroll_container bottom="-476" follows="left|top|right|bottom" height="382" left="197"
 	     mouse_opaque="false" name="panel_container" opaque="false" width="292" />
+  <button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Cancel" label_selected="Cancel" mouse_opaque="true"
+	     name="Cancel" right="-10" scale_image="true" width="100" />
 	<button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
-	     height="20" label="Close" label_selected="Close" mouse_opaque="true"
-	     name="Close" right="-10" scale_image="true" width="100" />
-	<button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
-	     height="20" label="Save All" label_selected="Save All" mouse_opaque="true"
-	     name="Save All" right="-116" scale_image="true" width="100" />
-	<button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
-	     height="20" label="Make Outfit" label_selected="Make Outfit"
-	     mouse_opaque="true" name="Make Outfit" right="-222" scale_image="true"
+	     height="20" label="OK" label_selected="OK" mouse_opaque="true"
+	     name="Ok" right="-116" scale_image="true" width="100" />
+	<button bottom="-536" follows="left|bottom" font="SansSerif" halign="center"
+	     height="20" label="Make Outfit..." label_selected="Make Outfit..."
+	     mouse_opaque="true" name="Make Outfit" left="100" scale_image="true"
 	     width="100" />
 </floater>

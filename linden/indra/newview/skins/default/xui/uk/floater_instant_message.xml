@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater label="(невідомо)" name="im_floater" title="(невідомо)">
+	<string name="ringing">
+		Виклик...
+	</string>
+	<string name="answering">
+		Зв&apos;язуємося...
+	</string>
+	<string name="connected">
+		З&apos;єднано, натисніть Кінець з&apos;язку для розриву
+	</string>
+	<string name="hang_up">
+		Дзвінок завершено
+	</string>
+	<string name="inventory_item_offered">
+		Вам запропонували об&apos;єкт Інвентаря
+	</string>
+	<string name="voice_icon">
+		icn_voice-pvtfocus.tga
+	</string>
+	<string name="title_string">
+		Миттєве повідомлення з [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] друкує...
+	</string>
+	<string name="session_start_string">
+		Початок сесії з [NAME], зачекайте.
+	</string>
+	<string name="default_text_label">
+		Натисніть сюди для миттєвого повідомлення
+	</string>
+	<string name="unavailable_text_label">
+		Текстовий чат недоступний для цього виклику.
+	</string>
+	<button label="Профіль..." name="profile_callee_btn"/>
+	<button label="Дзвінок" name="start_call_btn"/>
+	<button label="Кінець дзвінка" name="end_call_btn"/>
+	<panel name="speaker_controls">
+		<button label="" name="mute_btn" tool_tip="Глушити голоси"/>
+	</panel>
+	<line_editor label="Натисніть сюди для миттєвого повідомлення" name="chat_editor" width="403"/>
+	<button label="Відправити" left="413" name="send_btn" width="80"/>
+	<string name="live_help_dialog">
+		*** Ласкаво просимо в Запит Допомоги *** 
+Будь ласка, перевірте спочатку сторінки допомоги SL, натиснувши F1, або зверніться до Бази Знань http://secondlife.com/knowledgebase/ 
+Якщо Вашої відповіді тут немає, то напишіть своє питання, і зачекайте декілька хвилин доки доступний помічник не відповість Вам.
+ -=-=- Час відповідей може бути різним, особливо, в години пік -=-=-
+	</string>
+</floater>

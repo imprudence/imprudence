@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="godtools floater" title="Інструменти Бога">
+	<tab_container name="GodTools Tabs">
+		<panel label="Сітка" name="grid">
+			<button label="Викинути всіх користувачів"
+			     label_selected="Викинути всіх користувачів"
+			     name="Kick all users" />
+			<button label="Очистити кеш цього регіона"
+			     label_selected="Очистити кеш цього регіона"
+			     name="Flush This Region&apos;s Map Visibility Caches" />
+		</panel>
+		<panel label="Регіон" name="region">
+			<text name="Sim Name:">
+				Назва Сіма:
+			</text>
+			<check_box label="Вступ" name="check prelude"
+			     tool_tip="Установіть, щоб зробити вступ в регіон." />
+			<check_box label="Нерухоме Сонце" name="check fixed sun"
+			     tool_tip="Установіть позицію Сонця(як в Регіон/Маєток &gt; Ландшафт." />
+			<check_box label="Скин. Дім при телепорті" name="check reset home"
+			     tool_tip="Коли резидент телепортується, його Дом встановлюється у місці призначення." />
+			<check_box label="Відображення" name="check visible"
+			     tool_tip="Зробити цей регіон видимим для не-богів." />
+			<check_box label="Пошкодження" name="check damage"
+			     tool_tip="Дозволити пошкодження в цьому регіоні." />
+			<check_box label="Блокувати відстеження трафіка"
+			     name="block dwell"
+			     tool_tip="Заборонити підрахунок трафіка." />
+			<check_box label="Блокувати зміну ландшафту" name="block terraform"
+			     tool_tip="Заборонити зміну ландшафту на цій землі" />
+			<check_box label="Пісочниця" name="is sandbox"
+			     tool_tip="Зробити цей регіон пісочницею." />
+			<button label="Запам. ландшафт"
+			     label_selected="Запам. Ландшафт" name="Bake Terrain"
+			     tool_tip="Зберегти поточний ландшафт, як ландшафт за замовчуванням." />
+			<button label="Повернути ландшафт"
+			     label_selected="Повернути ландшафт" name="Revert Terrain"
+			     tool_tip="Замінити поточний ландшафт на ландшафт за замовчуванням." />
+			<button label="Змінити Ландшафт"
+			     label_selected="Змінити Ландшафт" name="Swap Terrain"
+			     tool_tip="Замінити поточний ландшафт на ландшафт за замовчуванням." />
+			<text name="estate id">
+				ID маєтку:
+			</text>
+			<text name="parent id">
+				Вихідний ID:
+			</text>
+			<line_editor name="parentestate"
+			     tool_tip="Це вихідний маєток для цього регіона" />
+			<text name="Grid Pos: ">
+				Позиція сітки:
+			</text>
+			<line_editor name="gridposx" tool_tip="X позиція регіона" />
+			<line_editor name="gridposy" tool_tip="Y позиція регіона" />
+			<text name="Redirect to Grid: ">
+				Прив&apos;язати до сітки:
+			</text>
+			<text name="billable factor text">
+				Фактор оплати:
+			</text>
+			<text name="land cost text">
+				L$ за кв.метр:
+			</text>
+			<button label="Оновити" label_selected="Оновити" name="Refresh"
+			     tool_tip="Натисніть тут, щоб оновити вищезазначену інформацію." />
+			<button label="Застосув." label_selected="Застосув." name="Apply"
+			     tool_tip="Натисніть тут, щоб застос. зміни." />
+			<button label="Выбрати регіон"
+			     label_selected="Выбрати регіон" name="Select Region"
+			     tool_tip="Виберіть весь регіон з допомогою інструменту." />
+			<button label="Автозбереження зараз"
+			     label_selected="Автозбереження  зараз"
+			     name="Autosave now"
+			     tool_tip="Зберегти gzip архів у папку автозбереження ." />
+		</panel>
+		<panel label="Об&apos;єкти" name="objects">
+			<text name="Sim Name:">
+				Назва Сіма:
+			</text>
+			<text name="region name">
+				Welsh
+			</text>
+			<check_box label="Вимкнути скрипти" name="disable scripts"
+			     tool_tip="Вимкнути всі скрипти в регіоні" />
+			<check_box label="Вимкнути зіткнення" name="disable collisions"
+			     tool_tip="Вимкнути зіткнення не-агентів в регіоні" />
+			<check_box label="Вимкнути фізику" name="disable physics"
+			     tool_tip="Вимкнути всю фізику в цьому регіоні" />
+			<button label="Застосув." label_selected="Застосув." name="Apply"
+			     tool_tip="Натисніть тут, щоб застосув. всі зроблені раніше зміни." />
+			<button label="Установіть Ціль"
+			     label_selected="Установіть Ціль" name="Set Target"
+			     tool_tip="Установіть цільового аватара для видалення об&apos;єкту." />
+			<text name="target_avatar_name">
+				(немає цілі)
+			</text>
+			<button
+			     label="Видалити цільові заскриптовані об&apos;єкти на землях інших"
+			     label_selected="Видалити цільові заскриптовані об&apos;єкти на землях інших"
+			     name="Delete Target&apos;s Scripted Objects On Others Land"
+			     tool_tip="Видалити всі скриптовані об&apos;єкти, що належать відміченому Аватару на Землі, що йому не належить. Об&apos;єкти, що не можуть бути скопійовані (no-copy), будуть йому повернені." />
+			<button
+			     label="Видалити цільові скриптовані об&apos;єкти на *будь-якій* землі"
+			     label_selected="Видалити цільові скриптовані об&apos;єкти на *будь-якій* землі"
+			     name="Delete Target&apos;s Scripted Objects On *Any* Land"
+			     tool_tip="Видалити всі скриптовані об&apos;єкти, що належать відміченому Аватару. Об&apos;єкти, що не можуть бути скопійовані (no-copy), будуть йому повернені." />
+			<button label="Видалити всі цільові об&apos;єкти"
+			     label_selected="Видалити всі об&apos;єкти"
+			     name="Delete *ALL* Of Target&apos;s Objects"
+			     tool_tip="Видалити всі об&apos;єкти, що належать відміченому Аватару в цьому регіоні. Об&apos;єкти, що можуть бути скопійовані, будуть повернені." />
+			<button label="Завантаж. Топ Колайдерів"
+			     label_selected="Завантаж. Топ Колайдерів"
+			     name="Get Top Colliders"
+			     tool_tip="Отримати список об&apos;єктів, сценарії яких завантажуються довше всього." />
+			<button label="Завантаж. Топ скриптів"
+			     label_selected="Завантаж. Топ скриптів"
+			     name="Get Top Scripts"
+			     tool_tip="Отримати список об&apos;єктів, що більше всього гальмують завантаж." />
+			<button label="Огляд скриптів"
+			     label_selected="Огляд скриптів" name="Scripts digest"
+			     tool_tip="Отримати список всіх скриптів і число екземплярів кожного." />
+		</panel>
+		<panel label="Запит" name="request">
+			<text name="Destination:">
+				Адресат:
+			</text>
+			<combo_box name="destination">
+				<combo_item name="Selection">
+					Вибір
+				</combo_item>
+				<combo_item name="AgentRegion">
+					Регіон Агента
+				</combo_item>
+			</combo_box>
+			<text name="Request:">
+				Запит:
+			</text>
+			<combo_box name="request">
+				<combo_item name="colliders&lt;steps&gt;">
+					колайдери &lt;кроки&gt;
+				</combo_item>
+				<combo_item name="scripts&lt;count&gt;,&lt;optionalpattern&gt;">
+					скрипти &lt;рахунок&gt;,&lt;опція шаблон&gt;
+				</combo_item>
+				<combo_item name="objects&lt;pattern&gt;">
+					об&apos;єкти &lt;шаблон&gt;
+				</combo_item>
+				<combo_item name="rez&lt;asset_id&gt;">
+					створити &lt;asset_id&gt;
+				</combo_item>
+			</combo_box>
+			<text name="Parameter:">
+				Параметр:
+			</text>
+			<button label="Створити Запит"
+			     label_selected="Створити Запит" name="Make Request" />
+		</panel>
+	</tab_container>
+</floater>

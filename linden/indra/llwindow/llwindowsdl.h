@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -118,12 +119,11 @@ public:
 
 	/*virtual*/ void spawnWebBrowser(const std::string& escaped_url);
 	
-	static std::string getFontListSans();
+	static std::vector<std::string> getDynamicFallbackFontList();
 
 	// Not great that these are public, but they have to be accessible
 	// by non-class code and it's better than making them global.
 #if LL_X11
-	// These are set up by the X11 clipboard initialization code
 	Window mSDL_XWindowID;
 	Display *mSDL_Display;
 #endif
@@ -173,7 +173,6 @@ protected:
 	BOOL createContext(int x, int y, int width, int height, int bits, BOOL fullscreen, BOOL disable_vsync);
 	void destroyContext();
 	void setupFailure(const std::string& text, const std::string& caption, U32 type);
-	void adjustCursorDecouple(bool warpingMouse = false);
 	void fixWindowSize(void);
 	U32 SDLCheckGrabbyKeys(SDLKey keysym, BOOL gain);
 	BOOL SDLReallyCaptureInput(BOOL capture);
@@ -186,10 +185,6 @@ protected:
 	SDL_Surface *	mWindow;
 	std::string mWindowTitle;
 	double		mOriginalAspectRatio;
-	BOOL		mCursorDecoupled;
-	S32			mCursorLastEventDeltaX;
-	S32			mCursorLastEventDeltaY;
-	BOOL		mCursorIgnoreNextDelta;
 	BOOL		mNeedsResize;		// Constructor figured out the window is too big, it needs a resize.
 	LLCoordScreen   mNeedsResizeSize;
 	F32			mOverrideAspectRatio;
@@ -206,12 +201,6 @@ protected:
 
 #if LL_X11
 private:
-	// more X11 clipboard stuff
-	int init_x11clipboard(void);
-	void quit_x11clipboard(void);
-	int is_empty_x11clipboard(void);
-	void put_x11clipboard(int type, int srclen, const char *src);
-	void get_x11clipboard(int type, int *dstlen, char **dst);
 	void x11_set_urgent(BOOL urgent);
 	BOOL mFlashing;
 	LLTimer mFlashTimer;

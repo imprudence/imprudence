@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Environment Editor Floater"
+     title="Редактор оточ. серед.">
+	<text type="string" length="1" name="EnvTimeText">
+		Час дня
+	</text>
+	<text type="string" length="1" name="EnvTimeText2">
+		12:00
+	</text>
+	<slider label="" name="EnvTimeSlider" />
+	<text type="string" length="1" name="EnvCloudText">
+		Хмарність
+	</text>
+	<slider label="" name="EnvCloudSlider" />
+	<text type="string" length="1" name="EnvWaterColorText">
+		Колір води
+	</text>
+	<color_swatch label="" name="EnvWaterColor"
+	     tool_tip="Натисніть для вибору кольору" />
+	<text type="string" length="1" name="EnvWaterFogText">
+		Колір
+глибини
+	</text>
+	<slider label="" name="EnvWaterFogSlider" />
+	<button bottom="-144" width="205" label="Використовувати час Маєтку"
+	     name="EnvUseEstateTimeButton" />
+	<button label="Розширене небо" name="EnvAdvancedSkyButton"  width="130" left="225" />
+	<button label="Розширена вода" name="EnvAdvancedWaterButton"  width="130" left="365"/>
+	<button label="?" name="EnvSettingsHelpButton" />
+</floater>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Повідомлення" name="popups" title="Повідомлення">
+	<text name="dont_show_label">
+		Не показувати спливаючі вікна:
+	</text>
+	<button label="Увім. це Повідомл." name="enable_popup"/>
+	<button width="225" label="Увімкнути усі вспл.вікна..." name="reset_dialogs_btn" tool_tip="Увімкнути всі показувані &apos;вперше&apos; повідомл."/>
+	<text name="show_label" width="300" >
+		Показувати ці спливаючі вікна:
+	</text>
+	<button width="225" label="Вимкнути усі вспл.вікна..." name="skip_dialogs_btn" tool_tip="Вимкнути всі показувані &apos;вперше&apos; повідомлення."/>
+	<text length="1" name="text_box2" type="string">
+		Дозволи для текстур, текстур і закладок:
+	</text>
+	<check_box label="Приймати автоматично" name="accept_new_inventory"/>
+	<check_box label="Автоматичний перегляд при отриманні" name="show_new_inventory"/>
+	<check_box label="Автоматично показувати прийняті предмети в інвентарі" name="show_in_inventory"/>
+</panel>

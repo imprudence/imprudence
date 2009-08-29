@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -75,10 +76,11 @@ F32 LLViewerImage::sDesiredDiscardBias = 0.f;
 static F32 sDesiredDiscardBiasMin = -2.0f; // -max number of levels to improve image quality by
 static F32 sDesiredDiscardBiasMax = 1.5f; // max number of levels to reduce image quality by
 F32 LLViewerImage::sDesiredDiscardScale = 1.1f;
-S32 LLViewerImage::sBoundTextureMemory = 0;
-S32 LLViewerImage::sTotalTextureMemory = 0;
-S32 LLViewerImage::sMaxBoundTextureMem = 0;
-S32 LLViewerImage::sMaxTotalTextureMem = 0;
+S32 LLViewerImage::sBoundTextureMemoryInBytes = 0;
+S32 LLViewerImage::sTotalTextureMemoryInBytes = 0;
+S32 LLViewerImage::sMaxBoundTextureMemInMegaBytes = 0;
+S32 LLViewerImage::sMaxTotalTextureMemInMegaBytes = 0;
+S32 LLViewerImage::sMaxDesiredTextureMemInBytes = 0 ;
 BOOL LLViewerImage::sDontLoadVolumeTextures = FALSE;
 
 // static
@@ -124,6 +126,7 @@ void LLViewerImage::initClass()
  	sDefaultImagep = gImageList.getImage(IMG_DEFAULT, TRUE, TRUE);
 #endif
  	sSmokeImagep = gImageList.getImage(IMG_SMOKE, TRUE, TRUE);
+	sSmokeImagep->setNoDelete() ;
 
 }
 
@@ -149,14 +152,19 @@ F32 texmem_middle_bound_scale = 0.925f;
 //static
 void LLViewerImage::updateClass(const F32 velocity, const F32 angular_velocity)
 {
-	sBoundTextureMemory = LLImageGL::sBoundTextureMemory;//in bytes
-	sTotalTextureMemory = LLImageGL::sGlobalTextureMemory;//in bytes
-	sMaxBoundTextureMem = gImageList.getMaxResidentTexMem();//in MB	
-	sMaxTotalTextureMem = gImageList.getMaxTotalTextureMem() ;//in MB
+	llpushcallstacks ;
+	sBoundTextureMemoryInBytes = LLImageGL::sBoundTextureMemoryInBytes;//in bytes
+	sTotalTextureMemoryInBytes = LLImageGL::sGlobalTextureMemoryInBytes;//in bytes
+	sMaxBoundTextureMemInMegaBytes = gImageList.getMaxResidentTexMem();//in MB	
+	sMaxTotalTextureMemInMegaBytes = gImageList.getMaxTotalTextureMem() ;//in MB
+	sMaxDesiredTextureMemInBytes = MEGA_BYTES_TO_BYTES(sMaxTotalTextureMemInMegaBytes) ; //in Bytes, by default and when total used texture memory is small.
 
-	if ((sBoundTextureMemory >> 20) >= sMaxBoundTextureMem ||
-		(sTotalTextureMemory >> 20) >= sMaxTotalTextureMem)
+	if (BYTES_TO_MEGA_BYTES(sBoundTextureMemoryInBytes) >= sMaxBoundTextureMemInMegaBytes ||
+		BYTES_TO_MEGA_BYTES(sTotalTextureMemoryInBytes) >= sMaxTotalTextureMemInMegaBytes)
 	{
+		//when texture memory overflows, lower down the threashold to release the textures more aggressively.
+		sMaxDesiredTextureMemInBytes = llmin((S32)(sMaxDesiredTextureMemInBytes * 0.75f) , MEGA_BYTES_TO_BYTES(MAX_VIDEO_RAM_IN_MEGA_BYTES)) ;//512 MB
+	
 		// If we are using more texture memory than we should,
 		// scale up the desired discard level
 		if (sEvaluationTimer.getElapsedTimeF32() > discard_delta_time)
@@ -166,8 +174,8 @@ void LLViewerImage::updateClass(const F32 velocity, const F32 angular_velocity)
 		}
 	}
 	else if (sDesiredDiscardBias > 0.0f &&
-			 (sBoundTextureMemory >> 20) < sMaxBoundTextureMem*texmem_lower_bound_scale &&
-			 (sTotalTextureMemory >> 20) < sMaxTotalTextureMem*texmem_lower_bound_scale)
+			 BYTES_TO_MEGA_BYTES(sBoundTextureMemoryInBytes) < sMaxBoundTextureMemInMegaBytes * texmem_lower_bound_scale &&
+			 BYTES_TO_MEGA_BYTES(sTotalTextureMemoryInBytes) < sMaxTotalTextureMemInMegaBytes * texmem_lower_bound_scale)
 	{
 		// If we are using less texture memory than we should,
 		// scale down the desired discard level
@@ -342,6 +350,20 @@ void LLViewerImage::reinit(BOOL usemipmaps /* = TRUE */)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+// ONLY called from LLViewerImageList
+void LLViewerImage::destroyTexture() 
+{
+	if(sGlobalTextureMemoryInBytes < sMaxDesiredTextureMemInBytes)//not ready to release unused memory.
+	{
+		return ;
+	}
+	if (mNeedsCreateTexture)//return if in the process of generating a new texture.
+	{
+		return ;
+	}
+	
+	destroyGLTexture() ;
+}
 
 // ONLY called from LLViewerImageList
 BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
@@ -378,20 +400,34 @@ BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
 			mOrigHeight = mFullHeight;
 		}
 
-
-		if (LLImageGL::checkSize(mRawImage->getWidth(), mRawImage->getHeight()))
+		bool size_okay = true;
+		
+		U32 raw_width = mRawImage->getWidth() << mRawDiscardLevel;
+		U32 raw_height = mRawImage->getHeight() << mRawDiscardLevel;
+		if( raw_width > MAX_IMAGE_SIZE || raw_height > MAX_IMAGE_SIZE )
 		{
-			res = LLImageGL::createGLTexture(mRawDiscardLevel, mRawImage, usename);
+			llinfos << "Width or height is greater than " << MAX_IMAGE_SIZE << ": (" << raw_width << "," << raw_height << ")" << llendl;
+			size_okay = false;
 		}
-		else
+		
+		if (!LLImageGL::checkSize(mRawImage->getWidth(), mRawImage->getHeight()))
 		{
 			// A non power-of-two image was uploaded (through a non standard client)
+			llinfos << "Non power of two width or height: (" << mRawImage->getWidth() << "," << mRawImage->getHeight() << ")" << llendl;
+			size_okay = false;
+		}
+		
+		if( !size_okay )
+		{
+			// An inappropriately-sized image was uploaded (through a non standard client)
 			// We treat these images as missing assets which causes them to
 			// be renderd as 'missing image' and to stop requesting data
 			setIsMissingAsset();
 			destroyRawImage();
 			return FALSE;
 		}
+		
+		res = LLImageGL::createGLTexture(mRawDiscardLevel, mRawImage, usename);
 	}
 
 	//
@@ -537,7 +573,7 @@ void LLViewerImage::processTextureStats()
 		if ((sDesiredDiscardBias > 0.0f) &&
 			(current_discard >= 0 && mDesiredDiscardLevel >= current_discard))
 		{
-			if ( (sBoundTextureMemory >> 20) > sMaxBoundTextureMem*texmem_middle_bound_scale)
+			if ( BYTES_TO_MEGA_BYTES(sBoundTextureMemoryInBytes) > sMaxBoundTextureMemInMegaBytes * texmem_middle_bound_scale)
 			{
 				// Limit the amount of GL memory bound each frame
 				if (mDesiredDiscardLevel > current_discard)
@@ -545,7 +581,7 @@ void LLViewerImage::processTextureStats()
 					increase_discard = TRUE;
 				}
 			}
-			if ( (sTotalTextureMemory >> 20) > sMaxTotalTextureMem*texmem_middle_bound_scale)
+			if ( BYTES_TO_MEGA_BYTES(sTotalTextureMemoryInBytes) > sMaxTotalTextureMemInMegaBytes*texmem_middle_bound_scale)
 			{
 				// Only allow GL to have 2x the video card memory
 				if (!getBoundRecently())
@@ -556,13 +592,13 @@ void LLViewerImage::processTextureStats()
 			if (increase_discard)
 			{
 				// 			llinfos << "DISCARDED: " << mID << " Discard: " << current_discard << llendl;
-				sBoundTextureMemory -= mTextureMemory;
-				sTotalTextureMemory -= mTextureMemory;
+				sBoundTextureMemoryInBytes -= mTextureMemory;
+				sTotalTextureMemoryInBytes -= mTextureMemory;
 				// Increase the discard level (reduce the texture res)
 				S32 new_discard = current_discard+1;
 				setDiscardLevel(new_discard);
-				sBoundTextureMemory += mTextureMemory;
-				sTotalTextureMemory += mTextureMemory;
+				sBoundTextureMemoryInBytes += mTextureMemory;
+				sTotalTextureMemoryInBytes += mTextureMemory;
 			}
 		}
 	}
@@ -695,6 +731,11 @@ void LLViewerImage::setBoostLevel(S32 level)
 	if (level >= LLViewerImage::BOOST_HIGH)
 	{
 		processTextureStats();
+	}
+
+	if(mBoostLevel != LLViewerImage::BOOST_NONE)
+	{
+		setNoDelete() ;		
 	}
 }
 
@@ -1231,6 +1272,24 @@ bool LLViewerImage::bindDefaultImage(S32 stage) const
 	}
 	stop_glerror();
 	return res;
+}
+
+//virtual
+void LLViewerImage::forceImmediateUpdate()
+{
+	//only immediately update a deleted texture which is now being re-used.
+	if(!isDeleted())
+	{
+		return ;
+	}
+	//if already called forceImmediateUpdate()
+	if(mInImageList && mDecodePriority == LLViewerImage::maxDecodePriority())
+	{
+		return ;
+	}
+
+	gImageList.forceImmediateUpdate(this) ;
+	return ;
 }
 
 // Was in LLImageGL

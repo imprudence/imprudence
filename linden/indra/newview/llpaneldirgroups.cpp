@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -32,6 +33,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llpaneldirgroups.h"
+#include "llnotifications.h"
 
 #include "llwebbrowserctrl.h"
 
@@ -45,9 +47,17 @@ void LLPanelDirGroups::search(const std::string& search_text)
 {
 	if (!search_text.empty())
 	{
-		bool mature = childGetValue( "mature_check" ).asBoolean();
+		BOOL inc_pg = childGetValue("incpg").asBoolean();
+		BOOL inc_mature = childGetValue("incmature").asBoolean();
+		BOOL inc_adult = childGetValue("incadult").asBoolean();
+		if (!(inc_pg || inc_mature || inc_adult))
+		{
+			LLNotifications::instance().add("NoContentToSearch");
+			return;
+		}
+		
 		std::string selected_collection = "Groups";
-		std::string url = buildSearchURL(search_text, selected_collection, mature);
+		std::string url = buildSearchURL(search_text, selected_collection, inc_pg, inc_mature, inc_adult);
 		if (mWebBrowser)
 		{
 			mWebBrowser->navigateTo(url);
@@ -60,4 +70,10 @@ void LLPanelDirGroups::search(const std::string& search_text)
 	}
 
 	childSetText("search_editor", search_text);
+}
+
+void LLPanelDirGroups::draw()
+{
+	updateMaturityCheckbox();
+	LLPanelDirBrowser::draw();
 }

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -77,6 +78,11 @@ public:
 	LLApp();
 	virtual ~LLApp();
 
+protected:
+	LLApp(LLErrorThread* error_thread);
+	void commonCtor();
+public:
+	
 	/** 
 	 * @brief Return the static app instance if one was created.
 	 */
@@ -183,6 +189,8 @@ public:
 #if !LL_WINDOWS
 	static U32  getSigChildCount();
 	static void incSigChildCount();
+#else
+#define getpid GetCurrentProcessId
 #endif
 	static int getPid();
 
@@ -245,8 +253,9 @@ protected:
 	void stepFrame();
 
 private:
+	void startErrorThread();
+	
 	void setupErrorHandling();		// Do platform-specific error-handling setup (signals, structured exceptions)
-
 	static void runErrorHandler(); // run shortly after we detect an error, ran in the relatively robust context of the LLErrorThread - preferred.
 	static void runSyncErrorHandler(); // run IMMEDIATELY when we get an error, ran in the context of the faulting thread.
 

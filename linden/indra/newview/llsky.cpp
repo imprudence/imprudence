@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -284,18 +285,37 @@ LLColor4U LLSky::getFadeColor() const
 
 void LLSky::init(const LLVector3 &sun_direction)
 {
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
+
 	mVOWLSkyp = static_cast<LLVOWLSky*>(gObjectList.createObjectViewer(LLViewerObject::LL_VO_WL_SKY, NULL));
 	mVOWLSkyp->initSunDirection(sun_direction, LLVector3::zero);
-	gPipeline.addObject(mVOWLSkyp.get());
+	gPipeline.createObject(mVOWLSkyp.get());
+
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
 
 	mVOSkyp = (LLVOSky *)gObjectList.createObjectViewer(LLViewerObject::LL_VO_SKY, NULL);
-	mVOSkyp->initSunDirection(sun_direction, LLVector3());
-	gPipeline.addObject((LLViewerObject *)mVOSkyp);
 
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
+
+	mVOSkyp->initSunDirection(sun_direction, LLVector3());
+
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
+
+	gPipeline.createObject((LLViewerObject *)mVOSkyp);
+
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
 
 	mVOGroundp = (LLVOGround*)gObjectList.createObjectViewer(LLViewerObject::LL_VO_GROUND, NULL);
 	LLVOGround *groundp = mVOGroundp;
-	gPipeline.addObject((LLViewerObject *)groundp);
+	gPipeline.createObject((LLViewerObject *)groundp);
+
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
 
 	gSky.setFogRatio(gSavedSettings.getF32("RenderFogRatio"));	
 
@@ -308,6 +328,8 @@ void LLSky::init(const LLVector3 &sun_direction)
 	// Get the parameters.
 	mSunDefaultPosition = gSavedSettings.getVector3("SkySunDefaultPosition");
 
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
 
 	if (gSavedSettings.getBOOL("SkyOverrideSimSunPosition") || mOverrideSimSunPosition)
 	{
@@ -318,6 +340,8 @@ void LLSky::init(const LLVector3 &sun_direction)
 		setSunDirection(sun_direction, LLVector3(0.f, 0.f, 0.f));
 	}
 
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
 
 	mUpdatedThisFrame = TRUE;
 }
@@ -398,20 +422,6 @@ void LLSky::updateFog(const F32 distance)
 
 void LLSky::updateCull()
 {
-	/*if (mVOSkyp.notNull() && mVOSkyp->mDrawable.notNull())
-	{
-		gPipeline.markVisible(mVOSkyp->mDrawable);
-	}
-	else
-	{
-		llinfos << "No sky drawable!" << llendl;
-	}*/
-
-	/*if (mVOGroundp.notNull() && mVOGroundp->mDrawable.notNull())
-	{
-		gPipeline.markVisible(mVOGroundp->mDrawable);
-	}*/
-
 	// *TODO: do culling for wl sky properly -Brad
 }
 

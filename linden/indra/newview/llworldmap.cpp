@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -48,6 +49,13 @@
 
 const F32 REQUEST_ITEMS_TIMER =  10.f * 60.f; // 10 minutes
 
+// For DEV-17507, do lazy image loading in llworldmapview.cpp instead,
+// limiting requests to currently visible regions and minimizing the
+// number of textures being requested simultaneously.
+//
+// Uncomment IMMEDIATE_IMAGE_LOAD to restore the old behavior
+//
+//#define IMMEDIATE_IMAGE_LOAD
 LLItemInfo::LLItemInfo(F32 global_x, F32 global_y,
 					   const std::string& name, 
 					   LLUUID id,
@@ -178,6 +186,7 @@ void LLWorldMap::eraseItems()
 		mInfohubs.clear();
 		mPGEvents.clear();
 		mMatureEvents.clear();
+		mAdultEvents.clear();
 		mLandForSale.clear();
 	}
 // 	mAgentLocationsMap.clear(); // persists
@@ -303,10 +312,22 @@ void LLWorldMap::setCurrentLayer(S32 layer, bool request_layer)
 		sendItemRequest(MAP_ITEM_MATURE_EVENT);
 	}
 
+	if (mAdultEvents.size() == 0)
+	{
+		// Request for events (adult)
+		sendItemRequest(MAP_ITEM_ADULT_EVENT);
+	}
+
 	if (mLandForSale.size() == 0)
 	{
 		// Request for Land For Sale
 		sendItemRequest(MAP_ITEM_LAND_FOR_SALE);
+	}
+	
+	if (mLandForSaleAdult.size() == 0)
+	{
+		// Request for Land For Sale
+		sendItemRequest(MAP_ITEM_LAND_FOR_SALE_ADULT);
 	}
 
 	clearImageRefs();
@@ -498,9 +519,9 @@ void LLWorldMap::processMapLayerReply(LLMessageSystem* msg, void**)
 		new_layer.LayerDefined = TRUE;
 		msg->getUUIDFast(_PREHASH_LayerData, _PREHASH_ImageID, new_layer.LayerImageID, block);
 		new_layer.LayerImage = gImageList.getImage(new_layer.LayerImageID, MIPMAP_TRUE, FALSE);
-		
+
 		gGL.getTexUnit(0)->bind(new_layer.LayerImage.get());
-		new_layer.LayerImage->setClamp(TRUE, TRUE);
+		new_layer.LayerImage->setAddressMode(LLTexUnit::TAM_CLAMP);
 		
 		U32 left, right, top, bottom;
 		msg->getU32Fast(_PREHASH_LayerData, _PREHASH_Left, left, block);
@@ -610,13 +631,18 @@ void LLWorldMap::processMapBlockReply(LLMessageSystem* msg, void**)
 			siminfo->mRegionFlags = region_flags;
 			siminfo->mWaterHeight = (F32) water_height;
 			siminfo->mMapImageID[agent_flags] = image_id;
+
+#ifdef IMMEDIATE_IMAGE_LOAD
 			siminfo->mCurrentImage = gImageList.getImage(siminfo->mMapImageID[LLWorldMap::getInstance()->mCurrentMap], MIPMAP_TRUE, FALSE);
 			gGL.getTexUnit(0)->bind(siminfo->mCurrentImage.get());
-			siminfo->mCurrentImage->setClamp(TRUE, TRUE);
+			siminfo->mCurrentImage->setAddressMode(LLTexUnit::TAM_CLAMP);
+#endif
 			
 			if (siminfo->mMapImageID[2].notNull())
 			{
+#ifdef IMMEDIATE_IMAGE_LOAD
 				siminfo->mOverlayImage = gImageList.getImage(siminfo->mMapImageID[2], MIPMAP_TRUE, FALSE);
+#endif
 			}
 			else
 			{
@@ -729,6 +755,7 @@ void LLWorldMap::processMapItemReply(LLMessageSystem* msg, void**)
 			}
 			case MAP_ITEM_PG_EVENT: // events
 			case MAP_ITEM_MATURE_EVENT:
+			case MAP_ITEM_ADULT_EVENT:
 			{
 				struct tm* timep;
 				// Convert to Pacific, based on server's opinion of whether
@@ -749,16 +776,29 @@ void LLWorldMap::processMapItemReply(LLMessageSystem* msg, void**)
 				{
 					LLWorldMap::getInstance()->mPGEvents.push_back(new_item);
 				}
-				else
+				else if (type == MAP_ITEM_MATURE_EVENT)
 				{
 					LLWorldMap::getInstance()->mMatureEvents.push_back(new_item);
 				}
+				else if (type == MAP_ITEM_ADULT_EVENT)
+				{
+					LLWorldMap::getInstance()->mAdultEvents.push_back(new_item);
+				}
+
 				break;
 			}
 			case MAP_ITEM_LAND_FOR_SALE: // land for sale
+			case MAP_ITEM_LAND_FOR_SALE_ADULT: // adult land for sale 
 			{
 				new_item.mToolTip = llformat("%d sq. m. L$%d", new_item.mExtra, new_item.mExtra2);
-				LLWorldMap::getInstance()->mLandForSale.push_back(new_item);
+				if (type == MAP_ITEM_LAND_FOR_SALE)
+				{
+					LLWorldMap::getInstance()->mLandForSale.push_back(new_item);
+				}
+				else if (type == MAP_ITEM_LAND_FOR_SALE_ADULT)
+				{
+					LLWorldMap::getInstance()->mLandForSaleAdult.push_back(new_item);
+				}
 				break;
 			}
 			case MAP_ITEM_CLASSIFIED: // classifieds

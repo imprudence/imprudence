@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Bölge" name="General">
+	<text name="region_text_lbl">
+		Bölge:
+	</text>
+	<text name="region_text">
+		bilinmeyen
+	</text>
+	<text name="version_channel_text_lbl">
+		Versiyon:
+	</text>
+	<text name="version_channel_text">
+		bilinmeyen
+	</text>
+	<text name="region_type_lbl">
+		Tür:
+	</text>
+	<text name="region_type">
+		bilinmeyen
+	</text>
+	<check_box label="Zeminleme yasaklı" name="block_terraform_check"/>
+	<button label="?" name="terraform_help"/>
+	<check_box label="Uçuş yasaklı" name="block_fly_check"/>
+	<button label="?" name="fly_help"/>
+	<check_box label="Zarar izinli" name="allow_damage_check"/>
+	<button label="?" name="damage_help"/>
+	<check_box label="İtiş kısıtlama" name="restrict_pushobject"/>
+	<button label="?" name="restrict_pushobject_help"/>
+	<check_box label="Arazi satışı izinli" name="allow_land_resell_check"/>
+	<button label="?" name="land_resell_help"/>
+	<check_box label="Arazi birleştirme/bölme İzinli" name="allow_parcel_changes_check"/>
+	<button label="?" name="parcel_changes_help"/>
+	<check_box label="Aramada görünmesini engelle" name="block_parcel_search_check" tool_tip="İnsanların bu bölgeyi ve parsellerini arama sonuçlarında görmesine izin verin"/>
+	<button label="?" name="parcel_search_help"/>
+	<spinner label="Üye sınırı" name="agent_limit_spin"/>
+	<button label="?" name="agent_limit_help"/>
+	<spinner label="Bonus obje" name="object_bonus_spin"/>
+	<button label="?" name="object_bonus_help"/>
+	<text label="Maturity" name="access_text">
+		Oran:
+	</text>
+	<combo_box label="Mature" name="access_combo">
+		<combo_item name="Adult">
+			Adult
+		</combo_item>
+		<combo_item name="Mature">
+			Mature
+		</combo_item>
+		<combo_item name="PG">
+			PG
+		</combo_item>
+	</combo_box>
+	<button label="?" name="access_help"/>
+	<button label="Uygula" name="apply_btn"/>
+	<button label="Bir üyeyi ev lokasyonuna ışınla..." name="kick_btn"/>
+	<button label="Tüm üyeleri ev lokasyonlarına ışınla..." name="kick_all_btn"/>
+	<button label="Bölgeye mesaj gönder..." name="im_btn"/>
+	<button label="Manage Telehub..." name="manage_telehub_btn"/>
+</panel>

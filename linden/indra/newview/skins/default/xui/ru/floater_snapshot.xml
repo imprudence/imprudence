@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Snapshot" title="Просмотр скриншота" width="225">
+	<text name="type_label">
+		Куда сохранить скриншот
+	</text>
+	<radio_group label="Тип скриншота" name="snapshot_type_radio" width="205">
+		<radio_item name="postcard">
+			Отправить по email
+		</radio_item>
+		<radio_item name="texture">
+			Сохранить в инвентарь (L$[AMOUNT])
+		</radio_item>
+		<radio_item name="local">
+			Сохранить на жесткий диск
+		</radio_item>
+	</radio_group>
+	<text name="file_size_label">
+		Размер файла: [SIZE] KB
+	</text>
+	<button label="Обновить Скриншот" name="new_snapshot_btn"/>
+	<button label="Отправить" name="send_btn"/>
+	<button label="Загруз.(L$[AMOUNT])" name="upload_btn"/>
+	<flyout_button label="Сохранить" name="save_btn" tool_tip="Сохранить в файл">
+		<flyout_button_item name="save_item">
+			Сохранить
+		</flyout_button_item>
+		<flyout_button_item name="saveas_item">
+			Сохранить как...
+		</flyout_button_item>
+	</flyout_button>
+	<button label="Отмена" name="discard_btn"/>
+	<button label="Больше &gt;&gt;" name="more_btn" tool_tip="Доп. опции"/>
+	<button label="&lt;&lt; Меньше" name="less_btn" tool_tip="Доп. опции"/>
+	<text name="type_label2">
+		Размер
+	</text>
+	<text name="format_label">
+		Формат
+	</text>
+	<combo_box label="Разрешение" name="postcard_size_combo">
+		<combo_item name="CurrentWindow">
+			Текущее окно
+		</combo_item>
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
+		<combo_item name="Custom">
+			Пользовательский
+		</combo_item>
+	</combo_box>
+	<combo_box label="Разрешение" name="texture_size_combo">
+		<combo_item name="CurrentWindow">
+			Текущее окно
+		</combo_item>
+		<combo_item name="Small(128x128)">
+			Маленький (128x128)
+		</combo_item>
+		<combo_item name="Medium(256x256)">
+			Средний (256x256)
+		</combo_item>
+		<combo_item name="Large(512x512)">
+			Большой (512x512)
+		</combo_item>
+		<combo_item name="Custom">
+			Пользовательский
+		</combo_item>
+	</combo_box>
+	<combo_box label="Разрешение" name="local_size_combo">
+		<combo_item name="CurrentWindow">
+			Текущее окно
+		</combo_item>
+		<combo_item name="320x240">
+			320x240
+		</combo_item>
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
+		<combo_item name="1280x1024">
+			1280x1024
+		</combo_item>
+		<combo_item name="1600x1200">
+			1600x1200
+		</combo_item>
+		<combo_item name="Custom">
+			Пользовательский
+		</combo_item>
+	</combo_box>
+	<combo_box label="Формат" name="local_format_combo">
+		<combo_item name="PNG">
+			PNG
+		</combo_item>
+		<combo_item name="JPEG">
+			JPEG
+		</combo_item>
+		<combo_item name="BMP">
+			BMP
+		</combo_item>
+	</combo_box>
+	<spinner label="Шир." name="snapshot_width"/>
+	<spinner label="Выс." name="snapshot_height"/>
+	<check_box label="Сохранить пропорции" name="keep_aspect_check"/>
+	<slider label="Качество изображения" name="image_quality_slider"/>
+	<text name="layer_type_label">
+		Захв.:
+	</text>
+	<combo_box label="Слои картинки" name="layer_types">
+		<combo_item name="Colors">
+			Цвет
+		</combo_item>
+		<combo_item name="Depth">
+			Глубина
+		</combo_item>
+		<combo_item name="ObjectMattes">
+			Маски объектов
+		</combo_item>
+	</combo_box>
+	<check_box label="Показывать интерфейс" name="ui_check"/>
+	<check_box label="Показывать HUD" name="hud_check"/>
+	<check_box label="Оставить открытым" name="keep_open_check"/>
+	<check_box label="Полноэкранный предпросмотр" name="freeze_frame_check"/>
+	<check_box label="Автообновление" name="auto_snapshot_check"/>
+	<string name="unknown">
+		неизвестный
+	</string>
+</floater>

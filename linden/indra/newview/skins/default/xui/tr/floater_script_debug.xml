@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<multi_floater name="script debug floater" title="Betik uyarısı/hatası">
+	<tab_container name="Preview Tabs">
+		<floater label="Script" name="all_scripts" title="[Tüm betikler]"/>
+	</tab_container>
+</multi_floater>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -147,8 +148,8 @@ public:
 	// return true if there are no embedded items.
 	bool empty();
 	
-	void	bindEmbeddedChars(LLFontGL* font) const;
-	void	unbindEmbeddedChars(LLFontGL* font) const;
+	void	bindEmbeddedChars(const LLFontGL* font) const;
+	void	unbindEmbeddedChars(const LLFontGL* font) const;
 
 	BOOL	insertEmbeddedItem(LLInventoryItem* item, llwchar* value, bool is_new);
 	BOOL	removeEmbeddedItem( llwchar ext_char );
@@ -368,7 +369,7 @@ BOOL LLEmbeddedItems::hasEmbeddedItem(llwchar ext_char)
 	return FALSE;
 }
 
-void LLEmbeddedItems::bindEmbeddedChars( LLFontGL* font ) const
+void LLEmbeddedItems::bindEmbeddedChars( const LLFontGL* font ) const
 {
 	if( sEntries.empty() )
 	{
@@ -438,7 +439,7 @@ void LLEmbeddedItems::bindEmbeddedChars( LLFontGL* font ) const
 	}
 }
 
-void LLEmbeddedItems::unbindEmbeddedChars( LLFontGL* font ) const
+void LLEmbeddedItems::unbindEmbeddedChars( const LLFontGL* font ) const
 {
 	if( sEntries.empty() )
 	{
@@ -568,6 +569,7 @@ LLViewerTextEditor::LLViewerTextEditor(const std::string& name,
 									   const LLFontGL* font,
 									   BOOL allow_embedded_items)
 	: LLTextEditor(name, rect, max_length, default_text, font, allow_embedded_items),
+	  mDragItemChar(0),
 	  mDragItemSaved(FALSE),
 	  mInventoryCallback(new LLEmbeddedNotecardOpener)
 {
@@ -693,6 +695,7 @@ BOOL LLViewerTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 			if (item_at_pos)
 			{
 				mDragItem = item_at_pos;
+				mDragItemChar = wc;
 				mDragItemSaved = LLEmbeddedItems::getEmbeddedItemSaved(wc);
 				gFocusMgr.setMouseCapture( this );
 				mMouseDownX = x;
@@ -948,8 +951,9 @@ BOOL LLViewerTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 			{
 				if(mDragItemSaved)
 				{
-					openEmbeddedItem(mDragItem);
-				}else
+					openEmbeddedItem(mDragItem, mDragItemChar);
+				}
+				else
 				{
 					showUnsavedAlertDialog(mDragItem);
 				}
@@ -1074,7 +1078,15 @@ BOOL LLViewerTextEditor::handleDragAndDrop(S32 x, S32 y, MASK mask,
 					  std::string& tooltip_msg)
 {
 	BOOL handled = FALSE;
-
+	
+	LLToolDragAndDrop::ESource source = LLToolDragAndDrop::getInstance()->getSource();
+	if (LLToolDragAndDrop::SOURCE_NOTECARD == source)
+	{
+		// We currently do not handle dragging items from one notecard to another
+		// since items in a notecard must be in Inventory to be verified. See DEV-2891.
+		return FALSE;
+	}
+	
 	if (mTakesNonScrollClicks)
 	{
 		if (getEnabled() && acceptsTextInput())
@@ -1110,7 +1122,7 @@ BOOL LLViewerTextEditor::handleDragAndDrop(S32 x, S32 y, MASK mask,
 			case DAD_GESTURE:
 				{
 					LLInventoryItem *item = (LLInventoryItem *)cargo_data;
-					if( allowsEmbeddedItems() )
+					if( item && allowsEmbeddedItems() )
 					{
 						U32 mask_next = item->getPermissions().getMaskNextOwner();
 						if((mask_next & PERM_ITEM_UNRESTRICTED) == PERM_ITEM_UNRESTRICTED)
@@ -1285,12 +1297,12 @@ llwchar LLViewerTextEditor::pasteEmbeddedItem(llwchar ext_char)
 	return LL_UNKNOWN_CHAR; // item not found or list full
 }
 
-void LLViewerTextEditor::bindEmbeddedChars(LLFontGL* font) const
+void LLViewerTextEditor::bindEmbeddedChars(const LLFontGL* font) const
 {
 	mEmbeddedItemList->bindEmbeddedChars( font );
 }
 
-void LLViewerTextEditor::unbindEmbeddedChars(LLFontGL* font) const
+void LLViewerTextEditor::unbindEmbeddedChars(const LLFontGL* font) const
 {
 	mEmbeddedItemList->unbindEmbeddedChars( font );
 }
@@ -1316,13 +1328,14 @@ BOOL LLViewerTextEditor::openEmbeddedItemAtPos(S32 pos)
 {
 	if( pos < getLength())
 	{
-		LLInventoryItem* item = LLEmbeddedItems::getEmbeddedItem( getWChar(pos) );
+		llwchar wc = getWChar(pos);
+		LLInventoryItem* item = LLEmbeddedItems::getEmbeddedItem( wc );
 		if( item )
 		{
-			BOOL saved = LLEmbeddedItems::getEmbeddedItemSaved( getWChar(pos) );
+			BOOL saved = LLEmbeddedItems::getEmbeddedItemSaved( wc );
 			if (saved)
 			{
-				return openEmbeddedItem(item); 
+				return openEmbeddedItem(item, wc); 
 			}
 			else
 			{
@@ -1334,25 +1347,25 @@ BOOL LLViewerTextEditor::openEmbeddedItemAtPos(S32 pos)
 }
 
 
-BOOL LLViewerTextEditor::openEmbeddedItem(LLInventoryItem* item)
+BOOL LLViewerTextEditor::openEmbeddedItem(LLInventoryItem* item, llwchar wc)
 {
 
 	switch( item->getType() )
 	{
 	case LLAssetType::AT_TEXTURE:
-		openEmbeddedTexture( item );
+	  	openEmbeddedTexture( item, wc );
 		return TRUE;
 
 	case LLAssetType::AT_SOUND:
-		openEmbeddedSound( item );
+		openEmbeddedSound( item, wc );
 		return TRUE;
 
 	case LLAssetType::AT_NOTECARD:
-		openEmbeddedNotecard( item );
+		openEmbeddedNotecard( item, wc );
 		return TRUE;
 
 	case LLAssetType::AT_LANDMARK:
-		openEmbeddedLandmark( item );
+		openEmbeddedLandmark( item, wc );
 		return TRUE;
 
 	case LLAssetType::AT_LSL_TEXT:
@@ -1361,7 +1374,7 @@ BOOL LLViewerTextEditor::openEmbeddedItem(LLInventoryItem* item)
 	case LLAssetType::AT_BODYPART:
 	case LLAssetType::AT_ANIMATION:
 	case LLAssetType::AT_GESTURE:
-		showCopyToInvDialog( item );
+		showCopyToInvDialog( item, wc );
 		return TRUE;
 	default:
 		return FALSE;
@@ -1370,7 +1383,7 @@ BOOL LLViewerTextEditor::openEmbeddedItem(LLInventoryItem* item)
 }
 
 
-void LLViewerTextEditor::openEmbeddedTexture( LLInventoryItem* item )
+void LLViewerTextEditor::openEmbeddedTexture( LLInventoryItem* item, llwchar wc )
 {
 	// See if we can bring an existing preview to the front
 	// *NOTE:  Just for embedded Texture , we should use getAssetUUID(), 
@@ -1398,7 +1411,7 @@ void LLViewerTextEditor::openEmbeddedTexture( LLInventoryItem* item )
 	}
 }
 
-void LLViewerTextEditor::openEmbeddedSound( LLInventoryItem* item )
+void LLViewerTextEditor::openEmbeddedSound( LLInventoryItem* item, llwchar wc )
 {
 	// Play sound locally
 	LLVector3d lpos_global = gAgent.getPositionGlobal();
@@ -1407,71 +1420,67 @@ void LLViewerTextEditor::openEmbeddedSound( LLInventoryItem* item )
 	{
 		gAudiop->triggerSound(item->getAssetUUID(), gAgentID, SOUND_GAIN, LLAudioEngine::AUDIO_TYPE_UI, lpos_global);
 	}
-	showCopyToInvDialog( item );
+	showCopyToInvDialog( item, wc );
 }
 
 
-void LLViewerTextEditor::openEmbeddedLandmark( LLInventoryItem* item )
+void LLViewerTextEditor::openEmbeddedLandmark( LLInventoryItem* item, llwchar wc )
 {
 	std::string title =
 		std::string("  ") + LLLandmarkBridge::prefix()	+ item->getName();
 	open_landmark((LLViewerInventoryItem*)item, title, FALSE, item->getUUID(), TRUE);
 }
 
-void LLViewerTextEditor::openEmbeddedNotecard( LLInventoryItem* item )
+void LLViewerTextEditor::openEmbeddedNotecard( LLInventoryItem* item, llwchar wc )
 {
-	//if (saved)
-	//{
-		// An LLInventoryItem needs to be in an inventory to be opened.
-		// This will give the item to the viewer's agent.
-		// The callback will attempt to open it if its not already opened.
 	copyInventory(item, gInventoryCallbacks.registerCB(mInventoryCallback));
-
-	//}
-	//else
-	//{
-	//	LLNotecardCopyInfo *info = new LLNotecardCopyInfo(this, item);
-	//	gViewerWindow->alertXml("ConfirmNotecardSave",		
-	//							LLViewerTextEditor::onNotecardDialog, (void*)info);
-	//}
 }
 
 void LLViewerTextEditor::showUnsavedAlertDialog( LLInventoryItem* item )
 {
-	LLNotecardCopyInfo *info = new LLNotecardCopyInfo(this, item);
-	gViewerWindow->alertXml( "ConfirmNotecardSave",
-		LLViewerTextEditor::onNotecardDialog, (void*)info);
+	LLSD payload;
+	payload["item_id"] = item->getUUID();
+	payload["notecard_id"] = mNotecardInventoryID;
+	LLNotifications::instance().add( "ConfirmNotecardSave", LLSD(), payload, LLViewerTextEditor::onNotecardDialog);
 }
+
 // static
-void LLViewerTextEditor::onNotecardDialog( S32 option, void* userdata )
+bool LLViewerTextEditor::onNotecardDialog(const LLSD& notification, const LLSD& response )
 {
-	LLNotecardCopyInfo *info = (LLNotecardCopyInfo *)userdata;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if( option == 0 )
 	{
 		// itemptr is deleted by LLPreview::save
-		LLPointer<LLInventoryItem>* itemptr = new LLPointer<LLInventoryItem>(info->mItem);
-		LLPreview::save( info->mTextEd->mNotecardInventoryID, itemptr);
+		LLPointer<LLInventoryItem>* itemptr = new LLPointer<LLInventoryItem>(gInventory.getItem(notification["payload"]["item_id"].asUUID()));
+		LLPreview::save( notification["payload"]["notecard_id"].asUUID() , itemptr);
 	}
+	return false;
 }
 
 
 
-void LLViewerTextEditor::showCopyToInvDialog( LLInventoryItem* item )
+void LLViewerTextEditor::showCopyToInvDialog( LLInventoryItem* item, llwchar wc )
 {
-	LLNotecardCopyInfo *info = new LLNotecardCopyInfo(this, item);
-	gViewerWindow->alertXml( "ConfirmItemCopy",
-		LLViewerTextEditor::onCopyToInvDialog, (void*)info);
+	LLSD payload;
+	LLUUID item_id = item->getUUID();
+	payload["item_id"] = item_id;
+	payload["item_wc"] = LLSD::Integer(wc);
+	LLNotifications::instance().add( "ConfirmItemCopy", LLSD(), payload,
+		boost::bind(&LLViewerTextEditor::onCopyToInvDialog, this, _1, _2));
 }
 
-// static
-void LLViewerTextEditor::onCopyToInvDialog( S32 option, void* userdata )
+bool LLViewerTextEditor::onCopyToInvDialog(const LLSD& notification, const LLSD& response)
 {
-	LLNotecardCopyInfo *info = (LLNotecardCopyInfo *)userdata;
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if( 0 == option )
 	{
-		info->mTextEd->copyInventory(info->mItem);
+		LLUUID item_id = notification["payload"]["item_id"].asUUID();
+		llwchar wc = llwchar(notification["payload"]["item_wc"].asInteger());
+		LLInventoryItem* itemp = LLEmbeddedItems::getEmbeddedItem(wc);
+		if (itemp)
+			copyInventory(itemp);
 	}
-	delete info;
+	return false;
 }
 
 
@@ -1596,6 +1605,7 @@ LLView* LLViewerTextEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlF
 	BOOL parse_html = text_editor->mParseHTML;
 	node->getAttributeBOOL("allow_html", parse_html);
 	text_editor->setParseHTML(parse_html);
+	text_editor->setParseHighlights(TRUE);
 
 	text_editor->initFromXML(node, parent);
 

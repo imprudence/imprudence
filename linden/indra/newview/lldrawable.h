@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -97,6 +98,7 @@ public:
 	const LLVector3		  getPositionAgent() const;
 	const LLVector3d&	  getPositionGroup() const		{ return mPositionGroup; }
 	const LLVector3&	  getScale() const				{ return mCurrentScale; }
+	void				  setScale(const LLVector3& scale) { mCurrentScale = scale; }
 	const LLQuaternion&   getWorldRotation() const		{ return mXform.getWorldRotation(); }
 	const LLQuaternion&   getRotation() const			{ return mXform.getRotation(); }
 	F32			          getIntensity() const			{ return llmin(mXform.getScale().mV[0], 4.f); }
@@ -149,7 +151,7 @@ public:
 	
 	void updateTexture();
 	void updateMaterial();
-	virtual void updateDistance(LLCamera& camera);
+	virtual void updateDistance(LLCamera& camera, bool force_update);
 	BOOL updateGeometry(BOOL priority);
 	void updateFaceSize(S32 idx);
 		

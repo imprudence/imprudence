@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Day Cycle Floater" title="Редактор цикла дня">
+	<tab_container name="Day Cycle Tabs">
+		<panel label="Цикл дня" name="Day Cycle">
+			<button label="?" name="WLDayCycleHelp" />
+			<multi_slider label="" name="WLTimeSlider" />
+			<multi_slider label="" name="WLDayCycleKeys" />
+			<text type="string" length="1" name="WL12am">
+				12am
+			</text>
+			<text type="string" length="1" name="WL3am">
+				3am
+			</text>
+			<text type="string" length="1" name="WL6am">
+				6am
+			</text>
+			<text type="string" length="1" name="WL9amHash">
+				9am
+			</text>
+			<text type="string" length="1" name="WL12pmHash">
+				12pm
+			</text>
+			<text type="string" length="1" name="WL3pm">
+				3pm
+			</text>
+			<text type="string" length="1" name="WL6pm">
+				6pm
+			</text>
+			<text type="string" length="1" name="WL9pm">
+				9pm
+			</text>
+			<text type="string" length="1" name="WL12am2">
+				12am
+			</text>
+			<text type="string" length="1" name="WL12amHash">
+				|
+			</text>
+			<text type="string" length="1" name="WL3amHash">
+				I
+			</text>
+			<text type="string" length="1" name="WL6amHash">
+				|
+			</text>
+			<text type="string" length="1" name="WL9amHash2">
+				I
+			</text>
+			<text type="string" length="1" name="WL12pmHash2">
+				|
+			</text>
+			<text type="string" length="1" name="WL3pmHash">
+				I
+			</text>
+			<text type="string" length="1" name="WL6pmHash">
+				|
+			</text>
+			<text type="string" length="1" name="WL9pmHash">
+				I
+			</text>
+			<text type="string" length="1" name="WL12amHash2">
+				|
+			</text>
+			<button  font="SansSerifSmall" width="106" left="546" label="Добавить ключ" label_selected="Добавить ключ"
+			     name="WLAddKey" />
+			<button  font="SansSerifSmall" width="106" left="546" label="Удалить ключ" label_selected="Удалить ключ"
+			     name="WLDeleteKey" />
+			<text type="string" length="1" name="WLCurKeyFrameText">
+				Уст-ки кадров ключа:
+			</text>
+			<text type="string" length="1" name="WLCurKeyTimeText">
+				Время ключа:
+			</text>
+			<spinner label="Час" name="WLCurKeyHour" />
+			<spinner label="Минута" name="WLCurKeyMin" label_width="52" width="92" />
+			<text type="string" length="1" name="WLCurKeyTimeText2">
+				Станд. ключи:
+			</text>
+			<combo_box label="Стандарт" name="WLKeyPresets" />
+			<text type="string" length="1" name="DayCycleText">
+				Шаг:
+			</text>
+			<combo_box label="5 мин" name="WLSnapOptions" />
+			<text type="string" length="1" name="DayCycleText2">
+				Длина цикла:
+			</text>
+			<spinner label="Час" name="WLLengthOfDayHour" />
+			<spinner label="Минута" name="WLLengthOfDayMin" label_width="50" width="90" />
+			<spinner label="Сек" name="WLLengthOfDaySec" label_width="30" width="70" left_delta="95" />
+			<text type="string" length="1" name="DayCycleText3">
+				Просмотр:
+			</text>
+			<button font="SansSerifSmall" width="60" label="Играть" label_selected="Играть" name="WLAnimSky" />
+			<button font="SansSerifSmall" width="60" left_delta="63" label="Стоп!" label_selected="Стоп" name="WLStopAnimSky" />
+			<button font="SansSerifSmall" width="200" left_delta="63" label="Использовать время поместья"
+			     label_selected="Перейти на время поместья"
+			     name="WLUseLindenTime" />
+			<button label="Сохр. тест день"
+			     label_selected="Сохр. тест день" name="WLSaveDayCycle" />
+			<button label="Загруз. тест день"
+			     label_selected="Загруз. тест день" name="WLLoadDayCycle" />
+		</panel>
+	</tab_container>
+</floater>

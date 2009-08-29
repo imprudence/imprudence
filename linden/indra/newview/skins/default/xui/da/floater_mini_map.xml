@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="minimap">
+	<panel label="Lokalt kort" name="mini_mapview" tool_tip="(Dobbelt-klik for at åbne kort)"/>
+</floater>

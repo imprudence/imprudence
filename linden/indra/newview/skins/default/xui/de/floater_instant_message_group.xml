@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater label="(unbekannt)" name="im_floater" title="(unbekannt)">
+<floater label="(unbekannt)" name="im_floater" title="(unbekannt)" min_width="426" >
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<button label="Gruppeninfo" name="group_info_btn" width="85"/>

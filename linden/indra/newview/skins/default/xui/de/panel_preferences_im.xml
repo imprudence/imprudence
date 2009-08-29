@@ -11,7 +11,7 @@
 		Zum Ändern anmelden
 	</text>
 	<check_box label="IM an E-Mail senden ([EMAIL])" name="send_im_to_email"/>
-	<check_box label="IM in lokalen Chat einschließen" name="include_im_in_chat_history"/>
+	<check_box label="IM in Chat-Konsole anzeigen" name="include_im_in_chat_console"/>
 	<check_box label="Zeitstempel in IM anzeigen" name="show_timestamps_check"/>
 	<check_box label="Online-Freundbenachrichtigungen anzeigen" name="friends_online_notify_checkbox"/>
 	<text length="1" name="text_box3" type="string">

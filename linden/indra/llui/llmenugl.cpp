@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -57,6 +58,8 @@
 #include "llfontgl.h"
 #include "llresmgr.h"
 #include "llui.h"
+
+#include "lluitrans.h"
 
 #include "llstl.h"
 
@@ -139,7 +142,7 @@ LLMenuItemGL::LLMenuItemGL( const std::string& name, const std::string& label, K
 	mHighlight( FALSE ),
 	mGotHover( FALSE ),
 	mBriefItem( FALSE ),
-	mFont( LLFontGL::sSansSerif ),
+	mFont( LLFontGL::getFontSansSerif() ),
 	mStyle(LLFontGL::NORMAL),
 	mDrawTextDisabled( FALSE )
 {
@@ -266,24 +269,24 @@ void LLMenuItemGL::appendAcceleratorString( std::string& st ) const
 	{
 		if ( mAcceleratorMask & MASK_MAC_CONTROL )
 		{
-			st.append( "Ctrl-" );
+			st.append( LLUITrans::getString("accel-mac-control") );
 		}
 		else
 		{
-			st.append( "Cmd-" );		// Symbol would be "\xE2\x8C\x98"
+			st.append( LLUITrans::getString("accel-mac-command") );		// Symbol would be "\xE2\x8C\x98"
 		}
 	}
 	if( mAcceleratorMask & MASK_ALT )
-		st.append( "Opt-" );		// Symbol would be "\xE2\x8C\xA5"
+		st.append( LLUITrans::getString("accel-mac-option") );		// Symbol would be "\xE2\x8C\xA5"
 	if( mAcceleratorMask & MASK_SHIFT )
-		st.append( "Shift-" );		// Symbol would be "\xE2\x8C\xA7"
+		st.append( LLUITrans::getString("accel-mac-shift") );		// Symbol would be "\xE2\x8C\xA7"
 #else
 	if( mAcceleratorMask & MASK_CONTROL )
-		st.append( "Ctrl-" );
+		st.append( LLUITrans::getString("accel-win-control") );
 	if( mAcceleratorMask & MASK_ALT )
-		st.append( "Alt-" );
+		st.append( LLUITrans::getString("accel-win-alt") );
 	if( mAcceleratorMask & MASK_SHIFT )
-		st.append( "Shift-" );
+		st.append( LLUITrans::getString("accel-win-shift") );
 #endif
 
 	std::string keystr = LLKeyboard::stringFromKey( mAcceleratorKey );
@@ -2165,8 +2168,8 @@ void LLMenuGL::arrange( void )
 		U32 max_width = getTornOff() ? U32_MAX : menu_region_rect.getWidth();
 		U32 max_height = getTornOff() ? U32_MAX : menu_region_rect.getHeight();
 		// *FIX: create the item first and then ask for its dimensions?
-		S32 spillover_item_width = PLAIN_PAD_PIXELS + LLFontGL::sSansSerif->getWidth( std::string("More") );
-		S32 spillover_item_height = llround(LLFontGL::sSansSerif->getLineHeight()) + MENU_ITEM_PADDING;
+		S32 spillover_item_width = PLAIN_PAD_PIXELS + LLFontGL::getFontSansSerif()->getWidth( std::string("More") );
+		S32 spillover_item_height = llround(LLFontGL::getFontSansSerif()->getLineHeight()) + MENU_ITEM_PADDING;
 
 		if (mHorizontalLayout)
 		{
@@ -2175,7 +2178,9 @@ void LLMenuGL::arrange( void )
 			{
 				if ((*item_iter)->getVisible())
 				{
-					if (!getTornOff() && width + (*item_iter)->getNominalWidth() > max_width - spillover_item_width)
+					if (!getTornOff() 
+						&& item_iter != mItems.begin() // Don't spillover the first item!
+						&& width + (*item_iter)->getNominalWidth() > max_width - spillover_item_width)
 					{
 						// no room for any more items
 						createSpilloverBranch();
@@ -2185,15 +2190,15 @@ void LLMenuGL::arrange( void )
 						{
 							LLMenuItemGL* itemp = (*spillover_iter);
 							removeChild(itemp);
-							mSpilloverMenu->append(itemp);
+							mSpilloverMenu->appendNoArrange(itemp); // *NOTE:Mani Favor addChild() in merge with skinning
 						}
+						mSpilloverMenu->arrange(); // *NOTE: Mani Remove line in merge with skinning/viewer2.0 branch
+						mSpilloverMenu->updateParent(LLMenuGL::sMenuContainer); // *NOTE: Mani Remove line in merge with skinning/viewer2.0 branch
 						mItems.erase(item_iter, mItems.end());
-						
 						mItems.push_back(mSpilloverBranch);
 						addChild(mSpilloverBranch);
 						height = llmax(height, mSpilloverBranch->getNominalHeight());
 						width += mSpilloverBranch->getNominalWidth();
-
 						break;
 					}
 					else
@@ -2212,7 +2217,9 @@ void LLMenuGL::arrange( void )
 			{
 				if ((*item_iter)->getVisible())
 				{
-					if (!getTornOff() && height + (*item_iter)->getNominalHeight() > max_height - spillover_item_height)
+					if (!getTornOff() 
+						&& item_iter != mItems.begin() // Don't spillover the first item!
+						&& height + (*item_iter)->getNominalHeight() > max_height - spillover_item_height)
 					{
 						// no room for any more items
 						createSpilloverBranch();
@@ -2222,14 +2229,15 @@ void LLMenuGL::arrange( void )
 						{
 							LLMenuItemGL* itemp = (*spillover_iter);
 							removeChild(itemp);
-							mSpilloverMenu->append(itemp);
+							mSpilloverMenu->appendNoArrange(itemp);  // *NOTE:Mani Favor addChild() in merge with skinning
 						}
+						mSpilloverMenu->arrange(); // *NOTE: Mani Remove line in merge with skinning/viewer2.0 branch
+						mSpilloverMenu->updateParent(LLMenuGL::sMenuContainer); // *NOTE: Mani Remove line in merge with skinning/viewer2.0 branch
 						mItems.erase(item_iter, mItems.end());
 						mItems.push_back(mSpilloverBranch);
 						addChild(mSpilloverBranch);
 						height += mSpilloverBranch->getNominalHeight();
 						width = llmax( width, mSpilloverBranch->getNominalWidth() );
-
 						break;
 					}
 					else
@@ -2471,6 +2479,15 @@ BOOL LLMenuGL::append( LLMenuItemGL* item )
 	mItems.push_back( item );
 	addChild( item );
 	arrange();
+	return TRUE;
+}
+
+// *NOTE:Mani - appendNoArrange() should be removed when merging to skinning/viewer2.0
+// Its added as a fix to a viewer 1.23 bug that has already been address by skinning work.
+BOOL LLMenuGL::appendNoArrange( LLMenuItemGL* item )
+{
+	mItems.push_back( item );
+	addChild( item );
 	return TRUE;
 }
 
@@ -3492,7 +3509,7 @@ void LLPieMenu::drawBackground(LLMenuItemGL* itemp, LLColor4& color)
 BOOL LLPieMenu::append(LLMenuItemGL *item)
 {
 	item->setBriefItem(TRUE);
-	item->setFont( LLFontGL::sSansSerifSmall );
+	item->setFont( LLFontGL::getFontSansSerifSmall() );
 	return LLMenuGL::append(item);
 }
 
@@ -3500,7 +3517,7 @@ BOOL LLPieMenu::append(LLMenuItemGL *item)
 BOOL LLPieMenu::appendSeparator(const std::string &separator_name)
 {
 	LLMenuItemGL* separator = new LLMenuItemBlankGL();
-	separator->setFont( LLFontGL::sSansSerifSmall );
+	separator->setFont( LLFontGL::getFontSansSerifSmall() );
 	return append( separator );
 }
 
@@ -3514,7 +3531,7 @@ BOOL LLPieMenu::appendPieMenu(LLPieMenu *menu)
 	LLPieMenuBranch *item;
 	item = new LLPieMenuBranch(menu->getName(), menu->getLabel(), menu);
 	getParent()->addChild(item->getBranch());
-	item->setFont( LLFontGL::sSansSerifSmall );
+	item->setFont( LLFontGL::getFontSansSerifSmall() );
 	return append( item );
 }
 

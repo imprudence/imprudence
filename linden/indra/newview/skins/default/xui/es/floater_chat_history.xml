@@ -1,6 +1,91 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="chat floater" title="Historial del chat">
-	<button label="Chat" name="Chat" />
-	<button label="Silencioso" name="Mute resident" />
-	<check_box label="Mostrar texto sin sonido" name="show mutes" />
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="chat floater" title="Chat">
+	<string name="ringing">
+		Conectando al chat de voz...
+	</string>
+	<string name="connected">
+		Conectado
+	</string>
+	<string name="unavailable">
+		La voz no está disponible en su localización actual
+	</string>
+	<string name="hang_up">
+		Desconectado del chat de voz
+	</string>
+	<string name="voice_icon">
+		icn_voice-localchat.tga
+	</string>
+	<string name="IM_logging_string">
+		-- Activado el registro de los mensajes instantáneos --
+	</string>
+	<string name="IM_end_log_string">
+		-- Fin del registro --
+	</string>
+  <string name="ScriptQuestionCautionChatGranted">
+	&apos;[OBJECTNAME]&apos;, un objeto propiedad de &apos;[OWNERNAME]&apos;, localizado en [REGIONNAME] con la posición [REGIONPOS], ha recibido permiso para: [PERMISSIONS].
+  </string>
+  <string name="ScriptQuestionCautionChatDenied">
+	A &apos;[OBJECTNAME]&apos;, un objeto propiedad de &apos;[OWNERNAME]&apos;, localizado en [REGIONNAME] con la posición [REGIONPOS], se le ha denegado el permiso para: [PERMISSIONS].
+  </string>
+  <string name="ScriptTakeMoney">
+	Cogerle a usted dólares Linden (L$)
+  </string>
+  <string name="ActOnControlInputs">
+	Actuar en sus controles de entrada
+  </string>
+  <string name="RemapControlInputs">
+	Reconfigurar sus controles de entrada
+  </string>
+  <string name="AnimateYourAvatar">
+	Ejecutar animaciones en su avatar
+  </string>
+  <string name="AttachToYourAvatar">
+	Anexarse a su avatar
+  </string>
+  <string name="ReleaseOwnership">
+	Anular la propiedad y que pase a ser público
+  </string>
+  <string name="LinkAndDelink">
+	Enlazar y desenlazar de otros objetos
+  </string>
+  <string name="AddAndRemoveJoints">
+	Añadir y quitar uniones con otros objetos
+  </string>
+  <string name="ChangePermissions">
+	Cambiar sus permisos
+  </string>
+  <string name="TrackYourCamera">
+	Seguir su cámara
+  </string>
+  <string name="ControlYourCamera">
+	Controlar su cámara
+  </string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="Gestos" name="Gesture">
+				<combo_item name="Gestures">
+					Gestos
+				</combo_item>
+			</combo_box>
+			<check_box label="Mostrar el texto ignorado" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Pulse aquí para mostrar la lista de los participantes activos en esta sesión de MI."/>
+			<panel name="chat_panel">
+				<string name="gesture_label">
+					Gestos
+				</string>
+				<line_editor label="Pulse aquí para escribir en el chat." name="Chat Editor"/>
+				<flyout_button label="Decir" name="Say" tool_tip="(Intro)">
+					<flyout_button_item name="shout_item">
+						Gritar
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						Decir
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Susurrar
+					</flyout_button_item>
+				</flyout_button>
+			</panel>
+		</layout_panel>
+	</layout_stack>
 </floater>

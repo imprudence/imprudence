@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -163,8 +164,7 @@ void LLManipTranslate::restoreGL()
 	GLuint* d = new GLuint[rez*rez];	
 
 	gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, sGridTex->getTexName());
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	gGL.getTexUnit(0)->setTextureFilteringOption(LLTexUnit::TFO_TRILINEAR);
 
 	while (rez >= 1)
 	{
@@ -260,9 +260,9 @@ void LLManipTranslate::restoreGL()
 			}
 		}
 #ifdef LL_WINDOWS
-		glTexImage2D(GL_TEXTURE_2D, mip, GL_RGBA, rez, rez, 0, GL_RGBA, GL_UNSIGNED_BYTE, d);
+		LLImageGL::setManualImage(GL_TEXTURE_2D, mip, GL_RGBA, rez, rez, GL_RGBA, GL_UNSIGNED_BYTE, d);
 #else
-		glTexImage2D(GL_TEXTURE_2D, mip, GL_RGBA, rez, rez, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, d);
+		LLImageGL::setManualImage(GL_TEXTURE_2D, mip, GL_RGBA, rez, rez, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, d);
 #endif
 		rez = rez >> 1;
 		mip++;
@@ -1436,7 +1436,7 @@ void LLManipTranslate::renderSnapGuides()
 				LLVector3 selection_center_start = getSavedPivotPoint();//LLSelectMgr::getInstance()->getSavedBBoxOfSelection().getCenterAgent();
 
 				LLVector3 help_text_pos = selection_center_start + (snap_offset_meters_up * 3.f * mSnapOffsetAxis);
-				const LLFontGL* big_fontp = LLFontGL::sSansSerif;
+				const LLFontGL* big_fontp = LLFontGL::getFontSansSerif();
 
 				std::string help_text = "Move mouse cursor over ruler to snap";
 				LLColor4 help_text_color = LLColor4::white;
@@ -1634,7 +1634,7 @@ void LLManipTranslate::highlightIntersection(LLVector3 normal,
 	}
 	
 	U32 types[] = { LLRenderPass::PASS_SIMPLE, LLRenderPass::PASS_ALPHA, LLRenderPass::PASS_FULLBRIGHT, LLRenderPass::PASS_SHINY };
-	U32 num_types = sizeof(types)/sizeof(U32);
+	U32 num_types = LL_ARRAY_SIZE(types);
 
 	GLuint stencil_mask = 0xFFFFFFFF;
 	//stencil in volumes

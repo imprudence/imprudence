@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Postcard" title="Знімок на Email">
+	<text name="to_label">
+		E-mail отрим.:
+	</text>
+	<text name="from_label">
+		Ваш E-mail:
+	</text>
+	<text name="name_label">
+		Ваше ім&apos;я:
+	</text>
+	<text name="subject_label">
+		Тема:
+	</text>
+	<line_editor label="Введіть тему тут." name="subject_form"/>
+	<text name="msg_label">
+		Повідомл.:
+	</text>
+	<text_editor name="msg_form">
+		Введіть повідомл. тут.
+	</text_editor>
+	<text name="fine_print">
+		Якщо отримувач Вашої листівки приєднається до Second Life,
+Ви отримаєте бонус.
+	</text>
+	<button label="Відміна" name="cancel_btn"/>
+	<button label="Відправити" name="send_btn"/>
+	<string name="default_subject">
+		Листівка з Second Life.
+	</string>
+	<string name="default_message">
+		Перевірити!
+	</string>
+	<string name="upload_message">
+		&quot;Відправляємо...&quot;
+	</string>
+</floater>

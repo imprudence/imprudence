@@ -4,16 +4,14 @@
 		 name="errors">
 		<message
 			 name="invalid_tport">
-			处理您的瞬间移动请求时发生错误。您可能需要重新登入以后才能
-瞬间移动。如果您仍继续遇到这条消息，请到以下地址参考技术支持
-常见问题:
+			处理您的瞬间移动请求时发生错误。您可能需要重新登入以后才能瞬间移动。
+如果您仍继续遇到这条消息，请到以下地址参考技术支持常见问题:
 www.secondlife.com/support
 		</message>
 		<message
 			 name="invalid_region_handoff">
-			处理您的区域变换时发生错误。您可能需要重新登入以后才能
-瞬间移动。如果您仍继续遇到这条消息，请到以下地址参考技术支持
-常见问题:
+			处理您的区域变换时发生错误。您可能需要重新登入以后才能瞬间移动。
+如果您仍继续遇到这条消息，请到以下地址参考技术支持常见问题:
 www.secondlife.com/support
 		</message>
 		<message
@@ -36,8 +34,7 @@ www.secondlife.com/support
 		</message>
 		<message
 			 name="missing_attach_tport">
-			您的装备还没有到齐。请再等几秒钟，或者登出后重新登录以后
-再试着瞬间移动。
+			您的装备还没有到齐。请再等几秒钟，或者登出后重新登录以后再试着瞬间移动。
 		</message>
 		<message
 			 name="too_many_uploads_tport">

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -68,7 +69,7 @@ LLWLParamSet::LLWLParamSet(void) :
 		std::make_pair("gamma",					LLVector4(2.0f, 2.0f, 2.0f, 0.0f)),
 	};
 	std::map<std::string, LLVector4>::value_type const * endHardcodedPreset = 
-		hardcodedPreset + sizeof(hardcodedPreset)/sizeof(hardcodedPreset[0]);
+		hardcodedPreset + LL_ARRAY_SIZE(hardcodedPreset);
 
 	mParamValues.insert(hardcodedPreset, endHardcodedPreset);
 */

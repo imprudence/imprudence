@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="friends">
+	<string name="Multiple">
+		Több barát...
+	</string>
+	<scroll_list name="friend_list" tool_tip="Használd a shift vagy a control billentyűt több barát kijelöléséhez">
+		<column name="icon_online_status" tool_tip="Online állapot"/>
+		<column label="Név" name="friend_name" tool_tip="Név"/>
+		<column name="icon_visible_online" tool_tip="Online állapotodat látja"/>
+		<column name="icon_visible_map" tool_tip="Be tud tájolni a térképen"/>
+		<column name="icon_edit_mine" tool_tip="A barát szerkesztheti, törölheti és felveheti a tárgyakat"/>
+		<column name="icon_edit_theirs" tool_tip="Szerkesztheted a tárgyait"/>
+	</scroll_list>
+	<button label="Üzenet" name="im_btn" tool_tip="Azonnali üzenetküldés indítása"/>
+	<button label="Adatlap" name="profile_btn" tool_tip="Kép, csoport és egyéb információk megjelenítése"/>
+	<button label="Teleportál..." name="offer_teleport_btn" tool_tip="Teleportálás felajánlása a te helyszínedre ennek a barátnak"/>
+	<button label="Fizet..." name="pay_btn" tool_tip="Linden dollár (L$) átadása ennek a barátnak"/>
+	<button label="Eltávolít..." name="remove_btn" tool_tip="Személy eltávolítása a barátok listája közül"/>
+	<button label="Hozzáad..." name="add_btn" tool_tip="Barátság felajánlása ennek a lakónak"/>
+</panel>

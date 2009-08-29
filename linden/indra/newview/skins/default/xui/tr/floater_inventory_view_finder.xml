@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Inventory Finder" title="inventory_recent_items" width="176">
+	<check_box label="Animasyon" name="check_animation" />
+	<check_box label="Arama kartları" name="check_calling_card" />
+	<check_box label="Giyim" name="check_clothing" />
+	<check_box label="Hareketler" name="check_gesture" />
+	<check_box label="Yer imleri" name="check_landmark" />
+	<check_box label="Notkartlar" name="check_notecard" />
+	<check_box label="Objeler" name="check_object" />
+	<check_box label="Betikler" name="check_script" />
+	<check_box label="Sesler" name="check_sound" />
+	<check_box label="Desenler" name="check_texture" />
+	<check_box label="Resimler" name="check_snapshot" />
+	<button label="Tümü" label_selected="Tümü" name="All" />
+	<button label="Hiçbiri" label_selected="Hiçbiri" name="None" />
+	<check_box label="Her zaman dosyaları göster" name="check_show_empty" />
+	<check_box label="Çıkıştan beri" name="check_since_logoff"/>
+	<text type="string" length="1" name="- OR -">
+		- VEYA -
+	</text>
+	<spinner label="Saat önce" name="spin_hours_ago" />
+	<spinner label="Gün önce" name="spin_days_ago" />
+	<button label="Kapat" label_selected="Kapat" name="Close" />
+</floater>

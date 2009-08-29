@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -67,7 +68,8 @@ LLStatView::~LLStatView()
 	}
 }
 
-LLStatBar *LLStatView::addStat(const std::string& name, LLStat *statp)
+LLStatBar *LLStatView::addStat(const std::string& name, LLStat *statp,
+							   const std::string& setting, BOOL default_bar, BOOL default_history)
 {
 	LLStatBar *stat_barp;
 	LLRect r;
@@ -80,7 +82,7 @@ LLStatBar *LLStatView::addStat(const std::string& name, LLStat *statp)
 
 	mNumStatBars++;
 
-	stat_barp = new LLStatBar(name, r);
+	stat_barp = new LLStatBar(name, r, setting, default_bar, default_history);
 	stat_barp->mStatp = statp;
 
 	stat_barp->setVisible(mDisplayChildren);
@@ -91,6 +93,15 @@ LLStatBar *LLStatView::addStat(const std::string& name, LLStat *statp)
 	reshape(getRect().getWidth(), getRect().getHeight());
 	return stat_barp;
 }
+
+LLStatView *LLStatView::addStatView(const std::string& name, const std::string& label, const std::string& setting, const LLRect& rect)
+{
+	LLStatView *statview = new LLStatView(name, label, setting, rect);
+	statview->setVisible(mDisplayChildren);
+	addChildAtEnd(statview);
+	return statview;
+}
+
 
 LLStatBar *LLStatView::getStatBar(const std::string& name)
 {
