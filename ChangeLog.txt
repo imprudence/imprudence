@@ -5,6 +5,12 @@
 		modified:   linden/indra/cmake/OPENAL.cmake
 
 
+	* Fixed CMake not finding GLib on windows.
+
+		modified:   linden/indra/cmake/GStreamer.cmake
+
+
+
 2009-06-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added IM preference for showing IMs in either main or local chat.
