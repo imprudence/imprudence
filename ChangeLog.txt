@@ -1,5 +1,17 @@
 2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Imported Meerkat's object backup feature.
+
+		modified:   linden/indra/newview/CMakeLists.txt
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/llviewerobjectlist.cpp
+		new file:   linden/indra/newview/primbackup.cpp
+		new file:   linden/indra/newview/primbackup.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
 	* Updated some python scripts to not use deprecated modules.
 
 		modified:   linden/indra/lib/python/indra/base/lluuid.py
