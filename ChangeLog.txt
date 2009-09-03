@@ -1,3 +1,12 @@
+2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Updated some python scripts to not use deprecated modules.
+
+		modified:   linden/indra/lib/python/indra/base/lluuid.py
+		modified:   linden/indra/lib/python/indra/ipc/llmessage.py
+		modified:   linden/scripts/install.py
+
+	
 2009-06-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added IM preference for showing IMs in either main or local chat.
