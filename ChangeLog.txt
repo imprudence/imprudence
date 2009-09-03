@@ -1,5 +1,12 @@
 2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Updated object backup feature to Meerkat's SVN, imported floater.
+
+		modified:   linden/indra/newview/primbackup.cpp
+		modified:   linden/indra/newview/primbackup.h
+		new file:   linden/indra/newview/skins/default/xui/en-us/floater_prim_import.xml
+
+
 	* Imported Meerkat's object backup feature.
 
 		modified:   linden/indra/newview/CMakeLists.txt

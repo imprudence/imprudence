@@ -72,8 +72,8 @@ class importResponder: public LLNewAgentInventoryResponder
 	public:
 
 	importResponder(const LLSD& post_data,
-															   const LLUUID& vfile_id,
-															   LLAssetType::EType asset_type)
+		const LLUUID& vfile_id,
+		LLAssetType::EType asset_type)
 	: LLNewAgentInventoryResponder(post_data, vfile_id, asset_type)
 	{
 	}
@@ -229,9 +229,9 @@ primbackup::primbackup()
 	LLUICtrlFactory::getInstance()->buildFloater( this, "floater_prim_import.xml" );
 
 	// reposition floater from saved settings
-	LLRect rect = gSavedSettings.getRect( "FloaterPrimImport" );
-	reshape( rect.getWidth(), rect.getHeight(), FALSE );
-	setRect( rect );
+	//LLRect rect = gSavedSettings.getRect( "FloaterPrimImport" );
+	//reshape( rect.getWidth(), rect.getHeight(), FALSE );
+	//setRect( rect );
 
 	running=false;
 	textures.clear();
@@ -365,7 +365,7 @@ void primbackup::exportworker(void *userdata)
 					{
 						virtual bool apply(LLSelectNode* node)
 						{
-							if(gAgent.getID()!=node->mPermissions->getCreator())
+							if(gAgent.getID()!=node->mPermissions->getOwner())
 							{
 								#ifdef LL_GRID_PERMISSIONS
 									return false;
@@ -373,7 +373,11 @@ void primbackup::exportworker(void *userdata)
 									return true;
 								#endif
 							}
-							return true;
+							else if(581632==node->mPermissions->getMaskOwner() || 2147483647==node->mPermissions->getMaskOwner())
+							{
+								return true;
+							}
+							return false;
 						}
 				} func;
 
