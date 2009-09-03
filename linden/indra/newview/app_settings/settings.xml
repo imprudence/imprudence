@@ -3116,6 +3116,22 @@
         <integer>0</integer>
       </array>
     </map>
+    <key>FloaterPrimImport</key>
+    <map>
+      <key>Comment</key>
+      <string>Rectangle for import/export</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Rect</string>
+      <key>Value</key>
+      <array>
+         <integer>0</integer>
+         <integer>25</integer>
+         <integer>400</integer>
+         <integer>0</integer>
+      </array>
+    </map>
     <key>FloaterRegionInfo</key>
     <map>
       <key>Comment</key>
