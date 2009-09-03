@@ -728,7 +728,7 @@ void primbackup::rez_agent_offset(LLVector3 offset)
 	LLToolPlacer* mPlacer = new LLToolPlacer();
 	mPlacer->setObjectType(LL_PCODE_CUBE);	
 	//LLVector3 pos=offset_agent(offset);
-	mPlacer->placeObject(offset.mV[0], offset.mV[1],offset.mV[2]);
+	mPlacer->placeObject((S32)(offset.mV[0]), (S32)(offset.mV[1]), 0);
 }
 
 void primbackup::import_object1a()
