@@ -5,6 +5,11 @@
 		modified:   linden/indra/cmake/CopyWinLibs.cmake
 		modified:   linden/install.xml
 		
+		
+     * Fixed inability to minimize chat history.
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_chat_history.xml
+		
 
 2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
