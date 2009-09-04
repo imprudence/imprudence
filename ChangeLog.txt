@@ -1,5 +1,10 @@
 2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Backported 1.23 fix for animation joint assertion crash.
+
+		modified:   linden/indra/llcharacter/llkeyframemotion.cpp
+
+
 	* Updated some python scripts to not use deprecated modules.
 
 		modified:   linden/indra/lib/python/indra/base/lluuid.py

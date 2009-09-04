@@ -1560,6 +1560,13 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 			}
 			constraintp->mChainLength = (S32) byte;
 
+			if((U32)constraintp->mChainLength > mJointMotionList->getNumJointMotions())
+			{
+				llwarns << "invalid constraint chain length" << llendl;
+				delete constraintp;
+				return FALSE;
+			}
+
 			if (!dp.unpackU8(byte, "constraint_type"))
 			{
 				llwarns << "can't read constraint type" << llendl;
@@ -1587,7 +1594,14 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 				delete constraintp;
 				return FALSE;
 			}
-
+			
+			if( !(constraintp->mSourceConstraintOffset.isFinite()) )
+			{
+				llwarns << "non-finite constraint source offset" << llendl;
+				delete constraintp;
+				return FALSE;
+			}
+			
 			if (!dp.unpackBinaryDataFixed(bin_data, BIN_DATA_LENGTH, "target_volume"))
 			{
 				llwarns << "can't read target volume name" << llendl;
@@ -1615,9 +1629,23 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 				return FALSE;
 			}
 
+			if( !(constraintp->mTargetConstraintOffset.isFinite()) )
+			{
+				llwarns << "non-finite constraint target offset" << llendl;
+				delete constraintp;
+				return FALSE;
+			}
+			
 			if (!dp.unpackVector3(constraintp->mTargetConstraintDir, "target_dir"))
 			{
 				llwarns << "can't read constraint target direction" << llendl;
+				delete constraintp;
+				return FALSE;
+			}
+
+			if( !(constraintp->mTargetConstraintDir.isFinite()) )
+			{
+				llwarns << "non-finite constraint target direction" << llendl;
 				delete constraintp;
 				return FALSE;
 			}
@@ -1685,8 +1713,13 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 						break;
 					}
 				}
+				if (constraintp->mJointStateIndices[i] < 0 )
+				{
+					llwarns << "No joint index for constraint " << i << llendl;
+					delete constraintp;
+					return FALSE;
+				}
 			}
-
 		}
 	}
 
