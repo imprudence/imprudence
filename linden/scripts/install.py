@@ -34,7 +34,7 @@ $/LicenseInfo$
 """
 
 import copy
-import md5
+from hashlib import md5
 import optparse
 import os
 import platform
@@ -45,8 +45,6 @@ import tarfile
 import tempfile
 import urllib2
 import urlparse
-
-from sets import Set as set, ImmutableSet as frozenset
 
 # Locate -our- python library relative to our install location.
 from os.path import realpath, dirname, join
@@ -76,7 +74,7 @@ class InstallFile(object):
         return "ifile{%s:%s}" % (self.pkgname, self.url)
 
     def _is_md5sum_match(self):
-        hasher = md5.new(file(self.filename, 'rb').read())
+        hasher = md5(file(self.filename, 'rb').read())
         if hasher.hexdigest() == self.md5sum:
             return  True
         return False

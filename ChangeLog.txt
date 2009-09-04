@@ -1,3 +1,17 @@
+2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Backported 1.23 fix for animation joint assertion crash.
+
+		modified:   linden/indra/llcharacter/llkeyframemotion.cpp
+
+
+	* Updated some python scripts to not use deprecated modules.
+
+		modified:   linden/indra/lib/python/indra/base/lluuid.py
+		modified:   linden/indra/lib/python/indra/ipc/llmessage.py
+		modified:   linden/scripts/install.py
+
+
 2009-08-29  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed OpenAL CMake error
@@ -8,7 +22,6 @@
 	* Fixed CMake not finding GLib on windows.
 
 		modified:   linden/indra/cmake/GStreamer.cmake
-
 
 
 2009-06-14  McCabe Maxsted  <hakushakukun@gmail.com>
