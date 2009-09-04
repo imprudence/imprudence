@@ -1,3 +1,11 @@
+2009-09-04  McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Updated GStreamer and Zlib windows libs.
+
+		modified:   linden/indra/cmake/CopyWinLibs.cmake
+		modified:   linden/install.xml
+		
+
 2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Backported 1.23 fix for animation joint assertion crash.
