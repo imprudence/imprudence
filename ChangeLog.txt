@@ -16,6 +16,15 @@
 		modified:   linden/indra/newview/skins/default/html/en-us/loading/loading.html
 		new file:   linden/indra/newview/skins/default/html/en-us/loading/imprudence_loading.png
 		
+		
+     * Cherry-picked Armin's middle mouse copy branch.
+	 * Cherry-picked Armin's double-click tp inworld branch.
+	 
+	 
+	 * Added 'Go Here' to object pie menu.
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
+		
 
 2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
