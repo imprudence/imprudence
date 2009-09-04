@@ -10,6 +10,12 @@
 	 
 		modified:   linden/indra/newview/skins/default/xui/en-us/floater_chat_history.xml
 		
+		
+     * Rebranded startup loading page to Imprudence.
+	 
+		modified:   linden/indra/newview/skins/default/html/en-us/loading/loading.html
+		new file:   linden/indra/newview/skins/default/html/en-us/loading/imprudence_loading.png
+		
 
 2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
