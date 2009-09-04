@@ -74,6 +74,10 @@
 
 #include "llglheaders.h"
 
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 #define USE_VIEWER_AUTH 0
 
 std::string load_password_from_disk(void);
@@ -796,6 +800,18 @@ void LLPanelLogin::refreshLocation( bool force_visible )
 
 	if ( ! force_visible )
 		show_start = gSavedSettings.getBOOL("ShowStartLocation");
+
+
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+// TODO-RLVa: figure out some way to make this work with RLV_EXTENSION_STARTLOCATION
+#ifndef RLV_EXTENSION_STARTLOCATION
+		if (rlv_handler_t::isEnabled())
+		{
+			show_start = FALSE;
+		}
+#endif // RLV_EXTENSION_STARTLOCATION
+// [/RLVa:KB]
+
 
 	sInstance->childSetVisible("start_location_combo", show_start);
 	sInstance->childSetVisible("start_location_text", show_start);

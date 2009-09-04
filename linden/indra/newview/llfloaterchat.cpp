@@ -202,7 +202,11 @@ void add_timestamped_line(LLViewerTextEditor* edit, const LLChat &chat, const LL
 	// extract out the sender name and replace it with the hotlinked name.
 	if (chat.mSourceType == CHAT_SOURCE_AGENT &&
 		chat.mFromID != LLUUID::null &&
-		(line.length() > chat.mFromName.length() && line.find(chat.mFromName,0) == 0))
+//		(line.length() > chat.mFromName.length() && line.find(chat.mFromName,0) == 0))
+		(line.length() > chat.mFromName.length() && line.find(chat.mFromName,0) == 0) &&
+// [RLVa] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
+		(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
+// [/RLVa]
 	{
 		std::string start_line = line.substr(0, chat.mFromName.length() + 1);
 		line = line.substr(chat.mFromName.length() + 1);
@@ -226,6 +230,30 @@ void log_chat_text(const LLChat& chat)
 // static
 void LLFloaterChat::addChatHistory(const LLChat& chat, bool log_to_file)
 {	
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+	if (rlv_handler_t::isEnabled())
+	{
+		// TODO-RLVa: we might cast too broad a net by filtering here, needs testing
+		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) && (!chat.mRlvLocFiltered) && (CHAT_SOURCE_AGENT != chat.mSourceType) )
+		{
+			LLChat& rlvChat = const_cast<LLChat&>(chat);
+			gRlvHandler.filterLocation(rlvChat.mText);
+			rlvChat.mRlvLocFiltered = TRUE;
+		}
+		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (!chat.mRlvNamesFiltered) )
+		{
+			// NOTE: this will also filter inventory accepted/declined text in the chat history
+			LLChat& rlvChat = const_cast<LLChat&>(chat);
+			if (CHAT_SOURCE_AGENT != chat.mSourceType)
+			{
+				// Filter object and system chat (names are filtered elsewhere to save ourselves an gObjectList lookup)
+				gRlvHandler.filterNames(rlvChat.mText);
+			}
+			rlvChat.mRlvNamesFiltered = TRUE;
+		}
+	}
+// [/RLVa:KB]
+
 	if ( gSavedPerAccountSettings.getBOOL("LogChat") && log_to_file) 
 	{
 		log_chat_text(chat);
@@ -355,6 +383,30 @@ void LLFloaterChat::addChat(const LLChat& chat,
 	BOOL invisible_script_debug_chat = 
 			chat.mChatType == CHAT_TYPE_DEBUG_MSG
 			&& !gSavedSettings.getBOOL("ScriptErrorsAsChat");
+
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+	if (rlv_handler_t::isEnabled())
+	{
+		// TODO-RLVa: we might cast too broad a net by filtering here, needs testing
+		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) && (!chat.mRlvLocFiltered) && (CHAT_SOURCE_AGENT != chat.mSourceType) )
+		{
+			LLChat& rlvChat = const_cast<LLChat&>(chat);
+			if (!from_instant_message)
+				gRlvHandler.filterLocation(rlvChat.mText);
+			rlvChat.mRlvLocFiltered = TRUE;
+		}
+		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (!chat.mRlvNamesFiltered) )
+		{
+			LLChat& rlvChat = const_cast<LLChat&>(chat);
+			if ( (!from_instant_message) && (CHAT_SOURCE_AGENT != chat.mSourceType) )
+			{
+				// Filter object and system chat (names are filtered elsewhere to save ourselves an gObjectList lookup)
+				gRlvHandler.filterNames(rlvChat.mText);
+			}
+			rlvChat.mRlvNamesFiltered = TRUE;
+		}
+	}
+// [/RLVa:KB]
 
 #if LL_LCD_COMPILE
 	// add into LCD displays
@@ -513,7 +565,11 @@ void LLFloaterChat::onClickToggleActiveSpeakers(void* userdata)
 {
 	LLFloaterChat* self = (LLFloaterChat*)userdata;
 
-	self->childSetVisible("active_speakers_panel", !self->childIsVisible("active_speakers_panel"));
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+	self->childSetVisible("active_speakers_panel", 
+		(!self->childIsVisible("active_speakers_panel")) && (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) );
+// [/RLVa:KB]
+	//self->childSetVisible("active_speakers_panel", !self->childIsVisible("active_speakers_panel"));
 }
 
 //static 

@@ -259,6 +259,12 @@ void LLPrefsIMImpl::setPersonalInfo(const std::string& visibility, bool im_via_e
 	LLWStringUtil::replaceChar(busy_response, '^', '\n');
 	LLWStringUtil::replaceChar(busy_response, '%', ' ');
 	childSetText("busy_response", wstring_to_utf8str(busy_response));
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SENDIM))
+	{
+		childDisable("busy_response");
+	}
+// [/RLVa:KB]
 
 	enableHistory();
 

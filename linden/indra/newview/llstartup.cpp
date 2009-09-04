@@ -384,6 +384,11 @@ bool idle_startup()
 		// Initialize stuff that doesn't need data from simulators
 		//
 
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.1d
+		if ( (gSavedSettings.controlExists(RLV_SETTING_MAIN)) && (gSavedSettings.getBOOL(RLV_SETTING_MAIN)) )
+			rlv_handler_t::setEnabled(TRUE);
+// [/RLVa:KB]
+
 		if (LLFeatureManager::getInstance()->isSafe())
 		{
 			gViewerWindow->alertXml("DisplaySetToSafe");
@@ -924,6 +929,23 @@ bool idle_startup()
 		// their last location, or some URL "-url //sim/x/y[/z]"
 		// All accounts have both a home and a last location, and we don't support
 		// more locations than that.  Choose the appropriate one.  JC
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.1d
+		#ifndef RLV_EXTENSION_STARTLOCATION
+		if (rlv_handler_t::isEnabled())
+		#else
+		if ( (rlv_handler_t::isEnabled()) && (RlvSettings::getLoginLastLocation()) )
+		#endif // RLV_EXTENSION_STARTLOCATION
+		{
+			// Force login at the last location
+			agent_location_id = START_LOCATION_ID_LAST;
+			location_which = START_LOCATION_ID_LAST;
+			gSavedSettings.setBOOL("LoginLastLocation", FALSE);
+			
+			// Clear some things that would cause us to divert to a user-specified location
+			LLURLSimString::setString(LLURLSimString::sLocationStringLast);
+			LLStartUp::sSLURLCommand.clear();
+		} else
+// [/RLVa:KB]
 		if (LLURLSimString::parse())
 		{
 			// a startup URL was specified

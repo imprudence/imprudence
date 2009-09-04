@@ -354,8 +354,17 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 		else
 		{
 			gCacheName->getFullName(perm.getOwner(), name);
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+			if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+			{
+				name = gRlvHandler.getAnonym(name);
+			}
+// [/RLVa:KB]
 		}
-		childSetEnabled("BtnOwner",TRUE);
+		//childSetEnabled("BtnOwner",TRUE);
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-1.0.0e
+		childSetEnabled("BtnOwner", !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES));
+// [/RLVa:KB]
 		childSetEnabled("LabelOwnerTitle",TRUE);
 		childSetEnabled("LabelOwnerName",TRUE);
 		childSetText("LabelOwnerName",name);
@@ -602,7 +611,10 @@ void LLFloaterProperties::onClickOwner(void* data)
 	}
 	else
 	{
-		if(!item->getPermissions().getOwner().isNull())
+//		if(!item->getPermissions().getOwner().isNull())
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+		if ( (!item->getPermissions().getOwner().isNull()) && (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
+// [/RLVa:KB]
 		{
 			LLFloaterAvatarInfo::showFromObject(item->getPermissions().getOwner());
 		}

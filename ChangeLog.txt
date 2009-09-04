@@ -1,3 +1,95 @@
+2009-09-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Applied Kitty Barnett's RLVa 1.0.1h (Restrained Life) patch.
+	  Made a few non-functional changes to help it apply.
+
+		modified:   linden/indra/llcommon/llchat.h
+		modified:   linden/indra/newview/CMakeLists.txt
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/app_settings/settings_per_account.xml
+		modified:   linden/indra/newview/llagent.cpp
+		modified:   linden/indra/newview/llagent.h
+		modified:   linden/indra/newview/llappviewer.cpp
+		modified:   linden/indra/newview/llchatbar.cpp
+		modified:   linden/indra/newview/llfloaterabout.cpp
+		modified:   linden/indra/newview/llfloateractivespeakers.cpp
+		modified:   linden/indra/newview/llfloaterbeacons.cpp
+		modified:   linden/indra/newview/llfloaterchat.cpp
+		modified:   linden/indra/newview/llfloaterinspect.cpp
+		modified:   linden/indra/newview/llfloaterland.cpp
+		modified:   linden/indra/newview/llfloaterland.h
+		modified:   linden/indra/newview/llfloatermap.cpp
+		modified:   linden/indra/newview/llfloatermap.h
+		modified:   linden/indra/newview/llfloateropenobject.cpp
+		modified:   linden/indra/newview/llfloaterproperties.cpp
+		modified:   linden/indra/newview/llfloaterregioninfo.cpp
+		modified:   linden/indra/newview/llfloaterregioninfo.h
+		modified:   linden/indra/newview/llfloaterreporter.cpp
+		modified:   linden/indra/newview/llfloatersettingsdebug.cpp
+		modified:   linden/indra/newview/llfloaterwindlight.cpp
+		modified:   linden/indra/newview/llfloaterworldmap.cpp
+		modified:   linden/indra/newview/llglsandbox.cpp
+		modified:   linden/indra/newview/llhoverview.cpp
+		modified:   linden/indra/newview/llhudtext.cpp
+		modified:   linden/indra/newview/llhudtext.h
+		modified:   linden/indra/newview/llimpanel.cpp
+		modified:   linden/indra/newview/llimview.cpp
+		modified:   linden/indra/newview/llinventorybridge.cpp
+		modified:   linden/indra/newview/llinventorymodel.cpp
+		modified:   linden/indra/newview/llinventoryview.cpp
+		modified:   linden/indra/newview/llinventoryview.h
+		modified:   linden/indra/newview/llmaniptranslate.cpp
+		modified:   linden/indra/newview/llnetmap.cpp
+		modified:   linden/indra/newview/llnotify.cpp
+		modified:   linden/indra/newview/lloverlaybar.cpp
+		modified:   linden/indra/newview/llpanelavatar.cpp
+		modified:   linden/indra/newview/llpanelclassified.cpp
+		modified:   linden/indra/newview/llpanelcontents.cpp
+		modified:   linden/indra/newview/llpaneldisplay.cpp
+		modified:   linden/indra/newview/llpanelinventory.cpp
+		modified:   linden/indra/newview/llpanelland.cpp
+		modified:   linden/indra/newview/llpanellogin.cpp
+		modified:   linden/indra/newview/llpanelobject.cpp
+		modified:   linden/indra/newview/llpanelpermissions.cpp
+		modified:   linden/indra/newview/llpanelpick.cpp
+		modified:   linden/indra/newview/llprefsim.cpp
+		modified:   linden/indra/newview/llpreviewscript.cpp
+		modified:   linden/indra/newview/llselectmgr.cpp
+		modified:   linden/indra/newview/llstartup.cpp
+		modified:   linden/indra/newview/llstatusbar.cpp
+		modified:   linden/indra/newview/lltoolbar.cpp
+		modified:   linden/indra/newview/lltooldraganddrop.cpp
+		modified:   linden/indra/newview/lltoolface.cpp
+		modified:   linden/indra/newview/lltoolgrab.cpp
+		modified:   linden/indra/newview/lltoolpie.cpp
+		modified:   linden/indra/newview/lltoolplacer.cpp
+		modified:   linden/indra/newview/lltoolselect.cpp
+		modified:   linden/indra/newview/lltracker.cpp
+		modified:   linden/indra/newview/llviewercontrol.cpp
+		modified:   linden/indra/newview/llviewerdisplay.cpp
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/llviewermessage.cpp
+		modified:   linden/indra/newview/llviewerobject.cpp
+		modified:   linden/indra/newview/llviewertexteditor.cpp
+		modified:   linden/indra/newview/llviewerwindow.cpp
+		modified:   linden/indra/newview/llvoavatar.cpp
+		modified:   linden/indra/newview/llvovolume.cpp
+		modified:   linden/indra/newview/llworldmapview.cpp
+		modified:   linden/indra/newview/pipeline.cpp
+		new file:   linden/indra/newview/rlvevent.h
+		new file:   linden/indra/newview/rlvextensions.cpp
+		new file:   linden/indra/newview/rlvextensions.h
+		new file:   linden/indra/newview/rlvfloaterbehaviour.cpp
+		new file:   linden/indra/newview/rlvfloaterbehaviour.h
+		new file:   linden/indra/newview/rlvhandler.cpp
+		new file:   linden/indra/newview/rlvhandler.h
+		new file:   linden/indra/newview/rlvhelper.cpp
+		new file:   linden/indra/newview/rlvhelper.h
+		new file:   linden/indra/newview/rlvmultistringsearch.cpp
+		new file:   linden/indra/newview/rlvmultistringsearch.h
+		new file:   linden/indra/newview/skins/default/xui/en-us/floater_rlv_behaviour.xml
+
+
 2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Backported 1.23 fix for animation joint assertion crash.

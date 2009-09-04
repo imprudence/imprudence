@@ -565,6 +565,30 @@ void LLHUDText::renderText(BOOL for_select)
 
 void LLHUDText::setStringUTF8(const std::string &wtext)
 {
+// [RLVa:KB] - Checked: 2009-07-09 (RLVa-1.0.0f)
+	// NOTE: setString() is only called for debug beacons and the floating name tags (which we don't want to censor
+	//       because you'd see "(Region hidden) LastName" if you happen to go to a sim who's name is your first name :p
+	if (rlv_handler_t::isEnabled())
+	{
+		std::string text(wtext);
+
+		if (gRlvHandler.canShowHoverText(mSourceObject))
+		{
+			if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+				gRlvHandler.filterLocation(text);
+			if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+				gRlvHandler.filterNames(text);
+		}
+		else
+		{
+			text = "";
+		}
+
+		setString(utf8str_to_wstring(text));
+		return;
+	}
+// [/RLVa:KB]
+
 	setString(utf8str_to_wstring(wtext));
 }
 
@@ -1147,3 +1171,18 @@ F32 LLHUDText::LLHUDTextSegment::getWidth(const LLFontGL* font)
 		return width;
 	}
 }
+
+// [RLVa:KB] - Checked: 2009-07-09 (RLVa-1.0.0f) | Added: RLVa-1.0.0f
+void LLHUDText::refreshAllObjectText()
+{
+	for (TextObjectIterator itText = sTextObjects.begin(); itText != sTextObjects.end(); itText++)
+	{
+		LLHUDText* pText = *itText;
+		if ( (pText) && (!pText->mObjText.empty() && ("" != pText->mObjText) ) && 
+			 (pText->mSourceObject) && (LL_PCODE_VOLUME == pText->mSourceObject->getPCode()) )
+		{
+			pText->setStringUTF8(pText->mObjText);
+		}
+	}
+}
+// [/RLVa:KB]
