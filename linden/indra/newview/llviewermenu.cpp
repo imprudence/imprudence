@@ -10071,6 +10071,49 @@ class LLAvatarReportAbuse : public view_listener_t
 
 
 
+///////////////
+// RLVa Main //
+///////////////
+
+
+class RLVaMainToggle : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		rlvDbgToggleEnabled(NULL);
+		return true;
+	}
+};
+
+class RLVaMainCheck : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = rlvDbgGetEnabled(NULL);
+		std::string control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
+////////////////////
+// RLVa BEHAVIORS //
+////////////////////
+
+
+class RLVaBehaviorsShow : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		RlvFloaterBehaviour::show(NULL);
+		return true;
+	}
+};
+
+
+
 static void addMenu(view_listener_t *menu, const char *name)
 {
 	sMenus.push_back(menu);
@@ -10440,4 +10483,11 @@ void initialize_menus()
 	addMenu(new LLAdvancedCheckViewAdminOptions(), "Advanced.CheckViewAdminOptions");
 	addMenu(new LLAdvancedRequestAdminStatus(), "Advanced.RequestAdminStatus");
 	addMenu(new LLAdvancedLeaveAdminStatus(), "Advanced.LeaveAdminStatus");
+
+
+	// RLVa
+	addMenu(new RLVaMainToggle(), "RLVa.Main.Toggle");
+	addMenu(new RLVaMainCheck(), "RLVa.Main.Enabled");
+	addMenu(new RLVaBehaviorsShow(), "RLVa.Behaviors.Show");
+
 }
