@@ -209,6 +209,7 @@
 #include "llwaterparammanager.h"
 
 #include "lltexlayer.h"
+#include "primbackup.h"
 
 void init_client_menu(LLMenuGL* menu);
 void init_server_menu(LLMenuGL* menu);
@@ -2257,6 +2258,143 @@ class LLObjectMute : public view_listener_t
 				LLMuteList::getInstance()->addMuteObjectConfirm(mute);
 			}
 		}
+		return true;
+	}
+};
+
+class LLObjectEnableCopyUUID : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
+		bool new_value = (object != NULL);
+        
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
+		return true;
+	}
+};
+
+class LLObjectCopyUUID : public view_listener_t
+{
+    bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+    {  
+		LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
+        if (!object) return true;
+
+        LLUUID id = object->getID();
+
+        char buffer[UUID_STR_LENGTH];
+        id.toString(buffer);
+
+        
+		gViewerWindow->mWindow->copyTextToClipboard(utf8str_to_wstring(buffer));
+
+        LLSelectMgr::getInstance()->deselectAll();
+        return true;
+    }
+};
+
+
+class LLObjectEnableExport : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
+		bool new_value = (object != NULL);
+		if (new_value)
+		{
+			LLVOAvatar* avatar = find_avatar_from_object(object); 
+			new_value = (avatar == NULL);
+		}
+		if(new_value)
+		{
+			
+			struct ff : public LLSelectedNodeFunctor
+			{
+				ff(const LLSD& data) : LLSelectedNodeFunctor()
+				,userdata(data)
+				{
+
+				}
+				const LLSD& userdata;
+				virtual bool apply(LLSelectNode* node)
+				{
+					if(gAgent.getID()!=node->mPermissions->getCreator())
+					{
+						llwarns<<"Incorrect permission to export"<<llendl;
+						return false;
+					}
+					return true;
+				}
+			};
+ 
+#ifdef LL_GRID_PERMISSIONS
+ 
+			ff * the_ff=new ff(userdata);
+			if(LLSelectMgr::getInstance()->getSelection()->applyToNodes(the_ff,false))
+			{
+					gMenuHolder->findControl(userdata["control"].asString())->setValue(true);
+			}
+			else
+			{
+					gMenuHolder->findControl(userdata["control"].asString())->setValue(false);
+			}
+			return true;	
+		}
+ 
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
+		return true;
+#else
+		}
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(true);
+		return true;
+#endif
+
+	}
+};
+
+class LLObjectExport : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
+		if (!object) return true;
+
+		LLVOAvatar* avatar = find_avatar_from_object(object); 
+
+		if (!avatar)
+		{
+			primbackup::getInstance()->pre_export_object();
+		}
+
+		return true;
+	}
+};
+
+
+class LLObjectEnableImport : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(TRUE);
+		return true;
+	}
+};
+
+class LLObjectImport : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		primbackup::getInstance()->import_object(FALSE);
+		return true;
+	}
+};
+
+class LLObjectImportUpload : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		primbackup::getInstance()->import_object(TRUE);
 		return true;
 	}
 };
@@ -10279,6 +10417,10 @@ void initialize_menus()
 	addMenu(new LLObjectBuy(), "Object.Buy");
 	addMenu(new LLObjectEdit(), "Object.Edit");
 	addMenu(new LLObjectInspect(), "Object.Inspect");
+	addMenu(new LLObjectCopyUUID(), "Object.CopyUUID");
+	addMenu(new LLObjectExport(), "Object.Export");
+	addMenu(new LLObjectImport(), "Object.Import");
+	addMenu(new LLObjectImportUpload(), "Object.ImportUpload");
 
 	addMenu(new LLObjectEnableOpen(), "Object.EnableOpen");
 	addMenu(new LLObjectEnableTouch(), "Object.EnableTouch");
@@ -10289,6 +10431,9 @@ void initialize_menus()
 	addMenu(new LLObjectEnableReportAbuse(), "Object.EnableReportAbuse");
 	addMenu(new LLObjectEnableMute(), "Object.EnableMute");
 	addMenu(new LLObjectEnableBuy(), "Object.EnableBuy");
+	addMenu(new LLObjectEnableCopyUUID(), "Object.EnableCopyUUID");
+	addMenu(new LLObjectEnableExport(), "Object.EnableExport");
+	addMenu(new LLObjectEnableImport(), "Object.EnableImport");
 
 	/*addMenu(new LLObjectVisibleTouch(), "Object.VisibleTouch");
 	addMenu(new LLObjectVisibleCustomTouch(), "Object.VisibleCustomTouch");

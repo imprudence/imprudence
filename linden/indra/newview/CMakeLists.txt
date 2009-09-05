@@ -431,6 +431,7 @@ set(viewer_SOURCE_FILES
     llxmlrpctransaction.cpp
     noise.cpp
     pipeline.cpp
+    primbackup.cpp
     rlvhandler.cpp
     rlvhelper.cpp
     rlvmultistringsearch.cpp
@@ -836,6 +837,7 @@ set(viewer_HEADER_FILES
     macmain.h
     noise.h
     pipeline.h
+    primbackup.h
     randgauss.h
     VertexCache.h
     VorbisFramework.h

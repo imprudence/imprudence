@@ -54,7 +54,11 @@
         <on_click function="Object.ReportAbuse" />
         <on_enable function="Object.EnableReportAbuse" />
       </menu_item_call>
-      <menu_item_separator />
+      <menu_item_call label="Backup" enabled="false" hidden="false"
+                      mouse_opaqu="true" name="Export">
+        <on_click function="Object.Export" />
+        <on_enable function="Object.EnableExport" />
+      </menu_item_call>
       <menu_item_call enabled="true" label="Inspect" mouse_opaque="true" name="Object Inspect">
         <on_click function="Object.Inspect" />
         <on_enable function="Object.EnableInspect" />
