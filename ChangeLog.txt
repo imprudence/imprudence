@@ -33,6 +33,11 @@
 		modified:   linden/indra/newview/llfloatertools.h
 		modified:   linden/indra/newview/llviewermenu.cpp
 		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+		
+
+     * Fixed tree/grass label not hiding.
+	 
+		modified:   linden/indra/newview/llfloatertools.cpp
 
 		
 2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>

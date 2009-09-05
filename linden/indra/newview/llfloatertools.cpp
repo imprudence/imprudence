@@ -1043,15 +1043,15 @@ void LLFloaterTools::onFocusReceived()
 
 void LLFloaterTools::updateTreeGrassCombo(bool visible)
 {
+	LLTextBox* tree_grass_label = getChild<LLTextBox>("tree_grass_label");
 	if (visible) 
 	{
 		LLPCode pcode = LLToolPlacer::getObjectType();
 		std::map<std::string, S32>::iterator it, end;
 		std::string selected;
-		LLTextBox* tree_grass_label = getChild<LLTextBox>("tree_grass_label");
 		if (pcode == LLToolPlacerPanel::sTree) 
 		{
-			tree_grass_label->setVisible(true);
+			tree_grass_label->setVisible(visible);
 			LLButton* button = getChild<LLButton>("ToolTree");
 			tree_grass_label->setText(button->getToolTip());
 
@@ -1061,7 +1061,7 @@ void LLFloaterTools::updateTreeGrassCombo(bool visible)
 		} 
 		else if (pcode == LLToolPlacerPanel::sGrass) 
 		{
-			tree_grass_label->setVisible(true);
+			tree_grass_label->setVisible(visible);
 			LLButton* button = getChild<LLButton>("ToolGrass");
 			tree_grass_label->setText(button->getToolTip());
 
@@ -1097,6 +1097,7 @@ void LLFloaterTools::updateTreeGrassCombo(bool visible)
 	}
 	
 	mComboTreesGrass->setVisible(visible);
+	tree_grass_label->setVisible(visible);
 }
 
 // static
