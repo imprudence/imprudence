@@ -25,7 +25,16 @@
 	 
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
 		
+		
+     * Integrated 1.23's tool floater with link/unlink buttons.
+	 
+		modified:   linden/indra/newview/llfloatertelehub.cpp
+		modified:   linden/indra/newview/llfloatertools.cpp
+		modified:   linden/indra/newview/llfloatertools.h
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
 
+		
 2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Backported 1.23 fix for animation joint assertion crash.

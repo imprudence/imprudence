@@ -95,14 +95,12 @@ public:
 	/*virtual*/  void draw();
 
 	void dirty();
-	void showMore(BOOL show_more);
 	void showPanel(EInfoPanel panel);
 
 	void setStatusText(const std::string& text);
 	virtual void onFocusReceived();
 	static void setEditTool(void* data);
 	void saveLastTool();
-
 private:
 	static void setObjectType( void* data );
 	
@@ -198,8 +196,6 @@ public:
 
 private:
 	BOOL					mDirty;
-	S32						mSmallHeight;
-	S32						mLargeHeight;
 
 	std::map<std::string, std::string> mStatusText;
 
