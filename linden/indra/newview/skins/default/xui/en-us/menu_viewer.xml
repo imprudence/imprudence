@@ -893,6 +893,10 @@
       <on_click function="Advanced.TogglePhantom" userdata="" />
       <on_check function="Advanced.CheckPhantom" userdata="" />
     </menu_item_check>
+    <menu_item_check label="Animation List" name="Animation List">
+      <on_click function="ShowFloater" userdata="animation list" />
+      <on_check function="FloaterVisible" userdata="animation list" />
+    </menu_item_check>
     <menu_item_check name="Show Mouselook Crosshairs"
                      label="Show Mouselook Crosshairs">
       <on_click function="ToggleControl"

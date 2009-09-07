@@ -19,7 +19,17 @@
 	 
 		modified:   linden/indra/newview/llstartup.cpp
 		
-
+		
+     * Added Emerald viewer's animation list.
+	 
+		new file:   linden/indra/newview/jcfloater_animation_list.cpp
+        new file:   linden/indra/newview/jcfloater_animation_list.h
+        new file:   linden/indra/newview/skins/default/xui/en-us/floater_animation_list.xml
+        modified:   linden/indra/newview/CMakeLists.txt
+        modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+		
+		
 2009-09-04  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Updated GStreamer and Zlib windows libs.

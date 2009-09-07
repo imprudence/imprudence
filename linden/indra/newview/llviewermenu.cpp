@@ -210,6 +210,8 @@
 
 #include "lltexlayer.h"
 
+#include "jcfloater_animation_list.h"
+
 void init_client_menu(LLMenuGL* menu);
 void init_server_menu(LLMenuGL* menu);
 
@@ -5217,6 +5219,10 @@ class LLShowFloater : public view_listener_t
 		else if (floater_name == "active speakers")
 		{
 			LLFloaterActiveSpeakers::toggleInstance(LLSD());
+		}
+		else if (floater_name == "animation list")
+		{
+			JCFloaterAnimList::toggleInstance(LLSD());
 		}
 		else if (floater_name == "inworld browser")
 		{

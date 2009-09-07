@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater
+	name="animation list"
+	title="Animation List"
+	can_resize="true"
+	can_minimize="true"
+	can_close="true"
+	can_drag_on_left="false"
+    rect_control="FloaterAnimationListRect"
+	min_width="1000"
+	min_height="275"
+	>
+	<scroll_list
+		    name="animation_list"
+		    left="10"
+		    right="-10"
+		    top="-20"
+		    bottom="100"
+		    column_padding="0"
+		    can_resize="true"
+		    follows="left|top|bottom|right"
+		    draw_heading="true"
+		    multi_select="true"
+		    search_column="1"
+		    tool_tip="Hold shift or control while clicking to select multiple thingers"
+		    >
+		<!-- Icons relating to the avatar, currently: tracking, and marked -->
+		<column name="Anim Name" label="Anim Name" width="250"/>
+    <column name="Animation UUID" label="Animation UUID" width="250"/>
+    <!--<column name="object_name" label="Distance" dynamicwidth="true"/>-->
+		<column name="Source Object UUID" label="Source Object UUID" width="250"/>
+    <column name="Source Owner" label="Source Owner" width="250"/>
+    <!-- What the avatar is doing: producing sounds, rezzing, particles, etc -->
+	</scroll_list>
+	<panel 
+	       name="options"
+	       left="10"
+	       right="-10"
+         top="90"	
+	       bottom="10"	
+	       border="true"
+	       mouse_opaque="true"
+	       bevel_style="in"
+	       background_visible="true"
+	       background_opaque="true"
+	       follows="left|right|bottom"
+	       bg_opaque_color="0,0,0,0.3"
+	       bg_alpha_color="blue"
+	       can_resize="false"
+	>
+	</panel>
+
+  <button bottom="55" follows="left|bottom" font="SansSerifSmall" halign="center"
+       height="20" label="Stop Selected" left_delta="5"
+       mouse_opaque="true" name="Stop Selected"
+       tool_tip="Stop selected animations" width="150" />
+  <button bottom_delta="0" follows="left|bottom" font="SansSerifSmall" halign="center"
+       height="20" label="Revoke Selected" left_delta="155"
+       mouse_opaque="true" name="Revoke Selected"
+       tool_tip="Revokes animation permissions for object associated with the selections" width="150" />
+  <button bottom_delta="0" follows="left|bottom" font="SansSerifSmall" halign="center"
+       height="20" label="Stop+Revoke Selected" left_delta="155"
+       mouse_opaque="true" name="Stop+Revoke Selected"
+       tool_tip="Revokes animation permissions for object(s) associated with the selections, as well as stopping the anim" width="150" />
+  <button bottom_delta="0" follows="left|bottom" font="SansSerifSmall" halign="center"
+       height="20" label="Open Owner Profile" left_delta="155"
+       mouse_opaque="true" name="Open Owner Profile"
+       tool_tip="Opens profile of the owner(s) of object(s) associated with the selections" width="150" />
+  <button bottom_delta="-25" enabled="false" follows="left|bottom" font="SansSerifSmall" halign="center"
+       height="20" label="Return Object" left_delta="-465"
+       mouse_opaque="true" name="Return Object"
+       tool_tip="Returns object(s) selected, if you have land powers" width="150" />
+
+</floater>

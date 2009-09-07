@@ -61,6 +61,7 @@ include_directories(
     )
 
 set(viewer_SOURCE_FILES
+	jcfloater_animation_list.cpp
     llagent.cpp
     llagentdata.cpp
     llagentlanguage.cpp
@@ -454,6 +455,7 @@ set(viewer_HEADER_FILES
     CMakeLists.txt
     ViewerInstall.cmake
 
+	jcfloater_animation_list.h
     llagent.h
     llagentdata.h
     llagentlanguage.h
@@ -1023,6 +1025,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_about_land.xml
     skins/default/xui/en-us/floater_about.xml
     skins/default/xui/en-us/floater_active_speakers.xml
+    skins/default/xui/en-us/floater_animation_list.xml
     skins/default/xui/en-us/floater_animation_preview.xml
     skins/default/xui/en-us/floater_auction.xml
     skins/default/xui/en-us/floater_audio_volume.xml
