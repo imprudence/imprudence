@@ -226,7 +226,7 @@ void JCFloaterAnimList::refresh()
 			element["id"] = LLUUID::null.combine(ai->second);
 			element["columns"][LIST_ANIMATION_NAME]["column"] = "Anim Name";
 			element["columns"][LIST_ANIMATION_NAME]["type"] = "text";
-			element["columns"][LIST_ANIMATION_NAME]["color"] = gColors.getColor("DefaultListText").getValue();
+			element["columns"][LIST_ANIMATION_NAME]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
 			if(item)
 			{
 				element["columns"][LIST_ANIMATION_NAME]["value"] = item->getName();//ai->second//"avatar_icon";
@@ -236,15 +236,15 @@ void JCFloaterAnimList::refresh()
 			}
 			element["columns"][LIST_ANIMATION_UUID]["column"] = "Animation UUID";
 			element["columns"][LIST_ANIMATION_UUID]["type"] = "text";
-			element["columns"][LIST_ANIMATION_UUID]["color"] = gColors.getColor("DefaultListText").getValue();
+			element["columns"][LIST_ANIMATION_UUID]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
 			element["columns"][LIST_ANIMATION_UUID]["value"] = ai->second;
 			element["columns"][LIST_OBJECT_UUID]["column"] = "Source Object UUID";
 			element["columns"][LIST_OBJECT_UUID]["type"] = "text";
-			element["columns"][LIST_OBJECT_UUID]["color"] = gColors.getColor("DefaultListText").getValue();
+			element["columns"][LIST_OBJECT_UUID]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
 			element["columns"][LIST_OBJECT_UUID]["value"] = aifirst;
 			element["columns"][LIST_OBJECT_OWNER]["column"] = "Source Owner";
 			element["columns"][LIST_OBJECT_OWNER]["type"] = "text";
-			element["columns"][LIST_OBJECT_OWNER]["color"] = gColors.getColor("DefaultListText").getValue();
+			element["columns"][LIST_OBJECT_OWNER]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
 			std::string name("?");
 			LLViewerObject *object = gObjectList.findObject(aifirst);
 			bool is_first = ( mObjectOwners.count( aifirst ) == 0 );

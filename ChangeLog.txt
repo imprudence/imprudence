@@ -47,6 +47,11 @@
 		modified:   linden/indra/llui/llscrolllistctrl.h
 		
 		
+     * Fixed reference to missing colors.xml entry.
+	 
+		modified:   linden/indra/newview/jcfloater_animation_list.cpp
+		
+		
 2009-09-04  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Updated GStreamer and Zlib windows libs.
