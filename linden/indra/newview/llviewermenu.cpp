@@ -5417,7 +5417,6 @@ class LLLandEdit : public view_listener_t
 
 		LLViewerParcelMgr::getInstance()->selectParcelAt( LLToolPie::getInstance()->getPick().mPosGlobal );
 
-		gFloaterTools->showMore(TRUE);
 		gFloaterView->bringToFront( gFloaterTools );
 
 		// Switch to land edit toolset
