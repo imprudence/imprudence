@@ -5,6 +5,15 @@
 		modified:   linden/indra/newview/llviewermenu.cpp
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
 		
+		
+     * Ported phantom avatar option from Emerald viewer.
+	 
+		modified:   linden/indra/newview/llagent.cpp
+		modified:   linden/indra/newview/llagent.h
+		modified:   linden/indra/newview/llappviewer.cpp
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
 
 2009-09-04  McCabe Maxsted  <hakushakukun@gmail.com>
 

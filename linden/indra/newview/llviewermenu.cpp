@@ -7583,6 +7583,36 @@ class LLAdvancedToggleSit: public view_listener_t
 };
 
 
+/////////////
+// PHANTOM //
+/////////////
+
+class LLAdvancedTogglePhantom: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLAgent::togglePhantom();
+		BOOL ph = LLAgent::getPhantom();
+		LLChat chat;
+		chat.mSourceType = CHAT_SOURCE_SYSTEM;
+		chat.mText = llformat("%s%s","Phantom ",(ph ? "On" : "Off"));
+		LLFloaterChat::addChat(chat);
+		//gMenuHolder->findControl(userdata["control"].asString())->setValue(ph);
+		return true;
+	}
+
+};
+
+class LLAdvancedCheckPhantom: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(LLAgent::getPhantom());
+		return true;
+	}
+};
+
+
 ///////////////////////
 // CLEAR GROUP CACHE //
 ///////////////////////
@@ -9599,6 +9629,8 @@ void initialize_menus()
 	addMenu(new LLWorldSetAway(), "World.SetAway");
 	addMenu(new LLWorldSetBusy(), "World.SetBusy");
 	addMenu(new LLAdvancedToggleSit(), "Advanced.ToggleSit");
+	addMenu(new LLAdvancedTogglePhantom(), "Advanced.TogglePhantom");
+	addMenu(new LLAdvancedCheckPhantom(), "Advanced.CheckPhantom");
 
 	addMenu(new LLWorldEnableCreateLandmark(), "World.EnableCreateLandmark");
 	addMenu(new LLWorldEnableSetHomeLocation(), "World.EnableSetHomeLocation");

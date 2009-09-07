@@ -232,6 +232,7 @@ LLAgent gAgent;
 // Statics
 //
 BOOL LLAgent::sDebugDisplayTarget = FALSE;
+BOOL LLAgent::sPhantom = FALSE;
 
 const F32 LLAgent::TYPING_TIMEOUT_SECS = 5.f;
 
@@ -831,6 +832,35 @@ void LLAgent::toggleFlying()
 
 	setFlying( fly );
 	resetView();
+}
+
+
+//-----------------------------------------------------------------------------
+// togglePhantom()
+//-----------------------------------------------------------------------------
+void LLAgent::togglePhantom()
+{
+	BOOL phan = !(sPhantom);
+
+	setPhantom( phan );
+}
+
+
+//-----------------------------------------------------------------------------
+// setPhantom()  lgg
+//-----------------------------------------------------------------------------
+void LLAgent::setPhantom(BOOL phantom)
+{
+	sPhantom = phantom;
+}
+
+
+//-----------------------------------------------------------------------------
+// getPhantom()  lgg
+//-----------------------------------------------------------------------------
+BOOL LLAgent::getPhantom()
+{
+	return sPhantom;
 }
 
 

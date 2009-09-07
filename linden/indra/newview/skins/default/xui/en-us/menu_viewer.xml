@@ -888,6 +888,11 @@
                     shortcut="control|alt|s">
       <on_click function="Advanced.ToggleSit" userdata="" />
     </menu_item_call>
+    <menu_item_check label="Phantom Avatar" name="Phantom" 
+                     shortcut="control|alt|p">
+      <on_click function="Advanced.TogglePhantom" userdata="" />
+      <on_check function="Advanced.CheckPhantom" userdata="" />
+    </menu_item_check>
     <menu_item_check name="Show Mouselook Crosshairs"
                      label="Show Mouselook Crosshairs">
       <on_click function="ToggleControl"
