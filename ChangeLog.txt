@@ -28,6 +28,17 @@
         modified:   linden/indra/newview/CMakeLists.txt
         modified:   linden/indra/newview/llviewermenu.cpp
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+     * Added Emerald viewer's asset browser.
+	 
+		new file:   linden/indra/newview/llfloaterassetbrowser.cpp
+		new file:   linden/indra/newview/llfloaterassetbrowser.h
+		new file:   linden/indra/newview/skins/default/xui/en-us/floater_asset_browser.xml
+		modified:   linden/indra/newview/CMakeLists.txt
+		modified:   linden/indra/newview/llfloaterassetbrowser.cpp
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
 		
 		
 2009-09-04  McCabe Maxsted  <hakushakukun@gmail.com>

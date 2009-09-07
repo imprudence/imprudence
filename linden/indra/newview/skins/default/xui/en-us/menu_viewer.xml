@@ -897,6 +897,11 @@
       <on_click function="ShowFloater" userdata="animation list" />
       <on_check function="FloaterVisible" userdata="animation list" />
     </menu_item_check>
+    <menu_item_check label="Asset Browser" name="asset browser" 
+                     shortcut="alt|shift|a">
+      <on_click function="Advanced.ToggleAssetBrowser" userdata="" />
+      <on_check function="Advanced.CheckAssetBrowser" userdata="" />
+    </menu_item_check>
     <menu_item_check name="Show Mouselook Crosshairs"
                      label="Show Mouselook Crosshairs">
       <on_click function="ToggleControl"

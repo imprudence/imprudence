@@ -211,6 +211,7 @@
 #include "lltexlayer.h"
 
 #include "jcfloater_animation_list.h"
+#include "llfloaterassetbrowser.h"
 
 void init_client_menu(LLMenuGL* menu);
 void init_server_menu(LLMenuGL* menu);
@@ -7619,6 +7620,41 @@ class LLAdvancedCheckPhantom: public view_listener_t
 };
 
 
+///////////////////
+// ASSET BROWSER //
+///////////////////
+
+class LLAdvancedToggleAssetBrowser: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		//open the floater
+		LLFloaterAssetBrowser::show(0);
+		
+		bool vis = false;
+		if(LLFloaterAssetBrowser::getInstance())
+		{
+			vis = (bool)LLFloaterAssetBrowser::getInstance()->getVisible();
+		}
+		return true;
+	}
+};
+
+class LLAdvancedCheckAssetBrowser: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool vis = false;
+		if(LLFloaterAssetBrowser::getInstance())
+		{
+			vis = (bool)LLFloaterAssetBrowser::getInstance()->getVisible();
+		}
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(vis);
+		return true;
+	}
+};
+
+
 ///////////////////////
 // CLEAR GROUP CACHE //
 ///////////////////////
@@ -9634,9 +9670,6 @@ void initialize_menus()
 	addMenu(new LLWorldTeleportHome(), "World.TeleportHome");
 	addMenu(new LLWorldSetAway(), "World.SetAway");
 	addMenu(new LLWorldSetBusy(), "World.SetBusy");
-	addMenu(new LLAdvancedToggleSit(), "Advanced.ToggleSit");
-	addMenu(new LLAdvancedTogglePhantom(), "Advanced.TogglePhantom");
-	addMenu(new LLAdvancedCheckPhantom(), "Advanced.CheckPhantom");
 
 	addMenu(new LLWorldEnableCreateLandmark(), "World.EnableCreateLandmark");
 	addMenu(new LLWorldEnableSetHomeLocation(), "World.EnableSetHomeLocation");
@@ -9786,6 +9819,10 @@ void initialize_menus()
 	addMenu(new LLAdvancedDumpInfoToConsole(), "Advanced.DumpInfoToConsole");
 	addMenu(new LLAdvancedReloadSettingsOverrides(), "Advanced.ReloadSettingsOverrides");
 	addMenu(new LLAdvancedToggleSit(), "Advanced.ToggleSit");
+	addMenu(new LLAdvancedTogglePhantom(), "Advanced.TogglePhantom");
+	addMenu(new LLAdvancedCheckPhantom(), "Advanced.CheckPhantom");
+	addMenu(new LLAdvancedToggleAssetBrowser(),"Advanced.ToggleAssetBrowser");
+	addMenu(new LLAdvancedCheckAssetBrowser(),"Advanced.CheckAssetBrowser");
 
 	// Advanced > HUD Info
 	addMenu(new LLAdvancedToggleHUDInfo(), "Advanced.ToggleHUDInfo");
