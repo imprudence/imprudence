@@ -7556,6 +7556,32 @@ class LLAdvancedCheckHUDInfo : public view_listener_t
 };
 
 
+//////////////////////
+// FORCE GROUND SIT //
+//////////////////////
+
+class LLAdvancedToggleSit: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLChat chat;
+		chat.mSourceType = CHAT_SOURCE_SYSTEM;
+		if(!gAgent.getAvatarObject()->mIsSitting)
+		{
+			gAgent.setControlFlags(AGENT_CONTROL_SIT_ON_GROUND);
+			chat.mText = "Forcing Ground Sit";
+		}
+		else
+		{
+			gAgent.setControlFlags(!AGENT_CONTROL_SIT_ON_GROUND);
+			gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
+			chat.mText = "Standing up";
+		}
+		LLFloaterChat::addChat(chat);
+		return true;
+	}
+};
+
 
 ///////////////////////
 // CLEAR GROUP CACHE //
@@ -9572,6 +9598,7 @@ void initialize_menus()
 	addMenu(new LLWorldTeleportHome(), "World.TeleportHome");
 	addMenu(new LLWorldSetAway(), "World.SetAway");
 	addMenu(new LLWorldSetBusy(), "World.SetBusy");
+	addMenu(new LLAdvancedToggleSit(), "Advanced.ToggleSit");
 
 	addMenu(new LLWorldEnableCreateLandmark(), "World.EnableCreateLandmark");
 	addMenu(new LLWorldEnableSetHomeLocation(), "World.EnableSetHomeLocation");
@@ -9720,6 +9747,7 @@ void initialize_menus()
 	addMenu(new LLAdvancedCheckConsole(), "Advanced.CheckConsole");
 	addMenu(new LLAdvancedDumpInfoToConsole(), "Advanced.DumpInfoToConsole");
 	addMenu(new LLAdvancedReloadSettingsOverrides(), "Advanced.ReloadSettingsOverrides");
+	addMenu(new LLAdvancedToggleSit(), "Advanced.ToggleSit");
 
 	// Advanced > HUD Info
 	addMenu(new LLAdvancedToggleHUDInfo(), "Advanced.ToggleHUDInfo");
