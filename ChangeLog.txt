@@ -1,12 +1,12 @@
 2009-09-06  McCabe Maxsted  <hakushakukun@gmail.com>
 
-     * Ported sit anywhere feature from Emerald viewer.
+     * Applied sit anywhere feature from Emerald viewer.
 	 
 		modified:   linden/indra/newview/llviewermenu.cpp
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
 		
 		
-     * Ported phantom avatar option from Emerald viewer.
+     * Applied phantom avatar feature from Emerald viewer.
 	 
 		modified:   linden/indra/newview/llagent.cpp
 		modified:   linden/indra/newview/llagent.h
@@ -52,6 +52,12 @@
 		modified:   linden/indra/newview/jcfloater_animation_list.cpp
 		
 		
+     * Fixed ground sit menu entry missing check.
+	 
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
 2009-09-04  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Updated GStreamer and Zlib windows libs.

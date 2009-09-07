@@ -7589,6 +7589,22 @@ class LLAdvancedToggleSit: public view_listener_t
 	}
 };
 
+class LLAdvancedCheckSit : public view_listener_t
+{
+    bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+    {
+		if(gAgent.getAvatarObject()->mIsSitting)
+		{
+			gMenuHolder->findControl(userdata["control"].asString())->setValue(true);
+		}
+		else
+		{
+			gMenuHolder->findControl(userdata["control"].asString())->setValue(false);
+		}
+		return true;
+	}
+};
+
 
 /////////////
 // PHANTOM //
@@ -9819,6 +9835,7 @@ void initialize_menus()
 	addMenu(new LLAdvancedDumpInfoToConsole(), "Advanced.DumpInfoToConsole");
 	addMenu(new LLAdvancedReloadSettingsOverrides(), "Advanced.ReloadSettingsOverrides");
 	addMenu(new LLAdvancedToggleSit(), "Advanced.ToggleSit");
+	addMenu(new LLAdvancedCheckSit(), "Emerald.CheckSit");
 	addMenu(new LLAdvancedTogglePhantom(), "Advanced.TogglePhantom");
 	addMenu(new LLAdvancedCheckPhantom(), "Advanced.CheckPhantom");
 	addMenu(new LLAdvancedToggleAssetBrowser(),"Advanced.ToggleAssetBrowser");
