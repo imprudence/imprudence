@@ -41,6 +41,12 @@
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
 		
 		
+     * Added LLScrollListCtrl::getSelectedIDs().
+
+		modified:   linden/indra/llui/llscrolllistctrl.cpp
+		modified:   linden/indra/llui/llscrolllistctrl.h
+		
+		
 2009-09-04  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Updated GStreamer and Zlib windows libs.
