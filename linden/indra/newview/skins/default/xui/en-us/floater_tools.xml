@@ -386,20 +386,36 @@
 			     height="20" label="Profile..." label_selected="Profile..." left_delta="94"
 			     mouse_opaque="true" name="button owner profile" scale_image="TRUE"
 			     width="78" />
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+			     mouse_opaque="true" name="LastOwner:" v_pad="0" width="78">
+        Last Owner:
+      </text>
+      <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
+			     mouse_opaque="true" name="Last Owner Name" v_pad="0" width="88">
+        Thrax Linden
+      </text>
+      <button bottom_delta="0" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" label="Profile..." label_selected="Profile..." left_delta="94"
+			     mouse_opaque="true" name="button last owner profile" scale_image="TRUE"
+			     width="78" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-106" drop_shadow_visible="true" follows="left|top"
+			     bottom="-126" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
 			     mouse_opaque="true" name="Group:" v_pad="0" width="78">
 				Group:
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-106" drop_shadow_visible="true" follows="left|top"
+			     bottom="-126" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
 			     mouse_opaque="true" name="Group Name Proxy" v_pad="0" visible="false"
 			     width="88">
 				The Lindens
 			</text>
-			<button bottom="-106" follows="top|right" font="SansSerifSmall" halign="center"
+			<button bottom="-126" follows="top|right" font="SansSerifSmall" halign="center"
 			     height="20" label="Set..." label_selected="Set..." left_delta="94"
 			     mouse_opaque="true" name="button set group" scale_image="TRUE" width="78" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -425,7 +441,7 @@
 			<string name="text deed">
 				Deed
 			</string>
-			<button bottom="-186" follows="top|right" font="SansSerifSmall" halign="center"
+			<button bottom_delta="0" follows="top|right" font="SansSerifSmall" halign="center"
 			     height="20" label="Deed..." label_selected="Deed..." left_delta="172"
 			     mouse_opaque="true" name="button deed" scale_image="TRUE"
 			     tool_tip="Group shared objects can be deeded by a group officer."

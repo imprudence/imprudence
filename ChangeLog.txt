@@ -9,6 +9,13 @@
 		modified:   linden/scripts/messages/message_template.msg
 
 
+     * Applied last owner in tools window from Emerald viewer.
+	 
+		modified:   linden/indra/newview/llpanelpermissions.cpp
+		modified:   linden/indra/newview/llpanelpermissions.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+
+
 2009-09-06  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Applied sit anywhere feature from Emerald viewer.
