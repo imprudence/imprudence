@@ -322,7 +322,7 @@ BOOL	LLFloaterTools::postBuild()
 
 	mSliderDozerSize = getChild<LLSlider>("slider brush size");
 	childSetCommitCallback("slider brush size", commit_slider_dozer_size,  (void*)0);
-	childSetValue( "slider brush size", gSavedSettings.getS32("LandBrushSize"));
+	childSetValue( "slider brush size", gSavedSettings.getF32("LandBrushSize"));
 	
 
 	mSliderDozerForce = getChild<LLSlider>("slider force");

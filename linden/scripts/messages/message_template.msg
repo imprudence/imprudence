@@ -594,7 +594,7 @@ version 2.0
 // global x,y,z.  Otherwise, use center of the AABB.
 // reliable
 {
-	PlacesReply Low 30 Trusted Zerocoded
+	PlacesReply Low 30 Trusted Zerocoded UDPDeprecated
 	{
 		AgentData		Single
 		{	AgentID		LLUUID		}
@@ -1036,7 +1036,7 @@ version 2.0
 // dataserver -> simulator -> viewer
 // reliable
 {
-	DirLandReply Low 50 Trusted Zerocoded
+	DirLandReply Low 50 Trusted Zerocoded UDPDeprecated
 	{
 		AgentData			Single
 		{	AgentID			LLUUID	}
@@ -2588,6 +2588,10 @@ version 2.0
 		{	South			F32		}
 		{	East			F32		}
 		{	North			F32		}
+	}
+	{
+		ModifyBlockExtended Variable
+		{   BrushSize       F32 }
 	}
 }
 
@@ -8717,7 +8721,7 @@ version 2.0
 
 // spaceserver -> simulator
 {
-	RpcScriptRequestInboundForward Low 416 Trusted Unencoded
+	RpcScriptRequestInboundForward Low 416 Trusted Unencoded UDPDeprecated
 	{
 		DataBlock Single
 		{	RPCServerIP	IPADDR }

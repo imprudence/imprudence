@@ -1,3 +1,14 @@
+2009-09-07  McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Fixed tool brush size. 
+	 
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/llfloatertools.cpp
+		modified:   linden/indra/newview/lltoolbrush.cpp
+		modified:   linden/indra/newview/lltoolbrush.h
+		modified:   linden/scripts/messages/message_template.msg
+
+
 2009-09-06  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Applied sit anywhere feature from Emerald viewer.
