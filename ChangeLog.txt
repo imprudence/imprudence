@@ -12,6 +12,12 @@
 		modified:   linden/indra/newview/skins/default/xui/en-us/panel_chat_bar.xml
 		modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_chat.xml
 		modified:   linden/indra/newview/skins/default/xui/en-us/floater_chat_history.xml
+		
+		
+     * New chat channel preference should change only on apply.
+	 
+		modified:   linden/indra/newview/llprefschat.cpp
+        modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_chat.xml
 
 
 2009-09-07  McCabe Maxsted  <hakushakukun@gmail.com>

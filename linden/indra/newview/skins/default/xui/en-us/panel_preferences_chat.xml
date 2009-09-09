@@ -145,7 +145,7 @@
 	     label="Play typing animation when chatting" left="148" mouse_opaque="true"
 	     name="play_typing_animation" radio_style="false" width="237" />
   <check_box bottom_delta="-18" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false" control_name="ChatChannelSelect"
+	     font="SansSerifSmall" height="16" initial_value="false" 
        label="Show custom chat channel" left="148" mouse_opaque="true"
 	     name="toggle_channel_control" radio_style="false" width="237" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
