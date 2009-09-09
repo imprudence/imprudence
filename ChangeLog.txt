@@ -18,6 +18,11 @@
 	 
 		modified:   linden/indra/newview/llprefschat.cpp
         modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_chat.xml
+		
+		
+     * Commented out permissions button (todo: backport this if there's time).
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
 
 
 2009-09-07  McCabe Maxsted  <hakushakukun@gmail.com>

@@ -1240,9 +1240,9 @@
 			      label="New Script" label_selected="New Script..."
 			     left="10" mouse_opaque="true" name="button new script" scale_image="TRUE"
 			     width="100" />
-      <button bottom_delta="0" left_delta="110" width="100" height="20" follows="left|top"
+      <!--<button bottom_delta="0" left_delta="110" width="100" height="20" follows="left|top"
             label="Permissions..." name="button permissions" font="SansSerif" halign="center"
-            mouse_opaque="true" scale_image="TRUE" />
+            mouse_opaque="true" scale_image="TRUE" />-->
 			<panel bottom_delta="-330" follows="left|top" height="325"  left="10"
 			     mouse_opaque="true" name="ContentsInventory" width="252" />
 		</panel>
