@@ -1,3 +1,11 @@
+2009-09-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Commented out Linux tarball building.
+	  It's a waste of time to package after every compile.
+
+		modified:   linden/indra/newview/viewer_manifest.py
+
+
 2009-09-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Created my own version of Emerald's chat channel tool. 
