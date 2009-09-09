@@ -32,6 +32,8 @@
 
 #include "llviewerprecompiledheaders.h"
 
+#include "llchatbar.h"
+#include "llfloaterchat.h"
 #include "llprefschat.h"
 #include "lltexteditor.h"
 #include "llviewercontrol.h"
@@ -45,9 +47,12 @@ class LLPrefsChatImpl : public LLPanel
 public:
 	LLPrefsChatImpl();
 	/*virtual*/ ~LLPrefsChatImpl(){};
+	/*virtual*/ BOOL postBuild();
 
 	void apply();
 	void cancel();
+
+	static void onCheckToggleChannel(LLUICtrl* ctrl, void* user_data);
 
 protected:
 	S32	mChatSize;
@@ -72,7 +77,6 @@ protected:
 	F32	mConsoleOpacity;
 	F32	mBubbleOpacity;
 };
-
 
 LLPrefsChatImpl::LLPrefsChatImpl()
 	:	LLPanel(std::string("Chat Panel"))
@@ -128,6 +132,13 @@ LLPrefsChatImpl::LLPrefsChatImpl()
 	mBubbleOpacity = gSavedSettings.getF32("ChatBubbleOpacity");
 }
 
+BOOL LLPrefsChatImpl::postBuild()
+{
+	childSetCommitCallback("toggle_channel_control",onCheckToggleChannel, this);
+
+	return TRUE;
+}
+
 void LLPrefsChatImpl::cancel()
 {
 	gSavedSettings.setS32("ChatFontSize", mChatSize);
@@ -181,6 +192,16 @@ void LLPrefsChatImpl::apply()
 
 	gSavedSettings.setF32("ConsoleBackgroundOpacity", childGetValue("console_opacity").asReal());
 	gSavedSettings.setF32("ChatBubbleOpacity", childGetValue("bubble_chat_opacity").asReal());
+}
+
+// static
+void LLPrefsChatImpl::onCheckToggleChannel(LLUICtrl* ctrl, void* user_data)
+{
+	if (gChatBar)
+	{
+		gChatBar->toggleChannelControl();
+		LLFloaterChat::toggleHistoryChannelControl();
+	}
 }
 
 //---------------------------------------------------------------------------

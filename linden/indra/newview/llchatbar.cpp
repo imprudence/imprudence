@@ -53,6 +53,7 @@
 #include "llkeyboard.h"
 #include "lllineeditor.h"
 #include "llstatusbar.h"
+#include "llspinctrl.h"
 #include "lltextbox.h"
 #include "lluiconstants.h"
 #include "llviewergesture.h"			// for triggering gestures
@@ -98,6 +99,7 @@ private:
 
 LLChatBar::LLChatBar() 
 :	LLPanel(LLStringUtil::null, LLRect(), BORDER_NO),
+	mChannelControl(FALSE),
 	mInputEditor(NULL),
 	mGestureLabelTimer(),
 	mLastSpecialChatChannel(0),
@@ -150,6 +152,8 @@ BOOL LLChatBar::postBuild()
 		mInputEditor->setMaxTextLength(1023);
 		mInputEditor->setEnableLineHistory(TRUE);
 	}
+
+	toggleChannelControl();
 
 	mIsBuilt = TRUE;
 
@@ -210,6 +214,7 @@ void LLChatBar::refresh()
 
 	childSetValue("History", LLFloaterChat::instanceVisible(LLSD()));
 
+	childSetValue("channel_control",( 1.f * ((S32)(getChild<LLSpinCtrl>("channel_control")->get()))) );
 	childSetEnabled("Say", mInputEditor->getText().size() > 0);
 	childSetEnabled("Shout", mInputEditor->getText().size() > 0);
 
@@ -370,8 +375,11 @@ LLWString LLChatBar::stripChannelNumber(const LLWString &mesg, S32* channel)
 	}
 	else
 	{
-		// This is normal chat.
-		*channel = 0;
+		if (!mChannelControl)
+		{
+			// This is normal chat.
+			*channel = 0;
+		}
 		return mesg;
 	}
 }
@@ -387,7 +395,8 @@ void LLChatBar::sendChat( EChatType type )
 			// store sent line in history, duplicates will get filtered
 			if (mInputEditor) mInputEditor->updateHistory();
 			// Check if this is destined for another channel
-			S32 channel = 0;
+			S32 channel = mChannelControl ? (S32)(getChild<LLSpinCtrl>("channel_control")->get()) : 0;
+
 			stripChannelNumber(text, &channel);
 			
 			std::string utf8text = wstring_to_utf8str(text);
@@ -423,6 +432,31 @@ void LLChatBar::sendChat( EChatType type )
 	{
 		stopChat();
 	}
+}
+
+void LLChatBar::toggleChannelControl()
+{
+	LLRect input_rect = mInputEditor->getRect();
+	S32 chan_width = getChild<LLSpinCtrl>("channel_control")->getRect().getWidth();
+	BOOL visible = gSavedSettings.getBOOL("ChatChannelSelect");
+	BOOL control = getChild<LLSpinCtrl>("channel_control")->getVisible();
+
+	if (visible && !control)
+	{
+		input_rect.setLeftTopAndSize(input_rect.mLeft+chan_width, input_rect.mTop, 
+									 input_rect.getWidth()-chan_width, input_rect.getHeight());
+	}
+	else if (!visible && control)
+	{
+		input_rect.setLeftTopAndSize(input_rect.mLeft-chan_width, input_rect.mTop, 
+									 input_rect.getWidth()+chan_width, input_rect.getHeight());
+		
+	}
+	mInputEditor->setRect(input_rect);
+
+	childSetVisible("channel_control", visible);
+	childSetEnabled("channel_control", visible);
+	mChannelControl = visible;
 }
 
 
@@ -575,7 +609,8 @@ void LLChatBar::sendChatFromViewer(const std::string &utf8text, EChatType type, 
 void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL animate)
 {
 	// Look for "/20 foo" channel chats.
-	S32 channel = 0;
+	S32 channel = mChannelControl ? (S32)(getChild<LLSpinCtrl>("channel_control")->get()) : 0;
+	//S32 channel = (S32)(getChild<LLSpinCtrl>("ChatChannel")->get());
 	LLWString out_text = stripChannelNumber(wtext, &channel);
 	std::string utf8_out_text = wstring_to_utf8str(out_text);
 	std::string utf8_text = wstring_to_utf8str(wtext);

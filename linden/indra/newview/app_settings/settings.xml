@@ -1105,6 +1105,17 @@
       <key>Value</key>
       <real>0.5</real>
     </map>
+    <key>ChatChannelSelect</key>
+    <map>
+      <key>Comment</key>
+      <string>Toggle custom channel controls in the chat bar</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>ChatFontSize</key>
     <map>
       <key>Comment</key>

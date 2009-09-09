@@ -1,3 +1,19 @@
+2009-09-08  McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Created my own version of Emerald's chat channel tool. 
+
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/llchatbar.cpp
+		modified:   linden/indra/newview/llchatbar.h
+		modified:   linden/indra/newview/llfloaterchat.cpp
+		modified:   linden/indra/newview/llfloaterchat.h
+		modified:   linden/indra/newview/llprefschat.cpp
+		modified:   linden/indra/newview/llprefsim.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_chat_bar.xml
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_chat.xml
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_chat_history.xml
+
+
 2009-09-07  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Fixed tool brush size. 
@@ -9,7 +25,7 @@
 		modified:   linden/scripts/messages/message_template.msg
 
 
-     * Applied last owner in tools window from Emerald viewer.
+     * Applied and tweaked last owner in tools window from Emerald viewer.
 	 
 		modified:   linden/indra/newview/llpanelpermissions.cpp
 		modified:   linden/indra/newview/llpanelpermissions.h
