@@ -1,3 +1,12 @@
+ 2009-09-09  McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Applied ReinstateShowTextureUUID Cool Viewer patch (reverts the "fix" for VWR-1919).
+	   Patch by Henri Beauchamp, modified by McCabe Maxsted.
+
+		modified:   linden/indra/newview/lltexturectrl.cpp
+		modified:   linden/indra/newview/llviewermenu.cpp
+		
+		
 2009-09-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Created my own version of Emerald's chat channel tool. 
