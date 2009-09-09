@@ -2237,6 +2237,23 @@ Offer friendship to [NAME]?
 			Cancel
 		</option>
 	</alert>
+	<alert modal="true" name="AddFriendWithMessage" title="Add Friend">
+		<message name="message">
+Friends can give permissions to track each
+other on the map and receive online status updates.
+
+Offer friendship to [NAME]?
+		</message>
+		<editline name="editline">
+			Would you be my friend?
+		</editline>
+		<option name="Offer">
+			OK
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
 	<alert modal="true" name="RemoveFromFriends">
 		<message name="message">
 			Do you want to remove [FIRST_NAME] [LAST_NAME] from your Friends List?

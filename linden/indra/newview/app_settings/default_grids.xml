@@ -1,0 +1,51 @@
+<llsd>
+  <array>
+
+    <!--
+        This file contains fallback settings only.
+        The actual list of grids is loaded from a web server.
+    -->
+
+    <map>
+      <key>default_grids_version</key><string>0</string>
+    </map>
+
+    <!-- OSGrid -->
+    <map>
+      <key>gridnick</key><string>osgrid</string>
+      <key>gridname</key><string>OSGrid</string>
+      <key>platform</key><string>OpenSim</string>
+      <key>loginuri</key><string>http://osgrid.org:8002/</string>
+      <key>loginpage</key><string>http://osgrid.org/loginscreen.php</string>
+      <key>helperuri</key><string>http://osgrid.org/</string>
+      <key>website</key><string>http://osgrid.org/</string>
+      <key>support</key><string>http://osgrid.org/</string>
+      <key>register</key><string>http://osgrid.org/index.php?page=create</string>
+      <key>password</key><string>http://osgrid.org/index.php?page=change</string>
+    </map>
+
+    <!-- Second Life -->
+    <map>
+      <key>gridnick</key><string>secondlife</string>
+      <key>gridname</key><string>Second Life</string>
+      <key>platform</key><string>SecondLife</string>
+      <key>loginuri</key><string>https://login.agni.lindenlab.com/cgi-bin/login.cgi</string>
+      <key>loginpage</key><string>http://secondlife.com/app/login/</string>
+      <key>helperuri</key><string>https://secondlife.com/helpers/</string>
+      <key>website</key><string>http://secondlife.com/</string>
+      <key>support</key><string>http://secondlife.com/support/</string>
+      <key>register</key><string>http://secondlife.com/registration/</string>
+      <key>password</key><string>http://secondlife.com/account/request.php</string>
+    </map>
+
+    <!-- Local Host -->
+    <map>
+      <key>gridnick</key><string>local</string>
+      <key>gridname</key><string>Local Host</string>
+      <key>platform</key><string>OpenSim</string>
+      <key>loginuri</key><string>http://127.0.0.1:9000/</string>
+      <key>helperuri</key><string>http://127.0.0.1:9000/</string>
+    </map>
+
+  </array>
+</llsd>

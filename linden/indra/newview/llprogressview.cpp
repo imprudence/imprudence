@@ -407,7 +407,7 @@ void LLProgressView::onCancelButtonClicked(void*)
 {
 	if (gAgent.getTeleportState() == LLAgent::TELEPORT_NONE)
 	{
-		LLAppViewer::instance()->requestQuit();
+		LLAppViewer::instance()->requestLogout(true);
 	}
 	else
 	{

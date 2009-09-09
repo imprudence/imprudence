@@ -958,6 +958,7 @@ void LLInventoryView::cleanup()
 	{
 		sActiveViews.get(i)->destroy();
 	}
+	gInventory.empty();
 }
 
 void LLInventoryView::toggleFindOptions()
