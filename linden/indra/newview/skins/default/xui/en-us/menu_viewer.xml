@@ -892,6 +892,25 @@
                 userdata="QuietSnapshotsToDisk" />
       <on_check control="QuietSnapshotsToDisk" />
     </menu_item_check>
+    <menu_item_call label="Ground Sit" name="Ground Sit" 
+                    shortcut="control|alt|s">
+      <on_click function="Advanced.ToggleSit" userdata="" />
+      <on_Check function="Advanced.CheckSit" userdata="" />
+    </menu_item_call>
+    <menu_item_check label="Phantom Avatar" name="Phantom" 
+                     shortcut="control|alt|p">
+      <on_click function="Advanced.TogglePhantom" userdata="" />
+      <on_check function="Advanced.CheckPhantom" userdata="" />
+    </menu_item_check>
+    <menu_item_check label="Animation List" name="Animation List">
+      <on_click function="ShowFloater" userdata="animation list" />
+      <on_check function="FloaterVisible" userdata="animation list" />
+    </menu_item_check>
+    <menu_item_check label="Asset Browser" name="asset browser" 
+                     shortcut="alt|shift|a">
+      <on_click function="Advanced.ToggleAssetBrowser" userdata="" />
+      <on_check function="Advanced.CheckAssetBrowser" userdata="" />
+    </menu_item_check>
     <menu_item_check name="Show Mouselook Crosshairs"
                      label="Show Mouselook Crosshairs">
       <on_click function="ToggleControl"

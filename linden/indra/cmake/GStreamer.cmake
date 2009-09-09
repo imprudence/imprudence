@@ -11,6 +11,7 @@ if (WINDOWS)
 
   use_prebuilt_binary(libxml)
   use_prebuilt_binary(iconv)
+  use_prebuilt_binary(glib)
   use_prebuilt_binary(gstreamer-plugins)
   set(GSTREAMER_FOUND ON FORCE BOOL)
   set(GSTREAMER_INCLUDE_DIRS

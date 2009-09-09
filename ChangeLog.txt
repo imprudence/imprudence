@@ -1,3 +1,109 @@
+2009-09-08  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Created my own version of Emerald's chat channel tool. 
+
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/llchatbar.cpp
+		modified:   linden/indra/newview/llchatbar.h
+		modified:   linden/indra/newview/llfloaterchat.cpp
+		modified:   linden/indra/newview/llfloaterchat.h
+		modified:   linden/indra/newview/llprefschat.cpp
+		modified:   linden/indra/newview/llprefsim.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_chat_bar.xml
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_chat.xml
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_chat_history.xml
+
+
+	* New chat channel preference should change only on apply.
+
+		modified:   linden/indra/newview/llprefschat.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_chat.xml
+
+
+	* Commented out permissions button
+	  (todo: backport this if there's time).
+
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+
+
+2009-09-07  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed tool brush size. 
+
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/llfloatertools.cpp
+		modified:   linden/indra/newview/lltoolbrush.cpp
+		modified:   linden/indra/newview/lltoolbrush.h
+		modified:   linden/scripts/messages/message_template.msg
+
+
+	* Applied and tweaked last owner in tools window from Emerald viewer.
+
+		modified:   linden/indra/newview/llpanelpermissions.cpp
+		modified:   linden/indra/newview/llpanelpermissions.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+
+
+2009-09-06  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Applied sit anywhere feature from Emerald viewer.
+
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+	* Applied phantom avatar feature from Emerald viewer.
+
+		modified:   linden/indra/newview/llagent.cpp
+		modified:   linden/indra/newview/llagent.h
+		modified:   linden/indra/newview/llappviewer.cpp
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+	* Start fetching inventory at startup.
+
+		modified:   linden/indra/newview/llstartup.cpp
+
+
+	* Added Emerald viewer's animation list.
+
+		new file:   linden/indra/newview/jcfloater_animation_list.cpp
+		new file:   linden/indra/newview/jcfloater_animation_list.h
+		new file:   linden/indra/newview/skins/default/xui/en-us/floater_animation_list.xml
+		modified:   linden/indra/newview/CMakeLists.txt
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+	* Added Emerald viewer's asset browser.
+
+		new file:   linden/indra/newview/llfloaterassetbrowser.cpp
+		new file:   linden/indra/newview/llfloaterassetbrowser.h
+		new file:   linden/indra/newview/skins/default/xui/en-us/floater_asset_browser.xml
+		modified:   linden/indra/newview/CMakeLists.txt
+		modified:   linden/indra/newview/llfloaterassetbrowser.cpp
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+	* Added LLScrollListCtrl::getSelectedIDs().
+
+		modified:   linden/indra/llui/llscrolllistctrl.cpp
+		modified:   linden/indra/llui/llscrolllistctrl.h
+
+
+	* Fixed reference to missing colors.xml entry.
+
+		modified:   linden/indra/newview/jcfloater_animation_list.cpp
+
+
+	* Fixed ground sit menu entry missing check.
+
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
 2009-09-05  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Converted RLVa menu items to XUI.
@@ -98,6 +204,48 @@
 		new file:   linden/indra/newview/skins/default/xui/en-us/floater_rlv_behaviour.xml
 
 
+2009-09-04  McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Updated GStreamer and Zlib windows libs.
+
+		modified:   linden/indra/cmake/CopyWinLibs.cmake
+		modified:   linden/install.xml
+		
+		
+     * Fixed inability to minimize chat history.
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_chat_history.xml
+		
+		
+     * Rebranded startup loading page to Imprudence.
+	 
+		modified:   linden/indra/newview/skins/default/html/en-us/loading/loading.html
+		new file:   linden/indra/newview/skins/default/html/en-us/loading/imprudence_loading.png
+		
+		
+     * Cherry-picked Armin's middle mouse copy branch.
+	 * Cherry-picked Armin's double-click tp inworld branch.
+	 
+	 
+	 * Added 'Go Here' to object pie menu.
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
+		
+		
+     * Integrated 1.23's tool floater with link/unlink buttons.
+	 
+		modified:   linden/indra/newview/llfloatertelehub.cpp
+		modified:   linden/indra/newview/llfloatertools.cpp
+		modified:   linden/indra/newview/llfloatertools.h
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+		
+
+     * Fixed tree/grass label not hiding.
+	 
+		modified:   linden/indra/newview/llfloatertools.cpp
+
+		
 2009-09-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Backported 1.23 fix for animation joint assertion crash.
@@ -130,7 +278,19 @@
 		modified:   linden/indra/lib/python/indra/ipc/llmessage.py
 		modified:   linden/scripts/install.py
 
-	
+
+2009-08-29  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed OpenAL CMake error
+
+		modified:   linden/indra/cmake/OPENAL.cmake
+
+
+	* Fixed CMake not finding GLib on windows.
+
+		modified:   linden/indra/cmake/GStreamer.cmake
+
+
 2009-06-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added IM preference for showing IMs in either main or local chat.

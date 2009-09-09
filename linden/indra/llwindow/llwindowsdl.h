@@ -79,9 +79,15 @@ public:
 	/*virtual*/ void captureMouse();
 	/*virtual*/ void releaseMouse();
 	/*virtual*/ void setMouseClipping( BOOL b );
+
 	/*virtual*/ BOOL isClipboardTextAvailable();
 	/*virtual*/ BOOL pasteTextFromClipboard(LLWString &dst);
 	/*virtual*/ BOOL copyTextToClipboard(const LLWString & src);
+
+	/*virtual*/ BOOL isPrimaryTextAvailable();
+	/*virtual*/ BOOL pasteTextFromPrimary(LLWString &dst);
+	/*virtual*/ BOOL copyTextToPrimary(const LLWString & src);
+ 
 	/*virtual*/ void flashIcon(F32 seconds);
 	/*virtual*/ F32 getGamma();
 	/*virtual*/ BOOL setGamma(const F32 gamma); // Set the gamma
@@ -123,7 +129,6 @@ public:
 	// Not great that these are public, but they have to be accessible
 	// by non-class code and it's better than making them global.
 #if LL_X11
-	// These are set up by the X11 clipboard initialization code
 	Window mSDL_XWindowID;
 	Display *mSDL_Display;
 #endif
@@ -206,12 +211,6 @@ protected:
 
 #if LL_X11
 private:
-	// more X11 clipboard stuff
-	int init_x11clipboard(void);
-	void quit_x11clipboard(void);
-	int is_empty_x11clipboard(void);
-	void put_x11clipboard(int type, int srclen, const char *src);
-	void get_x11clipboard(int type, int *dstlen, char **dst);
 	void x11_set_urgent(BOOL urgent);
 	BOOL mFlashing;
 	LLTimer mFlashTimer;

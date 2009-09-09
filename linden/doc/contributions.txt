@@ -61,11 +61,14 @@ Alissa Sabre
         VWR-7168
         VWR-7087
         VWR-7086
+	VWR-9190
 	VWR-10728
 Angus Boyd
 	VWR-592
 Argent Stonecutter
 	VWR-68
+Armin Weatherwax
+	VWR-8436
 Asuka Neely
   VWR-3434
 Balp Allen

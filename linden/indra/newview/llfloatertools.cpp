@@ -54,6 +54,7 @@
 #include "llpanelobject.h"
 #include "llpanelvolume.h"
 #include "llpanelpermissions.h"
+#include "llresmgr.h"
 #include "llselectmgr.h"
 #include "llslider.h"
 #include "llstatusbar.h"
@@ -321,7 +322,7 @@ BOOL	LLFloaterTools::postBuild()
 
 	mSliderDozerSize = getChild<LLSlider>("slider brush size");
 	childSetCommitCallback("slider brush size", commit_slider_dozer_size,  (void*)0);
-	childSetValue( "slider brush size", gSavedSettings.getS32("LandBrushSize"));
+	childSetValue( "slider brush size", gSavedSettings.getF32("LandBrushSize"));
 	
 
 	mSliderDozerForce = getChild<LLSlider>("slider force");
@@ -329,14 +330,10 @@ BOOL	LLFloaterTools::postBuild()
 	// the setting stores the actual force multiplier, but the slider is logarithmic, so we convert here
 	childSetValue( "slider force", log10(gSavedSettings.getF32("LandBrushForce")));
 
-	childSetAction("button more", click_show_more, this);
-	childSetAction("button less", click_show_more, this);
 	mTab = getChild<LLTabContainer>("Object Info Tabs");
 	if(mTab)
 	{
-		mTab->setVisible( gSavedSettings.getBOOL("ToolboxShowMore") );
 		mTab->setFollows(FOLLOWS_TOP | FOLLOWS_LEFT);
-		mTab->setVisible( gSavedSettings.getBOOL("ToolboxShowMore") );
 		mTab->setBorderVisible(FALSE);
 		mTab->selectFirstTab();
 	}
@@ -436,19 +433,6 @@ LLFloaterTools::LLFloaterTools()
 	factory_map["land info panel"] = LLCallbackMap(createPanelLandInfo, this);//LLPanelLandInfo
 
 	LLUICtrlFactory::getInstance()->buildFloater(this,"floater_tools.xml",&factory_map,FALSE);
-
-	mLargeHeight = getRect().getHeight();
-	mSmallHeight = mLargeHeight;
-	if (mTab) mSmallHeight -= mTab->getRect().getHeight();
-	
-	// force a toggle initially. seems to be needed to correctly initialize 
-	// both "more" and "less" cases. it also seems to be important to begin
-	// with the user's preference first so that it's initial position will
-	// be correct (SL-51192) -MG
-	BOOL show_more = gSavedSettings.getBOOL("ToolboxShowMore"); // get user's preference
-	gSavedSettings.setBOOL("ToolboxShowMore", show_more); // sets up forced toggle below
-	showMore( !show_more ); // does the toggle
-	showMore(  show_more ); // reset the real user's preference
 }
 
 LLFloaterTools::~LLFloaterTools()
@@ -492,6 +476,16 @@ void LLFloaterTools::refresh()
 	mTab->enableTabButton(idx_face, all_volume);
 	mTab->enableTabButton(idx_contents, all_volume);
 
+	// Refresh object and prim count labels
+	LLLocale locale(LLLocale::USER_LOCALE);
+	std::string obj_count_string;
+	LLResMgr::getInstance()->getIntegerString(obj_count_string, LLSelectMgr::getInstance()->getSelection()->getRootObjectCount());
+	childSetTextArg("obj_count",  "[COUNT]", obj_count_string);	
+	std::string prim_count_string;
+	LLResMgr::getInstance()->getIntegerString(prim_count_string, LLSelectMgr::getInstance()->getSelection()->getObjectCount());
+	childSetTextArg("prim_count", "[COUNT]", prim_count_string);
+
+	// Refresh child tabs
 	mPanelPermissions->refresh();
 	mPanelObject->refresh();
 	mPanelVolume->refresh();
@@ -799,8 +793,8 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	if (mSliderDozerSize)
 	{
 		mSliderDozerSize	->setVisible( land_visible );
-		childSetVisible("Brush:", land_visible);
-		childSetVisible("Brush Size:", land_visible);
+		childSetVisible("Bulldozer:", land_visible);
+		childSetVisible("Dozer Size:", land_visible);
 	}
 	if (mCheckShowOwners)
 	{
@@ -812,13 +806,10 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 		childSetVisible("Strength:", land_visible);
 	}
 
-	//
-	// More panel visibility
-	//
-	BOOL show_more = gSavedSettings.getBOOL("ToolboxShowMore");
-
-	mTab->setVisible(show_more && tool != LLToolBrushLand::getInstance() && tool != LLToolSelectLand::getInstance());
-	mPanelLandInfo->setVisible(show_more && (tool == LLToolBrushLand::getInstance() || tool == LLToolSelectLand::getInstance()));
+	childSetVisible("obj_count", !land_visible);
+	childSetVisible("prim_count", !land_visible);
+	mTab->setVisible(!land_visible);
+	mPanelLandInfo->setVisible(land_visible);
 }
 
 
@@ -873,44 +864,10 @@ void LLFloaterTools::onClose(bool app_quitting)
 	// gMenuBarView->arrange();
 }
 
-void LLFloaterTools::showMore(BOOL show_more)
-{
-	BOOL showing_more = gSavedSettings.getBOOL("ToolboxShowMore");
-	if (show_more == showing_more)
-	{
-		return;
-	}
-	
-	gSavedSettings.setBOOL("ToolboxShowMore", show_more);
-
-	// Visibility updated next frame - JC
-	// mTab->setVisible(show_more);
-
-	if (show_more)
-	{
-		reshape( getRect().getWidth(), mLargeHeight, TRUE);
-		translate( 0, mSmallHeight - mLargeHeight );
-	}
-	else
-	{
-		reshape( getRect().getWidth(), mSmallHeight, TRUE);
-		translate( 0, mLargeHeight - mSmallHeight );
-	}
-	childSetVisible("button less",  show_more);
-	childSetVisible("button more", !show_more);
-}
-
 void LLFloaterTools::showPanel(EInfoPanel panel)
 {
 	llassert(panel >= 0 && panel < PANEL_COUNT);
 	mTab->selectTabByName(PANEL_NAMES[panel]);
-}
-
-void click_show_more(void *userdata)
-{
-	LLFloaterTools *f = (LLFloaterTools *)userdata;
-	BOOL show_more = !gSavedSettings.getBOOL("ToolboxShowMore");
-	f->showMore( show_more );
 }
 
 void click_popup_info(void*)
@@ -997,8 +954,8 @@ void click_popup_dozer_mode(LLUICtrl *, void *user)
 
 void commit_slider_dozer_size(LLUICtrl *ctrl, void*)
 {
-	S32 size = (S32)ctrl->getValue().asInteger();
-	gSavedSettings.setS32("LandBrushSize", size);
+	F32 size = (F32)ctrl->getValue().asReal();
+	gSavedSettings.setF32("LandBrushSize", size);
 }
 
 void commit_slider_dozer_force(LLUICtrl *ctrl, void*)
@@ -1086,15 +1043,15 @@ void LLFloaterTools::onFocusReceived()
 
 void LLFloaterTools::updateTreeGrassCombo(bool visible)
 {
+	LLTextBox* tree_grass_label = getChild<LLTextBox>("tree_grass_label");
 	if (visible) 
 	{
 		LLPCode pcode = LLToolPlacer::getObjectType();
 		std::map<std::string, S32>::iterator it, end;
 		std::string selected;
-		LLTextBox* tree_grass_label = getChild<LLTextBox>("tree_grass_label");
 		if (pcode == LLToolPlacerPanel::sTree) 
 		{
-			tree_grass_label->setVisible(true);
+			tree_grass_label->setVisible(visible);
 			LLButton* button = getChild<LLButton>("ToolTree");
 			tree_grass_label->setText(button->getToolTip());
 
@@ -1104,7 +1061,7 @@ void LLFloaterTools::updateTreeGrassCombo(bool visible)
 		} 
 		else if (pcode == LLToolPlacerPanel::sGrass) 
 		{
-			tree_grass_label->setVisible(true);
+			tree_grass_label->setVisible(visible);
 			LLButton* button = getChild<LLButton>("ToolGrass");
 			tree_grass_label->setText(button->getToolTip());
 
@@ -1140,6 +1097,7 @@ void LLFloaterTools::updateTreeGrassCombo(bool visible)
 	}
 	
 	mComboTreesGrass->setVisible(visible);
+	tree_grass_label->setVisible(visible);
 }
 
 // static

@@ -93,6 +93,8 @@ public:
 	static void startChat(const char* line);
 	static void stopChat();
 
+	void toggleChannelControl();
+
 protected:
 	void sendChat(EChatType type);
 	void updateChat();
@@ -109,6 +111,9 @@ protected:
 	LLComboBox*		mGestureCombo;
 
 	LLChatBarGestureObserver* mObserver;
+
+private:
+	BOOL				mChannelControl;
 };
 
 extern LLChatBar *gChatBar;

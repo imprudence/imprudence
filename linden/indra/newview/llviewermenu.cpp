@@ -211,6 +211,9 @@
 #include "lltexlayer.h"
 #include "primbackup.h"
 
+#include "jcfloater_animation_list.h"
+#include "llfloaterassetbrowser.h"
+
 void init_client_menu(LLMenuGL* menu);
 void init_server_menu(LLMenuGL* menu);
 
@@ -2412,28 +2415,40 @@ bool handle_go_to()
 	std::vector<std::string> strings;
 	std::string val;
 	LLVector3d pos = LLToolPie::getInstance()->getPick().mPosGlobal;
-	val = llformat("%g", pos.mdV[VX]);
-	strings.push_back(val);
-	val = llformat("%g", pos.mdV[VY]);
-	strings.push_back(val);
-	val = llformat("%g", pos.mdV[VZ]);
-	strings.push_back(val);
-	send_generic_message("autopilot", strings);
-
-	LLViewerParcelMgr::getInstance()->deselectLand();
-
-	if (gAgent.getAvatarObject() && !gSavedSettings.getBOOL("AutoPilotLocksCamera"))
+	if (gSavedSettings.getBOOL("DoubleClickTeleport"))
 	{
-		gAgent.setFocusGlobal(gAgent.getFocusTargetGlobal(), gAgent.getAvatarObject()->getID());
+		LLVector3d hips_offset(0.0f, 0.0f, 1.2f);
+		gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
+		gAgent.teleportViaLocation(pos + hips_offset);
 	}
-	else 
+	else
 	{
-		// Snap camera back to behind avatar
-		gAgent.setFocusOnAvatar(TRUE, ANIMATE);
-	}
+		// JAMESDEBUG try simulator autopilot
+		std::vector<std::string> strings;
+		std::string val;
+		val = llformat("%g", pos.mdV[VX]);
+		strings.push_back(val);
+		val = llformat("%g", pos.mdV[VY]);
+		strings.push_back(val);
+		val = llformat("%g", pos.mdV[VZ]);
+		strings.push_back(val);
+		send_generic_message("autopilot", strings);
 
-	// Could be first use
-	LLFirstUse::useGoTo();
+		LLViewerParcelMgr::getInstance()->deselectLand();
+
+		if (gAgent.getAvatarObject() && !gSavedSettings.getBOOL("AutoPilotLocksCamera"))
+		{
+			gAgent.setFocusGlobal(gAgent.getFocusTargetGlobal(), gAgent.getAvatarObject()->getID());
+		}
+		else 
+		{
+			// Snap camera back to behind avatar
+			gAgent.setFocusOnAvatar(TRUE, ANIMATE);
+		}
+
+		// Could be first use
+		LLFirstUse::useGoTo();
+	}
 	return true;
 }
 
@@ -5721,6 +5736,10 @@ class LLShowFloater : public view_listener_t
 		{
 			LLFloaterActiveSpeakers::toggleInstance(LLSD());
 		}
+		else if (floater_name == "animation list")
+		{
+			JCFloaterAnimList::toggleInstance(LLSD());
+		}
 		else if (floater_name == "inworld browser")
 		{
 			LLFloaterMediaBrowser::toggle();
@@ -5927,7 +5946,6 @@ class LLLandEdit : public view_listener_t
 
 		LLViewerParcelMgr::getInstance()->selectParcelAt( LLToolPie::getInstance()->getPick().mPosGlobal );
 
-		gFloaterTools->showMore(TRUE);
 		gFloaterView->bringToFront( gFloaterTools );
 
 		// Switch to land edit toolset
@@ -8269,6 +8287,113 @@ class LLAdvancedCheckHUDInfo : public view_listener_t
 };
 
 
+//////////////////////
+// FORCE GROUND SIT //
+//////////////////////
+
+class LLAdvancedToggleSit: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLChat chat;
+		chat.mSourceType = CHAT_SOURCE_SYSTEM;
+		if(!gAgent.getAvatarObject()->mIsSitting)
+		{
+			gAgent.setControlFlags(AGENT_CONTROL_SIT_ON_GROUND);
+			chat.mText = "Forcing Ground Sit";
+		}
+		else
+		{
+			gAgent.setControlFlags(!AGENT_CONTROL_SIT_ON_GROUND);
+			gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
+			chat.mText = "Standing up";
+		}
+		LLFloaterChat::addChat(chat);
+		return true;
+	}
+};
+
+class LLAdvancedCheckSit : public view_listener_t
+{
+    bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+    {
+		if(gAgent.getAvatarObject()->mIsSitting)
+		{
+			gMenuHolder->findControl(userdata["control"].asString())->setValue(true);
+		}
+		else
+		{
+			gMenuHolder->findControl(userdata["control"].asString())->setValue(false);
+		}
+		return true;
+	}
+};
+
+
+/////////////
+// PHANTOM //
+/////////////
+
+class LLAdvancedTogglePhantom: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLAgent::togglePhantom();
+		BOOL ph = LLAgent::getPhantom();
+		LLChat chat;
+		chat.mSourceType = CHAT_SOURCE_SYSTEM;
+		chat.mText = llformat("%s%s","Phantom ",(ph ? "On" : "Off"));
+		LLFloaterChat::addChat(chat);
+		//gMenuHolder->findControl(userdata["control"].asString())->setValue(ph);
+		return true;
+	}
+
+};
+
+class LLAdvancedCheckPhantom: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(LLAgent::getPhantom());
+		return true;
+	}
+};
+
+
+///////////////////
+// ASSET BROWSER //
+///////////////////
+
+class LLAdvancedToggleAssetBrowser: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		//open the floater
+		LLFloaterAssetBrowser::show(0);
+		
+		bool vis = false;
+		if(LLFloaterAssetBrowser::getInstance())
+		{
+			vis = (bool)LLFloaterAssetBrowser::getInstance()->getVisible();
+		}
+		return true;
+	}
+};
+
+class LLAdvancedCheckAssetBrowser: public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool vis = false;
+		if(LLFloaterAssetBrowser::getInstance())
+		{
+			vis = (bool)LLFloaterAssetBrowser::getInstance()->getVisible();
+		}
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(vis);
+		return true;
+	}
+};
+
 
 ///////////////////////
 // CLEAR GROUP CACHE //
@@ -10483,6 +10608,12 @@ void initialize_menus()
 	addMenu(new LLAdvancedCheckConsole(), "Advanced.CheckConsole");
 	addMenu(new LLAdvancedDumpInfoToConsole(), "Advanced.DumpInfoToConsole");
 	addMenu(new LLAdvancedReloadSettingsOverrides(), "Advanced.ReloadSettingsOverrides");
+	addMenu(new LLAdvancedToggleSit(), "Advanced.ToggleSit");
+	addMenu(new LLAdvancedCheckSit(), "Emerald.CheckSit");
+	addMenu(new LLAdvancedTogglePhantom(), "Advanced.TogglePhantom");
+	addMenu(new LLAdvancedCheckPhantom(), "Advanced.CheckPhantom");
+	addMenu(new LLAdvancedToggleAssetBrowser(),"Advanced.ToggleAssetBrowser");
+	addMenu(new LLAdvancedCheckAssetBrowser(),"Advanced.CheckAssetBrowser");
 
 	// Advanced > HUD Info
 	addMenu(new LLAdvancedToggleHUDInfo(), "Advanced.ToggleHUDInfo");

@@ -84,6 +84,7 @@ BOOL LLPanelPermissions::postBuild()
 
 	
 	this->childSetAction("button owner profile",LLPanelPermissions::onClickOwner,this);
+	this->childSetAction("button last owner profile",LLPanelPermissions::onClickLastOwner,this);
 	this->childSetAction("button creator profile",LLPanelPermissions::onClickCreator,this);
 
 	this->childSetAction("button set group",LLPanelPermissions::onClickGroup,this);
@@ -177,6 +178,11 @@ void LLPanelPermissions::refresh()
 		childSetEnabled("Owner Name",false);
 		childSetEnabled("button owner profile",false);
 
+		childSetEnabled("Last Owner:",false);
+		childSetText("Last Owner Name",LLStringUtil::null);
+		childSetEnabled("Last Owner Name",false);
+		childSetEnabled("button last owner profile",false);
+
 		childSetEnabled("Group:",false);
 		childSetText("Group Name",LLStringUtil::null);
 		childSetEnabled("Group Name",false);
@@ -190,9 +196,6 @@ void LLPanelPermissions::refresh()
 		childSetEnabled("Description:",false);
 		childSetText("Object Description",LLStringUtil::null);
 		childSetEnabled("Object Description",false);
- 
-		childSetText("prim info",LLStringUtil::null);
-		childSetEnabled("prim info",false);
 
 		childSetEnabled("Permissions:",false);
 		
@@ -299,6 +302,8 @@ void LLPanelPermissions::refresh()
 	owners_identical = LLSelectMgr::getInstance()->selectGetOwner(mOwnerID, owner_name);
 
 //	llinfos << "owners_identical " << (owners_identical ? "TRUE": "FALSE") << llendl;
+	std::string last_owner_name;
+	LLSelectMgr::getInstance()->selectGetLastOwner(mLastOwnerID, last_owner_name);
 
 	if (mOwnerID.isNull())
 	{
@@ -309,8 +314,8 @@ void LLPanelPermissions::refresh()
 		else
 		{
 			// Display last owner if public
-			std::string last_owner_name;
-			LLSelectMgr::getInstance()->selectGetLastOwner(mLastOwnerID, last_owner_name);
+			//std::string last_owner_name;
+			//LLSelectMgr::getInstance()->selectGetLastOwner(mLastOwnerID, last_owner_name);
 
 			// It should never happen that the last owner is null and the owner
 			// is null, but it seems to be a bug in the simulator right now. JC
@@ -342,6 +347,19 @@ void LLPanelPermissions::refresh()
 	childSetEnabled("button owner profile",
 		fRlvEnableOwner && owners_identical && (mOwnerID.notNull() || LLSelectMgr::getInstance()->selectIsGroupOwned()));
 // [/RLVa:KB]
+
+	if (owner_name != last_owner_name)
+	{
+		childSetText("Last Owner Name", last_owner_name);
+		childSetEnabled("Last Owner Name", TRUE);
+		childSetEnabled("button last owner profile", TRUE);
+	}
+	else
+	{
+		childSetText("Last Owner Name", LLStringUtil::null);
+		childSetEnabled("Last Owner Name", FALSE);
+		childSetEnabled("button last owner profile", FALSE);
+	}
 
 	// update group text field
 	childSetEnabled("Group:",true);
@@ -404,33 +422,6 @@ void LLPanelPermissions::refresh()
 		childSetEnabled("Object Name",false);
 		childSetEnabled("Object Description",false);
 	}
-
-
-	// Pre-compute object info string
-	S32 prim_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
-	S32 obj_count = LLSelectMgr::getInstance()->getSelection()->getRootObjectCount();
-
-	std::string object_info_string;
-	if (1 == obj_count)
-	{
-		object_info_string.assign("1 Object, ");
-	}
-	else
-	{
-		object_info_string = llformat( "%d Objects, ", obj_count);
-	}
-	if (1 == prim_count)
-	{
-		object_info_string.append("1 Primitive");
-	}
-	else
-	{
-		std::string buffer;
-		buffer = llformat( "%d Primitives", prim_count);
-		object_info_string.append(buffer);
-	}
-	childSetText("prim info",object_info_string);
-	childSetEnabled("prim info",true);
 
 	S32 total_sale_price = 0;
 	S32 individual_sale_price = 0;
@@ -885,6 +876,16 @@ void LLPanelPermissions::onClickOwner(void *data)
 		}
 // [/RLVa:KB]
 //		LLFloaterAvatarInfo::showFromObject(self->mOwnerID);
+	}
+}
+
+void LLPanelPermissions::onClickLastOwner(void *data)
+{
+	LLPanelPermissions *self = (LLPanelPermissions *)data;
+
+	if ( self->mLastOwnerID.notNull() )
+	{
+		LLFloaterAvatarInfo::showFromObject(self->mLastOwnerID);
 	}
 }
 

@@ -375,6 +375,11 @@ public:
 	// Does this parcel allow you to fly?
 	BOOL canFly();
 
+	//lgg crap
+	static BOOL			getPhantom();// const				{ return emeraldPhantom; }
+	static void			setPhantom(BOOL phantom);
+	static void			togglePhantom();
+
 	// Animation functions
 	void                    stopCurrentAnimations();
 	void			requestStopMotion( LLMotion* motion );
@@ -805,6 +810,8 @@ private:
 	LLVector3d      mCameraSmoothingLastPositionGlobal;    
 	LLVector3d      mCameraSmoothingLastPositionAgent;
 	BOOL            mCameraSmoothingStop;
+	
+	static BOOL		sPhantom;
 
 	
 	//Ventrella

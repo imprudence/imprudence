@@ -2484,6 +2484,10 @@ bool idle_startup()
 
 		// Have the agent start watching the friends list so we can update proxies
 		gAgent.observeFriends();
+
+		// Start loading inventory
+		gInventory.startBackgroundFetch();
+
 		if (gSavedSettings.getBOOL("LoginAsGod"))
 		{
 			gAgent.requestEnterGodMode();

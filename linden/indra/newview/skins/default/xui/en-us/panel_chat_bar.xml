@@ -8,13 +8,17 @@
 	<button bottom="-23" follows="left|bottom" font="SansSerif" halign="center" height="20"
 	     label="Local Chat" left="7" name="History"
 	     tool_tip="Click here to see what has been said" width="93" />
+  <spinner bottom="-24" decimal_digits="0" follows="left|bottom" height="20" 
+			 increment="1.00" initial_val="0" label="Channel" label_width="50" left="107"
+			 max_val="2147483647" min_val="0" mouse_opaque="true" name="channel_control"
+			 width="100" tool_tip="Set the default channel for inworld chat"/>
 	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-23"
 	     follows="left|right|bottom" font="SansSerif"
 	     handle_edit_keys_directly="false" height="20" label="Click here to chat."
-	     left="107" max_length="254" name="Chat Editor"
+	     left="212" max_length="254" name="Chat Editor"
 	     select_all_on_focus_received="false" select_on_focus="false" tab_group="1"
-	     tool_tip="Press Enter to say, Ctrl-Enter to shout." width="105" />
-	<flyout_button bottom="-23" follows="right|bottom" height="20" label="Say" left_delta="109"
+	     tool_tip="Press Enter to say, Ctrl-Enter to shout." width="5" />
+	<flyout_button bottom="-23" follows="right|bottom" height="20" label="Say" left_delta="4"
 	     list_position="above" mouse_opaque="true" name="Say" tool_tip="(Enter)"
 	     width="80">
 		<flyout_button_item value="shout" name="shout_item">

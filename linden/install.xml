@@ -589,9 +589,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>f8db21e781735ba5dd84f3043d20e882</string>
+            <string>70ffd9d5e1c45a634be1beed70371784</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.22-windows-04172009.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.22-windows-20090903.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -604,9 +604,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>9693550810903d5bca10e018fccd7994</string>
+            <string>77b954b9313459cb7cd6046bf91de296</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-windows-20090608.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-windows-20090903.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -1459,9 +1459,9 @@ anguage Infrstructure (CLI) international standard</string>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>9cb8990204da692fd2a9b6530091d9a8</string>
+            <string>0efbf671a0d686bb0141895e91fbfc46</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/zlib-1.1.4-windows-20090608.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/zlib-1.1.4-windows-20090829.tar.bz2</uri>
           </map>
         </map>
       </map>

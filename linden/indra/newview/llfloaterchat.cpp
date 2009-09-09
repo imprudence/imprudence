@@ -56,10 +56,11 @@
 #include "llfloaterchatterbox.h"
 #include "llfloatermute.h"
 #include "llkeyboard.h"
-//#include "lllineeditor.h"
+#include "lllineeditor.h"
 #include "llmutelist.h"
 //#include "llresizehandle.h"
 #include "llchatbar.h"
+#include "llspinctrl.h"
 #include "llstatusbar.h"
 #include "llviewertexteditor.h"
 #include "llviewergesture.h"			// for triggering gestures
@@ -227,6 +228,34 @@ void log_chat_text(const LLChat& chat)
 
 		LLLogChat::saveHistory(std::string("chat"),histstr);
 }
+
+// static
+void LLFloaterChat::toggleHistoryChannelControl()
+{
+	LLFloaterChat* chat_floater = LLFloaterChat::getInstance(LLSD());
+	BOOL visible = gSavedSettings.getBOOL("ChatChannelSelect");
+	BOOL control = chat_floater->getChild<LLSpinCtrl>("channel_control")->getVisible();
+
+	LLLineEditor* input = chat_floater->getChild<LLLineEditor>("Chat Editor");
+	LLRect input_rect = input->getRect();
+	S32 chan_width = chat_floater->getChild<LLSpinCtrl>("channel_control")->getRect().getWidth();
+
+	if (visible && !control)
+	{
+		input_rect.setLeftTopAndSize(input_rect.mLeft+chan_width+4, input_rect.mTop, 
+									 input_rect.getWidth()-chan_width, input_rect.getHeight());
+	}
+	else if (!visible && control)
+	{
+		input_rect.setLeftTopAndSize(input_rect.mLeft-chan_width-4, input_rect.mTop, 
+									 input_rect.getWidth()+chan_width, input_rect.getHeight());
+	}
+	input->setRect(input_rect);
+
+	chat_floater->childSetVisible("channel_control", visible);
+	chat_floater->childSetEnabled("channel_control", visible);
+}
+
 // static
 void LLFloaterChat::addChatHistory(const LLChat& chat, bool log_to_file)
 {	
