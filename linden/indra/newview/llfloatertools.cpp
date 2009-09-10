@@ -693,7 +693,8 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 		LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject() &&
 		!LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject()->isAttachment())
 	{
-		if (LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() != 
+		if (LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() > 0 &&
+			LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() != 
 			LLSelectMgr::getInstance()->getSelection()->getObjectCount())
 		{
 			can_unlink = true;
