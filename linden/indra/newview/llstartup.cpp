@@ -705,10 +705,13 @@ bool idle_startup()
 		else
 		{
 			// if not automatically logging in, display login dialog
-			// a valid grid is selected
-			firstname = gSavedSettings.getString("FirstName");
-			lastname = gSavedSettings.getString("LastName");
-			password = load_password_from_disk();
+			// a valid grid is selected (in llpanellogin, for some reason?)
+			// This should get the right values from the grid manager now -Patrick Sapinski (Monday, August 17, 2009)
+			HippoGridInfo *gridInfo = gHippoGridManager->getCurrentGrid();
+			firstname = gridInfo->getFirstName();
+			lastname = gridInfo->getLastName();
+			password = gridInfo->getAvatarPassword();
+			
 			remember_password = gSavedSettings.getBOOL("RememberPassword");
 			show_connect_box = true;
 		}
@@ -870,14 +873,14 @@ bool idle_startup()
 			}
 			gSavedSettings.setBOOL("RememberPassword", remember_password);
 
-			LL_INFOS("AppInit") << "Attempting login as: " << firstname << " " << lastname << " " << password << LL_ENDL;
+			//LL_INFOS("AppInit") << "Attempting login as: " << firstname << " " << lastname << " " << password << LL_ENDL;
 			gDebugInfo["LoginName"] = firstname + " " + lastname;	
 		}
 
         gHippoGridManager->setCurrentGridAsConnected();
 		// create necessary directories
 		// *FIX: these mkdir's should error check
-		gDirUtilp->setLindenUserDir(firstname, lastname);
+		gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
     	LLFile::mkdir(gDirUtilp->getLindenUserDir());
 
         // Set PerAccountSettingsFile to the default value.
@@ -908,7 +911,7 @@ bool idle_startup()
 			gDirUtilp->setChatLogsDir(gSavedPerAccountSettings.getString("InstantMessageLogPath"));		
 		}
 		
-		gDirUtilp->setPerAccountChatLogsDir(firstname, lastname);
+		gDirUtilp->setPerAccountChatLogsDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
 
 		LLFile::mkdir(gDirUtilp->getChatLogsDir());
 		LLFile::mkdir(gDirUtilp->getPerAccountChatLogsDir());

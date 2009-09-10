@@ -8,8 +8,12 @@
 #ifndef XML_STATIC
 #define XML_STATIC
 #endif
-#include <expat/expat.h>
 
+#ifdef LL_STANDALONE
+#include <expat.h>
+#else
+#include "expat/expat.h"
+#endif
 
 class LLSD;
 

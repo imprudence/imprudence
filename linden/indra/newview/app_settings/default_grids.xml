@@ -10,20 +10,6 @@
       <key>default_grids_version</key><string>0</string>
     </map>
 
-    <!-- OSGrid -->
-    <map>
-      <key>gridnick</key><string>osgrid</string>
-      <key>gridname</key><string>OSGrid</string>
-      <key>platform</key><string>OpenSim</string>
-      <key>loginuri</key><string>http://osgrid.org:8002/</string>
-      <key>loginpage</key><string>http://osgrid.org/loginscreen.php</string>
-      <key>helperuri</key><string>http://osgrid.org/</string>
-      <key>website</key><string>http://osgrid.org/</string>
-      <key>support</key><string>http://osgrid.org/</string>
-      <key>register</key><string>http://osgrid.org/index.php?page=create</string>
-      <key>password</key><string>http://osgrid.org/index.php?page=change</string>
-    </map>
-
     <!-- Second Life -->
     <map>
       <key>gridnick</key><string>secondlife</string>

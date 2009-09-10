@@ -1,5 +1,35 @@
 2009-09-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Updated Grid Manager from Meerkat's SVN (as of r215).
+
+		modified:   linden/indra/llvfs/lldir.cpp
+		modified:   linden/indra/llvfs/lldir.h
+		modified:   linden/indra/newview/CMakeLists.txt
+		modified:   linden/indra/newview/app_settings/default_grids.xml
+		deleted:    linden/indra/newview/authentication_controller.cpp
+		deleted:    linden/indra/newview/authentication_controller.h
+		deleted:    linden/indra/newview/authentication_floater.cpp
+		deleted:    linden/indra/newview/authentication_floater.h
+		deleted:    linden/indra/newview/authentication_model.cpp
+		deleted:    linden/indra/newview/authentication_model.h
+		deleted:    linden/indra/newview/controllerlogin.cpp
+		deleted:    linden/indra/newview/controllerlogin.h
+		deleted:    linden/indra/newview/controllerpasswords.cpp
+		deleted:    linden/indra/newview/controllerpasswords.h
+		modified:   linden/indra/newview/floaterlogin.cpp
+		modified:   linden/indra/newview/floaterlogin.h
+		modified:   linden/indra/newview/hippoGridManager.cpp
+		modified:   linden/indra/newview/hippoGridManager.h
+		modified:   linden/indra/newview/llfloaterworldmap.cpp
+		modified:   linden/indra/newview/llpanellogin.cpp
+		modified:   linden/indra/newview/llprefsim.cpp
+		modified:   linden/indra/newview/llstartup.cpp
+		deleted:    linden/indra/newview/prefpanelpasswords.cpp
+		deleted:    linden/indra/newview/prefpanelpasswords.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_login.xml
+
+
+
 	* Merged in Grid Manager, etc. (thanks Armin).
 
 		modified:   linden/indra/llcommon/llstring.h

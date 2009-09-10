@@ -61,11 +61,6 @@ include_directories(
     )
 
 set(viewer_SOURCE_FILES
-    authentication_controller.cpp
-    authentication_floater.cpp
-    authentication_model.cpp
-    controllerlogin.cpp
-    controllerpasswords.cpp
     floaterlogin.cpp
     hippoGridManager.cpp
     hippoLimits.cpp
@@ -442,7 +437,6 @@ set(viewer_SOURCE_FILES
     llxmlrpctransaction.cpp
     noise.cpp
     pipeline.cpp
-    prefpanelpasswords.cpp
     primbackup.cpp
     rlvhandler.cpp
     rlvhelper.cpp
@@ -471,11 +465,6 @@ endif (LINUX)
 set(viewer_HEADER_FILES
     CMakeLists.txt
     ViewerInstall.cmake
-    authentication_controller.h
-    authentication_floater.h
-    authentication_model.h
-    controllerlogin.h
-    controllerpasswords.h
     floaterlogin.h
     hippoGridManager.h
     hippoLimits.h
@@ -859,7 +848,6 @@ set(viewer_HEADER_FILES
     macmain.h
     noise.h
     pipeline.h
-    prefpanelpasswords.h
     primbackup.h
     randgauss.h
     VertexCache.h

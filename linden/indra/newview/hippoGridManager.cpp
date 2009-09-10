@@ -447,10 +447,10 @@ void HippoGridManager::loadFromFile()
 	parseFile(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "default_grids.xml"), !mGridInfo.empty());
 	// merge grid info from web site, if newer. Force load, if list of grids is empty.
 	if (gSavedSettings.getBOOL("CheckForGridUpdates"))
-		parseUrl("http://opensim-viewer.sourceforge.net/db/grids.php", !mGridInfo.empty());
+		parseUrl("http://meerkatviewer.org/scripts/grids.php", !mGridInfo.empty());
 
 	setDefaultGrid(gSavedSettings.getString("DefaultGrid"));
-	setCurrentGrid(gSavedSettings.getString("CmdLineGridChoice"));
+	setCurrentGrid(gSavedSettings.getString("DefaultGrid"));
 }
 
 
@@ -575,6 +575,7 @@ void HippoGridManager::saveFile()
 		gridInfo[i]["website"] = grid->getWebSite();
         gridInfo[i]["support"] = grid->getSupportUrl();
 		gridInfo[i]["register"] = grid->getRegisterUrl();
+        gridInfo[i]["password"] = grid->getPasswordUrl();
         gridInfo[i]["firstname"] = grid->getFirstName();
         gridInfo[i]["lastname"] = grid->getLastName();
         gridInfo[i]["avatarpassword"] = grid->getAvatarPassword();

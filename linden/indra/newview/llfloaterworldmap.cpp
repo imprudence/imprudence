@@ -1159,7 +1159,7 @@ void LLFloaterWorldMap::onPanBtn( void* userdata )
 // static
 void LLFloaterWorldMap::onGridManager(void*)
 {
-	LoginFloater::newShow(std::string("Test"), false, LoginFloater::testCallback, NULL);
+	LoginFloater::newShow(std::string("Test"), false);
 	//gAgent.teleportHome();
 	//gFloaterWorldMap->close();
 }
@@ -1528,7 +1528,7 @@ void LLFloaterWorldMap::teleport()
 		}
 		
 		gHippoGridManager->setCurrentGrid(gridInfo->getGridNick());
-		gHippoGridManager->setDefaultGrid(gridInfo->getGridNick());
+		//gHippoGridManager->setDefaultGrid(gridInfo->getGridNick());
 		//this doesn't work :( gSavedSettings.setBOOL("CmdLineLoginURI", FALSE);
 		LLStartUp::setShouldAutoLogin(true);
 		LLAppViewer::instance()->requestLogout(false);
