@@ -1432,6 +1432,14 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 			childSetEnabled("Add Friend...",FALSE);
 			childSetVisible("Pay...",FALSE);
 			childSetEnabled("Pay...",FALSE);
+			childSetVisible("Kick",FALSE);
+			childSetEnabled("Kick",FALSE);
+			childSetVisible("Freeze",FALSE);
+			childSetEnabled("Freeze",FALSE);
+			childSetVisible("Unfreeze",FALSE);
+			childSetEnabled("Unfreeze",FALSE);
+			childSetVisible("csr_btn", FALSE);
+			childSetEnabled("csr_btn", FALSE);
 		}
 		else
 		{
@@ -1471,20 +1479,20 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 			childSetEnabled("Add Friend...", !avatar_is_friend);
 			childSetVisible("Pay...",TRUE);
 			childSetEnabled("Pay...",FALSE);
+
+			BOOL is_god = FALSE;
+			if (gAgent.isGodlike()) is_god = TRUE;
+			
+			childSetVisible("Kick", is_god);
+			childSetEnabled("Kick", is_god);
+			childSetVisible("Freeze", is_god);
+			childSetEnabled("Freeze", is_god);
+			childSetVisible("Unfreeze", is_god);
+			childSetEnabled("Unfreeze", is_god);
+			childSetVisible("csr_btn", is_god);
+			childSetEnabled("csr_btn", is_god);
 		}
 	}
-	
-	BOOL is_god = FALSE;
-	if (gAgent.isGodlike()) is_god = TRUE;
-	
-	childSetVisible("Kick", is_god);
-	childSetEnabled("Kick", is_god);
-	childSetVisible("Freeze", is_god);
-	childSetEnabled("Freeze", is_god);
-	childSetVisible("Unfreeze", is_god);
-	childSetEnabled("Unfreeze", is_god);
-	childSetVisible("csr_btn", is_god);
-	childSetEnabled("csr_btn", is_god);
 }
 
 
