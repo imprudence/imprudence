@@ -51,6 +51,7 @@
 
 #include "llfloaterfriends.h"
 #include "llfloatergroupinfo.h"
+#include "llfloatergroups.h"
 #include "llfloaterworldmap.h"
 #include "llfloatermute.h"
 #include "llfloateravatarinfo.h"
@@ -86,6 +87,7 @@
 std::list<LLPanelAvatar*> LLPanelAvatar::sAllPanels;
 BOOL LLPanelAvatar::sAllowFirstLife = FALSE;
 
+extern void callback_invite_to_group(LLUUID group_id, void *user_data);
 extern void handle_lure(const LLUUID& invitee);
 extern void handle_pay_by_id(const LLUUID& payee);
 
@@ -428,6 +430,7 @@ BOOL LLPanelAvatarSecondLife::postBuild(void)
 
 	childSetAction("Find on Map", LLPanelAvatar::onClickTrack, getPanelAvatar());
 	childSetAction("Instant Message...", LLPanelAvatar::onClickIM, getPanelAvatar());
+	childSetAction("Invite to Group...", LLPanelAvatar::onClickGroupInvite, getPanelAvatar());
 	
 	childSetAction("Add Friend...", LLPanelAvatar::onClickAddFriend, getPanelAvatar());
 	childSetAction("Pay...", LLPanelAvatar::onClickPay, getPanelAvatar());
@@ -1415,6 +1418,8 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 			}
 			childSetVisible("Instant Message...",FALSE);
 			childSetEnabled("Instant Message...",FALSE);
+			childSetVisible("Invite to Group...",FALSE);
+			childSetEnabled("Invite to Group...",FALSE);
 			childSetVisible("Mute",FALSE);
 			childSetEnabled("Mute",FALSE);
 			childSetVisible("Offer Teleport...",FALSE);
@@ -1438,6 +1443,8 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 
 			childSetVisible("Instant Message...",TRUE);
 			childSetEnabled("Instant Message...",FALSE);
+			childSetVisible("Invite to Group...",TRUE);
+			childSetEnabled("Invite to Group...",FALSE);
 			childSetVisible("Mute",TRUE);
 			childSetEnabled("Mute",FALSE);
 
@@ -1543,6 +1550,22 @@ void LLPanelAvatar::onClickIM(void* userdata)
 	LLNameEditor* nameedit = self->mPanelSecondLife->getChild<LLNameEditor>("name");
 	if (nameedit) name = nameedit->getText();
 	gIMMgr->addSession(name, IM_NOTHING_SPECIAL, self->mAvatarID);
+}
+
+void LLPanelAvatar::onClickGroupInvite(void* userdata)
+{
+	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
+	if (self->getAvatarID().notNull())
+	{
+		LLFloaterGroupPicker* widget;
+		widget = LLFloaterGroupPicker::showInstance(LLSD(gAgent.getID()));
+		if (widget)
+		{
+			widget->center();
+			widget->setPowersMask(GP_MEMBER_INVITE);
+			widget->setSelectCallback(callback_invite_to_group, (void *)&(self->getAvatarID()));
+		}
+	}
 }
 
 
@@ -1762,6 +1785,7 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 			continue;
 		}
 		self->childSetEnabled("Instant Message...",TRUE);
+		self->childSetEnabled("Invite to Group...",TRUE);
 		self->childSetEnabled("Pay...",TRUE);
 		self->childSetEnabled("Mute",TRUE);
 

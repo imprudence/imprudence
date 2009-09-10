@@ -12,7 +12,16 @@
 		modified:   linden/indra/newview/llfloatertools.cpp
 		modified:   linden/indra/newview/llviewermenu.cpp
 		
-		
+	
+     * Redid layout of profile window, added group invite button.
+	 
+		modified:   linden/indra/newview/llpanelavatar.cpp
+		modified:   linden/indra/newview/llpanelavatar.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_profile.xml
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+		deleted:    linden/indra/newview/skins/silver/xui/en-us/panel_avatar.xml
+
+
 2009-09-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Created my own version of Emerald's chat channel tool. 
