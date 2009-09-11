@@ -1,4 +1,16 @@
-  2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
+2009-09-11  McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Applied inventory Search menu from Emerald viewer (still ugly).
+	 
+		modified:   newview/app_settings/settings.xml
+		modified:   newview/llfolderview.cpp
+		modified:   newview/llfolderview.h
+		modified:   newview/llinventoryactions.cpp
+		modified:   newview/llinventoryview.cpp
+		modified:   newview/skins/default/xui/en-us/floater_inventory.xml
+
+
+2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
  
      * Created new toolbar control for windlight presets and options.
 	 
@@ -25,7 +37,7 @@
 		modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
 
  
- 2009-09-09  McCabe Maxsted  <hakushakukun@gmail.com>
+2009-09-09  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Applied ReinstateShowTextureUUID Cool Viewer patch (reverts the "fix" for VWR-1919).
 	   Patch by Henri Beauchamp, modified by McCabe Maxsted.

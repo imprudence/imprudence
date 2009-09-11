@@ -4032,6 +4032,17 @@
       <key>Value</key>
       <real>1.0</real>
     </map>
+    <key>InventorySearchType</key>
+    <map>
+      <key>Comment</key>
+      <string>Controls what type of inventory search we perform.</string>
+      <key>Persist</key>
+      <integer>0</integer>
+      <key>Type</key>
+      <string>U32</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>InventorySortOrder</key>
     <map>
       <key>Comment</key>

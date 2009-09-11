@@ -338,6 +338,11 @@ protected:
 
 	std::string					mLabel;
 	std::string					mSearchableLabel;
+	std::string					mLabelAll;
+	std::string					mSearchableLabelAll;
+	std::string					mLabelCreator;
+	std::string					mSearchableLabelCreator;
+
 	std::string					mType;
 	S32							mLabelWidth;
 	U32							mCreationDate;
