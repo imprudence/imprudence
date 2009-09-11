@@ -20,6 +20,11 @@
         modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_graphics1.xml
  
  
+     * Fixed missing 'm' for draw distance slider.
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+
+ 
  2009-09-09  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Applied ReinstateShowTextureUUID Cool Viewer patch (reverts the "fix" for VWR-1919).

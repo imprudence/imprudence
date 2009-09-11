@@ -7,6 +7,13 @@
 	     decimal_digits="0" enabled="true" height="18"
 	     increment="8" initial_val="160" label="Draw Distance:"
 	     label_width="80" left="6" max_val="512" min_val="64" mouse_opaque="true"
-	     name="DrawDistance" show_text="true" width="195" />
+	     name="DrawDistance" show_text="true" width="188" />
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-14" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12"
+	     left="188" mouse_opaque="true" name="DrawDistanceMeterText2" v_pad="0"
+	     width="8">
+    m
+  </text>
 	<panel bottom="13" filename="panel_windlight_controls.xml" left="0" width="200" />
 </panel>
