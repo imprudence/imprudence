@@ -24,7 +24,38 @@
 	 
 		modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
 
- 
+		
+     * Backported clickable object names from 1.23.
+	 
+		new file:   llcommon/llcursortypes.cpp
+		new file:   llcommon/llcursortypes.h
+		new file:   newview/llfloaterobjectiminfo.cpp
+		new file:   newview/llfloaterobjectiminfo.h
+		new file:   newview/skins/default/xui/en-us/floater_object_im_info.xm
+		modified:   llcommon/CMakeLists.txt
+		modified:   llcommon/llchat.h
+		modified:   llui/llpanel.cpp
+		modified:   llui/llpanel.h
+		modified:   llui/lltextbox.cpp
+		modified:   llui/lltextbox.h
+		modified:   llui/lltexteditor.cpp
+		modified:   llui/lltexteditor.h
+		modified:   llui/llview.cpp
+		modified:   llui/llview.h
+		modified:   llwindow/llwindow.h
+		modified:   newview/CMakeLists.txt
+		modified:   newview/app_settings/settings.xml
+		modified:   newview/llfloaterabout.cpp
+		modified:   newview/llfloaterchat.cpp
+		modified:   newview/llgroupnotify.cpp
+		modified:   newview/llimpanel.cpp
+		modified:   newview/llstylemap.cpp
+		modified:   newview/llstylemap.h
+		modified:   newview/llviewermessage.cpp
+		modified:   newview/skins/default/colors_base.xml
+		modified:   newview/skins/silver/colors_base.xml
+
+		
  2009-09-09  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Applied ReinstateShowTextureUUID Cool Viewer patch (reverts the "fix" for VWR-1919).

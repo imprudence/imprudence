@@ -220,8 +220,8 @@ LLGroupNotifyBox::LLGroupNotifyBox(const std::string& subject,
 	static const LLStyleSP headerstyle(new LLStyle(true,LLColor4::black,"SansSerifBig"));
 	static const LLStyleSP datestyle(new LLStyle(true,LLColor4::black,"serif"));
 
-	text->appendStyledText(subject,false,false,&headerstyle);
-	text->appendStyledText(time_buf,false,false,&datestyle);
+	text->appendStyledText(subject,false,false,headerstyle);
+	text->appendStyledText(time_buf,false,false,datestyle);
 	// Sadly, our LLTextEditor can't handle both styled and unstyled text
 	// at the same time.  Hence this space must be styled. JC
 	text->appendColoredText(std::string(" "),false,false,LLColor4::grey4);

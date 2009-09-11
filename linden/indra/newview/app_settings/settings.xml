@@ -3117,7 +3117,24 @@
         <integer>0</integer>
       </array>
     </map>
-    <key>FloaterOpenObjectRect</key>
+
+  <key>FloaterObjectIMInfo</key>
+  <map>
+    <key>Comment</key>
+    <string>Rectangle for floater object im info windows</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Rect</string>
+    <key>Value</key>
+    <array>
+      <integer>0</integer>
+      <integer>300</integer>
+      <integer>300</integer>
+      <integer>0</integer>
+    </array>
+  </map>
+  <key>FloaterOpenObjectRect</key>
     <map>
       <key>Comment</key>
       <string>Rectangle for Open Object window</string>

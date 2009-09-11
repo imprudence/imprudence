@@ -168,6 +168,7 @@ set(viewer_SOURCE_FILES
     llfloatermute.cpp
     llfloaternamedesc.cpp
     llfloaternewim.cpp
+    llfloaterobjectiminfo.cpp
     llfloateropenobject.cpp
     llfloaterparcel.cpp
     llfloaterpermissionsmgr.cpp
@@ -566,6 +567,7 @@ set(viewer_HEADER_FILES
     llfloatermute.h
     llfloaternamedesc.h
     llfloaternewim.h
+    llfloaterobjectiminfo.h
     llfloateropenobject.h
     llfloaterparcel.h
     llfloaterpermissionsmgr.h
@@ -1086,6 +1088,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_name_description.xml
     skins/default/xui/en-us/floater_new_im.xml
     skins/default/xui/en-us/floater_new_outfit_dialog.xml
+    skins/default/xui/en-us/floater_object_im_info.xml
     skins/default/xui/en-us/floater_openobject.xml
     skins/default/xui/en-us/floater_pay_object.xml
     skins/default/xui/en-us/floater_pay.xml
