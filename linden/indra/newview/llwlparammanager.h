@@ -40,6 +40,13 @@
 #include "llviewercamera.h"
 
 class LLGLSLShader;
+
+class LLWLPresetsObserver
+{
+public:
+	virtual ~LLWLPresetsObserver() { };
+	virtual void changed() = 0;
+};
  
 // color control
 struct WLColorControl {
@@ -195,6 +202,11 @@ public:
 	// singleton pattern implementation
 	static LLWLParamManager * instance();
 
+	// manage observers
+	static void addObserver(LLWLPresetsObserver* observer);
+	static void removeObserver(LLWLPresetsObserver* observer);
+	static void notifyObservers();
+
 public:
 
 	// helper variables
@@ -255,6 +267,8 @@ public:
 private:
 	// our parameter manager singleton instance
 	static LLWLParamManager * sInstance;
+	
+	static std::vector<LLWLPresetsObserver*> sObservers;
 
 };
 

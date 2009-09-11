@@ -60,6 +60,7 @@
 
 #undef max
 
+
 LLFloaterWindLight* LLFloaterWindLight::sWindLight = NULL;
 
 std::set<std::string> LLFloaterWindLight::sDefaultPresets;

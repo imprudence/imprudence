@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bg_visible="false" border="false" border_visible="false" bottom="0"
+     follows="right|bottom" height="47" left="0" mouse_opaque="true"
+     name="windlight_remote" use_bounding_rect="true" width="200">
+	<panel bottom="1" filename="panel_bg_tab.xml" name="panel_bg_tab" height="47" left="0" width="200" />
+	<slider bottom="-20" can_edit_text="false" control_name="RenderFarClip"
+	     decimal_digits="0" enabled="true" height="18"
+	     increment="8" initial_val="160" label="Draw Distance:"
+	     label_width="80" left="6" max_val="512" min_val="64" mouse_opaque="true"
+	     name="DrawDistance" show_text="true" width="195" />
+	<panel bottom="13" filename="panel_windlight_controls.xml" left="0" width="200" />
+</panel>

@@ -318,6 +318,9 @@ BOOL LLPanelDisplay::postBuild()
 	mLightingText = getChild<LLTextBox>("LightingDetailText");
 	mMeshDetailText = getChild<LLTextBox>("MeshDetailText");
 
+	childSetValue("toggle_windlight_control", gSavedSettings.getBOOL("EnableWindlightRemote"));
+	mWLControl = gSavedSettings.getBOOL("EnableWindlightRemote");
+
 	refresh();
 
 	return TRUE;
@@ -690,6 +693,8 @@ void LLPanelDisplay::cancel()
 	gSavedSettings.setU32("WLSkyDetail", mSkyLOD);
 	gSavedSettings.setS32("RenderMaxPartCount", mParticleCount);
 	gSavedSettings.setS32("RenderGlowResolutionPow", mPostProcess);
+
+	gSavedSettings.setBOOL("EnableWindlightRemote", mWLControl);
 }
 
 void LLPanelDisplay::apply()
@@ -701,6 +706,8 @@ void LLPanelDisplay::apply()
 	{
 		applyWindowSize();
 	}
+
+	gSavedSettings.setBOOL("EnableWindlightRemote", childGetValue("toggle_windlight_control").asBoolean());
 }
 
 void LLPanelDisplay::onChangeQuality(LLUICtrl *ctrl, void *data)

@@ -40,6 +40,7 @@ extern S32 STATUS_BAR_HEIGHT;
 class LLButton;
 class LLLineEditor;
 class LLMediaRemoteCtrl;
+
 class LLMessageSystem;
 class LLTextBox;
 class LLTextEditor;
@@ -49,6 +50,7 @@ class LLFrameTimer;
 class LLStatGraph;
 class LLSlider;
 class LLVoiceRemoteCtrl;
+class LLWindlightRemoteCtrl;
 
 class LLOverlayBar
 :	public LLPanel
@@ -88,13 +90,15 @@ public:
 protected:	
 	static void* createMediaRemote(void* userdata);
 	static void* createVoiceRemote(void* userdata);
+	static void* createWindlightRemote(void* userdata);
 	static void* createChatBar(void* userdata);
 
 	void enableMediaButtons();
 
 protected:
-	LLMediaRemoteCtrl*	mMediaRemote;
-	LLVoiceRemoteCtrl*	mVoiceRemote;
+	LLMediaRemoteCtrl*		mMediaRemote;
+	LLVoiceRemoteCtrl*		mVoiceRemote;
+	LLWindlightRemoteCtrl*	mWindlightRemote;
 	bool				mBuilt;	// dialog constructed yet?
 	S32					mMusicState;
 	std::string			mOriginalIMLabel;

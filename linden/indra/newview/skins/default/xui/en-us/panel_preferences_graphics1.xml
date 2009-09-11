@@ -8,6 +8,10 @@
 	     height="16" initial_value="false"
 	     label="Run Second Life in a window" left="10" mouse_opaque="true"
 	     name="windowed mode" radio_style="false" width="100" />
+  <check_box bottom_delta="0" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+       label="Show environment control in toolbar" left="248" mouse_opaque="true"
+	     name="toggle_windlight_control" radio_style="false" width="237" />
 	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom="-43"
 	     embedded_items="false" enabled="false" follows="left|top"
 	     font="SansSerifSmall" height="20" hide_border="true"

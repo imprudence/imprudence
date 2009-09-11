@@ -422,6 +422,7 @@ set(viewer_SOURCE_FILES
     llwearablelist.cpp
     llweb.cpp
     llwebbrowserctrl.cpp
+    llwindlightremotectrl.cpp
     llwind.cpp
     llwlanimator.cpp
     llwldaycycle.cpp
@@ -824,6 +825,7 @@ set(viewer_HEADER_FILES
     llwebbrowserctrl.h
     llwind.h
     llwindebug.h
+    llwindlightremotectrl.h
     llwlanimator.h
     llwldaycycle.h
     llwlparammanager.h
@@ -1200,6 +1202,9 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/panel_voice_options.xml
     skins/default/xui/en-us/panel_voice_remote_expanded.xml
     skins/default/xui/en-us/panel_voice_remote.xml
+    skins/default/xui/en-us/panel_windlight_controls.xml
+    skins/default/xui/en-us/panel_windlight_remote.xml
+    skins/default/xui/en-us/panel_windlight_remote_expanded.xml
     skins/default/xui/en-us/role_actions.xml
     skins/default/xui/en-us/strings.xml
     skins/default/xui/en-us/teleport_strings.xml

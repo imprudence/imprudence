@@ -2393,6 +2393,17 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>EnableWindlightRemote</key>
+    <map>
+      <key>Comment</key>
+      <string>Enable windlight quick access remote in toolbar</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>EnergyFromTop</key>
     <map>
       <key>Comment</key>
@@ -7418,6 +7429,17 @@
     <map>
       <key>Comment</key>
       <string>Show individual volume slider for voice, sound effects, etc</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>ShowWindlightSettingsPopup</key>
+    <map>
+      <key>Comment</key>
+      <string>Show environment settings popup</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

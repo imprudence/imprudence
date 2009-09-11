@@ -1,3 +1,25 @@
+  2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
+ 
+     * Created new toolbar control for windlight presets and options.
+	 
+		new file:   linden/indra/newview/llwindlightremotectrl.cpp
+        new file:   linden/indra/newview/llwindlightremotectrl.h
+        new file:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_controls.xml
+        new file:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote.xml
+        new file:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+        modified:   linden/indra/newview/CMakeLists.txt
+        modified:   linden/indra/newview/app_settings/settings.xml
+        modified:   linden/indra/newview/llfloaterwindlight.cpp
+        modified:   linden/indra/newview/lloverlaybar.cpp
+        modified:   linden/indra/newview/lloverlaybar.h
+        modified:   linden/indra/newview/llpaneldisplay.cpp
+        modified:   linden/indra/newview/llpaneldisplay.h
+        modified:   linden/indra/newview/llwlparammanager.cpp
+        modified:   linden/indra/newview/llwlparammanager.h
+        modified:   linden/indra/newview/skins/default/xui/en-us/panel_overlaybar.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_graphics1.xml
+ 
+ 
  2009-09-09  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Applied ReinstateShowTextureUUID Cool Viewer patch (reverts the "fix" for VWR-1919).
