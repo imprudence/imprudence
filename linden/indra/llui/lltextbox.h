@@ -88,8 +88,7 @@ public:
 	void			setVPad(S32 pixels)						{ mVPad = pixels; }
 	void			setRightAlign()							{ mHAlign = LLFontGL::RIGHT; }
 	void			setHAlign( LLFontGL::HAlign align )		{ mHAlign = align; }
-	void			setClickedCallback( void (*cb)(void *data) ){ mClickedCallback = cb; }		// mouse down and up within button
-	void			setCallbackUserData( void* data )		{ mCallbackUserData = data; }
+	void			setClickedCallback( void (*cb)(void *data), void* data = NULL ){ mClickedCallback = cb; mCallbackUserData = data; }		// mouse down and up within button
 
 	const LLFontGL* getFont() const							{ return mFontGL; }
 

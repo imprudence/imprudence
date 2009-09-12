@@ -77,9 +77,10 @@ public:
 		mAudible(CHAT_AUDIBLE_FULLY),
 		mMuted(FALSE),
 		mTime(0.0),
-		mPosAgent()
+		mPosAgent(),
+		mURL()
 	{ }
-	
+
 	std::string		mText;		// UTF-8 line of text
 	std::string		mFromName;	// agent or object name
 	LLUUID			mFromID;	// agent id or object id
@@ -89,6 +90,7 @@ public:
 	BOOL			mMuted;		// pass muted chat to maintain list of chatters
 	F64				mTime;		// viewer only, seconds from viewer start
 	LLVector3		mPosAgent;
+	std::string		mURL;
 };
 
 #endif

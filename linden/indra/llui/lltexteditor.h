@@ -146,16 +146,16 @@ public:
 	void			insertText(const std::string &text);
 	// appends text at end
 	void 			appendText(const std::string &wtext, bool allow_undo, bool prepend_newline,
-							   const LLStyleSP *stylep = NULL);
+							   const LLStyleSP stylep = NULL);
 
-	void 			appendColoredText(const std::string &wtext, bool allow_undo, 
+	void 			appendColoredText(const std::string &wtext, bool allow_undo,
 									  bool prepend_newline,
 									  const LLColor4 &color,
 									  const std::string& font_name = LLStringUtil::null);
 	// if styled text starts a line, you need to prepend a newline.
-	void 			appendStyledText(const std::string &new_text, bool allow_undo, 
+	void 			appendStyledText(const std::string &new_text, bool allow_undo,
 									 bool prepend_newline,
-									 const LLStyleSP *stylep = NULL);
+									 const LLStyleSP stylep = NULL);
 
 	// Removes text from the end of document
 	// Does not change highlight or cursor position.
