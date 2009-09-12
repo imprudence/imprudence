@@ -44,6 +44,11 @@
 		modified:   linden/indra/newview/llinventorybridge.cpp
 		
 
+     * Fixed profile account info spacing.
+	 
+		modified:   indra/newview/skins/default/xui/en-us/panel_avatar.xml
+		
+		
 2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
  
      * Created new toolbar control for windlight presets and options.
