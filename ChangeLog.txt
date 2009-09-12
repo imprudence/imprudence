@@ -48,6 +48,11 @@
 	 
 		modified:   indra/newview/skins/default/xui/en-us/panel_avatar.xml
 		
+
+     * Applied patch by Latif Khalifa for VWR-5370 (Detached "Contacts" panel cannot be hidden/closed via menu or shortcut (Ctrl/Cmd-Shift-F))
+	 
+		modified:   linden/indra/newview/llfloaterchatterbox.h
+		
 		
 2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
  
