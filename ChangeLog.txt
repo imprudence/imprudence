@@ -25,6 +25,11 @@
 	 
 		modified:   linden/indra/newview/lltoolpie.cpp
 		
+		
+     * Added minimize to snapshot window.
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_snapshot.xml
+		
 	   
 2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
  
