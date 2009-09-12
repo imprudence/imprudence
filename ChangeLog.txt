@@ -9,7 +9,12 @@
 		modified:   newview/llinventoryview.cpp
 		modified:   newview/skins/default/xui/en-us/floater_inventory.xml
 
-
+     * Applied patch for long distance opensim hypergrid tps (SVC-2491)
+	   (Feature currently disabled in OpenSim)
+	   
+		modified:   linden/indra/newview/llviewermessage.cpp
+	   
+	   
 2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
  
      * Created new toolbar control for windlight presets and options.
