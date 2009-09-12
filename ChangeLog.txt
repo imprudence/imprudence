@@ -20,6 +20,11 @@
 	 
 		modified:   linden/indra/newview/skins/default/xui/en-us/floater_media_browser.xml
 		
+		
+     * Fixed double click tp from working on HUDs.
+	 
+		modified:   linden/indra/newview/lltoolpie.cpp
+		
 	   
 2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
  
