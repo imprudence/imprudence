@@ -9,11 +9,17 @@
 		modified:   newview/llinventoryview.cpp
 		modified:   newview/skins/default/xui/en-us/floater_inventory.xml
 
+		
      * Applied patch for long distance opensim hypergrid tps (SVC-2491)
 	   (Feature currently disabled in OpenSim)
 	   
 		modified:   linden/indra/newview/llviewermessage.cpp
 	   
+	   
+     * Fixed browser window showing wrong title.
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_media_browser.xml
+		
 	   
 2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
  
