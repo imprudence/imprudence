@@ -37,6 +37,12 @@
 		modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_network.xml
 		modified:   linden/indra/newview/app_settings/settings.xml
 
+		
+     * Applied patch to wear multiple attachments at once (VWR-5063).
+	 
+		modified:   linden/indra/newview/llinventoryactions.cpp
+		modified:   linden/indra/newview/llinventorybridge.cpp
+		
 
 2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
  
