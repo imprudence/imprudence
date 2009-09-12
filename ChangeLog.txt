@@ -31,6 +31,13 @@
 		modified:   linden/indra/newview/skins/default/xui/en-us/floater_snapshot.xml
 		
 	   
+     * Upped the max bandwidth setting to 5000kbps (default 1000kbps).
+	 
+		modified:   linden/indra/newview/llviewerthrottle.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_network.xml
+		modified:   linden/indra/newview/app_settings/settings.xml
+
+
 2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
  
      * Created new toolbar control for windlight presets and options.
