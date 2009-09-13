@@ -97,7 +97,10 @@ LLWLParamManager::LLWLParamManager() :
 
 	// sky dome
 	mDomeOffset(0.96f),
-	mDomeRadius(15000.f)
+	mDomeRadius(15000.f),
+
+	// current name
+	mCurPresetName("")
 {
 }
 
@@ -226,6 +229,7 @@ void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 			setParamSet(name, paramsData);
 		}
 		presetsXML.close();
+		mCurPresetName = name;
 	} 
 	else 
 	{

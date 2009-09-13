@@ -262,6 +262,9 @@ public:
 	
 	// list of all the parameters, listed by name
 	std::map<std::string, LLWLParamSet> mParamList;
+
+	// current parameter name
+	std::string mCurPresetName;
 	
 	
 private:

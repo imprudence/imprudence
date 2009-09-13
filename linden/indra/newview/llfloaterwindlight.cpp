@@ -439,6 +439,14 @@ void LLFloaterWindLight::syncMenu()
 	childSetValue("WLGamma", param_mgr->mWLGamma.x);
 
 	childSetValue("WLStarAlpha", param_mgr->mCurParams.getStarBrightness());
+
+	// Update combobox name
+	LLComboBox* comboBox = getChild<LLComboBox>("WLPresetsCombo");
+	std::string current_name = param_mgr->mCurPresetName;
+	if (!current_name.empty() && current_name != comboBox->getSelectedValue().asString())
+	{
+		comboBox->selectByValue(LLSD(current_name));
+	}
 }
 
 

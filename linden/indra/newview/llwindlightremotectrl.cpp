@@ -127,9 +127,10 @@ void LLWindlightRemoteCtrl::refreshPresets()
 {
 	if (mPresetsCombo)
 	{
-		//store current preset
-		std::string cur_preset = mPresetsCombo->getValue().asString();
+		// snag current preset
+		std::string cur_preset = LLWLParamManager::instance()->mCurPresetName;//mPresetsCombo->getValue().asString();
 		
+		// clear in case presets names have changed
 		mPresetsCombo->clearRows();
 
 		std::map<std::string, LLWLParamSet>::iterator mIt = 
@@ -139,7 +140,7 @@ void LLWindlightRemoteCtrl::refreshPresets()
 			mPresetsCombo->add(mIt->first);
 		}
 		
-		// Insert label after sorting, at top, with separator below it
+		// insert separator and add World menu options
 		mPresetsCombo->addSeparator(ADD_BOTTOM);
 		mPresetsCombo->addSimpleElement(getString("sunrise"), ADD_BOTTOM);
 		mPresetsCombo->addSimpleElement(getString("noon"), ADD_BOTTOM);
@@ -148,7 +149,7 @@ void LLWindlightRemoteCtrl::refreshPresets()
 		mPresetsCombo->addSimpleElement(getString("revert_region"), ADD_BOTTOM);
 
 		if (!cur_preset.empty())
-		{ 
+		{
 			mPresetsCombo->selectByValue(LLSD(cur_preset));
 		}
 		else

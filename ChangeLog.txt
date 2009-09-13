@@ -4,6 +4,14 @@
 	 
 		 modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
 		 
+		 
+     * Fixed windlight toolbar not updating windlight floater pulldown.
+	 
+		modified:   linden/indra/newview/llfloaterwindlight.cpp
+		modified:   linden/indra/newview/llwindlightremotectrl.cpp
+		modified:   linden/indra/newview/llwlparammanager.cpp
+		modified:   linden/indra/newview/llwlparammanager.h
+
 
 2009-09-11  McCabe Maxsted  <hakushakukun@gmail.com>
 
