@@ -1535,9 +1535,18 @@ void LLPanelAvatar::resetGroupList()
 				LLSD row;
 
 				row["id"] = id ;
-				row["columns"][0]["value"] = group_string;
 				row["columns"][0]["font"] = "SANSSERIF_SMALL";
 				row["columns"][0]["width"] = 0;
+				if (group_data.mListInProfile)
+				{
+					row["columns"][0]["value"] = group_string;
+					row["columns"][0]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
+				}
+				else
+				{
+					row["columns"][0]["value"] = group_string + " " + getString("HiddenLabel");
+					row["columns"][0]["color"] = gColors.getColor("ScriptBgReadOnlyColor").getValue();
+				}
 				group_list->addElement(row);
 			}
 			group_list->sortByColumnIndex(0, TRUE);
@@ -2014,8 +2023,34 @@ void LLPanelAvatar::processAvatarGroupsReply(LLMessageSystem *msg, void**)
 
 				LLSD row;
 				row["id"] = group_id;
-				row["columns"][0]["value"] = group_string;
 				row["columns"][0]["font"] = "SANSSERIF_SMALL";
+
+				LLGroupData *group_data = NULL;
+
+				if (avatar_id == agent_id) // own avatar
+				{
+					// Search for this group in the agent's groups list
+					LLDynamicArray<LLGroupData>::iterator i;
+					for (i = gAgent.mGroups.begin(); i != gAgent.mGroups.end(); i++)
+					{
+						if (i->mID == group_id)
+						{
+							group_data = &*i;
+							break;
+						}
+					}
+				}
+				// Set normal color if not found or if group is visible in profile
+				if (!group_data || group_data->mListInProfile)
+				{
+					row["columns"][0]["value"] = group_string;
+					row["columns"][0]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
+				}
+				else
+				{
+					row["columns"][0]["value"] = group_string + " " + self->getString("HiddenLabel");
+					row["columns"][0]["color"] = gColors.getColor("ScriptBgReadOnlyColor").getValue();
+				}
 				if (group_list)
 				{
 					group_list->addElement(row);

@@ -408,4 +408,7 @@
   <string name="Loading">
     Loading...
   </string>
+  <string name="HiddenLabel">
+    (hidden)
+  </string>
 </panel>

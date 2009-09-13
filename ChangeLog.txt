@@ -54,6 +54,12 @@
 		modified:   linden/indra/newview/llfloaterchatterbox.h
 		
 		
+     * Applied and modified Emerald viewer feature that shows what groups are hidden in your profile.
+	 
+		modified:   linden/indra/newview/llpanelavatar.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+
+		
 2009-09-10  McCabe Maxsted  <hakushakukun@gmail.com>
  
      * Created new toolbar control for windlight presets and options.
