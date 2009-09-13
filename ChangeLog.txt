@@ -1,3 +1,10 @@
+2009-09-12  McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Clarified 'show in search' in profile.
+	 
+		 modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+		 
+
 2009-09-11  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Applied inventory Search menu from Emerald viewer (still ugly).
