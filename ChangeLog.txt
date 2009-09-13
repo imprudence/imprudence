@@ -12,6 +12,11 @@
 		modified:   linden/indra/newview/llwlparammanager.cpp
 		modified:   linden/indra/newview/llwlparammanager.h
 
+		
+     * Fixed windlight toolbar presets not applying when region default.
+	 
+		modified:   linden/indra/newview/llwindlightremotectrl.cpp
+		
 
 2009-09-11  McCabe Maxsted  <hakushakukun@gmail.com>
 

@@ -230,7 +230,9 @@ void LLWindlightRemoteCtrl::onCommitPreset(LLUICtrl* ctrl, void* data)
 		else
 		{
 			// Apply preset
-			LLWLParamManager::instance()->loadPreset(selected);
+			LLWLParamManager::instance()->mAnimator.mIsRunning = false;
+			LLWLParamManager::instance()->mAnimator.mUseLindenTime = false;
+			LLWLParamManager::instance()->loadPreset(selected, true);
 		}
 	}
 }
