@@ -9,6 +9,12 @@
 	 
 		modified:   linden/indra/newview/llvlcomposition.cpp
 		
+		
+     * Applied BlockClickSit debug setting from Emerald to block sit click action.
+	 
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/lltoolpie.cpp
+
 	 
 2009-09-13  McCabe Maxsted  <hakushakukun@gmail.com>
 
