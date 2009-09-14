@@ -14,6 +14,14 @@
      * Fixed World options not showing up when windlight remote expanded.
 	 
 		modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+		
+		
+     * Added missing left/right arrow textures.
+	 
+		new file:   linden/indra/newview/skins/default/textures/arrow_left.tga
+		new file:   linden/indra/newview/skins/default/textures/arrow_right.tga
+		new file:   linden/indra/newview/skins/silver/textures/arrow_left.tga
+		new file:   linden/indra/newview/skins/silver/textures/arrow_right.tga
 
 
 2009-09-12  McCabe Maxsted  <hakushakukun@gmail.com>
