@@ -1,3 +1,10 @@
+2009-09-14 McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Small improvement to hide selection outlines in LLSelectMgr.
+	 
+		modified:   linden/indra/newview/llselectmgr.cpp
+		
+
 2009-09-13  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Added prev/next buttons for windlight presets, cleaned up some stuff.
