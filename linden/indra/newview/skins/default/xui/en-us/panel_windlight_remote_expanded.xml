@@ -16,4 +16,19 @@
     m
   </text>
 	<panel bottom="13" filename="panel_windlight_controls.xml" left="0" width="200" />
+  <string name="sunrise">
+    Sunrise
+  </string>
+  <string name="sunset">
+    Midday
+  </string>
+  <string name="noon">
+    Noon
+  </string>
+  <string name="midnight">
+    Midnight
+  </string>
+  <string name="revert_region">
+    Revert to Region Default
+  </string>
 </panel>

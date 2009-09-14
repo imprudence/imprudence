@@ -11,6 +11,11 @@
         modified:   linden/indra/newview/skins/default/xui/en-us/floater_windlight_options.xml
 	 
 
+     * Fixed World options not showing up when windlight remote expanded.
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+
+
 2009-09-12  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Clarified 'show in search' in profile.
