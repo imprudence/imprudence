@@ -92,11 +92,11 @@ void LLWindlightRemoteCtrl::build()
 {
 	if (gSavedSettings.getBOOL("ShowWindlightSettingsPopup"))
 	{
-		LLUICtrlFactory::getInstance()->buildPanel(this, "panel_windlight_remote_expanded.xml"/*, &getFactoryMap()*/);
+		LLUICtrlFactory::getInstance()->buildPanel(this, "panel_windlight_remote_expanded.xml");
 	}
 	else
 	{
-		LLUICtrlFactory::getInstance()->buildPanel(this, "panel_windlight_remote.xml"/*, &getFactoryMap()*/);
+		LLUICtrlFactory::getInstance()->buildPanel(this, "panel_windlight_remote.xml");
 	}
 }
 
@@ -128,14 +128,15 @@ void LLWindlightRemoteCtrl::refreshPresets()
 	if (mPresetsCombo)
 	{
 		// snag current preset
-		std::string cur_preset = LLWLParamManager::instance()->mCurPresetName;//mPresetsCombo->getValue().asString();
+		LLWLParamManager * param_mgr = LLWLParamManager::instance();
+		LLWLParamSet& currentParams = param_mgr->mCurParams;
 		
 		// clear in case presets names have changed
 		mPresetsCombo->clearRows();
 
 		std::map<std::string, LLWLParamSet>::iterator mIt = 
-			LLWLParamManager::instance()->mParamList.begin();
-		for(; mIt != LLWLParamManager::instance()->mParamList.end(); mIt++) 
+			param_mgr->mParamList.begin();
+		for(; mIt != param_mgr->mParamList.end(); mIt++) 
 		{
 			mPresetsCombo->add(mIt->first);
 		}
@@ -148,9 +149,10 @@ void LLWindlightRemoteCtrl::refreshPresets()
 		mPresetsCombo->addSimpleElement(getString("midnight"), ADD_BOTTOM);
 		mPresetsCombo->addSimpleElement(getString("revert_region"), ADD_BOTTOM);
 
-		if (!cur_preset.empty())
+		if (mPresetsCombo->getSelectedItemLabel() != currentParams.mName &&
+			!currentParams.mName.empty())
 		{
-			mPresetsCombo->selectByValue(LLSD(cur_preset));
+			mPresetsCombo->selectByValue(LLSD(currentParams.mName));
 		}
 		else
 		{

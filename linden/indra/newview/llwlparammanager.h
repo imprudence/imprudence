@@ -261,11 +261,7 @@ public:
 	F32 mDomeRadius;
 	
 	// list of all the parameters, listed by name
-	std::map<std::string, LLWLParamSet> mParamList;
-
-	// current parameter name
-	std::string mCurPresetName;
-	
+	std::map<std::string, LLWLParamSet> mParamList;	
 	
 private:
 	// our parameter manager singleton instance

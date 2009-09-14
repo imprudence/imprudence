@@ -228,6 +228,10 @@ void LLFloaterWindLight::initCallbacks(void) {
 	// Dome
 	childSetCommitCallback("WLGamma", onFloatControlMoved, &param_mgr->mWLGamma);
 	childSetCommitCallback("WLStarAlpha", onStarAlphaMoved, NULL);
+
+	// next/prev buttons
+	childSetAction("next", onClickNext, this);
+	childSetAction("prev", onClickPrev, this);
 }
 
 void LLFloaterWindLight::onClickHelp(void* data)
@@ -317,6 +321,13 @@ void LLFloaterWindLight::syncMenu()
 
 	LLWLParamSet& currentParams = param_mgr->mCurParams;
 	//std::map<std::string, LLVector4> & currentParams = param_mgr->mCurParams.mParamValues;
+
+	// Fixes LL "bug" (preset name isn't kept synchronized)
+	LLComboBox* comboBox = getChild<LLComboBox>("WLPresetsCombo");
+	if (comboBox->getSelectedItemLabel() != currentParams.mName)
+	{
+		comboBox->setSimple(currentParams.mName);
+	}
 
 	// blue horizon
 	param_mgr->mBlueHorizon = currentParams.getVector(param_mgr->mBlueHorizon.mName, err);
@@ -439,14 +450,6 @@ void LLFloaterWindLight::syncMenu()
 	childSetValue("WLGamma", param_mgr->mWLGamma.x);
 
 	childSetValue("WLStarAlpha", param_mgr->mCurParams.getStarBrightness());
-
-	// Update combobox name
-	LLComboBox* comboBox = getChild<LLComboBox>("WLPresetsCombo");
-	std::string current_name = param_mgr->mCurPresetName;
-	if (!current_name.empty() && current_name != comboBox->getSelectedValue().asString())
-	{
-		comboBox->selectByValue(LLSD(current_name));
-	}
 }
 
 
@@ -1000,4 +1003,52 @@ void LLFloaterWindLight::deactivateAnimator()
 {
 	LLWLParamManager::instance()->mAnimator.mIsRunning = false;
 	LLWLParamManager::instance()->mAnimator.mUseLindenTime = false;
+}
+
+void LLFloaterWindLight::onClickNext(void* user_data)
+{
+	LLWLParamManager * param_mgr = LLWLParamManager::instance();
+	LLWLParamSet& currentParams = param_mgr->mCurParams;
+
+	// find place of current param
+	std::map<std::string, LLWLParamSet>::iterator mIt = 
+		param_mgr->mParamList.find(currentParams.mName);
+
+	// if at the end, loop
+	std::map<std::string, LLWLParamSet>::iterator last = param_mgr->mParamList.end(); --last;
+	if(mIt == last) 
+	{
+		mIt = param_mgr->mParamList.begin();
+	}
+	else
+	{
+		mIt++;
+	}
+	param_mgr->mAnimator.mIsRunning = false;
+	param_mgr->mAnimator.mUseLindenTime = false;
+	param_mgr->loadPreset(mIt->first, true);
+}
+
+void LLFloaterWindLight::onClickPrev(void* user_data)
+{
+	LLWLParamManager * param_mgr = LLWLParamManager::instance();
+	LLWLParamSet& currentParams = param_mgr->mCurParams;
+
+	// find place of current param
+	std::map<std::string, LLWLParamSet>::iterator mIt = 
+		param_mgr->mParamList.find(currentParams.mName);
+
+	// if at the beginning, loop
+	if(mIt == param_mgr->mParamList.begin()) 
+	{
+		std::map<std::string, LLWLParamSet>::iterator last = param_mgr->mParamList.end(); --last;
+		mIt = last;
+	}
+	else
+	{
+		mIt--;
+	}
+	param_mgr->mAnimator.mIsRunning = false;
+	param_mgr->mAnimator.mUseLindenTime = false;
+	param_mgr->loadPreset(mIt->first, true);
 }

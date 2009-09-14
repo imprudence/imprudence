@@ -1,3 +1,16 @@
+2009-09-13  McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Added prev/next buttons for windlight presets, cleaned up some stuff.
+	 
+		modified:   linden/indra/newview/llfloaterwindlight.cpp
+        modified:   linden/indra/newview/llfloaterwindlight.h
+        modified:   linden/indra/newview/llwindlightremotectrl.cpp
+        modified:   linden/indra/newview/llwlparammanager.cpp
+        modified:   linden/indra/newview/llwlparammanager.h
+        modified:   linden/indra/newview/skins/default/textures/textures.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/floater_windlight_options.xml
+	 
+
 2009-09-12  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Clarified 'show in search' in profile.
