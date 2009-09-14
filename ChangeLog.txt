@@ -5,6 +5,11 @@
 		modified:   linden/indra/newview/llselectmgr.cpp
 		
 
+     * Small performance change from Emerald viewer in LLVLComposition.
+	 
+		modified:   linden/indra/newview/llvlcomposition.cpp
+		
+	 
 2009-09-13  McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Added prev/next buttons for windlight presets, cleaned up some stuff.
