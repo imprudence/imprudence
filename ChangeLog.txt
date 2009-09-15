@@ -1,3 +1,10 @@
+2009-09-15 McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Applied patch by Robin Cornelius for VWR-11128 - Python not always detected by develop.py.
+
+		modified:   linden/indra/cmake/Python.cmake
+		
+
 2009-09-14 McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Small improvement to hide selection outlines in LLSelectMgr.
