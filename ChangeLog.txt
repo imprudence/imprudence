@@ -4,6 +4,11 @@
 
 		modified:   linden/indra/cmake/Python.cmake
 		
+		
+     * Applied patch by Robin Cornelius for VWR-11138 - Make develop.py play nicely with express editions of Visual Studio.
+	 
+		modified:   linden/indra/develop.py
+	 
 
 2009-09-14 McCabe Maxsted  <hakushakukun@gmail.com>
 
