@@ -9,6 +9,16 @@
 	 
 		modified:   linden/indra/develop.py
 	 
+	 
+     * Added Codebastard Redgrave's windlight presets to Imprudence.
+	 
+		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%201.xml
+		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%202.xml
+		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%203.xml
+		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%204.xml
+		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%205.xml
+		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%206.xml
+
 
 2009-09-14 McCabe Maxsted  <hakushakukun@gmail.com>
 
