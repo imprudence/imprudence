@@ -28,6 +28,62 @@
 		deleted:    linden/indra/newview/prefpanelpasswords.h
 		modified:   linden/indra/newview/skins/default/xui/en-us/floater_login.xml
 
+     * Small performance change from Emerald viewer in LLVLComposition.
+	 
+		modified:   linden/indra/newview/llvlcomposition.cpp
+		
+		
+     * Applied BlockClickSit debug setting from Emerald to block sit click action.
+	 
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/lltoolpie.cpp
+		
+		
+     * Fixed unhandled exception in llviewerobjectlist.cpp
+	 
+		modified:   linden/indra/newview/llviewerobjectlist.cpp
+
+	 
+2009-09-13  McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Added prev/next buttons for windlight presets, cleaned up some stuff.
+	 
+		modified:   linden/indra/newview/llfloaterwindlight.cpp
+        modified:   linden/indra/newview/llfloaterwindlight.h
+        modified:   linden/indra/newview/llwindlightremotectrl.cpp
+        modified:   linden/indra/newview/llwlparammanager.cpp
+        modified:   linden/indra/newview/llwlparammanager.h
+        modified:   linden/indra/newview/skins/default/textures/textures.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/floater_windlight_options.xml
+	 
+
+     * Fixed World options not showing up when windlight remote expanded.
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+		
+		
+     * Added missing left/right arrow textures.
+	 
+		new file:   linden/indra/newview/skins/default/textures/arrow_left.tga
+		new file:   linden/indra/newview/skins/default/textures/arrow_right.tga
+		new file:   linden/indra/newview/skins/silver/textures/arrow_left.tga
+		new file:   linden/indra/newview/skins/silver/textures/arrow_right.tga
+
+
+2009-09-12  McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Clarified 'show in search' in profile.
+	 
+		 modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+		 
+		 
+     * Fixed windlight toolbar not updating windlight floater pulldown.
+	 
+		modified:   linden/indra/newview/llfloaterwindlight.cpp
+		modified:   linden/indra/newview/llwindlightremotectrl.cpp
+		modified:   linden/indra/newview/llwlparammanager.cpp
+		modified:   linden/indra/newview/llwlparammanager.h
+
 
 
 	* Merged in Grid Manager, etc. (thanks Armin).
