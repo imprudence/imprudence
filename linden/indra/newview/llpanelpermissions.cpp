@@ -327,9 +327,26 @@ void LLPanelPermissions::refresh()
 		}
 	}
 
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+	bool fRlvEnableOwner = true;
+	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
+	{
+		// Only filter the owner name if: the selection is all owned by the same avie and not group owned
+		if ( (owners_identical) && (!LLSelectMgr::getInstance()->selectIsGroupOwned()) )
+		{
+			owner_name = gRlvHandler.getAnonym(owner_name);
+			fRlvEnableOwner = false;
+		}
+	}
+// [/RLVa:KB]
+
 	childSetText("Owner Name",owner_name);
 	childSetEnabled("Owner Name",TRUE);
-	childSetEnabled("button owner profile",owners_identical && (mOwnerID.notNull() || LLSelectMgr::getInstance()->selectIsGroupOwned()));
+//	childSetEnabled("button owner profile",owners_identical && (mOwnerID.notNull() || LLSelectMgr::getInstance()->selectIsGroupOwned()));
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+	childSetEnabled("button owner profile",
+		fRlvEnableOwner && owners_identical && (mOwnerID.notNull() || LLSelectMgr::getInstance()->selectIsGroupOwned()));
+// [/RLVa:KB]
 
 	if (owner_name != last_owner_name)
 	{
@@ -852,7 +869,13 @@ void LLPanelPermissions::onClickOwner(void *data)
 	}
 	else
 	{
-		LLFloaterAvatarInfo::showFromObject(self->mOwnerID);
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+		if (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+		{
+			LLFloaterAvatarInfo::showFromObject(self->mOwnerID);
+		}
+// [/RLVa:KB]
+//		LLFloaterAvatarInfo::showFromObject(self->mOwnerID);
 	}
 }
 

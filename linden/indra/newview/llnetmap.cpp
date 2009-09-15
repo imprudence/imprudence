@@ -355,6 +355,16 @@ void LLNetMap::draw()
 				glyph_color = avatar_color;
 			}
 
+// [RLVa:KB]
+			if ( !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
+			{
+				// User is not allowed to see who it is, or even if it's a friend,
+				// due to RLV settings.
+				glyph_color = avatar_color;
+			}
+// [/RLVa:KB]
+
+
 			LLWorldMapView::drawAvatar(
 				pos_map.mV[VX], pos_map.mV[VY], 
 				glyph_color, 
@@ -551,11 +561,33 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 		std::string fullname;
 		if(mClosestAgentToCursor.notNull() && gCacheName->getFullName(mClosestAgentToCursor, fullname))
 		{
-			msg.append(fullname);
-			msg.append("\n");
+// [RLVa:KB]
+			if ( !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
+			{
+				// User is not allowed to see who it is, due to RLV settings.
+				msg.append(rlv_handler_t::cstrHidden);
+			}
+			else
+			{
+				msg.append(fullname);
+				msg.append("\n");
+			}
+// [/RLVa:KB]
 		}
-		msg.append( region->getName() );
 		
+// [RLVa:KB]
+		if (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+		{
+			// User is not allowed to see where they are, due to RLV settings.
+			msg.append( rlv_handler_t::cstrHidden ); 
+		}
+		else
+		{
+			msg.append( region->getName() );
+		}
+// [/RLVa:KB]
+
+
 		msg.append("\n");
 		gSavedSettings.getBOOL( "MiniMapTeleport" ) ?
 						msg.append(getString("tooltip_tp")) : msg.append(getString("tooltip_map"));

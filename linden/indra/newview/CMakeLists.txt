@@ -435,6 +435,12 @@ set(viewer_SOURCE_FILES
     llxmlrpctransaction.cpp
     noise.cpp
     pipeline.cpp
+    primbackup.cpp
+    rlvhandler.cpp
+    rlvhelper.cpp
+    rlvmultistringsearch.cpp
+    rlvextensions.cpp
+    rlvfloaterbehaviour.cpp
     )
 
 set(VIEWER_BINARY_NAME "imprudence-bin" CACHE STRING
@@ -839,9 +845,16 @@ set(viewer_HEADER_FILES
     macmain.h
     noise.h
     pipeline.h
+    primbackup.h
     randgauss.h
     VertexCache.h
     VorbisFramework.h
+    rlvevent.h
+    rlvhandler.h
+    rlvhelper.h
+    rlvmultistringsearch.h
+    rlvextensions.h
+    rlvfloaterbehaviour.h
     )
 
 source_group("CMake Rules" FILES ViewerInstall.cmake)

@@ -8,6 +8,14 @@
 
   <menu name="File" create_jump_keys="true" label="File"
         opaque="true" tear_off="true">
+	    <menu_item_call enabled="false" hidden="false" label="Import" mouse_opaque="true" name="Import">
+            <on_click function="Object.Import" />
+            <on_enable function="Object.EnableImport" />
+        </menu_item_call>
+        <menu_item_call enabled="false" hidden="false" label="Upload + Import" mouse_opaque="true" name="Import">
+            <on_click function="Object.ImportUpload" />
+            <on_enable function="Object.EnableImport" />
+    </menu_item_call>
     <menu_item_call name="Upload Image"
                     label="Upload Image (L$[COST])..."
                     shortcut="control|U">
@@ -1386,6 +1394,42 @@
     </menu>
 
 
+    <!-- RLVa -->
+
+    <menu name="RLVa" drop_shadow="true" opaque="true" tear_off="true">
+
+      <menu_item_check name="Enable Wear" label="Enable Wear">
+        <on_click function="ToggleControl" userdata="RLVaEnableWear" />
+        <on_check control="RLVaEnableWear" />
+      </menu_item_check>
+      
+      <menu_item_check name="Hide locked layers" label="Hide locked layers">
+        <on_click function="ToggleControl" userdata="RLVaHideLockedLayers" />
+        <on_check control="RLVaHideLockedLayers" />
+      </menu_item_check>
+      
+      <menu_item_check name="Hide locked attachments"
+                       label="Hide locked attachments">
+        <on_click function="ToggleControl"
+                  userdata="RLVaHideLockedAttachments" />
+        <on_check control="RLVaHideLockedAttachments" />
+      </menu_item_check>
+      
+      <!--
+      <menu_item_check name="Hide locked inventory"
+                       label="Hide locked inventory">
+        <on_click function="ToggleControl"
+                  userdata="RLVaHideLockedInventory" />
+        <on_check control="RLVaHideLockedInventory" />
+      </menu_item_check>
+      -->
+
+      <menu_item_call name="Restrictions..." label="Restrictions...">
+        <on_click function="RLVa.Behaviors.Show" userdata="" />
+      </menu_item_call>
+
+    </menu>
+
 
     <!-- UI -->
 
@@ -1905,6 +1949,13 @@
                 userdata="ShowConsoleWindow" />
       <on_check control="ShowConsoleWindow" />
     </menu_item_check>
+
+    <menu_item_check name="Restrained Life Active"
+                     label="Restrained Life Active">
+      <on_click function="RLVa.Main.Toggle" />
+      <on_check function="RLVa.Main.Enabled" />
+    </menu_item_check>
+
     <menu_item_check name="Output Debug Minidump"
                      label="Output Debug Minidump">
       <on_click function="ToggleControl"

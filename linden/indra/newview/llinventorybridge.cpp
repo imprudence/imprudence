@@ -1923,6 +1923,12 @@ void LLFolderBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	LLUUID trash_id = model->findCategoryUUIDForType(LLAssetType::AT_TRASH);
 	LLUUID lost_and_found_id = model->findCategoryUUIDForType(LLAssetType::AT_LOST_AND_FOUND);
 
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+	// Fixes LL bug
+	mItems.clear();
+	mDisabledItems.clear();
+// [/RLVa:KB]
+
 	if (lost_and_found_id == mUUID)
 	  {
 		// This is the lost+found folder.
@@ -2936,6 +2942,13 @@ void open_notecard(LLViewerInventoryItem* inv_item,
 				   const LLUUID& source_id,
 				   BOOL take_focus)
 {
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour("viewnote")) )
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	// See if we can bring an existing preview to the front
 	if(!LLPreview::show(inv_item->getUUID(), take_focus))
 	{
@@ -3261,7 +3274,14 @@ void LLObjectBridge::performAction(LLFolderView* folder, LLInventoryModel* model
 		item = (LLViewerInventoryItem*)gInventory.getItem(object_id);
 		if(item && gInventory.isObjectDescendentOf(object_id, gAgent.getInventoryRootID()))
 		{
-			rez_attachment(item, NULL);
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+			// User picked "Wear" so either nothing is locked, or we need to look up the specific attach point from its name
+			// (NOTE: rez_attachment will take care of deciding whether or not we *can* attach)
+			rez_attachment(item, 
+				((!rlv_handler_t::isEnabled()) || (!gRlvHandler.hasLockedAttachment()) || (RlvSettings::getEnableWear()))
+					? NULL : gRlvHandler.getAttachPoint(item, true));
+// [/RLVa:KB]
+//			rez_attachment(item, NULL);
 		}
 		else if(item && item->isComplete())
 		{
@@ -3280,6 +3300,15 @@ void LLObjectBridge::performAction(LLFolderView* folder, LLInventoryModel* model
 	else if ("detach" == action)
 	{
 		LLInventoryItem* item = gInventory.getItem(mUUID);
+
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+		// Fall-through: if there's a "Detach from yourself" code path we missed then we'll still disallow the detach here
+		if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.isDetachable(item)) )
+		{
+			return;
+		}
+// [/RLVa:KB]
+
 		if( item )
 		{
 			gMessageSystem->newMessageFast(_PREHASH_DetachAttachmentIntoInv);
@@ -3369,11 +3398,24 @@ void rez_attachment(LLViewerInventoryItem* item, LLViewerJointAttachment* attach
 	rez_action->mAttachPt = attach_pt;
 	if (attachment && attachment->getObject())
 	{
-		gViewerWindow->alertXml("ReplaceAttachment", confirm_replace_attachment_rez, (void*)rez_action);
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-06 (RLVa-1.0.0c)
+		if ( (!rlv_handler_t::isEnabled()) || (gRlvHandler.isDetachable(attach_pt)) )
+			gViewerWindow->alertXml("ReplaceAttachment", confirm_replace_attachment_rez, (void*)rez_action);
+		else
+			delete rez_action;
+// [/RLVa]
+//		gViewerWindow->alertXml("ReplaceAttachment", confirm_replace_attachment_rez, (void*)rez_action);
 	}
 	else
 	{
-		confirm_replace_attachment_rez(0/*YES*/, (void*)rez_action);
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-06 (RLVa-1.0.0c)
+		// Don't allow wear to default attach point if there are any locked attachments
+		if ( (!rlv_handler_t::isEnabled()) || (0 != attach_pt) || (!gRlvHandler.hasLockedAttachment()) || (RlvSettings::getEnableWear()) )
+			confirm_replace_attachment_rez(0/*YES*/, (void*)rez_action);
+		else
+			delete rez_action;
+// [/RLVa]
+//		confirm_replace_attachment_rez(0/*YES*/, (void*)rez_action);
 	}
 }
 
@@ -3442,6 +3484,11 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 			if( avatarp->isWearingAttachment( mUUID ) )
 			{
 				items.push_back(std::string("Detach From Yourself"));
+
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+				if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.isDetachable(item)) )
+					disabled_items.push_back(std::string("Detach From Yourself"));
+// [/RLVa:KB]
 			}
 			else
 			if( !isInTrash() )
@@ -3452,6 +3499,16 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 				items.push_back(std::string("Attach To HUD"));
 				items.push_back(std::string("RestoreToWorld Separator"));
 				items.push_back(std::string("Restore to Last Position"));
+
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-06 (RLVa-1.0.0c) | Modified: RLVa-0.2.0c
+				// Only enable "Wear" if there is an attach point name *and* there isn't a worn attachment there that's currently locked
+				if ( (rlv_handler_t::isEnabled()) && (!RlvSettings::getEnableWear()) && (gRlvHandler.hasLockedAttachment()) )
+				{
+					LLViewerJointAttachment* pAttachPt = gRlvHandler.getAttachPoint(item, true);
+					if ( (!pAttachPt) || (!gRlvHandler.isDetachable(pAttachPt->getObject())) )
+						disabled_items.push_back(std::string("Object Wear"));
+				}
+// [/RLVa:KB]
 
 				LLMenuGL* attach_menu = menu.getChildMenuByName("Attach To", TRUE);
 				LLMenuGL* attach_hud_menu = menu.getChildMenuByName("Attach To HUD", TRUE);
@@ -3468,15 +3525,27 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 						LLMenuItemCallGL *new_item;
 						if (attachment->getIsHUDAttachment())
 						{
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
 							attach_hud_menu->append(new_item = new LLMenuItemCallGL(attachment->getName(), 
 								NULL, //&LLObjectBridge::attachToAvatar, 
-								NULL, &attach_label, (void*)attachment));
+								(rlv_handler_t::isEnabled()) ? &rlvAttachToEnabler : NULL,
+								&attach_label, (void*)attachment));
+// [/RLVa:KB]
+							//attach_hud_menu->append(new_item = new LLMenuItemCallGL(attachment->getName(), 
+							//	NULL, //&LLObjectBridge::attachToAvatar, 
+							//	NULL, &attach_label, (void*)attachment));
 						}
 						else
 						{
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
 							attach_menu->append(new_item = new LLMenuItemCallGL(attachment->getName(), 
 								NULL, //&LLObjectBridge::attachToAvatar,
-								NULL, &attach_label, (void*)attachment));
+								(rlv_handler_t::isEnabled()) ? &rlvAttachToEnabler : NULL,
+								&attach_label, (void*)attachment));
+// [/RLVa:KB]
+							//attach_menu->append(new_item = new LLMenuItemCallGL(attachment->getName(), 
+							//	NULL, //&LLObjectBridge::attachToAvatar,
+							//	NULL, &attach_label, (void*)attachment));
 						}
 
 						LLSimpleListener* callback = mInventoryPanel->getListenerByName("Inventory.AttachObject");
@@ -3981,6 +4050,20 @@ void wear_inventory_category_on_avatar_step2( BOOL proceed, void* userdata )
 										is_gesture);
 		S32 gest_count = gest_item_array.count();
 
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-06 (RLVa-1.0.0c) | Modified: RLVa-1.0.0c
+		if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasLockedAttachment()) && (!RlvSettings::getEnableWear()) )
+		{
+			// Filter anything that doesn't specify an attachment point (or that specifies one that's currently locked)
+			for (S32 idxObj = obj_item_array.count() - 1; idxObj >= 0; idxObj--)
+			{
+				LLViewerJointAttachment* pAttachPt = gRlvHandler.getAttachPoint(obj_item_array.get(idxObj).get(), true);
+				if ( ((!pAttachPt) || (!gRlvHandler.isDetachable(pAttachPt->getObject()))) )
+					obj_item_array.remove(idxObj);
+			}
+			obj_count = obj_item_array.count();
+		}
+// [/RLVa:KB]
+
 		if( !wearable_count && !obj_count && !gest_count)
 		{
 			gViewerWindow->alertXml("CouldNotPutOnOutfit");
@@ -4118,6 +4201,13 @@ void wear_inventory_category_on_avatar_step3(LLWearableHoldingPattern* holder, B
 //						item->setAssetUUID(wearable->getID());
 //						item->updateAssetOnServer();
 //					}
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c) | Modified: RLVa-1.0.0c
+					if ( (!gRlvHandler.isWearable(wearable->getType())) ||
+						 ( (!gRlvHandler.isRemovable(wearable->getType())) && (gAgent.getWearable(wearable->getType())) ) )
+					{
+						continue;
+					}
+// [/RLVa:KB]
 					items.put(item);
 					wearables.put(wearable);
 				}
@@ -4210,14 +4300,24 @@ void wear_attachments_on_avatar(const LLInventoryModel::item_array_t& items, BOO
 			msg->nextBlockFast(_PREHASH_HeaderData);
 			msg->addUUIDFast(_PREHASH_CompoundMsgID, compound_msg_id );
 			msg->addU8Fast(_PREHASH_TotalObjects, count );
-			msg->addBOOLFast(_PREHASH_FirstDetachAll, remove );
-		}
+//			msg->addBOOLFast(_PREHASH_FirstDetachAll, remove );
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c) | Added: RLVa-0.2.2a
+				// This really should just *always* be FALSE since TRUE can result in loss of the current asset state
+				msg->addBOOLFast(_PREHASH_FirstDetachAll, remove && (!gRlvHandler.hasLockedAttachment()) );
+// [/RLVa:KB]
+			}
 
 		LLInventoryItem* item = items.get(i);
 		msg->nextBlockFast(_PREHASH_ObjectData );
 		msg->addUUIDFast(_PREHASH_ItemID, item->getUUID() );
 		msg->addUUIDFast(_PREHASH_OwnerID, item->getPermissions().getOwner());
-		msg->addU8Fast(_PREHASH_AttachmentPt, 0 );	// Wear at the previous or default attachment point
+//		msg->addU8Fast(_PREHASH_AttachmentPt, 0 );	// Wear at the previous or default attachment point
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c) | Added: RLVa-0.2.2a
+			msg->addU8Fast(_PREHASH_AttachmentPt, 
+				( (!rlv_handler_t::isEnabled()) || (RlvSettings::getEnableWear()) || (!gRlvHandler.hasLockedAttachment()) )
+					? 0
+					: gRlvHandler.getAttachPointIndex(gRlvHandler.getAttachPoint(item, true)));
+// [/RLVa:KB]
 		pack_permissions_slam(msg, item->getFlags(), item->getPermissions());
 		msg->addStringFast(_PREHASH_Name, item->getName());
 		msg->addStringFast(_PREHASH_Description, item->getDescription());
@@ -4299,7 +4399,11 @@ void remove_inventory_category_from_avatar_step2( BOOL proceed, void* userdata)
 		{
 			for(i = 0; i  < wearable_count; ++i)
 			{
-				if( gAgent.isWearingItem (item_array.get(i)->getUUID()) )
+//				if( gAgent.isWearingItem (item_array.get(i)->getUUID()) )
+// [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d) | Modified: RLVa-0.2.2a
+				LLWearable* pWearable = gAgent.getWearableFromWearableItem(item_array.get(i)->getUUID());
+				if ( (pWearable) && ( (!rlv_handler_t::isEnabled()) || (gRlvHandler.isRemovable(pWearable->getType()))) )
+// [/RLVa:KB]
 				{
 					gWearableList.getAsset(item_array.get(i)->getAssetUUID(),
 									item_array.get(i)->getName(),
@@ -4316,6 +4420,18 @@ void remove_inventory_category_from_avatar_step2( BOOL proceed, void* userdata)
 		{
 			for(i = 0; i  < obj_count; ++i)
 			{
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c) | Modified: RLVa-0.2.2a
+				// TODO-RLVa: is there a reason why LL doesn't bother checking to see if you're actually wearing the object?
+				if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasLockedAttachment()) )
+				{
+					LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+					if ( (!pAvatar) || (!pAvatar->isWearingAttachment(obj_item_array.get(i)->getUUID())) || 
+						 (!gRlvHandler.isDetachable(obj_item_array.get(i).get())) ) // Why does LLPointer have a cast to BOOL aka S32??? 
+					{
+						continue;
+					}
+				}
+// [/RVLa:KB]
 				gMessageSystem->newMessageFast(_PREHASH_DetachAttachmentIntoInv);
 				gMessageSystem->nextBlockFast(_PREHASH_ObjectData );
 				gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
@@ -4708,8 +4824,11 @@ void LLWearableBridge::onRemoveFromAvatarArrived(LLWearable* wearable,
 		{
 			EWearableType type = wearable->getType();
 	
-			if( !(type==WT_SHAPE || type==WT_SKIN || type==WT_HAIR ) ) //&&
+			//if( !(type==WT_SHAPE || type==WT_SKIN || type==WT_HAIR ) ) //&&
 				//!((!gAgent.isTeen()) && ( type==WT_UNDERPANTS || type==WT_UNDERSHIRT )) )
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.2a | SL big fix
+			if( !(type==WT_SHAPE || type==WT_SKIN || type==WT_HAIR || type==WT_EYES) )
+// [/RLVa:KB]
 			{
 				gAgent.removeWearable( type );
 			}

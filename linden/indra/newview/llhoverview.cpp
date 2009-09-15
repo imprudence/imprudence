@@ -244,14 +244,25 @@ void LLHoverView::updateText()
 			LLNameValue* lastname =  hit_object->getNVPair("LastName");
 			if (firstname && lastname)
 			{
-				if (title)
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+				if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 				{
-					line.append(title->getString());
-					line.append(1, ' ');
+					line = gRlvHandler.getAnonym(line.append(firstname->getString()).append(1, ' ').append(lastname->getString()));
 				}
-				line.append(firstname->getString());
-				line.append(1, ' ');
-				line.append(lastname->getString());
+				else
+				{
+// [/RLVa:KB]
+					if (title)
+					{
+						line.append(title->getString());
+						line.append(1, ' ');
+					}
+					line.append(firstname->getString());
+					line.append(1, ' ');
+					line.append(lastname->getString());
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+				}
+// [/RLVa:KB]
 			}
 			else
 			{
@@ -307,6 +318,13 @@ void LLHoverView::updateText()
 						}
 						else if(gCacheName->getFullName(owner, name))
 						{
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+							if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+							{
+								name = gRlvHandler.getAnonym(name);
+							}
+// [/RLVa:KB]
+
 							line.append(name);
 						}
 						else
@@ -468,7 +486,10 @@ void LLHoverView::updateText()
 		line.append(LLTrans::getString("TooltipLand"));
 		if (hover_parcel)
 		{
-			line.append(hover_parcel->getName());
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a) | Added: RLVa-0.2.0b
+			line.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) ? hover_parcel->getName() : rlv_handler_t::cstrHiddenParcel );
+// [/RLVa:KB]
+			//line.append(hover_parcel->getName());
 		}
 		mText.push_back(line);
 
@@ -497,7 +518,10 @@ void LLHoverView::updateText()
 			}
 			else if(gCacheName->getFullName(owner, name))
 			{
-				line.append(name);
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RLVa-0.2.0b
+				line.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? name : gRlvHandler.getAnonym(name));
+// [/RLVa:KB]
+				//line.append(name);
 			}
 			else
 			{

@@ -99,6 +99,16 @@ void LLToolFace::pickCallback(const LLPickInfo& pick_info)
 			return;
 		}
 
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0f
+		if ( (rlv_handler_t::isEnabled()) &&
+			 ( (gRlvHandler.hasBehaviour(RLV_BHVR_EDIT)) || 
+			   ( (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) && ((!hit_obj->isAttachment()) || (!hit_obj->permYouOwner())) && 
+			     (dist_vec_squared(gAgent.getPositionAgent(), hit_obj->getPositionRegion() + pick_info.mObjectOffset) > 1.5f * 1.5f) )))
+		{
+			return;
+		}
+// [/RLVa:KB]
+
 		// ...clicked on a world object, try to pick the appropriate face
 
 		if (pick_info.mKeyMask & MASK_SHIFT)

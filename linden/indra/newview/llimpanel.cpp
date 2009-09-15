@@ -2009,6 +2009,42 @@ void LLFloaterIMPanel::sendMsg()
 			std::string utf8_text = wstring_to_utf8str(text);
 			utf8_text = utf8str_truncate(utf8_text, MAX_MSG_BUF_SIZE - 1);
 			
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-1.0.0g
+			if (gRlvHandler.hasBehaviour(RLV_BHVR_SENDIM))
+			{
+				if (IM_NOTHING_SPECIAL == mDialog)			// One-on-one IM: allow if recipient is a sendim exception
+				{
+					if (!gRlvHandler.isException(RLV_BHVR_SENDIM, mOtherParticipantUUID))
+						utf8_text = rlv_handler_t::cstrBlockedSendIM;
+				}
+				else if (gAgent.isInGroup(mSessionUUID))	// Group chat: allow if recipient is a sendim exception
+				{
+					if (!gRlvHandler.isException(RLV_BHVR_SENDIM, mSessionUUID))
+						utf8_text = rlv_handler_t::cstrBlockedSendIM;
+				}
+				else if (mSpeakers)							// Conference chat: allow if all participants are sendim exceptions
+				{
+					LLSpeakerMgr::speaker_list_t speakers;
+					mSpeakers->getSpeakerList(&speakers, TRUE);
+
+					for (LLSpeakerMgr::speaker_list_t::const_iterator itSpeaker = speakers.begin(); 
+							itSpeaker != speakers.end(); ++itSpeaker)
+					{
+						LLSpeaker* pSpeaker = *itSpeaker;
+						if ( (gAgent.getID() != pSpeaker->mID) && (!gRlvHandler.isException(RLV_BHVR_SENDIM, pSpeaker->mID)) )
+						{
+							utf8_text = rlv_handler_t::cstrBlockedSendIM;
+							break;
+						}
+					}
+				}
+				else										// Catch all fall-through
+				{
+					utf8_text = rlv_handler_t::cstrBlockedSendIM;
+				}
+			}
+// [/RLVa:KB]
+
 			if ( mSessionInitialized )
 			{
 				deliver_message(utf8_text,

@@ -74,6 +74,8 @@
 
 #include "llappviewer.h"
 
+#include "primbackup.h"
+
 extern F32 gMinObjectDistance;
 extern BOOL gAnimateTextures;
 
@@ -163,8 +165,6 @@ U64 LLViewerObjectList::getIndex(const U32 local_id,
 
 BOOL LLViewerObjectList::removeFromLocalIDTable(const LLViewerObject &object)
 {
-	if(object.getRegion())
-	{
 		U32 local_id = object.mLocalID;
 		LLHost region_host = object.getRegion()->getHost();
 		U32 ip = region_host.getAddress();
@@ -175,9 +175,6 @@ BOOL LLViewerObjectList::removeFromLocalIDTable(const LLViewerObject &object)
 		U64	indexid = (((U64)index) << 32) | (U64)local_id;
 		return sIndexAndLocalIDToUUID.erase(indexid) > 0 ? TRUE : FALSE;
 	}
-
-	return FALSE ;
-}
 
 void LLViewerObjectList::setUUIDAndLocal(const LLUUID &id,
 										  const U32 local_id,
@@ -222,6 +219,11 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 
 	updateActive(objectp);
 
+	if(!just_created)
+		primbackup::getInstance()->prim_update(objectp);
+	
+
+
 	if (just_created) 
 	{
 		gPipeline.addObject(objectp);
@@ -251,6 +253,9 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 		objectp->mCreateSelected = false;
 		gViewerWindow->getWindow()->decBusyCount();
 		gViewerWindow->getWindow()->setCursor( UI_CURSOR_ARROW );
+
+		primbackup::getInstance()->newprim(objectp);
+
 	}
 }
 
@@ -827,17 +832,10 @@ void LLViewerObjectList::removeDrawable(LLDrawable* drawablep)
 
 	for (S32 i = 0; i < drawablep->getNumFaces(); i++)
 	{
-		LLFace* facep = drawablep->getFace(i) ;
-		if(facep)
-		{
-			   LLViewerObject* objectp = facep->getViewerObject();
-			   if(objectp)
-			   {
+		LLViewerObject* objectp = drawablep->getFace(i)->getViewerObject();
 					   mSelectPickList.erase(objectp);
 			   }
 		}
-	}
-}
 
 BOOL LLViewerObjectList::killObject(LLViewerObject *objectp)
 {
@@ -914,7 +912,7 @@ void LLViewerObjectList::killAllObjects()
 	if (!mMapObjects.empty())
 	{
 		llwarns << "Some objects still on map object list!" << llendl;
-		mMapObjects.clear();
+		mActiveObjects.clear();
 	}
 }
 

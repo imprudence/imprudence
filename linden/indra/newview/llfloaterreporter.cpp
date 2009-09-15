@@ -132,6 +132,23 @@ LLFloaterReporter::LLFloaterReporter(
 
 	childSetText("abuse_location_edit", gAgent.getSLURL() );
 
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-1.0.0a
+	if (rlv_handler_t::isEnabled())
+	{
+		// Can't filter these since they get sent as part of the report so just hide them instead
+		if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+		{
+			childSetVisible("abuse_location_edit", false);
+			childSetVisible("pos_field", false);
+		}
+		if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+		{
+			childSetVisible("owner_name", false);
+			childSetVisible("abuser_name_edit", false);
+		}
+	}
+// [/RLVa:KB]
+
 	LLButton* pick_btn = getChild<LLButton>("pick_btn");
 	if (pick_btn)
 	{
@@ -299,6 +316,12 @@ void LLFloaterReporter::getObjectInfo(const LLUUID& object_id)
 			if (regionp)
 			{
 				childSetText("sim_field", regionp->getName());
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
+				if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) )
+				{
+					childSetText("sim_field", rlv_handler_t::cstrHiddenRegion);
+				}
+// [/RLVa:KB]
 				LLVector3d global_pos;
 				global_pos.setVec(objectp->getPositionRegion());
 				setPosBox(global_pos);
@@ -322,6 +345,12 @@ void LLFloaterReporter::getObjectInfo(const LLUUID& object_id)
 					object_owner.append("Unknown");
 				}
 				childSetText("object_name", object_owner);
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RVLa-1.0.0e
+				if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+				{
+					childSetVisible("object_name", false);	// Hide the object name if the picked object represents an avataz
+				}
+// [/RLVa:KB]
 				childSetText("owner_name", object_owner);
 				childSetText("abuser_name_edit", object_owner);
 				mAbuserID = object_id;
@@ -594,6 +623,12 @@ LLFloaterReporter* LLFloaterReporter::createNewBugReporter()
 void LLFloaterReporter::setPickedObjectProperties(const std::string& object_name, const std::string& owner_name, const LLUUID owner_id)
 {
 	childSetText("object_name", object_name);
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Added: RVLa-1.0.0e
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+	{
+		childSetVisible("object_name", true);	// Show the object name if the picked object is actually an object
+	}
+// [/RLVa:KB]
 	childSetText("owner_name", owner_name);
 	childSetText("abuser_name_edit", owner_name);
 	mAbuserID = owner_id;
