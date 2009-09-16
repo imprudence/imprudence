@@ -32,6 +32,11 @@
 		modified:   linden/indra/newview/llfloatermap.cpp
 		modified:   linden/indra/newview/llfloatermap.h
 		modified:   linden/indra/newview/llnetmap.cpp
+		
+		
+     * Fixed bad RLVa behavior in minimap.
+	 
+		modified:   linden/indra/newview/llnetmap.cpp
 
 
 2009-09-14 McCabe Maxsted  <hakushakukun@gmail.com>
