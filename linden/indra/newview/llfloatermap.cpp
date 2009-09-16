@@ -70,7 +70,6 @@ LLFloaterMap::LLFloaterMap(const LLSD& key)
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_mini_map.xml", &factory_map, FALSE);
 
 	mSelectedAvatar.setNull();
-	mAvatars.clear();
 }
 
 
@@ -195,7 +194,7 @@ void LLFloaterMap::updateRadar()
 
 void LLFloaterMap::populateRadar()
 {
-	if (!mUpdate)
+	if (!mUpdate || !LLFloaterMap::getInstance()->getVisible())
 	{
 		return;
 	}
@@ -218,8 +217,10 @@ void LLFloaterMap::populateRadar()
 	std::vector<LLVector3d> positions;
 	LLWorld::getInstance()->getAvatars(&avatar_ids, &positions, current_pos, gSavedSettings.getF32("NearMeRange"));
 
-	// Add avatars to the list. If they're already there, update positions
-	std::pair<std::map<LLUUID, LLVector3d>::iterator, bool> ret;
+	LLSD element;
+
+	mRadarList->deleteAllItems();
+
 	for (U32 i=0; i<avatar_ids.size(); i++)
 	{
 		if (avatar_ids[i] == gAgent.getID() ||
@@ -228,50 +229,25 @@ void LLFloaterMap::populateRadar()
 			continue;
 		}
 
-		ret = mAvatars.insert(std::pair<LLUUID, LLVector3d>(avatar_ids[i], positions[i]));
-		if (ret.second == false)
+		// Add to list only if we get their name
+		std::string fullname = getSelectedName(avatar_ids[i]);
+		if (!fullname.empty() && fullname != " ")
 		{
-			mAvatars[avatar_ids[i]] = positions[i];	
-		}
-	}
+			std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("muted") : "";
+			element["id"] = avatar_ids[i];
+			element["columns"][0]["column"] = "avatar_name";
+			element["columns"][0]["type"] = "text";
+			element["columns"][0]["value"] = fullname + " " + mute_text;
+			element["columns"][1]["column"] = "avatar_distance";
+			element["columns"][1]["type"] = "text";
 
-	LLSD element;
+			LLVector3d temp = positions[i] - current_pos;
+			F32 distance = (F32)temp.magVec();
+			char dist[32];
+			snprintf(dist, sizeof(dist), "%.1f", distance);
+			element["columns"][1]["value"] = strcat(dist,"m");
 
-	mRadarList->deleteAllItems();
-	
-	// if an avatar's not in range anymore, kill it. Otherwise, populate radar
-	std::map<LLUUID, LLVector3d>::iterator mIt;
-	std::vector<LLUUID>::iterator result;
-	for (mIt = mAvatars.begin(); mIt != mAvatars.end(); )
-	{
-		result = find(avatar_ids.begin(), avatar_ids.end(), mIt->first);
-		if (result == avatar_ids.end())
-		{
-			mAvatars.erase(mIt++);
-		}
-		else
-		{
-			// Add to list only if we get their name
-			std::string fullname = getSelectedName(mIt->first);
-			if (!fullname.empty() && fullname != " ")
-			{
-				std::string mute_text = LLMuteList::getInstance()->isMuted(mIt->first) ? getString("muted") : "";
-				element["id"] = mIt->first;
-				element["columns"][0]["column"] = "avatar_name";
-				element["columns"][0]["type"] = "text";
-				element["columns"][0]["value"] = fullname + " " + mute_text;
-				element["columns"][1]["column"] = "avatar_distance";
-				element["columns"][1]["type"] = "text";
-
-				F64 distance = dist_vec(current_pos, mIt->second);
-				std::stringstream dist_formatted;
-				dist_formatted.str("");
-				dist_formatted << (double)((int)((distance + 0.05)*10.0))/10.0 << "m";
-				element["columns"][1]["value"] = dist_formatted.str();
-
-				mRadarList->addElement(element, ADD_BOTTOM);
-			}
-			++mIt;
+			mRadarList->addElement(element, ADD_BOTTOM);
 		}
 	}
 
@@ -285,28 +261,27 @@ void LLFloaterMap::populateRadar()
 	// set count
 	std::stringstream avatar_count; 
 	avatar_count.str("");
-	if (mAvatars.empty())
+	if (avatar_ids.empty())
 	{
 		mRadarList->addCommentText(getString("no_one_near"), ADD_TOP);
 		avatar_count << "0";
 	}
 	else
 	{
-		avatar_count << (int)mAvatars.size();
+		avatar_count << (int)avatar_ids.size();
 	}
 	childSetText("lblAvatarCount", avatar_count.str());
 
 	toggleButtons();
 
 	//llinfos << "mSelectedAvatar: " << mSelectedAvatar.asString() << llendl;
-}	
+}
 
 void LLFloaterMap::toggleButtons()
 {
 	BOOL enabled = FALSE;
 	BOOL unmute_enabled = FALSE;
-	LLPanel* panelp = getChild<LLPanel>("RadarPanel");
-	if (panelp->hasFocus())
+	if (childHasFocus("RadarPanel"))
 	{
 		enabled = mSelectedAvatar.notNull() ? visibleItemsSelected() : FALSE;
 		unmute_enabled = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : FALSE;

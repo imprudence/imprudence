@@ -67,7 +67,6 @@ private:
 	LLNetMap*						mPanelMap;
 	LLScrollListCtrl*				mRadarList;
 	LLUUID							mSelectedAvatar;
-	std::map<LLUUID, LLVector3d>	mAvatars;
 	bool							mUpdate;
 	
 	static void onList(LLUICtrl* ctrl, void* user_data);
