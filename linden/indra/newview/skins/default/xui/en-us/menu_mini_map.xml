@@ -19,6 +19,11 @@
     <on_click function="MiniMap.Center" userdata="1" />
     <on_check function="MiniMap.CheckCenter" userdata="1" />
   </menu_item_check>
+  <menu_item_check bottom_delta="-18" enabled="true" height="18" label="Rotate Mini-Map"
+  	  left="0" mouse_opaque="true" name="Rotate Mini-Map" width="128">
+    <on_click function="MiniMap.Rotate" userdata="" />
+    <on_check function="MiniMap.CheckRotate" userdata="" />
+  </menu_item_check>
   <menu_item_separator />
   <menu_item_call bottom_delta="-18" enabled = "false" height="18" label="Show Map"
 		 left="0" mouse_opaque="true" name="Show Map" width="128">

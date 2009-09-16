@@ -43,6 +43,25 @@
 	 
 		modified:   linden/indra/newview/llfloatermap.cpp
 		
+		
+     * Fixed min minimap size.
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+		
+		
+     * Moved Rotate Mini-Map option to mini-map menu, added first use dialog.
+	 
+		modified:   linden/indra/newview/llfirstuse.cpp
+        modified:   linden/indra/newview/llfirstuse.h
+        modified:   linden/indra/newview/llfloatermap.cpp
+        modified:   linden/indra/newview/llnetmap.cpp
+        modified:   linden/indra/newview/llnetmap.h
+        modified:   linden/indra/newview/llpanelgeneral.cpp
+		modified:   linden/indra/newview/app_settings/settings.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/menu_mini_map.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
+		
 
 2009-09-14 McCabe Maxsted  <hakushakukun@gmail.com>
 

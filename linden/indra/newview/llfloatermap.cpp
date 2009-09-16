@@ -43,6 +43,7 @@
 #include "lluictrlfactory.h"
 
 // radar
+#include "llfirstuse.h"
 #include "llfloateravatarinfo.h"
 #include "llfloaterfriends.h"
 #include "llfloatergroupinvite.h"
@@ -172,6 +173,7 @@ void LLFloaterMap::open()
 	if (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWMINIMAP))
 	{
 		LLFloater::open();
+		LLFirstUse::useMiniMap();
 	}
 }
 // [/RLVa:KB]
