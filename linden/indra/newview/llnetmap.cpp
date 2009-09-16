@@ -45,6 +45,7 @@
 #include "llcolorscheme.h"
 #include "llviewercontrol.h"
 #include "llfloateravatarinfo.h"
+#include "llfloatermap.h"
 #include "llfloaterworldmap.h"
 #include "llframetimer.h"
 #include "llmutelist.h"
@@ -115,6 +116,11 @@ LLNetMap::LLNetMap(const std::string& name) :
 	}
 	menu->setVisible(FALSE);
 	mPopupMenuHandle = menu->getHandle();
+}
+
+BOOL LLNetMap::postBuild()
+{
+	return TRUE;
 }
 
 LLNetMap::~LLNetMap()
@@ -330,6 +336,7 @@ void LLNetMap::draw()
 		LLColor4 avatar_color = gColors.getColor( "MapAvatar" );
 		LLColor4 friend_color = gColors.getColor( "MapFriend" );
 		LLColor4 muted_color = gColors.getColor( "MapMuted" );
+		LLColor4 selected_color = gColors.getColor( "MapSelected" );
 		LLColor4 glyph_color;
 
 		std::vector<LLUUID> avatar_ids;
@@ -349,6 +356,10 @@ void LLNetMap::draw()
 			else if (is_agent_friend(avatar_ids[i]))
 			{
 				glyph_color = friend_color;
+			}
+			else if (LLFloaterMap::isSelected(avatar_ids[i]))
+			{
+				glyph_color = selected_color;
 			}
 			else
 			{
@@ -460,6 +471,8 @@ void LLNetMap::draw()
 	setDirectionPos( getChild<LLTextBox>("se_label"), rotation + F_PI + F_PI_BY_TWO + F_PI_BY_TWO / 2);
 
 	LLView::draw();
+
+	LLFloaterMap::updateRadar();
 }
 
 void LLNetMap::reshape(S32 width, S32 height, BOOL called_from_parent)

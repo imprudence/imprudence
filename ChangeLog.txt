@@ -18,6 +18,13 @@
 		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%204.xml
 		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%205.xml
 		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%206.xml
+		
+		
+     * Added tabs to mini-map radar.
+	 
+		modified:   linden/indra/newview/llfloatermap.cpp
+		modified:   linden/indra/newview/llfloatermap.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
 
 
 2009-09-14 McCabe Maxsted  <hakushakukun@gmail.com>
@@ -530,6 +537,16 @@
 
 		modified:   linden/indra/cmake/GStreamer.cmake
 
+
+2009-08-12  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added basic radar to the minimap.
+		
+		modified:   linden/indra/newview/llfloatermap.cpp
+		modified:   linden/indra/newview/llfloatermap.h
+		modified:   linden/indra/newview/llnetmap.cpp
+		modified:	linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+		
 
 2009-06-14  McCabe Maxsted  <hakushakukun@gmail.com>
 
