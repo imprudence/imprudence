@@ -277,7 +277,10 @@ void LLFloaterMap::populateRadar()
 
 	mRadarList->sortItems();
 	mRadarList->setScrollPos(scroll_pos);
-	mRadarList->selectByID(mSelectedAvatar);
+	if (mSelectedAvatar.notNull())
+	{
+		mRadarList->selectByID(mSelectedAvatar);
+	}
 
 	// set count
 	std::stringstream avatar_count; 
@@ -300,8 +303,18 @@ void LLFloaterMap::populateRadar()
 
 void LLFloaterMap::toggleButtons()
 {
-	BOOL enabled = mSelectedAvatar.notNull() ? visibleItemsSelected() : FALSE;
-	BOOL unmute_enabled = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : FALSE;
+	BOOL enabled = FALSE;
+	BOOL unmute_enabled = FALSE;
+	LLPanel* panelp = getChild<LLPanel>("RadarPanel");
+	if (panelp->hasFocus())
+	{
+		enabled = mSelectedAvatar.notNull() ? visibleItemsSelected() : FALSE;
+		unmute_enabled = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : FALSE;
+	}
+	else
+	{
+		mRadarList->deselect();
+	}
 
 	childSetEnabled("im_btn", enabled);
 	childSetEnabled("profile_btn", enabled);

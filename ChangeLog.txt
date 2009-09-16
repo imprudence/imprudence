@@ -38,6 +38,11 @@
 	 
 		modified:   linden/indra/newview/llnetmap.cpp
 
+		
+     * Don't track avatars when focus lost.
+	 
+		modified:   linden/indra/newview/llfloatermap.cpp
+		
 
 2009-09-14 McCabe Maxsted  <hakushakukun@gmail.com>
 
