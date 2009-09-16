@@ -347,19 +347,19 @@ void LLNetMap::draw()
 			// TODO: it'd be very cool to draw these in sorted order from lowest Z to highest.
 			// just be careful to sort the avatar IDs along with the positions. -MG
 			pos_map = globalPosToView(positions[i], rotate_map);
-
+			
+			if (LLFloaterMap::getSelected() == avatar_ids[i])
+			{
+				glyph_color = selected_color;
+			}
 			// Show them muted even if they're friends
-			if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
+			else if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
 			{
 				glyph_color = muted_color;
 			}
 			else if (is_agent_friend(avatar_ids[i]))
 			{
 				glyph_color = friend_color;
-			}
-			else if (LLFloaterMap::isSelected(avatar_ids[i]))
-			{
-				glyph_color = selected_color;
 			}
 			else
 			{

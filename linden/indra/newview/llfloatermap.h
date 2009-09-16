@@ -48,7 +48,7 @@ public:
 	static void* createPanelMiniMap(void* data);
 
 	static void updateRadar();
-	static BOOL isSelected(LLUUID agent);
+	static LLUUID getSelected();
 
 	BOOL postBuild();
 
@@ -69,7 +69,6 @@ private:
 	LLUUID							mSelectedAvatar;
 	std::map<LLUUID, LLVector3d>	mAvatars;
 	bool							mUpdate;
-	static LLFloaterMap*			sInstance;
 	
 	static void onList(LLUICtrl* ctrl, void* user_data);
 	static void onRangeChange(LLFocusableElement* focus, void* user_data);

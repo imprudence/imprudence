@@ -59,8 +59,6 @@
 #include "llviewerwindow.h"
 #include "llworld.h"
 
-LLFloaterMap* LLFloaterMap::sInstance = NULL;
-
 LLFloaterMap::LLFloaterMap(const LLSD& key)
 	:
 	LLFloater(std::string("minimap")),
@@ -73,8 +71,6 @@ LLFloaterMap::LLFloaterMap(const LLSD& key)
 
 	mSelectedAvatar.setNull();
 	mAvatars.clear();
-
-	sInstance = this;
 }
 
 
@@ -122,7 +118,6 @@ BOOL LLFloaterMap::postBuild()
 
 LLFloaterMap::~LLFloaterMap()
 {
-	sInstance = NULL;
 }
 
 
@@ -195,8 +190,7 @@ void LLFloaterMap::open()
 //static
 void LLFloaterMap::updateRadar()
 {
-	LLFloaterMap* self = sInstance;
-	self->populateRadar();
+	LLFloaterMap::getInstance()->populateRadar();
 }
 
 void LLFloaterMap::populateRadar()
@@ -208,7 +202,7 @@ void LLFloaterMap::populateRadar()
 
 	if (visibleItemsSelected())
 	{
-		mSelectedAvatar = mRadarList->getSelectedValue().asUUID();
+		mSelectedAvatar = mRadarList->getFirstSelected()->getUUID();
 	}
 	else
 	{
@@ -283,11 +277,7 @@ void LLFloaterMap::populateRadar()
 
 	mRadarList->sortItems();
 	mRadarList->setScrollPos(scroll_pos);
-
-	if (mSelectedAvatar.notNull())
-	{
-		mRadarList->selectByID(mSelectedAvatar);
-	}
+	mRadarList->selectByID(mSelectedAvatar);
 
 	// set count
 	std::stringstream avatar_count; 
@@ -304,12 +294,14 @@ void LLFloaterMap::populateRadar()
 	childSetText("lblAvatarCount", avatar_count.str());
 
 	toggleButtons();
+
+	//llinfos << "mSelectedAvatar: " << mSelectedAvatar.asString() << llendl;
 }	
 
 void LLFloaterMap::toggleButtons()
 {
-	BOOL enabled = mRadarList->hasFocus() ? visibleItemsSelected() : FALSE;
-	BOOL unmute_enabled = mRadarList->hasFocus() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : FALSE;
+	BOOL enabled = mSelectedAvatar.notNull() ? visibleItemsSelected() : FALSE;
+	BOOL unmute_enabled = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : FALSE;
 
 	childSetEnabled("im_btn", enabled);
 	childSetEnabled("profile_btn", enabled);
@@ -334,7 +326,6 @@ void LLFloaterMap::onList(LLUICtrl* ctrl, void* user_data)
 		self->toggleButtons();
 	}
 }
-		
 
 BOOL LLFloaterMap::visibleItemsSelected() const
 {
@@ -356,13 +347,9 @@ void LLFloaterMap::onRangeChange(LLFocusableElement* focus, void* user_data)
 }
 
 // static
-BOOL LLFloaterMap::isSelected(LLUUID agent)
+LLUUID LLFloaterMap::getSelected()
 {
-	if (sInstance->mSelectedAvatar == agent)
-	{
-		return TRUE;
-	}
-	return FALSE;
+	return LLFloaterMap::getInstance()->mSelectedAvatar;
 }
 
 //
