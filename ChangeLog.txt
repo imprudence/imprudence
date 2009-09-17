@@ -1,3 +1,10 @@
+2009-09-18 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Applied patch by Aleric Inglewood for VWR-13996 - avatars using 1.22 completely invisible on first sight.
+	
+			modified:   linden/indra/newview/llspatialpartition.cpp
+			
+
 2009-09-15 McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Applied patch by Robin Cornelius for VWR-11128 - Python not always detected by develop.py.
