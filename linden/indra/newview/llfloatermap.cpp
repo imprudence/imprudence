@@ -51,13 +51,18 @@
 #include "llfloaterreporter.h"
 #include "llimview.h"
 #include "llmutelist.h"
+#include "llparcel.h"
+#include "llregionposition.h"
 #include "roles_constants.h"
 #include "llscrolllistctrl.h"
 #include "lltracker.h"
 #include "llviewerobjectlist.h"
+#include "llviewermenu.h"
 #include "llviewermessage.h"
+#include "llviewerparcelmgr.h"
 #include "llviewerregion.h"
 #include "llviewerwindow.h"
+#include "llvoavatar.h"
 #include "llworld.h"
 
 LLFloaterMap::LLFloaterMap(const LLSD& key)
@@ -233,7 +238,7 @@ void LLFloaterMap::populateRadar()
 
 		// Add to list only if we get their name
 		std::string fullname = getSelectedName(avatar_ids[i]);
-		if (!fullname.empty() && fullname != " ")
+		if (!fullname.empty())
 		{
 			std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("muted") : "";
 			element["id"] = avatar_ids[i];
@@ -281,30 +286,69 @@ void LLFloaterMap::populateRadar()
 
 void LLFloaterMap::toggleButtons()
 {
-	BOOL enabled = FALSE;
-	BOOL unmute_enabled = FALSE;
+	BOOL enable = FALSE;
+	BOOL enable_unmute = FALSE;
+	BOOL enable_track = FALSE;
+	BOOL enable_estate = FALSE;
 	if (childHasFocus("RadarPanel"))
 	{
-		enabled = mSelectedAvatar.notNull() ? visibleItemsSelected() : FALSE;
-		unmute_enabled = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : FALSE;
+		enable = mSelectedAvatar.notNull() ? visibleItemsSelected() : FALSE;
+		enable_unmute = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : FALSE;
+		enable_track = gAgent.isGodlike() || is_agent_mappable(mSelectedAvatar);
+		enable_estate = getKickable(mSelectedAvatar);
 	}
 	else
 	{
 		mRadarList->deselect();
 	}
 
-	childSetEnabled("im_btn", enabled);
-	childSetEnabled("profile_btn", enabled);
-	childSetEnabled("offer_teleport_btn", enabled);
-	childSetEnabled("track_btn", enabled);
-	childSetEnabled("invite_btn", enabled);
-	childSetEnabled("add_btn", enabled);
-	childSetEnabled("freeze_btn", enabled);
-	childSetEnabled("eject_btn", enabled);
-	childSetEnabled("mute_btn", enabled);
-	childSetEnabled("unmute_btn", unmute_enabled);
-	childSetEnabled("ar_btn", enabled);
-	childSetEnabled("estate_eject_btn", enabled);
+	childSetEnabled("im_btn", enable);
+	childSetEnabled("profile_btn", enable);
+	childSetEnabled("offer_teleport_btn", enable);
+	childSetEnabled("track_btn", enable_track);
+	childSetEnabled("invite_btn", enable);
+	childSetEnabled("add_btn", enable);
+	childSetEnabled("freeze_btn", enable_estate);
+	childSetEnabled("eject_btn", enable_estate);
+	childSetEnabled("mute_btn", enable);
+	childSetEnabled("unmute_btn", enable_unmute);
+	childSetEnabled("ar_btn", enable);
+	childSetEnabled("estate_eject_btn", enable_estate);
+}
+
+BOOL LLFloaterMap::getKickable(const LLUUID &agent_id)
+{
+	if (agent_id.notNull())
+	{
+		LLViewerObject* av_obj = gObjectList.findObject(agent_id);
+		if (av_obj != NULL && av_obj->isAvatar())
+		{
+			LLVOAvatar* avatar = (LLVOAvatar*)av_obj;
+			LLViewerRegion* region = avatar->getRegion();
+			if (region)
+			{
+				const LLVector3& pos = avatar->getPositionRegion();
+				const LLVector3d& pos_global = avatar->getPositionGlobal();
+				if (LLWorld::getInstance()->positionRegionValidGlobal(pos_global))
+				{
+					LLParcel* parcel = LLViewerParcelMgr::getInstance()->selectParcelAt(pos_global)->getParcel();
+					
+					BOOL new_value = (region != NULL);
+								
+					if (new_value)
+					{
+						new_value = region->isOwnedSelf(pos);
+						if (!new_value || region->isOwnedGroup(pos))
+						{
+							new_value = LLViewerParcelMgr::getInstance()->isParcelOwnedByAgent(parcel,GP_LAND_ADMIN);
+						}
+					}
+					return new_value;
+				}
+			}
+		}
+	}
+	return FALSE;	
 }
 
 // static
@@ -354,12 +398,8 @@ void LLFloaterMap::onClickIM(void* user_data)
 	if (item != NULL)
 	{
 		LLUUID agent_id = item->getUUID();
-		std::string fullname;
-		if(gCacheName->getFullName(agent_id, fullname))
-		{
-			gIMMgr->setFloaterOpen(TRUE);
-			gIMMgr->addSession(fullname, IM_NOTHING_SPECIAL, agent_id);
-		}
+		gIMMgr->setFloaterOpen(TRUE);
+		gIMMgr->addSession(getSelectedName(agent_id), IM_NOTHING_SPECIAL, agent_id);
 	}
 }
 
@@ -392,6 +432,7 @@ void LLFloaterMap::onClickTrack(void* user_data)
 {
 	LLFloaterMap* self = (LLFloaterMap*) user_data;
 	LLTracker::ETrackingStatus tracking_status = LLTracker::getTrackingStatus();
+	
 	if (LLTracker::TRACKING_AVATAR == tracking_status)
 	{
 		LLTracker::stopTracking(NULL);
@@ -402,9 +443,7 @@ void LLFloaterMap::onClickTrack(void* user_data)
 		if (item != NULL)
 		{
 			LLUUID agent_id = item->getUUID();
-			std::string fullname;
-			gCacheName->getFullName(agent_id, fullname);
-			LLTracker::trackAvatar(agent_id, fullname);
+			LLTracker::trackAvatar(agent_id, getSelectedName(agent_id));
 		}
 	}
 }
@@ -445,9 +484,7 @@ void LLFloaterMap::onClickAddFriend(void* user_data)
 	if (item != NULL)
 	{
 		LLUUID agent_id = item->getUUID();
-		std::string fullname;
-		gCacheName->getFullName(agent_id, fullname);
-		LLPanelFriends::requestFriendshipDialog(agent_id, fullname);
+		LLPanelFriends::requestFriendshipDialog(agent_id, getSelectedName(agent_id));
 	}
 }
 
@@ -456,10 +493,10 @@ void LLFloaterMap::onClickAddFriend(void* user_data)
 //
 
 //static 
-std::string LLFloaterMap::getSelectedName(LLUUID agent_id)
+std::string LLFloaterMap::getSelectedName(const LLUUID &agent_id)
 {
 	std::string agent_name;
-	if(agent_id.notNull() && gCacheName->getFullName(agent_id, agent_name))
+	if(gCacheName->getFullName(agent_id, agent_name) && agent_name != " ")
 	{
 		return agent_name;
 	}
@@ -516,7 +553,7 @@ void LLFloaterMap::onClickFreeze(void *user_data)
 	LLFloaterMap *self = (LLFloaterMap*)user_data;
 	LLStringUtil::format_map_t args;
 	LLSD payload;
-	args["[AVATAR_NAME]"] = self->getSelectedName(self->mSelectedAvatar);
+	args["[AVATAR_NAME]"] = getSelectedName(self->mSelectedAvatar);
 	gViewerWindow->alertXml("FreezeAvatarFullname",	args, callbackFreeze, user_data);
 }
 
@@ -526,7 +563,7 @@ void LLFloaterMap::onClickEject(void *user_data)
 	LLFloaterMap *self = (LLFloaterMap*)user_data;
 	LLStringUtil::format_map_t args;
 	LLSD payload;
-	args["AVATAR_NAME"] = self->getSelectedName(self->mSelectedAvatar);
+	args["AVATAR_NAME"] = getSelectedName(self->mSelectedAvatar);
 	gViewerWindow->alertXml("EjectAvatarFullName", args, callbackEject, user_data);
 }
 
@@ -534,11 +571,11 @@ void LLFloaterMap::onClickEject(void *user_data)
 void LLFloaterMap::onClickMute(void *user_data)
 {
 	LLFloaterMap *self = (LLFloaterMap*)user_data;
-
-	LLUUID agent_id = self->mSelectedAvatar;
-	std::string agent_name = self->getSelectedName(agent_id);
-	if(!agent_name.empty())
+	LLScrollListItem *item = self->mRadarList->getFirstSelected();
+	if (item != NULL)
 	{
+		LLUUID agent_id = item->getUUID();
+		std::string agent_name = getSelectedName(agent_id);
 		if (LLMuteList::getInstance()->isMuted(agent_id))
 		{
 			//LLMute mute(agent_id, agent_name, LLMute::AGENT);
@@ -557,11 +594,11 @@ void LLFloaterMap::onClickMute(void *user_data)
 void LLFloaterMap::onClickUnmute(void *user_data)
 {
 	LLFloaterMap *self = (LLFloaterMap*)user_data;
-
-	LLUUID agent_id = self->mSelectedAvatar;
-	std::string agent_name = self->getSelectedName(agent_id);
-	if(!agent_name.empty())
+	LLScrollListItem *item = self->mRadarList->getFirstSelected();
+	if (item != NULL)
 	{
+		LLUUID agent_id = item->getUUID();
+		std::string agent_name = getSelectedName(agent_id);
 		if (LLMuteList::getInstance()->isMuted(agent_id))
 		{
 			LLMute mute(agent_id, agent_name, LLMute::AGENT);
@@ -582,7 +619,7 @@ void LLFloaterMap::onClickEjectFromEstate(void *user_data)
 	LLFloaterMap *self = (LLFloaterMap*)user_data;
 	LLStringUtil::format_map_t args;
 	LLSD payload;
-	args["EVIL_USER"] = self->getSelectedName(self->mSelectedAvatar);
+	args["EVIL_USER"] = getSelectedName(self->mSelectedAvatar);
 	gViewerWindow->alertXml("EstateKickUser", args, callbackEjectFromEstate, user_data);
 }
 

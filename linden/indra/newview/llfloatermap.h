@@ -72,6 +72,7 @@ private:
 	static void onList(LLUICtrl* ctrl, void* user_data);
 	static void onRangeChange(LLFocusableElement* focus, void* user_data);
 	BOOL visibleItemsSelected() const;
+	BOOL getKickable(const LLUUID &agent_id);
 	void toggleButtons();
 	void populateRadar();
 
@@ -83,7 +84,7 @@ private:
 	static void onClickInvite(void* user_data);
 	static void callback_invite_to_group(LLUUID group_id, void *user_data);
 
-	static std::string getSelectedName(LLUUID agent_id);
+	static std::string getSelectedName(const LLUUID &agent_id);
 	static void onClickFreeze(void *user_data);
 	static void onClickEject(void *user_data);
 	static void onClickMute(void *user_data);

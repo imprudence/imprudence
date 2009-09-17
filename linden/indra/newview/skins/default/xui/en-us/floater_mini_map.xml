@@ -36,7 +36,7 @@
          width="40">
       Meters
     </text>
-    <tab_container border="false" bottom_delta="-179" height="174" left="0" mouse_opaque="false"
+    <tab_container border="false" bottom_delta="-176" height="172" left="0" mouse_opaque="false"
 		       name="button_container" tab_position="top" follows="left|right|bottom" width="198">
       <panel border="true" bottom="-180" follows="left|top|right|bottom" height="160"
 		       label="Avatars" left="1" mouse_opaque="true" name="avatar_tab" width="198">
@@ -76,17 +76,17 @@
         <button bottom_delta="-25" follows="top|right" height="22" label="Report..."
              left_delta="0" name="ar_btn"
              tool_tip="" width="80" />
-        <button bottom_delta="-25" follows="top|right" height="22" label="Estate..."
+        <button bottom_delta="-25" follows="top|right" height="22" label="Kick..."
              left_delta="0" name="estate_eject_btn" tool_tip=""
              width="80" />
       </panel>
     </tab_container>
-    <scroll_list bottom="-187" width="96" height="140" left="10"
+    <scroll_list bottom="-190" width="104" height="143" left="4"
          follows="left|bottom|right" draw_border="false" draw_heading="true"
          draw_stripes="true" column_padding="5" sort_column="1" mouse_opaque="true"
          background_visible="true" multi_select="false" name="RadarList">
       <column name="avatar_name" label="Name" dynamicwidth="true" />
-      <column name="avatar_distance" label="Dist." width="55" />
+      <column name="avatar_distance" label="Dist." width="48" />
     </scroll_list>
   </panel>
   <string name="no_one_near">

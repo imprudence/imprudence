@@ -1,3 +1,12 @@
+2009-09-16 McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Estate and track buttons now disable when they should, tweaked spacing.
+	 
+		modified:   linden/indra/newview/llfloatermap.cpp
+        modified:   linden/indra/newview/llfloatermap.h
+        modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+		
+
 2009-09-15 McCabe Maxsted  <hakushakukun@gmail.com>
 
      * Applied patch by Robin Cornelius for VWR-11128 - Python not always detected by develop.py.
