@@ -1,3 +1,16 @@
+2009-09-20 McCabe Maxsted  <hakushakukun@gmail.co
+
+	* Dynamically change max prim size depending upon LL/OpenSim grid (added setting for opensim detection: LoggedIntoOpenSim). OpenSim max is 128m.
+	
+		modified:   linden/indra/llmath/xform.h
+		modified:   linden/indra/newview/app_settings/settings
+		modified:   linden/indra/newview/llmanipscale.cpp
+		modified:   linden/indra/newview/llmanipscale.h
+		modified:   linden/indra/newview/llpanelobject.cpp
+		modified:   linden/indra/newview/llviewermessage.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+
+
 2009-09-18 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Applied patch by Aleric Inglewood for VWR-13996 - avatars using 1.22 completely invisible on first sight.

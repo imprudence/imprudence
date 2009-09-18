@@ -631,6 +631,10 @@ void LLPanelObject::getState( )
 	}
 	else
 	{
+		mCtrlScaleX->setMaxValue(LLManipScale::getMaxPrimSize());
+		mCtrlScaleY->setMaxValue(LLManipScale::getMaxPrimSize());
+		mCtrlScaleZ->setMaxValue(LLManipScale::getMaxPrimSize());
+
 		// Only allowed to change these parameters for objects
 		// that you have permissions on AND are not attachments.
 		enabled = root_objectp->permModify();

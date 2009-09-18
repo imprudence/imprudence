@@ -3152,6 +3152,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 
 	// If the server version has changed, display an info box and offer
 	// to display the release notes, unless this is the initial log in.
+	// Also verify we're on an OpenSimulator here.
 	if (gLastVersionChannel == version_channel)
 	{
 		return;
@@ -3161,6 +3162,15 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	{
 		LLNotifyBox::showXml(
 			"ServerVersionChanged",	display_release_notes, NULL);
+	}
+
+	if (version_channel.find("OpenSim") != std::string::npos)
+	{
+		gSavedSettings.setBOOL("LoggedIntoOpenSim", TRUE);
+	}
+	else
+	{
+		gSavedSettings.setBOOL("LoggedIntoOpenSim", FALSE);
 	}
 
 	gLastVersionChannel = version_channel;
