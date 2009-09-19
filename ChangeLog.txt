@@ -9,6 +9,11 @@
 		modified:   linden/indra/newview/llpanelobject.cpp
 		modified:   linden/indra/newview/llviewermessage.cpp
 		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+		
+		
+	* Fixed inventory offers not avatar name (another RLVa bug).
+	
+		modified:   linden/indra/newview/llviewermessage.cpp
 
 
 2009-09-18 McCabe Maxsted  <hakushakukun@gmail.com>

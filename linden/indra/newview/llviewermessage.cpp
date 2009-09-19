@@ -1266,7 +1266,7 @@ void inventory_offer_handler(LLOfferInfo* info, BOOL from_task)
 		if (gCacheName->getName(info->mFromID, first_name, last_name))
 		{
 // [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
-			if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (gRlvHandler.isAgentNearby(info->mFromID)) )
+			if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (gRlvHandler.isAgentNearby(info->mFromID)) )
 			{
 				first_name = gRlvHandler.getAnonym(first_name.append(" ").append(last_name));
 				last_name.clear();
@@ -1287,12 +1287,15 @@ void inventory_offer_handler(LLOfferInfo* info, BOOL from_task)
 	{
 		// *TODO:translate -> [FIRST] [LAST]
 // [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
-		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (gRlvHandler.isAgentNearby(info->mFromID)) )
+		if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (gRlvHandler.isAgentNearby(info->mFromID)) )
 		{
 			args["[NAME]"] = gRlvHandler.getAnonym(info->mFromName);
 		}
 // [/RLVa:KB]
-		//args["[NAME]"] = info->mFromName;
+		else
+		{
+			args["[NAME]"] = info->mFromName;
+		}
 		LLNotifyBox::showXml("UserGiveItem", args,
 							&inventory_offer_callback, (void*)info);
 	}
