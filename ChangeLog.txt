@@ -19,6 +19,11 @@
 	* Fixed group titles showing up as ?.
 	
 		modified:   linden/indra/newview/llvoavatar.cpp
+		
+		
+	* Added adult compliant flag.
+	
+		modified:   linden/indra/newview/llstartup.cpp
 
 
 2009-09-18 McCabe Maxsted  <hakushakukun@gmail.com>
