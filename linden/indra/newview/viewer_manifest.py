@@ -746,26 +746,28 @@ class LinuxManifest(ViewerManifest):
 
         self.package_file = installer_name + '.tar.bz2'
 
-        if("package" in self.args['actions'] or
-           "unpacked" in self.args['actions']):
+        # Disabled for now. It's a waste of time to package every compile.
 
-            # temporarily move directory tree so that it has the right
-            # name in the tarfile
-            self.run_command("mv %(dst)s %(inst)s" % {
-                'dst': self.get_dst_prefix(),
-                'inst': self.build_path_of(installer_name)})
-            try:
-                # --numeric-owner hides the username of the builder for
-                # security etc.
-                self.run_command('tar -C %(dir)s --numeric-owner -cjf '
-                                 '%(inst_path)s.tar.bz2 %(inst_name)s' % {
-                    'dir': self.get_build_prefix(),
-                    'inst_name': installer_name,
-                    'inst_path':self.build_path_of(installer_name)})
-            finally:
-                self.run_command("mv %(inst)s %(dst)s" % {
-                    'dst': self.get_dst_prefix(),
-                    'inst': self.build_path_of(installer_name)})
+        # if("package" in self.args['actions'] or
+        #    "unpacked" in self.args['actions']):
+        #
+        #     # temporarily move directory tree so that it has the right
+        #     # name in the tarfile
+        #     self.run_command("mv %(dst)s %(inst)s" % {
+        #         'dst': self.get_dst_prefix(),
+        #         'inst': self.build_path_of(installer_name)})
+        #     try:
+        #         # --numeric-owner hides the username of the builder for
+        #         # security etc.
+        #         self.run_command('tar -C %(dir)s --numeric-owner -cjf '
+        #                          '%(inst_path)s.tar.bz2 %(inst_name)s' % {
+        #             'dir': self.get_build_prefix(),
+        #             'inst_name': installer_name,
+        #             'inst_path':self.build_path_of(installer_name)})
+        #     finally:
+        #         self.run_command("mv %(inst)s %(dst)s" % {
+        #             'dst': self.get_dst_prefix(),
+        #             'inst': self.build_path_of(installer_name)})
 
 
 class Linux_i686Manifest(LinuxManifest):

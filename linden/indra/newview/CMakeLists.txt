@@ -61,7 +61,11 @@ include_directories(
     )
 
 set(viewer_SOURCE_FILES
-	jcfloater_animation_list.cpp
+    floaterlogin.cpp
+    hippoGridManager.cpp
+    hippoLimits.cpp
+    hippoRestRequest.cpp
+    jcfloater_animation_list.cpp
     llagent.cpp
     llagentdata.cpp
     llagentlanguage.cpp
@@ -461,8 +465,11 @@ endif (LINUX)
 set(viewer_HEADER_FILES
     CMakeLists.txt
     ViewerInstall.cmake
-
-	jcfloater_animation_list.h
+    floaterlogin.h
+    hippoGridManager.h
+    hippoLimits.h
+    hippoRestRequest.h
+    jcfloater_animation_list.h
     llagent.h
     llagentdata.h
     llagentlanguage.h

@@ -71,6 +71,10 @@
 	<combo_box allow_text_entry="true" bottom="32" follows="left|bottom" height="18"
 	     left_delta="135" max_chars="20" mouse_opaque="true"
 	     name="server_combo" width="120" />
+	<button bottom="28" follows="left|bottom" font="SansSerif" halign="center"
+		     height="24" label="Grid Manager" label_selected="Connect"
+		     left_delta="195" mouse_opaque="true" name="grid_btn" scale_image="TRUE"
+                     width="120" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="45" drop_shadow_visible="true" follows="right|bottom"
 	     font="SansSerifSmall" font-style="UNDERLINE" h_pad="0" halign="right" height="16"

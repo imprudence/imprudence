@@ -61,13 +61,15 @@ public:
 
 	// Application control
 	void forceQuit(); // Puts the viewer into 'shutting down without error' mode.
-	void requestQuit(); // Request a quit. A kinder, gentler quit.
+	void requestLogout(bool quit_after); // Request a logout, optionally quitting after
 	void userQuit(); // The users asks to quit. Confirm, then requestQuit()
+	static void userLogout(void *userdata); //graceful logout without quit
     void earlyExit(const std::string& msg); // Display an error dialog and forcibly quit.
     void forceExit(S32 arg); // exit() immediately (after some cleanup).
     void abortQuit();  // Called to abort a quit request.
 
     bool quitRequested() { return mQuitRequested; }
+    bool logoutRequested() { return mLogoutRequested; }
     bool logoutRequestSent() { return mLogoutRequestSent; }
 
 	void writeDebugInfo();
@@ -157,11 +159,12 @@ protected:
 
 	virtual std::string generateSerialNumber() = 0; // Platforms specific classes generate this.
 
+
 private:
 
 	bool initThreads(); // Initialize viewer threads, return false on failure.
 	bool initConfiguration(); // Initialize settings from the command line/config file.
-	void initGridChoice();
+	//void initGridChoice();
 
 	bool initCache(); // Initialize local client cache.
 	void purgeCache(); // Clear the local cache. 
@@ -211,6 +214,7 @@ private:
 	bool mSavedFinalSnapshot;
 
     bool mQuitRequested;				// User wants to quit, may have modified documents open.
+    bool mLogoutRequested;				// User wants to log out, but not quit
     bool mLogoutRequestSent;			// Disconnect message sent to simulator, no longer safe to send messages to the sim.
     S32 mYieldTime;
 	LLSD mSettingsFileList;
@@ -220,15 +224,6 @@ private:
 	// for tracking viewer<->region circuit death
 	bool mAgentRegionLastAlive;
 	LLUUID mAgentRegionLastID;
-
-public:
-	//some information for updater
-	typedef struct
-	{
-		std::string mUpdateExePath;
-		std::ostringstream mParams;
-	}LLUpdaterInfo ;
-	static LLUpdaterInfo *sUpdaterInfo ;
 };
 
 // consts from viewer.h
@@ -239,6 +234,9 @@ const S32 AGENT_UPDATES_PER_SECOND  = 10;
 //
 // "// llstartup" indicates that llstartup is the only client for this global.
 
+
+extern std::string gDisabledMessage; // llstartup
+extern BOOL gHideLinks; // used by llpanellogin, lllfloaterbuycurrency, llstartup
 extern LLSD gDebugInfo;
 
 extern BOOL	gAllowIdleAFK;

@@ -1,3 +1,108 @@
+2009-09-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Updated Grid Manager from Meerkat's SVN (as of r215).
+
+		modified:   linden/indra/llvfs/lldir.cpp
+		modified:   linden/indra/llvfs/lldir.h
+		modified:   linden/indra/newview/CMakeLists.txt
+		modified:   linden/indra/newview/app_settings/default_grids.xml
+		deleted:    linden/indra/newview/authentication_controller.cpp
+		deleted:    linden/indra/newview/authentication_controller.h
+		deleted:    linden/indra/newview/authentication_floater.cpp
+		deleted:    linden/indra/newview/authentication_floater.h
+		deleted:    linden/indra/newview/authentication_model.cpp
+		deleted:    linden/indra/newview/authentication_model.h
+		deleted:    linden/indra/newview/controllerlogin.cpp
+		deleted:    linden/indra/newview/controllerlogin.h
+		deleted:    linden/indra/newview/controllerpasswords.cpp
+		deleted:    linden/indra/newview/controllerpasswords.h
+		modified:   linden/indra/newview/floaterlogin.cpp
+		modified:   linden/indra/newview/floaterlogin.h
+		modified:   linden/indra/newview/hippoGridManager.cpp
+		modified:   linden/indra/newview/hippoGridManager.h
+		modified:   linden/indra/newview/llfloaterworldmap.cpp
+		modified:   linden/indra/newview/llpanellogin.cpp
+		modified:   linden/indra/newview/llprefsim.cpp
+		modified:   linden/indra/newview/llstartup.cpp
+		deleted:    linden/indra/newview/prefpanelpasswords.cpp
+		deleted:    linden/indra/newview/prefpanelpasswords.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_login.xml
+
+
+
+	* Merged in Grid Manager, etc. (thanks Armin).
+
+		modified:   linden/indra/llcommon/llstring.h
+		modified:   linden/indra/newview/CMakeLists.txt
+		new file:   linden/indra/newview/app_settings/default_grids.xml
+		modified:   linden/indra/newview/app_settings/settings.xml
+		new file:   linden/indra/newview/authentication_controller.cpp
+		new file:   linden/indra/newview/authentication_controller.h
+		new file:   linden/indra/newview/authentication_floater.cpp
+		new file:   linden/indra/newview/authentication_floater.h
+		new file:   linden/indra/newview/authentication_model.cpp
+		new file:   linden/indra/newview/authentication_model.h
+		new file:   linden/indra/newview/controllerlogin.cpp
+		new file:   linden/indra/newview/controllerlogin.h
+		new file:   linden/indra/newview/controllerpasswords.cpp
+		new file:   linden/indra/newview/controllerpasswords.h
+		new file:   linden/indra/newview/floaterlogin.cpp
+		new file:   linden/indra/newview/floaterlogin.h
+		new file:   linden/indra/newview/hippoGridManager.cpp
+		new file:   linden/indra/newview/hippoGridManager.h
+		new file:   linden/indra/newview/hippoLimits.cpp
+		new file:   linden/indra/newview/hippoLimits.h
+		new file:   linden/indra/newview/hippoRestRequest.cpp
+		new file:   linden/indra/newview/hippoRestRequest.h
+		new file:   linden/indra/newview/hippoUpdate.cpp
+		new file:   linden/indra/newview/hippoUpdate.h
+		modified:   linden/indra/newview/llagent.cpp
+		modified:   linden/indra/newview/llappviewer.cpp
+		modified:   linden/indra/newview/llappviewer.h
+		modified:   linden/indra/newview/llappviewerlinux.h
+		modified:   linden/indra/newview/llcallingcard.cpp
+		modified:   linden/indra/newview/llcallingcard.h
+		modified:   linden/indra/newview/llchatbar.cpp
+		modified:   linden/indra/newview/lldrawable.h
+		modified:   linden/indra/newview/llfloaterworldmap.cpp
+		modified:   linden/indra/newview/llfloaterworldmap.h
+		modified:   linden/indra/newview/llinventorymodel.cpp
+		modified:   linden/indra/newview/llinventorymodel.h
+		modified:   linden/indra/newview/llinventoryview.cpp
+		modified:   linden/indra/newview/llpanellogin.cpp
+		modified:   linden/indra/newview/llpanellogin.h
+		modified:   linden/indra/newview/llprogressview.cpp
+		modified:   linden/indra/newview/llstartup.cpp
+		modified:   linden/indra/newview/llstartup.h
+		modified:   linden/indra/newview/lluserauth.cpp
+		modified:   linden/indra/newview/llviewerjointattachment.h
+		modified:   linden/indra/newview/llviewermenu.cpp
+		modified:   linden/indra/newview/llviewermenufile.cpp
+		modified:   linden/indra/newview/llviewermessage.cpp
+		modified:   linden/indra/newview/llviewermessage.h
+		modified:   linden/indra/newview/llviewernetwork.cpp
+		modified:   linden/indra/newview/llviewernetwork.h
+		modified:   linden/indra/newview/llviewerobject.h
+		modified:   linden/indra/newview/llviewerwindow.cpp
+		modified:   linden/indra/newview/llvoavatar.cpp
+		modified:   linden/indra/newview/llwearablelist.cpp
+		modified:   linden/indra/newview/llworld.cpp
+		new file:   linden/indra/newview/prefpanelpasswords.cpp
+		new file:   linden/indra/newview/prefpanelpasswords.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+		new file:   linden/indra/newview/skins/default/xui/en-us/floater_login.xml
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_world_map.xml
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_login.xml
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_network.xml
+
+
+	* Commented out Linux tarball building.
+	  It's a waste of time to package after every compile.
+
+		modified:   linden/indra/newview/viewer_manifest.py
+
+
 2009-09-08  McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Created my own version of Emerald's chat channel tool. 
