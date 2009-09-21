@@ -33,6 +33,7 @@
 #define LL_LLFLOATERMAP_H
 
 #include "llfloater.h"
+#include "llscrolllistctrl.h"
 
 class LLNetMap;
 
@@ -45,6 +46,9 @@ public:
 	virtual ~LLFloaterMap();
 
 	static void* createPanelMiniMap(void* data);
+
+	static void updateRadar();
+	static LLUUID getSelected();
 
 	BOOL postBuild();
 
@@ -59,7 +63,46 @@ public:
 
 private:
 	LLFloaterMap(const LLSD& key = LLSD());
-	LLNetMap*		mPanelMap;
+
+	LLNetMap*						mPanelMap;
+	LLScrollListCtrl*				mRadarList;
+	LLUUID							mSelectedAvatar;
+	bool							mUpdate;
+	
+	static void onList(LLUICtrl* ctrl, void* user_data);
+	static void onRangeChange(LLFocusableElement* focus, void* user_data);
+	BOOL visibleItemsSelected() const;
+	BOOL getKickable(const LLUUID &agent_id);
+	void toggleButtons();
+	void populateRadar();
+
+	static void onClickProfile(void* user_data);
+	static void onClickIM(void* user_data);
+	static void onClickAddFriend(void* user_data);
+	static void onClickOfferTeleport(void* user_data);
+	static void onClickTrack(void* user_data);
+	static void onClickInvite(void* user_data);
+	static void callback_invite_to_group(LLUUID group_id, void *user_data);
+
+	static std::string getSelectedName(const LLUUID &agent_id);
+	static void onClickFreeze(void *user_data);
+	static void onClickEject(void *user_data);
+	static void onClickMute(void *user_data);
+	static void onClickUnmute(void *user_data);
+	static void onClickAR(void *user_data);
+	static void onClickEjectFromEstate(void *user_data);
+
+	static void callbackFreeze(S32 option, void *user_data);
+	static void callbackEject(S32 option, void *user_data);
+	static void callbackAR(void *user_data);
+	static void callbackEjectFromEstate(S32 option, void *user_data);
+
+	static void sendFreeze(const LLUUID &avatar, bool);
+	static void sendEject(const LLUUID &avatar, bool);
+	static void cmdEstateEject(const LLUUID &avatar);
+	static void cmdEstateBan(const LLUUID &avatar);
+	static void sendEstateBan(const LLUUID& agent);
+	static void sendEstateMessage(const char* request, const LLUUID &target);
 };
 
 #endif  // LL_LLFLOATERMAP_H

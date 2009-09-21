@@ -30,8 +30,17 @@
 
 	* Applied patch by Aleric Inglewood for VWR-13996 - avatars using 1.22 completely invisible on first sight.
 	
-			modified:   linden/indra/newview/llspatialpartition.cpp
+		modified:   linden/indra/newview/llspatialpartition.cpp
 			
+
+2009-09-16 McCabe Maxsted  <hakushakukun@gmail.com>
+
+     * Estate and track buttons now disable when they should, tweaked spacing.
+	 
+		modified:   linden/indra/newview/llfloatermap.cpp
+        modified:   linden/indra/newview/llfloatermap.h
+        modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+		
 
 2009-09-15 McCabe Maxsted  <hakushakukun@gmail.com>
 
@@ -53,7 +62,50 @@
 		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%204.xml
 		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%205.xml
 		new file:   linden/indra/newview/app_settings/windlight/skies/Rouge%206.xml
+		
+		
+     * Added tabs to mini-map radar.
+	 
+		modified:   linden/indra/newview/llfloatermap.cpp
+		modified:   linden/indra/newview/llfloatermap.h
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
 
+
+     * Some code cleanup.
+	 
+		modified:   linden/indra/newview/llfloatermap.cpp
+		modified:   linden/indra/newview/llfloatermap.h
+		modified:   linden/indra/newview/llnetmap.cpp
+		
+		
+     * Fixed bad RLVa behavior in minimap.
+	 
+		modified:   linden/indra/newview/llnetmap.cpp
+
+		
+     * Don't track avatars when focus lost.
+	 
+		modified:   linden/indra/newview/llfloatermap.cpp
+		
+		
+     * Fixed min minimap size.
+	 
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+		
+		
+     * Moved Rotate Mini-Map option to mini-map menu, added first use dialog.
+	 
+		modified:   linden/indra/newview/llfirstuse.cpp
+        modified:   linden/indra/newview/llfirstuse.h
+        modified:   linden/indra/newview/llfloatermap.cpp
+        modified:   linden/indra/newview/llnetmap.cpp
+        modified:   linden/indra/newview/llnetmap.h
+        modified:   linden/indra/newview/llpanelgeneral.cpp
+		modified:   linden/indra/newview/app_settings/settings.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/menu_mini_map.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
+		
 
 2009-09-14 McCabe Maxsted  <hakushakukun@gmail.com>
 
@@ -565,6 +617,16 @@
 
 		modified:   linden/indra/cmake/GStreamer.cmake
 
+
+2009-08-12  McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added basic radar to the minimap.
+		
+		modified:   linden/indra/newview/llfloatermap.cpp
+		modified:   linden/indra/newview/llfloatermap.h
+		modified:   linden/indra/newview/llnetmap.cpp
+		modified:	linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+		
 
 2009-06-14  McCabe Maxsted  <hakushakukun@gmail.com>
 

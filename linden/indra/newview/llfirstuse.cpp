@@ -131,6 +131,17 @@ void LLFirstUse::useMap()
 }
 
 // static
+void LLFirstUse::useMiniMap()
+{
+	if (gSavedSettings.getWarning("FirstMiniMap"))
+	{
+		gSavedSettings.setWarning("FirstMiniMap", FALSE);
+
+		LLNotifyBox::showXml("FirstMiniMap");
+	}
+}
+
+// static
 void LLFirstUse::useGoTo()
 {
 	// nothing for now JC

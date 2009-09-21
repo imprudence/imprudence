@@ -45,6 +45,7 @@
 #include "llcolorscheme.h"
 #include "llviewercontrol.h"
 #include "llfloateravatarinfo.h"
+#include "llfloatermap.h"
 #include "llfloaterworldmap.h"
 #include "llframetimer.h"
 #include "llmutelist.h"
@@ -98,6 +99,8 @@ LLNetMap::LLNetMap(const std::string& name) :
 	(new LLScaleMap())->registerListener(this, "MiniMap.ZoomLevel");
 	(new LLCenterMap())->registerListener(this, "MiniMap.Center");
 	(new LLCheckCenterMap())->registerListener(this, "MiniMap.CheckCenter");
+	(new LLRotateMap())->registerListener(this, "MiniMap.Rotate");
+	(new LLCheckRotateMap())->registerListener(this, "MiniMap.CheckRotate");
 	(new LLShowWorldMap())->registerListener(this, "MiniMap.ShowWorldMap");
 	(new LLStopTracking())->registerListener(this, "MiniMap.StopTracking");
 	(new LLEnableTracking())->registerListener(this, "MiniMap.EnableTracking");
@@ -115,6 +118,11 @@ LLNetMap::LLNetMap(const std::string& name) :
 	}
 	menu->setVisible(FALSE);
 	mPopupMenuHandle = menu->getHandle();
+}
+
+BOOL LLNetMap::postBuild()
+{
+	return TRUE;
 }
 
 LLNetMap::~LLNetMap()
@@ -330,6 +338,7 @@ void LLNetMap::draw()
 		LLColor4 avatar_color = gColors.getColor( "MapAvatar" );
 		LLColor4 friend_color = gColors.getColor( "MapFriend" );
 		LLColor4 muted_color = gColors.getColor( "MapMuted" );
+		LLColor4 selected_color = gColors.getColor( "MapSelected" );
 		LLColor4 glyph_color;
 
 		std::vector<LLUUID> avatar_ids;
@@ -340,9 +349,13 @@ void LLNetMap::draw()
 			// TODO: it'd be very cool to draw these in sorted order from lowest Z to highest.
 			// just be careful to sort the avatar IDs along with the positions. -MG
 			pos_map = globalPosToView(positions[i], rotate_map);
-
+			
+			if (LLFloaterMap::getSelected() == avatar_ids[i])
+			{
+				glyph_color = selected_color;
+			}
 			// Show them muted even if they're friends
-			if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
+			else if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
 			{
 				glyph_color = muted_color;
 			}
@@ -356,7 +369,7 @@ void LLNetMap::draw()
 			}
 
 // [RLVa:KB]
-			if ( !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
+			if ( rlv_handler_t::isEnabled() && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
 			{
 				// User is not allowed to see who it is, or even if it's a friend,
 				// due to RLV settings.
@@ -460,6 +473,8 @@ void LLNetMap::draw()
 	setDirectionPos( getChild<LLTextBox>("se_label"), rotation + F_PI + F_PI_BY_TWO + F_PI_BY_TWO / 2);
 
 	LLView::draw();
+
+	LLFloaterMap::updateRadar();
 }
 
 void LLNetMap::reshape(S32 width, S32 height, BOOL called_from_parent)
@@ -562,7 +577,7 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 		if(mClosestAgentToCursor.notNull() && gCacheName->getFullName(mClosestAgentToCursor, fullname))
 		{
 // [RLVa:KB]
-			if ( !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
+			if ( rlv_handler_t::isEnabled() && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
 			{
 				// User is not allowed to see who it is, due to RLV settings.
 				msg.append(rlv_handler_t::cstrHidden);
@@ -576,7 +591,7 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 		}
 		
 // [RLVa:KB]
-		if (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+		if (rlv_handler_t::isEnabled() && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
 		{
 			// User is not allowed to see where they are, due to RLV settings.
 			msg.append( rlv_handler_t::cstrHidden ); 
@@ -919,6 +934,22 @@ bool LLNetMap::LLScaleMap::handleEvent(LLPointer<LLEvent> event, const LLSD& use
 		break;
 	}
 
+	return true;
+}
+
+bool LLNetMap::LLRotateMap::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	BOOL rotate = gSavedSettings.getBOOL("MiniMapRotate");
+	gSavedSettings.setBOOL("MiniMapRotate", !rotate);
+
+	return true;
+}
+
+bool LLNetMap::LLCheckRotateMap::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	LLNetMap *self = mPtr;
+	BOOL enabled = gSavedSettings.getBOOL("MiniMapRotate");
+	self->findControl(userdata["control"].asString())->setValue(enabled);
 	return true;
 }
 

@@ -5245,7 +5245,7 @@
 	      <key>Type</key>
 	      <string>F32</string>
 	      <key>Value</key>
-	      <integer>20</integer>
+	      <integer>96</integer>
     </map>
     <key>NewCacheLocation</key>
     <map>
@@ -10332,6 +10332,17 @@
     <map>
       <key>Comment</key>
       <string>Enables FirstMedia warning dialog</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>WarnFirstMiniMap</key>
+    <map>
+      <key>Comment</key>
+      <string>Enables FirstMiniMap warning dialog</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

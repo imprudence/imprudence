@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel background_opaque="false" background_visible="true" bg_alpha_color="NetMapBackgroundColor"
-	 border="false" follows="left|top|right|bottom" height="216" label="Mini Map"
+	 border="false" follows="left|top|right|bottom" height="716" label="Mini Map"
 	 mouse_opaque="false" name="mini_mapview" width="196">
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		 bottom="-40" drop_shadow_visible="false" font="SansSerifSmall" h_pad="0"

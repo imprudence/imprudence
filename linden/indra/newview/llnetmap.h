@@ -52,6 +52,8 @@ class LLNetMap : public LLPanel
 {
 public:
 	LLNetMap(const std::string& name);
+
+	virtual	BOOL postBuild();
 	virtual ~LLNetMap();
 
 	virtual void	draw();
@@ -111,8 +113,8 @@ private:
 	LLPointer<LLImageGL>	mObjectImagep;
 
 private:
-	LLUUID			mClosestAgentToCursor;
-	LLUUID			mClosestAgentAtLastRightClick;
+	LLUUID				mClosestAgentToCursor;
+	LLUUID				mClosestAgentAtLastRightClick;
 
 	static BOOL		sRotateMap;
 	static LLNetMap*	sInstance;
@@ -135,6 +137,18 @@ private:
 	};
 
 	class LLCheckCenterMap : public LLMemberListener<LLNetMap>
+	{
+	public:
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+	};
+
+	class LLRotateMap : public LLMemberListener<LLNetMap>
+	{
+	public:
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+	};
+
+	class LLCheckRotateMap : public LLMemberListener<LLNetMap>
 	{
 	public:
 		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
