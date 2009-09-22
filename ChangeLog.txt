@@ -1,3 +1,13 @@
+2009-09-21 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Changed 'Presets' button to 'Sky'.
+	
+		modified:   linden/indra/newview/skins/default/xui/en-us/panel_overlaybar.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_controls.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote.xml
+        modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+
+		
 2009-09-20 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Dynamically change max prim size depending upon LL/OpenSim grid (added setting for opensim detection: LoggedIntoOpenSim). OpenSim max is 128m.
