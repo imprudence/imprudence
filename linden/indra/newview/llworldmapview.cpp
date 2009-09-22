@@ -606,7 +606,11 @@ void LLWorldMapView::draw()
 			gGL.end();
 		}
 
-		// If this is mature, and you are not, draw a line across it
+		// As part of the AO project, we no longer want to draw access indicators;
+		// it's too complicated to get all the rules straight and will only 
+		// cause confusion.
+		/**********************
+		 // If this is mature, and you are not, draw a line across it
 		if (info->mAccess != SIM_ACCESS_DOWN
 			&& info->mAccess > SIM_ACCESS_PG
 			&& gAgent.isTeen())
@@ -622,6 +626,7 @@ void LLWorldMapView::draw()
 				gGL.vertex2f(right, top);
 			gGL.end();
 		}
+		 **********************/
 
 		// Draw the region name in the lower left corner
 		LLFontGL* font = LLFontGL::sSansSerifSmall;

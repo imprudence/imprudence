@@ -12,7 +12,12 @@
 	
 		modified:   linden/indra/newview/app_settings/settings.xml
 		modified:   linden/indra/newview/llworldmapview.cpp
-
+		
+		
+	* Fixed map textures displaying an X.
+	
+		modified:   linden/indra/newview/llworldmapview.cpp
+		
 		
 2009-09-20 McCabe Maxsted  <hakushakukun@gmail.com>
 
