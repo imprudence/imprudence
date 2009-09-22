@@ -19,6 +19,15 @@
 		modified:   linden/indra/newview/llworldmapview.cpp
 		
 		
+	* Display selected avatars larger than normal, zoom in at a reasonable speed. Included missing artwork.
+	
+		modified:   linden/indra/newview/llnetmap.cpp
+		new file:   linden/indra/newview/skins/default/textures/map_avatar_32.tga
+        new file:   linden/indra/newview/skins/default/textures/map_avatar_above_32.tga
+        new file:   linden/indra/newview/skins/default/textures/map_avatar_below_32.tga
+        new file:   linden/indra/newview/skins/default/textures/map_avatar_you_32.tga
+		
+		
 2009-09-20 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Dynamically change max prim size depending upon LL/OpenSim grid (added setting for opensim detection: LoggedIntoOpenSim). OpenSim max is 128m.

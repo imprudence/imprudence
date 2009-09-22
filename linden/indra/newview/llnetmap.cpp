@@ -73,7 +73,7 @@ const F32 MAP_SCALE_MIN = 32;
 const F32 MAP_SCALE_MID = 1024;
 const F32 MAP_SCALE_MAX = 4096;
 const F32 MAP_SCALE_INCREMENT = 16;
-const F32 MAP_SCALE_ZOOM_FACTOR = 1.04f;			// Zoom in factor per click of the scroll wheel (4%)
+const F32 MAP_SCALE_ZOOM_FACTOR = 1.25f;			// Zoom in factor per click of the scroll wheel (25%)
 const F32 MAP_MINOR_DIR_THRESHOLD = 0.08f;
 const F32 MIN_DOT_RADIUS = 3.5f;
 const F32 DOT_SCALE = 0.75f;
@@ -345,6 +345,7 @@ void LLNetMap::draw()
 		LLColor4 muted_color = gColors.getColor( "MapMuted" );
 		LLColor4 selected_color = gColors.getColor( "MapSelected" );
 		LLColor4 glyph_color;
+		F32 glyph_radius;
 
 		std::vector<LLUUID> avatar_ids;
 		std::vector<LLVector3d> positions;
@@ -357,20 +358,25 @@ void LLNetMap::draw()
 			
 			if (LLFloaterMap::getSelected() == avatar_ids[i])
 			{
+				glyph_radius = mDotRadius * 1.7f;
 				glyph_color = selected_color;
-			}
-			// Show them muted even if they're friends
-			else if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
-			{
-				glyph_color = muted_color;
-			}
-			else if (is_agent_friend(avatar_ids[i]))
-			{
-				glyph_color = friend_color;
 			}
 			else
 			{
-				glyph_color = avatar_color;
+				glyph_radius = mDotRadius;
+				// Show them muted even if they're friends
+				if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
+				{
+					glyph_color = muted_color;
+				}
+				else if (is_agent_friend(avatar_ids[i]))
+				{
+					glyph_color = friend_color;
+				}
+				else
+				{
+					glyph_color = avatar_color;
+				}
 			}
 
 // [RLVa:KB]
@@ -386,7 +392,7 @@ void LLNetMap::draw()
 				pos_map.mV[VX], pos_map.mV[VY], 
 				glyph_color, 
 				pos_map.mV[VZ],
-				mDotRadius);
+				glyph_radius);
 
 			F32	dist_to_cursor = dist_vec(LLVector2(pos_map.mV[VX], pos_map.mV[VY]), LLVector2(local_mouse_x,local_mouse_y));
 			if(dist_to_cursor < min_pick_dist && dist_to_cursor < closest_dist)
