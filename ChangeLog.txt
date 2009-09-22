@@ -6,6 +6,12 @@
         modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_controls.xml
         modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote.xml
         modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+		
+		
+	* Applied Jacek's patch to show number of avatars in world map.
+	
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/llworldmapview.cpp
 
 		
 2009-09-20 McCabe Maxsted  <hakushakukun@gmail.com>

@@ -651,6 +651,33 @@ void LLWorldMapView::draw()
 			{
 				mesg = llformat( "%s (%s)", info->mName.c_str(), sStringsMap["offline"].c_str());
 			}
+			else if (gSavedSettings.getBOOL("MapShowAgentCount") && gSavedSettings.getBOOL("MapShowPeople"))
+			{
+				// Display the agent count after the region name
+				S32 agent_count = LLWorldMap::getInstance()->mNumAgents[handle];
+				LLViewerRegion *region = gAgent.getRegion();
+
+				if (region && region->getHandle() == info->mHandle)
+				{
+					++agent_count; // Bump by 1 if we're in this region
+				}
+
+				if (agent_count > 0)
+				{
+					//TODO: move this and the tooltip strings into XML
+					std::string count = llformat("%d %s", agent_count, agent_count > 1 ? "avatars" : "avatar");
+					font->renderUTF8(
+						count, 0,
+						llfloor(left + 3), 
+						llfloor(bottom + 20),
+						LLColor4::white,
+						LLFontGL::LEFT,
+						LLFontGL::BASELINE,
+						LLFontGL::DROP_SHADOW);
+
+					mesg = info->mName;
+				}
+			}
 			else
 			{
 				mesg = info->mName;
@@ -1161,11 +1188,11 @@ BOOL LLWorldMapView::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* stic
 
 				if (agent_count == 1)
 				{
-					message += "person";
+					message += "avatar";
 				}
 				else
 				{
-					message += "people";
+					message += "avatars";
 				}
 			}
 		}
