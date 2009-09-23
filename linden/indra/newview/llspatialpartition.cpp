@@ -563,7 +563,7 @@ void LLSpatialGroup::rebuildGeom()
 
 void LLSpatialPartition::rebuildGeom(LLSpatialGroup* group)
 {
-	if (group->changeLOD())
+	if (!LLPipeline::sSkipUpdate && group->changeLOD())
 	{
 		group->mLastUpdateDistance = group->mDistance;
 		group->mLastUpdateViewAngle = group->mViewAngle;

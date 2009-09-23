@@ -763,6 +763,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>BlockClickSit</key>
+    <map>
+      <key>Comment</key>
+      <string>Block click sit</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>BrowserHome</key>
     <map>
       <key>Comment</key>
@@ -2492,6 +2503,17 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>EnableWindlightRemote</key>
+    <map>
+      <key>Comment</key>
+      <string>Enable windlight quick access remote in toolbar</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>EnergyFromTop</key>
     <map>
       <key>Comment</key>
@@ -3205,7 +3227,24 @@
         <integer>0</integer>
       </array>
     </map>
-    <key>FloaterOpenObjectRect</key>
+
+  <key>FloaterObjectIMInfo</key>
+  <map>
+    <key>Comment</key>
+    <string>Rectangle for floater object im info windows</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Rect</string>
+    <key>Value</key>
+    <array>
+      <integer>0</integer>
+      <integer>300</integer>
+      <integer>300</integer>
+      <integer>0</integer>
+    </array>
+  </map>
+  <key>FloaterOpenObjectRect</key>
     <map>
       <key>Comment</key>
       <string>Rectangle for Open Object window</string>
@@ -4136,6 +4175,17 @@
       <key>Value</key>
       <real>1.0</real>
     </map>
+    <key>InventorySearchType</key>
+    <map>
+      <key>Comment</key>
+      <string>Controls what type of inventory search we perform.</string>
+      <key>Persist</key>
+      <integer>0</integer>
+      <key>Type</key>
+      <string>U32</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>InventorySortOrder</key>
     <map>
       <key>Comment</key>
@@ -4670,6 +4720,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>LoggedIntoOpenSim</key>
+    <map>
+      <key>Comment</key>
+      <string>Check whether or not we're in an OpenSimulator (default 0)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>LoginAsGod</key>
     <map>
       <key>Comment</key>
@@ -4746,6 +4807,17 @@
       <string>F32</string>
       <key>Value</key>
       <real>128.0</real>
+    </map>
+    <key>MapShowAgentCount</key>
+    <map>
+      <key>Comment</key>
+      <string>Show number of agents next to region names on world map</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
     </map>
     <key>MapShowEvents</key>
     <map>
@@ -4992,7 +5064,7 @@
     <key>MiniMapScale</key>
     <map>
       <key>Comment</key>
-      <string>Miniature world map zoom levle (pixels per region)</string>
+      <string>Miniature world map zoom level (pixels per region)</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -5184,7 +5256,7 @@
 	      <key>Type</key>
 	      <string>F32</string>
 	      <key>Value</key>
-	      <integer>20</integer>
+	      <integer>96</integer>
     </map>
     <key>NewCacheLocation</key>
     <map>
@@ -7474,6 +7546,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>ShowStreamTitle</key>
+    <map>
+      <key>Comment</key>
+      <string>Show the title of the song playing on the parcel's stream</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>ShowTangentBasis</key>
     <map>
       <key>Comment</key>
@@ -7533,6 +7616,17 @@
     <map>
       <key>Comment</key>
       <string>Show individual volume slider for voice, sound effects, etc</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>ShowWindlightSettingsPopup</key>
+    <map>
+      <key>Comment</key>
+      <string>Show environment settings popup</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -8044,7 +8138,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>500.0</real>
+      <real>1000.0</real>
     </map>
     <key>ToolHelpRect</key>
     <map>
@@ -10249,6 +10343,17 @@
     <map>
       <key>Comment</key>
       <string>Enables FirstMedia warning dialog</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>WarnFirstMiniMap</key>
+    <map>
+      <key>Comment</key>
+      <string>Enables FirstMiniMap warning dialog</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

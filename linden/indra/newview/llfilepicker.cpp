@@ -998,6 +998,12 @@ GtkWindow* LLFilePicker::buildFilePicker(bool is_save, bool is_folder, std::stri
 				(GTK_FILE_CHOOSER(win),
 				 this_path->second.c_str());
 		}
+		else if (getenv("HOME"))
+		{
+			gtk_file_chooser_set_current_folder
+				(GTK_FILE_CHOOSER(win),
+				 getenv("HOME"));
+		}
 
 #  if LL_X11
 		// Make GTK tell the window manager to associate this

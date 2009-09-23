@@ -45,16 +45,21 @@
 				     use_bounding_rect="true" width="395" />
 			</layout_stack>
 		</layout_panel>
-		<layout_panel auto_resize="false" bottom="0" left="0" min_width="220" mouse_opaque="false"
+    <layout_panel auto_resize="false" bottom="0" left="0" min_width="184" mouse_opaque="false"
+     			name="windlight_remote_container" use_bounding_rect="true" user_resize="false"
+     			width="186">
+      <panel background_visible="false" border="false" bottom="0" name="windlight_remote" />
+    </layout_panel>
+    <layout_panel auto_resize="false" bottom="0" left="0" min_width="220" mouse_opaque="false"
 		     name="media_remote_container" use_bounding_rect="true" user_resize="false"
 		     width="220">
-			<panel background_visible="false" border="false" bottom="0" name="media_remote" />
-		</layout_panel>
-		<layout_panel auto_resize="false" bottom="0" left="0" min_width="130" mouse_opaque="false"
+      <panel background_visible="false" border="false" bottom="0" name="media_remote" />
+    </layout_panel>
+    <layout_panel auto_resize="false" bottom="0" left="0" min_width="130" mouse_opaque="false"
 		     name="voice_remote_container" use_bounding_rect="true" user_resize="false"
 		     width="128">
-			<panel background_visible="false" border="false" bottom="0" name="voice_remote" />
-		</layout_panel>
+      <panel background_visible="false" border="false" bottom="0" name="voice_remote" />
+    </layout_panel>
 	</layout_stack>
   <string name="unread_count_string_plural">
     New IMs

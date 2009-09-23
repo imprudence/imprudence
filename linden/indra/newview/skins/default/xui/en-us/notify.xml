@@ -835,6 +835,11 @@ Use the controls on the right to find things
 and display different backgrounds.
 		</message>
 	</notify>
+  <notify name="FirstMiniMap" tip="false">
+    <message name="message">
+      Right-click the Mini-Map for more options.
+    </message>
+  </notify>
 	<notify name="FirstBuild" tip="false">
 		<message name="message">
 			You can build new objects in some areas of [SECOND_LIFE].

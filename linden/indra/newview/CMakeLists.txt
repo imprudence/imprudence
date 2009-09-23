@@ -172,6 +172,7 @@ set(viewer_SOURCE_FILES
     llfloatermute.cpp
     llfloaternamedesc.cpp
     llfloaternewim.cpp
+    llfloaterobjectiminfo.cpp
     llfloateropenobject.cpp
     llfloaterparcel.cpp
     llfloaterpermissionsmgr.cpp
@@ -426,6 +427,7 @@ set(viewer_SOURCE_FILES
     llwearablelist.cpp
     llweb.cpp
     llwebbrowserctrl.cpp
+    llwindlightremotectrl.cpp
     llwind.cpp
     llwlanimator.cpp
     llwldaycycle.cpp
@@ -578,6 +580,7 @@ set(viewer_HEADER_FILES
     llfloatermute.h
     llfloaternamedesc.h
     llfloaternewim.h
+    llfloaterobjectiminfo.h
     llfloateropenobject.h
     llfloaterparcel.h
     llfloaterpermissionsmgr.h
@@ -837,6 +840,7 @@ set(viewer_HEADER_FILES
     llwebbrowserctrl.h
     llwind.h
     llwindebug.h
+    llwindlightremotectrl.h
     llwlanimator.h
     llwldaycycle.h
     llwlparammanager.h
@@ -1104,6 +1108,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_name_description.xml
     skins/default/xui/en-us/floater_new_im.xml
     skins/default/xui/en-us/floater_new_outfit_dialog.xml
+    skins/default/xui/en-us/floater_object_im_info.xml
     skins/default/xui/en-us/floater_openobject.xml
     skins/default/xui/en-us/floater_pay_object.xml
     skins/default/xui/en-us/floater_pay.xml
@@ -1220,6 +1225,9 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/panel_voice_options.xml
     skins/default/xui/en-us/panel_voice_remote_expanded.xml
     skins/default/xui/en-us/panel_voice_remote.xml
+    skins/default/xui/en-us/panel_windlight_controls.xml
+    skins/default/xui/en-us/panel_windlight_remote.xml
+    skins/default/xui/en-us/panel_windlight_remote_expanded.xml
     skins/default/xui/en-us/role_actions.xml
     skins/default/xui/en-us/strings.xml
     skins/default/xui/en-us/teleport_strings.xml

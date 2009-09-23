@@ -521,6 +521,15 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 	addBoolControl("Inventory.FoldersAlwaysByName", sort_folders_by_name );
 	addBoolControl("Inventory.SystemFoldersToTop", sort_system_folders_to_top );
 
+	//Search Controls
+	U32 search_type = gSavedSettings.getU32("InventorySearchType");
+	BOOL search_by_name = (search_type == 0);
+
+	addBoolControl("Inventory.SearchByName", search_by_name);
+	addBoolControl("Inventory.SearchByCreator", !search_by_name);
+
+	addBoolControl("Inventory.SearchByAll", !search_by_name);
+
 	mSavedFolderState = new LLSaveFolderState();
 	mSavedFolderState->setApply(FALSE);
 

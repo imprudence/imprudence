@@ -617,7 +617,7 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL 
 {
 	// Look for "/20 foo" channel chats.
 	S32 channel = mChannelControl ? (S32)(getChild<LLSpinCtrl>("channel_control")->get()) : 0;
-	//S32 channel = (S32)(getChild<LLSpinCtrl>("ChatChannel")->get());
+
 	LLWString out_text = stripChannelNumber(wtext, &channel);
 	std::string utf8_out_text = wstring_to_utf8str(out_text);
 	std::string utf8_text = wstring_to_utf8str(wtext);

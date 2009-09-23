@@ -150,7 +150,6 @@
   
   <texture name="map_avatar_16.tga"/>
   <texture name="map_avatar_8.tga"/>
-  <texture name="map_avatar_you_8.tga"/>
   <texture name="map_event.tga"/>
   <texture name="map_event_mature.tga"/>
   <texture name="map_home.tga"/>
@@ -365,6 +364,9 @@
   <texture name="icn_label_music.tga"/>
   <texture name="icn_label_media.tga"/>
   <texture name="arrow_down.tga"/>
+  <texture name="arrow_up.tga"/>
+  <texture name="arrow_left.tga"/>
+  <texture name="arrow_right.tga"/>
   <texture name="cloud-particle.j2c" use_mips="true"/>
   
   <texture name="skin_thumbnail_default.png" preload="true" />

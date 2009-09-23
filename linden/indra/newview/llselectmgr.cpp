@@ -4560,6 +4560,11 @@ extern LLGLdouble	gGLModelView[16];
 
 void LLSelectMgr::updateSilhouettes()
 {
+	if (!mRenderSilhouettes || !LLSelectMgr::sRenderSelectionHighlights)
+	{
+		return;
+	}
+
 	S32 num_sils_genned = 0;
 
 	LLVector3d	cameraPos = gAgent.getCameraPositionGlobal();

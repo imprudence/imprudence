@@ -1266,7 +1266,7 @@ void inventory_offer_handler(LLOfferInfo* info, BOOL from_task)
 		if (gCacheName->getName(info->mFromID, first_name, last_name))
 		{
 // [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
-			if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (gRlvHandler.isAgentNearby(info->mFromID)) )
+			if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (gRlvHandler.isAgentNearby(info->mFromID)) )
 			{
 				first_name = gRlvHandler.getAnonym(first_name.append(" ").append(last_name));
 				last_name.clear();
@@ -1287,12 +1287,15 @@ void inventory_offer_handler(LLOfferInfo* info, BOOL from_task)
 	{
 		// *TODO:translate -> [FIRST] [LAST]
 // [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
-		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (gRlvHandler.isAgentNearby(info->mFromID)) )
+		if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (gRlvHandler.isAgentNearby(info->mFromID)) )
 		{
 			args["[NAME]"] = gRlvHandler.getAnonym(info->mFromName);
 		}
 // [/RLVa:KB]
-		//args["[NAME]"] = info->mFromName;
+		else
+		{
+			args["[NAME]"] = info->mFromName;
+		}
 		LLNotifyBox::showXml("UserGiveItem", args,
 							&inventory_offer_callback, (void*)info);
 	}
@@ -1921,15 +1924,51 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 	break;
 
 	case IM_FROM_TASK:
-		if (is_busy && !is_owned_by_me)
 		{
-			return;
+			if (is_busy && !is_owned_by_me)
+			{
+				return;
+			}
+			chat.mText = name + separator_string + message.substr(message_offset);
+			chat.mFromName = name;
+
+			// Build a link to open the object IM info window.
+			std::string location = ll_safe_string((char*)binary_bucket,binary_bucket_size);
+
+			LLSD query_string;
+			query_string["owner"] = from_id;
+			query_string["slurl"] = location.c_str();
+			query_string["name"] = name;
+			if (from_group)
+			{
+				query_string["groupowned"] = "true";
+			}
+
+			if (session_id.notNull())
+			{
+				chat.mFromID = session_id;
+			}
+			else
+			{
+				// This message originated on a region without the updated code for task id and slurl information.
+				// We just need a unique ID for this object that isn't the owner ID.
+				// If it is the owner ID it will overwrite the style that contains the link to that owner's profile.
+				// This isn't ideal - it will make 1 style for all objects owned by the the same person/group.
+				// This works because the only thing we can really do in this case is show the owner name and link to their profile.
+				chat.mFromID = from_id ^ gAgent.getSessionID();
+			}
+
+			std::ostringstream link;
+			link << "secondlife:///app/objectim/" << session_id
+					<< LLURI::mapToQueryString(query_string);
+
+			chat.mURL = link.str();
+
+			// Note: lie to LLFloaterChat::addChat(), pretending that this is NOT an IM, because
+			// IMs from objcts don't open IM sessions.
+			chat.mSourceType = CHAT_SOURCE_OBJECT;
+			LLFloaterChat::addChat(chat, FALSE, FALSE);
 		}
-		chat.mText = name + separator_string + message.substr(message_offset);
-		// Note: lie to LLFloaterChat::addChat(), pretending that this is NOT an IM, because
-		// IMs from objcts don't open IM sessions.
-		chat.mSourceType = CHAT_SOURCE_OBJECT;
-		LLFloaterChat::addChat(chat, FALSE, FALSE);
 		break;
 	case IM_FROM_TASK_AS_ALERT:
 		if (is_busy && !is_owned_by_me)
@@ -3007,6 +3046,10 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	// appropriate.
 	LLVector3 shift_vector = regionp->getPosRegionFromGlobal(
 		gAgent.getRegion()->getOriginGlobal());
+	// don't shift objects, if teleporting more than about 1000 sims, as
+	// for long teleports shifting objects garbles the view at the target region
+	if (shift_vector.lengthSquared() > 6.5e10f)
+		shift_vector = LLVector3::zero;
 	gAgent.setRegion(regionp);
 	gObjectList.shiftObjects(shift_vector);
 	gAssetStorage->setUpstream(msg->getSender());
@@ -3112,6 +3155,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 
 	// If the server version has changed, display an info box and offer
 	// to display the release notes, unless this is the initial log in.
+	// Also verify we're on an OpenSimulator here.
 	if (gLastVersionChannel == version_channel)
 	{
 		return;
@@ -3121,6 +3165,15 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	{
 		LLNotifyBox::showXml(
 			"ServerVersionChanged",	display_release_notes, NULL);
+	}
+
+	if (version_channel.find("OpenSim") != std::string::npos)
+	{
+		gSavedSettings.setBOOL("LoggedIntoOpenSim", TRUE);
+	}
+	else
+	{
+		gSavedSettings.setBOOL("LoggedIntoOpenSim", FALSE);
 	}
 
 	gLastVersionChannel = version_channel;

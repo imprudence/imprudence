@@ -69,7 +69,9 @@
 <TextEmbeddedItemColor value="0, 0, 128, 255" />            <!-- Text of items embedded in notecards -->
 <TextDefaultColor value="0, 20, 0, 255"/>                   <!-- Non-keyword text in the script editor -->
 <ScriptBgReadOnlyColor value="100, 100, 100, 255" />        <!-- Not used -->
- 
+<TextLinkColor value="144, 165, 208, 255"/>
+<TextLinkHoverColor value="255, 255, 255, 255"/>
+  
 <!-- LISTBOXES -->
 <ScrollBgReadOnlyColor value="200, 209, 204, 255" />    <!-- Background of read only lists -->
 <ScrollBgWriteableColor value="200, 209, 204, 255" />   <!-- Background of editable lists, e.g. groups-->
@@ -160,6 +162,7 @@
 <MapAvatar value="0, 255, 0, 255" />                    <!-- Your avatar's glyph color -->
 <MapFriend value="255, 255, 0, 255" />                  <!-- Your friends' glyph color -->
 <MapMuted value="128, 128, 128, 255" />                 <!-- Muted avatars' glyph color -->
+<MapSelected value="255, 0, 0, 255" />                 <!-- Selected avatars' glyph color -->
   
   <!-- MINI-MAP -->
 <NetMapBackgroundColor value="0, 0, 0, 77" />           <!-- Mini-map floater background -->

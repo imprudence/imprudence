@@ -191,7 +191,7 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 			// nothing
 			break;
 		case CLICK_ACTION_SIT:
-			if ((gAgent.getAvatarObject() != NULL) && (!gAgent.getAvatarObject()->mIsSitting)) // agent not already sitting
+			if ((gAgent.getAvatarObject() != NULL) && (!gAgent.getAvatarObject()->mIsSitting) && !gSavedSettings.getBOOL("BlockClickSit")) // agent not already sitting
 			{
 				handle_sit_or_stand();
 				return TRUE;
@@ -687,9 +687,10 @@ BOOL LLToolPie::handleDoubleClick(S32 x, S32 y, MASK mask)
 		else if (mPick.mObjectID.notNull()
 				 && !mPick.mPosGlobal.isExactlyZero())
 		{
-			// Hit an object
-			// HACK: Call the last hit position the point we hit on the object
-			//gLastHitPosGlobal += gLastHitObjectOffset;
+			//Zwagoth: No more teleport to HUD attachments. >:o
+			if(mPick.getObject().notNull() && mPick.getObject()->isHUDAttachment())
+				return FALSE;
+
 			handle_go_to();
 			return TRUE;
 		}

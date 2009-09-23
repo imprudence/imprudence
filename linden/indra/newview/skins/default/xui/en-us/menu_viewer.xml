@@ -387,6 +387,11 @@
       <on_click function="View.ToggleRenderType" userdata="hideparticles" />
       <on_check function="View.CheckRenderType" userdata="hideparticles" />
     </menu_item_check>
+    <menu_item_check name="Show HUD Attachments" label="Show HUD Attachments"
+                     shortcut="alt|shift|H">
+      <on_click function="View.ShowHUDAttachments" userdata="" />
+      <on_check function="View.CheckHUDAttachments" />
+    </menu_item_check>
     <menu_item_separator />
     <menu name="Zoom Level" create_jump_keys="true"
             label="Zoom Level" opaque="true" tear_off="true">
@@ -1098,13 +1103,6 @@
           <on_check function="Advanced.CheckFeature"
                     userdata="flexible" />
         </menu_item_check>
-        <menu_item_check name="HUD Attachments"
-                         label="HUD Attachments"
-                         shortcut="">
-          <on_click function="View.ShowHUDAttachments" userdata="" />
-          <on_check function="View.CheckHUDAttachments" />
-        </menu_item_check>
-
       </menu>
 
 

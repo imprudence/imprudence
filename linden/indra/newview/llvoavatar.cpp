@@ -3270,7 +3270,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				if (title && title->getString() && title->getString()[0] != '\0')
 				{
 					line += title->getString();
-					LLStringFn::replace_nonprintable(line,LL_UNKNOWN_CHAR);
+					//LLStringFn::replace_nonprintable(line,LL_UNKNOWN_CHAR); IMP-136 -- MC
 					line += "\n";
 					line += firstname->getString();
 				}
@@ -3330,7 +3330,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				mNameMute = is_muted;
 				mNameAppearance = is_appearance;
 				mTitle = title ? title->getString() : "";
-				LLStringFn::replace_nonprintable(mTitle,LL_UNKNOWN_CHAR);
+				//LLStringFn::replace_nonprintable(mTitle,LL_UNKNOWN_CHAR); IMP-136 -- MC
 				mNameString = utf8str_to_wstring(line);
 				new_name = TRUE;
 			}
