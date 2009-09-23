@@ -9,6 +9,13 @@
 	
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_mini_map.xml
 		
+		
+	* Applied particle chat feature from Emerald viewer (tell an object it's selected on channel 9000).
+	
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/llvoavatar.cpp
+		modified:   linden/indra/newview/llvoavatar.h
+		
 
 2009-09-21 McCabe Maxsted  <hakushakukun@gmail.com>
 

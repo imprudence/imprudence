@@ -295,6 +295,9 @@ F32 LLVOAvatar::sUnbakedTime = 0.f;
 F32 LLVOAvatar::sUnbakedUpdateTime = 0.f;
 F32 LLVOAvatar::sGreyTime = 0.f;
 F32 LLVOAvatar::sGreyUpdateTime = 0.f;
+LLVector3d LLVOAvatar::sBeamLastAt;
+int LLVOAvatar::sPartsNow;
+
 
 struct LLAvatarTexData
 {
@@ -3445,6 +3448,26 @@ void LLVOAvatar::idleUpdateTractorBeam()
 	if (!needsRenderBeam() || !mIsBuilt)
 	{
 		mBeam = NULL;
+		if(gSavedSettings.getBOOL("ParticleChat"))
+		{
+			if(sPartsNow != FALSE)
+			{
+				sPartsNow = FALSE;
+				LLMessageSystem* msg = gMessageSystem;
+				msg->newMessageFast(_PREHASH_ChatFromViewer);
+				msg->nextBlockFast(_PREHASH_AgentData);
+				msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+				msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+				msg->nextBlockFast(_PREHASH_ChatData);
+				msg->addStringFast(_PREHASH_Message, "stop");
+				msg->addU8Fast(_PREHASH_Type, CHAT_TYPE_WHISPER);
+				msg->addS32("Channel", 9000);
+				
+				gAgent.sendReliableMessage();
+				sBeamLastAt  =  LLVector3d::zero;
+				LLViewerStats::getInstance()->incStat(LLViewerStats::ST_CHAT_COUNT);
+			}
+		}
 	}
 	else if (!mBeam || mBeam->isDead())
 	{
@@ -3463,6 +3486,48 @@ void LLVOAvatar::idleUpdateTractorBeam()
 		{
 			// get point from pointat effect
 			mBeam->setPositionGlobal(gAgent.mPointAt->getPointAtPosGlobal());
+
+			if(gSavedSettings.getBOOL("ParticleChat"))
+			{
+				if(sPartsNow != TRUE)
+				{
+					sPartsNow = TRUE;
+					LLMessageSystem* msg = gMessageSystem;
+					msg->newMessageFast(_PREHASH_ChatFromViewer);
+					msg->nextBlockFast(_PREHASH_AgentData);
+					msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+					msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+					msg->nextBlockFast(_PREHASH_ChatData);
+					msg->addStringFast(_PREHASH_Message, "start");
+					msg->addU8Fast(_PREHASH_Type, CHAT_TYPE_WHISPER);
+					msg->addS32("Channel", 9000);
+					
+					gAgent.sendReliableMessage();
+
+					LLViewerStats::getInstance()->incStat(LLViewerStats::ST_CHAT_COUNT);
+				}
+				//LLVector3d a = sBeamLastAt-gAgent.mPointAt->getPointAtPosGlobal();
+				//if(a.length > 2)
+				if( (sBeamLastAt-gAgent.mPointAt->getPointAtPosGlobal()).length() > .2)
+				//if(sBeamLastAt!=gAgent.mPointAt->getPointAtPosGlobal())
+				{
+					sBeamLastAt = gAgent.mPointAt->getPointAtPosGlobal(); 
+
+					LLMessageSystem* msg = gMessageSystem;
+					msg->newMessageFast(_PREHASH_ChatFromViewer);
+					msg->nextBlockFast(_PREHASH_AgentData);
+					msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+					msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+					msg->nextBlockFast(_PREHASH_ChatData);
+					msg->addStringFast(_PREHASH_Message, llformat("<%.6f, %.6f, %.6f>",(F32)(sBeamLastAt.mdV[VX]),(F32)(sBeamLastAt.mdV[VY]),(F32)(sBeamLastAt.mdV[VZ])));
+					msg->addU8Fast(_PREHASH_Type, CHAT_TYPE_WHISPER);
+					msg->addS32("Channel", 9000); // *TODO: make configurable
+					
+					gAgent.sendReliableMessage();
+				}
+
+			}
+
 			mBeam->triggerLocal();
 		}
 		else if (selection->getFirstRootObject() && 

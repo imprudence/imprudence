@@ -918,6 +918,9 @@ public:
 	static F32 		sGreyTime; // Total seconds with >=1 grey avatars
 	static F32 		sGreyUpdateTime; // Last time stats were updated (to prevent multiple updates per frame) 
 	
+	static int		sPartsNow;
+	static LLVector3d sBeamLastAt;
+
 	//--------------------------------------------------------------------
 	// Texture Layer Sets and Global Colors
 	//--------------------------------------------------------------------	
