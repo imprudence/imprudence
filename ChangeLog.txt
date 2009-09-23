@@ -1,3 +1,11 @@
+2009-09-23  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Moved "Show HUD Attachments" back to View, restored shortcut.
+	  Reverts earlier change (Jan 27) which moved it to Advanced menu.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
 2009-09-21 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Changed 'Presets' button to 'Sky'.
