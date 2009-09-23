@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bg_visible="false" border="false" border_visible="false" bottom="1"
+     enabled="true" follows="right|bottom" height="20" left="0"
+     name="windlight_controls" width="182">
+  <button bottom="-21" follows="left|bottom" font="SansSerif" halign="center" height="20"
+	     label="Editor" left="4" name="Environment"
+	     tool_tip="Click here to adjust world environment" width="80" />
+  <flyout_button bottom="-21" follows="left|bottom" height="20" label="Sky" left_delta="82" width="71"
+       list_position="above" mouse_opaque="true" name="Presets" tool_tip="Windlight presets">
+  </flyout_button>
+  <button bottom="-22" follows="left|bottom" font="SansSerif" halign="center" height="22" toggle="true" 
+	     label="" left_delta="72" name="Popup" scale_image="true" control_name="ShowWindlightSettingsPopup" 
+       tool_tip="Click here to adjust draw distance" width="22" />
+</panel>

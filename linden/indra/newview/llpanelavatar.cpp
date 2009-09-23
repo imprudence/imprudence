@@ -51,6 +51,7 @@
 
 #include "llfloaterfriends.h"
 #include "llfloatergroupinfo.h"
+#include "llfloatergroups.h"
 #include "llfloaterworldmap.h"
 #include "llfloatermute.h"
 #include "llfloateravatarinfo.h"
@@ -86,6 +87,7 @@
 std::list<LLPanelAvatar*> LLPanelAvatar::sAllPanels;
 BOOL LLPanelAvatar::sAllowFirstLife = FALSE;
 
+extern void callback_invite_to_group(LLUUID group_id, void *user_data);
 extern void handle_lure(const LLUUID& invitee);
 extern void handle_pay_by_id(const LLUUID& payee);
 
@@ -428,6 +430,7 @@ BOOL LLPanelAvatarSecondLife::postBuild(void)
 
 	childSetAction("Find on Map", LLPanelAvatar::onClickTrack, getPanelAvatar());
 	childSetAction("Instant Message...", LLPanelAvatar::onClickIM, getPanelAvatar());
+	childSetAction("Invite to Group...", LLPanelAvatar::onClickGroupInvite, getPanelAvatar());
 	
 	childSetAction("Add Friend...", LLPanelAvatar::onClickAddFriend, getPanelAvatar());
 	childSetAction("Pay...", LLPanelAvatar::onClickPay, getPanelAvatar());
@@ -1433,6 +1436,8 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 			}
 			childSetVisible("Instant Message...",FALSE);
 			childSetEnabled("Instant Message...",FALSE);
+			childSetVisible("Invite to Group...",FALSE);
+			childSetEnabled("Invite to Group...",FALSE);
 			childSetVisible("Mute",FALSE);
 			childSetEnabled("Mute",FALSE);
 			childSetVisible("Offer Teleport...",FALSE);
@@ -1445,6 +1450,14 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 			childSetEnabled("Add Friend...",FALSE);
 			childSetVisible("Pay...",FALSE);
 			childSetEnabled("Pay...",FALSE);
+			childSetVisible("Kick",FALSE);
+			childSetEnabled("Kick",FALSE);
+			childSetVisible("Freeze",FALSE);
+			childSetEnabled("Freeze",FALSE);
+			childSetVisible("Unfreeze",FALSE);
+			childSetEnabled("Unfreeze",FALSE);
+			childSetVisible("csr_btn", FALSE);
+			childSetEnabled("csr_btn", FALSE);
 		}
 		else
 		{
@@ -1456,6 +1469,8 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 
 			childSetVisible("Instant Message...",TRUE);
 			childSetEnabled("Instant Message...",FALSE);
+			childSetVisible("Invite to Group...",TRUE);
+			childSetEnabled("Invite to Group...",FALSE);
 			childSetVisible("Mute",TRUE);
 			childSetEnabled("Mute",FALSE);
 
@@ -1482,20 +1497,20 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 			childSetEnabled("Add Friend...", !avatar_is_friend);
 			childSetVisible("Pay...",TRUE);
 			childSetEnabled("Pay...",FALSE);
+
+			BOOL is_god = FALSE;
+			if (gAgent.isGodlike()) is_god = TRUE;
+			
+			childSetVisible("Kick", is_god);
+			childSetEnabled("Kick", is_god);
+			childSetVisible("Freeze", is_god);
+			childSetEnabled("Freeze", is_god);
+			childSetVisible("Unfreeze", is_god);
+			childSetEnabled("Unfreeze", is_god);
+			childSetVisible("csr_btn", is_god);
+			childSetEnabled("csr_btn", is_god);
 		}
 	}
-	
-	BOOL is_god = FALSE;
-	if (gAgent.isGodlike()) is_god = TRUE;
-	
-	childSetVisible("Kick", is_god);
-	childSetEnabled("Kick", is_god);
-	childSetVisible("Freeze", is_god);
-	childSetEnabled("Freeze", is_god);
-	childSetVisible("Unfreeze", is_god);
-	childSetEnabled("Unfreeze", is_god);
-	childSetVisible("csr_btn", is_god);
-	childSetEnabled("csr_btn", is_god);
 }
 
 
@@ -1538,9 +1553,18 @@ void LLPanelAvatar::resetGroupList()
 				LLSD row;
 
 				row["id"] = id ;
-				row["columns"][0]["value"] = group_string;
 				row["columns"][0]["font"] = "SANSSERIF_SMALL";
 				row["columns"][0]["width"] = 0;
+				if (group_data.mListInProfile)
+				{
+					row["columns"][0]["value"] = group_string;
+					row["columns"][0]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
+				}
+				else
+				{
+					row["columns"][0]["value"] = group_string + " " + getString("HiddenLabel");
+					row["columns"][0]["color"] = gColors.getColor("ScriptBgReadOnlyColor").getValue();
+				}
 				group_list->addElement(row);
 			}
 			group_list->sortByColumnIndex(0, TRUE);
@@ -1561,6 +1585,22 @@ void LLPanelAvatar::onClickIM(void* userdata)
 	LLNameEditor* nameedit = self->mPanelSecondLife->getChild<LLNameEditor>("name");
 	if (nameedit) name = nameedit->getText();
 	gIMMgr->addSession(name, IM_NOTHING_SPECIAL, self->mAvatarID);
+}
+
+void LLPanelAvatar::onClickGroupInvite(void* userdata)
+{
+	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
+	if (self->getAvatarID().notNull())
+	{
+		LLFloaterGroupPicker* widget;
+		widget = LLFloaterGroupPicker::showInstance(LLSD(gAgent.getID()));
+		if (widget)
+		{
+			widget->center();
+			widget->setPowersMask(GP_MEMBER_INVITE);
+			widget->setSelectCallback(callback_invite_to_group, (void *)&(self->getAvatarID()));
+		}
+	}
 }
 
 
@@ -1780,6 +1820,7 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 			continue;
 		}
 		self->childSetEnabled("Instant Message...",TRUE);
+		self->childSetEnabled("Invite to Group...",TRUE);
 		self->childSetEnabled("Pay...",TRUE);
 		self->childSetEnabled("Mute",TRUE);
 
@@ -2000,8 +2041,34 @@ void LLPanelAvatar::processAvatarGroupsReply(LLMessageSystem *msg, void**)
 
 				LLSD row;
 				row["id"] = group_id;
-				row["columns"][0]["value"] = group_string;
 				row["columns"][0]["font"] = "SANSSERIF_SMALL";
+
+				LLGroupData *group_data = NULL;
+
+				if (avatar_id == agent_id) // own avatar
+				{
+					// Search for this group in the agent's groups list
+					LLDynamicArray<LLGroupData>::iterator i;
+					for (i = gAgent.mGroups.begin(); i != gAgent.mGroups.end(); i++)
+					{
+						if (i->mID == group_id)
+						{
+							group_data = &*i;
+							break;
+						}
+					}
+				}
+				// Set normal color if not found or if group is visible in profile
+				if (!group_data || group_data->mListInProfile)
+				{
+					row["columns"][0]["value"] = group_string;
+					row["columns"][0]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
+				}
+				else
+				{
+					row["columns"][0]["value"] = group_string + " " + self->getString("HiddenLabel");
+					row["columns"][0]["color"] = gColors.getColor("ScriptBgReadOnlyColor").getValue();
+				}
 				if (group_list)
 				{
 					group_list->addElement(row);

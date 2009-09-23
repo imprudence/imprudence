@@ -311,6 +311,7 @@ public:
 
 	static void onClickTrack(	void *userdata);
 	static void onClickIM(		void *userdata);
+	static void onClickGroupInvite( void *userdata);
 	static void onClickOfferTeleport(	void *userdata);
 	static void onClickPay(	void *userdata);
 	static void onClickAddFriend(void* userdata);

@@ -85,6 +85,9 @@
 #include "lluictrlfactory.h"
 #include "llselectmgr.h"
 
+// Defined in llinventorybridge.cpp
+void wear_attachments_on_avatar(const std::set<LLUUID>& item_ids, BOOL remove);
+
 const std::string NEW_LSL_NAME = "New Script"; // *TODO:Translate? (probably not)
 const std::string NEW_NOTECARD_NAME = "New Note"; // *TODO:Translate? (probably not)
 const std::string NEW_GESTURE_NAME = "New Gesture"; // *TODO:Translate? (probably not)
@@ -114,6 +117,12 @@ bool doToSelected(LLFolderView* folder, std::string action)
 
 	std::set<LLUUID> selected_items;
 	folder->getSelectionList(selected_items);
+
+	if ( ("attach" == action) && (selected_items.size() > 1) )
+	{
+		wear_attachments_on_avatar(selected_items, FALSE);
+		return true;
+	}
 
 	LLMultiPreview* multi_previewp = NULL;
 	LLMultiProperties* multi_propertiesp = NULL;
@@ -464,6 +473,40 @@ class LLDoCreateFloater : public inventory_listener_t
 	}
 };
 
+//Handles the search type buttons
+class SetSearchType : public inventory_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		std::string search_type = userdata.asString();
+		if(search_type == "name")
+		{
+			gSavedSettings.setU32("InventorySearchType", 0);
+
+			mPtr->getControl("Inventory.SearchByName")->setValue(TRUE);
+			mPtr->getControl("Inventory.SearchByCreator")->setValue(FALSE);			
+			mPtr->getControl("Inventory.SearchByAll")->setValue(FALSE);
+		}
+		else if(search_type == "creator")
+		{
+			gSavedSettings.setU32("InventorySearchType", 1);
+
+			mPtr->getControl("Inventory.SearchByName")->setValue(FALSE);
+			mPtr->getControl("Inventory.SearchByCreator")->setValue(TRUE);
+			mPtr->getControl("Inventory.SearchByAll")->setValue(FALSE);
+		}
+		else if(search_type == "all")
+		{
+			gSavedSettings.setU32("InventorySearchType", 4);
+
+			mPtr->getControl("Inventory.SearchByName")->setValue(FALSE);
+			mPtr->getControl("Inventory.SearchByCreator")->setValue(FALSE);
+			mPtr->getControl("Inventory.SearchByAll")->setValue(TRUE);
+		}
+	return true;
+	}
+};
+
 class LLSetSortBy : public inventory_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -711,6 +754,8 @@ void init_inventory_actions(LLInventoryView *floater)
 	(new LLShowFilters())->registerListener(floater, "Inventory.ShowFilters");
 	(new LLResetFilter())->registerListener(floater, "Inventory.ResetFilter");
 	(new LLSetSortBy())->registerListener(floater, "Inventory.SetSortBy");
+	
+	(new SetSearchType())->registerListener(floater, "Inventory.SetSearchBy");
 }
 
 void init_inventory_panel_actions(LLInventoryPanel *panel)

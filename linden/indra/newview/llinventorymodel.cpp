@@ -1499,6 +1499,8 @@ void LLInventoryModel::stopBackgroundFetch()
 //static 
 void LLInventoryModel::backgroundFetch(void*)
 {
+	if (gDisconnected)
+		return;
 	if (sBackgroundFetchActive && gAgent.getRegion())
 	{
 		//If we'll be using the capability, we'll be sending batches and the background thing isn't as important.

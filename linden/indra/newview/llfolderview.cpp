@@ -281,7 +281,28 @@ void LLFolderViewItem::refreshFromListener()
 {
 	if(mListener)
 	{
+		//Super crazy hack to build the creator search label - RK
+		LLInventoryItem* item = gInventory.getItem(mListener->getUUID());
+		std::string creator_name;
+		if(item)
+		{
+			if(item->getCreatorUUID().notNull())
+			{
+				gCacheName->getFullName(item->getCreatorUUID(), creator_name);
+			}
+		}
+		mLabelCreator = creator_name;
+		/*if(creator_name == "(Loading...)")
+			mLabelCreator = "";
+		else
+			mLabelCreator = creator_name;*/
+		
+		//Label for name search
 		mLabel = mListener->getDisplayName();
+
+		//Build label for combined search - RK
+		mLabelAll = mLabel + " " + mLabelCreator;
+
 		setIcon(mListener->getIcon());
 		time_t creation_date = mListener->getCreationDate();
 		if (mCreationDate != creation_date)
@@ -299,12 +320,26 @@ void LLFolderViewItem::refresh()
 	refreshFromListener();
 	
 	std::string searchable_label(mLabel);
-	searchable_label.append(mLabelSuffix);
-	LLStringUtil::toUpper(searchable_label);
+	std::string searchable_label_creator(mLabelCreator);
+	std::string searchable_label_all(mLabelAll);
 
-	if (mSearchableLabel.compare(searchable_label))
+	//add the (no modify), (no transfer) etc stuff to each label.
+	searchable_label.append(mLabelSuffix);
+	searchable_label_creator.append(mLabelSuffix);
+	searchable_label_all.append(mLabelSuffix);
+
+	//all labels need to be uppercase.
+	LLStringUtil::toUpper(searchable_label);
+	LLStringUtil::toUpper(searchable_label_creator);
+	LLStringUtil::toUpper(searchable_label_all);
+
+	if (mSearchableLabel.compare(searchable_label) || 
+		mSearchableLabelCreator.compare(searchable_label_creator))
 	{
 		mSearchableLabel.assign(searchable_label);
+		mSearchableLabelCreator.assign(searchable_label_creator);
+		mSearchableLabelAll.assign(searchable_label_all);
+
 		dirtyFilter();
 		// some part of label has changed, so overall width has potentially changed
 		if (mParentFolder)
@@ -588,7 +623,13 @@ void LLFolderViewItem::rename(const std::string& new_name)
 
 const std::string& LLFolderViewItem::getSearchableLabel() const
 {
-	return mSearchableLabel;
+	U32 search_type = gSavedSettings.getU32("InventorySearchType");
+	if(search_type == 4)
+		return mSearchableLabelAll;
+	else if(search_type == 1)
+		return mSearchableLabelCreator;
+	else
+		return mSearchableLabel;
 }
 
 const std::string& LLFolderViewItem::getName( void ) const

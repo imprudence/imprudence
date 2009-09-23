@@ -4,29 +4,35 @@
      min_width="400" mouse_opaque="true" name="WindLight floater"
      rect_control="FloaterAdvancedSkyRect" title="Advanced Sky Editor"
      width="700">
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-50" drop_shadow_visible="true" follows="left|top|right"
 	     font="SansSerif" h_pad="0" halign="left" height="16"
 	     left="10" mouse_opaque="true" name="KeyFramePresetsText" v_pad="0"
 	     width="110">
-		Sky Presets:
-	</text>
-	<combo_box allow_text_entry="false" bottom="-50" follows="left|top" height="18"
+    Sky Presets:
+  </text>
+  <combo_box allow_text_entry="false" bottom="-52" follows="left|top" height="18"
 	     left_delta="110" max_chars="20" mouse_opaque="true" name="WLPresetsCombo"
 	     width="150" />
+  <button bottom="-53" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="" label_selected="" left_delta="-25" image_overlay="arrow_left.tga"
+	     mouse_opaque="true" name="prev" scale_image="true" width="20" />
+  <button bottom="-53" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="" label_selected="" left_delta="180" image_overlay="arrow_right.tga"
+	     mouse_opaque="true" name="next" scale_image="true" width="20" />
 	<button bottom="-53" enabled="true" font="SansSerif" halign="center" height="20"
-	     label="New" label_selected="New" left_delta="170"
+	     label="New" label_selected="New" left_delta="40"
 	     mouse_opaque="true" name="WLNewPreset" scale_image="true" width="70" />
 	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
-	     label="Save" label_selected="Save" left_delta="80"
+	     label="Save" label_selected="Save" left_delta="70"
 	     mouse_opaque="true" name="WLSavePreset" scale_image="true" width="70" />
 	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
-	     label="Delete" label_selected="Delete" left_delta="80"
+	     label="Delete" label_selected="Delete" left_delta="70"
 	     mouse_opaque="true" name="WLDeletePreset" scale_image="true" width="70" />
 	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
 	     label="Day Cycle Editor" label_selected="Day Cycle Editor"
-	     left_delta="120" mouse_opaque="true" name="WLDayCycleMenuButton"
-	     scale_image="true" width="120" />
+	     left_delta="100" mouse_opaque="true" name="WLDayCycleMenuButton"
+	     scale_image="true" width="125" />
 	<tab_container bottom="-220" follows="left|top" height="160" left="0"
 	     mouse_opaque="false" name="WindLight Tabs" tab_position="top" width="700">
 		<panel border="true" bottom="-220" follows="left|top|right|bottom" height="160"

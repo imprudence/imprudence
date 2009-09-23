@@ -60,6 +60,7 @@
 
 #undef max
 
+
 LLFloaterWindLight* LLFloaterWindLight::sWindLight = NULL;
 
 std::set<std::string> LLFloaterWindLight::sDefaultPresets;
@@ -227,6 +228,10 @@ void LLFloaterWindLight::initCallbacks(void) {
 	// Dome
 	childSetCommitCallback("WLGamma", onFloatControlMoved, &param_mgr->mWLGamma);
 	childSetCommitCallback("WLStarAlpha", onStarAlphaMoved, NULL);
+
+	// next/prev buttons
+	childSetAction("next", onClickNext, this);
+	childSetAction("prev", onClickPrev, this);
 }
 
 void LLFloaterWindLight::onClickHelp(void* data)
@@ -1000,4 +1005,52 @@ void LLFloaterWindLight::deactivateAnimator()
 {
 	LLWLParamManager::instance()->mAnimator.mIsRunning = false;
 	LLWLParamManager::instance()->mAnimator.mUseLindenTime = false;
+}
+
+void LLFloaterWindLight::onClickNext(void* user_data)
+{
+	LLWLParamManager * param_mgr = LLWLParamManager::instance();
+	LLWLParamSet& currentParams = param_mgr->mCurParams;
+
+	// find place of current param
+	std::map<std::string, LLWLParamSet>::iterator mIt = 
+		param_mgr->mParamList.find(currentParams.mName);
+
+	// if at the end, loop
+	std::map<std::string, LLWLParamSet>::iterator last = param_mgr->mParamList.end(); --last;
+	if(mIt == last) 
+	{
+		mIt = param_mgr->mParamList.begin();
+	}
+	else
+	{
+		mIt++;
+	}
+	param_mgr->mAnimator.mIsRunning = false;
+	param_mgr->mAnimator.mUseLindenTime = false;
+	param_mgr->loadPreset(mIt->first, true);
+}
+
+void LLFloaterWindLight::onClickPrev(void* user_data)
+{
+	LLWLParamManager * param_mgr = LLWLParamManager::instance();
+	LLWLParamSet& currentParams = param_mgr->mCurParams;
+
+	// find place of current param
+	std::map<std::string, LLWLParamSet>::iterator mIt = 
+		param_mgr->mParamList.find(currentParams.mName);
+
+	// if at the beginning, loop
+	if(mIt == param_mgr->mParamList.begin()) 
+	{
+		std::map<std::string, LLWLParamSet>::iterator last = param_mgr->mParamList.end(); --last;
+		mIt = last;
+	}
+	else
+	{
+		mIt--;
+	}
+	param_mgr->mAnimator.mIsRunning = false;
+	param_mgr->mAnimator.mUseLindenTime = false;
+	param_mgr->loadPreset(mIt->first, true);
 }

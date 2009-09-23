@@ -92,6 +92,7 @@ public:
 	static void useBalanceDecrease(S32 delta);
 	static void useSit();
 	static void useMap();
+	static void useMiniMap();
 	static void useGoTo();
 	static void useBuild();
 	static void useLeftClickNoHit();
