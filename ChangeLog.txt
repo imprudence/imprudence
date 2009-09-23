@@ -4,6 +4,11 @@
 	
 		modified:   linden/indra/newview/llnetmap.cpp
 		
+		
+	* Clarifed Mini-Map menu option: 'Show Map' to 'Show World Map'.
+	
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_mini_map.xml
+		
 
 2009-09-21 McCabe Maxsted  <hakushakukun@gmail.com>
 
