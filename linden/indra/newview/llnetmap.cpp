@@ -380,7 +380,7 @@ void LLNetMap::draw()
 			}
 
 // [RLVa:KB]
-			if ( rlv_handler_t::isEnabled() && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
+			if ( gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
 			{
 				// User is not allowed to see who it is, or even if it's a friend,
 				// due to RLV settings.
@@ -595,7 +595,7 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 		if(mClosestAgentToCursor.notNull() && gCacheName->getFullName(mClosestAgentToCursor, fullname))
 		{
 // [RLVa:KB]
-			if ( rlv_handler_t::isEnabled() && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
+			if ( gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
 			{
 				// User is not allowed to see who it is, due to RLV settings.
 				msg.append(rlv_handler_t::cstrHidden);
@@ -609,7 +609,7 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 		}
 		
 // [RLVa:KB]
-		if (rlv_handler_t::isEnabled() && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+		if ( gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC) )
 		{
 			// User is not allowed to see where they are, due to RLV settings.
 			msg.append( rlv_handler_t::cstrHidden ); 

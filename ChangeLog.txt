@@ -1,3 +1,10 @@
+2009-09-22 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed RLVa issue in LLNetMap the right way (thanks Kitty).
+	
+		modified:   linden/indra/newview/llnetmap.cpp
+		
+
 2009-09-21 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Changed 'Presets' button to 'Sky'.
