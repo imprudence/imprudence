@@ -83,7 +83,7 @@ public:
     bool retrieveGridInfo();
 
     static const char *getPlatformString(Platform platform);
-    static void cleanUpGridNick(std::string &gridnick);
+    static std::string sanitizeGridNick(std::string &gridnick);
 
     static HippoGridInfo FALLBACK_GRIDINFO;
     static void initFallback();
@@ -117,7 +117,7 @@ private:
     };
     XmlState mXmlState;
 
-    static void cleanUpUri(std::string &uri);
+    static std::string sanitizeUri(std::string &uri);
     void formatFee(std::string &fee, int cost, bool showFree) const;
 
     static void onXmlElementStart(void *userData, const XML_Char *name, const XML_Char **atts);

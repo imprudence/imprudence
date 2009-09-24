@@ -38,13 +38,13 @@ HippoGridInfo HippoGridInfo::FALLBACK_GRIDINFO("");
 
 HippoGridInfo::HippoGridInfo(const std::string &gridNick) :
     mPlatform(PLATFORM_OTHER),
-    mGridNick(gridNick),
     mRenderCompat(true),
     mCurrencySymbol("OS$"),
     mRealCurrencySymbol("US$"),
     mDirectoryFee(30)
 {
-	cleanUpGridNick(mGridNick);
+	std::string nick = gridNick;
+	mGridNick = sanitizeGridNick( nick );
 }
 
 
@@ -181,8 +181,8 @@ void HippoGridInfo::setGridName(const std::string &gridName)
 
 void HippoGridInfo::setLoginUri(const std::string &loginUri)
 {
-	mLoginUri = loginUri;
-	cleanUpUri(mLoginUri);
+	std::string uri = loginUri;
+	mLoginUri = sanitizeUri(uri);
 }
 
 void HippoGridInfo::setLoginPage(const std::string &loginPage)
@@ -192,8 +192,8 @@ void HippoGridInfo::setLoginPage(const std::string &loginPage)
 
 void HippoGridInfo::setHelperUri(const std::string &helperUri)
 {
-	mHelperUri = helperUri;
-	cleanUpUri(mHelperUri);
+	std::string uri = helperUri;
+	mHelperUri = sanitizeUri(uri);
 }
 
 void HippoGridInfo::setWebSite(const std::string &website)
@@ -332,10 +332,11 @@ void HippoGridInfo::onXmlCharacterData(void *userData, const XML_Char *s, int le
 	HippoGridInfo *self = (HippoGridInfo*)userData;
 	switch (self->mXmlState) {
 		
-		case XML_GRIDNICK:
+		case XML_GRIDNICK: {
 			if (self->mGridNick == "") self->mGridNick.assign(s, len);
-			cleanUpGridNick(self->mGridNick);
+			self->mGridNick = sanitizeGridNick(self->mGridNick);
 			break;
+		}
 
 		case XML_PLATFORM: {
 			std::string platform(s, len);
@@ -343,26 +344,29 @@ void HippoGridInfo::onXmlCharacterData(void *userData, const XML_Char *s, int le
 			break;
 		}	
 
-		case XML_LOGINURI:
-			self->mLoginUri.assign(s, len);
-			cleanUpUri(self->mLoginUri);
+		case XML_LOGINURI: {
+			std::string loginuri(s, len);
+			self->mLoginUri = sanitizeUri( loginuri );
 			break;
+		}
 
-		case XML_HELPERURI:
-			self->mHelperUri.assign(s, len);
-			cleanUpUri(self->mHelperUri);
+		case XML_HELPERURI: {
+			std::string helperuri(s, len);
+			self->mHelperUri = sanitizeUri( helperuri );
 			break;
+		}
 
-		case XML_SEARCH:
+		case XML_SEARCH: {
 			//self->mSearchUrl.assign(s, len);
-			//cleanUpQueryUrl(mSearchUrl);
+			//sanitizeQueryUrl(mSearchUrl);
 			break;
+		}
 
 		case XML_GRIDNAME: self->mGridName.assign(s, len); break;
 		case XML_LOGINPAGE: self->mLoginPage.assign(s, len); break;
 		case XML_WEBSITE: self->mWebSite.assign(s, len); break;
-        case XML_SUPPORT: self->mSupportUrl.assign(s, len); break;
-        case XML_REGISTER: self->mRegisterUrl.assign(s, len); break;
+		case XML_SUPPORT: self->mSupportUrl.assign(s, len); break;
+		case XML_REGISTER: self->mRegisterUrl.assign(s, len); break;
 		case XML_PASSWORD: self->mPasswordUrl.assign(s, len); break;
 
 		case XML_VOID: break;
@@ -445,7 +449,7 @@ const char *HippoGridInfo::getPlatformString(Platform platform)
 
 
 // static
-void HippoGridInfo::cleanUpGridNick(std::string &gridnick)
+std::string HippoGridInfo::sanitizeGridNick(std::string &gridnick)
 {
 	std::string tmp;
 	int size = gridnick.size();
@@ -457,20 +461,22 @@ void HippoGridInfo::cleanUpGridNick(std::string &gridnick)
 			tmp += "_";
 		}
 	}
-	gridnick = tmp;
+	return tmp;
 }
 
 // static
-void HippoGridInfo::cleanUpUri(std::string &uri)
+std::string HippoGridInfo::sanitizeUri(std::string &uri)
 {
 	if (uri.empty()) {
-		return;
+		return "";
 	}
 
 	// If last character in uri is not "/"
 	if (uri.compare(uri.length()-1, 1, "/") != 0) {
-		uri += '/';
+		return uri + '/';
 	}
+
+	return uri;
 }
 
 

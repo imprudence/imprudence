@@ -311,8 +311,6 @@ bool LoginFloater::createNewGrid()
 	// check nickname
 	std::string gridnick = childGetValue("gridnick");
 	if (gridnick == "<required>") gridnick = "";
-	HippoGridInfo::cleanUpGridNick(gridnick);
-	childSetValue("gridnick", (gridnick != "")? gridnick: "<required>");
 	if (gridnick == "") {
 		//KOW gViewerWindow->alertXml("GridsNoNick");
 		return false;

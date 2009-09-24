@@ -1,5 +1,12 @@
 2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Made HippoGridManager's sanitation code more sane.
+
+	  modified:   linden/indra/newview/floaterlogin.cpp
+	  modified:   linden/indra/newview/hippoGridManager.cpp
+	  modified:   linden/indra/newview/hippoGridManager.h
+
+
 	* Moved many HippoGridManager methods defs out of the header.
 	  There's no good reason for these to be in the header, it
 	  just breaks encapsulation for no significant gain.
