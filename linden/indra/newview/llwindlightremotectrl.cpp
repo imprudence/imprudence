@@ -41,6 +41,9 @@
 #include "llwlparammanager.h"
 #include "llviewercontrol.h"
 
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 class LLWindlightRemoteObserver : public LLWLPresetsObserver
 {
@@ -84,6 +87,14 @@ void LLWindlightRemoteCtrl::draw()
 			expand_button->setImageOverlay("arrow_up.tga");
 		}
 	}
+
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
+	if (rlv_handler_t::isEnabled())
+	{
+		childSetEnabled("Environment", !gRlvHandler.hasBehaviour(RLV_BHVR_SETENV));
+		mPresetsCombo->setEnabled(!gRlvHandler.hasBehaviour(RLV_BHVR_SETENV));
+	}
+// [/RLVA:KB]
 
 	LLPanel::draw();
 }

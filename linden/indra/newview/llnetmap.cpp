@@ -379,7 +379,7 @@ void LLNetMap::draw()
 				}
 			}
 
-// [RLVa:KB]
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
 			if ( gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
 			{
 				// User is not allowed to see who it is, or even if it's a friend,
@@ -594,21 +594,14 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, std::string& msg, LLRect* sticky_rec
 		std::string fullname;
 		if(mClosestAgentToCursor.notNull() && gCacheName->getFullName(mClosestAgentToCursor, fullname))
 		{
-// [RLVa:KB]
-			if ( gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
-			{
-				// User is not allowed to see who it is, due to RLV settings.
-				msg.append(rlv_handler_t::cstrHidden);
-			}
-			else
-			{
-				msg.append(fullname);
-				msg.append("\n");
-			}
-// [/RLVa:KB]
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
+			// User is not allowed to see who it is, due to RLV settings.
+			msg.append( (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) ? fullname : gRlvHandler.getAnonym(fullname) );
+			msg.append("\n");
+ // [/RLVa:KB]
 		}
 		
-// [RLVa:KB]
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
 		if ( gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC) )
 		{
 			// User is not allowed to see where they are, due to RLV settings.
@@ -1018,6 +1011,13 @@ bool LLNetMap::LLEnableTracking::handleEvent(LLPointer<LLEvent> event, const LLS
 
 bool LLNetMap::LLShowAgentProfile::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 {
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+	{
+		return true;
+	}
+// [/RLVa:KB]
+
 	LLNetMap *self = mPtr;
 	LLFloaterAvatarInfo::show(self->mClosestAgentAtLastRightClick);
 	return true;
@@ -1026,6 +1026,9 @@ bool LLNetMap::LLShowAgentProfile::handleEvent(LLPointer<LLEvent> event, const L
 bool LLNetMap::LLEnableProfile::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 {
 	LLNetMap *self = mPtr;
-	self->findControl(userdata["control"].asString())->setValue(self->isAgentUnderCursor());
+	//self->findControl(userdata["control"].asString())->setValue(self->isAgentUnderCursor());
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
+	self->findControl(userdata["control"].asString())->setValue(self->isAgentUnderCursor() && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES));
+// [/RLVa:KB]
 	return true;
 }

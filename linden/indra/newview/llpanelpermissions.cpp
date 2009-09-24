@@ -348,7 +348,10 @@ void LLPanelPermissions::refresh()
 		fRlvEnableOwner && owners_identical && (mOwnerID.notNull() || LLSelectMgr::getInstance()->selectIsGroupOwned()));
 // [/RLVa:KB]
 
-	if (owner_name != last_owner_name)
+	//if (owner_name != last_owner_name)
+// [RLVa:KB]
+	if ( (owner_name != last_owner_name) && (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
+// [/RLVa:KB]
 	{
 		childSetText("Last Owner Name", last_owner_name);
 		childSetEnabled("Last Owner Name", TRUE);

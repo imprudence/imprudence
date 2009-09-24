@@ -240,6 +240,13 @@ void LLFloaterMap::populateRadar()
 		std::string fullname = getSelectedName(avatar_ids[i]);
 		if (!fullname.empty())
 		{
+// [RLVa:KB] - Alternate: Imprudence-1.2.0
+			if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+			{
+				fullname = gRlvHandler.getAnonym(fullname);
+			}
+// [/RLVa:KB]
+
 			std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("muted") : "";
 			element["id"] = avatar_ids[i];
 			element["columns"][0]["column"] = "avatar_name";
@@ -314,6 +321,33 @@ void LLFloaterMap::toggleButtons()
 	childSetEnabled("unmute_btn", enable_unmute);
 	childSetEnabled("ar_btn", enable);
 	childSetEnabled("estate_eject_btn", enable_estate);
+
+// [RLVa:KB] - Imprudence-1.2.0
+	// Bit clumsy, but this way the RLV stuff is in its own separate block and keeps the code above clean - Kitty
+	if ( (rlv_handler_t::isEnabled()) && (mSelectedAvatar.notNull()) )
+	{
+		if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+		{
+			childSetEnabled("im_btn", FALSE);
+			childSetEnabled("profile_btn", FALSE);
+			childSetEnabled("invite_btn", FALSE);
+			childSetEnabled("add_btn", FALSE);
+			childSetEnabled("mute_btn", FALSE);
+			childSetEnabled("unmute_btn", FALSE);
+		}
+
+		// Even though the avie is in the same sim (so they already know where we are) the tp would just get blocked by different code
+		// so it's actually less confusing to the user if we just disable the teleport button here so they'll at least have a visual cue
+		BOOL rlv_enable_tp = (!gRlvHandler.hasBehaviour(RLV_BHVR_TPLURE)) || (gRlvHandler.isException(RLV_BHVR_TPLURE, mSelectedAvatar));
+		if ( (rlv_enable_tp) && (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) )
+		{
+			const LLRelationship* pBuddyInfo = LLAvatarTracker::instance().getBuddyInfo(mSelectedAvatar);
+			if ( ((!pBuddyInfo) || (!pBuddyInfo->isOnline()) || (!pBuddyInfo->isRightGrantedTo(LLRelationship::GRANT_MAP_LOCATION))) )
+				rlv_enable_tp = FALSE;
+		}
+		childSetEnabled("offer_teleport_btn", rlv_enable_tp);
+	}
+// [/RLVa:KB]
 }
 
 BOOL LLFloaterMap::getKickable(const LLUUID &agent_id)
