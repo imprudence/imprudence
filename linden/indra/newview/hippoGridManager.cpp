@@ -48,6 +48,109 @@ HippoGridInfo::HippoGridInfo(const std::string &gridNick) :
 }
 
 
+// ********************************************************************
+// Getters
+
+HippoGridInfo::Platform HippoGridInfo::getPlatform()
+{
+	return mPlatform;
+}
+
+bool HippoGridInfo::isOpenSimulator() const
+{
+	return (mPlatform == HippoGridInfo::PLATFORM_OPENSIM);
+}
+
+bool HippoGridInfo::isSecondLife() const
+{
+	return (mPlatform == HippoGridInfo::PLATFORM_SECONDLIFE);
+}
+
+const std::string& HippoGridInfo::getGridNick() const
+{
+	return mGridNick;
+}
+
+const std::string& HippoGridInfo::getGridName() const
+{
+	return mGridName;
+}
+
+const std::string& HippoGridInfo::getLoginUri() const
+{
+	return mLoginUri;
+}
+
+const std::string& HippoGridInfo::getLoginPage() const
+{
+	return mLoginPage;
+}
+
+const std::string& HippoGridInfo::getHelperUri() const
+{
+	return mHelperUri;
+}
+
+const std::string& HippoGridInfo::getWebSite() const
+{
+	return mWebSite;
+}
+
+const std::string& HippoGridInfo::getSupportUrl() const
+{
+	return mSupportUrl;
+}
+
+const std::string& HippoGridInfo::getRegisterUrl() const
+{
+	return mRegisterUrl;
+}
+
+const std::string& HippoGridInfo::getPasswordUrl() const
+{
+	return mPasswordUrl;
+}
+
+const std::string& HippoGridInfo::getSearchUrl() const
+{
+	return mSearchUrl;
+}
+
+const std::string& HippoGridInfo::getFirstName() const
+{
+	return mFirstName;
+}
+
+const std::string& HippoGridInfo::getLastName() const
+{
+	return mLastName;
+}
+
+const std::string& HippoGridInfo::getAvatarPassword() const
+{
+	return mAvatarPassword;
+}
+
+bool HippoGridInfo::isRenderCompat() const
+{
+	return mRenderCompat;
+}
+
+const std::string& HippoGridInfo::getCurrencySymbol() const
+{
+	return mCurrencySymbol;
+}
+
+const std::string& HippoGridInfo::getRealCurrencySymbol() const
+{
+	return mRealCurrencySymbol;
+}
+
+
+
+// ********************************************************************
+// Setters
+
 void HippoGridInfo::setPlatform(Platform platform)
 {
 	mPlatform = platform;
@@ -70,6 +173,89 @@ void HippoGridInfo::setPlatform(const std::string &platform)
 		llwarns << "Unknown platform '" << platform << "'." << llendl;
 	}
 }
+
+void HippoGridInfo::setGridName(const std::string &gridName)
+{
+	mGridName = gridName;
+}
+
+void HippoGridInfo::setLoginUri(const std::string &loginUri)
+{
+	mLoginUri = loginUri;
+	cleanUpUri(mLoginUri);
+}
+
+void HippoGridInfo::setLoginPage(const std::string &loginPage)
+{
+	mLoginPage = loginPage;
+}
+
+void HippoGridInfo::setHelperUri(const std::string &helperUri)
+{
+	mHelperUri = helperUri;
+	cleanUpUri(mHelperUri);
+}
+
+void HippoGridInfo::setWebSite(const std::string &website)
+{
+	mWebSite = website;
+}
+
+void HippoGridInfo::setSupportUrl(const std::string &url)
+{
+	mSupportUrl = url;
+}
+
+void HippoGridInfo::setRegisterUrl(const std::string &url)
+{
+	mRegisterUrl = url;
+}
+
+void HippoGridInfo::setPasswordUrl(const std::string &url)
+{
+	mPasswordUrl = url;
+}
+
+void HippoGridInfo::setSearchUrl(const std::string &url)
+{
+	mSearchUrl = url;
+}
+
+void HippoGridInfo::setFirstName(const std::string &firstName)
+{
+	mFirstName = firstName;
+}
+
+void HippoGridInfo::setLastName(const std::string &lastName)
+{
+	mLastName = lastName;
+}
+
+void HippoGridInfo::setAvatarPassword(const std::string &avatarPassword)
+{
+	mAvatarPassword = avatarPassword;
+}
+
+void HippoGridInfo::setRenderCompat(bool compat)
+{
+	mRenderCompat = compat;
+}
+
+void HippoGridInfo::setCurrencySymbol(const std::string &sym)
+{
+	mCurrencySymbol = sym.substr(0, 3);
+}
+
+void HippoGridInfo::setRealCurrencySymbol(const std::string &sym)
+{
+	mRealCurrencySymbol = sym.substr(0, 3);
+}
+
+void HippoGridInfo::setDirectoryFee(int fee)
+{
+	mDirectoryFee = fee;
+}
+
 
 
 // ********************************************************************
@@ -355,7 +541,7 @@ void HippoGridManager::discardAndReload()
 // ********************************************************************
 // Public Access
 
-HippoGridInfo *HippoGridManager::getGrid(const std::string &grid) const
+HippoGridInfo* HippoGridManager::getGrid(const std::string &grid) const
 {
 	std::map<std::string, HippoGridInfo*>::const_iterator it;
 	it = mGridInfo.find(grid);
@@ -367,7 +553,13 @@ HippoGridInfo *HippoGridManager::getGrid(const std::string &grid) const
 }
 
 
-HippoGridInfo *HippoGridManager::getCurrentGrid() const
+HippoGridInfo* HippoGridManager::getConnectedGrid() const
+{
+	return (mConnectedGrid)? mConnectedGrid: getCurrentGrid();
+}
+
+
+HippoGridInfo* HippoGridManager::getCurrentGrid() const
 {
 	HippoGridInfo *grid = getGrid(mCurrentGrid);
 	if (grid) {
@@ -375,6 +567,21 @@ HippoGridInfo *HippoGridManager::getCurrentGrid() const
 	} else {
 		return &HippoGridInfo::FALLBACK_GRIDINFO;
 	}
+}
+
+const std::string& HippoGridManager::getDefaultGridNick() const
+{
+	return mDefaultGrid;
+}
+
+const std::string& HippoGridManager::getCurrentGridNick() const
+{
+	return mCurrentGrid;
+}
+
+void HippoGridManager::setCurrentGridAsConnected()
+{
+	mConnectedGrid = getCurrentGrid();
 }
 
 

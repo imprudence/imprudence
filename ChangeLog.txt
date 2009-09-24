@@ -1,5 +1,13 @@
 2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Moved many HippoGridManager methods defs out of the header.
+	  There's no good reason for these to be in the header, it
+	  just breaks encapsulation for no significant gain.
+
+	  linden/indra/newview/hippoGridManager.cpp
+	  linden/indra/newview/hippoGridManager.h
+
+
 	* Removed grid stuff from World Map (for now).
 
 	  modified:   linden/indra/newview/llfloaterworldmap.cpp
