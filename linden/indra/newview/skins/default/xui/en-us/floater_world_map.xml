@@ -9,150 +9,121 @@
 		<panel bottom="-680" follows="left|top|right|bottom" height="664" label="Terrain"
 		     left="1" mouse_opaque="true" name="terrain_mapview" width="993" />
 	</tab_container>
-
-  <icon bottom="-56" color="0.5, 0, 0, 1" follows="top|right" height="16"
-   image_name="map_track_16.tga" left="1013" mouse_opaque="true"
-   name="grid_icon" width="16" />
-  <combo_box allow_text_entry="false" bottom_delta="0" follows="top|right" height="20"
-     label="Grids" left_delta="20" max_chars="60" mouse_opaque="true"
-     name="grid_combo" tool_tip="Grid Selection" width="202">
-    <combo_item name="none_selected" value="None">
-      Grids
-    </combo_item>
-  </combo_box>
-  <!--
-  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-81" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
-	     mouse_opaque="true" name="appearance_label" v_pad="0" width="145">
-    Keep Appearance
-  </text>
-  <check_box bottom="-81" control_name="KeepAppearance" follows="top|right"
-	     font="SansSerifSmall" height="16" initial_value="false" label=""
-	     left_delta="96" mouse_opaque="true" name="appearance_chk" width="55" />
-  -->
-  <button bottom="-78" follows="top|right" font="SansSerifSmall" halign="center"
-	     height="16" label="Grid Manager" label_selected="Grid Manager" left_delta="117"
-	     mouse_opaque="true" name="Grid Manager" tool_tip="Edit your grid list"
-	     width="88" />
-  
-	<icon bottom="-187" color="1, 1, 0.25, 1" follows="top|right" height="16"
+	<icon bottom="-158" color="1, 1, 0.25, 1" follows="top|right" height="16"
 	     image_name="legend.tga" left="1013" mouse_opaque="true" name="square"
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-188" drop_shadow_visible="true" follows="top|right"
+	     bottom="-156" drop_shadow_visible="true" follows="top|right"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="land_for_sale_label" v_pad="0" width="145">
 		Land For Sale
 	</text>
-	<icon bottom="-187" color="0.5, 0.25, 1, 1" follows="top|right" height="16"
+	<icon bottom="-158" color="0.5, 0.25, 1, 1" follows="top|right" height="16"
 	     image_name="legend.tga" left="1123" mouse_opaque="true" name="square2"
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-188" drop_shadow_visible="true" follows="top|right"
+	     bottom="-156" drop_shadow_visible="true" follows="top|right"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="auction_label" v_pad="0" width="145">
 		Auction
 	</text>
-  
-	<icon bottom="-101" color="1, 1, 1, 1" follows="top|right" height="16"
+	<icon bottom="-56" color="1, 1, 1, 1" follows="top|right" height="16"
 	     image_name="map_avatar_16.tga" left="1013" mouse_opaque="true" name="self"
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-101" drop_shadow_visible="true" follows="top|right"
+	     bottom="-56" drop_shadow_visible="true" follows="top|right"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="you_label" v_pad="0" width="145">
 		You
 	</text>
-	<icon bottom="-101" color="1, 1, 1, 1" follows="top|right" height="16"
+	<icon bottom="-56" color="1, 1, 1, 1" follows="top|right" height="16"
 	     image_name="map_home.tga" left="1073" mouse_opaque="true" name="home"
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-101" drop_shadow_visible="true" follows="top|right"
+	     bottom="-56" drop_shadow_visible="true" follows="top|right"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="home_label" v_pad="0" width="145">
 		Home
 	</text>
-	<button bottom="-101" follows="top|right" font="SansSerifSmall" halign="center"
+	<button bottom="-56" follows="top|right" font="SansSerifSmall" halign="center"
 	     height="16" label="Go Home" label_selected="Go Home" left_delta="57"
 	     mouse_opaque="true" name="Go Home" tool_tip="Teleport to your home"
 	     width="88" />
-	<icon bottom="-122" color="0, 1, 0, 1" follows="top|right" height="8"
+	<icon bottom="-82" color="0, 1, 0, 1" follows="top|right" height="8"
 		image_name="map_avatar_8.tga" left="1017" mouse_opaque="true" name="person"
 		width="8" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-		bottom="-126" drop_shadow_visible="true" follows="top|right"
+		bottom="-86" drop_shadow_visible="true" follows="top|right"
 		font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="16"
 		mouse_opaque="true" name="person_label" v_pad="0" width="145">
 		Person
 	</text>
-	<check_box bottom="-126" control_name="MapShowPeople" follows="top|right"
+	<check_box bottom="-86" control_name="MapShowPeople" follows="top|right"
 		font="SansSerifSmall" height="16" initial_value="false" label=" "
 		left_delta="70" mouse_opaque="true" name="people_chk" width="55" />
-	<icon bottom="-146" color="1, 1, 1, 1" follows="top|right" height="16"
+	<icon bottom="-106" color="1, 1, 1, 1" follows="top|right" height="16"
 		image_name="map_infohub.tga" left="1013" mouse_opaque="true" name="infohub"
 		width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-		bottom="-146" drop_shadow_visible="true" follows="top|right"
+		bottom="-106" drop_shadow_visible="true" follows="top|right"
 		font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 		mouse_opaque="true" name="infohub_label" v_pad="0" width="145">
 		Infohub
 	</text>
-	<check_box bottom="-146" control_name="MapShowInfohubs" follows="top|right"
+	<check_box bottom="-106" control_name="MapShowInfohubs" follows="top|right"
 		font="SansSerifSmall" height="16" initial_value="false" label=""
 		left_delta="70" mouse_opaque="true" name="infohub_chk" width="55" />
-	<icon bottom="-166" color="1, 1, 1, 1" follows="top|right" height="16"
+	<icon bottom="-126" color="1, 1, 1, 1" follows="top|right" height="16"
 		image_name="map_telehub.tga" left="1013" mouse_opaque="true" name="telehub"
 		width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-		bottom="-166" drop_shadow_visible="true" follows="top|right"
+		bottom="-126" drop_shadow_visible="true" follows="top|right"
 		font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 		mouse_opaque="true" name="telehub_label" v_pad="0" width="145">
 		Telehub
 	</text>
-	<check_box bottom="-166" control_name="MapShowTelehubs" follows="top|right"
+	<check_box bottom="-126" control_name="MapShowTelehubs" follows="top|right"
 		font="SansSerifSmall" height="16" initial_value="false" label=""
 		left_delta="70" mouse_opaque="true" name="telehubchk" width="55" />
-	<icon bottom="-126" color="1, 1, 1, 1" follows="top|right" height="16"
+	<icon bottom="-86" color="1, 1, 1, 1" follows="top|right" height="16"
 	     image_name="icon_for_sale.tga" left="1123" mouse_opaque="true"
 	     name="landforsale" width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-126" drop_shadow_visible="true" follows="top|right"
+	     bottom="-86" drop_shadow_visible="true" follows="top|right"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="land_for_sale_label2" v_pad="0" width="145">
 		Land For Sale
 	</text>
-	<check_box bottom="-126" control_name="MapShowLandForSale" follows="top|right"
+	<check_box bottom="-86" control_name="MapShowLandForSale" follows="top|right"
 	     font="SansSerifSmall" height="16" initial_value="false" label=""
 	     left_delta="80" mouse_opaque="true" name="land_for_sale_chk" width="55" />
-	<icon bottom="-146" color="1, 1, 1, 1" follows="top|right" height="16"
+	<icon bottom="-106" color="1, 1, 1, 1" follows="top|right" height="16"
 	     image_name="map_event.tga" left="1123" mouse_opaque="true" name="event"
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-146" drop_shadow_visible="true" follows="top|right"
+	     bottom="-106" drop_shadow_visible="true" follows="top|right"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="events_label" v_pad="0" width="145">
 		Events
 	</text>
-	<check_box bottom="-146" control_name="MapShowEvents" follows="top|right"
+	<check_box bottom="-106" control_name="MapShowEvents" follows="top|right"
 	     font="SansSerifSmall" height="16" initial_value="false" label=""
 	     left_delta="80" mouse_opaque="true" name="event_chk" width="55" />
-	<icon bottom="-166" color="1, 1, 1, 1" follows="top|right" height="16"
+	<icon bottom="-126" color="1, 1, 1, 1" follows="top|right" height="16"
 	     image_name="map_event_mature.tga" left="1123" mouse_opaque="true"
 	     name="events_mature_icon" width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-166" drop_shadow_visible="true" follows="top|right"
+	     bottom="-126" drop_shadow_visible="true" follows="top|right"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="events_mature_label" v_pad="0" width="145">
 		Events (M)
 	</text>
-	<check_box bottom="-166" control_name="ShowMatureEvents" follows="top|right"
+	<check_box bottom="-126" control_name="ShowMatureEvents" follows="top|right"
 	     font="SansSerifSmall" height="16" initial_value="true" label=""
 	     left_delta="80" mouse_opaque="true" name="event_mature_chk" width="55" />
-
-  <icon bottom="-216" color="0.5, 0, 0, 1" follows="top|right" height="16"
-     image_name="map_track_16.tga" left="1013" mouse_opaque="true"
-     name="avatar_icon" width="16" />
+	<icon bottom="-181" color="0.5, 0, 0, 1" follows="top|right" height="16"
+	     image_name="map_track_16.tga" left="1013" mouse_opaque="true"
+	     name="avatar_icon" width="16" />
 	<combo_box allow_text_entry="true" bottom_delta="0" follows="top|right" height="20"
 	     label="Online Friends" left_delta="20" max_chars="60" mouse_opaque="true"
 	     name="friend combo" tool_tip="Friend to Show on Map" width="202">
@@ -160,7 +131,6 @@
 			Online Friends
 		</combo_item>
 	</combo_box>
-  
 	<icon bottom_delta="-25" color="0.5, 0, 0, 1" follows="top|right" height="16"
 	     image_name="map_track_16.tga" left="1013" mouse_opaque="true"
 	     name="landmark_icon" width="16" />
@@ -171,7 +141,6 @@
 			Landmarks
 		</combo_item>
 	</combo_box>
-  
 	<icon bottom_delta="-25" color="0.5, 0, 0, 1" follows="top|right" height="16"
 	     image_name="map_track_16.tga" left="1013" mouse_opaque="true"
 	     name="location_icon" width="16" />
@@ -187,10 +156,9 @@
 	     mouse_opaque="true" name="search_label" v_pad="0" width="222">
 		Search Results:
 	</text>
-  
-	<scroll_list background_visible="true" bottom_delta="-266" draw_border="true"
+	<scroll_list background_visible="true" bottom_delta="-306" draw_border="true"
 	     draw_stripes="false" 
-	     follows="top|right|bottom" height="261" left="1013" multi_select="false"
+	     follows="top|right|bottom" height="300" left="1013" multi_select="false"
 	     name="search_results" width="222">
 		<column label="" name="icon" width="16" />
 		<column label="" name="sim_name" width="206" />
@@ -210,7 +178,7 @@
 	     mouse_opaque="true" name="spin y"
 	     tool_tip="Y coordinate of location to show on map" width="66" />
 	<spinner bottom_delta="0" decimal_digits="0" follows="bottom|right" height="16"
-	     increment="1" initial_val="0" left_delta="68" max_val="16384" min_val="0"
+	     increment="1" initial_val="0" left_delta="68" max_val="4096" min_val="0"
 	     mouse_opaque="true" name="spin z"
 	     tool_tip="Z coordinate of location to show on map" width="66" />
 	<button bottom="-625" follows="right|bottom" font="SansSerif" halign="center"

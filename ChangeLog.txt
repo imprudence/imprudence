@@ -1,5 +1,11 @@
 2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Removed grid stuff from World Map (for now).
+
+	  modified:   linden/indra/newview/llfloaterworldmap.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_world_map.xml
+
+
 	* Hid "Start Location" from grid manager floater. Not used anyway.
 
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_login.xml
