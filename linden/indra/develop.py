@@ -536,7 +536,7 @@ class WindowsSetup(PlatformSetup):
         gen = gen.lower()
         try:
             import _winreg
-            key_str = (r'SOFTWARE\Microsoft\VCEXpress\%s\Setup\VC' %
+            key_str = (r'SOFTWARE\Microsoft\VCExpress\%s\Setup\VC' %
                        self.gens[gen]['ver'])
             value_str = (r'ProductDir')
             print ('Reading VS environment from HKEY_LOCAL_MACHINE\%s\%s' %
