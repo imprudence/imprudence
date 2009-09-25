@@ -31,9 +31,15 @@ if (WINDOWS)
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO 
       "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /Od /Zi /MT"
       CACHE STRING "C++ compiler release-with-debug options" FORCE)
-  set(CMAKE_CXX_FLAGS_RELEASE
+  if (MSVC80)
+      set(CMAKE_CXX_FLAGS_RELEASE
+      "${CMAKE_CXX_FLAGS_RELEASE} /O2 /Ob2 /Oi /Ot /Oy /GT /Zi /MT"
+      CACHE STRING "C++ compiler release options" FORCE)
+  else (MSVC80)
+      set(CMAKE_CXX_FLAGS_RELEASE
       "${CMAKE_CXX_FLAGS_RELEASE} ${LL_CXX_FLAGS} /O2 /Zi /MT"
       CACHE STRING "C++ compiler release options" FORCE)
+  endif (MSVC80)
 
   add_definitions(
       /DLL_WINDOWS=1
@@ -57,21 +63,6 @@ if (WINDOWS)
       /Zc:wchar_t-
       )
   endif (MSVC80 OR MSVC90)
-
-  # VS optimization flags
-  if(MSVC80)
-
-    set(NUMBER_OF_CORES $ENV{NUMBER_OF_PROCESSORS})
-
-    set(CMAKE_CXX_FLAGS_RELEASE
-      "${CMAKE_CXX_FLAGS_RELEASE} /Ob2 /Oi /Ot /GT"
-      CACHE STRING "C++ compiler release options" FORCE)
-
-  add_definitions(
-      /MP${NUMBER_OF_CORES}
-      )
-
-  endif (MSVC80)
   
   # Are we using the crummy Visual Studio KDU build workaround?
   if (NOT VS_DISABLE_FATAL_WARNINGS)

@@ -1,3 +1,10 @@
+2009-09-25 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Removed problematic /MP flag.
+	
+		modified:   linden/indra/cmake/00-Common.cmake
+		
+
 2009-09-24 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Applied RLVa patch for Imprudence 1.2 by Kitty Barnett.
