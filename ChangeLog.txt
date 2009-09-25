@@ -4,6 +4,11 @@
 	
 		modified:   linden/indra/cmake/00-Common.cmake
 		
+		
+	* Fixed Windows using wrong GStreamer library names.
+	
+		modified:   linden/indra/cmake/GStreamer.cmake
+		
 
 2009-09-24 McCabe Maxsted  <hakushakukun@gmail.com>
 

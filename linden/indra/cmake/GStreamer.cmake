@@ -29,23 +29,23 @@ if (WINDOWS)
       gmodule-2.0
       gobject-2.0
       gthread-2.0
-      libgstvideo-0.10
-      libgsttag-0.10
-      libgstsdp-0.10
-      libgstrtsp-0.10
-      libgstrtp-0.10
-      libgstriff-0.10
-      libgstreamer-0.10
-      libgstpbutils-0.10
-      libgstnetbuffer-0.10
-      libgstnet-0.10
-      libgstinterfaces-0.10
-      libgstdshow-0.10
-      libgstdataprotocol-0.10
-      libgstcontroller-0.10
-      libgstbase-0.10
-      libgstaudio-0.10
-      libgstapp-0.10
+      libgstvideo.lib
+      libgsttag.lib
+      libgstsdp.lib
+      libgstrtsp.lib
+      libgstrtp.lib
+      libgstriff.lib
+      libgstreamer-0.10.lib
+      libgstpbutils.lib
+      libgstnetbuffer.lib
+      libgstnet-0.10.lib
+      libgstinterfaces.lib
+      libgstdshow.lib
+      libgstdataprotocol-0.10.lib
+      libgstcontroller-0.10.lib
+      libgstbase-0.10.lib
+      libgstaudio.lib
+      libgstapp.lib
       libxml2
       libxml2_a
       libxml2_a_dll
