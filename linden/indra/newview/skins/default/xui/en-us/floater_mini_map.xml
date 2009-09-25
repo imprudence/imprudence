@@ -51,7 +51,7 @@
              tool_tip="Offer this friend a teleport to your current location" width="80" />
         <button bottom_delta="-25" follows="top|right" height="22" label="Track"
              left_delta="0" name="track_btn"
-             tool_tip="Create a beacon to track this avatar" width="80" />
+             tool_tip="Create a beacon to track friends you can map" width="80" />
         <button bottom_delta="-25" follows="top|right" height="22" label="Invite..."
              left_delta="0" name="invite_btn"
              tool_tip="Remove this person from your friends list" width="80" />
