@@ -705,12 +705,9 @@ bool idle_startup()
 		else
 		{
 			// if not automatically logging in, display login dialog
-			// a valid grid is selected (in llpanellogin, for some reason?)
-			// This should get the right values from the grid manager now -Patrick Sapinski (Monday, August 17, 2009)
-			HippoGridInfo *gridInfo = gHippoGridManager->getCurrentGrid();
-			firstname = gridInfo->getFirstName();
-			lastname = gridInfo->getLastName();
-			password = gridInfo->getAvatarPassword();
+			firstname = gSavedSettings.getString("FirstName");
+			lastname = gSavedSettings.getString("LastName");
+			password = load_password_from_disk();
 			
 			remember_password = gSavedSettings.getBOOL("RememberPassword");
 			show_connect_box = true;

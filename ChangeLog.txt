@@ -1,5 +1,11 @@
 2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Login screen fields shouldn't be set from grid (for now).
+
+	  modified:   linden/indra/newview/llpanellogin.cpp
+	  modified:   linden/indra/newview/llstartup.cpp
+
+
 	* Disabled avatar name and password fields in grid manager.
 	  Temporary, until we implement a decent account manager.
 

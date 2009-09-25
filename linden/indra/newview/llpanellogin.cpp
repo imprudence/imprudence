@@ -1163,18 +1163,13 @@ void LLPanelLogin::onSelectServer(LLUICtrl* ctrl, void*)
 	std::string mCurGrid = ctrl->getValue().asString();
 	//KOW
 	gHippoGridManager->setCurrentGrid(mCurGrid);
-	HippoGridInfo *gridInfo = gHippoGridManager->getGrid(mCurGrid);
-		if (gridInfo) {
-			//childSetText("gridnick", gridInfo->getGridNick());
-			//platform->setCurrentByIndex(gridInfo->getPlatform());
-			//childSetText("gridname", gridInfo->getGridName());
-			LLPanelLogin::setFields( gridInfo->getFirstName(), gridInfo->getLastName(), gridInfo->getAvatarPassword(), 1 );
-		}
-	//gHippoGridManager->setCurrentGrid(mCurGrid);
-
-
-	
-
+	// HippoGridInfo *gridInfo = gHippoGridManager->getGrid(mCurGrid);
+	// if (gridInfo) {
+	// 	//childSetText("gridnick", gridInfo->getGridNick());
+	// 	//platform->setCurrentByIndex(gridInfo->getPlatform());
+	// 	//childSetText("gridname", gridInfo->getGridName());
+	// 	LLPanelLogin::setFields( gridInfo->getFirstName(), gridInfo->getLastName(), gridInfo->getAvatarPassword(), 1 );
+	// }
 
 	
 	llwarns << "current grid = " << mCurGrid << llendl;
