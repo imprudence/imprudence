@@ -297,12 +297,14 @@ void LLFloaterMap::toggleButtons()
 	BOOL enable_unmute = FALSE;
 	BOOL enable_track = FALSE;
 	BOOL enable_estate = FALSE;
+	BOOL enable_friend = FALSE;
 	if (childHasFocus("RadarPanel"))
 	{
 		enable = mSelectedAvatar.notNull() ? visibleItemsSelected() : FALSE;
 		enable_unmute = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : FALSE;
 		enable_track = gAgent.isGodlike() || is_agent_mappable(mSelectedAvatar);
 		enable_estate = getKickable(mSelectedAvatar);
+		enable_friend = !is_agent_friend(mSelectedAvatar);
 	}
 	else
 	{

@@ -8,6 +8,11 @@
 		modified:   linden/indra/newview/llpanelpermissions.cpp
 		modified:   linden/indra/newview/llwindlightremotectrl.cpp
 
+		
+	* Fixed Add button being enabled for friends in the radar.
+	
+		modified:   linden/indra/newview/llfloatermap.cpp
+		
 
 2009-09-22 McCabe Maxsted  <hakushakukun@gmail.com>
 
