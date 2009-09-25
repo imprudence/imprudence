@@ -1,3 +1,11 @@
+2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Reverted "grid-firstname_lastname" user directories.
+	  Back to "firstname_lastname", like it was without grid manager.
+
+	  modified:   linden/indra/llvfs/lldir.cpp
+
+
 2009-09-23  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Moved "Show HUD Attachments" back to View, restored shortcut.

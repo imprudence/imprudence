@@ -527,16 +527,16 @@ void LLDir::setLindenUserDir(const std::string &grid, const std::string &first, 
 	{
 		// some platforms have case-sensitive filesystems, so be
 		// utterly consistent with our firstname/lastname case.
-		std::string gridlower(grid);
-		LLStringUtil::toLower(gridlower);
+		// std::string gridlower(grid);
+		// LLStringUtil::toLower(gridlower);
 		std::string firstlower(first);
 		LLStringUtil::toLower(firstlower);
 		std::string lastlower(last);
 		LLStringUtil::toLower(lastlower);
 		mLindenUserDir = getOSUserAppDir();
 		mLindenUserDir += mDirDelimiter;
-		mLindenUserDir += gridlower;
-		mLindenUserDir += "-";
+		// mLindenUserDir += gridlower;
+		// mLindenUserDir += "-";
 		mLindenUserDir += firstlower;
 		mLindenUserDir += "_";
 		mLindenUserDir += lastlower;
@@ -568,16 +568,16 @@ void LLDir::setPerAccountChatLogsDir(const std::string &grid, const std::string 
 	{
 		// some platforms have case-sensitive filesystems, so be
 		// utterly consistent with our firstname/lastname case.
-		std::string gridlower(grid);
-		LLStringUtil::toLower(gridlower);
+		// std::string gridlower(grid);
+		// LLStringUtil::toLower(gridlower);
 		std::string firstlower(first);
 		LLStringUtil::toLower(firstlower);
 		std::string lastlower(last);
 		LLStringUtil::toLower(lastlower);
 		mPerAccountChatLogsDir = getChatLogsDir();
 		mPerAccountChatLogsDir += mDirDelimiter;
-		mPerAccountChatLogsDir += gridlower;
-		mPerAccountChatLogsDir += "-";
+		// mPerAccountChatLogsDir += gridlower;
+		// mPerAccountChatLogsDir += "-";
 		mPerAccountChatLogsDir += firstlower;
 		mPerAccountChatLogsDir += "_";
 		mPerAccountChatLogsDir += lastlower;
