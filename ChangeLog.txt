@@ -1,5 +1,11 @@
 2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Renamed default grid "local" -> "localhost".
+	  So it matches the one downloaded from the web.
+
+	  modified:   linden/indra/newview/app_settings/default_grids.xml
+
+
 	* Fixed HippoGridInfo::cleanUpUri appending "/" stupidly.
 	  It was appending it to an empty string, "/", "//", etc.
 

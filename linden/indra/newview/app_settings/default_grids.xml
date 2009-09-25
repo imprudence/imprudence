@@ -26,7 +26,7 @@
 
     <!-- Local Host -->
     <map>
-      <key>gridnick</key><string>local</string>
+      <key>gridnick</key><string>localhost</string>
       <key>gridname</key><string>Local Host</string>
       <key>platform</key><string>OpenSim</string>
       <key>loginuri</key><string>http://127.0.0.1:9000/</string>
