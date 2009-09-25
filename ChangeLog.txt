@@ -9,6 +9,11 @@
 	
 		modified:   linden/indra/cmake/GStreamer.cmake
 		
+	
+	* Fixed region names not showing up on regions with zero avatars.
+	
+		modified:   linden/indra/newview/llworldmapview.cpp
+		
 
 2009-09-24 McCabe Maxsted  <hakushakukun@gmail.com>
 
