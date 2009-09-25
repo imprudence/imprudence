@@ -452,7 +452,7 @@ void HippoGridManager::loadFromFile()
 	parseFile(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "default_grids.xml"), !mGridInfo.empty());
 	// merge grid info from web site, if newer. Force load, if list of grids is empty.
 	if (gSavedSettings.getBOOL("CheckForGridUpdates"))
-		parseUrl("http://meerkatviewer.org/scripts/grids.php", !mGridInfo.empty());
+		parseUrl("http://imprudenceviewer.org/app/grids/", !mGridInfo.empty());
 
 	setDefaultGrid(gSavedSettings.getString("DefaultGrid"));
 	setCurrentGrid(gSavedSettings.getString("DefaultGrid"));

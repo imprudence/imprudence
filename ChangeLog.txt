@@ -1,5 +1,10 @@
 2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Made grid manager update from Imprudence site, not Meerkat.
+
+	  modified:  linden/indra/newview/hippoGridManager.cpp:
+
+
 	* Renamed default grid "local" -> "localhost".
 	  So it matches the one downloaded from the web.
 
