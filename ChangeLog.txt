@@ -13,6 +13,12 @@
 	
 		modified:   linden/indra/newview/llfloatermap.cpp
 		
+		
+	* Fixed Last Owner text in tools window not disabling.
+	
+		modified:   linden/indra/newview/llpanelpermissions.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+
 
 2009-09-22 McCabe Maxsted  <hakushakukun@gmail.com>
 

@@ -353,12 +353,14 @@ void LLPanelPermissions::refresh()
 	if ( (owner_name != last_owner_name) && (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
 // [/RLVa:KB]
 	{
+		childSetEnabled("Last Owner:", TRUE);
 		childSetText("Last Owner Name", last_owner_name);
 		childSetEnabled("Last Owner Name", TRUE);
 		childSetEnabled("button last owner profile", TRUE);
 	}
 	else
 	{
+		childSetEnabled("Last Owner:", FALSE);
 		childSetText("Last Owner Name", LLStringUtil::null);
 		childSetEnabled("Last Owner Name", FALSE);
 		childSetEnabled("button last owner profile", FALSE);
