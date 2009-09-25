@@ -1,5 +1,10 @@
 2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Hid "Start Location" from grid manager floater. Not used anyway.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_login.xml
+
+
 	* Made grid manager update from Imprudence site, not Meerkat.
 
 	  modified:  linden/indra/newview/hippoGridManager.cpp:

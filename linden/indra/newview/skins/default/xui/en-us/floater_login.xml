@@ -83,8 +83,6 @@
 	     follows="left|top|right" font="SansSerif" handle_edit_keys_directly="true"
 	     height="20" left_delta="90" max_length="16" mouse_opaque="true"
 	     name="avatar_password" select_all_on_focus_received="true" width="200" />
-  -->
-
 
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
@@ -106,6 +104,7 @@
       &lt;Type region name&gt;
     </combo_item>
   </combo_box>
+  -->
 
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
      bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
