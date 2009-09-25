@@ -1,5 +1,10 @@
 2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Rearranged login screen and cleaned up XUI.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_login.xml
+
+
 	* Login screen fields shouldn't be set from grid (for now).
 
 	  modified:   linden/indra/newview/llpanellogin.cpp
