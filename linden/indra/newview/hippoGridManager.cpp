@@ -543,9 +543,9 @@ void HippoGridManager::parseData(LLSD &gridInfo, bool mergeIfNewer)
 			if (gridMap.has("password")) grid->setPasswordUrl(gridMap["password"]);
 			//if (gridMap.has("search")) grid->setSearchUrl(gridMap["search"]);
 			if (gridMap.has("render_compat")) grid->setRenderCompat(gridMap["render_compat"]);
-			if (gridMap.has("firstname")) grid->setFirstName(gridMap["firstname"]);
-			if (gridMap.has("lastname")) grid->setLastName(gridMap["lastname"]);
-			if (gridMap.has("avatarpassword")) grid->setAvatarPassword(gridMap["avatarpassword"]);
+			// if (gridMap.has("firstname")) grid->setFirstName(gridMap["firstname"]);
+			// if (gridMap.has("lastname")) grid->setLastName(gridMap["lastname"]);
+			// if (gridMap.has("avatarpassword")) grid->setAvatarPassword(gridMap["avatarpassword"]);
 			if (newGrid) addGrid(grid);
 		}
 	}
@@ -573,14 +573,14 @@ void HippoGridManager::saveFile()
 		gridInfo[i]["loginpage"] = grid->getLoginPage();
 		gridInfo[i]["helperuri"] = grid->getHelperUri();
 		gridInfo[i]["website"] = grid->getWebSite();
-        gridInfo[i]["support"] = grid->getSupportUrl();
+		gridInfo[i]["support"] = grid->getSupportUrl();
 		gridInfo[i]["register"] = grid->getRegisterUrl();
-        gridInfo[i]["password"] = grid->getPasswordUrl();
-        gridInfo[i]["firstname"] = grid->getFirstName();
-        gridInfo[i]["lastname"] = grid->getLastName();
-        gridInfo[i]["avatarpassword"] = grid->getAvatarPassword();
+		gridInfo[i]["password"] = grid->getPasswordUrl();
+		// gridInfo[i]["firstname"] = grid->getFirstName();
+		// gridInfo[i]["lastname"] = grid->getLastName();
+		// gridInfo[i]["avatarpassword"] = grid->getAvatarPassword();
 		
-        //gridInfo[i]["search"] = grid->getSearchUrl();
+		//gridInfo[i]["search"] = grid->getSearchUrl();
 		gridInfo[i]["render_compat"] = grid->isRenderCompat();
 	}
 

@@ -1,5 +1,13 @@
 2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Disabled avatar name and password fields in grid manager.
+	  Temporary, until we implement a decent account manager.
+
+	  modified:   linden/indra/newview/floaterlogin.cpp
+	  modified:   linden/indra/newview/hippoGridManager.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_login.xml
+
+
 	* Reverted "grid-firstname_lastname" user directories.
 	  Back to "firstname_lastname", like it was without grid manager.
 
