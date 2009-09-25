@@ -277,9 +277,14 @@ void HippoGridInfo::cleanUpGridNick(std::string &gridnick)
 // static
 void HippoGridInfo::cleanUpUri(std::string &uri)
 {
-	std::string::size_type n = uri.rfind('/');
-	if ((n == std::string::npos) || (n < 10))
+	if (uri.empty()) {
+		return;
+	}
+
+	// If last character in uri is not "/"
+	if (uri.compare(uri.length()-1, 1, "/") != 0) {
 		uri += '/';
+	}
 }
 
 

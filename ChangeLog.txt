@@ -1,5 +1,11 @@
 2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Fixed HippoGridInfo::cleanUpUri appending "/" stupidly.
+	  It was appending it to an empty string, "/", "//", etc.
+
+	  modified:   linden/indra/newview/hippoGridManager.cpp
+
+
 	* Rearranged login screen and cleaned up XUI.
 
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_login.xml
