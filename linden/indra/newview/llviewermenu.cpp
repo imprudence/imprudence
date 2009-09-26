@@ -575,6 +575,11 @@ void set_underclothes_menu_options()
 
 void init_menus()
 {
+	if (gMenuHolder)
+	{
+		cleanup_menus();
+	}
+
 	S32 top = gViewerWindow->getRootView()->getRect().getHeight();
 	S32 width = gViewerWindow->getRootView()->getRect().getWidth();
 

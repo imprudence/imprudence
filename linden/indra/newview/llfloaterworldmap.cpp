@@ -334,6 +334,7 @@ void LLFloaterWorldMap::show(void*, BOOL center_on_target)
 
 		// If nothing is being tracked, set flag so the user position will be found
 		gFloaterWorldMap->mSetToUserPosition = ( LLTracker::getTrackingStatus() == LLTracker::TRACKING_NOTHING );
+
 	}
 	
 	if (center_on_target)
@@ -450,7 +451,8 @@ void LLFloaterWorldMap::draw()
 	childSetEnabled("Go Home", enable_go_home);
 
 	updateLocation();
-	
+
+
 	LLTracker::ETrackingStatus tracking_status = LLTracker::getTrackingStatus(); 
 	if (LLTracker::TRACKING_AVATAR == tracking_status)
 	{
@@ -496,7 +498,6 @@ void LLFloaterWorldMap::draw()
 		centerOnTarget(TRUE);
 	}
 
-	childSetEnabled("Teleport", (BOOL)tracking_status);
 //	childSetEnabled("Clear", (BOOL)tracking_status);
 	childSetEnabled("Show Destination", (BOOL)tracking_status || LLWorldMap::getInstance()->mIsTrackingUnknownLocation);
 	childSetEnabled("copy_slurl", (mSLURL.size() > 0) );
@@ -769,7 +770,7 @@ void LLFloaterWorldMap::updateLocation()
 void LLFloaterWorldMap::trackURL(const std::string& region_name, S32 x_coord, S32 y_coord, S32 z_coord)
 {
 	LLSimInfo* sim_info = LLWorldMap::getInstance()->simInfoFromName(region_name);
-	z_coord = llclamp(z_coord, 0, 4096);
+	z_coord = llclamp(z_coord, 0, 1000);
 	if (sim_info)
 	{
 		LLVector3 local_pos;
@@ -1079,6 +1080,7 @@ void LLFloaterWorldMap::onPanBtn( void* userdata )
 void LLFloaterWorldMap::onGoHome(void*)
 {
 	gAgent.teleportHomeConfirm();
+	gFloaterWorldMap->close();
 }
 
 

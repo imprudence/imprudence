@@ -1574,69 +1574,82 @@ void LLViewerWindow::initWorldUI()
 	S32 width = mRootView->getRect().getWidth();
 	LLRect full_window(0, height, width, 0);
 
-	if ( gBottomPanel == NULL )			// Don't re-enter if objects are alreay created
-	{
-		// panel containing chatbar, toolbar, and overlay, over floaters
-		gBottomPanel = new LLBottomPanel(mRootView->getRect());
-		mRootView->addChild(gBottomPanel);
+	if (gBottomPanel)
+		mRootView->removeChild(gBottomPanel, TRUE); 
+	// panel containing chatbar, toolbar, and overlay, over floaters
+	gBottomPanel = new LLBottomPanel(mRootView->getRect());
+	mRootView->addChild(gBottomPanel);
 
-		// View for hover information
-		gHoverView = new LLHoverView(std::string("gHoverView"), full_window);
-		gHoverView->setVisible(TRUE);
-		mRootView->addChild(gHoverView);
+	if (gHoverView)
+		mRootView->removeChild(gHoverView, TRUE);
+	// View for hover information
+	gHoverView = new LLHoverView(std::string("gHoverView"), full_window);
+	gHoverView->setVisible(TRUE);
+	mRootView->addChild(gHoverView);
 		
-		gIMMgr = LLIMMgr::getInstance();
+	gIMMgr = LLIMMgr::getInstance();
 
-		if ( gSavedPerAccountSettings.getBOOL("LogShowHistory") )
-		{
-			LLFloaterChat::getInstance(LLSD())->loadHistory();
-		}
+	if ( gSavedPerAccountSettings.getBOOL("LogShowHistory") )
+	{
+		LLFloaterChat::getInstance(LLSD())->loadHistory();
+	}
 
-		LLRect morph_view_rect = full_window;
-		morph_view_rect.stretch( -STATUS_BAR_HEIGHT );
-		morph_view_rect.mTop = full_window.mTop - 32;
-		gMorphView = new LLMorphView(std::string("gMorphView"), morph_view_rect );
-		mRootView->addChild(gMorphView);
-		gMorphView->setVisible(FALSE);
+	LLRect morph_view_rect = full_window;
+	morph_view_rect.stretch( -STATUS_BAR_HEIGHT );
+	morph_view_rect.mTop = full_window.mTop - 32;
+	if (gMorphView)
+		mRootView->removeChild(gMorphView, TRUE);
 
-		// *Note: this is where gFloaterMute used to be initialized.
+	gMorphView = new LLMorphView(std::string("gMorphView"), morph_view_rect );
+	mRootView->addChild(gMorphView);
+	gMorphView->setVisible(FALSE);
 
-		LLWorldMapView::initClass();
+	// *Note: this is where gFloaterMute used to be initialized.
 
-		adjust_rect_centered_partial_zoom("FloaterWorldMapRect2", full_window);
+	LLWorldMapView::initClass();
 
+	adjust_rect_centered_partial_zoom("FloaterWorldMapRect2", full_window);
+
+	if (!gFloaterWorldMap)
+	{
 		gFloaterWorldMap = new LLFloaterWorldMap();
 		gFloaterWorldMap->setVisible(FALSE);
+	}
 
-		//
-		// Tools for building
-		//
+	//
+	// Tools for building
+	//
 
-		// Toolbox floater
-		init_menus();
-
+	// Toolbox floater
+	init_menus();
+	if (!gFloaterTools)
+	{
 		gFloaterTools = new LLFloaterTools();
 		gFloaterTools->setVisible(FALSE);
+	}
 
+	if (!gStatusBar)
+	{
 		// Status bar
 		S32 menu_bar_height = gMenuBarView->getRect().getHeight();
-		LLRect root_rect = getRootView()->getRect();
+		LLRect root_rect = mRootView->getRect();
 		LLRect status_rect(0, root_rect.getHeight(), root_rect.getWidth(), root_rect.getHeight() - menu_bar_height);
 		gStatusBar = new LLStatusBar(std::string("status"), status_rect);
 		gStatusBar->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_TOP);
-
+	
 		gStatusBar->reshape(root_rect.getWidth(), gStatusBar->getRect().getHeight(), TRUE);
 		gStatusBar->translate(0, root_rect.getHeight() - gStatusBar->getRect().getHeight());
 		// sync bg color with menu bar
 		gStatusBar->setBackgroundColor( gMenuBarView->getBackgroundColor() );
-
-		LLFloaterChatterBox::createInstance(LLSD());
-
-		getRootView()->addChild(gStatusBar);
-
-		// menu holder appears on top to get first pass at all mouse events
-		getRootView()->sendChildToFront(gMenuHolder);
+		mRootView->addChild(gStatusBar);
 	}
+
+	LLFloaterChatterBox::createInstance(LLSD());
+
+
+	// menu holder appears on top to get first pass at all mouse events
+
+	mRootView->sendChildToFront(gMenuHolder);
 }
 
 // Destroy the UI
@@ -4891,7 +4904,6 @@ void LLBottomPanel::draw()
 
 void* LLBottomPanel::createHUD(void* data)
 {
-	delete gHUDView;
 	gHUDView = new LLHUDView();
 	return gHUDView;
 }
@@ -4899,14 +4911,12 @@ void* LLBottomPanel::createHUD(void* data)
 
 void* LLBottomPanel::createOverlayBar(void* data)
 {
-	delete gOverlayBar;
 	gOverlayBar = new LLOverlayBar();
 	return gOverlayBar;
 }
 
 void* LLBottomPanel::createToolBar(void* data)
 {
-	delete gToolBar;
 	gToolBar = new LLToolBar();
 	return gToolBar;
 }

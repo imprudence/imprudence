@@ -109,7 +109,7 @@
 #include "llui.h"			// for make_ui_sound
 #include "lluploaddialog.h"
 #include "llviewercamera.h"
-#include "llviewercontrol.h"
+//#include "llviewercontrol.h"
 #include "llviewergenericmessage.h"
 #include "llviewerinventory.h"
 #include "llviewermenu.h"

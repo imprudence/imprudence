@@ -67,6 +67,8 @@ public:
 	static void toggle(void*);
 	static void hide(void*); 
 
+	static void addServer(const std::string& server);
+
 	/*virtual*/ void reshape( S32 width, S32 height, BOOL called_from_parent = TRUE );
 	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL handleScrollWheel(S32 x, S32 y, S32 clicks);
@@ -100,6 +102,7 @@ public:
 	void			clearLocationSelection(BOOL clear_ui = FALSE);
 	void			clearAvatarSelection(BOOL clear_ui = FALSE);
 	void			clearLandmarkSelection(BOOL clear_ui = FALSE);
+	void			clearGridSelection(BOOL clear_ui = FALSE);
 
 	// Adjust the maximally zoomed out limit of the zoom slider so you can
 	// see the whole world, plus a little.
@@ -114,8 +117,9 @@ public:
 protected:
 	static void		onPanBtn( void* userdata );
 
-	static void		onGoHome(void* data);
+	static void		onGridManager(void* data);
 
+	static void		onGoHome(void* data);
 	static void		onLandmarkComboPrearrange( LLUICtrl* ctrl, void* data );
 	static void		onLandmarkComboCommit( LLUICtrl* ctrl, void* data );
 
@@ -157,6 +161,7 @@ protected:
 	static void		onLocationCommit( void* userdata );
 	static void		onCommitLocation( LLUICtrl* ctrl, void* userdata );
 	static void		onCommitSearchResult( LLUICtrl* ctrl, void* userdata );
+	static void		onSelectServer(LLUICtrl*, void* userdata);
 
 	void			cacheLandmarkPosition();
 
