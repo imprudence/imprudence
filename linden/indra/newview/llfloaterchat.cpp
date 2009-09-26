@@ -108,6 +108,8 @@ LLFloaterChat::LLFloaterChat(const LLSD& seed)
 	childSetVisible("Chat History Editor with mute",FALSE);
 	childSetAction("toggle_active_speakers_btn", onClickToggleActiveSpeakers, this);
 	setDefaultBtn("Chat");
+
+	//toggleHistoryChannelControl(); temporarily disable until working
 }
 
 LLFloaterChat::~LLFloaterChat()

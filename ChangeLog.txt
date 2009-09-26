@@ -14,6 +14,13 @@
 	
 		modified:   linden/indra/newview/llworldmapview.cpp
 		
+	
+	* Temporarily disable chat channel control in chat history until it works right.
+	
+		modified:   linden/indra/newview/llchatbar.cpp
+		modified:   linden/indra/newview/llfloaterchat.cpp
+		modified:   linden/indra/newview/llprefschat.cpp
+
 
 2009-09-24 McCabe Maxsted  <hakushakukun@gmail.com>
 

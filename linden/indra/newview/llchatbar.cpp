@@ -217,7 +217,7 @@ void LLChatBar::refresh()
 
 	childSetValue("History", LLFloaterChat::instanceVisible(LLSD()));
 
-	childSetValue("channel_control",( 1.f * ((S32)(getChild<LLSpinCtrl>("channel_control")->get()))) );
+	//childSetValue("channel_control",( 1.f * ((S32)(getChild<LLSpinCtrl>("channel_control")->get()))) );
 	childSetEnabled("Say", mInputEditor->getText().size() > 0);
 	childSetEnabled("Shout", mInputEditor->getText().size() > 0);
 
