@@ -1948,8 +1948,8 @@
       <on_check control="ShowConsoleWindow" />
     </menu_item_check>
 
-    <menu_item_check name="Restrained Life Active"
-                     label="Restrained Life Active">
+    <menu_item_check name="Restrained Life Support"
+                     label="Restrained Life Support">
       <on_click function="RLVa.Main.Toggle" />
       <on_check function="RLVa.Main.Enabled" />
     </menu_item_check>

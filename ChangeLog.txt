@@ -1,5 +1,10 @@
 2009-09-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Renamed 'Restrained Life Active' to 'Restrained Life Support'.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
 	* Removed redundant warning about export perms.
 
 	  modified:   linden/indra/newview/llviewermenu.cpp
