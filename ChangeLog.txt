@@ -1,3 +1,42 @@
+2009-09-25 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Removed problematic /MP flag.
+	
+		modified:   linden/indra/cmake/00-Common.cmake
+		
+		
+	* Fixed Windows using wrong GStreamer library names.
+	
+		modified:   linden/indra/cmake/GStreamer.cmake
+		
+	
+	* Fixed region names not showing up on regions with zero avatars.
+	
+		modified:   linden/indra/newview/llworldmapview.cpp
+		
+
+2009-09-24 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Applied RLVa patch for Imprudence 1.2 by Kitty Barnett.
+	
+		modified:   linden/indra/newview/llfloatermap.cpp
+		modified:   linden/indra/newview/llinventorybridge.cpp
+		modified:   linden/indra/newview/llnetmap.cpp
+		modified:   linden/indra/newview/llpanelpermissions.cpp
+		modified:   linden/indra/newview/llwindlightremotectrl.cpp
+
+		
+	* Fixed Add button being enabled for friends in the radar.
+	
+		modified:   linden/indra/newview/llfloatermap.cpp
+		
+		
+	* Fixed Last Owner text in tools window not disabling.
+	
+		modified:   linden/indra/newview/llpanelpermissions.cpp
+		modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+
+
 2009-09-23  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Moved "Show HUD Attachments" back to View, restored shortcut.
@@ -5,6 +44,25 @@
 
 	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
 
+
+2009-09-22 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed RLVa issue in LLNetMap the right way (thanks Kitty).
+	
+		modified:   linden/indra/newview/llnetmap.cpp
+		
+		
+	* Clarifed Mini-Map menu option: 'Show Map' to 'Show World Map'.
+	
+		modified:   linden/indra/newview/skins/default/xui/en-us/menu_mini_map.xml
+		
+		
+	* Applied particle chat feature from Emerald viewer (tell an object it's selected on channel 9000).
+	
+		modified:   linden/indra/newview/app_settings/settings.xml
+		modified:   linden/indra/newview/llvoavatar.cpp
+		modified:   linden/indra/newview/llvoavatar.h
+		
 
 2009-09-21 McCabe Maxsted  <hakushakukun@gmail.com>
 

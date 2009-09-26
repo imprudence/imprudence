@@ -4241,7 +4241,15 @@ void wear_attachments_on_avatar(const std::set<LLUUID>& item_ids, BOOL remove)
 		{
 			if ( (gInventory.isObjectDescendentOf(*it, gAgent.getInventoryRootID())) )
 			{
-				items.put(item);
+//				items.put(item);
+// [RLVa:KB] - Checked: 2009-09-11 (RLVa-1.0.2c) | Modified: RLVa-1.0.2c
+				LLViewerJointAttachment* pAttachPt = NULL;
+				if ( (!rlv_handler_t::isEnabled()) || (RlvSettings::getEnableWear()) || (!gRlvHandler.hasLockedAttachment()) || 
+					 (((pAttachPt = gRlvHandler.getAttachPoint(item, true)) != NULL) && (gRlvHandler.isDetachable(pAttachPt->getObject()))) )
+				{
+					items.put(item);
+				}
+// [/RLVa:KB]
 			}
 			else if ( (item->isComplete()) )
 			{

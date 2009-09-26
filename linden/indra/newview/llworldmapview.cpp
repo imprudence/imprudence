@@ -682,9 +682,8 @@ void LLWorldMapView::draw()
 						LLFontGL::LEFT,
 						LLFontGL::BASELINE,
 						LLFontGL::DROP_SHADOW);
-
-					mesg = info->mName;
 				}
+				mesg = info->mName;
 			}
 			else
 			{
