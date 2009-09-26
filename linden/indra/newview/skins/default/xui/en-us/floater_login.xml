@@ -240,10 +240,13 @@
 
   <!-- Cancel/Connect Buttons -->
 
+  <!--
   <button bottom="-44" follows="right|top" font="SansSerif" halign="center"
 	     height="24" label="Set as Default" label_selected="Set as Default"
 	     left="470" mouse_opaque="true" name="set_default" scale_image="TRUE"
 	     width="110" />
+  -->
+
   <!-- <button bottom="28" follows="right|bottom" font="SansSerif" halign="center"
 	     height="24" label="Connect" label_selected="Connect"
 	     left="280" mouse_opaque="true" name="connect_btn" scale_image="TRUE"

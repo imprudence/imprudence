@@ -1,5 +1,11 @@
 2009-09-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Removed 'Set Default' button from grid manager floater.
+
+	  modified:   linden/indra/newview/floaterlogin.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_login.xml
+
+
 	* Made HippoGridManager's sanitation code more sane.
 
 	  modified:   linden/indra/newview/floaterlogin.cpp

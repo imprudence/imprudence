@@ -123,11 +123,10 @@ BOOL LoginFloater::postBuild()
 	childSetAction("btn_copy", onClickCopy, this);
 	childSetAction("btn_ok", onClickOk, this);
 	childSetAction("btn_apply", onClickApply, this);
-	childSetAction("set_default", onClickDefault, this);
+	// childSetAction("set_default", onClickDefault, this);
 	childSetAction("btn_cancel", onClickCancel, this);
-//KOW	childSetAction("set_default", onClickDefault, this);
 	childSetAction("btn_gridinfo", onClickGridInfo, this);
-//KOW	childSetAction("btn_help_render_compat", onClickHelpRenderCompat, this);
+	// childSetAction("btn_help_render_compat", onClickHelpRenderCompat, this);
 
 	childSetCommitCallback("grid_selector", onSelectGrid, this);
 //KOW	childSetCommitCallback("platform", onSelectPlatform, this);
@@ -177,11 +176,11 @@ void LoginFloater::refresh_grids()
 		//grids->setLabel(LLStringExplicit(""));  // LLComboBox::removeall() does not clear the label
 	}
 			
-	sInstance->childSetTextArg("default_grid", "[DEFAULT]", (defaultGrid != "")? defaultGrid: " ");
+	// sInstance->childSetTextArg("default_grid", "[DEFAULT]", (defaultGrid != "")? defaultGrid: " ");
 
 	sInstance->childSetEnabled("btn_delete", (selectIndex >= 0));
 	sInstance->childSetEnabled("btn_copy", (sInstance->mState == NORMAL) && (selectIndex >= 0));
-	sInstance->childSetEnabled("set_default", (sInstance->mState == NORMAL) && (selectIndex > 0));
+	// sInstance->childSetEnabled("set_default", (sInstance->mState == NORMAL) && (selectIndex > 0));
 	sInstance->childSetEnabled("gridnick", (sInstance->mState == ADD_NEW) || (sInstance->mState == ADD_COPY));
 
 	if (sInstance->mState == NORMAL) {
