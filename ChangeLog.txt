@@ -538,8 +538,6 @@
 
 	* Fixed ground sit menu entry missing check.
 
-<<<<<<< HEAD
-=======
 		modified:   linden/indra/newview/llviewermenu.cpp
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
 
@@ -548,22 +546,10 @@
 
 	* Converted RLVa menu items to XUI.
 
->>>>>>> mccabe/1.2.0-next
 		modified:   linden/indra/newview/llviewermenu.cpp
 		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
 
 
-<<<<<<< HEAD
-2009-09-05  Jacek Antonelli  <jacek.antonelli@gmail.com>
-
-	* Converted RLVa menu items to XUI.
-
-		modified:   linden/indra/newview/llviewermenu.cpp
-		modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
-
-
-=======
->>>>>>> mccabe/1.2.0-next
 2009-09-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Applied Kitty Barnett's RLVa 1.0.1h (Restrained Life) patch.
