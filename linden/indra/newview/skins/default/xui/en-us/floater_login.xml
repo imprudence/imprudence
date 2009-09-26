@@ -123,16 +123,8 @@
 		follows="left|top" scale_image="true"
 	  font="SansSerifSmall" mouse_opaque="true" />
 
-  <text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-62"
-     embedded_items="false" enabled="false" follows="left|top"
-     font="SansSerifSmall" height="65" hide_border="true" hide_scrollbar="true"
-     left="190" max_length="65535" mouse_opaque="true"
-     name="protip1" tab_stop="false" width="420" word_wrap="true">
-    Tip: Store information for alternate accounts by using the "Copy" button to create multiple profiles for the same grid.
-  </text_editor>
-
   <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-   bottom_delta="10" drop_shadow_visible="true" follows="left|top"
+   bottom_delta="-50" drop_shadow_visible="true" follows="left|top"
    font="SansSerif" h_pad="0" halign="left" height="16"
    left="182" mouse_opaque="true" name="loginpage_text" v_pad="0" width="120">
     Optional Fields
