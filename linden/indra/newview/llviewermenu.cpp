@@ -2324,7 +2324,6 @@ class LLObjectEnableExport : public view_listener_t
 				{
 					if(gAgent.getID()!=node->mPermissions->getCreator())
 					{
-						llwarns<<"Incorrect permission to export"<<llendl;
 						return false;
 					}
 					return true;
