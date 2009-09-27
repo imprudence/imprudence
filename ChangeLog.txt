@@ -1,5 +1,11 @@
 2009-09-27 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed JPEG quality slider displaying over high-res checkbox in snapshot floater (IMP-140).
+	
+	  modified:   linden/indra/newview/llfloatersnapshot.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_snapshop.xml
+	  
+	  
 	* Deleted duplicate Torley windlight sky preset.
 	
 	  deleted:    linden/indra/newview/app_settings/windlight/skies/%5BTOR%5D%20Gelatto%20.xml
