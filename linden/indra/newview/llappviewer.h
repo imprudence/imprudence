@@ -224,6 +224,15 @@ private:
 	// for tracking viewer<->region circuit death
 	bool mAgentRegionLastAlive;
 	LLUUID mAgentRegionLastID;
+
+//public:
+//	//some information for updater
+//	typedef struct
+//	{
+//		std::string mUpdateExePath;
+//		std::ostringstream mParams;
+//	}LLUpdaterInfo ;
+//	static LLUpdaterInfo *sUpdaterInfo ;
 };
 
 // consts from viewer.h

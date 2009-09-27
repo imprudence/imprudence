@@ -227,13 +227,13 @@ int APIENTRY WINMAIN(HINSTANCE hInstance,
 	viewer_app_ptr = NULL;
 
 	//start updater
-	if(LLAppViewer::sUpdaterInfo)
+	/*if(LLAppViewer::sUpdaterInfo)
 	{
 		_spawnl(_P_NOWAIT, LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str(), LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str(), LLAppViewer::sUpdaterInfo->mParams.str().c_str(), NULL);
 
 		delete LLAppViewer::sUpdaterInfo ;
 		LLAppViewer::sUpdaterInfo = NULL ;
-	}
+	}*/
 
 	return 0;
 }

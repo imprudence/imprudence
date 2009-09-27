@@ -1,3 +1,14 @@
+2009-09-27 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Changes to make the grid manager compile on Windows.
+	
+	  modified:   linden/indra/newview/hippoGridManager.cpp
+	  modified:   linden/indra/newview/hippoLimits.cpp
+	  modified:   linden/indra/newview/hippoRestRequest.cpp
+	  modified:   linden/indra/newview/llappviewer.h
+	  modified:   linden/indra/newview/llappviewerwin32.cpp
+
+
 2009-09-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Renamed 'Restrained Life Active' to 'Restrained Life Support'.
