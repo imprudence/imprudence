@@ -468,14 +468,21 @@ LLFloaterWindLight* LLFloaterWindLight::instance()
 }
 void LLFloaterWindLight::show()
 {
-	LLFloaterWindLight* windLight = instance();
-	windLight->syncMenu();
+	if (!sWindLight)
+	{
+		LLFloaterWindLight* windLight = instance();
+		windLight->syncMenu();
 
-	// comment in if you want the menu to rebuild each time
-	//LLUICtrlFactory::getInstance()->buildFloater(windLight, "floater_windlight_options.xml");
-	//windLight->initCallbacks();
+		// comment in if you want the menu to rebuild each time
+		//LLUICtrlFactory::getInstance()->buildFloater(windLight, "floater_windlight_options.xml");
+		//windLight->initCallbacks();
 
-	windLight->open();
+		windLight->open();
+	}
+	else
+	{
+		sWindLight->close();
+	}
 }
 
 bool LLFloaterWindLight::isOpen()

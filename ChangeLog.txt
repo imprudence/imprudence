@@ -12,6 +12,11 @@
 
 2009-09-26 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Made the windlight floater toggle.  
+	  
+	  modified:   linden/indra/newview/llfloaterwindlight.cpp
+	  
+	  
 	* Added select Torley Windlight presets to Imprudence.
 	  Presets good for photography, mainly.
 	  
