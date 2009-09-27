@@ -1,5 +1,45 @@
 2009-09-27 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added missing Torley windlight water presets.
+	
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Arrakissed%20variation.xml
+	  new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Atomist%202.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Atomist.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Bayouette.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Chivandria%20clair.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Claira.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Coral%20reef.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Crosshatched%20plans.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Eyeballin%27.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Fantastuck.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Featuresque.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Freak%2DA%2Ddermia.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Glaznost.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Grantamount.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Hpmod.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Ice%2Dlike.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Impure.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Linear%20puddles.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Listeryne.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Liz%20Taylor.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Maldives.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Meridian%20verde.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Negative%20ultraspace.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Placida%20brite.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Pretty%20placid.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Raw%20sewage.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Showing%20age.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Soldier%27s%20legacy.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Subtleties.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Trandshan.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Watermelon%20juice.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Waterslides.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20What%27s%20on%20TV.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Wickedly.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20You%27re%20in%20luck.xml
+      new file:   linden/indra/newview/app_settings/windlight/water/%5BTOR%5D%20Yung%20buk.xml
+
+
 	* Changes to make the grid manager compile on Windows.
 	
 	  modified:   linden/indra/newview/hippoGridManager.cpp
