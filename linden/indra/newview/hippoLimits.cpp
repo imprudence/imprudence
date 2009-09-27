@@ -1,5 +1,7 @@
 
 
+#include "llviewerprecompiledheaders.h"
+
 #include "hippoLimits.h"
 
 #include "hippoGridManager.h"

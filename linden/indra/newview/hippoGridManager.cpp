@@ -1,5 +1,7 @@
 
 
+#include "llviewerprecompiledheaders.h"
+
 #include "hippoGridManager.h"
 
 #include <cctype>

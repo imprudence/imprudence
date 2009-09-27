@@ -1,5 +1,7 @@
 
 
+#include "llviewerprecompiledheaders.h"
+
 #include "hippoRestRequest.h"
 
 #ifndef CURL_STATICLIB
