@@ -305,7 +305,7 @@
 	  modified:   newview/skins/default/xui/en-us/floater_inventory.xml
 
 
-	* Applied patch for long distance opensim hypergrid tps (SVC-2491)
+	* Applied patch for long distance opensim hypergrid tps (SVC-2941)
 	  (Feature currently disabled in OpenSim)
 
 	  modified:   linden/indra/newview/llviewermessage.cpp
