@@ -12,6 +12,59 @@
 
 2009-09-26 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added select Torley Windlight presets to Imprudence.
+	  Presets good for photography, mainly.
+	  
+	  new file:   %5BTOR%5D%202012.xml
+	  new file:   %5BTOR%5D%20Alien%20planet.xml
+	  new file:   %5BTOR%5D%20An%20incongruent%20truth.xml
+	  new file:   %5BTOR%5D%20Arid%20nestler.xml
+	  new file:   %5BTOR%5D%20Arrakissed.xml
+	  new file:   %5BTOR%5D%20Asian%20red%20dawn.xml
+	  new file:   %5BTOR%5D%20Asiatix.xml
+	  new file:   %5BTOR%5D%20Azure%20desertation%202.xml
+	  new file:   %5BTOR%5D%20Azure%20desertation.xml
+	  new file:   %5BTOR%5D%20Barcelon%20variation%202.xml
+	  new file:   %5BTOR%5D%20Beautiful%20again.xml
+	  new file:   %5BTOR%5D%20Breaking%20firmament.xml
+	  new file:   %5BTOR%5D%20Brillianter%20sunset.xml
+	  new file:   %5BTOR%5D%20Bubble%20sun%20severance.xml
+	  new file:   %5BTOR%5D%20Castle%20vain.xml
+	  new file:   %5BTOR%5D%20Climacontrasty.xml
+	  new file:   %5BTOR%5D%20Clouds%20indifferent.xml
+	  new file:   %5BTOR%5D%20Cobraring.xml
+	  new file:   %5BTOR%5D%20Coral%20reef.xml
+	  new file:   %5BTOR%5D%20Damage%20down.xml
+	  new file:   %5BTOR%5D%20Dark%20came%20over.xml
+	  new file:   %5BTOR%5D%20Das%20fog.xml
+	  new file:   %5BTOR%5D%20Deep%20blue%20sky.xml
+	  new file:   %5BTOR%5D%20Desert%20Sunset%20mod.xml
+	  new file:   %5BTOR%5D%20Early%20warning.xml
+	  new file:   %5BTOR%5D%20Eno%20would%20be%20proud.xml
+	  new file:   %5BTOR%5D%20Evil%20machinery.xml
+	  new file:   %5BTOR%5D%20Farmatronic%20sepia.xml
+	  new file:   %5BTOR%5D%20Fogvari.xml
+	  new file:   %5BTOR%5D%20Gelatto%20.xml
+	  new file:   %5BTOR%5D%20Grit%20%26%20shame.xml
+	  new file:   %5BTOR%5D%20Herr%20Gracken.xml
+	  new file:   %5BTOR%5D%20Holy%20romance.xml
+	  new file:   %5BTOR%5D%20Hong%20Kong.xml
+	  new file:   %5BTOR%5D%20Ivory%20flowers.xml
+	  new file:   %5BTOR%5D%20Liz%20gluft.xml
+	  new file:   %5BTOR%5D%20Lonely%20cyberpunks.xml
+	  new file:   %5BTOR%5D%20Moon%20berries.xml
+	  new file:   %5BTOR%5D%20Noxumic.xml
+	  new file:   %5BTOR%5D%20Oriental%20delight.xml
+	  new file:   %5BTOR%5D%20Our%20night%20together.xml
+	  new file:   %5BTOR%5D%20Polaron%20charge%20II.xml
+	  new file:   %5BTOR%5D%20Red%20city.xml
+	  new file:   %5BTOR%5D%20Sparz%20puft.xml
+	  new file:   %5BTOR%5D%20Stay%20stonkin%27.xml
+	  new file:   %5BTOR%5D%20Study%20vessels.xml
+	  new file:   %5BTOR%5D%20Teak%20weak.xml
+	  new file:   %5BTOR%5D%20Wuxia%20nights.xml
+	  
+	  
 	* Removed overridden /oy compiler option.
 	
 	  modified:   linden/indra/cmake/00-Common.cmake
