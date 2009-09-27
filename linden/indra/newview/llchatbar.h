@@ -43,6 +43,7 @@ class LLUUID;
 class LLFrameTimer;
 class LLChatBarGestureObserver;
 class LLComboBox;
+class LLSpinCtrl;
 
 class LLChatBar
 :	public LLPanel
@@ -113,7 +114,8 @@ protected:
 	LLChatBarGestureObserver* mObserver;
 
 private:
-	BOOL				mChannelControl;
+	BOOL				mChanCtrlEnabled;
+	LLSpinCtrl*			mChannelControl;
 };
 
 extern LLChatBar *gChatBar;

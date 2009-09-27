@@ -468,6 +468,11 @@ BOOL LLSpinCtrl::handleKeyHere(KEY key, MASK mask)
 			LLSpinCtrl::onDownBtn(this);
 			return TRUE;
 		}
+		if(key == KEY_RETURN)
+		{
+			forceEditorCommit();
+			return TRUE;
+		}
 	}
 	return FALSE;
 }
