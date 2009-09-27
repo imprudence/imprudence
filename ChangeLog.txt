@@ -12,6 +12,11 @@
 
 2009-09-26 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Removed overridden /oy compiler option.
+	
+	  modified:   linden/indra/cmake/00-Common.cmake
+	
+	
 	* Changed radar label from 'meters' to 'm'.
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
