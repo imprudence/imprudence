@@ -10,6 +10,13 @@
 	  modified:   linden/indra/newview/llviewermenu.cpp
 
 
+2009-09-26 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added missing FloaterAnimationListRect to settings.xml
+
+	  modified:   linden/indra/newview/app_settings/settings.xml
+
+
 2009-09-25 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Removed problematic /MP flag.
@@ -25,6 +32,18 @@
 	* Fixed region names not showing up on regions with zero avatars.
 
 	  modified:   linden/indra/newview/llworldmapview.cpp
+
+
+	* Temporarily disable chat channel control in chat history until it's fixed.
+
+	  modified:   linden/indra/newview/llchatbar.cpp
+	  modified:   linden/indra/newview/llfloaterchat.cpp
+	  modified:   linden/indra/newview/llprefschat.cpp
+
+
+	* Fixed chat channel control value not updating when Return key pressed.
+
+	  modified:   linden/indra/llui/llspinctrl.cpp
 
 
 2009-09-24 McCabe Maxsted  <hakushakukun@gmail.com>

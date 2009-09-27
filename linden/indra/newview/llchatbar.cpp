@@ -102,7 +102,7 @@ private:
 
 LLChatBar::LLChatBar() 
 :	LLPanel(LLStringUtil::null, LLRect(), BORDER_NO),
-	mChannelControl(FALSE),
+	mChanCtrlEnabled(FALSE),
 	mInputEditor(NULL),
 	mGestureLabelTimer(),
 	mLastSpecialChatChannel(0),
@@ -155,6 +155,8 @@ BOOL LLChatBar::postBuild()
 		mInputEditor->setMaxTextLength(1023);
 		mInputEditor->setEnableLineHistory(TRUE);
 	}
+
+	mChannelControl = getChild<LLSpinCtrl>("channel_control");
 
 	toggleChannelControl();
 
@@ -217,7 +219,7 @@ void LLChatBar::refresh()
 
 	childSetValue("History", LLFloaterChat::instanceVisible(LLSD()));
 
-	childSetValue("channel_control",( 1.f * ((S32)(getChild<LLSpinCtrl>("channel_control")->get()))) );
+	//childSetValue("channel_control",( 1.f * ((S32)(mChannelControl->get()))) );
 	childSetEnabled("Say", mInputEditor->getText().size() > 0);
 	childSetEnabled("Shout", mInputEditor->getText().size() > 0);
 
@@ -378,7 +380,7 @@ LLWString LLChatBar::stripChannelNumber(const LLWString &mesg, S32* channel)
 	}
 	else
 	{
-		if (!mChannelControl)
+		if (!mChanCtrlEnabled)
 		{
 			// This is normal chat.
 			*channel = 0;
@@ -398,7 +400,7 @@ void LLChatBar::sendChat( EChatType type )
 			// store sent line in history, duplicates will get filtered
 			if (mInputEditor) mInputEditor->updateHistory();
 			// Check if this is destined for another channel
-			S32 channel = mChannelControl ? (S32)(getChild<LLSpinCtrl>("channel_control")->get()) : 0;
+			S32 channel = mChanCtrlEnabled ? (S32)(mChannelControl->get()) : 0;
 
 			stripChannelNumber(text, &channel);
 			
@@ -440,9 +442,9 @@ void LLChatBar::sendChat( EChatType type )
 void LLChatBar::toggleChannelControl()
 {
 	LLRect input_rect = mInputEditor->getRect();
-	S32 chan_width = getChild<LLSpinCtrl>("channel_control")->getRect().getWidth();
+	S32 chan_width = mChannelControl->getRect().getWidth();
 	BOOL visible = gSavedSettings.getBOOL("ChatChannelSelect");
-	BOOL control = getChild<LLSpinCtrl>("channel_control")->getVisible();
+	BOOL control = mChannelControl->getVisible();
 
 	if (visible && !control)
 	{
@@ -459,7 +461,7 @@ void LLChatBar::toggleChannelControl()
 
 	childSetVisible("channel_control", visible);
 	childSetEnabled("channel_control", visible);
-	mChannelControl = visible;
+	mChanCtrlEnabled = visible;
 }
 
 
@@ -615,7 +617,7 @@ void LLChatBar::sendChatFromViewer(const std::string &utf8text, EChatType type, 
 void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL animate)
 {
 	// Look for "/20 foo" channel chats.
-	S32 channel = mChannelControl ? (S32)(getChild<LLSpinCtrl>("channel_control")->get()) : 0;
+	S32 channel = mChanCtrlEnabled ? (S32)(mChannelControl->get()) : 0;
 
 	LLWString out_text = stripChannelNumber(wtext, &channel);
 	std::string utf8_out_text = wstring_to_utf8str(out_text);

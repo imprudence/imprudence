@@ -194,7 +194,7 @@ void LLPrefsChatImpl::apply()
 		if (gChatBar)
 		{
 			gChatBar->toggleChannelControl();
-			LLFloaterChat::toggleHistoryChannelControl();
+			//LLFloaterChat::toggleHistoryChannelControl(); temporarily disable until working
 		}
 		mChatChannel = chan_check;
 	}
