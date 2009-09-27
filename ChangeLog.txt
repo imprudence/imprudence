@@ -1,5 +1,10 @@
 2009-09-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Updated Imprudence version to "1.2.0 beta".
+
+	  linden/indra/llcommon/llversionviewer.h
+
+
 	* Re-enabled "allow first life" userauth stuff.
 	  It was commented out when grid manager was added, but it
 	  makes certain Profile window pieces disappear.
