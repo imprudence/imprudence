@@ -12,6 +12,28 @@
 
 2009-09-26 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added Windlight presets by Ana Lutetia to Imprudence.
+	
+	  new file:   %2EAnaLu%2E%20default1.xml
+	  new file:   %2EAnaLu%2E%20default2.xml
+  	  new file:   %2EAnaLu%2E%20default3.xml
+	  new file:   %2EAnaLu%2E%20neutral.xml
+	  new file:   %2EAnaLu%2E%20outdoor%20city%20weirdlights.xml
+	  new file:   %2EAnaLu%2E%20outdoor%20city.xml
+	  new file:   %2EAnaLu%2E%20outdoor%20night.xml
+	  new file:   %2EAnaLu%2E%20outdoor2.xml
+	  new file:   %2EAnaLu%2E%20shadows.xml
+	  new file:   %2EAnaLu%2E%20studio1.xml
+	  new file:   %2EAnaLu%2E%20studio2.xml
+	  new file:   %2EAnaLu%2E%20studio3.xml
+	  new file:   %2EAnaLu%2E%20studio4.xml
+	  new file:   %2EAnaLu%2E%20studio5.xml
+	  new file:   %2EAnaLu%2E%20studio6.xml
+	  new file:   %2EAnaLu%2E%20studio7.xml
+	  new file:   %2EAnaLu%2E%20studio8.xml
+	  new file:   %2EAnaLu%2E%20studio9.xml
+
+
 	* Added missing FloaterAnimationListRect to settings.xml
 
 	  modified:   linden/indra/newview/app_settings/settings.xml
