@@ -34,7 +34,7 @@
          font="SansSerifSmall" h_pad="0" halign="left" height="15"
          mouse_opaque="true" name="meters" v_pad="0"
          width="40">
-      Meters
+      m
     </text>
     <tab_container border="false" bottom_delta="-176" height="172" left="0" mouse_opaque="false"
 		       name="button_container" tab_position="top" follows="left|right|bottom" width="198">

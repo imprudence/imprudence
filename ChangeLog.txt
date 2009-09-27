@@ -12,6 +12,11 @@
 
 2009-09-26 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Changed radar label from 'meters' to 'm'.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+
+
 	* Added Windlight presets by Ana Lutetia to Imprudence.
 	
 	  new file:   %2EAnaLu%2E%20default1.xml
