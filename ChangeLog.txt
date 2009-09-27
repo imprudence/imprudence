@@ -1,3 +1,12 @@
+2009-09-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Re-enabled "allow first life" userauth stuff.
+	  It was commented out when grid manager was added, but it
+	  makes certain Profile window pieces disappear.
+
+	  modified:   linden/indra/newview/llstartup.cpp 
+
+
 2009-09-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Renamed 'Restrained Life Active' to 'Restrained Life Support'.
