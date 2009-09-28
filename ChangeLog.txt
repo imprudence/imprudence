@@ -31,6 +31,11 @@
 
 2009-09-27 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added Imprudence-specific credits to Help > About Imprudence.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_about.xml
+	  
+	  
 	* Show disabled buttons for own profile rather than hiding them.
 	
 	  modified:   linden/indra/newview/llpanelavatar.cpp
