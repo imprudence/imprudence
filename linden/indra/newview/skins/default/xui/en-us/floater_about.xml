@@ -7,17 +7,17 @@
 	     follows="left|top|right|bottom" font="SansSerifSmall" height="168" left="6"
   max_length="65536" mouse_opaque="true" name="credits_editor" width="458"
   word_wrap="true">
-  The Imprudence Viewer is brought to you by:
+  The Imprudence Viewer was rocked hard by:
   Jacek Antonelli, McCabe Maxsted, and Armin Weatherwax. 
   http://www.imprudenceviewer.org
   
-  Imprudence rocks! And so do these people for helping make it possible (in no particular order):
+  Imprudence is so awesome thanks to contributions from many generous people:
   
-  Aimee Trescothick, Kitty Barnett, Henri Beauchamp, Robin Cornelius, Latif Khalifa, Dale Glass, Mana Janus, Aleric Inglewood, Matthew Dowd, Vadim Bigbear, Thomas Shikami, Alissa Sabre, Balp Allen, Zwagoth Klaar, Carjay McGinnis, Asuka Neely, Peter Lameth, Felix Duesenburg, Zi Ree, Angus Boyd, Stephen Zenith, Nicholaz Beresford, Paul Churchill, and Michelle2 Zenovka for their patches.
+  For their patches and code contributions, we thank Aimee Trescothick, Aleric Inglewood, Alissa Sabre, Angus Boyd, Asuka Neely, Balp Allen, Carjay McGinnis, Dale Glass, Felix Duesenburg, Henri Beauchamp, Kitty Barnett, Latif Khalifa, Mana Janus, Matthew Dowd, Michelle2 Zenovka, Nicholaz Beresford, Paul Churchill, Peter Lameth, Robin Cornelius, Stephen Zenith, Thomas Shikami, Vadim Bigbear, Zi Ree, and Zwagoth Klaar.
   
-  CodeBastard Redgrave, Ana Lutetia, and Torley Linden for their WindLight presets.
+  For their WindLight presets, we thank Ana Lutetia, CodeBastard Redgrave, and Torley Linden.
   
-  Thanks also to the developers of the Green Life Emerald Viewer, Hippo Viewer, and Meerkat Viewer for viewer enhancements we have incorporated. Special thanks to Linden Lab for releasing the viewer source, without which this endeavor would have been impossible. 
+  Thanks also to the developers of the Green Life Emerald Viewer, Hippo Viewer, and Meerkat Viewer for viewer enhancements we have incorporated. Special thanks to the folks at Linden Lab for releasing the viewer source, without which this endeavor would have been impossible.
   
   For a complete list of who did what, read the release notes!
   
@@ -50,7 +50,9 @@
   Voice chat Audio coding: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)
 
 
-  Begin, be bold and venture to be wise. -- Horace</text_editor>
+  Begin, be bold and venture to be wise. -- Horace
+
+  If you don't like something, change it. If you can't change it, change your attitude. -- Maya Angelou </text_editor>
 
 	<text_editor bottom_delta="174" embedded_items="false"
 	     follows="left|top|right|bottom" font="SansSerif" height="238" left="6"
