@@ -18,6 +18,8 @@ class primbackup : 	public LLFloater
 	//Static accessor
 	static primbackup* getInstance();
 
+  static bool check_perms( LLSelectNode* node );
+
 	virtual ~primbackup();
 	
 	//Floater stuff

@@ -1,5 +1,12 @@
 2009-09-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Fixed and cleaned up the export permissions check.
+
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/primbackup.cpp
+	  modified:   linden/indra/newview/primbackup.h
+
+
 	* Updated Imprudence version to "1.2.0 beta".
 
 	  linden/indra/llcommon/llversionviewer.h
