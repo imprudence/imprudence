@@ -2307,56 +2307,32 @@ class LLObjectEnableExport : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
-		bool new_value = (object != NULL);
-		if (new_value)
+		LLControlVariable* control = 
+			gMenuHolder->findControl(userdata["control"].asString());
+
+		LLViewerObject* object =
+			LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
+
+		if((object != NULL) &&
+		   (find_avatar_from_object(object) == NULL))
 		{
-			LLVOAvatar* avatar = find_avatar_from_object(object); 
-			new_value = (avatar == NULL);
-		}
-		if(new_value)
-		{
-			
 			struct ff : public LLSelectedNodeFunctor
 			{
-				ff(const LLSD& data) : LLSelectedNodeFunctor()
-				,userdata(data)
-				{
-
-				}
-				const LLSD& userdata;
 				virtual bool apply(LLSelectNode* node)
 				{
-					if(gAgent.getID()!=node->mPermissions->getCreator())
-					{
-						return false;
-					}
-					return true;
+					return primbackup::check_perms( node );
 				}
-			};
- 
-#ifdef LL_GRID_PERMISSIONS
- 
-			ff * the_ff=new ff(userdata);
-			if(LLSelectMgr::getInstance()->getSelection()->applyToNodes(the_ff,false))
-			{
-					gMenuHolder->findControl(userdata["control"].asString())->setValue(true);
-			}
-			else
-			{
-					gMenuHolder->findControl(userdata["control"].asString())->setValue(false);
-			}
-			return true;	
-		}
- 
-		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
-		return true;
-#else
-		}
-		gMenuHolder->findControl(userdata["control"].asString())->setValue(true);
-		return true;
-#endif
+			} func;
 
+			if(LLSelectMgr::getInstance()->getSelection()->applyToNodes(&func,false))
+			{
+				control->setValue(true);
+				return true;	
+			}
+		}
+ 
+		control->setValue(false);
+		return true;
 	}
 };
 

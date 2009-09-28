@@ -8,14 +8,6 @@
 
   <menu name="File" create_jump_keys="true" label="File"
         opaque="true" tear_off="true">
-	    <menu_item_call enabled="false" hidden="false" label="Import" mouse_opaque="true" name="Import">
-            <on_click function="Object.Import" />
-            <on_enable function="Object.EnableImport" />
-        </menu_item_call>
-        <menu_item_call enabled="false" hidden="false" label="Upload + Import" mouse_opaque="true" name="Import">
-            <on_click function="Object.ImportUpload" />
-            <on_enable function="Object.EnableImport" />
-    </menu_item_call>
     <menu_item_call name="Upload Image"
                     label="Upload Image (L$[COST])..."
                     shortcut="control|U">
@@ -35,6 +27,16 @@
     <menu_item_call name="Bulk Upload"
                     label="Bulk Upload (L$[COST] per file)...">
       <on_click function="File.UploadBulk" userdata="" />
+    </menu_item_call>
+    <menu_item_separator />
+	  <menu_item_call name="Import" label="Import" enabled="false">
+      <on_click function="Object.Import" />
+      <on_enable function="Object.EnableImport" />
+    </menu_item_call>
+    <menu_item_call name="Upload + Import" label="Upload + Import"
+                    enabled="false">
+      <on_click function="Object.ImportUpload" />
+      <on_enable function="Object.EnableImport" />
     </menu_item_call>
     <menu_item_separator />
     <menu_item_call name="Close Window"

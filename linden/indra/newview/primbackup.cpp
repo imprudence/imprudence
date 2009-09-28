@@ -350,54 +350,52 @@ void primbackup::pre_export_object()
 	gIdleCallbacks.addFunction(exportworker, NULL);
 }
 
+
+// static
+bool primbackup::check_perms( LLSelectNode* node )
+{
+	LLPermissions *perms = node->mPermissions;
+	return (gAgent.getID() == perms->getOwner() &&
+	        gAgent.getID() == perms->getCreator() &&
+	        (PERM_ITEM_UNRESTRICTED &
+	         perms->getMaskOwner()) == PERM_ITEM_UNRESTRICTED);
+}
+
+
 void primbackup::exportworker(void *userdata)
 {	
 	primbackup::getInstance()->updateexportnumbers();
 
 	switch(primbackup::getInstance()->export_state)
 	{
-		case EXPORT_INIT:
+		case EXPORT_INIT: {
+			primbackup::getInstance()->show();		
+			LLSelectMgr::getInstance()->getSelection()->ref();
+
+			struct ff : public LLSelectedNodeFunctor
 			{
-				primbackup::getInstance()->show();		
-				LLSelectMgr::getInstance()->getSelection()->ref();
-
-				struct ff : public LLSelectedNodeFunctor
-					{
-						virtual bool apply(LLSelectNode* node)
-						{
-							if(gAgent.getID()!=node->mPermissions->getOwner())
-							{
-								#ifdef LL_GRID_PERMISSIONS
-									return false;
-								#else
-									return true;
-								#endif
-							}
-							else if(581632==node->mPermissions->getMaskOwner() || 2147483647==node->mPermissions->getMaskOwner())
-							{
-								return true;
-							}
-							return false;
-						}
-				} func;
-
-				if(LLSelectMgr::getInstance()->getSelection()->applyToNodes(&func,false))
-					primbackup::getInstance()->export_state=EXPORT_STRUCTURE;
-				else
+				virtual bool apply(LLSelectNode* node)
 				{
-					llwarns<<"Incorrect permission to export"<<llendl;
-					primbackup::getInstance()->export_state=EXPORT_DONE;
-					primbackup::getInstance()->close();
-					gIdleCallbacks.deleteFunction(exportworker);
-					LLSelectMgr::getInstance()->getSelection()->unref();
-
+					return primbackup::check_perms( node );
 				}
-				break;
-			}
+			} func;
 
+			if(LLSelectMgr::getInstance()->getSelection()->applyToNodes(&func,false))
+			{
+				primbackup::getInstance()->export_state=EXPORT_STRUCTURE;
+			}
+			else
+			{
+				llwarns << "Incorrect permission to export" << llendl;
+				primbackup::getInstance()->export_state=EXPORT_DONE;
+				primbackup::getInstance()->close();
+				gIdleCallbacks.deleteFunction(exportworker);
+				LLSelectMgr::getInstance()->getSelection()->unref();
+			}
 			break;
-		case EXPORT_STRUCTURE:
-		{
+		}
+
+		case EXPORT_STRUCTURE: {
 			struct ff : public LLSelectedObjectFunctor
 			{
 				virtual bool apply(LLViewerObject* object)
@@ -405,7 +403,7 @@ void primbackup::exportworker(void *userdata)
 					object->boostTexturePriority(TRUE);
 					LLViewerObject::child_list_t children = object->getChildren();
 					children.push_front(object); //push root onto list
-					LLSD prim_llsd=primbackup::getInstance()->prims_to_llsd(children);				
+					LLSD prim_llsd=primbackup::getInstance()->prims_to_llsd(children);
 					LLSD stuff;
 					stuff["root_position"] = object->getPosition().getValue();
 					stuff["root_rotation"] = ll_sd_from_quaternion(object->getRotation());
@@ -421,7 +419,8 @@ void primbackup::exportworker(void *userdata)
 
 			break;
 		}
-		case EXPORT_TEXTURES:
+
+		case EXPORT_TEXTURES: {
 			if(primbackup::getInstance()->m_nexttextureready==false)
 				return;
 
@@ -435,23 +434,25 @@ void primbackup::exportworker(void *userdata)
 			}
 
 			primbackup::getInstance()->export_next_texture();
-		break;
+			break;
+		}
 
-		case EXPORT_LLSD:
-			{
-				// Create a file stream and write to it
-				llofstream export_file(primbackup::getInstance()->file_name);
-				LLSDSerialize::toPrettyXML(primbackup::getInstance()->llsd, export_file);
-				export_file.close();
-				primbackup::getInstance()->m_nexttextureready=true;	
-				primbackup::getInstance()->export_state=EXPORT_TEXTURES;
-			}
+		case EXPORT_LLSD: {
+			// Create a file stream and write to it
+			llofstream export_file(primbackup::getInstance()->file_name);
+			LLSDSerialize::toPrettyXML(primbackup::getInstance()->llsd, export_file);
+			export_file.close();
+			primbackup::getInstance()->m_nexttextureready=true;	
+			primbackup::getInstance()->export_state=EXPORT_TEXTURES;
 			break;
-		case EXPORT_DONE:
-					llinfos<<"Backup complete"<<llendl
-					gIdleCallbacks.deleteFunction(exportworker);
-					primbackup::getInstance()->close();
+		}
+
+		case EXPORT_DONE: {
+			llinfos << "Backup complete" << llendl;
+			gIdleCallbacks.deleteFunction(exportworker);
+			primbackup::getInstance()->close();
 			break;
+		}
 	}
 }
 

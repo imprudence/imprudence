@@ -1,3 +1,34 @@
+2009-09-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Rearranged the Import stuff in the File menu.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+	* Changed "Backup" to "Export" in object pie menu.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
+
+
+	* Fixed and cleaned up the export permissions check.
+
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/primbackup.cpp
+	  modified:   linden/indra/newview/primbackup.h
+
+
+	* Updated Imprudence version to "1.2.0 beta".
+
+	  linden/indra/llcommon/llversionviewer.h
+
+
+	* Re-enabled "allow first life" userauth stuff.
+	  It was commented out when grid manager was added, but it
+	  makes certain Profile window pieces disappear.
+
+	  modified:   linden/indra/newview/llstartup.cpp
+
+
 2009-09-27 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Show disabled buttons for own profile rather than hiding them.
@@ -63,7 +94,7 @@
 
 
 	* Changes to make the grid manager compile on Windows.
-	
+
 	  modified:   linden/indra/newview/hippoGridManager.cpp
 	  modified:   linden/indra/newview/hippoLimits.cpp
 	  modified:   linden/indra/newview/hippoRestRequest.cpp
@@ -85,11 +116,11 @@
 
 2009-09-26 McCabe Maxsted  <hakushakukun@gmail.com>
 
-	* Made the windlight floater toggle.  
-	  
+	* Made the windlight floater toggle.
+
 	  modified:   linden/indra/newview/llfloaterwindlight.cpp
-	  
-	  
+
+
 	* Added select Torley Windlight presets to Imprudence.
 	  Presets good for photography, mainly.
 	  
@@ -142,14 +173,14 @@
 	  new file:   linden/indra/newview/app_settings/windlight/skies/%5BTOR%5D%20Teak%20weak.xml
 	  new file:   linden/indra/newview/app_settings/windlight/skies/%5BTOR%5D%20Wuxia%20nights.xml
 	  
-	  
+
 	* Removed overridden /oy compiler option.
-	
+
 	  modified:   linden/indra/cmake/00-Common.cmake
-	
-	
+
+
 	* Changed radar label from 'meters' to 'm'.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
 
 

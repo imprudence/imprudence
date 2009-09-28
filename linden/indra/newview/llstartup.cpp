@@ -2130,7 +2130,6 @@ bool idle_startup()
 			LLAvatarTracker::instance().addBuddyList(list);
  		}
 
-		/*
 		options.clear();
  		if(LLUserAuth::getInstance()->getOptions("ui-config", options))
  		{
@@ -2149,7 +2148,7 @@ bool idle_startup()
 				}
 			}
  		}
-		*/
+
 		options.clear();
 		bool show_hud = false;
 		if(LLUserAuth::getInstance()->getOptions("tutorial_setting", options))
