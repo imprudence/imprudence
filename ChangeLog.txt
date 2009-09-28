@@ -1,5 +1,10 @@
 2009-09-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Rearranged the Import stuff in the File menu.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
 	* Changed "Backup" to "Export" in object pie menu.
 
 	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
