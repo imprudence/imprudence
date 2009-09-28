@@ -5,6 +5,13 @@
 
 2009-09-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Updated viewer version in Mac and Windows installer files.
+
+	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
+	  modified:   linden/indra/newview/Info-Imprudence.plist
+	  modified:   linden/indra/newview/res/viewerRes.rc
+
+
 	* Tweaked Imprudence credits, copied to other languages' credits.
 
 	  modified:   linden/indra/newview/skins/default/xui/de/floater_about.xml

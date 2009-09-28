@@ -249,12 +249,11 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Imprudence Viewer Project"
             VALUE "FileDescription", "Imprudence"
-            VALUE "FileVersion", "1.0.0"
+            VALUE "FileVersion", "1.2.0 beta"
             VALUE "InternalName", "Imprudence"
-            VALUE "LegalCopyright", "Copyright © 2001-2008, Linden Research, Inc."
             VALUE "OriginalFilename", "Imprudence.exe"
             VALUE "ProductName", "Imprudence"
-            VALUE "ProductVersion", "1.0.0"
+            VALUE "ProductVersion", "1.2.0 beta"
         END
     END
     BLOCK "VarFileInfo"
