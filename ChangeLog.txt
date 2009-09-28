@@ -1,3 +1,8 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                       1.2.0 BETA                       -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
 2009-09-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Tweaked Imprudence credits, copied to other languages' credits.
