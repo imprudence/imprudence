@@ -388,16 +388,6 @@ void LLNetMap::draw()
 			}
 // [/RLVa:KB]
 
-// [RLVa:KB]
-			if ( !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES) )
-			{
-				// User is not allowed to see who it is, or even if it's a friend,
-				// due to RLV settings.
-				glyph_color = avatar_color;
-			}
-// [/RLVa:KB]
-
-
 			LLWorldMapView::drawAvatar(
 				pos_map.mV[VX], pos_map.mV[VY], 
 				glyph_color, 

@@ -1,5 +1,10 @@
 2009-09-27 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed bad merge in llnetmap.cpp.
+	
+	  modified:   linden/indra/newview/llnetmap.cpp
+	  
+	  
 	* Fixed JPEG quality slider displaying over high-res checkbox in snapshot floater (IMP-140).
 	
 	  modified:   linden/indra/newview/llfloatersnapshot.cpp
