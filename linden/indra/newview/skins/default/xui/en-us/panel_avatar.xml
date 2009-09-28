@@ -148,7 +148,7 @@
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="40" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="center" height="16" right="-22"
-			     mouse_opaque="true" name="Give inventory"
+			     mouse_opaque="true" name="drop target"
 			     tool_tip="Drop inventory items here to give them to this resident." v_pad="2"
 			     width="115">
         Drop inventory here

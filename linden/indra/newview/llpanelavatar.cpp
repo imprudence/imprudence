@@ -1318,14 +1318,6 @@ void LLPanelAvatar::setOnlineStatus(EOnlineStatus online_status)
 
 	mPanelSecondLife->childSetVisible("online_yes", (online_status == ONLINE_STATUS_YES));
 
-	// Since setOnlineStatus gets called after setAvatarID
-	// need to make sure that "Offer Teleport" doesn't get set
-	// to TRUE again for yourself
-	if (mAvatarID != gAgent.getID())
-	{
-		childSetVisible("Offer Teleport...",TRUE);
-	}
-
 	BOOL in_prelude = gAgent.inPrelude();
 	if(gAgent.isGodlike())
 	{
@@ -1341,6 +1333,18 @@ void LLPanelAvatar::setOnlineStatus(EOnlineStatus online_status)
 	{
 		childSetEnabled("Offer Teleport...", TRUE);
 		childSetToolTip("Offer Teleport...", childGetValue("TeleportNormal").asString());
+	}
+
+	// Since setOnlineStatus gets called after setAvatarID
+	// need to make sure that "Offer Teleport" doesn't get set
+	// to TRUE again for yourself
+	if (mAvatarID != gAgent.getID())
+	{
+		childSetVisible("Offer Teleport...",TRUE);
+	}
+	else
+	{
+		childSetEnabled("Offer Teleport...", FALSE);
 	}
 }
 
@@ -1434,21 +1438,21 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 				childSetVisible("Cancel",FALSE);
 				childSetEnabled("Cancel",FALSE);
 			}
-			childSetVisible("Instant Message...",FALSE);
+			//childSetVisible("Instant Message...",FALSE);
 			childSetEnabled("Instant Message...",FALSE);
-			childSetVisible("Invite to Group...",FALSE);
+			//childSetVisible("Invite to Group...",FALSE);
 			childSetEnabled("Invite to Group...",FALSE);
-			childSetVisible("Mute",FALSE);
+			//childSetVisible("Mute",FALSE);
 			childSetEnabled("Mute",FALSE);
-			childSetVisible("Offer Teleport...",FALSE);
+			//childSetVisible("Offer Teleport...",FALSE);
 			childSetEnabled("Offer Teleport...",FALSE);
-			childSetVisible("drop target",FALSE);
+			//childSetVisible("drop target",FALSE);
 			childSetEnabled("drop target",FALSE);
-			childSetVisible("Find on Map",FALSE);
+			//childSetVisible("Find on Map",FALSE);
 			childSetEnabled("Find on Map",FALSE);
-			childSetVisible("Add Friend...",FALSE);
+			//childSetVisible("Add Friend...",FALSE);
 			childSetEnabled("Add Friend...",FALSE);
-			childSetVisible("Pay...",FALSE);
+			//childSetVisible("Pay...",FALSE);
 			childSetEnabled("Pay...",FALSE);
 			childSetVisible("Kick",FALSE);
 			childSetEnabled("Kick",FALSE);
@@ -1819,12 +1823,27 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		{
 			continue;
 		}
-		self->childSetEnabled("Instant Message...",TRUE);
-		self->childSetEnabled("Invite to Group...",TRUE);
-		self->childSetEnabled("Pay...",TRUE);
-		self->childSetEnabled("Mute",TRUE);
 
-		self->childSetEnabled("drop target",TRUE);
+		if (self->mAvatarID == agent_id)
+		{
+			self->childSetEnabled("Instant Message...",FALSE);
+			self->childSetEnabled("Invite to Group...",FALSE);
+			self->childSetEnabled("Pay...",FALSE);
+			self->childSetEnabled("Mute",FALSE);
+
+			self->childSetVisible("drop target",FALSE);
+			self->childSetEnabled("drop target",FALSE);
+		}
+		else
+		{
+			self->childSetEnabled("Instant Message...",TRUE);
+			self->childSetEnabled("Invite to Group...",TRUE);
+			self->childSetEnabled("Pay...",TRUE);
+			self->childSetEnabled("Mute",TRUE);
+
+			self->childSetVisible("drop target",TRUE);
+			self->childSetEnabled("drop target",TRUE);
+		}
 
 		self->mHaveProperties = TRUE;
 		self->enableOKIfReady();

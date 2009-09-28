@@ -1,5 +1,11 @@
 2009-09-27 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Show disabled buttons for own profile rather than hiding them.
+	
+	  modified:   linden/indra/newview/llpanelavatar.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+
+
 	* Fixed bad merge in llnetmap.cpp.
 	
 	  modified:   linden/indra/newview/llnetmap.cpp
