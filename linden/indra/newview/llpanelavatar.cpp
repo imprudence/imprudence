@@ -1567,7 +1567,7 @@ void LLPanelAvatar::resetGroupList()
 				else
 				{
 					row["columns"][0]["value"] = group_string + " " + getString("HiddenLabel");
-					row["columns"][0]["color"] = gColors.getColor("ScriptBgReadOnlyColor").getValue();
+					row["columns"][0]["color"] = gColors.getColor("ScrollReadOnlyColor").getValue();
 				}
 				group_list->addElement(row);
 			}
@@ -2086,7 +2086,7 @@ void LLPanelAvatar::processAvatarGroupsReply(LLMessageSystem *msg, void**)
 				else
 				{
 					row["columns"][0]["value"] = group_string + " " + self->getString("HiddenLabel");
-					row["columns"][0]["color"] = gColors.getColor("ScriptBgReadOnlyColor").getValue();
+					row["columns"][0]["color"] = gColors.getColor("ScrollReadOnlyColor").getValue();
 				}
 				if (group_list)
 				{
