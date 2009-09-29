@@ -1,5 +1,10 @@
 2009-09-28 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed first windlight toolbar entry toggling Advanced Sky.
+	
+	  modified:   linden/indra/newview/llwindlightremotectrl.cpp
+	  
+	  
 	* Renamed ScriptBgReadOnlyColor to ScrollReadOnlyColor so we don't lose it in a merge.
 	
 	  modified:   linden/indra/newview/llpanelavatar.cpp
