@@ -1,3 +1,10 @@
+2009-09-28 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed Advanced Sky only toggling once.
+	
+	  modified:   linden/indra/newview/llfloaterwindlight.cpp
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.2.0 BETA                       -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

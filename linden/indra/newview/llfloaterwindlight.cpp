@@ -476,12 +476,17 @@ void LLFloaterWindLight::show()
 		// comment in if you want the menu to rebuild each time
 		//LLUICtrlFactory::getInstance()->buildFloater(windLight, "floater_windlight_options.xml");
 		//windLight->initCallbacks();
-
-		windLight->open();
 	}
 	else
 	{
-		sWindLight->close();
+		if (sWindLight->getVisible())
+		{
+			sWindLight->close();
+		}
+		else
+		{
+			sWindLight->open();
+		}
 	}
 }
 
