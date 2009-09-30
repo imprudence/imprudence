@@ -1,5 +1,11 @@
 2009-09-29 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed Unlink not enabling when Edit Linked Parts enabled.
+	
+	  modified:   linden/indra/newview/llfloatertools.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+
+
 	* Fixed Join Call button truncated in group IMs (regression).
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml
