@@ -1,5 +1,10 @@
 2009-09-29 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed Join Call button truncated in group IMs (regression).
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml
+	  
+	  
 	* Fixed reset UI size to default button missing from preferences > general (regression).
 	  Changed incremets to 0.001 to be more Liberation Sans-friendly.
 	
