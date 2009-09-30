@@ -74,6 +74,8 @@ BOOL LLPanelGeneral::postBuild()
 	
 	childSetValue("language_combobox", 	gSavedSettings.getString("Language"));
 
+	childSetAction("reset_ui_size", onClickResetUISize, this);
+
 	return TRUE;
 }
 
@@ -111,4 +113,11 @@ void LLPanelGeneral::apply()
 
 void LLPanelGeneral::cancel()
 {
+}
+
+// static
+void LLPanelGeneral::onClickResetUISize(void* user_data)
+{
+	LLPanelGeneral* self = (LLPanelGeneral*)user_data;
+	self->childSetValue("ui_scale_slider", 1.0f);
 }

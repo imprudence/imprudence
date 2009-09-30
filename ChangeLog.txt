@@ -1,5 +1,13 @@
 2009-09-29 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed reset UI size to default button missing from preferences > general (regression).
+	  Changed incremets to 0.001 to be more Liberation Sans-friendly.
+	
+	  modified:   linden/indra/newview/llpanelgeneral.cpp
+	  modified:   linden/indra/newview/llpanelgeneral.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
+
+
 	* Renamed preferences checkbox to 'show WindLight toolbar,' removed reference to 'Second Life.'
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_graphics1.xml
