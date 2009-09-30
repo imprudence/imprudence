@@ -1,8 +1,13 @@
-2009-09-28 McCabe Maxsted  <hakushakukun@gmail.com>
+2009-09-29 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Adjusted 2nd Life profile tab layout for French language.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+	  
+	  
 	* Added the name box back to avatar profiles.
 	
-	  linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
 	  
 
 2009-09-28 McCabe Maxsted  <hakushakukun@gmail.com>
