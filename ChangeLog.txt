@@ -1,5 +1,12 @@
 2009-09-28 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added the name box back to avatar profiles.
+	
+	  linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+	  
+
+2009-09-28 McCabe Maxsted  <hakushakukun@gmail.com>
+
 	* Fixed first windlight toolbar entry toggling Advanced Sky.
 	
 	  modified:   linden/indra/newview/llwindlightremotectrl.cpp

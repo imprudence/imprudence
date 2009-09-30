@@ -116,7 +116,12 @@
 			     width="130">
         [FIRST] [LAST]
       </line_editor>
-      <texture_picker allow_no_texture="true" bottom="289" can_apply_immediately="false"
+      <name_editor bevel_style="in" border_style="line"
+			     border_thickness="1" bottom="-23" enabled="false" follows="left|top"
+			     font="SansSerifSmall" height="16" is_unicode="false" left="20"
+			     max_length="254" mouse_opaque="false" name="name"
+			     width="235" />
+      <texture_picker allow_no_texture="true" bottom="271" can_apply_immediately="false"
 			     default_image_name="None" follows="left|top" height="192" label=""
 			     left="20" mouse_opaque="true" name="img" scale_image="false" auto-resize="false"
 			     tool_tip="Click to choose a picture" width="235" />
@@ -126,8 +131,8 @@
 			     mouse_opaque="true" name="About:" v_pad="0" width="170">
         About (500 chars):
       </text>
-      <text_editor bottom_delta="-155" embedded_items="false"
-			     enabled="true" follows="left|top" font="SansSerifSmall" height="155"
+      <text_editor bottom_delta="-137" embedded_items="false"
+			     enabled="true" follows="left|top" font="SansSerifSmall" height="137"
 			     is_unicode="false" left_delta="0" max_length="511" mouse_opaque="true"
 			     name="about" width="235" word_wrap="true" />
 
@@ -160,11 +165,6 @@
 			     tool_tip="Drop inventory items here to give them to this resident.">
         to give to resident
       </text>
-      <name_editor bevel_style="in" border_style="line"
-			     border_thickness="0" bottom="0" enabled="false" follows="left|top"
-			     font="SansSerifSmall" height="0" is_unicode="false" left="1"
-			     max_length="254" mouse_opaque="false" name="name"
-			     width="0" />
       <check_box bottom="1" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Show profile in search" left="18" mouse_opaque="true"
 			     name="allow_publish"
