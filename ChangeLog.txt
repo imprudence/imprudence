@@ -1,5 +1,11 @@
 2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Changed the minimum draw distance from 64m to 32m.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_graphics1.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+
+
 	* Suspected partial crash fix for Logout.
 	
 	  modified:   linden/indra/newview/llappviewer.cpp
