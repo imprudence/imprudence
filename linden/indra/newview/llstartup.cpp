@@ -1424,14 +1424,33 @@ bool idle_startup()
 			}
 			gSavedSettings.setBOOL("RememberPassword", remember_password);
 
-			text = LLUserAuth::getInstance()->getResponse("agent_access");
-			if(!text.empty() && (text[0] == 'M'))
+			// This fixes Imprudence 1.2 thinking it's a teen. 
+			// Will need updating for the 1.23 merge.
+			// this is their actual ability to access content
+			text = LLUserAuth::getInstance()->getResponse("agent_access_max");
+			if (!text.empty())
 			{
-				gAgent.setTeen(false);
+				// agent_access can be 'A', 'M', and 'PG'.
+				if (text[0] == 'PG')
+				{
+					gAgent.setTeen(true);
+				}
+				else
+				{
+					gAgent.setTeen(false);
+				}
 			}
-			else
+			else // we're on an older sim version (prolly an opensim)
 			{
-				gAgent.setTeen(true);
+				text = LLUserAuth::getInstance()->getResponse("agent_access");
+				if(!text.empty() && (text[0] == 'M'))
+				{
+					gAgent.setTeen(false);
+				}
+				else
+				{
+					gAgent.setTeen(true);
+				}
 			}
 
 			text = LLUserAuth::getInstance()->getResponse("start_location");

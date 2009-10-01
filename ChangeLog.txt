@@ -1,5 +1,11 @@
 2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed 1.2 thinking it was on the Teen Grid.
+	  (And also accidentally made us adult compliant! Hah!)
+	  
+	  modified:   indra/newview/llstartup.cpp
+	  
+	  
 	* Updated gpu_table.txt to latest version in Snowglobe.
 	
 	  modified:   linden/indra/newview/gpu_table.txt
