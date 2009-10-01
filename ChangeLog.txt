@@ -1,5 +1,15 @@
 2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed inability to teleport to adult regions in Imprudence 1.2.
+	  (Ugly. Only use on 1.22 code base)
+	  
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llagent.cpp
+	  modified:   linden/indra/newview/llagent.h
+	  modified:   linden/indra/newview/llstartup.cpp
+	  modified:   linden/indra/newview/llviewerregion.cpp
+
+
 	* Changed the minimum draw distance from 64m to 32m.
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_graphics1.xml
@@ -12,7 +22,6 @@
 	  
 	  
 	* Fixed 1.2 thinking it was on the Teen Grid.
-	  (And also accidentally made us adult compliant! Hah!)
 	  
 	  modified:   linden/indra/newview/llstartup.cpp
 	  

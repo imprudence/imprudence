@@ -5734,6 +5734,17 @@
       <key>Value</key>
       <real>6.0</real>
     </map>
+    <key>PreferredMaturity</key>
+    <map>
+      <key>Comment</key>
+      <string>Setting for the user's preferred maturity level.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>U32</string>
+      <key>Value</key>
+      <integer>13</integer>
+    </map>
     <key>PreviewAnimRect</key>
     <map>
       <key>Comment</key>

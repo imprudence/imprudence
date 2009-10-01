@@ -4894,6 +4894,32 @@ void LLAgent::setTeen(bool teen)
 	}
 }
 
+//static 
+void LLAgent::convertTextToMaturity(char text) // HACK: remove when based on 1.23
+{
+	if ('A' == text)
+	{
+		mAccess = SIM_ACCESS_ADULT;
+		//return SIM_ACCESS_ADULT;
+	}
+	else if ('M'== text)
+	{
+		mAccess = SIM_ACCESS_MATURE;
+		//return SIM_ACCESS_MATURE;
+	}
+	else if ('P'== text)
+	{
+		mAccess = SIM_ACCESS_PG;
+		//return SIM_ACCESS_PG;
+	}
+	else
+	{
+		mAccess = SIM_ACCESS_MIN;
+		//return SIM_ACCESS_MIN;
+	}
+	gSavedSettings.setU32("PreferredMaturity", mAccess);
+}
+
 void LLAgent::buildFullname(std::string& name) const
 {
 	if (mAvatarObject)
