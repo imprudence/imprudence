@@ -1,9 +1,14 @@
 2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Suspected partial crash fix for Logout.
+	
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  
+	  
 	* Fixed 1.2 thinking it was on the Teen Grid.
 	  (And also accidentally made us adult compliant! Hah!)
 	  
-	  modified:   indra/newview/llstartup.cpp
+	  modified:   linden/indra/newview/llstartup.cpp
 	  
 	  
 	* Updated gpu_table.txt to latest version in Snowglobe.

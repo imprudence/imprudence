@@ -3915,27 +3915,10 @@ void LLAppViewer::handleLoginComplete()
 	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
 	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
 	gDebugInfo["ClientInfo"]["BuildVersion"] = LL_VERSION_BUILD;
-
-	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
-	if ( parcel && parcel->getMusicURL()[0])
-	{
-		gDebugInfo["ParcelMusicURL"] = parcel->getMusicURL();
-	}	
-	if ( parcel && parcel->getMediaURL()[0])
-	{
-		gDebugInfo["ParcelMediaURL"] = parcel->getMediaURL();
-	}
-	
 	gDebugInfo["SettingsFilename"] = gSavedSettings.getString("ClientSettingsFile");
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 	gDebugInfo["ViewerExePath"] = gDirUtilp->getExecutablePathAndName();
 	gDebugInfo["CurrentPath"] = gDirUtilp->getCurPath();
-
-	if(gAgent.getRegion())
-	{
-		gDebugInfo["CurrentSimHost"] = gAgent.getRegionHost().getHostName();
-		gDebugInfo["CurrentRegion"] = gAgent.getRegion()->getName();
-	}
 
 	if(LLAppViewer::instance()->mMainloopTimeout)
 	{
