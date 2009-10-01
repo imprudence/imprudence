@@ -1,3 +1,10 @@
+2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Updated gpu_table.txt to latest version in Snowglobe.
+	
+	  modified:   linden/indra/newview/gpu_table.txt
+	  
+
 2009-09-29 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed Unlink not enabling when Edit Linked Parts enabled.
