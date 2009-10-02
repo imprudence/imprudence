@@ -1,5 +1,12 @@
 2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Draw selected avatars last (and fixed silver skin missing selection color).
+	
+	  modified:   linden/indra/newview/llnetmap.cpp
+	  modified:   linden/indra/newview/skins/default/colors_base.xml
+	  modified:   linden/indra/newview/skins/silver/colors_base.xml
+
+
 	* Fixed switched Buy and Create locations in object pie menu (regression).
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml

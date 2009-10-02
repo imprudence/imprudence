@@ -345,7 +345,7 @@ void LLNetMap::draw()
 		LLColor4 muted_color = gColors.getColor( "MapMuted" );
 		LLColor4 selected_color = gColors.getColor( "MapSelected" );
 		LLColor4 glyph_color;
-		F32 glyph_radius;
+		int selected = -1;
 
 		std::vector<LLUUID> avatar_ids;
 		std::vector<LLVector3d> positions;
@@ -356,14 +356,14 @@ void LLNetMap::draw()
 			// just be careful to sort the avatar IDs along with the positions. -MG
 			pos_map = globalPosToView(positions[i], rotate_map);
 			
+			// Save this entry to draw last
 			if (LLFloaterMap::getSelected() == avatar_ids[i])
 			{
-				glyph_radius = mDotRadius * 1.7f;
-				glyph_color = selected_color;
+				selected = i;
+				continue;
 			}
 			else
 			{
-				glyph_radius = mDotRadius;
 				// Show them muted even if they're friends
 				if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
 				{
@@ -392,13 +392,34 @@ void LLNetMap::draw()
 				pos_map.mV[VX], pos_map.mV[VY], 
 				glyph_color, 
 				pos_map.mV[VZ],
-				glyph_radius);
+				mDotRadius);
 
 			F32	dist_to_cursor = dist_vec(LLVector2(pos_map.mV[VX], pos_map.mV[VY]), LLVector2(local_mouse_x,local_mouse_y));
 			if(dist_to_cursor < min_pick_dist && dist_to_cursor < closest_dist)
 			{
 				closest_dist = dist_to_cursor;
 				mClosestAgentToCursor = avatar_ids[i];
+			}
+		}
+
+		// Draw dot for selected avatar last
+		if (selected >= 0)
+		{
+			pos_map = globalPosToView(positions[selected], rotate_map);
+			F32 glyph_radius = mDotRadius * 1.7f;
+			glyph_color = selected_color;
+
+			LLWorldMapView::drawAvatar(
+				pos_map.mV[VX], pos_map.mV[VY], 
+				glyph_color, 
+				pos_map.mV[VZ],
+				glyph_radius);
+
+			F32	dist_to_cursor = dist_vec(LLVector2(pos_map.mV[VX], pos_map.mV[VY]), LLVector2(local_mouse_x,local_mouse_y));
+			if(dist_to_cursor < min_pick_dist && dist_to_cursor < closest_dist)
+			{
+				closest_dist = dist_to_cursor;
+				mClosestAgentToCursor = avatar_ids[selected];
 			}
 		}
 
