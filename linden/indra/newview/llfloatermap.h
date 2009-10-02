@@ -49,6 +49,8 @@ public:
 
 	static void updateRadar();
 	static LLUUID getSelected();
+	// returns true if agent_id belongs to a developer listed in llfloatermap.cpp
+	static bool isImpDev(LLUUID agent_id);
 
 	BOOL postBuild();
 

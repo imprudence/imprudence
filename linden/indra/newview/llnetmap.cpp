@@ -344,6 +344,7 @@ void LLNetMap::draw()
 		LLColor4 friend_color = gColors.getColor( "MapFriend" );
 		LLColor4 muted_color = gColors.getColor( "MapMuted" );
 		LLColor4 selected_color = gColors.getColor( "MapSelected" );
+		LLColor4 imp_dev_color = gColors.getColor( "MapImpDev" );
 		LLColor4 glyph_color;
 		int selected = -1;
 
@@ -368,6 +369,10 @@ void LLNetMap::draw()
 				if (LLMuteList::getInstance()->isMuted(avatar_ids[i]))
 				{
 					glyph_color = muted_color;
+				}
+				else if (LLFloaterMap::isImpDev(avatar_ids[i]))
+				{
+					glyph_color = imp_dev_color;
 				}
 				else if (is_agent_friend(avatar_ids[i]))
 				{
@@ -403,7 +408,7 @@ void LLNetMap::draw()
 		}
 
 		// Draw dot for selected avatar last
-		if (selected >= 0)
+		if (selected >= 0 && avatar_ids[selected].notNull())
 		{
 			pos_map = globalPosToView(positions[selected], rotate_map);
 			F32 glyph_radius = mDotRadius * 1.7f;

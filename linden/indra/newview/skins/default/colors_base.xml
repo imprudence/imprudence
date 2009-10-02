@@ -163,6 +163,7 @@
 <MapFriend value="255, 255, 0, 255" />                  <!-- Your friends' glyph color -->
 <MapMuted value="128, 128, 128, 255" />                 <!-- Muted avatars' glyph color -->
 <MapSelected value="255, 0, 0, 255" />                  <!-- Selected avatars' glyph color -->
+<MapImpDev value="90, 45, 101, 255" />                  <!-- Imprudence developers glyph color -->
   
   <!-- MINI-MAP -->
 <NetMapBackgroundColor value="0, 0, 0, 77" />           <!-- Mini-map floater background -->

@@ -1,5 +1,14 @@
 2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Draw Imprudence developers as purple dots in the mini-map (name list in LLFloaterMap).
+	
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  modified:   linden/indra/newview/llfloatermap.h
+	  modified:   linden/indra/newview/llnetmap.cpp
+	  modified:   linden/indra/newview/skins/default/colors_base.xml
+	  modified:   linden/indra/newview/skins/silver/colors_base.xml
+
+
 	* Draw selected avatars last (and fixed silver skin missing selection color).
 	
 	  modified:   linden/indra/newview/llnetmap.cpp

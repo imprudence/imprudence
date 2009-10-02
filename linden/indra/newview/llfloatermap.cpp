@@ -194,6 +194,21 @@ void LLFloaterMap::open()
 */
 
 //static
+bool LLFloaterMap::isImpDev(LLUUID agent_id)
+{
+	// We use strings here as avatar keys change across grids. 
+	// Feel free to add/remove yourself.
+	std::string agent_name = getSelectedName(agent_id);
+	if (agent_name == "McCabe Maxsted" || 
+		agent_name == "Jacek Antonelli" ||
+		agent_name == "Armin Weatherwax")
+	{
+		return true;
+	}
+	return false;
+}
+
+//static
 void LLFloaterMap::updateRadar()
 {
 	LLFloaterMap::getInstance()->populateRadar();
