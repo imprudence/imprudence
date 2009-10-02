@@ -1,5 +1,11 @@
 2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added mini-map partner dot color for future use (currently unused).
+	
+	  modified:   linden/indra/newview/skins/default/colors_base.xml
+	  modified:   linden/indra/newview/skins/silver/colors_base.xml
+
+
 	* Draw Imprudence developers as purple dots in the mini-map (name list in LLFloaterMap).
 	
 	  modified:   linden/indra/newview/llfloatermap.cpp
