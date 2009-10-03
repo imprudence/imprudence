@@ -1,5 +1,11 @@
 2009-10-02 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed 1.2 beta features missing from silver skin.
+	
+	  deleted:    linden/indra/newview/skins/silver/xui/en-us/floater_chatterbox.xml
+	  modified:   linden/indra/newview/skins/silver/xui/en-us/floater_windlight_options.xml
+
+
 	* Applied clickable object names for whisper/say/shout from Emerald viewer.
 	
 	  modified:   linden/indra/newview/llviewermessage.cpp
