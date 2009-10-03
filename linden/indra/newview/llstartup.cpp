@@ -1424,14 +1424,26 @@ bool idle_startup()
 			}
 			gSavedSettings.setBOOL("RememberPassword", remember_password);
 
-			text = LLUserAuth::getInstance()->getResponse("agent_access");
-			if(!text.empty() && (text[0] == 'M'))
+			// This fixes Imprudence 1.2 thinking it's a teen. 
+			// Will need fixing for the 1.23 merge.
+			// this is their actual ability to access content
+			text = LLUserAuth::getInstance()->getResponse("agent_access_max");
+			if (!text.empty())
 			{
-				gAgent.setTeen(false);
+				// agent_access can be 'A', 'M', and 'PG'.
+				gAgent.convertTextToMaturity(text[0]);
 			}
-			else
+			else // we're on an older sim version (prolly an opensim)
 			{
-				gAgent.setTeen(true);
+				text = LLUserAuth::getInstance()->getResponse("agent_access");
+				if(!text.empty() && (text[0] == 'M'))
+				{
+					gAgent.setTeen(false);
+				}
+				else
+				{
+					gAgent.setTeen(true);
+				}
 			}
 
 			text = LLUserAuth::getInstance()->getResponse("start_location");
@@ -2603,6 +2615,35 @@ bool idle_startup()
 #if 0 // sjb: enable for auto-enabling timer display 
 		gDebugView->mFastTimerView->setVisible(TRUE);
 #endif
+
+		// HACK: remove this when based on 1.23
+		// Send our preferred maturity.
+		// Update agent access preference on the server
+		std::string url = gAgent.getRegion()->getCapability("UpdateAgentInformation");
+		if (!url.empty())
+		{
+			U32 preferredMaturity = gSavedSettings.getU32("PreferredMaturity");
+			// Set new access preference
+			LLSD access_prefs = LLSD::emptyMap();
+			if (preferredMaturity == SIM_ACCESS_PG)
+			{
+				access_prefs["max"] = "PG";
+			}
+			else if (preferredMaturity == SIM_ACCESS_MATURE)
+			{
+				access_prefs["max"] = "M";
+			}
+			if (preferredMaturity == SIM_ACCESS_ADULT)
+			{
+				access_prefs["max"] = "A";
+			}
+			
+			LLSD body = LLSD::emptyMap();
+			body["access_prefs"] = access_prefs;
+			llinfos << "Sending access prefs update to " << (access_prefs["max"].asString()) << " via capability to: "
+			<< url << llendl;
+			LLHTTPClient::post(url, body, new LLHTTPClient::Responder());    // Ignore response
+		}
 
 		LLAppViewer::instance()->initMainloopTimeout("Mainloop Init");
 

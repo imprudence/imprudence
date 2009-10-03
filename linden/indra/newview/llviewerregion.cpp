@@ -542,6 +542,7 @@ std::string LLViewerRegion::regionFlagsToString(U32 flags)
 const char* SIM_ACCESS_STR[] = { "Free Trial",
 						   "PG",
 						   "Mature",
+						   "Adult",
 						   "Offline",
 						   "Unknown" };
 							
@@ -559,12 +560,15 @@ std::string LLViewerRegion::accessToString(U8 sim_access)
 	case SIM_ACCESS_MATURE:
 		return SIM_ACCESS_STR[2];
 
-	case SIM_ACCESS_DOWN:
+	case SIM_ACCESS_ADULT:
 		return SIM_ACCESS_STR[3];
+
+	case SIM_ACCESS_DOWN:
+		return SIM_ACCESS_STR[4];
 
 	case SIM_ACCESS_MIN:
 	default:
-		return SIM_ACCESS_STR[4];
+		return SIM_ACCESS_STR[5];
 	}
 }
 
@@ -584,6 +588,10 @@ U8 LLViewerRegion::stringToAccess(const std::string& access_str)
 	{
 		sim_access = SIM_ACCESS_MATURE;
 	}
+	else if (access_str == SIM_ACCESS_STR[3])
+	{
+		sim_access = SIM_ACCESS_ADULT;
+	}
 	return sim_access;
 }
 
@@ -600,6 +608,9 @@ std::string LLViewerRegion::accessToShortString(U8 sim_access)
 
 	case SIM_ACCESS_MATURE:
 		return "M";
+
+	case SIM_ACCESS_ADULT:
+		return "A";
 
 	case SIM_ACCESS_MIN:
 	default:
@@ -1419,6 +1430,7 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("SendUserReportWithScreenshot");
 	capabilityNames.append("ServerReleaseNotes");
 	capabilityNames.append("StartGroupProposal");
+	capabilityNames.append("UpdateAgentInformation");
 	capabilityNames.append("UpdateAgentLanguage");
 	capabilityNames.append("UpdateGestureAgentInventory");
 	capabilityNames.append("UpdateNotecardAgentInventory");

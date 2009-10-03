@@ -169,6 +169,7 @@
 #include "lltool.h"
 #include "lltoolbar.h"
 #include "lltoolcomp.h"
+#include "lltoolface.h"
 #include "lltoolfocus.h"
 #include "lltoolgrab.h"
 #include "lltoolmgr.h"
@@ -4594,15 +4595,44 @@ class LLToolsEnableUnlink : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		bool new_value = false;
-		if (LLSelectMgr::getInstance()->selectGetAllRootsValid() &&
-			LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject() &&
-			!LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject()->isAttachment())
+		if (LLToolMgr::getInstance()->getCurrentTool() != LLToolFace::getInstance())
 		{
-			if (LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() > 0 &&
-				LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() != 
-				LLSelectMgr::getInstance()->getSelection()->getObjectCount())
+			if (LLSelectMgr::getInstance()->selectGetAllRootsValid() &&
+				LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject() &&
+				!LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject()->isAttachment())
 			{
-				new_value = true;
+				// LL's viewer unlinks the last linkset selected, 
+				// regardless of how many linksets or prims are selected total. 
+				// Preserve that behavior when enabling the unlink option.  
+				if (gSavedSettings.getBOOL("EditLinkedParts"))
+				{
+					struct f : public LLSelectedNodeFunctor
+					{
+						virtual bool apply(LLSelectNode* pNode)
+						{
+							// Return the first selection node that is
+							//    1) not a root prim
+							//    2) or a root prim that has child prims
+							// or in other words: any prim that is part of a linkset
+							return (pNode->getObject() != pNode->getObject()->getRootEdit()) || 
+									(pNode->getObject()->numChildren() != 0);
+						}
+					} func;
+
+					if (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode(&func, TRUE))
+					{
+						// the selection contains at least one prim (child or root) that is part of a linkset
+						new_value = true;
+					}
+				}
+				else
+				{
+					if (LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() != 
+						LLSelectMgr::getInstance()->getSelection()->getObjectCount())
+					{
+						new_value = true;
+					}
+				}
 			}
 		}
 

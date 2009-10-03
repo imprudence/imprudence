@@ -1,3 +1,96 @@
+2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed switched Buy and Create locations in object pie menu (regression).
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
+	  
+	  
+	* Fixed inability to teleport to adult regions in Imprudence 1.2.
+	  (Ugly. Only use on 1.22 code base)
+	  
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llagent.cpp
+	  modified:   linden/indra/newview/llagent.h
+	  modified:   linden/indra/newview/llstartup.cpp
+	  modified:   linden/indra/newview/llviewerregion.cpp
+
+
+	* Changed the minimum draw distance from 64m to 32m.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_graphics1.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+
+
+	* Suspected partial crash fix for Logout.
+	
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  
+	  
+	* Fixed 1.2 thinking it was on the Teen Grid.
+	  
+	  modified:   linden/indra/newview/llstartup.cpp
+	  
+	  
+	* Updated gpu_table.txt to latest version in Snowglobe.
+	
+	  modified:   linden/indra/newview/gpu_table.txt
+	  
+
+2009-09-29 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed Unlink not enabling when Edit Linked Parts enabled.
+	
+	  modified:   linden/indra/newview/llfloatertools.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+
+
+	* Fixed Join Call button truncated in group IMs (regression).
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml
+	  
+	  
+	* Fixed reset UI size to default button missing from preferences > general (regression).
+	  Changed incremets to 0.001 to be more Liberation Sans-friendly.
+	
+	  modified:   linden/indra/newview/llpanelgeneral.cpp
+	  modified:   linden/indra/newview/llpanelgeneral.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
+
+
+	* Renamed preferences checkbox to 'show WindLight toolbar,' removed reference to 'Second Life.'
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_graphics1.xml
+
+
+	* Adjusted 2nd Life profile tab layout for French language.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+	  
+	  
+	* Added the name box back to avatar profiles.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+	  
+
+2009-09-28 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed first windlight toolbar entry toggling Advanced Sky.
+	
+	  modified:   linden/indra/newview/llwindlightremotectrl.cpp
+	  
+	  
+	* Renamed ScriptBgReadOnlyColor to ScrollReadOnlyColor so we don't lose it in a merge.
+	
+	  modified:   linden/indra/newview/llpanelavatar.cpp
+	  modified:   linden/indra/newview/skins/default/colors_base.xml
+	  modified:   linden/indra/newview/skins/silver/colors_base.xml
+
+
+	* Fixed Advanced Sky only toggling once.
+	
+	  modified:   linden/indra/newview/llfloaterwindlight.cpp
+	  
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.2.0 BETA                       -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

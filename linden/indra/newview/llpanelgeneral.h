@@ -45,6 +45,9 @@ public:
 
 	void apply();
 	void cancel();
+	
+private:
+	static void onClickResetUISize(void*);
 };
 
 #endif

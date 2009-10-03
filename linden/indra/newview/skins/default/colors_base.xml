@@ -68,7 +68,6 @@
 <TextEmbeddedItemReadOnlyColor value="58, 147, 242, 255" /> <!-- Text of read-only items embedded in notecards -->
 <TextEmbeddedItemColor value="0, 0, 128, 255" />            <!-- Text of items embedded in notecards -->
 <TextDefaultColor value="0, 20, 0, 255"/>                   <!-- Non-keyword text in the script editor -->
-<ScriptBgReadOnlyColor value="100, 100, 100, 255" />        <!-- Not used -->
 <TextLinkColor value="144, 165, 208, 255"/>
 <TextLinkHoverColor value="255, 255, 255, 255"/>
   
@@ -83,6 +82,7 @@
 <ScrollHighlightedColor value="183, 184, 188, 128" />   <!-- Hover color -->
 <ScrollbarThumbColor value="60, 76, 124, 255" />        <!-- Scroll bar -->
 <ScrollbarTrackColor value="153, 154, 158, 255" />      <!-- Scroll bar background -->
+<ScrollReadOnlyColor value="100, 100, 100, 255" />      <!-- Color for inactive but not disabled lists -->
  
 <!-- MENUS -->
 <MenuBarBgColor value="62, 62, 62, 255" />                  <!-- Menu bar background -->

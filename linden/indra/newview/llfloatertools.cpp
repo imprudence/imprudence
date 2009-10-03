@@ -667,6 +667,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	if (mBtnLink) mBtnLink->setVisible( edit_visible );
 	if (mBtnUnlink) mBtnUnlink->setVisible( edit_visible );
 
+	//TODO: Move these into llselectmgr
 	// Check to see if we can link things
 	bool can_link = false;
 	if (!gSavedSettings.getBOOL("EditLinkedParts"))
@@ -689,15 +690,44 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 
 	// Check to see if we can unlink things
 	bool can_unlink = false;
-	if (LLSelectMgr::getInstance()->selectGetAllRootsValid() &&
-		LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject() &&
-		!LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject()->isAttachment())
+	if (tool != LLToolFace::getInstance())
 	{
-		if (LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() > 0 &&
-			LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() != 
-			LLSelectMgr::getInstance()->getSelection()->getObjectCount())
+		if (LLSelectMgr::getInstance()->selectGetAllRootsValid() &&
+			LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject() &&
+			!LLSelectMgr::getInstance()->getSelection()->isAttachment())
 		{
-			can_unlink = true;
+			// LL's viewer unlinks the last linkset selected, 
+			// regardless of how many linksets or prims are selected total. 
+			// Preserve that behavior when enabling the unlink option.  
+			if (gSavedSettings.getBOOL("EditLinkedParts"))
+			{
+				struct f : public LLSelectedNodeFunctor
+				{
+					virtual bool apply(LLSelectNode* pNode)
+					{
+						// Return the first selection node that is
+						//    1) not a root prim
+						//    2) or a root prim that has child prims
+						// or in other words: any prim that is part of a linkset
+						return (pNode->getObject() != pNode->getObject()->getRootEdit()) || 
+								(pNode->getObject()->numChildren() != 0);
+					}
+				} func;
+
+				if (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode(&func, TRUE))
+				{
+					// the selection contains at least one prim (child or root) that is part of a linkset
+					can_unlink = true;
+				}
+			}
+			else
+			{
+				if (LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() != 
+					LLSelectMgr::getInstance()->getSelection()->getObjectCount())
+				{
+					can_unlink = true;
+				}
+			}
 		}
 	}
 	mBtnUnlink->setEnabled(can_unlink);

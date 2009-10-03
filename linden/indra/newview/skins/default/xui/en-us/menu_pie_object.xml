@@ -4,10 +4,10 @@
 		<on_click function="Object.Open" />
 		<on_enable function="Object.EnableOpen" />
 	</menu_item_call>
-	<menu_item_call enabled="false" label="Create" mouse_opaque="true" name="Create">
-		<on_click function="Object.Build" />
-		<on_enable function="EnableEdit" />
-	</menu_item_call>
+  <menu_item_call enabled="false" label="Buy..." mouse_opaque="true" name="Buy...">
+    <on_click function="Object.Buy" />
+    <on_enable function="Object.EnableBuy" />
+  </menu_item_call>
 	<menu_item_call enabled="false" label="Touch" mouse_opaque="true" name="Object Touch">
 		<on_click function="Object.Touch" />
 		<on_enable function="Object.EnableTouch" userdata="Touch" />
@@ -75,10 +75,10 @@
         <on_enable function="Tools.EnableUnlink" />
       </menu_item_call>
 		</pie_menu>
-		<menu_item_call enabled="false" label="Buy..." mouse_opaque="true" name="Buy...">
-			<on_click function="Object.Buy" />
-			<on_enable function="Object.EnableBuy" />
-		</menu_item_call>
+    <menu_item_call enabled="false" label="Create" mouse_opaque="true" name="Create">
+      <on_click function="Object.Build" />
+      <on_enable function="EnableEdit" />
+    </menu_item_call>
 	</pie_menu>
 	<menu_item_call enabled="false" label="Edit..." mouse_opaque="true" name="Edit...">
 		<on_click function="Object.Edit" />

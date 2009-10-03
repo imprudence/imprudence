@@ -255,6 +255,7 @@ public:
 	U8				getGodLevel() const;
 	bool isTeen() const;
 	void setTeen(bool teen);
+	void convertTextToMaturity(char text);// HACK: remove when based on 1.23
 	BOOL			isGroupTitleHidden() const		{ return mHideGroupTitle; }
 	BOOL			isGroupMember() const		{ return !mGroupID.isNull(); }		// This is only used for building titles!
 	const LLUUID	&getGroupID() const			{ return mGroupID; }

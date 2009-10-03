@@ -6,11 +6,11 @@
 	     left="470" name="GraphicsPreferencesHelpButton" width="22" />
 	<check_box bottom="-23" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" initial_value="false"
-	     label="Run Second Life in a window" left="10" mouse_opaque="true"
+	     label="Run Imprudence in a window" left="10" mouse_opaque="true"
 	     name="windowed mode" radio_style="false" width="100" />
   <check_box bottom_delta="0" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-       label="Show environment control in toolbar" left="248" mouse_opaque="true"
+       label="Show WindLight toolbar" left="275" mouse_opaque="true"
 	     name="toggle_windlight_control" radio_style="false" width="237" />
 	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom="-43"
 	     embedded_items="false" enabled="false" follows="left|top"
@@ -251,7 +251,7 @@
 	<slider bottom="-135" can_edit_text="false" control_name="RenderFarClip"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
 	     increment="8" initial_val="160" label="Draw Distance:"
-	     label_width="140" left="215" max_val="512" min_val="64" mouse_opaque="true"
+	     label_width="140" left="215" max_val="512" min_val="32" mouse_opaque="true"
 	     name="DrawDistance" show_text="true" width="255" />
 	<slider bottom_delta="-20" can_edit_text="false" control_name="RenderMaxPartCount"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"

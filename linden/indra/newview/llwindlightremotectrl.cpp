@@ -181,7 +181,7 @@ void LLWindlightRemoteCtrl::onCommitPreset(LLUICtrl* ctrl, void* data)
 	if (presets)
 	{
 		S32 index = presets->getFirstSelectedIndex();
-		if (index <= 0)
+		if (index < 0)
 		{
 			// Open Advanced Sky
 			LLFloaterWindLight::show();
