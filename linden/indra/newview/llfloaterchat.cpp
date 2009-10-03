@@ -548,6 +548,9 @@ LLColor4 get_text_color(const LLChat& chat)
 				text_color = gSavedSettings.getColor4("ObjectChatColor");
 			}
 			break;
+		case CHAT_SOURCE_OBJECT_IM:
+			text_color = gSavedSettings.getColor4("ObjectIMColor");
+			break;
 		default:
 			text_color.setToWhite();
 		}

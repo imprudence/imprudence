@@ -5449,6 +5449,22 @@
          <real>1</real>
       </array>
     </map>
+    <key>ObjectIMColor</key>
+    <map>
+      <key>Comment</key>
+      <string>Color of IMs from objects</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Color4</string>
+      <key>Value</key>
+      <array>
+        <real>0.699999988079</real>
+        <real>0.899999976158</real>
+        <real>0.699999988079</real>
+        <real>1</real>
+      </array>
+    </map>
     <key>OpenDebugStatAdvanced</key>
     <map>
       <key>Comment</key>

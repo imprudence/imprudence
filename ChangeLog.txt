@@ -1,5 +1,14 @@
 2009-10-02 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added new color setting for Object IMs.
+	
+      modified:   linden/indra/llcommon/llchat.h
+      modified:   linden/indra/newview/app_settings/settings.xml
+      modified:   linden/indra/newview/llfloaterchat.cpp
+      modified:   linden/indra/newview/llviewermessage.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_chat.xml
+
+
 	* Fixed 1.2 beta features missing from silver skin.
 	
 	  deleted:    linden/indra/newview/skins/silver/xui/en-us/floater_chatterbox.xml
