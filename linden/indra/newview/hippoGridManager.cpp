@@ -469,14 +469,15 @@ std::string HippoGridInfo::sanitizeGridNick(std::string &gridnick)
 // static
 std::string HippoGridInfo::sanitizeUri(std::string &uri)
 {
-	if (uri.empty()) {
-		return "";
-	}
+	// if (uri.empty()) {
+	// 	return "";
+	// }
 
-	// If last character in uri is not "/"
-	if (uri.compare(uri.length()-1, 1, "/") != 0) {
-		return uri + '/';
-	}
+	// // If last character in uri is not "/"
+	// // NOTE: This wrongly assumes that all URIs should end with "/"!
+	// if (uri.compare(uri.length()-1, 1, "/") != 0) {
+	// 	return uri + '/';
+	// }
 
 	return uri;
 }

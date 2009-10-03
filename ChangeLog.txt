@@ -1,3 +1,11 @@
+2009-10-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Grid manager no longer appends "/" to URIs.
+	  This was causing trouble with URIs that shouldn't end in "/".
+
+	  modified:   linden/indra/newview/hippoGridManager.cpp
+
+
 2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed switched Buy and Create locations in object pie menu (regression).
