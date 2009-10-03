@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="true" height="570" min_height="570" min_width="780"
+     can_resize="true" height="590" min_height="590" min_width="780"
      name="directory" rect_control="FloaterFindRect2" title="Search Second Life"
      width="780">
-	<tab_container bottom="-570" follows="left|top|right|bottom" height="550" left="0"
+	<tab_container bottom="-590" follows="left|top|right|bottom" height="570" left="0"
 	     mouse_opaque="false" name="Directory Tabs" tab_position="top" width="780">
-		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
+		<panel border="true" bottom="-569" follows="left|top|right|bottom" height="553"
 		     label="All" left="1" mouse_opaque="false" name="find_all_panel" width="778">
 			<string name="searching_text">
 				Searching...
@@ -67,7 +67,7 @@
 			</string>
       <string name="default_search_page">"http://secondlife.com/app/search/index.php?"</string>
     </panel>
-		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
+		<panel border="true" bottom="-569" follows="left|top|right|bottom" height="553"
 		     label="Classifieds" left="1" left_delta="68" mouse_opaque="false"
 		     name="classified_panel" width="778">
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
@@ -140,7 +140,7 @@
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Delete" label_selected="Delete" left="80"
 			     mouse_opaque="true" name="Delete" width="80" />
-			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true" draw_heading="true" 			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
+			<scroll_list background_visible="true" bottom="-533" column_padding="0" draw_border="true" draw_heading="true" 			     follows="left|top|right|bottom" height="484" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
@@ -152,8 +152,8 @@
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
 		</panel>
-		<panel border="true" bottom="-549" default_tab_group="1"
-		     follows="left|top|right|bottom" height="533" label="Events" left="1"
+		<panel border="true" bottom="-569" default_tab_group="1"
+		     follows="left|top|right|bottom" height="553" label="Events" left="1"
 		     mouse_opaque="false" name="events_panel" width="778">
 			<string name="searching_text">
 				Searching...
@@ -251,8 +251,8 @@
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Delete" label_selected="Delete" left="80"
 			     mouse_opaque="true" name="Delete" width="80" />
-			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true" draw_heading="true" 
-			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
+			<scroll_list background_visible="true" bottom="-533" column_padding="0" draw_border="true" draw_heading="true" 
+			     follows="left|top|right|bottom" height="484" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
@@ -272,7 +272,7 @@
 			     height="20" label="&lt; Prev" label_selected="&lt; Prev"
 			     mouse_opaque="true" name="&lt; Prev" right="258" width="80" />
 		</panel>
-		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
+		<panel border="true" bottom="-569" follows="left|top|right|bottom" height="553"
 		     label="Showcase" left="1" mouse_opaque="false" name="showcase_panel"
 		     width="778">
         <string name="searching_text">Searching...</string>
@@ -304,7 +304,7 @@
         <string name="redirect_404_url">http://secondlife.com/app/search/notfound.html</string>
         <string name="default_search_page">"http://secondlife.com/app/showcase/index.php?"</string>
     </panel>
-		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
+		<panel border="true" bottom="-569" follows="left|top|right|bottom" height="553"
 		     label="Land Sales" left="1" mouse_opaque="false" name="land_sales_panel"
 		     width="778">
 			<string name="searching_text">
@@ -370,8 +370,8 @@
 				Land can be bought direct for Linden Dollars (L$) or at auction for either L$ or US$.
 To buy direct, visit the land and click on the place name in the title bar.
 			</text>
-			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true" draw_heading="true" 
-			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
+			<scroll_list background_visible="true" bottom="-533" column_padding="0" draw_border="true" draw_heading="true" 
+			     follows="left|top|right|bottom" height="484" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="387">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
@@ -385,7 +385,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
 		</panel>
-		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
+		<panel border="true" bottom="-569" follows="left|top|right|bottom" height="553"
 		     label="Places" left="1" mouse_opaque="false" name="places_panel"
 		     width="778">
 			<string name="searching_text">
@@ -458,10 +458,10 @@ To buy direct, visit the land and click on the place name in the title bar.
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Search" label_selected="Search" left_delta="136" mouse_opaque="true"
 			     name="Search" width="70" />
-			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true"
+			<scroll_list background_visible="true" bottom="-533" column_padding="0" draw_border="true"
 			     draw_heading="true" 
 			     
-			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
+			     follows="left|top|right|bottom" height="484" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
@@ -473,7 +473,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
 		</panel>
-    <panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
+    <panel border="true" bottom="-569" follows="left|top|right|bottom" height="553"
 		     label="People" left="1" mouse_opaque="false" name="people_panel"
 		     width="778">
 			<string name="searching_text">
@@ -500,10 +500,10 @@ To buy direct, visit the land and click on the place name in the title bar.
       <button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Search" label_selected="Search" left_delta="210" mouse_opaque="true"
 			     name="Search" width="70" />
-      <scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true"
+      <scroll_list background_visible="true" bottom="-533" column_padding="0" draw_border="true"
 			     draw_heading="true" 
                                
-			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
+			     follows="left|top|right|bottom" height="484" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="326">
         <column label="" name="icon" width="24" />
         <column label="" name="type" width="-1" />
@@ -514,7 +514,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
 		</panel>
-    <panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
+    <panel border="true" bottom="-569" follows="left|top|right|bottom" height="553"
 		     label="Groups" left="1" mouse_opaque="false"
 		     name="groups_panel"
 		     width="778">
@@ -580,19 +580,19 @@ To buy direct, visit the land and click on the place name in the title bar.
       <string name="default_search_page">"http://secondlife.com/app/search/index_groups.php?"</string>
     </panel>
 	</tab_container>
-	<panel bottom="-560" follows="right|top" height="470" left="340"
+	<panel bottom="-580" follows="right|top" height="490" left="340"
 	     name="classified_details_panel" width="440" />
-	<panel bottom="-560" follows="right|top" height="486" left="350" name="Panel Avatar"
+	<panel bottom="-580" follows="right|top" height="506" left="350" name="Panel Avatar"
 	     width="430" />
-	<panel bottom="-560" follows="right|top" height="470" left="340"
+	<panel bottom="-560" follows="right|top" height="490" left="340"
 	     name="event_details_panel" width="440" />
-	<panel bottom="-580" follows="right|top" height="515" left="350"
+	<panel bottom="-600" follows="right|top" height="535" left="350"
 	     name="group_details_panel_holder" width="430">
-		<panel bottom="0" follows="right|top" height="470" left="0" name="group_details_panel"
+		<panel bottom="0" follows="right|top" height="490" left="0" name="group_details_panel"
 		     width="430" />
 	</panel>
-	<panel bottom="20" follows="right|top" height="470" left="340"
+	<panel bottom="20" follows="right|top" height="490" left="340"
 	     name="place_details_panel" width="440" />
-	<panel bottom="20" follows="right|top" height="470" left="385"
+	<panel bottom="20" follows="right|top" height="490" left="385"
 	     name="place_details_small_panel" width="395" />
 </floater>
