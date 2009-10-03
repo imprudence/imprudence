@@ -4,6 +4,13 @@
 	
 	  modified:   linden/indra/newview/llviewermessage.cpp
 	  
+	  
+	* Object IMs are now prefixed with "IM: ".
+	  As a side effect, names are now clickable when show IMs in chat is enabled.
+	  
+	  modified:   linden/indra/newview/llfloaterchat.cpp
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  
 
 2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
 

@@ -1929,7 +1929,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			{
 				return;
 			}
-			chat.mText = name + separator_string + message.substr(message_offset);
+			chat.mText = std::string("IM: ") + name + separator_string + message.substr(message_offset);
 			chat.mFromName = name;
 
 			// Build a link to open the object IM info window.
