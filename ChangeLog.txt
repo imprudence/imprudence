@@ -1,5 +1,10 @@
 2009-10-03 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed account label not showing up in profiles.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+	  
+	  
 	* Fixed an issue with llkeywords.cpp(385) and Visual Studio.
 	
 	  modified:   linden/indra/llui/llkeywords.cpp
