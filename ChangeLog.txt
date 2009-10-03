@@ -1,8 +1,14 @@
 2009-10-03 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed an issue with llkeywords.cpp(385) and Visual Studio.
+	
+	  modified:   linden/indra/llui/llkeywords.cpp
+	  
+	  
 	* Fixed search window height being too small for new profile layout.
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_directory.xml
+	  
 
 2009-10-02 McCabe Maxsted  <hakushakukun@gmail.com>
 
