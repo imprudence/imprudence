@@ -1,3 +1,10 @@
+2009-10-02 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Applied clickable object names for whisper/say/shout from Emerald viewer.
+	
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  
+
 2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added mini-map partner dot color for future use (currently unused).
