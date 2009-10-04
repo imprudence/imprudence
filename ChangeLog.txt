@@ -1,5 +1,11 @@
 2009-10-03 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Reverted slviewer-0-v12100-AllowDiscardForCreator.patch.
+	  (Was causing usability issues with new notecard creation).
+	
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  
+	  
 	* Added confirmation alerts for double-click tp and auto-pilot.
 	
 	  modified:   linden/indra/newview/llviewermenu.cpp
