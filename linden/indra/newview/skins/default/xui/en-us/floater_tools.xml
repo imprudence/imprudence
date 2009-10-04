@@ -530,37 +530,37 @@
 				</combo_item>
 			</combo_box>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-115" drop_shadow_visible="true" follows="left|top"
+			     bottom="-135" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="88"
 			     mouse_opaque="true" name="B:" v_pad="0" width="174">
 				B:
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-115" drop_shadow_visible="true" follows="left|top"
+			     bottom="-135" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="50"
 			     mouse_opaque="true" name="O:" v_pad="0" width="124">
 				O;
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-115" drop_shadow_visible="true" follows="left|top"
+			     bottom="-135" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="50"
 			     mouse_opaque="true" name="G:" v_pad="0" width="74">
 				G:
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-127" drop_shadow_visible="true" follows="left|top"
+			     bottom="-147" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="88"
 			     mouse_opaque="true" name="E:" v_pad="0" width="174">
 				E:
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-127" drop_shadow_visible="true" follows="left|top"
+			     bottom="-147" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="50"
 			     mouse_opaque="true" name="N:" v_pad="0" width="124">
 				N:
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-127" drop_shadow_visible="true" follows="left|top"
+			     bottom="-147" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="10" left_delta="50"
 			     mouse_opaque="true" name="F:" v_pad="0" width="74">
 				F:

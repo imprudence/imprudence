@@ -1,5 +1,10 @@
 2009-10-03 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed layout of debug permissions in tools window.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
+	  
+	
 	* Reverted slviewer-0-v12100-AllowDiscardForCreator.patch.
 	  (Was causing usability issues with new notecard creation).
 	
