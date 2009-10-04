@@ -292,6 +292,10 @@ void LLFloaterMap::populateRadar()
 
 				updateChatList(avatar_ids);
 			}
+			else if (!mChatAvatars.empty())
+			{
+				mChatAvatars.clear();
+			}
 
 			std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("muted") : "";
 			element["id"] = avatar_ids[i];
