@@ -40,12 +40,13 @@
 ///#if LL_GSTREAMER_ENABLED
 
 extern "C" {
-#include <stdio.h>
 #include <gst/gst.h>
+}
 
+#include <stdio.h>
 #include "apr_pools.h"
 #include "apr_dso.h"
-}
+
 
 #include "llmediaimplgstreamervidplug.h"
 #include "llgstplaythread.h"

@@ -1,5 +1,10 @@
 2009-10-03 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed extern C issue in llmediaimplgstreamer.h for Windows. 
+	
+	  modified:   linden/indra/llmedia/llmediaimplgstreamer.h
+	  
+	  
 	* Fixed account label not showing up in profiles.
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
