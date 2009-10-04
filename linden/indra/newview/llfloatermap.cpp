@@ -43,8 +43,10 @@
 #include "lluictrlfactory.h"
 
 // radar
+#include "llchat.h"
 #include "llfirstuse.h"
 #include "llfloateravatarinfo.h"
+#include "llfloaterchat.h"
 #include "llfloaterfriends.h"
 #include "llfloatergroupinvite.h"
 #include "llfloatergroups.h"
@@ -69,13 +71,15 @@ LLFloaterMap::LLFloaterMap(const LLSD& key)
 	:
 	LLFloater(std::string("minimap")),
 	mPanelMap(NULL),
-	mUpdate(TRUE)
+	mUpdate(TRUE),
+	mSelectedAvatar(LLUUID::null)
+
 {
 	LLCallbackMap::map_t factory_map;
 	factory_map["mini_mapview"] = LLCallbackMap(createPanelMiniMap, this);
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_mini_map.xml", &factory_map, FALSE);
 
-	mSelectedAvatar.setNull();
+	mChatAvatars.clear();
 }
 
 
@@ -262,6 +266,33 @@ void LLFloaterMap::populateRadar()
 			}
 // [/RLVa:KB]
 
+			// check if they're in chat range and notify user
+			LLVector3d temp = positions[i] - current_pos;
+			F32 distance = llround((F32)temp.magVec(), 0.1f);
+			std::stringstream dist;
+			dist.str("");
+			dist << distance;
+
+			if (gSavedSettings.getBOOL("MiniMapNotify"))
+			{
+				if (distance <= 20.0f)
+				{
+					if (!getInChatList(avatar_ids[i]))
+					{
+						addToChatList(avatar_ids[i], dist.str());
+					}
+				}
+				else
+				{
+					if (getInChatList(avatar_ids[i]))
+					{
+						removeFromChatList(avatar_ids[i]);
+					}
+				}
+
+				updateChatList(avatar_ids);
+			}
+
 			std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("muted") : "";
 			element["id"] = avatar_ids[i];
 			element["columns"][0]["column"] = "avatar_name";
@@ -269,12 +300,7 @@ void LLFloaterMap::populateRadar()
 			element["columns"][0]["value"] = fullname + " " + mute_text;
 			element["columns"][1]["column"] = "avatar_distance";
 			element["columns"][1]["type"] = "text";
-
-			LLVector3d temp = positions[i] - current_pos;
-			F32 distance = (F32)temp.magVec();
-			char dist[32];
-			snprintf(dist, sizeof(dist), "%.1f", distance);
-			element["columns"][1]["value"] = strcat(dist,"m");
+			element["columns"][1]["value"] = dist.str()+"m";
 
 			mRadarList->addElement(element, ADD_BOTTOM);
 		}
@@ -304,6 +330,53 @@ void LLFloaterMap::populateRadar()
 	toggleButtons();
 
 	//llinfos << "mSelectedAvatar: " << mSelectedAvatar.asString() << llendl;
+}
+
+void LLFloaterMap::updateChatList(std::vector<LLUUID> agent_ids)
+{
+	std::set<LLUUID>::iterator it;
+	std::vector<LLUUID>::iterator result;
+	for (it = mChatAvatars.begin(); it != mChatAvatars.end(); )
+	{
+		result = find(agent_ids.begin(), agent_ids.end(), *it);
+		if (result == agent_ids.end())
+		{
+			mChatAvatars.erase(it++);
+		}
+		else
+		{
+			it++;
+		}
+	}
+}
+
+bool LLFloaterMap::getInChatList(LLUUID agent_id)
+{
+	if (mChatAvatars.count(agent_id) > 0)
+	{
+		return true;
+	}
+	return false;
+}
+
+void LLFloaterMap::addToChatList(LLUUID agent_id, std::string distance)
+{
+	mChatAvatars.insert(agent_id);
+	LLChat chat;
+
+	LLUIString notify = getString("entering_chat_range");
+	notify.setArg("[NAME]", getSelectedName(agent_id));
+	notify.setArg("[DISTANCE]", distance);
+
+	chat.mText = notify;
+	chat.mSourceType = CHAT_SOURCE_SYSTEM;
+	LLFloaterChat::addChat(chat, FALSE, FALSE);	
+}
+
+void LLFloaterMap::removeFromChatList(LLUUID agent_id)
+{
+	// Do we want to add a notice?
+	mChatAvatars.erase(agent_id);
 }
 
 void LLFloaterMap::toggleButtons()

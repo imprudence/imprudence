@@ -1,3 +1,15 @@
+2009-10-04 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Mini-map radar now notifies when someone enters chat range, and how far away they are.
+	  
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  modified:   linden/indra/newview/llfloatermap.h
+	  modified:   linden/indra/newview/llpanelgeneral.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
+
+
 2009-10-03 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed layout of debug permissions in tools window.

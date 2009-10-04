@@ -60,6 +60,7 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("small_avatar_names_checkbox", gSavedSettings.getBOOL("SmallAvatarNames"));
 	childSetValue("show_my_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitle"));
 	childSetValue("afk_timeout_spinner", gSavedSettings.getF32("AFKTimeout"));
+	childSetValue("mini_map_notify", gSavedSettings.getBOOL("MiniMapNotify"));
 	childSetValue("notify_money_change_checkbox", gSavedSettings.getBOOL("NotifyMoneyChange"));
 	childSetValue("use_system_color_picker_checkbox", gSavedSettings.getBOOL("UseDefaultColorPicker"));
 	childSetValue("show_search_panel", gSavedSettings.getBOOL("ShowSearchBar"));
@@ -97,6 +98,7 @@ void LLPanelGeneral::apply()
 	gSavedSettings.setBOOL("SmallAvatarNames", childGetValue("small_avatar_names_checkbox"));
 	gSavedSettings.setBOOL("RenderHideGroupTitle", childGetValue("show_my_title_checkbox"));
 	gSavedSettings.setF32("AFKTimeout", childGetValue("afk_timeout_spinner").asReal());
+	gSavedSettings.setBOOL("MiniMapNotify", childGetValue("mini_map_notify"));
 	gSavedSettings.setBOOL("NotifyMoneyChange", childGetValue("notify_money_change_checkbox"));
 	gSavedSettings.setBOOL("UseDefaultColorPicker", childGetValue("use_system_color_picker_checkbox"));
 	gSavedSettings.setBOOL("ShowSearchBar", childGetValue("show_search_panel"));

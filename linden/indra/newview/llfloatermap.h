@@ -66,10 +66,11 @@ public:
 private:
 	LLFloaterMap(const LLSD& key = LLSD());
 
-	LLNetMap*						mPanelMap;
-	LLScrollListCtrl*				mRadarList;
-	LLUUID							mSelectedAvatar;
-	bool							mUpdate;
+	LLNetMap*				mPanelMap;
+	LLScrollListCtrl*		mRadarList;
+	LLUUID					mSelectedAvatar;
+	std::set<LLUUID>		mChatAvatars; 
+	bool					mUpdate;
 	
 	static void onList(LLUICtrl* ctrl, void* user_data);
 	static void onRangeChange(LLFocusableElement* focus, void* user_data);
@@ -77,6 +78,11 @@ private:
 	BOOL getKickable(const LLUUID &agent_id);
 	void toggleButtons();
 	void populateRadar();
+
+	void updateChatList(std::vector<LLUUID> agent_ids);
+	bool getInChatList(LLUUID agent_id);
+	void addToChatList(LLUUID agent_id, std::string distance);
+	void removeFromChatList(LLUUID agent_id);
 
 	static void onClickProfile(void* user_data);
 	static void onClickIM(void* user_data);

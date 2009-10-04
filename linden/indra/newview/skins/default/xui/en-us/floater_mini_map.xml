@@ -95,4 +95,7 @@
   <string name="muted">
     (muted)
   </string>
+  <string name="entering_chat_range">
+    [NAME] has entered chat range ([DISTANCE]m)
+  </string>
 </floater>
