@@ -269,17 +269,17 @@ void LLFloaterMap::populateRadar()
 			// check if they're in chat range and notify user
 			LLVector3d temp = positions[i] - current_pos;
 			F32 distance = llround((F32)temp.magVec(), 0.1f);
-			std::stringstream dist;
-			dist.str("");
-			dist << distance;
+			char dist[32];
+			sprintf(dist, "%.1f", distance);
+			std::string dist_string = dist;
 
 			if (gSavedSettings.getBOOL("MiniMapNotify"))
 			{
-				if (distance <= 20.0f)
+				if (distance < 20.0f)
 				{
 					if (!getInChatList(avatar_ids[i]))
 					{
-						addToChatList(avatar_ids[i], dist.str());
+						addToChatList(avatar_ids[i], dist_string);
 					}
 				}
 				else
@@ -304,7 +304,7 @@ void LLFloaterMap::populateRadar()
 			element["columns"][0]["value"] = fullname + " " + mute_text;
 			element["columns"][1]["column"] = "avatar_distance";
 			element["columns"][1]["type"] = "text";
-			element["columns"][1]["value"] = dist.str()+"m";
+			element["columns"][1]["value"] = dist_string+"m";
 
 			mRadarList->addElement(element, ADD_BOTTOM);
 		}

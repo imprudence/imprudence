@@ -1,5 +1,10 @@
 2009-10-04 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed mini-map distance label and rounding.
+	
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  
+	  
 	* Mini-map radar now notifies when someone enters chat range, and how far away they are.
 	  
 	  modified:   linden/indra/newview/app_settings/settings.xml
