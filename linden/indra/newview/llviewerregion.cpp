@@ -906,10 +906,12 @@ bool LLViewerRegion::isAlive()
 
 BOOL LLViewerRegion::isOwnedSelf(const LLVector3& pos)
 {
-	if (mParcelOverlay)
+	if (mParcelOverlay && !gDisconnected)
 	{
 		return mParcelOverlay->isOwnedSelf(pos);
-	} else {
+	} 
+	else 
+	{
 		return FALSE;
 	}
 }
