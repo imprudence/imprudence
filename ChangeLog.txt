@@ -1,5 +1,10 @@
 2009-10-03 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Disable camera constraints now disables max zoom for the scrollwheel.
+	
+	  modified:   linden/indra/newview/llagent.cpp
+
+
 	* Fixed layout of debug permissions in tools window.
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
