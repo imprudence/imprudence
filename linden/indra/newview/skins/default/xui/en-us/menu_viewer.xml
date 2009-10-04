@@ -421,6 +421,10 @@
       <on_click function="View.ToggleAdvanced" userdata="" />
       <on_check function="View.CheckAdvanced" />
     </menu_item_check>
+    <menu_item_check  shortcut="control|alt|shift|D">
+	    <on_click function="View.ToggleAdvanced" userdata="" />
+	    <on_check function="View.CheckAdvanced" />
+    </menu_item_check>
   </menu>
 
 
