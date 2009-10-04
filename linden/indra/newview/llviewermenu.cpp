@@ -6334,6 +6334,8 @@ class LLAttachmentEnableDrop : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
+		if (gDisconnected)
+			return true;
 		LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 		BOOL can_build   = gAgent.isGodlike() || (parcel && parcel->getAllowModify());
 
@@ -6384,7 +6386,6 @@ class LLAttachmentEnableDrop : public view_listener_t
 // [RLVa:KB] - Checked: 2009-07-05 (RLVa-1.0.0b)
 		bool new_value = enable_detach(NULL) && can_build && item && (!gRlvHandler.hasBehaviour(RLV_BHVR_REZ));
 // [/RLVa:KB]
-
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
 		return true;
 	}
