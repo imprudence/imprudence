@@ -1,5 +1,11 @@
 2009-10-03 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added confirmation alerts for double-click tp and auto-pilot.
+	
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+
+
 	* Fixed extern C issue in llmediaimplgstreamer.h for Windows. 
 	
 	  modified:   linden/indra/llmedia/llmediaimplgstreamer.h

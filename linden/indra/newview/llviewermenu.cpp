@@ -494,6 +494,7 @@ BOOL enable_detach(void*);
 BOOL enable_region_owner(void*);
 void menu_toggle_attached_lights(void* user_data);
 void menu_toggle_attached_particles(void* user_data);
+static void handle_go_to_callback(S32 option, void *userdata);
 
 class LLMenuParcelObserver : public LLParcelObserver
 {
@@ -2392,45 +2393,63 @@ bool handle_go_to()
 	}
 // [/RLVa:KB]
 
-	// JAMESDEBUG try simulator autopilot
-	std::vector<std::string> strings;
-	std::string val;
-	LLVector3d pos = LLToolPie::getInstance()->getPick().mPosGlobal;
 	if (gSavedSettings.getBOOL("DoubleClickTeleport"))
 	{
-		LLVector3d hips_offset(0.0f, 0.0f, 1.2f);
-		gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
-		gAgent.teleportViaLocation(pos + hips_offset);
+		gViewerWindow->alertXml("ConfirmDoubleClickTP", handle_go_to_callback, (void*)LLToolPie::getInstance());
 	}
-	else
+	else if (gSavedSettings.getBOOL("DoubleClickAutoPilot"))
 	{
+		gViewerWindow->alertXml("ConfirmAutoPilot", handle_go_to_callback, (void*)LLToolPie::getInstance());
+	}
+	return true;
+}
+
+//static
+void handle_go_to_callback(S32 option, void *userdata)
+{
+	if (option == 0)
+	{
+		LLToolPie* pie = (LLToolPie*)userdata;
+
 		// JAMESDEBUG try simulator autopilot
 		std::vector<std::string> strings;
 		std::string val;
-		val = llformat("%g", pos.mdV[VX]);
-		strings.push_back(val);
-		val = llformat("%g", pos.mdV[VY]);
-		strings.push_back(val);
-		val = llformat("%g", pos.mdV[VZ]);
-		strings.push_back(val);
-		send_generic_message("autopilot", strings);
-
-		LLViewerParcelMgr::getInstance()->deselectLand();
-
-		if (gAgent.getAvatarObject() && !gSavedSettings.getBOOL("AutoPilotLocksCamera"))
+		LLVector3d pos = pie->getPick().mPosGlobal;
+		if (gSavedSettings.getBOOL("DoubleClickTeleport"))
 		{
-			gAgent.setFocusGlobal(gAgent.getFocusTargetGlobal(), gAgent.getAvatarObject()->getID());
+			LLVector3d hips_offset(0.0f, 0.0f, 1.2f);
+			gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
+			gAgent.teleportViaLocation(pos + hips_offset);
 		}
-		else 
+		else
 		{
-			// Snap camera back to behind avatar
-			gAgent.setFocusOnAvatar(TRUE, ANIMATE);
-		}
+			// JAMESDEBUG try simulator autopilot
+			std::vector<std::string> strings;
+			std::string val;
+			val = llformat("%g", pos.mdV[VX]);
+			strings.push_back(val);
+			val = llformat("%g", pos.mdV[VY]);
+			strings.push_back(val);
+			val = llformat("%g", pos.mdV[VZ]);
+			strings.push_back(val);
+			send_generic_message("autopilot", strings);
 
-		// Could be first use
-		LLFirstUse::useGoTo();
+			LLViewerParcelMgr::getInstance()->deselectLand();
+
+			if (gAgent.getAvatarObject() && !gSavedSettings.getBOOL("AutoPilotLocksCamera"))
+			{
+				gAgent.setFocusGlobal(gAgent.getFocusTargetGlobal(), gAgent.getAvatarObject()->getID());
+			}
+			else 
+			{
+				// Snap camera back to behind avatar
+				gAgent.setFocusOnAvatar(TRUE, ANIMATE);
+			}
+
+			// Could be first use
+			LLFirstUse::useGoTo();
+		}
 	}
-	return true;
 }
 
 class LLGoToObject : public view_listener_t

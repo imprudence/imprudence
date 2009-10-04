@@ -5093,7 +5093,37 @@ Would you like to visit the Second Life website to set this up?
 		</message>
 	</alert>
 
-	<alert modal="true" name="ConfirmTeleportHome">
+  <alert modal="true" name="ConfirmAutoPilot">
+    <message name="message">
+      Are you sure you want to move here?
+    </message>
+    <ignore name="ignore">
+      When using auto-pilot
+    </ignore>
+    <option name="Move">
+      Move
+    </option>
+    <option name="Cancel">
+      Cancel
+    </option>
+  </alert>
+  
+  <alert modal="true" name="ConfirmDoubleClickTP">
+    <message name="message">
+      Are you sure you want to teleport here?
+    </message>
+    <ignore name="ignore">
+      When double-click teleporting
+    </ignore>
+    <option name="Teleport">
+      Teleport
+    </option>
+    <option name="Cancel">
+      Cancel
+    </option>
+  </alert>
+
+  <alert modal="true" name="ConfirmTeleportHome">
 		<message name="message">
 			Are you sure you want to teleport home?
 		</message>
