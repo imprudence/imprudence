@@ -238,6 +238,10 @@ void LLFloaterMap::populateRadar()
 
 	LLVector3d current_pos = gAgent.getPositionGlobal();
 
+	// clear count
+	std::stringstream avatar_count; 
+	avatar_count.str("");
+
 	// find what avatars you can see
 	std::vector<LLUUID> avatar_ids;
 	std::vector<LLVector3d> positions;
@@ -247,88 +251,85 @@ void LLFloaterMap::populateRadar()
 
 	mRadarList->deleteAllItems();
 
-	for (U32 i=0; i<avatar_ids.size(); i++)
+	if (!avatar_ids.empty())
 	{
-		if (avatar_ids[i] == gAgent.getID() ||
-			avatar_ids[i].isNull())
+		for (U32 i=0; i<avatar_ids.size(); i++)
 		{
-			continue;
+			if (avatar_ids[i] == gAgent.getID() ||
+				avatar_ids[i].isNull())
+			{
+				continue;
+			}
+
+			// Add to list only if we get their name
+			std::string fullname = getSelectedName(avatar_ids[i]);
+			if (!fullname.empty())
+			{
+	// [RLVa:KB] - Alternate: Imprudence-1.2.0
+				if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+				{
+					fullname = gRlvHandler.getAnonym(fullname);
+				}
+	// [/RLVa:KB]
+
+				// check if they're in chat range and notify user
+				LLVector3d temp = positions[i] - current_pos;
+				F32 distance = llround((F32)temp.magVec(), 0.1f);
+				char dist[32];
+				sprintf(dist, "%.1f", distance);
+				std::string dist_string = dist;
+
+				if (gSavedSettings.getBOOL("MiniMapNotify"))
+				{
+					if (distance < 20.0f)
+					{
+						if (!getInChatList(avatar_ids[i]))
+						{
+							addToChatList(avatar_ids[i], dist_string);
+						}
+					}
+					else
+					{
+						if (getInChatList(avatar_ids[i]))
+						{
+							removeFromChatList(avatar_ids[i]);
+						}
+					}
+
+					updateChatList(avatar_ids);
+				}
+				else if (!mChatAvatars.empty())
+				{
+					mChatAvatars.clear();
+				}
+
+				std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("muted") : "";
+				element["id"] = avatar_ids[i];
+				element["columns"][0]["column"] = "avatar_name";
+				element["columns"][0]["type"] = "text";
+				element["columns"][0]["value"] = fullname + " " + mute_text;
+				element["columns"][1]["column"] = "avatar_distance";
+				element["columns"][1]["type"] = "text";
+				element["columns"][1]["value"] = dist_string+"m";
+
+				mRadarList->addElement(element, ADD_BOTTOM);
+			}
 		}
 
-		// Add to list only if we get their name
-		std::string fullname = getSelectedName(avatar_ids[i]);
-		if (!fullname.empty())
+		mRadarList->sortItems();
+		mRadarList->setScrollPos(scroll_pos);
+		if (mSelectedAvatar.notNull())
 		{
-// [RLVa:KB] - Alternate: Imprudence-1.2.0
-			if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
-			{
-				fullname = gRlvHandler.getAnonym(fullname);
-			}
-// [/RLVa:KB]
-
-			// check if they're in chat range and notify user
-			LLVector3d temp = positions[i] - current_pos;
-			F32 distance = llround((F32)temp.magVec(), 0.1f);
-			char dist[32];
-			sprintf(dist, "%.1f", distance);
-			std::string dist_string = dist;
-
-			if (gSavedSettings.getBOOL("MiniMapNotify"))
-			{
-				if (distance < 20.0f)
-				{
-					if (!getInChatList(avatar_ids[i]))
-					{
-						addToChatList(avatar_ids[i], dist_string);
-					}
-				}
-				else
-				{
-					if (getInChatList(avatar_ids[i]))
-					{
-						removeFromChatList(avatar_ids[i]);
-					}
-				}
-
-				updateChatList(avatar_ids);
-			}
-			else if (!mChatAvatars.empty())
-			{
-				mChatAvatars.clear();
-			}
-
-			std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("muted") : "";
-			element["id"] = avatar_ids[i];
-			element["columns"][0]["column"] = "avatar_name";
-			element["columns"][0]["type"] = "text";
-			element["columns"][0]["value"] = fullname + " " + mute_text;
-			element["columns"][1]["column"] = "avatar_distance";
-			element["columns"][1]["type"] = "text";
-			element["columns"][1]["value"] = dist_string+"m";
-
-			mRadarList->addElement(element, ADD_BOTTOM);
+			mRadarList->selectByID(mSelectedAvatar);
 		}
+		avatar_count << (int)avatar_ids.size();
 	}
-
-	mRadarList->sortItems();
-	mRadarList->setScrollPos(scroll_pos);
-	if (mSelectedAvatar.notNull())
-	{
-		mRadarList->selectByID(mSelectedAvatar);
-	}
-
-	// set count
-	std::stringstream avatar_count; 
-	avatar_count.str("");
-	if (avatar_ids.empty())
+	else
 	{
 		mRadarList->addCommentText(getString("no_one_near"), ADD_TOP);
 		avatar_count << "0";
 	}
-	else
-	{
-		avatar_count << (int)avatar_ids.size();
-	}
+
 	childSetText("lblAvatarCount", avatar_count.str());
 
 	toggleButtons();
