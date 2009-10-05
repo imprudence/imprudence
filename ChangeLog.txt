@@ -1,5 +1,10 @@
 2009-10-04 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Changes that should improve sculpty LOD.
+	
+	  modified:   linden/indra/llmath/llvolume.cpp
+	  
+	  
 	* Fixed mini-map distance label and rounding.
 	
 	  modified:   linden/indra/newview/llfloatermap.cpp
