@@ -2014,10 +2014,10 @@ EAcceptance LLToolDragAndDrop::dad3dRezAttachmentFromInv(
 		return ACCEPT_NO;
 	}
 
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c) | Modified: RLVa-1.0.0c
+// [RLVa:KB] - Checked: 2009-09-08 (RLVa-1.0.2c) | Modified: RLVa-1.0.2c
 	LLViewerJointAttachment* pAttachPt = NULL;
 	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasLockedAttachment()) && (!RlvSettings::getEnableWear()) &&
-		 ( ((pAttachPt = gRlvHandler.getAttachPoint(item, true)) == NULL) || (!gRlvHandler.isDetachable(pAttachPt->getObject())) ) )
+		 ( ((pAttachPt = gRlvHandler.getAttachPoint(item, true)) == NULL) || (!gRlvHandler.isDetachable(pAttachPt)) ) )
 	{
 		return ACCEPT_NO_LOCKED;
 	}

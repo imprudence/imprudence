@@ -93,7 +93,7 @@ inline bool rlvIsWearingItem(const LLInventoryItem* pItem)
 static bool rlvParseNotifyOption(const std::string& strOption, S32& nChannel, std::string& strFilter)
 {
 	boost_tokenizer tokens(strOption, boost::char_separator<char>(";", "", boost::keep_empty_tokens));
-	boost_tokenizer::iterator itTok = tokens.begin();
+	boost_tokenizer::const_iterator itTok = tokens.begin();
 
 	// Extract and sanity check the first token (required) which is the channel
 	if ( (itTok == tokens.end()) || (!LLStringUtil::convertToS32(*itTok, nChannel)) || (!rlvIsValidChannel(nChannel)) )
@@ -274,7 +274,7 @@ bool RlvHandler::isDetachableExcept(S32 idxAttachPt, LLViewerObject *pObj) const
 	return true;
 }
 
-// Checked: 2009-05-31 (RLVa-0.2.0e) | Modified: RLVa-0.2.0e
+// Checked: 2009-09-06 (RLVa-1.0.2b) | Modified: RLVa-1.0.2b
 bool RlvHandler::setDetachable(S32 idxAttachPt, const LLUUID& idRlvObj, bool fDetachable)
 {
 	// Sanity check - make sure it's an object we know about
@@ -284,20 +284,12 @@ bool RlvHandler::setDetachable(S32 idxAttachPt, const LLUUID& idRlvObj, bool fDe
 
 	if (!fDetachable)
 	{
-		// Sanity check - make sure it's not already marked undetachable by this object (NOTE: m_Attachments is a *multimap*, not a map)
-		for (rlv_detach_map_t::const_iterator itAttach = m_Attachments.lower_bound(idxAttachPt), 
-				endAttach = m_Attachments.upper_bound(idxAttachPt); itAttach != endAttach; ++itAttach)
-		{
-			if (itObj->second.m_UUID == itAttach->second)
-				return false;
-		}
-
+		// NOTE: m_Attachments can contain duplicate <idxAttachPt, idRlvObj> pairs (ie @detach:spine=n,detach=n from an attachment on spine)
 		m_Attachments.insert(std::pair<S32, LLUUID>(idxAttachPt, itObj->second.m_UUID));
 		return true;
 	}
 	else
 	{
-		// NOTE: m_Attachments is a *multimap*, not a map
 		for (rlv_detach_map_t::iterator itAttach = m_Attachments.lower_bound(idxAttachPt), 
 				endAttach = m_Attachments.upper_bound(idxAttachPt); itAttach != endAttach; ++itAttach)
 		{
@@ -325,11 +317,11 @@ bool RlvHandler::setDetachable(S32 idxAttachPt, const LLUUID& idRlvObj, bool fDe
 			LLViewerInventoryItem* pItem = gInventory.getItem(idItem);
 			if (pItem)
 			{
-				if (-1 != pItem->getName().find(RLV_FOLDER_FLAG_NOSTRIP))
+				if (std::string::npos != pItem->getName().find(RLV_FOLDER_FLAG_NOSTRIP))
 					return false;
 
 				LLViewerInventoryCategory* pFolder = gInventory.getCategory(pItem->getParentUUID());
-				if ( (pFolder) && (-1 != pFolder->getName().find(RLV_FOLDER_FLAG_NOSTRIP)) )
+				if ( (pFolder) && (std::string::npos != pFolder->getName().find(RLV_FOLDER_FLAG_NOSTRIP)) )
 					return false;
 			}
 		}
@@ -499,7 +491,7 @@ BOOL RlvHandler::processCommand(const LLUUID& uuid, const std::string& strCmd, b
 							itCurCmd = itCmd++;		// Point itCmd ahead so it won't get invalidated if/when we erase a command
 
 							const RlvCommand& rlvCmdRem = *itCurCmd;
-							if ( (strFilter.empty()) || (-1 != rlvCmdRem.asString().find(strFilter)) )
+							if ( (strFilter.empty()) || (std::string::npos != rlvCmdRem.asString().find(strFilter)) )
 							{
 								fContinue = (rlvObj.m_Commands.size() > 1); // rlvObj will become invalid once we remove the last command
 								strCmdRem = rlvCmdRem.getBehaviour() + ":" + rlvCmdRem.getOption() + "=y";
@@ -780,22 +772,15 @@ BOOL RlvHandler::processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvC
 	{
 		case RLV_BHVR_DETACH:				// @detach[:<option>]=y		- Checked: 2009-08-04 (RLVa-1.0.1d) | Modified: RLVa-1.0.1d
 			{
-				S32 idxAttachPt;
+				S32 idxAttachPt = 0;
 				if (strOption.empty())												// @detach=y
 				{
-					// The object may or may not (if it got detached) still exist so clean up the hard way
-					if (m_Objects.find(uuid) != m_Objects.end())
-					{
-						for (rlv_detach_map_t::const_iterator itAttach = m_Attachments.begin(), endAttach = m_Attachments.end();
-							itAttach != endAttach; ++itAttach)
-						{
-							if (itAttach->second == uuid)
-							{
-								setDetachable(itAttach->first, uuid, true); // <- invalidates our iterators on return
-								break;
-							}
-						}
-					}
+					// The object may or may not (if it got detached) still exist
+					rlv_object_map_t::const_iterator itObj = m_Objects.find(uuid);
+					if (itObj != m_Objects.end())
+						idxAttachPt = itObj->second.m_idxAttachPt;
+					if (idxAttachPt)
+						setDetachable(idxAttachPt, uuid, true);
 				}
 				else if ((idxAttachPt = getAttachPointIndex(strOption, true)))		// @detach:<attachpt>=y
 				{
@@ -946,10 +931,8 @@ BOOL RlvHandler::processForceCommand(const LLUUID& idObj, const RlvCommand& rlvC
 				{
 					LLVector3d posGlobal;
 
-					typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-					boost::char_separator<char> sep("/", "", boost::keep_empty_tokens);
-					tokenizer tokens(strOption, sep); int idx = 0;
-					for (tokenizer::iterator itToken = tokens.begin(); itToken != tokens.end(); ++itToken)
+					boost_tokenizer tokens(strOption, boost::char_separator<char>("/", "", boost::keep_empty_tokens)); int idx = 0;
+					for (boost_tokenizer::const_iterator itToken = tokens.begin(); itToken != tokens.end(); ++itToken)
 					{
 						if (idx < 3)
 							LLStringUtil::convertToF64(*itToken, posGlobal[idx++]);
@@ -1165,7 +1148,7 @@ BOOL RlvHandler::processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCm
 		case RLV_BHVR_GETINVWORN:		// @getinvworn[:path]=<channel>		  - Checked:
 			onGetInvWorn(rlvCmd.getOption(), strReply);
 			break;
-		case RLV_BHVR_FINDFOLDER:		// @findfolder:<criteria>=<channel>   - Checked: 2009-07-12 (RLVa-1.0.0h)
+		case RLV_BHVR_FINDFOLDER:		// @findfolder:<criteria>=<channel>   - Checked: 2009-08-26 (RLVa-1.0.2a) | Modified: RLVa-1.0.2a
 			{
 				// COMPAT-RLV: RLV 1.16.1 returns the first random folder it finds (probably tries to match "" to a folder name?)
 				//             (just going to stick with what's there for now... no option => no folder)
@@ -1173,7 +1156,8 @@ BOOL RlvHandler::processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCm
 				if ( (!strOption.empty()) && (findSharedFolders(strOption, folders)) )
 				{
 					// We need to return an "in depth" result so whoever has the most '/' is our lucky winner
-					int maxSlashes = 0, curSlashes; std::string strFolderName;
+					// (maxSlashes needs to be initialized to -1 since children of the #RLV folder won't have '/' in their shared path)
+					int maxSlashes = -1, curSlashes; std::string strFolderName;
 					for (S32 idxFolder = 0, cntFolder = folders.count(); idxFolder < cntFolder; idxFolder++)
 					{
 						strFolderName = getSharedPath(folders.get(idxFolder));
@@ -1307,6 +1291,9 @@ void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt, bool fFullyLoaded)
 	rlv_object_map_t::iterator itObj = m_Objects.find(pObj->getID());
 	if (itObj != m_Objects.end())
 	{
+		// Save the attachment point index
+		itObj->second.m_idxAttachPt = idxAttachPt;
+
 		// If it's an attachment we processed commands for but that only just rezzed in we need to mark it as existing in gObjectList
 		if (!itObj->second.m_fLookup)
 			itObj->second.m_fLookup = true;
@@ -1315,7 +1302,7 @@ void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt, bool fFullyLoaded)
 		if (itObj->second.hasBehaviour(RLV_BHVR_DETACH))
 		{
 			// (Copy/paste from processAddCommand)
-			setDetachable(pObj, pObj->getID(), false);
+			setDetachable(idxAttachPt, pObj->getID(), false);
 
 			if (pObj->isHUDAttachment())
 				LLPipeline::sShowHUDAttachments = TRUE;	// Prevents hiding of locked HUD attachments
@@ -1365,29 +1352,15 @@ void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt, bool fFullyLoaded)
 				 (!getAttachPoint(pFolder, true)) )
 			{
 				// It's no mod and its parent folder doesn't contain an attach point
-				LLInventoryModel::cat_array_t*  pFolders;
-				LLInventoryModel::item_array_t* pItems;
-				gInventory.getDirectDescendentsOf(pFolder->getUUID(), pFolders, pItems);
-
-				if (pItems)
+				if ( (1 == rlvGetDirectDescendentsCount(pFolder, LLAssetType::AT_OBJECT)) && (NEW_CATEGORY_NAME == pFolder->getName()) )
 				{
-					int cntObjects = 0;
-					for (S32 idxItem = 0, cntItem = pItems->size(); idxItem < cntItem; idxItem++)
-					{
-						if (LLAssetType::AT_OBJECT == pItems->get(idxItem)->getType())
-							cntObjects++;
-					}
-
 					// Only rename if there's exactly 1 object/attachment inside of it [see LLFolderBridge::renameItem()]
-					if ( (1 == cntObjects) && (NEW_CATEGORY_NAME == pFolder->getName()) )
-					{
-						std::string strName = ".(" + strAttachPt + ")";
+					std::string strName = ".(" + strAttachPt + ")";
 
-						pFolder->rename(strName);
-						pFolder->updateServer(FALSE);
-						gInventory.updateCategory(pFolder);
-						//gInventory.notifyObservers(); <- done further down in LLVOAvatar::attachObject()
-					}
+					pFolder->rename(strName);
+					pFolder->updateServer(FALSE);
+					gInventory.updateCategory(pFolder);
+					//gInventory.notifyObservers(); <- done further down in LLVOAvatar::attachObject()
 				}
 			}
 		}
@@ -1864,10 +1837,8 @@ LLViewerInventoryCategory* RlvHandler::getSharedFolder(const std::string& strPat
 		return NULL;
 
 	// Walk the path (starting at the root)
-	typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-	boost::char_separator<char> sep("/", "", boost::drop_empty_tokens);
-	tokenizer tokens(strPath, sep);
-	for (tokenizer::iterator itToken = tokens.begin(); itToken != tokens.end(); ++itToken)
+	boost_tokenizer tokens(strPath, boost::char_separator<char>("/", "", boost::drop_empty_tokens));
+	for (boost_tokenizer::const_iterator itToken = tokens.begin(); itToken != tokens.end(); ++itToken)
 	{
 		pFolder = getSharedFolder(pFolder->getUUID(), *itToken);
 		if (!pFolder)
@@ -2102,15 +2073,10 @@ void RlvHandler::onForceRemOutfit(const LLUUID& idObj, const std::string& strOpt
 	for (int idxType = 0; idxType < WT_COUNT; idxType++)
 	{
 		type = (EWearableType)idxType;
+		if (LLAssetType::AT_CLOTHING != LLWearable::typeToAssetType(type))
+			continue; // Only strip clothing, not bodyparts
 
-		// Only strip clothing (that's currently worn and not marked "nostrip")
-		if ( (LLAssetType::AT_CLOTHING != LLWearable::typeToAssetType(type)) ||	
-			 (!gAgent.getWearable(type)) || (!isStrippable(gAgent.getWearableItem(type))) )
-		{
-			continue;
-		}
-
-		if ( (typeOption == type) || (strOption.empty()) )
+		if ( ((typeOption == type) || (strOption.empty())) && (gAgent.getWearable(type)) && (isStrippable(gAgent.getWearableItem(type))) )
 		{
 			#ifdef RLV_EXPERIMENTAL_COMPOSITES
 				// If we're stripping something that's part of a composite folder then we should @detachthis instead
@@ -2238,7 +2204,7 @@ void RlvHandler::onForceWear(const std::string& strPath, bool fAttach, bool fMat
 								// Simulate wearing an object to a specific attachment point (copy/paste to suppress replacement dialog)
 								// LLAttachObject::handleEvent() => rez_attachment()
 								LLViewerJointAttachment* pAttachPt = getAttachPoint(pItem, true);
-								if ( (pAttachPt) && (isDetachable(pAttachPt->getObject())) )
+								if ( (pAttachPt) && (isDetachable(pAttachPt)) )
 								{
 									#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
 										LLAttachmentRezAction* rez_action = new LLAttachmentRezAction;
@@ -2498,7 +2464,7 @@ BOOL RlvHandler::setEnabled(BOOL fEnable)
 
 BOOL RlvHandler::canDisable()
 {
-	return TRUE;
+	return FALSE;
 }
 
 void RlvHandler::clearState()

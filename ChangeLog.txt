@@ -1,3 +1,17 @@
+2009-10-06 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Applied RLVa-1.0.2c_20091005_Imprudence-1.2.0-diff.patch.
+	
+	  modified:   linden/indra/newview/llinventorybridge.cpp
+	  modified:   linden/indra/newview/lltooldraganddrop.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  modified:   linden/indra/newview/rlvhandler.cpp
+	  modified:   linden/indra/newview/rlvhandler.h
+	  modified:   linden/indra/newview/rlvhelper.cpp
+	  modified:   linden/indra/newview/rlvhelper.h
+	  
+
 2009-10-05 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Renamed 'Create' in object pie to 'Build,' moved it to top right and switched 'Wear' and 'Return.'

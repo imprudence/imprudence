@@ -2579,18 +2579,16 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 				verb = " " + LLTrans::getString("whisper") + " ";
 				break;
 			case CHAT_TYPE_OWNER:
-// [RLVa:KB] - Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
-				if ( (rlv_handler_t::isEnabled()) && (mesg.length() > 3) && (RLV_CMD_PREFIX == mesg[0]) )
+// [RLVa:KB] - Checked: 2009-08-28 (RLVa-1.0.2a) | Modified: RLVa-1.0.2a
+				if ( (rlv_handler_t::isEnabled()) && (mesg.length() > 3) && (RLV_CMD_PREFIX == mesg[0]) && (CHAT_TYPE_OWNER == chat.mChatType) )
 				{
 					mesg.erase(0, 1);
 					LLStringUtil::toLower(mesg);
 
 					std::string strExecuted, strFailed, strRetained, *pstr;
 
-					typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-					boost::char_separator<char> sep(",", "", boost::drop_empty_tokens);
-					tokenizer tokens(mesg, sep);
-					for (tokenizer::iterator itToken = tokens.begin(); itToken != tokens.end(); ++itToken)
+					boost_tokenizer tokens(mesg, boost::char_separator<char>(",", "", boost::drop_empty_tokens));
+					for (boost_tokenizer::const_iterator itToken = tokens.begin(); itToken != tokens.end(); ++itToken)
 					{
 						if (LLStartUp::getStartupState() == STATE_STARTED)
 						{

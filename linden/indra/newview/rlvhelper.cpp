@@ -409,12 +409,11 @@ bool rlvCanDeleteOrReturn()
 	return fIsAllowed;
 }
 
-// Checked: 2009-07-05 (RLVa-1.0.0c)
+// Checked: 2009-09-08 (RLVa-1.0.2c) | Modified: RLVa-1.0.2c
 BOOL rlvAttachToEnabler(void* pParam)
 {
 	// Enables/disables an option on the "Attach to (HUD)" submenu depending on whether it is (un)detachable
-	LLViewerJointAttachment* pAttachment = (LLViewerJointAttachment*)pParam;
-	return (!pAttachment) || (gRlvHandler.isDetachable(pAttachment->getObject()));
+	return gRlvHandler.isDetachable((LLViewerJointAttachment*)pParam);
 }
 
 BOOL RlvGCTimer::tick()
@@ -670,5 +669,9 @@ std::string rlvGetLastParenthesisedText(const std::string& strText, std::string:
 	}
 	return std::string();
 }
+
+// =========================================================================
+// Debug helper functions
+//
 
 // =========================================================================

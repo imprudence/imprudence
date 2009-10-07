@@ -6045,9 +6045,9 @@ private:
 
 // [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
 			if ( (rlv_handler_t::isEnabled()) &&
-				 ( ((index == 0) && (gRlvHandler.hasLockedAttachment())) ||						  // Can't wear on default attach point
-				   ((index > 0) && (!gRlvHandler.isDetachable(attachment_point->getObject()))) || // Can't replace locked attachment
-				   (gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) ) )									  // Attach on rezzed object == "Take"
+				 ( ((index == 0) && (gRlvHandler.hasLockedAttachment())) ||			 // Can't wear on default attach point
+				   ((index > 0) && (!gRlvHandler.isDetachable(attachment_point))) || // Can't replace locked attachment
+				   (gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) ) )						 // Attach on rezzed object == "Take"
 			{
 				setObjectSelection(NULL); // Clear the selection or it'll get stuck
 				return true;
@@ -6449,9 +6449,9 @@ BOOL object_selected_and_point_valid(void *user_data)
 		//      - enabler set up in LLVOAvatar::buildCharacter() => Rezzed prim / right-click / "Attach >" [user_data == pAttachPt]
 		//      - enabler set up in LLVOAvatar::buildCharacter() => Rezzed prim / Edit menu / "Attach Object" [user_data == pAttachPt]
 		LLViewerJointAttachment* pAttachPt = (LLViewerJointAttachment*)user_data;
-		if  ( ((!pAttachPt) && (gRlvHandler.hasLockedAttachment())) ||					// Don't allow attach to default attach point
-			  ((pAttachPt) && (!gRlvHandler.isDetachable(pAttachPt->getObject()))) ||	// Don't allow replacing of locked attachment
-			  (gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) )								// Attaching a rezzed object == "Take"
+		if  ( ((!pAttachPt) && (gRlvHandler.hasLockedAttachment())) ||		// Don't allow attach to default attach point
+			  ((pAttachPt) && (!gRlvHandler.isDetachable(pAttachPt))) ||	// Don't allow replacing of locked attachment
+			  (gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) )					// Attaching a rezzed object == "Take"
 		{
 			return FALSE;
 		}

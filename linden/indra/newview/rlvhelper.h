@@ -55,8 +55,8 @@ const S32 RLV_VERSION_PATCH = 0;
 // Implementation version
 const S32 RLVa_VERSION_MAJOR = 1;
 const S32 RLVa_VERSION_MINOR = 0;
-const S32 RLVa_VERSION_PATCH = 1;
-const S32 RLVa_VERSION_BUILD = 7;
+const S32 RLVa_VERSION_PATCH = 2;
+const S32 RLVa_VERSION_BUILD = 2;
 
 // The official viewer version we're patching against
 #define RLV_MAKE_TARGET(x, y, z)	((x << 16) | (y << 8) | z)
@@ -249,7 +249,12 @@ typedef std::list<RlvCommand> rlv_command_list_t;
 class RlvObject
 {
 public:
-	RlvObject(const LLUUID& uuid) : m_UUID(uuid), m_nLookupMisses(0) { m_fLookup = (NULL != gObjectList.findObject(uuid)); }
+	RlvObject(const LLUUID& uuid) : m_UUID(uuid), m_nLookupMisses(0)
+	{
+		LLViewerObject* pObj = gObjectList.findObject(uuid);
+		m_fLookup = (NULL != pObj);
+		m_idxAttachPt = (pObj) ? ATTACHMENT_ID_FROM_STATE(pObj->getState()) : 0;
+	}
 
 	BOOL addCommand(const RlvCommand& rlvCmd);
 	BOOL removeCommand(const RlvCommand& rlvCmd);
@@ -264,6 +269,7 @@ public:
 	const rlv_command_list_t* getCommandList() const { return &m_Commands; }
 protected:
 	LLUUID             m_UUID;				// The object's UUID
+	S32                m_idxAttachPt;		// The object's attachment point (or 0 if it's not an attachment)
 	bool               m_fLookup;			// TRUE if the object existed in gObjectList at one point in time
 	S16                m_nLookupMisses;		// Count of unsuccessful lookups in gObjectList by the GC
 	rlv_command_list_t m_Commands;			// List of behaviours held by this object (in the order they were received)
@@ -284,11 +290,16 @@ class RlvCriteriaCategoryCollector : public LLInventoryCollectFunctor
 public:
 	RlvCriteriaCategoryCollector(const std::string& strCriteria)
 	{
-		typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-		boost::char_separator<char> sep("&&", "", boost::drop_empty_tokens);
-		tokenizer tokens(strCriteria, sep);
-		for (tokenizer::iterator itToken = tokens.begin(); itToken != tokens.end(); ++itToken)
-			m_Criteria.push_back(*itToken);
+		std::string::size_type idxIt, idxLast = 0;
+		while (idxLast < strCriteria.length())
+		{
+			idxIt = strCriteria.find("&&", idxLast);
+			if (std::string::npos == idxIt)
+				idxIt = strCriteria.length();
+			if (idxIt != idxLast)
+				m_Criteria.push_back(strCriteria.substr(idxLast, idxIt - idxLast));
+			idxLast = idxIt + 2;
+		}
 	}
 	virtual ~RlvCriteriaCategoryCollector() {}
 
@@ -304,7 +315,7 @@ public:
 			return false;
 
 		for (std::list<std::string>::const_iterator itCrit = m_Criteria.begin(); itCrit != m_Criteria.end(); ++itCrit)
-			if (-1 == strFolderName.find(*itCrit))	// Return false on the first mismatch
+			if (std::string::npos == strFolderName.find(*itCrit))	// Return false on the first mismatch
 				return false;
 		return true;
 	}
@@ -317,7 +328,7 @@ protected:
 /*
  * RlvWearableItemCollector
  * ========================
- * Inventory item filter used by attach/detach/attachall/detachall/getinvworn (also used by "Add/Replace Outfit" and "Take Off Items")
+ * Inventory item filter used by attach/detach/attachall/detachall/getinvworn
  *
  */
 
@@ -349,11 +360,8 @@ protected:
 };
 
 // ============================================================================
-/*
- * RlvRetainedCommand
- * ==================
- *
- */
+// RlvRetainedCommand
+//
 
 struct RlvRetainedCommand
 {
@@ -369,11 +377,8 @@ private:
 typedef std::list<RlvRetainedCommand> rlv_retained_list_t;
 
 // ============================================================================
-/*
- * RlvWLSnapshot
- * =============
- *
- */
+// RlvWLSnapshot
+//
 
 struct RlvWLSnapshot
 {
@@ -389,11 +394,8 @@ private:
 };
 
 // ============================================================================
-/*
- * RlvSettings
- * ===========
- *
- */
+// RlvSettings
+//
 
 #define RLV_SETTING_MAIN				"RestrainedLife"
 #define RLV_SETTING_DEBUG				"RestrainedLifeDebug"
@@ -437,10 +439,8 @@ public:
 };
 
 // ============================================================================
-/*
- * State keeping classes/structure
- *
- */
+// State keeping classes/structure
+//
 
 struct RlvRedirInfo
 {
@@ -461,10 +461,8 @@ struct RlvReattachInfo
 };
 
 // ============================================================================
-/*
- * Various helper classes/timers/functors
- *
- */
+// Various helper classes/timers/functors
+//
 
 class RlvGCTimer : public LLEventTimer
 {
@@ -504,10 +502,8 @@ struct RlvSelectIsSittingOn : public LLSelectedNodeFunctor
 };
 
 // ============================================================================
-/*
- * Various helper functions
- *
- */
+// Various helper functions
+//
 
 BOOL rlvAttachToEnabler(void* pParam);
 bool rlvCanDeleteOrReturn();
@@ -524,6 +520,10 @@ bool rlvSendChatReply(S32 nChannel, const std::string& strReply);
 void rlvStringReplace(std::string& strText, std::string strFrom, const std::string& strTo);
 std::string rlvGetFirstParenthesisedText(const std::string& strText, std::string::size_type* pidxMatch = NULL);
 std::string rlvGetLastParenthesisedText(const std::string& strText, std::string::size_type* pidxStart = NULL);
+
+// ============================================================================
+// Debug helper functions
+//
 
 #ifdef RLV_ADVANCED_TOGGLE_RLVA
 	// "Advanced / RLVa / Enable RLV" menu option
@@ -561,10 +561,10 @@ inline bool rlvIsEmote(const std::string& strUTF8Text)
 	return (strUTF8Text.length() > 4) && ( (strUTF8Text.compare(0, 4, "/me ") == 0) || (strUTF8Text.compare(0, 4, "/me'") == 0) );
 }
 
-// Checked: 2009-08-05 (RLVa-1.0.1e) | Added: RLVa-1.0.0e
+// Checked: 2009-09-05 (RLVa-1.0.2a) | Added: RLVa-1.0.2a
 inline bool rlvIsValidChannel(S32 nChannel)
 {
-	return (nChannel >= 0) && (CHAT_CHANNEL_DEBUG != nChannel);
+	return (nChannel > 0) && (CHAT_CHANNEL_DEBUG != nChannel);
 }
 
 // Checked: 2009-08-05 (RLVa-1.0.1e) | Added: RLVa-1.0.0e
