@@ -1,4 +1,4 @@
-2009-10-06 McCabe Maxsted  <hakushakukun@gmail.com>
+2009-10-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed random mouseclicks on the edge of the window.
 	
