@@ -1,5 +1,11 @@
 2009-10-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Applied avatar height in customize window from Emerald viewer.
+	
+	  modified:   linden/indra/newview/llfloatercustomize.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_customize.xml
+	  
+	  
 	* Fixed random mouseclicks on the edge of the window.
 	
 	  modified:   linden/indra/newview/llviewerwindow.cpp
