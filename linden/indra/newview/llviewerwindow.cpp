@@ -596,7 +596,14 @@ BOOL LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK 
 	}
 
 	// Make sure we get a coresponding mouseup event, even if the mouse leaves the window
-	mWindow->captureMouse();
+	if (down)
+	{
+		mWindow->captureMouse();
+	}
+	else
+	{
+		mWindow->releaseMouse();
+	}
 
 	// Indicate mouse was active
 	gMouseIdleTimer.reset();

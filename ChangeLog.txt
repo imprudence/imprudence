@@ -1,5 +1,12 @@
 2009-10-06 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed random mouseclicks on the edge of the window.
+	
+	  modified:   linden/indra/newview/llviewerwindow.cpp
+
+
+2009-10-06 McCabe Maxsted  <hakushakukun@gmail.com>
+
 	* Applied RLVa-1.0.3e_20091005_Imprudence-1.2.0-diff.patch by Kitty Barnett.
 	
 	  modified:   linden/indra/newview/CMakeLists.txt
