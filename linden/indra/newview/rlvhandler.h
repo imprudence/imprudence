@@ -14,17 +14,11 @@
 #include "rlvmultistringsearch.h"
 
 // ============================================================================
-/*
- * RlvHandler
- * ==========
- *
- */
 
 typedef std::map<LLUUID, RlvObject> rlv_object_map_t;
 typedef std::multimap<S32, LLUUID> rlv_detach_map_t;
 typedef std::map<S32, LLUUID> rlv_reattach_map_t;
 typedef std::multimap<LLUUID, ERlvBehaviour> rlv_exception_map_t;
-typedef std::map<S32, RlvRedirInfo> rlv_redir_map_t;
 
 class RlvHandler
 {
@@ -195,6 +189,7 @@ public:
 protected:
 	BOOL processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd);
 	BOOL processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvCmd);
+	BOOL processClearCommand(const LLUUID& idObj, const RlvCommand& rlvCmd);
 	BOOL processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCmd) const;
 	BOOL processForceCommand(const LLUUID& uuid, const RlvCommand& rlvCmd) const;
 
@@ -235,7 +230,6 @@ protected:
 	rlv_retained_list_t  m_Retained;
 	rlv_reattach_map_t   m_AttachPending;
 	rlv_reattach_map_t   m_DetachPending;
-	rlv_redir_map_t      m_Redirections;
 	RlvGCTimer*          m_pGCTimer;
 	RlvWLSnapshot*       m_pWLSnapshot;
 

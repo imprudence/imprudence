@@ -1,6 +1,27 @@
 2009-10-06 McCabe Maxsted  <hakushakukun@gmail.com>
 
-	* Applied RLVa-1.0.2c_20091005_Imprudence-1.2.0-diff.patch.
+	* Applied RLVa-1.0.3e_20091005_Imprudence-1.2.0-diff.patch by Kitty Barnett.
+	
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llfirstuse.cpp
+	  modified:   linden/indra/newview/llfirstuse.h
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  modified:   linden/indra/newview/rlvevent.h
+	  modified:   linden/indra/newview/rlvextensions.cpp
+	  modified:   linden/indra/newview/rlvhandler.cpp
+	  modified:   linden/indra/newview/rlvhandler.h
+	  modified:   linden/indra/newview/rlvhelper.cpp
+	  modified:   linden/indra/newview/rlvhelper.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
+	
+	
+	* Applied RLVa-1.0.2c_20091005_Imprudence-1.2.0-diff.patch by Kitty Barnett.
 	
 	  modified:   linden/indra/newview/llinventorybridge.cpp
 	  modified:   linden/indra/newview/lltooldraganddrop.cpp

@@ -953,7 +953,7 @@ void init_client_menu(LLMenuGL* menu)
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-1.0.0e
 	#ifdef RLV_ADVANCED_TOGGLE_RLVA
 		if (gSavedSettings.controlExists(RLV_SETTING_MAIN))
-			menu->append(new LLMenuItemCheckGL("Restrained Life API", &rlvDbgToggleEnabled, NULL, &rlvDbgGetEnabled, NULL));
+			menu->append(new LLMenuItemCheckGL("Restrained Life API", &rlvToggleEnabled, NULL, &rlvGetEnabled, NULL));
 	#endif // RLV_ADVANCED_TOGGLE_RLVA
 // [/RLVa:KB]
 
@@ -1407,30 +1407,24 @@ void init_debug_baked_texture_menu(LLMenuGL* menu)
 // [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-1.0.0g
 void init_debug_rlva_menu(LLMenuGL* menu)
 {
-	// Experimental feature toggles
+	// Debug options
 	{
-		/*
-		#ifdef RLV_EXPERIMENTAL
-			LLMenuGL* sub_menu = new LLMenuGL("Experimental");
+		LLMenuGL* pDbgMenu = new LLMenuGL("Debug");
 
-			menu->appendMenu(sub_menu);
-		#endif // RLV_EXPERIMENTAL
-		*/
-	}
+		if (gSavedSettings.controlExists(RLV_SETTING_DEBUG))
+			pDbgMenu->append(new LLMenuItemCheckGL("Show Debug Messages", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_DEBUG));
+		pDbgMenu->appendSeparator();
+		if (gSavedSettings.controlExists(RLV_SETTING_ENABLELEGACYNAMING))
+			pDbgMenu->append(new LLMenuItemCheckGL("Enable Legacy Naming", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_ENABLELEGACYNAMING));
 
-	// Unit tests
-	{
-		#ifdef RLV_DEBUG_TESTS
-			init_debug_rlva_tests_menu(menu);
-		#endif // RLV_DEBUG_TESTS
+		menu->appendMenu(pDbgMenu);
+		menu->appendSeparator();
 	}
 
 	#ifdef RLV_EXTENSION_ENABLE_WEAR
 		if (gSavedSettings.controlExists(RLV_SETTING_ENABLEWEAR))
-		{
 			menu->append(new LLMenuItemCheckGL("Enable Wear", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_ENABLEWEAR));
-			menu->appendSeparator();
-		}
+		menu->appendSeparator();
 	#endif // RLV_EXTENSION_ENABLE_WEAR
 
 	#ifdef RLV_EXTENSION_HIDELOCKED
@@ -1443,6 +1437,12 @@ void init_debug_rlva_menu(LLMenuGL* menu)
 			menu->appendSeparator();
 		}
 	#endif // RLV_EXTENSION_HIDELOCKED
+
+	if (gSavedSettings.controlExists(RLV_SETTING_FORBIDGIVETORLV))
+		menu->append(new LLMenuItemCheckGL("Forbid Give to #RLV", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_FORBIDGIVETORLV));
+	if (gSavedSettings.controlExists(RLV_SETTING_ENABLELEGACYNAMING))
+		menu->append(new LLMenuItemCheckGL("Show Name Tags", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_SHOWNAMETAGS));
+	menu->appendSeparator();
 
 	#ifdef RLV_EXTENSION_FLOATER_RESTRICTIONS
 		// TODO-RLVa: figure out a way to tell if floater_rlv_behaviour.xml exists
@@ -10376,7 +10376,7 @@ class RLVaMainToggle : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		rlvDbgToggleEnabled(NULL);
+		rlvToggleEnabled(NULL);
 		return true;
 	}
 };
@@ -10385,7 +10385,7 @@ class RLVaMainCheck : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		bool new_value = rlvDbgGetEnabled(NULL);
+		bool new_value = rlvGetEnabled(NULL);
 		std::string control_name = userdata["control"].asString();
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;

@@ -35,6 +35,10 @@
 #include <vector>
 #include "llstring.h"
 
+// [RLVa:KB]
+#include "rlvdefines.h"
+// [/RLVa:KB]
+
 /*
 1.  On first use of 'sit here', explain how to get up and rotate view. 
 
@@ -109,6 +113,19 @@ public:
 	
 protected:
 	static std::set<std::string> sConfigVariables;
+
+// [RLVa:KB] - Checked: RLVa-1.0.3a (2009-09-10) | Added: RLVa-1.0.3a
+public:
+	static void showRlvFirstUseNotification(const std::string& strName);
+
+	static void useRlvDetach()		{ showRlvFirstUseNotification(RLV_SETTING_FIRSTUSE_DETACH); }
+	static void useRlvEnableWear()	{ showRlvFirstUseNotification(RLV_SETTING_FIRSTUSE_ENABLEWEAR); }
+	static void useRlvFartouch()	{ showRlvFirstUseNotification(RLV_SETTING_FIRSTUSE_FARTOUCH); }
+
+	static void warnRlvGiveToRLV();
+protected:
+	static void onRlvGiveToRLVConfirmation(S32 idxOption, void* pUserParam);
+// [/RLVa:KB]
 };
 
 #endif

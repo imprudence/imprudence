@@ -1402,11 +1402,33 @@
 
     <menu name="RLVa" drop_shadow="true" opaque="true" tear_off="true">
 
+      <menu name="Debug" drop_shadow="true" opaque="true" tear_off="true">
+
+        <menu_item_check name="Show Debug Messages"
+                         label="Show Debug Messages">
+          <on_click function="ToggleControl" userdata="RestrainedLifeDebug" />
+          <on_check control="RestrainedLifeDebug" />
+        </menu_item_check>
+
+        <menu_item_separator />
+
+        <menu_item_check name="Enable Legacy Naming"
+                         label="Enable Legacy Naming">
+          <on_click function="ToggleControl" userdata="RLVaEnableLegacyNaming" />
+          <on_check control="RLVaEnableLegacyNaming" />
+        </menu_item_check>
+
+      </menu>
+
+      <menu_item_separator />
+
       <menu_item_check name="Enable Wear" label="Enable Wear">
         <on_click function="ToggleControl" userdata="RLVaEnableWear" />
         <on_check control="RLVaEnableWear" />
       </menu_item_check>
-      
+
+      <menu_item_separator />
+
       <menu_item_check name="Hide locked layers" label="Hide locked layers">
         <on_click function="ToggleControl" userdata="RLVaHideLockedLayers" />
         <on_check control="RLVaHideLockedLayers" />
@@ -1427,6 +1449,22 @@
         <on_check control="RLVaHideLockedInventory" />
       </menu_item_check>
       -->
+
+      <menu_item_separator />
+
+      <menu_item_check name="Forbid Give to #RLV" label="Forbid Give to #RLV">
+        <on_click function="ToggleControl"
+                  userdata="RestrainedLifeForbidGiveToRLV" />
+        <on_check control="RestrainedLifeForbidGiveToRLV" />
+      </menu_item_check>
+
+      <menu_item_check name="Show Name Tags" label="Show Name Tags">
+        <on_click function="ToggleControl"
+                  userdata="RLVaShowNameTags" />
+        <on_check control="RLVaShowNameTags" />
+      </menu_item_check>
+
+      <menu_item_separator />
 
       <menu_item_call name="Restrictions..." label="Restrictions...">
         <on_click function="RLVa.Behaviors.Show" userdata="" />

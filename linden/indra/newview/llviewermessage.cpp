@@ -1821,6 +1821,14 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			}
 			else
 			{
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-09-10 (RLVa-1.0.3a)
+				if ( (rlv_handler_t::isEnabled()) && (dialog == IM_TASK_INVENTORY_OFFERED) &&
+					 (info->mDesc.find(RLV_PUTINV_PREFIX) == 1) && (gRlvHandler.getSharedRoot()) )
+				{
+					LLFirstUse::warnRlvGiveToRLV();
+				}
+// [/RLVa:KB]
+
 				inventory_offer_handler(info, dialog == IM_TASK_INVENTORY_OFFERED);
 			}
 		}

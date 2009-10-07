@@ -1,6 +1,7 @@
 #include "llviewerprecompiledheaders.h"
 #include "llagent.h"
 #include "lldrawpoolalpha.h"
+#include "llfirstuse.h"
 #include "llfloaterbeacons.h"
 #include "llfloaterchat.h"
 #include "llfloaterdaycycle.h"
@@ -96,7 +97,7 @@ static bool rlvParseNotifyOption(const std::string& strOption, S32& nChannel, st
 	boost_tokenizer::const_iterator itTok = tokens.begin();
 
 	// Extract and sanity check the first token (required) which is the channel
-	if ( (itTok == tokens.end()) || (!LLStringUtil::convertToS32(*itTok, nChannel)) || (!rlvIsValidChannel(nChannel)) )
+	if ( (itTok == tokens.end()) || (!LLStringUtil::convertToS32(*itTok, nChannel)) || (!rlvIsValidReplyChannel(nChannel)) )
 		return false;
 
 	// Second token (optional) is the filter
@@ -284,6 +285,10 @@ bool RlvHandler::setDetachable(S32 idxAttachPt, const LLUUID& idRlvObj, bool fDe
 
 	if (!fDetachable)
 	{
+		#ifdef RLV_EXPERIMENTAL_FIRSTUSE
+			LLFirstUse::useRlvDetach();
+		#endif // RLV_EXPERIMENTAL_FIRSTUSE
+
 		// NOTE: m_Attachments can contain duplicate <idxAttachPt, idRlvObj> pairs (ie @detach:spine=n,detach=n from an attachment on spine)
 		m_Attachments.insert(std::pair<S32, LLUUID>(idxAttachPt, itObj->second.m_UUID));
 		return true;
@@ -469,6 +474,10 @@ BOOL RlvHandler::processCommand(const LLUUID& uuid, const std::string& strCmd, b
 				}
 			}
 			break;
+		case RLV_TYPE_CLEAR:
+			fRet = processClearCommand(uuid, rlvCmd);
+			notifyBehaviourObservers(rlvCmd, !fFromObj);
+			break;
 		case RLV_TYPE_FORCE:		// Checked:
 			fRet = processForceCommand(uuid, rlvCmd);
 			break;
@@ -476,32 +485,6 @@ BOOL RlvHandler::processCommand(const LLUUID& uuid, const std::string& strCmd, b
 			fRet = processReplyCommand(uuid, rlvCmd);
 			break;
 		case RLV_TYPE_UNKNOWN:		// Checked:
-			{
-				if ("clear" == rlvCmd.getBehaviour())
-				{
-					const std::string& strFilter = rlvCmd.getParam(); std::string strCmdRem;
-
-					rlv_object_map_t::const_iterator itObj = m_Objects.find(uuid);
-					if (itObj != m_Objects.end())	// No sense in @clear'ing if we don't have any commands for this object
-					{
-						const RlvObject& rlvObj = itObj->second; bool fContinue = true;
-						for (rlv_command_list_t::const_iterator itCmd = rlvObj.m_Commands.begin(), itCurCmd; 
-								((fContinue) && (itCmd != rlvObj.m_Commands.end())); )
-						{
-							itCurCmd = itCmd++;		// Point itCmd ahead so it won't get invalidated if/when we erase a command
-
-							const RlvCommand& rlvCmdRem = *itCurCmd;
-							if ( (strFilter.empty()) || (std::string::npos != rlvCmdRem.asString().find(strFilter)) )
-							{
-								fContinue = (rlvObj.m_Commands.size() > 1); // rlvObj will become invalid once we remove the last command
-								strCmdRem = rlvCmdRem.getBehaviour() + ":" + rlvCmdRem.getOption() + "=y";
-								processCommand(uuid, strCmdRem, false);
-							}
-						}
-						fRet = TRUE;
-					}
-				}
-			}
 			break;
 		#ifdef LL_GNUC
 		default:
@@ -661,6 +644,13 @@ BOOL RlvHandler::processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd)
 
 				// Close the "Active Speakers" panel if it's currently visible
 				LLFloaterChat::getInstance()->childSetVisible("active_speakers_panel", false);
+			}
+			break;
+		case RLV_BHVR_FARTOUCH:
+			{
+				#ifdef RLV_EXPERIMENTAL_FIRSTUSE
+					LLFirstUse::useRlvFartouch();
+				#endif // RLV_EXPERIMENTAL_FIRSTUSE
 			}
 			break;
 		case RLV_BHVR_FLY:					// @fly=n					- Checked: 2009-07-05 (RLVa-1.0.0c)
@@ -898,6 +888,35 @@ BOOL RlvHandler::processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvC
 			break;
 	}
 	return TRUE; // Remove commands don't fail, doesn't matter what we return here
+}
+
+BOOL RlvHandler::processClearCommand(const LLUUID& idObj, const RlvCommand& rlvCmd)
+{
+	const std::string& strFilter = rlvCmd.getParam(); std::string strCmdRem;
+
+	rlv_object_map_t::const_iterator itObj = m_Objects.find(idObj);
+	if (itObj != m_Objects.end())	// No sense in clearing if we don't have any commands for this object
+	{
+		const RlvObject& rlvObj = itObj->second; bool fContinue = true;
+		for (rlv_command_list_t::const_iterator itCmd = rlvObj.m_Commands.begin(), itCurCmd;
+				((fContinue) && (itCmd != rlvObj.m_Commands.end())); )
+		{
+			itCurCmd = itCmd++;		// Point itCmd ahead so it won't get invalidated if/when we erase a command
+
+			const RlvCommand& rlvCmdRem = *itCurCmd; strCmdRem = rlvCmdRem.asString();
+			if ( (strFilter.empty()) || (std::string::npos != strCmdRem.find(strFilter)) )
+			{
+				fContinue = (rlvObj.m_Commands.size() > 1); // rlvObj will become invalid once we remove the last command
+				processCommand(idObj, strCmdRem.append("=y"), false);
+			}
+		}
+	}
+
+	// Let our observers know about clear commands
+	RlvEvent rlvEvent(idObj, rlvCmd);
+	m_Emitter.update(&RlvObserver::onClearCommand, rlvEvent);
+
+	return TRUE; // Don't fail clear commands even if the object didn't exist since it confuses people
 }
 
 BOOL RlvHandler::processForceCommand(const LLUUID& idObj, const RlvCommand& rlvCmd) const
