@@ -237,16 +237,16 @@ void LLFloaterMap::populateRadar()
 
 	S32 scroll_pos = mRadarList->getScrollPos();
 
-	LLVector3d current_pos = gAgent.getPositionGlobal();
-
 	// clear count
 	std::stringstream avatar_count; 
 	avatar_count.str("");
 
 	// find what avatars you can see
+	F32 range = gSavedSettings.getF32("NearMeRange");
+	LLVector3d current_pos = gAgent.getPositionGlobal();
 	std::vector<LLUUID> avatar_ids;
 	std::vector<LLVector3d> positions;
-	LLWorld::getInstance()->getAvatars(&avatar_ids, &positions, current_pos, gSavedSettings.getF32("NearMeRange"));
+	LLWorld::getInstance()->getAvatars(&avatar_ids, &positions);
 
 	LLSD element;
 
@@ -277,12 +277,13 @@ void LLFloaterMap::populateRadar()
 				}
 	// [/RLVa:KB]
 
-				// check if they're in chat range and notify user
+				// check if they're in certain ranges and notify user if we've enabled that
 				LLVector3d temp = positions[i] - current_pos;
 				F32 distance = llround((F32)temp.magVec(), 0.1f);
-				char dist[32];
+				/*char dist[32];
 				sprintf(dist, "%.1f", distance);
-				std::string dist_string = dist;
+				std::string dist_string = dist;*/
+				std::string dist_string = llformat("%.1f", distance);
 
 				if (notify_chat)
 				{
@@ -300,7 +301,6 @@ void LLFloaterMap::populateRadar()
 							removeFromChatList(avatar_ids[i]);
 						}
 					}
-
 					updateChatList(avatar_ids);
 				}
 				else if (!mChatAvatars.empty())
@@ -308,7 +308,6 @@ void LLFloaterMap::populateRadar()
 					mChatAvatars.clear();
 				}
 
-				// announce their presence in the sim if we've enabled that
 				if (notify_sim)
 				{
 					if (!getInChatList(avatar_ids[i]) && !getInSimAvList(avatar_ids[i]))
@@ -333,23 +332,27 @@ void LLFloaterMap::populateRadar()
 					mSimAvatars.clear();
 				}
 
-				// append typing string
-				std::string typing = "";
-				if (getIsTyping(avatar_ids[i]))
+				// only display avatars in range
+				if (distance <= range)
 				{
-					typing = getString("is_typing")+ " ";
+					// append typing string
+					std::string typing = "";
+					if (getIsTyping(avatar_ids[i]))
+					{
+						typing = getString("is_typing")+ " ";
+					}
+
+					std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("is_muted") : "";
+					element["id"] = avatar_ids[i];
+					element["columns"][0]["column"] = "avatar_name";
+					element["columns"][0]["type"] = "text";
+					element["columns"][0]["value"] = typing + fullname + " " + mute_text;
+					element["columns"][1]["column"] = "avatar_distance";
+					element["columns"][1]["type"] = "text";
+					element["columns"][1]["value"] = dist_string+"m";
+
+					mRadarList->addElement(element, ADD_BOTTOM);
 				}
-
-				std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("is_muted") : "";
-				element["id"] = avatar_ids[i];
-				element["columns"][0]["column"] = "avatar_name";
-				element["columns"][0]["type"] = "text";
-				element["columns"][0]["value"] = typing + fullname + " " + mute_text;
-				element["columns"][1]["column"] = "avatar_distance";
-				element["columns"][1]["type"] = "text";
-				element["columns"][1]["value"] = dist_string+"m";
-
-				mRadarList->addElement(element, ADD_BOTTOM);
 			}
 		}
 
