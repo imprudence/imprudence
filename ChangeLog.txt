@@ -3,6 +3,11 @@
 	* Fixed entering sim notification being tied to radar range.
 	
 	  modified:   linden/indra/newview/llfloatermap.cpp
+	  
+	  
+	* Fixed stupid error on my part that broke clickable names in chat history.
+	
+	  modified:   linden/indra/newview/llfloaterchat.cpp
 	
 	
 2009-10-07 McCabe Maxsted  <hakushakukun@gmail.com>  
