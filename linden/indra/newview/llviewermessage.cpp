@@ -5470,6 +5470,21 @@ void process_script_dialog(LLMessageSystem* msg, void**)
 	msg->getString("Data", "Message", message);
 	msg->getS32("Data", "ChatChannel", info->mChatChannel);
 
+	// Don't show lldialog boxes from muted avs -- McCabe
+	if (!first_name.empty())
+	{
+		std::string agent_name = first_name + " " + last_name;
+		std::vector<LLMute> mutes = LLMuteList::getInstance()->getMutes();
+		for (U32 i = 0; i < mutes.size(); i++)
+		{
+			if (mutes[i].mName == agent_name)
+			{
+				delete info;
+				return;
+			}
+		}
+	}
+
 		// unused for now
 	LLUUID image_id;
 	msg->getUUID("Data", "ImageID", image_id);

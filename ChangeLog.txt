@@ -1,5 +1,10 @@
 2009-10-08 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Don't show lldialog boxes from muted avatars anymore.
+	
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  
+	  
 	* Fixed money change notification happening after logout/login.
 	
 	  modified:   linden/indra/newview/llviewermessage.cpp
