@@ -1,5 +1,15 @@
 2009-10-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Mini-map radar now can notify you when someone enters the sim.
+	
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  modified:   linden/indra/newview/llfloatermap.h
+	  modified:   linden/indra/newview/llpanelgeneral.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
+
+
 	* Added typing info to mini-map radar.
 	
 	  modified:   linden/indra/newview/llfloatermap.cpp

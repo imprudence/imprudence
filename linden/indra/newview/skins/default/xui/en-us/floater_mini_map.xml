@@ -101,4 +101,7 @@
   <string name="entering_chat_range">
     [NAME] has entered chat range ([DISTANCE]m)
   </string>
+  <string name="entering_sim_range">
+    [NAME] has entered the sim ([DISTANCE]m)
+  </string>
 </floater>

@@ -266,10 +266,14 @@ void LLFloaterMap::populateRadar()
 			std::string fullname = getSelectedName(avatar_ids[i]);
 			if (!fullname.empty())
 			{
+				bool notify_chat = gSavedSettings.getBOOL("MiniMapNotifyChatRange");
+				bool notify_sim = gSavedSettings.getBOOL("MiniMapNotifySimRange");
 	// [RLVa:KB] - Alternate: Imprudence-1.2.0
 				if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 				{
 					fullname = gRlvHandler.getAnonym(fullname);
+					notify_chat = false;
+					notify_sim = false;
 				}
 	// [/RLVa:KB]
 
@@ -280,7 +284,7 @@ void LLFloaterMap::populateRadar()
 				sprintf(dist, "%.1f", distance);
 				std::string dist_string = dist;
 
-				if (gSavedSettings.getBOOL("MiniMapNotify"))
+				if (notify_chat)
 				{
 					if (distance < 20.0f)
 					{
@@ -302,6 +306,31 @@ void LLFloaterMap::populateRadar()
 				else if (!mChatAvatars.empty())
 				{
 					mChatAvatars.clear();
+				}
+
+				// announce their presence in the sim if we've enabled that
+				if (notify_sim)
+				{
+					if (!getInChatList(avatar_ids[i]) && !getInSimAvList(avatar_ids[i]))
+					{
+						LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
+						if (av_obj != NULL && av_obj->isAvatar())
+						{
+							LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
+							if (avatarp != NULL)
+							{
+								if (avatarp->getRegion() == gAgent.getRegion())
+								{
+									addToSimAvList(avatar_ids[i], dist_string);
+								}
+							}
+						}
+					}
+					updateSimAvList(avatar_ids);
+				}
+				else if (!mSimAvatars.empty())
+				{
+					mSimAvatars.clear();
 				}
 
 				// append typing string
@@ -334,6 +363,7 @@ void LLFloaterMap::populateRadar()
 	}
 	else
 	{
+		mTypingAvatars.clear();
 		mRadarList->addCommentText(getString("no_one_near"), ADD_TOP);
 		avatar_count << "0";
 	}
@@ -414,6 +444,47 @@ void LLFloaterMap::updateTypingList(LLUUID agent_id, bool remove)
 	{
 		mTypingAvatars.insert(agent_id);
 	}
+}
+
+void LLFloaterMap::updateSimAvList(std::vector<LLUUID> agent_ids)
+{
+	std::set<LLUUID>::iterator it;
+	std::vector<LLUUID>::iterator result;
+	for (it = mSimAvatars.begin(); it != mSimAvatars.end(); )
+	{
+		result = find(agent_ids.begin(), agent_ids.end(), *it);
+		if (result == agent_ids.end())
+		{
+			mSimAvatars.erase(it++);
+		}
+		else
+		{
+			it++;
+		}
+	}
+}
+
+void LLFloaterMap::addToSimAvList(LLUUID agent_id, std::string distance)
+{
+	mSimAvatars.insert(agent_id);
+	LLChat chat;
+
+	LLUIString notify = getString("entering_sim_range");
+	notify.setArg("[NAME]", getSelectedName(agent_id));
+	notify.setArg("[DISTANCE]", distance);
+
+	chat.mText = notify;
+	chat.mSourceType = CHAT_SOURCE_SYSTEM;
+	LLFloaterChat::addChat(chat, FALSE, FALSE);	
+}
+
+bool LLFloaterMap::getInSimAvList(LLUUID agent_id)
+{
+	if (mSimAvatars.count(agent_id) > 0)
+	{
+		return true;
+	}
+	return false;
 }
 
 void LLFloaterMap::toggleButtons()
