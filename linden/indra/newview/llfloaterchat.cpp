@@ -215,7 +215,8 @@ void add_timestamped_line(LLViewerTextEditor* edit, LLChat chat, const LLColor4&
 	// If the chat line has an associated url, link it up to the name.
 	if (!chat.mURL.empty() && 
 		(line.length() > chat.mFromName.length() && 
-		(line.find(chat.mFromName,0) == 4 || line.find(chat.mFromName,0) == 0)))
+		(line.find(chat.mFromName,0) == 4 || line.find(chat.mFromName,0) == 0)) &&
+		color == gSavedSettings.getColor4("ObjectIMColor")) // hack to make sure IMs in chat history don't hightlight
 	{
 		std::string start_line;
 		if (line.find(chat.mFromName,0) == 4) // IMs are prefaced with "IM: "

@@ -1,5 +1,11 @@
 2009-10-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Clickable IMs in chat history was causing readability problems at varying distances, 
+	  decided it was a bug and fixed it.
+	  
+	  modified:   linden/indra/newview/llfloaterchat.cpp
+	  
+	  
 	* Mini-map radar now can notify you when someone enters the sim.
 	
 	  modified:   linden/indra/newview/app_settings/settings.xml
