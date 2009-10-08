@@ -1,5 +1,10 @@
 2009-10-08 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed money change notification happening after logout/login.
+	
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  
+	  
 	* Fixed entering sim notification being tied to radar range.
 	
 	  modified:   linden/indra/newview/llfloatermap.cpp

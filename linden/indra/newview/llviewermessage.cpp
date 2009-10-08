@@ -4419,7 +4419,7 @@ void process_money_balance_reply( LLMessageSystem* msg, void** )
 	LLUUID tid;
 	msg->getUUID("MoneyData", "TransactionID", tid);
 	static std::deque<LLUUID> recent;
-	if(!desc.empty() && gSavedSettings.getBOOL("NotifyMoneyChange")
+	if(!desc.empty() && gSavedSettings.getBOOL("NotifyMoneyChange") && !gDisconnected
 	   && (std::find(recent.rbegin(), recent.rend(), tid) == recent.rend()))
 	{
 		// Make the user confirm the transaction, since they might
