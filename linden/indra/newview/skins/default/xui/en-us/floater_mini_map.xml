@@ -92,8 +92,11 @@
   <string name="no_one_near">
     No avatars within range
   </string>
-  <string name="muted">
+  <string name="is_muted">
     (muted)
+  </string>
+  <string name="is_typing">
+    (typing)
   </string>
   <string name="entering_chat_range">
     [NAME] has entered chat range ([DISTANCE]m)

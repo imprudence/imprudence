@@ -78,6 +78,7 @@
 #include "llfloatergroupinfo.h"
 #include "llfloaterimagepreview.h"
 #include "llfloaterland.h"
+#include "llfloatermap.h"
 #include "llfloaterregioninfo.h"
 #include "llfloaterlandholdings.h"
 #include "llurldispatcher.h"
@@ -2547,6 +2548,12 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 			{
 				((LLVOAvatar*)chatter)->startTyping();
 			}
+
+			if (LLFloaterMap::getInstance())
+			{
+				LLFloaterMap::getInstance()->updateTypingList(from_id, false);
+			}
+
 			return;
 		}
 		else if (CHAT_TYPE_STOP == chat.mChatType)
@@ -2558,6 +2565,15 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 			{
 				((LLVOAvatar*)chatter)->stopTyping();
 			}
+
+			if (LLFloaterMap::getInstance())
+			{
+				if (LLFloaterMap::getInstance()->getIsTyping(from_id))
+				{
+					LLFloaterMap::getInstance()->updateTypingList(from_id, true);
+				}
+			}
+
 			return;
 		}
 

@@ -52,6 +52,9 @@ public:
 	// returns true if agent_id belongs to a developer listed in llfloatermap.cpp
 	static bool isImpDev(LLUUID agent_id);
 
+	bool getIsTyping(LLUUID agent_id);
+	void updateTypingList(LLUUID agent_id, bool remove);
+
 	BOOL postBuild();
 
 	/*virtual*/ void	draw();
@@ -69,7 +72,8 @@ private:
 	LLNetMap*				mPanelMap;
 	LLScrollListCtrl*		mRadarList;
 	LLUUID					mSelectedAvatar;
-	std::set<LLUUID>		mChatAvatars; 
+	std::set<LLUUID>		mChatAvatars;
+	std::set<LLUUID>		mTypingAvatars; 
 	bool					mUpdate;
 	
 	static void onList(LLUICtrl* ctrl, void* user_data);

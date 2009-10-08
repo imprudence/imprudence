@@ -1,5 +1,13 @@
 2009-10-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added typing info to mini-map radar.
+	
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  modified:   linden/indra/newview/llfloatermap.h
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+
+
 	* Fixed random mouseclicks on the edge of the window.
 	
 	  modified:   linden/indra/newview/llviewerwindow.cpp

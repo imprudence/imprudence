@@ -80,6 +80,7 @@ LLFloaterMap::LLFloaterMap(const LLSD& key)
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_mini_map.xml", &factory_map, FALSE);
 
 	mChatAvatars.clear();
+	mTypingAvatars.clear();
 }
 
 
@@ -303,11 +304,18 @@ void LLFloaterMap::populateRadar()
 					mChatAvatars.clear();
 				}
 
-				std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("muted") : "";
+				// append typing string
+				std::string typing = "";
+				if (getIsTyping(avatar_ids[i]))
+				{
+					typing = getString("is_typing")+ " ";
+				}
+
+				std::string mute_text = LLMuteList::getInstance()->isMuted(avatar_ids[i]) ? getString("is_muted") : "";
 				element["id"] = avatar_ids[i];
 				element["columns"][0]["column"] = "avatar_name";
 				element["columns"][0]["type"] = "text";
-				element["columns"][0]["value"] = fullname + " " + mute_text;
+				element["columns"][0]["value"] = typing + fullname + " " + mute_text;
 				element["columns"][1]["column"] = "avatar_distance";
 				element["columns"][1]["type"] = "text";
 				element["columns"][1]["value"] = dist_string+"m";
@@ -382,6 +390,30 @@ void LLFloaterMap::removeFromChatList(LLUUID agent_id)
 {
 	// Do we want to add a notice?
 	mChatAvatars.erase(agent_id);
+}
+
+bool LLFloaterMap::getIsTyping(LLUUID agent_id)
+{
+	if (mTypingAvatars.count(agent_id) > 0)
+	{
+		return true;
+	}
+	return false;
+}
+
+void LLFloaterMap::updateTypingList(LLUUID agent_id, bool remove)
+{
+	if (remove)
+	{
+		if (getIsTyping(agent_id))
+		{
+			mTypingAvatars.erase(agent_id);	
+		}
+	}
+	else
+	{
+		mTypingAvatars.insert(agent_id);
+	}
 }
 
 void LLFloaterMap::toggleButtons()
