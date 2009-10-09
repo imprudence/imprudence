@@ -1,5 +1,10 @@
 2009-10-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Mini-map can now be minimized.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+	  
+	  
 	* Added missing RLVa header file: rlvdefines.h.
 	
 	  new file:   linden/indra/newview/rlvdefines.h
