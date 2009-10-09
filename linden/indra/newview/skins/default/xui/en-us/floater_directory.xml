@@ -70,7 +70,7 @@
 		<panel border="true" bottom="-569" follows="left|top|right|bottom" height="553"
 		     label="Classifieds" left="1" left_delta="68" mouse_opaque="false"
 		     name="classified_panel" width="778">
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			<button bottom="-553" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Next &gt;" label_selected="Next &gt;"
 			     mouse_opaque="true" name="Next &gt;" right="344" width="80" />
 			<string name="searching_text">
@@ -265,7 +265,7 @@
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			<button bottom="-553" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Next &gt;" label_selected="Next &gt;"
 			     mouse_opaque="true" name="Next &gt;" right="344" width="80" />
 			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
@@ -313,7 +313,7 @@
 			<string name="not_found_text">
 				None Found.
 			</string>
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			<button bottom="-553" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Next &gt;" label_selected="Next &gt;"
 			     mouse_opaque="true" name="Next &gt;" right="390" width="80" />
 			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
@@ -394,7 +394,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			<string name="not_found_text">
 				None Found.
 			</string>
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			<button bottom="-553" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Next &gt;" label_selected="Next &gt;"
 			     mouse_opaque="true" name="Next &gt;" right="344" width="80" />
 			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
@@ -482,7 +482,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			<string name="not_found_text">
 				None Found.
 			</string>
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			<button bottom="-553" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Next &gt;" label_selected="Next &gt;"
 			     mouse_opaque="true" name="Next &gt;" right="330" width="80" />
       <button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"

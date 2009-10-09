@@ -1,5 +1,10 @@
 2009-10-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed new search window size hiding next/prev buttons.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_directory.xml
+	  
+	  
 	* Mini-map can now be minimized.
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
