@@ -14,17 +14,11 @@
 #include "rlvmultistringsearch.h"
 
 // ============================================================================
-/*
- * RlvHandler
- * ==========
- *
- */
 
 typedef std::map<LLUUID, RlvObject> rlv_object_map_t;
 typedef std::multimap<S32, LLUUID> rlv_detach_map_t;
 typedef std::map<S32, LLUUID> rlv_reattach_map_t;
 typedef std::multimap<LLUUID, ERlvBehaviour> rlv_exception_map_t;
-typedef std::map<S32, RlvRedirInfo> rlv_redir_map_t;
 
 class RlvHandler
 {
@@ -73,6 +67,7 @@ public:
 	// Returns TRUE if the specified attachment point is detachable
 	bool isDetachable(S32 idxAttachPt) const { return (idxAttachPt) && (m_Attachments.find(idxAttachPt) == m_Attachments.end()); }
 	bool isDetachable(const LLInventoryItem* pItem) const;
+	bool isDetachable(LLViewerJointAttachment* pAttachPt) const;
 	bool isDetachable(LLViewerObject* pObj) const;
 	// Returns TRUE if the specified attachment point is set undetachable by anything other than pObj (or one of its children)
 	bool isDetachableExcept(S32 idxAttachPt, LLViewerObject* pObj) const;
@@ -194,6 +189,7 @@ public:
 protected:
 	BOOL processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd);
 	BOOL processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvCmd);
+	BOOL processClearCommand(const LLUUID& idObj, const RlvCommand& rlvCmd);
 	BOOL processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCmd) const;
 	BOOL processForceCommand(const LLUUID& uuid, const RlvCommand& rlvCmd) const;
 
@@ -234,7 +230,6 @@ protected:
 	rlv_retained_list_t  m_Retained;
 	rlv_reattach_map_t   m_AttachPending;
 	rlv_reattach_map_t   m_DetachPending;
-	rlv_redir_map_t      m_Redirections;
 	RlvGCTimer*          m_pGCTimer;
 	RlvWLSnapshot*       m_pWLSnapshot;
 
@@ -369,6 +364,14 @@ inline bool RlvHandler::hasBehaviourExcept(ERlvBehaviour eBehaviour, const LLUUI
 		return getCompositeInfo(idItem, NULL, NULL);
 	}
 #endif // RLV_EXPERIMENTAL_COMPOSITES
+
+// Checked: 2009-09-08 (RLVa-1.0.2c) | Added: RLVa-1.0.2c
+inline bool RlvHandler::isDetachable(LLViewerJointAttachment *pAttachPt) const
+{
+	// If there's an attached object it's faster to just use that; otherwise look up the attachment index because it might be locked empty
+	return (pAttachPt == NULL) ||
+		   ( (pAttachPt->getObject() != NULL) && isDetachable(pAttachPt->getObject()) ) || (isDetachable(getAttachPointIndex(pAttachPt)));
+}
 
 // Checked: 2009-05-23 (RLVa-0.2.0d) | Modified: RLVa-0.2.0d
 inline bool RlvHandler::isDetachable(LLViewerObject* pObj) const

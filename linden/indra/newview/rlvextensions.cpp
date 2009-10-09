@@ -1,5 +1,6 @@
 #include "llviewerprecompiledheaders.h"
 #include "llagent.h"
+#include "llfloaterwindlight.h"
 #include "llviewercontrol.h"
 #include "llviewerwindow.h"
 #include "llvoavatar.h"
@@ -221,8 +222,18 @@ void RlvExtGetSet::onSetDebug(std::string strSetting, const std::string& strValu
 	}
 }
 
+// Checked: 2009-09-16 (RLVa-1.0.3c) | Modified: RLVa-1.0.3c
 std::string RlvExtGetSet::onGetEnv(std::string strSetting)
 {
+	// HACK: - create a LLFloaterWindLight instance if there isn't one already
+	//       - isOpen() is actually instanceExists()
+	//       - creating an instance results in showing the floater which is why we need to ->close() it
+	if (!LLFloaterWindLight::isOpen())
+	{
+		LLFloaterWindLight::instance()->close();
+		LLFloaterWindLight::instance()->syncMenu();
+	}
+
 	LLWLParamManager* pWLParams = LLWLParamManager::instance();
 
 	F32 nValue = 0.0f;
@@ -238,7 +249,7 @@ std::string RlvExtGetSet::onGetEnv(std::string strSetting)
 	else if ("cloudscale" == strSetting)			nValue = pWLParams->mCloudScale;
 	else if ("cloudscrollx" == strSetting)			nValue = pWLParams->mCurParams.getCloudScrollX() - 10.0f;
 	else if ("cloudscrolly" == strSetting)			nValue = pWLParams->mCurParams.getCloudScrollY() - 10.0f;
-	else if ("densitymultiplier" == strSetting)		nValue = pWLParams->mDensityMult * 1000;
+	else if ("densitymultiplier" == strSetting)		nValue = pWLParams->mDensityMult.x * pWLParams->mDensityMult.mult;
 	else if ("distancemultiplier" == strSetting)	nValue = pWLParams->mDistanceMult;
 	else if ("eastangle" == strSetting)				nValue = pWLParams->mCurParams.getEastAngle() / F_TWO_PI;
 	else if ("hazedensity" == strSetting)			nValue = pWLParams->mHazeDensity.r;
@@ -260,7 +271,7 @@ std::string RlvExtGetSet::onGetEnv(std::string strSetting)
 		if ( ('r' == ch) || ('g' == ch) || ('b' == ch) || ('i' == ch) )
 		{
 			WLColorControl* pColour = NULL;
-			strSetting.erase(strSetting.length() - 2, 1);
+			strSetting.erase(strSetting.length() - 1, 1);
 			
 			if ("ambient" == strSetting)			pColour = &pWLParams->mAmbient;
 			else if ("bluedensity" == strSetting)	pColour = &pWLParams->mBlueDensity;
@@ -272,10 +283,10 @@ std::string RlvExtGetSet::onGetEnv(std::string strSetting)
 
 			if (pColour)
 			{
-				if ('r' == ch)		nValue = pColour->b;
-				else if ('g' == ch)	nValue = pColour->b;
+				if ('r' == ch)		nValue = pColour->r;
+				else if ('g' == ch)	nValue = pColour->g;
 				else if ('b' == ch)	nValue = pColour->b;
-				else if (('i' == ch) && (pColour->hasSliderName)) nValue = pColour->i;
+				else if (('i' == ch) && (pColour->hasSliderName)) nValue = llmax(pColour->r, pColour->g, pColour->b);
 
 				if (pColour->isBlueHorizonOrDensity)	nValue /= 2.0f;
 				else if (pColour->isSunOrAmbientColor)	nValue /= 3.0f;
@@ -286,8 +297,16 @@ std::string RlvExtGetSet::onGetEnv(std::string strSetting)
 	return llformat("%f", nValue);
 }
 
+// Checked: 2009-09-16 (RLVa-1.0.3c) | Modified: RLVa-1.0.3c
 void RlvExtGetSet::onSetEnv(std::string strSetting, const std::string& strValue)
 {
+	// HACK: see RlvExtGetSet::onGetEnv
+	if (!LLFloaterWindLight::isOpen())
+	{
+		LLFloaterWindLight::instance()->close();
+		LLFloaterWindLight::instance()->syncMenu();
+	}
+
 	LLWLParamManager* pWLParams = LLWLParamManager::instance();
 	WLFloatControl* pFloat = NULL;
 	WLColorControl* pColour = NULL;
@@ -405,7 +424,7 @@ void RlvExtGetSet::onSetEnv(std::string strSetting, const std::string& strValue)
 
 	if ( ('r' == ch) || ('g' == ch) || ('b' == ch) || ('i' == ch) )
 	{
-		strSetting.erase(strSetting.length() - 2, 1);
+		strSetting.erase(strSetting.length() - 1, 1);
 		
 		if ("ambient" == strSetting)			pColour = &pWLParams->mAmbient;
 		else if ("bluedensity" == strSetting)	pColour = &pWLParams->mBlueDensity;

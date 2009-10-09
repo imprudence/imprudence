@@ -100,6 +100,50 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+  <key>WarnFirstRLVDetach</key>
+  <map>
+    <key>Comment</key>
+    <string>Enables FirstRLVDetach warning dialog</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>WarnFirstRLVEnableWear</key>
+  <map>
+    <key>Comment</key>
+    <string>Enables RLVEnableWear warning dialog</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>WarnFirstRLVFartouch</key>
+  <map>
+    <key>Comment</key>
+    <string>Enables FirstRLVFartouch warning dialog</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
+  <key>WarnFirstRLVGiveToRLV</key>
+  <map>
+    <key>Comment</key>
+    <string>Enables FirstRLVGiveToRLV warning dialog</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
   <key>AFKTimeout</key>
     <map>
       <key>Comment</key>
@@ -5044,6 +5088,28 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>MiniMapNotifyChatRange</key>
+    <map>
+      <key>Comment</key>
+      <string>Notify when avatars enter chat range</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>MiniMapNotifySimRange</key>
+    <map>
+      <key>Comment</key>
+      <string>Notify when avatars enters the current sim</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>MiniMapPrimMaxRadius</key>
     <map>
       <key>Comment</key>
@@ -5447,6 +5513,22 @@
          <real>0.899999976158</real>
          <real>0.699999988079</real>
          <real>1</real>
+      </array>
+    </map>
+    <key>ObjectIMColor</key>
+    <map>
+      <key>Comment</key>
+      <string>Color of IMs from objects</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Color4</string>
+      <key>Value</key>
+      <array>
+        <real>0.699999988079</real>
+        <real>0.899999976158</real>
+        <real>0.699999988079</real>
+        <real>1</real>
       </array>
     </map>
     <key>OpenDebugStatAdvanced</key>

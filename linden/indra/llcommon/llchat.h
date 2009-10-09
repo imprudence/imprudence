@@ -42,7 +42,8 @@ typedef enum e_chat_source_type
 {
 	CHAT_SOURCE_SYSTEM = 0,
 	CHAT_SOURCE_AGENT = 1,
-	CHAT_SOURCE_OBJECT = 2
+	CHAT_SOURCE_OBJECT = 2,
+	CHAT_SOURCE_OBJECT_IM = 3
 } EChatSourceType;
 
 typedef enum e_chat_type

@@ -49,6 +49,11 @@ public:
 
 	static void updateRadar();
 	static LLUUID getSelected();
+	// returns true if agent_id belongs to a developer listed in llfloatermap.cpp
+	static bool isImpDev(LLUUID agent_id);
+
+	bool getIsTyping(LLUUID agent_id);
+	void updateTypingList(LLUUID agent_id, bool remove);
 
 	BOOL postBuild();
 
@@ -62,12 +67,20 @@ public:
 
 
 private:
+
 	LLFloaterMap(const LLSD& key = LLSD());
 
-	LLNetMap*						mPanelMap;
-	LLScrollListCtrl*				mRadarList;
-	LLUUID							mSelectedAvatar;
-	bool							mUpdate;
+	LLNetMap*				mPanelMap;
+	LLScrollListCtrl*		mRadarList;
+	LLUUID					mSelectedAvatar;
+
+	// TODO: move all this info into its own object. It's stupid 
+	// and bug-prone to keep it all in separate containers, but 
+	// I want to get this out for 1.2 -- McCabe
+	std::set<LLUUID>		mChatAvatars;
+	std::set<LLUUID>		mTypingAvatars;
+	std::set<LLUUID>		mSimAvatars;
+	bool					mUpdate;
 	
 	static void onList(LLUICtrl* ctrl, void* user_data);
 	static void onRangeChange(LLFocusableElement* focus, void* user_data);
@@ -75,6 +88,15 @@ private:
 	BOOL getKickable(const LLUUID &agent_id);
 	void toggleButtons();
 	void populateRadar();
+
+	void updateChatList(std::vector<LLUUID> agent_ids);
+	bool getInChatList(LLUUID agent_id);
+	void addToChatList(LLUUID agent_id, std::string distance);
+	void removeFromChatList(LLUUID agent_id);
+
+	bool getInSimAvList(LLUUID agent_id);
+	void addToSimAvList(LLUUID agent_id, std::string distance);
+	void updateSimAvList(std::vector<LLUUID> agent_ids);
 
 	static void onClickProfile(void* user_data);
 	static void onClickIM(void* user_data);

@@ -3505,7 +3505,7 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 				if ( (rlv_handler_t::isEnabled()) && (!RlvSettings::getEnableWear()) && (gRlvHandler.hasLockedAttachment()) )
 				{
 					LLViewerJointAttachment* pAttachPt = gRlvHandler.getAttachPoint(item, true);
-					if ( (!pAttachPt) || (!gRlvHandler.isDetachable(pAttachPt->getObject())) )
+					if ( (!pAttachPt) || (!gRlvHandler.isDetachable(pAttachPt)) )
 						disabled_items.push_back(std::string("Object Wear"));
 				}
 // [/RLVa:KB]
@@ -4057,7 +4057,7 @@ void wear_inventory_category_on_avatar_step2( BOOL proceed, void* userdata )
 			for (S32 idxObj = obj_item_array.count() - 1; idxObj >= 0; idxObj--)
 			{
 				LLViewerJointAttachment* pAttachPt = gRlvHandler.getAttachPoint(obj_item_array.get(idxObj).get(), true);
-				if ( ((!pAttachPt) || (!gRlvHandler.isDetachable(pAttachPt->getObject()))) )
+				if ( ((!pAttachPt) || (!gRlvHandler.isDetachable(pAttachPt))) )
 					obj_item_array.remove(idxObj);
 			}
 			obj_count = obj_item_array.count();
@@ -4245,7 +4245,7 @@ void wear_attachments_on_avatar(const std::set<LLUUID>& item_ids, BOOL remove)
 // [RLVa:KB] - Checked: 2009-09-11 (RLVa-1.0.2c) | Modified: RLVa-1.0.2c
 				LLViewerJointAttachment* pAttachPt = NULL;
 				if ( (!rlv_handler_t::isEnabled()) || (RlvSettings::getEnableWear()) || (!gRlvHandler.hasLockedAttachment()) || 
-					 (((pAttachPt = gRlvHandler.getAttachPoint(item, true)) != NULL) && (gRlvHandler.isDetachable(pAttachPt->getObject()))) )
+					 (((pAttachPt = gRlvHandler.getAttachPoint(item, true)) != NULL) && (gRlvHandler.isDetachable(pAttachPt))) )
 				{
 					items.put(item);
 				}

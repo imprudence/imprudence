@@ -44,6 +44,10 @@
 #include "llappviewer.h"
 #include "lltracker.h"
 
+// [RLVa:KB] - Version: 1.22.11
+#include "llviewerwindow.h"
+// [/RLVa:KB]
+
 // static
 std::set<std::string> LLFirstUse::sConfigVariables;
 
@@ -287,3 +291,36 @@ void LLFirstUse::useMedia()
 		LLNotifyBox::showXml("FirstMedia");
 	}
 }
+
+// [RLVa:KB] - Version: 1.22.11 | Checked: RLVa-1.0.3a (2009-09-10) | Added: RLVa-1.0.3a
+
+// SL-1.22.11 doesn't seem to have a way to check which notifications are currently open :(
+bool rlvHasVisibleFirstUseNotification()
+{
+	return false;
+}
+
+void LLFirstUse::showRlvFirstUseNotification(const std::string& strName)
+{
+	if ( (gSavedSettings.getWarning(strName)) && (!rlvHasVisibleFirstUseNotification()) )
+	{
+		gSavedSettings.setWarning(strName, FALSE);
+		LLNotifyBox::showXml(strName);
+	}
+}
+
+void LLFirstUse::warnRlvGiveToRLV()
+{
+	if ( (gSavedSettings.getWarning(RLV_SETTING_FIRSTUSE_GIVETORLV)) && (RlvSettings::getForbidGiveToRLV()) )
+		gViewerWindow->alertXml(RLV_SETTING_FIRSTUSE_GIVETORLV, LLStringUtil::format_map_t(), &LLFirstUse::onRlvGiveToRLVConfirmation, NULL);
+}
+
+void LLFirstUse::onRlvGiveToRLVConfirmation(S32 idxOption, void* /*pUserParam*/)
+{
+	gSavedSettings.setWarning(RLV_SETTING_FIRSTUSE_GIVETORLV, FALSE);
+
+	if ( (0 == idxOption) || (1 == idxOption) )
+		gSavedSettings.setBOOL(RLV_SETTING_FORBIDGIVETORLV, (idxOption == 1));
+}
+
+// [/RLVa:KB]

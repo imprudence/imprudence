@@ -71,7 +71,7 @@
 			     label_selected="Mute" left_delta="0" mouse_opaque="true" name="Mute"
 			     width="145" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom_delta="-29" drop_shadow_visible="true" follows="left|top"
+			     bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" right="-12"
 			     mouse_opaque="true" name="label" v_pad="0" width="145">
         Born:
@@ -84,17 +84,17 @@
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" right="-12"
-			     mouse_opaque="true" name="label2" v_pad="0" width="345">
+			     mouse_opaque="true" name="label2" v_pad="0" width="145">
         Account:
       </text>
-      <view_border bevel_style="in" bottom_delta="-48" follows="left|top" height="50" right="-12"
+      <view_border bevel_style="in" bottom_delta="-52" follows="left|top" height="52" right="-12"
 			     mouse_opaque="false" name="acct_border" width="145" />
       <text bg_visible="false" border_drop_shadow_visible="false"
 			     border_visible="true" bottom_delta="0" drop_shadow_visible="true"
 			     follows="left|top" font="SansSerifSmall" height="48" left="264"
 			     mouse_opaque="false" name="acct" width="121" />
       <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
+			     bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" right="-12"
 			     mouse_opaque="true" name="partner_label"
 			     tool_tip="Second Life partner. For more info on how to set, see www.secondlife.com/partner"

@@ -494,6 +494,7 @@ BOOL enable_detach(void*);
 BOOL enable_region_owner(void*);
 void menu_toggle_attached_lights(void* user_data);
 void menu_toggle_attached_particles(void* user_data);
+static void handle_go_to_callback(S32 option, void *userdata);
 
 class LLMenuParcelObserver : public LLParcelObserver
 {
@@ -952,7 +953,7 @@ void init_client_menu(LLMenuGL* menu)
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-1.0.0e
 	#ifdef RLV_ADVANCED_TOGGLE_RLVA
 		if (gSavedSettings.controlExists(RLV_SETTING_MAIN))
-			menu->append(new LLMenuItemCheckGL("Restrained Life API", &rlvDbgToggleEnabled, NULL, &rlvDbgGetEnabled, NULL));
+			menu->append(new LLMenuItemCheckGL("Restrained Life API", &rlvToggleEnabled, NULL, &rlvGetEnabled, NULL));
 	#endif // RLV_ADVANCED_TOGGLE_RLVA
 // [/RLVa:KB]
 
@@ -1406,30 +1407,24 @@ void init_debug_baked_texture_menu(LLMenuGL* menu)
 // [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-1.0.0g
 void init_debug_rlva_menu(LLMenuGL* menu)
 {
-	// Experimental feature toggles
+	// Debug options
 	{
-		/*
-		#ifdef RLV_EXPERIMENTAL
-			LLMenuGL* sub_menu = new LLMenuGL("Experimental");
+		LLMenuGL* pDbgMenu = new LLMenuGL("Debug");
 
-			menu->appendMenu(sub_menu);
-		#endif // RLV_EXPERIMENTAL
-		*/
-	}
+		if (gSavedSettings.controlExists(RLV_SETTING_DEBUG))
+			pDbgMenu->append(new LLMenuItemCheckGL("Show Debug Messages", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_DEBUG));
+		pDbgMenu->appendSeparator();
+		if (gSavedSettings.controlExists(RLV_SETTING_ENABLELEGACYNAMING))
+			pDbgMenu->append(new LLMenuItemCheckGL("Enable Legacy Naming", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_ENABLELEGACYNAMING));
 
-	// Unit tests
-	{
-		#ifdef RLV_DEBUG_TESTS
-			init_debug_rlva_tests_menu(menu);
-		#endif // RLV_DEBUG_TESTS
+		menu->appendMenu(pDbgMenu);
+		menu->appendSeparator();
 	}
 
 	#ifdef RLV_EXTENSION_ENABLE_WEAR
 		if (gSavedSettings.controlExists(RLV_SETTING_ENABLEWEAR))
-		{
 			menu->append(new LLMenuItemCheckGL("Enable Wear", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_ENABLEWEAR));
-			menu->appendSeparator();
-		}
+		menu->appendSeparator();
 	#endif // RLV_EXTENSION_ENABLE_WEAR
 
 	#ifdef RLV_EXTENSION_HIDELOCKED
@@ -1442,6 +1437,12 @@ void init_debug_rlva_menu(LLMenuGL* menu)
 			menu->appendSeparator();
 		}
 	#endif // RLV_EXTENSION_HIDELOCKED
+
+	if (gSavedSettings.controlExists(RLV_SETTING_FORBIDGIVETORLV))
+		menu->append(new LLMenuItemCheckGL("Forbid Give to #RLV", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_FORBIDGIVETORLV));
+	if (gSavedSettings.controlExists(RLV_SETTING_ENABLELEGACYNAMING))
+		menu->append(new LLMenuItemCheckGL("Show Name Tags", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_SHOWNAMETAGS));
+	menu->appendSeparator();
 
 	#ifdef RLV_EXTENSION_FLOATER_RESTRICTIONS
 		// TODO-RLVa: figure out a way to tell if floater_rlv_behaviour.xml exists
@@ -2392,45 +2393,63 @@ bool handle_go_to()
 	}
 // [/RLVa:KB]
 
-	// JAMESDEBUG try simulator autopilot
-	std::vector<std::string> strings;
-	std::string val;
-	LLVector3d pos = LLToolPie::getInstance()->getPick().mPosGlobal;
 	if (gSavedSettings.getBOOL("DoubleClickTeleport"))
 	{
-		LLVector3d hips_offset(0.0f, 0.0f, 1.2f);
-		gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
-		gAgent.teleportViaLocation(pos + hips_offset);
+		gViewerWindow->alertXml("ConfirmDoubleClickTP", handle_go_to_callback, (void*)LLToolPie::getInstance());
 	}
-	else
+	else if (gSavedSettings.getBOOL("DoubleClickAutoPilot"))
 	{
+		gViewerWindow->alertXml("ConfirmAutoPilot", handle_go_to_callback, (void*)LLToolPie::getInstance());
+	}
+	return true;
+}
+
+//static
+void handle_go_to_callback(S32 option, void *userdata)
+{
+	if (option == 0)
+	{
+		LLToolPie* pie = (LLToolPie*)userdata;
+
 		// JAMESDEBUG try simulator autopilot
 		std::vector<std::string> strings;
 		std::string val;
-		val = llformat("%g", pos.mdV[VX]);
-		strings.push_back(val);
-		val = llformat("%g", pos.mdV[VY]);
-		strings.push_back(val);
-		val = llformat("%g", pos.mdV[VZ]);
-		strings.push_back(val);
-		send_generic_message("autopilot", strings);
-
-		LLViewerParcelMgr::getInstance()->deselectLand();
-
-		if (gAgent.getAvatarObject() && !gSavedSettings.getBOOL("AutoPilotLocksCamera"))
+		LLVector3d pos = pie->getPick().mPosGlobal;
+		if (gSavedSettings.getBOOL("DoubleClickTeleport"))
 		{
-			gAgent.setFocusGlobal(gAgent.getFocusTargetGlobal(), gAgent.getAvatarObject()->getID());
+			LLVector3d hips_offset(0.0f, 0.0f, 1.2f);
+			gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
+			gAgent.teleportViaLocation(pos + hips_offset);
 		}
-		else 
+		else
 		{
-			// Snap camera back to behind avatar
-			gAgent.setFocusOnAvatar(TRUE, ANIMATE);
-		}
+			// JAMESDEBUG try simulator autopilot
+			std::vector<std::string> strings;
+			std::string val;
+			val = llformat("%g", pos.mdV[VX]);
+			strings.push_back(val);
+			val = llformat("%g", pos.mdV[VY]);
+			strings.push_back(val);
+			val = llformat("%g", pos.mdV[VZ]);
+			strings.push_back(val);
+			send_generic_message("autopilot", strings);
 
-		// Could be first use
-		LLFirstUse::useGoTo();
+			LLViewerParcelMgr::getInstance()->deselectLand();
+
+			if (gAgent.getAvatarObject() && !gSavedSettings.getBOOL("AutoPilotLocksCamera"))
+			{
+				gAgent.setFocusGlobal(gAgent.getFocusTargetGlobal(), gAgent.getAvatarObject()->getID());
+			}
+			else 
+			{
+				// Snap camera back to behind avatar
+				gAgent.setFocusOnAvatar(TRUE, ANIMATE);
+			}
+
+			// Could be first use
+			LLFirstUse::useGoTo();
+		}
 	}
-	return true;
 }
 
 class LLGoToObject : public view_listener_t
@@ -6026,9 +6045,9 @@ private:
 
 // [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
 			if ( (rlv_handler_t::isEnabled()) &&
-				 ( ((index == 0) && (gRlvHandler.hasLockedAttachment())) ||						  // Can't wear on default attach point
-				   ((index > 0) && (!gRlvHandler.isDetachable(attachment_point->getObject()))) || // Can't replace locked attachment
-				   (gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) ) )									  // Attach on rezzed object == "Take"
+				 ( ((index == 0) && (gRlvHandler.hasLockedAttachment())) ||			 // Can't wear on default attach point
+				   ((index > 0) && (!gRlvHandler.isDetachable(attachment_point))) || // Can't replace locked attachment
+				   (gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) ) )						 // Attach on rezzed object == "Take"
 			{
 				setObjectSelection(NULL); // Clear the selection or it'll get stuck
 				return true;
@@ -6315,6 +6334,8 @@ class LLAttachmentEnableDrop : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
+		if (gDisconnected)
+			return true;
 		LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 		BOOL can_build   = gAgent.isGodlike() || (parcel && parcel->getAllowModify());
 
@@ -6365,7 +6386,6 @@ class LLAttachmentEnableDrop : public view_listener_t
 // [RLVa:KB] - Checked: 2009-07-05 (RLVa-1.0.0b)
 		bool new_value = enable_detach(NULL) && can_build && item && (!gRlvHandler.hasBehaviour(RLV_BHVR_REZ));
 // [/RLVa:KB]
-
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
 		return true;
 	}
@@ -6430,9 +6450,9 @@ BOOL object_selected_and_point_valid(void *user_data)
 		//      - enabler set up in LLVOAvatar::buildCharacter() => Rezzed prim / right-click / "Attach >" [user_data == pAttachPt]
 		//      - enabler set up in LLVOAvatar::buildCharacter() => Rezzed prim / Edit menu / "Attach Object" [user_data == pAttachPt]
 		LLViewerJointAttachment* pAttachPt = (LLViewerJointAttachment*)user_data;
-		if  ( ((!pAttachPt) && (gRlvHandler.hasLockedAttachment())) ||					// Don't allow attach to default attach point
-			  ((pAttachPt) && (!gRlvHandler.isDetachable(pAttachPt->getObject()))) ||	// Don't allow replacing of locked attachment
-			  (gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) )								// Attaching a rezzed object == "Take"
+		if  ( ((!pAttachPt) && (gRlvHandler.hasLockedAttachment())) ||		// Don't allow attach to default attach point
+			  ((pAttachPt) && (!gRlvHandler.isDetachable(pAttachPt))) ||	// Don't allow replacing of locked attachment
+			  (gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) )					// Attaching a rezzed object == "Take"
 		{
 			return FALSE;
 		}
@@ -10357,7 +10377,7 @@ class RLVaMainToggle : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		rlvDbgToggleEnabled(NULL);
+		rlvToggleEnabled(NULL);
 		return true;
 	}
 };
@@ -10366,7 +10386,7 @@ class RLVaMainCheck : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		bool new_value = rlvDbgGetEnabled(NULL);
+		bool new_value = rlvGetEnabled(NULL);
 		std::string control_name = userdata["control"].asString();
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;

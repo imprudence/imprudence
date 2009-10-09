@@ -213,11 +213,23 @@ void add_timestamped_line(LLViewerTextEditor* edit, LLChat chat, const LLColor4&
 	}
 
 	// If the chat line has an associated url, link it up to the name.
-	if (!chat.mURL.empty()
-		&& (line.length() > chat.mFromName.length() && line.find(chat.mFromName,0) == 0))
+	if ((!chat.mURL.empty() && line.length() > chat.mFromName.length()) && 
+		(line.find(chat.mFromName,0) == 0 || (line.find(chat.mFromName,0) == 4 &&
+		color == gSavedSettings.getColor4("ObjectIMColor")))) // hack to make sure IMs in chat history don't hightlight
 	{
-		std::string start_line = line.substr(0, chat.mFromName.length() + 1);
-		line = line.substr(chat.mFromName.length() + 1);
+		std::string start_line;
+		if (line.find(chat.mFromName,0) == 4) // IMs are prefaced with "IM: "
+		{
+			start_line = line.substr(4, chat.mFromName.length() + 1);
+			std::string source = line.substr(0, 4);
+			edit->appendColoredText(source, false, prepend_newline, color);
+			line = line.substr(chat.mFromName.length() + 5);
+		}
+		else
+		{
+			start_line = line.substr(0, chat.mFromName.length() + 1);
+			line = line.substr(chat.mFromName.length() + 1);
+		}
 		const LLStyleSP &sourceStyle = LLStyleMap::instance().lookup(chat.mFromID,chat.mURL);
 		edit->appendStyledText(start_line, false, prepend_newline, sourceStyle);
 		prepend_newline = false;
@@ -535,6 +547,9 @@ LLColor4 get_text_color(const LLChat& chat)
 			{
 				text_color = gSavedSettings.getColor4("ObjectChatColor");
 			}
+			break;
+		case CHAT_SOURCE_OBJECT_IM:
+			text_color = gSavedSettings.getColor4("ObjectIMColor");
 			break;
 		default:
 			text_color.setToWhite();

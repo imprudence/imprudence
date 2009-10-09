@@ -33,44 +33,49 @@
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="1 1 1 1" control_name="UserChatColor"
 	     enabled="true" follows="left|top" height="56" label="You" left="148"
-	     mouse_opaque="true" name="user" width="44" />
+	     mouse_opaque="true" name="user" width="54" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="1 1 1 1" control_name="AgentChatColor"
-	     enabled="true" follows="left|top" height="56" label="Others" left_delta="48"
-	     mouse_opaque="true" name="agent" width="44" />
+	     enabled="true" follows="left|top" height="56" label="Others" left_delta="68"
+	     mouse_opaque="true" name="agent" width="54" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="0.6 0.6 1 1"
-	     enabled="true" follows="left|top" height="56" label="IM" left_delta="48"
-	     mouse_opaque="true" name="im" width="44" />
+	     enabled="true" follows="left|top" height="56" label="IMs" left_delta="68"
+	     mouse_opaque="true" name="im" width="54" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="0.8 1 1 1"
 	     enabled="true" follows="left|top"
-	     height="56" label="System" left_delta="48" mouse_opaque="true"
-	     name="system" width="44" />
+	     height="56" label="System" left_delta="68" mouse_opaque="true"
+	     name="system" width="54" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="0.82 0.82 0.99 1"
 	     control_name="ScriptErrorColor" enabled="true" follows="left|top"
-	     height="56" label="Errors" left_delta="48" mouse_opaque="true"
-	     name="script_error" width="44" />
+	     height="56" label="Errors" left_delta="68" mouse_opaque="true"
+	     name="script_error" width="54" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
 	     control_name="ObjectChatColor" enabled="true" follows="left|top"
 	     height="56" label="Objects" left="148" mouse_opaque="true"
-	     name="objects" width="44" />
+	     name="objects" width="54" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
+       control_name="ObjectIMColor" enabled="true" follows="left|top"
+	     height="56" label="Object IMs" left_delta="68" mouse_opaque="true"
+       name="object_ims" width="54" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
+	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
 	     enabled="true" follows="left|top"
-	     height="56" label="Owner" left_delta="48" mouse_opaque="true" name="owner"
-	     width="44" />
+	     height="56" label="Owner" left_delta="68" mouse_opaque="true" name="owner"
+	     width="54" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0 0 0 1"
 	     enabled="true" follows="left|top"
-	     height="56" label="Bubble" left_delta="48" mouse_opaque="true"
-	     name="background" width="44" />
+	     height="56" label="Bubble" left_delta="68" mouse_opaque="true"
+	     name="background" width="54" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0.6 0.6 1 1"
 	     enabled="true" follows="left|top" height="56"
-	     label="URLs" left_delta="48" mouse_opaque="true" name="links" width="44" />
+	     label="URLs" left_delta="68" mouse_opaque="true" name="links" width="54" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-185" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"

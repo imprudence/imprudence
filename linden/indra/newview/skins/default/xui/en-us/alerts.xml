@@ -5093,7 +5093,37 @@ Would you like to visit the Second Life website to set this up?
 		</message>
 	</alert>
 
-	<alert modal="true" name="ConfirmTeleportHome">
+  <alert modal="true" name="ConfirmAutoPilot">
+    <message name="message">
+      Are you sure you want to move here?
+    </message>
+    <ignore name="ignore">
+      When using auto-pilot
+    </ignore>
+    <option name="Move">
+      Move
+    </option>
+    <option name="Cancel">
+      Cancel
+    </option>
+  </alert>
+  
+  <alert modal="true" name="ConfirmDoubleClickTP">
+    <message name="message">
+      Are you sure you want to teleport here?
+    </message>
+    <ignore name="ignore">
+      When double-click teleporting
+    </ignore>
+    <option name="Teleport">
+      Teleport
+    </option>
+    <option name="Cancel">
+      Cancel
+    </option>
+  </alert>
+
+  <alert modal="true" name="ConfirmTeleportHome">
 		<message name="message">
 			Are you sure you want to teleport home?
 		</message>
@@ -5192,5 +5222,22 @@ WARNING: Don't restore if you aren't sure where the object will go!
 		</option>
 	</alert>
 
+  <!-- [RLVa:KB] -->
+	<alert modal="true" name="FirstRLVGiveToRLV">
+		<message name="message">
+Folders starting with &apos;#RLV/~&apos; can automatically be placed under your #RLV shared folder after you accept the inventory offer.
+
+Please note that - if enabled - the accepted inventory items will instantly be available to scripts and will have full use of the RLV API which may cause unexpected or undesirable situations.
+
+Do you want to enable this feature?
+		</message>
+		<option name="Yes">
+			Yes
+		</option>
+		<option name="No">
+			No
+		</option>
+  </alert>
+  <!-- [/RLVa:KB] -->
 </alerts>
 

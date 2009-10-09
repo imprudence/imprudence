@@ -78,6 +78,7 @@
 #include "llfloatergroupinfo.h"
 #include "llfloaterimagepreview.h"
 #include "llfloaterland.h"
+#include "llfloatermap.h"
 #include "llfloaterregioninfo.h"
 #include "llfloaterlandholdings.h"
 #include "llurldispatcher.h"
@@ -837,9 +838,9 @@ void open_offer(const std::vector<LLUUID>& items, const std::string& from_name)
 		//if we are throttled, don't display them - Gigs
 		if (check_offer_throttle(from_name, false))
 		{
-			// I'm not sure this is a good idea.  JC  -  Definitely a bad idea.  HB
-			//bool show_keep_discard = item->getPermissions().getCreator() != gAgent.getID();
-			bool show_keep_discard = true;
+			// I'm not sure this is a good idea.  JC
+			bool show_keep_discard = item->getPermissions().getCreator() != gAgent.getID();
+			//bool show_keep_discard = true;
 			switch(asset_type)
 			{
 			case LLAssetType::AT_NOTECARD:
@@ -1821,6 +1822,14 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			}
 			else
 			{
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-09-10 (RLVa-1.0.3a)
+				if ( (rlv_handler_t::isEnabled()) && (dialog == IM_TASK_INVENTORY_OFFERED) &&
+					 (info->mDesc.find(RLV_PUTINV_PREFIX) == 1) && (gRlvHandler.getSharedRoot()) )
+				{
+					LLFirstUse::warnRlvGiveToRLV();
+				}
+// [/RLVa:KB]
+
 				inventory_offer_handler(info, dialog == IM_TASK_INVENTORY_OFFERED);
 			}
 		}
@@ -1929,7 +1938,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			{
 				return;
 			}
-			chat.mText = name + separator_string + message.substr(message_offset);
+			chat.mText = std::string("IM: ") + name + separator_string + message.substr(message_offset);
 			chat.mFromName = name;
 
 			// Build a link to open the object IM info window.
@@ -1966,7 +1975,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 
 			// Note: lie to LLFloaterChat::addChat(), pretending that this is NOT an IM, because
 			// IMs from objcts don't open IM sessions.
-			chat.mSourceType = CHAT_SOURCE_OBJECT;
+			chat.mSourceType = CHAT_SOURCE_OBJECT_IM;
 			LLFloaterChat::addChat(chat, FALSE, FALSE);
 		}
 		break;
@@ -2436,6 +2445,32 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		is_owned_by_me = chatter->permYouOwner();
 	}
 
+	if(chat.mSourceType == CHAT_SOURCE_OBJECT 
+		&& chat.mChatType != CHAT_TYPE_DEBUG_MSG
+		&& !owner_id.isNull()
+		&& owner_id != gAgent.getID())
+	{
+		std::string tempname = from_name;
+
+		size_t found = tempname.find(" ");
+		while(found != std::string::npos)
+		{
+			tempname.replace(found, 1, "");
+			found = tempname.find(" ");
+		}
+
+		if (tempname.length() < 1)
+		{
+			from_name = "no name";
+			chat.mFromName = from_name;
+		}
+
+		//        std::string ownername;
+		//        if(gCacheName->getFullName(owner_id,ownername))
+		//            from_name += (" (" + ownername + ")");
+		chat.mURL = llformat("secondlife:///app/agent/%s/about",owner_id.asString().c_str());
+	}
+
 	if (is_audible)
 	{
 		BOOL visible_in_chat_bubble = FALSE;
@@ -2513,6 +2548,12 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 			{
 				((LLVOAvatar*)chatter)->startTyping();
 			}
+
+			if (LLFloaterMap::getInstance())
+			{
+				LLFloaterMap::getInstance()->updateTypingList(from_id, false);
+			}
+
 			return;
 		}
 		else if (CHAT_TYPE_STOP == chat.mChatType)
@@ -2524,6 +2565,15 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 			{
 				((LLVOAvatar*)chatter)->stopTyping();
 			}
+
+			if (LLFloaterMap::getInstance())
+			{
+				if (LLFloaterMap::getInstance()->getIsTyping(from_id))
+				{
+					LLFloaterMap::getInstance()->updateTypingList(from_id, true);
+				}
+			}
+
 			return;
 		}
 
@@ -2553,18 +2603,16 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 				verb = " " + LLTrans::getString("whisper") + " ";
 				break;
 			case CHAT_TYPE_OWNER:
-// [RLVa:KB] - Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
-				if ( (rlv_handler_t::isEnabled()) && (mesg.length() > 3) && (RLV_CMD_PREFIX == mesg[0]) )
+// [RLVa:KB] - Checked: 2009-08-28 (RLVa-1.0.2a) | Modified: RLVa-1.0.2a
+				if ( (rlv_handler_t::isEnabled()) && (mesg.length() > 3) && (RLV_CMD_PREFIX == mesg[0]) && (CHAT_TYPE_OWNER == chat.mChatType) )
 				{
 					mesg.erase(0, 1);
 					LLStringUtil::toLower(mesg);
 
 					std::string strExecuted, strFailed, strRetained, *pstr;
 
-					typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-					boost::char_separator<char> sep(",", "", boost::drop_empty_tokens);
-					tokenizer tokens(mesg, sep);
-					for (tokenizer::iterator itToken = tokens.begin(); itToken != tokens.end(); ++itToken)
+					boost_tokenizer tokens(mesg, boost::char_separator<char>(",", "", boost::drop_empty_tokens));
+					for (boost_tokenizer::const_iterator itToken = tokens.begin(); itToken != tokens.end(); ++itToken)
 					{
 						if (LLStartUp::getStartupState() == STATE_STARTED)
 						{
@@ -4371,7 +4419,7 @@ void process_money_balance_reply( LLMessageSystem* msg, void** )
 	LLUUID tid;
 	msg->getUUID("MoneyData", "TransactionID", tid);
 	static std::deque<LLUUID> recent;
-	if(!desc.empty() && gSavedSettings.getBOOL("NotifyMoneyChange")
+	if(!desc.empty() && gSavedSettings.getBOOL("NotifyMoneyChange") && !gDisconnected
 	   && (std::find(recent.rbegin(), recent.rend(), tid) == recent.rend()))
 	{
 		// Make the user confirm the transaction, since they might

@@ -1,5 +1,6 @@
 #include "llviewerprecompiledheaders.h"
 #include "llagent.h"
+#include "llfloaterwindlight.h"
 #include "llviewerobject.h"
 #include "llviewerstats.h"
 #include "llviewerwindow.h"
@@ -14,31 +15,33 @@
 // Static variable initialization
 //
 
-RlvMultiStringSearch RlvCommand::m_BhvrLookup;
+RlvCommand::RlvBhvrTable RlvCommand::m_BhvrMap;
 
 // ============================================================================
+// RlvCommmand
+//
 
-// Checked:
+// Checked: 2009-09-10 (RLVa-1.0.3a) | Modified: RLVa-1.0.3a
 RlvCommand::RlvCommand(const std::string& strCommand)
 	: m_eBehaviour(RLV_BHVR_UNKNOWN), m_eParamType(RLV_TYPE_UNKNOWN)
 {
 	if ((m_fValid = parseCommand(strCommand, m_strBehaviour, m_strOption, m_strParam)))
 	{
+		S32 nTemp = 0;
 		if ( ("n" == m_strParam) || ("add" == m_strParam) )
 			m_eParamType = RLV_TYPE_ADD;
 		else if ( ("y" == m_strParam) || ("rem" == m_strParam) )
 			m_eParamType = RLV_TYPE_REMOVE;
 		else if ("force" == m_strParam)
 			m_eParamType = RLV_TYPE_FORCE;
+		else if (LLStringUtil::convertToS32(m_strParam, nTemp))	// Assume it's a reply command if we can convert <param> to an S32
+			m_eParamType = RLV_TYPE_REPLY;
+		else if (m_strBehaviour == "clear")						// clear is the odd one out so just make it its own type
+			m_eParamType = RLV_TYPE_CLEAR;
 		else
 		{
-			m_eParamType = RLV_TYPE_REPLY; // Assume it's a reply command until we encounter a non-digit
-
-			if ( (m_strParam.empty()) || (-1 != m_strParam.find_first_not_of("0123456789")) )
-			{
-				m_eParamType = RLV_TYPE_UNKNOWN;
-				m_fValid = ("clear" == m_strBehaviour);
-			}
+			m_eParamType = RLV_TYPE_UNKNOWN;
+			m_fValid = false;
 		}
 	}
 
@@ -48,50 +51,16 @@ RlvCommand::RlvCommand(const std::string& strCommand)
 		return;
 	}
 
-	U16 nBehaviour;
-	if (m_BhvrLookup.getExactMatchParam(m_strBehaviour, nBehaviour))
-	{
-		m_eBehaviour = (ERlvBehaviour)nBehaviour;
-	}
+	RlvBhvrTable::const_iterator itBhvr = m_BhvrMap.find(m_strBehaviour);
+	if (itBhvr != m_BhvrMap.end())
+		m_eBehaviour = itBhvr->second;
 }
 
-RlvCommand::RlvCommand(const RlvCommand& rlvCmd)
-	: m_fValid(rlvCmd.m_fValid),
-	  m_strBehaviour(rlvCmd.m_strBehaviour), m_eBehaviour(rlvCmd.m_eBehaviour),	
-	  m_strOption(rlvCmd.m_strOption),
-	  m_strParam(rlvCmd.m_strParam), m_eParamType(rlvCmd.m_eParamType)
+
+bool RlvCommand::parseCommand(const std::string& strCommand, std::string& strBehaviour, std::string& strOption, std::string& strParam)
 {
-}
+	// (See behaviour notes for the command parsing truth table)
 
-// ============================================================================
-
-/*
- * ------------------------------
- * Command           | RLV | RLVa
- * ------------------------------
- * :                 |  F  |  F  (missing behaviour)
- * :option           |  F  |  F  (missing behaviour)
- * :=                |  T  |  F  (missing behaviour)
- * :option=          |  T  |  F  (missing behaviour)
- * :option=param     |  T  |  F  (missing behaviour)
- * =                 |  T  |  F  (missing behaviour)
- * =param            |  T  |  F  (missing behaviour)
- * cmd               |  F  |  F  (missing param) [T if <behaviour> == "clear"]
- * cmd:              |  F  |  F  (missing param)
- * cmd:option        |  F  |  F  (missing param)
- * cmd:=             |  T  |  F  (missing param) [1]
- * cmd:option=       |  T  |  F  (missing param) [1]
- * cmd=              |  T  |  F  (missing param) [1]
- * cmd:option=param  |  T  |  T
- * cmd=param         |  T  |  T
- * cmd:=param        |  T  |  T
- *
- * [1] 'clear:=', 'clear:option=' and 'clear=' are "valid" variations of 'clear'
- */
-
-BOOL RlvCommand::parseCommand(/*[in]*/ const std::string& strCommand,  
-	/*[out]*/ std::string& strBehaviour, /*[out]*/ std::string& strOption, /*[out]*/ std::string& strParam)
-{
 	// Format: <behaviour>[:<option>]=<param>
 	int idxParam  = strCommand.find('=');
 	int idxOption = (idxParam > 0) ? strCommand.find(':') : -1;
@@ -100,7 +69,7 @@ BOOL RlvCommand::parseCommand(/*[in]*/ const std::string& strCommand,
 
 	// If <behaviour> is missing it's always an improperly formatted command
 	if ( (0 == idxOption) || (0 == idxParam) )
-		return FALSE;
+		return false;
 
 	strBehaviour = strCommand.substr(0, (-1 != idxOption) ? idxOption : idxParam);
 	strOption = strParam = "";
@@ -111,15 +80,15 @@ BOOL RlvCommand::parseCommand(/*[in]*/ const std::string& strCommand,
 		// Unless "<behaviour> == "clear" AND (idxOption == 0)" 
 		// OR <behaviour> == "clear" AND (idxParam != 0) [see table above]
 		if ( ("clear" == strBehaviour) && ( (!idxOption) || (idxParam) ) )
-			return TRUE;
-		return FALSE;
+			return true;
+		return false;
 	}
 
 	if ( (-1 != idxOption) && (idxOption + 1 != idxParam) )
 		strOption = strCommand.substr(idxOption + 1, idxParam - idxOption - 1);
 	strParam = strCommand.substr(idxParam + 1);
 
-	return TRUE;
+	return true;
 }
 
 void RlvCommand::initLookupTable()
@@ -127,57 +96,61 @@ void RlvCommand::initLookupTable()
 	static bool fInitialized = false;
 	if (!fInitialized)
 	{
-		// NOTE: keep this match with the enumeration at all times
+		// NOTE: keep this matched with the enumeration at all times
 		std::string arBehaviours[RLV_BHVR_COUNT] =
 			{
-				"version", "detach", "redirchat", "rediremote", "sendim", "recvchat", "recvemote", "recvim", "tploc", "tplure", 
-				"sittp", "edit", "rez", "addoutfit", "remoutfit", "getoutfit", "getattach", "showinv", "unsit", "sit",
-				"getstatus", "getstatusall", "getinv", "getinvworn", "findfolder", "findfolders", "attach", "attachall", "detachall",
-				"getpath", "attachthis", "attachallthis", "detachthis", "detachallthis", "fartouch", "showworldmap", "showminimap",
-				"showloc", "tpto", "accepttp", "shownames", "fly", "getsitid", "setdebug", "setenv", "detachme", 
-				"showhovertextall", "showhovertextworld", "showhovertexthud", "showhovertext", "notify"
+				"version", "detach", "sendchat", "emote", "chatshout", "chatnormal", "chatwhisper", "redirchat", "rediremote",
+				"sendim", "recvchat", "recvemote", "recvim", "tplm", "tploc", "tplure", "sittp", "edit", "rez", "addoutfit",
+				"remoutfit", "getoutfit", "getattach", "showinv", "viewnote", "unsit", "sit", "sendchannel", "getstatus", "getstatusall",
+				"getinv", "getinvworn", "findfolder", "findfolders", "attach", "attachall", "detachall", "getpath", "attachthis",
+				"attachallthis", "detachthis", "detachallthis", "fartouch", "showworldmap", "showminimap", "showloc", "tpto", "accepttp",
+				"shownames", "fly", "getsitid", "setdebug", "setenv", "detachme", "showhovertextall", "showhovertextworld",
+				"showhovertexthud", "showhovertext", "notify"
 			};
 
 		for (int idxBvhr = 0; idxBvhr < RLV_BHVR_COUNT; idxBvhr++)
-			m_BhvrLookup.addKeyword(arBehaviours[idxBvhr], idxBvhr);
+			m_BhvrMap.insert(std::pair<std::string, ERlvBehaviour>(arBehaviours[idxBvhr], (ERlvBehaviour)idxBvhr));
 
 		fInitialized = true;
 	}
 }
 
-// Checked: 2009-06-07 (RLVa-0.2.1c)
-std::string RlvCommand::asString() const
+// =========================================================================
+// RlvObject
+//
+
+RlvObject::RlvObject(const LLUUID& idObj) : m_UUID(idObj), m_nLookupMisses(0)
 {
-	return (!m_strOption.empty()) ? (std::string(m_strBehaviour)).append(":").append(m_strOption) : (std::string(m_strBehaviour));
+	LLViewerObject* pObj = gObjectList.findObject(idObj);
+	m_fLookup = (NULL != pObj);
+	m_idxAttachPt = (pObj) ? ATTACHMENT_ID_FROM_STATE(pObj->getState()) : 0;
 }
 
-// =========================================================================
-
-BOOL RlvObject::addCommand(const RlvCommand& rlvCmd)
+bool RlvObject::addCommand(const RlvCommand& rlvCmd)
 {
 	// Sanity checking
 	if (RLV_TYPE_ADD != rlvCmd.getParamType())
-		return FALSE;
+		return false;
 
 	// Don't add duplicate commands for this object (ie @detach=n followed by another @detach=n later on)
-	BOOL fDuplicate = 
+	bool fDuplicate =
 		(RLV_BHVR_UNKNOWN != rlvCmd.getBehaviourType())
 			? hasBehaviour(rlvCmd.getBehaviourType(), rlvCmd.getOption())
 			: hasBehaviour(rlvCmd.getBehaviour(), rlvCmd.getOption());
 	if (fDuplicate)
-		return FALSE;
+		return false;
 
 	// Now that we know it's not a duplicate, add it to the end of the list
 	m_Commands.push_back(rlvCmd);
 
-	return TRUE;
+	return true;
 }
 
-BOOL RlvObject::removeCommand(const RlvCommand& rlvCmd)
+bool RlvObject::removeCommand(const RlvCommand& rlvCmd)
 {
 	// Sanity checking
 	if (RLV_TYPE_REMOVE != rlvCmd.getParamType())
-		return FALSE;
+		return false;
 
 	for (rlv_command_list_t::iterator itCmd = m_Commands.begin(); itCmd != m_Commands.end(); ++itCmd)
 	{
@@ -185,42 +158,42 @@ BOOL RlvObject::removeCommand(const RlvCommand& rlvCmd)
 		if ( (itCmd->getBehaviour() == rlvCmd.getBehaviour()) && (itCmd->getOption() == rlvCmd.getOption()) )
 		{
 			m_Commands.erase(itCmd);
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;	// Command was never added so nothing to remove now
+	return false;	// Command was never added so nothing to remove now
 }
 
-BOOL RlvObject::hasBehaviour(ERlvBehaviour eBehaviour) const
+bool RlvObject::hasBehaviour(ERlvBehaviour eBehaviour) const
 {
 	for (rlv_command_list_t::const_iterator itCmd = m_Commands.begin(); itCmd != m_Commands.end(); ++itCmd)
 		if ( (itCmd->getBehaviourType() == eBehaviour) && (itCmd->getOption().empty()) )
-			return TRUE;
-	return FALSE;
+			return true;
+	return false;
 }
 
-BOOL RlvObject::hasBehaviour(const std::string& strBehaviour) const
+bool RlvObject::hasBehaviour(const std::string& strBehaviour) const
 {
 	for (rlv_command_list_t::const_iterator itCmd = m_Commands.begin(); itCmd != m_Commands.end(); ++itCmd)
 		if ( (itCmd->getBehaviour() == strBehaviour) && (itCmd->getOption().empty()) )
-			return TRUE;
-	return FALSE;
+			return true;
+	return false;
 }
 
-BOOL RlvObject::hasBehaviour(ERlvBehaviour eBehaviour, const std::string& strOption) const
+bool RlvObject::hasBehaviour(ERlvBehaviour eBehaviour, const std::string& strOption) const
 {
 	for (rlv_command_list_t::const_iterator itCmd = m_Commands.begin(); itCmd != m_Commands.end(); ++itCmd)
 		if ( (itCmd->getBehaviourType() == eBehaviour) && (itCmd->getOption() == strOption) )
-			return TRUE;
-	return FALSE;
+			return true;
+	return false;
 }
 
-BOOL RlvObject::hasBehaviour(const std::string& strBehaviour, const std::string& strOption) const
+bool RlvObject::hasBehaviour(const std::string& strBehaviour, const std::string& strOption) const
 {
 	for (rlv_command_list_t::const_iterator itCmd = m_Commands.begin(); itCmd != m_Commands.end(); ++itCmd)
 		if ( (itCmd->getBehaviour() == strBehaviour) && (itCmd->getOption() == strOption) )
-			return TRUE;
-	return FALSE;
+			return true;
+	return false;
 }
 
 // Checked: 2009-06-07 (RLVa-0.2.1c)
@@ -242,31 +215,9 @@ std::string RlvObject::getStatusString(const std::string& strMatch) const
 	return strStatus;
 }
 
-// =========================================================================
-/*
- * Various helper classes/timers/functors
- *
- */
-
-// Checked: 2009-05-26 (RLVa-0.2.0d) | Modified: RLVa-0.2.0d
-S32 rlvGetDirectDescendentsCount(const LLInventoryCategory* pFolder, LLAssetType::EType type)
-{
-	S32 cntType = 0;
-	if (pFolder)
-	{
-		LLInventoryModel::cat_array_t*  pFolders;
-		LLInventoryModel::item_array_t* pItems;
-		gInventory.getDirectDescendentsOf(pFolder->getUUID(), pFolders, pItems);
-
-		if (pItems)
-		{
-			for (S32 idxItem = 0, cntItem = pItems->count(); idxItem < cntItem; idxItem++)
-				if (pItems->get(idxItem)->getType() == type)
-					cntType++;
-		}
-	}
-	return cntType;
-}
+// ============================================================================
+// RlvWearableItemCollector
+//
 
 // Checked: 2009-05-30 (RLVa-0.2.0e) | Added: RLVa-0.2.0e
 const LLUUID& RlvWearableItemCollector::getFoldedParent(const LLUUID& idFolder) const
@@ -365,57 +316,72 @@ bool RlvWearableItemCollector::operator()(LLInventoryCategory* pFolder, LLInvent
 	return (pFolder) ? onCollectFolder(pFolder) : ( (pItem) ? onCollectItem(pItem) : false );
 }
 
-// Checked: 2009-07-06 (RLVa-1.0.0c) | Modified: RLVa-0.2.0f
-bool RlvSelectHasLockedAttach::apply(LLSelectNode* pNode)
-{
-	return (pNode->getObject()) ? !gRlvHandler.isDetachable(pNode->getObject()) : false;
-}
+// ============================================================================
+// RlvWLSnapshot
+//
 
-// Checked: 2009-07-05 (RLVa-1.0.0b) | Modified: RLVa-0.2.0f
-bool RlvSelectIsOwnedByOrGroupOwned::apply(LLSelectNode* pNode)
+// Checked: 2009-06-03 (RLVa-0.2.0h) | Added: RLVa-0.2.0h
+void RlvWLSnapshot::restoreSnapshot(const RlvWLSnapshot* pWLSnapshot)
 {
-	return (pNode->mPermissions->isGroupOwned()) || (pNode->mPermissions->getOwner() == m_idAgent);
-}
-
-// Checked: 2009-05-31 (RLVa-0.2.0f) | Modified: RLVa-0.2.0f
-bool RlvSelectIsSittingOn::apply(LLSelectNode* pNode)
-{
-	return (pNode->getObject()) && (pNode->getObject()->getRootEdit() == m_pObject);
-}
-
-// Checked: 2009-07-05 (RLVa-1.0.0b) | Modified: RLVa-0.2.0g
-bool rlvCanDeleteOrReturn()
-{
-	bool fIsAllowed = true;
-
-	if (gRlvHandler.hasBehaviour(RLV_BHVR_REZ))
+	LLWLParamManager* pWLParams = LLWLParamManager::instance();
+	if ( (pWLSnapshot) && (pWLParams) )
 	{
-		// We'll allow if none of the prims are owned by the avie or group owned
-		LLObjectSelectionHandle handleSel = LLSelectMgr::getInstance()->getSelection();
-		RlvSelectIsOwnedByOrGroupOwned func(gAgent.getID());
-		if ( (handleSel.notNull()) && ((0 == handleSel->getRootObjectCount()) || (NULL != handleSel->getFirstRootNode(&func, FALSE))) )
-			fIsAllowed = false;
+		pWLParams->mAnimator.mIsRunning = pWLSnapshot->fIsRunning;
+		pWLParams->mAnimator.mUseLindenTime = pWLSnapshot->fUseLindenTime;
+		pWLParams->mCurParams = pWLSnapshot->WLParams;
+		pWLParams->propagateParameters();
 	}
-	
-	if ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (gAgent.getAvatarObject()) )
+}
+
+// Checked: 2009-09-16 (RLVa-1.0.3c) | Modified: RLVa-1.0.3c
+RlvWLSnapshot* RlvWLSnapshot::takeSnapshot()
+{
+	// HACK: see RlvExtGetSet::onGetEnv
+	if (!LLFloaterWindLight::isOpen())
 	{
-		// We'll allow if the avie isn't sitting on any of the selected objects
-		LLObjectSelectionHandle handleSel = LLSelectMgr::getInstance()->getSelection();
-		RlvSelectIsSittingOn func(gAgent.getAvatarObject()->getRoot());
-		if ( (handleSel.notNull()) && (handleSel->getFirstRootNode(&func, TRUE)) )
-			fIsAllowed = false;
+		LLFloaterWindLight::instance()->close();
+		LLFloaterWindLight::instance()->syncMenu();
 	}
 
-	return fIsAllowed;
+	RlvWLSnapshot* pWLSnapshot = NULL;
+	LLWLParamManager* pWLParams = LLWLParamManager::instance();
+	if (pWLParams)
+	{
+		pWLSnapshot = new RlvWLSnapshot();
+		pWLSnapshot->fIsRunning = pWLParams->mAnimator.mIsRunning;
+		pWLSnapshot->fUseLindenTime = pWLParams->mAnimator.mUseLindenTime;
+		pWLSnapshot->WLParams = pWLParams->mCurParams;
+	}
+	return pWLSnapshot;
 }
 
-// Checked: 2009-07-05 (RLVa-1.0.0c)
-BOOL rlvAttachToEnabler(void* pParam)
-{
-	// Enables/disables an option on the "Attach to (HUD)" submenu depending on whether it is (un)detachable
-	LLViewerJointAttachment* pAttachment = (LLViewerJointAttachment*)pParam;
-	return (!pAttachment) || (gRlvHandler.isDetachable(pAttachment->getObject()));
-}
+// =========================================================================
+// RlvSettings
+//
+
+BOOL RlvSettings::fShowNameTags = FALSE;
+
+#ifdef RLV_EXTENSION_STARTLOCATION
+	// Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.1d
+	void RlvSettings::updateLoginLastLocation()
+	{
+		if (gSavedPerAccountSettings.controlExists(RLV_SETTING_LOGINLASTLOCATION))
+		{
+			BOOL fValue = (gRlvHandler.hasBehaviour(RLV_BHVR_TPLOC)) ||
+						  ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) &&
+						    (gAgent.getAvatarObject()) && (!gAgent.getAvatarObject()->mIsSitting) );
+			if (gSavedPerAccountSettings.getBOOL(RLV_SETTING_LOGINLASTLOCATION) != fValue)
+			{
+				gSavedPerAccountSettings.setBOOL(RLV_SETTING_LOGINLASTLOCATION, fValue);
+				gSavedPerAccountSettings.saveToFile(gSavedSettings.getString("PerAccountSettingsFile"), TRUE);
+			}
+		}
+	}
+#endif // RLV_EXTENSION_STARTLOCATION
+
+// =========================================================================
+// Various helper classes/timers/functors
+//
 
 BOOL RlvGCTimer::tick()
 {
@@ -454,63 +420,84 @@ void RlvCurrentlyWorn::fetchWorn()
 	f.fetchItems(idItems);
 }
 
-// =========================================================================
-
-// Checked: 2009-06-03 (RLVa-0.2.0h) | Added: RLVa-0.2.0h
-void RlvWLSnapshot::restoreSnapshot(const RlvWLSnapshot* pWLSnapshot)
+// Checked: 2009-07-06 (RLVa-1.0.0c) | Modified: RLVa-0.2.0f
+bool RlvSelectHasLockedAttach::apply(LLSelectNode* pNode)
 {
-	LLWLParamManager* pWLParams = LLWLParamManager::instance();
-	if ( (pWLSnapshot) && (pWLParams) )
-	{
-		pWLParams->mAnimator.mIsRunning = pWLSnapshot->fIsRunning;
-		pWLParams->mAnimator.mUseLindenTime = pWLSnapshot->fUseLindenTime;
-		pWLParams->mCurParams = pWLSnapshot->WLParams;
-		pWLParams->propagateParameters();
-	}
+	return (pNode->getObject()) ? !gRlvHandler.isDetachable(pNode->getObject()) : false;
 }
 
-// Checked: 2009-06-03 (RLVa-0.2.0h) | Added: RLVa-0.2.0h
-RlvWLSnapshot* RlvWLSnapshot::takeSnapshot()
+// Checked: 2009-07-05 (RLVa-1.0.0b) | Modified: RLVa-0.2.0f
+bool RlvSelectIsOwnedByOrGroupOwned::apply(LLSelectNode* pNode)
 {
-	RlvWLSnapshot* pWLSnapshot = NULL;
-	LLWLParamManager* pWLParams = LLWLParamManager::instance();
-	if (pWLParams)
-	{
-		pWLSnapshot = new RlvWLSnapshot();
-		pWLSnapshot->fIsRunning = pWLParams->mAnimator.mIsRunning;
-		pWLSnapshot->fUseLindenTime = pWLParams->mAnimator.mUseLindenTime;
-		pWLSnapshot->WLParams = pWLParams->mCurParams;
-	}
-	return pWLSnapshot;
+	return (pNode->mPermissions->isGroupOwned()) || (pNode->mPermissions->getOwner() == m_idAgent);
 }
 
-// =========================================================================
+// Checked: 2009-05-31 (RLVa-0.2.0f) | Modified: RLVa-0.2.0f
+bool RlvSelectIsSittingOn::apply(LLSelectNode* pNode)
+{
+	return (pNode->getObject()) && (pNode->getObject()->getRootEdit() == m_pObject);
+}
 
-BOOL RlvSettings::fShowNameTags = FALSE;
+// ============================================================================
+// Various helper functions
+//
 
-#ifdef RLV_EXTENSION_STARTLOCATION
-	// Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.1d
-	void RlvSettings::updateLoginLastLocation()
+// Checked: 2009-09-08 (RLVa-1.0.2c) | Modified: RLVa-1.0.2c
+BOOL rlvAttachToEnabler(void* pParam)
+{
+	// Enables/disables an option on the "Attach to (HUD)" submenu depending on whether it is (un)detachable
+	return gRlvHandler.isDetachable((LLViewerJointAttachment*)pParam);
+}
+
+// Checked: 2009-07-05 (RLVa-1.0.0b) | Modified: RLVa-0.2.0g
+bool rlvCanDeleteOrReturn()
+{
+	bool fIsAllowed = true;
+
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_REZ))
 	{
-		if (gSavedPerAccountSettings.controlExists(RLV_SETTING_LOGINLASTLOCATION))
+		// We'll allow if none of the prims are owned by the avie or group owned
+		LLObjectSelectionHandle handleSel = LLSelectMgr::getInstance()->getSelection();
+		RlvSelectIsOwnedByOrGroupOwned func(gAgent.getID());
+		if ( (handleSel.notNull()) && ((0 == handleSel->getRootObjectCount()) || (NULL != handleSel->getFirstRootNode(&func, FALSE))) )
+			fIsAllowed = false;
+	}
+
+	if ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (gAgent.getAvatarObject()) )
+	{
+		// We'll allow if the avie isn't sitting on any of the selected objects
+		LLObjectSelectionHandle handleSel = LLSelectMgr::getInstance()->getSelection();
+		RlvSelectIsSittingOn func(gAgent.getAvatarObject()->getRoot());
+		if ( (handleSel.notNull()) && (handleSel->getFirstRootNode(&func, TRUE)) )
+			fIsAllowed = false;
+	}
+
+	return fIsAllowed;
+}
+
+// Checked: 2009-05-26 (RLVa-0.2.0d) | Modified: RLVa-0.2.0d
+S32 rlvGetDirectDescendentsCount(const LLInventoryCategory* pFolder, LLAssetType::EType type)
+{
+	S32 cntType = 0;
+	if (pFolder)
+	{
+		LLInventoryModel::cat_array_t*  pFolders;
+		LLInventoryModel::item_array_t* pItems;
+		gInventory.getDirectDescendentsOf(pFolder->getUUID(), pFolders, pItems);
+
+		if (pItems)
 		{
-			BOOL fValue = (gRlvHandler.hasBehaviour(RLV_BHVR_TPLOC)) || 
-						  ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && 
-						    (gAgent.getAvatarObject()) && (!gAgent.getAvatarObject()->mIsSitting) );
-			if (gSavedPerAccountSettings.getBOOL(RLV_SETTING_LOGINLASTLOCATION) != fValue)
-			{
-				gSavedPerAccountSettings.setBOOL(RLV_SETTING_LOGINLASTLOCATION, fValue);
-				gSavedPerAccountSettings.saveToFile(gSavedSettings.getString("PerAccountSettingsFile"), TRUE);
-			}
+			for (S32 idxItem = 0, cntItem = pItems->count(); idxItem < cntItem; idxItem++)
+				if (pItems->get(idxItem)->getType() == type)
+					cntType++;
 		}
 	}
-#endif // RLV_EXTENSION_STARTLOCATION
-
-// =========================================================================
+	return cntType;
+}
 
 #ifdef RLV_ADVANCED_TOGGLE_RLVA
 	// Checked: 2009-07-12 (RLVa-1.0.0h) | Modified: RLVa-1.0.0h
-	void rlvDbgToggleEnabled(void*)
+	void rlvToggleEnabled(void*)
 	{
 		gSavedSettings.setBOOL(RLV_SETTING_MAIN, !rlv_handler_t::isEnabled());
 
@@ -527,7 +514,7 @@ BOOL RlvSettings::fShowNameTags = FALSE;
 		#endif
 	}
 	// Checked: 2009-07-08 (RLVa-1.0.0e)
-	BOOL rlvDbgGetEnabled(void*)
+	BOOL rlvGetEnabled(void*)
 	{
 		return rlv_handler_t::isEnabled();
 	}
@@ -569,7 +556,7 @@ void rlvSendBusyMessage(const LLUUID& idTo, const std::string& strMsg, const LLU
 // Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
 bool rlvSendChatReply(S32 nChannel, const std::string& strReply)
 {
-	if (!rlvIsValidChannel(nChannel))
+	if (!rlvIsValidReplyChannel(nChannel))
 		return false;
 
 	// Copy/paste from send_chat_from_viewer()
@@ -670,5 +657,9 @@ std::string rlvGetLastParenthesisedText(const std::string& strText, std::string:
 	}
 	return std::string();
 }
+
+// =========================================================================
+// Debug helper functions
+//
 
 // =========================================================================

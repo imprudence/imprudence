@@ -29,21 +29,22 @@
 			<on_click function="Object.Delete" />
 			<on_enable function="Object.EnableDelete" />
 		</menu_item_call>
-		<menu_item_call enabled="false" label="Wear" mouse_opaque="true" name="Wear">
-			<on_click function="Object.AttachToAvatar" />
-			<on_enable function="Object.EnableWear" />
-		</menu_item_call>
-		<menu_item_call enabled="false" label="Take Copy" mouse_opaque="true" name="Take Copy">
-			<on_click function="Tools.TakeCopy" />
-			<on_enable function="Tools.EnableTakeCopy" />
-		</menu_item_call>
-		<pie_menu label="Attach HUD &gt;" name="Object Attach HUD" />
-		<pie_menu label="Attach &gt;" name="Object Attach" />
-		<menu_item_call enabled="false" label="Return..." mouse_opaque="true" name="Return...">
-			<on_click function="Object.Return" />
-			<on_enable function="Object.EnableReturn" />
-		</menu_item_call>
-		<pie_menu label="More &gt;" name="Rate Menu">
+    <menu_item_call enabled="false" label="Build" mouse_opaque="true" name="Create">
+      <on_click function="Object.Build" />
+      <on_enable function="EnableEdit" />
+    </menu_item_call>
+
+    <menu_item_call enabled="false" label="Take Copy" mouse_opaque="true" name="Take Copy">
+      <on_click function="Tools.TakeCopy" />
+      <on_enable function="Tools.EnableTakeCopy" />
+    </menu_item_call>
+    <pie_menu label="Attach HUD &gt;" name="Object Attach HUD" />
+    <pie_menu label="Attach &gt;" name="Object Attach" />
+    <menu_item_call enabled="false" label="Wear" mouse_opaque="true" name="Wear">
+      <on_click function="Object.AttachToAvatar" />
+      <on_enable function="Object.EnableWear" />
+    </menu_item_call>
+    <pie_menu label="More &gt;" name="Rate Menu">
       <menu_item_call label="Export" enabled="false" hidden="false"
                       mouse_opaqu="true" name="Export">
         <on_click function="Object.Export" />
@@ -74,10 +75,10 @@
         <on_click function="Tools.Unlink" userdata="" />
         <on_enable function="Tools.EnableUnlink" />
       </menu_item_call>
-		</pie_menu>
-    <menu_item_call enabled="false" label="Create" mouse_opaque="true" name="Create">
-      <on_click function="Object.Build" />
-      <on_enable function="EnableEdit" />
+    </pie_menu>
+    <menu_item_call enabled="false" label="Return..." mouse_opaque="true" name="Return...">
+      <on_click function="Object.Return" />
+      <on_enable function="Object.EnableReturn" />
     </menu_item_call>
 	</pie_menu>
 	<menu_item_call enabled="false" label="Edit..." mouse_opaque="true" name="Edit...">

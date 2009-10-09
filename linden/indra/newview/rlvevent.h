@@ -10,11 +10,8 @@
 #include "rlvhelper.h"
 
 // ============================================================================
-/*
- * RlvEvent
- * ========
- * Passed to observer event handlers (contains the same paramaters as RlvHandler::processXXXCommand)
- */
+// RlvEvent - Passed to observer event handlers (contains the same paramaters as RlvHandler::processXXXCommand)
+//
 
 class RlvEvent
 {
@@ -63,6 +60,7 @@ public:
 
 	virtual BOOL onAddCommand(const EventType& rlvEvent)    { return FALSE; }
 	virtual BOOL onRemoveCommand(const EventType& rlvEvent) { return FALSE; }
+	virtual BOOL onClearCommand(const EventType& rlvEvent)  { return FALSE; }
 	virtual BOOL onReplyCommand(const EventType& rlvEvent)  { return FALSE; }
 	virtual BOOL onForceCommand(const EventType& rlvEvent)  { return FALSE; }
 };
@@ -168,11 +166,16 @@ public:
 
 	void changed(const RlvCommand& rlvCmd, bool fInternal)
 	{
-		if ( (fInternal) || ((RLV_TYPE_ADD != rlvCmd.getParamType()) && (RLV_TYPE_REMOVE != rlvCmd.getParamType())) )
+		if (fInternal)
 			return;
 
-		std::string strCmd = rlvCmd.asString();
-		std::string strNotify = llformat("/%s=%c", strCmd.c_str(), (RLV_TYPE_ADD == rlvCmd.getParamType()) ? 'n' : 'y');
+		std::string strCmd = rlvCmd.asString(), strNotify; ERlvParamType eCmdType = rlvCmd.getParamType();
+		if ( (RLV_TYPE_ADD == eCmdType) || (RLV_TYPE_REMOVE == eCmdType) )
+			strNotify = llformat("/%s=%s", strCmd.c_str(), rlvCmd.getParam().c_str());
+		else if (RLV_TYPE_CLEAR == eCmdType)
+			strNotify = llformat("/%s", strCmd.c_str());
+		else
+			return;
 
 		for (std::multimap<LLUUID, notifyData>::const_iterator itNotify = m_Notifications.begin(); 
 				itNotify != m_Notifications.end(); ++itNotify)
