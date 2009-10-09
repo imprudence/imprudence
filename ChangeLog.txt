@@ -138,6 +138,14 @@ modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
 
 
+2009-10-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Grid manager no longer appends "/" to URIs.
+	  This was causing trouble with URIs that shouldn't end in "/".
+
+	  modified:   linden/indra/newview/hippoGridManager.cpp
+
+
 2009-10-03 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed layout of debug permissions in tools window.
