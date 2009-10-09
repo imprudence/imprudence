@@ -1,4 +1,16 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                      1.2.0 BETA 2                      -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 2009-10-09 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Updated version info to 1.2.0 beta 2, added changelog banner.
+	
+	  modified:   linden/indra/llcommon/llversionviewer.h
+	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
+	  modified:   linden/indra/newview/Info-Imprudence.plist
+	  modified:   linden/indra/newview/res/viewerRes.rc
+
 
 	* Fixed new search window size hiding next/prev buttons.
 	
