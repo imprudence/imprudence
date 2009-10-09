@@ -1,3 +1,10 @@
+2009-10-09 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added missing RLVa header file: rlvdefines.h.
+	
+	  new file:   linden/indra/newview/rlvdefines.h
+	  
+
 2009-10-08 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Applied lldialog spam throttle from Emerald viewer.
