@@ -1,5 +1,11 @@
 2009-10-08 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Applied lldialog spam throttle from Emerald viewer.
+	
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llviewermessage.cpp
+
+
 	* Don't show lldialog boxes from muted avatars anymore.
 	
 	  modified:   linden/indra/newview/llviewermessage.cpp

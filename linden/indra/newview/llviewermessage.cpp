@@ -146,6 +146,12 @@
 extern LLMap< const LLUUID, LLFloaterAvatarInfo* > gAvatarInfoInstances; // Only defined in llfloateravatarinfo.cpp
 // [/RLVa:KB]
 
+//silly spam define D:
+bool dialogSpamOn;
+static LLFrameTimer d_spam;
+std::map< std::string , S32 > lastd_names;
+LLDynamicArray< std::string > blacklisted_names;
+
 //
 // Constants
 //
@@ -5471,9 +5477,9 @@ void process_script_dialog(LLMessageSystem* msg, void**)
 	msg->getS32("Data", "ChatChannel", info->mChatChannel);
 
 	// Don't show lldialog boxes from muted avs -- McCabe
+	std::string agent_name = first_name + " " + last_name;
 	if (!first_name.empty())
 	{
-		std::string agent_name = first_name + " " + last_name;
 		std::vector<LLMute> mutes = LLMuteList::getInstance()->getMutes();
 		for (U32 i = 0; i < mutes.size(); i++)
 		{
@@ -5507,6 +5513,45 @@ void process_script_dialog(LLMessageSystem* msg, void**)
 	args["[MESSAGE]"] = message;
 	if (!first_name.empty())
 	{
+		// Dialog Spam Prevention by Cryogenic
+		if(dialogSpamOn)
+		{
+			if(!d_spam.getStarted())
+			{
+				d_spam.start();
+			}
+			if(blacklisted_names.find(agent_name) != -1)
+			{
+				return;
+			}
+			std::map< std::string , S32 >::iterator itr = lastd_names.find(agent_name);
+			if(itr != lastd_names.end())
+			{
+				if(d_spam.getElapsedTimeF32() <= gSavedSettings.getF32("SpamTime"))
+				{
+					if((*itr).second > gSavedSettings.getF32("SpamCount"))
+					{
+						blacklisted_names.put(agent_name);
+						LL_INFOS("process_script_dialog") << "blocked " << info->mObjectID.asString() << " owned by " << agent_name << LL_ENDL;//" (" << key.asString() << ")" <<LL_ENDL;
+						return;
+					}
+					else
+					{
+						(*itr).second++;
+					}
+				}
+				else
+				{
+					lastd_names.erase(lastd_names.begin(),lastd_names.end());
+					d_spam.reset();
+				}
+			}
+			else
+			{
+				//llinfos << "Added " << fullname << " to list" << llendl;
+				lastd_names[agent_name] = 0;
+			}
+		}
 		args["[FIRST]"] = first_name;
 		args["[LAST]"] = last_name;
 		LLNotifyBox::showXml("ScriptDialog", args,

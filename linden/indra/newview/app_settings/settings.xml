@@ -8003,6 +8003,28 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>SpamCount</key>
+    <map>
+      <key>Comment</key>
+      <string>Number of items spammed per time set in SpamTime. RECOMMENDED IS 4.000</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>4.0</real>
+    </map>
+    <key>SpamTime</key>
+    <map>
+      <key>Comment</key>
+      <string>Time of Evalulating spam. RECOMMENDED NUMBER IS 1.000</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>1.0</real>
+    </map>
     <key>SpeakingColor</key>
     <map>
       <key>Comment</key>
