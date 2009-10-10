@@ -1,18 +1,19 @@
 # -*- cmake -*-
 include(Prebuilt)
 
-  # possible libxml should have its own .cmake file instead
+  # Maybe libxml and glib should have their own .cmake files
   use_prebuilt_binary(libxml)
+  use_prebuilt_binary(glib)
+
   set(GSTREAMER_FOUND ON FORCE BOOL)
   set(GSTREAMER_PLUGINS_BASE_FOUND ON FORCE BOOL)
+
   use_prebuilt_binary(gstreamer)
+  use_prebuilt_binary(gstreamer-plugins)
 
 if (WINDOWS)
 
-  use_prebuilt_binary(libxml)
   use_prebuilt_binary(iconv)
-  use_prebuilt_binary(glib)
-  use_prebuilt_binary(gstreamer-plugins)
   set(GSTREAMER_FOUND ON FORCE BOOL)
   set(GSTREAMER_INCLUDE_DIRS
       ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/glib
@@ -63,7 +64,7 @@ else (WINDOWS)
       ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/libxml2
       )
 
-  if (DARWIN)
+  if (DARWIN) # Mac
 
     find_library( XML2_LIB
       NAMES xml2.2
@@ -89,7 +90,9 @@ else (WINDOWS)
         ${XML2_LIB}
         )
 
-  else (DARWIN)
+  else (DARWIN) # Linux
+
+    use_prebuilt_binary(theora)
 
     set(GSTREAMER_LIBRARIES
         gstvideo-0.10

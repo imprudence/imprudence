@@ -2,6 +2,18 @@
 =-                      1.2.0 BETA 2                      -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-10-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Updated and added some Linux libs.
+	  Updated: glib, gstreamer, gtk-etc, ogg-vorbis, openal, libxml
+	  Added: gstreamer-plugins, theora
+
+	  modified:   linden/indra/newview/viewer_manifest.py
+	  modified:   linden/indra/cmake/GStreamer.cmake
+	  modified:   linden/indra/cmake/UI.cmake
+	  modified:   linden/install.xml
+
+
 2009-10-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Updated version info to 1.2.0 beta 2, added changelog banner.
@@ -151,6 +163,13 @@ modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
 
 
 2009-10-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Updated and added some Linux libs to install.xml.
+	  Updated: glib, gstreamer, ogg-vorbis, openal
+	  Added: gstreamer-plugins, theora
+
+	  modified:   linden/install.xml
+
 
 	* Grid manager no longer appends "/" to URIs.
 	  This was causing trouble with URIs that shouldn't end in "/".
