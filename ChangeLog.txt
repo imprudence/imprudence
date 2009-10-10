@@ -1,5 +1,10 @@
 2009-10-10 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Force minimize button focus to the top of Mini-Map.
+	
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  
+	  
 	* Added and tweaked vertical IM option from Emerald viewer.
 	
 	  new file:   linden/indra/newview/skins/default/xui/en-us/floater_chatterbox_vertical.xml
