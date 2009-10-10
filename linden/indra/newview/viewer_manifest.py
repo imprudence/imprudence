@@ -798,14 +798,11 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libELFIO.so")
             self.path("libopenjpeg.so.1.3.0", "libopenjpeg.so.1.3")
 
-            self.path("libopenal.so") # symlink
             self.path("libopenal.so.1")
-            self.path("libalut.so")
+            self.path("libalut.so.0")
 
             # Gstreamer libs
-            self.path("libgstbase-0.10.so") # symlink
             self.path("libgstbase-0.10.so.0")
-            self.path("libgstreamer-0.10.so") # symlink
             self.path("libgstreamer-0.10.so.0")
             self.path("libgstaudio-0.10.so.0")
             self.path("libgstbase-0.10.so.0")
@@ -822,18 +819,10 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libgstvideo-0.10.so.0")
 
             # Gstreamer plugin dependencies
-            self.path("libavcodec.so.52")
-            self.path("libavformat.so.52")
-            self.path("libavutil.so.49")
-            self.path("libxvidcore.so.4")
-            self.path("libfaac.so.0")
-            self.path("libfaad.so.1")
-            self.path("libmp3lame.so.0")
             self.path("libogg.so.0")
+            self.path("libtheora.so.0")
             self.path("libvorbis.so.0")
             self.path("libvorbisenc.so.2")
-            self.path("libxml2.so.2")
-            self.path("libxvidcore.so.4")
 
             # Gstreamer plugins
             if self.prefix("gstreamer-plugins"):
@@ -848,7 +837,6 @@ class Linux_i686Manifest(LinuxManifest):
                 self.path("libgstdecodebin2.so")
                 self.path("libgstdecodebin.so")
                 self.path("libgstesd.so")
-                self.path("libgstffmpegcolorspace.so")
                 self.path("libgstffmpeg.so")
                 self.path("libgstgnomevfs.so")
                 self.path("libgsticydemux.so")
