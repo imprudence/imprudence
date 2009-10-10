@@ -188,7 +188,6 @@ const F32 APPEARANCE_MIN_ZOOM = 0.39f;
 const F32 APPEARANCE_MAX_ZOOM = 8.f;
 
 const F32 DIST_FUDGE = 16.f; // meters
-const F32 MAX_CAMERA_DIST_NO_CONSTRANT = 65535.f*4.f;
 
 // fidget constants
 const F32 MIN_FIDGET_TIME = 8.f; // seconds
@@ -1719,6 +1718,10 @@ F32 LLAgent::getCameraZoomFraction()
 		// already [0,1]
 		return mHUDTargetZoom;
 	}
+	else if (gSavedSettings.getBOOL("DisableCameraConstraints"))
+	{
+		return mCameraZoomFraction;
+	}
 	else if (mFocusOnAvatar && cameraThirdPerson())
 	{
 		return clamp_rescale(mCameraZoomFraction, MIN_ZOOM_FRACTION, MAX_ZOOM_FRACTION, 1.f, 0.f);
@@ -1731,17 +1734,9 @@ F32 LLAgent::getCameraZoomFraction()
 	else
 	{
 		F32 min_zoom;
-		F32 max_zoom;
-		if (gSavedSettings.getBOOL("DisableCameraConstraints"))
-		{
-			max_zoom = MAX_CAMERA_DIST_NO_CONSTRANT;
-		}
-		else
-		{
-			max_zoom = llmin(mDrawDistance - DIST_FUDGE, 
+		F32 max_zoom = llmin(mDrawDistance - DIST_FUDGE, 
 								LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE,
 								MAX_CAMERA_DISTANCE_FROM_AGENT);
-		}
 
 		F32 distance = (F32)mCameraFocusOffsetTarget.magVec();
 		if (mFocusObject.notNull())
@@ -1787,17 +1782,9 @@ void LLAgent::setCameraZoomFraction(F32 fraction)
 	else
 	{
 		F32 min_zoom = LAND_MIN_ZOOM;
-		F32 max_zoom;
-		if (gSavedSettings.getBOOL("DisableCameraConstraints"))
-		{
-			max_zoom = MAX_CAMERA_DIST_NO_CONSTRANT;
-		}
-		else
-		{
-			max_zoom = llmin(mDrawDistance - DIST_FUDGE, 
-								LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE,
-								MAX_CAMERA_DISTANCE_FROM_AGENT);
-		}
+		F32 max_zoom = llmin(mDrawDistance - DIST_FUDGE, 
+							LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE,
+							MAX_CAMERA_DISTANCE_FROM_AGENT);
 
 		if (mFocusObject.notNull())
 		{
@@ -1816,7 +1803,14 @@ void LLAgent::setCameraZoomFraction(F32 fraction)
 
 		LLVector3d camera_offset_dir = mCameraFocusOffsetTarget;
 		camera_offset_dir.normalize();
-		mCameraFocusOffsetTarget = camera_offset_dir * rescale(fraction, 0.f, 1.f, max_zoom, min_zoom);
+		if (gSavedSettings.getBOOL("DisableCameraConstraints"))
+		{
+			mCameraFocusOffsetTarget = camera_offset_dir * rescale(fraction, 0.f, 262140.f, 1.f, min_zoom);
+		}
+		else
+		{
+			mCameraFocusOffsetTarget = camera_offset_dir * rescale(fraction, 0.f, 1.f, max_zoom, min_zoom);
+		}
 	}
 	startCameraAnimation();
 }
