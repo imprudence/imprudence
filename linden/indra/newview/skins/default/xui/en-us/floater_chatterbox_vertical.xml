@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
+     height="390" name="floater_chatterbox"
+     rect_control="ChatterboxRect" title="Communicate" width="392">
+  <tab_container bottom="2" follows="left|right|top|bottom" height="370" left="0"
+	     name="chatterbox_tabs" tab_position="left" tab_width="126" width="395" />
+  <string name="unread_count_string_singular">
+    Unread IM
+  </string>
+  <string name="unread_count_string_plural">
+    Unread IMs
+  </string>
+</multi_floater>
+
