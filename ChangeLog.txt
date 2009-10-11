@@ -1,5 +1,10 @@
 2009-10-11 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Made advanced water toggle.
+	
+	  modified:   linden/indra/newview/llfloaterwater.cpp
+	  
+	
 	* Added advanced water and windlight sky tabs to sky presets pulldown.
 	
 	  modified:   linden/indra/newview/llfloaterwindlight.cpp

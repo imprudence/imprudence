@@ -316,14 +316,26 @@ LLFloaterWater* LLFloaterWater::instance()
 }
 void LLFloaterWater::show()
 {
-	LLFloaterWater* water = instance();
-	water->syncMenu();
+	if (!sWaterMenu)
+	{
+		LLFloaterWater* water = instance();
+		water->syncMenu();
 
-	// comment in if you want the menu to rebuild each time
-	//LLUICtrlFactory::getInstance()->buildFloater(water, "floater_water.xml");
-	//water->initCallbacks();
-
-	water->open();
+		// comment in if you want the menu to rebuild each time
+		//LLUICtrlFactory::getInstance()->buildFloater(water, "floater_water.xml");
+		//water->initCallbacks();
+	}
+	else
+	{
+		if (sWaterMenu->getVisible())
+		{
+			sWaterMenu->close();
+		}
+		else
+		{
+			sWaterMenu->open();
+		}
+	}
 }
 
 bool LLFloaterWater::isOpen()
