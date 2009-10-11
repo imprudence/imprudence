@@ -1,5 +1,10 @@
 2009-10-11 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added particle count to windlight toolbar.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+
+
 	* Made advanced water toggle.
 	
 	  modified:   linden/indra/newview/llfloaterwater.cpp
