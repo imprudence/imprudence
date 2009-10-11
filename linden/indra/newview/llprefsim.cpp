@@ -121,6 +121,7 @@ BOOL LLPrefsIMImpl::postBuild()
 	childSetValue("include_im_in_chat_history", gSavedSettings.getBOOL("IMInChatHistory"));
 	childSetValue("show_timestamps_check", gSavedSettings.getBOOL("IMShowTimestamps"));
 	childSetValue("friends_online_notify_checkbox", gSavedSettings.getBOOL("ChatOnlineNotification"));
+	childSetValue("vertical-imtabs-toggle", gSavedSettings.getBOOL("VerticalIMTabs"));
 
 	childSetText("log_path_string", gSavedPerAccountSettings.getString("InstantMessageLogPath"));
 	childSetValue("log_instant_messages", gSavedPerAccountSettings.getBOOL("LogInstantMessages")); 
@@ -216,6 +217,7 @@ void LLPrefsIMImpl::apply()
 			gAgent.sendReliableMessage();
 		}
 	}
+	gSavedSettings.setBOOL("VerticalIMTabs", childGetValue("vertical-imtabs-toggle").asBoolean());
 }
 
 void LLPrefsIMImpl::setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email)

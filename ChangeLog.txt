@@ -1,3 +1,19 @@
+2009-10-10 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Force minimize button focus to the top of Mini-Map.
+	
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  
+	  
+	* Added and tweaked vertical IM option from Emerald viewer.
+	
+	  new file:   linden/indra/newview/skins/default/xui/en-us/floater_chatterbox_vertical.xml
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llfloaterchatterbox.cpp
+	  modified:   linden/indra/newview/llprefsim.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_im.xml
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                      1.2.0 BETA 2                      -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -178,6 +194,11 @@ modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
 
 
 2009-10-03 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Disable camera constraints now disables max zoom for the scrollwheel.
+	
+	  modified:   linden/indra/newview/llagent.cpp
+
 
 	* Fixed layout of debug permissions in tools window.
 	

@@ -96,6 +96,7 @@ BOOL LLFloaterMap::postBuild()
 {
 	// Send the drag handle to the back, but make sure close stays on top
 	sendChildToBack(getDragHandle());
+	sendChildToFront(getChild<LLButton>("llfloater_minimize_btn"));
 	sendChildToFront(getChild<LLButton>("llfloater_close_btn"));
 	setIsChrome(TRUE);
 	
