@@ -16,6 +16,18 @@
     m
   </text>
 	<panel bottom="13" filename="panel_windlight_controls.xml" left="0" width="182" />
+  <string name="atmosphere">
+    Atmosphere
+  </string>
+  <string name="lighting">
+    Lighting
+  </string>
+  <string name="clouds">
+    Clouds
+  </string>
+  <string name="advanced_water">
+    Advanced Water
+  </string>
   <string name="sunrise">
     Sunrise
   </string>

@@ -35,6 +35,7 @@
 #include "llbutton.h"
 #include "llcombobox.h"
 #include "llfloaterenvsettings.h"
+#include "llfloaterwater.h"
 #include "llfloaterwindlight.h"
 #include "lloverlaybar.h"
 #include "lluictrlfactory.h"
@@ -154,6 +155,11 @@ void LLWindlightRemoteCtrl::refreshPresets()
 		
 		// insert separator and add World menu options
 		mPresetsCombo->addSeparator(ADD_BOTTOM);
+		mPresetsCombo->addSimpleElement(getString("atmosphere"), ADD_BOTTOM);
+		mPresetsCombo->addSimpleElement(getString("lighting"), ADD_BOTTOM);
+		mPresetsCombo->addSimpleElement(getString("clouds"), ADD_BOTTOM);
+		mPresetsCombo->addSimpleElement(getString("advanced_water"), ADD_BOTTOM);
+		mPresetsCombo->addSeparator(ADD_BOTTOM);
 		mPresetsCombo->addSimpleElement(getString("sunrise"), ADD_BOTTOM);
 		mPresetsCombo->addSimpleElement(getString("noon"), ADD_BOTTOM);
 		mPresetsCombo->addSimpleElement(getString("sunset"), ADD_BOTTOM);
@@ -191,7 +197,35 @@ void LLWindlightRemoteCtrl::onCommitPreset(LLUICtrl* ctrl, void* data)
 		// check for World menu options; if none, apply preset
 		std::string selected = self->mPresetsCombo->getSelectedValue().asString();
 
-		if (selected == self->getString("sunrise"))
+		if (selected == self->getString("atmosphere"))
+		{
+			if (!LLFloaterWindLight::instance()->getVisible())
+			{
+				LLFloaterWindLight::show();
+			}
+			LLFloaterWindLight::instance()->selectTab("Atmosphere");
+		}
+		else if (selected == self->getString("lighting"))
+		{
+			if (!LLFloaterWindLight::instance()->getVisible())
+			{
+				LLFloaterWindLight::show();
+			}
+			LLFloaterWindLight::instance()->selectTab("Lighting");
+		}
+		else if (selected == self->getString("clouds"))
+		{
+			if (!LLFloaterWindLight::instance()->getVisible())
+			{
+				LLFloaterWindLight::show();
+			}
+			LLFloaterWindLight::instance()->selectTab("Clouds");
+		}
+		else if (selected == self->getString("advanced_water"))
+		{
+			LLFloaterWater::show();
+		}
+		else if (selected == self->getString("sunrise"))
 		{
 			// set the value, turn off animation
 			LLWLParamManager::instance()->mAnimator.setDayTime(0.25);

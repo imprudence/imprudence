@@ -4,6 +4,18 @@
      name="windlight_remote" use_bounding_rect="true" width="182">
 	<panel bottom="1" filename="panel_bg_tab.xml" name="panel_bg_tab" height="22" left="0" width="182" />
 	<panel bottom="3" filename="panel_windlight_controls.xml" name="panel_windlight_controls" height="20" left="0" width="182" />
+  <string name="atmosphere">
+    Atmosphere
+  </string>
+  <string name="lighting">
+    Lighting
+  </string>
+    <string name="clouds">
+    Clouds
+  </string>
+    <string name="advanced_water">
+    Advanced Water
+  </string>
   <string name="sunrise">
     Sunrise
   </string>

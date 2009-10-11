@@ -1,5 +1,14 @@
 2009-10-11 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added advanced water and windlight sky tabs to sky presets pulldown.
+	
+	  modified:   linden/indra/newview/llfloaterwindlight.cpp
+	  modified:   linden/indra/newview/llfloaterwindlight.h
+	  modified:   linden/indra/newview/llwindlightremotectrl.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+
+
 	* Added next/prev buttons to windlight water window.
 	
 	  modified:   linden/indra/newview/llfloaterwater.cpp
