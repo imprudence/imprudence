@@ -1,3 +1,12 @@
+2009-10-11 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added next/prev buttons to windlight water window.
+	
+	  modified:   linden/indra/newview/llfloaterwater.cpp
+	  modified:   linden/indra/newview/llfloaterwater.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_water.xml
+
+
 2009-10-10 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Force minimize button focus to the top of Mini-Map.
