@@ -95,6 +95,8 @@ public:
 	static void		doSave( void* userdata, BOOL close_after_save );
 	static void		onBtnSave(void*);
 	static void		onBtnUndoChanges(void*);
+	static void		onBtnSaveToDisc(void*);
+	static void		onBtnLoadFromDisc(void*);
 	static void		onSearchMenu(void* userdata);
 
 	static void		onUndoMenu(void* userdata);
