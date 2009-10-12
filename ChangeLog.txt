@@ -1,5 +1,10 @@
 2009-10-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Removed Emerald viewer modifier for avatar height label in customize window.
+	
+	  modified:   linden/indra/newview/llfloatercustomize.cpp
+	  
+	  
 	* Added avatar shape import and export from Meerkat viewer.
 	
 	  modified:   linden/indra/newview/llfloatercustomize.cpp

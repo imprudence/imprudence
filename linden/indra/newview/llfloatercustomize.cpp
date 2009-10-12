@@ -1312,10 +1312,9 @@ void LLScrollingPanelParam::onSliderMoved(LLUICtrl* ctrl, void* userdata)
 		LLFloaterCustomize* floater_customize = gFloaterCustomize;
 		if (!floater_customize) return;
 
-		//KOWs avatar height stuff
+		//avatar height stuff -Patrick Sapinski (Wednesday, August 19, 2009)
 		LLVOAvatar* avatar = gAgent.getAvatarObject();
 		F32 avatar_size = (avatar->mBodySize.mV[VZ]) + (F32)0.17; //mBodySize is actually quite a bit off.
-		avatar_size += (F32)99; //mBodySize is actually quite a bit off.
 		
 		floater_customize->getChild<LLTextBox>("HeightText")->setValue(llformat("%.2f", avatar_size) + "m");
 		floater_customize->getChild<LLTextBox>("HeightText2")->setValue(llformat("%.2f",llround(avatar_size / 0.3048)) + "'"
