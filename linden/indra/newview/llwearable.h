@@ -60,6 +60,10 @@ public:
 
 	BOOL				exportFile(LLFILE* file);
 	BOOL				importFile(LLFILE* file);
+	// reX: new function
+	BOOL				FileExportParams(FILE* file);
+	// reX: new function
+	BOOL				FileExportTextures(FILE* file);
 
 	EWearableType		getType() const							{ return mType; }
 	void				setType( EWearableType type )			{ mType = type; }

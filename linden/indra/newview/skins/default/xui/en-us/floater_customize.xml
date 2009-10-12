@@ -1077,12 +1077,14 @@ scratch and wear it.
   </text>
 	<button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
 	     height="20" label="Close" label_selected="Close" mouse_opaque="true"
-	     name="Close" right="-10" scale_image="true" width="100" />
+	     name="Close" right="-10" scale_image="true" width="80" />
 	<button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
 	     height="20" label="Save All" label_selected="Save All" mouse_opaque="true"
-	     name="Save All" right="-116" scale_image="true" width="100" />
+	     name="Save All" right="-100" scale_image="true" width="80" />
 	<button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
 	     height="20" label="Make Outfit" label_selected="Make Outfit"
-	     mouse_opaque="true" name="Make Outfit" right="-222" scale_image="true"
-	     width="100" />
+	     mouse_opaque="true" name="Make Outfit" right="-190" scale_image="true"
+	     width="80" />
+  <button bottom="-536" follows="right|bottom" font="SansSerif" halign="center" height="20" hidden="false" label="Export" label_selected="Export" right="-280" mouse_opaque="true" name="Export" scale_image="true" width="80" />
+  <button bottom="-536" follows="right|bottom" font="SansSerif" halign="center" height="20" hidden="false" label="Import" label_selected="Import" right="-370" mouse_opaque="true" name="Import" scale_image="true" width="80" />
 </floater>

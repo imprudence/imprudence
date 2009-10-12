@@ -1,5 +1,14 @@
 2009-10-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added avatar shape import and export from Meerkat viewer.
+	
+	  modified:   linden/indra/newview/llfloatercustomize.cpp
+	  modified:   linden/indra/newview/llfloatercustomize.h
+	  modified:   linden/indra/newview/llwearable.cpp
+	  modified:   linden/indra/newview/llwearable.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_customize.xml
+	  
+
 	* Added check/uncheck all buttons for make outfit from Meerkat viewer.
 	
 	  modified:   linden/indra/newview/llfloatercustomize.cpp
