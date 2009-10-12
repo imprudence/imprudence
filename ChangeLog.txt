@@ -1,5 +1,10 @@
 2009-10-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Removed reference to 'Second Life' from postcard message a la Meerkat.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_postcard.xml
+
+
 	* Added script load/save from Meerkat viewer.
 	
 	  modified:   linden/indra/newview/llfilepicker.cpp
