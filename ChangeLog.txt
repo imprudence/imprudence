@@ -1,5 +1,11 @@
 2009-10-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added check/uncheck all buttons for make outfit from Meerkat viewer.
+	
+	  modified:   linden/indra/newview/llfloatercustomize.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_new_outfit_dialog.xml
+
+
 	* Removed reference to 'Second Life' from postcard message a la Meerkat.
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_postcard.xml

@@ -245,6 +245,8 @@ public:
 
 		childSetAction("Save", onSave, this ); 
 		childSetAction("Cancel", onCancel, this ); 
+		childSetAction("Check All", onCheckAll, this );
+		childSetAction("Uncheck All", onUncheckAll, this );
 	}
 
 	BOOL getRenameClothing()
@@ -324,6 +326,26 @@ public:
 	{
 		LLMakeOutfitDialog* self = (LLMakeOutfitDialog*) userdata;
 		self->close(); // destroys this object
+	}
+
+	static void onCheckAll( void* userdata )
+	{
+		LLMakeOutfitDialog* self = (LLMakeOutfitDialog*) userdata;
+		for( S32 i = 0; i < (S32)(self->mCheckBoxList.size()); i++)
+		{
+			std::string name = self->mCheckBoxList[i].first;
+			if(self->childIsEnabled(name))self->childSetValue(name,TRUE);
+		}
+	}
+
+	static void onUncheckAll( void* userdata )
+	{
+		LLMakeOutfitDialog* self = (LLMakeOutfitDialog*) userdata;
+		for( S32 i = 0; i < (S32)(self->mCheckBoxList.size()); i++)
+		{
+			std::string name = self->mCheckBoxList[i].first;
+			if(self->childIsEnabled(name))self->childSetValue(name,FALSE);
+		}
 	}
 };
 
