@@ -484,7 +484,8 @@ class SetSearchType : public inventory_listener_t
 			gSavedSettings.setU32("InventorySearchType", 0);
 
 			mPtr->getControl("Inventory.SearchByName")->setValue(TRUE);
-			mPtr->getControl("Inventory.SearchByCreator")->setValue(FALSE);			
+			mPtr->getControl("Inventory.SearchByCreator")->setValue(FALSE);	
+			mPtr->getControl("Inventory.SearchByDesc")->setValue(FALSE);
 			mPtr->getControl("Inventory.SearchByAll")->setValue(FALSE);
 		}
 		else if(search_type == "creator")
@@ -493,16 +494,31 @@ class SetSearchType : public inventory_listener_t
 
 			mPtr->getControl("Inventory.SearchByName")->setValue(FALSE);
 			mPtr->getControl("Inventory.SearchByCreator")->setValue(TRUE);
+			mPtr->getControl("Inventory.SearchByDesc")->setValue(FALSE);
+			mPtr->getControl("Inventory.SearchByAll")->setValue(FALSE);
+		}
+		else if(search_type == "desc")
+		{
+			gSavedSettings.setU32("InventorySearchType", 2);
+
+			mPtr->getControl("Inventory.SearchByName")->setValue(FALSE);
+			mPtr->getControl("Inventory.SearchByCreator")->setValue(FALSE);
+			mPtr->getControl("Inventory.SearchByDesc")->setValue(TRUE);
 			mPtr->getControl("Inventory.SearchByAll")->setValue(FALSE);
 		}
 		else if(search_type == "all")
 		{
-			gSavedSettings.setU32("InventorySearchType", 4);
+			gSavedSettings.setU32("InventorySearchType", 3);
 
 			mPtr->getControl("Inventory.SearchByName")->setValue(FALSE);
 			mPtr->getControl("Inventory.SearchByCreator")->setValue(FALSE);
+			mPtr->getControl("Inventory.SearchByDesc")->setValue(FALSE);
 			mPtr->getControl("Inventory.SearchByAll")->setValue(TRUE);
 		}
+		
+		//Clear search when switching modes.
+		mPtr->getActivePanel()->setFilterSubString(LLStringUtil::null);
+		mPtr->getActivePanel()->setFilterTypes(LLInventoryType::NIT_ALL);
 	return true;
 	}
 };

@@ -206,7 +206,7 @@
 			</menu_item_check>
 		</menu>
     <menu bottom_delta="64" drop_shadow="true" height="49"
-		     label="Search" left="0" mouse_opaque="false" name="Sort" opaque="true"
+		     label="Search" left="0" mouse_opaque="false" name="Search" opaque="true"
 		     tear_off="true" width="118">
       <menu_item_check bottom_delta="-18" control_name="Inventory.SearchByName" height="18"
 			     label="By Name" left="0" mouse_opaque="true" name="By Name" width="118">
@@ -215,6 +215,10 @@
       <menu_item_check bottom_delta="-18" control_name="Inventory.SearchByCreator" height="18"
            label="By Creator" left="0" mouse_opaque="true" name="By Creator" width="118">
         <on_click filter="" function="Inventory.SetSearchBy" userdata="creator" />
+      </menu_item_check>
+      <menu_item_check bottom_delta="-18" control_name="Inventory.SearchByDesc" height="18"
+          label="By Description" left="0" mouse_opaque="true" name="By Description" width="118">
+        <on_click filter="" function="Inventory.SetSearchBy" userdata="desc" />
       </menu_item_check>
       <menu_item_separator bottom_delta="-8" height="8" left="0" mouse_opaque="true" name="separator"
 			     width="118" />

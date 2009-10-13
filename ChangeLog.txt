@@ -1,5 +1,14 @@
 2009-10-13 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Updated inventory search to include description (from Emerald).
+	
+	  modified:   linden/indra/newview/llfolderview.cpp
+	  modified:   linden/indra/newview/llfolderview.h
+	  modified:   linden/indra/newview/llinventoryactions.cpp
+	  modified:   linden/indra/newview/llinventoryview.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml
+
+
 	* Disable avatar appearance facelight when local lighting turned off.
 	
 	  modified:   linden/indra/newview/pipeline.cpp
