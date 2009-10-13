@@ -1,5 +1,10 @@
 2009-10-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Only enable import/export of shapes if they're full perm and you're the creator.
+	
+	  modified:   linden/indra/newview/llfloatercustomize.cpp
+	  
+	  
 	* Removed Emerald viewer modifier for avatar height label in customize window.
 	
 	  modified:   linden/indra/newview/llfloatercustomize.cpp

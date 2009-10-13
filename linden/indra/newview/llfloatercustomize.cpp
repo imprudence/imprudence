@@ -558,10 +558,26 @@ void LLPanelEditWearable::setSubpart( ESubpart subpart )
 		item = (LLViewerInventoryItem*)gAgent.getWearableInventoryItem(mType);
 		U32 perm_mask = 0x0;
 		BOOL is_complete = FALSE;
+		bool can_export = false;
+		bool can_import = false;
 		if(item)
 		{
 			perm_mask = item->getPermissions().getMaskOwner();
 			is_complete = item->isComplete();
+			
+			if (subpart <= 18) // body parts only
+			{
+				can_import = true;
+
+				if (is_complete && 
+					gAgent.getID() == item->getPermissions().getOwner() &&
+					gAgent.getID() == item->getPermissions().getCreator() &&
+					(PERM_ITEM_UNRESTRICTED &
+					perm_mask) == PERM_ITEM_UNRESTRICTED)
+				{
+					can_export = true;
+				}
+			}
 		}
 		setUIPermissions(perm_mask, is_complete);
 		BOOL editable = ((perm_mask & PERM_MODIFY) && is_complete) ? TRUE : FALSE;
@@ -585,7 +601,8 @@ void LLPanelEditWearable::setSubpart( ESubpart subpart )
 		}
 		gFloaterCustomize->generateVisualParamHints(NULL, sorted_params);
 		gFloaterCustomize->updateScrollingPanelUI();
-
+		gFloaterCustomize->childSetEnabled("Export", can_export);
+		gFloaterCustomize->childSetEnabled("Import", can_import);
 
 		// Update the camera
 		gMorphView->setCameraTargetJoint( gAgent.getAvatarObject()->getJoint( part->mTargetJoint ) );
