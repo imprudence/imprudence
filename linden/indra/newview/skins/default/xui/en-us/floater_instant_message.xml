@@ -39,9 +39,11 @@
 	<button bottom_delta="0" follows="left|top" font="SansSerif"
 	     halign="center" bottom ="-40" height="20" label="Offer Teleport" left_delta="85"
 	     mouse_opaque="true" name="offer_tp_btn" scale_image="true" width="102" />
+  <button bottom="-40" follows="left|top" halign="center" height="20" label="History" left_delta="107"
+          name="history_btn" visible="true" width="85" />
 	<button bottom="-40" follows="left|top" halign="center" height="20"
 	     image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left"
-	     label="Call" left_delta="107" name="start_call_btn" width="100" />
+	     label="Call" left_delta="92" name="start_call_btn" width="100" />
 	<button bottom="-40" follows="left|top" halign="center" height="20"
 	     image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left"
 	     label="End Call" left_delta="0" name="end_call_btn" pad_right="10"

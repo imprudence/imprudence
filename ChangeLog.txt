@@ -1,5 +1,16 @@
 2009-10-13 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Applied show IM logs button from Emerald viewer and added an alert if there is no history.
+	
+	  modified:   linden/indra/llwindow/llwindow.h
+	  modified:   linden/indra/llwindow/llwindowwin32.cpp
+	  modified:   linden/indra/llwindow/llwindowwin32.h
+	  modified:   linden/indra/newview/llimpanel.cpp
+	  modified:   linden/indra/newview/llimpanel.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml
+
+
 	* Updated inventory search to include description (from Emerald).
 	
 	  modified:   linden/indra/newview/llfolderview.cpp

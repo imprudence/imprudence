@@ -202,6 +202,7 @@ public:
 	virtual void updateLanguageTextInputArea() {}
 	virtual void interruptLanguageTextInput() {}
 	virtual void spawnWebBrowser(const std::string& escaped_url) {};
+	virtual void ShellEx(const std::string& command) {};
 
 	static std::string getFontListSans();
 
