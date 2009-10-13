@@ -1256,6 +1256,10 @@ BOOL LLFloaterIMPanel::postBuild()
 	requires<LLLineEditor>("chat_editor");
 	requires<LLTextEditor>("im_history");
 
+#if LL_LINUX || LL_DARWIN
+	childSetVisible("history_btn", false);
+#endif
+
 	if (checkRequirements())
 	{
 		mInputEditor = getChild<LLLineEditor>("chat_editor");
