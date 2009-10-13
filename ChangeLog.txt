@@ -1,5 +1,10 @@
 2009-10-13 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added history button for group chat as well.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml
+
+
 	* Disable IM history button for Linux and Mac users. 
 	
 	  modified:   linden/indra/newview/llimpanel.cpp

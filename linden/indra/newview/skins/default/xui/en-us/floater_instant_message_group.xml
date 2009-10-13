@@ -54,6 +54,8 @@
 			     image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left"
 			     label="End Call" left_delta="0" name="end_call_btn" pad_right="12"
 			     visible="false" width="92" />
+      <button bottom="-20" follows="left|top" halign="center" height="20" label="History" left_delta="97"
+              name="history_btn" visible="true" width="85" />
 			<button bottom_delta="0" follows="right|top" height="20" label="&lt; &lt;"
 			     label_selected="&gt; &gt;" left="143" name="toggle_active_speakers_btn"
 			     right="176"
