@@ -70,7 +70,7 @@
         <button bottom_delta="-25" follows="top|right" height="22" label="Mute..."
              left_delta="0" name="mute_btn"
              tool_tip="" width="80" />
-        <button bottom_delta="-25" follows="top|right" height="22" label="Unmute..."
+        <button bottom_delta="0" follows="top|right" height="22" label="Unmute..."
              left_delta="0" name="unmute_btn"
              tool_tip="" width="80" />
         <button bottom_delta="-25" follows="top|right" height="22" label="Report..."

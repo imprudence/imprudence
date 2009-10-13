@@ -520,9 +520,20 @@ void LLFloaterMap::toggleButtons()
 	childSetEnabled("freeze_btn", enable_estate);
 	childSetEnabled("eject_btn", enable_estate);
 	childSetEnabled("mute_btn", enable);
-	childSetEnabled("unmute_btn", enable_unmute);
 	childSetEnabled("ar_btn", enable);
 	childSetEnabled("estate_eject_btn", enable_estate);
+
+	if (enable_unmute)
+	{
+		childSetVisible("mute_btn", false);
+		childSetEnabled("unmute_btn", true);
+		childSetVisible("unmute_btn", true);
+	}
+	else
+	{
+		childSetVisible("mute_btn", true);
+		childSetVisible("unmute_btn", false);
+	}
 
 // [RLVa:KB] - Imprudence-1.2.0
 	// Bit clumsy, but this way the RLV stuff is in its own separate block and keeps the code above clean - Kitty

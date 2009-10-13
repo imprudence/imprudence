@@ -1,5 +1,11 @@
 2009-10-13 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Combine the two mini-map mute buttons into one.
+	
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+	  
+	  
 	* Parcel highlighting when selecting a name in radar is less buggy.
 	
 	  modified:   linden/indra/newview/llfloatermap.cpp
