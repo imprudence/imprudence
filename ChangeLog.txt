@@ -1,3 +1,10 @@
+2009-10-13 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Disable avatar appearance facelight when local lighting turned off.
+	
+	  modified:   linden/indra/newview/pipeline.cpp
+	  
+	  
 2009-10-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Only enable import/export of shapes if they're full perm and you're the creator.
