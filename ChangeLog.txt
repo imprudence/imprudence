@@ -1,5 +1,12 @@
 2009-10-13 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Parcel highlighting when selecting a name in radar is less buggy.
+	
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  modified:   linden/indra/newview/llfloatermap.h
+	  modified:   linden/indra/newview/llviewermessage.cpp
+
+
 	* Added history button for group chat as well.
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml

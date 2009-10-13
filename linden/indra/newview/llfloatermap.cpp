@@ -290,14 +290,14 @@ void LLFloaterMap::populateRadar()
 				{
 					if (distance < 20.0f)
 					{
-						if (!getInChatList(avatar_ids[i]))
+						if (!isInChatList(avatar_ids[i]))
 						{
 							addToChatList(avatar_ids[i], dist_string);
 						}
 					}
 					else
 					{
-						if (getInChatList(avatar_ids[i]))
+						if (isInChatList(avatar_ids[i]))
 						{
 							removeFromChatList(avatar_ids[i]);
 						}
@@ -311,7 +311,7 @@ void LLFloaterMap::populateRadar()
 
 				if (notify_sim)
 				{
-					if (!getInChatList(avatar_ids[i]) && !getInSimAvList(avatar_ids[i]))
+					if (!isInChatList(avatar_ids[i]) && !getInSimAvList(avatar_ids[i]))
 					{
 						LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
 						if (av_obj != NULL && av_obj->isAvatar())
@@ -338,7 +338,7 @@ void LLFloaterMap::populateRadar()
 				{
 					// append typing string
 					std::string typing = "";
-					if (getIsTyping(avatar_ids[i]))
+					if (isTyping(avatar_ids[i]))
 					{
 						typing = getString("is_typing")+ " ";
 					}
@@ -397,7 +397,7 @@ void LLFloaterMap::updateChatList(std::vector<LLUUID> agent_ids)
 	}
 }
 
-bool LLFloaterMap::getInChatList(LLUUID agent_id)
+bool LLFloaterMap::isInChatList(LLUUID agent_id)
 {
 	if (mChatAvatars.count(agent_id) > 0)
 	{
@@ -426,7 +426,7 @@ void LLFloaterMap::removeFromChatList(LLUUID agent_id)
 	mChatAvatars.erase(agent_id);
 }
 
-bool LLFloaterMap::getIsTyping(LLUUID agent_id)
+bool LLFloaterMap::isTyping(LLUUID agent_id)
 {
 	if (mTypingAvatars.count(agent_id) > 0)
 	{
@@ -439,7 +439,7 @@ void LLFloaterMap::updateTypingList(LLUUID agent_id, bool remove)
 {
 	if (remove)
 	{
-		if (getIsTyping(agent_id))
+		if (isTyping(agent_id))
 		{
 			mTypingAvatars.erase(agent_id);	
 		}
@@ -503,7 +503,7 @@ void LLFloaterMap::toggleButtons()
 		enable = mSelectedAvatar.notNull() ? visibleItemsSelected() : FALSE;
 		enable_unmute = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : FALSE;
 		enable_track = gAgent.isGodlike() || is_agent_mappable(mSelectedAvatar);
-		enable_estate = getKickable(mSelectedAvatar);
+		enable_estate = isKickable(mSelectedAvatar);
 		enable_friend = !is_agent_friend(mSelectedAvatar);
 	}
 	else
@@ -552,7 +552,7 @@ void LLFloaterMap::toggleButtons()
 // [/RLVa:KB]
 }
 
-BOOL LLFloaterMap::getKickable(const LLUUID &agent_id)
+BOOL LLFloaterMap::isKickable(const LLUUID &agent_id)
 {
 	if (agent_id.notNull())
 	{
@@ -568,6 +568,7 @@ BOOL LLFloaterMap::getKickable(const LLUUID &agent_id)
 				if (LLWorld::getInstance()->positionRegionValidGlobal(pos_global))
 				{
 					LLParcel* parcel = LLViewerParcelMgr::getInstance()->selectParcelAt(pos_global)->getParcel();
+					LLViewerParcelMgr::getInstance()->deselectLand();
 					
 					BOOL new_value = (region != NULL);
 								

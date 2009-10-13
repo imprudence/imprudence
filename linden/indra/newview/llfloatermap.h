@@ -52,7 +52,7 @@ public:
 	// returns true if agent_id belongs to a developer listed in llfloatermap.cpp
 	static bool isImpDev(LLUUID agent_id);
 
-	bool getIsTyping(LLUUID agent_id);
+	bool isTyping(LLUUID agent_id);
 	void updateTypingList(LLUUID agent_id, bool remove);
 
 	BOOL postBuild();
@@ -85,12 +85,12 @@ private:
 	static void onList(LLUICtrl* ctrl, void* user_data);
 	static void onRangeChange(LLFocusableElement* focus, void* user_data);
 	BOOL visibleItemsSelected() const;
-	BOOL getKickable(const LLUUID &agent_id);
+	BOOL isKickable(const LLUUID &agent_id);
 	void toggleButtons();
 	void populateRadar();
 
 	void updateChatList(std::vector<LLUUID> agent_ids);
-	bool getInChatList(LLUUID agent_id);
+	bool isInChatList(LLUUID agent_id);
 	void addToChatList(LLUUID agent_id, std::string distance);
 	void removeFromChatList(LLUUID agent_id);
 

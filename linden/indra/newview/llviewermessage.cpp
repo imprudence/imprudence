@@ -2574,7 +2574,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 			if (LLFloaterMap::getInstance())
 			{
-				if (LLFloaterMap::getInstance()->getIsTyping(from_id))
+				if (LLFloaterMap::getInstance()->isTyping(from_id))
 				{
 					LLFloaterMap::getInstance()->updateTypingList(from_id, true);
 				}
