@@ -1,5 +1,18 @@
 2009-10-13 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Applied patch for VWR-6787 by Alissa Sabre - 'none' text in group window not translatable.
+	
+	  modified:   indra/newview/llfloatergroups.cpp
+	  modified:   indra/newview/skins/default/xui/de/floater_choose_group.xml
+	  modified:   indra/newview/skins/default/xui/de/panel_groups.xml
+	  modified:   indra/newview/skins/default/xui/en-us/floater_choose_group.xml
+	  modified:   indra/newview/skins/default/xui/en-us/panel_groups.xml
+	  modified:   indra/newview/skins/default/xui/ja/floater_choose_group.xml
+	  modified:   indra/newview/skins/default/xui/ja/panel_groups.xml
+	  modified:   indra/newview/skins/default/xui/ko/floater_choose_group.xml
+	  modified:   indra/newview/skins/default/xui/ko/panel_groups.xml
+	  
+	
 	* Combine the two mini-map mute buttons into one.
 	
 	  modified:   linden/indra/newview/llfloatermap.cpp

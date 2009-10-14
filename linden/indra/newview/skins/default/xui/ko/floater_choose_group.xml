@@ -5,4 +5,7 @@
 	</text>
 	<button label="확인" label_selected="확인" name="OK" />
 	<button label="취소" label_selected="취소" name="Cancel" />
+  <string name="none">
+		그룹 없음
+  </string>
 </floater>
