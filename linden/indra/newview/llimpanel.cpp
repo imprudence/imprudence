@@ -73,6 +73,7 @@
 #include "llhttpclient.h"
 #include "llmutelist.h"
 #include "llstylemap.h"
+#include <sys/stat.h>
 
 //
 // Constants
@@ -1255,6 +1256,10 @@ BOOL LLFloaterIMPanel::postBuild()
 	requires<LLLineEditor>("chat_editor");
 	requires<LLTextEditor>("im_history");
 
+#if LL_LINUX || LL_DARWIN
+	childSetVisible("history_btn", false);
+#endif
+
 	if (checkRequirements())
 	{
 		mInputEditor = getChild<LLLineEditor>("chat_editor");
@@ -1269,6 +1274,7 @@ BOOL LLFloaterIMPanel::postBuild()
 
 		childSetAction("profile_callee_btn", onClickProfile, this);
 		childSetAction("group_info_btn", onClickGroupInfo, this);
+		childSetAction("history_btn", onClickHistory, this);
 
 		childSetAction("start_call_btn", onClickStartCall, this);
 		childSetAction("end_call_btn", onClickEndCall, this);
@@ -1796,6 +1802,41 @@ void LLFloaterIMPanel::onClickProfile( void* userdata )
 	if (self->mOtherParticipantUUID.notNull())
 	{
 		LLFloaterAvatarInfo::showFromDirectory(self->getOtherParticipantID());
+	}
+}
+
+// static
+void LLFloaterIMPanel::onClickHistory( void* userdata )
+{
+	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
+	
+	if (self->mOtherParticipantUUID.notNull())
+	{
+		struct stat fileInfo;
+		int result;
+		
+		std::string fullname = self->getTitle();;
+		//gCacheName->getFullName(self->mOtherParticipantUUID, fullname);
+		//if(fullname == "(Loading...)")
+		std::string file_path = gDirUtilp->getPerAccountChatLogsDir() + "\\" + fullname + ".txt";
+
+		// check if file exists by trying to get its attributes
+		result = stat(file_path.c_str(), &fileInfo);
+		if(result == 0)
+		{
+			char command[256];
+			sprintf(command, "\"%s\\%s.txt\"", gDirUtilp->getPerAccountChatLogsDir().c_str(),fullname.c_str());
+			gViewerWindow->getWindow()->ShellEx(command);
+
+			llinfos << command << llendl;
+		}
+		else
+		{
+			LLStringUtil::format_map_t args;
+			args["[NAME]"] = fullname;
+			gViewerWindow->alertXml("IMLogNotFound", args);
+			llinfos << file_path << llendl;
+		}
 	}
 }
 

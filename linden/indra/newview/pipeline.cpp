@@ -3596,6 +3596,11 @@ void LLPipeline::enableLightsAvatar()
 
 void LLPipeline::enableLightsAvatarEdit(const LLColor4& color)
 {
+	if (mLightingDetail < 1)
+	{
+		return;
+	}
+
 	U32 mask = 0x2002; // Avatar backlight only, set ambient
 	setupAvatarLights(TRUE);
 	enableLights(mask);

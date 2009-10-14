@@ -527,6 +527,7 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 
 	addBoolControl("Inventory.SearchByName", search_by_name);
 	addBoolControl("Inventory.SearchByCreator", !search_by_name);
+	addBoolControl("Inventory.SearchByDesc", !search_by_name);
 
 	addBoolControl("Inventory.SearchByAll", !search_by_name);
 

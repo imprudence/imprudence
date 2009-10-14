@@ -107,6 +107,10 @@ public:
 	static EWearableType getCurrentWearableType()					{ return sCurrentWearableType; }
 
 	// Callbacks
+	// reX: new function (thx dudes)
+	static void		onBtnImport( void* userdata );
+	// reX: new function	
+	static void		onBtnExport( void* userdata );
 	static void		onBtnSaveAll( void* userdata );
 	static void		onBtnSnapshot( void* userdata );
 	static void		onBtnMakeOutfit( void* userdata );

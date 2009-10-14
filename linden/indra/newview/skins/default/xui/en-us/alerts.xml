@@ -5222,6 +5222,15 @@ WARNING: Don't restore if you aren't sure where the object will go!
 		</option>
 	</alert>
 
+  <alert modal="true" name="IMLogNotFound">
+    <message name="message">
+      IM history could not be found for [NAME].
+    </message>
+    <option name="OK">
+      OK
+    </option>
+  </alert>
+
   <!-- [RLVa:KB] -->
 	<alert modal="true" name="FirstRLVGiveToRLV">
 		<message name="message">

@@ -1,3 +1,112 @@
+2009-10-13 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added history button for group chat as well.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml
+
+
+	* Disable IM history button for Linux and Mac users. 
+	
+	  modified:   linden/indra/newview/llimpanel.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml
+
+
+	* Applied show IM logs button from Emerald viewer and added an alert if there is no history.
+	
+	  modified:   linden/indra/llwindow/llwindow.h
+	  modified:   linden/indra/llwindow/llwindowwin32.cpp
+	  modified:   linden/indra/llwindow/llwindowwin32.h
+	  modified:   linden/indra/newview/llimpanel.cpp
+	  modified:   linden/indra/newview/llimpanel.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml
+
+
+	* Updated inventory search to include description (from Emerald).
+	
+	  modified:   linden/indra/newview/llfolderview.cpp
+	  modified:   linden/indra/newview/llfolderview.h
+	  modified:   linden/indra/newview/llinventoryactions.cpp
+	  modified:   linden/indra/newview/llinventoryview.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_inventory.xml
+
+
+	* Disable avatar appearance facelight when local lighting turned off.
+	
+	  modified:   linden/indra/newview/pipeline.cpp
+	  
+	  
+2009-10-12 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Only enable import/export of shapes if they're full perm and you're the creator.
+	
+	  modified:   linden/indra/newview/llfloatercustomize.cpp
+	  
+	  
+	* Removed Emerald viewer modifier for avatar height label in customize window.
+	
+	  modified:   linden/indra/newview/llfloatercustomize.cpp
+	  
+	  
+	* Added avatar shape import and export from Meerkat viewer.
+	
+	  modified:   linden/indra/newview/llfloatercustomize.cpp
+	  modified:   linden/indra/newview/llfloatercustomize.h
+	  modified:   linden/indra/newview/llwearable.cpp
+	  modified:   linden/indra/newview/llwearable.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_customize.xml
+	  
+
+	* Added check/uncheck all buttons for make outfit from Meerkat viewer.
+	
+	  modified:   linden/indra/newview/llfloatercustomize.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_new_outfit_dialog.xml
+
+
+	* Removed reference to 'Second Life' from postcard message a la Meerkat.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_postcard.xml
+
+
+	* Added script load/save from Meerkat viewer.
+	
+	  modified:   linden/indra/newview/llfilepicker.cpp
+	  modified:   linden/indra/newview/llfilepicker.h
+	  modified:   linden/indra/newview/llpreviewscript.cpp
+	  modified:   linden/indra/newview/llpreviewscript.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_script_ed_panel.xml
+	  deleted:    linden/indra/newview/skins/silver/xui/en-us/floater_script_ed_panel.xml
+	  deleted:    linden/indra/newview/skins/silver/xui/en-us/floater_script_queue.xml
+
+
+2009-10-11 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added particle count to windlight toolbar.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+
+
+	* Made advanced water toggle.
+	
+	  modified:   linden/indra/newview/llfloaterwater.cpp
+	  
+	
+	* Added advanced water and windlight sky tabs to sky presets pulldown.
+	
+	  modified:   linden/indra/newview/llfloaterwindlight.cpp
+	  modified:   linden/indra/newview/llfloaterwindlight.h
+	  modified:   linden/indra/newview/llwindlightremotectrl.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+
+
+	* Added next/prev buttons to windlight water window.
+	
+	  modified:   linden/indra/newview/llfloaterwater.cpp
+	  modified:   linden/indra/newview/llfloaterwater.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_water.xml
+
+
 2009-10-10 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Force minimize button focus to the top of Mini-Map.
@@ -109,6 +218,12 @@
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
 
 
+	* Applied avatar height in customize window from Emerald viewer.
+	
+	  modified:   linden/indra/newview/llfloatercustomize.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_customize.xml
+	  
+	  
 	* Fixed random mouseclicks on the edge of the window.
 	
 	  modified:   linden/indra/newview/llviewerwindow.cpp

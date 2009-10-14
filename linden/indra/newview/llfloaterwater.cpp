@@ -168,7 +168,11 @@ void LLFloaterWater::initCallbacks(void) {
 
 	LLTextureCtrl* textCtrl = getChild<LLTextureCtrl>("WaterNormalMap");
 	textCtrl->setDefaultImageAssetID(DEFAULT_WATER_NORMAL);
-	childSetCommitCallback("WaterNormalMap", onNormalMapPicked, NULL);	
+	childSetCommitCallback("WaterNormalMap", onNormalMapPicked, NULL);
+
+	// next/prev buttons
+	childSetAction("next", onClickNext, this);
+	childSetAction("prev", onClickPrev, this);
 }
 
 void LLFloaterWater::onClickHelp(void* data)
@@ -236,6 +240,12 @@ void LLFloaterWater::syncMenu()
 	LLWaterParamManager * param_mgr = LLWaterParamManager::instance();
 
 	LLWaterParamSet & current_params = param_mgr->mCurParams;
+
+	LLComboBox* comboBox = getChild<LLComboBox>("WaterPresetsCombo");
+	if (comboBox->getSelectedItemLabel() != current_params.mName)
+	{
+		comboBox->setSimple(current_params.mName);
+	}
 
 	// blue horizon
 	param_mgr->mFogColor = current_params.getVector4(param_mgr->mFogColor.mName, err);
@@ -306,14 +316,26 @@ LLFloaterWater* LLFloaterWater::instance()
 }
 void LLFloaterWater::show()
 {
-	LLFloaterWater* water = instance();
-	water->syncMenu();
+	if (!sWaterMenu)
+	{
+		LLFloaterWater* water = instance();
+		water->syncMenu();
 
-	// comment in if you want the menu to rebuild each time
-	//LLUICtrlFactory::getInstance()->buildFloater(water, "floater_water.xml");
-	//water->initCallbacks();
-
-	water->open();
+		// comment in if you want the menu to rebuild each time
+		//LLUICtrlFactory::getInstance()->buildFloater(water, "floater_water.xml");
+		//water->initCallbacks();
+	}
+	else
+	{
+		if (sWaterMenu->getVisible())
+		{
+			sWaterMenu->close();
+		}
+		else
+		{
+			sWaterMenu->open();
+		}
+	}
 }
 
 bool LLFloaterWater::isOpen()
@@ -727,3 +749,50 @@ void LLFloaterWater::onChangePresetName(LLUICtrl* ctrl, void * userData)
 	sWaterMenu->syncMenu();
 }
 
+void LLFloaterWater::onClickNext(void* user_data)
+{
+	LLWaterParamManager * param_mgr = LLWaterParamManager::instance();
+	LLWaterParamSet& currentParams = param_mgr->mCurParams;
+
+	// find place of current param
+	std::map<std::string, LLWaterParamSet>::iterator mIt = 
+		param_mgr->mParamList.find(currentParams.mName);
+
+	// if at the end, loop
+	std::map<std::string, LLWaterParamSet>::iterator last = param_mgr->mParamList.end(); --last;
+	if(mIt == last) 
+	{
+		mIt = param_mgr->mParamList.begin();
+	}
+	else
+	{
+		mIt++;
+	}
+	/*param_mgr->mAnimator.mIsRunning = false;
+	param_mgr->mAnimator.mUseLindenTime = false;*/
+	param_mgr->loadPreset(mIt->first, true);
+}
+
+void LLFloaterWater::onClickPrev(void* user_data)
+{
+	LLWaterParamManager * param_mgr = LLWaterParamManager::instance();
+	LLWaterParamSet & currentParams = param_mgr->mCurParams;
+
+	// find place of current param
+	std::map<std::string, LLWaterParamSet>::iterator mIt = 
+		param_mgr->mParamList.find(currentParams.mName);
+
+	// if at the beginning, loop
+	if(mIt == param_mgr->mParamList.begin()) 
+	{
+		std::map<std::string, LLWaterParamSet>::iterator last = param_mgr->mParamList.end(); --last;
+		mIt = last;
+	}
+	else
+	{
+		mIt--;
+	}
+	/*param_mgr->mAnimator.mIsRunning = false;
+	param_mgr->mAnimator.mUseLindenTime = false;*/
+	param_mgr->loadPreset(mIt->first, true);
+}

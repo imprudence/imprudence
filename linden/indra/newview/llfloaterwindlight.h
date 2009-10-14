@@ -131,6 +131,8 @@ public:
 	/// turn off animated skies
 	static void deactivateAnimator();
 
+	static void selectTab(std::string tab_name);
+
 private:
 	// one instance on the inside
 	static LLFloaterWindLight* sWindLight;

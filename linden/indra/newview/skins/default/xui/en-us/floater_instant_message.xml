@@ -46,6 +46,8 @@
 	     image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left"
 	     label="End Call" left_delta="0" name="end_call_btn" pad_right="10"
 	     visible="false" width="100" />
+  <button bottom="-40" follows="left|top" halign="center" height="20" label="History" left_delta="105"
+          name="history_btn" visible="true" width="85" />
   <text bottom_delta="0" left="-240" height="14" width="230" name="inventory_send" halign="right" 
         text_color="LabelTextColor" follows="right|top" drop_shadow_visible="true"
         bg_visible="false" border_drop_shadow_visible="false" border_visible="false">

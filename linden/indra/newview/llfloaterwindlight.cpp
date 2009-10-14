@@ -46,6 +46,7 @@
 #include "llcombobox.h"
 #include "lllineeditor.h"
 #include "llfloaterdaycycle.h"
+#include "lltabcontainer.h"
 #include "llboost.h"
 
 #include "v4math.h"
@@ -1065,4 +1066,14 @@ void LLFloaterWindLight::onClickPrev(void* user_data)
 	param_mgr->mAnimator.mIsRunning = false;
 	param_mgr->mAnimator.mUseLindenTime = false;
 	param_mgr->loadPreset(mIt->first, true);
+}
+
+//static
+void LLFloaterWindLight::selectTab(std::string tab_name)
+{
+	if (!tab_name.empty())
+	{
+		LLTabContainer* tabs = LLFloaterWindLight::instance()->getChild<LLTabContainer>("WindLight Tabs");
+		tabs->selectTabByName(tab_name);
+	}
 }
