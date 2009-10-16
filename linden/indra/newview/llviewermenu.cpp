@@ -1423,7 +1423,7 @@ void init_debug_rlva_menu(LLMenuGL* menu)
 
 	#ifdef RLV_EXTENSION_ENABLE_WEAR
 		if (gSavedSettings.controlExists(RLV_SETTING_ENABLEWEAR))
-			menu->append(new LLMenuItemCheckGL("Enable Wear", menu_toggle_control, NULL, menu_check_control, (void*)RLV_SETTING_ENABLEWEAR));
+			menu->append(new LLMenuItemCheckGL("Enable Wear", menu_toggle_control, rlvEnableWearEnabler, menu_check_control, (void*)RLV_SETTING_ENABLEWEAR));
 		menu->appendSeparator();
 	#endif // RLV_EXTENSION_ENABLE_WEAR
 

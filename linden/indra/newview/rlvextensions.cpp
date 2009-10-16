@@ -12,13 +12,14 @@
 // ============================================================================
 
 std::map<std::string, S16> RlvExtGetSet::m_DbgAllowed;
+std::map<std::string, std::string> RlvExtGetSet::m_PseudoDebug;
 
 // Checked: 2009-06-03 (RLVa-0.2.0h) | Modified: RLVa-0.2.0h
 RlvExtGetSet::RlvExtGetSet()
 {
 	if (!m_DbgAllowed.size())	// m_DbgAllowed is static and should only be initialized once
 	{
-		m_DbgAllowed.insert(std::pair<std::string, S16>("AvatarSex", DBG_READ | DBG_PSEUDO));
+		m_DbgAllowed.insert(std::pair<std::string, S16>("AvatarSex", DBG_READ | DBG_WRITE | DBG_PSEUDO));
 		m_DbgAllowed.insert(std::pair<std::string, S16>("RenderResolutionDivisor", DBG_READ | DBG_WRITE));
 		#ifdef RLV_EXTENSION_CMD_GETSETDEBUG_EX
 			m_DbgAllowed.insert(std::pair<std::string, S16>(RLV_SETTING_FORBIDGIVETORLV, DBG_READ));
@@ -172,19 +173,27 @@ std::string RlvExtGetSet::onGetDebug(std::string strSetting)
 	return std::string();
 }
 
-// Checked: 2009-06-03 (RLVa-0.2.0h) | Added: RLVa-0.2.0h
+// Checked: 2009-10-03 (RLVa-1.0.4e) | Added: RLVa-1.0.4e
 std::string RlvExtGetSet::onGetPseudoDebug(const std::string& strSetting)
 {
 	// Skip sanity checking because it's all done in RlvExtGetSet::onGetDebug() already
 	if ("AvatarSex" == strSetting)
 	{
-		if (gAgent.getAvatarObject())
-			return llformat("%d", (gAgent.getAvatarObject()->getSex() == SEX_MALE)); // [See LLFloaterCustomize::LLFloaterCustomize()]
+		std::map<std::string, std::string>::const_iterator itPseudo = m_PseudoDebug.find(strSetting);
+		if (itPseudo != m_PseudoDebug.end())
+		{
+			return itPseudo->second;
+		}
+		else
+		{
+			if (gAgent.getAvatarObject())
+				return llformat("%d", (gAgent.getAvatarObject()->getSex() == SEX_MALE)); // [See LLFloaterCustomize::LLFloaterCustomize()]
+		}
 	}
 	return std::string();
 }
 
-// Checked: 2009-06-03 (RLVa-0.2.0h) | Modified: RLVa-0.2.0h
+// Checked: 2009-10-10 (RLVa-1.0.4e) | Modified: RLVa-1.0.4e
 void RlvExtGetSet::onSetDebug(std::string strSetting, const std::string& strValue)
 {
 	S16 dbgFlags;
@@ -219,6 +228,21 @@ void RlvExtGetSet::onSetDebug(std::string strSetting, const std::string& strValu
 				pSetting->setPersist( (pSetting->isDefault()) ? ((dbgFlags & DBG_PERSIST) == DBG_PERSIST) : false );
 			}
 		}
+		else
+		{
+			onSetPseudoDebug(strSetting, strValue);
+		}
+	}
+}
+
+// Checked: 2009-10-10 (RLVa-1.0.4e) | Modified: RLVa-1.0.4e
+void RlvExtGetSet::onSetPseudoDebug(const std::string& strSetting, const std::string& strValue)
+{
+	if ("AvatarSex" == strSetting)
+	{
+		BOOL fValue;
+		if (LLStringUtil::convertToBOOL(strValue, fValue))
+			m_PseudoDebug[strSetting] = strValue;
 	}
 }
 

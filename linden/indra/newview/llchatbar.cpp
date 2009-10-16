@@ -634,11 +634,11 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL 
 	if ( (0 == channel) && (rlv_handler_t::isEnabled()) )
 	{
 		// Adjust the (public) chat "volume" on chat and gestures (also takes care of playing the proper animation)
-		if ( ((CHAT_TYPE_SHOUT == type) || (CHAT_TYPE_NORMAL == type)) && (gRlvHandler.hasBehaviour("chatnormal")) )
+		if ( ((CHAT_TYPE_SHOUT == type) || (CHAT_TYPE_NORMAL == type)) && (gRlvHandler.hasBehaviour(RLV_BHVR_CHATNORMAL)) )
 			type = CHAT_TYPE_WHISPER;
-		else if ( (CHAT_TYPE_SHOUT == type) && (gRlvHandler.hasBehaviour("chatshout")) )
+		else if ( (CHAT_TYPE_SHOUT == type) && (gRlvHandler.hasBehaviour(RLV_BHVR_CHATSHOUT)) )
 			type = CHAT_TYPE_NORMAL;
-		else if ( (CHAT_TYPE_WHISPER == type) && (gRlvHandler.hasBehaviour("chatwhisper")) )
+		else if ( (CHAT_TYPE_WHISPER == type) && (gRlvHandler.hasBehaviour(RLV_BHVR_CHATWHISPER)) )
 			type = CHAT_TYPE_NORMAL;
 
 		animate &= !gRlvHandler.hasBehaviour(RLV_BHVR_REDIRCHAT);
@@ -692,11 +692,11 @@ void send_chat_from_viewer(std::string utf8_out_text, EChatType type, S32 channe
 		if (0 == channel)
 		{
 			// (We already did this before, but LLChatHandler::handle() calls this directly)
-			if ( ((CHAT_TYPE_SHOUT == type) || (CHAT_TYPE_NORMAL == type)) && (gRlvHandler.hasBehaviour("chatnormal")) )
+			if ( ((CHAT_TYPE_SHOUT == type) || (CHAT_TYPE_NORMAL == type)) && (gRlvHandler.hasBehaviour(RLV_BHVR_CHATNORMAL)) )
 				type = CHAT_TYPE_WHISPER;
-			else if ( (CHAT_TYPE_SHOUT == type) && (gRlvHandler.hasBehaviour("chatshout")) )
+			else if ( (CHAT_TYPE_SHOUT == type) && (gRlvHandler.hasBehaviour(RLV_BHVR_CHATSHOUT)) )
 				type = CHAT_TYPE_NORMAL;
-			else if ( (CHAT_TYPE_WHISPER == type) && (gRlvHandler.hasBehaviour("chatwhisper")) )
+			else if ( (CHAT_TYPE_WHISPER == type) && (gRlvHandler.hasBehaviour(RLV_BHVR_CHATWHISPER)) )
 				type = CHAT_TYPE_NORMAL;
 
 			// Redirect chat if needed
@@ -707,20 +707,20 @@ void send_chat_from_viewer(std::string utf8_out_text, EChatType type, S32 channe
 			}
 
 			// Filter public chat if sendchat restricted (and filter anything that redirchat didn't redirect)
-			if ( (gRlvHandler.hasBehaviour("sendchat")) || (gRlvHandler.hasBehaviour(RLV_BHVR_REDIRCHAT)) )
+			if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SENDCHAT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_REDIRCHAT)) )
 				gRlvHandler.filterChat(utf8_out_text, true);
 		}
 		else
 		{
 			// Don't allow chat on a non-public channel if sendchannel restricted (unless the channel is an exception)
-			if ( (gRlvHandler.hasBehaviour("sendchannel")) && (!gRlvHandler.hasBehaviour("sendchannel", llformat("%d", channel))) )
+			if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SENDCHANNEL)) && (!gRlvHandler.isException(RLV_BHVR_SENDCHANNEL, channel)) )
 				return;
 
 			// Don't allow chat on debug channel if @sendchat, @redirchat or @rediremote restricted (shows as public chat on viewers)
 			if (channel >= CHAT_CHANNEL_DEBUG)
 			{
 				bool fIsEmote = rlvIsEmote(utf8_out_text);
-				if ( (gRlvHandler.hasBehaviour("sendchat")) || 
+				if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SENDCHAT)) || 
 					 ((!fIsEmote) && (gRlvHandler.hasBehaviour(RLV_BHVR_REDIRCHAT))) || 
 					 ((fIsEmote) && (gRlvHandler.hasBehaviour(RLV_BHVR_REDIREMOTE))) )
 				{

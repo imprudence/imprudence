@@ -1,3 +1,24 @@
+2009-10-16 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Applied RLVa-1.0.4e_20091010_SL-1.22.11-diff.patch.
+
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llagent.cpp
+	  modified:   linden/indra/newview/llchatbar.cpp
+	  modified:   linden/indra/newview/llinventorybridge.cpp
+	  modified:   linden/indra/newview/llpanelinventory.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  modified:   linden/indra/newview/llviewertexteditor.cpp
+	  modified:   linden/indra/newview/rlvdefines.h
+	  modified:   linden/indra/newview/rlvextensions.cpp
+	  modified:   linden/indra/newview/rlvextensions.h
+	  modified:   linden/indra/newview/rlvhandler.cpp
+	  modified:   linden/indra/newview/rlvhandler.h
+	  modified:   linden/indra/newview/rlvhelper.cpp
+	  modified:   linden/indra/newview/rlvhelper.h
+	  
+
 2009-10-13 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Applied patch for VWR-6787 by Alissa Sabre - 'none' text in group window not translatable.

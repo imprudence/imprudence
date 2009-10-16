@@ -2943,7 +2943,7 @@ void open_notecard(LLViewerInventoryItem* inv_item,
 				   BOOL take_focus)
 {
 // [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
-	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour("viewnote")) )
+	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE)) )
 	{
 		return;
 	}

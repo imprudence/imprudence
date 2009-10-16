@@ -286,7 +286,7 @@ bool RlvHandler::setDetachable(S32 idxAttachPt, const LLUUID& idRlvObj, bool fDe
 	if (!fDetachable)
 	{
 		#ifdef RLV_EXPERIMENTAL_FIRSTUSE
-			LLFirstUse::useRlvDetach();
+			//LLFirstUse::useRlvDetach();
 		#endif // RLV_EXPERIMENTAL_FIRSTUSE
 
 		// NOTE: m_Attachments can contain duplicate <idxAttachPt, idRlvObj> pairs (ie @detach:spine=n,detach=n from an attachment on spine)
@@ -338,27 +338,47 @@ bool RlvHandler::setDetachable(S32 idxAttachPt, const LLUUID& idRlvObj, bool fDe
 // Behaviour related functions
 //
 
-bool RlvHandler::hasBehaviourExcept(const std::string& strBehaviour, const LLUUID& idObj) const
-{
-	for (rlv_object_map_t::const_iterator itObj = m_Objects.begin(); itObj != m_Objects.end(); ++itObj)
-		if ( (idObj != itObj->second.m_UUID) && (itObj->second.hasBehaviour(strBehaviour)) )
-			return true;
-	return false;
-}
-
 bool RlvHandler::hasBehaviourExcept(ERlvBehaviour eBehaviour, const std::string& strOption, const LLUUID& idObj) const
 {
 	for (rlv_object_map_t::const_iterator itObj = m_Objects.begin(); itObj != m_Objects.end(); ++itObj)
-		if ( (idObj != itObj->second.m_UUID) && (itObj->second.hasBehaviour(eBehaviour, strOption)) )
+		if ( (idObj != itObj->second.m_UUID) && (itObj->second.hasBehaviour(eBehaviour, strOption, false)) )
 			return true;
 	return false;
 }
 
-bool RlvHandler::hasBehaviourExcept(const std::string& strBehaviour, const std::string& strOption, const LLUUID& idObj) const
+// Checked: 2009-10-04 (RLVa-1.0.4c) | Modified: RLVa-1.0.4c
+bool RlvHandler::isException(ERlvBehaviour eBhvr, const RlvExceptionOption& varOption, ERlvExceptionCheck typeCheck) const
 {
-	for (rlv_object_map_t::const_iterator itObj = m_Objects.begin(); itObj != m_Objects.end(); ++itObj)
-		if ( (idObj != itObj->second.m_UUID) && (itObj->second.hasBehaviour(strBehaviour, strOption)) )
-			return true;
+	// We need to "strict check" exceptions only if: the restriction is actually in place *and* (isPermissive(eBhvr) == FALSE)
+	if (RLV_CHECK_DEFAULT == typeCheck)
+		typeCheck = ( (hasBehaviour(eBhvr)) && (!isPermissive(eBhvr)) ) ? RLV_CHECK_STRICT : RLV_CHECK_PERMISSIVE;
+
+	std::list<LLUUID> objList;
+	if (RLV_CHECK_STRICT == typeCheck)
+	{
+		// If we're "strict checking" then we need the UUID of every object that currently has 'eBhvr' restricted
+		for (rlv_object_map_t::const_iterator itObj = m_Objects.begin(); itObj != m_Objects.end(); ++itObj)
+			if (itObj->second.hasBehaviour(eBhvr, !hasBehaviour(RLV_BHVR_PERMISSIVE)))
+				objList.push_back(itObj->first);
+	}
+
+	for (rlv_exception_map_t::const_iterator itException = m_Exceptions.lower_bound(eBhvr), 
+			endException = m_Exceptions.upper_bound(eBhvr); itException != endException; ++itException)
+	{
+		if (itException->second.varOption == varOption)
+		{
+			// For permissive checks we just return on the very first match
+			if (RLV_CHECK_PERMISSIVE == typeCheck)
+				return true;
+
+			// For strict checks we don't return until the list is empty (every object with 'eBhvr' restricted also contains the exception)
+			std::list<LLUUID>::iterator itList = std::find(objList.begin(), objList.end(), itException->second.idObject);
+			if (itList != objList.end())
+				objList.erase(itList);
+			if (objList.empty())
+				return true;
+		}
+	}
 	return false;
 }
 
@@ -509,7 +529,11 @@ BOOL RlvHandler::processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd)
 	const std::string& strOption = rlvCmd.getOption();
 
 	if ( (RLV_BHVR_UNKNOWN != eBehaviour) && (strOption.empty()) )
+	{
+		if (rlvCmd.isStrict())
+			addException(uuid, RLV_BHVR_PERMISSIVE, eBehaviour);
 		m_Behaviours[eBehaviour]++;
+	}
 
 	switch (eBehaviour)
 	{
@@ -649,7 +673,7 @@ BOOL RlvHandler::processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd)
 		case RLV_BHVR_FARTOUCH:
 			{
 				#ifdef RLV_EXPERIMENTAL_FIRSTUSE
-					LLFirstUse::useRlvFartouch();
+					//LLFirstUse::useRlvFartouch();
 				#endif // RLV_EXPERIMENTAL_FIRSTUSE
 			}
 			break;
@@ -695,9 +719,9 @@ BOOL RlvHandler::processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd)
 		case RLV_BHVR_SHOWHOVERTEXT:		// @showhovertext:<uuid>=n	- Checked: 2009-07-09 (RLVa-0.2.2a) | Modified: RLVa-1.0.0f
 			{
 				LLUUID idException(strOption);
-				if (!idException.isNull())	// If there's an option it should be a valid UUID
+				if (idException.notNull())	// If there's an option it should be a valid UUID
 				{
-					addException(eBehaviour, LLUUID(strOption));
+					addException(uuid, eBehaviour, idException);
 
 					// Clear the object's hover text
 					LLViewerObject* pObj = gObjectList.findObject(idException);
@@ -717,6 +741,13 @@ BOOL RlvHandler::processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd)
 				}
 			}
 			break;
+		case RLV_BHVR_SENDCHANNEL:			// @sendchannel:<uuid>=add	- Checked: 2009-10-05 (RLVa-1.0.4a) | Modified: RLVa-1.0.4a
+			{
+				S32 nChannel;	// If there's an option it should be a valid (=positive and non-zero) chat channel
+				if ( (!strOption.empty()) && (LLStringUtil::convertToS32(strOption, nChannel)) && (nChannel > 0) )
+					addException(uuid, eBehaviour, nChannel);
+			}
+			break;
 		case RLV_BHVR_RECVCHAT:				// @recvchat:<uuid>=add		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
 		case RLV_BHVR_RECVEMOTE:			// @recvemote:<uuid>=add	- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
 		case RLV_BHVR_RECVIM:				// @recvim:<uuid>=add		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
@@ -724,15 +755,19 @@ BOOL RlvHandler::processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd)
 		case RLV_BHVR_TPLURE:				// @tplure:<uuid>=add		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
 		case RLV_BHVR_ACCEPTTP:				// @accepttp:<uuid>=add		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
 			{
-				addException(eBehaviour, LLUUID(strOption));
+				LLUUID idException(strOption);
+				if (idException.notNull())	// If there's an option it should be a valid UUID
+					addException(uuid, eBehaviour, LLUUID(strOption));
 			}
 			break;
-		default:
+		case RLV_BHVR_UNKNOWN:
 			{
 				// Give our observers a chance to handle any command we don't
 				RlvEvent rlvEvent(uuid, rlvCmd);
 				m_Emitter.update(&RlvObserver::onAddCommand, rlvEvent);
 			}
+			break;
+		default:
 			break;
 	}
 	return TRUE; // Add command success/failure is decided by RlvObject::addCommand()
@@ -756,7 +791,11 @@ BOOL RlvHandler::processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvC
 	const std::string& strOption = rlvCmd.getOption();
 
 	if ( (RLV_BHVR_UNKNOWN != eBehaviour) && (strOption.empty()) )
+	{
+		if (rlvCmd.isStrict())
+			removeException(uuid, RLV_BHVR_PERMISSIVE, eBehaviour);
 		m_Behaviours[eBehaviour]--;
+	}
 
 	switch (eBehaviour)
 	{
@@ -842,9 +881,9 @@ BOOL RlvHandler::processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvC
 		case RLV_BHVR_SHOWHOVERTEXT:		// @showhovertext:<uuid>=y	- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
 			{
 				LLUUID idException(strOption);
-				if (!idException.isNull())	// If there's an option it should be a valid UUID
+				if (idException.notNull())	// If there's an option it should be a valid UUID
 				{
-					removeException(eBehaviour, LLUUID(strOption));
+					removeException(uuid, eBehaviour, idException);
 
 					// Restore the object's hover text
 					LLViewerObject* pObj = gObjectList.findObject(idException);
@@ -869,6 +908,13 @@ BOOL RlvHandler::processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvC
 				}
 			}
 			break;
+		case RLV_BHVR_SENDCHANNEL:			// @sendchannel:<uuid>=rem	- Checked: 2009-10-05 (RLVa-1.0.4a) | Modified: RLVa-1.0.4a
+			{
+				S32 nChannel;	// If there's an option it should be a valid (=positive and non-zero) chat channel
+				if ( (!strOption.empty()) && (LLStringUtil::convertToS32(strOption, nChannel)) && (nChannel > 0) )
+					removeException(uuid, eBehaviour, nChannel);
+			}
+			break;
 		case RLV_BHVR_RECVCHAT:				// @recvchat:<uuid>=rem		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
 		case RLV_BHVR_RECVEMOTE:			// @recvemote:<uui>=red		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
 		case RLV_BHVR_RECVIM:				// @recvim:<uuid>=rem		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
@@ -876,15 +922,19 @@ BOOL RlvHandler::processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvC
 		case RLV_BHVR_TPLURE:				// @recvim:<uuid>=rem		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
 		case RLV_BHVR_ACCEPTTP:				// @accepttp:<uuid>=rem		- Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
 			{
-				removeException(eBehaviour, LLUUID(strOption));
+				LLUUID idException(strOption);
+				if (idException.notNull())	// If there's an option it should be a valid UUID
+					removeException(uuid, eBehaviour, LLUUID(strOption));
 			}
 			break;
-		default:
+		case RLV_BHVR_UNKNOWN:
 			{
 				// Give our observers a chance to handle any command we don't
 				RlvEvent rlvEvent(uuid, rlvCmd);
 				m_Emitter.update(&RlvObserver::onRemoveCommand, rlvEvent);
 			}
+			break;
+		default:
 			break;
 	}
 	return TRUE; // Remove commands don't fail, doesn't matter what we return here
@@ -1006,12 +1056,14 @@ BOOL RlvHandler::processForceCommand(const LLUUID& idObj, const RlvCommand& rlvC
 				}
 			}
 			break;
-		default:
+		case RLV_BHVR_UNKNOWN:
 			{
 				// Give our observers a chance to handle any command we don't
 				RlvEvent rlvEvent(idObj, rlvCmd);
 				fHandled = m_Emitter.update(&RlvObserver::onForceCommand, rlvEvent);
 			}
+			break;
+		default:
 			break;
 	}
 	return fHandled; // If we handled it then it'll still be TRUE; if an observer doesn't handle it'll be FALSE
@@ -1029,6 +1081,9 @@ BOOL RlvHandler::processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCm
 	{
 		case RLV_BHVR_VERSION:			// @version=<channel>				  - Checked: 2009-07-12 (RLVa-1.0.0h)
 			strReply = getVersionString();
+			break;
+		case RLV_BHVR_VERSIONNUM:		// @versionnum=<channel>			  - Checked: 2009-10-04 (RLVa-1.0.4b) | Added: RLVa-1.0.4b
+			strReply = getVersionNumString();
 			break;
 		case RLV_BHVR_GETOUTFIT:		// @getoufit[:<layer>]=<channel>	  - Checked: 2009-07-12 (RLVa-1.0.0h) | Modified: RLVa-0.2.0d
 			{
@@ -1225,12 +1280,14 @@ BOOL RlvHandler::processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCm
 				strReply = uuid.asString();
 			}
 			break;
-		default:
+		case RLV_BHVR_UNKNOWN:
 			{
 				// Give our observers a chance to handle any command we don't
 				RlvEvent rlvEvent(uuid, rlvCmd);
 				return m_Emitter.update(&RlvObserver::onReplyCommand, rlvEvent);
 			}
+			break;
+		default:
 			break;
 	}
 
@@ -1318,7 +1375,7 @@ void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt, bool fFullyLoaded)
 			itObj->second.m_fLookup = true;
 
 		// In both cases we should check for "@detach=n" and actually lock down the attachment point it got attached to
-		if (itObj->second.hasBehaviour(RLV_BHVR_DETACH))
+		if (itObj->second.hasBehaviour(RLV_BHVR_DETACH, false))
 		{
 			// (Copy/paste from processAddCommand)
 			setDetachable(idxAttachPt, pObj->getID(), false);
@@ -1569,7 +1626,7 @@ void RlvHandler::filterChat(std::string& strUTF8Text, bool fFilterEmote) const
 			{
 				strUTF8Text = "...";				// Emote contains illegal character (or character sequence)
 			}
-			else if (!hasBehaviour("emote"))
+			else if (!hasBehaviour(RLV_BHVR_EMOTE))
 			{
 				int idx = strUTF8Text.find('.');	// Truncate at 20 characters or at the dot (whichever is shorter)
 				strUTF8Text = utf8str_chtruncate(strUTF8Text, ( (idx > 0) && (idx < 20) ) ? idx + 1 : 20);
@@ -1674,17 +1731,18 @@ bool RlvHandler::redirectChatOrEmote(const std::string& strUTF8Text) const
 			return false;	// @sendchat wouldn't filter it so @redirchat won't redirect it either
 	}
 
-	bool fSendChannel = hasBehaviour("sendchannel");
+	bool fSendChannel = hasBehaviour(RLV_BHVR_SENDCHANNEL); S32 nChannel = 0;
 	for (rlv_object_map_t::const_iterator itObj = m_Objects.begin(); itObj != m_Objects.end(); ++itObj)
 	{
 		for (rlv_command_list_t::const_iterator itCmd = itObj->second.m_Commands.begin(), 
 				endCmd = itObj->second.m_Commands.end(); itCmd != endCmd; ++itCmd)
 		{
-			if ( ( ((!fIsEmote) && (RLV_BHVR_REDIRCHAT == itCmd->getBehaviourType())) ||
-				   ((fIsEmote) && (RLV_BHVR_REDIREMOTE == itCmd->getBehaviourType())) ) && 
-				 ( (!fSendChannel) || (hasBehaviour("sendchannel", itCmd->getOption())) ) )
+			if ( ( ((!fIsEmote) && (RLV_BHVR_REDIRCHAT == itCmd->getBehaviourType())) ||	// Redirect if: (not an emote and @redirchat
+				   ((fIsEmote) && (RLV_BHVR_REDIREMOTE == itCmd->getBehaviourType())) ) &&	// OR an emote and @rediremote)
+				 (LLStringUtil::convertToS32(itCmd->getOption(), nChannel)) &&				// AND the channel is a number
+				 ( (!fSendChannel) || (isException(RLV_BHVR_SENDCHANNEL, nChannel)) ) )		// AND we're allowed to send to that channel
 			{
-				rlvSendChatReply(itCmd->getOption(), strUTF8Text);
+				rlvSendChatReply(nChannel, strUTF8Text);
 			}
 		}
 	}
