@@ -483,6 +483,11 @@
 	* Merged working branch of 1.2 into LL 1.23 merge.
 
 
+2009-10-17 Kakurady <kakurady@gmail.com>
+
+	* Improved how opacity is displayed in color swatches.
+
+
 2009-08-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Updated Imprudence to be based on SL 1.23.4.
