@@ -1,3 +1,12 @@
+2009-10-17 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Ported notecard security fix from LL's 1.23.5 viewer.
+	
+	  modified:   linden/indra/newview/llassetuploadresponders.cpp
+	  modified:   linden/indra/newview/llpreview.cpp
+	  modified:   linden/indra/newview/llpreview.h
+	  
+
 2009-10-16 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Applied RLVa-1.0.4e_20091010_SL-1.22.11-diff.patch.
