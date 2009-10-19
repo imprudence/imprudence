@@ -1070,7 +1070,10 @@ void primbackup::upload_next_asset()
 	uuid = tid.makeAssetID(gAgent.getSecureSessionID());
 
 	S32 file_size;
-	apr_file_t* fp = ll_apr_file_open(filename, LL_APR_RB, &file_size);
+	apr_file_t* fp;
+    LLAPRFile aFile;
+    aFile.open(filename, LL_APR_RB, NULL, &file_size);
+    fp = aFile.getFileHandle();
 	if (fp)
 	{
 		const S32 buf_size = 65536;	
@@ -1078,11 +1081,11 @@ void primbackup::upload_next_asset()
 		LLVFile file(gVFS, uuid,  LLAssetType::AT_TEXTURE, LLVFile::WRITE);
 		file.setMaxSize(file_size);
 		
-		while ((file_size = ll_apr_file_read(fp, copy_buf, buf_size)))
+		while ((file_size =aFile.read(copy_buf, buf_size)))
 		{
 			file.write(copy_buf, file_size);
 		}
-		apr_file_close(fp);
+		aFile.close();
 	}
 	else
 	{
