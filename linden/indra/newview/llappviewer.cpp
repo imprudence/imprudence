@@ -3927,7 +3927,7 @@ void LLAppViewer::handleLoginComplete()
 	writeDebugInfo();
 
 // [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
-	// TODO-RLVa: find some way to initialize the lookup table when we need them *and* support toggling RLVa at runtime
+	// NOTE: this function isn't called in Imprudence so any changes need to go in idle_startup() instead
 	gRlvHandler.initLookupTables();
 
 	if (rlv_handler_t::isEnabled())

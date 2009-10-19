@@ -1,3 +1,11 @@
+2009-10-19 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Applied rlva_init-imprudence.patch (fixes RLVa not initializing in 1.2).
+	  
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  modified:   linden/indra/newview/llstartup.cpp
+	  
+
 2009-10-17 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Ported notecard security fix from LL's 1.23.5 viewer.
