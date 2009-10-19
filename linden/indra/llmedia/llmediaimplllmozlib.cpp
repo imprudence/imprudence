@@ -49,9 +49,9 @@
 	#include "GL/gl.h"
 #endif
 
-#if LL_LINUX
- #include <locale.h>
-#endif
+
+#include <locale.h>
+
 
 #include <iostream>
 
@@ -89,23 +89,23 @@ LLMediaImplLLMozLib::LLMediaImplLLMozLib() :
 // (static) super-initialization - called once at application startup
 bool LLMediaImplLLMozLib::startup( LLMediaManagerData* init_data )
 {
-#if LL_LINUX
+
 	// Yuck, Mozilla's GTK callbacks play with the locale - push/pop
 	// the locale to protect it, as exotic/non-C locales
 	// causes our code lots of general critical weirdness
 	// and crashness. (SL-35450)
 	static std::string saved_locale;
 	saved_locale = setlocale(LC_ALL, NULL);
-#endif // LL_LINUX
+
 
 	bool result = LLMozLib::getInstance()->init( init_data->getBrowserApplicationDir(),
 											init_data->getBrowserComponentDir(),
 											  init_data->getBrowserProfileDir(),
 												init_data->getBrowserParentWindow() );
 
-#if LL_LINUX
+
 	setlocale(LC_ALL, saved_locale.c_str() );
-#endif // LL_LINUX
+
 
 	return result;
 }
