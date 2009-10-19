@@ -1,5 +1,10 @@
 2009-10-19 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Clamp map teleporting at 4096 rather than 1000.
+	
+	  modified:   linden/indra/newview/llfloaterworldmap.cpp
+	  
+
 	* Applied rlva_init-imprudence.patch (fixes RLVa not initializing in 1.2).
 	  
 	  modified:   linden/indra/newview/llappviewer.cpp
