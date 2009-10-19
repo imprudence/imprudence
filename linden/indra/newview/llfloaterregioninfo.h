@@ -67,6 +67,9 @@ public:
 
 	/*virtual*/ void onOpen();
 	/*virtual*/ BOOL postBuild();
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
+	/*virtual*/ void open();
+// [/RLVa:KB]
 
 	static void processEstateOwnerRequest(LLMessageSystem* msg, void**);
 

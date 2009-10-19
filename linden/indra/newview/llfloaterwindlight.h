@@ -132,11 +132,16 @@ public:
 	/// turn off animated skies
 	static void deactivateAnimator();
 
+	static void selectTab(std::string tab_name);
+
 private:
 	// one instance on the inside
 	static LLFloaterWindLight* sWindLight;
 
 	static std::set<std::string> sDefaultPresets;
+
+	static void onClickNext(void* user_data);
+	static void onClickPrev(void* user_data);
 };
 
 

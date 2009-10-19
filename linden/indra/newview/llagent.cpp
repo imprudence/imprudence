@@ -192,6 +192,8 @@ const F32 OBJECT_MIN_ZOOM = 0.02f;
 const F32 APPEARANCE_MIN_ZOOM = 0.39f;
 const F32 APPEARANCE_MAX_ZOOM = 8.f;
 
+const F32 DIST_FUDGE = 16.f; // meters
+
 // fidget constants
 const F32 MIN_FIDGET_TIME = 8.f; // seconds
 const F32 MAX_FIDGET_TIME = 20.f; // seconds
@@ -216,6 +218,7 @@ LLAgent gAgent;
 //
 // Statics
 //
+BOOL LLAgent::sPhantom = FALSE;
 
 const F32 LLAgent::TYPING_TIMEOUT_SECS = 5.f;
 
@@ -452,6 +455,10 @@ void LLAgent::init()
 //-----------------------------------------------------------------------------
 void LLAgent::cleanup()
 {
+	mInitialized = FALSE;
+	mWearablesLoaded = FALSE;
+	mShowAvatar = TRUE;
+
 	setSitCamera(LLUUID::null);
 	mAvatarObject = NULL;
 	if(mLookAt)
@@ -751,6 +758,9 @@ void LLAgent::movePitch(S32 direction)
 // Does this parcel allow you to fly?
 BOOL LLAgent::canFly()
 {
+// [RLVa:KB] - Checked: 2009-07-05 (RLVa-1.0.0c)
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_FLY)) return FALSE;
+// [/RLVa:KB]
 	if (isGodlike()) return TRUE;
 
 	LLViewerRegion* regionp = getRegion();
@@ -790,6 +800,13 @@ void LLAgent::setFlying(BOOL fly)
 
 	if (fly)
 	{
+// [RLVa:KB] - Checked: 2009-07-05 (RLVa-1.0.0c)
+		if (gRlvHandler.hasBehaviour(RLV_BHVR_FLY))
+		{
+			return;
+		}
+// [/RLVa:KB]
+
 		BOOL was_flying = getFlying();
 		if (!canFly() && !was_flying)
 		{
@@ -825,6 +842,35 @@ void LLAgent::toggleFlying()
 
 	setFlying( fly );
 	resetView();
+}
+
+
+//-----------------------------------------------------------------------------
+// togglePhantom()
+//-----------------------------------------------------------------------------
+void LLAgent::togglePhantom()
+{
+	BOOL phan = !(sPhantom);
+
+	setPhantom( phan );
+}
+
+
+//-----------------------------------------------------------------------------
+// setPhantom()  lgg
+//-----------------------------------------------------------------------------
+void LLAgent::setPhantom(BOOL phantom)
+{
+	sPhantom = phantom;
+}
+
+
+//-----------------------------------------------------------------------------
+// getPhantom()  lgg
+//-----------------------------------------------------------------------------
+BOOL LLAgent::getPhantom()
+{
+	return sPhantom;
 }
 
 
@@ -1670,6 +1716,10 @@ F32 LLAgent::getCameraZoomFraction()
 		// already [0,1]
 		return mHUDTargetZoom;
 	}
+	else if (gSavedSettings.getBOOL("DisableCameraConstraints"))
+	{
+		return mCameraZoomFraction;
+	}
 	else if (mFocusOnAvatar && cameraThirdPerson())
 	{
 		return clamp_rescale(mCameraZoomFraction, MIN_ZOOM_FRACTION, MAX_ZOOM_FRACTION, 1.f, 0.f);
@@ -1682,7 +1732,6 @@ F32 LLAgent::getCameraZoomFraction()
 	else
 	{
 		F32 min_zoom;
-		const F32 DIST_FUDGE = 16.f; // meters
 		F32 max_zoom = llmin(mDrawDistance - DIST_FUDGE, 
 								LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE,
 								MAX_CAMERA_DISTANCE_FROM_AGENT);
@@ -1731,10 +1780,9 @@ void LLAgent::setCameraZoomFraction(F32 fraction)
 	else
 	{
 		F32 min_zoom = LAND_MIN_ZOOM;
-		const F32 DIST_FUDGE = 16.f; // meters
 		F32 max_zoom = llmin(mDrawDistance - DIST_FUDGE, 
-								LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE,
-								MAX_CAMERA_DISTANCE_FROM_AGENT);
+							LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE,
+							MAX_CAMERA_DISTANCE_FROM_AGENT);
 
 		if (mFocusObject.notNull())
 		{
@@ -1753,7 +1801,14 @@ void LLAgent::setCameraZoomFraction(F32 fraction)
 
 		LLVector3d camera_offset_dir = mCameraFocusOffsetTarget;
 		camera_offset_dir.normalize();
-		mCameraFocusOffsetTarget = camera_offset_dir * rescale(fraction, 0.f, 1.f, max_zoom, min_zoom);
+		if (gSavedSettings.getBOOL("DisableCameraConstraints"))
+		{
+			mCameraFocusOffsetTarget = camera_offset_dir * rescale(fraction, 0.f, 262140.f, 1.f, min_zoom);
+		}
+		else
+		{
+			mCameraFocusOffsetTarget = camera_offset_dir * rescale(fraction, 0.f, 1.f, max_zoom, min_zoom);
+		}
 	}
 	startCameraAnimation();
 }
@@ -1852,29 +1907,32 @@ void LLAgent::cameraZoomIn(const F32 fraction)
 		}
 	}
 
-	new_distance = llmax(new_distance, min_zoom); 
-
 	// Don't zoom too far back
-	const F32 DIST_FUDGE = 16.f; // meters
-	F32 max_distance = llmin(mDrawDistance - DIST_FUDGE, 
-							 LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE );
-
-	if (new_distance > max_distance)
+	// Actually, let's when disable camera constraints is active -- McCabe
+	if (!gSavedSettings.getBOOL("DisableCameraConstraints"))
 	{
-		new_distance = max_distance;
+		new_distance = llmax(new_distance, min_zoom);
 
-		/*
-		// Unless camera is unlocked
-		if (!LLViewerCamera::sDisableCameraConstraints)
+		F32 max_distance = llmin(mDrawDistance - DIST_FUDGE, 
+								 LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE );
+
+		if (new_distance > max_distance)
 		{
-			return;
-		}
-		*/
-	}
+			new_distance = max_distance;
 
-	if( cameraCustomizeAvatar() )
-	{
-		new_distance = llclamp( new_distance, APPEARANCE_MIN_ZOOM, APPEARANCE_MAX_ZOOM );
+			/*
+			// Unless camera is unlocked
+			if (!LLViewerCamera::sDisableCameraConstraints)
+			{
+				return;
+			}
+			*/
+		}
+
+		if( cameraCustomizeAvatar() )
+		{
+			new_distance = llclamp( new_distance, APPEARANCE_MIN_ZOOM, APPEARANCE_MAX_ZOOM );
+		}
 	}
 
 	mCameraFocusOffsetTarget = new_distance * camera_offset_unit;
@@ -1905,40 +1963,41 @@ void LLAgent::cameraOrbitIn(const F32 meters)
 		LLVector3d	camera_offset_unit(mCameraFocusOffsetTarget);
 		F32 current_distance = (F32)camera_offset_unit.normalize();
 		F32 new_distance = current_distance - meters;
-		F32 min_zoom = LAND_MIN_ZOOM;
-		
-		// Don't move through focus point
-		if (mFocusObject.notNull())
-		{
-			if (mFocusObject->isAvatar())
-			{
-				min_zoom = AVATAR_MIN_ZOOM;
-			}
-			else
-			{
-				min_zoom = OBJECT_MIN_ZOOM;
-			}
-		}
-
-		new_distance = llmax(new_distance, min_zoom);
 
 		// Don't zoom too far back
-		const F32 DIST_FUDGE = 16.f; // meters
-		F32 max_distance = llmin(mDrawDistance - DIST_FUDGE, 
-								 LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE );
-
-		if (new_distance > max_distance)
+		// Actually, let's when disable camera constraints is active -- McCabe
+		if (!gSavedSettings.getBOOL("DisableCameraConstraints"))
 		{
-			// Unless camera is unlocked
-			if (!gSavedSettings.getBOOL("DisableCameraConstraints"))
+			F32 min_zoom = LAND_MIN_ZOOM;
+			F32 max_distance;
+			
+			// Don't move through focus point
+			if (mFocusObject.notNull())
+			{
+				if (mFocusObject->isAvatar())
+				{
+					min_zoom = AVATAR_MIN_ZOOM;
+				}
+				else
+				{
+					min_zoom = OBJECT_MIN_ZOOM;
+				}
+			}
+
+			new_distance = llmax(new_distance, min_zoom);
+
+			max_distance = llmin(mDrawDistance - DIST_FUDGE, 
+									 LLWorld::getInstance()->getRegionWidthInMeters() - DIST_FUDGE );
+
+			if (new_distance > max_distance)
 			{
 				return;
 			}
-		}
 
-		if( CAMERA_MODE_CUSTOMIZE_AVATAR == getCameraMode() )
-		{
-			new_distance = llclamp( new_distance, APPEARANCE_MIN_ZOOM, APPEARANCE_MAX_ZOOM );
+			if( CAMERA_MODE_CUSTOMIZE_AVATAR == getCameraMode() )
+			{
+				new_distance = llclamp( new_distance, APPEARANCE_MIN_ZOOM, APPEARANCE_MAX_ZOOM );
+			}
 		}
 
 		// Compute new camera offset
@@ -4214,6 +4273,13 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL avatar_animate, BOOL camera_ani
 		return;
 	}
 
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+	if ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting) )
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	setControlFlags(AGENT_CONTROL_STAND_UP); // force stand up
 	gViewerWindow->getWindow()->resetBusyCount();
 
@@ -5142,6 +5208,14 @@ BOOL LLAgent::setUserGroupFlags(const LLUUID& group_id, BOOL accept_notices, BOO
 // utility to build a location string
 void LLAgent::buildLocationString(std::string& str)
 {
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+	{
+		str = rlv_handler_t::cstrHidden;
+		return;
+	}
+// [/RLVa:KB]
+
 	const LLVector3& agent_pos_region = getPositionAgent();
 	S32 pos_x = S32(agent_pos_region.mV[VX]);
 	S32 pos_y = S32(agent_pos_region.mV[VY]);
@@ -6035,6 +6109,15 @@ void LLAgent::teleportRequest(
 // Landmark ID = LLUUID::null means teleport home
 void LLAgent::teleportViaLandmark(const LLUUID& landmark_asset_id)
 {
+// [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d)
+	if ( (rlv_handler_t::isEnabled()) &&
+		 ( (gRlvHandler.hasBehaviour(RLV_BHVR_TPLM)) || 
+		   ((gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting)) ))
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	LLViewerRegion *regionp = getRegion();
 	if(regionp && teleportCore())
 	{
@@ -6099,6 +6182,17 @@ void LLAgent::teleportCancel()
 
 void LLAgent::teleportViaLocation(const LLVector3d& pos_global)
 {
+// [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-07-07 (RLVa-1.0.0d)
+	// If we're getting teleported due to @tpto we should disregard any @tploc=n or @unsit=n restrictions from the same object
+	if ( (rlv_handler_t::isEnabled()) &&
+		 ( (gRlvHandler.hasBehaviourExcept(RLV_BHVR_TPLOC, gRlvHandler.getCurrentObject())) ||
+		   ( (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting) && 
+			 (gRlvHandler.hasBehaviourExcept(RLV_BHVR_UNSIT, gRlvHandler.getCurrentObject()))) ) )
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	LLViewerRegion* regionp = getRegion();
 	LLSimInfo* info = LLWorldMap::getInstance()->simInfoFromPosGlobal(pos_global);
 	if(regionp && info)
@@ -6175,6 +6269,13 @@ void LLAgent::setTeleportState(ETeleportState state)
 		// We're outa here. Save "back" slurl.
 		mTeleportSourceSLURL = getSLURL();
 	}
+
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-07 (RLVa-1.0.0d) | Added: RLVa-0.2.0b
+	if ( (rlv_handler_t::isEnabled()) && (TELEPORT_NONE == mTeleportState) )
+	{
+		gRlvHandler.setCanCancelTp(true);
+	}
+// [/RLVa:KB]
 }
 
 void LLAgent::stopCurrentAnimations()
@@ -6742,11 +6843,19 @@ BOOL LLAgent::isWearingItem( const LLUUID& item_id )
 // static
 void LLAgent::processAgentInitialWearablesUpdate( LLMessageSystem* mesgsys, void** user_data )
 {
+	if (gNoRender)
+	{
+		return;
+	}
+
 	// We should only receive this message a single time.  Ignore subsequent AgentWearablesUpdates
 	// that may result from AgentWearablesRequest having been sent more than once. 
+	// If we do this, then relogging won't work. - Gigs
+	/*
 	static bool first = true;
 	if (!first) return;
 	first = false;
+	*/
 
 	LLUUID agent_id;
 	gMessageSystem->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
@@ -6804,10 +6913,17 @@ void LLAgent::processAgentInitialWearablesUpdate( LLMessageSystem* mesgsys, void
 		}
 
 		// now that we have the asset ids...request the wearable assets
+// [RLVa:KB] - Checked: 2009-08-08 (RLVa-1.0.1g) | Added: RLVa-1.0.1g
+		LLInventoryFetchObserver::item_ref_t rlvItems;
+// [/RLVa:KB]
 		for( i = 0; i < WT_COUNT; i++ )
 		{
 			if( !gAgent.mWearableEntry[i].mItemID.isNull() )
 			{
+// [RLVa:KB] - Checked: 2009-08-08 (RLVa-1.0.1g) | Added: RLVa-1.0.1g
+				if (rlv_handler_t::isEnabled())
+					rlvItems.push_back(gAgent.mWearableEntry[i].mItemID);
+// [/RLVa:KB]
 				gWearableList.getAsset( 
 					asset_id_array[i],
 					LLStringUtil::null,
@@ -6815,6 +6931,15 @@ void LLAgent::processAgentInitialWearablesUpdate( LLMessageSystem* mesgsys, void
 					LLAgent::onInitialWearableAssetArrived, (void*)(intptr_t)i );
 			}
 		}
+
+// [RLVa:KB] - Checked: 2009-08-08 (RLVa-1.0.1g) | Added: RLVa-1.0.1g
+		// TODO-RLVa: checking that we're in STATE_STARTED is probably not needed, but leave it until we can be absolutely sure
+		if ( (rlv_handler_t::isEnabled()) && (LLStartUp::getStartupState() == STATE_STARTED) )
+		{
+			RlvCurrentlyWorn f;
+			f.fetchItems(rlvItems);
+		}
+// [/RLVa:KB]
 	}
 }
 
@@ -7314,6 +7439,13 @@ void LLAgent::removeWearable( EWearableType type )
 		return;
 	}
 
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-07 (RLVa-1.0.0d)
+	if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.isRemovable(type)) )
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	if( old_wearable )
 	{
 		if( old_wearable->isDirty() )
@@ -7440,15 +7572,17 @@ void LLAgent::setWearableOutfit(
 	wearables_to_remove[WT_SKIN]		= FALSE;
 	wearables_to_remove[WT_HAIR]		= FALSE;
 	wearables_to_remove[WT_EYES]		= FALSE;
-	wearables_to_remove[WT_SHIRT]		= remove;
-	wearables_to_remove[WT_PANTS]		= remove;
-	wearables_to_remove[WT_SHOES]		= remove;
-	wearables_to_remove[WT_SOCKS]		= remove;
-	wearables_to_remove[WT_JACKET]		= remove;
-	wearables_to_remove[WT_GLOVES]		= remove;
-	wearables_to_remove[WT_UNDERSHIRT]	= (!gAgent.isTeen()) & remove;
-	wearables_to_remove[WT_UNDERPANTS]	= (!gAgent.isTeen()) & remove;
-	wearables_to_remove[WT_SKIRT]		= remove;
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c) | Added: RLVa-0.2.2a
+	wearables_to_remove[WT_SHIRT]		= remove && gRlvHandler.isRemovable(WT_SHIRT);
+	wearables_to_remove[WT_PANTS]		= remove && gRlvHandler.isRemovable(WT_PANTS);
+	wearables_to_remove[WT_SHOES]		= remove && gRlvHandler.isRemovable(WT_SHOES);
+	wearables_to_remove[WT_SOCKS]		= remove && gRlvHandler.isRemovable(WT_SOCKS);
+	wearables_to_remove[WT_JACKET]		= remove && gRlvHandler.isRemovable(WT_JACKET);
+	wearables_to_remove[WT_GLOVES]		= remove && gRlvHandler.isRemovable(WT_GLOVES);
+	wearables_to_remove[WT_UNDERSHIRT]	= (!gAgent.isTeen()) && remove && gRlvHandler.isRemovable(WT_UNDERSHIRT);
+	wearables_to_remove[WT_UNDERPANTS]	= (!gAgent.isTeen()) && remove && gRlvHandler.isRemovable(WT_UNDERPANTS);
+	wearables_to_remove[WT_SKIRT]		= remove && gRlvHandler.isRemovable(WT_SKIRT);
+// [/RLVa:KB]
 
 	S32 count = wearables.count();
 	llassert( items.count() == count );
@@ -7538,6 +7672,15 @@ void LLAgent::setWearable( LLInventoryItem* new_item, LLWearable* new_wearable )
 	EWearableType type = new_wearable->getType();
 
 	LLWearable* old_wearable = mWearableEntry[ type ].mWearable;
+
+// [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d)
+	// Block if: we can't wear on that layer; or we're already wearing something there we can't take off
+	if ( (rlv_handler_t::isEnabled()) && ((!gRlvHandler.isWearable(type)) || ((old_wearable) && (!gRlvHandler.isRemovable(type)))) )
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	if( old_wearable )
 	{
 		const LLUUID& old_item_id = mWearableEntry[ type ].mItemID;
@@ -7750,10 +7893,13 @@ void LLAgent::userRemoveAllAttachments( void* userdata )
 		return;
 	}
 
-	gMessageSystem->newMessage("ObjectDetach");
-	gMessageSystem->nextBlockFast(_PREHASH_AgentData);
-	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
-	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c) | Added: RLVa-0.2.0c
+	// NOTE-RLVa: This function is called from inside RlvHandler as well, hence the rather heavy modifications
+	std::list<U32> rlvAttachments;
+	// TODO-RLVa: Once we have the improved "removeWearable" logic implemented we can just get rid of the whole "rlvCompFolders" hassle
+	#ifdef RLV_EXPERIMENTAL_COMPOSITES
+		std::list<LLUUID> rlvCompFolders;
+	#endif // RLV_EXPERIMENTAL_COMPOSITES
 
 	for (LLVOAvatar::attachment_map_t::iterator iter = avatarp->mAttachmentPoints.begin(); 
 		 iter != avatarp->mAttachmentPoints.end(); )
@@ -7763,11 +7909,78 @@ void LLAgent::userRemoveAllAttachments( void* userdata )
 		LLViewerObject* objectp = attachment->getObject();
 		if (objectp)
 		{
-			gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
-			gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, objectp->getLocalID());
+			if (rlv_handler_t::isEnabled())
+			{
+				if (!gRlvHandler.isDetachable(curiter->first))
+					continue;
+
+				// Check if we're being called in response to an RLV command (that would be @detach=force)
+				if ( (gRlvHandler.getCurrentCommand()) && (attachment->getItemID().notNull()) )
+				{
+					if (!gRlvHandler.isStrippable(attachment->getItemID()))	// "nostrip" can be taken off by the user but not @detach
+						continue;
+
+					#ifdef RLV_EXPERIMENTAL_COMPOSITES
+						LLViewerInventoryCategory* pFolder;
+						if (gRlvHandler.getCompositeInfo(attachment->getItemID(), NULL, &pFolder))
+						{
+							#ifdef RLV_EXPERIMENTAL_COMPOSITE_LOCKING
+								if (!gRlvHandler.canTakeOffComposite(pFolder))
+									continue;
+							#endif // RLV_EXPERIMENTAL_COMPOSITE_LOCKING
+
+							// The attachment belongs to a composite folder so there may be additional things we need to take off
+							if (std::find(rlvCompFolders.begin(), rlvCompFolders.end(), pFolder->getUUID()) != rlvCompFolders.end())
+								rlvCompFolders.push_back(pFolder->getUUID());
+						}
+					#endif // RLV_EXPERIMENTAL_COMPOSITES
+				}
+			}
+			rlvAttachments.push_back(objectp->getLocalID());
 		}
 	}
-	gMessageSystem->sendReliable( gAgent.getRegionHost() );
+
+	// Only send the message if we actually have something to detach
+	if (rlvAttachments.size() > 0)
+	{
+		gMessageSystem->newMessage("ObjectDetach");
+		gMessageSystem->nextBlockFast(_PREHASH_AgentData);
+		gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
+		gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+
+		for (std::list<U32>::const_iterator itAttach = rlvAttachments.begin(); itAttach != rlvAttachments.end(); ++itAttach)
+		{
+			gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
+			gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, *itAttach);
+		}
+
+		gMessageSystem->sendReliable( gAgent.getRegionHost() );
+	}
+
+	#ifdef RLV_EXPERIMENTAL_COMPOSITES
+		if (rlv_handler_t::isEnabled)
+		{
+			// If we encountered any composite folders then we need to @detach all of them
+			for (std::list<LLUUID>::const_iterator itFolder = rlvCompFolders.begin(); itFolder != rlvCompFolders.end(); ++itFolder)
+			{
+				std::string strFolder = gRlvHandler.getSharedPath(*itFolder);
+
+				// It shouldn't happen but make absolutely sure that we don't issue @detach:=force and reenter this function
+				if (!strFolder.empty())
+				{
+					std::string strCmd = "detach:" + strFolder + "=force";
+					#ifdef RLV_DEBUG
+						RLV_INFOS << "\t- detaching composite folder: @" << strCmd << LL_ENDL;
+					#endif // RLV_DEBUG
+
+					// HACK-RLV: executing a command while another command is currently executing isn't the best thing to do, however
+					//           in this specific case it is safe (and still better than making processForceCommand public)
+					gRlvHandler.processCommand(gRlvHandler.getCurrentObject(), strCmd);
+				}
+			}
+		}
+	#endif // RLV_EXPERIMENTAL_COMPOSITES
+// [/RLVa:KB]
 }
 
 void LLAgent::observeFriends()

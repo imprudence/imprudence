@@ -183,6 +183,8 @@ public:
 	static void assetCallback(LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type, void *user_data, S32 result_code, LLExtStat ext_status);
 
 	friend class LLPipeline; // For debugging
+
+	LLMediaBase * getStreamMedia() { return mInternetStreamMedia; }
 public:
 	F32 mMaxWindGain; // Hack.  Public to set before fade in?
 

@@ -26,6 +26,7 @@ set(debug_files
     windbgdlg.exe
     iconv.dll
     libxml2.dll
+	libcairo-2.dll
     libgio-2.0-0.dll
     libglib-2.0-0.dll
     libgmodule-2.0-0.dll
@@ -55,6 +56,8 @@ set(debug_files
 	libgstsdp.dll
 	libgsttag.dll
 	libgstvideo.dll
+	libjpeg.dll
+	libmp3lame-0.dll
 	libneon-27.dll
 	libogg-0.dll
 	liboil-0.3-0.dll
@@ -66,6 +69,7 @@ set(debug_files
 	libvorbis-0.dll
 	libvorbisenc-2.dll
 	libxml2-2.dll
+	glew32.dll
     xvidcore.dll
     zlib1.dll
     )
@@ -97,6 +101,7 @@ set(release_files
     xul.dll
     iconv.dll
     libxml2.dll
+	libcairo-2.dll
     libgio-2.0-0.dll
     libglib-2.0-0.dll
     libgmodule-2.0-0.dll
@@ -126,6 +131,8 @@ set(release_files
 	libgstsdp.dll
 	libgsttag.dll
 	libgstvideo.dll
+	libjpeg.dll
+	libmp3lame-0.dll
 	libneon-27.dll
 	libogg-0.dll
 	liboil-0.3-0.dll
@@ -137,6 +144,7 @@ set(release_files
 	libvorbis-0.dll
 	libvorbisenc-2.dll
 	libxml2-2.dll
+	glew32.dll
     xvidcore.dll
     zlib1.dll
     )

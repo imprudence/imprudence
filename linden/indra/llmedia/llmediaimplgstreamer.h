@@ -40,12 +40,13 @@
 ///#if LL_GSTREAMER_ENABLED
 
 extern "C" {
-#include <stdio.h>
 #include <gst/gst.h>
+}
 
+#include <stdio.h>
 #include "apr_pools.h"
 #include "apr_dso.h"
-}
+
 
 #include "llmediaimplgstreamervidplug.h"
 #include "llgstplaythread.h"
@@ -127,6 +128,7 @@ class LLMediaImplGStreamer:
 		GMainLoop *mPump; // event pump for this media
 		GstElement *mPlaybin;
 		GstSLVideo *mVideoSink;
+		std::string mLastTitle;
 		GstState mState;
 		GstState getState() const { return mState; }
 

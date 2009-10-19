@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2009, Linden Research, Inc.
+ * Copyright (c) 2002-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -63,8 +63,7 @@ public:
 	static void setFields(const std::string& firstname, const std::string& lastname, 
 		const std::string& password);
 
-	static void addServer(const std::string& server, S32 domain_name);
-	static void setServer(S32 domain_name);
+	static void addServer(const std::string& server);
 	static void refreshLocation( bool force_visible );
 
 	static void getFields(std::string *firstname, std::string *lastname,
@@ -78,12 +77,14 @@ public:
 	void setSiteIsAlive( bool alive );
 
 	static void loadLoginPage();	
+	static void refreshLoginPage();
 	static void giveFocus();
 	static void setAlwaysRefresh(bool refresh); 
 	static void mungePassword(LLUICtrl* caller, void* user_data);
 	
 private:
 	static void onClickConnect(void*);
+	static void onClickGrid(void*);
 	static void onClickNewAccount(void*);
 	static bool newAccountAlertCallback(const LLSD& notification, const LLSD& response);
 	static void onClickQuit(void*);

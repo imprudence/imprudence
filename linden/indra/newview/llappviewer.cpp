@@ -127,6 +127,7 @@
 #include "llvectorperfoptions.h"
 #include "llurlsimstring.h"
 #include "llwatchdog.h"
+#include "llcallingcard.h"
 
 // Included so that constants/settings might be initialized
 // in save_settings_to_globals()
@@ -166,6 +167,10 @@
 
 #include "llcommandlineparser.h"
 
+#include "hippoGridManager.h"
+#include "hippoLimits.h"
+#include "hippoUpdate.h"
+
 // *FIX: These extern globals should be cleaned up.
 // The globals either represent state/config/resource-storage of either 
 // this app, or another 'component' of the viewer. App globals should be 
@@ -187,10 +192,17 @@
 
 //----------------------------------------------------------------------------
 // viewer.cpp - these are only used in viewer, should be easily moved.
+extern void disable_win_error_reporting();
 
 #if LL_DARWIN
+#include <Carbon/Carbon.h>
 extern void init_apple_menu(const char* product);
+extern OSErr AEGURLHandler(const AppleEvent *messagein, AppleEvent *reply, long refIn);
+extern OSErr AEQuitHandler(const AppleEvent *messagein, AppleEvent *reply, long refIn);
+extern OSStatus simpleDialogHandler(EventHandlerCallRef handler, EventRef event, void *userdata);
+#include <boost/tokenizer.hpp>
 #endif // LL_DARWIN
+
 
 extern BOOL gRandomizeFramerate;
 extern BOOL gPeriodicSlowFrame;
@@ -198,10 +210,16 @@ extern BOOL gDebugGL;
 
 ////////////////////////////////////////////////////////////
 // All from the last globals push...
+
+
 const F32 DEFAULT_AFK_TIMEOUT = 5.f * 60.f; // time with no input before user flagged as Away From Keyboard
 
 F32 gSimLastTime; // Used in LLAppViewer::init and send_stats()
 F32 gSimFrames;
+
+std::string gDisabledMessage; // Set in LLAppViewer::initConfiguration used in idle_startup
+
+BOOL gHideLinks = FALSE; // Set in LLAppViewer::initConfiguration, used externally
 
 BOOL gAllowIdleAFK = TRUE;
 BOOL gAllowTapTapHoldRun = TRUE;
@@ -228,7 +246,7 @@ F32 gFPSClamped = 10.f;						// Pretend we start at target rate.
 F32 gFrameDTClamped = 0.f;					// Time between adjacent checks to network for packets
 U64	gStartTime = 0; // gStartTime is "private", used only to calculate gFrameTimeSeconds
 U32 gFrameStalls = 0;
-const F64 FRAME_STALL_THRESHOLD = 1.0;
+const F64 FRAME_STALL_THRESHOLD = 5.0;
 
 LLTimer gRenderStartTime;
 LLFrameTimer gForegroundTime;
@@ -297,7 +315,8 @@ std::string gLoginPage;
 std::vector<std::string> gLoginURIs;
 static std::string gHelperURI;
 
-LLAppViewer::LLUpdaterInfo *LLAppViewer::sUpdaterInfo = NULL ;
+//FIXME 
+//LLAppViewer::LLUpdaterInfo *LLAppViewer::sUpdaterInfo = NULL ;
 
 void idle_afk_check()
 {
@@ -448,7 +467,7 @@ static void settings_modify()
 	gSavedSettings.setBOOL("VectorizeSkin", FALSE);
 #endif
 }
-
+/*
 void LLAppViewer::initGridChoice()
 {
 	// Load	up the initial grid	choice from:
@@ -465,7 +484,7 @@ void LLAppViewer::initGridChoice()
 	if(grid_choice.empty())
 	{
 		S32	server = gSavedSettings.getS32("ServerChoice");
-		server = llclamp(server, 0,	(S32)GRID_INFO_COUNT - 1);
+		//server = llclamp(server, 0,	(S32)GRID_INFO_COUNT - 1);
 		if(server == GRID_INFO_OTHER)
 		{
 			std::string custom_server = gSavedSettings.getString("CustomServer");
@@ -473,11 +492,12 @@ void LLAppViewer::initGridChoice()
 		}
 		else if(server != (S32)GRID_INFO_NONE)
 		{
-			LLViewerLogin::getInstance()->setGridChoice((EGridInfo)server);
+			llwarns << "setgridchoice = " << server << llendl;
+			LLViewerLogin::getInstance()->setGridChoice(server);
 		}
 	}
 }
-
+*/
 //virtual
 bool LLAppViewer::initSLURLHandler()
 {
@@ -516,6 +536,7 @@ LLAppViewer::LLAppViewer() :
 	mSecondInstance(false),
 	mSavedFinalSnapshot(false),
 	mQuitRequested(false),
+	mLogoutRequested(false),
 	mLogoutRequestSent(false),
 	mYieldTime(-1),
 	mMainloopTimeout(NULL),
@@ -639,7 +660,6 @@ bool LLAppViewer::init()
 					ui_audio_callback,
 					&LLUI::sGLScaleFactor);
 	LLWeb::initClass();			  // do this after LLUI
-
 	LLTextEditor::setURLCallbacks(&LLWeb::loadURL,
 				&LLURLDispatcher::dispatchFromTextEditor,
 				&LLURLDispatcher::dispatchFromTextEditor);
@@ -659,6 +679,7 @@ bool LLAppViewer::init()
 
 	// load MIME type -> media impl mappings
 	LLMIMETypes::parseMIMETypes( std::string("mime_types.xml") ); 
+
 
 	// Copy settings to globals. *TODO: Remove or move to appropriage class initializers
 	settings_to_globals();
@@ -1112,12 +1133,21 @@ bool LLAppViewer::cleanup()
 	// to ensure shutdown order
 	LLMortician::setZealous(TRUE);
 
+	if (mQuitRequested)
 	LLVoiceClient::terminate();
 	
 	disconnectViewer();
 
 	llinfos << "Viewer disconnected" << llendflush;
 
+
+
+
+
+	//this deletes all your buddies
+	LLAvatarTracker::instance().reset();
+
+	if (mQuitRequested)
 	display_cleanup(); 
 
 	release_start_screen(); // just in case
@@ -1135,6 +1165,13 @@ bool LLAppViewer::cleanup()
 
 	LLKeyframeDataCache::clear();
 	
+	//clear all the chat off the screen	
+	gConsole->clear();
+
+	if (!mQuitRequested) //if we are doing a soft cleanup, bail here
+	{
+		return true;
+	}
  	// End TransferManager before deleting systems it depends on (Audio, VFS, AssetStorage)
 #if 0 // this seems to get us stuck in an infinite loop...
 	gTransferManager.cleanup();
@@ -1238,6 +1275,9 @@ bool LLAppViewer::cleanup()
 	// viewer UI relies on keyboard so keep it aound until viewer UI isa gone
 	delete gKeyboard;
 	gKeyboard = NULL;
+	// Clean up selection managers after UI is destroyed, as UI
+	// may be observing them.
+	LLSelectMgr::cleanupGlobals();
 
 	LLViewerObject::cleanupVOClasses();
 
@@ -1247,6 +1287,7 @@ bool LLAppViewer::cleanup()
 
 	LLTracker::cleanupInstance();
 	
+
 	// *FIX: This is handled in LLAppViewerWin32::cleanup().
 	// I'm keeping the comment to remember its order in cleanup,
 	// in case of unforseen dependency.
@@ -1321,6 +1362,7 @@ bool LLAppViewer::cleanup()
 
 	// save mute list. gMuteList used to also be deleted here too.
 	LLMuteList::getInstance()->cache(gAgent.getID());
+
 
 	if (mPurgeOnExit)
 	{
@@ -1831,7 +1873,14 @@ bool LLAppViewer::initConfiguration()
         }
     }
 
-    initGridChoice();
+	//init Hippo grid manager
+	if (!gHippoGridManager) {
+		gHippoGridManager = new HippoGridManager();
+		gHippoGridManager->init();
+	}
+
+
+    //initGridChoice();
 
 	// If we have specified crash on startup, set the global so we'll trigger the crash at the right time
 	if(clp.hasOption("crashonstartup"))
@@ -1848,7 +1897,6 @@ bool LLAppViewer::initConfiguration()
     // achieve this. For now...
 
     // *NOTE:Mani The command line parser parses tokens and is 
-    // setup to bail after parsing the '--url' option or the 
     // first option specified without a '--option' flag (or
     // any other option that uses the 'last_option' setting - 
     // see LLControlGroupCLP::configure())
@@ -1906,6 +1954,22 @@ bool LLAppViewer::initConfiguration()
 	//		llerrs << "Failed to parse skin definition." << llendl;
 	//	}
 
+	//	LLXmlTreeNode* rootp = skin_def_tree.getRoot();
+	//	LLXmlTreeNode* disabled_message_node = rootp->getChildByName("disabled_message");	
+	//	if (disabled_message_node)
+	//	{
+	//		gDisabledMessage = disabled_message_node->getContents();
+	//	}
+
+	//	static LLStdStringHandle hide_links_string = LLXmlTree::addAttributeString("hide_links");
+	//	rootp->getFastAttributeBOOL(hide_links_string, gHideLinks);
+
+	//	// Legacy string.  This flag really meant we didn't want to expose references to "Second Life".
+	//	// Just set gHideLinks instead.
+	//	static LLStdStringHandle silent_string = LLXmlTree::addAttributeString("silent_update");
+	//	BOOL silent_update;
+	//	rootp->getFastAttributeBOOL(silent_string, silent_update);
+	//	gHideLinks = (gHideLinks || silent_update);
 	//}
 
 #if LL_DARWIN
@@ -2365,7 +2429,7 @@ void LLAppViewer::handleViewerCrash()
 	gDebugInfo["ViewerExePath"] = gDirUtilp->getExecutablePathAndName();
 	gDebugInfo["CurrentPath"] = gDirUtilp->getCurPath();
 	gDebugInfo["SessionLength"] = F32(LLFrameTimer::getElapsedSeconds());
-	gDebugInfo["StartupState"] = LLStartUp::getStartupStateString();
+//FIXME	gDebugInfo["StartupState"] = LLStartUp::getStartupStateString();
 	gDebugInfo["RAMInfo"]["Allocated"] = (LLSD::Integer) getCurrentRSS() >> 10;
 	gDebugInfo["FirstLogin"] = (LLSD::Boolean) gAgent.isFirstLogin();
 	gDebugInfo["FirstRunThisInstall"] = gSavedSettings.getBOOL("FirstRunThisInstall");
@@ -2594,29 +2658,56 @@ void LLAppViewer::removeMarkerFile(bool leave_logout_marker)
 	}
 }
 
+
+//this gets called after we get a packet back from the
+//server saying we are logged out, or if the packet times
+//out
 void LLAppViewer::forceQuit()
 { 
+
+	LL_INFOS("forceQuit") << "Destroying the entire world" << LL_ENDL;
+	if (mQuitRequested)
 	LLApp::setQuitting(); 
+	else
+	{
+		if (mLogoutRequested) //we just finished a logout request
+		{
+			//LLStartUp::setStartupState( STATE_LOGIN_SHOW );
+			LLStartUp::resetLogin();
+			cleanup();
+			mLogoutRequested=false;
+			mLogoutRequestSent=false;
+		}
+	}
 }
 
-void LLAppViewer::requestQuit()
+void LLAppViewer::requestLogout(bool quit_after)
 {
-	llinfos << "requestQuit" << llendl;
+
+	mLogoutRequested=true;
+	if(quit_after)
+		mQuitRequested=true;
+	else
+		mQuitRequested=false;
+
+	llinfos << "requestLogout" << llendl;
 
 	LLViewerRegion* region = gAgent.getRegion();
 	
-	if( (LLStartUp::getStartupState() < STATE_STARTED) || !region )
+	if( (LLStartUp::getStartupState() >= STATE_STARTED) && region )
 	{
-		// Quit immediately
-		forceQuit();
-		return;
-	}
-
 	LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral*)LLHUDManager::getInstance()->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_POINT, TRUE);
 	effectp->setPositionGlobal(gAgent.getPositionGlobal());
 	effectp->setColor(LLColor4U(gAgent.getEffectColor()));
 	LLHUDManager::getInstance()->sendEffects();
 	effectp->markDead() ;//remove it.
+		send_stats();
+	}
+	else
+	{
+		mQuitRequested=true;
+		LLAppViewer::instance()->forceQuit();
+	}
 
 	// Attempt to close all floaters that might be
 	// editing things.
@@ -2626,10 +2717,7 @@ void LLAppViewer::requestQuit()
 		gFloaterView->closeAllChildren(true);
 	}
 
-	send_stats();
-
 	gLogoutTimer.reset();
-	mQuitRequested = true;
 }
 
 static bool finish_quit(const LLSD& notification, const LLSD& response)
@@ -2638,7 +2726,7 @@ static bool finish_quit(const LLSD& notification, const LLSD& response)
 
 	if (option == 0)
 	{
-		LLAppViewer::instance()->requestQuit();
+		LLAppViewer::instance()->requestLogout(true);
 	}
 	return false;
 }
@@ -2647,6 +2735,12 @@ static LLNotificationFunctorRegistration finish_quit_reg("ConfirmQuit", finish_q
 void LLAppViewer::userQuit()
 {
 	LLNotifications::instance().add("ConfirmQuit");
+}
+
+//static
+void LLAppViewer::userLogout(void *userdata)
+{
+	LLAppViewer::instance()->requestLogout(false);
 }
 
 static bool finish_early_exit(const LLSD& notification, const LLSD& response)
@@ -2674,6 +2768,7 @@ void LLAppViewer::abortQuit()
 {
     llinfos << "abortQuit()" << llendl;
 	mQuitRequested = false;
+	mLogoutRequested = false;
 }
 
 void LLAppViewer::migrateCacheDirectory()
@@ -2994,7 +3089,7 @@ bool finish_forced_disconnect(const LLSD& notification, const LLSD& response)
 
 void LLAppViewer::forceDisconnect(const std::string& mesg)
 {
-	if (gDoDisconnect)
+	if (gDoDisconnect||mQuitRequested||mLogoutRequested)
     {
 		// Already popped up one of these dialogs, don't
 		// do this again.
@@ -3225,7 +3320,12 @@ void LLAppViewer::idle()
 	    {
 		    // Send avatar and camera info
 		    last_control_flags = gAgent.getControlFlags();
-		    send_agent_update(TRUE);
+
+		    if(!gAgent.getPhantom())
+			{
+				send_agent_update(TRUE);
+			}
+
 		    agent_update_timer.reset();
 	    }
 	}
@@ -3298,8 +3398,11 @@ void LLAppViewer::idle()
 		// Check for away from keyboard, kick idle agents.
 		idle_afk_check();
 
+		if (!gDisconnected) //check again
+		{
 		//  Update statistics for this frame
 		update_statistics(gFrameCount);
+	}
 	}
 
 	////////////////////////////////////////
@@ -3501,7 +3604,7 @@ void LLAppViewer::idle()
 	// Handle shutdown process, for example, 
 	// wait for floaters to close, send quit message,
 	// forcibly quit if it has taken too long
-	if (mQuitRequested)
+	if (mQuitRequested || mLogoutRequested)
 	{
 		idleShutdown();
 	}
@@ -3604,12 +3707,12 @@ void LLAppViewer::sendLogoutRequest()
 		if (mLogoutMarkerFile)
 		{
 			llinfos << "Created logout marker file " << mLogoutMarkerFileName << llendl;
-    		apr_file_close(mLogoutMarkerFile);
 		}
 		else
 		{
 			llwarns << "Cannot create logout marker file " << mLogoutMarkerFileName << llendl;
-		}		
+		}
+		apr_file_close(mLogoutMarkerFile);
 	}
 }
 
@@ -3626,6 +3729,9 @@ static F32 CheckMessagesMaxTime = CHECK_MESSAGES_DEFAULT_MAX_TIME;
 
 void LLAppViewer::idleNetwork()
 {
+	if (gDisconnected)
+		return;
+
 	pingMainloopTimeout("idleNetwork");
 	LLError::LLCallStacks::clear() ;
 	llpushcallstacks ;
@@ -3714,7 +3820,11 @@ void LLAppViewer::idleNetwork()
 	llpushcallstacks ;
 	gObjectList.mNumNewObjectsStat.addValue(gObjectList.mNumNewObjects);
 
+	if (gDisconnected)
+		return;
+
 	// Retransmit unacknowledged packets.
+	if (gXferManager)
 	gXferManager->retransmitUnackedPackets();
 	gAssetStorage->checkForTimeouts();
 	llpushcallstacks ;
@@ -3724,7 +3834,7 @@ void LLAppViewer::idleNetwork()
 	// Check that the circuit between the viewer and the agent's current
 	// region is still alive
 	LLViewerRegion *agent_region = gAgent.getRegion();
-	if (agent_region)
+	if ((agent_region)&&(LLStartUp::getStartupState() == STATE_STARTED))
 	{
 		LLUUID this_region_id = agent_region->getRegionID();
 		bool this_region_alive = agent_region->isAlive();
@@ -3745,6 +3855,9 @@ void LLAppViewer::disconnectViewer()
 	{
 		return;
 	}
+	
+	//set this true now, to prevent things from trying to access the network we are destroying
+	gDisconnected = TRUE;
 	//
 	// Cleanup after quitting.
 	//	
@@ -3828,6 +3941,8 @@ void LLAppViewer::disconnectViewer()
 
 	cleanup_xfer_manager();
 	gDisconnected = TRUE;
+	if (mQuitRequested)
+		cleanup_xfer_manager();
 }
 
 void LLAppViewer::forceErrorLLError()
@@ -3940,31 +4055,31 @@ void LLAppViewer::handleLoginComplete()
 	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
 	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
 	gDebugInfo["ClientInfo"]["BuildVersion"] = LL_VERSION_BUILD;
-
-	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
-	if ( parcel && parcel->getMusicURL()[0])
-	{
-		gDebugInfo["ParcelMusicURL"] = parcel->getMusicURL();
-	}	
-	if ( parcel && parcel->getMediaURL()[0])
-	{
-		gDebugInfo["ParcelMediaURL"] = parcel->getMediaURL();
-	}
-	
 	gDebugInfo["SettingsFilename"] = gSavedSettings.getString("ClientSettingsFile");
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 	gDebugInfo["ViewerExePath"] = gDirUtilp->getExecutablePathAndName();
 	gDebugInfo["CurrentPath"] = gDirUtilp->getCurPath();
-
-	if(gAgent.getRegion())
-	{
-		gDebugInfo["CurrentSimHost"] = gAgent.getRegionHost().getHostName();
-		gDebugInfo["CurrentRegion"] = gAgent.getRegion()->getName();
-	}
 
 	if(LLAppViewer::instance()->mMainloopTimeout)
 	{
 		gDebugInfo["MainloopTimeoutState"] = LLAppViewer::instance()->mMainloopTimeout->getState();
 	}
 	writeDebugInfo();
+
+// [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
+	// TODO-RLVa: find some way to initialize the lookup table when we need them *and* support toggling RLVa at runtime
+	gRlvHandler.initLookupTables();
+
+	if (rlv_handler_t::isEnabled())
+	{
+		RlvCurrentlyWorn::fetchWorn();
+		rlv_handler_t::fetchSharedInventory();
+
+		#ifdef RLV_EXTENSION_STARTLOCATION
+			RlvSettings::updateLoginLastLocation();
+		#endif // RLV_EXTENSION_STARTLOCATION
+
+		gRlvHandler.processRetainedCommands();
+	}
+// [/RLVa:KB]
 }

@@ -64,6 +64,11 @@ include_directories(
     )
 
 set(viewer_SOURCE_FILES
+    floaterlogin.cpp
+    hippoGridManager.cpp
+    hippoLimits.cpp
+    hippoRestRequest.cpp
+    jcfloater_animation_list.cpp
     llagent.cpp
     llagentaccess.cpp
     llagentdata.cpp
@@ -125,6 +130,7 @@ set(viewer_SOURCE_FILES
     llfloaterabout.cpp
     llfloateractivespeakers.cpp
     llfloateranimpreview.cpp
+    llfloaterassetbrowser.cpp
     llfloaterauction.cpp
     llfloateravatarinfo.cpp
     llfloateravatarpicker.cpp
@@ -433,6 +439,7 @@ set(viewer_SOURCE_FILES
     llwearablelist.cpp
     llweb.cpp
     llwebbrowserctrl.cpp
+    llwindlightremotectrl.cpp
     llwind.cpp
     llwlanimator.cpp
     llwldaycycle.cpp
@@ -444,6 +451,12 @@ set(viewer_SOURCE_FILES
     llxmlrpctransaction.cpp
     noise.cpp
     pipeline.cpp
+    primbackup.cpp
+    rlvhandler.cpp
+    rlvhelper.cpp
+    rlvmultistringsearch.cpp
+    rlvextensions.cpp
+    rlvfloaterbehaviour.cpp
     )
 
 set(VIEWER_BINARY_NAME "imprudence-bin" CACHE STRING
@@ -466,7 +479,11 @@ endif (LINUX)
 set(viewer_HEADER_FILES
     CMakeLists.txt
     ViewerInstall.cmake
-
+    floaterlogin.h
+    hippoGridManager.h
+    hippoLimits.h
+    hippoRestRequest.h
+    jcfloater_animation_list.h
     llagent.h
     llagentaccess.h
     llagentdata.h
@@ -530,6 +547,7 @@ set(viewer_HEADER_FILES
     llfloaterabout.h
     llfloateractivespeakers.h
     llfloateranimpreview.h
+    llfloaterassetbrowser.h
     llfloaterauction.h
     llfloateravatarinfo.h
     llfloateravatarpicker.h
@@ -843,6 +861,7 @@ set(viewer_HEADER_FILES
     llwebbrowserctrl.h
     llwind.h
     llwindebug.h
+    llwindlightremotectrl.h
     llwlanimator.h
     llwldaycycle.h
     llwlparammanager.h
@@ -854,9 +873,17 @@ set(viewer_HEADER_FILES
     macmain.h
     noise.h
     pipeline.h
+    primbackup.h
     randgauss.h
     VertexCache.h
     VorbisFramework.h
+    rlvdefines.h
+    rlvevent.h
+    rlvhandler.h
+    rlvhelper.h
+    rlvmultistringsearch.h
+    rlvextensions.h
+    rlvfloaterbehaviour.h
     )
 
 source_group("CMake Rules" FILES ViewerInstall.cmake)
@@ -1042,7 +1069,9 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_about_land.xml
     skins/default/xui/en-us/floater_about.xml
     skins/default/xui/en-us/floater_active_speakers.xml
+    skins/default/xui/en-us/floater_animation_list.xml
     skins/default/xui/en-us/floater_animation_preview.xml
+    skins/default/xui/en-us/floater_asset_browser.xml
     skins/default/xui/en-us/floater_auction.xml
     skins/default/xui/en-us/floater_audio_volume.xml
     skins/default/xui/en-us/floater_avatar_picker.xml
@@ -1224,6 +1253,9 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/panel_voice_options.xml
     skins/default/xui/en-us/panel_voice_remote_expanded.xml
     skins/default/xui/en-us/panel_voice_remote.xml
+    skins/default/xui/en-us/panel_windlight_controls.xml
+    skins/default/xui/en-us/panel_windlight_remote.xml
+    skins/default/xui/en-us/panel_windlight_remote_expanded.xml
     skins/default/xui/en-us/role_actions.xml
     skins/default/xui/en-us/strings.xml
     skins/default/xui/en-us/teleport_strings.xml
@@ -1415,6 +1447,7 @@ if (WINDOWS)
 endif (WINDOWS)
 
 target_link_libraries(${VIEWER_BINARY_NAME}
+    ${NDOF_LIBRARY}
     ${LLAUDIO_LIBRARIES}
     ${LLCHARACTER_LIBRARIES}
     ${LLIMAGE_LIBRARIES}

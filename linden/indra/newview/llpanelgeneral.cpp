@@ -64,6 +64,8 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("small_avatar_names_checkbox", gSavedSettings.getBOOL("SmallAvatarNames"));
 	childSetValue("show_my_title_checkbox", gSavedSettings.getBOOL("RenderHideGroupTitle"));
 	childSetValue("afk_timeout_spinner", gSavedSettings.getF32("AFKTimeout"));
+	childSetValue("mini_map_notify_chat", gSavedSettings.getBOOL("MiniMapNotifyChatRange"));
+	childSetValue("mini_map_notify_sim", gSavedSettings.getBOOL("MiniMapNotifySimRange"));
 	childSetValue("notify_money_change_checkbox", gSavedSettings.getBOOL("NotifyMoneyChange"));
 
 	getChild<LLColorSwatchCtrl>("effect_color_swatch")->set(gSavedSettings.getColor4("EffectColor"));
@@ -76,6 +78,7 @@ BOOL LLPanelGeneral::postBuild()
 	
 	childSetValue("language_combobox", 	gSavedSettings.getString("Language"));
 
+	childSetAction("reset_ui_size", onClickResetUISize, this);
 	
 	// if we have no agent, we can't let them choose anything
 	// if we have an agent, then we only let them choose if they have a choice
@@ -84,7 +87,6 @@ BOOL LLPanelGeneral::postBuild()
 	
 	if (can_choose)
 	{
-
 		// if they're not adult or a god, they shouldn't see the adult selection, so delete it
 		if (!gAgent.isAdult() && !gAgent.isGodlike())
 		{
@@ -125,6 +127,8 @@ void LLPanelGeneral::apply()
 	gSavedSettings.setBOOL("SmallAvatarNames", childGetValue("small_avatar_names_checkbox"));
 	gSavedSettings.setBOOL("RenderHideGroupTitle", childGetValue("show_my_title_checkbox"));
 	gSavedSettings.setF32("AFKTimeout", childGetValue("afk_timeout_spinner").asReal());
+	gSavedSettings.setBOOL("MiniMapNotifyChatRange", childGetValue("mini_map_notify_chat"));
+	gSavedSettings.setBOOL("MiniMapNotifySimRange", childGetValue("mini_map_notify_sim"));
 	gSavedSettings.setBOOL("NotifyMoneyChange", childGetValue("notify_money_change_checkbox"));
 	gSavedSettings.setColor4("EffectColor", childGetValue("effect_color_swatch"));
 	gSavedSettings.setF32("UIScaleFactor", childGetValue("ui_scale_slider").asReal());
@@ -157,3 +161,9 @@ void LLPanelGeneral::cancel()
 {
 }
 
+// static
+void LLPanelGeneral::onClickResetUISize(void* user_data)
+{
+	LLPanelGeneral* self = (LLPanelGeneral*)user_data;
+	self->childSetValue("ui_scale_slider", 1.0f);
+}

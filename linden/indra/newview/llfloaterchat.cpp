@@ -57,10 +57,11 @@
 #include "llfloaterchatterbox.h"
 #include "llfloatermute.h"
 #include "llkeyboard.h"
-//#include "lllineeditor.h"
+#include "lllineeditor.h"
 #include "llmutelist.h"
 //#include "llresizehandle.h"
 #include "llchatbar.h"
+#include "llspinctrl.h"
 #include "llstatusbar.h"
 #include "llviewertexteditor.h"
 #include "llviewergesture.h"			// for triggering gestures
@@ -110,6 +111,8 @@ LLFloaterChat::LLFloaterChat(const LLSD& seed)
 	childSetVisible("Chat History Editor with mute",FALSE);
 	childSetAction("toggle_active_speakers_btn", onClickToggleActiveSpeakers, this);
 	setDefaultBtn("Chat");
+
+	//toggleHistoryChannelControl(); temporarily disable until working
 }
 
 LLFloaterChat::~LLFloaterChat()
@@ -204,17 +207,32 @@ void add_timestamped_line(LLViewerTextEditor* edit, LLChat chat, const LLColor4&
 	// If the msg is from an agent (not yourself though),
 	// extract out the sender name and replace it with the hotlinked name.
 	if (chat.mSourceType == CHAT_SOURCE_AGENT &&
-		chat.mFromID != LLUUID::null)
+		chat.mFromID != LLUUID::null &&
+// [RLVa] - Version: 1.22.11 | Checked: 2009-07-08 (RLVa-1.0.0e)
+		(!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
+// [/RLVa]
 	{
 		chat.mURL = llformat("secondlife:///app/agent/%s/about",chat.mFromID.asString().c_str());
 	}
 
 	// If the chat line has an associated url, link it up to the name.
-	if (!chat.mURL.empty()
-		&& (line.length() > chat.mFromName.length() && line.find(chat.mFromName,0) == 0))
+	if ((!chat.mURL.empty() && line.length() > chat.mFromName.length()) && 
+		(line.find(chat.mFromName,0) == 0 || (line.find(chat.mFromName,0) == 4 &&
+		color == gSavedSettings.getColor4("ObjectIMColor")))) // hack to make sure IMs in chat history don't hightlight
 	{
-		std::string start_line = line.substr(0, chat.mFromName.length() + 1);
-		line = line.substr(chat.mFromName.length() + 1);
+		std::string start_line;
+		if (line.find(chat.mFromName,0) == 4) // IMs are prefaced with "IM: "
+		{
+			start_line = line.substr(4, chat.mFromName.length() + 1);
+			std::string source = line.substr(0, 4);
+			edit->appendColoredText(source, false, prepend_newline, color);
+			line = line.substr(chat.mFromName.length() + 5);
+		}
+		else
+		{
+			start_line = line.substr(0, chat.mFromName.length() + 1);
+			line = line.substr(chat.mFromName.length() + 1);
+		}
 		const LLStyleSP &sourceStyle = LLStyleMap::instance().lookup(chat.mFromID,chat.mURL);
 		edit->appendStyledText(start_line, false, prepend_newline, sourceStyle);
 		prepend_newline = false;
@@ -232,9 +250,61 @@ void log_chat_text(const LLChat& chat)
 
 		LLLogChat::saveHistory(std::string("chat"),histstr);
 }
+
+// static
+void LLFloaterChat::toggleHistoryChannelControl()
+{
+	LLFloaterChat* chat_floater = LLFloaterChat::getInstance(LLSD());
+	BOOL visible = gSavedSettings.getBOOL("ChatChannelSelect");
+	BOOL control = chat_floater->getChild<LLSpinCtrl>("channel_control")->getVisible();
+
+	LLLineEditor* input = chat_floater->getChild<LLLineEditor>("Chat Editor");
+	LLRect input_rect = input->getRect();
+	S32 chan_width = chat_floater->getChild<LLSpinCtrl>("channel_control")->getRect().getWidth();
+
+	if (visible && !control)
+	{
+		input_rect.setLeftTopAndSize(input_rect.mLeft+chan_width+4, input_rect.mTop, 
+									 input_rect.getWidth()-chan_width, input_rect.getHeight());
+	}
+	else if (!visible && control)
+	{
+		input_rect.setLeftTopAndSize(input_rect.mLeft-chan_width-4, input_rect.mTop, 
+									 input_rect.getWidth()+chan_width, input_rect.getHeight());
+	}
+	input->setRect(input_rect);
+
+	chat_floater->childSetVisible("channel_control", visible);
+	chat_floater->childSetEnabled("channel_control", visible);
+}
+
 // static
 void LLFloaterChat::addChatHistory(const LLChat& chat, bool log_to_file)
 {	
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+	if (rlv_handler_t::isEnabled())
+	{
+		// TODO-RLVa: we might cast too broad a net by filtering here, needs testing
+		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) && (!chat.mRlvLocFiltered) && (CHAT_SOURCE_AGENT != chat.mSourceType) )
+		{
+			LLChat& rlvChat = const_cast<LLChat&>(chat);
+			gRlvHandler.filterLocation(rlvChat.mText);
+			rlvChat.mRlvLocFiltered = TRUE;
+		}
+		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (!chat.mRlvNamesFiltered) )
+		{
+			// NOTE: this will also filter inventory accepted/declined text in the chat history
+			LLChat& rlvChat = const_cast<LLChat&>(chat);
+			if (CHAT_SOURCE_AGENT != chat.mSourceType)
+			{
+				// Filter object and system chat (names are filtered elsewhere to save ourselves an gObjectList lookup)
+				gRlvHandler.filterNames(rlvChat.mText);
+			}
+			rlvChat.mRlvNamesFiltered = TRUE;
+		}
+	}
+// [/RLVa:KB]
+
 	if ( gSavedPerAccountSettings.getBOOL("LogChat") && log_to_file) 
 	{
 		log_chat_text(chat);
@@ -368,6 +438,30 @@ void LLFloaterChat::addChat(const LLChat& chat,
 			chat.mChatType == CHAT_TYPE_DEBUG_MSG
 			&& !gSavedSettings.getBOOL("ScriptErrorsAsChat");
 
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+	if (rlv_handler_t::isEnabled())
+	{
+		// TODO-RLVa: we might cast too broad a net by filtering here, needs testing
+		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) && (!chat.mRlvLocFiltered) && (CHAT_SOURCE_AGENT != chat.mSourceType) )
+		{
+			LLChat& rlvChat = const_cast<LLChat&>(chat);
+			if (!from_instant_message)
+				gRlvHandler.filterLocation(rlvChat.mText);
+			rlvChat.mRlvLocFiltered = TRUE;
+		}
+		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) && (!chat.mRlvNamesFiltered) )
+		{
+			LLChat& rlvChat = const_cast<LLChat&>(chat);
+			if ( (!from_instant_message) && (CHAT_SOURCE_AGENT != chat.mSourceType) )
+			{
+				// Filter object and system chat (names are filtered elsewhere to save ourselves an gObjectList lookup)
+				gRlvHandler.filterNames(rlvChat.mText);
+			}
+			rlvChat.mRlvNamesFiltered = TRUE;
+		}
+	}
+// [/RLVa:KB]
+
 #if LL_LCD_COMPILE
 	// add into LCD displays
 	if (!invisible_script_debug_chat)
@@ -463,6 +557,9 @@ LLColor4 get_text_color(const LLChat& chat)
 				text_color = gSavedSettings.getColor4("ObjectChatColor");
 			}
 			break;
+		case CHAT_SOURCE_OBJECT_IM:
+			text_color = gSavedSettings.getColor4("ObjectIMColor");
+			break;
 		default:
 			text_color.setToWhite();
 		}
@@ -528,7 +625,11 @@ void LLFloaterChat::onClickToggleActiveSpeakers(void* userdata)
 {
 	LLFloaterChat* self = (LLFloaterChat*)userdata;
 
-	self->childSetVisible("active_speakers_panel", !self->childIsVisible("active_speakers_panel"));
+// [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
+	self->childSetVisible("active_speakers_panel", 
+		(!self->childIsVisible("active_speakers_panel")) && (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) );
+// [/RLVa:KB]
+	//self->childSetVisible("active_speakers_panel", !self->childIsVisible("active_speakers_panel"));
 }
 
 //static 

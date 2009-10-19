@@ -102,7 +102,6 @@ public:
 	virtual void onFocusReceived();
 	static void setEditTool(void* data);
 	void saveLastTool();
-
 private:
 	static void setObjectType( void* data );
 	

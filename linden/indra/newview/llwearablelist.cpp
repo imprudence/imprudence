@@ -43,6 +43,9 @@
 #include "llviewerstats.h"
 #include "llnotify.h"
 
+#include "llstartup.h"
+#include "llpanellogin.h"
+
 // Globals
 LLWearableList gWearableList; // Globally constructed; be careful that there's no dependency with gAgent.
 
@@ -195,12 +198,15 @@ void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID
 		}
 		else if (data->mName.empty())
 		{
-			LLNotifications::instance().add("FailedToFindWearableUnnamed", args);
+			// work around missing avatar part spam on grid to grid teleport login
+			//if(LLStartUp::shouldAutoLogin() && !gLoginHandler.mPassword.empty()) Jacek - Grid manager stuff that's changed with 1.23
+				LLNotifications::instance().add("FailedToFindWearableUnnamed", args);
 		}
 		else
 		{
 			args["DESC"] = data->mName;
-			LLNotifications::instance().add("FailedToFindWearable", args);
+			//if(LLStartUp::shouldAutoLogin() && !gLoginHandler.mPassword.empty()) Jacek - Grid manager stuff that's changed with 1.23
+				LLNotifications::instance().add("FailedToFindWearable", args);
 		}
 	}
 	// Always call callback; wearable will be NULL if we failed

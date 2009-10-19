@@ -329,6 +329,18 @@ BOOL LLFilePicker::getSaveFile(ESaveFilter filter, const std::string& filename)
 			L"Targa, Bitmap Images (*.tga; *.bmp)\0*.tga;*.bmp\0" \
 			L"\0";
 		break;
+	case FFSAVE_TEXT:
+		if (filename.empty())
+		{
+			wcsncpy( mFilesW,L"untitled.txt", FILENAME_BUFFER_SIZE);	/*Flawfinder: ignore*/
+		}
+		mOFN.lpstrDefExt = L"txt";
+		mOFN.lpstrFilter = 
+			L"Text files (*.txt)\0*.txt\0"
+			L"RTF Files (*.rtf)\0*.rtf\0"
+			L"LSL Files (*.lsl)\0*.lsl\0"
+			L"\0";
+		break;
 	case FFSAVE_WAV:
 		if (filename.empty())
 		{
@@ -995,6 +1007,12 @@ GtkWindow* LLFilePicker::buildFilePicker(bool is_save, bool is_folder, std::stri
 			gtk_file_chooser_set_current_folder
 				(GTK_FILE_CHOOSER(win),
 				 this_path->second.c_str());
+		}
+		else if (getenv("HOME"))
+		{
+			gtk_file_chooser_set_current_folder
+				(GTK_FILE_CHOOSER(win),
+				 getenv("HOME"));
 		}
 
 #  if LL_X11

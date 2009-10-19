@@ -1,17 +1,19 @@
 # -*- cmake -*-
 include(Prebuilt)
 
-  # possible libxml should have its own .cmake file instead
+  # Maybe libxml and glib should have their own .cmake files
   use_prebuilt_binary(libxml)
+  use_prebuilt_binary(glib)
+
   set(GSTREAMER_FOUND ON FORCE BOOL)
   set(GSTREAMER_PLUGINS_BASE_FOUND ON FORCE BOOL)
+
   use_prebuilt_binary(gstreamer)
+  use_prebuilt_binary(gstreamer-plugins)
 
 if (WINDOWS)
 
-  use_prebuilt_binary(libxml)
   use_prebuilt_binary(iconv)
-  use_prebuilt_binary(gstreamer-plugins)
   set(GSTREAMER_FOUND ON FORCE BOOL)
   set(GSTREAMER_INCLUDE_DIRS
       ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/glib
@@ -28,23 +30,23 @@ if (WINDOWS)
       gmodule-2.0
       gobject-2.0
       gthread-2.0
-      libgstvideo-0.10
-      libgsttag-0.10
-      libgstsdp-0.10
-      libgstrtsp-0.10
-      libgstrtp-0.10
-      libgstriff-0.10
-      libgstreamer-0.10
-      libgstpbutils-0.10
-      libgstnetbuffer-0.10
-      libgstnet-0.10
-      libgstinterfaces-0.10
-      libgstdshow-0.10
-      libgstdataprotocol-0.10
-      libgstcontroller-0.10
-      libgstbase-0.10
-      libgstaudio-0.10
-      libgstapp-0.10
+      libgstvideo.lib
+      libgsttag.lib
+      libgstsdp.lib
+      libgstrtsp.lib
+      libgstrtp.lib
+      libgstriff.lib
+      libgstreamer-0.10.lib
+      libgstpbutils.lib
+      libgstnetbuffer.lib
+      libgstnet-0.10.lib
+      libgstinterfaces.lib
+      libgstdshow.lib
+      libgstdataprotocol-0.10.lib
+      libgstcontroller-0.10.lib
+      libgstbase-0.10.lib
+      libgstaudio.lib
+      libgstapp.lib
       libxml2
       libxml2_a
       libxml2_a_dll
@@ -62,7 +64,7 @@ else (WINDOWS)
       ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/libxml2
       )
 
-  if (DARWIN)
+  if (DARWIN) # Mac
 
     find_library( XML2_LIB
       NAMES xml2.2
@@ -88,7 +90,9 @@ else (WINDOWS)
         ${XML2_LIB}
         )
 
-  else (DARWIN)
+  else (DARWIN) # Linux
+
+    use_prebuilt_binary(theora)
 
     set(GSTREAMER_LIBRARIES
         gstvideo-0.10

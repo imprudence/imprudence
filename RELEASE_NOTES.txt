@@ -4,6 +4,336 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                      1.2.0 BETA                        -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   KNOWN ISSUES
+
+     * When you try to quit after having logged out at least once, the
+       viewer may crash (Linux & Mac) or not quit (Windows). As a
+       work-around (particularly for Windows users), we recommend not
+       using "File > Logout" until this has been fixed.
+
+     * Many new UI additions only provide English text. We'd love to
+       have some bilingual users help us translate them. If you can
+       help, please post in the forums.
+
+     * The custom chat channel number entry doesn't behave properly
+       for channel numbers longer than 6 digits. As a temporary
+       work-around until we fix this, use the old "/NUMBER" (e.g.
+       "/123456789 Hi") and "//" chat commands for chatting on large
+       channel numbers.
+
+     * The grid selection box on the login screen always defaults to
+       "secondlife" at startup, when it should default to the most
+       recently used grid.
+
+     * The grid selection box on the login screen always shows
+       "secondlife" after logging out, but behaves like it is still
+       set to the grid you logged out from.
+
+     * The minimap radar cannot be hidden yet. We're working on it.
+
+     * The Windlight Water settings window doesn't have previous/next
+       arrows like the Sky window does.
+
+     * The Windlight toolbar sometimes forgets the last selected
+       preset.
+
+     * "File > Import" and "File > Upload & Import" may not work
+       correctly for Mac users.
+
+
+   CHANGES
+
+     This version of Imprudence includes the following changes (as
+     compared to Imprudence 1.1.0).
+
+
+     VERSION HIGHLIGHTS
+
+       * Object Backup. You can now download objects that you have
+         created and have full permissions for to your computer, and
+         upload them back into the world (or another grid). Thanks to
+         the Meerkat Viewer for developing this feature, and to Armin
+         for helping us import it!
+
+       * Grid Manager. You can now modify the list of grids available
+         at the login screen. We have further plans for extending this
+         feature, but this will serve for now. Thanks to the Hippo
+         Viewer and Meerkat Viewer for this, and to Armin for helping
+         import it!
+       
+       * Restrained Life support. Imprudence now provides optional
+         support for the Restrained Life API (used by BDSM items and
+         various scripted gadgets). Enable it with "Advanced >
+         Restrained Life Support". Many thanks to Kitty Barnett for
+         developing RLVa and working with us to integrate it into
+         Imprudence!
+
+       * Radar. The minimap now features a list of nearby avatars.
+         Thanks so much, McCabe and Dale Glass!
+
+       * Emerald features. We've imported a variety of features from
+         the Green Life Emerald Viewer. Thanks to the Emerald folks
+         for developing these, and McCabe for importing them!
+
+          - "Advanced > Asset Browser" (Alt-Shift-A). Visual browser
+            for textures in your inventory.
+
+          - "Advanced > Animation List". Lists the animations you are
+            playing, and allows you to selectively stop them and revoke
+            animation permissions from scripted objects.
+
+          - "Advanced > Phantom Avatar" (Ctrl-Alt-P). Prevents your
+            avatar from being pushed, but also prevents you from
+            moving.
+
+          - "Advanced > Ground Sit" (Ctrl-Alt-S). Makes your avatar sit
+            down at your current location.
+
+          - Build tool shows objects' Last (previous) Owner.
+
+          - When viewing your own profile, the Profile window indicates
+            which of your groups are hidden.
+
+          - You can now search your inventory by Creator name.
+            ("Search" menu in the Inventory window.)
+
+          - You can now double-click on a location in the 3D world to
+            teleport there.
+
+          - Added "BlockClickSit" debug setting. Set it to true to
+            prevent yourself from sitting on things when you accidently
+            click on them.
+
+          - Particle chat, which sends a message on channel 9000 when
+            you select an object, for enhanced integration with
+            scripted objects. You can disable this feature by changing
+            the "ParticleChat" setting to False in "Advanced > Debug
+            Settings".
+
+
+     BUILDING
+
+       * You can now choose which kind of grass or tree to rez.
+         Before, it always rezzed a random kind. Thanks to Mana Janus
+         for this!
+
+       * Added "Link" and "Unlink" to the pie menu for objects.
+         Thanks, McCabe!
+
+       * Added "Link" and "Unlink" buttons to the Build window.
+         Thanks, McCabe!
+
+       * Several changes to the main menus. Thanks, McCabe!
+
+          - "Edit > Duplicate" is now in the Tools menu.
+
+          - Moved the selection-related options in the Tools menu to a
+            new submenu, "Tools > Selection Options".
+
+          - The "Tools > Select Tool" submenu has been renamed to
+            "Choose Tool" to avoid confusion with the Selection
+            Options.
+
+          - "Tools > Set permissions on selected task inventory" has
+            been renamed to "Set Bulk Permissions".
+
+       * "Advanced > Rendering > Selected Texture Info" now displays
+         partial UUIDs for the textures. Thanks to Henri Beauchamp and
+         McCabe for developing this!
+
+       * Added "Tools > Selection Options > Hide Selection Outline"
+         (VWR-6918). This can help make it easier to see when editing
+         small objects, and improves performance when selecting a
+         large number of prims. Thanks a bunch, Aimee Trescothick!
+
+
+     MAP & MINIMAP
+
+       * The minimap has many improvements. Our enduring gratitude to
+         Aimee Trescothick for these!
+
+          - Enhanced zoom behavior and range.
+
+          - It can be panned with Shift-Click and drag. (Right click
+            the minimap and disable "Center on Camera" if you want to
+            stop it from moving back automatically.)
+
+          - Hovering the mouse over someone's dot on the minimap will
+            show their name in the tooltip. Right click on a dot and
+            choose "Profile" to open that person's profile window.
+
+          - Window layout converted to XUI under the hood.
+
+       * But wait — the minimap has other improvements, too. Thanks to
+         McCabe for these!
+
+          - Muted avatars are colored gray in the minimap.
+
+          - Added "Show World Map" to the minimap right-click menu.
+
+          - Moved "Rotate Mini-Map" to the minimap right-click menu.
+
+       * The World Map displays the number of avatars in each sim,
+         above the sim's name. That's pretty handy, Jacek and McCabe!
+
+
+     MISC. UI
+
+       * The Communicate window title and "IM Received" popup button
+         now show the number of unread IMs you've received. Nice work,
+         McCabe!
+
+       * The "About Land" window displays the L$/sqm cost for land for
+         sale. Thanks to Linden Lab for this feature in SL 1.23.
+
+       * The Resident chooser now has a "Near Me" tab with a list of
+         nearby people (VWR-2681). Thanks to Matthew Dowd, Vadim
+         Bigbear, and Coco Linden for developing this feature.
+
+       * Double clicking an object in your inventory wears it (or
+         detaches it, if you are already wearing it). Thanks to
+         Nicholaz Beresford and Henri Beauchamp for developing this!
+
+       * Quick access to Windlight presets and draw distance from the
+         toolbar. You can toggle this in "Preferences > Graphics >
+         Show environment control in toolbar" (a checkbox near the top
+         right corner of the window). Nice work, McCabe!
+
+       * When listening to audio streams, song info is output to your
+         chat window. You can toggle this in "Preferences > Audio &
+         Video > Show stream info in chat" (a checkbox about halfway
+         down the window). Thanks to Dale Glass for developing this
+         feature!
+
+       * IM windows inform you when the other person has gone on or
+         offline even if you have turned off "Show online Friend
+         notifications". That's pretty handy, McCabe!
+
+       * Added "View > Advanced Menu" to toggle the Advanced menu.
+         Thanks, Armin!
+
+       * The layout of the Profile window has been revamped. Thanks,
+         McCabe!
+
+       * In the Local Chat window, you can now click the name of
+         objects that IM you to view information about the object and
+         its owner. Thanks to Linden Lab for developing this in SL
+         1.23.
+
+       * The Snapshot window can now be minimized. It's the little
+         things, McCabe!
+
+       * The Windlight sky settings window now has arrow buttons for
+         quickly changing to the previous or next preset in the list.
+         Thanks, McCabe!
+
+       * "Show HUD Attachments" has been moved back to the View menu,
+         and its shortcut (Alt-Shift-H) has been restored. It was
+         moved to the Advanced menu and lost its shortcut in
+         Imprudence 1.1. Thanks to mashaeilde on the forums for giving
+         us feedback about this!
+
+       * You can now select a default channel number to chat on, for
+         interacting with scripted devices. Turn on "Preferences >
+         Text Chat > Show custom chat channel" (a checkbox near the
+         bottom of the window), then set the channel using the new
+         number entry field on the chat bar. Channel 0 is normal chat,
+         all other channels are only seen by scripts. You can still
+         chat to other channels using "/1", etc. Thanks to the Emerald
+         Viewer for the inspiration, and to McCabe for the
+         implementation!
+
+
+     OTHER
+
+       * Imprudence 1.2 has been rebased to SL 1.22.11. Previous
+         versions of Imprudence were based on SL 1.21.6. Thanks,
+         Jacek!
+
+       * Ability to logout without quitting and restarting the viewer
+         (File > Logout). Thanks to the Meerkat Viewer for this!
+
+       * Several bundled software libraries have been updated to new
+         versions:
+
+          - Gstreamer, Zlib and Iconv on Windows. Thanks, McCabe!
+
+          - OpenJPEG on Linux. Thanks, Armin!
+
+       * The login screen displays the awesome Imprudence logo while
+         the login page is still loading, instead of that smelly old
+         SL logo. Way to go, McCabe!
+
+       * Linux-style middle mouse paste on Linux viewers. Thanks,
+         Armin!
+
+       * The maximum bandwidth setting has been raised to 5000kbps,
+         and the default set to 1000kbps. Thanks, McCabe!
+
+       * Added several new windlight settings by CodeBastard Redgrave,
+         Ana Lutetia, and Torley Linden. Thanks, Codie, Ana, and
+         Torley!
+
+       * Added the adult_compliant capability, for teleport
+         compatibility with Linden Lab's adult content policy. Thanks
+         for providing a patch for this, Linden Lab!
+
+       * Added two patches (VWR-11128 and VWR-11138) to support Visual
+         Studio Express. Thanks, Robin Cornelius!
+
+
+     BUG FIXES
+
+       * "Stop All Animations" (aka "Stop Animating My Avatar") only
+         affected your own viewer; other people would still see your
+         avatar being animated (VWR-2850). Thanks to Tofu Linden for
+         fixing that in SL 1.23.
+
+       * The Resident chooser was showing hair instead of calling
+         cards. Thanks for fixing that, McCabe!
+
+       * "View > Communicate" wasn't toggling the Communicate window
+         like it was supposed to. Thanks for fixing it, McCabe!
+
+       * Small textures weren't being cached (VWR-12686). Thanks for
+         fixing that, Robin Cornelius!
+
+       * Certain malformed animations could cause the viewer to abort
+         with an assertion about the joint number. Thanks to Linden
+         Lab for fixing this in SL 1.23.
+
+       * The chat history window couldn't be minimized. Thanks,
+         McCabe!
+
+       * The Contacts window couldn't be toggled with "Edit > Friends"
+         (Ctrl-Shift-F) if it was detached from the Communicate window
+         (VWR-5370). Thanks to Latif Khalifa for making the patch to
+         fix that!
+
+       * When trying to attach multiple objects at once from your
+         inventory, it would fail with a message, "Cannot complete
+         attachment. An Attachment is pending for that spot". Many
+         thanks to Kitty Barnett for fixing that awful bug!
+
+       * Teleporting very long distances on OpenSim Hypergrid would
+         sometimes cause weird issues (SVC-2941). Thanks to Mana Janus
+         for the fix!
+
+       * Avatars would be invisible until you zoomed in on them (in SL
+         1.22). Thanks for the patch to fix this, Aleric Inglewood!
+
+       * Special symbols in group titles were appearing as question
+         marks in avatar name tags. McCabe fixed the heck outta that
+         one!
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                         1.1.0                          -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

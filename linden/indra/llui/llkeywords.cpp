@@ -381,9 +381,9 @@ void LLKeywords::findSegments(std::vector<LLTextSegment *>* seg_list, const LLWS
 					seg_start = cur - base;
 					cur += cur_delimiter->getLength();
 					
-					if( cur_delimiter->getType() == LLKeywordToken::TWO_SIDED_DELIMITER || LLKeywordToken::TWO_SIDED_DELIMITER_ESC)
+					LLKeywordToken::TOKEN_TYPE type = cur_delimiter->getType();
+					if (type == LLKeywordToken::TWO_SIDED_DELIMITER || type == LLKeywordToken::TWO_SIDED_DELIMITER_ESC)
 					{
-						llassert( cur_delimiter->getDelimiter() != NULL );
 						while( *cur && !cur_delimiter->isTail(cur))
 						{
 							// Check for an escape sequence.

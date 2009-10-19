@@ -47,6 +47,8 @@
 
 #include "lldirpicker.h"
 
+#include "hippoGridManager.h"
+
 class LLPrefsIMImpl : public LLPanel
 {
 public:
@@ -59,7 +61,7 @@ public:
 	void cancel();
 	void setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email);
 	void enableHistory();
-
+	
 	static void onClickLogPath(void* user_data);
 	static void onCommitLogging(LLUICtrl* ctrl, void* user_data);
 
@@ -120,6 +122,7 @@ BOOL LLPrefsIMImpl::postBuild()
 	childSetValue("include_im_in_chat_history", gSavedSettings.getBOOL("IMInChatHistory"));
 	childSetValue("show_timestamps_check", gSavedSettings.getBOOL("IMShowTimestamps"));
 	childSetValue("friends_online_notify_checkbox", gSavedSettings.getBOOL("ChatOnlineNotification"));
+	childSetValue("vertical-imtabs-toggle", gSavedSettings.getBOOL("VerticalIMTabs"));
 
 	childSetText("log_path_string", gSavedPerAccountSettings.getString("InstantMessageLogPath"));
 	childSetValue("log_instant_messages", gSavedPerAccountSettings.getBOOL("LogInstantMessages")); 
@@ -182,7 +185,7 @@ void LLPrefsIMImpl::apply()
 
 		gDirUtilp->setChatLogsDir(gSavedPerAccountSettings.getString("InstantMessageLogPath"));
 
-		gDirUtilp->setPerAccountChatLogsDir(gSavedSettings.getString("FirstName"), 
+		gDirUtilp->setPerAccountChatLogsDir(gHippoGridManager->getCurrentGridNick(), gSavedSettings.getString("FirstName"), 
 											gSavedSettings.getString("LastName") );
 		LLFile::mkdir(gDirUtilp->getPerAccountChatLogsDir());
 		
@@ -215,6 +218,7 @@ void LLPrefsIMImpl::apply()
 			gAgent.sendReliableMessage();
 		}
 	}
+	gSavedSettings.setBOOL("VerticalIMTabs", childGetValue("vertical-imtabs-toggle").asBoolean());
 }
 
 void LLPrefsIMImpl::setPersonalInfo(const std::string& visibility, bool im_via_email, const std::string& email)
@@ -260,6 +264,12 @@ void LLPrefsIMImpl::setPersonalInfo(const std::string& visibility, bool im_via_e
 	LLWStringUtil::replaceChar(busy_response, '^', '\n');
 	LLWStringUtil::replaceChar(busy_response, '%', ' ');
 	childSetText("busy_response", wstring_to_utf8str(busy_response));
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SENDIM))
+	{
+		childDisable("busy_response");
+	}
+// [/RLVa:KB]
 
 	enableHistory();
 

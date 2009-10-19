@@ -473,6 +473,15 @@ class LLFileTakeSnapshotToDisk : public view_listener_t
 	}
 };
 
+class FileLogout : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLAppViewer::userLogout(NULL);
+		return true;
+	}
+};
+
 class LLFileQuit : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -959,11 +968,6 @@ void upload_new_resource(const LLTransactionID &tid, LLAssetType::EType asset_ty
 			 S32 expected_upload_cost,
 			 void *userdata)
 {
-	if(gDisconnected)
-	{
-		return ;
-	}
-
 	LLAssetID uuid = tid.makeAssetID(gAgent.getSecureSessionID());
 	
 	if( LLAssetType::AT_SOUND == asset_type )
@@ -1087,6 +1091,7 @@ void init_menu_file()
 	(new LLFileSaveTexture())->registerListener(gMenuHolder, "File.SaveTexture");
 	(new LLFileTakeSnapshot())->registerListener(gMenuHolder, "File.TakeSnapshot");
 	(new LLFileTakeSnapshotToDisk())->registerListener(gMenuHolder, "File.TakeSnapshotToDisk");
+	(new FileLogout())->registerListener(gMenuHolder, "File.Logout");
 	(new LLFileQuit())->registerListener(gMenuHolder, "File.Quit");
 
 	(new LLFileEnableUpload())->registerListener(gMenuHolder, "File.EnableUpload");

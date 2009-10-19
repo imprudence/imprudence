@@ -128,6 +128,9 @@ private:
 	static LLFloaterWater* sWaterMenu;
 
 	static std::set<std::string> sDefaultPresets;
+
+	static void onClickNext(void* user_data);
+	static void onClickPrev(void* user_data);
 };
 
 

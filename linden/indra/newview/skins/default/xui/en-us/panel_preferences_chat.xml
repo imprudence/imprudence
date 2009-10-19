@@ -30,48 +30,52 @@
 	     mouse_opaque="false" name="text_box2" v_pad="0" width="128">
 		Chat Color:
 	</text>
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-100"
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="1 1 1 1" control_name="UserChatColor"
 	     enabled="true" follows="left|top" height="47" label="You" left="148"
-	     mouse_opaque="true" name="user" width="44" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-100"
+	     mouse_opaque="true" name="user" width="54" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="1 1 1 1" control_name="AgentChatColor"
-	     enabled="true" follows="left|top" height="47" label="Others" left_delta="54"
-	     mouse_opaque="true" name="agent" width="44" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-100"
+	     enabled="true" follows="left|top" height="56" label="Others" left_delta="68"
+	     mouse_opaque="true" name="agent" width="54" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="0.6 0.6 1 1"
-	     enabled="true" follows="left|top" height="47" label="IM" left_delta="54"
-	     mouse_opaque="true" name="im" width="44" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-100"
+	     enabled="true" follows="left|top" height="56" label="IMs" left_delta="68"
+	     mouse_opaque="true" name="im" width="54" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="0.8 1 1 1"
-	     enabled="true" follows="left|top" height="47"  label="System" left_delta="54"
-             mouse_opaque="true"
-	     name="system" width="44" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-100"
+	     enabled="true" follows="left|top"
+	     height="56" label="System" left_delta="68" mouse_opaque="true"
+	     name="system" width="54" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="0.82 0.82 0.99 1"
 	     control_name="ScriptErrorColor" enabled="true" follows="left|top"
-	     height="47"  label="Errors" left_delta="54" mouse_opaque="true"
-	     name="script_error" width="44" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-150"
+	     height="56" label="Errors" left_delta="68" mouse_opaque="true"
+	     name="script_error" width="54" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
 	     control_name="ObjectChatColor" enabled="true" follows="left|top"
 	     height="47"  label="Objects" left="148" mouse_opaque="true"
-	     name="objects" width="44" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-150"
+	     name="objects" width="54" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
+	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
+       control_name="ObjectIMColor" enabled="true" follows="left|top"
+	     height="56" label="Object IMs" left_delta="68" mouse_opaque="true"
+       name="object_ims" width="54" />
+  <color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
 	     enabled="true" follows="left|top"
-	     height="47" label="Owner" left_delta="54" mouse_opaque="true" name="owner"
-	     width="44" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-150"
+	     height="56" label="Owner" left_delta="68" mouse_opaque="true" name="owner"
+	     width="54" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0 0 0 1"
 	     enabled="true" follows="left|top"
-	     height="47" label="Bubble" left_delta="54" mouse_opaque="true"
-	     name="background" width="44" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-150"
+	     height="56" label="Bubble" left_delta="68" mouse_opaque="true"
+	     name="background" width="54" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0.6 0.6 1 1"
-	     enabled="true" follows="left|top" height="47"
-	     label="URLs" left_delta="54" mouse_opaque="true" name="links" width="44" />
-	
+	     enabled="true" follows="left|top" height="56"
+	     label="URLs" left_delta="68" mouse_opaque="true" name="links" width="54" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-28" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
@@ -121,35 +125,41 @@
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Close chat bar after hitting return" left="148" mouse_opaque="true"
 	     name="close_chat_on_return_check" radio_style="false" width="237" />
-	<check_box bottom_delta="-20" enabled="true"
+	<check_box bottom_delta="-18" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Arrow keys always move avatar when chatting" left="148"
 	     mouse_opaque="true" name="arrow_keys_move_avatar_check" radio_style="false"
 	     width="237" />
-	<check_box bottom_delta="-20" enabled="true"
+	<check_box bottom_delta="-18" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show timestamps in Local Chat" left="148" mouse_opaque="true"
 	     name="show_timestamps_check" radio_style="false" width="237" />
+	<check_box bottom_delta="-20" enabled="true"
   <check_box bottom_delta="-20" control_name="ScriptErrorsAsChat" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show script errors and warnings as regular chat" left="148"
 	     mouse_opaque="true" name="script_errors_as_chat" radio_style="false"
 	     width="275" />
 	<check_box bottom_delta="-20" enabled="true"
+	<check_box bottom_delta="-18" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Play typing animation when chatting" left="148" mouse_opaque="true"
 	     name="play_typing_animation" radio_style="false" width="237" />
+  <check_box bottom_delta="-18" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false" 
+       label="Show custom chat channel" left="148" mouse_opaque="true"
+	     name="toggle_channel_control" radio_style="false" width="237" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-369" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-379" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
 	     mouse_opaque="false" name="text_box7" v_pad="0" width="128">
 		Bubble Chat:
 	</text>
-	<check_box bottom="-376" control_name="UseChatBubbles" enabled="true" follows="left|top"
+	<check_box bottom="-386" control_name="UseChatBubbles" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show chat bubbles" left="148" mouse_opaque="true"
 	     name="bubble_text_chat" radio_style="false" width="237" />
-	<slider bottom="-392" can_edit_text="false" control_name="ChatBubbleOpacity"
+	<slider bottom="-402" can_edit_text="false" control_name="ChatBubbleOpacity"
 	     decimal_digits="3" enabled="true" follows="left|top" height="12"
 	     increment="0.05" initial_val="1" label="Opacity" left="148" max_val="1"
 	     min_val="0" mouse_opaque="true" name="bubble_chat_opacity" show_text="true"

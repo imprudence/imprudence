@@ -26,7 +26,8 @@ THE SOFTWARE.
 $/LicenseInfo$
 """
 
-import md5, random, socket, string, time, re
+import random, socket, string, time, re
+from hashlib import md5
 import uuid
 
 def _int2binstr(i,l):
@@ -196,7 +197,7 @@ class UUID(object):
         from c++ implementation for portability reasons.
         Returns self.
         """
-        m = md5.new()
+        m = md5()
         m.update(uuid.uuid1().bytes)
         self._bits = m.digest()
         return self

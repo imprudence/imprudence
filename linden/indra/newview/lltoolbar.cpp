@@ -471,6 +471,14 @@ void LLToolBar::onClickSit(void*)
 	}
 	else
 	{
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+		// NOTE-RLVa: dead code?
+		if (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT))
+		{
+			return;
+		}
+// [/RLVa:KB]
+
 		// stand up
 		gAgent.setFlying(FALSE);
 		gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);

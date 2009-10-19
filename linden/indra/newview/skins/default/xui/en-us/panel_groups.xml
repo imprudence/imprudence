@@ -36,4 +36,7 @@
 	     label="Search..." name="Search..." width="80" />
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
 	     label="Leave" name="Leave" width="80" />
+  <string name="none">
+		none
+  </string>
 </panel>

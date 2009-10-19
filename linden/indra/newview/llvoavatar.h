@@ -592,6 +592,10 @@ private:
 	LLTimer		mAnimTimer;
 	F32			mTimeLast;	
 
+	// Send selection beam info to scripts
+	static int		sPartsNow;
+	static LLVector3d sBeamLastAt;
+
 	LLPointer<LLHUDEffectSpiral> mBeam;
 	LLFrameTimer mBeamTimer;
 

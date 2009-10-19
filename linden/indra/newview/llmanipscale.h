@@ -89,6 +89,8 @@ public:
 	static void		setShowAxes( BOOL b );
 	static BOOL		getShowAxes();
 
+	static F32		getMaxPrimSize();
+
 private:
 	void			renderCorners( const LLBBox& local_bbox );
 	void			renderFaces( const LLBBox& local_bbox );
@@ -166,6 +168,7 @@ private:
 	F32				mScaleSnapValue;
 	BOOL			mInSnapRegime;
 	F32*			mManipulatorScales;
+	F32				mMaxPrimSize;
 };
 
 #endif  // LL_MANIPSCALE_H

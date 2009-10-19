@@ -62,7 +62,7 @@
 std::map<const LLUUID, LLFloaterGroupPicker*> LLFloaterGroupPicker::sInstances;
 
 // helper functions
-void init_group_list(LLScrollListCtrl* ctrl, const LLUUID& highlight_id, U64 powers_mask = GP_ALL_POWERS);
+void init_group_list(LLScrollListCtrl* ctrl, const LLUUID& highlight_id, const std::string& none_text, U64 powers_mask = GP_ALL_POWERS);
 
 ///----------------------------------------------------------------------------
 /// Class LLFloaterGroupPicker
@@ -117,7 +117,8 @@ void LLFloaterGroupPicker::setPowersMask(U64 powers_mask)
 
 BOOL LLFloaterGroupPicker::postBuild()
 {
-	init_group_list(getChild<LLScrollListCtrl>("group list"), gAgent.getGroupID(), mPowersMask);
+	const std::string none_text = getString("none");
+	init_group_list(getChild<LLScrollListCtrl>("group list"), gAgent.getGroupID(), none_text, mPowersMask);
 
 	childSetAction("OK", onBtnOK, this);
 
@@ -201,7 +202,8 @@ void LLPanelGroups::reset()
 	childSetTextArg("groupcount", "[COUNT]", llformat("%d",gAgent.mGroups.count()));
 	childSetTextArg("groupcount", "[MAX]", llformat("%d",MAX_AGENT_GROUPS));
 
-	init_group_list(getChild<LLScrollListCtrl>("group list"), gAgent.getGroupID());
+	const std::string none_text = getString("none");
+	init_group_list(getChild<LLScrollListCtrl>("group list"), gAgent.getGroupID(), none_text);
 	enableButtons();
 }
 
@@ -212,7 +214,8 @@ BOOL LLPanelGroups::postBuild()
 	childSetTextArg("groupcount", "[COUNT]", llformat("%d",gAgent.mGroups.count()));
 	childSetTextArg("groupcount", "[MAX]", llformat("%d",MAX_AGENT_GROUPS));
 
-	init_group_list(getChild<LLScrollListCtrl>("group list"), gAgent.getGroupID());
+	const std::string none_text = getString("none");
+	init_group_list(getChild<LLScrollListCtrl>("group list"), gAgent.getGroupID(), none_text);
 
 	childSetAction("Activate", onBtnActivate, this);
 
@@ -460,7 +463,7 @@ void LLPanelGroups::onGroupList(LLUICtrl* ctrl, void* userdata)
 	if(self) self->enableButtons();
 }
 
-void init_group_list(LLScrollListCtrl* ctrl, const LLUUID& highlight_id, U64 powers_mask)
+void init_group_list(LLScrollListCtrl* ctrl, const LLUUID& highlight_id, const std::string& none_text, U64 powers_mask)
 {
 	S32 count = gAgent.mGroups.count();
 	LLUUID id;
@@ -502,7 +505,7 @@ void init_group_list(LLScrollListCtrl* ctrl, const LLUUID& highlight_id, U64 pow
 		LLSD element;
 		element["id"] = LLUUID::null;
 		element["columns"][0]["column"] = "name";
-		element["columns"][0]["value"] = "none"; // *TODO: Translate
+		element["columns"][0]["value"] = none_text;
 		element["columns"][0]["font"] = "SANSSERIF";
 		element["columns"][0]["font-style"] = style;
 

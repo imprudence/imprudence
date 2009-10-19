@@ -76,6 +76,10 @@
 
 #include "lldrawpool.h"
 
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+#include "llvoavatar.h"
+// [/RLVa:KB]
+
 //
 // Constants
 //
@@ -386,6 +390,15 @@ void LLPanelObject::getState( )
 		enable_rotate = FALSE;
 	}
 
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+	if ( (rlv_handler_t::isEnabled()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_SITTP))) )
+	{
+		LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+		if ( (pAvatar) && (pAvatar->mIsSitting) && (pAvatar->getRoot() == objectp->getRootEdit()) )
+			enable_move = enable_scale = enable_rotate = FALSE;
+	}
+// [/RLVa:KB]
+
 	LLVector3 vec;
 	if (enable_move)
 	{
@@ -619,6 +632,10 @@ void LLPanelObject::getState( )
 	}
 	else
 	{
+		mCtrlScaleX->setMaxValue(LLManipScale::getMaxPrimSize());
+		mCtrlScaleY->setMaxValue(LLManipScale::getMaxPrimSize());
+		mCtrlScaleZ->setMaxValue(LLManipScale::getMaxPrimSize());
+
 		// Only allowed to change these parameters for objects
 		// that you have permissions on AND are not attachments.
 		enabled = root_objectp->permModify();

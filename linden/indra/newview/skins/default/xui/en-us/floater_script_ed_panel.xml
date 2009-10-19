@@ -35,6 +35,12 @@
 			     width="138" />
 			<menu_item_call bottom_delta="-58" height="20" label="Revert All Changes" left="0"
 			     mouse_opaque="true" name="Revert All Changes" width="138" />
+      <menu_item_separator bottom_delta="-66" height="8" left="0" mouse_opaque="true" name="separator"
+     width="138" />
+      <menu_item_call bottom_delta="-76" height="20" label="Save to Disk" left="0"
+     mouse_opaque="true" name="Save to Disk" width="138" />
+      <menu_item_call bottom_delta="-96" height="20" label="Load from Disk" left="0"
+     mouse_opaque="true" name="Load from Disk" width="138" />
 		</menu>
 		<menu bottom="665" drop_shadow="true" enabled="true" height="198"
 		     left="222" mouse_opaque="false" name="Edit" opaque="true" tear_off="false"

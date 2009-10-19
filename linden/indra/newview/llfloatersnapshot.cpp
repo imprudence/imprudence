@@ -80,8 +80,8 @@
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
 ///----------------------------------------------------------------------------
-S32 LLFloaterSnapshot::sUIWinHeightLong = 526 ;
-S32 LLFloaterSnapshot::sUIWinHeightShort = LLFloaterSnapshot::sUIWinHeightLong - 230 ;
+S32 LLFloaterSnapshot::sUIWinHeightLong = 546 ;
+S32 LLFloaterSnapshot::sUIWinHeightShort = LLFloaterSnapshot::sUIWinHeightLong - 250 ;
 S32 LLFloaterSnapshot::sUIWinWidth = 215 ;
 
 LLSnapshotFloaterView* gSnapshotFloaterView = NULL;
@@ -1272,9 +1272,6 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater)
 
 	BOOL is_advance = gSavedSettings.getBOOL("AdvanceSnapshot");
 	BOOL is_local = shot_type == LLSnapshotLivePreview::SNAPSHOT_LOCAL;
-	BOOL show_slider = 
-		shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD
-		|| (is_local && shot_format == LLFloaterSnapshot::SNAPSHOT_FORMAT_JPEG);
 
 	floater->childSetVisible("more_btn", !is_advance); // the only item hidden in advanced mode
 	floater->childSetVisible("less_btn",				is_advance);
@@ -1287,16 +1284,21 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater)
 	floater->childSetVisible("snapshot_height",			is_advance);
 	floater->childSetVisible("keep_aspect_check",		is_advance);
 	floater->childSetVisible("ui_check",				is_advance);
-	floater->childSetVisible("high_res_check",			is_advance && is_local);
+	floater->childSetVisible("high_res_check",			is_advance);
 	floater->childSetVisible("hud_check",				is_advance);
 	floater->childSetVisible("keep_open_check",			is_advance);
 	floater->childSetVisible("freeze_frame_check",		is_advance);
 	floater->childSetVisible("auto_snapshot_check",		is_advance);
-	floater->childSetVisible("image_quality_slider",	is_advance && show_slider);
+	floater->childSetVisible("image_quality_slider",	is_advance);
 
 	LLSnapshotLivePreview* previewp = getPreviewView(floater);
 	BOOL got_bytes = previewp && previewp->getDataSize() > 0;
 	BOOL got_snap = previewp->getSnapshotUpToDate();
+
+	BOOL show_slider = 
+		shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD
+		|| (is_local && shot_format == LLFloaterSnapshot::SNAPSHOT_FORMAT_JPEG);
+	floater->childSetEnabled("image_quality_slider", show_slider);
 
 	floater->childSetEnabled("send_btn",   shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD && got_snap && previewp->getDataSize() <= MAX_POSTCARD_DATASIZE);
 	floater->childSetEnabled("upload_btn", shot_type == LLSnapshotLivePreview::SNAPSHOT_TEXTURE  && got_snap);
@@ -2131,6 +2133,7 @@ void LLFloaterSnapshot::draw()
 				childSetTextArg("file_size_label", "[SIZE]", getString("unknown"));
 				childSetColor("file_size_label", gColors.getColor( "LabelTextColor" ));
 			}
+
 			childSetEnabled("upload_btn", previewp->getSnapshotUpToDate());
 			childSetEnabled("save_btn", previewp->getSnapshotUpToDate());
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="true" can_minimize="false"
+     can_resize="false" height="80" name="Import" title="Import progress" width="200" mouse_opaque="true">
+  <text height="15" left="10" name="name_label" top="-10"> Progress </text>  
+</floater>

@@ -225,6 +225,12 @@ now wearing into it.
 	     width="489">
 		Items to include in outfit:
 	</text>
+  <button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="Check All" left_delta="200" mouse_opaque="true"
+	     name="Check All" scale_image="true" width="90" />
+  <button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="Uncheck All" left_delta="100" mouse_opaque="true"
+	     name="Uncheck All" scale_image="true" width="90" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-196" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="13"

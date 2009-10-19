@@ -463,8 +463,15 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 			if (mask == MASK_COPY)
 			{
 				// ...we're trying to make a copy
-				LLSelectMgr::getInstance()->selectDuplicate(LLVector3::zero, FALSE);
-				mCopyMadeThisDrag = TRUE;
+//				LLSelectMgr::getInstance()->selectDuplicate(LLVector3::zero, FALSE);
+//				mCopyMadeThisDrag = TRUE;
+// [RLVa:KB] - Checked: 2009-07-05 (RLVa-1.0.0b)
+				if (!gRlvHandler.hasBehaviour(RLV_BHVR_REZ))
+				{
+					LLSelectMgr::getInstance()->selectDuplicate(LLVector3::zero, FALSE);
+					mCopyMadeThisDrag = TRUE;
+				}
+// [/RLVa:KB]
 
 				// When we make the copy, we don't want to do any other processing.
 				// If so, the object will also be moved, and the copy will be offset.

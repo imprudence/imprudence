@@ -355,6 +355,13 @@ void LLFloaterTexturePicker::updateImageStats()
 		{
 			mResolutionLabel->setTextArg("[DIMENSIONS]", std::string("[? x ?]"));
 		}
+		if (gAgent.isGodlike())
+		{
+			std::string tstring = "Pick: ";
+			std::string image_id_string = mTexturep->getID().asString();
+			tstring = tstring + image_id_string.replace(24, 35, 12, '*'); // hide last segment to discourage theft
+			setTitle(tstring);
+		}
 	}
 }
 

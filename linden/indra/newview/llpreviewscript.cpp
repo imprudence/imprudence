@@ -438,6 +438,14 @@ void LLScriptEdCore::initMenu()
 	menuItem->setMenuCallback(onBtnHelp, this);
 	menuItem->setEnabledCallback(NULL);
 
+	menuItem = getChild<LLMenuItemCallGL>("Load from Disk");
+	menuItem->setMenuCallback(onBtnLoadFromDisc, this);
+	menuItem->setEnabledCallback(NULL);
+
+	menuItem = getChild<LLMenuItemCallGL>("Save to Disk");
+	menuItem->setMenuCallback(onBtnSaveToDisc, this);
+	menuItem->setEnabledCallback(NULL);
+
 	menuItem = getChild<LLMenuItemCallGL>("LSL Wiki Help...");
 	menuItem->setMenuCallback(onBtnDynamicHelp, this);
 	menuItem->setEnabledCallback(NULL);
@@ -558,6 +566,7 @@ void LLScriptEdCore::setHelpPage(const std::string& help_string)
 	if (!history_combo) return;
 
 	LLUIString url_string = gSavedSettings.getString("LSLHelpURL");
+	url_string.setArg("[APP_DIRECTORY]", gDirUtilp->getWorkingDir());
 	url_string.setArg("[LSL_STRING]", help_string);
 
 	addHelpItemToHistory(help_string);
@@ -786,6 +795,7 @@ void LLScriptEdCore::onHelpComboCommit(LLUICtrl* ctrl, void* userdata)
 
 		LLWebBrowserCtrl* web_browser = live_help_floater->getChild<LLWebBrowserCtrl>("lsl_guide_html");
 		LLUIString url_string = gSavedSettings.getString("LSLHelpURL");
+		url_string.setArg("[APP_DIRECTORY]", gDirUtilp->getWorkingDir());
 		url_string.setArg("[LSL_STRING]", help_string);
 		web_browser->navigateTo(url_string);
 	}
@@ -833,6 +843,60 @@ void LLScriptEdCore::onBtnUndoChanges( void* userdata )
 	{
 		LLNotifications::instance().add("ScriptCannotUndo", LLSD(), LLSD(), boost::bind(&LLScriptEdCore::handleReloadFromServerDialog, self, _1, _2));
 	}
+}
+
+void LLScriptEdCore::onBtnSaveToDisc( void* userdata )
+{
+
+	LLViewerStats::getInstance()->incStat( LLViewerStats::ST_LSL_SAVE_COUNT );
+
+   LLScriptEdCore* self = (LLScriptEdCore*) userdata;
+
+   if( self->mSaveCallback )
+   {
+      LLFilePicker& file_picker = LLFilePicker::instance();
+	if( !file_picker.getSaveFile( LLFilePicker::FFSAVE_TEXT ) )
+	{
+		return;
+	}
+	
+		std::string filename = file_picker.getFirstFile();
+      std::string scriptText=self->mEditor->getText();
+	  std::ofstream fout(filename.c_str());
+      fout<<(scriptText);
+      fout.close();
+      self->mSaveCallback( self->mUserdata, FALSE );
+         
+   }
+	
+}
+void LLScriptEdCore::onBtnLoadFromDisc( void* data )
+{
+
+	LLScriptEdCore* self = (LLScriptEdCore*) data;
+	
+	LLFilePicker& file_picker = LLFilePicker::instance();
+	if( !file_picker.getOpenFile( LLFilePicker::FFLOAD_TEXT ) )
+	{
+		return;
+	}
+	
+	std::string filename = file_picker.getFirstFile();
+
+	std::ifstream fin(filename.c_str());
+	
+	std::string line;
+	std::string linetotal;
+	self->mEditor->clear();
+	while (!fin.eof())
+	{ 
+		getline(fin,line);
+		line=line+"\n";
+		self->mEditor->insertText(line);
+
+	}
+	fin.close();
+	
 }
 
 void LLScriptEdCore::onSearchMenu(void* userdata)
@@ -1937,6 +2001,12 @@ void LLLiveLSLEditor::onRunningCheckboxClicked( LLUICtrl*, void* userdata )
 	LLCheckBoxCtrl* runningCheckbox = self->getChild<LLCheckBoxCtrl>("running");
 	BOOL running =  runningCheckbox->get();
 	//self->mRunningCheckbox->get();
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+	if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.isDetachable(object)) )
+	{
+		return;
+	}
+// [/RLVa:KB]
 	if( object )
 	{
 		LLMessageSystem* msg = gMessageSystem;
@@ -1962,6 +2032,12 @@ void LLLiveLSLEditor::onReset(void *userdata)
 	LLLiveLSLEditor* self = (LLLiveLSLEditor*) userdata;
 
 	LLViewerObject* object = gObjectList.findObject( self->mObjectID );
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+	if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.isDetachable(object)) )
+	{
+		return;
+	}
+// [/RLV:KB]
 	if(object)
 	{
 		LLMessageSystem* msg = gMessageSystem;
@@ -2383,6 +2459,14 @@ void LLLiveLSLEditor::onLoad(void* userdata)
 void LLLiveLSLEditor::onSave(void* userdata, BOOL close_after_save)
 {
 	LLLiveLSLEditor* self = (LLLiveLSLEditor*)userdata;
+
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+	if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.isDetachable(gObjectList.findObject(self->mObjectID))) )
+	{
+		return;
+	}
+// [/RLV:KB]
+
 	self->mCloseAfterSave = close_after_save;
 	self->saveIfNeeded();
 }

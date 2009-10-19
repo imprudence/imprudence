@@ -2208,10 +2208,16 @@ void LLVolume::sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components,
 	S32 requested_sizeS = 0;
 	S32 requested_sizeT = 0;
 
-	sculpt_calc_mesh_resolution(sculpt_width, sculpt_height, sculpt_type, mDetail, requested_sizeS, requested_sizeT);
+	// create oblong sculpties with high LOD always
+	F32 sculpt_detail = mDetail;
+	if (sculpt_width != sculpt_height && sculpt_detail < 4.0)
+	{
+		sculpt_detail = 4.0;
+	}
+	sculpt_calc_mesh_resolution(sculpt_width, sculpt_height, sculpt_type, sculpt_detail, requested_sizeS, requested_sizeT);
 
-	mPathp->generate(mParams.getPathParams(), mDetail, 0, TRUE, requested_sizeS);
-	mProfilep->generate(mParams.getProfileParams(), mPathp->isOpen(), mDetail, 0, TRUE, requested_sizeT);
+	mPathp->generate(mParams.getPathParams(), sculpt_detail, 0, TRUE, requested_sizeS);
+	mProfilep->generate(mParams.getProfileParams(), mPathp->isOpen(), sculpt_detail, 0, TRUE, requested_sizeT);
 
 	S32 sizeS = mPathp->mPath.size();         // we requested a specific size, now see what we really got
 	S32 sizeT = mProfilep->mProfile.size();   // we requested a specific size, now see what we really got

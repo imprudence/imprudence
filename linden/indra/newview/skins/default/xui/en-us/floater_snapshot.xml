@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater bottom="-300" can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="false" follows="left|top" height="526" name="Snapshot"
+<floater bottom="-320" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" follows="left|top" height="546" name="Snapshot"
      rect_control="FloaterSnapshotRect" title="Snapshot Preview" width="215">
 	<text bottom_delta="-40" follows="top|left" height="15" left="10" name="type_label"
 	     width="195">
@@ -140,9 +140,9 @@
 	<check_box bottom_delta="-20" follows="left|top" label="Constrain Proportions" left="10"
 	     name="keep_aspect_check" />
 	<slider bottom_delta="-20" decimal_digits="0" follows="left|top" height="15"
-	     increment="1" initial_val="75" label="Image Quality" left="10"
+	     increment="1" initial_val="75" label="Image Quality" left="10" label_width="80" 
 	     max_val="100" min_val="0" name="image_quality_slider" width="210" />
-	<check_box bottom_delta="0" follows="left|top" label="High resolution snapshot"
+	<check_box bottom_delta="-20" follows="left|top" label="High resolution snapshot"
 	     left="10" name="high_res_check" />
 	<text bottom_delta="-28" follows="left|top" height="20" left="10"
 	     name="layer_type_label" width="50">

@@ -186,7 +186,12 @@ BOOL LLToolGrab::handleObjectHit(const LLPickInfo& info)
 		return FALSE;
 	}
 
-	if (objectp->isAvatar())
+	//if (objectp->isAvatar())
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0f
+	if ( (objectp->isAvatar()) ||
+		 ( (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) && ((!objectp->isAttachment()) || (!objectp->permYouOwner())) &&
+		   (dist_vec_squared(gAgent.getPositionAgent(), mGrabPick.mIntersection) > 1.5f * 1.5f) ) )
+// [/RLVa:KB]
 	{
 		if (gGrabTransientTool)
 		{
@@ -420,6 +425,23 @@ BOOL LLToolGrab::handleHover(S32 x, S32 y, MASK mask)
 		setMouseCapture(FALSE);
 		return TRUE;
 	}
+
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.0f
+	// Don't allow dragging beyond 1.5m under @fartouch=n
+	LLViewerObject* pObj;
+	if ( (gRlvHandler.hasBehaviour(RLV_BHVR_FARTOUCH)) && (GRAB_INACTIVE != mMode) && (hasMouseCapture()) &&
+		 ((pObj = mGrabPick.getObject()) != NULL) && (!pObj->isDead()) && (!pObj->isHUDAttachment()) && 
+		 (dist_vec_squared(gAgent.getPositionAgent(), pObj->getPositionRegion() + mGrabPick.mObjectOffset) > 1.5f * 1.5f) )
+	{
+		if (gGrabTransientTool)
+		{
+			// Prevent the grab tool from popping up as soon as we kill the drag operation
+			gBasicToolset->selectTool(gGrabTransientTool);
+			gGrabTransientTool = NULL;
+		}
+		setMouseCapture(FALSE);
+	}
+// [/RLVa:KB]
 
 	// Do the right hover based on mode
 	switch( mMode )

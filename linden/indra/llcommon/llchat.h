@@ -43,7 +43,8 @@ typedef enum e_chat_source_type
 {
 	CHAT_SOURCE_SYSTEM = 0,
 	CHAT_SOURCE_AGENT = 1,
-	CHAT_SOURCE_OBJECT = 2
+	CHAT_SOURCE_OBJECT = 2,
+	CHAT_SOURCE_OBJECT_IM = 3
 } EChatSourceType;
 
 typedef enum e_chat_type
@@ -73,6 +74,10 @@ public:
 	:	mText(text),
 		mFromName(),
 		mFromID(),
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
+		mRlvLocFiltered(FALSE),
+		mRlvNamesFiltered(FALSE),
+// [/RLVa:KB]
 		mSourceType(CHAT_SOURCE_AGENT),
 		mChatType(CHAT_TYPE_NORMAL),
 		mAudible(CHAT_AUDIBLE_FULLY),
@@ -81,10 +86,14 @@ public:
 		mPosAgent(),
 		mURL()
 	{ }
-	
+
 	std::string		mText;		// UTF-8 line of text
 	std::string		mFromName;	// agent or object name
 	LLUUID			mFromID;	// agent id or object id
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
+	BOOL			mRlvLocFiltered;
+	BOOL			mRlvNamesFiltered;
+// [/RLVa:KB]
 	EChatSourceType	mSourceType;
 	EChatType		mChatType;
 	EChatAudible	mAudible;

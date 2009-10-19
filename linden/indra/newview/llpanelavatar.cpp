@@ -52,6 +52,7 @@
 
 #include "llfloaterfriends.h"
 #include "llfloatergroupinfo.h"
+#include "llfloatergroups.h"
 #include "llfloaterworldmap.h"
 #include "llfloatermute.h"
 #include "llfloateravatarinfo.h"
@@ -84,6 +85,7 @@
 std::list<LLPanelAvatar*> LLPanelAvatar::sAllPanels;
 BOOL LLPanelAvatar::sAllowFirstLife = FALSE;
 
+extern void callback_invite_to_group(LLUUID group_id, void *user_data);
 extern void handle_lure(const LLUUID& invitee);
 extern void handle_pay_by_id(const LLUUID& payee);
 
@@ -365,6 +367,7 @@ BOOL LLPanelAvatarSecondLife::postBuild(void)
 
 	childSetAction("Find on Map", LLPanelAvatar::onClickTrack, getPanelAvatar());
 	childSetAction("Instant Message...", LLPanelAvatar::onClickIM, getPanelAvatar());
+	childSetAction("Invite to Group...", LLPanelAvatar::onClickGroupInvite, getPanelAvatar());
 	
 	childSetAction("Add Friend...", LLPanelAvatar::onClickAddFriend, getPanelAvatar());
 	childSetAction("Pay...", LLPanelAvatar::onClickPay, getPanelAvatar());
@@ -731,6 +734,9 @@ void LLPanelAvatarClassified::refresh()
 	S32 tab_count = tabs ? tabs->getTabCount() : 0;
 
 	bool allow_new = tab_count < MAX_CLASSIFIEDS;
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
+	allow_new &= !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC);
+// [/RLVa:KB]
 	bool allow_delete = (tab_count > 0);
 	bool show_help = (tab_count == 0);
 
@@ -866,6 +872,12 @@ void LLPanelAvatarClassified::processAvatarClassifiedReply(LLMessageSystem* msg,
 // static
 void LLPanelAvatarClassified::onClickNew(void* data)
 {
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-04 (RLVa-1.0.0a)
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+	{
+		return;
+	}
+// [/RLVa:KB]
 	LLPanelAvatarClassified* self = (LLPanelAvatarClassified*)data;
 
 	LLNotifications::instance().add("AddClassified", LLSD(), LLSD(), boost::bind(&LLPanelAvatarClassified::callbackNew, self, _1, _2));
@@ -961,7 +973,10 @@ void LLPanelAvatarPicks::refresh()
 	BOOL self = (gAgent.getID() == getPanelAvatar()->getAvatarID());
 	LLTabContainer*	tabs = getChild<LLTabContainer>("picks tab");
 	S32 tab_count = tabs ? tabs->getTabCount() : 0;
-	childSetEnabled("New...",    self && tab_count < MAX_AVATAR_PICKS);
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
+	childSetEnabled("New...", self && tab_count < MAX_AVATAR_PICKS && (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) );
+// [/RLVa:KB]
+	//childSetEnabled("New...",    self && tab_count < MAX_AVATAR_PICKS);
 	childSetEnabled("Delete...", self && tab_count > 0);
 	childSetVisible("New...",    self && getPanelAvatar()->isEditable());
 	childSetVisible("Delete...", self && getPanelAvatar()->isEditable());
@@ -1039,6 +1054,12 @@ void LLPanelAvatarPicks::processAvatarPicksReply(LLMessageSystem* msg, void**)
 // static
 void LLPanelAvatarPicks::onClickNew(void* data)
 {
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+	{
+		return;
+	}
+// [/RLVa:KB]
 	LLPanelAvatarPicks* self = (LLPanelAvatarPicks*)data;
 	LLPanelPick* panel_pick = new LLPanelPick(FALSE);
 	LLTabContainer* tabs =  self->getChild<LLTabContainer>("picks tab");
@@ -1238,14 +1259,6 @@ void LLPanelAvatar::setOnlineStatus(EOnlineStatus online_status)
 
 	mPanelSecondLife->childSetVisible("online_yes", (online_status == ONLINE_STATUS_YES));
 
-	// Since setOnlineStatus gets called after setAvatarID
-	// need to make sure that "Offer Teleport" doesn't get set
-	// to TRUE again for yourself
-	if (mAvatarID != gAgent.getID())
-	{
-		childSetVisible("Offer Teleport...",TRUE);
-	}
-
 	BOOL in_prelude = gAgent.inPrelude();
 	if(gAgent.isGodlike())
 	{
@@ -1261,6 +1274,18 @@ void LLPanelAvatar::setOnlineStatus(EOnlineStatus online_status)
 	{
 		childSetEnabled("Offer Teleport...", TRUE);
 		childSetToolTip("Offer Teleport...", childGetValue("TeleportNormal").asString());
+	}
+
+	// Since setOnlineStatus gets called after setAvatarID
+	// need to make sure that "Offer Teleport" doesn't get set
+	// to TRUE again for yourself
+	if (mAvatarID != gAgent.getID())
+	{
+		childSetVisible("Offer Teleport...",TRUE);
+	}
+	else
+	{
+		childSetEnabled("Offer Teleport...", FALSE);
 	}
 }
 
@@ -1354,20 +1379,30 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 				childSetVisible("Cancel",FALSE);
 				childSetEnabled("Cancel",FALSE);
 			}
-			childSetVisible("Instant Message...",FALSE);
+			//childSetVisible("Instant Message...",FALSE);
 			childSetEnabled("Instant Message...",FALSE);
-			childSetVisible("Mute",FALSE);
+			//childSetVisible("Invite to Group...",FALSE);
+			childSetEnabled("Invite to Group...",FALSE);
+			//childSetVisible("Mute",FALSE);
 			childSetEnabled("Mute",FALSE);
-			childSetVisible("Offer Teleport...",FALSE);
+			//childSetVisible("Offer Teleport...",FALSE);
 			childSetEnabled("Offer Teleport...",FALSE);
-			childSetVisible("drop target",FALSE);
+			//childSetVisible("drop target",FALSE);
 			childSetEnabled("drop target",FALSE);
-			childSetVisible("Find on Map",FALSE);
+			//childSetVisible("Find on Map",FALSE);
 			childSetEnabled("Find on Map",FALSE);
-			childSetVisible("Add Friend...",FALSE);
+			//childSetVisible("Add Friend...",FALSE);
 			childSetEnabled("Add Friend...",FALSE);
-			childSetVisible("Pay...",FALSE);
+			//childSetVisible("Pay...",FALSE);
 			childSetEnabled("Pay...",FALSE);
+			childSetVisible("Kick",FALSE);
+			childSetEnabled("Kick",FALSE);
+			childSetVisible("Freeze",FALSE);
+			childSetEnabled("Freeze",FALSE);
+			childSetVisible("Unfreeze",FALSE);
+			childSetEnabled("Unfreeze",FALSE);
+			childSetVisible("csr_btn", FALSE);
+			childSetEnabled("csr_btn", FALSE);
 		}
 		else
 		{
@@ -1379,6 +1414,8 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 
 			childSetVisible("Instant Message...",TRUE);
 			childSetEnabled("Instant Message...",FALSE);
+			childSetVisible("Invite to Group...",TRUE);
+			childSetEnabled("Invite to Group...",FALSE);
 			childSetVisible("Mute",TRUE);
 			childSetEnabled("Mute",FALSE);
 
@@ -1405,20 +1442,20 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const std::string &name
 			childSetEnabled("Add Friend...", !avatar_is_friend);
 			childSetVisible("Pay...",TRUE);
 			childSetEnabled("Pay...",FALSE);
+
+			BOOL is_god = FALSE;
+			if (gAgent.isGodlike()) is_god = TRUE;
+			
+			childSetVisible("Kick", is_god);
+			childSetEnabled("Kick", is_god);
+			childSetVisible("Freeze", is_god);
+			childSetEnabled("Freeze", is_god);
+			childSetVisible("Unfreeze", is_god);
+			childSetEnabled("Unfreeze", is_god);
+			childSetVisible("csr_btn", is_god);
+			childSetEnabled("csr_btn", is_god);
 		}
 	}
-	
-	BOOL is_god = FALSE;
-	if (gAgent.isGodlike()) is_god = TRUE;
-	
-	childSetVisible("Kick", is_god);
-	childSetEnabled("Kick", is_god);
-	childSetVisible("Freeze", is_god);
-	childSetEnabled("Freeze", is_god);
-	childSetVisible("Unfreeze", is_god);
-	childSetEnabled("Unfreeze", is_god);
-	childSetVisible("csr_btn", is_god);
-	childSetEnabled("csr_btn", is_god);
 }
 
 
@@ -1461,9 +1498,18 @@ void LLPanelAvatar::resetGroupList()
 				LLSD row;
 
 				row["id"] = id ;
-				row["columns"][0]["value"] = group_string;
 				row["columns"][0]["font"] = "SANSSERIF_SMALL";
 				row["columns"][0]["width"] = 0;
+				if (group_data.mListInProfile)
+				{
+					row["columns"][0]["value"] = group_string;
+					row["columns"][0]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
+				}
+				else
+				{
+					row["columns"][0]["value"] = group_string + " " + getString("HiddenLabel");
+					row["columns"][0]["color"] = gColors.getColor("ScrollReadOnlyColor").getValue();
+				}
 				group_list->addElement(row);
 			}
 			group_list->sortByColumnIndex(0, TRUE);
@@ -1484,6 +1530,22 @@ void LLPanelAvatar::onClickIM(void* userdata)
 	LLNameEditor* nameedit = self->mPanelSecondLife->getChild<LLNameEditor>("name");
 	if (nameedit) name = nameedit->getText();
 	gIMMgr->addSession(name, IM_NOTHING_SPECIAL, self->mAvatarID);
+}
+
+void LLPanelAvatar::onClickGroupInvite(void* userdata)
+{
+	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
+	if (self->getAvatarID().notNull())
+	{
+		LLFloaterGroupPicker* widget;
+		widget = LLFloaterGroupPicker::showInstance(LLSD(gAgent.getID()));
+		if (widget)
+		{
+			widget->center();
+			widget->setPowersMask(GP_MEMBER_INVITE);
+			widget->setSelectCallback(callback_invite_to_group, (void *)&(self->getAvatarID()));
+		}
+	}
 }
 
 
@@ -1702,11 +1764,27 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		{
 			continue;
 		}
-		self->childSetEnabled("Instant Message...",TRUE);
-		self->childSetEnabled("Pay...",TRUE);
-		self->childSetEnabled("Mute",TRUE);
 
-		self->childSetEnabled("drop target",TRUE);
+		if (self->mAvatarID == agent_id)
+		{
+			self->childSetEnabled("Instant Message...",FALSE);
+			self->childSetEnabled("Invite to Group...",FALSE);
+			self->childSetEnabled("Pay...",FALSE);
+			self->childSetEnabled("Mute",FALSE);
+
+			self->childSetVisible("drop target",FALSE);
+			self->childSetEnabled("drop target",FALSE);
+		}
+		else
+		{
+			self->childSetEnabled("Instant Message...",TRUE);
+			self->childSetEnabled("Invite to Group...",TRUE);
+			self->childSetEnabled("Pay...",TRUE);
+			self->childSetEnabled("Mute",TRUE);
+
+			self->childSetVisible("drop target",TRUE);
+			self->childSetEnabled("drop target",TRUE);
+		}
 
 		self->mHaveProperties = TRUE;
 		self->enableOKIfReady();
@@ -1923,8 +2001,34 @@ void LLPanelAvatar::processAvatarGroupsReply(LLMessageSystem *msg, void**)
 
 				LLSD row;
 				row["id"] = group_id;
-				row["columns"][0]["value"] = group_string;
 				row["columns"][0]["font"] = "SANSSERIF_SMALL";
+
+				LLGroupData *group_data = NULL;
+
+				if (avatar_id == agent_id) // own avatar
+				{
+					// Search for this group in the agent's groups list
+					LLDynamicArray<LLGroupData>::iterator i;
+					for (i = gAgent.mGroups.begin(); i != gAgent.mGroups.end(); i++)
+					{
+						if (i->mID == group_id)
+						{
+							group_data = &*i;
+							break;
+						}
+					}
+				}
+				// Set normal color if not found or if group is visible in profile
+				if (!group_data || group_data->mListInProfile)
+				{
+					row["columns"][0]["value"] = group_string;
+					row["columns"][0]["color"] = gColors.getColor("ScrollUnselectedColor").getValue();
+				}
+				else
+				{
+					row["columns"][0]["value"] = group_string + " " + self->getString("HiddenLabel");
+					row["columns"][0]["color"] = gColors.getColor("ScrollReadOnlyColor").getValue();
+				}
 				if (group_list)
 				{
 					group_list->addElement(row);

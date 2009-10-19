@@ -32,6 +32,16 @@
       </menu_item_call>
     </menu>
     <menu_item_separator />
+	  <menu_item_call name="Import" label="Import" enabled="false">
+      <on_click function="Object.Import" />
+      <on_enable function="Object.EnableImport" />
+    </menu_item_call>
+    <menu_item_call name="Upload + Import" label="Upload + Import"
+                    enabled="false">
+      <on_click function="Object.ImportUpload" />
+      <on_enable function="Object.EnableImport" />
+    </menu_item_call>
+    <menu_item_separator />
     <menu_item_call name="Close Window"
                     label="Close Window"
                     shortcut="control|W">
@@ -67,6 +77,10 @@
                 userdata="" />
     </menu_item_call>
     <menu_item_separator />
+    <menu_item_call name="Logout" label="Logout"
+                    shortcut="control|alt|Q">
+          <on_click function="File.Logout" userdata="" />
+    </menu_item_call>
     <menu_item_call name="Quit" label="Quit"
                     shortcut="control|Q">
       <on_click function="File.Quit" userdata="" />
@@ -382,6 +396,11 @@
                      shortcut="control|alt|shift|=">
       <on_click function="View.ToggleRenderType" userdata="hideparticles" />
       <on_check function="View.CheckRenderType" userdata="hideparticles" />
+    </menu_item_check>
+    <menu_item_check name="Show HUD Attachments" label="Show HUD Attachments"
+                     shortcut="alt|shift|H">
+      <on_click function="View.ShowHUDAttachments" userdata="" />
+      <on_check function="View.CheckHUDAttachments" />
     </menu_item_check>
     <menu_item_separator />
     <menu name="Zoom Level" create_jump_keys="true"
@@ -886,6 +905,25 @@
                 userdata="QuietSnapshotsToDisk" />
       <on_check control="QuietSnapshotsToDisk" />
     </menu_item_check>
+    <menu_item_call label="Ground Sit" name="Ground Sit" 
+                    shortcut="control|alt|s">
+      <on_click function="Advanced.ToggleSit" userdata="" />
+      <on_Check function="Advanced.CheckSit" userdata="" />
+    </menu_item_call>
+    <menu_item_check label="Phantom Avatar" name="Phantom" 
+                     shortcut="control|alt|p">
+      <on_click function="Advanced.TogglePhantom" userdata="" />
+      <on_check function="Advanced.CheckPhantom" userdata="" />
+    </menu_item_check>
+    <menu_item_check label="Animation List" name="Animation List">
+      <on_click function="ShowFloater" userdata="animation list" />
+      <on_check function="FloaterVisible" userdata="animation list" />
+    </menu_item_check>
+    <menu_item_check label="Asset Browser" name="asset browser" 
+                     shortcut="alt|shift|a">
+      <on_click function="Advanced.ToggleAssetBrowser" userdata="" />
+      <on_check function="Advanced.CheckAssetBrowser" userdata="" />
+    </menu_item_check>
     <menu_item_check name="Show Mouselook Crosshairs"
                      label="Show Mouselook Crosshairs">
       <on_click function="ToggleControl"
@@ -1069,13 +1107,6 @@
           <on_check function="Advanced.CheckFeature"
                     userdata="flexible" />
         </menu_item_check>
-        <menu_item_check name="HUD Attachments"
-                         label="HUD Attachments"
-                         shortcut="">
-          <on_click function="View.ShowHUDAttachments" userdata="" />
-          <on_check function="View.CheckHUDAttachments" />
-        </menu_item_check>
-
       </menu>
 
 
@@ -1368,6 +1399,80 @@
       </menu_item_call>
     </menu>
 
+
+    <!-- RLVa -->
+
+    <menu name="RLVa" drop_shadow="true" opaque="true" tear_off="true">
+
+      <menu name="Debug" drop_shadow="true" opaque="true" tear_off="true">
+
+        <menu_item_check name="Show Debug Messages"
+                         label="Show Debug Messages">
+          <on_click function="ToggleControl" userdata="RestrainedLifeDebug" />
+          <on_check control="RestrainedLifeDebug" />
+        </menu_item_check>
+
+        <menu_item_separator />
+
+        <menu_item_check name="Enable Legacy Naming"
+                         label="Enable Legacy Naming">
+          <on_click function="ToggleControl" userdata="RLVaEnableLegacyNaming" />
+          <on_check control="RLVaEnableLegacyNaming" />
+        </menu_item_check>
+
+      </menu>
+
+      <menu_item_separator />
+
+      <menu_item_check name="Enable Wear" label="Enable Wear">
+        <on_click function="ToggleControl" userdata="RLVaEnableWear" />
+        <on_check control="RLVaEnableWear" />
+      </menu_item_check>
+
+      <menu_item_separator />
+
+      <menu_item_check name="Hide locked layers" label="Hide locked layers">
+        <on_click function="ToggleControl" userdata="RLVaHideLockedLayers" />
+        <on_check control="RLVaHideLockedLayers" />
+      </menu_item_check>
+      
+      <menu_item_check name="Hide locked attachments"
+                       label="Hide locked attachments">
+        <on_click function="ToggleControl"
+                  userdata="RLVaHideLockedAttachments" />
+        <on_check control="RLVaHideLockedAttachments" />
+      </menu_item_check>
+      
+      <!--
+      <menu_item_check name="Hide locked inventory"
+                       label="Hide locked inventory">
+        <on_click function="ToggleControl"
+                  userdata="RLVaHideLockedInventory" />
+        <on_check control="RLVaHideLockedInventory" />
+      </menu_item_check>
+      -->
+
+      <menu_item_separator />
+
+      <menu_item_check name="Forbid Give to #RLV" label="Forbid Give to #RLV">
+        <on_click function="ToggleControl"
+                  userdata="RestrainedLifeForbidGiveToRLV" />
+        <on_check control="RestrainedLifeForbidGiveToRLV" />
+      </menu_item_check>
+
+      <menu_item_check name="Show Name Tags" label="Show Name Tags">
+        <on_click function="ToggleControl"
+                  userdata="RLVaShowNameTags" />
+        <on_check control="RLVaShowNameTags" />
+      </menu_item_check>
+
+      <menu_item_separator />
+
+      <menu_item_call name="Restrictions..." label="Restrictions...">
+        <on_click function="RLVa.Behaviors.Show" userdata="" />
+      </menu_item_call>
+
+    </menu>
 
 
     <!-- UI -->
@@ -1888,6 +1993,13 @@
                 userdata="ShowConsoleWindow" />
       <on_check control="ShowConsoleWindow" />
     </menu_item_check>
+
+    <menu_item_check name="Restrained Life Support"
+                     label="Restrained Life Support">
+      <on_click function="RLVa.Main.Toggle" />
+      <on_check function="RLVa.Main.Enabled" />
+    </menu_item_check>
+
     <menu_item_check name="Output Debug Minidump"
                      label="Output Debug Minidump">
       <on_click function="ToggleControl"

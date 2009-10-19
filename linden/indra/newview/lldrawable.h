@@ -50,6 +50,7 @@
 #include "llviewerobject.h"
 #include "llrect.h"
 #include "llappviewer.h" // for gFrameTimeSeconds
+#include "llimagej2c.h"
 
 class LLCamera;
 class LLDrawPool;

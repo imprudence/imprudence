@@ -87,7 +87,10 @@ public:
 	// Always use this to set gStartupState so changes are logged
 	static void setStartupState( EStartupState state );
 	static EStartupState getStartupState() { return gStartupState; };
-	static std::string getStartupStateString() { return startupStateToString(gStartupState); };
+	static void	resetLogin();
+
+	static void setStartedOnce(bool started);
+	static bool getStartedOnce() { return mStartedOnce;     };
 
 	static void multimediaInit();
 		// Initialize LLViewerMedia multimedia engine.
@@ -114,8 +117,12 @@ public:
 	static std::string sSLURLCommand;
 		// *HACK: On startup, if we were passed a secondlife://app/do/foo
 		// command URL, store it for later processing.
+	static bool shouldAutoLogin() { return mShouldAutoLogin; };
+	static void setShouldAutoLogin(bool value) { mShouldAutoLogin = value; };
 
 private:
+ 	static bool mStartedOnce;
+	static bool mShouldAutoLogin;
 	static std::string startupStateToString(EStartupState state);
 	static EStartupState gStartupState; // Do not set directly, use LLStartup::setStartupState
 };

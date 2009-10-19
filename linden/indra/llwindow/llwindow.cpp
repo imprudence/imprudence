@@ -308,6 +308,22 @@ void *LLWindow::getMediaWindow()
 	return getPlatformWindow();
 }
 
+//virtual
+BOOL LLWindow::isPrimaryTextAvailable()
+{
+	return FALSE; // no
+}
+//virtual
+BOOL LLWindow::pasteTextFromPrimary(LLWString &dst)
+{
+	return FALSE; // fail
+}
+// virtual
+BOOL LLWindow::copyTextToPrimary(const LLWString &src)
+{
+	return FALSE; // fail
+}
+
 // static
 std::vector<std::string> LLWindow::getDynamicFallbackFontList()
 {

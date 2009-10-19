@@ -36,6 +36,7 @@ Aimee Trescothick
 	VWR-8482
 	VWR-9255
 	VWR-11844
+	VWR-12748
 Alejandro Rosenthal
 	VWR-1184
 Aleric Inglewood
@@ -81,6 +82,11 @@ Alissa Sabre
         VWR-7087
         VWR-7153
         VWR-7168
+<<<<<<< HEAD
+=======
+        VWR-7087
+        VWR-7086
+>>>>>>> origin/next
 	VWR-9190
 	VWR-10728
 Angus Boyd
@@ -89,6 +95,8 @@ Ann Congrejo
 	CT-193
 Argent Stonecutter
 	VWR-68
+Armin Weatherwax
+	VWR-8436
 Asuka Neely
 	VWR-3434
 	VWR-8179

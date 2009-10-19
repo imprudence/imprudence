@@ -820,6 +820,12 @@ void LLPanelLandGeneral::setGroup(const LLUUID& group_id)
 // static
 void LLPanelLandGeneral::onClickBuyLand(void* data)
 {
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
+	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) )
+	{
+		return;
+	}
+// [/RLVa:KB]
 	BOOL* for_group = (BOOL*)data;
 	LLViewerParcelMgr::getInstance()->startBuyLand(*for_group);
 }
@@ -2878,3 +2884,41 @@ void LLPanelLandCovenant::updateEstateOwnerName(const std::string& name)
 		if (editor) editor->setText(name);
 	}
 }
+
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
+void LLFloaterLand::open()
+{
+	// We'll allow "About Land" as long as you have the ability to return prims (through ownership or through group powers)
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+	{
+		LLParcelSelection* pParcelSel = LLViewerParcelMgr::getInstance()->getFloatingParcelSelection();
+		if ( (!pParcelSel) || (pParcelSel->hasOthersSelected()) )
+			return;
+		LLParcel* pParcel = pParcelSel->getParcel();
+		if (!pParcel)
+			return;
+
+		// Ideally we could just use LLViewerParcelMgr::isParcelOwnedByAgent(), but that has that sneaky exemption
+		// for fake god like (aka View Admin Options)
+		const LLUUID& idOwner = pParcel->getOwnerID();
+		if ( (idOwner != gAgent.getID()) )
+		{
+			// *sighs* LLAgent::hasPowerInGroup() has it too so copy/paste from there
+			S32 count = gAgent.mGroups.count(); bool fShow = false;
+			for (S32 i = 0; i < count; ++i)
+			{
+				if (gAgent.mGroups.get(i).mID == idOwner)
+				{
+					fShow |= ((gAgent.mGroups.get(i).mPowers & GP_LAND_RETURN) > 0);
+					break;
+				}
+			}
+
+			if (!fShow)
+				return;
+		}
+	}
+
+	LLFloater::open();
+}
+// [/RLVa:KB]

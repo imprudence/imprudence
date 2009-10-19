@@ -68,6 +68,10 @@
 #include "lltoolcomp.h"
 #include "llpanelinventory.h"
 
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+#include "llvoavatar.h"
+// [/RLVa:KB]
+
 //
 // Imported globals
 //
@@ -153,6 +157,22 @@ void LLPanelContents::onClickNewScript(void *userdata)
 	LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getFirstRootObject(children_ok);
 	if(object)
 	{
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+		if (rlv_handler_t::isEnabled())	// Fallback code [see LLPanelContents::getState()]
+		{
+			if (!gRlvHandler.isDetachable(object))
+			{
+				return;					// Disallow creating new scripts in a locked attachment
+			}
+			else if ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_SITTP)) )
+			{
+				LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+				if ( (pAvatar) && (pAvatar->mIsSitting) && (pAvatar->getRoot() == object->getRootEdit()) )
+					return;				// .. or in a linkset the avie is sitting on under @unsit=n/@sittp=n
+			}
+		}
+// [/RLVa:KB]
+
 		LLPermissions perm;
 		perm.init(gAgent.getID(), gAgent.getID(), LLUUID::null, LLUUID::null);
 		perm.initMasks(

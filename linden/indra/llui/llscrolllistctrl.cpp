@@ -743,6 +743,18 @@ std::vector<LLScrollListItem*> LLScrollListCtrl::getAllSelected() const
 	return ret;
 }
 
+LLDynamicArray<LLUUID> LLScrollListCtrl::getSelectedIDs()
+{
+	LLUUID selected_id;
+	LLDynamicArray<LLUUID> ids;
+	std::vector<LLScrollListItem*> selected = this->getAllSelected();
+	for(std::vector<LLScrollListItem*>::iterator itr = selected.begin(); itr != selected.end(); ++itr)
+	{
+		ids.push_back((*itr)->getUUID());
+	}
+	return ids;
+}
+
 S32 LLScrollListCtrl::getFirstSelectedIndex() const
 {
 	S32 CurSelectedIndex = 0;

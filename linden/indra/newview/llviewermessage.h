@@ -37,7 +37,7 @@
 #include "lltransactiontypes.h"
 #include "lluuid.h"
 #include "stdenums.h"
-
+#include "llfloaterbump.h"
 //
 // Forward declarations
 //

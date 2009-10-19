@@ -589,19 +589,42 @@ bool LLViewerWindow::shouldShowToolTipFor(LLMouseHandler *mh)
 	return false;
 }
 
-BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
+BOOL LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK mask, LLMouseHandler::EClickType clicktype, BOOL down)
 {
+	std::string buttonname;
+	std::string buttonstatestr; 
+	BOOL handled = FALSE;	
 	S32 x = pos.mX;
 	S32 y = pos.mY;
 	x = llround((F32)x / mDisplayScale.mV[VX]);
 	y = llround((F32)y / mDisplayScale.mV[VY]);
 
-	LLView::sMouseHandlerMessage.clear();
-
-	if (gDebugClicks)
+	if (down)
+		buttonstatestr = "down" ;
+	else
+		buttonstatestr = "up" ;
+	
+	switch (clicktype)
 	{
-		llinfos << "ViewerWindow left mouse down at " << x << "," << y << llendl;
+	case LLMouseHandler::CLICK_LEFT:
+		mLeftMouseDown = down;
+		buttonname = "Left";
+		break;
+	case LLMouseHandler::CLICK_RIGHT:
+		mRightMouseDown = down;
+		buttonname = "Right";
+		break;
+	case LLMouseHandler::CLICK_MIDDLE:
+		mMiddleMouseDown = down;
+		buttonname = "Middle";
+		break;
+	case LLMouseHandler::CLICK_DOUBLELEFT:
+		mLeftMouseDown = down;
+		buttonname = "Left Double Click";
+		break;
 	}
+	
+	LLView::sMouseHandlerMessage.clear();
 
 	if (gMenuBarView)
 	{
@@ -609,18 +632,28 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
 		gMenuBarView->resetMenuTrigger();
 	}
 
-	mLeftMouseDown = TRUE;
+	if (gDebugClicks)
+	{	
+		llinfos << "ViewerWindow " << buttonname << " mouse " << buttonstatestr << " at " << x << "," << y << llendl;
+	}
 
 	// Make sure we get a coresponding mouseup event, even if the mouse leaves the window
-	mWindow->captureMouse();
+	if (down)
+	{
+		mWindow->captureMouse();
+	}
+	else
+	{
+		mWindow->releaseMouse();
+	}
 
 	// Indicate mouse was active
 	gMouseIdleTimer.reset();
 
 	// Hide tooltips on mousedown
-	mToolTipBlocked = TRUE;
+	mToolTipBlocked = down;
 
-	// Also hide hover info on mousedown
+	// Also hide hover info on mousedown/mouseup
 	if (gHoverView)
 	{
 		gHoverView->cancelHover();
@@ -629,7 +662,7 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
 	// Don't let the user move the mouse out of the window until mouse up.
 	if( LLToolMgr::getInstance()->getCurrentTool()->clipMouseWhenDown() )
 	{
-		mWindow->setMouseClipping(TRUE);
+		mWindow->setMouseClipping(down);
 	}
 
 	LLMouseHandler* mouse_captor = gFocusMgr.getMouseCapture();
@@ -640,10 +673,9 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
 		mouse_captor->screenPointToLocal( x, y, &local_x, &local_y );
 		if (LLView::sDebugMouseHandling)
 		{
-			llinfos << "Left Mouse Down handled by captor " << mouse_captor->getName() << llendl;
+			llinfos << buttonname << " Mouse " << buttonstatestr << " handled by captor " << mouse_captor->getName() << llendl;
 		}
-
-		return mouse_captor->handleMouseDown(local_x, local_y, mask);
+		return mouse_captor->handleAnyMouseClick(local_x, local_y, mask, clicktype, down);
 	}
 
 	// Topmost view gets a chance before the hierarchy
@@ -652,215 +684,95 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
 	{
 		S32 local_x, local_y;
 		top_ctrl->screenPointToLocal( x, y, &local_x, &local_y );
-		if (top_ctrl->pointInView(local_x, local_y))
+		if (down)
 		{
-			return top_ctrl->handleMouseDown(local_x, local_y, mask);
+			if (top_ctrl->pointInView(local_x, local_y))
+			{
+				return top_ctrl->handleAnyMouseClick(local_x, local_y, mask, clicktype, down)	;
+			}
+			else
+			{
+				gFocusMgr.setTopCtrl(NULL);
+			}
 		}
-		else
-		{
-			gFocusMgr.setTopCtrl(NULL);
-		}
-	}
+		else 
+			handled = top_ctrl->pointInView(local_x, local_y) && top_ctrl->handleMouseUp(local_x, local_y, mask);
 
+
+	}
 	// Give the UI views a chance to process the click
-	if( mRootView->handleMouseDown(x, y, mask) )
+	if( mRootView->handleAnyMouseClick(x, y, mask, clicktype, down) )
 	{
 		if (LLView::sDebugMouseHandling)
 		{
-			llinfos << "Left Mouse Down" << LLView::sMouseHandlerMessage << llendl;
+			llinfos << buttonname << " Mouse " << buttonstatestr << " " << LLView::sMouseHandlerMessage << llendl;
 		}
 		return TRUE;
 	}
 	else if (LLView::sDebugMouseHandling)
 	{
-		llinfos << "Left Mouse Down not handled by view" << llendl;
+		llinfos << buttonname << " Mouse " << buttonstatestr << " not handled by view" << llendl;
 	}
-
-	if (gDisconnected)
+	if (down)
 	{
-		return FALSE;
+		if (gDisconnected)
+		{
+			return FALSE;
+		}
+	
+		if(LLToolMgr::getInstance()->getCurrentTool()->handleAnyMouseClick( x, y, mask, clicktype, down ) )
+		{
+			// This is necessary to force clicks in the world to cause edit
+			// boxes that might have keyboard focus to relinquish it, and hence
+			// cause a commit to update their value.  JC
+			gFocusMgr.setKeyboardFocus(NULL);
+			return TRUE;
+		}
 	}
-
-	if(LLToolMgr::getInstance()->getCurrentTool()->handleMouseDown( x, y, mask ) )
+	else
 	{
-		// This is necessary to force clicks in the world to cause edit
-		// boxes that might have keyboard focus to relinquish it, and hence
-		// cause a commit to update their value.  JC
-		gFocusMgr.setKeyboardFocus(NULL);
-		return TRUE;
+
+		mWindow->releaseMouse();
+
+		LLTool *tool = LLToolMgr::getInstance()->getCurrentTool();
+		if( !handled )
+		{
+			handled = mRootView->handleAnyMouseClick(x, y, mask, clicktype, down);
+		}
+	
+	
+	
+		if( !handled )
+		{
+			if (tool)
+			{
+				handled = tool->handleAnyMouseClick(x, y, mask, clicktype, down);
+			}
+		}
 	}
 
-	return FALSE;
+	return (!down);
+}
+
+BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
+{
+	BOOL down = TRUE;
+	return handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_LEFT,down);
 }
 
 BOOL LLViewerWindow::handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
-	S32 x = pos.mX;
-	S32 y = pos.mY;
-	x = llround((F32)x / mDisplayScale.mV[VX]);
-	y = llround((F32)y / mDisplayScale.mV[VY]);
-
-	LLView::sMouseHandlerMessage.clear();
-
-	if (gDebugClicks)
-	{
-		llinfos << "ViewerWindow left mouse double-click at " << x << "," << y << llendl;
-	}
-
-	mLeftMouseDown = TRUE;
-
-	// Hide tooltips
-	if( mToolTip )
-	{
-		mToolTip->setVisible( FALSE );
-	}
-
-	LLMouseHandler* mouse_captor = gFocusMgr.getMouseCapture();
-	if( mouse_captor )
-	{
-		S32 local_x;
-		S32 local_y;
-		mouse_captor->screenPointToLocal( x, y, &local_x, &local_y );
-		if (LLView::sDebugMouseHandling)
-		{
-			llinfos << "Left Mouse Down handled by captor " << mouse_captor->getName() << llendl;
-		}
-
-		return mouse_captor->handleDoubleClick(local_x, local_y, mask);
-	}
-
-	// Check for hit on UI.
-	LLUICtrl* top_ctrl = gFocusMgr.getTopCtrl();
-	if (top_ctrl)
-	{
-		S32 local_x, local_y;
-		top_ctrl->screenPointToLocal( x, y, &local_x, &local_y );
-		if (top_ctrl->pointInView(local_x, local_y))
-		{
-			return top_ctrl->handleDoubleClick(local_x, local_y, mask);
-		}
-		else
-		{
-			gFocusMgr.setTopCtrl(NULL);
-		}
-	}
-
-	if (mRootView->handleDoubleClick(x, y, mask)) 
-	{
-		if (LLView::sDebugMouseHandling)
-		{
-			llinfos << "Left Mouse Down" << LLView::sMouseHandlerMessage << llendl;
-		}
-		return TRUE;
-	}
-	else if (LLView::sDebugMouseHandling)
-	{
-		llinfos << "Left Mouse Down not handled by view" << llendl;
-	}
-
-		// Why is this here?  JC 9/3/2002
-	if (gNoRender) 
-	{
-		return TRUE;
-	}
-
-	if(LLToolMgr::getInstance()->getCurrentTool()->handleDoubleClick( x, y, mask ) )
-	{
-		return TRUE;
-	}
-
-	// if we got this far and nothing handled a double click, pass a normal mouse down
-	return handleMouseDown(window, pos, mask);
+	// try handling as a double-click first, then a single-click if that
+	// wasn't handled.
+	BOOL down = TRUE;
+	return handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_DOUBLELEFT,down) ||
+		handleMouseDown(window, pos, mask);
 }
 
 BOOL LLViewerWindow::handleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
-	S32 x = pos.mX;
-	S32 y = pos.mY;
-	x = llround((F32)x / mDisplayScale.mV[VX]);
-	y = llround((F32)y / mDisplayScale.mV[VY]);
-
-	LLView::sMouseHandlerMessage.clear();
-
-	if (gDebugClicks)
-	{
-		llinfos << "ViewerWindow left mouse up" << llendl;
-	}
-
-	mLeftMouseDown = FALSE;
-
-	// Indicate mouse was active
-	gMouseIdleTimer.reset();
-
-	// Hide tooltips on mouseup
-	if( mToolTip )
-	{
-		mToolTip->setVisible( FALSE );
-	}
-
-	// Also hide hover info on mouseup
-	if (gHoverView)	gHoverView->cancelHover();
-
-	BOOL handled = FALSE;
-
-	mWindow->releaseMouse();
-
-	LLTool *tool = LLToolMgr::getInstance()->getCurrentTool();
-
-	if( tool->clipMouseWhenDown() )
-	{
-		mWindow->setMouseClipping(FALSE);
-	}
-
-	LLMouseHandler* mouse_captor = gFocusMgr.getMouseCapture();
-	if( mouse_captor )
-	{
-		S32 local_x;
-		S32 local_y;
-		mouse_captor->screenPointToLocal( x, y, &local_x, &local_y );
-		if (LLView::sDebugMouseHandling)
-		{
-			llinfos << "Left Mouse Up handled by captor " << mouse_captor->getName() << llendl;
-		}
-
-		return mouse_captor->handleMouseUp(local_x, local_y, mask);
-	}
-
-	LLUICtrl* top_ctrl = gFocusMgr.getTopCtrl();
-	if (top_ctrl)
-	{
-		S32 local_x, local_y;
-		top_ctrl->screenPointToLocal( x, y, &local_x, &local_y );
-		handled = top_ctrl->pointInView(local_x, local_y) && top_ctrl->handleMouseUp(local_x, local_y, mask);
-	}
-
-	if( !handled )
-	{
-		handled = mRootView->handleMouseUp(x, y, mask);
-	}
-
-	if (LLView::sDebugMouseHandling)
-	{
-		if (handled)
-		{
-			llinfos << "Left Mouse Up" << LLView::sMouseHandlerMessage << llendl;
-		}
-		else 
-		{
-			llinfos << "Left Mouse Up not handled by view" << llendl;
-		}
-	}
-
-	if( !handled )
-	{
-		if (tool)
-		{
-			handled = tool->handleMouseUp(x, y, mask);
-		}
-	}
-
-	// Always handled as far as the OS is concerned.
-	return TRUE;
+	BOOL down = FALSE;
+	return handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_LEFT,down);
 }
 
 
@@ -871,91 +783,10 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 	x = llround((F32)x / mDisplayScale.mV[VX]);
 	y = llround((F32)y / mDisplayScale.mV[VY]);
 
-	LLView::sMouseHandlerMessage.clear();
-
-	if (gDebugClicks)
-	{
-		llinfos << "ViewerWindow right mouse down at " << x << "," << y << llendl;
-	}
-
-	if (gMenuBarView)
-	{
-		// stop ALT-key access to menu
-		gMenuBarView->resetMenuTrigger();
-	}
-
-	mRightMouseDown = TRUE;
-
-	// Make sure we get a coresponding mouseup event, even if the mouse leaves the window
-	mWindow->captureMouse();
-
-	// Hide tooltips
-	if( mToolTip )
-	{
-		mToolTip->setVisible( FALSE );
-	}
-
-	// Also hide hover info on mousedown
-	if (gHoverView)
-	{
-		gHoverView->cancelHover();
-	}
-
-	// Don't let the user move the mouse out of the window until mouse up.
-	if( LLToolMgr::getInstance()->getCurrentTool()->clipMouseWhenDown() )
-	{
-		mWindow->setMouseClipping(TRUE);
-	}
-
-	LLMouseHandler* mouse_captor = gFocusMgr.getMouseCapture();
-	if( mouse_captor )
-	{
-		S32 local_x;
-		S32 local_y;
-		mouse_captor->screenPointToLocal( x, y, &local_x, &local_y );
-		if (LLView::sDebugMouseHandling)
-		{
-			llinfos << "Right Mouse Down handled by captor " << mouse_captor->getName() << llendl;
-		}
-		return mouse_captor->handleRightMouseDown(local_x, local_y, mask);
-	}
-
-	LLUICtrl* top_ctrl = gFocusMgr.getTopCtrl();
-	if (top_ctrl)
-	{
-		S32 local_x, local_y;
-		top_ctrl->screenPointToLocal( x, y, &local_x, &local_y );
-		if (top_ctrl->pointInView(local_x, local_y))
-		{
-			return top_ctrl->handleRightMouseDown(local_x, local_y, mask);
-		}
-		else
-		{
-			gFocusMgr.setTopCtrl(NULL);
-		}
-	}
-
-	if( mRootView->handleRightMouseDown(x, y, mask) )
-	{
-		if (LLView::sDebugMouseHandling)
-		{
-			llinfos << "Right Mouse Down" << LLView::sMouseHandlerMessage << llendl;
-		}
-		return TRUE;
-	}
-	else if (LLView::sDebugMouseHandling)
-	{
-		llinfos << "Right Mouse Down not handled by view" << llendl;
-	}
-
-	if(LLToolMgr::getInstance()->getCurrentTool()->handleRightMouseDown( x, y, mask ) )
-	{
-		// This is necessary to force clicks in the world to cause edit
-		// boxes that might have keyboard focus to relinquish it, and hence
-		// cause a commit to update their value.  JC
-		gFocusMgr.setKeyboardFocus(NULL);
-		return TRUE;
-	}
+	BOOL down = TRUE;
+	BOOL handle = handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_RIGHT,down);
+	if (handle)
+		return handle;
 
 	// *HACK: this should be rolled into the composite tool logic, not
 	// hardcoded at the top level.
@@ -973,107 +804,27 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 
 BOOL LLViewerWindow::handleRightMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
-	S32 x = pos.mX;
-	S32 y = pos.mY;
-	x = llround((F32)x / mDisplayScale.mV[VX]);
-	y = llround((F32)y / mDisplayScale.mV[VY]);
-
-	LLView::sMouseHandlerMessage.clear();
-
-	// Don't care about caps lock for mouse events.
-	if (gDebugClicks)
-	{
-		llinfos << "ViewerWindow right mouse up" << llendl;
-	}
-
-	mRightMouseDown = FALSE;
-
-	// Indicate mouse was active
-	gMouseIdleTimer.reset();
-
-	// Hide tooltips on mouseup
-	if( mToolTip )
-	{
-		mToolTip->setVisible( FALSE );
-	}
-
-	// Also hide hover info on mouseup
-	if (gHoverView)	gHoverView->cancelHover();
-
-	BOOL handled = FALSE;
-
-	mWindow->releaseMouse();
-
-	LLTool *tool = LLToolMgr::getInstance()->getCurrentTool();
-
-	if( tool->clipMouseWhenDown() )
-	{
-		mWindow->setMouseClipping(FALSE);
-	}
-
-	LLMouseHandler* mouse_captor = gFocusMgr.getMouseCapture();
-	if( mouse_captor )
-	{
-		S32 local_x;
-		S32 local_y;
-		mouse_captor->screenPointToLocal( x, y, &local_x, &local_y );
-		if (LLView::sDebugMouseHandling)
-		{
-			llinfos << "Right Mouse Up handled by captor " << mouse_captor->getName() << llendl;
-		}
-		return mouse_captor->handleRightMouseUp(local_x, local_y, mask);
-	}
-
-	LLUICtrl* top_ctrl = gFocusMgr.getTopCtrl();
-	if (top_ctrl)
-	{
-		S32 local_x, local_y;
-		top_ctrl->screenPointToLocal( x, y, &local_x, &local_y );
-		handled = top_ctrl->pointInView(local_x, local_y) && top_ctrl->handleRightMouseUp(local_x, local_y, mask);
-	}
-
-	if( !handled )
-	{
-		handled = mRootView->handleRightMouseUp(x, y, mask);
-	}
-
-	if (LLView::sDebugMouseHandling)
-	{
-		if (handled)
-		{
-			llinfos << "Right Mouse Up" << LLView::sMouseHandlerMessage << llendl;
-		}
-		else 
-		{
-			llinfos << "Right Mouse Up not handled by view" << llendl;
-		}
-	}
-
-	if( !handled )
-	{
-		if (tool)
-		{
-			handled = tool->handleRightMouseUp(x, y, mask);
-		}
-	}
-
-	// Always handled as far as the OS is concerned.
-	return TRUE;
+	BOOL down = FALSE;
+ 	return handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_RIGHT,down);
 }
 
 BOOL LLViewerWindow::handleMiddleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
+	BOOL down = TRUE;
 	gVoiceClient->middleMouseState(true);
-
-	// Always handled as far as the OS is concerned.
+ 	handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_MIDDLE,down);
+  
+  	// Always handled as far as the OS is concerned.
 	return TRUE;
 }
-
+  
 BOOL LLViewerWindow::handleMiddleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
+	BOOL down = FALSE;
 	gVoiceClient->middleMouseState(false);
-
-	// Always handled as far as the OS is concerned.
+ 	handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_MIDDLE,down);
+  
+  	// Always handled as far as the OS is concerned.
 	return TRUE;
 }
 
@@ -1447,6 +1198,7 @@ LLViewerWindow::LLViewerWindow(
 	mWindowRect(0, height, width, 0),
 	mVirtualWindowRect(0, height, width, 0),
 	mLeftMouseDown(FALSE),
+	mMiddleMouseDown(FALSE),
 	mRightMouseDown(FALSE),
 	mToolTip(NULL),
 	mToolTipBlocked(FALSE),
@@ -1887,69 +1639,82 @@ void LLViewerWindow::initWorldUI()
 	S32 width = mRootView->getRect().getWidth();
 	LLRect full_window(0, height, width, 0);
 
-	if ( gBottomPanel == NULL )			// Don't re-enter if objects are alreay created
-	{
-		// panel containing chatbar, toolbar, and overlay, over floaters
-		gBottomPanel = new LLBottomPanel(mRootView->getRect());
-		mRootView->addChild(gBottomPanel);
+	if (gBottomPanel)
+		mRootView->removeChild(gBottomPanel, TRUE); 
+	// panel containing chatbar, toolbar, and overlay, over floaters
+	gBottomPanel = new LLBottomPanel(mRootView->getRect());
+	mRootView->addChild(gBottomPanel);
 
-		// View for hover information
-		gHoverView = new LLHoverView(std::string("gHoverView"), full_window);
-		gHoverView->setVisible(TRUE);
-		mRootView->addChild(gHoverView);
+	if (gHoverView)
+		mRootView->removeChild(gHoverView, TRUE);
+	// View for hover information
+	gHoverView = new LLHoverView(std::string("gHoverView"), full_window);
+	gHoverView->setVisible(TRUE);
+	mRootView->addChild(gHoverView);
 		
-		gIMMgr = LLIMMgr::getInstance();
+	gIMMgr = LLIMMgr::getInstance();
 
-		if ( gSavedPerAccountSettings.getBOOL("LogShowHistory") )
-		{
-			LLFloaterChat::getInstance(LLSD())->loadHistory();
-		}
+	if ( gSavedPerAccountSettings.getBOOL("LogShowHistory") )
+	{
+		LLFloaterChat::getInstance(LLSD())->loadHistory();
+	}
 
-		LLRect morph_view_rect = full_window;
-		morph_view_rect.stretch( -STATUS_BAR_HEIGHT );
-		morph_view_rect.mTop = full_window.mTop - 32;
-		gMorphView = new LLMorphView(std::string("gMorphView"), morph_view_rect );
-		mRootView->addChild(gMorphView);
-		gMorphView->setVisible(FALSE);
+	LLRect morph_view_rect = full_window;
+	morph_view_rect.stretch( -STATUS_BAR_HEIGHT );
+	morph_view_rect.mTop = full_window.mTop - 32;
+	if (gMorphView)
+		mRootView->removeChild(gMorphView, TRUE);
 
-		// *Note: this is where gFloaterMute used to be initialized.
+	gMorphView = new LLMorphView(std::string("gMorphView"), morph_view_rect );
+	mRootView->addChild(gMorphView);
+	gMorphView->setVisible(FALSE);
 
-		LLWorldMapView::initClass();
+	// *Note: this is where gFloaterMute used to be initialized.
 
-		adjust_rect_centered_partial_zoom("FloaterWorldMapRect2", full_window);
+	LLWorldMapView::initClass();
 
+	adjust_rect_centered_partial_zoom("FloaterWorldMapRect2", full_window);
+
+	if (!gFloaterWorldMap)
+	{
 		gFloaterWorldMap = new LLFloaterWorldMap();
 		gFloaterWorldMap->setVisible(FALSE);
+	}
 
-		//
-		// Tools for building
-		//
+	//
+	// Tools for building
+	//
 
-		// Toolbox floater
-		init_menus();
-
+	// Toolbox floater
+	init_menus();
+	if (!gFloaterTools)
+	{
 		gFloaterTools = new LLFloaterTools();
 		gFloaterTools->setVisible(FALSE);
+	}
 
+	if (!gStatusBar)
+	{
 		// Status bar
 		S32 menu_bar_height = gMenuBarView->getRect().getHeight();
-		LLRect root_rect = getRootView()->getRect();
+		LLRect root_rect = mRootView->getRect();
 		LLRect status_rect(0, root_rect.getHeight(), root_rect.getWidth(), root_rect.getHeight() - menu_bar_height);
 		gStatusBar = new LLStatusBar(std::string("status"), status_rect);
 		gStatusBar->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_TOP);
-
+	
 		gStatusBar->reshape(root_rect.getWidth(), gStatusBar->getRect().getHeight(), TRUE);
 		gStatusBar->translate(0, root_rect.getHeight() - gStatusBar->getRect().getHeight());
 		// sync bg color with menu bar
 		gStatusBar->setBackgroundColor( gMenuBarView->getBackgroundColor() );
-
-		LLFloaterChatterBox::createInstance(LLSD());
-
-		getRootView()->addChild(gStatusBar);
-
-		// menu holder appears on top to get first pass at all mouse events
-		getRootView()->sendChildToFront(gMenuHolder);
+		mRootView->addChild(gStatusBar);
 	}
+
+	LLFloaterChatterBox::createInstance(LLSD());
+
+
+	// menu holder appears on top to get first pass at all mouse events
+
+	mRootView->sendChildToFront(gMenuHolder);
 }
 
 // Destroy the UI
@@ -3311,6 +3076,16 @@ void LLViewerWindow::renderSelections( BOOL for_gl_pick, BOOL pick_parcel_walls,
 						{
 							moveable_object_selected = TRUE;
 							this_object_movable = TRUE;
+
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0g
+							if ( (rlv_handler_t::isEnabled()) && 
+								 ((gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_SITTP))) )
+							{
+								LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+								if ( (pAvatar) && (pAvatar->mIsSitting) && (pAvatar->getRoot() == object->getRootEdit()) )
+									moveable_object_selected = this_object_movable = FALSE;
+							}
+// [/RLVa:KB]
 						}
 						all_selected_objects_move = all_selected_objects_move && this_object_movable;
 						all_selected_objects_modify = all_selected_objects_modify && object->permModify();
@@ -5151,7 +4926,6 @@ void LLBottomPanel::draw()
 
 void* LLBottomPanel::createHUD(void* data)
 {
-	delete gHUDView;
 	gHUDView = new LLHUDView();
 	return gHUDView;
 }
@@ -5159,14 +4933,12 @@ void* LLBottomPanel::createHUD(void* data)
 
 void* LLBottomPanel::createOverlayBar(void* data)
 {
-	delete gOverlayBar;
 	gOverlayBar = new LLOverlayBar();
 	return gOverlayBar;
 }
 
 void* LLBottomPanel::createToolBar(void* data)
 {
-	delete gToolBar;
 	gToolBar = new LLToolBar();
 	return gToolBar;
 }

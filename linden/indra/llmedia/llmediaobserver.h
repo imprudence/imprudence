@@ -103,6 +103,7 @@ class LLMediaObserver
 		virtual void onMediaSizeChange( const EventType& event_in ) { }
 		virtual void onMediaContentsChange( const EventType& event_in ) { }
 		virtual void onMediaStatusTextChange( const EventType& event_in ) { }
+		virtual void onMediaTitleChange( const EventType &event_in ) { }
 		virtual void onNavigateBegin( const EventType& event_in ) { }
 		virtual void onNavigateComplete( const EventType& event_in ) { }
 		virtual void onUpdateProgress( const EventType& event_in ) { }

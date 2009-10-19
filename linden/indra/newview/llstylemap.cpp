@@ -97,7 +97,7 @@ const LLStyleSP &LLStyleMap::lookup(const LLUUID& id, const std::string& link)
 			style->setColor(LLColor4::white);
 		(*this)[id] = style;
 	}
-	else 
+	else
 	{
 		LLStyleSP style = (*iter).second;
 		if ( style->getLinkHREF() != link )

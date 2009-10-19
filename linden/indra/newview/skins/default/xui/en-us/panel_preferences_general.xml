@@ -62,9 +62,13 @@
 		UI Size:
 	</text>
 	<slider bottom="-217" can_edit_text="true"
-	     decimal_digits="3" enabled="true" height="16" increment="0.025"
+	     decimal_digits="3" enabled="true" height="16" increment="0.001"
 	     initial_val="1" left="148" max_val="1.4" min_val="0.75" mouse_opaque="true"
-	     name="ui_scale_slider" show_text="true" value="1" width="256" />
+	     name="ui_scale_slider" show_text="true" value="1" width="220" />
+  <button bottom="-221" enabled="true" follows="left|top"
+	     font="SansSerif" halign="center" height="22" label="Reset"
+	     label_selected="Reset" left_delta="226" mouse_opaque="true"
+	     name="reset_ui_size" scale_image="true" width="80" />
 	<check_box bottom="-236" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Use resolution independent scale" left="151" mouse_opaque="true"
@@ -73,7 +77,23 @@
 	     follows="left|top" height="16" increment="1" initial_val="300"
 	     label="Away Timeout:" label_width="141" left="10" max_val="600"
 	     min_val="30" mouse_opaque="true" name="afk_timeout_spinner" width="202" />
-	<check_box bottom="-286" enabled="true"
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+     mouse_opaque="true" name="UI Size:" v_pad="0" width="128">
+    Mini-map notify:
+  </text>
+  <check_box bottom_delta="0" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Entering chat range" left="151"
+	     mouse_opaque="true" name="mini_map_notify_chat" radio_style="false"
+	     width="256" />
+  <check_box bottom_delta="0" enabled="true"
+     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+     label="Entering sim" left="330"
+     mouse_opaque="true" name="mini_map_notify_sim" radio_style="false"
+     width="256" />
+	<check_box bottom="-304" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Notify when Linden dollars (L$) spent or received" left="151"
 	     mouse_opaque="true" name="notify_money_change_checkbox" radio_style="false"

@@ -3273,3 +3273,22 @@ bool LLDispatchSetEstateAccess::operator()(
 
 	return true;
 }
+
+// [RLVa:KB] - Checked: 2009-07-04 (RLVa-1.0.0a)
+void LLFloaterRegionInfo::open()
+{
+	// We'll allow access to the estate tools for estate managers (and for the sim owner)
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
+	{
+		LLViewerRegion* pRegion = gAgent.getRegion();
+		if (!pRegion)
+			return;
+
+		// Should be able to call LLRegion::canManageEstate() but then we can fake god like
+		if ( (!pRegion->isEstateManager()) && (pRegion->getOwner() != gAgent.getID()) )
+			return;
+	}
+
+	LLFloater::open();
+}
+// [/RLVa:KB]

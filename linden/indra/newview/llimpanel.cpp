@@ -74,6 +74,7 @@
 #include "llhttpclient.h"
 #include "llmutelist.h"
 #include "llstylemap.h"
+#include <sys/stat.h>
 
 //
 // Constants
@@ -1279,6 +1280,10 @@ BOOL LLFloaterIMPanel::postBuild()
 	requires<LLLineEditor>("chat_editor");
 	requires<LLTextEditor>("im_history");
 
+#if LL_LINUX || LL_DARWIN
+	childSetVisible("history_btn", false);
+#endif
+
 	if (checkRequirements())
 	{
 		mInputEditor = getChild<LLLineEditor>("chat_editor");
@@ -1293,6 +1298,7 @@ BOOL LLFloaterIMPanel::postBuild()
 
 		childSetAction("profile_callee_btn", onClickProfile, this);
 		childSetAction("group_info_btn", onClickGroupInfo, this);
+		childSetAction("history_btn", onClickHistory, this);
 
 		childSetAction("start_call_btn", onClickStartCall, this);
 		childSetAction("end_call_btn", onClickEndCall, this);
@@ -1806,6 +1812,41 @@ void LLFloaterIMPanel::onClickProfile( void* userdata )
 }
 
 // static
+void LLFloaterIMPanel::onClickHistory( void* userdata )
+{
+	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
+	
+	if (self->mOtherParticipantUUID.notNull())
+	{
+		struct stat fileInfo;
+		int result;
+		
+		std::string fullname = self->getTitle();;
+		//gCacheName->getFullName(self->mOtherParticipantUUID, fullname);
+		//if(fullname == "(Loading...)")
+		std::string file_path = gDirUtilp->getPerAccountChatLogsDir() + "\\" + fullname + ".txt";
+
+		// check if file exists by trying to get its attributes
+		result = stat(file_path.c_str(), &fileInfo);
+		if(result == 0)
+		{
+			char command[256];
+			sprintf(command, "\"%s\\%s.txt\"", gDirUtilp->getPerAccountChatLogsDir().c_str(),fullname.c_str());
+			gViewerWindow->getWindow()->ShellEx(command);
+
+			llinfos << command << llendl;
+		}
+		else
+		{
+			LLStringUtil::format_map_t args;
+			args["[NAME]"] = fullname;
+			gViewerWindow->alertXml("IMLogNotFound", args);
+			llinfos << file_path << llendl;
+		}
+	}
+}
+
+// static
 void LLFloaterIMPanel::onClickGroupInfo( void* userdata )
 {
 	//  Bring up the Profile window
@@ -2015,6 +2056,42 @@ void LLFloaterIMPanel::sendMsg()
 			std::string utf8_text = wstring_to_utf8str(text);
 			utf8_text = utf8str_truncate(utf8_text, MAX_MSG_BUF_SIZE - 1);
 			
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-1.0.0g
+			if (gRlvHandler.hasBehaviour(RLV_BHVR_SENDIM))
+			{
+				if (IM_NOTHING_SPECIAL == mDialog)			// One-on-one IM: allow if recipient is a sendim exception
+				{
+					if (!gRlvHandler.isException(RLV_BHVR_SENDIM, mOtherParticipantUUID))
+						utf8_text = rlv_handler_t::cstrBlockedSendIM;
+				}
+				else if (gAgent.isInGroup(mSessionUUID))	// Group chat: allow if recipient is a sendim exception
+				{
+					if (!gRlvHandler.isException(RLV_BHVR_SENDIM, mSessionUUID))
+						utf8_text = rlv_handler_t::cstrBlockedSendIM;
+				}
+				else if (mSpeakers)							// Conference chat: allow if all participants are sendim exceptions
+				{
+					LLSpeakerMgr::speaker_list_t speakers;
+					mSpeakers->getSpeakerList(&speakers, TRUE);
+
+					for (LLSpeakerMgr::speaker_list_t::const_iterator itSpeaker = speakers.begin(); 
+							itSpeaker != speakers.end(); ++itSpeaker)
+					{
+						LLSpeaker* pSpeaker = *itSpeaker;
+						if ( (gAgent.getID() != pSpeaker->mID) && (!gRlvHandler.isException(RLV_BHVR_SENDIM, pSpeaker->mID)) )
+						{
+							utf8_text = rlv_handler_t::cstrBlockedSendIM;
+							break;
+						}
+					}
+				}
+				else										// Catch all fall-through
+				{
+					utf8_text = rlv_handler_t::cstrBlockedSendIM;
+				}
+			}
+// [/RLVa:KB]
+
 			if ( mSessionInitialized )
 			{
 				deliver_message(utf8_text,

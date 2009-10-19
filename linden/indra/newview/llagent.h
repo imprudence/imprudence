@@ -69,6 +69,10 @@
 #include "llfollowcam.h"
 // end Ventrella
 
+// [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d)
+#include "rlvhandler.h"
+// [/RLVa:KB]
+
 const U8 AGENT_STATE_TYPING =	0x04;			//  Typing indication
 const U8 AGENT_STATE_EDITING =  0x10;			//  Set when agent has objects selected
 
@@ -395,6 +399,11 @@ public:
 
 	// Does this parcel allow you to fly?
 	BOOL canFly();
+
+	//lgg crap
+	static BOOL			getPhantom();// const				{ return emeraldPhantom; }
+	static void			setPhantom(BOOL phantom);
+	static void			togglePhantom();
 
 	// Animation functions
 	void                    stopCurrentAnimations();
@@ -824,6 +833,8 @@ private:
 	LLVector3d      mCameraSmoothingLastPositionGlobal;    
 	LLVector3d      mCameraSmoothingLastPositionAgent;
 	BOOL            mCameraSmoothingStop;
+	
+	static BOOL		sPhantom;
 
 	LLVector3		mCameraUpVector;				// camera's up direction in world coordinates (determines the 'roll' of the view)
 

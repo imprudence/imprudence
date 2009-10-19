@@ -13,4 +13,7 @@
 	<button label="抜ける" name="Leave" />
 	<button label="作成..." name="Create" />
 	<button label="検索..." name="Search..." />
+  <string name="none">
+		グループなし
+  </string>
 </panel>

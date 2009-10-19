@@ -53,6 +53,8 @@ class LLNetMap : public LLPanel
 {
 public:
 	LLNetMap(const std::string& name);
+
+	virtual	BOOL postBuild();
 	virtual ~LLNetMap();
 
 	virtual void	draw();
@@ -94,7 +96,8 @@ private:
 	F32				mScale;					// Size of a region in pixels
 	F32				mPixelsPerMeter;		// world meters to map pixels
 	F32				mObjectMapTPM;			// texels per meter on map
-	F32				mObjectMapPixels;		// Width of object map in pixels;
+	F32				mObjectMapPixels;		// Width of object map in pixels
+	F32				mDotRadius;				// Size of avatar markers
 	F32				mTargetPanX;
 	F32				mTargetPanY;
 	F32				mCurPanX;
@@ -112,8 +115,8 @@ private:
 	LLPointer<LLImageGL>	mObjectImagep;
 
 private:
-	LLUUID			mClosestAgentToCursor;
-	LLUUID			mClosestAgentAtLastRightClick;
+	LLUUID				mClosestAgentToCursor;
+	LLUUID				mClosestAgentAtLastRightClick;
 
 	static BOOL		sRotateMap;
 	static LLNetMap*	sInstance;
@@ -136,6 +139,18 @@ private:
 	};
 
 	class LLCheckCenterMap : public LLMemberListener<LLNetMap>
+	{
+	public:
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+	};
+
+	class LLRotateMap : public LLMemberListener<LLNetMap>
+	{
+	public:
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+	};
+
+	class LLCheckRotateMap : public LLMemberListener<LLNetMap>
 	{
 	public:
 		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);

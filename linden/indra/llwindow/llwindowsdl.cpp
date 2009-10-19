@@ -1230,7 +1230,6 @@ void LLWindowSDL::flashIcon(F32 seconds)
 #endif // LL_X11
 }
 
-
 #if LL_GTK
 BOOL LLWindowSDL::isClipboardTextAvailable()
 {
@@ -1274,19 +1273,77 @@ BOOL LLWindowSDL::copyTextToClipboard(const LLWString &text)
 	return FALSE; // failure
 }
 
-#else
+BOOL LLWindowSDL::isPrimaryTextAvailable()
+{
+	if (ll_try_gtk_init())
+	{
+		GtkClipboard * const clipboard =
+			gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+		return gtk_clipboard_wait_is_text_available(clipboard) ?
+			TRUE : FALSE;
+	}
+	return FALSE; // failure
+}
 
+BOOL LLWindowSDL::pasteTextFromPrimary(LLWString &text)
+{
+	if (ll_try_gtk_init())
+	{
+		GtkClipboard * const clipboard =
+			gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+		gchar * const data = gtk_clipboard_wait_for_text(clipboard);
+		if (data)
+		{
+			text = LLWString(utf8str_to_wstring(data));
+			g_free(data);
+			return TRUE;
+		}
+	}
+	return FALSE; // failure
+}
+
+BOOL LLWindowSDL::copyTextToPrimary(const LLWString &text)
+{
+	if (ll_try_gtk_init())
+	{
+		const std::string utf8 = wstring_to_utf8str(text);
+		GtkClipboard * const clipboard =
+			gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+		gtk_clipboard_set_text(clipboard, utf8.c_str(), utf8.length());
+		return TRUE;
+	}
+	return FALSE; // failure
+}
+
+#else
+ 
 BOOL LLWindowSDL::isClipboardTextAvailable()
 {
 	return FALSE; // unsupported
 }
-
+ 
 BOOL LLWindowSDL::pasteTextFromClipboard(LLWString &dst)
 {
 	return FALSE; // unsupported
 }
+ 
 
 BOOL LLWindowSDL::copyTextToClipboard(const LLWString &s)
+{
+	return FALSE;  // unsupported
+}
+
+BOOL LLWindowSDL::isPrimaryTextAvailable()
+{
+	return FALSE; // unsupported
+}
+
+BOOL LLWindowSDL::pasteTextFromPrimary(LLWString &dst)
+{
+	return FALSE; // unsupported
+}
+
+BOOL LLWindowSDL::copyTextToPrimary(const LLWString &s)
 {
 	return FALSE;  // unsupported
 }
@@ -2092,8 +2149,7 @@ S32 OSMessageBoxSDL(const std::string& text, const std::string& caption, U32 typ
 			buttons = GTK_BUTTONS_YES_NO;
 			break;
 		}
-		win = gtk_message_dialog_new(NULL, flags, messagetype, buttons, "%s",
-									 text.c_str());
+		win = gtk_message_dialog_new(NULL,flags, messagetype, buttons, "%s", text.c_str());
 
 # if LL_X11
 		// Make GTK tell the window manager to associate this

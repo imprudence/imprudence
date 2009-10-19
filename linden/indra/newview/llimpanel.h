@@ -231,6 +231,7 @@ public:
 	static void		onTabClick( void* userdata );
 
 	static void		onClickProfile( void* userdata );
+	static void		onClickHistory( void* userdata );
 	static void		onClickGroupInfo( void* userdata );
 	static void		onClickOfferTeleport( void* userdata );
 	static void		onClickClose( void* userdata );

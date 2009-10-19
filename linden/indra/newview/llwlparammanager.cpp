@@ -63,6 +63,7 @@
 #include "curl/curl.h"
 
 LLWLParamManager * LLWLParamManager::sInstance = NULL;
+std::vector<LLWLPresetsObserver*> LLWLParamManager::sObservers;
 
 LLWLParamManager::LLWLParamManager() :
 
@@ -239,6 +240,8 @@ void LLWLParamManager::loadPreset(const std::string & name,bool propagate)
 		getParamSet(name, mCurParams);
 		propagateParameters();
 	}
+
+	notifyObservers();
 }	
 
 void LLWLParamManager::savePreset(const std::string & name)
@@ -265,6 +268,7 @@ void LLWLParamManager::savePreset(const std::string & name)
 	presetsXML.close();
 
 	propagateParameters();
+	notifyObservers();
 }
 
 void LLWLParamManager::updateShaderUniforms(LLGLSLShader * shader)
@@ -539,6 +543,8 @@ bool LLWLParamManager::removeParamSet(const std::string& name, bool delete_from_
 		gDirUtilp->deleteFilesInDir(path_name, escaped_name + ".xml");
 	}
 
+	notifyObservers();
+
 	return true;
 }
 
@@ -566,4 +572,38 @@ LLWLParamManager * LLWLParamManager::instance()
 	}
 
 	return sInstance;
+}
+
+// static
+void LLWLParamManager::addObserver(LLWLPresetsObserver* observer)
+{
+	sObservers.push_back(observer);
+}
+
+// static
+void LLWLParamManager::removeObserver(LLWLPresetsObserver* observer)
+{
+	std::vector<LLWLPresetsObserver*>::iterator it;
+	it = std::find(sObservers.begin(), sObservers.end(), observer);
+	if (it != sObservers.end())
+	{
+		sObservers.erase(it);
+	}
+}
+
+// Call this method when it's time to update everyone on a new state.
+// Copy the list because an observer could respond by removing itself
+// from the list. Static
+void LLWLParamManager::notifyObservers()
+{
+	lldebugs << "LLWLPresetsObserver::notifyObservers" << llendl;
+
+	std::vector<LLWLPresetsObserver*> observers = sObservers;
+
+	std::vector<LLWLPresetsObserver*>::iterator it;
+	for (it = observers.begin(); it != observers.end(); ++it)
+	{
+		LLWLPresetsObserver* observer = *it;
+		observer->changed();
+	}
 }

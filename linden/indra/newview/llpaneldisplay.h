@@ -171,6 +171,8 @@ protected:
 	S32 mParticleCount;
 	S32 mPostProcess;
 
+	BOOL mWLControl;
+
 	static void setGraphicsSettings(LLControlGroup& group);
 	static void createGroup();
 

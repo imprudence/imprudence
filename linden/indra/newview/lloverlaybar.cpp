@@ -42,6 +42,7 @@
 #include "llagent.h"
 #include "llbutton.h"
 #include "llchatbar.h"
+#include "llfloaterchat.h"
 #include "llfocusmgr.h"
 #include "llimview.h"
 #include "llmediaremotectrl.h"
@@ -63,6 +64,7 @@
 #include "llvoavatar.h"
 #include "llvoiceremotectrl.h"
 #include "llwebbrowserctrl.h"
+#include "llwindlightremotectrl.h"
 #include "llselectmgr.h"
 
 //
@@ -72,6 +74,53 @@
 LLOverlayBar *gOverlayBar = NULL;
 
 extern S32 MENU_BAR_HEIGHT;
+
+
+class LLTitleObserver
+	:	public LLMediaObserver
+{
+public:
+	void init(std::string url);
+	/*virtual*/ void onMediaTitleChange(const EventType& event_in);
+private:
+	LLMediaBase* mMediaSource;
+};
+
+static LLTitleObserver sTitleObserver;
+
+static LLRegisterWidget<LLMediaRemoteCtrl> r("media_remote");
+
+void LLTitleObserver::init(std::string url)
+{
+
+	if (!gAudiop)
+	{
+		return;
+	}
+
+	mMediaSource = gAudiop->getStreamMedia(); // LLViewerMedia::getSource();
+
+	if ( mMediaSource )
+	{
+		mMediaSource->addObserver(this);
+	}
+}
+
+//virtual
+void LLTitleObserver::onMediaTitleChange(const EventType& event_in)
+{
+	if ( !gSavedSettings.getBOOL("ShowStreamTitle") )
+	{
+		return;
+	}
+
+	LLChat chat;
+	//TODO: set this in XUI
+	std::string playing_msg = "Playing: " + event_in.getStringValue();
+	chat.mText = playing_msg;
+	LLFloaterChat::addChat(chat, FALSE, FALSE);
+}
+
 
 //
 // Functions
@@ -93,6 +142,13 @@ void* LLOverlayBar::createVoiceRemote(void* userdata)
 	return self->mVoiceRemote;
 }
 
+void* LLOverlayBar::createWindlightRemote(void* userdata)
+{
+	LLOverlayBar *self = (LLOverlayBar*)userdata;	
+	self->mWindlightRemote = new LLWindlightRemoteCtrl();
+	return self->mWindlightRemote;
+}
+
 void* LLOverlayBar::createChatBar(void* userdata)
 {
 	gChatBar = new LLChatBar();
@@ -103,6 +159,7 @@ LLOverlayBar::LLOverlayBar()
 	:	LLPanel(),
 		mMediaRemote(NULL),
 		mVoiceRemote(NULL),
+		mWindlightRemote(NULL),
 		mMusicState(STOPPED),
 		mOriginalIMLabel("")
 {
@@ -114,6 +171,7 @@ LLOverlayBar::LLOverlayBar()
 	LLCallbackMap::map_t factory_map;
 	factory_map["media_remote"] = LLCallbackMap(LLOverlayBar::createMediaRemote, this);
 	factory_map["voice_remote"] = LLCallbackMap(LLOverlayBar::createVoiceRemote, this);
+	factory_map["windlight_remote"] = LLCallbackMap(LLOverlayBar::createWindlightRemote, this);
 	factory_map["chat_bar"] = LLCallbackMap(LLOverlayBar::createChatBar, this);
 	
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_overlaybar.xml", &factory_map);
@@ -258,7 +316,10 @@ void LLOverlayBar::refresh()
 	BOOL sitting = FALSE;
 	if (gAgent.getAvatarObject())
 	{
-		sitting = gAgent.getAvatarObject()->mIsSitting;
+//		sitting = gAgent.getAvatarObject()->mIsSitting;
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+		sitting = gAgent.getAvatarObject()->mIsSitting && !gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT);
+// [/RLVa:KB]
 	}
 	button = getChild<LLButton>("Stand Up");
 
@@ -271,6 +332,7 @@ void LLOverlayBar::refresh()
 	}
 
 
+	moveChildToBackOfTabGroup(mWindlightRemote);
 	moveChildToBackOfTabGroup(mMediaRemote);
 	moveChildToBackOfTabGroup(mVoiceRemote);
 
@@ -279,6 +341,7 @@ void LLOverlayBar::refresh()
 	{
 		childSetVisible("media_remote_container", FALSE);
 		childSetVisible("voice_remote_container", FALSE);
+		childSetVisible("windlight_remote_container", FALSE);
 		childSetVisible("state_buttons", FALSE);
 	}
 	else
@@ -286,6 +349,7 @@ void LLOverlayBar::refresh()
 		// update "remotes"
 		childSetVisible("media_remote_container", TRUE);
 		childSetVisible("voice_remote_container", LLVoiceClient::voiceEnabled());
+		childSetVisible("windlight_remote_container", gSavedSettings.getBOOL("EnableWindlightRemote"));
 		childSetVisible("state_buttons", TRUE);
 	}
 
@@ -338,6 +402,13 @@ void LLOverlayBar::onClickMouselook(void*)
 //static
 void LLOverlayBar::onClickStandUp(void*)
 {
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+	if ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (gAgent.getAvatarObject()) && (gAgent.getAvatarObject()->mIsSitting) )
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	LLSelectMgr::getInstance()->deselectAllForStandingUp();
 	gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
 }
@@ -408,6 +479,7 @@ void LLOverlayBar::toggleMusicPlay(void*)
 	// 			if ( gAudiop->isInternetStreamPlaying() == 0 )
 				{
 					gAudiop->startInternetStream(parcel->getMusicURL());
+					sTitleObserver.init(parcel->getMusicURL());
 				}
 			}
 		}

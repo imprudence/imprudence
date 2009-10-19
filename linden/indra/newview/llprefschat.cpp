@@ -33,6 +33,8 @@
 
 #include "llviewerprecompiledheaders.h"
 
+#include "llchatbar.h"
+#include "llfloaterchat.h"
 #include "llprefschat.h"
 #include "lltexteditor.h"
 #include "llviewercontrol.h"
@@ -71,10 +73,10 @@ private:
 	BOOL mPlayTypingAnim;
 	BOOL mChatBubbles;
 	BOOL mScriptErrorAsChat;
+	BOOL mChatChannel;
 	F32	mConsoleOpacity;
 	F32	mBubbleOpacity;
 };
-
 
 LLPrefsChatImpl::LLPrefsChatImpl()
 	:	LLPanel(std::string("Chat Panel"))
@@ -105,6 +107,7 @@ LLPrefsChatImpl::LLPrefsChatImpl()
 	childSetValue("chat_full_width_check", gSavedSettings.getBOOL("ChatFullWidth"));
 	childSetValue("close_chat_on_return_check", gSavedSettings.getBOOL("CloseChatOnReturn"));
 	childSetValue("play_typing_animation", gSavedSettings.getBOOL("PlayTypingAnim"));
+	childSetValue("toggle_channel_control", gSavedSettings.getBOOL("ChatChannelSelect"));
 	childSetValue("console_opacity", gSavedSettings.getF32("ConsoleBackgroundOpacity"));
 	childSetValue("bubble_chat_opacity", gSavedSettings.getF32("ChatBubbleOpacity"));
 }
@@ -131,6 +134,7 @@ void LLPrefsChatImpl::refreshValues()
 	mChatFullWidth = gSavedSettings.getBOOL("ChatFullWidth");
 	mCloseChatOnReturn = gSavedSettings.getBOOL("CloseChatOnReturn");
 	mPlayTypingAnim = gSavedSettings.getBOOL("PlayTypingAnim"); 
+	mChatChannel = gSavedSettings.getBOOL("ChatChannelSelect");
 	mConsoleOpacity = gSavedSettings.getF32("ConsoleBackgroundOpacity");
 	mBubbleOpacity = gSavedSettings.getF32("ChatBubbleOpacity");
 }
@@ -156,6 +160,7 @@ void LLPrefsChatImpl::cancel()
 	gSavedSettings.setBOOL("ChatFullWidth", mChatFullWidth);
 	gSavedSettings.setBOOL("CloseChatOnReturn", mCloseChatOnReturn);
 	gSavedSettings.setBOOL("PlayTypingAnim", mPlayTypingAnim); 
+	gSavedSettings.setBOOL("ChatChannelSelect", mChatChannel); 
 	gSavedSettings.setF32("ConsoleBackgroundOpacity", mConsoleOpacity);
 	gSavedSettings.setF32("ChatBubbleOpacity", mBubbleOpacity);	
 }
@@ -188,6 +193,18 @@ void LLPrefsChatImpl::apply()
 
 	gSavedSettings.setF32("ConsoleBackgroundOpacity", childGetValue("console_opacity").asReal());
 	gSavedSettings.setF32("ChatBubbleOpacity", childGetValue("bubble_chat_opacity").asReal());
+
+	BOOL chan_check = childGetValue("toggle_channel_control");
+	gSavedSettings.setBOOL("ChatChannelSelect", chan_check);
+	if (mChatChannel != chan_check)
+	{
+		if (gChatBar)
+		{
+			gChatBar->toggleChannelControl();
+			//LLFloaterChat::toggleHistoryChannelControl(); temporarily disable until working
+		}
+		mChatChannel = chan_check;
+	}
 
 	refreshValues(); // member values become the official values and cancel becomes a no-op.
 }

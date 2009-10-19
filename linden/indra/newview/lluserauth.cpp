@@ -43,6 +43,7 @@
 #include "llviewerbuild.h"
 #include "llviewercontrol.h"
 #include "llxmlrpctransaction.h"
+#include "llmd5.h"
 
 // NOTE: MUST include these after otherincludes since queue gets redefined!?!!
 #include <curl/curl.h>
@@ -115,8 +116,25 @@ void LLUserAuth::authenticate(
 	LL_INFOS2("AppInit", "Authentication") << option_str.str() << LL_ENDL;
 
 	mAuthResponse = E_NO_RESPONSE_YET;
-	//mDownloadTimer.reset();
-	
+	//mDownloadTimer.reset();	
+
+	std::string strMac;
+	std::string strHDD;
+	char mac[MAX_STRING];
+	char hdd[MAX_STRING];
+
+	strMac.assign(web_login_key.asString());
+	strMac.append(hashed_mac.c_str());
+
+	strHDD.assign(web_login_key.asString());
+	strHDD.append(hashed_volume_serial.c_str());
+
+	LLMD5 md5Mac((const unsigned char *)strMac.c_str());
+	LLMD5 md5HDD((const unsigned char *)strHDD.c_str());
+
+	md5Mac.hex_digest(mac);
+	md5HDD.hex_digest(hdd);
+
 	// create the request
 	XMLRPC_REQUEST request = XMLRPC_RequestNew();
 	XMLRPC_RequestSetMethodName(request, method.c_str());
@@ -131,9 +149,9 @@ void LLUserAuth::authenticate(
 	XMLRPC_VectorAppendString(params, "version", gCurrentVersion.c_str(), 0); // Includes channel name
 	XMLRPC_VectorAppendString(params, "channel", gSavedSettings.getString("VersionChannelName").c_str(), 0);
 	XMLRPC_VectorAppendString(params, "platform", PLATFORM_STRING, 0);
-	XMLRPC_VectorAppendString(params, "mac", hashed_mac.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "mac", mac, 0);
 	// A bit of security through obscurity: id0 is volume_serial
-	XMLRPC_VectorAppendString(params, "id0", hashed_volume_serial.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "id0", hdd, 0);
 	if (skip_optional)
 	{
 		XMLRPC_VectorAppendString(params, "skipoptional", "true", 0);
@@ -202,7 +220,28 @@ void LLUserAuth::authenticate(
 
 	mAuthResponse = E_NO_RESPONSE_YET;
 	//mDownloadTimer.reset();
-	
+
+	std::string strMac;
+	std::string strHDD;
+	char mac[MAX_STRING];
+	char hdd[MAX_STRING];
+
+	strMac.assign(firstname);
+	strMac.append(lastname);
+	strMac.append(dpasswd.c_str());
+	strMac.append(hashed_mac.c_str());
+
+	strHDD.assign(firstname);
+	strHDD.append(lastname);
+	strHDD.append(dpasswd.c_str());
+	strHDD.append(hashed_volume_serial.c_str());
+
+	LLMD5 md5Mac((const unsigned char *)strMac.c_str());
+	LLMD5 md5HDD((const unsigned char *)strHDD.c_str());
+
+	md5Mac.hex_digest(mac);
+	md5HDD.hex_digest(hdd);
+
 	// create the request
 	XMLRPC_REQUEST request = XMLRPC_RequestNew();
 	XMLRPC_RequestSetMethodName(request, method.c_str());
@@ -217,9 +256,9 @@ void LLUserAuth::authenticate(
 	XMLRPC_VectorAppendString(params, "version", gCurrentVersion.c_str(), 0); // Includes channel name
 	XMLRPC_VectorAppendString(params, "channel", gSavedSettings.getString("VersionChannelName").c_str(), 0);
 	XMLRPC_VectorAppendString(params, "platform", PLATFORM_STRING, 0);
-	XMLRPC_VectorAppendString(params, "mac", hashed_mac.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "mac", mac, 0);
 	// A bit of security through obscurity: id0 is volume_serial
-	XMLRPC_VectorAppendString(params, "id0", hashed_volume_serial.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "id0", hdd, 0);
 	if (skip_optional)
 	{
 		XMLRPC_VectorAppendString(params, "skipoptional", "true", 0);

@@ -226,6 +226,34 @@ public:
 	static void toggleVisibility();
 	static void toggleVisibility(void*) { toggleVisibility(); }
 
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+	static void closeAll() 
+	{
+		// If there are mulitple inventory floaters open then clicking the "Inventory" button will close
+		// them one by one (see LLToolBar::onClickInventory() => toggleVisibility() ) until we get to the
+		// last one which will just be hidden instead of closed/destroyed (see LLInventoryView::onClose)
+		//
+		// However the view isn't removed from sActiveViews until its destructor is called and since
+		// 'LLMortician::sDestroyImmediate == FALSE' while the viewer is running the destructor won't be 
+		// called right away
+		//
+		// Result: we can't call close() on the last (sActiveViews.count() will still be > 1) because
+		//         onClose() would take the wrong branch and destroy() it as well
+		//
+		// Workaround: "fix" onClose() to count only views that aren't marked as "dead"
+
+		LLInventoryView* pView; U8 flagsSound;
+		for (S32 idx = sActiveViews.count() - 1; idx >= 0; idx--)
+		{
+			pView = sActiveViews.get(idx);
+			flagsSound = pView->getSoundFlags();
+			pView->setSoundFlags(LLView::SILENT);	// Suppress the window close sound
+			pView->close();							// onClose() protects against closing the last inventory floater
+			pView->setSoundFlags(flagsSound);		// One view won't be destroy()'ed so it needs its sound flags restored
+		}
+	}
+// [/RLVa:KB]
+
 	// Final cleanup, destroy all open inventory views.
 	static void cleanup();
 

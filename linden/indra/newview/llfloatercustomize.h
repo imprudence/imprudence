@@ -107,6 +107,10 @@ public:
 
 	// Callbacks
 	static void		onBtnOk( void* userdata );
+	// reX: new function (thx dudes)
+	static void		onBtnImport( void* userdata );
+	// reX: new function	
+	static void		onBtnExport( void* userdata );
 	static void		onBtnMakeOutfit( void* userdata );
 	static void		onMakeOutfitCommit( LLMakeOutfitDialog* dialog, void* userdata );
 

@@ -39,6 +39,7 @@
 #include <wctype.h>
 #include <wchar.h>
 #endif
+#include "linden_common.h"
 
 #include <string.h>
 

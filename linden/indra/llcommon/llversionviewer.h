@@ -44,8 +44,8 @@ const char * const LL_VIEWER_NAME = "Second Life";
 const char * const IMP_VIEWER_NAME = "Imprudence";
 
 const S32 IMP_VERSION_MAJOR = 1;
-const S32 IMP_VERSION_MINOR = 1;
+const S32 IMP_VERSION_MINOR = 2;
 const S32 IMP_VERSION_PATCH = 0;
-const char * const IMP_VERSION_TEST = "";
+const char * const IMP_VERSION_TEST = "beta 2";
 
 #endif

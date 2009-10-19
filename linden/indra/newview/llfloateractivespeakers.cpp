@@ -100,6 +100,11 @@ void LLSpeaker::onAvatarNameLookup(const LLUUID& id, const std::string& first, c
 	if (speaker_ptr)
 	{
 		speaker_ptr->mDisplayName = first + " " + last;
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-1.0.0g
+		// TODO-RLVa: this seems to get called per frame which is very likely an LL bug that will eventuall get fixed
+		if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+			speaker_ptr->mDisplayName = gRlvHandler.getAnonym(speaker_ptr->mDisplayName);
+// [/RLVa:KB]
 	}
 }
 
@@ -712,6 +717,13 @@ void LLPanelActiveSpeakers::onVolumeChange(LLUICtrl* source, void* user_data)
 //static 
 void LLPanelActiveSpeakers::onClickProfile(void* user_data)
 {
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-1.0.0g
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	LLPanelActiveSpeakers* panelp = (LLPanelActiveSpeakers*)user_data;
 	LLUUID speaker_id = panelp->mSpeakerList->getValue().asUUID();
 
@@ -721,6 +733,13 @@ void LLPanelActiveSpeakers::onClickProfile(void* user_data)
 //static
 void LLPanelActiveSpeakers::onDoubleClickSpeaker(void* user_data)
 {
+// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-1.0.0g
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	LLPanelActiveSpeakers* panelp = (LLPanelActiveSpeakers*)user_data;
 	LLUUID speaker_id = panelp->mSpeakerList->getValue().asUUID();
 
