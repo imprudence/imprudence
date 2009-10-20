@@ -1,5 +1,11 @@
 2009-10-19 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Partial fix for avatar names not displaying at > 1024m
+	  (won't be fixed until LL actually sends height in more than one byte -_-)
+	  
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  
+
 	* Clamp map teleporting at 4096 rather than 1000.
 	
 	  modified:   linden/indra/newview/llfloaterworldmap.cpp

@@ -279,12 +279,25 @@ void LLFloaterMap::populateRadar()
 	// [/RLVa:KB]
 
 				// check if they're in certain ranges and notify user if we've enabled that
-				LLVector3d temp = positions[i] - current_pos;
-				F32 distance = llround((F32)temp.magVec(), 0.1f);
-				/*char dist[32];
-				sprintf(dist, "%.1f", distance);
-				std::string dist_string = dist;*/
-				std::string dist_string = llformat("%.1f", distance);
+				LLVector3d temp = positions[i];
+				if (positions[i].mdV[VZ] == 0.0f) // LL only sends height value up to 1024m, try to work around it
+				{
+					LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
+					if (av_obj != NULL && av_obj->isAvatar())
+					{
+						LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
+						if (avatarp != NULL)
+						{
+							temp = avatarp->getPositionGlobal();
+						}
+					}
+				}
+				F64 distance = dist_vec(temp, current_pos); 
+				// we round for accuracy when avs tp in
+				std::string dist_string = llformat("%.1f", llround((F32)distance, 0.1f));
+
+				/*llinfos << "Avatar :" << fullname << " Position: " << positions[i] << " Your Position: " 
+					<< current_pos << " Distance: " << distance << llendl;*/
 
 				if (notify_chat)
 				{
