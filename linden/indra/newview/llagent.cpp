@@ -4698,7 +4698,7 @@ void LLAgent::heardChat(const LLUUID& id)
 void LLAgent::lookAtLastChat()
 {
 	// Block if camera is animating or not in normal third person camera mode
-	if (mCameraAnimating || !cameraThirdPerson())
+	if (!cameraThirdPerson())
 	{
 		return;
 	}
@@ -4710,60 +4710,29 @@ void LLAgent::lookAtLastChat()
 		if (chatter->isAvatar())
 		{
 			LLVOAvatar *chatter_av = (LLVOAvatar*)chatter;
-			if (mAvatarObject.notNull() && chatter_av->mHeadp)
-			{
-				delta_pos = chatter_av->mHeadp->getWorldPosition() - mAvatarObject->mHeadp->getWorldPosition();
-			}
-			else
-			{
-				delta_pos = chatter->getPositionAgent() - getPositionAgent();
-			}
-			delta_pos.normalize();
 
 			setControlFlags(AGENT_CONTROL_STOP);
 
 			changeCameraToThirdPerson();
 
-			LLVector3 new_camera_pos = mAvatarObject->mHeadp->getWorldPosition();
-			LLVector3 left = delta_pos % LLVector3::z_axis;
-			left.normalize();
-			LLVector3 up = left % delta_pos;
-			up.normalize();
-			new_camera_pos -= delta_pos * 0.4f;
-			new_camera_pos += left * 0.3f;
-			new_camera_pos += up * 0.2f;
 			if (chatter_av->mHeadp)
 			{
 				setFocusGlobal(getPosGlobalFromAgent(chatter_av->mHeadp->getWorldPosition()), mLastChatterID);
-				mCameraFocusOffsetTarget = getPosGlobalFromAgent(new_camera_pos) - gAgent.getPosGlobalFromAgent(chatter_av->mHeadp->getWorldPosition());
 			}
 			else
 			{
 				setFocusGlobal(chatter->getPositionGlobal(), mLastChatterID);
-				mCameraFocusOffsetTarget = getPosGlobalFromAgent(new_camera_pos) - chatter->getPositionGlobal();
 			}
 			setFocusOnAvatar(FALSE, TRUE);
 		}
 		else
 		{
-			delta_pos = chatter->getRenderPosition() - getPositionAgent();
-			delta_pos.normalize();
 
 			setControlFlags(AGENT_CONTROL_STOP);
 
 			changeCameraToThirdPerson();
 
-			LLVector3 new_camera_pos = mAvatarObject->mHeadp->getWorldPosition();
-			LLVector3 left = delta_pos % LLVector3::z_axis;
-			left.normalize();
-			LLVector3 up = left % delta_pos;
-			up.normalize();
-			new_camera_pos -= delta_pos * 0.4f;
-			new_camera_pos += left * 0.3f;
-			new_camera_pos += up * 0.2f;
-
 			setFocusGlobal(chatter->getPositionGlobal(), mLastChatterID);
-			mCameraFocusOffsetTarget = getPosGlobalFromAgent(new_camera_pos) - chatter->getPositionGlobal();
 			setFocusOnAvatar(FALSE, TRUE);
 		}
 	}
