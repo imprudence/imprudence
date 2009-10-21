@@ -10368,6 +10368,35 @@ class LLAvatarReportAbuse : public view_listener_t
 
 
 
+////////////////////////////
+// ALLOW MULTIPLE VIEWERS //
+////////////////////////////
+
+
+class LLAdvancedToggleMultipleViewers : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		BOOL cur_val = gSavedSettings.getBOOL("AllowMultipleViewers");
+		gSavedSettings.setBOOL("AllowMultipleViewers", !cur_val );
+		return true;
+	}
+};
+
+
+class LLAdvancedCheckMultipleViewers : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		bool new_value = gSavedSettings.getBOOL("AllowMultipleViewers");
+		std::string control_name = userdata["control"].asString();
+		gMenuHolder->findControl(control_name)->setValue(new_value);
+		return true;
+	}
+};
+
+
+
 ///////////////
 // RLVa Main //
 ///////////////
@@ -10793,7 +10822,8 @@ void initialize_menus()
 	addMenu(new LLAdvancedCheckViewAdminOptions(), "Advanced.CheckViewAdminOptions");
 	addMenu(new LLAdvancedRequestAdminStatus(), "Advanced.RequestAdminStatus");
 	addMenu(new LLAdvancedLeaveAdminStatus(), "Advanced.LeaveAdminStatus");
-
+	addMenu(new LLAdvancedToggleMultipleViewers(), "Advanced.ToggleMultipleViewers");
+	addMenu(new LLAdvancedCheckMultipleViewers(), "Advanced.CheckMultipleViewers");
 
 	// RLVa
 	addMenu(new RLVaMainToggle(), "RLVa.Main.Toggle");
