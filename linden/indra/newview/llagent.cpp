@@ -5991,7 +5991,7 @@ void LLAgent::teleportViaLandmark(const LLUUID& landmark_asset_id)
 {
 // [RLVa:KB] - Checked: 2009-07-07 (RLVa-1.0.0d)
 	if ( (rlv_handler_t::isEnabled()) &&
-		 ( (gRlvHandler.hasBehaviour("tplm")) || 
+		 ( (gRlvHandler.hasBehaviour(RLV_BHVR_TPLM)) || 
 		   ((gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) && (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting)) ))
 	{
 		return;
@@ -6065,7 +6065,7 @@ void LLAgent::teleportViaLocation(const LLVector3d& pos_global)
 // [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-07-07 (RLVa-1.0.0d)
 	// If we're getting teleported due to @tpto we should disregard any @tploc=n or @unsit=n restrictions from the same object
 	if ( (rlv_handler_t::isEnabled()) &&
-		 ( (gRlvHandler.hasBehaviourExcept("tploc", gRlvHandler.getCurrentObject())) ||
+		 ( (gRlvHandler.hasBehaviourExcept(RLV_BHVR_TPLOC, gRlvHandler.getCurrentObject())) ||
 		   ( (mAvatarObject.notNull()) && (mAvatarObject->mIsSitting) && 
 			 (gRlvHandler.hasBehaviourExcept(RLV_BHVR_UNSIT, gRlvHandler.getCurrentObject()))) ) )
 	{

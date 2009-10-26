@@ -41,13 +41,14 @@
 
 // Version of the specifcation we support
 const S32 RLV_VERSION_MAJOR = 1;
-const S32 RLV_VERSION_MINOR = 20;
-const S32 RLV_VERSION_PATCH = 2;
+const S32 RLV_VERSION_MINOR = 21;
+const S32 RLV_VERSION_PATCH = 0;
+const S32 RLV_VERSION_BUILD = 0;
 
 // Implementation version
 const S32 RLVa_VERSION_MAJOR = 1;
 const S32 RLVa_VERSION_MINOR = 0;
-const S32 RLVa_VERSION_PATCH = 3;
+const S32 RLVa_VERSION_PATCH = 4;
 const S32 RLVa_VERSION_BUILD = 4;
 
 // The official viewer version we're patching against
@@ -76,7 +77,7 @@ const S32 RLVa_VERSION_BUILD = 4;
 #define RLV_ROOT_FOLDER					"#RLV"
 #define RLV_CMD_PREFIX					'@'
 #define RLV_PUTINV_PREFIX				"#RLV/~"
-#define RLV_SETROT_OFFSET				F_PI_BY_TWO		// @setrot is off by 90° with the rest of SL
+#define RLV_SETROT_OFFSET				F_PI_BY_TWO		// @setrot is off by 90Â° with the rest of SL
 
 #define RLV_FOLDER_FLAG_NOSTRIP			"nostrip"
 #define RLV_FOLDER_PREFIX_HIDDEN		'.'
@@ -136,6 +137,7 @@ enum ERlvBehaviour {
 	RLV_BHVR_SHOWLOC,				// "showloc"
 	RLV_BHVR_TPTO,					// "tpto"
 	RLV_BHVR_ACCEPTTP,				// "accepttp"
+	RLV_BHVR_ACCEPTPERMISSION,		// "acceptpermission"
 	RLV_BHVR_SHOWNAMES,				// "shownames"
 	RLV_BHVR_FLY,					// "fly"
 	RLV_BHVR_GETSITID,				// "getsitid"
@@ -147,6 +149,9 @@ enum ERlvBehaviour {
 	RLV_BHVR_SHOWHOVERTEXTHUD,		// "showhovertexthud"
 	RLV_BHVR_SHOWHOVERTEXT,			// "showhovertext"
 	RLV_BHVR_NOTIFY,				// "notify"
+	RLV_BHVR_DEFAULTWEAR,			// "defaultwear"
+	RLV_BHVR_VERSIONNUM,			// "versionnum"
+	RLV_BHVR_PERMISSIVE,			// "permissive"
 
 	RLV_BHVR_COUNT,
 	RLV_BHVR_UNKNOWN
@@ -172,6 +177,12 @@ enum ERlvCmdRet {
 	RLV_RET_FAILED_OPTION,			// Command failed (invalid option)
 	RLV_RET_FAILED_PARAM,			// Command failed (invalid param)
 	RLV_RET_UNKNOWN					// Command unkown
+};
+
+enum ERlvExceptionCheck {
+	RLV_CHECK_PERMISSIVE,			// Exception can be set by any object
+	RLV_CHECK_STRICT,				// Exception must be set by all objects holding the restriction
+	RLV_CHECK_DEFAULT				// Permissive or strict will be determined by currently enforced restrictions
 };
 
 // ============================================================================

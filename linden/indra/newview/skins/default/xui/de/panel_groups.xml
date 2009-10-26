@@ -12,4 +12,7 @@
 	<button label="Verlassen" name="Leave" />
 	<button label="Erstellen..." name="Create" />
 	<button label="Suchen..." name="Search..." />
+  <string name="none">
+		keine
+  </string>
 </panel>

@@ -279,25 +279,38 @@ void LLFloaterMap::populateRadar()
 	// [/RLVa:KB]
 
 				// check if they're in certain ranges and notify user if we've enabled that
-				LLVector3d temp = positions[i] - current_pos;
-				F32 distance = llround((F32)temp.magVec(), 0.1f);
-				/*char dist[32];
-				sprintf(dist, "%.1f", distance);
-				std::string dist_string = dist;*/
-				std::string dist_string = llformat("%.1f", distance);
+				LLVector3d temp = positions[i];
+				if (positions[i].mdV[VZ] == 0.0f) // LL only sends height value up to 1024m, try to work around it
+				{
+					LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
+					if (av_obj != NULL && av_obj->isAvatar())
+					{
+						LLVOAvatar* avatarp = (LLVOAvatar*)av_obj;
+						if (avatarp != NULL)
+						{
+							temp = avatarp->getPositionGlobal();
+						}
+					}
+				}
+				F64 distance = dist_vec(temp, current_pos); 
+				// we round for accuracy when avs tp in
+				std::string dist_string = llformat("%.1f", llround((F32)distance, 0.1f));
+
+				/*llinfos << "Avatar :" << fullname << " Position: " << positions[i] << " Your Position: " 
+					<< current_pos << " Distance: " << distance << llendl;*/
 
 				if (notify_chat)
 				{
 					if (distance < 20.0f)
 					{
-						if (!getInChatList(avatar_ids[i]))
+						if (!isInChatList(avatar_ids[i]))
 						{
 							addToChatList(avatar_ids[i], dist_string);
 						}
 					}
 					else
 					{
-						if (getInChatList(avatar_ids[i]))
+						if (isInChatList(avatar_ids[i]))
 						{
 							removeFromChatList(avatar_ids[i]);
 						}
@@ -311,7 +324,7 @@ void LLFloaterMap::populateRadar()
 
 				if (notify_sim)
 				{
-					if (!getInChatList(avatar_ids[i]) && !getInSimAvList(avatar_ids[i]))
+					if (!isInChatList(avatar_ids[i]) && !getInSimAvList(avatar_ids[i]))
 					{
 						LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
 						if (av_obj != NULL && av_obj->isAvatar())
@@ -338,7 +351,7 @@ void LLFloaterMap::populateRadar()
 				{
 					// append typing string
 					std::string typing = "";
-					if (getIsTyping(avatar_ids[i]))
+					if (isTyping(avatar_ids[i]))
 					{
 						typing = getString("is_typing")+ " ";
 					}
@@ -397,7 +410,7 @@ void LLFloaterMap::updateChatList(std::vector<LLUUID> agent_ids)
 	}
 }
 
-bool LLFloaterMap::getInChatList(LLUUID agent_id)
+bool LLFloaterMap::isInChatList(LLUUID agent_id)
 {
 	if (mChatAvatars.count(agent_id) > 0)
 	{
@@ -426,7 +439,7 @@ void LLFloaterMap::removeFromChatList(LLUUID agent_id)
 	mChatAvatars.erase(agent_id);
 }
 
-bool LLFloaterMap::getIsTyping(LLUUID agent_id)
+bool LLFloaterMap::isTyping(LLUUID agent_id)
 {
 	if (mTypingAvatars.count(agent_id) > 0)
 	{
@@ -439,7 +452,7 @@ void LLFloaterMap::updateTypingList(LLUUID agent_id, bool remove)
 {
 	if (remove)
 	{
-		if (getIsTyping(agent_id))
+		if (isTyping(agent_id))
 		{
 			mTypingAvatars.erase(agent_id);	
 		}
@@ -503,7 +516,7 @@ void LLFloaterMap::toggleButtons()
 		enable = mSelectedAvatar.notNull() ? visibleItemsSelected() : FALSE;
 		enable_unmute = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : FALSE;
 		enable_track = gAgent.isGodlike() || is_agent_mappable(mSelectedAvatar);
-		enable_estate = getKickable(mSelectedAvatar);
+		enable_estate = isKickable(mSelectedAvatar);
 		enable_friend = !is_agent_friend(mSelectedAvatar);
 	}
 	else
@@ -520,9 +533,20 @@ void LLFloaterMap::toggleButtons()
 	childSetEnabled("freeze_btn", enable_estate);
 	childSetEnabled("eject_btn", enable_estate);
 	childSetEnabled("mute_btn", enable);
-	childSetEnabled("unmute_btn", enable_unmute);
 	childSetEnabled("ar_btn", enable);
 	childSetEnabled("estate_eject_btn", enable_estate);
+
+	if (enable_unmute)
+	{
+		childSetVisible("mute_btn", false);
+		childSetEnabled("unmute_btn", true);
+		childSetVisible("unmute_btn", true);
+	}
+	else
+	{
+		childSetVisible("mute_btn", true);
+		childSetVisible("unmute_btn", false);
+	}
 
 // [RLVa:KB] - Imprudence-1.2.0
 	// Bit clumsy, but this way the RLV stuff is in its own separate block and keeps the code above clean - Kitty
@@ -552,7 +576,7 @@ void LLFloaterMap::toggleButtons()
 // [/RLVa:KB]
 }
 
-BOOL LLFloaterMap::getKickable(const LLUUID &agent_id)
+BOOL LLFloaterMap::isKickable(const LLUUID &agent_id)
 {
 	if (agent_id.notNull())
 	{
@@ -568,6 +592,7 @@ BOOL LLFloaterMap::getKickable(const LLUUID &agent_id)
 				if (LLWorld::getInstance()->positionRegionValidGlobal(pos_global))
 				{
 					LLParcel* parcel = LLViewerParcelMgr::getInstance()->selectParcelAt(pos_global)->getParcel();
+					LLViewerParcelMgr::getInstance()->deselectLand();
 					
 					BOOL new_value = (region != NULL);
 								

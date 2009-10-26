@@ -18,7 +18,7 @@
 typedef std::map<LLUUID, RlvObject> rlv_object_map_t;
 typedef std::multimap<S32, LLUUID> rlv_detach_map_t;
 typedef std::map<S32, LLUUID> rlv_reattach_map_t;
-typedef std::multimap<LLUUID, ERlvBehaviour> rlv_exception_map_t;
+typedef std::multimap<ERlvBehaviour, RlvException> rlv_exception_map_t;
 
 class RlvHandler
 {
@@ -29,7 +29,7 @@ public:
 	// --------------------------------
 
 	/*
-	 * Rule checking functions
+	 * Attachment point helper functions
 	 */
 public:
 	// Returns a pointer to the attachment point for a supplied parameter
@@ -42,45 +42,45 @@ public:
 	S32                      getAttachPointIndex(const LLViewerJointAttachment* pObj) const;
 	bool                     hasAttachPointName(const LLInventoryItem* pItem, bool fStrict) const;
 
-	// Returns TRUE is at least one object contains the specified behaviour (and optional parameter)
+	// --------------------------------
+
+	/*
+	 * Rule checking functions
+	 */
 	// NOTE: - to check @detach=n    -> hasLockedAttachment() / hasLockedHUD() / isDetachable()
+	//       - to check exceptions   -> isException()
 	//       - to check @addoutfit=n -> isWearable()
 	//       - to check @remoutfit=n -> isRemovable()
-	//       - to check exceptions   -> isException()
-	//  (You *can* use hasBehaviour(); the specialized ones just don't have to iterate over all the objects)
+public:
+	// Returns TRUE is at least one object contains the specified behaviour (and optional option)
 	bool hasBehaviour(ERlvBehaviour eBehaviour) const { return (eBehaviour < RLV_BHVR_COUNT) ? (0 != m_Behaviours[eBehaviour]) : false; }
-	bool hasBehaviour(const std::string& strBehaviour) const;
 	bool hasBehaviour(ERlvBehaviour eBehaviour, const std::string& strOption) const;
-	bool hasBehaviour(const std::string& strBehaviour, const std::string& strOption) const;
-
-	// Returns TRUE if at least one object (except the specified one) contains the specified behaviour
+	// Returns TRUE if at least one object (except the specified one) contains the specified behaviour (and optional option)
 	bool hasBehaviourExcept(ERlvBehaviour eBehaviour, const LLUUID& idObj) const;
-	bool hasBehaviourExcept(const std::string& strBehaviour, const LLUUID& uuid) const;
 	bool hasBehaviourExcept(ERlvBehaviour eBehaviour, const std::string& strOption, const LLUUID& idObj) const;
-	bool hasBehaviourExcept(const std::string& strBehaviour, const std::string& strOption, const LLUUID& idObj) const;
 
-	// Returns TRUE if there is at least 1 undetachable attachment
+	// Returns TRUE if there is at least 1 non-detachable attachment
 	bool hasLockedAttachment() const { return (0 != m_Attachments.size()); }
-	// Returns TRUE if there is at least 1 undetachable HUD attachment
+	// Returns TRUE if there is at least 1 non-detachable HUD attachment
 	bool hasLockedHUD() const;
-
 	// Returns TRUE if the specified attachment point is detachable
 	bool isDetachable(S32 idxAttachPt) const { return (idxAttachPt) && (m_Attachments.find(idxAttachPt) == m_Attachments.end()); }
 	bool isDetachable(const LLInventoryItem* pItem) const;
 	bool isDetachable(LLViewerJointAttachment* pAttachPt) const;
 	bool isDetachable(LLViewerObject* pObj) const;
-	// Returns TRUE if the specified attachment point is set undetachable by anything other than pObj (or one of its children)
+	// Returns TRUE if the specified attachment point is set non-detachable by anything other than pObj (or one of its children)
 	bool isDetachableExcept(S32 idxAttachPt, LLViewerObject* pObj) const;
-	// Marks the specified attachment point as (un)detachable (return value indicates success ; used by unit tests)
+	// Marks the specified attachment point as (non-)detachable (return value indicates success ; used by unit tests)
 	bool setDetachable(S32 idxAttachPt, const LLUUID& idRlvObj, bool fDetachable);
 	bool setDetachable(LLViewerObject* pObj, const LLUUID& idRlvObj, bool fDetachable);
 
-	// Adds or removes an exception for the specified restriction
-	void addException(ERlvBehaviour eBehaviour, const LLUUID& uuid);
-	void removeException(ERlvBehaviour eBehaviour, const LLUUID& uuid);
-	// Returns TRUE is the specified UUID is exempt from a restriction (tplure/sendim/recvim/etc)
-	bool isException(ERlvBehaviour eBehaviour, const LLUUID& uuid) const;
-	bool isException(const std::string& strBehaviour, const LLUUID& uuid) const;
+	// Adds or removes an exception for the specified behaviour
+	void addException(const LLUUID& idObj, ERlvBehaviour eBhvr, const RlvExceptionOption& varOption);
+	void removeException(const LLUUID& idObj, ERlvBehaviour eBhvr, const RlvExceptionOption& varOption);
+	// Returns TRUE if the specified option was added as an exception for the specified behaviour
+	bool isException(ERlvBehaviour eBhvr, const RlvExceptionOption& varOption, ERlvExceptionCheck typeCheck = RLV_CHECK_DEFAULT) const;
+	// Returns TRUE if the specified behaviour should behave "permissive" (rather than "strict"/"secure")
+	bool isPermissive(ERlvBehaviour eBhvr) const;
 
 	// Returns TRUE if the specified layer is removable (use hasBehaviour(RLV_BHVR_REMOUTFIT) for the general case)
 	bool isRemovable(EWearableType type) const	{ return (type < WT_COUNT) ? (0 == m_LayersRem[type]) : true; }
@@ -121,6 +121,7 @@ public:
 	void               filterNames(std::string& strUTF8Text) const;						// @shownames
 	const std::string& getAnonym(const std::string& strName) const;						// @shownames
 	std::string        getVersionString() const;										// @version
+	std::string        getVersionNumString() const;										// @versionnum
 	BOOL               isAgentNearby(const LLUUID& uuid) const;							// @shownames
 	bool               redirectChatOrEmote(const std::string& strUTF8Test) const;		// @redirchat and @rediremote
 
@@ -274,11 +275,10 @@ extern rlv_handler_t gRlvHandler;
 // Inlined member functions
 //
 
-// Checked: 2009-07-09 (RLVa-1.0.0f)
-inline void RlvHandler::addException(ERlvBehaviour eBehaviour, const LLUUID& uuid)
+// Checked: 2009-10-04 (RLVa-1.0.4a) | Modified: RLVa-1.0.4a
+inline void RlvHandler::addException(const LLUUID& idObj, ERlvBehaviour eBhvr, const RlvExceptionOption& varOption)
 {
-	if (!uuid.isNull())
-		m_Exceptions.insert(std::pair<LLUUID, ERlvBehaviour>(uuid, eBehaviour));
+	m_Exceptions.insert(std::pair<ERlvBehaviour, RlvException>(eBhvr, RlvException(idObj, eBhvr, varOption)));
 }
 
 // Checked: 2009-07-09 (RLVa-1.0.0f) | Modified: RLVa-1.0.0f
@@ -288,7 +288,7 @@ inline bool RlvHandler::canShowHoverText(LLViewerObject *pObj) const
 		    !( (hasBehaviour(RLV_BHVR_SHOWHOVERTEXTALL)) ||
 			   ( (hasBehaviour(RLV_BHVR_SHOWHOVERTEXTWORLD)) && (!pObj->isHUDAttachment()) ) ||
 			   ( (hasBehaviour(RLV_BHVR_SHOWHOVERTEXTHUD)) && (pObj->isHUDAttachment()) ) ||
-			   (isException(RLV_BHVR_SHOWHOVERTEXT, pObj->getID())) ) );
+			   (isException(RLV_BHVR_SHOWHOVERTEXT, pObj->getID(), RLV_CHECK_PERMISSIVE)) ) );
 }
 
 // Checked: 2009-05-23 (RLVa-0.2.0d) | Modified: RLVa-0.2.0d
@@ -321,6 +321,12 @@ inline std::string RlvHandler::getVersionString()  const
 		RLVa_VERSION_MAJOR, RLVa_VERSION_MINOR, RLVa_VERSION_PATCH);
 }
 
+// Checked: 2009-10-04 (RLVa-1.0.4b) | Added: RLVa-1.0.4b
+inline std::string RlvHandler::getVersionNumString()  const
+{
+	return llformat("%d%02d%02d%02d", RLV_VERSION_MAJOR, RLV_VERSION_MINOR, RLV_VERSION_PATCH, RLV_VERSION_BUILD);
+}
+
 // Checked: 2009-05-23 (RLVa-0.2.0d) | Modified: RLVa-0.2.0d
 inline bool RlvHandler::hasAttachPointName(const LLInventoryItem *pItem, bool fStrict) const
 {
@@ -331,18 +337,6 @@ inline bool RlvHandler::hasAttachPointName(const LLInventoryItem *pItem, bool fS
 inline bool RlvHandler::hasBehaviour(ERlvBehaviour eBehaviour, const std::string& strOption) const
 {
 	return hasBehaviourExcept(eBehaviour, strOption, LLUUID::null);
-}
-
-// Checked:
-inline bool RlvHandler::hasBehaviour(const std::string& strBehaviour) const
-{
-	return hasBehaviourExcept(strBehaviour, LLUUID::null);
-}
-
-// Checked:
-inline bool RlvHandler::hasBehaviour(const std::string& strBehaviour, const std::string& strOption) const
-{
-	return hasBehaviourExcept(strBehaviour, strOption, LLUUID::null);
 }
 
 // Checked:
@@ -379,22 +373,11 @@ inline bool RlvHandler::isDetachable(LLViewerObject* pObj) const
 	return (pObj == NULL) || (!pObj->isAttachment()) || (isDetachable(getAttachPointIndex(pObj)));
 }
 
-// Checked:
-inline bool RlvHandler::isException(ERlvBehaviour eBehaviour, const LLUUID& uuid) const
+inline bool RlvHandler::isPermissive(ERlvBehaviour eBhvr) const
 {
-	for (rlv_exception_map_t::const_iterator itException = m_Exceptions.lower_bound(uuid), 
-			endException = m_Exceptions.upper_bound(uuid); itException != endException; ++itException)
-	{
-		if (itException->second == eBehaviour)
-			return true;
-	}
-	return false;
-}
-
-// Checked:
-inline bool RlvHandler::isException(const std::string& strBehaviour, const LLUUID& uuid) const
-{
-	return hasBehaviour(strBehaviour, uuid.asString());
+	return (RlvCommand::hasStrictVariant(eBhvr)) 
+		? !((hasBehaviour(RLV_BHVR_PERMISSIVE)) || (isException(RLV_BHVR_PERMISSIVE, eBhvr, RLV_CHECK_PERMISSIVE)))
+		: true;
 }
 
 // Checked: 2009-07-29 (RLVa-1.0.1b) | Added: RLVa-1.0.1b
@@ -428,19 +411,16 @@ inline bool RlvHandler::isRemovableExcept(EWearableType type, const LLUUID& idOb
 	}
 #endif // RLV_EXTENSION_FLAG_NOSTRIP
 
-// Checked: 2009-07-09 (RLVa-1.0.0f)
-inline void RlvHandler::removeException(ERlvBehaviour eBehaviour, const LLUUID &uuid)
+// Checked: 2009-10-04 (RLVa-1.0.4a) | Modified: RLVa-1.0.4a
+inline void RlvHandler::removeException(const LLUUID& idObj, ERlvBehaviour eBhvr, const RlvExceptionOption& varOption)
 {
-	if (!uuid.isNull())
+	for (rlv_exception_map_t::iterator itException = m_Exceptions.lower_bound(eBhvr), 
+			endException = m_Exceptions.upper_bound(eBhvr); itException != endException; ++itException)
 	{
-		for (rlv_exception_map_t::iterator itException = m_Exceptions.lower_bound(uuid), 
-				endException = m_Exceptions.upper_bound(uuid); itException != endException; ++itException)
+		if ( (itException->second.idObject == idObj) && (itException->second.varOption == varOption) )
 		{
-			if (itException->second == eBehaviour)
-			{
-				m_Exceptions.erase(itException);
-				break;
-			}
+			m_Exceptions.erase(itException);
+			break;
 		}
 	}
 }

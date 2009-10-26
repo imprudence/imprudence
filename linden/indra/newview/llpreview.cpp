@@ -596,3 +596,32 @@ void LLMultiPreview::setAutoOpenInstance(LLMultiPreview* previewp, const LLUUID&
 		sAutoOpenPreviewHandles[id] = previewp->getHandle();
 	}
 }
+
+void LLPreview::setAssetId(const LLUUID& asset_id)
+{
+	const LLViewerInventoryItem* item = getItem();
+	if(NULL == item)
+	{
+		return;
+	}
+
+	if(mObjectUUID.isNull())
+	{
+		// Update avatar inventory asset_id.
+		LLPointer<LLViewerInventoryItem> new_item = new LLViewerInventoryItem(item);
+		new_item->setAssetUUID(asset_id);
+		gInventory.updateItem(new_item);
+		gInventory.notifyObservers();
+	}
+	else
+	{
+		// Update object inventory asset_id.
+		LLViewerObject* object = gObjectList.findObject(mObjectUUID);
+		if(NULL == object)
+		{
+			llwarns << "LLPreview::setAssetId() called on unrecognized object, UUID : " << mObjectUUID << llendl;
+			return;
+		}
+		object->updateViewerInventoryAsset(item, asset_id);
+	}
+}

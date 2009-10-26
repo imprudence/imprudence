@@ -13,4 +13,7 @@
 	<button label="탈퇴" name="Leave" width="90"/>
 	<button label="만들기" name="Create" width="90"/>
 	<button label="검색" name="Search..." width="90"/>
+  <string name="none">
+		그룹 없음
+  </string>
 </panel>

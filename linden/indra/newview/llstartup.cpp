@@ -2647,6 +2647,23 @@ bool idle_startup()
 
 		LLAppViewer::instance()->initMainloopTimeout("Mainloop Init");
 
+// [RLVa:KB] - Alternate: Snowglobe-1.0 | Checked: 2009-08-05 (RLVa-1.0.1e) | Modified: RLVa-1.0.1e
+		// RELEASE-RLVa: this should go in LLAppViewer::handleLoginComplete() but Imprudence doesn't call that function
+		gRlvHandler.initLookupTables();
+
+		if (rlv_handler_t::isEnabled())
+		{
+			RlvCurrentlyWorn::fetchWorn();
+			rlv_handler_t::fetchSharedInventory();
+
+			#ifdef RLV_EXTENSION_STARTLOCATION
+				RlvSettings::updateLoginLastLocation();
+			#endif // RLV_EXTENSION_STARTLOCATION
+
+			gRlvHandler.processRetainedCommands();
+		}
+// [/RLVa:KB]
+
 		return TRUE;
 	}
 

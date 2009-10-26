@@ -23,7 +23,7 @@ RlvCommand::RlvBhvrTable RlvCommand::m_BhvrMap;
 
 // Checked: 2009-09-10 (RLVa-1.0.3a) | Modified: RLVa-1.0.3a
 RlvCommand::RlvCommand(const std::string& strCommand)
-	: m_eBehaviour(RLV_BHVR_UNKNOWN), m_eParamType(RLV_TYPE_UNKNOWN)
+	: m_eBehaviour(RLV_BHVR_UNKNOWN), m_fStrict(false), m_eParamType(RLV_TYPE_UNKNOWN)
 {
 	if ((m_fValid = parseCommand(strCommand, m_strBehaviour, m_strOption, m_strParam)))
 	{
@@ -51,8 +51,12 @@ RlvCommand::RlvCommand(const std::string& strCommand)
 		return;
 	}
 
-	RlvBhvrTable::const_iterator itBhvr = m_BhvrMap.find(m_strBehaviour);
-	if (itBhvr != m_BhvrMap.end())
+	// Check if this is the "strict" (aka "secure") variation of a behaviour
+	std::string::size_type idxStrict = m_strBehaviour.find("_sec");
+	m_fStrict = (std::string::npos != idxStrict) && (idxStrict + 4 == m_strBehaviour.length());
+
+	RlvBhvrTable::const_iterator itBhvr = m_BhvrMap.find( (!m_fStrict) ? m_strBehaviour : m_strBehaviour.substr(0, idxStrict));
+	if ( (itBhvr != m_BhvrMap.end()) && ((!m_fStrict) || (hasStrictVariant(itBhvr->second))) )
 		m_eBehaviour = itBhvr->second;
 }
 
@@ -104,8 +108,8 @@ void RlvCommand::initLookupTable()
 				"remoutfit", "getoutfit", "getattach", "showinv", "viewnote", "unsit", "sit", "sendchannel", "getstatus", "getstatusall",
 				"getinv", "getinvworn", "findfolder", "findfolders", "attach", "attachall", "detachall", "getpath", "attachthis",
 				"attachallthis", "detachthis", "detachallthis", "fartouch", "showworldmap", "showminimap", "showloc", "tpto", "accepttp",
-				"shownames", "fly", "getsitid", "setdebug", "setenv", "detachme", "showhovertextall", "showhovertextworld",
-				"showhovertexthud", "showhovertext", "notify"
+				"acceptpermission", "shownames", "fly", "getsitid", "setdebug", "setenv", "detachme", "showhovertextall", 
+				"showhovertextworld", "showhovertexthud", "showhovertext", "notify", "defaultwear", "versionnum", "permissive"
 			};
 
 		for (int idxBvhr = 0; idxBvhr < RLV_BHVR_COUNT; idxBvhr++)
@@ -133,12 +137,14 @@ bool RlvObject::addCommand(const RlvCommand& rlvCmd)
 		return false;
 
 	// Don't add duplicate commands for this object (ie @detach=n followed by another @detach=n later on)
-	bool fDuplicate =
-		(RLV_BHVR_UNKNOWN != rlvCmd.getBehaviourType())
-			? hasBehaviour(rlvCmd.getBehaviourType(), rlvCmd.getOption())
-			: hasBehaviour(rlvCmd.getBehaviour(), rlvCmd.getOption());
-	if (fDuplicate)
-		return false;
+	for (rlv_command_list_t::iterator itCmd = m_Commands.begin(); itCmd != m_Commands.end(); ++itCmd)
+	{
+		if ( (itCmd->getBehaviour() == rlvCmd.getBehaviour()) && (itCmd->getOption() == rlvCmd.getOption()) && 
+			 (itCmd->isStrict() == rlvCmd.isStrict() ) )
+		{
+			return false;
+		}
+	}
 
 	// Now that we know it's not a duplicate, add it to the end of the list
 	m_Commands.push_back(rlvCmd);
@@ -155,7 +161,8 @@ bool RlvObject::removeCommand(const RlvCommand& rlvCmd)
 	for (rlv_command_list_t::iterator itCmd = m_Commands.begin(); itCmd != m_Commands.end(); ++itCmd)
 	{
 		//if (*itCmd == rlvCmd) <- commands will never be equal since one is an add and the other is a remove *rolls eyes*
-		if ( (itCmd->getBehaviour() == rlvCmd.getBehaviour()) && (itCmd->getOption() == rlvCmd.getOption()) )
+		if ( (itCmd->getBehaviour() == rlvCmd.getBehaviour()) && (itCmd->getOption() == rlvCmd.getOption()) && 
+			 (itCmd->isStrict() == rlvCmd.isStrict() ) )
 		{
 			m_Commands.erase(itCmd);
 			return true;
@@ -164,34 +171,18 @@ bool RlvObject::removeCommand(const RlvCommand& rlvCmd)
 	return false;	// Command was never added so nothing to remove now
 }
 
-bool RlvObject::hasBehaviour(ERlvBehaviour eBehaviour) const
+bool RlvObject::hasBehaviour(ERlvBehaviour eBehaviour, bool fStrictOnly) const
 {
 	for (rlv_command_list_t::const_iterator itCmd = m_Commands.begin(); itCmd != m_Commands.end(); ++itCmd)
-		if ( (itCmd->getBehaviourType() == eBehaviour) && (itCmd->getOption().empty()) )
+		if ( (itCmd->getBehaviourType() == eBehaviour) && (itCmd->getOption().empty()) && ((!fStrictOnly) || (itCmd->isStrict())) )
 			return true;
 	return false;
 }
 
-bool RlvObject::hasBehaviour(const std::string& strBehaviour) const
+bool RlvObject::hasBehaviour(ERlvBehaviour eBehaviour, const std::string& strOption, bool fStrictOnly) const
 {
 	for (rlv_command_list_t::const_iterator itCmd = m_Commands.begin(); itCmd != m_Commands.end(); ++itCmd)
-		if ( (itCmd->getBehaviour() == strBehaviour) && (itCmd->getOption().empty()) )
-			return true;
-	return false;
-}
-
-bool RlvObject::hasBehaviour(ERlvBehaviour eBehaviour, const std::string& strOption) const
-{
-	for (rlv_command_list_t::const_iterator itCmd = m_Commands.begin(); itCmd != m_Commands.end(); ++itCmd)
-		if ( (itCmd->getBehaviourType() == eBehaviour) && (itCmd->getOption() == strOption) )
-			return true;
-	return false;
-}
-
-bool RlvObject::hasBehaviour(const std::string& strBehaviour, const std::string& strOption) const
-{
-	for (rlv_command_list_t::const_iterator itCmd = m_Commands.begin(); itCmd != m_Commands.end(); ++itCmd)
-		if ( (itCmd->getBehaviour() == strBehaviour) && (itCmd->getOption() == strOption) )
+		if ( (itCmd->getBehaviourType() == eBehaviour) && (itCmd->getOption() == strOption) && ((!fStrictOnly) || (itCmd->isStrict())) )
 			return true;
 	return false;
 }
@@ -361,6 +352,11 @@ RlvWLSnapshot* RlvWLSnapshot::takeSnapshot()
 
 BOOL RlvSettings::fShowNameTags = FALSE;
 
+BOOL RlvSettings::getEnableWear()
+{
+	return rlvGetSettingBOOL(RLV_SETTING_ENABLEWEAR, TRUE) && (!gRlvHandler.hasBehaviour(RLV_BHVR_DEFAULTWEAR));
+}
+
 #ifdef RLV_EXTENSION_STARTLOCATION
 	// Checked: 2009-07-08 (RLVa-1.0.0e) | Modified: RLVa-0.2.1d
 	void RlvSettings::updateLoginLastLocation()
@@ -473,6 +469,13 @@ bool rlvCanDeleteOrReturn()
 	}
 
 	return fIsAllowed;
+}
+
+// Checked: 2009-10-04 (RLVa-1.0.4b) | Modified: RLVa-1.0.4b
+BOOL rlvEnableWearEnabler(void* pParam)
+{
+	// Visually disables the "Enable Wear" option when restricted from toggling it
+	return (!gRlvHandler.hasBehaviour(RLV_BHVR_DEFAULTWEAR));
 }
 
 // Checked: 2009-05-26 (RLVa-0.2.0d) | Modified: RLVa-0.2.0d

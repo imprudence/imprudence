@@ -18,4 +18,7 @@
 	<button bottom="-236" font="SansSerif" halign="center" height="20" label="Cancel"
 	     label_selected="Cancel" left_delta="88" mouse_opaque="true" name="Cancel"
 	     width="80" />
+  <string name="none">
+    none
+  </string>
 </floater>
