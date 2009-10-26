@@ -1,5 +1,12 @@
 2009-10-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Moved radar XML to panel_radar.xml and cleaned it up.
+	  It had been in floater_mini_map.xml.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+	  new file:   linden/indra/newview/skins/default/xui/en-us/panel_radar.xml
+
+
 	* Moved "Logout" to Advanced menu, removed shortcut.
 	  We want to discourage its use until issues are fixed in 1.3.
 
