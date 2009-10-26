@@ -1,3 +1,12 @@
+2009-10-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Capped chat channel spinner to 1000000 (1 mil) as temp fix.
+	  Very high numbers cause mysterious rounding problems.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_chat_bar.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_chat_history.xml: 
+
+
 2009-10-21 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added Advanced menu option for AllowMultipleViewers for testing purposes.
