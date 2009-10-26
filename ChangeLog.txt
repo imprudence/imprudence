@@ -1,5 +1,11 @@
 2009-10-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Moved "Logout" to Advanced menu, removed shortcut.
+	  We want to discourage its use until issues are fixed in 1.3.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
 	* Capped chat channel spinner to 1000000 (1 mil) as temp fix.
 	  Very high numbers cause mysterious rounding problems.
 

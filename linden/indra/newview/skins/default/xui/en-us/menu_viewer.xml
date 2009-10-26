@@ -74,10 +74,6 @@
                 userdata="" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="Logout" label="Logout"
-                    shortcut="control|alt|Q">
-          <on_click function="File.Logout" userdata="" />
-    </menu_item_call>
     <menu_item_call name="Quit" label="Quit"
                     shortcut="control|Q">
       <on_click function="File.Quit" userdata="" />
@@ -2016,6 +2012,9 @@
       <on_check function="Advanced.CheckMultipleViewers"
                 userdata="" />
     </menu_item_check>
+    <menu_item_call name="Logout" label="Logout (unstable)">
+      <on_click function="File.Logout" userdata="" />
+    </menu_item_call>
     <menu_item_call name="Debug Settings"
                     label="Debug Settings">
       <on_click function="Advanced.ShowDebugSettings"
