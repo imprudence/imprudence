@@ -1,5 +1,13 @@
 2009-10-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Added a button that will toggle the minimap radar.
+
+	  modified:   app_settings/settings.xml
+	  modified:   llfloatermap.cpp
+	  modified:   llfloatermap.h
+	  modified:   skins/default/xui/en-us/floater_mini_map.xml
+
+
 	* Added PanelRadar class, refactored from LLFloaterMap.
 
 	  modified:   linden/indra/newview/CMakeLists.txt

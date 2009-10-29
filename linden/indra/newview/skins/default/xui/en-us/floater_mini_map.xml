@@ -15,4 +15,10 @@
          left="2" top="196" right="196" height="120"
          follows="left|right|bottom" />
 
+  <button name="toggle_radar" label=""
+          bottom="202" left="10" height="18" width="18"
+          follows="left|bottom" halign="center"
+          font="SansSerif" scale_image="true"
+          tool_tip="Show or hide the radar" />
+
 </floater>

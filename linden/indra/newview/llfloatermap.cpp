@@ -82,6 +82,8 @@ BOOL LLFloaterMap::postBuild()
 	sendChildToFront(getChild<LLButton>("llfloater_minimize_btn"));
 	sendChildToFront(getChild<LLButton>("llfloater_close_btn"));
 	setIsChrome(TRUE);
+
+	childSetAction("toggle_radar", onToggleRadar, this);
 	
 	return TRUE;
 }
@@ -98,6 +100,9 @@ void LLFloaterMap::onOpen()
 	gFloaterView->adjustToFitScreen(this, FALSE);
 
 	gSavedSettings.setBOOL("ShowMiniMap", TRUE);
+
+	bool showing_radar = gSavedSettings.getBOOL("ShowMiniMapRadar");
+	setRadarVisible( showing_radar );
 }
 
 
@@ -153,4 +158,47 @@ void LLFloaterMap::open()
 PanelRadar* LLFloaterMap::getRadar()
 {
 	return mPanelRadar;
+}
+
+
+// static
+void LLFloaterMap::onToggleRadar(void *user_data)
+{
+	LLFloaterMap* self = (LLFloaterMap*) user_data;
+	self->toggleRadarVisible();
+}
+
+
+void LLFloaterMap::toggleRadarVisible()
+{
+	bool show_radar = gSavedSettings.getBOOL("ShowMiniMapRadar");
+	show_radar = !show_radar;
+	setRadarVisible( show_radar );
+}
+
+
+void LLFloaterMap::setRadarVisible( bool show_radar )
+{
+	gSavedSettings.setBOOL("ShowMiniMapRadar", show_radar);
+	setRadarButtonState( show_radar );
+}
+
+
+void LLFloaterMap::setRadarButtonState( bool showing_radar )
+{
+	LLButton* toggle = getChild<LLButton>("toggle_radar");
+	if (toggle)
+	{
+		toggle->setToggleState(showing_radar);
+		if (showing_radar)
+		{
+			// Expanded, so show image to offer to collapse upwards.
+			toggle->setImageOverlay("arrow_up.tga");
+		}
+		else
+		{
+			// Collapsed, so show image to offer to expand downwards.
+			toggle->setImageOverlay("arrow_down.tga");
+		}
+	}
 }

@@ -67,6 +67,10 @@ private:
 	LLNetMap* mPanelMap;
   PanelRadar* mPanelRadar;
 
+  static void onToggleRadar(void *user_data);
+  void toggleRadarVisible();
+  void setRadarVisible( bool show_radar );
+  void setRadarButtonState(bool showing_radar);
 };
 
 #endif  // LL_LLFLOATERMAP_H
