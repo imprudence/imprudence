@@ -71,6 +71,7 @@ private:
   void toggleRadarVisible();
   void setRadarVisible( bool show_radar );
   void setRadarButtonState(bool showing_radar);
+  void adjustLayout( bool expand );
 };
 
 #endif  // LL_LLFLOATERMAP_H

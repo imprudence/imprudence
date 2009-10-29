@@ -84,6 +84,12 @@ BOOL LLFloaterMap::postBuild()
 	setIsChrome(TRUE);
 
 	childSetAction("toggle_radar", onToggleRadar, this);
+
+	if (!gSavedSettings.getBOOL("ShowMiniMapRadar"))
+	{
+		// Collapse radar if it's not showing.
+		adjustLayout( false );
+	}
 	
 	return TRUE;
 }
@@ -179,8 +185,17 @@ void LLFloaterMap::toggleRadarVisible()
 
 void LLFloaterMap::setRadarVisible( bool show_radar )
 {
+	bool old_show_radar = gSavedSettings.getBOOL("ShowMiniMapRadar");
+
 	gSavedSettings.setBOOL("ShowMiniMapRadar", show_radar);
 	setRadarButtonState( show_radar );
+	mPanelRadar->setVisible( show_radar );
+
+	// Adjust the minimap window's size if visibility is changing
+	if (show_radar != old_show_radar)
+	{
+		adjustLayout( show_radar );
+	}
 }
 
 
@@ -200,5 +215,46 @@ void LLFloaterMap::setRadarButtonState( bool showing_radar )
 			// Collapsed, so show image to offer to expand downwards.
 			toggle->setImageOverlay("arrow_down.tga");
 		}
+	}
+}
+
+
+void LLFloaterMap::adjustLayout( bool expand )
+{
+	S32 radar_height = mPanelRadar->getRect().getHeight();
+	S32 height = getRect().getHeight();
+	LLRect map_rect = mPanelMap->getRect();
+	S32 map_bottom = map_rect.mBottom;
+
+	S32 min_width, min_height;
+	getResizeLimits( &min_width, &min_height );
+
+	S32 adjust = radar_height;
+	if (!expand)
+	{
+		adjust = -adjust;
+	}
+	
+	height += adjust;
+	min_height += adjust;
+	map_bottom += adjust;
+
+	map_rect.set( map_rect.mLeft,  map_rect.mTop,
+	              map_rect.mRight, map_bottom );
+	mPanelMap->setRect(map_rect);
+
+	setResizeLimits( min_width, min_height );
+	reshape( getRect().getWidth(), height, false );
+
+	LLRect temp_rect = getRect();
+	temp_rect.translate( 0, -adjust );
+	setRect( temp_rect );
+
+	LLButton* toggle = getChild<LLButton>("toggle_radar");
+	if (toggle)
+	{
+		temp_rect = toggle->getRect();
+		temp_rect.translate( 0, adjust );
+		toggle->setRect( temp_rect );
 	}
 }

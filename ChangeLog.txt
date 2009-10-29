@@ -1,5 +1,11 @@
 2009-10-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Minimap radar can now be toggled.
+
+	  modified:   llfloatermap.cpp
+	  modified:   llfloatermap.h
+
+
 	* Added a button that will toggle the minimap radar.
 
 	  modified:   app_settings/settings.xml
