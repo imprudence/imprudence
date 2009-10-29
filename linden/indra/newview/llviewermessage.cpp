@@ -2558,7 +2558,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 			if (LLFloaterMap::getInstance())
 			{
-				LLFloaterMap::getInstance()->updateTypingList(from_id, false);
+				LLFloaterMap::getInstance()->getRadar()->updateTypingList(from_id, false);
 			}
 
 			return;
@@ -2575,9 +2575,9 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 			if (LLFloaterMap::getInstance())
 			{
-				if (LLFloaterMap::getInstance()->isTyping(from_id))
+				if (LLFloaterMap::getInstance()->getRadar()->isTyping(from_id))
 				{
-					LLFloaterMap::getInstance()->updateTypingList(from_id, true);
+					LLFloaterMap::getInstance()->getRadar()->updateTypingList(from_id, true);
 				}
 			}
 

@@ -1,3 +1,16 @@
+2009-10-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Added PanelRadar class, refactored from LLFloaterMap.
+
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  modified:   linden/indra/newview/llfloatermap.h
+	  modified:   linden/indra/newview/llnetmap.cpp
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  new file:   linden/indra/newview/panelradar.cpp
+	  new file:   linden/indra/newview/panelradar.h
+
+
 2009-10-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Moved radar XML to panel_radar.xml and cleaned it up.
