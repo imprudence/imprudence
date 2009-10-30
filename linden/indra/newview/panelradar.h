@@ -42,15 +42,18 @@ public:
 
 	BOOL postBuild();
 
-	// returns true if agent_id belongs to a developer listed in llfloatermap.cpp
+	// returns true if agent_id belongs to an Imprudence developer
 	static bool isImpDev(LLUUID agent_id);
 
 	LLUUID getSelected();
-	bool isTyping(LLUUID agent_id);
-	void updateTypingList(LLUUID agent_id, bool remove);
 
-	LLScrollListCtrl*   mRadarList;
-	LLUUID              mSelectedAvatar;
+	void addToTypingList(LLUUID agent_id);
+	void removeFromTypingList(LLUUID agent_id);
+
+	void updateButtonStates();
+	void populateRadar();
+
+private:
 
 	// TODO: move all this info into its own object. It's stupid 
 	// and bug-prone to keep it all in separate containers, but 
@@ -58,27 +61,28 @@ public:
 	std::set<LLUUID>    mChatAvatars;
 	std::set<LLUUID>    mTypingAvatars;
 	std::set<LLUUID>    mSimAvatars;
-	bool                mUpdate;
-	
-	static void onList(LLUICtrl* ctrl, void* user_data);
-	static void onRangeChange(LLFocusableElement* focus, void* user_data);
-	BOOL visibleItemsSelected() const;
-	BOOL isKickable(const LLUUID &agent_id);
-	void toggleButtons();
-	void populateRadar();
+
+	LLScrollListCtrl*   mRadarList;
+	LLUUID              mSelectedAvatar;
 
 	void updateChatList(std::vector<LLUUID> agent_ids);
 	bool isInChatList(LLUUID agent_id);
 	void addToChatList(LLUUID agent_id, std::string distance);
 	void removeFromChatList(LLUUID agent_id);
 
-	bool getInSimAvList(LLUUID agent_id);
+	bool isInSimAvList(LLUUID agent_id);
 	void addToSimAvList(LLUUID agent_id, std::string distance);
 	void updateSimAvList(std::vector<LLUUID> agent_ids);
 
-private:
+	bool isTyping(LLUUID agent_id);
+
+	bool visibleItemsSelected() const;
+	bool isKickable(const LLUUID &agent_id);
 
 	static std::string getSelectedName(const LLUUID &agent_id);
+
+	static void onUseRadarList(LLUICtrl* ctrl, void* user_data);
+	static void onRangeChange(LLFocusableElement* focus, void* user_data);
 
 	static void onClickProfile(void* user_data);
 	static void onClickIM(void* user_data);

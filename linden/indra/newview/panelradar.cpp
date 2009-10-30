@@ -64,16 +64,15 @@ PanelRadar::PanelRadar()
 
 	mChatAvatars.clear();
 	mTypingAvatars.clear();
+	mSimAvatars.clear();
 }
 
 
 BOOL PanelRadar::postBuild()
 {
 	mRadarList = getChild<LLScrollListCtrl>("RadarList");
-	childSetCommitCallback("RadarList", onList, this);
+	childSetCommitCallback("RadarList", onUseRadarList, this);
 	mRadarList->setDoubleClickCallback(onClickIM);
-
-	childSetFocusChangedCallback("near_me_range", onRangeChange, this);
 
 	childSetAction("im_btn", onClickIM, this);
 	childSetAction("profile_btn", onClickProfile, this);
@@ -107,19 +106,15 @@ bool PanelRadar::isImpDev(LLUUID agent_id)
 	// We use strings here as avatar keys change across grids. 
 	// Feel free to add/remove yourself.
 	std::string agent_name = getSelectedName(agent_id);
-	if (agent_name == "McCabe Maxsted" || 
-	    agent_name == "Jacek Antonelli" ||
-	    agent_name == "Armin Weatherwax")
-	{
-		return true;
-	}
-	return false;
+	return (agent_name == "McCabe Maxsted" || 
+	        agent_name == "Jacek Antonelli" ||
+	        agent_name == "Armin Weatherwax");
 }
 
 
 void PanelRadar::populateRadar()
 {
-	if (!mUpdate || !getVisible())
+	if (!getVisible())
 	{
 		return;
 	}
@@ -221,7 +216,7 @@ void PanelRadar::populateRadar()
 
 				if (notify_sim)
 				{
-					if (!isInChatList(avatar_ids[i]) && !getInSimAvList(avatar_ids[i]))
+					if (!isInChatList(avatar_ids[i]) && !isInSimAvList(avatar_ids[i]))
 					{
 						LLViewerObject *av_obj = gObjectList.findObject(avatar_ids[i]);
 						if (av_obj != NULL && av_obj->isAvatar())
@@ -284,7 +279,7 @@ void PanelRadar::populateRadar()
 
 	childSetText("lblAvatarCount", avatar_count.str());
 
-	toggleButtons();
+	updateButtonStates();
 
 	//llinfos << "mSelectedAvatar: " << mSelectedAvatar.asString() << llendl;
 }
@@ -311,11 +306,7 @@ void PanelRadar::updateChatList(std::vector<LLUUID> agent_ids)
 
 bool PanelRadar::isInChatList(LLUUID agent_id)
 {
-	if (mChatAvatars.count(agent_id) > 0)
-	{
-		return true;
-	}
-	return false;
+	return (mChatAvatars.count(agent_id) > 0);
 }
 
 
@@ -343,27 +334,19 @@ void PanelRadar::removeFromChatList(LLUUID agent_id)
 
 bool PanelRadar::isTyping(LLUUID agent_id)
 {
-	if (mTypingAvatars.count(agent_id) > 0)
-	{
-		return true;
-	}
-	return false;
+	return (mTypingAvatars.count(agent_id) > 0);
 }
 
 
-void PanelRadar::updateTypingList(LLUUID agent_id, bool remove)
+void PanelRadar::addToTypingList(LLUUID agent_id)
 {
-	if (remove)
-	{
-		if (isTyping(agent_id))
-		{
-			mTypingAvatars.erase(agent_id);	
-		}
-	}
-	else
-	{
-		mTypingAvatars.insert(agent_id);
-	}
+	mTypingAvatars.insert(agent_id);
+}
+
+
+void PanelRadar::removeFromTypingList(LLUUID agent_id)
+{
+	mTypingAvatars.erase(agent_id);
 }
 
 
@@ -401,7 +384,7 @@ void PanelRadar::addToSimAvList(LLUUID agent_id, std::string distance)
 }
 
 
-bool PanelRadar::getInSimAvList(LLUUID agent_id)
+bool PanelRadar::isInSimAvList(LLUUID agent_id)
 {
 	if (mSimAvatars.count(agent_id) > 0)
 	{
@@ -411,17 +394,17 @@ bool PanelRadar::getInSimAvList(LLUUID agent_id)
 }
 
 
-void PanelRadar::toggleButtons()
+void PanelRadar::updateButtonStates()
 {
-	BOOL enable = FALSE;
-	BOOL enable_unmute = FALSE;
-	BOOL enable_track = FALSE;
-	BOOL enable_estate = FALSE;
-	BOOL enable_friend = FALSE;
-	if (childHasFocus("RadarPanel"))
+	bool enable = false;
+	bool enable_unmute = false;
+	bool enable_track = false;
+	bool enable_estate = false;
+	bool enable_friend = false;
+	if (hasFocus())
 	{
-		enable = mSelectedAvatar.notNull() ? visibleItemsSelected() : FALSE;
-		enable_unmute = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : FALSE;
+		enable = mSelectedAvatar.notNull() ? visibleItemsSelected() : false;
+		enable_unmute = mSelectedAvatar.notNull() ? LLMuteList::getInstance()->isMuted(mSelectedAvatar) : false;
 		enable_track = gAgent.isGodlike() || is_agent_mappable(mSelectedAvatar);
 		enable_estate = isKickable(mSelectedAvatar);
 		enable_friend = !is_agent_friend(mSelectedAvatar);
@@ -462,12 +445,12 @@ void PanelRadar::toggleButtons()
 	{
 		if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES))
 		{
-			childSetEnabled("im_btn", FALSE);
-			childSetEnabled("profile_btn", FALSE);
-			childSetEnabled("invite_btn", FALSE);
-			childSetEnabled("add_btn", FALSE);
-			childSetEnabled("mute_btn", FALSE);
-			childSetEnabled("unmute_btn", FALSE);
+			childSetEnabled("im_btn", false);
+			childSetEnabled("profile_btn", false);
+			childSetEnabled("invite_btn", false);
+			childSetEnabled("add_btn", false);
+			childSetEnabled("mute_btn", false);
+			childSetEnabled("unmute_btn", false);
 		}
 
 		// Even though the avie is in the same sim (so they already know
@@ -487,7 +470,7 @@ void PanelRadar::toggleButtons()
 }
 
 
-BOOL PanelRadar::isKickable(const LLUUID &agent_id)
+bool PanelRadar::isKickable(const LLUUID &agent_id)
 {
 	if (agent_id.notNull())
 	{
@@ -505,7 +488,7 @@ BOOL PanelRadar::isKickable(const LLUUID &agent_id)
 					LLParcel* parcel = LLViewerParcelMgr::getInstance()->selectParcelAt(pos_global)->getParcel();
 					LLViewerParcelMgr::getInstance()->deselectLand();
 					
-					BOOL new_value = (region != NULL);
+					bool new_value = (region != NULL);
 								
 					if (new_value)
 					{
@@ -520,39 +503,24 @@ BOOL PanelRadar::isKickable(const LLUUID &agent_id)
 			}
 		}
 	}
-	return FALSE;	
+	return false;	
 }
 
 
 // static
-void PanelRadar::onList(LLUICtrl* ctrl, void* user_data)
+void PanelRadar::onUseRadarList(LLUICtrl* ctrl, void* user_data)
 {
 	PanelRadar* self = (PanelRadar*)user_data;
 	if (self)
 	{
-		self->toggleButtons();
+		self->updateButtonStates();
 	}
 }
 
 
-BOOL PanelRadar::visibleItemsSelected() const
+bool PanelRadar::visibleItemsSelected() const
 {
-	if (mRadarList->getFirstSelectedIndex() >= 0)
-	{
-		return TRUE;
-	}
-	return FALSE;
-}
-
-
-// static
-void PanelRadar::onRangeChange(LLFocusableElement* focus, void* user_data)
-{
-	PanelRadar* self = (PanelRadar*)user_data;
-	if (self)
-	{
-		self->mUpdate = !(self->childHasFocus("near_me_range"));
-	}
+	return (mRadarList->getFirstSelectedIndex() >= 0);
 }
 
 
@@ -561,6 +529,17 @@ LLUUID PanelRadar::getSelected()
 	return mSelectedAvatar;
 }
 
+
+//static 
+std::string PanelRadar::getSelectedName(const LLUUID &agent_id)
+{
+	std::string agent_name;
+	if(gCacheName->getFullName(agent_id, agent_name) && agent_name != " ")
+	{
+		return agent_name;
+	}
+	return LLStringUtil::null;
+}
 
 
 //
@@ -676,18 +655,6 @@ void PanelRadar::onClickAddFriend(void* user_data)
 //
 // Estate tab
 //
-
-//static 
-std::string PanelRadar::getSelectedName(const LLUUID &agent_id)
-{
-	std::string agent_name;
-	if(gCacheName->getFullName(agent_id, agent_name) && agent_name != " ")
-	{
-		return agent_name;
-	}
-	return LLStringUtil::null;
-}
-
 
 //static 
 void PanelRadar::callbackFreeze(S32 option, void *user_data)

@@ -1,3 +1,13 @@
+2009-10-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Cleaned up PanelRadar class a bit.
+	  More privacy, better method names, generally cleaner.
+
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  modified:   linden/indra/newview/panelradar.cpp
+	  modified:   linden/indra/newview/panelradar.h
+
+
 2009-10-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Minimap radar can now be toggled.
