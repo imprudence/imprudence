@@ -2384,7 +2384,7 @@ class LLObjectImportUpload : public view_listener_t
 	}
 };
 
-bool handle_go_to()
+bool handle_go_to_confirm()
 {
 // [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
 	if ( (rlv_handler_t::isEnabled()) && gAgent.forwardGrabbed() && (gRlvHandler.hasLockedAttachment()) )
@@ -2403,6 +2403,22 @@ bool handle_go_to()
 	}
 	return true;
 }
+
+
+bool handle_go_to()
+{
+// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+	if ( (rlv_handler_t::isEnabled()) && gAgent.forwardGrabbed() && (gRlvHandler.hasLockedAttachment()) )
+	{
+		return true;
+	}
+// [/RLVa:KB]
+
+	handle_go_to_callback( 0, (void*)LLToolPie::getInstance() );
+
+	return true;
+}
+
 
 //static
 void handle_go_to_callback(S32 option, void *userdata)

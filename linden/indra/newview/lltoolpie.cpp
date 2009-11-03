@@ -681,7 +681,7 @@ BOOL LLToolPie::handleDoubleClick(S32 x, S32 y, MASK mask)
 		if (mPick.mPickType == LLPickInfo::PICK_LAND
 			&& !mPick.mPosGlobal.isExactlyZero())
 		{
-			handle_go_to();
+			handle_go_to_confirm();
 			return TRUE;
 		}
 		else if (mPick.mObjectID.notNull()
@@ -691,7 +691,7 @@ BOOL LLToolPie::handleDoubleClick(S32 x, S32 y, MASK mask)
 			if(mPick.getObject().notNull() && mPick.getObject()->isHUDAttachment())
 				return FALSE;
 
-			handle_go_to();
+			handle_go_to_confirm();
 			return TRUE;
 		}
 	}

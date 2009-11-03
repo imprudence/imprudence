@@ -1,3 +1,13 @@
+2009-11-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* "Go Here" in pie menu no longer asks for confirmation.
+	  Double-click still does, though.
+
+	  modified:   linden/indra/newview/lltoolpie.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/llviewermenu.h
+
+
 2009-10-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Cleaned up PanelRadar class a bit.
