@@ -1,5 +1,11 @@
 2009-11-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Added a bunch of Linux libs to viewer_manifest.py.
+	  I had forgotten to add these earlier. Oops.
+
+	  modified:   linden/indra/newview/viewer_manifest.py
+
+
 	* Created our own Linux freetype package, 2.3.11.
 
 	  modified:   linden/indra/cmake/00-Common.cmake
