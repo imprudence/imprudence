@@ -169,6 +169,20 @@ if (MSVC80)
             ${debug_msvc8_files}
             )
         set(all_targets ${all_targets} ${out_targets})
+
+        set(debug_appconfig_file ${CMAKE_CURRENT_BINARY_DIR}/Debug/${VIEWER_BINARY_NAME}.exe.config)
+        add_custom_command(
+            OUTPUT ${debug_appconfig_file}
+            COMMAND ${PYTHON_EXECUTABLE}
+            ARGS
+              ${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
+              ${CMAKE_CURRENT_BINARY_DIR}/Debug/Microsoft.VC80.DebugCRT.manifest
+              ${CMAKE_CURRENT_SOURCE_DIR}/SecondLifeDebug.exe.config
+              ${debug_appconfig_file}
+            DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/Debug/Microsoft.VC80.DebugCRT.manifest
+            COMMENT "Creating debug app config file"
+            )
+
     endif (EXISTS ${debug_msvc8_redist_path})
 
     FIND_PATH(release_msvc8_redist_path msvcr80.dll
@@ -201,10 +215,42 @@ if (MSVC80)
             )
         set(all_targets ${all_targets} ${out_targets})
 
+        set(release_appconfig_file ${CMAKE_CURRENT_BINARY_DIR}/Release/${VIEWER_BINARY_NAME}.exe.config)
+        add_custom_command(
+            OUTPUT ${release_appconfig_file}
+            COMMAND ${PYTHON_EXECUTABLE}
+            ARGS
+              ${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
+              ${CMAKE_CURRENT_BINARY_DIR}/Release/Microsoft.VC80.CRT.manifest
+              ${CMAKE_CURRENT_SOURCE_DIR}/SecondLife.exe.config
+              ${release_appconfig_file}
+            DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/Release/Microsoft.VC80.CRT.manifest
+            COMMENT "Creating release app config file"
+            )
+
+        set(relwithdebinfo_appconfig_file ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/${VIEWER_BINARY_NAME}.exe.config)
+        add_custom_command(
+            OUTPUT ${relwithdebinfo_appconfig_file}
+            COMMAND ${PYTHON_EXECUTABLE}
+            ARGS
+              ${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
+              ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
+              ${CMAKE_CURRENT_SOURCE_DIR}/SecondLife.exe.config
+              ${relwithdebinfo_appconfig_file}
+            DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
+            COMMENT "Creating relwithdebinfo app config file"
+            )
+          
     endif (EXISTS ${release_msvc8_redist_path})
 endif (MSVC80)
 
-add_custom_target(copy_win_libs ALL DEPENDS ${all_targets})
+add_custom_target(copy_win_libs ALL
+  DEPENDS 
+    ${all_targets}
+    ${release_appconfig_file} 
+    ${relwithdebinfo_appconfig_file} 
+    ${debug_appconfig_file}
+  )
 
 if(EXISTS ${internal_llkdu_path})
     add_dependencies(copy_win_libs llkdu)

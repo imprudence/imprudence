@@ -138,8 +138,8 @@ TOOLMEDIAOPEN           CURSOR                  "toolmediaopen.cur"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,23,4,123523
- PRODUCTVERSION 1,23,4,123523
+ FILEVERSION 1,23,5,136262
+ PRODUCTVERSION 1,23,5,136262
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -156,12 +156,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Linden Lab"
             VALUE "FileDescription", "Second Life"
-            VALUE "FileVersion", "1.23.4.123523"
+            VALUE "FileVersion", "1.23.5.136262"
             VALUE "InternalName", "Second Life"
             VALUE "LegalCopyright", "Copyright © 2001-2008, Linden Research, Inc."
             VALUE "OriginalFilename", "SecondLife.exe"
             VALUE "ProductName", "Second Life"
-            VALUE "ProductVersion", "1.23.4.123523"
+            VALUE "ProductVersion", "1.23.5.136262"
         END
     END
     BLOCK "VarFileInfo"

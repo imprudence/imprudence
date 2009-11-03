@@ -202,6 +202,18 @@ class WindowsManifest(ViewerManifest):
                 self.path("Microsoft.VC80.CRT.manifest")
             self.end_prefix()
 
+        # The config file name needs to match the exe's name.
+        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst=self.final_exe() + ".config")
+
+        # We need this one too, so that llkdu loads at runtime - DEV-41194
+        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="llkdu.dll.2.config")
+
+        # We need this one too, so that win_crash_logger.exe loads at runtime - DEV-19004
+        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="win_crash_logger.exe.config")
+
+        # same thing for auto-updater.
+        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="updater.exe.config")
+
         # Mozilla runtime DLLs (CP)
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
             self.path("freebl3.dll")
@@ -230,9 +242,6 @@ class WindowsManifest(ViewerManifest):
 
         # Mozilla hack to get it to accept newer versions of msvc*80.dll than are listed in manifest
         # necessary as llmozlib2-vc80.lib refers to an old version of msvc*80.dll - can be removed when new version of llmozlib is built - Nyx
-        # The config file name needs to match the exe's name.
-        self.path("SecondLife.exe.config", dst=self.final_exe() + ".config")
-
         # Vivox runtimes
         if self.prefix(src="vivox-runtime/i686-win32", dst=""):
             self.path("SLVoice.exe")
@@ -242,12 +251,12 @@ class WindowsManifest(ViewerManifest):
             self.path("wrap_oal.dll")
             self.end_prefix()
 
-#        # pull in the crash logger and updater from other projects
-#        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
-#                "../win_crash_logger/debug/windows-crash-logger.exe",
-#                "../win_crash_logger/release/windows-crash-logger.exe",
-#                "../win_crash_logger/relwithdebinfo/windows-crash-logger.exe"),
-#                  dst="win_crash_logger.exe")
+        # pull in the crash logger and updater from other projects
+        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
+                "../win_crash_logger/debug/windows-crash-logger.exe",
+                "../win_crash_logger/release/windows-crash-logger.exe",
+                "../win_crash_logger/relwithdebinfo/windows-crash-logger.exe"),
+                  dst="win_crash_logger.exe")
         self.path(src=self.find_existing_file(
                 "../win_updater/debug/windows-updater.exe",
                 "../win_updater/release/windows-updater.exe",
@@ -459,13 +468,13 @@ class DarwinManifest(ViewerManifest):
                 self.path("vivox-runtime/universal-darwin/SLVoice", "SLVoice")
 
                 # llkdu dynamic library
-#                self.path("../../libraries/universal-darwin/lib_release/libllkdu.dylib", "libllkdu.dylib")
+                self.path("../../libraries/universal-darwin/lib_release/libllkdu.dylib", "libllkdu.dylib")
                 
                 #libfmodwrapper.dylib
                 self.path(self.args['configuration'] + "/libfmodwrapper.dylib", "libfmodwrapper.dylib")
                 
                 # our apps
-#                self.path("../mac_crash_logger/" + self.args['configuration'] + "/mac-crash-logger.app", "mac-crash-logger.app")
+                self.path("../mac_crash_logger/" + self.args['configuration'] + "/mac-crash-logger.app", "mac-crash-logger.app")
                 self.path("../mac_updater/" + self.args['configuration'] + "/mac-updater.app", "mac-updater.app")
 
                 # command line arguments for connecting to the proper grid
@@ -634,20 +643,20 @@ class Linux_i686Manifest(LinuxManifest):
     def construct(self):
         super(Linux_i686Manifest, self).construct()
 
-#        # install either the libllkdu we just built, or a prebuilt one, in
+        # install either the libllkdu we just built, or a prebuilt one, in
         # decreasing order of preference.  for linux package, this goes to bin/
         try:
-#            self.path(self.find_existing_file('../llkdu/libllkdu.so',
-#                '../../libraries/i686-linux/lib_release_client/libllkdu.so'), 
-#                  dst='bin/libllkdu.so')
+            self.path(self.find_existing_file('../llkdu/libllkdu.so',
+                '../../libraries/i686-linux/lib_release_client/libllkdu.so'), 
+                  dst='bin/libllkdu.so')
             # keep this one to preserve syntax, open source mangling removes previous lines
             pass
         except:
-#            print "Skipping libllkdu.so - not found"
+            print "Skipping libllkdu.so - not found"
             pass
 
         self.path("secondlife-stripped","bin/do-not-directly-run-secondlife-bin")
-#        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
+        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):
             self.path("*")
@@ -660,7 +669,7 @@ class Linux_i686Manifest(LinuxManifest):
         self.path("app_settings/mozilla-runtime-linux-i686")
 
         if self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
-#            self.path("libkdu_v42R.so", "libkdu.so")
+            self.path("libkdu_v42R.so", "libkdu.so")
             self.path("libfmod-3.75.so")
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
@@ -689,7 +698,7 @@ class Linux_x86_64Manifest(LinuxManifest):
     def construct(self):
         super(Linux_x86_64Manifest, self).construct()
         self.path("secondlife-stripped","bin/do-not-directly-run-secondlife-bin")
-#        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
+        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):
             self.path("*")

@@ -524,7 +524,6 @@ void LLUpdateTaskInventoryResponder::uploadComplete(const LLSD& content)
 	{
 		case LLAssetType::AT_NOTECARD:
 			{
-
 				// Update the UI with the new asset.
 				LLPreviewNotecard* nc;
 				nc = (LLPreviewNotecard*)LLPreview::find(item_id);
@@ -542,7 +541,7 @@ void LLUpdateTaskInventoryResponder::uploadComplete(const LLSD& content)
 							content["new_asset"].asUUID(),
 							LLAssetType::AT_NOTECARD);
 					}
-
+					nc->setAssetId(content["new_asset"].asUUID());
 					nc->refreshFromInventory();
 				}
 			}

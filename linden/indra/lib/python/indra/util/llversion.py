@@ -43,7 +43,7 @@ def get_version_file_contents(version_type):
     file.close()
     return file_str
 
-def get_version(version_type):
+def get_version(version_type, revision=0):
     file_str = get_version_file_contents(version_type)
     m = re.search('const S32 LL_VERSION_MAJOR = (\d+);', file_str)
     VER_MAJOR = m.group(1)
@@ -51,8 +51,11 @@ def get_version(version_type):
     VER_MINOR = m.group(1)
     m = re.search('const S32 LL_VERSION_PATCH = (\d+);', file_str)
     VER_PATCH = m.group(1)
-    m = re.search('const S32 LL_VERSION_BUILD = (\d+);', file_str)
-    VER_BUILD = m.group(1)
+    if revision > 0:
+        VER_BUILD = revision
+    else:
+        m = re.search('const S32 LL_VERSION_BUILD = (\d+);', file_str)
+        VER_BUILD = m.group(1)
     version = "%(VER_MAJOR)s.%(VER_MINOR)s.%(VER_PATCH)s.%(VER_BUILD)s" % locals()
     return version
 
@@ -61,11 +64,11 @@ def get_channel(version_type):
     m = re.search('const char \* const LL_CHANNEL = "(.+)";', file_str)
     return m.group(1)
     
-def get_viewer_version():
-    return get_version('viewer')
+def get_viewer_version(revision=0):
+    return get_version('viewer', revision)
 
-def get_server_version():
-    return get_version('server')
+def get_server_version(revision=0):
+    return get_version('server', revision)
 
 def get_viewer_channel():
     return get_channel('viewer')
