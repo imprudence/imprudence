@@ -1,3 +1,10 @@
+2009-11-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Updated ndofdev to the version used in SL 1.23.4.
+
+	  modified:   linden/install.xml
+
+
 2009-11-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Added "Double-Click Action" and "Go Here By" to Input prefs panel.

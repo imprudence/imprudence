@@ -1057,23 +1057,16 @@ anguage Infrstructure (CLI) international standard</string>
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>489612b246b2f4b2f239611d786c79de</string>
+            <string>9469c3732a33a154fa0a2807b9f36ccc</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ndofdev-linux-20080618.tar.bz2</uri>
-          </map>
-          <key>linux32</key>
-          <map>
-            <key>md5sum</key>
-            <string>c980300c14dddf47ba0c46608b29a027</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ndofdev-linux-i686-gcc-4.1-20080915.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ndofdev-linux-0.2-20080828.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>03cbdf59996f468f907f11cb9c64f93f</string>
+            <string>8ac100b5b711231b06be891c91cb68f3</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ndofdev-windows-20080618.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ndofdev-windows-20080723.tar.bz2</uri>
           </map>
         </map>
       </map>
