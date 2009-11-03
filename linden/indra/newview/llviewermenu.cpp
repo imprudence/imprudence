@@ -2393,11 +2393,14 @@ bool handle_go_to_confirm()
 	}
 // [/RLVa:KB]
 
-	if (gSavedSettings.getBOOL("DoubleClickTeleport"))
+	std::string action = gSavedSettings.getString("GoAction");
+	LLStringUtil::toLower(action);
+
+	if (action == "teleport")
 	{
 		gViewerWindow->alertXml("ConfirmDoubleClickTP", handle_go_to_callback, (void*)LLToolPie::getInstance());
 	}
-	else if (gSavedSettings.getBOOL("DoubleClickAutoPilot"))
+	else if (action == "autopilot")
 	{
 		gViewerWindow->alertXml("ConfirmAutoPilot", handle_go_to_callback, (void*)LLToolPie::getInstance());
 	}
@@ -2431,13 +2434,17 @@ void handle_go_to_callback(S32 option, void *userdata)
 		std::vector<std::string> strings;
 		std::string val;
 		LLVector3d pos = pie->getPick().mPosGlobal;
-		if (gSavedSettings.getBOOL("DoubleClickTeleport"))
+
+		std::string action = gSavedSettings.getString("GoAction");
+		LLStringUtil::toLower(action);
+
+		if (action == "teleport")
 		{
 			LLVector3d hips_offset(0.0f, 0.0f, 1.2f);
 			gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
 			gAgent.teleportViaLocation(pos + hips_offset);
 		}
-		else
+		else if (action == "autopilot")
 		{
 			// JAMESDEBUG try simulator autopilot
 			std::vector<std::string> strings;
@@ -2464,6 +2471,10 @@ void handle_go_to_callback(S32 option, void *userdata)
 
 			// Could be first use
 			LLFirstUse::useGoTo();
+		}
+		else
+		{
+			llwarns << "Unhandled GoAction setting: " << action << llendl;
 		}
 	}
 }

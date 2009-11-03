@@ -1,5 +1,14 @@
 2009-11-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Added "DoubleClickAction" and "GoAction" settings.
+	  Together they replace "DoubleClickAutopilot" and
+	  "DoubleClickTeleport".
+
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/lltoolpie.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+
+
 	* "Go Here" in pie menu no longer asks for confirmation.
 	  Double-click still does, though.
 

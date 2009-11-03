@@ -676,7 +676,14 @@ BOOL LLToolPie::handleDoubleClick(S32 x, S32 y, MASK mask)
 		llinfos << "LLToolPie handleDoubleClick (becoming mouseDown)" << llendl;
 	}
 
-	if (gSavedSettings.getBOOL("DoubleClickAutoPilot") || gSavedSettings.getBOOL("DoubleClickTeleport"))
+	std::string action = gSavedSettings.getString("DoubleClickAction");
+	LLStringUtil::toLower(action);
+
+	if (action == "none")
+	{
+		return FALSE;
+	}
+	else if (action == "go")
 	{
 		if (mPick.mPickType == LLPickInfo::PICK_LAND
 			&& !mPick.mPosGlobal.isExactlyZero())
@@ -695,32 +702,12 @@ BOOL LLToolPie::handleDoubleClick(S32 x, S32 y, MASK mask)
 			return TRUE;
 		}
 	}
+	else
+	{
+		llwarns << "Unhandled DoubleClickAction setting: " << action << llendl;
+	}
 
 	return FALSE;
-
-	/* JC - don't do go-there, because then double-clicking on physical
-	objects gets you into trouble.
-
-	// If double-click on object or land, go there.
-	LLViewerObject *object = gViewerWindow->getLastPick().getObject();
-	if (object)
-	{
-		if (object->isAvatar())
-		{
-			LLFloaterAvatarInfo::showFromAvatar(object->getID());
-		}
-		else
-		{
-			handle_go_to(NULL);
-		}
-	}
-	else if (!gLastHitPosGlobal.isExactlyZero())
-	{
-		handle_go_to(NULL);
-	}
-
-	return TRUE;
-	*/
 }
 
 
