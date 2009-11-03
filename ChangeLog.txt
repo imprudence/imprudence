@@ -1,5 +1,11 @@
 2009-11-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Added "Double-Click Action" and "Go Here By" to Input prefs panel.
+
+	  modified:   linden/indra/newview/llpanelinput.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_input.xml
+
+
 	* Added "DoubleClickAction" and "GoAction" settings.
 	  Together they replace "DoubleClickAutopilot" and
 	  "DoubleClickTeleport".

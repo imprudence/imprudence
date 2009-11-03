@@ -103,4 +103,41 @@
 	<button bottom_delta="-4" follows="left|top" font="SansSerif" height="20"
 	     label="Joystick Setup" left="148" mouse_opaque="true"
 	     name="joystick_setup_button" width="155" />
+
+
+	<text name="double_click_action_label"
+	      bottom_delta="-32" left="10" height="18" width="200"
+        follows="left|top" font="SansSerifSmall" mouse_opaque="true">
+    Double-Click Action:
+	</text>
+
+  <combo_box name="double_click_action"
+             bottom_delta="0" left_delta="138" height="18" width="150"
+             follows="left|top" mouse_opaque="true">
+		<combo_item name="None" value="None">
+			None
+		</combo_item>
+		<combo_item name="Go" value="Go">
+			Go Here
+		</combo_item>
+  </combo_box>
+
+
+	<text name="go_action_label"
+	      bottom_delta="-20" left="10" height="18" width="200"
+        follows="left|top" font="SansSerifSmall" mouse_opaque="true">
+    “Go Here” By:
+	</text>
+
+  <combo_box name="go_action"
+             bottom_delta="0" left_delta="138" height="18" width="150"
+             follows="left|top" mouse_opaque="true">
+		<combo_item name="Autopilot" value="Autopilot">
+			Autopilot
+		</combo_item>
+		<combo_item name="Teleport" value="Teleport">
+			Teleporting
+		</combo_item>
+  </combo_box>
+
 </panel>

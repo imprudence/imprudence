@@ -55,6 +55,9 @@ BOOL LLPanelInput::postBuild()
 	childSetValue("camera_position_smoothing", gSavedSettings.getF32("CameraPositionSmoothing"));
 	childSetValue("first_person_avatar_visible", gSavedSettings.getBOOL("FirstPersonAvatarVisible"));
 
+	childSetValue("double_click_action", gSavedSettings.getString("DoubleClickAction"));
+	childSetValue("go_action", gSavedSettings.getString("GoAction"));
+
 	return TRUE;
 }
 
@@ -74,6 +77,10 @@ void LLPanelInput::apply()
 	gSavedSettings.setF32("ZoomTime", childGetValue("zoom_time").asReal());
 	gSavedSettings.setF32("CameraPositionSmoothing", childGetValue("camera_position_smoothing").asReal());
 	gSavedSettings.setBOOL("FirstPersonAvatarVisible", childGetValue("first_person_avatar_visible"));
+
+	gSavedSettings.setString("DoubleClickAction", childGetValue("double_click_action"));
+	gSavedSettings.setString("GoAction", childGetValue("go_action"));
+
 }
 
 void LLPanelInput::cancel()
