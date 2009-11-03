@@ -1,5 +1,11 @@
 2009-11-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Created our own Linux freetype package, 2.3.11.
+
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/llrender/llfont.cpp
+	  modified:   linden/install.xml
+
 	* Updated ndofdev to the version used in SL 1.23.4.
 
 	  modified:   linden/install.xml

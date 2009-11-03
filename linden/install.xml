@@ -453,23 +453,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>07665d74d37c56fd884610ec80a1d19f</string>
+            <string>efc845cf291073b1e4d381a271f194eb</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/freetype-2.1.5-linux-20080812.tar.bz2</uri>
-          </map>
-          <key>linux32</key>
-          <map>
-            <key>md5sum</key>
-            <string>c22a667d4b6b518cc7f942e2c861ca77</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/freetype-2.1.5-linux-i686-gcc-4.1-20080915.tar.bz2</uri>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>35f6fa557ba90f9cda0a18d1af2055a4</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/freetype-2.1.5-linux64-20080909.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/freetype-2.3.11-linux-20091103.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
