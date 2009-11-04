@@ -806,7 +806,7 @@ class Linux_i686Manifest(LinuxManifest):
             # GTK+ and dependencies
             self.path("libatk-1.0.so.0")
             self.path("libcairo.so.2")
-            self.path("libfontconfig.so", "libfontconfig.so.1")
+            self.path("libfontconfig.so.1")
             self.path("libfreetype.so.6")
             self.path("libgdk_pixbuf-2.0.so.0")
             self.path("libgdk-x11-2.0.so.0")

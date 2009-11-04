@@ -1,3 +1,11 @@
+2009-11-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Created our own Linux fontconfig package, 2.3.7.
+
+	  modified:   linden/indra/newview/viewer_manifest.py
+	  modified:   linden/install.xml
+
+
 2009-11-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Added a bunch of Linux libs to viewer_manifest.py.
