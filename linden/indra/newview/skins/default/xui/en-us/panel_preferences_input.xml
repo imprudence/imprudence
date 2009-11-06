@@ -118,7 +118,7 @@
 			None
 		</combo_item>
 		<combo_item name="Go" value="Go">
-			Go Here
+			Autopilot
 		</combo_item>
   </combo_box>
 
@@ -126,17 +126,17 @@
 	<text name="go_action_label"
 	      bottom_delta="-20" left="10" height="18" width="200"
         follows="left|top" font="SansSerifSmall" mouse_opaque="true">
-    “Go Here” By:
+    Autopilot Style:
 	</text>
 
   <combo_box name="go_action"
              bottom_delta="0" left_delta="138" height="18" width="150"
              follows="left|top" mouse_opaque="true">
-		<combo_item name="Autopilot" value="Autopilot">
-			Autopilot
+		<combo_item name="Move" value="Move">
+			Move
 		</combo_item>
 		<combo_item name="Teleport" value="Teleport">
-			Teleporting
+			Teleport
 		</combo_item>
   </combo_box>
 

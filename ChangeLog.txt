@@ -1,3 +1,10 @@
+2009-11-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Changed wording of double-click and autopilot prefs.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_input.xml
+
+
 2009-11-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Created our own Linux fontconfig package, 2.3.7.
