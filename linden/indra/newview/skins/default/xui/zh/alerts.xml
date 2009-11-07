@@ -775,7 +775,7 @@
 	<alert name="DisplayChangeRestart">
 		<message name="message">
 			有一些你执行的显示设置的改变
-需要 [SECOND_LIFE] 立即关闭，
+需要 [VIEWER] 立即关闭，
 这会导致进行中的所有工作丢失。
  
 应用更改并退出？
@@ -842,23 +842,23 @@
 	</alert>
 	<alert name="CacheWillClear">
 		<message name="message">
-			缓存将在重新启动 [SECOND_LIFE] 后清除。
+			缓存将在重新启动 [VIEWER] 后清除。
 		</message>
 	</alert>
 	<alert name="CacheWillBeMoved">
 		<message name="message">
-			缓存将在重新启动 [SECOND_LIFE] 后移动。
+			缓存将在重新启动 [VIEWER] 后移动。
 注意: 这样将会清除缓存。
 		</message>
 	</alert>
 	<alert name="ChangeConnectionPort">
 		<message name="message">
-			端口设定将在重新启动 [SECOND_LIFE] 后生效。
+			端口设定将在重新启动 [VIEWER] 后生效。
 		</message>
 	</alert>
 	<alert name="ChangeSkin">
 		<message name="message">
-			新皮肤将在 [SECOND_LIFE] 重新启动后应用。
+			新皮肤将在 [VIEWER] 重新启动后应用。
 		</message>
 	</alert>
 	<alert name="GoToAuctionPage">
@@ -1056,7 +1056,7 @@ MINSPECS
 	</alert>
 	<alert name="DisplaySettingsNoShaders">
 		<message name="message">
-			[SECOND_LIFE] 在初始化图形驱动程序时崩溃了。
+			[VIEWER] 在初始化图形驱动程序时崩溃了。
 图形质量将被设为“低”以避免常见的驱动程序错误。
 这将禁用某些图形特性。
 我们建议更新您的显示卡驱动程序。
@@ -1189,7 +1189,7 @@ SecondLife.log文件，文件路径为:
 	</alert>
 	<alert name="FirstRunDialog">
 		<message name="message">
-			[SECOND_LIFE] 安装已完成。
+			[VIEWER] 安装已完成。
  
 如果这是你第一次使用[SECOND_LIFE], 登陆前你
 需要创建一个新帐户。
@@ -1206,7 +1206,7 @@ SecondLife.log文件，文件路径为:
 	<alert name="ClothingStillDownloading">
 		<message name="message">
 			你的化身仍在下载中。
-你现在可以正常地使用 [SECOND_LIFE]，
+你现在可以正常地使用 [VIEWER]，
 其他用户也可以正常地看见你。
 		</message>
 	</alert>
@@ -2031,7 +2031,7 @@ SecondLife.log文件，文件路径为:
 [MESSAGE]
  
 您仍可以查看历史即时通记录和聊天记录。
-否则点击退出将立即关闭 [SECOND_LIFE]。
+否则点击退出将立即关闭 [VIEWER]。
 		</message>
 		<option name="Continue">
 			查看聊天记录
@@ -2444,7 +2444,7 @@ SecondLife.log文件，文件路径为:
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
-			[SECOND_LIFE] 安装已完成。
+			[VIEWER] 安装已完成。
  
 如果这是你第一次使用[SECOND_LIFE], 登陆前你
 需要创建一个新帐户。
@@ -2666,7 +2666,7 @@ SecondLife.log文件，文件路径为:
 	</alert>
 	<alert name="DownloadWindowsMandatory">
 		<message name="message">
-			[SECOND_LIFE] 有新版本可用。
+			[VIEWER] 有新版本可用。
 [MESSAGE]
  
 你必须下载此更新才能使用 [SECOND_LIFE]。
@@ -2680,7 +2680,7 @@ SecondLife.log文件，文件路径为:
 	</alert>
 	<alert name="DownloadWindows">
 		<message name="message">
-			[SECOND_LIFE] 有新版本可用。
+			[VIEWER] 有新版本可用。
 [MESSAGE]
  
 这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。
@@ -2694,7 +2694,7 @@ SecondLife.log文件，文件路径为:
 	</alert>
 	<alert name="DownloadWindowsReleaseForDownload">
 		<message name="message">
-			[SECOND_LIFE] 有新版本可用。
+			[VIEWER] 有新版本可用。
 [MESSAGE]
  
 这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。
@@ -2708,7 +2708,7 @@ SecondLife.log文件，文件路径为:
 	</alert>
 	<alert name="DownloadMacMandatory">
 		<message name="message">
-			[SECOND_LIFE]有新版本可用。
+			[VIEWER]有新版本可用。
 [MESSAGE]
  
 你必须下载此更新才能使用 [SECOND_LIFE]。
@@ -2723,7 +2723,7 @@ SecondLife.log文件，文件路径为:
 	</alert>
 	<alert name="DownloadMac">
 		<message name="message">
-			[SECOND_LIFE]有新版本可用。
+			[VIEWER]有新版本可用。
 [MESSAGE]
  
 这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。
@@ -2739,7 +2739,7 @@ SecondLife.log文件，文件路径为:
 	</alert>
 	<alert name="DownloadMacReleaseForDownload">
 		<message name="message">
-			[SECOND_LIFE]有新版本可用。
+			[VIEWER]有新版本可用。
 [MESSAGE]
  
 这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。

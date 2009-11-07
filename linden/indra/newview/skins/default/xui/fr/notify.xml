@@ -890,7 +890,7 @@ Les objets flexibles ne peuvent pas avoir de propriétés physiques et doivent r
 	<notify name="FirstDebugMenus">
 		<message name="message">
 			Vous avez activé le menu Avancé. 
-Ce menu contient des fonctionnalités utiles pour les développeurs qui travaillent sur Second Life.
+Ce menu contient des fonctionnalités utiles pour les développeurs qui travaillent sur [SECOND_LIFE].
 Pour activer/désactiver ce menu sous Windows, appuyez sur Ctrl-Alt-D. Sur un Mac, appuyez sur Cmd-Opt-Maj-D
 		</message>
 	</notify>

@@ -907,7 +907,7 @@ until the flexible checkbox is unchecked.
 	<notify name="FirstDebugMenus" tip="false">
 		<message name="message">
 			You have enabled the Advanced menu. 
-This menu contains features useful for developers debugging Second Life.
+This menu contains features useful for developers debugging Imprudence.
 To toggle this menu on Windows press Ctrl-Alt-D. On Mac press Cmd-Opt-Shift-D.
 		</message>
 	</notify>

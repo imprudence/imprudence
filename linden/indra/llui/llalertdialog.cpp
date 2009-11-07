@@ -46,6 +46,7 @@
 #include "llxmlnode.h"
 #include "lllineeditor.h"
 #include "lluictrlfactory.h"
+#include "llversionviewer.h"
 
 
 const S32 MAX_ALLOWED_MSG_WIDTH = 400;
@@ -259,6 +260,7 @@ void LLAlertDialog::format(std::string& msg, const LLStringUtil::format_map_t& a
 	// XUI:translate!
 	LLStringUtil::format_map_t targs = args;
 	targs["[SECOND_LIFE]"] = "Second Life";
+	targs["[VIEWER]"] = IMP_VIEWER_NAME;
 	targs["[_URL]"] = mURL;
 	LLStringUtil::format(msg, targs);
 }

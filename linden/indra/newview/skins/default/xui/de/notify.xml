@@ -883,7 +883,7 @@ Ein flexibles Objekt ist ein Phantom und nicht physisch, bis die Option „Flexi
 	<notify name="FirstDebugMenus">
 		<message name="message">
 			Sie haben das Advanced-Menü aktiviert. 
-Dieses Menü enthält nützliche Funktionen zum Debuggen von Second Life.
+Dieses Menü enthält nützliche Funktionen zum Debuggen von [SECOND_LIFE].
 Drücken Sie in Windows Strg-Alt-D (Mac: Befehl-Opt-Umschalt-D) zum Ein- und Ausschalten dieses Menüs.
 		</message>
 	</notify>

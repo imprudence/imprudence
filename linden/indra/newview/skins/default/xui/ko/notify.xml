@@ -902,7 +902,7 @@ Ctrl 또는 Alt 키를 누른 상태에서 신속하게 도구를 전환하십�
 	<notify name="FirstDebugMenus">
 		<message name="message">
 			고급 메뉴를 활성화하였습니다. 
-이 메뉴들은Second Life 디버깅 개발자에게 유용한 점들을 포함하고 있습니다.
+이 메뉴들은[SECOND_LIFE] 디버깅 개발자에게 유용한 점들을 포함하고 있습니다.
 이 메뉴들을 토글 기능으로 사용하려면 Windows에서 Ctrl-Alt-D키를 누르고 Mac 운영 시스템에서는Cmd-Opt-Shift-D를 누릅니다.
 		</message>
 	</notify>

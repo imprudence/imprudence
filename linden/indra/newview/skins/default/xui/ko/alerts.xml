@@ -797,7 +797,7 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 	<alert name="DisplayChangeRestart">
 		<message name="message">
 			일부 디스플레이 변경 사항을 적용하려면
-[SECOND_LIFE]를 즉시 종료해야 합니다.
+[VIEWER]를 즉시 종료해야 합니다.
 그렇지 않으면 진행 중인 모든 작업이 손실됩니다.
 
 해당 변경 사항을 적용한 후 종료하시겠습니까?
@@ -864,23 +864,23 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 	</alert>
 	<alert name="CacheWillClear">
 		<message name="message">
-			[SECOND_LIFE]를 다시 시작하면 캐시가 비워 집니다.
+			[VIEWER]를 다시 시작하면 캐시가 비워 집니다.
 		</message>
 	</alert>
 	<alert name="CacheWillBeMoved">
 		<message name="message">
-			[SECOND_LIFE]를 다시 시작하면 캐시가 이동합니다.
+			[VIEWER]를 다시 시작하면 캐시가 이동합니다.
 참고: 이 작업은 캐시를 비웁니다.
 		</message>
 	</alert>
 	<alert name="ChangeConnectionPort">
 		<message name="message">
-			포트 설정은 [SECOND_LIFE]를 다시 시작한 후 유효합니다.
+			포트 설정은 [VIEWER]를 다시 시작한 후 유효합니다.
 		</message>
 	</alert>
 	<alert name="ChangeSkin">
 		<message name="message">
-			새로운 스킨은 [SECOND_LIFE]를 재시동한 후 적용됩니다.
+			새로운 스킨은 [VIEWER]를 재시동한 후 적용됩니다.
 		</message>
 	</alert>
 	<alert name="GoToAuctionPage">
@@ -1090,7 +1090,7 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 	</alert>
 	<alert name="DisplaySettingsNoShaders">
 		<message name="message">
-			그래픽 드라이버 초기화 중 [SECOND_LIFE]에 오류가 발생했습니다.
+			그래픽 드라이버 초기화 중 [VIEWER]에 오류가 발생했습니다.
 일반적인 드라이버 오류를 방지하기 위해 그래픽 품질이 낮게 설정됩니다.
 이로 인해 일부 그래픽 기능을 사용할 수 없게 될 수 있습니다..
 그래픽 카드 드라이버의 업데이트를 권장합니다.
@@ -1221,7 +1221,7 @@ www.secondlife.com/support에서 관련 정보를 참고하십시오.
 	</alert>
 	<alert name="FirstRunDialog">
 		<message name="message">
-			[SECOND_LIFE] 설치가 완료되었습니다.
+			[VIEWER] 설치가 완료되었습니다.
 
 [SECOND_LIFE]를 처음 사용하시는 경우 먼저 계정을 만들어야
 로그인할 수 있습니다.
@@ -2076,7 +2076,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			[SECOND_LIFE]에서 로그아웃하셨습니다:
             [MESSAGE]
-기존의 메신저와 채팅을 보려면 &apos;메신저 및 채팅 보기&apos;를 클릭하십시오. 그렇지 않고 [SECOND_LIFE]를 즉시 끝내려면 &apos;종료&apos;를 클릭하십시오.
+기존의 메신저와 채팅을 보려면 &apos;메신저 및 채팅 보기&apos;를 클릭하십시오. 그렇지 않고 [VIEWER]를 즉시 끝내려면 &apos;종료&apos;를 클릭하십시오.
 		</message>
 		<option name="Continue">
 			메신저 및 채팅 보기
@@ -2490,7 +2490,7 @@ http://www.apple.com/quicktime/을 방문하여 최신 버전을 다운로드하
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
-			[SECOND_LIFE] 설치가 완료되었습니다.
+			[VIEWER] 설치가 완료되었습니다.
 
 [SECOND_LIFE]를 처음 사용하시는 경우 먼저 계정을 만들어야
 로그인할 수 있습니다.
@@ -2715,7 +2715,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="DownloadWindowsMandatory">
 		<message name="message">
-			[SECOND_LIFE] 새 버전이 출시되었습니다.
+			[VIEWER] 새 버전이 출시되었습니다.
 [MESSAGE]
 [SECOND_LIFE]를 사용하려면 이 업데이트를 다운로드해야 합니다.
 		</message>
@@ -2728,7 +2728,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="DownloadWindows">
 		<message name="message">
-			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
+			[VIEWER] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
 		</message>
@@ -2741,7 +2741,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="DownloadWindowsReleaseForDownload">
 		<message name="message">
-			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
+			[VIEWER] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
 		</message>
@@ -2754,7 +2754,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="DownloadMacMandatory">
 		<message name="message">
-			[SECOND_LIFE] 새 버전이 출시되었습니다.
+			[VIEWER] 새 버전이 출시되었습니다.
 [MESSAGE]
 [SECOND_LIFE]를 사용하려면 이 업데이트를 다운로드해야 합니다.
 
@@ -2769,7 +2769,7 @@ Applications 폴더에 다운로드하시겠습니까?
 	</alert>
 	<alert name="DownloadMac">
 		<message name="message">
-			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
+			[VIEWER] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
  
@@ -2784,7 +2784,7 @@ Applications 폴더에 다운로드하시겠습니까?
 	</alert>
 	<alert name="DownloadMacReleaseForDownload">
 		<message name="message">
-			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
+			[VIEWER] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
  
@@ -3941,7 +3941,7 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="VoiceVersionMismatch" title="음성 버전이 일치하지 않음.">
 		<message name="message">
-			현재Second Life 버전은 이 지역의 음성 채팅 사양과 일치하지 않습니다. 음성 채팅 기능이 올바르게 작동하려면Second Life를 업데이트 해야 합니다.
+			현재[SECOND_LIFE] 버전은 이 지역의 음성 채팅 사양과 일치하지 않습니다. 음성 채팅 기능이 올바르게 작동하려면[SECOND_LIFE]를 업데이트 해야 합니다.
 		</message>
 	</alert>
 	<alert name="HelpEstateCovenant" title="사유지 시행 규칙">
@@ -4195,10 +4195,10 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="ClickOpenF1Help">
 		<message name="message">
-			Second Life 지원 웹 사이트를 방문하시겠습니까?
+			[SECOND_LIFE] 지원 웹 사이트를 방문하시겠습니까?
 		</message>
 		<ignore name="ignore">
-			Second Life 지원 웹 사이트를 방문할 때.
+			[SECOND_LIFE] 지원 웹 사이트를 방문할 때.
 		</ignore>
 		<option name="Gotopage">
 			이동
@@ -4226,7 +4226,7 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 			종료 하시겠습니까?
 		</message>
 		<ignore name="ignore">
-			Second Life를 종료할 때.
+			[SECOND_LIFE]를 종료할 때.
 		</ignore>
 		<option name="Quit">
 			종료
@@ -4264,10 +4264,10 @@ http://secondlife.com/community/blotter.php
 (시행 규칙을 열람하려면 월드 메뉴에서 토지 소개를
 선택하십시오.)
 -
-이 보고서의 해결은 이 지역에서만 적용되며, Second Life 내의
+이 보고서의 해결은 이 지역에서만 적용되며, [SECOND_LIFE] 내의
 기타 지역에 대한 주민들의 접근 권한은 이 보고서의 결과에
 영향을 받지 않습니다. 오직 Linden Lab만이
-Second Life 전체의 접근 권한을 제한할 수 있습니다.
+[SECOND_LIFE] 전체의 접근 권한을 제한할 수 있습니다.
 		</message>
 	</alert>
 	<alert name="HelpReportBug">
@@ -4877,7 +4877,7 @@ D 슬라이더를 사용해서는 구름의 농도를
 	</alert>
 	<alert name="BadURL">
 		<message name="message">
-			Second Life에서 링크로 연결되지 않습니다:
+			[SECOND_LIFE]에서 링크로 연결되지 않습니다:
  [SLURL]
 대부분의 링크 형식은 다음과 유사합니다:
 
@@ -4890,7 +4890,7 @@ fd37083abc4c/about
 	<alert name="NotAgeVerified">
 		<message name="message">
 			이 구획에 출입하려면 성인 인증이 필요합니다.
-Second Life 웹사이트를 방문하여 성인 인증을 하시겠습니까?
+[SECOND_LIFE] 웹사이트를 방문하여 성인 인증을 하시겠습니까?
 
 [_URL]
 		</message>
@@ -4910,7 +4910,7 @@ Second Life 웹사이트를 방문하여 성인 인증을 하시겠습니까?
 	<alert name="Cannot enter parcel: no payment info on file">
 		<message name="message">
 			이 구획에 출입 하려면 결제 수단 정보가 있어야 합니다.
-Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
+[SECOND_LIFE] 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
 
 [_URL]
 		</message>

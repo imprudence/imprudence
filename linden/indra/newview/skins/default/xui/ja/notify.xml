@@ -888,7 +888,7 @@ Mキーを押して変更します。
 	<notify name="FirstDebugMenus">
 		<message name="message">
 			高度な設定を有効にしました。 
-このメニューには、Second Life をデバッグするデベロッパーにとって有用な機能があります。
+このメニューには、[SECOND_LIFE] をデバッグするデベロッパーにとって有用な機能があります。
 このメニューを切り替えるには、Windows では Ctrl-Alt-Dを押します。Macの場合は、Cmd-Opt-Shift-Dを押してください。.
 		</message>
 	</notify>

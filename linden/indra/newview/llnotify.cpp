@@ -53,6 +53,7 @@
 #include "llfloaterchat.h"	// for add_chat_history()
 #include "lloverlaybar.h" // for gOverlayBar
 #include "lluictrlfactory.h"
+#include "llversionviewer.h"
 
 // [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0e) | Added: RLVa-0.2.0b
 #include "rlvhandler.h"
@@ -585,6 +586,7 @@ void LLNotifyBox::format(std::string& msg, const LLStringUtil::format_map_t& arg
 	// XUI:translate!
 	LLStringUtil::format_map_t targs = args;
 	targs["[SECOND_LIFE]"] = "Second Life";
+	targs["[VIEWER]"] = IMP_VIEWER_NAME;
 	LLStringUtil::format(msg, targs);
 }
 

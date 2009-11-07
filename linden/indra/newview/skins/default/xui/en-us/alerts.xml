@@ -376,7 +376,7 @@ Selecting &quot;Show in Search&quot; will show:
 		<message name="message">
 			You can propose to another Resident or dissolve an existing partnership through the [SECOND_LIFE] website.
 
-Go to the Second Life web site for more information on partnering?
+Go to the [SECOND_LIFE] web site for more information on partnering?
 		</message>
 		<option name="GotoPage">
 			Go to Page
@@ -583,7 +583,7 @@ Your selling price will be L$[SALE_PRICE] and will be authorized for sale to [NA
 	</alert>
 	<alert caution="true" modal="true" name="ConfirmLandSaleToAnyoneChange">
 		<message name="message">
-			ATTENTION: Clicking &apos;sell to anyone&apos; makes your land available to the entire Second Life community, even those not in this region.
+			ATTENTION: Clicking &apos;sell to anyone&apos; makes your land available to the entire [SECOND_LIFE] community, even those not in this region.
 
 The selected [LAND_SIZE] m2 land is being set for sale.
 Your selling price will be L$[SALE_PRICE] and will be authorized for sale to [NAME].
@@ -867,7 +867,7 @@ There is no reimbursement for fees paid.
 	<alert modal="true" name="DisplayChangeRestart">
 		<message name="message">
 			Some of the display changes that you have made
-require [SECOND_LIFE] to shut down immediately,
+require [VIEWER] to shut down immediately,
 which will cause you to lose any work in progress.
 
 Apply those changes and quit?
@@ -934,23 +934,23 @@ Apply those changes and quit?
 	</alert>
 	<alert modal="true" name="CacheWillClear">
 		<message name="message">
-			Cache will be cleared after you restart [SECOND_LIFE].
+			Cache will be cleared after you restart [VIEWER].
 		</message>
 	</alert>
 	<alert modal="true" name="CacheWillBeMoved">
 		<message name="message">
-			Cache will be moved after you restart [SECOND_LIFE].
+			Cache will be moved after you restart [VIEWER].
 Note: This will clear the cache.
 		</message>
 	</alert>
 	<alert modal="true" name="ChangeConnectionPort">
 		<message name="message">
-			Port settings take effect after you restart [SECOND_LIFE].
+			Port settings take effect after you restart [VIEWER].
 		</message>
 	</alert>
   <alert modal="true" name="ChangeSkin">
     <message name="message">
-      The new skin will appear after you restart [SECOND_LIFE].
+      The new skin will appear after you restart [VIEWER].
     </message>
   </alert>
   <alert modal="true" name="GoToAuctionPage">
@@ -1088,14 +1088,14 @@ because you have specified the -safe option.
 	</alert>
 	<alert modal="true" name="UnsupportedGLRequirements">
 		<message name="message">
-			You do not appear to have the proper hardware requirements for Second Life. Second Life requires an OpenGL graphics card that has multitexture support. If this is the case, you may want to make sure that you have the latest drivers for your graphics card, and service packs and patches for your operating system.
+			You do not appear to have the proper hardware requirements for [VIEWER]. [VIEWER] requires an OpenGL graphics card that has multitexture support. If this is the case, you may want to make sure that you have the latest drivers for your graphics card, and service packs and patches for your operating system.
 
 If you continue to have problems, please visit: http://www.secondlife.com/support
 		</message>
 	</alert>
 	<alert modal="true" name="UnsupportedHardware">
 		<message name="message">
-			Warning: Your system does not meet Second Life&apos;s minimum system requirements. If you continue using Second Life, you may experience poor performance. Unfortunately, we cannot provide technical support for unsupported system configurations. 
+			Warning: Your system does not meet [VIEWER]&apos;s minimum system requirements. If you continue using [VIEWER], you may experience poor performance. Unfortunately, we cannot provide technical support for unsupported system configurations. 
 
 MINSPECS
 Do you wish to visit [_URL] for more information?
@@ -1143,7 +1143,7 @@ Do you wish to visit [_URL] for more information?
 		<message name="message">
 Your system contains a graphics card that is unknown to us at this time.  
 This is often the case with new hardware we haven't had a chance to 
-test.  Second Life will most likely run properly, but you may need to 
+test.  [VIEWER] will most likely run properly, but you may need to 
 adjust your graphics settings to something more appropriate.
 (Edit menu > Preferences > Graphics).
 		</message>
@@ -1163,7 +1163,7 @@ based on your system configuration.
 	</alert>
 	<alert modal="true" name="DisplaySettingsNoShaders">
 		<message name="message">
-			[SECOND_LIFE] crashed while initializing graphics drivers.
+			[VIEWER] crashed while initializing graphics drivers.
 Graphics Quality will be set to low to avoid some common driver errors.
 This will disable some graphics features.
 We recommend updating your graphics card drivers.
@@ -1294,7 +1294,7 @@ for advice and a link to the system status web page.
 	</alert>
 	<alert modal="true" name="FirstRunDialog">
 		<message name="message">
-			[SECOND_LIFE] installation is complete.
+			[VIEWER] installation is complete.
 
 If this is your first time using [SECOND_LIFE], you will need to create
 an account before you can log on.
@@ -1310,7 +1310,7 @@ Return to www.secondlife.com to create a new account?
 	<alert modal="true" name="ClothingStillDownloading">
 		<message name="message">
 			Your avatar is still downloading.
-You can use [SECOND_LIFE] normally, and other Residents
+You can use [VIEWER] normally, and other Residents
 will see you correctly.
 		</message>
 	</alert>
@@ -1871,7 +1871,7 @@ Cannot find the region this land is in.
 	</alert>
 	<alert modal="true" name="CannotCloseFloaterBuyLand">
 		<message name="message">
-			You cannot close the Buy Land window until Second Life
+			You cannot close the Buy Land window until [SECOND_LIFE]
 estimates the price of this transaction.
 		</message>
 	</alert>
@@ -2191,7 +2191,7 @@ www.secondlife.com/support.
 		<message name="message">
 You have been logged out of [SECOND_LIFE]:
             [MESSAGE]
-You can still look at existing IM and chat by clicking 'View IM &amp; Chat'. Otherwise, click 'Quit' to exit [SECOND_LIFE] immediately.
+You can still look at existing IM and chat by clicking 'View IM &amp; Chat'. Otherwise, click 'Quit' to exit [VIEWER] immediately.
     </message>
     <option name="Continue">
 			View IM &amp; Chat
@@ -2618,7 +2618,7 @@ You can use [SECOND_LIFE] normally and other users will see you correctly.
 	</alert>
 	<alert modal="true" name="FirstRun">
 		<message name="message">
-			[SECOND_LIFE] installation is complete.
+			[VIEWER] installation is complete.
 
 If this is your first time using [SECOND_LIFE], you will need to create
 an account before you can log on.
@@ -2641,7 +2641,7 @@ Please check your network connection.
 	</alert>
 	<alert modal="true" name="LoginPacketNeverReceived">
 		<message name="message">
-			We&apos;re having trouble connecting. There may be a problem with your internet connection or the Second Life servers.
+			We&apos;re having trouble connecting. There may be a problem with your internet connection or the [SECOND_LIFE] servers.
 
 You can either check your internet connection and try again in a few minutes, click Help to connect to our support site, or click Teleport to attempt to teleport home.
 		</message>
@@ -2845,7 +2845,7 @@ Please set the object for sale and try again.
 	</alert>
 	<alert modal="true" name="DownloadWindowsMandatory">
 		<message name="message">
-			A new version of [SECOND_LIFE] is available.
+			A new version of [VIEWER] is available.
 [MESSAGE]
 You must download this update to use [SECOND_LIFE].
 		</message>
@@ -2858,7 +2858,7 @@ You must download this update to use [SECOND_LIFE].
 	</alert>
 	<alert modal="true" name="DownloadWindows">
 		<message name="message">
-			An updated version of [SECOND_LIFE] is available.
+			An updated version of [VIEWER] is available.
 [MESSAGE]
 This update is not required, but we suggest you install it to improve performance and stability.
 		</message>
@@ -2871,7 +2871,7 @@ This update is not required, but we suggest you install it to improve performanc
 	</alert>
 	<alert modal="true" name="DownloadWindowsReleaseForDownload">
 		<message name="message">
-			An updated version of [SECOND_LIFE] is available.
+			An updated version of [VIEWER] is available.
 [MESSAGE]
 This update is not required, but we suggest you install it to improve performance and stability.
 		</message>
@@ -2884,7 +2884,7 @@ This update is not required, but we suggest you install it to improve performanc
 	</alert>
 	<alert modal="true" name="DownloadMacMandatory">
 		<message name="message">
-			A new version of [SECOND_LIFE] is available.
+			A new version of [VIEWER] is available.
 [MESSAGE]
 You must download this update to use [SECOND_LIFE].
 
@@ -2899,7 +2899,7 @@ Download to your Applications folder?
 	</alert>
 	<alert modal="true" name="DownloadMac">
 		<message name="message">
-			An updated version of [SECOND_LIFE] is available.
+			An updated version of [VIEWER] is available.
 [MESSAGE]
 This update is not required, but we suggest you install it to improve performance and stability.
  
@@ -2914,7 +2914,7 @@ Download to your Applications folder?
 	</alert>
 	<alert modal="true" name="DownloadMacReleaseForDownload">
 		<message name="message">
-			An updated version of [SECOND_LIFE] is available.
+			An updated version of [VIEWER] is available.
 [MESSAGE]
 This update is not required, but we suggest you install it to improve performance and stability.
  
@@ -4097,7 +4097,7 @@ Default: off
 	</alert>
 	<alert modal="true" name="VoiceVersionMismatch" title="Voice Version Mismatch">
 		<message name="message">
-			This version of Second Life is not compatible with the Voice Chat feature in this region. In order for Voice Chat to function correctly you will need to update Second Life.
+			This version of [SECOND_LIFE] is not compatible with the Voice Chat feature in this region. In order for Voice Chat to function correctly you will need to update [SECOND_LIFE].
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateCovenant" title="Estate Covenant">
@@ -4336,7 +4336,7 @@ will only work if a script is added with a money() event.
 	</alert>
 	<alert modal="true" name="WebLaunchAccountHistory">
 		<message name="message">
-			Go to the Second Life web site to see your account history?
+			Go to the [SECOND_LIFE] web site to see your account history?
 		</message>
 		<ignore name="ignore">
 			When loading account history web page
@@ -4350,10 +4350,10 @@ will only work if a script is added with a money() event.
 	</alert>
 	<alert modal="true" name="ClickOpenF1Help">
 		<message name="message">
-			Visit the Second Life Support Web site? (note: this is not an Imprudence Help site)
+			Visit the [SECOND_LIFE] Support Web site? (note: this is not an Imprudence Help site)
 		</message>
 		<ignore name="ignore">
-			When visiting the Second Life Support Website.
+			When visiting the [SECOND_LIFE] Support Website.
 		</ignore>
 		<option name="Gotopage">
 			Go
@@ -4381,7 +4381,7 @@ will only work if a script is added with a money() event.
 			Are you sure you want to quit?
 		</message>
 		<ignore name="ignore">
-			When Quitting Second Life.
+			When Quitting
 		</ignore>
 		<option name="Quit">
 			Quit
@@ -4421,9 +4421,9 @@ rules of this region as outlined in the estate Covenant.
 About Land.)
 
 The resolution of this report applies only to this Region; 
-Residents access to other areas of Second Life will not be 
+Residents access to other areas of [SECOND_LIFE] will not be 
 affected by the outcome of this report. Only Linden Lab can 
-restrict access to the entirety of Second Life.
+restrict access to the entirety of [SECOND_LIFE].
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportBug">
@@ -4500,9 +4500,9 @@ Entering an accurate description helps us file and process bug reports.
  
 You appear to be reporting intellectual property infringement. Please make sure you are reporting it correctly:
 
-(1) The Abuse Process. You may submit an abuse report if you believe a Resident is exploiting the Second Life permissions system, for example, by using CopyBot or similar copying tools, to infringe intellectual property rights. The Abuse Team investigates and issues appropriate disciplinary action for behavior that violates the Second Life Community Standards or Terms of Service. However, the Abuse Team does not handle and will not respond to requests to remove content from the Second Life world.
+(1) The Abuse Process. You may submit an abuse report if you believe a Resident is exploiting the [SECOND_LIFE] permissions system, for example, by using CopyBot or similar copying tools, to infringe intellectual property rights. The Abuse Team investigates and issues appropriate disciplinary action for behavior that violates the [SECOND_LIFE] Community Standards or Terms of Service. However, the Abuse Team does not handle and will not respond to requests to remove content from the [SECOND_LIFE] world.
 
-(2) The DMCA or Content Removal Process. To request removal of content from Second Life, you MUST submit a valid notification of infringement as provided in our DMCA Policy at http://secondlife.com/corporate/dmca.php.
+(2) The DMCA or Content Removal Process. To request removal of content from [SECOND_LIFE], you MUST submit a valid notification of infringement as provided in our DMCA Policy at http://secondlife.com/corporate/dmca.php.
 
 If you still wish to continue with the abuse process, please close this window and finish submitting your report.  You may need to select the specific category 'CopyBot or Permissions Exploit'.
 
@@ -4723,7 +4723,7 @@ Click &quot;Advanced Water&quot; to bring up an editor with more advanced settin
 	</alert>
 	<alert modal="true" name="HelpDayCycle">
 		<message name="message">
-			The Day Cycle Editor gives you control over the sky during Second Life&apos;s day/night cycle. This is the cycle that is used by the Basic Environment Editor&apos;s Time of Day slider.
+			The Day Cycle Editor gives you control over the sky during [SECOND_LIFE]&apos;s day/night cycle. This is the cycle that is used by the Basic Environment Editor&apos;s Time of Day slider.
 
 The Day Cycle Editor works by setting keyframes. These are nodes (represented by the gray blips on the time graph) that have Sky Presets associated with them. As the Time of Day progresses, the WindLight sky &quot;animates&quot; as it interpolates between these keyframes. 
 
@@ -4868,7 +4868,7 @@ with the the D slider.
 	</alert>
 	<alert modal="true" name="HelpClassicClouds">
 		<message name="message">
-			Check this box to enable rendering of Second Life&apos;s older classic clouds in addition to WindLight&apos;s clouds.
+			Check this box to enable rendering of [SECOND_LIFE]&apos;s older classic clouds in addition to WindLight&apos;s clouds.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpWaterFogColor">
@@ -5037,7 +5037,7 @@ they are part of an attachment.
 	</alert>
 	<alert modal="true" name="BadURL">
 		<message name="message">
-			Second Life doesn&apos;t know how to handle the link:
+			Imprudence doesn&apos;t know how to handle the link:
  [SLURL]
 Most links are similar to this:
 
@@ -5050,7 +5050,7 @@ Please check the spelling and try again.
 	<alert modal="true" name="NotAgeVerified">
 		<message name="message">
 			You need to be age-verified in order to access this parcel.
-Would you like to visit the Second Life website to verify your age?
+Would you like to visit the [SECOND_LIFE] website to verify your age?
 
 [_URL]
 		</message>
@@ -5070,7 +5070,7 @@ Would you like to visit the Second Life website to verify your age?
 	<alert modal="true" name="Cannot enter parcel: no payment info on file">
 		<message name="message">
 			This parcel requires that you have payment information on file before you can access it.
-Would you like to visit the Second Life website to set this up?
+Would you like to visit the [SECOND_LIFE] website to set this up?
 
 [_URL]
 		</message>

@@ -140,7 +140,7 @@ Sie finden es in der Webpage Studio-Ausstellung.
 	</alert>
 	<alert name="GrantModifyRights">
 		<message name="message">
-			Die Gewährung von Änderungsrechten an andere Einwohner ermöglicht es diesen, JEDES BELIEBIGE Objekt zu ändern oder an sich zu nehmen, das Sie in der Second Life-Welt besitzen. Seien Sie SEHR vorsichtig beim Erteilen dieser Erlaubnis.
+			Die Gewährung von Änderungsrechten an andere Einwohner ermöglicht es diesen, JEDES BELIEBIGE Objekt zu ändern oder an sich zu nehmen, das Sie in der [SECOND_LIFE]-Welt besitzen. Seien Sie SEHR vorsichtig beim Erteilen dieser Erlaubnis.
 Möchten Sie [FIRST_NAME] [LAST_NAME] Änderungsrechte gewähren?
 		</message>
 		<option name="Yes">
@@ -152,7 +152,7 @@ Möchten Sie [FIRST_NAME] [LAST_NAME] Änderungsrechte gewähren?
 	</alert>
 	<alert name="GrantModifyRightsMultiple">
 		<message name="message">
-			Die Gewährung von Änderungsrechten an andere Einwohner ermöglicht es diesen, JEDES BELIEBIGE Objekt zu ändern, das Sie in der Second Life-Welt besitzen. Seien Sie SEHR vorsichtig beim Erteilen dieser Erlaubnis.
+			Die Gewährung von Änderungsrechten an andere Einwohner ermöglicht es diesen, JEDES BELIEBIGE Objekt zu ändern, das Sie in der [SECOND_LIFE]-Welt besitzen. Seien Sie SEHR vorsichtig beim Erteilen dieser Erlaubnis.
 Möchten Sie den ausgewählten Einwohnern Änderungsrechte gewähren?
 		</message>
 		<option name="Yes">
@@ -354,7 +354,7 @@ Dieses Kontrollkästchen zeigt Folgendes an:
 		<message name="message">
 			Auf der [SECOND_LIFE] Website können Sie anderen Einwohnern eine Partnerschaft vorschlagen und bestehende Partnerschaften lösen.
 
-Die Second Life Website für weitere Informationen über Partnerschaften öffnen?
+Die [SECOND_LIFE] Website für weitere Informationen über Partnerschaften öffnen?
 		</message>
 		<option name="GotoPage">
 			Gehe zu Seite
@@ -491,7 +491,7 @@ Der Verkaufspreis beträgt [SALE_PRICE] L$ und wird automatisch für den Verkauf
 	</alert>
 	<alert name="ConfirmLandSaleToAnyoneChange">
 		<message name="message">
-			ACHTUNG: Wenn Sie auf „An jeden verkaufen“ klicken, kann jeder in Second Life Ihr Land kaufen, auch Einwohner in anderen Regionen.
+			ACHTUNG: Wenn Sie auf „An jeden verkaufen“ klicken, kann jeder in [SECOND_LIFE] Ihr Land kaufen, auch Einwohner in anderen Regionen.
 
 Die ausgewählten [LAND_SIZE] qm Land werden zum Verkauf freigegeben.
 Der Verkaufspreis beträgt [SALE_PRICE] L$ und wird automatisch für den Verkauf an [NAME] autorisiert.
@@ -752,7 +752,7 @@ Gebühren werden nicht rückerstattet.
 	</alert>
 	<alert name="DisplayChangeRestart">
 		<message name="message">
-			Einige Änderungen der Bildschirmeinstellungen erfordern einen sofortigen Neustart von [SECOND_LIFE], wodurch alle laufenden Arbeiten verloren gehen.
+			Einige Änderungen der Bildschirmeinstellungen erfordern einen sofortigen Neustart von [VIEWER], wodurch alle laufenden Arbeiten verloren gehen.
 
 Die Änderungen übernehmen und das Programm beenden?
 		</message>
@@ -818,23 +818,23 @@ Die Änderungen übernehmen und das Programm beenden?
 	</alert>
 	<alert name="CacheWillClear">
 		<message name="message">
-			Der Cache wird nach einem Neustart von [SECOND_LIFE] geleert.
+			Der Cache wird nach einem Neustart von [VIEWER] geleert.
 		</message>
 	</alert>
 	<alert name="CacheWillBeMoved">
 		<message name="message">
-			Der Cache wird nach einem Neustart von [SECOND_LIFE] verschoben.
+			Der Cache wird nach einem Neustart von [VIEWER] verschoben.
 Hinweis: Der Cache wird dabei gelöscht/geleert.
 		</message>
 	</alert>
 	<alert name="ChangeConnectionPort">
 		<message name="message">
-			Die Port-Einstellungen werden nach einem Neustart von [SECOND_LIFE] wirksam.
+			Die Port-Einstellungen werden nach einem Neustart von [VIEWER] wirksam.
 		</message>
 	</alert>
 	<alert name="ChangeSkin">
 		<message name="message">
-			Die neue Haut wird nach dem erneuten Start von [SECOND_LIFE] angezeigt.
+			Die neue Haut wird nach dem erneuten Start von [VIEWER] angezeigt.
 		</message>
 	</alert>
 	<alert name="GoToAuctionPage">
@@ -970,14 +970,14 @@ Möchten Sie diese Objekte löschen?
 	</alert>
 	<alert name="UnsupportedGLRequirements">
 		<message name="message">
-			Ihr Computer entspricht nicht den Hardwareanforderungen von Second Life. Second Life setzt eine OpenGL-Grafikkarte mit Multitextur-Unterstützung voraus. Falls Ihre Grafikkarte diese Funktion unterstützt, installieren Sie die neuesten Treiber sowie die aktuellen Service Packs und Patches für Ihr Betriebssystem.
+			Ihr Computer entspricht nicht den Hardwareanforderungen von [VIEWER]. [VIEWER] setzt eine OpenGL-Grafikkarte mit Multitextur-Unterstützung voraus. Falls Ihre Grafikkarte diese Funktion unterstützt, installieren Sie die neuesten Treiber sowie die aktuellen Service Packs und Patches für Ihr Betriebssystem.
 
 Sollte das Problem fortbestehen, finden Sie weitere Hilfestellung unter: http://www.secondlife.com/support
 		</message>
 	</alert>
 	<alert name="UnsupportedHardware">
 		<message name="message">
-			Achtung: Ihr System erfüllt nicht die Mindestanforderungen von Second Life. Dies kann eine schlechte Darstellungsleistung in Second Life zur Folge haben. Für nicht unterstützte Systemkonfigurationen bieten wir keinen technischen Support. 
+			Achtung: Ihr System erfüllt nicht die Mindestanforderungen von [VIEWER]. Dies kann eine schlechte Darstellungsleistung in [VIEWER] zur Folge haben. Für nicht unterstützte Systemkonfigurationen bieten wir keinen technischen Support. 
 
 MINSPECS
 Die Seite [_URL] für weitere Informationen öffnen?
@@ -1024,7 +1024,7 @@ Die Seite [_URL] für weitere Informationen öffnen?
 		<message name="message">
 			Ihr System verwendet eine uns zurzeit unbekannte Grafikkarte.  
 Dies ist häufig der Fall bei neuer Hardware, die wir noch nicht testen konnten. 
-Second Life funktioniert aller Voraussicht nach normal, möglicherweise müssen Sie aber die Grafikeinstellungen anpassen.
+[VIEWER] funktioniert aller Voraussicht nach normal, möglicherweise müssen Sie aber die Grafikeinstellungen anpassen.
 (Bearbeiten &gt; Einstellungen &gt; Grafik).
 		</message>
 		<ignore name="ignore">
@@ -1041,7 +1041,7 @@ Second Life funktioniert aller Voraussicht nach normal, möglicherweise müssen 
 	</alert>
 	<alert name="DisplaySettingsNoShaders">
 		<message name="message">
-			[SECOND_LIFE] ist bei der Initialisierung der Grafiktreiber abgestürzt.
+			[VIEWER] ist bei der Initialisierung der Grafiktreiber abgestürzt.
 Die Grafikqualität wird auf eine niedrige Stufe zurückgesetzt, um einige typische Treiberfehler zu vermeiden.
 Einige Grafikfunktionen werden ausgeschaltet.
 Wir empfehlen die Aktualisierung Ihrer Grafikkartentreiber.
@@ -1159,7 +1159,7 @@ Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie für Unterstü
 	</alert>
 	<alert name="FirstRunDialog">
 		<message name="message">
-			Die Installation von [SECOND_LIFE] ist abgeschlossen.
+			Die Installation von [VIEWER] ist abgeschlossen.
 
 Wenn Sie [SECOND_LIFE] das erste Mal verwenden, müssen Sie ein Konto anlegen, bevor Sie sich anmelden können.
 Möchten Sie auf www.secondlife.com ein Konto erstellen?
@@ -1174,7 +1174,7 @@ Möchten Sie auf www.secondlife.com ein Konto erstellen?
 	<alert name="ClothingStillDownloading">
 		<message name="message">
 			Ihr Avatar wird noch heruntergeladen.
-Sie können [SECOND_LIFE] normal verwenden und andere Einwohner können Sie sehen.
+Sie können [VIEWER] normal verwenden und andere Einwohner können Sie sehen.
 		</message>
 	</alert>
 	<alert name="CannotResolveDomain">
@@ -1713,7 +1713,7 @@ Kann die Region nicht finden, in der sich dieses Land befindet.
 	<alert name="CannotCloseFloaterBuyLand">
 		<message name="message">
 			Das Fenster „Land kaufen“ kann erst geschlossen werden,
-nachdem Second Life den Transaktionspreis geschätzt hat.
+nachdem [SECOND_LIFE] den Transaktionspreis geschätzt hat.
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNothingSelected">
@@ -1995,7 +1995,7 @@ www.secondlife.com/support.
 		<message name="message">
 			Sie wurden von [SECOND_LIFE] abgemeldet:
             [MESSAGE]
-Klicken Sie auf „IM &amp; Chat anzeigen“, um vorhandene Nachrichten und Chat weiterhin anzuzeigen. Klicken Sie andernfalls auf „Beenden“, um [SECOND_LIFE] sofort zu beenden.
+Klicken Sie auf „IM &amp; Chat anzeigen“, um vorhandene Nachrichten und Chat weiterhin anzuzeigen. Klicken Sie andernfalls auf „Beenden“, um [VIEWER] sofort zu beenden.
 		</message>
 		<option name="Continue">
 			IM &amp; Chat anzeigen
@@ -2381,7 +2381,7 @@ Sie können [SECOND_LIFE] normal verwenden. Andere Benutzer können Sie korrekt 
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
-			Die Installation von [SECOND_LIFE] ist abgeschlossen.
+			Die Installation von [VIEWER] ist abgeschlossen.
 
 Wenn Sie [SECOND_LIFE] das erste Mal verwenden, müssen Sie ein Konto anlegen, bevor Sie sich anmelden können.
 Möchten Sie auf www.secondlife.com ein Konto erstellen?
@@ -2403,7 +2403,7 @@ Bitte überprüfen Sie Ihre Netzwerkverbindung.
 	</alert>
 	<alert name="LoginPacketNeverReceived">
 		<message name="message">
-			Die Verbindung kann nicht hergestellt werden. Möglicherweise besteht ein Problem mit Ihrer Internetverbindung oder den Second Life-Servern.
+			Die Verbindung kann nicht hergestellt werden. Möglicherweise besteht ein Problem mit Ihrer Internetverbindung oder den [SECOND_LIFE]-Servern.
 
 Überprüfen Sie Ihre Internetverbindung und versuchen Sie es dann erneut, oder klicken Sie auf „Hilfe“, um zu unserer Supportseite zu gelangen, oder klicken Sie auf „Teleportieren“, um nach Hause zu teleportieren.
 		</message>
@@ -2596,7 +2596,7 @@ Geben Sie das Objekt zum Verkauf frei und versuchen Sie es erneut.
 	</alert>
 	<alert name="DownloadWindowsMandatory">
 		<message name="message">
-			Eine neue Version von [SECOND_LIFE] ist verfügbar.
+			Eine neue Version von [VIEWER] ist verfügbar.
 [MESSAGE]
 Sie müssen das Update herunterladen, um [SECOND_LIFE] weiter verwenden zu können.
 		</message>
@@ -2609,7 +2609,7 @@ Sie müssen das Update herunterladen, um [SECOND_LIFE] weiter verwenden zu könn
 	</alert>
 	<alert name="DownloadWindows">
 		<message name="message">
-			Eine aktualisierte Version von [SECOND_LIFE] ist verfügbar.
+			Eine aktualisierte Version von [VIEWER] ist verfügbar.
 [MESSAGE]
 Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität sollte es jedoch installiert werden.
 		</message>
@@ -2622,7 +2622,7 @@ Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität soll
 	</alert>
 	<alert name="DownloadWindowsReleaseForDownload">
 		<message name="message">
-			Eine aktualisierte Version von [SECOND_LIFE] ist verfügbar.
+			Eine aktualisierte Version von [VIEWER] ist verfügbar.
 [MESSAGE]
 Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität sollte es jedoch installiert werden.
 		</message>
@@ -2635,7 +2635,7 @@ Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität soll
 	</alert>
 	<alert name="DownloadMacMandatory">
 		<message name="message">
-			Eine neue Version von [SECOND_LIFE] ist verfügbar.
+			Eine neue Version von [VIEWER] ist verfügbar.
 [MESSAGE]
 Sie müssen das Update herunterladen, um [SECOND_LIFE] weiter verwenden zu können.
 
@@ -2650,7 +2650,7 @@ In Ihren Anwendungsordner herunterladen?
 	</alert>
 	<alert name="DownloadMac">
 		<message name="message">
-			Eine aktualisierte Version von [SECOND_LIFE] ist verfügbar.
+			Eine aktualisierte Version von [VIEWER] ist verfügbar.
 [MESSAGE]
 Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität sollte es jedoch installiert werden.
  
@@ -2665,7 +2665,7 @@ In Ihren Anwendungsordner herunterladen?
 	</alert>
 	<alert name="DownloadMacReleaseForDownload">
 		<message name="message">
-			Eine aktualisierte Version von [SECOND_LIFE] ist verfügbar.
+			Eine aktualisierte Version von [VIEWER] ist verfügbar.
 [MESSAGE]
 Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität sollte es jedoch installiert werden.
  
@@ -3696,7 +3696,7 @@ Standard: deaktiviert
 	</alert>
 	<alert name="VoiceVersionMismatch" title="Falsche Voice-Version">
 		<message name="message">
-			Diese Version von Second ist mit dem Voice-Chat-Feature in dieser Region nicht kompatibel. Damit Voice-Chat funktioniert, müssen Sie Second Life aktualisieren.
+			Diese Version von Second ist mit dem Voice-Chat-Feature in dieser Region nicht kompatibel. Damit Voice-Chat funktioniert, müssen Sie [SECOND_LIFE] aktualisieren.
 		</message>
 	</alert>
 	<alert name="HelpEstateCovenant" title="Grunstücksvertrag">
@@ -3913,7 +3913,7 @@ Inventarobjekt(e) verschieben?
 	</alert>
 	<alert name="WebLaunchAccountHistory">
 		<message name="message">
-			Zur Second Life-Website, um Ihre Kontostatistik anzuzeigen?
+			Zur [SECOND_LIFE]-Website, um Ihre Kontostatistik anzuzeigen?
 		</message>
 		<ignore name="ignore">
 			Beim Laden der Kontostatistik-Website
@@ -3927,10 +3927,10 @@ Inventarobjekt(e) verschieben?
 	</alert>
 	<alert name="ClickOpenF1Help">
 		<message name="message">
-			Die Support-Website von Second Life öffnen?
+			Die Support-Website von [SECOND_LIFE] öffnen?
 		</message>
 		<ignore name="ignore">
-			Bei Besuch der Second Life Support-Website.
+			Bei Besuch der [SECOND_LIFE] Support-Website.
 		</ignore>
 		<option name="Gotopage">
 			Los
@@ -3958,7 +3958,7 @@ Inventarobjekt(e) verschieben?
 			Wirklich beenden?
 		</message>
 		<ignore name="ignore">
-			Beim Beenden von Second Life.
+			Beim Beenden von [SECOND_LIFE].
 		</ignore>
 		<option name="Quit">
 			Beenden
@@ -3985,7 +3985,7 @@ http://secondlife.com/support/incidentreport.php
 -
 Als besonderen Service für Einwohner und Besucher übernimmt der Eigentümer dieser Region die Bearbeitung aller anfallenden Meldungen. Von diesem Standort aus eingereichte Meldungen werden nicht von Linden Lab bearbeitet. Der Eigentümer der Region bearbeitet Meldungen auf Grundlage der Richtlinien, die im für diese Region geltenden Grundstücksvertrag festgelegt sind. (Den Vertrag können Sie unter „Welt“ &gt; „Land-Info“ einsehen.)
 -
-Das Resultat, das sich aus dieser Meldung ergibt, betrifft nur diese Region; der Einwohnerzugang zu anderen Bereichen von Second Life ist davon nicht betroffen. Nur Linden Lab kann den Zugang zu Second Life beschränken.
+Das Resultat, das sich aus dieser Meldung ergibt, betrifft nur diese Region; der Einwohnerzugang zu anderen Bereichen von [SECOND_LIFE] ist davon nicht betroffen. Nur Linden Lab kann den Zugang zu [SECOND_LIFE] beschränken.
 		</message>
 	</alert>
 	<alert name="HelpReportBug">
@@ -4053,9 +4053,9 @@ Eine möglichst genaue Beschreibung mit Schritten zur Reproduktion des Fehlers h
  
 Sie melden eine Urheberrechtsverletzung. Sind Sie wirklich sicher, dass Sie eine Verletzung des Urheberrechts melden möchten?
 
-1. Missbrauch melden. Wenn Sie der Meinung sind, ein Einwohner nutzt das Berechtigungssystem von Second Life auf unerlaubte Weise zu seinem Vorteil aus, indem er zum Beispiel einen CopyBot oder ähnliche Kopiertools verwendet und damit eine Urheberrechtsverletzung begeht, können Sie diesen Missbrauch melden. Das Missbrauchsteam untersucht etwaige Verstöße gegen die Second Life Community Standards oder die Nutzungsbedingungen und verhängt entsprechende Strafen. Das Missbrauchsteam ist jedoch nicht dafür zuständig, Inhalte aus der Second Life-Welt zu entfernen und reagiert auch nicht auf entsprechende Anfragen.
+1. Missbrauch melden. Wenn Sie der Meinung sind, ein Einwohner nutzt das Berechtigungssystem von [SECOND_LIFE] auf unerlaubte Weise zu seinem Vorteil aus, indem er zum Beispiel einen CopyBot oder ähnliche Kopiertools verwendet und damit eine Urheberrechtsverletzung begeht, können Sie diesen Missbrauch melden. Das Missbrauchsteam untersucht etwaige Verstöße gegen die [SECOND_LIFE] Community Standards oder die Nutzungsbedingungen und verhängt entsprechende Strafen. Das Missbrauchsteam ist jedoch nicht dafür zuständig, Inhalte aus der [SECOND_LIFE]-Welt zu entfernen und reagiert auch nicht auf entsprechende Anfragen.
 
-2. Der DMCA oder das Entfernen von Inhalten. Sie können das Entfernen von Inhalten aus Second Life beantragen. Dazu MÜSSEN Sie eine Urheberrechtsverletzung gemäß den in unserer DMCA-Richtlinie unter http://secondlife.com/corporate/dmca.php dargelegten Anweisungen einreichen.
+2. Der DMCA oder das Entfernen von Inhalten. Sie können das Entfernen von Inhalten aus [SECOND_LIFE] beantragen. Dazu MÜSSEN Sie eine Urheberrechtsverletzung gemäß den in unserer DMCA-Richtlinie unter http://secondlife.com/corporate/dmca.php dargelegten Anweisungen einreichen.
 
 Wenn Sie mit der Missbrauchmeldung jetzt fortfahren möchten, schließen Sie bitte dieses Fenster und senden Sie Ihren Bericht ein.  Möglicherweise müssen Sie Kategorie „CopyBot oder Berechtigungs-Exploit“ auswählen.
 
@@ -4270,7 +4270,7 @@ Klicken Sie auf „Wasser (erweitert)“, um einen Editor mit erweiterten Einste
 	</alert>
 	<alert name="HelpDayCycle">
 		<message name="message">
-			Im Tageszyklus-Editor steuern Sie den Tag-/Nachtzyklus am Second Life Himmel. Dabei handelt es sich um den Zyklus, der mit dem Tageszeit-Regler im Umwelt-Basiseditor gesteuert wird.
+			Im Tageszyklus-Editor steuern Sie den Tag-/Nachtzyklus am [SECOND_LIFE] Himmel. Dabei handelt es sich um den Zyklus, der mit dem Tageszeit-Regler im Umwelt-Basiseditor gesteuert wird.
 
 Der Tageszyklus-Editor verwendet sogenannte Keyframes zur Steuerung des Tag-/Nachtablaufs. Dabei handelt es sich um „Schlüsselbilder“ (die grauen Kreise auf der Zeitskala), für die bestimmte Himmelseinstellungen definiert wurden. Bei voranschreitender Tageszeit interpoliert WindLight den Übergang zwischen diesen Keyframes und erzeugt eine entsprechende Himmelsanimation. 
 
@@ -4393,7 +4393,7 @@ Entspricht dem Azimut.
 	</alert>
 	<alert name="HelpClassicClouds">
 		<message name="message">
-			Aktivieren Sie dieses Kontrollkästchen, um die Darstellung der klassischen Second Life Wolken zusätzlich zu den WindLight-Wolken zu erzwingen.
+			Aktivieren Sie dieses Kontrollkästchen, um die Darstellung der klassischen [SECOND_LIFE] Wolken zusätzlich zu den WindLight-Wolken zu erzwingen.
 		</message>
 	</alert>
 	<alert name="HelpWaterFogColor">
@@ -4560,7 +4560,7 @@ Entspricht dem Azimut.
 	</alert>
 	<alert name="BadURL">
 		<message name="message">
-			Second Life kann den folgenden Link nicht verarbeiten:
+			[SECOND_LIFE] kann den folgenden Link nicht verarbeiten:
  [SLURL]
 Die meisten Links ähneln dem Folgenden:
 
@@ -4572,7 +4572,7 @@ secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about
 	<alert name="NotAgeVerified">
 		<message name="message">
 			Um Zugang zu dieser Parzelle zu erhalten, müssen Sie sich einer Altersprüfung unterziehen.
-Möchten Sie auf der Second Life Website eine Altersüberprüfung durchführen?
+Möchten Sie auf der [SECOND_LIFE] Website eine Altersüberprüfung durchführen?
 
 [_URL]
 		</message>
@@ -4592,7 +4592,7 @@ Möchten Sie auf der Second Life Website eine Altersüberprüfung durchführen?
 	<alert name="Cannot enter parcel: no payment info on file">
 		<message name="message">
 			Um Zugang zu dieser Parzelle zu erhalten, müssen Sie Zahlungsinformationen hinterlegt haben.
-Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
+Möchten Sie die [SECOND_LIFE] Website öffnen, um diese Angaben zu hinterlegen?
 
 [_URL]
 		</message>

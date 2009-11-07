@@ -1,3 +1,25 @@
+2009-11-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed some branding issues with alerts.xml and notify.xml.
+
+	  modified:   linden/indra/llui/llalertdialog.cpp
+	  modified:   linden/indra/newview/llnotify.cpp
+	  modified:   linden/indra/newview/skins/default/xui/de/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/de/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/es/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/fr/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/fr/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/ja/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/ja/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/ko/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/ko/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/pt/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/pt/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/zh/alerts.xml
+
+
 2009-11-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Changed wording of double-click and autopilot prefs.

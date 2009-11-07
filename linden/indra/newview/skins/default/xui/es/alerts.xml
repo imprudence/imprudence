@@ -729,7 +729,7 @@ No hay reembolsos por las tasas pagas.
 	<alert name="DisplayChangeRestart">
 		<message name="message">
 			Algunas de las mudanzas que usted hizo en la pantalla
-requieren que [SECOND_LIFE] cierre inmediatamente,
+requieren que [VIEWER] cierre inmediatamente,
 lo que causará la pérdida de todo el trabajo en progreso.
 
 Aplique estas mudanzas y salga
@@ -785,7 +785,7 @@ Aplique estas mudanzas y salga
 	</alert>
 	<alert name="CacheWillClear">
 		<message name="message">
-			El cache será limpiado después de reiniciar [SECOND_LIFE].
+			El cache será limpiado después de reiniciar [VIEWER].
 		</message>
 	</alert>
 	<alert name="GoToAuctionPage">
@@ -1053,7 +1053,7 @@ para sugerencias y un link para la página con la situación del sistema.
 	</alert>
 	<alert name="FirstRunDialog">
 		<message name="message">
-			La instalación de [SECOND_LIFE] está completa.
+			La instalación de [VIEWER] está completa.
  
 Si ésta es su primera vez usando [SECOND_LIFE], necesitará crear
 una cuenta antes de usted iniciar la sesión.
@@ -1962,7 +1962,7 @@ www.secondlife.com/support.
  
 Haga clic en Continuar para buscar una MI existente y chat.
 Usted no será capaz de realizar cualesquiera otras operaciones.
-Haga clic en Salir para dejar [SECOND_LIFE] inmediatamente.
+Haga clic en Salir para dejar [VIEWER] inmediatamente.
 		</message>
 		<option name="Continue">
 			Continuar
@@ -2356,7 +2356,7 @@ verán a usted correctamente.
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
-			La instalación de [SECOND_LIFE] está completa.
+			La instalación de [VIEWER] está completa.
  
 Si ésta es su primera vez usando [SECOND_LIFE], necesitará crear
 una cuenta antes de usted iniciar la sesión.
@@ -2596,7 +2596,7 @@ Por favor, defina el objeto para venta e intente nuevamente.
 	</alert>
 	<alert name="DownloadWindowsMandatory">
 		<message name="message">
-			Una nueva versión de [SECOND_LIFE] está disponible.
+			Una nueva versión de [VIEWER] está disponible.
 [MESSAGE]
  
 Usted debe descargar esta actualización para usar el sistema.
@@ -2610,7 +2610,7 @@ Usted debe descargar esta actualización para usar el sistema.
 	</alert>
 	<alert name="DownloadWindows">
 		<message name="message">
-			Una versión actualizada de [SECOND_LIFE] está disponible.
+			Una versión actualizada de [VIEWER] está disponible.
 [MESSAGE]
  
 Esta actualización no es exigida, pero recomendamos que usted la instale para mejorar el desempeño y estabilidad.
@@ -2624,7 +2624,7 @@ Esta actualización no es exigida, pero recomendamos que usted la instale para m
 	</alert>
 	<alert name="DownloadWindowsReleaseForDownload">
 		<message name="message">
-			Una versión actualizada de [SECOND_LIFE] está disponible.
+			Una versión actualizada de [VIEWER] está disponible.
 [MESSAGE]
  
 Esta actualización no es exigida, pero recomendamos que usted la instale para mejorar el desempeño y estabilidad.
@@ -2638,7 +2638,7 @@ Esta actualización no es exigida, pero recomendamos que usted la instale para m
 	</alert>
 	<alert name="DownloadMacMandatory">
 		<message name="message">
-			A new version of [SECOND_LIFE] is available.
+			A new version of [VIEWER] is available.
 [MESSAGE]
 
 You must download this update to use the system.
@@ -2654,7 +2654,7 @@ Download to your Applications folder?
 	</alert>
 	<alert name="DownloadMac">
 		<message name="message">
-			Una versión actualizada de [SECOND_LIFE] está disponible.
+			Una versión actualizada de [VIEWER] está disponible.
 [MESSAGE]
  
 Esta actualización no es exigida, pero recomendamos que usted la instale para mejorar el desempeño y estabilidad.
@@ -2670,7 +2670,7 @@ Esta actualización no es exigida, pero recomendamos que usted la instale para m
 	</alert>
 	<alert name="DownloadMacReleaseForDownload">
 		<message name="message">
-			Una versión actualizada de [SECOND_LIFE] está disponible.
+			Una versión actualizada de [VIEWER] está disponible.
 [MESSAGE]
  
 Esta actualización no es exigida, pero recomendamos que usted la instale para mejorar el desempeño y estabilidad.
