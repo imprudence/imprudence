@@ -109,6 +109,80 @@ protected:
 };
 
 // ============================================================================
+// RlvAttachmentManager - Self contained helper class that automagically takes care of the nitty gritty of force detaching/reattaching
+//
+
+class RlvAttachmentManager
+{
+public:
+	RlvAttachmentManager() : m_pTimer(NULL) {}
+	~RlvAttachmentManager() { delete m_pTimer; }
+
+	/*
+	 * Member functions
+	 */
+public:
+	static void forceAttach(const LLUUID& idItem, S32 idxAttachPt);
+	static void forceDetach(LLViewerJointAttachment* pAttachPt);
+protected:
+	void startTimer() { if (!m_pTimer) m_pTimer = new RlvAttachmentManagerTimer(this); }
+
+	/*
+	 * Event handlers
+	 */
+public:
+	void onAttach(LLViewerJointAttachment* pAttachPt);
+	void onDetach(LLViewerJointAttachment* pAttachPt);
+	void onSavedAssetIntoInventory(const LLUUID& idItem);
+	BOOL onTimer();
+	void onWearAttachment(const LLUUID& idItem);
+
+	/*
+	 * Member variables
+	 */
+protected:
+	typedef std::map<S32, LLUUID> rlv_detach_map_t;
+	rlv_detach_map_t m_PendingDetach;
+
+	struct RlvReattachInfo
+	{
+		RlvReattachInfo(const LLUUID& itemid) : idItem(itemid), fAssetSaved(false), tsAttach(0) 
+			{ tsDetach = LLFrameTimer::getElapsedSeconds(); }
+
+		LLUUID idItem;
+		bool   fAssetSaved;
+		F64    tsDetach;
+		F64    tsAttach;
+	protected:
+		RlvReattachInfo();
+	};
+	typedef std::map<S32, RlvReattachInfo> rlv_attach_map_t;
+	rlv_attach_map_t m_PendingAttach;
+
+	struct RlvWearInfo
+	{
+		RlvWearInfo(LLUUID itemid) : idItem(itemid) { tsWear = LLFrameTimer::getElapsedSeconds(); }
+
+		LLUUID idItem;
+		F64    tsWear;
+		std::map<S32, LLUUID> attachPts;
+	protected:
+		RlvWearInfo();
+	};
+	typedef std::map<LLUUID, RlvWearInfo> rlv_wear_map_t;
+	rlv_wear_map_t   m_PendingWear;
+
+	class RlvAttachmentManagerTimer : public LLEventTimer
+	{
+	public:
+		RlvAttachmentManagerTimer(RlvAttachmentManager* pMgr) : LLEventTimer(10), m_pMgr(pMgr) {}
+		virtual ~RlvAttachmentManagerTimer() { m_pMgr->m_pTimer = NULL; }
+		virtual BOOL tick() { return m_pMgr->onTimer(); }
+		RlvAttachmentManager* m_pMgr;
+	} *m_pTimer;
+};
+
+// ============================================================================
 // RlvCriteriaCategoryCollector - Criteria based folder matching filter used by @findfolder and @findfolders
 //
 
@@ -295,7 +369,10 @@ public:
 
 struct RlvSelectHasLockedAttach : public LLSelectedNodeFunctor
 {
+	RlvSelectHasLockedAttach(ERlvLockMask eLock) : m_eLock(eLock) {}
 	virtual bool apply(LLSelectNode* pNode);
+protected:
+	ERlvLockMask m_eLock;
 };
 
 struct RlvSelectIsOwnedByOrGroupOwned : public LLSelectedNodeFunctor
@@ -324,7 +401,6 @@ bool rlvIsEmote(const std::string& strUTF8Text);
 bool rlvIsValidReplyChannel(S32 nChannel);
 bool rlvIsWearingItem(const LLInventoryItem* pItem);
 
-void rlvForceDetach(LLViewerJointAttachment* pAttachPt);
 void rlvSendBusyMessage(const LLUUID& idTo, const std::string& strMsg, const LLUUID& idSession = LLUUID::null);
 bool rlvSendChatReply(const std::string& strChannel, const std::string& strReply);
 bool rlvSendChatReply(S32 nChannel, const std::string& strReply);

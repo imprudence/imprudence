@@ -1946,7 +1946,7 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 // [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
 	if (rlv_handler_t::isEnabled())
 	{
-		if (!gRlvHandler.isDetachable(obj))
+		if (gRlvHandler.isLockedAttachment(obj, RLV_LOCK_REMOVE))
 		{
 			return ACCEPT_NO_LOCKED;		// Disallow inventory drops on a locked attachment
 		}
@@ -2014,10 +2014,12 @@ EAcceptance LLToolDragAndDrop::dad3dRezAttachmentFromInv(
 		return ACCEPT_NO;
 	}
 
-// [RLVa:KB] - Checked: 2009-09-08 (RLVa-1.0.2c) | Modified: RLVa-1.0.2c
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5) | Modified: RLVa-1.0.5
 	LLViewerJointAttachment* pAttachPt = NULL;
-	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasLockedAttachment()) && (!RlvSettings::getEnableWear()) &&
-		 ( ((pAttachPt = gRlvHandler.getAttachPoint(item, true)) == NULL) || (!gRlvHandler.isDetachable(pAttachPt)) ) )
+	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasLockedAttachment(RLV_LOCK_ANY)) && (!RlvSettings::getEnableWear()) &&
+		 ( ((pAttachPt = gRlvHandler.getAttachPoint(item, true)) == NULL) ||			// Item should specify an attachpt that
+		   (gRlvHandler.isLockedAttachment(pAttachPt->getObject(), RLV_LOCK_REMOVE)) ||	// doesn't have an undetachable object
+		   (gRlvHandler.isLockedAttachment(pAttachPt, RLV_LOCK_ADD)) ) )				// and that is attachable
 	{
 		return ACCEPT_NO_LOCKED;
 	}

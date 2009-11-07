@@ -6451,37 +6451,10 @@ BOOL LLVOAvatar::attachObject(LLViewerObject *viewer_object)
 	{
 		updateAttachmentVisibility(gAgent.getCameraMode());
 		
-// [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 		if (rlv_handler_t::isEnabled())
 		{
-			static bool fRlvFullyLoaded = false;
-			static LLFrameTimer* pRlvFullyLoadedTimer = NULL;
-
-			// There's no way to know when we're done reattaching what was attached at log-off but this ugly evil bad hack tries anyway
-			if (!fRlvFullyLoaded)
-			{
-				if (pRlvFullyLoadedTimer)
-				{
-					if (pRlvFullyLoadedTimer->getElapsedTimeF32() > 30.0f)
-					{
-						fRlvFullyLoaded = true;
-						delete pRlvFullyLoadedTimer;
-						pRlvFullyLoadedTimer = NULL;
-					}
-					else
-					{
-						pRlvFullyLoadedTimer->reset();
-					}
-				}
-				else if ( (!pRlvFullyLoadedTimer) && 
-					      ( (0 == mPendingAttachment.size()) || 
-						    ((1 == mPendingAttachment.size()) && (mPendingAttachment[0] == viewer_object)) ) )
-				{
-					pRlvFullyLoadedTimer = new LLFrameTimer();
-				}
-			}
-
-			gRlvHandler.onAttach(attachment, fRlvFullyLoaded);
+			gRlvHandler.onAttach(attachment);
 		}
 // [/RLVa:KB]
 

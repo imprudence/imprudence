@@ -676,8 +676,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		}
 
 //		if(gUseWireframe)
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
-		if ( (gUseWireframe) && ( (!rlv_handler_t::isEnabled()) || (!gRlvHandler.hasLockedAttachment()) ) )
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
+		if ( (gUseWireframe) && ( (!rlv_handler_t::isEnabled()) || (!gRlvHandler.hasLockedAttachment(RLV_LOCK_REMOVE)) ) )
 // [/RLVa:KB]
 		{
 			glClearColor(0.5f, 0.5f, 0.5f, 0.f);

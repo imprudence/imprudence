@@ -1943,9 +1943,9 @@ BOOL LLVOVolume::lineSegmentIntersect(const LLVector3& start, const LLVector3& e
 {
 	if (!mbCanSelect ||
 //		(gHideSelectedObjects && isSelected()) ||
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 		( (gHideSelectedObjects && isSelected()) && 
-		  ((!rlv_handler_t::isEnabled()) || (!isHUDAttachment()) || (gRlvHandler.isDetachable(this))) ) ||
+		  ((!rlv_handler_t::isEnabled()) || (!isHUDAttachment()) || (!gRlvHandler.isLockedAttachment(this, RLV_LOCK_REMOVE))) ) ||
 // [/RLVa:KB]
 			mDrawable->isDead() || 
 			!gPipeline.hasRenderType(mDrawable->getRenderType()))
@@ -2092,10 +2092,10 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 //	{
 //		return;
 //	}
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 	LLViewerObject* pObj = facep->getViewerObject();
 	if ( (pObj->isSelected() && gHideSelectedObjects) && 
-		 ((!rlv_handler_t::isEnabled()) || (!pObj->isHUDAttachment()) || (gRlvHandler.isDetachable(pObj))) )
+		 ((!rlv_handler_t::isEnabled()) || (!pObj->isHUDAttachment()) || (!gRlvHandler.isLockedAttachment(pObj, RLV_LOCK_REMOVE))) )
 	{
 		return;
 	}

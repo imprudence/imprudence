@@ -31,11 +31,6 @@
 #include "rlvextensions.h"
 #include "rlvhandler.h"
 
-// Only defined in llinventorybridge.cpp
-#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
-	#include "llinventorybridge.h"
-	void confirm_replace_attachment_rez(S32 option, void* user_data);
-#endif
 // Only defined in llinventorymodel.cpp
 extern const char* NEW_CATEGORY_NAME;
 
@@ -66,8 +61,8 @@ const std::string RlvHandler::cstrMsgTpLure =
 const std::string RlvHandler::cstrAnonyms[] =
 {
 	"A resident", "This resident", "That resident", "An individual", "This individual", "That individual", "A person",
-	"This person", "That person", "A stranger", "This stranger", "That stranger", "A human being", "This human being", 
-	"That human being", "An agent", "This agent", "That agent", "A soul", "This soul", "That soul", "Somebody", 
+	"This person", "That person", "A stranger", "This stranger", "That stranger", "A being", "This being", 
+	"That being", "An agent", "This agent", "That agent", "A soul", "This soul", "That soul", "Somebody", 
 	"Some people", "Someone", "Mysterious one", "An unknown being", "Unidentified one", "An unknown person"
 };
 
@@ -131,6 +126,7 @@ RlvHandler::~RlvHandler()
 	//delete m_pGCTimer;	// <- deletes itself
 	delete m_pWLSnapshot;	// <- delete on NULL is harmless
 	delete m_pBhvrNotify;
+	delete m_pAttachMgr;
 }
 
 // ============================================================================
@@ -246,7 +242,7 @@ bool RlvHandler::hasLockedHUD() const
 		return false;
 	
 	LLViewerJointAttachment* pAttachPt;
-	for (rlv_detach_map_t::const_iterator itAttachPt = m_Attachments.begin(); itAttachPt != m_Attachments.end(); ++itAttachPt)
+	for (rlv_attachlock_map_t::const_iterator itAttachPt = m_AttachRem.begin(); itAttachPt != m_AttachRem.end(); ++itAttachPt)
 	{
 		pAttachPt = get_if_there(pAvatar->mAttachmentPoints, (S32)itAttachPt->first, (LLViewerJointAttachment*)NULL);
 		if ( (pAttachPt) && (pAttachPt->getIsHUDAttachment()) )
@@ -255,60 +251,93 @@ bool RlvHandler::hasLockedHUD() const
 	return false;			// None of our locked attachments is a HUD
 }
 
-bool RlvHandler::isDetachable(const LLInventoryItem* pItem) const
+// Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+bool RlvHandler::isLockedAttachment(const LLInventoryItem* pItem, ERlvLockMask eLock) const
 {
 	LLVOAvatar* pAvatar = gAgent.getAvatarObject();
-	return ( (pItem) && (pAvatar) ) ? isDetachable(pAvatar->getWornAttachment(pItem->getUUID())) : true;
+	return (pItem) && (pAvatar) && (isLockedAttachment(pAvatar->getWornAttachment(pItem->getUUID()), eLock));
 }
 
-// Checked: 2009-08-11 (RLVa-1.0.1h) | Added: RLVa-1.0.1h
-bool RlvHandler::isDetachableExcept(S32 idxAttachPt, LLViewerObject *pObj) const
+// Checked: 2009-10-13 (RLVa-1.0.5b) | Added: RLVa-1.0.5b
+bool RlvHandler::isLockedAttachmentExcept(S32 idxAttachPt, ERlvLockMask eLock, LLViewerObject *pObj) const
 {
-	// Loop over every object that marked the specific attachment point undetachable (but ignore pObj and any of its children)
-	for (rlv_detach_map_t::const_iterator itAttach = m_Attachments.lower_bound(idxAttachPt), 
-		endAttach = m_Attachments.upper_bound(idxAttachPt); itAttach != endAttach; ++itAttach)
+	// Loop over every object that marked the specific attachment point eLock type locked (but ignore pObj and any of its children)
+	LLViewerObject* pTempObj;
+	if (eLock & RLV_LOCK_REMOVE)
 	{
-		LLViewerObject* pTempObj = gObjectList.findObject(itAttach->second);
-		if ( (!pTempObj) || (pTempObj->getRootEdit()->getID() != pObj->getID()) )
-			return false;
+		for (rlv_attachlock_map_t::const_iterator itAttach = m_AttachRem.lower_bound(idxAttachPt), 
+			endAttach = m_AttachRem.upper_bound(idxAttachPt); itAttach != endAttach; ++itAttach)
+		{
+			if ( ((pTempObj = gObjectList.findObject(itAttach->second)) == NULL) || (pTempObj->getRootEdit()->getID() != pObj->getID()) )
+				return true;
+		}
 	}
-	return true;
+	if (eLock & RLV_LOCK_ADD)
+	{
+		for (rlv_attachlock_map_t::const_iterator itAttach = m_AttachAdd.lower_bound(idxAttachPt), 
+			endAttach = m_AttachAdd.upper_bound(idxAttachPt); itAttach != endAttach; ++itAttach)
+		{
+			if ( ((pTempObj = gObjectList.findObject(itAttach->second)) == NULL) || (pTempObj->getRootEdit()->getID() != pObj->getID()) )
+				return true;
+		}
+	}
+	return false;
 }
 
-// Checked: 2009-09-06 (RLVa-1.0.2b) | Modified: RLVa-1.0.2b
-bool RlvHandler::setDetachable(S32 idxAttachPt, const LLUUID& idRlvObj, bool fDetachable)
+// Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+void RlvHandler::addAttachmentLock(S32 idxAttachPt, const LLUUID &idRlvObj, ERlvLockMask eLock)
 {
 	// Sanity check - make sure it's an object we know about
-	rlv_object_map_t::const_iterator itObj = m_Objects.find(idRlvObj);
-	if ( (itObj == m_Objects.end()) || (!idxAttachPt) )
-		return false;	// If (idxAttachPt) == 0 then: (pObj == NULL) || (pObj->isAttachment() == FALSE)
+	if ( (m_Objects.find(idRlvObj) == m_Objects.end()) || (!idxAttachPt) )
+		return;	// If (idxAttachPt) == 0 then: (pObj == NULL) || (pObj->isAttachment() == FALSE)
 
-	if (!fDetachable)
+	// NOTE: m_AttachXXX can contain duplicate <idxAttachPt, idRlvObj> pairs (ie @detach:spine=n,detach=n from an attachment on spine)
+	if (eLock & RLV_LOCK_REMOVE)
 	{
 		#ifdef RLV_EXPERIMENTAL_FIRSTUSE
 			//LLFirstUse::useRlvDetach();
 		#endif // RLV_EXPERIMENTAL_FIRSTUSE
 
-		// NOTE: m_Attachments can contain duplicate <idxAttachPt, idRlvObj> pairs (ie @detach:spine=n,detach=n from an attachment on spine)
-		m_Attachments.insert(std::pair<S32, LLUUID>(idxAttachPt, itObj->second.m_UUID));
-		return true;
+		m_AttachRem.insert(std::pair<S32, LLUUID>(idxAttachPt, idRlvObj));
 	}
-	else
+	if (eLock & RLV_LOCK_ADD)
 	{
-		for (rlv_detach_map_t::iterator itAttach = m_Attachments.lower_bound(idxAttachPt), 
-				endAttach = m_Attachments.upper_bound(idxAttachPt); itAttach != endAttach; ++itAttach)
+		m_AttachAdd.insert(std::pair<S32, LLUUID>(idxAttachPt, idRlvObj));
+	}
+}
+
+// Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+void RlvHandler::removeAttachmentLock(S32 idxAttachPt, const LLUUID &idRlvObj, ERlvLockMask eLock)
+{
+	// Sanity check - make sure it's an object we know about
+	if ( (m_Objects.find(idRlvObj) == m_Objects.end()) || (!idxAttachPt) )
+		return;	// If (idxAttachPt) == 0 then: (pObj == NULL) || (pObj->isAttachment() == FALSE)
+
+	if (eLock & RLV_LOCK_REMOVE)
+	{
+		for (rlv_attachlock_map_t::iterator itAttach = m_AttachRem.lower_bound(idxAttachPt), 
+				endAttach = m_AttachRem.upper_bound(idxAttachPt); itAttach != endAttach; ++itAttach)
 		{
-			if (itObj->second.m_UUID == itAttach->second)
+			if (idRlvObj == itAttach->second)
 			{
-				m_Attachments.erase(itAttach);
-				return true;
+				m_AttachRem.erase(itAttach);
+				break;
 			}
 		}
 	}
-	return false;	// Fall-through for (fDetachable == TRUE) - if the object wasn't undetachable then we consider it a failure
+	if (eLock & RLV_LOCK_ADD)
+	{
+		for (rlv_attachlock_map_t::iterator itAttach = m_AttachAdd.lower_bound(idxAttachPt), 
+				endAttach = m_AttachAdd.upper_bound(idxAttachPt); itAttach != endAttach; ++itAttach)
+		{
+			if (idRlvObj == itAttach->second)
+			{
+				m_AttachAdd.erase(itAttach);
+				break;
+			}
+		}
+	}
 }
-
-
 
 #ifdef RLV_EXTENSION_FLAG_NOSTRIP
 	// Checked: 2009-05-26 (RLVa-0.2.0d) | Modified: RLVa-0.2.0d
@@ -413,10 +442,10 @@ void RlvHandler::notifyBehaviourObservers(const RlvCommand& rlvCmd, bool fIntern
 }
 
 // Checked:
-BOOL RlvHandler::processCommand(const LLUUID& uuid, const std::string& strCmd, bool fFromObj)
+BOOL RlvHandler::processCommand(const LLUUID& idObj, const std::string& strCmd, bool fFromObj)
 {
 	#ifdef RLV_DEBUG
-		RLV_INFOS << "[" << uuid << "]: " << strCmd << LL_ENDL;
+		RLV_INFOS << "[" << idObj << "]: " << strCmd << LL_ENDL;
 	#endif // RLV_DEBUG
 
 	RlvCommand rlvCmd(strCmd);
@@ -427,7 +456,10 @@ BOOL RlvHandler::processCommand(const LLUUID& uuid, const std::string& strCmd, b
 		#endif // RLV_DEBUG
 		return FALSE;
 	}
-	m_pCurCommand = &rlvCmd; m_idCurObject = uuid;
+
+	// NOTE: if we pass RlvObject::m_UUID for idObj somewhere and process a @clear then it will point to invalid/cleared memory at the end
+	//       so make sure to *always* pass our private copy to other functions
+	m_pCurCommand = &rlvCmd; m_idCurObject = idObj;
 
 	BOOL fRet = FALSE;
 	switch (rlvCmd.getParamType())
@@ -444,7 +476,7 @@ BOOL RlvHandler::processCommand(const LLUUID& uuid, const std::string& strCmd, b
 					break;
 				}
 
-				rlv_object_map_t::iterator itObj = m_Objects.find(uuid);
+				rlv_object_map_t::iterator itObj = m_Objects.find(m_idCurObject);
 				if (itObj != m_Objects.end())
 				{
 					RlvObject& rlvObj = itObj->second;
@@ -452,9 +484,9 @@ BOOL RlvHandler::processCommand(const LLUUID& uuid, const std::string& strCmd, b
 				}
 				else
 				{
-					RlvObject rlvObj(uuid);
+					RlvObject rlvObj(m_idCurObject);
 					fRet = rlvObj.addCommand(rlvCmd);
-					m_Objects.insert(std::pair<LLUUID, RlvObject>(uuid, rlvObj));
+					m_Objects.insert(std::pair<LLUUID, RlvObject>(m_idCurObject, rlvObj));
 				}
 
 				#ifdef RLV_DEBUG
@@ -464,14 +496,14 @@ BOOL RlvHandler::processCommand(const LLUUID& uuid, const std::string& strCmd, b
 				if (fRet) {	// If FALSE then this was a duplicate, there's no need to handle those
 					if (!m_pGCTimer)
 						m_pGCTimer = new RlvGCTimer();
-					processAddCommand(uuid, rlvCmd);
+					processAddCommand(m_idCurObject, rlvCmd);
 					notifyBehaviourObservers(rlvCmd, !fFromObj);
 				}
 			}
 			break;
 		case RLV_TYPE_REMOVE:		// Checked:
 			{
-				rlv_object_map_t::iterator itObj = m_Objects.find(uuid);
+				rlv_object_map_t::iterator itObj = m_Objects.find(m_idCurObject);
 				if (itObj != m_Objects.end())
 					fRet = itObj->second.removeCommand(rlvCmd);
 
@@ -481,13 +513,13 @@ BOOL RlvHandler::processCommand(const LLUUID& uuid, const std::string& strCmd, b
 				#endif // RLV_DEBUG
 
 				if (fRet) {	// Don't handle non-sensical removes
-					processRemoveCommand(uuid, rlvCmd);
+					processRemoveCommand(m_idCurObject, rlvCmd);
 					notifyBehaviourObservers(rlvCmd, !fFromObj);
 
 					if (0 == itObj->second.m_Commands.size())
 					{
 						#ifdef RLV_DEBUG
-							RLV_INFOS << "\t- command list empty => removing " << uuid << LL_ENDL;
+							RLV_INFOS << "\t- command list empty => removing " << m_idCurObject << LL_ENDL;
 						#endif // RLV_DEBUG
 						m_Objects.erase(itObj);
 					}
@@ -495,14 +527,14 @@ BOOL RlvHandler::processCommand(const LLUUID& uuid, const std::string& strCmd, b
 			}
 			break;
 		case RLV_TYPE_CLEAR:
-			fRet = processClearCommand(uuid, rlvCmd);
+			fRet = processClearCommand(m_idCurObject, rlvCmd);
 			notifyBehaviourObservers(rlvCmd, !fFromObj);
 			break;
 		case RLV_TYPE_FORCE:		// Checked:
-			fRet = processForceCommand(uuid, rlvCmd);
+			fRet = processForceCommand(m_idCurObject, rlvCmd);
 			break;
 		case RLV_TYPE_REPLY:		// Checked:
-			fRet = processReplyCommand(uuid, rlvCmd);
+			fRet = processReplyCommand(m_idCurObject, rlvCmd);
 			break;
 		case RLV_TYPE_UNKNOWN:		// Checked:
 			break;
@@ -535,35 +567,15 @@ BOOL RlvHandler::processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd)
 		m_Behaviours[eBehaviour]++;
 	}
 
+	bool fRefCount = false; // Unused for the moment
 	switch (eBehaviour)
 	{
-		case RLV_BHVR_DETACH:				// @detach[:<option>]=n		- Checked: 2009-08-04 (RLVa-1.0.1d) | Modified: RLVa-1.0.1d
-			{
-				LLViewerObject* pObj = NULL; S32 idxAttachPt = 0;
-				if (strOption.empty())													// @detach=n
-				{
-					// If the object rezzed before we received @detach=n from it then we can just do our thing here
-					// If the object hasn't rezzed yet then we need to wait until RlvHandler::onAttach()
-					// If @detach=n were possible for non-attachments another copy/paste would be needed in RlvHandler::onGC()
-					if ((pObj = gObjectList.findObject(uuid)) != NULL)
-						setDetachable(pObj, uuid, false);
-				} 
-				else if ((idxAttachPt = getAttachPointIndex(strOption, true)) != 0)		// @detach:<attachpt>=n
-				{
-					setDetachable(idxAttachPt, uuid, false);
-
-					// (See below)
-					LLViewerJointAttachment* pAttachPt = getAttachPoint(strOption, true);
-					if (pAttachPt)
-						pObj = pAttachPt->getObject();
-				}
-
-				// When at least one HUD attachment is locked we want to make sure they're all visible (ie prevent hiding a blindfold HUD)
-				// However, since @detach:<attachpt>=n might lock a HUD attachment point that doesn't currently have an object we
-				// have to do this here *and* in RlvHandler::onAttach()
-				if ( (pObj) && (pObj->isHUDAttachment()) )
-					LLPipeline::sShowHUDAttachments = TRUE;
-			}
+		case RLV_BHVR_DETACH:				// @detach[:<option>]=n		- Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
+			onAddRemDetach(uuid, rlvCmd, fRefCount);
+			break;
+		case RLV_BHVR_ADDATTACH:			// @addattach[:<option>]=n	- Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+		case RLV_BHVR_REMATTACH:			// @addattach[:<option>]=n	- Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+			onAddRemAttach(uuid, rlvCmd, fRefCount);
 			break;
 		case RLV_BHVR_REDIRCHAT:			// @redirchat:<option>=n	- Checked: 2009-07-07 (RLVa-1.0.0d)
 		case RLV_BHVR_REDIREMOTE:			// @rediremote:<option>=n	- Checked: 2009-07-07 (RLVa-1.0.0d) | Added: RLVa-0.2.2a
@@ -797,25 +809,15 @@ BOOL RlvHandler::processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvC
 		m_Behaviours[eBehaviour]--;
 	}
 
+	bool fRefCount = false; // Unused for the moment
 	switch (eBehaviour)
 	{
-		case RLV_BHVR_DETACH:				// @detach[:<option>]=y		- Checked: 2009-08-04 (RLVa-1.0.1d) | Modified: RLVa-1.0.1d
-			{
-				S32 idxAttachPt = 0;
-				if (strOption.empty())												// @detach=y
-				{
-					// The object may or may not (if it got detached) still exist
-					rlv_object_map_t::const_iterator itObj = m_Objects.find(uuid);
-					if (itObj != m_Objects.end())
-						idxAttachPt = itObj->second.m_idxAttachPt;
-					if (idxAttachPt)
-						setDetachable(idxAttachPt, uuid, true);
-				}
-				else if ((idxAttachPt = getAttachPointIndex(strOption, true)))		// @detach:<attachpt>=y
-				{
-					setDetachable(idxAttachPt, uuid, true);
-				}
-			}
+		case RLV_BHVR_DETACH:				// @detach[:<option>]=y		- Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
+			onAddRemDetach(uuid, rlvCmd, fRefCount);
+			break;
+		case RLV_BHVR_ADDATTACH:			// @addattach[:<option>]=y	- Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+		case RLV_BHVR_REMATTACH:			// @addattach[:<option>]=y	- Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+			onAddRemAttach(uuid, rlvCmd, fRefCount);
 			break;
 		case RLV_BHVR_REDIRCHAT:			// @redirchat:<option>=y	- Checked: 2009-07-07 (RLVa-1.0.0d)
 		case RLV_BHVR_REDIREMOTE:			// @rediremote:<option>=y	- Checked: 2009-07-07 (RLVa-1.0.0d) | Added: RLVa-0.2.2a
@@ -940,7 +942,7 @@ BOOL RlvHandler::processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvC
 	return TRUE; // Remove commands don't fail, doesn't matter what we return here
 }
 
-BOOL RlvHandler::processClearCommand(const LLUUID& idObj, const RlvCommand& rlvCmd)
+BOOL RlvHandler::processClearCommand(const LLUUID idObj, const RlvCommand& rlvCmd)
 {
 	const std::string& strFilter = rlvCmd.getParam(); std::string strCmdRem;
 
@@ -976,8 +978,11 @@ BOOL RlvHandler::processForceCommand(const LLUUID& idObj, const RlvCommand& rlvC
 
 	switch (rlvCmd.getBehaviourType())
 	{
-		case RLV_BHVR_DETACH:		// @detach[:<option>]=force		- Checked:
-			onForceDetach(idObj, strOption);
+		case RLV_BHVR_DETACH:		// @detach[:<option>]=force		- Checked: 2009-10-12 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
+			onForceDetach(idObj, rlvCmd);
+			break;
+		case RLV_BHVR_REMATTACH:	// @remattach[:<option>]=force  - Checked: 2009-10-12 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
+			onForceRemAttach(idObj, rlvCmd);
 			break;
 		case RLV_BHVR_REMOUTFIT:	// @remoutfit:<option>=force	- Checked:
 			onForceRemOutfit(idObj, strOption);
@@ -1125,7 +1130,7 @@ BOOL RlvHandler::processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCm
 				#endif // RLV_EXPERIMENTAL_COMPOSITE_FOLDING
 			}
 			break;
-		case RLV_BHVR_GETATTACH:		// @getattach[:<layer>]=<channel>	  - Checked: 2009-07-12 (RLVa-1.0.0h) | Modified: RLVa-0.2.0d
+		case RLV_BHVR_GETATTACH:		// @getattach[:<layer>]=<channel>	  - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 			{
 				// If we're fetching all worn attachments then the reply should start with 0
 				if (strOption.empty())
@@ -1155,9 +1160,9 @@ BOOL RlvHandler::processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCm
 						{
 							bool fWorn = (pAttachment->getItemID().notNull()) && 
 								( (!RlvSettings::getHideLockedAttach()) || 
-								  ( (isDetachable(itAttach->first)) && (isStrippable(pAttachment->getItemID())) ) );
+								  ( (!isLockedAttachmentExcept(itAttach->first, RLV_LOCK_REMOVE, gObjectList.findObject(uuid))) && 
+								    (isStrippable(pAttachment->getItemID())) ) );
 							strReply.push_back( (fWorn) ? '1' : '0' );
-							//strReply.push_back( (pAttachment->getItemID().notNull()) ? '1' : '0' );
 						}
 					#endif // RLV_EXPERIMENTAL_COMPOSITE_FOLDING
 				}
@@ -1327,7 +1332,7 @@ void RlvHandler::initLookupTables()
 }
 
 // Checked: 2009-08-11 (RLVa-1.0.1h) | Modified: RLVa-1.0.1h
-void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt, bool fFullyLoaded)
+void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt)
 {
 	// Sanity check - LLVOAvatar::attachObject() should call us *after* calling LLViewerJointAttachment::addObject()
 	LLViewerObject* pObj = pAttachPt->getObject();
@@ -1338,30 +1343,8 @@ void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt, bool fFullyLoaded)
 		return;
 	}
 
-	// Check if this attachment point has a pending "reattach-on-detach"
-	rlv_reattach_map_t::iterator itReattach = m_AttachPending.find(idxAttachPt);
-	if (itReattach != m_AttachPending.end())
-	{
-		if (itReattach->second == pAttachPt->getItemID())
-		{
-			RLV_INFOS << "Reattached " << pAttachPt->getItemID().asString() << " to " << idxAttachPt << LL_ENDL;
-			m_AttachPending.erase(itReattach);
-		}
-	}
-	else if ( (fFullyLoaded) && (!isDetachableExcept(idxAttachPt, pObj)) )
-	{
-		// We're fully loaded with no pending reattach on this attach point but it's "undetachable" -> force detach the new attachment
-
-		// Assertion: the only way the attachment point could be locked at this point is if some object locked it with @detach:attachpt=n
-		//   - previous attachments on this attachment point might have issued @detach=n but those were all cleaned up at detach
-		//   - the new attachment might have issued @detach=n but that won't actually lock down the attachment point until further down
-		// NOTE 1: "some object" may no longer exist if it was not an attachment and the GC hasn't cleaned it up yet (informative)
-		// NOTE 2: "some object" may refer to the new attachment - ie @detach:spine=n from object on spine (problematic, causes reattach)
-		//           -> solved by using isDetachableExcept(idxAttachPt, pObj) instead of isDetachable(idxAttachPt)
-
-		m_DetachPending.insert(std::pair<S32, LLUUID>(idxAttachPt, pObj->getID()));
-		rlvForceDetach(pAttachPt);
-	}
+	// Let the attachment manager know
+	m_pAttachMgr->onAttach(pAttachPt);
 
 	// Check if we already have an RlvObject instance for this object (rezzed prim attached from in-world, or an attachment that rezzed in)
 	rlv_object_map_t::iterator itObj = m_Objects.find(pObj->getID());
@@ -1378,7 +1361,7 @@ void RlvHandler::onAttach(LLViewerJointAttachment* pAttachPt, bool fFullyLoaded)
 		if (itObj->second.hasBehaviour(RLV_BHVR_DETACH, false))
 		{
 			// (Copy/paste from processAddCommand)
-			setDetachable(idxAttachPt, pObj->getID(), false);
+			addAttachmentLock(idxAttachPt, itObj->second.m_UUID, RLV_LOCK_REMOVE);
 
 			if (pObj->isHUDAttachment())
 				LLPipeline::sShowHUDAttachments = TRUE;	// Prevents hiding of locked HUD attachments
@@ -1469,44 +1452,19 @@ void RlvHandler::onDetach(LLViewerJointAttachment* pAttachPt)
 		//RLV_INFOS << "Clean up for '" << pDbgAttachmentPt->getName() << "'" << LL_ENDL;
 	#endif // RLV_DEBUG
 
-	// If the attachment was locked then we should reattach it (unless we're already trying to reattach to this attachment point)
-	// (unless we forcefully detached it else in which case we do not want to reattach it)
-	rlv_reattach_map_t::iterator itDetach = m_DetachPending.find(idxAttachPt);
-	if (itDetach != m_DetachPending.end())
-	{
-		// RLVa-TODO: we should really be comparing item UUIDs but is it even possible to end up here and not have them match?
-		m_DetachPending.erase(itDetach);
-	}
-	else if ( (!isDetachable(idxAttachPt)) && (m_AttachPending.find(idxAttachPt) == m_AttachPending.end()) )
-	{
-		// In an ideal world we would simply set up an LLInventoryObserver but there's no specific "asset updated" changed flag *sighs*
-		// NOTE: attachments *always* know their "inventory item UUID" so we don't have to worry about fetched vs unfetched inventory
-		m_AttachPending.insert(std::pair<S32, LLUUID>(idxAttachPt, pAttachPt->getItemID()));
-	}
+	// Let the attachment manager know
+	m_pAttachMgr->onDetach(pAttachPt);
 
-	// We can't - easily - clean up child prims that never issued @detach=n but the GC will get those eventually
-	rlv_detach_map_t::iterator itAttach = m_Attachments.find(idxAttachPt);
-	while ( (itAttach != m_Attachments.upper_bound(idxAttachPt)) && (itAttach != m_Attachments.end()) )
+	// Clean up any restriction this object (or one of its child prims) may have
+	rlv_object_map_t::iterator itObj = m_Objects.begin(), itCurrent;
+	while (itObj != m_Objects.end())
 	{
-		LLViewerObject* pTempObj = gObjectList.findObject(itAttach->second);
-		if ( (pTempObj) && (pTempObj->getRootEdit()->getID() == pObj->getID()) )
-		{
-			// Iterator points to the object (or to a child prim) so issue a clear on behalf of the object (there's the 
-			// possibility of going into an eternal loop, but that's ok since it indicates a bug in @clear that needs fixing)
-			processCommand(itAttach->second, "clear", true);
+		itCurrent = itObj++; // @clear will invalidate our iterator so point it ahead now
 
-			itAttach = m_Attachments.find(idxAttachPt); // @clear will invalidate all iterators so we have to start anew
-		}
-		else
-		{
-			itAttach++;
-		}
+		// NOTE: ObjectKill seems to happen in reverse (child prims are killed before the root is) so we can't use gObjectList here
+		if (itCurrent->second.m_idxAttachPt == idxAttachPt)
+			processCommand(itCurrent->second.m_UUID, "clear", true);
 	}
-
-	// Clean up in case there was never a @detach=n (only works for the root prim - see above)
-	rlv_object_map_t::iterator itObj = m_Objects.find(pObj->getID());
-	if (itObj != m_Objects.end())
-		processCommand(itObj->second.m_UUID, "clear", true);
 }
 
 // Checked: 2009-07-30 (RLVa-1.0.1c) | Modified: RLVa-1.0.1c
@@ -1546,32 +1504,6 @@ bool RlvHandler::onGC()
 	}
 
 	return (0 != m_Objects.size());	// GC will kill itself if it has nothing to do
-}
-
-// Checked: 2009-08-08 (RLVa-1.0.1g) | Modified: RLVa-1.0.1g
-void RlvHandler::onSavedAssetIntoInventory(const LLUUID& idItem)
-{
-	for (rlv_reattach_map_t::iterator itAttach = m_AttachPending.begin(); itAttach != m_AttachPending.end(); ++itAttach)
-	{
-		if (idItem == itAttach->second)
-		{
-			RLV_INFOS << "Reattaching " << idItem.asString() << " to " << itAttach->first << LL_ENDL;
-
-			#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
-				LLAttachmentRezAction* rez_action = new LLAttachmentRezAction;
-				rez_action->mItemID = itAttach->second;
-				rez_action->mAttachPt = itAttach->first;
-
-				confirm_replace_attachment_rez(0/*YES*/, (void*)rez_action); // (Will call delete on rez_action)
-			#else												// Version: 1.23.4
-				LLSD payload;
-				payload["item_id"] = itAttach->second;
-				payload["attachment_point"] = itAttach->first;
-
-				LLNotifications::instance().forceResponse(LLNotification::Params("ReplaceAttachment").payload(payload), 0/*YES*/);
-			#endif
-		}
-	}
 }
 
 // ============================================================================
@@ -2099,47 +2031,6 @@ std::string RlvHandler::getSharedPath(const LLViewerInventoryCategory* pFolder) 
 //
 
 // Checked: 2009-07-12 (RLVa-1.0.0h) | Modified: RLVa-0.2.0d
-void RlvHandler::onForceDetach(const LLUUID& idObj, const std::string& strOption) const
-{
-	U16 nParam;
-	if (strOption.empty())
-	{
-		// Simulate right-click / Take Off > Detach All
-		LLAgent::userRemoveAllAttachments(NULL);
-	}
-	else if (m_AttachLookup.getExactMatchParam(strOption, nParam))
-	{
-		// Simulate right-click / Take Off > Detach > ...
-		LLVOAvatar* pAvatar; LLViewerJointAttachment* pAttachmentPt;
-		if ( ((pAvatar = gAgent.getAvatarObject()) != NULL) &&	// Make sure we're actually wearing something on the attachment point
-			 ((pAttachmentPt = get_if_there(pAvatar->mAttachmentPoints, (S32)nParam, (LLViewerJointAttachment*)NULL)) != NULL) &&
-			 (isStrippable(pAttachmentPt->getItemID())) )		// ... and that it's not marked as "nostrip"
-		{
-			#ifdef RLV_EXPERIMENTAL_COMPOSITES
-				// If we're stripping something that's part of a composite folder then we should @detachthis instead
-				if (isCompositeDescendent(pAttachmentPt->getItemID()))
-				{
-					std::string strCmd = "detachthis:" + strOption + "=force";
-					#ifdef RLV_DEBUG
-						RLV_INFOS << "\t- '" << strOption << "' belongs to composite folder: @" << strCmd << LL_ENDL;
-					#endif // RLV_DEBUG
-					processForceCommand(idObj, RlvCommand(strCmd));
-				}
-				else
-			#endif // RLV_EXPERIMENTAL_COMPOSITES
-				{
-					handle_detach_from_avatar(pAttachmentPt);
-				}
-		}
-	}
-	else
-	{
-		// Force detach single folder
-		onForceWear(strOption, false, false);
-	}
-}
-
-// Checked: 2009-07-12 (RLVa-1.0.0h) | Modified: RLVa-0.2.0d
 void RlvHandler::onForceRemOutfit(const LLUUID& idObj, const std::string& strOption) const
 {
 	EWearableType typeOption = LLWearable::typeNameToType(strOption), type;
@@ -2209,6 +2100,7 @@ bool RlvHandler::onForceSit(const LLUUID& idObj, const std::string& strOption) c
 	return true;
 }
 
+// Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 void RlvHandler::onForceWear(const std::string& strPath, bool fAttach, bool fMatchAll) const
 {
 	// See LLWearableBridge::wearOnAvatar(): don't wear anything until initial wearables are loaded, can destroy clothing items
@@ -2281,22 +2173,11 @@ void RlvHandler::onForceWear(const std::string& strPath, bool fAttach, bool fMat
 								// Simulate wearing an object to a specific attachment point (copy/paste to suppress replacement dialog)
 								// LLAttachObject::handleEvent() => rez_attachment()
 								LLViewerJointAttachment* pAttachPt = getAttachPoint(pItem, true);
-								if ( (pAttachPt) && (isDetachable(pAttachPt)) )
+								if ( (pAttachPt) &&														 // Need a specific attach pt that
+									 ( (!isLockedAttachment(pAttachPt->getObject(), RLV_LOCK_REMOVE)) && // doesn't have locked object
+									   (!isLockedAttachment(pAttachPt, RLV_LOCK_ADD)) ) )				 // and that can be attached to
 								{
-									#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
-										LLAttachmentRezAction* rez_action = new LLAttachmentRezAction;
-										rez_action->mItemID = pItem->getUUID();
-										rez_action->mAttachPt = getAttachPointIndex(pAttachPt->getName(), true);
-
-										confirm_replace_attachment_rez(0/*YES*/, (void*)rez_action); // (Will call delete on rez_action)
-									#else												// Version: 1.23.4
-										LLSD payload;
-										payload["item_id"] = pItem->getUUID();
-										payload["attachment_point"] = getAttachPointIndex(pAttachPt->getName(), true);
-
-										LLNotifications::instance().forceResponse(
-											LLNotification::Params("ReplaceAttachment").payload(payload), 0/*YES*/);
-									#endif
+									RlvAttachmentManager::forceAttach(pItem->getUUID(), getAttachPointIndex(pAttachPt->getName(), true));
 								}
 							}
 							else
@@ -2504,6 +2385,7 @@ BOOL RlvHandler::setEnabled(BOOL fEnable)
 			RlvSettings::fShowNameTags = gSavedSettings.getBOOL(RLV_SETTING_SHOWNAMETAGS);
 
 		RlvCommand::initLookupTable();
+		gRlvHandler.m_pAttachMgr = new RlvAttachmentManager();
 		gRlvHandler.addObserver(new RlvExtGetSet());
 
 		if (LLStartUp::getStartupState() >= STATE_CLEANUP)
@@ -2553,7 +2435,7 @@ void RlvHandler::clearState()
 	while (m_Objects.size())
 	{
 		idObj = m_Objects.begin()->first; // Need a copy since after @clear the data it points to will no longer exist
-		fDetachable = ((pObj = gObjectList.findObject(idObj)) != NULL) ? isDetachable(pObj) : true;
+		fDetachable = ((pObj = gObjectList.findObject(idObj)) != NULL) ? isLockedAttachment(pObj, RLV_LOCK_REMOVE) : true;
 
 		processCommand(idObj, "clear", false);
 		if (!fDetachable)
@@ -2561,32 +2443,165 @@ void RlvHandler::clearState()
 	}
 
 	// Sanity check - these should all be empty after we issue @clear on the last object
-	if ( (!m_Objects.empty()) || !(m_Exceptions.empty()) || (!m_Attachments.empty()) )
+	if ( (!m_Objects.empty()) || !(m_Exceptions.empty()) || (!m_AttachAdd.empty()) || (!m_AttachRem.empty()) )
 	{
 		RLV_ERRS << "Object, exception or attachment map not empty after clearing state!" << LL_ENDL;
 		m_Objects.clear();
 		m_Exceptions.clear();
-		m_Attachments.clear();
+		m_AttachAdd.clear();
+		m_AttachRem.clear();
 	}
 
 	// These all need manual clearing
 	memset(m_LayersAdd, 0, sizeof(S16) * WT_COUNT);
 	memset(m_LayersRem, 0, sizeof(S16) * WT_COUNT);
 	memset(m_Behaviours, 0, sizeof(S16) * RLV_BHVR_COUNT);
-	m_AttachPending.clear();
+	m_Retained.clear();
 	m_Emitter.clearObservers(); // <- calls delete on all active observers
 
 	// Clear dynamically allocated memory
-	if (m_pGCTimer)
+	delete m_pGCTimer;
+	m_pGCTimer = NULL;
+	delete m_pWLSnapshot;
+	m_pWLSnapshot = NULL;
+	delete m_pAttachMgr;
+	m_pAttachMgr = NULL;
+}
+
+// ============================================================================
+// Command handlers (RLV_TYPE_ADD and RLV_TYPE_REMOVE)
+//
+
+// Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+ERlvCmdRet RlvHandler::onAddRemAttach(const LLUUID& idObj, const RlvCommand& rlvCmd, bool& fRefCount)
+{
+	// Sanity check - if there's an option it should specify a valid attachment point name
+	S32 idxAttachPt = getAttachPointIndex(rlvCmd.getOption(), true);
+	if ( (!idxAttachPt) && (!rlvCmd.getOption().empty())  )
+		return RLV_RET_FAILED_OPTION;
+
+	LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+	if (!pAvatar)
+		return RLV_RET_FAILED;
+
+	ERlvLockMask eLock = (RLV_BHVR_REMATTACH == rlvCmd.getBehaviourType()) ? RLV_LOCK_REMOVE : RLV_LOCK_ADD;
+	for (LLVOAvatar::attachment_map_t::const_iterator itAttach = pAvatar->mAttachmentPoints.begin(); 
+			itAttach != pAvatar->mAttachmentPoints.end(); ++itAttach)
 	{
-		delete m_pGCTimer;
-		m_pGCTimer = NULL;
+		if ( (0 == idxAttachPt) || (itAttach->first == idxAttachPt) )
+		{
+			if (RLV_TYPE_ADD == rlvCmd.getParamType())
+				addAttachmentLock(itAttach->first, idObj, eLock);
+			else
+				removeAttachmentLock(itAttach->first, idObj, eLock);
+		}
 	}
-	if (m_pWLSnapshot)
+
+	// Refresh HUD visibility if needed
+	if ( (RLV_BHVR_REMATTACH == rlvCmd.getBehaviourType()) && (hasLockedHUD()) )
+		LLPipeline::sShowHUDAttachments = TRUE;
+
+	fRefCount = rlvCmd.getOption().empty();	// Only reference count global locks
+	return RLV_RET_NOERROR;
+}
+
+// Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+ERlvCmdRet RlvHandler::onAddRemDetach(const LLUUID& idObj, const RlvCommand& rlvCmd, bool& fRefCount)
+{
+	S32 idxAttachPt = 0;
+	if (rlvCmd.getOption().empty())	// @detach=n|y
 	{
-		delete m_pWLSnapshot;
-		m_pWLSnapshot = NULL;
+		// The object may or may not exist (it may not have rezzed yet, or it may have already been killed):
+		//   * @detach=n: - if it has rezzed then we'll already have its attachment point 
+		//                - if it hasn't rezzed yet then it's a @detach=n from a non-attachment and RlvHandler::onAttach() takes care of it
+		//   * @detach=y: - if it ever rezzed as an attachment we'll have cached its attach point 
+		//                - if it never rezzed as an attachment there won't be a lock to remove
+		rlv_object_map_t::const_iterator itObj = m_Objects.find(idObj);
+		if (itObj != m_Objects.end())
+			idxAttachPt = itObj->second.m_idxAttachPt;
 	}
+	else							// @detach:<attachpt>=n|y
+	{
+		idxAttachPt = getAttachPointIndex(rlvCmd.getOption(), true);
+	}
+
+	// The attach point can be zero for @detach=n|y (i.e. non-attachment) but should always be non-zero for @detach:<attachpt>=n|y
+	if (0 == idxAttachPt)
+		return (rlvCmd.getOption().empty()) ? RLV_RET_NOERROR : RLV_RET_FAILED_OPTION;
+
+	// Actually lock the attachment point (@detach=n locks remove only; @detach:<attachpt>=n locks both remove and add)
+	ERlvLockMask eLock = (rlvCmd.getOption().empty()) ? RLV_LOCK_REMOVE : (ERlvLockMask)(RLV_LOCK_ADD | RLV_LOCK_REMOVE);
+	if (RLV_TYPE_ADD == rlvCmd.getParamType())
+		addAttachmentLock(idxAttachPt, idObj, eLock);
+	else
+		removeAttachmentLock(idxAttachPt, idObj, eLock);
+
+	// Refresh HUD visibility if needed
+	if ( (RLV_TYPE_ADD == rlvCmd.getParamType()) && (hasLockedHUD()) )
+		LLPipeline::sShowHUDAttachments = TRUE;
+
+	fRefCount = false;	// Don't reference count @detach[:<option>]=n
+	return RLV_RET_NOERROR;
+}
+
+// ============================================================================
+// Command handlers (RLV_TYPE_FORCE)
+//
+
+// Checked: 2009-10-12 (RLVa-1.0.5b) | Modified: RLVa-1.0.5b
+ERlvCmdRet RlvHandler::onForceDetach(const LLUUID& idObj, const RlvCommand& rlvCmd) const
+{
+	// TODO-RLVA: this still needs a rewrite to conform to the new event handler system
+	if ( (rlvCmd.getOption().empty()) || (getAttachPointIndex(rlvCmd.getOption(), true)) )
+	{
+		onForceRemAttach(idObj, rlvCmd);
+	}
+	else
+	{
+		// Force detach single folder
+		onForceWear(rlvCmd.getOption(), false, false);
+	}
+
+	return RLV_RET_NOERROR;
+}
+
+// Checked: 2009-10-12 (RLVa-1.0.5b) | Added: RLVa-1.0.5b
+ERlvCmdRet RlvHandler::onForceRemAttach(const LLUUID& idObj, const RlvCommand& rlvCmd) const
+{
+	S32 idxAttachPt = 0;
+	if (rlvCmd.getOption().empty())
+	{
+		// Simulate right-click / Take Off > Detach All
+		LLAgent::userRemoveAllAttachments(NULL);
+		return RLV_RET_NOERROR;
+	}
+	else if ((idxAttachPt = getAttachPointIndex(rlvCmd.getOption(), true)) != 0)
+	{
+		// Simulate right-click / Take Off > Detach > ...
+		LLVOAvatar* pAvatar; LLViewerJointAttachment* pAttachmentPt;
+		if ( ((pAvatar = gAgent.getAvatarObject()) != NULL) &&	// Make sure we're actually wearing something on the attachment point
+			 ((pAttachmentPt = get_if_there(pAvatar->mAttachmentPoints, (S32)idxAttachPt, (LLViewerJointAttachment*)NULL)) != NULL) &&
+			 (isStrippable(pAttachmentPt->getItemID())) )		// ... and that it's not marked as "nostrip"
+		{
+			#ifdef RLV_EXPERIMENTAL_COMPOSITES
+				// If we're stripping something that's part of a composite folder then we should @detachthis instead
+				if (isCompositeDescendent(pAttachmentPt->getItemID()))
+				{
+					std::string strCmd = "detachthis:" + strOption + "=force";
+					#ifdef RLV_DEBUG
+						RLV_INFOS << "\t- '" << strOption << "' belongs to composite folder: @" << strCmd << LL_ENDL;
+					#endif // RLV_DEBUG
+					processForceCommand(idObj, RlvCommand(strCmd));
+				}
+				else
+			#endif // RLV_EXPERIMENTAL_COMPOSITES
+				{
+					handle_detach_from_avatar(pAttachmentPt);
+				}
+		}
+		return RLV_RET_NOERROR;
+	}
+	return RLV_RET_FAILED_OPTION;
 }
 
 // ============================================================================

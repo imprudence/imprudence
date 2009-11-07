@@ -22,6 +22,29 @@
 	  
 2009-11-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Applied RLVa-1.0.5e_20091107_Imprudence-1.2.0-diff.patch.
+	
+	  modified:   linden/indra/newview/llagent.cpp
+	  modified:   linden/indra/newview/llfloateropenobject.cpp
+	  modified:   linden/indra/newview/llinventorybridge.cpp
+	  modified:   linden/indra/newview/llpanelcontents.cpp
+	  modified:   linden/indra/newview/llpanelinventory.cpp
+	  modified:   linden/indra/newview/llpreviewscript.cpp
+	  modified:   linden/indra/newview/lltooldraganddrop.cpp
+	  modified:   linden/indra/newview/llviewerdisplay.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/llviewertexteditor.cpp
+	  modified:   linden/indra/newview/llvoavatar.cpp
+	  modified:   linden/indra/newview/llvovolume.cpp
+	  modified:   linden/indra/newview/pipeline.cpp
+	  modified:   linden/indra/newview/rlvdefines.h
+	  modified:   linden/indra/newview/rlvextensions.cpp
+	  modified:   linden/indra/newview/rlvhandler.cpp
+	  modified:   linden/indra/newview/rlvhandler.h
+	  modified:   linden/indra/newview/rlvhelper.cpp
+	  modified:   linden/indra/newview/rlvhelper.h
+	  
+	  
 	* Changed default UIScaleFactor to 1.002 as a workaround to some font rendering issues.
 	
 	  modified:   linden/indra/newview/app_settings/settings.xml

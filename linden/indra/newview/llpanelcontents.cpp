@@ -121,11 +121,11 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 					       && ( objectp->permYouOwner() || ( !group_id.isNull() && gAgent.isInGroup(group_id) )));  // solves SL-23488
 	BOOL all_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME );
 
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-06 (RLVa-1.0.0c) | Modified: RLVa-0.2.0g
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 	if ( (rlv_handler_t::isEnabled()) && (editable) )
 	{
 		// Don't allow creation of new scripts if it's undetachable
-		editable = gRlvHandler.isDetachable(objectp);
+		editable = !gRlvHandler.isLockedAttachment(objectp, RLV_LOCK_REMOVE);
 
 		// Don't allow creation of new scripts if we're @unsit=n or @sittp=n restricted and we're sitting on the selection
 		if ( (editable) && ((gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_SITTP))) )
@@ -182,10 +182,10 @@ void LLPanelContents::onClickNewScript(void *userdata)
 	LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getFirstRootObject(children_ok);
 	if(object)
 	{
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a)
 		if (rlv_handler_t::isEnabled())	// Fallback code [see LLPanelContents::getState()]
 		{
-			if (!gRlvHandler.isDetachable(object))
+			if (gRlvHandler.isLockedAttachment(object, RLV_LOCK_REMOVE))
 			{
 				return;					// Disallow creating new scripts in a locked attachment
 			}

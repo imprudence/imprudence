@@ -368,9 +368,9 @@ void LLTaskInvFVBridge::previewItem()
 
 BOOL LLTaskInvFVBridge::isItemRenameable() const
 {
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 	LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
-	if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.isDetachable(object)) )
+	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.isLockedAttachment(object, RLV_LOCK_REMOVE)) )
 	{
 		return FALSE;
 	}
@@ -394,8 +394,8 @@ BOOL LLTaskInvFVBridge::isItemRenameable() const
 BOOL LLTaskInvFVBridge::renameItem(const std::string& new_name)
 {
 	LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
-	if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.isDetachable(object)) )
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
+	if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.isLockedAttachment(object, RLV_LOCK_REMOVE)) )
 	{
 		return TRUE; // Fallback code [see LLTaskInvFVBridge::isItemRenameable()]
 	}
@@ -426,13 +426,13 @@ BOOL LLTaskInvFVBridge::isItemMovable()
 	//	return TRUE;
 	//}
 	//return FALSE;
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c) | Modified: RLVa-0.2.0g
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 	if (rlv_handler_t::isEnabled())
 	{
 		LLViewerObject* pObj = gObjectList.findObject(mPanel->getTaskUUID());
 		if (pObj)
 		{
-			if (!gRlvHandler.isDetachable(pObj))
+			if (gRlvHandler.isLockedAttachment(pObj, RLV_LOCK_REMOVE))
 			{
 				return FALSE;
 			}
@@ -451,10 +451,10 @@ BOOL LLTaskInvFVBridge::isItemMovable()
 BOOL LLTaskInvFVBridge::isItemRemovable()
 {
 	LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c) | Modified: RLVa-0.2.0g
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 	if ( (object) && (rlv_handler_t::isEnabled()) )
 	{
-		if (!gRlvHandler.isDetachable(object))
+		if (gRlvHandler.isLockedAttachment(object, RLV_LOCK_REMOVE))
 		{
 			return FALSE;
 		}
@@ -611,9 +611,9 @@ BOOL LLTaskInvFVBridge::startDrag(EDragAndDropType* type, LLUUID* id) const
 				const LLPermissions& perm = inv->getPermissions();
 				bool can_copy = gAgent.allowOperation(PERM_COPY, perm,
 														GP_OBJECT_MANIPULATE);
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 				// Kind of redundant due to the note below, but in case that ever gets fixed
-				if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.isDetachable(object)) )
+				if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.isLockedAttachment(object, RLV_LOCK_REMOVE)) )
 				{
 					return FALSE;
 				}
@@ -735,12 +735,16 @@ void LLTaskInvFVBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 		{
 			disabled_items.push_back(std::string("Task Open"));
 		}
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
-		else if ( (rlv_handler_t::isEnabled()) && 
-				  ((LLAssetType::AT_LSL_TEXT == item->getType()) || (LLAssetType::AT_NOTECARD == item->getType())) && 
-				  (!gRlvHandler.isDetachable(gObjectList.findObject(mPanel->getTaskUUID()))) )
+// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Modified: RLVa-1.0.5c
+		else if (rlv_handler_t::isEnabled())
 		{
-			disabled_items.push_back(std::string("Task Open"));
+			bool fLocked = gRlvHandler.isLockedAttachment(gObjectList.findObject(mPanel->getTaskUUID()), RLV_LOCK_REMOVE);
+			if ( ((LLAssetType::AT_LSL_TEXT == item->getType()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_VIEWSCRIPT)) || (fLocked))) ||
+				 ((LLAssetType::AT_NOTECARD == item->getType()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE)) || (fLocked))) ||
+				 ((LLAssetType::AT_NOTECARD == item->getType()) && (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))) )
+			{
+				disabled_items.push_back(std::string("Task Open"));
+			}
 		}
 // [/RLVa:KB]
 	}
@@ -967,6 +971,13 @@ LLUIImagePtr LLTaskTextureBridge::getIcon() const
 
 void LLTaskTextureBridge::openItem()
 {
+// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Added: RLVa-1.0.5c
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	llinfos << "LLTaskTextureBridge::openItem()" << llendl;
 	if(!LLPreview::show(mUUID))
 	{
@@ -1248,9 +1259,10 @@ LLTaskLSLBridge::LLTaskLSLBridge(
 
 void LLTaskLSLBridge::openItem()
 {
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+// [RLVa:KB] - Checked: 2009-10-13 (RLVa-1.0.5c) | Modified: RLVa-1.0.5c
 	LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
-	if ( (rlv_handler_t::isEnabled()) && (!gRlvHandler.isDetachable(object)) )
+	if ( (rlv_handler_t::isEnabled()) && 
+		((gRlvHandler.hasBehaviour(RLV_BHVR_VIEWSCRIPT)) || (gRlvHandler.isLockedAttachment(object, RLV_LOCK_REMOVE))) )
 	{
 		return;
 	}
@@ -1376,8 +1388,9 @@ void LLTaskNotecardBridge::openItem()
 	{
 		return;
 	}
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
-	if ( (rlv_handler_t::isEnabled()) && ((gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE)) || (!gRlvHandler.isDetachable(object))) )
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
+	if ( (rlv_handler_t::isEnabled()) && 
+		 ( (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWNOTE)) || (gRlvHandler.isLockedAttachment(object, RLV_LOCK_REMOVE)) ) )
 	{
 		return;
 	}
