@@ -123,5 +123,5 @@ void LLPanelGeneral::cancel()
 void LLPanelGeneral::onClickResetUISize(void* user_data)
 {
 	LLPanelGeneral* self = (LLPanelGeneral*)user_data;
-	self->childSetValue("ui_scale_slider", 1.0f);
+	self->childSetValue("ui_scale_slider", 1.002f);
 }

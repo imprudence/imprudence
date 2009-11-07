@@ -18,6 +18,14 @@
 	  modified:   linden/indra/newview/skins/default/xui/pt/alerts.xml
 	  modified:   linden/indra/newview/skins/default/xui/pt/notify.xml
 	  modified:   linden/indra/newview/skins/default/xui/zh/alerts.xml
+	  
+	  
+2009-11-07 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Changed default UIScaleFactor to 1.002 as a workaround to some font rendering issues.
+	
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llpanelgeneral.cpp
 
 
 2009-11-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
