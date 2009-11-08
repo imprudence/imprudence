@@ -1,3 +1,10 @@
+2009-11-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Changed version to 1.20 (final, not a RC).
+
+	  modified:   linden/indra/llcommon/llversionviewer.h
+
+
 2009-11-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Fixed some branding issues with alerts.xml and notify.xml.
