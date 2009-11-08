@@ -1,5 +1,11 @@
 2009-11-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Removed Advanced Water and Sky tabs from Windlight toolbar presets.
+	  They don't fit the purpose of the preset list.
+
+	  modified:   linden/indra/newview/llwindlightremotectrl.cpp
+
+
 	* Finally packaged up Mac libraries.
 	  flac, glib, gstreamer, gstreamer-plugins, jpeg-6b, liboil,
 	  libpng, libxml, neon, ogg-vorbis, openal, thoera.
