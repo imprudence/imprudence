@@ -22,6 +22,14 @@
 	  
 2009-11-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Upped version to 1.2.0 RC1.
+	
+	  modified:   linden/indra/llcommon/llversionviewer.h
+	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
+	  modified:   linden/indra/newview/Info-Imprudence.plist
+	  modified:   linden/indra/newview/res/viewerRes.rc
+
+
 	* Fixed login page not updating after logout.
 	
 	  modified:   linden/indra/newview/llpanellogin.cpp
