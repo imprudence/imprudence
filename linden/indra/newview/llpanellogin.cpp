@@ -720,7 +720,16 @@ void LLPanelLogin::addServer(const std::string& server)
 			i++;
 		}
 	}
-	grids->setCurrentByIndex(0);
+	
+	// when you first login select the default, otherwise last connected
+	if (gDisconnected)
+	{
+		grids->setSimple(gHippoGridManager->getCurrentGrid()->getGridNick());
+	}
+	else
+	{
+		grids->setSimple(defaultGrid);
+	}
 
 	//LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
 	//combo->add(server, LLSD(domain_name) );

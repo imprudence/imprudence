@@ -22,6 +22,11 @@
 	  
 2009-11-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed login grid combobox not updating correctly after logout.
+	
+	  modified:   linden/indra/newview/llpanellogin.cpp
+	  
+	  
 	* Applied RLVa-1.0.5e_20091107_Imprudence-1.2.0-diff.patch.
 	
 	  modified:   linden/indra/newview/llagent.cpp
