@@ -413,7 +413,8 @@
     <menu_item_separator />
     <menu_item_check name="Toggle Advanced Menu" 
                     label="Advanced Menu"
-                    shortcut="control|alt|D">
+                    shortcut="control|alt|D"
+                    shortcut_linux="control|alt|shift|D">
       <on_click function="View.ToggleAdvanced" userdata="" />
       <on_check function="View.CheckAdvanced" />
     </menu_item_check>

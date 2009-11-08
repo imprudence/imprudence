@@ -1,5 +1,11 @@
 2009-11-08 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Attempted to make the Advanced shortcut play nice with Linux in XUI.
+	  
+	  modified:   linden/indra/llui/llmenugl.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+	
+	  
 	* Changed version to 1.20 in other files.
 	
 	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings

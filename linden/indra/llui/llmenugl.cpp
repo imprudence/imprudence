@@ -1829,6 +1829,16 @@ void LLMenuGL::parseChildXML(LLXMLNodePtr child, LLView *parent, LLUICtrlFactory
 				
 				std::string shortcut;
 				child->getAttributeString("shortcut", shortcut);
+
+#ifdef LL_LINUX
+				// check for linux-specific shortcut
+				std::string shortcut_linux;
+				if (child->getAttributeString("shortcut_linux", shortcut_linux))
+				{
+					shortcut = shortcut_linux;
+				}
+#endif // LL_LINUX			
+				
 				if (shortcut.find("control") != shortcut.npos)
 				{
 #ifdef LL_DARWIN
