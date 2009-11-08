@@ -11,6 +11,13 @@
 
 #include "llcalcparser.h"
 
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 103600
+using namespace boost::spirit::classic;
+#else
+using namespace boost::spirit;
+#endif
+
 F32 LLCalcParser::lookup(const std::string::iterator& start, const std::string::iterator& end) const
 {
 	LLCalc::calc_map_t::iterator iter;
@@ -28,7 +35,7 @@ F32 LLCalcParser::lookup(const std::string::iterator& start, const std::string::
 	else
 	{
 		// This should never happen!
-		boost::spirit::throw_(end, std::string("Missing constants table"));
+		throw_(end, std::string("Missing constants table"));
 	}
 	
 	if (mVariables)
@@ -40,6 +47,6 @@ F32 LLCalcParser::lookup(const std::string::iterator& start, const std::string::
 		}
 	}
 	
-	boost::spirit::throw_(end, std::string("Unknown symbol " + name));
+	throw_(end, std::string("Unknown symbol " + name));
 	return 0.f;
 }
