@@ -1,3 +1,12 @@
+2009-11-08 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Changed version to 1.20 in other files.
+	
+	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
+	  modified:   linden/indra/newview/Info-Imprudence.plist
+	  modified:   linden/indra/newview/res/viewerRes.rc
+
+
 2009-11-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Changed version to 1.20 (final, not a RC).
