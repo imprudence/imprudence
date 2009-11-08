@@ -870,13 +870,13 @@ void LLPanelLogin::refreshLoginPage()
     if (!sInstance) return;
 
     sInstance->childSetVisible("create_new_account_text",
-        !gHippoGridManager->getConnectedGrid()->getRegisterUrl().empty());
+        !gHippoGridManager->getCurrentGrid()->getRegisterUrl().empty());
     sInstance->childSetVisible("forgot_password_text",
-        !gHippoGridManager->getConnectedGrid()->getPasswordUrl().empty());
+        !gHippoGridManager->getCurrentGrid()->getPasswordUrl().empty());
 
     // kick off a request to grab the url manually
 	gResponsePtr = LLIamHereLogin::build(sInstance);
-	std::string login_page = gHippoGridManager->getConnectedGrid()->getLoginPage();
+	std::string login_page = gHippoGridManager->getCurrentGrid()->getLoginPage();
 	if (!login_page.empty()) {
 		LLHTTPClient::head(login_page, gResponsePtr);
 	} else {
@@ -890,7 +890,7 @@ void LLPanelLogin::loadLoginPage()
 	if (!sInstance) return;
 	
 
-	std::string login_page = gHippoGridManager->getConnectedGrid()->getLoginPage();
+	std::string login_page = gHippoGridManager->getCurrentGrid()->getLoginPage();
 	if (login_page.empty()) {
 		sInstance->setSiteIsAlive(false);
 		return;

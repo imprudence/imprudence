@@ -22,6 +22,11 @@
 	  
 2009-11-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed login page not updating after logout.
+	
+	  modified:   linden/indra/newview/llpanellogin.cpp
+	  
+	  
 	* Fixed login grid combobox not updating correctly after logout.
 	
 	  modified:   linden/indra/newview/llpanellogin.cpp
