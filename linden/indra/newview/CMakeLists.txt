@@ -978,8 +978,6 @@ if (WINDOWS)
         res/circleandline.cur
         res/icon1.ico
         res/imprudence_icon.png
-        res/install_icon.BMP
-        res/install_icon.ico
         res/llarrow.cur
         res/llarrowdrag.cur
         res/llarrowdragmulti.cur
