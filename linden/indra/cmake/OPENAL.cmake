@@ -40,7 +40,7 @@ if (OPENAL)
   # OPENAL_INCLUDE_DIR
 
   if (DARWIN)
-    set(OPENAL_INCLUDE_DIR "${LIBS_PREBUILT_DIR}/include/AL")        
+    set(OPENAL_INCLUDE_DIR ${LIBS_PREBUILT_DIR}/${LL_ARCH_DIR}/include/AL)
   else (DARWIN)
     find_path(OPENAL_INCLUDE_DIR
       NAMES al.h
@@ -85,7 +85,7 @@ if (OPENAL)
 
   find_path(ALUT_INCLUDE_DIR
     NAMES alut.h
-    PATHS ${LIBS_PREBUILT_DIR}/include/AL
+    PATHS ${OPENAL_INCLUDE_DIR}
     )
 
   if (NOT ALUT_INCLUDE_DIR)

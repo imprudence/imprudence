@@ -66,6 +66,11 @@ else (WINDOWS)
 
   if (DARWIN) # Mac
 
+    use_prebuilt_binary(flac)
+    use_prebuilt_binary(liboil)
+    use_prebuilt_binary(neon)
+    use_prebuilt_binary(theora)
+
     find_library( XML2_LIB
       NAMES xml2.2
       PATHS ${ARCH_PREBUILT_DIRS_RELEASE}

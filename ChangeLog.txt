@@ -1,3 +1,16 @@
+2009-11-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Finally packaged up Mac libraries.
+	  flac, glib, gstreamer, gstreamer-plugins, jpeg-6b, liboil,
+	  libpng, libxml, neon, ogg-vorbis, openal, thoera.
+
+	  modified:   linden/indra/cmake/GStreamer.cmake
+	  modified:   linden/indra/cmake/JPEG.cmake
+	  modified:   linden/indra/cmake/OPENAL.cmake
+	  modified:   linden/indra/cmake/PNG.cmake
+	  modified:   linden/install.xml
+
+
 2009-11-08 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Attempted to make the Advanced shortcut play nice with Linux in XUI.
