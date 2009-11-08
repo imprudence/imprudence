@@ -47,6 +47,7 @@
 #include "llviewercontrol.h"
 #include "llfloateravatarinfo.h"
 #include "llfloatermap.h"
+#include "panelradar.h"
 #include "llfloaterworldmap.h"
 #include "llframetimer.h"
 #include "llmutelist.h"
@@ -359,7 +360,7 @@ void LLNetMap::draw()
 			pos_map = globalPosToView(positions[i], rotate_map);
 			
 			// Save this entry to draw last
-			if (LLFloaterMap::getSelected() == avatar_ids[i])
+			if (LLFloaterMap::getInstance()->getRadar()->getSelected() == avatar_ids[i])
 			{
 				selected = i;
 				continue;
@@ -371,7 +372,7 @@ void LLNetMap::draw()
 				{
 					glyph_color = muted_color;
 				}
-				else if (LLFloaterMap::isImpDev(avatar_ids[i]))
+				else if (PanelRadar::isImpDev(avatar_ids[i]))
 				{
 					glyph_color = imp_dev_color;
 				}
@@ -515,7 +516,7 @@ void LLNetMap::draw()
 
 	LLView::draw();
 
-	LLFloaterMap::updateRadar();
+	LLFloaterMap::getInstance()->getRadar()->populateRadar();
 }
 
 void LLNetMap::reshape(S32 width, S32 height, BOOL called_from_parent)

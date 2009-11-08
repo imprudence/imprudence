@@ -1,6 +1,7 @@
 #include "llviewerprecompiledheaders.h"
 #include "llagent.h"
 #include "llfloaterwindlight.h"
+#include "llinventoryview.h"
 #include "llviewerobject.h"
 #include "llviewerstats.h"
 #include "llviewerwindow.h"
@@ -10,6 +11,12 @@
 #include "rlvhelper.h"
 #include "rlvevent.h"
 #include "rlvhandler.h"
+
+// Only defined in llinventorybridge.cpp
+#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
+	#include "llinventorybridge.h"
+	void confirm_replace_attachment_rez(S32 option, void* user_data);
+#endif
 
 // ============================================================================
 // Static variable initialization
@@ -104,12 +111,13 @@ void RlvCommand::initLookupTable()
 		std::string arBehaviours[RLV_BHVR_COUNT] =
 			{
 				"version", "detach", "sendchat", "emote", "chatshout", "chatnormal", "chatwhisper", "redirchat", "rediremote",
-				"sendim", "recvchat", "recvemote", "recvim", "tplm", "tploc", "tplure", "sittp", "edit", "rez", "addoutfit",
-				"remoutfit", "getoutfit", "getattach", "showinv", "viewnote", "unsit", "sit", "sendchannel", "getstatus", "getstatusall",
-				"getinv", "getinvworn", "findfolder", "findfolders", "attach", "attachall", "detachall", "getpath", "attachthis",
-				"attachallthis", "detachthis", "detachallthis", "fartouch", "showworldmap", "showminimap", "showloc", "tpto", "accepttp",
-				"acceptpermission", "shownames", "fly", "getsitid", "setdebug", "setenv", "detachme", "showhovertextall", 
-				"showhovertextworld", "showhovertexthud", "showhovertext", "notify", "defaultwear", "versionnum", "permissive"
+				"sendim", "recvchat", "recvemote", "recvim", "tplm", "tploc", "tplure", "sittp", "edit", "rez",
+				"addoutfit", "remoutfit", "getoutfit", "addattach", "remattach", "getattach", "showinv", "viewnote", "unsit", "sit", 
+				"sendchannel", "getstatus", "getstatusall", "getinv", "getinvworn", "findfolder", "findfolders", 
+				"attach", "attachall", "detachall", "getpath", "attachthis", "attachallthis", "detachthis", "detachallthis", 
+				"fartouch", "showworldmap", "showminimap", "showloc", "tpto", "accepttp", "acceptpermission", "shownames", "fly", 
+				"getsitid", "setdebug", "setenv", "detachme", "showhovertextall",  "showhovertextworld", "showhovertexthud", 
+				"showhovertext", "notify", "defaultwear", "versionnum", "permissive", "viewscript", "viewtexture"
 			};
 
 		for (int idxBvhr = 0; idxBvhr < RLV_BHVR_COUNT; idxBvhr++)
@@ -204,6 +212,204 @@ std::string RlvObject::getStatusString(const std::string& strMatch) const
 	}
 
 	return strStatus;
+}
+
+// ============================================================================
+// RlvAttachmentManager
+//
+
+// Checked: 2009-10-12 (RLVa-1.0.5b) | Modified: RLVa-1.0.5b
+void RlvAttachmentManager::forceAttach(const LLUUID& idItem, S32 idxAttachPt)
+{
+	#if RLV_TARGET < RLV_MAKE_TARGET(1, 23, 0)			// Version: 1.22.11
+		LLAttachmentRezAction* rez_action = new LLAttachmentRezAction();
+		rez_action->mItemID = idItem;
+		rez_action->mAttachPt = idxAttachPt;
+
+		confirm_replace_attachment_rez(0/*YES*/, (void*)rez_action); // (Will call delete on rez_action)
+	#else												// Version: 1.23.4
+		LLSD payload;
+		payload["item_id"] = idItem;
+		payload["attachment_point"] = idxAttachPt;
+
+		LLNotifications::instance().forceResponse(
+			LLNotification::Params("ReplaceAttachment").payload(payload), 0/*YES*/);
+	#endif
+}
+
+// Checked: 2009-10-12 (RLVa-1.0.5b) | Modified: RLVa-1.0.5b
+void RlvAttachmentManager::forceDetach(LLViewerJointAttachment* pAttachPt)
+{
+	// Copy/paste from handle_detach_from_avatar()
+	LLViewerObject* attached_object = pAttachPt->getObject();
+	if (attached_object)
+	{
+		gMessageSystem->newMessage("ObjectDetach");
+		gMessageSystem->nextBlockFast(_PREHASH_AgentData);
+		gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
+		gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+
+		gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
+		gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, attached_object->getLocalID());
+		gMessageSystem->sendReliable( gAgent.getRegionHost() );
+	}
+}
+
+// Checked: 2009-10-12 (RLVa-1.0.5b) | Modified: RLVa-1.0.5b
+void RlvAttachmentManager::onAttach(LLViewerJointAttachment* pAttachPt)
+{
+	S32 idxAttachPt = gRlvHandler.getAttachPointIndex(pAttachPt->getObject());
+	if (!idxAttachPt)
+		return;
+
+	// If the attachment point has a pending "reattach" then we don't want to do anything
+	rlv_attach_map_t::iterator itAttach = m_PendingAttach.find(idxAttachPt);
+	if (itAttach != m_PendingAttach.end())
+	{
+		if (pAttachPt->getItemID() == itAttach->second.idItem)
+			m_PendingAttach.erase(itAttach);
+		return;
+	}
+
+	// Check if the attach is the result of a user action (="Wear")
+	rlv_wear_map_t::iterator itWear = m_PendingWear.find(pAttachPt->getItemID());
+	if (itWear != m_PendingWear.end())
+	{
+		// We need to return the attachment point to its previous state if it's non-attachable
+		if (gRlvHandler.isLockedAttachment(idxAttachPt, RLV_LOCK_ADD))
+		{
+			// Get the state of the attachment point at the time the user picked "Wear" (if we don't have one it wasn't "add locked" then)
+			std::map<S32, LLUUID>::iterator itAttachPrev = itWear->second.attachPts.find(idxAttachPt);
+			if ( (itAttachPrev != itWear->second.attachPts.end()) && (pAttachPt->getItemID() != itAttachPrev->second) )
+			{
+				// If it was empty we need to force detach the new attachment; if it wasn't we need to reattach the old one
+				if (itAttachPrev->second.isNull())
+				{
+					forceDetach(pAttachPt);
+					m_PendingDetach.insert(std::pair<S32, LLUUID>(idxAttachPt, pAttachPt->getItemID()));
+				}
+				else if (m_PendingAttach.find(idxAttachPt) == m_PendingAttach.end()) // (only if we're not reattaching something else there)
+				{
+					m_PendingAttach.insert(std::pair<S32, RlvReattachInfo>(idxAttachPt, RlvReattachInfo(itAttachPrev->second)));
+				}
+			}
+		}
+		m_PendingWear.erase(itWear); // No need to start the timer since it should be running already if '!m_PendingWear.empty()'
+	}
+}
+
+// Checked: 2009-10-12 (RLVa-1.0.5b) | Modified: RLVa-1.0.5b
+void RlvAttachmentManager::onDetach(LLViewerJointAttachment* pAttachPt)
+{
+	S32 idxAttachPt = gRlvHandler.getAttachPointIndex(pAttachPt->getObject());
+	if (!idxAttachPt)
+		return;
+
+	// If this is an attachment that we force-detached then we don't want to do anything (even if it is "remove locked")
+	rlv_detach_map_t::iterator itDetach = m_PendingDetach.find(idxAttachPt);
+	if ( (itDetach != m_PendingDetach.end()) && (itDetach->second == pAttachPt->getItemID()) )
+	{
+		m_PendingDetach.erase(itDetach);
+		return;
+	}
+
+	// If the attachment is currently "remove locked" and we're not already trying to reattach something there we should reattach it
+	if ( (m_PendingAttach.find(idxAttachPt) == m_PendingAttach.end()) && (gRlvHandler.isLockedAttachment(idxAttachPt, RLV_LOCK_REMOVE)) )
+	{
+		m_PendingAttach.insert(std::pair<S32, RlvReattachInfo>(idxAttachPt, RlvReattachInfo(pAttachPt->getItemID())));
+		startTimer();
+	}
+}
+
+// Checked: 2009-10-12 (RLVa-1.0.5b) | Modified: RLVa-1.0.5b
+void RlvAttachmentManager::onSavedAssetIntoInventory(const LLUUID& idItem)
+{
+	for (rlv_attach_map_t::iterator itAttach = m_PendingAttach.begin(); itAttach != m_PendingAttach.end(); ++itAttach)
+	{
+		if ( (!itAttach->second.fAssetSaved) && (idItem == itAttach->second.idItem) )
+		{
+			forceAttach(itAttach->second.idItem, itAttach->first);
+			itAttach->second.tsAttach = LLFrameTimer::getElapsedSeconds();
+		}
+	}
+}
+
+// Checked: 2009-10-12 (RLVa-1.0.5b) | Modified: RLVa-1.0.5b
+BOOL RlvAttachmentManager::onTimer()
+{
+	F64 tsCurrent = LLFrameTimer::getElapsedSeconds();
+
+	// Garbage collect (failed) wear requests older than 60 seconds
+	rlv_wear_map_t::iterator itWear = m_PendingWear.begin();
+	while (itWear != m_PendingWear.end())
+	{
+		if (itWear->second.tsWear + 60 < tsCurrent)
+			m_PendingWear.erase(itWear++);
+		else
+			++itWear;
+	}
+
+	// Walk over the pending reattach list
+	rlv_attach_map_t::iterator itAttach = m_PendingAttach.begin();
+	while (itAttach != m_PendingAttach.end())
+	{
+		// Sanity check - make sure the item is still in the user's inventory
+		if (gInventory.getItem(itAttach->second.idItem) == NULL)
+		{
+			m_PendingAttach.erase(itAttach++);
+			continue;
+		}
+
+		// Force an attach if we haven't gotten an SavedAssetIntoInventory message after 15 seconds
+		// (or if it's been 30 seconds since we last tried to reattach the item)
+		bool fAttach = false;
+		if ( (!itAttach->second.fAssetSaved) && (itAttach->second.tsDetach + 15 < tsCurrent) )
+		{
+			itAttach->second.fAssetSaved = true;
+			fAttach = true;
+		}
+		else if ( (itAttach->second.fAssetSaved) && (itAttach->second.tsAttach + 30 < tsCurrent) )
+		{
+			fAttach = true;
+		}
+
+		if (fAttach)
+		{
+			forceAttach(itAttach->second.idItem, itAttach->first);
+			itAttach->second.tsAttach = tsCurrent;
+		}
+
+		++itAttach;
+	}
+
+	return ( (m_PendingAttach.empty()) && (m_PendingDetach.empty()) && (m_PendingWear.empty()) );
+}
+
+// Checked: 2009-10-12 (RLVa-1.0.5b) | Modified: RLVa-1.0.5b
+void RlvAttachmentManager::onWearAttachment(const LLUUID& idItem)
+{
+	// We only need to keep track of wears if there are non-attachable attachment points
+	if (!gRlvHandler.hasLockedAttachment(RLV_LOCK_ADD))
+		return;
+
+	LLVOAvatar* pAvatar = gAgent.getAvatarObject();
+	if (!pAvatar)
+		return;
+
+	// If the attachment point this will end up being attached to is:
+	//   - unlocked    : nothing should happen (from RLVa's point of view)
+	//   - RLV_LOCK_ADD: the new attachment should get detached and the current one reattached (unless it's currently empty)
+	//   - RLV_LOCK_REM: the current attachment will get reattached on ObjectKill (if there is no current one then nothing should happen)
+	RlvWearInfo infoWear(idItem);
+	for (LLVOAvatar::attachment_map_t::const_iterator itAttach = pAvatar->mAttachmentPoints.begin(); 
+			itAttach != pAvatar->mAttachmentPoints.end(); ++itAttach)
+	{
+		if (gRlvHandler.isLockedAttachment(itAttach->first, RLV_LOCK_ADD))	// We only need to keep track of these (see above)
+			infoWear.attachPts.insert(std::pair<S32, LLUUID>(itAttach->first, itAttach->second->getItemID()));
+	}
+
+	m_PendingWear.insert(std::pair<LLUUID, RlvWearInfo>(idItem, infoWear));
+	startTimer();
 }
 
 // ============================================================================
@@ -354,7 +560,10 @@ BOOL RlvSettings::fShowNameTags = FALSE;
 
 BOOL RlvSettings::getEnableWear()
 {
-	return rlvGetSettingBOOL(RLV_SETTING_ENABLEWEAR, TRUE) && (!gRlvHandler.hasBehaviour(RLV_BHVR_DEFAULTWEAR));
+	return 
+		rlvGetSettingBOOL(RLV_SETTING_ENABLEWEAR, TRUE) &&	 // "Enable Wear" is toggled on and...
+		(!gRlvHandler.hasBehaviour(RLV_BHVR_DEFAULTWEAR)) && // not restricted and...
+		(!gRlvHandler.hasBehaviour(RLV_BHVR_ADDATTACH));	 // we have attach points we can attach to [see RlvHandler::onAddRemAttach()]
 }
 
 #ifdef RLV_EXTENSION_STARTLOCATION
@@ -419,7 +628,7 @@ void RlvCurrentlyWorn::fetchWorn()
 // Checked: 2009-07-06 (RLVa-1.0.0c) | Modified: RLVa-0.2.0f
 bool RlvSelectHasLockedAttach::apply(LLSelectNode* pNode)
 {
-	return (pNode->getObject()) ? !gRlvHandler.isDetachable(pNode->getObject()) : false;
+	return (pNode->getObject()) ? gRlvHandler.isLockedAttachment(pNode->getObject(), m_eLock) : false;
 }
 
 // Checked: 2009-07-05 (RLVa-1.0.0b) | Modified: RLVa-0.2.0f
@@ -438,11 +647,15 @@ bool RlvSelectIsSittingOn::apply(LLSelectNode* pNode)
 // Various helper functions
 //
 
-// Checked: 2009-09-08 (RLVa-1.0.2c) | Modified: RLVa-1.0.2c
+// Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 BOOL rlvAttachToEnabler(void* pParam)
 {
-	// Enables/disables an option on the "Attach to (HUD)" submenu depending on whether it is (un)detachable
-	return gRlvHandler.isDetachable((LLViewerJointAttachment*)pParam);
+	// Disable an option on the "Attach to (HUD)" submenu if:
+	//   - the attachment point is locked non-detachable with an object attached
+	//   - the attachment point is locked non-attachable
+	return (pParam != NULL) && 
+		(!gRlvHandler.isLockedAttachment(((LLViewerJointAttachment*)pParam)->getObject(), RLV_LOCK_REMOVE)) &&
+		(!gRlvHandler.isLockedAttachment((LLViewerJointAttachment*)pParam, RLV_LOCK_ADD));
 }
 
 // Checked: 2009-07-05 (RLVa-1.0.0b) | Modified: RLVa-0.2.0g
@@ -526,24 +739,6 @@ S32 rlvGetDirectDescendentsCount(const LLInventoryCategory* pFolder, LLAssetType
 // =========================================================================
 // Message sending functions
 //
-
-// Checked: 2009-08-11 (RLVa-1.0.1h) | Added: RLVa-1.0.1h
-void rlvForceDetach(LLViewerJointAttachment* pAttachPt)
-{
-	// Copy/paste from handle_detach_from_avatar()
-	LLViewerObject* attached_object = pAttachPt->getObject();
-	if (attached_object)
-	{
-		gMessageSystem->newMessage("ObjectDetach");
-		gMessageSystem->nextBlockFast(_PREHASH_AgentData);
-		gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
-		gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-
-		gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
-		gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, attached_object->getLocalID());
-		gMessageSystem->sendReliable( gAgent.getRegionHost() );
-	}
-}
 
 void rlvSendBusyMessage(const LLUUID& idTo, const std::string& strMsg, const LLUUID& idSession)
 {
@@ -660,9 +855,5 @@ std::string rlvGetLastParenthesisedText(const std::string& strText, std::string:
 	}
 	return std::string();
 }
-
-// =========================================================================
-// Debug helper functions
-//
 
 // =========================================================================

@@ -7893,7 +7893,7 @@ void LLAgent::userRemoveAllAttachments( void* userdata )
 		return;
 	}
 
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c) | Added: RLVa-0.2.0c
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a) | Modified: RLVa-1.0.5a
 	// NOTE-RLVa: This function is called from inside RlvHandler as well, hence the rather heavy modifications
 	std::list<U32> rlvAttachments;
 	// TODO-RLVa: Once we have the improved "removeWearable" logic implemented we can just get rid of the whole "rlvCompFolders" hassle
@@ -7911,7 +7911,7 @@ void LLAgent::userRemoveAllAttachments( void* userdata )
 		{
 			if (rlv_handler_t::isEnabled())
 			{
-				if (!gRlvHandler.isDetachable(curiter->first))
+				if (gRlvHandler.isLockedAttachment(curiter->first, RLV_LOCK_REMOVE))
 					continue;
 
 				// Check if we're being called in response to an RLV command (that would be @detach=force)

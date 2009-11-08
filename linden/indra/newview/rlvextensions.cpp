@@ -97,7 +97,7 @@ BOOL RlvExtGetSet::processCommand(const LLUUID& idObj, const RlvCommand& rlvCmd)
 		F32 nAngle = 0.0f;
 		if (LLStringUtil::convertToF32(rlvCmd.getOption(), nAngle))
 		{
-			nAngle += RLV_SETROT_OFFSET;
+			nAngle = RLV_SETROT_OFFSET - nAngle;
 
 			gAgent.startCameraAnimation();
 

@@ -450,6 +450,7 @@ set(viewer_SOURCE_FILES
     llworldmapview.cpp
     llxmlrpctransaction.cpp
     noise.cpp
+    panelradar.cpp
     pipeline.cpp
     primbackup.cpp
     rlvhandler.cpp
@@ -872,6 +873,7 @@ set(viewer_HEADER_FILES
     llxmlrpctransaction.h
     macmain.h
     noise.h
+    panelradar.h
     pipeline.h
     primbackup.h
     randgauss.h

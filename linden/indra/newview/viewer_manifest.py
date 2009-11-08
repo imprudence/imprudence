@@ -824,9 +824,25 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
             self.path("libopenjpeg.so.1.3.0", "libopenjpeg.so.1.3")
+            self.path("libz.so.1")
 
+            # OpenAL
             self.path("libopenal.so.1")
             self.path("libalut.so.0")
+
+            # GTK+ and dependencies
+            self.path("libatk-1.0.so.0")
+            self.path("libcairo.so.2")
+            self.path("libfontconfig.so.1")
+            self.path("libfreetype.so.6")
+            self.path("libgdk_pixbuf-2.0.so.0")
+            self.path("libgdk-x11-2.0.so.0")
+            self.path("libgtk-x11-2.0.so.0")
+            self.path("libpango-1.0.so.0")
+            self.path("libpangoft2-1.0.so.0")
+            self.path("libpangox-1.0.so.0")
+            self.path("libpangoxft-1.0.so.0")
+            self.path("libpixman-1.so.0")
 
             # Gstreamer libs
             self.path("libgstbase-0.10.so.0")

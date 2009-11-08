@@ -71,6 +71,9 @@ BOOL LLPanelInput::postBuild()
 	fov_slider->setMinValue(LLViewerCamera::getInstance()->getMinView());
 	fov_slider->setMaxValue(LLViewerCamera::getInstance()->getMaxView());
 	fov_slider->setValue(LLViewerCamera::getInstance()->getView());
+	
+	childSetValue("double_click_action", gSavedSettings.getString("DoubleClickAction"));
+	childSetValue("go_action", gSavedSettings.getString("GoAction"));
 
 	return TRUE;
 }
@@ -93,6 +96,10 @@ void LLPanelInput::apply()
 	gSavedSettings.setBOOL("AppearanceCameraMovement", childGetValue("appearance_camera_movement"));
 	gSavedSettings.setF32("CameraAngle", mPreAdjustFOV);
 	gSavedSettings.setBOOL("FirstPersonAvatarVisible", childGetValue("first_person_avatar_visible"));
+
+	gSavedSettings.setString("DoubleClickAction", childGetValue("double_click_action"));
+	gSavedSettings.setString("GoAction", childGetValue("go_action"));
+
 }
 
 void LLPanelInput::cancel()

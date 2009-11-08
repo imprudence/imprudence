@@ -1377,6 +1377,13 @@ BOOL LLViewerTextEditor::openEmbeddedItem(LLInventoryItem* item, llwchar wc)
 
 void LLViewerTextEditor::openEmbeddedTexture( LLInventoryItem* item, llwchar wc )
 {
+// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-10-13 (RLVa-1.0.5c) | Added: RLVa-1.0.5c
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_VIEWTEXTURE))
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	// See if we can bring an existing preview to the front
 	// *NOTE:  Just for embedded Texture , we should use getAssetUUID(), 
 	// not getUUID(), because LLPreviewTexture pass in AssetUUID into 

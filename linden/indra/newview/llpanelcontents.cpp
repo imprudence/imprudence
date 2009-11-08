@@ -157,10 +157,10 @@ void LLPanelContents::onClickNewScript(void *userdata)
 	LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getFirstRootObject(children_ok);
 	if(object)
 	{
-// [RLVa:KB] - Checked: 2009-07-06 (RLVa-1.0.0c)
+// [RLVa:KB] - Checked: 2009-10-10 (RLVa-1.0.5a)
 		if (rlv_handler_t::isEnabled())	// Fallback code [see LLPanelContents::getState()]
 		{
-			if (!gRlvHandler.isDetachable(object))
+			if (gRlvHandler.isLockedAttachment(object, RLV_LOCK_REMOVE))
 			{
 				return;					// Disallow creating new scripts in a locked attachment
 			}

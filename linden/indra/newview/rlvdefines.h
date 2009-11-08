@@ -41,14 +41,14 @@
 
 // Version of the specifcation we support
 const S32 RLV_VERSION_MAJOR = 1;
-const S32 RLV_VERSION_MINOR = 21;
+const S32 RLV_VERSION_MINOR = 22;
 const S32 RLV_VERSION_PATCH = 0;
 const S32 RLV_VERSION_BUILD = 0;
 
 // Implementation version
 const S32 RLVa_VERSION_MAJOR = 1;
 const S32 RLVa_VERSION_MINOR = 0;
-const S32 RLVa_VERSION_PATCH = 4;
+const S32 RLVa_VERSION_PATCH = 5;
 const S32 RLVa_VERSION_BUILD = 4;
 
 // The official viewer version we're patching against
@@ -59,12 +59,15 @@ const S32 RLVa_VERSION_BUILD = 4;
 #define RLV_WARNS	LL_WARNS("RLV")
 #define RLV_INFOS	LL_INFOS("RLV")
 #define RLV_DEBUGS	LL_DEBUGS("RLV")
+#define RLV_ENDL	LL_ENDL
 
 #if LL_RELEASE_WITH_DEBUG_INFO || LL_DEBUG
 	// Turn on extended debugging information
 	#define RLV_DEBUG
 	// Make sure we halt execution on errors
-	#define RLV_ERRS  LL_ERRS("RLV")
+	#define RLV_ERRS		LL_ERRS("RLV")
+	// Keep our asserts separate from LL's
+	#define RLV_ASSERT(f)	if (!(f)) RLV_ERRS << "ASSERT (" << #f << ")" << RLV_ENDL;
 	// Uncomment to enable the Advanced / RLVa / Unit Tests menu (non-public)
 	//#define RLV_DEBUG_TESTS
 #else
@@ -72,6 +75,8 @@ const S32 RLVa_VERSION_BUILD = 4;
 	//#define RLV_DEBUG
 	// Don't halt execution on errors in release
 	#define RLV_ERRS  LL_WARNS("RLV")
+	// We don't want to check assertions in release builds
+	#define RLV_ASSERT(f)
 #endif // LL_RELEASE_WITH_DEBUG_INFO || LL_DEBUG
 
 #define RLV_ROOT_FOLDER					"#RLV"
@@ -111,6 +116,8 @@ enum ERlvBehaviour {
 	RLV_BHVR_ADDOUTFIT,				// "addoutfit"
 	RLV_BHVR_REMOUTFIT,				// "remoutfit"
 	RLV_BHVR_GETOUTFIT,				// "getoutfit"
+	RLV_BHVR_ADDATTACH,				// "addattach"
+	RLV_BHVR_REMATTACH,				// "remattach"
 	RLV_BHVR_GETATTACH,				// "getattach"
 	RLV_BHVR_SHOWINV,				// "showinv"
 	RLV_BHVR_VIEWNOTE,				// "viewnote"
@@ -152,6 +159,8 @@ enum ERlvBehaviour {
 	RLV_BHVR_DEFAULTWEAR,			// "defaultwear"
 	RLV_BHVR_VERSIONNUM,			// "versionnum"
 	RLV_BHVR_PERMISSIVE,			// "permissive"
+	RLV_BHVR_VIEWSCRIPT,			// "viewscript"
+	RLV_BHVR_VIEWTEXTURE,			// "viewtexture"
 
 	RLV_BHVR_COUNT,
 	RLV_BHVR_UNKNOWN
@@ -183,6 +192,12 @@ enum ERlvExceptionCheck {
 	RLV_CHECK_PERMISSIVE,			// Exception can be set by any object
 	RLV_CHECK_STRICT,				// Exception must be set by all objects holding the restriction
 	RLV_CHECK_DEFAULT				// Permissive or strict will be determined by currently enforced restrictions
+};
+
+enum ERlvLockMask {
+	RLV_LOCK_ADD    = 0x01,
+	RLV_LOCK_REMOVE = 0x02,
+	RLV_LOCK_ANY    = RLV_LOCK_ADD | RLV_LOCK_REMOVE
 };
 
 // ============================================================================

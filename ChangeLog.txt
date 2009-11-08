@@ -2,6 +2,34 @@
 =-                        1.3.0                           -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-11-08 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Merged in nearly-done 1.2 with 1.3.
+
+	  Conflicts: 
+	  ChangeLog.txt
+	  linden/indra/llmedia/llmediaimplllmozlib.cpp
+	  linden/indra/llui/llalertdialog.cpp
+	  linden/indra/newview/llinventorybridge.cpp
+	  linden/indra/newview/llpanelcontents.cpp
+	  linden/indra/newview/llpanelinput.cpp
+	  linden/indra/newview/res/viewerRes.rc
+	  linden/indra/newview/skins/default/xui/de/alerts.xml
+	  linden/indra/newview/skins/default/xui/de/notify.xml
+	  linden/indra/newview/skins/default/xui/en-us/alerts.xml
+	  linden/indra/newview/skins/default/xui/es/alerts.xml
+	  linden/indra/newview/skins/default/xui/fr/alerts.xml
+	  linden/indra/newview/skins/default/xui/fr/notify.xml
+	  linden/indra/newview/skins/default/xui/ja/alerts.xml
+	  linden/indra/newview/skins/default/xui/ja/notify.xml
+	  linden/indra/newview/skins/default/xui/ko/alerts.xml
+	  linden/indra/newview/skins/default/xui/ko/notify.xml
+	  linden/indra/newview/skins/default/xui/pt/alerts.xml
+	  linden/indra/newview/skins/default/xui/pt/notify.xml
+	  linden/indra/newview/skins/default/xui/zh/alerts.xml
+	  linden/install.xml
+
+
 2009-10-18 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Merged working branch of 1.2 into LL 1.23 merge.
@@ -12,6 +40,245 @@ REMOVE ME!
 =-                      1.2.0 misc.                       -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 REMOVE ME!
+
+2009-11-08 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Changed version to 1.20 in other files.
+	
+	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
+	  modified:   linden/indra/newview/Info-Imprudence.plist
+	  modified:   linden/indra/newview/res/viewerRes.rc
+
+
+2009-11-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Changed version to 1.20 (final, not a RC).
+
+	  modified:   linden/indra/llcommon/llversionviewer.h
+
+
+2009-11-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed some branding issues with alerts.xml and notify.xml.
+
+	  modified:   linden/indra/llui/llalertdialog.cpp
+	  modified:   linden/indra/newview/llnotify.cpp
+	  modified:   linden/indra/newview/skins/default/xui/de/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/de/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/es/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/fr/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/fr/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/ja/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/ja/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/ko/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/ko/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/pt/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/pt/notify.xml
+	  modified:   linden/indra/newview/skins/default/xui/zh/alerts.xml
+	  
+	  
+2009-11-07 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Check for different versions of boost in build math files (also fixes broken build math functions).
+	
+	  modified:   linden/indra/llmath/llcalc.cpp
+	  modified:   linden/indra/llmath/llcalcparser.cpp
+	  modified:   linden/indra/llmath/llcalcparser.h
+
+
+	* Upped version to 1.2.0 RC1.
+	
+	  modified:   linden/indra/llcommon/llversionviewer.h
+	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
+	  modified:   linden/indra/newview/Info-Imprudence.plist
+	  modified:   linden/indra/newview/res/viewerRes.rc
+
+
+	* Fixed login page not updating after logout.
+	
+	  modified:   linden/indra/newview/llpanellogin.cpp
+	  
+	  
+	* Fixed login grid combobox not updating correctly after logout.
+	
+	  modified:   linden/indra/newview/llpanellogin.cpp
+	  
+	  
+	* Applied RLVa-1.0.5e_20091107_Imprudence-1.2.0-diff.patch.
+	
+	  modified:   linden/indra/newview/llagent.cpp
+	  modified:   linden/indra/newview/llfloateropenobject.cpp
+	  modified:   linden/indra/newview/llinventorybridge.cpp
+	  modified:   linden/indra/newview/llpanelcontents.cpp
+	  modified:   linden/indra/newview/llpanelinventory.cpp
+	  modified:   linden/indra/newview/llpreviewscript.cpp
+	  modified:   linden/indra/newview/lltooldraganddrop.cpp
+	  modified:   linden/indra/newview/llviewerdisplay.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/llviewertexteditor.cpp
+	  modified:   linden/indra/newview/llvoavatar.cpp
+	  modified:   linden/indra/newview/llvovolume.cpp
+	  modified:   linden/indra/newview/pipeline.cpp
+	  modified:   linden/indra/newview/rlvdefines.h
+	  modified:   linden/indra/newview/rlvextensions.cpp
+	  modified:   linden/indra/newview/rlvhandler.cpp
+	  modified:   linden/indra/newview/rlvhandler.h
+	  modified:   linden/indra/newview/rlvhelper.cpp
+	  modified:   linden/indra/newview/rlvhelper.h
+	  
+	  
+	* Changed default UIScaleFactor to 1.002 as a workaround to some font rendering issues.
+	
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llpanelgeneral.cpp
+
+
+2009-11-06  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Changed wording of double-click and autopilot prefs.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_input.xml
+
+
+2009-11-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Created our own Linux fontconfig package, 2.3.7.
+
+	  modified:   linden/indra/newview/viewer_manifest.py
+	  modified:   linden/install.xml
+
+
+2009-11-03  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Added a bunch of Linux libs to viewer_manifest.py.
+	  I had forgotten to add these earlier. Oops.
+
+	  modified:   linden/indra/newview/viewer_manifest.py
+
+
+	* Created our own Linux freetype package, 2.3.11.
+
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/llrender/llfont.cpp
+	  modified:   linden/install.xml
+
+	* Updated ndofdev to the version used in SL 1.23.4.
+
+	  modified:   linden/install.xml
+
+
+2009-11-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Added "Double-Click Action" and "Go Here By" to Input prefs panel.
+
+	  modified:   linden/indra/newview/llpanelinput.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_input.xml
+
+
+	* Added "DoubleClickAction" and "GoAction" settings.
+	  Together they replace "DoubleClickAutopilot" and
+	  "DoubleClickTeleport".
+
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/lltoolpie.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+
+
+	* "Go Here" in pie menu no longer asks for confirmation.
+	  Double-click still does, though.
+
+	  modified:   linden/indra/newview/lltoolpie.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/llviewermenu.h
+
+
+2009-10-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Cleaned up PanelRadar class a bit.
+	  More privacy, better method names, generally cleaner.
+
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  modified:   linden/indra/newview/panelradar.cpp
+	  modified:   linden/indra/newview/panelradar.h
+
+
+2009-10-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Minimap radar can now be toggled.
+
+	  modified:   llfloatermap.cpp
+	  modified:   llfloatermap.h
+
+
+	* Added a button that will toggle the minimap radar.
+
+	  modified:   app_settings/settings.xml
+	  modified:   llfloatermap.cpp
+	  modified:   llfloatermap.h
+	  modified:   skins/default/xui/en-us/floater_mini_map.xml
+
+
+	* Added PanelRadar class, refactored from LLFloaterMap.
+
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  modified:   linden/indra/newview/llfloatermap.h
+	  modified:   linden/indra/newview/llnetmap.cpp
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  new file:   linden/indra/newview/panelradar.cpp
+	  new file:   linden/indra/newview/panelradar.h
+
+
+2009-10-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Moved radar XML to panel_radar.xml and cleaned it up.
+	  It had been in floater_mini_map.xml.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
+	  new file:   linden/indra/newview/skins/default/xui/en-us/panel_radar.xml
+
+
+	* Moved "Logout" to Advanced menu, removed shortcut.
+	  We want to discourage its use until issues are fixed in 1.3.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+	* Capped chat channel spinner to 1000000 (1 mil) as temp fix.
+	  Very high numbers cause mysterious rounding problems.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_chat_bar.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_chat_history.xml: 
+
+
+2009-10-21 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added Advanced menu option for AllowMultipleViewers for testing purposes.
+	
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+2009-10-19 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Partial fix for avatar names not displaying at > 1024m
+	  (won't be fixed until LL actually sends height in more than one byte -_-)
+	  
+	  modified:   linden/indra/newview/llfloatermap.cpp
+	  
+
+	* Clamp map teleporting at 4096 rather than 1000.
+	
+	  modified:   linden/indra/newview/llfloaterworldmap.cpp
+	  
+
+	* Applied rlva_init-imprudence.patch (fixes RLVa not initializing in 1.2).
+	  
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  modified:   linden/indra/newview/llstartup.cpp
+	  
 
 2009-10-17 McCabe Maxsted  <hakushakukun@gmail.com>
 

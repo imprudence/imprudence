@@ -16,9 +16,8 @@
 // ============================================================================
 
 typedef std::map<LLUUID, RlvObject> rlv_object_map_t;
-typedef std::multimap<S32, LLUUID> rlv_detach_map_t;
-typedef std::map<S32, LLUUID> rlv_reattach_map_t;
 typedef std::multimap<ERlvBehaviour, RlvException> rlv_exception_map_t;
+typedef std::map<S32, LLUUID> rlv_attachlock_map_t;
 
 class RlvHandler
 {
@@ -47,7 +46,9 @@ public:
 	/*
 	 * Rule checking functions
 	 */
-	// NOTE: - to check @detach=n    -> hasLockedAttachment() / hasLockedHUD() / isDetachable()
+	// NOTE: - to check @detach=n    -> hasLockedAttachment(RLV_LOCK_REMOVE) / hasLockedHUD() / isLockedAttachment(.., RLV_LOCK_REMOVE)
+	//       - to check @addattach=n -> hasLockedAttachment(RLV_LOCK_ADD) / isLockedAttachment(.., RLV_LOCK_ADD)
+	//       - to check @remattach=n -> (see @detach=n)
 	//       - to check exceptions   -> isException()
 	//       - to check @addoutfit=n -> isWearable()
 	//       - to check @remoutfit=n -> isRemovable()
@@ -59,20 +60,21 @@ public:
 	bool hasBehaviourExcept(ERlvBehaviour eBehaviour, const LLUUID& idObj) const;
 	bool hasBehaviourExcept(ERlvBehaviour eBehaviour, const std::string& strOption, const LLUUID& idObj) const;
 
-	// Returns TRUE if there is at least 1 non-detachable attachment
-	bool hasLockedAttachment() const { return (0 != m_Attachments.size()); }
+	// Adds an eLock type lock (held by idRlvObj) for the specified attachment point
+	void addAttachmentLock(S32 idxAttachPt, const LLUUID& idRlvObj, ERlvLockMask eLock);
+	// Returns TRUE if there is at least 1 eLock type locked attachment (RLV_LOCK_ANY = RLV_LOCK_ADD *or* RLV_LOCK_REMOVE)
+	bool hasLockedAttachment(ERlvLockMask eLock) const;
 	// Returns TRUE if there is at least 1 non-detachable HUD attachment
 	bool hasLockedHUD() const;
-	// Returns TRUE if the specified attachment point is detachable
-	bool isDetachable(S32 idxAttachPt) const { return (idxAttachPt) && (m_Attachments.find(idxAttachPt) == m_Attachments.end()); }
-	bool isDetachable(const LLInventoryItem* pItem) const;
-	bool isDetachable(LLViewerJointAttachment* pAttachPt) const;
-	bool isDetachable(LLViewerObject* pObj) const;
-	// Returns TRUE if the specified attachment point is set non-detachable by anything other than pObj (or one of its children)
-	bool isDetachableExcept(S32 idxAttachPt, LLViewerObject* pObj) const;
-	// Marks the specified attachment point as (non-)detachable (return value indicates success ; used by unit tests)
-	bool setDetachable(S32 idxAttachPt, const LLUUID& idRlvObj, bool fDetachable);
-	bool setDetachable(LLViewerObject* pObj, const LLUUID& idRlvObj, bool fDetachable);
+	// Returns TRUE if the specified attachment point is eLock type locked (RLV_LOCK_ANY = RLV_LOCK_ADD *or* RLV_LOCK_REMOVE)
+	bool isLockedAttachment(S32 idxAttachPt, ERlvLockMask eLock) const;
+	bool isLockedAttachment(const LLInventoryItem* pItem, ERlvLockMask eLock) const;
+	bool isLockedAttachment(LLViewerJointAttachment* pAttachPt, ERlvLockMask eLock) const;
+	bool isLockedAttachment(LLViewerObject* pObj, ERlvLockMask eLock) const;
+	// Returns TRUE if the specified attachment point is eLock type locked by anything other than pObj (or one of its children)
+	bool isLockedAttachmentExcept(S32 idxAttachPt, ERlvLockMask eLock, LLViewerObject* pObj) const;
+	// Adds an eLock type lock (held by idRlvObj) for the specified attachment point
+	void removeAttachmentLock(S32 idxAttachPt, const LLUUID& idRlovObj, ERlvLockMask eLock);
 
 	// Adds or removes an exception for the specified behaviour
 	void addException(const LLUUID& idObj, ERlvBehaviour eBhvr, const RlvExceptionOption& varOption);
@@ -183,19 +185,28 @@ public:
 	void notifyBehaviourObservers(const RlvCommand& rlvCmd, bool fInternal);
 
 	// Externally invoked event handlers
-	void onAttach(LLViewerJointAttachment* pAttachPt, bool fFullyLoaded);	// LLVOAvatar::attachObject()
+	void onAttach(LLViewerJointAttachment* pAttachPt);						// LLVOAvatar::attachObject()
 	void onDetach(LLViewerJointAttachment* pAttachPt);						// LLVOAvatar::detachObject()
 	bool onGC();															// RlvGCTimer::tick()
-	void onSavedAssetIntoInventory(const LLUUID& idItem);					// LLInventoryModel::processSaveAssetIntoInventory()
+	void onSavedAssetIntoInventory(const LLUUID& idItem) { if (m_pAttachMgr) m_pAttachMgr->onSavedAssetIntoInventory(idItem); }
+	void onWearAttachment(const LLUUID& idItem)			 { if (m_pAttachMgr) m_pAttachMgr->onWearAttachment(idItem); }
 protected:
 	BOOL processAddCommand(const LLUUID& uuid, const RlvCommand& rlvCmd);
 	BOOL processRemoveCommand(const LLUUID& uuid, const RlvCommand& rlvCmd);
-	BOOL processClearCommand(const LLUUID& idObj, const RlvCommand& rlvCmd);
+	BOOL processClearCommand(const LLUUID idObj, const RlvCommand& rlvCmd);
 	BOOL processReplyCommand(const LLUUID& uuid, const RlvCommand& rlvCmd) const;
 	BOOL processForceCommand(const LLUUID& uuid, const RlvCommand& rlvCmd) const;
 
 	// Command handlers (exist for no other reason than to keep the length of the processXXX functions down)
-	void onForceDetach(const LLUUID& idObj, const std::string& strOption) const;
+	ERlvCmdRet onAddRemAttach(const LLUUID& idObj, const RlvCommand& rlvCmd, bool& fRefCount);
+	ERlvCmdRet onAddRemDetach(const LLUUID& idObj, const RlvCommand& rlvCmd, bool& fRefCount);
+	ERlvCmdRet onAddRemOutfit(const LLUUID& idObj, const RlvCommand& rlvCmd, bool& fRefCount);
+	ERlvCmdRet onForceDetach(const LLUUID& idObj, const RlvCommand& rlvCmd) const;
+	ERlvCmdRet onForceRemAttach(const LLUUID& idObj, const RlvCommand& rlvCmd) const;
+	ERlvCmdRet onForceRemOutfit(const LLUUID& idObj, const RlvCommand& rlvCmd) const;
+	ERlvCmdRet onGetAttach(const LLUUID& idObj, const RlvCommand& rlvCmd, std::string& strReply);
+	ERlvCmdRet onGetOutfit(const LLUUID& idObj, const RlvCommand& rlvCmd, std::string& strReply);
+	// Old style command handlers (need to be updated to return ERlvCmdRet)
 	void onForceRemOutfit(const LLUUID& idObj, const std::string& strOption) const;
 	bool onForceSit(const LLUUID& uuid, const std::string& strOption) const;
 	void onForceWear(const std::string& strPath, bool fAttach, bool fMatchAll) const;
@@ -221,29 +232,29 @@ public:
 	static const std::string cstrMsgTpLure;			// Message sent to tplure sender when tplure restricted
 	static const std::string cstrAnonyms[28];
 protected:
-	rlv_object_map_t     m_Objects;					// Map of objects that have active restrictions (by UUID)
-	rlv_exception_map_t  m_Exceptions;              // Map of UUIDs that are exempt from the associated ERlvBehaviour
-	rlv_detach_map_t     m_Attachments;				// Map of locked attachments (attachment point index -> object that issued @detach=n)
-	S16                  m_LayersAdd[WT_COUNT];		// Array of locked layers (reference counted)
-	S16                  m_LayersRem[WT_COUNT];		// Array of locked layers (reference counted)
-	S16                  m_Behaviours[RLV_BHVR_COUNT];
+	rlv_object_map_t      m_Objects;				// Map of objects that have active restrictions (idObj -> RlvObject)
+	rlv_exception_map_t   m_Exceptions;				// Map of currently active restriction exceptions (ERlvBehaviour -> RlvException)
+	rlv_attachlock_map_t  m_AttachAdd;				// Map of attachment points that can't be attached (idxAttachPt -> idObj)
+	rlv_attachlock_map_t  m_AttachRem;				// Map of attachment points that can't be detached (idxAttachPt -> idObj)
+	S16                   m_LayersAdd[WT_COUNT];	// Array of layers that can't be worn (reference counted)
+	S16                   m_LayersRem[WT_COUNT];	// Array of layers that can't be removed (reference counted)
+	S16                   m_Behaviours[RLV_BHVR_COUNT];
 
-	rlv_retained_list_t  m_Retained;
-	rlv_reattach_map_t   m_AttachPending;
-	rlv_reattach_map_t   m_DetachPending;
-	RlvGCTimer*          m_pGCTimer;
-	RlvWLSnapshot*       m_pWLSnapshot;
+	rlv_retained_list_t   m_Retained;
+	RlvGCTimer*           m_pGCTimer;
+	RlvWLSnapshot*        m_pWLSnapshot;
+	RlvAttachmentManager* m_pAttachMgr;
 
-	RlvCommand*          m_pCurCommand;				// Convenience (see @tpto)
-	LLUUID               m_idCurObject;				// Convenience (see @tpto)
+	RlvCommand*           m_pCurCommand;			// Convenience (see @tpto)
+	LLUUID                m_idCurObject;			// Convenience (see @tpto)
 
 	mutable RlvEventEmitter<RlvObserver>     m_Emitter;
 	mutable std::list<RlvBehaviourObserver*> m_BhvrObservers;
 	RlvBehaviourNotifyObserver*				 m_pBhvrNotify;
 
-	static BOOL			m_fEnabled;					// Use setEnabled() to toggle this
-	static BOOL			m_fFetchStarted;			// TRUE if we fired off an inventory fetch
-	static BOOL			m_fFetchComplete;			// TRUE if everything was fetched
+	static BOOL			  m_fEnabled;				// Use setEnabled() to toggle this
+	static BOOL			  m_fFetchStarted;			// TRUE if we fired off an inventory fetch
+	static BOOL			  m_fFetchComplete;			// TRUE if everything was fetched
 	static RlvMultiStringSearch m_AttachLookup;		// Lookup table for attachment names (lower case)
 
 	bool m_fCanCancelTp;
@@ -258,8 +269,8 @@ protected:
 	 */
 public:
 	const rlv_object_map_t*    getObjectMap() const		{ return &m_Objects; }
-	const rlv_exception_map_t* getExceptionMap() const	{ return &m_Exceptions; }
-	const rlv_detach_map_t*    getDetachMap() const		{ return &m_Attachments; }
+	//const rlv_exception_map_t* getExceptionMap() const	{ return &m_Exceptions; }
+	//const rlv_detach_map_t*    getDetachMap() const		{ return &m_Attachments; }
 	#ifdef RLV_DEBUG_TESTS
 		const S16*                 getAddLayers() const		{ return m_LayersAdd; }
 		const S16*                 getRemLayers() const		{ return m_LayersRem; }
@@ -345,6 +356,13 @@ inline bool RlvHandler::hasBehaviourExcept(ERlvBehaviour eBehaviour, const LLUUI
 	return hasBehaviourExcept(eBehaviour, std::string(), idObj);
 }
 
+// Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+inline bool RlvHandler::hasLockedAttachment(ERlvLockMask eLock) const
+{
+	// Remove locks are more common so check those first
+	return ( (eLock & RLV_LOCK_REMOVE) && (!m_AttachRem.empty()) ) || ( (eLock & RLV_LOCK_ADD) && (!m_AttachAdd.empty()) );
+}
+
 #ifdef RLV_EXPERIMENTAL_COMPOSITES
 	// Checked:
 	inline bool RlvHandler::isCompositeFolder(const LLInventoryCategory* pFolder) const
@@ -358,20 +376,6 @@ inline bool RlvHandler::hasBehaviourExcept(ERlvBehaviour eBehaviour, const LLUUI
 		return getCompositeInfo(idItem, NULL, NULL);
 	}
 #endif // RLV_EXPERIMENTAL_COMPOSITES
-
-// Checked: 2009-09-08 (RLVa-1.0.2c) | Added: RLVa-1.0.2c
-inline bool RlvHandler::isDetachable(LLViewerJointAttachment *pAttachPt) const
-{
-	// If there's an attached object it's faster to just use that; otherwise look up the attachment index because it might be locked empty
-	return (pAttachPt == NULL) ||
-		   ( (pAttachPt->getObject() != NULL) && isDetachable(pAttachPt->getObject()) ) || (isDetachable(getAttachPointIndex(pAttachPt)));
-}
-
-// Checked: 2009-05-23 (RLVa-0.2.0d) | Modified: RLVa-0.2.0d
-inline bool RlvHandler::isDetachable(LLViewerObject* pObj) const
-{
-	return (pObj == NULL) || (!pObj->isAttachment()) || (isDetachable(getAttachPointIndex(pObj)));
-}
 
 inline bool RlvHandler::isPermissive(ERlvBehaviour eBhvr) const
 {
@@ -393,6 +397,29 @@ inline bool RlvHandler::isFoldedFolder(const LLInventoryCategory* pFolder, bool 
 		|| ( (pFolder) && (".("RLV_FOLDER_FLAG_NOSTRIP")" == pFolder->getName()) )
 		#endif // RLV_EXTENSION_FLAG_NOSTRIP
 	  );
+}
+
+// Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+inline bool RlvHandler::isLockedAttachment(S32 idxAttachPt, ERlvLockMask eLock) const
+{
+	return ( (eLock & RLV_LOCK_REMOVE) && (m_AttachRem.find(idxAttachPt) != m_AttachRem.end()) ) ||
+		   ( (eLock & RLV_LOCK_ADD) && (m_AttachAdd.find(idxAttachPt) != m_AttachAdd.end()) );
+}
+
+
+// Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+inline bool RlvHandler::isLockedAttachment(LLViewerJointAttachment *pAttachPt, ERlvLockMask eLock) const
+{
+	// If there's an attached object it's faster to just use that; otherwise look up the attachment index because it might be locked empty
+	return (pAttachPt != NULL) && 
+		   ( ( (pAttachPt->getObject() != NULL) && (isLockedAttachment(pAttachPt->getObject(), eLock)) ) || 
+		     (isLockedAttachment(getAttachPointIndex(pAttachPt), eLock)) );
+}
+
+// Checked: 2009-10-10 (RLVa-1.0.5a) | Added: RLVa-1.0.5a
+inline bool RlvHandler::isLockedAttachment(LLViewerObject* pObj, ERlvLockMask eLock) const
+{
+	return (pObj != NULL) && (pObj->isAttachment()) && (isLockedAttachment(getAttachPointIndex(pObj), eLock));
 }
 
 // Checked: 2009-05-23 (RLVa-0.2.0d) | Added: RLVa-0.2.0d
@@ -432,12 +459,6 @@ inline void RlvHandler::retainCommand(const std::string& strObj, const LLUUID& i
 		RLV_INFOS << "[" << idObj << "]: " << strCmd << " (retaining)" << LL_ENDL;
 	#endif // RLV_DEBUG
 	m_Retained.push_back(RlvRetainedCommand(strObj, idObj, strCmd));
-}
-
-// Checked: 2009-05-23 (RLVa-0.2.0d) | Modified: RLVa-0.2.0d
-inline bool RlvHandler::setDetachable(LLViewerObject* pObj, const LLUUID& idRlvObj, bool fDetachable)
-{
-	return setDetachable(getAttachPointIndex(pObj), idRlvObj, fDetachable); // getAttachPointIndex() has a NULL pointer check
 }
 
 // ============================================================================

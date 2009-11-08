@@ -357,9 +357,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>9af6a1ed39fa540bfcaa402b0ea22f78</string>
+            <string>7f15334750d440084782aecaf41de583</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/fontconfig-2.2.3-linux-20080613.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/fontconfig-2.7.3-linux-20091104.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -383,16 +383,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>eeffb03bd6672b6e7751448e5306d874</string>
+            <string>efc845cf291073b1e4d381a271f194eb</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/freetype-2.1.5-linux-20081201.tar.bz2</uri>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>35f6fa557ba90f9cda0a18d1af2055a4</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/freetype-2.1.5-linux64-20080909.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/freetype-2.3.11-linux-20091103.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>

@@ -1,107 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
-	 can_tear_off="false" follows="top|right" height="455" min_height="400" min_width="240"
-	 name="minimap" rect_control="FloaterMiniMapRect" width="200" short_title="Mini-Map">
+
+<floater name="minimap" short_title="Mini-Map"
+         height="455" width="200" min_height="400" min_width="240"
+         follows="top|right" can_close="true" can_drag_on_left="false"
+         can_minimize="true" can_resize="true" can_tear_off="false"
+	       rect_control="FloaterMiniMapRect">
 
   <panel label="Mini Map" name="mini_mapview"
          top="-2" left="2" bottom="196" right="196"
-         follows="left|top|right|bottom" mouse_opaque="false"  />
+         follows="left|top|right|bottom" mouse_opaque="false" />
 
+  <!-- Note: panel contents are defined in panel_radar.xml -->
   <panel name="RadarPanel" label="Radar"
-         background_visible="true" bg_alpha_color="NetMapBackgroundColor"
          left="2" top="196" right="196" height="120"
-         follows="left|right|bottom" border="false" mouse_opaque="true">
+         follows="left|right|bottom" />
 
-    <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-       bottom="-20" drop_shadow_visible="true" follows="left|top"
-       font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
-       mouse_opaque="true" name="lblAvatarCount" v_pad="0"
-       width="220">
-      0
-    </text>
-    <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-        bottom="-20" drop_shadow_visible="true" follows="left|top"
-        font="SansSerifSmall" h_pad="0" halign="left" height="16" left="27"
-        mouse_opaque="true" name="avatars_in" v_pad="0"
-        width="220">
-      Avatars in
-    </text>
-    <slider bottom_delta="0" left_delta="55" follows="left|top" width="110" height="15"
-         name="near_me_range" label="" control_name="NearMeRange"
-         min_val="5" max_val="512" increment="1" initial_val="96" decimal_digits="0" />
-    <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-         bottom_delta="0" left="190" drop_shadow_visible="true" follows="left|top"
-         font="SansSerifSmall" h_pad="0" halign="left" height="15"
-         mouse_opaque="true" name="meters" v_pad="0"
-         width="40">
-      m
-    </text>
-    <tab_container border="false" bottom_delta="-176" height="172" left="0" mouse_opaque="false"
-		       name="button_container" tab_position="top" follows="left|right|bottom" width="198">
-      <panel border="true" bottom="-180" follows="left|top|right|bottom" height="160"
-		       label="Avatars" left="1" mouse_opaque="true" name="avatar_tab" width="198">
-        <button bottom="-25" follows="top|right" height="22" label="IM/Call"
-             left="-85" name="im_btn" tool_tip="Open Instant Message session"
-             width="80" />
-        <button bottom_delta="-25" follows="top|right" height="22" label="Profile"
-             left_delta="0" name="profile_btn"
-             tool_tip="Show picture, groups, and other information" width="80" />
-        <button bottom_delta="-25" follows="top|right" height="22" label="Teleport..."
-             left_delta="0" name="offer_teleport_btn"
-             tool_tip="Offer this friend a teleport to your current location" width="80" />
-        <button bottom_delta="-25" follows="top|right" height="22" label="Track"
-             left_delta="0" name="track_btn"
-             tool_tip="Create a beacon to track friends you can map" width="80" />
-        <button bottom_delta="-25" follows="top|right" height="22" label="Invite..."
-             left_delta="0" name="invite_btn"
-             tool_tip="Remove this person from your friends list" width="80" />
-        <button bottom_delta="-25" follows="top|right" height="22" label="Add..."
-             left_delta="0" name="add_btn" tool_tip="Offer friendship to a resident"
-             width="80" />
-      </panel>
-      <panel border="true" bottom="-160" follows="left|top|right|bottom" height="160"
-		       label="Estate" left="1" mouse_opaque="true" name="estate_tab" width="198">
-        <button bottom="-25" follows="top|right" height="22" label="Freeze..."
-             left="-85" name="freeze_btn" tool_tip=""
-             width="80" />
-        <button bottom_delta="-25" follows="top|right" height="22" label="Eject..."
-             left_delta="0" name="eject_btn"
-             tool_tip="" width="80" />
-        <button bottom_delta="-25" follows="top|right" height="22" label="Mute..."
-             left_delta="0" name="mute_btn"
-             tool_tip="" width="80" />
-        <button bottom_delta="0" follows="top|right" height="22" label="Unmute..."
-             left_delta="0" name="unmute_btn"
-             tool_tip="" width="80" />
-        <button bottom_delta="-25" follows="top|right" height="22" label="Report..."
-             left_delta="0" name="ar_btn"
-             tool_tip="" width="80" />
-        <button bottom_delta="-25" follows="top|right" height="22" label="Kick..."
-             left_delta="0" name="estate_eject_btn" tool_tip=""
-             width="80" />
-      </panel>
-    </tab_container>
-    <scroll_list bottom="-190" width="104" height="143" left="4"
-         follows="left|bottom|right" draw_border="false" draw_heading="true"
-         draw_stripes="true" column_padding="5" sort_column="1" mouse_opaque="true"
-         background_visible="true" multi_select="false" name="RadarList">
-      <column name="avatar_name" label="Name" dynamicwidth="true" />
-      <column name="avatar_distance" label="Dist." width="48" />
-    </scroll_list>
-  </panel>
-  <string name="no_one_near">
-    No avatars within range
-  </string>
-  <string name="is_muted">
-    (muted)
-  </string>
-  <string name="is_typing">
-    (typing)
-  </string>
-  <string name="entering_chat_range">
-    [NAME] has entered chat range ([DISTANCE]m)
-  </string>
-  <string name="entering_sim_range">
-    [NAME] has entered the sim ([DISTANCE]m)
-  </string>
+  <button name="toggle_radar" label=""
+          bottom="202" left="10" height="18" width="18"
+          follows="left|bottom" halign="center"
+          font="SansSerif" scale_image="true"
+          tool_tip="Show or hide the radar" />
+
 </floater>
