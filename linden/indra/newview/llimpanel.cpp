@@ -1838,9 +1838,9 @@ void LLFloaterIMPanel::onClickHistory( void* userdata )
 		}
 		else
 		{
-			LLStringUtil::format_map_t args;
+			LLSD args;
 			args["[NAME]"] = fullname;
-			gViewerWindow->alertXml("IMLogNotFound", args);
+			LLNotifications::instance().add("IMLogNotFound", args);
 			llinfos << file_path << llendl;
 		}
 	}

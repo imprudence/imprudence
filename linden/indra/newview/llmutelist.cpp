@@ -302,30 +302,31 @@ void LLMuteList::addMuteAgentConfirm( const LLMute &mute )
 {
 	LLMute *newmute = new LLMute(mute);
 
-	LLStringUtil::format_map_t args;
+	LLSD args;
+	LLSD payload;
 	args["[NAME]"] = newmute->mName;
-
-	gViewerWindow->alertXml("ConfirmMuteAgent", args,
-	                        LLMuteList::addMuteCallback,
-	                        static_cast<void*>(newmute));
+	LLNotifications::instance().add("ConfirmMuteAgent", 
+		args, 
+		LLSD(), 
+		boost::bind(&addMuteCallback, _1, _2, newmute));
 }
 
 void LLMuteList::addMuteObjectConfirm( const LLMute &mute )
 {
 	LLMute *newmute = new LLMute(mute);
 
-	LLStringUtil::format_map_t args;
+	LLSD args;
 	args["[NAME]"] = newmute->mName;
-
-	gViewerWindow->alertXml("ConfirmMuteObject", args,
-	                        LLMuteList::addMuteCallback,
-	                        static_cast<void*>(newmute));
+	LLNotifications::instance().add("ConfirmMuteObject", 
+		args, 
+		LLSD(), 
+		boost::bind(&addMuteCallback, _1, _2, newmute));
 }
 
 // static
-void LLMuteList::addMuteCallback(S32 option, void *userdata)
+bool LLMuteList::addMuteCallback(const LLSD& notification, const LLSD& response, LLMute *mute)
 {
-	LLMute *mute = static_cast<LLMute*>(userdata);
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if( option == 0 )
 	{
 		// They confirmed it. Here we go!
@@ -333,6 +334,7 @@ void LLMuteList::addMuteCallback(S32 option, void *userdata)
 		LLFloaterMute::showInstance();
 	}
 	delete mute;
+	return false;
 }
 
 BOOL LLMuteList::add(const LLMute& mute, U32 flags)

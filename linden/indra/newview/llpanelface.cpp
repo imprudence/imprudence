@@ -1001,5 +1001,5 @@ void LLPanelFace::onClickAutoFix(void* userdata)
 // static
 void LLPanelFace::onClickTextureConstants(void *)
 {
-	gViewerWindow->alertXml("ClickTextureConstants");
+	LLNotifications::instance().add("ClickTextureConstants");
 }

@@ -837,17 +837,22 @@ void LLItemBridge::restoreItem()
 // virtual
 void LLItemBridge::restoreToWorldConfirm()
 {
-	gViewerWindow->alertXml("ConfirmRestoreToWorld", LLItemBridge::restoreToWorldCallback, (void *)this);
+	LLNotifications::instance().add("ConfirmRestoreToWorld", 
+		LLSD(), 
+		LLSD(), 
+		boost::bind(&restoreToWorldCallback, _1, _2, this));
 }
 
 // static
-void LLItemBridge::restoreToWorldCallback(S32 option, void *userdata)
+bool LLItemBridge::restoreToWorldCallback(const LLSD& notification, const LLSD& response, LLItemBridge *self)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if( option == 0 )
 	{
 		// They confirmed it. Here we go!
-		((LLItemBridge *) userdata)->restoreToWorld();
+		self->restoreToWorld();
 	}
+	return false;
 }
 
 // virtual

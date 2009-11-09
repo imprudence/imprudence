@@ -1143,29 +1143,29 @@ void LLFloaterTools::onClickLink(void* data)
 {
 	if(!LLSelectMgr::getInstance()->selectGetAllRootsValid())
 	{
-		LLNotifyBox::showXml("UnableToLinkWhileDownloading");
+		LLNotifications::instance().add("UnableToLinkWhileDownloading");
 		return;
 	}
  
 	S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
 	if (object_count > MAX_CHILDREN_PER_TASK + 1)
 	{
-		LLStringUtil::format_map_t args;
-		args["[COUNT]"] = llformat("%d", object_count);
+		LLSD args;
+		args["COUNT"] = llformat("%d", object_count);
 		int max = MAX_CHILDREN_PER_TASK+1;
-		args["[MAX]"] = llformat("%d", max);
-		gViewerWindow->alertXml("UnableToLinkObjects", args);
+		args["MAX"] = llformat("%d", max);
+		LLNotifications::instance().add("UnableToLinkObjects", args);
 		return;
 	}
  
 	if(LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() < 2)
 	{
-		gViewerWindow->alertXml("CannotLinkIncompleteSet");
+		LLNotifications::instance().add("CannotLinkIncompleteSet");
 		return;
 	}
 	if(!LLSelectMgr::getInstance()->selectGetRootsModify())
 	{
-		gViewerWindow->alertXml("CannotLinkModify");
+		LLNotifications::instance().add("CannotLinkModify");
 		return;
 	}
 	LLUUID owner_id;
@@ -1175,7 +1175,7 @@ void LLFloaterTools::onClickLink(void* data)
 	  // we don't actually care if you're the owner, but novices are
 	  // the most likely to be stumped by this one, so offer the
 	  // easiest and most likely solution.
-	  gViewerWindow->alertXml("CannotLinkDifferentOwners");
+	  LLNotifications::instance().add("CannotLinkDifferentOwners");
 	  return;
 	}
 	LLSelectMgr::getInstance()->sendLink();

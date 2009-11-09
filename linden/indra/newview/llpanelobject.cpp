@@ -2134,5 +2134,5 @@ void LLPanelObject::onCommitSculptType(LLUICtrl *ctrl, void* userdata)
 // static
 void LLPanelObject::onClickBuildConstants(void *)
 {
-	gViewerWindow->alertXml("ClickBuildConstants");
+	LLNotifications::instance().add("ClickBuildConstants");
 }

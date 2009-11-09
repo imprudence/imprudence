@@ -246,10 +246,8 @@ public:
 	virtual void selectItem();
 	virtual void restoreItem();
 	virtual void restoreToWorld();
-
-	virtual void restoreToWorld();
 	virtual void restoreToWorldConfirm();
-	static  void restoreToWorldCallback(S32 option, void *userdata);
+	static  bool restoreToWorldCallback(const LLSD& notification, const LLSD& response, LLItemBridge *self);
 
 
 	virtual LLUIImagePtr getIcon() const;

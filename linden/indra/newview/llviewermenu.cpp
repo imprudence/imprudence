@@ -502,7 +502,7 @@ BOOL enable_detach(void*);
 BOOL enable_region_owner(void*);
 void menu_toggle_attached_lights(void* user_data);
 void menu_toggle_attached_particles(void* user_data);
-static void handle_go_to_callback(S32 option, void *userdata);
+static bool handle_go_to_callback(const LLSD& notification, const LLSD& response);
 
 class LLMenuParcelObserver : public LLParcelObserver
 {
@@ -2443,11 +2443,11 @@ bool handle_go_to_confirm()
 
 	if (action == "teleport")
 	{
-		gViewerWindow->alertXml("ConfirmDoubleClickTP", handle_go_to_callback, (void*)LLToolPie::getInstance());
+		LLNotifications::instance().add("ConfirmDoubleClickTP", , LLSD(), LLSD(), &handle_go_to_callback);
 	}
 	else if (action == "autopilot")
 	{
-		gViewerWindow->alertXml("ConfirmAutoPilot", handle_go_to_callback, (void*)LLToolPie::getInstance());
+		LLNotifications::instance().add("ConfirmAutoPilot", , LLSD(), LLSD(), &handle_go_to_callback);
 	}
 	return true;
 }
@@ -2462,18 +2462,19 @@ bool handle_go_to()
  	}
  // [/RLVa:KB]
 
-	handle_go_to_callback( 0, (void*)LLToolPie::getInstance() );
+	handle_go_to_callback( LLSD(), LLSD(0) );
 
 	return true;
 }
 
 
 //static
-void handle_go_to_callback(S32 option, void *userdata)
+bool handle_go_to_callback(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
-		LLToolPie* pie = (LLToolPie*)userdata;
+		LLToolPie* pie = LLToolPie::getInstance();
 
 		// JAMESDEBUG try simulator autopilot
 		std::vector<std::string> strings;
