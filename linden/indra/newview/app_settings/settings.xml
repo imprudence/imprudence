@@ -4581,7 +4581,17 @@
       <key>Value</key>
       <string>0.0.0</string>
     </map>
-  
+    <key>LastSelectedGrid</key>
+    <map>
+      <key>Comment</key>
+      <string>Last grid selected from the grid pulldown</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>String</string>
+      <key>Value</key>
+      <string />
+    </map>
     <key>LastSnapshotToEmailHeight</key>
     <map>
       <key>Comment</key>
