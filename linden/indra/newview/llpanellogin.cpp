@@ -981,7 +981,6 @@ void LLPanelLogin::onClickConnect(void *)
 		}
 	}
 }
-}
 
 void LLPanelLogin::onClickGrid(void *)
 {

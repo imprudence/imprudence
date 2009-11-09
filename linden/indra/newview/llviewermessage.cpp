@@ -1127,21 +1127,6 @@ bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD&
 	switch(button)
 	{
 	case IOR_ACCEPT:
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Added: RLVa-0.2.2a
-		// Only change the inventory offer's destination folder to the shared root if:
-		//   - the user has enabled the feature
-		//   - the inventory offer came from a script (and specifies a folder)
-		//   - the name starts with the prefix [mDesc format (quotes are part of the string): "[OBJECTNAME] ( http://slurl.com/... )"]
-		if ( (rlv_handler_t::isEnabled()) && (!RlvSettings::getForbidGiveToRLV()) && 
-			 (IM_TASK_INVENTORY_OFFERED == info->mIM) && (LLAssetType::AT_CATEGORY == info->mType) && (info->mDesc.find(RLV_PUTINV_PREFIX) == 1) )
-		{
-			LLViewerInventoryCategory* pRlvRoot = gRlvHandler.getSharedRoot();
-			if (pRlvRoot)
-			{
-				info->mFolderID = pRlvRoot->getUUID();
-			}
-		}
-// [/RLVa:KB]
 		// ACCEPT. The math for the dialog works, because the accept
 		// for inventory_offered, task_inventory_offer or
 		// group_notice_inventory is 1 greater than the offer integer value.
@@ -5037,31 +5022,8 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 		payload["object_name"] = object_name;
 		payload["owner_name"] = owner_name;
 
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0e
-		S32 rlvQuestionsOther = questions;
-
-		if ( (rlv_handler_t::isEnabled()) && (gRlvHandler.hasBehaviour(RLV_BHVR_ACCEPTPERMISSION)) )
-		{
-			LLViewerObject* pObj = gObjectList.findObject(taskid);
-			if (pObj)
-			{
-				if (pObj->permYouOwner())
-				{
-					// PERMISSION_TAKE_CONTROLS and PERMISSION_ATTACH are only auto-granted to objects this avie owns
-					rlvQuestionsOther &= ~(LSCRIPTRunTimePermissionBits[SCRIPT_PERMISSION_TAKE_CONTROLS] | 
-						LSCRIPTRunTimePermissionBits[SCRIPT_PERMISSION_ATTACH]);
-				}
-			}
-		}
-
-		if ( (!caution) && (!rlvQuestionsOther) )
-		{
-			script_question_cb(0, cbdata);
-		}
-		else if (gSavedSettings.getBOOL("PermissionsCautionEnabled"))
-// [/RLVa:KB]
 		// check whether cautions are even enabled or not
-		//if (gSavedSettings.getBOOL("PermissionsCautionEnabled"))
+		if (gSavedSettings.getBOOL("PermissionsCautionEnabled"))
 		{
 			// display the caution permissions prompt
 			LLNotifications::instance().add(caution ? "ScriptQuestionCaution" : "ScriptQuestion", args, payload);
@@ -5392,21 +5354,6 @@ bool handle_lure_callback(const LLSD& notification, const LLSD& response)
 
 	if(0 == option)
 	{
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0b
-		bool fRlvCensorMessage = false;
-		if (gRlvHandler.hasBehaviour(RLV_BHVR_SENDIM))
-		{
-			for (LLDynamicArray<LLUUID>::iterator it = invitees->begin(); it != invitees->end(); ++it)
-			{
-				if (!gRlvHandler.isException(RLV_BHVR_SENDIM, *it))
-				{
-					fRlvCensorMessage = true;
-					break;
-				}
-			}
-		}
-// [/RLVa:KB]
-
 		LLMessageSystem* msg = gMessageSystem;
 		msg->newMessageFast(_PREHASH_StartLure);
 		msg->nextBlockFast(_PREHASH_AgentData);
@@ -5414,10 +5361,7 @@ bool handle_lure_callback(const LLSD& notification, const LLSD& response)
 		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 		msg->nextBlockFast(_PREHASH_Info);
 		msg->addU8Fast(_PREHASH_LureType, (U8)0); // sim will fill this in.
-// [RLVa:KB] - Version: 1.22.11 | Checked: 2009-07-10 (RLVa-1.0.0g) | Modified: RLVa-0.2.0b
-		msg->addStringFast(_PREHASH_Message, (!fRlvCensorMessage) ? text : rlv_handler_t::cstrHidden);
-// [/RLVa:KB]
-		//msg->addStringFast(_PREHASH_Message, text);
+		msg->addStringFast(_PREHASH_Message, text);
 		for(LLSD::array_const_iterator it = notification["payload"]["ids"].beginArray();
 			it != notification["payload"]["ids"].endArray();
 			++it)
@@ -5613,14 +5557,12 @@ void process_script_dialog(LLMessageSystem* msg, void**)
 					&& ((mutes[i].mName == agent_name)))
 			)
 			{
-				delete info;
 				return;
 			}
 		}
 	}
 	// or Scriptdialog boxes from muted objects -- Kakurady
-	if (LLMuteList::getInstance()->isMuted(info->mObjectID, title)){
-		delete info;
+	if (LLMuteList::getInstance()->isMuted(object_id, title)){
 		return;
 	}
 
@@ -5673,7 +5615,7 @@ void process_script_dialog(LLMessageSystem* msg, void**)
 					if((*itr).second > gSavedSettings.getF32("SpamCount"))
 					{
 						blacklisted_names.put(agent_name);
-						LL_INFOS("process_script_dialog") << "blocked " << info->mObjectID.asString() << " owned by " << agent_name << LL_ENDL;//" (" << key.asString() << ")" <<LL_ENDL;
+						LL_INFOS("process_script_dialog") << "blocked " << object_id.asString() << " owned by " << agent_name << LL_ENDL;//" (" << key.asString() << ")" <<LL_ENDL;
 						return;
 					}
 					else

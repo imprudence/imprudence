@@ -4,6 +4,12 @@
 
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* llpanellogin and llviewermessage now compile.
+	
+	  modified:   linden/indra/newview/llpanellogin.cpp
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  
+	
 	* Updated several menu entries to 1.23.
 	
 	  modified:   linden/indra/newview/llviewermenu.cpp
