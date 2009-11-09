@@ -1068,7 +1068,6 @@ void init_debug_ui_menu(LLMenuGL* menu)
 	menu->append(new LLMenuItemCheckGL("Show search panel in overlay bar", menu_toggle_control, NULL, menu_check_control, (void*)"ShowSearchBar"));
 	menu->appendSeparator();
 
-	// For Imprudence 1.3 - need to XUIfy
 	menu->append(new LLMenuItemCallGL("Web Browser Test", &handle_web_browser_test));
 	// For Imprudence 1.3 - need to XUIfy
 	// commented out until work is complete: DEV-32268
@@ -2443,11 +2442,11 @@ bool handle_go_to_confirm()
 
 	if (action == "teleport")
 	{
-		LLNotifications::instance().add("ConfirmDoubleClickTP", , LLSD(), LLSD(), &handle_go_to_callback);
+		LLNotifications::instance().add("ConfirmDoubleClickTP", LLSD(), LLSD(), &handle_go_to_callback);
 	}
 	else if (action == "autopilot")
 	{
-		LLNotifications::instance().add("ConfirmAutoPilot", , LLSD(), LLSD(), &handle_go_to_callback);
+		LLNotifications::instance().add("ConfirmAutoPilot", LLSD(), LLSD(), &handle_go_to_callback);
 	}
 	return true;
 }
@@ -9124,16 +9123,16 @@ class LLAdvancedDumpRegionObjectCache : public view_listener_t
 
 
 
-////////////////
-// SLURL TEST //
-////////////////
+//////////////////////
+// WEB BROWSER TEST //
+//////////////////////
 
 
-class LLAdvancedSLURLTest : public view_listener_t
+class LLAdvancedWebBrowserTest : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		handle_slurl_test(NULL);
+		handle_web_browser_test(NULL);
 		return true;
 	}
 };
@@ -10387,24 +10386,6 @@ class LLAdvancedCompressImage : public view_listener_t
 
 
 
-//////////////////////
-// CLOTHING FLOATER //
-//////////////////////
-
-
-class LLAdvancedToggleClothingFloater : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		handle_clothing(NULL);
-		return true;
-	}
-};
-
-// There is no LLAdvancedCheckClothingFloater.
-
-
-
 /////////////////////////
 // SHOW DEBUG SETTINGS //
 /////////////////////////
@@ -10628,7 +10609,6 @@ void initialize_menus()
 	addMenu(new LLZoomer(1/1.2f), "View.ZoomIn");
 	addMenu(new LLZoomer(DEFAULT_FIELD_OF_VIEW, false), "View.ZoomDefault");
 	addMenu(new LLViewFullscreen(), "View.Fullscreen");
-	addMenu(new LLViewDefaultUISize(), "View.DefaultUISize"); //unused - now in preferences > general -- McCabe
 
 	addMenu(new LLViewEnableMouselook(), "View.EnableMouselook");
 	addMenu(new LLViewEnableJoystickFlycam(), "View.EnableJoystickFlycam");
@@ -10854,7 +10834,7 @@ void initialize_menus()
 	addMenu(new LLAdvancedDumpRegionObjectCache(), "Advanced.DumpRegionObjectCache");
 
 	// Advanced > UI
-	addMenu(new LLAdvancedSLURLTest(), "Advanced.SLURLTest");
+	addMenu(new LLAdvancedWebBrowserTest(), "Advanced.WebBrowserTest");
 	addMenu(new LLAdvancedToggleEditableUI(), "Advanced.ToggleEditableUI");
 	//addMenu(new LLAdvancedCheckEditableUI(), "Advanced.CheckEditableUI");
 	addMenu(new LLAdvancedDumpSelectMgr(), "Advanced.DumpSelectMgr");
@@ -10950,7 +10930,6 @@ void initialize_menus()
 	addMenu(new LLAdvancedToggleShowObjectUpdates(), "Advanced.ToggleShowObjectUpdates");
 	addMenu(new LLAdvancedCheckShowObjectUpdates(), "Advanced.CheckShowObjectUpdates");
 	addMenu(new LLAdvancedCompressImage(), "Advanced.CompressImage");
-	addMenu(new LLAdvancedToggleClothingFloater(), "Advanced.ToggleClothingFloater");
 	addMenu(new LLAdvancedShowDebugSettings(), "Advanced.ShowDebugSettings");
 	addMenu(new LLAdvancedToggleViewAdminOptions(), "Advanced.ToggleViewAdminOptions");
 	addMenu(new LLAdvancedCheckViewAdminOptions(), "Advanced.CheckViewAdminOptions");

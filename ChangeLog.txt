@@ -4,6 +4,12 @@
 
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Removed unused menu entries (still merging 1.23).
+	
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
 	* Updated asset browser from old font system.
 	
 	  modified:   linden/indra/newview/llfloaterassetbrowser.cpp

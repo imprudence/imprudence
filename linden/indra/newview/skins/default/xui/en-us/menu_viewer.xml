@@ -1476,8 +1476,8 @@
     <menu name="UI" drop_shadow="true"
           opaque="true" tear_off="true">
 
-      <menu_item_call name="SLURL Test" label="SLURL Test">
-        <on_click function="Advanced.SLURLTest" userdata="" />
+      <menu_item_call name="Web Browser Test" label="Web Browser Test">
+        <on_click function="Advanced.WebBrowserTest" userdata="" />
       </menu_item_call>
 
       <!--
@@ -2001,11 +2001,6 @@
       <on_click function="ToggleControl"
                 userdata="SaveMinidump" />
       <on_check control="SaveMinidump" />
-    </menu_item_check>
-    <menu_item_check name="Clothing..."
-                     label="Clothing...">
-      <on_click function="Advanced.ToggleClothingFloater"
-                userdata="" />
     </menu_item_check>
     <menu_item_check name="Allow Multiple Instances"
             label="Allow Multiple Instances">
