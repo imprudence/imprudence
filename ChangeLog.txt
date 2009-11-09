@@ -4,6 +4,11 @@
 
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Updated asset browser from old font system.
+	
+	  modified:   linden/indra/newview/llfloaterassetbrowser.cpp
+	  
+	  
 	* Media browser now compiles (TODO: rewrite this file again).
 	
 	  modified:   linden/indra/newview/llfloaterhtmlhelp.cpp

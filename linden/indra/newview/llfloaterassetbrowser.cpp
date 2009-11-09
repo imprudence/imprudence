@@ -87,7 +87,7 @@ void LLFloaterAssetBrowser::initialize()
 	S32 image_top = getRect().getHeight();
 	S32 image_bottom = BTN_HEIGHT_SMALL;
 	S32 image_middle = (image_top + image_bottom) / 2;
-	S32 line_height = llround(LLFontGL::sSansSerifSmall->getLineHeight());
+	S32 line_height = llround(LLFontGL::getFontSansSerifSmall()->getLineHeight());
 	
 	mNoAssetsLabel = new LLTextBox("mNoAssetsLabel.", 
 										LLRect(getRect().getWidth()/2,
@@ -95,7 +95,7 @@ void LLFloaterAssetBrowser::initialize()
 												getRect().getWidth(),
 												image_middle - line_height / 2 ),
 										"No assets found.",
-										LLFontGL::sSansSerifSmall );
+										LLFontGL::getFontSansSerifSmall() );
 	mNoAssetsLabel->setFollowsAll();
 	addChild(mNoAssetsLabel);
 	mNoAssetsLabel->setVisible(FALSE);
@@ -314,7 +314,7 @@ void LLFloaterAssetBrowser::draw()
 				info_rect.mLeft = border.mLeft;
 				info_rect.mTop = border.mBottom - 3;
 				info_rect.mRight = border.mLeft + 130;
-				info_rect.mBottom = border.mBottom - 2*llround(LLFontGL::sSansSerifSmall->getLineHeight());
+				info_rect.mBottom = border.mBottom - 2*llround(LLFontGL::getFontSansSerifSmall()->getLineHeight());
 
 				gl_rect_2d(border, LLColor4::black, FALSE);
 				
@@ -350,7 +350,7 @@ void LLFloaterAssetBrowser::draw()
 						mAssetInfoLabel = new LLTextBox("Asset Info"/*mTextureAssets[i].mAssetInfo*/,
 														info_rect,
 														asset_info,
-														LLFontGL::sSansSerifSmall);
+														LLFontGL::getFontSansSerifSmall());
 						mAssetInfoLabel->setFollowsAll();
 						mAssetInfoLabelList.push_back(mAssetInfoLabel);
 						addChild(mAssetInfoLabelList[mAssetInfoIndex]);
