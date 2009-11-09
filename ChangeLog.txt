@@ -1,3 +1,10 @@
+2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added Geneko Nemeth and Lilly Zenovka to About > Imprudence.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_about.xml
+
+
 2009-11-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Finally packaged up Mac libraries.
