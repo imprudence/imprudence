@@ -19,6 +19,19 @@
 
 2009-11-08 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed Sunset being mislabeled as Midday in windlight toolbar.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
+
+
+	* Remember the last logged in grid between sessions. 
+	
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/hippoGridManager.cpp
+	  modified:   linden/indra/newview/llpanellogin.cpp
+
+
 	* Attempted to make the Advanced shortcut play nice with Linux in XUI.
 	  
 	  modified:   linden/indra/llui/llmenugl.cpp

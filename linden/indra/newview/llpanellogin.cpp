@@ -728,7 +728,9 @@ void LLPanelLogin::addServer(const std::string& server)
 	}
 	else
 	{
-		grids->setSimple(defaultGrid);
+		std::string last_grid = gSavedSettings.getString("LastSelectedGrid");
+		if (last_grid.empty()) last_grid = defaultGrid;
+		grids->setSimple(last_grid);
 	}
 
 	//LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
@@ -1185,6 +1187,9 @@ void LLPanelLogin::onSelectServer(LLUICtrl* ctrl, void*)
 
 	// grid changed so show new splash screen (possibly)
 	loadLoginPage();
+
+	// save grid choice to settings
+	gSavedSettings.setString("LastSelectedGrid", mCurGrid);
 }
 /*
 void LLPanelLogin::onServerComboLostFocus(LLFocusableElement* fe, void*)
