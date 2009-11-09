@@ -4,6 +4,11 @@
 
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Attachment size limits need to use the max prim size set in llmanipscale.
+	
+	  modified:   linden/indra/newview/llvoavatar.cpp
+	  
+	  
 	* Updated streaming video callback in llviewerparcelmedia.
 	
 	  modified:   linden/indra/newview/llviewerparcelmedia.cpp
