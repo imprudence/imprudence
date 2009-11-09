@@ -4,6 +4,11 @@
 
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Updated several menu entries to 1.23.
+	
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  
+	  
 	* Removed unused menu entries (still merging 1.23).
 	
 	  modified:   linden/indra/newview/llviewermenu.cpp

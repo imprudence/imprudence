@@ -2473,12 +2473,10 @@ bool handle_go_to_callback(const LLSD& notification, const LLSD& response)
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
-		LLToolPie* pie = LLToolPie::getInstance();
-
 		// JAMESDEBUG try simulator autopilot
 		std::vector<std::string> strings;
 		std::string val;
-		LLVector3d pos = pie->getPick().mPosGlobal;
+		LLVector3d pos = LLToolPie::getInstance()->getPick().mPosGlobal;
 
 		std::string action = gSavedSettings.getString("GoAction");
 		LLStringUtil::toLower(action);
@@ -2522,6 +2520,7 @@ bool handle_go_to_callback(const LLSD& notification, const LLSD& response)
 			llwarns << "Unhandled GoAction setting: " << action << llendl;
 		}
 	}
+	return false;
 }
 
 class LLGoToObject : public view_listener_t
@@ -6727,8 +6726,7 @@ class LLToolsSetBulkPerms : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLFloaterBulkPermission* queue = NULL;
-		queue = LLFloaterBulkPermission::create();
+		LLFloaterBulkPermission::showInstance();
 		return true;
 	}
 };
@@ -9590,23 +9588,23 @@ class LLAdvancedGrabBakedTexture : public view_listener_t
 		std::string texture_type = userdata.asString();
 		if ("eyes" == texture_type)
 		{
-			handle_grab_texture( (void*)LLVOAvatar::TEX_EYES_BAKED );
+			handle_grab_texture( (void*)TEX_EYES_BAKED );
 		}
 		else if ("head" == texture_type)
 		{
-			handle_grab_texture( (void*)LLVOAvatar::TEX_HEAD_BAKED );
+			handle_grab_texture( (void*)TEX_HEAD_BAKED );
 		}
 		else if ("upper" == texture_type)
 		{
-			handle_grab_texture( (void*)LLVOAvatar::TEX_UPPER_BAKED );
+			handle_grab_texture( (void*)TEX_UPPER_BAKED );
 		}
 		else if ("lower" == texture_type)
 		{
-			handle_grab_texture( (void*)LLVOAvatar::TEX_SKIRT_BAKED );
+			handle_grab_texture( (void*)TEX_SKIRT_BAKED );
 		}
 		else if ("skirt" == texture_type)
 		{
-			handle_grab_texture( (void*)LLVOAvatar::TEX_SKIRT_BAKED );
+			handle_grab_texture( (void*)TEX_SKIRT_BAKED );
 		}
 
 		return true;
@@ -9622,23 +9620,23 @@ class LLAdvancedEnableGrabBakedTexture : public view_listener_t
 
 		if ("iris" == texture_type)
 		{
-			new_value = enable_grab_texture( (void*)LLVOAvatar::TEX_EYES_BAKED );
+			new_value = enable_grab_texture( (void*)TEX_EYES_BAKED );
 		}
 		else if ("head" == texture_type)
 		{
-			new_value = enable_grab_texture( (void*)LLVOAvatar::TEX_HEAD_BAKED );
+			new_value = enable_grab_texture( (void*)TEX_HEAD_BAKED );
 		}
 		else if ("upper" == texture_type)
 		{
-			new_value = enable_grab_texture( (void*)LLVOAvatar::TEX_UPPER_BAKED );
+			new_value = enable_grab_texture( (void*)TEX_UPPER_BAKED );
 		}
 		else if ("lower" == texture_type)
 		{
-			new_value = enable_grab_texture( (void*)LLVOAvatar::TEX_LOWER_BAKED );
+			new_value = enable_grab_texture( (void*)TEX_LOWER_BAKED );
 		}
 		else if ("skirt" == texture_type)
 		{
-			new_value = enable_grab_texture( (void*)LLVOAvatar::TEX_SKIRT_BAKED );
+			new_value = enable_grab_texture( (void*)TEX_SKIRT_BAKED );
 		}
 		
 		std::string control_name = userdata["control"].asString();
@@ -10069,7 +10067,7 @@ class LLAdvancedToggleShowCollisionSkeleton : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLVOAvatar::sShowCollisionVolumes = !(LLVOAvatar::sShowCollisionVolumes);
+		LLPipeline::toggleRenderDebugControl((void*)LLPipeline::RENDER_DEBUG_AVATAR_VOLUME);
 		return true;
 	}
 };
@@ -10078,7 +10076,7 @@ class LLAdvancedCheckShowCollisionSkeleton : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		bool new_value = LLVOAvatar::sShowCollisionVolumes;
+		bool new_value = gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_AVATAR_VOLUME);
 		std::string control_name = userdata["control"].asString();
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;
@@ -10096,7 +10094,7 @@ class LLAdvancedToggleDisplayAgentTarget : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLAgent::sDebugDisplayTarget = !(LLAgent::sDebugDisplayTarget);
+		LLPipeline::toggleRenderDebugControl((void*)LLPipeline::RENDER_DEBUG_AGENT_TARGET);
 		return true;
 	}
 };
@@ -10105,7 +10103,7 @@ class LLAdvancedCheckDisplayAgentTarget : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		bool new_value = LLAgent::sDebugDisplayTarget;
+		bool new_value = gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_AGENT_TARGET);
 		std::string control_name = userdata["control"].asString();
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;
@@ -10123,7 +10121,7 @@ class LLAdvancedToggleDebugAvatarRotation : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		gDebugAvatarRotation = !(gDebugAvatarRotation);
+		LLVOAvatar::sDebugAvatarRotation = !(LLVOAvatar::sDebugAvatarRotation);
 		return true;
 	}
 };
@@ -10132,7 +10130,7 @@ class LLAdvancedCheckDebugAvatarRotation : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		bool new_value = gDebugAvatarRotation;
+		bool new_value = LLVOAvatar::sDebugAvatarRotation;
 		std::string control_name = userdata["control"].asString();
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;
