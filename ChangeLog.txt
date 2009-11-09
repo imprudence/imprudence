@@ -4,6 +4,11 @@
 
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Updated streaming video callback in llviewerparcelmedia.
+	
+	  modified:   linden/indra/newview/llviewerparcelmedia.cpp
+	  
+	  
 	* llpanellogin and llviewermessage now compile.
 	
 	  modified:   linden/indra/newview/llpanellogin.cpp

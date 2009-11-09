@@ -388,8 +388,12 @@ bool callback_play_media(const LLSD& notification, const LLSD& response, LLParce
 	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (option == 0)
 	{
-		LLParcel* parcel = (LLParcel*)data;
+		gSavedSettings.setBOOL("AudioStreamingVideo", TRUE);
 		LLViewerParcelMedia::play(parcel);
+	}
+	else
+	{
+		gSavedSettings.setBOOL("AudioStreamingVideo", FALSE);
 	}
 	gSavedSettings.setWarning("FirstStreamingVideo", FALSE);
 	return false;
