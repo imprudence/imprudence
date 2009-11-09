@@ -154,11 +154,11 @@ void LLWindlightRemoteCtrl::refreshPresets()
 		}
 		
 		// insert separator and add World menu options
-		mPresetsCombo->addSeparator(ADD_BOTTOM);
-		mPresetsCombo->addSimpleElement(getString("atmosphere"), ADD_BOTTOM);
-		mPresetsCombo->addSimpleElement(getString("lighting"), ADD_BOTTOM);
-		mPresetsCombo->addSimpleElement(getString("clouds"), ADD_BOTTOM);
-		mPresetsCombo->addSimpleElement(getString("advanced_water"), ADD_BOTTOM);
+		// mPresetsCombo->addSeparator(ADD_BOTTOM);
+		// mPresetsCombo->addSimpleElement(getString("atmosphere"), ADD_BOTTOM);
+		// mPresetsCombo->addSimpleElement(getString("lighting"), ADD_BOTTOM);
+		// mPresetsCombo->addSimpleElement(getString("clouds"), ADD_BOTTOM);
+		// mPresetsCombo->addSimpleElement(getString("advanced_water"), ADD_BOTTOM);
 		mPresetsCombo->addSeparator(ADD_BOTTOM);
 		mPresetsCombo->addSimpleElement(getString("sunrise"), ADD_BOTTOM);
 		mPresetsCombo->addSimpleElement(getString("noon"), ADD_BOTTOM);
