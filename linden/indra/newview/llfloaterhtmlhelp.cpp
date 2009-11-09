@@ -62,7 +62,9 @@ LLFloaterMediaBrowser::LLFloaterMediaBrowser(const LLSD& media_data)
 
 void LLFloaterMediaBrowser::draw()
 {
-	childSetEnabled("go", !mAddressCombo->getValue().asString().empty());
+	BOOL url_exists = !mAddressCombo->getValue().asString().empty();
+	childSetEnabled("go", url_exists);
+	childSetEnabled("set_home", url_exists);
 	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if(parcel)
 	{
@@ -88,6 +90,8 @@ BOOL LLFloaterMediaBrowser::postBuild()
 	childSetAction("close", onClickClose, this);
 	childSetAction("open_browser", onClickOpenWebBrowser, this);
 	childSetAction("assign", onClickAssign, this);
+	childSetAction("home", onClickHome, this);
+	childSetAction("set_home", onClickSetHome, this);
 
 	buildURLHistory();
 	return TRUE;
@@ -150,6 +154,7 @@ void LLFloaterMediaBrowser::onLocationChange( const EventType& eventIn )
 	childSetEnabled("back", mBrowser->canNavigateBack());
 	childSetEnabled("forward", mBrowser->canNavigateForward());
 	childSetEnabled("reload", TRUE);
+	gSavedSettings.setString("BrowserLastVisited", truncated_url);
 }
 
 LLFloaterMediaBrowser* LLFloaterMediaBrowser::showInstance(const LLSD& media_url)
@@ -158,6 +163,46 @@ LLFloaterMediaBrowser* LLFloaterMediaBrowser::showInstance(const LLSD& media_url
 
 	floaterp->openMedia(media_url.asString());
 	return floaterp;
+}
+
+//static
+void LLFloaterMediaBrowser::toggle()
+{
+	LLFloaterMediaBrowser* self = LLFloaterMediaBrowser::getInstance();
+
+	if(self->getVisible())
+	{
+		self->close();
+	}
+	else
+	{
+		//Show home url if new session, last visited if not
+		std::string last_url = gSavedSettings.getString("BrowserLastVisited");
+		if(last_url.empty()) 
+			last_url = gSavedSettings.getString("BrowserHome");
+		showInstance(last_url);
+	}
+}
+
+//static
+void LLFloaterMediaBrowser::helpF1()
+{
+	std::string url = gSavedSettings.getString("HelpSupportURL");
+	LLSD payload;
+    payload["url"] = url;
+		
+	LLNotifications::instance().add("ClickOpenF1Help", LLSD(), payload, onClickF1HelpLoadURL);	
+}
+ 
+// static
+bool LLFloaterMediaBrowser::onClickF1HelpLoadURL(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+	if (option == 0)
+	{
+		LLWeb::loadURL(notification["payload"]["url"].asString());
+	}
+	return false;
 }
 
 //static 

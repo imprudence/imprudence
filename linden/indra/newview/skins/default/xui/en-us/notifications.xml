@@ -4107,7 +4107,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    type="alertmodal">
     Visit the [SECOND_LIFE] Support Website? (note: this is not an Imprudence Help site)
     <usetemplate
-     ignoretext="When visiting the Second Life Support Website."
+     ignoretext="When visiting the Support Website."
      name="okcancelignore"
      notext="Cancel"
      yestext="Go"/>

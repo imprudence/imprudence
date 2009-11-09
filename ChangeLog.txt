@@ -4,6 +4,13 @@
 
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Media browser now compiles (TODO: rewrite this file again).
+	
+	  modified:   linden/indra/newview/llfloaterhtmlhelp.cpp
+	  modified:   linden/indra/newview/llfloaterhtmlhelp.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/notifications.x
+
+
 	* Moved 1.2 alerts to the new notification system.
 	
 	  modified:   linden/indra/newview/llfloatertools.cpp
