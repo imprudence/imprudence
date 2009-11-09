@@ -1730,6 +1730,7 @@ bool LLAppViewer::initConfiguration()
 	LLFirstUse::addConfigVariable("FirstBalanceDecrease");
 	LLFirstUse::addConfigVariable("FirstSit");
 	LLFirstUse::addConfigVariable("FirstMap");
+	LLFirstUse::addConfigVariable("FirstMiniMap");
 	LLFirstUse::addConfigVariable("FirstGoTo");
 	LLFirstUse::addConfigVariable("FirstBuild");
 	LLFirstUse::addConfigVariable("FirstLeftClickNoHit");

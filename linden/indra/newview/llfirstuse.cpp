@@ -142,7 +142,7 @@ void LLFirstUse::useMiniMap()
 	{
 		gSavedSettings.setWarning("FirstMiniMap", FALSE);
 
-		LLNotifyBox::showXml("FirstMiniMap");
+		LLNotifications::instance().add("FirstMiniMap");
 	}
 }
 

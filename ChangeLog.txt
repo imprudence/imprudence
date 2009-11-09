@@ -3,7 +3,12 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 2009-11-08 McCabe Maxsted  <hakushakukun@gmail.com>
-
+	
+	* Removed unused CMake resource files.
+	
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  
+	  
 	* Merged in nearly-done 1.2 with 1.3.
 
 	  Conflicts: 

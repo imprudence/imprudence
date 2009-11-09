@@ -836,11 +836,6 @@ and display different backgrounds.
 		</message>
 	</notify>
 <!-- TODO: Make sure all the notifications from Imprudence <= 1.2 are out of here before deleting this. -->
-  <notify name="FirstMiniMap" tip="false">
-    <message name="message">
-      Right-click the Mini-Map for more options.
-    </message>
-  </notify>
 	<notify name="FirstBuild" tip="false">
 		<message name="message">
 			You can build new objects in some areas of [SECOND_LIFE].

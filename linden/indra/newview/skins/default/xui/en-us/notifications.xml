@@ -6021,6 +6021,13 @@ Use the controls on the right to find things and display different backgrounds.
 
   <notification
    icon="notify.tga"
+   name="FirstMiniMap"
+   type="notify">
+Right-click the Mini-Map for more options.
+  </notification>
+
+  <notification
+   icon="notify.tga"
    name="FirstBuild"
    type="notify">
 You can build new objects in some areas of [SECOND_LIFE].
