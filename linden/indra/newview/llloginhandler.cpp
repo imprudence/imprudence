@@ -75,8 +75,8 @@ void LLLoginHandler::parse(const LLSD& queryMap)
 	mFirstName = queryMap["first_name"].asString();
 	mLastName = queryMap["last_name"].asString();
 	
-
-	EGridInfo grid_choice = GRID_INFO_NONE;
+	// Deprecated in favor of the new grid manager - MC
+	/*EGridInfo grid_choice = GRID_INFO_NONE;
 	if (queryMap["grid"].asString() == "sl beta grid")
 	{
 		grid_choice = GRID_INFO_ADITI;
@@ -89,7 +89,7 @@ void LLLoginHandler::parse(const LLSD& queryMap)
 	if(grid_choice != GRID_INFO_NONE)
 	{
 		LLViewerLogin::getInstance()->setGridChoice(grid_choice);
-	}
+	}*/
 
 	std::string startLocation = queryMap["location"].asString();
 

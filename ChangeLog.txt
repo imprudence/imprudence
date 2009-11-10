@@ -4,6 +4,11 @@
 
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Removed deprecated EGridInfo from llloginhandler.
+	
+	  modified:   linden/indra/newview/llloginhandler.cpp
+	  
+	  
 	* Updated primbackup from latest meerkat svn (r246).
 	
 	  modified:   linden/indra/newview/primbackup.cpp
