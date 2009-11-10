@@ -69,6 +69,8 @@ public:
 
 	static void	toggle();
 	static void	helpF1();
+
+private:
 	static void onEnterAddress(LLUICtrl* ctrl, void* user_data);
 	static void onClickRefresh(void* user_data);
 	static void onClickBack(void* user_data);
@@ -81,7 +83,6 @@ public:
 	static void onClickSetHome(void* user_data);
 	static bool onClickF1HelpLoadURL(const LLSD& notification, const LLSD& response);
 
-private:
 	LLWebBrowserCtrl* mBrowser;
 	LLComboBox* mAddressCombo;
 	std::string mCurrentURL;

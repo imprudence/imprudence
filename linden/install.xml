@@ -195,9 +195,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>d2b2ad9b46b9981c2a6be7c912bd17b4</string>
+            <string>286cca0d0fc3fb301b158672fb6465f6</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/boost-1.34.1-windows-20080723.tar.bz2</uri>
+            <uri>http://www.lawlinter.net/data/boost-1.36.0-windows-20090626.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -726,9 +726,9 @@ anguage Infrstructure (CLI) international standard</string>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>200bdf3c5a5489210fcee965f639a3f9</string>
+            <string>c781cd9846cf20afb90ac40ad1a0ce9d</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/libpng-1.2.34-1-windows-04172009.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/libpng-1.2.35-windows-20090917.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -1014,9 +1014,9 @@ anguage Infrstructure (CLI) international standard</string>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>8a75180cae12d268071c090abb031ba5</string>
+            <string>dd85209081b832e836de6e1538541d89</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openSSL-0.9.7c-windows-20080613.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openSSL-0.9.8j-windows-20090129.tar.bz2</uri>
           </map>
         </map>
       </map>

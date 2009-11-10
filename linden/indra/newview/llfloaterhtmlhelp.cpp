@@ -307,6 +307,8 @@ public:
 	virtual void draw();
 	
 	static void show(std::string url, std::string title);
+
+private:
 	static void onClickBack( void* data );
 	static void onClickHome( void* data );
 	static void onClickForward( void* data );
@@ -321,7 +323,6 @@ public:
 
 	static bool onClickF1HelpLoadURL(const LLSD& notification, const LLSD& response);
 
-protected:
 	LLWebBrowserCtrl* mWebBrowser;
 	static LLFloaterHtmlHelp* sInstance;
 	LLButton* mBackButton;

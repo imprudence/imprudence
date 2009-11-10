@@ -60,9 +60,7 @@
 #endif
 
 // Single Precision Floating Point Routines
-#ifndef fsqrtf
-#define fsqrtf(x)		((F32)sqrt((F64)(x)))
-#endif
+#if _MSC_VER < 1400
 #ifndef sqrtf
 #define sqrtf(x)		((F32)sqrt((F64)(x)))
 #endif
@@ -82,6 +80,11 @@
 
 #ifndef powf
 #define powf(x,y) ((F32)pow((F64)(x),(F64)(y)))
+#endif
+#endif
+
+#ifndef fsqrtf
+#define fsqrtf(x)		sqrtf(x)
 #endif
 
 const F32	GRAVITY			= -9.8f;

@@ -2,6 +2,18 @@
 =-                        1.3.0                           -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-11-10 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Viewer compiles, but still trying to get everything to link on Windows.
+	
+	  modified:   linden/indra/cmake/Boost.cmake
+	  modified:   linden/indra/llcommon/linden_common.h
+	  modified:   linden/indra/llmath/llmath.h
+	  modified:   linden/indra/newview/llfloaterhtmlhelp.cpp
+	  modified:   linden/indra/newview/llfloaterhtmlhelp.h
+	  modified:   linden/install.xml
+
+
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed llstartup header issue and removed WIN32_LEAN_AND_MEAN define. 
