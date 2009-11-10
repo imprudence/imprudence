@@ -30,14 +30,7 @@
  * $/LicenseInfo$
  */
 
-// #include "llviewerprecompiledheaders.h"
-
-
-#if LL_WINDOWS
-	#define WIN32_LEAN_AND_MEAN
-	#include <winsock2.h>
-	#include <windows.h>
-#endif
+#include "llviewerprecompiledheaders.h"
 
 #include "llstartup.h"
 

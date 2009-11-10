@@ -4,6 +4,11 @@
 
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed llstartup header issue and removed WIN32_LEAN_AND_MEAN define. 
+	
+	  modified:   linden/indra/newview/llstartup.cpp
+	   
+
 	* Removed deprecated EGridInfo from llloginhandler.
 	
 	  modified:   linden/indra/newview/llloginhandler.cpp
