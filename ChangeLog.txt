@@ -1,3 +1,10 @@
+2009-11-12 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed Hide Group Titles preferences option.
+	
+	  modified:   linden/indra/newview/llvoavatar.cpp
+	  
+
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added Geneko Nemeth and Lilly Zenovka to About > Imprudence.
