@@ -4,6 +4,11 @@
 
 2009-11-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed linker error (onClickHome in llfloaterhtmlhelp.cpp).
+	
+	  modified:   linden/indra/newview/llfloaterhtmlhelp.cpp
+	  
+	  
 	* Disable unreachable code in boost/lexical_cast.hpp errors in Windows.
 	
 	  modified:   linden/indra/newview/llpaneldirfind.cpp

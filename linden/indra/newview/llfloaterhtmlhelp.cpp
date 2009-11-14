@@ -283,8 +283,35 @@ void LLFloaterMediaBrowser::onClickAssign(void* user_data)
 	LLViewerParcelMgr::getInstance()->sendParcelPropertiesUpdate( parcel, true );
 	// now check for video
 	LLViewerParcelMedia::update( parcel );
+}
 
+// static
+void LLFloaterMediaBrowser::onClickHome(void* user_data)
+{
+	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
+	if (self)
+	{
+		if (self->mBrowser)
+		{
+			std::string home_url = gSavedSettings.getString("BrowserHome");
+			self->mBrowser->navigateTo(home_url);
+		}
+	}
+}
 
+void LLFloaterMediaBrowser::onClickSetHome(void* user_data)
+{
+	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
+	std::string url = self->mCurrentURL;
+	if(!url.empty())
+	{
+		LLChat chat;
+		std::string log_message = LLTrans::getString("new_home_page") + " ";
+		log_message += url;
+		chat.mText = log_message;
+		LLFloaterChat::addChat(chat, FALSE, FALSE);
+		gSavedSettings.setString("BrowserHome", url);
+	}
 }
 
 void LLFloaterMediaBrowser::openMedia(const std::string& media_url)
@@ -310,7 +337,7 @@ public:
 
 private:
 	static void onClickBack( void* data );
-	static void onClickHome( void* data );
+	//static void onClickHome( void* data );
 	static void onClickForward( void* data );
 	static void onClickClose( void* data );
 	
@@ -352,7 +379,7 @@ LLFloaterHtmlHelp::LLFloaterHtmlHelp(std::string start_url, std::string title)
 	LLUICtrlFactory::getInstance()->buildFloater( this, "floater_html_help.xml" );
 		
 	childSetAction("back_btn", onClickBack, this);
-	childSetAction("home_btn", onClickHome, this);
+	//childSetAction("home_btn", onClickHome, this);
 	childSetAction("forward_btn", onClickForward, this);
 
 	if (!title.empty())
@@ -485,36 +512,6 @@ void LLFloaterHtmlHelp::onClickBack( void* data )
 			self->mWebBrowser->navigateBack();
 		};
 	};
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-void LLFloaterMediaBrowser::onClickHome(void* user_data)
-{
-	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
-	if (self)
-	{
-		if (self->mBrowser)
-		{
-			std::string home_url = gSavedSettings.getString("BrowserHome");
-			self->mBrowser->navigateTo(home_url);
-		}
-	}
-}
-
-void LLFloaterMediaBrowser::onClickSetHome(void* user_data)
-{
-	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
-	std::string url = self->mCurrentURL;
-	if(!url.empty())
-	{
-		LLChat chat;
-		std::string log_message = LLTrans::getString("new_home_page") + " ";
-		log_message += url;
-		chat.mText = log_message;
-		LLFloaterChat::addChat(chat, FALSE, FALSE);
-		gSavedSettings.setString("BrowserHome", url);
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
