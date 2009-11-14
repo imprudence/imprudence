@@ -4,6 +4,12 @@
 
 2009-11-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Force Imprudence to use the correst boost libraries, e.g:
+	  #pragma comment( lib, "libboost_signals-vc80-mt-1_36.lib" )
+	
+	  modified:   linden/indra/newview/llappviewerwin32.cpp
+	  
+	  
 	* Fixed linker error (onClickHome in llfloaterhtmlhelp.cpp).
 	
 	  modified:   linden/indra/newview/llfloaterhtmlhelp.cpp
