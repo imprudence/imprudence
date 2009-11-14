@@ -2,6 +2,14 @@
 =-                        1.3.0                           -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-11-12 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Disable unreachable code in boost/lexical_cast.hpp errors in Windows.
+	
+	  modified:   linden/indra/newview/llpaneldirfind.cpp
+	  modified:   linden/indra/newview/llvoavatar.cpp
+
+
 2009-11-10 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Viewer compiles, but still trying to get everything to link on Windows.

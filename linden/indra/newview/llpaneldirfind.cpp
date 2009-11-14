@@ -63,7 +63,14 @@
 #include "llpaneldirbrowser.h"
 
 #include <boost/tokenizer.hpp>
-#include <boost/lexical_cast.hpp>
+#if LL_WINDOWS
+	// Disable warning for unreachable code in boost/lexical_cast.hpp for Boost 1.36 -- McCabe
+	#pragma warning(disable : 4702)
+#include "boost/lexical_cast.hpp"
+	#pragma warning(default : 4702)
+#else
+#include "boost/lexical_cast.hpp"
+#endif
 
 //---------------------------------------------------------------------------
 // LLPanelDirFindAll - Google search appliance based search

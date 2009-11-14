@@ -83,7 +83,14 @@
 #include "llvoiceclient.h"
 #include "llvoicevisualizer.h" // Ventrella
 
+#if LL_WINDOWS
+	// Disable warning for unreachable code in boost/lexical_cast.hpp for Boost 1.36 -- McCabe
+	#pragma warning(disable : 4702)
 #include "boost/lexical_cast.hpp"
+	#pragma warning(default : 4702)
+#else
+#include "boost/lexical_cast.hpp"
+#endif
 // [RLVa:KB]
 #include "llstartup.h"
 // [/RLVa:KB]
