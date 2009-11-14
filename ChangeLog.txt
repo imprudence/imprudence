@@ -2,6 +2,14 @@
 =-                        1.3.0                           -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+2009-11-14 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Moved blog and forums menu option alerts to new notifications system.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/notifications.x
+
+
 2009-11-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Force Imprudence to use the correst boost libraries, e.g:

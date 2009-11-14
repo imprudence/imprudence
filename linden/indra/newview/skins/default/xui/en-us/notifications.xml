@@ -6592,6 +6592,31 @@ IM history could not be found for [NAME].
      yestext="OK"/>
   </notification>
 
+  <notification
+    icon="alert.tga"
+    name="WebLaunchImprudenceBlog"
+    type="alert">
+Go to the Official Imprudence Blog, for the Latest News and Information.
+    <usetemplate
+     ignoretext="When launching web browser to view the blog"
+     name="okcancelignore"
+     notext="Cancel"
+     yestext="Go to page"/>
+  </notification>
+
+  <notification
+  icon="alert.tga"
+  name="WebLaunchImprudenceForums"
+  type="alert">
+Go to the Official Imprudence Forums to discuss the Imprudence Project.
+    <usetemplate
+     ignoretext="When launching web browser to view the forums"
+     name="okcancelignore"
+     notext="Cancel"
+     yestext="Go to page"/>
+  </notification>
+
+
     <!--End Imprudence notifications-->
 
   <global name="UnsupportedCPU">

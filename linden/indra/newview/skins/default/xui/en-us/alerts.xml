@@ -832,48 +832,6 @@ Download to your Applications folder?
 			Cancel
 		</option>
 	</alert>
-	<alert modal="true" name="WebLaunchImprudenceBlog">
-		<message name="message">
-			Go to the Official Imprudence Blog, for the Latest News and Information.
-		</message>
-		<ignore name="ignore">
-			When launching web browser to view the blog
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
-	<alert modal="true" name="WebLaunchImprudenceForums">
-		<message name="message">
-			Go to the Official Imprudence Forums to discuss the Imprudence Project.
-		</message>
-		<ignore name="ignore">
-			When launching web browser to view the forums
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
-	<alert modal="true" name="WebLaunchLSLGuide">
-		<message name="message">
-			Go to the Scripting Guide for scripting help?
-		</message>
-		<ignore name="ignore">
-			When launching web browser to view the Scripting Guide
-		</ignore>
-		<option name="Gotopage">
-			OK
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
 	<alert modal="true" name="WebLaunchLSLWiki">
 		<message name="message">
 			Go to the LSL Portal for scripting help?
