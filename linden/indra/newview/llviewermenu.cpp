@@ -1062,9 +1062,9 @@ extern BOOL gDebugSelectMgr;
 
 void init_debug_ui_menu(LLMenuGL* menu)
 {
-	// For Imprudence 1.3 - need to XUIfy
+	// For Imprudence 1.3 - need to XUIfy (or move back to preferences?)
 	menu->append(new LLMenuItemCheckGL("Use default system color picker", menu_toggle_control, NULL, menu_check_control, (void*)"UseDefaultColorPicker"));
-	// For Imprudence 1.3 - need to XUIfy
+	// For Imprudence 1.3 - need to XUIfy (or remove to advance our marxist schemes!)
 	menu->append(new LLMenuItemCheckGL("Show search panel in overlay bar", menu_toggle_control, NULL, menu_check_control, (void*)"ShowSearchBar"));
 	menu->appendSeparator();
 
@@ -1409,17 +1409,14 @@ void init_debug_avatar_menu(LLMenuGL* menu)
 	//menu->append(new LLMenuItemToggleGL("Show Attachment Points", &LLVOAvatar::sShowAttachmentPoints));
 	//diabling collision plane due to DEV-14477 -brad
 	//menu->append(new LLMenuItemToggleGL("Show Collision Plane", &LLVOAvatar::sShowFootPlane));
-	// For Imprudence 1.3 - need to XUIfy
 	menu->append(new LLMenuItemCheckGL("Show Collision Skeleton",
 									   &LLPipeline::toggleRenderDebug, NULL,
 									   &LLPipeline::toggleRenderDebugControl,
 									   (void*)LLPipeline::RENDER_DEBUG_AVATAR_VOLUME));
-	// For Imprudence 1.3 - need to XUIfy
 	menu->append(new LLMenuItemCheckGL("Display Agent Target",
 									   &LLPipeline::toggleRenderDebug, NULL,
 									   &LLPipeline::toggleRenderDebugControl,
 									   (void*)LLPipeline::RENDER_DEBUG_AGENT_TARGET));
-	// For Imprudence 1.3 - need to XUIfy
 	menu->append(new LLMenuItemToggleGL( "Debug Rotation", &LLVOAvatar::sDebugAvatarRotation));
 	menu->append(new LLMenuItemCallGL("Dump Attachments", handle_dump_attachments));
 	menu->append(new LLMenuItemCallGL("Refresh Appearance", handle_rebake_textures, NULL, NULL, 'R', MASK_ALT | MASK_CONTROL ));
