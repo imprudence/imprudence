@@ -4,6 +4,18 @@
 
 	  modified:   linden/indra/llmedia/llmediaimplgstreamervidplug.cpp
 
+
+2009-11-14  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Combined and updated the LICENSE-libraries.txt files.
+
+	  modified:   indra/newview/viewer_manifest.py
+	  deleted:    LICENSE-libraries-linux.txt
+	  deleted:    LICENSE-libraries-mac.txt
+	  deleted:    LICENSE-libraries-win32.txt
+	  new file:   LICENSE-libraries.txt
+
+
 2009-11-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed Hide Group Titles preferences option.
