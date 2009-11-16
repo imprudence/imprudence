@@ -79,10 +79,10 @@ static void
 gst_slvideo_base_init (gpointer gclass)
 {
 	static GstElementDetails element_details = {
-		"PluginTemplate",
-		"Generic/PluginTemplate",
-		"Generic Template Element",
-		"Linden Lab"
+		(gchar*)"PluginTemplate",
+		(gchar*)"Generic/PluginTemplate",
+		(gchar*)"Generic Template Element",
+		(gchar*)"Linden Lab"
 	};
 	GstElementClass *element_class = GST_ELEMENT_CLASS (gclass);
 	

@@ -1,3 +1,9 @@
+2009-11-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed a warning about converting string literal to gchar*.
+
+	  modified:   linden/indra/llmedia/llmediaimplgstreamervidplug.cpp
+
 2009-11-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed Hide Group Titles preferences option.
