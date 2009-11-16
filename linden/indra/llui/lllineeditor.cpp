@@ -439,7 +439,7 @@ S32 LLLineEditor::calculateCursorFromMouse( S32 local_mouse_x )
 	{
 		for (S32 i = 0; i < mText.length(); i++)
 		{
-			asterix_text += '*';
+			asterix_text += (llwchar) 0x2022L;
 		}
 		wtext = asterix_text.c_str();
 	}
@@ -1938,7 +1938,7 @@ void LLLineEditor::draw()
 		std::string text;
 		for (S32 i = 0; i < mText.length(); i++)
 		{
-			text += '*';
+			text += "\xe2\x80\xa2";
 		}
 		mText = text;
 	}
