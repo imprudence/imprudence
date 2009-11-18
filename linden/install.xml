@@ -543,9 +543,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>674b2a79cef8ddd28f53b28b44dcffe2</string>
+            <string>2b0e8b6a17db9398475b1d40a4563bdf</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux-20091009.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux-20091115.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -587,9 +587,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>591900261bddbe3d1e579f7e6070081a</string>
+            <string>605ecd92affb57ed3c70f7564b8bc6b5</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.24-linux-20091005.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.24-linux-20091115.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -616,9 +616,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>2cce992f4506fbc11f827aa80eb499f4</string>
+            <string>627aef3c307aed6d2c013bdfa11bb0af</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20091008.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20091115.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -646,9 +646,9 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>143844d33c5075bf30f8af1fd86a6f09</string>
+            <string>47b7c6261940bcedf86e681bd93ec2cc</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gtk-etc-linux-20091008.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gtk-etc-linux-20091115.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -946,9 +946,9 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>cec4328f5808b49836c467831a5f285e</string>
+            <string>922f4bc6a8091d07a988b983cafe7a5a</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/libxml2-2.7.4-r1-linux-20091005.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/libxml2-2.7.4-r1-linux-20091115.tar.bz2</uri>
           </map>
           <key>linux32</key>
           <map>
@@ -1099,9 +1099,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>06fbae603d942f22445b265009e65d10</string>
+            <string>c8582be73def7f40fdc236ba9e33b4ac</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/neon-darwin-20091108.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/neon-0.28.4-darwin-20091109.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -1158,9 +1158,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>92c614b34fc283588625805076d58e93</string>
+            <string>72bde567859934024c8a4a70b97b24f5</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/ogg-vorbis-linux-20091003.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/ogg-vorbis-linux-20091115.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
@@ -1198,9 +1198,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>6f69d70ec18a3c3c2dee81bf6331c784</string>
+            <string>5017e0c2b24c6c31956ce7e33b0443af</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/openal-linux-20091009.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/openal-linux-20091115.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -1366,9 +1366,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>a6e6e250efaf3f25db4699d9b5dfec4b</string>
+            <string>e01af61872bc77d74eb0620a9f4c9f4e</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/theora-linux-20091003.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/theora-linux-20091115.tar.bz2</uri>
           </map>
         </map>
       </map>

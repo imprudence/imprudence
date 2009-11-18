@@ -1,3 +1,10 @@
+2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed licensing in several Linux library packages.
+
+	  modified:   linden/install.xml
+
+
 2009-11-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Fixed a warning about converting string literal to gchar*.
