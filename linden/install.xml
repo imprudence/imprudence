@@ -822,6 +822,13 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/liboil-0.3.15-darwin-20091107.tar.bz2</uri>
           </map>
+          <key>linux</key>
+          <map>
+            <key>md5sum</key>
+            <string>5ab0f986317b1a5c4f1682ad1972c318</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/liboil-0.3.16-linux-20091118.tar.bz2</uri>
+          </map>
         </map>
       </map>
       <key>libpng</key>

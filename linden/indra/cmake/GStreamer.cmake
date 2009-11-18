@@ -97,6 +97,7 @@ else (WINDOWS)
 
   else (DARWIN) # Linux
 
+    use_prebuilt_binary(liboil)
     use_prebuilt_binary(theora)
 
     set(GSTREAMER_LIBRARIES

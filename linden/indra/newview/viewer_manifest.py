@@ -839,6 +839,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libtheora.so.0")
             self.path("libvorbis.so.0")
             self.path("libvorbisenc.so.2")
+            self.path("liboil-0.3.so.0")
 
             # Gstreamer plugins
             if self.prefix("gstreamer-plugins"):

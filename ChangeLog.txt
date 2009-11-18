@@ -1,5 +1,13 @@
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Added Linux package for liboil 0.3.16.
+	  It's needed by some GStreamer plugins.
+
+	  modified:   linden/indra/cmake/GStreamer.cmake
+	  modified:   linden/indra/newview/viewer_manifest.py
+	  modified:   linden/install.xml
+
+
 	* VWR-12620: Linux compile fails with -O2 (--type=Release)
 	  Patch by Alissa Sabre.
 
