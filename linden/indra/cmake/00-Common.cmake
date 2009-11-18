@@ -112,15 +112,16 @@ if (LINUX)
     endif (NOT ${GXX_VERSION} MATCHES " 4.1.*Red Hat")
   endif (${GXX_VERSION} STREQUAL ${CXX_VERSION})
 
-  # GCC 4.3 introduces a pile of obnoxious new warnings, which we
-  # treat as errors due to -Werror.  Quiet the most offensive and
-  # widespread of them.
 
-  if (${CXX_VERSION} MATCHES "4.3")
-    add_definitions(-Wno-deprecated -Wno-parentheses)
-  endif (${CXX_VERSION} MATCHES "4.3")
+  # Silence certain types of compiler warnings, to prevent them from
+  # breaking compile (due to -Werror treating them as errors).
 
-  # End of hacks.
+  add_definitions(
+    -Wno-deprecated
+    -Wno-parentheses
+    -Wno-unused-variable
+    )
+
 
   add_definitions(
       -DLL_LINUX=1

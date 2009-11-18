@@ -1,5 +1,10 @@
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Silenced some compiler warnings on Linux.
+
+	  modified:   linden/indra/cmake/00-Common.cmake
+
+
 	* Fixed copyright/licensing info for OpenAL on Mac.
 
 	  modified:   linden/LICENSE-libraries.txt
