@@ -1,5 +1,13 @@
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* VWR-12620: Linux compile fails with -O2 (--type=Release)
+	  Patch by Alissa Sabre.
+
+	  modified:   doc/contributions.txt
+	  modified:   indra/llmessage/lltemplatemessagereader.cpp
+	  modified:   indra/llwindow/llwindowsdl.cpp
+
+
 	* Removed prepackaged libstdc++ (Linux only). Fixes VWR-12404.
 
 	  modified:   linden/indra/cmake/ViewerMiscLibs.cmake
