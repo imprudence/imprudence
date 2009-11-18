@@ -1191,9 +1191,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>f20924232e2ecc8ba351e3819b178e6e</string>
+            <string>dfa26aab94c6f1ec09ce432777e18d2f</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/openal-darwin-20091107.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/openal-darwin-20091118.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>

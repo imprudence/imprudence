@@ -1,5 +1,11 @@
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Fixed copyright/licensing info for OpenAL on Mac.
+
+	  modified:   linden/LICENSE-libraries.txt
+	  modified:   linden/install.xml
+
+
 	* Fixed licensing in several Linux library packages.
 
 	  modified:   linden/install.xml
