@@ -1,5 +1,10 @@
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Fixed more warnings about converting string to gchar*
+
+	  modified:   linden/indra/llmedia/llmediaimplgstreamervidplug.cpp
+
+
 	* Silenced some compiler warnings on Linux.
 
 	  modified:   linden/indra/cmake/00-Common.cmake
