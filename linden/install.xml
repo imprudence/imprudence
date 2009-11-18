@@ -871,39 +871,6 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           </map>
         </map>
       </map>
-      <key>libstdc++</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright (C) 2007 Free Software Foundation, Inc. &lt;http://fsf.org/&gt;</string>
-        <key>description</key>
-        <string>Bundled library.</string>
-        <key>license</key>
-        <string>gpl</string>
-        <key>packages</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>md5sum</key>
-            <string>1464a75ec87ee28e3b4f7840e9af41e3</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/libstdc++-6.0-linux-20080812.tar.bz2</uri>
-          </map>
-          <key>linux32</key>
-          <map>
-            <key>md5sum</key>
-            <string>1218347dd70c3b471530793d0fc09b69</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/libstdc++-6.4.1-linux-i686-gcc-4.1-20080915.tar.bz2</uri>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>9a191dc453017b19c5803b046d82f32a</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/libstdc++-6.4.1-linux64-20080909.tar.bz2</uri>
-          </map>
-        </map>
-      </map>
       <key>libuuid</key>
       <map>
         <key>copyright</key>
