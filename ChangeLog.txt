@@ -66,6 +66,11 @@
 
 2009-11-18 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Removed old unused reference to gProductName in windows updater.
+	
+	  modified:   linden/indra/win_updater/updater.cpp
+	  
+	  
 	* Cleaned up a harmless bad merge in llimagej2coj.cpp.
 	
 	  modified:   linden/indra/llimagej2coj/llimagej2coj.cpp

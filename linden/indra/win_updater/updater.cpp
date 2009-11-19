@@ -350,16 +350,6 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	// Parse the command line arguments
 	//
 	int parse_args_result = parse_args(argc, argv);
-	WCHAR window_title[2048];
-	if (gProductName)
-	{
-		mbstowcs(window_title, gProductName, 2048);
-		wcscat(window_title, L" Updater");		/* Flawfinder: ignore */
-	}
-	else
-	{
-		mbstowcs(window_title, "Imprudence Updater", 2048);
-	}
 	
 	WNDCLASSEX wndclassex = { 0 };
 	DEVMODE dev_mode = { 0 };
