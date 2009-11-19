@@ -95,7 +95,10 @@
 
    This is precisely the sort of project we propose to undertake.
    Because our approach is incautious, and perhaps even reckless, we
-   have dubbed the project Imprudence. Goals
+   have dubbed the project Imprudence.
+
+
+ GOALS
 
    The primary goal of Imprudence is simple: to greatly improve the
    usability of the Viewer. In particular, there are 3 aspects of
