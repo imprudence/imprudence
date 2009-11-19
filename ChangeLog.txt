@@ -1,10 +1,94 @@
+2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed a compile blocker in LLVoSky::stepCurrent().
+
+	  modified:   linden/indra/newview/llvosky.h
+
+
+	* Updated Linux boost package to 1.39.0.
+
+	  modified:   install.xml
+
+
+	* Removed non-English credits sections in the About floater.
+	  They will default to the English versions, so we don't have to
+	  maintain many copies of the same text.
+
+	  modified: linden/indra/newview/skins/default/xui/de/floater_about.xml
+	  modified: linden/indra/newview/skins/default/xui/fr/floater_about.xml
+	  modified: linden/indra/newview/skins/default/xui/ja/floater_about.xml
+	  modified: linden/indra/newview/skins/default/xui/ko/floater_about.xml
+	  modified: linden/indra/newview/skins/default/xui/zh/floater_about.xml
+
+
+	* Added Linux package for liboil 0.3.16.
+	  It's needed by some GStreamer plugins.
+
+	  modified:   linden/indra/cmake/GStreamer.cmake
+	  modified:   linden/indra/newview/viewer_manifest.py
+	  modified:   linden/install.xml
+
+
+	* VWR-12620: Linux compile fails with -O2 (--type=Release)
+	  Patch by Alissa Sabre.
+
+	  modified:   doc/contributions.txt
+	  modified:   indra/llmessage/lltemplatemessagereader.cpp
+	  modified:   indra/llwindow/llwindowsdl.cpp
+
+
+	* Removed prepackaged libstdc++ (Linux only). Fixes VWR-12404.
+
+	  modified:   linden/indra/cmake/ViewerMiscLibs.cmake
+	  modified:   linden/install.xml
+
+
+	* Fixed more warnings about converting string to gchar*
+
+	  modified:   linden/indra/llmedia/llmediaimplgstreamervidplug.cpp
+
+
+	* Silenced some compiler warnings on Linux.
+
+	  modified:   linden/indra/cmake/00-Common.cmake
+
+
+	* Fixed copyright/licensing info for OpenAL on Mac.
+
+	  modified:   linden/LICENSE-libraries.txt
+	  modified:   linden/install.xml
+
+
+	* Fixed licensing in several Linux library packages.
+
+	  modified:   linden/install.xml
+
+
 2009-11-18 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Cleaned up a harmless bad merge in llimagej2coj.cpp.
 	
 	  modified:   linden/indra/llimagej2coj/llimagej2coj.cpp
-	   
-	   
+
+
+2009-11-15  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed a warning about converting string literal to gchar*.
+
+	  modified:   linden/indra/llmedia/llmediaimplgstreamervidplug.cpp
+
+
+2009-11-14  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Combined and updated the LICENSE-libraries.txt files.
+
+	  modified:   indra/newview/viewer_manifest.py
+	  deleted:    LICENSE-libraries-linux.txt
+	  deleted:    LICENSE-libraries-mac.txt
+	  deleted:    LICENSE-libraries-win32.txt
+	  new file:   LICENSE-libraries.txt
+
+
 2009-11-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed Hide Group Titles preferences option.

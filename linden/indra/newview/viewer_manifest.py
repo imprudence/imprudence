@@ -197,7 +197,7 @@ class WindowsManifest(ViewerManifest):
         self.gather_documents()
 
         if self.prefix("../..", dst="doc"):
-            self.path("LICENSE-libraries-win32.txt")
+            self.path("LICENSE-libraries.txt")
             self.end_prefix("../..")
 
 
@@ -490,7 +490,7 @@ class DarwinManifest(ViewerManifest):
 
                 # From the linden directory
                 if self.prefix("../..", dst="doc"):
-                    self.path("LICENSE-libraries-mac.txt")
+                    self.path("LICENSE-libraries.txt")
                     self.end_prefix("../..")
 
                 self.gather_documents()
@@ -715,7 +715,7 @@ class LinuxManifest(ViewerManifest):
 
         # From the linden directory
         if self.prefix("../..", dst="doc"):
-            self.path("LICENSE-libraries-linux.txt")
+            self.path("LICENSE-libraries.txt")
             self.end_prefix("../..")
 
         # Create an appropriate gridargs.dat for this package, denoting required grid.
@@ -839,6 +839,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libtheora.so.0")
             self.path("libvorbis.so.0")
             self.path("libvorbisenc.so.2")
+            self.path("liboil-0.3.so.0")
 
             # Gstreamer plugins
             if self.prefix("gstreamer-plugins"):
