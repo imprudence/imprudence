@@ -39,6 +39,11 @@
       <on_click function="Object.ImportUpload" />
       <on_enable function="Object.EnableImport" />
     </menu_item_call>
+    <menu_item_call name="Export" label="Export Selected Objects..."
+                    enabled="false">
+      <on_click function="Object.Export" />
+      <on_enable function="Object.EnableExport" />
+    </menu_item_call>
     <menu_item_separator />
     <menu_item_call name="Close Window"
                     label="Close Window"

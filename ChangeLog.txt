@@ -1,5 +1,10 @@
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Added "File > Export Selected Objects..."
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
 	* Added "(L$[COST] per texture)" to "Import + Upload..."
 
 	  modified: linden/indra/newview/llviewermenu.cpp
