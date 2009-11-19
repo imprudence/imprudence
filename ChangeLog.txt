@@ -1,3 +1,8 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                         1.2.0                          -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* SNOW-108: Fast timers fail on non i386 systems
@@ -10,7 +15,7 @@
 
 	* Added "File > Export Selected Objects..."
 
-	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+	  modified: linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
 
 
 	* Added "(L$[COST] per texture)" to "Import + Upload..."
@@ -91,12 +96,12 @@
 2009-11-18 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Removed old unused reference to gProductName in windows updater.
-	
+
 	  modified:   linden/indra/win_updater/updater.cpp
-	  
-	  
+
+
 	* Cleaned up a harmless bad merge in llimagej2coj.cpp.
-	
+
 	  modified:   linden/indra/llimagej2coj/llimagej2coj.cpp
 
 
@@ -121,14 +126,14 @@
 2009-11-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed Hide Group Titles preferences option.
-	
+
 	  modified:   linden/indra/newview/llvoavatar.cpp
-	  
+
 
 2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added Geneko Nemeth and Lilly Zenovka to About > Imprudence.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_about.xml
 
 
@@ -154,26 +159,26 @@
 2009-11-08 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed Sunset being mislabeled as Midday in windlight toolbar.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote.xml
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
 
 
-	* Remember the last logged in grid between sessions. 
-	
+	* Remember the last logged in grid between sessions.
+
 	  modified:   linden/indra/newview/app_settings/settings.xml
 	  modified:   linden/indra/newview/hippoGridManager.cpp
 	  modified:   linden/indra/newview/llpanellogin.cpp
 
 
 	* Attempted to make the Advanced shortcut play nice with Linux in XUI.
-	  
+
 	  modified:   linden/indra/llui/llmenugl.cpp
 	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
-	
-	  
+
+
 	* Changed version to 1.20 in other files.
-	
+
 	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
 	  modified:   linden/indra/newview/Info-Imprudence.plist
 	  modified:   linden/indra/newview/res/viewerRes.rc
@@ -206,19 +211,19 @@
 	  modified:   linden/indra/newview/skins/default/xui/pt/alerts.xml
 	  modified:   linden/indra/newview/skins/default/xui/pt/notify.xml
 	  modified:   linden/indra/newview/skins/default/xui/zh/alerts.xml
-	  
-	  
+
+
 2009-11-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Check for different versions of boost in build math files (also fixes broken build math functions).
-	
+
 	  modified:   linden/indra/llmath/llcalc.cpp
 	  modified:   linden/indra/llmath/llcalcparser.cpp
 	  modified:   linden/indra/llmath/llcalcparser.h
 
 
 	* Upped version to 1.2.0 RC1.
-	
+
 	  modified:   linden/indra/llcommon/llversionviewer.h
 	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
 	  modified:   linden/indra/newview/Info-Imprudence.plist
@@ -226,17 +231,17 @@
 
 
 	* Fixed login page not updating after logout.
-	
+
 	  modified:   linden/indra/newview/llpanellogin.cpp
-	  
-	  
+
+
 	* Fixed login grid combobox not updating correctly after logout.
-	
+
 	  modified:   linden/indra/newview/llpanellogin.cpp
-	  
-	  
+
+
 	* Applied RLVa-1.0.5e_20091107_Imprudence-1.2.0-diff.patch.
-	
+
 	  modified:   linden/indra/newview/llagent.cpp
 	  modified:   linden/indra/newview/llfloateropenobject.cpp
 	  modified:   linden/indra/newview/llinventorybridge.cpp
@@ -256,10 +261,10 @@
 	  modified:   linden/indra/newview/rlvhandler.h
 	  modified:   linden/indra/newview/rlvhelper.cpp
 	  modified:   linden/indra/newview/rlvhelper.h
-	  
-	  
+
+
 	* Changed default UIScaleFactor to 1.002 as a workaround to some font rendering issues.
-	
+
 	  modified:   linden/indra/newview/app_settings/settings.xml
 	  modified:   linden/indra/newview/llpanelgeneral.cpp
 
@@ -379,13 +384,13 @@
 	  Very high numbers cause mysterious rounding problems.
 
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_chat_bar.xml
-	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_chat_history.xml: 
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_chat_history.xml:
 
 
 2009-10-21 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added Advanced menu option for AllowMultipleViewers for testing purposes.
-	
+
 	  modified:   linden/indra/newview/llviewermenu.cpp
 	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
 
@@ -394,29 +399,29 @@
 
 	* Partial fix for avatar names not displaying at > 1024m
 	  (won't be fixed until LL actually sends height in more than one byte -_-)
-	  
+
 	  modified:   linden/indra/newview/llfloatermap.cpp
-	  
+
 
 	* Clamp map teleporting at 4096 rather than 1000.
-	
+
 	  modified:   linden/indra/newview/llfloaterworldmap.cpp
-	  
+
 
 	* Applied rlva_init-imprudence.patch (fixes RLVa not initializing in 1.2).
-	  
+
 	  modified:   linden/indra/newview/llappviewer.cpp
 	  modified:   linden/indra/newview/llstartup.cpp
-	  
+
 
 2009-10-17 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Ported notecard security fix from LL's 1.23.5 viewer.
-	
+
 	  modified:   linden/indra/newview/llassetuploadresponders.cpp
 	  modified:   linden/indra/newview/llpreview.cpp
 	  modified:   linden/indra/newview/llpreview.h
-	  
+
 
 2009-10-16 McCabe Maxsted  <hakushakukun@gmail.com>
 
@@ -437,12 +442,12 @@
 	  modified:   linden/indra/newview/rlvhandler.h
 	  modified:   linden/indra/newview/rlvhelper.cpp
 	  modified:   linden/indra/newview/rlvhelper.h
-	  
+
 
 2009-10-13 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Applied patch for VWR-6787 by Alissa Sabre - 'none' text in group window not translatable.
-	
+
 	  modified:   indra/newview/llfloatergroups.cpp
 	  modified:   indra/newview/skins/default/xui/de/floater_choose_group.xml
 	  modified:   indra/newview/skins/default/xui/de/panel_groups.xml
@@ -452,34 +457,34 @@
 	  modified:   indra/newview/skins/default/xui/ja/panel_groups.xml
 	  modified:   indra/newview/skins/default/xui/ko/floater_choose_group.xml
 	  modified:   indra/newview/skins/default/xui/ko/panel_groups.xml
-	  
-	
+
+
 	* Combine the two mini-map mute buttons into one.
-	
+
 	  modified:   linden/indra/newview/llfloatermap.cpp
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
-	  
-	  
+
+
 	* Parcel highlighting when selecting a name in radar is less buggy.
-	
+
 	  modified:   linden/indra/newview/llfloatermap.cpp
 	  modified:   linden/indra/newview/llfloatermap.h
 	  modified:   linden/indra/newview/llviewermessage.cpp
 
 
 	* Added history button for group chat as well.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml
 
 
-	* Disable IM history button for Linux and Mac users. 
-	
+	* Disable IM history button for Linux and Mac users.
+
 	  modified:   linden/indra/newview/llimpanel.cpp
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml
 
 
 	* Applied show IM logs button from Emerald viewer and added an alert if there is no history.
-	
+
 	  modified:   linden/indra/llwindow/llwindow.h
 	  modified:   linden/indra/llwindow/llwindowwin32.cpp
 	  modified:   linden/indra/llwindow/llwindowwin32.h
@@ -490,7 +495,7 @@
 
 
 	* Updated inventory search to include description (from Emerald).
-	
+
 	  modified:   linden/indra/newview/llfolderview.cpp
 	  modified:   linden/indra/newview/llfolderview.h
 	  modified:   linden/indra/newview/llinventoryactions.cpp
@@ -499,44 +504,44 @@
 
 
 	* Disable avatar appearance facelight when local lighting turned off.
-	
+
 	  modified:   linden/indra/newview/pipeline.cpp
-	  
-	  
+
+
 2009-10-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Only enable import/export of shapes if they're full perm and you're the creator.
-	
+
 	  modified:   linden/indra/newview/llfloatercustomize.cpp
-	  
-	  
+
+
 	* Removed Emerald viewer modifier for avatar height label in customize window.
-	
+
 	  modified:   linden/indra/newview/llfloatercustomize.cpp
-	  
-	  
+
+
 	* Added avatar shape import and export from Meerkat viewer.
-	
+
 	  modified:   linden/indra/newview/llfloatercustomize.cpp
 	  modified:   linden/indra/newview/llfloatercustomize.h
 	  modified:   linden/indra/newview/llwearable.cpp
 	  modified:   linden/indra/newview/llwearable.h
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_customize.xml
-	  
+
 
 	* Added check/uncheck all buttons for make outfit from Meerkat viewer.
-	
+
 	  modified:   linden/indra/newview/llfloatercustomize.cpp
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_new_outfit_dialog.xml
 
 
 	* Removed reference to 'Second Life' from postcard message a la Meerkat.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_postcard.xml
 
 
 	* Added script load/save from Meerkat viewer.
-	
+
 	  modified:   linden/indra/newview/llfilepicker.cpp
 	  modified:   linden/indra/newview/llfilepicker.h
 	  modified:   linden/indra/newview/llpreviewscript.cpp
@@ -549,17 +554,17 @@
 2009-10-11 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added particle count to windlight toolbar.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
 
 
 	* Made advanced water toggle.
-	
+
 	  modified:   linden/indra/newview/llfloaterwater.cpp
-	  
-	
+
+
 	* Added advanced water and windlight sky tabs to sky presets pulldown.
-	
+
 	  modified:   linden/indra/newview/llfloaterwindlight.cpp
 	  modified:   linden/indra/newview/llfloaterwindlight.h
 	  modified:   linden/indra/newview/llwindlightremotectrl.cpp
@@ -568,7 +573,7 @@
 
 
 	* Added next/prev buttons to windlight water window.
-	
+
 	  modified:   linden/indra/newview/llfloaterwater.cpp
 	  modified:   linden/indra/newview/llfloaterwater.h
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_water.xml
@@ -577,12 +582,12 @@
 2009-10-10 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Force minimize button focus to the top of Mini-Map.
-	
+
 	  modified:   linden/indra/newview/llfloatermap.cpp
-	  
-	  
+
+
 	* Added and tweaked vertical IM option from Emerald viewer.
-	
+
 	  new file:   linden/indra/newview/skins/default/xui/en-us/floater_chatterbox_vertical.xml
 	  modified:   linden/indra/newview/app_settings/settings.xml
 	  modified:   linden/indra/newview/llfloaterchatterbox.cpp
@@ -593,6 +598,7 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                      1.2.0 BETA 2                      -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 
 2009-10-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
@@ -609,7 +615,7 @@
 2009-10-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Updated version info to 1.2.0 beta 2, added changelog banner.
-	
+
 	  modified:   linden/indra/llcommon/llversionviewer.h
 	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
 	  modified:   linden/indra/newview/Info-Imprudence.plist
@@ -617,58 +623,58 @@
 
 
 	* Fixed new search window size hiding next/prev buttons.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_directory.xml
-	  
-	  
+
+
 	* Mini-map can now be minimized.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_mini_map.xml
-	  
-	  
+
+
 	* Added missing RLVa header file: rlvdefines.h.
-	
+
 	  new file:   linden/indra/newview/rlvdefines.h
-	  
+
 
 2009-10-08 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Applied lldialog spam throttle from Emerald viewer.
-	
+
 	  modified:   linden/indra/newview/app_settings/settings.xml
 	  modified:   linden/indra/newview/llviewermessage.cpp
 
 
 	* Don't show lldialog boxes from muted avatars anymore.
-	
+
 	  modified:   linden/indra/newview/llviewermessage.cpp
-	  
-	  
+
+
 	* Fixed money change notification happening after logout/login.
-	
+
 	  modified:   linden/indra/newview/llviewermessage.cpp
-	  
-	  
+
+
 	* Fixed entering sim notification being tied to radar range.
-	
+
 	  modified:   linden/indra/newview/llfloatermap.cpp
-	  
-	  
+
+
 	* Fixed stupid error on my part that broke clickable names in chat history.
-	
+
 	  modified:   linden/indra/newview/llfloaterchat.cpp
-	
-	
-2009-10-07 McCabe Maxsted  <hakushakukun@gmail.com>  
-	  
-	* Clickable IMs in chat history was causing readability problems at varying distances, 
+
+
+2009-10-07 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Clickable IMs in chat history was causing readability problems at varying distances,
 	  decided it was a bug and fixed it.
-	  
+
 	  modified:   linden/indra/newview/llfloaterchat.cpp
-	  
-	  
+
+
 	* Mini-map radar now can notify you when someone enters the sim.
-	
+
 	  modified:   linden/indra/newview/app_settings/settings.xml
 	  modified:   linden/indra/newview/llfloatermap.cpp
 	  modified:   linden/indra/newview/llfloatermap.h
@@ -678,7 +684,7 @@
 
 
 	* Added typing info to mini-map radar.
-	
+
 	  modified:   linden/indra/newview/llfloatermap.cpp
 	  modified:   linden/indra/newview/llfloatermap.h
 	  modified:   linden/indra/newview/llviewermessage.cpp
@@ -686,20 +692,20 @@
 
 
 	* Applied avatar height in customize window from Emerald viewer.
-	
+
 	  modified:   linden/indra/newview/llfloatercustomize.cpp
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_customize.xml
-	  
-	  
+
+
 	* Fixed random mouseclicks on the edge of the window.
-	
+
 	  modified:   linden/indra/newview/llviewerwindow.cpp
 
 
 2009-10-06 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Applied RLVa-1.0.3e_20091005_Imprudence-1.2.0-diff.patch by Kitty Barnett.
-	
+
 	  modified:   linden/indra/newview/CMakeLists.txt
 	  modified:   linden/indra/newview/app_settings/settings.xml
 	  modified:   linden/indra/newview/llfirstuse.cpp
@@ -717,10 +723,10 @@
 
 
 modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
-	
-	
+
+
 	* Applied RLVa-1.0.2c_20091005_Imprudence-1.2.0-diff.patch by Kitty Barnett.
-	
+
 	  modified:   linden/indra/newview/llinventorybridge.cpp
 	  modified:   linden/indra/newview/lltooldraganddrop.cpp
 	  modified:   linden/indra/newview/llviewermenu.cpp
@@ -729,29 +735,29 @@ modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
 	  modified:   linden/indra/newview/rlvhandler.h
 	  modified:   linden/indra/newview/rlvhelper.cpp
 	  modified:   linden/indra/newview/rlvhelper.h
-	  
+
 
 2009-10-05 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Renamed 'Create' in object pie to 'Build,' moved it to top right and switched 'Wear' and 'Return.'
-	
+
 	  modified:   indra/newview/skins/default/xui/en-us/menu_pie_object.xml
 
 
 2009-10-04 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Changes that should improve sculpty LOD.
-	
+
 	  modified:   linden/indra/llmath/llvolume.cpp
-	  
-	  
+
+
 	* Fixed mini-map distance label and rounding.
-	
+
 	  modified:   linden/indra/newview/llfloatermap.cpp
-	  
-	  
+
+
 	* Mini-map radar now notifies when someone enters chat range, and how far away they are.
-	  
+
 	  modified:   linden/indra/newview/app_settings/settings.xml
 	  modified:   linden/indra/newview/llfloatermap.cpp
 	  modified:   linden/indra/newview/llfloatermap.h
@@ -778,86 +784,86 @@ modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
 2009-10-03 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Disable camera constraints now disables max zoom for the scrollwheel.
-	
+
 	  modified:   linden/indra/newview/llagent.cpp
 
 
 	* Fixed layout of debug permissions in tools window.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_tools.xml
-	  
-	
+
+
 	* Reverted slviewer-0-v12100-AllowDiscardForCreator.patch.
 	  (Was causing usability issues with new notecard creation).
-	
+
 	  modified:   linden/indra/newview/llviewermessage.cpp
-	  
-	  
+
+
 	* Added confirmation alerts for double-click tp and auto-pilot.
-	
+
 	  modified:   linden/indra/newview/llviewermenu.cpp
 	  modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
 
 
-	* Fixed extern C issue in llmediaimplgstreamer.h for Windows. 
-	
+	* Fixed extern C issue in llmediaimplgstreamer.h for Windows.
+
 	  modified:   linden/indra/llmedia/llmediaimplgstreamer.h
-	  
-	  
+
+
 	* Fixed account label not showing up in profiles.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
-	  
-	  
+
+
 	* Fixed an issue with llkeywords.cpp(385) and Visual Studio.
-	
+
 	  modified:   linden/indra/llui/llkeywords.cpp
-	  
-	  
+
+
 	* Fixed search window height being too small for new profile layout.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_directory.xml
-	  
+
 
 2009-10-02 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added new color setting for Object IMs.
-	
-      modified:   linden/indra/llcommon/llchat.h
-      modified:   linden/indra/newview/app_settings/settings.xml
-      modified:   linden/indra/newview/llfloaterchat.cpp
-      modified:   linden/indra/newview/llviewermessage.cpp
+
+	  modified:   linden/indra/llcommon/llchat.h
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llfloaterchat.cpp
+	  modified:   linden/indra/newview/llviewermessage.cpp
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_chat.xml
 
 
 	* Fixed 1.2 beta features missing from silver skin.
-	
+
 	  deleted:    linden/indra/newview/skins/silver/xui/en-us/floater_chatterbox.xml
 	  modified:   linden/indra/newview/skins/silver/xui/en-us/floater_windlight_options.xml
 
 
 	* Applied clickable object names for whisper/say/shout from Emerald viewer.
-	
+
 	  modified:   linden/indra/newview/llviewermessage.cpp
-	  
-	  
+
+
 	* Object IMs are now prefixed with "IM: ".
 	  As a side effect, names are now clickable when show IMs in chat is enabled.
-	  
+
 	  modified:   linden/indra/newview/llfloaterchat.cpp
 	  modified:   linden/indra/newview/llviewermessage.cpp
-	  
+
 
 2009-10-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Added mini-map partner dot color for future use (currently unused).
-	
+
 	  modified:   linden/indra/newview/skins/default/colors_base.xml
 	  modified:   linden/indra/newview/skins/silver/colors_base.xml
 
 
 	* Draw Imprudence developers as purple dots in the mini-map (name list in LLFloaterMap).
-	
+
 	  modified:   linden/indra/newview/llfloatermap.cpp
 	  modified:   linden/indra/newview/llfloatermap.h
 	  modified:   linden/indra/newview/llnetmap.cpp
@@ -866,20 +872,20 @@ modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
 
 
 	* Draw selected avatars last (and fixed silver skin missing selection color).
-	
+
 	  modified:   linden/indra/newview/llnetmap.cpp
 	  modified:   linden/indra/newview/skins/default/colors_base.xml
 	  modified:   linden/indra/newview/skins/silver/colors_base.xml
 
 
 	* Fixed switched Buy and Create locations in object pie menu (regression).
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_pie_object.xml
-	  
-	  
+
+
 	* Fixed inability to teleport to adult regions in Imprudence 1.2.
 	  (Ugly. Only use on 1.22 code base)
-	  
+
 	  modified:   linden/indra/newview/app_settings/settings.xml
 	  modified:   linden/indra/newview/llagent.cpp
 	  modified:   linden/indra/newview/llagent.h
@@ -888,80 +894,80 @@ modified:   linden/indra/newview/skins/default/xui/en-us/notify.xml
 
 
 	* Changed the minimum draw distance from 64m to 32m.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_graphics1.xml
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_windlight_remote_expanded.xml
 
 
 	* Suspected partial crash fix for Logout.
-	
+
 	  modified:   linden/indra/newview/llappviewer.cpp
-	  
-	  
+
+
 	* Fixed 1.2 thinking it was on the Teen Grid.
-	  
+
 	  modified:   linden/indra/newview/llstartup.cpp
-	  
-	  
+
+
 	* Updated gpu_table.txt to latest version in Snowglobe.
-	
+
 	  modified:   linden/indra/newview/gpu_table.txt
-	  
+
 
 2009-09-29 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed Unlink not enabling when Edit Linked Parts enabled.
-	
+
 	  modified:   linden/indra/newview/llfloatertools.cpp
 	  modified:   linden/indra/newview/llviewermenu.cpp
 
 
 	* Fixed Join Call button truncated in group IMs (regression).
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml
-	  
-	  
+
+
 	* Fixed reset UI size to default button missing from preferences > general (regression).
 	  Changed incremets to 0.001 to be more Liberation Sans-friendly.
-	
+
 	  modified:   linden/indra/newview/llpanelgeneral.cpp
 	  modified:   linden/indra/newview/llpanelgeneral.h
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
 
 
 	* Renamed preferences checkbox to 'show WindLight toolbar,' removed reference to 'Second Life.'
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_graphics1.xml
 
 
 	* Adjusted 2nd Life profile tab layout for French language.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
-	  
-	  
+
+
 	* Added the name box back to avatar profiles.
-	
+
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
-	  
+
 
 2009-09-28 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed first windlight toolbar entry toggling Advanced Sky.
-	
+
 	  modified:   linden/indra/newview/llwindlightremotectrl.cpp
-	  
-	  
+
+
 	* Renamed ScriptBgReadOnlyColor to ScrollReadOnlyColor so we don't lose it in a merge.
-	
+
 	  modified:   linden/indra/newview/llpanelavatar.cpp
 	  modified:   linden/indra/newview/skins/default/colors_base.xml
 	  modified:   linden/indra/newview/skins/silver/colors_base.xml
 
 
 	* Fixed Advanced Sky only toggling once.
-	
+
 	  modified:   linden/indra/newview/llfloaterwindlight.cpp
-	  
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                       1.2.0 BETA                       -=
