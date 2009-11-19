@@ -1,5 +1,10 @@
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Fixed a compile blocker in LLVoSky::stepCurrent().
+
+	  modified:   linden/indra/newview/llvosky.h
+
+
 	* Updated Linux boost package to 1.39.0.
 
 	  modified:   install.xml
