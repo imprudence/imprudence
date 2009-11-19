@@ -63,6 +63,12 @@ int LLFastTimer::sResetHistory = 0;
 
 F64 LLFastTimer::sCPUClockFrequency = 0.0;
 
+#if LL_LINUX || LL_SOLARIS
+U64 LLFastTimer::sClockResolution = 1e9; // Nanosecond resolution
+#else 
+U64 LLFastTimer::sClockResolution = 1e6; // Microsecond resolution
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 
 //
@@ -90,17 +96,26 @@ U64 get_cpu_clock_count()
 
 #endif // LL_WINDOWS
 
-
-#if (LL_LINUX || LL_SOLARIS) && (defined(__i386__) || defined(__amd64__))
+#if LL_LINUX || LL_SOLARIS
+// Try to use the MONOTONIC clock if available, this is a constant time counter
+// with nanosecond resolution (but not necessarily accuracy) and attempts are made
+// to synchronize this value between cores at kernel start. It should not be effected
+// by CPU frequency. If not available use the REALTIME clock, but this may be effected by
+// NTP adjustments or other user activity effecting the system time.
 U64 get_cpu_clock_count()
 {
-	U64 x;
-	__asm__ volatile (".byte 0x0f, 0x31" : "=A" (x));
-	return x;
-}
-#endif
+    struct timespec tp;
 
-#if LL_DARWIN || (LL_SOLARIS && defined(__sparc__))
+#ifdef CLOCK_MONOTONIC
+    clock_gettime(CLOCK_MONOTONIC,&tp);
+#else
+    clock_gettime(CLOCK_REALTIME,&tp);
+#endif
+    return (tp.tv_sec*LLFastTimer::sClockResolution)+tp.tv_nsec;        
+}
+#endif // (LL_LINUX || LL_SOLARIS))
+
+#if LL_DARWIN
 //
 // Mac implementation of CPU clock
 //
@@ -115,13 +130,13 @@ U64 get_cpu_clock_count()
 //////////////////////////////////////////////////////////////////////////////
 
 //static
-#if LL_LINUX || LL_DARWIN || LL_SOLARIS
+#if LL_DARWIN || LL_LINUX || LL_SOLARIS
 // Both Linux and Mac use gettimeofday for accurate time
 U64 LLFastTimer::countsPerSecond()
 {
-	return 1000000; // microseconds, so 1 Mhz.
+	return sClockResolution; // microseconds, so 1 Mhz.
 }
-#else
+#else 
 U64 LLFastTimer::countsPerSecond()
 {
 	if (!sCPUClockFrequency)

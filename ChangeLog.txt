@@ -1,5 +1,29 @@
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* SNOW-108: Fast timers fail on non i386 systems
+	  Patch by Robin Cornelius
+
+	  modified:   doc/contributions.txt
+	  modified:   indra/llcommon/llfasttimer.cpp
+	  modified:   indra/llcommon/llfasttimer.h
+
+
+	* Added "File > Export Selected Objects..."
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+	* Added "(L$[COST] per texture)" to "Import + Upload..."
+
+	  modified: linden/indra/newview/llviewermenu.cpp
+	  modified: linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+	* Renamed menu items: "Import Object..." and "Import + Upload..."
+
+	  modified: linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
 	* Fixed a compile blocker in LLVoSky::stepCurrent().
 
 	  modified:   linden/indra/newview/llvosky.h
