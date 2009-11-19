@@ -1,5 +1,16 @@
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Removed non-English credits sections in the About floater.
+	  They will default to the English versions, so we don't have to
+	  maintain many copies of the same text.
+
+	  modified: linden/indra/newview/skins/default/xui/de/floater_about.xml
+	  modified: linden/indra/newview/skins/default/xui/fr/floater_about.xml
+	  modified: linden/indra/newview/skins/default/xui/ja/floater_about.xml
+	  modified: linden/indra/newview/skins/default/xui/ko/floater_about.xml
+	  modified: linden/indra/newview/skins/default/xui/zh/floater_about.xml
+
+
 	* Added Linux package for liboil 0.3.16.
 	  It's needed by some GStreamer plugins.
 
