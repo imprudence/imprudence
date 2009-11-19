@@ -1,5 +1,10 @@
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Updated Linux boost package to 1.39.0.
+
+	  modified:   install.xml
+
+
 	* Removed non-English credits sections in the About floater.
 	  They will default to the English versions, so we don't have to
 	  maintain many copies of the same text.
