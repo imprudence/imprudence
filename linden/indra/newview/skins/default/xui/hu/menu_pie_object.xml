@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Object Pie">
+	<menu_item_call label="Megnyit" name="Open" />
+	<menu_item_call label="Készít" name="Create" />
+	<menu_item_call label="Érint" name="Object Touch">
+		<on_enable userdata="Érint" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="Ide ül" name="Object Sit">
+		<on_enable userdata="Ide ül,Felállás" name="EnableSitOrStand"/>
+	</menu_item_call>
+	<menu_item_call label="Visszavesz" name="Pie Object Take">
+		<on_enable userdata="Vásárol,Visszavesz" name="EnableBuyOrTake"/>
+	</menu_item_call>
+	<menu_item_call label="Fizet" name="Pay..." />
+	<pie_menu label="Még több &gt;" name="More &gt;">
+		<menu_item_call label="Töröl" name="Delete" />
+		<menu_item_call label="Felvesz" name="Wear" />
+		<menu_item_call label="Másol" name="Take Copy" />
+		<pie_menu label="HUD csatolása &gt;" name="Object Attach HUD" />
+		<pie_menu label="Csatol &gt;" name="Object Attach" />
+		<menu_item_call label="Visszaküld" name="Return..." />
+		<pie_menu label="Még több &gt;" name="Rate Menu">
+			<menu_item_call label="Jelent..." name="Report Abuse..."/>
+			<menu_item_call label="Elnémít" name="Object Mute" />
+			<menu_item_call label="Ellenőriz" name="Object Inspect" />
+		</pie_menu>
+		<menu_item_call label="Vásárol" name="Buy..." />
+	</pie_menu>
+	<menu_item_call label="Szerkeszt" name="Edit..." />
+</pie_menu>

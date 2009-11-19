@@ -1,6 +1,6 @@
 /** 
  * @file llfloaterpreference.cpp
- * @brief LLPreferenceCore class implementation
+ * @brief Global preferences with and without persistence.
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -89,9 +90,10 @@ LLFloaterPreference* LLFloaterPreference::sInstance = NULL;
 class LLPreferencesHandler : public LLCommandHandler
 {
 public:
-	// don't allow from external browsers
-	LLPreferencesHandler() : LLCommandHandler("preferences", false) { }
-	bool handle(const LLSD& tokens, const LLSD& queryMap)
+	// requires trusted browser
+	LLPreferencesHandler() : LLCommandHandler("preferences", true) { }
+	bool handle(const LLSD& tokens, const LLSD& query_map,
+				LLWebBrowserCtrl* web)
 	{
 		LLFloaterPreference::show(NULL);
 		return true;
@@ -259,6 +261,7 @@ void LLPreferenceCore::apply()
 	mInputPanel->apply();
 	mNetworkPanel->apply();
 	mDisplayPanel->apply();
+	mAudioPanel->apply();
 	mPrefsChat->apply();
 	mPrefsVoice->apply();
 	mPrefsIM->apply();
@@ -477,6 +480,7 @@ void LLFloaterPreference::onBtnApply( void* userdata )
 void LLFloaterPreference::onClose(bool app_quitting)
 {
 	LLPanelLogin::setAlwaysRefresh(false);
+	cancel(); // will be a no-op if OK or apply was performed just prior.
 	LLFloater::onClose(app_quitting);
 }
 
@@ -493,8 +497,7 @@ void LLFloaterPreference::onBtnCancel( void* userdata )
 			cur_focus->onCommit();
 		}
 	}
-	fp->cancel();
-	fp->close();
+	fp->close(); // side effect will also cancel any unsaved changes.
 }
 
 

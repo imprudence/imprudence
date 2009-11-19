@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -133,7 +134,9 @@ public:
 	const LLColor4&	getFaceColor() const { return mFaceColor; } 
 	const LLColor4& getRenderColor() const;
 	
+
 	//for volumes
+	void updateRebuildFlags();
 	BOOL getGeometryVolume(const LLVolume& volume,
 						const S32 &f,
 						const LLMatrix4& mat_vert, const LLMatrix3& mat_normal,
@@ -168,7 +171,7 @@ public:
 	void		updateCenterAgent(); // Update center when xform has changed.
 	void		renderSelectedUV();
 
-	void		renderForSelect(U32 data_mask = LLVertexBuffer::MAP_VERTEX | LLVertexBuffer::MAP_TEXCOORD);
+	void		renderForSelect(U32 data_mask = LLVertexBuffer::MAP_VERTEX | LLVertexBuffer::MAP_TEXCOORD0);
 	void		renderSelected(LLImageGL *image, const LLColor4 &color);
 
 	F32			getKey()					const	{ return mDistance; }
@@ -181,10 +184,12 @@ public:
 
 	void		setGeomIndex(U16 idx) { mGeomIndex = idx; }
 	void		setIndicesIndex(S32 idx) { mIndicesIndex = idx; }
-	
+	void		setDrawInfo(LLDrawInfo* draw_info);
+
 protected:
 
 public:
+	
 	LLVector3		mCenterLocal;
 	LLVector3		mCenterAgent;
 	LLVector3		mExtents[2];
@@ -195,6 +200,7 @@ public:
 	F32			mLastUpdateTime;
 	F32			mLastMoveTime;
 	LLMatrix4*	mTextureMatrix;
+	LLDrawInfo* mDrawInfo;
 
 protected:
 	friend class LLGeometryManager;

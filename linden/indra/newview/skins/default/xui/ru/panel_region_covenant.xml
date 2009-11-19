@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Соглашение" name="Covenant">
+	<text name="estate_section_lbl">
+		Поместье:
+	</text>
+	<text name="estate_name_lbl">
+		Название:
+	</text>
+	<text name="estate_name_text">
+		материк
+	</text>
+	<text name="estate_owner_lbl">
+		Владелец:
+	</text>
+	<text name="estate_owner_text">
+		(ничего)
+	</text>
+	<text name="estate_cov_lbl">
+		Соглашение:
+	</text>
+	<text name="covenant_timestamp_text">
+		Редактировалось Ср Дек 31 16:00:00 1969
+	</text>
+	<button label="?" name="covenant_help"/>
+	<text_editor name="covenant_editor" bottom="-247" height="162">
+		Нет Соглашения для этого Поместья.
+	</text_editor>
+	<button label="Сброс" name="reset_covenant"/>
+	<text bottom="-25" name="covenant_help_text">
+		Изменения в соглашении будут показаны на всех участках
+      этого поместья.
+	</text>
+	<text bottom_delta="-36" name="covenant_instructions">
+		Перетяните сюда заметку, чтобы изменить Соглашение для
+      этого Поместься.
+	</text>
+	<text bottom_delta="-36" name="region_section_lbl">
+		Регион:
+	</text>
+	<text name="region_name_lbl">
+		Название:
+	</text>
+	<text name="region_name_text">
+		leyla
+	</text>
+	<text name="region_landtype_lbl">
+		Тип:
+	</text>
+	<text name="region_landtype_text">
+		Материк / Поместье
+	</text>
+	<text name="region_maturity_lbl">
+		Рейтинг:
+	</text>
+	<text name="region_maturity_text">
+		Adult
+	</text>
+	<text name="resellable_lbl">
+		Перепродажа:
+	</text>
+	<text name="resellable_clause">
+		Земля в этом регионе не может быть перепродана.
+	</text>
+	<text name="changeable_lbl">
+		Разделить:
+	</text>
+	<text name="changeable_clause">
+		Земля в этом регионе не может быть объединена/
+разделена.
+	</text>
+	<string name="can_resell">
+		Приобретенная земля в этом регионе может быть перепродана.
+	</string>
+	<string name="can_not_resell">
+		Приобретенная земля в этом регионе не может быть перепродана.
+	</string>
+	<string name="can_change">
+		Приобретенную в этом регионе землю можно объединить
+или разделить.
+	</string>
+	<string name="can_not_change">
+		Приобретенную в этом регионе землю нельзя объединить
+или разделить.
+	</string>
+</panel>

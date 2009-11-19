@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Web" name="web">
+	<radio_group name="use_external_browser" tool_tip="Külső böngésző használata a segítségekhez, hivatkozásokhoz, stb. Teljes képernyős használatban ennek alkalmazása nem javasolt.">
+		<radio_item name="external" tool_tip="Alapértelmezett böngésző használata a segítséghez, hivatkozásokhoz, stb. Használata teljes képernyős üzemmód mellett nem javasolt.">
+			Külső böngésző használata (Firefox, Safari, Internet Explorer)
+		</radio_item>
+		<radio_item name="internal" tool_tip="Beépített böngésző használata a segítséghez, hivatkozásokhoz, stb. A böngésző új ablakként nyílik meg a Second Life-ban.">
+			Beépített böngésző használata
+		</radio_item>
+	</radio_group>
+	<text length="1" name="cache_size_label_l" type="string">
+		Böngésző gyorsítótár:
+	</text>
+	<button label="Töröl most" name="clear_cache"/>
+	<text length="1" name="cookie_label" type="string">
+		Cookie-k:
+	</text>
+	<check_box label="Cookie-k elfogadása az oldalakról" name="cookies_enabled"/>
+	<text length="1" name="proxy_label" type="string">
+		Web Proxy:
+	</text>
+	<check_box label="Web Proxy engedélyezése" name="web_proxy_enabled"/>
+	<text length="1" name="proxy_text_label" type="string">
+		Cím:
+	</text>
+	<line_editor name="web_proxy_editor" tool_tip="Annak a proxy szervernek a neve vagy IP címe, amit használni szeretnél"/>
+	<spinner label="Port száma:" name="web_proxy_port"/>
+</panel>

@@ -1,11 +1,11 @@
-/**
+/** 
  * @file llfloaterobjectiminfo.cpp
  * @brief A floater with information about an object that sent an IM.
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
- *
- * Copyright (c) 2007-2008, Linden Research, Inc.
- *
+ * 
+ * Copyright (c) 2007-2009, Linden Research, Inc.
+ * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
@@ -13,16 +13,17 @@
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
  * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
- *
+ * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
- *
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
  * and agree to abide by those obligations.
- *
+ * 
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
@@ -78,8 +79,8 @@ LLFloaterObjectIMInfo::LLFloaterObjectIMInfo(const LLSD& seed)
 : mObjectID(), mObjectName(), mSlurl(), mOwnerID(), mOwnerName(), mOwnerIsGroup(false)
 {
 	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_object_im_info.xml");
-
-	if (getRect().mLeft == 0
+	
+	if (getRect().mLeft == 0 
 		&& getRect().mBottom == 0)
 	{
 		center();
@@ -109,7 +110,7 @@ void LLFloaterObjectIMInfo::update(const LLUUID& object_id, const std::string& n
 
 	bool my_object = (owner_id == gAgentID);
 	childSetEnabled("Mute",!my_object);
-
+	
 	mObjectID = object_id;
 	mObjectName = name;
 	mSlurl = slurl;
@@ -119,17 +120,18 @@ void LLFloaterObjectIMInfo::update(const LLUUID& object_id, const std::string& n
 	if (gCacheName) gCacheName->get(owner_id,owner_is_group,nameCallback,this);
 }
 
-//static
+//static 
 void LLFloaterObjectIMInfo::onClickMap(void* data)
 {
 	LLFloaterObjectIMInfo* self = (LLFloaterObjectIMInfo*)data;
 
 	std::ostringstream link;
 	link << "secondlife://" << self->mSlurl;
-	LLURLDispatcher::dispatch(link.str(),false);
+	class LLWebBrowserCtrl* web = NULL;
+	LLURLDispatcher::dispatch(link.str(), web, true);
 }
 
-//static
+//static 
 void LLFloaterObjectIMInfo::onClickOwner(void* data)
 {
 	LLFloaterObjectIMInfo* self = (LLFloaterObjectIMInfo*)data;
@@ -143,7 +145,7 @@ void LLFloaterObjectIMInfo::onClickOwner(void* data)
 	}
 }
 
-//static
+//static 
 void LLFloaterObjectIMInfo::onClickMute(void* data)
 {
 	LLFloaterObjectIMInfo* self = (LLFloaterObjectIMInfo*)data;
@@ -155,7 +157,7 @@ void LLFloaterObjectIMInfo::onClickMute(void* data)
 	self->close();
 }
 
-//static
+//static 
 void LLFloaterObjectIMInfo::nameCallback(const LLUUID& id, const std::string& first, const std::string& last, BOOL is_group, void* data)
 {
 	LLFloaterObjectIMInfo* self = (LLFloaterObjectIMInfo*)data;
@@ -181,23 +183,24 @@ void LLObjectIMInfo::show(const LLUUID &object_id, const std::string &name, cons
 class LLObjectIMInfoHandler : public LLCommandHandler
 {
 public:
-	LLObjectIMInfoHandler() : LLCommandHandler("objectim", false) { }
+	LLObjectIMInfoHandler() : LLCommandHandler("objectim", true) { }
 
-	bool handle(const LLSD& tokens, const LLSD& query_map);
+	bool handle(const LLSD& tokens, const LLSD& query_map,
+				LLWebBrowserCtrl* web);
 };
 
 // Creating the object registers with the dispatcher.
 LLObjectIMInfoHandler gObjectIMHandler;
 
 // ex. secondlife:///app/objectim/9426adfc-9c17-8765-5f09-fdf19957d003?owner=a112d245-9095-4e9c-ace4-ffa31717f934&groupowned=true&slurl=ahern/123/123/123&name=Object
-bool LLObjectIMInfoHandler::handle(const LLSD &tokens, const LLSD &query_map)
+bool LLObjectIMInfoHandler::handle(const LLSD &tokens, const LLSD &query_map, LLWebBrowserCtrl* web)
 {
 	LLUUID task_id = tokens[0].asUUID();
 	std::string name = query_map["name"].asString();
 	std::string slurl = query_map["slurl"].asString();
 	LLUUID owner = query_map["owner"].asUUID();
 	bool group_owned = query_map.has("groupowned");
-
+	
 	LLObjectIMInfo::show(task_id,name,slurl,owner,group_owned);
 
 	return true;

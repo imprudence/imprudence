@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -416,10 +417,8 @@ static const IDToCode primary_to_code[] = {
 /*{LANG_WALON,      "wa"},*/
   {LANG_CHINESE,    "zh"},
 };
-static int num_primary_to_code =
-  sizeof(primary_to_code) / sizeof(*primary_to_code);
-static int num_both_to_code =
-  sizeof(both_to_code) / sizeof(*both_to_code);
+static int num_primary_to_code = LL_ARRAY_SIZE(primary_to_code);
+static int num_both_to_code = LL_ARRAY_SIZE(both_to_code);
 
 static const int
 lcid_to_fl(LCID lcid,

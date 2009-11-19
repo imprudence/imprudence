@@ -19,7 +19,8 @@
 # There are special exceptions to the terms and conditions of the GPL as
 # it is applied to this Source Code. View the full text of the exception
 # in the file doc/FLOSS-exception.txt in this software distribution, or
-# online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+# online at
+# http://secondlifegrid.net/programs/open_source/licensing/flossexception
 # 
 # By copying, modifying or distributing this software, you acknowledge
 # that you have read and understood your obligations described above,
@@ -128,24 +129,6 @@ class PlatformSetup(object):
                 '-DUNATTENDED:BOOL=%(unattended)s '
                 '-G %(generator)r %(opts)s %(dir)r' % args)
 
-    def run(self, command, name=None):
-        '''Run a program.  If the program fails, raise an exception.'''
-        ret = os.system(command)
-        if ret:
-            if name is None:
-                name = command.split(None, 1)[0]
-            if os.WIFEXITED(ret):
-                event = 'exited'
-                status = 'status %d' % os.WEXITSTATUS(ret)
-            elif os.WIFSIGNALED(ret):
-                event = 'was killed'
-                status = 'signal %d' % os.WTERMSIG(ret)
-            else:
-                event = 'died unexpectedly (!?)'
-                status = '16-bit status %d' % ret
-            raise CommandError('the command %r %s with %s' %
-                               (name, event, status))
-
     def run_cmake(self, args=[]):
         '''Run cmake.'''
 
@@ -207,9 +190,27 @@ class PlatformSetup(object):
 
         return os.path.isdir(os.path.join(self.script_dir, 'newsim'))
 
+    def find_in_path(self, name, defval=None, basename=False):
+        for ext in self.exe_suffixes:
+            name_ext = name + ext
+            if os.sep in name_ext:
+                path = os.path.abspath(name_ext)
+                if os.access(path, os.X_OK):
+                    return [basename and os.path.basename(path) or path]
+            for p in os.getenv('PATH', self.search_path).split(os.pathsep):
+                path = os.path.join(p, name_ext)
+                if os.access(path, os.X_OK):
+                    return [basename and os.path.basename(path) or path]
+        if defval:
+            return [defval]
+        return []
+
 
 class UnixSetup(PlatformSetup):
     '''Generic Unixy build instructions.'''
+
+    search_path = '/usr/bin:/usr/local/bin'
+    exe_suffixes = ('',)
 
     def __init__(self):
         super(UnixSetup, self).__init__()
@@ -229,7 +230,26 @@ class UnixSetup(PlatformSetup):
         elif cpu == 'Power Macintosh':
             cpu = 'ppc'
         return cpu
-        
+
+    def run(self, command, name=None):
+        '''Run a program.  If the program fails, raise an exception.'''
+        ret = os.system(command)
+        if ret:
+            if name is None:
+                name = command.split(None, 1)[0]
+            if os.WIFEXITED(ret):
+                st = os.WEXITSTATUS(ret)
+                if st == 127:
+                    event = 'was not found'
+                else:
+                    event = 'exited with status %d' % st
+            elif os.WIFSIGNALED(ret):
+                event = 'was killed by signal %d' % os.WTERMSIG(ret)
+            else:
+                event = 'died unexpectedly (!?) with 16-bit status %d' % ret
+            raise CommandError('the command %r %s' %
+                               (name, event))
+
 
 class LinuxSetup(UnixSetup):
     def __init__(self):
@@ -256,15 +276,6 @@ class LinuxSetup(UnixSetup):
             return ['server-' + platform_build]
         else:
             return ['viewer-' + platform_build]
-
-    def find_in_path(self, name, defval=None, basename=False):
-        for p in os.getenv('PATH', '/usr/bin').split(':'):
-            path = os.path.join(p, name)
-            if os.access(path, os.X_OK):
-                return [basename and os.path.basename(path) or path]
-        if defval:
-            return [defval]
-        return []
 
     def cmake_commandline(self, src_dir, build_dir, opts, simple):
         args = dict(
@@ -425,8 +436,7 @@ class DarwinSetup(UnixSetup):
             targets = ' '.join(['-target ' + repr(t) for t in targets])
         else:
             targets = ''
-        cmd = ('xcodebuild -parallelizeTargets '
-               '-configuration %s %s %s' %
+        cmd = ('xcodebuild -configuration %s %s %s' %
                (self.build_type, ' '.join(opts), targets))
         for d in self.build_dirs():
             try:
@@ -455,6 +465,9 @@ class WindowsSetup(PlatformSetup):
     gens['vs2003'] = gens['vc71']
     gens['vs2005'] = gens['vc80']
     gens['vs2008'] = gens['vc90']
+
+    search_path = r'C:\windows'
+    exe_suffixes = ('.exe', '.bat', '.com')
 
     def __init__(self):
         super(WindowsSetup, self).__init__()
@@ -577,15 +590,18 @@ class WindowsSetup(PlatformSetup):
         return ('"%sdevenv.com" %s.sln /build %s' % 
                (environment, self.project_name, self.build_type))
 
-    # this override of run exists because the PlatformSetup version
-    # uses Unix/Mac only calls. Freakin' os module!
     def run(self, command, name=None):
         '''Run a program.  If the program fails, raise an exception.'''
         ret = os.system(command)
         if ret:
             if name is None:
                 name = command.split(None, 1)[0]
-            raise CommandError('the command %r exited with %s' %
+            path = self.find_in_path(name)
+            if not path:
+                ret = 'was not found'
+            else:
+                ret = 'exited with status %d' % ret
+            raise CommandError('the command %r %s' %
                                (name, ret))
 
     def run_cmake(self, args=[]):
@@ -674,17 +690,16 @@ Options:
   -t | --type=NAME      build type ("Debug", "Release", or "RelWithDebInfo")
   -N | --no-distcc      disable use of distcc
   -G | --generator=NAME generator name
-                        Windows: VC71 or VS2003 (default), VC80 (VS2005) or VC90 (VS2008)
+                        Windows: VC71 or VS2003 (default), VC80 (VS2005) or 
+                          VC90 (VS2008)
                         Mac OS X: Xcode (default), Unix Makefiles
                         Linux: Unix Makefiles (default), KDevelop3
   -p | --project=NAME   set the root project name. (Doesn't effect makefiles)
                         
 Commands:
-  build       configure and build default target
-  clean       delete all build directories (does not affect sources)
-  configure   configure project by running cmake
-
-If you do not specify a command, the default is "configure".
+  build      configure and build default target
+  clean      delete all build directories, does not affect sources
+  configure  configure project by running cmake (default command if none given)
 
 Command-options for "configure":
   We use cmake variables to change the build configuration.
@@ -697,7 +712,7 @@ Examples:
   Set up a viewer-only project for your system:
     develop.py configure -DSERVER:BOOL=OFF
   
-  Set up a Visual Studio 2005 project with package target (to build installer):
+  Set up a Visual Studio 2005 project with "package" target:
     develop.py -G vc80 configure -DPACKAGE:BOOL=ON
 '''
 

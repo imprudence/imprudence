@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Telek" name="Estate">
+	<text name="estate_help_text">
+		A változtatások ebben részben az egész
+régióra vagy telekre vonatkoznak.
+	</text>
+	<text name="estate_text">
+		Telek:
+	</text>
+	<text name="estate_name">
+		(ismeretlen)
+	</text>
+	<text name="owner_text">
+		Tulajdonos:
+	</text>
+	<text name="estate_owner">
+		(ismeretlen)
+	</text>
+	<check_box label="Globális idő használata" name="use_global_time_check"/>
+	<button label="?" name="use_global_time_help"/>
+	<check_box label="Rögzített napszak" name="fixed_sun_check"/>
+	<button label="?" name="fixed_sun_help"/>
+	<slider label="Időszak" name="sun_hour_slider"/>
+	<check_box label="Nyilvános belépés engedélyezése" name="externally_visible_check"/>
+	<button label="?" name="externally_visible_help"/>
+	<text length="1" name="Only Allow" type="string">
+		Korlátozott belépés:
+	</text>
+	<check_box label="Fizetési információval rendelkezők" name="limit_payment" tool_tip="Azonosítatlan lakók kitiltása."/>
+	<check_box label="Korhatár azonosítással rendelkezők" name="limit_age_verified" tool_tip="Korhatás azonosítás nélküli lakók kitiltása. További információk a http://support.secondlife.com oldalon."/>
+	<check_box label="Hangüzenetek engedélyezése" name="voice_chat_check"/>
+	<button label="?" name="voice_chat_help"/>
+	<check_box label="Közvetlen teleportálás engedélyezése" name="allow_direct_teleport"/>
+	<button label="?" name="allow_direct_teleport_help"/>
+	<text name="abuse_email_text">
+		Visszaélések e-mail címe:
+	</text>
+	<string name="email_unsupported">
+		Nem támogatott tulajdonság
+	</string>
+	<button label="?" name="abuse_email_address_help"/>
+	<button label="Alkalmaz" name="apply_btn"/>
+	<button label="Felhasználó kirugása a telekről" name="kick_user_from_estate_btn"/>
+	<button label="Üzenet küldése a teleknek" name="message_estate_btn"/>
+	<text name="estate_manager_label">
+		Ingatlankezelő:
+	</text>
+	<button label="?" name="estate_manager_help"/>
+	<button label="Eltávolít" name="remove_estate_manager_btn"/>
+	<button label="Hozzáad" name="add_estate_manager_btn"/>
+	<text name="allow_resident_label">
+		Engedélyezett lakók:
+	</text>
+	<button label="?" name="allow_resident_help"/>
+	<button label="Eltávolít" name="remove_allowed_avatar_btn"/>
+	<button label="Hozzáad" name="add_allowed_avatar_btn"/>
+	<text name="allow_group_label">
+		Engedélyezett csoportok:
+	</text>
+	<button label="?" name="allow_group_help"/>
+	<button label="Eltávolít" name="remove_allowed_group_btn"/>
+	<button label="Hozzáad" name="add_allowed_group_btn"/>
+	<text name="ban_resident_label">
+		Kitiltott lakók:
+	</text>
+	<button label="?" name="ban_resident_help"/>
+	<button label="Eltávolít" name="remove_banned_avatar_btn"/>
+	<button label="Hozzáad" name="add_banned_avatar_btn"/>
+</panel>

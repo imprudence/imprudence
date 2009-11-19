@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -56,40 +57,30 @@ class LLVertexBufferTerrain : public LLVertexBuffer
 {
 public:
 	LLVertexBufferTerrain() :
-		LLVertexBuffer(MAP_VERTEX | MAP_NORMAL | MAP_TEXCOORD | MAP_TEXCOORD2 | MAP_COLOR, GL_DYNAMIC_DRAW_ARB)
+		LLVertexBuffer(MAP_VERTEX | MAP_NORMAL | MAP_TEXCOORD0 | MAP_TEXCOORD1 | MAP_COLOR, GL_DYNAMIC_DRAW_ARB)
 	{
+		//texture coordinates 2 and 3 exist, but use the same data as texture coordinate 1
+		mOffsets[TYPE_TEXCOORD3] = mOffsets[TYPE_TEXCOORD2] = mOffsets[TYPE_TEXCOORD1];
+		mTypeMask |= MAP_TEXCOORD2 | MAP_TEXCOORD3;
 	};
 
-	// virtual
+	/*// virtual
 	void setupVertexBuffer(U32 data_mask) const
 	{		
-		if (LLDrawPoolTerrain::getDetailMode() == 0)
+		if (LLDrawPoolTerrain::getDetailMode() == 0 || LLPipeline::sShadowRender)
 		{
 			LLVertexBuffer::setupVertexBuffer(data_mask);
 		}
-		else if (data_mask & LLVertexBuffer::MAP_TEXCOORD2)
+		else if (data_mask & LLVertexBuffer::MAP_TEXCOORD1)
 		{
-			U8* base = useVBOs() ? NULL : mMappedData;
-	
-			glVertexPointer(3,GL_FLOAT, mStride, (void*)(base + 0));
-			glNormalPointer(GL_FLOAT, mStride, (void*)(base + mOffsets[TYPE_NORMAL]));
-			glColorPointer(4, GL_UNSIGNED_BYTE, mStride, (void*)(base + mOffsets[TYPE_COLOR]));
-		
-			glClientActiveTextureARB(GL_TEXTURE3_ARB);
-			glTexCoordPointer(2,GL_FLOAT, mStride, (void*)(base + mOffsets[TYPE_TEXCOORD2]));
-			glClientActiveTextureARB(GL_TEXTURE2_ARB);
-			glTexCoordPointer(2,GL_FLOAT, mStride, (void*)(base + mOffsets[TYPE_TEXCOORD2]));
-			glClientActiveTextureARB(GL_TEXTURE1_ARB);
-			glTexCoordPointer(2,GL_FLOAT, mStride, (void*)(base + mOffsets[TYPE_TEXCOORD2]));
-			glClientActiveTextureARB(GL_TEXTURE0_ARB);
-			glTexCoordPointer(2,GL_FLOAT, mStride, (void*)(base + mOffsets[TYPE_TEXCOORD2]));
+			LLVertexBuffer::setupVertexBuffer(data_mask);
 		}
 		else
 		{
 			LLVertexBuffer::setupVertexBuffer(data_mask);
 		}
 		llglassertok();		
-	}
+	}*/
 };
 
 //============================================================================
@@ -1053,8 +1044,8 @@ void LLTerrainPartition::getGeometry(LLSpatialGroup* group)
 
 	llassert_always(buffer->getVertexStrider(vertices));
 	llassert_always(buffer->getNormalStrider(normals));
-	llassert_always(buffer->getTexCoordStrider(texcoords));
-	llassert_always(buffer->getTexCoord2Strider(texcoords2));
+	llassert_always(buffer->getTexCoord0Strider(texcoords));
+	llassert_always(buffer->getTexCoord1Strider(texcoords2));
 	llassert_always(buffer->getColorStrider(colors));
 	llassert_always(buffer->getIndexStrider(indices));
 

@@ -53,7 +53,8 @@ Minimum requirements:
     * Computer Memory: 512MB (recommended: 768MB or more)
     * Linux Operating System: A reasonably modern 32-bit Linux environment
           is required.  If you are running a 64-bit Linux distribution then
-          you will need its 32-bit compatibility environment installed.
+          you will need its 32-bit compatibility environment installed, but
+          this configuration is not currently supported.
     * Video/Graphics Card:
           o nVidia GeForce 2, GeForce 4mx, or better (recommend one of the
             following: 6700, 6800, 7600, 7800, 7900, 8400, 8500, 8600,
@@ -95,12 +96,6 @@ you wish.
 4. KNOWN ISSUES
 -=-=-=-=-=-=-=-
 
-These are the most commonly-encountered known issues which are specific to
-the Beta release of the Linux client.
-
-* UPLOAD / SAVE / COLOR-PICKER DIALOGS - These only appear when the client
-  is in 'windowed' mode, not 'fullscreen' mode.
-
 * UPDATING - when the client detects that a new version of Second Life
   is available, it will ask you if you wish to download the new version.
   This option is not implemented; to upgrade, you should manually download a
@@ -112,10 +107,14 @@ the Beta release of the Linux client.
 
 The client prints a lot of diagnostic information to the console it was
 run from.  Most of this is also replicated in ~/.secondlife/logs/SecondLife.log
-- this is helpful to read when troubleshooting, especially 'WARNING' lines.
+- this is helpful to read when troubleshooting, especially 'WARNING' and
+'ERROR' lines.
 
 VOICE PROBLEMS?  See the separate README-linux-voice.txt file for Voice
-troubleshooting information.
+  troubleshooting information.
+
+SPACENAVIGATOR OR JOYSTICK PROBLEMS?  See the separate
+  README-linux-joystick.txt file for configuration information.
 
 PROBLEM 1:- Second Life fails to start up, with a warning on the console like:
    'Error creating window.' or

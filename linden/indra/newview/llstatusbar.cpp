@@ -17,7 +17,8 @@
 * There are special exceptions to the terms and conditions of the GPL as
 * it is applied to this Source Code. View the full text of the exception
 * in the file doc/FLOSS-exception.txt in this software distribution, or
-* online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+* online at
+* http://secondlifegrid.net/programs/open_source/licensing/flossexception
 * 
 * By copying, modifying or distributing this software, you acknowledge
 * that you have read and understood your obligations described above,
@@ -33,18 +34,10 @@
 
 #include "llstatusbar.h"
 
-#include <iomanip>
-
-#include "imageids.h"
-#include "llfontgl.h"
-#include "llrect.h"
-#include "llerror.h"
-#include "llparcel.h"
-#include "llstring.h"
-#include "message.h"
-
+// viewer includes
 #include "llagent.h"
 #include "llbutton.h"
+#include "llcommandhandler.h"
 #include "llviewercontrol.h"
 #include "llfloaterbuycurrency.h"
 #include "llfloaterchat.h"
@@ -81,7 +74,18 @@
 #include "llfocusmgr.h"
 #include "llappviewer.h"
 
-//#include "llfirstuse.h"
+// library includes
+#include "imageids.h"
+#include "llfontgl.h"
+#include "llrect.h"
+#include "llerror.h"
+#include "llparcel.h"
+#include "llstring.h"
+#include "message.h"
+
+// system includes
+#include <iomanip>
+
 
 //
 // Globals
@@ -348,7 +352,7 @@ void LLStatusBar::refresh()
 		childSetRect("health", r);
 		x += buttonRect.getWidth();
 
-		const S32 health_width = S32( LLFontGL::sSansSerifSmall->getWidth(std::string("100%")) );
+		const S32 health_width = S32( LLFontGL::getFontSansSerifSmall()->getWidth(std::string("100%")) );
 		r.set(x, y+TEXT_HEIGHT - 2, x+health_width, y);
 		mTextHealth->setRect(r);
 		x += health_width;
@@ -686,6 +690,21 @@ void LLStatusBar::setBalance(S32 balance)
 	}
 }
 
+
+// static
+void LLStatusBar::sendMoneyBalanceRequest()
+{
+	LLMessageSystem* msg = gMessageSystem;
+	msg->newMessageFast(_PREHASH_MoneyBalanceRequest);
+	msg->nextBlockFast(_PREHASH_AgentData);
+	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+	msg->nextBlockFast(_PREHASH_MoneyData);
+	msg->addUUIDFast(_PREHASH_TransactionID, LLUUID::null );
+	gAgent.sendReliableMessage();
+}
+
+
 void LLStatusBar::setHealth(S32 health)
 {
 	//llinfos << "Setting health to: " << buffer << llendl;
@@ -766,7 +785,7 @@ static void onClickParcelInfo(void* data)
 
 static void onClickBalance(void* data)
 {
-	LLFloaterBuyCurrency::buyCurrency();
+	onClickBuyCurrency(data);
 }
 
 static void onClickBuyCurrency(void* data)
@@ -776,7 +795,7 @@ static void onClickBuyCurrency(void* data)
 
 static void onClickHealth(void* )
 {
-	LLNotifyBox::showXml("NotSafe");
+	LLNotifications::instance().add("NotSafe");
 }
 
 static void onClickScriptDebug(void*)
@@ -786,22 +805,22 @@ static void onClickScriptDebug(void*)
 
 static void onClickFly(void* )
 {
-	LLNotifyBox::showXml("NoFly");
+	LLNotifications::instance().add("NoFly");
 }
 
 static void onClickPush(void* )
 {
-	LLNotifyBox::showXml("PushRestricted");
+	LLNotifications::instance().add("PushRestricted");
 }
 
 static void onClickVoice(void* )
 {
-	LLNotifyBox::showXml("NoVoice");
+	LLNotifications::instance().add("NoVoice");
 }
 
 static void onClickBuild(void*)
 {
-	LLNotifyBox::showXml("NoBuild");
+	LLNotifications::instance().add("NoBuild");
 }
 
 static void onClickScripts(void*)
@@ -809,15 +828,15 @@ static void onClickScripts(void*)
 	LLViewerRegion* region = gAgent.getRegion();
 	if(region && region->getRegionFlags() & REGION_FLAGS_ESTATE_SKIP_SCRIPTS)
 	{
-		LLNotifyBox::showXml("ScriptsStopped");
+		LLNotifications::instance().add("ScriptsStopped");
 	}
 	else if(region && region->getRegionFlags() & REGION_FLAGS_SKIP_SCRIPTS)
 	{
-		LLNotifyBox::showXml("ScriptsNotRunning");
+		LLNotifications::instance().add("ScriptsNotRunning");
 	}
 	else
 	{
-		LLNotifyBox::showXml("NoOutsideScripts");
+		LLNotifications::instance().add("NoOutsideScripts");
 	}
 }
 
@@ -921,3 +940,25 @@ BOOL can_afford_transaction(S32 cost)
 {
 	return((cost <= 0)||((gStatusBar) && (gStatusBar->getBalance() >=cost)));
 }
+
+
+// Implements secondlife:///app/balance/request to request a L$ balance
+// update via UDP message system. JC
+class LLBalanceHandler : public LLCommandHandler
+{
+public:
+	// Requires "trusted" browser/URL source
+	LLBalanceHandler() : LLCommandHandler("balance", true) { }
+	bool handle(const LLSD& tokens, const LLSD& query_map, LLWebBrowserCtrl* web)
+	{
+		if (tokens.size() == 1
+			&& tokens[0].asString() == "request")
+		{
+			LLStatusBar::sendMoneyBalanceRequest();
+			return true;
+		}
+		return false;
+	}
+};
+// register with command dispatch system
+LLBalanceHandler gBalanceHandler;

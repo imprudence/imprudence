@@ -24,7 +24,48 @@
 	<string name="IM_end_log_string">
 		-- End of Log --
 	</string>
-	<layout_stack border="false" bottom="2" follows="left|top|right|bottom" height="250" left="2"
+
+  <string name="ScriptQuestionCautionChatGranted">
+'[OBJECTNAME]', an object owned by '[OWNERNAME]', located in [REGIONNAME] at [REGIONPOS], has been granted permission to: [PERMISSIONS].
+  </string>
+  <string name="ScriptQuestionCautionChatDenied">
+'[OBJECTNAME]', an object owned by '[OWNERNAME]', located in [REGIONNAME] at [REGIONPOS], has been denied permission to: [PERMISSIONS].
+  </string>
+  <string name="ScriptTakeMoney">
+      Take Linden dollars (L$) from you
+  </string>
+  <string name="ActOnControlInputs">
+      Act on your control inputs
+  </string>
+  <string name="RemapControlInputs">
+      Remap your control inputs
+  </string>
+  <string name="AnimateYourAvatar">
+      Animate your avatar
+  </string>
+  <string name="AttachToYourAvatar">
+      Attach to your avatar
+  </string>
+  <string name="ReleaseOwnership">
+      Release ownership and become public
+  </string>
+  <string name="LinkAndDelink">
+      Link and delink from other objects
+  </string>
+  <string name="AddAndRemoveJoints">
+      Add and remove joints with other objects
+  </string>
+  <string name="ChangePermissions">
+      Change its permissions
+  </string>
+  <string name="TrackYourCamera">
+      Track your camera
+  </string>
+  <string name="ControlYourCamera">
+      Control your camera
+  </string>
+
+  <layout_stack border="false" bottom="2" follows="left|top|right|bottom" height="250" left="2"
 	     orientation="horizontal" width="430" name="panels">
 		<layout_panel border="false" bottom="0" default_tab_group="1" height="130" left="0"
 		     min_width="275" name="im_contents_panel" width="305">

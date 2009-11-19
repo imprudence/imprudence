@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater label="(unknown)" name="im_floater" title="(unknown)">
+	<string name="ringing">
+		Entrando em bate-papo de Voz...
+	</string>
+	<string name="connected">
+		Conectado, clique em Terminar Chamada para finalizar
+	</string>
+	<string name="hang_up">
+		Deixou o bate-papo de voz
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
 	<string name="title_string">
 		Mensagem Instantânea com [NAME]
 	</string>
@@ -10,7 +22,7 @@
 		Iniciando sessão com [NAME], por favor aguarde.
 	</string>
 	<string name="moderated_chat_label">
-		(Moderado: Vozes desligada por default)
+		(Moderado: Vozes desligadas por default)
 	</string>
 	<string name="default_text_label">
 		Clique aqui para mensagem instantânea.
@@ -21,9 +33,9 @@
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<button label="Informação do Grupo" name="group_info_btn" width="130"/>
-			<button label="Entrar numa chamada" name="start_call_btn" left_delta="135" width="160"/>
-			<button label="Encerrar Chamada" name="end_call_btn" width="160" halign="center"/>
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Clique aqui para alternar a lista dos participantes ativos nesta sessão de IM ."/>
+			<button label="Entrar numa chamada" left_delta="135" name="start_call_btn" width="160"/>
+			<button halign="center" label="Encerrar Chamada" name="end_call_btn" width="160"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Clique aqui para alternar a lista dos participantes ativos nesta sessão de IM."/>
 			<button label="Enviar" name="send_btn"/>
 		</layout_panel>
 	</layout_stack>

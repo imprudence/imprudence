@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -73,14 +74,14 @@ LLDrawPoolTerrain::LLDrawPoolTerrain(LLViewerImage *texturep) :
 													LLUUID("e97cf410-8e61-7005-ec06-629eba4cd1fb"));
 
 	gGL.getTexUnit(0)->bind(mAlphaRampImagep.get());
-	mAlphaRampImagep->setClamp(TRUE, TRUE);
+	mAlphaRampImagep->setAddressMode(LLTexUnit::TAM_CLAMP);
 
 	m2DAlphaRampImagep = gImageList.getImageFromFile("alpha_gradient_2d.j2c",
 													TRUE, TRUE, GL_ALPHA8, GL_ALPHA,
 													LLUUID("38b86f85-2575-52a9-a531-23108d8da837"));
 
 	gGL.getTexUnit(0)->bind(m2DAlphaRampImagep.get());
-	m2DAlphaRampImagep->setClamp(TRUE, TRUE);
+	m2DAlphaRampImagep->setAddressMode(LLTexUnit::TAM_CLAMP);
 	
 	mTexturep->setBoostLevel(LLViewerImage::BOOST_TERRAIN);
 	
@@ -98,6 +99,18 @@ LLDrawPool *LLDrawPoolTerrain::instancePool()
 	return new LLDrawPoolTerrain(mTexturep);
 }
 
+
+U32 LLDrawPoolTerrain::getVertexDataMask() 
+{ 
+	if (LLPipeline::sShadowRender)
+	{
+		return LLVertexBuffer::MAP_VERTEX;
+	}
+	else
+	{
+		return VERTEX_DATA_MASK; 
+	}
+}
 
 void LLDrawPoolTerrain::prerender()
 {
@@ -216,6 +229,60 @@ void LLDrawPoolTerrain::render(S32 pass)
 	}
 }
 
+void LLDrawPoolTerrain::beginDeferredPass(S32 pass)
+{
+	LLFastTimer t(LLFastTimer::FTM_RENDER_TERRAIN);
+	LLFacePool::beginRenderPass(pass);
+
+	sShader = &gDeferredTerrainProgram;
+
+	sShader->bind();
+}
+
+void LLDrawPoolTerrain::endDeferredPass(S32 pass)
+{
+	LLFastTimer t(LLFastTimer::FTM_RENDER_TERRAIN);
+	LLFacePool::endRenderPass(pass);
+	sShader->unbind();
+}
+
+void LLDrawPoolTerrain::renderDeferred(S32 pass)
+{
+	LLFastTimer t(LLFastTimer::FTM_RENDER_TERRAIN);
+	if (mDrawFace.empty())
+	{
+		return;
+	}
+	renderFullShader();
+}
+
+void LLDrawPoolTerrain::beginShadowPass(S32 pass)
+{
+	LLFastTimer t(LLFastTimer::FTM_SHADOW_TERRAIN);
+	LLFacePool::beginRenderPass(pass);
+	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+	gDeferredShadowProgram.bind();
+}
+
+void LLDrawPoolTerrain::endShadowPass(S32 pass)
+{
+	LLFastTimer t(LLFastTimer::FTM_SHADOW_TERRAIN);
+	LLFacePool::endRenderPass(pass);
+	gDeferredShadowProgram.unbind();
+}
+
+void LLDrawPoolTerrain::renderShadow(S32 pass)
+{
+	LLFastTimer t(LLFastTimer::FTM_SHADOW_TERRAIN);
+	if (mDrawFace.empty())
+	{
+		return;
+	}
+	//LLGLEnable offset(GL_POLYGON_OFFSET);
+	//glCullFace(GL_FRONT);
+	drawLoop();
+	//glCullFace(GL_BACK);
+}
 
 void LLDrawPoolTerrain::renderFullShader()
 {
@@ -359,9 +426,6 @@ void LLDrawPoolTerrain::renderFullShader()
 
 void LLDrawPoolTerrain::renderFull4TU()
 {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-
 	// Hack! Get the region that this draw pool is rendering from!
 	LLViewerRegion *regionp = mDrawFace[0]->getDrawable()->getVObj()->getRegion();
 	LLVLComposition *compp = regionp->getComposition();
@@ -389,7 +453,6 @@ void LLDrawPoolTerrain::renderFull4TU()
 	//
 	gGL.getTexUnit(0)->activate();
 	gGL.getTexUnit(0)->bind(detail_texture0p);
-	glClientActiveTextureARB(GL_TEXTURE0_ARB);
 	
 	glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);
@@ -408,9 +471,7 @@ void LLDrawPoolTerrain::renderFull4TU()
 	gGL.getTexUnit(1)->bind(m2DAlphaRampImagep.get());
 	gGL.getTexUnit(1)->enable(LLTexUnit::TT_TEXTURE);
 	gGL.getTexUnit(1)->activate();
-	glClientActiveTextureARB(GL_TEXTURE1_ARB);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
+	
 	// Care about alpha only
 	gGL.getTexUnit(1)->setTextureColorBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_PREV_COLOR);
 	gGL.getTexUnit(1)->setTextureAlphaBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_TEX_ALPHA);
@@ -421,9 +482,6 @@ void LLDrawPoolTerrain::renderFull4TU()
 	gGL.getTexUnit(2)->bind(detail_texture1p);
 	gGL.getTexUnit(2)->enable(LLTexUnit::TT_TEXTURE);
 	gGL.getTexUnit(2)->activate();
-
-	glClientActiveTextureARB(GL_TEXTURE2_ARB);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);
@@ -440,14 +498,12 @@ void LLDrawPoolTerrain::renderFull4TU()
 	gGL.getTexUnit(3)->bind(detail_texture1p);
 	gGL.getTexUnit(3)->enable(LLTexUnit::TT_TEXTURE);
 	gGL.getTexUnit(3)->activate();
-	glClientActiveTextureARB(GL_TEXTURE3_ARB);
-
+	
 	// Set alpha texture and do lighting modulation
 	gGL.getTexUnit(3)->setTextureColorBlend(LLTexUnit::TBO_MULT, LLTexUnit::TBS_PREV_COLOR, LLTexUnit::TBS_VERT_COLOR);
 
 	gGL.getTexUnit(0)->activate();
-	glClientActiveTextureARB(GL_TEXTURE0_ARB);
-
+	
 	// GL_BLEND disabled by default
 	drawLoop();
 
@@ -458,9 +514,7 @@ void LLDrawPoolTerrain::renderFull4TU()
 	//
 	gGL.getTexUnit(0)->activate();
 	gGL.getTexUnit(0)->bind(detail_texture3p);
-	glClientActiveTextureARB(GL_TEXTURE0_ARB);
 
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);
 	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
@@ -476,9 +530,6 @@ void LLDrawPoolTerrain::renderFull4TU()
 	gGL.getTexUnit(1)->bind(m2DAlphaRampImagep.get());
 	gGL.getTexUnit(1)->enable(LLTexUnit::TT_TEXTURE);
 	gGL.getTexUnit(1)->activate();
-	glClientActiveTextureARB(GL_TEXTURE1_ARB);
-
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	// Set the texture matrix
 	glMatrixMode(GL_TEXTURE);
@@ -489,16 +540,12 @@ void LLDrawPoolTerrain::renderFull4TU()
 	gGL.getTexUnit(1)->setTextureColorBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_PREV_COLOR);
 	gGL.getTexUnit(1)->setTextureAlphaBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_TEX_ALPHA);
 
-
 	//
 	// Stage 2: Interpolate detail2 with existing based on ramp
 	//
 	gGL.getTexUnit(2)->bind(detail_texture2p);
 	gGL.getTexUnit(2)->enable(LLTexUnit::TT_TEXTURE);
 	gGL.getTexUnit(2)->activate();
-
-	glClientActiveTextureARB(GL_TEXTURE2_ARB);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);
@@ -516,9 +563,6 @@ void LLDrawPoolTerrain::renderFull4TU()
 	gGL.getTexUnit(3)->enable(LLTexUnit::TT_TEXTURE);
 	gGL.getTexUnit(3)->activate();
 
-	glClientActiveTextureARB(GL_TEXTURE3_ARB);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
 	// Set the texture matrix
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
@@ -529,7 +573,6 @@ void LLDrawPoolTerrain::renderFull4TU()
 	gGL.getTexUnit(3)->setTextureAlphaBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_TEX_ALPHA);
 
 	gGL.getTexUnit(0)->activate();
-	glClientActiveTextureARB(GL_TEXTURE0_ARB);
 	{
 		LLGLEnable blend(GL_BLEND);
 		drawLoop();
@@ -540,9 +583,7 @@ void LLDrawPoolTerrain::renderFull4TU()
 	gGL.getTexUnit(3)->unbind(LLTexUnit::TT_TEXTURE);
 	gGL.getTexUnit(3)->disable();
 	gGL.getTexUnit(3)->activate();
-	glClientActiveTextureARB(GL_TEXTURE3_ARB);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
+	
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
@@ -550,9 +591,7 @@ void LLDrawPoolTerrain::renderFull4TU()
 	gGL.getTexUnit(2)->unbind(LLTexUnit::TT_TEXTURE);
 	gGL.getTexUnit(2)->disable();
 	gGL.getTexUnit(2)->activate();
-	glClientActiveTextureARB(GL_TEXTURE2_ARB);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
+	
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
 	glMatrixMode(GL_TEXTURE);
@@ -562,9 +601,7 @@ void LLDrawPoolTerrain::renderFull4TU()
 	gGL.getTexUnit(1)->unbind(LLTexUnit::TT_TEXTURE);	
 	gGL.getTexUnit(1)->disable();
 	gGL.getTexUnit(1)->activate();
- 	glClientActiveTextureARB(GL_TEXTURE1_ARB);
- 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
+ 	
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
@@ -578,9 +615,7 @@ void LLDrawPoolTerrain::renderFull4TU()
 	gGL.getTexUnit(0)->activate();
 	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
-	glClientActiveTextureARB(GL_TEXTURE0_ARB);
-	glDisableClientState(GL_NORMAL_ARRAY);
-
+	
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
 	glMatrixMode(GL_TEXTURE);
@@ -855,7 +890,7 @@ void LLDrawPoolTerrain::renderOwnership()
 	{
 		LLFace *facep = *iter;
 		facep->renderIndexed(LLVertexBuffer::MAP_VERTEX |
-							LLVertexBuffer::MAP_TEXCOORD);
+							LLVertexBuffer::MAP_TEXCOORD0);
 	}
 
 	glMatrixMode(GL_TEXTURE);

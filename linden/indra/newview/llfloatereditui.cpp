@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -152,7 +153,7 @@ LLFloaterEditUI::LLFloaterEditUI()
 	y -= VPAD + 20;
 
 	spin = new LLSpinCtrl(std::string("height_spin"), LLRect(x, y+20, x+100, y),
-		std::string("Height:"), LLFontGL::sSansSerifSmall,
+		std::string("Height:"), LLFontGL::getFontSansSerifSmall(),
 		onCommitHeight,
 		this,
 		0.f,
@@ -166,7 +167,7 @@ LLFloaterEditUI::LLFloaterEditUI()
 	y -= VPAD + 20;
 
 	spin = new LLSpinCtrl(std::string("width_spin"), LLRect(x, y+20, x+100, y),
-		std::string("Width:"), LLFontGL::sSansSerifSmall,
+		std::string("Width:"), LLFontGL::getFontSansSerifSmall(),
 		onCommitWidth,
 		this,
 		0.f,

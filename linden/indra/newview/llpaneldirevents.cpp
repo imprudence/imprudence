@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -49,6 +50,7 @@
 #include "lluiconstants.h"
 #include "llpanelevent.h"
 #include "llappviewer.h"
+#include "llnotify.h"
 
 BOOL gDisplayEventHack = FALSE;
 
@@ -110,12 +112,11 @@ void LLPanelDirEvents::draw()
 
 void LLPanelDirEvents::refresh()
 {
-	// You only have a choice if you are mature
-	childSetVisible("incmature", !gAgent.isTeen());
-
 	BOOL godlike = gAgent.isGodlike();
 	childSetVisible("Delete", godlike);
 	childSetEnabled("Delete", godlike);
+
+	updateMaturityCheckbox();
 }
 
 
@@ -179,11 +180,25 @@ void LLPanelDirEvents::performQueryOrDelete(U32 event_id)
 
 	mDoneQuery = TRUE;
 
-	setupNewSearch();
-
 	U32 scope = DFQ_DATE_EVENTS;
-	if ( gAgent.isTeen()) scope |= DFQ_PG_SIMS_ONLY;
-	if ( !childGetValue("incmature").asBoolean() ) scope |= DFQ_PG_EVENTS_ONLY;
+	if ( gAgent.wantsPGOnly()) scope |= DFQ_PG_SIMS_ONLY;
+	if ( childGetValue("incpg").asBoolean() ) scope |= DFQ_INC_PG;
+	if ( childGetValue("incmature").asBoolean() ) scope |= DFQ_INC_MATURE;
+	if ( childGetValue("incadult").asBoolean() ) scope |= DFQ_INC_ADULT;
+	
+	// Add old query flags in case we are talking to an old server
+	if ( childGetValue("incpg").asBoolean() && !childGetValue("incmature").asBoolean())
+	{
+		scope |= DFQ_PG_EVENTS_ONLY;
+	}
+	
+	if ( !( scope & (DFQ_INC_PG | DFQ_INC_MATURE | DFQ_INC_ADULT )))
+	{
+		LLNotifications::instance().add("NoContentToSearch");
+		return;
+	}
+	
+	setupNewSearch();
 
 	std::ostringstream params;
 
@@ -207,6 +222,7 @@ void LLPanelDirEvents::performQueryOrDelete(U32 event_id)
 	// send the message
 	if (0 == event_id)
 	{
+		
 		sendDirFindQuery(gMessageSystem, mSearchID, params.str(), scope, mSearchStart);
 	}
 	else

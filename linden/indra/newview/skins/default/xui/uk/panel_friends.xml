@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="friends">
+	<string name="Multiple">
+		Декілька друзів...
+	</string>
+	<scroll_list name="friend_list"
+	     tool_tip="Утримуйте Shift для вибору декількох друзів одразу">
+		<column name="icon_online_status" tool_tip="Онлайн статус" />
+		<column label="Ім&apos;я" name="friend_name" tool_tip="Ім&apos;я" />
+		<column name="icon_visible_online"
+		     tool_tip="Друг може бачити, коли Ви онлайн" />
+		<column name="icon_visible_map"
+		     tool_tip="Друг може знайти Вас на карті" />
+		<column name="icon_edit_mine"
+		     tool_tip="Друг може редагувати, видаляти або брати об&apos;єкти" />
+		<column name="icon_edit_theirs"
+		     tool_tip="Ви можете редагувати об&apos;єкти цього Друга" />
+	</scroll_list>
+	<button label="IM/Дзвінок" name="im_btn"
+	     tool_tip="Відкрити сесію IM-повідомлень" />
+	<button label="Профіль" name="profile_btn"
+	     tool_tip="Показувати картинки, групи і іншу інформацію" />
+	<button label="Телепорт..." name="offer_teleport_btn"
+	     tool_tip="Запропонув. Другу телепортуватися в Ваше поточне місцезнаходження" />
+	<button label="Платити..." name="pay_btn"
+	     tool_tip="Передати Linden-долари (L$) цього другу" />
+	<button label="Видалити..." name="remove_btn"
+	     tool_tip="Видалити цього аватара зі списку друзів" />
+	<button label="Додати..." name="add_btn"
+	     tool_tip="Запропонув. дружбу резиденту" />
+</panel>

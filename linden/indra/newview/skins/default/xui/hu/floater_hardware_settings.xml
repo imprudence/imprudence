@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Hardware Settings Floater" title="Hardver beállítások">
+	<text type="string" length="1" name="Filtering:">
+		Szűrés:
+	</text>
+	<check_box label="Anizotróp szűrés (bekapcsolva lassulást okoz)" name="ani" />
+	<text type="string" length="1" name="Antialiasing:">
+		Simítás:
+	</text>
+	<combo_box label="Simítás" name="fsaa" width="94">
+		<combo_item name="FSAADisabled">
+			Kikapcsolva
+		</combo_item>
+		<combo_item name="2x">
+			2x
+		</combo_item>
+		<combo_item name="4x">
+			4x
+		</combo_item>
+		<combo_item name="8x">
+			8x
+		</combo_item>
+		<combo_item name="16x">
+			16x
+		</combo_item>
+	</combo_box>
+	<spinner label="Gamma:" name="gamma" />
+	<text type="string" length="1" name="(brightness, lower is brighter)">
+		(ha alacsonyabb, fényesebb, 0=alapértelmezett)
+	</text>
+	<text type="string" length="1" name="Enable VBO:">
+		VBO engedélyezése:
+	</text>
+	<check_box label="OpenGL Vertex tárolás engedélyezése" name="vbo"
+	     tool_tip="Ennek engedélyezésével teljesítménynövekedés érhető el. Ez csak új hardver eszközök esetén működik megfelelően, régi eszközök használatakor ezt ne alkalmazd." />
+	<slider label="Textúra memóriatár (MB):" name="GrapicsCardTextureMemory"
+	     tool_tip="A textúra betöltéséhez engedélyezett memória mérete. Alacsonyabb érték esetén teljesítmény növekedés érhető el, de a kép elmosódott lehet." />
+	<spinner label="Köd távolság arány:" name="fog" />
+	<button label="OK" label_selected="OK" name="OK" />
+</floater>

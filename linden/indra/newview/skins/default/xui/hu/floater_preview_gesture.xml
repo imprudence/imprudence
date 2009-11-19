@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="gesture_preview">
+	<string name="stop_txt">
+		Megállít
+	</string>
+	<string name="preview_txt">
+		Előnézet
+	</string>
+	<string name="none_text">
+		-- Nincs --
+	</string>
+	<text name="desc_label">
+		Megnevezés:
+	</text>
+	<text name="trigger_label">
+		Vezérlő:
+	</text>
+	<text name="replace_text" tool_tip="A kioldásra egyedi szavakat használhatsz. Például &apos;hello&apos; cseréje &apos;hogy vagy&apos; szóra, ami hatással van ezekhez a szavakhoz beállított gesztusokra.">
+		Cserél erre:
+	</text>
+	<line_editor name="replace_editor" tool_tip="A kioldásra egyedi szavakat használhatsz. Például &apos;hello&apos; cseréje &apos;hogy vagy&apos; szóra, ami hatással van ezekhez a szavakhoz beállított gesztusokra."/>
+	<text name="key_label">
+		Gyorsbillentyű:
+	</text>
+	<combo_box label="Nincs" name="modifier_combo" width="60"/>
+	<combo_box label="Nincs" name="key_combo" width="60" left_delta="66"/>
+	<text name="library_label">
+		Könyvtár:
+	</text>
+	<text name="steps_label">
+		Lépések:
+	</text>
+	<scroll_list name="library_list">
+		Animáció
+Hang
+Üzenet
+Várakozás
+	</scroll_list>
+	<button label="Hozzáad &gt;&gt;" name="add_btn"/>
+	<button label="Mozgat fel" name="up_btn"/>
+	<button label="Mozgat le" name="down_btn"/>
+	<button label="Eltávolít" name="delete_btn"/>
+	<text name="help_label">
+		Minden lépés egyidejűleg történik,
+hacsaknem várakozást iktatsz
+be a folyamatba.
+	</text>
+	<radio_group name="animation_trigger_type">
+		<radio_item name="start">
+			Indít
+		</radio_item>
+		<radio_item name="stop">
+			Megállít
+		</radio_item>
+	</radio_group>
+	<check_box name="wait_anim_check"/>
+	<check_box label="mp-ben" name="wait_time_check"/>
+	<line_editor left_delta="65" name="wait_time_editor" />
+	<check_box label="Aktív" name="active_check" tool_tip="Az aktív gesztusok vezérelhetők a hozzájuk beállított szavakkal vagy gyorsbillentyűkkel. A gesztusok nem elérhetők, ha nem megfelelően kerültek beállításra a hozzátartozó vezérlők."/>
+	<button label="Előnézet" name="preview_btn"/>
+	<button label="Elment" name="save_btn"/>
+</floater>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -222,7 +223,7 @@ public:
 		
 		bool has(const String&) const;
 		LLSD get(const String&) const;
-		void insert(const String&, const LLSD&);
+		LLSD& insert(const String&, const LLSD&);
 		void erase(const String&);
 		
 		LLSD& operator[](const String&);
@@ -237,7 +238,7 @@ public:
 		
 		LLSD get(Integer) const;
 		void set(Integer, const LLSD&);
-		void insert(Integer, const LLSD&);
+		LLSD& insert(Integer, const LLSD&);
 		void append(const LLSD&);
 		void erase(Integer);
 		

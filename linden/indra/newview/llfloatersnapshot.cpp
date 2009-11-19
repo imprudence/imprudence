@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -50,6 +51,7 @@
 #include "llfocusmgr.h"
 #include "llbutton.h"
 #include "llcombobox.h"
+#include "lleconomy.h"
 #include "llsliderctrl.h"
 #include "llspinctrl.h"
 #include "llviewercontrol.h"
@@ -235,7 +237,7 @@ LLSnapshotLivePreview::LLSnapshotLivePreview (const LLRect& rect) :
 	mImageScaled[0] = FALSE;
 	mImageScaled[1] = FALSE;
 
-	mMaxImageSize = MAX_IMAGE_SIZE ;
+	mMaxImageSize = MAX_SNAPSHOT_IMAGE_SIZE ;
 	mKeepAspectRatio = gSavedSettings.getBOOL("KeepAspectForSnapshot") ;
 	mThumbnailUpdateLock = FALSE ;
 	mThumbnailUpToDate   = FALSE ;
@@ -254,13 +256,13 @@ LLSnapshotLivePreview::~LLSnapshotLivePreview()
 
 void LLSnapshotLivePreview::setMaxImageSize(S32 size) 
 {
-	if(size < MAX_IMAGE_SIZE)
+	if(size < MAX_SNAPSHOT_IMAGE_SIZE)
 	{
 		mMaxImageSize = size;
 	}
 	else
 	{
-		mMaxImageSize = MAX_IMAGE_SIZE ;
+		mMaxImageSize = MAX_SNAPSHOT_IMAGE_SIZE ;
 	}
 }
 
@@ -370,7 +372,7 @@ void LLSnapshotLivePreview::drawPreviewRect(S32 offset_x, S32 offset_y)
 	glLineWidth(2.0f * line_width) ;
 	LLColor4 color(0.0f, 0.0f, 0.0f, 1.0f) ;
 	gl_rect_2d( mPreviewRect.mLeft + offset_x, mPreviewRect.mTop + offset_y,
-		        mPreviewRect.mRight + offset_x, mPreviewRect.mBottom + offset_y, color, FALSE ) ;
+				mPreviewRect.mRight + offset_x, mPreviewRect.mBottom + offset_y, color, FALSE ) ;
 	glLineWidth(line_width) ;
 
 	//draw four alpha rectangles to cover areas outside of the snapshot image
@@ -384,20 +386,20 @@ void LLSnapshotLivePreview::drawPreviewRect(S32 offset_x, S32 offset_y)
 			dwr = mThumbnailWidth - mPreviewRect.getWidth() - dwl ;
 
 			gl_rect_2d(mPreviewRect.mLeft + offset_x - dwl, mPreviewRect.mTop + offset_y,
-		        mPreviewRect.mLeft + offset_x, mPreviewRect.mBottom + offset_y, alpha_color, TRUE ) ;
+				mPreviewRect.mLeft + offset_x, mPreviewRect.mBottom + offset_y, alpha_color, TRUE ) ;
 			gl_rect_2d( mPreviewRect.mRight + offset_x, mPreviewRect.mTop + offset_y,
-		        mPreviewRect.mRight + offset_x + dwr, mPreviewRect.mBottom + offset_y, alpha_color, TRUE ) ;
+				mPreviewRect.mRight + offset_x + dwr, mPreviewRect.mBottom + offset_y, alpha_color, TRUE ) ;
 		}
 
 		if(mThumbnailHeight > mPreviewRect.getHeight())
 		{
 			S32 dh = (mThumbnailHeight - mPreviewRect.getHeight()) >> 1 ;
 			gl_rect_2d(mPreviewRect.mLeft + offset_x - dwl, mPreviewRect.mBottom + offset_y ,
-		        mPreviewRect.mRight + offset_x + dwr, mPreviewRect.mBottom + offset_y - dh, alpha_color, TRUE ) ;
+				mPreviewRect.mRight + offset_x + dwr, mPreviewRect.mBottom + offset_y - dh, alpha_color, TRUE ) ;
 
 			dh = mThumbnailHeight - mPreviewRect.getHeight() - dh ;
 			gl_rect_2d( mPreviewRect.mLeft + offset_x - dwl, mPreviewRect.mTop + offset_y + dh,
-		        mPreviewRect.mRight + offset_x + dwr, mPreviewRect.mTop + offset_y, alpha_color, TRUE ) ;
+				mPreviewRect.mRight + offset_x + dwr, mPreviewRect.mTop + offset_y, alpha_color, TRUE ) ;
 		}
 	}
 }
@@ -507,7 +509,8 @@ void LLSnapshotLivePreview::draw()
 				gGL.end();
 			}
 
-			if (mShineAnimTimer.getElapsedTimeF32() > SHINE_TIME)
+			// if we're at the end of the animation, stop
+			if (shine_interp >= 1.f)
 			{
 				mShineAnimTimer.stop();
 			}
@@ -876,9 +879,17 @@ BOOL LLSnapshotLivePreview::onIdle( void* snapshot_preview )
 			}
 
 			previewp->mViewerImage[previewp->mCurImageIndex] = new LLImageGL(scaled, FALSE);
-			previewp->mViewerImage[previewp->mCurImageIndex]->setMipFilterNearest(previewp->getSnapshotType() != SNAPSHOT_TEXTURE);
-			gGL.getTexUnit(0)->bind(previewp->mViewerImage[previewp->mCurImageIndex]);
-			previewp->mViewerImage[previewp->mCurImageIndex]->setClamp(TRUE, TRUE);
+			LLPointer<LLImageGL> curr_preview_image = previewp->mViewerImage[previewp->mCurImageIndex];
+			gGL.getTexUnit(0)->bind(curr_preview_image);
+			if (previewp->getSnapshotType() != SNAPSHOT_TEXTURE)
+			{
+				curr_preview_image->setFilteringOption(LLTexUnit::TFO_POINT);
+			}
+			else
+			{
+				curr_preview_image->setFilteringOption(LLTexUnit::TFO_ANISOTROPIC);
+			}
+			curr_preview_image->setAddressMode(LLTexUnit::TAM_CLAMP);
 
 			previewp->mSnapshotUpToDate = TRUE;
 			previewp->generateThumbnailImage(TRUE) ;
@@ -967,20 +978,26 @@ void LLSnapshotLivePreview::saveTexture()
 		gAgent.buildLocationString(pos_string);
 		std::string who_took_it;
 		gAgent.buildFullname(who_took_it);
+		LLAssetStorage::LLStoreAssetCallback callback = NULL;
+		S32 expected_upload_cost = LLGlobalEconomy::Singleton::getInstance()->getPriceUpload();
+		void *userdata = NULL;
 		upload_new_resource(tid,	// tid
-							LLAssetType::AT_TEXTURE,
-							"Snapshot : " + pos_string,
-							"Taken by " + who_took_it + " at " + pos_string,
-							0,
-							LLAssetType::AT_SNAPSHOT_CATEGORY,
-							LLInventoryType::IT_SNAPSHOT,
-							PERM_ALL,
-							"Snapshot : " + pos_string);
+				    LLAssetType::AT_TEXTURE,
+				    "Snapshot : " + pos_string,
+				    "Taken by " + who_took_it + " at " + pos_string,
+				    0,
+				    LLAssetType::AT_SNAPSHOT_CATEGORY,
+				    LLInventoryType::IT_SNAPSHOT,
+				    PERM_ALL,  // Note: Snapshots to inventory is a special case of content upload
+				    PERM_NONE, // that ignores the user's premissions preferences and continues to
+				    PERM_NONE, // always use these fairly permissive hard-coded initial perms. - MG
+				    "Snapshot : " + pos_string,
+				    callback, expected_upload_cost, userdata);
 		gViewerWindow->playSnapshotAnimAndSound();
 	}
 	else
 	{
-		gViewerWindow->alertXml("ErrorEncodingSnapshot");
+		LLNotifications::instance().add("ErrorEncodingSnapshot");
 		llwarns << "Error encoding snapshot" << llendl;
 	}
 
@@ -1290,6 +1307,9 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater)
 	LLLocale locale(LLLocale::USER_LOCALE);
 	std::string bytes_string;
 	LLResMgr::getInstance()->getIntegerString(bytes_string, (previewp->getDataSize()) >> 10 );
+	S32 upload_cost = LLGlobalEconomy::Singleton::getInstance()->getPriceUpload();
+	floater->childSetLabelArg("texture", "[AMOUNT]", llformat("%d",upload_cost));
+	floater->childSetLabelArg("upload_btn", "[AMOUNT]", llformat("%d",upload_cost));
 	floater->childSetTextArg("file_size_label", "[SIZE]", got_snap ? bytes_string : floater->getString("unknown"));
 	floater->childSetColor("file_size_label", 
 		shot_type == LLSnapshotLivePreview::SNAPSHOT_POSTCARD 
@@ -1464,7 +1484,7 @@ void LLFloaterSnapshot::Impl::onClickMore(void* data)
 		if(getPreviewView(view))
 		{
 			getPreviewView(view)->setThumbnailImageSize() ;
-	}
+		}
 	}
 }
 void LLFloaterSnapshot::Impl::onClickLess(void* data)
@@ -2197,6 +2217,8 @@ void LLFloaterSnapshot::draw()
 void LLFloaterSnapshot::onClose(bool app_quitting)
 {
 	gSnapshotFloaterView->setEnabled(FALSE);
+	// Set invisible so it doesn't eat tooltips. JC
+	gSnapshotFloaterView->setVisible(FALSE);
 	destroy();
 }
 
@@ -2225,6 +2247,7 @@ void LLFloaterSnapshot::show(void*)
 	sInstance->open();		/* Flawfinder: ignore */
 	sInstance->focusFirstItem(FALSE);
 	gSnapshotFloaterView->setEnabled(TRUE);
+	gSnapshotFloaterView->setVisible(TRUE);
 	gSnapshotFloaterView->adjustToFitScreen(sInstance, FALSE);
 }
 

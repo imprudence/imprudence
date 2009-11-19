@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="script ed float" title="Script: Új script">
+	<button label="Visszaállít" label_selected="Visszaállít" name="Reset" />
+	<check_box label="Futtatás" name="running" />
+	<check_box label="Mono" name="mono" />
+	<string name="not_allowed">
+		Nincs lehetőséged a script megtekintésére.
+	</string>
+	<string name="script_running">
+		Futtatás
+	</string>
+</floater>

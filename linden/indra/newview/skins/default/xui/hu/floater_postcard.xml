@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="Postcard" title="E-mail fénykép">
+	<text name="to_label" width="135">
+		Fogadó e-mail címe:
+	</text>
+	<line_editor name="to_form" left="143" width="127" />
+	<text name="from_label">
+		E-mail címed:
+	</text>
+	<line_editor name="from_form" left="143" width="127" />
+	<text name="name_label">
+		Neved:
+	</text>
+	<line_editor name="name_form" left="143" width="127" />
+	<text name="subject_label">
+		Tárgy:
+	</text>
+	<line_editor name="subject_form" left="143" width="127" />
+	<line_editor label="Ide írd a tárgyszöveget." name="subject_form"/>
+	<text name="msg_label">
+		Üzenet:
+	</text>
+	<text_editor name="msg_form">
+		Írd ide az üzeneted.
+	</text_editor>
+	<text name="fine_print">
+		Ha a címzett belép az SL-be, referencia bónuszban részesülsz.
+	</text>
+	<button label="Mégsem" name="cancel_btn"/>
+	<button label="Elküld" name="send_btn"/>
+	<string name="default_subject">
+		Képeslap a Second Life-ból.
+	</string>
+	<string name="default_message">
+		Nézd meg!
+	</string>
+	<string name="upload_message">
+		&quot;Küldés folyamatban...&quot;
+	</string>
+</floater>

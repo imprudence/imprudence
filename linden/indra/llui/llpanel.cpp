@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -57,8 +58,6 @@
 // LLLayoutStack
 #include "llresizebar.h"
 #include "llcriticaldamp.h"
-
-LLPanel::alert_queue_t LLPanel::sAlertQueue;
 
 const S32 RESIZE_BAR_OVERLAP = 1;
 const S32 RESIZE_BAR_HEIGHT = 3;
@@ -344,38 +343,19 @@ BOOL LLPanel::checkRequirements()
 {
 	if (!mRequirementsError.empty())
 	{
-		LLStringUtil::format_map_t args;
-		args["[COMPONENTS]"] = mRequirementsError;
-		args["[FLOATER]"] = getName();
+		LLSD args;
+		args["COMPONENTS"] = mRequirementsError;
+		args["FLOATER"] = getName();
 
 		llwarns << getName() << " failed requirements check on: \n"  
 				<< mRequirementsError << llendl;
-			
-		alertXml(std::string("FailedRequirementsCheck"), args);
+		
+		LLNotifications::instance().add(LLNotification::Params("FailedRequirementsCheck").payload(args));
 		mRequirementsError.clear();
 		return FALSE;
 	}
 
 	return TRUE;
-}
-
-//static
-void LLPanel::alertXml(const std::string& label, LLStringUtil::format_map_t args)
-{
-	sAlertQueue.push(LLAlertInfo(label,args));
-}
-
-//static
-BOOL LLPanel::nextAlert(LLAlertInfo &alert)
-{
-	if (!sAlertQueue.empty())
-	{
-		alert = sAlertQueue.front();
-		sAlertQueue.pop();
-		return TRUE;
-	}
-
-	return FALSE;
 }
 
 void LLPanel::setFocus(BOOL b)
@@ -927,7 +907,7 @@ LLPanel *LLPanel::childGetVisibleTab(const std::string& id) const
 	return NULL;
 }
 
-void LLPanel::childSetTabChangeCallback(const std::string& id, const std::string& tabname, void (*on_tab_clicked)(void*, bool), void *userdata)
+void LLPanel::childSetTabChangeCallback(const std::string& id, const std::string& tabname, void (*on_tab_clicked)(void*, bool), void *userdata, void (*on_precommit)(void*,bool))
 {
 	LLTabContainer* child = getChild<LLTabContainer>(id);
 	if (child)
@@ -937,6 +917,10 @@ void LLPanel::childSetTabChangeCallback(const std::string& id, const std::string
 		{
 			child->setTabChangeCallback(panel, on_tab_clicked);
 			child->setTabUserData(panel, userdata);
+			if (on_precommit)
+			{
+				child->setTabPrecommitChangeCallback(panel, on_precommit);
+			}
 		}
 	}
 }
@@ -1039,9 +1023,9 @@ void LLPanel::childDisplayNotFound()
 		mExpectedMembers.insert(*itor);
 	}
 	mNewExpectedMembers.clear();
-	LLStringUtil::format_map_t args;
-	args["[CONTROLS]"] = msg;
-	LLAlertDialog::showXml("FloaterNotFound", args);
+	LLSD args;
+	args["CONTROLS"] = msg;
+	LLNotifications::instance().add("FloaterNotFound", args);
 }
 
 void LLPanel::storeRectControl()
@@ -1065,6 +1049,8 @@ struct LLLayoutStack::LLEmbeddedPanel
 			mAutoResize(auto_resize),
 			mUserResize(user_resize),
 			mOrientation(orientation),
+			mCollapsed(FALSE),
+			mCollapseAmt(0.f),
 			mVisibleAmt(1.f) // default to fully visible
 	{
 		LLResizeBar::Side side = (orientation == HORIZONTAL) ? LLResizeBar::RIGHT : LLResizeBar::BOTTOM;
@@ -1095,14 +1081,32 @@ struct LLLayoutStack::LLEmbeddedPanel
 		mResizeBar = NULL;
 	}
 
+	F32 getCollapseFactor()
+	{
+		if (mOrientation == HORIZONTAL)
+		{
+			F32 collapse_amt = 
+				clamp_rescale(mCollapseAmt, 0.f, 1.f, 1.f, (F32)mMinWidth / (F32)llmax(1, mPanel->getRect().getWidth()));
+			return mVisibleAmt * collapse_amt;
+		}
+		else
+		{
+			F32 collapse_amt = 
+				clamp_rescale(mCollapseAmt, 0.f, 1.f, 1.f, llmin(1.f, (F32)mMinHeight / (F32)llmax(1, mPanel->getRect().getHeight())));
+			return mVisibleAmt * collapse_amt;
+		}
+	}
+
 	LLPanel* mPanel;
 	S32 mMinWidth;
 	S32 mMinHeight;
 	BOOL mAutoResize;
 	BOOL mUserResize;
+	BOOL mCollapsed;
 	LLResizeBar* mResizeBar;
 	eLayoutOrientation mOrientation;
 	F32 mVisibleAmt;
+	F32 mCollapseAmt;
 };
 
 static LLRegisterWidget<LLLayoutStack> r2("layout_stack");
@@ -1123,28 +1127,27 @@ LLLayoutStack::~LLLayoutStack()
 void LLLayoutStack::draw()
 {
 	updateLayout();
+
+	e_panel_list_t::iterator panel_it;
+	for (panel_it = mPanels.begin(); panel_it != mPanels.end(); ++panel_it)
 	{
-		e_panel_list_t::iterator panel_it;
-		for (panel_it = mPanels.begin(); panel_it != mPanels.end(); ++panel_it)
+		// clip to layout rectangle, not bounding rectangle
+		LLRect clip_rect = (*panel_it)->mPanel->getRect();
+		// scale clipping rectangle by visible amount
+		if (mOrientation == HORIZONTAL)
 		{
-			// clip to layout rectangle, not bounding rectangle
-			LLRect clip_rect = (*panel_it)->mPanel->getRect();
-			// scale clipping rectangle by visible amount
-			if (mOrientation == HORIZONTAL)
-			{
-				clip_rect.mRight = clip_rect.mLeft + llround((F32)clip_rect.getWidth() * (*panel_it)->mVisibleAmt);
-			}
-			else
-			{
-				clip_rect.mBottom = clip_rect.mTop - llround((F32)clip_rect.getHeight() * (*panel_it)->mVisibleAmt);
-			}
-
-			LLPanel* panelp = (*panel_it)->mPanel;
-
-			LLLocalClipRect clip(clip_rect);
-			// only force drawing invisible children if visible amount is non-zero
-			drawChild(panelp, 0, 0, !clip_rect.isNull());
+			clip_rect.mRight = clip_rect.mLeft + llround((F32)clip_rect.getWidth() * (*panel_it)->getCollapseFactor());
 		}
+		else
+		{
+			clip_rect.mBottom = clip_rect.mTop - llround((F32)clip_rect.getHeight() * (*panel_it)->getCollapseFactor());
+		}
+
+		LLPanel* panelp = (*panel_it)->mPanel;
+
+		LLLocalClipRect clip(clip_rect);
+		// only force drawing invisible children if visible amount is non-zero
+		drawChild(panelp, 0, 0, !clip_rect.isNull());
 	}
 }
 
@@ -1276,8 +1279,13 @@ S32 LLLayoutStack::getDefaultWidth(S32 cur_width)
 	return cur_width;
 }
 
-void LLLayoutStack::addPanel(LLPanel* panel, S32 min_width, S32 min_height, BOOL auto_resize, BOOL user_resize, S32 index)
+void LLLayoutStack::addPanel(LLPanel* panel, S32 min_width, S32 min_height, BOOL auto_resize, BOOL user_resize, EAnimate animate, S32 index)
 {
+	// panel starts off invisible (collapsed)
+	if (animate == ANIMATE)
+	{
+		panel->setVisible(FALSE);
+	}
 	LLEmbeddedPanel* embedded_panel = new LLEmbeddedPanel(panel, mOrientation, min_width, min_height, auto_resize, user_resize);
 	
 	mPanels.insert(mPanels.begin() + llclamp(index, 0, (S32)mPanels.size()), embedded_panel);
@@ -1293,11 +1301,24 @@ void LLLayoutStack::addPanel(LLPanel* panel, S32 min_width, S32 min_height, BOOL
 		sendChildToFront(resize_barp);
 	}
 
+	// start expanding panel animation
+	if (animate == ANIMATE)
+	{
+		panel->setVisible(TRUE);
+	}
 }
 
 void LLLayoutStack::removePanel(LLPanel* panel)
 {
 	removeChild(panel);
+}
+
+void LLLayoutStack::collapsePanel(LLPanel* panel, BOOL collapsed)
+{
+	LLEmbeddedPanel* panel_container = findEmbeddedPanel(panel);
+	if (!panel_container) return;
+
+	panel_container->mCollapsed = collapsed;
 }
 
 void LLLayoutStack::updateLayout(BOOL force_resize)
@@ -1332,6 +1353,15 @@ void LLLayoutStack::updateLayout(BOOL force_resize)
 			}
 		}
 
+		if ((*panel_it)->mCollapsed)
+		{
+			(*panel_it)->mCollapseAmt = lerp((*panel_it)->mCollapseAmt, 1.f, LLCriticalDamp::getInterpolant(ANIM_CLOSE_TIME));
+		}
+		else
+		{
+			(*panel_it)->mCollapseAmt = lerp((*panel_it)->mCollapseAmt, 0.f, LLCriticalDamp::getInterpolant(ANIM_CLOSE_TIME));
+		}
+
 		if (mOrientation == HORIZONTAL)
 		{
 			// enforce minimize size constraint by default
@@ -1339,7 +1369,7 @@ void LLLayoutStack::updateLayout(BOOL force_resize)
 			{
 				panelp->reshape((*panel_it)->mMinWidth, panelp->getRect().getHeight());
 			}
-        	total_width += llround(panelp->getRect().getWidth() * (*panel_it)->mVisibleAmt);
+        	total_width += llround(panelp->getRect().getWidth() * (*panel_it)->getCollapseFactor());
         	// want n-1 panel gaps for n panels
 			if (panel_it != mPanels.begin())
 			{
@@ -1353,7 +1383,7 @@ void LLLayoutStack::updateLayout(BOOL force_resize)
 			{
 				panelp->reshape(panelp->getRect().getWidth(), (*panel_it)->mMinHeight);
 			}
-			total_height += llround(panelp->getRect().getHeight() * (*panel_it)->mVisibleAmt);
+			total_height += llround(panelp->getRect().getHeight() * (*panel_it)->getCollapseFactor());
 			if (panel_it != mPanels.begin())
 			{
 				total_height += mPanelSpacing;
@@ -1367,7 +1397,7 @@ void LLLayoutStack::updateLayout(BOOL force_resize)
 	for (panel_it = mPanels.begin(); panel_it != mPanels.end(); ++panel_it)
 	{
 		// panels that are not fully visible do not count towards shrink headroom
-		if ((*panel_it)->mVisibleAmt < 1.f) 
+		if ((*panel_it)->getCollapseFactor() < 1.f) 
 		{
 			continue;
 		}
@@ -1431,7 +1461,7 @@ void LLLayoutStack::updateLayout(BOOL force_resize)
 		S32 delta_size = 0;
 
 		// if panel can automatically resize (not animating, and resize flag set)...
-		if ((*panel_it)->mVisibleAmt == 1.f 
+		if ((*panel_it)->getCollapseFactor() == 1.f 
 			&& (force_resize || (*panel_it)->mAutoResize) 
 			&& !(*panel_it)->mResizeBar->hasMouseCapture()) 
 		{
@@ -1515,11 +1545,11 @@ void LLLayoutStack::updateLayout(BOOL force_resize)
 
 		if (mOrientation == HORIZONTAL)
 		{
-			cur_x += llround(new_width * (*panel_it)->mVisibleAmt) + mPanelSpacing;
+			cur_x += llround(new_width * (*panel_it)->getCollapseFactor()) + mPanelSpacing;
 		}
 		else //VERTICAL
 		{
-			cur_y -= llround(new_height * (*panel_it)->mVisibleAmt) + mPanelSpacing;
+			cur_y -= llround(new_height * (*panel_it)->getCollapseFactor()) + mPanelSpacing;
 		}
 	}
 

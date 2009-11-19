@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Sound Preview" title="звук.wav">
+	<text name="name_label">
+		Название:
+	</text>
+	<text name="description_label">
+		Описание:
+	</text>
+	<button label="Отмена" label_selected="Отмена" name="cancel_btn" />
+	<button label="Загрузить (L$[AMOUNT])" label_selected="Загрузить (L$[AMOUNT])"
+	     name="ok_btn" />
+</floater>

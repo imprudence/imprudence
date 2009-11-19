@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Attachment Pie">
+	<menu_item_call label="Профиль..." name="Profile..."/>
+	<menu_item_call label="Сброс" name="Drop"/>
+	<menu_item_call label="Группы..." name="Groups..."/>
+	<menu_item_call label="Коснуться" name="Attachment Object Touch">
+		<on_enable userdata="Коснуться" name="EnableTouch"/>
+	</menu_item_call>
+	<menu_item_call label="Встать" name="Stand Up"/>
+	<menu_item_call label="Отцепить" name="Detach"/>
+	<menu_item_call label="Друзья..." name="Friends..."/>
+	<menu_item_call label="Жесты..." name="Gestures..."/>
+	<menu_item_call label="Вид..." name="Appearance..."/>
+	<menu_item_call label="Правка..." name="Edit..."/>
+</pie_menu>

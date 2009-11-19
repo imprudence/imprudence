@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -43,10 +44,12 @@
 #include "llradiogroup.h"
 #include "lldbstrings.h"
 #include "lldir.h"
+#include "llfloaterperms.h"
 #include "llviewercontrol.h"
 #include "llviewermenufile.h"	// upload_new_resource()
 #include "lluictrlfactory.h"
 #include "llstring.h"
+#include "lleconomy.h"
 
 // linden includes
 #include "llassetstorage.h"
@@ -177,10 +180,16 @@ void LLFloaterNameDesc::onBtnOK( void* userdata )
 
 	fp->childDisable("ok_btn"); // don't allow inadvertent extra uploads
 	
+	LLAssetStorage::LLStoreAssetCallback callback = NULL;
+	S32 expected_upload_cost = LLGlobalEconomy::Singleton::getInstance()->getPriceUpload(); // kinda hack - assumes that unsubclassed LLFloaterNameDesc is only used for uploading chargeable assets, which it is right now (it's only used unsubclassed for the sound upload dialog, and THAT should be a subclass).
+	void *nruserdata = NULL;
+	std::string display_name = LLStringUtil::null;
 	upload_new_resource(fp->mFilenameAndPath, // file
-		fp->childGetValue("name_form").asString(), 
-		fp->childGetValue("description_form").asString(), 
-		0, LLAssetType::AT_NONE, LLInventoryType::IT_NONE);
+			    fp->childGetValue("name_form").asString(), 
+			    fp->childGetValue("description_form").asString(), 
+			    0, LLAssetType::AT_NONE, LLInventoryType::IT_NONE,
+			    LLFloaterPerms::getNextOwnerPerms(), LLFloaterPerms::getGroupPerms(), LLFloaterPerms::getEveryonePerms(),
+			    display_name, callback, expected_upload_cost, nruserdata);
 	fp->close(false);
 }
 

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -73,9 +74,8 @@ public:
 	void transitionToTab();
 
 	// Used by attemptTransition to query the user's response to a tab that needs to apply. 
-	static void onNotifyCallback(S32 option, void* user_data);
-	void handleNotifyCallback(S32 option);
-	static void onModalClose(S32 option, void* user_data);
+	bool handleNotifyCallback(const LLSD& notification, const LLSD& response);
+	bool onModalClose(const LLSD& notification, const LLSD& response);
 
 	// Most of these messages are just passed on to the current sub-tab.
 	virtual std::string getHelpText() const;
@@ -188,7 +188,7 @@ public:
 						 LLRoleMemberChangeType type);
 
 	void applyMemberChanges();
-	static void addOwnerCB(S32 option, void* data);
+	bool addOwnerCB(const LLSD& notification, const LLSD& response);
 
 	virtual void activate();
 	virtual void deactivate();
@@ -250,7 +250,7 @@ public:
 
 	static void onActionCheck(LLUICtrl*, void*);
 	void handleActionCheck(LLCheckBoxCtrl*, bool force=false);
-	static void addActionCB(S32 option, void* data);
+	bool addActionCB(const LLSD& notification, const LLSD& response, LLCheckBoxCtrl* check);
 
 	static void onPropertiesKey(LLLineEditor*, void*);
 

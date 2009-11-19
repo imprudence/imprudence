@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -111,30 +112,30 @@ void LLVelocityBar::draw()
 	left = 0;
 	std::string str;
 	str = llformat( "Velocity %.3fm/s", velocity);
-	LLFontGL::sMonospace->renderUTF8(str, 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::getFontMonospace()->renderUTF8(str, 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	top = TICK_BOTTOM;
 
 	left = - MAGIC_CHAR_WIDTH/2;
-	LLFontGL::sMonospace->renderUTF8(std::string("0"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::getFontMonospace()->renderUTF8(std::string("0"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*1 / 6) - MAGIC_CHAR_WIDTH * 2;
-	LLFontGL::sMonospace->renderUTF8(std::string("1"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::getFontMonospace()->renderUTF8(std::string("1"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*2 / 6) - MAGIC_CHAR_WIDTH;
-	LLFontGL::sMonospace->renderUTF8(std::string("2"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::getFontMonospace()->renderUTF8(std::string("2"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*3 / 6) - MAGIC_CHAR_WIDTH * 2;
-	LLFontGL::sMonospace->renderUTF8(std::string("3"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::getFontMonospace()->renderUTF8(std::string("3"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*4 / 6) - MAGIC_CHAR_WIDTH;
-	LLFontGL::sMonospace->renderUTF8(std::string("4"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::getFontMonospace()->renderUTF8(std::string("4"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*5 / 6) - MAGIC_CHAR_WIDTH * 2;
-	LLFontGL::sMonospace->renderUTF8(std::string("5"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::getFontMonospace()->renderUTF8(std::string("5"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	left = (getRect().getWidth()*6 / 6) - MAGIC_CHAR_WIDTH * 3;
-	LLFontGL::sMonospace->renderUTF8(std::string("6 m/s"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
+	LLFontGL::getFontMonospace()->renderUTF8(std::string("6 m/s"), 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	// draw idle time
 	top = BAR_TOP;

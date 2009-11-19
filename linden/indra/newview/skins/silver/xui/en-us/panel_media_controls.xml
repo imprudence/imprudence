@@ -25,7 +25,7 @@
   <icon bottom="-18" enabled="true" follows="left|top" height="14"
 	     image_name="icn_label_media.tga"
              label="" left_delta="22" mouse_opaque="true"
-	     name="media_icon" scale_image="true" tool_tip="Play/pause streaming media"
+	     name="media_icon" scale_image="true" tool_tip="Play/pause streaming music"
 	     width="17" />
   <button bottom="-21" enabled="true" follows="left|top" height="20"
 	     image_overlay="icn_play.tga"

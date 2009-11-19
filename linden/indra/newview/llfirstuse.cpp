@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -89,9 +90,9 @@ void LLFirstUse::useBalanceIncrease(S32 delta)
 	{
 		gSavedSettings.setWarning("FirstBalanceIncrease", FALSE);
 
-		LLStringUtil::format_map_t args;
-		args["[AMOUNT]"] = llformat("%d",delta);
-		LLNotifyBox::showXml("FirstBalanceIncrease", args);
+		LLSD args;
+		args["AMOUNT"] = llformat("%d",delta);
+		LLNotifications::instance().add("FirstBalanceIncrease", args);
 	}
 }
 
@@ -103,9 +104,9 @@ void LLFirstUse::useBalanceDecrease(S32 delta)
 	{
 		gSavedSettings.setWarning("FirstBalanceDecrease", FALSE);
 
-		LLStringUtil::format_map_t args;
-		args["[AMOUNT]"] = llformat("%d",-delta);
-		LLNotifyBox::showXml("FirstBalanceDecrease", args);
+		LLSD args;
+		args["AMOUNT"] = llformat("%d",-delta);
+		LLNotifications::instance().add("FirstBalanceDecrease", args);
 	}
 }
 
@@ -118,8 +119,8 @@ void LLFirstUse::useSit()
 	//if (gSavedSettings.getWarning("FirstSit"))
 	//{
 	//	gSavedSettings.setWarning("FirstSit", FALSE);
-
-	//	LLNotifyBox::showXml("FirstSit");
+        //
+	//	LLNotifications::instance().add("FirstSit");
 	//}
 }
 
@@ -130,7 +131,7 @@ void LLFirstUse::useMap()
 	{
 		gSavedSettings.setWarning("FirstMap", FALSE);
 
-		LLNotifyBox::showXml("FirstMap");
+		LLNotifications::instance().add("FirstMap");
 	}
 }
 
@@ -141,7 +142,7 @@ void LLFirstUse::useMiniMap()
 	{
 		gSavedSettings.setWarning("FirstMiniMap", FALSE);
 
-		LLNotifyBox::showXml("FirstMiniMap");
+		LLNotifications::instance().add("FirstMiniMap");
 	}
 }
 
@@ -158,7 +159,7 @@ void LLFirstUse::useBuild()
 	{
 		gSavedSettings.setWarning("FirstBuild", FALSE);
 
-		LLNotifyBox::showXml("FirstBuild");
+		LLNotifications::instance().add("FirstBuild");
 	}
 }
 
@@ -169,7 +170,7 @@ void LLFirstUse::useLeftClickNoHit()
 	{
 		gSavedSettings.setWarning("FirstLeftClickNoHit", FALSE);
 
-		LLNotifyBox::showXml("FirstLeftClickNoHit");
+		LLNotifications::instance().add("FirstLeftClickNoHit");
 	}
 }
 
@@ -183,7 +184,7 @@ void LLFirstUse::useTeleport()
 		{
 			gSavedSettings.setWarning("FirstTeleport", FALSE);
 
-			LLNotifyBox::showXml("FirstTeleport");
+		        LLNotifications::instance().add("FirstTeleport");
 		}
 	}
 }
@@ -199,7 +200,7 @@ void LLFirstUse::useOverrideKeys()
 		{
 			gSavedSettings.setWarning("FirstOverrideKeys", FALSE);
 
-			LLNotifyBox::showXml("FirstOverrideKeys");
+			LLNotifications::instance().add("FirstOverrideKeys");
 		}
 	}
 }
@@ -217,7 +218,7 @@ void LLFirstUse::useAppearance()
 	{
 		gSavedSettings.setWarning("FirstAppearance", FALSE);
 
-		LLNotifyBox::showXml("FirstAppearance");
+		LLNotifications::instance().add("FirstAppearance");
 	}
 }
 
@@ -228,7 +229,7 @@ void LLFirstUse::useInventory()
 	{
 		gSavedSettings.setWarning("FirstInventory", FALSE);
 
-		LLNotifyBox::showXml("FirstInventory");
+		LLNotifications::instance().add("FirstInventory");
 	}
 }
 
@@ -240,10 +241,10 @@ void LLFirstUse::useSandbox()
 	{
 		gSavedSettings.setWarning("FirstSandbox", FALSE);
 
-		LLStringUtil::format_map_t args;
-		args["[HOURS]"] = llformat("%d",SANDBOX_CLEAN_FREQ);
-		args["[TIME]"] = llformat("%d",SANDBOX_FIRST_CLEAN_HOUR);
-		LLNotifyBox::showXml("FirstSandbox", args);
+		LLSD args;
+		args["HOURS"] = llformat("%d",SANDBOX_CLEAN_FREQ);
+		args["TIME"] = llformat("%d",SANDBOX_FIRST_CLEAN_HOUR);
+		LLNotifications::instance().add("FirstSandbox", args);
 	}
 }
 
@@ -254,7 +255,7 @@ void LLFirstUse::useFlexible()
 	{
 		gSavedSettings.setWarning("FirstFlexible", FALSE);
 
-		LLNotifyBox::showXml("FirstFlexible");
+		LLNotifications::instance().add("FirstFlexible");
 	}
 }
 
@@ -265,7 +266,7 @@ void LLFirstUse::useDebugMenus()
 	{
 		gSavedSettings.setWarning("FirstDebugMenus", FALSE);
 
-		LLNotifyBox::showXml("FirstDebugMenus");
+		LLNotifications::instance().add("FirstDebugMenus");
 	}
 }
 
@@ -276,7 +277,7 @@ void LLFirstUse::useSculptedPrim()
 	{
 		gSavedSettings.setWarning("FirstSculptedPrim", FALSE);
 
-		LLNotifyBox::showXml("FirstSculptedPrim");
+		LLNotifications::instance().add("FirstSculptedPrim");
 		
 	}
 }
@@ -288,39 +289,6 @@ void LLFirstUse::useMedia()
 	{
 		gSavedSettings.setWarning("FirstMedia", FALSE);
 
-		LLNotifyBox::showXml("FirstMedia");
+		LLNotifications::instance().add("FirstMedia");
 	}
 }
-
-// [RLVa:KB] - Version: 1.22.11 | Checked: RLVa-1.0.3a (2009-09-10) | Added: RLVa-1.0.3a
-
-// SL-1.22.11 doesn't seem to have a way to check which notifications are currently open :(
-bool rlvHasVisibleFirstUseNotification()
-{
-	return false;
-}
-
-void LLFirstUse::showRlvFirstUseNotification(const std::string& strName)
-{
-	if ( (gSavedSettings.getWarning(strName)) && (!rlvHasVisibleFirstUseNotification()) )
-	{
-		gSavedSettings.setWarning(strName, FALSE);
-		LLNotifyBox::showXml(strName);
-	}
-}
-
-void LLFirstUse::warnRlvGiveToRLV()
-{
-	if ( (gSavedSettings.getWarning(RLV_SETTING_FIRSTUSE_GIVETORLV)) && (RlvSettings::getForbidGiveToRLV()) )
-		gViewerWindow->alertXml(RLV_SETTING_FIRSTUSE_GIVETORLV, LLStringUtil::format_map_t(), &LLFirstUse::onRlvGiveToRLVConfirmation, NULL);
-}
-
-void LLFirstUse::onRlvGiveToRLVConfirmation(S32 idxOption, void* /*pUserParam*/)
-{
-	gSavedSettings.setWarning(RLV_SETTING_FIRSTUSE_GIVETORLV, FALSE);
-
-	if ( (0 == idxOption) || (1 == idxOption) )
-		gSavedSettings.setBOOL(RLV_SETTING_FORBIDGIVETORLV, (idxOption == 1));
-}
-
-// [/RLVa:KB]

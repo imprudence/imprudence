@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="overlay">
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
+				<layout_panel name="state_buttons">
+					<button label="Fogadott üzenet" label_selected="Fogadott üzenet" name="IM Received" tool_tip="Várakozó üzeneted van. Kattints ide a megjelenítéshez." width="108" left="4"/>
+					<button label="Nem elfoglalt" label_selected="Nem elfoglalt" name="Set Not Busy" tool_tip="Ilyenkor az üzenetküldés rejtve van. Kattints ide a foglalt állapot megszüntetéséhez." width="190"/>
+					<button label="Flycam" label_selected="Flycam" name="Flycam" tool_tip="A kamera joystick vezérlése alatt van, kattints ide a feloldáshoz." left="306" width="50"/>
+					<button label="Egér nézet" label_selected="Egér nézet" name="Mouselook" tool_tip="Használd az egeret a nézet irányításához. Ha fegyvert használsz, kattints az egérre a tüzeléshez." left="356" width="80"/>
+					<button label="Felállás" label_selected="Felállás" name="Stand Up" tool_tip="Kattints ide a felálláshoz."/>
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+	</layout_stack>
+</panel>

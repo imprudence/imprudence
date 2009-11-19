@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="voice_controls">
+	<button label="" name="speakers_btn" tool_tip="Vis liste med beboere der bruger stemme-chat i nærheden" />
+	<button label="Tal" name="push_to_talk" tool_tip="Hold knappen nede for at tale" />
+	<button label="" name="ptt_lock" tool_tip="Klik på lås for at fastholde tale" />
+	<button label="" name="show_channel" tool_tip="Klik her for at se nuværende stemme kanal" />
+</panel>

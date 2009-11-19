@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -37,39 +38,37 @@
 #include "lldarray.h"
 #include "lltimer.h"
 #include "llviewermessage.h"
+#include "llnotifications.h"
 
 class LLButton;
 
 // NotifyBox - for notifications that require a response from the
 // user.  Replaces LLMessageBox.
 class LLGroupNotifyBox
-:	public LLPanel
+:	public LLPanel,
+	public LLInitClass<LLGroupNotifyBox>
 {
 public:
-	static LLGroupNotifyBox* show(const std::string& subject,
-								  const std::string& message,
-								  const std::string& from_name,
-								  const LLUUID& group_id,
-								  const U32& time_stamp,
-								  const bool& has_inventory = FALSE,
-								  const std::string& inventory_name = std::string(),
-								  LLOfferInfo* inventory_offer = NULL);
 	void close();
+
+	static void initClass();
+	static void destroyClass();
+	static bool onNewNotification(const LLSD& notification);
 
 protected:
 	// Non-transient messages.  You can specify non-default button
 	// layouts (like one for script dialogs) by passing various
 	// numbers in for "layout".
 	LLGroupNotifyBox(const std::string& subject,
-					 const std::string& message,
-					 const std::string& from_name,
-					 const LLUUID& group_id,
-					 const LLUUID& group_insignia,
-					 const std::string& group_name,
-					 const U32& t,
-					 const bool& has_inventory = FALSE,
-					 const std::string& inventory_name = std::string(),
-					 LLOfferInfo* inventory_offer = NULL);
+							 const std::string& message,
+							 const std::string& from_name,
+							 const LLUUID& group_id,
+							 const LLUUID& group_insignia,
+							 const std::string& group_name,
+							 const LLDate& time_stamp,
+							 const bool& has_inventory,
+							 const std::string& inventory_name,
+							 const LLSD& inventory_offer);
 
 	/*virtual*/ ~LLGroupNotifyBox();
 
@@ -97,7 +96,7 @@ protected:
 	// for "next" button
 	static void onClickNext(void* data);
 
-protected:
+private:
 	// Are we sliding onscreen?
 	BOOL mAnimating;
 

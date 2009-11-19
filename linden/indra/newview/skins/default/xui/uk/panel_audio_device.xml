@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="device_settings">
+	<text type="string" length="1" name="Audio Devices">
+		Аудіопристрої
+	</text>
+	<text type="string" length="1" name="Input device (microphone):">
+		Вхідний пристр. (мікрофон)
+	</text>
+	<text type="string" length="1" name="Output device (speakers):">
+		Вихідний пристр. (колонки)
+	</text>
+	<text type="string" length="1" name="Input level:">
+		Рівень вхідного сигналу
+	</text>
+	<text_editor type="string" length="1" name="voice_intro_text1">
+		Відрегулюйте рівень, щоб проконтролювати як гучно Вас буде чутно іншим резидентам. Говоріть в мікрофон, щоб протестувати рівень вхідного сигналу.
+	</text_editor>
+	<volume_slider name="mic_volume_slider"
+	     tool_tip="Змінити гучність за допомогою повзунка" />
+	<text name="wait_text">
+		Будь ласка, зачекайте
+	</text>
+	<string name="default_text">
+		За замовчуванням
+	</string>
+</panel>

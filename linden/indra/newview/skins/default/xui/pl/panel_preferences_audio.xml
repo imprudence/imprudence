@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Audio i Video" name="Media panel">
+	<text type="string" length="1" name="muting_text">
+		Głośność:
+	</text>
+	<text type="string" length="1" name="streaming_prefs_text">
+		Ustawienia Strumieni:
+	</text>
+	<text type="string" length="1" name="audio_prefs_text">
+		Ustawienia Audio:
+	</text>
+	<panel label="Głośność" name="Volume Panel" />
+	<check_box label="Odtwarzaj Strumienie Muzyki (zużywa przepustowość)"
+	     name="streaming_music" />
+	<check_box label="Odtwarzaj Strumienie Video (zużywa przepustowość)"
+	     name="streaming_video" />
+	<check_box label="Automatycznie Odtwarzaj Media" name="auto_streaming_video" />
+	<check_box label="Wyciszaj Audio Podczas Minimalizacji Okna" name="mute_when_minimized" />
+	<slider label="Efekt Dopplera" name="Doppler Effect" />
+	<slider label="Wpływ Dystansu" name="Distance Factor" />
+	<slider label="Wyciszanie" name="Rolloff Factor" />
+	<spinner label="Próg Zmiany L$" name="L$ Change Threshold" />
+	<spinner label="Próg Zmiany Statusu" name="Health Change Threshold" />
+</panel>

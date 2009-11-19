@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -132,8 +133,13 @@ public:
 	
 	// Overrides
 	/*virtual*/ void	draw();
-	/*virtual*/ void	addLine(const std::string& utf8line);
-	/*virtual*/ void	addLine(const LLWString& line);
+
+	//do not make these two "virtual"
+	void	addLine(const std::string& utf8line);
+	void	addLine(const LLWString& line);
+
+private:
+	void updateBuffer() ;
 };
 
 extern LLConsole* gConsole;

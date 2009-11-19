@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="perm prefs" title="Alapértelmezett feltöltési jogosultságok">
+	<panel label="Jogosultságok" name="permissions">
+		<button label="?" label_selected="?" name="help"/>
+		<check_box label="Csoporttal megoszt" name="share_with_group"/>
+		<check_box label="Bárki másolhatja" name="everyone_copy"/>
+		<text name="NextOwnerLabel">
+			Következő tulajdonos jogosultsága:
+		</text>
+		<check_box label="Módosítás" name="next_owner_modify"/>
+		<check_box label="Másolás" name="next_owner_copy"/>
+		<check_box label="Eladás/Átadás" name="next_owner_transfer"/>
+	</panel>
+	<button label="OK" label_selected="OK" name="ok"/>
+	<button label="Mégsem" label_selected="Mégsem" name="cancel"/>
+</floater>

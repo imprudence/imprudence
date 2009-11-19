@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Общие" name="general_tab">
+	<string name="help_text">
+		Эта закладка содержит общую информацию об этой 
+группе, владельцах и видимых участниках.
+общие установки группы и условия участия.
+
+Для помощи наведите мышку на опцию..
+	</string>
+	<string name="group_info_unchanged">
+		Общая информация группы изменилась
+	</string>
+	<button label="?" label_selected="?" name="help_button"/>
+	<line_editor label="Введите название новой группы здесь" name="group_name_editor"/>
+	<text name="group_name">
+		Введите название новой группы здесь
+	</text>
+	<text name="prepend_founded_by">
+		Основана
+	</text>
+	<text name="founder_name">
+		(ожидайте)
+	</text>
+	<text name="group_charter_label">
+		Устав Группы
+	</text>
+	<texture_picker label="Знаки отличия Группы" name="insignia" tool_tip="Щелкните для выбора картинки"/>
+	<text_editor name="charter">
+		Устав Группы
+	</text_editor>
+	<button label="Присоединиться (L$0)" label_selected="Присоединиться (L$0)" name="join_button"/>
+	<button label="Детальный вид" label_selected="Детальный вид" name="info_button"/>
+	<text name="text_owners_and_visible_members">
+		Владелец и Видимые участники
+	</text>
+	<text name="text_owners_are_shown_in_bold">
+		(Владельцы показываются жирным шрифтом)
+	</text>
+	<name_list name="visible_members">
+		<column label="Имя участника" name="name"/>
+		<column label="Титул" name="title"/>
+		<column label="Посл. Логин" name="online"/>
+	</name_list>
+	<text name="text_group_preferences">
+		Свойства группы
+	</text>
+	<panel name="preferences_container">
+		<check_box label="Показ. в поиске" name="show_in_group_list" tool_tip="Позволить людям видеть эту Группу в результатах поиска."/>
+		<check_box label="Открытая регистрация" name="open_enrollement" tool_tip="В этой группе можно зарегистрироваться без приглашения."/>
+		<check_box label="Сбор за рег.: L$" name="check_enrollment_fee" tool_tip="Требовать ли денежный сбор за регистрацию в группе."/>
+		<spinner name="spin_enrollment_fee" tool_tip="Новые участники должны будут оплатить взнос, если указан &apos;&apos;Взнос за Вступление&apos;&apos;."/>
+		<combo_box name="group_mature_check" tool_tip="Устанавливает является ли информация о Вашей группе mature.">
+			<combo_item name="select_mature">
+				- Выберите -
+			</combo_item>
+			<combo_item name="mature">
+				Mature контент
+			</combo_item>
+			<combo_item name="pg">
+				PG контент
+			</combo_item>
+		</combo_box>
+		<panel name="title_container">
+			<text name="active_title_label">
+				Мой Активный Титул
+			</text>
+			<combo_box length="150" name="active_title" tool_tip="Установить титул, который будет появляться над Вашим именем, когда эта группа активна."/>
+		</panel>
+		<check_box label="Получать уведомл. группы" name="receive_notices" tool_tip="Хотите ли Вы получать уведомления от группы. Снимите это флажок, если группа шлет Вам нежелательные сообщения. "/>
+		<check_box label="Показ. группу в профиле" name="list_groups_in_profile" tool_tip="Показывать ли эту группу в Вашем профиле."/>
+	</panel>
+	<string name="incomplete_member_data_str">
+		Запросить данные участников
+	</string>
+	<string name="confirm_group_create_str">
+		Создание этой группы будет стоить L$100. 
+Вы действительно, действительно, ДЕЙСТВИТЕЛЬНО хотите потратить L$100, чтобы создать эту группу?
+Учтите, что если в течении 48 часов никто не присоединится к Вашей группе, она будет расформирована, и это имя станет недоступным для будущего использования.
+	</string>
+</panel>

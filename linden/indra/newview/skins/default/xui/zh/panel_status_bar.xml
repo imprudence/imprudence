@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="status">
-	<text name="ParcelNameText"
-	     tool_tip="你现在所在的地块的名称。点击打开 ‘关于土地’ 窗口。">
+	<text name="ParcelNameText" tool_tip="你现在所在的地块的名称。点击打开 ‘关于土地’ 窗口。">
 		土地的名称在此
 	</text>
 	<text name="BalanceText" tool_tip="帐户余额。">
 		请稍候...
 	</text>
-	<button name="buycurrency" tool_tip="购买货币" />
+	<button label="" label_selected="" name="buycurrency" tool_tip="购买货币"/>
 	<text name="TimeText" tool_tip="当前时间（太平洋时区）">
 		12:00 AM
 	</text>
@@ -17,23 +16,23 @@
 	<string name="StatBarMonthsOfYear">
 		一月:二月:三月:四月:五月:六月:七月:八月:九月:十月:十一月:十二月
 	</string>
-	<button name="scriptout" tool_tip="脚本警告及错误。" />
-	<button name="health" tool_tip="健康" />
+	<button label="" label_selected="" name="scriptout" tool_tip="脚本警告及错误。"/>
+	<button label="" label_selected="" name="health" tool_tip="健康"/>
 	<text name="HealthText" tool_tip="健康">
 		100%
 	</text>
-	<button name="fly" tool_tip="不允许飞行" />
-	<button name="build" tool_tip="不允许建造" />
-	<button name="scripts" tool_tip="不允许脚本" />
-	<button name="restrictpush" tool_tip="不允许推动" />
-	<button name="status_no_voice" tool_tip="此处语音不可用" />
-	<button name="buyland" tool_tip="购买这块土地" />
-	<line_editor label="搜索" name="search_editor" tool_tip="搜索 Second Life" />
-	<button name="search_btn" tool_tip="搜索 Second Life" />
-	<text name="packet_loss_tooltip">
+	<button label="" label_selected="" name="no_fly" tool_tip="禁止飞行"/>
+	<button label="" label_selected="" name="no_build" tool_tip="禁止 建造"/>
+	<button label="" label_selected="" name="no_scripts" tool_tip="禁止脚本"/>
+	<button label="" label_selected="" name="restrictpush" tool_tip="不允许推动"/>
+	<button label="" label_selected="" name="status_no_voice" tool_tip="此处语音不可用"/>
+	<button label="" label_selected="" name="buyland" tool_tip="购买这块土地"/>
+	<line_editor label="搜索" name="search_editor" tool_tip="搜索 Second Life"/>
+	<button label="" label_selected="" name="search_btn" tool_tip="搜索 Second Life"/>
+	<string name="packet_loss_tooltip">
 		封包丢失率
-	</text>
-	<text name="bandwidth_tooltip">
+	</string>
+	<string name="bandwidth_tooltip">
 		带宽
-	</text>
+	</string>
 </panel>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -46,8 +47,11 @@ public:
 	void cancel();
 
 private:
-	static void onClickClearCache(void* data);
-	static void callback_clear_browser_cache(S32 option, void* userdata);
+	static void onClickClearCache(void*);
+	static void onClickClearCookies(void*);
+	static bool callback_clear_browser_cache(const LLSD& notification, const LLSD& response);
+	static bool callback_clear_cookies(const LLSD& notification, const LLSD& response);
+	static void onCommitCookies(LLUICtrl* ctrl, void* data);
 	static void onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data);
 };
 

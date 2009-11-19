@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="status">
+	<text type="string" length="1" name="ParcelNameText"
+	     tool_tip="Назва ділянки землі, на якій Ви знаходитесь, можна дізнатися, натиснувши &apos;&apos;Про землю&apos;&apos;.">
+		Ім&apos;я ділянки буде тут
+	</text>
+	<text type="string" length="1" name="BalanceText" tool_tip="Баланс аккаунта">
+		Завантаж...
+	</text>
+	<button label="" label_selected="" name="buycurrency"
+	     tool_tip="Купити валюту" />
+	<text type="string" length="12" name="TimeText" tool_tip="Час (тихоокеанський)">
+		12:00 AM
+	</text>
+	<string name="StatBarDaysOfWeek">
+		Неділя:Понед.:Вівторок:Середа:Четвер:П&apos;ятниця:Субота
+	</string>
+	<string name="StatBarMonthsOfYear">
+		Січень:Лютий:Березень:Квітень:Травень:Червень:Липень:Серпень:Вересень:Жовтень:Листопад:Грудень
+	</string>
+	<button label="" label_selected="" name="scriptout"
+	     tool_tip="Попередження і помилки скриптів" />
+	<button label="" label_selected="" name="health" tool_tip="Здоров&apos;я" />
+	<text type="string" length="1" name="HealthText" tool_tip="Здоров&apos;я">
+		100%
+	</text>
+	<button label="" label_selected="" name="no_fly"
+	     tool_tip="Польоти заборонено" />
+	<button label="" label_selected="" name="no_build"
+	     tool_tip="Будівництво/створення об&apos;єктів заборонено" />
+	<button label="" label_selected="" name="no_scripts"
+	     tool_tip="Скрипти заборонено" />
+	<button label="" label_selected="" name="restrictpush" tool_tip="Не штовхати"/>
+	<button label="" label_selected="" name="status_no_voice"
+	     tool_tip="Голос тут недоступний" />
+	<button label="" label_selected="" name="buyland"
+	     tool_tip="Купити цю ділянку" />
+	<button label="" name="menubar_search_bevel_bg" />
+	<line_editor label="Пошук" name="search_editor" tool_tip="Пошук в Second Life" />
+	<button label="" label_selected="" name="search_btn"
+	     tool_tip="Пошук в Second Life" />
+	<string name="packet_loss_tooltip">
+		Втрати пакетів
+	</string>
+	<string name="bandwidth_tooltip">
+		Полоса пропускання
+	</string>
+</panel>

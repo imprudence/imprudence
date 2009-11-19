@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="voice_controls">
+	<button label="" name="speakers_btn"
+	     tool_tip="Показать резидентов, использующих Голосовой Чат вокруг Вас" />
+	<button label="Разг." name="push_to_talk"
+	     tool_tip="Держать кнопку для разговора" width="74"/>
+	<button label="" name="ptt_lock"
+	     tool_tip="Нажмите замок для переключения в режим разговора" />
+	<icon name="voice_volume" left_delta="50" />
+	<button label="" name="show_channel"
+	     tool_tip="Нажмите, чтобы увидеть текущий голосовой канал" left_delta="20"/>
+</panel>

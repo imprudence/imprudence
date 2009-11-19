@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="voice_remote">
+	<button label="" name="end_call_btn" tool_tip="Naciśnij by się rozłączyć" />
+	<button label="" name="voice_channel_bg" />
+	<icon label="" name="voice_channel_icon" />
+	<text label="" name="channel_label" />
+</panel>

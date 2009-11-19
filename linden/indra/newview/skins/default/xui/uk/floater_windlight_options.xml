@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="WindLight floater" title="Розширений редактор неба">
+	<text type="string" length="1" name="KeyFramePresetsText">
+		Настройка неба:
+	</text>
+	<button label="Новий" label_selected="Новий" name="WLNewPreset" />
+	<button label="Зберегти" label_selected="Зберегти" name="WLSavePreset"  left_delta="72" width="80"/>
+	<button label="Видалити" label_selected="Видалити"
+	     name="WLDeletePreset"  left_delta="82"/>
+	<button label="Редактор цикла дня"
+	     label_selected="Редактор цикла дня"
+	     name="WLDayCycleMenuButton" font="SansSerifSmall"  width="165" left_delta="85"/>
+	<tab_container name="WindLight Tabs">
+		<panel label="Атмосфера" name="Atmosphere">
+			<text type="string" length="1" name="BHText">
+				Горизонт
+			</text>
+			<button label="?" name="WLBlueHorizonHelp" />
+			<text type="string" length="1" name="BHText2">
+				R
+			</text>
+			<text type="string" length="1" name="BHText3">
+				G
+			</text>
+			<text type="string" length="1" name="BHText4">
+				B
+			</text>
+			<text type="string" length="1" name="BHText5">
+				I
+			</text>
+			<slider label="" name="WLBlueHorizonR" />
+			<slider label="" name="WLBlueHorizonG" />
+			<slider label="" name="WLBlueHorizonB" />
+			<slider label="" name="WLBlueHorizonI" />
+			<text type="string" length="1" name="BDensText">
+				Горизонт туману
+			</text>
+			<button label="?" name="WLHazeHorizonHelp" />
+			<slider label="" name="WLHazeHorizon" />
+			<text type="string" length="1" name="BDensText2">
+				Щільність плями
+			</text>
+			<button label="?" name="WLBlueDensityHelp" />
+			<text type="string" length="1" name="BHText6">
+				R
+			</text>
+			<text type="string" length="1" name="BHText7">
+				G
+			</text>
+			<text type="string" length="1" name="BHText8">
+				B
+			</text>
+			<text type="string" length="1" name="BHText9">
+				I
+			</text>
+			<slider label="" name="WLBlueDensityR" />
+			<slider label="" name="WLBlueDensityG" />
+			<slider label="" name="WLBlueDensityB" />
+			<slider label="" name="WLBlueDensityI" />
+			<text type="string" length="1" name="HDText">
+				Щільність туману
+			</text>
+			<button label="?" name="WLHazeDensityHelp" />
+			<slider label="" name="WLHazeDensity" />
+			<text type="string" length="1" name="DensMultText">
+				Множник щільності
+			</text>
+			<button label="?" name="WLDensityMultHelp" />
+			<slider label="" name="WLDensityMult" />
+			<text type="string" length="1" name="WLDistanceMultText">
+				Множник дистанції
+			</text>
+			<button label="?" name="WLDistanceMultHelp" />
+			<slider label="" name="WLDistanceMult" />
+			<text type="string" length="1" name="MaxAltText">
+				Максимальна висота
+			</text>
+			<button label="?" name="WLMaxAltitudeHelp" />
+			<slider label="" name="WLMaxAltitude" />
+		</panel>
+		<panel label="Освітлення" name="Lighting">
+			<text type="string" length="1" name="SLCText">
+				Колір Сонця/Місяця
+			</text>
+			<button label="?" name="WLSunlightColorHelp" />
+			<text type="string" length="1" name="BHText">
+				R
+			</text>
+			<text type="string" length="1" name="BHText2">
+				G
+			</text>
+			<text type="string" length="1" name="BHText3">
+				B
+			</text>
+			<text type="string" length="1" name="BHText4">
+				I
+			</text>
+			<slider label="" name="WLSunlightR" />
+			<slider label="" name="WLSunlightG" />
+			<slider label="" name="WLSunlightB" />
+			<slider label="" name="WLSunlightI" />
+			<text type="string" length="1" name="TODText">
+				Позиція Сонця/Місяця
+			</text>
+			<button label="?" name="WLTimeOfDayHelp" />
+			<slider label="" name="WLSunAngle" />
+			<text type="string" length="1" name="WLAmbientText">
+				Оточуючий
+			</text>
+			<button label="?" name="WLAmbientHelp" />
+			<text type="string" length="1" name="BHText5">
+				R
+			</text>
+			<text type="string" length="1" name="BHText6">
+				G
+			</text>
+			<text type="string" length="1" name="BHText7">
+				B
+			</text>
+			<text type="string" length="1" name="BHText8">
+				I
+			</text>
+			<slider label="" name="WLAmbientR" />
+			<slider label="" name="WLAmbientG" />
+			<slider label="" name="WLAmbientB" />
+			<slider label="" name="WLAmbientI" />
+			<text type="string" length="1" name="WLEastAngleText">
+				Східний кут
+			</text>
+			<button label="?" name="WLEastAngleHelp" />
+			<slider label="" name="WLEastAngle" />
+			<text type="string" length="1" name="SunGlowText">
+				Світіння Сонця
+			</text>
+			<button label="?" name="WLSunGlowHelp" />
+			<slider label="Фокус" name="WLGlowB" />
+			<slider label="Розмір" name="WLGlowR" />
+			<text type="string" length="1" name="SceneGammaText">
+				Гама сцени
+			</text>
+			<button label="?" name="WLSceneGammaHelp" />
+			<slider label="" name="WLGamma" />
+			<text type="string" length="1" name="WLStarText">
+				Яскравість зірок
+			</text>
+			<button label="?" name="WLStarBrightnessHelp" />
+			<slider label="" name="WLStarAlpha" />
+		</panel>
+		<panel label="Хмари" name="Clouds">
+			<text type="string" length="1" name="WLCloudColorText">
+				Колір хмар
+			</text>
+			<button label="?" name="WLCloudColorHelp" />
+			<text type="string" length="1" name="BHText">
+				R
+			</text>
+			<text type="string" length="1" name="BHText2">
+				G
+			</text>
+			<text type="string" length="1" name="BHText3">
+				B
+			</text>
+			<text type="string" length="1" name="BHText4">
+				I
+			</text>
+			<slider label="" name="WLCloudColorR" />
+			<slider label="" name="WLCloudColorG" />
+			<slider label="" name="WLCloudColorB" />
+			<slider label="" name="WLCloudColorI" />
+			<text type="string" length="1" name="WLCloudColorText2">
+				XY/щільність хмар
+			</text>
+			<button label="?" name="WLCloudDensityHelp" />
+			<text type="string" length="1" name="BHText5">
+				X
+			</text>
+			<text type="string" length="1" name="BHText6">
+				Y
+			</text>
+			<text type="string" length="1" name="BHText7">
+				D
+			</text>
+			<slider label="" name="WLCloudX" />
+			<slider label="" name="WLCloudY" />
+			<slider label="" name="WLCloudDensity" />
+			<text type="string" length="1" name="WLCloudCoverageText">
+				Хмарність
+			</text>
+			<button label="?" name="WLCloudCoverageHelp" />
+			<slider label="" name="WLCloudCoverage" />
+			<text type="string" length="1" name="WLCloudScaleText">
+				Розміри хмар
+			</text>
+			<button label="?" name="WLCloudScaleHelp" />
+			<slider label="" name="WLCloudScale" />
+			<text type="string" length="1" name="WLCloudDetailText" font="SansSerifSmall">
+				Детальність хмар
+  (XY/щільність)
+			</text>
+			<button label="?" name="WLCloudDetailHelp" />
+			<text type="string" length="1" name="BHText8" bottom="-113">
+				X
+			</text>
+			<text type="string" length="1" name="BHText9">
+				Y
+			</text>
+			<text type="string" length="1" name="BHText10">
+				D
+			</text>
+			<slider bottom="-127" name="WLCloudDetailX"/>
+			<slider label="" name="WLCloudDetailY" />
+			<slider label="" name="WLCloudDetailDensity" />
+			<text type="string" length="1" name="WLCloudScrollXText">
+				Хмари по X
+			</text>
+			<button label="?" name="WLCloudScrollXHelp"  left="560"/>
+			<check_box label="Заблокувати" name="WLCloudLockX" left="585" />
+			<slider label="" name="WLCloudScrollX" />
+			<text type="string" length="1" name="WLCloudScrollYText">
+				Хмари по Y
+			</text>
+			<button label="?" name="WLCloudScrollYHelp"  left="560"/>
+			<check_box label="Заблокувати" name="WLCloudLockY" left="585" />
+			<slider label="" name="WLCloudScrollY" />
+			<check_box label="Малювати класичні облака" name="DrawClassicClouds" />
+			<button label="?" name="WLClassicCloudsHelp" left="665"/>
+		</panel>
+	</tab_container>
+	<string name="WLDefaultSkyNames">
+		A-12AM:A-12PM:A-3AM:A-3PM:A-4.30PM:A-6AM:A-6PM:A-9AM:A-9PM:Barcelona:Blizzard:Blue Midday:Coastal Afternoon:Coastal Sunset:Default:Desert Sunset:Fine Day:Fluffy Big Clouds:Foggy:Funky Funky:Funky Funky Funky:Gelatto:Ghost:Incongruent Truths:Midday 1:Midday 2:Midday 3:Midday 4:Night:Pirate:Purple:Sailor&apos;s Delight:Sheer Sensuality
+	</string>
+</floater>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -55,14 +56,11 @@ class LLViewerCamera : public LLCamera, public LLSingleton<LLViewerCamera>
 public:
 	LLViewerCamera();
 
-//	const LLVector3 &getPositionAgent() const;
-//	const LLVector3d &getPositionGlobal() const;
-
 	void updateCameraLocation(const LLVector3 &center,
 								const LLVector3 &up_direction,
 								const LLVector3 &point_of_interest);
 
-	static void updateFrustumPlanes(LLCamera& camera, BOOL ortho = FALSE, BOOL zflip = FALSE);
+	static void updateFrustumPlanes(LLCamera& camera, BOOL ortho = FALSE, BOOL zflip = FALSE, BOOL no_hacks = FALSE);
 	void setPerspective(BOOL for_selection, S32 x, S32 y_from_bot, S32 width, S32 height, BOOL limit_select_distance, F32 z_near = 0, F32 z_far = 0);
 
 	const LLMatrix4 &getProjection() const;
@@ -80,7 +78,10 @@ public:
 	void getPixelVectors(const LLVector3 &pos_agent, LLVector3 &up, LLVector3 &right);
 	LLVector3 roundToPixel(const LLVector3 &pos_agent);
 
-	void setDefaultFOV(F32 fov) { mCameraFOVDefault = fov; }
+	// Sets the current matrix
+	/* virtual */ void setView(F32 vertical_fov_rads);
+	// Sets the current matrix AND remembers result as default view
+	void setDefaultFOV(F32 vertical_fov_rads);
 	F32 getDefaultFOV() { return mCameraFOVDefault; }
 
 	BOOL cameraUnderWater() const;

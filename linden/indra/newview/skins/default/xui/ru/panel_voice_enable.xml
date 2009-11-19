@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="content_panel">
+	<text_editor type="string" length="1" name="voice_intro_text1">
+		Добро Пожаловать в Голосовой Чат Second Life! Голосовой Чат позволяет Вам говорить с другими резидентами. Этот мастер поможет Вам пройти шаги, необходимые для установки Голосового Чата. Использование Голосового Чата требует колонки и, если Вы желаете говорить с другими, микрофон или же стереонаушники с микрофоном.
+	</text_editor>
+	<text_editor type="string" length="1" name="voice_intro_text2">
+		По умолчанию Голосовой Чат включен. Хотите ли Вы продолжить использование Голосового Чата?
+	</text_editor>
+	<radio_group name="voice_enable">
+		<radio_item type="string" length="1" name="1">
+			Да, продолжить использование Голосового Чата.
+		</radio_item>
+		<radio_item type="string" length="1" name="0">
+			Нет, отключить Голосовой Чат.
+		</radio_item>
+	</radio_group>
+	<text_editor length="1" name="voice_intro_text3">
+		Вы можете включить звуковой чат в любой момент через меню Голосовой Чат в Настройках.
+	</text_editor>
+	<text_editor length="1" name="voice_intro_text4">
+		Нажмите Продолжить, чтобы настроить Голосовой Чат или нажмите Готово, чтобы продолжить использование Second Life.
+	</text_editor>
+</panel>

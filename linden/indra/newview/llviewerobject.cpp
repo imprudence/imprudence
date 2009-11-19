@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -989,7 +990,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					if (!mText)
 					{
 						mText = (LLHUDText *)LLHUDObject::addHUDObject(LLHUDObject::LL_HUD_TEXT);
-						mText->setFont(LLFontGL::sSansSerif);
+						mText->setFont(LLFontGL::getFontSansSerif());
 						mText->setVertAlignment(LLHUDText::ALIGN_VERT_TOP);
 						mText->setMaxLines(-1);
 						mText->setSourceObject(this);
@@ -1410,10 +1411,10 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				}
 
 				// Setup object text
-				if (!mText)
+				if (!mText && (value & 0x4))
 				{
 					mText = (LLHUDText *)LLHUDObject::addHUDObject(LLHUDObject::LL_HUD_TEXT);
-					mText->setFont(LLFontGL::sSansSerif);
+					mText->setFont(LLFontGL::getFontSansSerif());
 					mText->setVertAlignment(LLHUDText::ALIGN_VERT_TOP);
 					mText->setMaxLines(-1); // Set to match current agni behavior.
 					mText->setSourceObject(this);
@@ -1438,7 +1439,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 
 					setChanged(TEXTURE);
 				}
-				else
+				else if(mText.notNull())
 				{
 					mText->markDead();
 					mText = NULL;
@@ -1899,7 +1900,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 
 	if ( gShowObjectUpdates )
 	{
-		if (!((mPrimitiveCode == LL_PCODE_LEGACY_AVATAR) && (((LLVOAvatar *) this)->mIsSelf))
+		if (!((mPrimitiveCode == LL_PCODE_LEGACY_AVATAR) && (((LLVOAvatar *) this)->isSelf()))
 			&& mRegionp)
 		{
 			LLViewerObject* object = gObjectList.createObjectViewer(LL_PCODE_LEGACY_TEXT_BUBBLE, mRegionp);
@@ -2452,7 +2453,11 @@ void LLViewerObject::processTaskInv(LLMessageSystem* msg, void** user_data)
 	msg->getS16Fast(_PREHASH_InventoryData, _PREHASH_Serial, object->mInventorySerialNum);
 	LLFilenameAndTask* ft = new LLFilenameAndTask;
 	ft->mTaskID = task_id;
-	msg->getStringFast(_PREHASH_InventoryData, _PREHASH_Filename, ft->mFilename);
+
+	std::string unclean_filename;
+	msg->getStringFast(_PREHASH_InventoryData, _PREHASH_Filename, unclean_filename);
+	ft->mFilename = LLDir::getScrubbedFileName(unclean_filename);
+	
 	if(ft->mFilename.empty())
 	{
 		lldebugs << "Task has no inventory" << llendl;
@@ -2755,7 +2760,7 @@ void LLViewerObject::setPixelAreaAndAngle(LLAgent &agent)
 	F32 mid_scale = getMidScale();
 	F32 min_scale = getMinScale();
 
-	// IW: esitmate - when close to large objects, computing range based on distance from center is no good
+	// IW: estimate - when close to large objects, computing range based on distance from center is no good
 	// to try to get a min distance from face, subtract min_scale/2 from the range.
 	// This means we'll load too much detail sometimes, but that's better than not enough
 	// I don't think there's a better way to do this without calculating distance per-poly
@@ -3740,11 +3745,10 @@ S32 LLViewerObject::setTEColor(const U8 te, const LLColor4& color)
 	else if (color != tep->getColor())
 	{
 		retval = LLPrimitive::setTEColor(te, color);
-		setChanged(TEXTURE);
 		if (mDrawable.notNull() && retval)
 		{
 			// These should only happen on updates which are not the initial update.
-			gPipeline.markTextured(mDrawable);
+			dirtyMesh();
 		}
 	}
 	return retval;
@@ -3782,6 +3786,22 @@ S32 LLViewerObject::setTETexGen(const U8 te, const U8 texgen)
 	else if (texgen != tep->getTexGen())
 	{
 		retval = LLPrimitive::setTETexGen(te, texgen);
+		setChanged(TEXTURE);
+	}
+	return retval;
+}
+
+S32 LLViewerObject::setTEMediaTexGen(const U8 te, const U8 media)
+{
+	S32 retval = 0;
+	const LLTextureEntry *tep = getTE(te);
+	if (!tep)
+	{
+		llwarns << "No texture entry for te " << (S32)te << ", object " << mID << llendl;
+	}
+	else if (media != tep->getMediaTexGen())
+	{
+		retval = LLPrimitive::setTEMediaTexGen(te, media);
 		setChanged(TEXTURE);
 	}
 	return retval;
@@ -4067,7 +4087,7 @@ void LLViewerObject::setDebugText(const std::string &utf8text)
 	if (!mText)
 	{
 		mText = (LLHUDText *)LLHUDObject::addHUDObject(LLHUDObject::LL_HUD_TEXT);
-		mText->setFont(LLFontGL::sSansSerif);
+		mText->setFont(LLFontGL::getFontSansSerif());
 		mText->setVertAlignment(LLHUDText::ALIGN_VERT_TOP);
 		mText->setMaxLines(-1);
 		mText->setSourceObject(this);
@@ -4379,8 +4399,13 @@ void LLViewerObject::setAttachedSound(const LLUUID &audio_uuid, const LLUUID& ow
 		{
 			mAudioSourcep->play(LLUUID::null);
 		}
-		//llinfos << "Playing attached sound " << audio_uuid << llendl;
-		mAudioSourcep->play(audio_uuid);
+		
+		// Play this sound if region maturity permits
+		if( gAgent.canAccessMaturityAtGlobal(this->getPositionGlobal()) )
+		{
+			//llinfos << "Playing attached sound " << audio_uuid << llendl;
+			mAudioSourcep->play(audio_uuid);
+		}
 	}
 }
 

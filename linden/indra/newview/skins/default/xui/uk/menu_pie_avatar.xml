@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Avatar Pie">
+	<menu_item_call label="Профіль..." name="Profile..."/>
+	<menu_item_call label="Заглушити" name="Avatar Mute"/>
+	<menu_item_call label="Перейти" name="Go To"/>
+	<menu_item_call label="Повідомити..." name="abuse"/>
+	<menu_item_call label="Подружитися..." name="Add Friend"/>
+	<menu_item_call label="Платити..." name="Pay..."/>
+	<pie_menu label="Еще &gt;" name="More &gt;">
+		<menu_item_call label="Заморозити..." name="Freeze..."/>
+		<menu_item_call label="Дати Візитку" name="Give Card"/>
+		<menu_item_call label="Запр. в групу..." name="Invite..."/>
+		<menu_item_call label="Викинути..." name="Eject..."/>
+		<menu_item_call label="Налагодж..." name="Debug..."/>
+		<menu_item_call label="Оглянути" name="Object Inspect"/>
+	</pie_menu>
+	<menu_item_call label="Відправити IM..." name="Send IM..."/>
+</pie_menu>

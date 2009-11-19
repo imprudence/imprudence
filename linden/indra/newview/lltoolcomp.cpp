@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -63,6 +64,9 @@ const S32 HPAD = 4;
 extern LLControlGroup gSavedSettings;
 
 
+// we use this in various places instead of NULL
+static LLTool* sNullTool = new LLTool(std::string("null"), NULL); 
+
 //-----------------------------------------------------------------------
 // LLToolComposite
 
@@ -86,7 +90,9 @@ void LLToolComposite::setCurrentTool( LLTool* new_tool )
 
 LLToolComposite::LLToolComposite(const std::string& name)
 	: LLTool(name),
-	  mCur(NULL), mDefault(NULL), mSelected(FALSE),
+	  mCur(sNullTool), 
+	  mDefault(sNullTool), 
+	  mSelected(FALSE),
 	  mMouseDown(FALSE), mManip(NULL), mSelectRect(NULL)
 {
 }
@@ -637,7 +643,7 @@ LLToolCompGun::LLToolCompGun()
 {
 	mGun = new LLToolGun(this);
 	mGrab = new LLToolGrab(this);
-	mNull = new LLTool(std::string("null"), this);
+	mNull = sNullTool;
 
 	setCurrentTool(mGun);
 	mDefault = mGun;
@@ -652,7 +658,8 @@ LLToolCompGun::~LLToolCompGun()
 	delete mGrab;
 	mGrab = NULL;
 
-	delete mNull;
+	// don't delete a static object
+	// delete mNull;
 	mNull = NULL;
 }
 

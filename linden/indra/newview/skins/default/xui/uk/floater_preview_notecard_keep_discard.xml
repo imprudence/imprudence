@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="preview_notecard">
+	<text_editor length="1" name="Notecard Editor" type="string">
+		Завантаж....
+	</text_editor>
+	<text length="1" name="desc txt" type="string">
+		Опис:
+	</text>
+	<button label="Зберегти" label_selected="Зберегти" name="Keep"/>
+	<button label="Відмовитися" label_selected="Відмовитися" name="Discard"/>
+	<string name="no_object">
+		Неможливо знайти об&apos;єкт, що містить цю записку:
+	</string>
+	<string name="not_allowed">
+		Ви не маєте прав на перегляд цієї замітки.
+	</string>
+</floater>

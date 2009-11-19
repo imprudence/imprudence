@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="popup">
+	<menu_item_call label="Közelre nagyít" name="Zoom Close"/>
+	<menu_item_call label="Közepesen nagyít" name="Zoom Medium"/>
+	<menu_item_call label="Távolra nagyít" name="Zoom Far"/>
+	<menu_item_call label="Követés megállítása" name="Stop Tracking"/>
+	<menu_item_call label="Adatlap..." name="Profile"/>
+</menu>

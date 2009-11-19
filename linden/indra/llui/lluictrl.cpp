@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -475,10 +476,10 @@ BOOL LLUICtrl::focusPrevItem(BOOL text_fields_only)
 	return focusPrev(result);
 }
 
-LLUICtrl* LLUICtrl::findRootMostFocusRoot() const
+LLUICtrl* LLUICtrl::findRootMostFocusRoot()
 {
-	const LLUICtrl* focus_root = NULL;
-	const LLUICtrl* next_view = this;
+	LLUICtrl* focus_root = NULL;
+	LLUICtrl* next_view = this;
 	while(next_view)
 	{
 		if (next_view->isFocusRoot())
@@ -487,9 +488,8 @@ LLUICtrl* LLUICtrl::findRootMostFocusRoot() const
 		}
 		next_view = next_view->getParentUICtrl();
 	}
-	// since focus_root could be this, need to cast away const to return
-	// a non-const result
-	return const_cast<LLUICtrl*>(focus_root);
+
+	return focus_root;
 }
 
 
@@ -550,19 +550,6 @@ LLView* LLUICtrl::fromXML(LLXMLNodePtr node, LLView* parent, class LLUICtrlFacto
 	return ctrl;
 }
 
-
-// *NOTE: If other classes derive from LLPanel, they will need to be
-// added to this function.
-LLPanel* LLUICtrl::getParentPanel() const
-{
-	LLView* parent = getParent();
-	LLPanel* parent_panel = dynamic_cast<LLPanel*>(parent);
-	while (!parent_panel)
-	{
-		parent = parent->getParent();
-	}
-	return (LLPanel*)(parent);
-}
 
 // Skip over any parents that are not LLUICtrl's
 //  Used in focus logic since only LLUICtrl elements can have focus

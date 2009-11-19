@@ -1,20 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="overlay">
 	<layout_stack name="overlay_layout_panel">
 		<layout_panel name="main_panel">
 			<layout_stack name="chatbar_and_buttons">
 				<layout_panel name="state_buttons">
-					<button label="受信済みIM" label_selected="受信済みIM" name="IM Received" font="SansSerifSmall"
-					     tool_tip="インスタント・メッセージが保留になっています。ここをクリックして、IMを見てください。" />
-					<button label="取り込み中の解除" label_selected="取り込み中の解除"
-					     name="Set Not Busy" font="SansSerifSmall"
-					     tool_tip="「チャット」と「IM」ボタンが隠れています。ここをクリックして「取り込み中」を解除してください。" />
-					<button label="キーを解除" label_selected="キーを解除" name="Release Keys" font="SansSerifSmall"
-					     tool_tip="スクリプトが、あなたのキーを制御しています。ここをクリックして解除してください。" />
-					<button label="マウスルック" label_selected="マウスルック" name="Mouselook" font="SansSerifSmall"
-					     tool_tip="視点を操作するのにマウスを使用してください。銃器を持っている場合、クリックすると発砲します。" />
-					<button label="立ち上がる" label_selected="立ち上がる" name="Stand Up" font="SansSerifSmall"
-					     tool_tip="ここをクリックして、立ち上がってください。" />
+					<button font="SansSerifSmall" label="受信済みIM" label_selected="受信済みIM" name="IM Received" tool_tip="インスタント・メッセージが保留になっています。ここをクリックして、IMを見てください。"/>
+					<button font="SansSerifSmall" label="取り込み中の解除" label_selected="取り込み中の解除" name="Set Not Busy" tool_tip="「チャット」と「IM」ボタンが隠れています。ここをクリックして「取り込み中」を解除してください。"/>
+					<button label="フライ・カメラ" label_selected="フライ・カメラ" name="Flycam" tool_tip="あなたのカメラはジョイスティックにより操作されています。解除するにはここをクリックしてください。"/>
+					<button font="SansSerifSmall" label="マウスルック" label_selected="マウスルック" name="Mouselook" tool_tip="視点を操作するのにマウスを使用してください。銃器を持っている場合、クリックすると発砲します。"/>
+					<button font="SansSerifSmall" label="立ち上がる" label_selected="立ち上がる" name="Stand Up" tool_tip="ここをクリックして、立ち上がってください。"/>
 				</layout_panel>
 			</layout_stack>
 		</layout_panel>

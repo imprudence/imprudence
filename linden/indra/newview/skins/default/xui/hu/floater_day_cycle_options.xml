@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Day Cycle Floater" title="Napi ciklus kezelő">
+	<tab_container name="Day Cycle Tabs">
+		<panel label="Napi ciklus" name="Day Cycle">
+			<button label="?" name="WLDayCycleHelp" />
+			<multi_slider label="" name="WLTimeSlider" />
+			<multi_slider label="" name="WLDayCycleKeys" />
+			<text type="string" length="1" name="WL12am">
+				0 óra
+			</text>
+			<text type="string" length="1" name="WL3am">
+				3 óra
+			</text>
+			<text type="string" length="1" name="WL6am">
+				6 óra
+			</text>
+			<text type="string" length="1" name="WL9amHash">
+				9 óra
+			</text>
+			<text type="string" length="1" name="WL12pmHash">
+				12 óra
+			</text>
+			<text type="string" length="1" name="WL3pm">
+				15 óra
+			</text>
+			<text type="string" length="1" name="WL6pm">
+				18 óra
+			</text>
+			<text type="string" length="1" name="WL9pm">
+				21 óra
+			</text>
+			<text type="string" length="1" name="WL12am2">
+				24 óra
+			</text>
+			<text type="string" length="1" name="WL12amHash">
+				|
+			</text>
+			<text type="string" length="1" name="WL3amHash">
+				I
+			</text>
+			<text type="string" length="1" name="WL6amHash">
+				|
+			</text>
+			<text type="string" length="1" name="WL9amHash2">
+				I
+			</text>
+			<text type="string" length="1" name="WL12pmHash2">
+				|
+			</text>
+			<text type="string" length="1" name="WL3pmHash">
+				I
+			</text>
+			<text type="string" length="1" name="WL6pmHash">
+				|
+			</text>
+			<text type="string" length="1" name="WL9pmHash">
+				I
+			</text>
+			<text type="string" length="1" name="WL12amHash2">
+				|
+			</text>
+			<button label="Hozzáad" label_selected="Hozzáad" name="WLAddKey" />
+			<button label="Töröl" label_selected="Töröl" name="WLDeleteKey" />
+			<text type="string" length="1" name="WLCurKeyFrameText">
+				Kulcskép beállításai:
+			</text>
+			<text type="string" length="1" name="WLCurKeyTimeText">
+				Kulcs idő:
+			</text>
+			<spinner label="Hour" name="WLCurKeyHour" />
+			<spinner label="Min" name="WLCurKeyMin" />
+			<text type="string" length="1" name="WLCurKeyTimeText2">
+				Kulcs eszköztár:
+			</text>
+			<combo_box label="Eszköztár" name="WLKeyPresets" />
+			<text type="string" length="1" name="DayCycleText">
+				Illesztés:
+			</text>
+			<combo_box label="5 min" name="WLSnapOptions" />
+			<text type="string" length="1" name="DayCycleText2">
+				Ciklus hossza:
+			</text>
+			<spinner label="Óra" name="WLLengthOfDayHour" />
+			<spinner label="perc" name="WLLengthOfDayMin" width="60"/>
+			<spinner label="mp" name="WLLengthOfDaySec" />
+			<text type="string" length="1" name="DayCycleText3">
+				Előnézet:
+			</text>
+			<button label="Lejátszik" label_selected="Play" name="WLAnimSky" width="80"/>
+			<button label="Megállít" label_selected="Stop" name="WLStopAnimSky" width="80" left_delta="90"/>
+			<button label="Telekidő használata" label_selected="Telekidő használata"
+			     name="WLUseLindenTime"  left_delta="90"/>
+			<button label="Próbanap mentése" label_selected="Próbanap mentése"
+			     name="WLSaveDayCycle" />
+			<button label="Próbanap betöltése" label_selected="Próbanap betöltése"
+			     name="WLLoadDayCycle" />
+		</panel>
+	</tab_container>
+</floater>

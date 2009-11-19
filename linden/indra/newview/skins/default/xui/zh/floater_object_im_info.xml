@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="object im info" title="物品信息">
+	<text name="LabelItemNameTitle">
+		物品：
+	</text>
+	<text name="LabelSlurlTitle">
+		位置：
+	</text>
+	<text name="Unknown_Slurl">
+		（无法获得位置信息）
+	</text>
+	<text name="LabelOwnerNameTitle">
+		拥有人：
+	</text>
+	<button label="屏蔽拥有人" label_selected="屏蔽拥有人" name="Mute"/>
+</floater>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="beacons" title="İşaretler">
+	<panel name="beacons_panel">
+		<check_box label="Sadece dokunulabilen betikli objeler" name="touch_only"/>
+		<check_box label="Betikli objeler" name="scripted"/>
+		<check_box label="Fiziksel objeler" name="physical"/>
+		<check_box label="Ses kaynakları" name="sounds"/>
+		<check_box label="Tanecik kaynakları" name="particles"/>
+		<check_box label="Parlak noktaları yorumla" name="highlights"/>
+		<check_box label="İşaretleri yorumla" name="beacons"/>
+		<text name="beacon_width_label">
+			İşaret genişliği:
+		</text>
+	</panel>
+</floater>

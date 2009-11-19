@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -180,15 +181,7 @@ void LLFloaterWater::onClickHelp(void* data)
 	LLFloaterWater* self = LLFloaterWater::instance();
 
 	const std::string* xml_alert = (std::string*)data;
-	LLAlertDialog* dialogp = gViewerWindow->alertXml(*xml_alert);
-	if (dialogp)
-	{
-		LLFloater* root_floater = gFloaterView->getParentFloater(self);
-		if (root_floater)
-		{
-			root_floater->addDependentFloater(dialogp);
-		}
-	}
+	LLNotifications::instance().add(self->contextualNotification(*xml_alert));
 }
 
 void LLFloaterWater::initHelpBtn(const std::string& name, const std::string& xml_alert)
@@ -196,11 +189,14 @@ void LLFloaterWater::initHelpBtn(const std::string& name, const std::string& xml
 	childSetAction(name, onClickHelp, new std::string(xml_alert));
 }
 
-void LLFloaterWater::newPromptCallback(S32 option, const std::string& text, void* userData)
+bool LLFloaterWater::newPromptCallback(const LLSD& notification, const LLSD& response)
 {
+	std::string text = response["message"].asString();
+	S32 option = LLNotification::getSelectedOption(notification, response);
+
 	if(text == "")
 	{
-		return;
+		return false;
 	}
 
 	if(option == 0) {
@@ -228,9 +224,10 @@ void LLFloaterWater::newPromptCallback(S32 option, const std::string& text, void
 		} 
 		else 
 		{
-			gViewerWindow->alertXml("ExistsWaterPresetAlert");
+			LLNotifications::instance().add("ExistsWaterPresetAlert");
 		}
 	}
+	return false;
 }
 
 void LLFloaterWater::syncMenu()
@@ -618,8 +615,7 @@ void LLFloaterWater::onNormalMapPicked(LLUICtrl* ctrl, void* userData)
 
 void LLFloaterWater::onNewPreset(void* userData)
 {
-	gViewerWindow->alertXmlEditText("NewWaterPreset", LLStringUtil::format_map_t(), 
-		NULL, NULL, newPromptCallback, NULL);
+	LLNotifications::instance().add("NewWaterPreset", LLSD(),  LLSD(), newPromptCallback);
 }
 
 void LLFloaterWater::onSavePreset(void* userData)
@@ -641,15 +637,16 @@ void LLFloaterWater::onSavePreset(void* userData)
 		comboBox->getSelectedItemLabel());
 	if(sIt != sDefaultPresets.end() && !gSavedSettings.getBOOL("WaterEditPresets")) 
 	{
-		gViewerWindow->alertXml("WLNoEditDefault");
+		LLNotifications::instance().add("WLNoEditDefault");
 		return;
 	}
 
-	gViewerWindow->alertXml("WLSavePresetAlert", saveAlertCallback, sWaterMenu);
+	LLNotifications::instance().add("WLSavePresetAlert", LLSD(), LLSD(), saveAlertCallback);
 }
 
-void LLFloaterWater::saveAlertCallback(S32 option, void* userdata)
+bool LLFloaterWater::saveAlertCallback(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	// if they choose save, do it.  Otherwise, don't do anything
 	if(option == 0) 
 	{
@@ -662,7 +659,7 @@ void LLFloaterWater::saveAlertCallback(S32 option, void* userdata)
 		// comment this back in to save to file
 		param_mgr->savePreset(param_mgr->mCurParams.mName);
 	}
-
+	return false;
 }
 
 void LLFloaterWater::onDeletePreset(void* userData)
@@ -674,13 +671,14 @@ void LLFloaterWater::onDeletePreset(void* userData)
 		return;
 	}
 
-	LLStringUtil::format_map_t args;
-	args["[SKY]"] = combo_box->getSelectedValue().asString();
-	gViewerWindow->alertXml("WLDeletePresetAlert", args, deleteAlertCallback, sWaterMenu);
+	LLSD args;
+	args["SKY"] = combo_box->getSelectedValue().asString();
+	LLNotifications::instance().add("WLDeletePresetAlert", args, LLSD(), deleteAlertCallback);
 }
 
-void LLFloaterWater::deleteAlertCallback(S32 option, void* userdata)
+bool LLFloaterWater::deleteAlertCallback(const LLSD& notification, const LLSD& response)
 {
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	// if they choose delete, do it.  Otherwise, don't do anything
 	if(option == 0) 
 	{
@@ -702,8 +700,8 @@ void LLFloaterWater::deleteAlertCallback(S32 option, void* userdata)
 		std::set<std::string>::iterator sIt = sDefaultPresets.find(name);
 		if(sIt != sDefaultPresets.end()) 
 		{
-			gViewerWindow->alertXml("WaterNoEditDefault");
-			return;
+			LLNotifications::instance().add("WaterNoEditDefault");
+			return false;
 		}
 
 		LLWaterParamManager::instance()->removeParamSet(name, true);
@@ -732,6 +730,7 @@ void LLFloaterWater::deleteAlertCallback(S32 option, void* userdata)
 			combo_box->setCurrentByIndex(new_index);
 		}
 	}
+	return false;
 }
 
 

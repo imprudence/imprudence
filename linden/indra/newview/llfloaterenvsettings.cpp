@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -67,18 +68,8 @@ LLFloaterEnvSettings::~LLFloaterEnvSettings()
 
 void LLFloaterEnvSettings::onClickHelp(void* data)
 {
-	LLFloaterEnvSettings* self = static_cast<LLFloaterEnvSettings*>(data);
-
-	const char* xml_alert = "EnvSettingsHelpButton";
-	LLAlertDialog* dialogp = gViewerWindow->alertXml(xml_alert);
-	if (dialogp)
-	{
-		LLFloater* root_floater = gFloaterView->getParentFloater(self);
-		if (root_floater)
-		{
-			root_floater->addDependentFloater(dialogp);
-		}
-	}
+	LLFloaterEnvSettings* self = (LLFloaterEnvSettings*)data;
+	LLNotifications::instance().add(self->contextualNotification("EnvSettingsHelpButton"));
 }
 
 void LLFloaterEnvSettings::initCallbacks(void) 

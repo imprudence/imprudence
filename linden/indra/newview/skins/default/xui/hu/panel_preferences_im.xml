@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Kommunikáció" name="im">
+	<text length="1" name="text_box" type="string">
+		Saját online állapot:
+	</text>
+	<check_box label="Csak baratátok és csoporttársak láthatják az online állapotomat" name="online_visibility"/>
+	<text length="1" name="text_box2" type="string">
+		Üzenetek:
+	</text>
+	<string name="log_in_to_change">
+		írd ide a szöveget
+	</string>
+	<check_box label="Üzenetek küldése e-mail címre ([EMAIL])" name="send_im_to_email"/>
+	<check_box label="Magánüzenetek megjelenítése a helyi üzenetek ablakban" name="include_im_in_chat_console"/>
+	<check_box label="Időbélyegző  megjelenítése az azonnali üzenetekben" name="show_timestamps_check"/>
+	<check_box label="Online barátok értesítéseinek megjelenítése" name="friends_online_notify_checkbox"/>
+	<text length="1" name="text_box3" type="string">
+		Elfoglalt állapot
+automatikus válasza:
+	</text>
+	<text length="1" name="text_box4" type="string">
+		Naplózás:
+	</text>
+	<check_box label="Magánüzenetek naplójának elmentése a számítógépre" name="log_instant_messages"/>
+	<check_box label="Időbélyegző megjelenítése a magánbeszélgetések naplójában" name="log_instant_messages_timestamp"/>
+	<check_box label="Utolsó magánbeszélgetés megjelenítése" name="log_show_history"/>
+	<check_box label="Helyi üzenetek naplójának elmentése a számítógépre" name="log_chat"/>
+	<check_box label="Időbélyegző megjelenítése a helyi üzenetek naplójában" name="log_chat_timestamp"/>
+	<check_box label="Bejövő magánüzenetek megjelenítése a helyi üzenetek naplójában" name="log_chat_IM"/>
+	<check_box label="Dátum hozzárendelése az időbélyegzőhöz" name="log_date_timestamp"/>
+	<button label="Útvonal" label_selected="Change Path" name="log_path_button"/>
+</panel>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="content_panel">
+	<text_editor type="string" length="1" name="voice_intro_text1">
+		Üdvözlünk a Second Life hangüzenetküldőjében! Itt lehetőséged nyílik hangüzenetek küldésére társaid részére. Ez a varázsló segítséget nyújt a hangüzenetküldés beállításához. Hangüzenet alkalmazásához szükséged van hangszórókra és, amennyiben másokkal is szeretnél beszélgetni, akkor mikrofonra vagy beépített mikrofonnal rendelkezó sztereó fejhallgatóra.
+	</text_editor>
+	<text_editor type="string" length="1" name="voice_intro_text2">
+		A hangüzenet küldésének lehetősége engedélyezett alapértelmezettként. Szeretnéd a hangüzenetet továbbra is használni?
+	</text_editor>
+	<radio_group name="voice_enable">
+		<radio_item type="string" length="1" name="1">
+			Igen, hangüzenet engedélyezése.
+		</radio_item>
+		<radio_item type="string" length="1" name="0">
+			Nem, hangüzenet tiltása.
+		</radio_item>
+	</radio_group>
+	<text_editor length="1" name="voice_intro_text3">
+		A hangüzenet küldésének lehetőségét bármikor engedélyezheted a Tulajdonságok/Hangüzenet fülre kattintva.
+	</text_editor>
+	<text_editor length="1" name="voice_intro_text4">
+		Kattints a Következő gombra a hangüzenet beállításához vagy a Befejez gombra a Second Life-ba történő visszatéréshez.
+	</text_editor>
+</panel>

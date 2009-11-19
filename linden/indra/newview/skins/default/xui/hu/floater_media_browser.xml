@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_about" title="Média böngésző">
+	<layout_stack name="stack1">
+		<layout_panel name="nav_controls">
+			<button label="Vissza" name="back" />
+			<button label="Előre" name="forward" />
+			<button label="Reload" name="reload" />
+			<button label="Go" name="go" />
+		</layout_panel>
+		<layout_panel name="parcel_owner_controls">
+			<button label="URL küldése a telekre" name="assign" />
+		</layout_panel>
+		<layout_panel name="external_controls">
+			<button label="Böngészőben megnyit" name="open_browser" />
+			<check_box label="Böngészőben megnyit mindig" name="open_always" />
+			<button label="Close" name="close" />
+		</layout_panel>
+	</layout_stack>
+</floater>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -63,7 +64,7 @@ private:
 	static void		onBtnOK(void*);
 	static void		onBtnCancel(void*);
 	static void		onBtnClear(void*);
-	static void		callback_clear_url_list(S32 option, void* userdata);
+	bool		callback_clear_url_list(const LLSD& notification, const LLSD& response);
 };
 
 #endif  // LL_LLFLOATERURLENTRY_H

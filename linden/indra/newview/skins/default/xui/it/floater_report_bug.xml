@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="bug_reporter" title="Segnala un bug">
+	<check_box label="Includi una fotografia dello schermo" name="screen_check"/>
+	<text name="reporter_title">
+		Segnalato da:
+	</text>
+	<text name="sim_title">
+		Regione:
+	</text>
+	<text name="pos_title">
+		Posizione:
+	</text>
+	<text name="select_object_label">
+		Clicca il pulsante e poi l&apos;oggetto:
+	</text>
+	<button label="" label_selected="" name="pick_btn" tool_tip="Selezionatore di oggetti - Identifica un oggetto quale argomento di questa denuncia"/>
+	<text name="object_name_label">
+		Nome:
+	</text>
+	<text name="object_name">
+		Consetetur Sadipscing
+	</text>
+	<text name="owner_name_label">
+		Proprietario:
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
+	</text>
+	<combo_box name="category_combo" tool_tip="Categoria -- seleziona la categoria che descrive meglio questa denuncia">
+		<combo_item name="Selectcategory">
+			Seleziona categoria
+		</combo_item>
+		<combo_item name="Building">
+			Costruzioni
+		</combo_item>
+		<combo_item name="Character">
+			Personaggio
+		</combo_item>
+		<combo_item name="Chat/IM">
+			Chat/IM
+		</combo_item>
+		<combo_item name="Documentation">
+			Documentazione
+		</combo_item>
+		<combo_item name="Exploit">
+			Exploit
+		</combo_item>
+		<combo_item name="Graphics">
+			Grafica
+		</combo_item>
+		<combo_item name="Inventory">
+			Inventario
+		</combo_item>
+		<combo_item name="Lag">
+			Lag
+		</combo_item>
+		<combo_item name="MissingContent">
+			Contenuto mancante
+		</combo_item>
+		<combo_item name="LindenDollars(L$)">
+			Linden Dollar (L$)
+		</combo_item>
+		<combo_item name="Permissions">
+			Permessi
+		</combo_item>
+		<combo_item name="Physics">
+			Fisica
+		</combo_item>
+		<combo_item name="Script">
+			Script
+		</combo_item>
+		<combo_item name="Sound">
+			Audio
+		</combo_item>
+		<combo_item name="Stipends">
+			Stipendi
+		</combo_item>
+		<combo_item name="Userinterface">
+			Interfaccia utente
+		</combo_item>
+		<combo_item name="Miscellaneous">
+			Varie
+		</combo_item>
+	</combo_box>
+	<text name="sum_title">
+		Riassunto:
+	</text>
+	<text name="dscr_title">
+		Dettagli: (fornisci più informazioni possibili)
+	</text>
+	<text_editor name="details_edit">
+		Passi per riprodurre il bug:
+
+Risultati osservati:
+
+Risultati attesi:
+	</text_editor>
+	<text name="bug_aviso">
+		Nota: I rapporti incompleti non saranno esaminati
+Se questo bug ti permette di fare qualcosa che in teoria non potresti fare, soprattutto se ha effetti sulle prestazioni o sulla sicurezza,  per favore seleziona la categoria &apos;Exploit&apos;. Grazie!
+	</text>
+	<button label="Annulla" label_selected="Annulla" name="cancel_btn"/>
+	<button label="Segnala Bug" label_selected="Segnala Bug" name="send_btn"/>
+</floater>

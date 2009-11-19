@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater customize" title="Зовнішність" width="527">
+	<tab_container name="customize tab container" width="525">
+		<panel label="Частини тіла" name="body_parts_placeholder"/>
+		<panel label="Форма" name="Shape" width="389">
+			<button font="SansSerifSmall" left="288" width="98" label="Повернути" label_selected="Повернути" name="Revert"/>
+			<button width="115" label="Тіло" label_selected="Тіло" name="Body"/>
+			<button width="115" label="Голова" label_selected="Голова" name="Head"/>
+			<button width="115" label="Очі" label_selected="Очі" name="Eyes"/>
+			<button width="115" label="Вуха" label_selected="Вуха" name="Ears"/>
+			<button width="115" label="Ніс" label_selected="Ніс" name="Nose"/>
+			<button width="115" label="Рот" label_selected="Рот" name="Mouth"/>
+			<button width="115" label="Підборіддя" label_selected="Підборіддя" name="Chin"/>
+			<button width="115" label="Торс" label_selected="Торс" name="Torso"/>
+			<button width="115" label="Ноги" label_selected="Ноги" name="Legs"/>
+			<radio_group name="sex radio">
+				<radio_item length="1" name="radio" type="string">
+					Жінка
+				</radio_item>
+				<radio_item length="1" name="radio2" type="string">
+					Чоловік
+				</radio_item>
+			</radio_group>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Створіть нову форму, перетягнувши її з інвентаря на аватар.
+Або Ви можете створити нову форму с нуля і одягти її.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав модифікації цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Форма:
+			</text>
+			<button label="Нова Форма" label_selected="Нова Форма" name="Create New"/>
+			<button font="SansSerifSmall" left="85" width="82" label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+		</panel>
+		<panel label="Шкіра" name="Skin">
+			<button width="115" label="Колір шкіри" label_selected="Колір шкіри" name="Skin Color"/>
+			<button width="115" label="Деталі обличчя" label_selected="Деталі обличчя" name="Face Detail"/>
+			<button width="115" label="Косметика" label_selected="Косметика" name="Makeup"/>
+			<button width="115" label="Деталі тіла" label_selected="Деталі тіла" name="Body Detail"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Створіть нову форму, перетягнувши її з інвентаря на аватара. 
+Або Ви можете створити нову форму з нуля і одягти її.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав модифікації цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Скін:
+			</text>
+			<texture_picker label="Голова.Тату" name="Head Tattoos" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<texture_picker label="Верх.Тату" name="Upper Tattoos" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<texture_picker label="Нижн.Тату" name="Lower Tattoos" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<button label="Нова Шкіра" label_selected="Нова Шкіра" name="Create New"/>
+			<button font="SansSerifSmall" left="85" width="82" label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+		</panel>
+		<panel label="Волосся" name="Hair">
+			<button label="Колір" label_selected="Колір" name="Color"/>
+			<button label="Стиль" label_selected="Стиль" name="Style"/>
+			<button label="Брови" label_selected="Брови" name="Eyebrows"/>
+			<button label="Обличчя" label_selected="Обличчя" name="Facial"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Застосуйте нове волосся, перетягнувши його з інвентаря на
+аватара. Або ж Ви можете створити нове з нуля і вдягти його.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав на зміну цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Волосся:
+			</text>
+			<texture_picker label="Текстура" name="Texture" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<button label="Нове Волосся" label_selected="Нове Волосся" name="Create New"/>
+			<button font="SansSerifSmall" left="85" width="82" label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+		</panel>
+		<panel label="Очі" name="Eyes">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Застосуйте нові Очі, перетягнувши їх з інвентаря на аватара.
+Або ж Ви можете створити нові з нуля і вдягти їх.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав на зміну цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Очі:
+			</text>
+			<texture_picker label="Iris" name="Iris" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<button label="Нові Очі" label_selected="Нові Очі" name="Create New"/>
+			<button font="SansSerifSmall" left="85" width="82" label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+		</panel>
+		<panel label="Одяг" name="clothes_placeholder"/>
+		<panel label="Сорочка" name="Shirt">
+			<texture_picker label="Тканина" name="Fabric" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<color_swatch label="Колір/Відтінок" name="Color/Tint" tool_tip="Натисніть для вибору кольору"/>
+			<button label="Нова Сорочка" label_selected="Нова Сорочка" name="Create New"/>
+			<button label="Зняти" label_selected="Зняти" name="Take Off"/>
+			<button font="SansSerifSmall" left="85" width="82"  label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Вдягніть нову сорочку, перетягнувши її з інвентаря на аватар.
+Або ж Ви можете створити нову і вдягти її.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав на зміну цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Сорочка:
+			</text>
+		</panel>
+		<panel label="Штани" name="Pants">
+			<texture_picker label="Тканина" name="Fabric" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<color_swatch label="Колір/Відтінок" name="Color/Tint" tool_tip="Натисніть для вибору кольору"/>
+			<button label="Нові Штани" label_selected="Нові Штани" name="Create New"/>
+			<button label="Зняти" label_selected="Зняти" name="Take Off"/>
+			<button font="SansSerifSmall" left="85" width="82"  label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Вдягніть нові брюки, перетягнувши їх з інвентаря на аватар.
+Або ж Ви можете створити нові і вдягти їх.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав на зміну цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Штани:
+			</text>
+		</panel>
+		<panel label="Взуття" name="Shoes">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Вдягніть нове взуття, перетягнувши його з інвентаря на
+аватар. Або ж Ви можете створити нове і вдягти його.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав на зміну цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Взуття:
+			</text>
+			<texture_picker label="Тканина" name="Fabric" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<color_swatch label="Колір/Відтінок" name="Color/Tint" tool_tip="Натисніть для вибору кольору"/>
+			<button label="Нове Взуття" label_selected="Нове взуття" name="Create New"/>
+			<button label="Зняти" label_selected="Зняти" name="Take Off"/>
+			<button font="SansSerifSmall" left="85" width="82"  label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+		</panel>
+		<panel label="Шкарпетки" name="Socks">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Вдягніть нові Шкарпетки, перетягнувши їх з інвентаря на
+аватар. Або же Ви можете створити нові і вдягти їх.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав на зміну цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Шкарпетки:
+			</text>
+			<texture_picker label="Тканина" name="Fabric" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<color_swatch label="Колір/Відтінок" name="Color/Tint" tool_tip="Натисніть для вибору кольору"/>
+			<button label="Нові Шкарпетки" label_selected="Нові Шкарпетки" name="Create New"/>
+			<button label="Зняти" label_selected="Зняти" name="Take Off"/>
+			<button font="SansSerifSmall" left="85" width="82"  label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+		</panel>
+		<panel label="Піджак" name="Jacket">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Вдягніть новий піджак, перетягнувши його з інвентаря на
+аватар. Або ж Ви можете створити новий і вдягти його.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав на зміну цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Піджак:
+			</text>
+			<texture_picker width="90" label="Тканина верху" name="Upper Fabric" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<texture_picker width="90" label="Нижня Тканина" name="Lower Fabric" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<color_swatch width="90" label="Колір/Відтінок" name="Color/Tint" tool_tip="Натисніть для вибору кольору"/>
+			<button label="Новий Піджак" label_selected="Новий Піджак" name="Create New"/>
+			<button label="Зняти" label_selected="Зняти" name="Take Off"/>
+			<button font="SansSerifSmall" left="85" width="82"  label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+		</panel>
+		<panel label="Рукавиці" name="Gloves">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Вдягніть нові рукавиці, перетягнувши їх з інвентаря на аватар.
+Або ж Ви можете створити нові і вдягти їх.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав на зміну цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Рукавиці:
+			</text>
+			<texture_picker label="Тканина" name="Fabric" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<color_swatch label="Колір/Відтінок" name="Color/Tint" tool_tip="Натисніть для вибору кольору"/>
+			<button label="Нові Рукавиці" label_selected="Нові Рукавиці" name="Create New"/>
+			<button label="Зняти" label_selected="Зняти" name="Take Off"/>
+			<button font="SansSerifSmall" left="85" width="82"  label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+		</panel>
+		<panel label="Майка" name="Undershirt">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Вдягніть нову майку, перетягнувши її з інвентаря на аватар.
+Або ж Ви можете створити нову і вдягти її.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав на зміну цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Майка:
+			</text>
+			<texture_picker label="Тканина" name="Fabric" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<color_swatch label="Колір/Відтінок" name="Color/Tint" tool_tip="Натисніть для вибору кольору"/>
+			<button label="Нова Майка" label_selected="Нова Майка" name="Create New"/>
+			<button label="Зняти" label_selected="Зняти" name="Take Off"/>
+			<button font="SansSerifSmall" left="85" width="82"  label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+		</panel>
+		<panel label="Труси" name="Underpants">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Вдягніть нові труси, перетягнувши їх з інвентаря на аватар.
+Або ж Ви можете створити нові і вдягти їх.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав на зміну цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Труси:
+			</text>
+			<texture_picker label="Тканина" name="Fabric" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<color_swatch label="Колір/Відтінок" name="Color/Tint" tool_tip="Натисніть для вибору кольору"/>
+			<button label="Нові Труси" label_selected="Нові Труси" name="Create New"/>
+			<button label="Зняти" label_selected="Зняти" name="Take Off"/>
+			<button font="SansSerifSmall" left="85" width="82"  label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+		</panel>
+		<panel label="Спідниця" name="Skirt">
+			<text length="1" name="title" type="string">
+				[DESC]
+			</text>
+			<text length="1" name="title_no_modify" type="string">
+				[DESC]:неможливо змінити
+			</text>
+			<text length="1" name="title_loading" type="string">
+				[DESC]: завантаження...
+			</text>
+			<text length="1" name="title_not_worn" type="string">
+				[DESC]: не одягнено
+			</text>
+			<text length="1" name="path" type="string">
+				Розміщено в [PATH]
+			</text>
+			<text length="1" name="not worn instructions" type="string">
+				Вдягніть нову спідницю, перетягнувши її з інвентаря на аватар.
+Або ж Ви можете створити нову і вдягти її.
+			</text>
+			<text length="1" name="no modify instructions" type="string">
+				У Вас немає прав на зміну цієї речі.
+			</text>
+			<text name="Item Action Label" right="79">
+				Спідниця:
+			</text>
+			<texture_picker label="Тканина" name="Fabric" tool_tip="Натисніть, щоб вибрати зображення"/>
+			<color_swatch label="Колір/Відтінок" name="Color/Tint" tool_tip="Натисніть для вибору кольору"/>
+			<button label="Нова Спідниця" label_selected="Нова Спідниця" name="Create New"/>
+			<button label="Зняти" label_selected="Зняти" name="Take Off"/>
+			<button font="SansSerifSmall" left="85" width="82"  label="Зберегти" label_selected="Зберегти" name="Save"/>
+			<button font="SansSerifSmall" left="170" width="115" label="Зберегти як..." label_selected="Зберегти як..." name="Save As"/>
+			<button font="SansSerifSmall" left="288" width="98" label="Повернутися" label_selected="Повернутися" name="Revert"/>
+		</panel>
+	</tab_container>
+	<scroll_container left="230" name="panel_container"/>
+	<button label="Відміна" label_selected="Відміна" name="Cancel"/>
+	<button label="OK" label_selected="OK" name="Ok"/>
+	<button label="Створити Набір..." label_selected="Створити Набір...." name="Make Outfit" width="125"/>
+</floater>

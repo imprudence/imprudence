@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="avatarpicker" title="Üye Seçici">
+	<tab_container name="ResidentChooserTabs">
+		<panel label="Arama" name="SearchPanel">
+			<text name="InstructSearchResidentName">
+				Üye adının bir kısmını yazınız:
+			</text>
+			<button label="Bul" label_selected="Bul" name="Find"/>
+		</panel>
+		<panel label="Arama kartları" name="CallingCardsPanel">
+			<text name="InstructSelectCallingCard">
+				Arama kartı seçiniz:
+			</text>
+		</panel>
+		<panel label="Bana yakın" name="NearMePanel">
+			<text name="InstructSelectResident">
+				Yakındaki üyeyi seçiniz:
+			</text>
+			<button label="Listeyi yenile" label_selected="Listeyi yenile" name="Refresh"/>
+			<slider label="Mesafe" name="near_me_range"/>
+			<text name="meters" width="100">
+				Metreler
+			</text>
+		</panel>
+	</tab_container>
+	<button label="Seç" label_selected="Seç" name="Select"/>
+	<button label="İptal" label_selected="İptal" name="Cancel"/>
+	<string name="not_found">
+		&apos;[TEXT]&apos; bulunamadı
+	</string>
+	<string name="no_one_near">
+		Yakında kimse yok
+	</string>
+	<string name="no_results">
+		Sonuç yok
+	</string>
+	<string name="searching">
+		Aranıyor...
+	</string>
+</floater>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Inserzioni">
+	<line_editor name="given_name_editor" tool_tip="Il nome deve iniziare con una lettera o un numero non con un segno di punteggiatura."/>
+	<line_editor name="location_editor" tool_tip="Imposta come luogo per questa inserzione quello della tua posizione corrente."/>
+	<button label="Imposta luogo" name="set_location_btn"/>
+	<button label="Teleport" name="classified_teleport_btn"/>
+	<button label="Mostra sulla mappa" name="classified_map_btn" width="130" />
+	<button label="Profilo" name="classified_profile_btn" left="260"/>
+	<combo_box name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Seleziona -
+		</combo_item>
+		<combo_item name="mature">
+			Contenuto Mature
+		</combo_item>
+		<combo_item name="pg">
+			Contenuto PG
+		</combo_item>
+	</combo_box>
+	<button label="Aggiorna" name="classified_update_btn"/>
+	<string name="ad_placed_paid">
+		Inserzione accettata: [DATE], Pagati [AMT] L$ per l&apos;inserzione.
+	</string>
+	<string name="update_txt">
+		Aggiorna
+	</string>
+	<string name="publish_txt">
+		Publica...
+	</string>
+</panel>

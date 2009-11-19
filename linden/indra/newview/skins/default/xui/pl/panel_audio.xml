@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Audio i Video" name="Media panel">
+	<slider label="Master" name="System Volume" />
+	<button label="" name="mute_audio" />
+	<slider label="Muzyka" name="Music Volume" />
+	<button label="" name="mute_music" />
+	<slider label="Media" name="Media Volume" />
+	<button label="" name="mute_media" />
+	<slider label="Głos" name="Voice Volume" />
+	<button label="" name="mute_voice" />
+	<slider label="Dźwięki" name="SFX Volume" />
+	<button label="" name="mute_sfx" />
+	<slider label="Otoczenie" name="Wind Volume" />
+	<button label="" name="mute_wind" />
+	<slider label="UI" name="UI Volume" />
+	<button label="" name="mute_ui" />
+</panel>

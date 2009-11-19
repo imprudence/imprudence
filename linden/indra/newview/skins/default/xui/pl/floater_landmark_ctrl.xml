@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="landmarkpicker" title="Organize: Landmarks">
+	<check_box label="Pokaż Foldery" name="show_folders_check" />
+	<button label="Dodaj" label_selected="Dodaj" name="New" />
+	<button label="Zmień Nazwę" label_selected="Zmień Nazwę" name="Rename" />
+	<button label="Dodaj Folder" label_selected="Dodaj Folder" name="NewFolder" />
+	<button label="Edytuj" label_selected="Edytuj" name="Edit" />
+	<button label="Usuń" label_selected="Usuń" name="Delete" />
+	<button label="Zamknij" label_selected="Zamknij" name="Close" />
+</floater>

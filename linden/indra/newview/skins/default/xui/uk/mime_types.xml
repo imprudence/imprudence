@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<mimetypes name="default">
+	<widgetset name="web">
+		<label name="web_label">
+			Зміст веб
+		</label>
+		<tooltip name="web_tooltip">
+			Це місце має веб-контент
+		</tooltip>
+		<playtip name="web_playtip">
+			Показати веб-контент
+		</playtip>
+	</widgetset>
+	<widgetset name="movie">
+		<label name="movie_label">
+			Фільм
+		</label>
+		<tooltip name="movie_tooltip">
+			Тут програється фільм
+		</tooltip>
+		<playtip name="movie_playtip">
+			Програти фільм
+		</playtip>
+	</widgetset>
+	<widgetset name="none">
+		<label name="none_label">
+			Немає змісту
+		</label>
+		<tooltip name="none_tooltip">
+			Тут немає медіа
+		</tooltip>
+	</widgetset>
+	<widgetset name="image">
+		<label name="image_label">
+			Зображення
+		</label>
+		<tooltip name="image_tooltip">
+			В цьому місці є зображення
+		</tooltip>
+		<playtip name="image_playtip">
+			Переглянути зображення в цьому місці
+		</playtip>
+	</widgetset>
+	<widgetset name="audio">
+		<label name="audio_label">
+			Аудіо
+		</label>
+		<tooltip name="audio_tooltip">
+			В цьому місці програється аудіо
+		</tooltip>
+		<playtip name="audio_playtip">
+			Прослухати аудіо в цьому місці
+		</playtip>
+	</widgetset>
+	<scheme name="rtsp">
+		<label name="rtsp_label">
+			Поток в реальному часі
+		</label>
+	</scheme>
+	<mimetype name="blank">
+		<label name="blank_label">
+			- Ні -
+		</label>
+	</mimetype>
+	<mimetype name="none/none">
+		<label name="none/none_label">
+			- Ні -
+		</label>
+	</mimetype>
+	<mimetype name="audio/*">
+		<label name="audio2_label">
+			Аудіо
+		</label>
+	</mimetype>
+	<mimetype name="video/*">
+		<label name="video2_label">
+			Відео
+		</label>
+	</mimetype>
+	<mimetype name="image/*">
+		<label name="image2_label">
+			Зображення
+		</label>
+	</mimetype>
+	<mimetype name="video/vnd.secondlife.qt.legacy">
+		<label name="vnd.secondlife.qt.legacy_label">
+			Фільм (QuickTime)
+		</label>
+	</mimetype>
+	<mimetype name="application/javascript">
+		<label name="application/javascript_label">
+			Javascript
+		</label>
+	</mimetype>
+	<mimetype name="application/ogg">
+		<label name="application/ogg_label">
+			Ogg Аудіо/Відео
+		</label>
+	</mimetype>
+	<mimetype name="application/pdf">
+		<label name="application/pdf_label">
+			PDF документ
+		</label>
+	</mimetype>
+	<mimetype name="application/postscript">
+		<label name="application/postscript_label">
+			Postscript документ
+		</label>
+	</mimetype>
+	<mimetype name="application/rtf">
+		<label name="application/rtf_label">
+			Rich Text (RTF)
+		</label>
+	</mimetype>
+	<mimetype name="application/smil">
+		<label name="application/smil_label">
+			Synchronized Multimedia Integration Language (SMIL)
+		</label>
+	</mimetype>
+	<mimetype name="application/xhtml+xml">
+		<label name="application/xhtml+xml_label">
+			Web Page (XHTML)
+		</label>
+	</mimetype>
+	<mimetype name="application/x-director">
+		<label name="application/x-director_label">
+			Macromedia Director
+		</label>
+	</mimetype>
+	<mimetype name="application/x-shockwave-flash">
+		<label name="application/x-shockwave-flash_label">
+			Flash
+		</label>
+	</mimetype>
+	<mimetype name="audio/mid">
+		<label name="audio/mid_label">
+			Аудіо (MIDI)
+		</label>
+	</mimetype>
+	<mimetype name="audio/mpeg">
+		<label name="audio/mpeg_label">
+			Аудіо (MP3)
+		</label>
+	</mimetype>
+	<mimetype name="audio/x-aiff">
+		<label name="audio/x-aiff_label">
+			Аудіо (AIFF)
+		</label>
+	</mimetype>
+	<mimetype name="audio/x-wav">
+		<label name="audio/x-wav_label">
+			Аудіо (WAV)
+		</label>
+	</mimetype>
+	<mimetype name="image/bmp">
+		<label name="image/bmp_label">
+			Зображення (BMP)
+		</label>
+	</mimetype>
+	<mimetype name="image/gif">
+		<label name="image/gif_label">
+			Зображення (GIF)
+		</label>
+	</mimetype>
+	<mimetype name="image/jpeg">
+		<label name="image/jpeg_label">
+			Зображення (JPEG)
+		</label>
+	</mimetype>
+	<mimetype name="image/png">
+		<label name="image/png_label">
+			Зображення (PNG)
+		</label>
+	</mimetype>
+	<mimetype name="image/svg+xml">
+		<label name="image/svg+xml_label">
+			Зображення (SVG)
+		</label>
+	</mimetype>
+	<mimetype name="image/tiff">
+		<label name="image/tiff_label">
+			Зображення (TIFF)
+		</label>
+	</mimetype>
+	<mimetype name="text/html">
+		<label name="text/html_label">
+			Веб-сторінка
+		</label>
+	</mimetype>
+	<mimetype name="text/plain">
+		<label name="text/plain_label">
+			Текст
+		</label>
+	</mimetype>
+	<mimetype name="text/xml">
+		<label name="text/xml_label">
+			XML
+		</label>
+	</mimetype>
+	<mimetype name="video/mpeg">
+		<label name="video/mpeg_label">
+			Фільм (MPEG)
+		</label>
+	</mimetype>
+	<mimetype name="video/mp4">
+		<label name="video/mp4_label">
+			Фільм (MP4)
+		</label>
+	</mimetype>
+	<mimetype name="video/quicktime">
+		<label name="video/quicktime_label">
+			Фільм (QuickTime)
+		</label>
+	</mimetype>
+	<mimetype name="video/x-ms-asf">
+		<label name="video/x-ms-asf_label">
+			Фільм (Windows Media ASF)
+		</label>
+	</mimetype>
+	<mimetype name="video/x-ms-wmv">
+		<label name="video/x-ms-wmv_label">
+			Фільм (Windows Media WMV)
+		</label>
+	</mimetype>
+	<mimetype name="video/x-msvideo">
+		<label name="video/x-msvideo_label">
+			Фільм  (AVI)
+		</label>
+	</mimetype>
+</mimetypes>

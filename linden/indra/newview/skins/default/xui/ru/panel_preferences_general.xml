@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Общие" name="general_panel">
+	<radio_group name="default_start_location">
+		<radio_item name="MyHome" tool_tip="Входить в мою домашнюю локацию по умолчанию.">
+			Мой Дом
+		</radio_item>
+		<radio_item name="MyLastLocation" tool_tip="Входить на мою последнюю локацию по умолчанию.">
+			Моя последняя локация
+		</radio_item>
+	</radio_group>
+	<check_box label="Показывать стартовую позицию на Экране Логина" name="show_location_checkbox"/>
+	<combo_box name="fade_out_combobox">
+		<combo_item name="Never">
+			Никогда
+		</combo_item>
+		<combo_item name="Show Temporarily">
+			Временно
+		</combo_item>
+		<combo_item name="Always">
+			Всегда
+		</combo_item>
+	</combo_box>
+	<check_box label="Маленькие имена аватаров" name="small_avatar_names_checkbox"/>
+	<check_box label="Спрятать мое имя на моем экране" name="show_my_name_checkbox"/>
+	<text length="1" name="group_titles_textbox" type="string">
+		Титулы Группы:
+	</text>
+	<check_box label="Спрятать все Титулы Группы" name="show_all_title_checkbox"/>
+	<check_box label="Спрятать мой Титул Группы" name="show_my_title_checkbox"/>
+	<color_swatch label="" name="effect_color_swatch" tool_tip="Кликните, чтобы выбрать цвет"/>
+	<text length="1" name="UI Size:" type="string">
+		Размер UI:
+	</text>
+	<check_box label="Использовать независимый масштаб" name="ui_auto_scale"/>
+	<spinner label="Отключение через:" name="afk_timeout_spinner"/>
+	<check_box label="Уведомить о приходе или расходе (L$)" name="notify_money_change_checkbox"/>
+	<text name="maturity_desired_label">
+		Рейтинг:
+	</text>
+	<text name="maturity_desired_prompt">
+		Я хочу видеть контент:
+	</text>
+	<combo_box name="maturity_desired_combobox">
+		<combo_item name="Desired_Adult">
+			PG, Mature и Adult
+		</combo_item>
+		<combo_item name="Desired_Mature">
+			PG и Mature
+		</combo_item>
+		<combo_item name="Desired_PG">
+			Только PG
+		</combo_item>
+	</combo_box>
+	<text name="maturity_desired_textbox">
+		Только PG
+	</text>
+	<text length="1" name="start_location_textbox" type="string">
+		Стартовая позиция:
+	</text>
+	<text length="1" name="show_names_textbox" type="string">
+		Показывать имена:
+	</text>
+	<text length="1" name="effects_color_textbox" type="string">
+		Цвет моих эффектов:
+	</text>
+	<text length="1" name="seconds_textbox" type="string">
+		секунд
+	</text>
+	<text length="1" name="crash_report_textbox" type="string">
+		Отчет об ошибках
+	</text>
+	<text length="1" name="language_textbox" type="string">
+		Язык
+	</text>
+	<text length="1" name="language_textbox2" type="string">
+		(Требуется перезапуск)
+	</text>
+	<string name="region_name_prompt">
+		&lt;Введите название региона&gt;
+	</string>
+	<combo_box name="crash_behavior_combobox">
+		<combo_item length="1" name="Askbeforesending" type="string">
+			Спрашивать перед отправкой
+		</combo_item>
+		<combo_item length="1" name="Alwayssend" type="string">
+			Отправлять всегда
+		</combo_item>
+		<combo_item length="1" name="Neversend" type="string">
+			Не отправлять
+		</combo_item>
+	</combo_box>
+	<combo_box name="language_combobox">
+		<combo_item length="1" name="System Default Language" type="string">
+			По умолчанию
+		</combo_item>
+		<combo_item name="English">
+			English (Английский)
+		</combo_item>
+		<combo_item name="Danish">
+			Dansk (Датский) - Beta
+		</combo_item>
+		<combo_item name="Deutsch(German)">
+			Deutsch (Немецкий) - Beta
+		</combo_item>
+		<combo_item name="Spanish">
+			Español (Испанский) - Beta
+		</combo_item>
+		<combo_item name="French">
+			Français (Французский) - Beta
+		</combo_item>
+		<combo_item name="Italian">
+			Italiano (Итальянский) - Beta
+		</combo_item>
+		<combo_item name="Hungarian">
+			Magyar (Венгерский) - Beta
+		</combo_item>
+		<combo_item name="Dutch">
+			Nederlands (Голландский) - Beta
+		</combo_item>
+		<combo_item name="Polish">
+			Polski (Польский) - Beta
+		</combo_item>
+		<combo_item name="Portugese">
+			Portugués (Португальский) - Beta
+		</combo_item>
+		<combo_item name="Russian">
+			Русский - Beta
+		</combo_item>
+		<combo_item name="Turkish">
+			Türkçe (Турецкий) - Beta
+		</combo_item>
+		<combo_item name="Ukrainian">
+			Українська - Beta
+		</combo_item>
+		<combo_item name="Chinese">
+			中文 (简体) (Китайский) - Beta
+		</combo_item>
+		<combo_item name="(Japanese)">
+			日本語 (Японский) - Beta
+		</combo_item>
+		<combo_item name="(Korean)">
+			한국어 (Корейский) - Beta
+		</combo_item>
+	</combo_box>
+	<check_box label="Задействовать язык к объектам" name="language_is_public" tool_tip="Объекты в мире будут знать язык, который Вы предпочитаете."/>
+</panel>

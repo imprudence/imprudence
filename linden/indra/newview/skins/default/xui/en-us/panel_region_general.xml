@@ -17,6 +17,14 @@
 	     name="version_channel_text" width="200">
 		unknown
 	</text>
+	<text bottom="-70" follows="left|top" font="SansSerif" height="20" left="10"
+	     name="region_type_lbl" width="100">
+		Type: 
+	</text>
+	<text bottom_delta="0" follows="left|top" font="SansSerif" height="20" left="60"
+	     name="region_type" width="200">
+		unknown
+	</text>
 	<check_box bottom_delta="-20" follows="left|top" height="20" label="Block Terraform"
 	     left="10" name="block_terraform_check" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
@@ -61,27 +69,30 @@
 	     left="205" name="object_bonus_help" width="18" />
 	<text bottom_delta="-30" follows="left|top" height="20" label="Maturity" left="10"
 	     name="access_text" width="100">
-		Maturity:
+		Rating:
 	</text>
 	<combo_box bottom_delta="0" follows="left|top" height="20" label="Mature" left="110"
 	     name="access_combo" width="85">
-		<combo_item name="PG" value="PG">
-			PG
+		<combo_item name="Adult" value="42">
+			Adult
 		</combo_item>
-		<combo_item name="Mature" value="Mature">
+		<combo_item name="Mature" value="21">
 			Mature
+		</combo_item>
+		<combo_item name="PG" value="13">
+			PG
 		</combo_item>
 	</combo_box>
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="205" name="access_help" width="18" />
 	<button bottom_delta="-30" enabled="false" follows="left|top" height="20" label="Apply"
 	     left="108" name="apply_btn" width="100" />
-	<button bottom_delta="-80" follows="left|top" height="20"
+	<button bottom_delta="-60" follows="left|top" height="20"
 	     label="Teleport Home One User..." left="10" name="kick_btn" width="250" />
 	<button bottom_delta="-23" follows="left|top" height="20"
 	     label="Teleport Home All Users..." left="10" name="kick_all_btn" width="250" />
 	<button bottom_delta="-40" follows="left|top" height="20"
 	     label="Send Message To Region..." left="10" name="im_btn" width="200" />
-	<button bottom="-70" follows="left|top" height="20" label="Manage Telehub..."
+	<button bottom="-90" follows="left|top" height="20" label="Manage Telehub..."
 	     left="250" name="manage_telehub_btn" width="150" />
 </panel>

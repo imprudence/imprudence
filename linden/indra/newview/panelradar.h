@@ -99,10 +99,10 @@ private:
 	static void onClickAR(void *user_data);
 	static void onClickEjectFromEstate(void *user_data);
 
-	static void callbackFreeze(S32 option, void *user_data);
-	static void callbackEject(S32 option, void *user_data);
 	static void callbackAR(void *user_data);
-	static void callbackEjectFromEstate(S32 option, void *user_data);
+	static bool	callbackFreeze(const LLSD& notification, const LLSD& response, PanelRadar *self);
+	static bool	callbackEject(const LLSD& notification, const LLSD& response, PanelRadar *self);
+	static bool	callbackEjectFromEstate(const LLSD& notification, const LLSD& response, PanelRadar *self);
 
 	static void sendFreeze(const LLUUID &avatar, bool);
 	static void sendEject(const LLUUID &avatar, bool);

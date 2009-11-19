@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="sell land" title="Föld eladása">
+	<text name="info_parcel_label">
+		Telek:
+	</text>
+	<text name="info_parcel">
+		TELEK NEVE
+	</text>
+	<text name="info_size_label">
+		Méret:
+	</text>
+	<text name="info_size">
+		[AREA] m²
+	</text>
+	<text name="info_action" bottom_delta="-67">
+		Telek eladása ennek:
+	</text>
+	<icon bottom_delta="-66" name="step_price" />
+	<text name="price_label">
+		Ár beállítása:
+	</text>
+	<text name="price_text">
+		Válaszd ki a megfelelő árat a föld eladásához.
+	</text>
+	<text name="price_ld">
+		L$
+	</text>
+	<text name="price_per_m">
+		(L$[PER_METER]/m²)
+	</text>
+	<text name="sell_to_label">
+		Föld eladása ennek:
+	</text>
+	<text name="sell_to_text">
+		Válaszd ki, hogy mindenkinek vagy meghatározott vevőnek adod el.
+	</text>
+	<combo_box name="sell_to" width="150">
+		<combo_item name="--selectone--">
+			-- válassz --
+		</combo_item>
+		<combo_item name="Anyone">
+			Bárka
+		</combo_item>
+		<combo_item name="Specificuser:">
+			Meghatározott lakó:
+		</combo_item>
+	</combo_box>
+	<button label="Kijelöl..." name="sell_to_select_agent" />
+	<text name="sell_objects_label">
+		Föld tartalmazza az ott található tárgyakat?
+	</text>
+	<text name="sell_objects_text">
+		A földtulajdonos átadható tárgyainak tulajdonjogának
+megváltoztatása.
+	</text>
+	<radio_group name="sell_objects" height="72" bottom_delta="-88">
+		<radio_item name="no">
+			Nem, tárgyak tulajdonjogának
+megtartása
+		</radio_item>
+		<radio_item name="yes" bottom="-54">
+			Igen, tárgyak eladása földdel
+együtt
+		</radio_item>
+	</radio_group>
+	<button label="Tárgyak megjelenítése" name="show_objects" width="140" />
+	<text name="nag_message_label" bottom_delta="-25">
+		EMLÉKEZTETŐ: Minden eladás végső.
+	</text>
+	<button label="Föld beállítása eladásra" name="sell_btn" />
+	<button label="Töröl" name="cancel_btn" />
+</floater>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container" title="">
+	<button label="İptal" label_selected="İptal" name="Cancel" />
+	<text type="string" length="1" name="Save item as:">
+		Seçmek için bir tuşa basınız
+	</text>
+</floater>

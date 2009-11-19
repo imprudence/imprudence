@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -106,6 +107,7 @@ void process_economy_data(LLMessageSystem *msg, void** /*user_data*/);
 void process_money_balance_reply(LLMessageSystem* msg_system, void**);
 void process_adjust_balance(LLMessageSystem* msg_system, void**);
 
+bool attempt_standard_notification(LLMessageSystem* msg);
 void process_alert_message(LLMessageSystem* msg, void**);
 void process_agent_alert_message(LLMessageSystem* msgsystem, void** user_data);
 void process_alert_core(const std::string& message, BOOL modal);
@@ -192,11 +194,15 @@ void process_decline_callingcard(LLMessageSystem* msg, void**);
 void invalid_message_callback(LLMessageSystem*, void*, EMessageException);
 
 void process_initiate_download(LLMessageSystem* msg, void**);
-void inventory_offer_callback(S32 option, void* user_data);
 void start_new_inventory_observer();
 
 struct LLOfferInfo
 {
+	LLOfferInfo() {};
+	LLOfferInfo(const LLSD& sd);
+
+	void forceResponse(InventoryOfferResponse response);
+
 	EInstantMessage mIM;
 	LLUUID mFromID;
 	BOOL mFromGroup;
@@ -208,6 +214,10 @@ struct LLOfferInfo
 	std::string mFromName;
 	std::string mDesc;
 	LLHost mHost;
+
+	LLSD asLLSD();
+	bool inventory_offer_callback(const LLSD& notification, const LLSD& response);
+
 };
 
 void process_feature_disabled_message(LLMessageSystem* msg, void**);

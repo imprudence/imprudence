@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container" title=" ">
+	<button label="Folytat" label_selected="Folytat" name="Continue" />
+	<button label="Mégsem" label_selected="Mégsem" name="Cancel" />
+	<text name="tos_title">
+		Kritikus üzenet
+	</text>
+	<text name="tos_heading">
+		Kérjük figyelmesen olvasd el a következő üzenetet.
+	</text>
+	<text_editor name="tos_text">
+		TOS_TEXT
+	</text_editor>
+</floater>

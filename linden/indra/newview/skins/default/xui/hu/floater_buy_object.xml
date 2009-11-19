@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="contents" title="Másolat megvásárlása" height="266" >
+	<text name="contents_text">
+		tartalmával együtt:
+	</text>
+	<text name="buy_text">
+		[AMOUNT] L$ értékű tárgy vásárlása a következő
+személytől: [NAME]?
+	</text>
+	<button label="Mégsem" label_selected="Mégsem" name="cancel_btn" bottom="-250"/>
+	<button label="Vásárol" label_selected="Vásárol" name="buy_btn" bottom="-250"/>
+	<string name="title_buy_text">
+		Vásárol
+	</string>
+	<string name="title_buy_copy_text">
+		Másolat megvásárlása
+	</string>
+	<string name="no_copy_text">
+		(nem másolható)
+	</string>
+	<string name="no_modify_text">
+		(nem módosítható)
+	</string>
+	<string name="no_transfer_text">
+		(no átruházható)
+	</string>
+</floater>

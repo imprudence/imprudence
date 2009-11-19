@@ -93,8 +93,8 @@
 	     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="14" left="6"
 	     mouse_opaque="true" name="text ruler mode" v_pad="0" width="68">
-    Ruler:
-  </text>
+		Ruler:
+	</text>
 	<combo_box allow_text_entry="false" bottom_delta="-4" follows="left|top" height="20"
 	     left_delta="40" max_chars="20" mouse_opaque="true"
 	     name="combobox grid mode" width="86">
@@ -123,6 +123,7 @@
        halign="center" valign="center"
 	     height="20" label="Options..." label_selected="Options..." left_delta="20"
 	     mouse_opaque="true" name="Options..." scale_image="TRUE" width="80" />
+
 
 <!-- Help text -->
 
@@ -243,18 +244,18 @@
        follows="left|top" mouse_opaque="true" />
 	<check_box bottom="-117" control_name="CreateToolKeepSelected" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Keep Tool Selected" left="4" mouse_opaque="true"
+	     label="Keep selected" left="4" mouse_opaque="true"
 	     name="checkbox sticky" width="128" />
 	<check_box bottom_delta="-15" control_name="CreateToolCopySelection" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Copy Selection" left_delta="0" mouse_opaque="true"
+	     label="Copy selected" left_delta="0" mouse_opaque="true"
 	     name="checkbox copy selection" width="134" />
-	<check_box bottom_delta="-15" control_name="CreateToolCopyCenters" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="true" label="Center Copy"
-	     left_delta="20" mouse_opaque="true" name="checkbox copy centers"
+	<check_box bottom_delta="-16" control_name="CreateToolCopyCenters" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="true" label="Center"
+	     left_delta="18" mouse_opaque="true" name="checkbox copy centers"
 	     width="134" />
-	<check_box bottom_delta="-15" control_name="CreateToolCopyRotates" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false" label="Rotate Copy"
+	<check_box bottom_delta="-16" control_name="CreateToolCopyRotates" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false" label="Rotate"
 	     left_delta="0" mouse_opaque="true" name="checkbox copy rotates" width="134" />
 
 <!-- Land panel -->
@@ -280,20 +281,16 @@
 	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Revert" left="4" mouse_opaque="true"
 	     name="radio revert" radio_style="true" width="114" />
-	<button bottom="-74" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="20" label="Apply to selection" label_selected="Apply to selection"
-	     left="118" mouse_opaque="true" name="button apply to selection"
-	     scale_image="TRUE" tool_tip="Modify Selected Land" width="134" />
-
-
-
+	<button bottom="-72" follows="left|top" font="SansSerifSmall" halign="center"
+	     height="20" label="Apply" label_selected="Apply"
+	     left="116" mouse_opaque="true" name="button apply to selection"
+	     scale_image="TRUE" tool_tip="Modify Selected Land" width="78" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
 	     border_visible="false" bottom_delta="-16" drop_shadow_visible="true" enabled="true"
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="12" left="118"
 	     hidden="false" mouse_opaque="true" name="Bulldozer:" v_pad="0" width="100">
 	          Bulldozer:
 	</text>
-
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
 	     border_visible="false" bottom_delta="-18" drop_shadow_visible="true" enabled="true"
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="12" left="132"
@@ -303,8 +300,6 @@
 	<volume_slider bottom_delta="-4" follows="left|top" height="16" hidden="false"
          increment="0.1" initial_val="2.0" left="178" max_val="11.0" min_val="1.0"
 	     mouse_opaque="true" name="slider brush size" width="80" />	
-
-
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false"
 	     border_visible="false" bottom_delta="-18" drop_shadow_visible="true" enabled="true"
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left" height="12" left="132"
@@ -1228,7 +1223,7 @@
 (must load first)
 			</text>
 			<button bottom="-360" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="16" label="Align" label_selected="Align" left="112"
+			     height="20" label="Align" label_selected="Align" left="112"
 			     mouse_opaque="true" name="button align" scale_image="TRUE" width="68" />
       <button bottom="-162" follows="left|top" font="SansSerif" halign="center"
 			     height="22" label="?" label_selected="?" right="-8" tool_tip="Texture math constants"
@@ -1240,9 +1235,9 @@
 			      label="New Script" label_selected="New Script..."
 			     left="10" mouse_opaque="true" name="button new script" scale_image="TRUE"
 			     width="100" />
-      <!--<button bottom_delta="0" left_delta="110" width="100" height="20" follows="left|top"
+      <button bottom_delta="0" left_delta="110" width="100" height="20" follows="left|top"
             label="Permissions..." name="button permissions" font="SansSerif" halign="center"
-            mouse_opaque="true" scale_image="TRUE" />-->
+            mouse_opaque="true" scale_image="TRUE" />
 			<panel bottom_delta="-330" follows="left|top" height="325"  left="10"
 			     mouse_opaque="true" name="ContentsInventory" width="252" />
 		</panel>

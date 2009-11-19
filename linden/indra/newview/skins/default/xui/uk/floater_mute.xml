@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mute floater" title="Список заглушених" short_title="Список заглушених">
+	<scroll_list name="mutes"
+	     tool_tip="Поточний список заглушених резидентів" />
+	<button label="Заглушити резидента..."
+	     label_selected="Заглушити резидента..."
+	     name="Mute resident..."
+	     tool_tip="Натисніть на резиденті для того, щоб його заглушити" />
+	<button label="Заглушити об&apos;єкт по імені..."
+	     label_selected="Заглушити об&apos;єкт по імені..."
+	     name="Mute object by name..." />
+	<button label="Розблокувати" label_selected="Розблокувати"
+	     name="Unmute"
+	     tool_tip="Прибрати резидента або об&apos;єкт зі списку заглушених" />
+</floater>

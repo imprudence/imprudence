@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="voice_controls">
-	<button label="" name="speakers_btn" tool_tip="Mostra os residentes que estão usando bate-papo em voz em torno de ti."/>
+	<button label="" name="speakers_btn" tool_tip="Mostra os residentes que estão usando bate-papo em voz ao seu redor."/>
 	<button label="Falar" name="push_to_talk" tool_tip="Segure o botão para falar"/>
 	<button label="" name="ptt_lock" tool_tip="Clique na fechadura para entrar no modo de falar"/>
-	<button label="" name="show_channel" tool_tip="Clique para mostrar o canal corrente de voz"/>
+	<button label="" name="show_channel" tool_tip="Clique para mostrar o canal atual de voz"/>
 </panel>

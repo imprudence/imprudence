@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="script panel">
+	<text_editor type="string" length="1" name="Script Editor">
+		Завантаж...
+	</text_editor>
+	<button label="Зберегти" label_selected="Зберегти" name="Save_btn" />
+	<combo_box label="Вставити" name="Insert..." />
+	<menu_bar name="script_menu">
+		<menu name="File">
+			<menu_item_call label="Зберегти" name="Save" />
+			<menu_item_call label="Відмінити всі зміни" name="Revert All Changes" />
+		</menu>
+		<menu name="Edit">
+			<menu_item_call label="Відмінити" name="Undo" />
+			<menu_item_call label="Повторити" name="Redo" />
+			<menu_item_separator label="-----------" name="separator" />
+			<menu_item_call label="Вирізати" name="Cut" />
+			<menu_item_call label="Скопіювати" name="Copy" />
+			<menu_item_call label="Вставити" name="Paste" />
+			<menu_item_separator label="-----------" name="separator2" />
+			<menu_item_call label="Виділити все" name="Select All" />
+			<menu_item_call label="Зняти виділення" name="Deselect" />
+			<menu_item_separator label="-----------" name="separator3" />
+			<menu_item_call label="Знайти / Замінити..." name="Search / Replace..." />
+		</menu>
+		<menu name="Help">
+			<menu_item_call label="Допомога..." name="Help..." />
+			<menu_item_call label="Вікі по LSL..." name="LSL Wiki Help..." />
+		</menu>
+	</menu_bar>
+	<string name="loading">
+		Завантаж...
+	</string>
+	<string name="can_not_view">
+		У Вас немає прав для перегляду скрипта
+	</string>
+	<string name="public_objects_can_not_run">
+		Публічні об&apos;єкти не можуть виконувати скриптів
+	</string>
+	<string name="script_running">
+		Виконання
+	</string>
+</panel>

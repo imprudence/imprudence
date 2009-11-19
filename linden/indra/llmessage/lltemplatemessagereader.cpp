@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -181,15 +182,15 @@ S32 LLTemplateMessageReader::getSize(const char *blockname, const char *varname)
 {
 	// is there a message ready to go?
 	if (mReceiveSize == -1)
-	{
+	{	// This is a serious error - crash 
 		llerrs << "No message waiting for decode 4!" << llendl;
-		return -1;
+		return LL_MESSAGE_ERROR;
 	}
 
 	if (!mCurrentRMessageData)
-	{
+	{	// This is a serious error - crash
 		llerrs << "Invalid mCurrentRMessageData in getData!" << llendl;
-		return -1;
+		return LL_MESSAGE_ERROR;
 	}
 
 	char *bnamep = (char *)blockname; 
@@ -197,10 +198,10 @@ S32 LLTemplateMessageReader::getSize(const char *blockname, const char *varname)
 	LLMsgData::msg_blk_data_map_t::const_iterator iter = mCurrentRMessageData->mMemberBlocks.find(bnamep);
 	
 	if (iter == mCurrentRMessageData->mMemberBlocks.end())
-	{
-		llerrs << "Block " << bnamep << " not in message "
+	{	// don't crash
+		llinfos << "Block " << bnamep << " not in message "
 			<< mCurrentRMessageData->mName << llendl;
-		return -1;
+		return LL_BLOCK_NOT_IN_MESSAGE;
 	}
 
 	char *vnamep = (char *)varname; 
@@ -209,17 +210,17 @@ S32 LLTemplateMessageReader::getSize(const char *blockname, const char *varname)
 	LLMsgVarData& vardata = msg_data->mMemberVarData[vnamep];
 	
 	if (!vardata.getName())
-	{
-		llerrs << "Variable " << varname << " not in message "
+	{	// don't crash
+		llinfos << "Variable " << varname << " not in message "
 			<< mCurrentRMessageData->mName << " block " << bnamep << llendl;
-		return -1;
+		return LL_VARIABLE_NOT_IN_BLOCK;
 	}
 
 	if (mCurrentRMessageTemplate->mMemberBlocks[bnamep]->mType != MBT_SINGLE)
-	{
+	{	// This is a serious error - crash
 		llerrs << "Block " << bnamep << " isn't type MBT_SINGLE,"
 			" use getSize with blocknum argument!" << llendl;
-		return -1;
+		return LL_MESSAGE_ERROR;
 	}
 
 	return vardata.getSize();
@@ -229,15 +230,15 @@ S32 LLTemplateMessageReader::getSize(const char *blockname, S32 blocknum, const 
 {
 	// is there a message ready to go?
 	if (mReceiveSize == -1)
-	{
+	{	// This is a serious error - crash
 		llerrs << "No message waiting for decode 5!" << llendl;
-		return -1;
+		return LL_MESSAGE_ERROR;
 	}
 
 	if (!mCurrentRMessageData)
-	{
+	{	// This is a serious error - crash
 		llerrs << "Invalid mCurrentRMessageData in getData!" << llendl;
-		return -1;
+		return LL_MESSAGE_ERROR;
 	}
 
 	char *bnamep = (char *)blockname + blocknum; 
@@ -246,20 +247,20 @@ S32 LLTemplateMessageReader::getSize(const char *blockname, S32 blocknum, const 
 	LLMsgData::msg_blk_data_map_t::const_iterator iter = mCurrentRMessageData->mMemberBlocks.find(bnamep);
 	
 	if (iter == mCurrentRMessageData->mMemberBlocks.end())
-	{
-		llerrs << "Block " << bnamep << " not in message "
+	{	// don't crash
+		llinfos << "Block " << bnamep << " not in message " 
 			<< mCurrentRMessageData->mName << llendl;
-		return -1;
+		return LL_BLOCK_NOT_IN_MESSAGE;
 	}
 
 	LLMsgBlkData* msg_data = iter->second;
 	LLMsgVarData& vardata = msg_data->mMemberVarData[vnamep];
 	
 	if (!vardata.getName())
-	{
-		llerrs << "Variable " << vnamep << " not in message "
+	{	// don't crash
+		llinfos << "Variable " << vnamep << " not in message "
 			<<  mCurrentRMessageData->mName << " block " << bnamep << llendl;
-		return -1;
+		return LL_VARIABLE_NOT_IN_BLOCK;
 	}
 
 	return vardata.getSize();
@@ -753,18 +754,38 @@ BOOL LLTemplateMessageReader::decodeData(const U8* buffer, const LLHost& sender 
 
 BOOL LLTemplateMessageReader::validateMessage(const U8* buffer, 
 											  S32 buffer_size, 
-											  const LLHost& sender)
+											  const LLHost& sender,
+											  bool trusted)
 {
 	mReceiveSize = buffer_size;
-	BOOL result = decodeTemplate(buffer, buffer_size, &mCurrentRMessageTemplate );
-	if(result)
+	BOOL valid = decodeTemplate(buffer, buffer_size, &mCurrentRMessageTemplate );
+	if(valid)
 	{
 		mCurrentRMessageTemplate->mReceiveCount++;
-		//lldebugs << "MessageRecvd:" 
+		//lldebugs << "MessageRecvd:"
 		//						 << mCurrentRMessageTemplate->mName 
 		//						 << " from " << sender << llendl;
 	}
-	return result;
+
+	if (valid && isBanned(trusted))
+	{
+		LL_WARNS("Messaging") << "LLMessageSystem::checkMessages "
+			<< "received banned message "
+			<< getMessageName()
+			<< " from "
+			<< ((trusted) ? "trusted " : "untrusted ")
+			<< sender << llendl;
+		valid = FALSE;
+	}
+
+	if(valid && isUdpBanned())
+	{
+		llwarns << "Received UDP black listed message "
+				<<  getMessageName()
+				<< " from " << sender << llendl;
+		valid = FALSE;
+	}
+	return valid;
 }
 
 BOOL LLTemplateMessageReader::readMessage(const U8* buffer, 

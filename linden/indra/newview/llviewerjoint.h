@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -39,6 +40,7 @@
 #include "llapr.h"
 
 class LLFace;
+class LLViewerJointMesh;
 
 //-----------------------------------------------------------------------------
 // class LLViewerJoint
@@ -71,7 +73,7 @@ public:
 	// Traverses the entire joint hierarchy, setting up
 	// transforms and calling the drawShape().
 	// Derived classes may add text/graphic output.
-	virtual U32 render( F32 pixelArea, BOOL first_pass = TRUE );	// Returns triangle count
+	virtual U32 render( F32 pixelArea, BOOL first_pass = TRUE, BOOL is_dummy = FALSE );	// Returns triangle count
 
 	// Returns true if this object is transparent.
 	// This is used to determine in which order to draw objects.
@@ -82,7 +84,7 @@ public:
 
 	// Draws the shape attached to a joint.
 	// Called by render().
-	virtual U32 drawShape( F32 pixelArea, BOOL first_pass = TRUE );
+	virtual U32 drawShape( F32 pixelArea, BOOL first_pass = TRUE, BOOL is_dummy = FALSE );
 	virtual void drawNormals() {}
 
 	enum Components
@@ -132,8 +134,13 @@ public:
 
 	void setVisible( BOOL visible, BOOL recursive );
 
+	// Takes meshes in mMeshParts and sets each one as a child joint
+	void setMeshesToChildren();
+
 public:
 	static BOOL	sDisableLOD;
+	std::vector<LLViewerJointMesh*> mMeshParts;
+	void setMeshID( S32 id ) {mMeshID = id;}
 
 protected:
 	BOOL		mValid;
@@ -141,6 +148,7 @@ protected:
 	F32			mMinPixelArea;
 	PickName	mPickName;
 	BOOL		mVisible;
+	S32			mMeshID;
 };
 
 class LLViewerJointCollisionVolume : public LLViewerJoint

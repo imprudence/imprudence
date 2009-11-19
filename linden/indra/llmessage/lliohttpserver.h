@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -38,6 +39,18 @@
 #include "llhttpnode.h"
 
 class LLPumpIO;
+
+// common strings use for populating the context. bascally 'request',
+// 'wildcard', and 'headers'.
+extern const std::string CONTEXT_REQUEST;
+extern const std::string CONTEXT_RESPONSE;
+extern const std::string CONTEXT_VERB;
+extern const std::string CONTEXT_HEADERS;
+extern const std::string HTTP_VERB_GET;
+extern const std::string HTTP_VERB_PUT;
+extern const std::string HTTP_VERB_POST;
+extern const std::string HTTP_VERB_DELETE;
+extern const std::string HTTP_VERB_OPTIONS;
 
 class LLIOHTTPServer
 {

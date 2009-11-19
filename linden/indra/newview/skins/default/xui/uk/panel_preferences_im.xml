@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Зв&apos;язок" name="im">
+	<text length="1" name="text_box" type="string">
+		Мій Онлайн Статус:
+	</text>
+	<check_box label="Тільки мої Друзі і Групи можуть бачити, коли я онлайн" name="online_visibility"/>
+	<text length="1" name="text_box2" type="string">
+		Опції IM:
+	</text>
+	<string name="log_in_to_change">
+		Увійти в систему для зміни
+	</string>
+	<check_box label="Відправ. IM на Email ([EMAIL])" name="send_im_to_email"/>
+	<check_box label="Показувати ПП в Консоль чату" name="include_im_in_chat_console"/>
+	<check_box label="Показувати час в IM" name="show_timestamps_check"/>
+	<check_box label="Сповіщати про друзів онлайн" name="friends_online_notify_checkbox"/>
+	<text length="1" name="text_box3" type="string">
+		Відповідь в режим
+&apos;Зайнятий&apos;:
+	</text>
+	<text length="1" name="text_box4" type="string">
+		Опції журналу:
+	</text>
+	<check_box label="Зберігати лог ПП на моєму комп&apos;ютері" name="log_instant_messages"/>
+	<check_box label="Показувати час в логах ПП" name="log_instant_messages_timestamp"/>
+	<check_box label="Показувати закінчення останньої ПП розмови" name="log_show_history"/>
+	<check_box label="Зберігати лог Загального Чату на мій комп&apos;ютер" name="log_chat"/>
+	<check_box label="Показувати час в логах Загального Чату" name="log_chat_timestamp"/>
+	<check_box label="Показувати вхідні ПП в логах Загального Чату" name="log_chat_IM"/>
+	<check_box label="Показувати дату і час" name="log_date_timestamp"/>
+	<button label="Шлях" label_selected="Змінити Шлях" name="log_path_button"/>
+</panel>

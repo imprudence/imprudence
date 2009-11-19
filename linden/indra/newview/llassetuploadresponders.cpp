@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -33,12 +34,11 @@
 
 #include "llassetuploadresponders.h"
 
+// viewer includes
 #include "llagent.h"
 #include "llcompilequeue.h"
 #include "llfloaterbuycurrency.h"
-#include "lleconomy.h"
 #include "llfilepicker.h"
-#include "llfocusmgr.h"
 #include "llnotify.h"
 #include "llinventorymodel.h"
 #include "llinventoryview.h"
@@ -47,12 +47,24 @@
 #include "llpreviewscript.h"
 #include "llpreviewgesture.h"
 #include "llgesturemgr.h"
-#include "llscrolllistctrl.h"
+#include "llstatusbar.h"		// sendMoneyBalanceRequest()
+#include "llsdserialize.h"
 #include "lluploaddialog.h"
 #include "llviewerobject.h"
+#include "llviewercontrol.h"
 #include "llviewerobjectlist.h"
 #include "llviewermenufile.h"
 #include "llviewerwindow.h"
+#include "lltexlayer.h"
+
+// library includes
+#include "lleconomy.h"
+#include "llfocusmgr.h"
+#include "llscrolllistctrl.h"
+#include "llsdserialize.h"
+
+// When uploading multiple files, don't display any of them when uploading more than this number.
+static const S32 FILE_COUNT_DISPLAY_THRESHOLD = 5;
 
 void dialog_refresh_all();
 
@@ -97,21 +109,21 @@ void LLAssetUploadResponder::error(U32 statusNum, const std::string& reason)
 {
 	llinfos << "LLAssetUploadResponder::error " << statusNum 
 			<< " reason: " << reason << llendl;
-	LLStringUtil::format_map_t args;
+	LLSD args;
 	switch(statusNum)
 	{
 		case 400:
-			args["[FILE]"] = (mFileName.empty() ? mVFileID.asString() : mFileName);
-			args["[REASON]"] = "Error in upload request.  Please visit "
+			args["FILE"] = (mFileName.empty() ? mVFileID.asString() : mFileName);
+			args["REASON"] = "Error in upload request.  Please visit "
 				"http://secondlife.com/support for help fixing this problem.";
-			gViewerWindow->alertXml("CannotUploadReason", args);
+			LLNotifications::instance().add("CannotUploadReason", args);
 			break;
 		case 500:
 		default:
-			args["[FILE]"] = (mFileName.empty() ? mVFileID.asString() : mFileName);
-			args["[REASON]"] = "The server is experiencing unexpected "
+			args["FILE"] = (mFileName.empty() ? mVFileID.asString() : mFileName);
+			args["REASON"] = "The server is experiencing unexpected "
 				"difficulties.";
-			gViewerWindow->alertXml("CannotUploadReason", args);
+			LLNotifications::instance().add("CannotUploadReason", args);
 			break;
 	}
 	LLUploadDialog::modalUploadFinished();
@@ -133,6 +145,7 @@ void LLAssetUploadResponder::result(const LLSD& content)
 		if (mFileName.empty())
 		{
 			// rename the file in the VFS to the actual asset id
+			// llinfos << "Changing uploaded asset UUID to " << content["new_asset"].asUUID() << llendl;
 			gVFS->renameFile(mVFileID, mAssetType, content["new_asset"].asUUID(), mAssetType);
 		}
 		uploadComplete(content);
@@ -158,6 +171,9 @@ void LLAssetUploadResponder::uploadUpload(const LLSD& content)
 
 void LLAssetUploadResponder::uploadFailure(const LLSD& content)
 {
+	// remove the "Uploading..." message
+	LLUploadDialog::modalUploadFinished();
+	
 	std::string reason = content["state"];
 	// deal with L$ errors
 	if (reason == "insufficient funds")
@@ -166,10 +182,10 @@ void LLAssetUploadResponder::uploadFailure(const LLSD& content)
 	}
 	else
 	{
-		LLStringUtil::format_map_t args;
-		args["[FILE]"] = (mFileName.empty() ? mVFileID.asString() : mFileName);
-		args["[REASON]"] = content["message"].asString();
-		gViewerWindow->alertXml("CannotUploadReason", args);
+		LLSD args;
+		args["FILE"] = (mFileName.empty() ? mVFileID.asString() : mFileName);
+		args["REASON"] = content["message"].asString();
+		LLNotifications::instance().add("CannotUploadReason", args);
 	}
 }
 
@@ -193,9 +209,14 @@ LLNewAgentInventoryResponder::LLNewAgentInventoryResponder(const LLSD& post_data
 void LLNewAgentInventoryResponder::uploadComplete(const LLSD& content)
 {
 	lldebugs << "LLNewAgentInventoryResponder::result from capabilities" << llendl;
+	
+	//std::ostringstream llsdxml;
+	//LLSDSerialize::toXML(content, llsdxml);
+	//llinfos << "upload complete content:\n " << llsdxml.str() << llendl;
 
 	LLAssetType::EType asset_type = LLAssetType::lookup(mPostData["asset_type"].asString());
 	LLInventoryType::EType inventory_type = LLInventoryType::lookup(mPostData["inventory_type"].asString());
+	S32 expected_upload_cost = LLGlobalEconomy::Singleton::getInstance()->getPriceUpload();
 
 	// Update L$ and ownership credit information
 	// since it probably changed on the server
@@ -203,17 +224,11 @@ void LLNewAgentInventoryResponder::uploadComplete(const LLSD& content)
 		asset_type == LLAssetType::AT_SOUND ||
 		asset_type == LLAssetType::AT_ANIMATION)
 	{
-		gMessageSystem->newMessageFast(_PREHASH_MoneyBalanceRequest);
-		gMessageSystem->nextBlockFast(_PREHASH_AgentData);
-		gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-		gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-		gMessageSystem->nextBlockFast(_PREHASH_MoneyData);
-		gMessageSystem->addUUIDFast(_PREHASH_TransactionID, LLUUID::null );
-		gAgent.sendReliableMessage();
+		LLStatusBar::sendMoneyBalanceRequest();
 
-		LLStringUtil::format_map_t args;
-		args["[AMOUNT]"] = llformat("%d",LLGlobalEconomy::Singleton::getInstance()->getPriceUpload());
-		LLNotifyBox::showXml("UploadPayment", args);
+		LLSD args;
+		args["AMOUNT"] = llformat("%d", expected_upload_cost);
+		LLNotifications::instance().add("UploadPayment", args);
 	}
 
 	// Actually add the upload to viewer inventory
@@ -221,23 +236,39 @@ void LLNewAgentInventoryResponder::uploadComplete(const LLSD& content)
 			<< content["new_asset"].asUUID() << " to inventory." << llendl;
 	if(mPostData["folder_id"].asUUID().notNull())
 	{
-		LLPermissions perm;
-		U32 next_owner_perm;
-		perm.init(gAgent.getID(), gAgent.getID(), LLUUID::null, LLUUID::null);
-		if (mPostData["inventory_type"].asString() == "snapshot")
+		//std::ostringstream out;
+		//LLSDXMLFormatter *formatter = new LLSDXMLFormatter;
+		//formatter->format(mPostData, out, LLSDFormatter::OPTIONS_PRETTY);
+		//llinfos << "Post Data: " << out.str() << llendl;
+
+		U32 everyone_perms = PERM_NONE;
+		U32 group_perms = PERM_NONE;
+		U32 next_owner_perms = PERM_ALL;
+		if(content.has("new_next_owner_mask"))
 		{
-			next_owner_perm = PERM_ALL;
+			// This is a new sim that provides creation perms so use them.
+			// Do not assume we got the perms we asked for in mPostData 
+			// since the sim may not have granted them all.
+			everyone_perms = content["new_everyone_mask"].asInteger();
+			group_perms = content["new_group_mask"].asInteger();
+			next_owner_perms = content["new_next_owner_mask"].asInteger();
 		}
-		else
+		else 
 		{
-			next_owner_perm = PERM_MOVE | PERM_TRANSFER;
+			// This old sim doesn't provide creation perms so use old assumption-based perms.
+			if(mPostData["inventory_type"].asString() != "snapshot")
+			{
+				next_owner_perms = PERM_MOVE | PERM_TRANSFER;
+			}
 		}
-		perm.initMasks(PERM_ALL, PERM_ALL, PERM_NONE, PERM_NONE, next_owner_perm);
+		LLPermissions new_perms;
+		new_perms.init(gAgent.getID(), gAgent.getID(), LLUUID::null, LLUUID::null);
+		new_perms.initMasks(PERM_ALL, PERM_ALL, everyone_perms, group_perms, next_owner_perms);
 		S32 creation_date_now = time_corrected();
 		LLPointer<LLViewerInventoryItem> item
 			= new LLViewerInventoryItem(content["new_inventory_item"].asUUID(),
 										mPostData["folder_id"].asUUID(),
-										perm,
+										new_perms,
 										content["new_asset"].asUUID(),
 										asset_type,
 										inventory_type,
@@ -255,10 +286,9 @@ void LLNewAgentInventoryResponder::uploadComplete(const LLSD& content)
 		if(view)
 		{
 			LLUICtrl* focus_ctrl = gFocusMgr.getKeyboardFocus();
-
 			view->getPanel()->setSelection(content["new_inventory_item"].asUUID(), TAKE_FOCUS_NO);
-			if((LLAssetType::AT_TEXTURE == asset_type)
-				|| (LLAssetType::AT_SOUND == asset_type))
+			if((LLAssetType::AT_TEXTURE == asset_type || LLAssetType::AT_SOUND == asset_type)
+				&& LLFilePicker::instance().getFileCount() <= FILE_COUNT_DISPLAY_THRESHOLD)
 			{
 				view->getPanel()->openSelected();
 			}
@@ -289,8 +319,62 @@ void LLNewAgentInventoryResponder::uploadComplete(const LLSD& content)
 		LLStringUtil::stripNonprintable(asset_name);
 		LLStringUtil::trim(asset_name);
 
+		// Continuing the horrible hack above, we need to extract the originally requested permissions data, if any,
+		// and use them for each next file to be uploaded. Note the requested perms are not the same as the
+		// granted ones found in the given "content" structure but can still be found in mPostData. -MG
+		U32 everyone_perms   = mPostData.has("everyone_mask")   ? mPostData.get("everyone_mask"  ).asInteger() : PERM_NONE;
+		U32 group_perms      = mPostData.has("group_mask")      ? mPostData.get("group_mask"     ).asInteger() : PERM_NONE;
+		U32 next_owner_perms = mPostData.has("next_owner_mask") ? mPostData.get("next_owner_mask").asInteger() : PERM_NONE;
+		std::string display_name = LLStringUtil::null;
+		LLAssetStorage::LLStoreAssetCallback callback = NULL;
+		void *userdata = NULL;
 		upload_new_resource(next_file, asset_name, asset_name,
-							0, LLAssetType::AT_NONE, LLInventoryType::IT_NONE);
+				    0, LLAssetType::AT_NONE, LLInventoryType::IT_NONE,
+				    next_owner_perms, group_perms,
+				    everyone_perms, display_name,
+				    callback, expected_upload_cost, userdata);
+	}
+}
+
+LLSendTexLayerResponder::LLSendTexLayerResponder(const LLSD& post_data,
+														   const LLUUID& vfile_id,
+														   LLAssetType::EType asset_type,
+														   LLBakedUploadData * baked_upload_data)
+												: LLAssetUploadResponder(post_data, vfile_id, asset_type),
+												mBakedUploadData(baked_upload_data)
+{
+}
+
+LLSendTexLayerResponder::~LLSendTexLayerResponder()
+{
+	// mBakedUploadData is normally deleted by calls to LLTexLayerSetBuffer::onTextureUploadComplete() below
+	if (mBakedUploadData)
+	{	// ...but delete it in the case where uploadComplete() is never called
+		delete mBakedUploadData;
+		mBakedUploadData = NULL;
+	}
+}
+
+
+// Baked texture upload completed
+void LLSendTexLayerResponder::uploadComplete(const LLSD& content)
+{
+	LLUUID item_id = mPostData["item_id"];
+
+	std::string result = content["state"];
+	LLUUID new_id = content["new_asset"];
+
+	llinfos << "LLSendTexLayerResponder::result from capabilities: " << result << llendl;
+	if (result == "complete"
+		&& mBakedUploadData != NULL)
+	{	// Invoke 
+		LLTexLayerSetBuffer::onTextureUploadComplete(new_id, (void*) mBakedUploadData, 0, LL_EXSTAT_NONE);
+		mBakedUploadData = NULL;	// deleted in onTextureUploadComplete()
+	}
+	else
+	{	// Invoke the original callback with an error result
+		LLTexLayerSetBuffer::onTextureUploadComplete(new_id, (void*) mBakedUploadData, -1, LL_EXSTAT_NONE);
+		mBakedUploadData = NULL;	// deleted in onTextureUploadComplete()
 	}
 }
 

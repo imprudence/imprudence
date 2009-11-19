@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Give Money" title="">
+	<button label="L$1" label_selected="L$1" name="fastpay 1" />
+	<button label="L$5" label_selected="L$5" name="fastpay 5" />
+	<button label="L$10" label_selected="L$10" name="fastpay 10" />
+	<button label="L$20" label_selected="L$20" name="fastpay 20" />
+	<button label="Платить" label_selected="Платить" name="pay btn" />
+	<button label="Отмена" label_selected="Отмена" name="cancel btn" />
+	<text type="string" length="1" name="payee_label" left="5" width="135">
+		Заплатить резиденту:
+	</text>
+	<text type="string" length="1" name="payee_name" left="145">
+		[FIRST] [LAST]
+	</text>
+	<text type="string" length="1" name="fastpay text" width="100" halign="left">
+		Быстрая оплата:
+	</text>
+	<text type="string" length="1" name="amount text" left="4" >
+		Сумма:
+	</text>
+	<line_editor left="60" name="amount" width="55"/>
+</floater>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="chat floater" title="Czat Lokalny">
+	<string name="ringing">
+		Łączenie z rozmowami głosem w świecie...
+	</string>
+	<string name="connected">
+		Połączenie uzyskane.
+	</string>
+	<string name="unavailable">
+		Niestety, rozmowy głosem są niedozwolone w tym miejscu.
+	</string>
+	<string name="hang_up">
+		Połączenie rozmowy utracone.
+	</string>
+	<string name="voice_icon">
+		icn_voice-localchat.tga
+	</string>
+	<string name="IM_logging_string">
+		-- Zapisywanie czatu/IM włączone --
+	</string>
+	<string name="IM_end_log_string">
+		-- Koniec zapisu --
+	</string>
+  <string name="ScriptQuestionCautionChatGranted">
+	&apos;[OBJECTNAME]&apos;, właściciel: &apos;[OWNERNAME]&apos;, położenie: [REGIONNAME] [REGIONPOS], pozwala Ci na: [PERMISSIONS].
+  </string>
+  <string name="ScriptQuestionCautionChatDenied">
+	&apos;[OBJECTNAME]&apos;, właściciel: &apos;[OWNERNAME]&apos;, położenie: [REGIONNAME] [REGIONPOS], nie pozwala Ci na: [PERMISSIONS].
+  </string>
+  <string name="ScriptTakeMoney">
+	Zabiera Lindeny (L$) od Ciebie
+  </string>
+  <string name="ActOnControlInputs">
+	Używaj klawiszy sterowania
+  </string>
+  <string name="RemapControlInputs">
+	Zmień klawisze sterowania
+  </string>
+  <string name="AnimateYourAvatar">
+	Animuj Awatara
+  </string>
+  <string name="AttachToYourAvatar">
+	Dołącz do Awatara
+  </string>
+  <string name="ReleaseOwnership">
+	Usuń prawo własności (zmień na publiczne)
+  </string>
+  <string name="LinkAndDelink">
+	Łącz / odłącz z innymi obiektów
+  </string>
+  <string name="AddAndRemoveJoints">
+	Dodaj / usuń połączenia z innymi obiektami
+  </string>
+  <string name="ChangePermissions">
+	Ustaw zezwolenia
+  </string>
+  <string name="TrackYourCamera">
+	Chodź za kamerą
+  </string>
+  <string name="ControlYourCamera">
+	Kontroluj kamerę
+  </string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="Gesty" name="Gesture">
+				<combo_item name="Gestures">
+					Gesty
+				</combo_item>
+			</combo_box>
+			<check_box label="Pokaż wyciszony tekst" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Kliknij tutaj by uzyskać listę wszystkich uczestników biorących udział w tej konkferencji."/>
+			<panel name="chat_panel">
+				<string name="gesture_label">
+					Gesty
+				</string>
+				<line_editor label="Wpisz treść wiadomości" name="Chat Editor"/>
+				<flyout_button label="Mów" name="Say" tool_tip="(Enter)">
+					<flyout_button_item name="shout_item">
+						Krzycz
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						Mów
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Szept
+					</flyout_button_item>
+				</flyout_button>
+			</panel>
+		</layout_panel>
+	</layout_stack>
+</floater>

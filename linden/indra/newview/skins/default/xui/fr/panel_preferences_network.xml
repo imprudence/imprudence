@@ -7,7 +7,7 @@
 		kbps (kilobits par seconde)
 	</text>
 	<text name="cache_size_label_l" width="210">
-		Taille de la mémoire :
+		Taille de la mémoire cache :
 	</text>
 	<text length="1" name="text_box5" type="string">
 		Mo

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -37,6 +38,7 @@
 #include "llkeyboard.h"
 #include "lldir.h"
 #include "llframetimer.h"
+#include "lltrans.h"
 
 #if LL_SDL
 #include "llwindowsdl.h" // for some X/GTK utils to help with filepickers
@@ -115,7 +117,7 @@ const std::string LLFilePicker::getFirstFile()
 
 const std::string LLFilePicker::getNextFile()
 {
-	if (mCurrentFile >= (S32)mFiles.size())
+	if (mCurrentFile >= getFileCount())
 	{
 		mLocked = FALSE;
 		return std::string();
@@ -128,7 +130,7 @@ const std::string LLFilePicker::getNextFile()
 
 const std::string LLFilePicker::getCurFile()
 {
-	if (mCurrentFile >= (S32)mFiles.size())
+	if (mCurrentFile >= getFileCount())
 	{
 		mLocked = FALSE;
 		return std::string();
@@ -836,7 +838,7 @@ BOOL LLFilePicker::getOpenFile(ELoadFilter filter)
 	send_agent_resume();
 	if (error == noErr)
 	{
-		if (mFiles.size())
+		if (getFileCount())
 			success = true;
 	}
 
@@ -865,9 +867,9 @@ BOOL LLFilePicker::getMultipleOpenFiles(ELoadFilter filter)
 	send_agent_resume();
 	if (error == noErr)
 	{
-		if (mFiles.size())
+		if (getFileCount())
 			success = true;
-		if (mFiles.size() > 1)
+		if (getFileCount() > 1)
 			mLocked = TRUE;
 	}
 
@@ -895,7 +897,7 @@ BOOL LLFilePicker::getSaveFile(ESaveFilter filter, const std::string& filename)
 	send_agent_resume();
 	if (error == noErr)
 	{
-		if (mFiles.size())
+		if (getFileCount())
 			success = true;
 	}
 
@@ -904,7 +906,7 @@ BOOL LLFilePicker::getSaveFile(ESaveFilter filter, const std::string& filename)
 	return success;
 }
 
-#elif LL_LINUX
+#elif LL_LINUX || LL_SOLARIS
 
 # if LL_GTK
 
@@ -912,24 +914,21 @@ BOOL LLFilePicker::getSaveFile(ESaveFilter filter, const std::string& filename)
 void LLFilePicker::add_to_selectedfiles(gpointer data, gpointer user_data)
 {
 	// We need to run g_filename_to_utf8 in the user's locale
-	std::string old_locale(setlocale(LC_ALL, NULL));
+	std::string saved_locale(setlocale(LC_ALL, NULL));
 	setlocale(LC_ALL, "");
 
- 	LLFilePicker* picker = (LLFilePicker*) user_data;
+	LLFilePicker* picker = (LLFilePicker*) user_data;
 	GError *error = NULL;
 	gchar* filename_utf8 = g_filename_to_utf8((gchar*)data,
 						  -1, NULL, NULL, &error);
 	if (error)
 	{
-		// This condition should really be notified to the user, e.g.,
-		// through a message box.  Just logging it is inapropriate.
-		// FIXME.
+		// *FIXME.
+		// This condition should really be notified to the user, e.g.
+		// through a message box.  Just logging it is inappropriate.
 		
-		// Ghhhh.  g_filename_display_name is new to glib 2.6, and it
-		// is too new for SL! (Note that the latest glib as of this
-		// writing is 2.22. *sigh*) LL supplied *makeASCII family are
-		// also unsuitable since they allow control characters...
-
+		// g_filename_display_name is ideal, but >= glib 2.6, so:
+		// a hand-rolled hacky makeASCII which disallows control chars
 		std::string display_name;
 		for (const gchar *str = (const gchar *)data; *str; str++)
 		{
@@ -945,7 +944,7 @@ void LLFilePicker::add_to_selectedfiles(gpointer data, gpointer user_data)
 		g_free(filename_utf8);
 	}
 
-	setlocale(LC_ALL, old_locale.c_str());
+	setlocale(LC_ALL, saved_locale.c_str());
 }
 
 // static
@@ -974,8 +973,7 @@ void LLFilePicker::chooser_responder(GtkWidget *widget, gint response, gpointer 
 
 GtkWindow* LLFilePicker::buildFilePicker(bool is_save, bool is_folder, std::string context)
 {
-	if (LLWindowSDL::ll_try_gtk_init() &&
-	    ! gViewerWindow->getWindow()->getFullscreen())
+	if (LLWindowSDL::ll_try_gtk_init())
 	{
 		GtkWidget *win = NULL;
 		GtkFileChooserAction pickertype =
@@ -1063,7 +1061,7 @@ static void add_common_filters_to_gtkchooser(GtkFileFilter *gfilter,
 				    gfilter);
 	GtkFileFilter *allfilter = gtk_file_filter_new();
 	gtk_file_filter_add_pattern(allfilter, "*");
-	gtk_file_filter_set_name(allfilter, "All Files");
+	gtk_file_filter_set_name(allfilter, LLTrans::getString("all_files").c_str());
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(picker), allfilter);
 	gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(picker), gfilter);
 }
@@ -1091,13 +1089,13 @@ static std::string add_simple_mime_filter_to_gtkchooser(GtkWindow *picker,
 static std::string add_wav_filter_to_gtkchooser(GtkWindow *picker)
 {
 	return add_simple_mime_filter_to_gtkchooser(picker,  "audio/x-wav",
-						    "Sounds (*.wav)");
+						    LLTrans::getString("sound_files") + " (*.wav)");
 }
 
 static std::string add_bvh_filter_to_gtkchooser(GtkWindow *picker)
 {
 	return add_simple_pattern_filter_to_gtkchooser(picker,  "*.bvh",
-						       "Animations (*.bvh)");
+						       LLTrans::getString("animation_files") + " (*.bvh)");
 }
 
 static std::string add_imageload_filter_to_gtkchooser(GtkWindow *picker)
@@ -1107,7 +1105,7 @@ static std::string add_imageload_filter_to_gtkchooser(GtkWindow *picker)
 	gtk_file_filter_add_mime_type(gfilter, "image/jpeg");
 	gtk_file_filter_add_mime_type(gfilter, "image/png");
 	gtk_file_filter_add_mime_type(gfilter, "image/bmp");
-	std::string filtername = "Images (*.tga; *.bmp; *.jpg; *.png)";
+	std::string filtername = LLTrans::getString("image_files") + " (*.tga; *.bmp; *.jpg; *.png)";
 	add_common_filters_to_gtkchooser(gfilter, picker, filtername);
 	return filtername;
 }
@@ -1127,7 +1125,7 @@ BOOL LLFilePicker::getSaveFile( ESaveFilter filter, const std::string& filename 
 	{
 		std::string suggest_name = "untitled";
 		std::string suggest_ext = "";
-		std::string caption = "Save ";
+		std::string caption = LLTrans::getString("save_file_verb") + " ";
 		switch (filter)
 		{
 		case FFSAVE_WAV:
@@ -1136,39 +1134,39 @@ BOOL LLFilePicker::getSaveFile( ESaveFilter filter, const std::string& filename 
 			break;
 		case FFSAVE_TGA:
 			caption += add_simple_pattern_filter_to_gtkchooser
-				(picker, "*.tga", "Targa Images (*.tga)");
+				(picker, "*.tga", LLTrans::getString("targa_image_files") + " (*.tga)");
 			suggest_ext = ".tga";
 			break;
 		case FFSAVE_BMP:
 			caption += add_simple_mime_filter_to_gtkchooser
-				(picker, "image/bmp", "Bitmap Images (*.bmp)");
+				(picker, "image/bmp", LLTrans::getString("bitmap_image_files") + " (*.bmp)");
 			suggest_ext = ".bmp";
 			break;
 		case FFSAVE_AVI:
 			caption += add_simple_mime_filter_to_gtkchooser
 				(picker, "video/x-msvideo",
-				 "AVI Movie File (*.avi)");
+				 LLTrans::getString("avi_movie_file") + " (*.avi)");
 			suggest_ext = ".avi";
 			break;
 		case FFSAVE_ANIM:
 			caption += add_simple_pattern_filter_to_gtkchooser
-				(picker, "*.xaf", "XAF Anim File (*.xaf)");
+				(picker, "*.xaf", LLTrans::getString("xaf_animation_file") + " (*.xaf)");
 			suggest_ext = ".xaf";
 			break;
 		case FFSAVE_XML:
 			caption += add_simple_pattern_filter_to_gtkchooser
-				(picker, "*.xml", "XML File (*.xml)");
+				(picker, "*.xml", LLTrans::getString("xml_file") + " (*.xml)");
 			suggest_ext = ".xml";
 			break;
 		case FFSAVE_RAW:
 			caption += add_simple_pattern_filter_to_gtkchooser
-				(picker, "*.raw", "RAW File (*.raw)");
+				(picker, "*.raw", LLTrans::getString("raw_file") + " (*.raw)");
 			suggest_ext = ".raw";
 			break;
 		case FFSAVE_J2C:
 			caption += add_simple_mime_filter_to_gtkchooser
 				(picker, "images/jp2",
-				 "Compressed Images (*.j2c)");
+				 LLTrans::getString("compressed_image_files") + " (*.j2c)");
 			suggest_ext = ".j2c";
 			break;
 		default:;
@@ -1194,7 +1192,7 @@ BOOL LLFilePicker::getSaveFile( ESaveFilter filter, const std::string& filename 
 		gtk_widget_show_all(GTK_WIDGET(picker));
 		gtk_main();
 
-		rtn = (mFiles.size() == 1);
+		rtn = (getFileCount() == 1);
 	}
 
 	gViewerWindow->mWindow->afterDialog();
@@ -1214,7 +1212,7 @@ BOOL LLFilePicker::getOpenFile( ELoadFilter filter )
 
 	if (picker)
 	{
-		std::string caption = "Load ";
+		std::string caption = LLTrans::getString("load_file_verb") + " ";
 		std::string filtername = "";
 		switch (filter)
 		{
@@ -1238,7 +1236,7 @@ BOOL LLFilePicker::getOpenFile( ELoadFilter filter )
 		gtk_widget_show_all(GTK_WIDGET(picker));
 		gtk_main();
 
-		rtn = (mFiles.size() == 1);
+		rtn = (getFileCount() == 1);
 	}
 
 	gViewerWindow->mWindow->afterDialog();
@@ -1261,7 +1259,7 @@ BOOL LLFilePicker::getMultipleOpenFiles( ELoadFilter filter )
 		gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER(picker),
 						      TRUE);
 
-		gtk_window_set_title(GTK_WINDOW(picker), "Load Files");
+		gtk_window_set_title(GTK_WINDOW(picker), LLTrans::getString("load_files").c_str());
 
 		gtk_widget_show_all(GTK_WIDGET(picker));
 		gtk_main();

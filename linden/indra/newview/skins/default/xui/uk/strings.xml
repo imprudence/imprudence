@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!-- This file contains strings that used to be hardcoded in the source.
+     It is only for those strings which do not belong in a floater.
+     For example, the strings used in avatar chat bubbles, and strings 
+     that are returned from one component and may appear in many places-->
+<strings>
+	<string name="LoginInProgress">
+		Входимо. [APP_NAME] може здаватися завислим. Будь ласка, зачекайте.
+	</string>
+	<string name="LoginAuthenticating">
+		Аутентифікація
+	</string>
+	<string name="LoginMaintenance">
+		Виконується тех.обслуговування аккаунта...
+	</string>
+	<string name="LoginAttempt">
+		Попередня спроба входу зазнала краху. Входимо, спроба [NUMBER]
+	</string>
+	<string name="LoginPrecaching">
+		Завантажуємо світ...
+	</string>
+	<string name="LoginInitializingBrowser">
+		Ініціалізація вбудованого веб-браузера...
+	</string>
+	<string name="LoginInitializingMultimedia">
+		Ініціалізація мультимедіа...
+	</string>
+	<string name="LoginVerifyingCache">
+		Перевірка кеш-файлів (може зайняти 60-90 секунд)...
+	</string>
+	<string name="LoginProcessingResponse">
+		Очікуємо Відповіді...
+	</string>
+	<string name="LoginInitializingWorld">
+		Ініціалізація Світу...
+	</string>
+	<string name="LoginDecodingImages">
+		Розкодування зображень...
+	</string>
+	<string name="LoginInitializingQuicktime">
+		Ініціалізація QuickTime...
+	</string>
+	<string name="LoginQuicktimeNotFound">
+		QuickTime не знайдено - неможливо ініціалізувати.
+	</string>
+	<string name="LoginQuicktimeOK">
+		QuickTime успішно ініціалізовано.
+	</string>
+	<string name="LoginWaitingForRegionHandshake">
+		Очікуємо відповіді від регіона...
+	</string>
+	<string name="LoginConnectingToRegion">
+		Зв&apos;язуємося з регіоном...
+	</string>
+	<string name="LoginDownloadingClothing">
+		Завантажуємо одяг...
+	</string>
+	<string name="AgentLostConnection">
+		В цьому регіоні можливі неполадки. Будь ласка перевірте своє Інтернет-з&apos;єднання.
+	</string>
+	<string name="TooltipPerson">
+		Персона
+	</string>
+	<string name="TooltipNoName">
+		(немає імені)
+	</string>
+	<string name="TooltipOwner">
+		Власник:
+	</string>
+	<string name="TooltipPublic">
+		Публічний
+	</string>
+	<string name="TooltipIsGroup">
+		(Група)
+	</string>
+	<string name="TooltipFlagScript">
+		Скрипт
+	</string>
+	<string name="TooltipFlagPhysics">
+		Фізика
+	</string>
+	<string name="TooltipFlagTouch">
+		Торкнутися
+	</string>
+	<string name="TooltipFlagL$">
+		L$
+	</string>
+	<string name="TooltipFlagDropInventory">
+		Видалити Інвентар
+	</string>
+	<string name="TooltipFlagPhantom">
+		Фантом
+	</string>
+	<string name="TooltipFlagTemporary">
+		Тимчасовий
+	</string>
+	<string name="TooltipFlagRightClickMenu">
+		(Правий клік для меню)
+	</string>
+	<string name="TooltipFreeToCopy">
+		Вільне для копіювання
+	</string>
+	<string name="TooltipForSaleL$">
+		Для продажу: L$[AMOUNT]
+	</string>
+	<string name="TooltipForSaleMsg">
+		Для продажу: [MESSAGE]
+	</string>
+	<string name="TooltipFlagGroupBuild">
+		Будівництво Групи
+	</string>
+	<string name="TooltipFlagNoBuild">
+		Немає Будівництва
+	</string>
+	<string name="TooltipFlagNoEdit">
+		Будівництво Групи
+	</string>
+	<string name="TooltipFlagNotSafe">
+		Небезпечно
+	</string>
+	<string name="TooltipFlagNoFly">
+		Польоти заборонено
+	</string>
+	<string name="TooltipFlagGroupScripts">
+		Скрипти Групи
+	</string>
+	<string name="TooltipFlagNoScripts">
+		Немає скриптів
+	</string>
+	<string name="TooltipLand">
+		Земля:
+	</string>
+	<string name="TooltipMustSingleDrop">
+		Сюди можна перетягнути тільки один елемент
+	</string>
+	<string name="RetrievingData">
+		Отримуємо...
+	</string>
+	<string name="ReleaseNotes">
+		Замітки про реліз
+	</string>
+	<string name="LoadingData">
+		Завантаж...
+	</string>
+	<string name="AvatarNameNobody">
+		(ніхто)
+	</string>
+	<string name="AvatarNameWaiting">
+		(очікуємо)
+	</string>
+	<string name="AvatarNameHippos">
+		(гіпопотами)
+	</string>
+	<string name="GroupNameNone">
+		(немає)
+	</string>
+	<string name="AssetErrorNone">
+		Немає помилок/string&gt;
+	</string>
+	<string name="AssetErrorRequestFailed">
+		Asset запит: помилка
+	</string>
+	<string name="AssetErrorNonexistentFile">
+		Asset запит: файл не існує
+	</string>
+	<string name="AssetErrorNotInDatabase">
+		Asset запит: asset не знайдено в базі даних
+	</string>
+	<string name="AssetErrorEOF">
+		Кінець файлу
+	</string>
+	<string name="AssetErrorCannotOpenFile">
+		Неможливо відкрити файл
+	</string>
+	<string name="AssetErrorFileNotFound">
+		Файл не знайдено
+	</string>
+	<string name="AssetErrorTCPTimeout">
+		Таймаут передачі файлу
+	</string>
+	<string name="AssetErrorCircuitGone">
+		Зв&apos;язок втрачено
+	</string>
+	<string name="AssetErrorPriceMismatch">
+		Клієнт і сервер не дозволяють такуу ціну
+	</string>
+	<string name="AssetErrorUnknownStatus">
+		Невідомий статус
+	</string>
+	<string name="AvatarEditingApparance">
+		(Редагує Зовнішній Вигляд)
+	</string>
+	<string name="AvatarAway">
+		Відійшов
+	</string>
+	<string name="AvatarBusy">
+		Зайнятий
+	</string>
+	<string name="AvatarMuted">
+		Заблокований
+	</string>
+	<string name="anim_express_afraid">
+		Страх
+	</string>
+	<string name="anim_express_anger">
+		Злість
+	</string>
+	<string name="anim_away">
+		Відійшов
+	</string>
+	<string name="anim_backflip">
+		Перекид
+	</string>
+	<string name="anim_express_laugh">
+		Сміх
+	</string>
+	<string name="anim_express_toothsmile">
+		Посмішка
+	</string>
+	<string name="anim_blowkiss">
+		Повітряний цілунок
+	</string>
+	<string name="anim_express_bored">
+		Нудно
+	</string>
+	<string name="anim_bow">
+		Уклін
+	</string>
+	<string name="anim_clap">
+		Плескати в долоні
+	</string>
+	<string name="anim_courtbow">
+		Низький уклін
+	</string>
+	<string name="anim_express_cry">
+		Плач
+	</string>
+	<string name="anim_dance1">
+		Танок 1
+	</string>
+	<string name="anim_dance2">
+		Танок 2
+	</string>
+	<string name="anim_dance3">
+		Танок 3
+	</string>
+	<string name="anim_dance4">
+		Танок 4
+	</string>
+	<string name="anim_dance5">
+		Танок 5
+	</string>
+	<string name="anim_dance6">
+		Танок 6
+	</string>
+	<string name="anim_dance7">
+		Танок 7
+	</string>
+	<string name="anim_dance8">
+		Танок 8
+	</string>
+	<string name="anim_express_disdain">
+		Презирство
+	</string>
+	<string name="anim_drink">
+		Пити
+	</string>
+	<string name="anim_express_embarrased">
+		Ніяковіти
+	</string>
+	<string name="anim_angry_fingerwag">
+		Пригрозити пальцем
+	</string>
+	<string name="anim_fist_pump">
+		Пригрозити кулаком
+	</string>
+	<string name="anim_yoga_float">
+		Йога
+	</string>
+	<string name="anim_express_frown">
+		Хмуритися
+	</string>
+	<string name="anim_impatient">
+		Нетерплячість
+	</string>
+	<string name="anim_jumpforjoy">
+		Стрибати від радощів
+	</string>
+	<string name="anim_kissmybutt">
+		Поцілуй мою дупу
+	</string>
+	<string name="anim_express_kiss">
+		Поцілуй
+	</string>
+	<string name="anim_laugh_short">
+		Сміх
+	</string>
+	<string name="anim_musclebeach">
+		Грати м&apos;язами
+	</string>
+	<string name="anim_no_unhappy">
+		Ні (сумний)
+	</string>
+	<string name="anim_no_head">
+		Ні
+	</string>
+	<string name="anim_nyanya">
+		Ня-ня-ня
+	</string>
+	<string name="anim_punch_onetwo">
+		Удари
+	</string>
+	<string name="anim_express_open_mouth">
+		Відкрити рот
+	</string>
+	<string name="anim_peace">
+		Мир
+	</string>
+	<string name="anim_point_you">
+		Показати на іншого
+	</string>
+	<string name="anim_point_me">
+		Показати на себе
+	</string>
+	<string name="anim_punch_l">
+		Удар лівою
+	</string>
+	<string name="anim_punch_r">
+		Удар правою
+	</string>
+	<string name="anim_rps_countdown">
+		RPS лічильник
+	</string>
+	<string name="anim_rps_paper">
+		RPS папір
+	</string>
+	<string name="anim_rps_rock">
+		RPS камінь
+	</string>
+	<string name="anim_rps_scissors">
+		RPS ножиці
+	</string>
+	<string name="anim_express_repulsed">
+		Відобразити
+	</string>
+	<string name="anim_kick_roundhouse_r">
+		Вдарити
+	</string>
+	<string name="anim_express_sad">
+		Сумувати
+	</string>
+	<string name="anim_salute">
+		Привітання
+	</string>
+	<string name="anim_shout">
+		Кричати
+	</string>
+	<string name="anim_express_shrug">
+		Потиснути плечима
+	</string>
+	<string name="anim_express_smile">
+		Посміхнутися
+	</string>
+	<string name="anim_smoke_idle">
+		Перекур
+	</string>
+	<string name="anim_smoke_inhale">
+		Вдихнути дим
+	</string>
+	<string name="anim_smoke_throw_down">
+		Видихнути дим
+	</string>
+	<string name="anim_express_surprise">
+		Сюрприз
+	</string>
+	<string name="anim_sword_strike_r">
+		Удар мечем
+	</string>
+	<string name="anim_angry_tantrum">
+		Істерика
+	</string>
+	<string name="anim_express_tongue_out">
+		Показати язика
+	</string>
+	<string name="anim_hello">
+		Хвиля
+	</string>
+	<string name="anim_whisper">
+		Шепіт
+	</string>
+	<string name="anim_whistle">
+		Свист
+	</string>
+	<string name="anim_express_wink">
+		Підморгнути
+	</string>
+	<string name="anim_wink_hollywood">
+		Підморгнути (Голлівуд)
+	</string>
+	<string name="anim_express_worry">
+		Хвилюватися
+	</string>
+	<string name="anim_yes_happy">
+		Так (Щасливий)
+	</string>
+	<string name="anim_yes_head">
+		Так
+	</string>
+	<string name="texture_loading">
+		Завантаження...
+	</string>
+	<string name="worldmap_offline">
+		Оффлайн
+	</string>
+	<string name="whisper">
+		шепоче:
+	</string>
+	<string name="shout">
+		кричить:
+	</string>
+	<string name="SIM_ACCESS_PG">
+		PG
+	</string>
+	<string name="SIM_ACCESS_MATURE">
+		Mature
+	</string>
+	<string name="SIM_ACCESS_ADULT">
+		Adult
+	</string>
+	<string name="SIM_ACCESS_DOWN">
+		Оффлайн
+	</string>
+	<string name="SIM_ACCESS_MIN">
+		Невідомо
+	</string>
+	<string name="land_type_unknown">
+		(невідоме)
+	</string>
+	<string name="covenant_never_modified">Редагувалось: (ніколи)</string>
+	<string name="covenant_modified">Редагувалось: </string>
+	<string name="all_files">
+		Усі Файли
+	</string>
+	<string name="sound_files">
+		Звуки
+	</string>
+	<string name="animation_files">
+		Анімації
+	</string>
+	<string name="image_files">
+		Зображення
+	</string>
+	<string name="save_file_verb">
+		Зберегти
+	</string>
+	<string name="load_file_verb">
+		Завантажити
+	</string>
+	<string name="targa_image_files">
+		Targa Зображення
+	</string>
+	<string name="bitmap_image_files">
+		Bitmap Зображення
+	</string>
+	<string name="avi_movie_file">
+		AVI
+	</string>
+	<string name="xaf_animation_file">
+		XAF файл
+	</string>
+	<string name="xml_file">
+		XML файл
+	</string>
+	<string name="dot_raw_file">
+		RAW файл
+	</string>
+	<string name="compressed_image_files">
+		Стиснуті Зображення
+	</string>
+	<string name="load_files">
+		Завантажити файли
+	</string>
+	<string name="choose_the_directory">
+		Оберіть Папку
+	</string>
+</strings>

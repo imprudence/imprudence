@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="item properties"
+     title="Свойства элементов инвентаря">
+	<text name="LabelItemNameTitle">
+		Название:
+	</text>
+	<text name="LabelItemDescTitle">
+		Описание:
+	</text>
+	<text name="LabelCreatorTitle">
+		Автор:
+	</text>
+	<text name="LabelCreatorName">
+		Nicole Linden
+	</text>
+	<button label="Профиль..." label_selected="" name="BtnCreator" />
+	<text name="LabelOwnerTitle">
+		Владелец:
+	</text>
+	<text name="LabelOwnerName">
+		Thrax Linden
+	</text>
+	<button label="Профиль..." label_selected="" name="BtnOwner" />
+	<text name="LabelAcquiredTitle">
+		Приобретено:
+	</text>
+	<text name="LabelAcquiredDate">
+		Wed May 24 12:50:46 2006
+	</text>
+	<text name="OwnerLabel">
+		Вы можете:
+	</text>
+	<check_box label="Изменить" name="CheckOwnerModify" />
+	<check_box left_delta="92" label="Копировать" name="CheckOwnerCopy" />
+	<check_box left_delta="92" label="Продать/Отдать" name="CheckOwnerTransfer" />
+	<text name="BaseMaskDebug">
+		B:
+	</text>
+	<text name="OwnerMaskDebug">
+		O:
+	</text>
+	<text name="GroupMaskDebug">
+		G:
+	</text>
+	<text name="EveryoneMaskDebug">
+		E:
+	</text>
+	<text name="NextMaskDebug">
+		N:
+	</text>
+	<check_box label="Делиться с группой" name="CheckShareWithGroup" />
+	<check_box label="Позволить любому копировать"
+	     name="CheckEveryoneCopy" />
+	<text name="NextOwnerLabel" width="230">
+		След. владелец может:
+	</text>
+	<check_box label="Изменять" name="CheckNextOwnerModify" />
+	<check_box left_delta="92" label="Копировать" name="CheckNextOwnerCopy" />
+	<check_box left_delta="92" label="Продать/Отдать" name="CheckNextOwnerTransfer" />
+	<text name="SaleLabel">
+		Пометить элемент:
+	</text>
+	<check_box label="Продается" name="CheckPurchase" />
+	<radio_group name="RadioSaleType" left_delta="92">
+		<radio_item name="radio">
+			Оригинал
+		</radio_item>
+		<radio_item name="radio2">
+			Копия
+		</radio_item>
+	</radio_group>
+	<text name="TextPrice">
+		Цена:  L$
+	</text>
+	<string name="unknown">
+		(неизвестно)
+	</string>
+	<string name="public">
+		(публичный)
+	</string>
+	<string name="you_can">
+		Вы можете:
+	</string>
+	<string name="owner_can">
+		Владелец может:
+	</string>
+</floater>

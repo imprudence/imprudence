@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -109,7 +110,7 @@ void LLFloaterOpenObject::show()
 	LLObjectSelectionHandle object_selection = LLSelectMgr::getInstance()->getSelection();
 	if (object_selection->getRootObjectCount() != 1)
 	{
-		gViewerWindow->alertXml("UnableToViewContentsMoreThanOne");
+		LLNotifications::instance().add("UnableToViewContentsMoreThanOne");
 		return;
 	}
 
@@ -131,7 +132,7 @@ void LLFloaterOpenObject::moveToInventory(bool wear)
 {
 	if (mObjectSelection->getRootObjectCount() != 1)
 	{
-		gViewerWindow->alertXml("OnlyCopyContentsOfSingleItem");
+		LLNotifications::instance().add("OnlyCopyContentsOfSingleItem");
 		return;
 	}
 
@@ -172,7 +173,7 @@ void LLFloaterOpenObject::moveToInventory(bool wear)
 		delete data;
 		data = NULL;
 
-		gViewerWindow->alertXml("OpenObjectCannotCopy");
+		LLNotifications::instance().add("OpenObjectCannotCopy");
 	}
 }
 

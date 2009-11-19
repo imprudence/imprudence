@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="beacons" title="Мітки">
+	<panel name="beacons_panel">
+		<check_box label="Заскріптовані Об&apos;єкти з &#10;функцією торкання" name="touch_only"/>
+		<check_box bottom_delta="-36" label="Заскріптовані Об&apos;єкти" name="scripted"/>
+		<check_box label="Фізичні Об&apos;єкти" name="physical"/>
+		<check_box label="Джерела Звуку" name="sounds"/>
+		<check_box label="Джерела Частинок" name="particles"/>
+		<check_box label="Відмал. підсвічування" name="highlights"/>
+		<check_box label="Відмал. міток" name="beacons"/>
+		<text bottom_delta="-16" name="beacon_width_label">
+			Ширина мітки:
+		</text>
+	</panel>
+</floater>

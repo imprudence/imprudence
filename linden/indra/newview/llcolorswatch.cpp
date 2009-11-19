@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -66,7 +67,7 @@ LLColorSwatchCtrl::LLColorSwatchCtrl(const std::string& name, const LLRect& rect
 	mCaption = new LLTextBox( name,
 		LLRect( 0, BTN_HEIGHT_SMALL, getRect().getWidth(), 0 ),
 		name,
-		LLFontGL::sSansSerifSmall );
+		LLFontGL::getFontSansSerifSmall() );
 	mCaption->setFollows( FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_BOTTOM );
 	addChild( mCaption );
 
@@ -93,7 +94,7 @@ LLColorSwatchCtrl::LLColorSwatchCtrl(const std::string& name, const LLRect& rect
 	mCaption = new LLTextBox( label,
 		LLRect( 0, BTN_HEIGHT_SMALL, getRect().getWidth(), 0 ),
 		label,
-		LLFontGL::sSansSerifSmall );
+		LLFontGL::getFontSansSerifSmall() );
 	mCaption->setFollows( FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_BOTTOM );
 	addChild( mCaption );
 
@@ -199,7 +200,6 @@ BOOL LLColorSwatchCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
-
 // assumes GL state is set for 2D
 void LLColorSwatchCtrl::draw()
 {
@@ -231,10 +231,23 @@ void LLColorSwatchCtrl::draw()
 	}
 	else
 	{
-		// Draw grey and an X
-		gl_rect_2d(interior, LLColor4::grey, TRUE);
-
-		gl_draw_x(interior, LLColor4::black);
+		if (!mFallbackImageName.empty())
+		{
+			LLPointer<LLViewerImage> fallback_image = gImageList.getImageFromFile(mFallbackImageName);
+			if( fallback_image->getComponents() == 4 )
+			{	
+				gl_rect_2d_checkerboard( interior );
+			}	
+			gl_draw_scaled_image( interior.mLeft, interior.mBottom, interior.getWidth(), interior.getHeight(), fallback_image);
+			fallback_image->addTextureStats( (F32)(interior.getWidth() * interior.getHeight()) );
+		}
+		else
+		{
+			// Draw grey and an X
+			gl_rect_2d(interior, LLColor4::grey, TRUE);
+			
+			gl_draw_x(interior, LLColor4::black);
+		}
 	}
 
 	LLUICtrl::draw();

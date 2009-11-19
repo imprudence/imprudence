@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floaterreleasemessage" title="Входимо в регіон">
+	<button label="Закрити" name="close_btn" width="70"/>
+	<string name="in-world_help_title">
+		Допомога в-світі
+	</string>
+	<string name="in-world_help_url">
+		http://www.secondlife.com/app/support/inworld.html
+	</string>
+	<string name="additional_help_title">
+		Додаткова допомога
+	</string>
+	<string name="additional_help_url">
+		http://www.secondlife.com/app/support/support.html
+	</string>
+</floater>

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="false" height="383" min_height="100" min_width="100"
-     name="land holdings floater" title="My Land" width="500">
+     name="land holdings floater" title="My Land" width="600">
 	<scroll_list background_visible="true" bottom="-194" column_padding="5" draw_border="true"
 	     draw_heading="true" height="170" left="8" mouse_opaque="true"
-	     multi_select="false" name="parcel list" width="484">
-		<column label="Name" name="name" width="163" />
-		<column label="Location" name="location" width="175" />
-		<column label="Area" name="area" width="127" />
+	     multi_select="false" name="parcel list" width="584">
+		<column label="Parcel Name" name="name" width="163" />
+		<column label="Region" name="location" width="175" />
+		<column label="Type" name="type" width="140" />
+		<column label="Area" name="area" width="87" />
 		<column label="" name="hidden" width="-1" />
 	</scroll_list>
 	<button bottom_delta="-24" font="SansSerif" halign="center" height="20"
@@ -24,9 +25,9 @@
 	</text>
 	<scroll_list background_visible="true" bottom_delta="-79" column_padding="5"
 	     draw_border="true" draw_heading="true" height="75" left="8"
-	     mouse_opaque="true" multi_select="false" name="grant list" width="484">
-		<column label="Group" name="group" width="280" />
-		<column label="Area" name="area" width="170" />
+	     mouse_opaque="true" multi_select="false" name="grant list" width="584">
+		<column label="Group" name="group" width="330" />
+		<column label="Area" name="area" width="220" />
 	</scroll_list>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"

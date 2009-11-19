@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<role_actions>
+	<action_set
+	     description="Ezek a képességek jogot adnak a tagok csoporthoz adására vagy eltávolítására, valamint új tag csoportba való meghívására."
+	     name="Membership">
+		<action description="Személy meghívása ebbe a csoportba"
+		     longdescription="Személy meghívásához használd a &apos;Új személy meghívása&apos; gombot."
+		     name="member invite" />
+		<action description="Tag eltávolítása ebből a csoportból"
+		     longdescription="Személy eltávolításához használd a &apos;Csoportból eltávolít&apos; gombot. Csak a csoport tulajdonosa használhatja ezt a funkciót."
+		     name="member eject" />
+		<action
+		     description="&apos;Nyílt tagság&apos; és &apos;belépési díj&apos; megváltoztatása"
+		     longdescription="Ez a beállítás lehetővé teszi az új tagoknak belépési díj nélküli csatlakozását a csoporthoz."
+		     name="member options" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak a csoportbeosztások hozzáadására, eltávolítására valamint megváltoztatására."
+	     name="Roles">
+		<action description="Új beosztás létrehozása"
+		     longdescription="Új beosztás létrehozása a beosztások menüben."
+		     name="role create" />
+		<action description="Beosztások törlése"
+		     longdescription="Beosztások törlése a beosztások menüben."
+		     name="role delete" />
+		<action description="Beosztások nevének, címének és leírásának módosítása"
+		     longdescription="Beosztások nevének, címének és leírásának módosítása a beosztások menüben."
+		     name="role properties" />
+		<action description="Tag hozzárendelése a beosztások kezelőjéhez"
+		     longdescription="Tag hozzárendelése a beosztások kezelőjéhez a beosztások menüben."
+		     name="role assign member limited" />
+		<action description="Tagok hozzárendelése bármilyen beosztáshoz"
+		     longdescription="Tagok hozzárendelése bármilyen beosztáshoz a beosztások menüben."
+		     name="role assign member" />
+		<action description="Tag eltávolítása a beosztásokból"
+		     longdescription="Tag eltávolítása a beosztásokból a beosztások menüben."
+		     name="role remove member" />
+		<action
+		     description="Képességek hozzárendelése és eltávolítása a beosztásokból"
+		     name="role change actions" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak a csoport azonosítójelek, szövegek, mint például alapító okirat, csoportjel módosítására."
+	     name="Group Identity">
+		<action
+		     description="Alapító okirat, csoportjel, weben történő publikálás és a tagok láthatóságának beállításai a csoport információk között."
+		     name="group change identity" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak a csoporthoz tartozó földek kezelésére."
+	     name="Parcel Management">
+		<action description="Föld átruházása és megvásárlása a csoport részére"
+		     name="land deed" />
+		<action description="Föld feladása a Linden kormányzóságnak"
+		     name="land release" />
+		<action description="Föld beállítása eladásra"
+		     name="land set sale info" />
+		<action description="Telek felosztása és egyesítése"
+		     name="land divide join" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak a telek nevének és információinak a megváltoztatására."
+	     name="Parcel Identity">
+		<action
+		     description="Keresőhöz hozzáadás és kategória beállításának kezelése"
+		     name="land find places" />
+		<action
+		     description="Telek nevének, leírásának, weben történő megjelenítésének beállítása"
+		     name="land change identity" />
+		<action description="Érkezési pont ls teleportálási útvonal beállítása"
+		     name="land set landing point" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak a telkek beállítások kezelésére, mint például a tárgyak készítésének engedélyezése, domborzat szerkesztése, zene és média beállítésokra."
+	     name="Parcel Settings">
+		<action description="Zene és média beállítások megváltoztatása"
+		     name="land change media" />
+		<action description="Domborzat szerkesztésének kezelése"
+		     name="land edit" />
+		<action description="Föld információk és beállítások kezelése"
+		     name="land options" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak telekre történő belépésekre és korlátozásokra."
+	     name="Parcel Powers">
+		<action description="Domborzat szerkesztésének engedélyezése mindig"
+		     name="land allow edit land" />
+		<action description="Repülés engedélyezése mindig"
+		     name="land allow fly" />
+		<action description="Tárgyak építésének engedélyezése mindig"
+		     name="land allow create" />
+		<action description="Jelzőpontok letevésének engedélyezése mindig"
+		     name="land allow landmark" />
+		<action description="Telek kiindulópontjának beállítása"
+		     name="land allow set home" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak csoport tulajdonban lévő területekre történő belépésekre vagy korlátozásokra beleértve a lakó kitiltását és fagyasztását is."
+	     name="Parcel Access">
+		<action description="Telek belépési listájának kezelése"
+		     name="land manage allowed" />
+		<action description="Kitiltott lakók listájának kezelése"
+		     name="land manage banned" />
+		<action description="Telek átjárásának eladására vonatkozó beállítások"
+		     name="land manage passes" />
+		<action description="Lakó kitiltása vagy fagysztása a telekről"
+		     name="land admin" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak a telken lévő tárgyak visszaküldésére tuljdonosaik részére, valamint Linden növényzet telepítésére és mozgatására."
+	     name="Parcel Content">
+		<action description="Csoport tulajdonban lévő tárgyak visszaküldése"
+		     name="land return group owned" />
+		<action description="Csoporthoz beállított tárgyak visszaküldése"
+		     name="land return group set" />
+		<action description="Nem a csoporthoz tartozó tárgyak visszaküldése"
+		     name="land return non group" />
+		<action description="Linden növényzet telepítése"
+		     name="land gardening" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak csoport tulajdonban lévő tárgyak átruházására, módosítására és eladására. "
+	     name="Object Management">
+		<action description="Tárgyak átruházása a csoportra"
+		     name="object deed" />
+		<action
+		     description="Csoport tulajdonban lévő tárgyak kezelése (mozgatás, másolás, módosítás)"
+		     name="object manipulate" />
+		<action description="Csoport tulajdonban lévő tárgyak beállítása eladásra"
+		     name="object set sale" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak a tagok csoporthoz való anyagi hozzájárulásuk kezelésére, osztalék szerzésére, valamint a csoport számlához tartozó egyenleg megtekintéséhez."
+	     name="Accounting">
+		<action description="Kiadások fizetése és osztalék szerzése"
+		     name="accounting accountable" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak a tagoknak csoport értesítések küldésére, fogadására valamint ezek megtekintésére."
+	     name="Notices">
+		<action description="Értesítések küldése"
+		     name="notices send" />
+		<action
+		     description="Értesítések fogadása és korábbi értesítések megtekintése"
+		     name="notices receive" />
+	</action_set>
+	<action_set
+	     description="Ezek a képességek jogot adnak a tagoknak javaslat írására, szavazásra és ezek megtekintésére."
+	     name="Proposals">
+		<action description="Javaslat írása"
+		     name="proposal start" />
+		<action description="Szavazás"
+		     name="proposal vote" />
+	</action_set>
+</role_actions>

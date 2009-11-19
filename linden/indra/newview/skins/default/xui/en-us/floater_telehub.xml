@@ -3,7 +3,7 @@
      can_resize="false" height="250" min_height="220" min_width="83"
      name="telehub" title="Telehub" width="272">
 	<text bottom_delta="-40" follows="left|top" font="SansSerifSmall" height="16"
-	     left="10" name="status_text_connected" width="200">
+	     left="10" name="status_text_connected" width="260">
 		Telehub connected to object [OBJECT]
 	</text>
 	<text bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16" left="10"

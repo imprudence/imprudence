@@ -10,7 +10,7 @@
 			 label="颜色过滤器"
 			 name="wmiColorFilterPanel">
 			<check_box
-				 initial_value="false"
+				 
 				 label="启用"
 				 name="wmiColorFilterToggle" />
 			<text
@@ -32,19 +32,19 @@
 			<slider
 				 label="R"
 				 name="wmiColorFilterBaseR"
-				 value="1.0" />
+				 />
 			<slider
 				 label="G"
 				 name="wmiColorFilterBaseG"
-				 value="1.0" />
+				 />
 			<slider
 				 label="B"
 				 name="wmiColorFilterBaseB"
-				 value="1.0" />
+				 />
 			<slider
 				 label="I"
 				 name="wmiColorFilterBaseI"
-				 value="1.0" />
+				 />
 		</panel>
 		<panel
 			 label="夜间视觉"
@@ -69,7 +69,7 @@
 			 label="Bloom"
 			 name="wmiBloomPanel">
 			<check_box
-				 initial_value="false"
+				 
 				 label="Enable"
 				 name="wmiBloomToggle" />
 			<text
@@ -79,7 +79,7 @@
 			<slider
 				 label=""
 				 name="wmiBloomExtract"
-				 value="0.7" />
+				 />
 			<text
 				 name="wmiBloomSizeText">
 				辉光尺寸
@@ -87,7 +87,7 @@
 			<slider
 				 label=""
 				 name="wmiBloomSize"
-				 value="1.0" />
+				 />
 			<text
 				 name="wmiBloomStrengthText">
 				辉光强度
@@ -95,7 +95,7 @@
 			<slider
 				 label=""
 				 name="wmiBloomStrength"
-				 value="1.0" />
+				 />
 		</panel>
 		<panel
 			 label="额外选项"

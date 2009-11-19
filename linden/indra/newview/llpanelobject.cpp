@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -336,7 +337,7 @@ void LLPanelObject::getState( )
 		// *FIX: shouldn't we just keep the child?
 		if (objectp)
 		{
-			LLViewerObject* parentp = objectp->getSubParent();
+			LLViewerObject* parentp = objectp->getRootEdit();
 
 			if (parentp)
 			{
@@ -1986,8 +1987,8 @@ void LLPanelObject::clearCtrls()
 	
 	childSetEnabled("scale_hole", FALSE);
 	childSetEnabled("scale_taper", FALSE);
-	childSetEnabled( "advanced_cut", FALSE );
-	childSetEnabled( "advanced_dimple", FALSE );
+	childSetEnabled("advanced_cut", FALSE);
+	childSetEnabled("advanced_dimple", FALSE);
 	childSetVisible("advanced_slice", FALSE);
 
 	childSetEnabled("build_math_constants",false);
@@ -2133,5 +2134,5 @@ void LLPanelObject::onCommitSculptType(LLUICtrl *ctrl, void* userdata)
 // static
 void LLPanelObject::onClickBuildConstants(void *)
 {
-	gViewerWindow->alertXml("ClickBuildConstants");
+	LLNotifications::instance().add("ClickBuildConstants");
 }

@@ -1,23 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="friends">
-	<scroll_list name="friend_list"
-	     tool_tip="点击时按住 shift 或 control 键来选择多个好友">
-		<column name="icon_online_status" tool_tip="在线状态" />
-		<column label="名字" name="friend_name" tool_tip="名称" />
-		<column name="icon_visible_online" tool_tip="好友可以看见你是否在线" />
-		<column name="icon_visible_map" tool_tip="好友可以在地图上找到你" />
-		<column name="icon_edit_mine" tool_tip="好友可以编辑你的物体" />
-		<column name="icon_edit_theirs" tool_tip="你可以编辑这位好友的物体" />
+	<string name="Multiple">
+		多位好友...
+	</string>
+	<scroll_list name="friend_list" tool_tip="点击时按住 shift 或 control 键来选择多个好友">
+		<column name="icon_online_status" tool_tip="在线状态"/>
+		<column label="名字" name="friend_name" tool_tip="名称"/>
+		<column name="icon_visible_online" tool_tip="好友可以看见你是否在线"/>
+		<column name="icon_visible_map" tool_tip="好友可以在地图上找到你"/>
+		<column name="icon_edit_mine" tool_tip="好友可以编辑你的物体"/>
+		<column name="icon_edit_theirs" tool_tip="你可以编辑这位好友的物体"/>
 	</scroll_list>
-	<button label="聊天/呼叫" name="im_btn" tool_tip="打开即时通信会话" />
-	<button label="档案" name="profile_btn"
-	     tool_tip="显示图片、社团和其他信息" />
-	<button label="瞬间移动..." name="offer_teleport_btn"
-	     tool_tip="邀请该好友瞬间移动到你的当前位置" />
-	<button label="付款..." name="pay_btn" tool_tip="给这位好友林登币 (L$)" />
-	<button label="移除..." name="remove_btn"
-	     tool_tip="将这个人从你的好友列表中去除" />
-	<button label="添加..." name="add_btn"
-	     tool_tip="邀请其他居民成为你的好友" />
+	<button label="聊天/呼叫" name="im_btn" tool_tip="打开即时通信会话"/>
+	<button label="档案" name="profile_btn" tool_tip="显示图片、社团和其他信息"/>
+	<button label="瞬间移动..." name="offer_teleport_btn" tool_tip="邀请该好友瞬间移动到你的当前位置"/>
+	<button label="付款..." name="pay_btn" tool_tip="给这位好友林登币 (L$)"/>
+	<button label="移除..." name="remove_btn" tool_tip="将这个人从你的好友列表中去除"/>
+	<button label="添加..." name="add_btn" tool_tip="邀请其他居民成为你的好友"/>
 </panel>
-<!--Translated for Second Life 1.19.0 (79185)-->

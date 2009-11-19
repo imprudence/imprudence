@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="status">
+	<text type="string" length="1" name="ParcelNameText"
+	     tool_tip="Название участка земли, на котором вы находитесь, можно узнать, нажав &apos;&apos;О земле&apos;&apos;.">
+		имя участка будет здесь
+	</text>
+	<text type="string" length="1" name="BalanceText" tool_tip="Баланс аккаунта">
+		Загрузка...
+	</text>
+	<button label="" label_selected="" name="buycurrency"
+	     tool_tip="Купить валюту" />
+	<text type="string" length="12" name="TimeText"
+	     tool_tip="Текущее время (тихоокеанское)">
+		12:00 AM
+	</text>
+	<string name="StatBarDaysOfWeek">
+		Воскр.:Понед.:Вторник:Среда:Четверг:Пятница:Суббота
+	</string>
+	<string name="StatBarMonthsOfYear">
+		Январь:Февраль:Март:Апрель:Май:Июнь:Июль:Август:Сентябрь:Октябрь:Ноябрь:Декабрь
+	</string>
+	<button label="" label_selected="" name="scriptout"
+	     tool_tip="Предупреждения и ошибки скриптов" />
+	<button label="" label_selected="" name="health" tool_tip="Здоровье" />
+	<text type="string" length="1" name="HealthText" tool_tip="Здоровье">
+		100%
+	</text>
+	<button label="" label_selected="" name="no_fly"
+	     tool_tip="Полеты запрещены" />
+	<button label="" label_selected="" name="no_build"
+	     tool_tip="Строительство/создание объектов запрещено" />
+	<button label="" label_selected="" name="no_scripts"
+	     tool_tip="Скрипты запрещены" />
+	<button label="" label_selected="" name="restrictpush" tool_tip="Не толкать"/>
+	<button label="" label_selected="" name="status_no_voice"
+	     tool_tip="Голос здесь недоступен" />
+	<button label="" label_selected="" name="buyland"
+	     tool_tip="Купить этот участок" />
+	<button label="" name="menubar_search_bevel_bg" />
+	<line_editor label="Поиск" name="search_editor" tool_tip="Поиск в Second Life" />
+	<button label="" label_selected="" name="search_btn"
+	     tool_tip="Поиск в Second Life" />
+	<string name="packet_loss_tooltip">
+		Потери пакетов
+	</string>
+	<string name="bandwidth_tooltip">
+		Полоса пропускания
+	</string>
+</panel>

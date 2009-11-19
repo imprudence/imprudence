@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="Event" title="Événement">
 	<text name="event_name_label">
 		Nom :
@@ -13,10 +13,7 @@
 		(aucun)
 	</text>
 	<text name="event_mature_label">
-		Pour adultes :
-	</text>
-	<text name="event_mature">
-		(inconnu)
+		Contenu Mature :
 	</text>
 	<text name="event_mature_yes">
 		Oui
@@ -57,10 +54,10 @@
 	<text name="event_desc_label">
 		Description :
 	</text>
-	<button label="Téléporter" name="teleport_btn" />
-	<button label="Voir sur la carte" name="map_btn" />
-	<button label="Prévenir" name="notify_btn" />
-	<button label="Créer un événement..." name="create_event_btn" />
+	<button label="Téléporter" name="teleport_btn"/>
+	<button label="Voir sur la carte" name="map_btn"/>
+	<button label="Prévenir" name="notify_btn"/>
+	<button label="Créer un événement..." name="create_event_btn"/>
 	<string name="none">
 		aucun
 	</string>

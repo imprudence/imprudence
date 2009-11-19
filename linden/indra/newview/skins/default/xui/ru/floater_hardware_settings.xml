@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Hardware Settings Floater"
+     title="Настройки Оборудования">
+	<text type="string" length="1" name="Filtering:">
+		Фильтры:
+	</text>
+	<check_box
+	     label="Анизотропная фильтрация (медленнее, если включено)"
+	     name="ani" />
+	<text type="string" length="1" name="Antialiasing:">
+		Сглаживание:
+	</text>
+	<combo_box label="Сглаживание" name="fsaa" width="94">
+		<combo_item name="FSAADisabled">
+			Выкл.
+		</combo_item>
+		<combo_item name="2x">
+			2x
+		</combo_item>
+		<combo_item name="4x">
+			4x
+		</combo_item>
+		<combo_item name="8x">
+			8x
+		</combo_item>
+		<combo_item name="16x">
+			16x
+		</combo_item>
+	</combo_box>
+	<spinner label="Гамма:" name="gamma" />
+	<text type="string" length="1" name="(brightness, lower is brighter)" left="218">
+		(яркость, чем ниже, тем ярче, 0=по умолчанию)
+	</text>
+	<text type="string" length="1" name="Enable VBO:">
+		Включить VBO:
+	</text>
+	<check_box label="Включить OpenGL Vertex Buffer Objects" name="vbo"
+	     tool_tip="Включение этого параметра на современном оборудовании даст увеличение производительности.Однако на старом оборудовании это может привести к вылету приложения." />
+	<slider label_width="150" left="10" width="300" label="Текстурная память (МБ):"
+	     name="GrapicsCardTextureMemory"
+	     tool_tip="Количество памяти, отводимое для текстур. Стандартное для Вашей карты. Уменьшение поможет увеличить производительность, но текстуры станут размазанными." />
+	<spinner label="Дистанция тумана:" name="fog" />
+	<button label="OK" label_selected="OK" name="OK" />
+</floater>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Sablonok" name="Skins panel">
+	<text length="1" name="muting_text" type="string">
+		Válassz sablont (újraindítás kell):
+	</text>
+	<radio_group name="skin_selection">
+		<radio_item name="default">
+			Alapértelmezett
+		</radio_item>
+		<radio_item name="silver">
+			Ezüst
+		</radio_item>
+	</radio_group>
+</panel>

@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -31,7 +32,7 @@
  * $/LicenseInfo$
  */
 
-#include <tut/tut.h>
+#include <tut/tut.hpp>
 #include "linden_common.h"
 #include "lltut.h"
 #include "v3color.h"
@@ -59,7 +60,7 @@ namespace tut
 		const F32 vec[3] = {2.0f, 3.2f,1.f};
 		LLColor3 llcolor3b(vec);
 		ensure("3:LLColor3:Fail to initialize " ,(2.0f == llcolor3b.mV[0]) && (3.2f == llcolor3b.mV[1]) && (1.f == llcolor3b.mV[2]));
-		char* str = "561122";
+		const char* str = "561122";
 		LLColor3 llcolor3c(str);
 		v1 = (F32)86.0f/255.0f; // 0x56 = 86
 		v2 = (F32)17.0f/255.0f; // 0x11 = 17

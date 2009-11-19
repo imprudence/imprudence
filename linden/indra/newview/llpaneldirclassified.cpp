@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -64,6 +65,7 @@
 //
 #include "llfloateravatarinfo.h"
 #include "llviewermenu.h"
+#include "llnotify.h"
 
 //-----------------------------------------------------------------------------
 // Constants
@@ -79,10 +81,28 @@ BOOL LLPanelDirClassified::postBuild()
 	LLPanelDirBrowser::postBuild();
 
 	// Teens don't get mature checkbox
-	if (gAgent.isTeen())
+	if (gAgent.wantsPGOnly())
 	{
 		childSetValue("incmature", FALSE);
+		childSetValue("incadult", FALSE);
 		childHide("incmature");
+		childHide("incadult");
+		childSetValue("incpg", TRUE);
+		childDisable("incpg");
+	}
+
+	bool mature_enabled = gAgent.canAccessMature();
+	if (!mature_enabled)
+	{
+		childSetValue("incmature", FALSE);
+		childDisable("incmature");
+	}
+
+	bool adult_enabled = gAgent.canAccessAdult();
+	if (!adult_enabled)
+	{
+		childSetValue("incadult", FALSE);
+		childDisable("incadult");
 	}
 
 	// 0 or 3+ character searches allowed, exciting
@@ -123,6 +143,8 @@ void LLPanelDirClassified::refresh()
 	BOOL godlike = gAgent.isGodlike();
 	childSetVisible("Delete", godlike);
 	childSetEnabled("Delete", godlike);
+
+	updateMaturityCheckbox();
 }
 
 //Open Profile to Classifieds tab
@@ -161,6 +183,16 @@ void LLPanelDirClassified::onClickDelete(void *userdata)
 void LLPanelDirClassified::performQuery()
 {
 	lldebugs << "LLPanelDirClassified::performQuery()" << llendl;
+
+	BOOL inc_pg = childGetValue("incpg").asBoolean();
+	BOOL inc_mature = childGetValue("incmature").asBoolean();
+	BOOL inc_adult = childGetValue("incadult").asBoolean();
+	if (!(inc_pg || inc_mature || inc_adult))
+	{
+		LLNotifications::instance().add("NoContentToSearch");
+		return;
+	}
+
 	// This sets mSearchID and clears the list of results
 	setupNewSearch();
 
@@ -171,9 +203,8 @@ void LLPanelDirClassified::performQuery()
 	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
 	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 
-	BOOL filter_mature = !childGetValue("incmature").asBoolean();
 	BOOL filter_auto_renew = FALSE;
-	U32 query_flags = pack_classified_flags(filter_mature, filter_auto_renew);
+	U32 query_flags = pack_classified_flags_request(filter_auto_renew, inc_pg, inc_mature, inc_adult);
 	//if (gAgent.isTeen()) query_flags |= DFQ_PG_SIMS_ONLY;
 
 	U32 category = childGetValue("Category").asInteger();

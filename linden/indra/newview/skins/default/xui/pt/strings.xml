@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!-- This file contains strings that used to be hardcoded in the source.
-     It is only for those strings which don&apos;t belong in a floater.
+     It is only for those strings which do not belong in a floater.
      For example, the strings used in avatar chat bubbles, and strings 
      that are returned from one component and may appear in many places-->
 <strings>
@@ -55,9 +55,6 @@
 	<string name="LoginDownloadingClothing">
 		Baixando roupas...
 	</string>
-	<string name="LoginFailedNoNetwork">
-		Erro de Rede: Não foi possível estabelecer uma conexão. Por favor, verifique sua conexão de rede.
-	</string>
 	<string name="AgentLostConnection">
 		Esta região pode estar passando por problemas. Por favor, verifique sua conexão com a internet.
 	</string>
@@ -89,7 +86,7 @@
 		L$
 	</string>
 	<string name="TooltipFlagDropInventory">
-		Largar Estoque
+		Dar Inventário
 	</string>
 	<string name="TooltipFlagPhantom">
 		Imaterial
@@ -161,13 +158,13 @@
 		Nenhum erro
 	</string>
 	<string name="AssetErrorRequestFailed">
-		Valor pedido falhou
+		Item pedido falhou
 	</string>
 	<string name="AssetErrorNonexistentFile">
-		Valor pedido: arquivo inexistente
+		Item pedido: arquivo inexistente
 	</string>
 	<string name="AssetErrorNotInDatabase">
-		Valor pedido: valor não encontrado na base de dados.
+		Item pedido: item não encontrado na base de dados.
 	</string>
 	<string name="AssetErrorEOF">
 		Fim do arquivo
@@ -182,7 +179,10 @@
 		Tempo de transferência de arquivo expirado
 	</string>
 	<string name="AssetErrorCircuitGone">
-		Circuito caiu (Circuit gone)
+		Circuito caiu
+	</string>
+	<string name="AssetErrorPriceMismatch">
+		Visualizador e servidor não concordam no preço
 	</string>
 	<string name="AssetErrorUnknownStatus">
 		Status desconhecido
@@ -197,7 +197,7 @@
 		Ocupado
 	</string>
 	<string name="AvatarMuted">
-		Emudecido
+		Mudo
 	</string>
 	<string name="anim_express_afraid">
 		Temeroso
@@ -293,7 +293,7 @@
 		Beijar
 	</string>
 	<string name="anim_laugh_short">
-		rir
+		Rir
 	</string>
 	<string name="anim_musclebeach">
 		Exibir músculos
@@ -308,7 +308,7 @@
 		Nya-nya-nya
 	</string>
 	<string name="anim_punch_onetwo">
-		Um-Dois soco
+		Soco Um-Dois
 	</string>
 	<string name="anim_express_open_mouth">
 		Abrir a boca
@@ -417,5 +417,70 @@
 	</string>
 	<string name="shout">
 		grita:
+	</string>
+	<string name="SIM_ACCESS_PG">
+		PG
+	</string>
+	<string name="SIM_ACCESS_MATURE">
+		Mature
+	</string>
+	<string name="SIM_ACCESS_ADULT">
+		Adult
+	</string>
+	<string name="SIM_ACCESS_DOWN">
+		Desconectado
+	</string>
+	<string name="SIM_ACCESS_MIN">
+		Desconhecido
+	</string>
+	<string name="land_type_unknown">
+		(desconhecido)
+	</string>
+	<string name="covenant_never_modified">Última modificação: (nunca)</string>
+	<string name="covenant_modified">Última modificação: </string>
+	<string name="all_files">
+		Todos os Arquivos
+	</string>
+	<string name="sound_files">
+		Sons
+	</string>
+	<string name="animation_files">
+		Animações
+	</string>
+	<string name="image_files">
+		Imagens
+	</string>
+	<string name="save_file_verb">
+		Salvar
+	</string>
+	<string name="load_file_verb">
+		Carregar
+	</string>
+	<string name="targa_image_files">
+		Imagens Targa
+	</string>
+	<string name="bitmap_image_files">
+		Imagens Bitmap
+	</string>
+	<string name="avi_movie_file">
+		Arquivo de filme AVI
+	</string>
+	<string name="xaf_animation_file">
+		Arquivo de Animação XAF
+	</string>
+	<string name="xml_file">
+		Arquivo XML
+	</string>
+	<string name="dot_raw_file">
+		Arquivo RAW
+	</string>
+	<string name="compressed_image_files">
+		Imagens Compactadas
+	</string>
+	<string name="load_files">
+		Carregar Arquivos
+	</string>
+	<string name="choose_the_directory">
+		Escolher Diretório
 	</string>
 </strings>

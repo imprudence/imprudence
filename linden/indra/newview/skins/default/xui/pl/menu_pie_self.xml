@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pie_menu name="Self Pie">
+	<menu_item_call label="Profil..." name="Profile..."/>
+	<menu_item_call label="Grupy..." name="Groups..."/>
+	<menu_item_call label="Idź..." name="Go..."/>
+	<menu_item_call label="Wstań" name="Stand Up"/>
+	<menu_item_call label="Znajomi..." name="Friends..."/>
+	<menu_item_call label="Gesty..." name="Gestures..."/>
+	<pie_menu label="Zdejmij &gt;" name="Take Off &gt;">
+		<pie_menu label="Ubranie &gt;" name="Clothes &gt;">
+			<menu_item_call label="Koszula" name="Shirt"/>
+			<menu_item_call label="Spodnie" name="Pants"/>
+			<menu_item_call label="Buty" name="Shoes"/>
+			<menu_item_call label="Skarpety" name="Socks"/>
+			<menu_item_call label="Kurtkę" name="Jacket"/>
+			<menu_item_call label="Rękawiczki" name="Gloves"/>
+			<pie_menu label="Więcej &gt;" name="More &gt;">
+				<menu_item_call label="Podkoszulek" name="Self Undershirt"/>
+				<menu_item_call label="Wszystko" name="All Clothes"/>
+				<menu_item_call label="Bieliznę" name="Self Underpants"/>
+			</pie_menu>
+			<menu_item_call label="Spódnicę" name="Skirt"/>
+		</pie_menu>
+		<pie_menu label="Odłącz od HUD" name="Object Detach HUD"/>
+		<pie_menu label="Obiekt &gt;" name="Object Detach"/>
+		<menu_item_call label="Wszystko" name="Detach All"/>
+	</pie_menu>
+	<menu_item_call label="Wygląd..." name="Appearance..."/>
+</pie_menu>

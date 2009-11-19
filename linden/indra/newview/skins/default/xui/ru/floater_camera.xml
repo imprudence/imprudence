@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="move floater" title="">
+	<string name="rotate_tooltip">
+		Повернуть Камеру Вокруг Фокуса
+	</string>
+	<string name="zoom_tooltip">
+		Приблизить Камеру к Фокусу
+	</string>
+	<string name="move_tooltip">
+		Двигать Камеру Вверх и Вниз, Влево и Вправо
+	</string>
+</floater>

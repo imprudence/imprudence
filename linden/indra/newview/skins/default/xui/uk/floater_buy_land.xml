@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="buy land" title="Покупка землі">
+	<text name="region_name_label">
+		Регіон:
+	</text>
+	<text name="region_name_text">
+		(невідомо)
+	</text>
+	<text name="region_type_label">
+		Тип:
+	</text>
+	<text name="region_type_text">
+		(невідоме)
+	</text>
+	<text name="estate_name_label">
+		Маєток:
+	</text>
+	<text name="estate_name_text">
+		(невідомо)
+	</text>
+	<text name="estate_owner_label">
+		Власник Маєтку:
+	</text>
+	<text name="estate_owner_text">
+		(невідомо)
+	</text>
+	<text name="resellable_changeable_label">
+		Куплена в цьому регіоні земля:
+	</text>
+	<text name="resellable_clause">
+		Може або не може бути перепродана.
+	</text>
+	<text name="changeable_clause">
+		Може або не може бути об&apos;єднана або розділена.
+	</text>
+	<text name="covenant_text">
+		Ви маєте погодитися з Правилами Маєтку:
+	</text>
+	<text left="470" name="covenant_timestamp_text"/>
+	<text_editor name="covenant_editor">
+		Завантаж...
+	</text_editor>
+	<check_box label="Я Погоджуюсь з Угодою, визначеною вище." name="agree_covenant"/>
+	<text name="info_parcel_label">
+		Ділянка:
+	</text>
+	<text name="info_parcel">
+		Scotopteryx 138,204
+	</text>
+	<text name="info_size_label">
+		Розмір:
+	</text>
+	<text name="info_size">
+		1024 м²
+	</text>
+	<text name="info_price_label">
+		Ціна:
+	</text>
+	<text name="info_price">
+		L$ 1500
+(L$ 1.1/м²)
+продано з об&apos;єктами
+	</text>
+	<text name="info_action">
+		Покупка цієї землі буде:
+	</text>
+	<text name="error_message">
+		Щось
+	</text>
+	<button label="Перейти на вебсайт" name="error_web" width="150"/>
+	<text name="account_action">
+		Вдосконалити Ваш аккаунт до Premium.
+	</text>
+	<text name="account_reason">
+		Тільки преміум-учасники можуть володіти землею.
+	</text>
+	<combo_box name="account_level">
+		<combo_item name="US$9.95/month,billedmonthly">
+			US$9.95/місяць, щомісячно
+		</combo_item>
+		<combo_item name="US$7.50/month,billedquarterly">
+			US$7.50/місяць, щоквартально
+		</combo_item>
+		<combo_item name="US$6.00/month,billedannually">
+			US$6.00/місяць, щорічно
+		</combo_item>
+	</combo_box>
+	<text name="land_use_action">
+		Збільшити Вашу щомісячну ренту до US$ 40/місяць.
+	</text>
+	<text name="land_use_reason">
+		Ви утримуєте 1309 м² землі. 
+Це ділянка 512 м² землі.
+	</text>
+	<text name="purchase_action">
+		Заплатити Резиденту Joe L$ 4000 за землю
+	</text>
+	<text name="currency_reason">
+		У Вас L$ 2,100.
+	</text>
+	<text name="currency_action" width="126">
+		Купити додаткові L$
+	</text>
+	<line_editor name="currency_amt" left="200" width="54">
+		1000
+	</line_editor>
+	<text name="currency_est">
+		приблизно US$ [AMOUNT2]
+	</text>
+	<text name="currency_balance">
+		У Вас L$ 2,100.
+	</text>
+	<check_box label="Видалити право групи на закупку [AMOUNT] кв. м." name="remove_contribution"/>
+	<button label="Покупка" name="buy_btn"/>
+	<button label="Відміна" name="cancel_btn"/>
+	<string name="can_resell">
+		Может бути перепродана.
+	</string>
+	<string name="can_not_resell">
+		Не може бути перепродана.
+	</string>
+	<string name="can_change">
+		Может бути об&apos;єднана або розділена.
+	</string>
+	<string name="can_not_change">
+		Не може бути об&apos;єднана або розділена.
+	</string>
+	<string name="cant_buy_for_group">
+		Ви не маєте дозволу купити землю для Вашої активної Групи.
+	</string>
+	<string name="no_land_selected">
+		Немає вибраної землі.
+	</string>
+	<string name="multiple_parcels_selected">
+		Декілька різних маєтків вибрано.
+Спробуйте вибрати ділянку поменше.
+	</string>
+	<string name="no_permission">
+		Ви не маєте дозволу купити землю для Вашої активної Групи.
+	</string>
+	<string name="parcel_not_for_sale">
+		Вибрана ділянка землі не для продажу.
+	</string>
+	<string name="group_already_owns">
+		Група вже володіє ділянкою.
+	</string>
+	<string name="you_already_own">
+		Ви уже володієте ділянкою.
+	</string>
+	<string name="set_to_sell_to_other">
+		Вибрана ділянка землі призначена для продажу іншим.
+	</string>
+	<string name="no_public_land">
+		Вибрана область не має ніякої публічної землі.
+	</string>
+	<string name="not_owned_by_you">
+		Вибрана земля, що Вам не належить.
+Спробуйте вибрати ділянку поменше.
+	</string>
+	<string name="processing">
+		Обробка Вашої закупки... 
+
+(це може зайняти пару хвилин)
+	</string>
+	<string name="fetching_error">
+		Сталася помилка при запиті інформації про купівлю Земли.
+	</string>
+	<string name="buying_will">
+		Закупка цієї землі буде:
+	</string>
+	<string name="buying_for_group">
+		Покупка землі для групи:
+	</string>
+	<string name="cannot_buy_now">
+		Зараз купити неможна:
+	</string>
+	<string name="not_for_sale">
+		Не для продажу:
+	</string>
+	<string name="none_needed">
+		не потрібно
+	</string>
+	<string name="must_upgrade">
+		Ваш аккаунт потрібно вдосконалити для володіння землею.
+	</string>
+	<string name="cant_own_land">
+		Ваш аккаунт дозволяє володіти землею.
+	</string>
+	<string name="land_holdings">
+		Ви утримуєте [BUYER] м² землі.
+	</string>
+	<string name="pay_to_for_land">
+		Заплатити L$ [AMOUNT] [SELLER] за цю землю
+	</string>
+	<string name="buy_for_US">
+		Купити L$ [AMOUNT] за приблиз. US$ [AMOUNT2],
+	</string>
+	<string name="parcel_meters">
+		Це ділянка [AMOUNT] м².
+	</string>
+	<string name="premium_land">
+		Ця земля - преміум-класу, і буде зарахована як [AMOUNT] м².
+	</string>
+	<string name="discounted_land">
+		Ця земля зі знижкою, і буде зарахована як [AMOUNT] m².
+	</string>
+	<string name="meters_supports_object">
+		[AMOUNT] м²
+підтримує [AMOUNT2] об&apos;єктів
+	</string>
+	<string name="sold_with_objects">
+		продается з об&apos;єктами
+	</string>
+	<string name="sold_without_objects">
+		Об&apos;єкти не входять в комплект
+	</string>
+	<string name="info_price_string">
+		L$ [PRICE]
+(L$ [PRICE_PER_SQM]/м²)
+[SOLD_WITH_OBJECTS]
+	</string>
+	<string name="insufficient_land_credits">
+		Групі [GROUP] необхідно достатньо прав на використання землі, щоб покрити цю ділянку перед тим, як покупку буде завершено.
+	</string>
+	<string name="have_enough_lindens">
+		Ви маєте L$ [AMOUNT] і їх достатньо для купівлі цієї землі.
+	</string>
+	<string name="not_enough_lindens">
+		Ви маєте тільки L$ [AMOUNT], і ще не вистачає [AMOUNT2].
+	</string>
+	<string name="balance_left">
+		Після покупки у Вас залишиться: L$ [AMOUNT].
+	</string>
+	<string name="balance_needed">
+		Ви спершу маєте придбати мінімум L$ [AMOUNT] для того, щоб претендувати на цю землю.
+	</string>
+	<string name="no_parcel_selected">
+		(ділянка не вибрана)
+	</string>
+	<string name="buy_currency">
+		Купити L$ [LINDENS] приблиз. US$ [USD]
+	</string>
+</floater>

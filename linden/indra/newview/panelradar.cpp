@@ -656,11 +656,11 @@ void PanelRadar::onClickAddFriend(void* user_data)
 // Estate tab
 //
 
-//static 
-void PanelRadar::callbackFreeze(S32 option, void *user_data)
-{
-	PanelRadar *self = (PanelRadar*)user_data;
 
+//static
+bool PanelRadar::callbackFreeze(const LLSD& notification, const LLSD& response, PanelRadar *self)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if ( option == 0 )
 	{
 		sendFreeze(self->mSelectedAvatar, true);
@@ -669,14 +669,14 @@ void PanelRadar::callbackFreeze(S32 option, void *user_data)
 	{
 		sendFreeze(self->mSelectedAvatar, false);
 	}
+	return false;
 }
 
 
-//static 
-void PanelRadar::callbackEject(S32 option, void *user_data)
+//static
+bool PanelRadar::callbackEject(const LLSD& notification, const LLSD& response, PanelRadar *self)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
- 
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if ( option == 0 )
 	{
 		sendEject(self->mSelectedAvatar, false);
@@ -685,14 +685,14 @@ void PanelRadar::callbackEject(S32 option, void *user_data)
 	{
 		sendEject(self->mSelectedAvatar, true);
 	}
+	return false;
 }
 
 
-//static 
-void PanelRadar::callbackEjectFromEstate(S32 option, void *user_data)
+//static
+bool PanelRadar::callbackEjectFromEstate(const LLSD& notification, const LLSD& response, PanelRadar *self)
 {
-	PanelRadar *self = (PanelRadar*)user_data;
-
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if ( option == 0 )
 	{
 		cmdEstateEject(self->mSelectedAvatar);
@@ -701,16 +701,19 @@ void PanelRadar::callbackEjectFromEstate(S32 option, void *user_data)
 	{
 		cmdEstateBan(self->mSelectedAvatar);
 	}
+	return false;
 }
 
 
 void PanelRadar::onClickFreeze(void *user_data)
 {
 	PanelRadar *self = (PanelRadar*)user_data;
-	LLStringUtil::format_map_t args;
-	LLSD payload;
-	args["[AVATAR_NAME]"] = getSelectedName(self->mSelectedAvatar);
-	gViewerWindow->alertXml("FreezeAvatarFullname",	args, callbackFreeze, user_data);
+	LLSD args;
+	args["AVATAR_NAME"] = getSelectedName(self->mSelectedAvatar);
+	LLNotifications::instance().add("FreezeAvatarFullname", 
+		args, 
+		LLSD(), 
+		boost::bind(&callbackFreeze, _1, _2, self));
 }
 
 
@@ -718,10 +721,12 @@ void PanelRadar::onClickFreeze(void *user_data)
 void PanelRadar::onClickEject(void *user_data)
 {
 	PanelRadar *self = (PanelRadar*)user_data;
-	LLStringUtil::format_map_t args;
-	LLSD payload;
+	LLSD args;
 	args["AVATAR_NAME"] = getSelectedName(self->mSelectedAvatar);
-	gViewerWindow->alertXml("EjectAvatarFullName", args, callbackEject, user_data);
+	LLNotifications::instance().add("EjectAvatarFullname", 
+		args, 
+		LLSD(), 
+		boost::bind(&callbackEject, _1, _2, self));
 }
 
 
@@ -777,10 +782,12 @@ void PanelRadar::onClickUnmute(void *user_data)
 void PanelRadar::onClickEjectFromEstate(void *user_data)
 {
 	PanelRadar *self = (PanelRadar*)user_data;
-	LLStringUtil::format_map_t args;
-	LLSD payload;
+	LLSD args;
 	args["EVIL_USER"] = getSelectedName(self->mSelectedAvatar);
-	gViewerWindow->alertXml("EstateKickUser", args, callbackEjectFromEstate, user_data);
+	LLNotifications::instance().add("EstateKickUser", 
+		args, 
+		LLSD(),
+		boost::bind(&callbackEjectFromEstate, _1, _2, self));
 }
 
 

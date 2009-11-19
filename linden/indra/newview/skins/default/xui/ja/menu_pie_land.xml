@@ -4,7 +4,7 @@
 	<menu_item_call label="作成" name="Create" />
 	<menu_item_call label="ここへ来る" name="Go Here" />
 	<menu_item_call label="ここに座る" name="Sit Here" />
-	<menu_item_call label="パスを購入..." name="Land Buy Pass" />
+	<menu_item_call label="入場許可購入..." name="Land Buy Pass" />
 	<menu_item_call label="地形を編集" name="Edit Terrain" />
 	<menu_item_call label="土地を購入..." name="Land Buy" />
 </pie_menu>

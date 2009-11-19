@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="chat floater" title="Üzenetküldés">
+	<string name="ringing">
+		Kapcsolódás a beszédhez...
+	</string>
+	<string name="connected">
+		Kapcsolódva
+	</string>
+	<string name="unavailable">
+		Hangüzenetek küldése nem elérhető a jelenlegi helyszínen
+	</string>
+	<string name="hang_up">
+		Lekapcsolódás a beszédről
+	</string>
+	<string name="voice_icon">
+		icn_voice-localchat.tga
+	</string>
+	<string name="IM_logging_string">
+		-- Üzenetek  naplózása bekapcsolva --
+	</string>
+	<string name="IM_end_log_string">
+		-- Üzeneteknapló vége --
+	</string>
+  <string name="ScriptQuestionCautionChatGranted">
+	&apos;[OBJECTNAME]&apos;, tulajdonos: &apos;[OWNERNAME]&apos;, megtalálható: [REGIONNAME] [REGIONPOS], a következő jogosultságot ajánlja fel: [PERMISSIONS].
+  </string>
+  <string name="ScriptQuestionCautionChatDenied">
+	&apos;[OBJECTNAME]&apos;, tulajdonos: &apos;[OWNERNAME]&apos;, megtalálható: [REGIONNAME] [REGIONPOS], a következő jogosultságot ajánlja fel: [PERMISSIONS].
+  </string>
+  <string name="ScriptTakeMoney">
+	Linden dollár (L$) levonása
+  </string>
+  <string name="ActOnControlInputs">
+	Vezérlő indítása
+  </string>
+  <string name="RemapControlInputs">
+	Vezérlő beállítása
+  </string>
+  <string name="AnimateYourAvatar">
+	Avatár animálása
+  </string>
+  <string name="AttachToYourAvatar">
+	Avatárhoz hozzácsatol
+  </string>
+  <string name="ReleaseOwnership">
+	Tulajdonjog beállítása és publikálás
+  </string>
+  <string name="LinkAndDelink">
+	Összefűzés és szétválasztás más tárgyaktól
+  </string>
+  <string name="AddAndRemoveJoints">
+	Részek hozzáadása és eltávolítása más tárgyaktól
+  </string>
+  <string name="ChangePermissions">
+	Jogosultságok megváltoztatása
+  </string>
+  <string name="TrackYourCamera">
+	Kamera követése
+  </string>
+  <string name="ControlYourCamera">
+	Kamera vezérlése
+  </string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="Gesztusok" name="Gesture">
+				<combo_item name="Gestures">
+					Gesztusok
+				</combo_item>
+			</combo_box>
+			<check_box label="Elnémított szöveg megjelenítése" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="Kattints ide az üzenetküldésben résztvevő aktív felhasználók listájának megjelenítésére."/>
+			<panel name="chat_panel">
+				<string name="gesture_label">
+					Gesztusok
+				</string>
+				<line_editor label="Kattints ide az üzenetküldéshez." name="Chat Editor" right="-75" />
+				<flyout_button label="Beszél" name="Say" tool_tip="(Enter)" width="75" left="-70">
+					<flyout_button_item name="shout_item">
+						Kiált
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						Beszél
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						Suttog
+					</flyout_button_item>
+				</flyout_button>
+			</panel>
+		</layout_panel>
+	</layout_stack>
+</floater>

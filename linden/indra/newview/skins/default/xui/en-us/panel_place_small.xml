@@ -15,12 +15,17 @@
 	<text_editor bg_readonly_color="clear" bottom_delta="-68" enabled="false" follows="left|top"
 	     font="SansSerif" height="70" left="20" max_length="1023" name="desc_editor"
 	     width="360" word_wrap="true" />
-	<text bottom_delta="-30" follows="left|top" font="SansSerif" height="20" left="20" name="information_label">
+	<text bottom_delta="-20" follows="left|top" font="SansSerif" height="20" left="20" name="information_label">
 		Information:
 	</text>
 	<text bottom_delta="0" follows="left|top" font="SansSerif" height="20" left="95"
 	     name="info_editor" width="328" />
-	<text bottom_delta="-30" follows="left|top" font="SansSerif" height="20" left="20" name="location_label">
+	<text bottom_delta="-20" follows="left|top" font="SansSerif" height="20" left="20" name="land_type_label">
+		Land Type:
+	</text>
+	<text bottom_delta="0" follows="left|top" font="SansSerif" height="20" left="95"
+	     name="land_type_display" width="342" />
+	<text bottom_delta="-20" follows="left|top" font="SansSerif" height="20" left="20" name="location_label">
 		Location:
 	</text>
 	<text bottom_delta="0" follows="left|top" font="SansSerif" height="20" left="95"
@@ -35,10 +40,10 @@
 		Traffic: [TRAFFIC]
 	</string>
 	<string name="area_text">
-		Area: [AREA] sq. m.
+		Area: [AREA] m². 
 	</string>
 	<string name="forsale_text">
-		For Sale for L$ [PRICE]
+		For Sale for L$[PRICE]
 	</string>
 	<string name="auction_text">
 		Auction ID [ID].

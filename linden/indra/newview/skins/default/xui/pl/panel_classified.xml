@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Classified" title="Reklama">
+	<line_editor name="given_name_editor" tool_tip="Nazwa musi się zaczynać od litery lub cyfry, nie od znaku przestankowego."/>
+	<line_editor name="location_editor" tool_tip="Przypisz Twoje obecne położenie do tej reklamy."/>
+	<button label="Wybierz" name="set_location_btn"/>
+	<button label="Teleportuj" name="classified_teleport_btn"/>
+	<button label="Pokaż na Mapie" name="classified_map_btn"/>
+	<button label="Profil" name="classified_profile_btn"/>
+	<combo_box name="classified_mature_check">
+		<combo_item name="select_mature">
+			- Wybierz Treść -
+		</combo_item>
+		<combo_item name="mature">
+			Treść &apos;Mature&apos;
+		</combo_item>
+		<combo_item name="pg">
+			Treść &apos;PG&apos;
+		</combo_item>
+	</combo_box>
+	<combo_box label="" name="classified_category_combo"/>
+	<button label="Aktualizuj" name="classified_update_btn"/>
+	<string name="ad_placed_paid">
+		Od: [DATE], Zapłacono [AMT]l$ za zamieszczenie.
+	</string>
+	<string name="update_txt">
+		Aktualizuj
+	</string>
+	<string name="publish_txt">
+		Zamieść...
+	</string>
+</panel>

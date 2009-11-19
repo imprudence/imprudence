@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfoFinder" title="Wyszukaj Info o Grupie">
+	<text name="default_needs_apply_text">
+		Niestety, zmiany nie zostały zastosowane.
+	</text>
+	<text name="want_apply_text">
+		Czy chcesz zastosować te zmiany?
+	</text>
+</panel>

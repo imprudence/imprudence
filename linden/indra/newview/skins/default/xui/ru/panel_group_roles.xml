@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Роли участников" name="roles_tab">
+	<string name="default_needs_apply_text">
+		Есть не примененные изменения в текущей вкладке
+	</string>
+	<string name="want_apply_text">
+		Вы хотите применить эти изменения?
+	</string>
+	<button label="?" name="help_button" />
+	<panel name="members_header">
+		<text name="static">
+			Роли Участников
+		</text>
+		<text name="static2">
+			Участникам назначаются Роли с правами, эти установки могут быть
+легко изменены, что дает гибкость управления и организации.
+		</text>
+	</panel>
+	<panel name="roles_header">
+		<text name="static">
+			Роли
+		</text>
+		<text name="role_properties_modifiable">
+			Выберите роль ниже. Можно изменить Название, Описание и Титул.
+		</text>
+		<text name="role_properties_not_modifiable">
+			Выберите роль для просмотра ее свойств, членов и их способностей.
+		</text>
+		<text name="role_actions_modifiable">
+			Вы можете также назначать Способности на Роль.
+		</text>
+		<text name="role_actions_not_modifiable">
+			Вы можете смотреть, но не менять Способности.
+		</text>
+	</panel>
+	<panel name="actions_header">
+		<text name="static">
+			Способности
+		</text>
+		<text name="static2">
+			Вы можете видеть описание способности, и какие роли и участники могут 
+ее осуществить.
+		</text>
+	</panel>
+	<tab_container name="roles_tab_container">
+		<panel label="Участники" name="members_sub_tab" tool_tip="Участники">
+			<button label="Поиск" name="search_button" />
+			<button label="Показ.все" name="show_all_button" />
+			<name_list name="member_list">
+				<column label="Имя участника" name="name" width="136" />
+				<column label="Взнос" name="donated" width="126" />
+				<column label="Последний вход" name="online" width="126" />
+			</name_list>
+			<button label="Пригласить участника..." name="member_invite" width="170"/>
+			<button label="Исключить из группы" name="member_eject" />
+			<string name="help_text">
+				Вы можете добавлять или убирать роли участников. 
+Удерживая клавишу Ctrl выберите нескольких участников,
+кликая их имена.
+			</string>
+		</panel>
+		<panel label="Роли" name="roles_sub_tab">
+			<button label="Поиск" name="search_button" />
+			<button label="Показ.все" name="show_all_button" />
+			<scroll_list name="role_list">
+				<column label="Имя роли" name="name" width="126"  />
+				<column label="Титул" name="title" width="156"  />
+				<column label="Участники" name="members" width="106"  />
+			</scroll_list>
+			<button label="Создать новую роль" name="role_create" />
+			<button label="Удалить роль" name="role_delete" />
+			<string name="help_text">
+				Роли имеют титулы и список допустимых способностей участников. 
+Участники могут иметь несколько ролей, максимальное
+число ролей -- до 10, включая 
+роли &apos;&apos;Все&apos;&apos; и &apos;&apos;Владельцы&apos;&apos;.
+			</string>
+			<string name="cant_delete_role">
+				У &apos;Всех&apos; и &apos;Владельцев&apos; Специальные роли и не могут быть удалены.
+			</string>
+		</panel>
+		<panel label="Способности" name="actions_sub_tab">
+			<button label="Поиск" name="search_button" />
+			<button label="Показ.все" name="show_all_button" />
+			<scroll_list name="action_list"
+			     tool_tip="Выберите способность для деталей.">
+				<column label="" name="icon" />
+				<column label="" name="action" />
+			</scroll_list>
+			<string name="help_text">
+				Способности позволяют участникам выполнять определенные функции для группы.
+Существуют самые разнообразные функции.
+			</string>
+		</panel>
+	</tab_container>
+	<panel name="members_footer">
+		<text name="static">
+			Присв. роли
+		</text>
+		<text name="static2">
+			Допустимые способн.
+		</text>
+		<scroll_list name="member_assigned_roles">
+			<column label="" name="checkbox" />
+			<column label="" name="role" />
+		</scroll_list>
+		<scroll_list name="member_allowed_actions"
+		     tool_tip="Детали каждой способности см. на соотв. вкладке.">
+			<column label="" name="icon" />
+			<column label="" name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="roles_footer">
+		<text name="static">
+			Имя
+		</text>
+		<text name="static2">
+			Описание
+		</text>
+		<line_editor name="role_name">
+			Служащие
+		</line_editor>
+		<text name="static3">
+			Титул
+		</text>
+		<line_editor name="role_title">
+			(ожидание)
+		</line_editor>
+		<text_editor name="role_description">
+			(ожидание)
+		</text_editor>
+		<text name="static4">
+			Присвоенные роли
+		</text>
+		<text name="static5"
+		     tool_tip="Список способностей для выбранной роли.">
+			Допустимые способности
+		</text>
+		<check_box label="Видимые участники" name="role_visible_in_list"
+		     tool_tip="Укажите, каких участников с этой ролью смогут увидеть посторонние люди в инфо о группе." />
+		<scroll_list name="role_allowed_actions"
+		     tool_tip="См. вкладку Способности, если хотите знать детали о каждой из них.">
+			<column label="" name="icon" />
+			<column label="" name="checkbox" />
+			<column label="" name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="actions_footer">
+		<text name="static">
+			Описание
+		</text>
+		<text_editor name="action_description">
+			Это способность &apos;Исключения из группы&apos;. Только владелец может исключить другого владельца.
+		</text_editor>
+		<text name="static2">
+			Роли со способностями
+		</text>
+		<text name="static3">
+			Участники со способностями
+		</text>
+	</panel>
+</panel>

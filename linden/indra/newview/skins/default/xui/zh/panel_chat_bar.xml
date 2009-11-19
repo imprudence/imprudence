@@ -1,20 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="chat_bar">
-	<button label="Local Chat" name="历史"
-	     tool_tip="点击这里看周围的人刚才说了些什么" />
-	<button label="历史" label_selected="历史" name="History" />
-	<line_editor label="点击这里开始聊天。" name="Chat Editor"
-	     tool_tip="按 Enter 来聊天，Ctrl-Enter 来喊叫" />
-	<flyout_button label="说" name="Say" tool_tip="(回车)" >
-		<flyout_button_item name="say_item">说</flyout_button_item>
-		<flyout_button_item name="shout_item">喊叫</flyout_button_item>
-		<flyout_button_item name="whisper_item">小声说</flyout_button_item>
+	<button label="历史" label_selected="历史" name="History" tool_tip="点击这里查看聊天记录"/>
+	<line_editor label="点击这里开始聊天。" name="Chat Editor" tool_tip="按 Enter 来聊天，Ctrl-Enter 来喊叫"/>
+	<flyout_button label="说" name="Say" tool_tip="(回车)">
+		<flyout_button_item name="shout_item">
+			喊叫
+		</flyout_button_item>
+		<flyout_button_item name="say_item">
+			说
+		</flyout_button_item>
+		<flyout_button_item name="whisper_item">
+			小声说
+		</flyout_button_item>
 	</flyout_button>
-	<combo_box label="动作" name="Gesture">
-		<combo_item name="Gestures">
-			动作
-		</combo_item>
-	</combo_box>
+	<combo_box label="动作" name="Gesture"/>
 	<string name="gesture_label">
 		动作
 	</string>

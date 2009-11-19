@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="telehub" title="Telehub" width="312">
+	<text name="status_text_connected" width="298">
+		Telehub kapcsolódva ehhez a tárgyhoz: [OBJECT]
+	</text>
+	<text name="status_text_not_connected">
+		Nincs kapcsolódott telehub.
+	</text>
+	<text name="help_text_connected">
+		Eltávolításhoz, kattints a kapcsolat 
+megszakításra.
+	</text>
+	<text name="help_text_not_connected">
+		Válaszd ki a tárgyat és kattints a kapcsolódás 
+telehubhoz gombot.
+	</text>
+	<button label="Kapcsolódás telehubhoz" name="connect_btn" width="140" bottom_delta="-30"/>
+	<button label="Kapcsolat megszakítása" name="disconnect_btn" width="140" left="155"/>
+	<text name="spawn_points_text" width="290">
+		Belépési pontok (koordináták, nem tárgyak):
+	</text>
+	<scroll_list bottom_delta="-30" height="30" left="10" name="spawn_points_list" width="290" />
+	<button label="Pont hozzáadása" name="add_spawn_point_btn" />
+	<button label="Pont eltávolítása" name="remove_spawn_point_btn" />
+	<text name="spawn_point_help" width="290">
+		Válaszd ki a tárgyat és kattints a egyedi koordináta
+hozzáadásara. Így lehetőséged lesz mozgtni és törölni
+a tárgyat. Koordináták relatív távolságok a telehub
+központhoz viszonyítva.
+Válassz a listából a koordináta megjelenítéshez.
+	</text>
+</floater>

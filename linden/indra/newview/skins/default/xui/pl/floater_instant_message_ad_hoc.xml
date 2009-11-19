@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(nieznany)" name="im_floater" title="(nieznany)">
+	<string name="ringing">
+		Łączenie Rozmowy...
+	</string>
+	<string name="connected">
+		Połączenie uzyskane, kliknij Skończ żeby się rozłączyć
+	</string>
+	<string name="hang_up">
+		Opuść Rozmowę
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="title_string">
+		Wiadomość (IM) od [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] pisze...
+	</string>
+	<string name="session_start_string">
+		Rozpoczęcie rozmowy z [NAME]. Proszę czekać...
+	</string>
+	<string name="default_text_label">
+		Wpisz treść wiadomości
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Dzwoń" name="start_call_btn" />
+			<button label="Skończ" name="end_call_btn" halign="right" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Kliknij tutaj by zobaczyć listę osób biorących udział w czacie (IM)." />
+			<line_editor label="Kliknij tutaj by wyslać wiadomość (IM)" name="chat_editor" />
+			<button label="Wyślij" name="send_btn" />
+		</layout_panel>
+	</layout_stack>
+	<string name="live_help_dialog">
+		*** Witamy w Serwisie Pomocy *** 
+Proszę o zapoznanie się ze stroną pomocy Second Life poprzez wciśnięcie klawisza F1 lub skorzystanie z Bazy Wiedzy (Knowledge Base) na http://secondlife.com/knowledgebase/ 
+Jeżeli nie znajdziesz tam poszukiwanej odpowiedzi, proszę wpisać swoje pytanie by rozpocząć konwersację z jednym z pomocników. Poczekaj kilka minut na odpowiedź z serwisu.
+-=-=- Pamiętaj także, że czas odpowiedzi może się zmieniać, zwłaszcza w godzinach największej aktywności użytkowników. -=-=-
+	</string>
+</floater>

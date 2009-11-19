@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Event" title="Событие">
+	<text name="event_name_label">
+		Название:
+	</text>
+	<text name="event_name" left="140" >
+		(нет)
+	</text>
+	<text name="event_category_label">
+		Тип:
+	</text>
+	<text name="event_category" left="140" >
+		(нет)
+	</text>
+	<text name="event_mature_label">
+		Mature контент:
+	</text>
+	<text name="event_mature_yes" left="140" >
+		Да
+	</text>
+	<text name="event_mature_no" left="140" >
+		Нет
+	</text>
+	<text name="event_date_label">
+		Дата:
+	</text>
+	<text name="event_date" left="140" >
+		(нет)
+	</text>
+	<text name="event_duration_label">
+		Продолжительность события:
+	</text>
+	<text name="event_duration" left="210" >
+		(нет)
+	</text>
+	<text name="event_runby_label">
+		Начало:
+	</text>
+	<text name="event_runby" left="140" >
+		(нет)
+	</text>
+	<text name="event_location_label">
+		Место:
+	</text>
+	<text name="event_location" left="140" >
+		(нет)
+	</text>
+	<text name="event_cover_label">
+		Обложка:
+	</text>
+	<text name="event_cover" left="140" >
+		(нет)
+	</text>
+	<text name="event_desc_label">
+		Описание:
+	</text>
+	<button label="Телепорт" name="teleport_btn"/>
+	<button label="Показать на карте" name="map_btn"/>
+	<button label="Уведомление" name="notify_btn"/>
+	<button label="Создать событие..." name="create_event_btn"/>
+	<string name="none">
+		нет
+	</string>
+	<string name="notify">
+		Уведомить
+	</string>
+	<string name="dont_notify">
+		Не уведомлять
+	</string>
+</panel>

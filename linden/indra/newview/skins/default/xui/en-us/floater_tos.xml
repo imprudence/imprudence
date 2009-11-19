@@ -24,10 +24,11 @@ you must accept the agreement.
 	     word_wrap="true">
 		TOS_TEXT
 	</text_editor>
+  <!-- Loading text says: "Loading Terms of Service..." URL encoded -->
 	<web_browser bottom="-406" embedded_items="false" follows="left|top" font="SansSerif"
 	     height="340" left="16" max_length="65536" mouse_opaque="true"
 	     name="tos_html"
-	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody text=%22000000%22%3E%3Ch1%3E%3Ctt%3Eloading...%3C/tt%3E%3C/h1%3E %3C/body%3E %3C/html%3E"
+	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody text=%22000000%22%3E%3Ch2%3E Loading %3Ca%20target%3D%22_external%22%20href%3D%22http%3A//secondlife.com/app/tos/%22%3ETerms%20of%20Service%3C/a%3E...%3C/h2%3E %3C/body%3E %3C/html%3E"
 	     width="568" word_wrap="true" />
 	<string name="real_url">
 		http://secondlife.com/app/tos/

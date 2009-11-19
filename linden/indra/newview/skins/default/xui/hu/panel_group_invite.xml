@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Tag meghívása" name="invite_panel">
+	<text name="help_text">
+		Egyszerre több lakót is meghívhatsz 
+a csoportba. Kattints a &apos;Lakó 
+kiválasztása&apos; gombra az indításhoz.
+	</text>
+	<button label="Lakó kiválasztása" name="add_button" tool_tip=""/>
+	<name_list name="invitee_list" tool_tip="Több lakó egyszerre törénő kiválasztásához tTartsd lenyomva a Ctrl billentyűt és kattints a lakók neveire."/>
+	<button label="Kijelölt elátvolítása a listáról" name="remove_button" tool_tip="Kijelölt lakók eltávolítása a meghívási listáról."/>
+	<text name="role_text">
+		Válaszd ki a hozzájuk rendelt 
+beosztást:
+	</text>
+	<combo_box name="role_name" tool_tip="Válassz beosztást a listáról." bottom_delta="-30"/>
+	<button label="Meghívó küldése" name="ok_button"/>
+	<button label="Mégsem" name="cancel_button"/>
+	<string name="confirm_invite_owner_str">
+		Biztos, hogy új tulajdonos(oka)t szeretnél meghívni? Ez a választás nem visszavonható!
+	</string>
+	<string name="loading">
+		(betöltés folyamatban...)
+	</string>
+</panel>

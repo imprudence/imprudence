@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater label="(不明）" name="im_floater" title="(不明）">
+<floater label="(不明）" name="im_floater" title="(不明）" min_width="385">
 	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
-			<button label="コール" name="start_call_btn"/>
-			<button label="コールの終了" name="end_call_btn"/>
+			<button label="コール" name="start_call_btn" width="125"/>
+			<button label="コールの終了" name="end_call_btn" width="125"/>
 			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="このIMセッションのアクティブな参加者のリスト表示を切り替えるにはここをクリックします"/>
 			<line_editor label="ここをクリックしてIM" name="chat_editor"/>
 			<button label="送信" name="send_btn"/>
 		</layout_panel>
-		<layout_panel name="active_speakers_panel">
+		<layout_panel name="active_speakers_panel" min_width="200" width="200">
 			<scroll_list name="speakers_list">
 				<column label="名前" name="speaker_name"/>
 			</scroll_list>
@@ -25,7 +25,7 @@
 		</layout_panel>
 	</layout_stack>
 	<string name="ringing">
-		ボイスチャットに参加する．．．
+		ボイスチャットに参加する...
 	</string>
 	<string name="connected">
 		接続しました、通話を終了する場合は「通話の終了」をクリックしてください。

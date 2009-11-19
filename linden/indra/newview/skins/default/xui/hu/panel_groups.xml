@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="groups">
+	<scroll_list name="group list">
+		<column label="" name="name" />
+	</scroll_list>
+	<text type="string" length="1" name="groupdesc">
+		Az aktív csoportod vastagon van jelölve.
+	</text>
+	<text type="string" length="1" name="groupcount" width="300">
+		Ennyi csoportnak vagy tagja: [COUNT]/([MAX] maximum).
+	</text>
+	<button label="Üzenet" name="IM" tool_tip="Üzenet küldése" />
+	<button label="Információ" name="Info" />
+	<button label="Aktivál" name="Activate" />
+	<button label="Kilép" name="Leave" />
+	<button label="Létrehoz" name="Create" />
+	<button label="Keres" name="Search..." />
+</panel>

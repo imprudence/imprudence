@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Графика" name="Display panel">
+	<button label="?" name="GraphicsPreferencesHelpButton" />
+	<check_box label="Запускать в окне" name="windowed mode" />
+	<text_editor type="string" length="1" name="FullScreenInfo">
+		SL-клиент будет запускаться на весь экран.
+	</text_editor>
+	<text type="string" length="1" name="WindowSizeLabel">
+		Размер окна:
+	</text>
+	<combo_box name="windowsize combo">
+		<combo_item type="string" length="1" name="640x480">
+			640x480
+		</combo_item>
+		<combo_item type="string" length="1" name="800x600">
+			800x600
+		</combo_item>
+		<combo_item type="string" length="1" name="720x480">
+			720x480 (NTSC)
+		</combo_item>
+		<combo_item type="string" length="1" name="768x576">
+			768x576 (PAL)
+		</combo_item>
+		<combo_item type="string" length="1" name="1024x768">
+			1024x768
+		</combo_item>
+	</combo_box>
+	<text type="string" length="1" name="DisplayResLabel">
+		Разрешение экрана:
+	</text>
+	<text type="string" length="1" name="AspectRatioLabel1" tool_tip="ширина / высота">
+		Соотношение сторон:
+	</text>
+	<combo_box name="aspect_ratio" tool_tip="ширина / высота">
+		<combo_item type="string" length="1" name="4:3(StandardCRT)">
+			4:3 (Стандарт CRT)
+		</combo_item>
+		<combo_item type="string" length="1" name="5:4(1280x1024LCD)">
+			5:4 (1280x1024 LCD)
+		</combo_item>
+		<combo_item type="string" length="1" name="8:5(Widescreen)">
+			8:5 (Широкоэкранный)
+		</combo_item>
+		<combo_item type="string" length="1" name="16:9(Widescreen)">
+			16:9 (Широкоэкранный)
+		</combo_item>
+	</combo_box>
+	<check_box label="Автоопределение" name="aspect_auto_detect" />
+	<text type="string" length="1" name="HigherText">
+		Качество и
+	</text>
+	<text type="string" length="1" name="QualityText" width="102">
+		Быстродействие:
+	</text>
+	<text type="string" length="1" name="FasterText">
+		Быстрее
+	</text>
+	<text type="string" length="1" name="ShadersPrefText">
+		Низк.
+	</text>
+	<text type="string" length="1" name="ShadersPrefText2">
+		Средн.
+	</text>
+	<text type="string" length="1" name="ShadersPrefText3">
+		Высок.
+	</text>
+	<text type="string" length="1" name="ShadersPrefText4">
+		Ультра
+	</text>
+	<text type="string" length="1" name="HigherText2">
+		Высшее
+	</text>
+	<text type="string" length="1" name="QualityText2">
+		Качество
+	</text>
+	<slider label="" name="QualityPerformanceSelection" />
+	<check_box label="Пользоват." name="CustomSettings" />
+	<text type="string" length="1" name="ShadersText">
+		Шейдеры:
+	</text>
+	<check_box label="Просчет ударов и сияния" name="BumpShiny" />
+	<check_box label="Базовые шейдеры" name="BasicShaders"
+	     tool_tip="Отключение этой опции защитит некоторые видеокарты от вылета." />
+	<check_box label="Атмосферные шейдеры" name="WindLightUseAtmosShaders" />
+	<check_box label="Отражения воды" name="Reflections" />
+	<text type="string" length="1" name="ReflectionDetailText" width="144">
+		Детализация отражений:
+	</text>
+	<radio_group name="ReflectionDetailRadio">
+		<radio_item type="string" length="1" name="0">
+			Земля и деревья
+		</radio_item>
+		<radio_item type="string" length="1" name="1">
+			Все статичные объекты
+		</radio_item>
+		<radio_item type="string" length="1" name="2">
+			Все аватары и объекты
+		</radio_item>
+		<radio_item type="string" length="1" name="3">
+			Все
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="AvatarRenderingText">
+		Рендеринг аватара:
+	</text>
+	<check_box label="Аватар" name="AvatarImpostors" />
+	<check_box label="Шкуры аватаров" name="AvatarVertexProgram" />
+	<check_box label="Одежда аватаров" name="AvatarCloth" />
+	<text type="string" length="1" name="DrawDistanceMeterText1">
+		м
+	</text>
+	<text type="string" length="1" name="DrawDistanceMeterText2">
+		м
+	</text>
+	<slider label="Дальность прорисовки:" name="DrawDistance" />
+	<slider label="Макс. число частиц:" name="MaxParticleCount" />
+	<slider label="Кач-во постобработки:" name="RenderPostProcess" />
+	<text type="string" length="1" name="MeshDetailText">
+		Детализация сеток:
+	</text>
+	<slider label="   Объекты:" name="ObjectMeshDetail" />
+	<slider label="   Гибкие примы:" name="FlexibleMeshDetail" />
+	<slider label="   Деревья:" name="TreeMeshDetail" />
+	<slider label="   Аватары:" name="AvatarMeshDetail" />
+	<slider label="   Ландшафт:" name="TerrainMeshDetail" />
+	<slider label="   Небо:" name="SkyMeshDetail" />
+	<text type="string" length="1" name="PostProcessText">
+		Низко
+	</text>
+	<text type="string" length="1" name="ObjectMeshDetailText">
+		Низко
+	</text>
+	<text type="string" length="1" name="FlexibleMeshDetailText">
+		Низко
+	</text>
+	<text type="string" length="1" name="TreeMeshDetailText">
+		Низко
+	</text>
+	<text type="string" length="1" name="AvatarMeshDetailText">
+		Низко
+	</text>
+	<text type="string" length="1" name="TerrainMeshDetailText">
+		Низко
+	</text>
+	<text type="string" length="1" name="SkyMeshDetailText">
+		Низко
+	</text>
+	<text type="string" length="1" name="LightingDetailText">
+		Детали освещения:
+	</text>
+	<radio_group name="LightingDetailRadio">
+		<radio_item type="string" length="1" name="SunMoon">
+			Только Солнце и Луна
+		</radio_item>
+		<radio_item type="string" length="1" name="LocalLights">
+			Ближ. источники света
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="TerrainDetailText">
+		Детали ландшафта:
+	</text>
+	<radio_group name="TerrainDetailRadio" left_delta="45" >
+		<radio_item type="string" length="1" name="0">
+			Низко
+		</radio_item>
+		<radio_item type="string" length="1" name="2">
+			Высоко
+		</radio_item>
+	</radio_group>
+	<button label="Рекомендованные" name="Defaults" />
+	<button label="Настройки оборудования"
+	     label_selected="Настройки оборудования"
+	     name="GraphicsHardwareButton" width="180" />
+	<string name="resolution_format">
+		[RES_X] x [RES_Y]
+	</string>
+	<string name="aspect_ratio_text">
+		[NUM]:[DEN]
+	</string>
+</panel>

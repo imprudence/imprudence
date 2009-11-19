@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="objectcontents" title="Зміст об&apos;єкта" min_width="330">
+	<text type="string" length="1" name="object_name">
+		[DESC]:
+	</text>
+	<button label="Копіювати в інвентар"
+	     label_selected="Копіювати в інвентар"
+	     name="copy_to_inventory_button"  width="170" left="4"/>
+	<button label="Копіювати і вдягти"
+	     label_selected="Копіювати і вдягти"
+	     name="copy_and_wear_button" width="150" left="180"/>
+</floater>

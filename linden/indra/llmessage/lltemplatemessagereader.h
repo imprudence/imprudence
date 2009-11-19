@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -104,7 +105,7 @@ public:
 	virtual void copyToBuilder(LLMessageBuilder&) const;
 
 	BOOL validateMessage(const U8* buffer, S32 buffer_size, 
-						 const LLHost& sender);
+						 const LLHost& sender, bool trusted = false);
 	BOOL readMessage(const U8* buffer, const LLHost& sender);
 
 	bool isTrusted() const;

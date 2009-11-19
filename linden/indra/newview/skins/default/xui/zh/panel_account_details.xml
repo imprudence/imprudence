@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Details" name="account_details_panel">
-	<button label="&lt;较早" label_selected="&lt;较早" name="earlier_btn"
-	     tool_tip="时间返回" />
-	<button label="延迟 &gt;" label_selected="延迟 &gt;" name="later_btn"
-	     tool_tip="时间前进" />
-</panel>

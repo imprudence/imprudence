@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floater_lagmeter" title="Gecikme ölçüsü">
+	<button label="" label_selected="" name="client_lagmeter" tool_tip="İstemci gecikme durumu"/>
+	<text name="client">
+		İstemci:
+	</text>
+	<text name="client_text">
+		Normal
+	</text>
+	<button label="" label_selected="" name="network_lagmeter" tool_tip="Ağ gecikme durumu"/>
+	<text name="network">
+		Ağ:
+	</text>
+	<text name="network_text">
+		Normal
+	</text>
+	<button label="" label_selected="" name="server_lagmeter" tool_tip="Server lag status"/>
+	<text name="server">
+		Sunucu:
+	</text>
+	<text name="server_text">
+		Normal
+	</text>
+	<button label="?" name="server_help"/>
+	<button label="&gt;&gt;" name="minimize"/>
+	<string name="max_title_msg">
+		Gecikme Ölçüsü
+	</string>
+	<string name="max_width_px">
+		360
+	</string>
+	<string name="min_title_msg">
+		Gecikme
+	</string>
+	<string name="min_width_px">
+		90
+	</string>
+	<string name="client_text_msg">
+		İstemci
+	</string>
+	<string name="client_frame_rate_critical_fps">
+		10
+	</string>
+	<string name="client_frame_rate_warning_fps">
+		15
+	</string>
+	<string name="client_frame_time_window_bg_msg">
+		Normal, arka planda pencere olarak
+	</string>
+	<string name="client_frame_time_critical_msg">
+		İstemci kareleme oranı düşük [CLIENT_FRAME_RATE_CRITICAL]
+	</string>
+	<string name="client_frame_time_warning_msg">
+		İstemci kareleme oranı [CLIENT_FRAME_RATE_CRITICAL] ve [CLIENT_FRAME_RATE_WARNING] arasında
+	</string>
+	<string name="client_frame_time_normal_msg">
+		Normal
+	</string>
+	<string name="client_draw_distance_cause_msg">
+		Olası sorun: Çizim uzaklığı çok yüksek
+	</string>
+	<string name="client_texture_loading_cause_msg">
+		Olası neden: Resimler yükleniyor
+	</string>
+	<string name="client_texture_memory_cause_msg">
+		Olası neden: Hafızada çok fazla resim mevcut
+	</string>
+	<string name="client_complex_objects_cause_msg">
+		Olası neden: Yerde çok fazla komplike objeler mevcut
+	</string>
+	<string name="network_text_msg">
+		Ağ
+	</string>
+	<string name="network_packet_loss_critical_pct">
+		10
+	</string>
+	<string name="network_packet_loss_warning_pct">
+		5
+	</string>
+	<string name="network_packet_loss_critical_msg">
+		Bağlantı kesiliyor [NETWORK_PACKET_LOSS_CRITICAL]% kayıp paket
+	</string>
+	<string name="network_packet_loss_warning_msg">
+		Bağlantı kesiliyor [NETWORK_PACKET_LOSS_WARNING]%-[NETWORK_PACKET_LOSS_CRITICAL]% kayıp paket
+	</string>
+	<string name="network_performance_normal_msg">
+		Normal
+	</string>
+	<string name="network_ping_critical_ms">
+		600
+	</string>
+	<string name="network_ping_warning_ms">
+		300
+	</string>
+	<string name="network_ping_critical_msg">
+		Bağlantı ping süresi sona erdi [NETWORK_PING_CRITICAL] ms
+	</string>
+	<string name="network_ping_warning_msg">
+		Bağlantı ping süresi [NETWORK_PING_WARNING]-[NETWORK_PING_CRITICAL] ms
+	</string>
+	<string name="network_packet_loss_cause_msg">
+		Olası kötü bağlantı veya &apos;Bant genişliği&apos; seçeneği çok yüksek.
+	</string>
+	<string name="network_ping_cause_msg">
+		Olası kötü bağlantı veya dosya-paylaşım uygulaması.
+	</string>
+	<string name="server_text_msg">
+		Sunucu
+	</string>
+	<string name="server_frame_rate_critical_fps">
+		20
+	</string>
+	<string name="server_frame_rate_warning_fps">
+		30
+	</string>
+	<string name="server_single_process_max_time_ms">
+		20
+	</string>
+	<string name="server_frame_time_critical_msg">
+		Simulatör kareleme oranı düşük [SERVER_FRAME_RATE_CRITICAL]
+	</string>
+	<string name="server_frame_time_warning_msg">
+		Simulatör kareleme oranı [SERVER_FRAME_RATE_CRITICAL] ve [SERVER_FRAME_RATE_WARNING] arasında
+	</string>
+	<string name="server_frame_time_normal_msg">
+		Normal
+	</string>
+	<string name="server_physics_cause_msg">
+		Olası neden: Çok fazla fiziksel objeler mevcut
+	</string>
+	<string name="server_scripts_cause_msg">
+		Olası neden: Çok fazla betikli objeler mevcut
+	</string>
+	<string name="server_net_cause_msg">
+		Olası neden: Çok fazla ağ trafiği
+	</string>
+	<string name="server_agent_cause_msg">
+		Olası neden: Bölgede çok fazla hareket eden insanlar mevcut
+	</string>
+	<string name="server_images_cause_msg">
+		Olası neden: Çok fazla resim hesaplamaları mevcut
+	</string>
+	<string name="server_generic_cause_msg">
+		Olası neden: Çok fazla simulatör yükü mevcut
+	</string>
+	<string name="smaller_label">
+		&gt;&gt;
+	</string>
+	<string name="bigger_label">
+		&lt;&lt;
+	</string>
+</floater>

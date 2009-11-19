@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -82,6 +83,21 @@ glh::matrix4f gl_perspective(GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloa
 						 0, 0, -1.f, 0);
 }
 
+glh::matrix4f gl_lookat(LLVector3 eye, LLVector3 center, LLVector3 up)
+{
+	LLVector3 f = center-eye;
+	f.normVec();
+	up.normVec();
+	LLVector3 s = f % up;
+	LLVector3 u = s % f;
+
+	return glh::matrix4f(s[0], s[1], s[2], 0,
+					  u[0], u[1], u[2], 0,
+					  -f[0], -f[1], -f[2], 0,
+					  0, 0, 0, 1);
+	
+}
+
 LLViewerCamera::LLViewerCamera() : LLCamera()
 {
 	calcProjection(getFar());
@@ -138,9 +154,9 @@ void LLViewerCamera::updateCameraLocation(const LLVector3 &center,
 	mVelocityStat.addValue(dpos);
 	mAngularVelocityStat.addValue(drot);
 	// update pixel meter ratio using default fov, not modified one
-	mPixelMeterRatio = mViewHeightInPixels / (2.f*tanf(mCameraFOVDefault*0.5));
+	mPixelMeterRatio = getViewHeightInPixels()/ (2.f*tanf(mCameraFOVDefault*0.5));
 	// update screen pixel area
-	mScreenPixelArea =(S32)((F32)mViewHeightInPixels * ((F32)mViewHeightInPixels * mAspect));
+	mScreenPixelArea =(S32)((F32)getViewHeightInPixels() * ((F32)getViewHeightInPixels() * getAspect()));
 }
 
 const LLMatrix4 &LLViewerCamera::getProjection() const
@@ -182,7 +198,7 @@ void LLViewerCamera::calcProjection(const F32 far_distance) const
 // height.
 
 //static
-void LLViewerCamera::updateFrustumPlanes(LLCamera& camera, BOOL ortho, BOOL zflip)
+void LLViewerCamera::updateFrustumPlanes(LLCamera& camera, BOOL ortho, BOOL zflip, BOOL no_hacks)
 {
 	GLint* viewport = (GLint*) gGLViewport;
 	GLdouble* model = gGLModelView;
@@ -191,7 +207,27 @@ void LLViewerCamera::updateFrustumPlanes(LLCamera& camera, BOOL ortho, BOOL zfli
 
 	LLVector3 frust[8];
 
-	if (zflip)
+	if (no_hacks)
+	{
+		gluUnProject(viewport[0],viewport[1],0,model,proj,viewport,&objX,&objY,&objZ);
+		frust[0].setVec((F32)objX,(F32)objY,(F32)objZ);
+		gluUnProject(viewport[0]+viewport[2],viewport[1],0,model,proj,viewport,&objX,&objY,&objZ);
+		frust[1].setVec((F32)objX,(F32)objY,(F32)objZ);
+		gluUnProject(viewport[0]+viewport[2],viewport[1]+viewport[3],0,model,proj,viewport,&objX,&objY,&objZ);
+		frust[2].setVec((F32)objX,(F32)objY,(F32)objZ);
+		gluUnProject(viewport[0],viewport[1]+viewport[3],0,model,proj,viewport,&objX,&objY,&objZ);
+		frust[3].setVec((F32)objX,(F32)objY,(F32)objZ);
+
+		gluUnProject(viewport[0],viewport[1],1,model,proj,viewport,&objX,&objY,&objZ);
+		frust[4].setVec((F32)objX,(F32)objY,(F32)objZ);
+		gluUnProject(viewport[0]+viewport[2],viewport[1],1,model,proj,viewport,&objX,&objY,&objZ);
+		frust[5].setVec((F32)objX,(F32)objY,(F32)objZ);
+		gluUnProject(viewport[0]+viewport[2],viewport[1]+viewport[3],1,model,proj,viewport,&objX,&objY,&objZ);
+		frust[6].setVec((F32)objX,(F32)objY,(F32)objZ);
+		gluUnProject(viewport[0],viewport[1]+viewport[3],1,model,proj,viewport,&objX,&objY,&objZ);
+		frust[7].setVec((F32)objX,(F32)objY,(F32)objZ);
+	}
+	else if (zflip)
 	{
 		gluUnProject(viewport[0],viewport[1]+viewport[3],0,model,proj,viewport,&objX,&objY,&objZ);
 		frust[0].setVec((F32)objX,(F32)objY,(F32)objZ);
@@ -231,7 +267,7 @@ void LLViewerCamera::updateFrustumPlanes(LLCamera& camera, BOOL ortho, BOOL zfli
 		
 		if (ortho)
 		{
-			LLVector3 far_shift = LLVector3(camera.getFar()*2.0f,0,0);
+			LLVector3 far_shift = camera.getAtAxis()*camera.getFar()*2.f; 
 			for (U32 i = 0; i < 4; i++)
 			{
 				frust[i+4] = frust[i] + far_shift;
@@ -368,13 +404,13 @@ void LLViewerCamera::setPerspective(BOOL for_selection,
 
 	updateFrustumPlanes(*this);
 
-	if (gSavedSettings.getBOOL("CameraOffset"))
+	/*if (gSavedSettings.getBOOL("CameraOffset"))
 	{
 		glMatrixMode(GL_PROJECTION);
 		glTranslatef(0,0,-50);
 		glRotatef(20.0,1,0,0);
 		glMatrixMode(GL_MODELVIEW);
-	}
+	}*/
 }
 
 
@@ -732,3 +768,38 @@ BOOL LLViewerCamera::areVertsVisible(LLViewerObject* volumep, BOOL all_verts)
 	}
 	return all_verts;
 }
+
+// changes local camera and broadcasts change
+/* virtual */ void LLViewerCamera::setView(F32 vertical_fov_rads)
+{
+	F32 old_fov = LLViewerCamera::getInstance()->getView();
+
+	// cap the FoV
+	vertical_fov_rads = llclamp(vertical_fov_rads, getMinView(), getMaxView());
+
+	if (vertical_fov_rads == old_fov) return;
+
+	// send the new value to the simulator
+	LLMessageSystem* msg = gMessageSystem;
+	msg->newMessageFast(_PREHASH_AgentFOV);
+	msg->nextBlockFast(_PREHASH_AgentData);
+	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+	msg->addU32Fast(_PREHASH_CircuitCode, gMessageSystem->mOurCircuitCode);
+
+	msg->nextBlockFast(_PREHASH_FOVBlock);
+	msg->addU32Fast(_PREHASH_GenCounter, 0);
+	msg->addF32Fast(_PREHASH_VerticalAngle, vertical_fov_rads);
+
+	gAgent.sendReliableMessage();
+
+	// sync the camera with the new value
+	LLCamera::setView(vertical_fov_rads); // call base implementation
+}
+
+void LLViewerCamera::setDefaultFOV(F32 vertical_fov_rads) {
+	vertical_fov_rads = llclamp(vertical_fov_rads, getMinView(), getMaxView());
+	setView(vertical_fov_rads);
+	mCameraFOVDefault = vertical_fov_rads; 
+}
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Pick" title="Seleziona">
+	<button label="Imposta luogo" name="set_location_btn" left="235"/>
+	<button label="Teleportati" name="pick_teleport_btn" width="95"/>
+	<button label="Mostra sulla mappa" name="pick_map_btn" width="130" left="105"/>
+	<text name="sort_order_text">
+		Ordina:
+	</text>
+	<check_box label="Abilitato" name="enabled_check"/>
+</panel>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Скины" name="Skins panel">
+	<text type="string" length="1" name="muting_text">
+		Выбрать скин (нужен рестарт)
+	</text>
+	<radio_group name="skin_selection">
+		<radio_item name="default">
+			Умолчание
+		</radio_item>
+		<radio_item name="silver">
+			Серебро
+		</radio_item>
+	</radio_group>
+	<button label="" name="classic_preview" />
+	<button label="" name="silver_preview" />
+</panel>

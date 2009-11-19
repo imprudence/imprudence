@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="floaterbulkperms" title="İçerik izinleri toplu değişimi">
+	<text name="applyto">
+		İçerik türleri
+	</text>
+	<check_box label="Animasyon" name="check_animation"/>
+	<check_box label="Vücut parçaları" name="check_bodypart"/>
+	<check_box label="Giyim" name="check_clothing"/>
+	<check_box label="Hareketler" name="check_gesture"/>
+	<check_box label="Yer imleri" name="check_landmark"/>
+	<check_box label="Notkartlar" name="check_notecard"/>
+	<check_box label="Objeler" name="check_object"/>
+	<check_box label="Betikler" name="check_script"/>
+	<check_box label="Sesler" name="check_sound"/>
+	<check_box label="Desenler" name="check_texture"/>
+	<button label="Hepsini seç" label_selected="Hepsi" name="check_all"/>
+	<button label="Hiçbirini seçme" label_selected="Yok" name="check_none"/>
+	<text name="newperms">
+		Yeni izinler
+	</text>
+	<check_box label="Grup ile paylaş" name="share_with_group"/>
+	<check_box label="Herhangi birinin kopyalamasına izin ver" name="everyone_copy"/>
+	<text name="NextOwnerLabel">
+		Sonraki sahip:
+	</text>
+	<check_box label="Modifiye" name="next_owner_modify"/>
+	<check_box label="Kopyalama" name="next_owner_copy"/>
+	<check_box label="Tekrar satış/transfer" name="next_owner_transfer"/>
+	<button label="Yardım" name="help"/>
+	<button label="Uygula" name="apply"/>
+	<button label="Kapat" name="close"/>
+	<string name="nothing_to_modify_text">
+		Seçim düzenlenemeyen içerikler içeriyor.
+	</string>
+	<string name="status_text">
+		[NAME] üzerinde izinler düzenleniyor
+	</string>
+	<string name="start_text">
+		İzin değişim isteği başlatılıyor...
+	</string>
+	<string name="done_text">
+		İzin değişim isteği sona erdi.
+	</string>
+</floater>

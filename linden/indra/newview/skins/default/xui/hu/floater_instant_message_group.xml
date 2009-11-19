@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(unknown)" name="im_floater" title="(unknown)">
+	<string name="ringing">
+		Kapcsolódás a beszélgetéshez...
+	</string>
+	<string name="connected">
+		Kapcsolódva, kattints a hívás vége gombra a befejezéshez
+	</string>
+	<string name="hang_up">
+		A beszélgetésből kiszállt
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="live_help_dialog">
+		*** Üdvözlünk a segítség kérése részben *** 
+Kérjük először látogasd meg a hivatalos SL támogatói oldalt, amit elérsz közvetlenül az F1 lenyomásával, vagy hasznád a tudásbázist, ahol választ kaphatsz kérdéseidre itt: http://secondlife.com/knowledgebase/.
+Amennyiben nem kaptál találtál megoldást problémádra, kérjük írd meg kérdésed közvetlenül a támogatás menüben, ahol akár azonnal választ is kaphatsz.
+-=-=- Az ügyfélszolgálat válaszideje változó, különösképpen csúcsidőben. -=-=-
+	</string>
+	<string name="title_string">
+		Azonnali üzenet ennak a lakónak: [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] éppen ír...
+	</string>
+	<string name="session_start_string">
+		Üzenet küldése ennek: [NAME]. Kérjük várj.
+	</string>
+	<string name="moderated_chat_label">
+		(Moderált: Alapértelmezettként a hang kikapcsolva)
+	</string>
+	<string name="default_text_label">
+		Kattints ide az azonnali üzenet küldéséhez.
+	</string>
+	<string name="muted_text_label">
+		A csoportmoderátor kikapcsolta a szöveges üzeneteidet.
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<button label="Csoport információ" name="group_info_btn" width="122"/>
+			<button label="Híváshoz kapcsolódás" name="start_call_btn" left_delta="127" width="160"/>
+			<button label="Hívás vége" name="end_call_btn" width="160" halign="center"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Kattints ide a beszélgetésben résztvevők listájának megtekintéséhez." />
+			<button label="Send" name="send_btn" />
+		</layout_panel>
+	</layout_stack>
+</floater>

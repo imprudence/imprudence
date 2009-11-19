@@ -1,3 +1,171 @@
+2009-11-15 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed CMake setting errors. 
+	
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/cmake/CopyWinLibs.cmake
+
+
+2009-11-14 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Moved blog and forums menu option alerts to new notifications system.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/notifications.x
+
+
+2009-11-13 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Force Imprudence to use the correst boost libraries, e.g:
+	  #pragma comment( lib, "libboost_signals-vc80-mt-1_36.lib" )
+	
+	  modified:   linden/indra/newview/llappviewerwin32.cpp
+	  
+	  
+	* Fixed linker error (onClickHome in llfloaterhtmlhelp.cpp).
+	
+	  modified:   linden/indra/newview/llfloaterhtmlhelp.cpp
+	  
+	  
+	* Disable unreachable code in boost/lexical_cast.hpp errors in Windows.
+	
+	  modified:   linden/indra/newview/llpaneldirfind.cpp
+	  modified:   linden/indra/newview/llvoavatar.cpp
+
+
+2009-11-10 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Viewer compiles, but still trying to get everything to link on Windows.
+	
+	  modified:   linden/indra/cmake/Boost.cmake
+	  modified:   linden/indra/llcommon/linden_common.h
+	  modified:   linden/indra/llmath/llmath.h
+	  modified:   linden/indra/newview/llfloaterhtmlhelp.cpp
+	  modified:   linden/indra/newview/llfloaterhtmlhelp.h
+	  modified:   linden/install.xml
+
+
+2009-11-09 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed llstartup header issue and removed WIN32_LEAN_AND_MEAN define. 
+	
+	  modified:   linden/indra/newview/llstartup.cpp
+	   
+
+	* Removed deprecated EGridInfo from llloginhandler.
+	
+	  modified:   linden/indra/newview/llloginhandler.cpp
+	  
+	  
+	* Updated primbackup from latest meerkat svn (r246).
+	
+	  modified:   linden/indra/newview/primbackup.cpp
+	  modified:   linden/indra/newview/primbackup.h
+
+
+	* Attachment size limits need to use the max prim size set in llmanipscale.
+	
+	  modified:   linden/indra/newview/llvoavatar.cpp
+	  
+	  
+	* Updated streaming video callback in llviewerparcelmedia.
+	
+	  modified:   linden/indra/newview/llviewerparcelmedia.cpp
+	  
+	  
+	* llpanellogin and llviewermessage now compile.
+	
+	  modified:   linden/indra/newview/llpanellogin.cpp
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  
+	
+	* Updated several menu entries to 1.23.
+	
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  
+	  
+	* Removed unused menu entries (still merging 1.23).
+	
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+	* Updated asset browser from old font system.
+	
+	  modified:   linden/indra/newview/llfloaterassetbrowser.cpp
+	  
+	  
+	* Media browser now compiles (TODO: rewrite this file again).
+	
+	  modified:   linden/indra/newview/llfloaterhtmlhelp.cpp
+	  modified:   linden/indra/newview/llfloaterhtmlhelp.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/notifications.x
+
+
+	* Moved 1.2 alerts to the new notification system.
+	
+	  modified:   linden/indra/newview/llfloatertools.cpp
+	  modified:   linden/indra/newview/llimpanel.cpp
+	  modified:   linden/indra/newview/llinventorybridge.cpp
+	  modified:   linden/indra/newview/llinventorybridge.h
+	  modified:   linden/indra/newview/llmutelist.cpp
+	  modified:   linden/indra/newview/llmutelist.h
+	  modified:   linden/indra/newview/llpanelface.cpp
+	  modified:   linden/indra/newview/llpanelobject.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/llviewerwindow.cpp
+	  modified:   linden/indra/newview/llviewerwindow.h
+	  modified:   linden/indra/newview/panelradar.cpp
+	  modified:   linden/indra/newview/panelradar.h
+	  modified:   linden/indra/newview/rlvdefines.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/alerts.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/notifications.xml
+
+
+2009-11-08 McCabe Maxsted  <hakushakukun@gmail.com>
+	
+	* Removed unused CMake resource files.
+	
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  
+	  
+	* Merged in nearly-done 1.2 with 1.3.
+
+	  Conflicts: 
+	  ChangeLog.txt
+	  linden/indra/llmedia/llmediaimplllmozlib.cpp
+	  linden/indra/llui/llalertdialog.cpp
+	  linden/indra/newview/llinventorybridge.cpp
+	  linden/indra/newview/llpanelcontents.cpp
+	  linden/indra/newview/llpanelinput.cpp
+	  linden/indra/newview/res/viewerRes.rc
+	  linden/indra/newview/skins/default/xui/de/alerts.xml
+	  linden/indra/newview/skins/default/xui/de/notify.xml
+	  linden/indra/newview/skins/default/xui/en-us/alerts.xml
+	  linden/indra/newview/skins/default/xui/es/alerts.xml
+	  linden/indra/newview/skins/default/xui/fr/alerts.xml
+	  linden/indra/newview/skins/default/xui/fr/notify.xml
+	  linden/indra/newview/skins/default/xui/ja/alerts.xml
+	  linden/indra/newview/skins/default/xui/ja/notify.xml
+	  linden/indra/newview/skins/default/xui/ko/alerts.xml
+	  linden/indra/newview/skins/default/xui/ko/notify.xml
+	  linden/indra/newview/skins/default/xui/pt/alerts.xml
+	  linden/indra/newview/skins/default/xui/pt/notify.xml
+	  linden/indra/newview/skins/default/xui/zh/alerts.xml
+	  linden/install.xml
+
+
+2009-10-18 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Merged working branch of 1.2 into LL 1.23 merge.
+
+
+
+2009-08-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Updated Imprudence to be based on SL 1.23.4.
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                         1.2.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

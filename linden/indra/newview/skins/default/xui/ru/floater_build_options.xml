@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="build options floater" title="Опции сетки">
+	<spinner label="Единица сетки, м" name="GridResolution"  width="210" label_width="152"/>
+	<spinner label="Пространство сетки, м" name="GridDrawSize"  width="210" label_width="152"/>
+	<check_box label="Включить посадку элементов" name="GridSubUnit" />
+	<check_box label="Показать линии пересечений"
+	     name="GridCrossSection" />
+	<slider label="Непрозрачность сетки" name="GridOpacity" width="220"/>
+</floater>

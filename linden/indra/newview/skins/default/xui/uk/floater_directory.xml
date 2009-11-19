@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="directory" title="Пошук в Second Life">
+	<tab_container name="Directory Tabs">
+		<panel label="Все" name="find_all_panel">
+			<string name="searching_text">
+				Пошук...
+			</string>
+			<string name="not_found_text">
+				Не знайдено.
+			</string>
+			<text name="find">
+				Знайти:
+			</text>
+			<line_editor label="Пошук" name="search_editor" tool_tip="Пошук в Second Life"/>
+			<button label="&lt; Назад" name="back_btn"/>
+			<button label="Вперед &gt;" name="forward_btn"/>
+			<button label="Пошук" name="search_btn"/>
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Будь-яка категорія
+				</combo_item>
+				<combo_item name="Events">
+					Події
+				</combo_item>
+				<combo_item name="Groups">
+					Групи
+				</combo_item>
+				<combo_item name="People">
+					Люди
+				</combo_item>
+				<combo_item name="Places">
+					Місця
+				</combo_item>
+				<combo_item name="Wiki">
+					Вікі
+				</combo_item>
+			</combo_box>
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
+			<button label="?" label_selected="?" name="?"/>
+			<string name="loading_text">
+				Завантаження...
+			</string>
+			<string name="done_text">
+				Готово
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+			<string name="default_search_page">
+				http://secondlife.com/app/search/index.php?
+			</string>
+		</panel>
+		<panel label="Оголошення" name="classified_panel">
+			<string name="searching_text">
+				Пошук...
+			</string>
+			<string name="not_found_text">
+				Не знайдено.
+			</string>
+			<text name="find">
+				Знайти:
+			</text>
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Всі категорії
+				</combo_item>
+				<combo_item name="Shopping">
+					Магазини
+				</combo_item>
+				<combo_item name="LandRental">
+					Аренда землі
+				</combo_item>
+				<combo_item name="PropertyRental">
+					Аренда власності
+				</combo_item>
+				<combo_item name="SpecialAttraction">
+					Спеціальні пропозиції
+				</combo_item>
+				<combo_item name="NewProducts">
+					Нові Продукти
+				</combo_item>
+				<combo_item name="Employment">
+					Работа по найму
+				</combo_item>
+				<combo_item name="Wanted">
+					Розшукується
+				</combo_item>
+				<combo_item name="Service">
+					Служба
+				</combo_item>
+				<combo_item name="Personal">
+					Особисте
+				</combo_item>
+			</combo_box>
+			<button label="Огляд" label_selected="Огляд" name="Browse"/>
+			<button label="Пошук" label_selected="Пошук" name="Search"/>
+			<button label="Розм.рекламу..." label_selected="Розм.рекламу..." name="Place an Ad..."/>
+			<button label="Видалити" label_selected="Видалити" name="Delete"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Назва" name="name"/>
+				<column label="Ціна" name="price"/>
+			</scroll_list>
+			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
+			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
+		</panel>
+		<panel label="Події" name="events_panel">
+			<string name="searching_text">
+				Пошук...
+			</string>
+			<string name="not_found_text">
+				Не знайдено.
+			</string>
+			<text name="text2">
+				Знайти:
+			</text>
+			<radio_group name="date_mode">
+				<radio_item name="current">
+					Поточні і майбутні
+				</radio_item>
+				<radio_item name="date">
+					Дата
+				</radio_item>
+			</radio_group>
+			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;" tool_tip="На день назад"/>
+			<text name="date_text">
+				6/6
+			</text>
+			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;" tool_tip="На день вперед"/>
+			<button bottom="-62" label="Сьогодні" label_selected="Сьогодні" left_delta="-72" name="Today" tool_tip="Показати поточні події" width="95"/>
+			<text name="text">
+				Категорія:
+			</text>
+			<combo_box name="category combo" width="180">
+				<combo_item name="All">
+					Будь-яка Категорія
+				</combo_item>
+				<combo_item name="Discussion">
+					Обговорення
+				</combo_item>
+				<combo_item name="Sports">
+					Спорт
+				</combo_item>
+				<combo_item name="LiveMusic">
+					Жива музика
+				</combo_item>
+				<combo_item name="Commercial">
+					Комерційний
+				</combo_item>
+				<combo_item name="Nightlife/Entertainment">
+					Нічне життя/Розваги
+				</combo_item>
+				<combo_item name="Games/Contests">
+					Ігри/Конкурси
+				</combo_item>
+				<combo_item name="Pageants">
+					Вистави
+				</combo_item>
+				<combo_item name="Education">
+					Освіта
+				</combo_item>
+				<combo_item name="ArtsandCulture">
+					Мистецтво і Культура
+				</combo_item>
+				<combo_item name="Charity/SupportGroups">
+					Благодійність/Підтримка
+				</combo_item>
+				<combo_item name="Miscellaneous">
+					Різне
+				</combo_item>
+			</combo_box>
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
+			<button label="Пошук" label_selected="Пошук" name="Search" tool_tip="Пошук"/>
+			<button label="Видалити" label_selected="Видалити" name="Delete"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Назва" name="name"/>
+				<column label="Час (PT)" name="date"/>
+				<column label="" name="event_id"/>
+				<column label="Час" name="time"/>
+			</scroll_list>
+			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
+			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
+		</panel>
+		<panel label="Вітрина" name="showcase_panel">
+			<string name="searching_text">
+				Пошук...
+			</string>
+			<string name="not_found_text">
+				Не знайдено.
+			</string>
+			<button label="&lt; Назад" name="back_btn"/>
+			<button label="Вперед &gt;" name="forward_btn"/>
+			<string name="loading_text">
+				Завантаження...
+			</string>
+			<string name="done_text">
+				Готово
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+			<string name="default_search_page">
+				http://secondlife.com/app/showcase/index.php?
+			</string>
+		</panel>
+		<panel label="Продаж землі" name="land_sales_panel">
+			<string name="searching_text">
+				Пошук...
+			</string>
+			<string name="not_found_text">
+				Не знайдено.
+			</string>
+			<string name="land_help_text">
+				Земля може бути куплена напряму за Лінден Долари (L$) або на аукціоні за L$ або US$.
+Щоб купити напряму, відвідайте землю і натисніть на назву місця у стрічці заголовку.
+			</string>
+			<text name="find">
+				Знайти:
+			</text>
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
+			<combo_box bottom="-64" left="224" name="type" width="175">
+				<combo_item name="AllTypes">
+					Усі типи
+				</combo_item>
+				<combo_item name="Auction">
+					Аукціон
+				</combo_item>
+				<combo_item name="MainlandSales">
+					Продається на материку
+				</combo_item>
+				<combo_item name="EstateSales">
+					Продається Маєток
+				</combo_item>
+			</combo_box>
+			<check_box label="Ціна &#8804; " name="pricecheck"/>
+			<text left="120" name="pricecheck_symbol">
+				L$
+			</text>
+			<check_box label="Площ. &#8805; " name="areacheck"/>
+			<text left="190" name="areacheck_symbol" width="30">
+				м²
+			</text>
+			<line_editor left="135" name="priceedit"/>
+			<line_editor left="135" name="areaedit"/>
+			<button bottom="-66" label="Пошук" label_selected="Пошук" left="140" name="Search" width="80"/>
+			<scroll_list height="438" name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Назва" name="name"/>
+				<column label="Тип" name="landtype"/>
+				<column label="L$" name="price"/>
+				<column label="Площ." name="area"/>
+				<column label="L$/м²" name="per_meter"/>
+			</scroll_list>
+			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
+			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
+		</panel>
+		<panel label="Місця" name="places_panel">
+			<string name="searching_text">
+				Пошук...
+			</string>
+			<string name="not_found_text">
+				Не знайдено.
+			</string>
+			<text name="find">
+				Знайти:
+			</text>
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Всі категорії
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Місця Лінденів
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Культура і Мистецтво
+				</combo_item>
+				<combo_item name="Business">
+					Бізнес
+				</combo_item>
+				<combo_item name="Educational">
+					Освіта
+				</combo_item>
+				<combo_item name="Gaming">
+					Ігри
+				</combo_item>
+				<combo_item name="Hangout">
+					Місце зустрічей
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Для новачків
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Парки і Природа
+				</combo_item>
+				<combo_item name="Residential">
+					Резиденції
+				</combo_item>
+				<combo_item name="Shopping">
+					Магазини
+				</combo_item>
+				<combo_item name="Other">
+					Інше
+				</combo_item>
+			</combo_box>
+			<combo_box name="Category_Adult">
+				<combo_item name="AnyCategory">
+					Будь-яка Категорія
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Локації Linden
+				</combo_item>
+				<combo_item name="Adult">
+					Adult
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Мистецтво &amp; Культура
+				</combo_item>
+				<combo_item name="Business">
+					Бізнес
+				</combo_item>
+				<combo_item name="Educational">
+					Освіта
+				</combo_item>
+				<combo_item name="Gaming">
+					Ігри
+				</combo_item>
+				<combo_item name="Hangout">
+					Місце зустрічей
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Для новачків
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Парки &amp; Природа
+				</combo_item>
+				<combo_item name="Residential">
+					Резиденція
+				</combo_item>
+				<combo_item name="Shopping">
+					Покупки
+				</combo_item>
+				<combo_item name="Other">
+					Інше
+				</combo_item>
+			</combo_box>
+			<button label="Пошук" label_selected="Пошук" name="Search"/>
+			<scroll_list name="results">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Назва" name="name"/>
+				<column label="Трафік" name="dwell"/>
+			</scroll_list>
+			<button label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
+			<button label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
+		</panel>
+		<panel label="Люди" name="people_panel">
+			<string name="searching_text">
+				Пошук...
+			</string>
+			<string name="not_found_text">
+				Не знайдено.
+			</string>
+			<text name="find">
+				Знайти:
+			</text>
+			<button label="Пошук" label_selected="Пошук" name="Search"/>
+			<scroll_list name="results" width="266">
+				<column label="" name="icon"/>
+				<column label="" name="type"/>
+				<column label="Назва" name="name" width="214"/>
+			</scroll_list>
+			<button right="270" label="Наст. &gt;" label_selected="Наст. &gt;" name="Next &gt;"/>
+			<button right="184" label="&lt; Поп." label_selected="&lt; Поп." name="&lt; Prev"/>
+		</panel>
+		<panel label="Групи" name="groups_panel">
+			<string name="searching_text">
+				Пошук...
+			</string>
+			<string name="not_found_text">
+				Не знайдено.
+			</string>
+			<text name="find">
+				Знайти:
+			</text>
+			<line_editor label="Пошук" name="search_editor" tool_tip="Пошук в Second Life"/>
+			<button label="&lt; Назад" name="back_btn"/>
+			<button label="Вперед &gt;" name="forward_btn"/>
+			<button label="Пошук" name="search_btn"/>
+			<check_box label="PG контент" name="incpg"/>
+			<check_box label="Mature контент" name="incmature"/>
+			<check_box label="Adult контент" name="incadult"/>
+			<string name="loading_text">
+				Завантаження...
+			</string>
+			<string name="done_text">
+				Готово
+			</string>
+			<string name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</string>
+			<string name="default_search_page">
+				http://secondlife.com/app/search/index_groups.php?
+			</string>
+		</panel>
+	</tab_container>
+	<panel left="280" name="Panel Avatar" width="500" />
+</floater>

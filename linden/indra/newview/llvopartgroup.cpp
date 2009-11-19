@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -185,12 +186,13 @@ BOOL LLVOPartGroup::updateGeometry(LLDrawable *drawable)
 	S32 count=0;
 	mDepth = 0.f;
 	S32 i = 0 ;
+	LLVector3 camera_agent = getCameraPosition();
 	for (i = 0 ; i < (S32)mViewerPartGroupp->mParticles.size(); i++)
 	{
 		const LLViewerPart *part = mViewerPartGroupp->mParticles[i];
 
 		LLVector3 part_pos_agent(part->mPosAgent);
-		LLVector3 at(part_pos_agent - LLViewerCamera::getInstance()->getOrigin());
+		LLVector3 at(part_pos_agent - camera_agent);
 
 		F32 camera_dist_squared = at.lengthSquared();
 		F32 inv_camera_dist_squared;
@@ -313,7 +315,7 @@ void LLVOPartGroup::getGeometry(S32 idx,
 	up *= 0.5f*part.mScale.mV[1];
 
 
-	const LLVector3& normal = -LLViewerCamera::getInstance()->getXAxis();
+	LLVector3 normal = -LLViewerCamera::getInstance()->getXAxis();
 		
 	*verticesp++ = part_pos_agent + up - right;
 	*verticesp++ = part_pos_agent - up - right;
@@ -363,7 +365,7 @@ LLParticlePartition::LLParticlePartition()
 LLHUDParticlePartition::LLHUDParticlePartition() :
 	LLParticlePartition()
 {
-	mDrawableType = LLPipeline::RENDER_TYPE_HUD;
+	mDrawableType = LLPipeline::RENDER_TYPE_HUD_PARTICLES;
 	mPartitionType = LLViewerRegion::PARTITION_HUD_PARTICLE;
 }
 
@@ -417,7 +419,9 @@ void LLParticlePartition::addGeometryCount(LLSpatialGroup* group, U32& vertex_co
 void LLParticlePartition::getGeometry(LLSpatialGroup* group)
 {
 	LLMemType mt(LLMemType::MTYPE_SPACE_PARTITION);
-	LLFastTimer ftm(LLFastTimer::FTM_REBUILD_PARTICLE_VB);
+	LLFastTimer ftm(mDrawableType == LLPipeline::RENDER_TYPE_GRASS ?
+					LLFastTimer::FTM_REBUILD_GRASS_VB :
+					LLFastTimer::FTM_REBUILD_PARTICLE_VB);
 
 	std::sort(mFaceList.begin(), mFaceList.end(), LLFace::CompareDistanceGreater());
 
@@ -437,7 +441,7 @@ void LLParticlePartition::getGeometry(LLSpatialGroup* group)
 	buffer->getVertexStrider(verticesp);
 	buffer->getNormalStrider(normalsp);
 	buffer->getColorStrider(colorsp);
-	buffer->getTexCoordStrider(texcoordsp);
+	buffer->getTexCoord0Strider(texcoordsp);
 	buffer->getIndexStrider(indicesp);
 
 	LLSpatialGroup::drawmap_elem_t& draw_vec = group->mDrawMap[mRenderPass];	
@@ -478,8 +482,12 @@ void LLParticlePartition::getGeometry(LLSpatialGroup* group)
 			U32 offset = facep->getIndicesStart();
 			U32 count = facep->getIndicesCount();
 			LLDrawInfo* info = new LLDrawInfo(start,end,count,offset,facep->getTexture(), buffer, fullbright); 
+			info->mExtents[0] = group->mObjectExtents[0];
+			info->mExtents[1] = group->mObjectExtents[1];
 			info->mVSize = vsize;
 			draw_vec.push_back(info);
+			//for alpha sorting
+			facep->setDrawInfo(info);
 		}
 	}
 
@@ -493,19 +501,15 @@ F32 LLParticlePartition::calcPixelArea(LLSpatialGroup* group, LLCamera& camera)
 }
 
 U32 LLVOHUDPartGroup::getPartitionType() const
-{ 
-	// Commenting out and returning PARTITION_NONE because DEV-16909 
-	// (SVC-2396: Particles not handled properly as hud) didn't work completely 
-	// so this disables HUD particles until they can be fixed properly. -MG
-	//return LLViewerRegion::PARTITION_HUD_PARTICLE; 
-	return LLViewerRegion::PARTITION_NONE;
+{
+	return LLViewerRegion::PARTITION_HUD_PARTICLE; 
 }
 
 LLDrawable* LLVOHUDPartGroup::createDrawable(LLPipeline *pipeline)
 {
 	pipeline->allocDrawable(this);
 	mDrawable->setLit(FALSE);
-	mDrawable->setRenderType(LLPipeline::RENDER_TYPE_HUD);
+	mDrawable->setRenderType(LLPipeline::RENDER_TYPE_HUD_PARTICLES);
 	return mDrawable;
 }
 
@@ -513,3 +517,4 @@ LLVector3 LLVOHUDPartGroup::getCameraPosition() const
 {
 	return LLVector3(-1,0,0);
 }
+

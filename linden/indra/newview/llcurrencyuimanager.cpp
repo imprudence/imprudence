@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -120,7 +121,8 @@ LLCurrencyUIManager::Impl::Impl(LLPanel& dialog)
 	: mPanel(dialog),
 	mHidden(false),
 	mError(false),
-	mUserCurrencyBuy(1000), mUserEnteredCurrencyBuy(false),
+	mUserCurrencyBuy(2000), // note, this is a default, real value set in llfloaterbuycurrency.cpp
+	mUserEnteredCurrencyBuy(false),
 	mSiteCurrencyEstimated(false),
 	  mSiteCurrencyEstimatedCost(0),
 	mBought(false),

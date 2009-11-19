@@ -34,14 +34,8 @@
 	<text label="성인용" name="access_text">
 		성인용:
 	</text>
-	<combo_box label="성인용" name="access_combo">
-		<combo_item name="PG">
-			미성인
-		</combo_item>
-		<combo_item name="Mature">
-			성인용
-		</combo_item>
-	</combo_box>
+
+
 	<button label="?" name="access_help" />
 	<button label="적용" name="apply_btn" />
 	<button label="한 명의 사용자를 홈으로 텔레포트..." name="kick_btn" />

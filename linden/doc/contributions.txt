@@ -1,4 +1,3 @@
-
 Linden Lab would like to acknowledge source code contributions from the
 following residents.   The Second Life resident name is given below,
 along with the issue identifier corresponding to the patches we've
@@ -10,20 +9,39 @@ Able Whitman
 	VWR-1460
 	VWR-1691
 	VWR-1735
+	VWR-1813
 Adam Marker
 	VWR-2755
+Agathos Frascati
+	CT-246
+	CT-317
+	CT-352
 Aimee Trescothick
-    VWR-3336
+	VWR-1813
+	VWR-3321
+	VWR-3336
 	VWR-3903
 	VWR-3336
 	VWR-4083
+	VWR-6348
+	VWR-6358
+	VWR-6360
+	VWR-6550
+	VWR-6583
+	VWR-6482
 	VWR-7109
+	VWR-7383
 	VWR-8341
 	VWR-8430
+	VWR-8482
 	VWR-9255
+	VWR-11844
 	VWR-12748
 Alejandro Rosenthal
 	VWR-1184
+Aleric Inglewood
+	VWR-10759
+	VWR-10837
 Alissa Sabre
 	VWR-81
 	VWR-83
@@ -45,38 +63,58 @@ Alissa Sabre
 	VWR-1351
 	VWR-1353
 	VWR-1410
+        VWR-1843
 	VWR-2116
 	VWR-2826
 	VWR-3290
+	VWR-3410
 	VWR-3857
 	VWR-4010
-	VWR-3410
-	VWR-6386
+	VWR-5575
+        VWR-5929
         VWR-6384
         VWR-6385
-        VWR-5929
+	VWR-6386
         VWR-6430
-        VWR-1843
+	VWR-6858
         VWR-6668
+        VWR-7086
+        VWR-7087
         VWR-7153
         VWR-7168
+<<<<<<< HEAD
+=======
         VWR-7087
         VWR-7086
+>>>>>>> origin/next
 	VWR-9190
 	VWR-10728
 	VWR-12620
 Angus Boyd
 	VWR-592
+Ann Congrejo
+	CT-193
 Argent Stonecutter
 	VWR-68
 Armin Weatherwax
 	VWR-8436
 Asuka Neely
-  VWR-3434
+	VWR-3434
+	VWR-8179
 Balp Allen
-    VWR-4157
+	VWR-4157
 Benja Kepler
 	VWR-746
+Biancaluce Robbiani
+	CT-225
+	CT-226
+	CT-227
+	CT-228
+	CT-229
+	CT-230
+	CT-231
+	CT-321
+	CT-352
 Blakar Ogre
 	VWR-418
 	VWR-881
@@ -89,15 +127,31 @@ blino Nakamura
 Boroondas Gupte
 	VWR-233
 	WEB-262
+Bulli Schumann
+	CT-218
+	CT-219
+	CT-220
+	CT-221
+	CT-222
+	CT-223
+	CT-224
+	CT-319
+	CT-350
+	CT-352
 bushing Spatula
 	VWR-119
 	VWR-424
 Carjay McGinnis
 	VWR-3737
 	VWR-4070
+	VWR-4212
 	VWR-6154
 Catherine Pfeffer
 	VWR-1282
+	VWR-8624
+Celierra Darling
+	VWR-1274
+	VWR-6975
 Dale Glass
 	VWR-120
 	VWR-560
@@ -133,12 +187,18 @@ Eddy Stryker
 EponymousDylan Ra
 	VWR-1289
 	VWR-1465
+Eva Nowicka
+	CT-324
+	CT-352
 Farallon Greyskin
 	VWR-2036
 Feep Larsson
 	VWR-447
 	VWR-1314
 	VWR-4444
+Flemming Congrejo
+	CT-193
+	CT-318
 Fluf Fredriksson
 	VWR-3450
 Fremont Cunningham
@@ -146,8 +206,6 @@ Fremont Cunningham
 Geneko Nemeth
 	CT-117
 	VWR-11069
-Gudmund Shepherd
-	VWR-1873
 Gigs Taggart
 	SVC-493
 	VWR-6
@@ -168,6 +226,7 @@ Gigs Taggart
 	VWR-2491
 	VWR-2502
 	VWR-2331
+	VWR-8781
 Ginko Bayliss
 	VWR-4
 Grazer Kline
@@ -175,8 +234,11 @@ Grazer Kline
 	VWR-2113
 Gudmund Shepherd
 	VWR-1594
+	VWR-1873
 Hamncheese Omlet
 	VWR-333
+HappySmurf Papp
+	CT-193
 Henri Beauchamp
 	VWR-1320
 	VWR-1406
@@ -189,15 +251,23 @@ Hiro Sommambulist
 	VWR-97
 	VWR-100
 	VWR-105
-	VWR-108
 	VWR-118
 	VWR-132
 	VWR-136
 	VWR-143
 Hoze Menges
 	VWR-255
+Ian Kas
+	VWR-8780 (Russian localization)
+	[NO JIRA] (Ukranian localization)
+	CT-322
+	CT-325
+Irene Muni
+	CT-324
+	CT-352
 Iskar Ariantho
 	VWR-1223
+	VWR-11759
 Jacek Antonelli
 	VWR-165
 	VWR-188
@@ -207,17 +277,38 @@ Jacek Antonelli
 	VWR-2448
 	VWR-3605
 JB Kraft
-  VWR-5283
-  VWR-7802
+	VWR-5283
+	VWR-7802
 Joghert LeSabre
 	VWR-64
 Kage Pixel
 	VWR-11
+Ken March
+	CT-245
+Kerutsen Sellery
+	VWR-1350
+Khyota Wulluf
+	VWR-9256
 Kunnis Basiat
 	VWR-82
 	VWR-102
+Lisa Lowe
+	CT-218
+	CT-219
+	CT-220
+	CT-221
+	CT-222
+	CT-223
+	CT-224
+	CT-319
+Lockhart Cordoso
+	VWR-108
 maciek marksman
 	CT-86
+Magnus Balczo
+	CT-138
+Malwina Dollinger
+	CT-138
 march Korda
 	SVC-1020
 Matthew Dowd
@@ -226,10 +317,17 @@ Matthew Dowd
 	VWR-1736
 	VWR-1737
 	VWR-1761
+	VWR-2681
 McCabe Maxsted
 	VWR-1318
+	VWR-4065
+	VWR-4826
+	VWR-7827
+	VWR-7877
 	VWR-7893
+	VWR-8080
 	VWR-8689
+	VWR-9007
 Michelle2 Zenovka
 	VWR-2652
 	VWR-2662
@@ -239,14 +337,16 @@ Michelle2 Zenovka
 	VWR-4331
 	VWR-4506
 	VWR-4981
+	VWR-5082
 	VWR-5659
 	VWR-7831
 	VWR-8889
 	VWR-8310
-	VWR-4022
+	VWR-9499
 Mm Alder
 	VWR-3777
 	VWR-4794
+	VWR-13578
 Mr Greggan
 	VWR-445
 Nicholaz Beresford
@@ -307,6 +407,7 @@ Nicholaz Beresford
 	VWR-1754
 	VWR-1769
 	VWR-1808
+	VWR-1826
 	VWR-1861
 	VWR-1872
 	VWR-1968
@@ -321,7 +422,7 @@ Nicholaz Beresford
 Nounouch Hapmouche
 	VWR-238
 Patric Mills
-    VWR-2645
+	VWR-2645
 Paul Churchill
 	VWR-20
 	VWR-493
@@ -329,6 +430,7 @@ Paul Churchill
 	VWR-1567
 	VWR-1647
 	VWR-1880
+	VWR-2072
 Paula Innis
 	VWR-30
 	VWR-293
@@ -340,17 +442,48 @@ Peekay Semyorka
 	VWR-49
 	VWR-79
 Peter Lameth
-  VWR-7331
+	VWR-7331
+Pf Shan
+	CT-225
+	CT-226
+	CT-227
+	CT-228
+	CT-229
+	CT-230
+	CT-231
+	CT-321
 princess niven
 	VWR-5733
         CT-85
+	CT-320
+	CT-352
 Renault Clio
 	VWR-1976
+Ringo Tuxing
+	CT-225
+	CT-226
+	CT-227
+	CT-228
+	CT-229
+	CT-230
+	CT-231
+	CT-321
 Robin Cornelius
 	SNOW-108
 	VWR-2488
+	VWR-9557
 Ryozu Kojima
+	VWR-53
 	VWR-287
+Salahzar Stenvaag
+	CT-225
+	CT-226
+	CT-227
+	CT-228
+	CT-229
+	CT-230
+	CT-231
+	CT-321
 Sammy Frederix
 	VWR-6186
 Scrippy Scofield
@@ -363,12 +496,22 @@ Seg Baphomet
 	VWR-2662
 	VWR-3206
 	VWR-2488
+Sergen Davies
+	CT-225
+	CT-226
+	CT-227
+	CT-228
+	CT-229
+	CT-230
+	CT-231
+	CT-321
 SignpostMarv Martin
 	VWR-153
 	VWR-154
 	VWR-155
 	VWR-218
 	VWR-373
+	VWR-8357
 Simon Nolan
 	VWR-409
 SpacedOut Frye
@@ -399,10 +542,6 @@ Strife Onizuka
 	VWR-183
 	VWR-2265
 	VWR-4111
-Teardrops Fall
-	VWR-5366
-tenebrous pau
-	VWR-247
 TBBle Kurosawa
 	VWR-938
 	VWR-941
@@ -411,6 +550,10 @@ TBBle Kurosawa
 	VWR-945
 	VWR-1891
 	VWR-1892
+Teardrops Fall
+	VWR-5366
+tenebrous pau
+	VWR-247
 Tharax Ferraris
 	VWR-605
 Thickbrick Sleaford
@@ -418,6 +561,10 @@ Thickbrick Sleaford
 Thraxis Epsilon
 	SVC-371
 	VWR-383
+tiamat bingyi
+	CT-246
+TraductoresAnonimos Alter
+	CT-324
 Tue Torok
 	CT-68
 	CT-69
@@ -425,24 +572,47 @@ Tue Torok
 	CT-72
 	CT-73
 	CT-74
-Wilton Lundquist
-	VWR-7682
+Vadim Bigbear
+	VWR-2681
+Vixen Heron
+	VWR-2710
+	CT-88
 Whoops Babii
 	VWR-631
 	VWR-1640
 	VWR-3340
+	VWR-4800
+	VWR-4802
+	VWR-4804
+	VWR-4805
+	VWR-4806
+	VWR-4808
+	VWR-4809
+	VWR-4811
+	VWR-4815
+	VWR-4816
+	VWR-4818
 	VWR-5659
+	VWR-8291
+	VWR-8292
+	VWR-8293
+	VWR-8294
+	VWR-8295
+	VWR-8296
+	VWR-8297
+	VWR-8298
+Wilton Lundquist
+	VWR-7682
 Zarkonnen Decosta
 	VWR-253
 Zi Ree
+	VWR-423
 	VWR-671
 	VWR-682
 	VWR-684
+	VWR-9127
 	VWR-1140
 Zipherius Turas
 	VWR-76
 	VWR-77
-Kerutsen Sellery
-        VWR-1350
-
 

@@ -30,8 +30,8 @@
     <combo_item name="mature" value="Mature">
       Mature Content
     </combo_item>
-    <combo_item name="not_mature" value="Not Mature">
-      Not Mature Content
+    <combo_item name="pg" value="PG">
+      PG Content
     </combo_item>
   </combo_box>
 	<combo_box bg_readonly_color="grey" bottom="445" follows="left|top" height="18" label=""

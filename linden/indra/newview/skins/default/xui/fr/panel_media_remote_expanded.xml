@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="media_remote">
-	<panel label="Audio et Vidéo" name="Volume Panel"/>
+	<panel label="Audio et vidéo" name="Volume Panel"/>
 	<string name="play_label">
 		Jouer
 	</string>

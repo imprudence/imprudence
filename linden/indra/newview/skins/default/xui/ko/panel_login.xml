@@ -38,7 +38,7 @@
 		회원 가입
 	</text>
 	<text name="channel_text">
-		[CHANNEL] [VERSION]
+		[VERSION]
 	</text>
 	<text name="forgot_password_text">
 		세컨드라이프 이름 또는 비밀번호를 분실하셨습니까?

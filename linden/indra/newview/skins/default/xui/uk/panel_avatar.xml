@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="Panel Avatar" width="500">
+	<tab_container name="tab" width="489">
+		<panel label="2е Життя" name="2nd Life" width="488">
+			<string name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+[AGEVERIFICATION]
+			</string>
+			<string name="AcctTypeResident">
+				Резидент
+			</string>
+			<string name="AcctTypeTrial">
+				Тріальний
+			</string>
+			<string name="AcctTypeCharterMember">
+				Засновник
+			</string>
+			<string name="AcctTypeEmployee">
+				Працівник Linden lab
+			</string>
+			<string name="PaymentInfoUsed">
+				Плат.інфо є
+			</string>
+			<string name="PaymentInfoOnFile">
+				Плат.інфо в файлі
+			</string>
+			<string name="NoPaymentInfoOnFile">
+				Немає плат.інфо
+			</string>
+			<string name="AgeVerified">
+				Вік перевірено
+			</string>
+			<string name="NotAgeVerified">
+				Вік неперевірено
+			</string>
+			<text name="Name:">
+				Ім&apos;я:
+			</text>
+			<text name="online_yes" width="181">
+				Зараз онлайн
+			</text>
+			<text name="label">
+				Народ.:
+			</text>
+			<line_editor name="born" width="191"/>
+			<text name="label2">
+				Аккаунт:
+			</text>
+			<view_border name="acct_border" width="191"/>
+			<text name="acct" width="191"/>
+			<text name="partner_label" tool_tip="Партнер Second Life. Для інформації, як ним стати, див. www.secondlife.com/partner">
+				Партнер
+			</text>
+			<button label="i" label_selected="i" name="partner_info" tool_tip="Натисніть для перегляду профіля партнера"/>
+			<button label="?" label_selected="?" name="partner_help"/>
+			<line_editor name="partner_edit" tool_tip="Партнер Second Life. Для інформації, як ним стати, див. www.secondlife.com/partner" width="191">
+				[FIRST] [LAST]
+			</line_editor>
+			<text name="Photo:">
+				Фото:
+			</text>
+			<texture_picker label="" name="img" tool_tip="натисніть для вибору картинки"/>
+			<text name="Groups:">
+				Групи:
+			</text>
+			<scroll_list name="groups" width="391"/>
+			<text name="About:">
+				Про себе:
+			</text>
+			<text name="(500 chars)">
+				(500 симв.)
+			</text>
+			<text_editor name="about" width="391"/>
+			<text name="Give item:">
+				Дати річ:
+			</text>
+			<view_border name="drop_target_rect" width="479"/>
+			<view_border name="drop_target_rect_vis" width="391"/>
+			<text name="Give inventory" tool_tip="Киньте предмети інвентаря сюди, щоб віддати їх цій персоні." width="391">
+				Кинути предмет інвентаря сюди.
+			</text>
+			<check_box label="Показувати в пошуку" name="allow_publish" tool_tip="Публікувати додаткову інформацію, таку як опис і картинки, в Пошуку."/>
+			<button label="?" label_selected="?" name="?"/>
+			<button label="На карті" label_selected="На карті" name="Find on Map" width="130"/>
+			<button label="Запр.телепорт..." label_selected="Запр.телепорт..." left_delta="137" name="Offer Teleport..." width="174"/>
+			<button label="Додати Друга..." label_selected="Додати Друга..." left_delta="180" name="Add Friend..."/>
+			<button label="Платити..." label_selected="Платити..." name="Pay..." width="130"/>
+			<button label="Миттєве повідомлення..." label_selected="Миттєве повідомлення..." left_delta="137" name="Instant Message..." tool_tip="Миттєве повідомлення (IM)" width="174"/>
+			<button label="Заглушити" label_selected="Заглушити" left_delta="180" name="Mute"/>
+		</panel>
+		<panel label="Web" name="WebProfile" width="488">
+			<line_editor name="url_edit" width="470"/>
+			<flyout_button label="Завантаження" label_selected="Завантаження" name="load" tool_tip="Завантажити сторінку профіля вбудованим браузером.">
+				<flyout_button_item name="open_item">
+					У зовнішньому браузері
+				</flyout_button_item>
+				<flyout_button_item name="home_item">
+					Домашній URL
+				</flyout_button_item>
+			</flyout_button>
+			<button label="?" label_selected="?" name="web_profile_help"/>
+			<check_box label="Автозавантаж. профіля в Web" name="auto_load" tool_tip="Автоматично завантажувати ВСІ Інтернет-профілі без запиту."/>
+			<web_browser name="profile_html" width="470"/>
+		</panel>
+		<panel label="Інтереси" name="Interests" width="488">
+			<text name="I Want To:">
+				Я хочу:
+			</text>
+			<check_box label="Будувати" name="chk0"/>
+			<check_box label="Досліджувати" name="chk1"/>
+			<check_box label="Зустрічатися" name="chk2"/>
+			<check_box label="Працювати" name="chk6"/>
+			<check_box label="Бути в Групі" name="chk3"/>
+			<check_box label="Купувати" name="chk4"/>
+			<check_box label="Продавати" name="chk5"/>
+			<check_box label="Наймати" name="chk7"/>
+			<line_editor name="want_to_edit" width="390"/>
+			<text name="Skills:">
+				Вмію:
+			</text>
+			<check_box label="Текстури" name="schk0"/>
+			<check_box label="Архітектура" name="schk1"/>
+			<check_box label="Планування подій" name="schk2"/>
+			<check_box label="Моделюв." name="schk3"/>
+			<check_box label="Програмув." name="schk4"/>
+			<check_box label="Створення Персонажів" name="schk5"/>
+			<line_editor name="skills_edit" width="390"/>
+			<text name="Languages:">
+				Мови:
+			</text>
+			<line_editor name="languages_edit" width="390"/>
+		</panel>
+		<panel label="Вибране" name="Picks" width="488">
+			<text name="Tell everyone about your favorite places in Second Life.">
+				Розповісти усім про Ваші улюблені місця в Second Life
+			</text>
+			<button label="Новий..." label_selected="Новий..." name="New..."/>
+			<button label="Видалити..." label_selected="Видалити..." name="Delete..."/>
+			<tab_container name="picks tab" width="482"/>
+			<text name="loading_text">
+				Завантаження...
+			</text>
+		</panel>
+		<panel label="Реклама" name="Classified" width="488">
+			<text name="Place an ad in Second Life&apos;s classified listings.">
+				Розмістити рекламу в Second Life.
+			</text>
+			<button label="Новий..." label_selected="Новий..." name="New..."/>
+			<button label="Видалити..." label_selected="Видалити..." name="Delete..."/>
+			<tab_container name="classified tab" width="482"/>
+			<text name="loading_text">
+				Завантаження...
+			</text>
+		</panel>
+		<panel label="1е Життя" name="1st Life" width="488">
+			<text name="Photo:">
+				Фото:
+			</text>
+			<texture_picker label="" name="img" tool_tip="натисніть для вибору картинки"/>
+			<text name="Info:">
+				Інфо:
+			</text>
+			<text name="(250 chars)">
+				(250 симв.)
+			</text>
+			<text_editor name="about" width="400"/>
+		</panel>
+		<panel label="Мої замітки" name="My Notes" width="488">
+			<string name="Loading">
+				Завантаження...
+			</string>
+			<text name="label" width="452">
+				Використуйте це місце для запису Ваших заміток про цю персону. 
+Ведіть щоденник торгівлі, успішних проектів і т.д. 
+Жодна персона чи інші люди ніколи не побачать цих заміток.
+			</text>
+			<text_editor name="notes edit" width="470"/>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK"/>
+	<button label="Відміна" label_selected="Відміна" name="Cancel"/>
+	<button label="Викинути" label_selected="Викинути" name="Kick" width="82"/>
+	<button label="Заморозити" label_selected="Заморозити" name="Freeze" tool_tip="Зупинити переміщення резидента і його чат." width="82"/>
+	<button label="Розморозити" label_selected="Розморозити" name="Unfreeze" tool_tip="Розморозити резидента" width="82"/>
+	<button label="CSR" label_selected="CSR" name="csr_btn" tool_tip="Відкрити сервіс підтримки для резидента" width="82"/>
+	<string name="ShowOnMapNonFriend">
+		Місцезнаходження на карті.
+Вимкнено тому що Ви не оформили
+дружби з ним.
+	</string>
+	<string name="ShowOnMapFriendOffline">
+		Місцезнаходження на карті.
+Вимкнено тому що вони в офлайні.
+	</string>
+	<string name="ShowOnMapFriendOnline">
+		Місцезнаходження на карті.
+	</string>
+	<string name="TeleportGod">
+		Застосув. телепорт до Вашого розміщення.
+	</string>
+	<string name="TeleportPrelude">
+		Дозволити телепорт до Вашого розміщення.
+Вимкнено, доки Ви не покинете Orientation Island.
+	</string>
+	<string name="TeleportNormal">
+		Дозволити телепорт до Вашого розміщення.
+	</string>
+	<string name="Loading">
+		Завантаження...
+	</string>
+</panel>

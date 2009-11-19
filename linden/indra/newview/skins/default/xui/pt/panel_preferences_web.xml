@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Web" name="web">
 	<radio_group name="use_external_browser">
-		<radio_item name="external" tool_tip="Use o sistema navegador web padrão sistema para ajuda, links, etc. Não é recomendável se estiver sendo executado em tela cheia.">
+		<radio_item name="external" tool_tip="Use o navegador web padrão do sistema para ajuda, links da web, etc. Não é recomendável se estiver sendo executado em tela cheia.">
 			Use navegador externo (Firefox, Safari, Internet Explorer)
 		</radio_item>
-		<radio_item name="internal" tool_tip="Use o navegador web embutido para ajudar, links, etc Este navegador abre uma nova janela dentro do Second Life.">
-			Use navegador built-in
+		<radio_item name="internal" tool_tip="Use o navegador web embutido para ajudar, links da web, etc. Este navegador abre uma nova janela dentro do Second Life.">
+			Use navegador embutido
 		</radio_item>
 	</radio_group>
 	<text length="1" name="cache_size_label_l" type="string">
-		Cache do Browser:
+		Cache do navegador:
 	</text>
-	<button label="Limpar Agora" name="clear_cache" width="105" />
+	<button label="Limpar Agora" name="clear_cache" width="105"/>
 	<text length="1" name="cookie_label" type="string">
 		Cookies:
 	</text>
@@ -23,6 +23,6 @@
 	<text name="proxy_text_label">
 		Endereço:
 	</text>
-	<line_editor name="web_proxy_editor" tool_tip="Nome ou endereço de IP do proxy que você gostaria de usar" left="237" />
-	<spinner label="Número da porta:" name="web_proxy_port" label_width="95" width="170"/>
+	<line_editor left="237" name="web_proxy_editor" tool_tip="Nome ou endereço de IP do proxy que você gostaria de usar"/>
+	<spinner label="Número da porta:" label_width="95" name="web_proxy_port" width="170"/>
 </panel>

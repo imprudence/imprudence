@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -1136,7 +1137,7 @@ file_extensions[] =
 	{ "dxt", IMG_CODEC_DXT },
 	{ "png", IMG_CODEC_PNG }
 };
-#define NUM_FILE_EXTENSIONS sizeof(file_extensions)/sizeof(file_extensions[0])
+#define NUM_FILE_EXTENSIONS LL_ARRAY_SIZE(file_extensions)
 
 static std::string find_file(std::string &name, S8 *codec)
 {
@@ -1512,7 +1513,9 @@ BOOL LLImageFormatted::load(const std::string &filename)
 	resetLastError();
 
 	S32 file_size = 0;
-	apr_file_t* apr_file = ll_apr_file_open(filename, LL_APR_RB, &file_size);
+	LLAPRFile infile ;
+	infile.open(filename, LL_APR_RB, NULL, &file_size);
+	apr_file_t* apr_file = infile.getFileHandle();
 	if (!apr_file)
 	{
 		setLastError("Unable to open file for reading", filename);
@@ -1521,7 +1524,6 @@ BOOL LLImageFormatted::load(const std::string &filename)
 	if (file_size == 0)
 	{
 		setLastError("File is empty",filename);
-		apr_file_close(apr_file);
 		return FALSE;
 	}
 
@@ -1539,8 +1541,7 @@ BOOL LLImageFormatted::load(const std::string &filename)
 	{
 		res = updateData();
 	}
-	apr_file_close(apr_file);
-
+	
 	return res;
 }
 
@@ -1548,16 +1549,16 @@ BOOL LLImageFormatted::save(const std::string &filename)
 {
 	resetLastError();
 
-	apr_file_t* apr_file = ll_apr_file_open(filename, LL_APR_WB);
-	if (!apr_file)
+	LLAPRFile outfile ;
+	outfile.open(filename, LL_APR_WB);
+	if (!outfile.getFileHandle())
 	{
 		setLastError("Unable to open file for writing", filename);
 		return FALSE;
 	}
 	
-	ll_apr_file_write(apr_file, getData(), 	getDataSize());
-	apr_file_close(apr_file);
-
+	outfile.write(getData(), 	getDataSize());
+	outfile.close() ;
 	return TRUE;
 }
 

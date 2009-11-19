@@ -1,50 +1,80 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="契约合同" name="Covenant">
-	<text name="covenant_help_text">
-		对契约合同的更改将出现在此块地产所有的土地上。
-	</text>
-	<text name="region_name_lbl">
-		区域:
-	</text>
-	<text name="region_name_text">
-		(未知)
+	<text name="estate_section_lbl">
+		地产：
 	</text>
 	<text name="estate_name_lbl">
-		地产:
+		名称：
 	</text>
 	<text name="estate_name_text">
-		(未知)
+		大陆
 	</text>
-	<text name="covenent_instructions">
-		要更改这块不动产的契约合同，请将记事卡拖动到这里。
-	</text>
-	<button label="?" name="covenant_help" />
-	<button label="重置" name="reset_covenant" />
 	<text name="estate_owner_lbl">
-		地产持有人:
+		地产持有人：
 	</text>
 	<text name="estate_owner_text">
 		(未知)
 	</text>
+	<text name="estate_cov_lbl">
+		契约合同:
+	</text>
+	<text name="covenant_timestamp_text">
+		最后更新于1969年12月31日，星期三，16：00：00
+	</text>
+	<button label="?" name="covenant_help"/>
+	<text_editor name="covenant_editor">
+		这块地产没有契约。
+	</text_editor>
+	<button label="重置" name="reset_covenant"/>
+	<text name="covenant_help_text">
+		对契约合同的更改将出现在此块地产所有的土地上。
+	</text>
+	<text name="covenant_instructions">
+		要更改这块不动产的契约合同，请将记事卡拖动到这里。
+	</text>
+	<text name="region_section_lbl">
+		地区：
+	</text>
+	<text name="region_name_lbl">
+		名称：
+	</text>
+	<text name="region_name_text">
+		(未知)
+	</text>
+	<text name="region_landtype_lbl">
+		类型：
+	</text>
+	<text name="region_landtype_text">
+		大陆/家园
+	</text>
+	<text name="region_maturity_lbl">
+		分级：
+	</text>
+	<text name="region_maturity_text">
+		Adult
+	</text>
+	<text name="resellable_lbl">
+		转售：
+	</text>
 	<text name="resellable_clause">
-		这块区域内购买的土地可能可以被重新出售，也可能不能被重新出售。
+		这块地产内购买的土地不能被重新出售。
+	</text>
+	<text name="changeable_lbl">
+		划分：
 	</text>
 	<text name="changeable_clause">
-		这块区域内购买的土地可能可以被合并或划分，也可能不能被合并和划分。
+		这块地产内购买的土地不能被合并或者被划分。
 	</text>
-	<text_editor name="covenant_editor">
-		请等待...
-	</text_editor>
-	<text name="can_resell">
+	<string name="can_resell">
 		这块区域内购买的土地可以被重新出售。
-	</text>
-	<text name="can_not_resell">
+	</string>
+	<string name="can_not_resell">
 		这块区域内购买的土地不能被重新出售。
-	</text>
-	<text name="can_change">
+	</string>
+	<string name="can_change">
 		这块区域内购买的土地可以被合并或者被划分。
-	</text>
-	<text name="can_not_change">
+	</string>
+	<string name="can_not_change">
 		这块区域内购买的土地不能被合并或者被划分。
-	</text>
+	</string>
 </panel>

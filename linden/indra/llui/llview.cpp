@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -708,9 +709,11 @@ BOOL LLView::handleToolTip(S32 x, S32 y, std::string& msg, LLRect* sticky_rect_s
 		LLView* viewp = *child_it;
 		S32 local_x = x - viewp->mRect.mLeft;
 		S32 local_y = y - viewp->mRect.mBottom;
+		// Allow tooltips for disabled views so we can explain to the user why
+		// the view is disabled. JC
 		if( viewp->pointInView(local_x, local_y) 
 			&& viewp->getVisible() 
-			&& viewp->getEnabled()
+			// && viewp->getEnabled()
 			&& viewp->handleToolTip(local_x, local_y, msg, sticky_rect_screen ))
 		{
 			// child provided a tooltip, just return
@@ -738,23 +741,20 @@ BOOL LLView::handleToolTip(S32 x, S32 y, std::string& msg, LLRect* sticky_rect_s
 
 	// don't allow any siblings to handle this event
 	// even if we don't have a tooltip
-	if (getMouseOpaque() || show_names_text_box)
+	if (blockMouseEvent(x, y) || show_names_text_box)
 	{
-		handled = TRUE;
-	}
+		if(!tool_tip.empty())
+		{
+			msg = tool_tip;
 
-	if(!tool_tip.empty())
-	{
-		msg = tool_tip;
-
-		// Convert rect local to screen coordinates
-		localPointToScreen(
-			0, 0,
-			&(sticky_rect_screen->mLeft), &(sticky_rect_screen->mBottom) );
-		localPointToScreen(
-			mRect.getWidth(), mRect.getHeight(),
-			&(sticky_rect_screen->mRight), &(sticky_rect_screen->mTop) );
-		
+			// Convert rect local to screen coordinates
+			localPointToScreen(
+				0, 0,
+				&(sticky_rect_screen->mLeft), &(sticky_rect_screen->mBottom) );
+			localPointToScreen(
+				mRect.getWidth(), mRect.getHeight(),
+				&(sticky_rect_screen->mRight), &(sticky_rect_screen->mTop) );		
+		}
 		handled = TRUE;
 	}
 
@@ -1338,7 +1338,7 @@ void LLView::draw()
 	{
 		LLView *viewp = *child_iter;
 
-		if (viewp->getVisible() && viewp != focus_view)
+		if (viewp->getVisible() && viewp != focus_view && viewp->getRect().isValid())
 		{
 			// Only draw views that are within the root view
 			localRectToScreen(viewp->getRect(),&screenRect);
@@ -1421,7 +1421,7 @@ void LLView::drawDebugRect()
 			y = debug_rect.getHeight()/2;
 			std::string debug_text = llformat("%s (%d x %d)", getName().c_str(),
 										debug_rect.getWidth(), debug_rect.getHeight());
-			LLFontGL::sSansSerifSmall->renderUTF8(debug_text, 0, (F32)x, (F32)y, border_color,
+			LLFontGL::getFontSansSerifSmall()->renderUTF8(debug_text, 0, (F32)x, (F32)y, border_color,
 												LLFontGL::HCENTER, LLFontGL::BASELINE, LLFontGL::NORMAL,
 												S32_MAX, S32_MAX, NULL, FALSE);
 		}
@@ -1435,7 +1435,8 @@ void LLView::drawChild(LLView* childp, S32 x_offset, S32 y_offset, BOOL force_dr
 	{
 		++sDepth;
 
-		if (childp->getVisible() || force_draw)
+		if ((childp->getVisible() && childp->getRect().isValid()) 
+			|| force_draw)
 		{
 			glMatrixMode(GL_MODELVIEW);
 			LLUI::pushMatrix();
@@ -2683,19 +2684,40 @@ void LLView::parseFollowsFlags(LLXMLNodePtr node)
 	}
 }
 
-
 // static
 LLFontGL* LLView::selectFont(LLXMLNodePtr node)
 {
-	LLFontGL* gl_font = NULL;
-
+	std::string font_name, font_size, font_style;
+	U8 style = 0;
+	
 	if (node->hasAttribute("font"))
 	{
-		std::string font_name;
 		node->getAttributeString("font", font_name);
-
-		gl_font = LLFontGL::fontFromName(font_name);
 	}
+	
+	if (node->hasAttribute("font_size"))
+	{
+		node->getAttributeString("font_size", font_size);
+	}
+
+	if (node->hasAttribute("font_style"))
+	{
+		node->getAttributeString("font_style", font_style);
+		style = LLFontGL::getStyleFromString(font_style);
+	}
+
+	if (node->hasAttribute("font-style"))
+	{
+		node->getAttributeString("font-style", font_style);
+		style = LLFontGL::getStyleFromString(font_style);
+	}
+
+	if (font_name.empty())
+		return NULL;
+
+	LLFontDescriptor desc(font_name, font_size, style);
+	LLFontGL* gl_font = LLFontGL::getFont(desc);
+
 	return gl_font;
 }
 

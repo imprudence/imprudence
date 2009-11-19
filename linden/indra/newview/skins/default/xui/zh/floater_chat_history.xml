@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="chat floater" title="本地聊天">
 	<string name="ringing">
 		正在连接到世界内语音聊天...
@@ -12,28 +12,77 @@
 	<string name="hang_up">
 		从世界内语音聊天断开
 	</string>
+	<string name="IM_logging_string">
+		-- 打开即时通信日志 --
+	</string>
+	<string name="IM_end_log_string">
+		-- 日志结束 --
+	</string>
+  <string name="ScriptQuestionCautionChatGranted">
+	‘[OBJECTNAME]’, 主人为 ‘[OWNERNAME]’ 的物体, 位于 [REGIONNAME] 地区  [REGIONPOS], 已被授予以下权利： [PERMISSIONS]。
+  </string>
+  <string name="ScriptQuestionCautionChatDenied">
+	‘[OBJECTNAME]’, 主人为 ‘[OWNERNAME]’ 的物体, 位于 [REGIONNAME] 地区  [REGIONPOS], 已被拒绝以下权利： [PERMISSIONS]。
+  </string>
+  <string name="ScriptTakeMoney">
+	从您那里取走林登币(L$)
+  </string>
+  <string name="ActOnControlInputs">
+	对您的控制输入做出反应
+  </string>
+  <string name="RemapControlInputs">
+	重新布置你的控制按键
+  </string>
+  <string name="AnimateYourAvatar">
+	在您的化身上播放动画
+  </string>
+  <string name="AttachToYourAvatar">
+	装备到您的身上
+  </string>
+  <string name="ReleaseOwnership">
+	放弃主人权利并成为公众物品
+  </string>
+  <string name="LinkAndDelink">
+	建立或解除与其他物品的链接
+  </string>
+  <string name="AddAndRemoveJoints">
+	添加或移除与其他物体之间的连接点
+  </string>
+  <string name="ChangePermissions">
+	更改其许可权利
+  </string>
+  <string name="TrackYourCamera">
+	追踪您的视角
+  </string>
+  <string name="ControlYourCamera">
+	控制您的视角
+  </string>
 	<layout_stack name="panels">
-		<layout_panel name="im_contents_panel" min_width="275">
+		<layout_panel min_width="275" name="im_contents_panel">
 			<combo_box label="动作" name="Gesture">
 				<combo_item name="Gestures">
 					动作
 				</combo_item>
 			</combo_box>
-			<check_box label="显示屏蔽的文字" name="show mutes" />
-			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
-			     tool_tip="显示在该即时通信会话中活动的参与者。" />
+			<check_box label="显示屏蔽的文字" name="show mutes"/>
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn" tool_tip="显示在该即时通信会话中活动的参与者。"/>
 			<panel name="chat_panel">
 				<string name="gesture_label">
 					动作
 				</string>
-				<line_editor label="点击这里开始聊天。" name="Chat Editor" />
-				<flyout_button label="说" name="Say" tool_tip="(回车键)" >
-					<flyout_button_item name="shout_item">喊叫</flyout_button_item>
-					<flyout_button_item name="say_item">说</flyout_button_item>
- 					<flyout_button_item name="whisper_item">小声说</flyout_button_item>
+				<line_editor label="点击这里开始聊天。" name="Chat Editor"/>
+				<flyout_button label="说" name="Say" tool_tip="(回车键)">
+					<flyout_button_item name="shout_item">
+						喊叫
+					</flyout_button_item>
+					<flyout_button_item name="say_item">
+						说
+					</flyout_button_item>
+					<flyout_button_item name="whisper_item">
+						小声说
+					</flyout_button_item>
 				</flyout_button>
 			</panel>
 		</layout_panel>
 	</layout_stack>
 </floater>
-<!--Translated for Second Life 1.21.3 -->

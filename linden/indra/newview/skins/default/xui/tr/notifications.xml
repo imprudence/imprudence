@@ -1,0 +1,2032 @@
+<?xml version="1.0" encoding="utf-8"?>
+<notifications>
+	<global name="skipnexttime">
+		Bunu bana bir daha gösterme
+	</global>
+	<global name="alwayschoose">
+		Her zaman bu seçeneği seç
+	</global>
+  <template name="okbutton">
+    <form>
+      <button
+       name="OK"
+       text="$yestext"/>
+    </form>
+  </template>
+
+  <template name="okignore">
+    <form>
+      <button
+       name="OK"
+       text="$yestext"/>
+      <ignore text="$ignoretext"/>
+    </form>
+  </template>
+
+  <template name="okcancelbuttons">
+    <form>
+      <button
+       name="OK"
+       text="$yestext"/>
+      <button
+       name="Cancel"
+       text="$notext"/>
+    </form>
+  </template>
+
+  <template name="okcancelignore">
+    <form>
+      <button
+       name="OK"
+       text="$yestext"/>
+      <button
+       name="Cancel"
+       text="$notext"/>
+      <ignore text="$ignoretext"/>
+    </form>
+  </template>
+
+  <template name="okhelpbuttons">
+    <form>
+      <button
+       name="OK"
+       text="$yestext"/>
+      <button
+       name="Help"
+       text="$helptext"/>
+    </form>
+  </template>
+
+  <template name="yesnocancelbuttons">
+    <form>
+      <button
+       name="Yes"
+       text="$yestext"/>
+      <button
+       name="No"
+       text="$notext"/>
+      <button
+       name="Cancel"
+       text="$canceltext"/>
+    </form>
+  </template>
+	<notification label="Bilinmeyen uyarı mesajı" name="MissingAlert">
+		Second Life sürümünüz henüz aldığı uyarı mesajını nasıl görüntülemesi gerektiğini bilmiyor.
+
+Hata detayları: &apos;[_NAME]&apos; adındaki uyarı notifications.xml&apos;de bulunamadı.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="TutorialNotFound">
+		Hiçbir eğitim şu an mevcut değil.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="GenericAlert">
+		[MESSAGE]
+	</notification>
+	<notification name="GenericAlertYesCancel">
+		[MESSAGE]
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Evet"/>
+	</notification>
+	<notification name="BadInstallation">
+		Second Life güncellenirken bir hata oluştu. Lütfen secondlife.com&apos;dan en güncel sürümü yükleyiniz.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="LoginFailedNoNetwork">
+		Ağ hatası: Bağlantı kurulamadı. 
+&apos;[DIAGNOSTIC]&apos;
+Lütfen ağ bağlantınızı kontrol ediniz.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="MessageTemplateNotFound">
+		Mesaj şablonu [PATH] bulunamadı.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="WearableSave">
+		Değişiklikleri mevcut giysi/vücut parçasına kaydediyor musunuz?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Kaydetme" yestext="Kaydet"/>
+	</notification>
+	<notification name="CompileQueueSaveText">
+		Betik için yazıyı yükleme sırasında bir problem oluştu: [REASON].Lütfen daha sonra tekrar deneyiniz.
+	</notification>
+	<notification name="CompileQueueSaveBytecode">
+		Derlenmiş betiği yükleme sırasında bir problem oluştu: [REASON].Lütfen daha sonra tekrar deneyiniz.
+	</notification>
+	<notification name="WriteAnimationFail">
+		Animasyon verisini yazarken bir problem oluştu.Lütfen daha sonra tekrar deneyiniz.
+	</notification>
+	<notification name="UploadAuctionSnapshotFail">
+		Açık arttırma resmini yükleme sırasında bir problem oluştu: [REASON]
+	</notification>
+	<notification name="UnableToViewContentsMoreThanOne">
+		Eş zamanda birden fazla ürünün içeriği görüntülenemiyor.
+Lütfen sadece bir obje seçiniz ve tekrar deneyiniz.
+	</notification>
+	<notification name="SaveClothingBodyChanges">
+		Tüm değişiklikleri mevcut giysi/vücut parçasına kaydediyor musunuz?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Kaydetme" yestext="Tümünü kaydet"/>
+	</notification>
+	<notification name="GrantModifyRights">
+		Başka bir üyeye modifiye izni vermek,onun sizin iç dünyadaki objelerinizi değiştirmesine, silmesine veya almasına olanak sağlar.
+Bu izni verirken ÇOK dikkatli olunuz.
+[FIRST_NAME] [LAST_NAME] kişisi için modifiye iznini onaylıyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="GrantModifyRightsMultiple">
+		Başka üyelere modifiye izinleri vermek,onların sizin iç dünyadaki objelerinizi değiştirmelerine olanak sağlar.
+Bu izni verirken ÇOK dikkatli olunuz.
+Seçili üyeler için modifiye izinlerini onaylıyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="RevokeModifyRights">
+		[FIRST_NAME] [LAST_NAME] kişisi için modifiye iznini geri almak istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="RevokeModifyRightsMultiple">
+		Seçili üyeler için modifiye izinlerini geri almak istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="UnableToCreateGroup">
+		Grup yaratılamıyor.
+[MESSAGE]
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="PanelGroupApply">
+		[NEEDS_APPLY_MESSAGE]
+[WANT_APPLY_MESSAGE]
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Değişiklikleri Engelle" yestext="Değişiklikleri Uygula"/>
+	</notification>
+	<notification name="MustSpecifyGroupNoticeSubject">
+		Grup duyurusunu göndermek için bir konu belirlemelisiniz.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="AddGroupOwnerWarning">
+		[ROLE_NAME] görevine grup üyeleri eklemek üzeresiniz.
+Üyeler bu görevden alınamazlar.
+Üyelerin görevi kendileri bırakmak zorundadırlar.
+Devam etmek istediğinizden emin misiniz?
+		<usetemplate ignoretext="Sahiplik görevine grup üyeleri eklenirken" name="okcancelignore" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="ClickSoundHelpLand">
+		Medya ve müzik sadece parsel ile ilişkilendirilebilinir. Ses ve konuşma seçenekleri parsel ile sınırlandırılabilinir veya yetişkinlik oranlarına göre parsel dışındaki diğer üyeler tarafından duyulabilir. Bunun nasıl düzenleyeceğinizi öğrenmek için Bilgi Merkezi&apos;ne gitmek istiyor musunuz?
+		<url name="url">
+			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=5046
+		</url>
+		<usetemplate name="okcancelbuttons" yestext="Bilgi Merkezi&apos;ni ziyaret et" notext="Kapat" />
+	</notification>
+	<notification name="ClickSearchHelpAll">
+		Arama sonuçları bulunduğunuz sekmeye, yetişkinlik oranınıza, seçilen kategoriye, ve diğer faktörlere göre organize edilir. Daha fazla detay için, lütfen Bilgi Merkezi&apos;ni ziyaret ediniz.
+		<url name="url">
+			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=4722
+		</url>
+		<usetemplate name="okcancelbuttons" yestext="Bilgi Merkezi&apos;ni ziyaret et" notext="Kapat" />
+	</notification>
+	<notification name="ClickPublishHelpAvatar">
+		Aramada göster&apos;i seçmek:
+- profilimi arama sonuçlarında gösterir
+- ve genel grup sayfalarında profilime bir bağlantı sağlar
+	</notification>
+	<notification name="ClickPartnerHelpAvatar">
+		[SECOND_LIFE] web sitesi üzerinden bir üyeye evlilik teklif edebilir veya var olan evliliği iptal edebilirsiniz.
+
+Evlenmek ile ilgili daha fazla bilgi için Second Life web sitesine gitmek ister misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Sayfaya git"/>
+	</notification>
+	<notification name="ClickUploadHelpPermissions">
+		Varsayılan izinleriniz eski bölgelerde çalışmayabilir.
+	</notification>
+	<notification name="ClickWebProfileHelpAvatar">
+		Eğer üye web profil adresine sahip ise:
+ * Bu web sekmesinde sayfayı görmek için &apos;Yükle&apos; butonuna tıklayınız.
+ * Kendi var olan web tarayıcınızda bu sayfayı görüntülemek için Yükle &gt; &apos;dış tarayıcıda&apos; seçeneğini tıklayınız.
+ * Eğer sayfa değiştirdiyseniz,bu üyenin web profiline geri dönmek için Yükle &gt; &apos;Ev Linki&apos; seçeneğini tıklayınız.
+
+Kendi profilinizi görüntülerken,herhangi bir adresi web profiliniz olarak girebilir ve kaydetmek için Tamam tuşuna basabilirsiniz.
+Diğer üyeler profilinize baktıklarında, girdiğiniz adresi ziyaret edebilirler.
+	</notification>
+	<notification name="JoinGroupCanAfford">
+		Bu gruba üye olmak [COST] L$ tutarındadır.
+Devam etmek istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Üye Ol"/>
+	</notification>
+	<notification name="JoinGroupCannotAfford">
+		Bu gruba üye olmak [COST] L$ tutarındadır.
+Bu gruba üye olabilmek için yeterli derecede L$&apos;a sahip değilsiniz.
+	</notification>
+	<notification name="LandBuyPass">
+		[COST] L$ karşılığında bu araziye (&apos;[PARCEL_NAME]&apos;)
+[TIME] saatliğine girebilirsiniz.Şifre satın almak ister misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="SalePriceRestriction">
+		Eğer herhangi birine satılacaksa,satış ücreti 0 L$ tutarından fazla olmalıdır.
+L$0 tutarında satmak için lütfen bir birey seçiniz.
+	</notification>
+	<notification name="ConfirmLandSaleChange">
+		Seçili [LAND_SIZE] m² arazi satışa çıkarılıyor.
+Satış ücretiniz L$[SALE_PRICE] ve tanımlanan alıcı [NAME] olacaktır.
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ConfirmLandSaleToAnyoneChange">
+		DİKKAT: Herhangi birini seçmek arazinizi tüm Second Life toplumuna görüntüler,sadece bu bölgedekilere değil.
+
+Seçili [LAND_SIZE] m² arazi satışa çıkarılıyor.
+Satış ücretiniz L$[SALE_PRICE] ve tanımlanan alıcı [NAME] olacaktır.
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ReturnObjectsDeededToGroup">
+		Are you sure you want to return all objects shared with
+the group &apos;[NAME]&apos; on this parcel of land
+back to their previous owner&apos;s inventory?
+
+*UYARI* Gruba bağışlı olan transfer edilemez
+objeler silinecektir!
+
+Objeler: [N]
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ReturnObjectsOwnedByUser">
+		Bu arazi parselindeki &apos;[NAME]&apos; üyesine
+ait tüm objeleri kendi envanterine
+geri göndermek istiyor musunuz?
+
+Objeler: [N]
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ReturnObjectsOwnedBySelf">
+		Bu arazi parselindeki tüm objelerinizi
+kendi envanterinize geri göndermek
+istiyor musunuz?
+
+Objeler: [N]
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ReturnObjectsNotOwnedBySelf">
+		Are you sure you want to return all objects NOT owned by you on this parcel of land back to their owner&apos;s inventory?
+Gruba bağışlı transfer edilebilen objeler önceki sahiplerine geri döneceklerdir.
+
+*UYARI* Gruba bağışlı olan transfer edilemez objeler silinecektir!
+
+Objeler: [N]
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ReturnObjectsNotOwnedByUser">
+		Are you sure you want to return all objects NOT owned by [NAME] on this parcel of land back to their owner&apos;s inventory?
+Gruba bağışlı transfer edilebilen objeler önceki sahiplerine geri döneceklerdir.
+
+*UYARI* Gruba bağışlı olan transfer edilemez objeler silinecektir!
+
+Objeler: [N]
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ReturnAllTopObjects">
+		Listelenmiş tüm objeleri kendi sahiplerinin envanterlerine geri göndermek istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="DisableAllTopObjects">
+		Bu bölgedeki tüm objeleri devre dışı bırakmak istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ReturnObjectsNotOwnedByGroup">
+		Bu arazi parseli üzerindeki [NAME] grubu ile PAYLAŞILMAYAN objeleri kendi sahiplerine geri göndermek istiyor musunuz?
+
+Objeler: [N]
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="MustBeInParcel">
+		Konum Noktasını düzenlemek için arazi parselinin içinde olmalısınız.
+	</notification>
+	<notification name="PromptRecipientEmail">
+		Lütfen alıcı(lar) için geçerli bir e-posta adresi yazınız.
+	</notification>
+	<notification name="PromptSelfEmail">
+		Lütfen e-posta adresinizi giriniz.
+	</notification>
+	<notification name="PromptMissingSubjMsg">
+		Resmi var olan resim veya konu ile göndermek istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ErrorProcessingSnapshot">
+		Resim verisi işleme hatası
+	</notification>
+	<notification name="ErrorUploadingPostcard">
+		Kartpostalı gönderirken bir problem oluştu: [REASON]
+	</notification>
+	<notification name="ErrorUploadingReportScreenshot">
+		Raporlama resmini gönderirken bir problem oluştu: [REASON]
+	</notification>
+	<notification name="MustAgreeToLogIn">
+		[SECOND_LIFE]&apos;a girmeye devam etmek için Servis Anlaşması&apos;nı kabul etmelisiniz.
+	</notification>
+	<notification name="CannotWearTrash">
+		Çöpteki giysi veya vücut parçalarını giyemezsiniz
+	</notification>
+	<notification name="CannotWearInfoNotComplete">
+		Bu ürünü giyemezsiniz çünkü henüz yüklenmedi.Lütfen bir dakika içinde tekrar deneyiniz.
+	</notification>
+	<notification name="MustHaveAccountToLogIn">
+		Ups! Bazı şeyler boş kaldı.
+Karakterinizin adınızı ve soyadınızı birlikte girmeniz gerekiyor.
+
+[SECOND_LIFE]&apos;a bağlanabilmeniz için bir hesabınız olması gerekir.Yeni bir tane yaratmak ister misiniz?
+		<usetemplate name="okcancelbuttons" notext="Tekrar dene" yestext="Yeni hesap yarat"/>
+	</notification>
+	<notification name="AddClassified">
+		İlan reklamları arama dizinindeki &apos;İlanlar&apos; sekmesinde ve www.secondlife.com adresinde 1 hafta süreyle görüntülenir.
+Reklamınızı doldurunuz,ve sonra dizine eklemek için &apos;Yayınla...&apos; butonuna tıklayınız.
+Yayınla butonuna tıkladığınızda ödeyeceğiniz ücret sorulacaktır.
+Yüksek ücret ödemek reklamınızı listede yükseltir, ve ayrıca insanların anahtar sözcük aramalarında da yüksek sonuç verir.
+		<usetemplate ignoretext="Yeni bir ilan eklerken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="DeleteClassified">
+		&apos;[NAME]&apos; ilanı silinsin mi?
+Ödenmiş ücretler için bir geri ödeme yoktur.
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ClassifiedSave">
+		[NAME] ilanına değişiklikler kaydedilsin mi?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Kaydetme" yestext="Kaydet"/>
+	</notification>
+	<notification name="DeleteAvatarPick">
+		[PICK] resmi silinsin mi?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="PromptGoToEventsPage">
+		[SECOND_LIFE] aktiviteleri web sayfasına gitmek ister misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ResetShowNextTimeDialogs">
+		&apos;Bana bir daha gösterme&apos; olarak tanımladığınız tüm bu açılan pencereleri tekrar etkinleştirmek istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="SkipShowNextTimeDialogs">
+		Geçilebilen tüm açılan pencereleri devre dışı bırakmak istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="CacheWillClear">
+		[SECOND_LIFE] yeniden başlatıldıktan sonra ön bellek temizlenecektir.
+	</notification>
+	<notification name="CacheWillBeMoved">
+		[SECOND_LIFE] yeniden başlatıldıktan sonra ön bellek taşınacaktır.
+Not: Ön bellek temizlenecektir.
+	</notification>
+	<notification name="ChangeConnectionPort">
+		[SECOND_LIFE] yeniden başlatıldıktan sonra port ayarları etkili olur.
+	</notification>
+	<notification name="ChangeSkin">
+		[SECOND_LIFE] yeniden başlatıldıktan sonra yeni vücut teni görünecektir.
+	</notification>
+	<notification name="GoToAuctionPage">
+		Açık arttırma detaylarını görmek veya bahis koymak için [SECOND_LIFE] web sayfasına gitmek ister misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="GestureSaveFailedTooManySteps">
+		Hareket kaydı başarısız.
+Bu hareket çok adıma sahip.
+Birkaç adım silmeyi deneyiniz,sonra tekrar kaydediniz.
+	</notification>
+	<notification name="GestureSaveFailedTryAgain">
+		Hareket kaydı başarısız.Lütfen bir dakika içinde tekrar deneyiniz.
+	</notification>
+	<notification name="GestureSaveFailedObjectNotFound">
+		Hareket kaydedilemedi çünkü obje veya ilgili obje envanteri bulunamadı.
+Obje alan dışında veya silinmiş olabilir.
+	</notification>
+	<notification name="GestureSaveFailedReason">
+		Hareket kaydı sırasında bir problem oluştu: [REASON].Lütfen sonra hareketi tekrar kaydetmeyi deneyiniz.
+	</notification>
+	<notification name="SaveNotecardFailObjectNotFound">
+		Notekart kaydedilemedi çünkü obje veya ilgili obje envanteri bulunamadı.
+Obje alan dışında veya silinmiş olabilir.
+	</notification>
+	<notification name="SaveNotecardFailReason">
+		Notekart kaydı sırasında bir problem oluştu: [REASON].Lütfen sonra notkartı tekrar kaydetmeyi deneyiniz.
+	</notification>
+	<notification name="SaveScriptFailReason">
+		Betiği kaydederken bir problem oluştu: [REASON].Lütfen sonra betiği tekrar kaydetmeyi deneyiniz.
+	</notification>
+	<notification name="SaveScriptFailObjectNotFound">
+		Betik kaydedilemedi çünkü içinde olduğu obje bulunamadı.
+Obje alan dışı veya silinmiş olabilir.
+	</notification>
+	<notification name="SaveBytecodeFailReason">
+		Derlenmiş betiği kaydederken bir problem oluştu: [REASON].Lütfen sonra betiği tekrar kaydetmeyi deneyiniz.
+	</notification>
+	<notification name="CouldNotStartStopScript">
+		Betik başlatılamadı veya durdurulamadı çünkü içinde olduğu obje bulunamadı.
+Obje alan dışı veya silinmiş olabilir.
+	</notification>
+	<notification name="CannotDownloadFile">
+		Dosya indirilemedi
+	</notification>
+	<notification name="UnsupportedHardware">
+		Uyarı: Sisteminiz Second Life&apos;ın minimum sistem gereksinimlerini karşılamıyor. Eğer Second Life&apos;ı kullanmaya devam ederseniz,düşük performans alabilirsiniz. Malesef,desteklenmeyen sistem konfigürasyonları için teknik destek sağlayamıyoruz.
+
+MINSPECS
+Daha fazla bilgi için [_URL] linkini ziyaret etmek ister misiniz?
+		<usetemplate ignoretext="Desteklenmeyen donanım tespit edildiğinde" name="okcancelignore" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="UnknownGPU">
+		Sisteminiz bize şu an yabancı olan bir ekran kartı içeriyor.
+Bu durum genellikle henüz test etme şansı bulamadığımız yeni donanımlarda görülür. Second Life normal olarak çalışacaktır,fakat daha uygun hale getirmek için grafik ayarlarınızı düzenleyebilirsiniz.
+(Düzenle menüsü &gt; Ayarlar &gt; Grafikler).
+		<form name="form">
+			<ignore name="ignore" text="Bilinmeyen ekran kartı tespit edildiğinde"/>
+		</form>
+	</notification>
+	<notification name="RegionNoTerraforming">
+		[REGION] bölgesi zemin düzenlemeye izin vermiyor.
+	</notification>
+	<notification name="CannotCopyWarning">
+		Bu ürünü kopyalama izniniz yok ve onu eğer birine verirseniz envanterinizden kaybedeceksiniz.Bu ürünü gerçekten vermek istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="CannotGiveItem">
+		Envanter ürünü verilemiyor.
+	</notification>
+	<notification name="TooManyItems">
+		Tek envanter transferinde 42 üründen fazlası verilemez.
+	</notification>
+	<notification name="NoItems">
+		Seçili ürünleri transfer edebilme izniniz yok.
+	</notification>
+	<notification name="CannotCopyCountItems">
+		Seçili ürünlerden [COUNT] tanesini kopyalama izniniz yok.Bu ürünleri envanterinizden kaybedeceksiniz.
+Bu ürünleri gerçekten vermek istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="CannotGiveCategory">
+		Seçili klasörü transfer edebilme izniniz yok.
+	</notification>
+	<notification name="FreezeAvatar">
+		Bu karakter dondurulsun mu?
+Bay veya bayan geçici olarak hareket edemeyecek, sohbet edemeyecek,veya dünya ile etkileşimde bulunamayacaktır.
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Çöz" yestext="Dondur"/>
+	</notification>
+	<notification name="FreezeAvatarFullname">
+		[AVATAR_NAME] dondurulsun mu?
+Bay veya bayan geçici olarak hareket edemeyecek, sohbet edemeyecek,veya dünya ile etkileşimde bulunamayacaktır.
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Çöz" yestext="Dondur"/>
+	</notification>
+	<notification name="EjectAvatarFullname">
+		[AVATAR_NAME] arazinizden çıkarılsın mı?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Çıkar ve Yasakla" yestext="Çıkar"/>
+	</notification>
+	<notification name="UnableToLinkObjects">
+		Bu [COUNT] obje bağlanamıyor.
+En fazla [MAX] obje bağlayabilirsiniz.
+	</notification>
+	<notification name="CannotLinkModify">
+		Bağlanamıyor çünkü tüm objeler üzerinde modifiye izniniz yok.
+
+Lütfen hiçbirinin kiliti olmadığından,ve tümüne sahip olduğunuzdan emin olunuz.
+	</notification>
+	<notification name="CannotLinkDifferentOwners">
+		Bağlanamıyor çünkü tüm objeler aynı kişiye ait değiller.
+
+Lütfen seçili tüm objelere sahip olduğunuzdan emin olunuz.
+	</notification>
+	<notification name="InvalidFileExtension">
+		Geçersiz dosya uzantısı [EXTENSION]
+Beklenen [VALIDS]
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="SoundFileNotRIFF">
+		Dosya,RIFF WAVE dosyası olarak görünmüyor:
+[FILE]
+	</notification>
+	<notification name="SoundFileNotPCM">
+		Dosya,PCM WAVE ses dosyası olarak görünmüyor:
+[FILE]
+	</notification>
+	<notification name="SoundFileInvalidChannelCount">
+		Dosya yanlış sayıda kanallara sahip(mono veya stereo olmalı):
+[FILE]
+	</notification>
+	<notification name="SoundFileInvalidSampleRate">
+		Dosya,desteklenen örnek oranında görünmüyor(44.1k olmalı):
+[FILE]
+	</notification>
+	<notification name="SoundFileInvalidWordSize">
+		Dosya,desteklenen sozcuk sayısında görünmüyor(8 veya 16 bit olmalı):
+[FILE]
+	</notification>
+	<notification name="SoundFileInvalidTooLong">
+		Ses dosyası çok uzun(En fazla 10 saniye):
+[FILE]
+	</notification>
+	<notification name="ProblemWithFile">
+		Dosyada problem [FILE]:
+
+[ERROR]
+	</notification>
+	<notification name="CannotOpenTemporarySoundFile">
+		Sıkıştırılmış ses dosyası yazım için geçici olarak açılamıyor: [FILE]
+	</notification>
+	<notification name="CannotEncodeFile">
+		Dosya şifrelenemedi: [FILE]
+	</notification>
+	<notification name="CorruptResourceFile">
+		Bozuk kaynak dosya: [FILE]
+	</notification>
+	<notification name="UnknownResourceFileVersion">
+		Bilinmeyen Linden kaynak dosya versiyonu dosyada: [FILE]
+	</notification>
+	<notification name="UnableToCreateOutputFile">
+		Çıktı dosyası yaratılamıyor: [FILE]
+	</notification>
+	<notification name="DoNotSupportBulkAnimationUpload">
+		Şu anda çoklu animasyon dosyaları yüklemelerini desteklemiyoruz.
+	</notification>
+	<notification name="CannotUploadReason">
+		[FILE] dosyası yüklenemiyor: [REASON]
+Lütfen daha sonra tekrar deneyiniz.
+	</notification>
+	<notification name="CannotCreateLandmarkNotOwner">
+		Burada yer imi yaratamazsınız çünkü
+arazi sahibi buna izin vermiyor.
+	</notification>
+	<notification name="CannotRecompileSelectObjectsNoScripts">
+		&apos;tekrar derleme&apos; işlemi gerçekleşemiyor.
+Lütfen betikli bir obje seçiniz.
+	</notification>
+	<notification name="CannotRecompileSelectObjectsNoPermission">
+		&apos;tekrar derleme&apos; işlemi gerçekleşemiyor.
+
+Modifiye iznine sahip olduğunuz
+betikli objeler seçiniz.
+	</notification>
+	<notification name="CannotResetSelectObjectsNoScripts">
+		&apos;yenileme&apos; işlemi gerçekleşemiyor.
+
+Betikli objeler seçiniz.
+	</notification>
+	<notification name="CannotResetSelectObjectsNoPermission">
+		&apos;yenileme&apos; işlemi gerçekleşemiyor.
+
+Modifiye iznine sahip olduğunuz betikli objeler seçiniz.
+	</notification>
+	<notification name="CannotSetRunningSelectObjectsNoScripts">
+		Hiçbir betik &apos;çalışıyor&apos; durumuna getirilemiyor.
+
+Betikli objeler seçiniz.
+	</notification>
+	<notification name="CannotSetRunningNotSelectObjectsNoScripts">
+		Hiçbir betik &apos;çalışmıyor&apos; durumuna getirilemiyor.
+
+Betikli objeler seçiniz.
+	</notification>
+	<notification name="SeachFilteredOnShortWords">
+		Arama sorgunuz modifiye edildi ve kısa olan sözcükler çıkarıldı.
+
+Aranan: [FINALQUERY]
+	</notification>
+	<notification name="SeachFilteredOnShortWordsEmpty">
+		Arama kriterleriniz çok kısaydı bu yüzden arama işlemi gerçekleşmed.
+	</notification>
+	<notification name="CouldNotTeleportReason">
+		Işınlanma gerçekleşmedi.
+[REASON]
+	</notification>
+	<notification name="invalid_tport">
+		Işınlanma isteğiniz sırasında bir problem ile karşılaşıldı. Işınlanmadan önce sistemden çıkış yapıp tekrar giriş yapmanız gerekebilir. Eğer bu mesajı almaya devam ederseniz,lütfen Tech Support FAQ&apos;yu inceleyiniz:
+www.secondlife.com/support
+	</notification>
+	<notification name="invalid_region_handoff">
+		Bölge geçiş işleminiz sırasında bir problem ile karşılaşıldı. Bölgelere geçiş yapmadan önce sistemden çıkış yapıp tekrar giriş yapmanız gerekebilir. Eğer bu mesajı almaya devam ederseniz,lütfen Tech Support FAQ&apos;yu inceleyiniz:
+www.secondlife.com/support
+	</notification>
+	<notification name="blocked_tport">
+		Üzgünüz, ışınlanma şu an devre dışı.Birazdan tekrar deneyiniz. Eğer hala ışınlanamıyorsanız,lütfen sorunu çözmek için sistemden çıkıp tekrar giriş yapınız.
+	</notification>
+	<notification name="nolandmark_tport">
+		Üzgünüz,fakat sistem yer imi hedefinin yerini saptayamadı.
+	</notification>
+	<notification name="timeout_tport">
+		Üzgünüz,fakat sistem ışınlanma bağlantınızı tamamlayamadı.
+Birazdan tekrar deneyiniz.
+	</notification>
+	<notification name="noaccess_tport">
+		Üzgünüz,bu hedefe ışınlanma yetkiniz bulunmamaktadır.
+	</notification>
+	<notification name="missing_attach_tport">
+		Aksesuarlarınız henüz ulaşmadı. Birkaç saniye daha beklemeyi deneyiniz veya tekrar ışınlanmaya kalkışmadan önce sistemden çıkıp tekrar giriş yapınız.
+	</notification>
+	<notification name="too_many_uploads_tport">
+		Bu bölge için varlık sırası şu an dolu,bu yüzden mevcut zamandaki ışınlanma isteğiniz başarılı olmayacaktır.
+Lütfen birkaç dakika içinde tekrar deneyiniz veya az yoğun olan bir lokasyona gidiniz.
+	</notification>
+	<notification name="expired_tport">
+		Üzgünüz,fakat sistem mevcut zamandaki ışınlanma isteğinizi tamamlayamadı.Lütfen birkaç dakika içinde tekrar deneyiniz.
+	</notification>
+	<notification name="expired_region_handoff">
+		Üzgünüz,fakat sistem mevcut zamandaki bölge geçişinizi tamamlayamadı. Lütfen birkaç dakika içinde tekrar deneyiniz.
+	</notification>
+	<notification name="no_host">
+		Işınlanılacak hedef bulunamıyor.Hedef geçici süre ile devre dışı veya artık var olmuyor olabilir. Lütfen birkaç dakika içinde tekrar deneyiniz.
+	</notification>
+	<notification name="no_inventory_host">
+		Envanter sistemi şu anda devre dışı.
+	</notification>
+	<notification name="CannotSetLandOwnerNothingSelected">
+		Arazi sahibi belirlenemiyor:
+Hiçbir parsel seçili değil.
+	</notification>
+	<notification name="CannotSetLandOwnerMultipleRegions">
+		Arazi sahibi değişikliği zorlanamıyor çünkü yapılan seçim birden fazla bölgeyi
+kapsıyor.Lütfen daha küçük bir alan seçip tekrar deneyiniz.
+	</notification>
+	<notification name="CannotReleaseLandNothingSelected">
+		Arazi bırakılamıyor:
+Hiçbir parsel seçili değil.
+	</notification>
+	<notification name="CannotReleaseLandNoRegion">
+		Arazi bırakılamıyor:
+Bölge bulunamıyor.
+	</notification>
+	<notification name="CannotBuyLandNothingSelected">
+		Arazi satın alınamıyor:
+Hiçbir parsel seçili değil.
+	</notification>
+	<notification name="CannotBuyLandNoRegion">
+		Arazi satın alınamıyor:
+Bu arazinin içinde olduğu bölge bulunamıyor.
+	</notification>
+	<notification name="CannotCloseFloaterBuyLand">
+		Arazi satın alım penceresini Second Life bu işlemin ücretini hesaplayana kadar kapatamazsınız.
+	</notification>
+	<notification name="CannotDeedLandNothingSelected">
+		Arazi bağışlanamıyor:
+Hiçbir parsel seçili değil.
+	</notification>
+	<notification name="CannotDeedLandNoGroup">
+		Arazi bağışlanamıyor:
+Hiçbir grup seçili değil.
+	</notification>
+	<notification name="CannotDeedLandMultipleSelected">
+		Arazi bağışlanamıyor:
+Çoklu parsel seçimi yapıldı.
+
+Tek bir parsel seçiniz.
+	</notification>
+	<notification name="ParcelCanPlayMedia">
+		Bu lokasyon medya yayını yapabilir.
+Medya yayını yüksek internet bağlantısı gerektirir.
+
+Mevcut olduğunda medya yayınını oynatılsın mı?
+(Bu seçeneği daha sonra Ayarlar &gt; Ses &amp; Görüntü sekmelerinden değiştirebilirsiniz.)
+		<usetemplate name="okcancelbuttons" notext="Devre dışı bırak" yestext="Medyayı oynat"/>
+	</notification>
+	<notification name="CannotDeedLandWaitingForServer">
+		Arazi bağışlanamıyor Sunucunun sahipliği raporlaması bekleniyor.
+
+Lütfen tekrar deneyiniz.
+	</notification>
+	<notification name="CannotDeedLandNoTransfer">
+		Arazi bağışlanamıyor:
+[REGION] bölgesi arazi transfer etmeye izin vermiyor.
+	</notification>
+	<notification name="CannotReleaseLandWatingForServer">
+		Arazi bırakılamıyor:
+Sunucunun parsel bilgisini güncellemesi bekleniyor.
+
+Birkaç saniye içinde tekrar deneyiniz.
+	</notification>
+	<notification name="CannotReleaseLandSelected">
+		Arazi bırakılamıyor:
+Tüm seçili parsellere sahip değilsiniz.
+
+Lütfen tek bir parsel seçiniz.
+	</notification>
+	<notification name="CannotReleaseLandDontOwn">
+		Arazi bırakılamıyor:
+Bu parseli bırakmak için izniniz yok.
+Sahip olduğunuz parseller yeşil olarak görünür.
+	</notification>
+	<notification name="CannotReleaseLandNoTransfer">
+		Arazi bırakılamıyor:
+[REGION] bölgesi arazi transferine izin vermiyor.
+	</notification>
+	<notification name="CannotReleaseLandPartialSelection">
+		Arazi bırakılamıyor:
+Bırakmak için tüm parseli seçmelisiniz.
+
+Tüm parseli seçiniz, veya ilk olarak parselinizi bölümleyiniz.
+	</notification>
+	<notification name="ReleaseLandWarning">
+		[AREA] m² araziyi bırakmak üzeresiniz.
+Bu durum arazi mülklerinizden araziyi çıkaracaktır,fakat herhangi bir L$ ödemesi almayacaksınız.
+
+Arazi bırakılsın mı?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="CannotDivideLandNothingSelected">
+		Arazi bölünemiyor:
+
+Hiçbir parsel seçili değil.
+	</notification>
+	<notification name="CannotDivideLandPartialSelection">
+		Arazi bölünemiyor:
+
+Tüm parseli seçtiniz.
+Parselin bir parçasını seçmeyi deneyiniz.
+	</notification>
+	<notification name="LandDivideWarning">
+		Bu araziyi bölmek,bu parseli ikiye ayıracaktır ve her parselin kendine özgü ayarları olacaktır.Bazı ayarlar işlemden sonra ilk hallerine geri dönecektir.
+
+Arazi bölünsün mü?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="CannotJoinLandNothingSelected">
+		Arazi birleştirilemiyor:
+Hiçbir parsel seçili değil.
+	</notification>
+	<notification name="CannotJoinLandEntireParcelSelected">
+		Arazi birleştirilemiyor:
+Sadece bir parsel seçtiniz.
+
+Parseller arası arazi seçiniz.
+	</notification>
+	<notification name="CannotJoinLandSelection">
+		Arazi birleştirilemiyor:
+Bir parselden fazlasını seçmelisiniz.
+
+Parseller arası arazi seçiniz.
+	</notification>
+	<notification name="JoinLandWarning">
+		Bu araziyi birleştirmek,tüm parseller dışında seçili dikdörtgen ile ilişkili büyük bir parsel yaratacaktır.
+Yeni parselin ismini ve seçeneklerini yenilemeniz gerekecektir.
+
+Arazi birleştirilsin mi?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ShowOwnersHelp">
+		Sahipleri göster:
+Sahip tipini göstermek için parselleri renkler.
+
+Yeşil = Sizin araziniz
+Mavi = Grubunuzun arazisi
+Kırmızı = Diğerlerine ait
+Sarı = Satılık
+Mor = Açık arttırmada
+Gri = Genel
+	</notification>
+	<notification name="ConfirmNotecardSave">
+		Görüntülemeden veya kopyalamadan önce bu notkartın kaydedilmesi gerekiyor. Notekart kaydedilsin mi?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ConfirmItemCopy">
+		Bu ürün envanterinize kopyalansın mı?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Kopyala"/>
+	</notification>
+	<notification name="YouHaveBeenLoggedOut">
+		[SECOND_LIFE]&apos;dan çıkarıldınız:
+            [MESSAGE]
+HM &amp; Sohbet butonuna tıklayarak var olan HM ve sohbete bakabilirsiniz.Veya,&apos;Çık&apos; butonuna tıklayarak [SECOND_LIFE]&apos;dan hemen çıkabilirsiniz.
+		<usetemplate name="okcancelbuttons" notext="Çık" yestext="HM &amp; Sohbet"/>
+	</notification>
+	<notification name="OnlyOfficerCanBuyLand">
+		Grup için arazi satın alınamıyor:
+Aktif grubunuz için arazi satın alma izniniz yok.
+	</notification>
+	<notification label="Add Friend" name="AddFriend">
+		Arkadaşlar, birbirlerine izinler vererek birbirlerini harita üzerinde izleyebilir ve sisteme bağlılık durumları hakkında bilgi alabilirler.
+
+[NAME] kişisine arkadaşlık teklif edilsin mi?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification label="Add Friend" name="AddFriendWithMessage">
+		Arkadaşlar, birbirlerine izinler vererek birbirlerini harita üzerinde izleyebilir ve sisteme bağlılık durumları hakkında bilgi alabilirler.
+
+[NAME] kişisine arkadaşlık teklif edilsin mi?
+		<form name="form">
+			<input name="message" type="text">
+				Arkadaşım olur musun?
+			</input>
+			<button name="Offer" text="Tamam"/>
+			<button name="Cancel" text="İptal"/>
+		</form>
+	</notification>
+	<notification name="RemoveFromFriends">
+		[FIRST_NAME] [LAST_NAME] kişisini arkadaşlar listenizden silmek istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="RemoveMultipleFromFriends">
+		Çoklu arkadaşlarınızı arkadaşlar listenizden silmek istiyor musunuz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="GodDeleteAllScriptedPublicObjectsByUser">
+		** [AVATAR_NAME] ** kişisine ait bu simdeki diğer arazilerde
+bulunan betikli objeleri silmek istediğinizden
+emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="GodDeleteAllScriptedObjectsByUser">
+		** [AVATAR_NAME] ** kişisine ait bu simdeki TÜM ARAZİLERDE bulunan tüm betikli objeleri SİLMEK istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="GodDeleteAllObjectsByUser">
+		** [AVATAR_NAME] ** kişisine ait bu simdeki TÜM ARAZİLERDE bulunan (betikli veya betiksiz) tüm objeleri SİLMEK istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ConfirmObjectDeleteLock">
+		Seçtiğiniz objelerden en az biri kilitli durumda.
+
+Bu ürünleri silmek istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ConfirmObjectDeleteNoCopy">
+		Seçtiğiniz objelerden en az biri kopyalanamaz durumda.
+
+Bu ürünleri silmek istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ConfirmObjectDeleteNoOwn">
+		Seçtiğiniz ürünlerden en az birine sahip değilsiniz.
+
+Bu ürünleri silmek istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="AvatarMoved">
+		[TYPE] lokasyonunuz şu an mevcut değil. [HELP]
+Yakındaki bir bölgeye taşındınız.
+	</notification>
+	<notification name="ClothingLoading">
+		Giysileriniz hala yükleniyor.
+[SECOND_LIFE]&apos;ı normal olarak kullanabilirsiniz ve diğer üyeler sizi doğru olarak göreceklerdir.
+		<form name="form">
+			<ignore name="ignore" text="Giysilerin yüklenmesi fazla zaman aldığında"/>
+		</form>
+	</notification>
+	<notification name="FirstRun">
+		[SECOND_LIFE] yüklemesi tamamlandı.
+
+Eğer [SECOND_LIFE]&apos;ı ilk kez kullanıyorsanız,giriş yapmadan önce yeni bir hesap yaratmanız gerekmektedir.
+www.secondlife.com geri dönüp yeni bir hesap yaratmak ister misiniz?
+		<usetemplate name="okcancelbuttons" notext="Devam Et" yestext="Yeni Hesap..."/>
+	</notification>
+	<notification name="LoginPacketNeverReceived">
+		İnternet bağlantınızı kontrol edebilir veya birkaç dakika içinde tekrar deneyebilirsiniz, destek sitesine bağlanmak için Yardım, veya evinize ışınlanma denemesi için Işınlan butonuna tıklayınız.
+		<form name="form">
+			<button name="OK" text="Tamam"/>
+			<button name="Help" text="Yardım"/>
+			<button name="Teleport" text="Işınlan"/>
+		</form>
+	</notification>
+	<notification name="WelcomeChooseSex">
+		Karakteriniz birazdan görünecek.
+
+Yürümek için ok tuşlarını kullanınız.
+Herhangi bir zaman F1 tuşuna basarak yardım alabilir veya [SECOND_LIFE] hakkında daha fazla şey öğrenebilirsiniz.
+Lütfen bay veya bayan karakteri seçiniz.
+Daha sonra fikrinizi değiştirebilirsiniz.
+		<usetemplate name="okcancelbuttons" notext="Bayan" yestext="Bay"/>
+	</notification>
+	<notification name="NotEnoughCurrency">
+		[NAME] [PRICE] L$ Bunu yapabilmeniz için yeterli L$&apos;a sahip değilsiniz.
+	</notification>
+	<notification name="GrantedModifyRights">
+		[FIRST_NAME] [LAST_NAME] kişisinin objelerini kontrol etmek için izin sahibi oldunuz.
+	</notification>
+	<notification name="RevokedModifyRights">
+		[FIRST_NAME] [LAST_NAME] kişisinin objelerini kontrol etmek için sahip olduğunuz izin geri alındı
+	</notification>
+	<notification name="BuyOneObjectOnly">
+		Tek seferde birden fazla obje satın alınamıyor.  Lütfen sadece bir obje seçiniz ve tekrar deneyiniz.
+	</notification>
+	<notification name="KickUsersFromRegion">
+		Bu bölgedeki tüm üyeler evlerine gönderilsin mi?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="EstateObjectReturn">
+		[USER_NAME] kişisine ait tüm objeleri geri göndermek istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="RawUploadStarted">
+		Yükleme başladı.Bağlantı hızınıza göre, iki dakika kadar sürebilir.
+	</notification>
+	<notification name="MaxManagersOnRegion">
+		En fazla [MAX_MANAGER] emlak menejeriniz olabilir.
+	</notification>
+	<notification name="FinishedRawDownload">
+		Raw zemin dosyası indirim işlemi tamamlandı:
+[DOWNLOAD_PATH].
+	</notification>
+	<notification name="DownloadWindowsMandatory">
+		[SECOND_LIFE]&apos;ın yeni versiyonu mevcut.
+[MESSAGE]
+[SECOND_LIFE]&apos;ı kullanabilmeniz için bu güncellemeyi indirmelisiniz.
+		<usetemplate name="okcancelbuttons" notext="Çık" yestext="İndir"/>
+	</notification>
+	<notification name="DownloadWindows">
+		[SECOND_LIFE]&apos;ın güncel versiyonu mevcut.
+[MESSAGE]
+Bu güncelleme gerekli değildir,fakat performans ve stabilite arttırımı için yüklemenizi öneriyoruz.
+		<usetemplate name="okcancelbuttons" notext="Devam Et" yestext="İndir"/>
+	</notification>
+	<notification name="DownloadWindowsReleaseForDownload">
+		[SECOND_LIFE]&apos;ın güncel versiyonu mevcut.
+[MESSAGE]
+Bu güncelleme gerekli değildir,fakat performans ve stabilite arttırımı için yüklemenizi öneriyoruz.
+		<usetemplate name="okcancelbuttons" notext="Devam Et" yestext="İndir"/>
+	</notification>
+	<notification name="DownloadMacMandatory">
+		[SECOND_LIFE]&apos;ın yeni versiyonu mevcut.
+[MESSAGE]
+[SECOND_LIFE]&apos;ı kullanabilmeniz için bu güncellemeyi indirmelisiniz.
+
+Uygulamalar klasörünüze indirilsin mi?
+		<usetemplate name="okcancelbuttons" notext="Çık" yestext="İndir"/>
+	</notification>
+	<notification name="DownloadMac">
+		[SECOND_LIFE]&apos;ın güncel versiyonu mevcut.
+[MESSAGE]
+Bu güncelleme gerekli değildir,fakat performans ve stabilite arttırımı için yüklemenizi öneriyoruz.
+
+Uygulamalar klasörünüze indirilsin mi?
+		<usetemplate name="okcancelbuttons" notext="Devan Et" yestext="İndir"/>
+	</notification>
+	<notification name="DownloadMacReleaseForDownload">
+		[SECOND_LIFE]&apos;ın güncel versiyonu mevcut.
+[MESSAGE]
+Bu güncelleme gerekli değildir,fakat performans ve stabilite arttırımı için yüklemenizi öneriyoruz.
+
+Uygulamalar klasörünüze indirilsin mi?
+		<usetemplate name="okcancelbuttons" notext="Devam Et" yestext="İndir"/>
+	</notification>
+	<notification name="DeedObjectToGroup">
+		Bu objeyi bağışlamanın sonucunda:
+* Objeye ödenen L$ miktarları gruba gelecektir
+		<usetemplate ignoretext="Gruplara objeler bağışlanırken" name="okcancelignore" notext="İptal" yestext="Bağışla"/>
+	</notification>
+	<notification name="WebLaunchExternalTarget">
+		Bu içeriği görüntülemek için sisteminizdeki web tarayıcı açılsın mı?
+		<usetemplate ignoretext="Web sayfası görüntülemek için sistem tarayıcınız açılırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="WebLaunchJoinNow">
+		Hesabınızı yönetmek için www.secondlife.com adresine gitmek ister misiniz?
+		<usetemplate ignoretext="Hesabınızı yönetmek için web tarayıcısı açılırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="WebLaunchBugReport101">
+		[SECOND_LIFE] Wiki&apos;yi ziyaret ediniz ve doğru olarak nasıl hata raporlanır öğreniniz.
+		<usetemplate ignoretext="Web tarayıcısı Hata Raporlama 101 Wiki&apos;sini görüntülemek için açılırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="WebLaunchSecurityIssues">
+		Güvenlik problemi raporlaması detayları için [SECOND_LIFE] Wiki&apos;yi ziyaret ediniz.
+		<usetemplate ignoretext="Web tarayıcısı Güvenlik Sorunları Wiki&apos;sini görüntülemek için açılırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="WebLaunchQAWiki">
+		[SECOND_LIFE] QA Wiki&apos;yi ziyaret edin.
+		<usetemplate ignoretext="Web tarayıcısı QA Wiki&apos;sini görüntülemek için açılırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="WebLaunchPublicIssue">
+		Hata ve diğer problemleri raporlamak için [SECOND_LIFE] Genel Sorun Tarayıcısı&apos;nı ziyaret ediniz.
+		<usetemplate ignoretext="Web tarayıcısı Genel Sorun Tarayıcısı&apos;nı görüntülemek için açılırken" name="okcancelignore" notext="İptal" yestext="Sayfaya git"/>
+	</notification>
+	<notification name="WebLaunchPublicIssueHelp">
+		Genel Sorun Tarayıcısı&apos;nı kullanma bilgisi edinmek için [SECOND_LIFE] Wiki&apos;yi ziyaret ediniz.
+		<usetemplate ignoretext="Web tarayıcısı Genel Sorun Tarayıcısı Wiki&apos;sini görüntülemek için açılırken" name="okcancelignore" notext="İptal" yestext="Sayfaya git"/>
+	</notification>
+	<notification name="WebLaunchSupportWiki">
+		Son haberler ve bilgiler için Yasal Linden Bloğu&apos;na gidiniz.
+		<usetemplate ignoretext="Web tarayıcısı bloğu görüntülemek için açılırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="WebLaunchLSLGuide">
+		Betikleme yardımı için Betikleme Rehberi&apos;ne gidilsin mi?
+		<usetemplate ignoretext="Web tarayıcısı Betikleme Rehberi&apos;ni görüntülemek için açılırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="WebLaunchLSLWiki">
+		Betikleme yardımı için LSL Portalı&apos;na gidilsin mi?
+		<usetemplate ignoretext="Web tarayıcısı LSL Portalı&apos;nı görüntülemek için açılırken" name="okcancelignore" notext="İptal" yestext="Sayfaya git"/>
+	</notification>
+	<notification name="ReturnToOwner">
+		Seçili objeleri sahiplerine geri göndermek istediğinizden emin misiniz?Transfer olabilen bağışlı objeler önceki sahiplerine geri gönderileceklerdir.
+
+*UYARI* Transfer olmayan bağışlı objeler silineceklerdir!
+		<usetemplate ignoretext="Objeler sahiplerine geri gönderilirken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="MuteLinden">
+		Üzgünüz,Linden görevlisini engelleyemezsiniz.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="CannotStartAuctionAlreadyForSale">
+		Zaten satılık olarak düzenlenmiş bir parsel üzerinde açık arttırma başlatamazsınız.  Eğer gerçekten bir açık arttırma başlatmak istediğinizden eminseniz arazi satışını devre dışı bırakınız.
+	</notification>
+	<notification label="Mute object by name failed" name="MuteByNameFailed">
+		Bu ismi zaten engellediniz.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="CantOfferCallingCard">
+		Şu anda arama kartı teklif edilemiyor.Lütfen birazdan tekrar deneyiniz.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="CantOfferFriendship">
+		Şu an arkadaşlık teklif edilemiyor.Lütfen birazdan tekrar deneyiniz.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="BusyModeSet">
+		Meşgul duruma geçildi.
+Sohbet ve hızlı mesaj yazıları saklanacaktır.Hızlı mesajlar gönderenler meşgul durum yanıtınızı alacaklardır. Tüm ışınlama teklifleri reddilecektir.Tüm envanter teklifleri çöp klasörünüze gidecektir.
+		<usetemplate ignoretext="Meşgul durumdayken" name="okignore" yestext="Tamam"/>
+	</notification>
+	<notification name="KickUser">
+		Bu üye ne mesajı ile çıkarılsın?
+		<form name="form">
+			<input name="message" type="text">
+				Yönetici sizi sistemden çıkardı.
+			</input>
+			<button name="OK" text="Tamam"/>
+			<button name="Cancel" text="İptal"/>
+		</form>
+	</notification>
+	<notification name="KickAllUsers">
+		Şu an grid&apos;de olan herkes ne mesajı ile çıkarılsın?
+		<form name="form">
+			<input name="message" type="text">
+				Yönetici sizi sistemden çıkardı.
+			</input>
+			<button name="OK" text="Tamam"/>
+			<button name="Cancel" text="İptal"/>
+		</form>
+	</notification>
+	<notification name="FreezeUser">
+		Bu üye ne mesajı ile dondurulsun?
+		<form name="form">
+			<input name="message" type="text">
+				Donduruldunuz.Hareket veya sohbet edemezsiniz.Yönetici sizinle hızlı mesaj(HM) yoluyla iletişim kuracaktır.
+			</input>
+			<button name="OK" text="Tamam"/>
+			<button name="Cancel" text="İptal"/>
+		</form>
+	</notification>
+	<notification name="UnFreezeUser">
+		Bu üye ne mesajı ile çözülsün?
+		<form name="form">
+			<input name="message" type="text">
+				Artık donuk değilsiniz.
+			</input>
+			<button name="OK" text="Tamam"/>
+			<button name="Cancel" text="İptal"/>
+		</form>
+	</notification>
+	<notification name="OfferTeleport">
+		Aşağıdaki mesaj ile lokasyonunuza ışınlanma teklif edilsin mi?
+		<form name="form">
+			<input name="message" type="text">
+				[REGION] bölgesinde bana katıl
+			</input>
+			<button name="OK" text="Tamam"/>
+			<button name="Cancel" text="İptal"/>
+		</form>
+	</notification>
+	<notification name="TeleportFromLandmark">
+		Işınlanmak istediğinizden emin misiniz?
+		<usetemplate ignoretext="Envanterdeki bir yer iminden ışınlanırken" name="okcancelignore" notext="İptal" yestext="Işınlan"/>
+	</notification>
+	<notification label="Emlağınızdaki herkese mesaj gönderin" name="MessageEstate">
+		Şu an emlağınız içerisindeki herkese
+gönderilecek kısa bir duyuru giriniz.
+		<form name="form">
+			<input name="message" type="text"/>
+			<button name="OK" text="Tamam"/>
+			<button name="Cancel" text="İptal"/>
+		</form>
+	</notification>
+	<notification label="Select estate" name="EstateAllowedAgentAdd">
+		İzinli listesine sadece bu emlak için mi yoksa [ALL_ESTATES] için mi eklenecek?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Tüm emlaklar" yestext="Bu emlak"/>
+	</notification>
+	<notification label="Select estate" name="EstateAllowedAgentRemove">
+		İzinli listesinden sadece bu emlak için yoksa [ALL_ESTATES] için mi çıkarılacak?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Tüm emlaklar" yestext="Bu emlak"/>
+	</notification>
+	<notification label="Select estate" name="EstateAllowedGroupAdd">
+		Grup,izinli listesine sadece bu emlak için mi yoksa [ALL_ESTATES] için mi eklensin?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Tüm emlaklar" yestext="Bu emlak"/>
+	</notification>
+	<notification label="Select estate" name="EstateAllowedGroupRemove">
+		Grup,izinli listesinden sadece bu emlak için mi yoksa [ALL_ESTATES] için mi çıkarılsın?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Tüm emlaklar" yestext="Bu emlak"/>
+	</notification>
+	<notification label="Select estate" name="EstateBannedAgentAdd">
+		Giriş sadece bu emlak için mi yoksa [ALL_ESTATES] için mi kısıtlansın?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Tüm emlaklar" yestext="Bu emlak"/>
+	</notification>
+	<notification label="Select estate" name="EstateBannedAgentRemove">
+		Bu üye yasaklı listesinden sadece bu emklak için mi yoksa [ALL_ESTATES] için mi çıkarılsın?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Tüm emlaklar" yestext="Bu emlak"/>
+	</notification>
+	<notification label="Select estate" name="EstateManagerAdd">
+		Emlak menejeri sadece bu emlak için mi yoksa [ALL_ESTATES] için mi eklensin?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Tüm emlaklar" yestext="Bu emlak"/>
+	</notification>
+	<notification label="Select estate" name="EstateManagerRemove">
+		Emlak menejeri sadece bu emlaktan mı yoksa [ALL_ESTATES]&apos;den mi çıkarılacak?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Tüm emlaklar" yestext="Bu emlak"/>
+	</notification>
+	<notification name="EstateChangeCovenant">
+		Emlak anlaşmasını değiştirmek istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="RegionEntryAccessBlocked">
+		Yetişkinlik oranınıza göre bu bölgede bulunmanıza izin verilmiyor. Bu durum eksik yaş doğrulama bilgisi yüzünden olabilir.
+
+Lütfen en güncel görüntüleyicinin yüklü olduğundan emin olunuz, ve bu yetişkinlik oranı ile izin verilen alanlar hakkında detaylar için Bilgi Merkezi&apos;ni ziyaret ediniz.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="RegionEntryAccessBlocked_KB">
+		Yetişkinlik oranınızdan dolayı bu bölgede bulunma izniniz yok. 
+
+Yetişkinlik oranları hakkında daha fazla bilgi edinmek için Bilgi Merkezi&apos;ne gitmek istiyor musunuz?
+		<url name="url">
+			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+		</url>
+    <usetemplate
+     name="okcancelignore"
+     yestext="Bilgi Merkezi&apos;ni ziyaret et"
+	 notext="Kapat"
+	 ignoretext="Bölgeye giriş yetişkinlik oranına göre sınırlandırıldığında"/>
+	</notification>
+	<notification name="RegionEntryAccessBlocked_Notify">
+		Yetişkinlik oranınızdan dolayı bu bölgede bulunmaya izinli değilsiniz.
+	</notification>
+	<notification name="RegionEntryAccessBlocked_Change">
+		Yetişkinlik oranı ayarınıza göre bu bölgede bulunmaya izinli değilsiniz.
+
+&apos;Ayarı değiştir&apos; butonuna tıklayarak yetişkinlik oran ayarınızı yükseltebilir ve giriş izni alabilirsiniz. Bundan sonra [REGIONMATURITY] içeriği ile ilgili arama ve bu içeriğe erişme izniniz olacaktır. Bu ayarı daha sonra geri almak isterseniz, Düzen &gt; Ayarlar... &gt; Genel sekmesine gidiniz.
+	<form name="form">
+      <button
+       name="OK"
+       text="Ayarı değiştir"/>
+      <button
+       name="Cancel"
+       text="Kapat"/>
+       <ignore name="ignore" text="Bölgeye giriş yetişkinlik oranı ayarına göre sınırlandırıldığında"/>
+    </form>
+	</notification>
+	<notification name="LandClaimAccessBlocked">
+		Yetişkinlik oranınıza göre bu araziyi talep edemezsiniz. Bu durum eksik yaş doğrulama bilgisi yüzünden olabilir.
+
+Lütfen en güncel görüntüleyicinin yüklü olduğundan emin olunuz, ve bu yetişkinlik oranı ile izin verilen alanlar hakkında detaylar için Bilgi Merkezi&apos;ni ziyaret ediniz.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="LandClaimAccessBlocked_KB">
+		Yetişkinlik oranınıza göre bu araziyi talep edemezsiniz. 
+
+Bilgi Merkezi&apos;ni ziyaret ederek yetişkinlik oranları hakkında daha fazla bilgi almak istiyor musunuz?
+		<url name="url">
+			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+		</url>
+    <usetemplate
+     name="okcancelignore"
+     yestext="Bilgi Merkezi&apos;ni ziyaret et"
+	 notext="Kapat"
+	 ignoretext="Arazi talebi yetişkinlik oranına göre sınırlandırıldığında"/>
+	</notification>
+	<notification name="LandClaimAccessBlocked_Notify">
+		Yetişkinlik oranınızdan dolayı bu araziyi alamazsınız.
+	</notification>
+	<notification name="LandClaimAccessBlocked_Change">
+		Yetişkinlik oranı ayarınıza göre bu araziyi talep edemezsiniz.
+
+&apos;Ayarı değiştir&apos; butonuna tıklayarak yetişkinlik oran ayarınızı yükseltebilir ve giriş izni alabilirsiniz. Bundan sonra [REGIONMATURITY] içeriği ile ilgili arama ve bu içeriğe erişme izniniz olacaktır. Bu ayarı daha sonra geri almak isterseniz, Düzen &gt; Ayarlar... &gt; Genel sekmesine gidiniz.
+    <usetemplate
+     name="okcancelignore"
+     yestext="Ayarı değiştir"
+	 notext="Kapat"
+	 ignoretext="Arazi talebi yetişkinlik oranı ayarına göre sınırlandırıldığında"/>
+	</notification>
+	<notification name="LandBuyAccessBlocked">
+		Yetişkinlik oranınıza göre bu araziyi satın alamazsınız. Bu durum eksik yaş doğrulama bilgisi yüzünden olabilir.
+
+Lütfen en güncel görüntüleyicinin yüklü olduğundan emin olunuz, ve bu yetişkinlik oranı ile izin verilen alanlar hakkında detaylar için Bilgi Merkezi&apos;ni ziyaret ediniz.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="LandBuyAccessBlocked_KB">
+		Yetişkinlik oranınızdan dolayı bu araziyi satın alamazsınız. 
+
+Bilgi Merkezi&apos;ni ziyaret ederek yetişkinlik oranları hakkında daha fazla bilgi almak istiyor musunuz?
+		<url name="url">
+			https://support.secondlife.com/ics/support/default.asp?deptID=4417&amp;task=knowledge&amp;questionID=6010
+		</url>
+    <usetemplate
+     name="okcancelignore"
+     yestext="Bilgi Merkezi&apos;ni ziyaret et"
+	 notext="Kapat"
+	 ignoretext="Arazi satın alımı yetişkinlik oranına göre sınırlandırıldığında"/>
+	</notification>
+	<notification name="LandBuyAccessBlocked_Notify">
+		Yetişlinlik oranınızdan dolayı bu araziyi satın alamazsınız.
+	</notification>
+	<notification name="LandBuyAccessBlocked_Change">
+		Yetişkinlik oranı ayarınıza göre bu araziyi satın alamazsınız.
+
+&apos;Ayarı değiştir&apos; butonuna tıklayarak yetişkinlik oran ayarınızı yükseltebilir ve giriş izni alabilirsiniz. Bundan sonra [REGIONMATURITY] içeriği ile ilgili arama ve bu içeriğe erişme izniniz olacaktır. Bu ayarı daha sonra geri almak isterseniz, Düzen &gt; Ayarlar... &gt; Genel sekmesine gidiniz.
+    <usetemplate
+     name="okcancelignore"
+     yestext="Ayarı değiştir"
+	 notext="Kapat"
+	 ignoretext="Arazi satın alımı yetişkinlik oranına göre sınırlandırıldığında"/>
+	</notification>
+	<notification name="TooManyPrimsSelected">
+		&quot;Çok fazla prim seçili.  Lütfen [MAX_PRIM_COUNT] veya daha az prim seçip tekrar deneyiniz.&quot;
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="ProblemImportingEstateCovenant">
+		Emlak anlaşmasını yüklerken bir problem oluştu.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="UnableToLoadNotecardAsset">
+		Mevcut zamanda notekart verisi yüklenemedi.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="PublishClassified">
+		Unutmayın: İlan reklam ücretleri geri verilmez.
+
+L$[AMOUNT] ücretine bu ilan şimdi yayınlansın mı?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="SetClassifiedMature">
+		Bu ilan Mature içerik içeriyor mu?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="SetGroupMature">
+		Bu grup Mature içerik içeriyor mu?
+		<usetemplate canceltext="İptal" name="yesnocancelbuttons" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification label="Confirm restart" name="ConfirmRestart">
+		Bu bölgeyi 2 dakika içinde yeniden başlatmak istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification label="Bu bölgedeki herkese mesaj gönderin" name="MessageRegion">
+		Bu bölgedeki herkese gönderilecek kısa bir duyuru giriniz.
+		<form name="form">
+			<input name="message" type="text"/>
+			<button name="OK" text="Tamam"/>
+			<button name="Cancel" text="İptal"/>
+		</form>
+	</notification>
+	<notification label="Çoklu içerik izin değişimi" name="HelpBulkPermission">
+		Çoklu izinler aracı seçili obje(ler)nizin içeriğindeki çoklu ürünlerin izinlerini hızlıca değiştirebilmenizde yardımcı olur.  Ancak, lütfen dikkat ediniz ki sadece seçili objelerin içeriğindeki ürünlerin izinlerini değiştiriyorsunuz -- içerik sağlayan obje(ler)nin kendisinin değil.  
+
+Ayrıca, izinler herhangi bir içeriğin içe içe geçmiş içeriklerinde uygulanmaz.  Talebiniz sadece ürünlerin bir seviye altını yönetir.
+
+'İçerik türleri'nin altındaki işaret listesini kullanarak ne tür ürünleri modifiye etmek istediğinizi seçebilirsiniz. Desenleri seçtiğinizde resimler eklenir.
+
+* Bu araç sadece kontrol edebildiğiniz objelerin izinlerinin değiştirilmesinde başarılı olacaktır.
+* Sahip olmadığınız sürece hiçbir Sonraki sahip izinlerini tanımlayamazsınız.
+* Sonraki sahip izinleri sadece taleplere bağlıdır. Eğer hiçbir ürün tüm yeni izinleri alamıyorsa, o ürünün hiçbir izni değişmeyecektir.
+
+Çoklu izinler değişikliği yapmaya hazır olduğunuzda, Uygula' butonuna tıklayınız ve sonuçların görüntülenmesini bekleyiniz.
+
+Eğer izinler değişirken Çoklu izinler penceresini kapatırsanız, işlem sonlanacaktır.
+	</notification>
+	<notification label="Yetişkinlik" name="HelpRegionMaturity"/>
+	<notification name="BuyContents">
+		[OWNER] kişisinden [PRICE] L$ ücretine içerikleri satın almak istiyor musunuz?
+Envanterinize kopyalanacaklar.
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="BuyContentsNoOwner">
+		[PRICE] L$ ücretine içerikleri satın almak istiyor musunuz?
+Envanterinize kopyalanacaklar.
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ConfirmPurchase">
+		Bu işlem:
+[ACTION]
+
+İşleme devam etmek istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="MoveInventoryFromObject">
+		&apos;kopyalanamaz&apos; envanter ürünleri seçtiniz.
+Bu ürünler envanterinize kopyalanmayacaklardır ve taşınacakladır.
+
+Envanter ürünü(leri) taşınsın mı?
+		<usetemplate ignoretext="Objelerden kopyalanamaz envanter taşınırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="MoveInventoryFromScriptedObject">
+		&apos;kopyalanamaz&apos; envanter ürünleri seçtiniz. Bu ürünler envanterinize kopyalanmayacaklardır ve taşınacaklardır.
+Bu obje betikli olduğundan dolayı,bu ürünleri envanterinize taşımak betiği işlevsiz kılabilir.
+
+Envanter ürünü(leri) taşınsın mı?
+		<usetemplate ignoretext="Betikli objelerden kopyalanamaz envanter taşınırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ClickActionNotPayable">
+		Uyarı: Objeye tıklayarak ödeme işlemi düzenlendi,fakat ancak money() olayı içeren bir betik eklenirse çalışacaktır.
+		<form name="form">
+			<ignore name="ignore" text="money() betik olayları olmadan objeler üzerine &apos;Öde&apos; özelliği eklenirken"/>
+		</form>
+	</notification>
+	<notification name="OpenObjectCannotCopy">
+		Bu obje içinde kopyalama izniniz olan hiçbir ürün yok.
+	</notification>
+	<notification name="WebLaunchAccountHistory">
+		Second Life web sitesine gidip hesap geçmişinizi görmek ister misiniz?
+		<usetemplate ignoretext="Hesap geçmişi web sayfası açılırken" name="okcancelignore" notext="İptal" yestext="Sayfaya git"/>
+	</notification>
+	<notification name="ClickOpenF1Help">
+		Second Life destek web sitesini ziyaret etmek ister misiniz?
+		<usetemplate ignoretext="Second Life destek web sitesi ziyaret edilirken" name="okcancelignore" notext="İptal" yestext="Git"/>
+	</notification>
+	<notification name="ConfirmQuit">
+		Çıkmak istediğinizden emin misiniz?
+		<usetemplate ignoretext="Second Life&apos;dan çıkarken" name="okcancelignore" notext="Devam et" yestext="Çık"/>
+	</notification>
+	<notification name="HelpReportAbuseEmailLL">
+		Bu aracı Servis Anlaşması ve Toplum Standartları&apos;na aykırı durumları raporlamak için kullanınız. Bakınız:
+
+http://secondlife.com/corporate/tos.php
+http://secondlife.com/corporate/cs.php
+
+Servis Anlaşması ve Toplum Standartları ile ilgili tüm şikayet raporları araştırılır ve çözülür. Olay çözümlerini Olay Raporu&apos;nda görüntüleyebilirsiniz:
+
+http://secondlife.com/support/incidentreport.php
+	</notification>
+	<notification name="HelpReportAbuseContainsCopyright">
+		Sayın Üye,
+
+Zihinsel mülk ihlali raporluyor görünmektesiniz. Lütfen doğru olarak şikayetinizi belirttiğinizden emin olunuz:
+
+(1) Suistimal İşlemi. Eğer bir üyenin Second Life izin sistemini kötüye kullandığını, örneğin, CopyBot veya benzer kopyalama araçları ile, zihinsel mülk ihlali gerçekleştirdiğine inanıyorsanız şikayet raporu bildirebilirsiniz. Suistimal Takımı araştırmasını yapar ve Second Life Toplum Standartları&apos;nı veya Servis Anlaşması&apos;nı ihlal eden davranışlar için gerekli disiplin hareketini uygular. Ancak, Suistimal Takımı Second Life dünyasından içerik silinme ile ilgili talepleri ele almaz ve bu taleplere cevap vermez.
+
+(2) DMCA veya İçerik Silme İşlemi. Second Life&apos;dan içerik silinme talebinde bulunmak için, http://secondlife.com/corporate/dmca.php adresindeki DMCA Poliçe&apos;sinde belirtildiği gibi geçerli bir ihlal bildirisinde bulunmalısınız.
+
+Eğer hale suistimal raporlama işlemine devam etmek istiyorsanız, lütfen bu pencereyi kapatınız ve raporunuzu gönderiniz.  Özellikle &apos;CopyBot veya İzinlerin Kötüye Kullanımı&apos; kategorisini seçmeniz gerekebilir.
+
+Teşekkürler,
+
+Linden Lab
+	</notification>
+	<notification label="Replace Existing Attachment" name="ReplaceAttachment">
+		Vücudunuzun bu bölgesindeki zaten bir obje ekli.
+Onu seçili obje ile değiştirmek ister misiniz?
+		<form name="form">
+			<ignore name="ignore" save_option="true" text="Mevcut ekler değiştirilirken"/>
+			<button ignore="Replace Automatically" name="Yes" text="Tamam"/>
+			<button ignore="Never Replace" name="No" text="İptal"/>
+		</form>
+	</notification>
+	<notification label="Busy Mode Warning" name="BusyModePay">
+		Meşgul durumdasınız, bu durumdayken alışveriş için ödeme yaptığınız hiçbir ürünü alamayacaksınız.
+
+Bu işlemi tamamlamadan önce meşgul durumdan çıkmak ister misiniz?
+		<form name="form">
+			<ignore name="ignore" save_option="true" text="Bir kişiye veya objeye meşgul durumda ödeme yapılırken"/>
+			<button ignore="Always leave Busy Mode" name="Yes" text="Tamam"/>
+			<button ignore="Never leave Busy Mode" name="No" text="İptal"/>
+		</form>
+	</notification>
+	<notification name="ConfirmEmptyTrash">
+		Çöp klasörünüzdeki içerikleri kalıcı olarak silmek istediğinizden emin misiniz?
+		<usetemplate ignoretext="Çöp klasörünüz boşaltılırken" name="okcancelignore" notext="İptal" yestext="Tamam"/>
+	</notification>
+	<notification name="ConfirmClearBrowserCache">
+		Tarayıcı ön belleğinizi temizlemek istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Evet"/>
+	</notification>
+	<notification name="ConfirmClearCookies">
+		Çerezlerinizi temizlemek istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Evet"/>
+	</notification>
+	<notification name="ConfirmClearMediaUrlList">
+		Kayıtlı linklerin listesini temizlemek istediğinizden emin misiniz?
+		<usetemplate name="okcancelbuttons" notext="İptal" yestext="Evet"/>
+	</notification>
+	<notification name="ConfirmEmptyLostAndFound">
+		Kayıp ve bulunan klasörünüzdeki içerikleri kalıcı olarak silmek istediğinizden emin misiniz?
+		<usetemplate ignoretext="Kayıp ve bulunan klasörünüz boşaltılırken" name="okcancelignore" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="CopySLURL">
+		Aşağıdaki SLURL panonuza kopyalandı:
+ [SLURL]
+
+Başkalarının bu lokasyona kolay girebilmeleri için bunu bir web sayfası içine koyunuz veya web tarayıcınızın adres çubuğuna yapıştırarak kendiniz deneyiniz.
+		<form name="form">
+			<ignore name="ignore" text="Panonuza SLURL kopyalanırken"/>
+		</form>
+	</notification>
+	<notification name="GraphicsPreferencesHelp">
+		Bu panel,istemci grafiğinin pencere boyutunu,çözünürlüğünü ve kalitesini kontrol eder.Ayarlar &gt; Grafik birimi,size seçebileceğiniz dört adet grafik seviyesi sunar: Düşük,Orta,Yüksek ve Ultra.Ayrıca siz de Özel işaret kutucuğunu seçerek ve aşağıdaki seçenekleri değiştirerek kendi grafik ayarlarınızı düzenleyebilirsiniz:
+
+Gölgelendiriciler: Çeşitli türdeki piksel gölgelendiricilerini etkinleştirir veya devre dışı bırakır.
+
+Yansıma detayı: Suyun yansıtabileceği objelerin türlerini seçer.
+
+Karakter dokuması: İstemcinin karakterleri dokumasını etkileyen seçenekleri belirler.
+
+Çizim uzaklığı: Görüntü noktanızdan ne kadar uzaklıktaki objelerin dokunacağını belirler.
+
+Maksimum tanecik sayısı: Ekranınızda bir kerede en fazla ne kadar tanecik görebileceğinizi belirler.
+
+Post Process Quality: Sets the resolution with which Glow is rendered.
+
+Göz detayı: Bazı objelerin dokunmasında kullanılan üçgenlerin sayılarını ve detay miktarlarını belirler.Daha yüksek değerde dokuma işlemi uzun sürer,fakat bu objelerin daha detaylı görünmelerini sağlar.
+
+Aydınlatma detayı: Ne türde ışıklar dokumak istediğinizi belirler.
+
+Zemin detayı: Zemin deseni için görebileceğiniz detay miktarını belirler.
+	</notification>
+	<notification name="ChatterBoxSessionStartError">
+		[RECIPIENT] ile yeni bir sohbet oturumu başlatılamadı.
+[REASON]
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="ChatterBoxSessionEventError">
+		[EVENT]
+[REASON]
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="ForceCloseChatterBoxSession">
+		[NAME] ile sohbet oturumunuz kapatılmak zorunda.
+[REASON]
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="Cannot_Purchase_an_Attachment">
+		Bir ekin parçasıyken ürünler satın alınamazlar.
+	</notification>
+	<notification label="About Requests for the Debit Permission" name="DebitPermissionDetails">
+		Bu teklifi onaylamak betiğin hesabınızdan Linden doları (L$) çekmesine izin verir.Bu izni geri almak için,obje sahibi objeyi sillmeyi veya obje içindeki betikleri yenilemelidir.
+		<usetemplate name="okbutton" yestext="Tamam"/>
+	</notification>
+	<notification name="AutoWearNewClothing">
+		Yarattığınız giyim ürününü otomatik olarak giymek istiyor musunuz?
+		<usetemplate ignoretext="Yeni giysiyi otomatik olarak giyerken" name="okcancelignore" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="NotAgeVerified">
+		Bu parsele giriş yapabilmeniz için yaşınızı doğrulamış olmanız gerekiyor.
+Yaşınızı doğrulamak için Second Life web sitesini ziyaret etmek ister misiniz?
+
+[_URL]
+		<usetemplate ignoretext="Yaş doğrulaması eksikliğinde" name="okcancelignore" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="Cannot enter parcel: no payment info on file">
+		Bu parsele giriş yapabilmeniz için kayıtlı ödeme bilginizin olması gerekiyor.
+Bunu düzenlemek için Second Life web sitesini ziyaret etmek ister misiniz?
+
+[_URL]
+		<usetemplate ignoretext="Eksik ödeme bilgisinde" name="okcancelignore" notext="Hayır" yestext="Evet"/>
+	</notification>
+	<notification name="SystemMessageTip">
+		[MESSAGE]
+	</notification>
+	<notification name="Cancelled">
+		İptal oldu
+	</notification>
+	<notification name="CancelledSit">
+		Oturma iptal oldu
+	</notification>
+	<notification name="CancelledAttach">
+		Ekleme iptal oldu
+	</notification>
+	<notification name="FriendOnline">
+		[FIRST] [LAST] sistemde
+	</notification>
+	<notification name="FriendOffline">
+		[FIRST] [LAST] sistemde değil
+	</notification>
+	<notification name="AddSelfFriend">
+		Kendi kendinizi arkadaş olarak ekleyemezsiniz.
+	</notification>
+	<notification name="UploadPayment">
+		Yüklemek için [AMOUNT] L$ ödediniz.
+	</notification>
+	<notification name="TerrainDownloaded">
+		Terrain.raw indi
+	</notification>
+	<notification name="GestureMissing">
+		[NAME] hareketi veritabanından kayıp.
+	</notification>
+	<notification name="UnableToLoadGesture">
+		[NAME] hareketi yüklenemedi.
+Lütfen tekrar deneyiniz.
+	</notification>
+	<notification name="LandmarkMissing">
+		Yer imi veritabanından kayıp.
+	</notification>
+	<notification name="UnableToLoadLandmark">
+		Yer imi yüklenemedi.Lütfen tekrar deneyiniz.
+	</notification>
+	<notification name="CapsKeyOn">
+		Caps Lock tuşunuz aktif.
+Bu durum,gireceğiniz şifrenizi etkileyebileceği için kapatmak isteyebilirsiniz.
+	</notification>
+	<notification name="NotecardMissing">
+		Notekart veritabanından kayıp.
+	</notification>
+	<notification name="UnableToLoadNotecard">
+		Notkart yüklenemedi.
+Lütfen tekrar deneyiniz.
+	</notification>
+	<notification name="ScriptMissing">
+		Betik veritabanından kayıp.
+	</notification>
+	<notification name="UnableToLoadScript">
+		Betik yüklenemedi.Lütfen tekrar deneyiniz.
+	</notification>
+	<notification name="OfferedCard">
+		[FIRST] [LAST] kişisine arama kartı gönderdiniz
+	</notification>
+	<notification name="UnableToBuyWhileDownloading">
+		Veri indirilirken obje satın alınamadı.
+Lütfen tekrar deneyiniz.
+	</notification>
+	<notification name="UnableToLinkWhileDownloading">
+		Veri indirilirken bağlama işlemi gerçekleşemedi.
+Lütfen tekrar deneyiniz.
+	</notification>
+	<notification name="CannotBuyObjectsFromDifferentOwners">
+		Aynı anda farklı kişilerden objeler satın alınamaz.
+Lütfen tek bir obje seçiniz.
+	</notification>
+	<notification name="ObjectNotForSale">
+		Obje satılık durumda gözükmüyor.
+	</notification>
+	<notification name="EnteringGodMode">
+		Tanrı moduna giriş,seviye [LEVEL]
+	</notification>
+	<notification name="LeavingGodMode">
+		Tanrı modundan çıkış,seviye [LEVEL]
+	</notification>
+	<notification name="CopyFailed">
+		Kopyalama başarısız oldu çünkü kopyalama iznine ihtiyacınız var
+	</notification>
+	<notification name="InventoryAccepted">
+		[NAME] envanter teklifinizi kabul etti.
+	</notification>
+	<notification name="InventoryDeclined">
+		[NAME] envanter teklifinizi reddeti.
+	</notification>
+	<notification name="ObjectMessage">
+		[NAME]: [MESSAGE]
+	</notification>
+	<notification name="CallingCardAccepted">
+		Arama kartınız kabul edildi.
+	</notification>
+	<notification name="CallingCardDeclined">
+		Arama kartınız reddedildi.
+	</notification>
+	<notification name="CantSelectLandFromMultipleRegions">
+		Sunucu sınırları ile kesişen arazi seçilemez.
+Daha küçük bir parça arazi seçmeyi deneyiniz.
+	</notification>
+	<notification name="SearchWordBanned">
+		Toplum Standartları&apos;nda açıklanan içerik kısıtlamalarına göre arama sorgunuzdaki bazı ifadeler çıkarıldı.
+	</notification>
+	<notification name="NoContentToSearch">
+		Aramak için lütfen en az bir içerik türü seçiniz (PG, Mature, veya Adult).
+	</notification>
+	<notification name="GroupVote">
+		[NAME] oylanması için teklif önerdi:
+[MESSAGE]
+		<form name="form">
+			<button name="VoteNow" text="Şimdi Oyla"/>
+			<button name="Later" text="Sonra"/>
+		</form>
+	</notification>
+	<notification name="SystemMessage">
+		[MESSAGE]
+	</notification>
+	<notification name="EventNotification">
+		Aktivite duyurusu:
+
+[NAME]
+[DATE]
+		<form name="form">
+			<button name="Teleport" text="Işınlan"/>
+			<button name="Description" text="Tanım"/>
+			<button name="Cancel" text="İptal"/>
+		</form>
+	</notification>
+	<notification name="TransferObjectsHighlighted">
+		Bu araziyi satın alacak kişiye bu arazi üzerindeki
+tüm transfer edilecek objeler şimdi ışıklandırılıyor.
+
+* Transfer edilecek ağaçlar ve çimenler ışıklandırılmaz.
+		<form name="form">
+			<button name="Done" text="Bitti"/>
+		</form>
+	</notification>
+	<notification name="DeactivatedGesturesTrigger">
+		Aynı kısayola sahip hareketler devre dışı bırakıldı:
+[NAMES]
+	</notification>
+	<notification name="NoQuickTime">
+		Apple&apos;ın QuickTime yazılımı sisteminizde yüklü gözükmüyor.
+Eğer destekleyen parsellerde medya yayınını görüntülemek istiyorsanız, QuickTime sitesini (http://www.apple.com/quicktime) ziyaret edip QuickTime Player yazılımını indirmeniz gerekmektedir.
+	</notification>
+	<notification name="NotSafe">
+		Bu arazide zarar etkin.(&apos;emniyetsiz&apos;).
+Burada yaralanabilirsiniz.Eğer ölürseniz,ev lokasyonunuza ışınlanacaksınız.
+	</notification>
+	<notification name="NoFly">
+		Bu arazide uçuş etkin değil.(&apos;uçuş yasak&apos;).
+Burada uçamazsınız.
+	</notification>
+	<notification name="PushRestricted">
+		Bu arazide &apos;İtiş Yok&apos;.
+Bu araziye sahip olmadığınız sürece burada diğerlerini ittiremezsiniz.
+	</notification>
+	<notification name="NoVoice">
+		Bu arazide konuşma etkin değil.
+	</notification>
+	<notification name="NoBuild">
+		Bu arazide inşa edilemez.(&apos;inşa yasak&apos;).
+Burada objeler yaratamazsınız.
+	</notification>
+	<notification name="ScriptsStopped">
+		Yönetici bu bölgedeki betikleri geçici olarak durdurdu.
+	</notification>
+	<notification name="ScriptsNotRunning">
+		Bu bölgede hiçbir betik çalışmıyor.
+	</notification>
+	<notification name="NoOutsideScripts">
+		Bu arazide dış betikler kullanılamaz.
+(&apos;dış betikler yasak&apos;).
+Arazi sahibine ait olan dışında başka hiçbir betik çalışmayacaktır.
+	</notification>
+	<notification name="RegionTPAccessBlocked">
+		Yetişkinlik oranınıza göre bu bölgede bulunmanıza izin verilmiyor. Yaşınızı doğrulamış olmanız ve/veya en güncel görüntüleyiciyi yüklemiş olmanız gerekmektedir.
+
+Lütfen bu yetişkinlik oranı ile izin verilen alanlar hakkında detaylar için Bilgi Merkezi&apos;ni ziyaret ediniz.
+	</notification>
+	<notification name="URBannedFromRegion">
+		Bu bölgede yasaklısınız.
+	</notification>
+	<notification name="NoTeenGridAccess">
+		Hesabınız bu teen grid bölgesine bağlanamaz.
+	</notification>
+	<notification name="ImproperPaymentStatus">
+		Bu bölgeye girebilmek için uygun ödeme durumuna sahip değilsiniz.
+	</notification>
+	<notification name="MustGetAgeRegion">
+		Bu bölgeye girmek için yaşınızı doğrulamış olmanız gerekmektedir.
+	</notification>
+	<notification name="MustGetAgeParcel">
+		Bu parsele girebilmeniz için yaş doğrulamış olmanız gerekmektedir.
+	</notification>
+	<notification name="NoDestRegion">
+		Hedef bölge bulunamadı.
+	</notification>
+	<notification name="NotAllowedInDest">
+		Hedefe gitme izniniz mevcut değil.
+	</notification>
+	<notification name="RegionParcelBan">
+		Yasaklı parsele bölge geçişi gerçekleşemiyor. Başka bir yol deneyiniz.
+	</notification>
+	<notification name="TelehubRedirect">
+		Bir telehub&apos;a yönlendirildiniz.
+	</notification>
+	<notification name="CouldntTPCloser">
+		Hedefe yakın ışınlanma gerçekleşemedi.
+	</notification>
+	<notification name="TPCancelled">
+		Işınlanma iptal edildi.
+	</notification>
+	<notification name="FullRegionTryAgain">
+		Girmeye çalıştığınız bölge şu anda dolu.
+Lütfen birkaç dakika içinde tekrar deneyiniz.
+	</notification>
+	<notification name="GeneralFailure">
+		Genel hata.
+	</notification>
+	<notification name="RoutedWrongRegion">
+		Yanlış bölgeye yönlendirildiniz. Lütfen tekrar deneyiniz.
+	</notification>
+	<notification name="NoValidAgentID">
+		Geçersiz kişi numarası.
+	</notification>
+	<notification name="NoValidSession">
+		Geçersiz oturum numarası.
+	</notification>
+	<notification name="NoValidCircuit">
+		Geçersiz devre kodu.
+	</notification>
+	<notification name="NoValidTimestamp">
+		Geçersiz zaman damgası.
+	</notification>
+	<notification name="NoPendingConnection">
+		Beklenen bağlantı kurulamıyor.
+	</notification>
+	<notification name="InternalUsherError">
+		Işınlanma hedefinize yol gösterme sırasında içsel bir hata meydana geldi. Second Life şu anda servis problemleri ile karşı karşıya olabilir.
+	</notification>
+	<notification name="NoGoodTPDestination">
+		Bu bölgede iyi bir ışınlanma hedefi bulunamadı.
+	</notification>
+	<notification name="InternalErrorRegionResolver">
+		Işınlanma isteğiniz için gerekli olan global koordinatların çözümü sırasında içsel bir hata meydana geldi. Second Life şu anda servis problemleri ile karşı karşıya olabilir.
+	</notification>
+	<notification name="NoValidLanding">
+		Geçerli konumlandırma noktası bulunamadı.
+	</notification>
+	<notification name="NoValidParcel">
+		Geçerli bir parsel bulunamadı.
+	</notification>
+	<notification name="ObjectGiveItem">
+		[FIRST] [LAST] kişisine ait [OBJECTFROMNAME] size [OBJECTNAME] isminde bir [OBJECTTYPE] gönderiyor.
+		<form name="form">
+			<button name="Keep" text="Sakla"/>
+			<button name="Discard" text="Reddet"/>
+			<button name="Mute" text="Engelle"/>
+		</form>
+	</notification>
+	<notification name="ObjectGiveItemUnknownUser">
+		(bilinmeyen üye)&apos;ye ait [OBJECTFROMNAME] size [OBJECTNAME] isminde bir [OBJECTTYPE] gönderiyor.
+		<form name="form">
+			<button name="Keep" text="Sakla"/>
+			<button name="Discard" text="Reddet"/>
+			<button name="Mute" text="Engelle"/>
+		</form>
+	</notification>
+	<notification name="UserGiveItem">
+		[NAME] size &apos;[OBJECTNAME]&apos; isminde bir [OBJECTTYPE] gönderiyor.
+		<form name="form">
+			<button name="Keep" text="Sakla"/>
+			<button name="Discard" text="Reddet"/>
+			<button name="Mute" text="Engelle"/>
+		</form>
+	</notification>
+	<notification name="GodMessage">
+		[NAME]
+[MESSAGE]
+	</notification>
+	<notification name="JoinGroup">
+		[MESSAGE]
+		<form name="form">
+			<button name="Join" text="Üye ol"/>
+			<button name="Decline" text="Reddet"/>
+			<button name="Info" text="Bilgi"/>
+		</form>
+	</notification>
+	<notification name="TeleportOffered">
+		[NAME] sizi kendi lokasyonuna ışınlama davetinde bulundu:
+
+[MESSAGE]
+		<form name="form">
+			<button name="Teleport" text="Işınlan"/>
+			<button name="Cancel" text="İptal"/>
+		</form>
+	</notification>
+	<notification name="GotoURL">
+		[MESSAGE]
+[URL]
+		<form name="form">
+			<button name="Later" text="Sonra"/>
+			<button name="GoNow..." text="Şimdi git..."/>
+		</form>
+	</notification>
+	<notification name="OfferFriendship">
+		[NAME] arkadaşlık teklif ediyor.
+
+[MESSAGE]
+
+(Normal olarak birbirinizin sisteme bağlılık durumunu görebileceksiniz.)
+		<form name="form">
+			<button name="Accept" text="Kabul et"/>
+			<button name="Decline" text="Reddet"/>
+		</form>
+	</notification>
+	<notification name="OfferFriendshipNoMessage">
+		[NAME] arkadaşlık teklif ediyor.
+
+(Normal olarak birbirinizin sisteme bağlılık durumunu görebileceksiniz)
+		<form name="form">
+			<button name="Accept" text="Kabul et"/>
+			<button name="Decline" text="Reddet"/>
+		</form>
+	</notification>
+	<notification name="FriendshipAccepted">
+		[NAME] arkadaşlık teklifinizi kabul etti.
+	</notification>
+	<notification name="FriendshipDeclined">
+		[NAME] arkadaşlık teklifinizi reddetti.
+	</notification>
+	<notification name="OfferCallingCard">
+		[FIRST] [LAST] kendisinin arama kartını gönderiyor.
+Bu,envanterinizde bir sık kullanılan olarak eklenecek ve böylece bu üyeye kolayca HM gönderebileceksiniz.
+		<form name="form">
+			<button name="Accept" text="Kabul et"/>
+			<button name="Decline" text="Reddet"/>
+		</form>
+	</notification>
+	<notification name="RegionRestartMinutes">
+		Bölge,[MINUTES] dakika içinde yeniden başlatılacak.
+Eğer bu bölgede kalmaya devam ederseniz, sistemden çıkarılacaksınız.
+	</notification>
+	<notification name="RegionRestartSeconds">
+		Bölge,[SECONDS] saniye içinde yeniden başlayacak.
+Eğer bu bölgede kalmaya devam ederseniz, sistemden çıkarılacaksınız.
+	</notification>
+	<notification name="LoadWebPage">
+		Web sayfası yüklensin mi [URL]?
+
+[MESSAGE]
+
+Obje: [OBJECTNAME], sahibi: [NAME]?
+		<form name="form">
+			<button name="Gotopage" text="Sayfaya git"/>
+			<button name="Cancel" text="İptal"/>
+		</form>
+	</notification>
+	<notification name="InvalidWearable">
+		Giymeye çalıştığınız ürün görüntüleyicinin algılayamdığı bir özelliği kullanıyor olabilir. Bu ürünü giymek için lütfen Second Life sürümünüzü güncelleyiniz.
+	</notification>
+	<notification name="ScriptDialog">
+		[FIRST] [LAST]&apos;s &apos;[TITLE]&apos;
+[MESSAGE]
+		<form name="form">
+			<button name="Ignore" text="Kapat"/>
+		</form>
+	</notification>
+	<notification name="ScriptDialogGroup">
+		[GROUPNAME]&apos;s &apos;[TITLE]&apos;
+[MESSAGE]
+		<form name="form">
+			<button name="Ignore" text="Kapat"/>
+		</form>
+	</notification>
+	<notification name="FirstBalanceIncrease">
+		L$[AMOUNT] aldınız.
+Objeler veya diğer üyeler size L$ vermiş olabilirler.
+Hesap bakiyeniz ekranın sağ üst köşesinde görüntülenir.
+	</notification>
+	<notification name="FirstBalanceDecrease">
+		L$[AMOUNT] ödediniz.
+Hesap bakiyeniz ekranın sağ üst köşesinde görüntülenir.
+	</notification>
+	<notification name="FirstSit">
+		Oturuyorsunuz.
+Görüntüyü değiştirmek için yön(veya AWSD) tuşlarını kullanınız.
+Ayağa kalkmak için &apos;Ayağa kalk&apos; butonunu kullanınız.
+	</notification>
+	<notification name="FirstMap">
+		Haritayı kaydırmak için tıklayıp sürükleyiniz.
+Işınlanmak için çift tıklayınız.
+Farklı arka planlar görüntülemek ve farklı şeyler bulmak için sağdaki kontrolleri kullanınız.
+	</notification>
+	<notification name="FirstBuild">
+		[SECOND_LIFE]&apos;ın bazı bölgelerinde yeni objeler yaratabilirsiniz.
+İnşa etmek için sol üstteki araçları kullanınız,ve araçlar arası hızlı geçiş yapmak için Ctrl veya Alt tuşlarını basılı tutunuz.
+İnşa etmeyi durdumak için Esc tuşunu kullanınız.
+	</notification>
+	<notification name="FirstLeftClickNoHit">
+		Sol tıklama özel objeler ile etkileşim sağlar.
+Eğer fare işaretçiği ele dönüşürse,siz de objeler ile etkileşim sağlayabilirsiniz.
+Sağ tıklama her zaman yapabileceğiniz şeylerin menüsünü gösterir.
+	</notification>
+	<notification name="FirstTeleport">
+		Bu bölge noktadan noktaya ışınlanmalara izin vermiyor,bu yüzden en yakın telehub bölgesine taşındınız.
+Hedefiniz uzun bir işaretçik ile belirtiliyor.
+İşaretçiğe doğru kırmızı oku takip edin veya işaretçiği yok etmek için oka tıklayınız.
+	</notification>
+	<notification name="FirstOverrideKeys">
+		Hareket tuşlarınız bir obje tarafından kontrol ediliyor.
+Yön veya AWSD tuşlarını deneyerek ne yaptığını görebilirsiniz.
+Bazı objeleri(silah gibi) kullanabilmeniz için farebakışı moduna geçmeniz gerekir.
+Bunu yapmak için sohbet çubuğunu kapatıp &apos;M&apos; tuşunu kullanınız.
+	</notification>
+	<notification name="FirstAppearance">
+		Görünümünüzü düzenliyorsunuz.
+Çevirmek ve yakın görüntü için yön tuşlarını kullanınız.
+Bitirdiğinizde,görünümünüzü kaydedip çıkmak için &apos;Tümünü kaydet&apos; butonunu kullanınız.
+Görünümünüzü istediğiniz kadar düzenleyebilirsiniz.
+	</notification>
+	<notification name="FirstInventory">
+		Bu,sizin objelerinizi,notekartlarınızı,giysilerinizi ve diğer sahip olduğunuz diğer şeyleri içeren envanteriniz.
+* Obje veya dışgiyim klasörü giymek için onu kendinize doğru sürükleyiniz.
+* Dünyaya bir obje getirmek için onu yere doğru sürükleyiniz.
+* Notkart okumak için ona iki kere tıklayınız..
+	</notification>
+	<notification name="FirstSandbox">
+		Burası atölye bölgesi.
+Burayı terk ettiğiniz zaman, inşa ettiğiniz objeler silinebilir.Atölyeler belirli aralıklar ile temizlenirler,lütfen ekranın üzerindeki bölge isminin yanındaki bilgiye bakınız.
+
+Atölye bölgeleri nadirdir,ve işaretler ile belirtilir.
+	</notification>
+	<notification name="FirstFlexible">
+		Bu obje esnek.
+Esnek objeler fiziksel olmayabilirler ve esneklik işaret kutusu işaretlenmediği sürece geçirgen olmalıdırlar.
+	</notification>
+	<notification name="FirstDebugMenus">
+		Gelişmiş menüsünü etkinleştirdiniz.
+Bu menü,Second Life&apos;ı ayıklayan geliştiriciler için özellikler içerir.
+Bu menüye Windows&apos;da ulaşmak için Ctrl-Alt-D,Mac için Cmd-Opt-Shift-D kombinasyonlarını kullanınız.
+	</notification>
+	<notification name="FirstSculptedPrim">
+		Yontulmuş prim düzenliyorsunuz.
+Yontulmuş primler kendi şekilleri için özel desenler gerektirirler.
+Envanter kütüphanesinde örnek yontulmuş desenler bulabilirsiniz.
+	</notification>
+	<notification name="FirstMedia">
+		Medya oynatmaya başladınız.Medya,Ayarlar penceresindeki Ses/Görüntü sekmesinden otomatik olarak çalması için ayarlanabilir.Unutmayın,bu durum bilmediğiniz medya sitelerinden dolayı güvenlik riski teşkil edebilir.
+	</notification>
+	<notification name="MaxListSelectMessage">
+		Bu listeden sadece [MAX_SELECT]
+adet ürün seçebilirsiniz.
+	</notification>
+	<notification name="VoiceInviteP2P">
+		[NAME] sizi sesli sohbete davet ediyor.
+Aramaya katılmak için Kabul et veya daveti reddetmek için Reddet butonuna tıklayınız.Bu arayan kişiyi engellemek için Engelle butonuna tıklayınız.
+		<form name="form">
+			<button name="Accept" text="Kabul et"/>
+			<button name="Decline" text="Reddet"/>
+			<button name="Mute" text="Engelle"/>
+		</form>
+	</notification>
+	<notification name="VoiceInviteGroup">
+		[NAME] [GROUP] grubu ile sesli sohbete katıldı .
+Aramaya katılmak için Kabul et veya daveti reddetmek için Reddet butonuna tıklayınız.Bu arayan kişiyi engellemek için Engelle butonuna tıklayınız.
+		<form name="form">
+			<button name="Accept" text="Kabul et"/>
+			<button name="Decline" text="Reddet"/>
+			<button name="Mute" text="Engelle"/>
+		</form>
+	</notification>
+	<notification name="VoiceInviteAdHoc">
+		[NAME] konferans yazışması ile sesli sohbete katıldı..
+Aramaya katılmak için Kabul et veya daveti reddetmek için Reddet butonuna tıklayınız.Bu üyeyi engellemek için Engelle butonuna tıklayınız.
+		<form name="form">
+			<button name="Accept" text="Kabul et"/>
+			<button name="Decline" text="Reddet"/>
+			<button name="Mute" text="Engelle"/>
+		</form>
+	</notification>
+	<notification name="InviteAdHoc">
+		[NAME] sizi konferans sohbetine davet ediyor.
+Sohbete katılmak için Kabul et veya daveti reddetmek için Reddet butonuna tıklayınız.Bu üyeyi engellemek için Engelle butonuna tıklayınız.
+		<form name="form">
+			<button name="Accept" text="Kabul et"/>
+			<button name="Decline" text="Reddet"/>
+			<button name="Mute" text="Engelle"/>
+		</form>
+	</notification>
+	<notification name="VoiceChannelFull">
+		Katılmaya çalıştığınız sesli sohbet araması,[VOICE_CHANNEL_NAME],maksimum kapasiteye ulaştı.Lütfen daha sonra tekrar deneyiniz.
+	</notification>
+	<notification name="ProximalVoiceChannelFull">
+		Üzgünüz.Bu alan sesli sohbet için maksimum kapasiteye ulaştı.Lütfen başka bir alanda konuşmayı deneyiniz.
+	</notification>
+	<notification name="VoiceChannelDisconnected">
+		[VOICE_CHANNEL_NAME] ile bağlantınız kesildi.Şimdi çevresel konuşma kanalına tekrar bağlanacaksınız.
+	</notification>
+	<notification name="VoiceChannelDisconnectedP2P">
+		[VOICE_CHANNEL_NAME] aramayı sonlandırdı.Şimdi çevresel konuşma kanalına tekrar bağlanacaksınız.
+	</notification>
+	<notification name="P2PCallDeclined">
+		[VOICE_CHANNEL_NAME] aramanızı reddetti.Şimdi çevresel konuşma kanalına tekrar bağlanacaksınız.
+	</notification>
+	<notification name="P2PCallNoAnswer">
+		[VOICE_CHANNEL_NAME] aramanızı alacak konumda değil.Şimdi çevresel konuşma kanalına tekrar bağlanacaksınız.
+	</notification>
+	<notification name="VoiceChannelJoinFailed">
+		[VOICE_CHANNEL_NAME] ile bağlantı kurulamıyor,lütfen daha sonra tekrar deneyiniz.Şimdi çevresel konuşma kanalına tekrar bağlanacaksınız.
+	</notification>
+	<notification name="VoiceLoginRetry">
+		Sizin için bir konuşma kanalı yaratıyoruz.Bu bir dakika kadar sürebilir.
+	</notification>
+	<notification name="Cannot enter parcel: not a group member">
+		Araziye girilemiyor,uygun grubun üyesi değilsiniz.
+	</notification>
+	<notification name="Cannot enter parcel: banned">
+		Araziye girilemiyor,yasaklısınız.
+	</notification>
+	<notification name="Cannot enter parcel: not on access list">
+		Araziye girilemiyor,giriş listesinde değilsiniz.
+	</notification>
+	<notification name="VoiceNotAllowed">
+		[VOICE_CHANNEL_NAME] ile sesli sohbet bağlantısı kurabilmeniz için yeterli izniniz yok.
+	</notification>
+	<notification name="VoiceCallGenericError">
+		[VOICE_CHANNEL_NAME] ile sesli sohbet bağlantısı kurulmaya çalışılırken bir hata oluştu.Lütfen daha sonra tekrar deneyiniz.
+	</notification>
+	<notification name="ServerVersionChanged">
+		Girdiğiniz bölge farklı bir simulatör versiyonunda çalıştırılıyor.Detaylar için bu mesaja tıklayınız.
+	</notification>
+	<notification name="UnableToOpenCommandURL">
+		Tıkladığınız link bu web tarayıcısında açılamıyor.
+	</notification>
+	<global name="UnsupportedCPU">
+		- İşlemci hızınız minimum gereksinimleri karşılamıyor.
+	</global>
+	<global name="UnsupportedGLRequirements">
+		Second Life için gereken uygun donanıma sahip olmadığınız görünüyor. Second Life çokludesen desteği olan bir OpenGL ekran kartı gerektirir. Eğer sorun bu ise,grafik kartınız için güncel sürücülere ve işletim sisteminiz için servis paketlerine sahip olduğunuzdan emin olunuz.
+
+Eğer problem hala devam ederse, http://www.secondlife.com/support adresini ziyaret ediniz
+	</global>
+	<global name="UnsupportedCPUAmount">
+		796
+	</global>
+	<global name="UnsupportedRAMAmount">
+		510
+	</global>
+	<global name="UnsupportedGPU">
+		- Ekran kartınız minimum gereksinimleri karşılamıyor.
+	</global>
+	<global name="PermYes">
+		Evet
+	</global>
+	<global name="PermNo">
+		Hayır
+	</global>
+</notifications>

@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -278,7 +279,7 @@ BOOL	LLFloaterTools::postBuild()
 			&LLToolPlacerPanel::sTriangleTorus,
 			&LLToolPlacerPanel::sTree,
 			&LLToolPlacerPanel::sGrass};
-	for(size_t t=0; t<sizeof(toolNames)/sizeof(toolNames[0]); ++t)
+	for(size_t t=0; t<LL_ARRAY_SIZE(toolNames); ++t)
 	{
 		LLButton *found = getChild<LLButton>(toolNames[t]);
 		if(found)
@@ -317,14 +318,11 @@ BOOL	LLFloaterTools::postBuild()
 	childSetCommitCallback("radio revert",click_popup_dozer_mode,  (void*)5);
 	mBtnApplyToSelection = getChild<LLButton>("button apply to selection");
 	childSetAction("button apply to selection",click_apply_to_selection,  (void*)0);
-	mCheckShowOwners = getChild<LLCheckBoxCtrl>("checkbox show owners");
-	childSetValue("checkbox show owners",gSavedSettings.getBOOL("ShowParcelOwners"));
 
 	mSliderDozerSize = getChild<LLSlider>("slider brush size");
 	childSetCommitCallback("slider brush size", commit_slider_dozer_size,  (void*)0);
 	childSetValue( "slider brush size", gSavedSettings.getF32("LandBrushSize"));
 	
-
 	mSliderDozerForce = getChild<LLSlider>("slider force");
 	childSetCommitCallback("slider force",commit_slider_dozer_force,  (void*)0);
 	// the setting stores the actual force multiplier, but the slider is logarithmic, so we convert here
@@ -408,8 +406,6 @@ LLFloaterTools::LLFloaterTools()
 	mSliderDozerSize(NULL),
 	mSliderDozerForce(NULL),
 	mBtnApplyToSelection(NULL),
-	mCheckShowOwners(NULL),
-
 
 	mTab(NULL),
 	mPanelPermissions(NULL),
@@ -827,10 +823,6 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 		childSetVisible("Bulldozer:", land_visible);
 		childSetVisible("Dozer Size:", land_visible);
 	}
-	if (mCheckShowOwners)
-	{
-		mCheckShowOwners	->setVisible( land_visible );
-	}
 	if (mSliderDozerForce)
 	{
 		mSliderDozerForce	->setVisible( land_visible );
@@ -1151,29 +1143,29 @@ void LLFloaterTools::onClickLink(void* data)
 {
 	if(!LLSelectMgr::getInstance()->selectGetAllRootsValid())
 	{
-		LLNotifyBox::showXml("UnableToLinkWhileDownloading");
+		LLNotifications::instance().add("UnableToLinkWhileDownloading");
 		return;
 	}
  
 	S32 object_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
 	if (object_count > MAX_CHILDREN_PER_TASK + 1)
 	{
-		LLStringUtil::format_map_t args;
-		args["[COUNT]"] = llformat("%d", object_count);
+		LLSD args;
+		args["COUNT"] = llformat("%d", object_count);
 		int max = MAX_CHILDREN_PER_TASK+1;
-		args["[MAX]"] = llformat("%d", max);
-		gViewerWindow->alertXml("UnableToLinkObjects", args);
+		args["MAX"] = llformat("%d", max);
+		LLNotifications::instance().add("UnableToLinkObjects", args);
 		return;
 	}
  
 	if(LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() < 2)
 	{
-		gViewerWindow->alertXml("CannotLinkIncompleteSet");
+		LLNotifications::instance().add("CannotLinkIncompleteSet");
 		return;
 	}
 	if(!LLSelectMgr::getInstance()->selectGetRootsModify())
 	{
-		gViewerWindow->alertXml("CannotLinkModify");
+		LLNotifications::instance().add("CannotLinkModify");
 		return;
 	}
 	LLUUID owner_id;
@@ -1183,7 +1175,7 @@ void LLFloaterTools::onClickLink(void* data)
 	  // we don't actually care if you're the owner, but novices are
 	  // the most likely to be stumped by this one, so offer the
 	  // easiest and most likely solution.
-	  gViewerWindow->alertXml("CannotLinkDifferentOwners");
+	  LLNotifications::instance().add("CannotLinkDifferentOwners");
 	  return;
 	}
 	LLSelectMgr::getInstance()->sendLink();

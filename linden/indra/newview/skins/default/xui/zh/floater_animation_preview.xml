@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="Animation Preview" title="">
 	<text name="name_label">
 		名字:
@@ -6,18 +6,14 @@
 	<text name="description_label">
 		描述:
 	</text>
-	<spinner label="优先级" name="priority"
-	     tool_tip="控制哪些动画可以被该动画覆盖。" />
-	<check_box label="循环" name="loop_check" tool_tip="使此动画循环播放." />
-	<spinner label="始 (%)" name="loop_in_point"
-	     tool_tip="选择循环后返回的点。" />
-	<spinner label="终 (%)" name="loop_out_point"
-	     tool_tip="选择循环结束的点。" />
+	<spinner label="优先级" name="priority" tool_tip="控制哪些动画可以被该动画覆盖。"/>
+	<check_box label="循环" name="loop_check" tool_tip="使此动画循环播放."/>
+	<spinner label="始 (%)" name="loop_in_point" tool_tip="选择循环后返回的点。"/>
+	<spinner label="终 (%)" name="loop_out_point" tool_tip="选择循环结束的点。"/>
 	<text name="hand_label">
 		手势
 	</text>
-	<combo_box label="" name="hand_pose_combo"
-	     tool_tip="控制动画中手的动作。">
+	<combo_box label="" name="hand_pose_combo" tool_tip="控制动画中手的动作。">
 		<combo_item name="Spread">
 			伸展
 		</combo_item>
@@ -61,7 +57,7 @@
 	<text name="emote_label">
 		表情
 	</text>
-	<combo_box label="" name="emote_combo" >
+	<combo_box label="" name="emote_combo" tool_tip="控制在动画中的表情">
 		<combo_item name="[None]">
 			[None]
 		</combo_item>
@@ -123,12 +119,10 @@
 			担心
 		</combo_item>
 	</combo_box>
-
 	<text name="preview_label">
 		预览
 	</text>
-	<combo_box label="" name="preview_base_anim"
-	     tool_tip="测试在化身做常见动作同时您的动画的行为">
+	<combo_box label="" name="preview_base_anim" tool_tip="测试在化身做常见动作同时您的动画的行为">
 		<combo_item name="Standing">
 			站立
 		</combo_item>
@@ -142,22 +136,18 @@
 			起飞
 		</combo_item>
 	</combo_box>
-
-
-	<spinner label="渐入 (秒)" name="ease_in_time"
-	     tool_tip="动画渐入的所需时间（秒）" />
-	<spinner label="渐出 (秒)" name="ease_out_time"
-	     tool_tip="动画渐出的所需时间（秒）" />
-	<button label="" name="play_btn" tool_tip="播放/暂停你现有的动画." />
-	<button label="" name="stop_btn" tool_tip="停止动画播放" />
-	<slider label="" name="playback_slider" />
+	<spinner label="渐入 (秒)" name="ease_in_time" tool_tip="动画渐入的所需时间（秒）"/>
+	<spinner label="渐出 (秒)" name="ease_out_time" tool_tip="动画渐出的所需时间（秒）"/>
+	<button label="" name="play_btn" tool_tip="播放/暂停你现有的动画."/>
+	<button label="" name="stop_btn" tool_tip="停止动画播放"/>
+	<slider label="" name="playback_slider"/>
 	<text name="bad_animation_text">
-		不能读取动画文件。
+		无法阅读动画文件
 
-推荐Poser 4产生的BVH格式文件。
+我们推荐从Poser 4软件中导出的BVH文件
 	</text>
-	<button label="取消" name="cancel_btn" />
-	<button label="上传(L$[AMOUNT])" name="ok_btn" />
+	<button label="取消" name="cancel_btn"/>
+	<button label="上传(L$[AMOUNT])" name="ok_btn"/>
 	<string name="failed_to_initialize">
 		初始化动作失败。
 	</string>

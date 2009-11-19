@@ -22,7 +22,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -145,8 +146,6 @@ base32_encode(char *dst, size_t size, const void *data, size_t len)
 
 /* *TODO: Implement base32 encode.
 
-#define ARRAY_LEN(a) (sizeof (a) / sizeof((a)[0]))
-
 static inline int
 ascii_toupper(int c)
 {
@@ -172,7 +171,7 @@ base32_decode(char *dst, size_t size, const void *data, size_t len)
   unsigned max_pad = 3;
 
   if (0 == base32_map[0]) {
-    for (i = 0; i < ARRAY_LEN(base32_map); i++) {
+    for (i = 0; i < LL_ARRAY_SIZE(base32_map); i++) {
       const char *x;
       
       x = memchr(base32_alphabet, ascii_toupper(i), sizeof base32_alphabet);
@@ -196,7 +195,7 @@ base32_decode(char *dst, size_t size, const void *data, size_t len)
       }
     }
 
-    j = i % ARRAY_LEN(s);
+    j = i % LL_ARRAY_SIZE(s);
     s[j] = c;
 
     if (7 == j) {
@@ -208,7 +207,7 @@ base32_decode(char *dst, size_t size, const void *data, size_t len)
       b[3] = ((s[4] & 1) << 7) | ((s[5] & 0x1f) << 2) | ((s[6] >> 3) & 0x03);
       b[4] = ((s[6] & 0x07) << 5) | (s[7] & 0x1f);
 
-      for (j = 0; j < ARRAY_LEN(b); j++) {
+      for (j = 0; j < LL_ARRAY_SIZE(b); j++) {
         if (q != end)
           *q = b[j];
         q++;

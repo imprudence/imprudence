@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Postcard" title="Postakartı Gönderimi">
+	<text name="to_label">
+		Gönderilen adres:
+	</text>
+	<text name="from_label">
+		Sizin adresiniz:
+	</text>
+	<text name="name_label">
+		Adınız:
+	</text>
+	<text name="subject_label">
+		Konu:
+	</text>
+	<line_editor label="Konuyu buraya giriniz." name="subject_form" />
+	<text name="msg_label">
+		Mesaj:
+	</text>
+	<text_editor name="msg_form">
+		Mesajınızı buraya yazınız.
+	</text_editor>
+	<text name="fine_print">
+		Eğer gönderilen kişi SL&apos;e üye olursa,tavsiye bonusu alacaksınız.
+	</text>
+	<button label="İptal" name="cancel_btn" />
+	<button label="Gönder" name="send_btn" />
+	<string name="default_subject">
+		Second Life&apos;dan bir postakartı.
+	</string>
+	<string name="default_message">
+		Bakın!
+	</string>
+	<string name="upload_message">
+		Gönderiliyor...
+	</string>
+</floater>

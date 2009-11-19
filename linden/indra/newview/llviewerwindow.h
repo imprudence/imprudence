@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -47,6 +48,7 @@
 #include "lltimer.h"
 #include "llstat.h"
 #include "llalertdialog.h"
+#include "llnotifications.h"
 #include "llmousehandler.h"
 
 class LLView;
@@ -123,7 +125,7 @@ private:
 
 };
 
-#define MAX_IMAGE_SIZE 6144 //6 * 1024, max snapshot image size 6144 * 6144
+static const U32 MAX_SNAPSHOT_IMAGE_SIZE = 6 * 1024; // max snapshot image size 6144 * 6144
 
 class LLViewerWindow : public LLWindowCallbacks
 {
@@ -345,7 +347,7 @@ public:
 	// Request display setting changes	
 	void			toggleFullscreen(BOOL show_progress);
 	void			toggleFullscreenConfirm();
-	static void	toggleFullscreenCallback(S32 option, void *userdata);
+	static bool		toggleFullscreenCallback(const LLSD& notification, const LLSD& response, LLViewerWindow *self);
 
 	// handle shutting down GL and bringing it back up
 	void			requestResolutionUpdate(bool fullscreen_checked);
@@ -359,20 +361,10 @@ public:
 
 	void			drawPickBuffer() const;
 
-	LLAlertDialog* alertXml(const std::string& xml_filename,
-				  LLAlertDialog::alert_callback_t callback = NULL, void* user_data = NULL);
-	LLAlertDialog* alertXml(const std::string& xml_filename, const LLStringUtil::format_map_t& args,
-				  LLAlertDialog::alert_callback_t callback = NULL, void* user_data = NULL);
-	LLAlertDialog* alertXmlEditText(const std::string& xml_filename, const LLStringUtil::format_map_t& args,
-						  LLAlertDialog::alert_callback_t callback, void* user_data,
-						  LLAlertDialog::alert_text_callback_t text_callback, void *text_data,
-						  const LLStringUtil::format_map_t& edit_args = LLStringUtil::format_map_t(),
-						  BOOL draw_asterixes = FALSE);
-
-	static bool alertCallback(S32 modal);
-	
 private:
 	bool                    shouldShowToolTipFor(LLMouseHandler *mh);
+	static bool onAlert(const LLSD& notify);
+	
 	void			switchToolByMask(MASK mask);
 	void			destroyWindow();
 	void			drawMouselookInstructions();
@@ -381,6 +373,7 @@ private:
 	void			initFonts(F32 zoom_factor = 1.f);
 	void			schedulePick(LLPickInfo& pick_info);
 	S32				getChatConsoleBottomPad(); // Vertical padding for child console rect, varied by bottom clutter
+	LLRect			getChatConsoleRect(); // Get optimal cosole rect.
 
 public:
 	LLWindow*		mWindow;						// graphical window object

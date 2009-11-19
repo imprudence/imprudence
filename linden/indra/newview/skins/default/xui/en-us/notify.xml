@@ -835,11 +835,7 @@ Use the controls on the right to find things
 and display different backgrounds.
 		</message>
 	</notify>
-  <notify name="FirstMiniMap" tip="false">
-    <message name="message">
-      Right-click the Mini-Map for more options.
-    </message>
-  </notify>
+<!-- TODO: Make sure all the notifications from Imprudence <= 1.2 are out of here before deleting this. -->
 	<notify name="FirstBuild" tip="false">
 		<message name="message">
 			You can build new objects in some areas of [SECOND_LIFE].
@@ -923,23 +919,6 @@ You can find example sculpted textures in the inventory library.
 			You have begun playing media.  Media can set to play automatically in the preferences window under Audio / Video. Note that this can be a security risk for media sites you do not trust.
 		</message>
 	</notify>
-  <!-- [RLVa:KB] -->
-  <notify name="FirstRLVDetach" tip="false">
-    <message name="message">
-One of your attachments was made nondetachable using Restrained Life.
-Please note that this also disables the &apos;Wear&apos; option on all prim attachments in your inventory unless they are properly named.
-
-For more information search for &apos;Restrained Life&apos; on the SL wiki.
-    </message>
-  </notify>
-  <notify name="FirstRLVFartouch" tip="false">
-    <message name="message">
-You have been fartouch restricted: you will be unable to touch objects farther than 1.5m from your avatar until the restriction is lifted.
-
-Tip: if an object is out of range the mouse cursor will not change as you hover over it and you'll hear an error sound if you try to right-click it.
-    </message>
-  </notify>
-  <!-- [/RLVa:KB] -->
   <notify name="MaxListSelectMessage" tip="true">
 		<message name="message">
 			You may only select up to [MAX_SELECT] items
@@ -1097,3 +1076,4 @@ Click Accept to join the chat or Decline to decline the invitation. Click Mute t
 		</message>
 	</notify>
 </notifications>
+<!-- This file is no longer used. Please see notifications.xml and make your changes there. -->

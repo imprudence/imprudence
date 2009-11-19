@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -138,10 +139,10 @@ bool LLMediaImplLLMozLib::init()
 	if ( mWindowId )
 		return false;
 
-#if LL_LINUX
+#if defined(LL_LINUX) || defined(WIN32)
 	static std::string saved_locale;
 	saved_locale = setlocale(LC_ALL, NULL);
-#endif // LL_LINUX
+#endif // defined(LL_LINUX) || defined(WIN32)
 
 	mWindowId = LLMozLib::getInstance()->createBrowserWindow( mBrowserWindowWidth, mBrowserWindowHeight );
 
@@ -161,9 +162,9 @@ bool LLMediaImplLLMozLib::init()
 	// set media depth now we have created a browser window and know what it is
 	setMediaDepth( LLMozLib::getInstance()->getBrowserDepth( mWindowId ) );
 
-#if LL_LINUX
+#if defined(LL_LINUX) || defined(WIN32)
 	setlocale(LC_ALL, saved_locale.c_str() );
-#endif // LL_LINUX
+#endif // defined(LL_LINUX) || defined(WIN32)
 
 	return true;
 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Bérlői szerződések" name="Covenant">
+	<text name="estate_section_lbl">
+		Telek:
+	</text>
+	<text name="estate_name_lbl">
+		Név:
+	</text>
+	<text name="estate_name_text">
+		mainland
+	</text>
+	<text name="estate_owner_lbl">
+		Tulajdonos:
+	</text>
+	<text name="estate_owner_text">
+		(nincs)
+	</text>
+	<text name="estate_cov_lbl" width="110">
+		Bérlői szerződések:
+	</text>
+	<text name="covenant_timestamp_text">
+		Utolsó módosítás 1969. dec. 31. szerda 16:00:00
+	</text>
+	<button label="?" name="covenant_help"/>
+	<text_editor bottom="-247" height="162" name="covenant_editor">
+		A telekhez bérlői szerződés nem tartozik.
+	</text_editor>
+	<button label="Visszaállít" name="reset_covenant"/>
+	<text name="covenant_help_text">
+		A bérlői szerződés megváltoztatása látható lesz a telken található
+      összes parcellán.
+	</text>
+	<text bottom_delta="-36" name="covenant_instructions">
+		A telekre vonatkozó bérlői szerződés megváltoztatásához húzd
+      ide az erre vonatkozó jegyzetet.
+	</text>
+	<text bottom_delta="-36" name="region_section_lbl">
+		Régió:
+	</text>
+	<text name="region_name_lbl">
+		Név:
+	</text>
+	<text name="region_name_text">
+		leyla
+	</text>
+	<text name="region_landtype_lbl">
+		Típus:
+	</text>
+	<text name="region_landtype_text">
+		Mainland / Homestead
+	</text>
+	<text name="region_maturity_lbl">
+		Minősítés:
+	</text>
+	<text name="region_maturity_text">
+		Adult
+	</text>
+	<text name="resellable_lbl">
+		Viszonteladás:
+	</text>
+	<text name="resellable_clause">
+		Ezen a régión vásárolt földek eladhatók.
+	</text>
+	<text name="changeable_lbl">
+		Felosztás:
+	</text>
+	<text name="changeable_clause">
+		Ezen a régión vásárolt földek egyesíthetők vagy feloszthatók.
+	</text>
+	<string name="can_resell">
+		Ezen a régión vásárolt földek eladhatók.
+	</string>
+	<string name="can_not_resell">
+		Ezen a régión vásárolt földek nem adhatók el.
+	</string>
+	<string name="can_change">
+		Ezen a régión vásárolt földek egyesíthetők vagy feloszthatók.
+	</string>
+	<string name="can_not_change">
+		Ezen a régión vásárolt földek nem egyesíthetők vagy nem
+oszthatók fel.
+	</string>
+</panel>

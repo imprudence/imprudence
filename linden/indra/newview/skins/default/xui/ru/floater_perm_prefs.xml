@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater name="perm prefs" title="Права Загрузки По Умолчанию" width="335">
+	<panel label="Права" name="permissions">
+		<button label="?" label_selected="?" name="help" left="280"/>
+		<check_box label="Поделиться с группой" name="share_with_group"/>
+		<check_box label="Разрешить всем копировать" name="everyone_copy"/>
+		<text name="NextOwnerLabel">
+			Следующий владелец может:
+		</text>
+		<check_box label="Модифицировать" name="next_owner_modify"/>
+		<check_box label="Копировать" name="next_owner_copy" left_delta="125"/>
+		<check_box label="Продавать/&#10;Отдавать" name="next_owner_transfer" left_delta="92"/>
+	</panel>
+	<button label="OK" label_selected="OK" name="ok"/>
+	<button label="Отмена" label_selected="Отмена" name="cancel"/>
+</floater>

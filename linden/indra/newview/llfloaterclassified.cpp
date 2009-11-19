@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -53,9 +54,10 @@ LLMap< const LLUUID, LLFloaterClassifiedInfo* > gClassifiedInfoInstances;
 class LLClassifiedHandler : public LLCommandHandler
 {
 public:
-	// don't allow from external browsers
-	LLClassifiedHandler() : LLCommandHandler("classified", false) { }
-	bool handle(const LLSD& tokens, const LLSD& queryMap)
+	// requires trusted browser to trigger
+	LLClassifiedHandler() : LLCommandHandler("classified", true) { }
+	bool handle(const LLSD& tokens, const LLSD& query_map,
+				LLWebBrowserCtrl* web)
 	{
 		if (tokens.size() < 2)
 		{

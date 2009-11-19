@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -329,6 +330,16 @@ public:
 		        		
 				//push center in direction of data
 				LLOctreeNode<T>::pushCenter(center, size, data);
+
+				// handle case where floating point number gets too small
+				if( llabs(center.mdV[0] - getCenter().mdV[0]) < F_APPROXIMATELY_ZERO &&
+					llabs(center.mdV[1] - getCenter().mdV[1]) < F_APPROXIMATELY_ZERO &&
+					llabs(center.mdV[2] - getCenter().mdV[2]) < F_APPROXIMATELY_ZERO)
+				{
+					mData.insert(data);
+					BaseType::insert(data);
+					return true;
+				}
 
 #if LL_OCTREE_PARANOIA_CHECK
 				if (getChildCount() == 8)

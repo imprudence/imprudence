@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -86,7 +87,7 @@ void LLFloaterBuy::show(const LLSaleInfo& sale_info)
 
 	if (selection->getRootObjectCount() != 1)
 	{
-		gViewerWindow->alertXml("BuyOneObjectOnly");
+		LLNotifications::instance().add("BuyOneObjectOnly");
 		return;
 	}
 
@@ -136,7 +137,7 @@ void LLFloaterBuy::show(const LLSaleInfo& sale_info)
 	BOOL owners_identical = LLSelectMgr::getInstance()->selectGetOwner(owner_id, owner_name);
 	if (!owners_identical)
 	{
-		gViewerWindow->alertXml("BuyObjectOneOwner");
+		LLNotifications::instance().add("BuyObjectOneOwner");
 		return;
 	}
 

@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -52,6 +53,7 @@ const int LL_ERR_FILE_NOT_FOUND = -43;
 const int LL_ERR_FILE_EMPTY     = -44;
 const int LL_ERR_TCP_TIMEOUT    = -23016;
 const int LL_ERR_CIRCUIT_GONE   = -23017;
+const int LL_ERR_PRICE_MISMATCH = -23018;
 
 
 

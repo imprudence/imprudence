@@ -18,7 +18,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -125,6 +126,7 @@ BOOL LLPrefsVoice::postBuild()
 
 	childSetValue("modifier_combo", gSavedSettings.getString("PushToTalkButton"));
 	childSetValue("voice_call_friends_only_check", gSavedSettings.getBOOL("VoiceCallsFriendsOnly"));
+	childSetValue("auto_disengage_mic_check", gSavedSettings.getBOOL("AutoDisengageMic"));
 	childSetValue("push_to_talk_toggle_check", gSavedSettings.getBOOL("PushToTalkToggle"));
 	childSetValue("ear_location", gSavedSettings.getS32("VoiceEarLocation"));
 
@@ -137,6 +139,7 @@ void LLPrefsVoice::apply()
 
 	gSavedSettings.setString("PushToTalkButton", childGetValue("modifier_combo"));
 	gSavedSettings.setBOOL("VoiceCallsFriendsOnly", childGetValue("voice_call_friends_only_check"));
+	gSavedSettings.setBOOL("AutoDisengageMic", childGetValue("auto_disengage_mic_check"));
 	gSavedSettings.setBOOL("PushToTalkToggle", childGetValue("push_to_talk_toggle_check"));
 	gSavedSettings.setS32("VoiceEarLocation", childGetValue("ear_location"));
 	
@@ -173,6 +176,7 @@ void LLPrefsVoice::onCommitEnableVoiceChat(LLUICtrl* ctrl, void* user_data)
 	self->childSetEnabled("friends_only_check", enable);
 	self->childSetEnabled("push_to_talk_label", enable);
 	self->childSetEnabled("voice_call_friends_only_check", enable);
+	self->childSetEnabled("auto_disengage_mic_check", enable);
 	self->childSetEnabled("push_to_talk_toggle_check", enable);
 	self->childSetEnabled("ear_location", enable);
 	self->childSetEnabled("set_voice_hotkey_button", enable);

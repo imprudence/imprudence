@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Pick" title="Lubię">
+	<button label="Wybierz Miejsce" name="set_location_btn" />
+	<button label="Teleportuj" name="pick_teleport_btn" />
+	<button label="Pokaż na Mapie" name="pick_map_btn" />
+	<text name="sort_order_text">
+		Sort:
+	</text>
+	<check_box label="Włączone" name="enabled_check" />
+</panel>

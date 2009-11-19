@@ -19,7 +19,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -32,14 +33,16 @@
  */
 
 #include "linden_common.h"
+
 #include "lltut.h"
 
+#include "lldate.h"
 #include "llformat.h"
 #include "llsd.h"
+#include "lluri.h"
 
 namespace tut
 {
-	template<>
 	void ensure_equals(const char* msg, const LLDate& actual,
 		const LLDate& expected)
 	{
@@ -47,7 +50,6 @@ namespace tut
 			actual.secondsSinceEpoch(), expected.secondsSinceEpoch());
 	}
 
-	template<>
 	void ensure_equals(const char* msg, const LLURI& actual,
 		const LLURI& expected)
 	{
@@ -55,7 +57,6 @@ namespace tut
 			actual.asString(), expected.asString());
 	}
 
-	template<>
 	void ensure_equals(const char* msg,
 		const std::vector<U8>& actual, const std::vector<U8>& expected)
 	{
@@ -73,11 +74,10 @@ namespace tut
 		}
 	}
 
-	template<>
 	void ensure_equals(const char* m, const LLSD& actual,
 		const LLSD& expected)
 	{
-		const std::string& msg = m;
+		const std::string& msg = m ? m : "";
 		
 		ensure_equals(msg + " type", actual.type(), expected.type());
 		switch (actual.type())
@@ -128,7 +128,7 @@ namespace tut
 				{
 					ensure_equals(msg + " map keys", 
 						actual_iter->first, expected_iter->first);
-					ensure_equals(msg + "[" + actual_iter->first + "]",
+					ensure_equals((msg + "[" + actual_iter->first + "]").c_str(),
 						actual_iter->second, expected_iter->second);
 					++actual_iter;
 					++expected_iter;
@@ -141,7 +141,7 @@ namespace tut
 				
 				for(int i = 0; i < actual.size(); ++i)
 				{
-					ensure_equals(msg + llformat("[%d]", i),
+					ensure_equals((msg + llformat("[%d]", i)).c_str(),
 						actual[i], expected[i]);
 				}
 				return;
@@ -199,3 +199,4 @@ namespace tut
 		}
 	}
 }
+

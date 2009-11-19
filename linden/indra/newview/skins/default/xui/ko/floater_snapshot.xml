@@ -8,7 +8,7 @@
 			이메일로 보내기
 		</radio_item>
 		<radio_item name="texture">
-			인벤토리에 저장(L$10)
+			인벤토리에 저장(L$[AMOUNT])
 		</radio_item>
 		<radio_item name="local">
 			하드 드라이브에 저장
@@ -19,7 +19,7 @@
 	</text>
 	<button label="새 스냅샷" name="new_snapshot_btn"/>
 	<button label="보내기" name="send_btn"/>
-	<button label="저장(L$10)" name="upload_btn"/>
+	<button label="저장(L$[AMOUNT])" name="upload_btn"/>
 	<flyout_button label="저장" name="save_btn" tool_tip="파일에 이미지 저장">
 		<flyout_button_item name="save_item">
 			저장

@@ -17,7 +17,7 @@
 	<slider
 		 label=""
 		 name="EnvTimeSlider"
-		 value="0.0" />
+		 />
 	<text
 		 name="EnvCloudText">
 		云层覆盖
@@ -25,7 +25,7 @@
 	<slider
 		 label=""
 		 name="EnvCloudSlider"
-		 value="0.7" />
+		 />
 	<text
 		 name="EnvWaterColorText">
 		水色

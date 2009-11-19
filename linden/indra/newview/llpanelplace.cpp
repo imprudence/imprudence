@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -96,8 +97,9 @@ BOOL LLPanelPlace::postBuild()
     mDescEditor = getChild<LLTextEditor>("desc_editor");
 
 	mInfoEditor = getChild<LLTextBox>("info_editor");
+	mLandTypeEditor = getChild<LLTextBox>("land_type_display");
 
-    mLocationEditor = getChild<LLTextBox>("location_editor");
+    mLocationDisplay = getChild<LLTextBox>("location_editor");
 
 	mTeleportBtn = getChild<LLButton>( "teleport_btn");
 	mTeleportBtn->setClickedCallback(onClickTeleport);
@@ -147,7 +149,32 @@ void LLPanelPlace::resetLocation()
 	mNameEditor->setText( LLStringUtil::null );
 	mDescEditor->setText( LLStringUtil::null );
 	mInfoEditor->setText( LLStringUtil::null );
-	mLocationEditor->setText( LLStringUtil::null );
+	mLandTypeEditor->setText( LLStringUtil::null );
+	mLocationDisplay->setText( LLStringUtil::null );
+}
+
+
+// Set the name and clear other bits of info.  Used for SLURL clicks
+void LLPanelPlace::resetName(const std::string& name)
+{
+	setName(name);
+	if(mDescEditor)
+	{
+		mDescEditor->setText( LLStringUtil::null );
+	}
+	if(mNameEditor)
+	{
+		llinfos << "Clearing place name" << llendl;
+		mNameEditor->setText( LLStringUtil::null );
+	}
+	if(mInfoEditor)
+	{
+		mInfoEditor->setText( LLStringUtil::null );
+	}
+	if(mLandTypeEditor)
+	{
+		mLandTypeEditor->setText( LLStringUtil::null );
+	}
 }
 
 void LLPanelPlace::setParcelID(const LLUUID& parcel_id)
@@ -164,7 +191,12 @@ void LLPanelPlace::setSnapshot(const LLUUID& snapshot_id)
 
 void LLPanelPlace::setLocationString(const std::string& location)
 {
-	mLocationEditor->setText(location);
+	mLocationDisplay->setText(location);
+}
+
+void LLPanelPlace::setLandTypeString(const std::string& land_type)
+{
+	mLandTypeEditor->setText(land_type);
 }
 
 void LLPanelPlace::sendParcelInfoRequest()
@@ -293,9 +325,14 @@ void LLPanelPlace::processParcelInfoReply(LLMessageSystem *msg, void **)
 			self->mInfoEditor->setText(info_text);
 		}
 
-		// HACK: Flag 0x1 == mature region, otherwise assume PG
+		// HACK: Flag 0x2 == adult region,
+		// Flag 0x1 == mature region, otherwise assume PG
 		std::string rating = LLViewerRegion::accessToString(SIM_ACCESS_PG);
-		if (flags & 0x1)
+		if (flags & 0x2)
+		{
+			rating = LLViewerRegion::accessToString(SIM_ACCESS_ADULT);
+		}
+		else if (flags & 0x1)
 		{
 			rating = LLViewerRegion::accessToString(SIM_ACCESS_MATURE);
 		}
@@ -320,9 +357,9 @@ void LLPanelPlace::processParcelInfoReply(LLMessageSystem *msg, void **)
 
 		std::string location = llformat("%s %d, %d, %d (%s)",
 										sim_name.c_str(), region_x, region_y, region_z, rating.c_str());
-		if (self->mLocationEditor)
+		if (self->mLocationDisplay)
 		{
-			self->mLocationEditor->setText(location);
+			self->mLocationDisplay->setText(location);
 		}
 
 		BOOL show_auction = (auction_id > 0);
@@ -360,6 +397,7 @@ void LLPanelPlace::displayParcelInfo(const LLVector3& pos_region,
 		mDescEditor->setText(getString("server_update_text"));
 	}
 	mSnapshotCtrl->setImageAssetID(LLUUID::null);
+	mSnapshotCtrl->setFallbackImageName("default_land_picture.j2c");
 }
 
 
@@ -415,24 +453,25 @@ void LLPanelPlace::onClickLandmark(void* data)
 void LLPanelPlace::onClickAuction(void* data)
 {
 	LLPanelPlace* self = (LLPanelPlace*)data;
+	LLSD payload;
+	payload["auction_id"] = self->mAuctionID;
 
-	gViewerWindow->alertXml("GoToAuctionPage",
-		callbackAuctionWebPage, 
-		self);
+	LLNotifications::instance().add("GoToAuctionPage", LLSD(), payload, callbackAuctionWebPage);
 }
 
 // static
-void LLPanelPlace::callbackAuctionWebPage(S32 option, void* data)
+bool LLPanelPlace::callbackAuctionWebPage(const LLSD& notification, const LLSD& response)
 {
-	LLPanelPlace* self = (LLPanelPlace*)data;
-
+	S32 option = LLNotification::getSelectedOption(notification, response);
 	if (0 == option)
 	{
 		std::string url;
-		url = AUCTION_URL + llformat( "%010d", self->mAuctionID);
+		S32 auction_id = notification["payload"]["auction_id"].asInteger();
+		url = AUCTION_URL + llformat("%010d", auction_id );
 
 		llinfos << "Loading auction page " << url << llendl;
 
 		LLWeb::loadURL(url);
 	}
+	return false;
 }

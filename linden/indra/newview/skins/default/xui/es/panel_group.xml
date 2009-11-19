@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="GroupInfo" title="Informaciones de grupo">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel name="GroupInfo" title="Información del grupo">
 	<text name="default_needs_apply_text">
-		Existen mudanzas aún no aplicadas en la pestaña actual.
+		En esta pestaña hay cambios sin aplicar.
 	</text>
 	<text name="want_apply_text">
-		¿Seguro que desea aplicar estas mudanzas?
+		¿Quiere aplicar estos cambios?
 	</text>
-	<button label="Aplicar" label_selected="Aplicar" name="btn_apply" />
-	<button label="Cancelar" label_selected="Cancelar" name="btn_cancel" />
-	<button label="OK" label_selected="OK" name="btn_ok" />
-	<button label="Actualizar del servidor" label_selected="Actualizar del servidor"
-	     name="btn_refresh" />
+	<button label="Aplicar" label_selected="Aplicar" name="btn_apply"/>
+	<button label="Cancelar" label_selected="Cancelar" name="btn_cancel"/>
+	<button label="OK" label_selected="OK" name="btn_ok"/>
+	<button label="Actualizar" label_selected="Actualizar" name="btn_refresh"/>
 </panel>

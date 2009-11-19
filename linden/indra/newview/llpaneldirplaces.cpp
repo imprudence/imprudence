@@ -17,7 +17,8 @@
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * online at
+ * http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -55,6 +56,7 @@
 #include "llviewercontrol.h"
 #include "llviewermessage.h"
 #include "llworldmap.h"
+#include "llnotify.h"
 
 LLPanelDirPlaces::LLPanelDirPlaces(const std::string& name, LLFloaterDirectory* floater)
 	:	LLPanelDirBrowser(name, floater)
@@ -79,7 +81,22 @@ BOOL LLPanelDirPlaces::postBuild()
 
 	mCurrentSortColumn = "dwell";
 	mCurrentSortAscending = FALSE;
-
+	
+	if (gAgent.getAgentAccess().isInTransition())
+	{
+		// during the AO transition, this combo has an Adult item.
+		// Post-transition, it goes away. We can remove this conditional
+		// after the transition and just use the "else" clause.
+		childSetVisible("Category_Adult", true);
+		childSetEnabled("Category_Adult", true);
+	}
+	else
+	{
+		// this is the code that should be preserved post-transition
+		childSetVisible("Category", true);
+		childSetEnabled("Category", true);
+	}
+	
 	// Don't prepopulate the places list, as it hurts the database as of 2006-12-04. JC
 	// initialQuery();
 
@@ -101,10 +118,8 @@ LLPanelDirPlaces::~LLPanelDirPlaces()
 // virtual
 void LLPanelDirPlaces::draw()
 {
-	// You only have a choice if you are mature
-	childSetVisible("incmature", !gAgent.isTeen());
-	childSetValue("incmature", gSavedSettings.getBOOL("ShowMatureSims"));
-	
+	updateMaturityCheckbox();
+
 	LLPanelDirBrowser::draw();
 }
 
@@ -125,19 +140,32 @@ void LLPanelDirPlaces::performQuery()
 	// possible we threw away all the short words in the query so check length
 	if ( query_string.length() < mMinSearchChars )
 	{
-		gViewerWindow->alertXml("SeachFilteredOnShortWordsEmpty");
+		LLNotifications::instance().add("SeachFilteredOnShortWordsEmpty");
 		return;
 	};
 
 	// if we filtered something out, display a popup
 	if ( query_was_filtered )
 	{
-		LLStringUtil::format_map_t args;
-		args["[FINALQUERY]"] = query_string;
-		gViewerWindow->alertXml("SeachFilteredOnShortWords", args);
+		LLSD args;
+		args["FINALQUERY"] = query_string;
+		LLNotifications::instance().add("SeachFilteredOnShortWords", args);
 	};
 
 	std::string catstring = childGetValue("Category").asString();
+	if (gAgent.getAgentAccess().isInTransition())
+	{
+		// during the AO transition, this combo has an Adult item.
+		// Post-transition, it goes away. We can remove this conditional
+		// after the transition and just use the "else" clause.
+		catstring = childGetValue("Category_Adult").asString();
+	}
+	else
+	{
+		// this is the code that should be preserved post-transition
+		catstring = childGetValue("Category").asString();
+	}
+	
 	
 	// Because LLParcel::C_ANY is -1, must do special check
 	S32 category = 0;
@@ -150,32 +178,53 @@ void LLPanelDirPlaces::performQuery()
 		category = LLParcel::getCategoryFromString(catstring);
 	}
 
-	BOOL pg_only = !gSavedSettings.getBOOL("ShowMatureSims") 
-				   || gAgent.isTeen();
+	U32 flags = 0x0;
+	bool adult_enabled = gAgent.canAccessAdult();
+	bool mature_enabled = gAgent.canAccessMature();
 
-	queryCore(query_string, category, pg_only);
+	if (gSavedSettings.getBOOL("ShowPGSims") ||
+	    (!adult_enabled && !mature_enabled)) // if they can't have either of the others checked, force this one true 
+	{
+		flags |= DFQ_INC_PG;
+	}
+
+	if( gSavedSettings.getBOOL("ShowMatureSims") && mature_enabled)
+	{
+		flags |= DFQ_INC_MATURE;
+	}
+
+	if( gSavedSettings.getBOOL("ShowAdultSims") && adult_enabled)
+	{
+		flags |= DFQ_INC_ADULT;
+	}
+	
+	// Pack old query flag in case we are talking to an old server
+	if ( ((flags & DFQ_INC_PG) == DFQ_INC_PG) && !((flags & DFQ_INC_MATURE) == DFQ_INC_MATURE) )
+	{
+		flags |= DFQ_PG_PARCELS_ONLY;
+	}
+ 
+	if (0x0 == flags)
+	{
+		LLNotifications::instance().add("NoContentToSearch");
+		return; 
+	}
+	
+	queryCore(query_string, category, flags);
 }
 
 void LLPanelDirPlaces::initialQuery()
 {
 	// All Linden locations in PG/Mature sims, any name.
-	const BOOL pg_only = FALSE;
-	queryCore(LLStringUtil::null, LLParcel::C_LINDEN, pg_only);
+	U32 flags = DFQ_INC_PG | DFQ_INC_MATURE;
+	queryCore(LLStringUtil::null, LLParcel::C_LINDEN, flags);
 }
 
 void LLPanelDirPlaces::queryCore(const std::string& name, 
 								 S32 category, 
-								 BOOL pg_only)
+								 U32 flags)
 {
 	setupNewSearch();
-
-	// send the message
-	U32 flags = 0x0;
-
-	if (pg_only)
-	{
-		flags |= DFQ_PG_PARCELS_ONLY;
-	}
 
 // JC: Sorting by dwell severely impacts the performance of the query.
 // Instead of sorting on the dataserver, we sort locally once the results
@@ -202,4 +251,6 @@ void LLPanelDirPlaces::queryCore(const std::string& name,
 	msg->addS32Fast(_PREHASH_QueryStart,mSearchStart);
 	gAgent.sendReliableMessage();
 }
+
+
 

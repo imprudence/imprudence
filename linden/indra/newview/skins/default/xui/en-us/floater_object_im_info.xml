@@ -27,7 +27,7 @@
 			     font="SansSerif" height="20" is_unicode="false" left="70" hover="true"
 			     max_length="254" mouse_opaque="true" name="Slurl" font-style="UNDERLINE"
 			     width="200" hover_cursor="UI_CURSOR_HAND" text_color="TextLinkColor" hover_color="TextLinkHoverColor"/>
-
+  
   <!-- A new viewer talking to an old sim will not have a slurl available and will show this. -->
   <text bevel_style="none" border_style="line" border_visible="false"
 			     border_thickness="0" bottom_delta="0" enabled="true" follows="left|top"
@@ -47,7 +47,7 @@
 			     font="SansSerif" height="20" is_unicode="false" left="70" hover="true"
 			     max_length="254" mouse_opaque="true" name="OwnerName" font-style="UNDERLINE"
 			     width="200" hover_cursor="UI_CURSOR_HAND" text_color="TextLinkColor" hover_color="TextLinkHoverColor"/>
-
+  
   <button bottom_delta="-30" font="SansSerif" halign="center" height="20" label="Mute Owner"
          label_selected="Mute Owner" left="70" mouse_opaque="true" name="Mute"
          width="160" />

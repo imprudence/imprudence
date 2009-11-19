@@ -4,7 +4,7 @@
 		<panel label="신체 부위" />
 		<panel label="신체 부위" name="body_parts_placeholder" />
 		<panel label="외형" name="Shape">
-			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
+			<text name="Item Action Label">외형:</text>
 			<button label="신체" label_selected="신체" name="Body" />
 			<button label="머리" label_selected="머리" name="Head" />
 			<button label="눈" label_selected="눈" name="Eyes" />
@@ -49,11 +49,12 @@
 			<button label="새 외형 만들기" label_selected="새 외형 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 		</panel>
 		<panel label="피부" name="Skin">
+			<text name="Item Action Label">피부:</text>
 			<button label="피부색" label_selected="피부색" name="Skin Color" />
 			<button label="얼굴 디테일" label_selected="얼굴 디테일" name="Face Detail" />
 			<button label="메이크업" label_selected="메이크업" name="Makeup" />
@@ -91,12 +92,12 @@
 			<button label="새 피부 만들기" label_selected="새 피부 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="헤어" name="Hair">
+			<text name="Item Action Label">헤어:</text>
 			<button label="색" label_selected="색" name="Color" />
 			<button label="스타일" label_selected="스타일" name="Style" />
 			<button label="눈썹" label_selected="눈썹" name="Eyebrows" />
@@ -130,12 +131,12 @@
 			<button label="새 헤어 만들기" label_selected="새 헤어 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="눈" name="Eyes">
+			<text name="Item Action Label">눈:</text>
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
@@ -164,14 +165,14 @@
 			<button label="무작위" label_selected="무작위" name="Randomize" />
 			<button label="새 눈 만들기" label_selected="새 눈 만들기" name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="의상" />
 		<panel label="의상" name="clothes_placeholder" />
 		<panel label="셔츠" name="Shirt">
+			<text name="Item Action Label">셔츠:</text>
 			<texture_picker label="옷감" name="Fabric"
 			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<color_swatch label="색상/색조" name="Color/Tint"
@@ -179,9 +180,8 @@
 			<button label="새 셔츠 만들기" label_selected="새 셔츠 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 			<text type="string" length="1" name="title">
 				[DESC]
@@ -207,6 +207,7 @@
 			</text>
 		</panel>
 		<panel label="바지" name="Pants">
+			<text name="Item Action Label">바지:</text>
 			<texture_picker label="옷감" name="Fabric"
 			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<color_swatch label="색상/색조" name="Color/Tint"
@@ -214,9 +215,8 @@
 			<button label="새 바지 만들기" label_selected="새 바지 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 			<text type="string" length="1" name="title">
 				[DESC]
@@ -243,6 +243,7 @@
 			</text>
 		</panel>
 		<panel label="신발" name="Shoes">
+			<text name="Item Action Label">신발:</text>
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
@@ -272,12 +273,12 @@
 			<button label="새 신발 만들기" label_selected="새 신발 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="양말" name="Socks">
+			<text name="Item Action Label">양말:</text>
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
@@ -308,12 +309,12 @@
 			<button label="새 양말 만들기" label_selected="새 양말 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="재킷" name="Jacket">
+		<text name="Item Action Label">재킷:</text>
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
@@ -346,12 +347,12 @@
 			<button label="새 재킷 만들기" label_selected="새 재킷 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="장갑" name="Gloves">
+			<text name="Item Action Label">장갑:</text>
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
@@ -381,12 +382,12 @@
 			<button label="새 장갑 만들기" label_selected="새 장갑 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="내의(상)" name="Undershirt">
+			<text name="Item Action Label">내의(상):</text>
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
@@ -417,12 +418,12 @@
 			<button label="새 내의(상) 만들기" label_selected="새 내의(상) 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="내의(하)" name="Underpants">
+			<text name="Item Action Label">내의(하):</text>
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
@@ -453,12 +454,12 @@
 			<button label="새 내의(하) 만들기" label_selected="새 내의(하) 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="치마" name="Skirt">
+			<text name="Item Action Label">치마:</text>
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
@@ -489,13 +490,12 @@
 			<button label="새 치마 만들기" label_selected="새 치마 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" left="13" name="Take Off" width="82" />
-			<button label="저장" label_selected="저장" left="103" name="Save" width="82" />
-			<button label="다른 이름 저장" label_selected="다른 이름 저장" left="192"
-			     name="Save As" width="100" />
+			<button label="저장" label_selected="저장" name="Save" width="72" />
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" name="Save As" width="100" left="199"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 	</tab_container>
-	<button label="복장 만들기" label_selected="복장 만들기" name="Make Outfit" />
-	<button label="모두 저장" label_selected="모두 저장" name="Save All" />
+	<button label="복장 만들기..." label_selected="복장 만들기..." name="Make Outfit" />
+	<button label="취소" label_selected="취소" name="Cancel"/>
 	<button label="닫기" label_selected="닫기" name="Close" />
 </floater>

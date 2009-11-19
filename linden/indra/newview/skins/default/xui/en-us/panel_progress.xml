@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bottom="0" follows="left|bottom|right|top" height="768" left="0" name="login_progress_panel" width="1024" visible="true">
+  <layout_stack name="stack1" orientation="horizontal" left="0" bottom="0" width="1024" height="768" follows="left|right|top|bottom">
+    <layout_panel name="panel1" user_resize="false" min_width="10" width="150"/>
+    <layout_panel name="panel2" user_resize="false" min_width="640" width="640" height="768">
+      <layout_stack name="stack2" orientation="vertical" left="0" bottom="0" height="768" width="640" follows="left|right|top|bottom">
+        <layout_panel name="panel3" min_height="10" height="200" width="640"/>
+        <layout_panel name="panel4" min_height="250" height="250" width="640" auto_resize="false">
+          <icon image_name="rounded_square.tga" color="LoginProgressBoxCenterColor" left="0" bottom="0" width="640" height="250" follows="left|right|bottom|top"/>
+          <text name="title_text" halign="center" font="SansSerif" left="0" bottom="-70" width="640" height="20" text_color="LoginProgressBoxTextColor" font-style="SHADOW" follows="left|right|top"/>
+          <text name="progress_text" halign="center" font="SansSerif" left="0" bottom="-95" width="640" height="20" text_color="LoginProgressBoxTextColor" font-style="SHADOW" follows="left|right|top"/>
+          <progress_bar name="login_progress_bar" color="255,255,255,245" height="16" bottom="135" left="45" right="-45" follows="left|right|top" />
+          <text name="message_text" halign="center" line_spacing="8" font="SansSerif" left="20" bottom="5" width="600" height="100" text_color="LoginProgressBoxTextColor" font-style="SHADOW" follows="left|right|top|bottom"/>
+        </layout_panel>
+        <layout_panel name="panel5" min_width="10" height="200" width="640"/>
+      </layout_stack>
+    </layout_panel>
+    <layout_panel name="panel6" user_resize="false" min_width="10" width="150"/>
+  </layout_stack>
+  <button name="cancel_btn" left="-86" bottom="16" width="70" height="22" follows="right|bottom"/>
+</panel>
+
