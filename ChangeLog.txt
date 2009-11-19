@@ -1,3 +1,10 @@
+2009-11-18 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Cleaned up a harmless bad merge in llimagej2coj.cpp.
+	
+	  modified:   linden/indra/llimagej2coj/llimagej2coj.cpp
+	   
+	   
 2009-11-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed Hide Group Titles preferences option.
