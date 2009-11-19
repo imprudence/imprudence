@@ -1,5 +1,13 @@
 2009-11-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* SNOW-108: Fast timers fail on non i386 systems
+	  Patch by Robin Cornelius
+
+	  modified:   doc/contributions.txt
+	  modified:   indra/llcommon/llfasttimer.cpp
+	  modified:   indra/llcommon/llfasttimer.h
+
+
 	* Added "File > Export Selected Objects..."
 
 	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
