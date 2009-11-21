@@ -1,3 +1,10 @@
+2009-11-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* libxml2.so.2 was missing from Linux viewer manifest.
+
+	  modified:   linden/indra/newview/viewer_manifest.py
+
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                         1.2.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
