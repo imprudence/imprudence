@@ -31,15 +31,9 @@ if (WINDOWS)
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO 
       "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /Od /Zi /MT"
       CACHE STRING "C++ compiler release-with-debug options" FORCE)
-  if (MSVC80)
-      set(CMAKE_CXX_FLAGS_RELEASE
+  set(CMAKE_CXX_FLAGS_RELEASE
       "${CMAKE_CXX_FLAGS_RELEASE} /O2 /Ob2 /Oi /Ot /GT /Zi /MT"
       CACHE STRING "C++ compiler release options" FORCE)
-  else (MSVC80)
-      set(CMAKE_CXX_FLAGS_RELEASE
-      "${CMAKE_CXX_FLAGS_RELEASE} ${LL_CXX_FLAGS} /O2 /Zi /MT"
-      CACHE STRING "C++ compiler release options" FORCE)
-  endif (MSVC80)
 
   add_definitions(
       /DLL_WINDOWS=1
