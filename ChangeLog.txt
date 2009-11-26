@@ -1,3 +1,10 @@
+2009-11-25 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Updated windows zlib (to 1.2.3) and boost libs (to 1.36).
+	
+	  modified:   linden/install.xml
+	  
+	  
 2009-11-15 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed CMake setting errors. 
@@ -158,7 +165,6 @@
 2009-10-18 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Merged working branch of 1.2 into LL 1.23 merge.
-
 
 
 2009-08-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
