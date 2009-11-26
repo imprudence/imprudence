@@ -195,9 +195,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>286cca0d0fc3fb301b158672fb6465f6</string>
+            <string>094acc8173faca882ed9532e868d767f</string>
             <key>url</key>
-            <uri>http://www.lawlinter.net/data/boost-1.36.0-windows-20090626.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/boost-1.36.0-windows-20091124.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -1274,9 +1274,9 @@ anguage Infrstructure (CLI) international standard</string>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>0efbf671a0d686bb0141895e91fbfc46</string>
+            <string>8695136860ee3fbad7f5e793232b50eb</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/zlib-1.1.4-windows-20090829.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/zlib-1.2.3-windows-20091112.tar.bz2</uri>
           </map>
         </map>
       </map>
