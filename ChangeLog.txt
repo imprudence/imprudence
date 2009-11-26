@@ -1,3 +1,9 @@
+2009-11-25 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Updated windows openal libs to openal-soft 1.10.622. 
+	
+	  modified:   linden/install.xml
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                         1.2.0                          -=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
