@@ -587,9 +587,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>605ecd92affb57ed3c70f7564b8bc6b5</string>
+            <string>2cd3f6499f8444f1d119d097e4047252</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.24-linux-20091115.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.24-linux-20091125.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -616,9 +616,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>627aef3c307aed6d2c013bdfa11bb0af</string>
+            <string>62b96bb2721798958743d92a403d122a</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20091115.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20091125.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -825,9 +825,9 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>5ab0f986317b1a5c4f1682ad1972c318</string>
+            <string>85219034b4e4c17e792f8bb54a1973f7</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/liboil-0.3.16-linux-20091118.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/liboil-0.3.16-linux-20091125.tar.bz2</uri>
           </map>
         </map>
       </map>

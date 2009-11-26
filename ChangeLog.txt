@@ -1,8 +1,29 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                         1.2.1                          -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
 2009-11-25 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Updated windows openal libs to openal-soft 1.10.622. 
 	
 	  modified:   linden/install.xml
+
+
+2009-11-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed Linux's gstreamer, gstreamer-plugins, and liboil.
+	  Compiled with the correct version of glibc.
+
+	  modified:   linden/install.xml
+
+
+2009-11-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* libxml2.so.2 was missing from Linux viewer manifest.
+
+	  modified:   linden/indra/newview/viewer_manifest.py
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-                         1.2.0                          -=
