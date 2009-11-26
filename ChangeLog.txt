@@ -5,6 +5,15 @@
 
 2009-11-25 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Updated version to 1.2.1.
+	
+	  modified:   ChangeLog.txt
+	  modified:   linden/indra/llcommon/llversionviewer.h
+	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
+	  modified:   linden/indra/newview/Info-Imprudence.plist
+	  modified:   linden/indra/newview/res/viewerRes.rc
+
+
 	* Updated windows openal libs to openal-soft 1.10.622. 
 	
 	  modified:   linden/install.xml
