@@ -4,6 +4,31 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                         1.2.1                          -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+   Imprudence 1.2.1 is a small bugfix release, which updates and fixes
+   some libraries that are distributed with Imprudence.
+
+   Please see the Imprudence 1.2.0 Release Notes for information about
+   the changes in Imprudence 1.2.
+
+
+   CHANGES
+
+     * Updated OpenAL on Windows to fix error messages flooding the
+       logs.
+
+     * Recompiled GStreamer, GStreamer plugins, and liboil on Linux,
+       to use the correct version of glibc.
+
+     * libxml2 is now distributed with Imprudence on Linux. It was
+       accidently left out of past releases.
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                         1.2.0                          -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
