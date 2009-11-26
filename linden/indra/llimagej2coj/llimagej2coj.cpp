@@ -188,17 +188,6 @@ BOOL LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 			return TRUE;
 		}
 	}
-
-	if(image->numcomps <= first_channel)
-	{
-		llwarns << "trying to decode more channels than are present in image: numcomps: " << image->numcomps << " first_channel: " << first_channel << llendl;
-		if (image)
-		{
-			opj_image_destroy(image);
-		}
-
-		return TRUE;
-	}
 	
 	if(image->numcomps <= first_channel)
 	{

@@ -435,14 +435,14 @@ void gst_slvideo_init_class (void)
 {
 	gst_plugin_register_static( GST_VERSION_MAJOR,
 	                            GST_VERSION_MINOR,
-	                            "private-slvideoplugin", 
-	                            "SL Video sink plugin",
+	                            (const gchar *)"private-slvideoplugin", 
+	                            (gchar *)"SL Video sink plugin",
 	                            plugin_init,
-	                            "0.1",
+	                            (const gchar *)"0.1",
 	                            GST_LICENSE_UNKNOWN,
-	                            "Second Life",
-	                            "Second Life",
-	                            "http://www.secondlife.com/" );
+	                            (const gchar *)"Second Life",
+	                            (const gchar *)"Second Life",
+	                            (const gchar *)"http://www.secondlife.com/" );
 }
 
 ///#endif // LL_GSTREAMER_ENABLED

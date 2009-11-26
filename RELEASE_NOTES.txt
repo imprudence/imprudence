@@ -4,6 +4,481 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                         1.2.0                          -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   A BRIEF GUIDE TO IMPRUDENCE 1.2
+
+     Imprudence 1.2 adds many new features, fixes, and improvements to
+     the viewer experience. Here are a just few of the new features
+     and improvements since Imprudence 1.1:
+
+     * Backup your builds, your scripts, and your avatar's shape. If
+       you created it, you have the right to back it up or move it to
+       a different grid.
+
+     * Double-click Teleport and Autopilot. We've taken the popular
+       double-click teleport feature and improved upon it. The default
+       behavior can now be set in Preferences > Input & Camera. We've
+       also added an ignorable confirmation dialog to reduce the
+       chance of accidental teleportations.
+
+     * Improved minimap with built-in radar. The minimap now has
+       enhanced zooming and panning, a built-in avatar radar to see
+       who is nearby, plus optional chat notices when avatars enter or
+       leave chat range or the sim. (Enable minimap notify in
+       Preferences > General.)
+
+     * Improved OpenSim support. We've added a list of popular grids
+       to connect to, as well as a grid manager so you can add your
+       own. You can also enjoy many building benefits when using
+       OpenSim, such as the ability to build and edit prims larger
+       than 10m on a side!
+
+     * Restrained Life support. Thanks to RLVa by Kitty Barnett,
+       Imprudence now supports the Restrained Life API for BDSM items
+       and scripted gadgets.
+
+     * Windlight toolbar. We've added a new tab along the bottom of
+       the screen for quick access to your Windlight presets and
+       certain graphics options. We've also added a variety of
+       Windlight presets from Ana Lutetia, CodeBastard Redgrave, and
+       Torley Linden!
+
+     * Numerous other features that improve the viewer experience,
+       such as double-click to wear attachments in Inventory, optional
+       vertical IM tabs (in Preferences > Communication), unread IM
+       count, search inventory by creator or description, better
+       profile window layout, select default chat channel, Link/Unlink
+       in the Build window, sim avatar counts on the World Map, and
+       many more.
+
+
+   KNOWN ISSUES
+
+     * "Advanced > Logout" may cause issues and is unsupported. Use at
+       your own risk.
+
+     * If you use the "--loginuri" command line flag, you need to also
+       use "--login FirstName LastName Password" to bypass the login
+       screen, or your server setting will be ignored.
+
+     * Remaining issues from 1.2.0 beta 2:
+
+        - Property lines for land parcels flash when you have selected
+          an avatar in the minimap radar.
+
+        - Many new UI additions only provide English text. We'd love
+          to have some bilingual users help us translate them. If you
+          can help, please post in the forums.
+
+        - OpenSim 0.6.4 or lower causes the viewer to crash when other
+          avatars are present. We strongly encourage all OpenSim grid
+          operators to upgrade to OpenSim 0.6.5 or higher.
+
+        - "File > Upload & Import" should have a confirmation dialog
+          warning people about how much it will cost to upload all the
+          textures.
+
+
+   CHANGES
+
+     This version of Imprudence includes the following changes, as
+     compared to Imprudence 1.2.0 beta 2.
+
+
+     FEATURES / IMPROVEMENTS
+
+       * Added saving and loading scripts to disk in the script
+         editor. Thanks to the Meerkat team for this feature, and
+         McCabe for porting it.
+
+       * Added avatar shape Import/Export. You can only export shapes
+         that you created and have full perms for. Thanks to the
+         Meerkat team for this feature, and McCabe for porting and
+         tweaking it.
+
+       * Added an option for vertical IM tabs (Preferences >
+         Communication > Vertical IM tabs). Thanks to the Emerald team
+         for this feature, and McCabe for porting it.
+
+       * The 'minimap radar can now be hidden via the arrow button in
+         the bottom left corner of the minimap. Thanks so much for
+         that, Jacek!
+
+       * You can now search inventory by item description (Inventory >
+         Search > By Description). Thanks to the Emerald team for this
+         feature, and McCabe for porting it.
+
+       * Added new options to configure double-click teleport and
+         autopilot in Preferences > Input & Camera, and Disabled
+         double-click teleport by default. Thanks, Jacek!
+
+          - For the old "Double-Click Teleport" behavior, set
+            Double-Click Action to "Autopilot", and Autopilot Style to
+            "Teleport".
+
+          - For the old "Double-Click Autopilot" behavior, set
+            Double-Click Action to "Autopilot", and Autopilot Style to
+            "Move".
+
+          - Note: Autopilot Style also affects "Go Here/Go To" in the
+            pie menu.
+
+       * The Windlight Water window now has next/previous preset
+         buttons, like the Sky window does. Thanks, McCabe!
+
+       * Added "Max Particles" slider to the Windlight/Graphics tab on
+         the bottom toolbar. Thanks, McCabe!
+
+       * Added Check All/Uncheck All to the Make Outfit window. Thanks
+         to the Meerkat team for this feature, and McCabe for porting
+         it.
+
+       * Windows only: Added "History" button to the IM and Group Chat
+         windows to view your past chat logs with that person/group.
+         Thanks to the Emerald team for this feature, and McCabe for
+         porting and tweaking it.
+
+       * Updated RLVa to 1.0.5e. Thanks for the update, Kitty Barnett!
+
+       * Raised the World Map maximum teleport height to 4096m (it was
+         1000m). Thanks, McCabe!
+
+
+     BUG FIXES
+
+       * Fixed RLVa not initializing in certain instances. Thanks,
+         Kitty Barnett!
+
+       * Fixed copy & paste and file selection dialogs not working for
+         some Linux users. Thanks, Jacek!
+
+       * Fixed "avatar_skeleton.xml cannot be parsed" error. You rock,
+         Lilly Zenovka!
+
+       * Fixed muting objects with same name as avatar mutes
+         ScriptDialogs from avatar. Thanks for the patch, Geneko
+         Nemeth!
+
+       * Fixed some Build Math issues, related to the boost library.
+         Thanks, McCabe!
+
+       * Fixed Hide Group Titles option not working. Thanks, McCabe
+         and Geneko!
+
+       * Partial fix for the parcel border flashing when a name is
+         selected in the minimap radar. Thanks, McCabe!
+
+       * Partial fix for avatar names not displaying at heighs above
+         1024m. Thanks, McCabe!
+
+       * Set the upper limit of the chat channel selector to 1,000,000
+         (1 million) to work around a tricky rounding bug with higher
+         channel numbers. To chat on higher channels, use e.g.
+         "/1234567890 hi" in chat. Thanks, Jacek!
+
+       * Fixed the login screen's grid selector box displaying the
+         wrong grid after logging out. Thanks, McCabe!
+
+       * Fixed grid selection box not remembering the last logged in
+         grid (defaulted to secondlife). Thanks, McCabe!
+
+       * Fixed grid selection box not updating the splash screen.
+         Thanks, McCabe!
+
+       * Fixed some branding issues in alerts and notifications
+         ("Second Life" where it should be "Imprudence"). Thanks,
+         Jacek!
+
+       * Fixed "Sunset" mislabeled as "Midday" in Windlight Toolbar.
+         Thanks, McCabe!
+
+       * Fixed several compilation errors and warnings. Thanks to
+         Geneko and Jacek, and to Alissa Sabre for VWR-12620.
+
+       * Fixed some issues with "Advanced > Consoles > Fast Timers"
+         (SNOW-108, VWR-10214). Thanks for the patch, Robin Cornelius!
+
+
+     OTHER CHANGES
+
+       * Moved "File > Logout" to the Advanced menu and added a note
+         that it's unstable. Use this feature at your own risk!
+
+       * Disable camera constraints also disables constraints when
+         zooming out/zooming in and editing appearance. Thanks,
+         McCabe!
+
+       * The keyboard shortcut for View > Advanced Menu is now
+         Ctrl-Alt-Shift-D on Linux. Mac and Windows shortcuts have not
+         changed. Thanks, McCabe!
+
+       * "Go Here" in the pie menu no longer asks for confirmation.
+         Thanks, Jacek!
+
+       * Ported the notecard security fix from SL 1.23.5. Thanks to
+         McCabe for porting it.
+
+       * Tweaked import menu item names: "File > Import Object..." and
+         "File > Import + Upload (L$10 per texture)". Thanks, Jacek!
+
+       * Added "File > Export Selected Objects". Thanks, Jacek!
+
+       * Disabled facelight in Appearance mode when local lighting is
+         disabled. Thanks, McCabe!
+
+       * Combined the Mute and Unmute buttons in the minimap radar.
+         Good idea, McCabe!
+
+       * Changed the snapshot postcard text not to mention Second
+         Life, like Meerkat does. Thanks to McCabe for porting it.
+
+       * Applied patch for VWR-6787 by Alissa Sabre - 'none' text in
+         group window not translatable. Thanks, Alissa!
+
+       * Added "Advanced > Allow Multiple Instances" (allow multiple
+         copies of Imprudence to run at the same time, for testing
+         purposes). Thanks, McCabe!
+
+       * Changed default UIScaleFactor to 1.002 as a workaround to
+         some font rendering issues. Thanks, McCabe!
+
+       * Updated the Linux version of fontconfig. Linux users may
+         notice some minor differences in font appearance. Thanks,
+         Jacek!
+
+       * Updated several other Linux software libraries. Thanks,
+         Jacek!
+
+       * Finally packaged up the Mac development libraries. It should
+         now be possible for (Intel) Mac users to compile Imprudence
+         if they want to. Thanks for finally tackling that, Jacek!
+
+       * Updated and fixed copyright and licensing information for
+         many software libraries. Thanks, Jacek!
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.2.0 BETA 2                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   ATTENTION: PIE MENU CHANGES
+
+     * The pie menu when right clicking on objects has been rearranged
+       slightly:
+
+        - "Buy" now appears in the first menu tier.
+
+        - "Create" has been renamed "Build" and moved to the second
+          menu tier.
+
+        - "Return" and "Wear" have new locations in the second menu
+          tier.
+
+
+   KNOWN ISSUES
+
+     * Don't use "File > Logout". It still causes lots of problems:
+
+        - Logging out causes alerts (pop-up dialogs) to not work, and
+          may even crash the viewer.
+
+        - Logging out and then logging in to another grid causes the
+          Groups window to show groups from both grids.
+
+        - In OpenSim, right clicking clothing in the inventory and
+          selecting Edit will cause a crash after logout.
+
+        - Chat sometimes shows up on the login screen after logging
+          out.
+
+     * Property lines for land parcels flash when you have selected an
+       avatar in the minimap radar.
+
+     * OpenSim 0.6.4 or lower causes the viewer to crash when other
+       avatars are present. OpenSim 0.6.6 is recommended.
+
+     * Remaining issues from the previous 1.2.0 beta version:
+
+        - Many new UI additions only provide English text. We'd love
+          to have some bilingual users help us translate them. If you
+          can help, please post in the forums.
+
+        - The custom chat channel number entry doesn't behave properly
+          for channel numbers longer than 6 digits. As a temporary
+          work-around until we fix this, use the old "/NUMBER" (e.g.
+          "/123456789 Hi") and "//" chat commands for chatting on
+          large channel numbers.
+
+        - The grid selection box on the login screen always defaults
+          to "secondlife" at startup, when it should default to the
+          most recently used grid.
+
+        - The grid selection box on the login screen always shows
+          "secondlife" after logging out, but behaves like it is still
+          set to the grid you logged out from.
+
+        - The minimap radar cannot be hidden yet. We're working on it.
+
+        - The Windlight Water settings window doesn't have
+          previous/next arrows like the Sky window does.
+
+        - The Windlight toolbar sometimes forgets the last selected
+          preset.
+
+        - "File > Import" and "File > Upload & Import" may not work
+          correctly for Mac users.
+
+        - "File > Upload & Import" should have a confirmation dialog
+          warning people about how much it will cost to upload all the
+          textures.
+
+     * Note for developers: some Linux and Mac libraries are still not
+       packaged/uploaded, which can interfere with compiling
+       Imprudence from source. Jacek is working on it!
+
+
+   CHANGES
+
+     This version of Imprudence includes the following changes (as
+     compared to Imprudence 1.2.0 beta).
+
+
+     BUG FIXES
+
+       * Fixed mouseclicks sometimes "jumping" near the edge of the
+         screen in Windows - McCabe Maxsted.
+
+       * Fixed crash when using the Minimap and the silver skin -
+         McCabe Maxsted.
+
+       * Fixed Imprudence 1.2 features missing from the silver skin -
+         McCabe Maxsted.
+
+       * Fixed Imprudence wrongly thinking it was on the Teen Grid.
+         You can now freely wear, edit, and/or take off your underwear
+         again! - McCabe Maxsted.
+
+       * Fixed search showing too few results - McCabe Maxsted.
+
+       * Fixed inability to teleport to Adult regions (or detect them
+         on the map) - McCabe Maxsted.
+
+       * Fixed Advanced Sky only toggling once - McCabe Maxsted.
+
+       * Fixed first preset in Windlight Toolbar toggling Advanced Sky
+         - McCabe Maxsted.
+
+       * Fixed crash when logging out of OpenSim after editing
+         appearance - Armin Weatherwax.
+
+       * Fixed grid manager adding an unnecessary "/" (forward slash)
+         to grid URLs. You should be able to login to the SL Beta
+         Grid. (You may need to go into the Grid Manager and remove
+         the "/" in the login URI, though.) - Jacek Antonelli.
+
+       * Fixed unlink button enabling when it shouldn't - McCabe
+         Maxsted and Kitty Barnett.
+
+       * Fixed inability to unlink when using edit linked parts -
+         McCabe Maxsted.
+
+       * Fixed money change sound and dialog occurring after logging
+         into different grids - McCabe Maxsted.
+
+       * Fixed name box missing from profiles - McCabe Maxsted.
+
+       * Fixed profile account label position - McCabe Maxsted.
+
+       * Fixed profile size overrunning search window - McCabe
+         Maxsted.
+
+       * Fixed UI resize missing reset button in Preferences > General
+         - McCabe Maxsted.
+
+       * Fixed (hopefully) UI resize not playing nice with the
+         Liberation Sans font - McCabe Maxsted.
+
+       * Fixed newly created notecards behaving oddly - McCabe
+         Maxsted.
+
+       * The "Add..." (add friend) button on the minimap is now grayed
+         out when you have selected someone who is already your friend
+         - McCabe Maxsted.
+
+       * Fixed layout of debug permissions in the tools window -
+         McCabe Maxsted.
+
+       * Fixed some compiling issues with Imprudence 1.2 and Windows -
+         McCabe Maxsted.
+
+       * Fixed "Join Call" button truncated in group IMs - McCabe
+         Maxsted.
+
+       * Fixed reference to "Second Life" in Preferences > Graphics -
+         McCabe Maxsted.
+
+       Also, it appears the big crash when logging in/logging out in
+       Windows was fixed with the latest LL server update to 1.30.1.
+
+
+     OTHER CHANGES
+
+       * RLVa version has been updated to 1.0.3e - Kitty Barnett.
+
+       * Muting an avatar now mutes llDialog boxes from them as well -
+         McCabe Maxsted.
+
+       * Added llDialog throttle from the Green Life Emerald Viewer.
+
+       * Added clickable Object say/whisper/shout names from the Green
+         Life Emerald Viewer.
+
+       * Object IMs are now prefixed with "IM:" in chat - McCabe
+         Maxsted.
+
+       * Object IMs now have their own color in Preferences > Text
+         Chat - McCabe Maxsted.
+
+       * Minimap now indicates when an avatar is typing - McCabe
+         Maxsted.
+
+       * Minimap now announces when an avatar enters chat range
+         (enabled by default; you can change this in Preferences >
+         General) - McCabe Maxsted.
+
+       * Minimap now announces when an avatar enters the sim (disabled
+         by default; you can change this in Preferences > General) -
+         McCabe Maxsted.
+
+       * Minimap can now be minimized - McCabe Maxsted.
+
+       * Minimap now shows the selected avatar's icon over other
+         icons, so you can see it in crowded areas. - McCabe Maxsted.
+
+       * The minimum value for the Draw Distance slider has been
+         lowered to 32m (from 64m) - McCabe Maxsted.
+
+       * Added confirmation alert for double click tping and autopilot
+         (can be easily ignored) - McCabe Maxsted.
+
+       * Updated list of graphics cards Imprudence recognizes - McCabe
+         Maxsted.
+
+       * Re-added the avatar name box to the Profile window.
+
+       * New Profile layout should accommodate non-English languages
+         better - McCabe Maxsted.
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                      1.2.0 BETA                        -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

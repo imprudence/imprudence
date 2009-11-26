@@ -89,6 +89,7 @@ Alissa Sabre
 >>>>>>> origin/next
 	VWR-9190
 	VWR-10728
+	VWR-12620
 Angus Boyd
 	VWR-592
 Ann Congrejo
@@ -468,6 +469,7 @@ Ringo Tuxing
 	CT-231
 	CT-321
 Robin Cornelius
+	SNOW-108
 	VWR-2488
 	VWR-9557
 Ryozu Kojima

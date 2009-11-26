@@ -249,6 +249,7 @@ public:
 	static int sPauseHistory;
 	static int sResetHistory;
 	static F64 sCPUClockFrequency;
+    static U64 sClockResolution;
 	
 private:
 	EFastTimerType mType;

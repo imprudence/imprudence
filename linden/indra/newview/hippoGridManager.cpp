@@ -670,8 +670,10 @@ void HippoGridManager::loadFromFile()
 	if (gSavedSettings.getBOOL("CheckForGridUpdates"))
 		parseUrl("http://imprudenceviewer.org/app/grids/", !mGridInfo.empty());
 
-	setDefaultGrid(gSavedSettings.getString("DefaultGrid"));
-	setCurrentGrid(gSavedSettings.getString("DefaultGrid"));
+	std::string last_grid = gSavedSettings.getString("LastSelectedGrid");
+	if (last_grid.empty()) last_grid = gSavedSettings.getString("DefaultGrid");
+	setDefaultGrid(last_grid);
+	setCurrentGrid(last_grid);
 }
 
 

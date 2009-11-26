@@ -3133,7 +3133,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 			{
 				std::string line;
 
-				if (title && title->getString() && title->getString()[0] != '\0')
+				if (mRenderGroupTitles && title && title->getString() && title->getString()[0] != '\0')
 				{
 					line += title->getString();
 					//LLStringFn::replace_ascii_controlchars(line,LL_UNKNOWN_CHAR); IMP-136 -- McCabe
