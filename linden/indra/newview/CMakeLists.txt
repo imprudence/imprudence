@@ -61,6 +61,8 @@ include_directories(
     )
 
 set(viewer_SOURCE_FILES
+	importtracker.cpp
+	exporttracker.cpp
     floaterlogin.cpp
     hippoGridManager.cpp
     hippoLimits.cpp
@@ -440,7 +442,6 @@ set(viewer_SOURCE_FILES
     noise.cpp
     panelradar.cpp
     pipeline.cpp
-    primbackup.cpp
     rlvhandler.cpp
     rlvhelper.cpp
     rlvmultistringsearch.cpp
@@ -473,6 +474,8 @@ set(viewer_HEADER_FILES
     hippoLimits.h
     hippoRestRequest.h
     jcfloater_animation_list.h
+    importtracker.h
+	exporttracker.h
     llagent.h
     llagentdata.h
     llagentlanguage.h
@@ -854,7 +857,6 @@ set(viewer_HEADER_FILES
     noise.h
     panelradar.h
     pipeline.h
-    primbackup.h
     randgauss.h
     VertexCache.h
     VorbisFramework.h
@@ -1131,6 +1133,8 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_preview_texture.xml
     skins/default/xui/en-us/floater_preview_url.xml
     skins/default/xui/en-us/floater_price_for_listing.xml
+	skins/default/xui/en-us/floater_prim_export.xml
+	skins/default/xui/en-us/floater_prim_import.xml
     skins/default/xui/en-us/floater_profile.xml
     skins/default/xui/en-us/floater_region_info.xml
     skins/default/xui/en-us/floater_report_abuse.xml

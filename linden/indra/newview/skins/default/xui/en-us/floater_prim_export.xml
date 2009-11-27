@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" rect_control="FloaterPrimExport"
+     can_resize="false" width="200" height="305" name="Export" title="Backup Objects">
+
+  <!--
+  -Patrick Sapinski (Monday, September 28, 2009)
+   -->
+
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom="-36" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="5"
+     mouse_opaque="true" name="selection size label" v_pad="0" width="166">Selection Size:</text>
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+     mouse_opaque="true" name="selection size" v_pad="0" width="166">X 0.0, Y 0.0, Z 0.0</text>
+
+  <check_box bottom_delta="-23" control_name="ExportJ2CTextures" follows="left|top"
+     font="SansSerifSmall" height="16" initial_value="true" 
+     label="Export J2C textures" left_delta="0" name="export_j2c_checkbox"
+     width="200" />
+  <check_box bottom_delta="-20" control_name="ExportTGATextures" follows="left|top"
+     font="SansSerifSmall" height="16" initial_value="true"
+     label="Export TGA textures" left_delta="0" name="export_tga_checkbox"
+     width="200" />
+  <check_box bottom_delta="-20" control_name="EmeraldExportProperties" follows="left|top"
+     font="SansSerifSmall" height="16" initial_value="true"
+     label="Export Properties" left_delta="0" name="export_properties_checkbox"
+     width="200" />
+  <check_box bottom_delta="-20" control_name="EmeraldExportInventory" follows="left|top"
+     font="SansSerifSmall" height="16" initial_value="true"
+     label="Export Contents" left_delta="20" name="export_contents_checkbox"
+     width="200" />
+  
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="-17"
+     mouse_opaque="true" name="status" v_pad="0" width="166">Export Status:</text>
+
+  <panel
+     name="a_box"
+     left_delta="2"
+     width="180"
+     height="115"
+     bottom_delta="-115"
+     border="true"
+     mouse_opaque="true"
+     bevel_style="in"
+     background_visible="true"
+     background_opaque="true"
+     follows="top|left"
+     bg_opaque_color="0,0,0,0.1"
+     bg_alpha_color="blue"
+     can_resize="false"
+		>
+  </panel>
+
+  <text height="97" left_delta="2" name="status label" bottom_delta="16">Textures Saved: 0/0</text>
+  <!--
+    <line_editor border_drop_shadow_visible="false" border_visible="false" top_delta="-70"
+	     control_name="export_status" drop_shadow_visible="true" enabled="false"
+	     follows="top|left" font="SansSerifSmall" halign="right" height="39"
+	     left_delta="0" max_length="254" mouse_opaque="false" name="name_label"
+	     width="210" />
+-->
+
+  <button bottom_delta="-42" follows="left|bottom" font="SansSerif" halign="center" height="20"
+     label="Backup Selection" label_selected="" left_delta="-2"
+     mouse_opaque="true" name="export"
+     tool_tip="Export the selected linksets" width="120" />
+  <button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center" height="20"
+     label="Close" label_selected="" left_delta="125"
+     mouse_opaque="true" name="close" width="55" />
+<!-- DEBUG BUTTON -->
+  <button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center" height="20"
+     label="reset" label_selected="" left_delta="55"
+     mouse_opaque="true" name="reset" width="10" />
+</floater>
