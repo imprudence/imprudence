@@ -200,6 +200,15 @@
 	  modified:   linden/indra/develop.py
 
 
+2009-11-27  Armin Weatherwax <Armin.Weatherwax@gmail.com>
+
+	* Fixed log spam about missing ParcelVoiceInfoRequest capability.
+	  SNOW-66 fix by Armin.
+	  SNOW-250 fix by Pixel Gausman and Aleric Inglewood.
+
+	  modified:   linden/indra/develop.py
+
+
 2009-11-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Reverted "Updated primbackup from latest meerkat svn (r246)"

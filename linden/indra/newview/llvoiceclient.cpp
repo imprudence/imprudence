@@ -1560,6 +1560,7 @@ void LLVoiceClient::stateMachine()
 	}
 	
 	// Check for parcel boundary crossing
+	if(mVoiceEnabled)
 	{
 		LLViewerRegion *region = gAgent.getRegion();
 		LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
@@ -1590,7 +1591,19 @@ void LLVoiceClient::stateMachine()
 				}
 				else
 				{
-					LL_WARNS("Voice") << "region doesn't have ParcelVoiceInfoRequest capability.  This is normal for a short time after teleporting, but bad if it persists for very long." << LL_ENDL;
+				  	static int count = 0;
+				  	static int count2 = 0;
+					static int num = 1;
+					++count;
+					if (count % num == 0)
+					{
+					  LL_DEBUGS("Voice") << "region doesn't have ParcelVoiceInfoRequest capability.  This is normal for a short time after teleporting, but bad if it persists for very long (" << count << ")." << LL_ENDL;
+					  if (num < 1000 && ++count2 == 10)
+					  {
+					    num *= 10;
+					    count2 = 0;
+					  }
+					}
 				}
 			}
 		}
