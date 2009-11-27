@@ -3,7 +3,7 @@
 
 #define LL_GRID_PERMISSIONS 1
 
-//enum export_states {EXPORT_INIT,EXPORT_STRUCTURE,EXPORT_TEXTURES,EXPORT_LLSD,EXPORT_DONE};
+enum export_states {EXPORT_INIT,EXPORT_STRUCTURE,EXPORT_TEXTURES,EXPORT_LLSD,EXPORT_DONE};
 
 class primbackup : 	public LLFloater
 
@@ -13,7 +13,7 @@ class primbackup : 	public LLFloater
 	enum export_states export_state; 
 	
 	//Export idle callback
-	//static void exportworker(void *userdata);
+	static void exportworker(void *userdata);
 
 	//Static accessor
 	static primbackup* getInstance();
@@ -79,8 +79,6 @@ private:
 	void updateimportnumbers();
 	void updateexportnumbers();
 
-	//Convert a selection list of objects to HPA
-	LLXMLNode *prims_to_xml(LLViewerObject::child_list_t child_list);
 	//Convert a selection list of objects to LLSD
 	LLSD prims_to_llsd(LLViewerObject::child_list_t child_list);
 		
@@ -119,8 +117,6 @@ private:
 	LLSD this_group;
 	LLUUID expecting_update;
 
-	LLXMLNodePtr xml;
-
 	//working llsd itterators for objects and linksets
 	LLSD::map_const_iterator prim_import_iter;
 	LLSD::array_const_iterator group_prim_import_iter;
@@ -135,3 +131,4 @@ private:
 	LLQuaternion agent_rot;
 
 };
+

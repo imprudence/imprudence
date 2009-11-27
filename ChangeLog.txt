@@ -1,3 +1,11 @@
+2009-11-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Reverted "Updated primbackup from latest meerkat svn (r246)"
+
+	  modified:   newview/primbackup.cpp
+	  modified:   newview/primbackup.h
+
+
 2009-11-25 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Updated windows zlib (to 1.2.3) and boost libs (to 1.36).
