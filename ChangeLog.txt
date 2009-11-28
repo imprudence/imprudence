@@ -1,3 +1,10 @@
+2009-11-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Downgraded Linux boost to 1.36.0.
+
+	  modified:   linden/install.xml
+
+
 2009-11-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* 'FALSE' is supposed to be 'OFF' in develop.py.
