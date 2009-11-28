@@ -4176,20 +4176,91 @@
         <integer>200</integer>
       </array>
     </map>
-    <key>FloaterPrimImport</key>
+    <key>EmeraldExportProperties</key>
     <map>
       <key>Comment</key>
-      <string>Rectangle for import/export</string>
+      <string>o.o</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>EmeraldExportInventory</key>
+    <map>
+      <key>Comment</key>
+      <string>o.o</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>ExportTGATextures</key>
+    <map>
+      <key>Comment</key>
+      <string>Export TGA Textures during prim backup</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>ExportJ2CTextures</key>
+    <map>
+      <key>Comment</key>
+      <string>Export J2C Textures during prim backup</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>ImportTextures</key>
+    <map>
+      <key>Comment</key>
+      <string>Upload textures during prim import</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>FloaterPrimExport</key>
+    <map>
+      <key>Comment</key>
+      <string>Export floater position/size</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>Rect</string>
       <key>Value</key>
       <array>
-         <integer>0</integer>
-         <integer>25</integer>
-         <integer>400</integer>
-         <integer>0</integer>
+        <integer>11</integer>
+        <integer>215</integer>
+        <integer>351</integer>
+        <integer>65</integer>
+      </array>
+    </map>
+    <key>FloaterPrimImport</key>
+    <map>
+      <key>Comment</key>
+      <string>Import floater position/size</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Rect</string>
+      <key>Value</key>
+      <array>
+        <integer>20</integer>
+        <integer>220</integer>
+        <integer>360</integer>
+        <integer>70</integer>
       </array>
     </map>
     <key>FloaterRegionInfo</key>

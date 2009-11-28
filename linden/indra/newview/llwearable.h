@@ -105,11 +105,11 @@ public:
 
 	friend std::ostream& operator<<(std::ostream &s, const LLWearable &w);
 
-private:
+public:
 	// Private constructor used by LLWearableList
 	LLWearable(const LLTransactionID& transactionID);
 	LLWearable(const LLAssetID& assetID);
-
+private:
 	static S32			sCurrentDefinitionVersion;	// Depends on the current state of the avatar_lad.xml.
 	S32					mDefinitionVersion;			// Depends on the state of the avatar_lad.xml when this asset was created.
 	std::string			mName;

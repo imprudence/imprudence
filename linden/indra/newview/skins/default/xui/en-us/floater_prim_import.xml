@@ -1,5 +1,104 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater can_close="true" can_drag_on_left="true" can_minimize="false"
-     can_resize="false" height="80" name="Import" title="Import progress" width="200" mouse_opaque="true">
-  <text height="15" left="10" name="name_label" top="-10"> Progress </text>  
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" rect_control="FloaterPrimImport"
+     can_resize="false" width="405" height="310" name="Import" title=".">
+
+  <!--
+  -Patrick Sapinski (Wednesday, November 11, 2009)
+   -->
+
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom="-18" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="9"
+     mouse_opaque="true" name="file label" v_pad="0" width="166">File: </text>
+  
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+     mouse_opaque="true" name="date label" v_pad="0" width="166">Date: </text>
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-17" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+     mouse_opaque="true" name="grid label" v_pad="0" width="166">Source Grid: </text>
+  
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+     mouse_opaque="true" name="size label" v_pad="0" width="166">Size: X 20.4, Y 41.2, Z 12.2</text>
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-17" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+     mouse_opaque="true" name="textures" v_pad="0" width="166">Textures: 0</text>
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-17" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+     mouse_opaque="true" name="sculpts" v_pad="0" width="166">Sculpt Maps: 0</text>
+
+
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
+     mouse_opaque="true" name="label position" v_pad="0" width="121">
+    Position (meters)
+  </text>
+
+  <button bottom_delta="-5" follows="left|top" font="SansSerifSmall" halign="center" height="16"
+     label="Reset" label_selected="" left_delta="110"
+     mouse_opaque="true" name="reset"
+     tool_tip="Reset to original object position" width="45" />
+  
+  <spinner bottom_delta="-22" decimal_digits="3" follows="left|top" height="16"
+       increment="1.0" initial_val="0" label="X" label_width="10" left="10"
+       max_val="512" min_val="-256" mouse_opaque="true" name="Pos X"
+       text_enabled_color="110, 15, 15, 255" width="80" />
+  <spinner bottom_delta="-18" decimal_digits="3" follows="left|top" height="16"
+       increment="1.0" initial_val="0" label="Y" label_width="10" left="10"
+       max_val="512" min_val="-256" mouse_opaque="true" name="Pos Y"
+       text_enabled_color="0, 100, 40, 255" width="80" />
+  <spinner bottom_delta="-18" decimal_digits="3" follows="left|top" height="16"
+       increment="1.0" initial_val="0" label="Z" label_width="10" left="10"
+       max_val="16384" min_val="0" mouse_opaque="true" name="Pos Z"
+       text_enabled_color="0, 67, 132, 255" width="80" />
+  
+  <check_box bottom_delta="-25" control_name="ImportTextures" follows="left|top"
+   font="SansSerifSmall" height="16" initial_value="true"
+   label="Upload Images (L$0)" left_delta="0" name="import_textures_checkbox"
+   width="200" />
+  <check_box bottom_delta="-20" control_name="ImportContents" follows="left|top"
+   font="SansSerifSmall" height="16" initial_value="true"
+   label="Import Object Contents" left_delta="0" name="import_contents_checkbox"
+   width="200" />
+
+  <panel name="sim_icon" left="200" width="200" height="200" bottom="-220" border="true" mouse_opaque="true" bevel_style="in" background_visible="true" background_opaque="true" follows="left|top" bg_opaque_color="1,1,1,0" bg_alpha_color="white" can_resize="false">
+  </panel>
+  
+  <panel
+             name="a_box"
+             left_delta="0"
+             width="200"
+             height="55"
+             bottom_delta="-60"
+             border="true"
+             mouse_opaque="true"
+             bevel_style="in"
+             background_visible="true"
+             background_opaque="true"
+             follows="top|left"
+             bg_opaque_color="0,0,0,0.1"
+             bg_alpha_color="blue"
+             can_resize="false"
+		>
+  </panel>
+
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+     bottom_delta="37" drop_shadow_visible="true" follows="left|top"
+     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="3"
+     mouse_opaque="true" name="status label" v_pad="0" width="195">Import Status</text>
+
+  <button bottom="5" follows="right|bottom" font="SansSerif" halign="center" height="20"
+     label="Import" label_selected="" right="-90"
+     mouse_opaque="true" name="import"
+     tool_tip="Import the current file" width="90" />
+  <button bottom="5" follows="right|bottom" font="SansSerif" halign="center" height="20"
+     label="Close" label_selected="" left_delta="95"
+     mouse_opaque="true" name="close" width="80" />
 </floater>

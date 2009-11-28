@@ -219,10 +219,10 @@
 #include "llfloaternotificationsconsole.h"
 
 #include "lltexlayer.h"
-#include "primbackup.h"
 
 #include "jcfloater_animation_list.h"
 #include "llfloaterassetbrowser.h"
+#include "exporttracker.h"
 
 using namespace LLVOAvatarDefines;
 void init_client_menu(LLMenuGL* menu);
@@ -2346,85 +2346,37 @@ class LLObjectCopyUUID : public view_listener_t
     }
 };
 
-
-class LLObjectEnableExport : public view_listener_t
+class LLObjectVisibleExport : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLControlVariable* control = 
-			gMenuHolder->findControl(userdata["control"].asString());
-
-		LLViewerObject* object =
-			LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
-
-		if((object != NULL) &&
-		   (find_avatar_from_object(object) == NULL))
+		LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
+		bool new_value = (object != NULL);
+		
+		if (new_value)
 		{
-			struct ff : public LLSelectedNodeFunctor
-			{
-				virtual bool apply(LLSelectNode* node)
-				{
-					return primbackup::check_perms( node );
-				}
-			} func;
-
-			if(LLSelectMgr::getInstance()->getSelection()->applyToNodes(&func,false))
-			{
-				control->setValue(true);
-				return true;	
-			}
+			new_value = !object->isAvatar() && object->permYouOwner() && object->permModify() && object->permCopy() && object->permTransfer();
+			// Disable for avatars, we can only export prims
+			//LLVOAvatar* avatar = find_avatar_from_object(object); 
+			//new_value = (avatar == NULL);
 		}
- 
-		control->setValue(false);
+		
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
+		
 		return true;
 	}
 };
 
 class LLObjectExport : public view_listener_t
 {
+	//Chalice - Changed to support exporting linkset groups
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
-		if (!object) return true;
-
-		LLVOAvatar* avatar = find_avatar_from_object(object); 
-
-		if (!avatar)
-		{
-			primbackup::getInstance()->pre_export_object();
-		}
-
+		ExportTrackerFloater::getInstance()->show();
 		return true;
 	}
 };
 
-
-class LLObjectEnableImport : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gMenuHolder->findControl(userdata["control"].asString())->setValue(TRUE);
-		return true;
-	}
-};
-
-class LLObjectImport : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		primbackup::getInstance()->import_object(FALSE);
-		return true;
-	}
-};
-
-class LLObjectImportUpload : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		primbackup::getInstance()->import_object(TRUE);
-		return true;
-	}
-};
 
 bool handle_go_to_confirm()
 {
@@ -10685,7 +10637,8 @@ void initialize_menus()
 	addMenu(new LLSelfEnableStandUp(), "Self.EnableStandUp");
 	addMenu(new LLSelfEnableRemoveAllAttachments(), "Self.EnableRemoveAllAttachments");
 
-	 // Avatar pie menu
+	 // Avatar pie menu	
+	addMenu(new LLObjectVisibleExport(), "Object.VisibleExport");
 	addMenu(new LLObjectMute(), "Avatar.Mute");
 	addMenu(new LLAvatarAddFriend(), "Avatar.AddFriend");
 	addMenu(new LLAvatarFreeze(), "Avatar.Freeze");
@@ -10717,8 +10670,6 @@ void initialize_menus()
 	addMenu(new LLObjectInspect(), "Object.Inspect");
 	addMenu(new LLObjectCopyUUID(), "Object.CopyUUID");
 	addMenu(new LLObjectExport(), "Object.Export");
-	addMenu(new LLObjectImport(), "Object.Import");
-	addMenu(new LLObjectImportUpload(), "Object.ImportUpload");
 
 	addMenu(new LLObjectEnableOpen(), "Object.EnableOpen");
 	addMenu(new LLObjectEnableTouch(), "Object.EnableTouch");
@@ -10730,8 +10681,6 @@ void initialize_menus()
 	addMenu(new LLObjectEnableMute(), "Object.EnableMute");
 	addMenu(new LLObjectEnableBuy(), "Object.EnableBuy");
 	addMenu(new LLObjectEnableCopyUUID(), "Object.EnableCopyUUID");
-	addMenu(new LLObjectEnableExport(), "Object.EnableExport");
-	addMenu(new LLObjectEnableImport(), "Object.EnableImport");
 
 	/*addMenu(new LLObjectVisibleTouch(), "Object.VisibleTouch");
 	addMenu(new LLObjectVisibleCustomTouch(), "Object.VisibleCustomTouch");

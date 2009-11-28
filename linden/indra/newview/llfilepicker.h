@@ -92,6 +92,7 @@ public:
 		FFLOAD_SLOBJECT = 7,
 		FFLOAD_RAW = 8,
 		FFLOAD_TEXT = 9,
+		FFLOAD_HPA = 10,
 	};
 
 	enum ESaveFilter

@@ -185,6 +185,8 @@
 #include "llwaterparammanager.h"
 #include "llagentlanguage.h"
 
+#include "exporttracker.h"
+
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
 #endif // LL_LIBXUL_ENABLED
@@ -3143,6 +3145,20 @@ void use_circuit_callback(void**, S32 result)
 	}
 }
 
+
+void pass_processObjectPropertiesFamily(LLMessageSystem *msg, void**)
+{
+	// send it to 'observers'
+	LLSelectMgr::processObjectPropertiesFamily(msg,0);
+}
+
+void pass_processObjectProperties(LLMessageSystem *msg, void**)
+{
+	// send it to 'observers'
+	JCExportTracker::processObjectProperties(msg,0);
+	LLSelectMgr::processObjectProperties(msg,0);
+}
+
 void register_viewer_callbacks(LLMessageSystem* msg)
 {
 	msg->setHandlerFuncFast(_PREHASH_LayerData,				process_layer_data );
@@ -3185,8 +3201,8 @@ void register_viewer_callbacks(LLMessageSystem* msg)
 
 	msg->setHandlerFuncFast(_PREHASH_ImprovedInstantMessage,	process_improved_im);
 	msg->setHandlerFuncFast(_PREHASH_ScriptQuestion,			process_script_question);
-	msg->setHandlerFuncFast(_PREHASH_ObjectProperties,			LLSelectMgr::processObjectProperties, NULL);
-	msg->setHandlerFuncFast(_PREHASH_ObjectPropertiesFamily,	LLSelectMgr::processObjectPropertiesFamily, NULL);
+	msg->setHandlerFuncFast(_PREHASH_ObjectProperties,			pass_processObjectProperties, NULL);
+	msg->setHandlerFuncFast(_PREHASH_ObjectPropertiesFamily,	pass_processObjectPropertiesFamily, NULL);
 	msg->setHandlerFunc("ForceObjectSelect", LLSelectMgr::processForceObjectSelect);
 
 	msg->setHandlerFuncFast(_PREHASH_MoneyBalanceReply,		process_money_balance_reply,	NULL);
