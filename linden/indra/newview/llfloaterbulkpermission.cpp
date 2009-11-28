@@ -281,6 +281,35 @@ void LLFloaterBulkPermission::handleInventory(LLViewerObject* viewer_obj, Invent
 				LLInventoryItem* item = (LLInventoryItem*)((LLInventoryObject*)(*it));
 				LLViewerInventoryItem* new_item = (LLViewerInventoryItem*)item;
 				LLPermissions perm(new_item->getPermissions());
+				U32 flags = new_item->getFlags();
+
+				U32 desired_next_owner_perms = LLFloaterPerms::getNextOwnerPerms("BulkChange");
+				U32 desired_everyone_perms = LLFloaterPerms::getEveryonePerms("BulkChange");
+				U32 desired_group_perms = LLFloaterPerms::getGroupPerms("BulkChange");
+
+				// If next owner permissions have changed (and this is an object)
+				// then set the slam permissions flag so that they are applied on rez.
+				if((perm.getMaskNextOwner() != desired_next_owner_perms)
+				   && (new_item->getType() == LLAssetType::AT_OBJECT))
+				{
+					flags |= LLInventoryItem::II_FLAGS_OBJECT_SLAM_PERM;
+				}
+				// If everyone permissions have changed (and this is an object)
+				// then set the overwrite everyone permissions flag so they
+				// are applied on rez.
+				if ((perm.getMaskEveryone() != desired_everyone_perms)
+				    && (new_item->getType() == LLAssetType::AT_OBJECT))
+				{
+					flags |= LLInventoryItem::II_FLAGS_OBJECT_PERM_OVERWRITE_EVERYONE;
+				}
+				// If group permissions have changed (and this is an object)
+				// then set the overwrite group permissions flag so they
+				// are applied on rez.
+				if ((perm.getMaskGroup() != desired_group_perms)
+				    && (new_item->getType() == LLAssetType::AT_OBJECT))
+				{
+					flags |= LLInventoryItem::II_FLAGS_OBJECT_PERM_OVERWRITE_GROUP;
+				}
 
 				// chomp the inventory name so it fits in the scroll window nicely
 				// and the user can see the [OK]
@@ -303,10 +332,11 @@ void LLFloaterBulkPermission::handleInventory(LLViewerObject* viewer_obj, Invent
 					//|| something else // for next owner perms
 					)
 				{
-					perm.setMaskNext(LLFloaterPerms::getNextOwnerPerms("BulkChange"));
-					perm.setMaskEveryone(LLFloaterPerms::getEveryonePerms("BulkChange"));
-					perm.setMaskGroup(LLFloaterPerms::getGroupPerms("BulkChange"));
+					perm.setMaskNext(desired_next_owner_perms);
+					perm.setMaskEveryone(desired_everyone_perms);
+					perm.setMaskGroup(desired_group_perms);
 					new_item->setPermissions(perm); // here's the beef
+					new_item->setFlags(flags); // and the tofu
 					updateInventory(object,new_item,TASK_INVENTORY_ITEM_KEY,FALSE);
 					//status_text.setArg("[STATUS]", getString("status_ok_text"));
 					status_text.setArg("[STATUS]", "");

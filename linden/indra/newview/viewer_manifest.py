@@ -235,6 +235,18 @@ class WindowsManifest(ViewerManifest):
                 self.path("Microsoft.VC80.CRT.manifest")
             self.end_prefix()
 
+        # The config file name needs to match the exe's name.
+        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst=self.final_exe() + ".config")
+
+        # We need this one too, so that llkdu loads at runtime - DEV-41194
+        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="llkdu.dll.2.config")
+
+        # We need this one too, so that win_crash_logger.exe loads at runtime - DEV-19004
+        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="win_crash_logger.exe.config")
+
+        # same thing for auto-updater.
+        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="updater.exe.config")
+
         # Mozilla runtime DLLs (CP)
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
             self.path("freebl3.dll")
@@ -263,9 +275,6 @@ class WindowsManifest(ViewerManifest):
 
         # Mozilla hack to get it to accept newer versions of msvc*80.dll than are listed in manifest
         # necessary as llmozlib2-vc80.lib refers to an old version of msvc*80.dll - can be removed when new version of llmozlib is built - Nyx
-        # The config file name needs to match the exe's name.
-        self.path("SecondLife.exe.config", dst=self.final_exe() + ".config")
-
         # Vivox runtimes
         if self.prefix(src="vivox-runtime/i686-win32", dst=""):
         #    self.path("alut.dll")
@@ -802,6 +811,7 @@ class Linux_i686Manifest(LinuxManifest):
         super(Linux_i686Manifest, self).construct()
         self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
+
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):
             self.path("*")
