@@ -10,7 +10,7 @@
 # ARTWORK
 
 linden/LICENSE-logos.txt
-linden/indra/newview/skins/**/textures/
+linden/indra/newview/skins/*/textures/
 linden/indra/newview/skins/default/html/btn_purplepill_bg.png
 linden/indra/newview/skins/default/html/en-us/loading/sl_logo_rotate_black.gif
 linden/indra/newview/skins/default/html/unabletoconnect.png
@@ -19,32 +19,36 @@ linden/indra/newview/res-sdl/
 linden/indra/newview/character/
 linden/indra/newview/app_settings/*.db2
 linden/indra/newview/app_settings/windlight/
+linden/indra/newview/cursors_mac/
 
 
 # LIBRARIES
 
 linden/LICENSES/
 linden/LICENSE-libraries-*.txt
+linden/libraries/
 linden/indra/newview/app_settings/mozilla-runtime-*/
 linden/indra/newview/fonts/
 linden/indra/newview/linux_tools/client-readme-voice.txt
 linden/indra/newview/vivox-runtime/
-linden/libraries/
-linden/indra/lib_releasefordownload_client/
-linden/indra/llwindow/glh/
-*.pyc
+linden/indra/newview/*.lproj/
+linden/indra/newview/mozilla-theme/
 
 
 # COMPILED STUFF
 
-linden/indra/viewer-*
+linden/indra/viewer-*         # Linux build directories
+linden/indra/build-*          # Mac and Windows build directories
 linden/installed.xml
-linden/indra/CMakeFiles
-linden/indra/temp
-linden/indra/test_apps
+*.pyc
 
 
-# PATCHES 
+# PATCHES
 
-*.diff
-*.patch
+*.diff*
+*.patch*
+
+
+# MISCELLANEOUS
+
+.DS_Store
