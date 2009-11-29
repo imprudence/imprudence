@@ -1,5 +1,10 @@
 2009-11-29 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Removed VS2003 boost references from CMake.
+	
+	  modified:   linden/indra/cmake/Boost.cmake
+	  
+	  
 	* Make sure windows always uses the Imprudence icon.
 	
 	  new file:   linden/indra/newview/res/imp_icon.ico
