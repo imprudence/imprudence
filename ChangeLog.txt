@@ -13,6 +13,12 @@
 
 2009-11-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Compile flag "-Wno-non-virtual-dtor" is for C++, not C.
+	  Fixes a warning when compiling Mac updater.
+
+	  modified:   linden/indra/cmake/00-Common.cmake
+
+
 	* Downgraded Linux boost to 1.36.0.
 
 	  modified:   linden/install.xml
