@@ -1,3 +1,11 @@
+2009-11-29 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Make sure windows always uses the Imprudence icon.
+	
+	  new file:   linden/indra/newview/res/imp_icon.ico
+	  modified:   linden/indra/newview/res/viewerRes.rc
+	  
+
 2009-11-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Downgraded Linux boost to 1.36.0.

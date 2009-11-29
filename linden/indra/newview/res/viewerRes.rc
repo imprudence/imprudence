@@ -61,8 +61,8 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_LL_ICON             ICON                    "ll_icon.ico"
-IDI_LCD_LL_ICON         ICON                    "icon1.ico"
+IDI_LL_ICON             ICON                    "imp_icon.ico"
+//IDI_LCD_LL_ICON         ICON                    "icon1.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -74,7 +74,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE
 FONT 8, "MS Sans Serif"
 BEGIN
     ICON            IDI_LL_ICON,IDC_STATIC,7,7,20,20
-    LTEXT           "Loading Second Life...",666,36,13,91,8
+    LTEXT           "Loading Imprudence...",666,36,13,91,8
 END
 
 
