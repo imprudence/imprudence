@@ -3,6 +3,11 @@
 # Compilation options shared by all Second Life components.
 
 include(Variables)
+include(Prebuilt)
+
+# Download viewer artwork
+
+  use_prebuilt_binary(artwork)
 
 
 # Portable compilation flags.

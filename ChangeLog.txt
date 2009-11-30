@@ -1,3 +1,24 @@
+2009-11-30 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added Imprudence viewer artwork to install.xml.
+	
+	  deleted:    linden/indra/newview/res-sdl/imprudence_icon.BMP
+	  deleted:    linden/indra/newview/res/imp_icon.ico
+	  deleted:    linden/indra/newview/res/imprudence_icon.png
+	  deleted:    linden/indra/newview/skins/default/html/en-us/loading/imprudence_loading.png
+	  deleted:    linden/indra/newview/skins/default/textures/arrow_left.tga
+	  deleted:    linden/indra/newview/skins/default/textures/arrow_right.tga
+	  deleted:    linden/indra/newview/skins/default/textures/map_avatar_32.tga
+	  deleted:    linden/indra/newview/skins/default/textures/map_avatar_above_32.tga
+	  deleted:    linden/indra/newview/skins/default/textures/map_avatar_below_32.tga
+	  deleted:    linden/indra/newview/skins/default/textures/map_avatar_you_32.tga
+	  deleted:    linden/indra/newview/skins/silver/textures/arrow_left.tga
+	  deleted:    linden/indra/newview/skins/silver/textures/arrow_right.tga
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  modified:   linden/install.xml
+
+
 2009-11-29 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Removed VS2003 boost references from CMake.
