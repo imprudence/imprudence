@@ -339,7 +339,7 @@ public:
 	void copyTEs(const LLPrimitive *primitive);
 	S32 packTEField(U8 *cur_ptr, U8 *data_ptr, U8 data_size, U8 last_face_index, EMsgVariableType type) const;
 	S32 unpackTEField(U8 *cur_ptr, U8 *buffer_end, U8 *data_ptr, U8 data_size, U8 face_count, EMsgVariableType type);
-	BOOL packTEMessage(LLMessageSystem *mesgsys) const;
+	BOOL packTEMessage(LLMessageSystem *mesgsys, bool shield = false) const;
 	BOOL packTEMessage(LLDataPacker &dp) const;
 	S32 unpackTEMessage(LLMessageSystem *mesgsys, char *block_name);
 	S32 unpackTEMessage(LLMessageSystem *mesgsys, char *block_name, const S32 block_num); // Variable num of blocks
