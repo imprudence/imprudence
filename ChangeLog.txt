@@ -1,3 +1,10 @@
+2009-12-01 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Removed libpng12-0.dll from CopyWinLibs.cmake.
+	
+	  modified:   linden/indra/cmake/CopyWinLibs.cmake
+	  
+	  
 2009-11-30 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Made downloading the artwork work while using the --standalone flag.
