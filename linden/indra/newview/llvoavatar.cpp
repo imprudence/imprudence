@@ -3053,19 +3053,14 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 	}
 	else
 	{	
-/*
-//Imprudence FIXME: we need a inworld UUID for that
-//and it needs also to be at llprimitive/llprimitive.cpp (find "Imprudence FIXME" there)
 
-		if(idx == LLUUID(""))
+		if(idx == LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf"))
 		{
 			avatar_name_color += LLColor4(0.6f,0.8f,1.0f);//Imprudence
 			avatar_name_color = avatar_name_color * (F32)0.333333333333;
 			client = "Imprudence";
 
-		} else 
-*/
-			if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190"))
+		} else  if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190"))
 		{
 			avatar_name_color += LLColor4(1.0f,0.9f,0.7f);//Meerkat
 			avatar_name_color = avatar_name_color * (F32)0.333333333333;
@@ -3137,17 +3132,18 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::magenta;
 			avatar_name_color = avatar_name_color * (F32)0.333333333333;
 			client = "BetaLife";
-		}else if(idx == LLUUID("872c0005-3095-0967-866d-11cd71115c22"))
+		}
+/*
+		 else if(idx == LLUUID("872c0005-3095-0967-866d-11cd71115c22"))
 		{
 			avatar_name_color += LLColor4::green;//SimFed Poland
 			avatar_name_color += LLColor4::blue;//SimFed Poland
 			avatar_name_color += LLColor4::blue;//SimFed Poland
 			avatar_name_color = avatar_name_color * 0.5;
-			client = "<-- Fag";
-
-//Imprudence FIXME: Cigarette? Homophobic? My lack of humor?
-
-                }else if(idx == LLUUID("3ab7e2fa-9572-ef36-1a30-d855dbea4f92") || //wat
+			client = "<-- Fag"; //Imprudence FIXME: Cigarette? Homophobic? My lack of humor?
+                }
+*/
+				else if(idx == LLUUID("3ab7e2fa-9572-ef36-1a30-d855dbea4f92") || //wat
 					idx == LLUUID("11ad2452-ce54-8d65-7c23-05589b59f516") ||//wat.
 					idx == LLUUID("e734563e-1c31-2a35-3ed5-8552c807439f") ||//wat.
 					idx == LLUUID("58a8b7ec-1455-7162-5d96-d3c3ead2ed71") ||//wat
