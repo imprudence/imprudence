@@ -1,5 +1,13 @@
 2009-12-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Moved the viewer artwork to its own CMake file.
+	
+	  new file:   linden/indra/cmake/ViewerArtwork.cmake
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/llaudio/CMakeLists.txt
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  
+	  
 	* Removed libpng12-0.dll from CopyWinLibs.cmake.
 	
 	  modified:   linden/indra/cmake/CopyWinLibs.cmake
