@@ -1,29 +1,3 @@
-2009-11-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
-
-	* Fixed Linux's gstreamer, gstreamer-plugins, and liboil.
-	  Compiled with the correct version of glibc.
-
-	  modified:   linden/install.xml
-
-
-2009-11-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
-
-	* libxml2.so.2 was missing from Linux viewer manifest.
-
-	  modified:   linden/indra/newview/viewer_manifest.py
-
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-=-                        1.3.0                           -=
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-2009-11-25 McCabe Maxsted  <hakushakukun@gmail.com>
-
-	* Updated windows zlib (to 1.2.3) and boost libs (to 1.36).
-	
-	  modified:   linden/install.xml
-	  
-	  
 2009-11-15 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed CMake setting errors. 
@@ -40,7 +14,7 @@
 	  modified:   linden/indra/newview/skins/default/xui/en-us/notifications.x
 
 
-2009-11-12 McCabe Maxsted  <hakushakukun@gmail.com>
+2009-11-13 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Force Imprudence to use the correst boost libraries, e.g:
 	  #pragma comment( lib, "libboost_signals-vc80-mt-1_36.lib" )
@@ -184,42 +158,12 @@
 2009-10-18 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Merged working branch of 1.2 into LL 1.23 merge.
-	
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-=-                         1.2.1                          -=
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
-2009-11-25 McCabe Maxsted  <hakushakukun@gmail.com>
 
-	* Updated version to 1.2.1.
-	
-	  modified:   ChangeLog.txt
-	  modified:   linden/indra/llcommon/llversionviewer.h
-	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
-	  modified:   linden/indra/newview/Info-Imprudence.plist
-	  modified:   linden/indra/newview/res/viewerRes.rc
+2009-08-29  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
-
-	* Updated windows openal libs to openal-soft 1.10.622. 
-	
-	  modified:   linden/install.xml
-
-
-2009-11-25  Jacek Antonelli  <jacek.antonelli@gmail.com>
-
-	* Fixed Linux's gstreamer, gstreamer-plugins, and liboil.
-	  Compiled with the correct version of glibc.
-
-	  modified:   linden/install.xml
-
-
-2009-11-21  Jacek Antonelli  <jacek.antonelli@gmail.com>
-
-	* libxml2.so.2 was missing from Linux viewer manifest.
-
-	  modified:   linden/indra/newview/viewer_manifest.py
+	* Updated Imprudence to be based on SL 1.23.4.
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

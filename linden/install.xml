@@ -195,9 +195,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>094acc8173faca882ed9532e868d767f</string>
+            <string>286cca0d0fc3fb301b158672fb6465f6</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/boost-1.36.0-windows-20091124.tar.bz2</uri>
+            <uri>http://www.lawlinter.net/data/boost-1.36.0-windows-20090626.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -517,9 +517,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>2cd3f6499f8444f1d119d097e4047252</string>
+            <string>605ecd92affb57ed3c70f7564b8bc6b5</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.24-linux-20091125.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.24-linux-20091115.tar.bz2</uri>
           </map>
           <key>linux64</key>
           <map>
@@ -553,9 +553,9 @@
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>62b96bb2721798958743d92a403d122a</string>
+            <string>627aef3c307aed6d2c013bdfa11bb0af</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20091125.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20091115.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -649,7 +649,7 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
         <key>copyright</key>
         <string>Copyright (c) 2003, Yves Piguet.</string>
         <key>description</key>
-        <string>JPEG image codec library</string>
+        <string>An open-source JPEG (JFIF) library</string>
         <key>license</key>
         <string>jpeglib</string>
         <key>packages</key>
@@ -748,9 +748,9 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>85219034b4e4c17e792f8bb54a1973f7</string>
+            <string>5ab0f986317b1a5c4f1682ad1972c318</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/liboil-0.3.16-linux-20091125.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/liboil-0.3.16-linux-20091118.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -1067,9 +1067,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>3dc9b085b2a1b23501396ef9a87a393e</string>
+            <string>7c33758dc0a047c244de03133dd76c2a</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/openal-soft-1.10.622-windows-20091124.tar.bz2</uri>
+            <uri>http://imprudence.s3.amazonaws.com/extras/openal-soft-1.6.372-windows-01262009.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -1377,9 +1377,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>8695136860ee3fbad7f5e793232b50eb</string>
+            <string>0efbf671a0d686bb0141895e91fbfc46</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/zlib-1.2.3-windows-20091112.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/zlib-1.1.4-windows-20090829.tar.bz2</uri>
           </map>
         </map>
       </map>
