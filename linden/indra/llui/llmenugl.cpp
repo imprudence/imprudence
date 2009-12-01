@@ -416,7 +416,7 @@ BOOL LLMenuItemGL::handleMouseUp( S32 x, S32 y, MASK )
 	LLMenuGL::setKeyboardMode(FALSE);
 
 	doIt();
-	make_ui_sound("UISndClickRelease");
+	//make_ui_sound("UISndClickRelease");
 	return TRUE;
 }
 
@@ -3208,7 +3208,7 @@ BOOL LLPieMenu::handleHover( S32 x, S32 y, MASK mask )
 			}
 			mHoverItem = item;
 			mHoverItem->setHighlight( TRUE );
-
+/*
 			switch(pieItemIndexFromXY(x, y))
 			{
 			case 0:
@@ -3238,7 +3238,7 @@ BOOL LLPieMenu::handleHover( S32 x, S32 y, MASK mask )
 			default:
 				make_ui_sound("UISndPieMenuSliceHighlight0");
 				break;
-			}
+			} */
 		}
 		mHoveredAnyItem = TRUE;
 	}
@@ -3384,7 +3384,7 @@ BOOL LLPieMenu::handleMouseUp( S32 x, S32 y, MASK mask )
 
 	if (mFirstMouseDown)
 	{
-		make_ui_sound("UISndPieMenuAppear");
+		//make_ui_sound("UISndPieMenuAppear");
 		mFirstMouseDown = FALSE;
 	}
 	
@@ -3757,7 +3757,7 @@ void LLPieMenu::show(S32 x, S32 y, BOOL mouse_down)
 
 	if (!mFirstMouseDown)
 	{
-		make_ui_sound("UISndPieMenuAppear");
+		//make_ui_sound("UISndPieMenuAppear");
 	}
 
 	LLView::setVisible(TRUE);
@@ -3786,7 +3786,7 @@ void LLPieMenu::hide(BOOL item_selected)
 		mHoverItem = NULL;
 	}
 
-	make_ui_sound("UISndPieMenuHide");
+	//make_ui_sound("UISndPieMenuHide");
 
 	mFirstMouseDown = FALSE;
 	mRightMouseDown = FALSE;

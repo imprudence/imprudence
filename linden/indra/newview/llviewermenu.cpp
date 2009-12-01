@@ -3967,7 +3967,7 @@ void derez_objects(EDeRezDestination dest, const LLUUID& dest_id)
 			}
 			msg->sendReliable(first_region->getHost());
 		}
-		make_ui_sound("UISndObjectRezOut");
+		//make_ui_sound("UISndObjectRezOut");
 
 		// Busy count decremented by inventory update, so only increment
 		// if will be causing an update.

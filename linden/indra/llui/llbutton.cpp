@@ -242,7 +242,7 @@ void LLButton::onCommit()
 	{
 		(*mMouseUpCallback)(mCallbackUserData);
 	}
-
+/*
 	if (getSoundFlags() & MOUSE_DOWN)
 	{
 		make_ui_sound("UISndClick");
@@ -252,7 +252,7 @@ void LLButton::onCommit()
 	{
 		make_ui_sound("UISndClickRelease");
 	}
-
+*/
 	if (mIsToggle)
 	{
 		toggleState();
@@ -328,7 +328,7 @@ BOOL LLButton::handleMouseDown(S32 x, S32 y, MASK mask)
 	
 	if (getSoundFlags() & MOUSE_DOWN)
 	{
-		make_ui_sound("UISndClick");
+		//make_ui_sound("UISndClick");
 	}
 
 	return TRUE;
@@ -355,11 +355,11 @@ BOOL LLButton::handleMouseUp(S32 x, S32 y, MASK mask)
 		// DO THIS AT THE VERY END to allow the button to be destroyed as a result of being clicked.
 		// If mouseup in the widget, it's been clicked
 		if (pointInView(x, y))
-		{
+		{ /*
 			if (getSoundFlags() & MOUSE_UP)
 			{
 				make_ui_sound("UISndClickRelease");
-			}
+			} */
 
 			if (mIsToggle)
 			{

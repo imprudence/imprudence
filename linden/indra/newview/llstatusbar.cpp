@@ -711,7 +711,7 @@ void LLStatusBar::setHealth(S32 health)
 	mTextHealth->setText(llformat("%d%%", health));
 
 	if( mHealth > health )
-	{
+	{ /*
 		if (mHealth > (health + gSavedSettings.getF32("UISndHealthReductionThreshold")))
 		{
 			LLVOAvatar *me;
@@ -727,7 +727,7 @@ void LLStatusBar::setHealth(S32 health)
 					make_ui_sound("UISndHealthReductionM");
 				}
 			}
-		}
+		} */
 
 		mHealthTimer->reset();
 		mHealthTimer->setTimerExpirySec( ICON_TIMER_EXPIRY );

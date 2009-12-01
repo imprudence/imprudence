@@ -682,7 +682,7 @@ BOOL LLFolderViewItem::handleRightMouseDown( S32 x, S32 y, MASK mask )
 	{
 		setSelectionFromRoot(this, FALSE);
 	}
-	make_ui_sound("UISndClick");
+	//make_ui_sound("UISndClick");
 	return TRUE;
 }
 
@@ -706,7 +706,7 @@ BOOL LLFolderViewItem::handleMouseDown( S32 x, S32 y, MASK mask )
 		{
 			setSelectionFromRoot(this, FALSE);
 		}
-		make_ui_sound("UISndClick");
+		//make_ui_sound("UISndClick");
 	}
 	else
 	{
