@@ -5,10 +5,15 @@
 include(Variables)
 include(Prebuilt)
 
-# Download viewer artwork
+# Download viewer artwork even when using standalone
 
+if (STANDALONE)
+  set(STANDALONE OFF)
+    use_prebuilt_binary(artwork)
+  set(STANDALONE ON)
+else (STANDALONE)
   use_prebuilt_binary(artwork)
-
+endif (STANDALONE)
 
 # Portable compilation flags.
 

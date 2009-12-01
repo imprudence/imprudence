@@ -1,5 +1,11 @@
 2009-11-30 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Made downloading the artwork work while using the --standalone flag.
+	
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/cmake/Variables.cmake
+
+
 	* Added Imprudence viewer artwork to install.xml.
 	
 	  deleted:    linden/indra/newview/res-sdl/imprudence_icon.BMP
