@@ -2702,7 +2702,7 @@ void LLAppViewer::requestLogout(bool quit_after)
 	effectp->setColor(LLColor4U(gAgent.getEffectColor()));
 	LLHUDManager::getInstance()->sendEffects();
 	effectp->markDead() ;//remove it.
-		send_stats();
+		//send_stats(); if we're quitting the server shouldn't need viewer stats.
 	}
 	else
 	{
@@ -3346,12 +3346,13 @@ void LLAppViewer::idle()
 
 		// Update session stats every large chunk of time
 		// *FIX: (???) SAMANTHA
+		/* or don't! part of a larger effort to waste less CPU cycles. -Patrick Sapinski (Sunday, November 29, 2009)
 		if (viewer_stats_timer.getElapsedTimeF32() >= SEND_STATS_PERIOD && !gDisconnected)
 		{
 			llinfos << "Transmitting sessions stats" << llendl;
 			send_stats();
 			viewer_stats_timer.reset();
-		}
+		} */
 
 		// Print the object debugging stats
 		static LLFrameTimer object_debug_timer;
