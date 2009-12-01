@@ -74,8 +74,8 @@ class PlatformSetup(object):
         build_types[t.lower()] = t
 
     build_type = build_types['relwithdebinfo']
-    standalone = 'FALSE'
-    unattended = 'FALSE'
+    standalone = 'OFF'
+    unattended = 'OFF'
     project_name = 'Imprudence'
     distcc = True
     cmake_opts = []

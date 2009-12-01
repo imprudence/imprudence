@@ -35,8 +35,8 @@
 
 const S32 LL_VERSION_MAJOR = 1;
 const S32 LL_VERSION_MINOR = 23;
-const S32 LL_VERSION_PATCH = 4;
-const S32 LL_VERSION_BUILD = 123523;
+const S32 LL_VERSION_PATCH = 5;
+const S32 LL_VERSION_BUILD = 136262;
 
 const char * const LL_CHANNEL = "Imprudence";
 
