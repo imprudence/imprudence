@@ -218,7 +218,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>1</integer>
+      <integer>0</integer>
     </map>
     <key>AllowMultipleViewers</key>
     <map>
@@ -3079,7 +3079,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>0</integer>
+      <integer>1</integer>
     </map>
     <key>DisableRendering</key>
     <map>
@@ -5671,7 +5671,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>1</integer>
+      <integer>0</integer>
     </map>
     <key>LipSyncAah</key>
     <map>
@@ -6883,7 +6883,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>6.0</real>
+      <real>2.0</real>
     </map>
     <key>PreferredMaturity</key>
     <map>
