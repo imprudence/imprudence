@@ -1,5 +1,12 @@
 2009-12-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Downgraded OpenAL-soft back to 1.6.372 for the time being (reverts 4633284f).
+	
+	  modified:   linden/install.xml
+	  
+
+2009-12-01 McCabe Maxsted  <hakushakukun@gmail.com>
+
 	* Moved the viewer artwork to its own CMake file.
 	
 	  new file:   linden/indra/cmake/ViewerArtwork.cmake
