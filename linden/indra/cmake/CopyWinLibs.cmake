@@ -136,7 +136,6 @@ set(release_files
 	libogg-0.dll
 	liboil-0.3-0.dll
 	libopenjpeg-2.dll
-    libpng12-0.dll
 	libschroedinger-1.0-0.dll
 	libspeex-1.dll
 	libtheora-0.dll

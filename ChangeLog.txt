@@ -1,5 +1,10 @@
-2009-12-01 McCabe Maxsted  <hakushakukun@gmail.com>
+2009-12-02 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Forgot to remove the debug entry for libpng12-0.dll from CopyWinLibs.cmake.
+	
+	  modified:   linden/indra/cmake/CopyWinLibs.cmake
+	  
+	  
 	* Downgraded OpenAL-soft back to 1.6.372 for the time being (reverts 4633284f).
 	
 	  modified:   linden/install.xml
