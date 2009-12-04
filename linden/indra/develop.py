@@ -225,6 +225,8 @@ class UnixSetup(PlatformSetup):
             cpu = 'i386'
         elif cpu.endswith('86'):
             cpu = 'i686'
+        elif cpu in ('x86_64'):
+            cpu = 'x86_64'	    
         elif cpu in ('athlon',):
             cpu = 'i686'
         elif cpu == 'Power Macintosh':

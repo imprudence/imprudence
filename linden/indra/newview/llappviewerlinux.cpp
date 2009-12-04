@@ -263,7 +263,7 @@ static inline BOOL do_elfio_glibc_backtrace()
 	for (btpos = 0; btpos < btsize; ++btpos)
 	{
 		// the format of the StraceFile is very specific, to allow (kludgy) machine-parsing
-		fprintf(StraceFile, "%-3d ", btpos);
+		fprintf(StraceFile, "%-3ld ", (long)btpos);
 		int symidx;
 		for (symidx = 0; symidx < nSymNo; ++symidx)
 		{
