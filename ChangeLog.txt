@@ -1,3 +1,12 @@
+2009-12-04 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added Imprudence VC80 .config files to the repo. 
+	
+	  new file:   linden/indra/newview/Imprudence.exe.config
+	  new file:   linden/indra/newview/ImprudenceDebug.exe.config
+	  modified:   linden/indra/cmake/CopyWinLibs.cmake
+	  
+
 2009-12-02 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Forgot to remove the debug entry for libpng12-0.dll from CopyWinLibs.cmake.
