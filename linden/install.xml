@@ -84,9 +84,9 @@
           <key>linux64</key>
           <map>
              <key>md5sum</key>
-             <string>24456b23dd2960cdeb8e021f48c8985c</string>
+             <string>9b35e91faea8bdedfbab0c6cf9939895</string>
              <key>url</key>
-             <uri>http://imprudenceviewer.org/download/libs/SDL-1.2.14-linux64-lenny-20091202.tar.bz2</uri>
+             <uri>http://imprudenceviewer.org/download/libs/SDL-1.2.12-linux64-20091204.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -127,9 +127,9 @@
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>ae13485e8f53e53c2c04c4b57013346c</string>
+            <string>5ee61e2cffc9b6f2a1bc5027cd51529e</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/apr_suite-1.2.8-linux64-lenny-20091202.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/apr_suite-1.3.9-linux64-20091204.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -379,9 +379,9 @@
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>2d9224d2bb6e75bf71f5ca150e4fcd77</string>
+            <string>fe25958da18039faf7a38845f2057561</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/expat-2.0.1-4-linux64-lenny-20091129.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/expat-2.0.1-linux64-20091204.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
