@@ -152,6 +152,39 @@
           </map>
         </map>
       </map>
+      <key>artwork</key>
+      <map>
+        <key>copyright</key>
+        <string>Second Life(TM) Viewer Artwork. Copyright (C) 2008 Linden Research, Inc. With additions by the Imprudence team.</string>
+        <key>description</key>
+        <string>The artwork used in the client, such as UI textures and branding.</string>
+        <key>license</key>
+        <string>creative commons attribution-share alike 3.0</string>
+        <key>packages</key>
+        <map>
+          <key>darwin</key>
+          <map>
+            <key>md5sum</key>
+            <string>ad3f838d58338e5fce8e4770f67a04c5</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20091130.tar.bz2</uri>
+          </map>
+          <key>linux</key>
+          <map>
+            <key>md5sum</key>
+            <string>ad3f838d58338e5fce8e4770f67a04c5</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20091130.tar.bz2</uri>
+          </map>
+          <key>windows</key>
+          <map>
+            <key>md5sum</key>
+            <string>ad3f838d58338e5fce8e4770f67a04c5</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20091130.tar.bz2</uri>
+          </map>
+        </map>
+      </map>
       <key>berkeley</key>
       <map>
         <key>copyright</key>
@@ -1067,9 +1100,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>3dc9b085b2a1b23501396ef9a87a393e</string>
+            <string>7c33758dc0a047c244de03133dd76c2a</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/openal-soft-1.10.622-windows-20091124.tar.bz2</uri>
+            <uri>http://imprudence.s3.amazonaws.com/extras/openal-soft-1.6.372-windows-01262009.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -1415,6 +1448,11 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
       <map>
         <key>text</key>
         <string>http://daniel.haxx.se/projects/c-ares/license.html</string>
+      </map>
+      <key>creative commons attribution-share alike 3.0</key>
+      <map>
+        <key>url</key>
+        <string>http://creativecommons.org/licenses/by-sa/3.0/legalcode</string>
       </map>
       <key>curl</key>
       <map>

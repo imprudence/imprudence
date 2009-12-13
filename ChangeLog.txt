@@ -1,3 +1,79 @@
+2009-12-04 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added Imprudence VC80 .config files to the repo. 
+	
+	  new file:   linden/indra/newview/Imprudence.exe.config
+	  new file:   linden/indra/newview/ImprudenceDebug.exe.config
+	  modified:   linden/indra/cmake/CopyWinLibs.cmake
+	  
+
+2009-12-02 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Forgot to remove the debug entry for libpng12-0.dll from CopyWinLibs.cmake.
+	
+	  modified:   linden/indra/cmake/CopyWinLibs.cmake
+	  
+	  
+	* Downgraded OpenAL-soft back to 1.6.372 for the time being (reverts 4633284f).
+	
+	  modified:   linden/install.xml
+	  
+
+2009-12-01 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Moved the viewer artwork to its own CMake file.
+	
+	  new file:   linden/indra/cmake/ViewerArtwork.cmake
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/llaudio/CMakeLists.txt
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  
+	  
+	* Removed libpng12-0.dll from CopyWinLibs.cmake.
+	
+	  modified:   linden/indra/cmake/CopyWinLibs.cmake
+	  
+	  
+2009-11-30 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Made downloading the artwork work while using the --standalone flag.
+	
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/cmake/Variables.cmake
+
+
+	* Added Imprudence viewer artwork to install.xml.
+	
+	  deleted:    linden/indra/newview/res-sdl/imprudence_icon.BMP
+	  deleted:    linden/indra/newview/res/imp_icon.ico
+	  deleted:    linden/indra/newview/res/imprudence_icon.png
+	  deleted:    linden/indra/newview/skins/default/html/en-us/loading/imprudence_loading.png
+	  deleted:    linden/indra/newview/skins/default/textures/arrow_left.tga
+	  deleted:    linden/indra/newview/skins/default/textures/arrow_right.tga
+	  deleted:    linden/indra/newview/skins/default/textures/map_avatar_32.tga
+	  deleted:    linden/indra/newview/skins/default/textures/map_avatar_above_32.tga
+	  deleted:    linden/indra/newview/skins/default/textures/map_avatar_below_32.tga
+	  deleted:    linden/indra/newview/skins/default/textures/map_avatar_you_32.tga
+	  deleted:    linden/indra/newview/skins/silver/textures/arrow_left.tga
+	  deleted:    linden/indra/newview/skins/silver/textures/arrow_right.tga
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  modified:   linden/install.xml
+
+
+2009-11-29 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Removed VS2003 boost references from CMake.
+	
+	  modified:   linden/indra/cmake/Boost.cmake
+	  
+	  
+	* Make sure windows always uses the Imprudence icon.
+	
+	  new file:   linden/indra/newview/res/imp_icon.ico
+	  modified:   linden/indra/newview/res/viewerRes.rc
+	  
+
 2009-11-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Compile flag "-Wno-non-virtual-dtor" is for C++, not C.

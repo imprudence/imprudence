@@ -35,6 +35,7 @@ include(GooglePerfTools)
 include(TemplateCheck)
 include(UI)
 include(UnixInstall)
+include(ViewerArtwork)
 include(ViewerMiscLibs)
 
 if (WINDOWS)
@@ -976,7 +977,7 @@ if (WINDOWS)
         res/arrowcopmulti.cur
         res/arrowdrag.cur
         res/circleandline.cur
-        res/icon1.ico
+        res/imp_icon.ico
         res/imprudence_icon.png
         res/llarrow.cur
         res/llarrowdrag.cur
@@ -997,7 +998,6 @@ if (WINDOWS)
         res/lltooltranslate.cur
         res/lltoolzoomin.cur
         res/lltoolzoomout.cur
-        res/ll_icon.ico
         res/resource.h
         res/toolbuy.cur
         res/toolopen.cur
