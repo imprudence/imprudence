@@ -1,5 +1,10 @@
 2009-12-23 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Made drag and drop work across the entire profile window.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+	  
+	  
 	* Fixed info not being displayed in About Imprudence floater.
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_about.xml
