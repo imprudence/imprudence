@@ -1,5 +1,10 @@
-2009-23-09 McCabe Maxsted  <hakushakukun@gmail.com>
+2009-12-23 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed login panel not showing viewer channel.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_login.xml
+	  
+	  
 	* Fixed default fonts.
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/fonts.xml
