@@ -19,18 +19,18 @@
   </font>
 
   <font name="SansSerif" comment="Name of san-serif font (Truetype file name)">
-    <file>"MtBkLfRg.ttf"</file>
+    <file>LiberationSans-Regular.ttf</file>
   </font>
 
   <font name="SansSerifBold" 
 	comment="Name of bold sans-serif font" 
 	font_style="Bold">
-    <file>MtBdLfRg.ttf</file>
+    <file>LiberationSans-Bold.ttf</file>
   </font>
 
   <font name="Monospace"
 	comment="Name of monospace font">
-    <file>DejaVuSansMono.ttf</file>
+    <file>VeraMono.ttf</file>
   </font>
 
   <font name="DejaVu"

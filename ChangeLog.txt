@@ -1,5 +1,10 @@
 2009-23-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed default fonts.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/fonts.xml
+	  
+	  
 	* Fixed the Advanced menu toggling.
 	
 	  modified:   linden/indra/newview/llviewermenu.cpp
