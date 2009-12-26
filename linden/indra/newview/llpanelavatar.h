@@ -323,6 +323,7 @@ public:
 	static void onClickUnfreeze(void *userdata);
 	static void onClickCSR(		void *userdata);
 	static void onClickMute(	void *userdata);
+	static void onClickCopyUUID(	void *userdata);
 
 private:
 	void enableOKIfReady();

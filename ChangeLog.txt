@@ -1,3 +1,12 @@
+2009-12-26 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added copy key button to profile window.
+	
+	  modified:   linden/indra/newview/llpanelavatar.cpp
+	  modified:   linden/indra/newview/llpanelavatar.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_avatar.xml
+
+
 2009-12-23 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Made drag and drop work across the entire profile window.
