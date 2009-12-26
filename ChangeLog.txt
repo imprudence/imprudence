@@ -1,5 +1,10 @@
 2009-12-26 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Use Liberation-Sans font sizes.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/fonts.xml
+	  
+	  
 	* Added copy key button to profile window.
 	
 	  modified:   linden/indra/newview/llpanelavatar.cpp
