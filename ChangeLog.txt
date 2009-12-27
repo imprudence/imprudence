@@ -1,5 +1,15 @@
 2009-12-26 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Added script creation resource to the script editor's help menu.
+	
+      modified:   linden/indra/newview/llpreviewscript.cpp
+      modified:   linden/indra/newview/llpreviewscript.h
+      modified:   linden/indra/newview/llweb.cpp
+      modified:   linden/indra/newview/llweb.h
+      modified:   linden/indra/newview/skins/default/xui/en-us/floater_script_ed_panel.xml
+      modified:   linden/indra/newview/skins/default/xui/en-us/notifications.xml
+
+
 	* Use Liberation-Sans font sizes.
 	
 	  modified:   linden/indra/newview/skins/default/xui/en-us/fonts.xml

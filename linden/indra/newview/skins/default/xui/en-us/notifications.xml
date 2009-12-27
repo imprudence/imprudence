@@ -6616,6 +6616,18 @@ Go to the Official Imprudence Forums to discuss the Imprudence Project.
      yestext="Go to page"/>
   </notification>
 
+  <notification
+   icon="alert.tga"
+   name="WebLaunchAutoscript"
+   type="alert">
+    Launch autoscript generator (by 3greeneggs.com)?
+    <usetemplate
+     ignoretext="When launching autoscript generator"
+     name="okcancelignore"
+     notext="Cancel"
+     yestext="OK"/>
+  </notification>
+
 
     <!--End Imprudence notifications-->
 

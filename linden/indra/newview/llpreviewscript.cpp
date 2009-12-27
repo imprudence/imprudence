@@ -446,6 +446,10 @@ void LLScriptEdCore::initMenu()
 	menuItem->setMenuCallback(onBtnSaveToDisc, this);
 	menuItem->setEnabledCallback(NULL);
 
+	menuItem = getChild<LLMenuItemCallGL>("Launch Autoscript...");
+	menuItem->setMenuCallback(onBtnAutoscript, this);
+	menuItem->setEnabledCallback(NULL);
+
 	menuItem = getChild<LLMenuItemCallGL>("LSL Wiki Help...");
 	menuItem->setMenuCallback(onBtnDynamicHelp, this);
 	menuItem->setEnabledCallback(NULL);
@@ -676,12 +680,37 @@ bool LLScriptEdCore::onHelpWebDialog(const LLSD& notification, const LLSD& respo
 }
 
 // static 
+bool LLScriptEdCore::onHelpAutoscript(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotification::getSelectedOption(notification, response);
+
+	switch(option)
+	{
+	case 0:
+		LLWeb::loadURLInternal(notification["payload"]["autoscript_url"]);
+		break;
+	default:
+		break;
+	}
+	return false;
+}
+
+// static 
 void LLScriptEdCore::onBtnHelp(void* userdata)
 {
 	LLScriptEdCore* corep = (LLScriptEdCore*)userdata;
 	LLSD payload;
 	payload["help_url"] = corep->mHelpURL;
 	LLNotifications::instance().add("WebLaunchLSLGuide", LLSD(), payload, onHelpWebDialog);
+}
+
+// static 
+void LLScriptEdCore::onBtnAutoscript(void* userdata)
+{
+	LLScriptEdCore* corep = (LLScriptEdCore*)userdata;
+	LLSD payload;
+	payload["autoscript_url"] = corep->getString("autoscript_url");
+	LLNotifications::instance().add("WebLaunchAutoscript", LLSD(), payload, onHelpAutoscript);
 }
 
 // static 
