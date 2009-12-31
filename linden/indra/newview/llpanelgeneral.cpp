@@ -44,6 +44,7 @@
 
 #include "llagent.h"
 #include "llviewerregion.h"
+#include "llviewermenu.h"
 
 LLPanelGeneral::LLPanelGeneral()
 {
@@ -105,6 +106,8 @@ BOOL LLPanelGeneral::postBuild()
 	
 	childSetVisible("maturity_desired_combobox", can_choose);
 	childSetVisible("maturity_desired_textbox",	!can_choose);
+
+	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
 			
 	return TRUE;
 }
@@ -154,6 +157,12 @@ void LLPanelGeneral::apply()
 			gSavedSettings.setU32("PreferredMaturity", preferred_maturity);
 			gAgent.sendMaturityPreferenceToServer(preferred_maturity);
 		}
+	}
+
+	if (gSavedSettings.getBOOL("LegacyPieEnabled") == !((BOOL)childGetValue("legacy_pie_menu_checkbox")))
+	{
+		gSavedSettings.setBOOL("LegacyPieEnabled", childGetValue("legacy_pie_menu_checkbox"));
+		build_pie_menus();
 	}
 }
 

@@ -1179,6 +1179,11 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/floater_windlight_options.xml
     skins/default/xui/en-us/floater_world_map.xml
     skins/default/xui/en-us/fonts.xml
+    skins/default/xui/en-us/legacy_menu_pie_attachment.xml
+	skins/default/xui/en-us/legacy_menu_pie_avatar.xml
+	skins/default/xui/en-us/legacy_menu_pie_land.xml
+	skins/default/xui/en-us/legacy_menu_pie_object.xml
+	skins/default/xui/en-us/legacy_menu_pie_self.xml
     skins/default/xui/en-us/menu_inventory.xml
     skins/default/xui/en-us/menu_login.xml
     skins/default/xui/en-us/menu_mini_map.xml

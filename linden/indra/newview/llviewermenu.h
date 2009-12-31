@@ -49,6 +49,8 @@ void init_menus();
 void cleanup_menus();
 
 void show_debug_menus(); // checks for if menus should be shown first.
+// builds either current or legacy pie menus depending upon LegacyPieEnabled
+void build_pie_menus();
 void show_context_menu( S32 x, S32 y, MASK mask );
 void show_build_mode_context_menu(S32 x, S32 y, MASK mask);
 BOOL enable_save_into_inventory(void*);

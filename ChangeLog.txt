@@ -1,3 +1,20 @@
+2009-12-31 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added preferences option to use legacy pie menu layout.
+	
+	  new file:   linden/indra/newview/skins/default/xui/en-us/legacy_menu_pie_attachment.xml
+	  new file:   linden/indra/newview/skins/default/xui/en-us/legacy_menu_pie_avatar.xml
+	  new file:   linden/indra/newview/skins/default/xui/en-us/legacy_menu_pie_land.xml
+	  new file:   linden/indra/newview/skins/default/xui/en-us/legacy_menu_pie_object.xml
+	  new file:   linden/indra/newview/skins/default/xui/en-us/legacy_menu_pie_self.xml
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llpanelgeneral.cpp
+	  modified:   linden/indra/newview/llviewermenu.cpp
+	  modified:   linden/indra/newview/llviewermenu.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
+
+
 2009-12-28 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Removed old pre-1.23 alerts and notifications.
