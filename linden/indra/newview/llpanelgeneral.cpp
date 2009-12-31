@@ -67,7 +67,6 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("afk_timeout_spinner", gSavedSettings.getF32("AFKTimeout"));
 	childSetValue("mini_map_notify_chat", gSavedSettings.getBOOL("MiniMapNotifyChatRange"));
 	childSetValue("mini_map_notify_sim", gSavedSettings.getBOOL("MiniMapNotifySimRange"));
-	childSetValue("notify_money_change_checkbox", gSavedSettings.getBOOL("NotifyMoneyChange"));
 
 	getChild<LLColorSwatchCtrl>("effect_color_swatch")->set(gSavedSettings.getColor4("EffectColor"));
 
@@ -132,7 +131,6 @@ void LLPanelGeneral::apply()
 	gSavedSettings.setF32("AFKTimeout", childGetValue("afk_timeout_spinner").asReal());
 	gSavedSettings.setBOOL("MiniMapNotifyChatRange", childGetValue("mini_map_notify_chat"));
 	gSavedSettings.setBOOL("MiniMapNotifySimRange", childGetValue("mini_map_notify_sim"));
-	gSavedSettings.setBOOL("NotifyMoneyChange", childGetValue("notify_money_change_checkbox"));
 	gSavedSettings.setColor4("EffectColor", childGetValue("effect_color_swatch"));
 	gSavedSettings.setF32("UIScaleFactor", childGetValue("ui_scale_slider").asReal());
 	gSavedSettings.setBOOL("UIAutoScale", childGetValue("ui_auto_scale"));

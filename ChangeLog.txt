@@ -1,5 +1,13 @@
 2009-12-31 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Moved notify when L$ spent from Preferences > General to Preferences > Popups.
+	  
+	  modified:   linden/indra/newview/llpanelgeneral.cpp
+	  modified:   linden/indra/newview/llpanelmsgs.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_popups.xml
+
+
 	* Added preferences option to use legacy pie menu layout.
 	
 	  new file:   linden/indra/newview/skins/default/xui/en-us/legacy_menu_pie_attachment.xml

@@ -65,6 +65,8 @@ BOOL LLPanelMsgs::postBuild()
 	childSetValue("show_new_inventory", gSavedSettings.getBOOL("ShowNewInventory"));
 	childSetValue("show_in_inventory", gSavedSettings.getBOOL("ShowInInventory"));
 
+	childSetValue("notify_money_change_checkbox", gSavedSettings.getBOOL("NotifyMoneyChange"));
+
 	return TRUE;
 }
 
@@ -154,6 +156,7 @@ void LLPanelMsgs::apply()
 	gSavedSettings.setBOOL("AutoAcceptNewInventory", childGetValue("accept_new_inventory"));
 	gSavedSettings.setBOOL("ShowNewInventory", childGetValue("show_new_inventory"));
 	gSavedSettings.setBOOL("ShowInInventory", childGetValue("show_in_inventory"));
+	gSavedSettings.setBOOL("NotifyMoneyChange", childGetValue("notify_money_change_checkbox"));
 }
 
 void LLPanelMsgs::cancel()
