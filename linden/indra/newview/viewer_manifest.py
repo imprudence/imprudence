@@ -903,7 +903,7 @@ class Linux_x86_64Manifest(LinuxManifest):
 
         self.path("app_settings/mozilla-runtime-linux-x86_64")
 
-        if self.prefix("../../libraries/x86_64-linux/lib_release_client", dst="lib"):
+        if self.prefix("../../libraries/x86_64-linux/lib_release_client", dst="lib64"):
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
             self.path("libdb-4.2.so")
@@ -913,7 +913,8 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.path("libuuid.so", "libuuid.so.1")
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
-            self.path("libopenjpeg.so.1.3.0", "libopenjpeg.so.1.3")
+            self.path("libjpeg.so.7")
+            self.path("libopenjpeg.so.2")
             self.path("libxml2.so.2")
             self.path("libz.so.1")
 
@@ -926,13 +927,13 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.path("libcairo.so.2")
             self.path("libfontconfig.so.1")
             self.path("libfreetype.so.6")
-            self.path("libgdk_pixbuf-2.0.so.0")
+#            self.path("libgdk_pixbuf-2.0.so.0")	# use systems gdk pixbufs instead
             self.path("libgdk-x11-2.0.so.0")
             self.path("libgtk-x11-2.0.so.0")
-            self.path("libpango-1.0.so.0")
-            self.path("libpangoft2-1.0.so.0")
-            self.path("libpangox-1.0.so.0")
-            self.path("libpangoxft-1.0.so.0")
+#            self.path("libpango-1.0.so.0")		# use systems pango instead
+#            self.path("libpangoft2-1.0.so.0")		# Both gdk pixbufs and pango would load systems modules
+#            self.path("libpangox-1.0.so.0")		# and crash if not compatible or present. 
+#            self.path("libpangoxft-1.0.so.0")		# So we depend system gdk pixbufs and pango anyway.
             self.path("libpixman-1.so.0")
 
             # Gstreamer libs
@@ -996,8 +997,15 @@ class Linux_x86_64Manifest(LinuxManifest):
                 self.path("libgstwavparse.so")
                 
                 self.end_prefix("gstreamer-plugins")
-            self.end_prefix("lib")
-
+            self.end_prefix("lib64")
+        
+#	if self.prefix("../../libraries/x86_64-linux/lib_release_client/32bit-compat", dst="lib32"):
+#            self.path("libalut.so")
+#	    self.path("libidn.so.11")
+#	    self.path("libopenal.so.1")
+#	    self.path("libortp.so")
+#	    self.path("libuuid.so.1")
+#        self.end_prefix("lib32")
             # Vivox runtimes
             #if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
             #        self.path("SLVoice")
