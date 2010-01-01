@@ -2980,7 +2980,6 @@ void LLVOAvatar::idleUpdateWindEffect()
 bool LLVOAvatar::updateClientTags()
 {
 	std::string client_list_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "client_list.xml");
-//Imprudence FIXME: provide own ressource
 	LLSD response = LLHTTPClient::blockingGet("http://www.imprudenceviewer.org/app/client_list/client_list.xml");
 	if(response.has("body"))
 	{
@@ -3132,18 +3131,14 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4::magenta;
 			avatar_name_color = avatar_name_color * (F32)0.333333333333;
 			client = "BetaLife";
-		}
-/*
-		 else if(idx == LLUUID("872c0005-3095-0967-866d-11cd71115c22"))
+		}else if(idx == LLUUID("872c0005-3095-0967-866d-11cd71115c22"))
 		{
 			avatar_name_color += LLColor4::green;//SimFed Poland
 			avatar_name_color += LLColor4::blue;//SimFed Poland
 			avatar_name_color += LLColor4::blue;//SimFed Poland
 			avatar_name_color = avatar_name_color * 0.5;
-			client = "<-- Fag"; //Imprudence FIXME: Cigarette? Homophobic? My lack of humor?
-                }
-*/
-				else if(idx == LLUUID("3ab7e2fa-9572-ef36-1a30-d855dbea4f92") || //wat
+			client = "CryoLife";
+                }else if(idx == LLUUID("3ab7e2fa-9572-ef36-1a30-d855dbea4f92") || //wat
 					idx == LLUUID("11ad2452-ce54-8d65-7c23-05589b59f516") ||//wat.
 					idx == LLUUID("e734563e-1c31-2a35-3ed5-8552c807439f") ||//wat.
 					idx == LLUUID("58a8b7ec-1455-7162-5d96-d3c3ead2ed71") ||//wat
@@ -3153,8 +3148,6 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color += LLColor4(0.0f,0.5f,1.0f); 
 			avatar_name_color = avatar_name_color * 0.5;   
 			client = "VerticalLife";
-	
-		
 		}else if(idx == LLUUID("4e8dcf80-336b-b1d8-ef3e-08dacf015a0f"))
 		{
 			avatar_name_color += LLColor4::blue; //Sapphire
