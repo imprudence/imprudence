@@ -168,6 +168,9 @@ if (LINUX)
       # this stops us requiring a really recent glibc at runtime
       add_definitions(-fno-stack-protector)
     endif (NOT STANDALONE)
+    if (${ARCH} STREQUAL "x86_64")
+       add_definitions( -DLINUX64=1 )
+    endif (${ARCH} STREQUAL "x86_64")
   endif (VIEWER)
 
   set(CMAKE_CXX_FLAGS_DEBUG "-fno-inline ${CMAKE_CXX_FLAGS_DEBUG}")
