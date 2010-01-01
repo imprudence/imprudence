@@ -919,22 +919,24 @@ void LLFilePicker::add_to_selectedfiles(gpointer data, gpointer user_data)
 
 	LLFilePicker* picker = (LLFilePicker*) user_data;
 	GError *error = NULL;
-	gchar* filename_utf8 = g_filename_to_utf8((gchar*)data,
-						  -1, NULL, NULL, &error);
+//	gchar* filename_utf8 = g_filename_to_utf8((gchar*)data,
+//						  -1, NULL, NULL, &error);
+	gchar* filename_utf8 = g_filename_display_name ((gchar*) data);
 	if (error)
 	{
 		// *FIXME.
 		// This condition should really be notified to the user, e.g.
 		// through a message box.  Just logging it is inappropriate.
 		
-		// g_filename_display_name is ideal, but >= glib 2.6, so:
-		// a hand-rolled hacky makeASCII which disallows control chars
-		std::string display_name;
-		for (const gchar *str = (const gchar *)data; *str; str++)
-		{
-			display_name += (char)((*str >= 0x20 && *str <= 0x7E) ? *str : '?');
-		}
-		llwarns << "g_filename_to_utf8 failed on \"" << display_name << "\": " << error->message << llendl;
+		// Ghhhh.  g_filename_display_name is new to glib 2.6, and it
+		// is too new for SL! (Note that the latest glib as of this
+		// writing is 2.22. *sigh*) LL supplied *makeASCII family are
+		// also unsuitable since they allow control characters...
+
+		// muhahaha ... Imprudence can !
+
+
+		llwarns << "g_filename_display_name failed on"  << filename_utf8  << ": "<< error->message << llendl;
 	}
 
 	if (filename_utf8)
