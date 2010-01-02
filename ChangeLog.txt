@@ -1,3 +1,10 @@
+2010-01-01 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Added missing debug tags to logcontrol.xml.
+	
+	  modified:   linden/indra/newview/app_settings/logcontrol.xml
+	  
+
 2009-12-31 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Moved notify when L$ spent from Preferences > General to Preferences > Popups.

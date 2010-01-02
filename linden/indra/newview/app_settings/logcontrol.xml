@@ -41,13 +41,26 @@
 					<key>tags</key>
 						<array>
 							<string>OpenAL</string>
+              <string>APR</string>
 							<string>AudioEngine</string>
 							<string>MediaImpl</string>
 							<string>MediaInfo</string>
 							<string>MediaCallback</string>
 							<string>MediaBuffering</string>
+              <string>MediaManager</string>
 							<string>MediaState</string>
 							<string>ShaderLoading</string>
+              <string>XMLNode</string>
+              
+              <!--Unused debug messages below-->
+              
+              <!--<string>RLV</string>
+              <string>Messaging</string>
+              <string>ViewerImages</string>
+              <string>Throttle</string>
+              <string>Voice</string>
+              <string>VivoxProtocolParser</string>
+              <string>Wearable</string>-->
 						</array>
 				</map>
 			</array>
