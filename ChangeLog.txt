@@ -1,3 +1,13 @@
+2010-01-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Updated version to 1.3.0 "merge test".
+	  (newview/res/viewerRes.rc is already at 1.3.0.)
+
+	  modified:   linden/indra/llcommon/llversionviewer.h
+	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
+	  modified:   linden/indra/newview/Info-Imprudence.plist
+
+
 2010-01-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed panel_radar.xml missing from newview\CMakeLists.txt.
