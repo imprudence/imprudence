@@ -1242,6 +1242,7 @@ set(viewer_XUI_FILES
     skins/default/xui/en-us/panel_preferences_voice.xml
     skins/default/xui/en-us/panel_preferences_web.xml
     skins/default/xui/en-us/panel_progress.xml
+    skins/default/xui/en-us/panel_radar.xml
     skins/default/xui/en-us/panel_region_covenant.xml
     skins/default/xui/en-us/panel_region_debug.xml
     skins/default/xui/en-us/panel_region_estate.xml

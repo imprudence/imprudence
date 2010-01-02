@@ -1,5 +1,10 @@
 2010-01-01 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed panel_radar.xml missing from newview\CMakeLists.txt.
+	
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  
+	  
 	* Added missing debug tags to logcontrol.xml.
 	
 	  modified:   linden/indra/newview/app_settings/logcontrol.xml
