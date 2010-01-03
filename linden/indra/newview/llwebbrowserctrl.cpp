@@ -1012,6 +1012,16 @@ void LLWebBrowserTexture::resize( S32 new_width, S32 new_height )
 	mLastBrowserDepth = media_depth;
 }
 
+// virtual
+LLXMLNodePtr LLWebBrowserCtrl::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLUICtrl::getXML();
+
+	node->setName(LL_WEB_BROWSER_CTRL_TAG);
+
+	return node;
+}
+
 LLView* LLWebBrowserCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 {
 	std::string name("web_browser");

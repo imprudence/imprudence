@@ -386,6 +386,8 @@ LLXMLNodePtr LLTextBox::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_TEXT_BOX_TAG);
+
 	// Attributes
 	node->createChild("font", TRUE)->setStringValue(LLFontGL::nameFromFont(mFontGL));
 	node->createChild("halign", TRUE)->setStringValue(LLFontGL::nameFromHAlign(mHAlign));

@@ -62,6 +62,7 @@ public:
 
 	virtual ~LLNameEditor();
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
 	void setNameID(const LLUUID& name_id, BOOL is_group);

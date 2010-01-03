@@ -501,6 +501,8 @@ LLXMLNodePtr LLMultiSliderCtrl::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_MULTI_SLIDER_CTRL_TAG);
+
 	node->createChild("show_text", TRUE)->setBoolValue(mShowText);
 
 	node->createChild("can_edit_text", TRUE)->setBoolValue(mCanEditText);

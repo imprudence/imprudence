@@ -217,6 +217,7 @@ public:
 
 	void setToggleState(BOOL state);
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 	static void		onActionButtonClick(void *userdata);
 	static void		onSelectAction(LLUICtrl* ctrl, void *userdata);

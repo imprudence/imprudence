@@ -52,6 +52,7 @@ public:
 	}
 	/*virtual*/ ~LLRadioCtrl();
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	/*virtual*/ void setValue(const LLSD& value);
 };
 

@@ -385,6 +385,7 @@ public:
 
 	/*virtual*/ void	draw();
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
 	void setText(const LLStringExplicit &new_text) { mSearchEdit->setText(new_text); }

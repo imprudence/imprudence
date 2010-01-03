@@ -58,14 +58,13 @@ public:
 
 	virtual void setValue(const LLSD& value) {};
 
-	virtual LLXMLNodePtr getXML(bool save_children) const { return LLUICtrl::getXML(); }
-	
 	virtual void		draw();
 
 	void				clearPanels();
 	void				addPanel( LLScrollingPanel* panel );
 	void				updatePanels(BOOL allow_modify);
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 	
 private:

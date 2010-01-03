@@ -191,6 +191,7 @@ class LLWebBrowserCtrl :
 		// Defaults to true.
 		void setTakeFocusOnClick( bool take_focus );
 
+		virtual LLXMLNodePtr getXML(bool save_children = true) const;
 		static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
 		// handle mouse related methods

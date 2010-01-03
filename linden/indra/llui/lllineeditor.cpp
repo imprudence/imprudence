@@ -2202,6 +2202,8 @@ LLXMLNodePtr LLLineEditor::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_LINE_EDITOR_TAG);
+
 	node->createChild("max_length", TRUE)->setIntValue(mMaxLengthBytes);
 
 	node->createChild("font", TRUE)->setStringValue(LLFontGL::nameFromFont(mGLFont));
@@ -2789,6 +2791,16 @@ void LLSearchEditor::onClearSearch(void* user_data)
 	{
 		search_editor->mSearchCallback(LLStringUtil::null, search_editor->mCallbackUserData);
 	}
+}
+
+// virtual
+LLXMLNodePtr LLSearchEditor::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLUICtrl::getXML();
+
+	node->setName(LL_SEARCH_EDITOR_TAG);
+
+	return node;
 }
 
 // static

@@ -291,6 +291,15 @@ LLXMLNodePtr LLSlider::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	if (mVolumeSlider)
+	{
+		node->setName(LL_VOLUME_SLIDER_CTRL_TAG);
+	}
+	else
+	{
+		node->setName(LL_SLIDER_TAG);
+	}
+
 	node->createChild("initial_val", TRUE)->setFloatValue(getInitialValue());
 	node->createChild("min_val", TRUE)->setFloatValue(getMinValue());
 	node->createChild("max_val", TRUE)->setFloatValue(getMaxValue());

@@ -86,6 +86,15 @@ public:
 	LLUICtrlLocate() : LLUICtrl(std::string("locate"), LLRect(0,0,0,0), FALSE, NULL, NULL) { setTabStop(FALSE); }
 	virtual void draw() { }
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const
+	{
+		LLXMLNodePtr node = LLUICtrl::getXML();
+	
+		node->setName(LL_UI_CTRL_LOCATE_TAG);
+	
+		return node;
+	}
+
 	static LLView *fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 	{
 		std::string name("pad");

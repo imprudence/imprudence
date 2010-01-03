@@ -398,6 +398,7 @@ public:
 	virtual ~LLMultiFloater() {};
 
 	virtual BOOL postBuild();
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	/*virtual*/ void open();	/* Flawfinder: ignore */
 	/*virtual*/ void onClose(bool app_quitting);
 	/*virtual*/ void draw();

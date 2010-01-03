@@ -1654,6 +1654,8 @@ LLXMLNodePtr LLInventoryPanel::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLPanel::getXML(false); // Do not print out children
 
+	node->setName(LL_INVENTORY_PANEL_TAG);
+
 	node->createChild("allow_multi_select", TRUE)->setBoolValue(mFolders->getAllowMultiSelect());
 
 	return node;

@@ -51,6 +51,7 @@ public:
 	// llview functionality
 	virtual void draw();
 	
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static  LLView* fromXML(LLXMLNodePtr node, LLView *parent, class LLUICtrlFactory *factory);
 	static BOOL getBevelFromAttribute(LLXMLNodePtr node, LLViewBorder::EBevel& bevel_style);
 
