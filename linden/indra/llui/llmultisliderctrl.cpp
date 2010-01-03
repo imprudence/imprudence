@@ -132,7 +132,7 @@ LLMultiSliderCtrl::LLMultiSliderCtrl(const std::string& name, const LLRect& rect
 				&LLLineEditor::prevalidateFloat );
 			mEditor->setFollowsLeft();
 			mEditor->setFollowsBottom();
-			mEditor->setFocusReceivedCallback( &LLMultiSliderCtrl::onEditorGainFocus );
+			mEditor->setFocusReceivedCallback( &LLMultiSliderCtrl::onEditorGainFocus, this );
 			mEditor->setIgnoreTab(TRUE);
 			// don't do this, as selecting the entire text is single clicking in some cases
 			// and double clicking in others
