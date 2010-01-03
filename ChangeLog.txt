@@ -1,3 +1,18 @@
+2010-01-03  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Several changes to work better on 64bit Linux.
+
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/cmake/LLWindow.cmake
+	  modified:   linden/indra/develop.py
+	  modified:   linden/indra/newview/linux_tools/wrapper.sh
+	  modified:   linden/indra/newview/llappviewerlinux.cpp
+	  modified:   linden/indra/newview/llfilepicker.cpp
+	  modified:   linden/indra/newview/llviewermedia.cpp
+	  modified:   linden/indra/newview/viewer_manifest.py
+	  modified:   linden/install.xml
+
+
 2010-01-02  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Updated version to 1.3.0 "merge test".
