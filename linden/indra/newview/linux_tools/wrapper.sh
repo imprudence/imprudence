@@ -117,10 +117,12 @@ if [ -n "$LL_TCMALLOC" ]; then
     fi
 fi
 
-export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib/gstreamer-plugins/"
 if [ "`uname -m`" = "x86_64" ]; then
+	export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib64/gstreamer-plugins/"
+
 	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib64:"`pwd`"/lib32:"`pwd`"/app_settings/mozilla-runtime-linux-x86_64:"${LD_LIBRARY_PATH}"'
 else
+	export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib/gstreamer-plugins/"
 	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"`pwd`"/app_settings/mozilla-runtime-linux-i686:"${LD_LIBRARY_PATH}"'
 fi
 export SL_CMD='$LL_WRAPPER bin/do-not-directly-run-imprudence-bin'
