@@ -87,6 +87,7 @@ public:
 	bool			handleReloadFromServerDialog(const LLSD& notification, const LLSD& response);
 
 	static bool		onHelpWebDialog(const LLSD& notification, const LLSD& response);
+	static bool		onHelpAutoscript(const LLSD& notification, const LLSD& response);
 	static void		onBtnHelp(void* userdata);
 	static void		onBtnDynamicHelp(void* userdata);
 	static void		onCheckLock(LLUICtrl*, void*);
@@ -100,6 +101,7 @@ public:
 	static void		onBtnUndoChanges(void*);
 	static void		onBtnSaveToDisc(void*);
 	static void		onBtnLoadFromDisc(void*);
+	static void		onBtnAutoscript(void* userdata);
 	static void		onSearchMenu(void* userdata);
 
 	static void		onUndoMenu(void* userdata);

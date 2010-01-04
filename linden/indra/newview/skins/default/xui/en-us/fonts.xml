@@ -19,18 +19,18 @@
   </font>
 
   <font name="SansSerif" comment="Name of san-serif font (Truetype file name)">
-    <file>"MtBkLfRg.ttf"</file>
+    <file>LiberationSans-Regular.ttf</file>
   </font>
 
   <font name="SansSerifBold" 
 	comment="Name of bold sans-serif font" 
 	font_style="Bold">
-    <file>MtBdLfRg.ttf</file>
+    <file>LiberationSans-Bold.ttf</file>
   </font>
 
   <font name="Monospace"
 	comment="Name of monospace font">
-    <file>DejaVuSansMono.ttf</file>
+    <file>VeraMono.ttf</file>
   </font>
 
   <font name="DejaVu"
@@ -86,23 +86,23 @@
 
   <font_size name="Monospace"
 	     comment="Size for monospaced font (points, or 1/72 of an inch)"
-	     size="9.0"
+	     size="8.0"
 	     />
   <font_size name="Huge"
 	     comment="Size of huge font (points, or 1/72 of an inch)"
-	     size="16.0"
+	     size="15.2"
 	     />
   <font_size name="Large"
 	     comment="Size of large font (points, or 1/72 of an inch)"
-	     size="12.0"
+	     size="11.5"
 	     />
   <font_size name="Medium"
 	     comment="Size of medium font (points, or 1/72 of an inch)"
-	     size="10.0"
+	     size="9.5"
 	     />
   <font_size name="Small"
 	     comment="Size of small font (points, or 1/72 of an inch)"
-	     size="9"
+	     size="8.5"
 	     />
 </fonts>
 

@@ -69,6 +69,13 @@ void LLWeb::loadURLExternal(const std::string& url)
 
 
 // static
+void LLWeb::loadURLInternal(const std::string& url)
+{
+	LLFloaterMediaBrowser::showInstance(url);
+}
+
+
+// static
 std::string LLWeb::escapeURL(const std::string& url)
 {
 	// The CURL curl_escape() function escapes colons, slashes,

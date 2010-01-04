@@ -618,24 +618,7 @@ void init_menus()
 	///
 	/// Pie menus
 	///
-	gPieSelf = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_self.xml", gMenuHolder);
-
-	// TomY TODO: what shall we do about these?
-	gDetachScreenPieMenu = gMenuHolder->getChild<LLPieMenu>("Object Detach HUD", true);
-	gDetachPieMenu = gMenuHolder->getChild<LLPieMenu>("Object Detach", true);
-
-	gPieAvatar = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_avatar.xml", gMenuHolder);
-
-	gPieObject = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_object.xml", gMenuHolder);
-
-	gAttachScreenPieMenu = gMenuHolder->getChild<LLPieMenu>("Object Attach HUD");
-	gAttachPieMenu = gMenuHolder->getChild<LLPieMenu>("Object Attach");
-
-	gPieAttachment = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_attachment.xml", gMenuHolder);
-
-	gPieHUD = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_hud.xml", gMenuHolder);
-
-	gPieLand = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_land.xml", gMenuHolder);
+	build_pie_menus();
 
 	///
 	/// set up the colors
@@ -5115,6 +5098,35 @@ void toggle_debug_menus(void*)
 	show_debug_menus();
 }
 
+
+void build_pie_menus()
+{
+	// build legacy pie menus (based on SL viewer 1.22)
+	if (gSavedSettings.getBOOL("LegacyPieEnabled"))
+	{
+		gPieSelf = LLUICtrlFactory::getInstance()->buildPieMenu("legacy_menu_pie_self.xml", gMenuHolder);
+		gPieAvatar = LLUICtrlFactory::getInstance()->buildPieMenu("legacy_menu_pie_avatar.xml", gMenuHolder);
+		gPieAttachment = LLUICtrlFactory::getInstance()->buildPieMenu("legacy_menu_pie_attachment.xml", gMenuHolder);
+		gPieLand = LLUICtrlFactory::getInstance()->buildPieMenu("legacy_menu_pie_land.xml", gMenuHolder);
+		gPieObject = LLUICtrlFactory::getInstance()->buildPieMenu("legacy_menu_pie_object.xml", gMenuHolder);
+	}
+	else
+	{
+		gPieSelf = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_self.xml", gMenuHolder);
+		gPieAvatar = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_avatar.xml", gMenuHolder);
+		gPieAttachment = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_attachment.xml", gMenuHolder);
+		gPieLand = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_land.xml", gMenuHolder);
+		gPieObject = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_object.xml", gMenuHolder);
+	}
+
+	// TomY TODO: what shall we do about these?
+	gDetachScreenPieMenu = gMenuHolder->getChild<LLPieMenu>("Object Detach HUD", true);
+	gDetachPieMenu = gMenuHolder->getChild<LLPieMenu>("Object Detach", true);
+	gAttachScreenPieMenu = gMenuHolder->getChild<LLPieMenu>("Object Attach HUD");
+	gAttachPieMenu = gMenuHolder->getChild<LLPieMenu>("Object Attach");
+
+	gPieHUD = LLUICtrlFactory::getInstance()->buildPieMenu("menu_pie_hud.xml", gMenuHolder);
+}
 
 // LLUUID gExporterRequestID;
 // std::string gExportDirectory;
@@ -10557,6 +10569,7 @@ void initialize_menus()
 	addMenu(new LLZoomer(1/1.2f), "View.ZoomIn");
 	addMenu(new LLZoomer(DEFAULT_FIELD_OF_VIEW, false), "View.ZoomDefault");
 	addMenu(new LLViewFullscreen(), "View.Fullscreen");
+	addMenu(new LLViewToggleAdvanced(), "View.ToggleAdvanced");
 
 	addMenu(new LLViewEnableMouselook(), "View.EnableMouselook");
 	addMenu(new LLViewEnableJoystickFlycam(), "View.EnableJoystickFlycam");

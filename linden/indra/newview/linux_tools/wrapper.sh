@@ -48,10 +48,13 @@
 ## - GStreamer is automatically disabled - for now - on 64-bit systems due
 ##   to common fatal incompatibilities; remove/comment these lines if you want
 ##   to try anyway.
-if [ "`uname -m`" = "x86_64" ]; then
-    export LL_DISABLE_GSTREAMER=x
-    echo '64-bit Linux detected: Disabling GStreamer (streaming video and music) by default; edit ./secondlife to re-enable.'
-fi
+
+#FIXME:->
+#if [ "`uname -m`" = "x86_64" ]; then
+#    export LL_DISABLE_GSTREAMER=x
+#    echo '64-bit Linux detected: Disabling GStreamer (streaming video and music) by default; edit ./secondlife to re-enable.'
+#fi
+#FIXME:<-
 
 ## Everything below this line is just for advanced troubleshooters.
 ##-------------------------------------------------------------------
@@ -114,9 +117,14 @@ if [ -n "$LL_TCMALLOC" ]; then
     fi
 fi
 
-export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib/gstreamer-plugins/"
+if [ "`uname -m`" = "x86_64" ]; then
+	export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib64/gstreamer-plugins/"
 
-export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"`pwd`"/app_settings/mozilla-runtime-linux-i686:"${LD_LIBRARY_PATH}"'
+	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib64:"`pwd`"/lib32:"`pwd`"/app_settings/mozilla-runtime-linux-x86_64:"${LD_LIBRARY_PATH}"'
+else
+	export GST_PLUGIN_PATH="${GST_PLUGIN_PATH}:${RUN_PATH}/lib/gstreamer-plugins/"
+	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"`pwd`"/app_settings/mozilla-runtime-linux-i686:"${LD_LIBRARY_PATH}"'
+fi
 export SL_CMD='$LL_WRAPPER bin/do-not-directly-run-imprudence-bin'
 export SL_OPT="`cat gridargs.dat` $@"
 
@@ -129,17 +137,20 @@ if [ -n "$LL_RUN_ERR" ]; then
 	if [ "$LL_RUN_ERR" = "runerr" ]; then
 		# generic error running the binary
 		echo '*** Bad shutdown. ***'
-		if [ "`uname -m`" = "x86_64" ]; then
-			echo
-			cat << EOFMARKER
-You are running the Imprudence Viewer on a x86_64 platform.  The
-most common problems when launching the Viewer (particularly
-'bin/do-not-directly-run-imprudence-bin: not found' and 'error while
-loading shared libraries') may be solved by installing your Linux
-distribution's 32-bit compatibility packages.
-For example, on Ubuntu and other Debian-based Linuxes you might run:
-$ sudo apt-get install ia32-libs ia32-libs-gtk ia32-libs-kde ia32-libs-sdl
-EOFMARKER
-		fi
+
+#FIXME: ->
+#		if [ "`uname -m`" = "x86_64" ]; then
+#			echo
+#			cat << EOFMARKER
+#You are running the Imprudence Viewer on a x86_64 platform.  The
+#most common problems when launching the Viewer (particularly
+#'bin/do-not-directly-run-imprudence-bin: not found' and 'error while
+#loading shared libraries') may be solved by installing your Linux
+#distribution's 32-bit compatibility packages.
+#For example, on Ubuntu and other Debian-based Linuxes you might run:
+#$ sudo apt-get install ia32-libs ia32-libs-gtk ia32-libs-kde ia32-libs-sdl
+#EOFMARKER
+#		fi
+#FIXME: <-
 	fi
 fi

@@ -51,6 +51,9 @@ public:
 	// Loads unescaped url in external browser.
 	static void loadURLExternal(const std::string& url);
 
+	//Loads unescaped url in internal browser.
+	static void loadURLInternal(const std::string& url);
+
 	// Returns escaped (eg, " " to "%20") url
 	static std::string escapeURL(const std::string& url);
 

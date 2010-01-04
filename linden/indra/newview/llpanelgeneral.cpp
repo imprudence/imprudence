@@ -44,6 +44,7 @@
 
 #include "llagent.h"
 #include "llviewerregion.h"
+#include "llviewermenu.h"
 
 LLPanelGeneral::LLPanelGeneral()
 {
@@ -66,7 +67,6 @@ BOOL LLPanelGeneral::postBuild()
 	childSetValue("afk_timeout_spinner", gSavedSettings.getF32("AFKTimeout"));
 	childSetValue("mini_map_notify_chat", gSavedSettings.getBOOL("MiniMapNotifyChatRange"));
 	childSetValue("mini_map_notify_sim", gSavedSettings.getBOOL("MiniMapNotifySimRange"));
-	childSetValue("notify_money_change_checkbox", gSavedSettings.getBOOL("NotifyMoneyChange"));
 
 	getChild<LLColorSwatchCtrl>("effect_color_swatch")->set(gSavedSettings.getColor4("EffectColor"));
 
@@ -105,6 +105,8 @@ BOOL LLPanelGeneral::postBuild()
 	
 	childSetVisible("maturity_desired_combobox", can_choose);
 	childSetVisible("maturity_desired_textbox",	!can_choose);
+
+	childSetValue("legacy_pie_menu_checkbox", gSavedSettings.getBOOL("LegacyPieEnabled"));
 			
 	return TRUE;
 }
@@ -129,7 +131,6 @@ void LLPanelGeneral::apply()
 	gSavedSettings.setF32("AFKTimeout", childGetValue("afk_timeout_spinner").asReal());
 	gSavedSettings.setBOOL("MiniMapNotifyChatRange", childGetValue("mini_map_notify_chat"));
 	gSavedSettings.setBOOL("MiniMapNotifySimRange", childGetValue("mini_map_notify_sim"));
-	gSavedSettings.setBOOL("NotifyMoneyChange", childGetValue("notify_money_change_checkbox"));
 	gSavedSettings.setColor4("EffectColor", childGetValue("effect_color_swatch"));
 	gSavedSettings.setF32("UIScaleFactor", childGetValue("ui_scale_slider").asReal());
 	gSavedSettings.setBOOL("UIAutoScale", childGetValue("ui_auto_scale"));
@@ -154,6 +155,12 @@ void LLPanelGeneral::apply()
 			gSavedSettings.setU32("PreferredMaturity", preferred_maturity);
 			gAgent.sendMaturityPreferenceToServer(preferred_maturity);
 		}
+	}
+
+	if (gSavedSettings.getBOOL("LegacyPieEnabled") == !((BOOL)childGetValue("legacy_pie_menu_checkbox")))
+	{
+		gSavedSettings.setBOOL("LegacyPieEnabled", childGetValue("legacy_pie_menu_checkbox"));
+		build_pie_menus();
 	}
 }
 

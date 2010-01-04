@@ -805,13 +805,11 @@ class LinuxManifest(ViewerManifest):
         #             'dst': self.get_dst_prefix(),
         #             'inst': self.build_path_of(installer_name)})
 
-
 class Linux_i686Manifest(LinuxManifest):
     def construct(self):
         super(Linux_i686Manifest, self).construct()
         self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
-
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):
             self.path("*")
@@ -929,6 +927,7 @@ class Linux_x86_64Manifest(LinuxManifest):
         super(Linux_x86_64Manifest, self).construct()
         self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
+
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):
             self.path("*")
@@ -936,7 +935,118 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.end_prefix("res-sdl")
 
         self.path("featuretable_linux.txt")
-        self.path("secondlife-i686.supp")
+        #self.path("secondlife-x86_64.supp")
+
+        self.path("app_settings/mozilla-runtime-linux-x86_64")
+
+        if self.prefix("../../libraries/x86_64-linux/lib_release_client", dst="lib64"):
+            self.path("libapr-1.so.0")
+            self.path("libaprutil-1.so.0")
+            self.path("libdb-4.2.so")
+            self.path("libcrypto.so.0.9.8")
+            self.path("libexpat.so.1")
+            self.path("libssl.so.0.9.8")
+            self.path("libuuid.so", "libuuid.so.1")
+            self.path("libSDL-1.2.so.0")
+            self.path("libELFIO.so")
+            self.path("libjpeg.so.7")
+            self.path("libopenjpeg.so.2")
+            self.path("libxml2.so.2")
+            self.path("libz.so.1")
+
+            # OpenAL
+            self.path("libopenal.so.1")
+            self.path("libalut.so.0")
+
+            # GTK+ and dependencies
+            self.path("libatk-1.0.so.0")
+            self.path("libcairo.so.2")
+            self.path("libfontconfig.so.1")
+            self.path("libfreetype.so.6")
+#            self.path("libgdk_pixbuf-2.0.so.0")	# use systems gdk pixbufs instead
+            self.path("libgdk-x11-2.0.so.0")
+            self.path("libgtk-x11-2.0.so.0")
+#            self.path("libpango-1.0.so.0")		# use systems pango instead
+#            self.path("libpangoft2-1.0.so.0")		# Both gdk pixbufs and pango would load systems modules
+#            self.path("libpangox-1.0.so.0")		# and crash if not compatible or present. 
+#            self.path("libpangoxft-1.0.so.0")		# So we depend system gdk pixbufs and pango anyway.
+            self.path("libpixman-1.so.0")
+
+            # Gstreamer libs
+            self.path("libgstbase-0.10.so.0")
+            self.path("libgstreamer-0.10.so.0")
+            self.path("libgstaudio-0.10.so.0")
+            self.path("libgstbase-0.10.so.0")
+            self.path("libgstcontroller-0.10.so.0")
+            self.path("libgstdataprotocol-0.10.so.0")
+            self.path("libgstinterfaces-0.10.so.0")
+            self.path("libgstnetbuffer-0.10.so.0")
+            self.path("libgstpbutils-0.10.so.0")
+            self.path("libgstriff-0.10.so.0")
+            self.path("libgstrtp-0.10.so.0")
+            self.path("libgstrtsp-0.10.so.0")
+            self.path("libgstsdp-0.10.so.0")
+            self.path("libgsttag-0.10.so.0")
+            self.path("libgstvideo-0.10.so.0")
+
+            # Gstreamer plugin dependencies
+            self.path("libogg.so.0")
+            self.path("libtheora.so.0")
+            self.path("libvorbis.so.0")
+            self.path("libvorbisenc.so.2")
+            self.path("liboil-0.3.so.0")
+
+            # Gstreamer plugins
+            if self.prefix("gstreamer-plugins"):
+                self.path("libgstalsa.so")
+                self.path("libgstasf.so")
+                self.path("libgstaudioconvert.so")
+                self.path("libgstaudioresample.so")
+                self.path("libgstautodetect.so")
+                self.path("libgstavi.so")
+                self.path("libgstcoreelements.so")
+                self.path("libgstcoreindexers.so")
+                self.path("libgstdecodebin2.so")
+                self.path("libgstdecodebin.so")
+                self.path("libgstesd.so")
+                self.path("libgstffmpeg.so")
+                self.path("libgstffmpegcolorspace.so")
+                self.path("libgstgnomevfs.so")
+                self.path("libgsticydemux.so")
+                self.path("libgstid3demux.so")
+                self.path("libgstmpegdemux.so")
+                self.path("libgstmultifile.so")
+                self.path("libgstmultipart.so")
+                self.path("libgstogg.so")
+                self.path("libgstossaudio.so")
+                self.path("libgstplaybin.so")
+                self.path("libgstpulse.so")
+                self.path("libgstqtdemux.so")
+                self.path("libgstqueue2.so")
+                self.path("libgsttcp.so")
+                self.path("libgsttheora.so")
+                self.path("libgsttypefindfunctions.so")
+                self.path("libgstudp.so")
+                self.path("libgstvideoscale.so")
+                self.path("libgstvolume.so")
+                self.path("libgstvorbis.so")
+                self.path("libgstwavparse.so")
+                
+                self.end_prefix("gstreamer-plugins")
+            self.end_prefix("lib64")
+        
+#	if self.prefix("../../libraries/x86_64-linux/lib_release_client/32bit-compat", dst="lib32"):
+#            self.path("libalut.so")
+#	    self.path("libidn.so.11")
+#	    self.path("libopenal.so.1")
+#	    self.path("libortp.so")
+#	    self.path("libuuid.so.1")
+#        self.end_prefix("lib32")
+            # Vivox runtimes
+            #if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
+            #        self.path("SLVoice")
+            #        self.end_prefix()
+            
 
 if __name__ == "__main__":
     main()

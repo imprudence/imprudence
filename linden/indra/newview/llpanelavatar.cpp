@@ -375,6 +375,7 @@ BOOL LLPanelAvatarSecondLife::postBuild(void)
 
 	childSetAction("Offer Teleport...", LLPanelAvatar::onClickOfferTeleport, 
 		getPanelAvatar() );
+	childSetAction("btn_copy_uuid", LLPanelAvatar::onClickCopyUUID, getPanelAvatar() );	
 
 	childSetDoubleClickCallback("groups", onDoubleClickGroup, this );
 
@@ -1614,6 +1615,17 @@ void LLPanelAvatar::onClickOfferTeleport(void *userdata)
 	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
 
 	handle_lure(self->mAvatarID);
+}
+
+
+// static
+void LLPanelAvatar::onClickCopyUUID(void *userdata)
+{
+	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
+
+	std::string buffer;
+	(self->mAvatarID).toString(buffer);
+	gViewerWindow->mWindow->copyTextToClipboard(utf8str_to_wstring(buffer));
 }
 
 

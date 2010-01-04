@@ -67,6 +67,20 @@
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/SDL-1.2.5-linux-20080818.tar.bz2</uri>
           </map>
+          <key>linux32</key>
+          <map>
+            <key>md5sum</key>
+            <string>45e8fca9a6e7ae7d36b0c5a21dfbe3b9</string>
+            <key>url</key>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/SDL-1.2.5-linux-i686-gcc-4.1-20080915.tar.bz2</uri>
+          </map>
+	  <key>linux64</key>
+           <map>
+              <key>md5sum</key>
+              <string>214fe53a11b3cdef115d36cb95aae185</string>
+              <key>url</key>
+              <uri>http://imprudenceviewer.org/download/libs/SDL-1.2.12-linux64-20091230.tar.bz2</uri>
+           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
@@ -99,9 +113,9 @@
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>1a7e1186855d48d8316ce86803095f70</string>
+            <string>5ee61e2cffc9b6f2a1bc5027cd51529e</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/apr_suite-1.2.8-linux64-20080909a.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/apr_suite-1.3.9-linux64-20091204.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -149,6 +163,39 @@
             <string>6a53b02a07527de680f1336e20f74f08</string>
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ares-1.4.0-windows-20080723.tar.bz2</uri>
+          </map>
+        </map>
+      </map>
+      <key>artwork</key>
+      <map>
+        <key>copyright</key>
+        <string>Second Life(TM) Viewer Artwork. Copyright (C) 2008 Linden Research, Inc. With additions by the Imprudence team.</string>
+        <key>description</key>
+        <string>The artwork used in the client, such as UI textures and branding.</string>
+        <key>license</key>
+        <string>creative commons attribution-share alike 3.0</string>
+        <key>packages</key>
+        <map>
+          <key>darwin</key>
+          <map>
+            <key>md5sum</key>
+            <string>ad3f838d58338e5fce8e4770f67a04c5</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20091130.tar.bz2</uri>
+          </map>
+          <key>linux</key>
+          <map>
+            <key>md5sum</key>
+            <string>ad3f838d58338e5fce8e4770f67a04c5</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20091130.tar.bz2</uri>
+          </map>
+          <key>windows</key>
+          <map>
+            <key>md5sum</key>
+            <string>ad3f838d58338e5fce8e4770f67a04c5</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/extras/imprudence-artwork-20091130.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -258,6 +305,13 @@
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/dbusglib-linux-20080707.tar.bz2</uri>
           </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>9738472b94191fae2b0fe3fce8df17b0</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/dbusglib-linux64-20091129.tar.bz2</uri>
+          </map>
         </map>
       </map>
       <key>elfio</key>
@@ -272,6 +326,13 @@
             <string>82ea408af2f968cfe5f013ab241323ef</string>
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/elfio-1.0.3-linux-20080812.tar.bz2</uri>
+          </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>e829a52ba67e02b011cf2e372914d32f</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/elfio-1.0.3-linux64-20091129.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -302,9 +363,9 @@
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>278c61871419b9a4d50a4f88b7922403</string>
+            <string>fe25958da18039faf7a38845f2057561</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/expat-1.95.8-linux64-20080909.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/expat-2.0.1-linux64-20091204.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -380,6 +441,13 @@
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/fontconfig-2.7.3-linux-20091104.tar.bz2</uri>
           </map>
+          <key>linux64</key>
+           <map>
+             <key>md5sum</key>
+             <string>13b551e5deafbaa6cfd105fa072bdfba</string>
+             <key>url</key>
+             <uri>http://imprudenceviewer.org/download/libs/fontconfig-2.7.3-linux64-20091230.tar.bz2</uri>
+           </map>
         </map>
       </map>
       <key>freetype</key>
@@ -405,6 +473,13 @@
             <string>efc845cf291073b1e4d381a271f194eb</string>
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/freetype-2.3.11-linux-20091103.tar.bz2</uri>
+          </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>1b4624ab06a7ba30e29d1994424db41e</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/freetype-2.3.11-linux64-20091230.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -477,6 +552,13 @@
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux-20091115.tar.bz2</uri>
           </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>6b2071b61e5cdc799f5b7654e4851f40</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/glib-2.20.5-linux64-20091231.tar.bz2</uri>
+          </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
@@ -498,6 +580,13 @@
             <string>40db900872612615e849f17cbdfd2c27</string>
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/google-linux-20080812.tar.bz2</uri>
+          </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>6a83ddce8673acb5057ed3a14769deee</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/google-linux64-20091203.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -524,9 +613,9 @@
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>befc7520fe01250f39458f65c29bc584</string>
+            <string>7e6fc4e185e8444a07b58ba7c0df255a</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/gstreamer-linux64-20080909.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.24-linux64-20091230.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -557,6 +646,13 @@
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux-20091115.tar.bz2</uri>
           </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>8e21045776401973c5034de30258ce8c</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-plugins-linux64-20091203.tar.bz2</uri>
+          </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
@@ -586,6 +682,13 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
             <string>47b7c6261940bcedf86e681bd93ec2cc</string>
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/gtk-etc-linux-20091115.tar.bz2</uri>
+          </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>e8cb3f28379b7730004da44f04263936</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/gtk-etc-linux64-20091231.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -671,9 +774,9 @@ cairo: Copyright © 2002 University of Southern California, Copyright © 2005 Re
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>0e7facf7d48531d20c0cd6a3c3f04021</string>
+            <string>64e7fa98568ef52b3b9d4a18b3515090</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/jpeglib-6b-linux64-20080909.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/jpeglib-7-linux64-20091230.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -752,6 +855,13 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/liboil-0.3.16-linux-20091118.tar.bz2</uri>
           </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>15d8f97d5ec3a27f643708511ca8bee6</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/liboil-0.3.16-linux64-20091130.tar.bz2</uri>
+          </map>
         </map>
       </map>
       <key>libpng</key>
@@ -811,6 +921,13 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/libuuid-linux-20080812.tar.bz2</uri>
           </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>3f2a0b553a2a72d3b9a39f528f057b18</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/libuuid-linux64-lenny-20091130.tar.bz2</uri>
+          </map>
         </map>
       </map>
       <key>libxml</key>
@@ -836,9 +953,9 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>921d7f980519101afb74623e29e9d175</string>
+            <string>631df56daeac6aaf5be4c1e39dba6859</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/libxml-2.6.24-linux64-20080909.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/libxml2-2.7.4-r1-linux64-20091230.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -872,9 +989,9 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>c2ae53462b56e0999ba386774ab0b789</string>
+            <string>afa946a118d3d71123003785189a31f2</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llmozlib-linux64-20080909.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/llmozlib-linux64-20091231.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -991,6 +1108,13 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
             <key>url</key>
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ndofdev-linux-0.2-20080828.tar.bz2</uri>
           </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>c5eb5b49d48ee370fc6ed8798e1fc58c</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/ndofdev-linux64-0.2-20091129.tar.bz2</uri>
+          </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
@@ -1027,9 +1151,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>964c71e6ee22be1bcaf6d480e74cdd14</string>
+            <string>83c72b57a95e8c42560fb67955169f19</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/ogg-vorbis-1.2.0-linux64-20080909.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/ogg-vorbis-linux64-20091202.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -1064,6 +1188,13 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/openal-linux-20091115.tar.bz2</uri>
           </map>
+          <key>linux64</key>
+          <map>
+             <key>md5sum</key>
+            <string>8d1ba70a777b7961e06e70818a0060e9</string>
+             <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/openal-linux64-20091230.tar.bz2</uri>
+           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
@@ -1141,12 +1272,12 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
             <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.3-linux-20081124b.tar.bz2</uri>
           </map>
           <key>linux64</key>
-          <map>
-            <key>md5sum</key>
-            <string>44f1bc9d47e4a54fc274c213f2cb565f</string>
-            <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/openjpeg-1.2.0-linux64-20080909.tar.bz2</uri>
-          </map>
+           <map>
+             <key>md5sum</key>
+             <string>ec9c691f2cdf07936c1c0d623f4837c5</string>
+             <key>url</key>
+             <uri>http://imprudenceviewer.org/download/libs/openjpeg-1.3-linux64-20091230.tar.bz2</uri>
+           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
@@ -1231,6 +1362,13 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
             <string>e01af61872bc77d74eb0620a9f4c9f4e</string>
             <key>url</key>
             <uri>http://imprudenceviewer.org/download/libs/theora-linux-20091115.tar.bz2</uri>
+          </map>
+          <key>linux64</key>
+          <map>
+            <key>md5sum</key>
+            <string>b1141b53eb3576cc0c32997bf0fb097c</string>
+            <key>url</key>
+            <uri>http://imprudenceviewer.org/download/libs/theora-linux64-20091202.tar.bz2</uri>
           </map>
         </map>
       </map>
@@ -1370,9 +1508,9 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
           <key>linux64</key>
           <map>
             <key>md5sum</key>
-            <string>4bddfb2c6dd7b1470a3ed675ac14bd9a</string>
+            <string>d085a173e3c05ff3bb0ee36ba42deb2c</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/zlib-1.2.3-linux64-20080909.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/zlib-1.2.3-linux64-lenny-20091202.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
@@ -1415,6 +1553,11 @@ Copyright (C) 2004-2005 Vladimir Berezniker @ http://public.xdi.org/=vmpn
       <map>
         <key>text</key>
         <string>http://daniel.haxx.se/projects/c-ares/license.html</string>
+      </map>
+      <key>creative commons attribution-share alike 3.0</key>
+      <map>
+        <key>url</key>
+        <string>http://creativecommons.org/licenses/by-sa/3.0/legalcode</string>
       </map>
       <key>curl</key>
       <map>

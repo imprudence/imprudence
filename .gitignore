@@ -37,8 +37,8 @@ linden/indra/newview/mozilla-theme/
 
 # COMPILED STUFF
 
-linden/indra/viewer-*         # Linux build directories
-linden/indra/build-*          # Mac and Windows build directories
+linden/indra/viewer-*
+linden/indra/build-*
 linden/installed.xml
 *.pyc
 

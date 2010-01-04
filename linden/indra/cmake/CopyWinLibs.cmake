@@ -1,7 +1,7 @@
 # -*- cmake -*-
 
 # The copy_win_libs folder contains file lists and a script used to 
-# copy dlls, exes and such needed to run the SecondLife from within 
+# copy dlls, exes and such needed to run Imprudence from within 
 # VisualStudio. 
 
 include(CMakeCopyIfDifferent)
@@ -62,7 +62,6 @@ set(debug_files
 	libogg-0.dll
 	liboil-0.3-0.dll
 	libopenjpeg-2.dll
-    libpng12-0.dll
 	libschroedinger-1.0-0.dll
 	libspeex-1.dll
 	libtheora-0.dll
@@ -137,7 +136,6 @@ set(release_files
 	libogg-0.dll
 	liboil-0.3-0.dll
 	libopenjpeg-2.dll
-    libpng12-0.dll
 	libschroedinger-1.0-0.dll
 	libspeex-1.dll
 	libtheora-0.dll
@@ -198,7 +196,7 @@ if (MSVC80)
             ARGS
               ${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
               ${CMAKE_CURRENT_BINARY_DIR}/Debug/Microsoft.VC80.DebugCRT.manifest
-              ${CMAKE_CURRENT_SOURCE_DIR}/SecondLifeDebug.exe.config
+              ${CMAKE_CURRENT_SOURCE_DIR}/ImprudenceDebug.exe.config
               ${debug_appconfig_file}
             DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/Debug/Microsoft.VC80.DebugCRT.manifest
             COMMENT "Creating debug app config file"
@@ -243,7 +241,7 @@ if (MSVC80)
             ARGS
               ${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
               ${CMAKE_CURRENT_BINARY_DIR}/Release/Microsoft.VC80.CRT.manifest
-              ${CMAKE_CURRENT_SOURCE_DIR}/SecondLife.exe.config
+              ${CMAKE_CURRENT_SOURCE_DIR}/Imprudence.exe.config
               ${release_appconfig_file}
             DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/Release/Microsoft.VC80.CRT.manifest
             COMMENT "Creating release app config file"
@@ -256,7 +254,7 @@ if (MSVC80)
             ARGS
               ${CMAKE_CURRENT_SOURCE_DIR}/build_win32_appConfig.py
               ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
-              ${CMAKE_CURRENT_SOURCE_DIR}/SecondLife.exe.config
+              ${CMAKE_CURRENT_SOURCE_DIR}/Imprudence.exe.config
               ${relwithdebinfo_appconfig_file}
             DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo/Microsoft.VC80.CRT.manifest
             COMMENT "Creating relwithdebinfo app config file"
