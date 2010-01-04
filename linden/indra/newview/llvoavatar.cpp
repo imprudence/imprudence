@@ -83,6 +83,8 @@
 #include "llvoiceclient.h"
 #include "llvoicevisualizer.h" // Ventrella
 
+#include "llsdserialize.h" // client resolver
+
 #if LL_WINDOWS
 	// Disable warning for unreachable code in boost/lexical_cast.hpp for Boost 1.36 -- McCabe
 	#pragma warning(disable : 4702)
@@ -678,6 +680,7 @@ S32 LLVOAvatar::sScratchTexBytes = 0;
 F32 LLVOAvatar::sRenderDistance = 256.f;
 S32	LLVOAvatar::sNumVisibleAvatars = 0;
 S32	LLVOAvatar::sNumLODChangesThisFrame = 0;
+LLSD LLVOAvatar::sClientResolutionList;
 
 const LLUUID LLVOAvatar::sStepSoundOnLand = LLUUID("e8af4a28-aa83-4310-a7c4-c047e15ea0df");
 const LLUUID LLVOAvatar::sStepSounds[LL_MCODE_END] =
@@ -1402,6 +1405,9 @@ void LLVOAvatar::initClass()
 		llerrs << "Error parsing skeleton node in avatar XML file: " << skeleton_path << llendl;
 	}
 
+	{
+		loadClientTags();
+	}
 }
 
 
@@ -2971,6 +2977,228 @@ void LLVOAvatar::idleUpdateWindEffect()
 		}
 	}
 }
+bool LLVOAvatar::updateClientTags()
+{
+	std::string client_list_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "client_list.xml");
+	LLSD response = LLHTTPClient::blockingGet("http://www.imprudenceviewer.org/app/client_list/client_list.xml");
+	if(response.has("body"))
+	{
+		const LLSD &client_list = response["body"];
+
+		if(client_list.has("isComplete"))
+		{
+			llofstream export_file;
+			export_file.open(client_list_filename);
+			LLSDSerialize::toPrettyXML(client_list, export_file);
+			export_file.close();
+			return true;
+		}
+	}
+	return false;
+}
+
+bool LLVOAvatar::loadClientTags()
+{
+	std::string client_list_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "client_list.xml");
+
+	if(!LLFile::isfile(client_list_filename))
+	{
+		client_list_filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "client_list.xml");
+	}
+
+	if(LLFile::isfile(client_list_filename))
+	{
+		LLSD client_list;
+
+		llifstream importer(client_list_filename);
+		LLSDSerialize::fromXMLDocument(client_list, importer);
+		if(client_list.has("isComplete"))
+		{
+			sClientResolutionList = client_list;
+		}else
+		{
+			return false;
+		}
+	}else
+	{
+		return false;
+	}
+
+	for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
+	iter != LLCharacter::sInstances.end(); ++iter)
+	{
+		LLVOAvatar* avatarp = (LLVOAvatar*) *iter;
+		if(avatarp)
+		{
+			LLVector3 root_pos_last = avatarp->mRoot.getWorldPosition();
+			avatarp->idleUpdateNameTag(root_pos_last);
+		}
+	}
+	return true;
+}
+
+void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client, LLVOAvatar* avatar)
+{
+	LLUUID idx = avatar->getTE(0)->getID();
+	if(LLVOAvatar::sClientResolutionList.has("isComplete") 
+		&& LLVOAvatar::sClientResolutionList.has(idx.asString()))
+	{
+		LLSD cllsd = LLVOAvatar::sClientResolutionList[idx.asString()];
+		client = cllsd["name"].asString();
+		LLColor4 colour;
+		colour.setValue(cllsd["color"]);
+		avatar_name_color += colour;
+		avatar_name_color *= 1.0/(cllsd["multiple"].asReal()+1.0f);
+	}
+	else
+	{	
+
+		if(idx == LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf"))
+		{
+			avatar_name_color += LLColor4(0.6f,0.8f,1.0f);//Imprudence
+			avatar_name_color = avatar_name_color * (F32)0.333333333333;
+			client = "Imprudence";
+
+		} else  if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190"))
+		{
+			avatar_name_color += LLColor4(1.0f,0.9f,0.7f);//Meerkat
+			avatar_name_color = avatar_name_color * (F32)0.333333333333;
+			client = "Meerkat";
+		}else if(idx == LLUUID("ccda2b3b-e72c-a112-e126-fee238b67218"))
+		{
+			avatar_name_color += LLColor4::green;//emerald
+			avatar_name_color += LLColor4::green;
+			avatar_name_color = avatar_name_color * (F32)0.333333333333;
+			client = "Emerald";
+		}else if(idx == LLUUID("c252d89d-6f7c-7d90-f430-d140d2e3fbbe"))
+		{
+			avatar_name_color += LLColor4::red;//vlife jcool410
+			avatar_name_color = avatar_name_color * 0.5;
+			client = "VLife";
+		}else if(idx == LLUUID("adcbe893-7643-fd12-f61c-0b39717e2e32"))
+		{
+			avatar_name_color += LLColor4::pink;//tyk3n
+			avatar_name_color = avatar_name_color * 0.5;
+			client = "tyk3n";
+		}else if(idx == LLUUID("f3fd74a6-fee7-4b2f-93ae-ddcb5991da04") || idx == LLUUID("77662f23-c77a-9b4d-5558-26b757b2144c"))
+		{
+			avatar_name_color += (LLColor4::purple);//psl
+			avatar_name_color = avatar_name_color * 0.5;
+			client = "PSL";
+		}else if(idx == LLUUID("5aa5c70d-d787-571b-0495-4fc1bdef1500"))
+		{
+			avatar_name_color += LLColor4::red;//lordgreg
+			avatar_name_color += LLColor4::red;
+			avatar_name_color = avatar_name_color * (F32)0.333333333333;
+			client = "LGG proxy";
+		}else if(idx == LLUUID("8183e823-c443-2142-6eb6-2ab763d4f81c"))
+		{
+			avatar_name_color += LLColor4::blue;//day oh
+			avatar_name_color = avatar_name_color * 0.5;
+			client = "Day Oh proxy";
+		}else if(idx == LLUUID("e52d21f7-3c8b-819f-a3db-65c432295dac") || idx == LLUUID("0f6723d2-5b23-6b58-08ab-308112b33786"))
+		{
+			avatar_name_color += LLColor4::cyan;//cryolife
+			avatar_name_color += LLColor4::cyan;
+			avatar_name_color = avatar_name_color * 0.5;
+			client = "CryoLife";
+		}else if(idx == LLUUID("0bcd5f5d-a4ce-9ea4-f9e8-15132653b3d8"))
+		{
+			avatar_name_color += LLColor4::pink;//moy
+			avatar_name_color += LLColor4::pink;//moy
+			avatar_name_color = avatar_name_color * (F32)0.333333333333;
+			client = "MoyMix";
+		}else if(idx == LLUUID("f5a48821-9a98-d09e-8d6a-50cc08ba9a47"))
+		{
+			avatar_name_color += LLColor4::yellow;//neil
+			avatar_name_color += LLColor4::yellow;//neil
+			avatar_name_color = avatar_name_color * (F32)0.333333333333;
+			client = "NeilLife";
+		}else if(idx == LLUUID("2c9c1e0b-e5d1-263e-16b1-7fc6d169f3d6"))
+		{
+			avatar_name_color += LLColor4(0.0f,1.0f,1.0f);
+			avatar_name_color = avatar_name_color * 0.5;//phox
+			client = "PhoxSL";
+		}else if(idx == LLUUID("c5b570ca-bb7e-3c81-afd1-f62646b20014") || idx == LLUUID("7c4d47a3-0c51-04d1-fa47-e4f3ac12f59b"))
+		{
+			avatar_name_color += LLColor4::white;
+			avatar_name_color += LLColor4::white;
+			avatar_name_color = avatar_name_color * (F32)0.333333333333;
+			client = "Kung Fu";
+		}else if(idx == LLUUID("9422e9d7-7b11-83e4-6262-4a8db4716a3b"))
+		{
+			avatar_name_color += LLColor4::magenta;
+			avatar_name_color += LLColor4::magenta;
+			avatar_name_color = avatar_name_color * (F32)0.333333333333;
+			client = "BetaLife";
+		}else if(idx == LLUUID("872c0005-3095-0967-866d-11cd71115c22"))
+		{
+			avatar_name_color += LLColor4::green;//SimFed Poland
+			avatar_name_color += LLColor4::blue;//SimFed Poland
+			avatar_name_color += LLColor4::blue;//SimFed Poland
+			avatar_name_color = avatar_name_color * 0.5;
+			client = "CryoLife";
+                }else if(idx == LLUUID("3ab7e2fa-9572-ef36-1a30-d855dbea4f92") || //wat
+					idx == LLUUID("11ad2452-ce54-8d65-7c23-05589b59f516") ||//wat.
+					idx == LLUUID("e734563e-1c31-2a35-3ed5-8552c807439f") ||//wat.
+					idx == LLUUID("58a8b7ec-1455-7162-5d96-d3c3ead2ed71") ||//wat
+					idx == LLUUID("841ef25b-3b90-caf9-ea3d-5649e755db65")//wat -.-
+					)
+		{
+			avatar_name_color += LLColor4(0.0f,0.5f,1.0f); 
+			avatar_name_color = avatar_name_color * 0.5;   
+			client = "VerticalLife";
+		}else if(idx == LLUUID("4e8dcf80-336b-b1d8-ef3e-08dacf015a0f"))
+		{
+			avatar_name_color += LLColor4::blue; //Sapphire
+			avatar_name_color += LLColor4::blue; //Sapphire
+			avatar_name_color = avatar_name_color * (F32)0.333333333333;
+			client = "Sapphire";
+		}else if(idx == LLUUID("ffce04ff-5303-4909-a044-d37af7ab0b0e"))
+		{
+			avatar_name_color += LLColor4::orange; //corgiVision
+			avatar_name_color = avatar_name_color * (F32)0.75;
+			client = "Corgi";
+		}else if(idx == LLUUID("ccb509cf-cc69-e569-38f1-5086c687afd1"))
+		{
+			avatar_name_color += LLColor4::red; //Ruby
+			avatar_name_color += LLColor4::purple; //Ruby
+			avatar_name_color = avatar_name_color * (F32)0.333333333333;
+			client = "Ruby";
+		}else if(idx == LLUUID("1c29480c-c608-df87-28bb-964fb64c5366"))
+		{
+			avatar_name_color += LLColor4::yellow9;
+			avatar_name_color += LLColor4::yellow9;
+			avatar_name_color *= (F32)0.333333333333;
+			client = "Gemini";
+		}
+	}
+	if(client.empty())
+	{
+		LLPointer<LLViewerImage> image_point = gImageList.getImage(idx, MIPMAP_YES, IMMEDIATE_NO);
+		if(image_point.notNull() && image_point->isMissingAsset())
+		{
+			avatar_name_color += LLColor4::grey;//anomalous
+			avatar_name_color = avatar_name_color * 0.5;
+			client = "Invalid";
+		}
+	}
+	if(avatar->getTE(5)->getID() != avatar->getTE(6)->getID() && !client.empty())
+	{
+		client = "Failure";
+		avatar_name_color = LLColor4::grey;
+	}
+	if(client.empty() && LLVOAvatar::sClientResolutionList.has("default"))
+	{
+		LLSD cllsd = LLVOAvatar::sClientResolutionList["default"];
+		client = cllsd["name"].asString();
+		LLColor4 colour;
+		colour.setValue(cllsd["color"]);
+		avatar_name_color += colour;
+		avatar_name_color *= 1.0/(cllsd["multiple"].asReal()+1.0f);
+	}
+	
+}
 
 void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 {
@@ -3032,7 +3260,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 			mRenderGroupTitles = sRenderGroupTitles;
 			new_name = TRUE;
 		}
-
+		std::string client;
 		// First Calculate Alpha
 		// If alpha > 0, create mNameText if necessary, otherwise delete it
 		{
@@ -3073,6 +3301,11 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				}
 				
 				LLColor4 avatar_name_color = gColors.getColor( "AvatarNameColor" );
+				if(!mIsSelf) //don't know your own client ?
+				{
+					new_name = TRUE; //lol or see the last client used 
+					resolveClient(avatar_name_color,client, this);
+				}
 				avatar_name_color.setAlpha(alpha);
 				mNameText->setColor(avatar_name_color);
 				
@@ -3129,7 +3362,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				(!title && !mTitle.empty()) ||
 				(title && mTitle != title->getString()) ||
 				(is_away != mNameAway || is_busy != mNameBusy || is_muted != mNameMute)
-				|| is_appearance != mNameAppearance)
+				|| is_appearance != mNameAppearance || client.length() != 0)
 			{
 				std::string line;
 
@@ -3158,7 +3391,8 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 
 				BOOL need_comma = FALSE;
 
-				if (is_away || is_muted || is_busy)
+				bool show_client = client.length() != 0 && gSavedSettings.getBOOL("ShowClientNameTag");
+				if (is_away || is_muted || is_busy || show_client)
 				{
 					line += " (";
 					if (is_away)
@@ -3182,6 +3416,15 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 							line += ", ";
 						}
 						line += "Muted";
+						need_comma = TRUE;
+					}
+					if (show_client)
+					{
+						if (need_comma)
+						{
+							line += ", ";
+						}
+						line += client;
 						need_comma = TRUE;
 					}
 					line += ")";
@@ -7438,6 +7681,8 @@ void LLVOAvatar::releaseUnnecessaryTextures()
 	{
 		const LLVOAvatarDictionary::BakedDictionaryEntry * bakedDicEntry = LLVOAvatarDictionary::getInstance()->getBakedTexture((EBakedTextureIndex)baked_index);
 		// skip if this is a skirt and av is not wearing one, or if we don't have a baked texture UUID
+        	if(baked_index == BAKED_HEAD)//for client detection
+	                continue;
 		if (!isTextureDefined(bakedDicEntry->mTextureIndex)
 			&& ( (baked_index != BAKED_SKIRT) || isWearingWearableType(WT_SKIRT) ))
 		{

@@ -48,7 +48,6 @@ linden/installed.xml
 *.diff*
 *.patch*
 
-
 # MISCELLANEOUS
 
 .DS_Store
