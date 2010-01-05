@@ -904,13 +904,13 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libcairo.so.2")
             self.path("libfontconfig.so.1")
             self.path("libfreetype.so.6")
-            self.path("libgdk_pixbuf-2.0.so.0")
+           # self.path("libgdk_pixbuf-2.0.so.0") # see linux64 why
             self.path("libgdk-x11-2.0.so.0")
             self.path("libgtk-x11-2.0.so.0")
-            self.path("libpango-1.0.so.0")
-            self.path("libpangoft2-1.0.so.0")
-            self.path("libpangox-1.0.so.0")
-            self.path("libpangoxft-1.0.so.0")
+           # self.path("libpango-1.0.so.0")	 # dto.
+           # self.path("libpangoft2-1.0.so.0")
+           # self.path("libpangox-1.0.so.0")
+           # self.path("libpangoxft-1.0.so.0")
             self.path("libpixman-1.so.0")
 
             # Gstreamer libs
