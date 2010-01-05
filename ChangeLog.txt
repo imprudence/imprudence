@@ -1,3 +1,12 @@
+2010-01-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Added LLFloater::setTitleArg and LLFloater::setShortTitleArg.
+	  This allows doing "[ARG]" replacement in floater titles.
+
+	  modified:   linden/indra/llui/llfloater.cpp
+	  modified:   linden/indra/llui/llfloater.h
+
+
 2010-01-03  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
 
 	* Several changes to work better on 64bit Linux.
