@@ -494,8 +494,15 @@ void LLFloaterPay::give(S32 amount)
 		}
 		else
 		{
+			// Custom message typed in by the user.
+			std::string desc = LLStringUtil::null;
+			if (!childGetText("message").empty())
+			{
+				desc = childGetText("message");
+			}
+
 			// just transfer the L$
-			mCallback(mTargetUUID, gAgent.getRegion(), amount, mTargetIsGroup, TRANS_GIFT, LLStringUtil::null);
+			mCallback(mTargetUUID, gAgent.getRegion(), amount, mTargetIsGroup, TRANS_GIFT, desc);
 
 			// check if the payee needs to be unmuted
 			LLMuteList::getInstance()->autoRemove(mTargetUUID, LLMuteList::AR_MONEY);

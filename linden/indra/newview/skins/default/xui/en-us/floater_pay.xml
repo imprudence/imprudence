@@ -3,7 +3,7 @@
 <floater name="Give Money" title="Pay resident: [FIRST] [LAST]"
          rect_control="FloaterPayRectB"
          can_minimize="true" can_resize="false"
-         bottom="-197" left="439" height="155" width="300"
+         bottom="-197" left="439" height="185" width="300"
          min_height="100" min_width="100">
 
 
@@ -35,6 +35,22 @@
 	<view_border name="separator left" 
                bottom_delta="-12" left="8" height="1" width="282"
                bevel_style="in" border_thickness="1" follows="top|left" />
+
+
+	<text name="message text" type="string" length="1"
+        bottom_delta="-32" left="15" height="18" width="60"
+        v_pad="0" h_pad="0" bg_visible="false" drop_shadow_visible="true"
+        border_visible="false" border_drop_shadow_visible="false"
+	      follows="left|top" font="SansSerif"  halign="left">
+    Message:
+	</text>
+
+	<line_editor name="message" max_length="140"
+               bottom_delta="1" left_delta="65" height="18" width="205"
+               bevel_style="in" border_style="line" border_thickness="1"
+	             follows="left|top|right" font="SansSerif"
+	             handle_edit_keys_directly="false"
+               select_all_on_focus_received="false" select_on_focus="false" />
 
 
 	<text name="amount text" type="string" length="1"
