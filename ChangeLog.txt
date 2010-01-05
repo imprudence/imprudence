@@ -1,5 +1,11 @@
 2010-01-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Tidied up floater_pay.xml code and UI layout.
+
+	  modified:   linden/indra/newview/llgivemoney.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_pay.xml
+
+
 	* Added LLFloater::setTitleArg and LLFloater::setShortTitleArg.
 	  This allows doing "[ARG]" replacement in floater titles.
 

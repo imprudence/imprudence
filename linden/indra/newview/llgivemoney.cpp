@@ -408,6 +408,9 @@ void LLFloaterPay::onCacheOwnerName(const LLUUID& owner_id,
 	
 	self->childSetTextArg("payee_name", "[FIRST]", firstname);
 	self->childSetTextArg("payee_name", "[LAST]", lastname);
+
+	self->setTitleArg("[FIRST]", firstname);
+	self->setTitleArg("[LAST]", lastname);
 }
 
 // static
