@@ -621,7 +621,6 @@ class LLManifest(object):
             count = 0
             if self.wildcard_pattern.search(src):
                 for s,d in self.expand_globs(src, dst):
-                    assert(s != d)
                     count += self.process_file(s, d)
             else:
                 # if we're specifying a single path (not a glob),

@@ -140,7 +140,7 @@ class ViewerManifest(LLManifest):
     def channel(self):
         return self.args['channel']
     def channel_unique(self):
-        return self.channel().replace("Second Life", "").strip()
+        return self.channel().replace("Imprudence", "").strip()
     def channel_oneword(self):
         return "".join(self.channel_unique().split())
     def channel_lowerword(self):
@@ -193,7 +193,10 @@ class WindowsManifest(ViewerManifest):
         super(WindowsManifest, self).construct()
         # the final exe is complicated because we're not sure where it's coming from,
         # nor do we have a fixed name for the executable
-        self.path(self.find_existing_file('debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
+        self.path(self.find_existing_file(
+		#'debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'
+		'../build-VC90/newview/release/imprudence-bin.exe'
+		), dst=self.final_exe())
 
         self.gather_documents()
 
@@ -224,28 +227,9 @@ class WindowsManifest(ViewerManifest):
         # Mozilla appears to force a dependency on these files so we need to ship it (CP) - updated to vc8 versions (nyx)
         # These need to be installed as a SxS assembly, currently a 'private' assembly.
         # See http://msdn.microsoft.com/en-us/library/ms235291(VS.80).aspx
-        if self.prefix(src=self.args['configuration'], dst=""):
-            if self.args['configuration'] == 'Debug':
-                self.path("msvcr80d.dll")
-                self.path("msvcp80d.dll")
-                self.path("Microsoft.VC80.DebugCRT.manifest")
-            else:
-                self.path("msvcr80.dll")
-                self.path("msvcp80.dll")
-                self.path("Microsoft.VC80.CRT.manifest")
-            self.end_prefix()
-
-        # The config file name needs to match the exe's name.
-        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst=self.final_exe() + ".config")
-
-        # We need this one too, so that llkdu loads at runtime - DEV-41194
-        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="llkdu.dll.2.config")
-
-        # We need this one too, so that win_crash_logger.exe loads at runtime - DEV-19004
-        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="win_crash_logger.exe.config")
-
-        # same thing for auto-updater.
-        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="updater.exe.config")
+        self.path("msvcr80.dll")
+        self.path("msvcp80.dll")
+        self.path("Microsoft.VC80.CRT.manifest")
 
         # Mozilla runtime DLLs (CP)
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
@@ -291,6 +275,19 @@ class WindowsManifest(ViewerManifest):
 
             self.end_prefix()
 
+        # gstreamer
+        if self.prefix(src="lib/gstreamer-plugins", dst=""):
+            self.path("*.dll", dst="lib/gstreamer-0.10/*.dll")
+            self.end_prefix()
+
+        if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
+            self.path("libgstvideo.dll")
+            self.path("libgstbase-0.10.dll")
+            self.path("libgstreamer-0.10.dll")
+            self.path("libxml2-2.dll")
+            self.path("iconv.dll")
+            self.end_prefix()
+			
 #        # pull in the crash logger and updater from other projects
 #        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
 #                "../win_crash_logger/debug/windows-crash-logger.exe",
@@ -298,10 +295,12 @@ class WindowsManifest(ViewerManifest):
 #                "../win_crash_logger/relwithdebinfo/windows-crash-logger.exe"),
 #                  dst="win_crash_logger.exe")
         self.path(src=self.find_existing_file(
-                "../win_updater/debug/windows-updater.exe",
-                "../win_updater/release/windows-updater.exe",
-                "../win_updater/relwithdebinfo/windows-updater.exe"),
+                "../build-VC90/win_updater/debug/windows-updater.exe",
+                "../build-VC90/win_updater/release/windows-updater.exe",
+                "../build-VC90/win_updater/relwithdebinfo/windows-updater.exe"),
                   dst="updater.exe")
+
+
 
         # For google-perftools tcmalloc allocator.
         #if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
@@ -377,18 +376,18 @@ class WindowsManifest(ViewerManifest):
         if self.default_channel():
             if self.default_grid():
                 # release viewer
-                installer_file = "Imprudence_%(version_dashes)s_Setup.exe"
+                installer_file = "NotImprudence_%(version_dashes)s_Setup.exe"
                 grid_vars_template = """
                 OutFile "%(installer_file)s"
                 !define INSTFLAGS "%(flags)s"
-                !define INSTNAME   "Imprudence"
-                !define SHORTCUT   "Imprudence"
+                !define INSTNAME   "NotImprudence"
+                !define SHORTCUT   "NotImprudence"
                 !define URLNAME   "imprudence"
-                Caption "Imprudence ${VERSION}"
+                Caption "NotImprudence ${VERSION}"
                 """
             else:
                 # beta grid viewer
-                installer_file = "Imprudence_%(version_dashes)s_(%(grid_caps)s)_Setup.exe"
+                installer_file = "NotImprudence_%(version_dashes)s_(%(grid_caps)s)_Setup.exe"
                 grid_vars_template = """
                 OutFile "%(installer_file)s"
                 !define INSTFLAGS "%(flags)s"
@@ -400,7 +399,7 @@ class WindowsManifest(ViewerManifest):
                 """
         else:
             # some other channel on some grid
-            installer_file = "Imprudence_%(version_dashes)s_%(channel_oneword)s_Setup.exe"
+            installer_file = "NotImprudence_%(version_dashes)s_%(channel_oneword)s_Setup.exe"
             grid_vars_template = """
             OutFile "%(installer_file)s"
             !define INSTFLAGS "%(flags)s"
@@ -648,11 +647,11 @@ class DarwinManifest(ViewerManifest):
 
 
     def package_finish(self):
-        channel_standin = 'Imprudence'  # hah, our default channel is not usable on its own
+        channel_standin = 'NotImprudence'  # hah, our default channel is not usable on its own
         if not self.default_channel():
             channel_standin = self.channel()
 
-        imagename="Imprudence_" + '_'.join(self.args['version'])
+        imagename="NotImprudence_" + '_'.join(self.args['version'])
 
         # MBW -- If the mounted volume name changes, it breaks the .DS_Store's background image and icon positioning.
         #  If we really need differently named volumes, we'll need to create multiple DS_Store file images, or use some other trick.
@@ -684,7 +683,7 @@ class DarwinManifest(ViewerManifest):
         # Copy everything in to the mounted .dmg
 
         if self.default_channel() and not self.default_grid():
-            app_name = "Imprudence " + self.args['grid']
+            app_name = "NotImprudence " + self.args['grid']
         else:
             app_name = channel_standin.strip()
 
@@ -762,7 +761,7 @@ class LinuxManifest(ViewerManifest):
         if 'installer_name' in self.args:
             installer_name = self.args['installer_name']
         else:
-            installer_name_components = ['Imprudence_', self.args.get('arch')]
+            installer_name_components = ['NotImprudence_', self.args.get('arch')]
             installer_name_components.extend(self.args['version'])
             installer_name = "_".join(installer_name_components)
             if self.default_channel():

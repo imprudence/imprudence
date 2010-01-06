@@ -23,8 +23,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 SetOverwrite on				; overwrite files
 SetCompress auto			; compress iff saves space
+SetCompressor /solid lzma	; compress whole installer as one block
 SetDatablockOptimize off	; only saves us 0.1%, not worth it
 XPStyle on                  ; add an XP manifest to the installer
+RequestExecutionLevel admin	; on Vista we must be admin because we write to Program Files
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Project flags
@@ -466,13 +468,13 @@ Push $2
 	; Otherwise (preview/dmz etc) just remove cache
     StrCmp $INSTFLAGS "" RM_ALL RM_CACHE
       RM_ALL:
-        RMDir /r "$2\Application Data\Imprudence"
+        RMDir /r "$2\Application Data\NotImprudence"
       RM_CACHE:
         # Local Settings directory is the cache, there is no "cache" subdir
-        RMDir /r "$2\Local Settings\Application Data\Imprudence"
+        RMDir /r "$2\Local Settings\Application Data\NotImprudence"
         # Vista version of the same
-        RMDir /r "$2\AppData\Local\Imprudence"
-        Delete "$2\Application Data\Imprudence\user_settings\settings_windlight.xml"
+        RMDir /r "$2\AppData\Local\NotImprudence"
+        Delete "$2\Application Data\NotImprudence\user_settings\settings_windlight.xml"
 
   CONTINUE:
     IntOp $0 $0 + 1
@@ -487,13 +489,13 @@ Pop $0
 Push $0
   ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
   StrCmp $0 "" +2
-  RMDir /r "$0\Imprudence"
+  RMDir /r "$0\NotImprudence"
 Pop $0
 
-; Delete filse in C:\Windows\Application Data\Imprudence
+; Delete filse in C:\Windows\Application Data\NotImprudence
 ; If the user is running on a pre-NT system, Application Data lives here instead of
 ; in Documents and Settings.
-RMDir /r "$WINDIR\Application Data\Imprudence"
+RMDir /r "$WINDIR\Application Data\NotImprudence"
 
 FunctionEnd
 
@@ -536,7 +538,7 @@ Function un.RemovePassword
 DetailPrint "Removing Second Life password"
 
 SetShellVarContext current
-Delete "$APPDATA\Imprudence\user_settings\password.dat"
+Delete "$APPDATA\NotImprudence\user_settings\password.dat"
 SetShellVarContext all
 
 FunctionEnd
