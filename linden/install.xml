@@ -620,9 +620,9 @@
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>70ffd9d5e1c45a634be1beed70371784</string>
+            <string>c432e168a46d782688e86bc9f7144f15</string>
             <key>url</key>
-            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.22-windows-20090903.tar.bz2</uri>
+            <uri>http://imprudenceviewer.org/download/libs/gstreamer-0.10.22-windows-20100105.tar.bz2</uri>
           </map>
         </map>
       </map>
