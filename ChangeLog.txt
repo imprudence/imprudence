@@ -1,22 +1,16 @@
 2010-01-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Applied SNOW-378: debug setting to compile inventory scripts in Mono.
+	
+	  modified:   linden/doc/contributions.txt
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llpreviewscript.cpp
+
+
 	* Fixed GStreamer missing libpng12-0.dll (TODO: update gstreamer).
 	
 	  modified:   linden/indra/cmake/CopyWinLibs.cmake
 	  modified:   linden/install.xml
-	  
-	
-2010-01-06 McCabe Maxsted  <hakushakukun@gmail.com>
-
-	* Applied VWR-4232: some particles do not disappear when UI is hidden, from snowglobe.
-	
-	  modified:   linden/indra/newview/llhudeffectbeam.cpp
-	  modified:   linden/indra/newview/llhudeffectbeam.h
-	  modified:   linden/indra/newview/llhudeffecttrail.cpp
-	  modified:   linden/indra/newview/llhudeffecttrail.h
-	  modified:   linden/indra/newview/llhudobject.cpp
-	  modified:   linden/indra/newview/llhudobject.h
-	  modified:   linden/indra/newview/pipeline.cpp
 
 
 2010-01-03  Armin Weatherwax  <Armin.Weatherwax@gmail.com>

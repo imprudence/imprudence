@@ -8365,6 +8365,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>SaveInventoryScriptsAsMono</key>
+    <map>
+      <key>Comment</key>
+      <string>When editing and saving a script in inventory, configure it to compile as mono when dragged into a task</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <real>0</real>
+    </map>
     <key>SaveMinidump</key>
     <map>
       <key>Comment</key>
