@@ -222,6 +222,12 @@ BOOL LLSlider::handleMouseDown(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
+BOOL LLSlider::handleScrollWheel(S32 x, S32 y, S32 clicks)
+{
+	setValueAndCommit(getValueF32() - ( getIncrement()* (F32)clicks ));
+	return TRUE;
+}
+
 BOOL LLSlider::handleKeyHere(KEY key, MASK mask)
 {
 	BOOL handled = FALSE;

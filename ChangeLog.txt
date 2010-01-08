@@ -145,6 +145,14 @@
 	  modified:   linden/indra/newview/viewer_manifest.py
 
 
+2010-01-05  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Slider widgets can now be controlled with mouse wheel.
+
+	  modified:   linden/indra/llui/llslider.cpp
+	  modified:   linden/indra/llui/llslider.h
+
+
 2010-01-08 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed options missing from Text Chat and Input & Camera preferences (see VWR-13120).
