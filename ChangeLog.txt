@@ -1,5 +1,10 @@
 2010-01-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Always include VS2005 redist in copy_win_libs.
+	
+	  modified:   linden/indra/cmake/CopyWinLibs.cmake
+	  
+	  
 	* Fixed viewer_manifest.py and default packaging system for Windows 
 	  NSIS install script only works manually.
 	
