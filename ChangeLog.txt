@@ -1,3 +1,15 @@
+2010-01-09 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed viewer_manifest.py and default packaging system for Windows 
+	  NSIS install script only works manually.
+	
+	  modified:   linden/indra/develop.py
+	  modified:   linden/indra/lib/python/indra/util/llmanifest.py
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  modified:   linden/indra/newview/installers/windows/installer_template.nsi
+	  modified:   linden/indra/newview/viewer_manifest.py
+
+
 2010-01-08 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed options missing from Text Chat and Input & Camera preferences (see VWR-13120).
