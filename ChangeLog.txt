@@ -1,5 +1,11 @@
 2010-01-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Fixed missing dbghelp.dll file.
+	
+	  modified:   linden/indra/cmake/ViewerMiscLibs.cmake
+	  modified:   linden/install.xml
+
+
 	* Always include VS2005 redist in copy_win_libs.
 	
 	  modified:   linden/indra/cmake/CopyWinLibs.cmake
