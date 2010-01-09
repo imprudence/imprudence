@@ -47,7 +47,7 @@
 	     increment=".025" initial_val="1.57" left="276" max_val="2.97" min_val=".17"
 	     mouse_opaque="true" name="camera_fov" show_text="false" value="60" />
   <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-14" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom_delta="-18" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
 	     mouse_opaque="true" name="Camera Follow Distance:" v_pad="0" width="128">
 		Camera Follow Distance:
@@ -56,6 +56,27 @@
 	     decimal_digits="2" enabled="true" follows="left|top" height="16"
 	     increment=".025" initial_val="1" left="276" min_val=".5" max_val="3"
 	     mouse_opaque="true" name="camera_offset_scale" show_text="false" value="1"
+	     width="128" />
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+       bottom_delta="-18" drop_shadow_visible="true" enabled="true" follows="left|top"
+       font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
+       mouse_opaque="true" name="Camera Transition Time:" v_pad="0" width="128">
+    Camera Transition Time:
+  </text>
+  <slider bottom_delta="-6" can_edit_text="true" decimal_digits="1"
+       enabled="true" follows="left|top" height="16" increment="0.1"
+       initial_val="0.4" left="276" max_val="4" min_val="0" mouse_opaque="true"
+       name="zoom_time" show_text="false" value="2" width="128" />
+  <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-18" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
+	     mouse_opaque="true" name="Camera Smoothing:" v_pad="0" width="128">
+    Camera Smoothing:
+  </text>
+  <slider bottom_delta="-6" can_edit_text="true"
+	     decimal_digits="1" enabled="true" follows="left|top" height="16"
+	     increment="0.1" initial_val="1" left="276" max_val="9" min_val="0"
+	     mouse_opaque="true" name="camera_position_smoothing" show_text="false" value="2"
 	     width="128" />
 	<check_box bottom_delta="-24" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"

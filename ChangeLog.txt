@@ -1,3 +1,12 @@
+2010-01-08 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed options missing from Text Chat and Input & Camera preferences (see VWR-13120).
+	
+	  modified:   linden/indra/newview/llpanelinput.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_chat.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_input.xml
+
+
 2010-01-07 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Applied SNOW-378: debug setting to compile inventory scripts in Mono.
