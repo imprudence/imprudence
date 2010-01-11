@@ -1,3 +1,10 @@
+2010-01-11 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed remember password checkbox.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_login.xml
+	  
+
 2010-01-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed missing dbghelp.dll file.

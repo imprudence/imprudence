@@ -99,7 +99,7 @@
                select_all_on_focus_received="true" />
 	<check_box name="remember_check" label="Remember password"
              bottom_delta="-24" left_delta="0" height="16" width="140"
-             follows="left|bottom" font="SansSerifSmall" 
+             follows="left|bottom" font="SansSerifSmall" control_name="RememberPassword" 
 	           initial_value="false" mouse_opaque="true"  />
 
 
