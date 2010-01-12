@@ -1,3 +1,10 @@
+2010-01-12 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed 'Cannot generate a safe linker search path' CMake warning on Windows.
+	
+	  modified:   linden/indra/cmake/OPENAL.cmake
+	  
+
 2010-01-11 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed remember password checkbox.
