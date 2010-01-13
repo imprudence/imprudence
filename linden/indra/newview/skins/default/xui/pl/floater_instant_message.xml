@@ -33,7 +33,7 @@
 	<string name="unavailable_text_label">
 		Czat nie jest dostępny dla tej rozmowy
 	</string>
-	<button label="Profil..." name="profile_callee_btn"/>
+	<flyout_button label="Profil..." name="profile_callee_btn"/>
 	<button label="Dzwoń" name="start_call_btn"/>
 	<button label="Skończ" name="end_call_btn"/>
 	<panel name="speaker_controls">

@@ -1,3 +1,27 @@
+2010-01-13 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Created drop-down Profile button in IM window.
+	
+	  modified:   linden/indra/newview/llimpanel.cpp
+	  modified:   linden/indra/newview/llimpanel.h
+	  modified:   linden/indra/newview/skins/default/xui/da/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/de/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml
+	  modified:   linden/indra/newview/skins/default/xui/es/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/fr/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/hu/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/it/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/ja/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/ko/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/pl/floater_instant_message.xml
+      modified:   linden/indra/newview/skins/default/xui/pt/floater_instant_message.xml
+      modified:   linden/indra/newview/skins/default/xui/ru/floater_instant_message.xml
+      modified:   linden/indra/newview/skins/default/xui/tr/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/uk/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/zh/floater_instant_message.xml
+
+
 2010-01-12 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed 'Cannot generate a safe linker search path' CMake warning on Windows.
