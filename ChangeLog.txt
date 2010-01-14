@@ -1,3 +1,11 @@
+2010-01-14 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Applied patch for VWR-11172 by Alissa Sabre: 
+	  A source coding mistake prevents number-pad keys from specifying Ctrl+digit shortcuts on Windows.
+	
+	  modified:   linden/indra/llwindow/llkeyboardwin32.cpp
+	  
+	  
 2010-01-13 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Created drop-down Profile button in IM window.
