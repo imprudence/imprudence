@@ -1,5 +1,12 @@
 2010-01-14 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Applied patch for VWR-14278 by Aimee Trescothick: 
+	  Gesture auto-completion adds uncommitted suggestions to the line editor history.
+	
+	  modified:   linden/indra/llui/lllineeditor.cpp
+	  modified:   linden/indra/llui/lllineeditor.h
+
+
 	* Applied patch for VWR-14267 by Aimee Trescothick: 
 	  Clicking send in an IM window does not add the sent text to the line editor history.
 	
