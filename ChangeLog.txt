@@ -1,5 +1,11 @@
 2010-01-14 McCabe Maxsted  <hakushakukun@gmail.com>
 
+	* Applied patch for VWR-14267 by Aimee Trescothick: 
+	  Clicking send in an IM window does not add the sent text to the line editor history.
+	
+	  modified:   linden/indra/newview/llimpanel.cpp
+	  
+	  
 	* Applied patch for VWR-11172 by Alissa Sabre: 
 	  A source coding mistake prevents number-pad keys from specifying Ctrl+digit shortcuts on Windows.
 	
