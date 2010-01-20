@@ -3986,6 +3986,22 @@
         <integer>0</integer>
       </array>
     </map>
+	<key>FloaterHtmlRect</key>
+    <map>
+      <key>Comment</key>
+      <string>Rectangle for HTML window</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Rect</string>
+      <key>Value</key>
+      <array>
+        <integer>100</integer>
+        <integer>460</integer>
+        <integer>370</integer>
+        <integer>100</integer>
+      </array>
+    </map>
     <key>FloaterIMRect</key>
     <map>
       <key>Comment</key>
