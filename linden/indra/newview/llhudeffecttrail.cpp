@@ -287,3 +287,8 @@ void LLHUDEffectSpiral::render()
 		return;
 	}
 }
+
+void LLHUDEffectSpiral::renderForTimer()
+{
+	render();
+}

@@ -248,16 +248,10 @@ EJoystickQuadrant LLJoystick::quadrantFromName(const std::string& sQuadrant)
 
 LLXMLNodePtr LLJoystick::getXML(bool save_children) const
 {
-	LLXMLNodePtr node = LLUICtrl::getXML();
+	LLXMLNodePtr node = LLButton::getXML();
 
-	node->createChild("halign", TRUE)->setStringValue(LLFontGL::nameFromHAlign(getHAlign()));
 	node->createChild("quadrant", TRUE)->setStringValue(nameFromQuadrant(mInitialQuadrant));
-
-	addImageAttributeToXML(node,getImageUnselectedName(),getImageUnselectedID(),std::string("image_unselected"));
-	addImageAttributeToXML(node,getImageSelectedName(),getImageSelectedID(),std::string("image_selected"));
 	
-	node->createChild("scale_image", TRUE)->setBoolValue(getScaleImage());
-
 	return node;
 }
 
@@ -325,6 +319,15 @@ void LLJoystickAgentTurn::onHeldDown()
 			gAgent.moveAt(-1);
 		}
 	}
+}
+
+LLXMLNodePtr LLJoystickAgentTurn::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLJoystick::getXML();
+
+	node->setName(LL_JOYSTICK_TURN);
+
+	return node;
 }
 
 LLView* LLJoystickAgentTurn::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
@@ -434,6 +437,15 @@ void LLJoystickAgentSlide::onHeldDown()
 	}
 }
 
+
+LLXMLNodePtr LLJoystickAgentSlide::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLJoystick::getXML();
+
+	node->setName(LL_JOYSTICK_SLIDE);
+
+	return node;
+}
 
 // static
 LLView* LLJoystickAgentSlide::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)

@@ -132,7 +132,7 @@ LLMultiSliderCtrl::LLMultiSliderCtrl(const std::string& name, const LLRect& rect
 				&LLLineEditor::prevalidateFloat );
 			mEditor->setFollowsLeft();
 			mEditor->setFollowsBottom();
-			mEditor->setFocusReceivedCallback( &LLMultiSliderCtrl::onEditorGainFocus );
+			mEditor->setFocusReceivedCallback( &LLMultiSliderCtrl::onEditorGainFocus, this );
 			mEditor->setIgnoreTab(TRUE);
 			// don't do this, as selecting the entire text is single clicking in some cases
 			// and double clicking in others
@@ -500,6 +500,8 @@ void LLMultiSliderCtrl::setControlName(const std::string& control_name, LLView* 
 LLXMLNodePtr LLMultiSliderCtrl::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
+
+	node->setName(LL_MULTI_SLIDER_CTRL_TAG);
 
 	node->createChild("show_text", TRUE)->setBoolValue(mShowText);
 

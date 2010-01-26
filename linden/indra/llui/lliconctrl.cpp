@@ -137,6 +137,8 @@ LLXMLNodePtr LLIconCtrl::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_ICON_CTRL_TAG);
+
 	if (mImageName != "")
 	{
 		node->createChild("image_name", TRUE)->setStringValue(mImageName);

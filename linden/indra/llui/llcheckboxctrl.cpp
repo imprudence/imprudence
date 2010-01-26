@@ -298,11 +298,12 @@ void	LLCheckBoxCtrl::resetDirty()
 }
 
 
-
 // virtual
 LLXMLNodePtr LLCheckBoxCtrl::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
+
+	node->setName(LL_CHECK_BOX_CTRL_TAG);
 
 	node->createChild("label", TRUE)->setStringValue(mLabel->getText());
 

@@ -2513,6 +2513,15 @@ LLMultiFloater::LLMultiFloater(
 	
 }
 
+// virtual
+LLXMLNodePtr LLMultiFloater::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLFloater::getXML();
+
+	node->setName(LL_MULTI_FLOATER_TAG);
+
+	return node;
+}
 
 void LLMultiFloater::open()	/* Flawfinder: ignore */
 {
@@ -2935,6 +2944,8 @@ void LLMultiFloater::updateResizeLimits()
 LLXMLNodePtr LLFloater::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLPanel::getXML();
+
+	node->setName(LL_FLOATER_TAG);
 
 	node->createChild("title", TRUE)->setStringValue(getCurrentTitle());
 

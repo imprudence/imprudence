@@ -348,6 +348,8 @@ LLXMLNodePtr LLColorSwatchCtrl::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_COLOR_SWATCH_CTRL_TAG);
+
 	node->createChild("color", TRUE)->setFloatValue(4, mColor.mV);
 
 	node->createChild("border_color", TRUE)->setFloatValue(4, mBorderColor.mV);

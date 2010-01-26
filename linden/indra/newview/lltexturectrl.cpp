@@ -969,6 +969,8 @@ LLXMLNodePtr LLTextureCtrl::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_TEXTURE_CTRL_TAG);
+
 	node->createChild("label", TRUE)->setStringValue(getLabel());
 
 	node->createChild("default_image_name", TRUE)->setStringValue(getDefaultImageName());

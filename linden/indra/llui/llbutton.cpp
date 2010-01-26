@@ -980,6 +980,8 @@ LLXMLNodePtr LLButton::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_BUTTON_TAG);
+
 	node->createChild("label", TRUE)->setStringValue(getLabelUnselected());
 	node->createChild("label_selected", TRUE)->setStringValue(getLabelSelected());
 	node->createChild("font", TRUE)->setStringValue(LLFontGL::nameFromFont(mGLFont));

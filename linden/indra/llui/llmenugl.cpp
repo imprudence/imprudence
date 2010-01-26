@@ -154,6 +154,8 @@ LLXMLNodePtr LLMenuItemGL::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLView::getXML();
 
+	node->setName(LL_MENU_ITEM_TAG);
+
 	node->createChild("type", TRUE)->setStringValue(getType());
 
 	node->createChild("label", TRUE)->setStringValue(mLabel);
@@ -526,6 +528,8 @@ class LLMenuItemSeparatorGL : public LLMenuItemGL
 public:
 	LLMenuItemSeparatorGL( const std::string &name = SEPARATOR_NAME );
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
+
 	virtual std::string getType() const	{ return "separator"; }
 
 	// doIt() - do the primary funcationality of the menu item.
@@ -542,6 +546,16 @@ public:
 LLMenuItemSeparatorGL::LLMenuItemSeparatorGL( const std::string &name ) :
 	LLMenuItemGL( name, SEPARATOR_LABEL )
 {
+}
+
+
+LLXMLNodePtr LLMenuItemSeparatorGL::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLMenuItemGL::getXML();
+
+	node->setName(LL_MENU_ITEM_SEPARATOR_GL_TAG);
+
+	return node;
 }
 
 void LLMenuItemSeparatorGL::draw( void )
@@ -623,6 +637,15 @@ LLMenuItemTearOffGL::LLMenuItemTearOffGL(LLHandle<LLFloater> parent_floater_hand
 {
 }
 
+
+LLXMLNodePtr LLMenuItemTearOffGL::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLMenuItemGL::getXML();
+
+	node->setName(LL_MENU_ITEM_TEAR_OFF_GL_TAG);
+
+	return node;
+}
 
 void LLMenuItemTearOffGL::doIt()
 {
@@ -821,6 +844,8 @@ LLXMLNodePtr LLMenuItemCallGL::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLMenuItemGL::getXML();
 
+	node->setName(LL_MENU_ITEM_CALL_GL_TAG);
+
 	// Contents
 
 	std::vector<LLListenerEntry> listeners = mDispatcher->getListeners();
@@ -830,6 +855,9 @@ LLXMLNodePtr LLMenuItemCallGL::getXML(bool save_children) const
 		std::string listener_name = findEventListener((LLSimpleListener*)itor->listener);
 		if (!listener_name.empty())
 		{
+			// *FIX:  It's not always on_click.	 It could be on_check, on_enable or on_visible,
+			// but there's no way to get that from the data that is stored.
+
 			LLXMLNodePtr child_node = node->createChild("on_click", FALSE);
 			child_node->createChild("function", TRUE)->setStringValue(listener_name);
 			child_node->createChild("filter", TRUE)->setStringValue(itor->filter.asString());
@@ -971,6 +999,9 @@ void LLMenuItemCheckGL::setCheckedControl(std::string checked_control, LLView *c
 LLXMLNodePtr LLMenuItemCheckGL::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLMenuItemCallGL::getXML();
+
+	node->setName(LL_MENU_ITEM_CHECK_GL_TAG);
+
 	return node;
 }
 
@@ -1734,6 +1765,8 @@ LLXMLNodePtr LLMenuGL::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLView::getXML();
 
+	node->setName(LL_MENU_GL_TAG);
+
 	// Attributes
 
 	node->createChild("opaque", TRUE)->setBoolValue(mBgVisible);
@@ -1904,7 +1937,11 @@ void LLMenuGL::parseChildXML(LLXMLNodePtr child, LLView *parent, LLUICtrlFactory
 
 								LLSimpleListener* callback = parent->getListenerByName(callback_name);
 
-								if (!callback) continue;
+								if (!callback)
+								{
+									lldebugs << "Ignoring \"on_check\" \"" << item_name << "\" because \"" << callback_name << "\" is not registered" << llendl;
+									continue;
+								}
 
 								new_item->addListener(callback, "on_build", userdata);
 							}
@@ -1945,7 +1982,11 @@ void LLMenuGL::parseChildXML(LLXMLNodePtr child, LLView *parent, LLUICtrlFactory
 
 						LLSimpleListener* callback = parent->getListenerByName(callback_name);
 
-						if (!callback) continue;
+						if (!callback)
+						{
+							lldebugs << "Ignoring \"on_click\" \"" << item_name << "\" because \"" << callback_name << "\" is not registered" << llendl;
+							continue;
+						}
 
 						new_item->addListener(callback, "on_click", callback_data);
 					}
@@ -1975,7 +2016,11 @@ void LLMenuGL::parseChildXML(LLXMLNodePtr child, LLView *parent, LLUICtrlFactory
 
 							LLSimpleListener* callback = parent->getListenerByName(callback_name);
 
-							if (!callback) continue;
+							if (!callback)
+							{
+								lldebugs << "Ignoring \"on_enable\" \"" << item_name << "\" because \"" << callback_name << "\" is not registered" << llendl;
+								continue;
+							}
 
 							new_item->addListener(callback, "on_build", userdata);
 						}
@@ -2015,7 +2060,11 @@ void LLMenuGL::parseChildXML(LLXMLNodePtr child, LLView *parent, LLUICtrlFactory
 
 							LLSimpleListener* callback = parent->getListenerByName(callback_name);
 
-							if (!callback) continue;
+							if (!callback)
+							{
+								lldebugs << "Ignoring \"on_visible\" \"" << item_name << "\" because \"" << callback_name << "\" is not registered" << llendl;
+								continue;
+							}
 
 							new_item->addListener(callback, "on_build", userdata);
 						}
@@ -3033,6 +3082,8 @@ class LLPieMenuBranch : public LLMenuItemGL
 public:
 	LLPieMenuBranch(const std::string& name, const std::string& label, LLPieMenu* branch);
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
+
 	// called to rebuild the draw label
 	virtual void buildDrawLabel( void );
 
@@ -3053,6 +3104,17 @@ LLPieMenuBranch::LLPieMenuBranch(const std::string& name,
 {
 	mBranch->hide(FALSE);
 	mBranch->setParentMenuItem(this);
+}
+
+// virtual
+LLXMLNodePtr LLPieMenuBranch::getXML(bool save_children) const
+{
+	if (mBranch)
+	{
+		return mBranch->getXML();
+	}
+
+	return LLMenuItemGL::getXML();
 }
 
 // called to rebuild the draw label
@@ -3135,6 +3197,16 @@ LLPieMenu::LLPieMenu(const std::string& name)
 	setCanTearOff(FALSE);
 }
 
+
+// virtual
+LLXMLNodePtr LLPieMenu::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLMenuGL::getXML();
+
+	node->setName(LL_PIE_MENU_TAG);
+
+	return node;
+}
 
 void LLPieMenu::initXML(LLXMLNodePtr node, LLView *context, LLUICtrlFactory *factory)
 {
@@ -3836,6 +3908,8 @@ LLXMLNodePtr LLMenuBarGL::getXML(bool save_children) const
 	}
 
 	LLXMLNodePtr node = LLMenuGL::getXML();
+
+	node->setName(LL_MENU_BAR_GL_TAG);
 
 	for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)
 	{

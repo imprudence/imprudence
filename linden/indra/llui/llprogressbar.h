@@ -53,6 +53,7 @@ public:
 	void setColorShadow(const LLColor4 &c);
 	void setColorBackground(const LLColor4 &c);
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
 	/*virtual*/ void draw();

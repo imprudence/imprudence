@@ -571,6 +571,8 @@ LLXMLNodePtr LLMultiSlider::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_MULTI_SLIDER_TAG);
+
 	node->createChild("initial_val", TRUE)->setFloatValue(getInitialValue());
 	node->createChild("min_val", TRUE)->setFloatValue(getMinValue());
 	node->createChild("max_val", TRUE)->setFloatValue(getMaxValue());

@@ -86,6 +86,15 @@ public:
 	LLUICtrlLocate() : LLUICtrl(std::string("locate"), LLRect(0,0,0,0), FALSE, NULL, NULL) { setTabStop(FALSE); }
 	virtual void draw() { }
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const
+	{
+		LLXMLNodePtr node = LLUICtrl::getXML();
+	
+		node->setName(LL_UI_CTRL_LOCATE_TAG);
+	
+		return node;
+	}
+
 	static LLView *fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 	{
 		std::string name("pad");
@@ -163,18 +172,22 @@ bool LLUICtrlFactory::getLayeredXMLNode(const std::string &xui_filename, LLXMLNo
 	std::string full_filename = gDirUtilp->findSkinnedFilename(sXUIPaths.front(), xui_filename);
 	if (full_filename.empty())
 	{
-		llwarns << "Couldn't find UI description file: " << sXUIPaths.front() + gDirUtilp->getDirDelimiter() + xui_filename << llendl;
-		return false;
+		// try filename as passed in since sometimes we load an xml file from a user-supplied path
+		if (gDirUtilp->fileExists(xui_filename))
+		{
+			full_filename = xui_filename;
+		}
+		else
+		{
+			llwarns << "Couldn't find UI description file: " << sXUIPaths.front() + gDirUtilp->getDirDelimiter() + xui_filename << llendl;
+			return false;
+		}
 	}
 
 	if (!LLXMLNode::parseFile(full_filename, root, NULL))
 	{
-		// try filename as passed in since sometimes we load an xml file from a user-supplied path
-		if (!LLXMLNode::parseFile(xui_filename, root, NULL))
-		{
-			llwarns << "Problem reading UI description file: " << xui_filename << llendl;
-			return false;
-		}
+		llwarns << "Problem reading UI description file: " << full_filename << llendl;
+		return false;
 	}
 
 	LLXMLNodePtr updateRoot;
