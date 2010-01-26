@@ -739,6 +739,15 @@ bool LLAppViewer::init()
 	//
 	initWindow();
 
+	{
+		BOOL download = gSavedSettings.getBOOL("DownloadClientTags");
+
+		if(download)
+		{
+			LLVOAvatar::updateClientTags();
+		}
+	}
+
 	// call all self-registered classes
 	LLInitClassList::instance().fireCallbacks();
 

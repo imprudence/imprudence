@@ -1,3 +1,130 @@
+2010-01-20 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed crash due to missing FloaterHtmlRect setting.
+	
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  
+
+2010-01-14 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Removed unnecessary xui files from silver skin.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_about_land.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_env_settings.xml
+	  deleted:    linden/indra/newview/skins/silver/xui/en-us/floater_about_land.xml
+	  deleted:    linden/indra/newview/skins/silver/xui/en-us/floater_directory.xml
+	  deleted:    linden/indra/newview/skins/silver/xui/en-us/floater_env_settings.xml
+	  deleted:    linden/indra/newview/skins/silver/xui/en-us/floater_live_lsleditor.xml
+	  deleted:    linden/indra/newview/skins/silver/xui/en-us/floater_water.xml
+	  deleted:    linden/indra/newview/skins/silver/xui/en-us/floater_windlight_options.xml
+	  deleted:    linden/indra/newview/skins/silver/xui/en-us/panel_status_bar.xml
+	  deleted:    linden/indra/newview/skins/silver/xui/en-us/panel_voice_controls.xml
+
+
+	* Applied patch for VWR-14278 by Aimee Trescothick: 
+	  Gesture auto-completion adds uncommitted suggestions to the line editor history.
+	
+	  modified:   linden/indra/llui/lllineeditor.cpp
+	  modified:   linden/indra/llui/lllineeditor.h
+
+
+	* Applied patch for VWR-14267 by Aimee Trescothick: 
+	  Clicking send in an IM window does not add the sent text to the line editor history.
+	
+	  modified:   linden/indra/newview/llimpanel.cpp
+	  
+	  
+	* Applied patch for VWR-11172 by Alissa Sabre: 
+	  A source coding mistake prevents number-pad keys from specifying Ctrl+digit shortcuts on Windows.
+	
+	  modified:   linden/indra/llwindow/llkeyboardwin32.cpp
+	  
+	  
+2010-01-13 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Created drop-down Profile button in IM window.
+	
+	  modified:   linden/indra/newview/llimpanel.cpp
+	  modified:   linden/indra/newview/llimpanel.h
+	  modified:   linden/indra/newview/skins/default/xui/da/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/de/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_instant_message_group.xml
+	  modified:   linden/indra/newview/skins/default/xui/es/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/fr/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/hu/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/it/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/ja/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/ko/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/pl/floater_instant_message.xml
+      modified:   linden/indra/newview/skins/default/xui/pt/floater_instant_message.xml
+      modified:   linden/indra/newview/skins/default/xui/ru/floater_instant_message.xml
+      modified:   linden/indra/newview/skins/default/xui/tr/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/uk/floater_instant_message.xml
+	  modified:   linden/indra/newview/skins/default/xui/zh/floater_instant_message.xml
+
+
+2010-01-12 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed 'Cannot generate a safe linker search path' CMake warning on Windows.
+	
+	  modified:   linden/indra/cmake/OPENAL.cmake
+	  
+
+2010-01-11 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed remember password checkbox.
+	
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_login.xml
+	  
+
+2010-01-09 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed missing dbghelp.dll file.
+	
+	  modified:   linden/indra/cmake/ViewerMiscLibs.cmake
+	  modified:   linden/install.xml
+
+
+	* Always include VS2005 redist in copy_win_libs.
+	
+	  modified:   linden/indra/cmake/CopyWinLibs.cmake
+	  
+	  
+	* Fixed viewer_manifest.py and default packaging system for Windows 
+	  NSIS install script only works manually.
+	
+	  modified:   linden/indra/develop.py
+	  modified:   linden/indra/lib/python/indra/util/llmanifest.py
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  modified:   linden/indra/newview/installers/windows/installer_template.nsi
+	  modified:   linden/indra/newview/viewer_manifest.py
+
+
+2010-01-08 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Fixed options missing from Text Chat and Input & Camera preferences (see VWR-13120).
+	
+	  modified:   linden/indra/newview/llpanelinput.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_chat.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_input.xml
+
+
+2010-01-07 McCabe Maxsted  <hakushakukun@gmail.com>
+
+	* Applied SNOW-378: debug setting to compile inventory scripts in Mono.
+	
+	  modified:   linden/doc/contributions.txt
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llpreviewscript.cpp
+
+
+	* Fixed GStreamer missing libpng12-0.dll (TODO: update gstreamer).
+	
+	  modified:   linden/indra/cmake/CopyWinLibs.cmake
+	  modified:   linden/install.xml
+
+
 2010-01-03  Mm Alder  <monkowsk@fishkill.ibm.com>
 
 	(With help from Admiral Admiral)

@@ -33,7 +33,7 @@
 	<string name="unavailable_text_label">
 		La chat di testo non è disponibile in questa chiamata.
 	</string>
-	<button label="Profilo..." name="profile_callee_btn"/>
+	<flyout_button label="Profilo..." name="profile_callee_btn"/>
 	<button label="Chiama" name="start_call_btn"/>
 	<button label="Termina" name="end_call_btn"/>
 	<panel name="speaker_controls">

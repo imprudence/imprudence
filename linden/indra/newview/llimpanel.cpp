@@ -47,6 +47,7 @@
 #include "llbutton.h"
 #include "llcallingcard.h"
 #include "llchat.h"
+#include "llcombobox.h"
 #include "llconsole.h"
 #include "llfloater.h"
 #include "llfloatergroupinfo.h"
@@ -60,6 +61,7 @@
 #include "llfloaterchat.h"
 #include "llkeyboard.h"
 #include "lllineeditor.h"
+#include "llmenucommands.h"
 #include "llnotify.h"
 #include "llresmgr.h"
 #include "lltabcontainer.h"
@@ -1080,6 +1082,7 @@ LLFloaterIMPanel::LLFloaterIMPanel(
 	LLFloater(session_label, LLRect(), session_label),
 	mInputEditor(NULL),
 	mHistoryEditor(NULL),
+	mComboIM(NULL),
 	mSessionUUID(session_id),
 	mVoiceChannel(NULL),
 	mSessionInitialized(FALSE),
@@ -1296,7 +1299,17 @@ BOOL LLFloaterIMPanel::postBuild()
 		mInputEditor->setRevertOnEsc( FALSE );
 		mInputEditor->setReplaceNewlinesWithSpaces( FALSE );
 
-		childSetAction("profile_callee_btn", onClickProfile, this);
+		// Profile combobox in floater_instant_message.xml
+		mComboIM = getChild<LLComboBox>("profile_callee_btn");
+		mComboIM->setCommitCallback(onCommitCombo);
+		mComboIM->setCallbackUserData(this);
+
+#ifdef LL_WINDOWS
+		mComboIM->add(getString("history_entry"));
+#endif
+		mComboIM->add(getString("pay_entry"));
+		mComboIM->add(getString("teleport_entry"));
+
 		childSetAction("group_info_btn", onClickGroupInfo, this);
 		childSetAction("history_btn", onClickHistory, this);
 
@@ -1304,7 +1317,6 @@ BOOL LLFloaterIMPanel::postBuild()
 		childSetAction("end_call_btn", onClickEndCall, this);
 		childSetAction("send_btn", onClickSend, this);
 		childSetAction("toggle_active_speakers_btn", onClickToggleActiveSpeakers, this);
-		childSetAction("offer_tp_btn", onClickOfferTeleport, this);
 
 		childSetAction("moderator_kick_speaker", onKickSpeaker, this);
 		//LLButton* close_btn = getChild<LLButton>("close_btn");
@@ -1792,26 +1804,6 @@ void LLFloaterIMPanel::onTabClick(void* userdata)
 }
 
 // static
-void LLFloaterIMPanel::onClickOfferTeleport(void* userdata)
-{
-	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
-
-	handle_lure(self->mOtherParticipantUUID);
-}
-
-// static
-void LLFloaterIMPanel::onClickProfile( void* userdata )
-{
-	//  Bring up the Profile window
-	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
-	
-	if (self->mOtherParticipantUUID.notNull())
-	{
-		LLFloaterAvatarInfo::showFromDirectory(self->getOtherParticipantID());
-	}
-}
-
-// static
 void LLFloaterIMPanel::onClickHistory( void* userdata )
 {
 	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
@@ -1901,6 +1893,67 @@ void LLFloaterIMPanel::onCommitChat(LLUICtrl* caller, void* userdata)
 {
 	LLFloaterIMPanel* self= (LLFloaterIMPanel*) userdata;
 	self->sendMsg();
+}
+
+// static
+void LLFloaterIMPanel::onCommitCombo(LLUICtrl* caller, void* userdata)
+{
+	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
+	LLCtrlListInterface* options = self->mComboIM ? self->mComboIM->getListInterface() : NULL;
+	if (options)
+	{
+		S32 index = options->getFirstSelectedIndex();
+		if (index < 0)
+		{
+			// Open profile or group window
+			if (self->mOtherParticipantUUID.notNull())
+			{
+				LLFloaterAvatarInfo::showFromDirectory(self->getOtherParticipantID());
+			}
+			return;
+		}
+
+		std::string selected = self->mComboIM->getSelectedValue().asString();
+		if (selected == self->getString("history_entry"))
+		{
+			if (self->mOtherParticipantUUID.notNull())
+			{
+				struct stat fileInfo;
+				int result;
+				
+				std::string fullname = self->getTitle();;
+				//gCacheName->getFullName(self->mOtherParticipantUUID, fullname);
+				//if(fullname == "(Loading...)")
+				std::string file_path = gDirUtilp->getPerAccountChatLogsDir() + "\\" + fullname + ".txt";
+
+				// check if file exists by trying to get its attributes
+				result = stat(file_path.c_str(), &fileInfo);
+				if(result == 0)
+				{
+					char command[256];
+					sprintf(command, "\"%s\\%s.txt\"", gDirUtilp->getPerAccountChatLogsDir().c_str(),fullname.c_str());
+					gViewerWindow->getWindow()->ShellEx(command);
+
+					llinfos << command << llendl;
+				}
+				else
+				{
+					LLSD args;
+					args["[NAME]"] = fullname;
+					LLNotifications::instance().add("IMLogNotFound", args);
+					llinfos << file_path << llendl;
+				}
+			}
+		}
+		else if (selected == self->getString("pay_entry"))
+		{
+			handle_pay_by_id(self->mOtherParticipantUUID);
+		}
+		else if (selected == self->getString("teleport_entry"))
+		{
+			handle_lure(self->mOtherParticipantUUID);
+		}
+	}
 }
 
 // static
@@ -2052,6 +2105,8 @@ void LLFloaterIMPanel::sendMsg()
 		LLWString text = mInputEditor->getConvertedText();
 		if(!text.empty())
 		{
+			// store sent line in history, duplicates will get filtered
+			if (mInputEditor) mInputEditor->updateHistory();
 			// Truncate and convert to UTF8 for transport
 			std::string utf8_text = wstring_to_utf8str(text);
 			utf8_text = utf8str_truncate(utf8_text, MAX_MSG_BUF_SIZE - 1);

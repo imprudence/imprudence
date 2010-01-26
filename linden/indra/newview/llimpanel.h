@@ -47,6 +47,7 @@ class LLInventoryItem;
 class LLInventoryCategory;
 class LLIMSpeakerMgr;
 class LLPanelActiveSpeakers;
+class LLComboBox;
 
 class LLVoiceChannel : public LLVoiceClientStatusObserver
 {
@@ -228,12 +229,11 @@ public:
 	static void		onInputEditorFocusLost(LLFocusableElement* caller, void* userdata);
 	static void		onInputEditorKeystroke(LLLineEditor* caller, void* userdata);
 	static void		onCommitChat(LLUICtrl* caller, void* userdata);
+	static void		onCommitCombo(LLUICtrl* caller, void* userdata);
 	static void		onTabClick( void* userdata );
 
-	static void		onClickProfile( void* userdata );
 	static void		onClickHistory( void* userdata );
 	static void		onClickGroupInfo( void* userdata );
-	static void		onClickOfferTeleport( void* userdata );
 	static void		onClickClose( void* userdata );
 	static void		onClickStartCall( void* userdata );
 	static void		onClickEndCall( void* userdata );
@@ -300,6 +300,7 @@ private:
 private:
 	LLLineEditor* mInputEditor;
 	LLViewerTextEditor* mHistoryEditor;
+	LLComboBox* mComboIM;
 
 	// The value of the mSessionUUID depends on how the IM session was started:
 	//   one-on-one  ==> random id

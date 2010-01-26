@@ -111,6 +111,8 @@ public:
 	static void useDebugMenus();
 	static void useSculptedPrim();
 	static void useMedia();
+	static void callbackClientTags(const LLSD& notification, const LLSD& response);
+	static void ClientTags();
 	
 protected:
 	static std::set<std::string> sConfigVariables;

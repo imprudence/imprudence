@@ -32,7 +32,7 @@
 	</text>
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="1 1 1 1" control_name="UserChatColor"
-	     enabled="true" follows="left|top" height="47" label="You" left="148"
+	     enabled="true" follows="left|top" height="56" label="You" left="148"
 	     mouse_opaque="true" name="user" width="54" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-108"
 	     can_apply_immediately="true" color="1 1 1 1" control_name="AgentChatColor"
@@ -55,7 +55,7 @@
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
 	     control_name="ObjectChatColor" enabled="true" follows="left|top"
-	     height="47"  label="Objects" left="148" mouse_opaque="true"
+	     height="56" label="Objects" left="148" mouse_opaque="true"
 	     name="objects" width="54" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-165"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
@@ -77,7 +77,7 @@
 	     enabled="true" follows="left|top" height="56"
 	     label="URLs" left_delta="68" mouse_opaque="true" name="links" width="54" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-28" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom_delta="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
 	     mouse_opaque="false" name="text_box3" v_pad="0" width="135">
 		Chat Console:
@@ -116,7 +116,7 @@
 	     mouse_opaque="true" name="chat_full_width_check" radio_style="false"
 	     width="239" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	      bottom_delta="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
+	      bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"
 	     mouse_opaque="false" name="text_box6" v_pad="0" width="135">
 		Chat Options:
@@ -134,20 +134,18 @@
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show timestamps in Local Chat" left="148" mouse_opaque="true"
 	     name="show_timestamps_check" radio_style="false" width="237" />
-	<check_box bottom_delta="-20" enabled="true"
-  <check_box bottom_delta="-20" control_name="ScriptErrorsAsChat" enabled="true"
+  	<check_box bottom_delta="-18" control_name="ScriptErrorsAsChat" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show script errors and warnings as regular chat" left="148"
 	     mouse_opaque="true" name="script_errors_as_chat" radio_style="false"
 	     width="275" />
-	<check_box bottom_delta="-20" enabled="true"
 	<check_box bottom_delta="-18" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
 	     label="Play typing animation when chatting" left="148" mouse_opaque="true"
 	     name="play_typing_animation" radio_style="false" width="237" />
-  <check_box bottom_delta="-18" enabled="true" follows="left|top"
+  	<check_box bottom_delta="-18" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false" 
-       label="Show custom chat channel" left="148" mouse_opaque="true"
+	     label="Show custom chat channel" left="148" mouse_opaque="true"
 	     name="toggle_channel_control" radio_style="false" width="237" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-379" drop_shadow_visible="true" enabled="true" follows="left|top"

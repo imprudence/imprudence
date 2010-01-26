@@ -33,7 +33,7 @@
 	<string name="unavailable_text_label">
 		Szöveges üzenetküldés nem elérhető a jelenlegi hívás alatt.
 	</string>
-	<button label="Adatlap" name="profile_callee_btn"/>
+	<flyout_button label="Adatlap" name="profile_callee_btn"/>
 	<button label="Hívás" name="start_call_btn"/>
 	<button label="Hívás vége" name="end_call_btn"/>
 	<panel name="speaker_controls">

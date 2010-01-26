@@ -30,6 +30,13 @@
 # WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
 # COMPLETENESS OR PERFORMANCE.
 # $/LicenseInfo$
+
+# DO NOT RUN THIS FILE DIRECTLY
+# Instead, run develop.py with "configure -DPACKAGE:BOOL=ON" e.g.:
+#   develop.py -G vc80 configure -DPACKAGE:BOOL=ON
+# to generate the "package" project in Visual Studio 2005
+# Note: as of Imprudence 1.3, this defaults to on for Windows
+
 import sys
 import os.path
 import re
@@ -68,37 +75,33 @@ class ViewerManifest(LLManifest):
 
         # Include our fonts
         if self.prefix(src="fonts"):
-            self.path("LiberationSans-Bold.ttf")
-            self.path("LiberationSans-Regular.ttf")
-            self.path("VeraMono.ttf")
+            self.path("*.ttf")
             self.path("*.txt")
             self.end_prefix("fonts")
 
         # skins
         if self.prefix(src="skins"):
-            self.path("paths.xml")
-            
-            # include the entire textures directory recursively
-            if self.prefix(src="*/textures"):
-                self.path("*.tga")
-                self.path("*.j2c")
-                self.path("*.jpg")
-                self.path("*.png")
-                self.path("textures.xml")
-                self.end_prefix("*/textures")
-
-            self.path("*/xui/*/*.xml")
-            self.path("*/*.xml")
-
-            # Local HTML files (e.g. loading screen)
-            if self.prefix(src="*/html"):
-                self.path("*.png")
-                self.path("*/*/*.html")
-                self.path("*/*/*.gif")
-                self.end_prefix("*/html")
+                self.path("paths.xml")
+                # include the entire textures directory recursively
+                if self.prefix(src="*/textures"):
+                        self.path("*.tga")
+                        self.path("*.j2c")
+                        self.path("*.jpg")
+                        self.path("*.png")
+                        self.path("textures.xml")
+                        self.end_prefix("*/textures")
+                self.path("*/xui/*/*.xml")
+                self.path("*/*.xml")
                 
-            self.end_prefix("skins")
-            
+                # Local HTML files (e.g. loading screen)
+                if self.prefix(src="*/html"):
+                        self.path("*.png")
+                        self.path("*/*/*.html")
+                        self.path("*/*/*.gif")
+                        self.end_prefix("*/html")
+                self.end_prefix("skins")
+        
+        # Files in the newview/ directory
         self.path("gpu_table.txt")
 
 
@@ -140,7 +143,7 @@ class ViewerManifest(LLManifest):
     def channel(self):
         return self.args['channel']
     def channel_unique(self):
-        return self.channel().replace("Second Life", "").strip()
+        return self.channel().replace("Imprudence", "").strip()
     def channel_oneword(self):
         return "".join(self.channel_unique().split())
     def channel_lowerword(self):
@@ -236,16 +239,16 @@ class WindowsManifest(ViewerManifest):
             self.end_prefix()
 
         # The config file name needs to match the exe's name.
-        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst=self.final_exe() + ".config")
+        self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst=self.final_exe() + ".config")
 
         # We need this one too, so that llkdu loads at runtime - DEV-41194
-        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="llkdu.dll.2.config")
+        self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="llkdu.dll.2.config")
 
         # We need this one too, so that win_crash_logger.exe loads at runtime - DEV-19004
-        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="win_crash_logger.exe.config")
+        self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="win_crash_logger.exe.config")
 
         # same thing for auto-updater.
-        self.path(src="%s/secondlife-bin.exe.config" % self.args['configuration'], dst="updater.exe.config")
+        self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="updater.exe.config")
 
         # Mozilla runtime DLLs (CP)
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
@@ -276,9 +279,9 @@ class WindowsManifest(ViewerManifest):
         # Mozilla hack to get it to accept newer versions of msvc*80.dll than are listed in manifest
         # necessary as llmozlib2-vc80.lib refers to an old version of msvc*80.dll - can be removed when new version of llmozlib is built - Nyx
         # Vivox runtimes
-        if self.prefix(src="vivox-runtime/i686-win32", dst=""):
+        #if self.prefix(src="vivox-runtime/i686-win32", dst=""):
         #    self.path("alut.dll")
-            self.path("wrap_oal.dll")
+        #    self.path("wrap_oal.dll")
 
         #    self.path("SLVoice.exe")
         #    self.path("SLVoiceAgent.exe")
@@ -289,7 +292,64 @@ class WindowsManifest(ViewerManifest):
         #    self.path("vivoxsdk.dll")
         #    self.path("ortp.dll")
 
+        #    self.end_prefix()
+
+        # Gstreamer plugins
+        if self.prefix(src="lib/gstreamer-plugins", dst=""):
+            self.path("*.dll", dst="lib/gstreamer-plugins/*.dll")
             self.end_prefix()
+
+        # Gstreamer libs
+        if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
+            self.path("iconv.dll")
+            self.path("libxml2.dll")
+            self.path("libcairo-2.dll")
+            self.path("libgio-2.0-0.dll")
+            self.path("libglib-2.0-0.dll")
+            self.path("libgmodule-2.0-0.dll")
+            self.path("libgobject-2.0-0.dll")
+            self.path("libgthread-2.0-0.dll")
+            self.path("charset.dll")
+            self.path("intl.dll")
+            self.path("libgcrypt-11.dll")
+            self.path("libgnutls-26.dll")
+            self.path("libgpg-error-0.dll")
+            self.path("libgstapp.dll")
+            self.path("libgstaudio.dll")
+            self.path("libgstbase-0.10.dll")
+            self.path("libgstcdda.dll")
+            self.path("libgstcontroller-0.10.dll")
+            self.path("libgstdataprotocol-0.10.dll")
+            self.path("libgstdshow.dll")
+            self.path("libgstfft.dll")
+            self.path("libgstinterfaces.dll")
+            self.path("libgstnet-0.10.dll")
+            self.path("libgstnetbuffer.dll")
+            self.path("libgstpbutils.dll")
+            self.path("libgstreamer-0.10.dll")
+            self.path("libgstriff.dll")
+            self.path("libgstrtp.dll")
+            self.path("libgstrtsp.dll")
+            self.path("libgstsdp.dll")
+            self.path("libgsttag.dll")
+            self.path("libgstvideo.dll")
+            self.path("libjpeg.dll")
+            self.path("libmp3lame-0.dll")
+            self.path("libneon-27.dll")
+            self.path("libogg-0.dll")
+            self.path("liboil-0.3-0.dll")
+            self.path("libopenjpeg-2.dll")
+            self.path("libpng12-0.dll")
+            self.path("libschroedinger-1.0-0.dll")
+            self.path("libspeex-1.dll")
+            self.path("libtheora-0.dll")
+            self.path("libvorbis-0.dll")
+            self.path("libvorbisenc-2.dll")
+            self.path("libxml2-2.dll")
+            self.path("glew32.dll")
+            self.path("xvidcore.dll")
+            self.path("zlib1.dll")
+            self.end_prefix()            
 
 #        # pull in the crash logger and updater from other projects
 #        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
@@ -355,9 +415,9 @@ class WindowsManifest(ViewerManifest):
     def package_finish(self):
         # a standard map of strings for replacing in the templates
         substitution_strings = {
-            'version' : '.'.join(self.args['version']),
-            'version_short' : '.'.join(self.args['version'][:-1]),
-            'version_dashes' : '-'.join(self.args['version']),
+            'version' : '.'.join(self.args['version']).replace(' ', '_'),
+            'version_short' : '.'.join(self.args['version'][:-1]).replace(' ', '_'),
+            'version_dashes' : '-'.join(self.args['version']).replace(' ', '_'),
             'final_exe' : self.final_exe(),
             'grid':self.args['grid'],
             'grid_caps':self.args['grid'].upper(),

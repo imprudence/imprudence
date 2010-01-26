@@ -534,6 +534,8 @@ public:
 	LLViewerJoint mRoot; // avatar skeleton
 	BOOL mIsSitting; // sitting state
 
+	static bool updateClientTags();
+	static bool loadClientTags();
 	//--------------------------------------------------------------------
 	// Private member variables.
 	//--------------------------------------------------------------------
@@ -590,12 +592,19 @@ private:
 	
 	// Animation timer
 	LLTimer		mAnimTimer;
-	F32			mTimeLast;	
+	F32			mTimeLast;
+
 
 	// Send selection beam info to scripts
 	static int		sPartsNow;
 	static LLVector3d sBeamLastAt;
+	static LLSD sClientResolutionList;
 
+	static void resolveClient(LLColor4& avatar_name_color, std::string& client, LLVOAvatar* avatar);
+//Imprudence FIXME
+//	friend class LLFloaterAvatarList;
+
+protected:
 	LLPointer<LLHUDEffectSpiral> mBeam;
 	LLFrameTimer mBeamTimer;
 

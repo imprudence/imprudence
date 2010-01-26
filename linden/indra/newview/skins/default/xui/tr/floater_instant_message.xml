@@ -33,7 +33,7 @@
 	<string name="unavailable_text_label">
 		Bu arama için yazılı sohbet mevcut değil.
 	</string>
-	<button label="Profil..." name="profile_callee_btn"/>
+	<flyout_button label="Profil..." name="profile_callee_btn"/>
 	<button label="Ara" name="start_call_btn"/>
 	<button label="Kapat" name="end_call_btn"/>
 	<panel name="speaker_controls">

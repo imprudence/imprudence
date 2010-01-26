@@ -37,20 +37,25 @@
 	<string name="unavailable_text_label">
 		Text chat is not available for this call.
 	</string>
-	<button bottom="-40" follows="left|top" height="20" label="Profile..." left="5"
-	     name="profile_callee_btn" width="80" />
-	<button bottom_delta="0" follows="left|top" font="SansSerif"
-	     halign="center" bottom ="-40" height="20" label="Offer Teleport" left_delta="85"
-	     mouse_opaque="true" name="offer_tp_btn" scale_image="true" width="102" />
+  <string name="history_entry">
+    History
+  </string>
+  <string name="pay_entry">
+    Pay
+  </string>
+  <string name="teleport_entry">
+    Offer Teleport
+  </string>
+  <flyout_button bottom="-40" follows="left|top" height="20" label="Profile" left="5" width="90"
+       list_position="below" mouse_opaque="true" name="profile_callee_btn">
+  </flyout_button>
 	<button bottom="-40" follows="left|top" halign="center" height="20"
 	     image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left"
-	     label="Call" left_delta="107" name="start_call_btn" width="100" />
+	     label="Call" left_delta="95" name="start_call_btn" width="100" />
 	<button bottom="-40" follows="left|top" halign="center" height="20"
 	     image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left"
 	     label="End Call" left_delta="0" name="end_call_btn" pad_right="10"
 	     visible="false" width="100" />
-  <button bottom="-40" follows="left|top" halign="center" height="20" label="History" left_delta="105"
-          name="history_btn" visible="true" width="85" />
   <text bottom_delta="0" left="-240" height="14" width="230" name="inventory_send" halign="right" 
         text_color="LabelTextColor" follows="right|top" drop_shadow_visible="true"
         bg_visible="false" border_drop_shadow_visible="false" border_visible="false">
