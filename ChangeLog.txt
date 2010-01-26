@@ -1,3 +1,85 @@
+2010-01-03  Mm Alder  <monkowsk@fishkill.ibm.com>
+
+	(With help from Admiral Admiral)
+
+
+	* SNOW-413 Potential null pointer exception in multi-slider control
+
+	  modified:   linden/indra/llui/llmultisliderctrl.cpp
+
+
+	* SNOW-376 Clean up handling of the maximum length of chat messages
+
+	  modified:   linden/indra/newview/llchatbar.cpp
+	  modified:   linden/indra/newview/llimpanel.cpp
+	  modified:   linden/indra/newview/llvoavatar.cpp
+
+
+	* VWR-4232 Some particles don't disappear when UI is hidden
+
+	  modified:   linden/indra/newview/llhudeffectbeam.cpp
+	  modified:   linden/indra/newview/llhudeffectbeam.h
+	  modified:   linden/indra/newview/llhudeffecttrail.cpp
+	  modified:   linden/indra/newview/llhudeffecttrail.h
+	  modified:   linden/indra/newview/llhudobject.cpp
+	  modified:   linden/indra/newview/llhudobject.h
+	  modified:   linden/indra/newview/pipeline.cpp
+
+
+	* VWR-15310 Save to XML doesn't set proper XML tags
+
+	  modified:   linden/indra/llui/llbutton.cpp
+	  modified:   linden/indra/llui/llcheckboxctrl.cpp
+	  modified:   linden/indra/llui/llcombobox.cpp
+	  modified:   linden/indra/llui/llcombobox.h
+	  modified:   linden/indra/llui/llfloater.cpp
+	  modified:   linden/indra/llui/llfloater.h
+	  modified:   linden/indra/llui/lliconctrl.cpp
+	  modified:   linden/indra/llui/lllineeditor.cpp
+	  modified:   linden/indra/llui/lllineeditor.h
+	  modified:   linden/indra/llui/llmenugl.cpp
+	  modified:   linden/indra/llui/llmenugl.h
+	  modified:   linden/indra/llui/llmultislider.cpp
+	  modified:   linden/indra/llui/llmultisliderctrl.cpp
+	  modified:   linden/indra/llui/llpanel.cpp
+	  modified:   linden/indra/llui/llprogressbar.cpp
+	  modified:   linden/indra/llui/llprogressbar.h
+	  modified:   linden/indra/llui/llradiogroup.cpp
+	  modified:   linden/indra/llui/llradiogroup.h
+	  modified:   linden/indra/llui/llscrollcontainer.cpp
+	  modified:   linden/indra/llui/llscrollingpanellist.cpp
+	  modified:   linden/indra/llui/llscrollingpanellist.h
+	  modified:   linden/indra/llui/llscrolllistctrl.cpp
+	  modified:   linden/indra/llui/llslider.cpp
+	  modified:   linden/indra/llui/llsliderctrl.cpp
+	  modified:   linden/indra/llui/llspinctrl.cpp
+	  modified:   linden/indra/llui/lltabcontainer.cpp
+	  modified:   linden/indra/llui/lltextbox.cpp
+	  modified:   linden/indra/llui/lltexteditor.cpp
+	  modified:   linden/indra/llui/lluictrlfactory.cpp
+	  modified:   linden/indra/llui/lluixmltags.h
+	  modified:   linden/indra/llui/llview.cpp
+	  modified:   linden/indra/llui/llviewborder.cpp
+	  modified:   linden/indra/llui/llviewborder.h
+	  modified:   linden/indra/newview/llcolorswatch.cpp
+	  modified:   linden/indra/newview/llinventoryview.cpp
+	  modified:   linden/indra/newview/lljoystickbutton.cpp
+	  modified:   linden/indra/newview/lljoystickbutton.h
+	  modified:   linden/indra/newview/llnameeditor.cpp
+	  modified:   linden/indra/newview/llnameeditor.h
+	  modified:   linden/indra/newview/llnamelistctrl.cpp
+	  modified:   linden/indra/newview/lltexturectrl.cpp
+	  modified:   linden/indra/newview/llviewertexteditor.cpp
+	  modified:   linden/indra/newview/llviewertexteditor.h
+	  modified:   linden/indra/newview/llwebbrowserctrl.cpp
+	  modified:   linden/indra/newview/llwebbrowserctrl.h
+
+
+	* VWR-14475 Load from XML is broken
+
+	  modified:   linden/indra/llui/lluictrlfactory.cpp
+
+
 2010-01-03  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
 
 	* Several changes to work better on 64bit Linux.
