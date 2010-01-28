@@ -269,6 +269,15 @@
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_general.xml
 
 
+2009-12-29 Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Fetch client list from Imprudence's web site.
+	  (Instead of Emerald's web site.)
+
+	  modified:   linden/indra/newview/llvoavatar.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/notifications.xml
+
+
 2009-12-28 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Removed old pre-1.23 alerts and notifications.
@@ -335,7 +344,15 @@
 	  new file:   linden/indra/newview/Imprudence.exe.config
 	  new file:   linden/indra/newview/ImprudenceDebug.exe.config
 	  modified:   linden/indra/cmake/CopyWinLibs.cmake
-	  
+
+
+2009-12-02 Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Added Imprudence's texture UUID for client identification.
+
+	  modified:   linden/indra/llprimitive/llprimitive.cpp
+	  modified:   linden/indra/newview/llvoavatar.cpp
+
 
 2009-12-02 McCabe Maxsted  <hakushakukun@gmail.com>
 
@@ -362,8 +379,25 @@
 	* Removed libpng12-0.dll from CopyWinLibs.cmake.
 	
 	  modified:   linden/indra/cmake/CopyWinLibs.cmake
-	  
-	  
+
+
+2009-11-30 Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Emeralds client name tag and clothing layer protection.
+
+	  modified:   linden/indra/llprimitive/llprimitive.cpp
+	  modified:   linden/indra/llprimitive/llprimitive.h
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llagent.cpp
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  modified:   linden/indra/newview/llfirstuse.cpp
+	  modified:   linden/indra/newview/llfirstuse.h
+	  modified:   linden/indra/newview/llstartup.cpp
+	  modified:   linden/indra/newview/llvoavatar.cpp
+	  modified:   linden/indra/newview/llvoavatar.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/notifications.xml
+
+
 2009-11-30 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Made downloading the artwork work while using the --standalone flag.
