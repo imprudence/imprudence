@@ -1,3 +1,25 @@
+2010-01-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Improved "Pay Object" floater layout and XML.
+
+	  modified:   linden/indra/newview/llgivemoney.cpp
+	  modified:   linden/indra/newview/skins/default/xui/da/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/de/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/es/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/fr/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/hu/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/it/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/ja/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/ko/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/pl/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/pt/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/ru/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/tr/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/uk/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/zh/floater_pay_object.xml
+
+
 2010-01-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Improved "Pay Resident" floater layout and XML.

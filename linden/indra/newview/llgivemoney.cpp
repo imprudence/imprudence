@@ -353,7 +353,7 @@ void LLFloaterPay::payViaObject(money_callback callback, const LLUUID& object_id
 	BOOL is_group = FALSE;
 	node->mPermissions->getOwnership(owner_id, is_group);
 	
-	floater->childSetText("object_name_text",node->mName);
+	floater->childSetTextArg("via object", "[OBJECT]", node->mName);
 
 	floater->finishPayUI(owner_id, is_group);
 }
@@ -404,13 +404,11 @@ void LLFloaterPay::onCacheOwnerName(const LLUUID& owner_id,
 	
 	if (is_group)
 	{
-		self->childSetVisible("payee_group",true);
-		self->childSetVisible("payee_resident",false);
+		self->setTitleArg("[PAY TYPE]", self->getString("pay group") );
 	}
 	else
 	{
-		self->childSetVisible("payee_group",false);
-		self->childSetVisible("payee_resident",true);
+		self->setTitleArg("[PAY TYPE]", self->getString("pay resident") );
 	}
 	
 	self->childSetTextArg("payee_name", "[FIRST]", firstname);
