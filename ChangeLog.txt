@@ -1,3 +1,25 @@
+2010-01-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Improved "Pay Object" floater layout and XML.
+
+	  modified:   linden/indra/newview/llgivemoney.cpp
+	  modified:   linden/indra/newview/skins/default/xui/da/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/de/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/es/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/fr/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/hu/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/it/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/ja/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/ko/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/pl/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/pt/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/ru/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/tr/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/uk/floater_pay_object.xml
+	  modified:   linden/indra/newview/skins/default/xui/zh/floater_pay_object.xml
+
+
 2010-01-20 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed crash due to missing FloaterHtmlRect setting.
@@ -78,6 +100,28 @@
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_login.xml
 	  
 
+2010-01-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Improved "Pay Resident" floater layout and XML.
+
+	  modified:   linden/indra/newview/llgivemoney.cpp
+	  modified:   linden/indra/newview/skins/default/xui/da/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/de/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/es/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/fr/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/hu/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/it/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/ja/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/ko/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/pl/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/pt/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/ru/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/tr/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/uk/floater_pay.xml
+	  modified:   linden/indra/newview/skins/default/xui/zh/floater_pay.xml
+
+
 2010-01-09 McCabe Maxsted  <hakushakukun@gmail.com>
 
 	* Fixed missing dbghelp.dll file.
@@ -123,6 +167,27 @@
 	
 	  modified:   linden/indra/cmake/CopyWinLibs.cmake
 	  modified:   linden/install.xml
+
+
+2010-01-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Implemented VWR-9597 (optional message when paying someone).
+
+	  modified:   linden/indra/newview/llgivemoney.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_pay.xml
+
+
+	* Tidied up floater_pay.xml code and UI layout.
+
+	  modified:   linden/indra/newview/llgivemoney.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_pay.xml
+
+
+	* Added LLFloater::setTitleArg and LLFloater::setShortTitleArg.
+	  This allows doing "[ARG]" replacement in floater titles.
+
+	  modified:   linden/indra/llui/llfloater.cpp
+	  modified:   linden/indra/llui/llfloater.h
 
 
 2010-01-03  Mm Alder  <monkowsk@fishkill.ibm.com>

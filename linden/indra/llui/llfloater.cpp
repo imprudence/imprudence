@@ -691,11 +691,11 @@ void LLFloater::applyTitle()
 
 	if (isMinimized() && !mShortTitle.empty())
 	{
-		mDragHandle->setTitle( mShortTitle );
+		mDragHandle->setTitle( mShortTitle.getString() );
 	}
 	else
 	{
-		mDragHandle->setTitle ( mTitle );
+		mDragHandle->setTitle ( mTitle.getString() );
 	}
 }
 
@@ -706,7 +706,7 @@ const std::string& LLFloater::getCurrentTitle() const
 
 void LLFloater::setTitle( const std::string& title )
 {
-	mTitle = title;
+	mTitle.assign(title);
 	applyTitle();
 }
 
@@ -718,13 +718,13 @@ std::string LLFloater::getTitle()
 	}
 	else
 	{
-		return mTitle;
+		return mTitle.getString();
 	}
 }
 
 void LLFloater::setShortTitle( const std::string& short_title )
 {
-	mShortTitle = short_title;
+	mShortTitle.assign(short_title);
 	applyTitle();
 }
 
@@ -736,10 +736,24 @@ std::string LLFloater::getShortTitle()
 	}
 	else
 	{
-		return mShortTitle;
+		return mShortTitle.getString();
 	}
 }
 
+
+BOOL LLFloater::setTitleArg( const std::string& key, const LLStringExplicit& text )
+{
+	mTitle.setArg(key, text);
+	applyTitle();
+	return TRUE;
+}
+
+BOOL LLFloater::setShortTitleArg( const std::string& key, const LLStringExplicit& text )
+{
+	mShortTitle.setArg(key, text);
+	applyTitle();
+	return TRUE;
+}
 
 
 BOOL LLFloater::canSnapTo(const LLView* other_view)
