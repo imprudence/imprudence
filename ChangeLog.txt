@@ -284,6 +284,11 @@
 
 2010-02-03  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
 
+	* Updated llprimitive/llprimitive.cpp to SL 1.23.
+
+	  modified:   linden/indra/llprimitive/llprimitive.cpp
+
+
 	* Fixed a rare crash from textures with too many components.
 	  Only seen in lbsa plaza on OSGrid, so far.
 
