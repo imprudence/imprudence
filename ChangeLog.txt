@@ -243,6 +243,16 @@
 	  modified:   linden/indra/newview/llviewercontrol.cpp
 
 
+2010-02-03  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Fixed a rare crash from textures with too many components.
+	  Only seen in lbsa plaza on OSGrid, so far.
+
+	  modified:   linden/indra/llimagej2coj/llimagej2coj.cpp
+	  modified:   linden/indra/llrender/llimagegl.cpp
+	  modified:   linden/indra/newview/app_settings/logcontrol.xml
+
+
 2010-01-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Improved "Pay Object" floater layout and XML.

@@ -99,6 +99,7 @@ void info_callback(const char* msg, void*)
 
 LLImageJ2COJ::LLImageJ2COJ() : LLImageJ2CImpl()
 {
+	mRawImagep=NULL;
 }
 
 
@@ -166,9 +167,17 @@ BOOL LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 	// The image decode failed if the return was NULL or the component
 	// count was zero.  The latter is just a sanity check before we
 	// dereference the array.
-	if(!image || !image->numcomps)
+	if(!image) 
 	{
-		llwarns << "ERROR -> decodeImpl: failed to decode image!" << llendl;
+		LL_DEBUGS("Openjpeg")  << "ERROR -> decodeImpl: failed to decode image - no image" << LL_ENDL;
+		return TRUE; // done
+	}
+
+	S32 img_components = image->numcomps;
+
+	if( !img_components ) // < 1 ||img_components > 4 )
+	{
+		LL_DEBUGS("Openjpeg") << "ERROR -> decodeImpl: failed to decode image wrong number of components: " << img_components << LL_ENDL;
 		if (image)
 		{
 			opj_image_destroy(image);
@@ -178,20 +187,21 @@ BOOL LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 	}
 
 	// sometimes we get bad data out of the cache - check to see if the decode succeeded
-	for (S32 i = 0; i < image->numcomps; i++)
+	for (S32 i = 0; i < img_components; i++)
 	{
 		if (image->comps[i].factor != base.getRawDiscardLevel())
 		{
 			// if we didn't get the discard level we're expecting, fail
-			opj_image_destroy(image);
+			if (image) //anyway somthing odd with the image, better check than crash
+				opj_image_destroy(image);
 			base.mDecoding = FALSE;
 			return TRUE;
 		}
 	}
 	
-	if(image->numcomps <= first_channel)
+	if(img_components <= first_channel)
 	{
-		llwarns << "trying to decode more channels than are present in image: numcomps: " << image->numcomps << " first_channel: " << first_channel << llendl;
+		LL_DEBUGS("Openjpeg") << "trying to decode more channels than are present in image: numcomps: " << img_components << " first_channel: " << first_channel << LL_ENDL;
 		if (image)
 		{
 			opj_image_destroy(image);
@@ -202,7 +212,7 @@ BOOL LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 
 	// Copy image data into our raw image format (instead of the separate channel format
 
-	S32 img_components = image->numcomps;
+
 	S32 channels = img_components - first_channel;
 	if( channels > max_channel_count )
 		channels = max_channel_count;
@@ -249,7 +259,10 @@ BOOL LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 	}
 
 	/* free image data structure */
-	opj_image_destroy(image);
+	if (image)
+	{
+		opj_image_destroy(image);
+	}
 
 	return TRUE; // done
 }
