@@ -100,6 +100,10 @@ BOOL LLPanelWeb::postBuild()
 	childSetValue("web_proxy_editor", gSavedSettings.getString("BrowserProxyAddress"));
 	childSetValue("web_proxy_port", gSavedSettings.getS32("BrowserProxyPort"));
 
+	childSetValue("world_search_editor", gSavedSettings.getString("SearchURLQuery")) ;
+	childSetAction("world_search_reset_default", onClickDefault, this);
+	childSetAction("world_search_clear", onClickClear, this);
+
 	childSetEnabled("proxy_text_label", gSavedSettings.getBOOL("BrowserProxyEnabled"));
 	childSetEnabled("web_proxy_editor", gSavedSettings.getBOOL("BrowserProxyEnabled"));
 	childSetEnabled("web_proxy_port", gSavedSettings.getBOOL("BrowserProxyEnabled"));
@@ -120,6 +124,7 @@ void LLPanelWeb::apply()
 	gSavedSettings.setBOOL("BrowserProxyEnabled", childGetValue("web_proxy_enabled"));
 	gSavedSettings.setString("BrowserProxyAddress", childGetValue("web_proxy_editor"));
 	gSavedSettings.setS32("BrowserProxyPort", childGetValue("web_proxy_port"));
+	gSavedSettings.setString("SearchURLQuery", childGetValue("world_search_editor"));
 
 	bool value = childGetValue("use_external_browser").asString() == "external" ? true : false;
 	gSavedSettings.setBOOL("UseExternalBrowser", value);
@@ -206,4 +211,27 @@ void LLPanelWeb::onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data)
 	self->childSetEnabled("proxy_text_label", check->get());
 
 
+}
+
+// static
+void LLPanelWeb::onClickDefault(void* user_data)
+{
+	LLPanelWeb* self = (LLPanelWeb*)user_data;
+	LLControlVariable* controlp = gSavedSettings.getControl("SearchURLQuery");
+	if (controlp)
+	{
+		self->childSetValue("world_search_editor",controlp->getDefault().asString()) ;
+	}
+	else
+	{
+		llwarns << "SearchURLQuery missing from settings.xml - thats bad!" << llendl;
+	}
+
+}
+
+// static
+void LLPanelWeb::onClickClear(void* user_data)
+{
+	LLPanelWeb* self = (LLPanelWeb*)user_data;
+	self->childSetValue("world_search_editor","") ;
 }

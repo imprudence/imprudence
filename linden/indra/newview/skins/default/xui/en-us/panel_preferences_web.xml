@@ -61,4 +61,24 @@
 	     initial_val="80" label="Port Number:" label_width="75" left="140"
 	     max_val="12000" min_val="10" mouse_opaque="true" name="web_proxy_port"
 	     width="140" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-25" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="15" mouse_opaque="false" name="cache_size_label_l"
+	     v_pad="0" width="128">
+		World search:
+	</text>
+	<line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
+	     height="18" left="100" name="world_search_editor"
+	     tool_tip="Address of the world search engine you would like to use"
+	     width="355" />
+	<button bottom_delta="-20" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="16" label="Reset" left="100" 
+	     tool_tip="Reset to default"
+	     mouse_opaque="true" name="world_search_reset_default" scale_image="true" width="65" />
+	<button  bottom_delta="0" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="16" label="Clear" left="170" 
+	     tool_tip="clear field"
+	     mouse_opaque="true" name="world_search_clear" scale_image="true" width="65" />
+
 </panel>

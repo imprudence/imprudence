@@ -255,6 +255,13 @@
 
 2010-02-05  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
 
+	* Added custom search URL in Preferences > Web.
+
+	  modified:   linden/indra/newview/llpanelweb.cpp
+	  modified:   linden/indra/newview/llpanelweb.h
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_web.xml
+
+
 	* Ignore HideFromEditor from settings.xml.
 	  Don't hide any settings from Debug Settings.
 

@@ -49,6 +49,8 @@ public:
 private:
 	static void onClickClearCache(void*);
 	static void onClickClearCookies(void*);
+	static void onClickDefault(void* user_data);
+	static void onClickClear(void* user_data);
 	static bool callback_clear_browser_cache(const LLSD& notification, const LLSD& response);
 	static bool callback_clear_cookies(const LLSD& notification, const LLSD& response);
 	static void onCommitCookies(LLUICtrl* ctrl, void* data);
