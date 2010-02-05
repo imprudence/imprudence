@@ -216,7 +216,8 @@ void LLControlVariable::setPersist(bool state)
 
 void LLControlVariable::setHiddenFromSettingsEditor(bool hide)
 {
-	mHideFromSettingsEditor = hide;
+	// mHideFromSettingsEditor = hide; //no, not really
+	mHideFromSettingsEditor = false;
 }
 
 void LLControlVariable::setComment(const std::string& comment)
@@ -1077,6 +1078,17 @@ U32 LLControlGroup::loadFromFile(const std::string& filename, bool set_default_v
 		// Sometimes we want to use the settings system to provide cheap persistence, but we
 		// don't want the settings themselves to be easily manipulated in the UI because 
 		// doing so can cause support problems. So we have this option:
+
+		// To actually only hide  adult settings and the world search url.
+		// Upside of the latter is that it also makes it harder to use the viewer with OpenSim.
+		// And teenagers never would dare ever to touch the settings.xml file.
+		// 
+		// For it's anyway useful to be able to change them we should add in future
+		// a possibility to unhide them again, e.g. typing "I'm up to no good" to channel 666,
+		// tripple-rightclick the avatars nose and then play a "I will tell your MUM that you 
+		// changed ADULT setting in the DEBUG MENU!" gesture in world.
+		//
+/*
 		if(control_map.has("HideFromEditor"))
 		{
 			hidefromsettingseditor = control_map["HideFromEditor"].asInteger();
@@ -1085,6 +1097,7 @@ U32 LLControlGroup::loadFromFile(const std::string& filename, bool set_default_v
 		{
 			hidefromsettingseditor = false;
 		}
+*/
 		
 		// If the control exists just set the value from the input file.
 		LLControlVariable* existing_control = getControl(name);

@@ -207,6 +207,14 @@
 
 	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_login.xml
 
+2010-02-05  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Ignore HideFromEditor from settings.xml.
+	  Don't hide any settings from Debug Settings.
+
+	  modified:   linden/indra/llxml/llcontrol.cpp
+
+
 2010-02-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Added SliderScrollWheelMultiplier setting.
