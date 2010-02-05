@@ -56,6 +56,9 @@ public:
 	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static  LLView* fromXML(LLXMLNodePtr node, LLView *parent, class LLUICtrlFactory *factory);
 
+  static void setScrollWheelMultiplier( S32 mult );
+  static S32 getScrollWheelMultiplier();
+
 	void			setValue( F32 value, BOOL from_event = FALSE );
 	F32				getValueF32() const { return mValue; }
 
@@ -107,6 +110,8 @@ private:
 	
 	void			(*mMouseDownCallback)(LLUICtrl* ctrl, void* userdata);
 	void			(*mMouseUpCallback)(LLUICtrl* ctrl, void* userdata);
+
+  static S32 sScrollWheelMultiplier;
 };
 
 #endif  // LL_LLSLIDER_H

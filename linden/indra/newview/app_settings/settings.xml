@@ -9458,6 +9458,17 @@
         <integer>29</integer>
       </array>
     </map>
+    <key>SliderScrollWheelMultiplier</key>
+    <map>
+      <key>Comment</key>
+      <string>Multiplier for the amount the mouse scroll wheel affects slider widgets in the UI. E.g. -1 makes sliders move the opposite way when scrolled.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>SmallAvatarNames</key>
     <map>
       <key>Comment</key>

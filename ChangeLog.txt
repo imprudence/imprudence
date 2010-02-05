@@ -1,3 +1,17 @@
+2010-02-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Added SliderScrollWheelMultiplier setting.
+	  Affects the direction sliders move from mouse scroll wheel.
+	  Also added LLSlider::getScrollWheelMultiplier() and
+	  LLSlider::setScrollWheelMultiplier().
+
+	  modified:   linden/indra/llui/llslider.cpp
+	  modified:   linden/indra/llui/llslider.h
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  modified:   linden/indra/newview/llviewercontrol.cpp
+
+
 2010-01-30  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Improved "Pay Object" floater layout and XML.

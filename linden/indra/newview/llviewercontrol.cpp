@@ -71,6 +71,8 @@
 #include "llvowlsky.h"
 #include "llrender.h"
 #include "llmediamanager.h"
+#include "llslider.h"
+
 
 #ifdef TOGGLE_HACKED_GODLIKE_VIEWER
 BOOL 				gHackGodmode = FALSE;
@@ -462,6 +464,12 @@ bool handleMediaDebugLevelChanged(const LLSD& newvalue)
 	return true;
 }
 
+bool handleSliderScrollWheelMultiplierChanged(const LLSD& newvalue)
+{
+	LLSlider::setScrollWheelMultiplier( newvalue.asInteger() );
+	return true;
+}
+
 ////////////////////////////////////////////////////////////////////////////
 
 void settings_setup_listeners()
@@ -592,6 +600,7 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("AudioLevelMic")->getSignal()->connect(boost::bind(&handleVoiceClientPrefsChanged, _1));
 	gSavedSettings.getControl("LipSyncEnabled")->getSignal()->connect(boost::bind(&handleVoiceClientPrefsChanged, _1));	
 	gSavedSettings.getControl("MediaDebugLevel")->getSignal()->connect(boost::bind(&handleMediaDebugLevelChanged, _1));	
+	gSavedSettings.getControl("SliderScrollWheelMultiplier")->getSignal()->connect(boost::bind(&handleSliderScrollWheelMultiplierChanged, _1));	
 
 // [RLVa:KB] - Checked: 2009-08-11 (RLVa-1.0.1h) | Added: RLVa-1.0.1h
 	if (gSavedSettings.controlExists(RLV_SETTING_ENABLELEGACYNAMING))
