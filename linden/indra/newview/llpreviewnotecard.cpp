@@ -145,8 +145,6 @@ LLPreviewNotecard::LLPreviewNotecard(const std::string& name,
 		editor->setSourceID(item_id);
 		editor->setHandleEditKeysDirectly(TRUE);
 	}
-
-	gAgent.changeCameraToDefault();
 }
 
 LLPreviewNotecard::~LLPreviewNotecard()

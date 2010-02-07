@@ -185,6 +185,11 @@
 
 2010-02-07  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
 
+	* Fixed #184: Previewing notecards resets camera.
+
+	  modified:   newview/llpreviewnotecard.cpp
+
+
 	* Fixed #155: Double clicking your avatar triggers a TP request.
 
 	  modified:   linden/indra/newview/lltoolpie.cpp
