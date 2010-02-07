@@ -183,6 +183,13 @@
 	  modified:   linden/indra/newview/primbackup.cpp
 
 
+2010-02-07  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Fixed #155: Double clicking your avatar triggers a TP request.
+
+	  modified:   linden/indra/newview/lltoolpie.cpp
+
+
 2010-02-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Fixed login screen only allowing 16 chars per name.

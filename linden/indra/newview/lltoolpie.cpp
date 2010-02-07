@@ -694,9 +694,38 @@ BOOL LLToolPie::handleDoubleClick(S32 x, S32 y, MASK mask)
 		llinfos << "LLToolPie handleDoubleClick (becoming mouseDown)" << llendl;
 	}
 
+	LLViewerObject *object = mPick.getObject();
+	if(object)
+	{
+		//Zwagoth: No more teleport to HUD attachments. >:o
+		if (object->isHUDAttachment())
+		{
+			LL_DEBUGS("DoubleClicks") << "Double clicked HUD" << LL_ENDL;
+			return FALSE;
+		}
+
+		//Armin: No more teleport to other attachments or Avatars including self ...
+		if (object->isAttachment())
+		{
+			LL_DEBUGS("DoubleClicks") << "Double clicked attachment (not HUD)" << LL_ENDL;
+			return FALSE;
+		}
+
+		if (object->isAvatar()&& object == gAgent.getAvatarObject() )
+		{
+			LL_DEBUGS("DoubleClicks") << "Double clicked self" << LL_ENDL;
+			return FALSE;
+		}
+
+		if (object->isAvatar())
+		{
+			LL_DEBUGS("DoubleClicks") << "Double clicked other Avatar" << LL_ENDL;
+			return FALSE;// or what about open profile or IM session or ...
+		}
+	}
+
 	std::string action = gSavedSettings.getString("DoubleClickAction");
 	LLStringUtil::toLower(action);
-
 	if (action == "none")
 	{
 		return FALSE;
@@ -712,10 +741,6 @@ BOOL LLToolPie::handleDoubleClick(S32 x, S32 y, MASK mask)
 		else if (mPick.mObjectID.notNull()
 				 && !mPick.mPosGlobal.isExactlyZero())
 		{
-			//Zwagoth: No more teleport to HUD attachments. >:o
-			if(mPick.getObject().notNull() && mPick.getObject()->isHUDAttachment())
-				return FALSE;
-
 			handle_go_to_confirm();
 			return TRUE;
 		}
