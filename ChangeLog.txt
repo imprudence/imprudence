@@ -1,3 +1,9 @@
+2010-02-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed login screen only allowing 16 chars per name.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_login.xml
+
 2010-02-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Added SliderScrollWheelMultiplier setting.
