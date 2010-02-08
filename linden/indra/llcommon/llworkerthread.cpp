@@ -44,11 +44,6 @@ LLWorkerThread::LLWorkerThread(const std::string& name, bool threaded) :
 	LLQueuedThread(name, threaded)
 {
 	mDeleteMutex = new LLMutex(NULL);
-
-	if(!mLocalAPRFilePoolp)
-	{
-		mLocalAPRFilePoolp = new LLVolatileAPRPool() ;
-	}
 }
 
 LLWorkerThread::~LLWorkerThread()

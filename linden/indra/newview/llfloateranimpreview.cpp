@@ -238,7 +238,7 @@ BOOL LLFloaterAnimPreview::postBuild()
 		S32 file_size;
 		
 		LLAPRFile infile ;
-		infile.open(mFilenameAndPath, LL_APR_RB, NULL, &file_size);
+		infile.open(mFilenameAndPath, LL_APR_RB, LLAPRFile::global, &file_size);
 		
 		if (!infile.getFileHandle())
 		{

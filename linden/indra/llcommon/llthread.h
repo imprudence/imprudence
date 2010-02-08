@@ -83,7 +83,6 @@ public:
 	void start(void);
 
 	apr_pool_t *getAPRPool() { return mAPRPoolp; }
-	LLVolatileAPRPool* getLocalAPRFilePool() { return mLocalAPRFilePoolp ; }
 
 private:
 	bool				mPaused;
@@ -99,11 +98,6 @@ protected:
 	apr_pool_t			*mAPRPoolp;
 	bool				mIsLocalPool;
 	EThreadStatus		mStatus;
-
-	//a local apr_pool for APRFile operations in this thread. If it exists, LLAPRFile::sAPRFilePoolp should not be used.
-	//Note: this pool is used by APRFile ONLY, do NOT use it for any other purposes.
-	//      otherwise it will cause severe memory leaking!!! --bao
-	LLVolatileAPRPool  *mLocalAPRFilePoolp ; 
 
 	void setQuitting();
 	

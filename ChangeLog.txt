@@ -1,3 +1,29 @@
+2010-02-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Ported many APR changes from Snowglobe.
+
+	  modified:   linden/indra/llaudio/vorbisencode.cpp
+	  modified:   linden/indra/llcharacter/llbvhloader.cpp
+	  modified:   linden/indra/llcharacter/llkeyframemotionparam.cpp
+	  modified:   linden/indra/llcharacter/llstatemachine.cpp
+	  modified:   linden/indra/llcommon/llapr.cpp
+	  modified:   linden/indra/llcommon/llapr.h
+	  modified:   linden/indra/llcommon/llthread.cpp
+	  modified:   linden/indra/llcommon/llthread.h
+	  modified:   linden/indra/llcommon/llworkerthread.cpp
+	  modified:   linden/indra/llimage/llimage.cpp
+	  modified:   linden/indra/llimage/llimagej2c.cpp
+	  modified:   linden/indra/llmessage/llcurl.cpp
+	  modified:   linden/indra/llvfs/lllfsthread.cpp
+	  modified:   linden/indra/llvfs/llvfs.cpp
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  modified:   linden/indra/newview/llfloateranimpreview.cpp
+	  modified:   linden/indra/newview/lltexturecache.cpp
+	  modified:   linden/indra/newview/llviewermenufile.cpp
+	  modified:   linden/indra/newview/llvoavatar.cpp
+	  modified:   linden/indra/newview/primbackup.cpp
+
+
 2010-02-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Fixed login screen only allowing 16 chars per name.

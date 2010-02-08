@@ -1072,7 +1072,7 @@ void primbackup::upload_next_asset()
 	S32 file_size;
 	apr_file_t* fp;
     LLAPRFile aFile;
-    aFile.open(filename, LL_APR_RB, NULL, &file_size);
+    aFile.open(filename, LL_APR_RB, LLAPRFile::global, &file_size);
     fp = aFile.getFileHandle();
 	if (fp)
 	{
