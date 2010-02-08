@@ -1,5 +1,13 @@
 2010-02-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Ported some thread changes from Snowglobe.
+
+	  modified:   linden/indra/llcommon/llqueuedthread.cpp
+	  modified:   linden/indra/llcommon/llqueuedthread.h
+	  modified:   linden/indra/llcommon/llworkerthread.cpp
+	  modified:   linden/indra/llcommon/llworkerthread.h
+
+
 	* Ported many APR changes from Snowglobe.
 
 	  modified:   linden/indra/llaudio/vorbisencode.cpp

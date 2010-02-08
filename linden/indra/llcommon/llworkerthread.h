@@ -52,6 +52,7 @@ class LLWorkerClass;
 
 class LLWorkerThread : public LLQueuedThread
 {
+	friend class LLWorkerClass;
 public:
 	class WorkRequest : public LLQueuedThread::QueuedRequest
 	{
