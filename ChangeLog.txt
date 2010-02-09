@@ -1,5 +1,12 @@
 2010-02-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Ported some cURL and HTTP-related changes from Snowglobe.
+
+	  modified:   linden/indra/llmessage/llcurl.cpp
+	  modified:   linden/indra/llmessage/llcurl.h
+	  modified:   linden/indra/llmessage/llhttpclient.cpp
+
+
 	* Ported some thread changes from Snowglobe.
 
 	  modified:   linden/indra/llcommon/llqueuedthread.cpp
