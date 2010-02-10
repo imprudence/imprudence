@@ -1,5 +1,17 @@
 2010-02-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Ported some minor rendering engine changes from Snowglobe.
+
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  modified:   linden/indra/newview/llhudobject.cpp
+	  modified:   linden/indra/newview/llviewerobject.cpp
+	  modified:   linden/indra/newview/llviewerobject.h
+	  modified:   linden/indra/newview/llviewerobjectlist.cpp
+	  modified:   linden/indra/newview/llvlcomposition.cpp
+	  modified:   linden/indra/newview/llvosky.h
+	  modified:   linden/indra/newview/pipeline.cpp
+
+
 	* Ported some stats and texture console changes from Snowglobe.
 
 	  modified:   linden/indra/newview/llappviewer.cpp

@@ -1272,6 +1272,7 @@ F32 LLPipeline::calcPixelArea(LLVector3 center, LLVector3 size, LLCamera &camera
 	F32 dist = lookAt.length();
 
 	//ramp down distance for nearby objects
+	//shrink dist by dist/16.
 	if (dist < 16.f)
 	{
 		dist /= 16.f;
@@ -2540,8 +2541,8 @@ void LLPipeline::renderGeom(LLCamera& camera, BOOL forceVBOUpdate)
 	//to guaranttee at least updating one VBO buffer every frame
 	//to walk around the bug caused by ATI card --> DEV-3855
 	//
-	if(forceVBOUpdate)
-		gSky.mVOSkyp->updateDummyVertexBuffer() ;
+	//if(forceVBOUpdate)
+	//	gSky.mVOSkyp->updateDummyVertexBuffer() ;
 
 	gFrameStats.start(LLFrameStats::RENDER_GEOM);
 
@@ -4202,11 +4203,6 @@ void LLPipeline::enableLightsAvatar()
 
 void LLPipeline::enableLightsAvatarEdit(const LLColor4& color)
 {
-	if (mLightingDetail < 1)
-	{
-		return;
-	}
-
 	U32 mask = 0x2002; // Avatar backlight only, set ambient
 	setupAvatarLights(TRUE);
 	enableLights(mask);

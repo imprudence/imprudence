@@ -250,7 +250,7 @@ F32 gFPSClamped = 10.f;						// Pretend we start at target rate.
 F32 gFrameDTClamped = 0.f;					// Time between adjacent checks to network for packets
 U64	gStartTime = 0; // gStartTime is "private", used only to calculate gFrameTimeSeconds
 U32 gFrameStalls = 0;
-const F64 FRAME_STALL_THRESHOLD = 5.0;
+const F64 FRAME_STALL_THRESHOLD = 1.0;
 
 LLTimer gRenderStartTime;
 LLFrameTimer gForegroundTime;
