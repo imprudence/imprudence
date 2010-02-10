@@ -1,5 +1,11 @@
 2010-02-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Ported some asset storage changes from Snowglobe.
+
+	  modified:   linden/indra/llmessage/llassetstorage.cpp
+	  modified:   linden/indra/llmessage/llassetstorage.h
+
+
 	* Ported some minor rendering engine changes from Snowglobe.
 
 	  modified:   linden/indra/newview/llappviewer.cpp
