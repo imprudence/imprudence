@@ -501,12 +501,18 @@ extern U32  gVisCompared;
 extern U32  gVisTested;
 
 std::map<S32,LLFrameTimer> gDebugTimers;
+std::map<S32,std::string> gDebugTimerLabel;
+
+void init_statistics()
+{
+	// Label debug timers
+	gDebugTimerLabel[0] = "Texture";
+}
 
 void update_statistics(U32 frame_count)
 {
 	gTotalWorldBytes += gVLManager.getTotalBytes();
 	gTotalObjectBytes += gObjectBits / 8;
-	gTotalTextureBytes += LLViewerImageList::sTextureBits / 8;
 
 	// make sure we have a valid time delta for this frame
 	if (gFrameIntervalSeconds > 0.f)
@@ -558,7 +564,6 @@ void update_statistics(U32 frame_count)
 	F32 layer_bits = (F32)(gVLManager.getLandBits() + gVLManager.getWindBits() + gVLManager.getCloudBits());
 	LLViewerStats::getInstance()->mLayersKBitStat.addValue(layer_bits/1024.f);
 	LLViewerStats::getInstance()->mObjectKBitStat.addValue(gObjectBits/1024.f);
-	LLViewerStats::getInstance()->mTextureKBitStat.addValue(LLViewerImageList::sTextureBits/1024.f);
 	LLViewerStats::getInstance()->mVFSPendingOperations.addValue(LLVFile::getVFSThread()->getPending());
 	LLViewerStats::getInstance()->mAssetKBitStat.addValue(gTransferManager.getTransferBitsIn(LLTCT_ASSET)/1024.f);
 	gTransferManager.resetTransferBitsIn(LLTCT_ASSET);
@@ -572,8 +577,6 @@ void update_statistics(U32 frame_count)
 		gDebugTimers[0].unpause();
 	}
 	
-	LLViewerStats::getInstance()->mTexturePacketsStat.addValue(LLViewerImageList::sTexturePackets);
-
 	{
 		static F32 visible_avatar_frames = 0.f;
 		static F32 avg_visible_avatars = 0;
@@ -593,8 +596,20 @@ void update_statistics(U32 frame_count)
 	gObjectBits = 0;
 //	gDecodedBits = 0;
 
-	LLViewerImageList::sTextureBits = 0;
-	LLViewerImageList::sTexturePackets = 0;
+	// Only update texture stats ones per second so that they are less noisy
+	{
+		static const F32 texture_stats_freq = 1.f;
+		static LLFrameTimer texture_stats_timer;
+		if (texture_stats_timer.getElapsedTimeF32() >= texture_stats_freq)
+		{
+			LLViewerStats::getInstance()->mTextureKBitStat.addValue(LLViewerImageList::sTextureBits/1024.f);
+			LLViewerStats::getInstance()->mTexturePacketsStat.addValue(LLViewerImageList::sTexturePackets);
+			gTotalTextureBytes += LLViewerImageList::sTextureBits / 8;
+			LLViewerImageList::sTextureBits = 0;
+			LLViewerImageList::sTexturePackets = 0;
+			texture_stats_timer.reset();
+		}
+	}
 
 #if LL_LCD_COMPILE
 	bool LCDenabled = gLcdScreen->Enabled();
@@ -775,3 +790,4 @@ void send_stats()
 	LLViewerStats::getInstance()->addToMessage(body);
 	LLHTTPClient::post(url, body, new ViewerStatsResponder());
 }
+

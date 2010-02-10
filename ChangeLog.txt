@@ -1,5 +1,16 @@
 2010-02-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Ported some stats and texture console changes from Snowglobe.
+
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  modified:   linden/indra/newview/llfasttimerview.cpp
+	  modified:   linden/indra/newview/llfasttimerview.h
+	  modified:   linden/indra/newview/lltextureview.cpp
+	  modified:   linden/indra/newview/lltextureview.h
+	  modified:   linden/indra/newview/llviewerstats.cpp
+	  modified:   linden/indra/newview/llviewerstats.h
+
+
 	* Ported many texture engine changes from Snowglobe.
 
 	  modified:   linden/indra/llimage/llimage.cpp
