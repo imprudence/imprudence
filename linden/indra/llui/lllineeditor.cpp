@@ -135,18 +135,14 @@ LLLineEditor::LLLineEditor(const std::string& name, const LLRect& rect,
 		mSelectAllonCommit( TRUE ),
 		mPassDelete(FALSE),
 		mReadOnly(FALSE),
+		mHaveHistory(FALSE),
 		mImage( sImage ),
 		mReplaceNewlinesWithSpaces( TRUE )
 {
 	llassert( max_length_bytes > 0 );
 
-	// line history support:
-	// - initialize line history list
-	mLineHistory.insert( mLineHistory.end(), "" );
-	// - disable line history by default
-	mHaveHistory = FALSE;
-	// - reset current history line pointer
-	mCurrentHistoryLine = 0;
+	// Initialize current history line iterator
+	mCurrentHistoryLine = mLineHistory.begin();
 
 	if (font)
 	{
@@ -244,16 +240,31 @@ void LLLineEditor::updateHistory()
 	// reset current history line number.
 	// Be sure only to remember lines that are not empty and that are
 	// different from the last on the list.
-	if( mHaveHistory && mText.length() && ( mLineHistory.empty() || getText() != mLineHistory.back() ) )
+	if( mHaveHistory && getLength() )
 	{
-		// discard possible empty line at the end of the history
-		// inserted by setText()
-		if( !mLineHistory.back().length() )
+		if( !mLineHistory.empty() )
 		{
-			mLineHistory.pop_back();
+			// When not empty, last line of history should always be blank.
+			if( mLineHistory.back().empty() )
+			{
+				// discard the empty line
+				mLineHistory.pop_back();
+			}
+			else
+			{
+				LL_WARNS("") << "Last line of history was not blank." << LL_ENDL;
+			}
 		}
-		mLineHistory.insert( mLineHistory.end(), getText() );
-		mCurrentHistoryLine = mLineHistory.size() - 1;
+
+		// Add text to history, ignoring duplicates
+		if( mLineHistory.empty() || getText() != mLineHistory.back() )
+		{
+			mLineHistory.push_back( getText() );
+		}
+
+		// Restore the blank line and set mCurrentHistoryLine to point at it
+		mLineHistory.push_back( "" );
+		mCurrentHistoryLine = mLineHistory.end() - 1;
 	}
 }
 
@@ -324,11 +335,8 @@ void LLLineEditor::setText(const LLStringExplicit &new_text)
 	}
 	setCursor(llmin((S32)mText.length(), getCursor()));
 
-	// Newly set text goes always in the last line of history.
-	// Possible empty strings (as with chat line) will be deleted later.
-	mLineHistory.insert( mLineHistory.end(), new_text );
 	// Set current history line to end of history.
-	mCurrentHistoryLine = mLineHistory.size() - 1;
+	mCurrentHistoryLine = mLineHistory.end() - 1;
 
 	mPrevText = mText;
 }
@@ -1200,9 +1208,9 @@ BOOL LLLineEditor::handleSpecialKey(KEY key, MASK mask)
 	case KEY_UP:
 		if( mHaveHistory && ( MASK_CONTROL == mask ) )
 		{
-			if( mCurrentHistoryLine > 0 )
+			if( mCurrentHistoryLine > mLineHistory.begin() )
 			{
-				mText.assign( mLineHistory[ --mCurrentHistoryLine ] );
+				mText.assign( *(--mCurrentHistoryLine) );
 				setCursor(llmin((S32)mText.length(), getCursor()));
 			}
 			else
@@ -1217,9 +1225,9 @@ BOOL LLLineEditor::handleSpecialKey(KEY key, MASK mask)
 	case KEY_DOWN:
 		if( mHaveHistory  && ( MASK_CONTROL == mask ) )
 		{
-			if( !mLineHistory.empty() && mCurrentHistoryLine < mLineHistory.size() - 1 )
+			if( !mLineHistory.empty() && mCurrentHistoryLine < mLineHistory.end() - 1 )
 			{
-				mText.assign( mLineHistory[ ++mCurrentHistoryLine ] );
+				mText.assign( *(++mCurrentHistoryLine) );
 				setCursor(llmin((S32)mText.length(), getCursor()));
 			}
 			else
@@ -2202,6 +2210,8 @@ LLXMLNodePtr LLLineEditor::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_LINE_EDITOR_TAG);
+
 	node->createChild("max_length", TRUE)->setIntValue(mMaxLengthBytes);
 
 	node->createChild("font", TRUE)->setStringValue(LLFontGL::nameFromFont(mGLFont));
@@ -2789,6 +2799,16 @@ void LLSearchEditor::onClearSearch(void* user_data)
 	{
 		search_editor->mSearchCallback(LLStringUtil::null, search_editor->mCallbackUserData);
 	}
+}
+
+// virtual
+LLXMLNodePtr LLSearchEditor::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLUICtrl::getXML();
+
+	node->setName(LL_SEARCH_EDITOR_TAG);
+
+	return node;
 }
 
 // static

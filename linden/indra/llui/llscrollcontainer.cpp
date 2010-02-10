@@ -679,7 +679,9 @@ S32 LLScrollableContainerView::getBorderWidth() const
 // virtual
 LLXMLNodePtr LLScrollableContainerView::getXML(bool save_children) const
 {
-	LLXMLNodePtr node = LLView::getXML();
+	LLXMLNodePtr node = LLUICtrl::getXML();
+
+	node->setName(LL_SCROLLABLE_CONTAINER_VIEW_TAG);
 
 	// Attributes
 

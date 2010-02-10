@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Give Money" title="">
-	<button label="L$1" label_selected="L$1" name="fastpay 1" />
-	<button label="L$5" label_selected="L$5" name="fastpay 5" />
-	<button label="L$10" label_selected="L$10" name="fastpay 10" />
-	<button label="L$20" label_selected="L$20" name="fastpay 20" />
-	<button label="Zapłać" label_selected="Zapłać" name="pay btn" />
-	<button label="Anuluj" label_selected="Anuluj" name="cancel btn" />
-	<text type="string" length="1" name="payee_label">
-		Zapłata dla:
-	</text>
-	<text type="string" length="1" name="payee_name">
-		[FIRST] [LAST]
-	</text>
-	<text type="string" length="1" name="fastpay text" halign="left" left="12">
+<floater name="Give Money" title="Zapłata dla: [FIRST] [LAST]">
+
+	<text name="fastpay text">
 		Szybka Zapłata:
 	</text>
-	<text type="string" length="1" name="amount text">
+
+	<button name="fastpay 1"  label="L$1"  left="115" />
+	<button name="fastpay 5"  label="L$5"             />
+	<button name="fastpay 10" label="L$10" left="115" />
+	<button name="fastpay 20" label="L$20"            />
+
+	<text name="amount text">
 		Suma:
 	</text>
-	<line_editor left="52" name="amount" />
+
+	<button name="pay btn"    label="Zapłać" />
+	<button name="cancel btn" label="Anuluj" />
+
 </floater>

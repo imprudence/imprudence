@@ -120,6 +120,8 @@ LLXMLNodePtr LLComboBox::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_COMBO_BOX_TAG);
+
 	// Attributes
 
 	node->createChild("allow_text_entry", TRUE)->setBoolValue(mAllowTextEntry);
@@ -1170,6 +1172,33 @@ LLFlyoutButton::LLFlyoutButton(
 	mButton->setRightHPad(6);
 
 	updateLayout();
+}
+
+// virtual
+LLXMLNodePtr LLFlyoutButton::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLComboBox::getXML();
+
+	node->setName(LL_FLYOUT_BUTTON_TAG);
+
+	LLXMLNodePtr child;
+
+	for (child = node->getFirstChild(); child.notNull();)
+	{
+		if (child->hasName("combo_item"))
+		{
+			child->setName(LL_FLYOUT_BUTTON_ITEM_TAG);
+
+			//setName does a delete and add, so we have to start over
+			child = node->getFirstChild();
+		}
+		else
+		{
+			child = child->getNextSibling();
+		}
+	}
+
+	return node;
 }
 
 //static 

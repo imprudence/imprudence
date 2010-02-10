@@ -368,6 +368,9 @@ public:
 						BOOL* toggle, 
 						KEY key = KEY_NONE, MASK mask = MASK_NONE );
 
+	// there is no getXML() because we cannot reference the toggled global variable by XML
+	// use LLMenuItemCheckGL instead.
+
 	virtual std::string getType() const	{ return "toggle"; }
 
 	// called to rebuild the draw label
@@ -636,6 +639,7 @@ public:
 	LLPieMenu(const std::string& name);
 	virtual ~LLPieMenu() {}
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	void initXML(LLXMLNodePtr node, LLView *context, LLUICtrlFactory *factory);
 
 	// LLView Functionality
@@ -800,6 +804,7 @@ class LLMenuItemTearOffGL : public LLMenuItemGL
 public:
 	LLMenuItemTearOffGL( LLHandle<LLFloater> parent_floater_handle = LLHandle<LLFloater>());
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	virtual std::string getType() const { return "tearoff_menu"; }
 
 	virtual void doIt(void);

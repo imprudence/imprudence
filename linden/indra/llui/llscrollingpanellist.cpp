@@ -139,6 +139,16 @@ void LLScrollingPanelList::draw()
 }
 
 
+// virtual
+LLXMLNodePtr LLScrollingPanelList::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLUICtrl::getXML();
+
+	node->setName(LL_SCROLLING_PANEL_LIST_TAG);
+
+	return node;
+}
+
 // static
 LLView* LLScrollingPanelList::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 {

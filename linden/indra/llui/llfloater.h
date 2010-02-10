@@ -165,6 +165,8 @@ public:
 	std::string		getTitle();
 	void			setShortTitle( const std::string& short_title );
 	std::string		getShortTitle();
+	BOOL setTitleArg( const std::string& key, const LLStringExplicit& text );
+	BOOL setShortTitleArg( const std::string& key, const LLStringExplicit& text );
 	void			setTitleVisible(bool visible);
 	virtual void	setMinimized(BOOL b);
 	void			moveResizeHandlesToFront();
@@ -276,8 +278,8 @@ private:
 	BOOL			mMinimized;
 	BOOL			mForeground;
 	LLHandle<LLFloater>	mDependeeHandle;
-	std::string		mTitle;
-	std::string		mShortTitle;
+	LLUIString		mTitle;
+	LLUIString		mShortTitle;
 
 	BOOL			mFirstLook;			// TRUE if the _next_ time this floater is visible will be the first time in the session that it is visible.
 
@@ -398,6 +400,7 @@ public:
 	virtual ~LLMultiFloater() {};
 
 	virtual BOOL postBuild();
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	/*virtual*/ void open();	/* Flawfinder: ignore */
 	/*virtual*/ void onClose(bool app_quitting);
 	/*virtual*/ void draw();

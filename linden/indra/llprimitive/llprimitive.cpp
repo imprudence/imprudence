@@ -958,16 +958,213 @@ BOOL LLPrimitive::setVolume(const LLVolumeParams &volume_params, const S32 detai
 
 	U32 old_face_mask = mVolumep->mFaceMask;
 
+	S32 face_bit = 0;
+	S32 cur_mask = 0;
+
+	// grab copies of the old faces so we can determine the TE mappings...
+	std::vector<LLProfile::Face> old_faces; // list of old faces for remapping texture entries
+	LLTextureEntry old_tes[9];
+
+	for (S32 face = 0; face < mVolumep->getNumFaces(); face++)
+	{
+		old_faces.push_back(mVolumep->getProfile().mFaces[face]);
+	}
+
+	for (face_bit = 0; face_bit < 9; face_bit++)
+	{
+		cur_mask = 0x1 << face_bit;
+		if (old_face_mask & cur_mask)
+		{
+			S32 te_index = face_index_from_id(cur_mask, old_faces);
+			old_tes[face_bit] = *getTE(te_index);
+			//llinfos << face_bit << ":" << te_index << ":" << old_tes[face_bit].getID() << llendl;
+		}
+	}
+
+
 	// build the new object
 	sVolumeManager->unrefVolume(mVolumep);
 	mVolumep = volumep;
 	
-	U32 new_face_mask = mVolumep->mFaceMask;	
-	if (old_face_mask != new_face_mask) 
+	U32 new_face_mask = mVolumep->mFaceMask;
+	S32 i;
+
+	/*
+	std::string old_mask_string;
+	for (i = 0; i < 9; i++)
 	{
+		if (old_face_mask & (1 << i))
+		{
+			old_mask_string.append("1");
+		}
+		else
+		{
+			old_mask_string.append("0");
+		}
+	}
+	std::string new_mask_string;
+	for (i = 0; i < 9; i++)
+	{
+		if (new_face_mask & (1 << i))
+		{
+			new_mask_string.append("1");
+		}
+		else
+		{
+			new_mask_string.append("0");
+		}
+	}
+
+	llinfos << "old mask: " << old_mask_string << llendl;
+	llinfos << "new mask: " << new_mask_string << llendl;
+	*/
+
+
+	if (old_face_mask == new_face_mask) 
+	{
+		// nothing to do
+		return TRUE;
+	}
+
+	if (mVolumep->getNumFaces() == 0 && new_face_mask != 0)
+	{
+		llwarns << "Object with 0 faces found...INCORRECT!" << llendl;
 		setNumTEs(mVolumep->getNumFaces());
-	}	
-	
+		return TRUE;
+	}
+
+
+	S32 face_mapping[9];
+	for (face_bit = 0; face_bit < 9; face_bit++)
+	{
+		face_mapping[face_bit] = face_bit;
+	}
+
+	// Generate the face-type mappings
+	for (face_bit = 0; face_bit < 9; face_bit++)
+	{
+		cur_mask = 0x1 << face_bit;
+		if (!(new_face_mask & cur_mask))
+		{
+			// Face doesn't exist in new map.
+			face_mapping[face_bit] = -1;
+			continue;
+		}
+		else if (old_face_mask & cur_mask)
+		{
+			// Face exists in new and old map.
+			face_mapping[face_bit] = face_bit;
+			continue;
+		}
+
+		// OK, how we've got a mismatch, where we have to fill a new face with one from
+		// the old face.
+		if (cur_mask & (LL_FACE_PATH_BEGIN | LL_FACE_PATH_END | LL_FACE_INNER_SIDE))
+		{
+			// It's a top/bottom/hollow interior face.
+			if (old_face_mask & LL_FACE_PATH_END)
+			{
+				face_mapping[face_bit] = 1;
+				continue;
+			}
+			else
+			{
+				S32 cur_outer_mask = LL_FACE_OUTER_SIDE_0;
+				for (i = 0; i < 4; i++)
+				{
+					if (old_face_mask & cur_outer_mask)
+					{
+						face_mapping[face_bit] = 5 + i;
+						break;
+					}
+					cur_outer_mask <<= 1;
+				}
+				if (i == 4)
+				{
+					llwarns << "No path end or outer face in volume!" << llendl;
+				}
+				continue;
+			}
+		}
+
+		if (cur_mask & (LL_FACE_PROFILE_BEGIN | LL_FACE_PROFILE_END))
+		{
+			// A cut slice.  Use the hollow interior if we have it.
+			if (old_face_mask & LL_FACE_INNER_SIDE)
+			{
+				face_mapping[face_bit] = 2;
+				continue;
+			}
+
+			// No interior, use the bottom face.
+			// Could figure out which of the outer faces was nearest, but that would be harder.
+			if (old_face_mask & LL_FACE_PATH_END)
+			{
+				face_mapping[face_bit] = 1;
+				continue;
+			}
+			else
+			{
+				S32 cur_outer_mask = LL_FACE_OUTER_SIDE_0;
+				for (i = 0; i < 4; i++)
+				{
+					if (old_face_mask & cur_outer_mask)
+					{
+						face_mapping[face_bit] = 5 + i;
+						break;
+					}
+					cur_outer_mask <<= 1;
+				}
+				if (i == 4)
+				{
+					llwarns << "No path end or outer face in volume!" << llendl;
+				}
+				continue;
+			}
+		}
+
+		// OK, the face that's missing is an outer face...
+		// Pull from the nearest adjacent outer face (there's always guaranteed to be one...
+		S32 cur_outer = face_bit - 5;
+		S32 min_dist = 5;
+		S32 min_outer_bit = -1;
+		S32 i;
+		for (i = 0; i < 4; i++)
+		{
+			if (old_face_mask & (LL_FACE_OUTER_SIDE_0 << i))
+			{
+				S32 dist = abs(i - cur_outer);
+				if (dist < min_dist)
+				{
+					min_dist = dist;
+					min_outer_bit = i + 5;
+				}
+			}
+		}
+		if (-1 == min_outer_bit)
+		{
+			llinfos << (LLVolume *)mVolumep << llendl;
+			llwarns << "Bad!  No outer faces, impossible!" << llendl;
+		}
+		face_mapping[face_bit] = min_outer_bit;
+	}
+
+
+	setNumTEs(mVolumep->getNumFaces());
+	for (face_bit = 0; face_bit < 9; face_bit++)
+	{
+		cur_mask = 0x1 << face_bit;
+		if (new_face_mask & cur_mask)
+		{
+			if (-1 == face_mapping[face_bit])
+			{
+				llwarns << "No mapping from old face to new face!" << llendl;
+			}
+
+			S32 te_num = face_index_from_id(cur_mask, mVolumep->getProfile().mFaces);
+			setTE(te_num, old_tes[face_mapping[face_bit]]);
+		}
+	}
 	return TRUE;
 }
 
@@ -1135,7 +1332,7 @@ S32 LLPrimitive::unpackTEField(U8 *cur_ptr, U8 *buffer_end, U8 *data_ptr, U8 dat
 // Pack information about all texture entries into container:
 // { TextureEntry Variable 2 }
 // Includes information about image ID, color, scale S,T, offset S,T and rotation
-BOOL LLPrimitive::packTEMessage(LLMessageSystem *mesgsys) const
+BOOL LLPrimitive::packTEMessage(LLMessageSystem *mesgsys, bool shield) const
 {
 	const U32 MAX_TES = 32;
 
@@ -1164,7 +1361,17 @@ BOOL LLPrimitive::packTEMessage(LLMessageSystem *mesgsys) const
 		for (face_index = 0; face_index <= last_face_index; face_index++)
 		{
 			// Directly sending image_ids is not safe!
-			memcpy(&image_ids[face_index*16],getTE(face_index)->getID().mData,16);	/* Flawfinder: ignore */ 
+			if(shield && !(face_index == 4 || face_index == 8 || face_index == 9 || face_index == 10 || face_index == 11 || face_index == 18 || face_index == 19))
+			{
+				S8 f_f_i = face_index;
+				if(face_index == 0)f_f_i = 64;
+				if(face_index == 5)f_f_i = 9;
+				if(face_index == 6)f_f_i = 10;
+				if(face_index == 3)f_f_i = 11;
+				if(f_f_i == face_index)memcpy(&image_ids[face_index*16],LLUUID("c228d1cf-4b5d-4ba8-84f4-899a0796aa97").mData,16);
+				else if(f_f_i == 64)memcpy(&image_ids[face_index*16],LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf").mData,16);
+				else memcpy(&image_ids[face_index*16],LLUUID("4934f1bf-3b1f-cf4f-dbdf-a72550d05bc6").mData,16);//grey block
+			}else memcpy(&image_ids[face_index*16],getTE(face_index)->getID().mData,16);	/* Flawfinder: ignore */ 
 
 			// Cast LLColor4 to LLColor4U
 			coloru.setVec( getTE(face_index)->getColor() );

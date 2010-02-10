@@ -259,8 +259,9 @@ protected:
 
 	// line history support:
 	BOOL		mHaveHistory;				// flag for enabled line history
-	std::vector<std::string> mLineHistory;		// line history storage
-	U32			mCurrentHistoryLine;		// currently browsed history line
+	typedef	std::vector<std::string>	line_history_t;
+	line_history_t				mLineHistory;			// line history storage
+	line_history_t::iterator	mCurrentHistoryLine;	// currently browsed history line
 
 	LLViewBorder* mBorder;
 	const LLFontGL*	mGLFont;
@@ -385,6 +386,7 @@ public:
 
 	/*virtual*/ void	draw();
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
 	void setText(const LLStringExplicit &new_text) { mSearchEdit->setText(new_text); }

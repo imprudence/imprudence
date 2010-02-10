@@ -1943,7 +1943,7 @@ BOOL LLView::localRectToOtherView( const LLRect& local, LLRect* other, LLView* o
 // virtual
 LLXMLNodePtr LLView::getXML(bool save_children) const
 {
-	//FIXME: need to provide actual derived type tag, probably outside this method
+	//If called from a derived class, the derived class will override the node name
 	LLXMLNodePtr node = new LLXMLNode("view", FALSE);
 
 	node->createChild("name", TRUE)->setStringValue(getName());
@@ -2353,6 +2353,8 @@ LLView*	LLView::findSnapEdge(S32& new_edge_val, const LLCoordGL& mouse_dir, ESna
 void LLView::registerEventListener(std::string name, LLSimpleListener* function)
 {
 	mDispatchList.insert(std::pair<std::string, LLSimpleListener*>(name, function));
+	lldebugs << getName() << " registered " << name << llendl;
+
 }
 
 void LLView::deregisterEventListener(std::string name)

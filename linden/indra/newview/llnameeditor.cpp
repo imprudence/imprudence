@@ -141,6 +141,16 @@ LLSD LLNameEditor::getValue() const
 	return LLSD(mNameID);
 }
 
+// virtual
+LLXMLNodePtr LLNameEditor::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLLineEditor::getXML();
+
+	node->setName(LL_NAME_EDITOR_TAG);
+
+	return node;
+}
+
 LLView* LLNameEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 {
 	std::string name("name_editor");

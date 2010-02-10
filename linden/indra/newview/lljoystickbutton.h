@@ -97,6 +97,7 @@ public:
 
 	virtual void	onHeldDown();
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
 };
@@ -114,6 +115,7 @@ public:
 	virtual void	onHeldDown();
 	virtual void	onMouseUp();
 
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 };
 

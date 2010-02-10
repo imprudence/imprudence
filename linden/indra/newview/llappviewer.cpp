@@ -146,6 +146,7 @@
 #include "llvovolume.h"
 #include "llflexibleobject.h" 
 #include "llvosurfacepatch.h"
+#include "llslider.h"
 
 // includes for idle() idleShutdown()
 #include "llviewercontrol.h"
@@ -422,6 +423,8 @@ static void settings_to_globals()
 	LLHoverView::sShowHoverTips = gSavedSettings.getBOOL("ShowHoverTips");
 
 	LLCubeMap::sUseCubeMaps = LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap");
+
+	LLSlider::setScrollWheelMultiplier( gSavedSettings.getS32("SliderScrollWheelMultiplier") );
 }
 
 static void settings_modify()
@@ -738,6 +741,15 @@ bool LLAppViewer::init()
 	// Initialize the window
 	//
 	initWindow();
+
+	{
+		BOOL download = gSavedSettings.getBOOL("DownloadClientTags");
+
+		if(download)
+		{
+			LLVOAvatar::updateClientTags();
+		}
+	}
 
 	// call all self-registered classes
 	LLInitClassList::instance().fireCallbacks();

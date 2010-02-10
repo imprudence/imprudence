@@ -620,6 +620,9 @@ BOOL LLTabContainer::handleKeyHere(KEY key, MASK mask)
 LLXMLNodePtr LLTabContainer::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLPanel::getXML();
+
+	node->setName(LL_TAB_CONTAINER_COMMON_TAG);
+
 	node->createChild("tab_position", TRUE)->setStringValue((getTabPosition() == TOP ? "top" : "bottom"));
 	return node;
 }

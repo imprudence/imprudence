@@ -7,3 +7,7 @@ if (NOT STANDALONE)
   use_prebuilt_binary(fontconfig)
 endif(NOT STANDALONE)
 
+if (WINDOWS)
+  use_prebuilt_binary(dbghelp)
+endif (WINDOWS)
+

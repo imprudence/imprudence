@@ -124,6 +124,16 @@ void LLProgressBar::setColorBackground(const LLColor4 &c)
 }
 
 
+// virtual
+LLXMLNodePtr LLProgressBar::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLView::getXML();
+
+	node->setName(LL_PROGRESS_BAR_TAG);
+
+	return node;
+}
+
 // static
 LLView* LLProgressBar::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 {

@@ -402,7 +402,9 @@ void LLPanel::setBorderVisible(BOOL b)
 // virtual
 LLXMLNodePtr LLPanel::getXML(bool save_children) const
 {
-	LLXMLNodePtr node = LLView::getXML();
+	LLXMLNodePtr node = LLUICtrl::getXML();
+
+	node->setName(LL_PANEL_TAG);
 
 	if (mBorder && mBorder->getVisible())
 	{
@@ -417,6 +419,15 @@ LLXMLNodePtr LLPanel::getXML(bool save_children) const
 	if (!mLabel.empty())
 	{
 		node->createChild("label", TRUE)->setStringValue(mLabel);
+	}
+	
+	ui_string_map_t::const_iterator i = mUIStrings.begin();
+	ui_string_map_t::const_iterator end = mUIStrings.end();
+	for (; i != end; ++i)
+	{
+		LLXMLNodePtr child_node = node->createChild("string", FALSE);
+		child_node->setStringValue(i->second);
+		child_node->createChild("name", TRUE)->setStringValue(i->first);
 	}
 
 	if (save_children)
@@ -1171,6 +1182,38 @@ void LLLayoutStack::removeCtrl(LLUICtrl* ctrl)
 LLXMLNodePtr LLLayoutStack::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLView::getXML();
+	node->setName(LL_LAYOUT_STACK_TAG);
+
+	if (mOrientation == HORIZONTAL)
+	{
+		node->createChild("orientation", TRUE)->setStringValue("horizontal");
+	}
+	else
+	{
+		node->createChild("orientation", TRUE)->setStringValue("vertical");
+	}
+
+	if (save_children)
+	{
+		LLView::child_list_const_reverse_iter_t rit;
+		for (rit = getChildList()->rbegin(); rit != getChildList()->rend(); ++rit)
+		{
+			LLView* childp = *rit;
+
+			if (childp->getSaveToXML())
+			{
+				LLXMLNodePtr xml_node = childp->getXML();
+
+				if (xml_node->hasName(LL_PANEL_TAG))
+				{
+					xml_node->setName(LL_LAYOUT_PANEL_TAG);
+				}
+
+				node->addChild(xml_node);
+			}
+		}
+	}
+
 	return node;
 }
 

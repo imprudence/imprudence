@@ -1555,6 +1555,16 @@ BOOL LLViewerTextEditor::exportBuffer( std::string& buffer )
 	return TRUE;
 }
 
+// virtual
+LLXMLNodePtr LLViewerTextEditor::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLTextEditor::getXML();
+
+	node->setName(LL_TEXT_EDITOR_TAG);
+
+	return node;
+}
+
 LLView* LLViewerTextEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 {
 	std::string name("text_editor");

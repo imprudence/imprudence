@@ -303,6 +303,16 @@ BOOL LLViewBorder::getBevelFromAttribute(LLXMLNodePtr node, LLViewBorder::EBevel
 }
 
 
+// virtual
+LLXMLNodePtr LLViewBorder::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLView::getXML();
+
+	node->setName(LL_VIEW_BORDER_TAG);
+
+	return node;
+}
+
 // static
 LLView* LLViewBorder::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 {

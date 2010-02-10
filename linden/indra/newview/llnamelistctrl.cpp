@@ -288,6 +288,8 @@ LLXMLNodePtr LLNameListCtrl::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLScrollListCtrl::getXML();
 
+	node->setName(LL_NAME_LIST_CTRL_TAG);
+
 	node->createChild("allow_calling_card_drop", TRUE)->setBoolValue(mAllowCallingCardDrop);
 
 	if (mNameColumnIndex != 0)

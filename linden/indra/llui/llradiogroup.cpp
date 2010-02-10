@@ -345,6 +345,8 @@ LLXMLNodePtr LLRadioGroup::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
 
+	node->setName(LL_RADIO_GROUP_TAG);
+
 	// Attributes
 
 	node->createChild("draw_border", TRUE)->setBoolValue(mHasBorder);
@@ -356,9 +358,7 @@ LLXMLNodePtr LLRadioGroup::getXML(bool save_children) const
 	{
 		LLRadioCtrl* radio = *iter;
 
-		LLXMLNodePtr child_node = radio->LLView::getXML();
-		child_node->setStringValue(radio->getLabel());
-		child_node->setName(std::string("radio_item"));
+		LLXMLNodePtr child_node = radio->getXML();
 
 		node->addChild(child_node);
 	}
@@ -515,3 +515,14 @@ void LLRadioCtrl::setValue(const LLSD& value)
 	mButton->setTabStop(value.asBoolean());
 }
 
+// virtual
+LLXMLNodePtr LLRadioCtrl::getXML(bool save_children) const
+{
+	LLXMLNodePtr node = LLCheckBoxCtrl::getXML();
+
+	node->setName(LL_RADIO_ITEM_TAG);
+
+	node->setStringValue(getLabel());
+
+	return node;
+}

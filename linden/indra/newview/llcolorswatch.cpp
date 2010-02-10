@@ -219,12 +219,11 @@ void LLColorSwatchCtrl::draw()
 		gl_rect_2d(interior, mColor, TRUE);
 		LLColor4 opaque_color = mColor;
 		opaque_color.mV[VALPHA] = 1.f;
-		gGL.color4fv(opaque_color.mV);
 		if (mAlphaGradientImage.notNull())
 		{
 			gGL.pushMatrix();
 			{
-				mAlphaGradientImage->draw(interior, mColor);
+				mAlphaGradientImage->draw(interior, opaque_color);
 			}
 			gGL.popMatrix();
 		}
@@ -347,6 +346,8 @@ void LLColorSwatchCtrl::showPicker(BOOL take_focus)
 LLXMLNodePtr LLColorSwatchCtrl::getXML(bool save_children) const
 {
 	LLXMLNodePtr node = LLUICtrl::getXML();
+
+	node->setName(LL_COLOR_SWATCH_CTRL_TAG);
 
 	node->createChild("color", TRUE)->setFloatValue(4, mColor.mV);
 

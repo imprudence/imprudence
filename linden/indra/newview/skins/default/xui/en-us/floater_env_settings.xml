@@ -62,5 +62,5 @@
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20"
 	     label="Advanced Water" left="300" name="EnvAdvancedWaterButton" width="137" />
 	<button bottom="-40" follows="left|top" font="SansSerif" height="18" label="?"
-	     left="570" name="EnvSettingsHelpButton" width="18" />
+	     left="570" name="EnvSettingsHelpButton" width="22" />
 </floater>

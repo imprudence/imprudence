@@ -240,6 +240,7 @@ Hamncheese Omlet
 HappySmurf Papp
 	CT-193
 Henri Beauchamp
+	SNOW-378
 	VWR-1320
 	VWR-1406
 	VWR-4157

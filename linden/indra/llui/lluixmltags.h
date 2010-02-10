@@ -122,5 +122,10 @@ const std::string
 	LL_JOYSTICK_TURN("joystick_turn"),
 	LL_GROUP_DROP_TARGET_TAG("group_drop_target"),
 	LL_LAYOUT_STACK_TAG("layout_stack"),
-	LL_FLYOUT_BUTTON_TAG("flyout_button");
+	LL_LAYOUT_PANEL_TAG("layout_panel"),
+	LL_FLYOUT_BUTTON_TAG("flyout_button"),
+	LL_FLYOUT_BUTTON_ITEM_TAG("flyout_button_item"),
+	LL_SIMPLE_TEXT_EDITOR_TAG("simple_text_editor"),
+	LL_RADIO_ITEM_TAG("radio_item"),
+	LL_PROGRESS_BAR_TAG("progress_bar");
 #endif
