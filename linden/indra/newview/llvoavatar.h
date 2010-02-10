@@ -133,7 +133,7 @@ public:
 										  LLVector3* bi_normal = NULL             // return the surface bi-normal at the intersection point
 		);
 
-	/*virtual*/ void updateTextures(LLAgent &agent);
+	/*virtual*/ void updateTextures();
 	// If setting a baked texture, need to request it from a non-local sim.
 	/*virtual*/ S32 setTETexture(const U8 te, const LLUUID& uuid);
 	/*virtual*/ void onShift(const LLVector3& shift_vector);

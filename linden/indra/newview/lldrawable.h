@@ -50,7 +50,6 @@
 #include "llviewerobject.h"
 #include "llrect.h"
 #include "llappviewer.h" // for gFrameTimeSeconds
-#include "llimagej2c.h"
 
 class LLCamera;
 class LLDrawPool;
@@ -81,7 +80,8 @@ public:
 
 	BOOL isLight() const;
 
-	BOOL isVisible() const;		
+	BOOL isVisible() const;	
+	BOOL isRecentlyVisible() const;	
 	virtual void setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results = NULL, BOOL for_select = FALSE);
 
 

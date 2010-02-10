@@ -88,7 +88,7 @@ public:
 	U16				getGeomIndex()		const	{ return mGeomIndex; }		// index into draw pool
 	U16				getGeomStart()		const	{ return mGeomIndex; }		// index into draw pool
 	LLViewerImage*	getTexture()		const	{ return mTexture; }
-	void			setTexture(LLViewerImage* tex) { mTexture = tex; }
+	void			setTexture(LLViewerImage* tex) ;
 	LLXformMatrix*	getXform()			const	{ return mXform; }
 	BOOL			hasGeometry()		const	{ return mGeomCount > 0; }
 	LLVector3		getPositionAgent()	const;
@@ -186,7 +186,14 @@ public:
 	void		setIndicesIndex(S32 idx) { mIndicesIndex = idx; }
 	void		setDrawInfo(LLDrawInfo* draw_info);
 
-protected:
+	F32         getTextureVirtualSize() ;
+	F32         getImportanceToCamera()const {return mImportanceToCamera ;}
+
+private:	
+	F32         adjustPartialOverlapPixelArea(F32 cos_angle_to_view_dir, F32 radius );
+	F32         calcPixelArea(F32& cos_angle_to_view_dir, F32& radius) ;
+public:
+	static F32  calcImportanceToCamera(F32 to_view_dir, F32 dist);
 
 public:
 	
@@ -202,7 +209,7 @@ public:
 	LLMatrix4*	mTextureMatrix;
 	LLDrawInfo* mDrawInfo;
 
-protected:
+private:
 	friend class LLGeometryManager;
 	friend class LLVolumeGeometryManager;
 
@@ -231,7 +238,13 @@ protected:
 	S32			mReferenceIndex;
 	F32			mVSize;
 	F32			mPixelArea;
-	
+
+	//importance factor, in the range [0, 1.0].
+	//1.0: the most important.
+	//based on the distance from the face to the view point and the angle from the face center to the view direction.
+	F32         mImportanceToCamera ; 
+	F32         mBoundingSphereRadius ;
+
 protected:
 	static BOOL	sSafeRenderSelect;
 	

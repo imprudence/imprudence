@@ -130,7 +130,7 @@ void LLFloaterAssetBrowser::createThumbnails()
 	for(S32 i = 0; i < items.count(); i++)
 	{
 			mTextureAssets[i].mTexturep = gImageList.getImage(mTextureAssets[i].mAssetUUID, MIPMAP_YES, IMMEDIATE_NO);
-			mTextureAssets[i].mTexturep->setBoostLevel(LLViewerImage::BOOST_PREVIEW);
+			mTextureAssets[i].mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
 			//mTextureAssets[i].mTexturep->processTextureStats();
 	}
 

@@ -1408,9 +1408,9 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("EstateChangeInfo");
 	capabilityNames.append("EventQueueGet");
 	capabilityNames.append("FetchInventory");
-	capabilityNames.append("WebFetchInventoryDescendents");
 	capabilityNames.append("FetchLib");
 	capabilityNames.append("FetchLibDescendents");
+	capabilityNames.append("GetTexture");
 	capabilityNames.append("GroupProposalBallot");
 	capabilityNames.append("HomeLocation");
 	capabilityNames.append("MapLayer");
@@ -1429,6 +1429,7 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("SendUserReportWithScreenshot");
 	capabilityNames.append("ServerReleaseNotes");
 	capabilityNames.append("StartGroupProposal");
+	capabilityNames.append("TextureStats");
 	capabilityNames.append("UntrustedSimulatorMessage");
 	capabilityNames.append("UpdateAgentInformation");
 	capabilityNames.append("UpdateAgentLanguage");
@@ -1441,6 +1442,7 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("UploadBakedTexture");
 	capabilityNames.append("ViewerStartAuction");
 	capabilityNames.append("ViewerStats");
+	capabilityNames.append("WebFetchInventoryDescendents");
 	// Please add new capabilities alphabetically to reduce
 	// merge conflicts.
 

@@ -1,10 +1,10 @@
 /** 
- * @file llvoground.h
- * @brief LLVOGround class header file
+ * @file lltexturestatsuploader.h
+ * @brief Class to send the texture stats to the simulatore
  *
- * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * $LicenseInfo:firstyear=2009&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -30,32 +30,19 @@
  * $/LicenseInfo$
  */
 
-#ifndef LL_LLVOGROUND_H
-#define LL_LLVOGROUND_H
+#ifndef LL_LLTEXTURESTATSUPLOADER_H
+#define LL_LLTEXTURESTATSUPLOADER_H
 
-#include "stdtypes.h"
-#include "v3color.h"
-#include "v4coloru.h"
-#include "llviewerimage.h"
-#include "llviewerobject.h"
+#include "llappviewer.h"
 
-class LLVOGround : public LLStaticViewerObject
+// utility functions to capture data on texture download speeds and send to simulator periodically
+
+class LLTextureStatsUploader
 {
-protected:
-	~LLVOGround();
-
 public:
-	LLVOGround(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
-
-	/*virtual*/ BOOL idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time);
-	
-	// Graphical stuff for objects - maybe broken out into render class
-	// later?
-	/*virtual*/ void updateTextures();
-	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
-	/*virtual*/ BOOL		updateGeometry(LLDrawable *drawable);
-
-	void cleanupGL();
+	LLTextureStatsUploader();
+	~LLTextureStatsUploader();
+	void uploadStatsToSimulator(const std::string texture_cap_url, const LLSD &texture_stats);
 };
 
-#endif // LL_LLVOGROUND_H
+#endif // LL_LLTEXTURESTATSUPLOADER_H

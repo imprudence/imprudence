@@ -2900,7 +2900,7 @@ F32 LLViewerObject::getMidScale() const
 }
 
 
-void LLViewerObject::updateTextures(LLAgent &agent)
+void LLViewerObject::updateTextures()
 {
 }
 
@@ -2915,14 +2915,14 @@ void LLViewerObject::boostTexturePriority(BOOL boost_children /* = TRUE */)
 	S32 tex_count = getNumTEs();
 	for (i = 0; i < tex_count; i++)
 	{
- 		getTEImage(i)->setBoostLevel(LLViewerImage::BOOST_SELECTED);
+ 		getTEImage(i)->setBoostLevel(LLViewerImageBoostLevel::BOOST_SELECTED);
 	}
 
 	if (isSculpted())
 	{
 		LLSculptParams *sculpt_params = (LLSculptParams *)getParameterEntry(LLNetworkData::PARAMS_SCULPT);
 		LLUUID sculpt_id = sculpt_params->getSculptTexture();
-		gImageList.getImage(sculpt_id)->setBoostLevel(LLViewerImage::BOOST_SELECTED);
+		gImageList.getImage(sculpt_id)->setBoostLevel(LLViewerImageBoostLevel::BOOST_SELECTED);
 	}
 	
 	if (boost_children)

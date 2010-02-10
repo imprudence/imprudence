@@ -590,8 +590,8 @@ void primbackup::export_next_texture()
 			S32 cur_discard = imagep->getDiscardLevel();
 			if(cur_discard>0)
 			{
-				if(imagep->getBoostLevel()!=LLViewerImage::BOOST_PREVIEW)
-					imagep->setBoostLevel(LLViewerImage::BOOST_PREVIEW); //we want to force discard 0 this one does this.
+				if(imagep->getBoostLevel()!=LLViewerImageBoostLevel::BOOST_PREVIEW)
+					imagep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW); //we want to force discard 0 this one does this.
 			}
 			else
 			{

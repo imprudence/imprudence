@@ -91,6 +91,8 @@ std::string gCurrentVersion;
 extern BOOL gResizeScreenTexture;
 extern BOOL gDebugGL;
 
+extern BOOL gAuditTexture;
+
 ////////////////////////////////////////////////////////////////////////////
 // Listeners
 
@@ -374,6 +376,12 @@ static bool handleRenderUseImpostorsChanged(const LLSD& newvalue)
 	return true;
 }
 
+static bool handleAuditTextureChanged(const LLSD& newvalue)
+{
+	gAuditTexture = newvalue.asBoolean();
+	return true;
+}
+
 static bool handleRenderDebugGLChanged(const LLSD& newvalue)
 {
 	gDebugGL = newvalue.asBoolean();
@@ -527,6 +535,7 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("AudioLevelDoppler")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("AudioLevelRolloff")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("AudioStreamingMusic")->getSignal()->connect(boost::bind(&handleAudioStreamMusicChanged, _1));
+	gSavedSettings.getControl("AuditTexture")->getSignal()->connect(boost::bind(&handleAuditTextureChanged, _1));
 	gSavedSettings.getControl("MuteAudio")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("MuteMusic")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));
 	gSavedSettings.getControl("MuteMedia")->getSignal()->connect(boost::bind(&handleAudioVolumeChanged, _1));

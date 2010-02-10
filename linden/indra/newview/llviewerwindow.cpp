@@ -115,6 +115,7 @@
 #include "llhudview.h"
 #include "llimagebmp.h"
 #include "llimagej2c.h"
+#include "llimageworker.h"
 #include "llinventoryview.h"
 #include "llkeyboard.h"
 #include "lllineeditor.h"
@@ -1310,6 +1311,7 @@ LLViewerWindow::LLViewerWindow(
 
 	// Init the image list.  Must happen after GL is initialized and before the images that
 	// LLViewerWindow needs are requested.
+	LLImageGL::initClass(LLViewerImageBoostLevel::MAX_GL_IMAGE_CATEGORY) ;
 	gImageList.init();
 	LLViewerImage::initClass();
 	gBumpImageList.init();

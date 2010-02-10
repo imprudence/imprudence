@@ -1,10 +1,10 @@
 /** 
- * @file llvoground.h
- * @brief LLVOGround class header file
+ * @file lltextureinfo.h
+ * @brief Object for managing texture information.
  *
- * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2000-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -30,32 +30,29 @@
  * $/LicenseInfo$
  */
 
-#ifndef LL_LLVOGROUND_H
-#define LL_LLVOGROUND_H
+#ifndef LL_LLTEXTUREINFODETAILS_H
+#define LL_LLTEXTUREINFODETAILS_H
 
-#include "stdtypes.h"
-#include "v3color.h"
-#include "v4coloru.h"
-#include "llviewerimage.h"
-#include "llviewerobject.h"
+#include "lluuid.h"
 
-class LLVOGround : public LLStaticViewerObject
+class LLTextureInfoDetails
 {
-protected:
-	~LLVOGround();
-
 public:
-	LLVOGround(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
+	enum LLRequestType
+	{
+		REQUEST_TYPE_NONE,
+		REQUEST_TYPE_HTTP,
+		REQUEST_TYPE_UDP
+	};
 
-	/*virtual*/ BOOL idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time);
-	
-	// Graphical stuff for objects - maybe broken out into render class
-	// later?
-	/*virtual*/ void updateTextures();
-	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
-	/*virtual*/ BOOL		updateGeometry(LLDrawable *drawable);
+	U32 mStartTime;
+	U32 mCompleteTime;
+	U32 mOffset;
+	U32 mSize;
+	LLRequestType mType;
 
-	void cleanupGL();
+	LLTextureInfoDetails();
 };
 
-#endif // LL_LLVOGROUND_H
+#endif // LL_LLTEXTUREINFODETAILS_H
+

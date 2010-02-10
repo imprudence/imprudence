@@ -42,6 +42,7 @@
 #include "llimagetga.h"
 #include "llimagejpeg.h"
 #include "llimagepng.h"
+#include "llimageworker.h"
 
 #include "llsdserialize.h"
 #include "llsys.h"
@@ -58,6 +59,7 @@
 #include "llviewerimage.h"
 #include "llviewermedia.h"
 #include "llviewerregion.h"
+#include "llviewerstats.h"
 #include "pipeline.h"
 #include "llappviewer.h"
 
@@ -69,11 +71,6 @@ void (*LLViewerImageList::sUUIDCallback)(void **, const LLUUID&) = NULL;
 
 U32 LLViewerImageList::sTextureBits = 0;
 U32 LLViewerImageList::sTexturePackets = 0;
-
-const S32 IMAGES_PER_REQUEST = 42;
-const S32 IMAGES_MIN_UPDATES = 4;  // Always update the highest N images each frame
-const S32 IMAGES_MAX_PACKET_UPDATES = 1; // Only send N packets of IMAGES_PER_REQUEST in a frame
-const F32 RESEND_IMAGE_REQUEST_TIME = 15.f; // seconds
 
 LLViewerImageList gImageList;
 
@@ -182,6 +179,7 @@ static std::string get_texture_list_name()
 
 void LLViewerImageList::doPrefetchImages()
 {
+#if 1
     if (LLAppViewer::instance()->getPurgeCache())
 	{
 		// cache was purged, no point
@@ -209,7 +207,7 @@ void LLViewerImageList::doPrefetchImages()
 			image->addTextureStats((F32)pixel_area);
 		}
 	}
-	
+#endif
 	
 }
 
@@ -236,6 +234,10 @@ void LLViewerImageList::shutdown()
 			image->getTargetHost() != LLHost::invalid)
 		{
 			continue; // avoid UI, baked, and other special images
+		}
+		if(!image->getBoundRecently())
+		{
+			continue ;
 		}
 		S32 desired = image->getDesiredDiscardLevel();
 		if (desired >= 0 && desired < MAX_DISCARD_LEVEL)
@@ -323,17 +325,29 @@ LLViewerImage* LLViewerImageList::getImageFromFile(const std::string& filename,
 												   LLGLenum primary_format, 
 												   const LLUUID& force_id)
 {
-	if (gNoRender)
-	{
-		// Never mind that this ignores image_set_id;
-		// getImage() will handle that later.
-		return getImage(IMG_DEFAULT, TRUE, TRUE);
-	}
-
 	std::string full_path = gDirUtilp->findSkinnedFilename("textures", filename);
 	if (full_path.empty())
 	{
 		llwarns << "Failed to find local image file: " << filename << llendl;
+		return getImage(IMG_DEFAULT, TRUE, TRUE);
+	}
+
+	std::string url = "file://" + full_path;
+
+	return getImageFromUrl(url, usemipmaps, level_immediate, internal_format, primary_format, force_id);
+}
+
+LLViewerImage* LLViewerImageList::getImageFromUrl(const std::string& url,
+												   BOOL usemipmaps,
+												   BOOL level_immediate,
+												   LLGLint internal_format,
+												   LLGLenum primary_format, 
+												   const LLUUID& force_id)
+{
+	if (gNoRender)
+	{
+		// Never mind that this ignores image_set_id;
+		// getImage() will handle that later.
 		return getImage(IMG_DEFAULT, TRUE, TRUE);
 	}
 
@@ -345,14 +359,14 @@ LLViewerImage* LLViewerImageList::getImageFromFile(const std::string& filename,
 	}
 	else
 	{
-		new_id.generate(full_path);
+		new_id.generate(url);
 	}
 
 	LLPointer<LLViewerImage> imagep = hasImage(new_id);
 	
 	if (imagep.isNull())
 	{
-		imagep = new LLViewerImage(full_path, new_id, usemipmaps);
+		imagep = new LLViewerImage(url, new_id, usemipmaps);
 		
 		if (internal_format && primary_format)
 		{
@@ -364,7 +378,7 @@ LLViewerImage* LLViewerImageList::getImageFromFile(const std::string& filename,
 		if (level_immediate)
 		{
 			imagep->dontDiscard();
-			imagep->setBoostLevel(LLViewerImage::BOOST_UI);
+			imagep->setBoostLevel(LLViewerImageBoostLevel::BOOST_UI);
 		}
 	}
 
@@ -394,9 +408,7 @@ LLViewerImage* LLViewerImageList::getImage(const LLUUID &image_id,
 	
 	if (imagep.isNull())
 	{
-		imagep = new LLViewerImage(image_id, usemipmaps);
-		// Might want to request from host other than where the agent is. JC
-		imagep->setTargetHost(request_from_host);
+		imagep = new LLViewerImage(image_id, request_from_host, usemipmaps);
 		
 		if (internal_format && primary_format)
 		{
@@ -408,7 +420,7 @@ LLViewerImage* LLViewerImageList::getImage(const LLUUID &image_id,
 		if (level_immediate)
 		{
 			imagep->dontDiscard();
-			imagep->setBoostLevel(LLViewerImage::BOOST_UI);
+			imagep->setBoostLevel(LLViewerImageBoostLevel::BOOST_UI);
 		}
 		else
 		{
@@ -511,23 +523,29 @@ void LLViewerImageList::dirtyImage(LLViewerImage *image)
 void LLViewerImageList::updateImages(F32 max_time)
 {
 	llpushcallstacks ;
+	LLAppViewer::getTextureFetch()->setTextureBandwidth(LLViewerStats::getInstance()->mTextureKBitStat.getMeanPerSec());
+
 	sNumImagesStat.addValue(sNumImages);
 	sNumRawImagesStat.addValue(LLImageRaw::sRawImageCount);
 	sGLTexMemStat.addValue((F32)BYTES_TO_MEGA_BYTES(LLImageGL::sGlobalTextureMemoryInBytes));
 	sGLBoundMemStat.addValue((F32)BYTES_TO_MEGA_BYTES(LLImageGL::sBoundTextureMemoryInBytes));
 	sRawMemStat.addValue((F32)BYTES_TO_MEGA_BYTES(LLImageRaw::sGlobalRawMemory));
 	sFormattedMemStat.addValue((F32)BYTES_TO_MEGA_BYTES(LLImageFormatted::sGlobalFormattedMemory));
+
+	llpushcallstacks ;
+
+	updateImagesDecodePriorities();
+
+	llpushcallstacks ;
+	F32 total_max_time = max_time;
+	max_time -= updateImagesFetchTextures(max_time);
+
+	llpushcallstacks ;
+	max_time = llmax(max_time, total_max_time*.25f); // at least 25% of max_time
+	max_time -= updateImagesCreateTextures(max_time);
 	
 	llpushcallstacks ;
-	updateImagesDecodePriorities();
-	llpushcallstacks ;
-	max_time -= updateImagesFetchTextures(max_time);
-	llpushcallstacks ;
-	max_time = llmin(llmax(max_time, 0.001f*10.f*gFrameIntervalSeconds), 0.001f);
-	max_time -= updateImagesCreateTextures(max_time);
-	llpushcallstacks ;
-	max_time = llmin(llmax(max_time, 0.001f*10.f*gFrameIntervalSeconds), 0.001f);
-	llpushcallstacks ;
+	
 	if (!mDirtyTextureList.empty())
 	{
 		LLFastTimer t(LLFastTimer::FTM_IMAGE_MARK_DIRTY);
@@ -541,7 +559,7 @@ void LLViewerImageList::updateImages(F32 max_time)
 	{
 		//trigger loaded callbacks on local textures immediately
 		LLViewerImage* image = *iter++;
-		if (!image->mLocalFileName.empty())
+		if (!image->mUrl.empty())
 		{
 			// Do stuff to handle callbacks, update priorities, etc.
 			didone = image->doLoadedCallbacks();
@@ -627,7 +645,7 @@ void LLViewerImageList::updateImagesDecodePriorities()
 					imagep->setInactive() ;										
 				}
 			}
-			
+
 			imagep->processTextureStats();
 			F32 old_priority = imagep->getDecodePriority();
 			F32 old_priority_test = llmax(old_priority, 0.0f);
@@ -701,7 +719,7 @@ F32 LLViewerImageList::updateImagesCreateTextures(F32 max_time)
 	return create_timer.getElapsedTimeF32();
 }
 
-void LLViewerImageList::forceImmediateUpdate(LLViewerImage* imagep)
+void LLViewerImageList::bumpToMaxDecodePriority(LLViewerImage* imagep)
 {
 	if(!imagep)
 	{
@@ -709,6 +727,11 @@ void LLViewerImageList::forceImmediateUpdate(LLViewerImage* imagep)
 	}
 	if(imagep->mInImageList)
 	{
+		if (imagep->getDecodePriority() == LLViewerImage::maxDecodePriority())
+		{
+			// Already at maximum.
+		  	return;
+		}
 		removeImageFromList(imagep);
 	}
 
@@ -731,74 +754,76 @@ F32 LLViewerImageList::updateImagesFetchTextures(F32 max_time)
 	const size_t max_update_count = llmin((S32) (1024*10.f*gFrameIntervalSeconds)+1, 256);
 	
 	// 32 high priority entries
-	std::set<LLViewerImage*> entries;
+	typedef std::vector<LLViewerImage*> entries_list_t;
+	entries_list_t entries;
 	size_t update_counter = llmin(max_priority_count, mImageList.size());
 	image_priority_list_t::iterator iter1 = mImageList.begin();
 	while(update_counter > 0)
 	{
-		// added extra granularity and verbosity for crash logging during 1.19.1 RC. -Brad
-		if(iter1 == mImageList.end())
-		{
-			llerrs << "DEV-12002: update_counter not calculated correctly!" << llendl;
-			return 0.f;
-		}
-
-		LLPointer<LLViewerImage> const & ptr = *iter1;
-
-		LLViewerImage * img = ptr.get();
-
-		// added extra granularity and verbosity for crash logging during 1.19.1 RC. -Brad
-		if(img == NULL)
-		{
-			llwarns << "DEV-12002: image is NULL!" << llendl;
-		}
-
-		entries.insert(img);
-
+		entries.push_back(*iter1);
 		++iter1;
 		update_counter--;
 	}
 	
 	// 256 cycled entries
 	update_counter = llmin(max_update_count, mUUIDMap.size());
-	uuid_map_t::iterator iter2 = mUUIDMap.upper_bound(mLastFetchUUID);
-	while(update_counter > 0)
+	if (update_counter > 0)
 	{
-		if (iter2 == mUUIDMap.end())
+		uuid_map_t::iterator iter2 = mUUIDMap.upper_bound(mLastFetchUUID);
+		uuid_map_t::iterator iter2p = iter2;
+		while(update_counter > 0)
 		{
-			iter2 = mUUIDMap.begin();
+			if (iter2 == mUUIDMap.end())
+			{
+				iter2 = mUUIDMap.begin();
+			}
+			entries.push_back(iter2->second);
+			iter2p = iter2++;
+			update_counter--;
 		}
-		mLastFetchUUID = iter2->first;
-		entries.insert(iter2->second);
-		++iter2;
-		update_counter--;
+		mLastFetchUUID = iter2p->first;
 	}
 	
+	S32 fetch_count = 0;
 	S32 min_count = max_priority_count + max_update_count/4;
-	for (std::set<LLViewerImage*>::iterator iter3 = entries.begin();
+	for (entries_list_t::iterator iter3 = entries.begin();
 		 iter3 != entries.end(); )
 	{
 		LLPointer<LLViewerImage> imagep = *iter3++;
 		
-		imagep->updateFetch();
+		bool fetching = imagep->updateFetch();
+		if (fetching)
+		{
+			fetch_count++;
+		}
 		if (min_count <= 0 && image_op_timer.getElapsedTimeF32() > max_time)
 		{
 			break;
 		}
 		min_count--;
 	}
+	if (fetch_count == 0)
+	{
+		gDebugTimers[0].pause();
+	}
+	else
+	{
+		gDebugTimers[0].unpause();
+	}
+	
+	
 	return image_op_timer.getElapsedTimeF32();
 }
 
 void LLViewerImageList::updateImagesUpdateStats()
 {
-	if (mUpdateStats)
+	if (mUpdateStats && mForceResetTextureStats)
 	{
 		for (image_priority_list_t::iterator iter = mImageList.begin();
 			 iter != mImageList.end(); )
 		{
 			LLViewerImage* imagep = *iter++;
-			imagep->resetTextureStats(mForceResetTextureStats);
+			imagep->resetTextureStats();
 		}
 		mUpdateStats = FALSE;
 		mForceResetTextureStats = FALSE;
@@ -1348,7 +1373,7 @@ void LLUIImageList::onUIImageLoaded( BOOL success, LLViewerImage *src_vi, LLImag
 
 		// for images grabbed from local files, apply clipping rectangle to restore original dimensions
 		// from power-of-2 gl image
-		if (success && imagep.notNull() && src_vi && !src_vi->mLocalFileName.empty())
+		if (success && imagep.notNull() && src_vi && (src_vi->mUrl.compare(0, 7, "file://")==0))
 		{
 			F32 clip_x = (F32)src_vi->getOriginalWidth() / (F32)src_vi->getWidth(0);
 			F32 clip_y = (F32)src_vi->getOriginalHeight() / (F32)src_vi->getHeight(0);

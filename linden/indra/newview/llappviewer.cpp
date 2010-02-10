@@ -57,9 +57,12 @@
 #include "llares.h" 
 #include "llcurl.h"
 #include "llfloatersnapshot.h"
+#include "lltexturestats.h"
 #include "llviewerwindow.h"
 #include "llviewerdisplay.h"
 #include "llviewermedia.h"
+
+
 #include "llviewermessage.h"
 #include "llviewerobjectlist.h"
 #include "llworldmap.h"
@@ -435,7 +438,7 @@ static void settings_modify()
 	LLVOSurfacePatch::sLODFactor *= LLVOSurfacePatch::sLODFactor; //square lod factor to get exponential range of [1,4]
 	gDebugGL = gSavedSettings.getBOOL("RenderDebugGL");
 	gDebugPipeline = gSavedSettings.getBOOL("RenderDebugPipeline");
-	
+	gAuditTexture = gSavedSettings.getBOOL("AuditTexture");
 #if LL_VECTORIZE
 	if (gSysCPU.hasAltivec())
 	{
@@ -527,7 +530,7 @@ const std::string LLAppViewer::sPerAccountSettingsName = "PerAccount";
 const std::string LLAppViewer::sCrashSettingsName = "CrashSettings"; 
 
 LLTextureCache* LLAppViewer::sTextureCache = NULL; 
-LLWorkerThread* LLAppViewer::sImageDecodeThread = NULL; 
+LLImageDecodeThread* LLAppViewer::sImageDecodeThread = NULL; 
 LLTextureFetch* LLAppViewer::sTextureFetch = NULL; 
 
 LLAppViewer::LLAppViewer() : 
@@ -1512,14 +1515,14 @@ bool LLAppViewer::initThreads()
 		LLWatchdog::getInstance()->init(watchdog_killer_callback);
 	}
 
-	LLVFSThread::initClass(enable_threads && true);
-	LLLFSThread::initClass(enable_threads && true);
+	LLVFSThread::initClass(enable_threads && false);
+	LLLFSThread::initClass(enable_threads && false);
 
 	// Image decoding
-	LLAppViewer::sImageDecodeThread = new LLWorkerThread("ImageDecode", enable_threads && true);
+	LLAppViewer::sImageDecodeThread = new LLImageDecodeThread(enable_threads && true);
 	LLAppViewer::sTextureCache = new LLTextureCache(enable_threads && true);
-	LLAppViewer::sTextureFetch = new LLTextureFetch(LLAppViewer::getTextureCache(), enable_threads && false);
-	LLImage::initClass(LLAppViewer::getImageDecodeThread());
+	LLAppViewer::sTextureFetch = new LLTextureFetch(LLAppViewer::getTextureCache(), sImageDecodeThread, enable_threads && true);
+	LLImage::initClass();
 
 	// *FIX: no error handling here!
 	return true;

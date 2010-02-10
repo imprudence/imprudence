@@ -115,7 +115,6 @@ LLTexLayerSetBuffer::~LLTexLayerSetBuffer()
 	if( mBumpTex.notNull())
 	{
 		mBumpTex = NULL ;
-		LLImageGL::sGlobalTextureMemoryInBytes -= mWidth * mHeight * 4;
 		LLTexLayerSetBuffer::sGLBumpByteCount -= mWidth * mHeight * 4;
 	}
 }
@@ -132,7 +131,7 @@ void LLTexLayerSetBuffer::destroyGLTexture()
 	if( mBumpTex.notNull() )
 	{
 		mBumpTex = NULL ;
-		LLImageGL::sGlobalTextureMemoryInBytes -= mWidth * mHeight * 4;
+		//LLImageGL::sGlobalTextureMemoryInBytes -= mWidth * mHeight * 4;
 		LLTexLayerSetBuffer::sGLBumpByteCount -= mWidth * mHeight * 4;
 	}
 
@@ -165,6 +164,14 @@ void LLTexLayerSetBuffer::createBumpTexture()
 
 		LLImageGL::sGlobalTextureMemoryInBytes += mWidth * mHeight * 4;
 		LLTexLayerSetBuffer::sGLBumpByteCount += mWidth * mHeight * 4;
+
+		if(gAuditTexture)
+		{
+			mBumpTex->setCategory(LLViewerImageBoostLevel::TEXLAYER_BUMP) ;
+			mBumpTex->setTextureSize(mWidth * mHeight * 4) ;
+			mBumpTex->setComponents(4) ;
+			mBumpTex->incTextureCounter() ;
+		}
 	}
 }
 
@@ -619,7 +626,7 @@ void LLTexLayerSetBuffer::bindBumpTexture( U32 stage )
 		if( mLastBindTime != LLImageGL::sLastFrameTime )
 		{
 			mLastBindTime = LLImageGL::sLastFrameTime;
-			LLImageGL::updateBoundTexMem(mWidth * mHeight * 4);
+			mBumpTex->updateBoundTexMem();
 		}
 	}
 	else
@@ -833,7 +840,7 @@ BOOL LLTexLayerSet::render( S32 x, S32 y, S32 width, S32 height )
 			if( image_gl )
 			{
 				LLGLSUIDefault gls_ui;
-				gGL.getTexUnit(0)->bind(image_gl);
+				gGL.getTexUnit(0)->bind(image_gl, TRUE);
 				gGL.getTexUnit(0)->setTextureBlendType( LLTexUnit::TB_REPLACE );
 				gl_rect_2d_simple_tex( width, height );
 			}
@@ -1418,7 +1425,7 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 
 					LLTexUnit::eTextureAddressMode old_mode = image_gl->getAddressMode();
 					
-					gGL.getTexUnit(0)->bind(image_gl);
+					gGL.getTexUnit(0)->bind(image_gl, TRUE);
 					gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 
 					gl_rect_2d_simple_tex( width, height );
@@ -1440,7 +1447,7 @@ BOOL LLTexLayer::render( S32 x, S32 y, S32 width, S32 height )
 			LLImageGL* image_gl = gTexStaticImageList.getImageGL( getInfo()->mStaticImageFileName, getInfo()->mStaticImageIsMask );
 			if( image_gl )
 			{
-				gGL.getTexUnit(0)->bind(image_gl);
+				gGL.getTexUnit(0)->bind(image_gl, TRUE);
 				gl_rect_2d_simple_tex( width, height );
 				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			}
@@ -1617,7 +1624,7 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 
 					LLTexUnit::eTextureAddressMode old_mode = image_gl->getAddressMode();
 					
-					gGL.getTexUnit(0)->bind(image_gl);
+					gGL.getTexUnit(0)->bind(image_gl, TRUE);
 					gGL.getTexUnit(0)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 
 					gl_rect_2d_simple_tex( width, height );
@@ -1643,7 +1650,7 @@ BOOL LLTexLayer::renderAlphaMasks( S32 x, S32 y, S32 width, S32 height, LLColor4
 					( (image_gl->getComponents() == 1) && getInfo()->mStaticImageIsMask ) )
 				{
 					LLGLSNoAlphaTest gls_no_alpha_test;
-					gGL.getTexUnit(0)->bind(image_gl);
+					gGL.getTexUnit(0)->bind(image_gl, TRUE);
 					gl_rect_2d_simple_tex( width, height );
 					gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				}
@@ -2088,14 +2095,14 @@ BOOL LLTexLayerParamAlpha::render( S32 x, S32 y, S32 width, S32 height )
 				// Create the GL texture, and then hang onto it for future use.
 				if( mNeedsCreateTexture )
 				{
-					mCachedProcessedImageGL->createGLTexture(0, mStaticImageRaw);
+					mCachedProcessedImageGL->createGLTexture(0, mStaticImageRaw, 0, TRUE, LLViewerImageBoostLevel::TEXLAYER_CACHE);
 					mNeedsCreateTexture = FALSE;
 					gGL.getTexUnit(0)->bind(mCachedProcessedImageGL);
 					mCachedProcessedImageGL->setAddressMode(LLTexUnit::TAM_CLAMP);
 				}
 
 				LLGLSNoAlphaTest gls_no_alpha_test;
-				gGL.getTexUnit(0)->bind(mCachedProcessedImageGL);
+				gGL.getTexUnit(0)->bind(mCachedProcessedImageGL, TRUE);
 				gl_rect_2d_simple_tex( width, height );
 				gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 				stop_glerror();
@@ -2543,7 +2550,7 @@ LLImageGL* LLTexStaticImageList::getImageGL(const std::string& file_name, BOOL i
 				// that once an image is a mask it's always a mask.
 				image_gl->setExplicitFormat( GL_ALPHA8, GL_ALPHA );
 			}
-			image_gl->createGLTexture(0, image_raw);
+			image_gl->createGLTexture(0, image_raw, 0, TRUE, LLViewerImageBoostLevel::OTHER);
 
 			gGL.getTexUnit(0)->bind(image_gl);
 			image_gl->setAddressMode(LLTexUnit::TAM_CLAMP);

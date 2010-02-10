@@ -43,16 +43,17 @@
 #include "llimageworker.h"
 #include "llrender.h"
 
+#include "llappviewer.h"
 #include "llhoverview.h"
 #include "llselectmgr.h"
 #include "lltexlayer.h"
 #include "lltexturecache.h"
 #include "lltexturefetch.h"
+#include "llviewercontrol.h"
 #include "llviewerobject.h"
 #include "llviewerimage.h"
 #include "llviewerimagelist.h"
-#include "llappviewer.h"
-
+#include "llvovolume.h"
 extern F32 texmem_lower_bound_scale;
 
 LLTextureView *gTextureView = NULL;
@@ -466,9 +467,9 @@ void LLGLTexMemBar::draw()
 					LLAppViewer::getTextureFetch()->mPacketCount, LLAppViewer::getTextureFetch()->mBadPacketCount, 
 					LLAppViewer::getTextureCache()->getNumReads(), LLAppViewer::getTextureCache()->getNumWrites(),
 					LLLFSThread::sLocal->getPending(),
-					LLImageWorker::sCount, LLImageWorker::getWorkerThread()->getNumDeletes(),
-					LLImageRaw::sRawImageCount, LLViewerImage::sRawCount, LLViewerImage::sAuxCount,
-					gImageList.mCallbackList.size());
+					LLAppViewer::getImageDecodeThread()->getPending(), 
+					LLImageRaw::sRawImageCount,
+					LLAppViewer::getTextureFetch()->getNumHTTPRequests());
 
 	LLFontGL::getFontMonospace()->renderUTF8(text, 0, 0, line_height*2,
 									 text_color, LLFontGL::LEFT, LLFontGL::TOP);

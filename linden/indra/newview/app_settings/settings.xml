@@ -523,6 +523,17 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>AuditTexture</key>
+    <map>
+      <key>Comment</key>
+      <string>Enable texture auditting.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>AutoAcceptNewInventory</key>
     <map>
       <key>Comment</key>
@@ -5811,6 +5822,28 @@
       <key>Value</key>
       <string>http://imprudenceviewer.org/splash/</string>
     </map>
+    <key>LogTextureDownloadsToViewerLog</key>
+    <map>
+      <key>Comment</key>
+      <string>Send texture download details to the viewer log</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>LogTextureDownloadsToSimulator</key>
+    <map>
+      <key>Comment</key>
+      <string>Send a digest of texture info to the sim</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>LosslessJ2CUpload</key>
     <map>
       <key>Comment</key>
@@ -9775,6 +9808,17 @@
       <string>F32</string>
       <key>Value</key>
       <real>20.0</real>
+    </map>
+    <key>TextureLoggingThreshold</key>
+    <map>
+      <key>Comment</key>
+      <string>Specifies the byte threshold at which texture download data should be sent to the sim.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>U32</string>
+      <key>Value</key>
+      <integer>1</integer>
     </map>
     <key>TextureMemory</key>
     <map>

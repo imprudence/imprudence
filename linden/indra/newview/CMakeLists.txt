@@ -340,6 +340,10 @@ set(viewer_SOURCE_FILES
     lltexturecache.cpp
     lltexturectrl.cpp
     lltexturefetch.cpp
+    lltextureinfo.cpp
+    lltextureinfodetails.cpp
+    lltexturestats.cpp
+    lltexturestatsuploader.cpp
     lltextureview.cpp
     lltoolbar.cpp
     lltoolbrush.cpp
@@ -760,6 +764,10 @@ set(viewer_HEADER_FILES
     lltexturecache.h
     lltexturectrl.h
     lltexturefetch.h
+    lltextureinfo.h
+    lltextureinfodetails.h
+    lltexturestats.h
+    lltexturestatsuploader.h
     lltextureview.h
     lltool.h
     lltoolbar.h

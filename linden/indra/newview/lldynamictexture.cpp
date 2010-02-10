@@ -111,7 +111,7 @@ void LLDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum prima
 		mTexture->setExplicitFormat(internal_format, primary_format, type_format, swap_bytes);
 	}
 // 	llinfos << "ALLOCATING " << (mWidth*mHeight*mComponents)/1024 << "K" << llendl;
-	mTexture->createGLTexture(0, raw_image);
+	mTexture->createGLTexture(0, raw_image, 0, TRUE, LLViewerImageBoostLevel::DYNAMIC_TEX);
 	mTexture->setAddressMode((mClamp) ? LLTexUnit::TAM_CLAMP : LLTexUnit::TAM_WRAP);
 	mTexture->setGLTextureCreated(false);
 }

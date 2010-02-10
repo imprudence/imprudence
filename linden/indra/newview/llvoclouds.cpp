@@ -62,7 +62,7 @@ LLVOClouds::LLVOClouds(const LLUUID &id, const LLPCode pcode, LLViewerRegion *re
 	mbCanSelect = FALSE;
 	setNumTEs(1);
 	LLViewerImage* image = gImageList.getImage(gCloudTextureID);
-	image->setBoostLevel(LLViewerImage::BOOST_CLOUDS);
+	image->setBoostLevel(LLViewerImageBoostLevel::BOOST_CLOUDS);
 	setTEImage(0, image);
 }
 
@@ -101,7 +101,7 @@ void LLVOClouds::setPixelAreaAndAngle(LLAgent &agent)
 	mPixelArea = 1500*100;
 }
 
-void LLVOClouds::updateTextures(LLAgent &agent)
+void LLVOClouds::updateTextures()
 {
 	getTEImage(0)->addTextureStats(mPixelArea);
 }
