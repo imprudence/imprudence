@@ -1,5 +1,11 @@
 2010-02-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* SNOW-492: LLDataPacker::unpackstring() is unsafe.
+	  Patch by Robin Cornelius.
+
+	  modified:   linden/indra/llmessage/lldatapacker.cpp
+
+
 	* SNOW-488: Malformed animation crash.
 	  Patch by Robin Cornelius.
 
