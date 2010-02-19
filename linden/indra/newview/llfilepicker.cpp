@@ -1090,8 +1090,13 @@ static std::string add_simple_mime_filter_to_gtkchooser(GtkWindow *picker,
 
 static std::string add_wav_filter_to_gtkchooser(GtkWindow *picker)
 {
-	return add_simple_mime_filter_to_gtkchooser(picker,  "audio/x-wav",
-						    LLTrans::getString("sound_files") + " (*.wav)");
+	GtkFileFilter *gfilter = gtk_file_filter_new();
+	gtk_file_filter_add_pattern(gfilter, "*.wav");
+	gtk_file_filter_add_mime_type(gfilter,"audio/x-wav");//not working
+
+	std::string filtername = LLTrans::getString("sound_files") + " (*.wav)";
+	add_common_filters_to_gtkchooser(gfilter, picker, filtername);
+	return filtername;
 }
 
 static std::string add_bvh_filter_to_gtkchooser(GtkWindow *picker)
