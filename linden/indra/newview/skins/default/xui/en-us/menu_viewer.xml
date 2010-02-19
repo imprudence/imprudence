@@ -30,6 +30,10 @@
                       label="Bulk Upload (L$[COST] per file)...">
         <on_click function="File.UploadBulk" userdata="" />
       </menu_item_call>
+      <menu_item_separator />
+      <menu_item_call name="perm prefs" label="Set Default Permissions...">
+        <on_click function="ShowFloater" userdata="perm prefs" />
+      </menu_item_call>
     </menu>
     <menu_item_separator />
 	  <menu_item_call name="Import" label="Import Object..." enabled="false">

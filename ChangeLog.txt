@@ -1,5 +1,11 @@
 2010-02-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Added missing "Set Default Permissions" menu entry. (#202)
+	  This was accidentally left out during the SL 1.23 merge.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
 	* SNOW-492: LLDataPacker::unpackstring() is unsafe.
 	  Patch by Robin Cornelius.
 
