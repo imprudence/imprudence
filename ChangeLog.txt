@@ -1,5 +1,11 @@
 2010-02-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Fixed #197: Windlight toolbar can't be hidden.
+
+	  modified:   linden/indra/newview/llpaneldisplay.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_graphics1.xml
+
+
 	* Added missing "Set Default Permissions" menu entry. (#202)
 	  This was accidentally left out during the SL 1.23 merge.
 

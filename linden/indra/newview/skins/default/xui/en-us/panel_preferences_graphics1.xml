@@ -11,7 +11,8 @@
   <check_box bottom_delta="0" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
        label="Show WindLight toolbar" left="275" mouse_opaque="true"
-	     name="toggle_windlight_control" radio_style="false" width="237" />
+	     name="toggle_windlight_control" radio_style="false" width="237"
+	     control_name="EnableWindlightRemote" />
 	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom="-43"
 	     embedded_items="false" enabled="false" follows="left|top"
 	     font="SansSerifSmall" height="20" hide_border="true"
