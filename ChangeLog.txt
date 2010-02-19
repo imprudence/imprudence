@@ -1,3 +1,11 @@
+2010-02-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* SNOW-488: Malformed animation crash.
+	  Patch by Robin Cornelius.
+
+	  modified:   linden/indra/newview/llvoavatar.cpp
+
+
 2010-02-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Ported some asset storage changes from Snowglobe.
