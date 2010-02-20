@@ -1371,7 +1371,6 @@ bool LLAppViewer::cleanup()
 	// save all settings, even if equals defaults
 	gCrashSettings.saveToFile(crash_settings_filename, FALSE);
 
-	gSavedSettings.cleanup();
 	gColors.cleanup();
 	gCrashSettings.cleanup();
 
@@ -1424,6 +1423,9 @@ bool LLAppViewer::cleanup()
     sTextureFetch = NULL;
 	delete sImageDecodeThread;
     sImageDecodeThread = NULL;
+
+	gSavedSettings.cleanup();//do this after last time gSavedSettings is used  *surprise*
+
 
 	//Note:
 	//LLViewerMedia::cleanupClass() has to be put before gImageList.shutdown()

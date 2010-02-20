@@ -1,3 +1,10 @@
+2010-02-20  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Fixed an error at shutdown (gSavedSettings.cleanup).
+
+	  modified:   linden/indra/newview/llappviewer.cpp
+
+
 2010-02-19  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
 
 	* Fixed Linux file picker not showing WAV files.
