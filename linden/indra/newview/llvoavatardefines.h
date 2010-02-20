@@ -1,5 +1,5 @@
 /** 
- * @file llvoavatar.h
+ * @file llvoavatardefines.h
  * @brief Declaration of LLVOAvatar class which is a derivation fo
  * LLViewerObject
  *
@@ -44,7 +44,6 @@ namespace LLVOAvatarDefines
 extern const S32 SCRATCH_TEX_WIDTH;
 extern const S32 SCRATCH_TEX_HEIGHT;
 extern const S32 IMPOSTOR_PERIOD;
-
 //--------------------------------------------------------------------
 // texture entry assignment
 //--------------------------------------------------------------------

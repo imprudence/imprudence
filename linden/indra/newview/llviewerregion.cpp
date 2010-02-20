@@ -199,6 +199,7 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	}
 	else
 	{
+		delete mParcelOverlay;
 		mParcelOverlay = NULL;
 	}
 
@@ -244,6 +245,7 @@ void LLViewerRegion::initStats()
 
 LLViewerRegion::~LLViewerRegion() 
 {
+	LL_DEBUGS("VOAvatar")<< "LLViewerRegion dtor begin" << llendl;
 	if(mHttpResponderPtr)
 	{
 		(static_cast<BaseCapabilitiesComplete*>(mHttpResponderPtr.get()))->setRegion(NULL) ;
@@ -260,6 +262,7 @@ LLViewerRegion::~LLViewerRegion()
 
 	delete mCompositionp;
 	delete mParcelOverlay;
+	mParcelOverlay = NULL;
 	delete mLandp;
 	delete mEventPoll;
 	LLHTTPSender::clearSender(mHost);
@@ -267,6 +270,7 @@ LLViewerRegion::~LLViewerRegion()
 	saveCache();
 
 	std::for_each(mObjectPartition.begin(), mObjectPartition.end(), DeletePointer());
+	LL_DEBUGS("VOAvatar")<< "LLViewerRegion dtor end" << llendl;
 }
 
 
@@ -887,12 +891,19 @@ bool LLViewerRegion::isAlive()
 
 BOOL LLViewerRegion::isOwnedSelf(const LLVector3& pos)
 {
-	if (mParcelOverlay && !gDisconnected)
+	if (mParcelOverlay)
 	{
+		LL_DEBUGS("isOwnedSelf")<< "has mParceloverlay" << LL_ENDL; 
+		if (gDisconnected)
+		{
+			LL_DEBUGS("isOwnedSelf")<< "but is gDisconnected" << LL_ENDL;
+			return FALSE;
+		}
 		return mParcelOverlay->isOwnedSelf(pos);
 	} 
 	else 
 	{
+		LL_DEBUGS("isOwnedSelf")<< "has NO mParceloverlay" << LL_ENDL; 
 		return FALSE;
 	}
 }
