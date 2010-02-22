@@ -263,6 +263,8 @@ public:
 	virtual BOOL hasChildren() const { return FALSE; }
 	virtual BOOL isUpToDate() const { return TRUE; }
 
+	virtual LLFontGL::StyleFlags getLabelStyle() const;
+
 	// override for LLInvFVBridge
 	virtual void clearDisplayName() { mDisplayName.clear(); }
 

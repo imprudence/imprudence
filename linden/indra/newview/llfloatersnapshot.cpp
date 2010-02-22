@@ -80,8 +80,10 @@
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
 ///----------------------------------------------------------------------------
-S32 LLFloaterSnapshot::sUIWinHeightLong = 546 ;
-S32 LLFloaterSnapshot::sUIWinHeightShort = LLFloaterSnapshot::sUIWinHeightLong - 250 ;
+
+//Hey, why use XUI files when you can hardcode? Why say "Floater" when you can say "UIWin"?
+S32 LLFloaterSnapshot::sUIWinHeightLong = 568 ;//height of the floater with "more" options
+S32 LLFloaterSnapshot::sUIWinHeightShort = LLFloaterSnapshot::sUIWinHeightLong - 270 ;//dto. "less" options
 S32 LLFloaterSnapshot::sUIWinWidth = 215 ;
 
 LLSnapshotFloaterView* gSnapshotFloaterView = NULL;
@@ -809,24 +811,14 @@ BOOL LLSnapshotLivePreview::onIdle( void* snapshot_preview )
 				formatted->decode(previewp->mPreviewImageEncoded, 0);
 			}
 		}
-		else if(previewp->getSnapshotType() == SNAPSHOT_POSTCARD)
+		else
 		{
+			// delete any existing image
 			previewp->mFormattedImage = NULL;
+			// now create the new one of the appropriate format.
 			// note: postcards hardcoded to use jpeg always.
-			previewp->mFormattedImage = new LLImageJPEG(previewp->mSnapshotQuality);
-
-			if(previewp->mFormattedImage->encode(previewp->mPreviewImage, 0))
-			{
-				previewp->mDataSize = previewp->mFormattedImage->getDataSize();
-				previewp->mFormattedImage->decode(previewp->mPreviewImageEncoded, 0);
-			}
-		}
-		else //SNAPSHOT_LOCAL
-		{
-			previewp->mFormattedImage = NULL;
-			// save snapshot using the appropriate format.
-			LLFloaterSnapshot::ESnapshotFormat format = previewp->getSnapshotFormat();
-
+			LLFloaterSnapshot::ESnapshotFormat format = previewp->getSnapshotType() == SNAPSHOT_POSTCARD
+				? LLFloaterSnapshot::SNAPSHOT_FORMAT_JPEG : previewp->getSnapshotFormat();
 			switch(format)
 			{
 			case LLFloaterSnapshot::SNAPSHOT_FORMAT_PNG:
@@ -1269,7 +1261,12 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater)
 	floater->childSetVisible("save_btn",			shot_type == LLSnapshotLivePreview::SNAPSHOT_LOCAL);
 	floater->childSetEnabled("keep_aspect_check",	shot_type != LLSnapshotLivePreview::SNAPSHOT_TEXTURE && !sAspectRatioCheckOff);
 	floater->childSetEnabled("layer_types",			shot_type == LLSnapshotLivePreview::SNAPSHOT_LOCAL);
-
+	if(shot_type != LLSnapshotLivePreview::SNAPSHOT_TEXTURE)
+	{
+		floater->childSetValue("temp_check",			shot_type == LLSnapshotLivePreview::SNAPSHOT_TEXTURE);
+	}
+	floater->childSetEnabled("temp_check",			shot_type == LLSnapshotLivePreview::SNAPSHOT_TEXTURE);
+ 
 	BOOL is_advance = gSavedSettings.getBOOL("AdvanceSnapshot");
 	BOOL is_local = shot_type == LLSnapshotLivePreview::SNAPSHOT_LOCAL;
 
@@ -1290,6 +1287,7 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater)
 	floater->childSetVisible("freeze_frame_check",		is_advance);
 	floater->childSetVisible("auto_snapshot_check",		is_advance);
 	floater->childSetVisible("image_quality_slider",	is_advance);
+	floater->childSetVisible("temp_check",			is_advance);
 
 	LLSnapshotLivePreview* previewp = getPreviewView(floater);
 	BOOL got_bytes = previewp && previewp->getDataSize() > 0;
@@ -2085,6 +2083,9 @@ BOOL LLFloaterSnapshot::postBuild()
 	sInstance->getRootView()->addChild(previewp);
 	sInstance->getRootView()->addChild(gSnapshotFloaterView);
 
+	gSavedSettings.setBOOL("EmeraldTemporaryUpload",FALSE);
+	childSetValue("temp_check",FALSE);
+
 	Impl::sPreviewHandle = previewp->getHandle();
 
 	impl.updateControls(this);
@@ -2103,6 +2104,8 @@ void LLFloaterSnapshot::draw()
 	}
 
 	// TODO*: Do we need all this? - Jacek
+	//SG & Emerald don't ... let's try and comment it out -Armin
+/* 
 	if(!isMinimized())
 	{
 		if (previewp && previewp->getDataSize() > 0)
@@ -2194,7 +2197,7 @@ void LLFloaterSnapshot::draw()
 
 		childSetToolTip("ui_check", std::string("If selected shows the UI in the snapshot"));
 	}
-
+*/
 	LLFloater::draw();
 
 	if (previewp)

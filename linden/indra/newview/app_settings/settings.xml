@@ -3415,6 +3415,21 @@
         <real>1.0</real>
       </array>
     </map>
+
+
+    <key>EmeraldTemporaryUpload</key>
+    <map>
+      <key>Comment</key>
+      <string>Whether or not a texture upload is temp</string>
+      <key>Persist</key>
+      <integer>0</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+
+
     <key>EnableRippleWater</key>
     <map>
       <key>Comment</key>
