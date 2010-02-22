@@ -706,6 +706,8 @@ F32 LLVOAvatar::sLODFactor = 1.f;
 BOOL LLVOAvatar::sUseImpostors = FALSE;
 BOOL LLVOAvatar::sJointDebug = FALSE;
 
+EmeraldGlobalBoobConfig LLVOAvatar::sBoobConfig;
+
 F32 LLVOAvatar::sUnbakedTime = 0.f;
 F32 LLVOAvatar::sUnbakedUpdateTime = 0.f;
 F32 LLVOAvatar::sGreyTime = 0.f;
@@ -764,7 +766,10 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mVisibleChat( FALSE ),
 	mFullyLoadedInitialized(FALSE),
 	mFullyLoaded(FALSE),
-	mHasBakedHair( FALSE )
+	mHasBakedHair( FALSE ),
+	mFirstSetActualBoobGravRan( false ),
+	mFirstSetActualButtGravRan( false ),
+	mFirstSetActualFatGravRan( false )
 {
 	LLMemType mt(LLMemType::MTYPE_AVATAR);
 	//VTResume();  // VTune
@@ -984,6 +989,16 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 		registerMotion( ANIM_AGENT_WALK_ADJUST,				LLWalkAdjustMotion::create );
 
 	}
+
+	// grab the boob savedparams (prob a better place for this)
+	sBoobConfig.mass             = EmeraldBoobUtils::convertMass(gSavedSettings.getF32("EmeraldBoobMass"));
+	sBoobConfig.hardness         = EmeraldBoobUtils::convertHardness(gSavedSettings.getF32("EmeraldBoobHardness"));
+	sBoobConfig.velMax           = EmeraldBoobUtils::convertVelMax(gSavedSettings.getF32("EmeraldBoobVelMax"));
+	sBoobConfig.velMin           = EmeraldBoobUtils::convertVelMin(gSavedSettings.getF32("EmeraldBoobVelMin"));
+	sBoobConfig.friction         = EmeraldBoobUtils::convertFriction(gSavedSettings.getF32("EmeraldBoobFriction"));
+	sBoobConfig.enabled          = gSavedSettings.getBOOL("EmeraldBreastPhysicsToggle");
+	sBoobConfig.XYInfluence		 = gSavedSettings.getF32("EmeraldBoobXYInfluence");
+
 
 	if (gNoRender)
 	{
@@ -2625,7 +2640,7 @@ BOOL LLVOAvatar::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 	idleUpdateVoiceVisualizer( voice_enabled );
 	idleUpdateMisc( detailed_update );
 	idleUpdateAppearanceAnimation();
-
+	idleUpdateBoobEffect();
 	idleUpdateLipSync( voice_enabled );
 	idleUpdateLoadingEffect();
 	idleUpdateBelowWater();	// wind effect uses this
@@ -2879,6 +2894,8 @@ void LLVOAvatar::idleUpdateAppearanceAnimation()
 			{
 				if (param->getGroup() == VISUAL_PARAM_GROUP_TWEAKABLE)
 				{
+					// so boobs don't go spastic when a shape's changed, but still seems buggy
+					//if(param->getID() != 507)
 					param->animate(morph_amt, mAppearanceAnimSetByUser);
 				}
 			}
@@ -2896,6 +2913,107 @@ void LLVOAvatar::idleUpdateAppearanceAnimation()
 		dirtyMesh();
 	}
 }
+
+// ------------------------------------------------------------
+// Danny: ZOMG Boob Phsyics go!
+// ------------------------------------------------------------
+void LLVOAvatar::idleUpdateBoobEffect()
+{
+	if(mFirstSetActualBoobGravRan)
+	{
+		// should probably be moved somewhere where it is only called when boobsize changes
+		LLVisualParam *param;
+
+		// BOOBS
+		param = getVisualParam(105); //boob size
+		mLocalBoobConfig.boobSize = param->getCurrentWeight();
+		EmeraldBoobInputs boobInputs;
+		boobInputs.type = 0;
+		boobInputs.chestPosition	= mChestp->getWorldPosition();
+		boobInputs.chestRotation	= mChestp->getWorldRotation();
+		boobInputs.elapsedTime		= mBoobBounceTimer.getElapsedTimeF32();
+		boobInputs.appearanceFlag	= getAppearanceFlag();
+
+
+		EmeraldBoobState newBoobState = EmeraldBoobUtils::idleUpdate(sBoobConfig, mLocalBoobConfig, mBoobState, boobInputs);
+
+		if(mBoobState.boobGrav != newBoobState.boobGrav)
+		{
+			LLVisualParam *param;
+			param = getVisualParam(507);
+
+			ESex avatar_sex = getSex();
+		
+			param->stopAnimating(FALSE);
+			param->setWeight(llclamp(newBoobState.boobGrav+getActualBoobGrav(), -1.5f, 2.f), FALSE);
+			param->apply(avatar_sex);
+			updateVisualParams();
+		}
+
+		mBoobState = newBoobState;
+	}
+	/*
+	if(mFirstSetActualButtGravRan)
+	{
+		// BUTT
+		EmeraldBoobInputs buttInputs;
+		buttInputs.type = 1;
+		buttInputs.chestPosition	= mPelvisp->getWorldPosition();
+		buttInputs.chestRotation	= mPelvisp->getWorldRotation();
+		buttInputs.elapsedTime		= mBoobBounceTimer.getElapsedTimeF32();
+		buttInputs.appearanceFlag	= getAppearanceFlag();
+
+
+		EmeraldBoobState newButtState = EmeraldBoobUtils::idleUpdate(sBoobConfig, mLocalBoobConfig, mButtState, buttInputs);
+
+		if(mButtState.boobGrav != newButtState.boobGrav)
+		{
+			LLVisualParam *param;
+			param = getVisualParam(795);
+
+			ESex avatar_sex = getSex();
+
+			param->stopAnimating(FALSE);
+			param->setWeight(newButtState.boobGrav*0.3f+getActualButtGrav(), FALSE);
+			param->apply(avatar_sex);
+			updateVisualParams();
+		}
+
+		mButtState = newButtState;
+	}
+
+	if(mFirstSetActualFatGravRan)
+	{
+		// FAT
+		EmeraldBoobInputs fatInputs;
+		fatInputs.type = 2;
+		fatInputs.chestPosition		= mPelvisp->getWorldPosition();
+		fatInputs.chestRotation		= mPelvisp->getWorldRotation();
+		fatInputs.elapsedTime		= mBoobBounceTimer.getElapsedTimeF32();
+		fatInputs.appearanceFlag	= getAppearanceFlag();
+
+
+		EmeraldBoobState newFatState = EmeraldBoobUtils::idleUpdate(sBoobConfig, mLocalBoobConfig, mFatState, fatInputs);
+
+		if(mFatState.boobGrav != newFatState.boobGrav)
+		{
+			LLVisualParam *param;
+			param = getVisualParam(157);
+
+			ESex avatar_sex = getSex();
+
+			param->stopAnimating(FALSE);
+			param->setWeight(newFatState.boobGrav*0.3f+getActualFatGrav(), FALSE);
+			param->apply(avatar_sex);
+			updateVisualParams();
+		}
+
+		mFatState = newFatState;
+	}
+	*/
+	
+}
+
 
 void LLVOAvatar::idleUpdateLipSync(bool voice_enabled)
 {
@@ -8341,6 +8459,22 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 				U8 value;
 				mesgsys->getU8Fast(_PREHASH_VisualParam, _PREHASH_ParamValue, value, i);
 				F32 newWeight = U8_to_F32(value, param->getMinWeight(), param->getMaxWeight());
+
+				if(param->getID() == 507 && newWeight != getActualBoobGrav())
+				{
+					llwarns << "Boob Grav SET to " << newWeight << " for " << getFullname() << llendl;
+					setActualBoobGrav(newWeight);
+				}
+				if(param->getID() == 795 && newWeight != getActualButtGrav())
+				{
+					llwarns << "Butt Grav SET to " << newWeight << " for " << getFullname() << llendl;
+					setActualButtGrav(newWeight);
+				}
+				if(param->getID() == 157 && newWeight != getActualFatGrav())
+				{
+					llwarns << "Fat Grav SET to " << newWeight << " for " << getFullname() << llendl;
+					setActualFatGrav(newWeight);
+				}
 
 				if (is_first_appearance_message || (param->getWeight() != newWeight))
 				{

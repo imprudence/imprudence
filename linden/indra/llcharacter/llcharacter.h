@@ -253,6 +253,11 @@ public:
 	ESex getSex()				{ return mSex; }
 	void setSex( ESex sex )		{ mSex = sex; }
 
+	// set appearance flag
+	void setAppearanceFlag( bool flag )	{ mInAppearance = flag; } 
+	bool getAppearanceFlag()			{ return mInAppearance; }
+
+
 	U32				getAppearanceSerialNum() const		{ return mAppearanceSerialNum; }
 	void			setAppearanceSerialNum( U32 num )	{ mAppearanceSerialNum = num; }
 	
@@ -272,6 +277,8 @@ protected:
 	U32					mAppearanceSerialNum;
 	U32					mSkeletonSerialNum;
 	LLAnimPauseRequest	mPauseRequest;
+
+	BOOL mInAppearance;
 
 
 private:

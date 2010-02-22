@@ -3417,6 +3417,96 @@
     </map>
 
 
+    <key>EmeraldBoobMass</key>
+    <map>
+      <key>Comment</key>
+      <string>Mass of boobs.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>54.0</real>
+    </map>
+    <key>EmeraldBoobHardness</key>
+    <map>
+      <key>Comment</key>
+      <string>Hardness (dampening) of boobs.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>51</real>
+    </map>
+    <key>EmeraldBreastPhysicsToggle</key>
+    <map>
+      <key>Comment</key>
+      <string>Enables/Disables breast physics</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>EmeraldBreastSportsBra</key>
+    <map>
+      <key>Comment</key>
+      <string>allows disabling the physics for 1 av, in case their outfit looks wrong with it on</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
+    <key>EmeraldBoobVelMax</key>
+    <map>
+      <key>Comment</key>
+      <string>Max amount of velocity boobs can have</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>64</real>
+    </map>
+    <key>EmeraldBoobFriction</key>
+    <map>
+      <key>Comment</key>
+      <string>Internal friction (brings boobs to rest). Shouldn't ever be above 1.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>80</real>
+    </map>
+    <key>EmeraldBoobVelMin</key>
+    <map>
+      <key>Comment</key>
+      <string>Friction Fraction of FPS (used to keep friction uniform through FPS change).</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>24</real>
+    </map>
+    <key>EmeraldBoobXYInfluence</key>
+    <map>
+      <key>Comment</key>
+      <string>Amount of influence along the X and Y planes.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>0.1</real>
+    </map>
+
+
     <key>EmeraldTemporaryUpload</key>
     <map>
       <key>Comment</key>
