@@ -2,9 +2,10 @@
  * @file llpluginprocesschild.h
  * @brief LLPluginProcessChild handles the child side of the external-process plugin API. 
  *
+ * @cond
  * $LicenseInfo:firstyear=2008&license=viewergpl$
  * 
- * Copyright (c) 2008-2009, Linden Research, Inc.
+ * Copyright (c) 2008-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -28,6 +29,7 @@
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
  * $/LicenseInfo$
+ * @endcond
  */
 
 #ifndef LL_LLPLUGINPROCESSCHILD_H
@@ -88,8 +90,9 @@ private:
 		STATE_ERROR,				// generic bailout state
 		STATE_DONE					// state machine will sit in this state after either error or normal termination.
 	};
-	EState mState;
 	void setState(EState state);
+
+	EState mState;
 	
 	LLHost mLauncherHost;
 	LLSocket::ptr_t mSocket;

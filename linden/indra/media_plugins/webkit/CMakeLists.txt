@@ -9,6 +9,7 @@ include(LLPlugin)
 include(LLMath)
 include(LLRender)
 include(LLWindow)
+include(UI)
 include(Linking)
 include(PluginAPI)
 include(MediaPluginBase)
@@ -50,6 +51,11 @@ set(media_plugin_webkit_LINK_LIBRARIES
   ${PLUGIN_API_WINDOWS_LIBRARIES}
 )
 
+if(LINUX)
+  list(APPEND media_plugin_webkit_LINK_LIBRARIES
+    ${UI_LIBRARIES}  # for glib/GTK
+    )
+endif(LINUX)
 
 
 add_library(media_plugin_webkit
@@ -93,3 +99,4 @@ if (DARWIN)
     )
     
 endif (DARWIN)
+

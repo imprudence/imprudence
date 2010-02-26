@@ -2,9 +2,10 @@
  * @file llpluginprocessparent.cpp
  * @brief LLPluginProcessParent handles the parent side of the external-process plugin API.
  *
+ * @cond
  * $LicenseInfo:firstyear=2008&license=viewergpl$
  * 
- * Copyright (c) 2008-2009, Linden Research, Inc.
+ * Copyright (c) 2008-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -28,6 +29,7 @@
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
  * $/LicenseInfo$
+ * @endcond
  */
 
 #include "linden_common.h"
@@ -49,11 +51,13 @@ LLPluginProcessParent::LLPluginProcessParent(LLPluginProcessParentOwner *owner)
 	mOwner = owner;
 	mBoundPort = 0;
 	mState = STATE_UNINITIALIZED;
+	mSleepTime = 0.0;
+	mCPUUsage = 0.0;
 	mDisableTimeout = false;
 	mDebug = false;
 
 	mPluginLaunchTimeout = 60.0f;
-	mPluginLockupTimeout = 30.0f;
+	mPluginLockupTimeout = 15.0f;
 	
 	// Don't start the timer here -- start it when we actually launch the plugin process.
 	mHeartbeat.stop();

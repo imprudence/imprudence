@@ -14,7 +14,7 @@ include(PluginAPI)
 include(MediaPluginBase)
 include(FindOpenGL)
 
-include(ExamplePlugin)
+#awfixme include(ExamplePlugin)
 
 include_directories(
     ${LLPLUGIN_INCLUDE_DIRS}

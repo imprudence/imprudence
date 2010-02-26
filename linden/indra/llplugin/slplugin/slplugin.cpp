@@ -1,10 +1,12 @@
-/** 
+/**
  * @file slplugin.cpp
  * @brief Loader shell for plugins, intended to be launched by the plugin host application, which directly loads a plugin dynamic library.
  *
+ * @cond
+ *
  * $LicenseInfo:firstyear=2008&license=viewergpl$
  * 
- * Copyright (c) 2008-2009, Linden Research, Inc.
+ * Copyright (c) 2008-2010, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -28,6 +30,8 @@
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
  * $/LicenseInfo$
+ *
+ * @endcond
  */
 
 
@@ -49,15 +53,15 @@
 
 /*
 	On Mac OS, since we call WaitNextEvent, this process will show up in the dock unless we set the LSBackgroundOnly flag in the Info.plist.
-	
+
 	Normally non-bundled binaries don't have an info.plist file, but it's possible to embed one in the binary by adding this to the linker flags:
-	
+
 	-sectcreate __TEXT __info_plist /path/to/slplugin_info.plist
-	
+
 	which means adding this to the gcc flags:
-	
+
 	-Wl,-sectcreate,__TEXT,__info_plist,/path/to/slplugin_info.plist
-	
+
 */
 
 #if LL_DARWIN || LL_LINUX
@@ -68,7 +72,7 @@ static void crash_handler(int sig)
 	// TODO: add our own crash reporting
 	_exit(1);
 }
-#endif	
+#endif
 
 #if LL_WINDOWS
 #include <windows.h>
@@ -81,7 +85,7 @@ LONG WINAPI myWin32ExceptionHandler( struct _EXCEPTION_POINTERS* exception_infop
 	//std::cerr << "intercepted an unhandled exception and will exit immediately." << std::endl;
 
 	// TODO: replace exception handler before we exit?
-	return EXCEPTION_EXECUTE_HANDLER;	
+	return EXCEPTION_EXECUTE_HANDLER;
 }
 
 // Taken from : http://blog.kalmbachnet.de/?postid=75
@@ -153,7 +157,7 @@ bool checkExceptionHandler()
 	if (prev_filter == NULL)
 	{
 		ok = FALSE;
-		if (myWin32ExceptionHandler == NULL)
+		if (NULL == myWin32ExceptionHandler)
 		{
 			LL_WARNS("AppInit") << "Exception handler uninitialized." << LL_ENDL;
 		}
@@ -167,7 +171,7 @@ bool checkExceptionHandler()
 }
 #endif
 
-// If this application on Windows platform is a console application, a console is always 
+// If this application on Windows platform is a console application, a console is always
 // created which is bad. Making it a Windows "application" via CMake settings but not
 // adding any code to explicitly create windows does the right thing.
 #if LL_WINDOWS
@@ -178,7 +182,7 @@ int main(int argc, char **argv)
 {
 	ll_init_apr();
 
-	// Set up llerror logging 
+	// Set up llerror logging
 	{
 		LLError::initForApplication(".");
 		LLError::setDefaultLevel(LLError::LEVEL_INFO);
@@ -191,14 +195,14 @@ int main(int argc, char **argv)
 	{
 		LL_ERRS("slplugin") << "usage: " << "SLPlugin" << " launcher_port" << LL_ENDL;
 	};
-	
+
 	U32 port = 0;
 	if(!LLStringUtil::convertToU32(lpCmdLine, port))
 	{
 		LL_ERRS("slplugin") << "port number must be numeric" << LL_ENDL;
 	};
 
-	// Insert our exception handler into the system so this plugin doesn't 
+	// Insert our exception handler into the system so this plugin doesn't
 	// display a crash message if something bad happens. The host app will
 	// see the missing heartbeat and log appropriately.
 	initExceptionHandler();
@@ -207,7 +211,7 @@ int main(int argc, char **argv)
 	{
 		LL_ERRS("slplugin") << "usage: " << argv[0] << " launcher_port" << LL_ENDL;
 	}
-	
+
 	U32 port = 0;
 	if(!LLStringUtil::convertToU32(argv[1], port))
 	{
@@ -228,17 +232,17 @@ int main(int argc, char **argv)
 	LLPluginProcessChild *plugin = new LLPluginProcessChild();
 
 	plugin->init(port);
-	
+
 	LLTimer timer;
 	timer.start();
 
 #if LL_WINDOWS
 	checkExceptionHandler();
 #endif
-		
+
 	while(!plugin->isDone())
 	{
-		timer.reset();	
+		timer.reset();
 		plugin->idle();
 #if LL_DARWIN
 		{
@@ -249,7 +253,7 @@ int main(int argc, char **argv)
 #endif
 		F64 elapsed = timer.getElapsedTimeF64();
 		F64 remaining = plugin->getSleepTime() - elapsed;
-		
+
 		if(remaining <= 0.0f)
 		{
 			// We've already used our full allotment.
@@ -262,26 +266,26 @@ int main(int argc, char **argv)
 		{
 
 //			LL_INFOS("slplugin") << "elapsed = " << elapsed * 1000.0f << " ms, remaining = " << remaining * 1000.0f << " ms, sleeping for " << remaining * 1000.0f << " ms" << LL_ENDL;
-//			timer.reset();	
-			
+//			timer.reset();
+
 			// This also services the network as needed.
 			plugin->sleep(remaining);
-			
+
 //			LL_INFOS("slplugin") << "slept for "<< timer.getElapsedTimeF64() * 1000.0f << " ms" <<  LL_ENDL;
 		}
 
 #if LL_WINDOWS
 	// More agressive checking of interfering exception handlers.
-	// Doesn't appear to be required so far - even for plugins 
-	// that do crash with a single call to the intercept 
+	// Doesn't appear to be required so far - even for plugins
+	// that do crash with a single call to the intercept
 	// exception handler such as QuickTime.
 	//checkExceptionHandler();
 #endif
 	}
 
 	delete plugin;
-	
-	ll_cleanup_apr();	
+
+	ll_cleanup_apr();
 
 	return 0;
 }

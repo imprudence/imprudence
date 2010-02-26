@@ -1144,23 +1144,23 @@ Portions copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
           <key>darwin</key>
           <map>
             <key>md5sum</key>
-            <string>b40a13847ee773c9ee06f641fe0dd1c2</string>
+            <string>95f44f0023dddc80be4398fc4f213861</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-darwin-20091023.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-4.6-darwin-20100208.tar.bz2</uri>
           </map>
           <key>linux</key>
           <map>
             <key>md5sum</key>
-            <string>ffede2775355676096b1085cbb9d0da7</string>
+            <string>4c75b2f1e8524c7844ee3ea1cd59a3db</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-linux-20091117.tar.bz2</uri>
+            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-linux-20100209b.tar.bz2</uri>
           </map>
           <key>windows</key>
           <map>
             <key>md5sum</key>
-            <string>6f2f911545e5906edc87f4f3cda423a1</string>
+            <string>1e9798dc424a6f6c2bea50649bbcc7ae</string>
             <key>url</key>
-            <uri>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/llqtwebkit-windows-20091023.tar.bz2</uri>
+            <uri>http://viewer-source-downloads.s3.amazonaws.com/install_pkgs/llqtwebkit-windows-qt4.6-20100210.tar.bz2</uri>
           </map>
         </map>
       </map>

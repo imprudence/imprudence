@@ -3217,7 +3217,7 @@ void LLWindowMacOSX::ShellEx(const std::string& command)
 	}
 }
 
-BOOL LLWindowMacOSX::dialog_color_picker ( F32 *r, F32 *g, F32 *b)
+BOOL LLWindowMacOSX::dialog_color_picker( F32 *r, F32 *g, F32 *b)
 {
 	BOOL	retval = FALSE;
 	OSErr	error = noErr;
