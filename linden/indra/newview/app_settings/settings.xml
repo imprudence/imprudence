@@ -7136,6 +7136,17 @@
         <integer>0</integer>
       </array>
     </map>
+    <key>PrivateLookAtTarget</key>
+    <map>
+      <key>Comment</key>
+      <string>If true, viewer won't tell other viewers where your avatar is looking.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>ProbeHardwareOnStartup</key>
     <map>
       <key>Comment</key>
