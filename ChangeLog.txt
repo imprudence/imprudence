@@ -1,5 +1,10 @@
 2010-02-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Disabled spammy messages about WebFetchInventoryDescendents.
+
+	  modified:   linden/indra/newview/llviewerinventory.cpp
+
+
 	* Rebranded new notifications system for all languages.
 	  Changed "Second Life" to "Imprudence", etc.
 	  Some URLs and SL-specific things have not been rebranded.
