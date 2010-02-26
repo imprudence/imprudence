@@ -1,5 +1,12 @@
 <?xml version="1.0" ?><notifications>
 
+  <!-- I think "Second Life" should not be localized, actually. -Jacek -->
+  <!--
+  <global name="Second Life">
+    세컨드라이프
+  </global>
+  -->
+
   <global name="skipnexttime">
 
 		이 메시지를 다시 표시 안 함
@@ -347,7 +354,7 @@ notifications.xml에 &apos;[_NAME]&apos;이(가) 없습니다.
    name="ClickPublishHelpLand"
    >
 웹에 게시 옵션을 선택하면
-[SECOND_LIFE]
+[GRID_NAME]
  웹 사이트에 이 구획의 이름, 설명, 스냅샷 및 위치를 게시할 수 있습니다.상기 내용 중 지역 사회 기준으로 볼 때
  성인 전용으로 간주될 수 있는 내용이 있을 경우 그 사실을
  표시할 의무가 있습니다.
@@ -374,7 +381,7 @@ notifications.xml에 &apos;[_NAME]&apos;이(가) 없습니다.
    >
 [SECOND_LIFE] 웹사이트를 통해 다른 주민과의 파트너 관계을 제안하거나 기존 파트너 관계을 해제할 수 있습니다.
 
-파트너 관계에 대한 추가 정보를 보려면 세컨드라이프 웹사이트로 이동하십시오.
+파트너 관계에 대한 추가 정보를 보려면 [SECOND_LIFE] 웹사이트로 이동하십시오.
     <usetemplate
      name="okcancelbuttons"
      notext="취소"
@@ -451,7 +458,7 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
    
    name="ConfirmLandSaleToAnyoneChange"
    >
-주의사항: &apos;다른 사람에게 판매&apos;를 클릭하면 이 지역에 토지가 속하지 않은 경우에도 전체 세컨드라이프 커뮤니티에서 해당 토지를 사용할 수 있도록 설정할 수 있습니다.
+주의사항: &apos;다른 사람에게 판매&apos;를 클릭하면 이 지역에 토지가 속하지 않은 경우에도 전체 [GRID_NAME] 커뮤니티에서 해당 토지를 사용할 수 있도록 설정할 수 있습니다.
 
 선택된 [LAND_SIZE]제곱미터의 토지는 판매용으로 설정되어 있습니다.
 판매 가격은 L$[SALE_PRICE]이고 [NAME]에게 판매가 승인됩니다.
@@ -658,7 +665,7 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
    
    name="MustAgreeToLogIn"
    >
-[SECOND_LIFE]에 로그인하려면 이용 약관에 동의해야 합니다.
+[GRID_NAME]에 로그인하려면 이용 약관에 동의해야 합니다.
   </notification>
 
   <notification
@@ -687,7 +694,7 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
    
    name="MustHaveAccountToLogInNoLinks"
    >
-[SECOND_LIFE]에 연결하려면 계정을 갖고 있어야 합니다.
+[GRID_NAME]에 연결하려면 계정을 갖고 있어야 합니다.
     <usetemplate
      name="okbutton"
      yestext="확인"/>
@@ -700,7 +707,7 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 죄송합니다. 일부 항목이 비어 있습니다.
 아바타의 성과 이름을 모두 입력해야 합니다.
 
-[SECOND_LIFE]에 연결하려면 계정을 갖고 있어야 합니다. 지금 새로운 계정을 만드시겠습니까?
+[GRID_NAME]에 연결하려면 계정을 갖고 있어야 합니다. 지금 새로운 계정을 만드시겠습니까?
     <usetemplate
      name="okcancelbuttons"
      notext="다시 시도"
@@ -811,14 +818,14 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
    
    name="CacheWillClear"
    >
-[SECOND_LIFE]를 다시 시작하면 캐시가 비워 집니다.
+[VIEWER_NAME]를 다시 시작하면 캐시가 비워 집니다.
   </notification>
 
   <notification
    
    name="CacheWillBeMoved"
    >
-[SECOND_LIFE]를 다시 시작하면 캐시가 이동합니다.
+[VIEWER_NAME]를 다시 시작하면 캐시가 이동합니다.
 참고: 이 작업은 캐시를 비웁니다.
   </notification>
 
@@ -826,14 +833,14 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
    
    name="ChangeConnectionPort"
    >
-포트 설정은 [SECOND_LIFE]를 다시 시작한 후 유효합니다.
+포트 설정은 [VIEWER_NAME]를 다시 시작한 후 유효합니다.
   </notification>
 
   <notification
    
    name="ChangeSkin"
    >
-새로운 스킨은 [SECOND_LIFE]를 재시동한 후 적용됩니다.
+새로운 스킨은 [VIEWER_NAME]를 재시동한 후 적용됩니다.
   </notification>
 
   <notification
@@ -966,7 +973,7 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
    
    name="UnsupportedHardware"
    >
-경고: 시스템이 세컨드라이프의 최소 시스템 요구 사항을 충족하지 않습니다. 계속해서 세컨드라이프를 사용하면 컴퓨터의 성능 저하가 발생할 수 있습니다.  지원되지 않는 시스템 구성에 대한 기술적인 지원은 제공되지 않습니다.
+경고: 시스템이 [VIEWER_NAME]의 최소 시스템 요구 사항을 충족하지 않습니다. 계속해서 [VIEWER_NAME]를 사용하면 컴퓨터의 성능 저하가 발생할 수 있습니다.  지원되지 않는 시스템 구성에 대한 기술적인 지원은 제공되지 않습니다.
 
 MINSPECS
 [_URL]을 방문하여 추가 정보를 확인 하시겠습니까?
@@ -987,7 +994,7 @@ MINSPECS
    >
 알 수 없는 그래픽 카드를 사용하고 있습니다.
 이 문제는 린든랩에서 검증하지 못한  새로운 하드웨어가 사용되었기 때문일 수
-있습니다.  대부분의 경우 세컨드라이프는 정상적으로 실행되지만 사용 중인 그래픽 설정을
+있습니다.  대부분의 경우 [VIEWER_NAME]는 정상적으로 실행되지만 사용 중인 그래픽 설정을
 적합한 설정으로 조정해야 할 수 있습니다.
 (편집 &gt; 환경 설정 &gt; 그래픽)
     <form name="form">
@@ -999,7 +1006,7 @@ MINSPECS
    
    name="DisplaySettingsNoShaders"
    >
-그래픽 드라이버 초기화 중 [SECOND_LIFE]에 오류가 발생했습니다.
+그래픽 드라이버 초기화 중 [VIEWER_NAME]에 오류가 발생했습니다.
 일반적인 드라이버 오류를 방지하기 위해 그래픽 품질이 낮게 설정됩니다.
 이로 인해 일부 그래픽 기능을 사용할 수 없게 될 수 있습니다..
 그래픽 카드 드라이버의 업데이트를 권장합니다.
@@ -1507,7 +1514,7 @@ WAV 헤더에서 &apos;데이터&apos; 를 찾을 수 없습니다:
    
    name="CannotCloseFloaterBuyLand"
    >
-세컨드라이프에서 이 거래 비용을 산정할 때까지
+[GRID_NAME]에서 이 거래 비용을 산정할 때까지
 토지 구매 창을 닫을 수 없습니다.
   </notification>
 
@@ -1820,9 +1827,9 @@ WAV 헤더에서 &apos;데이터&apos; 를 찾을 수 없습니다:
    
    name="YouHaveBeenLoggedOut"
    >
-[SECOND_LIFE]에서 로그아웃하셨습니다:
+[GRID_NAME]에서 로그아웃하셨습니다:
             [MESSAGE]
-기존의 메신저와 채팅을 보려면 &apos;메신저 및 채팅 보기&apos;를 클릭하십시오. 그렇지 않고 [SECOND_LIFE]를 즉시 끝내려면 &apos;종료&apos;를 클릭하십시오.
+기존의 메신저와 채팅을 보려면 &apos;메신저 및 채팅 보기&apos;를 클릭하십시오. 그렇지 않고 [VIEWER_NAME]를 즉시 끝내려면 &apos;종료&apos;를 클릭하십시오.
     <usetemplate
      name="okcancelbuttons"
      notext="종료"
@@ -2182,7 +2189,7 @@ WAV 헤더에서 &apos;데이터&apos; 를 찾을 수 없습니다:
    name="ClothingLoading"
    >
 의복을 다운로드하고 있습니다.
-[SECOND_LIFE]를 사용할 수 있으며 다른 사용자에게 귀하의 모습이 정상적으로 표시될 것입니다.
+[GRID_NAME]를 사용할 수 있으며 다른 사용자에게 귀하의 모습이 정상적으로 표시될 것입니다.
     <form name="form">
       <ignore name="ignore" text="의복 다운로드 시간이 오래 걸리는 경우"/>
     </form>
@@ -2192,11 +2199,11 @@ WAV 헤더에서 &apos;데이터&apos; 를 찾을 수 없습니다:
    
    name="FirstRun"
    >
-[SECOND_LIFE] 설치가 완료되었습니다.
+[VIEWER_NAME] 설치가 완료되었습니다.
 
-[SECOND_LIFE]를 처음 사용하시는 경우 먼저 계정을 만들어야
+[GRID_NAME]를 처음 사용하시는 경우 먼저 계정을 만들어야
 로그인할 수 있습니다.
-www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
+[GRID_SITE]으로 돌아가 신규 계정을 만드시겠습니까?
     <usetemplate
      name="okcancelbuttons"
      notext="계속"
@@ -2207,7 +2214,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
    
    name="LoginPacketNeverReceived"
    >
-연결 중 문제가 발생했습니다. 인터넷 연결에 문제가 있거나 세컨드라이프 서버에 있을 수 있습니다.
+연결 중 문제가 발생했습니다. 인터넷 연결에 문제가 있거나 [GRID_NAME] 서버에 있을 수 있습니다.
 
 인터넷 연결을 확인하고 몇 분 후에 다시 시도하거나 도움말을 클릭하여 지원 사이트에 문의를 접수해 주십시오. 또는 텔리포트를 클릭하여 텔리포트 홈으로 이동해 보십시오.
     <form name="form">
@@ -2235,7 +2242,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 
 화살표 키를 이용하여 걸을 수 있습니다.
 언제든지 F1 키를 누르면 도움말을 보거나
-[SECOND_LIFE]를 자세히 배울 수 있습니다.
+[GRID_NAME]를 자세히 배울 수 있습니다.
 남성 또는 여성 캐릭터를 선택해 주십시오.
 캐릭터는 차후에 변경이 가능합니다.
     <usetemplate
@@ -2438,9 +2445,9 @@ RAW 지형 파일을 다음 경로에 다운로드 완료했습니다:
    
    name="DownloadWindowsMandatory"
    >
-[SECOND_LIFE] 새 버전이 출시되었습니다.
+[VIEWER_NAME] 새 버전이 출시되었습니다.
 [MESSAGE]
-[SECOND_LIFE]를 사용하려면 이 업데이트를 다운로드해야 합니다.
+[GRID_NAME]를 사용하려면 이 업데이트를 다운로드해야 합니다.
     <usetemplate
      name="okcancelbuttons"
      notext="종료"
@@ -2451,7 +2458,7 @@ RAW 지형 파일을 다음 경로에 다운로드 완료했습니다:
    
    name="DownloadWindows"
    >
-[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
+[VIEWER_NAME] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
     <usetemplate
@@ -2464,7 +2471,7 @@ RAW 지형 파일을 다음 경로에 다운로드 완료했습니다:
    
    name="DownloadWindowsReleaseForDownload"
    >
-[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
+[VIEWER_NAME] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
     <usetemplate
@@ -2477,9 +2484,9 @@ RAW 지형 파일을 다음 경로에 다운로드 완료했습니다:
    
    name="DownloadMacMandatory"
    >
-[SECOND_LIFE] 새 버전이 출시되었습니다.
+[VIEWER_NAME] 새 버전이 출시되었습니다.
 [MESSAGE]
-[SECOND_LIFE]를 사용하려면 이 업데이트를 다운로드해야 합니다.
+[GRID_NAME]를 사용하려면 이 업데이트를 다운로드해야 합니다.
 
 Applications 폴더에 다운로드하시겠습니까?
     <usetemplate
@@ -2492,7 +2499,7 @@ Applications 폴더에 다운로드하시겠습니까?
    
    name="DownloadMac"
    >
-[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
+[VIEWER_NAME] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
 
@@ -2507,7 +2514,7 @@ Applications 폴더에 다운로드하시겠습니까?
    
    name="DownloadMacReleaseForDownload"
    >
-[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
+[VIEWER_NAME] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
 
@@ -2547,7 +2554,7 @@ Applications 폴더에 다운로드하시겠습니까?
    
    name="WebLaunchJoinNow"
    >
-계정을 관리 하기 위해www.secondlife.com으로 갑니까?
+계정을 관리 하기 위해[GRID_SITE]으로 갑니까?
     <usetemplate
      ignoretext="계정을 관리하기 위해 웹 브라우저를 시작할 때"
      name="okcancelignore"
@@ -2559,7 +2566,7 @@ Applications 폴더에 다운로드하시겠습니까?
    
    name="WebLaunchBugReport101"
    >
-세컨드라이프 위키에서 버그신고에 대해 보기
+[SECOND_LIFE] 위키에서 버그신고에 대해 보기
     <usetemplate
      ignoretext="버그신고 101 위키를 웹 브라우저에서 볼때"
      name="okcancelignore"
@@ -2571,7 +2578,7 @@ Applications 폴더에 다운로드하시겠습니까?
    
    name="WebLaunchSecurityIssues"
    >
-세컨드라이프 위키에서 보안 관련 신고에 대해 보기
+[SECOND_LIFE] 위키에서 보안 관련 신고에 대해 보기
     <usetemplate
      ignoretext="보안 관련 위키를 웹 브라우저에서 볼때"
      name="okcancelignore"
@@ -2607,7 +2614,7 @@ Applications 폴더에 다운로드하시겠습니까?
    
    name="WebLaunchPublicIssueHelp"
    >
-세컨드라이프 위키에서 이슈 트랙에 대해 보기
+[SECOND_LIFE] 위키에서 이슈 트랙에 대해 보기
     <usetemplate
      ignoretext="이슈 트랙 관련 위키를 웹 브라우저에서 볼때"
      name="okcancelignore"
@@ -3653,7 +3660,7 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
    label="음성 버전이 일치하지 않음."
    name="VoiceVersionMismatch"
    >
-현재Second Life 버전은 이 지역의 음성 채팅 사양과 일치하지 않습니다. 음성 채팅 기능이 올바르게 작동하려면Second Life를 업데이트 해야 합니다.
+현재[VIEWER_NAME] 버전은 이 지역의 음성 채팅 사양과 일치하지 않습니다. 음성 채팅 기능이 올바르게 작동하려면[VIEWER_NAME]를 업데이트 해야 합니다.
   </notification>
 
   <notification
@@ -3904,7 +3911,7 @@ L$[PRICE]에 컨텐츠를 구매하시겠습니까?
    
    name="WebLaunchAccountHistory"
    >
-계정 기록을 보기 위해 세컨드라이프 웹 사이트로 갑니까?
+계정 기록을 보기 위해 [SECOND_LIFE] 웹 사이트로 갑니까?
     <usetemplate
      ignoretext="계정 기록 웹 페이지를 로드할 때"
      name="okcancelignore"
@@ -3916,9 +3923,9 @@ L$[PRICE]에 컨텐츠를 구매하시겠습니까?
    
    name="ClickOpenF1Help"
    >
-Second Life 지원 웹 사이트를 방문하시겠습니까?
+[SECOND_LIFE] 지원 웹 사이트를 방문하시겠습니까?
     <usetemplate
-     ignoretext="Second Life 지원 웹 사이트를 방문할 때."
+     ignoretext="[SECOND_LIFE] 지원 웹 사이트를 방문할 때."
      name="okcancelignore"
      notext="취소"
      yestext="이동"/>
@@ -3930,7 +3937,7 @@ Second Life 지원 웹 사이트를 방문하시겠습니까?
    >
 종료 하시겠습니까?
     <usetemplate
-     ignoretext="Second Life를 종료할 때."
+     ignoretext="[VIEWER_NAME]를 종료할 때."
      name="okcancelignore"
      notext="계속"
      yestext="종료"/>
@@ -3969,10 +3976,10 @@ http://secondlife.com/support/incidentreport.php
 (시행 규칙을 열람하려면 월드 메뉴에서 토지 소개를
 선택하십시오.)
 -
-이 보고서의 해결은 이 지역에서만 적용되며, Second Life 내의
+이 보고서의 해결은 이 지역에서만 적용되며, [GRID_NAME] 내의
 기타 지역에 대한 주민들의 접근 권한은 이 보고서의 결과에
-영향을 받지 않습니다. 오직 Linden Lab만이
-Second Life 전체의 접근 권한을 제한할 수 있습니다.
+영향을 받지 않습니다. <!-- 오직 Linden Lab만이
+[GRID_NAME] 전체의 접근 권한을 제한할 수 있습니다. -->
   </notification>
 
   <notification
@@ -4066,9 +4073,9 @@ http://secondlife.com/community/support.php
 
 저작권 침해 사례를 신고하려면 다음 절차에 따라 올바른 방식으로 신고하시기 바랍니다:
 
-(1) 악용 신고 절차. 특정 주민이 세컨드라이프의 권한을 부당하게 이용하는 것으로 판단되는 경우 악용 신고서를 제출할 수 있습니다. 예를 들면, CopyBot(무단복제)나 유사한 복제 도구를 사용해서 저작권을 침해하는 행위를 들 수 있습니다. 악용 신고 전담팀은 세컨드라이프 커뮤니티 규칙과 서비스 약관을 위반한 행위를 조사하고 적절한 징계 조치를 취할 것입니다. 하지만 악용 신고 전담팀에서는 해당 컨텐츠 삭제를 직접 취급하지 않습니다.
+(1) 악용 신고 절차. 특정 주민이 [SECOND_LIFE]의 권한을 부당하게 이용하는 것으로 판단되는 경우 악용 신고서를 제출할 수 있습니다. 예를 들면, CopyBot(무단복제)나 유사한 복제 도구를 사용해서 저작권을 침해하는 행위를 들 수 있습니다. 악용 신고 전담팀은 [SECOND_LIFE] 커뮤니티 규칙과 서비스 약관을 위반한 행위를 조사하고 적절한 징계 조치를 취할 것입니다. 하지만 악용 신고 전담팀에서는 해당 컨텐츠 삭제를 직접 취급하지 않습니다.
 
-(2) DMCA 또는 컨텐츠 삭제 절차. 세컨드라이프에서 컨텐츠 삭제를 요청하려면 http://secondlife.com/corporate/dmca.php의 DMCA 정책에 명시된 대로 유효한 저작권 침해 통지서를 제출해야 합니다.
+(2) DMCA 또는 컨텐츠 삭제 절차. [SECOND_LIFE]에서 컨텐츠 삭제를 요청하려면 http://secondlife.com/corporate/dmca.php의 DMCA 정책에 명시된 대로 유효한 저작권 침해 통지서를 제출해야 합니다.
 
 악용 신고 절차를 계속해서 진행하려면 이 창을 닫고 신고 제출을 완료하십시오.
 
@@ -4216,7 +4223,7 @@ http://secondlife.com/community/support.php
    
    name="GraphicsPreferencesHelp"
    >
-세컨드라이프 클라이언트의 그래픽 해상도 및 품질을 제어합니다.  낮음, 중간, 높음, 매우 높음  4단계의 설정을  선택할 수 있습니다. 또한 사용자 크기 확인란을 선택 후 설정을 세부 조작할 수 있습니다.
+[VIEWER_NAME] 클라이언트의 그래픽 해상도 및 품질을 제어합니다.  낮음, 중간, 높음, 매우 높음  4단계의 설정을  선택할 수 있습니다. 또한 사용자 크기 확인란을 선택 후 설정을 세부 조작할 수 있습니다.
 
 쉐이더: 쉐이더 유형을 활성화하거나 비활성화합니다.
 
@@ -4304,7 +4311,7 @@ PostProcess 효과가 이미 있습니다. 덮어쓰시겠습니까?
    >
 이러한 설정은 사용자의 컴퓨터에서 환경이 표현되는 방식을 조절합니다.  모든 설정을 이용하려면 사용 중인 그래픽 카드에서 대기 쉐이더를 지원해야 합니다.
 
-세컨드라이프에서 로컬로 날짜 단계를 변경하려면 &quot;시각&quot; 슬라이더를 조절하십시오.
+[VIEWER_NAME]에서 로컬로 날짜 단계를 변경하려면 &quot;시각&quot; 슬라이더를 조절하십시오.
 
 구름이 하늘을 덮고 있는 양을 조절하려면 &quot;구름양&quot; 슬라이더를 조절하십시오.
 
@@ -4323,7 +4330,7 @@ PostProcess 효과가 이미 있습니다. 덮어쓰시겠습니까?
    
    name="HelpDayCycle"
    >
-날짜 주기 편집기는 세컨드라이프의 낮/밤 주기 동안 하늘의 모양을 조절할 수 있는 기능을 제공합니다. 이것은 기본 환경 편집기의 시각 슬라이더에서 사용되는 주기입니다.
+날짜 주기 편집기는 [GRID_NAME]의 낮/밤 주기 동안 하늘의 모양을 조절할 수 있는 기능을 제공합니다. 이것은 기본 환경 편집기의 시각 슬라이더에서 사용되는 주기입니다.
 
 날짜 주기 편집기는 키프레임을 설정하는 방식으로 작동합니다. 이러한 키프레임은 관련된 하늘 사전 설정이 포함된 노드(시간 그래프에서 회색 블립으로 나타남)입니다. 시각이 증가함에 따라 이러한 키프레임 사이에 삽입될 때마다 윈드라이트 하늘이 &quot;애니메이션&quot;으로 표시됩니다.
 
@@ -4512,7 +4519,7 @@ D 슬라이더를 사용해서는 구름의 농도를
    
    name="HelpClassicClouds"
    >
-윈드라이트 구름 외의 기존의 세컨드라이프 구름을 렌더링하려면 이 옵션을 선택하십시오.
+윈드라이트 구름 외의 기존의 [SECOND_LIFE] 구름을 렌더링하려면 이 옵션을 선택하십시오.
   </notification>
 
   <notification
@@ -4738,7 +4745,7 @@ D 슬라이더를 사용해서는 구름의 농도를
    name="NotAgeVerified"
    >
 이 구획에 출입하려면 성인 인증이 필요합니다.
-Second Life 웹사이트를 방문하여 성인 인증을 하시겠습니까?
+[SECOND_LIFE] 웹사이트를 방문하여 성인 인증을 하시겠습니까?
 
 [_URL]
     <url option="0" name="url">
@@ -4757,7 +4764,7 @@ Second Life 웹사이트를 방문하여 성인 인증을 하시겠습니까?
    name="Cannot enter parcel: no payment info on file"
    >
 이 구획에 출입 하려면 결제 수단 정보가 있어야 합니다.
-Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
+[SECOND_LIFE] 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
 
 [_URL]
     <url option="0" name="url">
@@ -5676,7 +5683,7 @@ L$[AMOUNT]을(를) 결제하셨습니다.
    
    name="FirstBuild"
    >
-새로운 오브젝트를 [SECOND_LIFE]에서 제작할 수 있습니다.
+새로운 오브젝트를 [GRID_NAME]에서 제작할 수 있습니다.
 왼쪽 상단의 도구를 사용하여 제작하고
 Ctrl 또는 Alt 키를 누른 상태에서 신속하게 도구를 전환하십시오.
 제작을 중단하려면 Esc 키를 누르십시오.
@@ -5757,7 +5764,7 @@ Ctrl 또는 Alt 키를 누른 상태에서 신속하게 도구를 전환하십�
    name="FirstDebugMenus"
    >
 고급 메뉴를 활성화하였습니다.
-이 메뉴들은Second Life 디버깅 개발자에게 유용한 점들을 포함하고 있습니다.
+이 메뉴들은[VIEWER_NAME] 디버깅 개발자에게 유용한 점들을 포함하고 있습니다.
 이 메뉴들을 토글 기능으로 사용하려면 Windows에서 Ctrl-Alt-D키를 누르고 Mac 운영 시스템에서는Cmd-Opt-Shift-D를 누릅니다.
   </notification>
 
@@ -6004,7 +6011,7 @@ sculpted prim은 그 형태를 지정하는 특별한 텍스처를 요구합니�
   </global>
 
   <global name="UnsupportedGLRequirements">
-세컨드라이프를 실행하는 데 필요한 하드웨어 요구 사항이 충족되지 않았습니다. 세컨드라이프를 이용하려면 멀티텍스처를 지원하는 OpenGL 그래픽 카드가 필요합니다. 적절한 그래픽 카드가 있는 경우 해당 그래픽 카드에 대한 최신 드라이버와 운영 체제에 맞는 서비스 팩과 패치가 설치되어 있는지 확인하십시오.
+[VIEWER_NAME]를 실행하는 데 필요한 하드웨어 요구 사항이 충족되지 않았습니다. [VIEWER_NAME]를 이용하려면 멀티텍스처를 지원하는 OpenGL 그래픽 카드가 필요합니다. 적절한 그래픽 카드가 있는 경우 해당 그래픽 카드에 대한 최신 드라이버와 운영 체제에 맞는 서비스 팩과 패치가 설치되어 있는지 확인하십시오.
 
 그래도 문제가 지속되면 다음 사이트를 방문해 보십시오: http://www.secondlife.com/support
   </global>

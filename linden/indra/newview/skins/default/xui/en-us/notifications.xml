@@ -1,5 +1,11 @@
 <?xml version="1.0" ?><notifications>
 
+  <global name="VIEWER_NAME">Imprudence</global>
+  <global name="VIEWER_SITE">imprudenceviewer.org</global>
+  <global name="SECOND_LIFE">Second Life</global>
+  <global name="SECOND_LIFE_SITE">secondlife.com</global>
+
+
   <global name="skipnexttime">
 
 		Don&apos;t show me this again
@@ -98,7 +104,7 @@
    name="MissingAlert"
    label="Unknown Alert Message"
    type="alertmodal">
-Your version of Second Life does not know how to display the alert message it just received.
+Your version of [VIEWER_NAME] does not know how to display the alert message it just received.
 
 Error details: The alert called &apos;[_NAME]&apos; was not found in notifications.xml.
     <usetemplate
@@ -150,7 +156,7 @@ No tutorial is currently available.
    icon="alertmodal.tga"
    name="BadInstallation"
    type="alertmodal">
-An error occurred while updating Second Life. Please download the latest version from secondlife.com.
+An error occurred while updating [VIEWER_NAME]. Please download the latest version from [VIEWER_SITE].
     <usetemplate
      name="okbutton"
      yestext="Ok"/>
@@ -426,7 +432,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    type="alertmodal">
     You can propose to another Resident or dissolve an existing partnership through the [SECOND_LIFE] website.
 
-    Go to the Second Life web site for more information on partnering?
+    Go to the [SECOND_LIFE] web site for more information on partnering?
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -509,7 +515,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="ConfirmLandSaleToAnyoneChange"
    type="alertmodal">
-    ATTENTION: Clicking &apos;sell to anyone&apos; makes your land available to the entire Second Life community, even those not in this region.
+    ATTENTION: Clicking &apos;sell to anyone&apos; makes your land available to the entire [GRID_NAME] community, even those not in this region.
 
     The selected [LAND_SIZE] m² land is being set for sale.
     Your selling price will be L$[SALE_PRICE] and will be authorized for sale to [NAME].
@@ -700,7 +706,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="MustAgreeToLogIn"
    type="alertmodal">
-    You must agree to the Terms of Service to continue logging into [SECOND_LIFE].
+    You must agree to the Terms of Service to continue logging into [GRID_NAME].
   </notification>
 
   <notification
@@ -732,7 +738,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
     Oops! Something was left blank.
     You need to enter both the First and Last name of your avatar.
 
-    You need an account to enter [SECOND_LIFE]. Would you like to create one now?
+    You need an account to enter [GRID_NAME]. Would you like to create one now?
     <usetemplate
      name="okcancelbuttons"
      notext="Try again"
@@ -793,7 +799,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="PromptGoToEventsPage"
    type="alertmodal">
-    Go to the [SECOND_LIFE] events web page?
+    Go to the [GRID_NAME] events web page?
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -840,14 +846,14 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="CacheWillClear"
    type="alertmodal">
-    Cache will be cleared after you restart [SECOND_LIFE].
+    Cache will be cleared after you restart [VIEWER_NAME].
   </notification>
 
   <notification
    icon="alertmodal.tga"
    name="CacheWillBeMoved"
    type="alertmodal">
-    Cache will be moved after you restart [SECOND_LIFE].
+    Cache will be moved after you restart [VIEWER_NAME].
     Note: This will clear the cache.
   </notification>
 
@@ -855,21 +861,21 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="ChangeConnectionPort"
    type="alertmodal">
-    Port settings take effect after you restart [SECOND_LIFE].
+    Port settings take effect after you restart [VIEWER_NAME].
   </notification>
 
   <notification
    icon="alertmodal.tga"
    name="ChangeSkin"
    type="alertmodal">
-    The new skin will appear after you restart [SECOND_LIFE].
+    The new skin will appear after you restart [VIEWER_NAME].
   </notification>
 
   <notification
    icon="alertmodal.tga"
    name="GoToAuctionPage"
    type="alertmodal">
-    Go to the [SECOND_LIFE] web page to see auction details or make a bid?
+    Go to the [GRID_NAME] web page to see auction details or make a bid?
     <usetemplate
      name="okcancelbuttons"
      notext="Cancel"
@@ -995,7 +1001,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="UnsupportedHardware"
    type="alertmodal">
-    Warning: Your system does not meet Second Life&apos;s minimum system requirements. If you continue using Second Life, you may experience poor performance. Unfortunately, we cannot provide technical support for unsupported system configurations.
+    Warning: Your system does not meet [VIEWER_NAME]&apos;s minimum system requirements. If you continue using [VIEWER_NAME], you may experience poor performance. Unfortunately, we cannot provide technical support for unsupported system configurations.
 
     MINSPECS
     Do you wish to visit [_URL] for more information?
@@ -1015,7 +1021,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    name="UnknownGPU"
    type="alertmodal">
     Your system contains a graphics card that is unknown to us at this time.
-    This is often the case with new hardware we haven&apos;t had a chance to test.  Second Life will most likely run properly, but you may need to adjust your graphics settings to something more appropriate.
+    This is often the case with new hardware we haven&apos;t had a chance to test.  [VIEWER_NAME] will most likely run properly, but you may need to adjust your graphics settings to something more appropriate.
     (Edit menu &gt; Preferences &gt; Graphics).
     <form name="form">
       <ignore name="ignore"
@@ -1027,7 +1033,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="DisplaySettingsNoShaders"
    type="alertmodal">
-    [SECOND_LIFE] crashed while initializing graphics drivers.
+    [VIEWER_NAME] crashed while initializing graphics drivers.
     Graphics Quality will be set to low to avoid some common driver errors.
     This will disable some graphics features.
     We recommend updating your graphics card drivers.
@@ -1620,7 +1626,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="CannotCloseFloaterBuyLand"
    type="alertmodal">
-    You cannot close the Buy Land window until Second Life estimates the price of this transaction.
+    You cannot close the Buy Land window until [GRID_NAME] estimates the price of this transaction.
   </notification>
 
   <notification
@@ -1936,9 +1942,9 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="YouHaveBeenLoggedOut"
    type="alertmodal">
-    You have been logged out of [SECOND_LIFE]:
+    You have been logged out of [GRID_NAME]:
     [MESSAGE]
-    You can still look at existing IM and chat by clicking &apos;View IM &amp; Chat&apos;. Otherwise, click &apos;Quit&apos; to exit [SECOND_LIFE] immediately.
+    You can still look at existing IM and chat by clicking &apos;View IM &amp; Chat&apos;. Otherwise, click &apos;Quit&apos; to exit [VIEWER_NAME] immediately.
     <usetemplate
      name="okcancelbuttons"
      notext="Quit"
@@ -2279,7 +2285,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    name="ClothingLoading"
    type="alertmodal">
     Your clothing is still downloading.
-    You can use [SECOND_LIFE] normally and other users will see you correctly.
+    You can use [GRID_NAME] normally and other users will see you correctly.
     <form name="form">
       <ignore name="ignore"
        text="When clothing is taking a long time to download"/>
@@ -2290,10 +2296,10 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="FirstRun"
    type="alertmodal">
-    [SECOND_LIFE] installation is complete.
+    [VIEWER_NAME] installation is complete.
 
-    If this is your first time using [SECOND_LIFE], you will need to create an account before you can log on.
-    Return to www.secondlife.com to create a new account?
+    If this is your first time using [GRID_NAME], you will need to create an account before you can log on.
+    Return to [GRID_SITE] to create a new account?
     <usetemplate
      name="okcancelbuttons"
      notext="Continue"
@@ -2304,7 +2310,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="LoginPacketNeverReceived"
    type="alertmodal">
-    We&apos;re having trouble connecting. There may be a problem with your internet connection or the Second Life servers.
+    We&apos;re having trouble connecting. There may be a problem with your internet connection or the [GRID_NAME] servers.
 
     You can either check your internet connection and try again in a few minutes, click Help to connect to our support site, or click Teleport to attempt to teleport home.
     <form name="form">
@@ -2331,7 +2337,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
     Your character will appear in a moment.
 
     Use arrow keys to walk.
-    Press the F1 key at any time for help or to learn more about [SECOND_LIFE].
+    Press the F1 key at any time for help or to learn more about [GRID_NAME].
     Please choose the male or female avatar. You can change your mind later.
     <usetemplate
      name="okcancelbuttons"
@@ -2533,9 +2539,9 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="DownloadWindowsMandatory"
    type="alertmodal">
-    A new version of [SECOND_LIFE] is available.
+    A new version of [VIEWER_NAME] is available.
     [MESSAGE]
-    You must download this update to use [SECOND_LIFE].
+    You must download this update to use [GRID_NAME].
     <usetemplate
      name="okcancelbuttons"
      notext="Quit"
@@ -2546,7 +2552,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="DownloadWindows"
    type="alertmodal">
-    An updated version of [SECOND_LIFE] is available.
+    An updated version of [VIEWER_NAME] is available.
     [MESSAGE]
     This update is not required, but we suggest you install it to improve performance and stability.
     <usetemplate
@@ -2559,7 +2565,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="DownloadWindowsReleaseForDownload"
    type="alertmodal">
-    An updated version of [SECOND_LIFE] is available.
+    An updated version of [VIEWER_NAME] is available.
     [MESSAGE]
     This update is not required, but we suggest you install it to improve performance and stability.
     <usetemplate
@@ -2572,9 +2578,9 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="DownloadMacMandatory"
    type="alertmodal">
-    A new version of [SECOND_LIFE] is available.
+    A new version of [VIEWER_NAME] is available.
     [MESSAGE]
-    You must download this update to use [SECOND_LIFE].
+    You must download this update to use [GRID_NAME].
 
     Download to your Applications folder?
     <usetemplate
@@ -2587,7 +2593,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="DownloadMac"
    type="alertmodal">
-    An updated version of [SECOND_LIFE] is available.
+    An updated version of [VIEWER_NAME] is available.
     [MESSAGE]
     This update is not required, but we suggest you install it to improve performance and stability.
 
@@ -2602,7 +2608,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="DownloadMacReleaseForDownload"
    type="alertmodal">
-    An updated version of [SECOND_LIFE] is available.
+    An updated version of [VIEWER_NAME] is available.
     [MESSAGE]
     This update is not required, but we suggest you install it to improve performance and stability.
 
@@ -2642,7 +2648,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="WebLaunchJoinNow"
    type="alertmodal">
-    Go to www.secondlife.com to manage your account?
+    Go to [GRID_SITE] to manage your account?
     <usetemplate
      ignoretext="When launching web browser to manage your account"
      name="okcancelignore"
@@ -3861,7 +3867,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    label="Voice Version Mismatch"
    name="VoiceVersionMismatch"
    type="alertmodal">
-    This version of Second Life is not compatible with the Voice Chat feature in this region. In order for Voice Chat to function correctly you will need to update Second Life.
+    This version of [VIEWER_NAME] is not compatible with the Voice Chat feature in this region. In order for Voice Chat to function correctly you will need to update [VIEWER_NAME].
   </notification>
 
   <notification
@@ -4093,7 +4099,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="WebLaunchAccountHistory"
    type="alertmodal">
-    Go to the Second Life web site to see your account history?
+    Go to the [SECOND_LIFE] web site to see your account history?
     <usetemplate
      ignoretext="When loading account history web page"
      name="okcancelignore"
@@ -4119,7 +4125,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    type="alertmodal">
     Are you sure you want to quit?
     <usetemplate
-     ignoretext="When Quitting Second Life."
+     ignoretext="When quitting [VIEWER_NAME]."
      name="okcancelignore"
      notext="Continue"
      yestext="Quit"/>
@@ -4150,7 +4156,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
     The region owner will resolve reports based on the local rules of this region as outlined in the estate Covenant.
     (View covenants by going to the World menu and selecting About Land.)
 
-    The resolution of this report applies only to this Region; Residents access to other areas of Second Life will not be affected by the outcome of this report. Only Linden Lab can restrict access to the entirety of Second Life.
+    The resolution of this report applies only to this Region; Residents access to other areas of [GRID_NAME] will not be affected by the outcome of this report. <!-- Only Linden Lab can restrict access to the entirety of [GRID_NAME]. -->
   </notification>
 
   <notification
@@ -4243,9 +4249,9 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
 
     You appear to be reporting intellectual property infringement. Please make sure you are reporting it correctly:
 
-    (1) The Abuse Process. You may submit an abuse report if you believe a Resident is exploiting the Second Life permissions system, for example, by using CopyBot or similar copying tools, to infringe intellectual property rights. The Abuse Team investigates and issues appropriate disciplinary action for behavior that violates the Second Life Community Standards or Terms of Service. However, the Abuse Team does not handle and will not respond to requests to remove content from the Second Life world.
+    (1) The Abuse Process. You may submit an abuse report if you believe a Resident is exploiting the [SECOND_LIFE] permissions system, for example, by using CopyBot or similar copying tools, to infringe intellectual property rights. The Abuse Team investigates and issues appropriate disciplinary action for behavior that violates the [SECOND_LIFE] Community Standards or Terms of Service. However, the Abuse Team does not handle and will not respond to requests to remove content from the [SECOND_LIFE] world.
 
-    (2) The DMCA or Content Removal Process. To request removal of content from Second Life, you MUST submit a valid notification of infringement as provided in our DMCA Policy at http://secondlife.com/corporate/dmca.php.
+    (2) The DMCA or Content Removal Process. To request removal of content from [SECOND_LIFE], you MUST submit a valid notification of infringement as provided in our DMCA Policy at http://secondlife.com/corporate/dmca.php.
 
     If you still wish to continue with the abuse process, please close this window and finish submitting your report.  You may need to select the specific category &apos;CopyBot or Permissions Exploit&apos;.
 
@@ -4495,7 +4501,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="HelpDayCycle"
    type="alertmodal">
-    The Day Cycle Editor gives you control over the sky during Second Life&apos;s day/night cycle. This is the cycle that is used by the Basic Environment Editor&apos;s Time of Day slider.
+    The Day Cycle Editor gives you control over the sky during [GRID_NAME]&apos;s day/night cycle. This is the cycle that is used by the Basic Environment Editor&apos;s Time of Day slider.
 
     The Day Cycle Editor works by setting keyframes. These are nodes (represented by the gray blips on the time graph) that have Sky Presets associated with them. As the Time of Day progresses, the WindLight sky &quot;animates&quot; as it interpolates between these keyframes.
 
@@ -4662,7 +4668,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="alertmodal.tga"
    name="HelpClassicClouds"
    type="alertmodal">
-    Check this box to enable rendering of Second Life&apos;s older classic clouds in addition to WindLight&apos;s clouds.
+    Check this box to enable rendering of [SECOND_LIFE]&apos;s older classic clouds in addition to WindLight&apos;s clouds.
   </notification>
 
   <notification
@@ -4887,7 +4893,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    name="NotAgeVerified"
    type="alertmodal">
     You need to be age-verified in order to access this parcel.
-    Would you like to visit the Second Life website to verify your age?
+    Would you like to visit the [SECOND_LIFE] website to verify your age?
 
     [_URL]
     <url option="0" name="url">
@@ -4906,7 +4912,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    name="Cannot enter parcel: no payment info on file"
    type="alertmodal">
     This parcel requires that you have payment information on file before you can access it.
-    Would you like to visit the Second Life website to set this up?
+    Would you like to visit the [SECOND_LIFE] website to set this up?
 
     [_URL]
     <url option="0" name="url">
@@ -5902,7 +5908,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="notify.tga"
    name="InvalidWearable"
    type="notify">
-    The item you are trying to wear uses a feature that your viewer can&apos;t read. Please upgrade your version of Second Life to wear this item.
+    The item you are trying to wear uses a feature that your viewer can&apos;t read. Please upgrade your version of [VIEWER_NAME] to wear this item.
   </notification>
 
   <notification
@@ -6031,7 +6037,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    icon="notify.tga"
    name="FirstBuild"
    type="notify">
-    You can build new objects in some areas of [SECOND_LIFE].
+    You can build new objects in some areas of [GRID_NAME].
     Use the tools in the upper left to build, and try holding down Ctrl or Alt to rapidly switch tools.
     Press Esc to stop building.
   </notification>
@@ -6107,7 +6113,7 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
    name="FirstDebugMenus"
    type="notify">
     You have enabled the Advanced menu.
-    This menu contains features useful for developers debugging Second Life.
+    This menu contains features useful for developers debugging [VIEWER_NAME].
     To toggle this menu on Windows press Ctrl-Alt-D. On Mac press Cmd-Opt-Shift-D.
   </notification>
 
@@ -6647,14 +6653,15 @@ Go to the Official Imprudence Forums to discuss the Imprudence Project.
   </notification>
 
 
-    <!--End Imprudence notifications-->
+  <!--End Imprudence notifications-->
+
 
   <global name="UnsupportedCPU">
     - Your CPU speed does not meet the minimum requirements.
   </global>
 
   <global name="UnsupportedGLRequirements">
-    You do not appear to have the proper hardware requirements for Second Life. Second Life requires an OpenGL graphics card that has multitexture support. If this is the case, you may want to make sure that you have the latest drivers for your graphics card, and service packs and patches for your operating system.
+    You do not appear to have the proper hardware requirements for [VIEWER_NAME]. [VIEWER_NAME] requires an OpenGL graphics card that has multitexture support. If this is the case, you may want to make sure that you have the latest drivers for your graphics card, and service packs and patches for your operating system.
 
     If you continue to have problems, please visit: http://www.secondlife.com/support
   </global>

@@ -71,7 +71,7 @@
     </form>
   </template>
 	<notification functor="GenericAcknowledge" label="Ismeretlen figyelemfelhívás" name="MissingAlert">
-		A használt Second Life kliensverzió nem tudja a figyelemfelhívások megjelenítését kezelni.
+		A használt [VIEWER_NAME] kliensverzió nem tudja a figyelemfelhívások megjelenítését kezelni.
 
 Hiba részletei: Ez a figyelemfelhívás: &apos;[_NAME]&apos; nem található a notifications.xml fájlban.
 		<usetemplate name="okbutton" yestext="OK"/>
@@ -93,7 +93,7 @@ Hiba részletei: Ez a figyelemfelhívás: &apos;[_NAME]&apos; nem található a 
 		<usetemplate name="okcancelbuttons" notext="Mégsem" yestext="Igen"/>
 	</notification>
 	<notification name="BadInstallation">
-		Hiba merült fel a Second Life frissítése során. Kérjük töltsd le a legfrissebb verziót a secondlife.com oldalról.
+		Hiba merült fel a [VIEWER_NAME] frissítése során. Kérjük töltsd le a legfrissebb verziót a [VIEWER_SITE] oldalról.
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -231,7 +231,7 @@ Ezzel a beállítással lehetőség nyílik megjeleníteni:
 	<notification name="ClickPartnerHelpAvatar">
 		Indítványozhatsz kapcsolatot egy másik vagy megszakíthatod a kapcsolatot egy meglévő lakóval a [SECOND_LIFE] oldalon.
 
-Tovább a Second Life honlapra?
+Tovább a [SECOND_LIFE] honlapra?
 		<usetemplate name="okcancelbuttons" notext="Mégsem" yestext="Megnyit"/>
 	</notification>
 	<notification name="ClickUploadHelpPermissions">
@@ -263,7 +263,7 @@ Kérjük válaszd ki azt a személyt, akinek el szeretnéd adni 0 L$ összegért
 Az eladási ár [SALE_PRICE] L$ lesz valamint jóváhagyva ennek: [NAME].
 	</notification>
 	<notification name="ConfirmLandSaleToAnyoneChange">
-		FIGYELEM: A &apos;bárkinek eladás&apos; beállítása révén az eladásra szánt föld megvásárolhatóvá válik bármely személy részére a Second Life közösségében.
+		FIGYELEM: A &apos;bárkinek eladás&apos; beállítása révén az eladásra szánt föld megvásárolhatóvá válik bármely személy részére a [GRID_NAME] közösségében.
 
 A kijelölt [LAND_SIZE] m² területű föld eladásra beállítva.
 Az eladási ár [SALE_PRICE] L$ valamint jóváhagyva ennek: [NAME].
@@ -342,7 +342,7 @@ A fegyverek használatához a scriptek engedélyezése szükséges.
 		A következő hiba merült fel a jelentés képének feltöltésekor: [REASON]
 	</notification>
 	<notification name="MustAgreeToLogIn">
-		A használati feltételek elfogadása szükséges [SECOND_LIFE]-ba történő belépéshez.
+		A használati feltételek elfogadása szükséges [GRID_NAME]-ba történő belépéshez.
 	</notification>
 	<notification name="CouldNotPutOnOutfit">
 		Öltözet felvétele sikertelen.
@@ -358,7 +358,7 @@ Az öltözet könyvtára nem tartalmaz ruhát, testrészt vagy egyéb csatolhat�
 		Hoppá! Valamelyik űrlap üresen maradt.
 Az avatár vezeték- és keresztnevét is meg kell adnod.
 
-A [SECOND_LIFE]-ba történő belépéshez szükséged van egy felhasználói fiókra. Elkészíted most?
+A [GRID_NAME]-ba történő belépéshez szükséged van egy felhasználói fiókra. Elkészíted most?
 	</notification>
 	<notification name="AddClassified">
 		A feladott reklámhirdetések a kereső &apos;Hirdetések&apos; szekciójában és a www.secondlife.com oldalon tekinthetők meg egy hétig.
@@ -392,17 +392,17 @@ A befizetett díj nem kerül visszatérítésre.
 		Le szeretnéd tiltani azokat a pop-up ablakokat, melyek kihagyásra kerülnek?
 	</notification>
 	<notification name="CacheWillClear">
-		Gyorsítótár kiürítése a [SECOND_LIFE] újraindítása után végrehajtásra kerül.
+		Gyorsítótár kiürítése a [VIEWER_NAME] újraindítása után végrehajtásra kerül.
 	</notification>
 	<notification name="CacheWillBeMoved">
-		Gyorsítótár áthelyezése a [SECOND_LIFE] újraindítása után végrehajtásra kerül.
+		Gyorsítótár áthelyezése a [VIEWER_NAME] újraindítása után végrehajtásra kerül.
 Megjegyzés: Ez egyben a gyorsítótárat is kiüríti.
 	</notification>
 	<notification name="ChangeConnectionPort">
-		Port beállítások a [SECOND_LIFE] újraindítása után érvénybe lépnek.
+		Port beállítások a [VIEWER_NAME] újraindítása után érvénybe lépnek.
 	</notification>
 	<notification name="ChangeSkin">
-		Az új kliens sablon a [SECOND_LIFE] újraindítása után érvénybe lép.
+		Az új kliens sablon a [VIEWER_NAME] újraindítása után érvénybe lép.
 	</notification>
 	<notification name="GoToAuctionPage">
 		Menj a [SECOND_LIFE] honlapra az részletes aukciók és licitek megtekintéséhez?
@@ -458,7 +458,7 @@ A elem hatókörön kívüli vagy törölt.
 		Ennek a fájlnak az írása sikertelen: [[FILE]]
 	</notification>
 	<notification name="UnsupportedHardware">
-		Vigyázat: A rendszered nem felel meg a Second Life minimális hardverkövetelményeinek. Amennyiben folytatod a Second Life használatát, akkor gyengébb teljesítményt fogsz észlelni. Sajnos technikai segítséget nem megfelelő rendszerek esetén nem tudunk nyújtani.
+		Vigyázat: A rendszered nem felel meg a [VIEWER_NAME] minimális hardverkövetelményeinek. Amennyiben folytatod a [VIEWER_NAME] használatát, akkor gyengébb teljesítményt fogsz észlelni. Sajnos technikai segítséget nem megfelelő rendszerek esetén nem tudunk nyújtani.
 
 MINSPECS
 További információkért látogasd meg ezt az oldalt: [_URL].
@@ -467,12 +467,12 @@ További információkért látogasd meg ezt az oldalt: [_URL].
 		</url>
 	</notification>
 	<notification name="UnknownGPU">
-		A rendszered a Second Life számára nem azonosítható videókártyával működik.
-Ez jellemzően új hardveralkatrész esetén fordul elő, melyek még nem kerültek ténylegesen tesztelésre. Ettől függetlenül a Second Life megfelelően Second Life működik, de szükség van az ehhez illeszkedő grafikus beállítások végrehajtására.
+		A rendszered a [VIEWER_NAME] számára nem azonosítható videókártyával működik.
+Ez jellemzően új hardveralkatrész esetén fordul elő, melyek még nem kerültek ténylegesen tesztelésre. Ettől függetlenül a [VIEWER_NAME] megfelelően [VIEWER_NAME] működik, de szükség van az ehhez illeszkedő grafikus beállítások végrehajtására.
 (Szerkesztés &gt; Tulajdonságok &gt; Grafika menü).
 	</notification>
 	<notification name="DisplaySettingsNoShaders">
-		[SECOND_LIFE] futása megszakadt az grafikus vezérlő indításakor.
+		[VIEWER_NAME] futása megszakadt az grafikus vezérlő indításakor.
 A szokásos vezérlőhibák elkerülése végett a grafika minősége alacsonyra került beállításra.
 Emiatt néhány grafikus tulajdonság nem elérhető.
 Javasoljuk a videókártya vezérlőprogramjának frissítését.
@@ -748,7 +748,7 @@ Telek nem került kiválasztásra.
 A régió nem található, melyen a föld elhelyezkedik.
 	</notification>
 	<notification name="CannotCloseFloaterBuyLand">
-		Mindaddig nem zárhatod be a &apos;Föld vásárlása&apos; ablakot, amíg a Second Life nem számítja ki a tranzakció árát.
+		Mindaddig nem zárhatod be a &apos;Föld vásárlása&apos; ablakot, amíg a [GRID_NAME] nem számítja ki a tranzakció árát.
 	</notification>
 	<notification name="CannotDeedLandNothingSelected">
 		Föld átruházása sikertelen:
@@ -912,9 +912,9 @@ Amennyiben a probléma még fennáll, kattints a &apos;Segítség -&gt; Hibabeje
 és küld el a géped hálózati beállításának részleteit.
 	</notification>
 	<notification name="YouHaveBeenLoggedOut">
-		A [SECOND_LIFE]-ból kilépve:
+		A [GRID_NAME]-ból kilépve:
             [MESSAGE]
-A folyamatban lévő üzeneteket megtekintheted az &apos;Üzenetek megtekintése&apos; gombra kattintva. Ellenkező esetben, válaszd a &apos;Kilépés&apos; gombot a [SECOND_LIFE] bezárásához.
+A folyamatban lévő üzeneteket megtekintheted az &apos;Üzenetek megtekintése&apos; gombra kattintva. Ellenkező esetben, válaszd a &apos;Kilépés&apos; gombot a [VIEWER_NAME] bezárásához.
 	</notification>
 	<notification name="OnlyOfficerCanBuyLand">
 		Föld vásárlása a csoport részére sikertelen:
@@ -1055,16 +1055,16 @@ Az avatárod a legközelebbi régióra kerül teleportálásra.
 	</notification>
 	<notification name="ClothingLoading">
 		A ruházat betöltése folyamatban.
-A [SECOND_LIFE] működése megfelelő, így mások is megfelelően látnak.
+A [GRID_NAME] működése megfelelő, így mások is megfelelően látnak.
 	</notification>
 	<notification name="FirstRun">
-		[SECOND_LIFE] telepítése befejeződött.
+		[VIEWER_NAME] telepítése befejeződött.
 
-Amennyiben először használod a [SECOND_LIFE]-ot, felhasználói fiókkal kell, hogy rendelkezz a belépéshez.
-Vissza a www.secondlife.com oldalra a regisztráció elvégzéséhez?
+Amennyiben először használod a [GRID_NAME]-ot, felhasználói fiókkal kell, hogy rendelkezz a belépéshez.
+Vissza a [GRID_SITE] oldalra a regisztráció elvégzéséhez?
 	</notification>
 	<notification name="LoginPacketNeverReceived">
-		Hiba lépett fel a kapcsolódáskor. Valószínű, hogy probléma van az internetkapcsolatoddal vagy a Second Life kiszolgáló szervereivel.
+		Hiba lépett fel a kapcsolódáskor. Valószínű, hogy probléma van az internetkapcsolatoddal vagy a [GRID_NAME] kiszolgáló szervereivel.
 
 Ellenőrizd az internetkapcsolatod és néhány perc múlva próbáld újra. Kattints a Segítség menüre támogatás kéréséhez vagy próbáld a teleportálást újra.
 	</notification>
@@ -1154,36 +1154,36 @@ Kérjük állítsd a tárgyat eladhatóvá és próbáld újra.
 [DOWNLOAD_PATH].
 	</notification>
 	<notification name="DownloadWindowsMandatory">
-		A [SECOND_LIFE] új verziója elérhető.
+		A [VIEWER_NAME] új verziója elérhető.
 [MESSAGE]
-A [SECOND_LIFE] használatához le kell töltened ezt a frissítést.
+A [GRID_NAME] használatához le kell töltened ezt a frissítést.
 	</notification>
 	<notification name="DownloadWindows">
-		A [SECOND_LIFE] egy újabb verziója elérhető.
+		A [VIEWER_NAME] egy újabb verziója elérhető.
 [MESSAGE]
 A frissítés nem kötelező, de a jobb teljesítmény és stabilitás megteremtésének érdekében javasoljuk ennek telepítését.
 	</notification>
 	<notification name="DownloadWindowsReleaseForDownload">
-		A [SECOND_LIFE] egy újabb verziója elérhető.
+		A [VIEWER_NAME] egy újabb verziója elérhető.
 [MESSAGE]
 A frissítés nem kötelező, de a jobb teljesítmény és stabilitás megteremtésének érdekében javasoljuk ennek telepítését.
 	</notification>
 	<notification name="DownloadMacMandatory">
-		A [SECOND_LIFE] új verziója elérhető.
+		A [VIEWER_NAME] új verziója elérhető.
 [MESSAGE]
-A [SECOND_LIFE] használatához le kell töltened ezt a frissítést.
+A [GRID_NAME] használatához le kell töltened ezt a frissítést.
 
 Letöltés a programok könyvtárába?
 	</notification>
 	<notification name="DownloadMac">
-		A [SECOND_LIFE] egy újabb verziója elérhető.
+		A [VIEWER_NAME] egy újabb verziója elérhető.
 [MESSAGE]
 A frissítés nem kötelező, de a jobb teljesítmény és stabilitás megteremtésének érdekében javasoljuk ennek telepítését.
 
 Letöltés a programok könyvtárába?
 	</notification>
 	<notification name="DownloadMacReleaseForDownload">
-		A [SECOND_LIFE] egy újabb verziója elérhető.
+		A [VIEWER_NAME] egy újabb verziója elérhető.
 [MESSAGE]
 A frissítés nem kötelező, de a jobb teljesítmény és stabilitás megteremtésének érdekében javasoljuk ennek telepítését.
 
@@ -1197,7 +1197,7 @@ Letöltés a programok könyvtárába?
 		Tartalom megtekintése böngészőben?
 	</notification>
 	<notification name="WebLaunchJoinNow">
-		A www.secondlife.com oldal meglátogatása a felhasználói fiók beállításához?
+		A [GRID_SITE] oldal meglátogatása a felhasználói fiók beállításához?
 	</notification>
 	<notification name="WebLaunchBugReport101">
 		[SECOND_LIFE] Wiki oldal megtekintése a hibákat jelzésére.
@@ -1710,7 +1710,7 @@ Amennyiben üresen hagyod, akkor az értesítés csak a Linden Lab részére ker
 Alapértelmezett: ki
 	</notification>
 	<notification label="Nem megfelelő hangkezelő motor verzió" name="VoiceVersionMismatch">
-		Ez a Second Life kliensprogram nem kompatibilis a régión található hangüzenet továbbításért felelős motorral. Annak érdekében, hogy ez helyesen működjön, frissítsd a Second Life-ot.
+		Ez a [VIEWER_NAME] kliensprogram nem kompatibilis a régión található hangüzenet továbbításért felelős motorral. Annak érdekében, hogy ez helyesen működjön, frissítsd a [VIEWER_NAME]-ot.
 	</notification>
 	<notification label="Bérlői szerződés" name="HelpEstateCovenant">
 		A bérlői szerződés feltételeinek beállításával lehetőség nyílik a földön telkek eladására. Amennyiben ez nem került beállításra, úgy a telek eladása nem lehetséges. A bérlői szerződésre vonatkozó feltétel üres lehet, ha nem kívánsz szabályokat és feltételeket szabni a földeden található telkek vásárlásával kapcsolatban.
@@ -1808,10 +1808,10 @@ Készlettár elem(ek) mozgatása?
 		Nincs olyan elem ebben a tárgyban, amely másolható.
 	</notification>
 	<notification name="WebLaunchAccountHistory">
-		Felhasználói történek megtekintése a Second Life honlapon?
+		Felhasználói történek megtekintése a [SECOND_LIFE] honlapon?
 	</notification>
 	<notification name="ClickOpenF1Help">
-		Second Life Támogatás oldal megtekintése?
+		[SECOND_LIFE] Támogatás oldal megtekintése?
 	</notification>
 	<notification name="ConfirmQuit">
 		Biztos, hogy ki szeretnél lépni?
@@ -2307,13 +2307,13 @@ Kérjük próbáld néhány perc múlva ismét.
 		Függő kapcsolat létrehozása nem sikerült.
 	</notification>
 	<notification name="InternalUsherError">
-		A teleportálási célhelyszín megnyitásakor probléma merült fel. Lehetséges szolgáltatási problémák a Second Life-nál.
+		A teleportálási célhelyszín megnyitásakor probléma merült fel. Lehetséges szolgáltatási problémák a [GRID_NAME]-nál.
 	</notification>
 	<notification name="NoGoodTPDestination">
 		A megfelelő teleportálási célhelyszín felderítése a régión nem sikerült.
 	</notification>
 	<notification name="InternalErrorRegionResolver">
-		Teleportálási kérés közben belső hiba merült fel a globális koordináták olvasásakor. Lehetséges szolgáltatási problémák a Second Life-nál.
+		Teleportálási kérés közben belső hiba merült fel a globális koordináták olvasásakor. Lehetséges szolgáltatási problémák a [GRID_NAME]-nál.
 	</notification>
 	<notification name="NoValidLanding">
 		Érvényes kiindulópont nem található.
@@ -2435,7 +2435,7 @@ Ettől a tárgytól: [OBJECTNAME], tulajdonos: [NAME]?
 		Nem található az adatbázisban: [TYPE], [DESC].
 	</notification>
 	<notification name="InvalidWearable">
-		Az elem, melyet viselni szeretnél olyan tulajdonsággal rendelkezik, melyet a kliensprogramod nem tud olvasni. Ennek megoldása érdekében kérjük frissítsd a Second Life programot.
+		Az elem, melyet viselni szeretnél olyan tulajdonsággal rendelkezik, melyet a kliensprogramod nem tud olvasni. Ennek megoldása érdekében kérjük frissítsd a [VIEWER_NAME] programot.
 	</notification>
 	<notification name="ScriptQuestion">
 		&apos;[OBJECTNAME]&apos;, tulajdonos: &apos;[NAME]&apos;, szeretne:
@@ -2494,7 +2494,7 @@ Kattints a Felállás (Stand up) gombra a megszakításhoz.
 Kétszer kattints a teleportáláshoz.
 	</notification>
 	<notification name="FirstBuild">
-		A [SECOND_LIFE] területein új tárgyakat építhetsz.
+		A [GRID_NAME] területein új tárgyakat építhetsz.
 Használd a fenti eszközöket és alkalmazd a Ctrl vagy Alt billentyűket az esuközök váltásához.
 Nyomd le az Esc billentyűt az építés befejezéséhez.
 	</notification>
@@ -2648,7 +2648,7 @@ Kattints az elfogad gombra a beszélgetés megkezdéséhez vagy az elutasít gom
 		- A processzor sebessége nem felel meg a minimális követelményeknek.
 	</global>
 	<global name="UnsupportedGLRequirements">
-		Úgy tűnik, hogy nem rendelkezel a megfelelő hardverkövetelményekkel a Second Life futtatásához. A Second Life OpenGL futtatására képes videókártyát igényel, mely rendelkezik multitexture támogatással. Amennyiben ilyen kártyád van, akkor ellenőrizd, hogy a kártya a legfrissebb meghajtóprogrammal rendelkezzen vagy töltsd le az operációs rendszer szervízcsomagját és javításait a hiba kiküszöbölésére.
+		Úgy tűnik, hogy nem rendelkezel a megfelelő hardverkövetelményekkel a [VIEWER_NAME] futtatásához. A [VIEWER_NAME] OpenGL futtatására képes videókártyát igényel, mely rendelkezik multitexture támogatással. Amennyiben ilyen kártyád van, akkor ellenőrizd, hogy a kártya a legfrissebb meghajtóprogrammal rendelkezzen vagy töltsd le az operációs rendszer szervízcsomagját és javításait a hiba kiküszöbölésére.
 
 Amennyiben továbbra is problémák merülnek fel, látogasd meg a http://www.secondlife.com/support oldalt.
 	</global>

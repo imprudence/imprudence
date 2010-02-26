@@ -1,3 +1,30 @@
+2010-02-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Rebranded new notifications system for all languages.
+	  Changed "Second Life" to "Imprudence", etc.
+	  Some URLs and SL-specific things have not been rebranded.
+	  Added foundation for dynamically rebranding grid names later.
+
+	  modified: linden/indra/llui/llnotifications.cpp
+	  modified: linden/indra/newview/llnotify.cpp
+	  modified: linden/indra/newview/llpanelmsgs.cpp
+	  modified: linden/indra/newview/skins/default/xui/da/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/de/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/en-us/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/es/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/fr/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/hu/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/it/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/ja/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/ko/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/pl/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/pt/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/ru/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/tr/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/uk/notifications.xml
+	  modified: linden/indra/newview/skins/default/xui/zh/notifications.xml
+
+
 2010-02-20  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
 
 	* Fixed an error at shutdown (gSavedSettings.cleanup).

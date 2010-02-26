@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <notifications>
+
+  <!-- I think "Second Life" should not be localized, actually. -Jacek -->
+  <!--
+  <global name="SECOND_LIFE">
+    二人生
+  </global>
+  -->
+
 	<global name="skipnexttime">
 		下次不要再让我看这个了
 	</global>
@@ -72,7 +80,7 @@
     </form>
   </template>
 	<notification functor="GenericAcknowledge" label="未知警报" name="MissingAlert">
-		您的第二人生版本无法显示所接收到的讯息。
+		您的第[VIEWER_NAME]版本无法显示所接收到的讯息。
 
 错误详情：无法在notifications.xml中找到‘[_NAME]’。
 		<usetemplate name="okbutton" yestext="确定"/>
@@ -95,7 +103,7 @@
 		<usetemplate name="okcancelbuttons" notext="取消" yestext="是"/>
 	</notification>
 	<notification name="BadInstallation">
-		第二人生升级错误。请从secondlife.com重新下载安装最新版本。
+		第[VIEWER_NAME]升级错误。请从[VIEWER_SITE]重新下载安装最新版本。
     <usetemplate
      name="okbutton"
      yestext="确定"/>
@@ -277,7 +285,7 @@
 		<usetemplate name="okcancelbuttons" notext="取消" yestext="确定"/>
 	</notification>
 	<notification name="ConfirmLandSaleToAnyoneChange">
-		请注意： 点击 ‘售出给任何人’ 将使你的土地对整个第二人生社区开放，包括当前不在这个地区中的人。
+		请注意： 点击 ‘售出给任何人’ 将使你的土地对整个第[GRID_NAME]社区开放，包括当前不在这个地区中的人。
 
 所选的 [LAND_SIZE]平方米土地正被设置为代售。
 你的售价将是为 L$[SALE_PRICE]并将被授权售给[NAME]。
@@ -375,7 +383,7 @@
 		上传报告的屏幕截图时出错，出于以下原因： [REASON]。
 	</notification>
 	<notification name="MustAgreeToLogIn">
-		你必须同意服务协议才能继续登陆至 [SECOND_LIFE]。
+		你必须同意服务协议才能继续登陆至 [GRID_NAME]。
 	</notification>
 	<notification name="CouldNotPutOnOutfit">
 		无法装载装束。
@@ -391,7 +399,7 @@
 		哎呀！有什么地方没填上。
 您必须输入您的化身的名和姓。
 
-您需要一个帐户才能进入[SECOND_LIFE]。您希望现在创建一个吗？
+您需要一个帐户才能进入[GRID_NAME]。您希望现在创建一个吗？
 		<usetemplate name="okcancelbuttons" notext="再试一次吧…" yestext="创建新帐户"/>
 	</notification>
 	<notification name="AddClassified">
@@ -434,17 +442,17 @@
 		<usetemplate name="okcancelbuttons" notext="取消" yestext="确定"/>
 	</notification>
 	<notification name="CacheWillClear">
-		缓存将在重新启动 [SECOND_LIFE] 后清除。
+		缓存将在重新启动 [VIEWER_NAME] 后清除。
 	</notification>
 	<notification name="CacheWillBeMoved">
-		缓存将在重新启动 [SECOND_LIFE] 后移动。
+		缓存将在重新启动 [VIEWER_NAME] 后移动。
 注意： 这样将会清除缓存。
 	</notification>
 	<notification name="ChangeConnectionPort">
-		端口设定将在重新启动 [SECOND_LIFE] 后生效。
+		端口设定将在重新启动 [VIEWER_NAME] 后生效。
 	</notification>
 	<notification name="ChangeSkin">
-		新皮肤将在 [SECOND_LIFE] 重新启动后应用。
+		新皮肤将在 [VIEWER_NAME] 重新启动后应用。
 	</notification>
 	<notification name="GoToAuctionPage">
 		是否跳至[SECOND_LIFE]网页查看拍卖信息
@@ -504,7 +512,7 @@
 		无法写入文件 [[FILE]]
 	</notification>
 	<notification name="UnsupportedHardware">
-		警告： 您的系统没有满足第二人生的最低系统需求。如果您继续使用第二人生，您可能会得到糟糕的性能体验。不幸的是，我们无法为不支持的系统配备提供技术支持。
+		警告： 您的系统没有满足第[VIEWER_NAME]的最低系统需求。如果您继续使用第[VIEWER_NAME]，您可能会得到糟糕的性能体验。不幸的是，我们无法为不支持的系统配备提供技术支持。
 
 MINSPECS
 您希望访问 [_URL] 得到更多信息吗？
@@ -516,7 +524,7 @@ MINSPECS
 	<notification name="UnknownGPU">
 		您的系统中安装了一个我们所不知道的显卡。
 这经常发生于我们还没有来得及测试的新硬件上。
-第二人生将很可能正常运行，但您也许要
+第[VIEWER_NAME]将很可能正常运行，但您也许要
 调节您的图形设定到更合适的水平上。
 (编辑 &gt; 首选项 &gt; 图像)。
 		<form name="form">
@@ -524,7 +532,7 @@ MINSPECS
 		</form>
 	</notification>
 	<notification name="DisplaySettingsNoShaders">
-		[SECOND_LIFE] 在初始化图形驱动程序时崩溃了。
+		[VIEWER_NAME] 在初始化图形驱动程序时崩溃了。
 图形质量将被设为“低”以避免常见的驱动程序错误。
 这将禁用某些图形特性。
 我们建议更新您的显示卡驱动程序。
@@ -825,7 +833,7 @@ www.secondlife.com/support
 无法找到该土地所在区域。
 	</notification>
 	<notification name="CannotCloseFloaterBuyLand">
-		在第二人生完成对这次交易的估价前，
+		在第[GRID_NAME]完成对这次交易的估价前，
 你不能关闭“购买土地”窗口。
 	</notification>
 	<notification name="CannotDeedLandNothingSelected">
@@ -1000,12 +1008,12 @@ www.secondlife.com/support
 您的网络设置的具体信息。
 	</notification>
 	<notification name="YouHaveBeenLoggedOut">
-		你已经退出[SECOND_LIFE]：
+		你已经退出[GRID_NAME]：
 
 [MESSAGE]
 
 您仍可以查看历史即时通记录和聊天记录。
-否则点击退出将立即关闭 [SECOND_LIFE]。
+否则点击退出将立即关闭 [VIEWER_NAME]。
 		<usetemplate name="okcancelbuttons" notext="退出" yestext="查看聊天记录"/>
 	</notification>
 	<notification name="OnlyOfficerCanBuyLand">
@@ -1191,16 +1199,16 @@ www.secondlife.com/support
 		</form>
 	</notification>
 	<notification name="FirstRun">
-		[SECOND_LIFE] 安装已完成。
+		[VIEWER_NAME] 安装已完成。
 
-如果这是你第一次使用[SECOND_LIFE], 登陆前你
+如果这是你第一次使用[GRID_NAME], 登陆前你
 需要创建一个新帐户。
 
-返回 www.secondlife.com 创建账户？
+返回 [GRID_SITE] 创建账户？
 		<usetemplate name="okcancelbuttons" notext="继续" yestext="新帐户..."/>
 	</notification>
 	<notification name="LoginPacketNeverReceived">
-		我们遇到了一些连接上的麻烦。问题可能出在您的互联网连接，也可能出在第二人生的服务器。
+		我们遇到了一些连接上的麻烦。问题可能出在您的互联网连接，也可能出在第[GRID_NAME]的服务器。
 
 请几分钟后再试, 或点击帮助连接我们的支持页面，或选择 “瞬间移动” 来尝试瞬间移动回家。
 		<form name="form">
@@ -1213,7 +1221,7 @@ www.secondlife.com/support
 		你的角色将在数秒后出现。
 
 使用方向键来行走。
-任何时候都可以按 F1 键，来获取帮助或学习更多关于 [SECOND_LIFE] 的信息。
+任何时候都可以按 F1 键，来获取帮助或学习更多关于 [GRID_NAME] 的信息。
 请选择男性或女性角色。
 以后还是可以改变主意的。
 		<usetemplate name="okcancelbuttons" notext="女性" yestext="男性"/>
@@ -1308,36 +1316,36 @@ www.secondlife.com/support
 [DOWNLOAD_PATH]
 	</notification>
 	<notification name="DownloadWindowsMandatory">
-		[SECOND_LIFE] 有新版本可用。
+		[VIEWER_NAME] 有新版本可用。
 [MESSAGE]
 
-你必须下载此更新才能使用 [SECOND_LIFE]。
+你必须下载此更新才能使用 [GRID_NAME]。
 		<usetemplate name="okcancelbuttons" notext="退出" yestext="下载"/>
 	</notification>
 	<notification name="DownloadWindows">
-		[SECOND_LIFE] 有新版本可用。
+		[VIEWER_NAME] 有新版本可用。
 [MESSAGE]
 
 这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。
 		<usetemplate name="okcancelbuttons" notext="继续" yestext="下载"/>
 	</notification>
 	<notification name="DownloadWindowsReleaseForDownload">
-		[SECOND_LIFE] 有新版本可用。
+		[VIEWER_NAME] 有新版本可用。
 [MESSAGE]
 
 这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。
 		<usetemplate name="okcancelbuttons" notext="继续" yestext="下载"/>
 	</notification>
 	<notification name="DownloadMacMandatory">
-		[SECOND_LIFE]有新版本可用。
+		[VIEWER_NAME]有新版本可用。
 [MESSAGE]
 
-你必须下载此更新才能使用 [SECOND_LIFE]。
+你必须下载此更新才能使用 [GRID_NAME]。
 是否下载更新至应用程序文件夹？
 		<usetemplate name="okcancelbuttons" notext="退出" yestext="下载"/>
 	</notification>
 	<notification name="DownloadMac">
-		[SECOND_LIFE]有新版本可用。
+		[VIEWER_NAME]有新版本可用。
 [MESSAGE]
 
 这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。
@@ -1346,7 +1354,7 @@ www.secondlife.com/support
 		<usetemplate name="okcancelbuttons" notext="继续" yestext="下载"/>
 	</notification>
 	<notification name="DownloadMacReleaseForDownload">
-		[SECOND_LIFE]有新版本可用。
+		[VIEWER_NAME]有新版本可用。
 [MESSAGE]
 
 这个更新不是必须的，但我们建议下载并安装此更新，以改善性能和稳定性。
@@ -1364,7 +1372,7 @@ www.secondlife.com/support
 		<usetemplate ignoretext="打开默认浏览器查看网页" name="okcancelignore" notext="取消" yestext="打开"/>
 	</notification>
 	<notification name="WebLaunchJoinNow">
-		是否转至 www.secondlife.com 管理帐户？
+		是否转至 [GRID_SITE] 管理帐户？
 		<usetemplate ignoretext="打开浏览器管理您的帐户" name="okcancelignore" notext="取消" yestext="确定"/>
 	</notification>
 	<notification name="WebLaunchBugReport101">
@@ -1596,7 +1604,7 @@ www.secondlife.com/support
 	<notification name="RegionEntryAccessBlocked">
 		您的限制级不允许您访问此地区。这可能是由于您的年龄还没有被验证。
 
-请检查您的第二人生是否是最新版本并到知识库去了解有关区访问权限和限制级的关系。
+请检查您的第[VIEWER_NAME]是否是最新版本并到知识库去了解有关区访问权限和限制级的关系。
     <usetemplate
      name="okbutton"
      yestext="确定"/>
@@ -1634,7 +1642,7 @@ www.secondlife.com/support
 	<notification name="LandClaimAccessBlocked">
 		您的限制级不允许您申请此地的产权。这可能是由于您还没有通过年龄验证。
 
-请检查您的第二人生是否是最新版本并到知识库去了解有关区访问权限和限制级的关系。
+请检查您的第[VIEWER_NAME]是否是最新版本并到知识库去了解有关区访问权限和限制级的关系。
     <usetemplate
      name="okbutton"
      yestext="确定"/>
@@ -1668,7 +1676,7 @@ www.secondlife.com/support
 	<notification name="LandBuyAccessBlocked">
 		您的限制级不允许您购买此土地。这可能是由于您还没有通过年龄验证。
 
-请检查您的第二人生是否是最新版本并到知识库去了解有关区访问权限和限制级的关系。
+请检查您的第[VIEWER_NAME]是否是最新版本并到知识库去了解有关区访问权限和限制级的关系。
     <usetemplate
      name="okbutton"
      yestext="确定"/>
@@ -2020,8 +2028,8 @@ www.secondlife.com/support
 默认：关
 	</notification>
 	<notification label="语音聊天版本不符合" name="VoiceVersionMismatch">
-		该版本的第二人生与该地区的语音聊天不兼容。
-为了正常使用语音聊天你需要更新第二人生。
+		该版本的第[VIEWER_NAME]与该地区的语音聊天不兼容。
+为了正常使用语音聊天你需要更新第[VIEWER_NAME]。
 	</notification>
 	<notification label="不动产契约合同" name="HelpEstateCovenant">
 		设置不动产的契约合同使你可以出售地产中的土地。如果不动产契约合同没有设置，你则不能出售土地。如果在买主购买之前，你不想在土地上设置任何相关的给买主的意见和规定，你的契约合同的注释卡可以是空的。
@@ -2142,16 +2150,16 @@ www.secondlife.com/support
 		这个物体中没有你能够复制的项目。
 	</notification>
 	<notification name="WebLaunchAccountHistory">
-		是否前往第二人生网站查看你的帐户记录？
+		是否前往第[SECOND_LIFE]网站查看你的帐户记录？
 		<usetemplate ignoretext="打开浏览器查看帐户记录" name="okcancelignore" notext="取消" yestext="打开网页"/>
 	</notification>
 	<notification name="ClickOpenF1Help">
-		访问第二人生帮助网站吗？
-		<usetemplate ignoretext="访问第二人生帮助网站时" name="okcancelignore" notext="取消" yestext="打开页面"/>
+		访问第[SECOND_LIFE]帮助网站吗？
+		<usetemplate ignoretext="访问第[SECOND_LIFE]帮助网站时" name="okcancelignore" notext="取消" yestext="打开页面"/>
 	</notification>
 	<notification name="ConfirmQuit">
 		确定退出？
-		<usetemplate ignoretext="退出第二人生时" name="okcancelignore" notext="继续" yestext="退出"/>
+		<usetemplate ignoretext="退出第[VIEWER_NAME]时" name="okcancelignore" notext="继续" yestext="退出"/>
 	</notification>
 	<notification name="HelpReportAbuseEmailLL">
 		使用该工具来报告违反服务条款和社区标准。 请访问：
@@ -2172,9 +2180,9 @@ www.secondlife.com/support
 这块区域的主人将遵守基于土地契约所概述的当地规则，解决报告。
 (你可以从世界菜单中选择 “关于土地” 来查看契约。)
 
-该报告的解决结果仅对该区域有效；居民对第二人生其他地方的使用
-将不会受该报告结果的影响。只有林登实验室能够限制访问整个
-第二人生。
+该报告的解决结果仅对该区域有效；居民对第[GRID_NAME]其他地方的使用
+将不会受该报告结果的影响。<!-- 只有林登实验室能够限制访问整个
+第[GRID_NAME]。-->
 	</notification>
 	<notification name="HelpReportBug">
 		这个工具只用来报告与描述或预期工作不一致的技术功能。请尽能提供详细资料。
@@ -2230,9 +2238,9 @@ http://secondlife.com/community/support.php
 		亲爱的居民,
 如果您将要报告知识产权侵犯，请确认您通过正确的方式报告：
 
-(1) 不良行为报告手续。您可以提交一份不良行为报告，如果您相信某位居民正在利用第二人生许可系统的漏洞，例如使用 CopyBot 或者类似的复制工具，来侵犯知识产权。不良行为调查小组负责对于违反第二人生社区标准或服务条款的行为进行调查以及实行相应的惩罚措施。但是，不良行为调查小组不负责从世界中移除内容，并且不会对这类请求作出回应。
+(1) 不良行为报告手续。您可以提交一份不良行为报告，如果您相信某位居民正在利用第[SECOND_LIFE]许可系统的漏洞，例如使用 CopyBot 或者类似的复制工具，来侵犯知识产权。不良行为调查小组负责对于违反第[SECOND_LIFE]社区标准或服务条款的行为进行调查以及实行相应的惩罚措施。但是，不良行为调查小组不负责从世界中移除内容，并且不会对这类请求作出回应。
 
-(2) DMCA (数字千年版权协定) 或者说内容移除手续。 要请求从第二人生中去除内容，您*必须*提交一份按我们 DMCA 条例 http://secondlife.com/corporate/dmca.php 中所指出的，有效的侵权通知。
+(2) DMCA (数字千年版权协定) 或者说内容移除手续。 要请求从第[SECOND_LIFE]中去除内容，您*必须*提交一份按我们 DMCA 条例 http://secondlife.com/corporate/dmca.php 中所指出的，有效的侵权通知。
 
 如果您仍希望继续不良行为的报告，请关闭此窗口，并完成提交您的报告。
 您可能需要选择 ‘CopyBot 或利用漏洞’ 这一特定分类。
@@ -2360,7 +2368,7 @@ http://secondlife.com/community/support.php
 点击 ‘高级水面选项’ 来打开较高级水面设置的编辑器。
 	</notification>
 	<notification name="HelpDayCycle">
-		日夜周期编辑器给予你对第二人生日夜循环中天空的控制。这也是基础环境编辑器的时间滑块所使用的周期。
+		日夜周期编辑器给予你对第[GRID_NAME]日夜循环中天空的控制。这也是基础环境编辑器的时间滑块所使用的周期。
 
 日夜周期编辑器的基础是关键帧。它们是带有天空预设的节点 (在时间图上以灰色的点表示)。当时间流逝，WindLight 的天空 也会通过过在这些关键帧之间插值而产生变化。
 
@@ -2442,7 +2450,7 @@ http://secondlife.com/community/support.php
 		控制云层在 Y 轴移动的速度。
 	</notification>
 	<notification name="HelpClassicClouds">
-		选取该框以在渲染 WindLight 的云层同时渲染第二人生的旧云层。
+		选取该框以在渲染 WindLight 的云层同时渲染第[SECOND_LIFE]的旧云层。
 	</notification>
 	<notification name="HelpWaterFogColor">
 		控制水雾颜色。
@@ -2540,7 +2548,7 @@ http://secondlife.com/community/support.php
 	</notification>
 	<notification name="NotAgeVerified">
 		您需要验证年龄才能进入这个地块。
-您希望访问第二人生网站验证您的年龄吗？
+您希望访问第[SECOND_LIFE]网站验证您的年龄吗？
 
 [_URL]
 		<url name="url" option="0">
@@ -2550,7 +2558,7 @@ http://secondlife.com/community/support.php
 	</notification>
 	<notification name="Cannot enter parcel: no payment info on file">
 		在您访问该土地前，您的帐户需要付款信息。
-您要到Second Life网站来设置么？
+您要到[SECOND_LIFE]网站来设置么？
 
 [_URL]
 		<url name="url" option="0">
@@ -2803,7 +2811,7 @@ QuickTime网站 (http://www.apple.com/quicktime) 安装 QuickTime Player。
 		只能对您所在的公共土地上申请产权。
 	</notification>
 	<notification name="RegionTPAccessBlocked">
-		您的限制级不允许您进入此地。您可能需要下载并安装最新的第二人生软件或取得年龄验证。
+		您的限制级不允许您进入此地。您可能需要下载并安装最新的第[VIEWER_NAME]软件或取得年龄验证。
 
 请去知识库了解更多关于访问权限与限制级的关系。
 	</notification>
@@ -2869,13 +2877,13 @@ QuickTime网站 (http://www.apple.com/quicktime) 安装 QuickTime Player。
 		无法建立连接。
 	</notification>
 	<notification name="InternalUsherError">
-		瞬间转移的传送过程导致了一个服务器错误。第二人生服务器可能存在异常。
+		瞬间转移的传送过程导致了一个服务器错误。第[GRID_NAME]服务器可能存在异常。
 	</notification>
 	<notification name="NoGoodTPDestination">
 		在此地区中无法找到一个合适的传送点。
 	</notification>
 	<notification name="InternalErrorRegionResolver">
-		您的瞬间转移请求在解释全局坐标时导致了一个服务器错误。第二人生服务器可能存在异常。
+		您的瞬间转移请求在解释全局坐标时导致了一个服务器错误。第[GRID_NAME]服务器可能存在异常。
 	</notification>
 	<notification name="NoValidLanding">
 		找不到一个有效的降落点
@@ -2994,7 +3002,7 @@ QuickTime网站 (http://www.apple.com/quicktime) 安装 QuickTime Player。
 		在数据库中没能找到名为 [DESC] 的[TYPE]。
 	</notification>
 	<notification name="InvalidWearable">
-		您所要穿戴的物品使用了一种当前客户端无法处理的功能。请升级您的第二人生版本以正确穿戴此物品。
+		您所要穿戴的物品使用了一种当前客户端无法处理的功能。请升级您的第[VIEWER_NAME]版本以正确穿戴此物品。
 	</notification>
 	<notification name="ScriptQuestion">
 		‘[OBJECTNAME]’, 一件 ‘[NAME]’ 拥有的物体, 想要：
@@ -3054,7 +3062,7 @@ QuickTime网站 (http://www.apple.com/quicktime) 安装 QuickTime Player。
 使用右边的控件查找信息，并显示不同的背景。
 	</notification>
 	<notification name="FirstBuild">
-		您可以在 [SECOND_LIFE] 的某些区域中创建新物体。
+		您可以在 [GRID_NAME] 的某些区域中创建新物体。
 使用左上角的工具建造，也试一试按下 Ctrl 或者 Alt 键快速地切换工具。
 按 Esc 键停止建造。
 	</notification>
@@ -3095,7 +3103,7 @@ QuickTime网站 (http://www.apple.com/quicktime) 安装 QuickTime Player。
 	</notification>
 	<notification name="FirstDebugMenus">
 		您已启用了高级菜单。
-该菜单包含对调试第二人生的开发者有用的功能。
+该菜单包含对调试第[VIEWER_NAME]的开发者有用的功能。
 要切换该菜单，在 Windows 中按 Ctrl-Alt-D。 在 Mac 中按 Cmd-Opt-Shift-D。
 	</notification>
 	<notification name="FirstSculptedPrim">
@@ -3203,7 +3211,7 @@ Sculpted 元件需要特殊的材质来指定其形状。
 		- 您的 CPU(中央处理器)速度没有达到最低需求。
 	</global>
 	<global name="UnsupportedGLRequirements">
-		您似乎没有满足第二人生的系统需求的硬件。第二人生需要支持多重材质 (multitexture)
+		您似乎没有满足第[VIEWER_NAME]的系统需求的硬件。第[VIEWER_NAME]需要支持多重材质 (multitexture)
 的 OpenGL 显示卡。如果您满足这个条件的话，也许您需要确认已经
 安装了您的显示卡的最新驱动程序、以及操作系统的 Service Pack 和补丁。
 
