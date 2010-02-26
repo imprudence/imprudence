@@ -1,3 +1,234 @@
+2010-02-20  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Fixed an error at shutdown (gSavedSettings.cleanup).
+
+	  modified:   linden/indra/newview/llappviewer.cpp
+
+
+2010-02-19  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Fixed Linux file picker not showing WAV files.
+
+	  modified:   linden/indra/newview/llfilepicker.cpp
+
+
+2010-02-18  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed #197: Windlight toolbar can't be hidden.
+
+	  modified:   linden/indra/newview/llpaneldisplay.cpp
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_preferences_graphics1.xml
+
+
+	* Added missing "Set Default Permissions" menu entry. (#202)
+	  This was accidentally left out during the SL 1.23 merge.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/menu_viewer.xml
+
+
+	* SNOW-492: LLDataPacker::unpackstring() is unsafe.
+	  Patch by Robin Cornelius.
+
+	  modified:   linden/indra/llmessage/lldatapacker.cpp
+
+
+	* SNOW-488: Malformed animation crash.
+	  Patch by Robin Cornelius.
+
+	  modified:   linden/indra/newview/llvoavatar.cpp
+
+
+2010-02-09  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Ported some asset storage changes from Snowglobe.
+
+	  modified:   linden/indra/llmessage/llassetstorage.cpp
+	  modified:   linden/indra/llmessage/llassetstorage.h
+
+
+	* Ported some minor rendering engine changes from Snowglobe.
+
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  modified:   linden/indra/newview/llhudobject.cpp
+	  modified:   linden/indra/newview/llviewerobject.cpp
+	  modified:   linden/indra/newview/llviewerobject.h
+	  modified:   linden/indra/newview/llviewerobjectlist.cpp
+	  modified:   linden/indra/newview/llvlcomposition.cpp
+	  modified:   linden/indra/newview/llvosky.h
+	  modified:   linden/indra/newview/pipeline.cpp
+
+
+	* Ported some stats and texture console changes from Snowglobe.
+
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  modified:   linden/indra/newview/llfasttimerview.cpp
+	  modified:   linden/indra/newview/llfasttimerview.h
+	  modified:   linden/indra/newview/lltextureview.cpp
+	  modified:   linden/indra/newview/lltextureview.h
+	  modified:   linden/indra/newview/llviewerstats.cpp
+	  modified:   linden/indra/newview/llviewerstats.h
+
+
+	* Ported many texture engine changes from Snowglobe.
+
+	  modified:   linden/indra/llimage/llimage.cpp
+	  modified:   linden/indra/llimage/llimage.h
+	  modified:   linden/indra/llimage/llimagedxt.cpp
+	  modified:   linden/indra/llimage/llimagej2c.cpp
+	  modified:   linden/indra/llimage/llimagejpeg.cpp
+	  modified:   linden/indra/llimage/llimageworker.cpp
+	  modified:   linden/indra/llimage/llimageworker.h
+	  modified:   linden/indra/llrender/llcubemap.cpp
+	  modified:   linden/indra/llrender/llimagegl.cpp
+	  modified:   linden/indra/llrender/llimagegl.h
+	  modified:   linden/indra/llrender/llrender.cpp
+	  modified:   linden/indra/llrender/llrender.h
+	  modified:   linden/indra/llrender/llrendertarget.cpp
+	  modified:   linden/indra/newview/CMakeLists.txt
+	  modified:   linden/indra/newview/app_settings/settings.xml
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  modified:   linden/indra/newview/llappviewer.h
+	  modified:   linden/indra/newview/llassetuploadresponders.cpp
+	  modified:   linden/indra/newview/llassetuploadresponders.h
+	  modified:   linden/indra/newview/lldrawable.cpp
+	  modified:   linden/indra/newview/lldrawable.h
+	  modified:   linden/indra/newview/lldrawpool.cpp
+	  modified:   linden/indra/newview/lldrawpoolalpha.cpp
+	  modified:   linden/indra/newview/lldrawpoolbump.cpp
+	  modified:   linden/indra/newview/lldrawpoolterrain.cpp
+	  modified:   linden/indra/newview/lldrawpooltree.cpp
+	  modified:   linden/indra/newview/lldynamictexture.cpp
+	  modified:   linden/indra/newview/llface.cpp
+	  modified:   linden/indra/newview/llface.h
+	  modified:   linden/indra/newview/llfasttimerview.cpp
+	  modified:   linden/indra/newview/llfloaterassetbrowser.cpp
+	  modified:   linden/indra/newview/llfloaterreporter.cpp
+	  modified:   linden/indra/newview/llpreviewtexture.cpp
+	  modified:   linden/indra/newview/llstartup.cpp
+	  modified:   linden/indra/newview/lltexlayer.cpp
+	  modified:   linden/indra/newview/lltexturecache.cpp
+	  modified:   linden/indra/newview/lltexturecache.h
+	  modified:   linden/indra/newview/lltexturectrl.cpp
+	  modified:   linden/indra/newview/lltexturefetch.cpp
+	  modified:   linden/indra/newview/lltexturefetch.h
+	  new file:   linden/indra/newview/lltextureinfo.cpp
+	  new file:   linden/indra/newview/lltextureinfo.h
+	  new file:   linden/indra/newview/lltextureinfodetails.cpp
+	  new file:   linden/indra/newview/lltextureinfodetails.h
+	  new file:   linden/indra/newview/lltexturestats.cpp
+	  new file:   linden/indra/newview/lltexturestats.h
+	  new file:   linden/indra/newview/lltexturestatsuploader.cpp
+	  new file:   linden/indra/newview/lltexturestatsuploader.h
+	  modified:   linden/indra/newview/lltextureview.cpp
+	  modified:   linden/indra/newview/llviewercamera.cpp
+	  modified:   linden/indra/newview/llviewercamera.h
+	  modified:   linden/indra/newview/llviewercontrol.cpp
+	  modified:   linden/indra/newview/llviewerimage.cpp
+	  modified:   linden/indra/newview/llviewerimage.h
+	  modified:   linden/indra/newview/llviewerimagelist.cpp
+	  modified:   linden/indra/newview/llviewerimagelist.h
+	  modified:   linden/indra/newview/llviewermessage.cpp
+	  modified:   linden/indra/newview/llviewerobject.cpp
+	  modified:   linden/indra/newview/llviewerobject.h
+	  modified:   linden/indra/newview/llviewerobjectlist.cpp
+	  modified:   linden/indra/newview/llviewerparceloverlay.cpp
+	  modified:   linden/indra/newview/llviewerregion.cpp
+	  modified:   linden/indra/newview/llviewerwindow.cpp
+	  modified:   linden/indra/newview/llvlcomposition.cpp
+	  modified:   linden/indra/newview/llvoavatar.cpp
+	  modified:   linden/indra/newview/llvoavatar.h
+	  modified:   linden/indra/newview/llvoclouds.cpp
+	  modified:   linden/indra/newview/llvoclouds.h
+	  modified:   linden/indra/newview/llvograss.cpp
+	  modified:   linden/indra/newview/llvograss.h
+	  modified:   linden/indra/newview/llvoground.cpp
+	  modified:   linden/indra/newview/llvoground.h
+	  modified:   linden/indra/newview/llvopartgroup.cpp
+	  modified:   linden/indra/newview/llvopartgroup.h
+	  modified:   linden/indra/newview/llvosky.cpp
+	  modified:   linden/indra/newview/llvosky.h
+	  modified:   linden/indra/newview/llvosurfacepatch.cpp
+	  modified:   linden/indra/newview/llvosurfacepatch.h
+	  modified:   linden/indra/newview/llvotextbubble.cpp
+	  modified:   linden/indra/newview/llvotextbubble.h
+	  modified:   linden/indra/newview/llvotree.cpp
+	  modified:   linden/indra/newview/llvotree.h
+	  modified:   linden/indra/newview/llvotreenew.h
+	  modified:   linden/indra/newview/llvovolume.cpp
+	  modified:   linden/indra/newview/llvovolume.h
+	  modified:   linden/indra/newview/llvowater.cpp
+	  modified:   linden/indra/newview/llvowater.h
+	  modified:   linden/indra/newview/llworldmapview.cpp
+	  modified:   linden/indra/newview/primbackup.cpp
+
+
+2010-02-08  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Ported some cURL and HTTP-related changes from Snowglobe.
+
+	  modified:   linden/indra/llmessage/llcurl.cpp
+	  modified:   linden/indra/llmessage/llcurl.h
+	  modified:   linden/indra/llmessage/llhttpclient.cpp
+
+
+	* Ported some thread changes from Snowglobe.
+
+	  modified:   linden/indra/llcommon/llqueuedthread.cpp
+	  modified:   linden/indra/llcommon/llqueuedthread.h
+	  modified:   linden/indra/llcommon/llworkerthread.cpp
+	  modified:   linden/indra/llcommon/llworkerthread.h
+
+
+	* Ported many APR changes from Snowglobe.
+
+	  modified:   linden/indra/llaudio/vorbisencode.cpp
+	  modified:   linden/indra/llcharacter/llbvhloader.cpp
+	  modified:   linden/indra/llcharacter/llkeyframemotionparam.cpp
+	  modified:   linden/indra/llcharacter/llstatemachine.cpp
+	  modified:   linden/indra/llcommon/llapr.cpp
+	  modified:   linden/indra/llcommon/llapr.h
+	  modified:   linden/indra/llcommon/llthread.cpp
+	  modified:   linden/indra/llcommon/llthread.h
+	  modified:   linden/indra/llcommon/llworkerthread.cpp
+	  modified:   linden/indra/llimage/llimage.cpp
+	  modified:   linden/indra/llimage/llimagej2c.cpp
+	  modified:   linden/indra/llmessage/llcurl.cpp
+	  modified:   linden/indra/llvfs/lllfsthread.cpp
+	  modified:   linden/indra/llvfs/llvfs.cpp
+	  modified:   linden/indra/newview/llappviewer.cpp
+	  modified:   linden/indra/newview/llfloateranimpreview.cpp
+	  modified:   linden/indra/newview/lltexturecache.cpp
+	  modified:   linden/indra/newview/llviewermenufile.cpp
+	  modified:   linden/indra/newview/llvoavatar.cpp
+	  modified:   linden/indra/newview/primbackup.cpp
+
+
+2010-02-07  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Fixed #184: Previewing notecards resets camera.
+
+	  modified:   newview/llpreviewnotecard.cpp
+
+
+	* Fixed #155: Double clicking your avatar triggers a TP request.
+
+	  modified:   linden/indra/newview/lltoolpie.cpp
+
+
+2010-02-07  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed login screen only allowing 16 chars per name.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/panel_login.xml
+
+2010-02-05  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Ignore HideFromEditor from settings.xml.
+	  Don't hide any settings from Debug Settings.
+
+	  modified:   linden/indra/llxml/llcontrol.cpp
+
+
 2010-02-04  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Added SliderScrollWheelMultiplier setting.
@@ -10,6 +241,16 @@
 	  modified:   linden/indra/newview/app_settings/settings.xml
 	  modified:   linden/indra/newview/llappviewer.cpp
 	  modified:   linden/indra/newview/llviewercontrol.cpp
+
+
+2010-02-03  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Fixed a rare crash from textures with too many components.
+	  Only seen in lbsa plaza on OSGrid, so far.
+
+	  modified:   linden/indra/llimagej2coj/llimagej2coj.cpp
+	  modified:   linden/indra/llrender/llimagegl.cpp
+	  modified:   linden/indra/newview/app_settings/logcontrol.xml
 
 
 2010-01-30  Jacek Antonelli  <jacek.antonelli@gmail.com>

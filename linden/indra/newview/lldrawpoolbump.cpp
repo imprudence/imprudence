@@ -309,8 +309,8 @@ void LLDrawPoolBump::endRenderPass(S32 pass)
 void LLDrawPoolBump::beginShiny(bool invisible)
 {
 	LLFastTimer t(LLFastTimer::FTM_RENDER_SHINY);
-	if (!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY)|| 
-		invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY))
+	if ((!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY))|| 
+		(invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY)))
 	{
 		return;
 	}
@@ -384,8 +384,8 @@ void LLDrawPoolBump::beginShiny(bool invisible)
 void LLDrawPoolBump::renderShiny(bool invisible)
 {
 	LLFastTimer t(LLFastTimer::FTM_RENDER_SHINY);
-	if (!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY)|| 
-		invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY))
+	if ((!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY))|| 
+		(invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY)))
 	{
 		return;
 	}
@@ -411,8 +411,8 @@ void LLDrawPoolBump::renderShiny(bool invisible)
 void LLDrawPoolBump::endShiny(bool invisible)
 {
 	LLFastTimer t(LLFastTimer::FTM_RENDER_SHINY);
-	if (!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY)|| 
-		invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY))
+	if ((!invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_SHINY))|| 
+		(invisible && !gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY)))
 	{
 		return;
 	}
@@ -1221,7 +1221,7 @@ void LLDrawPoolBump::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture)
 		if (params.mTexture.notNull())
 		{
 			gGL.getTexUnit(diffuse_channel)->bind(params.mTexture.get());
-			params.mTexture->addTextureStats(params.mVSize);
+			//params.mTexture->addTextureStats(params.mVSize);
 		}
 		else
 		{

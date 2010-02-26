@@ -94,7 +94,7 @@ void LLCubeMap::initGL()
 				mImages[i] = new LLImageGL(64, 64, 4, (use_cube_mipmaps? TRUE : FALSE));
 				mImages[i]->setTarget(mTargets[i], LLTexUnit::TT_CUBE_MAP);
 				mRawImages[i] = new LLImageRaw(64, 64, 4);
-				mImages[i]->createGLTexture(0, mRawImages[i], texname);
+				mImages[i]->createGLTexture(0, mRawImages[i], texname, TRUE);
 				
 				gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_CUBE_MAP, texname); 
 				mImages[i]->setAddressMode(LLTexUnit::TAM_CLAMP);
@@ -106,7 +106,7 @@ void LLCubeMap::initGL()
 	}
 	else
 	{
-		llwarns << "Using cube map without extension!" << llendl
+		llwarns << "Using cube map without extension!" << llendl;
 	}
 }
 

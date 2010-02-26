@@ -55,13 +55,9 @@ std::string LLImage::sLastErrorMessage;
 LLMutex* LLImage::sMutex = NULL;
 
 //static
-void LLImage::initClass(LLWorkerThread* workerthread)
+void LLImage::initClass()
 {
 	sMutex = new LLMutex(NULL);
-	if (workerthread)
-	{
-		LLImageWorker::initImageWorker(workerthread);
-	}
 	LLImageJ2C::openDSO();
 }
 
@@ -69,7 +65,6 @@ void LLImage::initClass(LLWorkerThread* workerthread)
 void LLImage::cleanupClass()
 {
 	LLImageJ2C::closeDSO();
-	LLImageWorker::cleanupImageWorker();
 	delete sMutex;
 	sMutex = NULL;
 }
@@ -1242,25 +1237,28 @@ bool LLImageRaw::createFromFile(const std::string &filename, bool j2c_lowest_mip
 	ifs.read ((char*)buffer, length);	/* Flawfinder: ignore */
 	ifs.close();
 	
-	image->updateData();
-	
-	if (j2c_lowest_mip_only && codec == IMG_CODEC_J2C)
-	{
-		S32 width = image->getWidth();
-		S32 height = image->getHeight();
-		S32 discard_level = 0;
-		while (width > 1 && height > 1 && discard_level < MAX_DISCARD_LEVEL)
-		{
-			width >>= 1;
-			height >>= 1;
-			discard_level++;
-		}
-		((LLImageJ2C *)((LLImageFormatted*)image))->setDiscardLevel(discard_level);
-	}
-	
-	BOOL success = image->decode(this, 100000.0f);
-	image = NULL; // deletes image
+	BOOL success;
 
+	success = image->updateData();
+	if (success)
+	{
+		if (j2c_lowest_mip_only && codec == IMG_CODEC_J2C)
+		{
+			S32 width = image->getWidth();
+			S32 height = image->getHeight();
+			S32 discard_level = 0;
+			while (width > 1 && height > 1 && discard_level < MAX_DISCARD_LEVEL)
+			{
+				width >>= 1;
+				height >>= 1;
+				discard_level++;
+			}
+			((LLImageJ2C *)((LLImageFormatted*)image))->setDiscardLevel(discard_level);
+		}
+		success = image->decode(this, 100000.0f);
+	}
+
+	image = NULL; // deletes image
 	if (!success)
 	{
 		deleteData();
@@ -1514,7 +1512,7 @@ BOOL LLImageFormatted::load(const std::string &filename)
 
 	S32 file_size = 0;
 	LLAPRFile infile ;
-	infile.open(filename, LL_APR_RB, NULL, &file_size);
+	infile.open(filename, LL_APR_RB, LLAPRFile::global, &file_size);
 	apr_file_t* apr_file = infile.getFileHandle();
 	if (!apr_file)
 	{
@@ -1550,7 +1548,7 @@ BOOL LLImageFormatted::save(const std::string &filename)
 	resetLastError();
 
 	LLAPRFile outfile ;
-	outfile.open(filename, LL_APR_WB);
+	outfile.open(filename, LL_APR_WB, LLAPRFile::global);
 	if (!outfile.getFileHandle())
 	{
 		setLastError("Unable to open file for writing", filename);

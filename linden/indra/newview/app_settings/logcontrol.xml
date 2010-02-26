@@ -51,7 +51,7 @@
 							<string>MediaState</string>
 							<string>ShaderLoading</string>
               <string>XMLNode</string>
-              
+							<string>Openjpeg</string>
               <!--Unused debug messages below-->
               
               <!--<string>RLV</string>

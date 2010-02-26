@@ -219,7 +219,7 @@ void LLDrawPoolAlpha::render(S32 pass)
 		gPipeline.enableLightsFullbright(LLColor4(1,1,1,1));
 		glColor4f(1,0,0,1);
 		LLViewerImage::sSmokeImagep->addTextureStats(1024.f*1024.f);
-		gGL.getTexUnit(0)->bind(LLViewerImage::sSmokeImagep.get());
+		gGL.getTexUnit(0)->bind(LLViewerImage::sSmokeImagep.get(), TRUE);
 		renderAlphaHighlight(LLVertexBuffer::MAP_VERTEX |
 							LLVertexBuffer::MAP_TEXCOORD0);
 	}
@@ -295,7 +295,7 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask)
 				{
 					gGL.getTexUnit(0)->activate();
 					gGL.getTexUnit(0)->bind(params.mTexture.get());
-					params.mTexture->addTextureStats(params.mVSize);
+
 					if (params.mTextureMatrix)
 					{
 						glMatrixMode(GL_TEXTURE);

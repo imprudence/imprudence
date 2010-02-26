@@ -101,7 +101,7 @@ void LLVOWater::setPixelAreaAndAngle(LLAgent &agent)
 
 
 // virtual
-void LLVOWater::updateTextures(LLAgent &agent)
+void LLVOWater::updateTextures()
 {
 }
 

@@ -106,6 +106,7 @@
 #include "llstatenums.h"
 #include "llstatusbar.h"
 #include "llimview.h"
+#include "lltexturestats.h"
 #include "lltool.h"
 #include "lltoolbar.h"
 #include "lltoolmgr.h"

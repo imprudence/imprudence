@@ -147,6 +147,7 @@ static struct ft_display_info ft_display_table[] =
 	{ LLFastTimer::FTM_IMAGE_UPDATE,		"  Image Update",	&LLColor4::yellow4, 1 },
 	{ LLFastTimer::FTM_IMAGE_CREATE,		"   Image CreateGL",&LLColor4::yellow5, 0 },
 	{ LLFastTimer::FTM_IMAGE_DECODE,		"   Image Decode",	&LLColor4::yellow6, 0 },
+	{ LLFastTimer::FTM_IMAGE_READBACK,		"   Image Readback",&LLColor4::red2, 0 },
 	{ LLFastTimer::FTM_IMAGE_MARK_DIRTY,	"   Dirty Textures",&LLColor4::red1, 0 },
 	{ LLFastTimer::FTM_STATESORT,			"  State Sort",	&LLColor4::orange1, 1 },
 	{ LLFastTimer::FTM_STATESORT_DRAWABLE,	"   Drawable",		&LLColor4::orange2, 0 },

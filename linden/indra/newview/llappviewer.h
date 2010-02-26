@@ -34,7 +34,7 @@
 #define LL_LLAPPVIEWER_H
 
 class LLTextureCache;
-class LLWorkerThread;
+class LLImageDecodeThread;
 class LLTextureFetch;
 class LLWatchdogTimeout;
 class LLCommandLineParser;
@@ -91,7 +91,7 @@ public:
     
 	// Thread accessors
 	static LLTextureCache* getTextureCache() { return sTextureCache; }
-	static LLWorkerThread* getImageDecodeThread() { return sImageDecodeThread; }
+	static LLImageDecodeThread* getImageDecodeThread() { return sImageDecodeThread; }
 	static LLTextureFetch* getTextureFetch() { return sTextureFetch; }
 
 	const std::string& getSerialNumber() { return mSerialNumber; }
@@ -213,7 +213,7 @@ private:
 
 	// Thread objects.
 	static LLTextureCache* sTextureCache; 
-	static LLWorkerThread* sImageDecodeThread; 
+	static LLImageDecodeThread* sImageDecodeThread; 
 	static LLTextureFetch* sTextureFetch;
 
 	S32 mNumSessions;

@@ -50,7 +50,6 @@
 #include "v3dmath.h"
 #include "v3math.h"
 #include "llvertexbuffer.h"
-#include "llpartdata.h"
 
 class LLAgent;			// TODO: Get rid of this.
 class LLAudioSource;
@@ -190,7 +189,7 @@ public:
 	S32 getNumFaces() const { return mNumFaces; }
 
 	// Graphical stuff for objects - maybe broken out into render class later?
-	virtual void updateTextures(LLAgent &agent);
+	virtual void updateTextures();
 	virtual void boostTexturePriority(BOOL boost_children = TRUE);	// When you just want to boost priority of this object
 	
 	virtual LLDrawable* createDrawable(LLPipeline *pipeline);

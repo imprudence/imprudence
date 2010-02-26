@@ -186,18 +186,31 @@ BOOL LLDataPackerBinaryBuffer::packString(const std::string& value, const char *
 	return success;
 }
 
-
 BOOL LLDataPackerBinaryBuffer::unpackString(std::string& value, const char *name)
 {
-	BOOL success = TRUE;
-	S32 length = (S32)strlen((char *)mCurBufferp) + 1; /*Flawfinder: ignore*/
+	//Sanitise the string before attemping ANY buffer operations
+	U8 * pos;
+	S32 length=0;
+	for(pos=mCurBufferp;pos<(mBufferp+mBufferSize);pos++)
+	{
+		length++;
+		if((*pos)==0)
+			break;
+	}
 
-	success &= verifyLength(length, name);
+	if(length>=mBufferSize)
+	{
+		llwarns << "Unpack string failed, null termination not found"<<llendl;
+		return false;
+	}
+
+	if(!verifyLength(length, name))
+		return false;
 
 	value = std::string((char*)mCurBufferp); // We already assume NULL termination calling strlen()
 	
 	mCurBufferp += length;
-	return success;
+	return true;
 }
 
 BOOL LLDataPackerBinaryBuffer::packBinaryData(const U8 *value, S32 size, const char *name)

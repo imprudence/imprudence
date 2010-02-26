@@ -80,13 +80,8 @@ LLVLComposition::LLVLComposition(LLSurface *surfacep, const U32 width, const F32
 	// Initialize the texture matrix to defaults.
 	for (S32 i = 0; i < CORNER_COUNT; ++i)
 	{
-		//Zwag: I'm making these static values because they are a LARGE performance problem
-		// right now, and I've never heard of anyone changing them, they are not referenced
-		// elsewhere, and have not changed in defaults since the original source code release.
-		// We can move these back to signal connected statics if they really become important
-		// variables in the future.
-		mStartHeight[i] = 20.f;//gSavedSettings.getF32("TerrainColorStartHeight");
-		mHeightRange[i] = 60.f;//gSavedSettings.getF32("TerrainColorHeightRange");
+		mStartHeight[i] = gSavedSettings.getF32("TerrainColorStartHeight");
+		mHeightRange[i] = gSavedSettings.getF32("TerrainColorHeightRange");
 	}
 	mTexScaleX = 16.f;
 	mTexScaleY = 16.f;
@@ -234,7 +229,7 @@ BOOL LLVLComposition::generateComposition()
 	{
 		if (mDetailTextures[i]->getDiscardLevel() < 0)
 		{
-			mDetailTextures[i]->setBoostLevel(LLViewerImage::BOOST_TERRAIN); // in case we are at low detail
+			mDetailTextures[i]->setBoostLevel(LLViewerImageBoostLevel::BOOST_TERRAIN); // in case we are at low detail
 			mDetailTextures[i]->addTextureStats(BASE_SIZE*BASE_SIZE);
 			return FALSE;
 		}
@@ -251,7 +246,7 @@ BOOL LLVLComposition::generateComposition()
 				ddiscard++;
 				min_dim /= 2;
 			}
-			mDetailTextures[i]->setBoostLevel(LLViewerImage::BOOST_TERRAIN); // in case we are at low detail
+			mDetailTextures[i]->setBoostLevel(LLViewerImageBoostLevel::BOOST_TERRAIN); // in case we are at low detail
 			mDetailTextures[i]->setMinDiscardLevel(ddiscard);
 			return FALSE;
 		}
@@ -292,10 +287,10 @@ BOOL LLVLComposition::generateTexture(const F32 x, const F32 y,
 				ddiscard++;
 				min_dim /= 2;
 			}
-			if (!mDetailTextures[i]->readBackRaw(ddiscard, mRawImages[i], false))
+			mRawImages[i] = mDetailTextures[i]->getCachedRawImage() ;
+			if (!mRawImages[i])
 			{
-				llwarns << "Unable to read raw data for terrain detail texture: " << mDetailTextures[i]->getID() << llendl;
-				mRawImages[i] = NULL;
+				llwarns << "no cached raw data for terrain detail texture: " << mDetailTextures[i]->getID() << llendl;
 				return FALSE;
 			}
 			if (mDetailTextures[i]->getWidth(ddiscard) != BASE_SIZE ||
@@ -460,7 +455,7 @@ BOOL LLVLComposition::generateTexture(const F32 x, const F32 y,
 	for (S32 i = 0; i < 4; i++)
 	{
 		// Un-boost detatil textures (will get re-boosted if rendering in high detail)
-		mDetailTextures[i]->setBoostLevel(LLViewerImage::BOOST_NONE);
+		mDetailTextures[i]->setBoostLevel(LLViewerImageBoostLevel::BOOST_NONE);
 		mDetailTextures[i]->setMinDiscardLevel(MAX_DISCARD_LEVEL + 1);
 	}
 	

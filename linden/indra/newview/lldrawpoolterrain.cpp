@@ -83,7 +83,7 @@ LLDrawPoolTerrain::LLDrawPoolTerrain(LLViewerImage *texturep) :
 	gGL.getTexUnit(0)->bind(m2DAlphaRampImagep.get());
 	m2DAlphaRampImagep->setAddressMode(LLTexUnit::TAM_CLAMP);
 	
-	mTexturep->setBoostLevel(LLViewerImage::BOOST_TERRAIN);
+	mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_TERRAIN);
 	
 	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 }
@@ -170,7 +170,7 @@ void LLDrawPoolTerrain::render(S32 pass)
 	LLVLComposition *compp = regionp->getComposition();
 	for (S32 i = 0; i < 4; i++)
 	{
-		compp->mDetailTextures[i]->setBoostLevel(LLViewerImage::BOOST_TERRAIN);
+		compp->mDetailTextures[i]->setBoostLevel(LLViewerImageBoostLevel::BOOST_TERRAIN);
 		compp->mDetailTextures[i]->addTextureStats(1024.f*1024.f); // assume large pixel area
 	}
 

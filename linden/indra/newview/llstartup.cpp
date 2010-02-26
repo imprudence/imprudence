@@ -59,6 +59,7 @@
 #include "llfocusmgr.h"
 #include "llhttpsender.h"
 #include "imageids.h"
+#include "llimageworker.h"
 #include "lllandmark.h"
 #include "llloginflags.h"
 #include "llmd5.h"
@@ -3484,7 +3485,7 @@ void init_start_screen(S32 location_id)
 	}
 
 	raw->expandToPowerOfTwo();
-	gStartImageGL->createGLTexture(0, raw);
+	gStartImageGL->createGLTexture(0, raw, 0, TRUE, LLViewerImageBoostLevel::OTHER);
 }
 
 

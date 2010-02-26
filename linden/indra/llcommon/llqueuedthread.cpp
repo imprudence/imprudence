@@ -450,26 +450,12 @@ S32 LLQueuedThread::processNextRequest()
 		}
 	}
 
-	S32 res;
 	S32 pending = getPending();
-	if (pending == 0)
-	{
-		if (isQuitting())
-		{
-			res = -1; // exit thread
-		}
-		else
-		{
-			res = 0;
-		}
-	}
-	else
-	{
-		res = pending;
-	}
-	return res;
+
+	return pending;
 }
 
+// virtual
 bool LLQueuedThread::runCondition()
 {
 	// mRunCondition must be locked here
@@ -479,35 +465,52 @@ bool LLQueuedThread::runCondition()
 		return true;
 }
 
+// virtual
 void LLQueuedThread::run()
 {
+	// call checPause() immediately so we don't try to do anything before the class is fully constructed
+	checkPause();
+	startThread();
+	
 	while (1)
 	{
 		// this will block on the condition until runCondition() returns true, the thread is unpaused, or the thread leaves the RUNNING state.
 		checkPause();
 		
 		if(isQuitting())
+		{
+			endThread();
 			break;
-
-		//llinfos << "QUEUED THREAD RUNNING, queue size = " << mRequestQueue.size() << llendl;
+		}
 
 		mIdleThread = FALSE;
+		
+		threadedUpdate();
 		
 		int res = processNextRequest();
 		if (res == 0)
 		{
 			mIdleThread = TRUE;
+			ms_sleep(1);
 		}
-		
-		if (res < 0) // finished working and want to exit
-		{
-			break;
-		}
-
 		//LLThread::yield(); // thread should yield after each request		
 	}
+	llinfos << "LLQueuedThread " << mName << " EXITING." << llendl;
+		}
+		
+// virtual
+void LLQueuedThread::startThread()
+		{
+		}
 
-	llinfos << "QUEUED THREAD " << mName << " EXITING." << llendl;
+// virtual
+void LLQueuedThread::endThread()
+{
+	}
+
+// virtual
+void LLQueuedThread::threadedUpdate()
+{
 }
 
 //============================================================================

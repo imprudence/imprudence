@@ -161,9 +161,10 @@ namespace
 				fstream.seekg(0, std::ios::end);
 				U32 fileSize = fstream.tellg();
 				fstream.seekg(0, std::ios::beg);
-				std::vector<char> fileBuffer(fileSize);
-				fstream.read(&fileBuffer[0], fileSize);
-				ostream.write(&fileBuffer[0], fileSize);
+				char* fileBuffer;
+				fileBuffer = new char [fileSize];
+				fstream.read(fileBuffer, fileSize);
+				ostream.write(fileBuffer, fileSize);
 				fstream.close();
 				eos = true;
 				return STATUS_DONE;
@@ -190,9 +191,10 @@ namespace
 			
 			LLVFile vfile(gVFS, mUUID, mAssetType, LLVFile::READ);
 			S32 fileSize = vfile.getSize();
-			std::vector<U8> fileBuffer(fileSize);
-			vfile.read(&fileBuffer[0], fileSize);
-			ostream.write((char*)&fileBuffer[0], fileSize);
+			U8* fileBuffer;
+			fileBuffer = new U8 [fileSize];
+			vfile.read(fileBuffer, fileSize);
+			ostream.write((char*)fileBuffer, fileSize);
 			eos = true;
 			return STATUS_DONE;
 		}

@@ -355,7 +355,7 @@ BOOL LLKeyframeMotionParam::loadMotions()
 	//-------------------------------------------------------------------------
 	S32 fileSize = 0;
 	LLAPRFile infile ;
-	infile.open(path, LL_APR_R, NULL, &fileSize);
+	infile.open(path, LL_APR_R, LLAPRFile::global, &fileSize);
 	apr_file_t* fp = infile.getFileHandle() ;
 	if (!fp || fileSize == 0)
 	{

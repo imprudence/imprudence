@@ -378,7 +378,7 @@ void LLWorldMapView::draw()
 			continue;
 		}
 		
-		current_image->setBoostLevel(LLViewerImage::BOOST_MAP_LAYER);
+		current_image->setBoostLevel(LLViewerImageBoostLevel::BOOST_MAP_VISIBLE);
 		current_image->setKnownDrawSize(llround(pix_width * LLUI::sGLScaleFactor.mV[VX]), llround(pix_height * LLUI::sGLScaleFactor.mV[VY]));
 		
 		if (!current_image->getHasGLTexture())
@@ -557,13 +557,13 @@ void LLWorldMapView::draw()
 		S32 draw_size = llround(gMapScale);
 		if (simimage != NULL)
 		{
-			simimage->setBoostLevel(LLViewerImage::BOOST_MAP);
+			simimage->setBoostLevel(LLViewerImageBoostLevel::BOOST_MAP);
 			simimage->setKnownDrawSize(llround(draw_size * LLUI::sGLScaleFactor.mV[VX]), llround(draw_size * LLUI::sGLScaleFactor.mV[VY]));
 		}
 
 		if (overlayimage != NULL)
 		{
-			overlayimage->setBoostLevel(LLViewerImage::BOOST_MAP);
+			overlayimage->setBoostLevel(LLViewerImageBoostLevel::BOOST_MAP);
 			overlayimage->setKnownDrawSize(llround(draw_size * LLUI::sGLScaleFactor.mV[VX]), llround(draw_size * LLUI::sGLScaleFactor.mV[VY]));
 		}
 			

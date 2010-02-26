@@ -1,10 +1,10 @@
 /** 
- * @file llvoground.h
- * @brief LLVOGround class header file
+ * @file lltexturerstats.cpp
+ * @brief texture stats helper methods
  *
- * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2002-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -30,32 +30,32 @@
  * $/LicenseInfo$
  */
 
-#ifndef LL_LLVOGROUND_H
-#define LL_LLVOGROUND_H
+#include "llviewerprecompiledheaders.h"
 
-#include "stdtypes.h"
-#include "v3color.h"
-#include "v4coloru.h"
-#include "llviewerimage.h"
-#include "llviewerobject.h"
+#include "pipeline.h" 
+#include "llagent.h"
+#include "lltexturefetch.h" 
+#include "lltexturestats.h"
+#include "lltexturestatsuploader.h"
+#include "llviewerregion.h"
 
-class LLVOGround : public LLStaticViewerObject
+void send_texture_stats_to_sim(const LLSD &texture_stats)
 {
-protected:
-	~LLVOGround();
+	LLSD texture_stats_report;
+	// Only send stats if the agent is connected to a region.
+	if (!gAgent.getRegion() || gNoRender)
+	{
+		return;
+	}
 
-public:
-	LLVOGround(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
+	LLUUID agent_id = gAgent.getID();
+	texture_stats_report["agent_id"] = agent_id;
+	texture_stats_report["region_id"] = gAgent.getRegion()->getRegionID();
+	texture_stats_report["stats_data"] = texture_stats;
 
-	/*virtual*/ BOOL idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time);
-	
-	// Graphical stuff for objects - maybe broken out into render class
-	// later?
-	/*virtual*/ void updateTextures();
-	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
-	/*virtual*/ BOOL		updateGeometry(LLDrawable *drawable);
+	std::string texture_cap_url = gAgent.getRegion()->getCapability("TextureStats");
+	LLTextureStatsUploader tsu;
+	llinfos << "uploading texture stats data to simulator" << llendl;
+	tsu.uploadStatsToSimulator(texture_cap_url, texture_stats);
+}
 
-	void cleanupGL();
-};
-
-#endif // LL_LLVOGROUND_H

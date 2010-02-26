@@ -556,12 +556,12 @@ void LLFloaterTexturePicker::draw()
 		if(mImageAssetID.notNull())
 		{
 			mTexturep = gImageList.getImage(mImageAssetID, MIPMAP_YES, IMMEDIATE_NO);
-			mTexturep->setBoostLevel(LLViewerImage::BOOST_PREVIEW);
+			mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
 		}
 		else if (!mFallbackImageName.empty())
 		{
 			mTexturep = gImageList.getImageFromFile(mFallbackImageName);
-			mTexturep->setBoostLevel(LLViewerImage::BOOST_PREVIEW);
+			mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
 		}
 
 		if (mTentativeLabel)
@@ -1314,13 +1314,13 @@ void LLTextureCtrl::draw()
 	else if (!mImageAssetID.isNull())
 	{
 		mTexturep = gImageList.getImage(mImageAssetID, MIPMAP_YES, IMMEDIATE_NO);
-		mTexturep->setBoostLevel(LLViewerImage::BOOST_PREVIEW);
+		mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
 	}
 	else if (!mFallbackImageName.empty())
 	{
 		// Show fallback image.
 		mTexturep = gImageList.getImageFromFile(mFallbackImageName);
-		mTexturep->setBoostLevel(LLViewerImage::BOOST_PREVIEW);
+		mTexturep->setBoostLevel(LLViewerImageBoostLevel::BOOST_PREVIEW);
 	}
 	
 	// Border

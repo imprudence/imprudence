@@ -57,9 +57,12 @@
 #include "llares.h" 
 #include "llcurl.h"
 #include "llfloatersnapshot.h"
+#include "lltexturestats.h"
 #include "llviewerwindow.h"
 #include "llviewerdisplay.h"
 #include "llviewermedia.h"
+
+
 #include "llviewermessage.h"
 #include "llviewerobjectlist.h"
 #include "llworldmap.h"
@@ -247,7 +250,7 @@ F32 gFPSClamped = 10.f;						// Pretend we start at target rate.
 F32 gFrameDTClamped = 0.f;					// Time between adjacent checks to network for packets
 U64	gStartTime = 0; // gStartTime is "private", used only to calculate gFrameTimeSeconds
 U32 gFrameStalls = 0;
-const F64 FRAME_STALL_THRESHOLD = 5.0;
+const F64 FRAME_STALL_THRESHOLD = 1.0;
 
 LLTimer gRenderStartTime;
 LLFrameTimer gForegroundTime;
@@ -435,7 +438,7 @@ static void settings_modify()
 	LLVOSurfacePatch::sLODFactor *= LLVOSurfacePatch::sLODFactor; //square lod factor to get exponential range of [1,4]
 	gDebugGL = gSavedSettings.getBOOL("RenderDebugGL");
 	gDebugPipeline = gSavedSettings.getBOOL("RenderDebugPipeline");
-	
+	gAuditTexture = gSavedSettings.getBOOL("AuditTexture");
 #if LL_VECTORIZE
 	if (gSysCPU.hasAltivec())
 	{
@@ -527,7 +530,7 @@ const std::string LLAppViewer::sPerAccountSettingsName = "PerAccount";
 const std::string LLAppViewer::sCrashSettingsName = "CrashSettings"; 
 
 LLTextureCache* LLAppViewer::sTextureCache = NULL; 
-LLWorkerThread* LLAppViewer::sImageDecodeThread = NULL; 
+LLImageDecodeThread* LLAppViewer::sImageDecodeThread = NULL; 
 LLTextureFetch* LLAppViewer::sTextureFetch = NULL; 
 
 LLAppViewer::LLAppViewer() : 
@@ -613,6 +616,9 @@ bool LLAppViewer::init()
 	//////////////////////////////////////////////////////////////////////////////
 	// *FIX: The following code isn't grouped into functions yet.
 
+	// Statistics / debug timer initialization
+	init_statistics();
+	
 	//
 	// Various introspection concerning the libs we're using - particularly
         // the libs involved in getting to a full login screen.
@@ -1365,7 +1371,6 @@ bool LLAppViewer::cleanup()
 	// save all settings, even if equals defaults
 	gCrashSettings.saveToFile(crash_settings_filename, FALSE);
 
-	gSavedSettings.cleanup();
 	gColors.cleanup();
 	gCrashSettings.cleanup();
 
@@ -1418,6 +1423,9 @@ bool LLAppViewer::cleanup()
     sTextureFetch = NULL;
 	delete sImageDecodeThread;
     sImageDecodeThread = NULL;
+
+	gSavedSettings.cleanup();//do this after last time gSavedSettings is used  *surprise*
+
 
 	//Note:
 	//LLViewerMedia::cleanupClass() has to be put before gImageList.shutdown()
@@ -1512,14 +1520,14 @@ bool LLAppViewer::initThreads()
 		LLWatchdog::getInstance()->init(watchdog_killer_callback);
 	}
 
-	LLVFSThread::initClass(enable_threads && true);
-	LLLFSThread::initClass(enable_threads && true);
+	LLVFSThread::initClass(enable_threads && false);
+	LLLFSThread::initClass(enable_threads && false);
 
 	// Image decoding
-	LLAppViewer::sImageDecodeThread = new LLWorkerThread("ImageDecode", enable_threads && true);
+	LLAppViewer::sImageDecodeThread = new LLImageDecodeThread(enable_threads && true);
 	LLAppViewer::sTextureCache = new LLTextureCache(enable_threads && true);
-	LLAppViewer::sTextureFetch = new LLTextureFetch(LLAppViewer::getTextureCache(), enable_threads && false);
-	LLImage::initClass(LLAppViewer::getImageDecodeThread());
+	LLAppViewer::sTextureFetch = new LLTextureFetch(LLAppViewer::getTextureCache(), sImageDecodeThread, enable_threads && true);
+	LLImage::initClass();
 
 	// *FIX: no error handling here!
 	return true;
@@ -2487,7 +2495,7 @@ void LLAppViewer::handleViewerCrash()
 		llinfos << "Creating crash marker file " << crash_file_name << llendl;
 		
 		LLAPRFile crash_file ;
-		crash_file.open(crash_file_name, LL_APR_W);
+		crash_file.open(crash_file_name, LL_APR_W, LLAPRFile::local);
 		if (crash_file.getFileHandle())
 		{
 			LL_INFOS("MarkerFile") << "Created crash marker file " << crash_file_name << LL_ENDL;
@@ -2555,11 +2563,11 @@ bool LLAppViewer::anotherInstanceRunning()
 	LL_DEBUGS("MarkerFile") << "Checking marker file for lock..." << LL_ENDL;
 
 	//Freeze case checks
-	if (LLAPRFile::isExist(marker_file, NULL, LL_APR_RB))
+	if (LLAPRFile::isExist(marker_file, LL_APR_RB))
 	{
 		// File exists, try opening with write permissions
 		LLAPRFile outfile ;
-		outfile.open(marker_file, LL_APR_WB);
+		outfile.open(marker_file, LL_APR_WB, LLAPRFile::global);
 		apr_file_t* fMarker = outfile.getFileHandle() ; 
 		if (!fMarker)
 		{
@@ -2599,24 +2607,24 @@ void LLAppViewer::initMarkerFile()
 	std::string error_marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, ERROR_MARKER_FILE_NAME);
 
 	
-	if (LLAPRFile::isExist(mMarkerFileName, NULL, LL_APR_RB) && !anotherInstanceRunning())
+	if (LLAPRFile::isExist(mMarkerFileName, LL_APR_RB) && !anotherInstanceRunning())
 	{
 		gLastExecEvent = LAST_EXEC_FROZE;
 		LL_INFOS("MarkerFile") << "Exec marker found: program froze on previous execution" << LL_ENDL;
 	}    
     
-	if(LLAPRFile::isExist(logout_marker_file, NULL, LL_APR_RB))
+	if(LLAPRFile::isExist(logout_marker_file, LL_APR_RB))
 	{
 		LL_INFOS("MarkerFile") << "Last exec LLError crashed, setting LastExecEvent to " << LAST_EXEC_LLERROR_CRASH << LL_ENDL;
 		gLastExecEvent = LAST_EXEC_LOGOUT_FROZE;
 	}
-	if(LLAPRFile::isExist(llerror_marker_file, NULL, LL_APR_RB))
+	if(LLAPRFile::isExist(llerror_marker_file, LL_APR_RB))
 	{
 		llinfos << "Last exec LLError crashed, setting LastExecEvent to " << LAST_EXEC_LLERROR_CRASH << llendl;
 		if(gLastExecEvent == LAST_EXEC_LOGOUT_FROZE) gLastExecEvent = LAST_EXEC_LOGOUT_CRASH;
 		else gLastExecEvent = LAST_EXEC_LLERROR_CRASH;
 	}
-	if(LLAPRFile::isExist(error_marker_file, NULL, LL_APR_RB))
+	if(LLAPRFile::isExist(error_marker_file, LL_APR_RB))
 	{
 		LL_INFOS("MarkerFile") << "Last exec crashed, setting LastExecEvent to " << LAST_EXEC_OTHER_CRASH << LL_ENDL;
 		if(gLastExecEvent == LAST_EXEC_LOGOUT_FROZE) gLastExecEvent = LAST_EXEC_LOGOUT_CRASH;
@@ -2635,7 +2643,7 @@ void LLAppViewer::initMarkerFile()
 	
 	// Create the marker file for this execution & lock it
 	apr_status_t s;
-	s = mMarkerFile.open(mMarkerFileName, LL_APR_W, gAPRPoolp);	
+	s = mMarkerFile.open(mMarkerFileName, LL_APR_W, LLAPRFile::global);
 
 	if (s == APR_SUCCESS && mMarkerFile.getFileHandle())
 	{
@@ -3716,7 +3724,7 @@ void LLAppViewer::sendLogoutRequest()
 		mLogoutMarkerFileName = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,LOGOUT_MARKER_FILE_NAME);
 		
 		LLAPRFile outfile ;
-		outfile.open(mLogoutMarkerFileName, LL_APR_W);
+		outfile.open(mLogoutMarkerFileName, LL_APR_W, LLAPRFile::global);
 		mLogoutMarkerFile =  outfile.getFileHandle() ;
 		if (mLogoutMarkerFile)
 		{

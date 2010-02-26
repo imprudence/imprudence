@@ -506,8 +506,6 @@ void LLViewerObject::setParent(LLViewerObject* parent)
 
 void LLViewerObject::addChild(LLViewerObject *childp)
 {
-	BOOL result = TRUE;
-	
 	for (child_list_t::iterator i = mChildList.begin(); i != mChildList.end(); ++i)
 	{
 		if (*i == childp)
@@ -525,16 +523,6 @@ void LLViewerObject::addChild(LLViewerObject *childp)
 	childp->setParent(this);
 	mChildList.push_back(childp);
 
-	if (!result) 
-	{
-		llwarns << "Failed to attach child " << childp->getID() << " to object " << getID() << llendl;
-		removeChild(childp);
-		if (mJointInfo)
-		{
-			delete mJointInfo;
-			mJointInfo = NULL;
-		}
-	}
 }
 
 void LLViewerObject::removeChild(LLViewerObject *childp)
@@ -637,8 +625,8 @@ BOOL LLViewerObject::setDrawableParent(LLDrawable* parentp)
 	
 	BOOL ret = mDrawable->mXform.setParent(parentp ? &parentp->mXform : NULL);
 	gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_VOLUME, TRUE);
-	if(	old_parent != parentp &&
-		old_parent || (parentp && parentp->isActive()))
+	if(	(old_parent != parentp && old_parent)
+		|| (parentp && parentp->isActive()))
 	{
 		// *TODO we should not be relying on setDrawable parent to call markMoved
 		gPipeline.markMoved(mDrawable, FALSE);
@@ -1814,7 +1802,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 		if (cdp)
 		{
 			F32 ping_delay = 0.5f * mTimeDilation * ( ((F32)cdp->getPingDelay()) * 0.001f + gFrameDTClamped);
-			LLVector3 diff = getVelocity() * (0.5f*mTimeDilation*(gFrameDTClamped + ((F32)ping_delay)*0.001f)); 
+			LLVector3 diff = getVelocity() * ping_delay; 
 			new_pos_parent += diff;
 		}
 		else
@@ -2900,7 +2888,7 @@ F32 LLViewerObject::getMidScale() const
 }
 
 
-void LLViewerObject::updateTextures(LLAgent &agent)
+void LLViewerObject::updateTextures()
 {
 }
 
@@ -2915,14 +2903,14 @@ void LLViewerObject::boostTexturePriority(BOOL boost_children /* = TRUE */)
 	S32 tex_count = getNumTEs();
 	for (i = 0; i < tex_count; i++)
 	{
- 		getTEImage(i)->setBoostLevel(LLViewerImage::BOOST_SELECTED);
+ 		getTEImage(i)->setBoostLevel(LLViewerImageBoostLevel::BOOST_SELECTED);
 	}
 
 	if (isSculpted())
 	{
 		LLSculptParams *sculpt_params = (LLSculptParams *)getParameterEntry(LLNetworkData::PARAMS_SCULPT);
 		LLUUID sculpt_id = sculpt_params->getSculptTexture();
-		gImageList.getImage(sculpt_id)->setBoostLevel(LLViewerImage::BOOST_SELECTED);
+		gImageList.getImage(sculpt_id)->setBoostLevel(LLViewerImageBoostLevel::BOOST_SELECTED);
 	}
 	
 	if (boost_children)

@@ -2089,7 +2089,7 @@ void LLVFS::dumpFiles()
 			llinfos << " Writing " << filename << llendl;
 			
 			LLAPRFile outfile ;
-			outfile.open(filename, LL_APR_WB);
+			outfile.open(filename, LL_APR_WB, LLAPRFile::global);
 			outfile.write(buffer, size);
 			outfile.close();
 			delete[] buffer;

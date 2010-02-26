@@ -72,6 +72,9 @@ void *APR_THREAD_FUNC LLThread::staticRun(apr_thread_t *apr_threadp, void *datap
 	// Set thread state to running
 	threadp->mStatus = RUNNING;
 
+	// Create a thread local APRFile pool.
+	LLVolatileAPRPool::createLocalAPRFilePool();
+
 	// Run the user supplied function
 	threadp->run();
 
@@ -102,20 +105,12 @@ LLThread::LLThread(const std::string& name, apr_pool_t *poolp) :
 		apr_pool_create(&mAPRPoolp, NULL); // Create a subpool for this thread
 	}
 	mRunCondition = new LLCondition(mAPRPoolp);
-
-	mLocalAPRFilePoolp = NULL ;
 }
 
 
 LLThread::~LLThread()
 {
 	shutdown();
-
-	if(mLocalAPRFilePoolp)
-	{
-		delete mLocalAPRFilePoolp ;
-		mLocalAPRFilePoolp = NULL ;
-	}
 }
 
 void LLThread::shutdown()

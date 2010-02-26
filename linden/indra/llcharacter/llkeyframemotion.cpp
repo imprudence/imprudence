@@ -1355,8 +1355,8 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 		}
 		else
 		{
-			llwarns << "joint not found: " << joint_name << llendl;
-			//return FALSE;
+			llwarns << "joint not found: " << llendl;
+			return FALSE;
 		}
 
 		joint_motion->mJointName = joint_name;

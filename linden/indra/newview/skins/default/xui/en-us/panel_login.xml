@@ -56,8 +56,8 @@
                bottom_delta="-20" left_delta="0" height="20" width="120"
                follows="left|bottom" font="SansSerif"
                bevel_style="in" border_style="line" border_thickness="1" 
-               max_length="16" mouse_opaque="true"
-	             handle_edit_keys_directly="true"
+               max_length="31" mouse_opaque="true"
+               handle_edit_keys_directly="true"
                select_all_on_focus_received="true" />
 
 
@@ -75,8 +75,8 @@
                bottom_delta="-20" left_delta="0" height="20" width="120"
                follows="left|bottom" font="SansSerif"
                bevel_style="in" border_style="line" border_thickness="1" 
-               max_length="16" mouse_opaque="true"
-	             handle_edit_keys_directly="true"
+               max_length="31" mouse_opaque="true"
+               handle_edit_keys_directly="true"
                select_all_on_focus_received="true" />
 
 

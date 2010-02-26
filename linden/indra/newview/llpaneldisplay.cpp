@@ -411,6 +411,8 @@ void LLPanelDisplay::refresh()
 	mLightingDetail = gSavedSettings.getS32("RenderLightingDetail");
 	mTerrainDetail =  gSavedSettings.getS32("RenderTerrainDetail");
 
+	mWLControl = gSavedSettings.getBOOL("EnableWindlightRemote");
+
 	// slider text boxes
 	updateSliderText(mCtrlLODFactor, mLODFactorText);
 	updateSliderText(mCtrlFlexFactor, mFlexFactorText);
@@ -717,8 +719,6 @@ void LLPanelDisplay::apply()
 	{
 		applyWindowSize();
 	}
-
-	gSavedSettings.setBOOL("EnableWindlightRemote", childGetValue("toggle_windlight_control").asBoolean());
 }
 
 void LLPanelDisplay::onChangeQuality(LLUICtrl *ctrl, void *data)

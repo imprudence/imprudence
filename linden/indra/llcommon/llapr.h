@@ -92,7 +92,7 @@ protected:
 //which clears memory automatically.
 //so it can not hold static data or data after memory is cleared
 //
-class LLVolatileAPRPool : public LLAPRPool
+class LLVolatileAPRPool : protected LLAPRPool
 {
 public:
 	LLVolatileAPRPool(apr_pool_t *parent = NULL, apr_size_t size = 0, BOOL releasePoolFlag = TRUE);
@@ -104,9 +104,17 @@ public:
 
 	BOOL        isFull() ;
 	BOOL        isEmpty() {return !mNumActiveRef ;}
+
+	static void initLocalAPRFilePool();
+	static void createLocalAPRFilePool();
+	static void destroyLocalAPRFilePool(void* thread_local_data);
+	static LLVolatileAPRPool* getLocalAPRFilePool();
+
 private:
 	S32 mNumActiveRef ; //number of active pointers pointing to the apr_pool.
 	S32 mNumTotalRef ;  //number of total pointers pointing to the apr_pool since last creating.   
+
+	static apr_threadkey_t*		sLocalAPRFilePoolKey;
 } ;
 
 /** 
@@ -192,18 +200,25 @@ typedef LLAtomic32<S32> LLAtomicS32;
 //      1, a temperary pool passed to an APRFile function, which is used within this function and only once.
 //      2, a global pool.
 //
-class LLAPRFile
+
+class LLAPRFile : boost::noncopyable
 {
+	// make this non copyable since a copy closes the file
 private:
 	apr_file_t* mFile ;
 	LLVolatileAPRPool *mCurrentFilePoolp ; //currently in use apr_pool, could be one of them: sAPRFilePoolp, or a temp pool. 
 
 public:
+	enum access_t {
+		global,		// Use a global pool for long-lived file accesses. This should really only happen from the main thread.
+		local		// Use a thread-local volatile pool for short file accesses.
+	};
+
 	LLAPRFile() ;
+	LLAPRFile(const std::string& filename, apr_int32_t flags, access_t access_type);
 	~LLAPRFile() ;
 
-	apr_status_t open(LLVolatileAPRPool* pool, const std::string& filename, apr_int32_t flags, S32* sizep = NULL);
-	apr_status_t open(const std::string& filename, apr_int32_t flags, apr_pool_t* pool = NULL, S32* sizep = NULL);
+	apr_status_t open(const std::string& filename, apr_int32_t flags, access_t access_type, S32* sizep = NULL);
 	apr_status_t close() ;
 
 	// Returns actual offset, -1 if seek fails
@@ -216,32 +231,24 @@ public:
 	
 	apr_file_t* getFileHandle() {return mFile;}	
 
-private:
-	apr_pool_t* getAPRFilePool(apr_pool_t* pool) ;
-
 //
 //*******************************************************************************************************************************
 //static components
 //
-public:
-	static LLVolatileAPRPool *sAPRFilePoolp ; //a global apr_pool for APRFile, which is used only when local pool does not exist.
-
 private:
-	static apr_file_t* open(const std::string& filename, LLVolatileAPRPool* pool, apr_int32_t flags);
-	static apr_status_t close(apr_file_t* file, LLVolatileAPRPool* pool) ;
 	static S32 seek(apr_file_t* file, apr_seek_where_t where, S32 offset);
 public:
 	// returns false if failure:
-	static bool remove(const std::string& filename, LLVolatileAPRPool* pool = NULL);
-	static bool rename(const std::string& filename, const std::string& newname, LLVolatileAPRPool* pool = NULL);
-	static bool isExist(const std::string& filename, LLVolatileAPRPool* pool = NULL, apr_int32_t flags = APR_READ);
-	static S32 size(const std::string& filename, LLVolatileAPRPool* pool = NULL);
-	static bool makeDir(const std::string& dirname, LLVolatileAPRPool* pool = NULL);
-	static bool removeDir(const std::string& dirname, LLVolatileAPRPool* pool = NULL);
+	static bool remove(const std::string& filename);
+	static bool rename(const std::string& filename, const std::string& newname);
+	static bool isExist(const std::string& filename, apr_int32_t flags = APR_READ);
+	static S32 size(const std::string& filename);
+	static bool makeDir(const std::string& dirname);
+	static bool removeDir(const std::string& dirname);
 
 	// Returns bytes read/written, 0 if read/write fails:
-	static S32 readEx(const std::string& filename, void *buf, S32 offset, S32 nbytes, LLVolatileAPRPool* pool = NULL);	
-	static S32 writeEx(const std::string& filename, void *buf, S32 offset, S32 nbytes, LLVolatileAPRPool* pool = NULL);	
+	static S32 readEx(const std::string& filename, void *buf, S32 offset, S32 nbytes);
+	static S32 writeEx(const std::string& filename, void *buf, S32 offset, S32 nbytes);
 //*******************************************************************************************************************************
 };
 
