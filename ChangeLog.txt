@@ -1,4 +1,17 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-                      1.3.0 BETA 1                      -=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
 2010-02-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Bumped version to 1.3.0 beta 1.
+
+	  modified:   linden/indra/llcommon/llversionviewer.h
+	  modified:   linden/indra/newview/English.lproj/InfoPlist.strings
+	  modified:   linden/indra/newview/Info-Imprudence.plist
+	  modified:   linden/indra/newview/res/viewerRes.rc
+
 
 	* Fixed Import/Export/Make Outfit button positions (#215).
 
