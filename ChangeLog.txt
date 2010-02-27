@@ -1,3 +1,16 @@
+2010-02-27  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Some changes to help linux64.
+	  Don't build with libELFIO (lib not working).
+	  Use shared libpng12 instead of static library
+	  (fixes mozlib incompat for users with system libpng14).
+
+	  modified:   linden/indra/cmake/00-Common.cmake
+	  modified:   linden/indra/cmake/ELFIO.cmake
+	  modified:   linden/indra/newview/viewer_manifest.py
+	  modified:   linden/install.xml
+
+
 2010-02-26  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Disabled spammy messages about WebFetchInventoryDescendents.
