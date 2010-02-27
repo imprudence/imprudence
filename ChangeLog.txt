@@ -1,3 +1,10 @@
+2010-02-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
+
+	* Fixed Import/Export/Make Outfit button positions (#215).
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/floater_customize.xml
+
+
 2010-02-27  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
 
 	* Some changes to help linux64.
