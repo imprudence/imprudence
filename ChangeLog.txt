@@ -5,6 +5,11 @@
 
 2010-02-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Prettier default client tag color for Imprudence.
+
+	  modified:   linden/indra/newview/llvoavatar.cpp
+
+
 	* Added ClientTagsListURL debug setting.
 	  URL to download client tags from.
 

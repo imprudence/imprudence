@@ -3104,8 +3104,7 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 
 		if(idx == LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf"))
 		{
-			avatar_name_color += LLColor4(0.6f,0.8f,1.0f);//Imprudence
-			avatar_name_color = avatar_name_color * (F32)0.333333333333;
+			avatar_name_color = LLColor4(0.79f,0.44f,0.88f);//Imprudence
 			client = "Imprudence";
 
 		} else  if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190"))
