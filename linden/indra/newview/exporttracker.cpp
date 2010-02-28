@@ -449,8 +449,8 @@ LLSD JCExportTracker::subserialize(LLViewerObject* linkset)
 						ExportTrackerFloater::total_textures++;
 						requested_textures.insert(asset_id);
 						LLViewerImage* img = gImageList.getImage(asset_id, MIPMAP_TRUE, FALSE);
-						img->setBoostLevel(LLViewerImage::BOOST_MAX_LEVEL);
-						//required for snowglobe texture fetcher// img->forceToSaveRawImage(0); //this is required for us to receive the full res image.
+						img->setBoostLevel(LLViewerImageBoostLevel::BOOST_MAX_LEVEL);
+						img->forceToSaveRawImage(0); //this is required for us to receive the full res image.
 						//img->setAdditionalDecodePriority(1.0f) ;
 						img->setLoadedCallback( JCExportTracker::onFileLoadedForSave, 
 										0, TRUE, FALSE, info );
@@ -496,8 +496,8 @@ LLSD JCExportTracker::subserialize(LLViewerObject* linkset)
 					}
 					else
 					{
-						//img->forceToSaveRawImage(0); //this is required for us to receive the full res image. (snowglobe)
-						img->setBoostLevel(LLViewerImage::BOOST_MAX_LEVEL);	
+						img->forceToSaveRawImage(0); //this is required for us to receive the full res image. (snowglobe)
+						img->setBoostLevel(LLViewerImageBoostLevel::BOOST_MAX_LEVEL);	
 						img->addTextureStats( (F32)MAX_IMAGE_AREA );
 						img->setLoadedCallback( JCExportTracker::onFileLoadedForSave, 
 										0, TRUE, FALSE, info );
@@ -1672,7 +1672,7 @@ void JCAssetExportCallback(LLVFS *vfs, const LLUUID& uuid, LLAssetType::EType ty
 			}//else //cmdline_printchat("Failed to decode notecard");
 		}
 		LLAPRFile infile;
-		infile.open(info->path.c_str(), LL_APR_WB);
+		infile.open(info->path.c_str(), LL_APR_WB,LLAPRFile::global);
 		apr_file_t *fp = infile.getFileHandle();
 		if(fp)infile.write(buffer, size);
 		infile.close();
