@@ -811,6 +811,28 @@
 	  modified:   linden/indra/cmake/CopyWinLibs.cmake
 
 
+2009-12-01  Patrick Sapinski  <patrick@sapinski.com>
+
+	* vstool VS2010 support
+
+	  modified:   linden/indra/tools/vstool/VSTool.exe
+	  modified:   linden/indra/tools/vstool/main.cs
+
+
+	* develop.py support for VS2010
+
+	  modified:   linden/indra/develop.py
+
+
+2009-11-30  Patrick Sapinski  <patrick@sapinski.com>
+
+	* Disabled sending viewer stats.
+	  It is useless to the viewer and also transmits some sensitive
+	  information about the user's computer to LL.
+
+	  modified:   linden/indra/newview/llappviewer.cpp
+
+
 2009-11-30 Armin Weatherwax  <Armin.Weatherwax@gmail.com>
 
 	* Emeralds client name tag and clothing layer protection.
@@ -867,6 +889,21 @@
 	  new file:   linden/indra/newview/res/imp_icon.ico
 	  modified:   linden/indra/newview/res/viewerRes.rc
 	  
+
+2009-11-28  Patrick Sapinski  <patrick@sapinski.com>
+
+	* dynamically linked libpng for windows added to install.xml (from
+	  snowglobe) which is required to build 1.23 and up.
+
+	  modified:   linden/install.xml
+
+
+	* commented out some cmake code that completely breaks distributed
+	  builds on Windows, doesn't affect other builds, seems to do
+	  nothing, and was commented out on MK years ago :)
+
+	  modified:   linden/indra/newview/CMakeLists.txt
+
 
 2009-11-28  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
