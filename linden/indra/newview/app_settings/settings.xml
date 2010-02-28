@@ -15,6 +15,7 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+
   <key>DownloadClientTags</key>
   <map>
     <key>Comment</key>
@@ -26,6 +27,19 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+
+  <key>ClientTagsListURL</key>
+  <map>
+    <key>Comment</key>
+    <string>Location to download client tags list.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>http://imprudenceviewer.org/app/client_list/</string>
+  </map>
+
   <key>WarnClientTags</key>
   <map>
     <key>Comment</key>
@@ -37,6 +51,7 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+
   <key>ClothingLayerProtection</key>
   <map>
     <key>Comment</key>

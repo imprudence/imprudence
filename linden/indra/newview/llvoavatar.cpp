@@ -3023,18 +3023,24 @@ void LLVOAvatar::idleUpdateWindEffect()
 bool LLVOAvatar::updateClientTags()
 {
 	std::string client_list_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "client_list.xml");
-	LLSD response = LLHTTPClient::blockingGet("http://www.imprudenceviewer.org/app/client_list/client_list.xml");
-	if(response.has("body"))
-	{
-		const LLSD &client_list = response["body"];
 
-		if(client_list.has("isComplete"))
+	std::string url = gSavedSettings.getString("ClientTagsListURL");
+
+	if(!url.empty())
+	{
+		LLSD response = LLHTTPClient::blockingGet(url);
+		if(response.has("body"))
 		{
-			llofstream export_file;
-			export_file.open(client_list_filename);
-			LLSDSerialize::toPrettyXML(client_list, export_file);
-			export_file.close();
-			return true;
+			const LLSD &client_list = response["body"];
+
+			if(client_list.has("isComplete"))
+			{
+				llofstream export_file;
+				export_file.open(client_list_filename);
+				LLSDSerialize::toPrettyXML(client_list, export_file);
+				export_file.close();
+				return true;
+			}
 		}
 	}
 	return false;
