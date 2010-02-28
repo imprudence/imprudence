@@ -3,6 +3,13 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
+2010-02-28  Armin Weatherwax  <Armin.Weatherwax@gmail.com>
+
+	* Updated Linux64 OpenJPEG to fix a rebake bug on old nvidia cards.
+
+	  modified:   linden/install.xml
+
+
 2010-02-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
 	* Whitespace cleanup in QueryClientTags notification.
