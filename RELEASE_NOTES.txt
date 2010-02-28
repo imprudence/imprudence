@@ -4,6 +4,197 @@
 
 
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  =-                     1.3.0 BETA 1                       -=
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+   RELEASE HIGHLIGHTS
+
+     * Textures and objects now rez more quickly, due to improved
+       texture and object engines from Snowglobe. Thanks to the
+       Snowglobe devs for creating it, and Armin and Jacek for porting
+       it!
+
+     * Imprudence's code base has been updated to Second Life 1.23.5.
+       That means Imprudence has gained most of the new features and
+       bug fixes from SL 1.23. Thanks to Linden Lab for writing it,
+       and to Jacek, McCabe, and Armin for their hard work merging it!
+       Thanks also to Lilly Zenovka for her assistance.
+
+     * Optional legacy pie menus. Enable "Preferences > General > Use
+       legacy pie menus" to switch to a pie menu layout similar to SL
+       1.22 and earlier. Thanks, McCabe!
+
+     * Clothing layer protection and client identification from
+       Meerkat/Emerald. See the Client Identification page on our wiki
+       for information about these features. Thanks to the Meerkat and
+       Emerald teams for creating them, and Armin for porting them!
+
+
+   KNOWN ISSUES
+
+     * Imprudence may crash on Linux when changing "Antialiasing" or
+       "Anisotropic Filtering" in "Preferences > Graphics > Hardware
+       Settings".
+
+        - This is a known bug in SL 1.23 (VWR-13286). We will try our
+          best to fix it.
+
+        - As a work around, you can open "Advanced > Debug Settings",
+          modify RenderFSAASamples (antialiasing) and
+          RenderAnisotropic (anisotropic filtering), then restart the
+          viewer.
+
+     * The "View > Web Browser" menu entry does not work.
+
+     * Legacy pie menus always appear in English, even if you are
+       using another language.
+
+     * The "File > Import + Upload" menu item's price always says
+       "L$10 per texture", even when uploads are actually free, such
+       as on OpenSim.
+
+
+   CHANGES
+
+     In addition to the Release Highlights above, this version of
+     Imprudence also includes the following changes, as compared to
+     Imprudence 1.2.1.
+
+
+     FEATURES / IMPROVEMENTS
+
+       * You can now type in an optional message when paying L$ to a
+         Resident (SNOW-436, formerly VWR-9597). The message will
+         appear in that Resident's transaction history online. Thanks,
+         Jacek!
+
+          - The layout for the Pay Resident and Pay Object windows
+            have been cleaned up, too. Thanks, Jacek!
+
+       * You can now adjust numerical sliders with the mouse wheel.
+         Position the mouse pointer over a slider (e.g. sound volume,
+         draw distance, etc.) and scroll the mouse wheel up and down.
+         Thanks, Armin!
+
+          - You can change the direction and speed by editing the
+            SliderScrollWheelMultiplier debug setting. Thanks, Jacek!
+
+       * In the IM window, the "Profile" button now has a drop-down
+         menu with "Pay" and "Offer Teleport" options. Thanks, McCabe!
+
+       * User profiles now have a "Copy Key" button to copy that
+         user's key (agent UUID) to your clipboard. You can then paste
+         it into a script, for example. Thanks, McCabe!
+
+       * Color chooser widgets now display opacity in a way that makes
+         sense. Thanks, Geneko Nemeth!
+
+       * The Script editor's Help menu now has a link to the
+         Autoscript scripting helper, to help generate .
+
+       * You can now drag-and-drop inventory items anywhere on
+         someone's profile to send them. In Imprudence 1.2, you had to
+         drag to specific area in the bottom right corner. Thanks,
+         McCabe!
+
+       * There is now a new debug setting to save inventory scripts as
+         Mono (SNOW-378). If you enable SaveInventoryScriptsAsMono in
+         Debug Settings, new scripts that you create in your inventory
+         will default to Mono. Thanks, Henri Beauchamp!
+
+       * You can now set a custom "world search" URL to use instead of
+         SL's search pages. See "Preferences > Web > World Search".
+         This is mostly useful for users of third-party grids. We hope
+         to provide per-grid search URLs in the future.
+
+
+     BUG FIXES
+
+       * Fixed the login screen not allowing login names longer than
+         16 letters. It now allows up to 31 letters per name, like it
+         should.
+
+       * Fixed #155: Double clicking your avatar triggers a TP
+         request. Thanks, Armin!
+
+       * Fixed #184: Opening notecards resets the camera. Thanks,
+         Armin!
+
+       * Fixed #197: Windlight toolbar can't be hidden. Thanks, Jacek!
+
+       * Fixed VWR-4232: Some particles don't disappear when UI is
+         hidden. Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed VWR-14267: Clicking send in an IM window does not add
+         the sent text to the line editor history. Thanks, Aimee
+         Trescothick!
+
+       * Fixed VWR-14278: Gesture auto-completion adds uncommitted
+         suggestions to the line editor history. Thanks, Aimee
+         Trescothick!
+
+       * Fixed VWR-11172: A source coding mistake prevents number-pad
+         keys from specifying Ctrl+digit shortcuts on Windows. Thanks,
+         Alissa Sabre!
+
+       * Fixed VWR-14475: Load from XML is broken. Thanks, Admiral
+         Admiral and Mm Alder!
+
+       * Fixed VWR-15310: Save to XML doesn't set proper XML tags.
+         Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed SNOW-376: Clean up handling of the maximum length of
+         chat messages. Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed SNOW-413: Potential null pointer exception in
+         multi-slider control. Thanks, Admiral Admiral and Mm Alder!
+
+       * Fixed SNOW-488: Malformed animation crash. Thanks, Robin
+         Cornelius!
+
+       * Fixed SNOW-492: LLDataPacker::unpackstring() is unsafe.
+         Thanks, Robin Cornelius!
+
+       * Fixed a rare crash from textures with too many components.
+         (This has only been observed in the Lbsa Plaza sim on OSGrid,
+         so far.) Thanks, Armin!
+
+
+     OTHER CHANGES
+
+       * To help protect our users' privacy, the viewer no longer
+         sends "ViewerStats" to Linden Lab's servers. This was a
+         feature of the SL viewer which would collect and send various
+         pieces of information to Linden Lab without the user's active
+         consent. Thanks, Patrick Sapinski!
+
+       * The Linux (32 and 64 bit) builds are no longer distributed
+         with Pango or GDK-PixBuf, due to a number of bugs that was
+         causing. Linux users should install the following on their
+         systems:
+
+          - Pango 1.26 (or compatible), including freetype support.
+
+          - GTK+ 1.16 (or compatible)
+
+       * The "Notify when Linden dollars (L$) spent or received"
+         checkbox has been moved to "Preferences > Popups". Thanks,
+         McCabe!
+
+       * Removed unnecessary XUI files from the Silver skin. This
+         helps keep the UI layouts of both skins in sync. Thanks,
+         McCabe!
+
+       * There have been numerous changes and improvements to the
+         viewer compile system and software libraries. Thanks to
+         Armin, Jacek, McCabe, and Patrick Sapinski, and the Snowglobe
+         devs!
+
+
+
+
+  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   =-                         1.2.1                          -=
   =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
