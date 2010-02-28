@@ -5,6 +5,11 @@
 
 2010-02-27  Jacek Antonelli  <jacek.antonelli@gmail.com>
 
+	* Whitespace cleanup in QueryClientTags notification.
+
+	  modified:   linden/indra/newview/skins/default/xui/en-us/notifications.xml
+
+
 	* Prettier default client tag color for Imprudence.
 
 	  modified:   linden/indra/newview/llvoavatar.cpp
