@@ -744,26 +744,17 @@ bool LLTextureFetchWorker::doWork(S32 param)
 		}
 		else if (mSentRequest == UNSENT)
 		{
-			if(mFetcher->mQueueMutex.tryLock())
-			{
-				// Add this to the network queue and sit here.
-				// LLTextureFetch::update() will send off a request which will change our state
-				mRequestedSize = mDesiredSize;
-				mRequestedDiscard = mDesiredDiscard;
-				mSentRequest = QUEUED;	
-				mFetcher->addToNetworkQueue(this);
-				setPriority(LLWorkerThread::PRIORITY_LOW | mWorkPriority);
-				mFetcher->mQueueMutex.unlock();
-			}
+			// Add this to the network queue and sit here.
+			// LLTextureFetch::update() will send off a request which will change our state
+			mRequestedSize = mDesiredSize;
+			mRequestedDiscard = mDesiredDiscard;
+			mSentRequest = QUEUED;
+			mFetcher->addToNetworkQueue(this);
+			setPriority(LLWorkerThread::PRIORITY_LOW | mWorkPriority);
 			return false;
 		}
 		else
 		{
-			// Shouldn't need to do anything here
-			//llassert_always(mFetcher->mNetworkQueue.find(mID) != mFetcher->mNetworkQueue.end());
-			// Make certain this is in the network queue
-			//mFetcher->addToNetworkQueue(this);
-			//setPriority(LLWorkerThread::PRIORITY_LOW | mWorkPriority);
 			return false;
 		}
 	}
@@ -1473,23 +1464,12 @@ void LLTextureFetch::deleteRequest(const LLUUID& id, bool cancel)
 	}
 }
 
-// Need to hold mQueueMutex when entering this function SNOW-196
-// Snowglobe ToDo fix holding mQueueMutex over the entire function, we only need
-// it for the mRequestMap access
 // protected
 void LLTextureFetch::addToNetworkQueue(LLTextureFetchWorker* worker)
 {
-	bool is_worker_in_request_map = (mRequestMap.find(worker->mID) != mRequestMap.end());
-
 	LLMutexLock lock(&mNetworkQueueMutex);
-	if (is_worker_in_request_map)
-	{
-		// only add to the queue if in the request map
-		// i.e. a delete has not been requested
-		mNetworkQueue.insert(worker->mID);
-	}
-	for (cancel_queue_t::iterator iter1 = mCancelQueue.begin();
-		 iter1 != mCancelQueue.end(); ++iter1)
+	mNetworkQueue.insert(worker->mID);
+	for (cancel_queue_t::iterator iter1 = mCancelQueue.begin(); iter1 != mCancelQueue.end(); ++iter1)
 	{
 		iter1->second.erase(worker->mID);
 	}
@@ -1715,8 +1695,10 @@ void LLTextureFetch::sendRequestListToSimulators()
 		LLTextureFetchWorker* req = getWorker(*curiter);
 		if (!req)
 		{
+			// This happens when a request was removed from mRequestMap in a race
+			// with adding it to mNetworkQueue by doWork (see SNOW-196).
 			mNetworkQueue.erase(curiter);
-			continue; // paranoia
+			continue;
 		}
 		llassert(req->mState == LLTextureFetchWorker::LOAD_FROM_NETWORK || LLTextureFetchWorker::LOAD_FROM_SIMULATOR);
 		if ((req->mState != LLTextureFetchWorker::LOAD_FROM_NETWORK) &&

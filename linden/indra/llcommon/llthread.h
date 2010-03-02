@@ -131,10 +131,12 @@ public:
 	LLMutex(apr_pool_t *apr_poolp); // NULL pool constructs a new pool for the mutex
 	~LLMutex();
 	
-	void lock();		// blocks
-	void unlock();
+	void lock() { apr_thread_mutex_lock(mAPRMutexp); }
+	void unlock() { apr_thread_mutex_unlock(mAPRMutexp); }
+	// Returns true if lock was obtained successfully.
+	bool tryLock() { return !APR_STATUS_IS_EBUSY(apr_thread_mutex_trylock(mAPRMutexp)); }
+
 	bool isLocked(); 	// non-blocking, but does do a lock/unlock so not free
-	bool tryLock();		//non-blocking, but not free, returns true if grabed lock
 
 protected:
 	apr_thread_mutex_t *mAPRMutexp;

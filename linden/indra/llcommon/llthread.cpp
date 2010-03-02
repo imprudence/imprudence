@@ -283,7 +283,6 @@ LLMutex::LLMutex(apr_pool_t *poolp) :
 	apr_thread_mutex_create(&mAPRMutexp, APR_THREAD_MUTEX_UNNESTED, mAPRPoolp);
 }
 
-
 LLMutex::~LLMutex()
 {
 #if _DEBUG
@@ -297,40 +296,14 @@ LLMutex::~LLMutex()
 	}
 }
 
-
-void LLMutex::lock()
-{
-	apr_thread_mutex_lock(mAPRMutexp);
-}
-
-void LLMutex::unlock()
-{
-	apr_thread_mutex_unlock(mAPRMutexp);
-}
-
 bool LLMutex::isLocked()
 {
-	apr_status_t status = apr_thread_mutex_trylock(mAPRMutexp);
-	if (APR_STATUS_IS_EBUSY(status))
+  	if (!tryLock())
 	{
 		return true;
 	}
-	else
-	{
-		apr_thread_mutex_unlock(mAPRMutexp);
-		return false;
-	}
-}
-
-//trys to grab a lock and if sucessful returns true
-bool LLMutex::tryLock()
-{
-	apr_status_t status = apr_thread_mutex_trylock(mAPRMutexp);
-	if (APR_STATUS_IS_EBUSY(status))
-	{	
-		return false;
-	}
-	return true;
+	apr_thread_mutex_unlock(mAPRMutexp);
+	return false;
 }
 
 //============================================================================
@@ -343,13 +316,11 @@ LLCondition::LLCondition(apr_pool_t *poolp) :
 	apr_thread_cond_create(&mAPRCondp, mAPRPoolp);
 }
 
-
 LLCondition::~LLCondition()
 {
 	apr_thread_cond_destroy(mAPRCondp);
 	mAPRCondp = NULL;
 }
-
 
 void LLCondition::wait()
 {
