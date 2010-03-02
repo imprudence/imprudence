@@ -744,13 +744,17 @@ bool LLTextureFetchWorker::doWork(S32 param)
 		}
 		else if (mSentRequest == UNSENT)
 		{
-			// Add this to the network queue and sit here.
-			// LLTextureFetch::update() will send off a request which will change our state
-			mRequestedSize = mDesiredSize;
-			mRequestedDiscard = mDesiredDiscard;
-			mSentRequest = QUEUED;
-			mFetcher->addToNetworkQueue(this);
-			setPriority(LLWorkerThread::PRIORITY_LOW | mWorkPriority);
+			if(mFetcher->mQueueMutex.tryLock())
+			{
+				// Add this to the network queue and sit here.
+				// LLTextureFetch::update() will send off a request which will change our state
+				mRequestedSize = mDesiredSize;
+				mRequestedDiscard = mDesiredDiscard;
+				mSentRequest = QUEUED;	
+				mFetcher->addToNetworkQueue(this);
+				setPriority(LLWorkerThread::PRIORITY_LOW | mWorkPriority);
+				mFetcher->mQueueMutex.unlock();
+			}
 			return false;
 		}
 		else
@@ -800,7 +804,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 			// Set the throttle to the entire bandwidth, assuming UDP packets will get priority
 			// when they are needed
 			F32 max_bandwidth = mFetcher->mMaxBandwidth;
-			if ((mFetcher->getHTTPQueueSize() >= HTTP_QUEUE_MAX_SIZE) ||
+			if ((mFetcher->getNumHTTPRequests() >= HTTP_QUEUE_MAX_SIZE) ||
 				(mFetcher->getTextureBandwidth() > max_bandwidth))
 			{
 				// Make normal priority and return (i.e. wait until there is room in the queue)
@@ -1469,12 +1473,13 @@ void LLTextureFetch::deleteRequest(const LLUUID& id, bool cancel)
 	}
 }
 
+// Need to hold mQueueMutex when entering this function SNOW-196
+// Snowglobe ToDo fix holding mQueueMutex over the entire function, we only need
+// it for the mRequestMap access
 // protected
 void LLTextureFetch::addToNetworkQueue(LLTextureFetchWorker* worker)
 {
-	mQueueMutex.lock();
 	bool is_worker_in_request_map = (mRequestMap.find(worker->mID) != mRequestMap.end());
-	mQueueMutex.unlock();
 
 	LLMutexLock lock(&mNetworkQueueMutex);
 	if (is_worker_in_request_map)
@@ -1916,6 +1921,7 @@ bool LLTextureFetch::receiveImageHeader(const LLHost& host, const LLUUID& id, U8
 	{
 // 		llwarns << "Received header for non active worker: " << id << llendl;
 		++mBadPacketCount;
+		LLMutexLock lock2(&mNetworkQueueMutex);
 		mCancelQueue[host].insert(id);
 		return false;
 	}
@@ -1944,6 +1950,7 @@ bool LLTextureFetch::receiveImageHeader(const LLHost& host, const LLUUID& id, U8
 	if (!res)
 	{
 		++mBadPacketCount;
+		LLMutexLock lock2(&mNetworkQueueMutex);
 		mCancelQueue[host].insert(id);
 	}
 	else
@@ -1988,6 +1995,7 @@ bool LLTextureFetch::receiveImagePacket(const LLHost& host, const LLUUID& id, U1
 	if (!res)
 	{
 		++mBadPacketCount;
+		LLMutexLock lock2(&mNetworkQueueMutex);
 		mCancelQueue[host].insert(id);
 		return false;
 	}

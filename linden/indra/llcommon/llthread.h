@@ -134,7 +134,8 @@ public:
 	void lock();		// blocks
 	void unlock();
 	bool isLocked(); 	// non-blocking, but does do a lock/unlock so not free
-	
+	bool tryLock();		//non-blocking, but not free, returns true if grabed lock
+
 protected:
 	apr_thread_mutex_t *mAPRMutexp;
 	apr_pool_t			*mAPRPoolp;

@@ -322,6 +322,17 @@ bool LLMutex::isLocked()
 	}
 }
 
+//trys to grab a lock and if sucessful returns true
+bool LLMutex::tryLock()
+{
+	apr_status_t status = apr_thread_mutex_trylock(mAPRMutexp);
+	if (APR_STATUS_IS_EBUSY(status))
+	{	
+		return false;
+	}
+	return true;
+}
+
 //============================================================================
 
 LLCondition::LLCondition(apr_pool_t *poolp) :
