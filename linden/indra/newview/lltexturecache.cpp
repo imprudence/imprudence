@@ -1484,26 +1484,39 @@ LLTextureCache::handle_t LLTextureCache::readFromCache(const LLUUID& id, U32 pri
 	return handle;
 }
 
-
+// Return true if the handle is not valid, which is the case
+// when the worker was already deleted or is scheduled for deletion.
+//
+// If the handle exists and a call to worker->complete() returns
+// true or abort is true, then the handle is removed and the worker
+// scheduled for deletion.
 bool LLTextureCache::readComplete(handle_t handle, bool abort)
 {
-	lockWorkers();
+	lockWorkers();	// Needed for access to mReaders.
+
 	handle_map_t::iterator iter = mReaders.find(handle);
-	llassert_always(iter != mReaders.end() || abort);
-	LLTextureCacheWorker* worker = iter->second;
-	bool res = worker->complete();
-	if (res || abort)
+	bool handle_is_valid = iter != mReaders.end();
+	llassert_always(handle_is_valid || abort);
+	LLTextureCacheWorker* worker = NULL;
+	bool delete_worker = false;
+
+	if (handle_is_valid)
 	{
-		mReaders.erase(handle);
-		unlockWorkers();
-		worker->scheduleDelete();
-		return true;
+		worker = iter->second;
+		delete_worker = worker->complete() || abort;
+		if (delete_worker)
+		{
+			mReaders.erase(handle);
+			handle_is_valid = false;
+		}
 	}
-	else
-	{
-		unlockWorkers();
-		return false;
-	}
+
+      	unlockWorkers();
+
+	if (delete_worker) worker->scheduleDelete();
+
+	// Return false if the handle is (still) valid.
+	return !handle_is_valid;
 }
 
 LLTextureCache::handle_t LLTextureCache::writeToCache(const LLUUID& id, U32 priority,

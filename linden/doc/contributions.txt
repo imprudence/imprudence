@@ -40,6 +40,7 @@ Aimee Trescothick
 Alejandro Rosenthal
 	VWR-1184
 Aleric Inglewood
+	SNOW-408
 	VWR-10759
 	VWR-10837
 Alissa Sabre
@@ -68,6 +69,7 @@ Alissa Sabre
 	VWR-2826
 	VWR-3290
 	VWR-3410
+	SNOW-408
 	VWR-3857
 	VWR-4010
 	VWR-5575
